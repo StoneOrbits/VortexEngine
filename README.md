@@ -3,7 +3,7 @@ I'm not an expert so help is always welcome, but I'll do my best to help you get
 
 ### Installation
 In order to get started first you'll need to set up Arduino IDE
-Download the latest version of the program for your oporating system here
+Download the latest version of the program for your operating system here
 https://www.arduino.cc/en/software 
 
 ### Setup 
