@@ -19,7 +19,7 @@
 #define CLOCK_PIN 3
 
 #define totalModes 14 // How many modes the vortex cycles through
-#define totalPatterns 33 // How many possible patterns there are
+#define totalPatterns 34 // How many possible patterns there are
 
 //Objects
 //---------------------------------------------------------
@@ -73,6 +73,7 @@ int targetSat;
 byte selectedSat;
 int targetVal;
 byte selectedVal;
+int targetList;
 bool buttonState, lastButtonState;
 unsigned long mainClock, prevTime, duration, prevTime2, duration2;
 int data1[8];
@@ -207,7 +208,7 @@ void patterns(int pat) {
         break;
       }
 
-    case 3: { // Vortex                   (finger chase with tip/top dops flip)
+    case 3: { // Theater chase       (finger chase with tip/top dops flip)
         getColor(currentColor);           // get the current color in the set
         clearAll();                       // clear Leds
         if (on) {                         // when blink is on
@@ -233,7 +234,9 @@ void patterns(int pat) {
           }
 
         }
-        if (mainClock - prevTime > 2) {   // check if Timer has passed 2ms
+        if (on) duration = 5;
+        if (!on) duration = 8;
+        if (mainClock - prevTime > duration) {   // check if Timer has passed 2ms
           on2 = !on2;                     // flip blink2 on/off
           nextColor(0);                   // que next color
           prevTime = mainClock;           // refresh timer
@@ -246,14 +249,16 @@ void patterns(int pat) {
         break;
       }
 
-    case 4: { // Dot Zip (Dot zips from thumb to pinkie Tops while dot2 zips pinkie to thumb tips with dops)
+    case 4: { // Zig Zag (Dot zips from thumb to pinkie Tops while dot2 zips pinkie to thumb tips with dops)
         clearAll();                         // clear all
         if (on) {
           getColor(currentColor);           // get current color
           setLed(rep * 2);                  // set next top Led
           getColor(next);                   // get next color
           setLed(9 - rep * 2);              // set next tip Led
+          duration = 3;
         }
+        if (!on) duration = 5;
         if (mainClock - prevTime > 50) {    // check if timer has passed 50ms
           rep ++;                           // next repetition
           if (rep > 4) {                    // if repetition is more than 4
@@ -262,14 +267,14 @@ void patterns(int pat) {
           }
           prevTime = mainClock;             // refresh timer
         }
-        if (mainClock - prevTime2 > 3) {    // check if timer2 has passed 4ms
+        if (mainClock - prevTime2 > duration) {    // check if timer2 has passed 4ms
           on = !on;                         // flip blink on/off
           prevTime2 = mainClock;            // refresh timer2
         }
         break;
       }
 
-    case 5: { // Cross strobe   (dops on alternating tips and tops)
+    case 5: { // Cross dops   (dops on alternating tips and tops)
         clearAll();               // clear leds
         getColor(currentColor);   // get current color
         if (on) {                 // when blink is on
@@ -295,7 +300,9 @@ void patterns(int pat) {
           on = !on;                       // flip blink on/off
           prevTime = mainClock;           // refresh timer
         }
-        if (mainClock - prevTime2 > 2) {  // check if timer2 has passed 2ms
+        if (on2) duration = 2;
+        if (!on2) duration = 13;
+        if (mainClock - prevTime2 > duration) {  // check if timer2 has passed 2ms
           on2 = !on2;                     // flip blink2 on/off
           prevTime2 = mainClock;          // refresh timer2
         }
@@ -338,9 +345,11 @@ void patterns(int pat) {
           if (color1 + gap < 0) gap += 255;                                          //
           int finalHue = color1 + gap;                                               //
           if (finalHue == color2) gap = 0, nextColor(0);                             //
-          for (int a = 0; a < 9; a++) leds[a].setHSV(finalHue, sat, val);            //
+          for (int a = 0; a < 10; a++) leds[a].setHSV(finalHue, sat, val);            //
+          duration = 2;
         }
-        if (mainClock - prevTime > 3) { // timer for dops
+        if (!on) duration = 13;
+        if (mainClock - prevTime > duration) { // timer for dops
           on = !on;                     //
           prevTime = mainClock;         //
         }
@@ -358,7 +367,7 @@ void patterns(int pat) {
         break;
       }
 
-    case 9: { // Dops Crush (breifly flash all colors in set before a pause)
+    case 9: { // Ghost Crush (breifly flash all colors in set before a pause)
         if (on) {                                               //
           clearAll();                                           //
           if (mainClock - prevTime > 50) {                      //
@@ -381,9 +390,11 @@ void patterns(int pat) {
 
     case 10: { // Meteor (randomly flash Leds while constantly dimming)
         for (int a = 0; a < NUM_LEDS; a++)leds[a].fadeToBlackBy(75);
-        if (mainClock - prevTime > 1) {
+        if (mainClock - prevTime > 3) {
           getColor(currentColor);
-          setLed(random(0, 10));
+          int t = random(0, 5);
+          setLed(t * 2);
+          setLed(t * 2 + 1);
           nextColor (0);
           prevTime = mainClock;
         }
@@ -403,14 +414,16 @@ void patterns(int pat) {
               getColor(next);                   //
               setLed(i);                        //
             }
+            duration = 5;
           }
         }
-        if (mainClock - prevTime > 100) {       // Color timer
+        if (!on) duration = 8;
+        if (mainClock - prevTime > 75) {       // Color timer
           nextColor(0);                         //
           prevTime = mainClock;                 //
         }
 
-        if (mainClock - prevTime2 > 7) {       // Strobe timer
+        if (mainClock - prevTime2 > duration) {       // Strobe timer
           on = !on;                             //
           prevTime2 = mainClock;                //
         }
@@ -435,11 +448,11 @@ void patterns(int pat) {
           if (rep >= 8) setLed(3);    //
           if (rep >= 9) setLed(1);    //
         }
-        if (!on){
+        if (!on) {
           clearAll();
-          duration = 4;
+          duration = 7;
         }
-        if (mainClock - prevTime > 50) {  // Wipe timer
+        if (mainClock - prevTime > 125) {  // Wipe timer
           prevTime = mainClock;           //
           rep ++;                         //
           if (rep > 9) {                  //
@@ -454,7 +467,7 @@ void patterns(int pat) {
         break;
       }
 
-    case 13: { // Warp Worm (Group of color 1 lights the travel from thumb to pinky with dops)
+    case 13: { // Group Warp (Group of color 1 lights the travel from thumb to pinky with dops)
         clearAll();                         //
         if (on) {                           //
           getColor(0);                      //
@@ -465,20 +478,22 @@ void patterns(int pat) {
             if (chunk > 9) chunk -= 10;     //
             setLed(chunk);                  //
           }
+          duration = 2;
         }
-        if (mainClock - prevTime > 50) {    //
+        if (!on)duration = 7;
+        if (mainClock - prevTime > 100) {    //
           k++;                              //
           prevTime = mainClock;             //
           if (k > 9) k = 0, nextColor(1);   //
         }
-        if (mainClock - prevTime2 > 3) {    //
+        if (mainClock - prevTime2 > duration) {    //
           on = !on;                         //
           prevTime2 = mainClock;            //
         }
         break;
       }
 
-    case 14: { // MegaDops (dops but a lot)
+    case 14: { // UltraDops (dops but a lot)
         if (on) {                               //
           getColor(currentColor);               //
           setLeds(0, 9);                        //
@@ -504,9 +519,11 @@ void patterns(int pat) {
           setLeds(0, 9);                  //
           getColor(next);                 //
           setLed(dot);                    //
+          duration = 2;
         }
+        if (!on) duration = 7;
 
-        if (mainClock - prevTime > 50) {  //
+        if (mainClock - prevTime > 100) {  //
           dot++;                          //
           if (dot >= 10) {                //
             dot = 0;                      //
@@ -514,7 +531,7 @@ void patterns(int pat) {
           }
           prevTime = mainClock;           //
         }
-        if (mainClock - prevTime2 > 3) {  //
+        if (mainClock - prevTime2 > duration) {  //
           on = !on;                       //
           prevTime2 = mainClock;          //
         }
@@ -522,7 +539,7 @@ void patterns(int pat) {
         break;
       }
 
-    case 16: { // Full Warp Worm  (Group of all colors travel from thumb to pinkie with dops)
+    case 16: { // Snowball warp (Group of all colors travel from thumb to pinkie with dops)
         clearAll();                           //
         if (on) {                             //
           getColor(0);                        // set trace
@@ -533,14 +550,16 @@ void patterns(int pat) {
             if (chunk > 9) chunk -= 10;       //
             setLed(chunk);                    //
           }
+          duration = 2;
         }
-        if (mainClock - prevTime > 15) {              // color/worm timer
+        if (!on) duration = 7;
+        if (mainClock - prevTime > 100) {              // color/worm timer
           if (currentColor == totalColors - 1) k++;   //
           prevTime = mainClock;                       //
           if (k > 9) k = 0;                           //
           nextColor(1);                               //
         }
-        if (mainClock - prevTime2 > 3) {              // dops timer
+        if (mainClock - prevTime2 > duration) {              // dops timer
           on = !on;                                   //
           prevTime2 = mainClock;                      //
         }
@@ -548,10 +567,10 @@ void patterns(int pat) {
         break;
       }
 
-    case 17: { //Warp Fade (Warp from thumb to pinkie with constant fade with dops)
+    case 17: { //Lighthouse (Warp from thumb to pinkie with constant fade with dops)
         getColor(currentColor);               // get the next color
         setLed(dot);                          // set to the next finger
-        if (mainClock - prevTime > 50) {      // Finger/color timer
+        if (mainClock - prevTime > 100) {      // Finger/color timer
           dot++;                              //
           if (dot % 2 == 0) nextColor(0);     //
           if (dot > 9) {                      //
@@ -560,12 +579,14 @@ void patterns(int pat) {
           prevTime = mainClock;               //
         }
         if (on) {                                                          //
-          if (mainClock - prevTime2 > 50) {                                // Fade timer
-            for (int a = 0; a < NUM_LEDS; a++) leds[a].fadeToBlackBy(50);  //
+          if (mainClock - prevTime2 > 10) {                                // Fade timer
+            for (int a = 0; a < NUM_LEDS; a++) leds[a].fadeToBlackBy(8);  //
             prevTime2 = mainClock;                                         //
           }                                                                //
+          duration = 5;
         }                                                                  //
-        if (mainClock - prevTime3 > 3) {          // dops timer
+        if (!on) duration = 8;
+        if (mainClock - prevTime3 > duration) {          // dops timer
           on = !on;                               //
           if (on) {                               //
             for (int a = 0; a < NUM_LEDS; a++) {  // special save/load
@@ -598,12 +619,14 @@ void patterns(int pat) {
           prevTime = mainClock;             //
         }
         if (on) {
-          if (mainClock - prevTime2 > 30) {                               // fade timer
-            for (int a = 0; a < NUM_LEDS; a++)leds[a].fadeToBlackBy(50);  //
+          if (mainClock - prevTime2 > 10) {                               // fade timer
+            for (int a = 0; a < NUM_LEDS; a++)leds[a].fadeToBlackBy(8);  //
             prevTime2 = mainClock;                                        //
           }
+          duration = 3;
         }
-        if (mainClock - prevTime3 > 3) {          // dops timer
+        if (!on) duration = 13;
+        if (mainClock - prevTime3 > duration) {          // strobe timer
           on = !on;                               //
           if (on) {                               //
             for (int a = 0; a < NUM_LEDS; a++) {  // special save/load
@@ -748,12 +771,16 @@ void patterns(int pat) {
             else clearLight(i);                   // blink tops off
           }
         }
-        if (on2) nextColor(1);                    // get next color after top blink
-        if (mainClock - prevTime > 35) {          // blink rate tips
+        if (on2) {
+          nextColor(1);                    // get next color after top blink
+          duration = 5;
+        }
+        if (!on2)duration = 8;
+        if (mainClock - prevTime > 25) {          // blink rate tips
           on = !on;                               //
           prevTime = mainClock;                   //
         }
-        if (mainClock - prevTime2 > 10) {         // blink rate tops
+        if (mainClock - prevTime2 > duration) {         // blink rate tops
           on2 = !on2;                             //
           prevTime2 = mainClock;                  //
         }
@@ -783,7 +810,7 @@ void patterns(int pat) {
         }
         if (mainClock - prevTime2 > 150) {                  // pulse move speed
           frame++;                                          //
-          if (frame > 5) frame = 0;                         //
+          if (frame > 4) frame = 0;                         //
           prevTime2 = mainClock;                            //
         }
         break;
@@ -798,8 +825,10 @@ void patterns(int pat) {
           }
           prevTime2 = mainClock;
         }
-        if (mainClock - prevTime > 10) {          // blink rate
+        if (mainClock - prevTime > duration) {          // blink rate
           on = !on;                               //
+          if (on) duration = 5;
+          else if (!on) duration = 24;
           prevTime = mainClock;                   //
         }
         if (on) {
@@ -808,6 +837,7 @@ void patterns(int pat) {
 
           getColor(next);                         // get next color
           setLeds(0, (frame * 2) - 1);            // set LEDs up to current fill
+
         }
         else clearAll();
         break;
@@ -865,12 +895,14 @@ void patterns(int pat) {
         if (on) {
           getColor(currentColor);
           setLeds(0, NUM_LEDS);
+          duration = 5;
         }
         if (!on) {
           clearAll();
+          duration = 8;
 
         }
-        if (mainClock - prevTime > 15) {
+        if (mainClock - prevTime > duration) {
           on = !on;
           if (on) nextColor(0);
           prevTime = mainClock;
@@ -887,7 +919,7 @@ void patterns(int pat) {
           clearAll();
 
         }
-        if (mainClock - prevTime > 35) {
+        if (mainClock - prevTime > 25) {
           on = !on;
           if (on) nextColor(0);
           prevTime = mainClock;
@@ -899,11 +931,11 @@ void patterns(int pat) {
         if (on) {
           getColor(currentColor);
           setLeds(0, NUM_LEDS);
-          duration = 3;
+          duration = 2;
         }
         if (!on) {
           clearAll();
-          duration = 20;
+          duration = 13;
 
         }
         if (mainClock - prevTime > duration) {
@@ -918,16 +950,18 @@ void patterns(int pat) {
         if (on) {
           getColor(currentColor);
           setLeds(0, NUM_LEDS);
-          duration = 3;
+          duration = 5;
         }
         if (!on) {
           clearAll();
-          duration = 65;
+          duration = 8;
+          if (mode[m].currentColor == 0) duration = 35;
 
         }
         if (mainClock - prevTime > duration) {
           on = !on;
           if (on) nextColor(0);
+
           prevTime = mainClock;
         }
         break;
@@ -936,11 +970,11 @@ void patterns(int pat) {
         if (on) {
           getColor(currentColor);
           setLeds(0, NUM_LEDS);
-          duration = 15;
+          duration = 3;
         }
         if (!on) {
           clearAll();
-          duration = 45;
+          duration = 22;
 
         }
         if (mainClock - prevTime > duration) {
@@ -976,6 +1010,46 @@ void patterns(int pat) {
           }
           else if (!on) on = !on;
           prevTime = mainClock;
+        }
+        break;
+      }
+    case 33: { // Flowers/clusters
+        if (on) {
+          getColor(currentColor1);
+          setLeds(0, 1);
+          setLeds(8, 9);
+          duration = 10;
+          Serial.println(currentColor1);
+        }
+        if (!on) {
+          clearLights(0, 1);
+          clearLights(8, 9);
+          duration = 25;
+
+        }
+        if (mainClock - prevTime > duration) {
+          on = !on;
+          if (!on) {
+            mode[m].currentColor1 ++;
+            if (mode[m].currentColor1 >= 2) mode[m].currentColor1 = 0;
+          }
+          prevTime = mainClock;
+        }
+
+        if (on2) {
+          getColor(currentColor);
+          setLeds(2, 7);
+          duration2 = 3;
+        }
+        if (!on2) {
+          clearLights(2, 7);
+          duration2 = 20;
+
+        }
+        if (mainClock - prevTime2 > duration2) {
+          on2 = !on2;
+          if (on) nextColor(2);
+          prevTime2 = mainClock;
         }
         break;
       }
@@ -1042,6 +1116,10 @@ void clearAll() {
 
 void clearLight(int lightNum) {
   leds[lightNum].setHSV(0, 0, 0);
+}
+
+void clearLights(int first, int last) {
+  for (int a = first; a <= last; a++) clearLight(a);
 }
 
 void blinkTarget(unsigned long blinkTime) {
@@ -1342,8 +1420,8 @@ void colorWheel(int layer) {
   }
   if (layer == 3) {
     for (int bright = 0; bright < 4; bright ++) {
-      val = 255 - (85 * bright);
-      if (bright == 2) val = 120;
+      val = 255 - (85 * bright);                                    //These set the brightness values
+      //if (bright == 2) val = 120;
       leds[2 + bright * 2].setHSV(selectedHue, selectedSat, val);
       leds[3 + bright * 2].setHSV(selectedHue, selectedSat, val);
     }
@@ -1389,7 +1467,37 @@ void colorWheel(int layer) {
 
 void patternSelect() {
   mainClock = millis();
-  patterns(patNum);
+  if (stage == 0) {
+    if (on2) {
+      for (int i = 0; i < 5; i++) {
+        sat = 0;
+        val = 255;
+        setLed(i * 2 + 1);
+        hue = 51 * i;
+        sat = 255;
+        setLed(i * 2);
+      }
+      duration = 2;
+    }
+    if (!on2) {
+      clearAll();
+      duration = 7;
+    }
+    if (!on) {
+      leds[targetList * 2 + 1].setHSV(0, 0, 0);
+    }
+    if (mainClock - prevTime > 25) {
+      on = !on;
+      prevTime = mainClock;
+    }
+    if (mainClock - prevTime2 > duration) {
+      on2 = !on2;
+      prevTime2 = mainClock;
+    }
+  }
+  if (stage == 1) {
+    patterns(patNum);
+  }
 }
 
 void modeSharing() {
@@ -1586,10 +1694,10 @@ void checkButton() {
             if (b == 0) demoMode = true, frame = 0, mode[m].menuNum = 0, demoTime = mainClock, tempSave(), rollColors();
           }
           if (button[0].holdTime > 2000 && button[b].holdTime <= 3000) {
-            if (b == 0) mode[m].menuNum = 3, targetSlot = 0;
+            if (b == 0) mode[m].menuNum = 3, targetSlot = 0, stage = 0;
           }
           if (button[0].holdTime > 3000 && button[b].holdTime <= 4000) {
-            if (b == 0) mode[m].menuNum = 4, mode[m].currentColor = 0;
+            if (b == 0) mode[m].menuNum = 4, mode[m].currentColor = 0, stage = 0;
           }
           if (button[0].holdTime > 4000 && button[b].holdTime <= 5000) {
             if (b == 0) mode[m].menuNum = 6, mode[m].currentColor = 0;
@@ -1661,13 +1769,26 @@ void checkButton() {
         }
         if (menu == 4) {
           if (button[b].holdTime <= 300) {
-            if (b == 0)patNum++, frame = 0, mode[m].currentColor = 0;
-            if (b == 1)patNum--, frame = 0, mode[m].currentColor = 0;
+            if (stage == 0) {
+              if (b == 0) targetList++;
+            }
+            if (stage == 1) {
+              if (b == 0)patNum++, frame = 0, mode[m].currentColor = 0;
+              if (b == 1)patNum--, frame = 0, mode[m].currentColor = 0;
+            }
           }
           if (button[b].holdTime > 300 && button[b].holdTime < 3000) {
-            mode[m].menuNum = 9;
-            if (b == 0) mode[m].patternNum = patNum, saveAll(), frame = 0;//confirm selection
-            if (b == 1) if (menu == 4) frame = 0;//cancle exit
+            if (stage == 0) {
+              if (b == 0) {
+                stage = 1;
+              }
+            }
+            else if (stage == 1) {
+              mode[m].menuNum = 9;
+              if (b == 0) mode[m].patternNum = patNum, saveAll(), frame = 0;//confirm selection
+              if (b == 1) if (menu == 4) frame = 0;//cancle exit
+              stage = 0;
+            }
           }
         }
         if (menu == 5) {
@@ -1739,6 +1860,7 @@ void checkButton() {
     if (targetSat < 0) targetSat = 3;
     if (targetVal > 3) targetVal = 0;
     if (targetVal < 0) targetVal = 3;
+    if (targetList > 4) targetList = 0;
     if (m < 0)m = totalModes - 1;
     if (m > totalModes - 1)m = 0;
     button[b].lastButtonState = button[b].buttonState;
@@ -2135,9 +2257,9 @@ void importMode(char input[]) {
 void setDefaults() {
   brightness = 255;
   demoSpeed = 2;
-  importMode("0, 26, 8, 0, 255, 170, 32, 255, 170, 64, 255, 170, 96, 255, 170, 128, 255, 170, 160, 255, 170, 192, 255, 170, 224, 255, 170");
-  importMode("1, 6, 3, 0, 255, 170, 160, 255, 170, 224, 255, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("2, 2, 5, 0, 0, 0, 0, 0, 120, 64, 255, 120, 160, 255, 120, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
+  importMode("0, 22, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
+  importMode("1, 23, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
+  importMode("2, 5, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
   importMode("3, 3, 2, 224, 255, 170, 192, 255, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
   importMode("4, 32, 3, 0, 255, 170, 96, 255, 170, 160, 255, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
   importMode("5, 5, 4, 0, 255, 120, 160, 255, 170, 64, 255, 170, 96, 255, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
