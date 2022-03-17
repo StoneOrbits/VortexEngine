@@ -18,3 +18,54 @@ The latest versions don't work with one of our libraries so you'll get errors if
 Lastly we need to copy the libraries folder to the directory C:\Users\YourPCName\Documents\Arduino
 This should give arduino everything it needs to work with the Vortex Gloves!
 Make sure to exit all Arduino IDE windows and restart the program to finalize the installation!
+
+### Mode Lists
+# List 1
+Strobe
+HyperStrobe
+Dops
+dopish
+UltraDops
+Strobie
+Blinkie
+Ghost Crush
+Dash dops
+Ribbon
+Mini Ribbon
+All Tracer
+Blend
+Brackets
+
+# List 2
+Theater Chase
+Zig Zag
+Zip Fade
+Tip Top
+Drip
+Drip Morph
+Cross dops
+Double Strobe
+Sloth Strobe
+Meteor Fingers
+Sparkle Trace
+
+# List 3
+Vortex Wipe
+Vortex Wipe
+Warp
+Warp Worm
+Snowball Warp
+Lighthouse
+Pulsish
+Fill
+Bounce
+
+# List 4
+Impact
+Rabbit
+SplitStrobe
+Backstrobe
+Flower/Clusters
+
+# List 5
+-Empty-
