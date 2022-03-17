@@ -20,7 +20,7 @@ This should give arduino everything it needs to work with the Vortex Gloves!
 Make sure to exit all Arduino IDE windows and restart the program to finalize the installation!
 
 ### Mode Lists
-# List 1
+#### List 1
 Strobe
 HyperStrobe
 Dops
@@ -36,7 +36,7 @@ All Tracer
 Blend
 Brackets
 
-# List 2
+#### List 2
 Theater Chase
 Zig Zag
 Zip Fade
@@ -49,7 +49,7 @@ Sloth Strobe
 Meteor Fingers
 Sparkle Trace
 
-# List 3
+#### List 3
 Vortex Wipe
 Vortex Wipe
 Warp
@@ -60,12 +60,12 @@ Pulsish
 Fill
 Bounce
 
-# List 4
+#### List 4
 Impact
 Rabbit
 SplitStrobe
 Backstrobe
 Flower/Clusters
 
-# List 5
+#### List 5
 -Empty-
