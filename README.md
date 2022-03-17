@@ -22,49 +22,84 @@ Make sure to exit all Arduino IDE windows and restart the program to finalize th
 ### Mode Lists
 #### List 1 -red-
 Strobe 
+
 HyperStrobe 
+
 Dops 
+
 dopish 
+
 UltraDops 
+
 Strobie 
+
 Blinkie 
+
 Ghost Crush 
+
 Dash dops 
+
 Ribbon 
+
 Mini Ribbon 
+
 All Tracer 
+
 Blend 
+
 Brackets 
 
 #### List 2 -yellow-
 Theater Chase 
+
 Zig Zag 
+
 Zip Fade 
+
 Tip Top 
+
 Drip 
+
 Drip Morph 
+
 Cross dops 
+
 Double Strobe 
+
 Sloth Strobe 
+
 Meteor Fingers 
+
 Sparkle Trace 
 
 #### List 3 -green-
 Vortex Wipe 
+
 Vortex Wipe 
+
 Warp 
+
 Warp Worm 
+
 Snowball Warp 
+
 Lighthouse 
+
 Pulsish 
+
 Fill 
+
 Bounce 
 
 #### List 4 -blue-
 Impact 
+
 Rabbit 
+
 SplitStrobe 
+
 Backstrobe 
+
 Flower/Clusters 
 
 #### List 5 -purple-
