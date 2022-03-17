@@ -6,7 +6,8 @@ Modes::Modes() {
   int sat[8];
   int val[8];
   uint8_t currentColor/*[4]*/, currentColor1;
-  uint8_t nextColor/*[4]*/, nextColor1;
+  uint8_t nextColor = 1;
+  uint8_t nextColor1 = 1;
   int numColors;
   int patternNum;
   int menuNum;
