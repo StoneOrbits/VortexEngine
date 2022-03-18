@@ -19,7 +19,7 @@
 #define CLOCK_PIN 3
 
 #define totalModes 14 // How many modes the vortex cycles through
-#define totalPatterns 39 // How many possible patterns there are
+#define totalPatterns 40 // How many possible patterns there are
 
 //Objects
 //---------------------------------------------------------
@@ -326,7 +326,7 @@ void patterns(int pat) {
           on = !on;
           prevTime = mainClock;
         }
-        
+
         break;
       }
 
@@ -337,7 +337,7 @@ void patterns(int pat) {
           nextColor(0);
           prevTime = mainClock;
         }
-        
+
         break;
       }
 
@@ -1287,6 +1287,57 @@ void patterns(int pat) {
         break;
       }
 
+    case 39: { // Jest mode
+        static int count, count2;
+        clearAll();
+        if (on) {
+          getColor(currentColor);
+          for (int a = 0; a < NUM_LEDS; a++) {
+            if (a % 2 == 1) setLed(a);
+          }
+          duration = 0;
+        }
+        if (!on) {
+          clearAll();
+          duration = 1;
+          if (count == 0) duration = 5;
+        }
+        if (on2) {
+          getColor(currentColor1);
+          for (int a = 0; a < NUM_LEDS; a++) {
+            if (a % 2 == 0) setLed(a);
+          }
+          duration2 = 0;
+        }
+        if (!on2) {
+          for (int a = 0; a < NUM_LEDS; a++) {
+            if (a % 2 == 0) clearLight(a);
+          }
+          duration2 = 1;
+          if (count2 == 0) duration2 = 69;
+        }
+        if (mainClock - prevTime > duration) {
+          on = !on;
+          if (!on) {
+            nextColor(0);
+            count++;
+            if (count >= 3) count = 0;
+          }
+          prevTime = mainClock;
+        }
+        if (mainClock - prevTime2 > duration2) {
+          on2 = !on2;
+          if (!on2) {
+            nextColor1(0);
+            count2++;
+            if (count2 >= 3) count2 = 0;
+          }
+          prevTime2 = mainClock;
+        }
+
+        break;
+      }
+
     default: { // Strobe - executed if pat == 0 or out-of-range
         if (on) {
           getColor(currentColor);
@@ -2097,7 +2148,7 @@ void checkButton() {
       if (targetList == 0) if (patNum > 13) patNum = 0;
       if (targetList == 1) if (patNum > 24) patNum = 14;
       if (targetList == 2) if (patNum > 33) patNum = 25;
-      if (targetList == 3) if (patNum > 38) patNum = 34;
+      if (targetList == 3) if (patNum > 39) patNum = 34;
     }
     if (patNum > totalPatterns - 1) patNum = 0;
     if (patNum < 0) patNum = totalPatterns - 1;
@@ -2510,7 +2561,7 @@ void importMode(char input[]) {
 void setDefaults() {
   brightness = 255;
   demoSpeed = 2;
-  importMode("0, 9, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
+  importMode("0, 39, 5, 0, 255, 255, 96, 255, 255, 160, 255, 255, 64, 255, 255, 192, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0");
   importMode("1, 23, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
   importMode("2, 5, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
   importMode("3, 3, 2, 224, 255, 170, 192, 255, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
