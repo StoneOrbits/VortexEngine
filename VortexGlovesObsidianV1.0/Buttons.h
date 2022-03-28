@@ -5,7 +5,6 @@
 
 
 class Buttons {
-  private:
 
   public:
     Buttons();
@@ -13,6 +12,9 @@ class Buttons {
     int buttonState, lastButtonState;
     unsigned long pressTime, prevPressTime, holdTime, prevHoldTime;
     void createButton(int pin);
+  
+  private:
+  
 };
 
 #endif
