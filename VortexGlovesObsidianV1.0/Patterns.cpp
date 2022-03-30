@@ -58,15 +58,16 @@ void Patterns::clearLights(int first, int last) {
   for (int a = first; a <= last; a++) clearLight(a);
 }
 
-void Patterns::adjustValues(unsigned long v1, unsigned long v2, unsigned long v3, unsigned long v4) {
+void Patterns::adjustValues(unsigned long v1, unsigned long v2, unsigned long v3, unsigned long v4, unsigned long v5) {
   time1 = v1;
   time2 = v2;
   time3 = v3;
   time4 = v4;
+  time5 = v5;
 }
 
 void Patterns::basicPattern(unsigned long onDuration, unsigned long offDuration, unsigned long gapDuration) {
-  if (onDuration == 2 && offDuration >= 5 & offDuration <= 31) onDuration = 3;
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
   static bool lightsOn = true;
   static unsigned long previousClockTime;
   static unsigned long timerDuration;
@@ -101,6 +102,7 @@ void Patterns::dashDops(unsigned long dotDuration, unsigned long offDuration, un
 
   static bool lightsOn;
   static unsigned long previousClockTime, timerDuration;
+
   if (lightsOn) {
     getColor(mode.currentColor);
     setLeds(0, 27);
@@ -141,7 +143,7 @@ void Patterns::tracer(unsigned long dashDuration, unsigned long dotDuration) {
 }
 
 void Patterns::blendPattern(unsigned long onDuration, unsigned long offDuration) {
-  if (onDuration == 2 && offDuration >= 5 & offDuration <= 31) onDuration = 3;
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
 
   static bool lightsOn = true ;
   static unsigned long previousClockTime, timerDuration;
@@ -357,47 +359,804 @@ void Patterns::zipFade(unsigned long onDuration, unsigned long offDuration, unsi
 }
 
 void Patterns::tipTop(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration2, unsigned long offDuration2) {
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
+  if (onDuration2 == 2 && offDuration2 >= 5 && offDuration2 <= 31) onDuration2 = 3;
 
   static bool lightsOn = true;
   static bool lightsOn2 = true;
   static unsigned long previousClockTime, timerDuration;
   static unsigned long previousClockTime2, timerDuration2;
-  static int progress = 0;
 
   clearAll();
   for (int i = 0; i < NUM_LEDS; i++) {      //
+    if (i % 2 == 0) {                       // Tops (evens)
+      if (lightsOn) {                            //
+        getColor(mode.currentColor);             // get current color
+        setLed(i);
+        timerDuration = onDuration;              // blink tops on
+      }
+      else if (!lightsOn) {
+        clearLight(i);                       // blink tops off
+        timerDuration = offDuration;
+      }
+    }
     if (i % 2 == 1) {                       // Tips (odds)
-      if (lightsOn) {                             //
+      if (lightsOn2) {                             //
         getColor(0);                        // get first color
         setLed(i);                          // blink tips on
         timerDuration2 = onDuration2;
       }
-      else {
+      else if (!lightsOn2) {
         clearLight(i);                   // blink tips off
         timerDuration2 = offDuration2;
       }
     }
-    if (i % 2 == 0) {                       // Tops (evens)
-      if (lightsOn2) {                            //
-        getColor(mode.currentColor);             // get current color
-        setLed(i);                          // blink tops on
-      }
-      else clearLight(i);                   // blink tops off
-    }
   }
-  if (lightsOn2) {
-    if (mode.numColors > 1) nextColor(1);                    // get next color after top blink
+  if (mainClock - previousClockTime > timerDuration) {         // blink rate tops
+    lightsOn = !lightsOn;                             //
+    if (offDuration == 0) lightsOn = true;
+    if (lightsOn) if (mode.numColors > 1) nextColor(1);
+    previousClockTime = mainClock;                  //
+  }
+  if (mainClock - previousClockTime2 > timerDuration2) {          // blink rate tips
+    lightsOn2 = !lightsOn2;                               //
+    if (offDuration2 == 0) lightsOn2 = true;
+    previousClockTime2 = mainClock;
+  }
+}
+
+void Patterns::drip(unsigned long onDuration, unsigned long offDuration, unsigned long dripDuration) {
+  static bool lightsOn = true;
+  static bool lightsOn2 = true;
+  static unsigned long previousClockTime, timerDuration;
+  static unsigned long previousClockTime2;
+
+  if (lightsOn) {                                 // blink on
+    getColor(mode.currentColor);                 //
+    setLeds(0, NUM_LEDS);                   // set all to current color
+
+    if (!lightsOn2) {                       // every 2nd frame
+      for (int i = 0; i < NUM_LEDS; i++) {
+        if (i % 2 == 0) {                   // find Tops (evens)
+          if (mode.numColors > 1) getColor(mode.nextColor);                   // get next color
+          else val = 0;
+          setLed(i);                        // blink tops on
+        }
+      }
+    }
     timerDuration = onDuration;
   }
+  else {
+    clearAll();                          // blink off
+    timerDuration = offDuration;
+  }
+  if (mainClock - previousClockTime > timerDuration) {         // blink rate
+    lightsOn = !lightsOn;                                                  //
+    if (offDuration == 0) lightsOn = true;
+    previousClockTime = mainClock;                             //
+  }
+  if (mainClock - previousClockTime2 > dripDuration) {         // drip speed
+    lightsOn2 = !lightsOn2;
+    if (lightsOn2) nextColor(0);                               // next color
+    previousClockTime2 = mainClock;
+  }
+}
+
+void Patterns::dripMorph(unsigned long onDuration, unsigned long offDuration) {
+  static bool lightsOn = true;
+  static bool lightsOn2 = true;
+  static unsigned long previousClockTime, timerDuration;
+  static int previousHue = 0;
+  static int progress = 0;
+
+  if (lightsOn) {
+    getColor(mode.currentColor);                                                    // between current and
+    for (int a = 0; a < 10; a++) {
+      if (a % 2 == 1) leds[a].setHSV(previousHue, sat, val);
+    }
+    int color1 = mode.hue[mode.currentColor];                                    // next colors and set
+    int color2 = mode.hue[mode.nextColor];                                            // all leds
+    if (mode.numColors < 2) color2 = mode.hue[mode.currentColor];
+    if (color1 > color2 && color1 - color2 < (255 - color1) + color2)progress--;    //
+    if (color1 > color2 && color1 - color2 > (255 - color1) + color2)progress++;    //
+    if (color1 < color2 && color2 - color1 < (255 - color2) + color1)progress++;    //
+    if (color1 < color2 && color2 - color1 > (255 - color2) + color1)progress--;    //
+    if (color1 + progress >= 255) progress -= 255;                                       //
+    if (color1 + progress < 0) progress += 255;                                          //
+    int finalHue = color1 + progress;                                               //
+    if (finalHue == color2) {
+      progress = 0, nextColor(0);                             //
+      previousHue = finalHue;
+    }
+    for (int a = 0; a < 10; a++) {
+      if (a % 2 == 0) leds[a].setHSV(finalHue, sat, val);            //
+    }
+    timerDuration = onDuration;
+  }
+  else {
+    clearAll();
+    timerDuration = offDuration;
+  }
+  if (mainClock - previousClockTime > timerDuration) {         // blink rate
+    lightsOn = !lightsOn;                                      //
+    if (offDuration == 0) lightsOn = true;
+    previousClockTime = mainClock;                             //
+  }
+}
+
+void Patterns::crossDops(unsigned long onDuration, unsigned long offDuration, unsigned long flipDuration) {
+
+  static bool lightsOn = true;
+  static bool lightsOn2 = true;
+  static unsigned long previousClockTime, timerDuration;
+  static unsigned long previousClockTime2;
+
+  clearAll();                    // clear leds
+  getColor(mode.currentColor);   // get current color
+  if (lightsOn) {                 // when blink is on
+    if (lightsOn2) {              // and blink2 is on
+      setLed(0);                  // set led 0,3,4,7,8
+      setLed(3);
+      setLed(4);
+      setLed(7);
+      setLed(8);
+    }
+  }
+  if (!lightsOn) {                // when blink is not on
+    if (lightsOn2) {              // and blink2 is on
+      setLed(1);            // set led 1,2,5,6,9
+      setLed(2);
+      setLed(5);
+      setLed(6);
+      setLed(9);
+    }
+  }
+  if (lightsOn2) timerDuration = onDuration;
   if (!lightsOn2) timerDuration = offDuration;
-  if (mainClock - prevTime > timerDuration2) {          // blink rate tips
+  if (mainClock - previousClockTime > timerDuration) {       // check if timer2 has passed 2ms
+    lightsOn2 = !lightsOn2;                             // flip blink2 on/off
+    if (offDuration == 0) lightsOn2 = true;
+    previousClockTime = mainClock;                      // refresh timer2
+  }
+  if (mainClock - previousClockTime2 > flipDuration) { // check if timer has passed 100ms
+    nextColor (0);                                     // que next color
+    lightsOn = !lightsOn;                              // flip blink on/off
+    previousClockTime2 = mainClock;                    // refresh timer
+  }
+}
+
+void Patterns::doubleStrobe(unsigned long onDuration, unsigned long offDuration, unsigned long colorDuration) {
+  static bool lightsOn = true;
+  static unsigned long previousClockTime, timerDuration;
+  static unsigned long previousClockTime2;
+
+  clearAll();
+  if (lightsOn) {                               // Strobe 1
+    for (int i = 0; i < NUM_LEDS; i++) {  //
+      if (i % 2 == 0) {                   //
+        getColor(mode.currentColor);           //
+        setLed(i);                        //
+      }
+      if (i % 2 == 1) {                   // Strobe 2
+        if (mode.numColors > 1) getColor(mode.nextColor);                   //
+        setLed(i);                        //
+      }
+      timerDuration = onDuration;
+    }
+  }
+  if (!lightsOn) timerDuration = offDuration;
+  if (mainClock - previousClockTime > timerDuration) {       // Strobe timer
+    lightsOn = !lightsOn;                             //
+    if (offDuration == 0) lightsOn = true;
+    previousClockTime = mainClock;                //
+  }
+  if (mainClock - previousClockTime2 > colorDuration) {       // Color timer
+    nextColor(0);                         //
+    previousClockTime2 = mainClock;                 //
+  }
+}
+
+void Patterns::meteor(unsigned long onDuration, unsigned long offDuration, unsigned long meteorFrequency, unsigned int fadeAmount) {
+  static bool lightsOn = true;
+  static unsigned long previousClockTime, timerDuration;
+  static unsigned long previousClockTime2;
+  static int finger = 0;
+
+  if (lightsOn) {
+    for (int a = 0; a < NUM_LEDS; a++)leds[a].fadeToBlackBy(fadeAmount);
+    setLed(finger * 2);
+    setLed(finger * 2 + 1);
+    timerDuration = onDuration;
+  }
+  if (!lightsOn) timerDuration = offDuration;
+  if (mainClock - previousClockTime > meteorFrequency) {
+    getColor(mode.currentColor);
+    finger = random(0, 5);
+    nextColor(0);
+    previousClockTime = mainClock;
+  }
+  if (mainClock - previousClockTime2 > timerDuration) {   // strobe timer
+    lightsOn = !lightsOn;                                 //
+    if (lightsOn) {                                       //
+      for (int a = 0; a < NUM_LEDS; a++) {                // special save/load
+        leds[a] = copy[a];                                // for fade effect
+      }                                                   // with dops
+    }                                                     //
+    if (!lightsOn) {                                      //
+      for (int a = 0; a < NUM_LEDS; a++) {                //
+        copy[a] = leds[a];                                //
+      }                                                   //
+      clearAll();                                         //
+    }                                                     //
+    previousClockTime2 = mainClock;                       //
+  }
+}
+
+void Patterns::sparkleTrace(unsigned long dotFrequency) {
+  static unsigned long previousClockTime;
+
+  getColor(0);                        // Get color 0
+  setLeds(0, 9);                      // Set all LEDs
+  getColor(mode.currentColor);           // get the current color in the set
+  if (mode.numColors == 1) val = 0;    // (special case when set has 1 color)
+  if (mainClock - previousClockTime > dotFrequency) {
+    for (int c = 0; c < 4; c++) {     // for 4 repititions
+      int r = random(0, 5);
+      setLeds(r * 2, r * 2 + 1);                // choose a random pixel
+    }
+    if (mode.numColors > 1) nextColor (1);
+    previousClockTime = mainClock;
+  }
+}
+
+void Patterns::vortexWipe(unsigned long onDuration, unsigned long offDuration, unsigned long warpDuration) {
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
+
+  static bool lightsOn = true;
+  static unsigned long previousClockTime, timerDuration;
+  static unsigned long previousClockTime2;
+  static int progress = 0;
+
+  getColor(mode.currentColor);       //
+  if (lightsOn) {                     //
+    setLeds(0, 9);              //
+    if (mode.numColors > 1) getColor(mode.nextColor);             //
+    else val = 0;
+    setLed(0);                  //
+    if (progress >= 1) setLed(2);    // Wipe progress
+    if (progress >= 2) setLed(4);    //
+    if (progress >= 3) setLed(6);    //
+    if (progress >= 4) setLed(8);    //
+    if (progress >= 5) setLed(9);    //
+    if (progress >= 6) setLed(7);    //
+    if (progress >= 7) setLed(5);    //
+    if (progress >= 8) setLed(3);    //
+    if (progress >= 9) setLed(1);    //
+    timerDuration = onDuration;
+  }
+  if (!lightsOn) {
+    clearAll();
+    timerDuration = offDuration;
+  }
+  if (mainClock - previousClockTime > timerDuration) {  // Dops timer
+    lightsOn = !lightsOn;
+    if (offDuration == 0) lightsOn = true;
+    previousClockTime = mainClock;          //                           //
+  }
+  if (mainClock - previousClockTime2 > warpDuration) {  // Wipe timer
+    progress ++;                         //
+    if (progress > 9) {                  //
+      progress = 0;                      //
+      nextColor(0);                      //
+    }
+    previousClockTime2 = mainClock;
+  }
+}
+
+void Patterns::warp(unsigned long onDuration, unsigned long offDuration, unsigned long warpDuration) {
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
+
+  static bool lightsOn = true;
+  static unsigned long previousClockTime, timerDuration;
+  static unsigned long previousClockTime2;
+  static int progress = 0;
+
+  clearAll();                       //
+  if (lightsOn) {                         //
+    getColor(mode.currentColor);         //
+    setLeds(0, 9);                  //
+    if (mode.numColors > 1) getColor(mode.nextColor);                 //
+    else val = 0;
+    setLed(progress);                    //
+    timerDuration = onDuration;
+  }
+  if (!lightsOn) timerDuration = offDuration;
+
+  if (mainClock - previousClockTime > timerDuration) {  //
     lightsOn = !lightsOn;                               //
-    prevTime = mainClock;                   //
+    if (offDuration == 0) lightsOn = true;
+    previousClockTime = mainClock;                      //
   }
-  if (mainClock - prevTime2 > timerDuration) {         // blink rate tops
-    lightsOn2 = !lightsOn2;                             //
-    prevTime2 = mainClock;                  //
+  if (mainClock - previousClockTime2 > warpDuration) {  //
+    progress++;                          //
+    if (progress >= 10) {                //
+      progress = 0;                      //
+      nextColor(0);                 //
+    }
+    previousClockTime2 = mainClock;           //
   }
+}
+
+void Patterns:: warpWorm(unsigned long onDuration, unsigned long offDuration, unsigned long wormSpeed, unsigned int wormSize) {
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
+  if (wormSize < 1) wormSize = 1;
+  if (wormSize > 9) wormSize = 9;
+
+  static bool lightsOn = true;
+  static unsigned long previousClockTime, timerDuration;
+  static unsigned long previousClockTime2;
+  static int progress = 0;
+
+  clearAll();                         //
+  if (lightsOn) {                           //
+    getColor(0);                      //
+    setLeds(0, 9);                    //
+    getColor(mode.currentColor);           //
+    //if (mode.currentColor == 0) getColor(1);
+    if (mode.numColors == 1) val = 0;
+    for (int i = 0; i < wormSize; i++) {     //
+      int worm = i + progress;              //
+      if (worm > 9) worm -= 10;     //
+      setLed(worm);                  //
+    }
+    timerDuration = onDuration;
+  }
+  if (!lightsOn)timerDuration = offDuration;
+  if (mainClock - previousClockTime > timerDuration) {    //
+    lightsOn = !lightsOn;                         //
+    if (offDuration == 0) lightsOn = true;
+    previousClockTime = mainClock;            //
+  }
+  if (mainClock - previousClockTime2 > wormSpeed) {
+    progress++;
+    if (progress > 9) {
+      progress = 0;
+      if (mode.numColors > 1) nextColor(1);
+
+    }
+    previousClockTime2 = mainClock;
+  }
+}
+
+void Patterns::snowBall(unsigned long onDuration, unsigned long offDuration, unsigned long wormSpeed, unsigned long wormSize) {
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
+  if (wormSpeed == 5) wormSpeed = 4;
+  if (wormSpeed == 6) wormSpeed = 7;
+  if (wormSize < 1) wormSize = 1;
+  if (wormSize > 9) wormSize = 9;
+
+  static bool lightsOn = true;
+  static unsigned long previousClockTime, timerDuration;
+  static unsigned long previousClockTime2;
+  static int progress = 0;
+
+  clearAll();                           //
+  if (lightsOn) {                             //
+    getColor(0);                        // set trace
+    setLeds(0, 9);                      //
+    getColor(mode.currentColor);             //
+    if (mode.numColors == 1) val = 0;
+    for (int i = 0; i < wormSize; i++) {       // set worm
+      int worm = i + progress;                //
+      if (worm > 9) worm -= 10;       //
+      setLed(worm);                    //
+    }
+    timerDuration = onDuration;
+  }
+  if (!lightsOn) timerDuration = offDuration;
+  if (mainClock - previousClockTime > timerDuration) {              // dops timer
+    lightsOn = !lightsOn;
+    if (offDuration == 0) lightsOn = true;
+    previousClockTime = mainClock;
+  }
+  if (mainClock - previousClockTime2 > wormSpeed) {              // color/worm timer
+    if (mode.numColors > 1) nextColor(1);
+    if (mode.currentColor == 1) progress++;                         //
+    if (progress > 9) progress = 0;                           //
+    previousClockTime2 = mainClock;
+  }
+}
+
+void Patterns::lighthouse(unsigned long onDuration, unsigned long offDuration, unsigned long fingerSpeed, unsigned long fadeAmount) {
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
+
+  static bool lightsOn = true;
+  static unsigned long previousClockTime, timerDuration;
+  static unsigned long previousClockTime2, previousClockTime3;
+  static int progress = 0;
+
+  getColor(mode.currentColor);               // get the next color
+  setLed(progress);                               // set to the next finger
+  if (lightsOn) timerDuration = onDuration;                                                                 //
+  if (!lightsOn) timerDuration = offDuration;
+  if (mainClock - previousClockTime > timerDuration) {          // dops timer
+    lightsOn = !lightsOn;                               //
+    if (lightsOn) {                               //
+      for (int a = 0; a < NUM_LEDS; a++) {  // special save/load
+        leds[a] = copy[a];                  // for fade effect
+      }                                     // with dops
+    }                                       //
+    if (!lightsOn) {                              //
+      for (int a = 0; a < NUM_LEDS; a++) {  //
+        copy[a] = leds[a];                  //
+      }                                     //
+      clearAll();                           //
+    }                                       //
+    previousClockTime = mainClock;                  //
+  }
+  if (mainClock - previousClockTime2 > 1) {                                // Fade timer
+    for (int a = 0; a < NUM_LEDS; a++) leds[a].fadeToBlackBy(fadeAmount);  //
+    previousClockTime2 = mainClock;                                         //
+  }
+  if (mainClock - previousClockTime3 > fingerSpeed) {      // Finger/color timer
+    progress++;                              //
+    if (progress % 2 == 0) nextColor(0);     //
+    if (progress > 9) {                      //
+      progress = 0;                          //
+    }                                   //
+    previousClockTime3 = mainClock;               //
+  }
+}
+
+void Patterns::pulsish(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration2, unsigned long offDuration2, unsigned long fingerSpeed) {
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
+  if (onDuration2 == 2 && offDuration >= 5 && offDuration <= 31) onDuration2 = 3;
+
+  static bool lightsOn = true;
+  static bool lightsOn2 = true;
+  static unsigned long previousClockTime, timerDuration, timerDuration2;
+  static unsigned long previousClockTime2, previousClockTime3;
+  static int progress = 0;
+
+  if (lightsOn) {                                         // blink on
+    getColor(mode.currentColor);                         //
+    if (mode.numColors == 1) val = 0;
+    setLeds(0, 27);                                 // set all to current color
+    timerDuration = onDuration;
+  }
+  if (!lightsOn) {
+    clearAll();                                  // blink off
+    timerDuration = offDuration;
+  }
+  getColor(0);                                        // get first color
+  if (lightsOn2) {
+    setLeds(0 + (2 * progress), 1 + (2 * progress)); // blink pulse to first color
+    timerDuration2 = onDuration2;
+  }
+  else {                                              //
+    timerDuration2 = offDuration2;
+    clearLight(0 + (2 * progress));                      // blink pulse off
+    clearLight(1 + (2 * progress));                      //
+  }
+  if (mainClock - previousClockTime > timerDuration) {              // blink rate
+    lightsOn = !lightsOn;                                         //
+    if (offDuration == 0) lightsOn = true;
+    if (lightsOn) if (mode.numColors > 1) nextColor(1);                             // get next color
+    previousClockTime = mainClock;                             //
+  }
+  if (mainClock - previousClockTime2 > timerDuration2) {                   // blink rate of pulse
+    lightsOn2 = !lightsOn2;                                       //
+    if (offDuration2 == 0) lightsOn2 = true;
+    previousClockTime2 = mainClock;                            //
+  }
+  if (mainClock - previousClockTime3 > fingerSpeed) {                  // pulse move speed
+    progress++;                                          //
+    if (progress > 4) progress = 0;                         //
+    previousClockTime3 = mainClock;                            //
+  }
+}
+
+void Patterns::fill(unsigned long onDuration, unsigned long offDuration, unsigned long fillSpeed) {
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
+
+  static bool lightsOn = true;
+  static unsigned long previousClockTime, timerDuration;
+  static unsigned long previousClockTime2;
+  static int progress = 0;
+
+  if (lightsOn) {
+    getColor(mode.currentColor);                 //
+    setLeds(0, NUM_LEDS);                   // set all to current color
+
+    if (mode.numColors > 1) getColor(mode.nextColor);                         // get next color
+    else val = 0;
+    setLeds(0, (progress * 2) - 1);            // set LEDs up to current fill
+    timerDuration = onDuration;
+
+  }
+  else {
+    clearAll();
+    timerDuration = offDuration;
+  }
+  if (mainClock - previousClockTime > timerDuration) {          // blink rate
+    lightsOn = !lightsOn;
+    if (offDuration == 0) lightsOn = true;
+    previousClockTime = mainClock;
+  }
+  if (mainClock - previousClockTime2 > fillSpeed) {
+    progress++;                                // fill speed
+    if (progress >= 5) {                       //
+      progress = 0;                            //
+      nextColor(0);                         // get next color after 5 fingers filled
+    }
+    previousClockTime2 = mainClock;
+  }
+}
+
+void Patterns::bounce(unsigned long onDuration, unsigned long offDuration, unsigned long bounceDuration) {
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
+
+  static bool lightsOn = true;
+  static unsigned long previousClockTime, timerDuration;
+  static unsigned long previousClockTime2;
+  static int progress = 0;
+
+  if (lightsOn) {                                                             // blink on
+    getColor(mode.currentColor);                                             // get current color
+    setLeds(0, NUM_LEDS);                                               // set all leds
+    getColor(mode.nextColor);                                                     // get next color
+    if (mode.numColors == 1) val = 0;
+    setLed (int(triwave8(progress) / 25.4));                               // set bounce led
+    timerDuration = onDuration;
+  }
+  else {
+    clearAll();                                                      // blink off
+    timerDuration = offDuration;
+  }
+
+  if (mainClock - previousClockTime > timerDuration) {                                // bounce and blink rate
+    lightsOn = !lightsOn;                                                           //
+    if (offDuration == 0) lightsOn = true;
+    previousClockTime = mainClock;                                               //
+  }
+  if (mainClock - previousClockTime2 > bounceDuration) {
+    progress += 2;
+    if (triwave8(progress) == 0 || triwave8(progress) == 254) nextColor(0);   // next color on thumb/pinky
+    previousClockTime2 = mainClock;
+  }
+}
+
+void Patterns::impact(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration2, unsigned long offDuration2,
+                      unsigned long onDuration3, unsigned long offDuration3, unsigned long onDuration4, unsigned long offDuration4) {
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
+  if (onDuration2 == 2 && offDuration >= 5 && offDuration <= 31) onDuration2 = 3;
+  if (onDuration3 == 2 && offDuration >= 5 && offDuration <= 31) onDuration3 = 3;
+  if (onDuration4 == 2 && offDuration >= 5 && offDuration <= 31) onDuration4 = 3;
+
+  static bool lightsOn = true;
+  static bool lightsOn2 = true;
+  static bool lightsOn3 = true;
+  static bool lightsOn4 = true;
+  static unsigned long timerDuration, timerDuration2, timerDuration3, timerDuration4;
+  static unsigned long previousClockTime, previousClockTime2, previousClockTime3, previousClockTime4;
+
+  clearAll();
+  getColor(0);                            // Set thumb to blink first color infrequently
+  if (lightsOn) timerDuration = onDuration, setLeds(0, 1);  //
+  if (!lightsOn) timerDuration = offDuration;               //
+
+  if (lightsOn2) {
+    getColor(1);
+    if (mode.numColors == 1) val = 0;
+    setLeds(4, 5);
+    timerDuration2 = onDuration2;
+  }
+  if (!lightsOn2) timerDuration2 = offDuration2;
+
+  if (lightsOn3) {
+    getColor(2);                                                                 // Set tops to color 2
+    if (mode.numColors <= 2) val = 0;
+    for (int fingers = 0; fingers < 4; fingers++) {
+      if (fingers != 1) setLed(2 + fingers * 2);                                  //
+    }
+    timerDuration3 = onDuration3;
+  }
+  if (!lightsOn3) timerDuration3 = offDuration3;
+
+  if (lightsOn4) {
+    getColor(mode.currentColor);                                                 // Set tips to next color starting from 3rd color
+    if (mode.numColors <= 3) val = 0;                                          //
+    for (int fingers = 0; fingers < 4; fingers++) {
+      if (fingers != 1) setLed(3 + fingers * 2);                            //
+    }
+    timerDuration4 = onDuration4;
+  }
+  if (!lightsOn4) timerDuration4 = offDuration4;
+
+  if (mainClock - previousClockTime > timerDuration) {
+    lightsOn = !lightsOn;
+    if (offDuration == 0) lightsOn = true;
+    previousClockTime = mainClock;
+  }
+  if (mainClock - previousClockTime2 > timerDuration2) {
+    lightsOn2 = !lightsOn2;
+    if (offDuration2 == 0) lightsOn2 = true;
+    previousClockTime2 = mainClock;
+  }
+  if (mainClock - previousClockTime3 > timerDuration3) {
+    lightsOn3 = !lightsOn3;
+    if (offDuration3 == 0) lightsOn3 = true;
+    previousClockTime3 = mainClock;
+  }
+  if (mainClock - previousClockTime4 > timerDuration4) {
+    lightsOn4 = !lightsOn4;
+    if (offDuration4 == 0) lightsOn4 = true;
+    if (lightsOn4) nextColor(3);
+    previousClockTime4 = mainClock;
+  }
+}
+
+void Patterns::rabbit(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration2, unsigned long offDuration2) {
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
+  if (onDuration2 == 2 && offDuration >= 5 && offDuration <= 31) onDuration2 = 3;
+
+  static bool lightsOn = true;
+  static bool lightsOn2 = true;
+  static unsigned long previousClockTime, timerDuration;
+  static unsigned long previousClockTime2, timerDuration2;
+
+  getColor(0);
+  if (lightsOn) {
+    for (int i = 0; i < NUM_LEDS; i++) {
+      if (i % 2 == 0) setLed(i);
+    }
+    timerDuration = onDuration;
+  }
+  if (!lightsOn) {
+    clearAll();
+    timerDuration = offDuration;
+  }
+
+  getColor(mode.currentColor);
+  if (lightsOn2) {
+    for (int i = 0; i < NUM_LEDS; i++) {
+      if (i % 2 == 1) setLed(i);
+    }
+    timerDuration2 = onDuration2;
+  }
+  if (!lightsOn2) {
+    for (int i = 0; i < NUM_LEDS; i++) {
+      if (i % 2 == 1) clearLight(i);
+    }
+    timerDuration2 = offDuration2;
+  }
+
+  if (mainClock - previousClockTime > timerDuration) {
+    lightsOn = !lightsOn;
+    if (offDuration == 0) lightsOn = true;
+    previousClockTime = mainClock;
+  }
+  if (mainClock - previousClockTime2 > timerDuration2) {
+    lightsOn2 = !lightsOn2;
+    if (offDuration2 == 0) lightsOn2 = true;
+    if (lightsOn2) if (mode.numColors > 1)nextColor(1);
+    previousClockTime2 = mainClock;
+  }
+}
+
+void Patterns::splitStrobie(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration2, unsigned long offDuration2, unsigned long switchDuration) {
+  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
+  if (onDuration2 == 2 && offDuration >= 5 && offDuration <= 31) onDuration2 = 3;
+
+  static bool lightsOn = true;
+  static bool lightsOn2 = true;
+  static unsigned long previousClockTime, timerDuration;
+  static unsigned long previousClockTime2, timerDuration2;
+
+  getColor(0);
+  if (lightsOn) {
+    for (int i = 0; i < NUM_LEDS; i++) {
+      if (i % 2 == 0) setLed(i);
+    }
+    timerDuration = onDuration;
+  }
+  if (!lightsOn) {
+    clearAll();
+    timerDuration = offDuration;
+  }
+
+  getColor(mode.currentColor);
+  if (lightsOn2) {
+    for (int i = 0; i < NUM_LEDS; i++) {
+      if (i % 2 == 1) setLed(i);
+    }
+    timerDuration2 = onDuration2;
+  }
+  if (!lightsOn2) {
+    for (int i = 0; i < NUM_LEDS; i++) {
+      if (i % 2 == 1) clearLight(i);
+    }
+    timerDuration2 = offDuration2;
+  }
+
+  if (mainClock - previousClockTime > timerDuration) {
+    lightsOn = !lightsOn;
+    if (offDuration == 0) lightsOn = true;
+    previousClockTime = mainClock;
+  }
+  if (mainClock - previousClockTime2 > timerDuration2) {
+    lightsOn2 = !lightsOn2;
+    if (offDuration2 == 0) lightsOn2 = true;
+    if (lightsOn2) if (mode.numColors > 1)nextColor(1);
+    previousClockTime2 = mainClock;
+  }
+  //  if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
+  //  if (onDuration2 == 2 && offDuration >= 5 && offDuration <= 31) onDuration2 = 3;
+  //
+  //  static bool lightsOn = true;
+  //  static bool lightsOn2 = true;
+  //  static bool lightsOn3 = true;
+  //  static unsigned long previousClockTime, timerDuration;
+  //  static unsigned long previousClockTime2, timerDuration2;
+  //  static unsigned long previousClockTime3;
+  //
+  //  if (lightsOn) {                                             // dops on
+  //    getColor(mode.currentColor);                     // get dops color
+  //    for (int finger = 0; finger < 5; finger++) {        //
+  //      //if (lightsOn3) setLed(2 * finger);                 // set dops
+  //      //if (!lightsOn3) setLed(2 * finger + 1);             //
+  //    }
+  //    timerDuration = onDuration;
+  //  }
+  //  if (!lightsOn) {                                            // dops off
+  //    for (int finger = 0; finger < 5; finger++) {        //
+  //      //if (lightsOn3) clearLight(2 * finger);             //
+  //      //if (!lightsOn3) clearLight(2 * finger + 1);         //
+  //    }
+  //    timerDuration = offDuration;
+  //  }
+  //
+  //  if (lightsOn2) {
+  //    getColor(mode.currentColor1);
+  //    if (mode.numColors < 5) val = 0;
+  //    for (int finger = 0; finger < 5; finger++) {          //
+  //      if (lightsOn3) setLed(2 * finger + 1);               // set trace on
+  //      //if (!lightsOn3) setLed(2 * finger);
+  //    }
+  //    timerDuration2 = onDuration2;
+  //  }
+  //  if (!lightsOn2) {
+  //    for (int finger = 0; finger < 5; finger++) {        //
+  //      //if (lightsOn3) clearLight(2 * finger + 1);               // set trace on
+  //      //if (!lightsOn3) clearLight(2 * finger);         //
+  //    }
+  //    timerDuration2 = offDuration2;
+  //  }
+  //
+  //  if (mainClock - previousClockTime > timerDuration) {                  // dops rate
+  //    lightsOn = !lightsOn;
+  //    if (offDuration == 0) lightsOn = true;
+  //    if (lightsOn) {
+  //      nextColor(0);                                                 // next color
+  //      if (mode.currentColor > 3) mode.currentColor = 0;
+  //    }
+  //    previousClockTime = mainClock;                                 //
+  //  }
+  //  if (mainClock - previousClockTime2 > timerDuration2) {              //
+  //    lightsOn2 = !lightsOn2;
+  //    if (offDuration2 == 0) lightsOn2 = true;
+  //    if (lightsOn2) {
+  //      mode.currentColor1 ++;
+  //      if (mode.currentColor1 > mode.numColors) mode.currentColor1 = 4;
+  //
+  //    }
+  //    previousClockTime2 = mainClock;                              //
+  //  }
+  //  if (mainClock - previousClockTime3 > switchDuration) {                   //switch timing
+  //    //lightsOn3 = !lightsOn3;
+  //    if (switchDuration == 0) lightsOn3 = true;
+  //    previousClockTime3 = mainClock;
+  //  }
 }
 
 //Patterns
@@ -500,657 +1259,172 @@ void Patterns::playPattern() {
 
     case 17: { // Tip Top (Tips hyperstrobe color 1, tops strobe full set)
         //tipTop(unsigned long onDuration, unsigned long offDuration, unsgined long onDuration2, unsigned long offDuration2);
-        //tipTop(5,8,25,25);
-        tipTop(time1,time2,time3,time4);
-//        clearAll();
-//        for (int i = 0; i < NUM_LEDS; i++) {      //
-//          if (i % 2 == 1) {                       // Tips (odds)
-//            if (on) {                             //
-//              getColor(0);                        // get first color
-//              setLed(i);                          // blink tips on
-//            }
-//            else clearLight(i);                   // blink tips off
-//          }
-//          if (i % 2 == 0) {                       // Tops (evens)
-//            if (on2) {                            //
-//              getColor(currentColor);             // get current color
-//              setLed(i);                          // blink tops on
-//            }
-//            else clearLight(i);                   // blink tops off
-//          }
-//        }
-//        if (on2) {
-//          if (totalColors > 1) nextColor(1);                    // get next color after top blink
-//          duration = 5;
-//        }
-//        if (!on2)duration = 8;
-//        if (mainClock - prevTime > 25) {          // blink rate tips
-//          on = !on;                               //
-//          prevTime = mainClock;                   //
-//        }
-//        if (mainClock - prevTime2 > duration) {         // blink rate tops
-//          on2 = !on2;                             //
-//          prevTime2 = mainClock;                  //
-//        }
+        tipTop(5, 8, 25, 25);
         break;
       }
 
     case 18: { // Drip (Tops to tips with strobe)
-        if (on) {                                 // blink on
-          getColor(currentColor);                 //
-          setLeds(0, NUM_LEDS);                   // set all to current color
-
-          if (frame == 1) {                       // every 2nd frame
-            for (int i = 0; i < NUM_LEDS; i++) {
-              if (i % 2 == 0) {                   // find Tops (evens)
-                if (totalColors > 1) getColor(next);                   // get next color
-                else val = 0;
-                setLed(i);                        // blink tops on
-              }
-            }
-          }
-        }
-        else clearAll();                          // blink off
-        if (mainClock - prevTime2 > 10) {         // blink rate
-          on = !on;                               //
-          prevTime2 = mainClock;                  //
-        }
-        if (mainClock - prevTime > 250) {         // drip speed
-          frame += 1;
-          if (frame > 1) {
-            frame = 0;
-            nextColor(0);                         // next color
-          }
-          prevTime = mainClock;
-        }
-
+        //drip(unsigned long onDuration, unsigned long offDuration, unsigned long dripDuration)
+        drip(10, 10, 250);
         break;
       }
 
     case 19: { // Drip Morph
-        if (on) {
-          getColor(currentColor);                                                    // between current and
-          for (int a = 0; a < 10; a++) {
-            if (a % 2 == 1) leds[a].setHSV(prevHue, sat, val);
-          }
-          int color1 = mode.hue[currentColor];                                    // next colors and set
-          int color2 = mode.hue[next];                                            // all leds
-          if (totalColors < 2) color2 = mode.hue[currentColor];
-          if (color1 > color2 && color1 - color2 < (255 - color1) + color2)gap--;    //
-          if (color1 > color2 && color1 - color2 > (255 - color1) + color2)gap++;    //
-          if (color1 < color2 && color2 - color1 < (255 - color2) + color1)gap++;    //
-          if (color1 < color2 && color2 - color1 > (255 - color2) + color1)gap--;    //
-          if (color1 + gap >= 255) gap -= 255;                                       //
-          if (color1 + gap < 0) gap += 255;                                          //
-          int finalHue = color1 + gap;                                               //
-          if (finalHue == color2) {
-            gap = 0, nextColor(0);                             //
-            prevHue = finalHue;
-          }
-          for (int a = 0; a < 10; a++) {
-            if (a % 2 == 0) leds[a].setHSV(finalHue, sat, val);            //
-          }
-        }
-        else clearAll();
-        if (mainClock - prevTime2 > 10) {         // blink rate
-          on = !on;                               //
-          prevTime2 = mainClock;                  //
-        }
+        //dripMorph(unsigned long onDuration, unsigned long offDuration);
+        dripMorph(10, 10);
         break;
       }
 
     case 20: { // Cross dops   (dops on alternating tips and tops)
-        clearAll();               // clear leds
-        getColor(currentColor);   // get current color
-        if (on) {                 // when blink is on
-          if (on2) {              // and blink2 is on
-            setLed(0);            // set led 0,3,4,7,8
-            setLed(3);
-            setLed(4);
-            setLed(7);
-            setLed(8);
-          }
-        }
-        if (!on) {                // when blink is not on
-          if (on2) {              // and blink2 is on
-            setLed(1);            // set led 1,2,5,6,9
-            setLed(2);
-            setLed(5);
-            setLed(6);
-            setLed(9);
-          }
-        }
-        if (mainClock - prevTime > 100) { // check if timer has passed 100ms
-          nextColor (0);                  // que next color
-          on = !on;                       // flip blink on/off
-          prevTime = mainClock;           // refresh timer
-        }
-        if (on2) duration = 2;
-        if (!on2) duration = 13;
-        if (mainClock - prevTime2 > duration) {  // check if timer2 has passed 2ms
-          on2 = !on2;                     // flip blink2 on/off
-          prevTime2 = mainClock;          // refresh timer2
-        }
+        //crossDops(unsigned long onDuration, unsigned long offDuration, unsigned long flipDuration);
+        crossDops(2, 13, 100);
         break;
       }
 
     case 21: { //Double Strobe (flash next 2 colors simultaneously)
-        clearAll();
-        if (on) {                               // Strobe 1
-          for (int i = 0; i < NUM_LEDS; i++) {  //
-            if (i % 2 == 0) {                   //
-              getColor(currentColor);           //
-              setLed(i);                        //
-            }
-            if (i % 2 == 1) {                   // Strobe 2
-              if (totalColors > 1) getColor(next);                   //
-              setLed(i);                        //
-            }
-            duration = 5;
-          }
-        }
-        if (!on) duration = 8;
-        if (mainClock - prevTime > 75) {       // Color timer
-          nextColor(0);                         //
-          prevTime = mainClock;                 //
-        }
-
-        if (mainClock - prevTime2 > duration) {       // Strobe timer
-          on = !on;                             //
-          prevTime2 = mainClock;                //
-        }
-
+        //doubleStrobe(unsigned long onDuration, unsigned long offDuration, unsigned long colorDuration);
+        doubleStrobe(5, 8, 75);
         break;
       }
 
     case 22: { //Sloth Strobe (flash next 2 colors simultaneously)
-        clearAll();
-        if (on) {                               // Strobe 1
-          for (int i = 0; i < NUM_LEDS; i++) {  //
-            if (i % 2 == 0) {                   //
-              getColor(currentColor);           //
-              setLed(i);                        //
-            }
-            if (i % 2 == 1) {                   // Strobe 2
-              if (totalColors > 1) getColor(next);                   //
-              setLed(i);                        //
-            }
-            duration = 5;
-          }
-        }
-        if (!on) duration = 8;
-        if (mainClock - prevTime > 1000) {       // Color timer
-          nextColor(0);                         //
-          prevTime = mainClock;                 //
-        }
-
-        if (mainClock - prevTime2 > duration) {       // Strobe timer
-          on = !on;                             //
-          prevTime2 = mainClock;                //
-        }
-
+        doubleStrobe(5, 8, 1000);
         break;
       }
 
     case 23: { // Meteor fingers (randomly flash fingers while constantly dimming)
-        for (int a = 0; a < NUM_LEDS; a++)leds[a].fadeToBlackBy(75);
-        if (mainClock - prevTime > 3) {
-          getColor(currentColor);
-          int t = random(0, 5);
-          setLed(t * 2);
-          setLed(t * 2 + 1);
-          nextColor (0);
-          prevTime = mainClock;
-        }
-
+        //meteor(unsigned long fequency, unsigned int fadeAmount);
+        meteor(5, 8, 3, 75);
         break;
       }
 
     case 24: { // SparkleTrace (Randomized tracer)
-        getColor(0);                        // Get color 0
-        setLeds(0, 9);                      // Set all LEDs
-        if (on) {                           // when blink is on
-          getColor(currentColor);           // get the current color in the set
-          if (totalColors == 1) val = 0;    // (special case when set has 1 color)
-          for (int c = 0; c < 4; c++) {     // for 4 repititions
-            int r = random(0, 5);
-            setLeds(r * 2, r * 2 + 1);                // choose a random pixel
-          }
-        }
-        if (!on) if (totalColors > 1) nextColor (1);             // when blink is not on, que next color (excluding color 0)
-        if (mainClock - prevTime > 3) {
-          on = !on;                           // flip blink on/off
-          prevTime = mainClock;
-        }
+        //sparkleTrace(unsigned long dotFrequency);
+        sparkleTrace(6);
         break;
       }
 
     case 25: { // Vortex Wipe   (Color wipe across tops then tips with dops)
-        getColor(currentColor);       //
-        if (on) {                     //
-          duration = 2;
-          setLeds(0, 9);              //
-          if (totalColors > 1) getColor(next);             //
-          else val = 0;
-          setLed(0);                  //
-          if (rep >= 1) setLed(2);    // Wipe progress
-          if (rep >= 2) setLed(4);    //
-          if (rep >= 3) setLed(6);    //
-          if (rep >= 4) setLed(8);    //
-          if (rep >= 5) setLed(9);    //
-          if (rep >= 6) setLed(7);    //
-          if (rep >= 7) setLed(5);    //
-          if (rep >= 8) setLed(3);    //
-          if (rep >= 9) setLed(1);    //
-        }
-        if (!on) {
-          clearAll();
-          duration = 7;
-        }
-        if (mainClock - prevTime > 125) {  // Wipe timer
-          prevTime = mainClock;           //
-          rep ++;                         //
-          if (rep > 9) {                  //
-            rep = 0;                      //
-            nextColor(0);                 //
-          }
-        }
-        if (mainClock - prevTime2 > duration) {  // Dops timer
-          prevTime2 = mainClock;          //
-          on = !on;                       //
-        }
+        // Bug where its all red for the first itteration
+        // vortexWipe(unsigned long onDuration, unsigned long offDuration, unsigned long warpDuration);
+        vortexWipe(2, 7, 125);
         break;
       }
 
     case 26: { // Vortex UltraWipe   (Color wipe across tops then tips with dops)
-        getColor(currentColor);       //
-        if (on) {                     //
-          duration = 2;
-          setLeds(0, 9);              //
-          if (totalColors > 1) getColor(next);             //
-          else val = 0;
-          setLed(0);                  //
-          if (rep >= 1) setLed(2);    // Wipe progress
-          if (rep >= 2) setLed(4);    //
-          if (rep >= 3) setLed(6);    //
-          if (rep >= 4) setLed(8);    //
-          if (rep >= 5) setLed(9);    //
-          if (rep >= 6) setLed(7);    //
-          if (rep >= 7) setLed(5);    //
-          if (rep >= 8) setLed(3);    //
-          if (rep >= 9) setLed(1);    //
-        }
-        if (!on) {
-          clearAll();
-          duration = 7;
-        }
-        if (mainClock - prevTime > 50) {  // Wipe timer
-          prevTime = mainClock;           //
-          rep ++;                         //
-          if (rep > 9) {                  //
-            rep = 0;                      //
-            nextColor(0);                 //
-          }
-        }
-        if (mainClock - prevTime2 > duration) {  // Dops timer
-          prevTime2 = mainClock;          //
-          on = !on;                       //
-        }
+        vortexWipe(2, 7, 50);
         break;
       }
 
     case 27: { // Warp (Dot travels from thumb to pinkie then next color with dops)
-        clearAll();                       //
-        if (on) {                         //
-          getColor(currentColor);         //
-          setLeds(0, 9);                  //
-          if (totalColors > 1) getColor(next);                 //
-          else val = 0;
-          setLed(dot);                    //
-          duration = 2;
-        }
-        if (!on) duration = 7;
-
-        if (mainClock - prevTime > 100) {  //
-          dot++;                          //
-          if (dot >= 10) {                //
-            dot = 0;                      //
-            nextColor(0);                 //
-          }
-          prevTime = mainClock;           //
-        }
-        if (mainClock - prevTime2 > duration) {  //
-          on = !on;                       //
-          prevTime2 = mainClock;          //
-        }
-
+        //warp(unsigned long onDuration, unsigned long offDuration, unsigned long warpDuration)
+        warp(2, 7, 100);
         break;
       }
 
 
     case 28: { // Warp Worm (Group of color 1 lights the travel from thumb to pinky with dops)
-        clearAll();                         //
-        if (on) {                           //
-          getColor(0);                      //
-          setLeds(0, 9);                    //
-          getColor(currentColor);           //
-          if (currentColor == 0) getColor(1);
-          if (totalColors == 1) val = 0;
-          for (int i = 0; i < 6; i++) {     //
-            int chunk = i + k;              //
-            if (chunk > 9) chunk -= 10;     //
-            setLed(chunk);                  //
-          }
-          duration = 2;
-        }
-        if (!on)duration = 7;
-        if (mainClock - prevTime > 100) {    //
-          k++;                              //
-          prevTime = mainClock;             //
-          if (k > 9) {
-            k = 0;
-            if (totalColors > 1) nextColor(1);   //
-          }
-        }
-        if (mainClock - prevTime2 > duration) {    //
-          on = !on;                         //
-          prevTime2 = mainClock;            //
-        }
+        //bug with all red for first iteration
+        //warpWorm(unsigned long onDuraiton, unsigned long offDuration, unsigned long wormSpeed, unsigned int wormSize)
+        warpWorm(2, 7, 100, 6);
         break;
       }
 
     case 29: { // Snowball warp (Group of all colors travel from thumb to pinkie with dops)
-        clearAll();                           //
-        if (on) {                             //
-          getColor(0);                        // set trace
-          setLeds(0, 9);                      //
-          getColor(currentColor);             //
-          if (totalColors == 1) val = 0;
-          for (int i = 0; i < 3; i++) {       // set worm
-            int chunk = i + k;                //
-            if (chunk > 9) chunk -= 10;       //
-            setLed(chunk);                    //
-          }
-          duration = 2;
-        }
-        if (!on) duration = 7;
-        if (mainClock - prevTime > 100) {              // color/worm timer
-          if (currentColor == totalColors - 1) k++;   //
-          prevTime = mainClock;                       //
-          if (k > 9) k = 0;                           //
-          if (totalColors > 1) nextColor(1);                               //
-        }
-        if (mainClock - prevTime2 > duration) {              // dops timer
-          on = !on;                                   //
-          prevTime2 = mainClock;                      //
-        }
-
+        //snowBall(unsigned long onDuration, unsigned long offDuration, unsigned long wormSpeed, unsigned long wormSize)
+        snowBall(2, 7, 100, 3);
         break;
       }
 
     case 30: { //Lighthouse (Warp from thumb to pinkie with constant fade with dops)
-        getColor(currentColor);               // get the next color
-        setLed(dot);                          // set to the next finger
-        if (mainClock - prevTime > 100) {      // Finger/color timer
-          dot++;                              //
-          if (dot % 2 == 0) nextColor(0);     //
-          if (dot > 9) {                      //
-            dot = 0;                          //
-          }                                   //
-          prevTime = mainClock;               //
-        }
-        if (on) {                                                          //
-          if (mainClock - prevTime2 > 10) {                                // Fade timer
-            for (int a = 0; a < NUM_LEDS; a++) leds[a].fadeToBlackBy(8);  //
-            prevTime2 = mainClock;                                         //
-          }                                                                //
-          duration = 5;
-        }                                                                  //
-        if (!on) duration = 8;
-        if (mainClock - prevTime3 > duration) {          // dops timer
-          on = !on;                               //
-          if (on) {                               //
-            for (int a = 0; a < NUM_LEDS; a++) {  // special save/load
-              leds[a] = copy[a];                  // for fade effect
-            }                                     // with dops
-          }                                       //
-          if (!on) {                              //
-            for (int a = 0; a < NUM_LEDS; a++) {  //
-              copy[a] = leds[a];                  //
-            }                                     //
-            clearAll();                           //
-          }                                       //
-          prevTime3 = mainClock;                  //
-        }
-
+        //lighthouse(unsigned long onDuration, unsigned long offDuration, unsigned long fadeFrequency, unsgined long fadeAmount);
+        lighthouse(5, 8, 100, 2);
         break;
       }
 
     case 31: { // Pulsish (Warp color 1 with strobe, full hand ghost dops)
-        if (on) {                                         // blink on
-          getColor(currentColor);                         //
-          if (totalColors == 1) val = 0;
-          setLeds(0, 27);                                 // set all to current color
-          duration = 2;
-        }
-        if (!on) {
-          clearAll();                                  // blink off
-          duration = 13;
-        }
-        getColor(0);                                        // get first color
-        if (on2) {
-          setLeds(0 + (2 * frame), 1 + (2 * frame)); // blink pulse to first color
-          duration2 = 1;
-        }
-        else {                                              //
-          duration2 = 3;
-          clearLight(0 + (2 * frame));                      // blink pulse off
-          clearLight(1 + (2 * frame));                      //
-        }
-        if (mainClock - prevTime > duration) {              // blink rate
-          on = !on;                                         //
-          if (on) if (totalColors > 1) nextColor(1);                             // get next color
-          prevTime = mainClock;                             //
-        }
-        if (mainClock - prevTime3 > duration2) {                   // blink rate of pulse
-          on2 = !on2;                                       //
-          prevTime3 = mainClock;                            //
-        }
-        if (mainClock - prevTime2 > 250) {                  // pulse move speed
-          frame++;                                          //
-          if (frame > 4) frame = 0;                         //
-          prevTime2 = mainClock;                            //
-        }
+        //pulsish(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration2, unsigned long offduration2, unsigned long fingerSpeed)
+        pulsish(2, 13, 1, 3, 250);
         break;
-
       }
 
     case 32: { //Fill (Fill thumb to pinkie with strobes)
-        if (on) {
-          getColor(currentColor);                 //
-          setLeds(0, NUM_LEDS);                   // set all to current color
-
-          if (totalColors > 1) getColor(next);                         // get next color
-          else val = 0;
-          setLeds(0, (frame * 2) - 1);            // set LEDs up to current fill
-          duration = 5;
-
-        }
-        else {
-          clearAll();
-          duration = 24;
-        }
-        if (mainClock - prevTime > duration) {          // blink rate
-          on = !on;                               //
-          prevTime = mainClock;                   //
-        }
-        if (mainClock - prevTime2 > 200) {        //
-          frame++;                                // fill speed
-          if (frame >= 5) {                       //
-            frame = 0;                            //
-            nextColor(0);                         // get next color after 5 fingers filled
-          }
-          prevTime2 = mainClock;
-        }
-
+        //fill(unsigned long onDuration, unsigned long offDuration, unsigned long fillSpeed)
+        fill(5, 24, 200);
         break;
       }
 
     case 33: { // Bounce (Bounce and change colors between thumb/pinkie with strobe)
-        if (on) {                                                             // blink on
-          getColor(currentColor);                                             // get current color
-          setLeds(0, NUM_LEDS);                                               // set all leds
-          getColor(next);                                                     // get next color
-          if (totalColors == 1) val = 0;
-          setLed (int(triwave8(frame) / 25.4));                               // set bounce led
-          duration = 5;
-        }
-        else {
-          clearAll();                                                      // blink off
-          duration = 8;
-        }
-
-        if (mainClock - prevTime > duration) {                                // bounce and blink rate
-          on = !on;                                                           //
-          prevTime = mainClock;                                               //
-        }
-        if (mainClock - prevTime2 > 10) {
-          frame += 2;
-          if (triwave8(frame) == 0 || triwave8(frame) == 254) nextColor(0);   // next color on thumb/pinky
-          prevTime2 = mainClock;
-        }
+        // bug with all red for first iteration
+        //bounce(unsigned long onDuration, unsigned long offDuration, unsgined long bounceDuration)
+        bounce(5, 8, 10);
         break;
       }
 
     case 34: { // Impact (independend thumbs tops and tips)
-        clearAll();
-        getColor(0);                            // Set thumb to blink first color infrequently
-        if (on2) duration2 = 25, setLeds(0, 1);  //
-        if (!on2) duration2 = 250;               //
-
-        if (on4) {
-          getColor(1);
-          if (totalColors == 1) val = 0;
-          setLeds(4, 5);
-          duration4 = 1;
-        }
-        if (!on4) duration4 = 8;
-        getColor(2);                                                                 // Set tops to color 2
-        if (totalColors <= 2) val = 0;                                                  //
-        if (on3) {
-          for (int fingers = 0; fingers < 4; fingers++) {
-            if (fingers != 1) setLed(2 + fingers * 2);                                  //
-          }
-          duration = 3;
-        }
-        if (!on3) duration = 22;
-
-        if (on) {
-          getColor(currentColor);                                                 // Set tips to next color starting from 3rd color
-          if (totalColors <= 3) val = 0;                                          //
-          for (int fingers = 0; fingers < 4; fingers++) {
-            if (fingers != 1) setLed(3 + fingers * 2);                            //
-          }
-          duration3 = 5;
-        }
-        if (!on) duration3 = 8;
-        if (mainClock - prevTime > duration3) {
-          on = !on, prevTime = mainClock;       // timer for tips/tops
-          if (on) nextColor(3);                                                     //
-        }
-        if (mainClock - prevTime2 > duration2) on2 = !on2, prevTime2 = mainClock;   // timer for thumb
-        if (mainClock - prevTime3 > duration) on3 = !on3, prevTime3 = mainClock;
-        if (mainClock - prevTime4 > duration4) on4 = !on4, prevTime4 = mainClock;
-
+        //impact(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration2, unsigned long offDuration2,
+        //unsigned long onDuration3, unsigned long offDuration3, unsigned long onDuration4, unsigned long offDuration4)
+        impact(25, 250, 1, 8, 3, 22, 5, 8);
         break;
       }
 
     case 35: { // Rabbit
-        getColor(0);
-        if (on) {
-          for (int i = 0; i < NUM_LEDS; i++) {
-            if (i % 2 == 0) setLed(i);
-          }
-          duration = 3;
-        }
-        if (!on) {
-          clearAll();
-          duration = 22;
-        }
-        getColor(currentColor);
-        if (on2) {
-          for (int i = 0; i < NUM_LEDS; i++) {
-            if (i % 2 == 1) setLed(i);
-          }
-          duration2 = 5;
-        }
-        if (!on2) {
-          for (int i = 0; i < NUM_LEDS; i++) {
-            if (i % 2 == 1) clearLight(i);
-          }
-          duration2 = 8;
-        }
-        if (mainClock - prevTime > duration) {
-          on = !on;
-          prevTime = mainClock;
-        }
-        if (mainClock - prevTime2 > duration2) {
-          on2 = !on2;
-          if (on2) if (totalColors > 1)nextColor(1);
-          prevTime2 = mainClock;
-        }
-
+        //rabbit(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration2, unsigned long offDuration2)
+        rabbit(3, 22, 5, 8);
         break;
       }
 
     case 36: { ///Split Strobie (dops/tracer tips tops swap)
-        clearAll();
-        if (on) {                                             // dops on
-          getColor(mode.currentColor);                     // get dops color
-          for (int finger = 0; finger < 5; finger++) {        //
-            if (on3) setLed(2 * finger);                 // set dops
-            if (!on3) setLed(2 * finger + 1);             //
-          }
-          duration = 5;
-        }
-        if (!on) {                                            // dops off
-          for (int finger = 0; finger < 5; finger++) {        //
-            if (on3) clearLight(2 * finger);             //
-            if (!on3) clearLight(2 * finger + 1);         //
-          }
-          duration = 8;
-        }
-        getColor(mode.currentColor1);                       //
-        if (totalColors < 5) val = 0;
-        if (on2) {
-          for (int finger = 0; finger < 5; finger++) {          //
-            if (on3) setLed(2 * finger + 1);               // set trace on
-            if (!on3) setLed(2 * finger);
-          }
-          duration2 = 3;
-        }
-        if (!on2) duration2 = 22;
-        if (mainClock - prevTime > duration) {                  // dops rate
-          on = !on;
-          if (on) {
-            nextColor(0);                                 // next color
-            if (mode.currentColor > 3) mode.currentColor = 0;
-          }
-          prevTime = mainClock;                                 //
-        }
-        if (mainClock - prevTime2 > duration2) {              //
-          on2 = !on2;                                         //
-          if (on2) {
-            mode.currentColor1 ++;
-            if (mode.currentColor1 > mode.numColors) mode.currentColor1 = 4;
-
-          }
-          prevTime2 = mainClock;                              //
-        }
-        if (mainClock - prevTime3 > 1000) {                   //switch timing
-          on3 = !on3;
-          prevTime3 = mainClock;
-        }
+        //splitStrobie(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration 2, unsigned long offDuration2, unsigned long switcDuration)
+        //splitStrobie(5,8,3,22,1000);
+        splitStrobie(time1, time2, time3, time4, time5);
+        //        clearAll();
+        //        if (on) {                                             // dops on
+        //          getColor(mode.currentColor);                     // get dops color
+        //          for (int finger = 0; finger < 5; finger++) {        //
+        //            if (on3) setLed(2 * finger);                 // set dops
+        //            if (!on3) setLed(2 * finger + 1);             //
+        //          }
+        //          duration = 5;
+        //        }
+        //        if (!on) {                                            // dops off
+        //          for (int finger = 0; finger < 5; finger++) {        //
+        //            if (on3) clearLight(2 * finger);             //
+        //            if (!on3) clearLight(2 * finger + 1);         //
+        //          }
+        //          duration = 8;
+        //        }
+        //        getColor(mode.currentColor1);                       //
+        //        if (totalColors < 5) val = 0;
+        //        if (on2) {
+        //          for (int finger = 0; finger < 5; finger++) {          //
+        //            if (on3) setLed(2 * finger + 1);               // set trace on
+        //            if (!on3) setLed(2 * finger);
+        //          }
+        //          duration2 = 3;
+        //        }
+        //        if (!on2) duration2 = 22;
+        //        if (mainClock - prevTime > duration) {                  // dops rate
+        //          on = !on;
+        //          if (on) {
+        //            nextColor(0);                                 // next color
+        //            if (mode.currentColor > 3) mode.currentColor = 0;
+        //          }
+        //          prevTime = mainClock;                                 //
+        //        }
+        //        if (mainClock - prevTime2 > duration2) {              //
+        //          on2 = !on2;                                         //
+        //          if (on2) {
+        //            mode.currentColor1 ++;
+        //            if (mode.currentColor1 > mode.numColors) mode.currentColor1 = 4;
+        //
+        //          }
+        //          prevTime2 = mainClock;                              //
+        //        }
+        //        if (mainClock - prevTime3 > 1000) {                   //switch timing
+        //          on3 = !on3;
+        //          prevTime3 = mainClock;
+        //        }
 
         break;
       }

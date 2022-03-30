@@ -1328,6 +1328,7 @@ void importData() {
       Serial.println("Data recieved");
       Serial.println(receivedChars);
       saveAll();
+      pattern.refresh(mode[m]);
       dataIsValid = false;
     }
   }
@@ -1365,8 +1366,10 @@ void importValues(char input[]) {
   unsigned long time3 = atol (strtokIndx);
   strtokIndx = strtok (NULL, ",");
   unsigned long time4 = atol (strtokIndx);
-  pattern.adjustValues(time1, time2, time3, time4);
-  Serial.println((String)time1 + " " + (String)time2 + " " + (String)time3 + " " + (String)time4);
+  strtokIndx = strtok (NULL, ",");
+  unsigned long time5 = atol (strtokIndx);
+  pattern.adjustValues(time1, time2, time3, time4, time5);
+  Serial.println((String)time1 + " " + (String)time2 + " " + (String)time3 + " " + (String)time4 + " " + (String)time5);
 }
 //Default Modes
 //---------------------------------------------------------
@@ -1374,8 +1377,8 @@ void importValues(char input[]) {
 void setDefaults() {
   brightness = 255;
   demoSpeed = 2;
-  importMode("0, 17, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 64, 255, 255, 192, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("1, 23, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
+  importMode("0, 36, 5, 0, 255, 255, 96, 255, 255, 160, 255, 255, 64, 255, 255, 192, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0");
+  importMode("1, 25, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
   importMode("2, 5, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
   importMode("3, 3, 2, 224, 255, 170, 192, 255, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
   importMode("4, 32, 3, 0, 255, 170, 96, 255, 170, 160, 255, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
