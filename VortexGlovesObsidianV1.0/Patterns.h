@@ -10,6 +10,8 @@
 #define totalModes 14
 #define DATA_PIN 4
 
+typedef unsigned long span;
+
 class Patterns
 {
   public:
@@ -20,23 +22,13 @@ class Patterns
 
     Modes mode;
 
-    unsigned long time1 = 5;
-    unsigned long time2 = 8;
-    unsigned long time3 = 0;
-    unsigned long time4 = 0;
-    unsigned long time5 = 250;
+    span time1 = 5;
+    span time2 = 8;
+    span time3 = 0;
+    span time4 = 0;
+    span time5 = 250;
 
-    bool on, on2, on3, on4;
-    byte frame = 0;
-    int gap;
-
-    byte dot = 0;
-    byte k = 0;
-    unsigned long mainClock, prevTime, duration, prevTime2, duration2, duration3, duration4;
-    unsigned long prevTime3, prevTime4;
-    int rep = 0;
-    int finger = 0;
-    int prevHue = 0;
+    span mainClock;
 
     int hue, sat, val;
 
@@ -44,7 +36,7 @@ class Patterns
     void refresh(Modes thisMode);
     CRGB getLed(int i);
 
-    void adjustValues(unsigned long v1, unsigned long v2, unsigned long v3, unsigned long v4, unsigned long v5);
+    void adjustValues(span v1, span v2, span v3, span v4, span v5);
 
   private:
     void getColor(int target);
@@ -56,34 +48,36 @@ class Patterns
     void clearLight(int lightNum);
     void clearLights(int first, int last);
 
-    void basicPattern(unsigned long onDuration, unsigned long offDuration = 0, unsigned long gapDuration = 0);
-    void dashDops(unsigned long dashDuration, unsigned long dotDuration, unsigned long offDuration);
-    void tracer(unsigned long dashDuration, unsigned long dotDuration);
-    void blendPattern(unsigned long onDuration, unsigned long offDuration);
-    void brackets(unsigned long onDuration, unsigned long edgeDuration = 0, unsigned long offDuration = 50);
-    void theaterChase(unsigned long onDuration, unsigned long offDuration, unsigned long flipDuration = 25, unsigned long fingerDuration = 125);
-    void zigZag(unsigned long onDuration, unsigned long offDuration, unsigned long zipDuration = 25);
-    void zipFade(unsigned long onDuration, unsigned long offDuration, unsigned long zipDuration, unsigned long fadeDuration);
-    void tipTop(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration2, unsigned long offDuration2);
-    void drip(unsigned long onDuration, unsigned long offDuration, unsigned long dripDuration = 250);
-    void dripMorph(unsigned long onDuration, unsigned long offDuration);
-    void crossDops(unsigned long onDuration, unsigned long offDuration, unsigned long flipDuration);
-    void doubleStrobe(unsigned long onDuration, unsigned long offDuration, unsigned long colorDuration);
-    void meteor(unsigned long onDuration, unsigned long offDuration, unsigned long meteorFrequency, unsigned int fadeAmount);
-    void sparkleTrace(unsigned long dotFrequency);
-    void vortexWipe(unsigned long onDuration, unsigned long offDuration, unsigned long warpDuration);
-    void warp(unsigned long onDuration, unsigned long offDuration, unsigned long warpDuration);
-    void warpWorm(unsigned long onDuraiton, unsigned long offDuration, unsigned long wormSpeed, unsigned int wormSize);
-    void snowBall(unsigned long onDuration, unsigned long offDuration, unsigned long wormSpeed, unsigned long wormSize);
-    void lighthouse(unsigned long onDuration, unsigned long offDuration, unsigned long fingerSpeed, unsigned long fadeAmount);
-    void pulsish(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration2, unsigned long offduration2, unsigned long fingerSpeed);
-    void fill(unsigned long onDuration, unsigned long offDuration, unsigned long fillSpeed);
-    void bounce(unsigned long onDuration, unsigned long offDuration, unsigned long bounceDuration);
-    void impact(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration2, unsigned long offDuration2,
-                unsigned long onDuration3, unsigned long offDuration3, unsigned long onDuration4, unsigned long offDuration4);
-    void rabbit(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration2, unsigned long offDuration2);
-    void splitStrobie(unsigned long onDuration, unsigned long offDuration, unsigned long onDuration2, unsigned long offDuration2, unsigned long switcDuration);
-    
+    void basicPattern(span onDuration, span offDuration = 0, span gapDuration = 0);
+    void dashDops(span dashDuration, span dotDuration, span offDuration);
+    void tracer(span dashDuration, span dotDuration);
+    void blendPattern(span onDuration, span offDuration);
+    void brackets(span onDuration, span edgeDuration = 0, span offDuration = 50);
+    void theaterChase(span onDuration, span offDuration, span flipDuration = 25, span fingerDuration = 125);
+    void zigZag(span onDuration, span offDuration, span zipDuration = 25);
+    void zipFade(span onDuration, span offDuration, span zipDuration, span fadeDuration);
+    void tipTop(span onDuration, span offDuration, span onDuration2, span offDuration2);
+    void drip(span onDuration, span offDuration, span dripDuration = 250);
+    void dripMorph(span onDuration, span offDuration);
+    void crossDops(span onDuration, span offDuration, span flipDuration);
+    void doubleStrobe(span onDuration, span offDuration, span colorDuration);
+    void meteor(span onDuration, span offDuration, span meteorSpawnDelay, unsigned int fadeAmount);
+    void sparkleTrace(span dotFrequency);
+    void vortexWipe(span onDuration, span offDuration, span warpDuration);
+    void warp(span onDuration, span offDuration, span warpDuration);
+    void warpWorm(span onDuraiton, span offDuration, span wormSpeed, unsigned int wormSize);
+    void snowBall(span onDuration, span offDuration, span wormSpeed, span wormSize);
+    void lighthouse(span onDuration, span offDuration, span fingerSpeed, span fadeAmount);
+    void pulsish(span onDuration, span offDuration, span onDuration2, span offduration2, span fingerSpeed);
+    void fill(span onDuration, span offDuration, span fillSpeed);
+    void bounce(span onDuration, span offDuration, span bounceDuration);
+    void impact(span onDuration, span offDuration, span onDuration2, span offDuration2,
+                span onDuration3, span offDuration3, span onDuration4, span offDuration4);
+    void rabbit(span onDuration, span offDuration, span onDuration2, span offDuration2);
+    void splitStrobie(span onDuration, span offDuration, span onDuration2, span offDuration2, span switcDuration);
+    void backstrobe(span onDuration, span offDuration, span onDuration2, span offDuration2, span switchDuration);
+    void flowers(span onDuration, span offDuration, span onDuration2, span offDuration2);
+    void jest(span onDuration, span offDuration, span gapDuration, span gapDuration2, unsigned int groupSize);
 };
 
 #endif

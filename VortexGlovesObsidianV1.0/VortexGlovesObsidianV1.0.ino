@@ -57,7 +57,7 @@ FlashStorage(saveData, Orbit);
 
 bool sharing = true, restore = false;
 bool dataStored = 0;
-bool on, on2, on3, on4;
+bool on;
 int m = 0;
 byte menu;
 byte stage = 0;
@@ -75,15 +75,12 @@ int targetVal;
 byte selectedVal;
 int targetList;
 bool buttonState, lastButtonState;
-unsigned long mainClock, prevTime, duration, prevTime2, duration2, duration3, duration4;
+unsigned long mainClock;
 int data1[8];
 int data2[8];
 int data3[8];
 bool received1, received2, received3;
-int finger = 0;
-int prevHue = 0;
 
-unsigned long prevTime3, prevTime4;
 unsigned long pressTime, prevPressTime, holdTime, prevHoldTime;
 
 const byte numChars = 128;
@@ -117,8 +114,6 @@ void setup() {
   setDefaults();
   loadSave();
   prevPressTime = 0;
-  prevTime = 0;
-  duration = 0;
   mode[m].menuNum = 0;
   Adafruit_DotStar strip = Adafruit_DotStar(1, 7, 8, DOTSTAR_BGR);
   strip.begin();
@@ -206,10 +201,12 @@ void clearAll() {
 }
 
 void blinkTarget(unsigned long blinkTime) {
+  static unsigned long previousClockTime;
+  
   mainClock = millis();
-  if (mainClock - prevTime > blinkTime) {
+  if (mainClock - previousClockTime > blinkTime) {
     on = !on;
-    prevTime = mainClock;
+    previousClockTime = mainClock;
   }
 }
 
@@ -515,9 +512,15 @@ void colorWheel(int layer) {
 }
 
 void patternSelect() {
+  static bool lightsOn;
+  static bool lightsOn2;
+  static unsigned long previousClockTime;
+  static unsigned long previousClockTime2;
+  static unsigned long timerDuration;
+  
   mainClock = millis();
   if (stage == 0) {
-    if (on2) {
+    if (lightsOn2) {
       for (int i = 0; i < 5; i++) {
         sat = 0;
         val = 255;
@@ -526,22 +529,22 @@ void patternSelect() {
         sat = 255;
         setLed(i * 2);
       }
-      duration = 3;
+      timerDuration = 3;
     }
-    if (!on2) {
+    if (!lightsOn2) {
       clearAll();
-      duration = 7;
+      timerDuration = 7;
     }
-    if (!on) {
+    if (!lightsOn) {
       leds[targetList * 2 + 1].setHSV(0, 0, 0);
     }
-    if (mainClock - prevTime > 25) {
-      on = !on;
-      prevTime = mainClock;
+    if (mainClock - previousClockTime > 25) {
+      lightsOn = !lightsOn;
+      previousClockTime = mainClock;
     }
-    if (mainClock - prevTime2 > duration) {
-      on2 = !on2;
-      prevTime2 = mainClock;
+    if (mainClock - previousClockTime2 > timerDuration) {
+      lightsOn2 = !lightsOn2;
+      previousClockTime2 = mainClock;
     }
   }
   if (stage == 1) {
@@ -643,14 +646,17 @@ void restoreDefaults() {
 }
 
 void confirmBlink() {
+  static unsigned long previousClockTime;
+  static int progress = 0;
+  
   mainClock = millis();
-  if (mainClock - prevTime > 50) {
-    if (frame == 0) clearAll();
-    if (frame == 1) sat = 0, val = 175, setLeds(0, 27);
-    if (frame == 2) clearAll();
-    if (frame == 3) frame = 0, mode[m].menuNum = 0;
-    frame++;
-    prevTime = mainClock;
+  if (mainClock - previousClockTime > 50) {
+    if (progress == 0) clearAll();
+    if (progress == 1) sat = 0, val = 175, setLeds(0, 27);
+    if (progress == 2) clearAll();
+    if (progress == 3) progress = 0, mode[m].menuNum = 0;
+    progress++;
+    previousClockTime = mainClock;
   }
 }
 
@@ -1012,18 +1018,22 @@ void saveAll() {
 //---------------------------------------------------------
 void shareMode() {
   //confirmBlink();
-  if (on) {
+  static bool lightsOn;
+  static unsigned long previousClockTime;
+  static unsigned long previousClockTime2;
+  
+  if (lightsOn) {
     for (int d = 0; d < 28; d++) leds[d].setHSV(128, 255, 100);
   }
-  if (!on) {
+  if (!lightsOn) {
     for (int d = 0; d < 28; d++) leds[d].setHSV(0, 0, 0);
   }
   mainClock = millis();
-  if (mainClock - prevTime > 20) {
-    on = !on;
-    prevTime = mainClock;
+  if (mainClock - previousClockTime > 20) {
+    lightsOn = !lightsOn;
+    previousClockTime = mainClock;
   }
-  if (mainClock - prevTime2 > 500) {
+  if (mainClock - previousClockTime2 > 500) {
     unsigned long shareBit;
     for (int s = 0; s < 8; s++) {
       Serial.print(mode[m].hue[s]);
@@ -1075,7 +1085,7 @@ void shareMode() {
                (unsigned long)3;
     Serial.println(shareBit, HEX);
     mySender.send(NEC, shareBit, 0);
-    prevTime2 = mainClock;
+    previousClockTime2 = mainClock;
   }
 }
 
@@ -1377,7 +1387,7 @@ void importValues(char input[]) {
 void setDefaults() {
   brightness = 255;
   demoSpeed = 2;
-  importMode("0, 36, 5, 0, 255, 255, 96, 255, 255, 160, 255, 255, 64, 255, 255, 192, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0");
+  importMode("0, 7, 5, 0, 255, 255, 96, 255, 255, 160, 255, 255, 64, 255, 255, 192, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0");
   importMode("1, 25, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
   importMode("2, 5, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
   importMode("3, 3, 2, 224, 255, 170, 192, 255, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
