@@ -122,19 +122,27 @@ void setup() {
   pattern.refresh(mode[m]);
 }
 
-void loop() {
-  menu = mode[m].menuNum;
-  if (menu == 0) playMode();
-  if (menu == 1) menuRing(0); //Button 1: Start Randomizer //Choose Colors //Choose Pattern //Share&Receive Mode
-  if (menu == 2) menuRing(1); //Button 2: Global Brightness //Demo Speed //Restore Defaults
-  if (menu == 3) colorSet();
-  if (menu == 4) patternSelect();
-  if (menu == 5) modeSharing();
-  if (menu == 6) chooseBrightness();
-  if (menu == 7) chooseDemoSpeed();
-  if (menu == 8) restoreDefaults();
-  if (menu == 9) confirmBlink();
+// typedef of a manu function pointer
+typedef void (*menu_func_t)(void);
 
+menu_func_t menu_routines[] = {
+    playMode,           // 0
+    menuRingZero,       // 1: Start Randomizer //Choose Colors //Choose Pattern //Share&Receive Mode
+    menuRingOne,        // 2: Global Brightness //Demo Speed //Restore Defaults
+    colorSet,           // 3
+    patternSelect,      // 4
+    modeSharing,        // 5
+    chooseBrightness,   // 6
+    chooseDemoSpeed,    // 7
+    restoreDefaults,    // 8
+    confirmBlink,       // 9
+};
+
+// the number of menus in above array
+#define NUM_MENUS (sizeof(menu_routines) / sizeof(menu_routines[0]))
+
+void loop() {
+  runMenus();
   checkButton();
   checkSerial();
   FastLED.setBrightness(brightness);
@@ -144,6 +152,22 @@ void loop() {
 }
 
 int hue, sat, val;
+
+void runMenus() {
+    menu = mode[m].menuNum;
+    // check for invalid menu, prevent crash
+    if (menu >= NUM_MENUS) {
+        return;
+    }
+    // lookup the menu function for the chosen menu
+    menu_func_t menu_func = menu_routines[menu];
+    // prevent crash, if we leave a menu slot NULL it can do nothing
+    if (!menu_func) {
+        return;
+    }
+    // run the menu func
+    menu_func();
+}
 
 void playMode() {
   mainClock = millis();
@@ -658,6 +682,14 @@ void confirmBlink() {
     progress++;
     previousClockTime = mainClock;
   }
+}
+
+void menuRingZero() {
+    menuRing(0);
+}
+
+void menuRingOne() {
+    menuRing(1);
 }
 
 void menuRing(int buttonNum) {
