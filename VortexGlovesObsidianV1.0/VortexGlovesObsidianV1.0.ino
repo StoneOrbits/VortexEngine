@@ -684,48 +684,54 @@ void confirmBlink() {
   }
 }
 
+struct menuCol {
+  int hue;
+  int sat;
+  int val;
+};
+
+// array of color values for menu ring zero
+menuCol ringZeroCols[] = {
+  // hue sat  val
+  { 0,   0,   110 },
+  { 20,  255, 110 },
+  { 160, 255, 110 },
+  { 60,  255, 110 },
+  { 0,   255, 110 },
+  { 120, 255, 110 },
+}
+
+// array of color values for menu ring one
+menuCol ringOneCols[] = {
+  // hue sat  val
+  { 60,  255, 110 },
+  { 190, 255, 110 },
+  { 0,   255, 110 },
+  // second half?
+}
+
 void menuRingZero() {
-    menuRing(0);
+  menuRing(ringZeroCols);
 }
 
 void menuRingOne() {
-    menuRing(1);
+  menuRing(ringOneCols);
 }
 
-void menuRing(int buttonNum) {
+void menuRing(menuCol *menuArray) {
+  if (!menuArray) {
+    return;
+  }
   clearAll();
-  int menuHue, menuSat;
-  if (menuSection == 0) {
-    if (buttonNum == 0) menuHue = 0, menuSat = 0;
-    if (buttonNum == 1) menuHue = 60, menuSat = 255;
-  }
-  if (menuSection == 1) {
-    if (buttonNum == 0) menuHue = 20, menuSat = 255;
-    if (buttonNum == 1) menuHue = 190, menuSat = 255;
-  }
-  if (menuSection == 2) {
-    if (buttonNum == 0) menuHue = 160, menuSat = 255;
-    if (buttonNum == 1) menuHue = 0, menuSat = 255;
-  }
-  if (menuSection == 3) {
-    if (buttonNum == 0) menuHue = 60, menuSat = 255;
-  }
-  if (menuSection == 4) {
-    if (buttonNum == 0) menuHue = 0, menuSat = 255;
-  }
-  if (menuSection == 5) {
-    if (buttonNum == 0) menuHue = 120, menuSat = 255;
-  }
-  hue = menuHue;
-  sat = menuSat;
-  val = 110;
+  hue = menuArray[menuSection].hue;
+  sat = menuArray[menuSection].sat;
+  val = menuArray[menuSection].val;
   for (int finger = 0; finger < 5; finger++) {
     if (button[buttonNum].holdTime > 1000 + 1000 * menuSection) setLeds(0, 1);
     if (button[buttonNum].holdTime > 1200 + 1000 * menuSection) setLeds(2, 3);
     if (button[buttonNum].holdTime > 1400 + 1000 * menuSection) setLeds(4, 5);
     if (button[buttonNum].holdTime > 1600 + 1000 * menuSection) setLeds(6, 7);
     if (button[buttonNum].holdTime > 1800 + 1000 * menuSection) setLeds(8, 9);
-
   }
 }
 
