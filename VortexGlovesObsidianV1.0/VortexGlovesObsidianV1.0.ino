@@ -684,29 +684,34 @@ void confirmBlink() {
   }
 }
 
-struct menuCol {
-  int hue;
-  int sat;
-  int val;
+struct HSVCol {
+  uint8_t hue;
+  uint8_t sat;
+  uint8_t val;
 };
 
+#define HSV_WHITE   { 0,   0,   110 }
+#define HSV_ORANGE  { 20,  255, 110 }
+#define HSV_BLUE    { 160, 255, 110 }
+#define HSV_YELLOW  { 60,  255, 110 }
+#define HSV_RED     { 0,   255, 110 }
+#define HSV_TEAL    { 120, 255, 110 }
+
 // array of color values for menu ring zero
-menuCol ringZeroCols[] = {
-  // hue sat  val
-  { 0,   0,   110 },
-  { 20,  255, 110 },
-  { 160, 255, 110 },
-  { 60,  255, 110 },
-  { 0,   255, 110 },
-  { 120, 255, 110 },
+HSVCol ringZeroCols[] = {
+  HSV_WHITE,
+  HSV_ORANGE,
+  HSV_BLUE,
+  HSV_YELLOW,
+  HSV_RED,
+  HSV_TEAL,
 }
 
 // array of color values for menu ring one
-menuCol ringOneCols[] = {
-  // hue sat  val
-  { 60,  255, 110 },
-  { 190, 255, 110 },
-  { 0,   255, 110 },
+HSVCol ringOneCols[] = {
+  HSV_YELLOW,
+  HSV_PURPLE,
+  HSV_RED,
   // second half?
 }
 
@@ -718,21 +723,31 @@ void menuRingOne() {
   menuRing(ringOneCols);
 }
 
-void menuRing(menuCol *menuArray) {
-  if (!menuArray) {
+void menuRing(const HSVCol *menuColors) {
+  if (!menuColors) {
     return;
   }
   clearAll();
-  hue = menuArray[menuSection].hue;
-  sat = menuArray[menuSection].sat;
-  val = menuArray[menuSection].val;
-  for (int finger = 0; finger < 5; finger++) {
-    if (button[buttonNum].holdTime > 1000 + 1000 * menuSection) setLeds(0, 1);
-    if (button[buttonNum].holdTime > 1200 + 1000 * menuSection) setLeds(2, 3);
-    if (button[buttonNum].holdTime > 1400 + 1000 * menuSection) setLeds(4, 5);
-    if (button[buttonNum].holdTime > 1600 + 1000 * menuSection) setLeds(6, 7);
-    if (button[buttonNum].holdTime > 1800 + 1000 * menuSection) setLeds(8, 9);
+  // the threshold for how long to hold to activate the menu
+  int threshold = 1000 + (1000 * menuSection);
+  if (button.holdTime < threshold) {
+    return;
   }
+  // the amount of time held past the threshold
+  int holdTime = (button.holdTime - threshold);
+  // the leds turn on in sequence every 100ms another turns on:
+  //  000ms = led 0 to 0
+  //  100ms = led 0 to 1
+  //  200ms = led 0 to 2
+  int led = holdTime / 100;
+  // only try to turn on 10 leds (0 through 9)
+  if (led > 9) led = 9;
+  // set the hsv based on the menu section
+  hue = menuColors[menuSection].hue;
+  sat = menuColors[menuSection].sat;
+  val = menuColors[menuSection].val;
+  // turn on leds 0 through led
+  setLeds(0, led);
 }
 
 //Buttons
