@@ -1,20 +1,23 @@
-#ifndef Buttons_h
-#define Buttons_h
+#ifndef BUTTON_H
+#define BUTTON_H
 
 #include "Arduino.h"
 
 
-class Buttons {
-
+class Button 
+{
   public:
-    Buttons();
+    Button();
+
+    void init(int pin);
+
     int pinNum;
-    int buttonState, lastButtonState;
-    unsigned long pressTime, prevPressTime, holdTime, prevHoldTime;
-    void createButton(int pin);
-  
-  private:
-  
+    int buttonState;
+    int lastButtonState;
+    unsigned long pressTime;
+    unsigned long prevPressTime;
+    unsigned long holdTime;
+    unsigned long prevHoldTime;
 };
 
 #endif

@@ -1,9 +1,11 @@
-#include "Buttons.h"
+#include "Button.h"
 
-Buttons::Buttons() {
+Button::Button() 
+{
 }
 
-void Buttons::createButton(int pin){
+void Button::init(int pin)
+{
   pinNum = pin;
   pinMode(pinNum, INPUT_PULLUP);
 }
