@@ -14,6 +14,13 @@
 
 #include <IRLibRecv.h>
 
+#define HSV_WHITE   { 0,   0,   110 }
+#define HSV_ORANGE  { 20,  255, 110 }
+#define HSV_BLUE    { 160, 255, 110 }
+#define HSV_YELLOW  { 60,  255, 110 }
+#define HSV_RED     { 0,   255, 110 }
+#define HSV_TEAL    { 120, 255, 110 }
+#define HSV_PURPLE  { 120, 255, 110 }
 
 #define NUM_LEDS 28
 #define DATA_PIN 4
@@ -40,7 +47,7 @@ IRdecode myDecoder;
 IRrecv myReceiver(2);
 IRsend mySender;
 
-typedef struct Orbit {
+struct Orbit {
   bool dataIsStored;
   uint8_t sHue[totalModes][8];
   uint8_t sSat[totalModes][8];
@@ -51,6 +58,13 @@ typedef struct Orbit {
   uint8_t demoSpeed;
 };
 FlashStorage(saveData, Orbit);
+
+typedef struct HSVColor {
+  uint8_t hue;
+  uint8_t sat;
+  uint8_t val;
+} HSVColor;
+
 
 //Variable
 //---------------------------------------------------------
@@ -125,6 +139,18 @@ void setup() {
 // typedef of a manu function pointer
 typedef void (*menu_func_t)(void);
 
+// have to list prototypes first, this will be fixed once everything is refactored
+void playMode();
+void menuRingZero();
+void menuRingOne();
+void colorSet();
+void patternSelect();
+void modeSharing();
+void chooseBrightness();
+void chooseDemoSpeed();
+void restoreDefaults();
+void confirmBlink();
+
 menu_func_t menu_routines[] = {
     playMode,           // 0
     menuRingZero,       // 1: Start Randomizer //Choose Colors //Choose Pattern //Share&Receive Mode
@@ -140,6 +166,9 @@ menu_func_t menu_routines[] = {
 
 // the number of menus in above array
 #define NUM_MENUS (sizeof(menu_routines) / sizeof(menu_routines[0]))
+
+void checkButton();
+void checkSerial();
 
 void loop() {
   runMenus();
@@ -684,36 +713,23 @@ void confirmBlink() {
   }
 }
 
-struct HSVCol {
-  uint8_t hue;
-  uint8_t sat;
-  uint8_t val;
-};
-
-#define HSV_WHITE   { 0,   0,   110 }
-#define HSV_ORANGE  { 20,  255, 110 }
-#define HSV_BLUE    { 160, 255, 110 }
-#define HSV_YELLOW  { 60,  255, 110 }
-#define HSV_RED     { 0,   255, 110 }
-#define HSV_TEAL    { 120, 255, 110 }
-
 // array of color values for menu ring zero
-HSVCol ringZeroCols[] = {
+HSVColor ringZeroCols[] = {
   HSV_WHITE,
   HSV_ORANGE,
   HSV_BLUE,
   HSV_YELLOW,
   HSV_RED,
   HSV_TEAL,
-}
+};
 
 // array of color values for menu ring one
-HSVCol ringOneCols[] = {
+HSVColor ringOneCols[] = {
   HSV_YELLOW,
   HSV_PURPLE,
   HSV_RED,
   // second half?
-}
+};
 
 void menuRingZero() {
   menuRing(ringZeroCols);
@@ -723,18 +739,18 @@ void menuRingOne() {
   menuRing(ringOneCols);
 }
 
-void menuRing(const HSVCol *menuColors) {
+void menuRing(const HSVColor *menuColors) {
   if (!menuColors) {
     return;
   }
   clearAll();
   // the threshold for how long to hold to activate the menu
   int threshold = 1000 + (1000 * menuSection);
-  if (button.holdTime < threshold) {
+  if (button[0].holdTime < threshold) {
     return;
   }
   // the amount of time held past the threshold
-  int holdTime = (button.holdTime - threshold);
+  int holdTime = (button[0].holdTime - threshold);
   // the leds turn on in sequence every 100ms another turns on:
   //  000ms = led 0 to 0
   //  100ms = led 0 to 1
