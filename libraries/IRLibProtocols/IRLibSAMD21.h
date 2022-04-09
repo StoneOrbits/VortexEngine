@@ -186,6 +186,10 @@ extern Tcc* IR_TCCx;
 #define IR_RECV_CONFIG_TICKS() initializeSAMD21timerInterrupt()
 
 //Clear interrupt
+#ifdef IR_CLEAR_INTERRUPT
+// prevent annoying warnings about redefining stuff
+#undef IR_CLEAR_INTERRUPT
+#endif
 #define IR_CLEAR_INTERRUPT 	IR_TCx->COUNT16.INTFLAG.bit.MC0 = 1;
 
 //prototypes
