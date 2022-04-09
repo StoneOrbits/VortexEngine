@@ -1415,7 +1415,7 @@ void importData() {
 
 // Comma separated list of 27 numbers (3 settings + 3 * 8 colors):
 // Mode Num, Pattern Num, Num Colors, Color1 H, Color1 S, Color1 V, Color2 H..... Color8 V
-void importMode(char input[]) {
+void importMode(const char input[]) {
   char* strtokIndx;
   strcpy(tempChars, input);
   strtokIndx = strtok(tempChars, ",");
@@ -1434,7 +1434,7 @@ void importMode(char input[]) {
   }
 }
 
-void importValues(char input[]) {
+void importValues(const char input[]) {
   char* strtokIndx;
   strcpy (tempChars, input);
   strtokIndx = strtok (tempChars, ",");
