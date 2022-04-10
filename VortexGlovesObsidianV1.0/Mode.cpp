@@ -1,17 +1,20 @@
-#include "Modes.h"
+#include "Mode.h"
 
-Modes::Modes() {
+Mode::Mode()
+{
 
 }
 
-void Modes::saveColor(int slot, int thisHue, int thisSat, int thisVal) {
+void Mode::saveColor(int slot, int thisHue, int thisSat, int thisVal)
+{
   if (slot == numColors)numColors++;
   hue[slot] = thisHue;
   sat[slot] = thisSat;
   val[slot] = thisVal;
 }
 
-void Modes::printMode(int num) {
+void Mode::printMode(int num)
+{
   Serial.print("Mode "), Serial.println(num);
   for (int slot = 0; slot < numColors; slot ++) {
     Serial.print(hue[slot]), Serial.print(" ");

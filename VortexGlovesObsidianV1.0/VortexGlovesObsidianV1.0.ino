@@ -12,7 +12,7 @@
 
 #include "Patterns.h"
 #include "Button.h"
-#include "Modes.h"
+#include "Mode.h"
 
 #define HSV_WHITE   { 0,   0,   110 }
 #define HSV_ORANGE  { 20,  255, 110 }
@@ -26,15 +26,15 @@
 #define DATA_PIN 4
 #define CLOCK_PIN 3
 
-#define totalModes 14 // How many modes the vortex cycles through
-#define totalPatterns 40 // How many possible patterns there are
+#define TOTAL_MODES 14 // How many modes the vortex cycles through
+#define TOTAL_PATTERNS 40 // How many possible patterns there are
 
 //Objects
 //---------------------------------------------------------
 
 
 CRGB leds[NUM_LEDS];
-Modes mode[totalModes];
+Mode modes[TOTAL_MODES];
 
 // There is one button on the vortex gloves
 Button button;
@@ -51,11 +51,11 @@ IRsend mySender;
 
 struct Orbit {
   bool dataIsStored;
-  uint8_t sHue[totalModes][8];
-  uint8_t sSat[totalModes][8];
-  uint8_t sVal[totalModes][8];
-  uint8_t sNumColors[totalModes];
-  uint8_t sPatternNum[totalModes];
+  uint8_t sHue[TOTAL_MODES][8];
+  uint8_t sSat[TOTAL_MODES][8];
+  uint8_t sVal[TOTAL_MODES][8];
+  uint8_t sNumColors[TOTAL_MODES];
+  uint8_t sPatternNum[TOTAL_MODES];
   uint8_t brightness;
   uint8_t demoSpeed;
 };
@@ -126,12 +126,12 @@ void setup() {
   setDefaults();
   loadSave();
   prevPressTime = 0;
-  mode[m].menuNum = 0;
+  modes[m].menuNum = 0;
   Adafruit_DotStar strip = Adafruit_DotStar(1, 7, 8, DOTSTAR_BGR);
   strip.begin();
   strip.show();
 
-  pattern.refresh(mode[m]);
+  pattern.refresh(modes[m]);
 }
 
 // typedef of a manu function pointer
@@ -181,7 +181,7 @@ void loop() {
 int hue, sat, val;
 
 void runMenus() {
-    menu = mode[m].menuNum;
+    menu = modes[m].menuNum;
     // check for invalid menu, prevent crash
     if (menu >= NUM_MENUS) {
         return;
@@ -199,7 +199,7 @@ void runMenus() {
 void playMode() {
   if (demoMode) runDemo();
 
-  //  patterns(mode[m].patternNum);
+  //  patterns(modes[m].patternNum);
 
   pattern.playPattern();
   displayPatternResult();
@@ -234,9 +234,9 @@ void displayPatternResult() {
 }
 
 void getColor(int target) {
-  hue = mode[m].hue[target];
-  sat = mode[m].sat[target];
-  val = mode[m].val[target];
+  hue = modes[m].hue[target];
+  sat = modes[m].sat[target];
+  val = modes[m].val[target];
 }
 
 void setLed(int target) {
@@ -268,81 +268,81 @@ void rollColors() {
   int type = random(0, 10);
   //true random, monochrome, complimentary, analogous, triadic, split complimentary, tetradic
   if (type == 0) { // true random
-    mode[m].numColors = random(1, 8);
+    modes[m].numColors = random(1, 8);
     for (int r = 0; r < 8; r ++) {
-      mode[m].hue[r] = random(0, 16) * 16;
-      mode[m].sat[r] = random(0, 4) * 85;
-      mode[m].val[r] = random(1, 4) * 85;
+      modes[m].hue[r] = random(0, 16) * 16;
+      modes[m].sat[r] = random(0, 4) * 85;
+      modes[m].val[r] = random(1, 4) * 85;
     }
   }
   if (type == 1) { // monochrome
-    mode[m].numColors = 4;
+    modes[m].numColors = 4;
     int tempHue = random(0, 16) * 16;
     for (int r = 0; r < 4; r++) {
-      mode[m].hue[r] = tempHue;
-      mode[m].sat[r] = r * 85;
-      mode[m].val[r] = random(1, 4) * 85;
+      modes[m].hue[r] = tempHue;
+      modes[m].sat[r] = r * 85;
+      modes[m].val[r] = random(1, 4) * 85;
     }
   }
   if (type == 2) { // complimentary
-    mode[m].numColors = 2;
+    modes[m].numColors = 2;
     int tempHue = random(0, 16) * 16;
     int compHue = tempHue + 128;
     if (compHue >= 255) compHue -= 256;
-    mode[m].hue[0] = tempHue;
-    mode[m].hue[1] = compHue;
+    modes[m].hue[0] = tempHue;
+    modes[m].hue[1] = compHue;
     for (int r = 0; r < 2; r++) {
-      mode[m].sat[r] = 255;
-      mode[m].val[r] = random(1, 4) * 85;
+      modes[m].sat[r] = 255;
+      modes[m].val[r] = random(1, 4) * 85;
     }
   }
   if (type == 3) { // analogous
-    mode[m].numColors = 3;
+    modes[m].numColors = 3;
     int tempHue = random(0, 16) * 16;
     int analHue1 = tempHue - 16;
     if (analHue1 < 0) analHue1 += 256;
     int analHue2 = tempHue + 16;
     if (analHue2 > 255) analHue2 -= 256;
-    mode[m].hue[0] = tempHue;
-    mode[m].hue[1] = analHue1;
-    mode[m].hue[2] = analHue2;
+    modes[m].hue[0] = tempHue;
+    modes[m].hue[1] = analHue1;
+    modes[m].hue[2] = analHue2;
     for (int r = 0; r < 3; r++) {
-      mode[m].sat[r] = 255;
-      mode[m].val[r] = random(1, 4) * 85;
+      modes[m].sat[r] = 255;
+      modes[m].val[r] = random(1, 4) * 85;
     }
   }
   if (type == 4) { // triadic
-    mode[m].numColors = 3;
+    modes[m].numColors = 3;
     int tempHue = random(0, 16) * 16;
     int triadHue1 = tempHue + 80;
     int triadHue2 = tempHue - 80;
     if (triadHue1 > 255) triadHue1 -= 256;
     if (triadHue2 < 0) triadHue2 += 256;
-    mode[m].hue[0] = tempHue;
-    mode[m].hue[1] = triadHue1;
-    mode[m].hue[2] = triadHue2;
+    modes[m].hue[0] = tempHue;
+    modes[m].hue[1] = triadHue1;
+    modes[m].hue[2] = triadHue2;
     for (int r = 0; r < 3; r++) {
-      mode[m].sat[r] = 255;
-      mode[m].val[r] = random(1, 4) * 85;
+      modes[m].sat[r] = 255;
+      modes[m].val[r] = random(1, 4) * 85;
     }
   }
   if (type == 5) { // split complimentary
-    mode[m].numColors = 3;
+    modes[m].numColors = 3;
     int tempHue = random(0, 16) * 16;
     int splitCompHue1 = tempHue + 112;
     int splitCompHue2 = tempHue - 112;
     if (splitCompHue1 > 255) splitCompHue1 -= 256;
     if (splitCompHue2 < 0) splitCompHue2 += 256;
-    mode[m].hue[0] = tempHue;
-    mode[m].hue[1] = splitCompHue1;
-    mode[m].hue[2] = splitCompHue2;
+    modes[m].hue[0] = tempHue;
+    modes[m].hue[1] = splitCompHue1;
+    modes[m].hue[2] = splitCompHue2;
     for (int r = 0; r < 3; r++) {
-      mode[m].sat[r] = 255;
-      mode[m].val[r] = random(1, 4) * 85;
+      modes[m].sat[r] = 255;
+      modes[m].val[r] = random(1, 4) * 85;
     }
   }
   if (type == 6) { // tetradic
-    mode[m].numColors = 4;
+    modes[m].numColors = 4;
     int tempHue = random(0, 16) * 16;
     int tetradHue1 = tempHue + 48;
     int tetradHue2 = tempHue + 128;
@@ -350,17 +350,17 @@ void rollColors() {
     if (tetradHue1 > 255) tetradHue1 -= 256;
     if (tetradHue2 > 255) tetradHue2 -= 256;
     if (tetradHue3 > 255) tetradHue3 -= 256;
-    mode[m].hue[0] = tempHue;
-    mode[m].hue[1] = tetradHue1;
-    mode[m].hue[2] = tetradHue2;
-    mode[m].hue[3] = tetradHue3;
+    modes[m].hue[0] = tempHue;
+    modes[m].hue[1] = tetradHue1;
+    modes[m].hue[2] = tetradHue2;
+    modes[m].hue[3] = tetradHue3;
     for (int r = 0; r < 4; r++) {
-      mode[m].sat[r] = 255;
-      mode[m].val[r] = random(1, 4) * 85;
+      modes[m].sat[r] = 255;
+      modes[m].val[r] = random(1, 4) * 85;
     }
   }
   if (type == 7) { // square
-    mode[m].numColors = 4;
+    modes[m].numColors = 4;
     int tempHue = random(0, 16) * 16;
     int tetradHue1 = tempHue + 64;
     int tetradHue2 = tempHue + 128;
@@ -369,68 +369,68 @@ void rollColors() {
     if (tetradHue2 > 255) tetradHue2 -= 256;
     if (tetradHue3 > 255) tetradHue2 -= 256;
     for (int r = 0; r < 4; r++) {
-      mode[m].sat[r] = 255;
-      mode[m].val[r] = random(1, 4) * 85;
+      modes[m].sat[r] = 255;
+      modes[m].val[r] = random(1, 4) * 85;
     }
   }
   if (type == 8) { // full rainbow
-    mode[m].numColors = 8;
+    modes[m].numColors = 8;
     for (int r = 0; r < 8; r++) {
-      mode[m].hue[r] = r * 32;
-      mode[m].sat[r] = 255;
-      mode[m].val[r] = random(1, 4) * 85;
+      modes[m].hue[r] = r * 32;
+      modes[m].sat[r] = 255;
+      modes[m].val[r] = random(1, 4) * 85;
     }
     bool reroll = random(0, 2);
     if (reroll == 1) rollColors();
   }
   if (type == 9) { // Solid
-    mode[m].numColors = 1;
-    mode[m].hue[0] = random(0, 16) * 16;
-    mode[m].sat[0] = random(0, 4) * 85;
-    mode[m].val[0] = random(1, 4) * 85;
+    modes[m].numColors = 1;
+    modes[m].hue[0] = random(0, 16) * 16;
+    modes[m].sat[0] = random(0, 4) * 85;
+    modes[m].val[0] = random(1, 4) * 85;
   }
-  if (mode[m].patternNum == 6 && mode[m].numColors < 3) rollColors();
+  if (modes[m].patternNum == 6 && modes[m].numColors < 3) rollColors();
 
   int blank = random(0, 4); // randomly chooses to add blanks to colorset
   if (blank == 0) {
     int blankType = 0;
-    if (mode[m].numColors == 8) mode[m].val[0] = random(1, 2) * 85;// Dim first color
-    if (mode[m].numColors >= 1 && mode[m].numColors <= 7) blankType = 1;
-    if (mode[m].numColors >= 2 && mode[m].numColors <= 6) {
-      if (mode[m].numColors % 2 == 0) blankType = random (1, 3);
+    if (modes[m].numColors == 8) modes[m].val[0] = random(1, 2) * 85;// Dim first color
+    if (modes[m].numColors >= 1 && modes[m].numColors <= 7) blankType = 1;
+    if (modes[m].numColors >= 2 && modes[m].numColors <= 6) {
+      if (modes[m].numColors % 2 == 0) blankType = random (1, 3);
     }
-    if (mode[m].patternNum == 6) blankType = 0;
+    if (modes[m].patternNum == 6) blankType = 0;
 
     if (blankType == 1) { // Blank at beginning
-      for (int c = 0; c < mode[m].numColors; c++) {
-        mode[m].hue[mode[m].numColors - c] = mode[m].hue[mode[m].numColors - (1 + c)];
-        mode[m].sat[mode[m].numColors - c] = mode[m].sat[mode[m].numColors - (1 + c)];
-        mode[m].val[mode[m].numColors - c] = mode[m].val[mode[m].numColors - (1 + c)];
+      for (int c = 0; c < modes[m].numColors; c++) {
+        modes[m].hue[modes[m].numColors - c] = modes[m].hue[modes[m].numColors - (1 + c)];
+        modes[m].sat[modes[m].numColors - c] = modes[m].sat[modes[m].numColors - (1 + c)];
+        modes[m].val[modes[m].numColors - c] = modes[m].val[modes[m].numColors - (1 + c)];
       }
-      mode[m].val[0] = 0;
-      mode[m].numColors += 1;
+      modes[m].val[0] = 0;
+      modes[m].numColors += 1;
     }
     if (blankType == 2) { // Blank at middle and beginning
-      for (int c = 0; c < (mode[m].numColors / 2 + 1 ); c++) {
-        mode[m].hue[mode[m].numColors - c] = mode[m].hue[mode[m].numColors - (1 + c)];
-        mode[m].sat[mode[m].numColors - c] = mode[m].sat[mode[m].numColors - (1 + c)];
-        mode[m].val[mode[m].numColors - c] = mode[m].val[mode[m].numColors - (1 + c)];
+      for (int c = 0; c < (modes[m].numColors / 2 + 1 ); c++) {
+        modes[m].hue[modes[m].numColors - c] = modes[m].hue[modes[m].numColors - (1 + c)];
+        modes[m].sat[modes[m].numColors - c] = modes[m].sat[modes[m].numColors - (1 + c)];
+        modes[m].val[modes[m].numColors - c] = modes[m].val[modes[m].numColors - (1 + c)];
       }
-      mode[m].val[mode[m].numColors / 2] = 0;
-      mode[m].numColors += 1;
-      for (int c = 0; c < mode[m].numColors; c++) {
-        mode[m].hue[mode[m].numColors - c] = mode[m].hue[mode[m].numColors - (1 + c)];
-        mode[m].sat[mode[m].numColors - c] = mode[m].sat[mode[m].numColors - (1 + c)];
-        mode[m].val[mode[m].numColors - c] = mode[m].val[mode[m].numColors - (1 + c)];
+      modes[m].val[modes[m].numColors / 2] = 0;
+      modes[m].numColors += 1;
+      for (int c = 0; c < modes[m].numColors; c++) {
+        modes[m].hue[modes[m].numColors - c] = modes[m].hue[modes[m].numColors - (1 + c)];
+        modes[m].sat[modes[m].numColors - c] = modes[m].sat[modes[m].numColors - (1 + c)];
+        modes[m].val[modes[m].numColors - c] = modes[m].val[modes[m].numColors - (1 + c)];
       }
-      mode[m].val[0] = 0;
-      mode[m].numColors += 1;
+      modes[m].val[0] = 0;
+      modes[m].numColors += 1;
     }
   }
 }
 
 void rollPattern() {
-  mode[m].patternNum = random(0, totalPatterns);
+  modes[m].patternNum = random(0, TOTAL_PATTERNS);
 }
 
 //Menus and settings
@@ -438,7 +438,7 @@ void rollPattern() {
 
 void colorSet() {
   if (stage == 0) {
-    int numColors = mode[m].numColors;            // get total colors
+    int numColors = modes[m].numColors;            // get total colors
     clearAll();                                   // clear leds
     hue = 0, sat = 0, val = 40;                   // get "blank" slot color
     setLeds(2, 10);                               // set finger slots
@@ -464,7 +464,7 @@ void colorSet() {
     if (targetSlot < numColors) {                               // if target slot is less than total colors
       if (on) {                                                 //
         val = 0;                                                //
-        if (mode[m].val[targetSlot] == 0) sat = 0, val = 40;    // special condition for blank slot
+        if (modes[m].val[targetSlot] == 0) sat = 0, val = 40;    // special condition for blank slot
         if (targetSlot < 4) setLed(2 + targetSlot * 2);         // set first 4 colors
         if (targetSlot >= 4) setLed(2 + (targetSlot - 4) * 2);  // set next 4 colors
       }
@@ -704,7 +704,7 @@ void confirmBlink() {
     if (progress == 0) clearAll();
     if (progress == 1) sat = 0, val = 175, setLeds(0, 27);
     if (progress == 2) clearAll();
-    if (progress == 3) progress = 0, mode[m].menuNum = 0;
+    if (progress == 3) progress = 0, modes[m].menuNum = 0;
     progress++;
     previousClockTime = mainClock;
   }
@@ -777,51 +777,51 @@ void checkButton() {
   if (button.holdTime > 50) {
     //---------------------------------------Button Down-----------------------------------------------------
     if (button.buttonState == LOW && button.holdTime > button.prevHoldTime) {
-      if (button.holdTime > 1000 && button.holdTime <= 2000 && menu == 0 && !demoMode) mode[m].menuNum = 1, menuSection = 0;
+      if (button.holdTime > 1000 && button.holdTime <= 2000 && menu == 0 && !demoMode) modes[m].menuNum = 1, menuSection = 0;
       if (button.holdTime > 2000 && button.holdTime <= 3000 && menuSection == 0) menuSection = 1;
       if (button.holdTime > 3000 && button.holdTime <= 4000 && menuSection == 1) menuSection = 2;
       if (button.holdTime > 4000 && button.holdTime <= 5000 && menuSection == 2) menuSection = 3;
       if (button.holdTime > 5000 && button.holdTime <= 6000 && menuSection == 3) menuSection = 4;
       if (button.holdTime > 6000 && button.holdTime <= 7000 && menuSection == 4) menuSection = 5;
-      if (button.holdTime > 7000 && menuSection == 5) mode[m].menuNum = 5;
+      if (button.holdTime > 7000 && menuSection == 5) modes[m].menuNum = 5;
     }//======================================================================================================
     // ---------------------------------------Button Up------------------------------------------------------
     if (button.buttonState == HIGH && button.lastButtonState == LOW && millis() - button.prevPressTime > 150) {
       if (menu == 0 && !demoMode) {
         if (button.holdTime <= 300) {
           m++, frame = 0, clearAll(); //, throwMode();
-          if (m > totalModes - 1)m = 0;
-          pattern.refresh(mode[m]);
+          if (m > TOTAL_MODES - 1)m = 0;
+          pattern.refresh(modes[m]);
         }
         if (button.holdTime > 300 && Serial) exportSettings();
       }
       // press in demo mode
       if (menu == 0 && demoMode) {
         if (button.holdTime <= 3000) {
-          saveAll(), frame = 0, mode[m].currentColor = 0;
-          pattern.refresh(mode[m]);
-          mode[m].menuNum = 9;
+          saveAll(), frame = 0, modes[m].currentColor = 0;
+          pattern.refresh(modes[m]);
+          modes[m].menuNum = 9;
           demoMode = false;
         }
       }
       if (menu == 1) {
         if (button.holdTime > 1000 && button.holdTime <= 2000) {
-          demoMode = true, frame = 0, mode[m].menuNum = 0, demoTime = millis(), tempSave(), rollColors();
+          demoMode = true, frame = 0, modes[m].menuNum = 0, demoTime = millis(), tempSave(), rollColors();
         }
         if (button.holdTime > 2000 && button.holdTime <= 3000) {
-          mode[m].menuNum = 3, targetSlot = 0, stage = 0;
+          modes[m].menuNum = 3, targetSlot = 0, stage = 0;
         }
         if (button.holdTime > 3000 && button.holdTime <= 4000) {
-          mode[m].menuNum = 4, mode[m].currentColor = 0, mode[m].nextColor = 1, stage = 0;
+          modes[m].menuNum = 4, modes[m].currentColor = 0, modes[m].nextColor = 1, stage = 0;
         }
         if (button.holdTime > 4000 && button.holdTime <= 5000) {
-          mode[m].menuNum = 6, mode[m].currentColor = 0, mode[m].nextColor = 1;
+          modes[m].menuNum = 6, modes[m].currentColor = 0, modes[m].nextColor = 1;
         }
         if (button.holdTime > 5000 && button.holdTime <= 6000) {
-          mode[m].menuNum = 8, mode[m].currentColor = 0, mode[m].nextColor = 1;
+          modes[m].menuNum = 8, modes[m].currentColor = 0, modes[m].nextColor = 1;
         }
         if (button.holdTime > 6000) {
-          mode[m].menuNum = 5;
+          modes[m].menuNum = 5;
         }
       }
       if (menu == 2) {
@@ -842,13 +842,13 @@ void checkButton() {
         }
         if (button.holdTime > 300 && button.holdTime < 3000) {
           if (stage == 0) {
-            int setSize = mode[m].numColors;
+            int setSize = modes[m].numColors;
             if (targetSlot < setSize) stage = 1, currentSlot = targetSlot; //choose slot
-            if (targetSlot == setSize && mode[m].numColors > 1)targetSlot--, mode[m].numColors--; // delete slot
+            if (targetSlot == setSize && modes[m].numColors > 1)targetSlot--, modes[m].numColors--; // delete slot
             if (targetSlot == setSize + 1 && setSize < 8)stage = 1, currentSlot = setSize;  //add slot
             if (targetSlot == setSize + 2 || (targetSlot == setSize + 1 && setSize == 8)) {
-              mode[m].currentColor = 0, saveAll(), mode[m].menuNum = 0;
-              pattern.refresh(mode[m]);
+              modes[m].currentColor = 0, saveAll(), modes[m].menuNum = 0;
+              pattern.refresh(modes[m]);
             }
           }
           else if (stage == 1) stage = 2, colorZone = targetZone;
@@ -857,7 +857,7 @@ void checkButton() {
           else if (stage == 4) {
             selectedVal = 255 - (85 * targetVal);
             if (targetVal == 2) selectedVal = 120;
-            mode[m].saveColor(currentSlot, selectedHue, selectedSat, selectedVal);
+            modes[m].saveColor(currentSlot, selectedHue, selectedSat, selectedVal);
             stage = 0;
           }
         }
@@ -868,7 +868,7 @@ void checkButton() {
             targetList++;
           }
           if (stage == 1) {
-            patNum++, frame = 0, mode[m].currentColor = 0, mode[m].nextColor = 1;
+            patNum++, frame = 0, modes[m].currentColor = 0, modes[m].nextColor = 1;
           }
         }
         if (button.holdTime > 300 && button.holdTime < 3000) {
@@ -881,23 +881,23 @@ void checkButton() {
             if (targetList == 4) stage = 0;
           }
           else if (stage == 1) {
-            mode[m].menuNum = 9;
-            mode[m].patternNum = patNum, saveAll(), frame = 0;//confirm selection
-            pattern.refresh(mode[m]);
+            modes[m].menuNum = 9;
+            modes[m].patternNum = patNum, saveAll(), frame = 0;//confirm selection
+            pattern.refresh(modes[m]);
             stage = 0;
           }
         }
       }
       if (menu == 5) {
         if (button.holdTime <= 500) sharing = !sharing;
-        if (button.holdTime > 500 && button.holdTime < 3000) sharing = true, mode[m].menuNum = 9;
+        if (button.holdTime > 500 && button.holdTime < 3000) sharing = true, modes[m].menuNum = 9;
       }
       if (menu == 6) {
         if (button.holdTime <= 300) {
           brightVal++;
         }
         if (button.holdTime > 300 && button.holdTime < 3000) {
-          mode[m].menuNum = 9;
+          modes[m].menuNum = 9;
           if (brightVal == 0) brightness = 255;
           if (brightVal == 1) brightness = 200;
           if (brightVal == 2) brightness = 150;
@@ -911,24 +911,24 @@ void checkButton() {
         }
         if (button.holdTime > 300 && button.holdTime < 3000) {
           demoSpeed = newDemoSpeed; demoTime = millis(); saveAll();
-          pattern.refresh(mode[m]);
-          mode[m].menuNum = 9;
+          pattern.refresh(modes[m]);
+          modes[m].menuNum = 9;
         }
       }
       if (menu == 8) {
         if (button.holdTime <= 300)restore = !restore;
         if (button.holdTime > 300 && button.holdTime < 3000) {
-          mode[m].menuNum = 9;
+          modes[m].menuNum = 9;
           if (restore) {
             setDefaults();
             saveAll();
-            pattern.refresh(mode[m]);
+            pattern.refresh(modes[m]);
             frame = 0;
-            mode[m].currentColor = 0;
+            modes[m].currentColor = 0;
           }
         }
       }
-      //if (button.holdTime < 4000 && menu == 9)mode[m].menuNum = 7;
+      //if (button.holdTime < 4000 && menu == 9)modes[m].menuNum = 7;
       button.prevPressTime = millis();
     }//======================================================================================================
   }
@@ -944,10 +944,10 @@ void checkButton() {
     if (targetList == 2) if (patNum > 33) patNum = 25;
     if (targetList == 3) if (patNum > 39) patNum = 34;
   }
-  if (patNum > totalPatterns - 1) patNum = 0;
-  if (patNum < 0) patNum = totalPatterns - 1;
-  int lastSlot = mode[m].numColors + 1;
-  if (mode[m].numColors == 8) lastSlot = mode[m].numColors;
+  if (patNum > TOTAL_PATTERNS - 1) patNum = 0;
+  if (patNum < 0) patNum = TOTAL_PATTERNS - 1;
+  int lastSlot = modes[m].numColors + 1;
+  if (modes[m].numColors == 8) lastSlot = modes[m].numColors;
   if (targetSlot > lastSlot + 1) targetSlot = 0;
   if (targetSlot < 0) targetSlot = lastSlot + 1;
   if (targetZone > 3) targetZone = 0;
@@ -966,22 +966,22 @@ void checkButton() {
 int tempH[8], tempS[8], tempV[8], tempNumColors, tempPatternNum;
 
 void tempSave() {
-  tempPatternNum = mode[m].patternNum;
-  tempNumColors = mode[m].numColors;
+  tempPatternNum = modes[m].patternNum;
+  tempNumColors = modes[m].numColors;
   for (int e = 0; e < tempNumColors; e++) {
-    tempH[e] = mode[m].hue[e];
-    tempS[e] = mode[m].sat[e];
-    tempV[e] = mode[m].val[e];
+    tempH[e] = modes[m].hue[e];
+    tempS[e] = modes[m].sat[e];
+    tempV[e] = modes[m].val[e];
   }
 }
 
 void tempLoad() {
-  mode[m].patternNum = tempPatternNum;
-  mode[m].numColors = tempNumColors;
+  modes[m].patternNum = tempPatternNum;
+  modes[m].numColors = tempNumColors;
   for (int e = 0; e < tempNumColors; e++) {
-    mode[m].hue[e] = tempH[e];
-    mode[m].sat[e] = tempS[e];
-    mode[m].val[e] = tempV[e];
+    modes[m].hue[e] = tempH[e];
+    modes[m].sat[e] = tempS[e];
+    modes[m].val[e] = tempV[e];
   }
 }
 
@@ -993,13 +993,13 @@ void loadSave() {
   Orbit myOrbit;
   myOrbit = saveData.read();
   if (myOrbit.dataIsStored == true) {
-    for (int modes = 0; modes < totalModes; modes ++) {
-      mode[modes].patternNum = myOrbit.sPatternNum[modes];
-      mode[modes].numColors = myOrbit.sNumColors[modes];
-      for (int c = 0; c < mode[modes].numColors; c++) {
-        mode[modes].hue[c] = myOrbit.sHue[modes][c];
-        mode[modes].sat[c] = myOrbit.sSat[modes][c];
-        mode[modes].val[c] = myOrbit.sVal[modes][c];
+    for (int mode = 0; mode < TOTAL_MODES; mode ++) {
+      modes[mode].patternNum = myOrbit.sPatternNum[mode];
+      modes[mode].numColors = myOrbit.sNumColors[mode];
+      for (int c = 0; c < modes[mode].numColors; c++) {
+        modes[mode].hue[c] = myOrbit.sHue[mode][c];
+        modes[mode].sat[c] = myOrbit.sSat[mode][c];
+        modes[mode].val[c] = myOrbit.sVal[mode][c];
       }
       brightness = myOrbit.brightness;
       demoSpeed = myOrbit.demoSpeed;
@@ -1008,13 +1008,13 @@ void loadSave() {
 }
 void saveAll() {
   Orbit myOrbit;
-  for (int modes = 0; modes < totalModes; modes ++) {
-    myOrbit.sPatternNum[modes] = mode[modes].patternNum;
-    myOrbit.sNumColors[modes] = mode[modes].numColors;
-    for (int c = 0; c < mode[modes].numColors; c++) {
-      myOrbit.sHue[modes][c] = mode[modes].hue[c];
-      myOrbit.sSat[modes][c] = mode[modes].sat[c];
-      myOrbit.sVal[modes][c] = mode[modes].val[c];
+  for (int mode = 0; mode < TOTAL_MODES; mode ++) {
+    myOrbit.sPatternNum[mode] = modes[mode].patternNum;
+    myOrbit.sNumColors[mode] = modes[mode].numColors;
+    for (int c = 0; c < modes[mode].numColors; c++) {
+      myOrbit.sHue[mode][c] = modes[mode].hue[c];
+      myOrbit.sSat[mode][c] = modes[mode].sat[c];
+      myOrbit.sVal[mode][c] = modes[mode].val[c];
     }
     myOrbit.brightness = brightness;
     myOrbit.demoSpeed = demoSpeed;
@@ -1045,39 +1045,39 @@ void shareMode() {
   if (mainClock - previousClockTime2 > 500) {
     unsigned long shareBit;
     for (int s = 0; s < 8; s++) {
-      Serial.print(mode[m].hue[s]);
+      Serial.print(modes[m].hue[s]);
       Serial.print(" ");
     }
     Serial.println();
-    shareBit = (((unsigned long)mode[m].hue[0] / 16 ) * (unsigned long)0x10000000) +
-               (((unsigned long)mode[m].hue[1] / 16 ) * (unsigned long)0x1000000) +
-               (((unsigned long)mode[m].hue[2] / 16 ) * (unsigned long)0x100000) +
-               (((unsigned long)mode[m].hue[3] / 16 ) * (unsigned long)0x10000) +
-               (((unsigned long)mode[m].hue[4] / 16 ) * (unsigned long)0x1000) +
-               (((unsigned long)mode[m].hue[5] / 16 ) * (unsigned long)0x100) +
-               (((unsigned long)mode[m].hue[6] / 16 ) * (unsigned long)0x10) +
+    shareBit = (((unsigned long)modes[m].hue[0] / 16 ) * (unsigned long)0x10000000) +
+               (((unsigned long)modes[m].hue[1] / 16 ) * (unsigned long)0x1000000) +
+               (((unsigned long)modes[m].hue[2] / 16 ) * (unsigned long)0x100000) +
+               (((unsigned long)modes[m].hue[3] / 16 ) * (unsigned long)0x10000) +
+               (((unsigned long)modes[m].hue[4] / 16 ) * (unsigned long)0x1000) +
+               (((unsigned long)modes[m].hue[5] / 16 ) * (unsigned long)0x100) +
+               (((unsigned long)modes[m].hue[6] / 16 ) * (unsigned long)0x10) +
                (unsigned long)1;
-    /*mode[m].hue[0]*/
+    /*modes[m].hue[0]*/
     //Serial.println(shareBit);
     Serial.println(shareBit, HEX);
     mySender.send(NEC, shareBit, 0);
     int sendSat[8];
     int sendVal[8];
     for (int n = 0; n < 8; n++) {
-      if (mode[m].sat[n] >= 0 && mode[m].sat[n] < 85) sendSat[n] = 0;
-      if (mode[m].sat[n] >= 85 && mode[m].sat[n] < 170) sendSat[n] = 1;
-      if (mode[m].sat[n] >= 170 && mode[m].sat[n] < 255)sendSat[n] = 2;
-      if (mode[m].sat[n] == 255)sendSat[n] = 3;
+      if (modes[m].sat[n] >= 0 && modes[m].sat[n] < 85) sendSat[n] = 0;
+      if (modes[m].sat[n] >= 85 && modes[m].sat[n] < 170) sendSat[n] = 1;
+      if (modes[m].sat[n] >= 170 && modes[m].sat[n] < 255)sendSat[n] = 2;
+      if (modes[m].sat[n] == 255)sendSat[n] = 3;
 
-      if (mode[m].val[n] >= 0 && mode[m].val[n] < 85) sendVal[n] = 0;
-      if (mode[m].val[n] >= 85 && mode[m].val[n] < 170) sendVal[n] = 1;
-      if (mode[m].val[n] >= 170 && mode[m].val[n] < 255)sendVal[n] = 2;
-      if (mode[m].val[n] == 255)sendVal[n] = 3;
+      if (modes[m].val[n] >= 0 && modes[m].val[n] < 85) sendVal[n] = 0;
+      if (modes[m].val[n] >= 85 && modes[m].val[n] < 170) sendVal[n] = 1;
+      if (modes[m].val[n] >= 170 && modes[m].val[n] < 255)sendVal[n] = 2;
+      if (modes[m].val[n] == 255)sendVal[n] = 3;
       //Serial.print(sendVal[n]);
       //Serial.print(" ");
     }
     //Serial.println();
-    shareBit = ((unsigned long)mode[m].hue[7] * (unsigned long)0x1000000) +
+    shareBit = ((unsigned long)modes[m].hue[7] * (unsigned long)0x1000000) +
                ((unsigned long)((sendSat[0] * 0x4) + sendSat[1]) * (unsigned long)0x1000000) +
                ((unsigned long)((sendSat[2] * 0x4) + sendSat[3]) * (unsigned long)0x100000) +
                ((unsigned long)((sendSat[4] * 0x4) + sendSat[5]) * (unsigned long)0x10000) +
@@ -1089,8 +1089,8 @@ void shareMode() {
     mySender.send(NEC, shareBit, 0);
     shareBit = ((unsigned long)((sendVal[4] * 0x4) + sendVal[5]) * (unsigned long)0x10000000) +
                ((unsigned long)((sendVal[6] * 0x4) + sendVal[7]) * (unsigned long)0x1000000) +
-               ((unsigned long)mode[m].patternNum * (unsigned long)0x10000) +
-               ((unsigned long)mode[m].numColors * (unsigned long)0x1000) +
+               ((unsigned long)modes[m].patternNum * (unsigned long)0x10000) +
+               ((unsigned long)modes[m].numColors * (unsigned long)0x1000) +
                (unsigned long)3;
     Serial.println(shareBit, HEX);
     mySender.send(NEC, shareBit, 0);
@@ -1145,36 +1145,36 @@ void receiveMode() {
   }
   if (received1 && received2 && received3) {
     Serial.println("data received");
-    mode[m].hue[0] = data1[7] * 16;
-    mode[m].hue[1] = data1[6] * 16;
-    mode[m].hue[2] = data1[5] * 16;
-    mode[m].hue[3] = data1[4] * 16;
-    mode[m].hue[4] = data1[3] * 16;
-    mode[m].hue[5] = data1[2] * 16;
-    mode[m].hue[6] = data1[1] * 16;
-    mode[m].hue[7] = data2[7] * 16;
-    mode[m].sat[0] = (data2[6] / 4) * 85;
-    mode[m].sat[1] = (data2[6] % 4) * 85;
-    mode[m].sat[2] = (data2[5] / 4) * 85;
-    mode[m].sat[3] = (data2[5] % 4) * 85;
-    mode[m].sat[4] = (data2[4] / 4) * 85;
-    mode[m].sat[5] = (data2[4] % 4) * 85;
-    mode[m].sat[6] = (data2[3] / 4) * 85;
-    mode[m].sat[7] = (data2[3] % 4) * 85;
-    mode[m].val[0] = (data2[2] / 4) * 85;
-    mode[m].val[1] = (data2[2] % 4) * 85;
-    mode[m].val[2] = (data2[1] / 4) * 85;
-    mode[m].val[3] = (data2[1] % 4) * 85;
-    mode[m].val[4] = (data3[7] / 4) * 85;
-    mode[m].val[5] = (data3[7] % 4) * 85;
-    mode[m].val[6] = (data3[6] / 4) * 85;
-    mode[m].val[7] = (data3[6] % 4) * 85;
-    mode[m].patternNum = (data3[5] * 16) + data3[4];
-    mode[m].numColors = data3[3];
+    modes[m].hue[0] = data1[7] * 16;
+    modes[m].hue[1] = data1[6] * 16;
+    modes[m].hue[2] = data1[5] * 16;
+    modes[m].hue[3] = data1[4] * 16;
+    modes[m].hue[4] = data1[3] * 16;
+    modes[m].hue[5] = data1[2] * 16;
+    modes[m].hue[6] = data1[1] * 16;
+    modes[m].hue[7] = data2[7] * 16;
+    modes[m].sat[0] = (data2[6] / 4) * 85;
+    modes[m].sat[1] = (data2[6] % 4) * 85;
+    modes[m].sat[2] = (data2[5] / 4) * 85;
+    modes[m].sat[3] = (data2[5] % 4) * 85;
+    modes[m].sat[4] = (data2[4] / 4) * 85;
+    modes[m].sat[5] = (data2[4] % 4) * 85;
+    modes[m].sat[6] = (data2[3] / 4) * 85;
+    modes[m].sat[7] = (data2[3] % 4) * 85;
+    modes[m].val[0] = (data2[2] / 4) * 85;
+    modes[m].val[1] = (data2[2] % 4) * 85;
+    modes[m].val[2] = (data2[1] / 4) * 85;
+    modes[m].val[3] = (data2[1] % 4) * 85;
+    modes[m].val[4] = (data3[7] / 4) * 85;
+    modes[m].val[5] = (data3[7] % 4) * 85;
+    modes[m].val[6] = (data3[6] / 4) * 85;
+    modes[m].val[7] = (data3[6] % 4) * 85;
+    modes[m].patternNum = (data3[5] * 16) + data3[4];
+    modes[m].numColors = data3[3];
     received1 = false;
     received2 = false;
     received3 = false;
-    mode[m].menuNum = 0;
+    modes[m].menuNum = 0;
     saveAll();
   }
 }
@@ -1218,20 +1218,20 @@ void catchMode() {
 
 void exportSettings() {
   Serial.println("Each line below contains 1 mode, copy and paste them to the line above to upload it!");
-  for (int mo = 0; mo < totalModes; mo++) {
+  for (int mo = 0; mo < TOTAL_MODES; mo++) {
     Serial.print("<");
     Serial.print(mo);
     Serial.print(", ");
-    Serial.print(mode[mo].patternNum);
+    Serial.print(modes[mo].patternNum);
     Serial.print(", ");
-    Serial.print(mode[mo].numColors);
+    Serial.print(modes[mo].numColors);
     Serial.print(", ");
     for (int co = 0; co < 8; co++) {
-      Serial.print(mode[mo].hue[co]);
+      Serial.print(modes[mo].hue[co]);
       Serial.print(", ");
-      Serial.print(mode[mo].sat[co]);
+      Serial.print(modes[mo].sat[co]);
       Serial.print(", ");
-      Serial.print(mode[mo].val[co]);
+      Serial.print(modes[mo].val[co]);
       if (co != 7) Serial.print(", ");
     }
     Serial.println(">");
@@ -1305,12 +1305,12 @@ void importData() {
     if (!dataIsValid) {
       strcpy(tempChars, receivedChars);
       strtokIndx = strtok(tempChars, ",");
-      if (atoi(strtokIndx) >= totalModes) {
+      if (atoi(strtokIndx) >= TOTAL_MODES) {
         Serial.println("Invalid input. Mode number: too high");
         return;
       }
       strtokIndx = strtok(NULL, ",");
-      if (atoi(strtokIndx) >= totalPatterns) {
+      if (atoi(strtokIndx) >= TOTAL_PATTERNS) {
         Serial.println("Invalid input. Pattern number: too high");
         return;
       }
@@ -1347,7 +1347,7 @@ void importData() {
       Serial.println("Data recieved");
       Serial.println(receivedChars);
       saveAll();
-      pattern.refresh(mode[m]);
+      pattern.refresh(modes[m]);
       dataIsValid = false;
     }
   }
@@ -1361,16 +1361,16 @@ void importMode(const char input[]) {
   strtokIndx = strtok(tempChars, ",");
   int mNum = atoi(strtokIndx);
   strtokIndx = strtok(NULL, ",");
-  mode[mNum].patternNum = atoi(strtokIndx);
+  modes[mNum].patternNum = atoi(strtokIndx);
   strtokIndx = strtok(NULL, ",");
-  mode[mNum].numColors = atoi(strtokIndx);
+  modes[mNum].numColors = atoi(strtokIndx);
   for (int col = 0; col < 8; col++) {
     strtokIndx = strtok(NULL, ",");
-    mode[mNum].hue[col] = atoi(strtokIndx);
+    modes[mNum].hue[col] = atoi(strtokIndx);
     strtokIndx = strtok(NULL, ",");
-    mode[mNum].sat[col] = atoi(strtokIndx);
+    modes[mNum].sat[col] = atoi(strtokIndx);
     strtokIndx = strtok(NULL, ",");
-    mode[mNum].val[col] = atoi(strtokIndx);
+    modes[mNum].val[col] = atoi(strtokIndx);
   }
 }
 

@@ -1,12 +1,12 @@
 #include "Arduino.h"
-#include "Modes.h"
 #include "Patterns.h"
+#include "Mode.h"
 
 
 Patterns::Patterns() {
 }
 
-void Patterns::refresh(Modes thisMode) {
+void Patterns::refresh(Mode thisMode) {
   mode = thisMode;
   clearAll();
 }

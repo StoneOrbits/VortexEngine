@@ -3,11 +3,10 @@
 
 #include "Arduino.h"
 #include <FastLED.h>
-#include "Modes.h"
 
+#include "Mode.h"
 
 #define NUM_LEDS 28
-#define totalModes 14
 #define DATA_PIN 4
 
 typedef unsigned long span;
@@ -20,7 +19,7 @@ class Patterns
     CRGB leds[NUM_LEDS];
     CRGB copy[NUM_LEDS];
 
-    Modes mode;
+    Mode mode;
 
     span time1 = 5;
     span time2 = 8;
@@ -33,7 +32,7 @@ class Patterns
     int hue, sat, val;
 
     void playPattern();
-    void refresh(Modes thisMode);
+    void refresh(Mode thisMode);
     CRGB getLed(int i);
 
     void adjustValues(span v1, span v2, span v3, span v4, span v5);

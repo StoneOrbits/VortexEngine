@@ -1,14 +1,17 @@
-#ifndef Modes_h
-#define Modes_h
+#ifndef MODE_H
+#define MODE_H
 
 #include "Arduino.h"
 
 
-class Modes {
-  private:
-
+class Mode
+{
   public:
-    Modes();
+    Mode();
+
+    void saveColor(int slot, int thisHue, int thisSat, int thisVal);
+    void printMode(int num);
+
     bool endOfSet;
     int hue[8];
     int sat[8];
@@ -19,9 +22,6 @@ class Modes {
     int numColors;
     int patternNum;
     int menuNum;
-
-    void saveColor(int slot, int thisHue, int thisSat, int thisVal);
-    void printMode(int num);
 };
 
 #endif
