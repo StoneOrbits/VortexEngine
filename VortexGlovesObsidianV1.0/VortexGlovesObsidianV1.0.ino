@@ -72,7 +72,6 @@ typedef struct HSVColor {
 //---------------------------------------------------------
 
 bool sharing = true, restore = false;
-bool dataStored = 0;
 bool on;
 int m = 0;
 byte menu;
