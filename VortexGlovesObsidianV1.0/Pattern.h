@@ -1,5 +1,5 @@
-#ifndef Patterns_h
-#define Patterns_h
+#ifndef PATTERN_H
+#define PATTERN_H
 
 #include "Arduino.h"
 #include <FastLED.h>
@@ -11,10 +11,10 @@
 
 typedef unsigned long span;
 
-class Patterns
+class Pattern
 {
   public:
-    Patterns();
+    Pattern();
 
     CRGB leds[NUM_LEDS];
     CRGB copy[NUM_LEDS];

@@ -1,61 +1,60 @@
+#include "Pattern.h"
 #include "Arduino.h"
-#include "Patterns.h"
 #include "Mode.h"
 
-
-Patterns::Patterns() {
+Pattern::Pattern() {
 }
 
-void Patterns::refresh(Mode thisMode) {
+void Pattern::refresh(Mode thisMode) {
   mode = thisMode;
   clearAll();
 }
 
-CRGB Patterns::getLed(int i) {
+CRGB Pattern::getLed(int i) {
   return leds[i];
 }
 
-void Patterns::getColor(int target) {
+void Pattern::getColor(int target) {
   hue = mode.hue[target];
   sat = mode.sat[target];
   val = mode.val[target];
 }
 
-void Patterns::setLed(int target) {
+void Pattern::setLed(int target) {
   leds[target].setHSV(hue, sat, val);
 }
 
-void Patterns::setLeds(int first, int last) {
+void Pattern::setLeds(int first, int last) {
   for (int a = first; a <= last; a++) setLed(a);
 }
 
-void Patterns::nextColor(int start) {
+void Pattern::nextColor(int start) {
   mode.currentColor++;
   if (mode.currentColor >= mode.numColors) mode.currentColor = start;
   mode.nextColor = mode.currentColor + 1;
   if (mode.nextColor >= mode.numColors) mode.nextColor = start;
 }
 
-void Patterns::nextColor1(int start) {
+void Pattern::nextColor1(int start) {
   mode.currentColor1++;
   if (mode.currentColor1 >= mode.numColors) mode.currentColor1 = start;
   mode.nextColor1 = mode.currentColor1 + 1;
   if (mode.nextColor1 >= mode.numColors) mode.nextColor1 = start;
 }
 
-void Patterns::clearAll() {
+void Pattern::clearAll() {
   for (int a = 0; a < 28; a++) leds[a].setHSV(0, 0, 0);
 }
 
-void Patterns::clearLight(int lightNum) {
+void Pattern::clearLight(int lightNum) {
   leds[lightNum].setHSV(0, 0, 0);
 }
 
-void Patterns::clearLights(int first, int last) {
+void Pattern::clearLights(int first, int last) {
   for (int a = first; a <= last; a++) clearLight(a);
 }
 
-void Patterns::adjustValues(span v1, span v2, span v3, span v4, span v5) {
+void Pattern::adjustValues(span v1, span v2, span v3, span v4, span v5) {
   time1 = v1;
   time2 = v2;
   time3 = v3;
@@ -63,7 +62,7 @@ void Patterns::adjustValues(span v1, span v2, span v3, span v4, span v5) {
   time5 = v5;
 }
 
-void Patterns::basicPattern(span onDuration, span offDuration, span gapDuration) {
+void Pattern::basicPattern(span onDuration, span offDuration, span gapDuration) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
   static bool lightsOn = true;
   static span previousClockTime;
@@ -95,7 +94,7 @@ void Patterns::basicPattern(span onDuration, span offDuration, span gapDuration)
   }
 }
 
-void Patterns::dashDops(span dotDuration, span offDuration, span dashDuration) {
+void Pattern::dashDops(span dotDuration, span offDuration, span dashDuration) {
 
   static bool lightsOn;
   static span previousClockTime, timerDuration;
@@ -119,7 +118,7 @@ void Patterns::dashDops(span dotDuration, span offDuration, span dashDuration) {
   }
 }
 
-void Patterns::tracer(span dashDuration, span dotDuration) {
+void Pattern::tracer(span dashDuration, span dotDuration) {
   static bool lightsOn;
   static span previousClockTime, timerDuration;
 
@@ -139,7 +138,7 @@ void Patterns::tracer(span dashDuration, span dotDuration) {
   }
 }
 
-void Patterns::blendPattern(span onDuration, span offDuration) {
+void Pattern::blendPattern(span onDuration, span offDuration) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
 
   static bool lightsOn = true ;
@@ -174,7 +173,7 @@ void Patterns::blendPattern(span onDuration, span offDuration) {
   }
 }
 
-void Patterns::brackets(span onDuration, span edgeDuration, span offDuration) {
+void Pattern::brackets(span onDuration, span edgeDuration, span offDuration) {
   static bool lightsOn = true ;
   static span previousClockTime, timerDuration;
   static int progress = 0;
@@ -210,7 +209,7 @@ void Patterns::brackets(span onDuration, span edgeDuration, span offDuration) {
   }
 }
 
-void Patterns::theaterChase(span onDuration, span offDuration, span flipDuration, span fingerDuration) {
+void Pattern::theaterChase(span onDuration, span offDuration, span flipDuration, span fingerDuration) {
   if (fingerDuration <= 50) fingerDuration = 50;
 
   static bool lightsOn = true;
@@ -276,7 +275,7 @@ void Patterns::theaterChase(span onDuration, span offDuration, span flipDuration
   }
 }
 
-void Patterns::zigZag(span onDuration, span offDuration, span zipDuration) {
+void Pattern::zigZag(span onDuration, span offDuration, span zipDuration) {
   if (zipDuration <= 8) zipDuration = 8;
 
   static bool lightsOn = true;
@@ -308,7 +307,7 @@ void Patterns::zigZag(span onDuration, span offDuration, span zipDuration) {
   }
 }
 
-void Patterns::zipFade(span onDuration, span offDuration, span zipDuration, span fadeDuration) {
+void Pattern::zipFade(span onDuration, span offDuration, span zipDuration, span fadeDuration) {
   if (zipDuration <= 15) zipDuration = 15;
 
   static bool lightsOn = true;
@@ -355,7 +354,7 @@ void Patterns::zipFade(span onDuration, span offDuration, span zipDuration, span
   }
 }
 
-void Patterns::tipTop(span onDuration, span offDuration, span onDuration2, span offDuration2) {
+void Pattern::tipTop(span onDuration, span offDuration, span onDuration2, span offDuration2) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
   if (onDuration2 == 2 && offDuration2 >= 5 && offDuration2 <= 31) onDuration2 = 3;
 
@@ -402,7 +401,7 @@ void Patterns::tipTop(span onDuration, span offDuration, span onDuration2, span 
   }
 }
 
-void Patterns::drip(span onDuration, span offDuration, span dripDuration) {
+void Pattern::drip(span onDuration, span offDuration, span dripDuration) {
   static bool lightsOn = true;
   static bool lightsOn2 = true;
   static span previousClockTime, timerDuration;
@@ -439,7 +438,7 @@ void Patterns::drip(span onDuration, span offDuration, span dripDuration) {
   }
 }
 
-void Patterns::dripMorph(span onDuration, span offDuration) {
+void Pattern::dripMorph(span onDuration, span offDuration) {
   static bool lightsOn = true;
   static bool lightsOn2 = true;
   static span previousClockTime, timerDuration;
@@ -482,7 +481,7 @@ void Patterns::dripMorph(span onDuration, span offDuration) {
   }
 }
 
-void Patterns::crossDops(span onDuration, span offDuration, span flipDuration) {
+void Pattern::crossDops(span onDuration, span offDuration, span flipDuration) {
 
   static bool lightsOn = true;
   static bool lightsOn2 = true;
@@ -523,7 +522,7 @@ void Patterns::crossDops(span onDuration, span offDuration, span flipDuration) {
   }
 }
 
-void Patterns::doubleStrobe(span onDuration, span offDuration, span colorDuration) {
+void Pattern::doubleStrobe(span onDuration, span offDuration, span colorDuration) {
   static bool lightsOn = true;
   static span previousClockTime, timerDuration;
   static span previousClockTime2;
@@ -554,7 +553,7 @@ void Patterns::doubleStrobe(span onDuration, span offDuration, span colorDuratio
   }
 }
 
-void Patterns::meteor(span onDuration, span offDuration, span meteorSpawnDelay, unsigned int fadeAmount) {
+void Pattern::meteor(span onDuration, span offDuration, span meteorSpawnDelay, unsigned int fadeAmount) {
   static bool lightsOn = true;
   static span previousClockTime, timerDuration;
   static span previousClockTime2;
@@ -590,7 +589,7 @@ void Patterns::meteor(span onDuration, span offDuration, span meteorSpawnDelay, 
   }
 }
 
-void Patterns::sparkleTrace(span dotFrequency) {
+void Pattern::sparkleTrace(span dotFrequency) {
   static span previousClockTime;
 
   getColor(0);                        // Get color 0
@@ -607,7 +606,7 @@ void Patterns::sparkleTrace(span dotFrequency) {
   }
 }
 
-void Patterns::vortexWipe(span onDuration, span offDuration, span warpDuration) {
+void Pattern::vortexWipe(span onDuration, span offDuration, span warpDuration) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
 
   static bool lightsOn = true;
@@ -651,7 +650,7 @@ void Patterns::vortexWipe(span onDuration, span offDuration, span warpDuration) 
   }
 }
 
-void Patterns::warp(span onDuration, span offDuration, span warpDuration) {
+void Pattern::warp(span onDuration, span offDuration, span warpDuration) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
 
   static bool lightsOn = true;
@@ -685,7 +684,7 @@ void Patterns::warp(span onDuration, span offDuration, span warpDuration) {
   }
 }
 
-void Patterns:: warpWorm(span onDuration, span offDuration, span wormSpeed, unsigned int wormSize) {
+void Pattern:: warpWorm(span onDuration, span offDuration, span wormSpeed, unsigned int wormSize) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
   if (wormSize < 1) wormSize = 1;
   if (wormSize > 9) wormSize = 9;
@@ -726,7 +725,7 @@ void Patterns:: warpWorm(span onDuration, span offDuration, span wormSpeed, unsi
   }
 }
 
-void Patterns::snowBall(span onDuration, span offDuration, span wormSpeed, span wormSize) {
+void Pattern::snowBall(span onDuration, span offDuration, span wormSpeed, span wormSize) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
   if (wormSpeed == 5) wormSpeed = 4;
   if (wormSpeed == 6) wormSpeed = 7;
@@ -765,7 +764,7 @@ void Patterns::snowBall(span onDuration, span offDuration, span wormSpeed, span 
   }
 }
 
-void Patterns::lighthouse(span onDuration, span offDuration, span fingerSpeed, span fadeAmount) {
+void Pattern::lighthouse(span onDuration, span offDuration, span fingerSpeed, span fadeAmount) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
 
   static bool lightsOn = true;
@@ -806,7 +805,7 @@ void Patterns::lighthouse(span onDuration, span offDuration, span fingerSpeed, s
   }
 }
 
-void Patterns::pulsish(span onDuration, span offDuration, span onDuration2, span offDuration2, span fingerSpeed) {
+void Pattern::pulsish(span onDuration, span offDuration, span onDuration2, span offDuration2, span fingerSpeed) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
   if (onDuration2 == 2 && offDuration >= 5 && offDuration <= 31) onDuration2 = 3;
 
@@ -854,7 +853,7 @@ void Patterns::pulsish(span onDuration, span offDuration, span onDuration2, span
   }
 }
 
-void Patterns::fill(span onDuration, span offDuration, span fillSpeed) {
+void Pattern::fill(span onDuration, span offDuration, span fillSpeed) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
 
   static bool lightsOn = true;
@@ -891,7 +890,7 @@ void Patterns::fill(span onDuration, span offDuration, span fillSpeed) {
   }
 }
 
-void Patterns::bounce(span onDuration, span offDuration, span bounceDuration) {
+void Pattern::bounce(span onDuration, span offDuration, span bounceDuration) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
 
   static bool lightsOn = true;
@@ -924,7 +923,7 @@ void Patterns::bounce(span onDuration, span offDuration, span bounceDuration) {
   }
 }
 
-void Patterns::impact(span onDuration, span offDuration, span onDuration2, span offDuration2,
+void Pattern::impact(span onDuration, span offDuration, span onDuration2, span offDuration2,
                       span onDuration3, span offDuration3, span onDuration4, span offDuration4) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
   if (onDuration2 == 2 && offDuration >= 5 && offDuration <= 31) onDuration2 = 3;
@@ -994,7 +993,7 @@ void Patterns::impact(span onDuration, span offDuration, span onDuration2, span 
   }
 }
 
-void Patterns::rabbit(span onDuration, span offDuration, span onDuration2, span offDuration2) {
+void Pattern::rabbit(span onDuration, span offDuration, span onDuration2, span offDuration2) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
   if (onDuration2 == 2 && offDuration >= 5 && offDuration <= 31) onDuration2 = 3;
 
@@ -1042,7 +1041,7 @@ void Patterns::rabbit(span onDuration, span offDuration, span onDuration2, span 
   }
 }
 
-void Patterns::splitStrobie(span onDuration, span offDuration, span onDuration2, span offDuration2, span switchDuration) {
+void Pattern::splitStrobie(span onDuration, span offDuration, span onDuration2, span offDuration2, span switchDuration) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
   if (onDuration2 == 2 && offDuration >= 5 && offDuration <= 31) onDuration2 = 3;
 
@@ -1109,7 +1108,7 @@ void Patterns::splitStrobie(span onDuration, span offDuration, span onDuration2,
   }
 }
 
-void Patterns::backstrobe(span onDuration, span offDuration, span onDuration2, span offDuration2, span switchDuration) {
+void Pattern::backstrobe(span onDuration, span offDuration, span onDuration2, span offDuration2, span switchDuration) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
   if (onDuration2 == 2 && offDuration >= 5 && offDuration <= 31) onDuration2 = 3;
 
@@ -1168,7 +1167,7 @@ void Patterns::backstrobe(span onDuration, span offDuration, span onDuration2, s
   }
 }
 
-void Patterns::flowers(span onDuration, span offDuration, span onDuration2, span offDuration2) {
+void Pattern::flowers(span onDuration, span offDuration, span onDuration2, span offDuration2) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
   if (onDuration2 == 2 && offDuration >= 5 && offDuration <= 31) onDuration2 = 3;
 
@@ -1221,7 +1220,7 @@ void Patterns::flowers(span onDuration, span offDuration, span onDuration2, span
   }
 }
 
-void Patterns::jest(span onDuration, span offDuration, span gapDuration, span gapDuration2, unsigned int groupSize) {
+void Pattern::jest(span onDuration, span offDuration, span gapDuration, span gapDuration2, unsigned int groupSize) {
   if (onDuration == 2 && offDuration >= 5 && offDuration <= 31) onDuration = 3;
 
   static bool lightsOn = true;
@@ -1279,14 +1278,14 @@ void Patterns::jest(span onDuration, span offDuration, span gapDuration, span ga
   }
 }
 
-//Patterns
+//Pattern
 //---------------------------------------------------------
-// To add new patterns add a switch to this method and update totalPatterns.
+// To add new patterns add a switch to this method and update TOTAL_PATTERNS.
 // In your pattern code, getColor() will set the hue, sat, val variables for this iteration.
 // Then call setLeds() to set those values on to the leds you want.
 // this code will repeat forever, incrementing "mainClock" with each iteration.
 
-void Patterns::playPattern() {
+void Pattern::playPattern() {
   mainClock = millis();
 
   switch (mode.patternNum) {

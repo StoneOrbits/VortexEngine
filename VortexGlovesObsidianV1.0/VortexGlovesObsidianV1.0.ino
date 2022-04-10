@@ -10,7 +10,7 @@
 
 #include <IRLibRecv.h>
 
-#include "Patterns.h"
+#include "Pattern.h"
 #include "Button.h"
 #include "Mode.h"
 
@@ -39,7 +39,7 @@ Mode modes[TOTAL_MODES];
 // There is one button on the vortex gloves
 Button button;
 
-Patterns pattern;
+Pattern pattern;
 
 CRGB copy[NUM_LEDS];
 
