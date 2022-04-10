@@ -90,8 +90,6 @@ byte selectedSat;
 int targetVal;
 byte selectedVal;
 int targetList;
-bool buttonState, lastButtonState;
-unsigned long mainClock;
 int data1[8];
 int data2[8];
 int data3[8];
@@ -200,7 +198,6 @@ void runMenus() {
 }
 
 void playMode() {
-  mainClock = millis();
   if (demoMode) runDemo();
 
   //  patterns(mode[m].patternNum);
@@ -220,6 +217,7 @@ void runDemo() {
   if (demoSpeed == 2) demoInterval = 8000;
   if (demoSpeed == 3) demoInterval = 16000;
 
+  unsigned long mainClock = millis();
   if (mainClock - demoTime > demoInterval) {
     rollColors();
     demoTime = mainClock;
@@ -255,12 +253,11 @@ void clearAll() {
 }
 
 void blinkTarget(unsigned long blinkTime) {
-  static unsigned long previousClockTime;
-  
-  mainClock = millis();
-  if (mainClock - previousClockTime > blinkTime) {
+  static unsigned long previousClock = 0;
+  unsigned long mainClock = millis();
+  if (!previousClock || (mainClock - previousClock) > blinkTime) {
     on = !on;
-    previousClockTime = mainClock;
+    previousClock = mainClock;
   }
 }
 
@@ -572,7 +569,7 @@ void patternSelect() {
   static unsigned long previousClockTime2;
   static unsigned long timerDuration;
   
-  mainClock = millis();
+  unsigned long mainClock = millis();
   if (stage == 0) {
     if (lightsOn2) {
       for (int i = 0; i < 5; i++) {
@@ -700,10 +697,10 @@ void restoreDefaults() {
 }
 
 void confirmBlink() {
-  static unsigned long previousClockTime;
+  static unsigned long previousClockTime = 0;
   static int progress = 0;
   
-  mainClock = millis();
+  unsigned long mainClock = millis();
   if (mainClock - previousClockTime > 50) {
     if (progress == 0) clearAll();
     if (progress == 1) sat = 0, val = 175, setLeds(0, 27);
@@ -810,7 +807,7 @@ void checkButton() {
       }
       if (menu == 1) {
         if (button.holdTime > 1000 && button.holdTime <= 2000) {
-          demoMode = true, frame = 0, mode[m].menuNum = 0, demoTime = mainClock, tempSave(), rollColors();
+          demoMode = true, frame = 0, mode[m].menuNum = 0, demoTime = millis(), tempSave(), rollColors();
         }
         if (button.holdTime > 2000 && button.holdTime <= 3000) {
           mode[m].menuNum = 3, targetSlot = 0, stage = 0;
@@ -914,7 +911,7 @@ void checkButton() {
           newDemoSpeed++;
         }
         if (button.holdTime > 300 && button.holdTime < 3000) {
-          demoSpeed = newDemoSpeed; demoTime = mainClock; saveAll();
+          demoSpeed = newDemoSpeed; demoTime = millis(); saveAll();
           pattern.refresh(mode[m]);
           mode[m].menuNum = 9;
         }
@@ -1041,7 +1038,7 @@ void shareMode() {
   if (!lightsOn) {
     for (int d = 0; d < 28; d++) leds[d].setHSV(0, 0, 0);
   }
-  mainClock = millis();
+  unsigned long mainClock = millis();
   if (mainClock - previousClockTime > 20) {
     lightsOn = !lightsOn;
     previousClockTime = mainClock;
