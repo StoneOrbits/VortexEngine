@@ -19,8 +19,10 @@
 #define HSV_BLUE    { 160, 255, 110 }
 #define HSV_YELLOW  { 60,  255, 110 }
 #define HSV_RED     { 0,   255, 110 }
+#define HSV_GREEN   { 85,  255, 110 }
 #define HSV_TEAL    { 120, 255, 110 }
-#define HSV_PURPLE  { 120, 255, 110 }
+#define HSV_PURPLE  { 212, 255, 110 }
+#define HSV_BLANK   {   0,   0,  40 }
 
 #define NUM_LEDS 28
 #define DATA_PIN 4
@@ -62,11 +64,21 @@ struct Orbit {
 FlashStorage(saveData, Orbit);
 
 typedef struct HSVColor {
+  HSVColor(uint8_t hue, uint8_t sat, uint8_t val) :
+    hue(hue), sat(sat), val(val) {}
   uint8_t hue;
   uint8_t sat;
   uint8_t val;
 } HSVColor;
 
+HSVColor hsv_white = HSV_WHITE;
+HSVColor hsv_orange = HSV_ORANGE;
+HSVColor hsv_blue = HSV_BLUE;
+HSVColor hsv_yellow = HSV_YELLOW;
+HSVColor hsv_red = HSV_RED;
+HSVColor hsv_teal = HSV_TEAL;
+HSVColor hsv_purple = HSV_PURPLE;
+HSVColor hsv_blank = HSV_BLANK;
 
 //Variable
 //---------------------------------------------------------
@@ -172,13 +184,13 @@ void loop() {
   runMenus();
   checkButton();
   checkSerial();
+
+
   FastLED.setBrightness(brightness);
   FastLED.show();
 
   //Serial.println(m);
 }
-
-int hue, sat, val;
 
 void runMenus() {
     menu = modes[m].menuNum;
@@ -233,18 +245,16 @@ void displayPatternResult() {
   }
 }
 
-void getColor(int target) {
-  hue = modes[m].hue[target];
-  sat = modes[m].sat[target];
-  val = modes[m].val[target];
+HSVColor getColor(int target) {
+  return HSVColor(modes[m].hue[target], modes[m].sat[target], modes[m].val[target]);
 }
 
-void setLed(int target) {
-  leds[target].setHSV(hue, sat, val);
+void setLed(int target, HSVColor col) {
+  leds[target].setHSV(col.hue, col.sat, col.val);
 }
 
-void setLeds(int first, int last) {
-  for (int a = first; a <= last; a++) setLed(a);
+void setLeds(int first, int last, HSVColor col) {
+  for (int a = first; a <= last; a++) setLed(a, col);
 }
 
 void clearAll() {
@@ -440,61 +450,65 @@ void colorSet() {
   if (stage == 0) {
     int numColors = modes[m].numColors;            // get total colors
     clearAll();                                   // clear leds
-    hue = 0, sat = 0, val = 40;                   // get "blank" slot color
-    setLeds(2, 10);                               // set finger slots
+    setLeds(2, 10, hsv_blank);                        // set finger slots
 
     if (targetSlot <= 4) {                        // if target is in the first 4 colors of a set
       for (int i = 0; i < numColors; i++) {       //
-        getColor(i);                              // get slot color
-        setLeds(2 + i * 2, 3 + i * 2);            // set leds page 1
-      }
+        setLeds(2 + i * 2, 3 + i * 2, getColor(i));  // set leds page 1
+      } 
     }
 
     if (numColors > 4) {                             // if there are 4 or more colors
       if (targetSlot >= 4) {                          // and if target slot is greater than 4
-        hue = 0, sat = 0, val = 40;                   // get "blank" slot color
-        setLeds(2, 10);                               // set finger slots
+        setLeds(2, 10, hsv_blank);                        // set finger slots
         for (int i = 4; i < numColors; i++) {         //
-          getColor(i);                                // get target color
-          setLeds(2 + (i - 4) * 2, 3 + (i - 4) * 2);  // set leds page 2
+          setLeds(2 + (i - 4) * 2, 3 + (i - 4) * 2, getColor(i));  // set leds page 2
         }
       }
     }
 
     if (targetSlot < numColors) {                               // if target slot is less than total colors
       if (on) {                                                 //
-        val = 0;                                                //
-        if (modes[m].val[targetSlot] == 0) sat = 0, val = 40;    // special condition for blank slot
-        if (targetSlot < 4) setLed(2 + targetSlot * 2);         // set first 4 colors
-        if (targetSlot >= 4) setLed(2 + (targetSlot - 4) * 2);  // set next 4 colors
+        HSVColor col(0, 0, 0);
+        // special condition for blank slot
+        if (modes[m].val[targetSlot] == 0) {
+          // FIXME: ??? what is the expected hue
+          col.sat = 0;
+          col.val = 40;    
+        }
+        if (targetSlot < 4) setLed(2 + targetSlot * 2, col);         // set first 4 colors
+        if (targetSlot >= 4) setLed(2 + (targetSlot - 4) * 2, col);  // set next 4 colors
       }
       blinkTarget(300);
     }
 
     if (targetSlot == numColors) {                        // delete last color slot
       if (on) {                                           //
-        hue = 0, sat = 0, val = 40;                       //
-        if (numColors <= 4) setLed(2 * targetSlot);       // indicate delete slot page 1
-        if (numColors > 4) setLed((targetSlot - 4) * 2);  // indicate delete slot page 2
+        if (numColors <= 4) setLed(2 * targetSlot, hsv_blank);       // indicate delete slot page 1
+        if (numColors > 4) setLed((targetSlot - 4) * 2, hsv_blank);  // indicate delete slot page 2
       }
       blinkTarget(60);
     }
 
     if (targetSlot == numColors + 1 && numColors != 8) {                                                   // add color to set
       if (on) {                                                                     //
-        val = 0;                                                                    //
-        if (numColors < 4) setLed(2 * targetSlot);                                  // add color page 1
-        if (numColors >= 4) setLeds(2 * (targetSlot - 4), 1 + 2 * (targetSlot - 4));// add color page 2
+        // FIXME: what is the hue and sat?
+        // val = 0;                                                                    //
+        if (numColors < 4) setLed(2 * targetSlot, hsv_blank /* right col? */);                                  // add color page 1
+        if (numColors >= 4) setLeds(2 * (targetSlot - 4), 1 + 2 * (targetSlot - 4), hsv_blank /* right col ? */);// add color page 2
       }
       blinkTarget(300);
     }
 
     if (targetSlot == numColors + 2 || (numColors == 8 && targetSlot == numColors + 1)) {
       if (on) {
-        hue = 0, sat = 0, val = 100;
-        setLed(0);
-        hue = 85, sat = 255, val = 100;
-        setLed(1);
+        // hue = 0, sat = 0, val = 100;
+        // FIXME: HSV_WHITE? only different is 110 val vs 100
+        setLed(0, hsv_white);
+        // hue = 85, sat = 255, val = 100;
+        // FIXME: lime green?
+        HSVColor hsv_lime(85, 255, 100);
+        setLed(1, hsv_lime);
       }
 
       blinkTarget(300);
@@ -572,12 +586,11 @@ void patternSelect() {
   if (stage == 0) {
     if (lightsOn2) {
       for (int i = 0; i < 5; i++) {
-        sat = 0;
-        val = 255;
-        setLed(i * 2 + 1);
-        hue = 51 * i;
-        sat = 255;
-        setLed(i * 2);
+        HSVColor col(0, 0, 255);
+        setLed(i * 2 + 1, col);
+
+        HSVColor col2(51 * i, 255, 255);
+        setLed(i * 2, col2);
       }
       timerDuration = 3;
     }
@@ -673,23 +686,23 @@ void chooseDemoSpeed() {
 void restoreDefaults() {
   if (restore) {
     if (on) {
-      hue = 0, sat = 0, val = 0;
-      setLeds(0, 27);
+      HSVColor col(0, 0, 0);
+      setLeds(0, 27, col);
     }
     if (!on) {
-      hue = 0, sat = 255, val = 175;
-      setLeds(0, 27);
+      HSVColor col(0, 255, 175);
+      setLeds(0, 27, col);
     }
     blinkTarget(100);
   }
   if (!restore) {
     if (on) {
-      hue = 0, sat = 255, val = 60;
-      setLeds(0, 27);
+      HSVColor col(0, 255, 60);
+      setLeds(0, 27, col);
     }
     if (!on) {
-      hue = 0, sat = 0, val = 0;
-      setLeds(0, 27);
+      HSVColor col(0, 0, 0);
+      setLeds(0, 27, col);
     }
     blinkTarget(500);
   }
@@ -702,7 +715,7 @@ void confirmBlink() {
   unsigned long mainClock = millis();
   if (mainClock - previousClockTime > 50) {
     if (progress == 0) clearAll();
-    if (progress == 1) sat = 0, val = 175, setLeds(0, 27);
+    if (progress == 1) setLeds(0, 27, HSVColor(0, 0, 175));
     if (progress == 2) clearAll();
     if (progress == 3) progress = 0, modes[m].menuNum = 0;
     progress++;
@@ -755,12 +768,8 @@ void menuRing(const HSVColor *menuColors) {
   int led = holdTime / 100;
   // only try to turn on 10 leds (0 through 9)
   if (led > 9) led = 9;
-  // set the hsv based on the menu section
-  hue = menuColors[menuSection].hue;
-  sat = menuColors[menuSection].sat;
-  val = menuColors[menuSection].val;
-  // turn on leds 0 through led
-  setLeds(0, led);
+  // turn on leds 0 through led with hsv based on the menu section
+  setLeds(0, led, menuColors[menuSection]);
 }
 
 //Buttons
