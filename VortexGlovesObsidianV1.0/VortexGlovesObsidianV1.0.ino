@@ -124,7 +124,7 @@ int newDemoSpeed = 0;
 bool demoMode = false;
 unsigned long demoTime;
 
-int brightness;
+int brightness = 0;
 
 //Main body
 //---------------------------------------------------------
@@ -493,7 +493,7 @@ void colorSet() {
     if (targetSlot == numColors + 1 && numColors != 8) {                                                   // add color to set
       if (on) {                                                                     //
         // FIXME: what is the hue and sat?
-        // val = 0;                                                                    //
+        //eval = 0;                                                                    //
         if (numColors < 4) setLed(2 * targetSlot, hsv_blank /* right col? */);                                  // add color page 1
         if (numColors >= 4) setLeds(2 * (targetSlot - 4), 1 + 2 * (targetSlot - 4), hsv_blank /* right col ? */);// add color page 2
       }
@@ -502,13 +502,10 @@ void colorSet() {
 
     if (targetSlot == numColors + 2 || (numColors == 8 && targetSlot == numColors + 1)) {
       if (on) {
-        // hue = 0, sat = 0, val = 100;
         // FIXME: HSV_WHITE? only different is 110 val vs 100
-        setLed(0, hsv_white);
-        // hue = 85, sat = 255, val = 100;
+        setLed(0, HSVColor(0, 0, 100));
         // FIXME: lime green?
-        HSVColor hsv_lime(85, 255, 100);
-        setLed(1, hsv_lime);
+        setLed(1, HSVColor(85, 255, 100));
       }
 
       blinkTarget(300);
