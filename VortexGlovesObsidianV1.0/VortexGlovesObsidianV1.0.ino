@@ -473,7 +473,7 @@ void colorSet() {
       if (on) {                                                 //
         // special condition for blank slot
         bool blank = (modes[m].val[targetSlot] == 0);
-        HSVColor col(0, 0, blank ? 40 : 0)
+        HSVColor col(0, 0, blank ? 40 : 0);
         if (targetSlot < 4) setLed(2 + targetSlot * 2, col);         // set first 4 colors
         if (targetSlot >= 4) setLed(2 + (targetSlot - 4) * 2, col);  // set next 4 colors
       }
