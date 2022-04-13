@@ -23,6 +23,7 @@
 #define HSV_TEAL    { 120, 255, 110 }
 #define HSV_PURPLE  { 212, 255, 110 }
 #define HSV_BLANK   {   0,   0,  40 }
+#define HSV_OFF     {   0,   0,   0 }
 
 #define NUM_LEDS 28
 #define DATA_PIN 4
@@ -79,6 +80,7 @@ HSVColor hsv_red = HSV_RED;
 HSVColor hsv_teal = HSV_TEAL;
 HSVColor hsv_purple = HSV_PURPLE;
 HSVColor hsv_blank = HSV_BLANK;
+HSVColor hsv_off = HSV_OFF;
 
 //Variable
 //---------------------------------------------------------
@@ -469,13 +471,9 @@ void colorSet() {
 
     if (targetSlot < numColors) {                               // if target slot is less than total colors
       if (on) {                                                 //
-        HSVColor col(0, 0, 0);
         // special condition for blank slot
-        if (modes[m].val[targetSlot] == 0) {
-          // FIXME: ??? what is the expected hue
-          col.sat = 0;
-          col.val = 40;    
-        }
+        bool blank = (modes[m].val[targetSlot] == 0);
+        HSVColor col(0, 0, blank ? 40 : 0)
         if (targetSlot < 4) setLed(2 + targetSlot * 2, col);         // set first 4 colors
         if (targetSlot >= 4) setLed(2 + (targetSlot - 4) * 2, col);  // set next 4 colors
       }
@@ -492,10 +490,8 @@ void colorSet() {
 
     if (targetSlot == numColors + 1 && numColors != 8) {                                                   // add color to set
       if (on) {                                                                     //
-        // FIXME: what is the hue and sat?
-        //eval = 0;                                                                    //
-        if (numColors < 4) setLed(2 * targetSlot, hsv_blank /* right col? */);                                  // add color page 1
-        if (numColors >= 4) setLeds(2 * (targetSlot - 4), 1 + 2 * (targetSlot - 4), hsv_blank /* right col ? */);// add color page 2
+        if (numColors < 4) setLed(2 * targetSlot, hsv_off);                                  // add color page 1
+        if (numColors >= 4) setLeds(2 * (targetSlot - 4), 1 + 2 * (targetSlot - 4), hsv_off);// add color page 2
       }
       blinkTarget(300);
     }
