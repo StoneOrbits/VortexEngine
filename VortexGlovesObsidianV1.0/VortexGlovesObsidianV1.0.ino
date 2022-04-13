@@ -53,7 +53,6 @@ IRrecv myReceiver(2);
 IRsend mySender;
 
 struct Orbit {
-  bool dataIsStored;
   uint8_t sHue[TOTAL_MODES][8];
   uint8_t sSat[TOTAL_MODES][8];
   uint8_t sVal[TOTAL_MODES][8];
@@ -1033,18 +1032,16 @@ void loadSave()
 {
   Orbit myOrbit;
   myOrbit = saveData.read();
-  if (myOrbit.dataIsStored == true) {
-    for (int mode = 0; mode < TOTAL_MODES; mode ++) {
-      modes[mode].patternNum = myOrbit.sPatternNum[mode];
-      modes[mode].numColors = myOrbit.sNumColors[mode];
-      for (int c = 0; c < modes[mode].numColors; c++) {
-        modes[mode].hue[c] = myOrbit.sHue[mode][c];
-        modes[mode].sat[c] = myOrbit.sSat[mode][c];
-        modes[mode].val[c] = myOrbit.sVal[mode][c];
-      }
-      brightness = myOrbit.brightness;
-      demoSpeed = myOrbit.demoSpeed;
+  for (int mode = 0; mode < TOTAL_MODES; mode ++) {
+    modes[mode].patternNum = myOrbit.sPatternNum[mode];
+    modes[mode].numColors = myOrbit.sNumColors[mode];
+    for (int c = 0; c < modes[mode].numColors; c++) {
+      modes[mode].hue[c] = myOrbit.sHue[mode][c];
+      modes[mode].sat[c] = myOrbit.sSat[mode][c];
+      modes[mode].val[c] = myOrbit.sVal[mode][c];
     }
+    brightness = myOrbit.brightness;
+    demoSpeed = myOrbit.demoSpeed;
   }
 }
 void saveAll() 
@@ -1061,7 +1058,6 @@ void saveAll()
     myOrbit.brightness = brightness;
     myOrbit.demoSpeed = demoSpeed;
   }
-  myOrbit.dataIsStored = true;
   saveData.write(myOrbit);
 }
 
