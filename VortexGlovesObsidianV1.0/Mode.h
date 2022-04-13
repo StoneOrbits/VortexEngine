@@ -21,7 +21,6 @@ class Mode
     uint8_t nextColor1 = 1;
     int numColors;
     int patternNum;
-    int menuNum;
 };
 
 #endif

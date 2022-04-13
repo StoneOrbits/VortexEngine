@@ -88,7 +88,7 @@ HSVColor hsv_off = HSV_OFF;
 bool sharing = true, restore = false;
 bool on;
 int m = 0;
-byte menu;
+byte menu = 0;
 byte stage = 0;
 byte frame = 0;
 int patNum;
@@ -131,7 +131,8 @@ int brightness = 0;
 //Main body
 //---------------------------------------------------------
 
-void setup() {
+void setup()
+{
   Serial.begin(9600);
   FastLED.addLeds<NEOPIXEL, DATA_PIN>(leds, NUM_LEDS);
   FastLED.setBrightness(255);
@@ -140,7 +141,7 @@ void setup() {
   setDefaults();
   loadSave();
   prevPressTime = 0;
-  modes[m].menuNum = 0;
+  menu = 0;
   Adafruit_DotStar strip = Adafruit_DotStar(1, 7, 8, DOTSTAR_BGR);
   strip.begin();
   strip.show();
@@ -164,15 +165,15 @@ void restoreDefaults();
 void confirmBlink();
 
 menu_func_t menu_routines[] = {
-    playMode,           // 0
-    menuRingZero,       // 1: Start Randomizer //Choose Colors //Choose Pattern //Share&Receive Mode
-    menuRingOne,        // 2: Global Brightness //Demo Speed //Restore Defaults
-    colorSet,           // 3
-    patternSelect,      // 4
-    modeSharing,        // 5
-    chooseBrightness,   // 6
-    chooseDemoSpeed,    // 7
-    restoreDefaults,    // 8
+    playMode,           // 0: play Mode
+    menuRingZero,       // 1: Start Randomizer 
+    menuRingOne,        // 2: 
+    colorSet,           // 3: Choose Colors 
+    patternSelect,      // 4: Choose Pattern 
+    modeSharing,        // 5: Share&Receive Mode
+    chooseBrightness,   // 6: Global Brightness 
+    chooseDemoSpeed,    // 7: Demo Speed 
+    restoreDefaults,    // 8: Restore Defaults
     confirmBlink,       // 9
 };
 
@@ -182,7 +183,8 @@ menu_func_t menu_routines[] = {
 void checkButton();
 void checkSerial();
 
-void loop() {
+void loop()
+{
   runMenus();
   checkButton();
   checkSerial();
@@ -194,8 +196,8 @@ void loop() {
   //Serial.println(m);
 }
 
-void runMenus() {
-    menu = modes[m].menuNum;
+void runMenus()
+{
     // check for invalid menu, prevent crash
     if (menu >= NUM_MENUS) {
         return;
@@ -210,7 +212,8 @@ void runMenus() {
     menu_func();
 }
 
-void playMode() {
+void playMode()
+{
   if (demoMode) runDemo();
 
   //  patterns(modes[m].patternNum);
@@ -219,11 +222,11 @@ void playMode() {
   displayPatternResult();
 
   catchMode();
-
 }
 
 // Randomize colors and pattern every so often
-void runDemo() {
+void runDemo()
+{
   int demoInterval = 0;
   if (demoSpeed == 0) demoInterval = 3000;
   if (demoSpeed == 1) demoInterval = 5000;
@@ -241,29 +244,35 @@ void runDemo() {
 //-----------------------------------------------------
 
 
-void displayPatternResult() {
+void displayPatternResult()
+{
   for (int i = 0; i < NUM_LEDS; i++) {
     leds[i] = pattern.getLed(i);
   }
 }
 
-HSVColor getColor(int target) {
+HSVColor getColor(int target)
+{
   return HSVColor(modes[m].hue[target], modes[m].sat[target], modes[m].val[target]);
 }
 
-void setLed(int target, HSVColor col) {
+void setLed(int target, HSVColor col)
+{
   leds[target].setHSV(col.hue, col.sat, col.val);
 }
 
-void setLeds(int first, int last, HSVColor col) {
+void setLeds(int first, int last, HSVColor col)
+{
   for (int a = first; a <= last; a++) setLed(a, col);
 }
 
-void clearAll() {
+void clearAll()
+{
   for (int a = 0; a < 28; a++) leds[a].setHSV(0, 0, 0);
 }
 
-void blinkTarget(unsigned long blinkTime) {
+void blinkTarget(unsigned long blinkTime)
+{
   static unsigned long previousClock = 0;
   unsigned long mainClock = millis();
   if (!previousClock || (mainClock - previousClock) > blinkTime) {
@@ -275,7 +284,8 @@ void blinkTarget(unsigned long blinkTime) {
 // Randomizer
 //---------------------------------------------------------
 
-void rollColors() {
+void rollColors()
+{
   rollPattern();
   int type = random(0, 10);
   //true random, monochrome, complimentary, analogous, triadic, split complimentary, tetradic
@@ -441,14 +451,16 @@ void rollColors() {
   }
 }
 
-void rollPattern() {
+void rollPattern() 
+{
   modes[m].patternNum = random(0, TOTAL_PATTERNS);
 }
 
 //Menus and settings
 //---------------------------------------------------------
 
-void colorSet() {
+void colorSet() 
+{
   if (stage == 0) {
     int numColors = modes[m].numColors;            // get total colors
     clearAll();                                   // clear leds
@@ -513,7 +525,8 @@ void colorSet() {
   if (stage == 4) colorWheel(3);
 }
 
-void colorWheel(int layer) {
+void colorWheel(int layer) 
+{
   int hue = 0, sat = 255, val = 170;
   if (layer == 0) {
     for (int c = 0; c < 8; c++) {
@@ -568,7 +581,8 @@ void colorWheel(int layer) {
   blinkTarget(300);
 }
 
-void patternSelect() {
+void patternSelect() 
+{
   static bool lightsOn;
   static bool lightsOn2;
   static unsigned long previousClockTime;
@@ -610,12 +624,14 @@ void patternSelect() {
   }
 }
 
-void modeSharing() {
+void modeSharing() 
+{
   if (sharing) shareMode();
   else if (!sharing) receiveMode();
 }
 
-void chooseBrightness() {
+void chooseBrightness() 
+{
   clearAll();
   leds[2].setHSV(0, 0, 255);
   leds[3].setHSV(0, 0, 255);
@@ -652,7 +668,8 @@ void chooseBrightness() {
   }
 }
 
-void chooseDemoSpeed() {
+void chooseDemoSpeed() 
+{
   clearAll();
   if (on) {
     for (int q = 0; q < 4; q++) {
@@ -676,7 +693,8 @@ void chooseDemoSpeed() {
   blinkTarget(100 * demoSpeed + 100);
 }
 
-void restoreDefaults() {
+void restoreDefaults() 
+{
   if (restore) {
     if (on) {
       HSVColor col(0, 0, 0);
@@ -701,7 +719,8 @@ void restoreDefaults() {
   }
 }
 
-void confirmBlink() {
+void confirmBlink() 
+{
   static unsigned long previousClockTime = 0;
   static int progress = 0;
   
@@ -710,7 +729,7 @@ void confirmBlink() {
     if (progress == 0) clearAll();
     if (progress == 1) setLeds(0, 27, HSVColor(0, 0, 175));
     if (progress == 2) clearAll();
-    if (progress == 3) progress = 0, modes[m].menuNum = 0;
+    if (progress == 3) progress = 0, menu = 0;
     progress++;
     previousClockTime = mainClock;
   }
@@ -734,15 +753,18 @@ HSVColor ringOneCols[] = {
   // second half?
 };
 
-void menuRingZero() {
+void menuRingZero() 
+{
   menuRing(ringZeroCols);
 }
 
-void menuRingOne() {
+void menuRingOne() 
+{
   menuRing(ringOneCols);
 }
 
-void menuRing(const HSVColor *menuColors) {
+void menuRing(const HSVColor *menuColors) 
+{
   if (!menuColors) {
     return;
   }
@@ -770,7 +792,8 @@ void menuRing(const HSVColor *menuColors) {
 // button[1] is inner button
 //---------------------------------------------------------
 
-void checkButton() {
+void checkButton() 
+{
   button.buttonState = digitalRead(button.pinNum);
   if (button.buttonState == LOW && button.lastButtonState == HIGH && (millis() - button.pressTime > 200)) {
     button.pressTime = millis();
@@ -779,13 +802,13 @@ void checkButton() {
   if (button.holdTime > 50) {
     //---------------------------------------Button Down-----------------------------------------------------
     if (button.buttonState == LOW && button.holdTime > button.prevHoldTime) {
-      if (button.holdTime > 1000 && button.holdTime <= 2000 && menu == 0 && !demoMode) modes[m].menuNum = 1, menuSection = 0;
+      if (button.holdTime > 1000 && button.holdTime <= 2000 && menu == 0 && !demoMode) menu = 1, menuSection = 0;
       if (button.holdTime > 2000 && button.holdTime <= 3000 && menuSection == 0) menuSection = 1;
       if (button.holdTime > 3000 && button.holdTime <= 4000 && menuSection == 1) menuSection = 2;
       if (button.holdTime > 4000 && button.holdTime <= 5000 && menuSection == 2) menuSection = 3;
       if (button.holdTime > 5000 && button.holdTime <= 6000 && menuSection == 3) menuSection = 4;
       if (button.holdTime > 6000 && button.holdTime <= 7000 && menuSection == 4) menuSection = 5;
-      if (button.holdTime > 7000 && menuSection == 5) modes[m].menuNum = 5;
+      if (button.holdTime > 7000 && menuSection == 5) menu = 5;
     }//======================================================================================================
     // ---------------------------------------Button Up------------------------------------------------------
     if (button.buttonState == HIGH && button.lastButtonState == LOW && millis() - button.prevPressTime > 150) {
@@ -802,28 +825,28 @@ void checkButton() {
         if (button.holdTime <= 3000) {
           saveAll(), frame = 0, modes[m].currentColor = 0;
           pattern.refresh(modes[m]);
-          modes[m].menuNum = 9;
+          menu = 9;
           demoMode = false;
         }
       }
       if (menu == 1) {
         if (button.holdTime > 1000 && button.holdTime <= 2000) {
-          demoMode = true, frame = 0, modes[m].menuNum = 0, demoTime = millis(), tempSave(), rollColors();
+          demoMode = true, frame = 0, menu = 0, demoTime = millis(), tempSave(), rollColors();
         }
         if (button.holdTime > 2000 && button.holdTime <= 3000) {
-          modes[m].menuNum = 3, targetSlot = 0, stage = 0;
+          menu = 3, targetSlot = 0, stage = 0;
         }
         if (button.holdTime > 3000 && button.holdTime <= 4000) {
-          modes[m].menuNum = 4, modes[m].currentColor = 0, modes[m].nextColor = 1, stage = 0;
+          menu = 4, modes[m].currentColor = 0, modes[m].nextColor = 1, stage = 0;
         }
         if (button.holdTime > 4000 && button.holdTime <= 5000) {
-          modes[m].menuNum = 6, modes[m].currentColor = 0, modes[m].nextColor = 1;
+          menu = 6, modes[m].currentColor = 0, modes[m].nextColor = 1;
         }
         if (button.holdTime > 5000 && button.holdTime <= 6000) {
-          modes[m].menuNum = 8, modes[m].currentColor = 0, modes[m].nextColor = 1;
+          menu = 8, modes[m].currentColor = 0, modes[m].nextColor = 1;
         }
         if (button.holdTime > 6000) {
-          modes[m].menuNum = 5;
+          menu = 5;
         }
       }
       if (menu == 2) {
@@ -849,7 +872,7 @@ void checkButton() {
             if (targetSlot == setSize && modes[m].numColors > 1)targetSlot--, modes[m].numColors--; // delete slot
             if (targetSlot == setSize + 1 && setSize < 8)stage = 1, currentSlot = setSize;  //add slot
             if (targetSlot == setSize + 2 || (targetSlot == setSize + 1 && setSize == 8)) {
-              modes[m].currentColor = 0, saveAll(), modes[m].menuNum = 0;
+              modes[m].currentColor = 0, saveAll(), menu = 0;
               pattern.refresh(modes[m]);
             }
           }
@@ -883,7 +906,7 @@ void checkButton() {
             if (targetList == 4) stage = 0;
           }
           else if (stage == 1) {
-            modes[m].menuNum = 9;
+            menu = 9;
             modes[m].patternNum = patNum, saveAll(), frame = 0;//confirm selection
             pattern.refresh(modes[m]);
             stage = 0;
@@ -892,14 +915,14 @@ void checkButton() {
       }
       if (menu == 5) {
         if (button.holdTime <= 500) sharing = !sharing;
-        if (button.holdTime > 500 && button.holdTime < 3000) sharing = true, modes[m].menuNum = 9;
+        if (button.holdTime > 500 && button.holdTime < 3000) sharing = true, menu = 9;
       }
       if (menu == 6) {
         if (button.holdTime <= 300) {
           brightVal++;
         }
         if (button.holdTime > 300 && button.holdTime < 3000) {
-          modes[m].menuNum = 9;
+          menu = 9;
           if (brightVal == 0) brightness = 255;
           if (brightVal == 1) brightness = 200;
           if (brightVal == 2) brightness = 150;
@@ -914,13 +937,13 @@ void checkButton() {
         if (button.holdTime > 300 && button.holdTime < 3000) {
           demoSpeed = newDemoSpeed; demoTime = millis(); saveAll();
           pattern.refresh(modes[m]);
-          modes[m].menuNum = 9;
+          menu = 9;
         }
       }
       if (menu == 8) {
         if (button.holdTime <= 300)restore = !restore;
         if (button.holdTime > 300 && button.holdTime < 3000) {
-          modes[m].menuNum = 9;
+          menu = 9;
           if (restore) {
             setDefaults();
             saveAll();
@@ -930,7 +953,7 @@ void checkButton() {
           }
         }
       }
-      //if (button.holdTime < 4000 && menu == 9)modes[m].menuNum = 7;
+      //if (button.holdTime < 4000 && menu == 9)menu = 7;
       button.prevPressTime = millis();
     }//======================================================================================================
   }
@@ -967,7 +990,8 @@ void checkButton() {
 
 int tempH[8], tempS[8], tempV[8], tempNumColors, tempPatternNum;
 
-void tempSave() {
+void tempSave() 
+{
   tempPatternNum = modes[m].patternNum;
   tempNumColors = modes[m].numColors;
   for (int e = 0; e < tempNumColors; e++) {
@@ -977,7 +1001,8 @@ void tempSave() {
   }
 }
 
-void tempLoad() {
+void tempLoad() 
+{
   modes[m].patternNum = tempPatternNum;
   modes[m].numColors = tempNumColors;
   for (int e = 0; e < tempNumColors; e++) {
@@ -991,7 +1016,8 @@ void tempLoad() {
 //Saving/Loading
 //---------------------------------------------------------
 
-void loadSave() {
+void loadSave() 
+{
   Orbit myOrbit;
   myOrbit = saveData.read();
   if (myOrbit.dataIsStored == true) {
@@ -1008,7 +1034,8 @@ void loadSave() {
     }
   }
 }
-void saveAll() {
+void saveAll() 
+{
   Orbit myOrbit;
   for (int mode = 0; mode < TOTAL_MODES; mode ++) {
     myOrbit.sPatternNum[mode] = modes[mode].patternNum;
@@ -1027,7 +1054,8 @@ void saveAll() {
 
 //IR commuinication
 //---------------------------------------------------------
-void shareMode() {
+void shareMode() 
+{
   //confirmBlink();
   static bool lightsOn;
   static unsigned long previousClockTime;
@@ -1100,7 +1128,8 @@ void shareMode() {
   }
 }
 
-void receiveMode() {
+void receiveMode() 
+{
   if (on) {
     for (int d = 0; d < 28; d++) leds[d].setHSV(128, 255, 100);
   }
@@ -1176,17 +1205,19 @@ void receiveMode() {
     received1 = false;
     received2 = false;
     received3 = false;
-    modes[m].menuNum = 0;
+    menu = 0;
     saveAll();
   }
 }
 
-unsigned long hexValue(int place, unsigned long number) {
+unsigned long hexValue(int place, unsigned long number) 
+{
   for (int p = 0; p < place; p++) number /= 0x10;
   return number % 0x10;
 }
 
-void throwMode() {
+void throwMode() 
+{
   unsigned long shareBit;
   shareBit = (m * (unsigned long)0x10000000) +
              (0 * (unsigned long)0x1000000) +
@@ -1199,7 +1230,8 @@ void throwMode() {
   mySender.send(NEC, shareBit, 0);
 }
 
-void catchMode() {
+void catchMode() 
+{
   myReceiver.enableIRIn();
   if (myReceiver.getResults()) {
     myDecoder.decode();           //Decode it
@@ -1218,7 +1250,8 @@ void catchMode() {
 //Serial Mode Transfer (usb)
 //---------------------------------------------------------
 
-void exportSettings() {
+void exportSettings() 
+{
   Serial.println("Each line below contains 1 mode, copy and paste them to the line above to upload it!");
   for (int mo = 0; mo < TOTAL_MODES; mo++) {
     Serial.print("<");
@@ -1240,12 +1273,14 @@ void exportSettings() {
   }
 }
 
-void checkSerial() {
+void checkSerial() 
+{
   recvWithStartEndMarkers();
   importData();
 }
 
-void recvWithStartEndMarkers() {
+void recvWithStartEndMarkers() 
+{
   static boolean recvInProgress = false;
   static byte ndx = 0;
   char startMarker = '<';
@@ -1299,7 +1334,8 @@ void recvWithStartEndMarkers() {
   }
 }
 
-void importData() {
+void importData() 
+{
   bool dataIsValid = false;
   char * strtokIndx; // this is used by strtok() as an index
   if (newData == true) {
@@ -1357,7 +1393,8 @@ void importData() {
 
 // Comma separated list of 27 numbers (3 settings + 3 * 8 colors):
 // Mode Num, Pattern Num, Num Colors, Color1 H, Color1 S, Color1 V, Color2 H..... Color8 V
-void importMode(const char input[]) {
+void importMode(const char input[]) 
+{
   char* strtokIndx;
   strcpy(tempChars, input);
   strtokIndx = strtok(tempChars, ",");
@@ -1376,7 +1413,8 @@ void importMode(const char input[]) {
   }
 }
 
-void importValues(const char input[]) {
+void importValues(const char input[]) 
+{
   char* strtokIndx;
   strcpy (tempChars, input);
   strtokIndx = strtok (tempChars, ",");
@@ -1395,7 +1433,8 @@ void importValues(const char input[]) {
 //Default Modes
 //---------------------------------------------------------
 
-void setDefaults() {
+void setDefaults() 
+{
   brightness = 255;
   demoSpeed = 2;
   importMode("0, 7, 5, 0, 255, 255, 96, 255, 255, 160, 255, 255, 64, 255, 255, 192, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0");
