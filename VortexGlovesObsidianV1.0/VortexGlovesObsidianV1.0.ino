@@ -73,8 +73,7 @@ typedef struct HSVColor {
 
 typedef enum menu_states {
   MENU_PLAY_MODE = 0,
-  MENU_RING_ZERO,
-  MENU_RING_ONE,
+  MENU_RING,
   MENU_COLOR_SELECT,
   MENU_PATTERN_SELECT,
   MENU_MODE_SHARING,
@@ -166,8 +165,7 @@ typedef void (*menu_func_t)(void);
 
 // have to list prototypes first, this will be fixed once everything is refactored
 void playMode();
-void menuRingZero();
-void menuRingOne();
+void menuRing();
 void colorSet();
 void patternSelect();
 void modeSharing();
@@ -178,15 +176,14 @@ void confirmBlink();
 
 menu_func_t menu_routines[] = {
     playMode,           // 0: play Mode
-    menuRingZero,       // 1: Start Randomizer 
-    menuRingOne,        // 2: 
-    colorSet,           // 3: Choose Colors 
-    patternSelect,      // 4: Choose Pattern 
-    modeSharing,        // 5: Share&Receive Mode
-    chooseBrightness,   // 6: Global Brightness 
-    chooseDemoSpeed,    // 7: Demo Speed 
-    restoreDefaults,    // 8: Restore Defaults
-    confirmBlink,       // 9
+    menuRing,           // 1: Start Randomizer 
+    colorSet,           // 2: Choose Colors 
+    patternSelect,      // 3: Choose Pattern 
+    modeSharing,        // 4: Share&Receive Mode
+    chooseBrightness,   // 5: Global Brightness 
+    chooseDemoSpeed,    // 6: Demo Speed 
+    restoreDefaults,    // 7: Restore Defaults
+    confirmBlink,       // 8
 };
 
 // the number of menus in above array
@@ -748,7 +745,7 @@ void confirmBlink()
 }
 
 // array of color values for menu ring zero
-HSVColor ringZeroCols[] = {
+const HSVColor menuColors[] = {
   HSV_WHITE,
   HSV_ORANGE,
   HSV_BLUE,
@@ -757,29 +754,8 @@ HSVColor ringZeroCols[] = {
   HSV_TEAL,
 };
 
-// array of color values for menu ring one
-HSVColor ringOneCols[] = {
-  HSV_YELLOW,
-  HSV_PURPLE,
-  HSV_RED,
-  // second half?
-};
-
-void menuRingZero() 
+void menuRing() 
 {
-  menuRing(ringZeroCols);
-}
-
-void menuRingOne() 
-{
-  menuRing(ringOneCols);
-}
-
-void menuRing(const HSVColor *menuColors) 
-{
-  if (!menuColors) {
-    return;
-  }
   clearAll();
   // the threshold for how long to hold to activate the menu
   int threshold = 1000 + (1000 * menuSection);
@@ -814,7 +790,7 @@ void checkButton()
   if (button.holdTime > 50) {
     //---------------------------------------Button Down-----------------------------------------------------
     if (button.buttonState == LOW && button.holdTime > button.prevHoldTime) {
-      if (button.holdTime > 1000 && button.holdTime <= 2000 && menu == MENU_PLAY_MODE && !demoMode) menu = MENU_RING_ZERO, menuSection = 0;
+      if (button.holdTime > 1000 && button.holdTime <= 2000 && menu == MENU_PLAY_MODE && !demoMode) menu = MENU_RING, menuSection = 0;
       if (button.holdTime > 2000 && button.holdTime <= 3000 && menuSection == 0) menuSection = 1;
       if (button.holdTime > 3000 && button.holdTime <= 4000 && menuSection == 1) menuSection = 2;
       if (button.holdTime > 4000 && button.holdTime <= 5000 && menuSection == 2) menuSection = 3;
@@ -822,6 +798,9 @@ void checkButton()
       if (button.holdTime > 6000 && button.holdTime <= 7000 && menuSection == 4) menuSection = 5;
       if (button.holdTime > 7000 && menuSection == 5) menu = MENU_MODE_SHARING;
     }//======================================================================================================
+
+
+
     // ---------------------------------------Button Up------------------------------------------------------
     if (button.buttonState == HIGH && button.lastButtonState == LOW && millis() - button.prevPressTime > 150) {
       if (menu == MENU_PLAY_MODE && !demoMode) {
@@ -841,7 +820,7 @@ void checkButton()
           demoMode = false;
         }
       }
-      if (menu == MENU_RING_ZERO) {
+      if (menu == MENU_RING) {
         if (button.holdTime > 1000 && button.holdTime <= 2000) {
           demoMode = true, frame = 0, menu = MENU_PLAY_MODE, demoTime = millis(), tempSave(), rollColors();
         }
@@ -859,14 +838,6 @@ void checkButton()
         }
         if (button.holdTime > 6000) {
           menu = MENU_MODE_SHARING;
-        }
-      }
-      if (menu == MENU_RING_ONE) {
-        if (button.holdTime > 1000 &&  button.holdTime <= 2000) {
-        }
-        if (button.holdTime > 2000 && button.holdTime <= 3000) {
-        }
-        if (button.holdTime > 3000) {
         }
       }
       if (menu == MENU_COLOR_SELECT) {
