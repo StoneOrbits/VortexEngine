@@ -119,8 +119,6 @@ int data2[8];
 int data3[8];
 bool received1, received2, received3;
 
-unsigned long pressTime, prevPressTime, holdTime, prevHoldTime;
-
 const byte numChars = 128;
 char receivedChars[numChars];
 char tempChars[numChars];
@@ -190,12 +188,14 @@ menu_func_t menu_routines[] = {
 #define NUM_MENUS (sizeof(menu_routines) / sizeof(menu_routines[0]))
 
 void checkButton();
+void checkLimits();
 void checkSerial();
 
 void loop()
 {
   runMenus();
   checkButton();
+  checkLimits();
   checkSerial();
 
 
@@ -776,8 +776,6 @@ void menuRing()
 }
 
 //Buttons
-// button[0] is outer button
-// button[1] is inner button
 //---------------------------------------------------------
 
 void checkButton() 
@@ -787,7 +785,10 @@ void checkButton()
     button.pressTime = millis();
   }
   button.holdTime = (millis() - button.pressTime);
+  
   if (button.holdTime > 50) {
+
+    // handles the menu ring logic
     //---------------------------------------Button Down-----------------------------------------------------
     if (button.buttonState == LOW && button.holdTime > button.prevHoldTime) {
       if (button.holdTime > 1000 && button.holdTime <= 2000 && menu == MENU_PLAY_MODE && !demoMode) menu = MENU_RING, menuSection = 0;
@@ -941,6 +942,12 @@ void checkButton()
     }//======================================================================================================
   }
 
+  button.lastButtonState = button.buttonState;
+  button.prevHoldTime = button.holdTime;
+}
+
+void checkLimits() 
+{
   //these are the max and minimum values for each variable.
   if (newDemoSpeed > 3) newDemoSpeed = 0;
   if (newDemoSpeed < 0) newDemoSpeed = 3;
@@ -967,8 +974,6 @@ void checkButton()
   if (targetVal > 3) targetVal = 0;
   if (targetVal < 0) targetVal = 3;
   if (targetList > 4) targetList = 0;
-  button.lastButtonState = button.buttonState;
-  button.prevHoldTime = button.holdTime;
 }
 
 int tempH[8], tempS[8], tempV[8], tempNumColors, tempPatternNum;
