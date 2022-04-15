@@ -10,7 +10,7 @@ class Button
     Button();
 
     // initialize a new button object with a pin number
-    void init(int pin);
+    bool init(int pin);
     // check the state of the button by querying the pin
     void check();
 
