@@ -13,6 +13,7 @@
 #include "Pattern.h"
 #include "Button.h"
 #include "Mode.h"
+#include "Time.h"
 
 #define HSV_WHITE   { 0,   0,   110 }
 #define HSV_ORANGE  { 20,  255, 110 }
@@ -149,7 +150,6 @@ void setup()
   button.init(1); // initialize the button on pin 1
   setDefaults();
   loadSave();
-  prevPressTime = 0;
   menu = MENU_PLAY_MODE;
   Adafruit_DotStar strip = Adafruit_DotStar(1, 7, 8, DOTSTAR_BGR);
   strip.begin();
@@ -193,6 +193,8 @@ void checkSerial();
 
 void loop()
 {
+  // tick the clock
+  tick();
   runMenus();
   checkButton();
   checkLimits();
@@ -757,18 +759,19 @@ const HSVColor menuColors[] = {
 void menuRing() 
 {
   clearAll();
+  int holdTime = button.holdDuration()
   // the threshold for how long to hold to activate the menu
   int threshold = 1000 + (1000 * menuSection);
-  if (button.holdTime < threshold) {
+  if (holdTime < threshold) {
     return;
   }
   // the amount of time held past the threshold
-  int holdTime = (button.holdTime - threshold);
+  int heldPast = (holdTime - threshold);
   // the leds turn on in sequence every 100ms another turns on:
   //  000ms = led 0 to 0
   //  100ms = led 0 to 1
   //  200ms = led 0 to 2
-  int led = holdTime / 100;
+  int led = heldPast / 100;
   // only try to turn on 10 leds (0 through 9)
   if (led > 9) led = 9;
   // turn on leds 0 through led with hsv based on the menu section
@@ -780,170 +783,167 @@ void menuRing()
 
 void checkButton() 
 {
-  button.buttonState = digitalRead(button.pinNum);
-  if (button.buttonState == LOW && button.lastButtonState == HIGH && (millis() - button.pressTime > 200)) {
-    button.pressTime = millis();
+  // check button input
+  button.check();
+
+  // grab the hold duration for processing
+  unsigned long holdDuration = button.holdDuration();
+  // if we haven't held for at least 50 seconds nothing to do yet
+  if (holdDuration <= 50) {
+    return;
   }
-  button.holdTime = (millis() - button.pressTime);
-  
-  if (button.holdTime > 50) {
 
-    // handles the menu ring logic
-    //---------------------------------------Button Down-----------------------------------------------------
-    if (button.buttonState == LOW && button.holdTime > button.prevHoldTime) {
-      if (button.holdTime > 1000 && button.holdTime <= 2000 && menu == MENU_PLAY_MODE && !demoMode) menu = MENU_RING, menuSection = 0;
-      if (button.holdTime > 2000 && button.holdTime <= 3000 && menuSection == 0) menuSection = 1;
-      if (button.holdTime > 3000 && button.holdTime <= 4000 && menuSection == 1) menuSection = 2;
-      if (button.holdTime > 4000 && button.holdTime <= 5000 && menuSection == 2) menuSection = 3;
-      if (button.holdTime > 5000 && button.holdTime <= 6000 && menuSection == 3) menuSection = 4;
-      if (button.holdTime > 6000 && button.holdTime <= 7000 && menuSection == 4) menuSection = 5;
-      if (button.holdTime > 7000 && menuSection == 5) menu = MENU_MODE_SHARING;
-    }//======================================================================================================
+  // handles the menu ring logic
+  //---------------------------------------Button Down-----------------------------------------------------
+  if (button.buttonState == LOW) {
+    if (button.holdTime > 1000 && button.holdTime <= 2000 && menu == MENU_PLAY_MODE && !demoMode) menu = MENU_RING, menuSection = 0;
+    if (button.holdTime > 2000 && button.holdTime <= 3000 && menuSection == 0) menuSection = 1;
+    if (button.holdTime > 3000 && button.holdTime <= 4000 && menuSection == 1) menuSection = 2;
+    if (button.holdTime > 4000 && button.holdTime <= 5000 && menuSection == 2) menuSection = 3;
+    if (button.holdTime > 5000 && button.holdTime <= 6000 && menuSection == 3) menuSection = 4;
+    if (button.holdTime > 6000 && button.holdTime <= 7000 && menuSection == 4) menuSection = 5;
+    if (button.holdTime > 7000 && menuSection == 5) menu = MENU_MODE_SHARING;
+  }//======================================================================================================
 
 
 
-    // ---------------------------------------Button Up------------------------------------------------------
-    if (button.buttonState == HIGH && button.lastButtonState == LOW && millis() - button.prevPressTime > 150) {
-      if (menu == MENU_PLAY_MODE && !demoMode) {
-        if (button.holdTime <= 300) {
-          m++, frame = 0, clearAll(); //, throwMode();
-          if (m > TOTAL_MODES - 1)m = 0;
-          pattern.refresh(modes[m]);
-        }
-        if (button.holdTime > 300 && Serial) exportSettings();
+  // ---------------------------------------Button Up------------------------------------------------------
+  if (button.buttonState == HIGH && button.lastButtonState == LOW && button.holdTime > 150) {
+    if (menu == MENU_PLAY_MODE && !demoMode) {
+      if (button.holdTime <= 300) {
+        m++, frame = 0, clearAll(); //, throwMode();
+        if (m > TOTAL_MODES - 1)m = 0;
+        pattern.refresh(modes[m]);
       }
-      // press in demo mode
-      if (menu == MENU_PLAY_MODE && demoMode) {
-        if (button.holdTime <= 3000) {
-          saveAll(), frame = 0, modes[m].currentColor = 0;
-          pattern.refresh(modes[m]);
-          menu = MENU_CONFIRM_BLINK;
-          demoMode = false;
-        }
+      if (button.holdTime > 300 && Serial) exportSettings();
+    }
+    // press in demo mode
+    if (menu == MENU_PLAY_MODE && demoMode) {
+      if (button.holdTime <= 3000) {
+        saveAll(), frame = 0, modes[m].currentColor = 0;
+        pattern.refresh(modes[m]);
+        menu = MENU_CONFIRM_BLINK;
+        demoMode = false;
       }
-      if (menu == MENU_RING) {
-        if (button.holdTime > 1000 && button.holdTime <= 2000) {
-          demoMode = true, frame = 0, menu = MENU_PLAY_MODE, demoTime = millis(), tempSave(), rollColors();
-        }
-        if (button.holdTime > 2000 && button.holdTime <= 3000) {
-          menu = MENU_COLOR_SELECT, targetSlot = 0, stage = 0;
-        }
-        if (button.holdTime > 3000 && button.holdTime <= 4000) {
-          menu = MENU_PATTERN_SELECT, modes[m].currentColor = 0, modes[m].nextColor = 1, stage = 0;
-        }
-        if (button.holdTime > 4000 && button.holdTime <= 5000) {
-          menu = MENU_CHOOSE_BRIGHTNESS, modes[m].currentColor = 0, modes[m].nextColor = 1;
-        }
-        if (button.holdTime > 5000 && button.holdTime <= 6000) {
-          menu = MENU_RESTORE_DEFAULTS, modes[m].currentColor = 0, modes[m].nextColor = 1;
-        }
-        if (button.holdTime > 6000) {
-          menu = MENU_MODE_SHARING;
-        }
+    }
+    if (menu == MENU_RING) {
+      if (button.holdTime > 1000 && button.holdTime <= 2000) {
+        demoMode = true, frame = 0, menu = MENU_PLAY_MODE, demoTime = millis(), tempSave(), rollColors();
       }
-      if (menu == MENU_COLOR_SELECT) {
-        if (button.holdTime <= 300) {
-          if (stage == 0) targetSlot++;
-          if (stage == 1) targetZone++;
-          if (stage == 2) targetHue++;
-          if (stage == 3) targetSat++;
-          if (stage == 4) targetVal++;
-        }
-        if (button.holdTime > 300 && button.holdTime < 3000) {
-          if (stage == 0) {
-            int setSize = modes[m].numColors;
-            if (targetSlot < setSize) stage = 1, currentSlot = targetSlot; //choose slot
-            if (targetSlot == setSize && modes[m].numColors > 1)targetSlot--, modes[m].numColors--; // delete slot
-            if (targetSlot == setSize + 1 && setSize < 8)stage = 1, currentSlot = setSize;  //add slot
-            if (targetSlot == setSize + 2 || (targetSlot == setSize + 1 && setSize == 8)) {
-              modes[m].currentColor = 0, saveAll(), menu = MENU_PLAY_MODE;
-              pattern.refresh(modes[m]);
-            }
-          }
-          else if (stage == 1) stage = 2, colorZone = targetZone;
-          else if (stage == 2) stage = 3, selectedHue = (targetHue * 16) + (colorZone * 64);
-          else if (stage == 3) stage = 4, selectedSat = 255 - (85 * targetSat);
-          else if (stage == 4) {
-            selectedVal = 255 - (85 * targetVal);
-            if (targetVal == 2) selectedVal = 120;
-            modes[m].saveColor(currentSlot, selectedHue, selectedSat, selectedVal);
-            stage = 0;
-          }
-        }
+      if (button.holdTime > 2000 && button.holdTime <= 3000) {
+        menu = MENU_COLOR_SELECT, targetSlot = 0, stage = 0;
       }
-      if (menu == MENU_PATTERN_SELECT) {
-        if (button.holdTime <= 300) {
-          if (stage == 0) {
-            targetList++;
-          }
-          if (stage == 1) {
-            patNum++, frame = 0, modes[m].currentColor = 0, modes[m].nextColor = 1;
-          }
-        }
-        if (button.holdTime > 300 && button.holdTime < 3000) {
-          if (stage == 0) {
-            stage = 1;
-            if (targetList == 0) patNum = 0;
-            if (targetList == 1) patNum = 14;
-            if (targetList == 2) patNum = 25;
-            if (targetList == 3) patNum = 34;
-            if (targetList == 4) stage = 0;
-          }
-          else if (stage == 1) {
-            menu = MENU_CONFIRM_BLINK;
-            modes[m].patternNum = patNum, saveAll(), frame = 0;//confirm selection
+      if (button.holdTime > 3000 && button.holdTime <= 4000) {
+        menu = MENU_PATTERN_SELECT, modes[m].currentColor = 0, modes[m].nextColor = 1, stage = 0;
+      }
+      if (button.holdTime > 4000 && button.holdTime <= 5000) {
+        menu = MENU_CHOOSE_BRIGHTNESS, modes[m].currentColor = 0, modes[m].nextColor = 1;
+      }
+      if (button.holdTime > 5000 && button.holdTime <= 6000) {
+        menu = MENU_RESTORE_DEFAULTS, modes[m].currentColor = 0, modes[m].nextColor = 1;
+      }
+      if (button.holdTime > 6000) {
+        menu = MENU_MODE_SHARING;
+      }
+    }
+    if (menu == MENU_COLOR_SELECT) {
+      if (button.holdTime <= 300) {
+        if (stage == 0) targetSlot++;
+        if (stage == 1) targetZone++;
+        if (stage == 2) targetHue++;
+        if (stage == 3) targetSat++;
+        if (stage == 4) targetVal++;
+      }
+      if (button.holdTime > 300 && button.holdTime < 3000) {
+        if (stage == 0) {
+          int setSize = modes[m].numColors;
+          if (targetSlot < setSize) stage = 1, currentSlot = targetSlot; //choose slot
+          if (targetSlot == setSize && modes[m].numColors > 1)targetSlot--, modes[m].numColors--; // delete slot
+          if (targetSlot == setSize + 1 && setSize < 8)stage = 1, currentSlot = setSize;  //add slot
+          if (targetSlot == setSize + 2 || (targetSlot == setSize + 1 && setSize == 8)) {
+            modes[m].currentColor = 0, saveAll(), menu = MENU_PLAY_MODE;
             pattern.refresh(modes[m]);
-            stage = 0;
           }
         }
-      }
-      if (menu == MENU_MODE_SHARING) {
-        if (button.holdTime <= 500) sharing = !sharing;
-        if (button.holdTime > 500 && button.holdTime < 3000) sharing = true, menu = MENU_CONFIRM_BLINK;
-      }
-      if (menu == MENU_CHOOSE_BRIGHTNESS) {
-        if (button.holdTime <= 300) {
-          brightVal++;
+        else if (stage == 1) stage = 2, colorZone = targetZone;
+        else if (stage == 2) stage = 3, selectedHue = (targetHue * 16) + (colorZone * 64);
+        else if (stage == 3) stage = 4, selectedSat = 255 - (85 * targetSat);
+        else if (stage == 4) {
+          selectedVal = 255 - (85 * targetVal);
+          if (targetVal == 2) selectedVal = 120;
+          modes[m].saveColor(currentSlot, selectedHue, selectedSat, selectedVal);
+          stage = 0;
         }
-        if (button.holdTime > 300 && button.holdTime < 3000) {
+      }
+    }
+    if (menu == MENU_PATTERN_SELECT) {
+      if (button.holdTime <= 300) {
+        if (stage == 0) {
+          targetList++;
+        }
+        if (stage == 1) {
+          patNum++, frame = 0, modes[m].currentColor = 0, modes[m].nextColor = 1;
+        }
+      }
+      if (button.holdTime > 300 && button.holdTime < 3000) {
+        if (stage == 0) {
+          stage = 1;
+          if (targetList == 0) patNum = 0;
+          if (targetList == 1) patNum = 14;
+          if (targetList == 2) patNum = 25;
+          if (targetList == 3) patNum = 34;
+          if (targetList == 4) stage = 0;
+        }
+        else if (stage == 1) {
           menu = MENU_CONFIRM_BLINK;
-          if (brightVal == 0) brightness = 255;
-          if (brightVal == 1) brightness = 200;
-          if (brightVal == 2) brightness = 150;
-          if (brightVal == 3) brightness = 100;
+          modes[m].patternNum = patNum, saveAll(), frame = 0;//confirm selection
+          pattern.refresh(modes[m]);
+          stage = 0;
+        }
+      }
+    }
+    if (menu == MENU_MODE_SHARING) {
+      if (button.holdTime <= 500) sharing = !sharing;
+      if (button.holdTime > 500 && button.holdTime < 3000) sharing = true, menu = MENU_CONFIRM_BLINK;
+    }
+    if (menu == MENU_CHOOSE_BRIGHTNESS) {
+      if (button.holdTime <= 300) {
+        brightVal++;
+      }
+      if (button.holdTime > 300 && button.holdTime < 3000) {
+        menu = MENU_CONFIRM_BLINK;
+        if (brightVal == 0) brightness = 255;
+        if (brightVal == 1) brightness = 200;
+        if (brightVal == 2) brightness = 150;
+        if (brightVal == 3) brightness = 100;
+        saveAll();
+      }
+    }
+    if (menu == MENU_CHOOSE_DEMO_SPEED) {
+      if (button.holdTime <= 300) {
+        newDemoSpeed++;
+      }
+      if (button.holdTime > 300 && button.holdTime < 3000) {
+        demoSpeed = newDemoSpeed; demoTime = millis(); saveAll();
+        pattern.refresh(modes[m]);
+        menu = MENU_CONFIRM_BLINK;
+      }
+    }
+    if (menu == MENU_RESTORE_DEFAULTS) {
+      if (button.holdTime <= 300)restore = !restore;
+      if (button.holdTime > 300 && button.holdTime < 3000) {
+        menu = MENU_CONFIRM_BLINK;
+        if (restore) {
+          setDefaults();
           saveAll();
-        }
-      }
-      if (menu == MENU_CHOOSE_DEMO_SPEED) {
-        if (button.holdTime <= 300) {
-          newDemoSpeed++;
-        }
-        if (button.holdTime > 300 && button.holdTime < 3000) {
-          demoSpeed = newDemoSpeed; demoTime = millis(); saveAll();
           pattern.refresh(modes[m]);
-          menu = MENU_CONFIRM_BLINK;
+          frame = 0;
+          modes[m].currentColor = 0;
         }
       }
-      if (menu == MENU_RESTORE_DEFAULTS) {
-        if (button.holdTime <= 300)restore = !restore;
-        if (button.holdTime > 300 && button.holdTime < 3000) {
-          menu = MENU_CONFIRM_BLINK;
-          if (restore) {
-            setDefaults();
-            saveAll();
-            pattern.refresh(modes[m]);
-            frame = 0;
-            modes[m].currentColor = 0;
-          }
-        }
-      }
-      //if (button.holdTime < 4000 && menu == 9)menu = 7;
-      button.prevPressTime = millis();
-    }//======================================================================================================
-  }
-
-  button.lastButtonState = button.buttonState;
-  button.prevHoldTime = button.holdTime;
+    }
+    //if (button.holdTime < 4000 && menu == 9)menu = 7;
+  }//======================================================================================================
 }
 
 void checkLimits() 
