@@ -1,106 +1,80 @@
 #include "Button.h"
 #include "Time.h"
 
+// if click held for <= this value then the click will be registered as 
+// a 'short click' otherwise if held longer than this threshold it will
+// be registered as a 'medium click'
+//
+// There is no need to distinguish a 'medium click' from a 'long hold'.
+// A long hold will only ever be available when 'medium click' is not.
+//
+// The long hold is detected by just checking the holdDuration()
+#define SHORT_CLICK_THRESHOLD 50
+
 Button::Button() :
-  pinNum(0),
-  buttonState(HIGH),
-  pressTime(0),
-  releaseTime(0)
+  m_pinNum(0),
+  m_buttonState(HIGH),
+  m_pressTime(0),
+  m_releaseTime(0),
+  m_holdDuration(0),
+  m_releaseDuration(0),
+  m_newPress(false),
+  m_newRelease(false),
+  m_isPressed(false),
+  m_shortClick(false),
+  m_mediumClick(false)
 {
 }
 
-void Button::init(int pin)
+bool Button::init(int pin)
 {
-  pinNum = pin;
-  pinMode(pinNum, INPUT_PULLUP);
+  m_pinNum = pin;
+  pinMode(m_pinNum, INPUT_PULLUP);
+  return true;
 }
 
 void Button::check()
 {
+  // reset the new press/release members this tick
+  m_newPress = false;
+  m_newRelease = false;
+
   // read the new button state
-  int newButtonState = digitalRead(pinNum);
+  int newButtonState = digitalRead(m_pinNum);
 
-  // nothing changed
-  if (newButtonState == buttonState) {
-    return;
-  }
+  // did the button change (press/release occurred)
+  if (newButtonState != m_buttonState) {
+    // set the new state
+    m_buttonState = newButtonState;
+    // update the currently pressed member
+    m_isPressed = (m_buttonState == LOW);
 
-  // set the new state
-  buttonState = newButtonState;
-
-  if (buttonState == LOW) {
-    // the button was just pressed
-    pressTime = g_curTime;
-  } else if (buttonState == HIGH) {
-    // the button was just released
-    releaseTime = g_curTime;
-  }
-}
-
-// whether the button was pressed this tick
-bool Button::on_press()
-{
-  return (g_curTime == pressTime);
-}
-
-// whether the button was released this tick
-bool Button::on_release()
-{
-  return (g_curTime == releaseTime);
-}
-
-// whether the button is currently pressed
-bool Button::is_pressed()
-{
-  return (buttonState == LOW);
-}
-
-// whether the button is currently released
-bool Button::is_released()
-{
-  return (buttonState == HIGH);
-}
-
-// how long the button is currently or was last held down
-int Button::holdDuration()
-{
-  // if the button is actively pressed right now then return how long it's been
-  // pressed, otherwise if the button is no longer pressed then return how long 
-  // it was held up till it's last release time
-  if (is_pressed()) {
-    if (g_curTime < pressTime) {
-      // this should be impossible but just in case
-      return 0;
+    // update the press/release times and newpress/newrelease members
+    if (m_buttonState == LOW) {
+      // the button was just pressed
+      m_pressTime = g_curTime;
+      m_newPress = true;
+    } else if (m_buttonState == HIGH) {
+      // the button was just released
+      m_releaseTime = g_curTime;
+      m_newRelease = true;
     }
-    // return how long it's been pressed
-    return g_curTime - pressTime;
   }
-  if (releaseTime < pressTime) {
-    // this should also be impossible but just in case
-    return 0;
-  }
-  // return how long it was last held for
-  return releaseTime - pressTime;
-}
 
-// how long the button is currently or was last released for
-int Button::releaseDuration()
-{
-  // if the button is actively released right now then return how long it's 
-  // been released, otherwise if the button is pressed then return how long 
-  // it was released till it's last press time
-  if (is_released()) {
-    if (g_curTime < releaseTime) {
-      // this should be impossible but just in case
-      return 0;
+  // calculate new hold/release durations if currently held/released
+  if (m_isPressed) {
+    // update the hold duration as long as the button is pressed
+    if (g_curTime >= m_pressTime && m_pressTime != 0) {
+      m_holdDuration = g_curTime - m_pressTime;
     }
-    // return how long it's been pressed
-    return g_curTime - releaseTime;
+  } else {
+    // update the release duration as long as the button is released
+    if (g_curTime >= m_releaseTime && m_releaseTime != 0) {
+      m_releaseDuration = g_curTime - m_releaseTime;
+    }
   }
-  if (pressTime < releaseTime) {
-    // this should also be impossible but just in case
-    return 0;
-  }
-  // return how long it was last released for
-  return pressTime - releaseTime;
+
+  // whether a shortclick or medium click just occurred
+  m_shortClick = (m_newRelease && (m_holdDuration <= SHORT_CLICK_THRESHOLD));
+  m_mediumClick = (m_newRelease && (m_holdDuration > SHORT_CLICK_THRESHOLD));
 }

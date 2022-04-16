@@ -4,7 +4,7 @@
 
 extern unsigned long g_curTime;
 
-void tick()
+void tickClock()
 {
   g_curTime = millis();
 }

@@ -1,7 +1,7 @@
 #ifndef TIME_H
 #define TIME_H
 
-void tick();
+void tickClock();
 
 // global curtime
 extern unsigned long g_curTime;
