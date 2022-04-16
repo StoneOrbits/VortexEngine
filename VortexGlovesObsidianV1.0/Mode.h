@@ -3,24 +3,22 @@
 
 #include "Arduino.h"
 
+class Pattern;
+class Colorset;
 
 class Mode
 {
   public:
     Mode();
+    Mode(Pattern *pat, Colorset *set);
 
-    void saveColor(int slot, int thisHue, int thisSat, int thisVal);
-    void printMode(int num);
+    // Play the mode
+    void play();
 
-    bool endOfSet;
-    int hue[8];
-    int sat[8];
-    int val[8];
-    uint8_t currentColor/*[4]*/, currentColor1;
-    uint8_t nextColor = 1;
-    uint8_t nextColor1 = 1;
-    int numColors;
-    int patternNum;
+  private:
+    // A mode consists of a link to a Pattern and a Colorset
+    Pattern *m_pPattern;
+    Colorset *m_pColorset;
 };
 
 #endif

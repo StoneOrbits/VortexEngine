@@ -4,9 +4,10 @@
 #include <FastLED.h>
 
 #include "Button.h"
+#include "Mode.h"
 
 // the number of LEDs that are controlled by the board
-#define NUM_LEDS    28
+#define NUM_LEDS    10
 
 // number of individual modes
 #define NUM_MODES   14
@@ -46,6 +47,9 @@ class VortexGloveset
 
     // whether inside the menus or at play mode
     bool m_inMenu;
+
+    // list of all modes in the gloveset
+    Mode *m_modeList[NUM_MODES];
 
     // ==================
     //  private routines

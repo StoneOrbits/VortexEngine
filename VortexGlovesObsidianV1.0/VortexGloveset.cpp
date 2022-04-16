@@ -11,7 +11,6 @@
 VortexGloveset::VortexGloveset() :
   m_button(),
   m_curMode(0),
-  m_brightness(255),
   m_inMenu(false)
 {
   memset(m_leds, 0, sizeof(m_leds));
@@ -73,8 +72,6 @@ void VortexGloveset::tick()
 
   // update the leds
   updateLEDS();
-
-  //Serial.println(m);
 }
 
 // ===================
