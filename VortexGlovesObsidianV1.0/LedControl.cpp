@@ -12,24 +12,27 @@
 LedControl::LedControl() :
   m_leds(),
   m_brightness(255),
+  m_onboardLED(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR)
 {
 }
 
 bool LedControl::init()
 {
+  // create the array of LEDS
   m_leds = vector<RGBColor>(NUM_LEDS, 0);
   // setup leds on data pin 4
   FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>(m_leds.data(), m_leds.size());
   FastLED.setBrightness(m_brightness);
-  // create the power LED
-  m_powerLED = Adafruit_DotStar(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR);
+  // clear the onboard led so it displays nothing
+  clearOnboardLED();
   return true;
 }
 
-void LedControl::turnOnPowerLED()
+void LedControl::clearOnboardLED()
 {
-  m_powerLED.begin();
-  m_powerLED.show();
+  // show nothing otherwise it might show random colours
+  onboardLED.begin();
+  onboardLED.show();
 }
 
 void LedControl::setIndex(int target, RGBColor col)

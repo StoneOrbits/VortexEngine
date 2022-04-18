@@ -15,9 +15,6 @@ class LedControl
 
     bool init();
 
-    // turn on the power LED on the device
-    void turnOnPowerLED();
-
     // control individual LED
     void setIndex(int target, RGBColor col);
     // control range of LEDS
@@ -29,14 +26,16 @@ class LedControl
     void update();
 
   private:
+    void clearOnboardLED();
+
     // array of led color values
     std::vector<RGBColor> m_leds;
 
     // global brightness
     uint32_t m_brightness;
 
-    // the power LED
-    Adafruit_DotStar m_powerLED;
+    // the onboard LED on the adafruit board
+    Adafruit_DotStar m_onboardLED;
 };
 
 #endif

@@ -19,21 +19,21 @@ class Button
     void check();
 
     // whether the button was pressed this tick
-    bool onPress() { return m_newPress; }
+    bool onPress() const { return m_newPress; }
     // whether the button was released this tick
-    bool onRelease() { return m_newRelease; }
+    bool onRelease() const { return m_newRelease; }
     // whether the button is currently pressed
-    bool isPressed() { return m_isPressed; }
+    bool isPressed() const { return m_isPressed; }
 
     // whether the button was shortclicked this tick
-    bool onShortClick() { return m_shortClick; }
+    bool onShortClick() const { return m_shortClick; }
     // whether the button was mediumclicked this tick
-    bool onMediumClick() { return m_mediumClick; }
+    bool onMediumClick() const { return m_mediumClick; }
 
     // how long the button is currently or was last held down
-    int holdDuration() { return m_holdDuration; }
+    int holdDuration() const { return m_holdDuration; }
     // how long the button is currently or was last released for
-    int releaseDuration() { return m_releaseDuration; }
+    int releaseDuration() const { return m_releaseDuration; }
 
   private:
     // the pin number that is read

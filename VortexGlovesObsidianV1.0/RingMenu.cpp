@@ -60,7 +60,7 @@ const Menu *RingMenu::run(const Button *button, LedControl *ledControl)
   // the threshold for how long to hold to activate the menu
   int threshold = 1000 + (1000 * m_selection);
   if (button->holdDuration() < threshold) {
-    return;
+    return NULL;
   }
   // the ring menu is now open
   m_isOpen = true;
@@ -75,5 +75,5 @@ const Menu *RingMenu::run(const Button *button, LedControl *ledControl)
   if (led > 9) led = 9;
   // turn on leds 0 through led with hsv based on the menu section
   setLeds(0, led, m_menuList[m_selection].color());
-  return true;
+  return NULL;
 }
