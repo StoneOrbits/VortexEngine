@@ -1,17 +1,19 @@
 #include "Colorset.h"
 
-Colorset::Colorset()
+Colorset::Colorset() :
+  m_palette(),
+  m_numColors(0)
 {
 }
 
 // create a new colorset with a list of colors
-bool Colorset::init(uint32_t amount, HSVColor *colors)
+bool Colorset::init(uint32_t amount, CHSV *colors)
 {
   return true;
 }
 
 // get a color from the colorset
-HSVColor get(uint32_t index)
+CHSV get(uint32_t index)
 {
-  return HSVColor(0, 0, 0);
+  return CHSV(0, 0, 0);
 }

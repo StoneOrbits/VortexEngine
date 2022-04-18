@@ -1,6 +1,8 @@
 #ifndef COLORSET_H
 #define COLORSET_H
 
+#include <vector>
+
 #include "Color.h"
 
 class Colorset
@@ -9,14 +11,18 @@ class Colorset
     Colorset();
 
     // create a new colorset with a list of colors
-    bool init(uint32_t amount, HSVColor *colors);
+    bool init(uint32_t amount, CHSV *colors);
 
     // get a color from the colorset
-    HSVColor get(uint32_t index);
+    CHSV get(uint32_t index);
+
+    // the number of colors in the palette
+    uint32_t numColors() { return m_numColors; }
 
   private:
     // palette of colors
-    HSVColor *m_pPalette;
+    std::vector<CHSV> m_palette;
+
     // the number of colors in the palette
     uint32_t m_numColors;
 };

@@ -1,6 +1,7 @@
 #include "ModeSharing.h"
 
-ModeSharing::ModeSharing()
+ModeSharing::ModeSharing() :
+  Menu("Mode Sharing", HSV_TEAL)
 {
 }
 

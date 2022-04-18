@@ -1,6 +1,7 @@
 #include "GlobalBrightness.h"
 
-GlobalBrightness::GlobalBrightness()
+GlobalBrightness::GlobalBrightness() :
+  Menu("Global Brightness", HSV_YELLOW)
 {
 }
 

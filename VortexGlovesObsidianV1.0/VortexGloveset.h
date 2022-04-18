@@ -4,12 +4,17 @@
 #include <FastLED.h>
 
 #include <vector>
+#include <string>
 
+#include "LedControl.h"
 #include "Button.h"
+#include "Color.h"
 #include "Mode.h"
 
 // the number of LEDs that are controlled by the board
 #define NUM_LEDS    10
+
+class Menu;
 
 class VortexGloveset
 {
@@ -35,20 +40,20 @@ class VortexGloveset
     // the button on the gloveset
     Button m_button;
 
-    // array of led color values
-    vector<CRGB> m_leds;
+    // the LED controller
+    LedControl m_ledControl;
 
     // the current mode we're on
     uint32_t m_curMode;
 
-    // global brightness
-    uint32_t m_brightness;
-
-    // current menu that is open
-    Menu m_pCurMenu;
-
     // list of all modes in the gloveset
-    vector<Mode *> m_modeList;
+    std::vector<Mode *> m_modeList;
+
+    // the ring menu
+    RingMenu m_ringMenu;
+
+    // the current menu that is open (if any)
+    const Menu *m_pCurMenu;
 
     // ==================
     //  private routines
@@ -56,7 +61,6 @@ class VortexGloveset
     // setup routines
     bool setupSerial();
     bool setupLEDs();
-    void initMenus();
     void turnOnPowerLED();
 
     // settings save/load

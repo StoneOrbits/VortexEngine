@@ -1,6 +1,7 @@
 #include "FactoryReset.h"
 
-FactoryReset::FactoryReset()
+FactoryReset::FactoryReset() :
+  Menu("Factory Reset", HSV_RED)
 {
 }
 

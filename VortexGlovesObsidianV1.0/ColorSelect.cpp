@@ -1,6 +1,7 @@
 #include "ColorSelect.h"
 
-ColorSelect::ColorSelect()
+ColorSelect::ColorSelect() :
+  Menu("Color Select", HSV_ORANGE)
 {
 
 }

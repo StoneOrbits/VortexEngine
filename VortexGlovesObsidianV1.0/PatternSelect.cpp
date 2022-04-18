@@ -1,6 +1,7 @@
 #include "PatternSelect.h"
 
-PatternSelect::PatternSelect()
+PatternSelect::PatternSelect() :
+  Menu("Pattern Select", HSV_BLUE)
 {
 }
 
