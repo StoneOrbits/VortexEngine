@@ -19,18 +19,18 @@ class LedControl
     void turnOnPowerLED();
 
     // control individual LED
-    void setIndex(int target, CHSV col);
+    void setIndex(int target, RGBColor col);
     // control range of LEDS
-    void setRange(int first, int last, CHSV col);
+    void setRange(int first, int last, RGBColor col);
     // clear all LEDs to a color (default off)
-    void clearAll(CHSV col = HSV_OFF);
+    void clearAll(RGBColor col = HSV_OFF);
 
     // actually update the LEDs and show the changes
     void update();
 
   private:
     // array of led color values
-    std::vector<CRGB> m_leds;
+    std::vector<RGBColor> m_leds;
 
     // global brightness
     uint32_t m_brightness;

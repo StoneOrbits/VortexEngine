@@ -17,7 +17,7 @@ LedControl::LedControl() :
 
 bool LedControl::init()
 {
-  m_leds = vector<CRGB>(NUM_LEDS, 0);
+  m_leds = vector<RGBColor>(NUM_LEDS, 0);
   // setup leds on data pin 4
   FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>(m_leds.data(), m_leds.size());
   FastLED.setBrightness(m_brightness);
@@ -32,19 +32,19 @@ void LedControl::turnOnPowerLED()
   m_powerLED.show();
 }
 
-void LedControl::setIndex(int target, CHSV col)
+void LedControl::setIndex(int target, RGBColor col)
 {
   m_leds[target] = col;
 }
 
-void LedControl::setRange(int first, int last, CHSV col)
+void LedControl::setRange(int first, int last, RGBColor col)
 {
   for (int a = first; a <= last; a++) {
     setLed(a, col);
   }
 }
 
-void LedControl::clearAll(CHSV col)
+void LedControl::clearAll(RGBColor col)
 {
   setRange(0, NUM_LEDS, col);
 }

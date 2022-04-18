@@ -11,17 +11,17 @@ class Colorset
     Colorset();
 
     // create a new colorset with a list of colors
-    bool init(uint32_t amount, CHSV *colors);
+    bool init(uint32_t amount, RGBColor *colors);
 
     // get a color from the colorset
-    CHSV get(uint32_t index);
+    RGBColor get(uint32_t index);
 
     // the number of colors in the palette
     uint32_t numColors() { return m_numColors; }
 
   private:
     // palette of colors
-    std::vector<CHSV> m_palette;
+    std::vector<RGBColor> m_palette;
 
     // the number of colors in the palette
     uint32_t m_numColors;
