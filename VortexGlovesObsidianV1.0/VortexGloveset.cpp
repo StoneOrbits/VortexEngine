@@ -5,13 +5,20 @@
 
 #include <Arduino.h>
 
+#include "GlobalBrightness.h"
+#include "FactoryReset.h"
+#include "ModeSharing.h"
+#include "ColorSelect.h"
+#include "PatternSelect"
+#include "Randomizer.h"
 #include "Button.h"
 #include "Time.h"
 
 VortexGloveset::VortexGloveset() :
   m_button(),
   m_curMode(0),
-  m_inMenu(false)
+  m_inMenu(false),
+  m_modeList()
 {
   memset(m_leds, 0, sizeof(m_leds));
 }
@@ -34,6 +41,12 @@ bool VortexGloveset::init()
 
   // initialize the button on pin 1
   if (!m_button.init(1)) {
+    // error
+    return false;
+  }
+
+  // initialize all the menus
+  if (!initMenus()) {
     // error
     return false;
   }
@@ -71,7 +84,7 @@ void VortexGloveset::tick()
   // TODO: timestep?
 
   // update the leds
-  updateLEDS();
+  updateLEDs();
 }
 
 // ===================
@@ -100,6 +113,42 @@ void VortexGloveset::turnOnPowerLED()
   strip.show();
 }
 
+void VortexGloveset::initMenus()
+{
+  // adding a menu consists of:
+  //  name for sake of it
+  //  menu object
+  //  color
+  
+  // Create the randomizer and add it in first slot as white
+  Randomizer *randomizer = new Randomizer(); 
+  addMenu("randomizer", randomizer, HSV_WHITE);
+
+  // Create the color select and add it second as orange
+  ColorSelect *colSelect = new ColorSelect();
+  addMenu("color select", colSelect, HSV_ORANGE);
+
+  // Create the pattern select
+  PatternSelect *patSelect = new PatternSelect();
+  addMenu("pattern select", patSelect, HSV_BLUE);
+
+  // create the global brightness menu
+  GlobalBrightness *globBrightness = new GlobalBrightness();
+  addMenu("global brightness", globBrightness, HSV_YELLOW);
+
+  // createh factory reset menu
+  FactoryReset *factReset = new FactoryReset();
+  addMenu("factory reset", factReset, HSV_RED);
+
+  // create the mode sharing menu
+  ModeSharing *modeShare = new ModeSharing();
+  addMenu("mode sharing", modeShare, HSV_TEAL);
+}
+
+void VortexGloveset::addMenu(const char *name, Menu *menu, HSVColor color)
+{
+}
+
 bool VortexGloveset::loadSettings() 
 {
   return true;
@@ -114,16 +163,25 @@ void VortexGloveset::setDefaults()
 {
 }
 
-// run the menu logic, return false if nothing to do
+// run the menu logic, return false if menus are closed
 bool VortexGloveset::runMenus()
 {
-  if (!m_inMenu || m_button.holdDuration() < 1000) {
+  if (!m_pCurMenu || m_button.holdDuration() < 1000) {
     return false;
   }
-  // must hold for 1000ms to enter the menu
-  m_inMenu = true;
 
-  // show menu
+  // run current menu if any is open
+  if (m_pCurMenu) {
+    // if the menu run handler returns false then exit menus
+    if (!m_pCurMenu->run()) {
+      // TODO save here?
+      m_pCurMenu = NULL;
+      return false;
+    }
+  }
+
+  // show ring menu
+
 
   return true;
 }
@@ -131,9 +189,9 @@ bool VortexGloveset::runMenus()
 // run the current mode
 void VortexGloveset::playMode()
 {
-  // shortclick cycles to the next mode, wrapping at NUM_MODES
+  // shortclick cycles to the next mode, wrapping at number of modes
   if (m_button.onShortClick()) {
-    m_curMode = (m_curMode + 1) % NUM_MODES;
+    m_curMode = (m_curMode + 1) % m_modeList.count();
   }
 
   // display modes[m_curMode]

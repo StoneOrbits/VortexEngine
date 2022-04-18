@@ -3,14 +3,13 @@
 
 #include <FastLED.h>
 
+#include <vector>
+
 #include "Button.h"
 #include "Mode.h"
 
 // the number of LEDs that are controlled by the board
 #define NUM_LEDS    10
-
-// number of individual modes
-#define NUM_MODES   14
 
 class VortexGloveset
 {
@@ -37,7 +36,7 @@ class VortexGloveset
     Button m_button;
 
     // array of led color values
-    CRGB m_leds[NUM_LEDS];
+    vector<CRGB> m_leds;
 
     // the current mode we're on
     uint32_t m_curMode;
@@ -45,11 +44,11 @@ class VortexGloveset
     // global brightness
     uint32_t m_brightness;
 
-    // whether inside the menus or at play mode
-    bool m_inMenu;
+    // current menu that is open
+    Menu m_pCurMenu;
 
     // list of all modes in the gloveset
-    Mode *m_modeList[NUM_MODES];
+    vector<Mode *> m_modeList;
 
     // ==================
     //  private routines
@@ -57,6 +56,7 @@ class VortexGloveset
     // setup routines
     bool setupSerial();
     bool setupLEDs();
+    void initMenus();
     void turnOnPowerLED();
 
     // settings save/load

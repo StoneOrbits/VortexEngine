@@ -1,3 +1,4 @@
+#if 0
 void basicPattern(span onDuration, span offDuration, span gapDuration) 
 void dashDops(span dotDuration, span offDuration, span dashDuration) 
 void tracer(span dashDuration, span dotDuration) 
@@ -1304,3 +1305,4 @@ void Pattern::jest(span onDuration, span offDuration, span gapDuration, span gap
     previousClockTime2 = mainClock;
   }
 }
+#endif

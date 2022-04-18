@@ -2,7 +2,7 @@
 
 #include <Arduino.h>
 
-extern unsigned long g_curTime;
+unsigned long g_curTime = 0;
 
 void tickClock()
 {

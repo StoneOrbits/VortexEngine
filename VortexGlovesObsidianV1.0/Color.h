@@ -1,6 +1,8 @@
 #ifndef COLOR_H
 #define COLOR_H
 
+#include <inttypes.h>
+
 class HSVColor
 {
   public:

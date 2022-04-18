@@ -1,4 +1,5 @@
 #include "Mode.h"
+#include "Pattern.h"
 
 Mode::Mode()
 {
