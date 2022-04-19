@@ -8,7 +8,7 @@ class PatternSelect : public Menu
   public:
     PatternSelect();
 
-    bool run();
+    bool run(const Button *button, LedControl *ledControl);
 
   private:
 

@@ -5,6 +5,7 @@
 
 class Pattern;
 class Colorset;
+class LedControl;
 
 class Mode
 {
@@ -13,7 +14,7 @@ class Mode
     Mode(Pattern *pat, Colorset *set);
 
     // Play the mode
-    void play();
+    void play(LedControl *ledControl);
 
   private:
     // A mode consists of a link to a Pattern and a Colorset

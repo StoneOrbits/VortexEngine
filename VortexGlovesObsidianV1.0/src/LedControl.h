@@ -7,7 +7,7 @@
 #include <FastLED.h>
 #include <Adafruit_DotStar.h>
 
-#include "Color.h"
+#include "ColorTypes.h"
 
 #define NUM_LEDS      10
 

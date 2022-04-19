@@ -7,15 +7,15 @@
 #include <string>
 
 #include "LedControl.h"
+#include "ColorTypes.h"
 #include "RingMenu.h"
 #include "Button.h"
-#include "Color.h"
-#include "Mode.h"
 
 // the number of LEDs that are controlled by the board
 #define NUM_LEDS    10
 
 class Menu;
+class Mode;
 
 class VortexGloveset
 {

@@ -8,7 +8,7 @@ class Randomizer : public Menu
   public:
     Randomizer();
 
-    virtual bool run();
+    bool run(const Button *button, LedControl *ledControl);
 
   private:
 

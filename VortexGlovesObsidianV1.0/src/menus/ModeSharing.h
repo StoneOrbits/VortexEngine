@@ -8,7 +8,7 @@ class ModeSharing : public Menu
   public:
     ModeSharing();
 
-    bool run();
+    bool run(const Button *button, LedControl *ledControl);
 
   private:
 

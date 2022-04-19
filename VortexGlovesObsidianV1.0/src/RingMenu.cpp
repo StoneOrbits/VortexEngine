@@ -1,12 +1,12 @@
 #include "RingMenu.h"
 
 // menus
-#include "GlobalBrightness.h"
-#include "FactoryReset.h"
-#include "ModeSharing.h"
-#include "ColorSelect.h"
-#include "PatternSelect.h"
-#include "Randomizer.h"
+#include "menus/GlobalBrightness.h"
+#include "menus/FactoryReset.h"
+#include "menus/ModeSharing.h"
+#include "menus/ColorSelect.h"
+#include "menus/PatternSelect.h"
+#include "menus/Randomizer.h"
 
 #include "LedControl.h"
 #include "Button.h"
@@ -21,11 +21,6 @@ RingMenu::RingMenu() :
 
 bool RingMenu::init()
 {
-  // adding a menu consists of:
-  //  name for sake of it
-  //  menu object
-  //  color
-  
   // Create the randomizer and add it in first slot as white
   Randomizer *randomizer = new Randomizer(); 
   m_menuList.push_back(randomizer);

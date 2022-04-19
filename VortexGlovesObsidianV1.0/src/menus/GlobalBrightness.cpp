@@ -1,11 +1,11 @@
 #include "GlobalBrightness.h"
 
 GlobalBrightness::GlobalBrightness() :
-  Menu("Global Brightness", HSV_YELLOW)
+  Menu(HSV_YELLOW)
 {
 }
 
-bool GlobalBrightness::run()
+bool GlobalBrightness::run(const Button *button, LedControl *ledControl)
 {
   return true;
 }

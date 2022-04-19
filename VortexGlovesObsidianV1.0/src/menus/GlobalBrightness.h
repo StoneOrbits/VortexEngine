@@ -8,7 +8,7 @@ class GlobalBrightness : public Menu
   public:
     GlobalBrightness();
 
-    bool run();
+    bool run(const Button *button, LedControl *ledControl);
 
   private:
 

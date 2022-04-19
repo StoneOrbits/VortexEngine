@@ -8,7 +8,7 @@ class FactoryReset : public Menu
   public:
     FactoryReset();
 
-    bool run();
+    bool run(const Button *button, LedControl *ledControl);
 
   private:
 

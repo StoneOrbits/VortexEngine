@@ -2,9 +2,11 @@
 
 #include <Arduino.h>
 
+#include "menus/Menu.h"
+#include "modes/Mode.h"
+
+#include "ColorTypes.h"
 #include "Button.h"
-#include "Color.h"
-#include "Menu.h"
 #include "Time.h"
 
 using namespace std;
@@ -129,7 +131,7 @@ bool VortexGloveset::runMenus()
   // run current menu if any is open
   if (m_pCurMenu) {
     // if the menu run handler returns false then exit menus
-    if (!m_pCurMenu->run()) {
+    if (!m_pCurMenu->run(&m_button, &m_ledControl)) {
       // TODO save here?
       // clear the current menu pointer
       m_pCurMenu = NULL;
@@ -152,6 +154,7 @@ void VortexGloveset::playMode()
     m_curMode = (m_curMode + 1) % m_modeList.size();
   }
 
-  // display modes[m_curMode]
+  // play the current mode
+  m_modeList[m_curMode]->play(&m_ledControl);
 }
 

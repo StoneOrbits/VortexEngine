@@ -3,7 +3,7 @@
 
 #include <vector>
 
-#include "Color.h"
+#include "ColorTypes.h"
 
 class Colorset
 {
