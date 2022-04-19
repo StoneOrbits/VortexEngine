@@ -3,11 +3,12 @@
 #include <FastLED.h>
 #include <Adafruit_DotStar.h>
 
-#define NUM_LEDS      10
 #define LED_DATA_PIN  4
 
 #define POWER_LED_PIN 7
 #define POWER_LED_CLK 8
+
+using namespace std;
 
 LedControl::LedControl() :
   m_leds(),
@@ -19,7 +20,7 @@ LedControl::LedControl() :
 bool LedControl::init()
 {
   // create the array of LEDS
-  m_leds = vector<RGBColor>(NUM_LEDS, 0);
+  m_leds = vector<CRGB>(NUM_LEDS, 0);
   // setup leds on data pin 4
   FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>(m_leds.data(), m_leds.size());
   FastLED.setBrightness(m_brightness);
@@ -31,19 +32,19 @@ bool LedControl::init()
 void LedControl::clearOnboardLED()
 {
   // show nothing otherwise it might show random colours
-  onboardLED.begin();
-  onboardLED.show();
+  m_onboardLED.begin();
+  m_onboardLED.show();
 }
 
 void LedControl::setIndex(int target, RGBColor col)
 {
-  m_leds[target] = col;
+  m_leds[target] = col.raw_dword;
 }
 
 void LedControl::setRange(int first, int last, RGBColor col)
 {
   for (int a = first; a <= last; a++) {
-    setLed(a, col);
+    setIndex(a, col);
   }
 }
 

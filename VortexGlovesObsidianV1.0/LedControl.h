@@ -4,9 +4,12 @@
 #include <inttypes.h>
 #include <vector>
 
+#include <FastLED.h>
 #include <Adafruit_DotStar.h>
 
 #include "Color.h"
+
+#define NUM_LEDS      10
 
 class LedControl
 {
@@ -29,7 +32,7 @@ class LedControl
     void clearOnboardLED();
 
     // array of led color values
-    std::vector<RGBColor> m_leds;
+    std::vector<CRGB> m_leds;
 
     // global brightness
     uint32_t m_brightness;

@@ -4,6 +4,7 @@
 
 #include "Button.h"
 #include "Color.h"
+#include "Menu.h"
 #include "Time.h"
 
 using namespace std;
@@ -55,9 +56,6 @@ bool VortexGloveset::init()
     saveSettings();
   }
   
-  // the device is now turned on
-  m_ledControl.turnOnPowerLED();
-
   return true;
 }
 
@@ -81,7 +79,7 @@ void VortexGloveset::tick()
   // TODO: timestep?
 
   // update the leds
-  updateLEDs();
+  m_ledControl.update();
 }
 
 // ===================
@@ -112,17 +110,19 @@ void VortexGloveset::setDefaults()
 // run the menu logic, return false if menus are closed
 bool VortexGloveset::runMenus()
 {
-  // if the ringmenu isn't open or the button isn't being pressed,
-  // or the button is pressed but for less than 50 ms then 
-  // there is nothing to do in the menu logic yet
-  if (!m_ringMenu.isOpen() && 
+  // if there are no open menus and the ringmenu isn't open and the button 
+  // isn't being pressed or the button is pressed but for less than 50 ms 
+  // then there is nothing to do in the menu logic yet
+  if (!m_pCurMenu && !m_ringMenu.isOpen() && 
       (!m_button.isPressed() || m_button.holdDuration() < 50)) {
     return false;
   }
 
   // run the ringmenu and it will return a pointer to the current menu
   if (!m_pCurMenu && m_button.isPressed()) {
-    m_pCurMenu = m_ringMenu.run();
+    // run the ringmenu and assign any menu it returns
+    // it is expected to return NULL most of the time
+    m_pCurMenu = m_ringMenu.run(&m_button, &m_ledControl);
     return true;
   }
 
@@ -131,14 +131,17 @@ bool VortexGloveset::runMenus()
     // if the menu run handler returns false then exit menus
     if (!m_pCurMenu->run()) {
       // TODO save here?
+      // clear the current menu pointer
       m_pCurMenu = NULL;
-      return NULL;
+      // return false to let the mode play
+      return false;
     }
     // nothing else after menu code has run
-    return NULL;
+    return true;
   }
 
-  return true;
+  // default return false to let the mode play
+  return false;
 }
 
 // run the current mode

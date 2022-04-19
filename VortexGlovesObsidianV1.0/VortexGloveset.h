@@ -7,6 +7,7 @@
 #include <string>
 
 #include "LedControl.h"
+#include "RingMenu.h"
 #include "Button.h"
 #include "Color.h"
 #include "Mode.h"
@@ -53,15 +54,13 @@ class VortexGloveset
     RingMenu m_ringMenu;
 
     // the current menu that is open (if any)
-    const Menu *m_pCurMenu;
+    Menu *m_pCurMenu;
 
     // ==================
     //  private routines
 
     // setup routines
     bool setupSerial();
-    bool setupLEDs();
-    void turnOnPowerLED();
 
     // settings save/load
     bool loadSettings();
@@ -75,9 +74,6 @@ class VortexGloveset
 
     // run the current mode
     void playMode();
-
-    // update and render the LEDs
-    void updateLEDs();
 };
 
 #endif

@@ -8,9 +8,11 @@
 #include "PatternSelect.h"
 #include "Randomizer.h"
 
+#include "LedControl.h"
 #include "Button.h"
 
 RingMenu::RingMenu() :
+  m_isOpen(false),
   m_selection(0),
   m_pCurMenu(nullptr),
   m_menuList()
@@ -51,29 +53,52 @@ bool RingMenu::init()
   return true;
 }
 
-const Menu *RingMenu::run(const Button *button, LedControl *ledControl)
+Menu *RingMenu::run(const Button *button, LedControl *ledControl)
 {
-  if (!button) {
+  // basic sanity check
+  if (!button || !ledControl) {
+    // programmer error
     return NULL;
   }
-  // show ring menu
-  // the threshold for how long to hold to activate the menu
-  int threshold = 1000 + (1000 * m_selection);
-  if (button->holdDuration() < threshold) {
+  // if the button was released this tick and the ringmenu was open 
+  // then close the ringmenu and return the current menu selection
+  if (button->onRelease() && m_isOpen) {
+    // the menu is no longer open
+    m_isOpen = false;
+    // return the menu that was selected
+    return m_menuList[m_selection];
+  }
+  // make sure the button is pressed and held for at least one second
+  if (!button->isPressed() || button->holdDuration() < 1000) {
     return NULL;
   }
   // the ring menu is now open
   m_isOpen = true;
-  // the amount of time held past the threshold
-  int holdTime = (button->holdDuration() - threshold);
+  // this allows the menu to wrap around to beginning after the end
+  // if the user never lets go of the button
+  int holdDuration = button->holdDuration() % (1000 + (1000 * numMenus()));
+  // the threshold for when the current menu starts 1sec + 1sec per menu
+  int threshold = 1000 + (1000 * m_selection);
+  // the amount of time held in the current menu, should be 0 to 1000 ms
+  int holdTime = (holdDuration - threshold);
+  // if the holdTime passes 1000 then iterate to next menu
+  if (holdTime > 1000) {
+    // increment selection and wrap around at numMenus
+    m_selection = (m_selection + 1) % numMenus();
+    // clear all the LEDs
+    ledControl->clearAll();
+    // re-calculate holdTime, should be 0-1000 now
+    threshold = 1000 + (1000 * m_selection);
+    holdTime = (holdDuration - threshold);
+  }
   // the leds turn on in sequence every 100ms another turns on:
   //  000ms = led 0 to 0
   //  100ms = led 0 to 1
   //  200ms = led 0 to 2
   int led = holdTime / 100;
-  // only try to turn on 10 leds (0 through 9)
-  if (led > 9) led = 9;
-  // turn on leds 0 through led with hsv based on the menu section
-  setLeds(0, led, m_menuList[m_selection].color());
+  // only try to turn on max num leds (0 through NUM_LEDS - 1)
+  if (led > (NUM_LEDS - 1)) led = NUM_LEDS - 1;
+  // turn on leds 0 through led with the menu's given color
+  ledControl->setRange(0, led, m_menuList[m_selection]->color());
   return NULL;
 }

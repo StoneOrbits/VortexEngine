@@ -18,10 +18,13 @@ class RingMenu
     // run the ringmenu and return a pointer to the menu
     // that should run based on the user selection
     // will return NULL if user is still holding down
-    const Menu *run(const Button *button, LedControl *ledControl);
+    Menu *run(const Button *button, LedControl *ledControl);
 
     // whether the ring menu is open
     bool isOpen() { return m_isOpen; }
+
+    // the number of menus in the ring menu
+    uint32_t numMenus() { return m_menuList.size(); }
 
   private:
     // whether the ring menu is open
