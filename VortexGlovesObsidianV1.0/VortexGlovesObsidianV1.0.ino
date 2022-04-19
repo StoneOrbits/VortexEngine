@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#include "VortexGloveset.h"
+#include "src/VortexGloveset.h"
 
 VortexGloveset gloveset;
 

@@ -11,10 +11,10 @@ class Pattern
     virtual ~Pattern();
 
     // must have an init func
-    virtual bool init() = 0;
+    virtual bool init();
     
     // pure virtual must override the play function
-    virtual void play(LedControl *ledControl, const Colorset *colorset) = 0;
+    virtual void play(LedControl *ledControl, const Colorset *colorset);
 
   private:
 };

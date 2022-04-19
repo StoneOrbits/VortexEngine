@@ -1,9 +1,9 @@
 #include "Mode.h"
-#include "patterns/Pattern.h"
+#include "../patterns/Pattern.h"
 
-#include "LedControl.h"
+#include "../LedControl.h"
 
-Mode::Mode()
+Mode::Mode() :
   m_pPattern(nullptr),
   m_pColorset(nullptr)
 {
