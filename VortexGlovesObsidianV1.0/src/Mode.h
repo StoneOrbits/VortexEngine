@@ -11,6 +11,12 @@ class Mode
     Mode();
     Mode(Pattern *pat, Colorset *set);
 
+    Pattern *getPattern() { return m_pPattern; }
+    void setPattern(Pattern *pat) { m_pPattern = pat; }
+
+    Colorset *getColorset() { return m_pColorset; }
+    void setColorset(Colorset *set) { m_pColorset = set; }
+
     // Play the mode
     void play(LedControl *ledControl);
 

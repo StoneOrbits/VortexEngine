@@ -1,33 +1,21 @@
 #include "BasicPattern.h"
 #include "LedControl.h"
+#include "Colorset.h"
 #include "Time.h"
 
 BasicPattern::BasicPattern(uint32_t onDuration, uint32_t offDuration) :
     m_onDuration(onDuration),
     m_offDuration(offDuration),
     m_blinkDuration(m_onDuration + m_offDuration),
-    m_totalDuration(0),
+    m_colorIndex(0),
     m_lightIsOn(false)
 {
 }
 
-// custom bind for BasicPattern to calc total duration
-bool BasicPattern::bind(const Colorset *colorset)
-{
-  if (!colorset || !super::bind(colorset)) {
-    return false;
-  }
-
-  // each color in the colorset will be displayed on/off then the gap at end
-  m_totalDuration = (colorset->numColors() * (m_onDuration + m_offDuration)) + m_gapDuration;
-  
-  return true;
-}
-
 // pure virtual must override the play function
-void BasicPattern::play(LedControl *ledControl)
+void BasicPattern::play(LedControl *ledControl, Colorset *colorset)
 {
-  if (!ledControl) {
+  if (!ledControl || !colorset) {
     // programmer error
     return;
   }
@@ -48,11 +36,9 @@ void BasicPattern::play(LedControl *ledControl)
 
   if (!m_lightIsOn) {
     // turn on with color
-    ledControl->clearAll(colorset->get(m_colorIndex));
-    // increase the current color
-    m_colorIndex = (m_colorIndex + 1) % colorset->numColors();
+    ledControl->clearAll(colorset->getNext());
   } else {
     // turn off
-    ledControl->clearAll()
+    ledControl->clearAll();
   }
 }

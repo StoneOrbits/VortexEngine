@@ -4,7 +4,9 @@
 
 #include "menus/Menu.h"
 
+#include "BasicPattern.h"
 #include "ColorTypes.h"
+#include "Colorset.h"
 #include "Button.h"
 #include "Mode.h"
 #include "Time.h"
@@ -108,8 +110,10 @@ bool VortexGloveset::saveSettings()
 void VortexGloveset::setDefaults() 
 {
   // initialize default settings
-  Mode *defaultFlash = new Mode();
-  m_modeList[m_curMode].push_back(defaultFlash);
+  BasicPattern *strobe = new BasicPattern(5, 8);
+  Colorset *rgb = new Colorset(0xFF0000, 0xFF00, 0xFF);
+  Mode *rgbStrobe = new Mode(strobe, rgb);
+  m_modeList.push_back(rgbStrobe);
 }
 
 // run the menu logic, return false if menus are closed

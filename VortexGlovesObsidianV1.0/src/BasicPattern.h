@@ -1,18 +1,17 @@
 #ifndef BASIC_PATTERN_H
 #define BASIC_PATTERN_H
 
+#include <inttypes.h>
+
 #include "Pattern.h"
 
-class BasicPattern
+class BasicPattern : public Pattern
 {
   public:
     BasicPattern(uint32_t onDuration, uint32_t offDuration = 0);
 
-    // must have a bind func
-    bool bind(const Colorset *colorset);
-    
     // pure virtual must override the play function
-    void play(LedControl *ledControl);
+    void play(LedControl *ledControl, Colorset *colorset);
 
   private:
     // =================================================
@@ -26,13 +25,10 @@ class BasicPattern
     uint32_t m_blinkDuration;
 
     // =================================================
-    //  variables that change with colorset bind
-
-    // the total duration of the entire pattern with N colors
-    uint32_t m_totalDuration;
-
-    // =================================================
     //  variables that will change at runtime
+
+    // the current color
+    uint32_t m_colorIndex;
 
     // the state of the light 
     bool m_lightIsOn;

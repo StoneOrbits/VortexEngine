@@ -17,7 +17,7 @@ Mode::Mode(Pattern *pat, Colorset *set) :
 
 void Mode::play(LedControl *ledControl)
 {
-  if (!m_pPattern || !m_pColorset) {
+  if (!m_pPattern) {
     return;
   }
   // play the curren pattern with current color set
