@@ -1,7 +1,7 @@
 #include "Mode.h"
-#include "../patterns/Pattern.h"
+#include "Pattern.h"
 
-#include "../LedControl.h"
+#include "LedControl.h"
 
 Mode::Mode() :
   m_pPattern(nullptr),

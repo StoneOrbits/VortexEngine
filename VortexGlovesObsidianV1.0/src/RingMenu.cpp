@@ -53,7 +53,7 @@ Menu *RingMenu::run(const Button *button, LedControl *ledControl)
   // basic sanity check
   if (!button || !ledControl) {
     // programmer error
-    return NULL;
+    return nullptr;
   }
   // if the button was released this tick and the ringmenu was open 
   // then close the ringmenu and return the current menu selection
@@ -65,7 +65,7 @@ Menu *RingMenu::run(const Button *button, LedControl *ledControl)
   }
   // make sure the button is pressed and held for at least one second
   if (!button->isPressed() || button->holdDuration() < 1000) {
-    return NULL;
+    return nullptr;
   }
   // the ring menu is now open
   m_isOpen = true;
@@ -95,5 +95,5 @@ Menu *RingMenu::run(const Button *button, LedControl *ledControl)
   if (led > (NUM_LEDS - 1)) led = NUM_LEDS - 1;
   // turn on leds 0 through led with the menu's given color
   ledControl->setRange(0, led, m_menuList[m_selection]->color());
-  return NULL;
+  return nullptr;
 }

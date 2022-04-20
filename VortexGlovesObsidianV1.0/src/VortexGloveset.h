@@ -70,7 +70,7 @@ class VortexGloveset
     void setDefaults();
 
     // run the menu logic, return false if nothing to do
-    bool runMenus();
+    bool runAllMenus();
 
     // run the current mode
     void playMode();

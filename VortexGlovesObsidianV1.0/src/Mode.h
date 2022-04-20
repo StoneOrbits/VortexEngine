@@ -1,8 +1,6 @@
 #ifndef MODE_H
 #define MODE_H
 
-#include "Arduino.h"
-
 class Pattern;
 class Colorset;
 class LedControl;

@@ -17,14 +17,11 @@ class Colorset
     RGBColor get(uint32_t index);
 
     // the number of colors in the palette
-    uint32_t numColors() { return m_numColors; }
+    uint32_t numColors() { return m_palette.size(); }
 
   private:
     // palette of colors
     std::vector<RGBColor> m_palette;
-
-    // the number of colors in the palette
-    uint32_t m_numColors;
 };
 
 #endif

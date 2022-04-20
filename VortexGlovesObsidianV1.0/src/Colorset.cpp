@@ -15,5 +15,8 @@ bool Colorset::init(uint32_t amount, RGBColor *colors)
 // get a color from the colorset
 RGBColor get(uint32_t index)
 {
-  return RGBColor(0, 0, 0);
+  if (index >= m_palette.size()) {
+    return RGBColor(0, 0, 0);
+  }
+  return m_palette[index];
 }

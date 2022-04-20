@@ -3,10 +3,10 @@
 #include <Arduino.h>
 
 #include "menus/Menu.h"
-#include "modes/Mode.h"
 
 #include "ColorTypes.h"
 #include "Button.h"
+#include "Mode.h"
 #include "Time.h"
 
 using namespace std;
@@ -70,7 +70,7 @@ void VortexGloveset::tick()
   m_button.check();
 
   // first try to run any menu logic
-  if (!runMenus()) {
+  if (!runAllMenus()) {
     // if it returns false then there was no menu logic to run
     // so just play the current mode
     playMode();
@@ -97,7 +97,7 @@ bool VortexGloveset::setupSerial()
 
 bool VortexGloveset::loadSettings() 
 {
-  return true;
+  return false;
 }
 
 bool VortexGloveset::saveSettings() 
@@ -107,10 +107,13 @@ bool VortexGloveset::saveSettings()
 
 void VortexGloveset::setDefaults() 
 {
+  // initialize default settings
+  Mode *defaultFlash = new Mode();
+  m_modeList[m_curMode].push_back(defaultFlash);
 }
 
 // run the menu logic, return false if menus are closed
-bool VortexGloveset::runMenus()
+bool VortexGloveset::runAllMenus()
 {
   // if there are no open menus and the ringmenu isn't open and the button 
   // isn't being pressed or the button is pressed but for less than 50 ms 
@@ -120,7 +123,7 @@ bool VortexGloveset::runMenus()
     return false;
   }
 
-  // run the ringmenu and it will return a pointer to the current menu
+  // if there is no menu open and the button is pressed
   if (!m_pCurMenu && m_button.isPressed()) {
     // run the ringmenu and assign any menu it returns
     // it is expected to return NULL most of the time
@@ -134,7 +137,7 @@ bool VortexGloveset::runMenus()
     if (!m_pCurMenu->run(&m_button, &m_ledControl)) {
       // TODO save here?
       // clear the current menu pointer
-      m_pCurMenu = NULL;
+      m_pCurMenu = nullptr;
       // return false to let the mode play
       return false;
     }
@@ -157,4 +160,3 @@ void VortexGloveset::playMode()
   // play the current mode
   m_modeList[m_curMode]->play(&m_ledControl);
 }
-
