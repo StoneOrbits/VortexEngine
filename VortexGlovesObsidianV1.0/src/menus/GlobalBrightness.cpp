@@ -5,7 +5,7 @@ GlobalBrightness::GlobalBrightness() :
 {
 }
 
-bool GlobalBrightness::run(const Button *button, LedControl *ledControl)
+bool GlobalBrightness::run(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
   return true;
 }

@@ -15,9 +15,9 @@ class RingMenu
 
     bool init();
 
-    // run the ringmenu and return a pointer to the menu
-    // that should run based on the user selection
-    // will return NULL if user is still holding down
+    // Run the ringmenu and fill colors sequentially till the user releases 
+    // on a selection. The returned Menu is the selection, or NULL if the user
+    // hasn't selected anything yet.
     Menu *run(const Button *button, LedControl *ledControl);
 
     // whether the ring menu is open

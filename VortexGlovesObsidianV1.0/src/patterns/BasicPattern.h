@@ -9,26 +9,22 @@ class BasicPattern : public Pattern
 {
   public:
     BasicPattern(uint32_t onDuration, uint32_t offDuration = 0);
+    virtual ~BasicPattern();
 
-    // pure virtual must override the play function
-    void play(LedControl *ledControl, Colorset *colorset);
+    virtual void play(const TimeControl *timeControl, LedControl *ledControl, 
+        Colorset *colorset, LedPos pos);
 
   private:
     // =================================================
     //  variables that are initialized with the pattern
 
-    // durations
+    // how long the light remains on
     uint32_t m_onDuration;
-    uint32_t m_offDuration;
-    
-    // the time for a single on + off
+    // the total time for a blink (on duration + off duration)
     uint32_t m_blinkDuration;
 
     // =================================================
     //  variables that will change at runtime
-
-    // the current color
-    uint32_t m_colorIndex;
 
     // the state of the light 
     bool m_lightIsOn;

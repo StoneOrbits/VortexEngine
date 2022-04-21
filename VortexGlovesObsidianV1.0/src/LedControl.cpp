@@ -11,7 +11,7 @@
 using namespace std;
 
 LedControl::LedControl() :
-  m_leds(),
+  m_ledColors(),
   m_brightness(255),
   m_onboardLED(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR)
 {
@@ -20,9 +20,9 @@ LedControl::LedControl() :
 bool LedControl::init()
 {
   // create the array of LEDS
-  m_leds = vector<CRGB>(NUM_LEDS, 0);
+  memset(m_ledColors, 0, sizeof(m_ledColors));
   // setup leds on data pin 4
-  FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>(m_leds.data(), m_leds.size());
+  FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>(m_ledColors, LED_COUNT);
   FastLED.setBrightness(m_brightness);
   // clear the onboard led so it displays nothing
   clearOnboardLED();
@@ -36,21 +36,21 @@ void LedControl::clearOnboardLED()
   m_onboardLED.show();
 }
 
-void LedControl::setIndex(int target, RGBColor col)
+void LedControl::setIndex(LedPos target, RGBColor col)
 {
-  m_leds[target] = col.raw_dword;
+  m_ledColors[target] = col.raw_dword;
 }
 
-void LedControl::setRange(int first, int last, RGBColor col)
+void LedControl::setRange(LedPos first, LedPos last, RGBColor col)
 {
-  for (int a = first; a <= last; a++) {
-    setIndex(a, col);
+  for (LedPos pos = first; pos <= last; pos++) {
+    setIndex(pos, col);
   }
 }
 
 void LedControl::clearAll(RGBColor col)
 {
-  setRange(0, NUM_LEDS, col);
+  setRange(0, LED_COUNT, col);
 }
 
 void LedControl::update()

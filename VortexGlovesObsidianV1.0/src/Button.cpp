@@ -1,5 +1,6 @@
 #include "Button.h"
-#include "Time.h"
+
+#include "TimeControl.h"
 
 // if click held for <= this value then the click will be registered as 
 // a 'short click' otherwise if held longer than this threshold it will

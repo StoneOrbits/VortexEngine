@@ -2,12 +2,12 @@
 #define LED_CONTROL_H
 
 #include <inttypes.h>
-#include <vector>
 
 #include <FastLED.h>
 #include <Adafruit_DotStar.h>
 
 #include "ColorTypes.h"
+#include "LedConfig.h"
 
 #define NUM_LEDS      10
 
@@ -19,9 +19,9 @@ class LedControl
     bool init();
 
     // control individual LED
-    void setIndex(int target, RGBColor col);
+    void setIndex(LedPos target, RGBColor col);
     // control range of LEDS
-    void setRange(int first, int last, RGBColor col);
+    void setRange(LedPos first, LedPos last, RGBColor col);
     // clear all LEDs to a color (default off)
     void clearAll(RGBColor col = HSV_OFF);
 
@@ -32,7 +32,7 @@ class LedControl
     void clearOnboardLED();
 
     // array of led color values
-    std::vector<CRGB> m_leds;
+    CRGB m_ledColors[LED_COUNT];
 
     // global brightness
     uint32_t m_brightness;

@@ -8,7 +8,7 @@ Randomizer::Randomizer() :
 {
 }
 
-bool Randomizer::run(const Button *button, LedControl *ledControl)
+bool Randomizer::run(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
   if (button->onMediumClick()) {
     // save randomization, exit randomizer menu

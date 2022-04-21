@@ -8,6 +8,7 @@
 
 class Button;
 class LedControl;
+class TimeControl;
 
 class Menu
 {
@@ -16,7 +17,7 @@ class Menu
     virtual ~Menu();
 
     // when the menu runs it will have access to the button and led control
-    virtual bool run(const Button *button, LedControl *ledControl) = 0;
+    virtual bool run(const TimeControl *timeControl, const Button *button, LedControl *ledControl) = 0;
 
     // get the color of this menu
     RGBColor color() { return m_menuColor; }

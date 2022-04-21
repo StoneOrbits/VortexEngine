@@ -4,18 +4,20 @@
 
 #include "menus/Menu.h"
 
-#include "BasicPattern.h"
+#include "patterns/BasicPattern.h"
+
+#include "TimeControl.h"
 #include "ColorTypes.h"
 #include "Colorset.h"
 #include "Button.h"
 #include "Mode.h"
-#include "Time.h"
 
 using namespace std;
 
 VortexGloveset::VortexGloveset() :
-  m_button(),
+  m_timeControl(),
   m_ledControl(),
+  m_button(),
   m_curMode(0),
   m_modeList(),
   m_ringMenu(),
@@ -27,6 +29,11 @@ bool VortexGloveset::init()
 {
   if (!setupSerial()) {
     // error
+    return false;
+  }
+
+  // initialize the time controller
+  if (!m_timeControl.init()) {
     return false;
   }
 
@@ -46,7 +53,7 @@ bool VortexGloveset::init()
     return false;
   }
 
-  // initialize all the menus
+  // initialize the ring menu and the menus it contains
   if (!m_ringMenu.init()) {
     // error
     return false;
@@ -66,7 +73,7 @@ bool VortexGloveset::init()
 void VortexGloveset::tick()
 {
   // tick the current time counter forward
-  tickClock();
+  m_timeControl.tickClock();
 
   // poll the button for changes
   m_button.check();
@@ -138,7 +145,7 @@ bool VortexGloveset::runAllMenus()
   // run current menu if any is open
   if (m_pCurMenu) {
     // if the menu run handler returns false then exit menus
-    if (!m_pCurMenu->run(&m_button, &m_ledControl)) {
+    if (!m_pCurMenu->run(&m_timeControl, &m_button, &m_ledControl)) {
       // TODO save here?
       // clear the current menu pointer
       m_pCurMenu = nullptr;
@@ -162,5 +169,5 @@ void VortexGloveset::playMode()
   }
 
   // play the current mode
-  m_modeList[m_curMode]->play(&m_ledControl);
+  m_modeList[m_curMode]->play(&m_timeControl, &m_ledControl);
 }

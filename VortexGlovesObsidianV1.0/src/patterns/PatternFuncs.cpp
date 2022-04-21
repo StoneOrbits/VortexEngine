@@ -80,7 +80,7 @@ void Pattern::basicPattern(span onDuration, span offDuration, span gapDuration) 
   static span timerDuration = 0;
   if (lightsOn) {
     getColor(mode.currentColor);
-    setLeds(0, NUM_LEDS);
+    setLeds(0, LED_COUNT);
     timerDuration = onDuration;
   }
   if (!lightsOn) {
@@ -350,7 +350,7 @@ void Pattern::zipFade(span onDuration, span offDuration, span zipDuration, span 
     getColor(mode.currentColor);                                    //
     setLed(9 - progress * 2);                                       // Tip zip
     if (mainClock - previousClockTime2 > fadeDuration) {            // fade timer
-      for (int a = 0; a < NUM_LEDS; a++)leds[a].fadeToBlackBy(20);  //
+      for (int a = 0; a < LED_COUNT; a++)leds[a].fadeToBlackBy(20);  //
       previousClockTime2 = mainClock;                               //
     }
     timerDuration = onDuration;
@@ -360,12 +360,12 @@ void Pattern::zipFade(span onDuration, span offDuration, span zipDuration, span 
   if (mainClock - previousClockTime > timerDuration) {    // strobe timer
     lightsOn = !lightsOn;                                 //
     if (lightsOn) {                                       //
-      for (int a = 0; a < NUM_LEDS; a++) {                // special save/load
+      for (int a = 0; a < LED_COUNT; a++) {                // special save/load
         leds[a] = copy[a];                                // for fade effect
       }                                                   // with dops
     }                                                     //
     if (!lightsOn) {                                      //
-      for (int a = 0; a < NUM_LEDS; a++) {                //
+      for (int a = 0; a < LED_COUNT; a++) {                //
         copy[a] = leds[a];                                //
       }                                                   //
       clearAll();                                         //
@@ -392,7 +392,7 @@ void Pattern::tipTop(span onDuration, span offDuration, span onDuration2, span o
   static span previousClockTime2, timerDuration2;
 
   clearAll();
-  for (int i = 0; i < NUM_LEDS; i++) {      //
+  for (int i = 0; i < LED_COUNT; i++) {      //
     if (i % 2 == 0) {                       // Tops (evens)
       if (lightsOn) {                            //
         getColor(mode.currentColor);             // get current color
@@ -437,10 +437,10 @@ void Pattern::drip(span onDuration, span offDuration, span dripDuration) {
 
   if (lightsOn) {                                 // blink on
     getColor(mode.currentColor);                 //
-    setLeds(0, NUM_LEDS);                   // set all to current color
+    setLeds(0, LED_COUNT);                   // set all to current color
 
     if (!lightsOn2) {                       // every 2nd frame
-      for (int i = 0; i < NUM_LEDS; i++) {
+      for (int i = 0; i < LED_COUNT; i++) {
         if (i % 2 == 0) {                   // find Tops (evens)
           if (mode.numColors > 1) getColor(mode.nextColor);                   // get next color
           else val = 0;
@@ -557,7 +557,7 @@ void Pattern::doubleStrobe(span onDuration, span offDuration, span colorDuration
 
   clearAll();
   if (lightsOn) {                               // Strobe 1
-    for (int i = 0; i < NUM_LEDS; i++) {  //
+    for (int i = 0; i < LED_COUNT; i++) {  //
       if (i % 2 == 0) {                   //
         getColor(mode.currentColor);           //
         setLed(i);                        //
@@ -588,7 +588,7 @@ void Pattern::meteor(span onDuration, span offDuration, span meteorSpawnDelay, u
   static int finger = 0;
 
   if (lightsOn) {
-    for (int a = 0; a < NUM_LEDS; a++)leds[a].fadeToBlackBy(fadeAmount);
+    for (int a = 0; a < LED_COUNT; a++)leds[a].fadeToBlackBy(fadeAmount);
     setLed(finger * 2);
     setLed(finger * 2 + 1);
     timerDuration = onDuration;
@@ -603,12 +603,12 @@ void Pattern::meteor(span onDuration, span offDuration, span meteorSpawnDelay, u
   if (mainClock - previousClockTime2 > timerDuration) {   // strobe timer
     lightsOn = !lightsOn;                                 //
     if (lightsOn) {                                       //
-      for (int a = 0; a < NUM_LEDS; a++) {                // special save/load
+      for (int a = 0; a < LED_COUNT; a++) {                // special save/load
         leds[a] = copy[a];                                // for fade effect
       }                                                   // with dops
     }                                                     //
     if (!lightsOn) {                                      //
-      for (int a = 0; a < NUM_LEDS; a++) {                //
+      for (int a = 0; a < LED_COUNT; a++) {                //
         copy[a] = leds[a];                                //
       }                                                   //
       clearAll();                                         //
@@ -807,12 +807,12 @@ void Pattern::lighthouse(span onDuration, span offDuration, span fingerSpeed, sp
   if (mainClock - previousClockTime > timerDuration) {          // dops timer
     lightsOn = !lightsOn;                               //
     if (lightsOn) {                               //
-      for (int a = 0; a < NUM_LEDS; a++) {  // special save/load
+      for (int a = 0; a < LED_COUNT; a++) {  // special save/load
         leds[a] = copy[a];                  // for fade effect
       }                                     // with dops
     }                                       //
     if (!lightsOn) {                              //
-      for (int a = 0; a < NUM_LEDS; a++) {  //
+      for (int a = 0; a < LED_COUNT; a++) {  //
         copy[a] = leds[a];                  //
       }                                     //
       clearAll();                           //
@@ -820,7 +820,7 @@ void Pattern::lighthouse(span onDuration, span offDuration, span fingerSpeed, sp
     previousClockTime = mainClock;                  //
   }
   if (mainClock - previousClockTime2 > 1) {                                // Fade timer
-    for (int a = 0; a < NUM_LEDS; a++) leds[a].fadeToBlackBy(fadeAmount);  //
+    for (int a = 0; a < LED_COUNT; a++) leds[a].fadeToBlackBy(fadeAmount);  //
     previousClockTime2 = mainClock;                                         //
   }
   if (mainClock - previousClockTime3 > fingerSpeed) {      // Finger/color timer
@@ -891,7 +891,7 @@ void Pattern::fill(span onDuration, span offDuration, span fillSpeed) {
 
   if (lightsOn) {
     getColor(mode.currentColor);                 //
-    setLeds(0, NUM_LEDS);                   // set all to current color
+    setLeds(0, LED_COUNT);                   // set all to current color
 
     if (mode.numColors > 1) getColor(mode.nextColor);                         // get next color
     else val = 0;
@@ -928,7 +928,7 @@ void Pattern::bounce(span onDuration, span offDuration, span bounceDuration) {
 
   if (lightsOn) {                                                             // blink on
     getColor(mode.currentColor);                                             // get current color
-    setLeds(0, NUM_LEDS);                                               // set all leds
+    setLeds(0, LED_COUNT);                                               // set all leds
     getColor(mode.nextColor);                                                     // get next color
     if (mode.numColors == 1) val = 0;
     setLed (int(triwave8(progress) / 25.4));                               // set bounce led
@@ -1032,7 +1032,7 @@ void Pattern::rabbit(span onDuration, span offDuration, span onDuration2, span o
 
   getColor(0);
   if (lightsOn) {
-    for (int i = 0; i < NUM_LEDS; i++) {
+    for (int i = 0; i < LED_COUNT; i++) {
       if (i % 2 == 0) setLed(i);
     }
     timerDuration = onDuration;
@@ -1044,13 +1044,13 @@ void Pattern::rabbit(span onDuration, span offDuration, span onDuration2, span o
 
   getColor(mode.currentColor);
   if (lightsOn2) {
-    for (int i = 0; i < NUM_LEDS; i++) {
+    for (int i = 0; i < LED_COUNT; i++) {
       if (i % 2 == 1) setLed(i);
     }
     timerDuration2 = onDuration2;
   }
   if (!lightsOn2) {
-    for (int i = 0; i < NUM_LEDS; i++) {
+    for (int i = 0; i < LED_COUNT; i++) {
       if (i % 2 == 1) clearLight(i);
     }
     timerDuration2 = offDuration2;
@@ -1082,7 +1082,7 @@ void Pattern::splitStrobie(span onDuration, span offDuration, span onDuration2, 
 
   if (lightsOn) {
     getColor(mode.currentColor);
-    for (int i = 0; i < NUM_LEDS; i++) {
+    for (int i = 0; i < LED_COUNT; i++) {
       if (lightsOn3) if (i % 2 == 0) setLed(i);
       if (!lightsOn3) if (i % 2 == 1) setLed(i);
     }
@@ -1095,14 +1095,14 @@ void Pattern::splitStrobie(span onDuration, span offDuration, span onDuration2, 
 
   getColor(mode.currentColor1);
   if (lightsOn2) {
-    for (int i = 0; i < NUM_LEDS; i++) {
+    for (int i = 0; i < LED_COUNT; i++) {
       if (lightsOn3) if (i % 2 == 1) setLed(i);
       if (!lightsOn3)if (i % 2 == 0) setLed(i);
     }
     timerDuration2 = onDuration2;
   }
   if (!lightsOn2) {
-    for (int i = 0; i < NUM_LEDS; i++) {
+    for (int i = 0; i < LED_COUNT; i++) {
       if (lightsOn3) if (i % 2 == 1) clearLight(i);
       if (!lightsOn3) if (i % 2 == 0) clearLight(i);
     }
@@ -1149,7 +1149,7 @@ void Pattern::backstrobe(span onDuration, span offDuration, span onDuration2, sp
 
   if (lightsOn) {
     getColor(mode.currentColor);
-    for (int i = 0; i < NUM_LEDS; i++) {
+    for (int i = 0; i < LED_COUNT; i++) {
       if (lightsOn3) if (i % 2 == 0) setLed(i);
       if (!lightsOn3) if (i % 2 == 1) setLed(i);
     }
@@ -1162,14 +1162,14 @@ void Pattern::backstrobe(span onDuration, span offDuration, span onDuration2, sp
 
   getColor(mode.currentColor1);
   if (lightsOn2) {
-    for (int i = 0; i < NUM_LEDS; i++) {
+    for (int i = 0; i < LED_COUNT; i++) {
       if (lightsOn3) if (i % 2 == 1) setLed(i);
       if (!lightsOn3)if (i % 2 == 0) setLed(i);
     }
     timerDuration2 = onDuration2;
   }
   if (!lightsOn2) {
-    for (int i = 0; i < NUM_LEDS; i++) {
+    for (int i = 0; i < LED_COUNT; i++) {
       if (lightsOn3) if (i % 2 == 1) clearLight(i);
       if (!lightsOn3) if (i % 2 == 0) clearLight(i);
     }
@@ -1260,7 +1260,7 @@ void Pattern::jest(span onDuration, span offDuration, span gapDuration, span gap
   clearAll();
   if (lightsOn) {
     getColor(mode.currentColor);
-    for (int a = 0; a < NUM_LEDS; a++) {
+    for (int a = 0; a < LED_COUNT; a++) {
       if (a % 2 == 1) setLed(a);
     }
     timerDuration = onDuration;
@@ -1272,13 +1272,13 @@ void Pattern::jest(span onDuration, span offDuration, span gapDuration, span gap
   }
   if (lightsOn2) {
     getColor(mode.currentColor1);
-    for (int a = 0; a < NUM_LEDS; a++) {
+    for (int a = 0; a < LED_COUNT; a++) {
       if (a % 2 == 0) setLed(a);
     }
     timerDuration2 = onDuration;
   }
   if (!lightsOn2) {
-    for (int a = 0; a < NUM_LEDS; a++) {
+    for (int a = 0; a < LED_COUNT; a++) {
       if (a % 2 == 0) clearLight(a);
     }
     timerDuration2 = offDuration;

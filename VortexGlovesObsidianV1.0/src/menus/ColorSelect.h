@@ -8,7 +8,7 @@ class ColorSelect : public Menu
   public:
     ColorSelect();
 
-    bool run(const Button *button, LedControl *ledControl);
+    bool run(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
 
   private:
 

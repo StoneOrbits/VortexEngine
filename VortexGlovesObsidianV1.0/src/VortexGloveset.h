@@ -6,13 +6,11 @@
 #include <vector>
 #include <string>
 
+#include "TimeControl.h"
 #include "LedControl.h"
 #include "ColorTypes.h"
 #include "RingMenu.h"
 #include "Button.h"
-
-// the number of LEDs that are controlled by the board
-#define NUM_LEDS    10
 
 class Menu;
 class Mode;
@@ -38,11 +36,14 @@ class VortexGloveset
     // ==============
     //  private data
 
-    // the button on the gloveset
-    Button m_button;
+    // time manager and controller
+    TimeControl m_timeControl;
 
     // the LED controller
     LedControl m_ledControl;
+
+    // the button on the gloveset
+    Button m_button;
 
     // the current mode we're on
     uint32_t m_curMode;

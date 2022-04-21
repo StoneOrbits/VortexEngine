@@ -1,8 +1,11 @@
 #ifndef PATTERN_H
 #define PATTERN_H
 
+#include "LedConfig.h"
+
 class Colorset;
 class LedControl;
+class TimeControl;
 
 class Pattern
 {
@@ -11,7 +14,8 @@ class Pattern
     virtual ~Pattern();
 
     // pure virtual must override the play function
-    virtual void play(LedControl *ledControl, Colorset *colorset) = 0;
+    virtual void play(const TimeControl *timeControl, LedControl *ledControl, 
+        Colorset *colorset, LedPos pos) = 0;
 
   private:
 };

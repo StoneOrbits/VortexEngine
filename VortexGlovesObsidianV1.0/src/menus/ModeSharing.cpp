@@ -5,7 +5,7 @@ ModeSharing::ModeSharing() :
 {
 }
 
-bool ModeSharing::run(const Button *button, LedControl *ledControl)
+bool ModeSharing::run(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
   return true;
 }

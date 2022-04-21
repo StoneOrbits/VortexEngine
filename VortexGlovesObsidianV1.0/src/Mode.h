@@ -1,9 +1,12 @@
 #ifndef MODE_H
 #define MODE_H
 
+#include "LedConfig.h"
+
 class Pattern;
 class Colorset;
 class LedControl;
+class TimeControl;
 
 class Mode
 {
@@ -11,19 +14,22 @@ class Mode
     Mode();
     Mode(Pattern *pat, Colorset *set);
 
-    Pattern *getPattern() { return m_pPattern; }
-    void setPattern(Pattern *pat) { m_pPattern = pat; }
+    // Get and set patterns
+    Pattern *getPattern(LedPos pos);
+    void setPattern(LedPos pos, Pattern *pat);
 
-    Colorset *getColorset() { return m_pColorset; }
-    void setColorset(Colorset *set) { m_pColorset = set; }
+    // Get and set colorsets
+    Colorset *getColorset(LedPos pos);
+    void setColorset(LedPos pos, Colorset *set);
 
     // Play the mode
-    void play(LedControl *ledControl);
+    void play(const TimeControl *timeControl, LedControl *ledControl);
 
   private:
-    // A mode consists of a link to a Pattern and a Colorset
-    Pattern *m_pPattern;
-    Colorset *m_pColorset;
+    // An array of patterns, on for each LED
+    Pattern *m_pPattern[NUM_LEDS];
+    // An array of Colorsets, one for each LED
+    Colorset *m_pColorset[NUM_LEDS];
 };
 
 #endif

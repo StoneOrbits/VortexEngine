@@ -5,7 +5,7 @@ FactoryReset::FactoryReset() :
 {
 }
 
-bool FactoryReset::run(const Button *button, LedControl *ledControl)
+bool FactoryReset::run(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
   return true;
 }

@@ -1,27 +1,29 @@
 #include "BasicPattern.h"
+#include "TimeControl.h"
 #include "LedControl.h"
 #include "Colorset.h"
-#include "Time.h"
 
 BasicPattern::BasicPattern(uint32_t onDuration, uint32_t offDuration) :
     m_onDuration(onDuration),
-    m_offDuration(offDuration),
-    m_blinkDuration(m_onDuration + m_offDuration),
-    m_colorIndex(0),
+    m_blinkDuration(onDuration + offDuration),
     m_lightIsOn(false)
 {
 }
 
-// pure virtual must override the play function
-void BasicPattern::play(LedControl *ledControl, Colorset *colorset)
+BasicPattern::~BasicPattern()
 {
-  if (!ledControl || !colorset) {
+}
+
+void play(const TimeControl *timeControl, LedControl *ledControl, 
+    Colorset *colorset, LedPos pos);
+{
+  if (!timeControl || !ledControl || !colorset) {
     // programmer error
     return;
   }
 
   // how far into a full frame this tick is
-  uint32_t frameTime = g_curTime % m_blinkDuration;
+  uint32_t frameTime = timeControl->getCurtime(m_fingerIndex) % m_blinkDuration;
 
   // whether the light should be on based on curtime
   bool shouldBeOn = (frameTime <= m_onDuration);
@@ -34,7 +36,7 @@ void BasicPattern::play(LedControl *ledControl, Colorset *colorset)
   // the state changed
   m_lightIsOn = shouldBeOn;
 
-  if (!m_lightIsOn) {
+  if (m_lightIsOn) {
     // turn on with color
     ledControl->clearAll(colorset->getNext());
   } else {
