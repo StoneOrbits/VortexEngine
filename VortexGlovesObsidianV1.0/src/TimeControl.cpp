@@ -3,7 +3,7 @@
 #include <Arduino.h>
 
 TimeControl::TimeControl() :
-  m_curtime(0)
+  m_curTime(0)
 {
 }
 
@@ -18,8 +18,9 @@ void TimeControl::tickClock()
   m_curTime = millis();
 }
 
-uint64_t TimeControl::getCurtime(uint32_t finger)
+// get the current time with optional led position time offset
+uint64_t TimeControl::getCurtime(LedPos pos) const
 {
-  // basic time offset of 33ms per finger
-  return m_curTime + (33 * finger);
+  // basic time offset of 33ms per led
+  return m_curTime + (33 * (uint32_t)pos);
 }

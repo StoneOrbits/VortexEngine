@@ -2,6 +2,8 @@
 
 #include "TimeControl.h"
 
+#include <Arduino.h>
+
 // if click held for <= this value then the click will be registered as 
 // a 'short click' otherwise if held longer than this threshold it will
 // be registered as a 'medium click'
@@ -34,7 +36,7 @@ bool Button::init(int pin)
   return true;
 }
 
-void Button::check()
+void Button::check(TimeControl *timeControl)
 {
   // reset the new press/release members this tick
   m_newPress = false;
@@ -53,11 +55,11 @@ void Button::check()
     // update the press/release times and newpress/newrelease members
     if (m_buttonState == LOW) {
       // the button was just pressed
-      m_pressTime = g_curTime;
+      m_pressTime = timeControl->getCurtime();
       m_newPress = true;
     } else if (m_buttonState == HIGH) {
       // the button was just released
-      m_releaseTime = g_curTime;
+      m_releaseTime = timeControl->getCurtime();
       m_newRelease = true;
     }
   }
@@ -65,13 +67,13 @@ void Button::check()
   // calculate new hold/release durations if currently held/released
   if (m_isPressed) {
     // update the hold duration as long as the button is pressed
-    if (g_curTime >= m_pressTime && m_pressTime != 0) {
-      m_holdDuration = g_curTime - m_pressTime;
+    if (timeControl->getCurtime() >= m_pressTime && m_pressTime != 0) {
+      m_holdDuration = timeControl->getCurtime() - m_pressTime;
     }
   } else {
     // update the release duration as long as the button is released
-    if (g_curTime >= m_releaseTime && m_releaseTime != 0) {
-      m_releaseDuration = g_curTime - m_releaseTime;
+    if (timeControl->getCurtime() >= m_releaseTime && m_releaseTime != 0) {
+      m_releaseDuration = timeControl->getCurtime() - m_releaseTime;
     }
   }
 

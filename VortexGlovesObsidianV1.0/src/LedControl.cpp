@@ -48,9 +48,9 @@ void LedControl::setRange(LedPos first, LedPos last, RGBColor col)
   }
 }
 
-void LedControl::clearAll(RGBColor col)
+void LedControl::setAll(RGBColor col)
 {
-  setRange(0, LED_COUNT, col);
+  setRange(LED_FIRST, LED_LAST, col);
 }
 
 void LedControl::update()

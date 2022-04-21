@@ -12,24 +12,26 @@ class Mode
 {
   public:
     Mode();
-    Mode(Pattern *pat, Colorset *set);
 
-    // Get and set patterns
-    Pattern *getPattern(LedPos pos);
-    void setPattern(LedPos pos, Pattern *pat);
+    // bind a pattern and colorset to individual LED
+    bool bind(LedPos pos, Pattern *pat, Colorset *set);
+    // bind a pattern and colorset to a range of LEDs
+    bool bindRange(LedPos first, LedPos last, Pattern *pat, Colorset *set);
+    // bind a pattern and colorset to all LEDs
+    bool bindAll(Pattern *pat, Colorset *set);
 
     // Get and set colorsets
+    Pattern *getPattern(LedPos pos);
     Colorset *getColorset(LedPos pos);
-    void setColorset(LedPos pos, Colorset *set);
 
     // Play the mode
     void play(const TimeControl *timeControl, LedControl *ledControl);
 
   private:
     // An array of patterns, on for each LED
-    Pattern *m_pPattern[NUM_LEDS];
+    Pattern *m_pPatterns[LED_COUNT];
     // An array of Colorsets, one for each LED
-    Colorset *m_pColorset[NUM_LEDS];
+    Colorset *m_pColorsets[LED_COUNT];
 };
 
 #endif

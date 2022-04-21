@@ -19,7 +19,7 @@ bool Randomizer::run(const TimeControl *timeControl, const Button *button, LedCo
   }
 
   // display randomization
-  ledControl->setRange(0, 9, HSV_RED);
+  ledControl->setRange(LED_FIRST, LED_LAST, HSV_RED);
 
   // return true to continue staying in randomizer menu
   return true;

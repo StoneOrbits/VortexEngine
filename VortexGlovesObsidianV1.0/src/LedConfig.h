@@ -1,10 +1,16 @@
 #ifndef LED_CONFIG_H
 #define LED_CONFIG_H
 
-// Defined the LED positions, their order, and index
-typedef enum ledPositionEnum {
+#include <inttypes.h>
 
-  THUMB_TOP = 0,
+// Defined the LED positions, their order, and index
+enum LedPos : uint32_t {
+
+  // this should always be first
+  LED_FIRST = 0,
+
+  // the first should be equal to LED_FIRST
+  THUMB_TOP = LED_FIRST,
   THUMB_TIP,
 
   INDEX_TOP,
@@ -19,9 +25,28 @@ typedef enum ledPositionEnum {
   PINKIE_TOP,
   PINKIE_TIP,
 
-  // the number of entries above
-  LED_COUNT
+  // INSERT NEW ENTRIES HERE
 
-} LedPos;
+  // the number of entries above
+  LED_COUNT,
+
+  // the last LED index
+  LED_LAST = (LED_COUNT - 1)
+};
+
+inline LedPos& operator++(LedPos &c) 
+{
+  c = LedPos(((uint32_t)c) + 1);
+  return c;
+}
+
+inline LedPos operator++(LedPos &c, int) 
+{
+  LedPos temp = c;
+  ++c;
+  return temp;
+}
+
+
 
 #endif

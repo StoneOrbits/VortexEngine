@@ -90,10 +90,10 @@ Menu *RingMenu::run(const Button *button, LedControl *ledControl)
   //  000ms = led 0 to 0
   //  100ms = led 0 to 1
   //  200ms = led 0 to 2
-  int led = holdTime / 100;
-  // only try to turn on max num leds (0 through LED_COUNT - 1)
-  if (led > (LED_COUNT - 1)) led = LED_COUNT - 1;
-  // turn on leds 0 through led with the menu's given color
-  ledControl->setRange(0, led, m_menuList[m_selection]->color());
+  LedPos led = (LedPos)(holdTime / 100);
+  // only try to turn on max num leds (LED_FIRST through LED_LAST)
+  if (led > LED_LAST) led = LED_LAST;
+  // turn on leds LED_FIRST through led with the menu's given color
+  ledControl->setRange(LED_FIRST, led, m_menuList[m_selection]->color());
   return nullptr;
 }

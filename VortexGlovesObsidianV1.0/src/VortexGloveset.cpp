@@ -76,7 +76,7 @@ void VortexGloveset::tick()
   m_timeControl.tickClock();
 
   // poll the button for changes
-  m_button.check();
+  m_button.check(&m_timeControl);
 
   // first try to run any menu logic
   if (!runAllMenus()) {
@@ -116,10 +116,11 @@ bool VortexGloveset::saveSettings()
 
 void VortexGloveset::setDefaults() 
 {
-  // initialize default settings
+  // initialize the first mode
   BasicPattern *strobe = new BasicPattern(5, 8);
   Colorset *rgb = new Colorset(0xFF0000, 0xFF00, 0xFF);
-  Mode *rgbStrobe = new Mode(strobe, rgb);
+  Mode *rgbStrobe = new Mode();
+  rgbStrobe->bindAll(strobe, rgb);
   m_modeList.push_back(rgbStrobe);
 }
 
@@ -163,6 +164,11 @@ bool VortexGloveset::runAllMenus()
 // run the current mode
 void VortexGloveset::playMode()
 {
+  if (!m_modeList.size()) {
+    // no modes to play
+    return;
+  }
+
   // shortclick cycles to the next mode, wrapping at number of modes
   if (m_button.onShortClick()) {
     m_curMode = (m_curMode + 1) % m_modeList.size();

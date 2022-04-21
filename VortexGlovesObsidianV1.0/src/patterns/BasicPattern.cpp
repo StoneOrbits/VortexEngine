@@ -1,7 +1,8 @@
 #include "BasicPattern.h"
-#include "TimeControl.h"
-#include "LedControl.h"
-#include "Colorset.h"
+
+#include "../TimeControl.h"
+#include "../LedControl.h"
+#include "../Colorset.h"
 
 BasicPattern::BasicPattern(uint32_t onDuration, uint32_t offDuration) :
     m_onDuration(onDuration),
@@ -14,8 +15,8 @@ BasicPattern::~BasicPattern()
 {
 }
 
-void play(const TimeControl *timeControl, LedControl *ledControl, 
-    Colorset *colorset, LedPos pos);
+void BasicPattern::play(const TimeControl *timeControl, LedControl *ledControl, 
+    Colorset *colorset, LedPos pos)
 {
   if (!timeControl || !ledControl || !colorset) {
     // programmer error
@@ -23,7 +24,7 @@ void play(const TimeControl *timeControl, LedControl *ledControl,
   }
 
   // how far into a full frame this tick is
-  uint32_t frameTime = timeControl->getCurtime(m_fingerIndex) % m_blinkDuration;
+  uint32_t frameTime = timeControl->getCurtime(pos) % m_blinkDuration;
 
   // whether the light should be on based on curtime
   bool shouldBeOn = (frameTime <= m_onDuration);
@@ -38,9 +39,11 @@ void play(const TimeControl *timeControl, LedControl *ledControl,
 
   if (m_lightIsOn) {
     // turn on with color
-    ledControl->clearAll(colorset->getNext());
+    ledControl->setIndex(pos, colorset->getNext());
   } else {
     // turn off
-    ledControl->clearAll();
+    ledControl->clearIndex(pos);
   }
 }
+
+

@@ -1,7 +1,7 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-#include "Arduino.h"
+class TimeControl;
 
 class Button 
 {
@@ -16,7 +16,7 @@ class Button
     // initialize a new button object with a pin number
     bool init(int pin);
     // check the state of the button by querying the pin
-    void check();
+    void check(TimeControl *timeControl);
 
     // whether the button was pressed this tick
     bool onPress() const { return m_newPress; }

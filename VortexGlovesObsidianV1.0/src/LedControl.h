@@ -9,8 +9,6 @@
 #include "ColorTypes.h"
 #include "LedConfig.h"
 
-#define NUM_LEDS      10
-
 class LedControl
 {
   public:
@@ -20,10 +18,17 @@ class LedControl
 
     // control individual LED
     void setIndex(LedPos target, RGBColor col);
-    // control range of LEDS
+    // control range of LEDs
     void setRange(LedPos first, LedPos last, RGBColor col);
-    // clear all LEDs to a color (default off)
-    void clearAll(RGBColor col = HSV_OFF);
+    // set all LEDs
+    void setAll(RGBColor col);
+
+    // turn off an individual LED
+    void clearIndex(LedPos target) { setIndex(target, HSV_OFF); }
+    // turn off a range of LEDs
+    void clearRange(LedPos first, LedPos last) { setRange(first, last, HSV_OFF); }
+    // turn off all LEDs
+    void clearAll() { setAll(HSV_OFF); }
 
     // actually update the LEDs and show the changes
     void update();

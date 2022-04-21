@@ -5,7 +5,7 @@ PatternSelect::PatternSelect() :
 {
 }
 
-bool PatternSelect::run(const Button *button, LedControl *ledControl)
+bool PatternSelect::run(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
   return true;
 }

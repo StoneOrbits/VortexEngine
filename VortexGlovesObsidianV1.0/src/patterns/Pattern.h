@@ -1,7 +1,7 @@
 #ifndef PATTERN_H
 #define PATTERN_H
 
-#include "LedConfig.h"
+#include "../LedConfig.h"
 
 class Colorset;
 class LedControl;
