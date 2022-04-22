@@ -12,8 +12,6 @@
 #include "Button.h"
 #include "Mode.h"
 
-using namespace std;
-
 VortexGloveset::VortexGloveset() :
   m_timeControl(),
   m_ledControl(),
@@ -77,6 +75,9 @@ void VortexGloveset::tick()
 
   // poll the button for changes
   m_button.check(&m_timeControl);
+
+  // start by clearing each tick? So if nothing is done they clear at update
+  m_ledControl.clearAll();
 
   // first try to run any menu logic
   if (!runAllMenus()) {

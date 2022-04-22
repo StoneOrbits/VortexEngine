@@ -16,7 +16,10 @@ class Menu
     Menu(RGBColor col);
     virtual ~Menu();
 
-    // when the menu runs it will have access to the button and led control
+    // optional init function can be overridden
+    virtual bool init();
+
+    // when the menu runs it will have access to time, the button and led control
     virtual bool run(const TimeControl *timeControl, const Button *button, LedControl *ledControl) = 0;
 
     // get the color of this menu

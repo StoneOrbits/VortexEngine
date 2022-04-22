@@ -9,3 +9,8 @@ Menu::Menu(RGBColor col) :
 Menu::~Menu()
 {
 }
+
+bool Menu::init()
+{
+  return true;
+}

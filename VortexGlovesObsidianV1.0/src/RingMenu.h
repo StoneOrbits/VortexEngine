@@ -4,6 +4,14 @@
 #include <inttypes.h>
 #include <vector>
 
+// menus
+#include "menus/GlobalBrightness.h"
+#include "menus/FactoryReset.h"
+#include "menus/ModeSharing.h"
+#include "menus/ColorSelect.h"
+#include "menus/PatternSelect.h"
+#include "menus/Randomizer.h"
+
 class LedControl;
 class Button;
 class Menu;
@@ -33,10 +41,19 @@ class RingMenu
     // the ring menu section
     uint32_t m_selection;
 
-    // current menu that is open
-    Menu *m_pCurMenu;
+    // helper to calculate the relative hold time for the current menu
+    int calculateHoldTime(const Button *button);
 
-    // list of menu entries
+    // ======================
+    //  Menus
+    Randomizer m_randomizer;
+    ColorSelect m_colorSelect;
+    PatternSelect m_patternSelect;
+    GlobalBrightness m_globalBrightness;
+    FactoryReset m_factoryReset;
+    ModeSharing m_modeSharing;
+
+    // list of menu entries above
     std::vector<Menu *> m_menuList;
 };
 
