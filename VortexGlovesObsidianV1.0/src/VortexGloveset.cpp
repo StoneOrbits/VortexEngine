@@ -146,6 +146,9 @@ bool VortexGloveset::runAllMenus()
 
   // run current menu if any is open
   if (m_pCurMenu) {
+    // run the click handlers for the current menu
+    if (m_button.onShortClick()) { m_pCurMenu->onShortClick(); }
+    if (m_button.onLongClick()) { m_pCurMenu->onLongClick(); }
     // if the menu run handler returns false then exit menus
     if (!m_pCurMenu->run(&m_timeControl, &m_button, &m_ledControl)) {
       // TODO save here?

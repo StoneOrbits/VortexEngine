@@ -10,20 +10,23 @@ Randomizer::Randomizer() :
 {
 }
 
+bool Randomizer::init()
+{
+  if (!Menu::init()) {
+    return false;
+  }
+  // re-roll the randomization
+  if (!reRoll()) {
+    // fatal error
+    return false;
+  }
+  return true;
+}
+
 bool Randomizer::run(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
-  // if no randomization has been generated, or a short click occurs
-  if (!m_pRandomizedMode || button->onShortClick()) {
-    // re-roll the randomization
-    if (!reRoll()) {
-      // fatal error
-      return false;
-    }
-  }
-  // if a medium click occurs then save and exit
-  if (button->onMediumClick()) {
-    // TODO: save randomization
-    // return false means exit Randomizer
+  // run the base menu logic
+  if (!Menu::run(timeControl, button, ledControl)) {
     return false;
   }
 
@@ -32,6 +35,23 @@ bool Randomizer::run(const TimeControl *timeControl, const Button *button, LedCo
 
   // return true to continue staying in randomizer menu
   return true;
+}
+
+
+void Randomizer::onShortClick()
+{
+  // shortClick re-roll the randomization
+  if (!reRoll()) {
+    // fatal error
+  }
+}
+
+void Randomizer::onLongClick()
+{
+  // TODO: save randomization
+  
+  // then do default actions leave menu
+  Menu::onLongClick();
 }
 
 //TODO: remove these includes if possible when randomization is fixed

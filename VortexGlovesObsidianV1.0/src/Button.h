@@ -27,8 +27,8 @@ class Button
 
     // whether the button was shortclicked this tick
     bool onShortClick() const { return m_shortClick; }
-    // whether the button was mediumclicked this tick
-    bool onMediumClick() const { return m_mediumClick; }
+    // whether the button was long clicked this tick
+    bool onLongClick() const { return m_longClick; }
 
     // how long the button is currently or was last held down
     int holdDuration() const { return m_holdDuration; }
@@ -63,8 +63,8 @@ class Button
     bool m_isPressed;
     // whether a short click occurred
     bool m_shortClick;
-    // whether a medium/long click occurred
-    bool m_mediumClick;
+    // whether a long click occurred
+    bool m_longClick;
 };
 
 #endif

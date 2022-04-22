@@ -22,14 +22,21 @@ class Menu
     // when the menu runs it will have access to time, the button and led control
     virtual bool run(const TimeControl *timeControl, const Button *button, LedControl *ledControl) = 0;
 
+    // optional handlers for clicks
+    virtual void onShortClick();
+    virtual void onLongClick();
+
     // get the color of this menu
     RGBColor color() { return m_menuColor; }
 
   protected:
-    // the current menu selection in this menu
-    uint32_t m_curSelection;
+    // close the current menu
+    void leaveMenu() { m_shouldClose = true; }
 
   private:
+    // whether to close the menu
+    bool m_shouldClose;
+
     // the color of the menu in the menu ring
     RGBColor m_menuColor;
 };

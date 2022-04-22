@@ -76,7 +76,7 @@ Menu *RingMenu::run(const Button *button, LedControl *ledControl)
 }
 
 // helper to calculate the relative hold time for the current menu
-int calculateHoldTime(const Button *button)
+int RingMenu::calculateHoldTime(const Button *button)
 {
   // this allows the menu to wrap around to beginning after the end
   // if the user never lets go of the button

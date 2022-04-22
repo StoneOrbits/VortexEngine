@@ -6,10 +6,7 @@
 
 // if click held for <= this value then the click will be registered as 
 // a 'short click' otherwise if held longer than this threshold it will
-// be registered as a 'medium click'
-//
-// There is no need to distinguish a 'medium click' from a 'long hold'.
-// A long hold will only ever be available when 'medium click' is not.
+// be registered as a 'long click'
 //
 // The long hold is detected by just checking the holdDuration()
 #define SHORT_CLICK_THRESHOLD 50
@@ -25,7 +22,7 @@ Button::Button() :
   m_newRelease(false),
   m_isPressed(false),
   m_shortClick(false),
-  m_mediumClick(false)
+  m_longClick(false)
 {
 }
 
@@ -77,7 +74,7 @@ void Button::check(TimeControl *timeControl)
     }
   }
 
-  // whether a shortclick or medium click just occurred
+  // whether a shortclick or long click just occurred
   m_shortClick = (m_newRelease && (m_holdDuration <= SHORT_CLICK_THRESHOLD));
-  m_mediumClick = (m_newRelease && (m_holdDuration > SHORT_CLICK_THRESHOLD));
+  m_longClick = (m_newRelease && (m_holdDuration > SHORT_CLICK_THRESHOLD));
 }
