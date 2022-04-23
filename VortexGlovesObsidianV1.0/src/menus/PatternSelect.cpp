@@ -52,7 +52,7 @@ void PatternSelect::pickList(const TimeControl *timeControl, LedControl *ledCont
 
 void PatternSelect::pickPattern(const TimeControl *timeControl, LedControl *ledControl)
 {
-  // run the pattern on all of the LEDs
+  // run the new pattern on all of the LEDs
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     m_pNewPattern->play(timeControl, ledControl, m_pColorset, pos);
   }

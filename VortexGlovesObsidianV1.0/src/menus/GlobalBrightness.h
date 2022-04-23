@@ -8,7 +8,13 @@ class GlobalBrightness : public Menu
   public:
     GlobalBrightness();
 
+    bool init(Mode *curMode);
+
     bool run(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
+
+    // handlers for clicks
+    void onShortClick();
+    void onLongClick();
 
   private:
 

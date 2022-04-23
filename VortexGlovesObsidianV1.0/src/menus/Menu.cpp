@@ -41,6 +41,4 @@ void Menu::onShortClick()
 
 void Menu::onLongClick()
 {
-  // exit the menu
-  leaveMenu();
 }
