@@ -9,7 +9,7 @@ Mode::Mode() :
 }
 
 // bind a pattern and colorset to individual LED
-bool Mode::bind(LedPos pos, Pattern *pat, Colorset *set)
+bool Mode::bind(Pattern *pat, Colorset *set, LedPos pos)
 {
   if (pos > LED_LAST) {
     return false;
@@ -20,10 +20,10 @@ bool Mode::bind(LedPos pos, Pattern *pat, Colorset *set)
 }
 
 // bind a pattern and colorset to a range of LEDs
-bool Mode::bindRange(LedPos first, LedPos last, Pattern *pat, Colorset *set)
+bool Mode::bindRange(Pattern *pat, Colorset *set, LedPos first, LedPos last)
 {
   for (LedPos pos = first; pos <= last; ++pos) {
-    if (!bind(pos, pat, set)) {
+    if (!bind(pat, set, pos)) {
       return false;
     }
   }
@@ -33,7 +33,23 @@ bool Mode::bindRange(LedPos first, LedPos last, Pattern *pat, Colorset *set)
 // bind a pattern and colorset to all LEDs
 bool Mode::bindAll(Pattern *pat, Colorset *set)
 {
-  return bindRange(LED_FIRST, LED_LAST, pat, set);
+  return bindRange(pat, set, LED_FIRST, LED_LAST);
+}
+
+Pattern *Mode::getPattern(LedPos pos)
+{
+  if (pos > LED_LAST) {
+    return nullptr;
+  }
+  return m_pPatterns[pos];
+}
+
+Colorset *Mode::getColorset(LedPos pos)
+{
+  if (pos > LED_LAST) {
+    return nullptr;
+  }
+  return m_pColorsets[pos];
 }
 
 void Mode::play(const TimeControl *timeControl, LedControl *ledControl)

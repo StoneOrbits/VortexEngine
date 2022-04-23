@@ -35,6 +35,25 @@ RGBColor Colorset::get(uint32_t index) const
   return m_palette[index];
 }
 
+// set an rgb color in a slot
+void Colorset::set(uint32_t index, RGBColor col)
+{
+  if (index >= m_palette.size()) {
+    return;
+  }
+  m_palette[index] = col;
+}
+
+// set an hsv color in a slot (expensive)
+void Colorset::set(uint32_t index, HSVColor col)
+{
+  if (index >= m_palette.size()) {
+    return;
+  }
+  // warning! converstion from hsv to rgb here
+  m_palette[index] = col;
+}
+
 RGBColor Colorset::getNext()
 {
     RGBColor rv = m_palette[m_curIndex];

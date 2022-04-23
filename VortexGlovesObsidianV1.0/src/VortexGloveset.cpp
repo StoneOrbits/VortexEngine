@@ -141,6 +141,11 @@ bool VortexGloveset::runAllMenus()
     // run the ringmenu and assign any menu it returns
     // it is expected to return NULL most of the time
     m_pCurMenu = m_ringMenu.run(&m_button, &m_ledControl);
+    // if a menu was returned then init it with current mode
+    if (m_pCurMenu) {
+      // this allows the menu to operate on the current mode
+      m_pCurMenu->init(m_modeList[m_curMode]);
+    }
     return true;
   }
 

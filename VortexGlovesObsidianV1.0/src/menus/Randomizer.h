@@ -10,7 +10,7 @@ class Randomizer : public Menu
   public:
     Randomizer();
 
-    bool init();
+    bool init(Mode *curMode);
 
     bool run(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
 

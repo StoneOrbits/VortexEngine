@@ -1,6 +1,7 @@
 #include "Menu.h"
 
 Menu::Menu(RGBColor col) :
+  m_pCurMode(nullptr),
   m_shouldClose(false),
   m_menuColor(col)
 {
@@ -10,8 +11,10 @@ Menu::~Menu()
 {
 }
 
-bool Menu::init()
+bool Menu::init(Mode *curMode)
 {
+  // menu is initialized before being run
+  m_pCurMode = curMode;
   return true;
 }
 

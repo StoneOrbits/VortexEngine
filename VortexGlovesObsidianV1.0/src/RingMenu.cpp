@@ -14,21 +14,18 @@ RingMenu::RingMenu() :
   m_modeSharing(),
   m_menuList()
 {
-  // initialize the menu list with these entries
+}
+
+bool RingMenu::init()
+{
+  // Some sort of auto-registration mechanism for this would be nice
+  // but in reality how often are people going to create new Menus
   m_menuList.push_back(&m_randomizer);
   m_menuList.push_back(&m_colorSelect);
   m_menuList.push_back(&m_patternSelect);
   m_menuList.push_back(&m_globalBrightness);
   m_menuList.push_back(&m_factoryReset);
   m_menuList.push_back(&m_modeSharing);
-}
-
-bool RingMenu::init()
-{
-  // initialize all the menus
-  for (int i = 0; i < m_menuList.size(); ++i) {
-    m_menuList[i]->init();
-  }
 
   return true;
 }

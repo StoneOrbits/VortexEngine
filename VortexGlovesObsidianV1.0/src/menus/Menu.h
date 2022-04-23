@@ -6,6 +6,7 @@
 
 #include "../ColorTypes.h"
 
+class Mode;
 class Button;
 class LedControl;
 class TimeControl;
@@ -17,7 +18,7 @@ class Menu
     virtual ~Menu();
 
     // optional init function can be overridden
-    virtual bool init();
+    virtual bool init(Mode *curMode);
 
     // when the menu runs it will have access to time, the button and led control
     virtual bool run(const TimeControl *timeControl, const Button *button, LedControl *ledControl) = 0;
@@ -32,6 +33,9 @@ class Menu
   protected:
     // close the current menu
     void leaveMenu() { m_shouldClose = true; }
+
+    // the current mode that was selected
+    Mode *m_pCurMode;
 
   private:
     // whether to close the menu

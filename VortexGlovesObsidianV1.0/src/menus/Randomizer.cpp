@@ -10,9 +10,9 @@ Randomizer::Randomizer() :
 {
 }
 
-bool Randomizer::init()
+bool Randomizer::init(Mode *curMode)
 {
-  if (!Menu::init()) {
+  if (!Menu::init(curMode)) {
     return false;
   }
   // re-roll the randomization

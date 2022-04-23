@@ -4,8 +4,8 @@
 #include <inttypes.h>
 
 // Defined the LED positions, their order, and index
-enum LedPos : uint32_t {
-
+enum LedPos : uint32_t 
+{
   // this should always be first
   LED_FIRST = 0,
 
@@ -47,6 +47,14 @@ inline LedPos operator++(LedPos &c, int)
   return temp;
 }
 
+inline LedPos operator+(LedPos &c, int b)
+{
+  return (LedPos)((uint32_t)c + b);
+}
 
+inline LedPos operator-(LedPos &c, int b)
+{
+  return (LedPos)((uint32_t)c - b);
+}
 
 #endif

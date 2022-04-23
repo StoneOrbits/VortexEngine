@@ -28,6 +28,11 @@ class Colorset
     // get a color from the colorset
     RGBColor get(uint32_t index) const;
 
+    // set an rgb color at in a slot
+    void set(uint32_t index, RGBColor col);
+    // set an hsv color in a slot (expensive)
+    void set(uint32_t index, HSVColor col);
+
     // get the next color in cycle
     RGBColor getNext();
 
