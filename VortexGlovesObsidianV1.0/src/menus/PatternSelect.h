@@ -13,15 +13,15 @@ class PatternSelect : public Menu
 
     bool init(Mode *curMode);
 
-    bool run(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
+    bool run();
 
     // handlers for clicks
     void onShortClick();
     void onLongClick();
 
   private:
-    void showListSelection(const TimeControl *timeControl, LedControl *ledControl);
-    void showPatternSelection(const TimeControl *timeControl, LedControl *ledControl);
+    void showListSelection();
+    void showPatternSelection();
 
     // private enumeration for internal state of pattern selection
     enum PatternSelectState : uint32_t

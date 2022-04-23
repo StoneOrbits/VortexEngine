@@ -11,6 +11,9 @@
 // The long hold is detected by just checking the holdDuration()
 #define SHORT_CLICK_THRESHOLD 50
 
+// should only be one button
+Button *g_pButton = nullptr;
+
 Button::Button() :
   m_pinNum(0),
   m_buttonState(HIGH),
@@ -26,14 +29,24 @@ Button::Button() :
 {
 }
 
+Button::~Button()
+{
+  g_pButton = nullptr;
+}
+
 bool Button::init(int pin)
 {
+  if (g_pButton) {
+    // programmer error, only one button
+    return false;
+  }
+  g_pButton = this;
   m_pinNum = pin;
   pinMode(m_pinNum, INPUT_PULLUP);
   return true;
 }
 
-void Button::check(TimeControl *timeControl)
+void Button::check()
 {
   // reset the new press/release members this tick
   m_newPress = false;
@@ -52,11 +65,11 @@ void Button::check(TimeControl *timeControl)
     // update the press/release times and newpress/newrelease members
     if (m_buttonState == LOW) {
       // the button was just pressed
-      m_pressTime = timeControl->getCurtime();
+      m_pressTime = g_pTimeControl->getCurtime();
       m_newPress = true;
     } else if (m_buttonState == HIGH) {
       // the button was just released
-      m_releaseTime = timeControl->getCurtime();
+      m_releaseTime = g_pTimeControl->getCurtime();
       m_newRelease = true;
     }
   }
@@ -64,13 +77,13 @@ void Button::check(TimeControl *timeControl)
   // calculate new hold/release durations if currently held/released
   if (m_isPressed) {
     // update the hold duration as long as the button is pressed
-    if (timeControl->getCurtime() >= m_pressTime && m_pressTime != 0) {
-      m_holdDuration = timeControl->getCurtime() - m_pressTime;
+    if (g_pTimeControl->getCurtime() >= m_pressTime && m_pressTime != 0) {
+      m_holdDuration = g_pTimeControl->getCurtime() - m_pressTime;
     }
   } else {
     // update the release duration as long as the button is released
-    if (timeControl->getCurtime() >= m_releaseTime && m_releaseTime != 0) {
-      m_releaseDuration = timeControl->getCurtime() - m_releaseTime;
+    if (g_pTimeControl->getCurtime() >= m_releaseTime && m_releaseTime != 0) {
+      m_releaseDuration = g_pTimeControl->getCurtime() - m_releaseTime;
     }
   }
 

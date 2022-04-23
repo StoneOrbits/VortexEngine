@@ -12,7 +12,7 @@ class Randomizer : public Menu
 
     bool init(Mode *curMode);
 
-    bool run(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
+    bool run();
 
     // handlers for clicks
     void onShortClick();

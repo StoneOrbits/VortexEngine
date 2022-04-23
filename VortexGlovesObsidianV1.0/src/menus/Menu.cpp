@@ -25,7 +25,7 @@ bool Menu::init(Mode *curMode)
   return true;
 }
 
-bool Menu::run(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
+bool Menu::run()
 {
   // should close?
   if (m_shouldClose) {
@@ -46,11 +46,17 @@ void Menu::onLongClick()
 {
 }
 
-void Menu::blinkSelection(const TimeControl *timeControl, LedControl *ledControl)
+void Menu::blinkSelection()
 {
   // only blink off for 250ms per second
-  if ((timeControl->getCurtime() % 1000) < 750) {
+  if ((g_pTimeControl->getCurtime() % 1000) < 750) {
     return;
   }
-  ledControl->clearFinger(m_curSelection);
+  // special selection clause 'select all'
+  if (m_curSelection == FINGER_COUNT) {
+    g_pLedControl->clearAll();
+  } else {
+    // otherwise just blink the selected finger
+    g_pLedControl->clearFinger(m_curSelection);
+  }
 }

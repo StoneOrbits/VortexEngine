@@ -39,6 +39,10 @@ class LedControl
     void clearFinger(Finger finger) { setFinger(finger, HSV_OFF); }
     // clear both LEDs on a range of fingers
     void clearFingers(Finger first, Finger last) { setFingers(first, last, HSV_OFF); }
+    
+    // global brightness
+    uint32_t getBrightness() const { return m_brightness; }
+    void setBrightness(uint32_t brightness) { m_brightness = brightness; }
 
     // actually update the LEDs and show the changes
     void update();
@@ -55,5 +59,8 @@ class LedControl
     // the onboard LED on the adafruit board
     Adafruit_DotStar m_onboardLED;
 };
+
+// easy access to the led control
+extern LedControl *g_pLedControl;
 
 #endif

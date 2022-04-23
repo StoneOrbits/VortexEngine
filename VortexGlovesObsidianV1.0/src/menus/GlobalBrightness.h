@@ -10,14 +10,14 @@ class GlobalBrightness : public Menu
 
     bool init(Mode *curMode);
 
-    bool run(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
+    bool run();
 
     // handlers for clicks
     void onShortClick();
     void onLongClick();
 
   private:
-
+    const uint32_t m_brightnessOptions[4] = { 50, 120, 185, 255 };
 };
 
 #endif

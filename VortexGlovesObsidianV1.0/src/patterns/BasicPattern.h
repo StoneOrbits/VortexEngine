@@ -11,8 +11,7 @@ class BasicPattern : public Pattern
     BasicPattern(uint32_t onDuration, uint32_t offDuration = 0);
     virtual ~BasicPattern();
 
-    virtual void play(const TimeControl *timeControl, LedControl *ledControl, 
-        Colorset *colorset, LedPos pos);
+    virtual void play(Colorset *colorset, LedPos pos);
 
   private:
     // =================================================

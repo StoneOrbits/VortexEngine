@@ -23,22 +23,22 @@ bool PatternSelect::init(Mode *curMode)
   return true;
 }
 
-bool PatternSelect::run(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
+bool PatternSelect::run()
 {
   // handle base menu logic
-  if (!Menu::run(timeControl, button, ledControl)) {
+  if (!Menu::run()) {
     return false;
   }
 
   switch (m_state) {
   case STATE_PICK_LIST:
     // display lists
-    showListSelection(timeControl, ledControl);
-    blinkSelection(timeControl, ledControl);
+    showListSelection();
+    blinkSelection();
     break;
   case STATE_PICK_PATTERN:
     // display patterns
-    showPatternSelection(timeControl, ledControl);
+    showPatternSelection();
     break;
   }
 
@@ -46,16 +46,16 @@ bool PatternSelect::run(const TimeControl *timeControl, const Button *button, Le
   return true;
 }
 
-void PatternSelect::showListSelection(const TimeControl *timeControl, LedControl *ledControl)
+void PatternSelect::showListSelection()
 {
   // TODO: how to lists?
 }
 
-void PatternSelect::showPatternSelection(const TimeControl *timeControl, LedControl *ledControl)
+void PatternSelect::showPatternSelection()
 {
   // run the new pattern on all of the LEDs
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    m_pNewPattern->play(timeControl, ledControl, m_pColorset, pos);
+    m_pNewPattern->play(m_pColorset, pos);
   }
 }
 

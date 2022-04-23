@@ -10,14 +10,15 @@ class FactoryReset : public Menu
 
     bool init(Mode *curMode);
 
-    bool run(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
+    bool run();
 
     // handlers for clicks
     void onShortClick();
     void onLongClick();
 
   private:
-
+    // whether to confirm the factory reset
+    bool m_confirm;
 };
 
 #endif

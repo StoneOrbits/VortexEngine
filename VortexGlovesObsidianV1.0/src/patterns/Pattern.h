@@ -14,8 +14,7 @@ class Pattern
     virtual ~Pattern();
 
     // pure virtual must override the play function
-    virtual void play(const TimeControl *timeControl, LedControl *ledControl, 
-        Colorset *colorset, LedPos pos) = 0;
+    virtual void play(Colorset *colorset, LedPos pos) = 0;
 
   private:
 };

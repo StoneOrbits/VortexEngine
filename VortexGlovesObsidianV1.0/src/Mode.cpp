@@ -71,7 +71,7 @@ Colorset *Mode::getColorset(LedPos pos) const
   return m_pColorsets[pos];
 }
 
-void Mode::play(const TimeControl *timeControl, LedControl *ledControl)
+void Mode::play()
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     // An array of patterns, on for each LED
@@ -83,7 +83,7 @@ void Mode::play(const TimeControl *timeControl, LedControl *ledControl)
       continue;
     }
     // play the curren pattern with current color set on the current finger
-    pattern->play(timeControl, ledControl, colorset, pos);
+    pattern->play(colorset, pos);
 
     // TODO: complex patterns
     // only run one finger of complex patterns

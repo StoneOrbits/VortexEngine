@@ -23,8 +23,8 @@ class VortexGloveset
     void operator=(VortexGloveset const&);
 
   public:
-    // constructor
     VortexGloveset();
+    ~VortexGloveset();
 
     // setup and initialization function
     bool init();

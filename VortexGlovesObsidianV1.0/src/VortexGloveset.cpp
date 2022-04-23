@@ -23,6 +23,10 @@ VortexGloveset::VortexGloveset() :
 {
 }
 
+VortexGloveset::~VortexGloveset()
+{
+}
+
 bool VortexGloveset::init()
 {
   if (!setupSerial()) {
@@ -74,7 +78,7 @@ void VortexGloveset::tick()
   m_timeControl.tickClock();
 
   // poll the button for changes
-  m_button.check(&m_timeControl);
+  m_button.check();
 
   // start by clearing each tick? So if nothing is done they clear at update
   m_ledControl.clearAll();
@@ -140,7 +144,7 @@ bool VortexGloveset::runAllMenus()
   if (!m_pCurMenu && m_button.isPressed()) {
     // run the ringmenu and assign any menu it returns
     // it is expected to return NULL most of the time
-    m_pCurMenu = m_ringMenu.run(&m_button, &m_ledControl);
+    m_pCurMenu = m_ringMenu.run();
     // if a menu was returned then init it with current mode
     if (m_pCurMenu) {
       // this allows the menu to operate on the current mode
@@ -155,7 +159,7 @@ bool VortexGloveset::runAllMenus()
     if (m_button.onShortClick()) { m_pCurMenu->onShortClick(); }
     if (m_button.onLongClick()) { m_pCurMenu->onLongClick(); }
     // if the menu run handler returns false then exit menus
-    if (!m_pCurMenu->run(&m_timeControl, &m_button, &m_ledControl)) {
+    if (!m_pCurMenu->run()) {
       // TODO save here?
       // clear the current menu pointer
       m_pCurMenu = nullptr;
@@ -184,5 +188,5 @@ void VortexGloveset::playMode()
   }
 
   // play the current mode
-  m_modeList[m_curMode]->play(&m_timeControl, &m_ledControl);
+  m_modeList[m_curMode]->play();
 }

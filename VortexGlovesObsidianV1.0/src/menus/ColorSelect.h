@@ -12,7 +12,7 @@ class ColorSelect : public Menu
 
     bool init(Mode *curMode);
 
-    bool run(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
+    bool run();
 
     // handlers for clicks
     void onShortClick();
@@ -20,11 +20,11 @@ class ColorSelect : public Menu
 
   private:
     // internal routines for the color select
-    void showSlotSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
-    void showQuadSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
-    void showHueSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
-    void showSatSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
-    void showValSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
+    void showSlotSelection();
+    void showQuadSelection();
+    void showHueSelection();
+    void showSatSelection();
+    void showValSelection();
 
     // Generate hue/sat/val values based on selection rules
     uint32_t makeHue(uint32_t quad, uint32_t selection);

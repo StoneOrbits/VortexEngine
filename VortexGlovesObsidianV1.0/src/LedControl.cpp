@@ -8,7 +8,8 @@
 #define POWER_LED_PIN 7
 #define POWER_LED_CLK 8
 
-using namespace std;
+// should only be one LED control
+LedControl *g_pLedControl = nullptr;
 
 LedControl::LedControl() :
   m_ledColors(),
@@ -19,6 +20,11 @@ LedControl::LedControl() :
 
 bool LedControl::init()
 {
+  if (g_pLedControl) {
+    // programmer error, only one led control
+    return false;
+  }
+  g_pLedControl = this;
   // create the array of LEDS
   memset(m_ledColors, 0, sizeof(m_ledColors));
   // setup leds on data pin 4

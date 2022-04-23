@@ -5,8 +5,6 @@
 
 class Pattern;
 class Colorset;
-class LedControl;
-class TimeControl;
 
 class Mode
 {
@@ -29,7 +27,7 @@ class Mode
     Colorset *getColorset(LedPos pos = LED_FIRST) const;
 
     // Play the mode
-    void play(const TimeControl *timeControl, LedControl *ledControl);
+    void play();
 
   private:
     // NOTE: Modes *ALLOW* for one pattern and one colorset on each LED

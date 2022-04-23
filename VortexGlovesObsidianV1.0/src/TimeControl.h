@@ -24,4 +24,7 @@ class TimeControl
     uint64_t m_curTime;
 };
 
+// easy access to the time control
+extern TimeControl *g_pTimeControl;
+
 #endif

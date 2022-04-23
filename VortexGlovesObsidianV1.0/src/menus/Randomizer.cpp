@@ -23,15 +23,15 @@ bool Randomizer::init(Mode *curMode)
   return true;
 }
 
-bool Randomizer::run(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
+bool Randomizer::run()
 {
   // run the base menu logic
-  if (!Menu::run(timeControl, button, ledControl)) {
+  if (!Menu::run()) {
     return false;
   }
 
   // display the randomized mode
-  m_pRandomizedMode->play(timeControl, ledControl);
+  m_pRandomizedMode->play();
 
   // return true to continue staying in randomizer menu
   return true;

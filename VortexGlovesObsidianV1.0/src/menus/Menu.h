@@ -22,7 +22,7 @@ class Menu
     virtual bool init(Mode *curMode);
 
     // when the menu runs it will have access to time, the button and led control
-    virtual bool run(const TimeControl *timeControl, const Button *button, LedControl *ledControl) = 0;
+    virtual bool run() = 0;
 
     // optional handlers for clicks
     virtual void onShortClick();
@@ -32,7 +32,7 @@ class Menu
     // close the current menu
     void leaveMenu() { m_shouldClose = true; }
     // blink the selected finger 
-    void blinkSelection(const TimeControl *timeControl, LedControl *ledControl);
+    void blinkSelection();
 
     // the current mode that was selected
     Mode *m_pCurMode;

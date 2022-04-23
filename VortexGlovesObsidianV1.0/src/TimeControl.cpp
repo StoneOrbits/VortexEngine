@@ -2,6 +2,9 @@
 
 #include <Arduino.h>
 
+// should only be one time control
+TimeControl *g_pTimeControl = nullptr;
+
 TimeControl::TimeControl() :
   m_curTime(0)
 {
@@ -9,7 +12,11 @@ TimeControl::TimeControl() :
 
 bool TimeControl::init()
 {
-  // nothing for now
+  if (g_pTimeControl) {
+    // programmer error, only one time control
+    return false;
+  }
+  g_pTimeControl = this;
   return true;
 }
 

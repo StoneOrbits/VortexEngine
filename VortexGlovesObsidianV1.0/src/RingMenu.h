@@ -12,8 +12,6 @@
 #include "menus/PatternSelect.h"
 #include "menus/Randomizer.h"
 
-class LedControl;
-class Button;
 class Menu;
 
 class RingMenu
@@ -26,7 +24,7 @@ class RingMenu
     // Run the ringmenu and fill colors sequentially till the user releases 
     // on a selection. The returned Menu is the selection, or NULL if the user
     // hasn't selected anything yet.
-    Menu *run(const Button *button, LedControl *ledControl);
+    Menu *run();
 
     // whether the ring menu is open
     bool isOpen() { return m_isOpen; }
@@ -44,7 +42,7 @@ class RingMenu
     // helper to register a menu object with a color for the ringmenu
     void registerMenu(Menu *menu, RGBColor col);
     // helper to calculate the relative hold time for the current menu
-    int calculateHoldTime(const Button *button);
+    int calculateHoldTime();
 
     // private structure for menu entry menu => color
     struct MenuEntry {

@@ -12,11 +12,12 @@ class Button
 
   public:
     Button();
+    ~Button();
 
     // initialize a new button object with a pin number
     bool init(int pin);
     // check the state of the button by querying the pin
-    void check(TimeControl *timeControl);
+    void check();
 
     // whether the button was pressed this tick
     bool onPress() const { return m_newPress; }
@@ -66,5 +67,8 @@ class Button
     // whether a long click occurred
     bool m_longClick;
 };
+
+// easy access to the button
+extern Button *g_pButton;
 
 #endif
