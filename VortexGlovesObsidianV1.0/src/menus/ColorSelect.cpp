@@ -43,11 +43,21 @@ bool ColorSelect::run(const TimeControl *timeControl, const Button *button, LedC
 
   // display different results based on the state of the color select
   switch (m_state) {
-    case STATE_PICK_SLOT: pickSlot(timeControl, button, ledControl);
-    case STATE_PICK_QUAD: pickQuad(timeControl, button, ledControl);
-    case STATE_PICK_HUE:  pickHue(timeControl, button, ledControl);
-    case STATE_PICK_SAT:  pickSat(timeControl, button, ledControl);
-    case STATE_PICK_VAL:  pickVal(timeControl, button, ledControl);
+  case STATE_PICK_SLOT:
+    pickSlot(timeControl, button, ledControl);
+    break;
+  case STATE_PICK_QUAD:
+    pickQuad(timeControl, button, ledControl);
+    break;
+  case STATE_PICK_HUE:
+    pickHue(timeControl, button, ledControl);
+    break;
+  case STATE_PICK_SAT:
+    pickSat(timeControl, button, ledControl);
+    break;
+  case STATE_PICK_VAL:
+    pickVal(timeControl, button, ledControl);
+    break;
   }
 
   // blink whichever slot is currently selected regardless of state
@@ -92,7 +102,7 @@ void ColorSelect::onLongClick()
     m_state = STATE_PICK_SAT;
     break;
   case STATE_PICK_SAT:
-    // pick a saturation 
+    // pick a saturation
     m_newColor.sat = make_sat(m_curSelection);
     m_state = STATE_PICK_VAL;
     break;
@@ -139,7 +149,7 @@ void ColorSelect::pickSlot(const TimeControl *timeControl, const Button *button,
   // only show PAGE_SIZE slots per page
   uint32_t page = m_curSelection % PAGE_SIZE;
   for (uint32_t i = 0; i < PAGE_SIZE; ++i) {
-    // there is 2 leds per finger 
+    // there is 2 leds per finger
     LedPos start = (LedPos)(i * 2);
     LedPos end = start + 1;
     // the index
@@ -152,7 +162,7 @@ void ColorSelect::pickSlot(const TimeControl *timeControl, const Button *button,
 void ColorSelect::pickQuad(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
   for (uint32_t i = 0; i < PAGE_SIZE; ++i) {
-    // there is 2 leds per finger 
+    // there is 2 leds per finger
     LedPos start = (LedPos)(i * 2);
     LedPos end = start + 1;
     // hue split into 4 quadrants of 90
@@ -165,7 +175,7 @@ void ColorSelect::pickQuad(const TimeControl *timeControl, const Button *button,
 void ColorSelect::pickHue(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
   for (uint32_t i = 0; i < PAGE_SIZE; ++i) {
-    // there is 2 leds per finger 
+    // there is 2 leds per finger
     LedPos start = (LedPos)(i * 2);
     LedPos end = start + 1;
     // split the quadrant into several hues
@@ -178,7 +188,7 @@ void ColorSelect::pickHue(const TimeControl *timeControl, const Button *button, 
 void ColorSelect::pickSat(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
   for (uint32_t i = 0; i < PAGE_SIZE; ++i) {
-    // there is 2 leds per finger 
+    // there is 2 leds per finger
     LedPos start = (LedPos)(i * 2);
     LedPos end = start + 1;
     // use the new color created by choosing hue
@@ -193,7 +203,7 @@ void ColorSelect::pickSat(const TimeControl *timeControl, const Button *button, 
 void ColorSelect::pickVal(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
   for (uint32_t i = 0; i < PAGE_SIZE; ++i) {
-    // there is 2 leds per finger 
+    // there is 2 leds per finger
     LedPos start = (LedPos)(i * 2);
     LedPos end = start + 1;
     // use the new color created by choosing hue
