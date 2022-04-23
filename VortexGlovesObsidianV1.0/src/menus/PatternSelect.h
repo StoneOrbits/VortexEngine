@@ -20,8 +20,8 @@ class PatternSelect : public Menu
     void onLongClick();
 
   private:
-    void pickList(const TimeControl *timeControl, LedControl *ledControl);
-    void pickPattern(const TimeControl *timeControl, LedControl *ledControl);
+    void showListSelection(const TimeControl *timeControl, LedControl *ledControl);
+    void showPatternSelection(const TimeControl *timeControl, LedControl *ledControl);
 
     // private enumeration for internal state of pattern selection
     enum PatternSelectState : uint32_t

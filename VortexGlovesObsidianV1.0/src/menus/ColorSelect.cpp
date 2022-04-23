@@ -145,6 +145,7 @@ void ColorSelect::blinkSelection(const TimeControl *timeControl, LedControl *led
 void ColorSelect::showSlotSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
   // the index of the first color to show changes based on the page
+  // will be either 0 or 4 for the two page color select
   uint32_t colIndex = (curPage() * PAGE_SIZE);
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // set the current colorset slot color on the current finger

@@ -33,11 +33,11 @@ bool PatternSelect::run(const TimeControl *timeControl, const Button *button, Le
   switch (m_state) {
   case STATE_PICK_LIST:
     // display lists
-    pickList(timeControl, ledControl);
+    showListSelection(timeControl, ledControl);
     break;
   case STATE_PICK_PATTERN:
     // display patterns
-    pickPattern(timeControl, ledControl);
+    showPatternSelection(timeControl, ledControl);
     break;
   }
 
@@ -45,12 +45,12 @@ bool PatternSelect::run(const TimeControl *timeControl, const Button *button, Le
   return true;
 }
 
-void PatternSelect::pickList(const TimeControl *timeControl, LedControl *ledControl)
+void PatternSelect::showListSelection(const TimeControl *timeControl, LedControl *ledControl)
 {
   // TODO: how to lists?
 }
 
-void PatternSelect::pickPattern(const TimeControl *timeControl, LedControl *ledControl)
+void PatternSelect::showPatternSelection(const TimeControl *timeControl, LedControl *ledControl)
 {
   // run the new pattern on all of the LEDs
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
