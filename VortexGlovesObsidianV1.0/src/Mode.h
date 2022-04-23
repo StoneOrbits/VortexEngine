@@ -25,8 +25,8 @@ class Mode
     bool setColorset(Colorset *set, LedPos pos = LED_FIRST);
 
     // Get patterns/colorsets
-    Pattern *getPattern(LedPos pos = LED_FIRST);
-    Colorset *getColorset(LedPos pos = LED_FIRST);
+    Pattern *getPattern(LedPos pos = LED_FIRST) const;
+    Colorset *getColorset(LedPos pos = LED_FIRST) const;
 
     // Play the mode
     void play(const TimeControl *timeControl, LedControl *ledControl);

@@ -49,7 +49,7 @@ void Randomizer::onShortClick()
 void Randomizer::onLongClick()
 {
   // TODO: save randomization
-  
+
   // then do default actions leave menu
   Menu::onLongClick();
 }

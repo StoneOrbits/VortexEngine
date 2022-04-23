@@ -22,12 +22,15 @@ bool GlobalBrightness::run(const TimeControl *timeControl, const Button *button,
 
   // TODO: display brightnesses
 
+
   // continue
   return true;
 }
 
 void GlobalBrightness::onShortClick()
 {
+  // four options in global brightness
+  m_curSelection = (m_curSelection + 1) % 4;
 }
 
 void GlobalBrightness::onLongClick()

@@ -53,6 +53,16 @@ void LedControl::setAll(RGBColor col)
   setRange(LED_FIRST, LED_LAST, col);
 }
 
+void LedControl::setFinger(Finger finger, RGBColor col)
+{
+  setRange(fingerTop(finger), fingerTip(finger), col);
+}
+
+void LedControl::setFingers(Finger first, Finger last, RGBColor col)
+{
+  setRange(fingerTop(first), fingerTip(last), col);
+}
+
 void LedControl::update()
 {
   FastLED.show(m_brightness);

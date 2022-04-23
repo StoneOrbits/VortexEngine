@@ -38,22 +38,22 @@ bool ColorSelect::run(const TimeControl *timeControl, const Button *button, LedC
     return false;
   }
 
-  // display different results based on the state of the color select
+  // display different leds based on the state of the color select
   switch (m_state) {
   case STATE_PICK_SLOT:
-    pickSlot(timeControl, button, ledControl);
+    showSlotSelection(timeControl, button, ledControl);
     break;
   case STATE_PICK_QUAD:
-    pickQuad(timeControl, button, ledControl);
+    showQuadSelection(timeControl, button, ledControl);
     break;
   case STATE_PICK_HUE:
-    pickHue(timeControl, button, ledControl);
+    showHueSelection(timeControl, button, ledControl);
     break;
   case STATE_PICK_SAT:
-    pickSat(timeControl, button, ledControl);
+    showSatSelection(timeControl, button, ledControl);
     break;
   case STATE_PICK_VAL:
-    pickVal(timeControl, button, ledControl);
+    showValSelection(timeControl, button, ledControl);
     break;
   }
 
@@ -95,17 +95,17 @@ void ColorSelect::onLongClick()
     break;
   case STATE_PICK_HUE:
     // pick a hue
-    m_newColor.hue = make_hue(m_quadrant, m_curSelection);
+    m_newColor.hue = makeHue(m_quadrant, m_curSelection);
     m_state = STATE_PICK_SAT;
     break;
   case STATE_PICK_SAT:
     // pick a saturation
-    m_newColor.sat = make_sat(m_curSelection);
+    m_newColor.sat = makeSat(m_curSelection);
     m_state = STATE_PICK_VAL;
     break;
   case STATE_PICK_VAL:
     // pick a value
-    m_newColor.val = make_val(m_curSelection);
+    m_newColor.val = makeVal(m_curSelection);
     // store the new color
     m_pColorset->set(m_slot, m_newColor);
     // go back to beginning for next time
@@ -118,6 +118,7 @@ void ColorSelect::onLongClick()
   m_curSelection = 0;
 }
 
+// TODO: make this part of Menu? (need to standardize selections)
 void ColorSelect::blinkSelection(const TimeControl *timeControl, LedControl *ledControl)
 {
   // only blink off for 250ms per second
@@ -141,92 +142,68 @@ void ColorSelect::blinkSelection(const TimeControl *timeControl, LedControl *led
   }
 }
 
-void ColorSelect::pickSlot(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
+void ColorSelect::showSlotSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
-  // only show PAGE_SIZE slots per page
-  uint32_t page = m_curSelection % PAGE_SIZE;
-  for (uint32_t i = 0; i < PAGE_SIZE; ++i) {
-    // there is 2 leds per finger
-    LedPos start = (LedPos)(i * 2);
-    LedPos end = start + 1;
-    // the index
-    uint32_t colIndex = (page * PAGE_SIZE) + i;
-    // set the two leds on the finger to the color slot
-    ledControl->setRange(start, end, m_pColorset->get(colIndex));
+  // the index of the first color to show changes based on the page
+  uint32_t colIndex = (curPage() * PAGE_SIZE);
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
+    // set the current colorset slot color on the current finger
+    ledControl->setFinger(f, m_pColorset->get(colIndex++));
   }
 }
 
-void ColorSelect::pickQuad(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
+void ColorSelect::showQuadSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
-  for (uint32_t i = 0; i < PAGE_SIZE; ++i) {
-    // there is 2 leds per finger
-    LedPos start = (LedPos)(i * 2);
-    LedPos end = start + 1;
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // hue split into 4 quadrants of 90
-    HSVColor col(i * 90, 255, 255);
-    // set the two leds on the finger to the color slot
-    ledControl->setRange(start, end, col);
+    ledControl->setFinger(f, HSVColor(f * 90, 255, 255));
   }
 }
 
-void ColorSelect::pickHue(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
+void ColorSelect::showHueSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
-  for (uint32_t i = 0; i < PAGE_SIZE; ++i) {
-    // there is 2 leds per finger
-    LedPos start = (LedPos)(i * 2);
-    LedPos end = start + 1;
-    // split the quadrant into several hues
-    HSVColor col(make_hue(m_quadrant, i), 255, 255);
-    // set the two leds on the finger to the color slot
-    ledControl->setRange(start, end, col);
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
+    // generate a hue from the current finger
+    ledControl->setFinger(f, HSVColor(makeHue(m_quadrant, f), 255, 255));
   }
 }
 
-void ColorSelect::pickSat(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
+void ColorSelect::showSatSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
-  for (uint32_t i = 0; i < PAGE_SIZE; ++i) {
-    // there is 2 leds per finger
-    LedPos start = (LedPos)(i * 2);
-    LedPos end = start + 1;
-    // use the new color created by choosing hue
-    HSVColor col = m_newColor;
-    // adjust it's sat based on the index
-    col.sat = make_sat(i);
-    // set the two leds on the finger to the color slot
-    ledControl->setRange(start, end, col);
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
+    // generate saturate on current hue from current finger
+    ledControl->setFinger(f, HSVColor(m_newColor.hue, makeSat(f), 255));
   }
 }
 
-void ColorSelect::pickVal(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
+void ColorSelect::showValSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
-  for (uint32_t i = 0; i < PAGE_SIZE; ++i) {
-    // there is 2 leds per finger
-    LedPos start = (LedPos)(i * 2);
-    LedPos end = start + 1;
-    // use the new color created by choosing hue
-    HSVColor col = m_newColor;
-    // adjust it's val based on the index
-    col.val = make_val(i);
-    // set the two leds on the finger to the color slot
-    ledControl->setRange(start, end, col);
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
+    // generate value on current color and current finger
+    ledControl->setFinger(f, HSVColor(m_newColor.hue, m_newColor.sat, makeVal(f)));
   }
 }
 
-uint32_t ColorSelect::make_hue(uint32_t quad, uint32_t selection)
+uint32_t ColorSelect::makeHue(uint32_t quad, uint32_t selection)
 {
   // quadrant is base multiple of 90 and hue selection is 0 28 56 84
   return (quad * 90) + (selection * 28);
 }
 
-uint32_t ColorSelect::make_sat(uint32_t selection)
+uint32_t ColorSelect::makeSat(uint32_t selection)
 {
   // 135 base saturation plus increments of 40 to 255
   return 135 + (selection * 40);
 }
 
-uint32_t ColorSelect::make_val(uint32_t selection)
+uint32_t ColorSelect::makeVal(uint32_t selection)
 {
   // 135 base value plus increments of 40 to 255
   return 135 + (selection * 40);
 }
 
+uint32_t ColorSelect::curPage()
+{
+  // pages start at 0
+  return (m_curSelection / PAGE_SIZE) - 1;
+}

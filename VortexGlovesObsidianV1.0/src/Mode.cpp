@@ -55,7 +55,7 @@ bool Mode::setColorset(Colorset *set, LedPos pos)
   return true;
 }
 
-Pattern *Mode::getPattern(LedPos pos)
+Pattern *Mode::getPattern(LedPos pos) const
 {
   if (pos > LED_LAST) {
     return nullptr;
@@ -63,7 +63,7 @@ Pattern *Mode::getPattern(LedPos pos)
   return m_pPatterns[pos];
 }
 
-Colorset *Mode::getColorset(LedPos pos)
+Colorset *Mode::getColorset(LedPos pos) const
 {
   if (pos > LED_LAST) {
     return nullptr;

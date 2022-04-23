@@ -17,7 +17,7 @@ bool PatternSelect::init(Mode *curMode)
   if (!Menu::init(curMode)) {
     return false;
   }
-  // fetch the colorset currently used so we can display demo 
+  // fetch the colorset currently used so we can display demo
   // patterns with the same colorset
   m_pColorset = curMode->getColorset();
   return true;
@@ -62,7 +62,7 @@ void PatternSelect::onShortClick()
 {
   switch (m_state) {
   case STATE_PICK_LIST:
-    // only 4 options for list 
+    // only 4 options for list
     m_curSelection = (m_curSelection + 1) % 4;
     break;
   case STATE_PICK_PATTERN:

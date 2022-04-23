@@ -30,6 +30,11 @@ class LedControl
     // turn off all LEDs
     void clearAll() { setAll(HSV_OFF); }
 
+    // control two LEDs on a finger
+    void setFinger(Finger finger, RGBColor col);
+    // control two LEDs on each of a range of fingers
+    void setFingers(Finger first, Finger last, RGBColor col);
+
     // actually update the LEDs and show the changes
     void update();
 
