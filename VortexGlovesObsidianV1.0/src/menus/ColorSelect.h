@@ -3,8 +3,6 @@
 
 #include "Menu.h"
 
-#include "../LedConfig.h"
-
 class Colorset;
 
 class ColorSelect : public Menu
