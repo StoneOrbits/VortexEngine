@@ -14,7 +14,7 @@ class TimeControl;
 class Menu
 {
   public:
-    Menu(RGBColor col);
+    Menu();
     virtual ~Menu();
 
     // optional init function can be overridden
@@ -27,9 +27,6 @@ class Menu
     virtual void onShortClick();
     virtual void onLongClick();
 
-    // get the color of this menu
-    RGBColor color() { return m_menuColor; }
-
   protected:
     // close the current menu
     void leaveMenu() { m_shouldClose = true; }
@@ -37,12 +34,14 @@ class Menu
     // the current mode that was selected
     Mode *m_pCurMode;
 
+    // all menus have a 'current selection' counter which roughly correlates 
+    // to 1 index per finger but may have special cases like 'all fingers'.
+    // It's up to the derived Menu class to decide how to increment/manage this
+    uint32_t m_curSelection;
+
   private:
     // whether to close the menu
     bool m_shouldClose;
-
-    // the color of the menu in the menu ring
-    RGBColor m_menuColor;
 };
 
 #endif

@@ -1,7 +1,7 @@
 #include "FactoryReset.h"
 
 FactoryReset::FactoryReset() :
-  Menu(HSV_RED)
+  Menu()
 {
 }
 

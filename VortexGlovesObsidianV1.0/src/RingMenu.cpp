@@ -20,14 +20,19 @@ bool RingMenu::init()
 {
   // Some sort of auto-registration mechanism for this would be nice
   // but in reality how often are people going to create new Menus
-  m_menuList.push_back(&m_randomizer);
-  m_menuList.push_back(&m_colorSelect);
-  m_menuList.push_back(&m_patternSelect);
-  m_menuList.push_back(&m_globalBrightness);
-  m_menuList.push_back(&m_factoryReset);
-  m_menuList.push_back(&m_modeSharing);
+  registerMenu(&m_randomizer, HSV_WHITE);
+  registerMenu(&m_colorSelect, HSV_ORANGE);
+  registerMenu(&m_patternSelect, HSV_BLUE);
+  registerMenu(&m_globalBrightness, HSV_YELLOW);
+  registerMenu(&m_factoryReset, HSV_RED);
+  registerMenu(&m_modeSharing, HSV_TEAL);
 
   return true;
+}
+
+void RingMenu::registerMenu(Menu *menu, RGBColor color)
+{
+  m_menuList.push_back(MenuEntry(menu, color));
 }
 
 Menu *RingMenu::run(const Button *button, LedControl *ledControl)
@@ -43,7 +48,7 @@ Menu *RingMenu::run(const Button *button, LedControl *ledControl)
     // the menu is no longer open
     m_isOpen = false;
     // return the menu that was selected
-    return m_menuList[m_selection];
+    return m_menuList[m_selection].menu;
   }
   // make sure the button is pressed and held for at least one second
   if (!button->isPressed() || button->holdDuration() < 1000) {
@@ -68,7 +73,7 @@ Menu *RingMenu::run(const Button *button, LedControl *ledControl)
   // only try to turn on up till LED_LAST leds
   if (led > LED_LAST) led = LED_LAST;
   // turn on leds LED_FIRST through led with the selected menu's given color
-  ledControl->setRange(LED_FIRST, led, m_menuList[m_selection]->color());
+  ledControl->setRange(LED_FIRST, led, m_menuList[m_selection].color);
   return nullptr;
 }
 

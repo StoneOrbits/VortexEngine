@@ -12,8 +12,7 @@
 #define PAGE_SIZE 4
 
 ColorSelect::ColorSelect() :
-  Menu(HSV_ORANGE),
-  m_curSelection(0),
+  Menu(),
   m_state(STATE_PICK_SLOT),
   m_pColorset(nullptr),
   m_slot(0),
@@ -29,8 +28,6 @@ bool ColorSelect::init(Mode *curMode)
   }
   // grab a pointer to the colorset of the mode
   m_pColorset = curMode->getColorset();
-  // reset the current selection to 0 just in case
-  m_curSelection = 0;
   return true;
 }
 

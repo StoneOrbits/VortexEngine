@@ -1,9 +1,9 @@
 #include "Menu.h"
 
-Menu::Menu(RGBColor col) :
+Menu::Menu() :
   m_pCurMode(nullptr),
-  m_shouldClose(false),
-  m_menuColor(col)
+  m_curSelection(0),
+  m_shouldClose(false)
 {
 }
 
@@ -15,6 +15,10 @@ bool Menu::init(Mode *curMode)
 {
   // menu is initialized before being run
   m_pCurMode = curMode;
+  // reset the current selection
+  m_curSelection = 0;
+  // just in case
+  m_shouldClose = false;
   return true;
 }
 

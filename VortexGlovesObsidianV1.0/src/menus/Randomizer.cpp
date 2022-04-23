@@ -5,7 +5,7 @@
 #include "../Mode.h"
 
 Randomizer::Randomizer() :
-  Menu(HSV_WHITE),
+  Menu(),
   m_pRandomizedMode(nullptr)
 {
 }

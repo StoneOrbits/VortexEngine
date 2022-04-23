@@ -20,6 +20,10 @@ class Mode
     // bind a pattern and colorset to all LEDs
     bool bindAll(Pattern *pat, Colorset *set);
 
+    // replace just the pattern or colorset
+    bool setPattern(Pattern *pat, LedPos pos = LED_FIRST);
+    bool setColorset(Colorset *set, LedPos pos = LED_FIRST);
+
     // Get patterns/colorsets
     Pattern *getPattern(LedPos pos = LED_FIRST);
     Colorset *getColorset(LedPos pos = LED_FIRST);

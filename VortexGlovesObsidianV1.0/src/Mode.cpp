@@ -36,6 +36,25 @@ bool Mode::bindAll(Pattern *pat, Colorset *set)
   return bindRange(pat, set, LED_FIRST, LED_LAST);
 }
 
+
+bool Mode::setPattern(Pattern *pat, LedPos pos)
+{
+  if (pos > LED_LAST) {
+    return false;
+  }
+  m_pPatterns[pos] = pat;
+  return true;
+}
+
+bool Mode::setColorset(Colorset *set, LedPos pos)
+{
+  if (pos > LED_LAST) {
+    return false;
+  }
+  m_pColorsets[pos] = set;
+  return true;
+}
+
 Pattern *Mode::getPattern(LedPos pos)
 {
   if (pos > LED_LAST) {

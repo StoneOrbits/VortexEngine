@@ -47,9 +47,6 @@ class ColorSelect : public Menu
       STATE_PICK_VAL,
     };
 
-    // the current selection in whichever menu
-    uint32_t m_curSelection;
-
     // the current state of the color selection menu
     ColorSelectState m_state;
 

@@ -41,8 +41,18 @@ class RingMenu
     // the ring menu section
     uint32_t m_selection;
 
+    // helper to register a menu object with a color for the ringmenu
+    void registerMenu(Menu *menu, RGBColor col);
     // helper to calculate the relative hold time for the current menu
     int calculateHoldTime(const Button *button);
+
+    // private structure for menu entry menu => color
+    struct MenuEntry {
+      MenuEntry(Menu *m, RGBColor c) : 
+        menu(m), color(c) {}
+      Menu *menu;
+      RGBColor color;
+    };
 
     // ======================
     //  Menus
@@ -53,8 +63,8 @@ class RingMenu
     FactoryReset m_factoryReset;
     ModeSharing m_modeSharing;
 
-    // list of menu entries above
-    std::vector<Menu *> m_menuList;
+    // list of menu entries above with colors
+    std::vector<MenuEntry> m_menuList;
 };
 
 #endif
