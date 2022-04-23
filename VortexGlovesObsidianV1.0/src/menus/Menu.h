@@ -5,6 +5,7 @@
 #include <string>
 
 #include "../ColorTypes.h"
+#include "../LedConfig.h"
 
 class Mode;
 class Button;
@@ -30,14 +31,14 @@ class Menu
   protected:
     // close the current menu
     void leaveMenu() { m_shouldClose = true; }
+    // blink the selected finger 
+    void blinkSelection(const TimeControl *timeControl, LedControl *ledControl);
 
     // the current mode that was selected
     Mode *m_pCurMode;
 
-    // all menus have a 'current selection' counter which roughly correlates
-    // to 1 index per finger but may have special cases like 'all fingers'.
-    // It's up to the derived Menu class to decide how to increment/manage this
-    uint32_t m_curSelection;
+    // all menus have a 'current selection' which can point at any finger
+    Finger m_curSelection;
 
   private:
     // whether to close the menu

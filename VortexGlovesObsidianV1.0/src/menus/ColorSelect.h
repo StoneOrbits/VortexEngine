@@ -20,7 +20,6 @@ class ColorSelect : public Menu
 
   private:
     // internal routines for the color select
-    void blinkSelection(const TimeControl *timeControl, LedControl *ledControl);
     void showSlotSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
     void showQuadSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
     void showHueSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl);
@@ -31,9 +30,6 @@ class ColorSelect : public Menu
     uint32_t makeHue(uint32_t quad, uint32_t selection);
     uint32_t makeSat(uint32_t selection);
     uint32_t makeVal(uint32_t selection);
-
-    // helper to get the current 'page' of color select
-    uint32_t curPage();
 
     // private enumeration for internal state of color selection
     enum ColorSelectState : uint32_t
@@ -55,6 +51,9 @@ class ColorSelect : public Menu
 
     // pointer to the colorset of the current mode
     Colorset *m_pColorset;
+
+    // the colorselect has multiple pages
+    uint32_t m_curPage;
 
     // the target color slot to change
     uint32_t m_slot;

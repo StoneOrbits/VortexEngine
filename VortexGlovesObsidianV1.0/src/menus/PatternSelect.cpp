@@ -34,6 +34,7 @@ bool PatternSelect::run(const TimeControl *timeControl, const Button *button, Le
   case STATE_PICK_LIST:
     // display lists
     showListSelection(timeControl, ledControl);
+    blinkSelection(timeControl, ledControl);
     break;
   case STATE_PICK_PATTERN:
     // display patterns
@@ -63,12 +64,12 @@ void PatternSelect::onShortClick()
   switch (m_state) {
   case STATE_PICK_LIST:
     // only 4 options for list
-    m_curSelection = (m_curSelection + 1) % 4;
+    m_curSelection = (Finger)(((uint32_t)m_curSelection + 1) % 4);
     break;
   case STATE_PICK_PATTERN:
     // TODO: implement a pattern list?
     // m_pNewPattern = nextPattern();
-    m_curSelection = (m_curSelection + 1) % 10;
+    m_curSelection = (Finger)(((uint32_t)m_curSelection + 1) % 10);
     break;
   }
 }
@@ -91,5 +92,5 @@ void PatternSelect::onLongClick()
     break;
   }
   // reset selection after choosing anything
-  m_curSelection = 0;
+  m_curSelection = FINGER_FIRST;
 }

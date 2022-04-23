@@ -35,6 +35,11 @@ class LedControl
     // control two LEDs on each of a range of fingers
     void setFingers(Finger first, Finger last, RGBColor col);
 
+    // clear both LEDs on a finger
+    void clearFinger(Finger finger) { setFinger(finger, HSV_OFF); }
+    // clear both LEDs on a range of fingers
+    void clearFingers(Finger first, Finger last) { setFingers(first, last, HSV_OFF); }
+
     // actually update the LEDs and show the changes
     void update();
 

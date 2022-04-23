@@ -5,11 +5,10 @@
 #include "../Colorset.h"
 #include "../Mode.h"
 
-// color select only allows for up to 8 slots to be changed
-#define NUM_SLOTS 8
-
 // the number of slots in a page
 #define PAGE_SIZE 4
+// the number of pages
+#define NUM_PAGES 2 
 
 ColorSelect::ColorSelect() :
   Menu(),
@@ -65,19 +64,12 @@ bool ColorSelect::run(const TimeControl *timeControl, const Button *button, LedC
 
 void ColorSelect::onShortClick()
 {
-  switch (m_state) {
-  case STATE_PICK_SLOT:
-    // iterate to the next slot
-    m_curSelection = (m_curSelection + 1) % NUM_SLOTS;
-    break;
-  case STATE_PICK_QUAD:
-  case STATE_PICK_HUE:
-  case STATE_PICK_SAT:
-  case STATE_PICK_VAL:
-    // only 4 options for quad/hue/sat/val
-    m_curSelection = (m_curSelection + 1) % 4;
-    break;
+  // keep track of pages when in slot selection
+  if (m_state == STATE_PICK_SLOT && m_curSelection == (Finger)(PAGE_SIZE - 1)) {
+    m_curPage = (m_curPage + 1) % NUM_PAGES;
   }
+  // iterate selection forward
+  m_curSelection = (Finger)(((uint32_t)m_curSelection + 1) % PAGE_SIZE);
 }
 
 void ColorSelect::onLongClick()
@@ -87,6 +79,8 @@ void ColorSelect::onLongClick()
     // store the slot selection
     m_slot = m_curSelection;
     m_state = STATE_PICK_QUAD;
+    // reset current page for next time
+    m_curPage = 0;
     break;
   case STATE_PICK_QUAD:
     // pick a quadrant
@@ -115,38 +109,14 @@ void ColorSelect::onLongClick()
     break;
   }
   // reset selection after choosing anything
-  m_curSelection = 0;
-}
-
-// TODO: make this part of Menu? (need to standardize selections)
-void ColorSelect::blinkSelection(const TimeControl *timeControl, LedControl *ledControl)
-{
-  // only blink off for 250ms per second
-  if ((timeControl->getCurtime() % 1000) < 750) {
-    return;
-  }
-  // everything in colorselect is on pages of 4
-  switch (m_curSelection % 4) {
-  case 0: // pinkie
-    ledControl->clearRange(PINKIE_TOP, PINKIE_TIP);
-    break;
-  case 1: // ring
-    ledControl->clearRange(RING_TOP, RING_TIP);
-    break;
-  case 2: // mid
-    ledControl->clearRange(MIDDLE_TOP, MIDDLE_TIP);
-    break;
-  case 3: // index
-    ledControl->clearRange(INDEX_TOP, INDEX_TIP);
-    break;
-  }
+  m_curSelection = FINGER_FIRST;
 }
 
 void ColorSelect::showSlotSelection(const TimeControl *timeControl, const Button *button, LedControl *ledControl)
 {
   // the index of the first color to show changes based on the page
   // will be either 0 or 4 for the two page color select
-  uint32_t colIndex = (curPage() * PAGE_SIZE);
+  uint32_t colIndex = (m_curPage * PAGE_SIZE);
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // set the current colorset slot color on the current finger
     ledControl->setFinger(f, m_pColorset->get(colIndex++));
@@ -201,10 +171,4 @@ uint32_t ColorSelect::makeVal(uint32_t selection)
 {
   // 135 base value plus increments of 40 to 255
   return 135 + (selection * 40);
-}
-
-uint32_t ColorSelect::curPage()
-{
-  // pages start at 0
-  return (m_curSelection / PAGE_SIZE) - 1;
 }

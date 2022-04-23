@@ -28,8 +28,6 @@ bool FactoryReset::run(const TimeControl *timeControl, const Button *button, Led
 
 void FactoryReset::onShortClick()
 {
-  // only two options in factory reset
-  m_curSelection = (m_curSelection + 1) % 2;
 }
 
 void FactoryReset::onLongClick()
