@@ -34,8 +34,9 @@ class Colorset
     // the number of colors in the palette
     uint32_t numColors() const { return m_numColors; }
 
-    // serialize the colorset
+    // serialize the colorset to save/load
     void serialize() const;
+    void unserialize();
 
   private:
     // the current index

@@ -95,6 +95,8 @@ class RGBColor
       //hsv2rgb_rainbow(CHSV(rhs.raw_dword), *this);
     }
 
+    void serialize() const;
+
     union {
       struct {
         uint8_t pad;

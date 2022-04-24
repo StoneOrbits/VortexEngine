@@ -1,5 +1,7 @@
 #include "Colorset.h"
 
+#include <Arduino.h>
+
 Colorset::Colorset() :
   m_curIndex(0),
   m_numColors(0),
@@ -67,4 +69,16 @@ RGBColor Colorset::getNext()
     m_curIndex = (m_curIndex + 1) % numColors();
     // return the color
     return m_palette[m_curIndex];
+}
+
+void Colorset::serialize() const
+{
+  Serial.print(m_numColors);
+  for (uint32_t i = 0; i < m_numColors; ++i) {
+    m_palette[i].serialize();
+  }
+}
+
+void Colorset::unserialize()
+{
 }

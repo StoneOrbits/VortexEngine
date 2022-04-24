@@ -111,7 +111,7 @@ void Mode::play()
   }
 }
 
-void Mode::serialize()
+void Mode::serialize() const
 {
   //   4 mode flags (*)       flags defined whether multi pattern or not
   //     led1..N {            if multi pattern then 10x led, otherwise 1x
@@ -127,7 +127,7 @@ void Mode::serialize()
   //      }
   Serial.print(m_flags);
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    LedEntry *entry = m_ledEntries + pos;
+    const LedEntry *entry = m_ledEntries + pos;
     if (!entry->pattern || !entry->colorset) {
       continue;
     }
@@ -141,4 +141,8 @@ void Mode::serialize()
       return;
     }
   }
+}
+
+void Mode::unserialize()
+{
 }

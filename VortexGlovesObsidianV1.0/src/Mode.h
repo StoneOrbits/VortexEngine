@@ -47,7 +47,9 @@ class Mode
     void play();
 
     // save the mode to serial
-    void serialize();
+    void serialize() const;
+    // load the mode from serial
+    void unserialize();
 
   private:
     // NOTE: Modes *ALLOW* for one pattern and one colorset on each LED

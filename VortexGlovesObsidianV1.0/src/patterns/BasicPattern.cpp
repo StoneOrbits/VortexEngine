@@ -45,4 +45,10 @@ void BasicPattern::play(Colorset *colorset, LedPos pos)
   }
 }
 
+void BasicPattern::serialize() const
+{
+}
 
+void BasicPattern::unserialize()
+{
+}
