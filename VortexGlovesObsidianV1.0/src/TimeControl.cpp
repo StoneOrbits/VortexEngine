@@ -10,6 +10,11 @@ TimeControl::TimeControl() :
 {
 }
 
+TimeControl::~TimeControl()
+{
+  g_pTimeControl = nullptr;
+}
+
 bool TimeControl::init()
 {
   if (g_pTimeControl) {

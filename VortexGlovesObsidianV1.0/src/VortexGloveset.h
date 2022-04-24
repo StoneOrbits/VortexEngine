@@ -3,13 +3,11 @@
 
 #include <FastLED.h>
 
-#include <vector>
-#include <string>
-
 #include "TimeControl.h"
 #include "LedControl.h"
 #include "ColorTypes.h"
 #include "RingMenu.h"
+#include "Settings.h"
 #include "Button.h"
 
 class Menu;
@@ -32,6 +30,11 @@ class VortexGloveset
     // tick function for each loop
     void tick();
 
+    // add a mode to the mode list
+    bool addMode(Mode *mode);
+    // remove a mode from an index, shifting above modes down one
+    bool removeMode(uint32_t index);
+
   private:
     // ==============
     //  private data
@@ -45,11 +48,8 @@ class VortexGloveset
     // the button on the gloveset
     Button m_button;
 
-    // the current mode we're on
-    uint32_t m_curMode;
-
-    // list of all modes in the gloveset
-    std::vector<Mode *> m_modeList;
+    // the settings of the gloveset
+    Settings m_settings;
 
     // the ring menu
     RingMenu m_ringMenu;
@@ -57,21 +57,23 @@ class VortexGloveset
     // the current menu that is open (if any)
     Menu *m_pCurMenu;
 
+    // the current mode that is selected (if any)
+    Mode *m_pCurMode;
+
     // ==================
     //  private routines
 
     // setup routines
     bool setupSerial();
 
-    // settings save/load
-    bool loadSettings();
-    bool saveSettings();
-    
-    // set default settings (must save after)
-    void setDefaults();
-
     // run the menu logic, return false if nothing to do
     bool runAllMenus();
+
+    // runs menu logic for the current open menu
+    bool runCurMenu();
+
+    // runs logic for the ring menu
+    bool runRingMenu();
 
     // run the current mode
     void playMode();

@@ -15,6 +15,17 @@
 #define HSV_BLANK   0x000040    //   0   0  40
 #define HSV_OFF     0x000000    //   0   0   0
 
+#define RGB_WHITE   0
+#define RGB_ORANGE  0    // 
+#define RGB_BLUE    0x0000FF    //   0    0 255
+#define RGB_YELLOW  0    // 
+#define RGB_RED     0xFF0000    //   0  255 110
+#define RGB_GREEN   0x00FF00    //  85  255 110
+#define RGB_TEAL    0    // 
+#define RGB_PURPLE  0    // 
+#define RGB_BLANK   0    //   
+#define RGB_OFF     0x000000    //   0    0   0
+
 // Some Pre-defined hue values 
 // TODO: remove HSV_ underscore once FastLED is gone    
 #define HSV_HUE_RED     0

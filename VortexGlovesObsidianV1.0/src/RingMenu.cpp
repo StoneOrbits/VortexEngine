@@ -4,15 +4,15 @@
 #include "Button.h"
 
 RingMenu::RingMenu() :
-  m_isOpen(false),
-  m_selection(0),
   m_randomizer(),
   m_colorSelect(),
   m_patternSelect(),
   m_globalBrightness(),
   m_factoryReset(),
   m_modeSharing(),
-  m_menuList()
+  //m_menuList(),
+  m_selection(0),
+  m_isOpen(false)
 {
 }
 
@@ -20,19 +20,12 @@ bool RingMenu::init()
 {
   // Some sort of auto-registration mechanism for this would be nice
   // but in reality how often are people going to create new Menus
-  registerMenu(&m_randomizer, HSV_WHITE);
-  registerMenu(&m_colorSelect, HSV_ORANGE);
-  registerMenu(&m_patternSelect, HSV_BLUE);
-  registerMenu(&m_globalBrightness, HSV_YELLOW);
-  registerMenu(&m_factoryReset, HSV_RED);
-  registerMenu(&m_modeSharing, HSV_TEAL);
-
   return true;
 }
 
 void RingMenu::registerMenu(Menu *menu, RGBColor color)
 {
-  m_menuList.push_back(MenuEntry(menu, color));
+  //m_menuList.push_back(MenuEntry(menu, color));
 }
 
 Menu *RingMenu::run()
@@ -47,6 +40,7 @@ Menu *RingMenu::run()
   }
   // make sure the button is pressed and held for at least one second
   if (!g_pButton->isPressed() || g_pButton->holdDuration() < 1000) {
+    // no menu selected yet
     return nullptr;
   }
   // if the ring menu just opened this tick
@@ -69,6 +63,7 @@ Menu *RingMenu::run()
   if (led > LED_LAST) led = LED_LAST;
   // turn on leds LED_FIRST through led with the selected menu's given color
   g_pLedControl->setRange(LED_FIRST, led, m_menuList[m_selection].color);
+  // no menu selected yet
   return nullptr;
 }
 
@@ -91,4 +86,3 @@ int RingMenu::calculateHoldTime()
   // then re-calculate the holdTime it should be less than 1000
   return calculateHoldTime();
 }
-

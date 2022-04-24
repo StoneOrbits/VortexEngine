@@ -1,6 +1,7 @@
 #include "GlobalBrightness.h"
 
 #include "../LedControl.h"
+#include "../Settings.h"
 
 GlobalBrightness::GlobalBrightness() :
   Menu()
@@ -14,7 +15,7 @@ bool GlobalBrightness::init(Mode *curMode)
   }
   // would be nice if there was a more elegant way to do this
   for (uint32_t i = 0; i < 4; ++i) {
-    if (m_brightnessOptions[i] == g_pLedControl->getBrightness()) {
+    if (m_brightnessOptions[i] == g_pSettings->getBrightness()) {
       // make sure the default selection matches cur value
       m_curSelection = (Finger)i;
     }
@@ -51,7 +52,7 @@ void GlobalBrightness::onShortClick()
 void GlobalBrightness::onLongClick()
 {
   // set the global brightness
-  g_pLedControl->setBrightness(m_brightnessOptions[m_curSelection]); 
+  g_pSettings->setBrightness(m_brightnessOptions[m_curSelection]); 
   // done here
   leaveMenu();
 }

@@ -9,6 +9,7 @@ class TimeControl
 {
   public:
     TimeControl();
+    ~TimeControl();
 
     // any kind of time initialization
     bool init();

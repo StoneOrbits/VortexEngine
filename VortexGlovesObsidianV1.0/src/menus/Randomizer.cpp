@@ -1,6 +1,8 @@
 #include "Randomizer.h"
 
+#include "../ModeBuilder.h"
 #include "../LedControl.h"
+#include "../Settings.h"
 #include "../Button.h"
 #include "../Mode.h"
 
@@ -48,30 +50,35 @@ void Randomizer::onShortClick()
 
 void Randomizer::onLongClick()
 {
-  // TODO: save randomization
-
+  // replace the current mode with randomized one
+  if (!g_pSettings->setCurMode(m_pRandomizedMode)) {
+    // error
+  } 
   // then do default actions leave menu
   Menu::onLongClick();
 }
-
-//TODO: remove these includes if possible when randomization is fixed
-#include "../patterns/BasicPattern.h"
-#include "../Colorset.h"
 
 bool Randomizer::reRoll()
 {
   if (m_pRandomizedMode) {
     delete m_pRandomizedMode;
   }
-  m_pRandomizedMode = new Mode();
 
-  // TODO: properly do this
-  BasicPattern *strobe = new BasicPattern(5, 8);
-  Colorset *rgb = new Colorset(0xFF0000, 0xFF00, 0xFF);
-  Mode *rgbStrobe = new Mode();
-  rgbStrobe->bindAll(strobe, rgb);
+  // pick a random pattern
+  PatternID pattern = (PatternID)random(PATTERN_FIRST, PATTERN_LAST);
 
-  m_pRandomizedMode = rgbStrobe;
+  // pick a random amount of colors
+  uint32_t numColors = random(2,8);
+
+  // fill the array with up to numColors random colors
+  RGBColor c[8] = { RGB_OFF };
+  for (uint32_t i = 0; i < numColors; ++i) {
+    c[i] = RGBColor(random(0,255), random(0,255), random(0, 255));
+  }
+
+  // create a new randomized mode out of the colors
+  m_pRandomizedMode = ModeBuilder::make(pattern, 
+      c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]);
 
   if (!m_pRandomizedMode) {
     return false;

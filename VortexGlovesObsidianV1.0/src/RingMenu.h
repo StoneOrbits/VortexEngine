@@ -2,7 +2,6 @@
 #define RING_MENU_H
 
 #include <inttypes.h>
-#include <vector>
 
 // menus
 #include "menus/GlobalBrightness.h"
@@ -30,15 +29,9 @@ class RingMenu
     bool isOpen() { return m_isOpen; }
 
     // the number of menus in the ring menu
-    uint32_t numMenus() { return m_menuList.size(); }
+    uint32_t numMenus() const { return (sizeof(m_menuList) / sizeof(m_menuList[0])); }
 
   private:
-    // whether the ring menu is open
-    bool m_isOpen;
-
-    // the ring menu section
-    uint32_t m_selection;
-
     // helper to register a menu object with a color for the ringmenu
     void registerMenu(Menu *menu, RGBColor col);
     // helper to calculate the relative hold time for the current menu
@@ -61,8 +54,24 @@ class RingMenu
     FactoryReset m_factoryReset;
     ModeSharing m_modeSharing;
 
-    // list of menu entries above with colors
-    std::vector<MenuEntry> m_menuList;
+    // list of menu entries above with chosen colors
+    const MenuEntry m_menuList[6] = {
+      { &m_randomizer, RGB_WHITE },
+      { &m_colorSelect, RGB_ORANGE },
+      { &m_patternSelect, RGB_BLUE },
+      { &m_globalBrightness, RGB_YELLOW },
+      { &m_factoryReset, RGB_RED },
+      { &m_modeSharing, RGB_TEAL },
+    };
+
+    // =====================
+    //  private members
+
+    // the ring menu section
+    uint32_t m_selection;
+
+    // whether the ring menu is open
+    bool m_isOpen;
 };
 
 #endif

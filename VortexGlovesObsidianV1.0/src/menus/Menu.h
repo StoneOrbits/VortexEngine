@@ -2,7 +2,6 @@
 #define MENU_H
 
 #include <inttypes.h>
-#include <string>
 
 #include "../ColorTypes.h"
 #include "../LedConfig.h"

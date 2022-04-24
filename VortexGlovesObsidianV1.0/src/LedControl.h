@@ -13,6 +13,7 @@ class LedControl
 {
   public:
     LedControl();
+    ~LedControl();
 
     bool init();
 
@@ -40,10 +41,6 @@ class LedControl
     // clear both LEDs on a range of fingers
     void clearFingers(Finger first, Finger last) { setFingers(first, last, HSV_OFF); }
     
-    // global brightness
-    uint32_t getBrightness() const { return m_brightness; }
-    void setBrightness(uint32_t brightness) { m_brightness = brightness; }
-
     // actually update the LEDs and show the changes
     void update();
 
@@ -52,9 +49,6 @@ class LedControl
 
     // array of led color values
     CRGB m_ledColors[LED_COUNT];
-
-    // global brightness
-    uint32_t m_brightness;
 
     // the onboard LED on the adafruit board
     Adafruit_DotStar m_onboardLED;

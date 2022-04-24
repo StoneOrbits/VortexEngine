@@ -3,6 +3,8 @@
 #include <FastLED.h>
 #include <Adafruit_DotStar.h>
 
+#include "Settings.h"
+
 #define LED_DATA_PIN  4
 
 #define POWER_LED_PIN 7
@@ -13,9 +15,13 @@ LedControl *g_pLedControl = nullptr;
 
 LedControl::LedControl() :
   m_ledColors(),
-  m_brightness(255),
   m_onboardLED(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR)
 {
+}
+
+LedControl::~LedControl()
+{
+  g_pLedControl = nullptr;
 }
 
 bool LedControl::init()
@@ -29,7 +35,7 @@ bool LedControl::init()
   memset(m_ledColors, 0, sizeof(m_ledColors));
   // setup leds on data pin 4
   FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>(m_ledColors, LED_COUNT);
-  FastLED.setBrightness(m_brightness);
+  FastLED.setBrightness(g_pSettings->getBrightness());
   // clear the onboard led so it displays nothing
   clearOnboardLED();
   return true;
@@ -71,5 +77,5 @@ void LedControl::setFingers(Finger first, Finger last, RGBColor col)
 
 void LedControl::update()
 {
-  FastLED.show(m_brightness);
+  FastLED.show(g_pSettings->getBrightness());
 }

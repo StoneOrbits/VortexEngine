@@ -2,6 +2,7 @@
 
 #include "../TimeControl.h"
 #include "../LedControl.h"
+#include "../Settings.h"
 
 FactoryReset::FactoryReset() :
   Menu(),
@@ -50,7 +51,8 @@ void FactoryReset::onShortClick()
 void FactoryReset::onLongClick()
 {
   if (m_confirm) {
-    // TODO: the reset
+    // perform the actual reset to default
+    g_pSettings->setDefaults();
   }
   // done here
   leaveMenu();

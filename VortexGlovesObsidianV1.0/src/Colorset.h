@@ -1,26 +1,21 @@
 #ifndef COLORSET_H
 #define COLORSET_H
 
-#include <vector>
-
 #include "ColorTypes.h"
+
+// the number of colors in a colorset
+#define NUM_COLOR_SLOTS 8
 
 class Colorset
 {
   public:
+    // empty colorset
     Colorset();
-    Colorset(RGBColor c1);
-    Colorset(RGBColor c1, RGBColor c2);
-    Colorset(RGBColor c1, RGBColor c2, RGBColor c3);
-    Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4);
-    Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4, 
-      RGBColor c5);
-    Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4, 
-      RGBColor c5, RGBColor c6);
-    Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4, 
-      RGBColor c5, RGBColor c6, RGBColor c7);
-    Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4, 
-      RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8);
+
+    // constructor for 1-8 color slots
+    Colorset(RGBColor c1, RGBColor c2 = RGB_OFF, RGBColor c3 = RGB_OFF, 
+        RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF, RGBColor c6 = RGB_OFF,
+        RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
 
     // add a single color
     bool addColor(RGBColor col);
@@ -37,13 +32,15 @@ class Colorset
     RGBColor getNext();
 
     // the number of colors in the palette
-    uint32_t numColors() const { return m_palette.size(); }
+    uint32_t numColors() const { return m_numColors; }
 
   private:
-    // palette of colors
-    std::vector<RGBColor> m_palette;
     // the current index
     uint32_t m_curIndex;
+    // the actual number of colors in the set
+    uint32_t m_numColors;
+    // palette of colors
+    RGBColor m_palette[NUM_COLOR_SLOTS];
 };
 
 #endif
