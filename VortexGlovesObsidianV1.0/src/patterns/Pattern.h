@@ -16,6 +16,8 @@ class Pattern
     // pure virtual must override the play function
     virtual void play(Colorset *colorset, LedPos pos) = 0;
 
+    // must override the serialize routine
+    virtual void serialize() const = 0;
   private:
 };
 

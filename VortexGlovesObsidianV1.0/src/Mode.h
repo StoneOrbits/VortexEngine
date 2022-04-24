@@ -46,6 +46,9 @@ class Mode
     // Play the mode
     void play();
 
+    // save the mode to serial
+    void serialize();
+
   private:
     // NOTE: Modes *ALLOW* for one pattern and one colorset on each LED
     //       but we are not intending to expose that functionality through
@@ -56,6 +59,10 @@ class Mode
     //       This means in practice all m_pPatterns and m_pColorsets are
     //       separate instances of the same class unless somebody has loaded
     //       a custom savefile
+
+    // ==================
+    //  private routines 
+     
 
     // A set of flags for the mode
     ModeFlags m_flags;
@@ -72,7 +79,7 @@ class Mode
     };
 
     // map of led positions => pattern/colorset entries
-    LedEntry m_patternEntries[LED_COUNT];
+    LedEntry m_ledEntries[LED_COUNT];
 };
 
 #endif

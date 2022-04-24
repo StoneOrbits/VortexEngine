@@ -13,6 +13,8 @@ class BasicPattern : public Pattern
 
     virtual void play(Colorset *colorset, LedPos pos);
 
+    void serialize() const;
+
   private:
     // =================================================
     //  variables that are initialized with the pattern

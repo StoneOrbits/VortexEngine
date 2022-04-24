@@ -3,6 +3,8 @@
 #include "ModeBuilder.h"
 #include "Mode.h"
 
+#include <Arduino.h>
+
 Settings *g_pSettings = nullptr;
 
 Settings::Settings() :
@@ -49,14 +51,6 @@ bool Settings::load()
 
 bool Settings::save()
 {
-  return true;
-}
-
-bool Settings::setDefaults()
-{
-  // initialize the first mode (an rgb strobe)
-  addMode(ModeBuilder::make(PATTERN_STROBE, RGB_RED, RGB_GREEN, RGB_BLUE));
-
   // legacy data format:
   //  4 num
   //  4 pattern num
@@ -80,23 +74,24 @@ bool Settings::setDefaults()
   //        1 val (0-255)
   //       }
   //      }
-  
-#if 0
-  importMode("0, 39, 5, 0, 255, 255, 96, 255, 255, 160, 255, 255, 64, 255, 255, 192, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("1, 23, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("2, 5, 3, 0, 255, 255, 96, 255, 255, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("3, 3, 2, 224, 255, 170, 192, 255, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("4, 32, 3, 0, 255, 170, 96, 255, 170, 160, 255, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("5, 5, 4, 0, 255, 120, 160, 255, 170, 64, 255, 170, 96, 255, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("6, 7, 3, 0, 255, 120, 192, 255, 170, 128, 255, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("7, 1, 3, 16, 255, 170, 96, 255, 255, 192, 255, 85, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("8, 17, 3, 16, 255, 255, 128, 255, 85, 160, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("9, 20, 1, 80, 255, 85, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("10, 4, 8, 0, 255, 85, 32, 255, 170, 64, 255, 255, 96, 255, 85, 128, 255, 85, 160, 255, 85, 192, 255, 170, 224, 255, 85");
-  importMode("11, 19, 3, 144, 0, 0, 144, 0, 255, 96, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("12, 2, 4, 192, 255, 85, 240, 255, 255, 64, 255, 85, 144, 170, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-  importMode("13, 8, 5, 16, 255, 0, 144, 255, 0, 16, 255, 85, 144, 255, 255, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0");
-#endif
+
+  Serial.print(m_numModes);
+  for(uint32_t i = 0; i < m_numModes; ++i) {
+    m_modeList[i]->serialize();
+  }
+
+  return true;
+}
+
+bool Settings::setDefaults()
+{
+  for (PatternID pattern = PATTERN_FIRST; pattern < PATTERN_COUNT; ++pattern) {
+    // initialize each pattern with an rgb strobe
+    if (!addMode(ModeBuilder::make(pattern, RGB_RED, RGB_GREEN, RGB_BLUE))) {
+      // error? return false?
+    }
+  }
+
   return true;
 }
 

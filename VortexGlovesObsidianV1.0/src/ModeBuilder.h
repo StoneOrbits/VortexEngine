@@ -39,4 +39,21 @@ class ModeBuilder
     static Pattern *makePattern(PatternID id);
 };
 
+// PatternID operators
+inline PatternID& operator++(PatternID &c) {
+  c = PatternID(((uint32_t)c) + 1);
+  return c;
+}
+inline PatternID operator++(PatternID &c, int) {
+  PatternID temp = c;
+  ++c;
+  return temp;
+}
+inline PatternID operator+(PatternID &c, int b) {
+  return (PatternID)((uint32_t)c + b);
+}
+inline PatternID operator-(PatternID &c, int b) {
+  return (PatternID)((uint32_t)c - b);
+}
+
 #endif
