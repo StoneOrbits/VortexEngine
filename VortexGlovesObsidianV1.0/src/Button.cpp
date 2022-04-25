@@ -63,11 +63,11 @@ void Button::check()
     m_isPressed = (m_buttonState == LOW);
 
     // update the press/release times and newpress/newrelease members
-    if (m_buttonState == LOW) {
+    if (m_isPressed) {
       // the button was just pressed
       m_pressTime = g_pTimeControl->getCurtime();
       m_newPress = true;
-    } else if (m_buttonState == HIGH) {
+    } else {
       // the button was just released
       m_releaseTime = g_pTimeControl->getCurtime();
       m_newRelease = true;
@@ -77,12 +77,12 @@ void Button::check()
   // calculate new hold/release durations if currently held/released
   if (m_isPressed) {
     // update the hold duration as long as the button is pressed
-    if (g_pTimeControl->getCurtime() >= m_pressTime && m_pressTime != 0) {
+    if (g_pTimeControl->getCurtime() >= m_pressTime) {
       m_holdDuration = g_pTimeControl->getCurtime() - m_pressTime;
     }
   } else {
     // update the release duration as long as the button is released
-    if (g_pTimeControl->getCurtime() >= m_releaseTime && m_releaseTime != 0) {
+    if (g_pTimeControl->getCurtime() >= m_releaseTime) {
       m_releaseDuration = g_pTimeControl->getCurtime() - m_releaseTime;
     }
   }
@@ -90,4 +90,25 @@ void Button::check()
   // whether a shortclick or long click just occurred
   m_shortClick = (m_newRelease && (m_holdDuration <= SHORT_CLICK_THRESHOLD));
   m_longClick = (m_newRelease && (m_holdDuration > SHORT_CLICK_THRESHOLD));
+
+#ifdef TEST_FRAMEWORK
+  //if (m_shortClick) Debug("Short click");
+  //if (m_longClick) Debug("Long click");
+#if 0
+  Debug("Button Info:\n\tm_buttonState: %d\n\tm_pressTime: %d\n\tm_releaseTime: %d\n\t"
+        "m_holdDuration: %d\n\tm_releaseDuration: %d\n\tm_newPress: %d\n\t"
+        "m_newRelease: %d\n\t" "m_isPressed: %d\n\tm_shortClick: %d\n\t"
+        "m_longClick: %d\n",
+    m_buttonState,
+    m_pressTime,
+    m_releaseTime,
+    m_holdDuration,
+    m_releaseDuration,
+    m_newPress,
+    m_newRelease,
+    m_isPressed,
+    m_shortClick,
+    m_longClick);
+#endif
+#endif
 }

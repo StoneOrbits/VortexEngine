@@ -35,7 +35,7 @@ Mode *ModeBuilder::make(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
     return nullptr;
   }
   // bind the pattern and colorset to the mode
-  if (!newMode->bind(newPat, newSet)) {
+  if (!newMode->bindAll(newPat, newSet)) {
     delete newSet;
     delete newPat;
     delete newMode;

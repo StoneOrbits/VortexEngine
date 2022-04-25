@@ -10,6 +10,7 @@ Mode::Mode() :
   m_flags(MODE_FLAG_NONE),
   m_ledEntries()
 {
+    memset(m_ledEntries, 0, sizeof(m_ledEntries));
 }
 
 Mode::~Mode()
@@ -106,7 +107,7 @@ void Mode::play()
     entry.pattern->play(entry.colorset, pos);
     // only run one pattern if this isn't a multi-pattern mode
     if (!hasFlags(MODE_FLAG_MULTI_PATTERN)) {
-      return;
+      //return;
     }
   }
 }

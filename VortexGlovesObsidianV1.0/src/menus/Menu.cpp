@@ -46,6 +46,12 @@ void Menu::onLongClick()
 {
 }
 
+void Menu::leaveMenu()
+{
+    m_shouldClose = true;
+    //Debug("Leaving Menu");
+}
+
 void Menu::blinkSelection()
 {
   // only blink off for 250ms per second

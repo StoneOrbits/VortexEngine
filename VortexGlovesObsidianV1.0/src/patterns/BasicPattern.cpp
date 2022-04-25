@@ -29,8 +29,10 @@ void BasicPattern::play(Colorset *colorset, LedPos pos)
   bool shouldBeOn = (frameTime <= m_onDuration);
 
   // if the state hasn't changed then nothing to do
-  if (shouldBeOn == m_lightIsOn) {
-    return;
+  if (shouldBeOn != m_lightIsOn) {
+    if (m_lightIsOn) {
+        colorset->getNext();
+    }
   }
 
   // the state changed
@@ -38,7 +40,7 @@ void BasicPattern::play(Colorset *colorset, LedPos pos)
 
   if (m_lightIsOn) {
     // turn on with color
-    g_pLedControl->setIndex(pos, colorset->getNext());
+    g_pLedControl->setIndex(pos, colorset->cur());
   } else {
     // turn off
     g_pLedControl->clearIndex(pos);

@@ -15,15 +15,15 @@
 #define HSV_BLANK   0x000040    //   0   0  40
 #define HSV_OFF     0x000000    //   0   0   0
 
-#define RGB_WHITE   0
-#define RGB_ORANGE  0    // 
+#define RGB_WHITE   0xaaaaaa
+#define RGB_ORANGE  0xff8000    // 
 #define RGB_BLUE    0x0000FF    //   0    0 255
-#define RGB_YELLOW  0    // 
+#define RGB_YELLOW  0xFFFF00    // 
 #define RGB_RED     0xFF0000    //   0  255 110
 #define RGB_GREEN   0x00FF00    //  85  255 110
-#define RGB_TEAL    0    // 
-#define RGB_PURPLE  0    // 
-#define RGB_BLANK   0    //   
+#define RGB_TEAL    0x00FF80    // 
+#define RGB_PURPLE  0x9933FF    // 
+#define RGB_BLANK   0x404040    //   
 #define RGB_OFF     0x000000    //   0    0   0
 
 // Some Pre-defined hue values 
@@ -71,17 +71,22 @@ class RGBColor
 {
   public:
     RGBColor() : raw_dword(0) {}
-    RGBColor(uint32_t dwVal) : raw_dword(dwVal) {}
+    RGBColor(uint32_t dwVal) : 
+      red((dwVal>>16) & 0xFF), green((dwVal>>8) & 0xFF), blue(dwVal & 0xFF) {}
     RGBColor(uint8_t red, uint8_t green, uint8_t blue) : 
       red(red), green(green), blue(blue) {}
 
     // copy construction
     RGBColor(const RGBColor& rhs) {
-      raw_dword = rhs.raw_dword;
+      red = rhs.red;
+      green = rhs.green;
+      blue = rhs.blue;
     }
     // assignment operator
     RGBColor& operator= (const RGBColor& rhs) {
-      raw_dword = rhs.raw_dword;
+      red = rhs.red;
+      green = rhs.green;
+      blue = rhs.blue;
       return *this;
     }
     // construction from HSV color

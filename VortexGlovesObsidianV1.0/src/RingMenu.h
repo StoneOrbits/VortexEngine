@@ -35,7 +35,7 @@ class RingMenu
     // helper to register a menu object with a color for the ringmenu
     void registerMenu(Menu *menu, RGBColor col);
     // helper to calculate the relative hold time for the current menu
-    int calculateHoldTime();
+    LedPos calcLedPos();
 
     // private structure for menu entry menu => color
     struct MenuEntry {

@@ -29,7 +29,7 @@ class Menu
 
   protected:
     // close the current menu
-    void leaveMenu() { m_shouldClose = true; }
+    void leaveMenu();
     // blink the selected finger 
     void blinkSelection();
 

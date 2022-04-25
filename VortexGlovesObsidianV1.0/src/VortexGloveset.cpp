@@ -157,9 +157,9 @@ bool VortexGloveset::runRingMenu()
   // run the ringmenu and store any menu it returns,
   // it is expected to return NULL most of the time
   m_pCurMenu = m_ringMenu.run();
-  // if no menu was returned then just continue the ringmenu
+  // if no menu was returned then only continue if the ringmenu is open
   if (!m_pCurMenu) {
-    return true;
+    return m_ringMenu.isOpen();
   }
   // otherwise initialiaze the new menu with the current mode
   if (!m_pCurMenu->init(m_pCurMode)) {

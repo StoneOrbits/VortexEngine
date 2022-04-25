@@ -48,7 +48,7 @@ void LedControl::clearOnboardLED()
 
 void LedControl::setIndex(LedPos target, RGBColor col)
 {
-  m_ledColors[target] = col.raw_dword;
+  m_ledColors[target] = col;
 }
 
 void LedControl::setRange(LedPos first, LedPos last, RGBColor col)

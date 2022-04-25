@@ -135,6 +135,7 @@ Mode *Settings::nextMode()
 {
   // iterate curmode forward 1 till num modes
   m_curMode = (m_curMode + 1) % m_numModes;
+  //Debug("Iterating to next mode: %d", m_curMode);
   // return the new current mode
   return curMode();
 }

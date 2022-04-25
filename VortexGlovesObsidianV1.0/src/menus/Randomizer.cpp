@@ -73,7 +73,10 @@ bool Randomizer::reRoll()
   // fill the array with up to numColors random colors
   RGBColor c[8] = { RGB_OFF };
   for (uint32_t i = 0; i < numColors; ++i) {
-    c[i] = RGBColor(random(0,255), random(0,255), random(0, 255));
+    c[i] = RGBColor(
+        (uint8_t)random(0,255),
+        (uint8_t)random(0,255),
+        (uint8_t)random(0, 255));
   }
 
   // create a new randomized mode out of the colors
