@@ -31,10 +31,8 @@ bool LedControl::init()
     return false;
   }
   g_pLedControl = this;
-  // create the array of LEDS
-  memset(m_ledColors, 0, sizeof(m_ledColors));
   // setup leds on data pin 4
-  FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>(m_ledColors, LED_COUNT);
+  FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>((CRGB *)m_ledColors, LED_COUNT);
   FastLED.setBrightness(g_pSettings->getBrightness());
   // clear the onboard led so it displays nothing
   clearOnboardLED();

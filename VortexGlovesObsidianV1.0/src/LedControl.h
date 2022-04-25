@@ -48,7 +48,7 @@ class LedControl
     void clearOnboardLED();
 
     // array of led color values
-    CRGB m_ledColors[LED_COUNT];
+    RGBColor m_ledColors[LED_COUNT];
 
     // the onboard LED on the adafruit board
     Adafruit_DotStar m_onboardLED;

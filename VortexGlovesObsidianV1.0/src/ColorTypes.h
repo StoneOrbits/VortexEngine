@@ -44,7 +44,7 @@ class HSVColor
     HSVColor() : raw_dword(0) {}
     HSVColor(uint32_t dwVal) : raw_dword(dwVal) {}
     HSVColor(uint8_t hue, uint8_t sat, uint8_t val) : 
-      pad(0), hue(hue), sat(sat), val(val) {}
+      hue(hue), sat(sat), val(val) {}
 
     // copy construction
     HSVColor(const HSVColor& rhs) {
@@ -59,14 +59,9 @@ class HSVColor
     // public members
     union {
       struct {
-          uint8_t pad;
           uint8_t hue;
           uint8_t sat;
           uint8_t val;
-      };
-      struct {
-        uint8_t pad2;
-        uint8_t raw_bytes[3];
       };
       uint32_t raw_dword;
     };
@@ -78,7 +73,7 @@ class RGBColor
     RGBColor() : raw_dword(0) {}
     RGBColor(uint32_t dwVal) : raw_dword(dwVal) {}
     RGBColor(uint8_t red, uint8_t green, uint8_t blue) : 
-      pad(0), red(red), green(green), blue(blue) {}
+      red(red), green(green), blue(blue) {}
 
     // copy construction
     RGBColor(const RGBColor& rhs) {
@@ -99,14 +94,9 @@ class RGBColor
 
     union {
       struct {
-        uint8_t pad;
         uint8_t red;
         uint8_t green;
         uint8_t blue;
-      };
-      struct {
-        uint8_t pad2;
-        uint8_t raw_bytes[3];
       };
       uint32_t raw_dword;
     };
