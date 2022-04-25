@@ -82,7 +82,7 @@ void VortexGloveset::tick()
   m_button.check();
 
   // start by clearing each tick? So if nothing is done they clear at update
-  m_ledControl.clearAll();
+  //m_ledControl.clearAll();
 
   // first try to run any menu logic
   if (!runAllMenus()) {
@@ -131,6 +131,9 @@ bool VortexGloveset::runAllMenus()
 
 bool VortexGloveset::runCurMenu()
 {
+  // clear at start of menus
+  g_pLedControl->clearAll();
+
   // first run the click handlers for the menu
   if (m_button.onShortClick()) { 
     m_pCurMenu->onShortClick(); 
@@ -156,6 +159,8 @@ bool VortexGloveset::runCurMenu()
 
 bool VortexGloveset::runRingMenu()
 {
+  // clear at start of menus
+  g_pLedControl->clearAll();
   // run the ringmenu and store any menu it returns,
   // it is expected to return NULL most of the time
   m_pCurMenu = m_ringMenu.run();
@@ -178,6 +183,7 @@ void VortexGloveset::playMode()
   // shortclick cycles to the next mode
   if (m_button.onShortClick()) {
     m_settings.nextMode();
+    g_pLedControl->clearAll();
   }
 
   if (!m_pCurMode) {

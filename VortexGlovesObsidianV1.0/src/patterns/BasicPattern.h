@@ -28,8 +28,8 @@ class BasicPattern : public Pattern
     // =================================================
     //  variables that will change at runtime
 
-    // the state of the light 
-    bool m_lightIsOn;
+    // the state of the light (only two states)
+    bool m_state;
 };
 
 #endif

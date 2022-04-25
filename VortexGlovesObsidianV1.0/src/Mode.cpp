@@ -57,7 +57,6 @@ bool Mode::bindAll(Pattern *pat, Colorset *set)
   return bindRange(pat, set, LED_FIRST, LED_LAST);
 }
 
-
 bool Mode::setPattern(Pattern *pat, LedPos pos)
 {
   if (pos > LED_LAST) {

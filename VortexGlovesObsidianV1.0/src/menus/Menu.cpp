@@ -58,6 +58,13 @@ void Menu::blinkSelection()
   if ((g_pTimeControl->getCurtime() % 10) < 7) {
     return;
   }
+#if 0
+  // blinkie red when held past long-press threhold
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > 250) {
+    g_pLedControl->setFinger(m_curSelection, RGB_RED);
+    return;
+  }
+#endif
   // special selection clause 'select all'
   if (m_curSelection == FINGER_COUNT) {
     g_pLedControl->clearAll();

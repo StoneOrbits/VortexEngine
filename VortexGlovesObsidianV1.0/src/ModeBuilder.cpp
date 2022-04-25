@@ -1,7 +1,7 @@
 #include "ModeBuilder.h"
 
 #include "patterns/BasicPattern.h"
-#include "patterns/DemoPattern.h"
+#include "patterns/TracerPattern.h"
 
 #include "Colorset.h"
 #include "Mode.h"
@@ -20,27 +20,29 @@ Mode *ModeBuilder::make(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
     // allocation error
     return nullptr;
   }
-  // create a new colorset from the list of colors
-  Colorset *newSet = new Colorset(c1, c2, c3, c4, c5, c6, c7, c8);
-  if (!newSet) {
-    // allocation error
-    delete newMode;
-    return nullptr;
-  }
-  // create a new pattern from the id
-  Pattern *newPat = makePattern(id);
-  if (!newPat) {
-    // allocation error
-    delete newMode;
-    delete newSet;
-    return nullptr;
-  }
-  // bind the pattern and colorset to the mode
-  if (!newMode->bindAll(newPat, newSet)) {
-    delete newSet;
-    delete newPat;
-    delete newMode;
-    return nullptr;
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+      // create a new colorset from the list of colors
+      Colorset *newSet = new Colorset(c1, c2, c3, c4, c5, c6, c7, c8);
+      if (!newSet) {
+        // allocation error
+        delete newMode;
+        return nullptr;
+      }
+      // create a new pattern from the id
+      Pattern *newPat = makePattern(id);
+      if (!newPat) {
+        // allocation error
+        delete newMode;
+        delete newSet;
+        return nullptr;
+      }
+      // bind the pattern and colorset to the mode
+      if (!newMode->bind(newPat, newSet, pos)) {
+        delete newSet;
+        delete newPat;
+        delete newMode;
+        return nullptr;
+      }
   }
   return newMode;
 }
@@ -66,6 +68,6 @@ Pattern *ModeBuilder::makePattern(PatternID id)
   case PATTERN_MINIRIBBON:
     return new BasicPattern(3);
   case PATTERN_TRACER:
-    return new DemoPattern();
+    return new TracerPattern(20, 1);
   }
 }
