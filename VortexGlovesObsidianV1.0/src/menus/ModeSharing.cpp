@@ -1,5 +1,8 @@
 #include "ModeSharing.h"
 
+
+#include "../Log.h"
+
 ModeSharing::ModeSharing() :
   Menu()
 {

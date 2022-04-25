@@ -4,6 +4,8 @@
 #include "../LedControl.h"
 #include "../Settings.h"
 
+#include "../Log.h"
+
 FactoryReset::FactoryReset() :
   Menu(),
   m_confirm(false)
@@ -19,6 +21,7 @@ bool FactoryReset::init(Mode *curMode)
   m_confirm = false;
   // factory reset blinks all lights
   m_curSelection = FINGER_COUNT;
+  DEBUG("Entered factory reset");
   return true;
 }
 

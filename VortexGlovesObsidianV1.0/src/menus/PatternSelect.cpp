@@ -3,6 +3,8 @@
 #include "../patterns/Pattern.h"
 #include "../Mode.h"
 
+#include "../Log.h"
+
 PatternSelect::PatternSelect() :
   Menu(),
   m_state(STATE_PICK_LIST),
@@ -20,6 +22,7 @@ bool PatternSelect::init(Mode *curMode)
   // fetch the colorset currently used so we can display demo
   // patterns with the same colorset
   m_pColorset = curMode->getColorset();
+  DEBUG("Entered pattern select");
   return true;
 }
 

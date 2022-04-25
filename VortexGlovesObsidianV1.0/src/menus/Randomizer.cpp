@@ -6,6 +6,8 @@
 #include "../Button.h"
 #include "../Mode.h"
 
+#include "../Log.h"
+
 Randomizer::Randomizer() :
   Menu(),
   m_pRandomizedMode(nullptr)
@@ -22,6 +24,7 @@ bool Randomizer::init(Mode *curMode)
     // fatal error
     return false;
   }
+  DEBUG("Entered randomizer");
   return true;
 }
 

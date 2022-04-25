@@ -4,6 +4,8 @@
 #include "../Colorset.h"
 #include "../Mode.h"
 
+#include "../Log.h"
+
 // the number of slots in a page
 #define PAGE_SIZE 4
 // the number of pages
@@ -26,6 +28,7 @@ bool ColorSelect::init(Mode *curMode)
   }
   // grab a pointer to the colorset of the mode
   m_pColorset = curMode->getColorset();
+  DEBUG("Entered color select");
   return true;
 }
 

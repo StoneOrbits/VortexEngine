@@ -90,10 +90,7 @@ class RGBColor
       return *this;
     }
     // construction from HSV color
-    RGBColor(const HSVColor& rhs) {
-      // TODO: this
-      //hsv2rgb_rainbow(CHSV(rhs.raw_dword), *this);
-    }
+    RGBColor(const HSVColor& rhs);
 
     void serialize() const;
 

@@ -4,12 +4,14 @@
 
 #include <Arduino.h>
 
+#include "Log.h"
+
 // if click held for <= this value then the click will be registered as 
 // a 'short click' otherwise if held longer than this threshold it will
 // be registered as a 'long click'
 //
 // The long hold is detected by just checking the holdDuration()
-#define SHORT_CLICK_THRESHOLD 50
+#define SHORT_CLICK_THRESHOLD 10
 
 // should only be one button
 Button *g_pButton = nullptr;
@@ -91,11 +93,12 @@ void Button::check()
   m_shortClick = (m_newRelease && (m_holdDuration <= SHORT_CLICK_THRESHOLD));
   m_longClick = (m_newRelease && (m_holdDuration > SHORT_CLICK_THRESHOLD));
 
-#ifdef TEST_FRAMEWORK
-  //if (m_shortClick) Debug("Short click");
-  //if (m_longClick) Debug("Long click");
+  if (m_shortClick) DEBUG("Short click");
+  if (m_longClick) DEBUG("Long click");
+
 #if 0
-  Debug("Button Info:\n\tm_buttonState: %d\n\tm_pressTime: %d\n\tm_releaseTime: %d\n\t"
+  // helpful for debugging
+  DEBUG("Button Info:\n\tm_buttonState: %d\n\tm_pressTime: %d\n\tm_releaseTime: %d\n\t"
         "m_holdDuration: %d\n\tm_releaseDuration: %d\n\tm_newPress: %d\n\t"
         "m_newRelease: %d\n\t" "m_isPressed: %d\n\tm_shortClick: %d\n\t"
         "m_longClick: %d\n",
@@ -109,6 +112,5 @@ void Button::check()
     m_isPressed,
     m_shortClick,
     m_longClick);
-#endif
 #endif
 }

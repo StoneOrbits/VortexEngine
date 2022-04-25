@@ -55,7 +55,7 @@ void Menu::leaveMenu()
 void Menu::blinkSelection()
 {
   // only blink off for 250ms per second
-  if ((g_pTimeControl->getCurtime() % 1000) < 750) {
+  if ((g_pTimeControl->getCurtime() % 10) < 7) {
     return;
   }
   // special selection clause 'select all'

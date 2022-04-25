@@ -3,6 +3,8 @@
 #include "../LedControl.h"
 #include "../Settings.h"
 
+#include "../Log.h"
+
 GlobalBrightness::GlobalBrightness() :
   Menu()
 {
@@ -20,6 +22,8 @@ bool GlobalBrightness::init(Mode *curMode)
       m_curSelection = (Finger)i;
     }
   }
+
+  DEBUG("Entered global brightness");
 
   return true;
 }
