@@ -10,6 +10,8 @@
 #include "Button.h"
 #include "Mode.h"
 
+#include "Log.h"
+
 VortexGloveset::VortexGloveset() :
   m_timeControl(),
   m_ledControl(),
@@ -175,7 +177,7 @@ void VortexGloveset::playMode()
 {
   // shortclick cycles to the next mode
   if (m_button.onShortClick()) {
-    m_pCurMode = m_settings.nextMode();
+    m_settings.nextMode();
   }
 
   if (!m_pCurMode) {
@@ -184,5 +186,5 @@ void VortexGloveset::playMode()
   }
 
   // play the current mode
-  m_pCurMode->play();
+  m_settings.curMode()->play();
 }

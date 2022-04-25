@@ -49,6 +49,7 @@ void Randomizer::onShortClick()
   if (!reRoll()) {
     // fatal error
   }
+  DEBUG("Re-rolling randomization");
 }
 
 void Randomizer::onLongClick()
@@ -57,8 +58,10 @@ void Randomizer::onLongClick()
   if (!g_pSettings->setCurMode(m_pRandomizedMode)) {
     // error
   } 
-  // then do default actions leave menu
-  Menu::onLongClick();
+  m_pRandomizedMode = nullptr;
+  DEBUG("Saved new randomization");
+  // then done here
+  leaveMenu();
 }
 
 bool Randomizer::reRoll()
@@ -71,7 +74,7 @@ bool Randomizer::reRoll()
   PatternID pattern = (PatternID)random(PATTERN_FIRST, PATTERN_LAST);
 
   // pick a random amount of colors
-  uint32_t numColors = random(2,8);
+  uint32_t numColors = random(2,7);
 
   // fill the array with up to numColors random colors
   RGBColor c[8] = { RGB_OFF };

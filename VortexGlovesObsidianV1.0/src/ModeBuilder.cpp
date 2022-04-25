@@ -60,5 +60,9 @@ Pattern *ModeBuilder::makePattern(PatternID id)
     return new BasicPattern(1, 3);
   case PATTERN_STROBIE:     
     return new BasicPattern(3, 22);
+  case PATTERN_RIBBON:
+    return new BasicPattern(20);
+  case PATTERN_MINIRIBBON:
+    return new BasicPattern(3);
   }
 }

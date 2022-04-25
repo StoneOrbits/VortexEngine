@@ -36,18 +36,23 @@ void dops()             { basicPattern(2, 13); }
 void dopish()           { basicPattern(2, 7); }
 void ultraDops()        { basicPattern(1, 3); } // dops but a lot
 void strobie()          { basicPattern(3, 22); }
+
 void blinkie()          { basicPattern(5, 8, 35); }
 void ghostCrush()       { basicPattern(1, 0, 50); } // breifly flash all colors in set before a pause
+
 void ribbon()           { basicPattern(20); }
 void miniRibbon()       { basicPattern(3); } // chroma but tighter
+
 void dashDops()         { dashDops(1, 5, 20); } // first color dash, rest of the colors dops
 void allTracer()        { tracer(10, 20); } // synchronized tracer
+
 void blend()            { blendPattern(2, 13); } // gradient between selected colors with dops blink
 void brackets()         { brackets(12, 5, 50); } // candle strobe?
+
+// ======
+
 void theaterChase()     { theaterChase(5, 8, 25, 125); } // finger chase with tip/top dops flip
-
 void zigZag()           { zigZag(3, 5, 50); } // Dot zips from thumb to pinkie Tops while dot2 zips pinkie to thumb tips with dops
-
 void zipFade()          { zipFade(3, 22, 100, 2); } // Zip with a constant fade with dops
 void tipTop()           { tipTop(5, 8, 25, 25); } // Tips hyperstrobe color 1, tops strobe full set
 void drip()             { drip(10, 10, 250); } // Tops to tips with strobe

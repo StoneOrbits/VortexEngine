@@ -35,5 +35,5 @@ void TimeControl::tickClock()
 uint64_t TimeControl::getCurtime(LedPos pos) const
 {
   // basic time offset of 33ms per led
-  return m_curTime + (33 * pos);// + (33 * (uint32_t)pos);
+  return m_curTime + (3*pos);// + (33 * pos);// + (33 * (uint32_t)pos);
 }

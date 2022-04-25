@@ -23,6 +23,10 @@ Mode::~Mode()
     if (m_ledEntries[pos].colorset) {
       delete m_ledEntries[pos].colorset;
     }
+    // only delete the first one
+    if (!hasFlags(MODE_FLAG_MULTI_PATTERN)) {
+        break;
+    }
   }
 }
 

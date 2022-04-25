@@ -3,8 +3,10 @@
 #include "LedControl.h"
 #include "Button.h"
 
+#include "Log.h"
+
 // how long must hold to trigger ring menu
-#define MENU_TRIGGER_THRESHOLD 10
+#define MENU_TRIGGER_THRESHOLD 5
 // how long each ring menu takes to fill
 #define MENU_DURATION 30
 
@@ -15,7 +17,6 @@ RingMenu::RingMenu() :
   m_globalBrightness(),
   m_factoryReset(),
   m_modeSharing(),
-  //m_menuList(),
   m_selection(0),
   m_isOpen(false)
 {
@@ -23,14 +24,7 @@ RingMenu::RingMenu() :
 
 bool RingMenu::init()
 {
-  // Some sort of auto-registration mechanism for this would be nice
-  // but in reality how often are people going to create new Menus
   return true;
-}
-
-void RingMenu::registerMenu(Menu *menu, RGBColor color)
-{
-  //m_menuList.push_back(MenuEntry(menu, color));
 }
 
 Menu *RingMenu::run()
@@ -54,7 +48,7 @@ Menu *RingMenu::run()
     m_selection = 0;
     // the ring menu is now open
     m_isOpen = true;
-    //Debug("RingMenu open");
+    DEBUG("Opened RingMenu");
   }
   // calculate how long into the current menu the button was held
   // this will be a value between 0 and LED_COUNT based on the current
@@ -74,14 +68,15 @@ Menu *RingMenu::run()
 // helper to calculate the relative hold time for the current menu
 LedPos RingMenu::calcLedPos()
 {
+  uint32_t relativeHoldDir = g_pButton->holdDuration() - MENU_TRIGGER_THRESHOLD;
+  if (g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD) {
+      relativeHoldDir = 0;
+  }
   // this allows the menu to wrap around to beginning after the end
   // if the user never lets go of the button
-  int holdDuration = g_pButton->holdDuration() % (MENU_TRIGGER_THRESHOLD + (MENU_DURATION * numMenus()));
-  if (holdDuration < MENU_TRIGGER_THRESHOLD) {
-      holdDuration = MENU_TRIGGER_THRESHOLD;
-  }
+  int holdDuration = relativeHoldDir % (MENU_DURATION * numMenus());
   // the time when the current menu starts trigger threshold + duration per menu
-  int menuStartTime = MENU_TRIGGER_THRESHOLD + (MENU_DURATION * m_selection);
+  int menuStartTime = MENU_DURATION * m_selection;
   if (holdDuration >= menuStartTime) {
     // the amount of time held in the current menu, should be 0 to MENU_DURATION ticks
     int holdTime = (holdDuration - menuStartTime);

@@ -37,8 +37,8 @@ bool FactoryReset::run()
 
   // TODO: better blink
   // blink faster to indicate confirmation
-  uint32_t blinkThreshold = m_confirm ? 100 : 500;
-  if ((g_pTimeControl->getCurtime() % 1000) > blinkThreshold) {
+  uint32_t blinkThreshold = m_confirm ? 5 : 2;
+  if ((g_pTimeControl->getCurtime() % 10) > blinkThreshold) {
     g_pLedControl->clearAll();
   }
 
@@ -49,6 +49,7 @@ bool FactoryReset::run()
 void FactoryReset::onShortClick()
 {
   m_confirm = !m_confirm;
+  DEBUG("Factory reset confirm = %s", m_confirm ? "Yes" : "No");
 }
 
 void FactoryReset::onLongClick()
@@ -56,6 +57,9 @@ void FactoryReset::onLongClick()
   if (m_confirm) {
     // perform the actual reset to default
     g_pSettings->setDefaults();
+    DEBUG("Restoring factory settings");
+  } else {
+    DEBUG("Exiting factory reset");
   }
   // done here
   leaveMenu();
