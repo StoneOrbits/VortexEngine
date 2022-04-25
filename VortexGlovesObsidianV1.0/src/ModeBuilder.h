@@ -19,6 +19,8 @@ enum PatternID : uint32_t
   PATTERN_ULTRADOPS, // basicpattern 1 3
   PATTERN_STROBIE, // basicpattern 3 22
 
+  PATTERN_TRACER,
+
   PATTERN_COUNT, // total number of patterns
   PATTERN_LAST = (PATTERN_COUNT - 1)
 };
