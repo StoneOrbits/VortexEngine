@@ -1,6 +1,7 @@
 #include "ModeBuilder.h"
 
 #include "patterns/BasicPattern.h"
+#include "patterns/DemoPattern.h"
 
 #include "Colorset.h"
 #include "Mode.h"
@@ -64,5 +65,7 @@ Pattern *ModeBuilder::makePattern(PatternID id)
     return new BasicPattern(20);
   case PATTERN_MINIRIBBON:
     return new BasicPattern(3);
+  case PATTERN_TRACER:
+    return new DemoPattern();
   }
 }
