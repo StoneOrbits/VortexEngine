@@ -9,7 +9,7 @@
 Settings *g_pSettings = nullptr;
 
 Settings::Settings() :
-  m_brightness(0),
+  m_brightness(255),
   m_curMode(0),
   m_numModes(0),
   m_modeList()

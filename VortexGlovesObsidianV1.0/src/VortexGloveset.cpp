@@ -18,8 +18,7 @@ VortexGloveset::VortexGloveset() :
   m_button(),
   m_settings(),
   m_ringMenu(),
-  m_pCurMenu(nullptr),
-  m_pCurMode(nullptr)
+  m_pCurMenu(nullptr)
 {
 }
 
@@ -44,9 +43,6 @@ bool VortexGloveset::init()
     // error
     return false;
   }
-
-  // get the current mode from settings
-  m_pCurMode = m_settings.curMode();
 
   // setup led controller
   if (!m_ledControl.init()) {
@@ -81,9 +77,6 @@ void VortexGloveset::tick()
   // poll the button for changes
   m_button.check();
 
-  // start by clearing each tick? So if nothing is done they clear at update
-  //m_ledControl.clearAll();
-
   // first try to run any menu logic
   if (!runAllMenus()) {
     // if it returns false then there was no menu logic to run
@@ -92,8 +85,6 @@ void VortexGloveset::tick()
   }
 
   //checkSerial();
-
-  // TODO: timestep?
 
   // update the leds
   m_ledControl.update();
@@ -169,7 +160,7 @@ bool VortexGloveset::runRingMenu()
     return m_ringMenu.isOpen();
   }
   // otherwise initialiaze the new menu with the current mode
-  if (!m_pCurMenu->init(m_pCurMode)) {
+  if (!m_pCurMenu->init(m_settings.curMode())) {
     // if the menu failed to init, don't open it
     m_pCurMenu = nullptr;
   }
@@ -186,7 +177,7 @@ void VortexGloveset::playMode()
     g_pLedControl->clearAll();
   }
 
-  if (!m_pCurMode) {
+  if (!m_settings.curMode()) {
     // no modes to play
     return;
   }

@@ -2,6 +2,8 @@
 
 #include <Arduino.h>
 
+#include "Log.h"
+
 // should only be one time control
 TimeControl *g_pTimeControl = nullptr;
 
@@ -27,8 +29,16 @@ bool TimeControl::init()
 
 void TimeControl::tickClock()
 {
-  //m_curTime = millis();
+  // tick clock forward
   m_curTime++;
+
+  // perform timestep
+  static uint64_t lastshow = micros();
+  uint64_t elapsed_ms;
+  do {
+      elapsed_ms = (micros() - lastshow);
+  } while (elapsed_ms < 1000000);
+  lastshow = micros();
 }
 
 // get the current time with optional led position time offset
