@@ -2,10 +2,6 @@
 
 #include <Arduino.h>
 
-#ifndef TEST_FRAMEWORK
-void hsv2rgb_rainbow(const CHSV& hsv, CRGB& rgb);
-#endif
-
 void RGBColor::serialize() const
 {
   Serial.print(red);
@@ -15,9 +11,6 @@ void RGBColor::serialize() const
 
 RGBColor::RGBColor(const HSVColor &rhs)
 {
-#ifndef TEST_FRAMEWORK
-    hsv2rgb_rainbow((const CHSV &)rhs, (CRGB &)*this);
-#else
     unsigned char region, remainder, p, q, t;
 
     if (rhs.sat == 0) {
@@ -54,5 +47,4 @@ RGBColor::RGBColor(const HSVColor &rhs)
         red = rhs.val; green = p; blue = q;
         break;
     }
-#endif
 }
