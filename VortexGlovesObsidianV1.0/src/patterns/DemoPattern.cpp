@@ -1,5 +1,9 @@
 #include "DemoPattern.h"
 
+#include "../TimeControl.h"
+#include "../LedControl.h"
+#include "../Colorset.h"
+
 DemoPattern::DemoPattern() :
     m_tracerDuration(20),
     m_totalDuration(m_tracerDuration + 3),
@@ -25,7 +29,7 @@ void DemoPattern::play(Colorset *colorset, LedPos pos)
     // set the color of the tracer counter
     g_pLedControl->setIndex(pos, colorset->get(1 + m_tracerCounter));
     // increment tracer counter and wrap at 1 less than num colors
-    m_tracerCounter = (m_tracercounter + 1) % (colorset->numColors() - 1);
+    m_tracerCounter = (m_tracerCounter + 1) % (colorset->numColors() - 1);
   }
 }
 
