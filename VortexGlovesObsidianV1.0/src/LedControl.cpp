@@ -48,7 +48,14 @@ void LedControl::clearOnboardLED()
 
 void LedControl::setIndex(LedPos target, RGBColor col)
 {
-  m_ledColors[target] = col;
+  // safety
+  if (target > LED_LAST) {
+    target = LED_LAST;
+  }
+  // FLIP THE INDEXES because we want our enums to go from 
+  // PINKIE to INDEX for sake of simple iteration in menus
+  // but the current hardware configuration is flipped
+  m_ledColors[LED_LAST - target] = col;
 }
 
 void LedControl::setRange(LedPos first, LedPos last, RGBColor col)
@@ -65,12 +72,14 @@ void LedControl::setAll(RGBColor col)
 
 void LedControl::setFinger(Finger finger, RGBColor col)
 {
-  setRange(fingerTop(finger), fingerTip(finger), col);
+  // start from tip and go to top
+  setRange(fingerTip(finger), fingerTop(finger), col);
 }
 
 void LedControl::setFingers(Finger first, Finger last, RGBColor col)
 {
-  setRange(fingerTop(first), fingerTip(last), col);
+  // start from tip and go to top
+  setRange(fingerTip(first), fingerTop(last), col);
 }
 
 void LedControl::update()

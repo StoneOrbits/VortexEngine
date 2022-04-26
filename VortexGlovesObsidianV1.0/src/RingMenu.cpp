@@ -1,14 +1,15 @@
 #include "RingMenu.h"
 
+#include "TimeControl.h"
 #include "LedControl.h"
 #include "Button.h"
 
 #include "Log.h"
 
 // how long must hold to trigger ring menu
-#define MENU_TRIGGER_THRESHOLD 1000
+#define MENU_TRIGGER_THRESHOLD (1000 * TICK_PER_MS)
 // how long each ring menu takes to fill
-#define MENU_DURATION 1000
+#define MENU_DURATION (1000 * TICK_PER_MS)
 
 RingMenu::RingMenu() :
   m_randomizer(),
@@ -49,10 +50,10 @@ Menu *RingMenu::run()
     m_selection = 0;
     // the ring menu is now open
     m_isOpen = true;
-    // clear the leds
-    g_pLedControl->clearAll();
     DEBUG("Opened RingMenu");
   }
+  // clear the leds so it always fills instead of replacing
+  g_pLedControl->clearAll();
   // calculate how long into the current menu the button was held
   // this will be a value between 0 and LED_COUNT based on the current
   // menu selection and hold time

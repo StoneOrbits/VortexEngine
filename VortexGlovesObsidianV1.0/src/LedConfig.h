@@ -10,20 +10,20 @@ enum LedPos : uint32_t
   LED_FIRST = 0,
 
   // the first should be equal to LED_FIRST
-  THUMB_TOP = LED_FIRST,
-  THUMB_TIP,
-
-  INDEX_TOP,
-  INDEX_TIP,
-
-  MIDDLE_TOP,
-  MIDDLE_TIP,
-
-  RING_TOP,
-  RING_TIP,
-
+  PINKIE_TIP = LED_FIRST,
   PINKIE_TOP,
-  PINKIE_TIP,
+
+  RING_TIP,
+  RING_TOP,
+
+  MIDDLE_TIP,
+  MIDDLE_TOP,
+
+  INDEX_TIP,
+  INDEX_TOP,
+
+  THUMB_TIP,
+  THUMB_TOP,
 
   // INSERT NEW ENTRIES HERE
 
@@ -34,27 +34,25 @@ enum LedPos : uint32_t
   LED_LAST = (LED_COUNT - 1)
 };
 
-// Finger enum starting from index because all menus start
-// from pinkie so this makes iteration and access easier
 enum Finger : uint32_t
 {
   FINGER_FIRST = 0,
 
-  FINGER_THUMB = FINGER_FIRST, // proof thumb is finger confirmed
-  FINGER_INDEX,
-  FINGER_MIDDLE,
+  FINGER_PINKIE = FINGER_FIRST,
   FINGER_RING,
-  FINGER_PINKIE,
+  FINGER_MIDDLE,
+  FINGER_INDEX,
+  FINGER_THUMB, // proof thumb is finger confirmed
 
   FINGER_COUNT, // 5
   FINGER_LAST = (FINGER_COUNT - 1),
 };
 
-// get the led index for the top/tip of a finger
-inline LedPos fingerTop(Finger finger) {
+// get the led index for the tip/top of a finger
+inline LedPos fingerTip(Finger finger) {
   return (LedPos)((uint32_t)finger * 2);
 }
-inline LedPos fingerTip(Finger finger) {
+inline LedPos fingerTop(Finger finger) {
   return (LedPos)(((uint32_t)finger * 2) + 1);
 }
 

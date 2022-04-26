@@ -5,6 +5,9 @@
 
 #include "LedConfig.h"
 
+// tick rate per milliseconds
+#define TICK_PER_MS 1
+
 class TimeControl
 {
   public:

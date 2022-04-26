@@ -67,13 +67,13 @@ void PatternSelect::onShortClick()
     leaveMenu();
   switch (m_state) {
   case STATE_PICK_LIST:
-    // only 4 options for list
-    m_curSelection = (Finger)(((uint32_t)m_curSelection + 1) % 4);
+    // wrap at the thumb back to pinkie
+    m_curSelection = (Finger)((m_curSelection + 1) % FINGER_THUMB);
     break;
   case STATE_PICK_PATTERN:
     // TODO: implement a pattern list?
     // m_pNewPattern = nextPattern();
-    m_curSelection = (Finger)(((uint32_t)m_curSelection + 1) % 10);
+    //m_curSelection = (Finger)(((uint32_t)m_curSelection + 1) % 10);
     break;
   }
 }

@@ -7,8 +7,8 @@
 #include "../Log.h"
 
 BasicPattern::BasicPattern(uint32_t onDuration, uint32_t offDuration) :
-    m_onDuration(onDuration),
-    m_blinkDuration(onDuration + offDuration),
+    m_onDuration(onDuration * TICK_PER_MS),
+    m_blinkDuration((onDuration + offDuration) * TICK_PER_MS),
     m_state(false)
 {
 }

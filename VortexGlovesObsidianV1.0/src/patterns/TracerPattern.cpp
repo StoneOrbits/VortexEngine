@@ -7,8 +7,8 @@
 #include "../Log.h"
 
 TracerPattern::TracerPattern(uint32_t tracerLength, uint32_t dotLength) :
-    m_tracerDuration(tracerLength),
-    m_totalDuration(m_tracerDuration + dotLength),
+    m_tracerDuration(tracerLength * TICK_PER_MS),
+    m_totalDuration((m_tracerDuration + dotLength) * TICK_PER_MS),
     m_tracerCounter(0),
     m_state(false)
 {
@@ -41,8 +41,7 @@ void TracerPattern::play(Colorset *colorset, LedPos pos)
   } else {
     // set the color of the tracer counter
     g_pLedControl->setIndex(pos, colorset->get(1 + m_tracerCounter));
-    // increment tracer counter and wrap at 1 less than num colors because
-    // we need to leave room to add one to the tracer counter
+    // increment tracer counter and wrap at 1 less than num colors
     m_tracerCounter = (m_tracerCounter + 1) % (colorset->numColors() - 1);
   }
 }

@@ -2,6 +2,7 @@
 
 #include "../TimeControl.h"
 #include "../LedControl.h"
+#include "../Button.h"
 
 Menu::Menu() :
   m_pCurMode(nullptr),
@@ -55,21 +56,19 @@ void Menu::leaveMenu()
 void Menu::blinkSelection()
 {
   // only blink off for 250ms per second
-  if ((g_pTimeControl->getCurtime() % 10) < 7) {
+  if ((g_pTimeControl->getCurtime() % 1000) < 250) {
     return;
   }
-#if 0
+  RGBColor blinkCol = RGB_OFF;
   // blinkie red when held past long-press threhold
   if (g_pButton->isPressed() && g_pButton->holdDuration() > 250) {
-    g_pLedControl->setFinger(m_curSelection, RGB_RED);
-    return;
+    blinkCol = RGBColor(150, 10, 10);
   }
-#endif
   // special selection clause 'select all'
   if (m_curSelection == FINGER_COUNT) {
-    g_pLedControl->clearAll();
+    g_pLedControl->setAll(blinkCol);
   } else {
     // otherwise just blink the selected finger
-    g_pLedControl->clearFinger(m_curSelection);
+    g_pLedControl->setFinger(m_curSelection, blinkCol);
   }
 }

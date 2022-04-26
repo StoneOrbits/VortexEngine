@@ -8,7 +8,13 @@ class ModeSharing : public Menu
   public:
     ModeSharing();
 
+    bool init(Mode *curMode);
+
     bool run();
+
+    // handlers for clicks
+    void onShortClick();
+    void onLongClick();
 
   private:
 
