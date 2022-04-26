@@ -3,7 +3,7 @@
 
 #include "Menu.h"
 
-#include "Colorset.h"
+#include "../Colorset.h"
 
 class ColorSelect : public Menu
 {
