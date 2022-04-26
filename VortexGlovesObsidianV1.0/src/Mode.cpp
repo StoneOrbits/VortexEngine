@@ -1,7 +1,7 @@
 #include "Mode.h"
 
 #include "patterns/Pattern.h"
-
+#include "PatternBuilder.h"
 #include "Colorset.h"
 
 #include <Arduino.h>
@@ -10,7 +10,6 @@ Mode::Mode() :
   m_flags(MODE_FLAG_NONE),
   m_ledEntries()
 {
-    memset(m_ledEntries, 0, sizeof(m_ledEntries));
 }
 
 Mode::~Mode()
@@ -28,73 +27,6 @@ Mode::~Mode()
         break;
     }
   }
-}
-
-// bind a pattern and colorset to individual LED
-bool Mode::bind(Pattern *pat, Colorset *set, LedPos pos)
-{
-  if (pos > LED_LAST) {
-    return false;
-  }
-  m_ledEntries[pos] = LedEntry(pat, set);
-  return true;
-}
-
-// bind a pattern and colorset to a range of LEDs
-bool Mode::bindRange(Pattern *pat, Colorset *set, LedPos first, LedPos last)
-{
-  for (LedPos pos = first; pos <= last; ++pos) {
-    if (!bind(pat, set, pos)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-// bind a pattern and colorset to all LEDs
-bool Mode::bindAll(Pattern *pat, Colorset *set)
-{
-  return bindRange(pat, set, LED_FIRST, LED_LAST);
-}
-
-bool Mode::setPattern(Pattern *pat, LedPos pos)
-{
-  if (pos > LED_LAST) {
-    return false;
-  }
-  if (m_ledEntries[pos].pattern) {
-    delete m_ledEntries[pos].pattern;
-  }
-  m_ledEntries[pos].pattern = pat;
-  return true;
-}
-
-bool Mode::setColorset(Colorset *set, LedPos pos)
-{
-  if (pos > LED_LAST) {
-    return false;
-  }
-  if (m_ledEntries[pos].colorset) {
-    delete m_ledEntries[pos].colorset;
-  }
-  m_ledEntries[pos].colorset = set;
-  return true;
-}
-
-Pattern *Mode::getPattern(LedPos pos) const
-{
-  if (pos > LED_LAST) {
-    return nullptr;
-  }
-  return m_ledEntries[pos].pattern;
-}
-
-Colorset *Mode::getColorset(LedPos pos) const
-{
-  if (pos > LED_LAST) {
-    return nullptr;
-  }
-  return m_ledEntries[pos].colorset;
 }
 
 void Mode::play()
@@ -141,7 +73,7 @@ void Mode::serialize() const
     entry->colorset->serialize();
 
     // if the multi pattern flag isn't present only write one entry
-    if (!hasFlags(MODE_FLAG_MULTI_PATTERN)) { 
+    if (!hasFlags(MODE_FLAG_MULTI_PATTERN)) {
       return;
     }
   }
@@ -149,4 +81,107 @@ void Mode::serialize() const
 
 void Mode::unserialize()
 {
+}
+
+// bind a pattern and colorset to individual LED
+bool Mode::bind(Pattern *pat, Colorset *set, LedPos pos)
+{
+  if (pos > LED_LAST) {
+    return false;
+  }
+  m_ledEntries[pos] = LedEntry(pat, set);
+  return true;
+}
+
+// bind a pattern and colorset to a range of LEDs
+bool Mode::bindRange(Pattern *pat, Colorset *set, LedPos first, LedPos last)
+{
+  for (LedPos pos = first; pos <= last; ++pos) {
+    if (!bind(pat, set, pos)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+// bind a pattern and colorset to all LEDs
+bool Mode::bindAll(Pattern *pat, Colorset *set)
+{
+  return bindRange(pat, set, LED_FIRST, LED_LAST);
+}
+
+bool Mode::setPattern(LedPos pos, Pattern *pat)
+{
+  if (pos > LED_LAST) {
+    return false;
+  }
+  if (m_ledEntries[pos].pattern) {
+    delete m_ledEntries[pos].pattern;
+  }
+  m_ledEntries[pos].pattern = pat;
+  return true;
+}
+
+bool Mode::setColorset(LedPos pos, Colorset *set)
+{
+  if (pos > LED_LAST) {
+    return false;
+  }
+  if (m_ledEntries[pos].colorset) {
+    delete m_ledEntries[pos].colorset;
+  }
+  m_ledEntries[pos].colorset = set;
+  return true;
+}
+
+Pattern *Mode::getPattern(LedPos pos) const
+{
+  if (pos > LED_LAST) {
+    return nullptr;
+  }
+  return m_ledEntries[pos].pattern;
+}
+
+Colorset *Mode::getColorset(LedPos pos) const
+{
+  if (pos > LED_LAST) {
+    return nullptr;
+  }
+  return m_ledEntries[pos].colorset;
+}
+
+// this will in-place change the pattern for all 10x slots
+bool Mode::changePattern(const Pattern *pat)
+{
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    LedEntry *entry = m_ledEntries + pos;
+    Pattern *newPat = PatternBuilder::make(pat->getPatternID());
+    if (!newPat) {
+      // failed to build new pattern
+      return false;
+    }
+    if (!setPattern(pos, newPat)) {
+      // failed to install new pattern
+      return false;
+    }
+  }
+  return true;
+}
+
+// this will in-place change the colorset for all 10x slots
+bool Mode::changeColorset(const Colorset *set)
+{
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    LedEntry *entry = m_ledEntries + pos;
+    Colorset *newSet = new Colorset(*set);
+    if (!newSet) {
+      // failed to build new colorset
+      return false;
+    }
+    if (!setColorset(pos, newSet)) {
+      // failed to install new colorset
+      return false;
+    }
+  }
+  return true;
 }

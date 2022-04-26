@@ -89,7 +89,7 @@ void PatternSelect::onLongClick()
     break;
   case STATE_PICK_PATTERN:
     // store the new pattern in the mode
-    m_pCurMode->setPattern(m_pNewPattern);
+    //m_pCurMode->setPattern(m_pNewPattern);
     // go back to beginning for next time
     m_state = STATE_PICK_LIST;
     // done in the pattern select menu

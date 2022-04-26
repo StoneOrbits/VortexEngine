@@ -1,6 +1,7 @@
 #include "Pattern.h"
 
-Pattern::Pattern()
+Pattern::Pattern() :
+    m_patternID(PATTERN_STROBE)
 {
 }
 

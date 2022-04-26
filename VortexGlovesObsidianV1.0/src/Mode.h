@@ -3,8 +3,6 @@
 
 #include "LedConfig.h"
 
-#include <map>
-
 class Pattern;
 class Colorset;
 
@@ -23,6 +21,14 @@ class Mode
     Mode();
     ~Mode();
 
+    // Play the mode
+    void play();
+
+    // save the mode to serial
+    void serialize() const;
+    // load the mode from serial
+    void unserialize();
+
     // bind a pattern and colorset to individual LED
     bool bind(Pattern *pat, Colorset *set, LedPos pos = LED_FIRST);
     // bind a pattern and colorset to a range of LEDs
@@ -35,23 +41,20 @@ class Mode
     ModeFlags getFlags() const { return m_flags; }
     bool hasFlags(ModeFlags flags) const { return (m_flags & flags) == flags; }
 
-    // replace just the pattern or colorset
-    bool setPattern(Pattern *pat, LedPos pos = LED_FIRST);
-    bool setColorset(Colorset *set, LedPos pos = LED_FIRST);
-
-    // Get patterns/colorsets
+    // Get pointer to a pattern/colorset
     Pattern *getPattern(LedPos pos = LED_FIRST) const;
     Colorset *getColorset(LedPos pos = LED_FIRST) const;
 
-    // Play the mode
-    void play();
-
-    // save the mode to serial
-    void serialize() const;
-    // load the mode from serial
-    void unserialize();
+    // this will in-place change the pattern for all 10x slots
+    bool changePattern(const Pattern *pat);
+    // this will in-place change the colorset for all 10x slots
+    bool changeColorset(const Colorset *set);
 
   private:
+    // replace just the pattern or colorset deleting the existing entry
+    bool setPattern(LedPos pos, Pattern *pat);
+    bool setColorset(LedPos pos, Colorset *set);
+
     // NOTE: Modes *ALLOW* for one pattern and one colorset on each LED
     //       but we are not intending to expose that functionality through
     //       the menus or UI. Instead users will have to customize save

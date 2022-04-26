@@ -3,7 +3,7 @@
 
 #include "Menu.h"
 
-class Colorset;
+#include "Colorset.h"
 
 class ColorSelect : public Menu
 {
@@ -49,8 +49,8 @@ class ColorSelect : public Menu
     // the current state of the color selection menu
     ColorSelectState m_state;
 
-    // pointer to the colorset of the current mode
-    Colorset *m_pColorset;
+    // A copy of the colorset from the current mode
+    Colorset m_colorset;
 
     // the colorselect has multiple pages
     uint32_t m_curPage;

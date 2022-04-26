@@ -1,8 +1,7 @@
 #include "ModeBuilder.h"
 
-#include "patterns/BasicPattern.h"
-#include "patterns/TracerPattern.h"
-
+#include "patterns/Pattern.h"
+#include "PatternBuilder.h"
 #include "Colorset.h"
 #include "Mode.h"
 
@@ -29,7 +28,7 @@ Mode *ModeBuilder::make(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
         return nullptr;
       }
       // create a new pattern from the id
-      Pattern *newPat = makePattern(id);
+      Pattern *newPat = PatternBuilder::make(id);
       if (!newPat) {
         // allocation error
         delete newMode;
@@ -45,29 +44,4 @@ Mode *ModeBuilder::make(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
       }
   }
   return newMode;
-}
-
-Pattern *ModeBuilder::makePattern(PatternID id)
-{
-  switch (id) {
-  default:
-  case PATTERN_STROBE:      
-    return new BasicPattern(5, 8);
-  case PATTERN_HYPERSTROBE: 
-    return new BasicPattern(25, 25);
-  case PATTERN_DOPS:        
-    return new BasicPattern(2, 13);
-  case PATTERN_DOPISH:      
-    return new BasicPattern(2, 7);
-  case PATTERN_ULTRADOPS:   
-    return new BasicPattern(1, 3);
-  case PATTERN_STROBIE:     
-    return new BasicPattern(3, 22);
-  case PATTERN_RIBBON:
-    return new BasicPattern(20);
-  case PATTERN_MINIRIBBON:
-    return new BasicPattern(3);
-  case PATTERN_TRACER:
-    return new TracerPattern(20, 1);
-  }
 }

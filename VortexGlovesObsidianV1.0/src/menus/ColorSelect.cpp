@@ -14,7 +14,7 @@
 ColorSelect::ColorSelect() :
   Menu(),
   m_state(STATE_PICK_SLOT),
-  m_pColorset(nullptr),
+  m_colorset(),
   m_slot(0),
   m_quadrant(0),
   m_newColor()
@@ -26,8 +26,8 @@ bool ColorSelect::init(Mode *curMode)
   if (!Menu::init(curMode)) {
     return false;
   }
-  // grab a pointer to the colorset of the mode
-  m_pColorset = curMode->getColorset();
+  // copy the colorset from the current mode
+  m_colorset = *curMode->getColorset();
   DEBUG("Entered color select");
   return true;
 }
@@ -104,8 +104,10 @@ void ColorSelect::onLongClick()
   case STATE_PICK_VAL:
     // pick a value
     m_newColor.val = makeVal(m_curSelection);
-    // store the new color
-    m_pColorset->set(m_slot, m_newColor);
+    // replace the slot with the new color
+    m_colorset.set(m_slot, m_newColor);
+    // change the colorset on the mode
+    m_pCurMode->changeColorset(&m_colorset);
     // go back to beginning for next time
     m_state = STATE_PICK_SLOT;
     // done in the color select menu
@@ -123,7 +125,7 @@ void ColorSelect::showSlotSelection()
   uint32_t colIndex = (m_curPage * PAGE_SIZE);
   for (Finger f = FINGER_FIRST; f <= FINGER_INDEX; ++f) {
     // set the current colorset slot color on the current finger
-    g_pLedControl->setFinger(f, m_pColorset->get(colIndex++));
+    g_pLedControl->setFinger(f, m_colorset[colIndex++]);
   }
 }
 

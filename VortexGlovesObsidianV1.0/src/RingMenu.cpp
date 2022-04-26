@@ -11,6 +11,9 @@
 // how long each ring menu takes to fill
 #define MENU_DURATION (1000 * TICK_PER_MS)
 
+// comment this out if you want the menu to fill from pinkie
+#define FILL_FROM_THUMB
+
 RingMenu::RingMenu() :
   m_randomizer(),
   m_colorSelect(),
@@ -63,8 +66,13 @@ Menu *RingMenu::run()
   //  200ms = led 0 to 2
   LedPos led = calcLedPos();
   //Debug("Led: %d", (uint32_t)led);
+#ifdef FILL_FROM_THUMB
+  // turn on leds from led to LED_LAST because the menu is filling downward
+  g_pLedControl->setRange(led, LED_LAST, m_menuList[m_selection].color);
+#else
   // turn on leds LED_FIRST through led with the selected menu's given color
   g_pLedControl->setRange(LED_FIRST, led, m_menuList[m_selection].color);
+#endif
   // no menu selected yet
   return nullptr;
 }
@@ -86,7 +94,11 @@ LedPos RingMenu::calcLedPos()
     int holdTime = (holdDuration - menuStartTime);
     // if the holdTime is within MENU_DURATION then it's valid
     if (holdTime < MENU_DURATION) {
+#ifdef FILL_FROM_THUMB
+      return (LedPos)(LED_LAST - (((double)holdTime / MENU_DURATION) * LED_COUNT));
+#else
       return (LedPos)(((double)holdTime / MENU_DURATION) * LED_COUNT);
+#endif
     }
   }
   // otherwise increment selection and wrap around at numMenus

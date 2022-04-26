@@ -17,6 +17,13 @@ class Colorset
         RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF, RGBColor c6 = RGB_OFF,
         RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
 
+    // copy and assignment operators
+    Colorset(const Colorset &other);
+    void operator=(const Colorset &other);
+
+    // index operator to access color index
+    RGBColor operator[](int index) const;
+
     // add a single color
     bool addColor(RGBColor col);
 

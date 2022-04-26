@@ -24,6 +24,29 @@ Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
   m_palette[7] = c8; if (!c8.empty()) m_numColors++;
 }
 
+Colorset::Colorset(const Colorset &other) :
+    m_curIndex(0),
+    m_numColors(other.m_numColors)
+{
+  for (int i = 0; i < NUM_COLOR_SLOTS; ++i) {
+    m_palette[i] = other.m_palette[i];
+  }
+}
+
+void Colorset::operator=(const Colorset &other)
+{
+  m_curIndex = 0;
+  m_numColors = other.m_numColors;
+  for (int i = 0; i < NUM_COLOR_SLOTS; ++i) {
+    m_palette[i] = other.m_palette[i];
+  }
+}
+
+RGBColor Colorset::operator[](int index) const
+{
+  return get(index);
+}
+
 // add a single color
 bool Colorset::addColor(RGBColor col)
 {
