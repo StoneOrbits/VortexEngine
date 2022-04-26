@@ -106,8 +106,8 @@ void ColorSelect::onLongClick()
     m_newColor.val = makeVal(m_curSelection);
     // replace the slot with the new color
     m_colorset.set(m_slot, m_newColor);
-    // change the colorset on the mode
-    m_pCurMode->changeColorset(&m_colorset);
+    // switch all colorsets to a copy of m_colorset
+    m_pCurMode->changeAllColorsets(&m_colorset);
     // go back to beginning for next time
     m_state = STATE_PICK_SLOT;
     // done in the color select menu

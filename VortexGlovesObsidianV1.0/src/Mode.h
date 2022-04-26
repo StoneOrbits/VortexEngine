@@ -7,13 +7,18 @@ class Pattern;
 class Colorset;
 
 // Bitflags for the current mode
-enum ModeFlags : uint32_t {
+enum ModeFlags : uint32_t
+{
 
   MODE_FLAG_NONE = 0,
 
   // the current mode has multiple patterns
   MODE_FLAG_MULTI_PATTERN = (1 << 0),
 };
+
+// the keyword 'ALL_SLOTS' can be used to refer to all of the
+// mode slots at once when using changePattern or changeColorset
+#define ALL_SLOTS LED_COUNT
 
 class Mode
 {
@@ -45,16 +50,17 @@ class Mode
     Pattern *getPattern(LedPos pos = LED_FIRST) const;
     Colorset *getColorset(LedPos pos = LED_FIRST) const;
 
-    // this will in-place change the pattern for all 10x slots
-    bool changePattern(const Pattern *pat);
-    // this will in-place change the colorset for all 10x slots
-    bool changeColorset(const Colorset *set);
+    // this will in-place change the pattern or colorset on
+    // slot to a copy of the given pattern or colorset
+    bool changePattern(const Pattern *pat, LedPos pos);
+    bool changeColorset(const Colorset *set, LedPos pos);
+
+    // this will in-place change the pattern or colorset al
+    // slots to a copy of the given pattern or colorset
+    bool changeAllPatterns(const Pattern *pat);
+    bool changeAllColorsets(const Colorset *set);
 
   private:
-    // replace just the pattern or colorset deleting the existing entry
-    bool setPattern(LedPos pos, Pattern *pat);
-    bool setColorset(LedPos pos, Colorset *set);
-
     // NOTE: Modes *ALLOW* for one pattern and one colorset on each LED
     //       but we are not intending to expose that functionality through
     //       the menus or UI. Instead users will have to customize save
@@ -66,8 +72,8 @@ class Mode
     //       a custom savefile
 
     // ==================
-    //  private routines 
-     
+    //  private routine
+
 
     // A set of flags for the mode
     ModeFlags m_flags;
