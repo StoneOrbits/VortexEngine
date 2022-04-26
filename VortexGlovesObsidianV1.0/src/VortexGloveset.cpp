@@ -122,9 +122,6 @@ bool VortexGloveset::runAllMenus()
 
 bool VortexGloveset::runCurMenu()
 {
-  // clear at start of menus
-  g_pLedControl->clearAll();
-
   // first run the click handlers for the menu
   if (m_button.onShortClick()) { 
     m_pCurMenu->onShortClick(); 
@@ -132,6 +129,7 @@ bool VortexGloveset::runCurMenu()
   if (m_button.onLongClick()) { 
     m_pCurMenu->onLongClick(); 
   }
+
   // if the menu run handler returns false that signals the 
   // menu was closed by the user leaving the menu
   if (!m_pCurMenu->run()) {
@@ -150,8 +148,6 @@ bool VortexGloveset::runCurMenu()
 
 bool VortexGloveset::runRingMenu()
 {
-  // clear at start of menus
-  g_pLedControl->clearAll();
   // run the ringmenu and store any menu it returns,
   // it is expected to return NULL most of the time
   m_pCurMenu = m_ringMenu.run();
@@ -164,6 +160,8 @@ bool VortexGloveset::runRingMenu()
     // if the menu failed to init, don't open it
     m_pCurMenu = nullptr;
   }
+  // clear all the leds
+  g_pLedControl->clearAll();
   // contiue in the new selected menu
   return true;
 }

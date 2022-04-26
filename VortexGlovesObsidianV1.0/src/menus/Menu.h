@@ -7,9 +7,6 @@
 #include "../LedConfig.h"
 
 class Mode;
-class Button;
-class LedControl;
-class TimeControl;
 
 class Menu
 {

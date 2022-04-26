@@ -19,6 +19,8 @@ class Randomizer : public Menu
     void onLongClick();
 
   private:
+    void *vftp[5];
+
     // a pointer to a randomized mode
     Mode *m_pRandomizedMode;
 

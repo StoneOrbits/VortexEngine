@@ -16,18 +16,18 @@
 #define HSV_OFF     0x000000    //   0   0   0
 
 #define RGB_WHITE   0xaaaaaa
-#define RGB_ORANGE  0xff8000    //
+#define RGB_ORANGE  0xff8000    // 
 #define RGB_BLUE    0x0000FF    //   0    0 255
-#define RGB_YELLOW  0xFFFF00    //
+#define RGB_YELLOW  0xFFFF00    // 
 #define RGB_RED     0xFF0000    //   0  255 110
 #define RGB_GREEN   0x00FF00    //  85  255 110
-#define RGB_TEAL    0x00FF80    //
-#define RGB_PURPLE  0x9933FF    //
-#define RGB_BLANK   0x404040    //
+#define RGB_TEAL    0x00FF80    // 
+#define RGB_PURPLE  0x9933FF    // 
+#define RGB_BLANK   0x404040    //   
 #define RGB_OFF     0x000000    //   0    0   0
 
-// Some Pre-defined hue values
-// TODO: remove HSV_ underscore once FastLED is gone
+// Some Pre-defined hue values 
+// TODO: remove HSV_ underscore once FastLED is gone    
 #define HSV_HUE_RED     0
 #define HSV_HUE_ORANGE  32
 #define HSV_HUE_YELLOW  64
@@ -42,9 +42,9 @@ class HSVColor
 {
   public:
     HSVColor() : raw() {}
-    HSVColor(uint32_t dwVal) :
+    HSVColor(uint32_t dwVal) : 
       hue((dwVal >> 16) & 0xFF), sat((dwVal >> 16) & 0xFF), val(dwVal & 0xFF) {}
-    HSVColor(uint8_t hue, uint8_t sat, uint8_t val) :
+    HSVColor(uint8_t hue, uint8_t sat, uint8_t val) : 
       hue(hue), sat(sat), val(val) {}
 
     // copy construction
@@ -80,9 +80,9 @@ class RGBColor
 {
   public:
     RGBColor() : raw() {}
-    RGBColor(uint32_t dwVal) :
+    RGBColor(uint32_t dwVal) : 
       red((dwVal>>16) & 0xFF), green((dwVal>>8) & 0xFF), blue(dwVal & 0xFF) {}
-    RGBColor(uint8_t red, uint8_t green, uint8_t blue) :
+    RGBColor(uint8_t red, uint8_t green, uint8_t blue) : 
       red(red), green(green), blue(blue) {}
 
     // copy construction

@@ -36,8 +36,8 @@ bool GlobalBrightness::run()
   }
 
   // display brightnesses on each finger
-  for (Finger finger = FINGER_PINKIE; finger <= FINGER_INDEX; ++finger) {
-    g_pLedControl->setFinger(finger, HSVColor(0, 0, m_brightnessOptions[finger]));
+  for (Finger finger = FINGER_INDEX; finger <= FINGER_PINKIE; ++finger) {
+    g_pLedControl->setFinger(finger, HSVColor(0, 0, m_brightnessOptions[finger - 1]));
   }
 
   // blink the current selection

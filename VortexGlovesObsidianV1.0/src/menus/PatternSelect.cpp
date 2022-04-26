@@ -64,6 +64,7 @@ void PatternSelect::showPatternSelection()
 
 void PatternSelect::onShortClick()
 {
+    leaveMenu();
   switch (m_state) {
   case STATE_PICK_LIST:
     // only 4 options for list
@@ -79,6 +80,7 @@ void PatternSelect::onShortClick()
 
 void PatternSelect::onLongClick()
 {
+    leaveMenu();
   switch (m_state) {
   case STATE_PICK_LIST:
     // store the list selection

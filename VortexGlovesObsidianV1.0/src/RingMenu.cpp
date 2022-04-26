@@ -34,6 +34,7 @@ Menu *RingMenu::run()
   if (g_pButton->onRelease() && m_isOpen) {
     // the menu is no longer open
     m_isOpen = false;
+    DEBUG("Released on ringmenu %d", m_selection);
     // return the menu that was selected
     return m_menuList[m_selection].menu;
   }

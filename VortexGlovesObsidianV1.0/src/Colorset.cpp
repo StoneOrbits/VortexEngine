@@ -77,7 +77,7 @@ RGBColor Colorset::cur()
 RGBColor Colorset::getNext()
 {
   // iterate to next col
-  m_curIndex = (m_curIndex + 1) % (numColors() - 1);
+  m_curIndex = (m_curIndex + 1) % (numColors());
   // return the color
   return m_palette[m_curIndex];
 }

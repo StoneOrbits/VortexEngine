@@ -41,9 +41,9 @@ void TracerPattern::play(Colorset *colorset, LedPos pos)
   } else {
     // set the color of the tracer counter
     g_pLedControl->setIndex(pos, colorset->get(1 + m_tracerCounter));
-    // increment tracer counter and wrap at 2 less than num colors
-    // it's 2 less because indexes start at 0 and we're adding 1
-    m_tracerCounter = (m_tracerCounter + 1) % (colorset->numColors() - 2);
+    // increment tracer counter and wrap at 1 less than num colors because
+    // we need to leave room to add one to the tracer counter
+    m_tracerCounter = (m_tracerCounter + 1) % (colorset->numColors() - 1);
   }
 }
 

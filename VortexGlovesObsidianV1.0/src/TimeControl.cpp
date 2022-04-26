@@ -7,8 +7,8 @@
 // should only be one time control
 TimeControl *g_pTimeControl = nullptr;
 
-// the ticks per millisecond
-#define MS_PER_TICK 1
+// the milliseconds per tick (increase to slow down)
+#define MS_PER_TICK 75
 
 TimeControl::TimeControl() :
   m_curTime(0)
