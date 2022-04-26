@@ -14,14 +14,14 @@ Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
   Colorset()
 {
   // would be nice if we could do this another way
-  m_palette[0] = c1; if (c1.raw_dword) m_numColors++;
-  m_palette[1] = c2; if (c2.raw_dword) m_numColors++;
-  m_palette[2] = c3; if (c3.raw_dword) m_numColors++;
-  m_palette[3] = c4; if (c4.raw_dword) m_numColors++;
-  m_palette[4] = c5; if (c5.raw_dword) m_numColors++;
-  m_palette[5] = c6; if (c6.raw_dword) m_numColors++;
-  m_palette[6] = c7; if (c7.raw_dword) m_numColors++;
-  m_palette[7] = c8; if (c8.raw_dword) m_numColors++;
+  m_palette[0] = c1; if (!c1.empty()) m_numColors++;
+  m_palette[1] = c2; if (!c2.empty()) m_numColors++;
+  m_palette[2] = c3; if (!c3.empty()) m_numColors++;
+  m_palette[3] = c4; if (!c4.empty()) m_numColors++;
+  m_palette[4] = c5; if (!c5.empty()) m_numColors++;
+  m_palette[5] = c6; if (!c6.empty()) m_numColors++;
+  m_palette[6] = c7; if (!c7.empty()) m_numColors++;
+  m_palette[7] = c8; if (!c8.empty()) m_numColors++;
 }
 
 // add a single color

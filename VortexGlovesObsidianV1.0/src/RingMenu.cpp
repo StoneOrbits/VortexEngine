@@ -6,7 +6,7 @@
 #include "Log.h"
 
 // how long must hold to trigger ring menu
-#define MENU_TRIGGER_THRESHOLD 500
+#define MENU_TRIGGER_THRESHOLD 1000
 // how long each ring menu takes to fill
 #define MENU_DURATION 1000
 

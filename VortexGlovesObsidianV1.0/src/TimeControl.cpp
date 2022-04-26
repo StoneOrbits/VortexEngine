@@ -7,6 +7,9 @@
 // should only be one time control
 TimeControl *g_pTimeControl = nullptr;
 
+// the ticks per millisecond
+#define MS_PER_TICK 1
+
 TimeControl::TimeControl() :
   m_curTime(0)
 {
@@ -37,7 +40,7 @@ void TimeControl::tickClock()
   uint64_t elapsed_ms;
   do {
       elapsed_ms = (micros() - lastshow);
-  } while (elapsed_ms < 1000000);
+  } while (elapsed_ms < MS_PER_TICK * 1000);
   lastshow = micros();
 }
 
