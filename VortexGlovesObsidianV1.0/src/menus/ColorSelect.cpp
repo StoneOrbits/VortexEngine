@@ -123,7 +123,7 @@ void ColorSelect::showSlotSelection()
   // the index of the first color to show changes based on the page
   // will be either 0 or 4 for the two page color select
   uint32_t colIndex = (m_curPage * PAGE_SIZE);
-  for (Finger f = FINGER_FIRST; f <= FINGER_INDEX; ++f) {
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // set the current colorset slot color on the current finger
     g_pLedControl->setFinger(f, m_colorset[colIndex++]);
   }
@@ -131,7 +131,7 @@ void ColorSelect::showSlotSelection()
 
 void ColorSelect::showQuadSelection()
 {
-  for (Finger f = FINGER_FIRST; f <= FINGER_INDEX; ++f) {
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // hue split into 4 quadrants of 90
     g_pLedControl->setFinger(f, HSVColor(f * 90, 255, 255));
   }
@@ -139,7 +139,7 @@ void ColorSelect::showQuadSelection()
 
 void ColorSelect::showHueSelection()
 {
-  for (Finger f = FINGER_FIRST; f <= FINGER_INDEX; ++f) {
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // generate a hue from the current finger
     g_pLedControl->setFinger(f, HSVColor(makeHue(m_quadrant, f), 255, 255));
   }
@@ -147,7 +147,7 @@ void ColorSelect::showHueSelection()
 
 void ColorSelect::showSatSelection()
 {
-  for (Finger f = FINGER_FIRST; f <= FINGER_INDEX; ++f) {
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // generate saturate on current hue from current finger
     g_pLedControl->setFinger(f, HSVColor(m_newColor.hue, makeSat(f), 255));
   }
@@ -155,7 +155,7 @@ void ColorSelect::showSatSelection()
 
 void ColorSelect::showValSelection()
 {
-  for (Finger f = FINGER_FIRST; f <= FINGER_INDEX; ++f) {
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // generate value on current color and current finger
     g_pLedControl->setFinger(f, HSVColor(m_newColor.hue, m_newColor.sat, makeVal(f)));
   }

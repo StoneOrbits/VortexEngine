@@ -3,7 +3,8 @@
 
 #include "Menu.h"
 
-class Colorset;
+#include "../Colorset.h"
+
 class Pattern;
 
 class PatternSelect : public Menu
@@ -22,6 +23,7 @@ class PatternSelect : public Menu
   private:
     void showListSelection();
     void showPatternSelection();
+    void nextPattern();
 
     // private enumeration for internal state of pattern selection
     enum PatternSelectState : uint32_t
@@ -35,13 +37,10 @@ class PatternSelect : public Menu
     // the current state of the pattern selection menu
     PatternSelectState m_state;
 
-    // the selected list
-    uint32_t m_list;
+    // copy of the current colorset to be used for demo display
+    Colorset m_colorset;
 
-    // pointer to the colorset currently used for displaying demos
-    Colorset *m_pColorset;
-
-    // a pointer to the new pattern
+    // a pointer to the current pattern
     Pattern *m_pNewPattern;
 };
 

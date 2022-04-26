@@ -1,6 +1,8 @@
 #include "PatternSelect.h"
 
 #include "../patterns/Pattern.h"
+#include "../PatternBuilder.h"
+#include "../LedControl.h"
 #include "../Mode.h"
 
 #include "../Log.h"
@@ -8,8 +10,7 @@
 PatternSelect::PatternSelect() :
   Menu(),
   m_state(STATE_PICK_LIST),
-  m_list(0),
-  m_pColorset(nullptr),
+  m_colorset(),
   m_pNewPattern(nullptr)
 {
 }
@@ -19,9 +20,8 @@ bool PatternSelect::init(Mode *curMode)
   if (!Menu::init(curMode)) {
     return false;
   }
-  // fetch the colorset currently used so we can display demo
-  // patterns with the same colorset
-  m_pColorset = curMode->getColorset();
+  // grab a copy of current colorset
+  m_colorset = *curMode->getColorset();
   DEBUG("Entered pattern select");
   return true;
 }
@@ -52,44 +52,55 @@ bool PatternSelect::run()
 void PatternSelect::showListSelection()
 {
   // TODO: how to lists?
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
+    // hue split into 4 quadrants of 90
+    g_pLedControl->setFinger(f, HSVColor(f * 90, 255, 255));
+  }
 }
 
 void PatternSelect::showPatternSelection()
 {
   // run the new pattern on all of the LEDs
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    m_pNewPattern->play(m_pColorset, pos);
+    m_pNewPattern->play(&m_colorset, pos);
   }
 }
 
 void PatternSelect::onShortClick()
 {
-    leaveMenu();
   switch (m_state) {
   case STATE_PICK_LIST:
-    // wrap at the thumb back to pinkie
-    m_curSelection = (Finger)((m_curSelection + 1) % FINGER_THUMB);
+    // wrap at the index back to pinkie
+    m_curSelection = (Finger)((m_curSelection + 1) % FINGER_INDEX);
     break;
   case STATE_PICK_PATTERN:
-    // TODO: implement a pattern list?
-    // m_pNewPattern = nextPattern();
-    //m_curSelection = (Finger)(((uint32_t)m_curSelection + 1) % 10);
+    nextPattern();
     break;
   }
 }
 
+void PatternSelect::nextPattern()
+{
+  // store the ID of the next pattern
+  PatternID newID = (PatternID)((m_pNewPattern->getPatternID() + 1) % PATTERN_COUNT);
+  // delete the current pattern
+  delete m_pNewPattern;
+  // create the new pattern from stored ID
+  m_pNewPattern = PatternBuilder::make(newID);
+}
+
 void PatternSelect::onLongClick()
 {
-    leaveMenu();
   switch (m_state) {
   case STATE_PICK_LIST:
-    // store the list selection
-    m_list = m_curSelection;
+    // create the new pattern from stored ID
+    m_pNewPattern = PatternBuilder::make((PatternID)((PATTERN_COUNT / 4) * m_curSelection));
     m_state = STATE_PICK_PATTERN;
     break;
   case STATE_PICK_PATTERN:
     // store the new pattern in the mode
-    //m_pCurMode->setPattern(m_pNewPattern);
+    m_pCurMode->changeAllPatterns(m_pNewPattern);
+    delete m_pNewPattern;
     // go back to beginning for next time
     m_state = STATE_PICK_LIST;
     // done in the pattern select menu
