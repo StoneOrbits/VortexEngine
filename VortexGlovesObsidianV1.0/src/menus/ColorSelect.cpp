@@ -1,5 +1,6 @@
 #include "ColorSelect.h"
 
+#include "../TimeControl.h"
 #include "../LedControl.h"
 #include "../Colorset.h"
 #include "../Button.h"
@@ -91,7 +92,7 @@ void ColorSelect::onLongClick()
     // pick a quadrant, technically there is 8 options ranging
     // from 0 to 7 and the user can put 0, 2, 4, or 6
     m_quadrant = m_curSelection * 2;
-    if (g_pButton->holdDuration() > 350) {
+    if (g_pButton->holdDuration() > MS_TO_TICKS(350)) {
       m_quadrant++;
     }
     m_state = STATE_PICK_HUE;

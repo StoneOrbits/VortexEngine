@@ -58,6 +58,11 @@ private:
   Menu *m_pCurMenu;
   // the current mode that is selected (if any)
   Mode *m_pCurMode;
+
+#ifdef TEST_FRAMEWORK
+  // so the test framework can access stuff
+  friend class TestFramework;
+#endif
 };
 
 #endif

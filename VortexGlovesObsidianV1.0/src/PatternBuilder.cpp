@@ -1,5 +1,7 @@
 #include "PatternBuilder.h"
 
+#include "TimeControl.h"
+
 #include "patterns/BasicPattern.h"
 #include "patterns/TracerPattern.h"
 
@@ -16,25 +18,28 @@ Pattern *PatternBuilder::make(PatternID id)
 
 Pattern *PatternBuilder::generate(PatternID id)
 {
+  // NOTE: The timings of patterns are only defined at creation time
+  //       which means altering the tickrate will not change how fast
+  //       a pattern displays unless you re-create it
   switch (id) {
   default:
   case PATTERN_STROBE:
-    return new BasicPattern(5, 8);
+    return new BasicPattern(MS_TO_TICKS(5), MS_TO_TICKS(8));
   case PATTERN_HYPERSTROBE:
-    return new BasicPattern(25, 25);
+    return new BasicPattern(MS_TO_TICKS(25), MS_TO_TICKS(25));
   case PATTERN_DOPS:
-    return new BasicPattern(2, 13);
+    return new BasicPattern(MS_TO_TICKS(2), MS_TO_TICKS(13));
   case PATTERN_DOPISH:
-    return new BasicPattern(2, 7);
+    return new BasicPattern(MS_TO_TICKS(2), MS_TO_TICKS(7));
   case PATTERN_ULTRADOPS:
-    return new BasicPattern(1, 3);
+    return new BasicPattern(MS_TO_TICKS(1), MS_TO_TICKS(3));
   case PATTERN_STROBIE:
-    return new BasicPattern(3, 22);
+    return new BasicPattern(MS_TO_TICKS(3), MS_TO_TICKS(22));
   case PATTERN_RIBBON:
-    return new BasicPattern(20);
+    return new BasicPattern(MS_TO_TICKS(20));
   case PATTERN_MINIRIBBON:
-    return new BasicPattern(3);
+    return new BasicPattern(MS_TO_TICKS(3));
   case PATTERN_TRACER:
-    return new TracerPattern(20, 1);
+    return new TracerPattern(MS_TO_TICKS(20), MS_TO_TICKS(1));
   }
 }

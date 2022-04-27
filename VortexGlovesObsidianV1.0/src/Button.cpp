@@ -11,7 +11,7 @@
 // be registered as a 'long click'
 //
 // The long hold is detected by just checking the holdDuration()
-#define SHORT_CLICK_THRESHOLD 250
+#define SHORT_CLICK_THRESHOLD MS_TO_TICKS(250)
 
 // should only be one button
 Button *g_pButton = nullptr;

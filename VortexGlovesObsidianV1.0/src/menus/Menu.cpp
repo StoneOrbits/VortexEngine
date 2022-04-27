@@ -56,12 +56,12 @@ void Menu::leaveMenu()
 void Menu::blinkSelection()
 {
   // only blink off for 250ms per second
-  if ((g_pTimeControl->getCurtime() % 1000) < 250) {
+  if ((g_pTimeControl->getCurtime() % MS_TO_TICKS(1000)) < MS_TO_TICKS(250)) {
     return;
   }
   RGBColor blinkCol = RGB_OFF;
   // blinkie red when held past long-press threhold
-  if (g_pButton->isPressed() && g_pButton->holdDuration() > 250) {
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > MS_TO_TICKS(250)) {
     blinkCol = RGBColor(150, 10, 10);
   }
   // special selection clause 'select all'

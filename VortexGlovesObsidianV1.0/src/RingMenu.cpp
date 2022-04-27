@@ -7,9 +7,9 @@
 #include "Log.h"
 
 // how long must hold to trigger ring menu
-#define MENU_TRIGGER_THRESHOLD 1000
+#define MENU_TRIGGER_THRESHOLD MS_TO_TICKS(1000)
 // how long each ring menu takes to fill
-#define MENU_DURATION 1000
+#define MENU_DURATION MS_TO_TICKS(1000)
 
 // comment this out if you want the menu to fill from pinkie
 #define FILL_FROM_THUMB
