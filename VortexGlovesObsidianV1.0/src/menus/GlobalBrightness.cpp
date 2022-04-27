@@ -56,7 +56,7 @@ void GlobalBrightness::onShortClick()
 void GlobalBrightness::onLongClick()
 {
   // set the global brightness
-  g_pSettings->setBrightness(m_brightnessOptions[m_curSelection]); 
+  g_pSettings->setBrightness(m_brightnessOptions[m_curSelection]);
   // done here
   leaveMenu();
 }

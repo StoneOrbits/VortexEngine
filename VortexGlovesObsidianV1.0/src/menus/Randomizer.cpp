@@ -57,7 +57,7 @@ void Randomizer::onLongClick()
   // replace the current mode with randomized one
   if (!g_pSettings->setCurMode(m_pRandomizedMode)) {
     // error
-  } 
+  }
   m_pRandomizedMode = nullptr;
   DEBUG("Saved new randomization");
   // then done here
@@ -74,20 +74,20 @@ bool Randomizer::reRoll()
   PatternID pattern = (PatternID)random(PATTERN_FIRST, PATTERN_LAST);
 
   // pick a random amount of colors
-  uint32_t numColors = random(2,7);
+  uint32_t numColors = random(2, 7);
 
   // fill the array with up to numColors random colors
   RGBColor c[8] = { RGB_OFF };
   for (uint32_t i = 0; i < numColors; ++i) {
     c[i] = RGBColor(
-        (uint8_t)random(0,255),
-        (uint8_t)random(0,255),
-        (uint8_t)random(0, 255));
+      (uint8_t)random(0, 255),
+      (uint8_t)random(0, 255),
+      (uint8_t)random(0, 255));
   }
 
   // create a new randomized mode out of the colors
-  m_pRandomizedMode = ModeBuilder::make(pattern, 
-      c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]);
+  m_pRandomizedMode = ModeBuilder::make(pattern,
+    c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]);
 
   if (!m_pRandomizedMode) {
     return false;

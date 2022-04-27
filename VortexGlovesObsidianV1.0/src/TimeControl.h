@@ -5,27 +5,24 @@
 
 #include "LedConfig.h"
 
-// tick rate per milliseconds
-#define TICK_PER_MS 1
-
 class TimeControl
 {
-  public:
-    TimeControl();
-    ~TimeControl();
+public:
+  TimeControl();
+  ~TimeControl();
 
-    // any kind of time initialization
-    bool init();
+  // any kind of time initialization
+  bool init();
 
-    // tick the clock forward to millis()
-    void tickClock();
+  // tick the clock forward to millis()
+  void tickClock();
 
-    // get the current time with optional led position time offset
-    uint64_t getCurtime(LedPos pos = LED_FIRST) const;
+  // get the current time with optional led position time offset
+  uint64_t getCurtime(LedPos pos = LED_FIRST) const;
 
-  private:
-    // global curtime
-    uint64_t m_curTime;
+private:
+  // global curtime
+  uint64_t m_curTime;
 };
 
 // easy access to the time control

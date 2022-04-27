@@ -1,6 +1,5 @@
 #include "ModeSharing.h"
 
-
 #include "../Log.h"
 
 ModeSharing::ModeSharing() :
@@ -20,7 +19,7 @@ bool ModeSharing::init(Mode *curMode)
 bool ModeSharing::run()
 {
   if (!Menu::run()) {
-      return false;
+    return false;
   }
   return true;
 }

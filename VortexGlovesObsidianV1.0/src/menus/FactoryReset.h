@@ -5,20 +5,20 @@
 
 class FactoryReset : public Menu
 {
-  public:
-    FactoryReset();
+public:
+  FactoryReset();
 
-    bool init(Mode *curMode);
+  bool init(Mode *curMode);
 
-    bool run();
+  bool run();
 
-    // handlers for clicks
-    void onShortClick();
-    void onLongClick();
+  // handlers for clicks
+  void onShortClick();
+  void onLongClick();
 
-  private:
-    // whether to confirm the factory reset
-    bool m_confirm;
+private:
+  // whether to confirm the factory reset
+  bool m_confirm;
 };
 
 #endif

@@ -10,18 +10,18 @@ class Mode;
 
 class ModeBuilder
 {
-    // private constructor static class
-    ModeBuilder();
+  // private constructor static class
+  ModeBuilder();
 
-  public:
-    // make simple mode with a single pattern and 1-8 colors
-    static Mode *make(PatternID id, RGBColor c1, RGBColor c2 = RGB_OFF, 
-        RGBColor c3 = RGB_OFF, RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF,
-        RGBColor c6 = RGB_OFF, RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
+public:
+  // make simple mode with a single pattern and 1-8 colors
+  static Mode *make(PatternID id, RGBColor c1, RGBColor c2 = RGB_OFF,
+    RGBColor c3 = RGB_OFF, RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF,
+    RGBColor c6 = RGB_OFF, RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
 
-  private:
-    // helper to build a pattern from ID
-    static Pattern *makePattern(PatternID id);
+private:
+  // helper to build a pattern from ID
+  static Pattern *makePattern(PatternID id);
 };
 
 

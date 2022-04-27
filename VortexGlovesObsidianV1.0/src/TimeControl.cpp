@@ -4,6 +4,9 @@
 
 #include "Log.h"
 
+// tick rate per milliseconds
+#define TICK_PER_MS 500
+
 // should only be one time control
 TimeControl *g_pTimeControl = nullptr;
 
@@ -36,8 +39,8 @@ void TimeControl::tickClock()
   static uint64_t lastshow = micros();
   uint64_t elapsed_ms;
   do {
-      elapsed_ms = (micros() - lastshow);
-  } while (elapsed_ms < (1000 / TICK_PER_MS));
+    elapsed_ms = (micros() - lastshow);
+  } while (elapsed_ms < 1000);
   lastshow = micros();
 }
 
@@ -45,5 +48,5 @@ void TimeControl::tickClock()
 uint64_t TimeControl::getCurtime(LedPos pos) const
 {
   // basic time offset of 33ms per led
-  return m_curTime ;// + (33 * (uint32_t)pos);
+  return m_curTime + (33 * pos);// + (33 * (uint32_t)pos);
 }

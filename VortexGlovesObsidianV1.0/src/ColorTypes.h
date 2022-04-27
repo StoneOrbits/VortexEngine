@@ -40,81 +40,103 @@
 // todo: remake color classes here
 class HSVColor
 {
-  public:
-    HSVColor() : raw() {}
-    HSVColor(uint32_t dwVal) : 
-      hue((dwVal >> 16) & 0xFF), sat((dwVal >> 16) & 0xFF), val(dwVal & 0xFF) {}
-    HSVColor(uint8_t hue, uint8_t sat, uint8_t val) : 
-      hue(hue), sat(sat), val(val) {}
+public:
+  HSVColor() : raw() {}
+  HSVColor(uint32_t dwVal) :
+    hue((dwVal >> 16) & 0xFF), sat((dwVal >> 16) & 0xFF), val(dwVal & 0xFF)
+  {
+  }
+  HSVColor(uint8_t hue, uint8_t sat, uint8_t val) :
+    hue(hue), sat(sat), val(val)
+  {
+  }
 
-    // copy construction
-    HSVColor(const HSVColor& rhs) {
-      hue = rhs.hue;
-      sat = rhs.sat;
-      val = rhs.val;
-    }
-    // assignment operator
-    HSVColor& operator= (const HSVColor& rhs) {
-        hue = rhs.hue;
-        sat = rhs.sat;
-        val = rhs.val;
-        return *this;
-    }
+  // copy construction
+  HSVColor(const HSVColor &rhs)
+  {
+    hue = rhs.hue;
+    sat = rhs.sat;
+    val = rhs.val;
+  }
 
-    bool empty() const {
-        return !hue && !sat && !val;
-    }
+  // assignment operator
+  HSVColor &operator= (const HSVColor &rhs)
+  {
+    hue = rhs.hue;
+    sat = rhs.sat;
+    val = rhs.val;
+    return *this;
+  }
 
-    // public members
-    union {
-      struct {
-          uint8_t hue;
-          uint8_t sat;
-          uint8_t val;
-      };
-      uint8_t raw[3];
+  bool empty() const
+  {
+    return !hue && !sat && !val;
+  }
+
+  // public members
+  union
+  {
+    struct
+    {
+      uint8_t hue;
+      uint8_t sat;
+      uint8_t val;
     };
+    uint8_t raw[3];
+  };
 };
 
 class RGBColor
 {
-  public:
-    RGBColor() : raw() {}
-    RGBColor(uint32_t dwVal) : 
-      red((dwVal>>16) & 0xFF), green((dwVal>>8) & 0xFF), blue(dwVal & 0xFF) {}
-    RGBColor(uint8_t red, uint8_t green, uint8_t blue) : 
-      red(red), green(green), blue(blue) {}
+public:
+  RGBColor() : raw() {}
+  RGBColor(uint32_t dwVal) :
+    red((dwVal >> 16) & 0xFF), green((dwVal >> 8) & 0xFF), blue(dwVal & 0xFF)
+  {
+  }
+  RGBColor(uint8_t red, uint8_t green, uint8_t blue) :
+    red(red), green(green), blue(blue)
+  {
+  }
 
-    // copy construction
-    RGBColor(const RGBColor& rhs) {
-      red = rhs.red;
-      green = rhs.green;
-      blue = rhs.blue;
-    }
-    // assignment operator
-    RGBColor& operator= (const RGBColor& rhs) {
-      red = rhs.red;
-      green = rhs.green;
-      blue = rhs.blue;
-      return *this;
-    }
-    // construction from HSV color
-    RGBColor(const HSVColor& rhs);
+  // copy construction
+  RGBColor(const RGBColor &rhs)
+  {
+    red = rhs.red;
+    green = rhs.green;
+    blue = rhs.blue;
+  }
 
-    bool empty() const {
-        return !red && !green && !blue;
-    }
+  // assignment operator
+  RGBColor &operator= (const RGBColor &rhs)
+  {
+    red = rhs.red;
+    green = rhs.green;
+    blue = rhs.blue;
+    return *this;
+  }
 
-    void serialize() const;
+  // construction from HSV color
+  RGBColor(const HSVColor &rhs);
 
-    union {
-      struct {
-        uint8_t red;
-        uint8_t green;
-        uint8_t blue;
-      };
-      uint8_t raw[3];
+  bool empty() const
+  {
+    return !red && !green && !blue;
+  }
+
+  void serialize() const;
+  void unserialize();
+
+  union
+  {
+    struct
+    {
+      uint8_t red;
+      uint8_t green;
+      uint8_t blue;
     };
+    uint8_t raw[3];
+  };
 };
 
 #endif

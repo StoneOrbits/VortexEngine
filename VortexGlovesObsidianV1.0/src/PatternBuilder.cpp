@@ -18,17 +18,17 @@ Pattern *PatternBuilder::generate(PatternID id)
 {
   switch (id) {
   default:
-  case PATTERN_STROBE:      
+  case PATTERN_STROBE:
     return new BasicPattern(5, 8);
-  case PATTERN_HYPERSTROBE: 
+  case PATTERN_HYPERSTROBE:
     return new BasicPattern(25, 25);
-  case PATTERN_DOPS:        
+  case PATTERN_DOPS:
     return new BasicPattern(2, 13);
-  case PATTERN_DOPISH:      
+  case PATTERN_DOPISH:
     return new BasicPattern(2, 7);
-  case PATTERN_ULTRADOPS:   
+  case PATTERN_ULTRADOPS:
     return new BasicPattern(1, 3);
-  case PATTERN_STROBIE:     
+  case PATTERN_STROBIE:
     return new BasicPattern(3, 22);
   case PATTERN_RIBBON:
     return new BasicPattern(20);

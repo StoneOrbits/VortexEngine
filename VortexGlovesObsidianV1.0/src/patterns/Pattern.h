@@ -10,26 +10,26 @@ class TimeControl;
 
 class Pattern
 {
-    friend class PatternBuilder;
+  friend class PatternBuilder;
 
-  public:
-    Pattern();
-    virtual ~Pattern();
+public:
+  Pattern();
+  virtual ~Pattern();
 
-    // pure virtual must override the play function
-    virtual void play(Colorset *colorset, LedPos pos) = 0;
+  // pure virtual must override the play function
+  virtual void play(Colorset *colorset, LedPos pos) = 0;
 
-    // must override the serialize routine to save the pattern
-    virtual void serialize() const = 0;
-    // must override unserialize to load patterns
-    virtual void unserialize() = 0;
+  // must override the serialize routine to save the pattern
+  virtual void serialize() const;
+  // must override unserialize to load patterns
+  virtual void unserialize();
 
-    // get/set the ID of the pattern (set by mode builder)
-    PatternID getPatternID() const { return m_patternID; }
+  // get/set the ID of the pattern (set by mode builder)
+  PatternID getPatternID() const { return m_patternID; }
 
-  private:
-    // the ID of this pattern (set by pattern builder)
-    PatternID m_patternID;
+private:
+  // the ID of this pattern (set by pattern builder)
+  PatternID m_patternID;
 };
 
 #endif

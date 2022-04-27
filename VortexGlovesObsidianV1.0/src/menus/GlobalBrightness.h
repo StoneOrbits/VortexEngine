@@ -5,20 +5,20 @@
 
 class GlobalBrightness : public Menu
 {
-  public:
-    GlobalBrightness();
+public:
+  GlobalBrightness();
 
-    bool init(Mode *curMode);
+  bool init(Mode *curMode);
 
-    bool run();
+  bool run();
 
-    // handlers for clicks
-    void onShortClick();
-    void onLongClick();
+  // handlers for clicks
+  void onShortClick();
+  void onLongClick();
 
-  private:
-    // the four preset brightness options
-    const uint32_t m_brightnessOptions[4] = { 50, 120, 185, 255 };
+private:
+  // the four preset brightness options
+  const uint32_t m_brightnessOptions[4] = { 50, 120, 185, 255 };
 };
 
 #endif

@@ -5,18 +5,18 @@
 
 class ModeSharing : public Menu
 {
-  public:
-    ModeSharing();
+public:
+  ModeSharing();
 
-    bool init(Mode *curMode);
+  bool init(Mode *curMode);
 
-    bool run();
+  bool run();
 
-    // handlers for clicks
-    void onShortClick();
-    void onLongClick();
+  // handlers for clicks
+  void onShortClick();
+  void onLongClick();
 
-  private:
+private:
 
 };
 

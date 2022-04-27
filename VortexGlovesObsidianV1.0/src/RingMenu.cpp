@@ -7,9 +7,9 @@
 #include "Log.h"
 
 // how long must hold to trigger ring menu
-#define MENU_TRIGGER_THRESHOLD (1000 * TICK_PER_MS)
+#define MENU_TRIGGER_THRESHOLD 1000
 // how long each ring menu takes to fill
-#define MENU_DURATION (1000 * TICK_PER_MS)
+#define MENU_DURATION 1000
 
 // comment this out if you want the menu to fill from pinkie
 #define FILL_FROM_THUMB
@@ -82,7 +82,7 @@ LedPos RingMenu::calcLedPos()
 {
   uint32_t relativeHoldDur = g_pButton->holdDuration() - MENU_TRIGGER_THRESHOLD;
   if (g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD) {
-      relativeHoldDur = 0;
+    relativeHoldDur = 0;
   }
   // this allows the menu to wrap around to beginning after the end
   // if the user never lets go of the button

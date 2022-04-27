@@ -7,10 +7,10 @@
 #include "../Log.h"
 
 TracerPattern::TracerPattern(uint32_t tracerLength, uint32_t dotLength) :
-    m_tracerDuration(tracerLength * TICK_PER_MS),
-    m_totalDuration((m_tracerDuration + dotLength) * TICK_PER_MS),
-    m_tracerCounter(0),
-    m_state(false)
+  m_tracerDuration(tracerLength),
+  m_totalDuration(tracerLength + dotLength),
+  m_tracerCounter(0),
+  m_state(false)
 {
 }
 
@@ -30,7 +30,7 @@ void TracerPattern::play(Colorset *colorset, LedPos pos)
 
   // if the state hasn't changed then nothing to do
   if (state == m_state) {
-      return;
+    return;
   }
 
   // the state changed
@@ -49,6 +49,9 @@ void TracerPattern::play(Colorset *colorset, LedPos pos)
 // must override the serialize routine to save the pattern
 void TracerPattern::serialize() const
 {
+  Pattern::serialize();
+  Serial.print(m_tracerDuration);
+  Serial.print(m_totalDuration - m_tracerDuration);
 }
 
 // must override unserialize to load patterns

@@ -123,11 +123,11 @@ bool VortexGloveset::runAllMenus()
 bool VortexGloveset::runCurMenu()
 {
   // first run the click handlers for the menu
-  if (m_button.onShortClick()) { 
-    m_pCurMenu->onShortClick(); 
+  if (m_button.onShortClick()) {
+    m_pCurMenu->onShortClick();
   }
-  if (m_button.onLongClick()) { 
-    m_pCurMenu->onLongClick(); 
+  if (m_button.onLongClick()) {
+    m_pCurMenu->onLongClick();
   }
 
   // if the menu run handler returns false that signals the 

@@ -9,8 +9,8 @@ Colorset::Colorset() :
 {
 }
 
-Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4, 
-    RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8) :
+Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
+  RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8) :
   Colorset()
 {
   // would be nice if we could do this another way
@@ -25,8 +25,8 @@ Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
 }
 
 Colorset::Colorset(const Colorset &other) :
-    m_curIndex(0),
-    m_numColors(other.m_numColors)
+  m_curIndex(0),
+  m_numColors(other.m_numColors)
 {
   for (int i = 0; i < NUM_COLOR_SLOTS; ++i) {
     m_palette[i] = other.m_palette[i];

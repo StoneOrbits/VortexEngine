@@ -49,50 +49,61 @@ enum Finger : uint32_t
 };
 
 // get the led index for the tip/top of a finger
-inline LedPos fingerTip(Finger finger) {
+inline LedPos fingerTip(Finger finger)
+{
   return (LedPos)((uint32_t)finger * 2);
 }
-inline LedPos fingerTop(Finger finger) {
+inline LedPos fingerTop(Finger finger)
+{
   return (LedPos)(((uint32_t)finger * 2) + 1);
 }
 
 // convert an led position to a finger
-inline Finger ledToFinger(LedPos pos) {
+inline Finger ledToFinger(LedPos pos)
+{
   // have to flip the index
   return (Finger)(FINGER_THUMB - (Finger)((uint32_t)pos / 2));
 }
 
 // LedPos operators
-inline LedPos& operator++(LedPos &c) {
+inline LedPos &operator++(LedPos &c)
+{
   c = LedPos(((uint32_t)c) + 1);
   return c;
 }
-inline LedPos operator++(LedPos &c, int) {
+inline LedPos operator++(LedPos &c, int)
+{
   LedPos temp = c;
   ++c;
   return temp;
 }
-inline LedPos operator+(LedPos &c, int b) {
+inline LedPos operator+(LedPos &c, int b)
+{
   return (LedPos)((uint32_t)c + b);
 }
-inline LedPos operator-(LedPos &c, int b) {
+inline LedPos operator-(LedPos &c, int b)
+{
   return (LedPos)((uint32_t)c - b);
 }
 
 // finger operators
-inline Finger& operator++(Finger &c) {
+inline Finger &operator++(Finger &c)
+{
   c = Finger(((uint32_t)c) + 1);
   return c;
 }
-inline Finger operator++(Finger &c, int) {
+inline Finger operator++(Finger &c, int)
+{
   Finger temp = c;
   ++c;
   return temp;
 }
-inline Finger operator+(Finger &c, int b) {
+inline Finger operator+(Finger &c, int b)
+{
   return (Finger)((uint32_t)c + b);
 }
-inline Finger operator-(Finger &c, int b) {
+inline Finger operator-(Finger &c, int b)
+{
   return (Finger)((uint32_t)c - b);
 }
 #endif

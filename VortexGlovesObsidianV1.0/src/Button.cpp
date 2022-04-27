@@ -11,7 +11,7 @@
 // be registered as a 'long click'
 //
 // The long hold is detected by just checking the holdDuration()
-#define SHORT_CLICK_THRESHOLD (250 * TICK_PER_MS)
+#define SHORT_CLICK_THRESHOLD 250
 
 // should only be one button
 Button *g_pButton = nullptr;
@@ -99,9 +99,9 @@ void Button::check()
 #if 0
   // helpful for debugging
   DEBUG("Button Info:\n\tm_buttonState: %d\n\tm_pressTime: %d\n\tm_releaseTime: %d\n\t"
-        "m_holdDuration: %d\n\tm_releaseDuration: %d\n\tm_newPress: %d\n\t"
-        "m_newRelease: %d\n\t" "m_isPressed: %d\n\tm_shortClick: %d\n\t"
-        "m_longClick: %d\n",
+    "m_holdDuration: %d\n\tm_releaseDuration: %d\n\tm_newPress: %d\n\t"
+    "m_newRelease: %d\n\t" "m_isPressed: %d\n\tm_shortClick: %d\n\t"
+    "m_longClick: %d\n",
     m_buttonState,
     m_pressTime,
     m_releaseTime,

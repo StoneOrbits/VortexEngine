@@ -7,25 +7,25 @@ class Mode;
 
 class Randomizer : public Menu
 {
-  public:
-    Randomizer();
+public:
+  Randomizer();
 
-    bool init(Mode *curMode);
+  bool init(Mode *curMode);
 
-    bool run();
+  bool run();
 
-    // handlers for clicks
-    void onShortClick();
-    void onLongClick();
+  // handlers for clicks
+  void onShortClick();
+  void onLongClick();
 
-  private:
-    void *vftp[5];
+private:
+  void *vftp[5];
 
-    // a pointer to a randomized mode
-    Mode *m_pRandomizedMode;
+  // a pointer to a randomized mode
+  Mode *m_pRandomizedMode;
 
-    // re-roll a new randomizatiok
-    bool reRoll();
+  // re-roll a new randomizatiok
+  bool reRoll();
 };
 
 #endif

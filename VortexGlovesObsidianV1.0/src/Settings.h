@@ -10,46 +10,46 @@ class Mode;
 
 class Settings
 {
-  public:
-    Settings();
-    ~Settings();
+public:
+  Settings();
+  ~Settings();
 
-    bool init();
+  bool init();
 
-    // settings save/load
-    bool load();
-    bool save();
+  // settings save/load
+  bool load();
+  bool save();
 
-    // set default settings (must save after)
-    bool setDefaults();
+  // set default settings (must save after)
+  bool setDefaults();
 
-    // global brightness
-    uint32_t getBrightness() const { return m_brightness; }
-    void setBrightness(uint32_t brightness) { m_brightness = brightness; }
+  // global brightness
+  uint32_t getBrightness() const { return m_brightness; }
+  void setBrightness(uint32_t brightness) { m_brightness = brightness; }
 
-    // import a mode and add it to the mode list
-    bool addMode(Mode *mode);
+  // import a mode and add it to the mode list
+  bool addMode(Mode *mode);
 
-    // replace current mode with new one, destroying existing one
-    bool setCurMode(Mode *mode);
+  // replace current mode with new one, destroying existing one
+  bool setCurMode(Mode *mode);
 
-    // get the current mode
-    Mode *curMode();
-    // iterate to next mode and get it
-    Mode *nextMode();
+  // get the current mode
+  Mode *curMode();
+  // iterate to next mode and get it
+  Mode *nextMode();
 
-  private:
-    // the global brightness
-    uint32_t m_brightness;
+private:
+  // the global brightness
+  uint32_t m_brightness;
 
-    // the current mode we're on
-    uint32_t m_curMode;
+  // the current mode we're on
+  uint32_t m_curMode;
 
-    // the number of modes loaded
-    uint32_t m_numModes;
+  // the number of modes loaded
+  uint32_t m_numModes;
 
-    // list of all modes in the gloveset
-    Mode *m_modeList[NUM_MODES];
+  // list of all modes in the gloveset
+  Mode *m_modeList[NUM_MODES];
 };
 
 // should only be one settings object

@@ -7,12 +7,12 @@ class Pattern;
 
 class PatternBuilder
 {
-  public:
-    static Pattern *make(PatternID id);
+public:
+  static Pattern *make(PatternID id);
 
 private:
-    // helper routine
-    static Pattern *generate(PatternID id);
+  // helper routine
+  static Pattern *generate(PatternID id);
 };
 
 #endif

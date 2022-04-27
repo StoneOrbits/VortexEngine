@@ -92,7 +92,7 @@ void ColorSelect::onLongClick()
     // from 0 to 7 and the user can put 0, 2, 4, or 6
     m_quadrant = m_curSelection * 2;
     if (g_pButton->holdDuration() > 350) {
-        m_quadrant++;
+      m_quadrant++;
     }
     m_state = STATE_PICK_HUE;
     break;

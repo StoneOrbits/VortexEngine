@@ -11,47 +11,47 @@
 
 class LedControl
 {
-  public:
-    LedControl();
-    ~LedControl();
+public:
+  LedControl();
+  ~LedControl();
 
-    bool init();
+  bool init();
 
-    // control individual LED
-    void setIndex(LedPos target, RGBColor col);
-    // control range of LEDs
-    void setRange(LedPos first, LedPos last, RGBColor col);
-    // set all LEDs
-    void setAll(RGBColor col);
+  // control individual LED
+  void setIndex(LedPos target, RGBColor col);
+  // control range of LEDs
+  void setRange(LedPos first, LedPos last, RGBColor col);
+  // set all LEDs
+  void setAll(RGBColor col);
 
-    // turn off an individual LED
-    void clearIndex(LedPos target) { setIndex(target, HSV_OFF); }
-    // turn off a range of LEDs
-    void clearRange(LedPos first, LedPos last) { setRange(first, last, HSV_OFF); }
-    // turn off all LEDs
-    void clearAll() { setAll(HSV_OFF); }
+  // turn off an individual LED
+  void clearIndex(LedPos target) { setIndex(target, HSV_OFF); }
+  // turn off a range of LEDs
+  void clearRange(LedPos first, LedPos last) { setRange(first, last, HSV_OFF); }
+  // turn off all LEDs
+  void clearAll() { setAll(HSV_OFF); }
 
-    // control two LEDs on a finger
-    void setFinger(Finger finger, RGBColor col);
-    // control two LEDs on each of a range of fingers
-    void setFingers(Finger first, Finger last, RGBColor col);
+  // control two LEDs on a finger
+  void setFinger(Finger finger, RGBColor col);
+  // control two LEDs on each of a range of fingers
+  void setFingers(Finger first, Finger last, RGBColor col);
 
-    // clear both LEDs on a finger
-    void clearFinger(Finger finger) { setFinger(finger, HSV_OFF); }
-    // clear both LEDs on a range of fingers
-    void clearFingers(Finger first, Finger last) { setFingers(first, last, HSV_OFF); }
-    
-    // actually update the LEDs and show the changes
-    void update();
+  // clear both LEDs on a finger
+  void clearFinger(Finger finger) { setFinger(finger, HSV_OFF); }
+  // clear both LEDs on a range of fingers
+  void clearFingers(Finger first, Finger last) { setFingers(first, last, HSV_OFF); }
 
-  private:
-    void clearOnboardLED();
+  // actually update the LEDs and show the changes
+  void update();
 
-    // array of led color values
-    RGBColor m_ledColors[LED_COUNT];
+private:
+  void clearOnboardLED();
 
-    // the onboard LED on the adafruit board
-    Adafruit_DotStar m_onboardLED;
+  // array of led color values
+  RGBColor m_ledColors[LED_COUNT];
+
+  // the onboard LED on the adafruit board
+  Adafruit_DotStar m_onboardLED;
 };
 
 // easy access to the led control

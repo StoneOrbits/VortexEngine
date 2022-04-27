@@ -77,7 +77,7 @@ bool Settings::save()
   //      }
 
   Serial.print(m_numModes);
-  for(uint32_t i = 0; i < m_numModes; ++i) {
+  for (uint32_t i = 0; i < m_numModes; ++i) {
     m_modeList[i]->serialize();
   }
 

@@ -24,7 +24,7 @@ Mode::~Mode()
     }
     // only delete the first one
     if (!hasFlags(MODE_FLAG_MULTI_PATTERN)) {
-        break;
+      break;
     }
   }
 }

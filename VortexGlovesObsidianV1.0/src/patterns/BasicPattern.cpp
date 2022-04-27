@@ -7,9 +7,9 @@
 #include "../Log.h"
 
 BasicPattern::BasicPattern(uint32_t onDuration, uint32_t offDuration) :
-    m_onDuration(onDuration * TICK_PER_MS),
-    m_blinkDuration((onDuration + offDuration) * TICK_PER_MS),
-    m_state(false)
+  m_onDuration(onDuration),
+  m_blinkDuration(onDuration + offDuration),
+  m_state(false)
 {
 }
 
@@ -32,7 +32,7 @@ void BasicPattern::play(Colorset *colorset, LedPos pos)
 
   // if the state hasn't changed then nothing to do
   if (state == m_state) {
-      return;
+    return;
   }
 
   // the state changed
@@ -49,6 +49,9 @@ void BasicPattern::play(Colorset *colorset, LedPos pos)
 
 void BasicPattern::serialize() const
 {
+  Pattern::serialize();
+  Serial.print(m_onDuration);
+  Serial.print(m_blinkDuration - m_onDuration);
 }
 
 void BasicPattern::unserialize()
