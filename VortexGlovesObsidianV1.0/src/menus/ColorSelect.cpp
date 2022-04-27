@@ -2,6 +2,7 @@
 
 #include "../LedControl.h"
 #include "../Colorset.h"
+#include "../Button.h"
 #include "../Mode.h"
 
 #include "../Log.h"
@@ -90,6 +91,9 @@ void ColorSelect::onLongClick()
     // pick a quadrant, technically there is 8 options ranging
     // from 0 to 7 and the user can put 0, 2, 4, or 6
     m_quadrant = m_curSelection * 2;
+    if (g_pButton->holdDuration() > 350) {
+        m_quadrant++;
+    }
     m_state = STATE_PICK_HUE;
     break;
   case STATE_PICK_HUE:
@@ -139,9 +143,9 @@ void ColorSelect::showQuadSelection()
 
 void ColorSelect::showHueSelection()
 {
-  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
+  for (LedPos p = PINKIE_TIP; p <= INDEX_TOP; ++p) {
     // generate a hue from the current finger
-    g_pLedControl->setFinger(f, HSVColor(makeHue(m_quadrant, f), 255, 255));
+    g_pLedControl->setIndex(p, HSVColor(makeHue(m_quadrant, p), 255, 255));
   }
 }
 
@@ -165,13 +169,13 @@ uint32_t ColorSelect::makeQuad(uint32_t pos)
 {
   // quadrant is 90 degrees of hue, which is 63.75 so we divide that by
   // the number of leds to get the amount to increment per led
-  return (pos * (255 / LED_COUNT)); // + offset
+  return (pos * (255 / 8)); // + offset
 }
 
 uint32_t ColorSelect::makeHue(uint32_t pos, uint32_t selection)
 {
   // quadrant is base multiple of 90 and hue selection is 0 28 56 84
-  return makeQuad(pos) + (selection * ((255 / 4) / LED_COUNT));
+  return makeQuad(pos) + (selection * ((255 / 8) / 8));
 }
 
 uint32_t ColorSelect::makeSat(uint32_t selection)
