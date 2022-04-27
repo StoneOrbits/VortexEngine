@@ -12,7 +12,7 @@
 #define MENU_DURATION (1000 * TICK_PER_MS)
 
 // comment this out if you want the menu to fill from pinkie
-//#define FILL_FROM_THUMB
+#define FILL_FROM_THUMB
 
 RingMenu::RingMenu() :
   m_randomizer(),

@@ -9,7 +9,7 @@
 // the number of slots in a page
 #define PAGE_SIZE 4
 // the number of pages
-#define NUM_PAGES 2 
+#define NUM_PAGES 2
 
 ColorSelect::ColorSelect() :
   Menu(),
@@ -87,8 +87,9 @@ void ColorSelect::onLongClick()
     m_curPage = 0;
     break;
   case STATE_PICK_QUAD:
-    // pick a quadrant
-    m_quadrant = m_curSelection;
+    // pick a quadrant, technically there is 8 options ranging
+    // from 0 to 7 and the user can put 0, 2, 4, or 6
+    m_quadrant = m_curSelection * 2;
     m_state = STATE_PICK_HUE;
     break;
   case STATE_PICK_HUE:
@@ -131,9 +132,8 @@ void ColorSelect::showSlotSelection()
 
 void ColorSelect::showQuadSelection()
 {
-  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
-    // hue split into 4 quadrants of 90
-    g_pLedControl->setFinger(f, HSVColor(f * 90, 255, 255));
+  for (LedPos p = PINKIE_TIP; p <= INDEX_TOP; ++p) {
+    g_pLedControl->setIndex(p, HSVColor(makeQuad(p), 255, 255));
   }
 }
 
@@ -161,10 +161,17 @@ void ColorSelect::showValSelection()
   }
 }
 
-uint32_t ColorSelect::makeHue(uint32_t quad, uint32_t selection)
+uint32_t ColorSelect::makeQuad(uint32_t pos)
+{
+  // quadrant is 90 degrees of hue, which is 63.75 so we divide that by
+  // the number of leds to get the amount to increment per led
+  return (pos * (255 / LED_COUNT)); // + offset
+}
+
+uint32_t ColorSelect::makeHue(uint32_t pos, uint32_t selection)
 {
   // quadrant is base multiple of 90 and hue selection is 0 28 56 84
-  return (quad * 90) + (selection * 28);
+  return makeQuad(pos) + (selection * ((255 / 4) / LED_COUNT));
 }
 
 uint32_t ColorSelect::makeSat(uint32_t selection)

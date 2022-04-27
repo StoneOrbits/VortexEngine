@@ -27,6 +27,7 @@ class ColorSelect : public Menu
     void showValSelection();
 
     // Generate hue/sat/val values based on selection rules
+    uint32_t makeQuad(uint32_t quad);
     uint32_t makeHue(uint32_t quad, uint32_t selection);
     uint32_t makeSat(uint32_t selection);
     uint32_t makeVal(uint32_t selection);
