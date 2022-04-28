@@ -1,18 +1,9 @@
 #include "VortexGloveset.h"
-
-#include <Arduino.h>
-
-#include "menus/Menu.h"
-
 #include "TimeControl.h"
 #include "LedControl.h"
-#include "ColorTypes.h"
-#include "Colorset.h"
-#include "Modes.h"
 #include "Buttons.h"
+#include "Modes.h"
 #include "Menus.h"
-#include "Mode.h"
-
 #include "Log.h"
 
 bool VortexGloveset::init()
@@ -21,11 +12,8 @@ bool VortexGloveset::init()
   // Always generate seed before creating button on 
   // digital pin 1 (shared pin with analog 0)
   randomSeed(analogRead(0));
-
-  if (!setupSerial()) {
-    // error
-    return false;
-  }
+  // Setup serial communications
+  Serial.begin(9600);
 
   // initialize the time controller
   if (!Time::init()) {
@@ -65,8 +53,8 @@ void VortexGloveset::tick()
   // tick the current time counter forward
   Time::tickClock();
 
-  // poll the button for changes
-  g_pButton->check();
+  // poll the buttons for changes
+  Buttons::check();
 
   // if the menus don't need to run, or they run and return false
   if (!Menus::shouldRun() || !Menus::run()) {
@@ -78,15 +66,4 @@ void VortexGloveset::tick()
 
   // update the leds
   Leds::update();
-}
-
-// ===================
-//  private routines
-
-bool VortexGloveset::setupSerial()
-{
-  // Setup serial communications
-  Serial.begin(9600);
-  // may want to add debug logic in here for attaching to a test framework
-  return true;
 }

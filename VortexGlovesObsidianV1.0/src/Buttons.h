@@ -9,7 +9,11 @@ class Buttons
   Buttons();
 
 public:
+  // initialize all buttons
   static bool init();
+
+  // poll the buttons
+  static void check();
 
 private:
   // feel free to add more I guess

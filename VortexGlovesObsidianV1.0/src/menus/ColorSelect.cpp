@@ -5,7 +5,6 @@
 #include "../Colorset.h"
 #include "../Button.h"
 #include "../Mode.h"
-
 #include "../Log.h"
 
 // the number of slots in a page

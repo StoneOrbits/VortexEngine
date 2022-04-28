@@ -3,7 +3,6 @@
 #include "../TimeControl.h"
 #include "../LedControl.h"
 #include "../Modes.h"
-
 #include "../Log.h"
 
 FactoryReset::FactoryReset() :

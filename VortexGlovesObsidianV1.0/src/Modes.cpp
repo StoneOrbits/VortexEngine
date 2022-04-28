@@ -1,7 +1,5 @@
 #include "Modes.h"
 
-#include <Arduino.h>
-
 #include "ModeBuilder.h"
 #include "LedControl.h"
 #include "Buttons.h"

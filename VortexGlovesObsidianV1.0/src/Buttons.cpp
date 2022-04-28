@@ -20,3 +20,10 @@ bool Buttons::init()
   g_pButton = &m_button;
   return true;
 }
+
+void Buttons::check()
+{
+  // would iterate all buttons and check them here
+  // but there's only one button so
+  g_pButton->check();
+}

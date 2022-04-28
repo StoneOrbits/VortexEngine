@@ -5,7 +5,6 @@
 #include "../Button.h"
 #include "../Modes.h"
 #include "../Mode.h"
-
 #include "../Log.h"
 
 Randomizer::Randomizer() :
