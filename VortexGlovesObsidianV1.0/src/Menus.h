@@ -26,20 +26,29 @@ public:
   // Run the ringmenu and any menus it contains
   // returns true if the menu remains open, false if closed
   static bool run();
-  
-  // whether any menus are open
-  static bool shouldRun();
 
-  // the number of menus in the ring menu
-  static uint32_t numMenus();
-
-private:
+ private:
   // run the currently open menu
   static bool runCurMenu();
   // run the ring filling logic
   static bool runRingFill();
   // helper to calculate the relative hold time for the current menu
   static LedPos calcLedPos();
+  // whether any menus are open
+  static bool shouldRun();
+
+  // =====================
+  //  private members
+
+  // the ring menu section
+  static uint32_t m_selection;
+  // whether the ring menu is open
+  static bool m_isOpen;
+  // the current sub menu that is open
+  static Menu *m_pCurMenu;
+
+  // ======================
+  //  Menus
 
   // private structure for menu entry menu => color
   struct MenuEntry
@@ -52,8 +61,7 @@ private:
     RGBColor color;
   };
 
-  // ======================
-  //  Menus
+  // An instance of each menu we want to use
   static Randomizer m_randomizer;
   static ColorSelect m_colorSelect;
   static PatternSelect m_patternSelect;
@@ -61,20 +69,8 @@ private:
   static FactoryReset m_factoryReset;
   static ModeSharing m_modeSharing;
 
-  // list of menu entries above with chosen colors
+  // list of menu entries defined in cpp file
   static const MenuEntry m_menuList[];
-
-  // =====================
-  //  private members
-
-  // the ring menu section
-  static uint32_t m_selection;
-
-  // whether the ring menu is open
-  static bool m_isOpen;
-
-  // the current sub menu that is open
-  static Menu *m_pCurMenu;
 };
 
 #endif

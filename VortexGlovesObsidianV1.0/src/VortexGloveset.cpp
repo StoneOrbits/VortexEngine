@@ -57,7 +57,7 @@ void VortexGloveset::tick()
   Buttons::check();
 
   // if the menus don't need to run, or they run and return false
-  if (!Menus::shouldRun() || !Menus::run()) {
+  if (!Menus::run()) {
     // then just play the mode
     Modes::play();
   }

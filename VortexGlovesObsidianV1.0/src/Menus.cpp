@@ -12,7 +12,12 @@
 // the logic is cleaner for fill from pinkie
 #define FILL_FROM_THUMB
 
-// static instances
+// static members
+uint32_t Menus::m_selection = 0;
+bool Menus::m_isOpen = false;
+Menu *Menus::m_pCurMenu = nullptr;
+
+// static instances of menus
 Randomizer Menus::m_randomizer;
 ColorSelect Menus::m_colorSelect;
 PatternSelect Menus::m_patternSelect;
@@ -30,10 +35,8 @@ const Menus::MenuEntry Menus::m_menuList[] = {
   { &m_modeSharing, RGB_TEAL },
 };
 
-// static members
-uint32_t Menus::m_selection = 0;
-bool Menus::m_isOpen = false;
-Menu *Menus::m_pCurMenu = nullptr;
+// the number of menus in the above array
+#define NUM_MENUS (sizeof(m_menuList) / sizeof(m_menuList[0]))
 
 bool Menus::init()
 {
@@ -43,6 +46,9 @@ bool Menus::init()
 
 bool Menus::run()
 {
+  if (!shouldRun()) {
+    return false;
+  }
   // if there is already a sub-menu open, run that
   if (m_pCurMenu) {
     // run just that menu
@@ -50,17 +56,6 @@ bool Menus::run()
   }
   // otherwise just handle the filling logic
   return runRingFill();
-}
-
-bool Menus::shouldRun()
-{
-  // run the menus if they are open or the button is pressed
-  return m_isOpen || g_pButton->isPressed();
-}
-
-uint32_t Menus::numMenus()
-{
-  return sizeof(m_menuList) / sizeof(m_menuList[0]);
 }
 
 bool Menus::runRingFill()
@@ -138,10 +133,10 @@ bool Menus::runCurMenu()
     m_pCurMenu = nullptr;
     // the ring menu is no longer open either
     m_isOpen = false;
-    // return false to let the mode play
+    // return false to let the modes play
     return false;
   }
-  // continue in the opened menu
+  // the opened menu and don't play modes
   return true;
 }
 
@@ -173,4 +168,10 @@ LedPos Menus::calcLedPos()
   m_selection = (m_selection + 1) % numMenus();
   // then re-calculate the holdTime it should be less than 10
   return calcLedPos();
+}
+
+bool Menus::shouldRun()
+{
+  // run the menus if they are open or the button is pressed
+  return m_isOpen || g_pButton->isPressed();
 }
