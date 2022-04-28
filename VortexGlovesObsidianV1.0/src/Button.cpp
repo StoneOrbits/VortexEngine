@@ -6,14 +6,6 @@
 #include "Timings.h"
 #include "Log.h"
 
-// Since there is only one button I am just going to expose a global pointer to 
-// access it, instead of making the Button class static in case a second button 
-// is added. This makes it easier to access the button from other places while 
-// still allowing for a second instance to be added.  I wish there was a more 
-// elegant way to make the button accessible but not global.  
-// This will simply point at VortexGloveset::m_button. 
-Button *g_pButton = nullptr;
-
 Button::Button() :
   m_pinNum(0),
   m_buttonState(HIGH),

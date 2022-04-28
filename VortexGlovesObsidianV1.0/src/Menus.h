@@ -15,6 +15,9 @@ class Menu;
 
 class Menus
 {
+  // private unimplemented constructor
+  Menus();
+
 public:
   // opting for static class here because there should only ever be one
   // Menu control object and I don't like singletons

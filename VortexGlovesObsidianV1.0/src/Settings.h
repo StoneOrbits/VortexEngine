@@ -13,6 +13,9 @@ class Mode;
 
 class Settings
 {
+  // private unimplemented constructor
+  Settings();
+
 public:
   // opting for static class here because there should only ever be one
   // Settings control object and I don't like singletons

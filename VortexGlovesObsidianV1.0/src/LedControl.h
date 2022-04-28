@@ -11,6 +11,9 @@
 
 class Leds
 {
+  // private unimplemented constructor
+  Leds();
+
 public:
   // opting for static class here because there should only ever be one
   // Led control object and I don't like singletons

@@ -1,5 +1,5 @@
-#ifndef TIME_H
-#define TIME_H
+#ifndef TIME_CONTROL_H
+#define TIME_CONTROL_H
 
 #include <inttypes.h>
 
@@ -7,6 +7,9 @@
 
 class Time
 {
+  // private unimplemented constructor
+  Time();
+
 public:
   // opting for static class here because there should only ever be one
   // Settings control object and I don't like singletons

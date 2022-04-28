@@ -1,8 +1,9 @@
-#include "RingMenu.h"
+#include "Menus.h"
 
 #include "VortexGloveset.h"
 #include "TimeControl.h"
 #include "LedControl.h"
+#include "Settings.h"
 #include "Timings.h"
 #include "Button.h"
 
