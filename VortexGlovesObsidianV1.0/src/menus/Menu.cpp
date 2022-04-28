@@ -66,7 +66,6 @@ void Menu::blinkSelection(uint32_t offMs)
   if (m_curSelection == FINGER_COUNT) {
     Leds::blinkAll(offMs, blinkCol);
   } else {
-    DEBUG("Blink: %d", m_curSelection);
     // otherwise just blink the selected finger
     Leds::blinkFinger(m_curSelection, offMs, blinkCol);
   }

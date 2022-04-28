@@ -12,25 +12,35 @@
 // the logic is cleaner for fill from pinkie
 #define FILL_FROM_THUMB
 
-RingMenu::RingMenu() :
-  m_randomizer(),
-  m_colorSelect(),
-  m_patternSelect(),
-  m_globalBrightness(),
-  m_factoryReset(),
-  m_modeSharing(),
-  m_selection(0),
-  m_isOpen(false),
-  m_pCurMenu(nullptr)
-{
-}
+// static instances
+Randomizer Menus::m_randomizer;
+ColorSelect Menus::m_colorSelect;
+PatternSelect Menus::m_patternSelect;
+GlobalBrightness Menus::m_globalBrightness;
+FactoryReset Menus::m_factoryReset;
+ModeSharing Menus::m_modeSharing;
 
-bool RingMenu::init()
+// The list of menus that are registered with colors to show in ring menu
+const Menus::MenuEntry Menus::m_menuList[] = {
+  { &m_randomizer, RGB_WHITE },
+  { &m_colorSelect, RGB_ORANGE },
+  { &m_patternSelect, RGB_BLUE },
+  { &m_globalBrightness, RGB_YELLOW },
+  { &m_factoryReset, RGB_RED },
+  { &m_modeSharing, RGB_TEAL },
+};
+
+// static members
+uint32_t Menus::m_selection = 0;
+bool Menus::m_isOpen = false;
+Menu *Menus::m_pCurMenu = nullptr;
+
+bool Menus::init()
 {
   return true;
 }
 
-bool RingMenu::run()
+bool Menus::run()
 {
   // if there is already a sub-menu open, run that
   if (m_pCurMenu) {
@@ -41,7 +51,18 @@ bool RingMenu::run()
   return runRingFill();
 }
 
-bool RingMenu::runRingFill()
+bool Menus::shouldRun()
+{
+  // run the menus if they are open or the button is pressed
+  return m_isOpen || g_pButton->isPressed();
+}
+
+uint32_t Menus::numMenus()
+{
+  return sizeof(m_menuList) / sizeof(m_menuList[0]);
+}
+
+bool Menus::runRingFill()
 {
   // if the button was released this tick and the ringmenu was open 
   // then close the ringmenu and return the current menu selection
@@ -95,7 +116,7 @@ bool RingMenu::runRingFill()
   return true;
 }
 
-bool RingMenu::runCurMenu()
+bool Menus::runCurMenu()
 {
   // first run the click handlers for the menu
   if (g_pButton->onShortClick()) {
@@ -124,7 +145,7 @@ bool RingMenu::runCurMenu()
 }
 
 // helper to calculate the relative hold time for the current menu
-LedPos RingMenu::calcLedPos()
+LedPos Menus::calcLedPos()
 {
   uint32_t relativeHoldDur = g_pButton->holdDuration() - MENU_TRIGGER_THRESHOLD;
   if (g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD) {

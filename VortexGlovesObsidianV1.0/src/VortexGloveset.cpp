@@ -14,7 +14,6 @@
 
 VortexGloveset::VortexGloveset() :
   m_button(),
-  m_ringMenu(),
   m_pCurMenu(nullptr)
 {
 }
@@ -62,8 +61,8 @@ bool VortexGloveset::init()
   // setup the global button pointer
   g_pButton = &m_button;
 
-  // initialize the ring menu and the menus it contains
-  if (!m_ringMenu.init()) {
+  // initialize the menus
+  if (!Menus::init()) {
     // error
     return false;
   }
@@ -79,10 +78,9 @@ void VortexGloveset::tick()
   // poll the button for changes
   m_button.check();
 
-  // first try to run any menu logic
-  if (!runAllMenus()) {
-    // if it returns false then there was no menu logic to run
-    // so just play the current mode
+  // if the menus don't need to run, or they run and return false
+  if (!Menus::shouldRun() || !Menus::run()) {
+    // then just play the mode
     playMode();
   }
 
@@ -103,19 +101,6 @@ bool VortexGloveset::setupSerial()
   return true;
 }
 
-// run the menu logic, return false if menus are closed
-bool VortexGloveset::runAllMenus()
-{
-  // if the user is holding the button down or the ringmenu is already open 
-  // then run the ringmenu logic
-  if (m_ringMenu.isOpen() || m_button.isPressed()) {
-    return m_ringMenu.run();
-  }
-
-  // no menus to run
-  return false;
-}
-
 // run the current mode
 void VortexGloveset::playMode()
 {
@@ -125,11 +110,9 @@ void VortexGloveset::playMode()
     Leds::clearAll();
   }
 
-  if (!Settings::curMode()) {
-    // no modes to play
-    return;
+  // just in case there's no modes
+  if (Settings::curMode()) {
+    // play the current mode
+    Settings::curMode()->play();
   }
-
-  // play the current mode
-  Settings::curMode()->play();
 }

@@ -75,7 +75,7 @@ void ColorSelect::onShortClick()
   if (m_state == STATE_PICK_SLOT && m_curSelection == FINGER_INDEX) {
     m_curPage = (m_curPage + 1) % NUM_PAGES;
   }
-  // iterate selection forward wrap at thumb
+  // iterate selection forward 
   m_curSelection = (Finger)((m_curSelection + 1) % FINGER_THUMB);
 }
 

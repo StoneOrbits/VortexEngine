@@ -13,33 +13,30 @@
 
 class Menu;
 
-class RingMenu
+class Menus
 {
 public:
-  RingMenu();
-
-  bool init();
+  // opting for static class here because there should only ever be one
+  // Menu control object and I don't like singletons
+  static bool init();
 
   // Run the ringmenu and any menus it contains
   // returns true if the menu remains open, false if closed
-  bool run();
+  static bool run();
   
-  // whether the ring menu is open
-  bool isOpen() { return m_isOpen; }
+  // whether any menus are open
+  static bool shouldRun();
 
   // the number of menus in the ring menu
-  uint32_t numMenus() const { return (sizeof(m_menuList) / sizeof(m_menuList[0])); }
-
-  // the current menu that is open
-  Menu *curMenu() const { return m_pCurMenu; }
+  static uint32_t numMenus();
 
 private:
   // run the currently open menu
-  bool runCurMenu();
+  static bool runCurMenu();
   // run the ring filling logic
-  bool runRingFill();
+  static bool runRingFill();
   // helper to calculate the relative hold time for the current menu
-  LedPos calcLedPos();
+  static LedPos calcLedPos();
 
   // private structure for menu entry menu => color
   struct MenuEntry
@@ -54,34 +51,27 @@ private:
 
   // ======================
   //  Menus
-  Randomizer m_randomizer;
-  ColorSelect m_colorSelect;
-  PatternSelect m_patternSelect;
-  GlobalBrightness m_globalBrightness;
-  FactoryReset m_factoryReset;
-  ModeSharing m_modeSharing;
+  static Randomizer m_randomizer;
+  static ColorSelect m_colorSelect;
+  static PatternSelect m_patternSelect;
+  static GlobalBrightness m_globalBrightness;
+  static FactoryReset m_factoryReset;
+  static ModeSharing m_modeSharing;
 
   // list of menu entries above with chosen colors
-  const MenuEntry m_menuList[6] = {
-    { &m_randomizer, RGB_WHITE },
-    { &m_colorSelect, RGB_ORANGE },
-    { &m_patternSelect, RGB_BLUE },
-    { &m_globalBrightness, RGB_YELLOW },
-    { &m_factoryReset, RGB_RED },
-    { &m_modeSharing, RGB_TEAL },
-  };
+  static const MenuEntry m_menuList[];
 
   // =====================
   //  private members
 
   // the ring menu section
-  uint32_t m_selection;
+  static uint32_t m_selection;
 
   // whether the ring menu is open
-  bool m_isOpen;
+  static bool m_isOpen;
 
   // the current sub menu that is open
-  Menu *m_pCurMenu;
+  static Menu *m_pCurMenu;
 };
 
 #endif

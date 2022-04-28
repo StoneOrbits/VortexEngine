@@ -41,8 +41,6 @@ private:
 
   // the button on the gloveset (g_pButton will point at this)
   Button m_button;
-  // the ring menu (parent of all menus)
-  RingMenu m_ringMenu;
 
   // the current menu that is open (if any)
   Menu *m_pCurMenu;

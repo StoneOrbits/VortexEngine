@@ -4,11 +4,15 @@
 // so that anything which uses a timing can have access to msToTicks
 #include "TimeControl.h"
 
-// how long must hold to trigger ring menu
-#define MENU_TRIGGER_THRESHOLD Time::msToTicks(1000)
+// Menu Trigger Thresholds
+// 
+// how long must hold to trigger ring menu and
 // how long each ring menu takes to fill
+#define MENU_TRIGGER_THRESHOLD Time::msToTicks(1000)
 #define MENU_DURATION Time::msToTicks(1000)
 
+// Short Click Threshold
+//
 // if click held for <= this value then the click will be registered as 
 // a 'short click' otherwise if held longer than this threshold it will
 // be registered as a 'long click'
