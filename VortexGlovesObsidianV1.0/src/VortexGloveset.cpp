@@ -13,10 +13,7 @@
 #include "Log.h"
 
 VortexGloveset::VortexGloveset() :
-  m_timeControl(),
-  m_ledControl(),
   m_button(),
-  m_settings(),
   m_ringMenu(),
   m_pCurMenu(nullptr)
 {
@@ -24,6 +21,8 @@ VortexGloveset::VortexGloveset() :
 
 VortexGloveset::~VortexGloveset()
 {
+  // clean up global button pointer
+  g_pButton = nullptr;
 }
 
 bool VortexGloveset::init()
@@ -34,18 +33,18 @@ bool VortexGloveset::init()
   }
 
   // initialize the time controller
-  if (!m_timeControl.init()) {
+  if (!Time::init()) {
     return false;
   }
 
   // initialize the settings
-  if (!m_settings.init()) {
+  if (!Settings::init()) {
     // error
     return false;
   }
 
   // setup led controller
-  if (!m_ledControl.init()) {
+  if (!Leds::init()) {
     // error
     return false;
   }
@@ -60,6 +59,9 @@ bool VortexGloveset::init()
     return false;
   }
 
+  // setup the global button pointer
+  g_pButton = &m_button;
+
   // initialize the ring menu and the menus it contains
   if (!m_ringMenu.init()) {
     // error
@@ -72,7 +74,7 @@ bool VortexGloveset::init()
 void VortexGloveset::tick()
 {
   // tick the current time counter forward
-  m_timeControl.tickClock();
+  Time::tickClock();
 
   // poll the button for changes
   m_button.check();
@@ -87,7 +89,7 @@ void VortexGloveset::tick()
   //checkSerial();
 
   // update the leds
-  m_ledControl.update();
+  Leds::update();
 }
 
 // ===================
@@ -104,66 +106,14 @@ bool VortexGloveset::setupSerial()
 // run the menu logic, return false if menus are closed
 bool VortexGloveset::runAllMenus()
 {
-  // if there is a menu open like Randomizer, Colorselect, etc
-  if (m_pCurMenu) {
-    // run just that menu
-    return runCurMenu();
-  }
-
   // if the user is holding the button down or the ringmenu is already open 
   // then run the ringmenu logic
   if (m_ringMenu.isOpen() || m_button.isPressed()) {
-    return runRingMenu();
+    return m_ringMenu.run();
   }
 
   // no menus to run
   return false;
-}
-
-bool VortexGloveset::runCurMenu()
-{
-  // first run the click handlers for the menu
-  if (m_button.onShortClick()) {
-    m_pCurMenu->onShortClick();
-  }
-  if (m_button.onLongClick()) {
-    m_pCurMenu->onLongClick();
-  }
-
-  // if the menu run handler returns false that signals the 
-  // menu was closed by the user leaving the menu
-  if (!m_pCurMenu->run()) {
-    // when a menu closes save all settings
-    if (!m_settings.save()) {
-      // error saving
-    }
-    // clear the current menu pointer
-    m_pCurMenu = nullptr;
-    // return false to let the mode play
-    return false;
-  }
-  // continue in the opened menu
-  return true;
-}
-
-bool VortexGloveset::runRingMenu()
-{
-  // run the ringmenu and store any menu it returns,
-  // it is expected to return NULL most of the time
-  m_pCurMenu = m_ringMenu.run();
-  // if no menu was returned then only continue if the ringmenu is open
-  if (!m_pCurMenu) {
-    return m_ringMenu.isOpen();
-  }
-  // otherwise initialiaze the new menu with the current mode
-  if (!m_pCurMenu->init(m_settings.curMode())) {
-    // if the menu failed to init, don't open it
-    m_pCurMenu = nullptr;
-  }
-  // clear all the leds
-  g_pLedControl->clearAll();
-  // contiue in the new selected menu
-  return true;
 }
 
 // run the current mode
@@ -171,15 +121,15 @@ void VortexGloveset::playMode()
 {
   // shortclick cycles to the next mode
   if (m_button.onShortClick()) {
-    m_settings.nextMode();
-    g_pLedControl->clearAll();
+    Settings::nextMode();
+    Leds::clearAll();
   }
 
-  if (!m_settings.curMode()) {
+  if (!Settings::curMode()) {
     // no modes to play
     return;
   }
 
   // play the current mode
-  m_settings.curMode()->play();
+  Settings::curMode()->play();
 }

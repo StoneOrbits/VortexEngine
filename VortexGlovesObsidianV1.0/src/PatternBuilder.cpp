@@ -24,22 +24,22 @@ Pattern *PatternBuilder::generate(PatternID id)
   switch (id) {
   default:
   case PATTERN_STROBE:
-    return new BasicPattern(MS_TO_TICKS(5), MS_TO_TICKS(8));
+    return new BasicPattern(5, 8);
   case PATTERN_HYPERSTROBE:
-    return new BasicPattern(MS_TO_TICKS(25), MS_TO_TICKS(25));
+    return new BasicPattern(25, 25);
   case PATTERN_DOPS:
-    return new BasicPattern(MS_TO_TICKS(2), MS_TO_TICKS(13));
+    return new BasicPattern(2, 13);
   case PATTERN_DOPISH:
-    return new BasicPattern(MS_TO_TICKS(2), MS_TO_TICKS(7));
+    return new BasicPattern(2, 7);
   case PATTERN_ULTRADOPS:
-    return new BasicPattern(MS_TO_TICKS(1), MS_TO_TICKS(3));
+    return new BasicPattern(1, 3);
   case PATTERN_STROBIE:
-    return new BasicPattern(MS_TO_TICKS(3), MS_TO_TICKS(22));
+    return new BasicPattern(3, 22);
   case PATTERN_RIBBON:
-    return new BasicPattern(MS_TO_TICKS(20));
+    return new BasicPattern(20);
   case PATTERN_MINIRIBBON:
-    return new BasicPattern(MS_TO_TICKS(3));
+    return new BasicPattern(3);
   case PATTERN_TRACER:
-    return new TracerPattern(MS_TO_TICKS(20), MS_TO_TICKS(1));
+    return new TracerPattern(20, 1);
   }
 }

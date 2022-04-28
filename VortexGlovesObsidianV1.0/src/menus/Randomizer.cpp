@@ -42,7 +42,6 @@ bool Randomizer::run()
   return true;
 }
 
-
 void Randomizer::onShortClick()
 {
   // shortClick re-roll the randomization
@@ -55,7 +54,7 @@ void Randomizer::onShortClick()
 void Randomizer::onLongClick()
 {
   // replace the current mode with randomized one
-  if (!g_pSettings->setCurMode(m_pRandomizedMode)) {
+  if (!Settings::setCurMode(m_pRandomizedMode)) {
     // error
   }
   m_pRandomizedMode = nullptr;

@@ -1,8 +1,10 @@
 #ifndef BUTTON_H
 #define BUTTON_H
 
-class TimeControl;
+#include <inttypes.h>
 
+// although there is only one button on the VortexGloveset
+// I am still opting for a non-static button class 
 class Button
 {
 private:
@@ -32,9 +34,9 @@ public:
   bool onLongClick() const { return m_longClick; }
 
   // how long the button is currently or was last held down
-  int holdDuration() const { return m_holdDuration; }
+  uint32_t holdDuration() const { return m_holdDuration; }
   // how long the button is currently or was last released for
-  int releaseDuration() const { return m_releaseDuration; }
+  uint32_t releaseDuration() const { return m_releaseDuration; }
 
 private:
   // the pin number that is read
@@ -44,17 +46,17 @@ private:
   // state data that is populated each check
 
   // the active state of the button
-  int m_buttonState;
+  uint32_t m_buttonState;
 
   // the timestamp of when the button was pressed
-  unsigned long m_pressTime;
+  uint64_t m_pressTime;
   // the timestamp of when the button was released
-  unsigned long m_releaseTime;
+  uint64_t m_releaseTime;
 
   // the last hold duration
-  int m_holdDuration;
+  uint32_t m_holdDuration;
   // the last release duration
-  int m_releaseDuration;
+  uint32_t m_releaseDuration;
 
   // whether pressed this tick
   bool m_newPress;
@@ -68,7 +70,7 @@ private:
   bool m_longClick;
 };
 
-// easy access to the button
+// See Button.cpp for info about this
 extern Button *g_pButton;
 
 #endif

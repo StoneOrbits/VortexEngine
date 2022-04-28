@@ -89,7 +89,14 @@ bool Mode::bind(Pattern *pat, Colorset *set, LedPos pos)
   if (pos > LED_LAST) {
     return false;
   }
-  m_ledEntries[pos] = LedEntry(pat, set);
+  if (m_ledEntries[pos].pattern) {
+    delete m_ledEntries[pos].pattern;
+  }
+  if (m_ledEntries[pos].colorset) {
+    delete m_ledEntries[pos].colorset;
+  }
+  m_ledEntries[pos].pattern = pat;
+  m_ledEntries[pos].colorset = set;
   return true;
 }
 

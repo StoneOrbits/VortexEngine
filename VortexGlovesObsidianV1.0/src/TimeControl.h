@@ -5,74 +5,51 @@
 
 #include "LedConfig.h"
 
-// Tickrate in Ticks Per Second (TPS)
-//
-//    Default: 1000
-//
-// The valid range for this is 1 <= x <= 1000000
-//
-// However any value near or above 10000 will most
-// likely be too fast for the processor to handle
-#define DEFAULT_TICKRATE    1000
-
-// Finger time offset in ticks
-//
-// This changes how many ticks out of sync each finger
-// will run. So 33 means each finger runs 33 ticks out
-// of sync with the previous finger
-#define DEFAULT_TIME_OFFSET 33
-
-// convert milliseconds to ticks
-#define MS_TO_TICKS(ms) \
-  (g_pTimeControl ? g_pTimeControl->msToTicks(ms) : (ms * DEFAULT_TICKRATE))
-
-class TimeControl
+class Time
 {
 public:
-  TimeControl();
-  ~TimeControl();
-
-  // any kind of time initialization
-  bool init();
+  // opting for static class here because there should only ever be one
+  // Settings control object and I don't like singletons
+  static bool init();
 
   // tick the clock forward to millis()
-  void tickClock();
+  static void tickClock();
 
   // get the current time with optional led position time offset
-  uint64_t getCurtime(LedPos pos = LED_FIRST) const;
+  static uint64_t getCurtime(LedPos pos = LED_FIRST);
 
   // Set tickrate in Ticks Per Second (TPS)
   // The valid range for this is 1 <= x <= 1000000
+  //
+  // Setting a value of 0 will restore the default
   //
   // NOTE: Patterns will not change when this changes, you
   //       must re-create the pattern for the change to take
   //       effect. This is done by design to allow the test
   //       framework to control the speed of patterns.
   //       See PatternBuilder.cpp for more info.
-  void setTickrate(uint32_t tickrate = DEFAULT_TICKRATE);
+  static void setTickrate(uint32_t tickrate = 0);
 
-  // change the number of ticks each finger runs out of sync
+  // change the number of ticks each LED runs out of sync
   // 0 will run all of the lights in sync
-  void setTimeOffset(uint32_t timeOffset = 0);
+  // TODO: Synchronize finger timing?
+  static void setTickOffset(uint32_t tickOffset = 0);
 
   // convert ticks to ms based on tickrate
-  uint32_t msToTicks(uint32_t ms) const;
+  static uint32_t msToTicks(uint32_t ms);
 
 private:
   // global tick counter
-  uint64_t m_curTick;
+  static uint64_t m_curTick;
 
   // the last frame timestamp
-  uint64_t m_prevTime;
+  static uint64_t m_prevTime;
 
   // the number of ticks per second
-  uint32_t m_tickrate;
+  static uint32_t m_tickrate;
 
   // the offset in ticks for each finger
-  uint32_t m_timeOffset;
+  static uint32_t m_tickOffset;
 };
-
-// easy access to the time control
-extern TimeControl *g_pTimeControl;
 
 #endif

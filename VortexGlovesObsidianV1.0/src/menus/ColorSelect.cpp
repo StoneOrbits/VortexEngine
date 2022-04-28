@@ -17,6 +17,7 @@ ColorSelect::ColorSelect() :
   Menu(),
   m_state(STATE_PICK_SLOT),
   m_colorset(),
+  m_curPage(0),
   m_slot(0),
   m_quadrant(0),
   m_newColor()
@@ -92,14 +93,11 @@ void ColorSelect::onLongClick()
     // pick a quadrant, technically there is 8 options ranging
     // from 0 to 7 and the user can put 0, 2, 4, or 6
     m_quadrant = m_curSelection * 2;
-    if (g_pButton->holdDuration() > MS_TO_TICKS(350)) {
-      m_quadrant++;
-    }
     m_state = STATE_PICK_HUE;
     break;
   case STATE_PICK_HUE:
     // pick a hue
-    m_newColor.hue = makeHue(m_quadrant, m_curSelection);
+    m_newColor.hue = makeHue(m_quadrant, m_curSelection * 2);
     m_state = STATE_PICK_SAT;
     break;
   case STATE_PICK_SAT:
@@ -131,14 +129,14 @@ void ColorSelect::showSlotSelection()
   uint32_t colIndex = (m_curPage * PAGE_SIZE);
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // set the current colorset slot color on the current finger
-    g_pLedControl->setFinger(f, m_colorset[colIndex++]);
+    Leds::setFinger(f, m_colorset[colIndex++]);
   }
 }
 
 void ColorSelect::showQuadSelection()
 {
   for (LedPos p = PINKIE_TIP; p <= INDEX_TOP; ++p) {
-    g_pLedControl->setIndex(p, HSVColor(makeQuad(p), 255, 255));
+    Leds::setIndex(p, HSVColor(makeQuad(p), 255, 255));
   }
 }
 
@@ -146,7 +144,7 @@ void ColorSelect::showHueSelection()
 {
   for (LedPos p = PINKIE_TIP; p <= INDEX_TOP; ++p) {
     // generate a hue from the current finger
-    g_pLedControl->setIndex(p, HSVColor(makeHue(m_quadrant, p), 255, 255));
+    Leds::setIndex(p, HSVColor(makeHue(m_quadrant, p), 255, 255));
   }
 }
 
@@ -154,7 +152,7 @@ void ColorSelect::showSatSelection()
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // generate saturate on current hue from current finger
-    g_pLedControl->setFinger(f, HSVColor(m_newColor.hue, makeSat(f), 255));
+    Leds::setFinger(f, HSVColor(m_newColor.hue, makeSat(f), 255));
   }
 }
 
@@ -162,7 +160,7 @@ void ColorSelect::showValSelection()
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // generate value on current color and current finger
-    g_pLedControl->setFinger(f, HSVColor(m_newColor.hue, m_newColor.sat, makeVal(f)));
+    Leds::setFinger(f, HSVColor(m_newColor.hue, m_newColor.sat, makeVal(f)));
   }
 }
 
@@ -176,7 +174,7 @@ uint32_t ColorSelect::makeQuad(uint32_t pos)
 uint32_t ColorSelect::makeHue(uint32_t pos, uint32_t selection)
 {
   // quadrant is base multiple of 90 and hue selection is 0 28 56 84
-  return makeQuad(pos) + (selection * ((255 / 8) / 8));
+  return makeQuad(pos) + (selection * ((255 / 8) / 4));
 }
 
 uint32_t ColorSelect::makeSat(uint32_t selection)

@@ -23,7 +23,7 @@ void TracerPattern::play(Colorset *colorset, LedPos pos)
   }
 
   // how far into a full frame this tick is
-  uint32_t frameTime = g_pTimeControl->getCurtime(pos) % m_totalDuration;
+  uint32_t frameTime = Time::getCurtime(pos) % m_totalDuration;
 
   // whether the light should be on based on curtime
   bool state = (frameTime < m_tracerDuration);
@@ -37,10 +37,10 @@ void TracerPattern::play(Colorset *colorset, LedPos pos)
   m_state = state;
 
   if (state) {
-    g_pLedControl->setIndex(pos, colorset->get(0));
+    Leds::setIndex(pos, colorset->get(0));
   } else {
     // set the color of the tracer counter
-    g_pLedControl->setIndex(pos, colorset->get(1 + m_tracerCounter));
+    Leds::setIndex(pos, colorset->get(1 + m_tracerCounter));
     // increment tracer counter and wrap at 1 less than num colors
     m_tracerCounter = (m_tracerCounter + 1) % (colorset->numColors() - 1);
   }

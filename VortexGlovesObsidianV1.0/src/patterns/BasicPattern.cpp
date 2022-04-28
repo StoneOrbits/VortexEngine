@@ -25,7 +25,7 @@ void BasicPattern::play(Colorset *colorset, LedPos pos)
   }
 
   // how far into a full frame this tick is
-  uint32_t frameTime = g_pTimeControl->getCurtime(pos) % m_blinkDuration;
+  uint32_t frameTime = Time::getCurtime(pos) % m_blinkDuration;
 
   // whether the light should be on based on curtime
   bool state = (frameTime < m_onDuration);
@@ -40,10 +40,10 @@ void BasicPattern::play(Colorset *colorset, LedPos pos)
 
   if (m_state) {
     // turn on with color
-    g_pLedControl->setIndex(pos, colorset->getNext());
+    Leds::setIndex(pos, colorset->getNext());
   } else {
     // turn off
-    g_pLedControl->clearIndex(pos);
+    Leds::clearIndex(pos);
   }
 }
 

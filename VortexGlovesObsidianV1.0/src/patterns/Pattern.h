@@ -5,8 +5,6 @@
 #include "../Patterns.h"
 
 class Colorset;
-class LedControl;
-class TimeControl;
 
 class Pattern
 {

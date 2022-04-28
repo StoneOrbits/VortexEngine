@@ -33,13 +33,13 @@ bool FactoryReset::run()
   }
 
   // set all to dim red, or brighter if confirming
-  g_pLedControl->setAll(HSVColor(HUE_RED, 255, 150 + 50 * m_confirm));
+  Leds::setAll(HSVColor(HUE_RED, 255, 150 + 50 * m_confirm));
 
   // TODO: better blink
   // blink faster to indicate confirmation
   uint32_t blinkThreshold = m_confirm ? 5 : 2;
-  if ((g_pTimeControl->getCurtime() % 10) > blinkThreshold) {
-    g_pLedControl->clearAll();
+  if ((Time::getCurtime() % 10) > blinkThreshold) {
+    Leds::clearAll();
   }
 
   // continue
@@ -56,7 +56,7 @@ void FactoryReset::onLongClick()
 {
   if (m_confirm) {
     // perform the actual reset to default
-    g_pSettings->setDefaults();
+    Settings::setDefaults();
     DEBUG("Restoring factory settings");
   } else {
     DEBUG("Exiting factory reset");

@@ -33,31 +33,19 @@ private:
   bool setupSerial();
   // run the menu logic, return false if nothing to do
   bool runAllMenus();
-  // runs menu logic for the current open menu
-  bool runCurMenu();
-  // runs logic for the ring menu
-  bool runRingMenu();
   // run the current mode
   void playMode();
 
   // ==============
   //  private data
 
-  // time manager and controller
-  TimeControl m_timeControl;
-  // the LED controller
-  LedControl m_ledControl;
-  // the button on the gloveset
+  // the button on the gloveset (g_pButton will point at this)
   Button m_button;
-  // the settings of the gloveset (contains modes)
-  Settings m_settings;
   // the ring menu (parent of all menus)
   RingMenu m_ringMenu;
 
   // the current menu that is open (if any)
   Menu *m_pCurMenu;
-  // the current mode that is selected (if any)
-  Mode *m_pCurMode;
 
 #ifdef TEST_FRAMEWORK
   // so the test framework can access stuff

@@ -1,17 +1,15 @@
 #include "RingMenu.h"
 
+#include "VortexGloveset.h"
 #include "TimeControl.h"
 #include "LedControl.h"
+#include "Timings.h"
 #include "Button.h"
 
 #include "Log.h"
 
-// how long must hold to trigger ring menu
-#define MENU_TRIGGER_THRESHOLD MS_TO_TICKS(1000)
-// how long each ring menu takes to fill
-#define MENU_DURATION MS_TO_TICKS(1000)
-
 // comment this out if you want the menu to fill from pinkie
+// the logic is cleaner for fill from pinkie
 #define FILL_FROM_THUMB
 
 RingMenu::RingMenu() :
@@ -22,7 +20,8 @@ RingMenu::RingMenu() :
   m_factoryReset(),
   m_modeSharing(),
   m_selection(0),
-  m_isOpen(false)
+  m_isOpen(false),
+  m_pCurMenu(nullptr)
 {
 }
 
@@ -31,21 +30,40 @@ bool RingMenu::init()
   return true;
 }
 
-Menu *RingMenu::run()
+bool RingMenu::run()
+{
+  // if there is already a sub-menu open, run that
+  if (m_pCurMenu) {
+    // run just that menu
+    return runCurMenu();
+  }
+  // otherwise just handle the filling logic
+  return runRingFill();
+}
+
+bool RingMenu::runRingFill()
 {
   // if the button was released this tick and the ringmenu was open 
   // then close the ringmenu and return the current menu selection
   if (g_pButton->onRelease() && m_isOpen) {
-    // the menu is no longer open
-    m_isOpen = false;
     DEBUG("Released on ringmenu %d", m_selection);
-    // return the menu that was selected
-    return m_menuList[m_selection].menu;
+    // update the current open menu
+    m_pCurMenu = m_menuList[m_selection].menu;
+    // initialiaze the new menu with the current mode
+    if (!m_pCurMenu->init(Settings::curMode())) {
+      // if the menu failed to init, don't open it
+      m_pCurMenu = nullptr;
+      return false;
+    }
+    // clear all the leds
+    Leds::clearAll();
+    // continue displaying the menu
+    return true;
   }
   // make sure the button is pressed and held for at least one second
   if (!g_pButton->isPressed() || g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD) {
     // no menu selected yet
-    return nullptr;
+    return false;
   }
   // if the ring menu just opened this tick
   if (!m_isOpen) {
@@ -56,7 +74,7 @@ Menu *RingMenu::run()
     DEBUG("Opened RingMenu");
   }
   // clear the leds so it always fills instead of replacing
-  g_pLedControl->clearAll();
+  Leds::clearAll();
   // calculate how long into the current menu the button was held
   // this will be a value between 0 and LED_COUNT based on the current
   // menu selection and hold time
@@ -68,13 +86,41 @@ Menu *RingMenu::run()
   //Debug("Led: %d", (uint32_t)led);
 #ifdef FILL_FROM_THUMB
   // turn on leds from led to LED_LAST because the menu is filling downward
-  g_pLedControl->setRange(led, LED_LAST, m_menuList[m_selection].color);
+  Leds::setRange(led, LED_LAST, m_menuList[m_selection].color);
 #else
   // turn on leds LED_FIRST through led with the selected menu's given color
-  g_pLedControl->setRange(LED_FIRST, led, m_menuList[m_selection].color);
+  Leds::setRange(LED_FIRST, led, m_menuList[m_selection].color);
 #endif
-  // no menu selected yet
-  return nullptr;
+  // continue in the menu
+  return true;
+}
+
+bool RingMenu::runCurMenu()
+{
+  // first run the click handlers for the menu
+  if (g_pButton->onShortClick()) {
+    m_pCurMenu->onShortClick();
+  }
+  if (g_pButton->onLongClick()) {
+    m_pCurMenu->onLongClick();
+  }
+
+  // if the menu run handler returns false that signals the 
+  // menu was closed by the user leaving the menu
+  if (!m_pCurMenu->run()) {
+    // when a menu closes save all settings
+    if (!Settings::save()) {
+      // error saving
+    }
+    // clear the current menu pointer
+    m_pCurMenu = nullptr;
+    // the ring menu is no longer open either
+    m_isOpen = false;
+    // return false to let the mode play
+    return false;
+  }
+  // continue in the opened menu
+  return true;
 }
 
 // helper to calculate the relative hold time for the current menu
@@ -86,12 +132,12 @@ LedPos RingMenu::calcLedPos()
   }
   // this allows the menu to wrap around to beginning after the end
   // if the user never lets go of the button
-  int holdDuration = relativeHoldDur % (MENU_DURATION * numMenus());
+  uint32_t holdDuration = relativeHoldDur % (MENU_DURATION * numMenus());
   // the time when the current menu starts trigger threshold + duration per menu
-  int menuStartTime = MENU_DURATION * m_selection;
+  uint32_t menuStartTime = MENU_DURATION * m_selection;
   if (holdDuration >= menuStartTime) {
     // the amount of time held in the current menu, should be 0 to MENU_DURATION ticks
-    int holdTime = (holdDuration - menuStartTime);
+    uint32_t holdTime = (holdDuration - menuStartTime);
     // if the holdTime is within MENU_DURATION then it's valid
     if (holdTime < MENU_DURATION) {
 #ifdef FILL_FROM_THUMB

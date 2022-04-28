@@ -6,27 +6,14 @@
 #include "Mode.h"
 #include "Log.h"
 
-Settings *g_pSettings = nullptr;
-
-Settings::Settings() :
-  m_brightness(255),
-  m_curMode(0),
-  m_numModes(0),
-  m_modeList()
-{
-}
-
-Settings::~Settings()
-{
-  g_pSettings = nullptr;
-}
+// static members
+uint32_t Settings::m_brightness = DEFAULT_BRIGHTNESS;
+uint32_t Settings::m_curMode = 0;
+uint32_t Settings::m_numModes = 0;
+Mode *Settings::m_modeList[NUM_MODES] = { nullptr };
 
 bool Settings::init()
 {
-  if (g_pSettings) {
-    return false;
-  }
-
   // try to load the saved settings
   if (!load()) {
     // if nothing can be loaded, try to set defaults
@@ -39,8 +26,6 @@ bool Settings::init()
       // error
     }
   }
-
-  g_pSettings = this;
   return true;
 }
 

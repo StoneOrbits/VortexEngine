@@ -20,20 +20,24 @@ public:
 
   bool init();
 
-  // Run the ringmenu and fill colors sequentially till the user releases 
-  // on a selection. The returned Menu is the selection, or NULL if the user
-  // hasn't selected anything yet.
-  Menu *run();
-
+  // Run the ringmenu and any menus it contains
+  // returns true if the menu remains open, false if closed
+  bool run();
+  
   // whether the ring menu is open
   bool isOpen() { return m_isOpen; }
 
   // the number of menus in the ring menu
   uint32_t numMenus() const { return (sizeof(m_menuList) / sizeof(m_menuList[0])); }
 
+  // the current menu that is open
+  Menu *curMenu() const { return m_pCurMenu; }
+
 private:
-  // helper to register a menu object with a color for the ringmenu
-  void registerMenu(Menu *menu, RGBColor col);
+  // run the currently open menu
+  bool runCurMenu();
+  // run the ring filling logic
+  bool runRingFill();
   // helper to calculate the relative hold time for the current menu
   LedPos calcLedPos();
 
@@ -75,6 +79,9 @@ private:
 
   // whether the ring menu is open
   bool m_isOpen;
+
+  // the current sub menu that is open
+  Menu *m_pCurMenu;
 };
 
 #endif

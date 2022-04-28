@@ -1,19 +1,17 @@
 #include "Button.h"
 
-#include "TimeControl.h"
-
 #include <Arduino.h>
 
+#include "TimeControl.h"
+#include "Timings.h"
 #include "Log.h"
 
-// if click held for <= this value then the click will be registered as 
-// a 'short click' otherwise if held longer than this threshold it will
-// be registered as a 'long click'
-//
-// The long hold is detected by just checking the holdDuration()
-#define SHORT_CLICK_THRESHOLD MS_TO_TICKS(250)
-
-// should only be one button
+// Since there is only one button I am just going to expose a global pointer to 
+// access it, instead of making the Button class static in case a second button 
+// is added. This makes it easier to access the button from other places while 
+// still allowing for a second instance to be added.  I wish there was a more 
+// elegant way to make the button accessible but not global.  
+// This will simply point at VortexGloveset::m_button. 
 Button *g_pButton = nullptr;
 
 Button::Button() :
@@ -33,16 +31,10 @@ Button::Button() :
 
 Button::~Button()
 {
-  g_pButton = nullptr;
 }
 
 bool Button::init(int pin)
 {
-  if (g_pButton) {
-    // programmer error, only one button
-    return false;
-  }
-  g_pButton = this;
   m_pinNum = pin;
   pinMode(m_pinNum, INPUT_PULLUP);
   return true;
@@ -67,11 +59,11 @@ void Button::check()
     // update the press/release times and newpress/newrelease members
     if (m_isPressed) {
       // the button was just pressed
-      m_pressTime = g_pTimeControl->getCurtime();
+      m_pressTime = Time::getCurtime();
       m_newPress = true;
     } else {
       // the button was just released
-      m_releaseTime = g_pTimeControl->getCurtime();
+      m_releaseTime = Time::getCurtime();
       m_newRelease = true;
     }
   }
@@ -79,13 +71,13 @@ void Button::check()
   // calculate new hold/release durations if currently held/released
   if (m_isPressed) {
     // update the hold duration as long as the button is pressed
-    if (g_pTimeControl->getCurtime() >= m_pressTime) {
-      m_holdDuration = g_pTimeControl->getCurtime() - m_pressTime;
+    if (Time::getCurtime() >= m_pressTime) {
+      m_holdDuration = (uint32_t)(Time::getCurtime() - m_pressTime);
     }
   } else {
     // update the release duration as long as the button is released
-    if (g_pTimeControl->getCurtime() >= m_releaseTime) {
-      m_releaseDuration = g_pTimeControl->getCurtime() - m_releaseTime;
+    if (Time::getCurtime() >= m_releaseTime) {
+      m_releaseDuration = (uint32_t)(Time::getCurtime() - m_releaseTime);
     }
   }
 

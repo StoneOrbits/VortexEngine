@@ -54,7 +54,7 @@ void PatternSelect::showListSelection()
   // TODO: how to lists?
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // hue split into 4 quadrants of 90
-    g_pLedControl->setFinger(f, HSVColor(f * 90, 255, 255));
+    Leds::setFinger(f, HSVColor(f * 90, 255, 255));
   }
 }
 

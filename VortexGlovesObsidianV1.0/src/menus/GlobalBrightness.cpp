@@ -17,7 +17,7 @@ bool GlobalBrightness::init(Mode *curMode)
   }
   // would be nice if there was a more elegant way to do this
   for (uint32_t i = 0; i < 4; ++i) {
-    if (m_brightnessOptions[i] == g_pSettings->getBrightness()) {
+    if (m_brightnessOptions[i] == Settings::getBrightness()) {
       // make sure the default selection matches cur value
       m_curSelection = (Finger)i;
     }
@@ -37,7 +37,7 @@ bool GlobalBrightness::run()
 
   // display brightnesses on each finger
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
-    g_pLedControl->setFinger(f, HSVColor(0, 0, m_brightnessOptions[f]));
+    Leds::setFinger(f, HSVColor(0, 0, m_brightnessOptions[f]));
   }
 
   // blink the current selection
@@ -56,7 +56,7 @@ void GlobalBrightness::onShortClick()
 void GlobalBrightness::onLongClick()
 {
   // set the global brightness
-  g_pSettings->setBrightness(m_brightnessOptions[m_curSelection]);
+  Settings::setBrightness(m_brightnessOptions[m_curSelection]);
   // done here
   leaveMenu();
 }
