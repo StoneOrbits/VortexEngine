@@ -2,16 +2,14 @@
 
 #include "src/VortexGloveset.h"
 
-VortexGloveset gloveset;
-
 void setup()
 {
-  if (!gloveset.init()) {
+  if (!VortexGloveset::init()) {
     // uhoh
   }
 }
 
 void loop()
 {
-  gloveset.tick();
+  VortexGloveset::tick();
 }
