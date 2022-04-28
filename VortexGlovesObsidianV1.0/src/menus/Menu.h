@@ -15,7 +15,7 @@ public:
   virtual ~Menu();
 
   // optional init function can be overridden
-  virtual bool init(Mode *curMode);
+  virtual bool init();
 
   // when the menu runs it will have access to time, the button and led control
   virtual bool run() = 0;

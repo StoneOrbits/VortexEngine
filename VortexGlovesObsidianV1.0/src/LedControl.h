@@ -9,6 +9,9 @@
 #include "ColorTypes.h"
 #include "LedConfig.h"
 
+// the starting default brightness
+#define DEFAULT_BRIGHTNESS 255
+
 class Leds
 {
   // private unimplemented constructor
@@ -52,6 +55,10 @@ public:
   static void blinkFinger(Finger finger, uint32_t offMs = 250, RGBColor col = RGB_OFF);
   static void blinkFingers(Finger first, Finger last, uint32_t offMs = 250, RGBColor col = RGB_OFF);
 
+  // global brightness
+  static uint32_t getBrightness() { return m_brightness; }
+  static void setBrightness(uint32_t brightness) { m_brightness = brightness; }
+
   // actually update the LEDs and show the changes
   static void update();
 
@@ -59,6 +66,9 @@ private:
   static void clearOnboardLED();
   static void blinkIndexInternal(LedPos target, RGBColor col);
   static void blinkRangeInternal(LedPos first, LedPos last, RGBColor col);
+
+  // the global brightness
+  static uint32_t m_brightness;
 
   // array of led color values
   static RGBColor m_ledColors[LED_COUNT];

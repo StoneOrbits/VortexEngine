@@ -10,7 +10,7 @@ class ColorSelect : public Menu
 public:
   ColorSelect();
 
-  bool init(Mode *curMode);
+  bool init();
 
   bool run();
 

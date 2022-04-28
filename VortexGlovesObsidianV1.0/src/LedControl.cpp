@@ -4,7 +4,7 @@
 #include <Adafruit_DotStar.h>
 
 #include "TimeControl.h"
-#include "Settings.h"
+#include "Modes.h"
 
 #define LED_DATA_PIN  4
 
@@ -15,12 +15,13 @@
 RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 // the onboard LED on the adafruit board
 Adafruit_DotStar Leds::m_onboardLED(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR);
+// global brightness
+uint32_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 
 bool Leds::init()
 {
   // setup leds on data pin 4
   FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>((CRGB *)m_ledColors, LED_COUNT);
-  FastLED.setBrightness(Settings::getBrightness());
   // clear the onboard led so it displays nothing
   clearOnboardLED();
   return true;
@@ -122,5 +123,5 @@ void Leds::blinkFingers(Finger first, Finger last, uint32_t offMs, RGBColor col)
 
 void Leds::update()
 {
-  FastLED.show(Settings::getBrightness());
+  FastLED.show(m_brightness);
 }

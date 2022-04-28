@@ -10,7 +10,7 @@ class Randomizer : public Menu
 public:
   Randomizer();
 
-  bool init(Mode *curMode);
+  bool init();
 
   bool run();
 

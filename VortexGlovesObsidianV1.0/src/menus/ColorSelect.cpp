@@ -24,13 +24,13 @@ ColorSelect::ColorSelect() :
 {
 }
 
-bool ColorSelect::init(Mode *curMode)
+bool ColorSelect::init()
 {
-  if (!Menu::init(curMode)) {
+  if (!Menu::init()) {
     return false;
   }
   // copy the colorset from the current mode
-  m_colorset = *curMode->getColorset();
+  m_colorset = *m_pCurMode->getColorset();
   DEBUG("Entered color select");
   return true;
 }

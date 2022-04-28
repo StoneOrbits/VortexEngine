@@ -2,7 +2,7 @@
 
 #include "../TimeControl.h"
 #include "../LedControl.h"
-#include "../Settings.h"
+#include "../Modes.h"
 
 #include "../Log.h"
 
@@ -12,9 +12,9 @@ FactoryReset::FactoryReset() :
 {
 }
 
-bool FactoryReset::init(Mode *curMode)
+bool FactoryReset::init()
 {
-  if (!Menu::init(curMode)) {
+  if (!Menu::init()) {
     return false;
   }
   // reset this just in case
@@ -56,7 +56,7 @@ void FactoryReset::onLongClick()
 {
   if (m_confirm) {
     // perform the actual reset to default
-    Settings::setDefaults();
+    Modes::setDefaults();
     DEBUG("Restoring factory settings");
   } else {
     DEBUG("Exiting factory reset");

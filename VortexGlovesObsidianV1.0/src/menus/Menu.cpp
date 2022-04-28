@@ -4,6 +4,7 @@
 #include "../LedControl.h"
 #include "../Timings.h"
 #include "../Button.h"
+#include "../Modes.h"
 #include "../Log.h"
 
 Menu::Menu() :
@@ -17,10 +18,10 @@ Menu::~Menu()
 {
 }
 
-bool Menu::init(Mode *curMode)
+bool Menu::init()
 {
   // menu is initialized before being run
-  m_pCurMode = curMode;
+  m_pCurMode = Modes::curMode();
   // reset the current selection
   m_curSelection = FINGER_FIRST;
   // just in case

@@ -8,7 +8,7 @@ class FactoryReset : public Menu
 public:
   FactoryReset();
 
-  bool init(Mode *curMode);
+  bool init();
 
   bool run();
 

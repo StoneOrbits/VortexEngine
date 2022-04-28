@@ -8,18 +8,18 @@ class Mode;
 // the maximum number of modes that can be stored
 #define NUM_MODES     16
 
-// the starting default brightness
-#define DEFAULT_BRIGHTNESS 255
-
-class Settings
+class Modes
 {
   // private unimplemented constructor
-  Settings();
+  Modes();
 
 public:
   // opting for static class here because there should only ever be one
-  // Settings control object and I don't like singletons
+  // Modes control object and I don't like singletons
   static bool init();
+
+  // play the current mode
+  static void play();
 
   // settings save/load
   static bool load();
@@ -27,10 +27,6 @@ public:
 
   // set default settings (must save after)
   static bool setDefaults();
-
-  // global brightness
-  static uint32_t getBrightness() { return m_brightness; }
-  static void setBrightness(uint32_t brightness) { m_brightness = brightness; }
 
   // import a mode and add it to the mode list
   static bool addMode(Mode *mode);
@@ -40,7 +36,7 @@ public:
 
   // get the current mode
   static Mode *curMode();
-  // iterate to next mode and get it
+  // iterate to next mode and return it
   static Mode *nextMode();
 
 private:

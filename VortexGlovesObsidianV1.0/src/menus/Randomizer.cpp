@@ -2,8 +2,8 @@
 
 #include "../ModeBuilder.h"
 #include "../LedControl.h"
-#include "../Settings.h"
 #include "../Button.h"
+#include "../Modes.h"
 #include "../Mode.h"
 
 #include "../Log.h"
@@ -14,9 +14,9 @@ Randomizer::Randomizer() :
 {
 }
 
-bool Randomizer::init(Mode *curMode)
+bool Randomizer::init()
 {
-  if (!Menu::init(curMode)) {
+  if (!Menu::init()) {
     return false;
   }
   // re-roll the randomization
@@ -54,7 +54,7 @@ void Randomizer::onShortClick()
 void Randomizer::onLongClick()
 {
   // replace the current mode with randomized one
-  if (!Settings::setCurMode(m_pRandomizedMode)) {
+  if (!Modes::setCurMode(m_pRandomizedMode)) {
     // error
   }
   m_pRandomizedMode = nullptr;

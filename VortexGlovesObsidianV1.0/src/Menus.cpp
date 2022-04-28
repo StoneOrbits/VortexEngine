@@ -3,7 +3,7 @@
 #include "VortexGloveset.h"
 #include "TimeControl.h"
 #include "LedControl.h"
-#include "Settings.h"
+#include "Modes.h"
 #include "Timings.h"
 #include "Button.h"
 
@@ -38,6 +38,7 @@ Menu *Menus::m_pCurMenu = nullptr;
 
 bool Menus::init()
 {
+  // individual menus are initialized before they run
   return true;
 }
 
@@ -72,7 +73,7 @@ bool Menus::runRingFill()
     // update the current open menu
     m_pCurMenu = m_menuList[m_selection].menu;
     // initialiaze the new menu with the current mode
-    if (!m_pCurMenu->init(Settings::curMode())) {
+    if (!m_pCurMenu->init()) {
       // if the menu failed to init, don't open it
       m_pCurMenu = nullptr;
       return false;
@@ -131,7 +132,7 @@ bool Menus::runCurMenu()
   // menu was closed by the user leaving the menu
   if (!m_pCurMenu->run()) {
     // when a menu closes save all settings
-    if (!Settings::save()) {
+    if (!Modes::save()) {
       // error saving
     }
     // clear the current menu pointer

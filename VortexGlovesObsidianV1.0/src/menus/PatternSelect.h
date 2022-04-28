@@ -12,7 +12,7 @@ class PatternSelect : public Menu
 public:
   PatternSelect();
 
-  bool init(Mode *curMode);
+  bool init();
 
   bool run();
 

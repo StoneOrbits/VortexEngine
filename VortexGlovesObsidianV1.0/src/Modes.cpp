@@ -1,18 +1,19 @@
-#include "Settings.h"
+#include "Modes.h"
 
 #include <Arduino.h>
 
 #include "ModeBuilder.h"
+#include "LedControl.h"
+#include "Buttons.h"
 #include "Mode.h"
 #include "Log.h"
 
 // static members
-uint32_t Settings::m_brightness = DEFAULT_BRIGHTNESS;
-uint32_t Settings::m_curMode = 0;
-uint32_t Settings::m_numModes = 0;
-Mode *Settings::m_modeList[NUM_MODES] = { nullptr };
+uint32_t Modes::m_curMode = 0;
+uint32_t Modes::m_numModes = 0;
+Mode *Modes::m_modeList[NUM_MODES] = { nullptr };
 
-bool Settings::init()
+bool Modes::init()
 {
   // try to load the saved settings
   if (!load()) {
@@ -29,13 +30,27 @@ bool Settings::init()
   return true;
 }
 
-bool Settings::load()
+void Modes::play()
+{
+  // shortclick cycles to the next mode
+  if (g_pButton->onShortClick()) {
+    nextMode();
+  }
+  // empty mode list
+  if (!m_numModes) {
+    return;
+  }
+  // play the current mode
+  m_modeList[m_curMode]->play();
+}
+
+bool Modes::load()
 {
   // default can't load anything
   return false;
 }
 
-bool Settings::save()
+bool Modes::save()
 {
   // legacy data format:
   //  4 num
@@ -69,7 +84,7 @@ bool Settings::save()
   return true;
 }
 
-bool Settings::setDefaults()
+bool Modes::setDefaults()
 {
   for (PatternID pattern = PATTERN_FIRST; pattern < PATTERN_COUNT; ++pattern) {
     // initialize each pattern with an rgb strobe
@@ -81,7 +96,7 @@ bool Settings::setDefaults()
   return true;
 }
 
-bool Settings::addMode(Mode *mode)
+bool Modes::addMode(Mode *mode)
 {
   // max modes
   if (m_numModes >= NUM_MODES) {
@@ -92,7 +107,7 @@ bool Settings::addMode(Mode *mode)
 }
 
 // replace current mode with new one, destroying existing one
-bool Settings::setCurMode(Mode *mode)
+bool Modes::setCurMode(Mode *mode)
 {
   if (!mode) {
     return false;
@@ -106,7 +121,7 @@ bool Settings::setCurMode(Mode *mode)
 }
 
 // the current mode
-Mode *Settings::curMode()
+Mode *Modes::curMode()
 {
   // empty mode list
   if (!m_numModes) {
@@ -117,11 +132,13 @@ Mode *Settings::curMode()
 }
 
 // iterate to next mode and return it
-Mode *Settings::nextMode()
+Mode *Modes::nextMode()
 {
   // iterate curmode forward 1 till num modes
   m_curMode = (m_curMode + 1) % m_numModes;
   DEBUG("Iterated to Next Mode: %d", m_curMode);
+  // clear the LEDs when switching modes
+  Leds::clearAll();
   // return the new current mode
   return curMode();
 }

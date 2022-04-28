@@ -8,7 +8,7 @@ class ModeSharing : public Menu
 public:
   ModeSharing();
 
-  bool init(Mode *curMode);
+  bool init();
 
   bool run();
 

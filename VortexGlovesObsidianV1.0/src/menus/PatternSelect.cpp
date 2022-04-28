@@ -15,13 +15,13 @@ PatternSelect::PatternSelect() :
 {
 }
 
-bool PatternSelect::init(Mode *curMode)
+bool PatternSelect::init()
 {
-  if (!Menu::init(curMode)) {
+  if (!Menu::init()) {
     return false;
   }
   // grab a copy of current colorset
-  m_colorset = *curMode->getColorset();
+  m_colorset = *m_pCurMode->getColorset();
   DEBUG("Entered pattern select");
   return true;
 }

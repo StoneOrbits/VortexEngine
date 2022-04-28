@@ -8,7 +8,7 @@ class GlobalBrightness : public Menu
 public:
   GlobalBrightness();
 
-  bool init(Mode *curMode);
+  bool init();
 
   bool run();
 

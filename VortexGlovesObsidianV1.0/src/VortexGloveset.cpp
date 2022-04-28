@@ -8,7 +8,7 @@
 #include "LedControl.h"
 #include "ColorTypes.h"
 #include "Colorset.h"
-#include "Settings.h"
+#include "Modes.h"
 #include "Buttons.h"
 #include "Menus.h"
 #include "Mode.h"
@@ -18,7 +18,8 @@
 bool VortexGloveset::init()
 {
   // initialize a random seed
-  // Always generate seed before creating button on digital pin 1(shared pin with analog 0)
+  // Always generate seed before creating button on 
+  // digital pin 1 (shared pin with analog 0)
   randomSeed(analogRead(0));
 
   if (!setupSerial()) {
@@ -28,30 +29,31 @@ bool VortexGloveset::init()
 
   // initialize the time controller
   if (!Time::init()) {
-    return false;
-  }
-
-  // initialize the settings
-  if (!Settings::init()) {
-    // error
+    DEBUG("Time failed to initialize");
     return false;
   }
 
   // setup led controller
   if (!Leds::init()) {
-    // error
+    DEBUG("Leds failed to initialize");
     return false;
   }
 
   // initialize the buttons
   if (!Buttons::init()) {
-    // error
+    DEBUG("Buttons failed to initialize");
     return false;
   }
 
   // initialize the menus
   if (!Menus::init()) {
-    // error
+    DEBUG("Menus failed to initialize");
+    return false;
+  }
+
+  // initialize the modes
+  if (!Modes::init()) {
+    DEBUG("Settings failed to initialize");
     return false;
   }
 
@@ -69,7 +71,7 @@ void VortexGloveset::tick()
   // if the menus don't need to run, or they run and return false
   if (!Menus::shouldRun() || !Menus::run()) {
     // then just play the mode
-    playMode();
+    Modes::play();
   }
 
   //checkSerial();
@@ -87,20 +89,4 @@ bool VortexGloveset::setupSerial()
   Serial.begin(9600);
   // may want to add debug logic in here for attaching to a test framework
   return true;
-}
-
-// run the current mode
-void VortexGloveset::playMode()
-{
-  // shortclick cycles to the next mode
-  if (g_pButton->onShortClick()) {
-    Settings::nextMode();
-    Leds::clearAll();
-  }
-
-  // just in case there's no modes
-  if (Settings::curMode()) {
-    // play the current mode
-    Settings::curMode()->play();
-  }
 }

@@ -7,9 +7,9 @@ ModeSharing::ModeSharing() :
 {
 }
 
-bool ModeSharing::init(Mode *curMode)
+bool ModeSharing::init()
 {
-  if (!Menu::init(curMode)) {
+  if (!Menu::init()) {
     return false;
   }
 
