@@ -50,8 +50,12 @@ bool VortexGloveset::init()
 
 void VortexGloveset::tick()
 {
+  DEBUGF("Tick start: %u", micros());
+
   // tick the current time counter forward
   Time::tickClock();
+
+  DEBUGF("Tick logic start: %u", micros());
 
   // poll the buttons for changes
   Buttons::check();
@@ -62,8 +66,12 @@ void VortexGloveset::tick()
     Modes::play();
   }
 
+  DEBUGF("Tick logic end: %u", micros());
+
   //checkSerial();
 
   // update the leds
   Leds::update();
+
+  DEBUGF("Tick end: %u", micros());
 }

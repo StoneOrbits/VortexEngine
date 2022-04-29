@@ -29,8 +29,6 @@ void Time::tickClock()
   // tick clock forward
   m_curTick++;
 
-  DEBUGF("End Tick %u", micros());
-
   // perform timestep
   uint32_t elapsed_us;
   uint32_t us;
@@ -44,14 +42,12 @@ void Time::tickClock()
       // otherwise calculate regular difference
       elapsed_us = (us - m_prevTime);
     }
-    DEBUGF("wait: %u", elapsed_us);
     // 1000us per ms, divided by tickrate gives
     // the number of microseconds per tick
   } while (elapsed_us < (1000000 / TICKRATE));
 
   // store current time
   m_prevTime = micros();
-  DEBUGF("Start Tick: %u", m_prevTime);
 }
 
 // get the current time with optional led position time offset
