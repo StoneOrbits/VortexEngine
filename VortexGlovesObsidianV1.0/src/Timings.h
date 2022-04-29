@@ -43,6 +43,8 @@
 // disable the setTickrate function and use a constant
 // tickrate instead. Use this for final builds when you
 // know the intended tickrate.
-//#define FIXED_TICKRATE
+#ifndef TEST_FRAMEWORK
+#define FIXED_TICKRATE
+#endif
 
 #endif
