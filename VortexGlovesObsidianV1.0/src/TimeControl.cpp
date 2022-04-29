@@ -51,7 +51,7 @@ void Time::tickClock()
 
   // store current time
   m_prevTime = micros();
-  DEBUGF("Start Tick: %u", elapsed_us);
+  DEBUGF("Start Tick: %u", m_prevtime);
 }
 
 // get the current time with optional led position time offset
