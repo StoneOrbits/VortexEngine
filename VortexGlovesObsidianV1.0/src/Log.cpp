@@ -1,6 +1,9 @@
 #include "Log.h"
 
 #include <stdarg.h>
+#include <stdio.h>
+
+#include <Arduino.h>
 
 #ifdef TEST_FRAMEWORK
 #include "TestFramework.h"
@@ -17,6 +20,7 @@ void DebugMsg(const char *file, const char *func, int line, const char *msg, ...
   snprintf(fmt, sizeof(fmt), "%s:%d %s(): %s", file, line, func, msg);
   char buf[2048] = {0};
   vsnprintf(buf, sizeof(buf), fmt, list);
+  Serial.println(buf);
 #endif
   va_end(list);
 }

@@ -54,13 +54,13 @@ void Button::check()
       m_pressTime = Time::getCurtime();
       m_newPress = true;
       uint32_t t = millis();
-      DEBUG("press ms: %us (%u ms)", t/1000, t);
+      DEBUGF("press ms: %us (%u ms)", t/1000, t);
     } else {
       // the button was just released
       m_releaseTime = Time::getCurtime();
       m_newRelease = true;
       uint32_t t = millis();
-      DEBUG("release ms: %us (%u ms)", t/1000, t);
+      DEBUGF("release ms: %us (%u ms)", t/1000, t);
     }
   }
 
@@ -86,7 +86,7 @@ void Button::check()
 
 #if 0
   // helpful for debugging
-  DEBUG("Button Info:\n\tm_buttonState: %d\n\tm_pressTime: %d\n\tm_releaseTime: %d\n\t"
+  DEBUGF("Button Info:\n\tm_buttonState: %d\n\tm_pressTime: %d\n\tm_releaseTime: %d\n\t"
     "m_holdDuration: %d\n\tm_releaseDuration: %d\n\tm_newPress: %d\n\t"
     "m_newRelease: %d\n\t" "m_isPressed: %d\n\tm_shortClick: %d\n\t"
     "m_longClick: %d\n",

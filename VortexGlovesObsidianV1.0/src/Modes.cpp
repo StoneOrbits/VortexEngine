@@ -134,7 +134,7 @@ Mode *Modes::nextMode()
 {
   // iterate curmode forward 1 till num modes
   m_curMode = (m_curMode + 1) % m_numModes;
-  DEBUG("Iterated to Next Mode: %d", m_curMode);
+  DEBUGF("Iterated to Next Mode: %d", m_curMode);
   // clear the LEDs when switching modes
   Leds::clearAll();
   // return the new current mode

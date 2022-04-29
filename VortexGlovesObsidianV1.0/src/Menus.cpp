@@ -63,7 +63,7 @@ bool Menus::runRingFill()
   // if the button was released this tick and the ringmenu was open 
   // then close the ringmenu and return the current menu selection
   if (g_pButton->onRelease() && m_isOpen) {
-    DEBUG("Released on ringmenu %d", m_selection);
+    DEBUGF("Released on ringmenu %d", m_selection);
     // update the current open menu
     m_pCurMenu = m_menuList[m_selection].menu;
     // initialiaze the new menu with the current mode
@@ -110,7 +110,7 @@ bool Menus::runRingFill()
 #endif
   if (led == LED_FIRST && m_selection == 0) {
     uint32_t t = millis();
-    DEBUG("menu fill: %us (%u ms)", t / 1000, t);
+    DEBUGF("menu fill: %us (%u ms)", t / 1000, t);
   }
   // continue in the menu
   return true;

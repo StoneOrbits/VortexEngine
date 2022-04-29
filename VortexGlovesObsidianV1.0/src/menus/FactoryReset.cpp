@@ -48,7 +48,7 @@ bool FactoryReset::run()
 void FactoryReset::onShortClick()
 {
   m_confirm = !m_confirm;
-  DEBUG("Factory reset confirm = %s", m_confirm ? "Yes" : "No");
+  DEBUGF("Factory reset confirm = %s", m_confirm ? "Yes" : "No");
 }
 
 void FactoryReset::onLongClick()
