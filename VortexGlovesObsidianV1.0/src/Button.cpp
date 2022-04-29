@@ -53,10 +53,14 @@ void Button::check()
       // the button was just pressed
       m_pressTime = Time::getCurtime();
       m_newPress = true;
+      uint32_t t = millis();
+      DEBUG("press ms: %us (%u ms)", t/1000, t);
     } else {
       // the button was just released
       m_releaseTime = Time::getCurtime();
       m_newRelease = true;
+      uint32_t t = millis();
+      DEBUG("release ms: %us (%u ms)", t/1000, t);
     }
   }
 

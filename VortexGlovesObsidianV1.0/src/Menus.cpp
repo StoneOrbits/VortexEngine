@@ -108,6 +108,10 @@ bool Menus::runRingFill()
   // turn on leds LED_FIRST through led with the selected menu's given color
   Leds::setRange(LED_FIRST, led, m_menuList[m_selection].color);
 #endif
+  if (led == LED_FIRST && m_selection == 0) {
+    uint32_t t = millis();
+    DEBUG("menu fill: %us (%u ms)", t / 1000, t);
+  }
   // continue in the menu
   return true;
 }
