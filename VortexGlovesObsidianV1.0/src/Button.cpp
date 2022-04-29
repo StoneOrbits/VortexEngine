@@ -32,6 +32,7 @@ bool Button::init(int pin)
   return true;
 }
 
+uint32_t pressTime = 0;
 void Button::check()
 {
   // reset the new press/release members this tick
@@ -53,14 +54,14 @@ void Button::check()
       // the button was just pressed
       m_pressTime = Time::getCurtime();
       m_newPress = true;
-      uint32_t t = millis();
-      DEBUGF("press ms: %us (%u ms)", t/1000, t);
+      pressTime = millis();
+      DEBUGF("press time: %u ms", pressTime);
     } else {
       // the button was just released
       m_releaseTime = Time::getCurtime();
       m_newRelease = true;
       uint32_t t = millis();
-      DEBUGF("release ms: %us (%u ms)", t/1000, t);
+      DEBUGF("release time: %u ms (diff: %us (%ums)", t/1000, t);
     }
   }
 

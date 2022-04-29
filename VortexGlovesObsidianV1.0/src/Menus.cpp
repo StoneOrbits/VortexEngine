@@ -58,6 +58,9 @@ bool Menus::run()
   return runRingFill();
 }
 
+// TODO: removeme
+extern uint32_t pressTime;
+
 bool Menus::runRingFill()
 {
   // if the button was released this tick and the ringmenu was open 
@@ -110,7 +113,7 @@ bool Menus::runRingFill()
 #endif
   if (led == LED_FIRST && m_selection == 0) {
     uint32_t t = millis();
-    DEBUGF("menu fill: %us (%u ms)", t / 1000, t);
+    DEBUGF("menu fill: %u ms (%.2fs since press)", t, (t - pressTime) / 1000.0f);
   }
   // continue in the menu
   return true;
