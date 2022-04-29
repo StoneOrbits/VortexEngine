@@ -9,6 +9,7 @@
  *   - Pattern select menu
  *   - Smart randomizer
  *   - Implement missing patterns
+ *   - Demo and demo speed?
  *   - Debug/error logging
  */
 

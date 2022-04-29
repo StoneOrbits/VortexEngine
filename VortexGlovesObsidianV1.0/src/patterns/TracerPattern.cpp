@@ -3,7 +3,6 @@
 #include "../TimeControl.h"
 #include "../LedControl.h"
 #include "../Colorset.h"
-
 #include "../Log.h"
 
 TracerPattern::TracerPattern(uint32_t tracerLength, uint32_t dotLength) :
@@ -11,6 +10,10 @@ TracerPattern::TracerPattern(uint32_t tracerLength, uint32_t dotLength) :
   m_totalDuration(tracerLength + dotLength),
   m_tracerCounter(0),
   m_state(false)
+{
+}
+
+TracerPattern::~TracerPattern()
 {
 }
 

@@ -21,30 +21,37 @@ public:
 private:
   // internal routines for the color select
   void showSlotSelection();
-  void showQuadSelection();
-  void showHueSelection();
-  void showSatSelection();
-  void showValSelection();
+  void showHueSelection(uint32_t divisions);
+  void showSatSelection(uint32_t divisions);
+  void showValSelection(uint32_t divisions);
 
   // Generate hue/sat/val values based on selection rules
-  uint32_t makeQuad(uint32_t quad);
-  uint32_t makeHue(uint32_t quad, uint32_t selection);
-  uint32_t makeSat(uint32_t selection);
-  uint32_t makeVal(uint32_t selection);
+  uint32_t genValue(uint32_t start, uint32_t divisions, uint32_t amount);
 
   // private enumeration for internal state of color selection
   enum ColorSelectState : uint32_t
   {
     // currently picking the color slot to change
     STATE_PICK_SLOT,
-    // currently picking the quadrant of color
-    STATE_PICK_QUAD,
-    // picking a hue within the quadrant
-    STATE_PICK_HUE,
+
+    // first pick a quadrant 0, 90, 180, 240
+    STATE_PICK_HUE1,
+
+    // next pick a quadrant within that quadrant 0, 25, 50, 70 
+    STATE_PICK_HUE2,
+    
+    // then pick a refined hue 0 5 10 20
+    STATE_PICK_HUE3,
+
     // picking a saturation for the color
-    STATE_PICK_SAT,
+    STATE_PICK_SAT1,
+    
+    STATE_PICK_SAT2,
+
     // picking a value for the color
-    STATE_PICK_VAL,
+    STATE_PICK_VAL1,
+    
+    STATE_PICK_VAL2,
   };
 
   // the current state of the color selection menu

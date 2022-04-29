@@ -35,10 +35,12 @@ Pattern *PatternBuilder::generate(PatternID id)
     return new BasicPattern(1, 3);
   case PATTERN_STROBIE:
     return new BasicPattern(3, 22);
+#if 0
   case PATTERN_RIBBON:
     return new BasicPattern(20);
   case PATTERN_MINIRIBBON:
     return new BasicPattern(3);
+#endif
   case PATTERN_TRACER:
     return new TracerPattern(20, 1);
   }

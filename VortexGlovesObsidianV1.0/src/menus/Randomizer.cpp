@@ -2,6 +2,7 @@
 
 #include "../ModeBuilder.h"
 #include "../LedControl.h"
+#include "../Timings.h"
 #include "../Button.h"
 #include "../Modes.h"
 #include "../Mode.h"
@@ -36,6 +37,10 @@ bool Randomizer::run()
 
   // display the randomized mode
   m_pRandomizedMode->play();
+
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD) {
+    Leds::setAll(RGB_GREEN);
+  }
 
   // return true to continue staying in randomizer menu
   return true;

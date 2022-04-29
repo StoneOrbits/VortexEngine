@@ -3,7 +3,6 @@
 #include "../TimeControl.h"
 #include "../LedControl.h"
 #include "../Colorset.h"
-
 #include "../Log.h"
 
 BasicPattern::BasicPattern(uint32_t onDuration, uint32_t offDuration) :

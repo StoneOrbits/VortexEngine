@@ -25,7 +25,7 @@ Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
 }
 
 Colorset::Colorset(const Colorset &other) :
-  m_curIndex(0),
+  m_curIndex(UINT32_MAX),
   m_numColors(other.m_numColors)
 {
   for (int i = 0; i < NUM_COLOR_SLOTS; ++i) {
@@ -85,16 +85,18 @@ void Colorset::set(uint32_t index, HSVColor col)
   }
   // warning! converstion from hsv to rgb here
   m_palette[index] = col;
-  m_numColors++;
+  if (index == m_numColors) {
+    m_numColors++;
+  }
 }
 
 RGBColor Colorset::cur()
 {
-  if (m_curIndex == UINT32_MAX) {
-    m_curIndex = 0;
-  }
   if (m_curIndex >= m_numColors) {
     return RGBColor(0, 0, 0);
+  }
+  if (m_curIndex == UINT32_MAX) {
+    return m_palette[0];
   }
   return m_palette[m_curIndex];
 }
@@ -117,4 +119,9 @@ void Colorset::serialize() const
 
 void Colorset::unserialize()
 {
+}
+
+void Colorset::reset()
+{
+  m_curIndex = UINT32_MAX;
 }

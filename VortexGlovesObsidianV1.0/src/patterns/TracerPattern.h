@@ -7,14 +7,12 @@ class TracerPattern : public Pattern
 {
 public:
   TracerPattern(uint32_t tracerLength, uint32_t dotLength);
+  virtual ~TracerPattern();
 
-  // pure virtual must override the play function
-  void play(Colorset *colorset, LedPos pos);
+  virtual void play(Colorset *colorset, LedPos pos);
 
-  // must override the serialize routine to save the pattern
-  void serialize() const;
-  // must override unserialize to load patterns
-  void unserialize();
+  virtual void serialize() const;
+  virtual void unserialize();
 
 private:
 

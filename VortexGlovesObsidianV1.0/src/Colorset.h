@@ -48,8 +48,12 @@ public:
   void serialize() const;
   void unserialize();
 
+  // reset the colorset index counter
+  void reset();
+
 private:
-  // the current index
+  // the current index, starts at UINT32_MAX so that
+  // the very first call to getNext will iterate to 0
   uint32_t m_curIndex;
   // the actual number of colors in the set
   uint32_t m_numColors;

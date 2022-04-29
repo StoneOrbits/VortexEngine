@@ -21,4 +21,3 @@ void Pattern::serialize() const
 void Pattern::unserialize()
 {
 }
-

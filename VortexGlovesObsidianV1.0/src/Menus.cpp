@@ -40,7 +40,7 @@ const Menus::MenuEntry Menus::m_menuList[] = {
 
 bool Menus::init()
 {
-  // individual menus are initialized before they run
+  // sub-menus are initialized right before they run
   return true;
 }
 
@@ -82,11 +82,11 @@ bool Menus::runRingFill()
     // no menu selected yet
     return false;
   }
-  // if the ring menu just opened this tick
+  // if the menus just opened this tick
   if (!m_isOpen) {
     // reset the current selection just in case
     m_selection = 0;
-    // the ring menu is now open
+    // the menus are now open
     m_isOpen = true;
     DEBUG("Opened RingMenu");
   }
@@ -131,7 +131,7 @@ bool Menus::runCurMenu()
     }
     // clear the current menu pointer
     m_pCurMenu = nullptr;
-    // the ring menu is no longer open either
+    // the menus are no longer open either
     m_isOpen = false;
     // return false to let the modes play
     return false;
@@ -149,7 +149,7 @@ LedPos Menus::calcLedPos()
   }
   // this allows the menu to wrap around to beginning after the end
   // if the user never lets go of the button
-  uint32_t holdDuration = relativeHoldDur % (MENU_DURATION * numMenus());
+  uint32_t holdDuration = relativeHoldDur % (MENU_DURATION * NUM_MENUS);
   // the time when the current menu starts trigger threshold + duration per menu
   uint32_t menuStartTime = MENU_DURATION * m_selection;
   if (holdDuration >= menuStartTime) {
@@ -164,8 +164,8 @@ LedPos Menus::calcLedPos()
 #endif
     }
   }
-  // otherwise increment selection and wrap around at numMenus
-  m_selection = (m_selection + 1) % numMenus();
+  // otherwise increment selection and wrap around at num menus
+  m_selection = (m_selection + 1) % NUM_MENUS;
   // then re-calculate the holdTime it should be less than 10
   return calcLedPos();
 }

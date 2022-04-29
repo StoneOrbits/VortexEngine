@@ -192,3 +192,20 @@ bool Mode::changeAllColorsets(const Colorset *set)
   }
   return true;
 }
+
+void Mode::reset()
+{
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    // grab the entry for this led
+    LedEntry entry = m_ledEntries[pos];
+    if (!entry.pattern || !entry.colorset) {
+      // incomplete pattern/set or empty slot
+      continue;
+    }
+    // the pattern doesn't really need to reset because it's based
+    // on the curtime counter they will naturally sync. 
+    // But the colorsets have individual counters that need to reset
+    entry.colorset->reset();
+  }
+}
+

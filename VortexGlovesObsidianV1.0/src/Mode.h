@@ -59,6 +59,9 @@ public:
   bool changeAllPatterns(const Pattern *pat);
   bool changeAllColorsets(const Colorset *set);
 
+  // reset a mode back to it's initial state
+  void reset();
+
 private:
   // NOTE: Modes *ALLOW* for one pattern and one colorset on each LED
   //       but we are not intending to expose that functionality through

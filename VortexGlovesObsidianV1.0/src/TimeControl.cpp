@@ -30,10 +30,18 @@ void Time::tickClock()
   m_curTick++;
 
   // perform timestep
-  // wait till the elapsed frametime sufficient
-  uint64_t elapsed_us;
+  uint32_t elapsed_us;
+  uint32_t us;
   do {
-    elapsed_us = (micros() - m_prevTime);
+    us = micros();
+    // detect rollover of microsecond counter
+    if (us < m_prevTime) {
+      // calculate wrapped around difference
+      elapsed_us = ((UINT32_MAX - m_prevTime) + us);
+    } else {
+      // otherwise calculate regular difference
+      elapsed_us = (us - m_prevTime);
+    }
     // 1000us per ms, divided by tickrate gives
     // the number of microseconds per tick
   } while (elapsed_us < (1000000 / TICKRATE));

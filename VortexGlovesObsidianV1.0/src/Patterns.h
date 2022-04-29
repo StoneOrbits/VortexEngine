@@ -15,8 +15,9 @@ enum PatternID : uint32_t
   PATTERN_ULTRADOPS, // basicpattern 1 3
   PATTERN_STROBIE, // basicpattern 3 22
 
-  PATTERN_RIBBON, // basicpattern 20
-  PATTERN_MINIRIBBON, // basicpattern 3
+  // these two don't change... why
+  //PATTERN_RIBBON, // basicpattern 20
+  //PATTERN_MINIRIBBON, // basicpattern 3
 
   PATTERN_TRACER, // tracerpattern 20 1
 
