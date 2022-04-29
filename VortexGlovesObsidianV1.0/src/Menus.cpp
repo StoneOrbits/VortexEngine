@@ -113,7 +113,8 @@ bool Menus::runRingFill()
 #endif
   if (led == LED_FIRST && m_selection == 0) {
     uint32_t t = millis();
-    DEBUGF("menu fill: %u ms (%.2fs since press)", t, (t - pressTime) / 1000.0f);
+    float f = (float)((t - pressTime) / 1000.0f);
+    DEBUGF("menu fill: %u ms (%.2fs since press)", t, f);
   }
   // continue in the menu
   return true;
