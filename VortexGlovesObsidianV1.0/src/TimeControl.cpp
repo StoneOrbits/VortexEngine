@@ -29,8 +29,6 @@ void Time::tickClock()
   // tick clock forward
   m_curTick++;
 
-  return;
-
   // perform timestep
   uint32_t elapsed_us;
   uint32_t us;
