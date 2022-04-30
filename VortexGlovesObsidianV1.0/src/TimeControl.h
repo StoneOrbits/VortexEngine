@@ -48,6 +48,9 @@ private:
   // the last frame timestamp
   static uint64_t m_prevTime;
 
+  // the last frame timestamp
+  static uint64_t m_firstTime;
+
   // the number of ticks per second
   static uint32_t m_tickrate;
 

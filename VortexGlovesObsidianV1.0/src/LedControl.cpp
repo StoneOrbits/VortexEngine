@@ -22,6 +22,7 @@ bool Leds::init()
 {
   // setup leds on data pin 4
   FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>((CRGB *)m_ledColors, LED_COUNT);
+  // get screwed fastled, don't throttle us!
   FastLED.setMaxRefreshRate(0, false);
   // clear the onboard led so it displays nothing
   clearOnboardLED();

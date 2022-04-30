@@ -9,6 +9,7 @@
 // static members
 uint64_t Time::m_curTick = 0;
 uint64_t Time::m_prevTime = 0;
+uint64_t Time::m_firstTime = 0;
 uint32_t Time::m_tickrate = DEFAULT_TICKRATE;
 uint32_t Time::m_tickOffset = DEFAULT_TICK_OFFSET;
 
@@ -20,7 +21,7 @@ uint32_t Time::m_tickOffset = DEFAULT_TICK_OFFSET;
 
 bool Time::init()
 {
-  m_prevTime = micros();
+  m_firstTime = m_prevTime = micros();
   return true;
 }
 
@@ -37,7 +38,7 @@ void Time::tickClock()
     // detect rollover of microsecond counter
     if (us < m_prevTime) {
       // calculate wrapped around difference
-      elapsed_us = ((UINT32_MAX - m_prevTime) + us);
+      elapsed_us = (uint32_t)((UINT32_MAX - m_prevTime) + us);
     } else {
       // otherwise calculate regular difference
       elapsed_us = (us - m_prevTime);
