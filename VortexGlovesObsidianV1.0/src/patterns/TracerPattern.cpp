@@ -16,7 +16,7 @@ TracerPattern::~TracerPattern()
 {
 }
 
-void TracerPattern::init(LedPos pos)
+void TracerPattern::init(Colorset *colorset, LedPos pos)
 {
   // run base pattern init logic
   Pattern::init(pos);
@@ -26,7 +26,7 @@ void TracerPattern::init(LedPos pos)
 }
 
 // pure virtual must override the play function
-void TracerPattern::play(Colorset *colorset)
+void TracerPattern::play()
 {
   if (!colorset) {
     // programmer error

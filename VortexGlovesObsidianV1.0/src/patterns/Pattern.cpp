@@ -11,8 +11,9 @@ Pattern::~Pattern()
 {
 }
 
-void Pattern::init(LedPos pos)
+void Pattern::init(Colorset *set, LedPos pos)
 {
+  m_pColorset = set;
   m_ledPos = pos;
 }
 

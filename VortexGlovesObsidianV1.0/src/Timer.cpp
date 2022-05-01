@@ -69,8 +69,12 @@ AlarmID Timer::alarm(int32_t *numTriggers)
   // use modulus so that the timer alarms work in reverse too
   if ((timeDiff % alarmTime) == 0) {
     if (numTriggers) {
+      int32_t triggers = timeDiff / (int32_t)m_totalTime; 
+      // offset for the current trigger
+      if (triggers > 1) triggers--;
+      if (triggers < -1) triggers++;
       // the number of times the alarm would have triggered
-      *numTriggers = timeDiff / (int32_t)m_totalTime;
+      *numTriggers = triggers;
     }
     // move the start time forward
     m_startTime = now;

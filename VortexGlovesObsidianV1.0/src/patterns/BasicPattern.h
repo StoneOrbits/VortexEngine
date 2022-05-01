@@ -12,9 +12,9 @@ public:
   BasicPattern(uint32_t onDuration, uint32_t offDuration = 0);
   virtual ~BasicPattern();
 
-  virtual void init(LedPos pos);
+  virtual void init(Colorset *set, LedPos pos);
 
-  virtual void play(Colorset *colorset);
+  virtual void play();
 
   virtual void serialize() const;
   virtual void unserialize();

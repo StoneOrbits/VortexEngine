@@ -98,6 +98,13 @@ void Colorset::set(uint32_t index, HSVColor col)
 // skip some amount of colors
 void Colorset::skip(int32_t amount)
 {
+  // if the colorset hasn't started yet
+  if (m_curIndex == UINT32_MAX) {
+    m_curIndex = 0;
+  }
+  // max = 3
+  // m_curIndex = 2
+  // amount = -10
   m_curIndex = (m_curIndex + amount) % m_numColors;
 }
 

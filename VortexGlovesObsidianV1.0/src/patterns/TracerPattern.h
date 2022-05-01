@@ -10,9 +10,9 @@ public:
   TracerPattern(uint32_t tracerLength, uint32_t dotLength);
   virtual ~TracerPattern();
 
-  virtual void init(LedPos pos);
+  virtual void init(Colorset *set, LedPos pos);
 
-  virtual void play(Colorset *colorset);
+  virtual void play();
 
   virtual void serialize() const;
   virtual void unserialize();

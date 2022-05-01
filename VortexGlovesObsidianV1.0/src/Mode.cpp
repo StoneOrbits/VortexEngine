@@ -34,12 +34,9 @@ void Mode::init()
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     // grab the entry for this led
     LedEntry entry = m_ledEntries[pos];
-    // reset the colorset index counter and the pattern timers
     if (entry.pattern) {
-      entry.pattern->init(pos);
-    }
-    if (entry.colorset) {
-      entry.colorset->init();
+      // the pattern will init the colorset to initial position
+      entry.pattern->init(entry.colorset, pos);
     }
   }
 }

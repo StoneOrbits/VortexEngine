@@ -15,10 +15,10 @@ public:
   virtual ~Pattern();
 
   // init the pattern to initial state
-  virtual void init(LedPos pos);
+  virtual void init(Colorset *colorset, LedPos pos);
 
   // pure virtual must override the play function
-  virtual void play(Colorset *colorset) = 0;
+  virtual void play() = 0;
 
   // must override the serialize routine to save the pattern
   virtual void serialize() const;
@@ -31,6 +31,8 @@ public:
 protected:
   // the ID of this pattern (set by pattern builder)
   PatternID m_patternID;
+  // the collorset that is bound to this pattern
+  Colorset *m_pColorset;
   // the Led the pattern is running on
   LedPos m_ledPos;
 };
