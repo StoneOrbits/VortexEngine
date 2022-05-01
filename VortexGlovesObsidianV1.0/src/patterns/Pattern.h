@@ -14,8 +14,11 @@ public:
   Pattern();
   virtual ~Pattern();
 
+  // init the pattern to initial state
+  virtual void init(LedPos pos);
+
   // pure virtual must override the play function
-  virtual void play(Colorset *colorset, LedPos pos) = 0;
+  virtual void play(Colorset *colorset) = 0;
 
   // must override the serialize routine to save the pattern
   virtual void serialize() const;
@@ -25,9 +28,11 @@ public:
   // get/set the ID of the pattern (set by mode builder)
   PatternID getPatternID() const { return m_patternID; }
 
-private:
+protected:
   // the ID of this pattern (set by pattern builder)
   PatternID m_patternID;
+  // the Led the pattern is running on
+  LedPos m_ledPos;
 };
 
 #endif

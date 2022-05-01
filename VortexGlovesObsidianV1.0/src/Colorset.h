@@ -21,6 +21,9 @@ public:
   Colorset(const Colorset &other);
   void operator=(const Colorset &other);
 
+  // initialize the colorset
+  void init();
+
   // index operator to access color index
   RGBColor operator[](int index) const;
 
@@ -35,6 +38,9 @@ public:
   // set an hsv color in a slot (expensive)
   void set(uint32_t index, HSVColor col);
 
+  // skip some amount of colors
+  void skip(int32_t amount = 1);
+
   // get current color in cycle
   RGBColor cur();
 
@@ -47,9 +53,6 @@ public:
   // serialize the colorset to save/load
   void serialize() const;
   void unserialize();
-
-  // reset the colorset index counter
-  void reset();
 
 private:
   // the current index, starts at UINT32_MAX so that

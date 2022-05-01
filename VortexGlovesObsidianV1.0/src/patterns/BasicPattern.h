@@ -4,6 +4,7 @@
 #include <inttypes.h>
 
 #include "Pattern.h"
+#include "Timer.h"
 
 class BasicPattern : public Pattern
 {
@@ -11,25 +12,19 @@ public:
   BasicPattern(uint32_t onDuration, uint32_t offDuration = 0);
   virtual ~BasicPattern();
 
-  virtual void play(Colorset *colorset, LedPos pos);
+  virtual void init(LedPos pos);
+
+  virtual void play(Colorset *colorset);
 
   virtual void serialize() const;
   virtual void unserialize();
 
 private:
-  // =================================================
-  //  variables that are initialized with the pattern
-
-  // how long the light remains on
+  // the duration the light is on/off for
   uint32_t m_onDuration;
-  // the total time for a blink (on duration + off duration)
-  uint32_t m_blinkDuration;
-
-  // =================================================
-  //  variables that will change at runtime
-
-  // the state of the light (only two states)
-  bool m_state;
+  uint32_t m_offDuration;
+  // the timer for performing blinks
+  Timer m_blinkTimer;
 };
 
 #endif

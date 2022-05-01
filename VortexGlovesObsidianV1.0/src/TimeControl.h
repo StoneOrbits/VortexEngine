@@ -21,6 +21,9 @@ public:
   // get the current time with optional led position time offset
   static uint64_t getCurtime(LedPos pos = LED_FIRST);
 
+  // get the amount of ticks this led position runs out of sync
+  static uint32_t getTickOffset(LedPos pos);
+
   // Set tickrate in Ticks Per Second (TPS)
   // The valid range for this is 1 <= x <= 1000000
   //
@@ -32,6 +35,9 @@ public:
   //       framework to control the speed of patterns.
   //       See PatternBuilder.cpp for more info.
   static void setTickrate(uint32_t tickrate = 0);
+
+  // The current tickrate
+  static uint32_t getTickrate() { return m_tickrate; }
 
   // change the number of ticks each LED runs out of sync
   // 0 will run all of the lights in sync
@@ -48,7 +54,7 @@ private:
   // the last frame timestamp
   static uint64_t m_prevTime;
 
-  // the last frame timestamp
+  // the first timestamp
   static uint64_t m_firstTime;
 
   // the number of ticks per second

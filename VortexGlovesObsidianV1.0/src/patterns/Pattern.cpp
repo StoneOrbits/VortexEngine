@@ -11,6 +11,11 @@ Pattern::~Pattern()
 {
 }
 
+void Pattern::init(LedPos pos)
+{
+  m_ledPos = pos;
+}
+
 // must override the serialize routine to save the pattern
 void Pattern::serialize() const
 {

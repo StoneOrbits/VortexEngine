@@ -33,6 +33,11 @@ Colorset::Colorset(const Colorset &other) :
   }
 }
 
+void Colorset::init()
+{
+  m_curIndex = UINT32_MAX;
+}
+
 void Colorset::operator=(const Colorset &other)
 {
   m_curIndex = 0;
@@ -90,6 +95,12 @@ void Colorset::set(uint32_t index, HSVColor col)
   }
 }
 
+// skip some amount of colors
+void Colorset::skip(int32_t amount)
+{
+  m_curIndex = (m_curIndex + amount) % m_numColors;
+}
+
 RGBColor Colorset::cur()
 {
   if (m_curIndex >= m_numColors) {
@@ -119,9 +130,4 @@ void Colorset::serialize() const
 
 void Colorset::unserialize()
 {
-}
-
-void Colorset::reset()
-{
-  m_curIndex = UINT32_MAX;
 }

@@ -25,6 +25,10 @@ bool Modes::init()
       // error
     }
   }
+  // initialize the current mode
+  if (curMode()) {
+    curMode()->init();
+  }
   return true;
 }
 
@@ -137,6 +141,8 @@ Mode *Modes::nextMode()
   DEBUGF("Iterated to Next Mode: %d", m_curMode);
   // clear the LEDs when switching modes
   Leds::clearAll();
+  // initialize the new mode
+  curMode()->init();
   // return the new current mode
   return curMode();
 }

@@ -55,7 +55,13 @@ void Time::tickClock()
 uint64_t Time::getCurtime(LedPos pos)
 {
   // basic time offset of 33ms per led
-  return m_curTick + (pos * m_tickOffset);
+  return m_curTick + getTickOffset(pos);
+}
+
+// get the amount of ticks this led position runs out of sync
+uint32_t Time::getTickOffset(LedPos pos)
+{
+  return (pos * m_tickOffset);
 }
 
 // Set tickrate in Ticks Per Second (TPS)

@@ -25,6 +25,9 @@ public:
   Mode();
   ~Mode();
 
+  // initialize the mode to initial state
+  void init();
+
   // Play the mode
   void play();
 

@@ -2,6 +2,7 @@
 #define TRACER_PATTERN_H
 
 #include "Pattern.h"
+#include "Timer.h"
 
 class TracerPattern : public Pattern
 {
@@ -9,19 +10,21 @@ public:
   TracerPattern(uint32_t tracerLength, uint32_t dotLength);
   virtual ~TracerPattern();
 
-  virtual void play(Colorset *colorset, LedPos pos);
+  virtual void init(LedPos pos);
+
+  virtual void play(Colorset *colorset);
 
   virtual void serialize() const;
   virtual void unserialize();
 
 private:
-
+  // the duration the light is on/off for
   uint32_t m_tracerDuration;
-  uint32_t m_totalDuration;
-  uint32_t m_tracerCounter;
-
-  // the state of the light (only two states)
-  bool m_state;
+  uint32_t m_dotDuration;
+  // the timer for performing blinks
+  Timer m_blinkTimer;
+  // the counter for dot color
+  uint32_t m_dotColor;
 };
 
 #endif
