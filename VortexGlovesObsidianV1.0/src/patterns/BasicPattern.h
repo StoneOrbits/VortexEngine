@@ -4,7 +4,8 @@
 #include <inttypes.h>
 
 #include "Pattern.h"
-#include "Timer.h"
+
+#include "../Timer.h"
 
 class BasicPattern : public Pattern
 {

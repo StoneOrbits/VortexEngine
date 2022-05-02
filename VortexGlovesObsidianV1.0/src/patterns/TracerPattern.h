@@ -2,7 +2,8 @@
 #define TRACER_PATTERN_H
 
 #include "Pattern.h"
-#include "Timer.h"
+
+#include "../Timer.h"
 
 class TracerPattern : public Pattern
 {
