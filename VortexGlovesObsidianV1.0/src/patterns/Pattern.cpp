@@ -2,9 +2,9 @@
 
 #include <Arduino.h>
 
-#include "TimeControl.h"
-#include "Colorset.h"
-#include "Log.h"
+#include "../TimeControl.h"
+#include "../Colorset.h"
+#include "../Log.h"
 
 Pattern::Pattern() :
   m_patternID(PATTERN_STROBE),
