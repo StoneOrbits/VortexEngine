@@ -15,19 +15,21 @@ class Timer
 public:
   Timer();
   
-  // add alarms to the timer
-  bool addAlarm(uint32_t interval);
+  // add alarms to the timer and returns it's ID
+  // Alarm IDs start at 0 and count upward
+  AlarmID addAlarm(uint32_t interval);
 
-  // restart the timer and the current alarm
-  void restart(uint32_t offset = 0);
+  // restart the timer entirely
+  void restart();
 
-  // start the timer but don't touch current alarm
-  void start(uint32_t offset = 0);
+  // start the timer but don't change current alarm, this shifts 
+  // the timer startTime but does not reset it's alarm state
+  void start();
 
-  // reset all alarms in the timer to 0
+  // delete all alarms from the timer and reset
   void reset();
 
-  // Will return the alarmID every interval ticks offset from start time
+  // Will return the alarmID of the alarm that triggered
   // If no alarm hits it will return ALARM_NONE.
   // Outputs an integer indicating the number of times the alarm has triggered
   // since the start time or the last detection of that alarm ID

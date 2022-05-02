@@ -15,7 +15,7 @@ Timer::Timer() :
 {
 }
 
-bool Timer::addAlarm(uint32_t interval)
+AlarmID Timer::addAlarm(uint32_t interval)
 {
   void *temp = realloc(m_alarms, sizeof(uint32_t) * (m_numAlarms + 1));
   if (!temp) {
@@ -24,21 +24,20 @@ bool Timer::addAlarm(uint32_t interval)
   m_alarms = (uint32_t *)temp;
   m_alarms[m_numAlarms] = interval;
   m_totalTime += interval;
-  m_numAlarms++;
-  return true;
+  return m_numAlarms++;
 }
 
-void Timer::restart(uint32_t offset)
+void Timer::restart()
 {
-  start(offset);
+  start();
   // reset the current alarm
   m_curAlarm = 0;
 }
 
-void Timer::start(uint32_t offset)
+void Timer::start()
 {
   // reset the start time
-  m_startTime = Time::getCurtime() + offset;
+  m_startTime = Time::getCurtime();
 }
 
 void Timer::reset()
@@ -61,8 +60,8 @@ AlarmID Timer::alarm()
   // grab curTime
   uint64_t now = Time::getCurtime();
 
-  // timers use a different 'start time' tracker in simulations
-  // this allows them to rollback seamlessly when the simulation ends
+  // timers use a different 'start time' tracker in simulations so that
+  // the startTime remains unchanged when the simulation ends
   uint64_t startTime = 0;
   if (Time::isSimulation() && m_simStartTime) {
     startTime = m_simStartTime;
@@ -75,29 +74,28 @@ AlarmID Timer::alarm()
   // the tick for when this alarm triggers
   uint32_t alarmTime = m_alarms[m_curAlarm];
 
-  // if it's the first tick since starting the alarm, and the alarmtime isn't 0 then just 
-  // return 0 becuase the modulus below will always evaluate to 0 if timeDiff is 0
-  if (timeDiff == 0 && alarmTime != 0) {
-    // seems this is wrong, but it feels right...
-    //return ALARM_NONE;
+  // if the current alarm duration is not a multiple of the current tick
+  if ((timeDiff % alarmTime) != 0) {
+    // then the alarm was not hit
+    return ALARM_NONE;
   }
 
-  // if the current alarm duration has passed on this tick
-  // use modulus so that the timer alarms work in reverse too
-  if ((timeDiff % alarmTime) == 0) {
-    if (Time::isSimulation()) {
-      // move the sim start time
-      m_simStartTime = now;
-    } else {
-      // move the start time forward
-      m_startTime = now;
-    }
-    // store the alarm ID that will be returned
-    AlarmID curAlarm = m_curAlarm;
-    // increment to the next timer
-    m_curAlarm = (AlarmID)((m_curAlarm + 1) % m_numAlarms);
-    // and hit the timer
-    return curAlarm;
-  } 
-  return ALARM_NONE;
+  // if this timer is running in a simulation then don't actually update
+  // the starttime, instead update the simulation start time so that when
+  // the simulation ends the startTime will not have changed at all
+  if (Time::isSimulation()) {
+    // move the sim start time
+    m_simStartTime = now;
+  } else {
+    // move the start time forward
+    m_startTime = now;
+  }
+
+  // store the alarm ID that will be returned
+  AlarmID curAlarm = m_curAlarm;
+  // increment to the next alarm
+  m_curAlarm = (AlarmID)((m_curAlarm + 1) % m_numAlarms);
+
+  // return the alarm id
+  return curAlarm;
 }
