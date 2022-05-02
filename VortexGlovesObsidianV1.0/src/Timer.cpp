@@ -52,7 +52,7 @@ void Timer::reset()
   m_totalTime = 0;
 }
 
-AlarmID Timer::alarm(int32_t *numTriggers)
+AlarmID Timer::alarm()
 {
   if (!m_numAlarms || !m_alarms || m_curAlarm == ALARM_NONE) {
     return ALARM_NONE;
@@ -78,17 +78,13 @@ AlarmID Timer::alarm(int32_t *numTriggers)
   // if it's the first tick since starting the alarm, and the alarmtime isn't 0 then just 
   // return 0 becuase the modulus below will always evaluate to 0 if timeDiff is 0
   if (timeDiff == 0 && alarmTime != 0) {
+    // seems this is wrong, but it feels right...
     //return ALARM_NONE;
   }
 
   // if the current alarm duration has passed on this tick
   // use modulus so that the timer alarms work in reverse too
   if ((timeDiff % alarmTime) == 0) {
-    if (numTriggers) {
-      int32_t triggers = timeDiff / (int32_t)m_totalTime; 
-      // the number of times the alarm would have triggered
-      *numTriggers = triggers;
-    }
     if (Time::isSimulation()) {
       // move the sim start time
       m_simStartTime = now;

@@ -31,7 +31,7 @@ public:
   // If no alarm hits it will return ALARM_NONE.
   // Outputs an integer indicating the number of times the alarm has triggered
   // since the start time or the last detection of that alarm ID
-  AlarmID alarm(int32_t *numTriggers = nullptr);
+  AlarmID alarm();
 
   // the number of alarms
   uint32_t numAlarms() const { return m_numAlarms; }

@@ -32,16 +32,17 @@ void BasicPattern::init(Colorset *colorset, LedPos pos)
   m_blinkTimer.start();
 
   // skip forward however many ticks this led is offset
-  skip(Time::getTickOffset(m_ledPos));
-  // need to start the blink timer again because it got shifted
-  m_blinkTimer.start();
+  skip(Time::getTickOffset(pos));
 }
 
 void BasicPattern::play()
 {
   AlarmID id = m_blinkTimer.alarm();
-  if (id == 0)      Leds::setIndex(m_ledPos, m_pColorset->getNext());
-  else if (id == 1) Leds::clearIndex(m_ledPos);
+  if (id == 0) {
+    Leds::setIndex(m_ledPos, m_pColorset->getNext());
+  } else if (id == 1) {
+    Leds::clearIndex(m_ledPos);
+  }
 }
 
 void BasicPattern::serialize() const
