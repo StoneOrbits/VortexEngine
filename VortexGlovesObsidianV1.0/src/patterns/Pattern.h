@@ -3,6 +3,7 @@
 
 #include "../LedConfig.h"
 #include "../Patterns.h"
+#include "../Timer.h"
 
 class Colorset;
 
@@ -19,6 +20,9 @@ public:
 
   // pure virtual must override the play function
   virtual void play() = 0;
+
+  // skip the pattern ahead some ticks
+  virtual void skip(uint32_t ticks);
 
   // must override the serialize routine to save the pattern
   virtual void serialize() const;

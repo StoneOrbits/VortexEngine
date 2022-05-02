@@ -22,7 +22,8 @@ public:
   static uint64_t getCurtime(LedPos pos = LED_FIRST);
 
   // get the amount of ticks this led position runs out of sync
-  static uint32_t getTickOffset(LedPos pos);
+  // the 1st index led gets exactly 1x the tick offset
+  static uint32_t getTickOffset(LedPos pos = (LedPos)1);
 
   // Set tickrate in Ticks Per Second (TPS)
   // The valid range for this is 1 <= x <= 1000000
@@ -47,6 +48,23 @@ public:
   // convert ticks to ms based on tickrate
   static uint32_t msToTicks(uint32_t ms);
 
+  // Start a time simulation, while the simulation is active you can
+  // increment the 'current time' with tickSimulation() then when you
+  // call endSimulation() the currentTime will be restored
+  static uint32_t startSimulation();
+
+  // Tick a time simulation forward, returning the next tick
+  static uint32_t tickSimulation();
+
+  // Whether running a time simulation
+  static bool isSimulation();
+
+  // get the current tick in the simulation
+  static uint32_t getSimulationTick();
+
+  // Finish a time simulation
+  static uint32_t endSimulation();
+
 private:
   // global tick counter
   static uint64_t m_curTick;
@@ -62,6 +80,15 @@ private:
 
   // the offset in ticks for each finger
   static uint32_t m_tickOffset;
+
+  // the current simulation offset, simulations are
+  // used to fastforward patterns and colorsets by 
+  // simulating tick changes and running pattern logic
+  // multiple times in a single frame
+  static uint32_t m_simulationTick;
+
+  // whether the timer is running a simulation
+  static bool m_isSimulation;
 };
 
 #endif

@@ -2,6 +2,7 @@
 
 #include "patterns/Pattern.h"
 #include "PatternBuilder.h"
+#include "TimeControl.h"
 #include "Colorset.h"
 
 #include <Arduino.h>
@@ -51,7 +52,7 @@ void Mode::play()
       continue;
     }
     // play the curren pattern with current color set on the current finger
-    entry.pattern->play(entry.colorset);
+    entry.pattern->play();
     // only run one pattern if this isn't a multi-pattern mode
     if (!hasFlags(MODE_FLAG_MULTI_PATTERN)) {
       //return;

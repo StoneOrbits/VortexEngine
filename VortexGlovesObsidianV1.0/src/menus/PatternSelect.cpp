@@ -63,7 +63,7 @@ void PatternSelect::showPatternSelection()
   // run the new pattern on all of the LEDs
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     // TODO: separate colorset for each?
-    m_pNewPattern->play(&m_colorset);
+    m_pNewPattern->play();
   }
 }
 

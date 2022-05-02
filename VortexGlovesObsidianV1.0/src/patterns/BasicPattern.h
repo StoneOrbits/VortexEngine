@@ -23,7 +23,8 @@ private:
   // the duration the light is on/off for
   uint32_t m_onDuration;
   uint32_t m_offDuration;
-  // the timer for performing blinks
+
+  // the blink timer
   Timer m_blinkTimer;
 };
 

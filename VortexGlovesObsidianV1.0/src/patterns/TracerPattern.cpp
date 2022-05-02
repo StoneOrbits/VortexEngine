@@ -8,7 +8,8 @@
 TracerPattern::TracerPattern(uint32_t tracerLength, uint32_t dotLength) :
   m_tracerDuration(tracerLength),
   m_dotDuration(dotLength),
-  m_blinkTimer()
+  m_blinkTimer(),
+  m_dotColor(0)
 {
 }
 
@@ -19,33 +20,37 @@ TracerPattern::~TracerPattern()
 void TracerPattern::init(Colorset *colorset, LedPos pos)
 {
   // run base pattern init logic
-  Pattern::init(pos);
-  // reset the timer
-  //m_blinkTimer.start();
+  Pattern::init(colorset, pos);
+
+  // reset the blink timer entirely
+  m_blinkTimer.reset();
+
   // add the alarms for on then off
+  m_blinkTimer.addAlarm(m_tracerDuration);
+  m_blinkTimer.addAlarm(m_dotDuration);
+
+  // start the blink timer from the current frame
+  m_blinkTimer.start();
+
+  // skip forward however many ticks this led is offset
+  skip(Time::getTickOffset(m_ledPos));
+  // need to start the blink timer again because it got shifted
+  m_blinkTimer.start();
 }
 
 // pure virtual must override the play function
 void TracerPattern::play()
 {
-  if (!colorset) {
-    // programmer error
-    return;
-  }
-
-  // switch on the alarm result
-  switch (m_blinkTimer.alarm()) {
-  case ALARM_NONE:
-  default: // the alarm did not trigger
-    return;
-  case 0: // the first alarm triggered, display ribbon color
-    Leds::setIndex(m_ledPos, colorset->get(0));
-    break;
-  case 1: // the second alarm triggered, display dot
-    Leds::setIndex(m_ledPos, colorset->get(1 + m_dotColor));
+  AlarmID id = m_blinkTimer.alarm();
+  if (id == 0) {
+    // display dot, never display the tracer color which 
+    // is at index 0 of the colorset
+    Leds::setIndex(m_ledPos, m_pColorset->get(1 + m_dotColor));
     // increment tracer counter and wrap at 1 less than num colors
-    m_dotColor = (m_dotColor + 1) % (colorset->numColors() - 1);
-    break;
+    m_dotColor = (m_dotColor + 1) % (m_pColorset->numColors() - 1);
+  } else if (id == 1) {
+    // draw the tracer background
+    Leds::setIndex(m_ledPos, m_pColorset->get(0));
   }
 }
 

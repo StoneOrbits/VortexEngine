@@ -12,6 +12,8 @@ uint64_t Time::m_prevTime = 0;
 uint64_t Time::m_firstTime = 0;
 uint32_t Time::m_tickrate = DEFAULT_TICKRATE;
 uint32_t Time::m_tickOffset = DEFAULT_TICK_OFFSET;
+uint32_t Time::m_simulationTick = 0;
+bool Time::m_isSimulation = false;
 
 #ifdef FIXED_TICKRATE
 #define TICKRATE DEFAULT_TICKRATE
@@ -27,6 +29,7 @@ bool Time::init()
 
 void Time::tickClock()
 {
+
   // tick clock forward
   m_curTick++;
 
@@ -54,8 +57,9 @@ void Time::tickClock()
 // get the current time with optional led position time offset
 uint64_t Time::getCurtime(LedPos pos)
 {
-  // basic time offset of 33ms per led
-  return m_curTick + getTickOffset(pos);
+  // the current tick, plus the time offset per LED, plus any
+  // simulation offset
+  return m_curTick + getTickOffset(pos) + getSimulationTick();
 }
 
 // get the amount of ticks this led position runs out of sync
@@ -101,3 +105,41 @@ uint32_t Time::msToTicks(uint32_t ms)
   }
   return ticks;
 }
+
+// Start a time simulation, while the simulation is active you can
+// increment the 'current time' with tickSimulation() then when you
+// call endSimulation() the currentTime will be restored
+uint32_t Time::startSimulation()
+{
+  m_simulationTick = 0;
+  m_isSimulation = true;
+  return getCurtime();
+}
+
+// Tick a time simulation forward, returning the next tick
+uint32_t Time::tickSimulation()
+{
+  return ++m_simulationTick;
+}
+
+// whether running time simulation
+bool Time::isSimulation()
+{
+  return m_isSimulation;
+}
+
+// get the current tick in the simulation
+uint32_t Time::getSimulationTick()
+{
+  return m_simulationTick;
+}
+
+// Finish a time simulation
+uint32_t Time::endSimulation()
+{
+  uint32_t endTick = getCurtime();
+  m_simulationTick = 0;
+  m_isSimulation = false;
+  return endTick;
+}
+

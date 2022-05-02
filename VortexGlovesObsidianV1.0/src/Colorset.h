@@ -44,6 +44,9 @@ public:
   // get current color in cycle
   RGBColor cur();
 
+  // the current index
+  uint32_t curIndex() const { return m_curIndex; }
+
   // get the next color in cycle
   RGBColor getNext();
 

@@ -18,7 +18,10 @@ public:
   // add alarms to the timer
   bool addAlarm(uint32_t interval);
 
-  // start the timer with a time offset
+  // restart the timer and the current alarm
+  void restart(uint32_t offset = 0);
+
+  // start the timer but don't touch current alarm
   void start(uint32_t offset = 0);
 
   // reset all alarms in the timer to 0
@@ -43,6 +46,9 @@ private:
 
   // start time in microseconds
   uint64_t m_startTime;
+
+  // the simulation start time
+  uint64_t m_simStartTime;
 
   // the total time the timer covers (sum of all alarms)
   uint64_t m_totalTime;
