@@ -18,9 +18,6 @@ BasicPattern::~BasicPattern()
 
 void BasicPattern::init(Colorset *colorset, LedPos pos)
 {
-  // run base pattern init logic
-  Pattern::init(colorset, pos);
-
   // reset the blink timer entirely
   m_blinkTimer.reset();
 
@@ -31,8 +28,8 @@ void BasicPattern::init(Colorset *colorset, LedPos pos)
   // start the blink timer from the current frame
   m_blinkTimer.start();
 
-  // skip forward however many ticks this led is offset
-  skip(Time::getTickOffset(pos));
+  // run base pattern init logic
+  Pattern::init(colorset, pos);
 }
 
 void BasicPattern::play()

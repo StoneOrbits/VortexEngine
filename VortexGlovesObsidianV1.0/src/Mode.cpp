@@ -32,11 +32,27 @@ Mode::~Mode()
 
 void Mode::init()
 {
+#if 0
+  if (m_isComplex) {
+    if (m_ledEntries[0].colorset) {
+      m_ledEntries[0].colorset->init();
+    }
+    if (m_ledEntries[0].pattern) {
+      // complex pattern init
+      m_ledEntries[0].pattern->init(m_ledEntries[0].colorset, LED_COUNT);
+    }
+    return;
+  }
+#endif
+  // otherwise regular init
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     // grab the entry for this led
     LedEntry entry = m_ledEntries[pos];
+    if (entry.colorset) {
+      entry.colorset->init();
+    }
     if (entry.pattern) {
-      // the pattern will init the colorset to initial position
+      // the pattern may change the colorset initial position
       entry.pattern->init(entry.colorset, pos);
     }
   }

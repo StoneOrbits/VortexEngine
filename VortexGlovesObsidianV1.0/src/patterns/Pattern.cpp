@@ -21,8 +21,13 @@ void Pattern::init(Colorset *set, LedPos pos)
 {
   m_pColorset = set;
   m_ledPos = pos;
-  if (set) {
-    set->init();
+  // if the led position is LED_COUNT that means this pattern is
+  // a complex pattern that operates on all LEDS. If it's not a
+  // complex pattern then the pattern needs to be fast-forwarded
+  // based on the finger-tick-offset
+  if (pos != LED_COUNT) {
+    // skip forward however many ticks this led is offset
+    skip(Time::getTickOffset(pos));
   }
 }
 
