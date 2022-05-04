@@ -26,8 +26,8 @@ Pattern *PatternBuilder::generate(PatternID id)
   switch (id) {
   default:
   case PATTERN_STROBE:
-    return new AdvancedPattern(5, 8, 30, 2, 0, 0);
-    //return new BasicPattern(5, 8);
+    //return new AdvancedPattern(5, 8, 30, 2, 0, 0);
+    return new BasicPattern(5, 8);
   case PATTERN_HYPERSTROBE:
     return new BasicPattern(25, 25);
   case PATTERN_DOPS:
