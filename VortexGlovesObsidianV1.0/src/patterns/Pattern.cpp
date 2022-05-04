@@ -41,6 +41,16 @@ void Pattern::skip(uint32_t ticks)
   uint32_t endTime = Time::endSimulation();
 }
 
+void Pattern::resume()
+{
+}
+
+bool Pattern::onEnd() const
+{
+  // optionally override this to use for syncing
+  return false;
+}
+
 // must override the serialize routine to save the pattern
 void Pattern::serialize() const
 {

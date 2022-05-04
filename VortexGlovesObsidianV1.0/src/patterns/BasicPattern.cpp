@@ -42,6 +42,30 @@ void BasicPattern::play()
   }
 }
 
+bool BasicPattern::onEnd() const
+{
+  // basic sanity check
+  if (!m_pColorset || !m_pColorset->numColors()) {
+    return false;
+  }
+  // make sure the color is on the very last color
+  if (m_pColorset->curIndex() != (m_pColorset->numColors() - 1)) {
+    return false;
+  }
+  // is the blink timer on it's end frame
+  if (!m_blinkTimer.onEnd()) {
+    return false;
+  }
+  // must be the end frame of the pattern
+  return true;
+}
+
+void BasicPattern::resume()
+{
+  // start the blink timer from the curren time
+  m_blinkTimer.start();
+}
+
 void BasicPattern::serialize() const
 {
   Pattern::serialize();

@@ -21,6 +21,9 @@ enum PatternID : uint32_t
 
   PATTERN_TRACER, // tracerpattern 20 1
 
+  PATTERN_BLINKIE, // GapPattern 5, 8, 35
+  PATTERN_GHOSTCRUSH, // GapPattern 1, 0, 50
+
   // ADD NEW PATTERNS HERE
 
   PATTERN_COUNT, // total number of patterns

@@ -51,6 +51,15 @@ void Timer::reset()
   m_totalTime = 0;
 }
 
+bool Timer::onEnd() const
+{
+  if (Time::getCurtime() == (getStartTime() + 1) && m_curAlarm == 0) {
+    DEBUG("Timer start");
+    return true;
+  }
+  return false;
+}
+
 AlarmID Timer::alarm()
 {
   if (!m_numAlarms || !m_alarms || m_curAlarm == ALARM_NONE) {
@@ -60,14 +69,8 @@ AlarmID Timer::alarm()
   // grab curTime
   uint64_t now = Time::getCurtime();
 
-  // timers use a different 'start time' tracker in simulations so that
-  // the startTime remains unchanged when the simulation ends
-  uint64_t startTime = 0;
-  if (Time::isSimulation() && m_simStartTime) {
-    startTime = m_simStartTime;
-  } else {
-    startTime = m_startTime;
-  }
+  // get the start time of the timer
+  uint64_t startTime = getStartTime();
 
   // time since start (forward or backwards)
   int32_t timeDiff = now - startTime;
@@ -75,21 +78,13 @@ AlarmID Timer::alarm()
   uint32_t alarmTime = m_alarms[m_curAlarm];
 
   // if the current alarm duration is not a multiple of the current tick
-  if ((timeDiff % alarmTime) != 0) {
+  if (alarmTime && (timeDiff % alarmTime) != 0) {
     // then the alarm was not hit
     return ALARM_NONE;
   }
 
-  // if this timer is running in a simulation then don't actually update
-  // the starttime, instead update the simulation start time so that when
-  // the simulation ends the startTime will not have changed at all
-  if (Time::isSimulation()) {
-    // move the sim start time
-    m_simStartTime = now;
-  } else {
-    // move the start time forward
-    m_startTime = now;
-  }
+  // update the start time of the timer
+  setStartTime(now);
 
   // store the alarm ID that will be returned
   AlarmID curAlarm = m_curAlarm;
@@ -98,4 +93,28 @@ AlarmID Timer::alarm()
 
   // return the alarm id
   return curAlarm;
+}
+
+uint64_t Timer::getStartTime() const
+{
+  // timers use a different 'start time' tracker in simulations so that
+  // the startTime remains unchanged when the simulation ends
+  if (Time::isSimulation() && m_simStartTime) {
+    return m_simStartTime;
+  } 
+  return m_startTime;
+}
+
+void Timer::setStartTime(uint64_t tick)
+{
+  // if this timer is running in a simulation then don't actually update
+  // the starttime, instead update the simulation start time so that when
+  // the simulation ends the startTime will not have changed at all
+  if (Time::isSimulation()) {
+    // move the sim start time
+    m_simStartTime = tick;
+  } else {
+    // move the start time forward
+    m_startTime = tick;
+  }
 }

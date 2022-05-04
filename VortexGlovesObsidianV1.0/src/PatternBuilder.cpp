@@ -2,8 +2,10 @@
 
 #include "TimeControl.h"
 
+#include "patterns/AdvancedPattern.h"
 #include "patterns/BasicPattern.h"
 #include "patterns/TracerPattern.h"
+#include "patterns/GapPattern.h"
 
 Pattern *PatternBuilder::make(PatternID id)
 {
@@ -24,7 +26,8 @@ Pattern *PatternBuilder::generate(PatternID id)
   switch (id) {
   default:
   case PATTERN_STROBE:
-    return new BasicPattern(5, 8);
+    return new AdvancedPattern(5, 8, 30, 2, 0, 0);
+    //return new BasicPattern(5, 8);
   case PATTERN_HYPERSTROBE:
     return new BasicPattern(25, 25);
   case PATTERN_DOPS:
@@ -43,5 +46,9 @@ Pattern *PatternBuilder::generate(PatternID id)
 #endif
   case PATTERN_TRACER:
     return new TracerPattern(20, 1);
+  case PATTERN_BLINKIE:
+    return new GapPattern(5, 8, 35);
+  case PATTERN_GHOSTCRUSH:
+    return new GapPattern(1, 0, 50);
   }
 }

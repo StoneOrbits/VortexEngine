@@ -24,6 +24,16 @@ public:
   // skip the pattern ahead some ticks
   virtual void skip(uint32_t ticks);
 
+  // resume a pattern from the current time, use this is the pattern
+  // stops for some duration of time and then needs to play again
+  // without having changed state at all. Otherwise the change in time
+  // will cause the timer to behave differently
+  virtual void resume();
+
+  // return true on the 0th tick of the pattern, this can be
+  // used by other objects or derived classes to sync with
+  virtual bool onEnd() const;
+
   // must override the serialize routine to save the pattern
   virtual void serialize() const;
   // must override unserialize to load patterns

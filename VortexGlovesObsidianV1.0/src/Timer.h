@@ -29,6 +29,9 @@ public:
   // delete all alarms from the timer and reset
   void reset();
 
+  // returns true when the current timer ended, used for synchronization
+  bool onEnd() const;
+
   // Will return the alarmID of the alarm that triggered
   // If no alarm hits it will return ALARM_NONE.
   // Outputs an integer indicating the number of times the alarm has triggered
@@ -37,8 +40,18 @@ public:
 
   // the number of alarms
   uint32_t numAlarms() const { return m_numAlarms; }
+  uint32_t curAlarm() const { return m_curAlarm; }
+
+  // the start time of the timer
+  uint64_t startTime() const { return m_startTime; }
+  // the total time the timer takes
+  uint64_t totalTime() const { return m_totalTime; }
 
 private:
+  // helpers to set/get start time
+  uint64_t getStartTime() const;
+  void setStartTime(uint64_t);
+
   // the list of alarms and number of alarms
   uint32_t *m_alarms; 
   uint32_t m_numAlarms;
