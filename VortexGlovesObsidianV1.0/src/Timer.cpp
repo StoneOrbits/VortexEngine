@@ -51,13 +51,32 @@ void Timer::reset()
   m_totalTime = 0;
 }
 
-bool Timer::onEnd() const
+bool Timer::onStart() const
 {
   if (Time::getCurtime() == (getStartTime() + 1) && m_curAlarm == 0) {
     DEBUG("Timer start");
     return true;
   }
   return false;
+}
+
+bool Timer::onEnd() const
+{
+  if (!m_alarms || !m_numAlarms) {
+    return false;
+  }
+  // the tick for when this alarm triggers
+  uint32_t alarmTime = m_alarms[m_curAlarm];
+  if (alarmTime <= 1) {
+    return true;
+  }
+  // grab curTime
+  uint64_t now = Time::getCurtime();
+  // get the start time of the timer
+  uint64_t startTime = getStartTime();
+  // time since start (forward or backwards)
+  int32_t timeDiff = now - startTime;
+  return ((timeDiff % (alarmTime - 1)) == 0);
 }
 
 AlarmID Timer::alarm()

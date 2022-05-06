@@ -19,11 +19,26 @@ public:
   virtual void serialize() const;
   virtual void unserialize();
 
-private:
+protected:
+  // override from basicpattern
+  virtual void onBasicStart() override;
+  virtual void onBasicEnd() override;
+  virtual void onBlinkOn() override;
+  virtual void onBlinkOff() override;
+
+  // override from gappattern
+  virtual void triggerGap() override;
+  virtual void endGap() override;
+
   // the duration the light is on/off for
   uint32_t m_groupSize;
   uint32_t m_skipCols;
   uint32_t m_repeatGroup;
+
+  // the counter for groups
+  uint32_t m_groupCounter;
+  // the repeat counter
+  uint32_t m_repeatCounter;
 };
 
 #endif

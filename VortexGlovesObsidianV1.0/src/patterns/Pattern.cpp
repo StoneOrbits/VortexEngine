@@ -9,7 +9,8 @@
 Pattern::Pattern() :
   m_patternID(PATTERN_STROBE),
   m_pColorset(nullptr),
-  m_ledPos(LED_FIRST)
+  m_ledPos(LED_FIRST),
+  m_patternStartTick(0)
 {
 }
 
@@ -19,6 +20,7 @@ Pattern::~Pattern()
 
 void Pattern::init(Colorset *set, LedPos pos)
 {
+  m_patternStartTick = Time::getCurtime();
   m_pColorset = set;
   m_ledPos = pos;
   // if the led position is LED_COUNT that means this pattern is
@@ -60,4 +62,9 @@ void Pattern::serialize() const
 // must override unserialize to load patterns
 void Pattern::unserialize()
 {
+}
+
+uint32_t Pattern::getPatternTick() const
+{
+  return Time::getCurtime() - m_patternStartTick;
 }

@@ -18,9 +18,12 @@ public:
   virtual void unserialize();
 
 protected:
+  // override basicpattern callback
+  virtual void onBasicEnd() override;
+
   // trigger the gap
-  void triggerGap();
-  void endGap();
+  virtual void triggerGap();
+  virtual void endGap();
 
   // whether in the gap
   bool inGap() const { return m_inGap; }

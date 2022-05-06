@@ -17,13 +17,20 @@ public:
 
   virtual void play();
 
-  virtual bool onEnd() const;
   virtual void resume();
 
   virtual void serialize() const;
   virtual void unserialize();
 
 protected:
+  // callbacks for blinking on/off, can be overridden by derived classes
+  virtual void onBlinkOn();
+  virtual void onBlinkOff();
+
+  // callbacks for when the pattern starts/stops
+  virtual void onBasicStart();
+  virtual void onBasicEnd();
+
   // the duration the light is on/off for
   uint32_t m_onDuration;
   uint32_t m_offDuration;

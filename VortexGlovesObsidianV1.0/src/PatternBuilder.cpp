@@ -26,7 +26,6 @@ Pattern *PatternBuilder::generate(PatternID id)
   switch (id) {
   default:
   case PATTERN_STROBE:
-    //return new AdvancedPattern(5, 8, 30, 2, 0, 0);
     return new BasicPattern(5, 8);
   case PATTERN_HYPERSTROBE:
     return new BasicPattern(25, 25);
@@ -50,5 +49,15 @@ Pattern *PatternBuilder::generate(PatternID id)
     return new GapPattern(5, 8, 35);
   case PATTERN_GHOSTCRUSH:
     return new GapPattern(1, 0, 50);
+  case ADVANCED_PATTERN:
+    // This advanced pattern demonstrates the functionality of PatternTheory
+    return new AdvancedPattern(
+      5,  // on duration
+      5,  // off duration
+      10, // gap duration
+      2,  // group size (number of colors before gap)
+      2,  // skip (number of colors to skip after gap)
+      1   // repeat (number of times to repeat group)
+    );
   }
 }

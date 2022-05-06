@@ -21,6 +21,7 @@
 #define RGB_YELLOW  0xFFFF00    // 
 #define RGB_RED     0xFF0000    //   0  255 110
 #define RGB_GREEN   0x00FF00    //  85  255 110
+#define RGB_CYAN    0x00FFFF    //   0  255 255
 #define RGB_TEAL    0x00FF80    // 
 #define RGB_PURPLE  0x9933FF    // 
 #define RGB_BLANK   0x404040    //   

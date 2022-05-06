@@ -21,6 +21,9 @@ void GapPattern::init(Colorset *set, LedPos pos)
 {
   m_gapTimer.reset();
   m_gapTimer.addAlarm(m_gapDuration);
+
+  m_inGap = false;
+
   // don't need to start the gap timer right now
   BasicPattern::init(set, pos);
 }
@@ -28,17 +31,19 @@ void GapPattern::init(Colorset *set, LedPos pos)
 void GapPattern::play()
 {
   if (m_inGap) {
-    // check to see if the gap ended yet
-    if (m_gapTimer.alarm() != 0) {
-      // if not then continue clearing the led
-      Leds::clearIndex(m_ledPos);
-      return;
+    // check to see if the gap timer triggered to end the gap
+    if (m_gapTimer.alarm() == 0) {
+      endGap();
     }
-    endGap();
-  } else if (onEnd()) {
-    triggerGap();
-  } 
-  BasicPattern::play();
+    Leds::clearIndex(m_ledPos);
+  } else {
+    BasicPattern::play();
+  }
+}
+
+void GapPattern::onBasicEnd()
+{
+  triggerGap();
 }
 
 void GapPattern::serialize() const

@@ -24,6 +24,8 @@ enum PatternID : uint32_t
   PATTERN_BLINKIE, // GapPattern 5, 8, 35
   PATTERN_GHOSTCRUSH, // GapPattern 1, 0, 50
 
+  ADVANCED_PATTERN, // AdvancedPattern
+
   // ADD NEW PATTERNS HERE
 
   PATTERN_COUNT, // total number of patterns

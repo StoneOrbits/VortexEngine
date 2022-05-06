@@ -34,30 +34,42 @@ void BasicPattern::init(Colorset *colorset, LedPos pos)
 
 void BasicPattern::play()
 {
+  // check the alarm to toggle the light
   AlarmID id = m_blinkTimer.alarm();
+
   if (id == 0) {
-    Leds::setIndex(m_ledPos, m_pColorset->getNext());
+    if (m_blinkTimer.onStart()) {
+      // callback for basic pattern started
+      onBasicStart();
+    }
+    onBlinkOn();
   } else if (id == 1) {
-    Leds::clearIndex(m_ledPos);
+    onBlinkOff();
+    if (m_blinkTimer.onEnd()) {
+      // callback for basic pattern ended
+      onBasicEnd();
+    }
   }
 }
 
-bool BasicPattern::onEnd() const
+void BasicPattern::onBlinkOn()
 {
-  // basic sanity check
-  if (!m_pColorset || !m_pColorset->numColors()) {
-    return false;
-  }
-  // make sure the color is on the very last color
-  if (m_pColorset->curIndex() != (m_pColorset->numColors() - 1)) {
-    return false;
-  }
-  // is the blink timer on it's end frame
-  if (!m_blinkTimer.onEnd()) {
-    return false;
-  }
-  // must be the end frame of the pattern
-  return true;
+  // set the target led with the given color
+  Leds::setIndex(m_ledPos, m_pColorset->getNext());
+}
+
+void BasicPattern::onBlinkOff()
+{
+  // clear the target led
+  Leds::clearIndex(m_ledPos);
+}
+
+void BasicPattern::onBasicStart()
+{
+}
+
+void BasicPattern::onBasicEnd()
+{
 }
 
 void BasicPattern::resume()

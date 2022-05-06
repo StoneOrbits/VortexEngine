@@ -90,6 +90,7 @@ bool Modes::setDefaults()
 {
   for (PatternID pattern = PATTERN_FIRST; pattern < PATTERN_COUNT; ++pattern) {
     // initialize each pattern with an rgb strobe
+    // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
     if (!addMode(ModeBuilder::make(pattern, RGB_RED, RGB_GREEN, RGB_BLUE))) { //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE))) {
       // error? return false?
     }

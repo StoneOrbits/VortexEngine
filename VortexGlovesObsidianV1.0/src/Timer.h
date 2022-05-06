@@ -29,7 +29,9 @@ public:
   // delete all alarms from the timer and reset
   void reset();
 
-  // returns true when the current timer ended, used for synchronization
+  // returns true when the current timer is starting, used for synchronization
+  bool onStart() const;
+  // returns true when the current timer is ending, used for synchronization
   bool onEnd() const;
 
   // Will return the alarmID of the alarm that triggered

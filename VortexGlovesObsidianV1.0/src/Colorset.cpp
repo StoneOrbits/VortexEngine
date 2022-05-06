@@ -102,10 +102,18 @@ void Colorset::skip(int32_t amount)
   if (m_curIndex == UINT32_MAX) {
     m_curIndex = 0;
   }
+
+  // first modulate the amount to skip to be within +/- the number of colors
+  amount %= (int32_t)m_numColors;
+
   // max = 3
   // m_curIndex = 2
   // amount = -10
-  m_curIndex = (m_curIndex + amount) % m_numColors;
+  m_curIndex = ((int32_t)m_curIndex + (int32_t)amount) % (int32_t)m_numColors;
+  if (m_curIndex > m_numColors) { // must have wrapped
+    // simply wrap it back
+    m_curIndex += m_numColors;
+  }
 }
 
 RGBColor Colorset::cur()
@@ -116,6 +124,26 @@ RGBColor Colorset::cur()
   if (m_curIndex == UINT32_MAX) {
     return m_palette[0];
   }
+  return m_palette[m_curIndex];
+}
+
+void Colorset::setCurIndex(uint32_t index)
+{
+  if (index > (m_numColors - 1)) {
+    return;
+  }
+  m_curIndex = index;
+}
+
+RGBColor Colorset::getPrev()
+{
+  // handle wrapping at 0
+  if (m_curIndex == 0) {
+    m_curIndex = numColors() - 1;
+  } else {
+    m_curIndex--;
+  }
+  // return the color
   return m_palette[m_curIndex];
 }
 

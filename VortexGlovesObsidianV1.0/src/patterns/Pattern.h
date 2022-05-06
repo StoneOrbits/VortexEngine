@@ -39,6 +39,9 @@ public:
   // must override unserialize to load patterns
   virtual void unserialize();
 
+  // Get the current relative tick number of the pattern
+  uint32_t getPatternTick() const;
+
   // get/set the ID of the pattern (set by mode builder)
   PatternID getPatternID() const { return m_patternID; }
 
@@ -49,6 +52,9 @@ protected:
   Colorset *m_pColorset;
   // the Led the pattern is running on
   LedPos m_ledPos;
+
+  // the tick number the pattern started playing on
+  uint64_t m_patternStartTick;
 };
 
 #endif
