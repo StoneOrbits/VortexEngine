@@ -38,14 +38,14 @@ void BasicPattern::play()
   AlarmID id = m_blinkTimer.alarm();
 
   if (id == 0) {
-    if (m_blinkTimer.onStart()) {
+    onBlinkOn();
+    if (m_blinkTimer.onStart() && m_pColorset->onStart()) {
       // callback for basic pattern started
       onBasicStart();
     }
-    onBlinkOn();
   } else if (id == 1) {
     onBlinkOff();
-    if (m_blinkTimer.onEnd()) {
+    if (m_blinkTimer.onEnd() && m_pColorset->onEnd()) {
       // callback for basic pattern ended
       onBasicEnd();
     }

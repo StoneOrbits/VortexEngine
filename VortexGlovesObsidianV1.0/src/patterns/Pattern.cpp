@@ -47,12 +47,6 @@ void Pattern::resume()
 {
 }
 
-bool Pattern::onEnd() const
-{
-  // optionally override this to use for syncing
-  return false;
-}
-
 // must override the serialize routine to save the pattern
 void Pattern::serialize() const
 {

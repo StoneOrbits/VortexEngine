@@ -1,6 +1,7 @@
 #include "Colorset.h"
 
 #include <Arduino.h>
+#include <cstring>
 
 Colorset::Colorset() :
   m_curIndex(UINT32_MAX),
@@ -40,11 +41,22 @@ void Colorset::init()
 
 void Colorset::operator=(const Colorset &other)
 {
-  m_curIndex = 0;
+  m_curIndex = UINT32_MAX;
   m_numColors = other.m_numColors;
   for (int i = 0; i < NUM_COLOR_SLOTS; ++i) {
     m_palette[i] = other.m_palette[i];
   }
+}
+
+bool Colorset::operator==(const Colorset &other)
+{
+  // only compare the palettes for equality
+  return (memcmp(m_palette, other.m_palette, sizeof(m_palette)) == 0);
+}
+
+bool Colorset::operator!=(const Colorset &other)
+{
+  return !operator==(other);
 }
 
 RGBColor Colorset::operator[](int index) const
@@ -153,6 +165,20 @@ RGBColor Colorset::getNext()
   m_curIndex = (m_curIndex + 1) % (numColors());
   // return the color
   return m_palette[m_curIndex];
+}
+
+
+bool Colorset::onStart() const
+{
+  return (m_curIndex == 0);
+}
+
+bool Colorset::onEnd() const
+{
+  if (!m_numColors) {
+    return false;
+  }
+  return (m_curIndex == m_numColors - 1);
 }
 
 void Colorset::serialize() const

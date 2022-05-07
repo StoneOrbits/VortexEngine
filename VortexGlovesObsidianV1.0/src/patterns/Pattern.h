@@ -30,10 +30,6 @@ public:
   // will cause the timer to behave differently
   virtual void resume();
 
-  // return true on the 0th tick of the pattern, this can be
-  // used by other objects or derived classes to sync with
-  virtual bool onEnd() const;
-
   // must override the serialize routine to save the pattern
   virtual void serialize() const;
   // must override unserialize to load patterns

@@ -21,6 +21,10 @@ public:
   Colorset(const Colorset &other);
   void operator=(const Colorset &other);
 
+  // equality operators
+  bool operator==(const Colorset &other);
+  bool operator!=(const Colorset &other);
+
   // initialize the colorset
   void init();
 
@@ -58,6 +62,10 @@ public:
 
   // the number of colors in the palette
   uint32_t numColors() const { return m_numColors; }
+
+  // whether the colorset is currently on the first color or last color
+  bool onStart() const;
+  bool onEnd() const;
 
   // serialize the colorset to save/load
   void serialize() const;
