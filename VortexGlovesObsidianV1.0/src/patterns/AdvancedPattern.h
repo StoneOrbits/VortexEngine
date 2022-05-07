@@ -21,9 +21,7 @@ public:
 
 protected:
   // override from basicpattern
-  virtual void onBasicStart() override;
   virtual void onBasicEnd() override;
-  virtual void onBlinkOn() override;
   virtual void onBlinkOff() override;
 
   // override from gappattern

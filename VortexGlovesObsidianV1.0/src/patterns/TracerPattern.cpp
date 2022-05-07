@@ -19,9 +19,6 @@ TracerPattern::~TracerPattern()
 
 void TracerPattern::init(Colorset *colorset, LedPos pos)
 {
-  // run base pattern init logic
-  Pattern::init(colorset, pos);
-
   // reset the blink timer entirely
   m_blinkTimer.reset();
 
@@ -32,10 +29,8 @@ void TracerPattern::init(Colorset *colorset, LedPos pos)
   // start the blink timer from the current frame
   m_blinkTimer.start();
 
-  // skip forward however many ticks this led is offset
-  skip(Time::getTickOffset(m_ledPos));
-  // need to start the blink timer again because it got shifted
-  m_blinkTimer.start();
+  // run base pattern init logic
+  Pattern::init(colorset, pos);
 }
 
 // pure virtual must override the play function

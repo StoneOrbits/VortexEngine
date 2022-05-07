@@ -26,7 +26,6 @@ Pattern *PatternBuilder::generate(PatternID id)
   switch (id) {
   default:
   case PATTERN_STROBE:
-    return new GapPattern(5, 8, 35);
     return new BasicPattern(5, 8);
   case PATTERN_HYPERSTROBE:
     return new BasicPattern(25, 25);
