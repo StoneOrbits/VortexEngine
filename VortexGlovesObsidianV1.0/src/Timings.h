@@ -35,7 +35,7 @@
 // This changes how many ticks out of sync each finger
 // will run. So 33 means each finger runs 33 ticks out
 // of sync with the previous finger
-#define DEFAULT_TICK_OFFSET 33
+#define DEFAULT_TICK_OFFSET 1
 
 // Fixed Tickrate
 //

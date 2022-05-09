@@ -1,11 +1,11 @@
 #ifndef TRACER_PATTERN_H
 #define TRACER_PATTERN_H
 
-#include "Pattern.h"
+#include "SingleLedPattern.h"
 
 #include "../Timer.h"
 
-class TracerPattern : public Pattern
+class TracerPattern : public SingleLedPattern
 {
 public:
   TracerPattern(uint32_t tracerLength, uint32_t dotLength);

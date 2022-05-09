@@ -6,6 +6,8 @@
 // list of patterns that can be built
 enum PatternID : uint32_t
 {
+  PATTERN_NONE = 0,
+
   PATTERN_FIRST,
 
   PATTERN_STROBE = PATTERN_FIRST,  // basicpattern 5 8
@@ -24,7 +26,9 @@ enum PatternID : uint32_t
   PATTERN_BLINKIE, // GapPattern 5, 8, 35
   PATTERN_GHOSTCRUSH, // GapPattern 1, 0, 50
 
-  ADVANCED_PATTERN, // AdvancedPattern
+  PATTERN_ADVANCED, // AdvancedPattern
+
+  PATTERN_RABBIT, // PATTERN_STROBIE on tops and PATTERN_STROBE on tips
 
   // ADD NEW PATTERNS HERE
 

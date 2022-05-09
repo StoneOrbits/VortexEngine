@@ -29,7 +29,14 @@ void BasicPattern::init(Colorset *colorset, LedPos pos)
   m_blinkTimer.start();
 
   // run base pattern init logic
-  Pattern::init(colorset, pos);
+  SingleLedPattern::init(colorset, pos);
+//  m_blinkTimer.start(Time::getTickOffset(pos));
+}
+
+void BasicPattern::skip(uint32_t ticks)
+{
+  SingleLedPattern::skip(ticks);
+  m_blinkTimer.start();
 }
 
 void BasicPattern::play()
@@ -80,7 +87,7 @@ void BasicPattern::resume()
 
 void BasicPattern::serialize() const
 {
-  Pattern::serialize();
+  SingleLedPattern::serialize();
   Serial.print(m_onDuration);
   Serial.print(m_offDuration);
 }

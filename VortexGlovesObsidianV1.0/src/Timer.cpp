@@ -34,10 +34,10 @@ void Timer::restart()
   m_curAlarm = 0;
 }
 
-void Timer::start()
+void Timer::start(uint32_t offset)
 {
   // reset the start time
-  m_startTime = Time::getCurtime();
+  m_startTime = Time::getCurtime() + offset;
 }
 
 void Timer::reset()
@@ -93,6 +93,10 @@ AlarmID Timer::alarm()
 
   // time since start (forward or backwards)
   int32_t timeDiff = now - startTime;
+  if (timeDiff < 0) {
+    return ALARM_NONE;
+  }
+
   // the tick for when this alarm triggers
   uint32_t alarmTime = m_alarms[m_curAlarm];
 
@@ -120,7 +124,7 @@ uint64_t Timer::getStartTime() const
   // the startTime remains unchanged when the simulation ends
   if (Time::isSimulation() && m_simStartTime) {
     return m_simStartTime;
-  } 
+  }
   return m_startTime;
 }
 

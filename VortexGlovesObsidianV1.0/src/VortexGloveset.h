@@ -3,12 +3,18 @@
 
 // TODO STILL:
 /*
+ *  Primary:
+ *   - Implement one complex mode
+ *   - finish Color selct menu
+ *   - finish Pattern select menu
  *   - Modes saving loading
  *   - Mode Sharing
- *   - Color selct menu
- *   - Pattern select menu
+ *
+ *  Secondary:
  *   - Smart randomizer
  *   - Implement missing patterns
+ *
+ *  Other:
  *   - Demo and demo speed?
  *   - Debug/error logging
  */

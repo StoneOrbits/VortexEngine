@@ -21,15 +21,6 @@ public:
   // pure virtual must override the play function
   virtual void play() = 0;
 
-  // skip the pattern ahead some ticks
-  virtual void skip(uint32_t ticks);
-
-  // resume a pattern from the current time, use this is the pattern
-  // stops for some duration of time and then needs to play again
-  // without having changed state at all. Otherwise the change in time
-  // will cause the timer to behave differently
-  virtual void resume();
-
   // must override the serialize routine to save the pattern
   virtual void serialize() const;
   // must override unserialize to load patterns

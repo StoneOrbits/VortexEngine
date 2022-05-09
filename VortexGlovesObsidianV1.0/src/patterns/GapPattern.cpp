@@ -65,6 +65,4 @@ void GapPattern::endGap()
 {
   // otherwise the timer triggered, end the gap
   m_inGap = false;
-  // resume the pattern so that it's timers start from now
-  BasicPattern::resume();
 }

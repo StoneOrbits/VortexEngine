@@ -24,7 +24,7 @@ public:
 
   // start the timer but don't change current alarm, this shifts 
   // the timer startTime but does not reset it's alarm state
-  void start();
+  void start(uint32_t offset = 0);
 
   // delete all alarms from the timer and reset
   void reset();

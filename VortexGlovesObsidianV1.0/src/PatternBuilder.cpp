@@ -3,8 +3,9 @@
 #include "TimeControl.h"
 
 #include "patterns/AdvancedPattern.h"
-#include "patterns/BasicPattern.h"
+#include "patterns/RabbitPattern.h"
 #include "patterns/TracerPattern.h"
+#include "patterns/BasicPattern.h"
 #include "patterns/GapPattern.h"
 
 Pattern *PatternBuilder::make(PatternID id)
@@ -25,8 +26,11 @@ Pattern *PatternBuilder::generate(PatternID id)
   //       a pattern displays unless you re-create it
   switch (id) {
   default:
+  case PATTERN_NONE:
+    // programmer error
+    return nullptr;
   case PATTERN_STROBE:
-    return new BasicPattern(5, 8);
+    return new BasicPattern(20, 1);
   case PATTERN_HYPERSTROBE:
     return new BasicPattern(25, 25);
   case PATTERN_DOPS:
@@ -49,7 +53,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     return new GapPattern(5, 8, 35);
   case PATTERN_GHOSTCRUSH:
     return new GapPattern(1, 0, 50);
-  case ADVANCED_PATTERN:
+  case PATTERN_ADVANCED:
     // This advanced pattern demonstrates the functionality of PatternTheory
     return new AdvancedPattern(
       5,  // on duration
@@ -59,5 +63,7 @@ Pattern *PatternBuilder::generate(PatternID id)
       2,  // skip (number of colors to skip after gap)
       1   // repeat (number of times to repeat group)
     );
+  case PATTERN_RABBIT:
+    return new RabbitPattern();
   }
 }

@@ -3,11 +3,11 @@
 
 #include <inttypes.h>
 
-#include "Pattern.h"
+#include "SingleLedPattern.h"
 
 #include "../Timer.h"
 
-class BasicPattern : public Pattern
+class BasicPattern : public SingleLedPattern
 {
 public:
   BasicPattern(uint32_t onDuration, uint32_t offDuration = 0);
@@ -16,6 +16,8 @@ public:
   virtual void init(Colorset *set, LedPos pos);
 
   virtual void play();
+
+  virtual void skip(uint32_t ticks);
 
   virtual void resume();
 

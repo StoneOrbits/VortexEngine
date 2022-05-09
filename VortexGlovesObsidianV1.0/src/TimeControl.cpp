@@ -62,6 +62,12 @@ uint64_t Time::getCurtime(LedPos pos)
   return m_curTick + getTickOffset(pos) + getSimulationTick();
 }
 
+// the real current time, bypass simulations, used by timers
+uint64_t Time::getRealCurtime()
+{
+  return m_curTick;
+}
+
 // get the amount of ticks this led position runs out of sync
 uint32_t Time::getTickOffset(LedPos pos)
 {

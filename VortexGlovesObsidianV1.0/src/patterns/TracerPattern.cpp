@@ -30,7 +30,8 @@ void TracerPattern::init(Colorset *colorset, LedPos pos)
   m_blinkTimer.start();
 
   // run base pattern init logic
-  Pattern::init(colorset, pos);
+  SingleLedPattern::init(colorset, pos);
+  m_blinkTimer.start(Time::getTickOffset(pos));
 }
 
 // pure virtual must override the play function
@@ -52,7 +53,7 @@ void TracerPattern::play()
 // must override the serialize routine to save the pattern
 void TracerPattern::serialize() const
 {
-  Pattern::serialize();
+  SingleLedPattern::serialize();
   Serial.print(m_tracerDuration);
   Serial.print(m_dotDuration);
 }

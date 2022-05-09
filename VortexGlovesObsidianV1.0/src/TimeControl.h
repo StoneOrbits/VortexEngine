@@ -21,6 +21,9 @@ public:
   // get the current time with optional led position time offset
   static uint64_t getCurtime(LedPos pos = LED_FIRST);
 
+  // this ignore simulation time, it's used by timers to make simulations work
+  static uint64_t getRealCurtime();
+
   // get the amount of ticks this led position runs out of sync
   // the 1st index led gets exactly 1x the tick offset
   static uint32_t getTickOffset(LedPos pos = (LedPos)1);
