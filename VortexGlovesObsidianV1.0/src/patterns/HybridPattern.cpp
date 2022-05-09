@@ -1,5 +1,8 @@
 #include "HybridPattern.h"
 
+#include "Pattern.h"
+#include "../Colorset.h"
+
 HybridPattern::HybridPattern() :
   MultiLedPattern(),
   m_ledPatterns(),

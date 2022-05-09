@@ -1,6 +1,6 @@
 #include "SingleLedPattern.h"
 
-#include "TimeControl.h"
+#include "../TimeControl.h"
 
 SingleLedPattern::SingleLedPattern() :
   Pattern()
