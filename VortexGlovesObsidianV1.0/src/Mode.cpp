@@ -25,7 +25,7 @@ Mode::~Mode()
       delete m_ledEntries[pos].colorset;
     }
     // only delete the first one
-    if (!hasFlags(MODE_FLAG_MULTI_PATTERN)) {
+    if (!hasFlags(MODE_FLAG_MULTI_LED)) {
       break;
     }
   }
@@ -71,7 +71,7 @@ void Mode::play()
     // play the curren pattern with current color set on the current finger
     entry.pattern->play();
     // only run one pattern if this isn't a multi-pattern mode
-    if (!hasFlags(MODE_FLAG_MULTI_PATTERN)) {
+    if (!hasFlags(MODE_FLAG_MULTI_LED)) {
       //return;
     }
   }
@@ -103,7 +103,7 @@ void Mode::serialize() const
     entry->colorset->serialize();
 
     // if the multi pattern flag isn't present onlyG write one entry
-    if (!hasFlags(MODE_FLAG_MULTI_PATTERN)) {
+    if (!hasFlags(MODE_FLAG_MULTI_LED)) {
       return;
     }
   }
@@ -116,7 +116,8 @@ void Mode::unserialize()
 // bind a single led pattern and colorset to individual LED
 bool Mode::bindSingle(SingleLedPattern *pat, Colorset *set, LedPos pos)
 {
-  if (pos > LED_LAST) {
+  // don't allow binding single on invalid LED, or a mode that already has multi
+  if (pos > LED_LAST || hasFlags(MODE_FLAG_MULTI_LED)) {
     return false;
   }
   unbindSingle(pos);
@@ -131,12 +132,13 @@ bool Mode::bindMulti(MultiLedPattern *pat, Colorset *set)
   unbindAll();
   m_multiPat = pat;
   m_multiColorset = set;
+  addFlags(MODE_FLAG_MULTI_LED);
   return true;
 }
 
 void Mode::unbindSingle(LedPos pos)
 {
-  if (pos > LED_LAST) {
+  if (pos > LED_LAST || hasFlags(MODE_FLAG_MULTI_LED)) {
     return;
   }
   if (m_ledEntries[pos].pattern) {
@@ -159,6 +161,8 @@ void Mode::unbindMulti()
     delete m_multiColorset;
     m_multiColorset = nullptr;
   }
+  // no longer a multi-led mode
+  clearFlags(MODE_FLAG_MULTI_LED);
 }
 
 void Mode::unbindAll()

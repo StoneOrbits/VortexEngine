@@ -4,7 +4,6 @@
 // TODO STILL:
 /*
  *  Primary:
- *   - Implement one complex mode
  *   - finish Color selct menu
  *   - finish Pattern select menu
  *   - Modes saving loading

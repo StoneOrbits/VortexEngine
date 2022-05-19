@@ -12,8 +12,8 @@ enum ModeFlags : uint32_t
 {
   MODE_FLAG_NONE = 0,
 
-  // the current mode has multiple patterns
-  MODE_FLAG_MULTI_PATTERN = (1 << 0),
+  // the mode is utilizing a multi-led pattern
+  MODE_FLAG_MULTI_LED = (1 << 0),
 };
 
 // the keyword 'ALL_SLOTS' can be used to refer to all of the
@@ -51,6 +51,8 @@ public:
 
   // set and get the mode flags
   void setFlags(ModeFlags flags) { m_flags = flags; }
+  void addFlags(ModeFlags flags) { m_flags = (ModeFlags)(m_flags | flags); }
+  void clearFlags(ModeFlags flags) { m_flags = (ModeFlags)(m_flags & ~flags); }
   ModeFlags getFlags() const { return m_flags; }
   bool hasFlags(ModeFlags flags) const { return (m_flags & flags) == flags; }
 
