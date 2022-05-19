@@ -3,6 +3,8 @@
 MultiLedPattern::MultiLedPattern() :
   Pattern()
 {
+  // this is a multi led pattern
+  m_patternFlags = PATTERN_FLAG_MULTI;
 }
 
 MultiLedPattern::~MultiLedPattern()

@@ -3,7 +3,8 @@
 
 #include "LedConfig.h"
 
-class Pattern;
+class MultiLedPattern;
+class SingleLedPattern;
 class Colorset;
 
 // Bitflags for the current mode
@@ -37,33 +38,39 @@ public:
   void unserialize();
 
   // bind a pattern and colorset to individual LED
-  bool bind(Pattern *pat, Colorset *set, LedPos pos = LED_FIRST);
-  // bind a pattern and colorset to a range of LEDs
-  bool bindRange(Pattern *pat, Colorset *set, LedPos first, LedPos last);
-  // bind a pattern and colorset to all LEDs
-  bool bindAll(Pattern *pat, Colorset *set);
+  bool bindSingle(SingleLedPattern *pat, Colorset *set, LedPos pos = LED_FIRST);
+  // bind a multi led pattern and colorset to all of the LEDs
+  bool bindMulti(MultiLedPattern *pat, Colorset *set);
+
+  // unbind a single pattern and colorset from the mode
+  void unbindSingle(LedPos pos = LED_FIRST);
+  // unbind a multi pattern and colorset from the mode
+  void unbindMulti();
+  // clear and delete all patterns and colorsets from the mode
+  void unbindAll();
 
   // set and get the mode flags
   void setFlags(ModeFlags flags) { m_flags = flags; }
   ModeFlags getFlags() const { return m_flags; }
   bool hasFlags(ModeFlags flags) const { return (m_flags & flags) == flags; }
 
-  // Get pointer to a pattern/colorset
-  Pattern *getPattern(LedPos pos = LED_FIRST) const;
-  Colorset *getColorset(LedPos pos = LED_FIRST) const;
+  // Get pointer to an individual pattern/colorset
+  SingleLedPattern *getSinglePattern(LedPos pos = LED_FIRST) const;
+  Colorset *getSingleColorset(LedPos pos = LED_FIRST) const;
+
+  // get pointer to a multi-pattern or the multi-pattern colorset
+  MultiLedPattern *getMultiPattern() const;
+  Colorset *getMultiColorset() const;
 
   // this will in-place change the pattern or colorset on
   // slot to a copy of the given pattern or colorset
-  bool changePattern(const Pattern *pat, LedPos pos);
+  bool changePattern(const SingleLedPattern *pat, LedPos pos);
   bool changeColorset(const Colorset *set, LedPos pos);
 
   // this will in-place change the pattern or colorset al
   // slots to a copy of the given pattern or colorset
-  bool changeAllPatterns(const Pattern *pat);
+  bool changeAllPatterns(const SingleLedPattern *pat);
   bool changeAllColorsets(const Colorset *set);
-
-  // reset a mode back to it's initial state
-  void reset();
 
 private:
   // NOTE: Modes *ALLOW* for one pattern and one colorset on each LED
@@ -75,32 +82,39 @@ private:
   //       This means in practice all m_pPatterns and m_pColorsets are
   //       separate instances of the same class unless somebody has loaded
   //       a custom savefile
-
-  // ==================
-  //  private routine
-
+  //
+  //       Alternatively a Mode can contain a single MultiLedPattern and 
+  //       Colorset, where the single pattern will be responsible for all
+  //       of the leds.
 
   // A set of flags for the mode
   ModeFlags m_flags;
 
-  // each led entry has a pattern/colorset entry
+  // each led entry has a SingleLedPattern/colorset entry
   struct LedEntry
   {
     LedEntry() :
       pattern(nullptr), colorset(nullptr)
     {
     }
-    LedEntry(Pattern *p, Colorset *c) :
+    LedEntry(SingleLedPattern *p, Colorset *c) :
       pattern(p), colorset(c)
     {
     }
     // members
-    Pattern *pattern;
+    SingleLedPattern *pattern;
     Colorset *colorset;
   };
 
-  // map of led positions => pattern/colorset entries
-  LedEntry m_ledEntries[LED_COUNT];
+  union {
+    // map of led positions => pattern/colorset entries
+    LedEntry m_ledEntries[LED_COUNT];
+    // just a single multi led pattern and colorset
+    struct {
+      MultiLedPattern *m_multiPat;
+      Colorset *m_multiColorset;
+    };
+  };
 };
 
 #endif

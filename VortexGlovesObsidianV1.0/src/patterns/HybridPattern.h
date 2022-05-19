@@ -3,6 +3,8 @@
 
 #include "MultiLedPattern.h"
 
+class SingleLedPattern;
+
 // A hybrid pattern is a type of multi-led pattern that works by displaying 
 // pre-existing patterns on different leds simultaneously
 class HybridPattern : public MultiLedPattern
@@ -23,8 +25,8 @@ public:
   virtual void unserialize();
 
 protected:
-  // array of patterns, one for each LED
-  Pattern *m_ledPatterns[LED_COUNT];
+  // array of single LED patterns, one for each LED
+  SingleLedPattern *m_ledPatterns[LED_COUNT];
   // array of colorsets, one for each LED
   Colorset *m_ledColorsets[LED_COUNT];
 };

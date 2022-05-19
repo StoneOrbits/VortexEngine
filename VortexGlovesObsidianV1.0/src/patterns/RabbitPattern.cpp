@@ -17,11 +17,11 @@ void RabbitPattern::init(Colorset *colorset, LedPos pos)
 {
   // fill the sub patterns array with instances of patterns
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    Pattern *pat = nullptr;
+    SingleLedPattern *pat = nullptr;
     if (((uint32_t)pos % 2) == 0) { // tip
-      pat = PatternBuilder::make(PATTERN_STROBE);
+      pat = PatternBuilder::makeSingle(PATTERN_STROBE);
     } else { // top
-      pat = PatternBuilder::make(PATTERN_STROBIE);
+      pat = PatternBuilder::makeSingle(PATTERN_STROBIE);
     }
     // make a copy of the colorset so each LED has it's own instance of the colorset
     Colorset *set = new Colorset(*colorset);

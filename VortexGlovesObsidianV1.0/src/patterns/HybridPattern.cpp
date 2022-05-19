@@ -1,6 +1,6 @@
 #include "HybridPattern.h"
 
-#include "Pattern.h"
+#include "SingleLedPattern.h"
 #include "../Colorset.h"
 
 HybridPattern::HybridPattern() :
@@ -14,7 +14,7 @@ HybridPattern::~HybridPattern()
 {
   // clean up all the sub patterns
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    Pattern *pat = m_ledPatterns[pos];
+    SingleLedPattern *pat = m_ledPatterns[pos];
     Colorset *set = m_ledColorsets[pos];
     if (pat) {
       delete pat;
@@ -29,7 +29,7 @@ HybridPattern::~HybridPattern()
 void HybridPattern::init(Colorset *colorset, LedPos pos)
 {
   for (LedPos ledPos = LED_FIRST; ledPos <= LED_LAST; ledPos++) {
-    Pattern *pat = m_ledPatterns[ledPos];
+    SingleLedPattern *pat = m_ledPatterns[ledPos];
     Colorset *set = m_ledColorsets[ledPos];
     if (!pat || !set) {
       // fatal error!
@@ -46,7 +46,7 @@ void HybridPattern::init(Colorset *colorset, LedPos pos)
 void HybridPattern::play()
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    Pattern *pat = m_ledPatterns[pos];
+    SingleLedPattern *pat = m_ledPatterns[pos];
     if (!pat) {
       // should never happen, but just in case
       continue;

@@ -29,7 +29,7 @@ bool ColorSelect::init()
     return false;
   }
   // copy the colorset from the current mode
-  m_colorset = *m_pCurMode->getColorset();
+  m_colorset = *m_pCurMode->getSingleColorset();
   DEBUG("Entered color select");
   return true;
 }

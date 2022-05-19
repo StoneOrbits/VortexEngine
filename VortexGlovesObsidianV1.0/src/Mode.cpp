@@ -1,5 +1,6 @@
 #include "Mode.h"
 
+#include "patterns/SingleLedPattern.h"
 #include "patterns/Pattern.h"
 #include "PatternBuilder.h"
 #include "TimeControl.h"
@@ -112,41 +113,62 @@ void Mode::unserialize()
 {
 }
 
-// bind a pattern and colorset to individual LED
-bool Mode::bind(Pattern *pat, Colorset *set, LedPos pos)
+// bind a single led pattern and colorset to individual LED
+bool Mode::bindSingle(SingleLedPattern *pat, Colorset *set, LedPos pos)
 {
   if (pos > LED_LAST) {
     return false;
   }
-  if (m_ledEntries[pos].pattern) {
-    delete m_ledEntries[pos].pattern;
-  }
-  if (m_ledEntries[pos].colorset) {
-    delete m_ledEntries[pos].colorset;
-  }
+  unbindSingle(pos);
   m_ledEntries[pos].pattern = pat;
   m_ledEntries[pos].colorset = set;
   return true;
 }
 
-// bind a pattern and colorset to a range of LEDs
-bool Mode::bindRange(Pattern *pat, Colorset *set, LedPos first, LedPos last)
+// bind a multi led pattern and colorset to all LEDs
+bool Mode::bindMulti(MultiLedPattern *pat, Colorset *set)
 {
-  for (LedPos pos = first; pos <= last; ++pos) {
-    if (!bind(pat, set, pos)) {
-      return false;
-    }
-  }
+  unbindAll();
+  m_multiPat = pat;
+  m_multiColorset = set;
   return true;
 }
 
-// bind a pattern and colorset to all LEDs
-bool Mode::bindAll(Pattern *pat, Colorset *set)
+void Mode::unbindSingle(LedPos pos)
 {
-  return bindRange(pat, set, LED_FIRST, LED_LAST);
+  if (pos > LED_LAST) {
+    return;
+  }
+  if (m_ledEntries[pos].pattern) {
+    delete m_ledEntries[pos].pattern;
+    m_ledEntries[pos].pattern = nullptr;
+  }
+  if (m_ledEntries[pos].colorset) {
+    delete m_ledEntries[pos].colorset;
+    m_ledEntries[pos].colorset = nullptr;
+  }
 }
 
-Pattern *Mode::getPattern(LedPos pos) const
+void Mode::unbindMulti()
+{
+  if (m_multiPat) {
+    delete m_multiPat;
+    m_multiPat = nullptr;
+  }
+  if (m_multiColorset) {
+    delete m_multiColorset;
+    m_multiColorset = nullptr;
+  }
+}
+
+void Mode::unbindAll()
+{
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    unbindSingle(pos);
+  }
+}
+
+SingleLedPattern *Mode::getSinglePattern(LedPos pos) const
 {
   if (pos > LED_LAST) {
     return nullptr;
@@ -154,7 +176,7 @@ Pattern *Mode::getPattern(LedPos pos) const
   return m_ledEntries[pos].pattern;
 }
 
-Colorset *Mode::getColorset(LedPos pos) const
+Colorset *Mode::getSingleColorset(LedPos pos) const
 {
   if (pos > LED_LAST) {
     return nullptr;
@@ -162,14 +184,24 @@ Colorset *Mode::getColorset(LedPos pos) const
   return m_ledEntries[pos].colorset;
 }
 
-// this will in-place change the pattern for all 10x slots
-bool Mode::changePattern(const Pattern *pat, LedPos pos)
+MultiLedPattern *Mode::getMultiPattern() const
+{
+  return m_multiPat;
+}
+
+Colorset *Mode::getMultiColorset() const
+{
+  return m_multiColorset;
+}
+
+// this will in-place change the single led pattern for all 10x slots
+bool Mode::changePattern(const SingleLedPattern *pat, LedPos pos)
 {
   if (!pat || pos > LED_LAST) {
     // programmer error
     return false;
   }
-  Pattern *newPat = PatternBuilder::make(pat->getPatternID());
+  SingleLedPattern *newPat = PatternBuilder::makeSingle(pat->getPatternID());
   if (!newPat) {
     // failed to build new pattern
     return false;
@@ -201,7 +233,7 @@ bool Mode::changeColorset(const Colorset *set, LedPos pos)
 }
 
 // this will in-place change the pattern for all 10x slots
-bool Mode::changeAllPatterns(const Pattern *pat)
+bool Mode::changeAllPatterns(const SingleLedPattern *pat)
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     if (!changePattern(pat, pos)) {

@@ -102,7 +102,7 @@ bool Modes::setDefaults()
 bool Modes::addMode(Mode *mode)
 {
   // max modes
-  if (m_numModes >= NUM_MODES) {
+  if (m_numModes >= NUM_MODES || !mode) {
     return false;
   }
   m_modeList[m_numModes++] = mode;

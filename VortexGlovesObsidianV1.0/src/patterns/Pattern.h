@@ -5,6 +5,11 @@
 #include "../Patterns.h"
 #include "../Timer.h"
 
+#define PATTERN_FLAGS_NONE  0
+
+// the pattern is a multi-pattern
+#define PATTERN_FLAG_MULTI  (1<<0)
+
 class Colorset;
 
 class Pattern
@@ -32,6 +37,9 @@ public:
   // get/set the ID of the pattern (set by mode builder)
   PatternID getPatternID() const { return m_patternID; }
 
+  // get the pattern flags
+  uint32_t getFlags() const { return m_patternFlags; }
+
 protected:
   // the ID of this pattern (set by pattern builder)
   PatternID m_patternID;
@@ -42,6 +50,9 @@ protected:
 
   // the tick number the pattern started playing on
   uint64_t m_patternStartTick;
+
+  // any flags the pattern has
+  uint32_t m_patternFlags;
 };
 
 #endif

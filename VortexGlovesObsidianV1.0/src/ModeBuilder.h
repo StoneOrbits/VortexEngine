@@ -20,6 +20,12 @@ public:
     RGBColor c6 = RGB_OFF, RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
 
 private:
+  // helpers to build single/multi led patterns
+  static Mode *makeSingle(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
+    RGBColor c4, RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8);
+  static Mode *makeMulti(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
+    RGBColor c4, RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8);
+
   // helper to build a pattern from ID
   static Pattern *makePattern(PatternID id);
 };

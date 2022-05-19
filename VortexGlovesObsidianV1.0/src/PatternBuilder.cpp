@@ -19,6 +19,27 @@ Pattern *PatternBuilder::make(PatternID id)
   return pat;
 }
 
+// generate a single LED pattern (nullptr if patternid is not single LED)
+SingleLedPattern *PatternBuilder::makeSingle(PatternID id)
+{
+  Pattern *pat = make(id);
+  if (!pat) {
+    return nullptr;
+  }
+  // don't set any flags on single pattersn
+}
+
+// generate a multi LED pattern (nullptr if patternid is not multi LED)
+MultiLedPattern *PatternBuilder::makeMulti(PatternID id)
+{
+  Pattern *pat = make(id);
+  if (!pat) {
+    return nullptr;
+  }
+  // set the multi flag on multi led patterns
+  pat->m_patternFlags |= PATTERN_FLAG_MULTI;
+}
+
 Pattern *PatternBuilder::generate(PatternID id)
 {
   // NOTE: The timings of patterns are only defined at creation time

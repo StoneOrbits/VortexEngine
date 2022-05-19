@@ -21,7 +21,7 @@ bool PatternSelect::init()
     return false;
   }
   // grab a copy of current colorset
-  m_colorset = *m_pCurMode->getColorset();
+  m_colorset = *m_pCurMode->getSingleColorset();
   DEBUG("Entered pattern select");
   return true;
 }
@@ -100,7 +100,8 @@ void PatternSelect::onLongClick()
     break;
   case STATE_PICK_PATTERN:
     // store the new pattern in the mode
-    m_pCurMode->changeAllPatterns(m_pNewPattern);
+    // TODO: Fix this
+    //m_pCurMode->changeAllPatterns(m_pNewPattern);
     delete m_pNewPattern;
     // go back to beginning for next time
     m_state = STATE_PICK_LIST;

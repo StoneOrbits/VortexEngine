@@ -26,6 +26,8 @@ enum LedPos : uint32_t
   THUMB_TOP,
 
   // INSERT NEW ENTRIES HERE
+  //PALM_TIP,
+  //PALM_TOP,
 
   // the number of entries above
   LED_COUNT,
