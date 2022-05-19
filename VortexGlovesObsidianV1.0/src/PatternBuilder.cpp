@@ -27,6 +27,7 @@ SingleLedPattern *PatternBuilder::makeSingle(PatternID id)
     return nullptr;
   }
   // don't set any flags on single pattersn
+  return (SingleLedPattern *)pat;
 }
 
 // generate a multi LED pattern (nullptr if patternid is not multi LED)
@@ -38,6 +39,7 @@ MultiLedPattern *PatternBuilder::makeMulti(PatternID id)
   }
   // set the multi flag on multi led patterns
   pat->m_patternFlags |= PATTERN_FLAG_MULTI;
+  return (MultiLedPattern *)pat;
 }
 
 Pattern *PatternBuilder::generate(PatternID id)

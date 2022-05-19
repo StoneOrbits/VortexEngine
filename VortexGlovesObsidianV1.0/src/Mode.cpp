@@ -1,6 +1,7 @@
 #include "Mode.h"
 
 #include "patterns/SingleLedPattern.h"
+#include "patterns/MultiLedPattern.h"
 #include "patterns/Pattern.h"
 #include "PatternBuilder.h"
 #include "TimeControl.h"
