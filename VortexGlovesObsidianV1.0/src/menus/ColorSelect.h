@@ -22,11 +22,14 @@ private:
   // internal routines for the color select
   void showSlotSelection();
   void showHueSelection(uint32_t divisions);
-  void showSatSelection(uint32_t divisions);
-  void showValSelection(uint32_t divisions);
+  void showSatSelection();
+  void showValSelection();
 
   // Generate hue/sat/val values based on selection rules
   uint32_t genValue(uint32_t start, uint32_t divisions, uint32_t amount);
+
+  // overridden blink logic for the colorselect menu (Controls how m_curSelection blinks)
+  void blinkSelection(uint32_t offMs = 350, uint32_t onMs = 500) override;
 
   // private enumeration for internal state of color selection
   enum ColorSelectState : uint32_t
@@ -40,18 +43,11 @@ private:
     // next pick a quadrant within that quadrant 0, 25, 50, 70 
     STATE_PICK_HUE2,
     
-    // then pick a refined hue 0 5 10 20
-    STATE_PICK_HUE3,
-
     // picking a saturation for the color
-    STATE_PICK_SAT1,
-    
-    STATE_PICK_SAT2,
+    STATE_PICK_SAT,
 
     // picking a value for the color
-    STATE_PICK_VAL1,
-    
-    STATE_PICK_VAL2,
+    STATE_PICK_VAL,
   };
 
   // the current state of the color selection menu

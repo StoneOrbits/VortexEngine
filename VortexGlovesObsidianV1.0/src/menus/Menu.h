@@ -26,9 +26,9 @@ public:
 
 protected:
   // close the current menu
-  void leaveMenu();
+  virtual void leaveMenu();
   // blink the selected finger
-  void blinkSelection(uint32_t offMs = 350);
+  virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
 
   // the current mode that was selected
   Mode *m_pCurMode;

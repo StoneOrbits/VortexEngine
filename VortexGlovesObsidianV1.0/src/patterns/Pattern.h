@@ -5,6 +5,20 @@
 #include "../Patterns.h"
 #include "../Timer.h"
 
+// The heirarchy of pattern currently looks like this:
+//
+//                                pattern*
+//                              /        \
+//                single led pat*           multi led pat*
+//                /           \             /            \
+//           basic pat       tracer pat    hybrid pat*    sequenced pat*
+//           /                              /
+//        gap pattern                 Rabbit Pattern
+//        /
+//     advanced pattern
+//
+// * = abstract class that cannot be instantiated
+
 #define PATTERN_FLAGS_NONE  0
 
 // the pattern is a multi-pattern

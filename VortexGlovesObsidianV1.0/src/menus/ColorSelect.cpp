@@ -28,7 +28,10 @@ bool ColorSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  // copy the colorset from the current mode
+  // There is no way to change the colorsets of the rest of the leds past LED_FIRST, that
+  // would need a more advanced menu.  So we make a copy of the primary colorset, this is 
+  // either the colorset of the first individual pattern or if the mode has a multi-led 
+  // pattern then it's the multi-led pattern's colorset
   m_colorset = *m_pCurMode->getSingleColorset();
   DEBUG("Entered color select");
   return true;
@@ -52,20 +55,11 @@ bool ColorSelect::run()
   case STATE_PICK_HUE2:
     showHueSelection(16);
     break;
-  case STATE_PICK_HUE3:
-    showHueSelection(64);
+  case STATE_PICK_SAT:
+    showSatSelection();
     break;
-  case STATE_PICK_SAT1:
-    showSatSelection(4);
-    break;
-  case STATE_PICK_SAT2:
-    showSatSelection(16);
-    break;
-  case STATE_PICK_VAL1:
-    showValSelection(4);
-    break;
-  case STATE_PICK_VAL2:
-    showValSelection(16);
+  case STATE_PICK_VAL:
+    showValSelection();
     break;
   }
 
@@ -80,29 +74,46 @@ void ColorSelect::onShortClick()
   // TODO: proper paging support where it shrinks to the number of colors
 
   // keep track of pages when in slot selection
-  if (m_state == STATE_PICK_SLOT && m_curSelection == FINGER_INDEX) {
-    if (m_colorset.numColors() > 3) {
-      m_curPage = (m_curPage + 1) % NUM_PAGES;
+  if (m_state == STATE_PICK_SLOT) {
+    // if the current selection is on the index finger then it's at the
+    // end of the current page and we might need to go to the next page
+    if (m_curSelection == FINGER_THUMB) {
+      // even if there is only 4 colors then we need to allow going to the 5th
+      // slot on the next page in order to add a color
+      if (m_colorset.numColors() > 3) {
+        // increase the page number but wrap at max pages which is by default 2
+        m_curPage = (m_curPage + 1) % NUM_PAGES;
+      }
     }
   }
-  // iterate selection forward 
-  m_curSelection = (Finger)((m_curSelection + 1) % FINGER_THUMB);
-  // wrap if at end of selection
-  uint32_t slot = (uint32_t)m_curSelection + (m_curPage * PAGE_SIZE);
-  if (slot > m_colorset.numColors()) {
-    m_curPage = 0;
-    m_curSelection = FINGER_FIRST;
+  // iterate selection forward and wrap after the index
+  m_curSelection = (Finger)((m_curSelection + 1) % (FINGER_THUMB + 1));
+  // only when we're not on thumb calculate the current slot
+  if (m_curSelection != FINGER_THUMB) {
+    // the slot is an index in the colorset, where as curselection is a finger index
+    m_slot = (uint32_t)m_curSelection + (m_curPage * PAGE_SIZE);
+    if (m_slot > m_colorset.numColors()) {
+      m_curPage = m_slot = 0;
+      m_curSelection = FINGER_FIRST;
+    }
   }
 }
 
 void ColorSelect::onLongClick()
 {
+  if (m_curSelection == FINGER_THUMB) {
+    // reset state and selection
+    m_state = STATE_PICK_SLOT;
+    m_curSelection = FINGER_FIRST;
+    // leave menu
+    leaveMenu();
+    return;
+  }
   switch (m_state) {
   case STATE_PICK_SLOT:
-    // store the slot selection
-    m_slot = (uint32_t)m_curSelection + (m_curPage * PAGE_SIZE);
     m_state = STATE_PICK_HUE1;
-    // reset current page for next time
+    // the page is only used for slot selection so reset current page 
+    // for next time they use the color select
     m_curPage = 0;
     break;
   case STATE_PICK_HUE1:
@@ -113,32 +124,16 @@ void ColorSelect::onLongClick()
   case STATE_PICK_HUE2:
     // pick a hue2
     m_newColor.hue = genValue(m_newColor.hue, 16, m_curSelection);
-    m_state = STATE_PICK_HUE3;
+    m_state = STATE_PICK_SAT;
     break;
-  case STATE_PICK_HUE3:
-    // pick a hue3
-    m_newColor.hue = genValue(m_newColor.hue, 64, m_curSelection);
-    m_state = STATE_PICK_SAT1;
-    break;
-  case STATE_PICK_SAT1:
+  case STATE_PICK_SAT:
     // pick a saturation
     m_newColor.sat = genValue(m_newColor.sat, 4, m_curSelection);
-    m_state = STATE_PICK_SAT2;
+    m_state = STATE_PICK_VAL;
     break;
-  case STATE_PICK_SAT2:
-    // pick a saturation
-    m_newColor.sat = genValue(m_newColor.sat, 16, m_curSelection);
-    m_state = STATE_PICK_VAL1;
-    break;
-  case STATE_PICK_VAL1:
+  case STATE_PICK_VAL:
     // pick a value
     m_newColor.val = genValue(m_newColor.val, 4, m_curSelection);
-    // go back to beginning for next time
-    m_state = STATE_PICK_VAL2;
-    break;
-  case STATE_PICK_VAL2:
-    // pick a value
-    m_newColor.val = genValue(m_newColor.val, 16, m_curSelection);
     // replace the slot with the new color
     m_colorset.set(m_slot, m_newColor);
     // switch all colorsets to a copy of m_colorset
@@ -175,19 +170,19 @@ void ColorSelect::showHueSelection(uint32_t divisions)
   }
 }
 
-void ColorSelect::showSatSelection(uint32_t divisions)
+void ColorSelect::showSatSelection()
 {
-  for (LedPos p = PINKIE_TIP; p <= INDEX_TOP; ++p) {
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // generate saturate on current hue from current finger
-    Leds::setIndex(p, HSVColor(m_newColor.hue, genValue(m_newColor.sat, divisions * 2, p), 255));
+    Leds::setFinger(f, HSVColor(m_newColor.hue, genValue(128, 6, f), 255));
   }
 }
 
-void ColorSelect::showValSelection(uint32_t divisions)
+void ColorSelect::showValSelection()
 {
-  for (LedPos p = PINKIE_TIP; p <= INDEX_TOP; ++p) {
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // generate saturate on current hue from current finger
-    Leds::setIndex(p, HSVColor(m_newColor.hue, m_newColor.sat, genValue(m_newColor.val, divisions * 2, p)));
+    Leds::setFinger(f, HSVColor(m_newColor.hue, m_newColor.sat, genValue(128, 6, f)));
   }
 }
 
@@ -195,4 +190,21 @@ uint32_t ColorSelect::genValue(uint32_t start, uint32_t divisions, uint32_t amou
 {
   // make a value between 0-255 with even divisions of 255 starting from an offset
   return start + (amount * (255 / divisions));
+}
+
+void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
+{
+  // if we're in the slot selection
+  if (m_state == STATE_PICK_SLOT) {
+    // and the current selected slot is the end slot, except for when we're on the thumb
+    if (m_slot == m_colorset.numColors() && m_curSelection != FINGER_THUMB) {
+      // clear the finger so it turns off, then blink this slot green 
+      // to indicate we can add a color here
+      Leds::clearFinger(m_curSelection);
+      Leds::blinkFinger(m_curSelection, 150, 350, RGB_GREEN);
+      return;
+    }
+  }
+  // otherwise run the default blink logic
+  Menu::blinkSelection(offMs, onMs);
 }
