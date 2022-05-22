@@ -75,10 +75,10 @@ bool Randomizer::reRoll()
   }
 
   // pick a random pattern
-  PatternID pattern = (PatternID)random(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
+  PatternID pattern = PATTERN_SINGLE_FIRST;//(PatternID)random(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
 
   // pick a random amount of colors
-  uint32_t numColors = random(2, 7);
+  uint32_t numColors = 3;//random(2, 7);
 
   // fill the array with up to numColors random colors
   RGBColor c[8] = { RGB_OFF };
