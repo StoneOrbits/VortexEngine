@@ -47,7 +47,7 @@ bool GlobalBrightness::run()
 void GlobalBrightness::onShortClick()
 {
   // four options in global brightness
-  m_curSelection = (Finger)(((uint32_t)m_curSelection + 1) % 4);
+  m_curSelection = (Finger)(((uint32_t)m_curSelection + 1) % (FINGER_THUMB + 1));
 }
 
 void GlobalBrightness::onLongClick()
