@@ -21,7 +21,7 @@ bool PatternSelect::init()
     return false;
   }
   // grab a copy of current colorset
-  m_colorset = *m_pCurMode->getSingleColorset();
+  m_colorset = *m_pCurMode->getColorset();
   DEBUG("Entered pattern select");
   return true;
 }

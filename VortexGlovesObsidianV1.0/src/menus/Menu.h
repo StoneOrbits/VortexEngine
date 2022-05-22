@@ -14,7 +14,9 @@ public:
   Menu();
   virtual ~Menu();
 
-  // optional init function can be overridden
+  // optional init function can be overridden, this is called when the menu is
+  // first opened to initialize the menu. It will be called each time the menu 
+  // is opened
   virtual bool init();
 
   // when the menu runs it will have access to time, the button and led control

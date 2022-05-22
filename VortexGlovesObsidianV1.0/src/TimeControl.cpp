@@ -29,7 +29,6 @@ bool Time::init()
 
 void Time::tickClock()
 {
-
   // tick clock forward
   m_curTick++;
 

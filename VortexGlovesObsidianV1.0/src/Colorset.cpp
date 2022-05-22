@@ -8,6 +8,7 @@ Colorset::Colorset() :
   m_numColors(0),
   m_palette()
 {
+  init();
 }
 
 Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
@@ -23,6 +24,7 @@ Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
   m_palette[5] = c6; if (!c6.empty()) m_numColors++;
   m_palette[6] = c7; if (!c7.empty()) m_numColors++;
   m_palette[7] = c8; if (!c8.empty()) m_numColors++;
+  init();
 }
 
 Colorset::Colorset(const Colorset &other) :
@@ -32,11 +34,7 @@ Colorset::Colorset(const Colorset &other) :
   for (int i = 0; i < NUM_COLOR_SLOTS; ++i) {
     m_palette[i] = other.m_palette[i];
   }
-}
-
-void Colorset::init()
-{
-  m_curIndex = UINT32_MAX;
+  init();
 }
 
 void Colorset::operator=(const Colorset &other)
@@ -46,6 +44,7 @@ void Colorset::operator=(const Colorset &other)
   for (int i = 0; i < NUM_COLOR_SLOTS; ++i) {
     m_palette[i] = other.m_palette[i];
   }
+  init();
 }
 
 bool Colorset::operator==(const Colorset &other)
@@ -57,6 +56,11 @@ bool Colorset::operator==(const Colorset &other)
 bool Colorset::operator!=(const Colorset &other)
 {
   return !operator==(other);
+}
+
+void Colorset::init()
+{
+  m_curIndex = UINT32_MAX;
 }
 
 RGBColor Colorset::operator[](int index) const
@@ -73,6 +77,17 @@ bool Colorset::addColor(RGBColor col)
   m_palette[m_numColors] = col;
   m_numColors++;
   return true;
+}
+
+void Colorset::removeColor(uint32_t index)
+{
+  if (index >= m_numColors) {
+    return;
+  }
+  for (uint32_t i = index; i < (m_numColors - 1); ++i) {
+    m_palette[i] = m_palette[i + 1];
+  }
+  m_palette[--m_numColors].clear();
 }
 
 // get a color from the colorset

@@ -10,7 +10,8 @@ Pattern::Pattern() :
   m_patternID(PATTERN_NONE),
   m_pColorset(nullptr),
   m_ledPos(LED_FIRST),
-  m_patternStartTick(0)
+  m_patternStartTick(0),
+  m_patternFlags(0)
 {
 }
 

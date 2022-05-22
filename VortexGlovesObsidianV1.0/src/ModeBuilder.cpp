@@ -6,6 +6,7 @@
 #include "PatternBuilder.h"
 #include "Colorset.h"
 #include "Mode.h"
+#include "Log.h"
 
 ModeBuilder::ModeBuilder()
 {
@@ -30,21 +31,20 @@ Mode *ModeBuilder::makeSingle(PatternID id, RGBColor c1, RGBColor c2, RGBColor c
   // create the new mode object
   Mode *newMode = new Mode();
   if (!newMode) {
-    // allocation error
+    ERROR_OUT_OF_MEMORY();
     return nullptr;
   }
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     // create a new colorset from the list of colors
     Colorset *newSet = new Colorset(c1, c2, c3, c4, c5, c6, c7, c8);
     if (!newSet) {
-      // allocation error
+      ERROR_OUT_OF_MEMORY();
       delete newMode;
       return nullptr;
     }
     // create a new pattern from the id
     SingleLedPattern *newPat = PatternBuilder::makeSingle(id);
     if (!newPat) {
-      // allocation error
       delete newMode;
       delete newSet;
       return nullptr;
@@ -66,13 +66,13 @@ Mode *ModeBuilder::makeMulti(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3
   // create the new mode object
   Mode *newMode = new Mode();
   if (!newMode) {
-    // allocation error
+    ERROR_OUT_OF_MEMORY();
     return nullptr;
   }
   // create a new colorset from the list of colors
   Colorset *newSet = new Colorset(c1, c2, c3, c4, c5, c6, c7, c8);
   if (!newSet) {
-    // allocation error
+    ERROR_OUT_OF_MEMORY();
     delete newMode;
     return nullptr;
   }

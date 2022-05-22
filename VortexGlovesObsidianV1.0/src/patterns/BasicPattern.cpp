@@ -6,6 +6,7 @@
 #include "../Log.h"
 
 BasicPattern::BasicPattern(uint32_t onDuration, uint32_t offDuration) :
+  SingleLedPattern(),
   m_onDuration(onDuration),
   m_offDuration(offDuration),
   m_blinkTimer()

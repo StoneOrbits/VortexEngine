@@ -7,6 +7,8 @@
 #include "TimeControl.h"
 #include "Colorset.h"
 
+#include "Log.h"
+
 #include <Arduino.h>
 
 Mode::Mode() :
@@ -17,19 +19,7 @@ Mode::Mode() :
 
 Mode::~Mode()
 {
-  // TODO: better management, this is messy
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    if (m_ledEntries[pos].pattern) {
-      delete m_ledEntries[pos].pattern;
-    }
-    if (m_ledEntries[pos].colorset) {
-      delete m_ledEntries[pos].colorset;
-    }
-    // only delete the first one
-    if (!hasFlags(MODE_FLAG_MULTI_LED)) {
-      break;
-    }
-  }
+  unbindAll();
 }
 
 void Mode::init()
@@ -173,7 +163,7 @@ void Mode::unbindAll()
   }
 }
 
-SingleLedPattern *Mode::getSinglePattern(LedPos pos) const
+const Pattern *Mode::getPattern(LedPos pos) const
 {
   if (pos > LED_LAST) {
     return nullptr;
@@ -181,7 +171,7 @@ SingleLedPattern *Mode::getSinglePattern(LedPos pos) const
   return m_ledEntries[pos].pattern;
 }
 
-Colorset *Mode::getSingleColorset(LedPos pos) const
+const Colorset *Mode::getColorset(LedPos pos) const
 {
   if (pos > LED_LAST) {
     return nullptr;
@@ -189,73 +179,88 @@ Colorset *Mode::getSingleColorset(LedPos pos) const
   return m_ledEntries[pos].colorset;
 }
 
-MultiLedPattern *Mode::getMultiPattern() const
+bool Mode::setPattern(PatternID pat, LedPos pos)
 {
-  return m_multiPat;
+  // if it's a multi pattern ID then just set the multi pattern slot
+  if (isMultiLedPatternID(pat)) {
+    // clear any stored patterns first
+    clearPatterns();
+    MultiLedPattern *newPat = PatternBuilder::makeMulti(pat);
+    if (!newPat) {
+      return false;
+    }
+    m_multiPat = newPat;
+    return true;
+  }
+  // if a specific LED was provided
+  if (pos < LED_COUNT) {
+    SingleLedPattern *newPat = PatternBuilder::makeSingle(pat);
+    if (!newPat) {
+      // failed to build new pattern, user gave multiled pattern id?
+      return false;
+    }
+    m_ledEntries[pos].pattern = newPat;
+    return true;
+  }
+  // otherwise iterate all of the LEDs and set single led patterns
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    SingleLedPattern *newPat = PatternBuilder::makeSingle(pat);
+    if (!newPat) {
+      // failed to build new pattern, user gave multiled pattern id?
+      return false;
+    }
+    // update the pattern in this slot
+    if (m_ledEntries[pos].pattern) {
+      delete m_ledEntries[pos].pattern;
+    }
+    m_ledEntries[pos].pattern = newPat;
+  }
+  return true;
 }
 
-Colorset *Mode::getMultiColorset() const
+// this will in-place change the colorset for all 10x slots
+bool Mode::setColorset(const Colorset *set, LedPos pos)
 {
-  return m_multiColorset;
+  if (pos != LED_COUNT) {
+    if (m_ledEntries[pos].colorset) {
+      *m_ledEntries[pos].colorset = *set;
+      return true;
+    }
+  }
+  // otherwise set all of the colorsets
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    // if there is already a colorset just copy-initialize it
+    if (m_ledEntries[pos].colorset) {
+      *m_ledEntries[pos].colorset = *set;
+      continue;
+    }
+    // otherwise create a new colorset in this slot
+    m_ledEntries[pos].colorset = new Colorset(*set);
+    if (!m_ledEntries[pos].colorset) {
+      // error
+    }
+  }
+  return true;
 }
 
-// this will in-place change the single led pattern for all 10x slots
-bool Mode::changePattern(const SingleLedPattern *pat, LedPos pos)
+void Mode::clearPatterns()
 {
-  if (!pat || pos > LED_LAST) {
-    // programmer error
-    return false;
-  }
-  SingleLedPattern *newPat = PatternBuilder::makeSingle(pat->getPatternID());
-  if (!newPat) {
-    // failed to build new pattern
-    return false;
-  }
-  if (m_ledEntries[pos].pattern) {
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    if (!m_ledEntries[pos].pattern) {
+      continue;
+    }
     delete m_ledEntries[pos].pattern;
+    m_ledEntries[pos].pattern = nullptr;
   }
-  m_ledEntries[pos].pattern = newPat;
-  return true;
 }
 
-// this will in-place change the colorset for all 10x slots
-bool Mode::changeColorset(const Colorset *set, LedPos pos)
+void Mode::clearColorsets()
 {
-  if (!set || pos > LED_LAST) {
-    // programmer error
-    return false;
-  }
-  Colorset *newSet = new Colorset(*set);
-  if (!newSet) {
-    // failed to build new colorset
-    return false;
-  }
-  if (m_ledEntries[pos].colorset) {
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    if (!m_ledEntries[pos].colorset) {
+      continue;
+    }
     delete m_ledEntries[pos].colorset;
+    m_ledEntries[pos].colorset = nullptr;
   }
-  m_ledEntries[pos].colorset = newSet;
-  return true;
 }
-
-// this will in-place change the pattern for all 10x slots
-bool Mode::changeAllPatterns(const SingleLedPattern *pat)
-{
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    if (!changePattern(pat, pos)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-// this will in-place change the colorset for all 10x slots
-bool Mode::changeAllColorsets(const Colorset *set)
-{
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    if (!changeColorset(set, pos)) {
-      return false;
-    }
-  }
-  return true;
-}
-

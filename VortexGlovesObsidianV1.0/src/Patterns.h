@@ -55,6 +55,10 @@ enum PatternID : uint32_t
   PATTERN_COUNT = (PATTERN_LAST - PATTERN_FIRST) + 1, // total number of patterns
 };
 
+// some helper functions to improve readability
+inline bool isMultiLedPatternID(PatternID id) { return id >= PATTERN_MULTI_FIRST; }
+inline bool isSingleLedPatternID(PatternID id) { return id < PATTERN_MULTI_FIRST; }
+
 // PatternID operators
 inline PatternID &operator++(PatternID &c)
 {

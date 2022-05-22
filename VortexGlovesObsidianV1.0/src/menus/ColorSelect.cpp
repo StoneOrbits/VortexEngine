@@ -28,11 +28,12 @@ bool ColorSelect::init()
   if (!Menu::init()) {
     return false;
   }
+  m_state = STATE_PICK_SLOT;
   // There is no way to change the colorsets of the rest of the leds past LED_FIRST, that
   // would need a more advanced menu.  So we make a copy of the primary colorset, this is 
   // either the colorset of the first individual pattern or if the mode has a multi-led 
   // pattern then it's the multi-led pattern's colorset
-  m_colorset = *m_pCurMode->getSingleColorset();
+  m_colorset = *m_pCurMode->getColorset();
   DEBUG("Entered color select");
   return true;
 }
@@ -71,8 +72,6 @@ bool ColorSelect::run()
 
 void ColorSelect::onShortClick()
 {
-  // TODO: proper paging support where it shrinks to the number of colors
-
   // keep track of pages when in slot selection
   if (m_state == STATE_PICK_SLOT) {
     // if the current selection is on the index finger then it's at the
@@ -86,10 +85,10 @@ void ColorSelect::onShortClick()
       }
     }
   }
-  // iterate selection forward and wrap after the index
+  // iterate selection forward and wrap after the thumb
   m_curSelection = (Finger)((m_curSelection + 1) % (FINGER_THUMB + 1));
-  // only when we're not on thumb calculate the current slot
-  if (m_curSelection != FINGER_THUMB) {
+  // only when we're not on thumb calculate the current 'slot' based on page
+  if (m_curSelection != FINGER_THUMB && m_state == STATE_PICK_SLOT) {
     // the slot is an index in the colorset, where as curselection is a finger index
     m_slot = (uint32_t)m_curSelection + (m_curPage * PAGE_SIZE);
     if (m_slot > m_colorset.numColors()) {
@@ -102,11 +101,19 @@ void ColorSelect::onShortClick()
 void ColorSelect::onLongClick()
 {
   if (m_curSelection == FINGER_THUMB) {
-    // reset state and selection
-    m_state = STATE_PICK_SLOT;
+    // if we're on pick slot
+    if (m_state == STATE_PICK_SLOT) {
+      // leave menu
+      leaveMenu();
+      return;
+    }
+    // delete current slot
+    m_colorset.removeColor(m_slot);
+    if (m_slot > 0) {
+      m_slot--;
+    }
     m_curSelection = FINGER_FIRST;
-    // leave menu
-    leaveMenu();
+    m_state = STATE_PICK_SLOT;
     return;
   }
   switch (m_state) {
@@ -137,7 +144,7 @@ void ColorSelect::onLongClick()
     // replace the slot with the new color
     m_colorset.set(m_slot, m_newColor);
     // switch all colorsets to a copy of m_colorset
-    m_pCurMode->changeAllColorsets(&m_colorset);
+    m_pCurMode->setColorset(&m_colorset);
     // go back to beginning for next time
     m_state = STATE_PICK_SLOT;
     // reset the color

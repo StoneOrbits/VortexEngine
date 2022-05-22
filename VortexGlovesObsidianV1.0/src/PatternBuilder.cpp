@@ -8,10 +8,13 @@
 #include "patterns/BasicPattern.h"
 #include "patterns/GapPattern.h"
 
+#include "Log.h"
+
 Pattern *PatternBuilder::make(PatternID id)
 {
   Pattern *pat = generate(id);
   if (!pat) {
+    ERROR_OUT_OF_MEMORY();
     return nullptr;
   }
   // set private pattern ID via friend class relationship

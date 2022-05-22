@@ -33,6 +33,7 @@ public:
 
   // add a single color
   bool addColor(RGBColor col);
+  void removeColor(uint32_t index);
 
   // get a color from the colorset
   RGBColor get(uint32_t index = 0) const;

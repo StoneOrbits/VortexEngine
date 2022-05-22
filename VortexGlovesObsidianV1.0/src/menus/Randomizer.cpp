@@ -71,10 +71,11 @@ bool Randomizer::reRoll()
 {
   if (m_pRandomizedMode) {
     delete m_pRandomizedMode;
+    m_pRandomizedMode = nullptr;
   }
 
   // pick a random pattern
-  PatternID pattern = (PatternID)random(PATTERN_FIRST, PATTERN_LAST);
+  PatternID pattern = (PatternID)random(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
 
   // pick a random amount of colors
   uint32_t numColors = random(2, 7);
@@ -95,6 +96,8 @@ bool Randomizer::reRoll()
   if (!m_pRandomizedMode) {
     return false;
   }
+
+  m_pRandomizedMode->init();
 
   return true;
 }

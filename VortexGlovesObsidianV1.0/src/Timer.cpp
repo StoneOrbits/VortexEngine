@@ -19,6 +19,7 @@ AlarmID Timer::addAlarm(uint32_t interval)
 {
   void *temp = realloc(m_alarms, sizeof(uint32_t) * (m_numAlarms + 1));
   if (!temp) {
+    ERROR_OUT_OF_MEMORY();
     return false;
   }
   m_alarms = (uint32_t *)temp;

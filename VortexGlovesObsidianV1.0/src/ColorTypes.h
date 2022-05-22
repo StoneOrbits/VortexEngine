@@ -16,19 +16,19 @@
 #define HSV_OFF     0x000000    //   0   0   0
 
 #define RGB_WHITE   0xaaaaaa
-#define RGB_ORANGE  0xff8000    // 
+#define RGB_ORANGE  0xff8000    //
 #define RGB_BLUE    0x0000FF    //   0    0 255
-#define RGB_YELLOW  0xFFFF00    // 
+#define RGB_YELLOW  0xFFFF00    //
 #define RGB_RED     0xFF0000    //   0  255 110
 #define RGB_GREEN   0x00FF00    //  85  255 110
 #define RGB_CYAN    0x00FFFF    //   0  255 255
-#define RGB_TEAL    0x00FF80    // 
-#define RGB_PURPLE  0x9933FF    // 
-#define RGB_BLANK   0x404040    //   
+#define RGB_TEAL    0x00FF80    //
+#define RGB_PURPLE  0x9933FF    //
+#define RGB_BLANK   0x404040    //
 #define RGB_OFF     0x000000    //   0    0   0
 
-// Some Pre-defined hue values 
-// TODO: remove HSV_ underscore once FastLED is gone    
+// Some Pre-defined hue values
+// TODO: remove HSV_ underscore once FastLED is gone
 #define HSV_HUE_RED     0
 #define HSV_HUE_ORANGE  32
 #define HSV_HUE_YELLOW  64
@@ -72,6 +72,13 @@ public:
   bool empty() const
   {
     return !hue && !sat && !val;
+  }
+
+  void clear()
+  {
+    hue = 0;
+    sat = 0;
+    val = 0;
   }
 
   // public members
@@ -123,6 +130,13 @@ public:
   bool empty() const
   {
     return !red && !green && !blue;
+  }
+
+  void clear()
+  {
+    red = 0;
+    green = 0;
+    blue = 0;
   }
 
   void serialize() const;
