@@ -4,7 +4,6 @@
 // TODO STILL:
 /*
  *  Primary:
- *   - finish Color selct menu
  *   - finish Pattern select menu
  *   - Modes saving loading
  *   - Mode Sharing

@@ -2,6 +2,7 @@
 
 #include "../patterns/Pattern.h"
 #include "../PatternBuilder.h"
+#include "../ModeBuilder.h"
 #include "../LedControl.h"
 #include "../Mode.h"
 
@@ -11,8 +12,17 @@ PatternSelect::PatternSelect() :
   Menu(),
   m_state(STATE_PICK_LIST),
   m_colorset(),
-  m_pNewPattern(nullptr)
+  m_pDemoMode(nullptr),
+  m_newPatternID(PATTERN_FIRST)
 {
+}
+
+PatternSelect::~PatternSelect()
+{
+  if (m_pDemoMode) {
+    delete m_pDemoMode;
+    m_pDemoMode = nullptr;
+  }
 }
 
 bool PatternSelect::init()
@@ -20,8 +30,16 @@ bool PatternSelect::init()
   if (!Menu::init()) {
     return false;
   }
+  m_state = STATE_PICK_LIST;
   // grab a copy of current colorset
   m_colorset = *m_pCurMode->getColorset();
+  m_newPatternID = PATTERN_FIRST;
+  if (!m_pDemoMode) {
+    m_pDemoMode = ModeBuilder::make(m_newPatternID, m_colorset);
+  } else {
+    m_pDemoMode->setPattern(m_newPatternID);
+  }
+  m_pDemoMode->init();
   DEBUG("Entered pattern select");
   return true;
 }
@@ -54,16 +72,14 @@ void PatternSelect::showListSelection()
   // TODO: how to lists?
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // hue split into 4 quadrants of 90
-    Leds::setFinger(f, HSVColor(f * 90, 255, 255));
+    Leds::setFinger(f, HSVColor(f * (255/4), 255, 255));
   }
 }
 
 void PatternSelect::showPatternSelection()
 {
-  // run the new pattern on all of the LEDs
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    // TODO: separate colorset for each?
-    m_pNewPattern->play();
+  if (m_pDemoMode) {
+    m_pDemoMode->play();
   }
 }
 
@@ -72,7 +88,7 @@ void PatternSelect::onShortClick()
   switch (m_state) {
   case STATE_PICK_LIST:
     // wrap at the index back to pinkie
-    m_curSelection = (Finger)((m_curSelection + 1) % FINGER_INDEX);
+    m_curSelection = (Finger)((m_curSelection + 1) % (FINGER_THUMB + 1));
     break;
   case STATE_PICK_PATTERN:
     nextPattern();
@@ -82,27 +98,29 @@ void PatternSelect::onShortClick()
 
 void PatternSelect::nextPattern()
 {
-  // store the ID of the next pattern
-  PatternID newID = (PatternID)((m_pNewPattern->getPatternID() + 1) % PATTERN_COUNT);
-  // delete the current pattern
-  delete m_pNewPattern;
-  // create the new pattern from stored ID
-  m_pNewPattern = PatternBuilder::make(newID);
+  // increment to next pattern
+  m_newPatternID = (PatternID)((m_newPatternID + 1) % PATTERN_COUNT);
+  // change the pattern of demo mode
+  m_pDemoMode->setPattern(m_newPatternID);
+  m_pDemoMode->init();
+  DEBUGF("Demoing Pattern %u", m_newPatternID);
 }
 
 void PatternSelect::onLongClick()
 {
   switch (m_state) {
   case STATE_PICK_LIST:
-    // create the new pattern from stored ID
-    m_pNewPattern = PatternBuilder::make((PatternID)((PATTERN_COUNT / 4) * m_curSelection));
     m_state = STATE_PICK_PATTERN;
+    // start the new pattern ID selection based on the chosen list
+    m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));
+    m_pDemoMode->setPattern(m_newPatternID);
+    m_pDemoMode->init();
     break;
   case STATE_PICK_PATTERN:
     // store the new pattern in the mode
-    // TODO: Fix this
-    //m_pCurMode->changeAllPatterns(m_pNewPattern);
-    delete m_pNewPattern;
+    m_pCurMode->setPattern(m_newPatternID);
+    m_pCurMode->init();
+    DEBUGF("Saving pattern %u", m_newPatternID);
     // go back to beginning for next time
     m_state = STATE_PICK_LIST;
     // done in the pattern select menu

@@ -7,7 +7,7 @@
 #include "../Log.h"
 
 Pattern::Pattern() :
-  m_patternID(PATTERN_NONE),
+  m_patternID(PATTERN_FIRST),
   m_pColorset(nullptr),
   m_ledPos(LED_FIRST),
   m_patternStartTick(0),

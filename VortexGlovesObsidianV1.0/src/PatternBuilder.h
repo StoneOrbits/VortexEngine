@@ -20,7 +20,8 @@ public:
   static MultiLedPattern *makeMulti(PatternID id);
 
 private:
-  // helper routine
+  // helper routines
+  static Pattern *makeInternal(PatternID id);
   static Pattern *generate(PatternID id);
 };
 

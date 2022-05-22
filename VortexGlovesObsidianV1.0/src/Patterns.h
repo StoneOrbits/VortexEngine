@@ -6,9 +6,8 @@
 // list of patterns that can be built
 enum PatternID : uint32_t
 {
-  PATTERN_NONE = 0,
   // first pattern of all
-  PATTERN_FIRST = (PATTERN_NONE + 1),
+  PATTERN_FIRST = 0,
   // first 'single led' pattern
   PATTERN_SINGLE_FIRST = PATTERN_FIRST,
   // =====================================
@@ -41,9 +40,6 @@ enum PatternID : uint32_t
   // all 'multi led' patterns below
 
   PATTERN_RABBIT = PATTERN_MULTI_FIRST, // PATTERN_STROBIE on tops and PATTERN_STROBE on tips
-  PATTERN_MULTI_1, // placeholder multi pattern
-  PATTERN_MULTI_2, // placeholder multi pattern
-  PATTERN_MULTI_3, // placeholder multi pattern
 
   // ADD NEW MULTI LED PATTERNS HERE
 

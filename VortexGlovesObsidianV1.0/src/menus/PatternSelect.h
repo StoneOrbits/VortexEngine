@@ -4,13 +4,15 @@
 #include "Menu.h"
 
 #include "../Colorset.h"
+#include "../Patterns.h"
 
-class Pattern;
+class Mode;
 
 class PatternSelect : public Menu
 {
 public:
   PatternSelect();
+  ~PatternSelect();
 
   bool init();
 
@@ -40,8 +42,11 @@ private:
   // copy of the current colorset to be used for demo display
   Colorset m_colorset;
 
-  // a pointer to the current pattern
-  Pattern *m_pNewPattern;
+  // an internal mode used for demoing patterns
+  Mode *m_pDemoMode;
+
+  // the patternid of the current demo
+  PatternID m_newPatternID;
 };
 
 #endif

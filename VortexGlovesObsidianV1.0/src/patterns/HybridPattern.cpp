@@ -41,7 +41,6 @@ void HybridPattern::init(Colorset *colorset, LedPos pos)
   MultiLedPattern::init(colorset, pos);
 }
 
-
 // play the hybrid pattern (play all led patterns)
 void HybridPattern::play()
 {
