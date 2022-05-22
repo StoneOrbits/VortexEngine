@@ -29,6 +29,9 @@ bool ColorSelect::init()
     return false;
   }
   m_state = STATE_PICK_SLOT;
+  m_curPage = 0;
+  m_slot = 0;
+  m_quadrant = 0;
   // There is no way to change the colorsets of the rest of the leds past LED_FIRST, that
   // would need a more advanced menu.  So we make a copy of the primary colorset, this is 
   // either the colorset of the first individual pattern or if the mode has a multi-led 
@@ -51,10 +54,10 @@ bool ColorSelect::run()
     showSlotSelection();
     break;
   case STATE_PICK_HUE1:
-    showHueSelection(4);
+    showHueSelection1();
     break;
   case STATE_PICK_HUE2:
-    showHueSelection(16);
+    showHueSelection2();
     break;
   case STATE_PICK_SAT:
     showSatSelection();
@@ -91,30 +94,47 @@ void ColorSelect::onShortClick()
   if (m_curSelection != FINGER_THUMB && m_state == STATE_PICK_SLOT) {
     // the slot is an index in the colorset, where as curselection is a finger index
     m_slot = (uint32_t)m_curSelection + (m_curPage * PAGE_SIZE);
-    if (m_slot > m_colorset.numColors()) {
+  }
+  if (m_slot > m_colorset.numColors()) {
+    if (m_curSelection != FINGER_THUMB) {
+      m_curSelection = FINGER_THUMB;
+    } else {
       m_curPage = m_slot = 0;
       m_curSelection = FINGER_FIRST;
     }
   }
+
 }
 
 void ColorSelect::onLongClick()
 {
+  // if we're exiting a menu
   if (m_curSelection == FINGER_THUMB) {
-    // if we're on pick slot
-    if (m_state == STATE_PICK_SLOT) {
+    switch (m_state) {
+    case STATE_PICK_SLOT:
+      // save the colorset
+      m_pCurMode->setColorset(&m_colorset);
       // leave menu
       leaveMenu();
       return;
+    case STATE_PICK_HUE1:
+      // delete current slot
+      m_colorset.removeColor(m_slot);
+      if (m_slot > 0) {
+        m_slot--;
+      }
+      m_curSelection = FINGER_FIRST;
+      m_state = STATE_PICK_SLOT;
+      return;
+    case STATE_PICK_HUE2:
+    case STATE_PICK_SAT:
+    case STATE_PICK_VAL:
+    default:
+      // bail out without deletion
+      m_state = STATE_PICK_SLOT;
+      m_curSelection = FINGER_FIRST;
+      return;
     }
-    // delete current slot
-    m_colorset.removeColor(m_slot);
-    if (m_slot > 0) {
-      m_slot--;
-    }
-    m_curSelection = FINGER_FIRST;
-    m_state = STATE_PICK_SLOT;
-    return;
   }
   switch (m_state) {
   case STATE_PICK_SLOT:
@@ -125,22 +145,22 @@ void ColorSelect::onLongClick()
     break;
   case STATE_PICK_HUE1:
     // pick a hue1
-    m_newColor.hue = genValue(0, 4, m_curSelection);
+    m_newColor.hue = m_curSelection * (255 / 4);
     m_state = STATE_PICK_HUE2;
     break;
   case STATE_PICK_HUE2:
     // pick a hue2
-    m_newColor.hue = genValue(m_newColor.hue, 16, m_curSelection);
+    m_newColor.hue = m_newColor.hue + ((255 / 16) * m_curSelection);
     m_state = STATE_PICK_SAT;
     break;
   case STATE_PICK_SAT:
     // pick a saturation
-    m_newColor.sat = genValue(m_newColor.sat, 4, m_curSelection);
+    m_newColor.sat = sats[m_curSelection];
     m_state = STATE_PICK_VAL;
     break;
   case STATE_PICK_VAL:
     // pick a value
-    m_newColor.val = genValue(m_newColor.val, 4, m_curSelection);
+    m_newColor.val = vals[m_curSelection];
     // replace the slot with the new color
     m_colorset.set(m_slot, m_newColor);
     // switch all colorsets to a copy of m_colorset
@@ -149,8 +169,6 @@ void ColorSelect::onLongClick()
     m_state = STATE_PICK_SLOT;
     // reset the color
     m_newColor = RGB_OFF;
-    // done in the color select menu
-    //leaveMenu();
     break;
   }
   // reset selection after choosing anything
@@ -168,12 +186,19 @@ void ColorSelect::showSlotSelection()
   }
 }
 
-void ColorSelect::showHueSelection(uint32_t divisions)
+void ColorSelect::showHueSelection1()
 {
-  uint32_t hueStart = m_newColor.hue;
   for (LedPos p = PINKIE_TIP; p <= INDEX_TOP; ++p) {
     // generate a hue from the current finger
-    Leds::setIndex(p, HSVColor(genValue(m_newColor.hue, divisions * 2, p), 255, 255));
+    Leds::setIndex(p, HSVColor((255 / 8) * p, 255, 255));
+  }
+}
+
+void ColorSelect::showHueSelection2()
+{
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
+    // generate a hue from the current finger
+    Leds::setFinger(f, HSVColor(m_newColor.hue + ((255 / 16) * f), 255, 255));
   }
 }
 
@@ -181,7 +206,7 @@ void ColorSelect::showSatSelection()
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // generate saturate on current hue from current finger
-    Leds::setFinger(f, HSVColor(m_newColor.hue, genValue(128, 6, f), 255));
+    Leds::setFinger(f, HSVColor(m_newColor.hue, sats[f], 255));
   }
 }
 
@@ -189,7 +214,7 @@ void ColorSelect::showValSelection()
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // generate saturate on current hue from current finger
-    Leds::setFinger(f, HSVColor(m_newColor.hue, m_newColor.sat, genValue(128, 6, f)));
+    Leds::setFinger(f, HSVColor(m_newColor.hue, m_newColor.sat, vals[f]));
   }
 }
 

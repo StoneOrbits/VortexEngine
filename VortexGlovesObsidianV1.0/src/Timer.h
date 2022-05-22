@@ -14,6 +14,7 @@ class Timer
 {
 public:
   Timer();
+  ~Timer();
   
   // add alarms to the timer and returns it's ID
   // Alarm IDs start at 0 and count upward

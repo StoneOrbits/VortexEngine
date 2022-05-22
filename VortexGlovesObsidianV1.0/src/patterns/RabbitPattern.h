@@ -22,6 +22,8 @@ public:
   virtual void unserialize();
 
 private:
+  // whether the sub patterns have been created already
+  bool m_created;
 
 };
 

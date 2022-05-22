@@ -15,6 +15,14 @@ Timer::Timer() :
 {
 }
 
+Timer::~Timer()
+{
+  if (m_alarms) {
+    free(m_alarms);
+    m_alarms = nullptr;
+  }
+}
+
 AlarmID Timer::addAlarm(uint32_t interval)
 {
   void *temp = realloc(m_alarms, sizeof(uint32_t) * (m_numAlarms + 1));

@@ -21,7 +21,8 @@ public:
 private:
   // internal routines for the color select
   void showSlotSelection();
-  void showHueSelection(uint32_t divisions);
+  void showHueSelection1();
+  void showHueSelection2();
   void showSatSelection();
   void showValSelection();
 
@@ -48,6 +49,22 @@ private:
 
     // picking a value for the color
     STATE_PICK_VAL,
+  };
+
+  // the options for saturations
+  const uint32_t sats[4] = {
+    255,
+    210,
+    180,
+    150
+  };
+
+  // the options for values
+  const uint32_t vals[4] = {
+    255,
+    210,
+    180,
+    150
   };
 
   // the current state of the color selection menu
