@@ -4,8 +4,13 @@
 #include "LedConfig.h"
 #include "Patterns.h"
 
+// minimal stl usage
+#include <vector>
+using namespace std;
+
 class MultiLedPattern;
 class SingleLedPattern;
+class SerialBuffer;
 class Pattern;
 class Colorset;
 
@@ -35,9 +40,9 @@ public:
   void play();
 
   // save the mode to serial
-  void serialize() const;
+  void serialize(SerialBuffer &buffer) const;
   // load the mode from serial
-  void unserialize();
+  void unserialize(SerialBuffer &buffer);
 
   // bind a pattern and colorset to individual LED
   bool bindSingle(SingleLedPattern *pat, Colorset *set, LedPos pos = LED_FIRST);
@@ -62,6 +67,8 @@ public:
   const Pattern *getPattern(LedPos pos = LED_FIRST) const;
   // get a pointer to a colorset
   const Colorset *getColorset(LedPos pos = LED_FIRST) const;
+  // get the pattern ID of the given pattern
+  PatternID getPatternID(LedPos pos = LED_FIRST) const;
 
   // set the pattern/colorset of the mode, if a multi-led pattern is provided then the pos
   // is ignored. If a single led pattern is provided then it will be applied to all LEDS

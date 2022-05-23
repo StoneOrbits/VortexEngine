@@ -1,7 +1,9 @@
 #include "Randomizer.h"
 
+#include "../patterns/Pattern.h"
 #include "../ModeBuilder.h"
 #include "../LedControl.h"
+#include "../Colorset.h"
 #include "../Timings.h"
 #include "../Button.h"
 #include "../Modes.h"
@@ -18,6 +20,15 @@ bool Randomizer::init()
 {
   if (!Menu::init()) {
     return false;
+  }
+  PatternID id = m_pCurMode->getPatternID();
+  DEBUGF("Cur pattern id: %u", id);
+  if (!m_pRandomizedMode) {
+    // create a new randomized mode out of the colors
+    m_pRandomizedMode = ModeBuilder::make(id, m_pCurMode->getColorset());
+    if (!m_pRandomizedMode) {
+      return false;
+    }
   }
   // re-roll the randomization
   if (!reRoll()) {
@@ -57,11 +68,10 @@ void Randomizer::onShortClick()
 
 void Randomizer::onLongClick()
 {
-  // replace the current mode with randomized one
+  // update the current mode to be a copy of the randomized mode
   if (!Modes::setCurMode(m_pRandomizedMode)) {
     // error
   }
-  m_pRandomizedMode = nullptr;
   DEBUG("Saved new randomization");
   // then done here
   leaveMenu();
@@ -69,34 +79,18 @@ void Randomizer::onLongClick()
 
 bool Randomizer::reRoll()
 {
-  if (m_pRandomizedMode) {
-    delete m_pRandomizedMode;
-    m_pRandomizedMode = nullptr;
-  }
-
-  // pick a random pattern
-  PatternID pattern = PATTERN_SINGLE_FIRST;//(PatternID)random(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
-
   // pick a random amount of colors
   uint32_t numColors = 3;//random(2, 7);
 
   // fill the array with up to numColors random colors
-  RGBColor c[8] = { RGB_OFF };
+  Colorset randomSet;
   for (uint32_t i = 0; i < numColors; ++i) {
-    c[i] = RGBColor(
-      (uint8_t)random(0, 255),
-      (uint8_t)random(0, 255),
-      (uint8_t)random(0, 255));
+    randomSet.addColor(RGBColor((uint8_t)random(0, 255),
+                                (uint8_t)random(0, 255),
+                                (uint8_t)random(0, 255)));
   }
 
-  // create a new randomized mode out of the colors
-  m_pRandomizedMode = ModeBuilder::make(pattern,
-    c[0], c[1], c[2], c[3], c[4], c[5], c[6], c[7]);
-
-  if (!m_pRandomizedMode) {
-    return false;
-  }
-
+  m_pRandomizedMode->setColorset(&randomSet);
   m_pRandomizedMode->init();
 
   return true;

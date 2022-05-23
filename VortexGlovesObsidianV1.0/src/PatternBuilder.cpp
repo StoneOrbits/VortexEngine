@@ -46,8 +46,6 @@ MultiLedPattern *PatternBuilder::makeMulti(PatternID id)
   if (!pat) {
     return nullptr;
   }
-  // set the multi flag on multi led patterns
-  pat->m_patternFlags |= PATTERN_FLAG_MULTI;
   return (MultiLedPattern *)pat;
 }
 

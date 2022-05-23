@@ -1,9 +1,12 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include "Patterns.h"
+
 #include <inttypes.h>
 
 class Mode;
+class Colorset;
 
 // the maximum number of modes that can be stored
 #define NUM_MODES     16
@@ -28,11 +31,12 @@ public:
   // set default settings (must save after)
   static bool setDefaults();
 
-  // import a mode and add it to the mode list
-  static bool addMode(Mode *mode);
+  // add a new mode with a given pattern and colorset
+  static bool addMode(PatternID id, const Colorset *set);
 
-  // replace current mode with new one, destroying existing one
-  static bool setCurMode(Mode *mode);
+  // update the current mode to match the given mode
+  static bool setCurMode(PatternID id, const Colorset *set);
+  static bool setCurMode(const Mode *mode);
 
   // get the current mode
   static Mode *curMode();
@@ -40,9 +44,6 @@ public:
   static Mode *nextMode();
 
 private:
-  // the global brightness
-  static uint32_t m_brightness;
-
   // the current mode we're on
   static uint32_t m_curMode;
 

@@ -1,15 +1,23 @@
 #include "Modes.h"
 
+#include "patterns/Pattern.h"
+
+#include "SerialBuffer.h"
 #include "ModeBuilder.h"
 #include "LedControl.h"
+#include "Colorset.h"
 #include "Buttons.h"
 #include "Mode.h"
 #include "Log.h"
+
+#include <FlashStorage.h>
 
 // static members
 uint32_t Modes::m_curMode = 0;
 uint32_t Modes::m_numModes = 0;
 Mode *Modes::m_modeList[NUM_MODES] = { nullptr };
+
+Flash(storage, 4096);
 
 bool Modes::init()
 {
@@ -26,9 +34,7 @@ bool Modes::init()
     }
   }
   // initialize the current mode
-  if (curMode()) {
-    curMode()->init();
-  }
+  curMode()->init();
   return true;
 }
 
@@ -78,20 +84,28 @@ bool Modes::save()
   //       }
   //      }
 
-  Serial.print(m_numModes);
+  // reserve 4096 bytes
+  SerialBuffer buf(4096);
+
+  // serialize the number of modes
+  buf.serialize(m_numModes);
   for (uint32_t i = 0; i < m_numModes; ++i) {
-    m_modeList[i]->serialize();
+    // serialize each mode
+    m_modeList[i]->serialize(buf);
   }
+
+  DEBUGF("bufsize: %d", buf.size());
 
   return true;
 }
 
 bool Modes::setDefaults()
 {
+  // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
+  Colorset defaultSet(RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
+  // initialize a mode for each pattern with an rgb colorset
   for (PatternID pattern = PATTERN_FIRST; pattern < PATTERN_COUNT; ++pattern) {
-    // initialize each pattern with an rgb strobe
-    // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
-    if (!addMode(ModeBuilder::make(pattern, RGB_RED, RGB_GREEN, RGB_BLUE))) { //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE))) {
+    if (!addMode(pattern, &defaultSet)) { 
       // error? return false?
     }
   }
@@ -99,28 +113,49 @@ bool Modes::setDefaults()
   return true;
 }
 
-bool Modes::addMode(Mode *mode)
+bool Modes::addMode(PatternID id, const Colorset *set)
 {
   // max modes
-  if (m_numModes >= NUM_MODES || !mode) {
+  if (m_numModes >= NUM_MODES || id > PATTERN_LAST || !set) {
     return false;
   }
+  Mode *mode = ModeBuilder::make(id, set);
+  if (!mode) {
+    return false;
+  }
+  // add the mode to the list
   m_modeList[m_numModes++] = mode;
+  // initialize the mode when it's first added
+  mode->init();
   return true;
 }
 
 // replace current mode with new one, destroying existing one
-bool Modes::setCurMode(Mode *mode)
+bool Modes::setCurMode(PatternID id, const Colorset *set)
 {
-  if (!mode) {
+  if (id > PATTERN_LAST || !set) {
+    // programmer error
     return false;
   }
-  if (m_modeList[m_curMode]) {
-    // TODO: better management, this is messy
-    delete m_modeList[m_curMode];
+  Mode *pCurMode = curMode();
+  if (!pCurMode) {
+    return false;
   }
-  m_modeList[m_curMode] = mode;
+  if (!pCurMode->setPattern(id)) {
+    DEBUG("Failed to set pattern of current mode");
+    // failed to set pattern?
+  }
+  if (!pCurMode->setColorset(set)) {
+    DEBUG("Failed to set colorset of current mode");
+  }
+  // initialize the mode with new pattern and colorset
+  pCurMode->init();
   return true;
+}
+
+bool Modes::setCurMode(const Mode *mode)
+{
+  return setCurMode(mode->getPatternID(), mode->getColorset());
 }
 
 // the current mode
@@ -137,6 +172,9 @@ Mode *Modes::curMode()
 // iterate to next mode and return it
 Mode *Modes::nextMode()
 {
+  if (!m_numModes) {
+    return nullptr;
+  }
   // iterate curmode forward 1 till num modes
   m_curMode = (m_curMode + 1) % m_numModes;
   DEBUGF("Iterated to Next Mode: %d", m_curMode);

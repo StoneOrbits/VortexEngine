@@ -37,7 +37,6 @@ void SingleLedPattern::skip(uint32_t ticks)
   }
   uint32_t endTime = Time::endSimulation();
 }
-  
 
 void SingleLedPattern::resume()
 {

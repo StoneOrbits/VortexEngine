@@ -1,15 +1,16 @@
 #include "ColorTypes.h"
+#include "SerialBuffer.h"
 
 #include <Arduino.h>
 
-void RGBColor::serialize() const
+void RGBColor::serialize(SerialBuffer &buffer) const
 {
-  Serial.print(red);
-  Serial.print(green);
-  Serial.print(blue);
+  buffer.serialize(red);
+  buffer.serialize(green);
+  buffer.serialize(blue);
 }
 
-void RGBColor::unserialize()
+void RGBColor::unserialize(SerialBuffer &buffer)
 {
 }
 

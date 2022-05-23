@@ -1,5 +1,6 @@
 #include "TracerPattern.h"
 
+#include "../SerialBuffer.h"
 #include "../TimeControl.h"
 #include "../LedControl.h"
 #include "../Colorset.h"
@@ -51,14 +52,14 @@ void TracerPattern::play()
 }
 
 // must override the serialize routine to save the pattern
-void TracerPattern::serialize() const
+void TracerPattern::serialize(SerialBuffer &buffer) const
 {
-  SingleLedPattern::serialize();
-  Serial.print(m_tracerDuration);
-  Serial.print(m_dotDuration);
+  SingleLedPattern::serialize(buffer);
+  buffer.serialize(m_tracerDuration);
+  buffer.serialize(m_dotDuration);
 }
 
 // must override unserialize to load patterns
-void TracerPattern::unserialize()
+void TracerPattern::unserialize(SerialBuffer &buffer)
 {
 }

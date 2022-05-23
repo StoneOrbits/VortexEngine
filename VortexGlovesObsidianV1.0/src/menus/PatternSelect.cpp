@@ -35,7 +35,7 @@ bool PatternSelect::init()
   m_colorset = *m_pCurMode->getColorset();
   m_newPatternID = PATTERN_FIRST;
   if (!m_pDemoMode) {
-    m_pDemoMode = ModeBuilder::make(m_newPatternID, m_colorset);
+    m_pDemoMode = ModeBuilder::make(m_newPatternID, &m_colorset);
   } else {
     m_pDemoMode->setPattern(m_newPatternID);
   }

@@ -1,5 +1,6 @@
 #include "GapPattern.h"
 
+#include "../SerialBuffer.h"
 #include "../TimeControl.h"
 #include "../LedControl.h"
 #include "../Colorset.h"
@@ -46,11 +47,13 @@ void GapPattern::onBasicEnd()
   triggerGap();
 }
 
-void GapPattern::serialize() const
+void GapPattern::serialize(SerialBuffer &buffer) const
 {
+  BasicPattern::serialize(buffer);
+  buffer.serialize(m_gapDuration);
 }
 
-void GapPattern::unserialize()
+void GapPattern::unserialize(SerialBuffer &buffer)
 {
 }
 

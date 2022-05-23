@@ -1,5 +1,6 @@
 #include "BasicPattern.h"
 
+#include "../SerialBuffer.h"
 #include "../TimeControl.h"
 #include "../LedControl.h"
 #include "../Colorset.h"
@@ -86,13 +87,13 @@ void BasicPattern::resume()
   m_blinkTimer.start();
 }
 
-void BasicPattern::serialize() const
+void BasicPattern::serialize(SerialBuffer &buffer) const
 {
-  SingleLedPattern::serialize();
-  Serial.print(m_onDuration);
-  Serial.print(m_offDuration);
+  SingleLedPattern::serialize(buffer);
+  buffer.serialize(m_onDuration);
+  buffer.serialize(m_offDuration);
 }
 
-void BasicPattern::unserialize()
+void BasicPattern::unserialize(SerialBuffer &buffer)
 {
 }

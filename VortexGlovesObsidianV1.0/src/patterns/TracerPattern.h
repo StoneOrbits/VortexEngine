@@ -15,8 +15,8 @@ public:
 
   virtual void play();
 
-  virtual void serialize() const;
-  virtual void unserialize();
+  virtual void serialize(SerialBuffer &buffer) const;
+  virtual void unserialize(SerialBuffer &buffer);
 
 private:
   // the duration the light is on/off for

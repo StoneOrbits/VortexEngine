@@ -2,6 +2,7 @@
 
 #include <Arduino.h>
 
+#include "../SerialBuffer.h"
 #include "../TimeControl.h"
 #include "../Colorset.h"
 #include "../Log.h"
@@ -27,13 +28,13 @@ void Pattern::init(Colorset *set, LedPos pos)
 }
 
 // must override the serialize routine to save the pattern
-void Pattern::serialize() const
+void Pattern::serialize(SerialBuffer &buffer) const
 {
-  Serial.print(m_patternID);
+  buffer.serialize(m_patternID);
 }
 
 // must override unserialize to load patterns
-void Pattern::unserialize()
+void Pattern::unserialize(SerialBuffer &buffer)
 {
 }
 

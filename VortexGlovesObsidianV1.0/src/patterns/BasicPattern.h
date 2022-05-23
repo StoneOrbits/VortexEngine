@@ -21,8 +21,8 @@ public:
 
   virtual void resume();
 
-  virtual void serialize() const;
-  virtual void unserialize();
+  virtual void serialize(SerialBuffer &buffer) const;
+  virtual void unserialize(SerialBuffer &buffer);
 
 protected:
   // callbacks for blinking on/off, can be overridden by derived classes

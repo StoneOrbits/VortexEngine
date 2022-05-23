@@ -4,12 +4,14 @@
 #include "patterns/MultiLedPattern.h"
 #include "patterns/Pattern.h"
 #include "PatternBuilder.h"
+#include "SerialBuffer.h"
 #include "TimeControl.h"
 #include "Colorset.h"
-
 #include "Log.h"
 
 #include <Arduino.h>
+
+using namespace std;
 
 Mode::Mode() :
   m_flags(MODE_FLAG_NONE),
@@ -68,7 +70,7 @@ void Mode::play()
   }
 }
 
-void Mode::serialize() const
+void Mode::serialize(SerialBuffer &buffer) const
 {
   //   4 mode flags (*)       flags defined whether multi pattern or not
   //     led1..N {            if multi pattern then 10x led, otherwise 1x
@@ -76,13 +78,13 @@ void Mode::serialize() const
   //      1 pattern id (0 - 255)
   //      colorset1..N {
   //       1 numColors (0 - 255)
-  //       hsv1..N {
-  //        1 hue (0-255)
-  //        1 sat (0-255)
-  //        1 val (0-255)
+  //       rgb1..N {
+  //        1 red (0-255)
+  //        1 grn (0-255)
+  //        1 blu (0-255)
   //       }
   //      }
-  Serial.print(m_flags);
+  buffer.serialize((uint32_t)m_flags);
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     const LedEntry *entry = m_ledEntries + pos;
     if (!entry->pattern || !entry->colorset) {
@@ -90,17 +92,17 @@ void Mode::serialize() const
     }
 
     // just serialize the pattern then colorset
-    entry->pattern->serialize();
-    entry->colorset->serialize();
+    entry->pattern->serialize(buffer);
+    entry->colorset->serialize(buffer);
 
-    // if the multi pattern flag isn't present onlyG write one entry
-    if (!hasFlags(MODE_FLAG_MULTI_LED)) {
+    // if the multi pattern flag is present only write one entry
+    if (hasFlags(MODE_FLAG_MULTI_LED)) {
       return;
     }
   }
 }
 
-void Mode::unserialize()
+void Mode::unserialize(SerialBuffer &buffer)
 {
 }
 
@@ -179,6 +181,14 @@ const Colorset *Mode::getColorset(LedPos pos) const
   return m_ledEntries[pos].colorset;
 }
 
+PatternID Mode::getPatternID(LedPos pos) const
+{
+  if (pos > LED_LAST) {
+    return PATTERN_FIRST;
+  }
+  return getPattern()->getPatternID();
+}
+
 bool Mode::setPattern(PatternID pat, LedPos pos)
 {
   // if it's a multi pattern ID then just set the multi pattern slot
@@ -190,6 +200,8 @@ bool Mode::setPattern(PatternID pat, LedPos pos)
       return false;
     }
     m_multiPat = newPat;
+    // initialize the new pattern
+    m_multiPat->init(m_ledEntries[pos].colorset, pos);
     return true;
   }
   // if a specific LED was provided
@@ -200,6 +212,8 @@ bool Mode::setPattern(PatternID pat, LedPos pos)
       return false;
     }
     m_ledEntries[pos].pattern = newPat;
+    // initialize the new pattern
+    m_ledEntries[pos].pattern->init(m_ledEntries[pos].colorset, pos);
     return true;
   }
   // otherwise iterate all of the LEDs and set single led patterns
@@ -214,6 +228,8 @@ bool Mode::setPattern(PatternID pat, LedPos pos)
       delete m_ledEntries[pos].pattern;
     }
     m_ledEntries[pos].pattern = newPat;
+    // initialize the new pattern
+    m_ledEntries[pos].pattern->init(m_ledEntries[pos].colorset, pos);
   }
   return true;
 }
@@ -224,6 +240,7 @@ bool Mode::setColorset(const Colorset *set, LedPos pos)
   if (pos != LED_COUNT) {
     if (m_ledEntries[pos].colorset) {
       *m_ledEntries[pos].colorset = *set;
+      m_ledEntries[pos].pattern->init(m_ledEntries[pos].colorset, pos);
       return true;
     }
   }
@@ -232,13 +249,17 @@ bool Mode::setColorset(const Colorset *set, LedPos pos)
     // if there is already a colorset just copy-initialize it
     if (m_ledEntries[pos].colorset) {
       *m_ledEntries[pos].colorset = *set;
+      // re-initialize the pattern with the new colorset
+      m_ledEntries[pos].pattern->init(m_ledEntries[pos].colorset, pos);
       continue;
     }
     // otherwise create a new colorset in this slot
     m_ledEntries[pos].colorset = new Colorset(*set);
     if (!m_ledEntries[pos].colorset) {
-      // error
+      ERROR_OUT_OF_MEMORY();
     }
+    // re-initialize the pattern with the new colorset
+    m_ledEntries[pos].pattern->init(m_ledEntries[pos].colorset, pos);
   }
   return true;
 }

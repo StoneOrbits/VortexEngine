@@ -57,13 +57,13 @@ void RabbitPattern::play()
 }
 
 // must override the serialize routine to save the pattern
-void RabbitPattern::serialize() const
+void RabbitPattern::serialize(SerialBuffer &buffer) const
 {
-  HybridPattern::serialize();
+  HybridPattern::serialize(buffer);
 }
 
 // must override unserialize to load patterns
-void RabbitPattern::unserialize()
+void RabbitPattern::unserialize(SerialBuffer &buffer)
 {
-  HybridPattern::unserialize();
+  HybridPattern::unserialize(buffer);
 }

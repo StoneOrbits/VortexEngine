@@ -24,6 +24,7 @@
 // the pattern is a multi-pattern
 #define PATTERN_FLAG_MULTI  (1<<0)
 
+class SerialBuffer;
 class Colorset;
 
 class Pattern
@@ -41,9 +42,9 @@ public:
   virtual void play() = 0;
 
   // must override the serialize routine to save the pattern
-  virtual void serialize() const;
+  virtual void serialize(SerialBuffer &buffer) const;
   // must override unserialize to load patterns
-  virtual void unserialize();
+  virtual void unserialize(SerialBuffer &buffer);
 
   // Get the current relative tick number of the pattern
   uint32_t getPatternTick() const;
@@ -58,16 +59,14 @@ public:
 protected:
   // the ID of this pattern (set by pattern builder)
   PatternID m_patternID;
+  // any flags the pattern has
+  uint32_t m_patternFlags;
   // the collorset that is bound to this pattern
   Colorset *m_pColorset;
   // the Led the pattern is running on
   LedPos m_ledPos;
-
   // the tick number the pattern started playing on
   uint64_t m_patternStartTick;
-
-  // any flags the pattern has
-  uint32_t m_patternFlags;
 };
 
 #endif

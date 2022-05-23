@@ -38,6 +38,8 @@
 #define HSV_HUE_PURPLE  192
 #define HSV_HUE_PINK    224
 
+class SerialBuffer;
+
 // todo: remake color classes here
 class HSVColor
 {
@@ -139,8 +141,8 @@ public:
     blue = 0;
   }
 
-  void serialize() const;
-  void unserialize();
+  void serialize(SerialBuffer &buffer) const;
+  void unserialize(SerialBuffer &buffer);
 
   union
   {

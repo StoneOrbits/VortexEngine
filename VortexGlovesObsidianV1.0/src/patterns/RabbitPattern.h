@@ -17,9 +17,8 @@ public:
   virtual void play();
 
   // must override the serialize routine to save the pattern
-  virtual void serialize() const;
-  // must override unserialize to load patterns
-  virtual void unserialize();
+  virtual void serialize(SerialBuffer &buffer) const;
+  virtual void unserialize(SerialBuffer &buffer);
 
 private:
   // whether the sub patterns have been created already

@@ -1,5 +1,7 @@
 #include "Colorset.h"
 
+#include "SerialBuffer.h"
+
 #include <Arduino.h>
 #include <cstring>
 
@@ -156,6 +158,9 @@ RGBColor Colorset::cur()
 
 void Colorset::setCurIndex(uint32_t index)
 {
+  if (!m_numColors) {
+    return;
+  }
   if (index > (m_numColors - 1)) {
     return;
   }
@@ -164,6 +169,9 @@ void Colorset::setCurIndex(uint32_t index)
 
 RGBColor Colorset::getPrev()
 {
+  if (!m_numColors) {
+    return RGB_OFF;
+  }
   // handle wrapping at 0
   if (m_curIndex == 0) {
     m_curIndex = numColors() - 1;
@@ -176,6 +184,9 @@ RGBColor Colorset::getPrev()
 
 RGBColor Colorset::getNext()
 {
+  if (!m_numColors) {
+    return RGB_OFF;
+  }
   // iterate to next col
   m_curIndex = (m_curIndex + 1) % (numColors());
   // return the color
@@ -196,14 +207,14 @@ bool Colorset::onEnd() const
   return (m_curIndex == m_numColors - 1);
 }
 
-void Colorset::serialize() const
+void Colorset::serialize(SerialBuffer &buffer) const
 {
-  Serial.print(m_numColors);
+  buffer.serialize(m_numColors);
   for (uint32_t i = 0; i < m_numColors; ++i) {
-    m_palette[i].serialize();
+    m_palette[i].serialize(buffer);
   }
 }
 
-void Colorset::unserialize()
+void Colorset::unserialize(SerialBuffer &buffer)
 {
 }

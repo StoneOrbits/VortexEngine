@@ -1,5 +1,6 @@
 #include "AdvancedPattern.h"
 
+#include "../SerialBuffer.h"
 #include "../TimeControl.h"
 #include "../LedControl.h"
 #include "../Colorset.h"
@@ -93,13 +94,13 @@ void AdvancedPattern::onBlinkOff()
   }
 }
 
-void AdvancedPattern::serialize() const
+void AdvancedPattern::serialize(SerialBuffer &buffer) const
 {
-  GapPattern::serialize();
-  Serial.print(m_onDuration);
-  Serial.print(m_offDuration);
+  GapPattern::serialize(buffer);
+  buffer.serialize(m_onDuration);
+  buffer.serialize(m_offDuration);
 }
 
-void AdvancedPattern::unserialize()
+void AdvancedPattern::unserialize(SerialBuffer &buffer)
 {
 }

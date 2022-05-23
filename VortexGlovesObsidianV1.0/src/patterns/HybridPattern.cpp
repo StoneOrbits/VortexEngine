@@ -1,7 +1,9 @@
 #include "HybridPattern.h"
 
 #include "SingleLedPattern.h"
+
 #include "../Colorset.h"
+#include "../Log.h"
 
 HybridPattern::HybridPattern() :
   MultiLedPattern(),
@@ -55,13 +57,20 @@ void HybridPattern::play()
 }
 
 // must override the serialize routine to save the pattern
-void HybridPattern::serialize() const
+void HybridPattern::serialize(SerialBuffer &buffer) const
 {
-  MultiLedPattern::serialize();
+  MultiLedPattern::serialize(buffer);
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    if (!m_ledPatterns[pos] || !m_ledColorsets[pos]) {
+      DEBUG("Could not serialize hybrid pattern!");
+      return;
+    }
+    m_ledPatterns[pos]->serialize(buffer);
+    m_ledColorsets[pos]->serialize(buffer);
+  }
 }
 
 // must override unserialize to load patterns
-void HybridPattern::unserialize()
+void HybridPattern::unserialize(SerialBuffer &buffer)
 {
-  MultiLedPattern::unserialize();
 }

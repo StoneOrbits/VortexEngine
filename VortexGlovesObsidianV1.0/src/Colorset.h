@@ -6,6 +6,8 @@
 // the number of colors in a colorset
 #define NUM_COLOR_SLOTS 8
 
+class SerialBuffer;
+
 class Colorset
 {
 public:
@@ -69,8 +71,8 @@ public:
   bool onEnd() const;
 
   // serialize the colorset to save/load
-  void serialize() const;
-  void unserialize();
+  void serialize(SerialBuffer &buffer) const;
+  void unserialize(SerialBuffer &buffer);
 
 private:
   // the current index, starts at UINT32_MAX so that
