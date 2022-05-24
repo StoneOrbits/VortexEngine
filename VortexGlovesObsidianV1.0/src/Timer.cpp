@@ -1,8 +1,7 @@
 #include "Timer.h"
 
-#include <stdlib.h>
-
 #include "TimeControl.h"
+#include "Memory.h"
 #include "Log.h"
 
 Timer::Timer() :
@@ -18,14 +17,14 @@ Timer::Timer() :
 Timer::~Timer()
 {
   if (m_alarms) {
-    free(m_alarms);
+    vfree(m_alarms);
     m_alarms = nullptr;
   }
 }
 
 AlarmID Timer::addAlarm(uint32_t interval)
 {
-  void *temp = realloc(m_alarms, sizeof(uint32_t) * (m_numAlarms + 1));
+  void *temp = vrealloc(m_alarms, sizeof(uint32_t) * (m_numAlarms + 1));
   if (!temp) {
     ERROR_OUT_OF_MEMORY();
     return false;
@@ -51,7 +50,7 @@ void Timer::start(uint32_t offset)
 
 void Timer::reset()
 {
-  free(m_alarms);
+  vfree(m_alarms);
   m_alarms = nullptr;
   m_numAlarms = 0;
   m_curAlarm = 0;
@@ -84,7 +83,7 @@ bool Timer::onEnd() const
   // get the start time of the timer
   uint64_t startTime = getStartTime();
   // time since start (forward or backwards)
-  int32_t timeDiff = now - startTime;
+  int32_t timeDiff = (int32_t)(int64_t)(now - startTime);
   return ((timeDiff % (alarmTime - 1)) == 0);
 }
 
@@ -101,7 +100,7 @@ AlarmID Timer::alarm()
   uint64_t startTime = getStartTime();
 
   // time since start (forward or backwards)
-  int32_t timeDiff = now - startTime;
+  int32_t timeDiff = (int32_t)(int64_t)(now - startTime);
   if (timeDiff < 0) {
     return ALARM_NONE;
   }

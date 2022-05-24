@@ -114,6 +114,7 @@ void ColorSelect::onLongClick()
     case STATE_PICK_SLOT:
       // save the colorset
       m_pCurMode->setColorset(&m_colorset);
+      m_pCurMode->init();
       // leave menu
       leaveMenu();
       return;

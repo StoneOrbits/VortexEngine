@@ -9,9 +9,8 @@
 
 Pattern::Pattern() :
   m_patternID(PATTERN_FIRST),
-  m_pColorset(nullptr),
+  m_colorset(),
   m_ledPos(LED_FIRST),
-  m_patternStartTick(0),
   m_patternFlags(0)
 {
 }
@@ -20,11 +19,15 @@ Pattern::~Pattern()
 {
 }
 
-void Pattern::init(Colorset *set, LedPos pos)
+void Pattern::bind(const Colorset *set, LedPos pos)
 {
-  m_patternStartTick = Time::getCurtime(m_ledPos);
-  m_pColorset = set;
+  m_colorset = *set;
   m_ledPos = pos;
+  init();
+}
+
+void Pattern::init()
+{
 }
 
 // must override the serialize routine to save the pattern
@@ -38,7 +41,13 @@ void Pattern::unserialize(SerialBuffer &buffer)
 {
 }
 
-uint32_t Pattern::getPatternTick() const
+// change the colorset
+void Pattern::setColorset(const Colorset *set)
 {
-  return Time::getCurtime(m_ledPos) - m_patternStartTick;
+  m_colorset = *set;
+}
+
+void Pattern::clearColorset()
+{
+  m_colorset.clear();
 }

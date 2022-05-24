@@ -21,15 +21,15 @@ AdvancedPattern::~AdvancedPattern()
 {
 }
 
-void AdvancedPattern::init(Colorset *colorset, LedPos pos)
+void AdvancedPattern::init()
 {
-  if (!m_groupSize || m_groupSize > colorset->numColors()) {
-    m_groupSize = colorset->numColors();
+  if (!m_groupSize || m_groupSize > m_colorset.numColors()) {
+    m_groupSize = m_colorset.numColors();
   }
   m_groupCounter = 0;
   m_repeatCounter = m_repeatGroup;
   // run base pattern init logic
-  GapPattern::init(colorset, pos);
+  GapPattern::init();
 }
 
 void AdvancedPattern::play()
@@ -61,12 +61,12 @@ void AdvancedPattern::endGap()
     // each time an entire group has been displayed
     m_repeatCounter--;
     // to "repeat" we simply move the colorset back one group size
-    m_pColorset->skip(-(int32_t)m_groupSize);
+    m_colorset.skip(-(int32_t)m_groupSize);
     // nothing more to do
     return;
   }
   if (m_skipCols > 0) {
-    m_pColorset->skip(m_skipCols);
+    m_colorset.skip(m_skipCols);
   }
   if (!m_repeatCounter) {
     m_repeatCounter = m_repeatGroup;

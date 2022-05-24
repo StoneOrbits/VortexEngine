@@ -11,8 +11,13 @@ MultiLedPattern::~MultiLedPattern()
 {
 }
 
-// init the pattern to initial state
-void MultiLedPattern::init(Colorset *colorset, LedPos pos)
+void MultiLedPattern::bind(const Colorset *set)
 {
-  Pattern::init(colorset, pos);
+  Pattern::bind(set, LED_COUNT);
+}
+
+// init the pattern to initial state
+void MultiLedPattern::init()
+{
+  Pattern::init();
 }

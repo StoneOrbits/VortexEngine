@@ -18,7 +18,7 @@ TracerPattern::~TracerPattern()
 {
 }
 
-void TracerPattern::init(Colorset *colorset, LedPos pos)
+void TracerPattern::init()
 {
   // reset the blink timer entirely
   m_blinkTimer.reset();
@@ -31,8 +31,8 @@ void TracerPattern::init(Colorset *colorset, LedPos pos)
   m_blinkTimer.start();
 
   // run base pattern init logic
-  SingleLedPattern::init(colorset, pos);
-  m_blinkTimer.start(Time::getTickOffset(pos));
+  SingleLedPattern::init();
+  m_blinkTimer.start(Time::getTickOffset(m_ledPos));
 }
 
 // pure virtual must override the play function
@@ -42,12 +42,12 @@ void TracerPattern::play()
   if (id == 0) {
     // display dot, never display the tracer color which 
     // is at index 0 of the colorset
-    Leds::setIndex(m_ledPos, m_pColorset->get(1 + m_dotColor));
+    Leds::setIndex(m_ledPos, m_colorset.get(1 + m_dotColor));
     // increment tracer counter and wrap at 1 less than num colors
-    m_dotColor = (m_dotColor + 1) % (m_pColorset->numColors() - 1);
+    m_dotColor = (m_dotColor + 1) % (m_colorset.numColors() - 1);
   } else if (id == 1) {
     // draw the tracer background
-    Leds::setIndex(m_ledPos, m_pColorset->get(0));
+    Leds::setIndex(m_ledPos, m_colorset.get(0));
   }
 }
 

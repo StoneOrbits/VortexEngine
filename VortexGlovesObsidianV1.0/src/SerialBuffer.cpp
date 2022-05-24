@@ -1,8 +1,8 @@
 #include "SerialBuffer.h"
 
+#include "Memory.h"
 #include "Log.h"
 
-#include <stdlib.h>
 #include <string.h>
 
 SerialBuffer::SerialBuffer(uint32_t size, const uint8_t *buf) :
@@ -16,7 +16,7 @@ SerialBuffer::SerialBuffer(uint32_t size, const uint8_t *buf) :
 SerialBuffer::~SerialBuffer()
 {
   if (m_pBuffer) {
-    free(m_pBuffer);
+    vfree(m_pBuffer);
   }
 }
 
@@ -24,12 +24,12 @@ SerialBuffer::~SerialBuffer()
 bool SerialBuffer::init(uint32_t capacity, const uint8_t *buf)
 {
   if (m_pBuffer) {
-    free(m_pBuffer);
+    vfree(m_pBuffer);
   }
   if (capacity) {
     // round up to nearest 4
     m_capacity = (capacity + 4) - (capacity % 4);
-    m_pBuffer = (uint8_t *)calloc(1, m_capacity);
+    m_pBuffer = (uint8_t *)vcalloc(1, m_capacity);
     if (!m_pBuffer){
       m_capacity = 0;
       ERROR_OUT_OF_MEMORY();
@@ -40,6 +40,7 @@ bool SerialBuffer::init(uint32_t capacity, const uint8_t *buf)
     memcpy(m_pBuffer, buf, m_capacity);
     m_size = m_capacity;
   }
+  return true;
 }
 
 // append another buffer
@@ -51,6 +52,7 @@ bool SerialBuffer::append(const SerialBuffer &other)
     }
   }
   memcpy(m_pBuffer + m_size, other.m_pBuffer, other.m_size);
+  return true;
 }
 
 // extend the storage without changing the size of the data
@@ -58,13 +60,14 @@ bool SerialBuffer::extend(uint32_t size)
 {
   // round size up to nearest 4
   uint32_t new_size = m_capacity + ((size + 4) - (size % 4));
-  void *temp = realloc(m_pBuffer, size);
+  void *temp = vrealloc(m_pBuffer, size);
   if (!temp) {
     ERROR_OUT_OF_MEMORY();
     return false;
   }
   m_pBuffer = (uint8_t *)temp;
   m_capacity = new_size;
+  return true;
 }
 
 bool SerialBuffer::serialize(uint8_t byte)

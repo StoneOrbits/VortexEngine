@@ -18,7 +18,7 @@ GapPattern::~GapPattern()
 {
 }
 
-void GapPattern::init(Colorset *set, LedPos pos)
+void GapPattern::init()
 {
   m_gapTimer.reset();
   m_gapTimer.addAlarm(m_gapDuration);
@@ -26,7 +26,7 @@ void GapPattern::init(Colorset *set, LedPos pos)
   m_inGap = false;
 
   // don't need to start the gap timer right now
-  BasicPattern::init(set, pos);
+  BasicPattern::init();
 }
 
 void GapPattern::play()

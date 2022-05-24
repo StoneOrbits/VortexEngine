@@ -45,9 +45,9 @@ public:
   void unserialize(SerialBuffer &buffer);
 
   // bind a pattern and colorset to individual LED
-  bool bindSingle(SingleLedPattern *pat, Colorset *set, LedPos pos = LED_FIRST);
+  bool bindSingle(SingleLedPattern *pat, const Colorset *set, LedPos pos = LED_FIRST);
   // bind a multi led pattern and colorset to all of the LEDs
-  bool bindMulti(MultiLedPattern *pat, Colorset *set);
+  bool bindMulti(MultiLedPattern *pat, const Colorset *set);
 
   // unbind a single pattern and colorset from the mode
   void unbindSingle(LedPos pos = LED_FIRST);
@@ -77,6 +77,9 @@ public:
   bool setColorset(const Colorset *set, LedPos pos = LED_COUNT);
 
 private:
+  bool setSinglePat(PatternID pat, LedPos pos);
+  bool setMultiPat(PatternID pat);
+
   // erase any stored patterns or colorsets
   void clearPatterns();
   void clearColorsets();
@@ -98,30 +101,11 @@ private:
   // A set of flags for the mode
   ModeFlags m_flags;
 
-  // each led entry has a SingleLedPattern/colorset entry
-  struct LedEntry
-  {
-    LedEntry() :
-      pattern(nullptr), colorset(nullptr)
-    {
-    }
-    LedEntry(SingleLedPattern *p, Colorset *c) :
-      pattern(p), colorset(c)
-    {
-    }
-    // members
-    SingleLedPattern *pattern;
-    Colorset *colorset;
-  };
-
   union {
-    // map of led positions => pattern/colorset entries
-    LedEntry m_ledEntries[LED_COUNT];
-    // just a single multi led pattern and colorset
-    struct {
-      MultiLedPattern *m_multiPat;
-      Colorset *m_multiColorset;
-    };
+    // map of led positions => pattern entries
+    SingleLedPattern *m_ledEntries[LED_COUNT];
+    // or the first one is also a multi led pat
+    MultiLedPattern *m_multiPat;
   };
 };
 

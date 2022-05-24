@@ -14,7 +14,7 @@ public:
   virtual ~HybridPattern();
 
   // init the pattern to initial state
-  virtual void init(Colorset *colorset, LedPos pos);
+  virtual void init();
 
   // play the hybrid pattern (play all led patterns)
   virtual void play();
@@ -26,8 +26,6 @@ public:
 protected:
   // array of single LED patterns, one for each LED
   SingleLedPattern *m_ledPatterns[LED_COUNT];
-  // array of colorsets, one for each LED
-  Colorset *m_ledColorsets[LED_COUNT];
 };
 
 #endif

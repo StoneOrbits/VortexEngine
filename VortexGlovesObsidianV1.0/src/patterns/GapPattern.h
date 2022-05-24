@@ -10,7 +10,7 @@ public:
   GapPattern(uint32_t onDuration, uint32_t offDuration, uint32_t gapDuration);
   virtual ~GapPattern();
 
-  virtual void init(Colorset *set, LedPos pos);
+  virtual void init();
 
   virtual void play();
 

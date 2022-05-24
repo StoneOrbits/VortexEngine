@@ -41,23 +41,14 @@ Mode *ModeBuilder::makeSingle(PatternID id, const Colorset *set)
     return nullptr;
   }
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    // create a new colorset from the list of colors
-    Colorset *newSet = new Colorset(*set);
-    if (!newSet) {
-      ERROR_OUT_OF_MEMORY();
-      delete newMode;
-      return nullptr;
-    }
     // create a new pattern from the id
     SingleLedPattern *newPat = PatternBuilder::makeSingle(id);
     if (!newPat) {
       delete newMode;
-      delete newSet;
       return nullptr;
     }
     // bind the pattern and colorset to the mode
-    if (!newMode->bindSingle(newPat, newSet, pos)) {
-      delete newSet;
+    if (!newMode->bindSingle(newPat, set, pos)) {
       delete newPat;
       delete newMode;
       return nullptr;
@@ -74,24 +65,15 @@ Mode *ModeBuilder::makeMulti(PatternID id, const Colorset *set)
     ERROR_OUT_OF_MEMORY();
     return nullptr;
   }
-  // create a new colorset from the list of colors
-  Colorset *newSet = new Colorset(*set);
-  if (!newSet) {
-    ERROR_OUT_OF_MEMORY();
-    delete newMode;
-    return nullptr;
-  }
   // create a new pattern from the id
   MultiLedPattern *newPat = PatternBuilder::makeMulti(id);
   if (!newPat) {
     // allocation error
     delete newMode;
-    delete newSet;
     return nullptr;
   }
   // bind the pattern and colorset to the mode
-  if (!newMode->bindMulti(newPat, newSet)) {
-    delete newSet;
+  if (!newMode->bindMulti(newPat, set)) {
     delete newPat;
     delete newMode;
     return nullptr;

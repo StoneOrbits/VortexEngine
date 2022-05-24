@@ -30,6 +30,8 @@ public:
   // initialize the colorset
   void init();
 
+  void clear();
+
   // index operator to access color index
   RGBColor operator[](int index) const;
 

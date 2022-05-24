@@ -9,7 +9,7 @@ public:
   SingleLedPattern();
   virtual ~SingleLedPattern();
 
-  virtual void init(Colorset *colorset, LedPos pos);
+  virtual void init();
 
   // skip the pattern ahead some ticks
   virtual void skip(uint32_t ticks);

@@ -4,6 +4,7 @@
 #include <math.h>
 
 #include "Timings.h"
+#include "Memory.h"
 #include "Log.h"
 
 // static members
@@ -32,6 +33,12 @@ void Time::tickClock()
   // tick clock forward
   m_curTick++;
 
+#ifdef DEBUG_ALLOCATIONS
+  if ((m_curTick % msToTicks(1000)) == 0) {
+    DEBUGF("Cur Memory: %u", cur_memory_usage());
+  }
+#endif
+
   // perform timestep
   uint32_t elapsed_us;
   uint32_t us;
@@ -43,7 +50,7 @@ void Time::tickClock()
       elapsed_us = (uint32_t)((UINT32_MAX - m_prevTime) + us);
     } else {
       // otherwise calculate regular difference
-      elapsed_us = (us - m_prevTime);
+      elapsed_us = (uint32_t)(us - m_prevTime);
     }
     // 1000us per ms, divided by tickrate gives
     // the number of microseconds per tick
@@ -118,7 +125,7 @@ uint32_t Time::startSimulation()
 {
   m_simulationTick = 0;
   m_isSimulation = true;
-  return getCurtime();
+  return (uint32_t)getCurtime();
 }
 
 // Tick a time simulation forward, returning the next tick
@@ -142,7 +149,7 @@ uint32_t Time::getSimulationTick()
 // Finish a time simulation
 uint32_t Time::endSimulation()
 {
-  uint32_t endTick = getCurtime();
+  uint32_t endTick = (uint32_t)getCurtime();
   m_simulationTick = 0;
   m_isSimulation = false;
   return endTick;

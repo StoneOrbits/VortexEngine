@@ -12,7 +12,7 @@ public:
     uint32_t groupSize, uint32_t skipCols, uint32_t repeatGroup);
   virtual ~AdvancedPattern();
 
-  virtual void init(Colorset *set, LedPos pos);
+  virtual void init();
 
   virtual void play();
 

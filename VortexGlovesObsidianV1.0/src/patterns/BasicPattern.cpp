@@ -18,7 +18,7 @@ BasicPattern::~BasicPattern()
 {
 }
 
-void BasicPattern::init(Colorset *colorset, LedPos pos)
+void BasicPattern::init()
 {
   // reset the blink timer entirely
   m_blinkTimer.reset();
@@ -31,7 +31,7 @@ void BasicPattern::init(Colorset *colorset, LedPos pos)
   m_blinkTimer.start();
 
   // run base pattern init logic
-  SingleLedPattern::init(colorset, pos);
+  SingleLedPattern::init();
 //  m_blinkTimer.start(Time::getTickOffset(pos));
 }
 
@@ -48,13 +48,13 @@ void BasicPattern::play()
 
   if (id == 0) {
     onBlinkOn();
-    if (m_blinkTimer.onStart() && m_pColorset->onStart()) {
+    if (m_blinkTimer.onStart() && m_colorset.onStart()) {
       // callback for basic pattern started
       onBasicStart();
     }
   } else if (id == 1) {
     onBlinkOff();
-    if (m_blinkTimer.onEnd() && m_pColorset->onEnd()) {
+    if (m_blinkTimer.onEnd() && m_colorset.onEnd()) {
       // callback for basic pattern ended
       onBasicEnd();
     }
@@ -64,7 +64,7 @@ void BasicPattern::play()
 void BasicPattern::onBlinkOn()
 {
   // set the target led with the given color
-  Leds::setIndex(m_ledPos, m_pColorset->getNext());
+  Leds::setIndex(m_ledPos, m_colorset.getNext());
 }
 
 void BasicPattern::onBlinkOff()

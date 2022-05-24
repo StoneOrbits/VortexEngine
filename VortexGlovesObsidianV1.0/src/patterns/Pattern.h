@@ -3,6 +3,7 @@
 
 #include "../LedConfig.h"
 #include "../Patterns.h"
+#include "../Colorset.h"
 #include "../Timer.h"
 
 // The heirarchy of pattern currently looks like this:
@@ -25,7 +26,6 @@
 #define PATTERN_FLAG_MULTI  (1<<0)
 
 class SerialBuffer;
-class Colorset;
 
 class Pattern
 {
@@ -35,8 +35,11 @@ public:
   Pattern();
   virtual ~Pattern();
 
+  // bind a colorset and position to the pattern and initialize
+  virtual void bind(const Colorset *colorset, LedPos pos);
+
   // init the pattern to initial state
-  virtual void init(Colorset *colorset, LedPos pos);
+  virtual void init();
 
   // pure virtual must override the play function
   virtual void play() = 0;
@@ -46,11 +49,16 @@ public:
   // must override unserialize to load patterns
   virtual void unserialize(SerialBuffer &buffer);
 
-  // Get the current relative tick number of the pattern
-  uint32_t getPatternTick() const;
+  // change the colorset
+  void setColorset(const Colorset *set);
+  void clearColorset();
 
   // get/set the ID of the pattern (set by mode builder)
   PatternID getPatternID() const { return m_patternID; }
+
+  // get a pointer to the colorset that is bound to the pattern
+  const Colorset *getColorset() const { return &m_colorset; }
+  LedPos getLedPos() const { return m_ledPos; }
 
   // get the pattern flags
   uint32_t getFlags() const { return m_patternFlags; }
@@ -61,12 +69,10 @@ protected:
   PatternID m_patternID;
   // any flags the pattern has
   uint32_t m_patternFlags;
-  // the collorset that is bound to this pattern
-  Colorset *m_pColorset;
+  // a copy of the colorset that this pattern is initialized with
+  Colorset m_colorset;
   // the Led the pattern is running on
   LedPos m_ledPos;
-  // the tick number the pattern started playing on
-  uint64_t m_patternStartTick;
 };
 
 #endif

@@ -7,8 +7,7 @@
 
 HybridPattern::HybridPattern() :
   MultiLedPattern(),
-  m_ledPatterns(),
-  m_ledColorsets()
+  m_ledPatterns()
 {
 }
 
@@ -16,31 +15,23 @@ HybridPattern::~HybridPattern()
 {
   // clean up all the sub patterns
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    SingleLedPattern *pat = m_ledPatterns[pos];
-    Colorset *set = m_ledColorsets[pos];
-    if (pat) {
-      delete pat;
-    }
-    if (set) {
-      delete set;
+    if (m_ledPatterns[pos]) {
+      delete m_ledPatterns[pos];
     }
   }
 }
 
 // init the pattern to initial state
-void HybridPattern::init(Colorset *colorset, LedPos pos)
+void HybridPattern::init()
 {
   for (LedPos ledPos = LED_FIRST; ledPos <= LED_LAST; ledPos++) {
     SingleLedPattern *pat = m_ledPatterns[ledPos];
-    Colorset *set = m_ledColorsets[ledPos];
-    if (!pat || !set) {
-      // fatal error!
-      return;
+    if (!pat) {
+      continue;
     }
-    // initialize the pattern with the new colorset in the led position
-    pat->init(set, ledPos);
+    pat->init();
   }
-  MultiLedPattern::init(colorset, pos);
+  MultiLedPattern::init();
 }
 
 // play the hybrid pattern (play all led patterns)
@@ -61,12 +52,11 @@ void HybridPattern::serialize(SerialBuffer &buffer) const
 {
   MultiLedPattern::serialize(buffer);
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (!m_ledPatterns[pos] || !m_ledColorsets[pos]) {
+    if (!m_ledPatterns[pos]) {
       DEBUG("Could not serialize hybrid pattern!");
       return;
     }
     m_ledPatterns[pos]->serialize(buffer);
-    m_ledColorsets[pos]->serialize(buffer);
   }
 }
 

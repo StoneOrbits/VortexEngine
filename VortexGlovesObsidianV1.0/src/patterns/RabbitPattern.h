@@ -11,7 +11,7 @@ public:
   virtual ~RabbitPattern();
 
   // init the pattern to initial state
-  virtual void init(Colorset *colorset, LedPos pos);
+  virtual void init();
 
   // pure virtual must override the play function
   virtual void play();

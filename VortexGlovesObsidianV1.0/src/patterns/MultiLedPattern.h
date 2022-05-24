@@ -9,8 +9,10 @@ public:
   MultiLedPattern();
   virtual ~MultiLedPattern();
 
+  virtual void bind(const Colorset *set);
+
   // init the pattern to initial state
-  virtual void init(Colorset *colorset, LedPos pos);
+  virtual void init();
 
 private:
 

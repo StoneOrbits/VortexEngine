@@ -29,6 +29,7 @@ bool Randomizer::init()
     if (!m_pRandomizedMode) {
       return false;
     }
+    m_pRandomizedMode->init();
   }
   // re-roll the randomization
   if (!reRoll()) {

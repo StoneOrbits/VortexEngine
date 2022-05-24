@@ -65,6 +65,12 @@ void Colorset::init()
   m_curIndex = UINT32_MAX;
 }
 
+void Colorset::clear()
+{
+  memset(m_palette, 0, sizeof(m_palette));
+  init();
+}
+
 RGBColor Colorset::operator[](int index) const
 {
   return get(index);
@@ -76,8 +82,7 @@ bool Colorset::addColor(RGBColor col)
   if (m_numColors >= NUM_COLOR_SLOTS) {
     return false;
   }
-  m_palette[m_numColors] = col;
-  m_numColors++;
+  m_palette[m_numColors++] = col;
   return true;
 }
 
