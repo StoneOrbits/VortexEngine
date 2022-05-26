@@ -30,7 +30,10 @@ void *_vcalloc(uint32_t size, uint32_t amount);
 void *_vrealloc(void *ptr, uint32_t size);
 void _vfree(void *ptr);
 
+// memory used by regular code
 uint32_t cur_memory_usage();
+// memory used by the memory tracker itself
+uint32_t cur_memory_usage_background();
 
 void *operator new(size_t size);
 void operator delete(void *ptr);

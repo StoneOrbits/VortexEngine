@@ -5,7 +5,8 @@
 
 #include "Log.h"
 
-uint32_t cur_mem_usage = 0;
+static uint32_t cur_mem_usage = 0;
+static uint32_t background_usage = 0;
 
 struct memory_block
 {
@@ -16,25 +17,34 @@ struct memory_block
 // Vortex allocation functions
 void *_vmalloc(uint32_t size)
 {
-  memory_block *b = (memory_block *)malloc(size + sizeof(uint32_t));
+  memory_block *b = (memory_block *)malloc(size + sizeof(memory_block));
   if (!b) {
     return nullptr;
   }
   b->size = size;
   cur_mem_usage += b->size;
+  background_usage += sizeof(memory_block);
+  //DEBUGF("malloc(): %u (%u) (%u)", b->size, cur_memory_usage, background_usage);
   return b->p;
 }
 
 void *_vcalloc(uint32_t size, uint32_t amount)
 {
   uint32_t real_amount = (size * amount);
-  memory_block *b = (memory_block *)calloc(1, real_amount + sizeof(uint32_t));
+  memory_block *b = (memory_block *)calloc(1, real_amount + sizeof(memory_block));
   if (!b) {
     return nullptr;
   }
   b->size = real_amount;
   cur_mem_usage += b->size;
+  background_usage += sizeof(memory_block);
+  //DEBUGF("calloc(): %u (%u) (%u)", b->size, cur_mem_usage, background_usage);
   return b->p;
+}
+
+static memory_block *get_base(void *b)
+{
+  return (memory_block *)(((uintptr_t)b) - sizeof(memory_block));
 }
 
 void *_vrealloc(void *ptr, uint32_t size)
@@ -42,16 +52,24 @@ void *_vrealloc(void *ptr, uint32_t size)
   uint32_t old_size = 0;
   memory_block *base = (memory_block *)ptr;
   if (ptr) {
-    base = (memory_block *)(((uintptr_t)ptr) - sizeof(uint32_t));
+    base = get_base(ptr);
     old_size = base->size;
   }
-  memory_block *b = (memory_block *)realloc(base, size + sizeof(uint32_t));
+  // same?
+  if (size == old_size) {
+    return ptr;
+  }
+  //DEBUGF("realloc(): %u -> %u (%u) (%u)", old_size, size, (cur_mem_usage - old_size) + size, background_usage);
+  memory_block *b = (memory_block *)realloc(base, size + sizeof(memory_block));
   if (!b) {
     return nullptr;
   }
   b->size = size;
   cur_mem_usage -= old_size;
   cur_mem_usage += b->size;
+  if (!old_size) {
+    background_usage += sizeof(memory_block);
+  }
   return b->p;
 }
 
@@ -60,14 +78,21 @@ void _vfree(void *ptr)
   if (!ptr) {
     return;
   }
-  memory_block *base = (memory_block *)(((uintptr_t)ptr) - sizeof(uint32_t));
+  memory_block *base = get_base(ptr);
   cur_mem_usage -= base->size;
+  background_usage -= sizeof(memory_block);
+  //DEBUGF("free(): %u (%u) (%u)", base->size, cur_mem_usage, background_usage);
   free(base);
 }
 
 uint32_t cur_memory_usage()
 {
   return cur_mem_usage;
+}
+
+uint32_t cur_memory_usage_background()
+{
+  return background_usage;
 }
 
 #ifdef DEBUG_ALLOCATIONS

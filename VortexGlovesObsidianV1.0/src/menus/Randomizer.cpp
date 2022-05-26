@@ -1,5 +1,7 @@
 #include "Randomizer.h"
 
+#include "../Memory.h"
+
 #include "../patterns/Pattern.h"
 #include "../ModeBuilder.h"
 #include "../LedControl.h"

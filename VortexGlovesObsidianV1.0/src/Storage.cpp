@@ -28,7 +28,7 @@ bool Storage::write(SerialBuffer &buffer)
   realBuffer.append(buffer);
   storage.erase();
   storage.write(realBuffer.m_pBuffer);
-  DEBUG("Wrote storage");
+  DEBUGF("Wrote %u bytes to storage", buffer.size());
   return true;
 }
 
@@ -42,6 +42,6 @@ bool Storage::read(SerialBuffer &buffer)
     return false;
   }
   buffer.m_position += sizeof(uint32_t);
-  DEBUG("Read storage");
+  DEBUGF("Read %u bytes from storage", buffer.m_size);
   return true;
 }

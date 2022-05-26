@@ -123,7 +123,7 @@ void Colorset::removeColor(uint32_t index)
 // get a color from the colorset
 RGBColor Colorset::get(uint32_t index) const
 {
-  if (index >= m_numColors) {
+  if (index >= m_numColors || !m_palette) {
     return RGBColor(0, 0, 0);
   }
   return m_palette[index];
@@ -132,7 +132,7 @@ RGBColor Colorset::get(uint32_t index) const
 // set an rgb color in a slot
 void Colorset::set(uint32_t index, RGBColor col)
 {
-  if (index >= m_numColors) {
+  if (index >= m_numColors || !m_palette) {
     return;
   }
   m_palette[index] = col;
@@ -141,6 +141,9 @@ void Colorset::set(uint32_t index, RGBColor col)
 // set an hsv color in a slot (expensive)
 void Colorset::set(uint32_t index, HSVColor col)
 {
+  if (!m_palette) {
+    return;
+  }
   // TODO: colorset::add this is ghetto
   if (index > m_numColors) {
     index = m_numColors;
@@ -155,6 +158,9 @@ void Colorset::set(uint32_t index, HSVColor col)
 // skip some amount of colors
 void Colorset::skip(int32_t amount)
 {
+  if (!m_numColors || !m_palette) {
+    return;
+  }
   // if the colorset hasn't started yet
   if (m_curIndex == INDEX_NONE) {
     m_curIndex = 0;
@@ -175,7 +181,7 @@ void Colorset::skip(int32_t amount)
 
 RGBColor Colorset::cur()
 {
-  if (m_curIndex >= m_numColors) {
+  if (m_curIndex >= m_numColors || !m_palette) {
     return RGBColor(0, 0, 0);
   }
   if (m_curIndex == INDEX_NONE) {
@@ -197,7 +203,7 @@ void Colorset::setCurIndex(uint8_t index)
 
 RGBColor Colorset::getPrev()
 {
-  if (!m_numColors) {
+  if (!m_numColors || !m_palette) {
     return RGB_OFF;
   }
   // handle wrapping at 0
@@ -212,7 +218,7 @@ RGBColor Colorset::getPrev()
 
 RGBColor Colorset::getNext()
 {
-  if (!m_numColors) {
+  if (!m_numColors || !m_palette) {
     return RGB_OFF;
   }
   // iterate current index, let it wrap at max uint8
