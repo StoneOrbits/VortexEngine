@@ -5,12 +5,10 @@
 #include <stdlib.h>
 
 // uncomment me to debug allocations
-#define DEBUG_ALLOCATIONS
+//#define DEBUG_ALLOCATIONS
 
 #ifndef DEBUG_ALLOCATIONS
 
-// default memory allocation routines
-#include <stdlib.h>
 #define vmalloc(size) malloc(size)
 #define vcalloc(size, amount) calloc(size, amount)
 #define vrealloc(ptr, size) realloc(ptr, size)

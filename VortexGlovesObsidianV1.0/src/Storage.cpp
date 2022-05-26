@@ -1,11 +1,15 @@
 #include "Storage.h"
 
 #include <FlashStorage.h>
+#include <stdlib.h>
 
 #include "SerialBuffer.h"
 #include "Log.h"
 
-Flash(storage, STORAGE_SIZE);
+__attribute__((__aligned__(256)))
+static const uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
+
+FlashClass storage(_storagedata, STORAGE_SIZE);
 
 Storage::Storage()
 {
@@ -27,8 +31,8 @@ bool Storage::write(SerialBuffer &buffer)
   realBuffer.serialize(buffer.size());
   realBuffer.append(buffer);
   storage.erase();
-  storage.write(realBuffer.m_pBuffer);
-  DEBUGF("Wrote %u bytes to storage", buffer.size());
+  storage.write(_storagedata, (void *)realBuffer.data(), realBuffer.size());
+  DEBUGF("Wrote %u bytes to storage", realBuffer.capacity());
   return true;
 }
 

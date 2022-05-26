@@ -50,7 +50,6 @@ bool VortexGloveset::init()
   return true;
 }
 
-bool first = false;
 void VortexGloveset::tick()
 {
   // tick the current time counter forward

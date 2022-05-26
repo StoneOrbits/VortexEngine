@@ -30,12 +30,12 @@ void SingleLedPattern::init()
 
 void SingleLedPattern::skip(uint32_t ticks)
 {
-  uint32_t startTime = Time::startSimulation();
+  Time::startSimulation();
   for (uint32_t i = 0; i < ticks; ++i) {
     play();  // simulate playing the pattern
     Time::tickSimulation();
   }
-  uint32_t endTime = Time::endSimulation();
+  Time::endSimulation();
 }
 
 void SingleLedPattern::resume()

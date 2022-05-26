@@ -39,7 +39,7 @@ void Button::check()
   m_newRelease = false;
 
   // read the new button state
-  int newButtonState = digitalRead(m_pinNum);
+  uint32_t newButtonState = (uint32_t)digitalRead(m_pinNum);
 
   // did the button change (press/release occurred)
   if (newButtonState != m_buttonState) {

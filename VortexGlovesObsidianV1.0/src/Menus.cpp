@@ -100,7 +100,6 @@ bool Menus::runRingFill()
   //  100ms = led 0 to 1
   //  200ms = led 0 to 2
   LedPos led = calcLedPos();
-  //Debug("Led: %d", (uint32_t)led);
 #ifdef FILL_FROM_THUMB
   // turn on leds from led to LED_LAST because the menu is filling downward
   Leds::setRange(led, LED_LAST, m_menuList[m_selection].color);

@@ -33,7 +33,7 @@ bool SerialBuffer::init(uint32_t capacity, const uint8_t *buf)
     // round up to nearest 4
     m_capacity = (capacity + 4) - (capacity % 4);
     m_pBuffer = (uint8_t *)vcalloc(1, m_capacity);
-    if (!m_pBuffer){
+    if (!m_pBuffer) {
       m_capacity = 0;
       ERROR_OUT_OF_MEMORY();
       return false;
