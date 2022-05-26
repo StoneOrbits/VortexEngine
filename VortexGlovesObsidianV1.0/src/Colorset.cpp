@@ -63,7 +63,7 @@ bool Colorset::operator==(const Colorset &other)
 {
   // only compare the palettes for equality
   return (m_numColors == other.m_numColors) && 
-         (memcmp(m_palette, other.m_palette, sizeof(m_palette)) == 0);
+         (memcmp(m_palette, other.m_palette, m_numColors * sizeof(RGBColor)) == 0);
 }
 
 bool Colorset::operator!=(const Colorset &other)
