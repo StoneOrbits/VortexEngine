@@ -12,6 +12,9 @@ void RGBColor::serialize(SerialBuffer &buffer) const
 
 void RGBColor::unserialize(SerialBuffer &buffer)
 {
+  buffer.unserialize(&red);
+  buffer.unserialize(&green);
+  buffer.unserialize(&blue);
 }
 
 RGBColor::RGBColor(const HSVColor &rhs)

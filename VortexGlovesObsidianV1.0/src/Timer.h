@@ -8,7 +8,7 @@
 #define ALARM_NONE -1
 
 // an alarm id is just an int
-typedef int32_t AlarmID;
+typedef int8_t AlarmID;
 
 class Timer
 {
@@ -47,8 +47,6 @@ public:
 
   // the start time of the timer
   uint64_t startTime() const { return m_startTime; }
-  // the total time the timer takes
-  uint64_t totalTime() const { return m_totalTime; }
 
 private:
   // helpers to set/get start time
@@ -57,19 +55,13 @@ private:
 
   // the list of alarms and number of alarms
   uint32_t *m_alarms; 
-  uint32_t m_numAlarms;
-
+  uint8_t m_numAlarms;
   // the current alarm being checked
   AlarmID m_curAlarm;
-
   // start time in microseconds
   uint64_t m_startTime;
-
   // the simulation start time
   uint64_t m_simStartTime;
-
-  // the total time the timer covers (sum of all alarms)
-  uint64_t m_totalTime;
 };
 
 #endif

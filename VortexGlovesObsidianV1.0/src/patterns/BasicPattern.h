@@ -10,7 +10,7 @@
 class BasicPattern : public SingleLedPattern
 {
 public:
-  BasicPattern(uint32_t onDuration, uint32_t offDuration = 0);
+  BasicPattern(uint8_t onDuration, uint8_t offDuration = 0);
   virtual ~BasicPattern();
 
   virtual void init();
@@ -34,8 +34,8 @@ protected:
   virtual void onBasicEnd();
 
   // the duration the light is on/off for
-  uint32_t m_onDuration;
-  uint32_t m_offDuration;
+  uint8_t m_onDuration;
+  uint8_t m_offDuration;
 
   // the blink timer
   Timer m_blinkTimer;

@@ -4,7 +4,7 @@
 #include <inttypes.h>
 
 // Defined the LED positions, their order, and index
-enum LedPos : uint32_t
+enum LedPos : uint8_t
 {
   // this should always be first
   LED_FIRST = 0,
@@ -36,7 +36,7 @@ enum LedPos : uint32_t
   LED_LAST = (LED_COUNT - 1)
 };
 
-enum Finger : uint32_t
+enum Finger : uint8_t
 {
   FINGER_FIRST = 0,
 

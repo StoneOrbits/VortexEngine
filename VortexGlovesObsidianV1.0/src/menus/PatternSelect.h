@@ -39,9 +39,6 @@ private:
   // the current state of the pattern selection menu
   PatternSelectState m_state;
 
-  // copy of the current colorset to be used for demo display
-  Colorset m_colorset;
-
   // an internal mode used for demoing patterns
   Mode *m_pDemoMode;
 

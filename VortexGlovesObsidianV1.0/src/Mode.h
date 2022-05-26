@@ -15,7 +15,7 @@ class Pattern;
 class Colorset;
 
 // Bitflags for the current mode
-enum ModeFlags : uint32_t
+enum ModeFlags : uint8_t
 {
   MODE_FLAG_NONE = 0,
 
@@ -82,6 +82,7 @@ private:
 
   // erase any stored patterns or colorsets
   void clearPatterns();
+  void clearPattern(LedPos pos);
   void clearColorsets();
 
   // NOTE: Modes *ALLOW* for one pattern and one colorset on each LED

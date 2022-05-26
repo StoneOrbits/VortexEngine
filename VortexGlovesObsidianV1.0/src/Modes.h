@@ -33,6 +33,7 @@ public:
 
   // add a new mode with a given pattern and colorset
   static bool addMode(PatternID id, const Colorset *set);
+  static bool addMode(Mode *mode);
 
   // update the current mode to match the given mode
   static bool setCurMode(PatternID id, const Colorset *set);
@@ -43,12 +44,15 @@ public:
   // iterate to next mode and return it
   static Mode *nextMode();
 
+  // delete all modes in the list
+  static void clearModes();
+
 private:
   // the current mode we're on
-  static uint32_t m_curMode;
+  static uint8_t m_curMode;
 
   // the number of modes loaded
-  static uint32_t m_numModes;
+  static uint8_t m_numModes;
 
   // list of all modes in the gloveset
   static Mode *m_modeList[NUM_MODES];

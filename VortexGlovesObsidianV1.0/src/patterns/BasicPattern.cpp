@@ -6,7 +6,7 @@
 #include "../Colorset.h"
 #include "../Log.h"
 
-BasicPattern::BasicPattern(uint32_t onDuration, uint32_t offDuration) :
+BasicPattern::BasicPattern(uint8_t onDuration, uint8_t offDuration) :
   SingleLedPattern(),
   m_onDuration(onDuration),
   m_offDuration(offDuration),
@@ -90,10 +90,13 @@ void BasicPattern::resume()
 void BasicPattern::serialize(SerialBuffer &buffer) const
 {
   SingleLedPattern::serialize(buffer);
-  buffer.serialize(m_onDuration);
-  buffer.serialize(m_offDuration);
+  //buffer.serialize(m_onDuration);
+  //buffer.serialize(m_offDuration);
 }
 
 void BasicPattern::unserialize(SerialBuffer &buffer)
 {
+  SingleLedPattern::unserialize(buffer);
+  //buffer.unserialize(&m_onDuration);
+  //buffer.unserialize(&m_offDuration);
 }

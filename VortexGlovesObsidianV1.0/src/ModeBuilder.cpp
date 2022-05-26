@@ -4,6 +4,7 @@
 #include "patterns/MultiLedPattern.h"
 #include "patterns/Pattern.h"
 #include "PatternBuilder.h"
+#include "SerialBuffer.h"
 #include "Colorset.h"
 #include "Mode.h"
 #include "Log.h"
@@ -78,5 +79,17 @@ Mode *ModeBuilder::makeMulti(PatternID id, const Colorset *set)
     delete newMode;
     return nullptr;
   }
+  return newMode;
+}
+
+Mode *ModeBuilder::unserialize(SerialBuffer &buffer)
+{
+  // create the new mode object
+  Mode *newMode = new Mode();
+  if (!newMode) {
+    ERROR_OUT_OF_MEMORY();
+    return nullptr;
+  }
+  newMode->unserialize(buffer);
   return newMode;
 }

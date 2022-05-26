@@ -15,7 +15,6 @@
 ColorSelect::ColorSelect() :
   Menu(),
   m_state(STATE_PICK_SLOT),
-  m_colorset(),
   m_curPage(0),
   m_slot(0),
   m_quadrant(0),

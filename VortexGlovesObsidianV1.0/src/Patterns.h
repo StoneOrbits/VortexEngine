@@ -4,7 +4,7 @@
 #include <inttypes.h>
 
 // list of patterns that can be built
-enum PatternID : uint32_t
+enum PatternID : uint8_t
 {
   // first pattern of all
   PATTERN_FIRST = 0,

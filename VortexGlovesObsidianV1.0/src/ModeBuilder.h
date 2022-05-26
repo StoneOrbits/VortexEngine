@@ -4,6 +4,7 @@
 #include "ColorTypes.h"
 #include "Patterns.h"
 
+class SerialBuffer;
 class Colorset;
 class Pattern;
 class Mode;
@@ -20,6 +21,9 @@ public:
   static Mode *make(PatternID id, RGBColor c1, RGBColor c2 = RGB_OFF,
     RGBColor c3 = RGB_OFF, RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF,
     RGBColor c6 = RGB_OFF, RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
+
+  // unserialize a buffer into a mode
+  static Mode *unserialize(SerialBuffer &buffer);
 
 private:
   // helpers to build single/multi led patterns

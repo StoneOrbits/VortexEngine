@@ -2,6 +2,8 @@
 
 #include "SingleLedPattern.h"
 
+#include "../PatternBuilder.h"
+#include "../SerialBuffer.h"
 #include "../Colorset.h"
 #include "../Log.h"
 
@@ -63,4 +65,25 @@ void HybridPattern::serialize(SerialBuffer &buffer) const
 // must override unserialize to load patterns
 void HybridPattern::unserialize(SerialBuffer &buffer)
 {
+  clearPatterns();
+  MultiLedPattern::unserialize(buffer);
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    SingleLedPattern *pat = PatternBuilder::makeSingle((PatternID)buffer.unserialize8());
+    if (!pat) {
+      return;
+    }
+    pat->unserialize(buffer);
+    m_ledPatterns[pos] = pat;
+  }
+}
+
+void HybridPattern::clearPatterns()
+{
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    if (!m_ledPatterns[pos]) {
+      continue;
+    }
+    delete m_ledPatterns[pos];
+    m_ledPatterns[pos] = nullptr;
+  }
 }

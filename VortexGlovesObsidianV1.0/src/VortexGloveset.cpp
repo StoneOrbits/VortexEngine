@@ -6,6 +6,8 @@
 #include "Menus.h"
 #include "Log.h"
 
+#include <Arduino.h>
+
 bool VortexGloveset::init()
 {
   // initialize a random seed
@@ -48,6 +50,7 @@ bool VortexGloveset::init()
   return true;
 }
 
+bool first = false;
 void VortexGloveset::tick()
 {
   // tick the current time counter forward

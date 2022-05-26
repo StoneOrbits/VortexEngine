@@ -24,6 +24,8 @@ public:
   virtual void unserialize(SerialBuffer &buffer);
 
 protected:
+  void clearPatterns();
+
   // array of single LED patterns, one for each LED
   SingleLedPattern *m_ledPatterns[LED_COUNT];
 };

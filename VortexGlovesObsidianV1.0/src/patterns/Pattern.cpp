@@ -21,7 +21,11 @@ Pattern::~Pattern()
 
 void Pattern::bind(const Colorset *set, LedPos pos)
 {
-  m_colorset = *set;
+  if (!set) {
+    m_colorset.clear();
+  } else {
+    m_colorset = *set;
+  }
   m_ledPos = pos;
   init();
 }
@@ -33,12 +37,17 @@ void Pattern::init()
 // must override the serialize routine to save the pattern
 void Pattern::serialize(SerialBuffer &buffer) const
 {
-  buffer.serialize(m_patternID);
+  buffer.serialize((uint8_t)m_patternID);
+  m_colorset.serialize(buffer);
 }
 
 // must override unserialize to load patterns
 void Pattern::unserialize(SerialBuffer &buffer)
 {
+  // don't unserialize the pattern ID because it is already
+  // unserialized by the pattern builder to decide which pattern
+  // to instantiate, instead only unserialize the colorset
+  m_colorset.unserialize(buffer);
 }
 
 // change the colorset

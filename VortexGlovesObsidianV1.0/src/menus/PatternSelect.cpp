@@ -11,7 +11,6 @@
 PatternSelect::PatternSelect() :
   Menu(),
   m_state(STATE_PICK_LIST),
-  m_colorset(),
   m_pDemoMode(nullptr),
   m_newPatternID(PATTERN_FIRST)
 {
@@ -32,10 +31,9 @@ bool PatternSelect::init()
   }
   m_state = STATE_PICK_LIST;
   // grab a copy of current colorset
-  m_colorset = *m_pCurMode->getColorset();
   m_newPatternID = PATTERN_FIRST;
   if (!m_pDemoMode) {
-    m_pDemoMode = ModeBuilder::make(m_newPatternID, &m_colorset);
+    m_pDemoMode = ModeBuilder::make(m_newPatternID, m_pCurMode->getColorset());
   } else {
     m_pDemoMode->setPattern(m_newPatternID);
   }
@@ -111,10 +109,14 @@ void PatternSelect::onLongClick()
   switch (m_state) {
   case STATE_PICK_LIST:
     m_state = STATE_PICK_PATTERN;
+    DEBUGF("1Started picking pattern at %u", m_newPatternID);
     // start the new pattern ID selection based on the chosen list
     m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));
+    DEBUGF("2Started picking pattern at %u", m_newPatternID);
     m_pDemoMode->setPattern(m_newPatternID);
+    DEBUGF("3Started picking pattern at %u", m_newPatternID);
     m_pDemoMode->init();
+    DEBUGF("Started picking pattern at %u", m_newPatternID);
     break;
   case STATE_PICK_PATTERN:
     // store the new pattern in the mode

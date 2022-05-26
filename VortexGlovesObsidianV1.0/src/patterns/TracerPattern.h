@@ -8,7 +8,7 @@
 class TracerPattern : public SingleLedPattern
 {
 public:
-  TracerPattern(uint32_t tracerLength, uint32_t dotLength);
+  TracerPattern(uint8_t tracerLength, uint8_t dotLength);
   virtual ~TracerPattern();
 
   virtual void init();
@@ -20,12 +20,12 @@ public:
 
 private:
   // the duration the light is on/off for
-  uint32_t m_tracerDuration;
-  uint32_t m_dotDuration;
+  uint8_t m_tracerDuration;
+  uint8_t m_dotDuration;
   // the timer for performing blinks
   Timer m_blinkTimer;
   // the counter for dot color
-  uint32_t m_dotColor;
+  uint8_t m_dotColor;
 };
 
 #endif

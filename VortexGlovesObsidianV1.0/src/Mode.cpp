@@ -32,12 +32,11 @@ void Mode::init()
   }
   // otherwise regular init
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    // grab the entry for this led
+    // grab the entry for this led and initialize it
     SingleLedPattern *entry = m_ledEntries[pos];
     if (!entry) {
       continue;
     }
-    // the pattern may change the colorset initial position
     entry->init();
   }
 }
@@ -64,8 +63,6 @@ void Mode::serialize(SerialBuffer &buffer) const
 {
   //   4 mode flags (*)       flags defined whether multi pattern or not
   //     led1..N {            if multi pattern then 10x led, otherwise 1x
-  //      1 led (0 - 9)
-  //      1 pattern id (0 - 255)
   //      colorset1..N {
   //       1 numColors (0 - 255)
   //       rgb1..N {
@@ -74,10 +71,15 @@ void Mode::serialize(SerialBuffer &buffer) const
   //        1 blu (0-255)
   //       }
   //      }
+  //      1 pattern id (0 - 255)
+  //
+  DEBUGF("Saved mode flags: %x (%u %u)", m_flags, buffer.size(), buffer.capacity());
   buffer.serialize((uint32_t)m_flags);
   // if the multi pattern flag is present only write one entry
   if (hasFlags(MODE_FLAG_MULTI_LED)) {
-    m_multiPat->serialize(buffer);
+    if (m_multiPat) {
+      m_multiPat->serialize(buffer);
+    }
     return;
   }
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
@@ -92,6 +94,22 @@ void Mode::serialize(SerialBuffer &buffer) const
 
 void Mode::unserialize(SerialBuffer &buffer)
 {
+  clearPatterns();
+  buffer.unserialize((uint32_t *)&m_flags);
+  DEBUGF("Loaded mode flags: %x", m_flags);
+  if (hasFlags(MODE_FLAG_MULTI_LED)) {
+    m_multiPat = (MultiLedPattern *)PatternBuilder::unserialize(buffer);
+    return;
+  }
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    m_ledEntries[pos] = (SingleLedPattern *)PatternBuilder::unserialize(buffer);
+    if (!m_ledEntries[pos]) {
+      // error
+      return;
+    }
+    // the led positions aren't stored, need to restore them manually
+    m_ledEntries[pos]->setLedPos(pos);
+  }
 }
 
 // bind a single led pattern and colorset to individual LED
@@ -156,10 +174,14 @@ const Pattern *Mode::getPattern(LedPos pos) const
 
 const Colorset *Mode::getColorset(LedPos pos) const
 {
-  if (pos > LED_LAST) {
+  if (pos > LED_LAST || !m_ledEntries[pos]) {
+    // try to return 0 if possible
+    if (m_ledEntries[0]) {
+      return m_ledEntries[0]->getColorset();
+    }
     return nullptr;
   }
-  return m_ledEntries[pos]->getColorset();;
+  return m_ledEntries[pos]->getColorset();
 }
 
 PatternID Mode::getPatternID(LedPos pos) const
@@ -196,9 +218,8 @@ bool Mode::setSinglePat(PatternID pat, LedPos pos)
     // failed to build new pattern, user gave multiled pattern id?
     return false;
   }
-  // initialize the new pattern
-  newPat->bind(m_ledEntries[pos]->getColorset(), pos);
-  delete m_ledEntries[pos];
+  newPat->bind(getColorset(pos), pos);
+  clearPattern(pos);
   m_ledEntries[pos] = newPat;
   return true;
 }
@@ -211,7 +232,7 @@ bool Mode::setMultiPat(PatternID pat)
   }
   // initialize the new pattern with the old colorset
   // if there isn't already a pattern
-  newPat->bind(m_multiPat->getColorset());
+  newPat->bind(m_multiPat ? m_multiPat->getColorset() : nullptr);
   // clear any stored patterns
   clearPatterns();
   // update the multi pattern
@@ -245,12 +266,17 @@ bool Mode::setColorset(const Colorset *set, LedPos pos)
 void Mode::clearPatterns()
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    if (!m_ledEntries[pos]) {
-      continue;
-    }
-    delete m_ledEntries[pos];
-    m_ledEntries[pos] = nullptr;
+    clearPattern(pos);
   }
+}
+
+void Mode::clearPattern(LedPos pos)
+{
+  if (!m_ledEntries[pos]) {
+    return;
+  }
+  delete m_ledEntries[pos];
+  m_ledEntries[pos] = nullptr;
 }
 
 void Mode::clearColorsets()

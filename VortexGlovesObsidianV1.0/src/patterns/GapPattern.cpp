@@ -6,7 +6,7 @@
 #include "../Colorset.h"
 #include "../Log.h"
 
-GapPattern::GapPattern(uint32_t onDuration, uint32_t offDuration, uint32_t gapDuration) :
+GapPattern::GapPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration) :
   BasicPattern(onDuration, offDuration),
   m_gapDuration(gapDuration),
   m_gapTimer(),
@@ -50,11 +50,13 @@ void GapPattern::onBasicEnd()
 void GapPattern::serialize(SerialBuffer &buffer) const
 {
   BasicPattern::serialize(buffer);
-  buffer.serialize(m_gapDuration);
+  //buffer.serialize(m_gapDuration);
 }
 
 void GapPattern::unserialize(SerialBuffer &buffer)
 {
+  BasicPattern::unserialize(buffer);
+  //buffer.unserialize(&m_gapDuration);
 }
 
 void GapPattern::triggerGap()

@@ -9,8 +9,7 @@ Timer::Timer() :
   m_numAlarms(0),
   m_curAlarm(0),
   m_startTime(0),
-  m_simStartTime(0),
-  m_totalTime(0)
+  m_simStartTime(0)
 {
 }
 
@@ -31,7 +30,6 @@ AlarmID Timer::addAlarm(uint32_t interval)
   }
   m_alarms = (uint32_t *)temp;
   m_alarms[m_numAlarms] = interval;
-  m_totalTime += interval;
   return m_numAlarms++;
 }
 
@@ -56,7 +54,6 @@ void Timer::reset()
   m_curAlarm = 0;
   m_startTime = 0;
   m_simStartTime = 0;
-  m_totalTime = 0;
 }
 
 bool Timer::onStart() const

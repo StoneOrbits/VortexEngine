@@ -6,8 +6,8 @@
 #include "../Colorset.h"
 #include "../Log.h"
 
-AdvancedPattern::AdvancedPattern(uint32_t onDuration, uint32_t offDuration, uint32_t gapDuration,
-                                 uint32_t groupSize, uint32_t skipCols, uint32_t repeatGroup) :
+AdvancedPattern::AdvancedPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration,
+                                 uint8_t groupSize, uint8_t skipCols, uint8_t repeatGroup) :
   GapPattern(onDuration, offDuration, gapDuration),
   m_groupSize(groupSize),
   m_skipCols(skipCols),
@@ -97,10 +97,13 @@ void AdvancedPattern::onBlinkOff()
 void AdvancedPattern::serialize(SerialBuffer &buffer) const
 {
   GapPattern::serialize(buffer);
-  buffer.serialize(m_onDuration);
-  buffer.serialize(m_offDuration);
+  //buffer.serialize(m_onDuration);
+  //buffer.serialize(m_offDuration);
 }
 
 void AdvancedPattern::unserialize(SerialBuffer &buffer)
 {
+  GapPattern::unserialize(buffer);
+  //buffer.unserialize(&m_onDuration);
+  //buffer.unserialize(&m_offDuration);
 }

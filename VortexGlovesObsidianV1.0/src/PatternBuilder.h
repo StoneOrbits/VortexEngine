@@ -4,6 +4,7 @@
 #include "Patterns.h"
 
 class Pattern;
+class SerialBuffer;
 class MultiLedPattern;
 class SingleLedPattern;
 
@@ -18,6 +19,9 @@ public:
 
   // generate a multi LED pattern (nullptr if patternid is not multi LED)
   static MultiLedPattern *makeMulti(PatternID id);
+
+  // unserialize a buffer into a pattern
+  static Pattern *unserialize(SerialBuffer &buffer);
 
 private:
   // helper routines

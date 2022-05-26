@@ -6,7 +6,7 @@
 #include "../Colorset.h"
 #include "../Log.h"
 
-TracerPattern::TracerPattern(uint32_t tracerLength, uint32_t dotLength) :
+TracerPattern::TracerPattern(uint8_t tracerLength, uint8_t dotLength) :
   m_tracerDuration(tracerLength),
   m_dotDuration(dotLength),
   m_blinkTimer(),
@@ -55,11 +55,14 @@ void TracerPattern::play()
 void TracerPattern::serialize(SerialBuffer &buffer) const
 {
   SingleLedPattern::serialize(buffer);
-  buffer.serialize(m_tracerDuration);
-  buffer.serialize(m_dotDuration);
+  //buffer.serialize(m_tracerDuration);
+  //buffer.serialize(m_dotDuration);
 }
 
 // must override unserialize to load patterns
 void TracerPattern::unserialize(SerialBuffer &buffer)
 {
+  SingleLedPattern::unserialize(buffer);
+  //buffer.unserialize(&m_tracerDuration);
+  //buffer.unserialize(&m_dotDuration);
 }

@@ -4,7 +4,6 @@
 #include "../LedConfig.h"
 #include "../Patterns.h"
 #include "../Colorset.h"
-#include "../Timer.h"
 
 // The heirarchy of pattern currently looks like this:
 //
@@ -53,6 +52,9 @@ public:
   void setColorset(const Colorset *set);
   void clearColorset();
 
+  // change the led position
+  void setLedPos(LedPos pos) { m_ledPos = pos; }
+
   // get/set the ID of the pattern (set by mode builder)
   PatternID getPatternID() const { return m_patternID; }
 
@@ -68,7 +70,7 @@ protected:
   // the ID of this pattern (set by pattern builder)
   PatternID m_patternID;
   // any flags the pattern has
-  uint32_t m_patternFlags;
+  uint8_t m_patternFlags;
   // a copy of the colorset that this pattern is initialized with
   Colorset m_colorset;
   // the Led the pattern is running on

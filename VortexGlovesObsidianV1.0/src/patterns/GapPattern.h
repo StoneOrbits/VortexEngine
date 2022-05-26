@@ -7,7 +7,7 @@
 class GapPattern : public BasicPattern
 {
 public:
-  GapPattern(uint32_t onDuration, uint32_t offDuration, uint32_t gapDuration);
+  GapPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration);
   virtual ~GapPattern();
 
   virtual void init();
@@ -28,7 +28,7 @@ protected:
   // whether in the gap
   bool inGap() const { return m_inGap; }
 
-  uint32_t m_gapDuration;
+  uint8_t m_gapDuration;
   Timer m_gapTimer;
   bool m_inGap;
 };

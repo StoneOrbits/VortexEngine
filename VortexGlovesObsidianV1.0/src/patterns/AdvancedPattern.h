@@ -8,8 +8,8 @@
 class AdvancedPattern : public GapPattern
 {
 public:
-  AdvancedPattern(uint32_t onDuration, uint32_t offDuration, uint32_t gapDuration,
-    uint32_t groupSize, uint32_t skipCols, uint32_t repeatGroup);
+  AdvancedPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration,
+    uint8_t groupSize, uint8_t skipCols, uint8_t repeatGroup);
   virtual ~AdvancedPattern();
 
   virtual void init();
@@ -29,14 +29,14 @@ protected:
   virtual void endGap() override;
 
   // the duration the light is on/off for
-  uint32_t m_groupSize;
-  uint32_t m_skipCols;
-  uint32_t m_repeatGroup;
+  uint8_t m_groupSize;
+  uint8_t m_skipCols;
+  uint8_t m_repeatGroup;
 
   // the counter for groups
-  uint32_t m_groupCounter;
+  uint8_t m_groupCounter;
   // the repeat counter
-  uint32_t m_repeatCounter;
+  uint8_t m_repeatCounter;
 };
 
 #endif

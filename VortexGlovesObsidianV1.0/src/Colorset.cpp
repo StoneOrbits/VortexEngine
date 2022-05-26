@@ -1,14 +1,17 @@
 #include "Colorset.h"
 
 #include "SerialBuffer.h"
+#include "Memory.h"
 
 #include <Arduino.h>
 #include <cstring>
 
+#define INDEX_NONE UINT8_MAX
+
 Colorset::Colorset() :
-  m_curIndex(UINT32_MAX),
-  m_numColors(0),
-  m_palette()
+  m_palette(nullptr),
+  m_curIndex(INDEX_NONE),
+  m_numColors(0)
 {
   init();
 }
@@ -18,32 +21,39 @@ Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
   Colorset()
 {
   // would be nice if we could do this another way
-  m_palette[0] = c1; if (!c1.empty()) m_numColors++;
-  m_palette[1] = c2; if (!c2.empty()) m_numColors++;
-  m_palette[2] = c3; if (!c3.empty()) m_numColors++;
-  m_palette[3] = c4; if (!c4.empty()) m_numColors++;
-  m_palette[4] = c5; if (!c5.empty()) m_numColors++;
-  m_palette[5] = c6; if (!c6.empty()) m_numColors++;
-  m_palette[6] = c7; if (!c7.empty()) m_numColors++;
-  m_palette[7] = c8; if (!c8.empty()) m_numColors++;
+  if (!c1.empty()) addColor(c1);
+  if (!c2.empty()) addColor(c2);
+  if (!c3.empty()) addColor(c3);
+  if (!c4.empty()) addColor(c4);
+  if (!c5.empty()) addColor(c5);
+  if (!c6.empty()) addColor(c6);
+  if (!c7.empty()) addColor(c7);
+  if (!c8.empty()) addColor(c8);
   init();
 }
 
 Colorset::Colorset(const Colorset &other) :
-  m_curIndex(UINT32_MAX),
+  m_curIndex(INDEX_NONE),
   m_numColors(other.m_numColors)
 {
-  for (int i = 0; i < NUM_COLOR_SLOTS; ++i) {
+  clear();
+  initPalette(other.m_numColors);
+  for (uint32_t i = 0; i < other.m_numColors; ++i) {
     m_palette[i] = other.m_palette[i];
   }
   init();
 }
 
+Colorset::~Colorset()
+{
+  clear();
+}
+
 void Colorset::operator=(const Colorset &other)
 {
-  m_curIndex = UINT32_MAX;
-  m_numColors = other.m_numColors;
-  for (int i = 0; i < NUM_COLOR_SLOTS; ++i) {
+  clear();
+  initPalette(other.m_numColors);
+  for (uint32_t i = 0; i < other.numColors(); ++i) {
     m_palette[i] = other.m_palette[i];
   }
   init();
@@ -52,7 +62,8 @@ void Colorset::operator=(const Colorset &other)
 bool Colorset::operator==(const Colorset &other)
 {
   // only compare the palettes for equality
-  return (memcmp(m_palette, other.m_palette, sizeof(m_palette)) == 0);
+  return (m_numColors == other.m_numColors) && 
+         (memcmp(m_palette, other.m_palette, sizeof(m_palette)) == 0);
 }
 
 bool Colorset::operator!=(const Colorset &other)
@@ -62,12 +73,15 @@ bool Colorset::operator!=(const Colorset &other)
 
 void Colorset::init()
 {
-  m_curIndex = UINT32_MAX;
+  m_curIndex = INDEX_NONE;
 }
 
 void Colorset::clear()
 {
-  memset(m_palette, 0, sizeof(m_palette));
+  if (m_palette) {
+    vfree(m_palette);
+    m_palette = nullptr;
+  }
   init();
 }
 
@@ -79,9 +93,14 @@ RGBColor Colorset::operator[](int index) const
 // add a single color
 bool Colorset::addColor(RGBColor col)
 {
-  if (m_numColors >= NUM_COLOR_SLOTS) {
+  if (m_numColors >= MAX_COLOR_SLOTS) {
     return false;
   }
+  void *temp = vrealloc(m_palette, sizeof(RGBColor) * (m_numColors + 1));
+  if (!temp) {
+    return false;
+  }
+  m_palette = (RGBColor *)temp;
   m_palette[m_numColors++] = col;
   return true;
 }
@@ -91,10 +110,14 @@ void Colorset::removeColor(uint32_t index)
   if (index >= m_numColors) {
     return;
   }
-  for (uint32_t i = index; i < (m_numColors - 1); ++i) {
+  for (uint8_t i = index; i < (m_numColors - 1); ++i) {
     m_palette[i] = m_palette[i + 1];
   }
   m_palette[--m_numColors].clear();
+  if (!m_numColors) {
+    vfree(m_palette);
+    m_palette = nullptr;
+  }
 }
 
 // get a color from the colorset
@@ -133,7 +156,7 @@ void Colorset::set(uint32_t index, HSVColor col)
 void Colorset::skip(int32_t amount)
 {
   // if the colorset hasn't started yet
-  if (m_curIndex == UINT32_MAX) {
+  if (m_curIndex == INDEX_NONE) {
     m_curIndex = 0;
   }
 
@@ -155,13 +178,13 @@ RGBColor Colorset::cur()
   if (m_curIndex >= m_numColors) {
     return RGBColor(0, 0, 0);
   }
-  if (m_curIndex == UINT32_MAX) {
+  if (m_curIndex == INDEX_NONE) {
     return m_palette[0];
   }
   return m_palette[m_curIndex];
 }
 
-void Colorset::setCurIndex(uint32_t index)
+void Colorset::setCurIndex(uint8_t index)
 {
   if (!m_numColors) {
     return;
@@ -192,12 +215,13 @@ RGBColor Colorset::getNext()
   if (!m_numColors) {
     return RGB_OFF;
   }
-  // iterate to next col
-  m_curIndex = (m_curIndex + 1) % (numColors());
+  // iterate current index, let it wrap at max uint8
+  m_curIndex++;
+  // then modulate the result within max colors
+  m_curIndex %= numColors();
   // return the color
   return m_palette[m_curIndex];
 }
-
 
 bool Colorset::onStart() const
 {
@@ -222,4 +246,23 @@ void Colorset::serialize(SerialBuffer &buffer) const
 
 void Colorset::unserialize(SerialBuffer &buffer)
 {
+  buffer.unserialize(&m_numColors);
+  initPalette(m_numColors);
+  for (uint32_t i = 0; i < m_numColors; ++i) {
+    m_palette[i].unserialize(buffer);
+  }
 }
+
+void Colorset::initPalette(uint32_t numColors)
+{
+  if (m_palette) {
+    vfree(m_palette);
+  }
+  m_palette = (RGBColor *)vcalloc(numColors, sizeof(RGBColor));
+  if (!m_palette) {
+    ERROR_OUT_OF_MEMORY();
+    return;
+  }
+  m_numColors = numColors;
+}
+

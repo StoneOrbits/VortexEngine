@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 // uncomment me to debug allocations
-//#define DEBUG_ALLOCATIONS
+#define DEBUG_ALLOCATIONS
 
 #ifndef DEBUG_ALLOCATIONS
 

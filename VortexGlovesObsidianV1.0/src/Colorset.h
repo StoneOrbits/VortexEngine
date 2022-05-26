@@ -3,8 +3,8 @@
 
 #include "ColorTypes.h"
 
-// the number of colors in a colorset
-#define NUM_COLOR_SLOTS 8
+// the max number of colors in a colorset
+#define MAX_COLOR_SLOTS 8
 
 class SerialBuffer;
 
@@ -19,6 +19,8 @@ public:
     RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF, RGBColor c6 = RGB_OFF,
     RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
 
+  ~Colorset();
+
   // copy and assignment operators
   Colorset(const Colorset &other);
   void operator=(const Colorset &other);
@@ -30,6 +32,7 @@ public:
   // initialize the colorset
   void init();
 
+  // clear the colorset
   void clear();
 
   // index operator to access color index
@@ -54,7 +57,7 @@ public:
   RGBColor cur();
 
   // set the current index of the colorset
-  void setCurIndex(uint32_t index);
+  void setCurIndex(uint8_t index);
 
   // the current index
   uint32_t curIndex() const { return m_curIndex; }
@@ -77,13 +80,16 @@ public:
   void unserialize(SerialBuffer &buffer);
 
 private:
-  // the current index, starts at UINT32_MAX so that
-  // the very first call to getNext will iterate to 0
-  uint32_t m_curIndex;
-  // the actual number of colors in the set
-  uint32_t m_numColors;
+  // pre-allocate the palette
+  void initPalette(uint32_t numColors);
+
   // palette of colors
-  RGBColor m_palette[NUM_COLOR_SLOTS];
+  RGBColor *m_palette;
+  // the current index, starts at UINT8_MAX so that
+  // the very first call to getNext will iterate to 0
+  uint8_t m_curIndex;
+  // the actual number of colors in the set
+  uint8_t m_numColors;
 };
 
 #endif

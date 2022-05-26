@@ -129,6 +129,7 @@ bool Menus::runCurMenu()
     if (!Modes::save()) {
       // error saving
     }
+    Modes::load();
     // clear the current menu pointer
     m_pCurMenu = nullptr;
     // the menus are no longer open either
