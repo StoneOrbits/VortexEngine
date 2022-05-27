@@ -59,12 +59,12 @@ void Modes::play()
 
 bool Modes::load()
 {
-  clearModes();
   DEBUG("Loading modes...");
   if (!m_modesBuffer.size()) {
     // only read storage if the modebuffer isn't filled
     if (!Storage::read(m_modesBuffer) || !m_modesBuffer.size()) {
       DEBUG("Empty buffer read from storage");
+      m_modesBuffer.clear();
       return false;
     }
   }
@@ -73,8 +73,10 @@ bool Modes::load()
   m_modesBuffer.unserialize(&numModes);
   if (!numModes) {
     DEBUG("Did not find any modes in storage");
+    m_modesBuffer.clear();
     return false;
   }
+  clearModes();
   for (uint8_t i = 0; i < numModes; ++i) {
     Mode *mode = ModeBuilder::unserialize(m_modesBuffer);
     if (!mode) {

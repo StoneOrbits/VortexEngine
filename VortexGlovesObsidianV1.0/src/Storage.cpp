@@ -16,8 +16,9 @@ Storage::Storage()
 {
 }
 
-Storage::~Storage()
+bool Storage::init()
 {
+  return true;
 }
 
 // store a serial buffer to storage
@@ -28,7 +29,7 @@ bool Storage::write(SerialBuffer &buffer)
     return false;
   }
 #ifdef DEBUG_ALLOCATIONS
-    DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
+  DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
 #endif
   // hopefully the flash storage is large enough
   SerialBuffer realBuffer(STORAGE_SIZE);

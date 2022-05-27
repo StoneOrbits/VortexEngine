@@ -23,7 +23,10 @@ bool Randomizer::init()
   if (!Menu::init()) {
     return false;
   }
-  PatternID id = m_pCurMode->getPatternID();
+  PatternID id = PATTERN_FIRST;
+  if (m_pCurMode) {
+    id = m_pCurMode->getPatternID();
+  }
   DEBUGF("Cur pattern id: %u", id);
   if (!m_pRandomizedMode) {
     // create a new randomized mode out of the colors

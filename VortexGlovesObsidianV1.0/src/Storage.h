@@ -7,9 +7,11 @@ class SerialBuffer;
 
 class Storage
 {
-public:
   Storage();
-  ~Storage();
+public:
+
+  // init storage
+  static bool init();
 
   // store a serial buffer to storage
   static bool write(SerialBuffer &buffer);

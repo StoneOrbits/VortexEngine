@@ -1,6 +1,7 @@
 #include "VortexGloveset.h"
 #include "TimeControl.h"
 #include "LedControl.h"
+#include "Storage.h"
 #include "Buttons.h"
 #include "Modes.h"
 #include "Menus.h"
@@ -38,6 +39,12 @@ bool VortexGloveset::init()
   // initialize the menus
   if (!Menus::init()) {
     DEBUG("Menus failed to initialize");
+    return false;
+  }
+
+  // initialize the storage
+  if (!Storage::init()) {
+    DEBUG("Storage failed to initialize");
     return false;
   }
 

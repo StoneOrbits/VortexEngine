@@ -46,6 +46,16 @@ bool SerialBuffer::init(uint32_t capacity, const uint8_t *buf)
   return true;
 }
 
+void SerialBuffer::clear()
+{
+  if (m_pBuffer) {
+    vfree(m_pBuffer);
+    m_pBuffer = nullptr;
+  }
+  m_capacity = 0;
+  m_size = 0;
+}
+
 bool SerialBuffer::shrink()
 {
   if (m_size == m_capacity) {
