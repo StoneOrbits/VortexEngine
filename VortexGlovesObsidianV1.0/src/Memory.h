@@ -34,8 +34,8 @@ uint32_t cur_memory_usage();
 uint32_t cur_memory_usage_background();
 
 void *operator new(size_t size);
-void operator delete(void *ptr);
+void operator delete(void *ptr) noexcept;
 void *operator new[](size_t size);
-void operator delete[](void *ptr);
+void operator delete[](void *ptr) noexcept;
 #endif
 #endif

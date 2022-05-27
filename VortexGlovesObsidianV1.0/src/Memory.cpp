@@ -115,7 +115,7 @@ void *operator new(size_t size)
   return _vmalloc(size);
 }
 
-void operator delete(void *ptr)
+void operator delete(void *ptr) noexcept
 {
   _vfree(ptr);
 }
@@ -125,7 +125,7 @@ void *operator new[](size_t size)
   return _vmalloc(size);
 }
 
-void operator delete[](void *ptr)
+void operator delete[](void *ptr) noexcept
 {
   _vfree(ptr);
 }
