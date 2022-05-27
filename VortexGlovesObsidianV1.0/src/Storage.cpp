@@ -27,7 +27,9 @@ bool Storage::write(SerialBuffer &buffer)
     DEBUG("ERROR buffer too big");
     return false;
   }
+#ifdef DEBUG_ALLOCATIONS
     DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
+#endif
   // hopefully the flash storage is large enough
   SerialBuffer realBuffer(STORAGE_SIZE);
   realBuffer.serialize(buffer.size());
@@ -35,18 +37,26 @@ bool Storage::write(SerialBuffer &buffer)
   storage.erase();
   storage.write(_storagedata, (void *)realBuffer.data(), realBuffer.size());
   DEBUGF("Wrote %u bytes to storage", realBuffer.capacity());
-    DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
+#ifdef DEBUG_ALLOCATIONS
+  DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
+#endif
   return true;
 }
 
 // read a serial buffer from storage
 bool Storage::read(SerialBuffer &buffer)
 {
+#ifdef DEBUG_ALLOCATIONS
   DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
+#endif
   buffer.init(STORAGE_SIZE);
+#ifdef DEBUG_ALLOCATIONS
   DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
+#endif
   storage.read(buffer.m_pBuffer);
+#ifdef DEBUG_ALLOCATIONS
   DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
+#endif
   buffer.m_size = *(uint32_t *)buffer.m_pBuffer;
   if (!buffer.m_size) {
     return false;
