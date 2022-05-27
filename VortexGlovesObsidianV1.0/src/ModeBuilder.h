@@ -26,12 +26,6 @@ public:
   static Mode *unserialize(SerialBuffer &buffer);
 
 private:
-  // helpers to build single/multi led patterns
-  static Mode *makeSingle(PatternID id, const Colorset *set);
-  static Mode *makeMulti(PatternID id, const Colorset *set);
-
-  // helper to build a pattern from ID
-  static Pattern *makePattern(PatternID id);
 };
 
 

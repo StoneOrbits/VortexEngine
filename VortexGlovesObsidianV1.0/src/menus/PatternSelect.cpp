@@ -37,6 +37,10 @@ bool PatternSelect::init()
   } else {
     m_pDemoMode->setPattern(m_newPatternID);
   }
+  if (!m_pDemoMode) {
+    DEBUG("Failed to build demo mode for pattern select");
+    return false;
+  }
   m_pDemoMode->init();
   DEBUG("Entered pattern select");
   return true;

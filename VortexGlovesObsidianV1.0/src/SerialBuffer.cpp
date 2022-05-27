@@ -46,6 +46,22 @@ bool SerialBuffer::init(uint32_t capacity, const uint8_t *buf)
   return true;
 }
 
+bool SerialBuffer::shrink()
+{
+  if (m_size == m_capacity) {
+    return false;
+  }
+  //DEBUGF("Extending %u bytes from %u to %u", size, m_capacity, new_size);
+  void *temp = vrealloc(m_pBuffer, m_size);
+  if (!temp) {
+    ERROR_OUT_OF_MEMORY();
+    return false;
+  }
+  m_pBuffer = (uint8_t *)temp;
+  m_capacity = m_size;
+  return true;
+}
+
 // append another buffer
 bool SerialBuffer::append(const SerialBuffer &other)
 {

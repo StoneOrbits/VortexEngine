@@ -1,6 +1,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
+#include "SerialBuffer.h"
 #include "Patterns.h"
 
 #include <inttypes.h>
@@ -56,6 +57,9 @@ private:
 
   // list of all modes in the gloveset
   static Mode *m_modeList[NUM_MODES];
+
+  // reserve storage size bytes bytes
+  static SerialBuffer m_modesBuffer;
 };
 
 #endif

@@ -17,6 +17,9 @@ public:
   // reset the buffer to a specific capcity
   bool init(uint32_t capacity = 0, const uint8_t *buf = nullptr);
 
+  // shrink capacity down to size, to 
+  bool shrink();
+
   // append another buffer
   bool append(const SerialBuffer &other);
 

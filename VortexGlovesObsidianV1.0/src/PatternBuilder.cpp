@@ -56,6 +56,7 @@ Pattern *PatternBuilder::unserialize(SerialBuffer &buffer)
   if (!pat) {
     return nullptr;
   }
+  DEBUGF("Unserialized pattern %u", pat->getPatternID());
   pat->unserialize(buffer);
   return pat;
 }

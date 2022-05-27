@@ -65,7 +65,7 @@ public:
 
   // get the pattern flags
   uint32_t getFlags() const { return m_patternFlags; }
-  bool hasFlags(uint32_t flags) const { return (m_patternFlags & flags) == flags; }
+  bool hasFlags(uint32_t flags) const { return (m_patternFlags & flags) != 0; }
 
 protected:
   // the ID of this pattern (set by pattern builder)

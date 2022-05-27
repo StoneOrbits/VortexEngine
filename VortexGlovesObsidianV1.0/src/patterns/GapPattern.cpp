@@ -49,12 +49,14 @@ void GapPattern::onBasicEnd()
 
 void GapPattern::serialize(SerialBuffer &buffer) const
 {
+  DEBUG("Serialize");
   BasicPattern::serialize(buffer);
   //buffer.serialize(m_gapDuration);
 }
 
 void GapPattern::unserialize(SerialBuffer &buffer)
 {
+  DEBUG("Unserialize");
   BasicPattern::unserialize(buffer);
   //buffer.unserialize(&m_gapDuration);
 }

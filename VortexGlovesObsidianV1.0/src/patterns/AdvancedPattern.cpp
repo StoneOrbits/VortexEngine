@@ -96,6 +96,7 @@ void AdvancedPattern::onBlinkOff()
 
 void AdvancedPattern::serialize(SerialBuffer &buffer) const
 {
+  DEBUG("Serialize");
   GapPattern::serialize(buffer);
   //buffer.serialize(m_onDuration);
   //buffer.serialize(m_offDuration);
@@ -103,6 +104,7 @@ void AdvancedPattern::serialize(SerialBuffer &buffer) const
 
 void AdvancedPattern::unserialize(SerialBuffer &buffer)
 {
+  DEBUG("Unserialize");
   GapPattern::unserialize(buffer);
   //buffer.unserialize(&m_onDuration);
   //buffer.unserialize(&m_offDuration);

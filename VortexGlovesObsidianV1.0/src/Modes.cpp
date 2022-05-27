@@ -16,6 +16,7 @@
 uint8_t Modes::m_curMode = 0;
 uint8_t Modes::m_numModes = 0;
 Mode *Modes::m_modeList[NUM_MODES] = { nullptr };
+SerialBuffer Modes::m_modesBuffer;
 
 bool Modes::init()
 {
@@ -59,19 +60,23 @@ void Modes::play()
 bool Modes::load()
 {
   clearModes();
-  SerialBuffer buffer;
-  if (!Storage::read(buffer) || !buffer.size()) {
-    DEBUG("Empty buffer read from storage");
-    return false;
+  DEBUG("Loading modes...");
+  if (!m_modesBuffer.size()) {
+    // only read storage if the modebuffer isn't filled
+    if (!Storage::read(m_modesBuffer) || !m_modesBuffer.size()) {
+      DEBUG("Empty buffer read from storage");
+      return false;
+    }
   }
+  m_modesBuffer.resetUnserializer();
   uint8_t numModes = 0;
-  buffer.unserialize(&numModes);
+  m_modesBuffer.unserialize(&numModes);
   if (!numModes) {
     DEBUG("Did not find any modes in storage");
     return false;
   }
   for (uint8_t i = 0; i < numModes; ++i) {
-    Mode *mode = ModeBuilder::unserialize(buffer);
+    Mode *mode = ModeBuilder::unserialize(m_modesBuffer);
     if (!mode) {
       DEBUGF("Failed to unserialize mode %u", i);
       return false;
@@ -114,11 +119,12 @@ bool Modes::save()
   //       }
   //      }
 
-  // reserve storage size bytes bytes
-  SerialBuffer buffer;
+  DEBUG("Saving modes...");
+  
+  m_modesBuffer.init(STORAGE_SIZE);
 
   // serialize the number of modes
-  buffer.serialize(m_numModes);
+  m_modesBuffer.serialize(m_numModes);
   DEBUGF("Serialized num modes: %u", m_numModes);
   for (uint32_t i = 0; i < m_numModes; ++i) {
     if (!m_modeList[i]) {
@@ -126,16 +132,18 @@ bool Modes::save()
       return false;
     }
     // serialize each mode
-    m_modeList[i]->serialize(buffer);
+    m_modeList[i]->serialize(m_modesBuffer);
   }
 
   // write the serial buffer to flash storage
-  if (!Storage::write(buffer)) {
+  if (!Storage::write(m_modesBuffer)) {
     DEBUG("Failed to write storage");
     return false;
   }
 
-  DEBUGF("Wrote %u bytes to storage", buffer.size());
+  m_modesBuffer.shrink();
+
+  DEBUGF("Wrote %u bytes to storage", m_modesBuffer.size());
 
   return true;
 }

@@ -8,6 +8,8 @@
 static uint32_t cur_mem_usage = 0;
 static uint32_t background_usage = 0;
 
+#define MAX_MEMORY 50000
+
 struct memory_block
 {
   uint32_t size;
@@ -17,6 +19,10 @@ struct memory_block
 // Vortex allocation functions
 void *_vmalloc(uint32_t size)
 {
+  if ((cur_mem_usage + size) >= MAX_MEMORY) {
+    DEBUG("OVERMEM");
+    return nullptr;
+  }
   memory_block *b = (memory_block *)malloc(size + sizeof(memory_block));
   if (!b) {
     return nullptr;
@@ -30,6 +36,10 @@ void *_vmalloc(uint32_t size)
 
 void *_vcalloc(uint32_t size, uint32_t amount)
 {
+  if ((cur_mem_usage + (size * amount)) >= MAX_MEMORY) {
+    DEBUG("OVERMEM");
+    return nullptr;
+  }
   uint32_t real_amount = (size * amount);
   memory_block *b = (memory_block *)calloc(1, real_amount + sizeof(memory_block));
   if (!b) {
@@ -58,6 +68,10 @@ void *_vrealloc(void *ptr, uint32_t size)
   // same?
   if (size == old_size) {
     return ptr;
+  }
+  if ((cur_mem_usage - old_size) + size >= MAX_MEMORY) {
+    DEBUG("OVERMEM");
+    return nullptr;
   }
   //DEBUGF("realloc(): %u -> %u (%u) (%u)", old_size, size, (cur_mem_usage - old_size) + size, background_usage);
   memory_block *b = (memory_block *)realloc(base, size + sizeof(memory_block));

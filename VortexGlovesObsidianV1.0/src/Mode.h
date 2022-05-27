@@ -15,13 +15,12 @@ class Pattern;
 class Colorset;
 
 // Bitflags for the current mode
-enum ModeFlags : uint8_t
-{
-  MODE_FLAG_NONE = 0,
+#define MODE_FLAG_NONE              0
 
-  // the mode is utilizing a multi-led pattern
-  MODE_FLAG_MULTI_LED = (1 << 0),
-};
+// the mode is utilizing a multi-led pattern
+#define MODE_FLAG_MULTI_LED         (1 << 0)
+// the mode is utilizing the same single-led pattern on each finger
+#define MODE_FLAG_ALL_SAME_SINGLE   (1 << 1)
 
 // the keyword 'ALL_SLOTS' can be used to refer to all of the
 // mode slots at once when using changePattern or changeColorset
@@ -35,7 +34,7 @@ public:
 
   // initialize the mode to initial state
   void init();
-
+  
   // Play the mode
   void play();
 
@@ -44,10 +43,12 @@ public:
   // load the mode from serial
   void unserialize(SerialBuffer &buffer);
 
+  // bind either a multi-led pattern o
+  bool bind(PatternID id, const Colorset *set);
   // bind a pattern and colorset to individual LED
-  bool bindSingle(SingleLedPattern *pat, const Colorset *set, LedPos pos = LED_FIRST);
+  bool bindSingle(PatternID id, const Colorset *set, LedPos pos = LED_FIRST);
   // bind a multi led pattern and colorset to all of the LEDs
-  bool bindMulti(MultiLedPattern *pat, const Colorset *set);
+  bool bindMulti(PatternID id, const Colorset *set);
 
   // unbind a single pattern and colorset from the mode
   void unbindSingle(LedPos pos = LED_FIRST);
@@ -57,11 +58,11 @@ public:
   void unbindAll();
 
   // set and get the mode flags
-  void setFlags(ModeFlags flags) { m_flags = flags; }
-  void addFlags(ModeFlags flags) { m_flags = (ModeFlags)(m_flags | flags); }
-  void clearFlags(ModeFlags flags) { m_flags = (ModeFlags)(m_flags & ~flags); }
-  ModeFlags getFlags() const { return m_flags; }
-  bool hasFlags(ModeFlags flags) const { return (m_flags & flags) == flags; }
+  void setFlags(uint8_t flags) { m_flags = flags; }
+  void addFlags(uint8_t flags) { m_flags = (m_flags | flags); }
+  void clearFlags(uint8_t flags) { m_flags = (m_flags & ~flags); }
+  uint8_t getFlags() const { return m_flags; }
+  bool hasFlags(uint8_t flags) const { return (m_flags & flags) != 0; }
 
   // Get pointer to an individual pattern/colorset
   const Pattern *getPattern(LedPos pos = LED_FIRST) const;
@@ -100,11 +101,13 @@ private:
   //       of the leds.
 
   // A set of flags for the mode
-  ModeFlags m_flags;
+  uint8_t m_flags;
 
   union {
     // map of led positions => pattern entries
-    SingleLedPattern *m_ledEntries[LED_COUNT];
+    Pattern *m_ledEntries[LED_COUNT];
+    // accessors for single leds
+    SingleLedPattern *m_singleLedEntries[LED_COUNT];
     // or the first one is also a multi led pat
     MultiLedPattern *m_multiPat;
   };
