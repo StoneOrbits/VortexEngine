@@ -6,7 +6,11 @@
 #include <Arduino.h>
 
 #ifdef TEST_FRAMEWORK
+#ifdef LINUX_FRAMEWORK
+#include "TestFrameworkLinux.h"
+#else
 #include "TestFramework.h"
+#endif
 #endif
 
 void DebugMsg(const char *file, const char *func, int line, const char *msg, ...)
