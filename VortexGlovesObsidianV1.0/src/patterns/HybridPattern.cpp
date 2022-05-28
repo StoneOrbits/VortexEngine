@@ -19,6 +19,7 @@ HybridPattern::~HybridPattern()
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
     if (m_ledPatterns[pos]) {
       delete m_ledPatterns[pos];
+      m_ledPatterns[pos] = nullptr;
     }
   }
 }

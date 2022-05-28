@@ -19,6 +19,16 @@ SerialBuffer::~SerialBuffer()
   clear();
 }
 
+SerialBuffer::SerialBuffer(const SerialBuffer &other)
+{
+  init(other.capacity(), other.data());
+}
+
+void SerialBuffer::operator=(const SerialBuffer &other)
+{
+  init(other.capacity(), other.data());
+}
+
 // reset the buffer
 bool SerialBuffer::init(uint32_t capacity, const uint8_t *buf)
 {
@@ -90,7 +100,8 @@ bool SerialBuffer::extend(uint32_t size)
 {
   // round size up to nearest 4
   uint32_t new_size = m_capacity + size;
-  new_size = (new_size + 4) - (new_size % 4);
+  new_size += 3;
+  new_size -= (new_size % 4);
   //DEBUGF("Extending %u bytes from %u to %u", size, m_capacity, new_size);
   RawBuffer *temp = (RawBuffer *)vrealloc(m_pData, new_size + sizeof(RawBuffer));
   if (!temp) {
@@ -98,6 +109,10 @@ bool SerialBuffer::extend(uint32_t size)
     return false;
   }
   m_pData = temp;
+  if (!m_capacity) {
+    // if new allocation need to zero
+    memset(m_pData, 0, new_size + sizeof(RawBuffer));
+  }
   m_capacity = new_size;
   return true;
 }

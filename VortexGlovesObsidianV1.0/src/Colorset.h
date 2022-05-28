@@ -13,12 +13,10 @@ class Colorset
 public:
   // empty colorset
   Colorset();
-
   // constructor for 1-8 color slots
   Colorset(RGBColor c1, RGBColor c2 = RGB_OFF, RGBColor c3 = RGB_OFF,
     RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF, RGBColor c6 = RGB_OFF,
     RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
-
   ~Colorset();
 
   // copy and assignment operators
@@ -34,6 +32,9 @@ public:
 
   // clear the colorset
   void clear();
+
+  // pointer comparison
+  bool equals(const Colorset *set);
 
   // index operator to access color index
   RGBColor operator[](int index) const;

@@ -21,9 +21,6 @@ public:
   virtual void unserialize(SerialBuffer &buffer);
 
 private:
-  // whether the sub patterns have been created already
-  bool m_created;
-
 };
 
 #endif

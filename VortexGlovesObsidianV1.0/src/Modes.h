@@ -34,7 +34,10 @@ public:
 
   // add a new mode with a given pattern and colorset
   static bool addMode(PatternID id, const Colorset *set);
-  static bool addMode(Mode *mode);
+  static bool addMode(const Mode *mode);
+
+  // add a new mode by unserializing from a buffer
+  static bool addSerializedMode(SerialBuffer &serializedMode);
 
   // update the current mode to match the given mode
   static bool setCurMode(PatternID id, const Colorset *set);
@@ -49,17 +52,19 @@ public:
   static void clearModes();
 
 private:
+  static bool initCurMode();
+
   // the current mode we're on
   static uint8_t m_curMode;
 
   // the number of modes loaded
   static uint8_t m_numModes;
 
-  // list of all modes in the gloveset
-  static Mode *m_modeList[NUM_MODES];
+  // the current instantiated mode
+  static Mode *m_pCurMode;
 
-  // reserve storage size bytes bytes
-  static SerialBuffer m_modesBuffer;
+  // list of serialized version of bufers
+  static SerialBuffer m_serializedModes[NUM_MODES];
 };
 
 #endif

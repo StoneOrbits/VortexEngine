@@ -8,8 +8,7 @@
 #include "../Log.h"
 
 RabbitPattern::RabbitPattern() :
-  HybridPattern(),
-  m_created(false)
+  HybridPattern()
 {
 }
 
@@ -20,24 +19,23 @@ RabbitPattern::~RabbitPattern()
 // init the pattern to initial state
 void RabbitPattern::init()
 {
-  // only create the sub-patterns once
-  if (!m_created) {
-    // fill the sub patterns array with instances of patterns
-    for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
-      SingleLedPattern *pat = nullptr;
-      if (((uint32_t)p % 2) == 0) { // tip
-        pat = PatternBuilder::makeSingle(PATTERN_STROBE);
-      } else { // top
-        pat = PatternBuilder::makeSingle(PATTERN_STROBIE);
-      }
-      if (!pat) {
-        return;
-      }
-      pat->bind(&m_colorset, p);
-      // store the pattern for the given led
-      m_ledPatterns[p] = pat;
+  // fill the sub patterns array with instances of patterns
+  for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
+    SingleLedPattern *pat = nullptr;
+    if (((uint32_t)p % 2) == 0) { // tip
+      pat = PatternBuilder::makeSingle(PATTERN_STROBE);
+    } else { // top
+      pat = PatternBuilder::makeSingle(PATTERN_STROBIE);
     }
-    m_created = true;
+    if (!pat) {
+      return;
+    }
+    pat->bind(&m_colorset, p);
+    if (m_ledPatterns[p]) {
+      delete m_ledPatterns[p];
+    }
+    // store the pattern for the given led
+    m_ledPatterns[p] = pat;
   }
 
   // call base hybrid pattern init to actually initialize sub patterns

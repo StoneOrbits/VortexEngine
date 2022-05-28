@@ -14,6 +14,10 @@ public:
   SerialBuffer(uint32_t size = 0, const uint8_t *buf = nullptr);
   ~SerialBuffer();
 
+  // copy and assignment operators
+  SerialBuffer(const SerialBuffer &other);
+  void operator=(const SerialBuffer &other);
+
   // reset the buffer to a specific capcity
   bool init(uint32_t capacity = 0, const uint8_t *buf = nullptr);
 

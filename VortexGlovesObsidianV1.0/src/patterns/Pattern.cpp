@@ -52,6 +52,22 @@ void Pattern::unserialize(SerialBuffer &buffer)
   m_colorset.unserialize(buffer);
 }
 
+bool Pattern::equals(const Pattern *other)
+{
+  if (!other) {
+    return false;
+  }
+  // only compare colorset
+  if (!m_colorset.equals(other->getColorset())) {
+    return false;
+  }
+  // and pattern id
+  if (m_patternID != other->getPatternID()) {
+    return false;
+  }
+  return true;
+}
+
 // change the colorset
 void Pattern::setColorset(const Colorset *set)
 {

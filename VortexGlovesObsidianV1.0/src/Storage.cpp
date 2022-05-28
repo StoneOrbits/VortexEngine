@@ -8,9 +8,26 @@
 #include "SerialBuffer.h"
 #include "Log.h"
 
+#ifdef TEST_FRAMEWORK
+#ifndef LINUX_FRAMEWORK
+#include <Windows.h>
+#endif
+#endif
+
 __attribute__((__aligned__(256)))
+#ifdef TEST_FRAMEWORK
+uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
+#else
 const uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
+#endif
 FlashClass storage(_storagedata, STORAGE_SIZE);
+
+#ifdef TEST_FRAMEWORK
+uint32_t written_size = 0;
+#define WRITTEN_SIZE written_size
+#else
+#define WRITTEN_SIZE *(uint32_t *)_storagedata;
+#endif
 
 Storage::Storage()
 {
@@ -18,6 +35,11 @@ Storage::Storage()
 
 bool Storage::init()
 {
+#ifdef TEST_FRAMEWORK
+#ifndef LINUX_FRAMEWORK
+  DeleteFile("FlashStorage.flash");
+#endif
+#endif
   return true;
 }
 
@@ -33,9 +55,12 @@ bool Storage::write(SerialBuffer &buffer)
 #endif
   storage.erase();
   storage.write(_storagedata, buffer.rawData(), buffer.rawSize());
-  DEBUGF("Wrote %u bytes to storage", buffer.capacity());
+  DEBUGF("Wrote %u bytes to storage (max: %u)", buffer.size(), STORAGE_SIZE);
 #ifdef DEBUG_ALLOCATIONS
   DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
+#endif
+#ifdef TEST_FRAMEWORK
+  written_size = buffer.size();
 #endif
   return true;
 }
@@ -43,17 +68,10 @@ bool Storage::write(SerialBuffer &buffer)
 // read a serial buffer from storage
 bool Storage::read(SerialBuffer &buffer)
 {
-#ifdef DEBUG_ALLOCATIONS
-  DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
-#endif
-  buffer.init(STORAGE_SIZE);
-#ifdef DEBUG_ALLOCATIONS
-  DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
-#endif
+  if (!buffer.init(STORAGE_SIZE)) {
+    return false;
+  }
   storage.read(buffer.rawData());
-#ifdef DEBUG_ALLOCATIONS
-  DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
-#endif
   if (!buffer.size()) {
     DEBUG("Read null from storage");
     return false;

@@ -49,6 +49,9 @@ public:
   // must override unserialize to load patterns
   virtual void unserialize(SerialBuffer &buffer);
 
+  // comparison to other pattern
+  virtual bool equals(const Pattern *other);
+
   // change the colorset
   void setColorset(const Colorset *set);
   void clearColorset();

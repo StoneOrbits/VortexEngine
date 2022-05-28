@@ -85,6 +85,17 @@ void Colorset::clear()
   init();
 }
 
+bool Colorset::equals(const Colorset *set)
+{
+  if (!set) {
+    return false;
+  }
+  if (set->m_numColors != m_numColors) {
+    return false;
+  }
+  return (memcmp(m_palette, set->m_palette, m_numColors * sizeof(RGBColor)) == 0);
+}
+
 RGBColor Colorset::operator[](int index) const
 {
   return get(index);

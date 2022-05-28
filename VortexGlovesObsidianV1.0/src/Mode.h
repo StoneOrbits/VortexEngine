@@ -14,9 +14,8 @@ class SerialBuffer;
 class Pattern;
 class Colorset;
 
-// Bitflags for the current mode
+// Bitflags for saving modes
 #define MODE_FLAG_NONE              0
-
 // the mode is utilizing a multi-led pattern
 #define MODE_FLAG_MULTI_LED         (1 << 0)
 // the mode is utilizing the same single-led pattern on each finger
@@ -57,13 +56,6 @@ public:
   // clear and delete all patterns and colorsets from the mode
   void unbindAll();
 
-  // set and get the mode flags
-  void setFlags(uint8_t flags) { m_flags = flags; }
-  void addFlags(uint8_t flags) { m_flags = (m_flags | flags); }
-  void clearFlags(uint8_t flags) { m_flags = (m_flags & ~flags); }
-  uint8_t getFlags() const { return m_flags; }
-  bool hasFlags(uint8_t flags) const { return (m_flags & flags) != 0; }
-
   // Get pointer to an individual pattern/colorset
   const Pattern *getPattern(LedPos pos = LED_FIRST) const;
   // get a pointer to a colorset
@@ -74,8 +66,13 @@ public:
   // set the pattern/colorset of the mode, if a multi-led pattern is provided then the pos
   // is ignored. If a single led pattern is provided then it will be applied to all LEDS
   // unless a specific LED is provided
-  bool setPattern(PatternID pat, LedPos pos = LED_COUNT);
-  bool setColorset(const Colorset *set, LedPos pos = LED_COUNT);
+  bool setPattern(PatternID pat);
+  bool setColorset(const Colorset *set);
+
+  // is this a multi-led pattern in the mode?
+  bool isMultiLed() const;
+  // are all the single led patterns and colorsets equal?
+  bool isSameSingleLed() const;
 
 private:
   bool setSinglePat(PatternID pat, LedPos pos);
@@ -99,9 +96,6 @@ private:
   //       Alternatively a Mode can contain a single MultiLedPattern and 
   //       Colorset, where the single pattern will be responsible for all
   //       of the leds.
-
-  // A set of flags for the mode
-  uint8_t m_flags;
 
   union {
     // map of led positions => pattern entries
