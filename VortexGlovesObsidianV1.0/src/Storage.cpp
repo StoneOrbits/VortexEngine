@@ -1,6 +1,7 @@
 #include "Storage.h"
 
 #include <FlashStorage.h>
+#include <string.h>
 #include <stdlib.h>
 
 #include "Memory.h"
@@ -8,8 +9,7 @@
 #include "Log.h"
 
 __attribute__((__aligned__(256)))
-static const uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
-
+const uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
 FlashClass storage(_storagedata, STORAGE_SIZE);
 
 Storage::Storage()
@@ -31,13 +31,9 @@ bool Storage::write(SerialBuffer &buffer)
 #ifdef DEBUG_ALLOCATIONS
   DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
 #endif
-  // hopefully the flash storage is large enough
-  SerialBuffer realBuffer(STORAGE_SIZE);
-  realBuffer.serialize(buffer.size());
-  realBuffer.append(buffer);
   storage.erase();
-  storage.write(_storagedata, (void *)realBuffer.data(), realBuffer.size());
-  DEBUGF("Wrote %u bytes to storage", realBuffer.capacity());
+  storage.write(_storagedata, buffer.rawData(), buffer.rawSize());
+  DEBUGF("Wrote %u bytes to storage", buffer.capacity());
 #ifdef DEBUG_ALLOCATIONS
   DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
 #endif
@@ -54,16 +50,15 @@ bool Storage::read(SerialBuffer &buffer)
 #ifdef DEBUG_ALLOCATIONS
   DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
 #endif
-  storage.read(buffer.m_pBuffer);
+  storage.read(buffer.rawData());
 #ifdef DEBUG_ALLOCATIONS
   DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
 #endif
-  buffer.m_size = *(uint32_t *)buffer.m_pBuffer;
-  if (!buffer.m_size) {
+  if (!buffer.size()) {
+    DEBUG("Read null from storage");
     return false;
   }
-  buffer.m_position += sizeof(uint32_t);
-  DEBUGF("Read %u bytes from storage", buffer.m_size);
+  DEBUGF("Read %u bytes from storage", buffer.size());
   buffer.shrink();
   return true;
 }

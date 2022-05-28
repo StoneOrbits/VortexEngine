@@ -61,25 +61,39 @@ public:
   SerialBuffer &operator+=(const uint32_t &rhs);
 
   // overload [] for array access (no bounds check lol)
-  uint8_t &operator[](uint32_t index) { return m_pBuffer[index]; }
+  uint8_t &operator[](uint32_t index) { return m_pData->buf[index]; }
   // overload (uint8_t *) for cast to buffer
-  operator uint8_t *() const { return m_pBuffer; }
-  operator const uint8_t *() const { return m_pBuffer; }
+  operator uint8_t *() const { return m_pData ? m_pData->buf : nullptr; }
+  operator const uint8_t *() const { return m_pData ? m_pData->buf : nullptr; }
 
   // return the members
-  const uint8_t *data() const { return m_pBuffer; }
-  uint32_t size() const { return m_size; }
+  const uint8_t *data() const { return m_pData ? m_pData->buf : nullptr; }
+  void *rawData() const { return m_pData; }
+  uint32_t rawSize() const { return m_pData ? m_pData->size + sizeof(RawBuffer) : 0; }
+  uint32_t size() const { return m_pData ? m_pData->size : 0; }
   uint32_t capacity() const { return m_capacity; }
 
 private:
+  uint8_t *frontSerializer() const { return m_pData ? m_pData->buf + m_pData->size : nullptr; }
+  uint8_t *frontUnserializer() const { return m_pData ? m_pData->buf + m_position : nullptr; }
   bool largeEnough(uint32_t amount) const;
 
+  // inner data buffer
+#ifdef TEST_FRAMEWORK
+#ifndef LINUX_FRAMEWORK
+  #pragma warning(disable : 4200)
+#endif
+#endif
+  struct RawBuffer {
+    RawBuffer() : size(0), buf() {}
+    uint32_t size;
+    uint8_t buf[];
+  };
+
   // the buffer of data
-  uint8_t *m_pBuffer;
+  RawBuffer *m_pData;
   // the index for unserialization
   uint32_t m_position;
-  // the size of the data
-  uint32_t m_size;
   // the actual size of the buffer
   uint32_t m_capacity;
 };

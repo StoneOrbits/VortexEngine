@@ -7,9 +7,8 @@
 #include <string.h>
 
 SerialBuffer::SerialBuffer(uint32_t size, const uint8_t *buf) :
-  m_pBuffer(nullptr),
+  m_pData(),
   m_position(0),
-  m_size(0),
   m_capacity(0)
 {
   init(size, buf);
@@ -17,71 +16,72 @@ SerialBuffer::SerialBuffer(uint32_t size, const uint8_t *buf) :
 
 SerialBuffer::~SerialBuffer()
 {
-  if (m_pBuffer) {
-    vfree(m_pBuffer);
-  }
+  clear();
 }
 
 // reset the buffer
 bool SerialBuffer::init(uint32_t capacity, const uint8_t *buf)
 {
-  if (m_pBuffer) {
-    vfree(m_pBuffer);
-    m_pBuffer = nullptr;
-  }
+  clear();
   if (capacity) {
     // round up to nearest 4
     m_capacity = (capacity + 4) - (capacity % 4);
-    m_pBuffer = (uint8_t *)vcalloc(1, m_capacity);
-    if (!m_pBuffer) {
+    m_pData = (RawBuffer *)vcalloc(1, m_capacity + sizeof(RawBuffer));
+    if (!m_pData) {
       m_capacity = 0;
       ERROR_OUT_OF_MEMORY();
       return false;
     }
   }
-  if (buf && m_pBuffer) {
-    memcpy(m_pBuffer, buf, m_capacity);
-    m_size = m_capacity;
+  if (buf && m_pData) {
+    memcpy(m_pData->buf, buf, m_capacity);
+    m_pData->size = m_capacity;
   }
   return true;
 }
 
 void SerialBuffer::clear()
 {
-  if (m_pBuffer) {
-    vfree(m_pBuffer);
-    m_pBuffer = nullptr;
+  if (m_pData) {
+    vfree(m_pData);
+    m_pData = nullptr;
   }
   m_capacity = 0;
-  m_size = 0;
 }
 
 bool SerialBuffer::shrink()
 {
-  if (m_size == m_capacity) {
+  if (!m_pData) {
     return false;
   }
+  if (m_pData->size == m_capacity) {
+    return true;
+  }
   //DEBUGF("Extending %u bytes from %u to %u", size, m_capacity, new_size);
-  void *temp = vrealloc(m_pBuffer, m_size);
+  RawBuffer *temp = (RawBuffer *)vrealloc(m_pData, m_pData->size + sizeof(RawBuffer));
   if (!temp) {
     ERROR_OUT_OF_MEMORY();
     return false;
   }
-  m_pBuffer = (uint8_t *)temp;
-  m_capacity = m_size;
+  m_pData = temp;
+  m_capacity = m_pData->size;
   return true;
 }
 
 // append another buffer
 bool SerialBuffer::append(const SerialBuffer &other)
 {
-  if (other.m_size > (m_capacity - m_size)) {
-    if (!extend(other.m_size)) {
+  if (!other.m_pData) {
+    // nothing to append
+    return true;
+  }
+  if (!m_pData || other.size() > (m_capacity - size())) {
+    if (!extend(other.size())) {
       return false;
     }
   }
-  memcpy(m_pBuffer + m_size, other.m_pBuffer, other.m_size);
-  m_size += other.m_size;
+  memcpy(frontSerializer(), other.data(), other.size());
+  m_pData->size += other.size();
   return true;
 }
 
@@ -92,60 +92,62 @@ bool SerialBuffer::extend(uint32_t size)
   uint32_t new_size = m_capacity + size;
   new_size = (new_size + 4) - (new_size % 4);
   //DEBUGF("Extending %u bytes from %u to %u", size, m_capacity, new_size);
-  void *temp = vrealloc(m_pBuffer, new_size);
+  RawBuffer *temp = (RawBuffer *)vrealloc(m_pData, new_size + sizeof(RawBuffer));
   if (!temp) {
     ERROR_OUT_OF_MEMORY();
     return false;
   }
-  m_pBuffer = (uint8_t *)temp;
+  m_pData = temp;
   m_capacity = new_size;
   return true;
 }
 
 bool SerialBuffer::largeEnough(uint32_t amount) const
 {
-  return ((m_size + amount) <= m_capacity);
+  if (!m_pData) {
+    return false;
+  }
+  return ((m_pData->size + amount) <= m_capacity);
 }
 
 bool SerialBuffer::serialize(uint8_t byte)
 {
   //DEBUGF("Serialize8(): %u", byte);
-  if ((m_size + sizeof(uint32_t)) > m_capacity) {
+  if (!m_pData || (m_pData->size + sizeof(uint32_t)) > m_capacity) {
     if (!extend(sizeof(uint32_t))) {
       return false;
     }
   }
-  uint8_t *ptr = m_pBuffer + m_size;
-  *ptr = byte;
-  m_size += sizeof(uint32_t);
+  // set the byte at the front of the buf
+  *frontSerializer() = byte;
+  // walk forward
+  m_pData->size += sizeof(uint32_t);
   return true;
 }
 
 bool SerialBuffer::serialize(uint16_t bytes)
 {
   //DEBUGF("Serialize16(): %u", bytes);
-  if ((m_size + sizeof(uint32_t)) > m_capacity) {
+  if (!m_pData || (m_pData->size + sizeof(uint32_t)) > m_capacity) {
     if (!extend(sizeof(uint32_t))) {
       return false;
     }
   }
-  uint16_t *ptr = (uint16_t *)(m_pBuffer + m_size);
-  *ptr = bytes;
-  m_size += sizeof(uint32_t);
+  *(uint16_t *)frontSerializer() = bytes;
+  m_pData->size += sizeof(uint32_t);
   return true;
 }
 
 bool SerialBuffer::serialize(uint32_t bytes)
 {
   //DEBUGF("Serialize32(): %u", bytes);
-  if ((m_size + sizeof(uint32_t)) > m_capacity) {
+  if (!m_pData || (m_pData->size + sizeof(uint32_t)) > m_capacity) {
     if (!extend(sizeof(uint32_t))) {
       return false;
     }
   }
-  uint32_t *ptr = (uint32_t *)(m_pBuffer + m_size);
-  *ptr = bytes;
-  m_size += sizeof(uint32_t);
+  *(uint32_t *)frontSerializer() = bytes;
+  m_pData->size += sizeof(uint32_t);
   return true;
 }
 
@@ -158,7 +160,10 @@ void SerialBuffer::resetUnserializer()
 // move the unserializer index manually
 void SerialBuffer::moveUnserializer(uint32_t idx)
 {
-  if (idx >= m_size) {
+  if (!m_pData) {
+    return;
+  }
+  if (idx >= m_pData->size) {
     idx = 0;
   }
   m_position = idx;
@@ -167,10 +172,10 @@ void SerialBuffer::moveUnserializer(uint32_t idx)
 // unserialize data and walk the buffer that many bytes
 bool SerialBuffer::unserialize(uint8_t *byte)
 {
-  if (m_position >= m_size || (m_size - m_position) < sizeof(uint32_t)) {
+  if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
     return false;
   }
-  *byte = m_pBuffer[m_position];
+  *byte = *frontUnserializer();
   //DEBUGF("Unserialize8(): %u", *byte);
   m_position += sizeof(uint32_t);
   return true;
@@ -178,10 +183,10 @@ bool SerialBuffer::unserialize(uint8_t *byte)
 
 bool SerialBuffer::unserialize(uint16_t *bytes)
 {
-  if (m_position >= m_size || (m_size - m_position) < sizeof(uint32_t)) {
+  if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
     return false;
   }
-  *bytes = *(uint16_t *)(m_pBuffer + m_position);
+  *bytes = *(uint16_t *)frontUnserializer();
   //DEBUGF("Unserialize16(): %u", *bytes);
   m_position += sizeof(uint32_t);
   return true;
@@ -189,10 +194,10 @@ bool SerialBuffer::unserialize(uint16_t *bytes)
 
 bool SerialBuffer::unserialize(uint32_t *bytes)
 {
-  if (m_position >= m_size || (m_size - m_position) < sizeof(uint32_t)) {
+  if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
     return false;
   }
-  *bytes = *(uint32_t *)(m_pBuffer + m_position);
+  *bytes = *(uint32_t *)frontUnserializer();
   //DEBUGF("Unserialize32(): %u", *bytes);
   m_position += sizeof(uint32_t);
   return true;
@@ -221,17 +226,26 @@ uint32_t SerialBuffer::unserialize32()
 
 uint8_t SerialBuffer::peek8() const
 {
-  return *(uint8_t *)(m_pBuffer + m_position);
+  if (!m_pData) {
+    return 0;
+  }
+  return *(uint8_t *)frontUnserializer();
 }
 
 uint16_t SerialBuffer::peek16() const
 {
-  return *(uint16_t *)(m_pBuffer + m_position);
+  if (!m_pData) {
+    return 0;
+  }
+  return *(uint16_t *)frontUnserializer();
 }
 
 uint32_t SerialBuffer::peek32() const
 {
-  return *(uint32_t *)(m_pBuffer + m_position);
+  if (!m_pData) {
+    return 0;
+  }
+  return *(uint32_t *)frontUnserializer();
 }
 
 // read the data from a flash storage

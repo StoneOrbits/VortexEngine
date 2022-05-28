@@ -91,7 +91,6 @@ void Mode::unserialize(SerialBuffer &buffer)
   DEBUGF("Loaded mode flags: %x", m_flags);
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     if (pos > LED_FIRST && hasFlags(MODE_FLAG_ALL_SAME_SINGLE)) {
-      DEBUGF("Filled %u with extra pattern", pos);
       m_ledEntries[pos] = PatternBuilder::make(m_ledEntries[0]->getPatternID());
     } else {
       m_ledEntries[pos] = PatternBuilder::unserialize(buffer);

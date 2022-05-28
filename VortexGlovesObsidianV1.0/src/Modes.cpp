@@ -88,7 +88,7 @@ bool Modes::load()
       return false;
     }
   }
-  DEBUGF("Loaded %u modes from storage", m_numModes);
+  DEBUGF("Loaded %u modes from storage (%u bytes)", m_numModes, m_modesBuffer.size());
   // default can't load anything
   return (m_numModes == numModes);
 }
