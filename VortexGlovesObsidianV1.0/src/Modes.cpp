@@ -28,8 +28,6 @@ bool Modes::init()
     if (!save()) {
       return false;
     }
-    // TODO: remove this load
-    load();
   }
   // should be able to initialize the current mode
   if (!initCurMode()) {
@@ -44,8 +42,6 @@ void Modes::play()
   // shortclick cycles to the next mode
   if (g_pButton->onShortClick()) {
     nextMode();
-    save();
-    load();
   }
   // empty mode list
   if (!m_numModes) {
