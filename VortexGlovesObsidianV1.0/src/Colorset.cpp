@@ -3,6 +3,8 @@
 #include "SerialBuffer.h"
 #include "Memory.h"
 
+#include "Log.h"
+
 #include <Arduino.h>
 #include <cstring>
 

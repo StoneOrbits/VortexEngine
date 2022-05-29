@@ -3,7 +3,6 @@
 
 #include <inttypes.h>
 
-#include "Log.h"
 class FlashClass;
 
 class SerialBuffer
@@ -80,6 +79,7 @@ public:
   uint32_t rawSize() const { return m_pData ? m_pData->size + sizeof(RawBuffer) : 0; }
   uint32_t size() const { return m_pData ? m_pData->size : 0; }
   uint32_t capacity() const { return m_capacity; }
+  bool is_compressed() const { return m_compressed; }
 
 private:
   uint8_t *frontSerializer() const { return m_pData ? m_pData->buf + m_pData->size : nullptr; }
@@ -89,6 +89,8 @@ private:
   // inner data buffer
 #ifdef TEST_FRAMEWORK
 #ifndef LINUX_FRAMEWORK
+  // disable warning about using flexible array at end of structure, 
+  // stfu compiler I know what im doing
   #pragma warning(disable : 4200)
 #endif
 #endif
@@ -104,6 +106,8 @@ private:
   uint32_t m_position;
   // the actual size of the buffer
   uint32_t m_capacity;
+  // whether this buffer is compressed
+  bool m_compressed;
 };
 
 #endif

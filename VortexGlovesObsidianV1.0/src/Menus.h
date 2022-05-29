@@ -46,31 +46,6 @@ public:
   static bool m_isOpen;
   // the current sub menu that is open
   static Menu *m_pCurMenu;
-
-  // ======================
-  //  Menus
-
-  // private structure for menu entry menu => color
-  struct MenuEntry
-  {
-    MenuEntry(Menu *m, RGBColor c) :
-      menu(m), color(c)
-    {
-    }
-    Menu *menu;
-    RGBColor color;
-  };
-
-  // An instance of each menu we want to use
-  static Randomizer m_randomizer;
-  static ColorSelect m_colorSelect;
-  static PatternSelect m_patternSelect;
-  static GlobalBrightness m_globalBrightness;
-  static FactoryReset m_factoryReset;
-  static ModeSharing m_modeSharing;
-
-  // list of menu entries defined in cpp file
-  static const MenuEntry m_menuList[];
 };
 
 #endif

@@ -17,26 +17,32 @@ uint32_t Menus::m_selection = 0;
 bool Menus::m_isOpen = false;
 Menu *Menus::m_pCurMenu = nullptr;
 
-// static instances of menus
-Randomizer Menus::m_randomizer;
-ColorSelect Menus::m_colorSelect;
-PatternSelect Menus::m_patternSelect;
-GlobalBrightness Menus::m_globalBrightness;
-FactoryReset Menus::m_factoryReset;
-ModeSharing Menus::m_modeSharing;
+// entries for the ring menu
+typedef Menu *(*initMenuFn_t)();
+struct MenuEntry {
+  initMenuFn_t initMenu;
+  RGBColor color;
+};
+
+// a template to initialize ringmenu functions
+template <typename T>
+Menu *initMenu() { return new T(); }
+
+// a simple macro to simplify the entries in the menu list
+#define ENTRY(classname, color) { initMenu<classname>, color }
 
 // The list of menus that are registered with colors to show in ring menu
-const Menus::MenuEntry Menus::m_menuList[] = {
-  { &m_randomizer, RGB_WHITE },
-  { &m_colorSelect, RGB_ORANGE },
-  { &m_patternSelect, RGB_BLUE },
-  { &m_globalBrightness, RGB_YELLOW },
-  { &m_factoryReset, RGB_RED },
-  { &m_modeSharing, RGB_TEAL },
+const MenuEntry menuList[] = {
+  ENTRY(Randomizer,       RGB_WHITE),
+  ENTRY(ColorSelect,      RGB_ORANGE),
+  ENTRY(PatternSelect,    RGB_BLUE),
+  ENTRY(GlobalBrightness, RGB_YELLOW),
+  ENTRY(FactoryReset,     RGB_RED),
+  ENTRY(ModeSharing,      RGB_TEAL),
 };
 
 // the number of menus in the above array
-#define NUM_MENUS (sizeof(m_menuList) / sizeof(m_menuList[0]))
+#define NUM_MENUS (sizeof(menuList) / sizeof(menuList[0]))
 
 bool Menus::init()
 {
@@ -65,7 +71,7 @@ bool Menus::runRingFill()
   if (g_pButton->onRelease() && m_isOpen) {
     DEBUGF("Released on ringmenu %d", m_selection);
     // update the current open menu
-    m_pCurMenu = m_menuList[m_selection].menu;
+    m_pCurMenu = menuList[m_selection].initMenu();
     // initialiaze the new menu with the current mode
     if (!m_pCurMenu->init()) {
       // if the menu failed to init, don't open it
@@ -102,10 +108,10 @@ bool Menus::runRingFill()
   LedPos led = calcLedPos();
 #ifdef FILL_FROM_THUMB
   // turn on leds from led to LED_LAST because the menu is filling downward
-  Leds::setRange(led, LED_LAST, m_menuList[m_selection].color);
+  Leds::setRange(led, LED_LAST, menuList[m_selection].color);
 #else
   // turn on leds LED_FIRST through led with the selected menu's given color
-  Leds::setRange(LED_FIRST, led, m_menuList[m_selection].color);
+  Leds::setRange(LED_FIRST, led, menuList[m_selection].color);
 #endif
   // continue in the menu
   return true;
@@ -129,6 +135,8 @@ bool Menus::runCurMenu()
       // error saving
     }
     Modes::load();
+    // delete the menu we're done with it
+    delete m_pCurMenu;
     // clear the current menu pointer
     m_pCurMenu = nullptr;
     // the menus are no longer open either

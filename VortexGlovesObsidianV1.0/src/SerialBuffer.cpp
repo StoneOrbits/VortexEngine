@@ -9,7 +9,8 @@
 SerialBuffer::SerialBuffer(uint32_t size, const uint8_t *buf) :
   m_pData(),
   m_position(0),
-  m_capacity(0)
+  m_capacity(0),
+  m_compressed(false)
 {
   init(size, buf);
 }
@@ -221,6 +222,9 @@ private:
 
 bool SerialBuffer::compress()
 {
+  if (m_compressed) {
+    return true;
+  }
   uint8_t bytes[256] = {0};
   uint8_t unique_bytes = 0;
   // count the unique bytes in the data buffer
@@ -291,11 +295,16 @@ bool SerialBuffer::compress()
 
   DEBUGF("Compressed %u to %u bytes", old_size, m_pData->size);
 
+  m_compressed = true;
+
   return true;
 }
 
 bool SerialBuffer::decompress()
 {
+  if (!m_compressed) {
+    return true;
+  }
   // WARNING: need to extend buffer more maybe?
   resetUnserializer();
   uint8_t unique_bytes = unserialize8();
@@ -315,8 +324,6 @@ bool SerialBuffer::decompress()
 
   BitStream bits(data, data_len);
 
-  DEBUGF("Bitstream size %u", bits.size());
-
   uint32_t outPos = 0;
   while (!bits.eof()) {
     uint32_t val = bits.readBits(wid);
@@ -331,6 +338,8 @@ bool SerialBuffer::decompress()
   DEBUGF("Decompressed %u to %u bytes", (uint32_t)(data_end - m_pData->buf), m_pData->size);
 
   shrink();
+
+  m_compressed = false;
 
   return true;
 }

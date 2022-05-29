@@ -44,6 +44,8 @@ void Modes::play()
   // shortclick cycles to the next mode
   if (g_pButton->onShortClick()) {
     nextMode();
+    save();
+    load();
   }
   // empty mode list
   if (!m_numModes) {
@@ -134,8 +136,10 @@ bool Modes::save()
       m_pCurMode->serialize(modesBuffer);
       continue;
     }
-    // serialize each mode
+    // serialize each after decompressing
+    //m_serializedModes[i].decompress();
     modesBuffer += m_serializedModes[i];
+    //m_serializedModes[i].compress();
   }
 
   // write the serial buffer to flash storage
@@ -176,7 +180,10 @@ bool Modes::addSerializedMode(SerialBuffer &serializedMode)
   mode->init();
   m_serializedModes[m_numModes].clear();
   // re-serialize the mode into the storage buffer
-  mode->serialize(m_serializedModes[m_numModes++]);
+  mode->serialize(m_serializedModes[m_numModes]);
+  //m_serializedModes[m_numModes].compress();
+  // increment mode counter
+  m_numModes++;
   // clean up the mode we used
   delete mode;
   return true;
@@ -207,7 +214,9 @@ bool Modes::addMode(const Mode *mode)
   }
   m_serializedModes[m_numModes].clear();
   // serialize the mode so it can be instantiated anytime
-  mode->serialize(m_serializedModes[m_numModes++]);
+  mode->serialize(m_serializedModes[m_numModes]);
+  //m_serializedModes[m_numModes].compress();
+  m_numModes++;
   return true;
 }
 
@@ -232,8 +241,9 @@ bool Modes::setCurMode(PatternID id, const Colorset *set)
   // initialize the mode with new pattern and colorset
   pCurMode->init();
   // update the serialized storage
-  m_serializedModes[m_curMode].clear();
+  //m_serializedModes[m_curMode].clear();
   pCurMode->serialize(m_serializedModes[m_curMode]);
+  //m_serializedModes[m_numModes].compress();
   return true;
 }
 
@@ -297,8 +307,10 @@ bool Modes::initCurMode()
   if (m_pCurMode) {
     return true;
   }
+  //m_serializedModes[m_curMode].decompress();
   m_serializedModes[m_curMode].resetUnserializer();
   m_pCurMode = ModeBuilder::unserialize(m_serializedModes[m_curMode]);
+  //m_serializedModes[m_curMode].compress();
   if (!m_pCurMode) {
     return false;
   }

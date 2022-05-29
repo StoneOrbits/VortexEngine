@@ -67,6 +67,8 @@ bool Storage::read(SerialBuffer &buffer)
     DEBUG("Read null from storage");
     return false;
   }
+  // must mark the buffer as compressed in order to decompress it
+  buffer.m_compressed = true;
   DEBUGF("Read %u compressed bytes from storage", buffer.size());
   buffer.decompress();
   DEBUGF("Read %u bytes from storage", buffer.size());
