@@ -1,6 +1,6 @@
 #include "Menus.h"
 
-#include "VortexGloveset.h"
+#include "VortexFramework.h"
 #include "TimeControl.h"
 #include "LedControl.h"
 #include "Timings.h"

@@ -1,4 +1,4 @@
-#include "VortexGloveset.h"
+#include "VortexFramework.h"
 #include "TimeControl.h"
 #include "LedControl.h"
 #include "Storage.h"
@@ -9,7 +9,7 @@
 
 #include <Arduino.h>
 
-bool VortexGloveset::init()
+bool VortexFramework::init()
 {
   // initialize a random seed
   // Always generate seed before creating button on 
@@ -57,7 +57,7 @@ bool VortexGloveset::init()
   return true;
 }
 
-void VortexGloveset::tick()
+void VortexFramework::tick()
 {
   // tick the current time counter forward
   Time::tickClock();

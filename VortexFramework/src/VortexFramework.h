@@ -1,5 +1,5 @@
-#ifndef VORTEX_GLOVESET_H
-#define VORTEX_GLOVESET_H
+#ifndef VORTEX_FRAMEWORK_H
+#define VORTEX_FRAMEWORK_H
 
 // TODO STILL:
 /*
@@ -16,10 +16,10 @@
  *   - Debug/error logging
  */
 
-class VortexGloveset
+class VortexFramework
 {
   // private unimplemented constructor
-  VortexGloveset();
+  VortexFramework();
 
 public:
   // setup and initialization function
