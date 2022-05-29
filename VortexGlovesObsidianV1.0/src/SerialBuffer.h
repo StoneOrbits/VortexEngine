@@ -33,6 +33,10 @@ public:
   // extend the storage without changing the size of the data
   bool extend(uint32_t size);
 
+  // shitty in-place compression and decompression
+  bool compress();
+  bool decompress();
+
   // serialize a byte into the buffer
   bool serialize(uint8_t byte);
   bool serialize(uint16_t bytes);

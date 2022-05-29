@@ -117,6 +117,224 @@ bool SerialBuffer::extend(uint32_t size)
   return true;
 }
 
+// TODO: integrate this somewhere
+static uint32_t get_width(uint32_t value)
+{
+  if (!value) {
+    return 0;
+  }
+  for (uint32_t i = 0; i < 31; ++i) {
+    if (value < (uint32_t)(1 << i)) {
+      return i;
+    }
+  }
+  return 0;
+}
+
+// TODO: find a new home for this
+class BitStream
+{
+public:
+  BitStream(uint8_t *buf, uint32_t size) :
+    m_buf(buf), m_buf_size(size), m_bit_pos(0), m_buf_eof(false)
+  {
+  }
+
+  void resetPos()
+  {
+    m_bit_pos = 0;
+    m_buf_eof = false;
+  }
+
+  bool eof() const { return m_buf_eof; }
+  uint32_t size() const { return m_buf_size; }
+  const uint8_t *data() const { return m_buf; }
+  uint32_t bytepos() const { return m_bit_pos / 8; }
+  uint32_t bitpos() const { return m_bit_pos; }
+
+  uint8_t read1Bit()
+  {
+    if (m_buf_eof) {
+      return 0;
+    }
+    if (m_bit_pos >= (m_buf_size * 8)) {
+      m_buf_eof = true;
+      return 0;
+    }
+    uint32_t rv = (m_buf[m_bit_pos / 8] >> (7 - (m_bit_pos % 8))) & 1;
+    m_bit_pos++;
+    return rv;
+  }
+
+  void write1Bit(uint8_t bit)
+  {
+    if (m_buf_eof) {
+      return;
+    }
+    if (m_bit_pos >= (m_buf_size * 8)) {
+      m_buf_eof = true;
+      return;
+    }
+    m_buf[m_bit_pos / 8] |= (bit & 1) << (7 - (m_bit_pos % 8));
+    m_bit_pos++;
+    if (m_bit_pos >= (m_buf_size * 8)) {
+      m_buf_eof = true;
+    }
+  }
+
+  uint8_t readBits(uint32_t numBits)
+  {
+    uint32_t val = 0;
+    for (uint32_t i = 0; i < numBits; ++i) {
+      if (i > 0) {
+        val <<= 1;
+      }
+      val |= read1Bit();
+      if (m_buf_eof) {
+        break;
+      }
+    }
+    if (m_bit_pos >= (m_buf_size * 8)) {
+      m_buf_eof = true;
+    }
+    return val;
+  }
+
+  void writeBits(uint32_t numBits, uint32_t val)
+  {
+    for (uint32_t i = 0; i < numBits; ++i) {
+      write1Bit(get_bit(val, numBits - (i + 1)));
+    }
+  }
+
+private:
+  uint8_t get_bit(uint32_t val, uint32_t bit) const
+  {
+    return (val >> bit) & 1;
+  }
+
+  uint8_t *m_buf;
+  uint32_t m_buf_size;
+  uint32_t m_bit_pos;
+  bool m_buf_eof;
+};
+
+bool SerialBuffer::compress()
+{
+  uint8_t bytes[256] = {0};
+  uint8_t unique_bytes = 0;
+  // count the unique bytes in the data buffer
+  for (uint32_t i = 0; i < m_pData->size; ++i) {
+    if (bytes[m_pData->buf[i] & 0xFF]) {
+      continue;
+    }
+    bytes[m_pData->buf[i] & 0xFF] = 1;
+    unique_bytes++;
+  }
+  // table = num_entries + entries[]
+  uint32_t table_size = sizeof(uint8_t) + (sizeof(uint8_t) * unique_bytes);
+  uint32_t wid = get_width(unique_bytes);
+  // data = width(num_entries) * size
+  uint32_t data_size = ((wid * m_pData->size) + 7) / 8;
+  // total = table + data
+  uint32_t total_size = table_size + data_size;
+  uint32_t old_size = m_pData->size;
+  if (total_size >= old_size) {
+    DEBUGF("new size larger: %u old: %u", total_size, m_pData->size);
+    return false;
+  }
+  // extend enough for two tables
+  extend(table_size * 2);
+  // put table at end of buffer, in newly extended region
+  uint8_t *table = (m_pData->buf + m_capacity) - table_size;
+  // the number of unique bytes (table size)
+  table[0] = unique_bytes;
+  // start table data at 1
+  uint32_t b = 1;
+  // walk all 256 bytes and mirror them in the table
+  for (uint32_t i = 0; i < 256; ++i) {
+    if (!bytes[i]) {
+      continue;
+    }
+    if (b > unique_bytes) {
+      // error!!!
+      DEBUG("ERROR IN COMPRESSION");
+      return false;
+    }
+    bytes[i] = b;
+    table[b++] = i;
+  }
+
+  BitStream bits(m_pData->buf, data_size);
+
+  DEBUGF("Bitstream size %u", bits.size());
+
+  for (uint32_t i = 0; i < old_size; ++i) {
+    uint32_t b = m_pData->buf[i];
+    // zero out the current byte so the bits can be written
+    m_pData->buf[i] = 0;
+    // compressed version of the current byte
+    uint32_t compressed = bytes[b];
+    // write the compressed b with width
+    bits.writeBits(wid, compressed);
+    //DEBUGF("Compressed %u -> %u", b, compressed);
+  }
+
+  // move the data forward
+  memmove(m_pData->buf + table_size, m_pData->buf, data_size);
+  // move the table back
+  memmove(m_pData->buf, (m_pData->buf + m_capacity) - table_size, table_size);
+  // update the size of the buffer
+  m_pData->size = table_size + bits.bytepos();
+  // shrink to the size of the buffer
+  shrink();
+
+  DEBUGF("Compressed %u to %u bytes", old_size, m_pData->size);
+
+  return true;
+}
+
+bool SerialBuffer::decompress()
+{
+  // WARNING: need to extend buffer more maybe?
+  resetUnserializer();
+  uint8_t unique_bytes = unserialize8();
+  uint8_t *table = m_pData->buf;
+  uint8_t *data = table + unique_bytes + 1;
+  uint8_t *data_end = m_pData->buf + m_pData->size;
+  uint32_t wid = get_width(unique_bytes);
+  uint32_t data_len = data_end - data;
+
+  uint32_t expected_inflated_len = ((data_len / wid) + 1) * 8;
+
+  DEBUGF("Expected Inflated length: %u", expected_inflated_len);
+
+  // TODO: do this without allocating a new buffer, just extend the data
+  uint8_t *out_data = new uint8_t[expected_inflated_len];
+  memset(out_data, 0, expected_inflated_len);
+
+  BitStream bits(data, data_len);
+
+  DEBUGF("Bitstream size %u", bits.size());
+
+  uint32_t outPos = 0;
+  while (!bits.eof()) {
+    uint32_t val = bits.readBits(wid);
+    out_data[outPos++] = table[val];
+    //DEBUGF("Decompressed %u -> %u", val, table[val]);
+  }
+
+  m_pData->size = outPos;
+  memmove(m_pData->buf, out_data, outPos);
+  delete[] out_data;
+
+  DEBUGF("Decompressed %u to %u bytes", (uint32_t)(data_end - m_pData->buf), m_pData->size);
+
+  shrink();
+
+  return true;
+}
+
 bool SerialBuffer::largeEnough(uint32_t amount) const
 {
   if (!m_pData) {
@@ -128,28 +346,27 @@ bool SerialBuffer::largeEnough(uint32_t amount) const
 bool SerialBuffer::serialize(uint8_t byte)
 {
   //DEBUGF("Serialize8(): %u", byte);
-  if (!m_pData || (m_pData->size + sizeof(uint32_t)) > m_capacity) {
+  if (!m_pData || (m_pData->size + sizeof(uint8_t)) > m_capacity) {
     if (!extend(sizeof(uint32_t))) {
       return false;
     }
   }
-  // set the byte at the front of the buf
-  *frontSerializer() = byte;
+  memcpy(m_pData->buf + m_pData->size, &byte, sizeof(uint8_t));
   // walk forward
-  m_pData->size += sizeof(uint32_t);
+  m_pData->size += sizeof(uint8_t);
   return true;
 }
 
 bool SerialBuffer::serialize(uint16_t bytes)
 {
   //DEBUGF("Serialize16(): %u", bytes);
-  if (!m_pData || (m_pData->size + sizeof(uint32_t)) > m_capacity) {
+  if (!m_pData || (m_pData->size + sizeof(uint16_t)) > m_capacity) {
     if (!extend(sizeof(uint32_t))) {
       return false;
     }
   }
-  *(uint16_t *)frontSerializer() = bytes;
-  m_pData->size += sizeof(uint32_t);
+  memcpy(m_pData->buf + m_pData->size, &bytes, sizeof(uint16_t));
+  m_pData->size += sizeof(uint16_t);
   return true;
 }
 
@@ -161,7 +378,7 @@ bool SerialBuffer::serialize(uint32_t bytes)
       return false;
     }
   }
-  *(uint32_t *)frontSerializer() = bytes;
+  memcpy(m_pData->buf + m_pData->size, &bytes, sizeof(uint32_t));
   m_pData->size += sizeof(uint32_t);
   return true;
 }
@@ -187,12 +404,12 @@ void SerialBuffer::moveUnserializer(uint32_t idx)
 // unserialize data and walk the buffer that many bytes
 bool SerialBuffer::unserialize(uint8_t *byte)
 {
-  if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
+  if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint8_t)) {
     return false;
   }
-  *byte = *frontUnserializer();
+  memcpy(byte, m_pData->buf + m_position, sizeof(uint8_t));
   //DEBUGF("Unserialize8(): %u", *byte);
-  m_position += sizeof(uint32_t);
+  m_position += sizeof(uint8_t);
   return true;
 }
 
@@ -201,9 +418,9 @@ bool SerialBuffer::unserialize(uint16_t *bytes)
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
     return false;
   }
-  *bytes = *(uint16_t *)frontUnserializer();
+  memcpy(bytes, m_pData->buf + m_position, sizeof(uint16_t));
   //DEBUGF("Unserialize16(): %u", *bytes);
-  m_position += sizeof(uint32_t);
+  m_position += sizeof(uint16_t);
   return true;
 }
 
@@ -212,7 +429,7 @@ bool SerialBuffer::unserialize(uint32_t *bytes)
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
     return false;
   }
-  *bytes = *(uint32_t *)frontUnserializer();
+  memcpy(bytes, m_pData->buf + m_position, sizeof(uint32_t));
   //DEBUGF("Unserialize32(): %u", *bytes);
   m_position += sizeof(uint32_t);
   return true;

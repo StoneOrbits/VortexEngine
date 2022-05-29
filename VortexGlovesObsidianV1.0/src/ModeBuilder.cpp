@@ -49,7 +49,6 @@ Mode *ModeBuilder::unserialize(SerialBuffer &buffer)
     ERROR_OUT_OF_MEMORY();
     return nullptr;
   }
-  DEBUG("Unserialized Mode");
   newMode->unserialize(buffer);
   return newMode;
 }

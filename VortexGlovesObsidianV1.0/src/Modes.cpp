@@ -22,8 +22,14 @@ bool Modes::init()
 {
   // try to load the saved settings or set defaults
   if (!load()) {
-    DEBUG("Failed to load any sets");
-    return false;
+    if (!setDefaults()) {
+      return false;
+    }
+    if (!save()) {
+      return false;
+    }
+    // TODO: remove this load
+    load();
   }
   // should be able to initialize the current mode
   if (!initCurMode()) {
@@ -63,16 +69,14 @@ bool Modes::load()
   if (!Storage::read(modesBuffer) || !modesBuffer.size()) {
     DEBUG("Empty buffer read from storage");
     // this kinda sucks whatever they had loaded is gone
-    setDefaults();
     return false;
   }
-  modesBuffer.resetUnserializer();
   uint8_t numModes = 0;
+  modesBuffer.resetUnserializer();
   modesBuffer.unserialize(&numModes);
   if (!numModes) {
     DEBUG("Did not find any modes in storage");
     // this kinda sucks whatever they had loaded is gone
-    setDefaults();
     return false;
   }
   // in case the one above is removed
@@ -80,9 +84,9 @@ bool Modes::load()
   for (uint8_t i = 0; i < numModes; ++i) {
     if (!addSerializedMode(modesBuffer)) {
       DEBUGF("Failed to add mode %u after unserialization", i);
+      clearModes();
       return false;
     }
-    DEBUGF("Added serialized mode %u", i);
   }
   DEBUGF("Loaded %u modes from storage (%u bytes)", numModes, modesBuffer.size());
   // default can't load anything
@@ -125,7 +129,7 @@ bool Modes::save()
   modesBuffer.serialize(m_numModes);
   DEBUGF("Serialized num modes: %u", m_numModes);
   for (uint32_t i = 0; i < m_numModes; ++i) {
-    if (i == m_curMode) {
+    if (i == m_curMode && m_pCurMode) {
       // write the current up to date mode
       m_pCurMode->serialize(modesBuffer);
       continue;
@@ -149,13 +153,15 @@ bool Modes::setDefaults()
 {
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
   Colorset defaultSet(RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
+  PatternID default_start = PATTERN_FIRST;
+  PatternID default_end = PATTERN_LAST;
   // initialize a mode for each pattern with an rgb colorset
-  for (PatternID pattern = PATTERN_FIRST; pattern < PATTERN_COUNT; ++pattern) {
-    DEBUGF("Adding default pattern id %u", pattern);
+  for (PatternID pattern = default_start; pattern < (PatternID)(default_end + 1); ++pattern) {
     if (!addMode(pattern, &defaultSet)) { 
       // error? return false?
     }
   }
+  DEBUGF("Added default patterns %u through %u", default_start, default_end);
 
   return true;
 }

@@ -54,7 +54,7 @@ void Mode::play()
 
 void Mode::serialize(SerialBuffer &buffer) const
 {
-  DEBUG("Serialize");
+  //DEBUG("Serialize");
   //   4 mode flags (*)       flags defined whether multi pattern or not
   //     led1..N {            if multi pattern then 10x led, otherwise 1x
   //      colorset1..N {
@@ -73,7 +73,7 @@ void Mode::serialize(SerialBuffer &buffer) const
   } else if (isSameSingleLed()) {
     flags |= MODE_FLAG_ALL_SAME_SINGLE;
   }
-  DEBUGF("Saved mode flags: %x (%u %u)", flags, buffer.size(), buffer.capacity());
+  //DEBUGF("Saved mode flags: %x (%u %u)", flags, buffer.size(), buffer.capacity());
   buffer.serialize(flags);
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     const Pattern *entry = m_ledEntries[pos];
@@ -94,28 +94,25 @@ void Mode::unserialize(SerialBuffer &buffer)
   clearPatterns();
   uint32_t flags = 0;
   buffer.unserialize(&flags);
-  DEBUGF("Loaded mode flags: %x", flags);
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    if (pos > LED_FIRST && (flags & MODE_FLAG_ALL_SAME_SINGLE)) {
-      m_ledEntries[pos] = PatternBuilder::make(m_ledEntries[0]->getPatternID());
+  // unserialize the first pattern
+  m_ledEntries[0] = PatternBuilder::unserialize(buffer);
+  if (!m_ledEntries[0] || (flags & MODE_FLAG_MULTI_LED)) {
+    // done
+    return;
+  }
+  PatternID firstID = m_ledEntries[0]->getPatternID();
+  const Colorset *firstSet = m_ledEntries[0]->getColorset();
+  // loop from 2nd led position to last, skipping first
+  for (LedPos pos = (LedPos)(LED_FIRST + 1); pos < LED_COUNT; ++pos) {
+    if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
+      m_ledEntries[pos] = PatternBuilder::make(firstID);
+      if (!m_ledEntries[pos]) {
+        // error
+        return;
+      }
+      m_ledEntries[pos]->bind(firstSet, pos);
     } else {
       m_ledEntries[pos] = PatternBuilder::unserialize(buffer);
-    }
-    if (!m_ledEntries[pos]) {
-      // error
-      return;
-    }
-    if (pos > LED_FIRST && (flags & MODE_FLAG_ALL_SAME_SINGLE)) {
-      // need to bind the colorset and the position
-      m_ledEntries[pos]->bind(m_ledEntries[0]->getColorset(), pos);
-    } else {
-      // the led positions aren't stored, need to restore them manually
-      m_ledEntries[pos]->setLedPos(pos);
-    }
-    // if either of these flags are present only unserialize one pattern
-    if (isMultiLed()) {
-      // done
-      break;
     }
   }
 }

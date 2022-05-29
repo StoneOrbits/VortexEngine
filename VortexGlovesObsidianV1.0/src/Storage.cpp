@@ -22,13 +22,6 @@ const uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
 #endif
 FlashClass storage(_storagedata, STORAGE_SIZE);
 
-#ifdef TEST_FRAMEWORK
-uint32_t written_size = 0;
-#define WRITTEN_SIZE written_size
-#else
-#define WRITTEN_SIZE *(uint32_t *)_storagedata;
-#endif
-
 Storage::Storage()
 {
 }
@@ -50,18 +43,16 @@ bool Storage::write(SerialBuffer &buffer)
     DEBUG("ERROR buffer too big");
     return false;
   }
-#ifdef DEBUG_ALLOCATIONS
-  DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
-#endif
+  //buffer.clear();
+  //for(int i = 0; i < 100; i ++) buffer.serialize(0xFFFFFFFF);
+  DEBUGF("Writing %u uncompressed bytes to storage (max: %u)", buffer.size(), STORAGE_SIZE);
+  if (!buffer.compress()) {
+    // don't write if we can't compress
+    return false;
+  }
   storage.erase();
   storage.write(_storagedata, buffer.rawData(), buffer.rawSize());
   DEBUGF("Wrote %u bytes to storage (max: %u)", buffer.size(), STORAGE_SIZE);
-#ifdef DEBUG_ALLOCATIONS
-  DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
-#endif
-#ifdef TEST_FRAMEWORK
-  written_size = buffer.size();
-#endif
   return true;
 }
 
@@ -76,6 +67,8 @@ bool Storage::read(SerialBuffer &buffer)
     DEBUG("Read null from storage");
     return false;
   }
+  DEBUGF("Read %u compressed bytes from storage", buffer.size());
+  buffer.decompress();
   DEBUGF("Read %u bytes from storage", buffer.size());
   buffer.shrink();
   return true;
