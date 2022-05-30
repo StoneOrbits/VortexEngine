@@ -4,12 +4,12 @@
 
 void setup()
 {
-  if (!VortexGloveset::init()) {
+  if (!VortexFramework::init()) {
     // uhoh
   }
 }
 
 void loop()
 {
-  VortexGloveset::tick();
+  VortexFramework::tick();
 }
