@@ -43,12 +43,9 @@ bool Storage::write(SerialBuffer &buffer)
     DEBUG("ERROR buffer too big");
     return false;
   }
-  //buffer.clear();
-  //for(int i = 0; i < 100; i ++) buffer.serialize(0xFFFFFFFF);
-  DEBUGF("Writing %u uncompressed bytes to storage (max: %u)", buffer.size(), STORAGE_SIZE);
   if (!buffer.compress()) {
     // don't write if we can't compress
-    return false;
+    DEBUG("Did not compress storage");
   }
   storage.erase();
   storage.write(_storagedata, buffer.rawData(), buffer.rawSize());
@@ -67,11 +64,14 @@ bool Storage::read(SerialBuffer &buffer)
     DEBUG("Read null from storage");
     return false;
   }
-  // must mark the buffer as compressed in order to decompress it
-  buffer.m_compressed = true;
-  DEBUGF("Read %u compressed bytes from storage", buffer.size());
-  buffer.decompress();
-  DEBUGF("Read %u bytes from storage", buffer.size());
-  buffer.shrink();
+  if (buffer.is_compressed() && !buffer.decompress()) {
+    DEBUG("Failed to decompress buffer loaded from storage");
+    return false;
+  }
+  if (!buffer.shrink()) {
+    DEBUG("Failed to shrink buffer loaded from storage");
+    return false;
+  }
+  DEBUGF("Loaded %u bytes from storage", buffer.size());
   return true;
 }

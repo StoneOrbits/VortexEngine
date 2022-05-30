@@ -22,6 +22,10 @@ bool Menu::init()
 {
   // menu is initialized before being run
   m_pCurMode = Modes::curMode();
+  if (!m_pCurMode) {
+    // need a mode for menus to operate on
+    return false;
+  }
   // reset the current selection
   m_curSelection = FINGER_FIRST;
   // just in case

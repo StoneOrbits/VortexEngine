@@ -79,7 +79,7 @@ public:
   uint32_t rawSize() const { return m_pData ? m_pData->size + sizeof(RawBuffer) : 0; }
   uint32_t size() const { return m_pData ? m_pData->size : 0; }
   uint32_t capacity() const { return m_capacity; }
-  bool is_compressed() const { return m_compressed; }
+  bool is_compressed() const;
 
 private:
   uint8_t *frontSerializer() const { return m_pData ? m_pData->buf + m_pData->size : nullptr; }
@@ -94,20 +94,24 @@ private:
   #pragma warning(disable : 4200)
 #endif
 #endif
+
+  // the raw buffer that's written to storage (it gets compressed first)
   struct RawBuffer {
-    RawBuffer() : size(0), buf() {}
+    RawBuffer() : size(0), flags(0), buf() {}
+    // the size of the buf of data
     uint32_t size;
+    // any special flags about the data (compression etc)
+    uint32_t flags;
+    // the start of the buf of data
     uint8_t buf[];
   };
 
-  // the buffer of data
+  // The raw buffer of data along with size and flags
   RawBuffer *m_pData;
-  // the index for unserialization
+  // the index in the raw buffer for unserialization
   uint32_t m_position;
-  // the actual size of the buffer
+  // the actual size of the buffer raw buffer
   uint32_t m_capacity;
-  // whether this buffer is compressed
-  bool m_compressed;
 };
 
 #endif

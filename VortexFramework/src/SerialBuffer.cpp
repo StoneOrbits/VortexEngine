@@ -6,11 +6,13 @@
 #include <FlashStorage.h>
 #include <string.h>
 
+// flags for saving buffer to disk
+#define BUFFER_FLAG_COMRPESSED (1<<0)
+
 SerialBuffer::SerialBuffer(uint32_t size, const uint8_t *buf) :
   m_pData(),
   m_position(0),
-  m_capacity(0),
-  m_compressed(false)
+  m_capacity(0)
 {
   init(size, buf);
 }
@@ -222,7 +224,7 @@ private:
 
 bool SerialBuffer::compress()
 {
-  if (m_compressed) {
+  if (is_compressed()) {
     return true;
   }
   uint8_t bytes[256] = {0};
@@ -245,6 +247,10 @@ bool SerialBuffer::compress()
   uint32_t old_size = m_pData->size;
   if (total_size >= old_size) {
     DEBUGF("new size larger: %u old: %u", total_size, m_pData->size);
+    DEBUGF("\tUnique bytes: %u", unique_bytes);
+    DEBUGF("\twidth: %u", wid);
+    DEBUGF("\tTable size: %u", table_size);
+    DEBUGF("\tData size: %u", data_size);
     return false;
   }
   // extend enough for two tables
@@ -271,8 +277,6 @@ bool SerialBuffer::compress()
 
   BitStream bits(m_pData->buf, data_size);
 
-  DEBUGF("Bitstream size %u", bits.size());
-
   for (uint32_t i = 0; i < old_size; ++i) {
     uint32_t b = m_pData->buf[i];
     // zero out the current byte so the bits can be written
@@ -288,6 +292,8 @@ bool SerialBuffer::compress()
   memmove(m_pData->buf + table_size, m_pData->buf, data_size);
   // move the table back
   memmove(m_pData->buf, (m_pData->buf + m_capacity) - table_size, table_size);
+  // buffer is no longer compressed
+  m_pData->flags |= BUFFER_FLAG_COMRPESSED;
   // update the size of the buffer
   m_pData->size = table_size + bits.bytepos();
   // shrink to the size of the buffer
@@ -295,14 +301,12 @@ bool SerialBuffer::compress()
 
   DEBUGF("Compressed %u to %u bytes", old_size, m_pData->size);
 
-  m_compressed = true;
-
   return true;
 }
 
 bool SerialBuffer::decompress()
 {
-  if (!m_compressed) {
+  if (!is_compressed()) {
     return true;
   }
   // WARNING: need to extend buffer more maybe?
@@ -331,6 +335,7 @@ bool SerialBuffer::decompress()
     //DEBUGF("Decompressed %u -> %u", val, table[val]);
   }
 
+  m_pData->flags &= ~BUFFER_FLAG_COMRPESSED;
   m_pData->size = outPos;
   memmove(m_pData->buf, out_data, outPos);
   delete[] out_data;
@@ -338,8 +343,6 @@ bool SerialBuffer::decompress()
   DEBUGF("Decompressed %u to %u bytes", (uint32_t)(data_end - m_pData->buf), m_pData->size);
 
   shrink();
-
-  m_compressed = false;
 
   return true;
 }
@@ -514,4 +517,13 @@ SerialBuffer &SerialBuffer::operator+=(const uint32_t &rhs)
 {
   serialize(rhs);
   return *this;
+}
+
+
+bool SerialBuffer::is_compressed() const
+{
+  if (!m_pData) {
+    return false;
+  }
+  return (m_pData->flags & BUFFER_FLAG_COMRPESSED) != 0;
 }

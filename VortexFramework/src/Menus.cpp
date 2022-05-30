@@ -20,6 +20,7 @@ Menu *Menus::m_pCurMenu = nullptr;
 // entries for the ring menu
 typedef Menu *(*initMenuFn_t)();
 struct MenuEntry {
+  const char *menuName;
   initMenuFn_t initMenu;
   RGBColor color;
 };
@@ -29,7 +30,7 @@ template <typename T>
 Menu *initMenu() { return new T(); }
 
 // a simple macro to simplify the entries in the menu list
-#define ENTRY(classname, color) { initMenu<classname>, color }
+#define ENTRY(classname, color) { #classname, initMenu<classname>, color }
 
 // The list of menus that are registered with colors to show in ring menu
 const MenuEntry menuList[] = {
@@ -69,11 +70,12 @@ bool Menus::runRingFill()
   // if the button was released this tick and the ringmenu was open 
   // then close the ringmenu and return the current menu selection
   if (g_pButton->onRelease() && m_isOpen) {
-    DEBUGF("Released on ringmenu %d", m_selection);
+    DEBUGF("Released on ringmenu %s", menuList[m_selection].menuName);
     // update the current open menu
     m_pCurMenu = menuList[m_selection].initMenu();
     // initialiaze the new menu with the current mode
     if (!m_pCurMenu->init()) {
+      DEBUGF("Failed to initialize %s menu", menuList[m_selection].menuName);
       // if the menu failed to init, don't open it
       m_pCurMenu = nullptr;
       return false;
@@ -134,10 +136,8 @@ bool Menus::runCurMenu()
     if (!Modes::save()) {
       // error saving
     }
-    Modes::load();
     // delete the menu we're done with it
     delete m_pCurMenu;
-    // clear the current menu pointer
     m_pCurMenu = nullptr;
     // the menus are no longer open either
     m_isOpen = false;

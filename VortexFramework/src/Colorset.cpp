@@ -84,6 +84,7 @@ void Colorset::clear()
     vfree(m_palette);
     m_palette = nullptr;
   }
+  m_numColors = 0;
   init();
 }
 
@@ -130,6 +131,19 @@ void Colorset::removeColor(uint32_t index)
   if (!m_numColors) {
     vfree(m_palette);
     m_palette = nullptr;
+  }
+}
+
+void Colorset::randomize(uint32_t numColors)
+{
+  clear();
+  if (!numColors) {
+    numColors = random(2, 6);
+  }
+  for (uint32_t i = 0; i < numColors; ++i) {
+    addColor(RGBColor((uint8_t)random(0, 255),
+                      (uint8_t)random(0, 255),
+                      (uint8_t)random(0, 255)));
   }
 }
 

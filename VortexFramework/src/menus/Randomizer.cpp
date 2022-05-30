@@ -23,19 +23,6 @@ bool Randomizer::init()
   if (!Menu::init()) {
     return false;
   }
-  PatternID id = PATTERN_FIRST;
-  if (m_pCurMode) {
-    id = m_pCurMode->getPatternID();
-  }
-  DEBUGF("Cur pattern id: %u", id);
-  if (!m_pRandomizedMode) {
-    // create a new randomized mode out of the colors
-    m_pRandomizedMode = ModeBuilder::make(id, m_pCurMode->getColorset());
-    if (!m_pRandomizedMode) {
-      return false;
-    }
-    m_pRandomizedMode->init();
-  }
   // re-roll the randomization
   if (!reRoll()) {
     // fatal error
@@ -90,14 +77,20 @@ bool Randomizer::reRoll()
 
   // fill the array with up to numColors random colors
   Colorset randomSet;
-  for (uint32_t i = 0; i < numColors; ++i) {
-    randomSet.addColor(RGBColor((uint8_t)random(0, 255),
-                                (uint8_t)random(0, 255),
-                                (uint8_t)random(0, 255)));
+  randomSet.randomize(numColors);
+
+  if (!m_pRandomizedMode) {
+    if (!m_pCurMode) {
+      return false;
+    }
+    // create a new randomized mode out of the colors
+    m_pRandomizedMode = ModeBuilder::make(m_pCurMode->getPatternID(), &randomSet);
+    if (!m_pRandomizedMode) {
+      return false;
+    }
+  } else {
+    m_pRandomizedMode->setColorset(&randomSet);
   }
-
-  m_pRandomizedMode->setColorset(&randomSet);
   m_pRandomizedMode->init();
-
   return true;
 }
