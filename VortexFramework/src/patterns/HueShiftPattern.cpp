@@ -5,8 +5,8 @@
 
 HueShiftPattern::HueShiftPattern(uint8_t scale, uint8_t speed) :
   MultiLedPattern(),
-  m_scale(scale),
-  m_speed(speed)
+  m_speed(speed),
+  m_scale(scale)
 {
 }
 
