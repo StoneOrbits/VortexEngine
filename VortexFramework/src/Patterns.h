@@ -40,6 +40,7 @@ enum PatternID : uint8_t
   // all 'multi led' patterns below
 
   PATTERN_RABBIT = PATTERN_MULTI_FIRST, // PATTERN_STROBIE on tops and PATTERN_STROBE on tips
+  PATTERN_HUESHIFT,
 
   // ADD NEW MULTI LED PATTERNS HERE
 

@@ -152,15 +152,15 @@ bool Modes::save()
 bool Modes::setDefaults()
 {
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
-  Colorset defaultSet; // (RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
+  Colorset defaultSet(RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
   PatternID default_start = PATTERN_FIRST;
   PatternID default_end = PATTERN_LAST;
   // initialize a mode for each pattern with an rgb colorset
-  for (PatternID pattern = default_start; pattern <= default_end; ++pattern) {
+  for (PatternID pattern = default_end; pattern <= default_end; ++pattern) {
     // randomize the colorset
-    defaultSet.randomize();
+    //defaultSet.randomize();
     // add another mode with the given pattern and colorset
-    if (!addMode(pattern, &defaultSet)) { 
+    if (!addMode(pattern, &defaultSet)) {
       // error? return false?
     }
   }
@@ -239,8 +239,9 @@ bool Modes::setCurMode(PatternID id, const Colorset *set)
   }
   // initialize the mode with new pattern and colorset
   pCurMode->init();
+  // clear the 
+  m_serializedModes[m_curMode].clear();
   // update the serialized storage
-  //m_serializedModes[m_curMode].clear();
   pCurMode->serialize(m_serializedModes[m_curMode]);
   //m_serializedModes[m_numModes].compress();
   return true;

@@ -4,7 +4,6 @@
 // TODO STILL:
 /*
  *  Primary:
- *   - Modes saving loading
  *   - Mode Sharing
  *
  *  Secondary:
