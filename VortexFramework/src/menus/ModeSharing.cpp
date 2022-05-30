@@ -3,7 +3,8 @@
 #include "../Log.h"
 
 ModeSharing::ModeSharing() :
-  Menu()
+  Menu(),
+  m_sharingMode(SharingMode::SHARE_SEND)
 {
 }
 
@@ -27,6 +28,11 @@ bool ModeSharing::run()
 // handlers for clicks
 void ModeSharing::onShortClick()
 {
+  if (m_sharingMode == SharingMode::SHARE_SEND) {
+    m_sharingMode = SharingMode::SHARE_RECEIVE;
+  } else {
+    m_sharingMode = SharingMode::SHARE_RECEIVE;
+  }
 }
 
 void ModeSharing::onLongClick()

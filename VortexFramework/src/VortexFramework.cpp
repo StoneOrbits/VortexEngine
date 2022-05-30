@@ -1,4 +1,5 @@
 #include "VortexFramework.h"
+#include "InfraredControl.h"
 #include "TimeControl.h"
 #include "LedControl.h"
 #include "Storage.h"
@@ -18,37 +19,31 @@ bool VortexFramework::init()
   // Setup serial communications
   Serial.begin(9600);
 
-  // initialize the time controller
+  // all of the global controllers
   if (!Time::init()) {
     DEBUG("Time failed to initialize");
     return false;
   }
-
-  // setup led controller
-  if (!Leds::init()) {
-    DEBUG("Leds failed to initialize");
-    return false;
-  }
-
-  // initialize the buttons
-  if (!Buttons::init()) {
-    DEBUG("Buttons failed to initialize");
-    return false;
-  }
-
-  // initialize the menus
-  if (!Menus::init()) {
-    DEBUG("Menus failed to initialize");
-    return false;
-  }
-
-  // initialize the storage
   if (!Storage::init()) {
     DEBUG("Storage failed to initialize");
     return false;
   }
-
-  // initialize the modes
+  if (!Infrared::init()) {
+    DEBUG("Infrared failed to initialize");
+    return false;
+  }
+  if (!Leds::init()) {
+    DEBUG("Leds failed to initialize");
+    return false;
+  }
+  if (!Buttons::init()) {
+    DEBUG("Buttons failed to initialize");
+    return false;
+  }
+  if (!Menus::init()) {
+    DEBUG("Menus failed to initialize");
+    return false;
+  }
   if (!Modes::init()) {
     DEBUG("Settings failed to initialize");
     return false;

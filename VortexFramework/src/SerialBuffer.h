@@ -23,7 +23,7 @@ public:
   // clear the buffer
   void clear();
 
-  // shrink capacity down to size, to 
+  // shrink capacity down to size, to
   bool shrink();
 
   // append another buffer
@@ -41,7 +41,7 @@ public:
   bool serialize(uint16_t bytes);
   bool serialize(uint32_t bytes);
 
-  // reset the unserializer index 
+  // reset the unserializer index
   void resetUnserializer();
   // move the unserializer index manually
   void moveUnserializer(uint32_t idx);
@@ -81,15 +81,18 @@ public:
   uint32_t capacity() const { return m_capacity; }
   bool is_compressed() const;
 
-private:
-  uint8_t *frontSerializer() const { return m_pData ? m_pData->buf + m_pData->size : nullptr; }
+  // this should be fine
   uint8_t *frontUnserializer() const { return m_pData ? m_pData->buf + m_position : nullptr; }
+
+private:
+  // don't expose this one it's dangerous
+  uint8_t *frontSerializer() const { return m_pData ? m_pData->buf + m_pData->size : nullptr; }
   bool largeEnough(uint32_t amount) const;
 
   // inner data buffer
 #ifdef TEST_FRAMEWORK
 #ifndef LINUX_FRAMEWORK
-  // disable warning about using flexible array at end of structure, 
+  // disable warning about using flexible array at end of structure,
   // stfu compiler I know what im doing
   #pragma warning(disable : 4200)
 #endif

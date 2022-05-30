@@ -94,7 +94,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_GHOSTCRUSH: return new GapPattern(1, 0, 50);
     case PATTERN_ADVANCED: return new AdvancedPattern(5, 5, 10, 2, 2, 1);
     case PATTERN_RABBIT: return new RabbitPattern();
-    case PATTERN_HUESHIFT: return new HueShiftPattern(3, 6);
+    case PATTERN_HUESHIFT: return new HueShiftPattern(1, 1);
     default: break;
   }
   DEBUGF("Unknown pattern id: %u", id);
