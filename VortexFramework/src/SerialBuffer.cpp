@@ -101,6 +101,9 @@ bool SerialBuffer::append(const SerialBuffer &other)
 // extend the storage without changing the size of the data
 bool SerialBuffer::extend(uint32_t size)
 {
+  if (!m_capacity) {
+    return init(size);
+  }
   // round size up to nearest 4
   uint32_t new_size = m_capacity + size;
   new_size += 3;
@@ -112,10 +115,6 @@ bool SerialBuffer::extend(uint32_t size)
     return false;
   }
   m_pData = temp;
-  if (!m_capacity) {
-    // if new allocation need to zero
-    memset(m_pData, 0, new_size + sizeof(RawBuffer));
-  }
   m_capacity = new_size;
   return true;
 }
@@ -231,15 +230,16 @@ bool SerialBuffer::compress()
   uint8_t unique_bytes = 0;
   // count the unique bytes in the data buffer
   for (uint32_t i = 0; i < m_pData->size; ++i) {
-    if (bytes[m_pData->buf[i] & 0xFF]) {
+    uint8_t b = m_pData->buf[i] & 0xFF;
+    if (bytes[b]) {
       continue;
     }
-    bytes[m_pData->buf[i] & 0xFF] = 1;
+    bytes[b] = 1;
     unique_bytes++;
   }
   // table = num_entries + entries[]
   uint32_t table_size = sizeof(uint8_t) + (sizeof(uint8_t) * unique_bytes);
-  uint32_t wid = get_width(unique_bytes);
+  uint32_t wid = get_width(unique_bytes - 1);
   // data = width(num_entries) * size
   uint32_t data_size = ((wid * m_pData->size) + 7) / 8;
   // total = table + data
@@ -315,7 +315,7 @@ bool SerialBuffer::decompress()
   uint8_t *table = m_pData->buf;
   uint8_t *data = table + unique_bytes + 1;
   uint8_t *data_end = m_pData->buf + m_pData->size;
-  uint32_t wid = get_width(unique_bytes);
+  uint32_t wid = get_width(unique_bytes - 1);
   uint32_t data_len = data_end - data;
 
   uint32_t expected_inflated_len = ((data_len / wid) + 1) * 8;
