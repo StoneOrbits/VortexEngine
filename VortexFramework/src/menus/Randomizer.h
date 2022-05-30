@@ -9,6 +9,7 @@ class Randomizer : public Menu
 {
 public:
   Randomizer();
+  ~Randomizer();
 
   bool init();
 

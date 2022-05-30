@@ -18,6 +18,14 @@ Randomizer::Randomizer() :
 {
 }
 
+Randomizer::~Randomizer()
+{
+  if (m_pRandomizedMode) {
+    delete m_pRandomizedMode;
+    m_pRandomizedMode = nullptr;
+  }
+}
+
 bool Randomizer::init()
 {
   if (!Menu::init()) {
