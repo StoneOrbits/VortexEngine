@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#include "src/VortexGloveset.h"
+#include "src/VortexFramework.h"
 
 void setup()
 {
