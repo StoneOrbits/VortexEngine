@@ -1,7 +1,7 @@
 #include "HueShiftPattern.h"
 
 #include "../TimeControl.h"
-#include "../LedControl.h"
+#include "../Leds.h"
 
 HueShiftPattern::HueShiftPattern(uint8_t scale, uint8_t speed) :
   MultiLedPattern(),

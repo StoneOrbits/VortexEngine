@@ -5,11 +5,11 @@
 #include "SerialBuffer.h"
 #include "TimeControl.h"
 #include "ModeBuilder.h"
-#include "LedControl.h"
 #include "Colorset.h"
 #include "Storage.h"
 #include "Buttons.h"
 #include "Mode.h"
+#include "Leds.h"
 #include "Log.h"
 
 // static members

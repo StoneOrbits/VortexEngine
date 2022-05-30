@@ -2,8 +2,8 @@
 
 #include "../SerialBuffer.h"
 #include "../TimeControl.h"
-#include "../LedControl.h"
 #include "../Colorset.h"
+#include "../Leds.h"
 #include "../Log.h"
 
 GapPattern::GapPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration) :

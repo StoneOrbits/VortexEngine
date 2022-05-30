@@ -2,10 +2,10 @@
 
 #include "VortexFramework.h"
 #include "TimeControl.h"
-#include "LedControl.h"
 #include "Timings.h"
 #include "Button.h"
 #include "Modes.h"
+#include "Leds.h"
 #include "Log.h"
 
 // comment this out if you want the menu to fill from pinkie

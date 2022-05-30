@@ -1,4 +1,4 @@
-#include "InfraredControl.h"
+#include "Infrared.h"
 
 #include "TimeControl.h"
 #include "Log.h"

@@ -1,5 +1,6 @@
 #include "ModeSharing.h"
 
+#include "../Infrared.h"
 #include "../Log.h"
 
 ModeSharing::ModeSharing() :
@@ -13,7 +14,16 @@ bool ModeSharing::init()
   if (!Menu::init()) {
     return false;
   }
-
+  DEBUG("Entering Mode Sharing");
+  m_sharingMode = SharingMode::SHARE_SEND;
+  switch (m_sharingMode) {
+  case SharingMode::SHARE_SEND:
+    Infrared::write();
+    break;
+  case SharingMode::SHARE_RECEIVE:
+    Infrared::read();
+    break;
+  }
   return true;
 }
 
@@ -30,8 +40,10 @@ void ModeSharing::onShortClick()
 {
   if (m_sharingMode == SharingMode::SHARE_SEND) {
     m_sharingMode = SharingMode::SHARE_RECEIVE;
+    DEBUG("Switched to receive mode");
   } else {
-    m_sharingMode = SharingMode::SHARE_RECEIVE;
+    m_sharingMode = SharingMode::SHARE_SEND;
+    DEBUG("Switched to send mode");
   }
 }
 

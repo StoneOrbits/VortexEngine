@@ -2,8 +2,8 @@
 
 #include "../SerialBuffer.h"
 #include "../TimeControl.h"
-#include "../LedControl.h"
 #include "../Colorset.h"
+#include "../Leds.h"
 #include "../Log.h"
 
 TracerPattern::TracerPattern(uint8_t tracerLength, uint8_t dotLength) :

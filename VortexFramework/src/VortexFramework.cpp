@@ -1,11 +1,11 @@
 #include "VortexFramework.h"
-#include "InfraredControl.h"
 #include "TimeControl.h"
-#include "LedControl.h"
+#include "Infrared.h"
 #include "Storage.h"
 #include "Buttons.h"
 #include "Modes.h"
 #include "Menus.h"
+#include "Leds.h"
 #include "Log.h"
 
 #include <Arduino.h>

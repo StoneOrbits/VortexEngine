@@ -1,10 +1,10 @@
 #include "ColorSelect.h"
 
 #include "../TimeControl.h"
-#include "../LedControl.h"
 #include "../Colorset.h"
 #include "../Button.h"
 #include "../Mode.h"
+#include "../Leds.h"
 #include "../Log.h"
 
 // the number of slots in a page

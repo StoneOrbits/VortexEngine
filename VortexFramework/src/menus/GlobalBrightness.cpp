@@ -1,7 +1,7 @@
 #include "GlobalBrightness.h"
 
-#include "../LedControl.h"
 #include "../Modes.h"
+#include "../Leds.h"
 #include "../Log.h"
 
 GlobalBrightness::GlobalBrightness() :

@@ -4,12 +4,12 @@
 
 #include "../patterns/Pattern.h"
 #include "../ModeBuilder.h"
-#include "../LedControl.h"
 #include "../Colorset.h"
 #include "../Timings.h"
 #include "../Button.h"
 #include "../Modes.h"
 #include "../Mode.h"
+#include "../Leds.h"
 #include "../Log.h"
 
 Randomizer::Randomizer() :

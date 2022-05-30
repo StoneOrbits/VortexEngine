@@ -3,8 +3,8 @@
 #include "../patterns/Pattern.h"
 #include "../PatternBuilder.h"
 #include "../ModeBuilder.h"
-#include "../LedControl.h"
 #include "../Mode.h"
+#include "../Leds.h"
 
 #include "../Log.h"
 
