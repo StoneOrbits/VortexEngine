@@ -14,6 +14,7 @@ public:
   // opting for static class here because there should only ever be one
   // Settings control object and I don't like singletons
   static bool init();
+  static void cleanup();
 
   // tick the clock forward to millis()
   static void tickClock();
@@ -48,8 +49,11 @@ public:
   // TODO: Synchronize finger timing?
   static void setTickOffset(uint32_t tickOffset = 0);
 
-  // convert ticks to ms based on tickrate
+  // convert milliseconds to a tickcount based on tickrate
   static uint32_t msToTicks(uint32_t ms);
+
+  // convert seconds to a tickcount based on tickrate
+  static uint32_t secToTicks(uint32_t sec) { return msToTicks(sec * 1000); }
 
   // Start a time simulation, while the simulation is active you can
   // increment the 'current time' with tickSimulation() then when you

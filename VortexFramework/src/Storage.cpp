@@ -36,6 +36,10 @@ bool Storage::init()
   return true;
 }
 
+void Storage::cleanup()
+{
+}
+
 // store a serial buffer to storage
 bool Storage::write(SerialBuffer &buffer)
 {

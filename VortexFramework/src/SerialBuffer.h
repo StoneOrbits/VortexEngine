@@ -98,7 +98,7 @@ private:
 #endif
 #endif
 
-  // the raw buffer that's written to storage (it gets compressed first)
+  // the structure of raw data that's written to storage
   struct RawBuffer {
     RawBuffer() : size(0), flags(0), buf() {}
     // the size of the buf of data

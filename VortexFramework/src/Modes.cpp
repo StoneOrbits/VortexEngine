@@ -37,6 +37,11 @@ bool Modes::init()
   return true;
 }
 
+void Modes::cleanup()
+{
+  clearModes();
+}
+
 void Modes::play()
 {
   // shortclick cycles to the next mode

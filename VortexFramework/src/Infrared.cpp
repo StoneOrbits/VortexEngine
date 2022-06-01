@@ -3,9 +3,11 @@
 #include "TimeControl.h"
 #include "Log.h"
 
+#include <Arduino.h>
+
 #include <IRLibSendBase.h>
 #include <IRLibDecodeBase.h>
-#include <IRLib_P01_NEC.h>
+#include <IRLib_P01_NEC.h>    
 #include <IRLibCombo.h>
 #include <IRLibRecv.h>
 
@@ -21,26 +23,30 @@ Infrared::Infrared()
 
 bool Infrared::init()
 {
-  myReceiver.enableIRIn();
   return true;
+}
+
+void Infrared::cleanup()
+{
 }
 
 bool Infrared::read()
 {
-  if (myReceiver.getResults()) {
-    myDecoder.decode();
-    myDecoder.dumpResults(true);
-    DEBUGF("Decoded: %u", myDecoder.value);
-    myReceiver.enableIRIn();      //Restart receiver
+  uint32_t result = 0;
+  myReceiver.enableIRIn();
+  if (!myReceiver.getResults()) {
+    return false;
   }
-
+  myDecoder.decode();
+  myDecoder.dumpResults(true);
+  result = myDecoder.value;
+  DEBUGF("IR Read: %u", result);
   return true;
 }
 
 bool Infrared::write()
 {
-  if (Time::getCurtime() % 100) {
-    mySender.send(NEC, (uint32_t)Time::getCurtime());
-  }
+  mySender.send(NEC, 0xFFFFFFFF, 0);
+  DEBUG("IR Send: ");
   return true;
 }

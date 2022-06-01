@@ -1,6 +1,8 @@
 #include "ModeSharing.h"
 
+#include "../TimeControl.h"
 #include "../Infrared.h"
+#include "../Leds.h"
 #include "../Log.h"
 
 ModeSharing::ModeSharing() :
@@ -16,14 +18,6 @@ bool ModeSharing::init()
   }
   DEBUG("Entering Mode Sharing");
   m_sharingMode = SharingMode::SHARE_SEND;
-  switch (m_sharingMode) {
-  case SharingMode::SHARE_SEND:
-    Infrared::write();
-    break;
-  case SharingMode::SHARE_RECEIVE:
-    Infrared::read();
-    break;
-  }
   return true;
 }
 
@@ -31,6 +25,14 @@ bool ModeSharing::run()
 {
   if (!Menu::run()) {
     return false;
+  }
+  switch (m_sharingMode) {
+  case SharingMode::SHARE_SEND:
+    sendMode();
+    break;
+  case SharingMode::SHARE_RECEIVE:
+    receiveMode();
+    break;
   }
   return true;
 }
@@ -50,4 +52,22 @@ void ModeSharing::onShortClick()
 void ModeSharing::onLongClick()
 {
   leaveMenu();
+}
+
+void ModeSharing::sendMode()
+{
+  Leds::setRange(LED_FIRST, LED_LAST, RGB_WHITE);
+  Infrared::write();
+  m_sharingMode = SharingMode::SHARE_RECEIVE;
+}
+
+void ModeSharing::receiveMode()
+{
+  RGBColor col = RGB_TEAL;
+  if (Infrared::read()) {
+    col = RGB_PURPLE;
+  }
+  Leds::clearAll();
+  LedPos pos = (LedPos)((Time::getCurtime() / Time::msToTicks(100)) % LED_COUNT);
+  Leds::setRange(pos, LED_LAST, col);
 }

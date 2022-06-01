@@ -12,6 +12,7 @@ public:
 
   // init storage
   static bool init();
+  static void cleanup();
 
   // store a serial buffer to storage
   static bool write(SerialBuffer &buffer);

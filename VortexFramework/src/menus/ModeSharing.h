@@ -17,6 +17,9 @@ public:
   void onLongClick();
 
 private:
+  void sendMode();
+  void receiveMode();
+
   enum class SharingMode {
     SHARE_SEND     = 0,
     SHARE_RECEIVE  = 1

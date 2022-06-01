@@ -28,6 +28,13 @@ bool Leds::init()
   return true;
 }
 
+void Leds::cleanup()
+{
+  for (uint32_t i = 0; i < LED_COUNT; ++i) {
+    m_ledColors[i].clear();
+  }
+}
+
 void Leds::clearOnboardLED()
 {
   // show nothing otherwise it might show random colours

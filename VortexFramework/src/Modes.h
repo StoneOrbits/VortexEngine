@@ -21,6 +21,7 @@ public:
   // opting for static class here because there should only ever be one
   // Modes control object and I don't like singletons
   static bool init();
+  static void cleanup();
 
   // play the current mode
   static void play();

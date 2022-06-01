@@ -10,6 +10,7 @@ public:
   // opting for static class here because there should only ever be one
   // Led control object and I don't like singletons
   static bool init();
+  static void cleanup();
 
   static bool read();
   static bool write();

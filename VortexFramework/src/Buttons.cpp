@@ -21,6 +21,10 @@ bool Buttons::init()
   return true;
 }
 
+void Buttons::cleanup()
+{
+}
+
 void Buttons::check()
 {
   // would iterate all buttons and check them here

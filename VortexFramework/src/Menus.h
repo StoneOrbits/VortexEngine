@@ -22,12 +22,13 @@ public:
   // opting for static class here because there should only ever be one
   // Menu control object and I don't like singletons
   static bool init();
+  static void cleanup();
 
   // Run the ringmenu and any menus it contains
   // returns true if the menu remains open, false if closed
   static bool run();
 
- private:
+ //private:
   // run the currently open menu
   static bool runCurMenu();
   // run the ring filling logic
@@ -36,6 +37,10 @@ public:
   static LedPos calcLedPos();
   // whether any menus are open
   static bool shouldRun();
+  // open a menu by index in the menu table
+  static bool openMenu(uint32_t index);
+  // close the currently open menu
+  static void closeCurMenu();
 
   // =====================
   //  private members

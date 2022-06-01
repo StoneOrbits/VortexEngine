@@ -21,6 +21,7 @@ public:
   // opting for static class here because there should only ever be one
   // Led control object and I don't like singletons
   static bool init();
+  static void cleanup();
 
   // control individual LED, these are appropriate to use in internal pattern logic
   static void setIndex(LedPos target, RGBColor col);

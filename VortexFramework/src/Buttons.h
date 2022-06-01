@@ -11,6 +11,7 @@ class Buttons
 public:
   // initialize all buttons
   static bool init();
+  static void cleanup();
 
   // poll the buttons
   static void check();

@@ -23,6 +23,9 @@ class VortexFramework
 public:
   // setup and initialization function
   static bool init();
+  // cleanup
+  static void cleanup();
+
   // tick function for each loop
   static void tick();
 

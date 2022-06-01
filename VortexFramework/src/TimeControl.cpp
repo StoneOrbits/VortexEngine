@@ -28,6 +28,10 @@ bool Time::init()
   return true;
 }
 
+void Time::cleanup()
+{
+}
+
 void Time::tickClock()
 {
   // tick clock forward

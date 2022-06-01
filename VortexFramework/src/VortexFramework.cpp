@@ -49,7 +49,23 @@ bool VortexFramework::init()
     return false;
   }
 
+  Menus::openMenu(5);
+
   return true;
+}
+
+void VortexFramework::cleanup()
+{
+  // cleanup in reverse order
+  // NOTE: the arduino doesn't actually cleanup, 
+  //       but the test frameworks do
+  Modes::cleanup();
+  Menus::cleanup();
+  Buttons::cleanup();
+  Leds::cleanup();
+  Infrared::cleanup();
+  Storage::cleanup();
+  Time::cleanup();
 }
 
 void VortexFramework::tick()

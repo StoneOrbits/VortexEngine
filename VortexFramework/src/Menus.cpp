@@ -34,12 +34,12 @@ Menu *initMenu() { return new T(); }
 
 // The list of menus that are registered with colors to show in ring menu
 const MenuEntry menuList[] = {
-  ENTRY(Randomizer,       RGB_WHITE),
-  ENTRY(ColorSelect,      RGB_ORANGE),
-  ENTRY(PatternSelect,    RGB_BLUE),
-  ENTRY(GlobalBrightness, RGB_YELLOW),
-  ENTRY(FactoryReset,     RGB_RED),
-  ENTRY(ModeSharing,      RGB_TEAL),
+  ENTRY(Randomizer,       RGB_WHITE),   // 0
+  ENTRY(ColorSelect,      RGB_ORANGE),  // 1
+  ENTRY(PatternSelect,    RGB_BLUE),    // 2
+  ENTRY(GlobalBrightness, RGB_YELLOW),  // 3
+  ENTRY(FactoryReset,     RGB_RED),     // 4
+  ENTRY(ModeSharing,      RGB_TEAL),    // 5
 };
 
 // the number of menus in the above array
@@ -49,6 +49,11 @@ bool Menus::init()
 {
   // sub-menus are initialized right before they run
   return true;
+}
+
+void Menus::cleanup()
+{
+  // not much to cleanup
 }
 
 bool Menus::run()
@@ -71,17 +76,11 @@ bool Menus::runRingFill()
   // then close the ringmenu and return the current menu selection
   if (g_pButton->onRelease() && m_isOpen) {
     DEBUGF("Released on ringmenu %s", menuList[m_selection].menuName);
-    // update the current open menu
-    m_pCurMenu = menuList[m_selection].initMenu();
-    // initialiaze the new menu with the current mode
-    if (!m_pCurMenu->init()) {
+    // open the menu we have selected
+    if (!openMenu(m_selection)) {
       DEBUGF("Failed to initialize %s menu", menuList[m_selection].menuName);
-      // if the menu failed to init, don't open it
-      m_pCurMenu = nullptr;
       return false;
     }
-    // clear all the leds
-    Leds::clearAll();
     // continue displaying the menu
     return true;
   }
@@ -136,11 +135,7 @@ bool Menus::runCurMenu()
     if (!Modes::save()) {
       // error saving
     }
-    // delete the menu we're done with it
-    delete m_pCurMenu;
-    m_pCurMenu = nullptr;
-    // the menus are no longer open either
-    m_isOpen = false;
+    closeCurMenu();
     // return false to let the modes play
     return false;
   }
@@ -182,4 +177,41 @@ bool Menus::shouldRun()
 {
   // run the menus if they are open or the button is pressed
   return m_isOpen || g_pButton->isPressed();
+}
+
+bool Menus::openMenu(uint32_t index)
+{
+  if (index >= NUM_MENUS) {
+    return false;
+  }
+  Menu *newMenu = menuList[index].initMenu();
+  if (!newMenu) {
+    return false;
+  }
+  // initialiaze the new menu with the current mode
+  if (!newMenu->init()) {
+    DEBUGF("Failed to initialize %s menu", menuList[index].menuName);
+    // if the menu failed to init, don't open it
+    delete newMenu;
+    return false;
+  }
+  if (m_pCurMenu) {
+    delete m_pCurMenu;
+  }
+  // assign the new menu
+  m_pCurMenu = newMenu;
+  // and the menus are open just in case
+  m_isOpen = true;
+  // clear all the leds
+  Leds::clearAll();
+  return true;
+}
+
+void Menus::closeCurMenu()
+{
+  if (m_pCurMenu) {
+    delete m_pCurMenu;
+    m_pCurMenu = nullptr;
+  }
+  m_isOpen = false;
 }
