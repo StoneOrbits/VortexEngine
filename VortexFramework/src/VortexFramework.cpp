@@ -21,31 +21,31 @@ bool VortexFramework::init()
 
   // all of the global controllers
   if (!Time::init()) {
-    DEBUG("Time failed to initialize");
+    DEBUG_LOG("Time failed to initialize");
     return false;
   }
   if (!Storage::init()) {
-    DEBUG("Storage failed to initialize");
+    DEBUG_LOG("Storage failed to initialize");
     return false;
   }
   if (!Infrared::init()) {
-    DEBUG("Infrared failed to initialize");
+    DEBUG_LOG("Infrared failed to initialize");
     return false;
   }
   if (!Leds::init()) {
-    DEBUG("Leds failed to initialize");
+    DEBUG_LOG("Leds failed to initialize");
     return false;
   }
   if (!Buttons::init()) {
-    DEBUG("Buttons failed to initialize");
+    DEBUG_LOG("Buttons failed to initialize");
     return false;
   }
   if (!Menus::init()) {
-    DEBUG("Menus failed to initialize");
+    DEBUG_LOG("Menus failed to initialize");
     return false;
   }
   if (!Modes::init()) {
-    DEBUG("Settings failed to initialize");
+    DEBUG_LOG("Settings failed to initialize");
     return false;
   }
 

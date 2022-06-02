@@ -22,7 +22,7 @@ bool ModeSharing::init()
   }
   // just start spewing out modes everywhere
   startSending();
-  DEBUG("Entering Mode Sharing");
+  DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
 
@@ -93,25 +93,25 @@ void ModeSharing::sendMode()
   last_time = now;
   Modes::serialize(buf);
   if (!buf.compress()) {
-    DEBUG("Failed to compress, aborting send");
+    DEBUG_LOG("Failed to compress, aborting send");
     return;
     // tried
   }
   // too big
   if (buf.rawSize() > 8000) {
-    DEBUGF("too big: %u", buf.rawSize());
+    DEBUG_LOGF("too big: %u", buf.rawSize());
     return;
   }
-  DEBUGF("Writing %u buf", buf.rawSize());
+  DEBUG_LOGF("Writing %u buf", buf.rawSize());
   Infrared::write(buf.rawSize() | 0xb00b0000);
   uint32_t num_writes = (buf.rawSize() + 3) / 4;
   uint32_t *raw_buf = (uint32_t *)buf.rawData();
   for (uint32_t i = 0; i < num_writes; ++i) {
     if (!Infrared::write(raw_buf[i])) {
-      DEBUGF("Failed to write %u dword", i);
+      DEBUG_LOGF("Failed to write %u dword", i);
     }
   }
-  DEBUGF("Wrote %u buf", buf.rawSize());
+  DEBUG_LOGF("Wrote %u buf", buf.rawSize());
 }
 
 // WARNING! Right now this function blocks till it gets data, 
@@ -130,7 +130,7 @@ void ModeSharing::receiveMode()
   } while (((val >> 16) & 0xFFFF) != 0xb00b);
   uint32_t size = val & 0xFFFF;
   if (!size || size > 8096) {
-    DEBUGF("bad mode size %u", size);
+    DEBUG_LOGF("bad mode size %u", size);
     return;
   }
   databuf.init(size);
@@ -139,14 +139,14 @@ void ModeSharing::receiveMode()
   for (uint32_t i = 0; i < num_reads; ++i) {
     raw_buf[i] = Infrared::read();
   }
-  DEBUGF("Received %u bytes", databuf.size());
+  DEBUG_LOGF("Received %u bytes", databuf.size());
   if (!databuf.decompress()) {
-    DEBUG("Failed to decompress, crc mismatch or bad data");
+    DEBUG_LOG("Failed to decompress, crc mismatch or bad data");
     return;
   }
   // if it decompressed the CRC was good and we can unserialize
   if (!Modes::unserialize(databuf)) {
-    DEBUG("Failed to load modes");
+    DEBUG_LOG("Failed to load modes");
   }
 }
 
@@ -171,12 +171,12 @@ void ModeSharing::showReceiveMode()
 void ModeSharing::startSending()
 {
   m_sharingMode = ModeShareState::SHARE_SEND;
-  DEBUG("Switched to send mode");
+  DEBUG_LOG("Switched to send mode");
 }
 
 void ModeSharing::startReceiving()
 {
   // start listening
   m_sharingMode = ModeShareState::SHARE_RECEIVE;
-  DEBUG("Switched to receive mode");
+  DEBUG_LOG("Switched to receive mode");
 }

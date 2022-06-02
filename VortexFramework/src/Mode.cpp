@@ -54,7 +54,7 @@ void Mode::play()
 
 void Mode::serialize(SerialBuffer &buffer) const
 {
-  //DEBUG("Serialize");
+  //DEBUG_LOG("Serialize");
   //   4 mode flags (*)       flags defined whether multi pattern or not
   //     led1..N {            if multi pattern then 10x led, otherwise 1x
   //      colorset1..N {
@@ -73,7 +73,7 @@ void Mode::serialize(SerialBuffer &buffer) const
   } else if (isSameSingleLed()) {
     flags |= MODE_FLAG_ALL_SAME_SINGLE;
   }
-  //DEBUGF("Saved mode flags: %x (%u %u)", flags, buffer.size(), buffer.capacity());
+  //DEBUG_LOGF("Saved mode flags: %x (%u %u)", flags, buffer.size(), buffer.capacity());
   buffer.serialize(flags);
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     const Pattern *entry = m_ledEntries[pos];
@@ -107,12 +107,16 @@ void Mode::unserialize(SerialBuffer &buffer)
     if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
       m_ledEntries[pos] = PatternBuilder::make(firstID);
       if (!m_ledEntries[pos]) {
-        // error
+        ERROR_LOG("Failed to created pattern");
         return;
       }
       m_ledEntries[pos]->bind(firstSet, pos);
     } else {
       m_ledEntries[pos] = PatternBuilder::unserialize(buffer);
+      if (!m_ledEntries[pos]) {
+        ERROR_LOG("Failed to unserialize pattern from buffer");
+        return;
+      }
     }
   }
 }
@@ -224,7 +228,8 @@ bool Mode::setPattern(PatternID pat)
   // otherwise iterate all of the LEDs and set single led patterns
   for (LedPos p = LED_FIRST; p < LED_COUNT; ++p) {
     if (!setSinglePat(pat, p)) {
-      // error
+      ERROR_LOGF("Failed to set single pattern %u", p);
+      return false;
     }
   }
   return true;

@@ -75,10 +75,10 @@ bool Menus::runRingFill()
   // if the button was released this tick and the ringmenu was open 
   // then close the ringmenu and return the current menu selection
   if (g_pButton->onRelease() && m_isOpen) {
-    DEBUGF("Released on ringmenu %s", menuList[m_selection].menuName);
+    DEBUG_LOGF("Released on ringmenu %s", menuList[m_selection].menuName);
     // open the menu we have selected
     if (!openMenu(m_selection)) {
-      DEBUGF("Failed to initialize %s menu", menuList[m_selection].menuName);
+      DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
       return false;
     }
     // continue displaying the menu
@@ -95,7 +95,7 @@ bool Menus::runRingFill()
     m_selection = 0;
     // the menus are now open
     m_isOpen = true;
-    DEBUG("Opened RingMenu");
+    DEBUG_LOG("Opened RingMenu");
   }
   // clear the leds so it always fills instead of replacing
   Leds::clearAll();
@@ -133,7 +133,7 @@ bool Menus::runCurMenu()
   if (!m_pCurMenu->run()) {
     // when a menu closes save all settings
     if (!Modes::saveStorage()) {
-      // error saving
+      ERROR_LOG("Failed to save storage");
     }
     closeCurMenu();
     // return false to let the modes play
@@ -190,7 +190,7 @@ bool Menus::openMenu(uint32_t index)
   }
   // initialiaze the new menu with the current mode
   if (!newMenu->init()) {
-    DEBUGF("Failed to initialize %s menu", menuList[index].menuName);
+    DEBUG_LOGF("Failed to initialize %s menu", menuList[index].menuName);
     // if the menu failed to init, don't open it
     delete newMenu;
     return false;

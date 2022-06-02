@@ -41,7 +41,7 @@ void Time::tickClock()
 
 #ifdef DEBUG_ALLOCATIONS
   if ((m_curTick % msToTicks(1000)) == 0) {
-    DEBUGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
+    DEBUG_LOGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
   }
 #endif
 

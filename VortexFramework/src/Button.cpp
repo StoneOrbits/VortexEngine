@@ -77,12 +77,12 @@ void Button::check()
   m_shortClick = (m_newRelease && (m_holdDuration <= SHORT_CLICK_THRESHOLD));
   m_longClick = (m_newRelease && (m_holdDuration > SHORT_CLICK_THRESHOLD));
 
-  if (m_shortClick) DEBUG("Short click");
-  if (m_longClick) DEBUG("Long click");
+  if (m_shortClick) DEBUG_LOG("Short click");
+  if (m_longClick) DEBUG_LOG("Long click");
 
 #if 0
   // helpful for debugging
-  DEBUGF("Button Info:\n\tm_buttonState: %d\n\tm_pressTime: %d\n\tm_releaseTime: %d\n\t"
+  DEBUG_LOGF("Button Info:\n\tm_buttonState: %d\n\tm_pressTime: %d\n\tm_releaseTime: %d\n\t"
     "m_holdDuration: %d\n\tm_releaseDuration: %d\n\tm_newPress: %d\n\t"
     "m_newRelease: %d\n\t" "m_isPressed: %d\n\tm_shortClick: %d\n\t"
     "m_longClick: %d\n",

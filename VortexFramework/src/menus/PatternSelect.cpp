@@ -38,11 +38,11 @@ bool PatternSelect::init()
     m_pDemoMode->setPattern(m_newPatternID);
   }
   if (!m_pDemoMode) {
-    DEBUG("Failed to build demo mode for pattern select");
+    DEBUG_LOG("Failed to build demo mode for pattern select");
     return false;
   }
   m_pDemoMode->init();
-  DEBUG("Entered pattern select");
+  DEBUG_LOG("Entered pattern select");
   return true;
 }
 
@@ -105,7 +105,7 @@ void PatternSelect::nextPattern()
   // change the pattern of demo mode
   m_pDemoMode->setPattern(m_newPatternID);
   m_pDemoMode->init();
-  DEBUGF("Demoing Pattern %u", m_newPatternID);
+  DEBUG_LOGF("Demoing Pattern %u", m_newPatternID);
 }
 
 void PatternSelect::onLongClick()
@@ -117,13 +117,13 @@ void PatternSelect::onLongClick()
     m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));
     m_pDemoMode->setPattern(m_newPatternID);
     m_pDemoMode->init();
-    DEBUGF("Started picking pattern at %u", m_newPatternID);
+    DEBUG_LOGF("Started picking pattern at %u", m_newPatternID);
     break;
   case STATE_PICK_PATTERN:
     // store the new pattern in the mode
     m_pCurMode->setPattern(m_newPatternID);
     m_pCurMode->init();
-    DEBUGF("Saving pattern %u", m_newPatternID);
+    DEBUG_LOGF("Saving pattern %u", m_newPatternID);
     // go back to beginning for next time
     m_state = STATE_PICK_LIST;
     // done in the pattern select menu

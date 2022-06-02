@@ -88,6 +88,7 @@ private:
   // don't expose this one it's dangerous
   uint8_t *frontSerializer() const { return m_pData ? m_pData->buf + m_pData->size : nullptr; }
   bool largeEnough(uint32_t amount) const;
+  uint32_t getWidth(uint32_t value);
 
   // inner data buffer
 #ifdef TEST_FRAMEWORK
@@ -111,9 +112,10 @@ private:
     // reset the reader/writer position
     void resetPos();
 
-    // read/write bits
+    // read write a single bit in LSB
     uint8_t read1Bit();
     void write1Bit(uint8_t bit);
+    // read/write multiple bits from left to right at LSB
     uint8_t readBits(uint32_t numBits);
     void writeBits(uint32_t numBits, uint32_t val);
 

@@ -46,7 +46,6 @@ public:
 
   // change the number of ticks each LED runs out of sync
   // 0 will run all of the lights in sync
-  // TODO: Synchronize finger timing?
   static void setTickOffset(uint32_t tickOffset = 0);
 
   // convert milliseconds to a tickcount based on tickrate

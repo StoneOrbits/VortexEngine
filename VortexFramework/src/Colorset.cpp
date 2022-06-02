@@ -165,23 +165,6 @@ void Colorset::set(uint32_t index, RGBColor col)
   m_palette[index] = col;
 }
 
-// set an hsv color in a slot (expensive)
-void Colorset::set(uint32_t index, HSVColor col)
-{
-  if (!m_palette) {
-    return;
-  }
-  // TODO: colorset::add this is ghetto
-  if (index > m_numColors) {
-    index = m_numColors;
-  }
-  // warning! converstion from hsv to rgb here
-  m_palette[index] = col;
-  if (index == m_numColors) {
-    m_numColors++;
-  }
-}
-
 // skip some amount of colors
 void Colorset::skip(int32_t amount)
 {

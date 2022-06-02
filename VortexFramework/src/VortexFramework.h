@@ -3,16 +3,15 @@
 
 // TODO STILL:
 /*
- *  Primary:
- *   - Mode Sharing
+ *  Everything is working somewhat
  *
  *  Secondary:
- *   - Smart randomizer
  *   - Implement missing patterns
+ *   - Smart randomizer
+ *   - Improve Mode Sharing logic/code/approach
  *
  *  Other:
  *   - Demo and demo speed?
- *   - Debug/error logging
  */
 
 class VortexFramework

@@ -28,3 +28,16 @@ void DebugMsg(const char *file, const char *func, int line, const char *msg, ...
 #endif
   va_end(list);
 }
+
+
+void ErrorMsg(const char *func, const char *msg, ...)
+{
+  char fmt[2048] = {0};
+  snprintf(fmt, sizeof(fmt), "%s(): %s", func, msg);
+  char buf[2048] = {0};
+  va_list list;
+  va_start(list, msg);
+  vsnprintf(buf, sizeof(buf), fmt, list);
+  va_end(list);
+  Serial.println(buf);
+}

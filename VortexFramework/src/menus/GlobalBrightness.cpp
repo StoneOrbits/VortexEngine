@@ -21,7 +21,7 @@ bool GlobalBrightness::init()
       m_curSelection = (Finger)i;
     }
   }
-  DEBUG("Entered global brightness");
+  DEBUG_LOG("Entered global brightness");
   return true;
 }
 

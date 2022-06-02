@@ -31,7 +31,7 @@ bool Modes::init()
   }
   // should be able to initialize the current mode
   if (!initCurMode()) {
-    DEBUG("Error failed to load any modes!");
+    DEBUG_LOG("Error failed to load any modes!");
     return false;
   }
   return true;
@@ -69,7 +69,7 @@ bool Modes::loadStorage()
   SerialBuffer modesBuffer;
   // only read storage if the modebuffer isn't filled
   if (!Storage::read(modesBuffer) || !modesBuffer.size()) {
-    DEBUG("Empty buffer read from storage");
+    DEBUG_LOG("Empty buffer read from storage");
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
@@ -104,18 +104,18 @@ bool Modes::saveStorage()
   //       ]
   //      ]
 
-  DEBUG("Saving modes...");
+  DEBUG_LOG("Saving modes...");
   
   SerialBuffer modesBuffer;
   serialize(modesBuffer);
 
   // write the serial buffer to flash storage
   if (!Storage::write(modesBuffer)) {
-    DEBUG("Failed to write storage");
+    DEBUG_LOG("Failed to write storage");
     return false;
   }
 
-  DEBUGF("Wrote %u bytes to storage", modesBuffer.size());
+  DEBUG_LOGF("Wrote %u bytes to storage", modesBuffer.size());
 
   return true;
 }
@@ -125,7 +125,7 @@ void Modes::serialize(SerialBuffer &modesBuffer)
 {
   // serialize the number of modes
   modesBuffer.serialize(m_numModes);
-  DEBUGF("Serialized num modes: %u", m_numModes);
+  DEBUG_LOGF("Serialized num modes: %u", m_numModes);
   for (uint32_t i = 0; i < m_numModes; ++i) {
     if (i == m_curMode && m_pCurMode) {
       // write the current up to date mode
@@ -142,7 +142,7 @@ void Modes::serialize(SerialBuffer &modesBuffer)
 // load the mode from serial
 bool Modes::unserialize(SerialBuffer &modesBuffer)
 {
-  DEBUG("Loading modes...");
+  DEBUG_LOG("Loading modes...");
   // this is good on memory, but it erases what they have stored
   // before we know whether there is something actually saved
   clearModes();
@@ -150,7 +150,7 @@ bool Modes::unserialize(SerialBuffer &modesBuffer)
   modesBuffer.resetUnserializer();
   modesBuffer.unserialize(&numModes);
   if (!numModes) {
-    DEBUG("Did not find any modes");
+    DEBUG_LOG("Did not find any modes");
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
@@ -158,12 +158,12 @@ bool Modes::unserialize(SerialBuffer &modesBuffer)
   clearModes();
   for (uint8_t i = 0; i < numModes; ++i) {
     if (!addSerializedMode(modesBuffer)) {
-      DEBUGF("Failed to add mode %u after unserialization", i);
+      DEBUG_LOGF("Failed to add mode %u after unserialization", i);
       clearModes();
       return false;
     }
   }
-  DEBUGF("Loaded %u modes from storage (%u bytes)", numModes, modesBuffer.size());
+  DEBUG_LOGF("Loaded %u modes from storage (%u bytes)", numModes, modesBuffer.size());
   // default can't load anything
   return (m_numModes == numModes);
 }
@@ -180,10 +180,11 @@ bool Modes::setDefaults()
     //defaultSet.randomize();
     // add another mode with the given pattern and colorset
     if (!addMode(pattern, &defaultSet)) {
-      // error? return false?
+      ERROR_LOG("Failed to add mode");
+      // return false?
     }
   }
-  DEBUGF("Added default patterns %u through %u", default_start, default_end);
+  DEBUG_LOGF("Added default patterns %u through %u", default_start, default_end);
 
   return true;
 }
@@ -192,7 +193,7 @@ bool Modes::addSerializedMode(SerialBuffer &serializedMode)
 {
   Mode *mode = ModeBuilder::unserialize(serializedMode);
   if (!mode) {
-    DEBUG("Failed to unserialize mode");
+    DEBUG_LOG("Failed to unserialize mode");
     return false;
   }
   mode->init();
@@ -242,7 +243,7 @@ bool Modes::addMode(const Mode *mode)
 bool Modes::setCurMode(PatternID id, const Colorset *set)
 {
   if (id > PATTERN_LAST || !set) {
-    // programmer error
+    ERROR_LOG("Invalid id or set");
     return false;
   }
   Mode *pCurMode = curMode();
@@ -250,15 +251,15 @@ bool Modes::setCurMode(PatternID id, const Colorset *set)
     return false;
   }
   if (!pCurMode->setPattern(id)) {
-    DEBUG("Failed to set pattern of current mode");
+    DEBUG_LOG("Failed to set pattern of current mode");
     // failed to set pattern?
   }
   if (!pCurMode->setColorset(set)) {
-    DEBUG("Failed to set colorset of current mode");
+    DEBUG_LOG("Failed to set colorset of current mode");
   }
   // initialize the mode with new pattern and colorset
   pCurMode->init();
-  // clear the 
+  // clear the current mode
   m_serializedModes[m_curMode].clear();
   // update the serialized storage
   pCurMode->serialize(m_serializedModes[m_curMode]);
@@ -280,7 +281,7 @@ Mode *Modes::curMode()
   }
   if (!m_pCurMode) {
     if (!initCurMode()) {
-      // error
+      ERROR_LOG("Failed to initialize current mode");
       return nullptr;
     }
   }
@@ -296,7 +297,7 @@ Mode *Modes::nextMode()
   }
   // iterate curmode forward 1 till num modes
   m_curMode = (m_curMode + 1) % m_numModes;
-  DEBUGF("Iterated to Next Mode: %u / %u", m_curMode, m_numModes - 1);
+  DEBUG_LOGF("Iterated to Next Mode: %u / %u", m_curMode, m_numModes - 1);
   // clear the LEDs when switching modes
   Leds::clearAll();
   // delete the current mode

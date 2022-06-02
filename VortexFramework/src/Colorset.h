@@ -51,8 +51,6 @@ public:
 
   // set an rgb color at in a slot
   void set(uint32_t index, RGBColor col);
-  // set an hsv color in a slot (expensive)
-  void set(uint32_t index, HSVColor col);
 
   // skip some amount of colors
   void skip(int32_t amount = 1);

@@ -57,7 +57,7 @@ void Menu::onLongClick()
 void Menu::leaveMenu()
 {
   m_shouldClose = true;
-  //Debug("Leaving Menu");
+  //DEBUG_LOG("Leaving Menu");
 }
 
 void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)

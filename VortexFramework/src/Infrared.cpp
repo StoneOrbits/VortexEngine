@@ -45,7 +45,7 @@ uint32_t Infrared::read()
   myDecoder.dumpResults(true);
   result = myDecoder.value;
   myReceiver.enableIRIn();
-  DEBUGF("IR Read: %u", result);
+  DEBUG_LOGF("IR Read: %u", result);
   return result;
 }
 

@@ -36,7 +36,7 @@ bool ColorSelect::init()
   // either the colorset of the first individual pattern or if the mode has a multi-led 
   // pattern then it's the multi-led pattern's colorset
   m_colorset = *m_pCurMode->getColorset();
-  DEBUG("Entered color select");
+  DEBUG_LOG("Entered color select");
   return true;
 }
 

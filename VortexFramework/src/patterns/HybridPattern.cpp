@@ -53,11 +53,11 @@ void HybridPattern::play()
 // must override the serialize routine to save the pattern
 void HybridPattern::serialize(SerialBuffer &buffer) const
 {
-  //DEBUG("Serialize");
+  //DEBUG_LOG("Serialize");
   MultiLedPattern::serialize(buffer);
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
     if (!m_ledPatterns[pos]) {
-      DEBUG("Could not serialize hybrid pattern!");
+      DEBUG_LOG("Could not serialize hybrid pattern!");
       return;
     }
     m_ledPatterns[pos]->serialize(buffer);
@@ -67,7 +67,7 @@ void HybridPattern::serialize(SerialBuffer &buffer) const
 // must override unserialize to load patterns
 void HybridPattern::unserialize(SerialBuffer &buffer)
 {
-  //DEBUG("Unserialize");
+  //DEBUG_LOG("Unserialize");
   clearPatterns();
   MultiLedPattern::unserialize(buffer);
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {

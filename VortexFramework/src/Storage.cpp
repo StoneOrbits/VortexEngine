@@ -30,7 +30,7 @@ bool Storage::init()
 {
 #ifdef TEST_FRAMEWORK
 #ifndef LINUX_FRAMEWORK
-  //DeleteFile("FlashStorage.flash");
+  DeleteFile("FlashStorage.flash");
 #endif
 #endif
   return true;
@@ -44,16 +44,17 @@ void Storage::cleanup()
 bool Storage::write(SerialBuffer &buffer)
 {
   if (buffer.size() > STORAGE_SIZE) {
-    DEBUG("ERROR buffer too big");
+    ERROR_LOG("Buffer too big");
     return false;
   }
   if (!buffer.compress()) {
     // don't write if we can't compress
-    DEBUG("Did not compress storage");
+    ERROR_LOG("Did not compress storage");
+    return false;
   }
   storage.erase();
   storage.write(_storagedata, buffer.rawData(), buffer.rawSize());
-  DEBUGF("Wrote %u bytes to storage (max: %u)", buffer.size(), STORAGE_SIZE);
+  DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", buffer.size(), STORAGE_SIZE);
   return true;
 }
 
@@ -65,17 +66,17 @@ bool Storage::read(SerialBuffer &buffer)
   }
   storage.read(buffer.rawData());
   if (!buffer.size()) {
-    DEBUG("Read null from storage");
+    DEBUG_LOG("Read null from storage");
     return false;
   }
-  if (buffer.is_compressed() && !buffer.decompress()) {
-    DEBUG("Failed to decompress buffer loaded from storage");
+  if (!buffer.decompress()) {
+    DEBUG_LOG("Failed to decompress buffer loaded from storage");
     return false;
   }
   if (!buffer.shrink()) {
-    DEBUG("Failed to shrink buffer loaded from storage");
+    DEBUG_LOG("Failed to shrink buffer loaded from storage");
     return false;
   }
-  DEBUGF("Loaded %u bytes from storage", buffer.size());
+  DEBUG_LOGF("Loaded %u bytes from storage", buffer.size());
   return true;
 }

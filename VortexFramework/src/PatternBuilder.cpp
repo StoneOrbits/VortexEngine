@@ -15,7 +15,7 @@
 Pattern *PatternBuilder::make(PatternID id)
 {
   if (id > PATTERN_LAST) {
-    DEBUGF("Invalid pattern id: %u", id);
+    DEBUG_LOGF("Invalid pattern id: %u", id);
     return nullptr;
   }
   if (isMultiLedPatternID(id)) {
@@ -97,6 +97,6 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_HUESHIFT: return new HueShiftPattern(1, 1);
     default: break;
   }
-  DEBUGF("Unknown pattern id: %u", id);
+  DEBUG_LOGF("Unknown pattern id: %u", id);
   return nullptr;
 }

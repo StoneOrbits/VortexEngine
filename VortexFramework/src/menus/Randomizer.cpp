@@ -33,10 +33,10 @@ bool Randomizer::init()
   }
   // re-roll the randomization
   if (!reRoll()) {
-    // fatal error
+    ERROR_LOG("Failed to re-roll randomizer");
     return false;
   }
-  DEBUG("Entered randomizer");
+  DEBUG_LOG("Entered randomizer");
   return true;
 }
 
@@ -62,18 +62,20 @@ void Randomizer::onShortClick()
 {
   // shortClick re-roll the randomization
   if (!reRoll()) {
-    // fatal error
+    ERROR_LOG("Failed to re-roll randomizer");
+  } else {
+    DEBUG_LOG("Re-rolling randomization");
   }
-  DEBUG("Re-rolling randomization");
 }
 
 void Randomizer::onLongClick()
 {
   // update the current mode to be a copy of the randomized mode
   if (!Modes::setCurMode(m_pRandomizedMode)) {
-    // error
+    ERROR_LOG("Failed to set randomized mode");
+  } else {
+    DEBUG_LOG("Saved new randomization");
   }
-  DEBUG("Saved new randomization");
   // then done here
   leaveMenu();
 }

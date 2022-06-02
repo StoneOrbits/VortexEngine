@@ -59,7 +59,7 @@ void Timer::reset()
 bool Timer::onStart() const
 {
   if (Time::getCurtime() == getStartTime() && m_curAlarm == 0) {
-    DEBUG("Timer start");
+    DEBUG_LOG("Timer start");
     return true;
   }
   return false;

@@ -1,5 +1,8 @@
 #include "Memory.h"
 
+// everything in here is only really used when allocations are being debugged
+#ifdef DEBUG_ALLOCATIONS
+
 #include <stdlib.h>
 #include <stdio.h>
 
@@ -20,7 +23,7 @@ struct memory_block
 void *_vmalloc(uint32_t size)
 {
   if ((cur_mem_usage + size) >= MAX_MEMORY) {
-    DEBUG("OVERMEM");
+    DEBUG_LOG("OVERMEM");
     return nullptr;
   }
   memory_block *b = (memory_block *)malloc(size + sizeof(memory_block));
@@ -30,14 +33,14 @@ void *_vmalloc(uint32_t size)
   b->size = size;
   cur_mem_usage += b->size;
   background_usage += sizeof(memory_block);
-  //DEBUGF("malloc(): %u (%u) (%u)", b->size, cur_memory_usage, background_usage);
+  //DEBUG_LOGF("malloc(): %u (%u) (%u)", b->size, cur_memory_usage, background_usage);
   return b->p;
 }
 
 void *_vcalloc(uint32_t size, uint32_t amount)
 {
   if ((cur_mem_usage + (size * amount)) >= MAX_MEMORY) {
-    DEBUG("OVERMEM");
+    DEBUG_LOG("OVERMEM");
     return nullptr;
   }
   uint32_t real_amount = (size * amount);
@@ -48,7 +51,7 @@ void *_vcalloc(uint32_t size, uint32_t amount)
   b->size = real_amount;
   cur_mem_usage += b->size;
   background_usage += sizeof(memory_block);
-  //DEBUGF("calloc(): %u (%u) (%u)", b->size, cur_mem_usage, background_usage);
+  //DEBUG_LOGF("calloc(): %u (%u) (%u)", b->size, cur_mem_usage, background_usage);
   return b->p;
 }
 
@@ -70,10 +73,10 @@ void *_vrealloc(void *ptr, uint32_t size)
     return ptr;
   }
   if ((cur_mem_usage - old_size) + size >= MAX_MEMORY) {
-    DEBUG("OVERMEM");
+    DEBUG_LOG("OVERMEM");
     return nullptr;
   }
-  //DEBUGF("realloc(): %u -> %u (%u) (%u)", old_size, size, (cur_mem_usage - old_size) + size, background_usage);
+  //DEBUG_LOGF("realloc(): %u -> %u (%u) (%u)", old_size, size, (cur_mem_usage - old_size) + size, background_usage);
   memory_block *b = (memory_block *)realloc(base, size + sizeof(memory_block));
   if (!b) {
     return nullptr;
@@ -95,7 +98,7 @@ void _vfree(void *ptr)
   memory_block *base = get_base(ptr);
   cur_mem_usage -= base->size;
   background_usage -= sizeof(memory_block);
-  //DEBUGF("free(): %u (%u) (%u)", base->size, cur_mem_usage, background_usage);
+  //DEBUG_LOGF("free(): %u (%u) (%u)", base->size, cur_mem_usage, background_usage);
   free(base);
 }
 
@@ -109,7 +112,6 @@ uint32_t cur_memory_usage_background()
   return background_usage;
 }
 
-#ifdef DEBUG_ALLOCATIONS
 void *operator new(size_t size)
 {
   return _vmalloc(size);
@@ -129,4 +131,5 @@ void operator delete[](void *ptr) noexcept
 {
   _vfree(ptr);
 }
+
 #endif
