@@ -27,8 +27,13 @@ public:
   static void play();
 
   // settings save/load
-  static bool load();
-  static bool save();
+  static bool loadStorage();
+  static bool saveStorage();
+
+  // saves all modes to a buffer
+  static void serialize(SerialBuffer &buffer);
+  // load all modes from a buffer
+  static bool unserialize(SerialBuffer &buffer);
 
   // set default settings (must save after)
   static bool setDefaults();

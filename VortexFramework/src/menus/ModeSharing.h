@@ -20,12 +20,21 @@ private:
   void sendMode();
   void receiveMode();
 
-  enum class SharingMode {
-    SHARE_SEND     = 0,
-    SHARE_RECEIVE  = 1
+  void showSendMode();
+  void showReceiveMode();
+
+  void startSending();
+  void startReceiving();
+
+  enum class ModeShareState {
+    SHARE_SEND,     // send mode
+    SHARE_RECEIVE,  // receive mode
+    SHARE_QUIT,      // leave menu
   };
 
-  SharingMode m_sharingMode;
+  ModeShareState m_sharingMode;
+  // last time data was sent/received
+  uint64_t m_last_action;
 };
 
 #endif

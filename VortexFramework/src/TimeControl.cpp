@@ -32,6 +32,8 @@ void Time::cleanup()
 {
 }
 
+#include "Infrared.h"
+
 void Time::tickClock()
 {
   // tick clock forward

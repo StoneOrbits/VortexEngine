@@ -1,6 +1,8 @@
 #ifndef IR_CONTROL_H
 #define IR_CONTROL_H
 
+#include <inttypes.h>
+
 class Infrared
 {
   // private unimplemented constructor
@@ -12,8 +14,8 @@ public:
   static bool init();
   static void cleanup();
 
-  static bool read();
-  static bool write();
+  static uint32_t read();
+  static bool write(uint32_t val);
 
 private:
 };

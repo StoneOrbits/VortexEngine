@@ -21,11 +21,11 @@ SerialBuffer Modes::m_serializedModes[NUM_MODES];
 bool Modes::init()
 {
   // try to load the saved settings or set defaults
-  if (!load()) {
+  if (!loadStorage()) {
     if (!setDefaults()) {
       return false;
     }
-    if (!save()) {
+    if (!saveStorage()) {
       return false;
     }
   }
@@ -61,9 +61,8 @@ void Modes::play()
   m_pCurMode->play();
 }
 
-bool Modes::load()
+bool Modes::loadStorage()
 {
-  DEBUG("Loading modes...");
   // this is good on memory, but it erases what they have stored
   // before we know whether there is something actually saved
   clearModes();
@@ -74,11 +73,84 @@ bool Modes::load()
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
+  return unserialize(modesBuffer);
+}
+
+// NOTE: Flash storage is limited to about 10,000 writes so 
+//       use this function sparingly!
+bool Modes::saveStorage()
+{
+  // legacy data format:
+  //  4 num
+  //  4 pattern num
+  //  4 num colors
+  //   4 hue
+  //   4 sat
+  //   4 val
+  //
+  // new data format:
+  //  1 num modes (1-255) 
+  //   4 mode flags (*)
+  //   1 num leds (1 - 10)
+  //     led1..N [
+  //      1 led (0 - 9)
+  //      1 pattern id (0 - 255)
+  //      colorset1..N [
+  //       1 numColors (0 - 255)
+  //       hsv1..N [
+  //        1 hue (0-255)
+  //        1 sat (0-255)
+  //        1 val (0-255)
+  //       ]
+  //      ]
+
+  DEBUG("Saving modes...");
+  
+  SerialBuffer modesBuffer;
+  serialize(modesBuffer);
+
+  // write the serial buffer to flash storage
+  if (!Storage::write(modesBuffer)) {
+    DEBUG("Failed to write storage");
+    return false;
+  }
+
+  DEBUGF("Wrote %u bytes to storage", modesBuffer.size());
+
+  return true;
+}
+
+// save the mode to serial
+void Modes::serialize(SerialBuffer &modesBuffer)
+{
+  // serialize the number of modes
+  modesBuffer.serialize(m_numModes);
+  DEBUGF("Serialized num modes: %u", m_numModes);
+  for (uint32_t i = 0; i < m_numModes; ++i) {
+    if (i == m_curMode && m_pCurMode) {
+      // write the current up to date mode
+      m_pCurMode->serialize(modesBuffer);
+      continue;
+    }
+    // serialize each after decompressing
+    //m_serializedModes[i].decompress();
+    modesBuffer += m_serializedModes[i];
+    //m_serializedModes[i].compress();
+  }
+}
+
+// load the mode from serial
+bool Modes::unserialize(SerialBuffer &modesBuffer)
+{
+  DEBUG("Loading modes...");
+  // this is good on memory, but it erases what they have stored
+  // before we know whether there is something actually saved
+  clearModes();
   uint8_t numModes = 0;
   modesBuffer.resetUnserializer();
   modesBuffer.unserialize(&numModes);
   if (!numModes) {
-    DEBUG("Did not find any modes in storage");
+    DEBUG("Did not find any modes");
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
@@ -96,64 +168,6 @@ bool Modes::load()
   return (m_numModes == numModes);
 }
 
-// NOTE: Flash storage is limited to about 10,000 writes so 
-//       use this function sparingly!
-bool Modes::save()
-{
-  // legacy data format:
-  //  4 num
-  //  4 pattern num
-  //  4 num colors
-  //   4 hue
-  //   4 sat
-  //   4 val
-  //
-  // new data format:
-  //  1 num modes (1-255) 
-  //   4 mode flags (*)
-  //   1 num leds (1 - 10)
-  //     led1..N {
-  //      1 led (0 - 9)
-  //      1 pattern id (0 - 255)
-  //      colorset1..N {
-  //       1 numColors (0 - 255)
-  //       hsv1..N {
-  //        1 hue (0-255)
-  //        1 sat (0-255)
-  //        1 val (0-255)
-  //       }
-  //      }
-
-  DEBUG("Saving modes...");
-  
-  SerialBuffer modesBuffer;
-
-  // serialize the number of modes
-  modesBuffer.serialize(m_numModes);
-  DEBUGF("Serialized num modes: %u", m_numModes);
-  for (uint32_t i = 0; i < m_numModes; ++i) {
-    if (i == m_curMode && m_pCurMode) {
-      // write the current up to date mode
-      m_pCurMode->serialize(modesBuffer);
-      continue;
-    }
-    // serialize each after decompressing
-    //m_serializedModes[i].decompress();
-    modesBuffer += m_serializedModes[i];
-    //m_serializedModes[i].compress();
-  }
-
-  // write the serial buffer to flash storage
-  if (!Storage::write(modesBuffer)) {
-    DEBUG("Failed to write storage");
-    return false;
-  }
-
-  DEBUGF("Wrote %u bytes to storage", modesBuffer.size());
-
-  return true;
-}
-
 bool Modes::setDefaults()
 {
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
@@ -161,9 +175,9 @@ bool Modes::setDefaults()
   PatternID default_start = PATTERN_FIRST;
   PatternID default_end = PATTERN_LAST;
   // initialize a mode for each pattern with an rgb colorset
-  for (PatternID pattern = default_end; pattern <= default_end; ++pattern) {
+  for (PatternID pattern = default_start; pattern <= default_end; ++pattern) {
     // randomize the colorset
-    //defaultSet.randomize();
+    defaultSet.randomize();
     // add another mode with the given pattern and colorset
     if (!addMode(pattern, &defaultSet)) {
       // error? return false?

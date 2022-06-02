@@ -1,21 +1,22 @@
 #include "Infrared.h"
 
 #include "TimeControl.h"
+#include "Buttons.h"
 #include "Log.h"
 
 #include <Arduino.h>
 
+#include "Leds.h"
+
 #include <IRLibSendBase.h>
+#include <IRLibRecvLoop.h>
 #include <IRLibDecodeBase.h>
-#include <IRLib_P01_NEC.h>    
-#include <IRLibCombo.h>
-#include <IRLibRecv.h>
+#include <IRLib_P01_NEC.h>
 
 #define RECEIVER_PIN 2
-
-IRdecode myDecoder;
-IRrecv myReceiver(RECEIVER_PIN);
-IRsend mySender;
+IRrecvLoop myReceiver(RECEIVER_PIN);
+IRdecodeNEC myDecoder;
+IRsendNEC mySender;
 
 Infrared::Infrared()
 {
@@ -23,30 +24,33 @@ Infrared::Infrared()
 
 bool Infrared::init()
 {
+  myReceiver.enableIRIn();
   return true;
 }
 
 void Infrared::cleanup()
 {
+  // turn off the infrared ISR
+  myReceiver.disableIRIn();
 }
 
-bool Infrared::read()
+uint32_t Infrared::read()
 {
   uint32_t result = 0;
-  myReceiver.enableIRIn();
   if (!myReceiver.getResults()) {
     return false;
   }
+  myDecoder.ignoreHeader=true;
   myDecoder.decode();
   myDecoder.dumpResults(true);
   result = myDecoder.value;
+  myReceiver.enableIRIn();
   DEBUGF("IR Read: %u", result);
-  return true;
+  return result;
 }
 
-bool Infrared::write()
+bool Infrared::write(uint32_t val)
 {
-  mySender.send(NEC, 0xFFFFFFFF, 0);
-  DEBUG("IR Send: ");
+  mySender.send(val);
   return true;
 }

@@ -132,7 +132,7 @@ bool Menus::runCurMenu()
   // menu was closed by the user leaving the menu
   if (!m_pCurMenu->run()) {
     // when a menu closes save all settings
-    if (!Modes::save()) {
+    if (!Modes::saveStorage()) {
       // error saving
     }
     closeCurMenu();
