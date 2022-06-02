@@ -133,96 +133,13 @@ static uint32_t get_width(uint32_t value)
   return 0;
 }
 
-// TODO: find a new home for this
-class BitStream
-{
-public:
-  BitStream(uint8_t *buf, uint32_t size) :
-    m_buf(buf), m_buf_size(size), m_bit_pos(0), m_buf_eof(false)
-  {
-  }
-
-  void resetPos()
-  {
-    m_bit_pos = 0;
-    m_buf_eof = false;
-  }
-
-  bool eof() const { return m_buf_eof; }
-  uint32_t size() const { return m_buf_size; }
-  const uint8_t *data() const { return m_buf; }
-  uint32_t bytepos() const { return m_bit_pos / 8; }
-  uint32_t bitpos() const { return m_bit_pos; }
-
-  uint8_t read1Bit()
-  {
-    if (m_buf_eof) {
-      return 0;
-    }
-    if (m_bit_pos >= (m_buf_size * 8)) {
-      m_buf_eof = true;
-      return 0;
-    }
-    uint32_t rv = (m_buf[m_bit_pos / 8] >> (7 - (m_bit_pos % 8))) & 1;
-    m_bit_pos++;
-    return rv;
-  }
-
-  void write1Bit(uint8_t bit)
-  {
-    if (m_buf_eof) {
-      return;
-    }
-    if (m_bit_pos >= (m_buf_size * 8)) {
-      m_buf_eof = true;
-      return;
-    }
-    m_buf[m_bit_pos / 8] |= (bit & 1) << (7 - (m_bit_pos % 8));
-    m_bit_pos++;
-    if (m_bit_pos >= (m_buf_size * 8)) {
-      m_buf_eof = true;
-    }
-  }
-
-  uint8_t readBits(uint32_t numBits)
-  {
-    uint32_t val = 0;
-    for (uint32_t i = 0; i < numBits; ++i) {
-      if (i > 0) {
-        val <<= 1;
-      }
-      val |= read1Bit();
-      if (m_buf_eof) {
-        break;
-      }
-    }
-    if (m_bit_pos >= (m_buf_size * 8)) {
-      m_buf_eof = true;
-    }
-    return val;
-  }
-
-  void writeBits(uint32_t numBits, uint32_t val)
-  {
-    for (uint32_t i = 0; i < numBits; ++i) {
-      write1Bit(get_bit(val, numBits - (i + 1)));
-    }
-  }
-
-private:
-  uint8_t get_bit(uint32_t val, uint32_t bit) const
-  {
-    return (val >> bit) & 1;
-  }
-
-  uint8_t *m_buf;
-  uint32_t m_buf_size;
-  uint32_t m_bit_pos;
-  bool m_buf_eof;
-};
-
 bool SerialBuffer::compress()
 {
+  // only compress if we have valid data
+  if (!m_pData) {
+    DEBUG("No data to compress");
+    return false;
+  }
   if (is_compressed()) {
     return true;
   }
@@ -292,10 +209,12 @@ bool SerialBuffer::compress()
   memmove(m_pData->buf + table_size, m_pData->buf, data_size);
   // move the table back
   memmove(m_pData->buf, (m_pData->buf + m_capacity) - table_size, table_size);
-  // buffer is no longer compressed
-  m_pData->flags |= BUFFER_FLAG_COMRPESSED;
   // update the size of the buffer
   m_pData->size = table_size + bits.bytepos();
+  // buffer is no longer compressed
+  m_pData->flags |= BUFFER_FLAG_COMRPESSED;
+  // recalc the crc on the data buffer
+  m_pData->recalc_crc();
   // shrink to the size of the buffer
   shrink();
 
@@ -306,6 +225,11 @@ bool SerialBuffer::compress()
 
 bool SerialBuffer::decompress()
 {
+  // only decompress if we have valid data
+  if (!m_pData || !m_pData->verify()) {
+    DEBUG("Cannot verify crc, not decompressing");
+    return false;
+  }
   if (!is_compressed()) {
     return true;
   }
@@ -335,10 +259,16 @@ bool SerialBuffer::decompress()
     //DEBUGF("Decompressed %u -> %u", val, table[val]);
   }
 
-  m_pData->flags &= ~BUFFER_FLAG_COMRPESSED;
-  m_pData->size = outPos;
+  // copy the data in
   memmove(m_pData->buf, out_data, outPos);
+  // cleanup temp buffer
   delete[] out_data;
+  // size changed
+  m_pData->size = outPos;
+  // data is no longer compressed
+  m_pData->flags &= ~BUFFER_FLAG_COMRPESSED;
+  // recalc crc of buffer
+  m_pData->recalc_crc();
 
   DEBUGF("Decompressed %u to %u bytes", (uint32_t)(data_end - m_pData->buf), m_pData->size);
 
@@ -395,7 +325,7 @@ bool SerialBuffer::serialize(uint32_t bytes)
   return true;
 }
 
-// reset the unserializer index 
+// reset the unserializer index
 void SerialBuffer::resetUnserializer()
 {
   moveUnserializer(0);
@@ -526,4 +456,90 @@ bool SerialBuffer::is_compressed() const
     return false;
   }
   return (m_pData->flags & BUFFER_FLAG_COMRPESSED) != 0;
+}
+
+SerialBuffer::BitStream::BitStream() :
+  m_buf(nullptr), m_buf_size(0),
+  m_bit_pos(0), m_buf_eof(false)
+{
+}
+
+SerialBuffer::BitStream::BitStream(uint8_t *buf, uint32_t size) :
+  SerialBuffer::BitStream::BitStream()
+{
+  init(buf, size);
+}
+
+void SerialBuffer::BitStream::init(uint8_t *buf, uint32_t size)
+{
+  m_buf = buf;
+  m_buf_size = size;
+  resetPos();
+}
+
+void SerialBuffer::BitStream::resetPos()
+{
+  m_bit_pos = 0;
+  m_buf_eof = false;
+}
+
+uint8_t SerialBuffer::BitStream::read1Bit()
+{
+  if (m_buf_eof) {
+    return 0;
+  }
+  if (m_bit_pos >= (m_buf_size * 8)) {
+    m_buf_eof = true;
+    return 0;
+  }
+  uint32_t rv = (m_buf[m_bit_pos / 8] >> (7 - (m_bit_pos % 8))) & 1;
+  m_bit_pos++;
+  return rv;
+}
+
+void SerialBuffer::BitStream::write1Bit(uint8_t bit)
+{
+  if (m_buf_eof) {
+    return;
+  }
+  if (m_bit_pos >= (m_buf_size * 8)) {
+    m_buf_eof = true;
+    return;
+  }
+  m_buf[m_bit_pos / 8] |= (bit & 1) << (7 - (m_bit_pos % 8));
+  m_bit_pos++;
+  if (m_bit_pos >= (m_buf_size * 8)) {
+    m_buf_eof = true;
+  }
+}
+
+uint8_t SerialBuffer::BitStream::readBits(uint32_t numBits)
+{
+  uint32_t val = 0;
+  for (uint32_t i = 0; i < numBits; ++i) {
+    if (i > 0) {
+      val <<= 1;
+    }
+    val |= read1Bit();
+    if (m_buf_eof) {
+      break;
+    }
+  }
+  if (m_bit_pos >= (m_buf_size * 8)) {
+    m_buf_eof = true;
+  }
+  return val;
+}
+
+// writes numBits of the LSB in sequential order
+void SerialBuffer::BitStream::writeBits(uint32_t numBits, uint32_t val)
+{
+  for (uint32_t i = 0; i < numBits; ++i) {
+    // write each bit in order, for ex if numBits is 4:
+    //
+    //  00000000 01010101
+    //               ^^^^
+    //            write these four bits from left to right
+    write1Bit((val >> ((numBits - 1) - i)) & 1);
+  }
 }

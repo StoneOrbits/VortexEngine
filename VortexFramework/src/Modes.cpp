@@ -177,7 +177,7 @@ bool Modes::setDefaults()
   // initialize a mode for each pattern with an rgb colorset
   for (PatternID pattern = default_start; pattern <= default_end; ++pattern) {
     // randomize the colorset
-    defaultSet.randomize();
+    //defaultSet.randomize();
     // add another mode with the given pattern and colorset
     if (!addMode(pattern, &defaultSet)) {
       // error? return false?

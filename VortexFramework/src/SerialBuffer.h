@@ -94,17 +94,80 @@ private:
 #ifndef LINUX_FRAMEWORK
   // disable warning about using flexible array at end of structure,
   // stfu compiler I know what im doing
-  #pragma warning(disable : 4200)
+#pragma warning(disable : 4200)
 #endif
 #endif
 
+  // A class to read/write a buffer of bits one bit at a time
+  class BitStream
+  {
+  public:
+    BitStream();
+    BitStream(uint8_t *buf, uint32_t size);
+
+    // init the stream with a buffer
+    void init(uint8_t *buf, uint32_t size);
+
+    // reset the reader/writer position
+    void resetPos();
+
+    // read/write bits
+    uint8_t read1Bit();
+    void write1Bit(uint8_t bit);
+    uint8_t readBits(uint32_t numBits);
+    void writeBits(uint32_t numBits, uint32_t val);
+
+    // metainfo about the bit stream
+    bool eof() const { return m_buf_eof; }
+    uint32_t size() const { return m_buf_size; }
+    const uint8_t *data() const { return m_buf; }
+    uint32_t bytepos() const { return m_bit_pos / 8; }
+    uint32_t bitpos() const { return m_bit_pos; }
+
+  private:
+    uint8_t *m_buf;
+    uint32_t m_buf_size;
+    uint32_t m_bit_pos;
+    bool m_buf_eof;
+  };
+
   // the structure of raw data that's written to storage
-  struct RawBuffer {
-    RawBuffer() : size(0), flags(0), buf() {}
+  struct RawBuffer
+  {
+    RawBuffer() : size(0), flags(0), crc32(5381), buf() {}
+    // hash the raw buffer into crc
+    uint32_t hash()
+    {
+      uint32_t hash = 5381;
+      for (uint32_t i = 0; i < size; ++i) {
+        hash = ((hash << 5) + hash) + buf[i];
+      }
+      return hash;
+    }
+    // accumulate the data into the hash
+    void accumulate(uint32_t val)
+    {
+      crc32 = ((crc32 << 5) + crc32) + val;
+    }
+    // veryify the crc
+    bool verify()
+    {
+      if (!crc32) {
+        return true;
+      }
+      return crc32 == hash();
+    }
+    // re-calculate the crc
+    void recalc_crc()
+    {
+      crc32 = hash();
+    }
     // the size of the buf of data
     uint32_t size;
     // any special flags about the data (compression etc)
     uint32_t flags;
+    // the crc32 for the data
+    uint32_t crc32;
     // the start of the buf of data
     uint8_t buf[];
   };

@@ -93,6 +93,8 @@ void ModeSharing::sendMode()
   last_time = now;
   Modes::serialize(buf);
   if (!buf.compress()) {
+    DEBUG("Failed to compress, aborting send");
+    return;
     // tried
   }
   // too big
@@ -114,9 +116,10 @@ void ModeSharing::sendMode()
 
 // WARNING! Right now this function blocks till it gets data, 
 // I can't get it to work any other way because of to timestep/timing
+// I think the IR receiver needs to be polled in the timestep loop
+// so that no data is lost, then data is just pushed to a list
 void ModeSharing::receiveMode()
 {
-  RGBColor col = RGB_TEAL;
   uint32_t val = 0;
   // lower 16 is the size of the data to follow
   SerialBuffer databuf;
@@ -127,17 +130,21 @@ void ModeSharing::receiveMode()
   } while (((val >> 16) & 0xFFFF) != 0xb00b);
   uint32_t size = val & 0xFFFF;
   if (!size || size > 8096) {
-    DEBUGF("wtf bad size %u", size);
+    DEBUGF("bad mode size %u", size);
     return;
   }
   databuf.init(size);
-  uint32_t num_reads = size / 4;
+  uint32_t num_reads = (size + 3) / 4;
   uint32_t *raw_buf = (uint32_t *)databuf.rawData();
   for (uint32_t i = 0; i < num_reads; ++i) {
     raw_buf[i] = Infrared::read();
   }
   DEBUGF("Received %u bytes", databuf.size());
-  databuf.decompress();
+  if (!databuf.decompress()) {
+    DEBUG("Failed to decompress, crc mismatch or bad data");
+    return;
+  }
+  // if it decompressed the CRC was good and we can unserialize
   if (!Modes::unserialize(databuf)) {
     DEBUG("Failed to load modes");
   }
@@ -145,6 +152,7 @@ void ModeSharing::receiveMode()
 
 void ModeSharing::showSendMode()
 {
+  // gradually fill from pinkie to thumb
   RGBColor col = RGB_TEAL;
   Leds::clearAll();
   LedPos pos = (LedPos)((Time::getCurtime() / Time::msToTicks(100)) % LED_COUNT);
@@ -153,7 +161,8 @@ void ModeSharing::showSendMode()
 
 void ModeSharing::showReceiveMode()
 {
-  RGBColor col = RGB_TEAL;
+  // gradually empty from thumb to pinkie
+  RGBColor col = RGB_PURPLE;
   Leds::clearAll();
   LedPos pos = (LedPos)(LED_LAST - ((Time::getCurtime() / Time::msToTicks(100)) % LED_COUNT));
   Leds::setRange(LED_FIRST, pos, col);
