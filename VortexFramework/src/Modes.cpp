@@ -76,7 +76,7 @@ bool Modes::loadStorage()
   return unserialize(modesBuffer);
 }
 
-// NOTE: Flash storage is limited to about 10,000 writes so 
+// NOTE: Flash storage is limited to about 10,000 writes so
 //       use this function sparingly!
 bool Modes::saveStorage()
 {
@@ -89,7 +89,7 @@ bool Modes::saveStorage()
   //   4 val
   //
   // new data format:
-  //  1 num modes (1-255) 
+  //  1 num modes (1-255)
   //   4 mode flags (*)
   //   1 num leds (1 - 10)
   //     led1..N [
@@ -105,7 +105,7 @@ bool Modes::saveStorage()
   //      ]
 
   DEBUG_LOG("Saving modes...");
-  
+
   SerialBuffer modesBuffer;
   serialize(modesBuffer);
 

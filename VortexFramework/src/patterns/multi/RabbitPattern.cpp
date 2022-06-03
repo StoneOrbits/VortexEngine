@@ -19,6 +19,8 @@ RabbitPattern::~RabbitPattern()
 // init the pattern to initial state
 void RabbitPattern::init()
 {
+  // call base hybrid pattern init to actually initialize sub patterns
+  HybridPattern::init();
   // fill the sub patterns array with instances of patterns
   for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
     SingleLedPattern *pat = nullptr;
@@ -31,15 +33,13 @@ void RabbitPattern::init()
       return;
     }
     pat->bind(&m_colorset, p);
+    pat->init(); // TODO: does bind() call init()? not atm
     if (m_ledPatterns[p]) {
       delete m_ledPatterns[p];
     }
     // store the pattern for the given led
     m_ledPatterns[p] = pat;
   }
-
-  // call base hybrid pattern init to actually initialize sub patterns
-  HybridPattern::init();
 }
 
 // pure virtual must override the play function

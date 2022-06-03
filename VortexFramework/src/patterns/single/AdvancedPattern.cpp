@@ -23,13 +23,13 @@ AdvancedPattern::~AdvancedPattern()
 
 void AdvancedPattern::init()
 {
+  // run base pattern init logic
+  GapPattern::init();
   if (!m_groupSize || m_groupSize > m_colorset.numColors()) {
     m_groupSize = m_colorset.numColors();
   }
   m_groupCounter = 0;
   m_repeatCounter = m_repeatGroup;
-  // run base pattern init logic
-  GapPattern::init();
 }
 
 void AdvancedPattern::play()

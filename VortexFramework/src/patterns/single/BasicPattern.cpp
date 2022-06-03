@@ -20,6 +20,9 @@ BasicPattern::~BasicPattern()
 
 void BasicPattern::init()
 {
+  // run base pattern init logic
+  SingleLedPattern::init();
+
   // reset the blink timer entirely
   m_blinkTimer.reset();
 
@@ -28,16 +31,7 @@ void BasicPattern::init()
   m_blinkTimer.addAlarm(m_offDuration);
 
   // start the blink timer from the next frame
-  m_blinkTimer.start(1);
-
-  // run base pattern init logic
-  SingleLedPattern::init();
-}
-
-void BasicPattern::skip(uint32_t ticks)
-{
-  SingleLedPattern::skip(ticks);
-  m_blinkTimer.start(1);
+  m_blinkTimer.start();
 }
 
 void BasicPattern::play()
@@ -80,12 +74,6 @@ void BasicPattern::onBasicStart()
 
 void BasicPattern::onBasicEnd()
 {
-}
-
-void BasicPattern::resume()
-{
-  // start the blink timer from the curren time
-  m_blinkTimer.start(1);
 }
 
 void BasicPattern::serialize(SerialBuffer &buffer) const

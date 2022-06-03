@@ -20,6 +20,9 @@ TracerPattern::~TracerPattern()
 
 void TracerPattern::init()
 {
+  // run base pattern init logic
+  SingleLedPattern::init();
+
   // reset the blink timer entirely
   m_blinkTimer.reset();
 
@@ -29,10 +32,6 @@ void TracerPattern::init()
 
   // start the blink timer from the current frame
   m_blinkTimer.start();
-
-  // run base pattern init logic
-  SingleLedPattern::init();
-  m_blinkTimer.start(Time::getTickOffset(m_ledPos));
 }
 
 // pure virtual must override the play function

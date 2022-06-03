@@ -27,11 +27,13 @@ void Pattern::bind(const Colorset *set, LedPos pos)
     m_colorset = *set;
   }
   m_ledPos = pos;
+  // call init here? idk
   //init();
 }
 
 void Pattern::init()
 {
+  m_colorset.init();
 }
 
 // must override the serialize routine to save the pattern

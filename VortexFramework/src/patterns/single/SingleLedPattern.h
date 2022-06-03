@@ -15,13 +15,8 @@ public:
   virtual void init();
 
   // skip the pattern ahead some ticks
+  // NOTE: This is not working properly at the moment
   virtual void skip(uint32_t ticks);
-
-  // resume a pattern from the current time, use this is the pattern
-  // stops for some duration of time and then needs to play again
-  // without having changed state at all. Otherwise the change in time
-  // will cause the timer to behave differently
-  virtual void resume();
 
 private:
 

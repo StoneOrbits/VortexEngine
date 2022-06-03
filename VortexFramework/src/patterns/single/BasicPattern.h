@@ -17,10 +17,6 @@ public:
 
   virtual void play();
 
-  virtual void skip(uint32_t ticks);
-
-  virtual void resume();
-
   virtual void serialize(SerialBuffer &buffer) const;
   virtual void unserialize(SerialBuffer &buffer);
 

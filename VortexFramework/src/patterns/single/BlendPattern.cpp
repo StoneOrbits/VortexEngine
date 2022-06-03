@@ -20,15 +20,11 @@ BlendPattern::~BlendPattern()
 
 void BlendPattern::init()
 {
-  // reset colorset so the first two getNext()
-  // calls are the first two colors in the set
-  m_colorset.init();
+  // run basic pattern init logic
+  BasicPattern::init();
   // convert current/next colors to HSV
   m_cur = m_colorset.getNext();
   m_next = m_colorset.getNext();
-
-  // run basic pattern init logic
-  BasicPattern::init();
 }
 
 void BlendPattern::play()

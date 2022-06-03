@@ -55,8 +55,9 @@ public:
   static uint32_t secToTicks(uint32_t sec) { return msToTicks(sec * 1000); }
 
   // Start a time simulation, while the simulation is active you can
-  // increment the 'current time' with tickSimulation() then when you
-  // call endSimulation() the currentTime will be restored
+  // increment the 'current time' with tickSimulation() and all calls
+  // to Time::getCurtime will reflect the changes, then when you call
+  // endSimulation() the currentTime will be restored
   static uint32_t startSimulation();
 
   // Tick a time simulation forward, returning the next tick
@@ -88,7 +89,7 @@ private:
   static uint32_t m_tickOffset;
 
   // the current simulation offset, simulations are
-  // used to fastforward patterns and colorsets by 
+  // used to fastforward patterns and colorsets by
   // simulating tick changes and running pattern logic
   // multiple times in a single frame
   static uint32_t m_simulationTick;

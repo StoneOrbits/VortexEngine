@@ -33,7 +33,7 @@ public:
 
   // initialize the mode to initial state
   void init();
-  
+
   // Play the mode
   void play();
 
@@ -93,7 +93,7 @@ private:
   //       separate instances of the same class unless somebody has loaded
   //       a custom savefile
   //
-  //       Alternatively a Mode can contain a single MultiLedPattern and 
+  //       Alternatively a Mode can contain a single MultiLedPattern and
   //       Colorset, where the single pattern will be responsible for all
   //       of the leds.
 

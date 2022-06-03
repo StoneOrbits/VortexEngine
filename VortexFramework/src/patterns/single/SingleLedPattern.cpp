@@ -14,20 +14,9 @@ SingleLedPattern::~SingleLedPattern()
 void SingleLedPattern::init()
 {
   Pattern::init();
-  // if the led position is LED_COUNT that means this pattern is
-  // a complex pattern that operates on all LEDS. If it's not a
-  // complex pattern then the pattern needs to be fast-forwarded
-  // based on the finger-tick-offset
-  if (m_ledPos != LED_COUNT) {
-    // skip forward however many ticks this led is offset
-    skip(Time::getTickOffset(m_ledPos));
-  }
-  // resume the pattern after skipping it forward, this moves the timer
-  // to the current time so that it will start from now with whatever
-  // state it ended up in from the simulation above
-  resume();
 }
 
+// NOTE: this isn't working correctly because of some issues, need to fix
 void SingleLedPattern::skip(uint32_t ticks)
 {
   Time::startSimulation();
@@ -36,9 +25,4 @@ void SingleLedPattern::skip(uint32_t ticks)
     Time::tickSimulation();
   }
   Time::endSimulation();
-}
-
-void SingleLedPattern::resume()
-{
-  // this will be overridden by derived classes
 }

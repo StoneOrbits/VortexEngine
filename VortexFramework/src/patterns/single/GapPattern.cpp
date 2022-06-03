@@ -20,13 +20,13 @@ GapPattern::~GapPattern()
 
 void GapPattern::init()
 {
+  // don't need to start the gap timer right now
+  BasicPattern::init();
+
   m_gapTimer.reset();
   m_gapTimer.addAlarm(m_gapDuration);
 
   m_inGap = false;
-
-  // don't need to start the gap timer right now
-  BasicPattern::init();
 }
 
 void GapPattern::play()

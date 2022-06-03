@@ -27,13 +27,6 @@ HybridPattern::~HybridPattern()
 // init the pattern to initial state
 void HybridPattern::init()
 {
-  for (LedPos ledPos = LED_FIRST; ledPos <= LED_LAST; ledPos++) {
-    SingleLedPattern *pat = m_ledPatterns[ledPos];
-    if (!pat) {
-      continue;
-    }
-    pat->init();
-  }
   MultiLedPattern::init();
 }
 
