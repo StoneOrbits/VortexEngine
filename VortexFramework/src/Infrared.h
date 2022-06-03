@@ -14,10 +14,22 @@ public:
   static bool init();
   static void cleanup();
 
-  static uint32_t read();
   static bool write(uint32_t val);
+  static uint32_t read();
 
 private:
+  // writing functions
+  static void initpwm();
+  static void irsend(uint32_t data);
+  static void delayus(uint16_t time);
+  static uint32_t mark(uint16_t time);
+  static uint32_t space(uint16_t time);
+
+  // reading functions
+  static bool poll();
+  static bool getResults();
+  static bool decode(uint32_t &data);
+
 };
 
 #endif
