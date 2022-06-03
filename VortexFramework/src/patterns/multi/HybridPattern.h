@@ -5,7 +5,7 @@
 
 class SingleLedPattern;
 
-// A hybrid pattern is a type of multi-led pattern that works by displaying 
+// A hybrid pattern is a type of multi-led pattern that works by displaying
 // pre-existing patterns on different leds simultaneously
 class HybridPattern : public MultiLedPattern
 {

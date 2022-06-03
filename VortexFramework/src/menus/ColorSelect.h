@@ -41,9 +41,9 @@ private:
     // first pick a quadrant 0, 90, 180, 240
     STATE_PICK_HUE1,
 
-    // next pick a quadrant within that quadrant 0, 25, 50, 70 
+    // next pick a quadrant within that quadrant 0, 25, 50, 70
     STATE_PICK_HUE2,
-    
+
     // picking a saturation for the color
     STATE_PICK_SAT,
 

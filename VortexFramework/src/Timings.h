@@ -5,7 +5,7 @@
 #include "TimeControl.h"
 
 // Menu Trigger Thresholds
-// 
+//
 // how long must hold to trigger ring menu and
 // how long each ring menu takes to fill
 #define MENU_TRIGGER_THRESHOLD Time::msToTicks(1000)
@@ -13,7 +13,7 @@
 
 // Short Click Threshold
 //
-// if click held for <= this value then the click will be registered as 
+// if click held for <= this value then the click will be registered as
 // a 'short click' otherwise if held longer than this threshold it will
 // be registered as a 'long click'
 //
@@ -26,7 +26,7 @@
 //
 // The valid range for this is 1 <= x <= 1000000
 //
-// However any value near or above 10000 will most likely be 
+// However any value near or above 10000 will most likely be
 // too fast for the processor to handle
 #define DEFAULT_TICKRATE 1000
 

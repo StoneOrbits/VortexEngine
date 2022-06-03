@@ -15,7 +15,7 @@ class Timer
 public:
   Timer();
   ~Timer();
-  
+
   // add alarms to the timer and returns it's ID
   // Alarm IDs start at 0 and count upward
   AlarmID addAlarm(uint32_t interval);
@@ -23,7 +23,7 @@ public:
   // restart the timer entirely
   void restart();
 
-  // start the timer but don't change current alarm, this shifts 
+  // start the timer but don't change current alarm, this shifts
   // the timer startTime but does not reset it's alarm state
   void start(uint32_t offset = 0);
 
@@ -54,7 +54,7 @@ private:
   void setStartTime(uint64_t);
 
   // the list of alarms and number of alarms
-  uint32_t *m_alarms; 
+  uint32_t *m_alarms;
   uint8_t m_numAlarms;
   // the current alarm being checked
   AlarmID m_curAlarm;

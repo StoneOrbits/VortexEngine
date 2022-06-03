@@ -37,7 +37,7 @@ public:
   // data into indexes in the table packed into a buffer.
   // Unfortunately sometimes compression does not yield a
   // smaller buffer size, incases like this compress returns
-  // true but the data isn't compressed. Similarly, if that 
+  // true but the data isn't compressed. Similarly, if that
   // data is passed to decompress it will return true.
   bool compress();
   bool decompress();

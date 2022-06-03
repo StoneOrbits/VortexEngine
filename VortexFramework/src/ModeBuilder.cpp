@@ -37,7 +37,7 @@ Mode *ModeBuilder::make(PatternID id, const Colorset *set)
 Mode *ModeBuilder::make(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
   RGBColor c4, RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8)
 {
-  Colorset set(c1, c2, c3, c4, c5, c6, c7, c8);  
+  Colorset set(c1, c2, c3, c4, c5, c6, c7, c8);
   return make(id, &set);
 }
 

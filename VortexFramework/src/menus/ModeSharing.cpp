@@ -103,6 +103,7 @@ void ModeSharing::sendMode()
     return;
   }
   DEBUG_LOGF("Writing %u buf", buf.rawSize());
+  uint64_t startTime = millis();
   Infrared::write(buf.rawSize() | 0xb00b0000);
   uint32_t num_writes = (buf.rawSize() + 3) / 4;
   uint32_t *raw_buf = (uint32_t *)buf.rawData();
@@ -111,10 +112,11 @@ void ModeSharing::sendMode()
       DEBUG_LOGF("Failed to write %u dword", i);
     }
   }
-  DEBUG_LOGF("Wrote %u buf", buf.rawSize());
+  uint64_t endTime = millis();
+  DEBUG_LOGF("Wrote %u buf (%u ms)", buf.rawSize(), endTime - startTime);
 }
 
-// WARNING! Right now this function blocks till it gets data, 
+// WARNING! Right now this function blocks till it gets data,
 // I can't get it to work any other way because of to timestep/timing
 // I think the IR receiver needs to be polled in the timestep loop
 // so that no data is lost, then data is just pushed to a list
@@ -123,6 +125,8 @@ void ModeSharing::receiveMode()
   uint32_t val = 0;
   // lower 16 is the size of the data to follow
   SerialBuffer databuf;
+  DEBUG_LOG("Receiving...");
+  uint64_t startTime = millis();
   // wait for magic number
   do {
     val = Infrared::read();
@@ -139,7 +143,8 @@ void ModeSharing::receiveMode()
   for (uint32_t i = 0; i < num_reads; ++i) {
     raw_buf[i] = Infrared::read();
   }
-  DEBUG_LOGF("Received %u bytes", databuf.size());
+  uint64_t endTime = millis();
+  DEBUG_LOGF("Received %u bytes (%u ms)", databuf.size(), endTime - startTime);
   if (!databuf.decompress()) {
     DEBUG_LOG("Failed to decompress, crc mismatch or bad data");
     return;

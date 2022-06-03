@@ -43,7 +43,7 @@ void AdvancedPattern::play()
 void AdvancedPattern::triggerGap()
 {
   // This is an override from GapPattern::triggerGap()
-  // When the gap triggers in the gap pattern we need to 
+  // When the gap triggers in the gap pattern we need to
   // reset the group counter in the advanced pattern
   // because the only way for the gap to trigger is via
   // the group counter logic in endGap
@@ -77,7 +77,7 @@ void AdvancedPattern::onBasicEnd()
 {
   // This is overridding GapPattern::onBasicEnd which itself is
   // an override of BasicPatterns onBasicEnd callback. This is
-  // so that we don't run GapPattern::onBasicEnd to prevent default 
+  // so that we don't run GapPattern::onBasicEnd to prevent default
   // gap logic at end of blinks because we will be inserting gaps
   // at different locations based on the group size
   BasicPattern::onBasicEnd();

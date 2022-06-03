@@ -13,7 +13,7 @@
 bool VortexFramework::init()
 {
   // initialize a random seed
-  // Always generate seed before creating button on 
+  // Always generate seed before creating button on
   // digital pin 1 (shared pin with analog 0)
   randomSeed(analogRead(0));
   // Setup serial communications
@@ -55,7 +55,7 @@ bool VortexFramework::init()
 void VortexFramework::cleanup()
 {
   // cleanup in reverse order
-  // NOTE: the arduino doesn't actually cleanup, 
+  // NOTE: the arduino doesn't actually cleanup,
   //       but the test frameworks do
   Modes::cleanup();
   Menus::cleanup();
