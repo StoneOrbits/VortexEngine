@@ -59,7 +59,6 @@ void Timer::reset()
 bool Timer::onStart() const
 {
   if (Time::getCurtime() == getStartTime() && m_curAlarm == 0) {
-    DEBUG_LOG("Timer start");
     return true;
   }
   return false;
@@ -100,6 +99,10 @@ AlarmID Timer::alarm()
   int32_t timeDiff = (int32_t)(int64_t)(now - startTime);
   if (timeDiff < 0) {
     return ALARM_NONE;
+  }
+
+  if (timeDiff == 0) {
+    return m_numAlarms - 1;
   }
 
   // the tick for when this alarm triggers

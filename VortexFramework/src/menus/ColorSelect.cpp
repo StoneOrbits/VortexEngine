@@ -168,7 +168,7 @@ void ColorSelect::onLongClick()
     // go back to beginning for next time
     m_state = STATE_PICK_SLOT;
     // reset the color
-    m_newColor = RGB_OFF;
+    m_newColor.clear();
     break;
   }
   // reset selection after choosing anything

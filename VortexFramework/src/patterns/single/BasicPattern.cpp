@@ -27,18 +27,17 @@ void BasicPattern::init()
   m_blinkTimer.addAlarm(m_onDuration);
   m_blinkTimer.addAlarm(m_offDuration);
 
-  // start the blink timer from the current frame
-  m_blinkTimer.start();
+  // start the blink timer from the next frame
+  m_blinkTimer.start(1);
 
   // run base pattern init logic
   SingleLedPattern::init();
-//  m_blinkTimer.start(Time::getTickOffset(pos));
 }
 
 void BasicPattern::skip(uint32_t ticks)
 {
   SingleLedPattern::skip(ticks);
-  m_blinkTimer.start();
+  m_blinkTimer.start(1);
 }
 
 void BasicPattern::play()
@@ -47,16 +46,18 @@ void BasicPattern::play()
   AlarmID id = m_blinkTimer.alarm();
 
   if (id == 0) {
-    onBlinkOn();
-    if (m_blinkTimer.onStart() && m_colorset.onStart()) {
-      // callback for basic pattern started
-      onBasicStart();
-    }
-  } else if (id == 1) {
+    // when timer 0 runs out it's time to blink off
     onBlinkOff();
     if (m_blinkTimer.onEnd() && m_colorset.onEnd()) {
       // callback for basic pattern ended
       onBasicEnd();
+    }
+  } else if (id == 1) {
+    // when timer 1 runs out it's time to blink on
+    onBlinkOn();
+    if (m_blinkTimer.onStart() && m_colorset.onStart()) {
+      // callback for basic pattern started
+      onBasicStart();
     }
   }
 }
@@ -84,7 +85,7 @@ void BasicPattern::onBasicEnd()
 void BasicPattern::resume()
 {
   // start the blink timer from the curren time
-  m_blinkTimer.start();
+  m_blinkTimer.start(1);
 }
 
 void BasicPattern::serialize(SerialBuffer &buffer) const

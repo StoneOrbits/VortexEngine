@@ -27,6 +27,7 @@ enum PatternID : uint8_t
   PATTERN_BLINKIE, // GapPattern 5, 8, 35
   PATTERN_GHOSTCRUSH, // GapPattern 1, 0, 50
   PATTERN_ADVANCED, // AdvancedPattern
+  PATTERN_BLEND,  // BlendPattern 2, 13, 1
 
   // ADD NEW SINGLE LED PATTERNS HERE
 

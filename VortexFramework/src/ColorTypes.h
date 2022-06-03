@@ -39,49 +39,29 @@
 #define HSV_HUE_PINK    224
 
 class SerialBuffer;
+class RGBColor;
 
 // todo: remake color classes here
 class HSVColor
 {
 public:
-  HSVColor() : raw() {}
-  HSVColor(uint32_t dwVal) :
-    hue((dwVal >> 16) & 0xFF), sat((dwVal >> 16) & 0xFF), val(dwVal & 0xFF)
-  {
-  }
-  HSVColor(uint8_t hue, uint8_t sat, uint8_t val) :
-    hue(hue), sat(sat), val(val)
-  {
-  }
+  HSVColor();
+  HSVColor(uint8_t hue, uint8_t sat, uint8_t val);
 
-  // copy construction
-  HSVColor(const HSVColor &rhs)
-  {
-    hue = rhs.hue;
-    sat = rhs.sat;
-    val = rhs.val;
-  }
+  // assignment from uint32_t
+  HSVColor(uint32_t dwVal);
+  HSVColor &operator=(const uint32_t &rhs);
 
-  // assignment operator
-  HSVColor &operator= (const HSVColor &rhs)
-  {
-    hue = rhs.hue;
-    sat = rhs.sat;
-    val = rhs.val;
-    return *this;
-  }
+  // copy/assignment construction
+  HSVColor(const HSVColor &rhs);
+  HSVColor &operator=(const HSVColor &rhs);
 
-  bool empty() const
-  {
-    return !hue && !sat && !val;
-  }
+  // construction/assignment from RGB
+  HSVColor(const RGBColor &rhs);
+  HSVColor &operator=(const RGBColor &rhs);
 
-  void clear()
-  {
-    hue = 0;
-    sat = 0;
-    val = 0;
-  }
+  bool empty() const;
+  void clear();
 
   // public members
   union
@@ -99,51 +79,28 @@ public:
 class RGBColor
 {
 public:
-  RGBColor() : raw() {}
-  RGBColor(uint32_t dwVal) :
-    red((dwVal >> 16) & 0xFF), green((dwVal >> 8) & 0xFF), blue(dwVal & 0xFF)
-  {
-  }
-  RGBColor(uint8_t red, uint8_t green, uint8_t blue) :
-    red(red), green(green), blue(blue)
-  {
-  }
+  RGBColor();
+  RGBColor(uint8_t red, uint8_t green, uint8_t blue);
 
-  // copy construction
-  RGBColor(const RGBColor &rhs)
-  {
-    red = rhs.red;
-    green = rhs.green;
-    blue = rhs.blue;
-  }
+  // assignment from uint32_t
+  RGBColor(uint32_t dwVal);
+  RGBColor &operator=(const uint32_t &rhs);
 
-  // assignment operator
-  RGBColor &operator= (const RGBColor &rhs)
-  {
-    red = rhs.red;
-    green = rhs.green;
-    blue = rhs.blue;
-    return *this;
-  }
+  // copy/assignment construction
+  RGBColor(const RGBColor &rhs);
+  RGBColor &operator=(const RGBColor &rhs);
 
-  // construction from HSV color
+  // construction/assignment from HSV
   RGBColor(const HSVColor &rhs);
+  RGBColor &operator=(const HSVColor &rhs);
 
-  bool empty() const
-  {
-    return !red && !green && !blue;
-  }
-
-  void clear()
-  {
-    red = 0;
-    green = 0;
-    blue = 0;
-  }
+  bool empty() const;
+  void clear();
 
   void serialize(SerialBuffer &buffer) const;
   void unserialize(SerialBuffer &buffer);
 
+  // public members
   union
   {
     struct

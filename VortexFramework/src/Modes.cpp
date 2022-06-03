@@ -29,11 +29,6 @@ bool Modes::init()
       return false;
     }
   }
-  // should be able to initialize the current mode
-  if (!initCurMode()) {
-    DEBUG_LOG("Error failed to load any modes!");
-    return false;
-  }
   return true;
 }
 
@@ -44,6 +39,11 @@ void Modes::cleanup()
 
 void Modes::play()
 {
+  // should be able to initialize the current mode
+  if (!m_pCurMode && !initCurMode()) {
+    DEBUG_LOG("Error failed to load any modes!");
+    return;
+  }
   // shortclick cycles to the next mode
   if (g_pButton->onShortClick()) {
     nextMode();

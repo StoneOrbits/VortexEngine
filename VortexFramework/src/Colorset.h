@@ -70,6 +70,9 @@ public:
   // get the next color in cycle
   RGBColor getNext();
 
+  // peek at the next color but don't iterate
+  RGBColor peekNext() const;
+
   // the number of colors in the palette
   uint32_t numColors() const { return m_numColors; }
 

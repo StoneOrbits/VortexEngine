@@ -17,6 +17,7 @@ HueShiftPattern::~HueShiftPattern()
 // init the pattern to initial state
 void HueShiftPattern::init()
 {
+  MultiLedPattern::init();
 }
 
 // pure virtual must override the play function

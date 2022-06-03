@@ -3,15 +3,13 @@
 
 // TODO STILL:
 /*
- *  Everything is working somewhat
+ *  Everything is working somewhat well
  *
- *  Secondary:
+ *  But there is still more to work on:
  *   - Implement missing patterns
  *   - Smart randomizer
  *   - Improve Mode Sharing logic/code/approach
- *
- *  Other:
- *   - Demo and demo speed?
+ *   - Code documentation
  */
 
 class VortexFramework

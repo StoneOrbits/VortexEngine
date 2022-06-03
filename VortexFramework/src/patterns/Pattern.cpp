@@ -27,7 +27,7 @@ void Pattern::bind(const Colorset *set, LedPos pos)
     m_colorset = *set;
   }
   m_ledPos = pos;
-  init();
+  //init();
 }
 
 void Pattern::init()

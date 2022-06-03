@@ -9,6 +9,7 @@
 #include "patterns/single/AdvancedPattern.h"
 #include "patterns/single/TracerPattern.h"
 #include "patterns/single/BasicPattern.h"
+#include "patterns/single/BlendPattern.h"
 #include "patterns/single/GapPattern.h"
 
 #include "Log.h"
@@ -96,6 +97,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_ADVANCED: return new AdvancedPattern(5, 5, 10, 2, 2, 1);
     case PATTERN_RABBIT: return new RabbitPattern();
     case PATTERN_HUESHIFT: return new HueShiftPattern(1, 1);
+    case PATTERN_BLEND: return new BlendPattern(2, 13, 1);
     default: break;
   }
   DEBUG_LOGF("Unknown pattern id: %u", id);
