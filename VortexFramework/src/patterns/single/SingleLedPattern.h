@@ -1,12 +1,15 @@
 #ifndef SINGLE_LED_PATTERN_H
 #define SINGLE_LED_PATTERN_H
 
-#include "Pattern.h"
+#include "../Pattern.h"
 
 class SingleLedPattern : public Pattern
 {
-public:
+protected:
+  // SingleLedPattern is an abstract class
   SingleLedPattern();
+
+public:
   virtual ~SingleLedPattern();
 
   virtual void init();

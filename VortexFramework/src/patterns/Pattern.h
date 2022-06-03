@@ -29,10 +29,14 @@ class SerialBuffer;
 
 class Pattern
 {
+  // PatternBuilder can access the Pattern internals
   friend class PatternBuilder;
 
-public:
+protected:
+  // Pattern is an abstract class
   Pattern();
+
+public:
   virtual ~Pattern();
 
   // bind a colorset and position to the pattern and initialize

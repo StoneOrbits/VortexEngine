@@ -1,10 +1,10 @@
 #include "BasicPattern.h"
 
-#include "../SerialBuffer.h"
-#include "../TimeControl.h"
-#include "../Colorset.h"
-#include "../Leds.h"
-#include "../Log.h"
+#include "../../SerialBuffer.h"
+#include "../../TimeControl.h"
+#include "../../Colorset.h"
+#include "../../Leds.h"
+#include "../../Log.h"
 
 BasicPattern::BasicPattern(uint8_t onDuration, uint8_t offDuration) :
   SingleLedPattern(),

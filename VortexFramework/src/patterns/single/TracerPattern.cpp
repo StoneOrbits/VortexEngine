@@ -1,10 +1,10 @@
 #include "TracerPattern.h"
 
-#include "../SerialBuffer.h"
-#include "../TimeControl.h"
-#include "../Colorset.h"
-#include "../Leds.h"
-#include "../Log.h"
+#include "../../SerialBuffer.h"
+#include "../../TimeControl.h"
+#include "../../Colorset.h"
+#include "../../Leds.h"
+#include "../../Log.h"
 
 TracerPattern::TracerPattern(uint8_t tracerLength, uint8_t dotLength) :
   m_tracerDuration(tracerLength),

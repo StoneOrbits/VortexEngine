@@ -3,7 +3,7 @@
 
 #include "SingleLedPattern.h"
 
-#include "../Timer.h"
+#include "../../Timer.h"
 
 class TracerPattern : public SingleLedPattern
 {

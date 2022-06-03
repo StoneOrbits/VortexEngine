@@ -1,12 +1,15 @@
 #ifndef MULTI_LED_PATTERN_H
 #define MULTI_LED_PATTERN_H
 
-#include "Pattern.h"
+#include "../Pattern.h"
 
 class MultiLedPattern : public Pattern
 {
-public:
+protected:
+  // MultiLedPattern is an abstract class
   MultiLedPattern();
+
+public:
   virtual ~MultiLedPattern();
 
   virtual void bind(const Colorset *set);

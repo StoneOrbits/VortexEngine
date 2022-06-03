@@ -1,11 +1,11 @@
 #include "RabbitPattern.h"
 
-#include "SingleLedPattern.h"
+#include "../single/SingleLedPattern.h"
 #include "MultiLedPattern.h"
 
-#include "../PatternBuilder.h"
-#include "../Colorset.h"
-#include "../Log.h"
+#include "../../PatternBuilder.h"
+#include "../../Colorset.h"
+#include "../../Log.h"
 
 RabbitPattern::RabbitPattern() :
   HybridPattern()

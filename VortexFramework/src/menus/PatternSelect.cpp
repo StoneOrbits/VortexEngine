@@ -30,7 +30,6 @@ bool PatternSelect::init()
     return false;
   }
   m_state = STATE_PICK_LIST;
-  // grab a copy of current colorset
   m_newPatternID = PATTERN_FIRST;
   if (!m_pDemoMode) {
     m_pDemoMode = ModeBuilder::make(m_newPatternID, m_pCurMode->getColorset());

@@ -1,7 +1,7 @@
 #include "ModeBuilder.h"
 
-#include "patterns/SingleLedPattern.h"
-#include "patterns/MultiLedPattern.h"
+#include "patterns/single/SingleLedPattern.h"
+#include "patterns/multi/MultiLedPattern.h"
 #include "patterns/Pattern.h"
 #include "PatternBuilder.h"
 #include "SerialBuffer.h"

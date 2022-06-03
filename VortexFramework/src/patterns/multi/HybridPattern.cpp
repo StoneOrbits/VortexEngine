@@ -1,11 +1,11 @@
 #include "HybridPattern.h"
 
-#include "SingleLedPattern.h"
+#include "../single/SingleLedPattern.h"
 
-#include "../PatternBuilder.h"
-#include "../SerialBuffer.h"
-#include "../Colorset.h"
-#include "../Log.h"
+#include "../../PatternBuilder.h"
+#include "../../SerialBuffer.h"
+#include "../../Colorset.h"
+#include "../../Log.h"
 
 HybridPattern::HybridPattern() :
   MultiLedPattern(),

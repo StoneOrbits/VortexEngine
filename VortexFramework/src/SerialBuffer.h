@@ -32,7 +32,13 @@ public:
   // extend the storage without changing the size of the data
   bool extend(uint32_t size);
 
-  // shitty in-place compression and decompression
+  // badly written in-place compression and decompression
+  // which just uses a table of values then compresses the
+  // data into indexes in the table packed into a buffer.
+  // Unfortunately sometimes compression does not yield a
+  // smaller buffer size, incases like this compress returns
+  // true but the data isn't compressed. Similarly, if that 
+  // data is passed to decompress it will return true.
   bool compress();
   bool decompress();
 

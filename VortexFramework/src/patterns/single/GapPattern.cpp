@@ -1,10 +1,10 @@
 #include "GapPattern.h"
 
-#include "../SerialBuffer.h"
-#include "../TimeControl.h"
-#include "../Colorset.h"
-#include "../Leds.h"
-#include "../Log.h"
+#include "../../SerialBuffer.h"
+#include "../../TimeControl.h"
+#include "../../Colorset.h"
+#include "../../Leds.h"
+#include "../../Log.h"
 
 GapPattern::GapPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration) :
   BasicPattern(onDuration, offDuration),

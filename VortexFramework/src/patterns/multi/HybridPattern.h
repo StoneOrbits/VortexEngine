@@ -9,8 +9,11 @@ class SingleLedPattern;
 // pre-existing patterns on different leds simultaneously
 class HybridPattern : public MultiLedPattern
 {
-public:
+protected:
+  // HybridPattern is an abstract class
   HybridPattern();
+
+public:
   virtual ~HybridPattern();
 
   // init the pattern to initial state

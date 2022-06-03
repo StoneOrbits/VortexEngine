@@ -3,12 +3,13 @@
 #include "SerialBuffer.h"
 #include "TimeControl.h"
 
-#include "patterns/HueShiftPattern.h"
-#include "patterns/AdvancedPattern.h"
-#include "patterns/RabbitPattern.h"
-#include "patterns/TracerPattern.h"
-#include "patterns/BasicPattern.h"
-#include "patterns/GapPattern.h"
+#include "patterns/multi/HueShiftPattern.h"
+#include "patterns/multi/RabbitPattern.h"
+
+#include "patterns/single/AdvancedPattern.h"
+#include "patterns/single/TracerPattern.h"
+#include "patterns/single/BasicPattern.h"
+#include "patterns/single/GapPattern.h"
 
 #include "Log.h"
 
