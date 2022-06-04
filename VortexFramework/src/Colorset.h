@@ -49,7 +49,8 @@ public:
   // get a color from the colorset
   RGBColor get(uint32_t index = 0) const;
 
-  // set an rgb color at in a slot
+  // set an rgb color in a slot, or add a new color if you specify
+  // a slot higher than the number of colors in the colorset
   void set(uint32_t index, RGBColor col);
 
   // skip some amount of colors

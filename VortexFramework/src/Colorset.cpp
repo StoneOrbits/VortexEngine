@@ -157,6 +157,7 @@ RGBColor Colorset::get(uint32_t index) const
 }
 
 // set an rgb color in a slot, or add a new color if you specify
+// a slot higher than the number of colors in the colorset
 void Colorset::set(uint32_t index, RGBColor col)
 {
   // special case for 'setting' a color at the edge of the palette,
@@ -171,7 +172,7 @@ void Colorset::set(uint32_t index, RGBColor col)
     // should be impossible because if the index is less than
     // the number of colors then there must be non-zero number
     // of colors which means the palette should be initialized
-    ERROR_LOG("Programmer error setting color index %u with no palette", index);
+    ERROR_LOGF("Programmer error setting color index %u with no palette", index);
     return;
   }
   m_palette[index] = col;
