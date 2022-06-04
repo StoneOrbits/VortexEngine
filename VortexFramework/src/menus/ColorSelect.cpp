@@ -161,7 +161,9 @@ void ColorSelect::onLongClick()
   case STATE_PICK_VAL:
     // pick a value
     m_newColor.val = vals[m_curSelection];
-    // replace the slot with the new color
+    // replace the slot with the new color, this might
+    // result in adding a new color if the slot is at
+    // hightest color index + 1
     m_colorset.set(m_slot, m_newColor);
     // switch all colorsets to a copy of m_colorset
     m_pCurMode->setColorset(&m_colorset);
