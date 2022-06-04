@@ -14,21 +14,25 @@ public:
   static bool init();
   static void cleanup();
 
+  // write data to internal queue to send
   static bool write(uint32_t val);
+  // read data from internal buffer
   static uint32_t read();
+
+  // poll receiver for more data
+  static bool poll();
 
 private:
   // writing functions
   static void initpwm();
-  static void irsend(uint32_t data);
   static void delayus(uint16_t time);
   static uint32_t mark(uint16_t time);
   static uint32_t space(uint16_t time);
 
   // reading functions
-  static bool poll();
-  static bool getResults();
   static bool decode(uint32_t &data);
+
+  static void recvPCIHandler();
 
 };
 

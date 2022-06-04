@@ -129,10 +129,12 @@ void ModeSharing::receiveMode()
   DEBUG_LOG("Receiving...");
   uint64_t startTime = micros();
   // wait for magic number
-  do {
-    val = Infrared::read();
+  val = Infrared::read();
     // upper 16 has magic number in it
-  } while (((val >> 16) & 0xFFFF) != 0xb00b);
+  if (((val >> 16) & 0xFFFF) != 0xb00b) {
+    // nothing to do yet
+    return;
+  }
   uint32_t size = val & 0xFFFF;
   if (!size || size > 8096) {
     DEBUG_LOGF("bad mode size %u", size);

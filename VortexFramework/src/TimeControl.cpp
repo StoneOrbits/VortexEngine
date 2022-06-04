@@ -3,6 +3,7 @@
 #include <Arduino.h>
 #include <math.h>
 
+#include "Infrared.h"
 #include "Timings.h"
 #include "Memory.h"
 #include "Log.h"

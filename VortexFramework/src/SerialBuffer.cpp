@@ -1,5 +1,6 @@
 #include "SerialBuffer.h"
 
+#include "BitStream.h"
 #include "Memory.h"
 #include "Log.h"
 
@@ -456,90 +457,4 @@ uint32_t SerialBuffer::getWidth(uint32_t value)
     }
   }
   return 0;
-}
-
-SerialBuffer::BitStream::BitStream() :
-  m_buf(nullptr), m_buf_size(0),
-  m_bit_pos(0), m_buf_eof(false)
-{
-}
-
-SerialBuffer::BitStream::BitStream(uint8_t *buf, uint32_t size) :
-  SerialBuffer::BitStream::BitStream()
-{
-  init(buf, size);
-}
-
-void SerialBuffer::BitStream::init(uint8_t *buf, uint32_t size)
-{
-  m_buf = buf;
-  m_buf_size = size;
-  resetPos();
-}
-
-void SerialBuffer::BitStream::resetPos()
-{
-  m_bit_pos = 0;
-  m_buf_eof = false;
-}
-
-uint8_t SerialBuffer::BitStream::read1Bit()
-{
-  if (m_buf_eof) {
-    return 0;
-  }
-  if (m_bit_pos >= (m_buf_size * 8)) {
-    m_buf_eof = true;
-    return 0;
-  }
-  uint32_t rv = (m_buf[m_bit_pos / 8] >> (7 - (m_bit_pos % 8))) & 1;
-  m_bit_pos++;
-  return rv;
-}
-
-void SerialBuffer::BitStream::write1Bit(uint8_t bit)
-{
-  if (m_buf_eof) {
-    return;
-  }
-  if (m_bit_pos >= (m_buf_size * 8)) {
-    m_buf_eof = true;
-    return;
-  }
-  m_buf[m_bit_pos / 8] |= (bit & 1) << (7 - (m_bit_pos % 8));
-  m_bit_pos++;
-  if (m_bit_pos >= (m_buf_size * 8)) {
-    m_buf_eof = true;
-  }
-}
-
-uint8_t SerialBuffer::BitStream::readBits(uint32_t numBits)
-{
-  uint32_t val = 0;
-  for (uint32_t i = 0; i < numBits; ++i) {
-    if (i > 0) {
-      val <<= 1;
-    }
-    val |= read1Bit();
-    if (m_buf_eof) {
-      break;
-    }
-  }
-  if (m_bit_pos >= (m_buf_size * 8)) {
-    m_buf_eof = true;
-  }
-  return val;
-}
-
-// writes numBits of the LSB in sequential order
-void SerialBuffer::BitStream::writeBits(uint32_t numBits, uint32_t val)
-{
-  for (uint32_t i = 0; i < numBits; ++i) {
-    // write each bit in order, for ex if numBits is 4:
-    //
-    //  00000000 01010101
-    //               ^^^^
-    //            write these four bits from left to right
-    write1Bit((val >> ((numBits - 1) - i)) & 1);
-  }
 }

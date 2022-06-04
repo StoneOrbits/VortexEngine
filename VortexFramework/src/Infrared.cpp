@@ -1,6 +1,8 @@
 #include "Infrared.h"
 
+#include "SerialBuffer.h"
 #include "TimeControl.h"
+#include "BitStream.h"
 #include "Buttons.h"
 #include "Log.h"
 
@@ -13,7 +15,7 @@
 Tcc* IR_TCCx2;
 #endif
 
-#define TIMING_SIZE 125
+#define TIMING_SIZE 564
 #define HEADER_MARK_SIZE (TIMING_SIZE * 16)
 #define HEADER_SPACE_SIZE (TIMING_SIZE * 8)
 
@@ -27,6 +29,10 @@ Tcc* IR_TCCx2;
 #define IR_SEND_PWM_PIN 0
 #define RECEIVER_PIN 2
 
+#define MAX_DATA_ENTRIES 1024
+
+volatile bool sending = false;
+
 Infrared::Infrared()
 {
 }
@@ -36,6 +42,8 @@ bool Infrared::init()
   pinMode(RECEIVER_PIN, INPUT_PULLUP);
   pinMode(IR_SEND_PWM_PIN, OUTPUT);
   digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
+  attachInterrupt(digitalPinToInterrupt(RECEIVER_PIN), Infrared::recvPCIHandler, CHANGE);
+  sending = false;
   return true;
 }
 
@@ -52,10 +60,27 @@ uint32_t Infrared::read()
   return result;
 }
 
-bool Infrared::write(uint32_t val)
+bool Infrared::write(uint32_t data)
 {
-  //DEBUG_LOGF("IR Write: %u", val);
-  irsend(val);
+  uint32_t extent = 0;
+  DEBUG_LOGF("Sending %08x", data);
+  initpwm();
+  sending = true;
+  // wakeup the other receiver
+  mark(100);
+  space(100);
+  //Some protocols do not send a header when sending repeat codes. So we pass a zero value to indicate skipping this.
+  extent += mark(HEADER_MARK_SIZE);
+  extent += space(HEADER_SPACE_SIZE);
+  for (int i = 31; i >= 0; i--) {
+    if (data & (1 << i)) {
+      extent += mark(TIMING_SIZE);
+    } else {
+      extent += mark(TIMING_SIZE * 3);
+    }
+    extent += space(TIMING_SIZE);
+  }
+  sending = false;
   return true;
 }
 
@@ -114,24 +139,6 @@ void Infrared::initpwm()
 #endif
 }
 
-void Infrared::irsend(uint32_t data)
-{
-  uint32_t extent = 0;
-  DEBUG_LOGF("Sending %u", data);
-  initpwm();
-  //Some protocols do not send a header when sending repeat codes. So we pass a zero value to indicate skipping this.
-  extent += mark(HEADER_MARK_SIZE);
-  extent += space(HEADER_SPACE_SIZE);
-  for (int i = 31; i >= 0; i--) {
-    if (data & (1 << i)) {
-      extent += mark(TIMING_SIZE);
-    } else {
-      extent += mark(TIMING_SIZE * 3);
-    }
-    extent += space(TIMING_SIZE);
-  }
-}
-
 void Infrared::delayus(uint16_t time)
 {
   if (!time) { 
@@ -174,37 +181,42 @@ uint32_t Infrared::space(uint16_t time)
 using namespace std;
 queue<uint32_t> ir_data;
 
+SerialBuffer databuf;
+
+BitStream bits;
+
 bool Infrared::poll()
 {
   static uint8_t oldState = HIGH;
   static uint32_t lastTime = 0;
-  uint8_t newState = digitalRead(RECEIVER_PIN);
+  uint8_t newState = (uint8_t)digitalRead(RECEIVER_PIN);
   uint32_t now = micros();
   if (oldState != newState) {
-    if (oldState == HIGH) {
-      uint32_t timeDiff = now - lastTime;
-      // oldState = HIGH means SPACE.
-      // If it's a very long wait
-      ir_data.push(timeDiff);
-      if (ir_data.size() > 128) {
-        ir_data.pop();
-      }
-      DEBUG_LOGF("Pushed %u IR data", timeDiff);
-    }
+    uint32_t timeDiff = now - lastTime;
+    // oldState = HIGH means SPACE.
+    // If it's a very long wait
+    ir_data.push(timeDiff);
   }
   lastTime = now;
   return true;
 }
 
-#define PERCENT_TOLERANCE 25
+uint32_t next_ir_data()
+{
+  uint32_t val = ir_data.front();
+  ir_data.pop();
+  DEBUG_LOGF("IRData: %u", val);
+  return val;
+}
+
+#define PERCENT_TOLERANCE 45
 bool match(uint32_t expected)
 {
   if (!ir_data.size()) {
+    DEBUG_LOG("No data to match");
     return false;
   }
-  uint32_t val = ir_data.front();
-  DEBUG_LOGF("Matching IR data %u to %u", val, expected);
-  ir_data.pop();
+  uint32_t val = next_ir_data();
   return (val >= (uint16_t)(expected * (1.0 - PERCENT_TOLERANCE / 100.0)))
       && (val <= (uint16_t)(expected * (1.0 + PERCENT_TOLERANCE / 100.0)));
 }
@@ -221,27 +233,57 @@ bool absmatch(int16_t expected, int16_t tolerance)
 
 bool Infrared::decode(uint32_t &data)
 {
-  // If "expectedLenght" or "headMark" or "headSpace" are zero or if "ignoreHeader"
-  // is true then don't perform these tests. This is because some protocols need
-  // to do their own custom header work.
-  if (!match(HEADER_MARK_SIZE)) {
-    return false;
+  do {
+    poll();
+  } while (ir_data.size() < 68);
+  while (1) {
+    if (match(HEADER_MARK_SIZE)) {
+      // the header mark was matched
+      break;
+    }
+    if (!ir_data.size()) {
+      return false;
+    }
   }
   if (!match(HEADER_SPACE_SIZE)) {
     return false;
   }
   // 32 bits
   for (uint32_t i = 0; i < 32; ++i) {
-    if (!match(TIMING_SIZE)) {
-      return false;
-    }
-    if (match(TIMING_SIZE * 3)) {
-      data = (data << 1) | 1;
-    } else if (match(TIMING_SIZE)) {
-      data <<= 1;
-    } else {
-      return false;
+    // classify mark
+    uint32_t val = next_ir_data();
+    data <<= 1;
+    bool mark = (val < (TIMING_SIZE * 2));
+    DEBUG_LOGF("%u = %d", val, mark);
+    data |= mark;
+    // match space
+    if (next_ir_data() > (TIMING_SIZE * 2)) {
+      DEBUG_LOGF("Space %u didn't match: %u", i, TIMING_SIZE);
+      //return false;
     }
   }
+  DEBUG_LOGF("Read %x", data);
   return true;
+}
+
+uint64_t prevTime = 0;
+uint8_t pinState = HIGH;
+
+void Infrared::recvPCIHandler()
+{
+  pinState = !pinState;
+  if (sending) {
+     return;
+  }
+  volatile uint32_t now = micros();
+  uint32_t diff = now - prevTime;
+  // don't push the first captured data
+  if (prevTime) {
+    ir_data.push(diff);
+  }
+  prevTime = now;
+  //// rotating list
+  //if (ir_data.size() > MAX_DATA_ENTRIES) {
+  //  ir_data.pop();
+  //}
 }
