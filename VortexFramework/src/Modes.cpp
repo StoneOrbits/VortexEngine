@@ -170,6 +170,8 @@ bool Modes::unserialize(SerialBuffer &modesBuffer)
 
 bool Modes::setDefaults()
 {
+  // clear any existing modes
+  clearModes();
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
   Colorset defaultSet(RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
   //Colorset defaultSet(HSVColor(254, 255, 255), HSVColor(1, 255, 255), HSVColor(245, 255, 255)); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
