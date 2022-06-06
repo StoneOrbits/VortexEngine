@@ -49,7 +49,7 @@ bool VortexFramework::init()
     return false;
   }
 
-  Menus::openMenu(5);
+  //Menus::openMenu(5);
 
   return true;
 }
