@@ -8,7 +8,7 @@
 class TracerPattern : public SingleLedPattern
 {
 public:
-  TracerPattern(uint8_t tracerLength, uint8_t dotLength);
+  TracerPattern(uint8_t tracerLength = 20, uint8_t dotLength = 1);
   virtual ~TracerPattern();
 
   virtual void init();

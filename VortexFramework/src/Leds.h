@@ -9,6 +9,7 @@
 #include "ColorTypes.h"
 #include "LedConfig.h"
 
+// TODO: fix default brightness?
 // the starting default brightness
 #define DEFAULT_BRIGHTNESS 255
 

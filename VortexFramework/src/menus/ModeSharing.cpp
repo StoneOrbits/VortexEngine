@@ -104,6 +104,8 @@ void ModeSharing::sendMode()
   }
   DEBUG_LOGF("Writing %u buf", buf.rawSize());
   uint64_t startTime = micros();
+  Infrared::write(buf);
+#if 0
   Infrared::write(buf.rawSize() | 0xb00b0000);
   uint32_t num_writes = (buf.rawSize() + 3) / 4;
   uint32_t *raw_buf = (uint32_t *)buf.rawData();
@@ -112,6 +114,7 @@ void ModeSharing::sendMode()
       DEBUG_LOGF("Failed to write %u dword", i);
     }
   }
+#endif
   uint64_t endTime = micros();
   DEBUG_LOGF("Wrote %u buf (%u us)", buf.rawSize(), endTime - startTime);
   DEBUG_LOG("Success sending");
@@ -125,12 +128,18 @@ void ModeSharing::receiveMode()
 {
   uint32_t val = 0;
   // lower 16 is the size of the data to follow
-  SerialBuffer databuf;
+  SerialBuffer buf;
   DEBUG_LOG("Receiving...");
   uint64_t startTime = micros();
+  if (!Infrared::read(buf)) {
+    // no mode to receive right now
+    //DEBUG_LOG("Failed to receive mode");
+    return;
+  }
+#if 0
   // wait for magic number
   val = Infrared::read();
-    // upper 16 has magic number in it
+  // upper 16 has magic number in it
   if (((val >> 16) & 0xFFFF) != 0xb00b) {
     // nothing to do yet
     return;
@@ -146,14 +155,16 @@ void ModeSharing::receiveMode()
   for (uint32_t i = 0; i < num_reads; ++i) {
     raw_buf[i] = Infrared::read();
   }
+#endif
   uint64_t endTime = micros();
-  DEBUG_LOGF("Received %u bytes (%u us)", databuf.size(), endTime - startTime);
-  if (!databuf.decompress()) {
+  DEBUG_LOGF("Received %u bytes (%u us)", buf.size(), endTime - startTime);
+  // decompress and check crc at same time
+  if (!buf.decompress()) {
     DEBUG_LOG("Failed to decompress, crc mismatch or bad data");
     return;
   }
   // if it decompressed the CRC was good and we can unserialize
-  if (!Modes::unserialize(databuf)) {
+  if (!Modes::unserialize(buf)) {
     DEBUG_LOG("Failed to load modes");
   }
   DEBUG_LOG("Success receiving");

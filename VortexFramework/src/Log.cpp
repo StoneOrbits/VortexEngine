@@ -5,6 +5,8 @@
 
 #include <Arduino.h>
 
+#include <string>
+
 #ifdef TEST_FRAMEWORK
 #ifdef LINUX_FRAMEWORK
 #include "TestFrameworkLinux.h"
@@ -13,10 +15,22 @@
 #endif
 #endif
 
+using namespace std;
+
 void DebugMsg(const char *file, const char *func, int line, const char *msg, ...)
 {
   va_list list;
   va_start(list, msg);
+  const char *ptr = file + strlen(file);
+  // go backwards till either start or backslash
+  while (ptr > file) {
+    if (*ptr == '\\') {
+      // file starts after the backslash
+      file = ptr + 1;
+      break;
+    }
+    ptr--;
+  }
 #ifdef TEST_FRAMEWORK
   TestFramework::printlog(file, func, line, msg, list);
 #else
@@ -28,7 +42,6 @@ void DebugMsg(const char *file, const char *func, int line, const char *msg, ...
 #endif
   va_end(list);
 }
-
 
 void ErrorMsg(const char *func, const char *msg, ...)
 {

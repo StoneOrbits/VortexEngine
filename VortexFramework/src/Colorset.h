@@ -19,6 +19,9 @@ public:
     RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
   ~Colorset();
 
+  // move constructor
+  Colorset(Colorset &&other) noexcept;
+
   // copy and assignment operators
   Colorset(const Colorset &other);
   void operator=(const Colorset &other);

@@ -170,7 +170,6 @@ bool Modes::unserialize(SerialBuffer &modesBuffer)
 
 bool Modes::setDefaults()
 {
-  // clear any existing modes
   clearModes();
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
   Colorset defaultSet(RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);

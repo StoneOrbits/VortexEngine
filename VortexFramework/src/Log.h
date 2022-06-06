@@ -18,8 +18,8 @@
 #define DEBUG_LOG(msg) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg)
 #define DEBUG_LOGF(msg, ...) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg, __VA_ARGS__)
 // but error messages still write to serial, but with just the function name
-#define ERROR_LOG(msg) ErrorMsg(__FUNCTION__, msg)
-#define ERROR_LOGF(msg, ...) ErrorMsg(__FUNCTION__, msg, __VA_ARGS__)
+#define ERROR_LOG(msg) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg)
+#define ERROR_LOGF(msg, ...) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg, __VA_ARGS__)
 #endif
 
 // report OOM

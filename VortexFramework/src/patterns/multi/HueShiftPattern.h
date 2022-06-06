@@ -6,7 +6,7 @@
 class HueShiftPattern : public MultiLedPattern
 {
 public:
-  HueShiftPattern(uint8_t scale, uint8_t speed);
+  HueShiftPattern(uint8_t scale = 1, uint8_t speed = 1);
   virtual ~HueShiftPattern();
 
   // init the pattern to initial state

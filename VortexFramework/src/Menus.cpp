@@ -1,5 +1,13 @@
 #include "Menus.h"
 
+// menus
+#include "menus/GlobalBrightness.h"
+#include "menus/FactoryReset.h"
+#include "menus/ModeSharing.h"
+#include "menus/ColorSelect.h"
+#include "menus/PatternSelect.h"
+#include "menus/Randomizer.h"
+
 #include "VortexFramework.h"
 #include "TimeControl.h"
 #include "Timings.h"
@@ -33,7 +41,7 @@ Menu *initMenu() { return new T(); }
 #define ENTRY(classname, color) { #classname, initMenu<classname>, color }
 
 // The list of menus that are registered with colors to show in ring menu
-const MenuEntry menuList[] = {
+const MenuEntry menuList[MENU_COUNT] = {
   ENTRY(Randomizer,       RGB_WHITE),   // 0
   ENTRY(ColorSelect,      RGB_ORANGE),  // 1
   ENTRY(PatternSelect,    RGB_BLUE),    // 2

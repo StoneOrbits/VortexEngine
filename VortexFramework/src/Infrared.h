@@ -3,6 +3,8 @@
 
 #include <inttypes.h>
 
+class SerialBuffer;
+
 class Infrared
 {
   // private unimplemented constructor
@@ -15,22 +17,22 @@ public:
   static void cleanup();
 
   // write data to internal queue to send
-  static bool write(uint32_t val);
+  static bool write(SerialBuffer &data);
   // read data from internal buffer
-  static uint32_t read();
-
-  // poll receiver for more data
-  static bool poll();
+  static bool read(SerialBuffer &data);
 
 private:
   // writing functions
   static void initpwm();
   static void delayus(uint16_t time);
+  static void write32(uint32_t data);
   static uint32_t mark(uint16_t time);
   static uint32_t space(uint16_t time);
 
   // reading functions
-  static bool decode(uint32_t &data);
+  static bool match_next_ir_data(uint32_t expected);
+  static uint32_t next_ir_data();
+  static uint32_t decode32();
 
   static void recvPCIHandler();
 

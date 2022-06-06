@@ -6,6 +6,7 @@
 #include "patterns/multi/HueShiftPattern.h"
 #include "patterns/multi/RabbitPattern.h"
 
+#include "patterns/single/BracketsPattern.h"
 #include "patterns/single/AdvancedPattern.h"
 #include "patterns/single/TracerPattern.h"
 #include "patterns/single/BasicPattern.h"
@@ -91,13 +92,14 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_RIBBON: return new BasicPattern(20);
     case PATTERN_MINIRIBBON: return new BasicPattern(3);
   #endif
-    case PATTERN_TRACER: return new TracerPattern(20, 1);
+    case PATTERN_TRACER: return new TracerPattern();
     case PATTERN_BLINKIE: return new GapPattern(5, 8, 35);
     case PATTERN_GHOSTCRUSH: return new GapPattern(1, 0, 50);
     case PATTERN_ADVANCED: return new AdvancedPattern(5, 5, 10, 2, 2, 1);
+    case PATTERN_BLEND: return new BlendPattern();
+    case PATTERN_BRACKETS: return new BracketsPattern();
     case PATTERN_RABBIT: return new RabbitPattern();
-    case PATTERN_HUESHIFT: return new HueShiftPattern(1, 1);
-    case PATTERN_BLEND: return new BlendPattern(2, 13, 1);
+    case PATTERN_HUESHIFT: return new HueShiftPattern();
     default: break;
   }
   DEBUG_LOGF("Unknown pattern id: %u", id);

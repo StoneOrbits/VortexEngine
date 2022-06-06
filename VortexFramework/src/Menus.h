@@ -3,13 +3,20 @@
 
 #include <inttypes.h>
 
-// menus
-#include "menus/GlobalBrightness.h"
-#include "menus/FactoryReset.h"
-#include "menus/ModeSharing.h"
-#include "menus/ColorSelect.h"
-#include "menus/PatternSelect.h"
-#include "menus/Randomizer.h"
+#include "LedConfig.h"
+
+enum MenuEntries {
+  MENU_RANDOMIZER,
+  MENU_COLOR_SELECT,
+  MENU_PATTERN_SELECT,
+  MENU_GLOBAL_BRIGHTNESS,
+  MENU_FACTORY_RESET,
+  MENU_MODE_SHARING,
+  // add new menus here
+
+  // the total number of menus
+  MENU_COUNT
+};
 
 class Menu;
 
