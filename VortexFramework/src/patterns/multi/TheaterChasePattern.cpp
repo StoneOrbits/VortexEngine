@@ -1,10 +1,9 @@
 #include "TheaterChasePattern.h"
 
-#include "../single/SingleLedPattern.h"
 #include "MultiLedPattern.h"
 
-#include "../../PatternBuilder.h"
 #include "../../Colorset.h"
+#include "../../Leds.h"
 #include "../../Log.h"
 
 TheaterChasePattern::TheaterChasePattern() :
@@ -23,7 +22,8 @@ void TheaterChasePattern::init()
 
 void TheaterChasePattern::play()
 {
-  MultiLedPattern::play();
+  // DO THE STUFF
+  Leds::setFinger(FINGER_FIRST, RGB_RED);
 }
 
 void TheaterChasePattern::serialize(SerialBuffer &buffer) const

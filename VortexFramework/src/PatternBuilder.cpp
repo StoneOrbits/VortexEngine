@@ -3,6 +3,7 @@
 #include "SerialBuffer.h"
 #include "TimeControl.h"
 
+#include "patterns/multi/TheaterChasePattern.h"
 #include "patterns/multi/HueShiftPattern.h"
 #include "patterns/multi/RabbitPattern.h"
 
@@ -99,6 +100,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_BRACKETS: return new BracketsPattern();
     case PATTERN_RABBIT: return new RabbitPattern();
     case PATTERN_HUESHIFT: return new HueShiftPattern();
+    case PATTERN_THEATER_CHASE: return new TheaterChasePattern();
     default: break;
   }
   DEBUG_LOGF("Unknown pattern id: %u", id);
