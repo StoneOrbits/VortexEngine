@@ -115,6 +115,5 @@ void Leds::blinkFingers(Finger first, Finger last, uint32_t offMs, uint32_t onMs
 
 void Leds::update()
 {
-  // TODO: fixme
-  FastLED.show(1);
+  FastLED.show();
 }
