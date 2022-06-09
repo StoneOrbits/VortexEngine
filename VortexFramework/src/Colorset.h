@@ -49,6 +49,9 @@ public:
   // randomize the set with a number of colors, 0 for random number of colors
   void randomize(uint32_t numColors = 0);
 
+  // randomzie a Monochromatic set with a number of colors, 0 for random number of colors
+  void randomizeMonochromatic(uint32_t numColors = 0);
+
   // get a color from the colorset
   RGBColor get(uint32_t index = 0) const;
 
