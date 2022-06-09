@@ -126,7 +126,7 @@ void ModeSharing::sendMode()
 // so that no data is lost, then data is just pushed to a list
 void ModeSharing::receiveMode()
 {
-  uint32_t val = 0;
+  //uint32_t val = 0;
   // lower 16 is the size of the data to follow
   SerialBuffer buf;
   DEBUG_LOG("Receiving...");

@@ -10,7 +10,7 @@
 class BasicPattern : public SingleLedPattern
 {
 public:
-  BasicPattern(uint8_t onDuration, uint8_t offDuration = 0);
+  BasicPattern(uint8_t onDuration, uint8_t offDuration = 0, uint8_t gapDuration = 0);
   virtual ~BasicPattern();
 
   virtual void init();
@@ -29,12 +29,22 @@ protected:
   virtual void onBasicStart();
   virtual void onBasicEnd();
 
+  // trigger the gap
+  virtual void triggerGap();
+  virtual void endGap();
+
+  // whether in the gap
+  bool inGap() const { return m_inGap; }
+
   // the duration the light is on/off for
   uint8_t m_onDuration;
   uint8_t m_offDuration;
+  uint8_t m_gapDuration;
 
   // the blink timer
   Timer m_blinkTimer;
+  Timer m_gapTimer;
+  bool m_inGap;
 };
 
 #endif

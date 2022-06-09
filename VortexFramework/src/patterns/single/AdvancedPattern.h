@@ -3,9 +3,9 @@
 
 #include <inttypes.h>
 
-#include "GapPattern.h"
+#include "BasicPattern.h"
 
-class AdvancedPattern : public GapPattern
+class AdvancedPattern : public BasicPattern
 {
 public:
   AdvancedPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration,

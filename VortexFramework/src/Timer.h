@@ -21,7 +21,7 @@ public:
   AlarmID addAlarm(uint32_t interval);
 
   // restart the timer entirely
-  void restart();
+  void restart(uint32_t offset = 0);
 
   // start the timer but don't change current alarm, this shifts
   // the timer startTime but does not reset it's alarm state

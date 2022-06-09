@@ -33,9 +33,9 @@ AlarmID Timer::addAlarm(uint32_t interval)
   return m_numAlarms++;
 }
 
-void Timer::restart()
+void Timer::restart(uint32_t offset)
 {
-  start();
+  start(offset);
   // reset the current alarm
   m_curAlarm = 0;
 }
@@ -43,7 +43,7 @@ void Timer::restart()
 void Timer::start(uint32_t offset)
 {
   // reset the start time
-  m_startTime = Time::getCurtime() + offset;
+  m_simStartTime = m_startTime = Time::getCurtime() + offset;
 }
 
 void Timer::reset()
@@ -80,6 +80,11 @@ bool Timer::onEnd() const
   uint64_t startTime = getStartTime();
   // time since start (forward or backwards)
   int32_t timeDiff = (int32_t)(int64_t)(now - startTime);
+  // if no time since start then this definitely isn't the end
+  if (!timeDiff) {
+    return false;
+  }
+  // check if timediff is multiple of last tick in alarm
   return ((timeDiff % (alarmTime - 1)) == 0);
 }
 
@@ -88,42 +93,27 @@ AlarmID Timer::alarm()
   if (!m_numAlarms || !m_alarms || m_curAlarm == ALARM_NONE) {
     return ALARM_NONE;
   }
-
-  // grab curTime
   uint64_t now = Time::getCurtime();
-
-  // get the start time of the timer
-  uint64_t startTime = getStartTime();
-
   // time since start (forward or backwards)
-  int32_t timeDiff = (int32_t)(int64_t)(now - startTime);
+  int32_t timeDiff = (int32_t)(int64_t)(now - getStartTime());
   if (timeDiff < 0) {
     return ALARM_NONE;
   }
-
+  // if no time passed it's first alarm that is starting
   if (timeDiff == 0) {
-    return m_numAlarms - 1;
+    return 0;
   }
-
-  // the tick for when this alarm triggers
   uint32_t alarmTime = m_alarms[m_curAlarm];
-
   // if the current alarm duration is not a multiple of the current tick
   if (alarmTime && (timeDiff % alarmTime) != 0) {
     // then the alarm was not hit
     return ALARM_NONE;
   }
-
   // update the start time of the timer
   setStartTime(now);
-
-  // store the alarm ID that will be returned
-  AlarmID curAlarm = m_curAlarm;
-  // increment to the next alarm
+  // increment current alarm then return that id
   m_curAlarm = (AlarmID)((m_curAlarm + 1) % m_numAlarms);
-
-  // return the alarm id
-  return curAlarm;
+  return m_curAlarm;
 }
 
 uint64_t Timer::getStartTime() const

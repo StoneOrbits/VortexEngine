@@ -8,7 +8,7 @@
 
 AdvancedPattern::AdvancedPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration,
                                  uint8_t groupSize, uint8_t skipCols, uint8_t repeatGroup) :
-  GapPattern(onDuration, offDuration, gapDuration),
+  BasicPattern(onDuration, offDuration, gapDuration),
   m_groupSize(groupSize),
   m_skipCols(skipCols),
   m_repeatGroup(repeatGroup),
@@ -24,7 +24,7 @@ AdvancedPattern::~AdvancedPattern()
 void AdvancedPattern::init()
 {
   // run base pattern init logic
-  GapPattern::init();
+  BasicPattern::init();
   if (!m_groupSize || m_groupSize > m_colorset.numColors()) {
     m_groupSize = m_colorset.numColors();
   }
@@ -34,27 +34,27 @@ void AdvancedPattern::init()
 
 void AdvancedPattern::play()
 {
-  // the advanced pattern is just a gap pattern but
+  // the advanced pattern is just a basic pattern but
   // with some of the callbacks overridden to perform
   // actions at certain times in the pattern
-  GapPattern::play();
+  BasicPattern::play();
 }
 
 void AdvancedPattern::triggerGap()
 {
-  // This is an override from GapPattern::triggerGap()
-  // When the gap triggers in the gap pattern we need to
+  // This is an override from BasicPattern::triggerGap()
+  // When the basic triggers in the basic pattern we need to
   // reset the group counter in the advanced pattern
-  // because the only way for the gap to trigger is via
+  // because the only way for the basic to trigger is via
   // the group counter logic in endGap
-  GapPattern::triggerGap();
+  BasicPattern::triggerGap();
   m_groupCounter = 0;
 }
 
 void AdvancedPattern::endGap()
 {
-  // This is an override for the GapPattern callback endGap()
-  GapPattern::endGap();
+  // This is an override for the BasicPattern callback endGap()
+  BasicPattern::endGap();
   // Here we perform logic for repeating groups
   if (m_repeatCounter > 0) {
     // the repeat counter starts at group size and counts down
@@ -75,12 +75,11 @@ void AdvancedPattern::endGap()
 
 void AdvancedPattern::onBasicEnd()
 {
-  // This is overridding GapPattern::onBasicEnd which itself is
+  // This is overridding BasicPattern::onBasicEnd which itself is
   // an override of BasicPatterns onBasicEnd callback. This is
-  // so that we don't run GapPattern::onBasicEnd to prevent default
-  // gap logic at end of blinks because we will be inserting gaps
+  // so that we don't run BasicPattern::onBasicEnd to prevent default
+  // basic logic at end of blinks because we will be inserting basic
   // at different locations based on the group size
-  BasicPattern::onBasicEnd();
 }
 
 void AdvancedPattern::onBlinkOff()
@@ -97,7 +96,7 @@ void AdvancedPattern::onBlinkOff()
 void AdvancedPattern::serialize(SerialBuffer &buffer) const
 {
   //DEBUG_LOG("Serialize");
-  GapPattern::serialize(buffer);
+  BasicPattern::serialize(buffer);
   //buffer.serialize(m_onDuration);
   //buffer.serialize(m_offDuration);
 }
@@ -105,7 +104,7 @@ void AdvancedPattern::serialize(SerialBuffer &buffer) const
 void AdvancedPattern::unserialize(SerialBuffer &buffer)
 {
   //DEBUG_LOG("Unserialize");
-  GapPattern::unserialize(buffer);
+  BasicPattern::unserialize(buffer);
   //buffer.unserialize(&m_onDuration);
   //buffer.unserialize(&m_offDuration);
 }

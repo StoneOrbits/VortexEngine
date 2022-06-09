@@ -11,7 +11,6 @@
 #include "patterns/single/TracerPattern.h"
 #include "patterns/single/BasicPattern.h"
 #include "patterns/single/BlendPattern.h"
-#include "patterns/single/GapPattern.h"
 
 #include "Log.h"
 
@@ -93,8 +92,8 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_MINIRIBBON: return new BasicPattern(3);
   #endif
     case PATTERN_TRACER: return new TracerPattern();
-    case PATTERN_BLINKIE: return new GapPattern(5, 8, 35);
-    case PATTERN_GHOSTCRUSH: return new GapPattern(1, 0, 50);
+    case PATTERN_BLINKIE: return new BasicPattern(5, 8, 35);
+    case PATTERN_GHOSTCRUSH: return new BasicPattern(1, 0, 50);
     case PATTERN_ADVANCED: return new AdvancedPattern(5, 5, 10, 2, 2, 1);
     case PATTERN_BLEND: return new BlendPattern();
     case PATTERN_BRACKETS: return new BracketsPattern();

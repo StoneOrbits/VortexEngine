@@ -1,10 +1,7 @@
 #include "BracketsPattern.h"
 
-#include "../../SerialBuffer.h"
-#include "../../TimeControl.h"
 #include "../../Colorset.h"
 #include "../../Leds.h"
-#include "../../Log.h"
 
 BracketsPattern::BracketsPattern(uint8_t bracketDuration, uint8_t midDuration, uint8_t gapDuration) :
   Pattern(),
@@ -39,24 +36,22 @@ void BracketsPattern::init()
 void BracketsPattern::play()
 {
   // check the alarm to toggle the light
-  AlarmID id = m_blinkTimer.alarm();
-
-  switch (id) {
-  case 0: // first bracket ended
+  switch (m_blinkTimer.alarm()) {
+  case 0: // gap ended
+    // begin first bracket
+    Leds::setIndex(m_ledPos, m_colorset.getNext());
+    break;
+  case 1: // first bracket ended
     // begin mid
     Leds::setIndex(m_ledPos, m_colorset.getNext());
     break;
-  case 1: // mid ended
+  case 2: // mid ended
     // begin second bracket
     Leds::setIndex(m_ledPos, m_colorset.getPrev());
     break;
-  case 2: // second bracket ended
+  case 3: // second bracket ended
     // begin gap
     Leds::clearIndex(m_ledPos);
-    break;
-  case 3: // gap ended
-    // begin first bracket
-    Leds::setIndex(m_ledPos, m_colorset.getNext());
     break;
   }
 }

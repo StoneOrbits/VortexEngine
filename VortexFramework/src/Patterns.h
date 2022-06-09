@@ -14,18 +14,18 @@ enum PatternID : uint8_t
 
   // all 'single led' patterns below
 
-  PATTERN_STROBE = PATTERN_FIRST,  // basicpattern 5 8
-  PATTERN_HYPERSTROBE, // basicpattern 25 25
-  PATTERN_DOPS, // basicpattern 2 13
-  PATTERN_DOPISH, // basicpattern 2 7
-  PATTERN_ULTRADOPS, // basicpattern 1 3
-  PATTERN_STROBIE, // basicpattern 3 22
+  PATTERN_STROBE = PATTERN_FIRST,  // basicpattern 5 8 0
+  PATTERN_HYPERSTROBE, // basicpattern 25 25 0
+  PATTERN_DOPS, // basicpattern 2 13 0
+  PATTERN_DOPISH, // basicpattern 2 7 0
+  PATTERN_ULTRADOPS, // basicpattern 1 3 0
+  PATTERN_STROBIE, // basicpattern 3 22 0
   // these two don't change... why
-  //PATTERN_RIBBON, // basicpattern 20
-  //PATTERN_MINIRIBBON, // basicpattern 3
+  //PATTERN_RIBBON, // basicpattern 20 0 0
+  //PATTERN_MINIRIBBON, // basicpattern 3 0 0
   PATTERN_TRACER, // tracerpattern 20 1
-  PATTERN_BLINKIE, // GapPattern 5, 8, 35
-  PATTERN_GHOSTCRUSH, // GapPattern 1, 0, 50
+  PATTERN_BLINKIE, // BasicPattern 5, 8, 35
+  PATTERN_GHOSTCRUSH, // BasicPattern 1, 0, 50
   PATTERN_ADVANCED, // AdvancedPattern
   PATTERN_BLEND,  // BlendPattern 2, 13, 1
   PATTERN_BRACKETS,  // BracketsPattern 
