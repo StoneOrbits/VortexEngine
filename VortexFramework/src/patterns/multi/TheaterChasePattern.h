@@ -21,6 +21,9 @@ public:
   virtual void unserialize(SerialBuffer &buffer);
 
 private:
+
+  bool m_oneHundy;
+  bool m_twentyThree;
 };
 
 #endif
