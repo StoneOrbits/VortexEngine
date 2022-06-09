@@ -206,6 +206,30 @@ void Colorset::randomizeComplimentary(uint32_t numColors)
   // more saturations and brightnesses can be added
 }
 
+// create a set of colors with equal distance between them
+void Colorset::randomizeAnalogous(uint32_t numColors)
+{
+  clear();
+  if(!numColors){
+    numColors = random(2,7);
+  }
+  uint8_t randomizedHue = random(0,255);
+  uint8_t analogousGap = random(1,64);
+  for(uint32_t i = 1; i < numColors; i += 2){
+    addColor(RGBColor((randomizedHue - (analogousGap * i)) % 255,
+                      255,
+                      255));
+  }
+  addColor(RGBColor(randomizedHue,
+                    255,
+                    255));
+  for(uint32_t i = 1; i < numColors; i += 2){
+    addColor(RGBColor((randomizedHue + (analogousGap * i)) % 255,
+                      255,
+                      255));
+  }
+}
+
 // get a color from the colorset
 RGBColor Colorset::get(uint32_t index) const
 {
