@@ -75,11 +75,9 @@ void AdvancedPattern::endGap()
 
 void AdvancedPattern::onBasicEnd()
 {
-  // This is overridding BasicPattern::onBasicEnd which itself is
-  // an override of BasicPatterns onBasicEnd callback. This is
-  // so that we don't run BasicPattern::onBasicEnd to prevent default
-  // basic logic at end of blinks because we will be inserting basic
-  // at different locations based on the group size
+  // This is overridding BasicPattern::onBasicEnd so that we don't run 
+  // default basic pattern logic which is responsible for triggering gaps
+  // because we will be inserting the gap in other places ourselves.
 }
 
 void AdvancedPattern::onBlinkOff()

@@ -27,7 +27,7 @@ protected:
   // the duration of the mid blink
   uint8_t m_midDuration;
   // the duration of the gap
-  uint8_t m_gapDuration;
+  uint8_t m_offDuration;
 
   // the blink timer
   Timer m_blinkTimer;

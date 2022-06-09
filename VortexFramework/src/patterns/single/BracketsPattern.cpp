@@ -3,11 +3,11 @@
 #include "../../Colorset.h"
 #include "../../Leds.h"
 
-BracketsPattern::BracketsPattern(uint8_t bracketDuration, uint8_t midDuration, uint8_t gapDuration) :
+BracketsPattern::BracketsPattern(uint8_t bracketDuration, uint8_t midDuration, uint8_t offDuration) :
   Pattern(),
   m_bracketDuration(bracketDuration),
   m_midDuration(midDuration),
-  m_gapDuration(gapDuration)
+  m_offDuration(offDuration)
 {
 }
 
@@ -27,7 +27,7 @@ void BracketsPattern::init()
   m_blinkTimer.addAlarm(m_bracketDuration);
   m_blinkTimer.addAlarm(m_midDuration);
   m_blinkTimer.addAlarm(m_bracketDuration);
-  m_blinkTimer.addAlarm(m_gapDuration);
+  m_blinkTimer.addAlarm(m_offDuration);
 
   // start the blink timer from the next frame
   m_blinkTimer.start();

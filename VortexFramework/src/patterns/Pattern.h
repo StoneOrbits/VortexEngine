@@ -13,9 +13,7 @@
  *                /           \             /            \
  *           basic pat       tracer pat    hybrid pat*    sequenced pat*
  *           /                              /
- *        gap pattern                 Rabbit Pattern
- *        /
- *     advanced pattern
+ *      Advanced pattern                 Rabbit Pattern
  *
  *     * = abstract class that cannot be instantiated
  */
