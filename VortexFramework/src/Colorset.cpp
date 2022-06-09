@@ -179,13 +179,31 @@ void Colorset::randomizeMonochromatic(uint32_t numColors)
   }
   uint8_t randomizedHue = random(0,255);
   addColor(RGBColor(randomizedHue,
-          255,
-          255));
+                    255,
+                    255));
   for (uint32_t i = 1; i < numColors; i++){
     addColor(RGBColor(randomizedHue,
-    (uint8_t)random(0,255),
-    (uint8_t)random(0,255)));
+                     (uint8_t)random(0,255),
+                     (uint8_t)random(0,255)));
   }
+}
+
+// create a pair of colors with opposing hues
+void Colorset::randomizeComplimentary(uint32_t numColors)
+{
+  clear();
+  if (!numColors) {
+    numColors = 2;
+  }
+  uint8_t randomizedHue = random(0,255);
+  uint8_t complimentaryHue = (randomizedHue + 128) % 255;
+  addColor(RGBColor(randomizedHue,
+                    255,
+                    255));
+  addColor(RGBColor(complimentaryHue,
+                    255,
+                    255));
+  // more saturations and brightnesses can be added
 }
 
 // get a color from the colorset
