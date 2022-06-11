@@ -34,6 +34,7 @@ void TheaterChasePattern::play()
   if ((Time::getCurtime() % 23) == 0) {
     m_twentyThree = !m_twentyThree;
   }
+  // hi im a new line
   // if m_twentyThree...
 }
 
