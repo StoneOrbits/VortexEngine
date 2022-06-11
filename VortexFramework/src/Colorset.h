@@ -58,6 +58,9 @@ public:
   // randomize an Analogous set with a number of colors, 0 for random number of colors
   void randomizeAnalogous(uint32_t numColors = 0);
 
+  // randomize Triadic
+  void randomizeTriadic(uint32_t numColors = 0);
+
   // get a color from the colorset
   RGBColor get(uint32_t index = 0) const;
 
