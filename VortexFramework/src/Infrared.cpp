@@ -22,6 +22,9 @@ Tcc* IR_TCCx2;
 #define HEADER_MARK (IR_TIMING * 16)
 #define HEADER_SPACE (IR_TIMING * 8)
 
+#define HEADER_MARK_MIN (HEADER_SPACE - (IR_TIMING * 4))
+#define HEADER_SPACE_MIN (HEADER_SPACE - (IR_TIMING * 2))
+
 #define DEFAULT_MARK_EXCESS 50
 #define DEFAULT_FRAME_TIMEOUT 7800 //maximum length of SPACE Sbefore we assume frame ended
 //DEFAULT_TIMEOUT should be 1.25*the_largest_space_any_valid_IR_protocol_might_have.
@@ -334,27 +337,34 @@ void Infrared::recvPCIHandler()
     return;
   }
   ir_time diff = (ir_time)(now - prevTime);
+  DEBUG_LOGF("IR Diff %u", diff);
   prevTime = now;
   switch (recv_state) {
   case WAITING_HEADER_MARK:
-    if (match(diff, HEADER_MARK)) {
+    if (diff > HEADER_MARK_MIN) {
+      DEBUG_LOG("Matched header mark");
       recv_state = WAITING_HEADER_SPACE;
     }
+    DEBUG_LOG("Didn't match header mark");
     return;
   case WAITING_HEADER_SPACE:
-    if (match(diff, HEADER_SPACE)) {
+    if (diff > HEADER_SPACE_MIN) {
       // success
+      DEBUG_LOG("Matched header space");
       recv_state = READING_DATA;
       return;
     }
+    DEBUG_LOG("Didn't match header space");
     // failed to read space
     recv_state = WAITING_HEADER_MARK;
   default: // ??
+    DEBUG_LOGF("Bad receive state: %u", recv_state);
     return;
   case READING_DATA:
     on_mark = !on_mark;
     // skip spaces
     if (!on_mark) {
+      DEBUG_LOG("Ignoring space");
       return;
     }
     // go read data
@@ -364,7 +374,11 @@ void Infrared::recvPCIHandler()
   uint32_t mark = (diff > (IR_TIMING * 2)) ? 1 : 0;
   // shift result and OR in mark/space
   recv_data = (recv_data << 1) | mark;
-  mark ? DEBUG_LOG("MARK") : DEBUG_LOG("SPACE");
+  if (mark) {
+    DEBUG_LOG("MARK");
+  } else {
+    DEBUG_LOG("SPACE");
+  }
   // count each bit we receive
   recv_bit++;
   // when we get 32 bits push it into the buffer and
