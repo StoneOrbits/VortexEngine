@@ -21,6 +21,9 @@ public:
   // read data from internal buffer
   static bool read(SerialBuffer &data);
 
+  static bool beginReceiving();
+  static bool endReceiving();
+
 private:
   // writing functions
   static void initpwm();

@@ -9,8 +9,6 @@
 
 #include <Arduino.h>
 
-#include <queue>
-
 using namespace std;
 
 #ifndef TEST_FRAMEWORK
@@ -18,12 +16,18 @@ using namespace std;
 Tcc* IR_TCCx2;
 #endif
 
-#define IR_TIMING 564
+//#define IR_TIMING 564
+#define IR_TIMING 1564
+#define IR_TIMING_MIN ((uint32_t)(IR_TIMING * 0.1))
+
 #define HEADER_MARK (IR_TIMING * 16)
 #define HEADER_SPACE (IR_TIMING * 8)
 
-#define HEADER_MARK_MIN (HEADER_SPACE - (IR_TIMING * 4))
-#define HEADER_SPACE_MIN (HEADER_SPACE - (IR_TIMING * 2))
+#define HEADER_MARK_MIN ((uint32_t)(HEADER_MARK * 0.85))
+#define HEADER_SPACE_MIN ((uint32_t)(HEADER_SPACE * 0.85))
+
+#define HEADER_MARK_MAX ((uint32_t)(HEADER_MARK * 1.15))
+#define HEADER_SPACE_MAX ((uint32_t)(HEADER_SPACE * 1.15))
 
 #define DEFAULT_MARK_EXCESS 50
 #define DEFAULT_FRAME_TIMEOUT 7800 //maximum length of SPACE Sbefore we assume frame ended
@@ -35,20 +39,64 @@ Tcc* IR_TCCx2;
 #define IR_SEND_PWM_PIN 0
 #define RECEIVER_PIN 2
 
-#define MAX_DATA_ENTRIES 4096
-
 // this bool is toggled when actively sending data to prevent
 // the receiver from running and receiving our own data
-volatile bool sending = false;
+volatile bool receiving = false;
 
-// a typedef for a unit of IR time, make this smaller to save space
-// but at the cost of not handling large IR timings properly. 
-// TODO: handle large IR timings properly
-typedef uint16_t ir_time;
+#define IR_BUF_SIZE 1024
+uint32_t g_ir_data[IR_BUF_SIZE] = {0};
+uint32_t cur_ir_pos = 0;
 
-// global queue of IR data that is pushed to by ISR and
-// popped by the decoder in read()
-queue<ir_time> g_ir_data;
+uint32_t num_dwords = 0;
+uint32_t cur_dwords = 0;
+
+enum recv_state_t {
+  WAITING_HEADER_MARK,
+  WAITING_HEADER_SPACE,
+  READING_DATA,
+};
+
+recv_state_t recv_state = WAITING_HEADER_MARK;
+uint32_t recv_data = 0;
+uint32_t recv_bit = 0;
+bool on_mark = false;
+
+void resetIRState()
+{
+  recv_state = WAITING_HEADER_MARK;
+  recv_data = 0;
+  recv_bit = 0;
+  on_mark = false;
+  num_dwords = 0;
+  cur_dwords = 0;
+}
+
+void push_ir_data(uint32_t data)
+{
+  if (cur_ir_pos >= IR_BUF_SIZE) {
+    DEBUG_LOGF("DISCARDING: %x", data);
+    return;
+  }
+  if (!cur_ir_pos) {
+    DEBUG_LOGF("Num DWORDS: %u", data);
+    num_dwords = data;
+    cur_dwords = 0;
+  } else {
+    DEBUG_LOGF("Received DWORD %u/%u: %x", 
+      ++cur_dwords, num_dwords, recv_data);
+  }
+  g_ir_data[cur_ir_pos] = data;
+  cur_ir_pos++;
+  recv_data = 0;
+  recv_bit = 0;
+  if (cur_dwords > 0 && (cur_dwords % 8) == 0){
+    // reset to header but not fully
+    recv_state = WAITING_HEADER_MARK;
+    recv_data = 0;
+    recv_bit = 0;
+    on_mark = false;
+  }
+}
 
 Infrared::Infrared()
 {
@@ -60,7 +108,7 @@ bool Infrared::init()
   pinMode(IR_SEND_PWM_PIN, OUTPUT);
   digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
   attachInterrupt(digitalPinToInterrupt(RECEIVER_PIN), Infrared::recvPCIHandler, CHANGE);
-  sending = false;
+  receiving = false;
   return true;
 }
 
@@ -70,15 +118,20 @@ void Infrared::cleanup()
 
 bool Infrared::read(SerialBuffer &data)
 {
-  uint32_t num_dwords = next_ir_data();
-  data.clear();
-  data.init(num_dwords * 4);
+  for (uint32_t i = 0; i < cur_ir_pos; ++i) {
+    uint32_t val = g_ir_data[i];
+    DEBUG_LOGF("IR val: %x", val);
+  }
+  cur_ir_pos = 0;
+  return false;
+#if 0
+  //data.clear();
+  //data.init(num_dwords * 4);
   uint32_t *rawBuf = (uint32_t *)data.rawData();
   for (uint32_t i = 0; i < num_dwords; ++i) {
     rawBuf[i] = next_ir_data();
   }
   return true;
-#if 0
   uint32_t result = 0;
   while (!match_next_ir_data(HEADER_MARK)) {
     if (g_ir_data.empty()) {
@@ -104,24 +157,52 @@ bool Infrared::read(SerialBuffer &data)
 
 bool Infrared::write(SerialBuffer &data)
 {
+  // stop receiving
+  receiving = false;
+  // initialize the thing
   initpwm();
-  sending = true;
+  // access the data in dwords
+  uint32_t *dwData = (uint32_t *)data.rawData();
+  uint32_t num_dwords = (data.rawSize() + 3) / 4;
   // wakeup the other receiver with a quick mark/space
   mark(50);
   space(100);
   // now send the header
   mark(HEADER_MARK);
   space(HEADER_SPACE);
-  // access the data in dwords
-  uint32_t *dwData = (uint32_t *)data.rawData();
-  uint32_t num_dwords = (data.rawSize() + 3) / 4;
   // write the number of dwords for the IR decoder
   write32(num_dwords);
   // now iterate the bytes of data
   for (uint32_t i = 0; i < num_dwords; ++i) {
     write32(dwData[i]);
+    if (i > 0 && ((i + 1) % 8) == 0) {
+      // send another mark/space for sync every 8
+      mark(HEADER_MARK);
+      space(HEADER_SPACE);
+    }
   }
-  sending = false;
+  DEBUG_LOGF("Wrote %x", num_dwords);
+  for (uint32_t i = 0; i < num_dwords; ++i) {
+    DEBUG_LOGF("Wrote %x", dwData[i]);
+    if (i > 0 && ((i + 1) % 8) == 0) {
+      DEBUG_LOG("SEPARATOR");
+    }
+  }
+  // can receive again
+  receiving = true;
+  return true;
+}
+
+bool Infrared::beginReceiving()
+{
+  receiving = true;
+  return true;
+}
+
+bool Infrared::endReceiving()
+{
+  receiving = false;
+  resetIRState();
   return true;
 }
 
@@ -204,7 +285,6 @@ void Infrared::write32(uint32_t data)
     // send 1x timing size for space
     space(IR_TIMING);
   }
-  //DEBUG_LOGF("Wrote %x", data);
 }
 
 uint32_t Infrared::mark(uint16_t time)
@@ -252,10 +332,13 @@ bool Infrared::poll()
 
 uint32_t Infrared::next_ir_data()
 {
+#if 0
   uint32_t val = g_ir_data.front();
   g_ir_data.pop();
   DEBUG_LOGF("IR val: %x", val);
   return val;
+#endif
+  return 0;
 }
 
 #define PERCENT_TOLERANCE 45
@@ -273,6 +356,7 @@ bool match(uint32_t val, uint32_t expected)
 
 bool Infrared::match_next_ir_data(uint32_t expected)
 {
+#if 0
   if (!g_ir_data.size()) {
     DEBUG_LOG("No data to match");
     return false;
@@ -280,6 +364,8 @@ bool Infrared::match_next_ir_data(uint32_t expected)
   uint32_t val = next_ir_data();
   DEBUG_LOGF("matching %u to expected %u", val, expected);
   return match(val, expected);
+#endif
+  return true;
 }
 
 // decode a 32bit integer
@@ -305,17 +391,6 @@ uint32_t Infrared::decode32()
   return result;
 }
 
-enum recv_state_t {
-  WAITING_HEADER_MARK,
-  WAITING_HEADER_SPACE,
-  READING_DATA,
-};
-
-recv_state_t recv_state = WAITING_HEADER_MARK;
-uint32_t recv_data = 0;
-uint32_t recv_bit = 0;
-bool on_mark = true;
-
 void Infrared::recvPCIHandler()
 {
   // used to track the changes
@@ -324,47 +399,61 @@ void Infrared::recvPCIHandler()
 
   // toggle the tracked pin state
   pinState = !pinState;
-  // if we're sending right now don't receive anything
-  // otherwise we will receive our own data
-  if (sending) {
-    return;
-  }
   // grab current time
   uint32_t now = micros();
-  // don't push the first captured data, or if prevTime is invalid
-  if (!prevTime || prevTime > now) {
-    prevTime = now;
+  uint32_t diff = (uint32_t)(now - prevTime);
+  prevTime = now;
+  // if we're sending right now don't receive anything
+  // otherwise we will receive our own data
+  if (!receiving) {
+    resetIRState();
     return;
   }
-  ir_time diff = (ir_time)(now - prevTime);
-  DEBUG_LOGF("IR Diff %u", diff);
-  prevTime = now;
+  // don't push the first captured data, or if prevTime is invalid
+  if (!prevTime || prevTime > now) {
+    DEBUG_LOGF("Bad prevtime: %u", prevTime);
+    resetIRState();
+    return;
+  }
+  //DEBUG_LOGF("IR Diff %u", diff);
+  if (diff > HEADER_MARK_MAX) {
+    DEBUG_LOGF("bad delay: %u", diff);
+    resetIRState();
+    return;
+  }
+  if (diff < IR_TIMING_MIN) {
+    DEBUG_LOG("MIN OK");
+    return;
+  }
   switch (recv_state) {
   case WAITING_HEADER_MARK:
-    if (diff > HEADER_MARK_MIN) {
-      DEBUG_LOG("Matched header mark");
-      recv_state = WAITING_HEADER_SPACE;
-    }
-    DEBUG_LOG("Didn't match header mark");
-    return;
-  case WAITING_HEADER_SPACE:
-    if (diff > HEADER_SPACE_MIN) {
-      // success
-      DEBUG_LOG("Matched header space");
-      recv_state = READING_DATA;
+    if (diff < HEADER_MARK_MIN) {
+      DEBUG_LOGF("[%u] Didn't match header mark min %u", diff, HEADER_MARK_MIN);
+      resetIRState();
       return;
     }
-    DEBUG_LOG("Didn't match header space");
-    // failed to read space
-    recv_state = WAITING_HEADER_MARK;
+    DEBUG_LOGF("[%u] Matched header mark min %u", diff, HEADER_MARK_MIN);
+    recv_state = WAITING_HEADER_SPACE;
+    return;
+  case WAITING_HEADER_SPACE:
+    if (diff < HEADER_SPACE_MIN) {
+      // failed to read space
+      DEBUG_LOGF("[%u] Didn't match header space min %u", diff, HEADER_SPACE_MIN);
+      resetIRState();
+      return;
+    }
+    // success
+    DEBUG_LOGF("[%u] Matched header space min %u", diff, HEADER_SPACE_MIN);
+    recv_state = READING_DATA;
+    // setup mark reader to only read marks in data
+    return;
   default: // ??
     DEBUG_LOGF("Bad receive state: %u", recv_state);
     return;
   case READING_DATA:
     on_mark = !on_mark;
-    // skip spaces
     if (!on_mark) {
-      DEBUG_LOG("Ignoring space");
+      // skip spaces
       return;
     }
     // go read data
@@ -375,18 +464,17 @@ void Infrared::recvPCIHandler()
   // shift result and OR in mark/space
   recv_data = (recv_data << 1) | mark;
   if (mark) {
-    DEBUG_LOG("MARK");
+    //DEBUG_LOG("MARK");
   } else {
-    DEBUG_LOG("SPACE");
+    //DEBUG_LOG("SPACE");
   }
+  //DEBUG_LOGF("Received data %u decoded as %s for bit #%u (curdata: %x)", 
+  //  diff, mark ? "MARK" : "SPACE", recv_bit, recv_data);
   // count each bit we receive
   recv_bit++;
   // when we get 32 bits push it into the buffer and
   // reset the data and bit counter
   if (recv_bit == 32) {
-    DEBUG_LOGF("pushed %x", recv_data);
-    g_ir_data.push(recv_data);
-    recv_data = 0;
-    recv_bit = 0;
+    push_ir_data(recv_data);
   }
 }

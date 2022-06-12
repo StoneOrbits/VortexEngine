@@ -53,10 +53,12 @@ void ModeSharing::onShortClick()
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND:
     // go to receiving
+    Infrared::beginReceiving();
     startReceiving();
     break;
   case ModeShareState::SHARE_RECEIVE:
     // go to quit option
+    Infrared::endReceiving();
     m_sharingMode = ModeShareState::SHARE_QUIT;
     break;
   case ModeShareState::SHARE_QUIT:
