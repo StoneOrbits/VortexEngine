@@ -47,6 +47,10 @@ volatile bool receiving = false;
 uint32_t g_ir_data[IR_BUF_SIZE] = {0};
 uint32_t cur_ir_pos = 0;
 
+#define IR_TIMING_BUF_SIZE 2048
+uint32_t g_ir_timings[IR_TIMING_BUF_SIZE] = {0};
+uint32_t cur_ir_timing = 0;
+
 uint32_t num_dwords = 0;
 uint32_t cur_dwords = 0;
 
@@ -69,6 +73,7 @@ void resetIRState()
   on_mark = false;
   num_dwords = 0;
   cur_dwords = 0;
+  cur_ir_timing = 0;
 }
 
 void push_ir_data(uint32_t data)
@@ -89,13 +94,12 @@ void push_ir_data(uint32_t data)
   cur_ir_pos++;
   recv_data = 0;
   recv_bit = 0;
+#if 0
   if (cur_dwords > 0 && (cur_dwords % 8) == 0){
     // reset to header but not fully
     recv_state = WAITING_HEADER_MARK;
-    recv_data = 0;
-    recv_bit = 0;
-    on_mark = false;
   }
+#endif
 }
 
 Infrared::Infrared()
@@ -107,7 +111,6 @@ bool Infrared::init()
   pinMode(RECEIVER_PIN, INPUT_PULLUP);
   pinMode(IR_SEND_PWM_PIN, OUTPUT);
   digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
-  attachInterrupt(digitalPinToInterrupt(RECEIVER_PIN), Infrared::recvPCIHandler, CHANGE);
   receiving = false;
   return true;
 }
@@ -118,12 +121,28 @@ void Infrared::cleanup()
 
 bool Infrared::read(SerialBuffer &data)
 {
-  for (uint32_t i = 0; i < cur_ir_pos; ++i) {
+#if 0
+  for (uint32_t i = 0; i < cur_ir_timing; ++i) {
+    uint32_t val = g_ir_timings[i];
+    DEBUG_LOGF("IR time: %u", val);
+  }
+  cur_ir_timing = 0;
+#endif
+  if (!cur_ir_pos) {
+    return false;
+  }
+  uint32_t num_dwords = g_ir_data[0];
+  data.init(num_dwords * sizeof(uint32_t));
+  uint32_t *dwData = (uint32_t *)data.rawData();
+  DEBUG_LOG("=====================");
+  for (uint32_t i = 1; i < cur_ir_pos; ++i) {
     uint32_t val = g_ir_data[i];
     DEBUG_LOGF("IR val: %x", val);
+    *dwData = val;
+    dwData++;
   }
   cur_ir_pos = 0;
-  return false;
+  return true;
 #if 0
   //data.clear();
   //data.init(num_dwords * 4);
@@ -155,6 +174,18 @@ bool Infrared::read(SerialBuffer &data)
 #endif
 }
 
+void log32(uint32_t data)
+{
+  for (int b = 31; b >= 0; b--) {
+    // grab the bit of data at the index
+    bool bit = ((data & (1 << b)) != 0);
+    // send 3x timing size for 1s and 1x timing for 0
+    DEBUG_LOGF("M/S: %u", IR_TIMING + (IR_TIMING * (2 * bit)));
+    // send 1x timing size for space
+    DEBUG_LOGF("Space: %u", IR_TIMING);
+  }
+}
+
 bool Infrared::write(SerialBuffer &data)
 {
   // stop receiving
@@ -164,6 +195,10 @@ bool Infrared::write(SerialBuffer &data)
   // access the data in dwords
   uint32_t *dwData = (uint32_t *)data.rawData();
   uint32_t num_dwords = (data.rawSize() + 3) / 4;
+  if (num_dwords > 10) {
+    DEBUG_LOG("TOO MANY DWORDS");
+    return false;
+  }
   // wakeup the other receiver with a quick mark/space
   mark(50);
   space(100);
@@ -175,18 +210,23 @@ bool Infrared::write(SerialBuffer &data)
   // now iterate the bytes of data
   for (uint32_t i = 0; i < num_dwords; ++i) {
     write32(dwData[i]);
+#if 0
     if (i > 0 && ((i + 1) % 8) == 0) {
       // send another mark/space for sync every 8
-      mark(HEADER_MARK);
-      space(HEADER_SPACE);
+      //mark(HEADER_MARK);
+      space(IR_TIMING * 10);
     }
+#endif
   }
   DEBUG_LOGF("Wrote %x", num_dwords);
   for (uint32_t i = 0; i < num_dwords; ++i) {
+    //log32(dwData[i]);
     DEBUG_LOGF("Wrote %x", dwData[i]);
+#if 0
     if (i > 0 && ((i + 1) % 8) == 0) {
       DEBUG_LOG("SEPARATOR");
     }
+#endif
   }
   // can receive again
   receiving = true;
@@ -195,14 +235,17 @@ bool Infrared::write(SerialBuffer &data)
 
 bool Infrared::beginReceiving()
 {
+  attachInterrupt(digitalPinToInterrupt(RECEIVER_PIN), Infrared::recvPCIHandler, CHANGE);
+  resetIRState();
   receiving = true;
   return true;
 }
 
 bool Infrared::endReceiving()
 {
-  receiving = false;
+  detachInterrupt(digitalPinToInterrupt(RECEIVER_PIN));
   resetIRState();
+  receiving = false;
   return true;
 }
 
@@ -408,6 +451,11 @@ void Infrared::recvPCIHandler()
   if (!receiving) {
     resetIRState();
     return;
+  }
+  if (cur_ir_timing < (sizeof(g_ir_timings) / sizeof(g_ir_timings[0]))) {
+    g_ir_timings[cur_ir_timing++] = diff;
+  } else {
+    DEBUG_LOG("TIMING BUFFER FULL");
   }
   // don't push the first captured data, or if prevTime is invalid
   if (!prevTime || prevTime > now) {

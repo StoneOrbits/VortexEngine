@@ -93,7 +93,7 @@ void ModeSharing::sendMode()
     return;
   }
   last_time = now;
-  Modes::serialize(buf);
+  m_pCurMode->serialize(buf);
   if (!buf.compress()) {
     DEBUG_LOG("Failed to compress, aborting send");
     return;
@@ -166,10 +166,10 @@ void ModeSharing::receiveMode()
     return;
   }
   // if it decompressed the CRC was good and we can unserialize
-  if (!Modes::unserialize(buf)) {
-    DEBUG_LOG("Failed to load modes");
-  }
-  DEBUG_LOG("Success receiving");
+  m_pCurMode->unserialize(buf);
+  m_pCurMode->init();
+  DEBUG_LOG("Success receiving mode");
+  leaveMenu();
 }
 
 void ModeSharing::showSendMode()

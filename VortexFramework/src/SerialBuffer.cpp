@@ -156,7 +156,8 @@ bool SerialBuffer::compress()
     DEBUG_LOGF("\twidth: %u", wid);
     DEBUG_LOGF("\tTable size: %u", table_size);
     DEBUG_LOGF("\tData size: %u", data_size);
-    return false;
+    // NOT A FAILURE, buffer simply not compressed
+    return true;
   }
   // extend enough for two tables
   extend(table_size * 2);
