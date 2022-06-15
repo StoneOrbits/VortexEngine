@@ -1,12 +1,7 @@
 #include "ReciprocalBlendPattern.h"
 
-#include "../../SerialBuffer.h"
-#include "../../TimeControl.h"
 #include "../../Colorset.h"
 #include "../../Leds.h"
-#include "../../Log.h"
-
-#include <math.h>
 
 ReciprocalBlendPattern::ReciprocalBlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t blendSpeed) :
   BlendPattern(onDuration, offDuration, blendSpeed),
@@ -22,11 +17,6 @@ void ReciprocalBlendPattern::init()
 {
   BlendPattern::init();
   m_showingComplement = false;
-}
-
-void ReciprocalBlendPattern::play()
-{
-  BlendPattern::play();
 }
 
 void ReciprocalBlendPattern::onBlinkOn()

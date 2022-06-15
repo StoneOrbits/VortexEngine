@@ -276,6 +276,8 @@ bool Modes::setCurMode(const Mode *mode)
 
 bool Modes::updateCurMode(SerialBuffer &buffer)
 {
+  // TODO: I don't really like this function, would be nice if we could
+  //       just unserialize directly into the mode and have it autosave
   m_serializedModes[m_curMode] = buffer;
   // if it decompressed the CRC was good and we can unserialize
   m_pCurMode->unserialize(buffer);

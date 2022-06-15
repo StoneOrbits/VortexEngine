@@ -13,16 +13,9 @@ public:
 
   virtual void init();
 
-  virtual void play();
-
-  // not sure these are necessary in derived classes anymore
-  //virtual void serialize(SerialBuffer &buffer) const;
-  //virtual void unserialize(SerialBuffer &buffer);
-
 protected:
   // only override the onBlinkOn so we can control the color it blinks
   virtual void onBlinkOn() override;
-
   bool m_showingComplement;
 };
 
