@@ -274,6 +274,15 @@ bool Modes::setCurMode(const Mode *mode)
   return setCurMode(mode->getPatternID(), mode->getColorset());
 }
 
+bool Modes::updateCurMode(SerialBuffer &buffer)
+{
+  m_serializedModes[m_curMode] = buffer;
+  // if it decompressed the CRC was good and we can unserialize
+  m_pCurMode->unserialize(buffer);
+  m_pCurMode->init();
+  return true;
+}
+
 // the current mode
 Mode *Modes::curMode()
 {

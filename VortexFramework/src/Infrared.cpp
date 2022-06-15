@@ -11,10 +11,9 @@
 
 using namespace std;
 
-#ifndef TEST_FRAMEWORK
-// Timer used for PWM, is initialized in initpwm()
-Tcc* IR_TCCx2;
-#endif
+// the max number of DWORDs that will transfer
+#define MAX_DWORDS_TRANSFER 9
+#define MAX_DATA_TRANSFER (MAX_DWORDS_TRANSFER * sizeof(uint32_t))
 
 //#define IR_TIMING 564
 #define IR_TIMING 1564
@@ -29,78 +28,18 @@ Tcc* IR_TCCx2;
 #define HEADER_MARK_MAX ((uint32_t)(HEADER_MARK * 1.15))
 #define HEADER_SPACE_MAX ((uint32_t)(HEADER_SPACE * 1.15))
 
-#define DEFAULT_MARK_EXCESS 50
-#define DEFAULT_FRAME_TIMEOUT 7800 //maximum length of SPACE Sbefore we assume frame ended
-//DEFAULT_TIMEOUT should be 1.25*the_largest_space_any_valid_IR_protocol_might_have.
-//In IRremote library ir_Dish.cpp space they use DISH_RPT_SPACE 6200 while referenced says
-//about 6000. If we take 6200*1.25= 7750 rounded up we will use 7800. Previous IRLib
-//value was 10000 was probably too large. Thanks to Gabriel Staples for this note.
-
 #define IR_SEND_PWM_PIN 0
 #define RECEIVER_PIN 2
 
-// this bool is toggled when actively sending data to prevent
-// the receiver from running and receiving our own data
-volatile bool receiving = false;
-
-#define IR_BUF_SIZE 1024
-uint32_t g_ir_data[IR_BUF_SIZE] = {0};
-uint32_t cur_ir_pos = 0;
-
-#define IR_TIMING_BUF_SIZE 2048
-uint32_t g_ir_timings[IR_TIMING_BUF_SIZE] = {0};
-uint32_t cur_ir_timing = 0;
-
-uint32_t num_dwords = 0;
-uint32_t cur_dwords = 0;
-
-enum recv_state_t {
-  WAITING_HEADER_MARK,
-  WAITING_HEADER_SPACE,
-  READING_DATA,
-};
-
-recv_state_t recv_state = WAITING_HEADER_MARK;
-uint32_t recv_data = 0;
-uint32_t recv_bit = 0;
-bool on_mark = false;
-
-void resetIRState()
-{
-  recv_state = WAITING_HEADER_MARK;
-  recv_data = 0;
-  recv_bit = 0;
-  on_mark = false;
-  num_dwords = 0;
-  cur_dwords = 0;
-  cur_ir_timing = 0;
-}
-
-void push_ir_data(uint32_t data)
-{
-  if (cur_ir_pos >= IR_BUF_SIZE) {
-    DEBUG_LOGF("DISCARDING: %x", data);
-    return;
-  }
-  if (!cur_ir_pos) {
-    DEBUG_LOGF("Num DWORDS: %u", data);
-    num_dwords = data;
-    cur_dwords = 0;
-  } else {
-    DEBUG_LOGF("Received DWORD %u/%u: %x", 
-      ++cur_dwords, num_dwords, recv_data);
-  }
-  g_ir_data[cur_ir_pos] = data;
-  cur_ir_pos++;
-  recv_data = 0;
-  recv_bit = 0;
-#if 0
-  if (cur_dwords > 0 && (cur_dwords % 8) == 0){
-    // reset to header but not fully
-    recv_state = WAITING_HEADER_MARK;
-  }
+#ifndef TEST_FRAMEWORK
+// Timer used for PWM, is initialized in initpwm()
+Tcc *IR_TCCx;
 #endif
-}
+
+BitStream Infrared::m_irData;
+Infrared::RecvState Infrared::m_recvState = WAITING_HEADER_MARK;
+uint64_t Infrared::m_prevTime = 0;
+uint8_t Infrared::m_pinState = HIGH;
 
 Infrared::Infrared()
 {
@@ -111,7 +50,10 @@ bool Infrared::init()
   pinMode(RECEIVER_PIN, INPUT_PULLUP);
   pinMode(IR_SEND_PWM_PIN, OUTPUT);
   digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
-  receiving = false;
+  m_irData.init(IR_RECV_BUF_SIZE);
+#ifdef TEST_FRAMEWORK
+  installIRCallback(handleIRTiming);
+#endif
   return true;
 }
 
@@ -121,115 +63,60 @@ void Infrared::cleanup()
 
 bool Infrared::read(SerialBuffer &data)
 {
-#if 0
-  for (uint32_t i = 0; i < cur_ir_timing; ++i) {
-    uint32_t val = g_ir_timings[i];
-    DEBUG_LOGF("IR time: %u", val);
-  }
-  cur_ir_timing = 0;
-#endif
-  if (!cur_ir_pos) {
+  if (!m_irData.bytepos() || m_irData.bytepos() > MAX_DATA_TRANSFER) {
+    // nothing to read, or somehow read way too much
     return false;
   }
-  uint32_t num_dwords = g_ir_data[0];
-  data.init(num_dwords * sizeof(uint32_t));
-  uint32_t *dwData = (uint32_t *)data.rawData();
-  DEBUG_LOG("=====================");
-  for (uint32_t i = 1; i < cur_ir_pos; ++i) {
-    uint32_t val = g_ir_data[i];
-    DEBUG_LOGF("IR val: %x", val);
-    *dwData = val;
-    dwData++;
-  }
-  cur_ir_pos = 0;
-  return true;
-#if 0
-  //data.clear();
-  //data.init(num_dwords * 4);
-  uint32_t *rawBuf = (uint32_t *)data.rawData();
-  for (uint32_t i = 0; i < num_dwords; ++i) {
-    rawBuf[i] = next_ir_data();
-  }
-  return true;
-  uint32_t result = 0;
-  while (!match_next_ir_data(HEADER_MARK)) {
-    if (g_ir_data.empty()) {
-      return 0;
-    }
-  }
-  DEBUG_LOG("Matched header mark");
-  // pop next ir data and try to match header mark + space
-  if (!match_next_ir_data(HEADER_SPACE)) {
-    DEBUG_LOG("Didn't match header space");
+  // the first byte received should be the size of data to come
+  uint8_t size = *m_irData.data();
+  DEBUG_LOGF("Data size: %u", size);
+  // validate the size
+  if (size > MAX_DATA_TRANSFER) {
+    DEBUG_LOGF("Received bad data size: %u", size);
     return false;
   }
-  DEBUG_LOG("Matched header space");
-  // decode a 32bit integer, it should be the size
-  for (uint32_t i = 0; i < num_dwords; ++i) {
-    rawBuf[i] = decode32();
-    DEBUG_LOGF("Decoded: %x", rawBuf[i]);
+  // inintialize the serial buffer for the new data size
+  if (!data.init(size)) {
+    DEBUG_LOG("Failed to init buffer for IR read");
+    return false;
   }
-  DEBUG_LOGF("Read %u bytes", data.size());
+  // the actual data starts 1 byte later because of the size byte
+  const uint8_t *actualData = m_irData.data() + 1;
+  for (uint32_t i = 0; i < size; ++i) {
+    DEBUG_LOGF("Read: 0x%x", actualData[i]);
+  }
+  // copy in the actual data from the serial buffer
+  memcpy(data.rawData(), actualData, size);
+  // reset the IR state and receive buffer
+  resetIRState();
   return true;
-#endif
-}
-
-void log32(uint32_t data)
-{
-  for (int b = 31; b >= 0; b--) {
-    // grab the bit of data at the index
-    bool bit = ((data & (1 << b)) != 0);
-    // send 3x timing size for 1s and 1x timing for 0
-    DEBUG_LOGF("M/S: %u", IR_TIMING + (IR_TIMING * (2 * bit)));
-    // send 1x timing size for space
-    DEBUG_LOGF("Space: %u", IR_TIMING);
-  }
 }
 
 bool Infrared::write(SerialBuffer &data)
 {
-  // stop receiving
-  receiving = false;
   // initialize the thing
   initpwm();
+  uint8_t *buf = (uint8_t *)data.rawData();
+  uint32_t size = data.rawSize();
   // access the data in dwords
-  uint32_t *dwData = (uint32_t *)data.rawData();
-  uint32_t num_dwords = (data.rawSize() + 3) / 4;
-  if (num_dwords > 10) {
-    DEBUG_LOG("TOO MANY DWORDS");
+  if (size > MAX_DATA_TRANSFER) {
+    DEBUG_LOGF("Cannot transfer that much data: %u bytes", data.rawSize());
     return false;
   }
+  // create a bitstream to walk the bits of the data
+  BitStream sendStream(buf, size);
   // wakeup the other receiver with a quick mark/space
   mark(50);
   space(100);
   // now send the header
   mark(HEADER_MARK);
   space(HEADER_SPACE);
-  // write the number of dwords for the IR decoder
-  write32(num_dwords);
+  // write the number of bytes being sent, should't exceed MAX_DATA_TRANSFER
+  write8((uint8_t)size);
   // now iterate the bytes of data
-  for (uint32_t i = 0; i < num_dwords; ++i) {
-    write32(dwData[i]);
-#if 0
-    if (i > 0 && ((i + 1) % 8) == 0) {
-      // send another mark/space for sync every 8
-      //mark(HEADER_MARK);
-      space(IR_TIMING * 10);
-    }
-#endif
+  for (uint32_t i = 0; i < size; ++i) {
+    write8(buf[i]);
   }
-  DEBUG_LOGF("Wrote %x", num_dwords);
-  for (uint32_t i = 0; i < num_dwords; ++i) {
-    //log32(dwData[i]);
-    DEBUG_LOGF("Wrote %x", dwData[i]);
-#if 0
-    if (i > 0 && ((i + 1) % 8) == 0) {
-      DEBUG_LOG("SEPARATOR");
-    }
-#endif
-  }
-  // can receive again
-  receiving = true;
   return true;
 }
 
@@ -237,7 +124,6 @@ bool Infrared::beginReceiving()
 {
   attachInterrupt(digitalPinToInterrupt(RECEIVER_PIN), Infrared::recvPCIHandler, CHANGE);
   resetIRState();
-  receiving = true;
   return true;
 }
 
@@ -245,7 +131,6 @@ bool Infrared::endReceiving()
 {
   detachInterrupt(digitalPinToInterrupt(RECEIVER_PIN));
   resetIRState();
-  receiving = false;
   return true;
 }
 
@@ -281,27 +166,27 @@ void Infrared::initpwm()
 
   // Normal (single slope) PWM operation: timers countinuously count up to PER 
   // register value and then is reset to 0
-  IR_TCCx2 = (Tcc*) GetTC(IR_TCC_Channel);
-  IR_TCCx2->WAVE.reg |= TCC_WAVE_WAVEGEN_NPWM;   // Setup single slope PWM on TCCx
-  while (IR_TCCx2->SYNCBUSY.bit.WAVE);           // Wait for synchronization
+  IR_TCCx = (Tcc*) GetTC(IR_TCC_Channel);
+  IR_TCCx->WAVE.reg |= TCC_WAVE_WAVEGEN_NPWM;   // Setup single slope PWM on TCCx
+  while (IR_TCCx->SYNCBUSY.bit.WAVE);           // Wait for synchronization
 
   // Each timer counts up to a maximum or TOP value set by the PER register,
   // this determines the frequency of the PWM operation.
   uint32_t cc = F_CPU/(38*1000) - 1;
-  IR_TCCx2->PER.reg = cc;      // Set the frequency of the PWM on IR_TCCx2
-  while(IR_TCCx2->SYNCBUSY.bit.PER);
+  IR_TCCx->PER.reg = cc;      // Set the frequency of the PWM on IR_TCCx
+  while(IR_TCCx->SYNCBUSY.bit.PER);
 
   // The CCx register value corresponds to the pulsewidth in microseconds (us) 
   // Set the duty cycle of the PWM on TCC0 to 33%
-  IR_TCCx2->CC[GetTCChannelNumber(IR_TCC_Channel)].reg = cc/3;      
-  while (IR_TCCx2->SYNCBUSY.reg & TCC_SYNCBUSY_MASK);
-  //while(IR_TCCx2->SYNCBUSY.bit.CC3);
+  IR_TCCx->CC[GetTCChannelNumber(IR_TCC_Channel)].reg = cc/3;      
+  while (IR_TCCx->SYNCBUSY.reg & TCC_SYNCBUSY_MASK);
+  //while(IR_TCCx->SYNCBUSY.bit.CC3);
 
-  // Enable IR_TCCx2 timer but do not turn on PWM yet. Will turn it on later.
-  IR_TCCx2->CTRLA.reg |= TCC_CTRLA_PRESCALER_DIV1;     // Divide GCLK0 by 1
-  while (IR_TCCx2->SYNCBUSY.bit.ENABLE);
-  IR_TCCx2->CTRLA.reg &= ~TCC_CTRLA_ENABLE;            //initially off will turn on later
-  while (IR_TCCx2->SYNCBUSY.bit.ENABLE);
+  // Enable IR_TCCx timer but do not turn on PWM yet. Will turn it on later.
+  IR_TCCx->CTRLA.reg |= TCC_CTRLA_PRESCALER_DIV1;     // Divide GCLK0 by 1
+  while (IR_TCCx->SYNCBUSY.bit.ENABLE);
+  IR_TCCx->CTRLA.reg &= ~TCC_CTRLA_ENABLE;            //initially off will turn on later
+  while (IR_TCCx->SYNCBUSY.bit.ENABLE);
 #endif
 }
 
@@ -318,211 +203,125 @@ void Infrared::delayus(uint16_t time)
   delay(time / 1000);
 }
 
-void Infrared::write32(uint32_t data)
+void Infrared::write8(uint8_t data)
 {
-  for (int b = 31; b >= 0; b--) {
+  // Sends from left to right, MSB first
+  for (int b = 0; b < 8; b++) {
     // grab the bit of data at the index
-    bool bit = ((data & (1 << b)) != 0);
+    uint32_t bit = (data >> (7 - b)) & 1;
     // send 3x timing size for 1s and 1x timing for 0
     mark(IR_TIMING + (IR_TIMING * (2 * bit)));
     // send 1x timing size for space
     space(IR_TIMING);
   }
+  DEBUG_LOGF("Wrote: 0x%x", data);
+}
+
+void Infrared::write32(uint32_t data)
+{
+  // the other end will pack the data with a bitstream
+  write8(data & 0xFF);
+  write8((data >> 8) & 0xFF);
+  write8((data >> 16) & 0xFF);
+  write8((data >> 24) & 0xFF);
 }
 
 uint32_t Infrared::mark(uint16_t time)
 {
-#ifndef TEST_FRAMEWORK
+#ifdef TEST_FRAMEWORK
+  // send mark timing over socket
+  ir_mark(time);
+#else
   // start the PWM
-  IR_TCCx2->CTRLA.reg |= TCC_CTRLA_ENABLE;
-  while (IR_TCCx2->SYNCBUSY.bit.ENABLE);
-#endif
+  IR_TCCx->CTRLA.reg |= TCC_CTRLA_ENABLE;
+  while (IR_TCCx->SYNCBUSY.bit.ENABLE);
   delayus(time);
+#endif
   return time;
 }
 
 uint32_t Infrared::space(uint16_t time)
 {
-#ifndef TEST_FRAMEWORK
+#ifdef TEST_FRAMEWORK
+  // send space timing over socket
+  ir_space(time);
+#else
   // stop the PWM
-  IR_TCCx2->CTRLA.reg &= ~TCC_CTRLA_ENABLE;
-  while (IR_TCCx2->SYNCBUSY.bit.ENABLE);
-#endif
+  IR_TCCx->CTRLA.reg &= ~TCC_CTRLA_ENABLE;
+  while (IR_TCCx->SYNCBUSY.bit.ENABLE);
   delayus(time);
+#endif
   return time;
 }
 
 // ===================
 // receiver functions
 
-#if 0
-bool Infrared::poll()
-{
-  static uint8_t oldState = HIGH;
-  static uint32_t lastTime = 0;
-  uint8_t newState = (uint8_t)digitalRead(RECEIVER_PIN);
-  uint32_t now = micros();
-  if (oldState != newState) {
-    uint32_t timeDiff = now - lastTime;
-    // oldState = HIGH means SPACE.
-    // If it's a very long wait
-    g_ir_data.push(timeDiff);
-  }
-  lastTime = now;
-  return true;
-}
-#endif
-
-uint32_t Infrared::next_ir_data()
-{
-#if 0
-  uint32_t val = g_ir_data.front();
-  g_ir_data.pop();
-  DEBUG_LOGF("IR val: %x", val);
-  return val;
-#endif
-  return 0;
-}
-
-#define PERCENT_TOLERANCE 45
-#define ABS_TOLERANCE 60
-bool floatmatch(uint32_t val, uint32_t expected)
-{
-  return (val >= (uint16_t)(expected * (1.0 - PERCENT_TOLERANCE / 100.0)))
-      && (val <= (uint16_t)(expected * (1.0 + PERCENT_TOLERANCE / 100.0)));
-}
-
-bool match(uint32_t val, uint32_t expected)
-{
-  return (val >= (expected - ABS_TOLERANCE)) && (val <= (expected + ABS_TOLERANCE));
-}
-
-bool Infrared::match_next_ir_data(uint32_t expected)
-{
-#if 0
-  if (!g_ir_data.size()) {
-    DEBUG_LOG("No data to match");
-    return false;
-  }
-  uint32_t val = next_ir_data();
-  DEBUG_LOGF("matching %u to expected %u", val, expected);
-  return match(val, expected);
-#endif
-  return true;
-}
-
-// decode a 32bit integer
-uint32_t Infrared::decode32()
-{
-  uint32_t result = 0;
-  // 32 bits
-  for (uint32_t i = 0; i < 32; ++i) {
-    // get the next timing of data
-    uint32_t val = next_ir_data();
-    // classify mark/space based on the timing
-    uint32_t mark = (val > (IR_TIMING * 2)) ? 1 : 0;
-    // shift result and OR in mark/space
-    result = (result << 1) | mark;
-    // check if the space was oddly sized
-    if (next_ir_data() > (IR_TIMING * 2)) {
-      // this indicates an error in reading/writing
-      DEBUG_LOGF("Space %u didn't match: %u", i, IR_TIMING);
-      // abort?
-      //return false;
-    }
-  }
-  return result;
-}
-
 void Infrared::recvPCIHandler()
 {
-  // used to track the changes
-  static uint64_t prevTime = 0;
-  static uint8_t pinState = HIGH;
-
-  // toggle the tracked pin state
-  pinState = !pinState;
+  // toggle the tracked pin state no matter what
+  m_pinState = (uint8_t)!m_pinState;
   // grab current time
   uint32_t now = micros();
-  uint32_t diff = (uint32_t)(now - prevTime);
-  prevTime = now;
-  // if we're sending right now don't receive anything
-  // otherwise we will receive our own data
-  if (!receiving) {
+  // check previous time for validity
+  if (!m_prevTime || m_prevTime > now) {
+    m_prevTime = now;
     resetIRState();
     return;
   }
-  if (cur_ir_timing < (sizeof(g_ir_timings) / sizeof(g_ir_timings[0]))) {
-    g_ir_timings[cur_ir_timing++] = diff;
-  } else {
-    DEBUG_LOG("TIMING BUFFER FULL");
-  }
-  // don't push the first captured data, or if prevTime is invalid
-  if (!prevTime || prevTime > now) {
-    DEBUG_LOGF("Bad prevtime: %u", prevTime);
-    resetIRState();
-    return;
-  }
-  //DEBUG_LOGF("IR Diff %u", diff);
-  if (diff > HEADER_MARK_MAX) {
+  // calc time difference between previous change and now
+  uint32_t diff = (uint32_t)(now - m_prevTime);
+  // and update the previous changetime for next loop
+  m_prevTime = now;
+  // handle the difference in time
+  handleIRTiming(diff);
+}
+
+void Infrared::handleIRTiming(uint32_t diff)
+{
+  // if the diff is too long or too short then it's not useful
+  if (diff > HEADER_MARK_MAX || diff < IR_TIMING_MIN) {
     DEBUG_LOGF("bad delay: %u", diff);
     resetIRState();
     return;
   }
-  if (diff < IR_TIMING_MIN) {
-    DEBUG_LOG("MIN OK");
-    return;
-  }
-  switch (recv_state) {
+  switch (m_recvState) {
   case WAITING_HEADER_MARK:
     if (diff < HEADER_MARK_MIN) {
-      DEBUG_LOGF("[%u] Didn't match header mark min %u", diff, HEADER_MARK_MIN);
       resetIRState();
       return;
     }
-    DEBUG_LOGF("[%u] Matched header mark min %u", diff, HEADER_MARK_MIN);
-    recv_state = WAITING_HEADER_SPACE;
+    m_recvState = WAITING_HEADER_SPACE;
     return;
   case WAITING_HEADER_SPACE:
     if (diff < HEADER_SPACE_MIN) {
       // failed to read space
-      DEBUG_LOGF("[%u] Didn't match header space min %u", diff, HEADER_SPACE_MIN);
       resetIRState();
       return;
     }
     // success
-    DEBUG_LOGF("[%u] Matched header space min %u", diff, HEADER_SPACE_MIN);
-    recv_state = READING_DATA;
-    // setup mark reader to only read marks in data
+    DEBUG_LOG("Matched header mark and space, receiving data...");
+    m_recvState = READING_DATA_MARK;
+    return;
+  case READING_DATA_MARK:
+    // classify mark/space based on the timing and write into buffer
+    // serially one bit at a time
+    m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
+    m_recvState = READING_DATA_SPACE;
+    break;
+  case READING_DATA_SPACE:
+    // skip spaces
+    m_recvState = READING_DATA_MARK;
     return;
   default: // ??
-    DEBUG_LOGF("Bad receive state: %u", recv_state);
+    DEBUG_LOGF("Bad receive state: %u", m_recvState);
     return;
-  case READING_DATA:
-    on_mark = !on_mark;
-    if (!on_mark) {
-      // skip spaces
-      return;
-    }
-    // go read data
-    break;
   }
-  // classify mark/space based on the timing
-  uint32_t mark = (diff > (IR_TIMING * 2)) ? 1 : 0;
-  // shift result and OR in mark/space
-  recv_data = (recv_data << 1) | mark;
-  if (mark) {
-    //DEBUG_LOG("MARK");
-  } else {
-    //DEBUG_LOG("SPACE");
-  }
-  //DEBUG_LOGF("Received data %u decoded as %s for bit #%u (curdata: %x)", 
-  //  diff, mark ? "MARK" : "SPACE", recv_bit, recv_data);
-  // count each bit we receive
-  recv_bit++;
-  // when we get 32 bits push it into the buffer and
-  // reset the data and bit counter
-  if (recv_bit == 32) {
-    push_ir_data(recv_data);
-  }
+}
+
+void Infrared::resetIRState()
+{
+  m_recvState = WAITING_HEADER_MARK;
+  // zero out the receive buffer and reset bit receiver position
+  m_irData.reset();
 }
