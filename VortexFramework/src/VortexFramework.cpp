@@ -16,8 +16,7 @@ bool VortexFramework::init()
   // Always generate seed before creating button on
   // digital pin 1 (shared pin with analog 0)
   randomSeed(analogRead(0));
-  // Setup serial communications
-  Serial.begin(9600);
+  checkSerial();
 
   // all of the global controllers
   if (!Time::init()) {
@@ -49,7 +48,7 @@ bool VortexFramework::init()
     return false;
   }
 
-  //Menus::openMenu(5);
+  Menus::openMenu(5);
 
   return true;
 }
@@ -70,6 +69,9 @@ void VortexFramework::cleanup()
 
 void VortexFramework::tick()
 {
+  // check for serial communications and enable it for logging
+  checkSerial();
+
   // tick the current time counter forward
   Time::tickClock();
 
@@ -81,8 +83,6 @@ void VortexFramework::tick()
     // then just play the mode
     Modes::play();
   }
-
-  //checkSerial();
 
   // update the leds
   Leds::update();

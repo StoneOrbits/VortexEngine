@@ -12,6 +12,8 @@
  *   - Code documentation
  */
 
+#define VORTEX_VERSION "0.1 alpha"
+
 class VortexFramework
 {
   // private unimplemented constructor
@@ -27,7 +29,6 @@ public:
   static void tick();
 
 private:
-
 };
 
 #endif
