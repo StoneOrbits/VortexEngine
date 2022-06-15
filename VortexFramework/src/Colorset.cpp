@@ -194,27 +194,6 @@ void Colorset::randomizeMonochromatic(uint32_t numColors)
   }
 }
 
-// create a pair of colors with opposing hues
-void Colorset::randomizeComplimentary(uint32_t numColors)
-{
-  clear();
-  if (!numColors) {
-    numColors = random (2, 8);
-  }
-  uint8_t randomizedHue = random(0,255);
-  uint8_t complimentaryHue = (randomizedHue + 128) % 255;
-  addColorByHue(randomizedHue);
-  for (uint32_t i = 1; i < numColors-1; i++) {
-    if (i < numColors / 2) {
-      addColorByHueRandSV(randomizedHue);
-    }
-    if (i >= numColors / 2) {
-      addColorByHueRandSV(complimentaryHue);
-    }
-  }
-  addColorByHue(complimentaryHue);
-}
-
 // create a set of colors with equal distance between them
 void Colorset::randomizeAnalogous(uint32_t numColors)
 {
@@ -230,30 +209,6 @@ void Colorset::randomizeAnalogous(uint32_t numColors)
   addColorByHue(randomizedHue);
   for(uint32_t i = 1; i < numColors; i += 2){
     addColorByHue((randomizedHue + (analogousGap * i)) % 255);
-  }
-}
-
-// create a set of 3 evenly spaced colors
-void Colorset::randomizeTriadic(uint32_t numColors)
-{
-  clear();
-  if (!numColors) {
-    numColors = random(3, 8);
-  }
-  uint8_t randomizedHue = random(0, 255);
-  addColorByHue(randomizedHue);
-  addColorByHue((randomizedHue + 85) % 255);
-  addColorByHue((randomizedHue - 85) % 255);
-  for (uint32_t i = 3; i < numColors; i++) {
-    if (i % 3 == 0) {
-      addColorByHueRandSV(randomizedHue);
-    }
-    if (i % 3 == 1) {
-      addColorByHueRandSV((randomizedHue + 85) % 255);
-    }
-    if (i % 3 == 2) {
-      addColorByHueRandSV((randomizedHue - 85) % 255);
-    }
   }
 }
 
@@ -334,50 +289,16 @@ void Colorset::randomizeTetradic(uint32_t numColors)
   }
 }
 
-// create a set of 4 evenly spaced colors
-void Colorset::randomizeSquare(uint32_t numColors)
+void Colorset::randomizeEvenlySpaced(uint32_t spaces)
 {
   clear();
-  if (!numColors) {
-    numColors = random(4, 8);
+  if (!spaces) {
+    spaces = random(1, 8);
   }
   uint8_t randomizedHue = random(0, 255);
-  addColorByHue(randomizedHue);
-  for (uint32_t i = 1; i < numColors; i++) {
-    addColorByHueRandSV((randomizedHue + 64 * i) % 255);
+  for (uint32_t i = 0; i < spaces; i++) {
+    addColorByHue((randomizedHue + (256 / spaces) * i) % 255);
   }
-}
-
-// create a set of 5 evenly spaced colors
-void Colorset::randomizePentadic(uint32_t numColors)
-{
-  clear();
-  if (!numColors) {
-    numColors = random(5, 8);
-  }
-  uint8_t randomizedHue = random(0, 255);
-  addColorByHue(randomizedHue);
-  for (uint32_t i = 1; i < numColors; i++) {
-    addColorByHueRandSV((randomizedHue + 51 * i) % 255);
-  }
-}
-
-// create a set of 8 evenly spaced colors
-void Colorset::randomizeRainbow(uint32_t numColors)
-{
-  clear();
-  numColors = 8;
-  uint8_t randomizedHue = random(0, 255);
-  for (uint32_t i = 0; i < numColors; i++) {
-    addColorByHueRandSV((randomizedHue + i * 32) % 255);
-  }
-}
-
-// make a sigle color set
-void Colorset::randomizeSolid(uint32_t numColors)
-{
-  numColors = 1;
-  addColorByHueRandSV(random(0, 255));
 }
 
 // get a color from the colorset

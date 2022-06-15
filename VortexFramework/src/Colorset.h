@@ -48,41 +48,25 @@ public:
   bool addColorByHueRandSV(uint8_t hue);
   void removeColor(uint32_t index);
 
-  // randomize the set with a number of colors, 0 for random number of colors
+ // randomize a colorset with a specific number of colors with 
+// various different randomization techniques
   void randomize(uint32_t numColors = 0);
-
-  // randomzie a Monochromatic set with a number of colors, 0 for random number of colors
   void randomizeMonochromatic(uint32_t numColors = 0);
-
-  // randomize a Complimentary set with a number of colors, 0 for random number of colors
-  void randomizeComplimentary(uint32_t numColors = 0);
-
-  // randomize an Analogous set with a number of colors, 0 for random number of colors
   void randomizeAnalogous(uint32_t numColors = 0);
-
-  // randomize a Triadic set with a number of colors, 0 for random number of colors
-  void randomizeTriadic(uint32_t numColors = 0);
-
-  // randomize a Split Complimentary set with a number of colors, 0 for random number of colors
   void randomizeSplitComplimentary(uint32_t numColors = 0);
-
-  // randomize a Double Split Complimentary set with a number of colors, 0 for random number of colors
   void randomizeDoubleSplitComplimentary(uint32_t numColors = 0);
-
-  // randomize a Tetradic set with a number of colors, 0 for random number of colors
   void randomizeTetradic(uint32_t numColors = 0);
-  
-  // randomize a Square set with a number of colors, 0 for random nunber of colors
-  void randomizeSquare(uint32_t numColors = 0);
 
-  // randomize a Pentadic set with a number of colors, 0 for random number of colors
-  void randomizePentadic(uint32_t numColors = 0);
+  // randomize a colorset with N evenly spaced colors
+  void randomizeEvenlySpaced(uint32_t spaces = 0);
 
-  // randomize a full set of 8
-  void randomizeRainbow(uint32_t numColors = 0);
-
-  // randomize a single color set
-  void randomizeSolid(uint32_t numColors = 0);
+  // wrappers for various spacings
+  void randomizeSolid() { randomizeEvenlySpaced(1); }
+  void randomizeComplimentary() { randomizeEvenlySpaced(2); }
+  void randomizeTriadic() { randomizeEvenlySpaced(3); }
+  void randomizeSquare() { randomizeEvenlySpaced(4); }
+  void randomizePentadic() { randomizeEvenlySpaced(5); }
+  void randomizeRainbow() { randomizeEvenlySpaced(8); }
 
   // get a color from the colorset
   RGBColor get(uint32_t index = 0) const;
