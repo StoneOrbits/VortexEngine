@@ -52,6 +52,9 @@ bool Infrared::init()
   digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
   m_irData.init(IR_RECV_BUF_SIZE);
 #ifdef TEST_FRAMEWORK
+  // the test framework will feed timings directly to handleIRTiming
+  // instead of calling the recvPCIHandler in intervals which might
+  // be unreliable or problematic
   installIRCallback(handleIRTiming);
 #endif
   return true;
@@ -190,19 +193,6 @@ void Infrared::initpwm()
 #endif
 }
 
-void Infrared::delayus(uint16_t time)
-{
-  if (!time) { 
-    return;
-  }
-  if (time <= 16000) {
-    delayMicroseconds(time);
-    return;
-  }
-  delayMicroseconds(time % 1000);
-  delay(time / 1000);
-}
-
 void Infrared::write8(uint8_t data)
 {
   // Sends from left to right, MSB first
@@ -217,41 +207,30 @@ void Infrared::write8(uint8_t data)
   DEBUG_LOGF("Wrote: 0x%x", data);
 }
 
-void Infrared::write32(uint32_t data)
-{
-  // the other end will pack the data with a bitstream
-  write8(data & 0xFF);
-  write8((data >> 8) & 0xFF);
-  write8((data >> 16) & 0xFF);
-  write8((data >> 24) & 0xFF);
-}
-
-uint32_t Infrared::mark(uint16_t time)
+void Infrared::mark(uint16_t time)
 {
 #ifdef TEST_FRAMEWORK
   // send mark timing over socket
-  ir_mark(time);
+  test_ir_mark(time);
 #else
   // start the PWM
   IR_TCCx->CTRLA.reg |= TCC_CTRLA_ENABLE;
   while (IR_TCCx->SYNCBUSY.bit.ENABLE);
-  delayus(time);
+  delayMicroseconds(time);
 #endif
-  return time;
 }
 
-uint32_t Infrared::space(uint16_t time)
+void Infrared::space(uint16_t time)
 {
 #ifdef TEST_FRAMEWORK
   // send space timing over socket
-  ir_space(time);
+  test_ir_space(time);
 #else
   // stop the PWM
   IR_TCCx->CTRLA.reg &= ~TCC_CTRLA_ENABLE;
   while (IR_TCCx->SYNCBUSY.bit.ENABLE);
-  delayus(time);
+  delayMicroseconds(time);
 #endif
-  return time;
 }
 
 // ===================
@@ -287,35 +266,31 @@ void Infrared::handleIRTiming(uint32_t diff)
   }
   switch (m_recvState) {
   case WAITING_HEADER_MARK:
-    if (diff < HEADER_MARK_MIN) {
+    if (diff >= HEADER_MARK_MIN && diff <= HEADER_MARK_MAX) {
+      m_recvState = WAITING_HEADER_SPACE;
+    } else {
       resetIRState();
-      return;
     }
-    m_recvState = WAITING_HEADER_SPACE;
-    return;
+    break;
   case WAITING_HEADER_SPACE:
-    if (diff < HEADER_SPACE_MIN) {
-      // failed to read space
+    if (diff >= HEADER_SPACE_MIN && diff <= HEADER_SPACE_MAX) {
+      m_recvState = READING_DATA_MARK;
+    } else {
       resetIRState();
-      return;
     }
-    // success
-    DEBUG_LOG("Matched header mark and space, receiving data...");
-    m_recvState = READING_DATA_MARK;
-    return;
+    break;
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
-    // serially one bit at a time
     m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
     // skip spaces
     m_recvState = READING_DATA_MARK;
-    return;
+    break;
   default: // ??
     DEBUG_LOGF("Bad receive state: %u", m_recvState);
-    return;
+    break;
   }
 }
 
