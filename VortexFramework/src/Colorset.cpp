@@ -212,7 +212,7 @@ void Colorset::randomizeComplimentary(uint32_t numColors)
       addColorByHueRandSV(complimentaryHue);
     }
   }
-  addColorByHue(ccomplimentaryHue);
+  addColorByHue(complimentaryHue);
 }
 
 // create a set of colors with equal distance between them
