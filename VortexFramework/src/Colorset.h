@@ -44,6 +44,8 @@ public:
 
   // add a single color
   bool addColor(RGBColor col);
+  bool addColorByHue(uint8_t hue);
+  bool addColorByHueRandSV(uint8_t hue);
   void removeColor(uint32_t index);
 
   // randomize the set with a number of colors, 0 for random number of colors

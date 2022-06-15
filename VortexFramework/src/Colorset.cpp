@@ -142,6 +142,17 @@ bool Colorset::addColor(RGBColor col)
   return true;
 }
 
+// add a single color with maximum hue and staturation
+bool Colorset::addColorByHue(uint8_t hue)
+{
+  return addColor(RGBColor(hue, 255, 255));
+}
+
+bool Colorset::addColorByHueRandSV(uint8_t hue)
+{
+  return addColor(RGBColor(hue, random(0, 255), random(0, 255)));
+}
+
 void Colorset::removeColor(uint32_t index)
 {
   if (index >= m_numColors) {
@@ -165,9 +176,7 @@ void Colorset::randomize(uint32_t numColors)
     numColors = random(2, 8);
   }
   for (uint32_t i = 0; i < numColors; ++i) {
-    addColor(RGBColor((uint8_t)random(0, 255),
-                      (uint8_t)random(0, 255),
-                      (uint8_t)random(0, 255)));
+    addColorByHueRandSV(random(0, 255));
   }
 }
 
@@ -179,13 +188,9 @@ void Colorset::randomizeMonochromatic(uint32_t numColors)
     numColors = random(2, 8);
   }
   uint8_t randomizedHue = random(0,255);
-  addColor(RGBColor(randomizedHue,
-                    255,
-                    255));
+  addColorByHue(randomizedHue);
   for (uint32_t i = 1; i < numColors; i++) {
-    addColor(RGBColor(randomizedHue,
-      (uint8_t)random(0, 255),
-      (uint8_t)random(0, 255)));
+    addColorByHueRandSV(randomizedHue);
   }
 }
 
@@ -198,24 +203,16 @@ void Colorset::randomizeComplimentary(uint32_t numColors)
   }
   uint8_t randomizedHue = random(0,255);
   uint8_t complimentaryHue = (randomizedHue + 128) % 255;
-  addColor(RGBColor(randomizedHue,
-                    255,
-                    255));
+  addColorByHue(randomizedHue);
   for (uint32_t i = 1; i < numColors-1; i++) {
     if (i < numColors / 2) {
-      addColor(RGBColor(randomizedHue,
-        (uint8_t)random(0, 255),
-        (uint8_t)random(0, 255)));
+      addColorByHueRandSV(randomizedHue);
     }
     if (i >= numColors / 2) {
-      addColor(RGBColor(complimentaryHue,
-        (uint8_t)random(0, 255),
-        (uint8_t)random(0, 255)));
+      addColorByHueRandSV(complimentaryHue);
     }
   }
-  addColor(RGBColor(complimentaryHue,
-                    255,
-                    255));
+  addColorByHue(ccomplimentaryHue);
 }
 
 // create a set of colors with equal distance between them
@@ -228,17 +225,11 @@ void Colorset::randomizeAnalogous(uint32_t numColors)
   uint8_t randomizedHue = random(0,255);
   uint8_t analogousGap = random(1,64);
   for(uint32_t i = 1; i < numColors; i += 2){
-    addColor(RGBColor((randomizedHue - (analogousGap * i)) % 255,
-                      255,
-                      255));
+    addColorByHue((randomizedHue - (analogousGap * i)) % 255);
   }
-  addColor(RGBColor(randomizedHue,
-                    255,
-                    255));
+  addColorByHue(randomizedHue);
   for(uint32_t i = 1; i < numColors; i += 2){
-    addColor(RGBColor((randomizedHue + (analogousGap * i)) % 255,
-                      255,
-                      255));
+    addColorByHue((randomizedHue + (analogousGap * i)) % 255);
   }
 }
 
@@ -250,30 +241,18 @@ void Colorset::randomizeTriadic(uint32_t numColors)
     numColors = random(3, 8);
   }
   uint8_t randomizedHue = random(0, 255);
-  addColor(RGBColor(randomizedHue,
-                    255,
-                    255));
-  addColor(RGBColor((randomizedHue + 85) % 255,
-    255,
-    255));
-  addColor(RGBColor((randomizedHue - 85) % 255,
-    255,
-    255));
+  addColorByHue(randomizedHue);
+  addColorByHue((randomizedHue + 85) % 255);
+  addColorByHue((randomizedHue - 85) % 255);
   for (uint32_t i = 3; i < numColors; i++) {
     if (i % 3 == 0) {
-      addColor(RGBColor(randomizedHue,
-        random(0, 255),
-        random(0, 255)));
+      addColorByHueRandSV(randomizedHue);
     }
     if (i % 3 == 1) {
-      addColor(RGBColor((randomizedHue + 85) % 255,
-        random(0, 255),
-        random(0, 255)));
+      addColorByHueRandSV((randomizedHue + 85) % 255);
     }
     if (i % 3 == 2) {
-      addColor(RGBColor((randomizedHue - 85) % 255,
-        random(0, 255),
-        random(0, 255)));
+      addColorByHueRandSV((randomizedHue - 85) % 255);
     }
   }
 }
@@ -287,30 +266,18 @@ void Colorset::randomizeSplitComplimentary(uint32_t numColors)
   }
   uint8_t randomizedHue = random(0, 255);
   uint8_t splitComplimentaryGap = random(1, 128);
-  addColor(RGBColor((randomizedHue - splitComplimentaryGap) % 255,
-    255,
-    255));
-  addColor(RGBColor(randomizedHue,
-    255,
-    255));
-  addColor(RGBColor((randomizedHue + splitComplimentaryGap) % 255,
-    255,
-    255));
+  addColorByHue((randomizedHue - splitComplimentaryGap) % 255);
+  addColorByHue(randomizedHue);
+  addColorByHue((randomizedHue + splitComplimentaryGap) % 255);
   for (uint32_t i = 3; i < numColors; i++) {
     if (i % 3 == 1) {
-      addColor(RGBColor((randomizedHue - splitComplimentaryGap) % 255,
-        random(0, 255),
-        random(0, 255)));
+      addColorByHueRandSV((randomizedHue - splitComplimentaryGap) % 255);
     }
     if (i % 3 == 0) {
-      addColor(RGBColor(randomizedHue,
-        random(0, 255),
-        random(0, 255)));
+      addColorByHueRandSV(randomizedHue);
     }
     if (i % 3 == 2) {
-      addColor(RGBColor((randomizedHue + splitComplimentaryGap) % 255,
-        random(0, 255),
-        random(0, 255)));
+      addColorByHueRandSV((randomizedHue + splitComplimentaryGap) % 255);
     }
   }
 }
@@ -324,35 +291,19 @@ void Colorset::randomizeDoubleSplitComplimentary(uint32_t numColors)
   }
   uint8_t randomizedHue = random(0, 255);
   uint8_t splitComplimentaryGap = random(1, 64);
-  addColor(RGBColor(randomizedHue,
-    255,
-    255));
-  addColor(RGBColor((randomizedHue - splitComplimentaryGap) % 255,
-    255,
-    255));
-  addColor(RGBColor((randomizedHue + splitComplimentaryGap) % 255,
-    255,
-    255));
-  addColor(RGBColor((randomizedHue - splitComplimentaryGap + 128) % 255,
-    255,
-    255));
-  addColor(RGBColor((randomizedHue + splitComplimentaryGap + 128) % 255,
-    255,
-    255));
+  addColorByHue(randomizedHue);
+  addColorByHue((randomizedHue - splitComplimentaryGap) % 255);
+  addColorByHue((randomizedHue + splitComplimentaryGap) % 255);
+  addColorByHue((randomizedHue - splitComplimentaryGap + 128) % 255);
+  addColorByHue((randomizedHue + splitComplimentaryGap + 128) % 255);
   if (numColors > 5) {
-    addColor(RGBColor(randomizedHue,
-      random(0,255),
-      random(0,255)));
+    addColorByHueRandSV(randomizedHue);
   }
   if (numColors > 6) {
-    addColor(RGBColor((randomizedHue - splitComplimentaryGap) % 255,
-      random(0,255),
-      random(0,255)));
+    addColorByHueRandSV((randomizedHue - splitComplimentaryGap) % 255);
   }
   if (numColors > 7) {
-    addColor(RGBColor((randomizedHue + splitComplimentaryGap) % 255,
-      random(0,255),
-      random(0,255)));
+    addColorByHueRandSV((randomizedHue + splitComplimentaryGap) % 255);
   }
 }
 
@@ -365,37 +316,21 @@ void Colorset::randomizeTetradic(uint32_t numColors)
   }
   uint8_t randomizedHue = random(0, 255);
   uint8_t randomizedHue2 = random(0, 255);
-  addColor(RGBColor(randomizedHue,
-    255,
-    255));
-  addColor(RGBColor(randomizedHue2,
-    255,
-    255));
-  addColor(RGBColor((randomizedHue + 128) % 255,
-    255,
-    255));
-  addColor(RGBColor((randomizedHue2 + 128) % 255,
-    255,
-    255));
+  addColorByHue(randomizedHue);
+  addColorByHue(randomizedHue2);
+  addColorByHue((randomizedHue + 128) % 255);
+  addColorByHue((randomizedHue2 + 128) % 255);
   if (numColors > 4) {
-    addColor(RGBColor(randomizedHue,
-      random(0, 255),
-      random(0, 255)));
+    addColorByHueRandSV(randomizedHue);
   }
   if (numColors > 5) {
-    addColor(RGBColor(randomizedHue2,
-      random(0, 255),
-      random(0, 255)));
+    addColorByHueRandSV(randomizedHue2);
   }
   if (numColors > 6) {
-    addColor(RGBColor((randomizedHue + 128) % 255,
-      random(0, 255),
-      random(0, 255)));
+    addColorByHueRandSV((randomizedHue + 128) % 255);
   }
   if (numColors > 7) {
-    addColor(RGBColor((randomizedHue2 + 128) % 255,
-      random(0, 255),
-      random(0, 255)));
+    addColorByHueRandSV((randomizedHue2 + 128) % 255);
   }
 }
 
@@ -407,13 +342,9 @@ void Colorset::randomizeSquare(uint32_t numColors)
     numColors = random(4, 8);
   }
   uint8_t randomizedHue = random(0, 255);
-  addColor(RGBColor(randomizedHue,
-    255,
-    255));
+  addColorByHue(randomizedHue);
   for (uint32_t i = 1; i < numColors; i++) {
-    addColor(RGBColor((randomizedHue + 64 * i) % 255,
-      random(0, 255),
-      random(0, 255)));
+    addColorByHueRandSV((randomizedHue + 64 * i) % 255);
   }
 }
 
@@ -425,13 +356,9 @@ void Colorset::randomizePentadic(uint32_t numColors)
     numColors = random(5, 8);
   }
   uint8_t randomizedHue = random(0, 255);
-  addColor(RGBColor(randomizedHue,
-    255,
-    255));
+  addColorByHue(randomizedHue);
   for (uint32_t i = 1; i < numColors; i++) {
-    addColor(RGBColor((randomizedHue + 51 * i) % 255,
-      random(0,255),
-      random(0,255)));
+    addColorByHueRandSV((randomizedHue + 51 * i) % 255);
   }
 }
 
@@ -442,9 +369,7 @@ void Colorset::randomizeRainbow(uint32_t numColors)
   numColors = 8;
   uint8_t randomizedHue = random(0, 255);
   for (uint32_t i = 0; i < numColors; i++) {
-    addColor(RGBColor((randomizedHue + i * 32) % 255,
-      random(0, 255),
-      random(0, 255)));
+    addColorByHueRandSV((randomizedHue + i * 32) % 255);
   }
 }
 
@@ -452,9 +377,7 @@ void Colorset::randomizeRainbow(uint32_t numColors)
 void Colorset::randomizeSolid(uint32_t numColors)
 {
   numColors = 1;
-  addColor(RGBColor(random(0, 255),
-    random(0, 255),
-    random(0, 255)));
+  addColorByHueRandSV(random(0, 255));
 }
 
 // get a color from the colorset
