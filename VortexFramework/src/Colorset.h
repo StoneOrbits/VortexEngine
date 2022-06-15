@@ -58,8 +58,29 @@ public:
   // randomize an Analogous set with a number of colors, 0 for random number of colors
   void randomizeAnalogous(uint32_t numColors = 0);
 
-  // randomize Triadic
+  // randomize a Triadic set with a number of colors, 0 for random number of colors
   void randomizeTriadic(uint32_t numColors = 0);
+
+  // randomize a Split Complimentary set with a number of colors, 0 for random number of colors
+  void randomizeSplitComplimentary(uint32_t numColors = 0);
+
+  // randomize a Double Split Complimentary set with a number of colors, 0 for random number of colors
+  void randomizeDoubleSplitComplimentary(uint32_t numColors = 0);
+
+  // randomize a Tetradic set with a number of colors, 0 for random number of colors
+  void randomizeTetradic(uint32_t numColors = 0);
+  
+  // randomize a Square set with a number of colors, 0 for random nunber of colors
+  void randomizeSquare(uint32_t numColors = 0);
+
+  // randomize a Pentadic set with a number of colors, 0 for random number of colors
+  void randomizePentadic(uint32_t numColors = 0);
+
+  // randomize a full set of 8
+  void randomizeRainbow(uint32_t numColors = 0);
+
+  // randomize a single color set
+  void randomizeSolid(uint32_t numColors = 0);
 
   // get a color from the colorset
   RGBColor get(uint32_t index = 0) const;
