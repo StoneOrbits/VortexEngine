@@ -44,13 +44,15 @@ void BlendPattern::onBlinkOn()
     m_next = m_colorset.getNext();
   }
   // check which direction is closer for the next hue
-  int sign = (abs(m_next.hue - m_cur.hue) < 128) ? 1 : -1;
+  // tbh idk really how this even works anymore but it does
+  int sign = ((((m_next.hue + 255) - m_cur.hue) % 256) <= 128) ? 1 : -1;
   // move hue in the direction of next hue at chosen speed
   // NOTE: if the speed isn't a multiple of the hue values then
   //       it will cause oscillation around the target hue 
   //       because it will never reach the target hue and 
   //       always over/under shoot
   m_cur.hue += m_speed * sign;
+  HSVColor showColor = m_cur;
   // set the target led with the current HSV color
-  Leds::setIndex(m_ledPos, m_cur);
+  Leds::setIndex(m_ledPos, showColor);
 }

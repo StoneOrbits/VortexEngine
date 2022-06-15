@@ -102,21 +102,34 @@ bool SerialBuffer::append(const SerialBuffer &other)
 // extend the storage without changing the size of the data
 bool SerialBuffer::extend(uint32_t size)
 {
+  if (!size) {
+    // ???
+    return true;
+  }
+  // if the buffer is empty just initialize a new buffer
   if (!m_capacity) {
     return init(size);
   }
-  // round size up to nearest 4
-  uint32_t new_size = m_capacity + size;
-  new_size += 3;
-  new_size -= (new_size % 4);
+  // new size is current plus extension amount
+  uint32_t buffer_size = m_capacity + size + 3;
+  // round size up to nearest 4 and add the size of the base raw buffer
+  buffer_size -= buffer_size % 4;
+  // the size of the actual new block of memory
+  uint32_t new_size = buffer_size + sizeof(RawBuffer);
   //DEBUG_LOGF("Extending %u bytes from %u to %u", size, m_capacity, new_size);
-  RawBuffer *temp = (RawBuffer *)vrealloc(m_pData, new_size + sizeof(RawBuffer));
+  RawBuffer *temp = (RawBuffer *)vrealloc(m_pData, new_size);
   if (!temp) {
     ERROR_OUT_OF_MEMORY();
     return false;
   }
+  // calc the region that was newly allocated by realloc
+  uint8_t *new_mem = ((uint8_t *)temp) + sizeof(RawBuffer) + m_capacity;
+  size_t new_mem_size = buffer_size - m_capacity;
+  // zero out the new memory
+  memset(new_mem, 0, new_mem_size);
+  // update the pointer and size of the serial buffer
   m_pData = temp;
-  m_capacity = new_size;
+  m_capacity = buffer_size;
   return true;
 }
 
@@ -131,6 +144,16 @@ bool SerialBuffer::compress()
     DEBUG_LOG("Data is already compressed");
     return true;
   }
+#if 0
+  printf("COMPRESSING:\n");
+  for (uint32_t i = 0; i < m_pData->size; ++i) {
+    printf("%02x ", m_pData->buf[i]);
+    if (i > 0 && ((i + 1) % 32) == 0) {
+      printf("\r\n\t");
+    }
+  }
+  printf("\r\n\r\n");
+#endif
   uint8_t bytes[256] = {0};
   uint8_t unique_bytes = 0;
   // count the unique bytes in the data buffer
@@ -156,7 +179,8 @@ bool SerialBuffer::compress()
     DEBUG_LOGF("\twidth: %u", wid);
     DEBUG_LOGF("\tTable size: %u", table_size);
     DEBUG_LOGF("\tData size: %u", data_size);
-    return false;
+    // NOT A FAILURE, buffer simply not compressed
+    return true;
   }
   // extend enough for two tables
   extend(table_size * 2);
@@ -164,8 +188,8 @@ bool SerialBuffer::compress()
   uint8_t *table = (m_pData->buf + m_capacity) - table_size;
   // the number of unique bytes (table size)
   table[0] = unique_bytes;
-  // start table data at 1
-  uint32_t b = 1;
+  // the table data index starts offset at 0
+  uint32_t b = 0;
   // walk all 256 bytes and mirror them in the table
   for (uint32_t i = 0; i < 256; ++i) {
     if (!bytes[i]) {
@@ -176,7 +200,7 @@ bool SerialBuffer::compress()
       return false;
     }
     bytes[i] = b;
-    table[b++] = i;
+    table[++b] = i;
   }
 
   BitStream bits(m_pData->buf, data_size);
@@ -197,16 +221,24 @@ bool SerialBuffer::compress()
   // move the table back
   memmove(m_pData->buf, (m_pData->buf + m_capacity) - table_size, table_size);
   // update the size of the buffer
-  m_pData->size = table_size + bits.bytepos();
+  m_pData->size = table_size + ((bits.bitpos() + 7) / 8);
   // buffer is no longer compressed
   m_pData->flags |= BUFFER_FLAG_COMRPESSED;
   // recalc the crc on the data buffer
   m_pData->recalc_crc();
   // shrink to the size of the buffer
   shrink();
-
   DEBUG_LOGF("Compressed %u to %u bytes", old_size, m_pData->size);
-
+#if 0
+  printf("COMPRESSED:\n");
+  for (uint32_t i = 0; i < m_pData->size; ++i) {
+    printf("%02x ", m_pData->buf[i]);
+    if (i > 0 && ((i + 1) % 32) == 0) {
+      printf("\r\n\t");
+    }
+  }
+  printf("\r\n\r\n");
+#endif
   return true;
 }
 
@@ -221,14 +253,29 @@ bool SerialBuffer::decompress()
     DEBUG_LOG("Data is already decompressed");
     return true;
   }
+#if 0
+  printf("DECOMPRESSING:\n");
+  for (uint32_t i = 0; i < m_pData->size; ++i) {
+    printf("%02x ", m_pData->buf[i]);
+    if (i > 0 && ((i + 1) % 32) == 0) {
+      printf("\r\n\t");
+    }
+  }
+  printf("\r\n\r\n");
+#endif
   // WARNING: need to extend buffer more maybe?
   resetUnserializer();
   uint8_t unique_bytes = unserialize8();
-  uint8_t *table = m_pData->buf;
-  uint8_t *data = table + unique_bytes + 1;
+  uint8_t *table = m_pData->buf + 1;
+  uint8_t *data = table + unique_bytes;
   uint8_t *data_end = m_pData->buf + m_pData->size;
   uint32_t wid = getWidth(unique_bytes - 1);
-  uint32_t data_len = data_end - data;
+  uint32_t data_len = (uint32_t)(data_end - data);
+
+  if (!data_len) {
+    DEBUG_LOG("No data to decompress");
+    return false;
+  }
 
   uint32_t expected_inflated_len = ((data_len / wid) + 1) * 8;
 
@@ -243,10 +290,18 @@ bool SerialBuffer::decompress()
   uint32_t outPos = 0;
   while (!bits.eof()) {
     uint32_t val = bits.readBits(wid);
-    out_data[outPos++] = table[val];
-    //DEBUG_LOGF("Decompressed %u -> %u", val, table[val]);
+    if (bits.eof()) {
+      break;
+    }
+    // the table is one byte in
+    out_data[outPos] = table[val];
+    //DEBUG_LOGF("Decompressed [%u] %u -> %u (%u / %u)", outPos, val, out_data[outPos], bits.bitpos(), bits.size() * 8);
+    outPos++;
   }
-
+  uint32_t old_size = (uint32_t)(data_end - m_pData->buf);
+  if (outPos > m_capacity) {
+    extend(outPos - m_capacity);
+  }
   // copy the data in
   memmove(m_pData->buf, out_data, outPos);
   // cleanup temp buffer
@@ -257,11 +312,18 @@ bool SerialBuffer::decompress()
   m_pData->flags &= ~BUFFER_FLAG_COMRPESSED;
   // recalc crc of buffer
   m_pData->recalc_crc();
-
-  DEBUG_LOGF("Decompressed %u to %u bytes", (uint32_t)(data_end - m_pData->buf), m_pData->size);
-
+  DEBUG_LOGF("Decompressed %u to %u bytes (%u capacity)", old_size, m_pData->size, m_capacity);
   shrink();
-
+#if 0
+  printf("DECOMPRESSED:\n");
+  for (uint32_t i = 0; i < m_pData->size; ++i) {
+    printf("%02x ", m_pData->buf[i]);
+    if (i > 0 && ((i + 1) % 32) == 0) {
+      printf("\r\n\t");
+    }
+  }
+  printf("\r\n\r\n");
+#endif
   return true;
 }
 
