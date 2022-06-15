@@ -142,6 +142,17 @@ bool Colorset::addColor(RGBColor col)
   return true;
 }
 
+// add a single color with maximum hue and staturation
+bool Colorset::addColorByHue(uint8_t hue)
+{
+  return addColor(RGBColor(hue, 255, 255));
+}
+
+bool Colorset::addColorByHueRandSV(uint8_t hue)
+{
+  return addColor(RGBColor(hue, random(0, 255), random(0, 255)));
+}
+
 void Colorset::removeColor(uint32_t index)
 {
   if (index >= m_numColors) {
@@ -157,20 +168,19 @@ void Colorset::removeColor(uint32_t index)
   }
 }
 
+// create a set of truely random colors
 void Colorset::randomize(uint32_t numColors)
 {
   clear();
   if (!numColors) {
-    numColors = random(2, 6);
+    numColors = random(2, 8);
   }
   for (uint32_t i = 0; i < numColors; ++i) {
-    addColor(RGBColor((uint8_t)random(0, 255),
-                      (uint8_t)random(0, 255),
-                      (uint8_t)random(0, 255)));
+    addColorByHueRandSV(random(0, 255));
   }
 }
 
-// creat a set of colors that share a single hue
+// create a set of colors that share a single hue
 void Colorset::randomizeMonochromatic(uint32_t numColors)
 {
   clear();
@@ -178,36 +188,10 @@ void Colorset::randomizeMonochromatic(uint32_t numColors)
     numColors = random(2, 8);
   }
   uint8_t randomizedHue = random(0,255);
-  addColor(RGBColor(randomizedHue,
-                    255,
-                    255));
+  addColorByHue(randomizedHue);
   for (uint32_t i = 1; i < numColors; i++) {
-    addColor(RGBColor(randomizedHue,
-      (uint8_t)random(0, 255),
-      (uint8_t)random(0, 255)));
+    addColorByHueRandSV(randomizedHue);
   }
-}
-
-// create a pair of colors with opposing hues
-void Colorset::randomizeComplimentary(uint32_t numColors)
-{
-  clear();
-  if (!numColors) {
-    numColors = random (2, 8);
-  }
-  uint8_t randomizedHue = random(0,255);
-  uint8_t complimentaryHue = (randomizedHue + 128) % 255;
-  addColor(RGBColor(randomizedHue,
-                    255,
-                    255));
-  for (uint32_t i = 1; i < numColors-1; i++) {
-    addColor(RGBColor(randomizedHue,
-      (uint8_t)random(0, 255),
-      (uint8_t)random(0, 255)));
-  }
-  addColor(RGBColor(complimentaryHue,
-                    255,
-                    255));
 }
 
 // create a set of colors with equal distance between them
@@ -220,17 +204,100 @@ void Colorset::randomizeAnalogous(uint32_t numColors)
   uint8_t randomizedHue = random(0,255);
   uint8_t analogousGap = random(1,64);
   for(uint32_t i = 1; i < numColors; i += 2){
-    addColor(RGBColor((randomizedHue - (analogousGap * i)) % 255,
-                      255,
-                      255));
+    addColorByHue((randomizedHue - (analogousGap * i)) % 255);
   }
-  addColor(RGBColor(randomizedHue,
-                    255,
-                    255));
+  addColorByHue(randomizedHue);
   for(uint32_t i = 1; i < numColors; i += 2){
-    addColor(RGBColor((randomizedHue + (analogousGap * i)) % 255,
-                      255,
-                      255));
+    addColorByHue((randomizedHue + (analogousGap * i)) % 255);
+  }
+}
+
+// create a set of 3 colors with the same spacing from the central color
+void Colorset::randomizeSplitComplimentary(uint32_t numColors)
+{
+  clear();
+  if (!numColors) {
+    numColors = random(3, 8);
+  }
+  uint8_t randomizedHue = random(0, 255);
+  uint8_t splitComplimentaryGap = random(1, 128);
+  addColorByHue((randomizedHue - splitComplimentaryGap) % 255);
+  addColorByHue(randomizedHue);
+  addColorByHue((randomizedHue + splitComplimentaryGap) % 255);
+  for (uint32_t i = 3; i < numColors; i++) {
+    if (i % 3 == 1) {
+      addColorByHueRandSV((randomizedHue - splitComplimentaryGap) % 255);
+    }
+    if (i % 3 == 0) {
+      addColorByHueRandSV(randomizedHue);
+    }
+    if (i % 3 == 2) {
+      addColorByHueRandSV((randomizedHue + splitComplimentaryGap) % 255);
+    }
+  }
+}
+
+// create a set of 5 colors with 2 pairs of opposing colors with the same spacing from the central color
+void Colorset::randomizeDoubleSplitComplimentary(uint32_t numColors)
+{
+  clear();
+  if (!numColors) {
+    numColors = random(5, 8);
+  }
+  uint8_t randomizedHue = random(0, 255);
+  uint8_t splitComplimentaryGap = random(1, 64);
+  addColorByHue(randomizedHue);
+  addColorByHue((randomizedHue - splitComplimentaryGap) % 255);
+  addColorByHue((randomizedHue + splitComplimentaryGap) % 255);
+  addColorByHue((randomizedHue - splitComplimentaryGap + 128) % 255);
+  addColorByHue((randomizedHue + splitComplimentaryGap + 128) % 255);
+  if (numColors > 5) {
+    addColorByHueRandSV(randomizedHue);
+  }
+  if (numColors > 6) {
+    addColorByHueRandSV((randomizedHue - splitComplimentaryGap) % 255);
+  }
+  if (numColors > 7) {
+    addColorByHueRandSV((randomizedHue + splitComplimentaryGap) % 255);
+  }
+}
+
+// create a set of 2 pairs of oposing colors
+void Colorset::randomizeTetradic(uint32_t numColors)
+{
+  clear();
+  if (!numColors) {
+    numColors = random(4, 8);
+  }
+  uint8_t randomizedHue = random(0, 255);
+  uint8_t randomizedHue2 = random(0, 255);
+  addColorByHue(randomizedHue);
+  addColorByHue(randomizedHue2);
+  addColorByHue((randomizedHue + 128) % 255);
+  addColorByHue((randomizedHue2 + 128) % 255);
+  if (numColors > 4) {
+    addColorByHueRandSV(randomizedHue);
+  }
+  if (numColors > 5) {
+    addColorByHueRandSV(randomizedHue2);
+  }
+  if (numColors > 6) {
+    addColorByHueRandSV((randomizedHue + 128) % 255);
+  }
+  if (numColors > 7) {
+    addColorByHueRandSV((randomizedHue2 + 128) % 255);
+  }
+}
+
+void Colorset::randomizeEvenlySpaced(uint32_t spaces)
+{
+  clear();
+  if (!spaces) {
+    spaces = random(1, 8);
+  }
+  uint8_t randomizedHue = random(0, 255);
+  for (uint32_t i = 0; i < spaces; i++) {
+    addColorByHue((randomizedHue + (256 / spaces) * i) % 255);
   }
 }
 

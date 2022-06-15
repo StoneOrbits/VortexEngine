@@ -44,19 +44,29 @@ public:
 
   // add a single color
   bool addColor(RGBColor col);
+  bool addColorByHue(uint8_t hue);
+  bool addColorByHueRandSV(uint8_t hue);
   void removeColor(uint32_t index);
 
-  // randomize the set with a number of colors, 0 for random number of colors
+ // randomize a colorset with a specific number of colors with 
+// various different randomization techniques
   void randomize(uint32_t numColors = 0);
-
-  // randomzie a Monochromatic set with a number of colors, 0 for random number of colors
   void randomizeMonochromatic(uint32_t numColors = 0);
-
-  // randomize a Complimentary set with a number of colors, 0 for random number of colors
-  void randomizeComplimentary(uint32_t numColors = 0);
-
-  // randomize an Analogous set with a number of colors, 0 for random number of colors
   void randomizeAnalogous(uint32_t numColors = 0);
+  void randomizeSplitComplimentary(uint32_t numColors = 0);
+  void randomizeDoubleSplitComplimentary(uint32_t numColors = 0);
+  void randomizeTetradic(uint32_t numColors = 0);
+
+  // randomize a colorset with N evenly spaced colors
+  void randomizeEvenlySpaced(uint32_t spaces = 0);
+
+  // wrappers for various spacings
+  void randomizeSolid() { randomizeEvenlySpaced(1); }
+  void randomizeComplimentary() { randomizeEvenlySpaced(2); }
+  void randomizeTriadic() { randomizeEvenlySpaced(3); }
+  void randomizeSquare() { randomizeEvenlySpaced(4); }
+  void randomizePentadic() { randomizeEvenlySpaced(5); }
+  void randomizeRainbow() { randomizeEvenlySpaced(8); }
 
   // get a color from the colorset
   RGBColor get(uint32_t index = 0) const;
