@@ -375,7 +375,8 @@ bool SerialBuffer::serialize(uint32_t bytes)
   return true;
 }
 
-// reset the unserializer index
+// reset the unserializer index so that unserialization will
+// begin from the start of the buffer
 void SerialBuffer::resetUnserializer()
 {
   moveUnserializer(0);
