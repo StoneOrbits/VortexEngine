@@ -224,6 +224,8 @@ bool Modes::addMode(PatternID id, const Colorset *set)
   if (!mode) {
     return false;
   }
+  // must init the mode so that it can be serialized
+  mode->init();
   // not a very good way to do this but it ensures the mode is
   // added in the same way
   addMode(mode);

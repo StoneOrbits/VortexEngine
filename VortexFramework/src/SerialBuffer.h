@@ -23,7 +23,7 @@ public:
   // clear the buffer
   void clear();
 
-  // shrink capacity down to size, to
+  // shrink capacity down to size, to free unused space
   bool shrink();
 
   // append another buffer
