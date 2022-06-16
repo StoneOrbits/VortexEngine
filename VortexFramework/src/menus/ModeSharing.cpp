@@ -10,7 +10,7 @@
 
 ModeSharing::ModeSharing() :
   Menu(),
-  m_sharingMode(ModeShareState::SHARE_RECEIVE),
+  m_sharingMode(ModeShareState::SHARE_SEND),
   m_last_action(0)
 {
 }
@@ -21,7 +21,7 @@ bool ModeSharing::init()
     return false;
   }
   // just start spewing out modes everywhere
-  startSending();
+  m_sharingMode = ModeShareState::SHARE_SEND;
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
@@ -34,14 +34,18 @@ bool ModeSharing::run()
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND:
     showSendMode();
+    // send the mode every 3 seconds
+    if ((Time::getCurtime() % Time::secToTicks(3)) == 0) {
+      sendMode();
+    }
     break;
   case ModeShareState::SHARE_RECEIVE:
     showReceiveMode();
-    break;
-  case ModeShareState::SHARE_QUIT:
-    // blink red -> off
-    Leds::setAll(RGB_RED);
-    Leds::blinkAll(100,250);
+    // wait till a full mode has been received
+    if (Infrared::dataReady()) {
+      // read the mode out and load it
+      receiveMode();
+    }
     break;
   }
   return true;
@@ -52,36 +56,24 @@ void ModeSharing::onShortClick()
 {
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND:
-    // go to receiving
+    // start listening
     Infrared::beginReceiving();
-    startReceiving();
+    m_sharingMode = ModeShareState::SHARE_RECEIVE;
+    DEBUG_LOG("Switched to receive mode");
     break;
   case ModeShareState::SHARE_RECEIVE:
+  default:
     // go to quit option
     Infrared::endReceiving();
-    m_sharingMode = ModeShareState::SHARE_QUIT;
-    break;
-  case ModeShareState::SHARE_QUIT:
-  default:
-    // just wrap around back to sending
-    startSending();
+    m_sharingMode = ModeShareState::SHARE_SEND;
+    DEBUG_LOG("Switched to send mode");
     break;
   }
 }
 
 void ModeSharing::onLongClick()
 {
-  switch (m_sharingMode) {
-  case ModeShareState::SHARE_SEND:
-    sendMode();
-    break;
-  case ModeShareState::SHARE_RECEIVE:
-    receiveMode();
-    break;
-  case ModeShareState::SHARE_QUIT:
-    leaveMenu();
-    break;
-  }
+  leaveMenu();
 }
 
 void ModeSharing::sendMode()
@@ -140,30 +132,33 @@ void ModeSharing::receiveMode()
 void ModeSharing::showSendMode()
 {
   // gradually fill from pinkie to thumb
-  RGBColor col = RGB_TEAL;
   Leds::clearAll();
+  // position increases once every 100 ticks to a max of LED_LAST
   LedPos pos = (LedPos)((Time::getCurtime() / Time::msToTicks(100)) % LED_COUNT);
-  Leds::setRange(LED_FIRST, pos, col);
+  Leds::setRange(LED_FIRST, pos, RGB_TEAL);
+#if 0
+  // gradually fill from middle outward
+  Leds::clearAll();
+  int counter = ((Time::getCurtime() / Time::msToTicks(150)) % 5);
+  LedPos pos1 = (LedPos)(MIDDLE_TIP - counter);
+  LedPos pos2 = (LedPos)(MIDDLE_TOP + counter);
+  Leds::setRange(pos1, pos2, RGB_TEAL);
+#endif
 }
 
 void ModeSharing::showReceiveMode()
 {
   // gradually empty from thumb to pinkie
-  RGBColor col = RGB_PURPLE;
   Leds::clearAll();
+  // position decreases once every 100 ticks from LED_LAST to 0
   LedPos pos = (LedPos)(LED_LAST - ((Time::getCurtime() / Time::msToTicks(100)) % LED_COUNT));
-  Leds::setRange(LED_FIRST, pos, col);
-}
-
-void ModeSharing::startSending()
-{
-  m_sharingMode = ModeShareState::SHARE_SEND;
-  DEBUG_LOG("Switched to send mode");
-}
-
-void ModeSharing::startReceiving()
-{
-  // start listening
-  m_sharingMode = ModeShareState::SHARE_RECEIVE;
-  DEBUG_LOG("Switched to receive mode");
+  Leds::setRange(LED_FIRST, pos, RGB_PURPLE);
+#if 0
+  // gradually empty from outward to middle
+  Leds::clearAll();
+  int counter = ((Time::getCurtime() / Time::msToTicks(150)) % 5);
+  LedPos pos1 = (LedPos)(MIDDLE_TIP - (4 - counter));
+  LedPos pos2 = (LedPos)(MIDDLE_TOP + (4 - counter));
+  Leds::setRange(pos1, pos2, RGB_PURPLE);
+#endif
 }

@@ -64,6 +64,23 @@ void Infrared::cleanup()
 {
 }
 
+bool Infrared::dataReady()
+{
+  // no data
+  if (!m_irData.bytepos()) {
+    return false;
+  }
+  // read the size out
+  uint8_t size = *m_irData.data();
+  if (!size || size > MAX_DATA_TRANSFER) {
+    DEBUG_LOGF("Bad IR Data size: %u", size);
+    return false;
+  }
+  // if there are size + 1 bytes in the IRData receiver
+  // then a full message is ready
+  return (m_irData.bytepos() == (size + 1));
+}
+
 bool Infrared::read(SerialBuffer &data)
 {
   if (!m_irData.bytepos() || m_irData.bytepos() > MAX_DATA_TRANSFER) {

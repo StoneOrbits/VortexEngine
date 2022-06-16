@@ -21,6 +21,9 @@ public:
   static bool init();
   static void cleanup();
 
+  // check whether a full IR message is ready to read
+  static bool dataReady();
+
   // read any received data from internal buffer
   static bool read(SerialBuffer &data);
   // write data to internal to queue for send
