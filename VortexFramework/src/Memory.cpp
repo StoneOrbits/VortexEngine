@@ -22,7 +22,7 @@ struct memory_block
 // Vortex allocation functions
 void *_vmalloc(uint32_t size)
 {
-  if ((cur_mem_usage + size) >= MAX_MEMORY) {
+  if ((cur_memory_usage_total() + size) >= MAX_MEMORY) {
     DEBUG_LOG("OVERMEM");
     return nullptr;
   }
@@ -39,7 +39,7 @@ void *_vmalloc(uint32_t size)
 
 void *_vcalloc(uint32_t size, uint32_t amount)
 {
-  if ((cur_mem_usage + (size * amount)) >= MAX_MEMORY) {
+  if ((cur_memory_usage_total() + (size * amount)) >= MAX_MEMORY) {
     DEBUG_LOG("OVERMEM");
     return nullptr;
   }
@@ -72,7 +72,7 @@ void *_vrealloc(void *ptr, uint32_t size)
   if (size == old_size) {
     return ptr;
   }
-  if ((cur_mem_usage - old_size) + size >= MAX_MEMORY) {
+  if ((cur_memory_usage_total() - old_size) + size >= MAX_MEMORY) {
     DEBUG_LOG("OVERMEM");
     return nullptr;
   }
@@ -110,6 +110,11 @@ uint32_t cur_memory_usage()
 uint32_t cur_memory_usage_background()
 {
   return background_usage;
+}
+
+uint32_t cur_memory_usage_total()
+{
+  return cur_mem_usage + background_usage;
 }
 
 void *operator new(size_t size)

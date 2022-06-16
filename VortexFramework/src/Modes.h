@@ -49,8 +49,6 @@ public:
   static bool setCurMode(PatternID id, const Colorset *set);
   static bool setCurMode(const Mode *mode);
 
-  static bool updateCurMode(SerialBuffer &buffer);
-
   // get the current mode
   static Mode *curMode();
   // iterate to next mode and return it
@@ -61,6 +59,7 @@ public:
 
 private:
   static bool initCurMode();
+  static void saveCurMode();
 
   // the current mode we're on
   static uint8_t m_curMode;

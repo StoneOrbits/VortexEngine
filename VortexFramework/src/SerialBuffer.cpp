@@ -26,11 +26,17 @@ SerialBuffer::~SerialBuffer()
 SerialBuffer::SerialBuffer(const SerialBuffer &other)
 {
   init(other.capacity(), other.data());
+  m_pData->flags = other.m_pData->flags;
+  m_pData->crc32 = other.m_pData->crc32;
+  m_pData->size = other.m_pData->size;
 }
 
 void SerialBuffer::operator=(const SerialBuffer &other)
 {
   init(other.capacity(), other.data());
+  m_pData->flags = other.m_pData->flags;
+  m_pData->crc32 = other.m_pData->crc32;
+  m_pData->size = other.m_pData->size;
 }
 
 // reset the buffer
@@ -314,6 +320,8 @@ bool SerialBuffer::decompress()
   m_pData->recalc_crc();
   DEBUG_LOGF("Decompressed %u to %u bytes (%u capacity)", old_size, m_pData->size, m_capacity);
   shrink();
+  // this shouldn't be necessary:
+  resetUnserializer();
 #if 0
   printf("DECOMPRESSED:\n");
   for (uint32_t i = 0; i < m_pData->size; ++i) {

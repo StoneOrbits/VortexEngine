@@ -124,7 +124,8 @@ void ModeSharing::receiveMode()
     return;
   }
   buf.resetUnserializer();
-  Modes::updateCurMode(buf);
+  m_pCurMode->unserialize(buf);
+  m_pCurMode->init();
   DEBUG_LOG("Success receiving mode");
   leaveMenu();
 }
