@@ -145,12 +145,12 @@ bool Colorset::addColor(RGBColor col)
 // add a single color with maximum hue and staturation
 bool Colorset::addColorByHue(uint8_t hue)
 {
-  return addColor(RGBColor(hue, 255, 255));
+  return addColor(HSVColor(hue, 255, 255));
 }
 
 bool Colorset::addColorByHueRandSV(uint8_t hue)
 {
-  return addColor(RGBColor(hue, random(0, 255), random(0, 255)));
+  return addColor(HSVColor(hue, random(0, 255), random(0, 255)));
 }
 
 void Colorset::removeColor(uint32_t index)

@@ -8,7 +8,6 @@
  *  But there is still more to work on:
  *   - Implement missing patterns
  *   - Smart randomizer
- *   - Improve Mode Sharing logic/code/approach
  *   - Code documentation
  */
 

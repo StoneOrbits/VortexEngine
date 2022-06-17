@@ -23,13 +23,9 @@ private:
   void showSendMode();
   void showReceiveMode();
 
-  void startSending();
-  void startReceiving();
-
   enum class ModeShareState {
     SHARE_SEND,     // send mode
     SHARE_RECEIVE,  // receive mode
-    SHARE_QUIT,      // leave menu
   };
 
   ModeShareState m_sharingMode;

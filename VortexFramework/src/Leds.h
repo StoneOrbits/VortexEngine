@@ -42,11 +42,15 @@ public:
   static void clearFingers(Finger first, Finger last) { setFingers(first, last, HSV_OFF); }
 
   // Blink an led to blank or a color
-  // Switch the color to make it blink to another color
-  // These functions are intended to be used in menus, they are *not*
-  // appropriate for internal pattern usage.  These functions do not 
-  // utilize the tick offset for each finger so all fingers will blink 
-  // in sync when these functions are used
+  //
+  // These APIs work by checking if the current time is within the
+  // 'on duration' then they apply the color to the target, otherwise they do
+  // nothing. The goal of this behaviour is to allow them to be used in any
+  // situation to 'blink' an led to either off or some color.
+  //
+  // However since these APIs modulate current time to check if within the 'on'
+  // threshold that makes them unsuitable for internal pattern usage because it
+  // is unpredictable whether they will blink on or off first
   static void blinkIndex(LedPos target, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkRange(LedPos first, LedPos last, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkAll(int32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);

@@ -106,6 +106,10 @@ bool Modes::saveStorage()
 
   DEBUG_LOG("Saving modes...");
 
+  // make sure the current mode is saved to the serial mode storage
+  saveCurMode();
+
+  // now serialize the modes into the mode buffer
   SerialBuffer modesBuffer;
   serialize(modesBuffer);
 
@@ -220,6 +224,8 @@ bool Modes::addMode(PatternID id, const Colorset *set)
   if (!mode) {
     return false;
   }
+  // must init the mode so that it can be serialized
+  mode->init();
   // not a very good way to do this but it ensures the mode is
   // added in the same way
   addMode(mode);
@@ -248,41 +254,26 @@ bool Modes::setCurMode(PatternID id, const Colorset *set)
     ERROR_LOG("Invalid id or set");
     return false;
   }
-  Mode *pCurMode = curMode();
-  if (!pCurMode) {
-    return false;
+  if (!m_pCurMode) {
+    return addMode(id, set);
   }
-  if (!pCurMode->setPattern(id)) {
+  if (!m_pCurMode->setPattern(id)) {
     DEBUG_LOG("Failed to set pattern of current mode");
     // failed to set pattern?
   }
-  if (!pCurMode->setColorset(set)) {
+  if (!m_pCurMode->setColorset(set)) {
     DEBUG_LOG("Failed to set colorset of current mode");
   }
   // initialize the mode with new pattern and colorset
-  pCurMode->init();
-  // clear the current mode
-  m_serializedModes[m_curMode].clear();
-  // update the serialized storage
-  pCurMode->serialize(m_serializedModes[m_curMode]);
-  //m_serializedModes[m_numModes].compress();
+  m_pCurMode->init();
+  // save the current mode to the serialized modes storage
+  saveCurMode();
   return true;
 }
 
 bool Modes::setCurMode(const Mode *mode)
 {
   return setCurMode(mode->getPatternID(), mode->getColorset());
-}
-
-bool Modes::updateCurMode(SerialBuffer &buffer)
-{
-  // TODO: I don't really like this function, would be nice if we could
-  //       just unserialize directly into the mode and have it autosave
-  m_serializedModes[m_curMode] = buffer;
-  // if it decompressed the CRC was good and we can unserialize
-  m_pCurMode->unserialize(buffer);
-  m_pCurMode->init();
-  return true;
 }
 
 // the current mode
@@ -341,6 +332,7 @@ bool Modes::initCurMode()
     return true;
   }
   //m_serializedModes[m_curMode].decompress();
+  // make sure the unserializer is reset before trying to unserialize it
   m_serializedModes[m_curMode].resetUnserializer();
   m_pCurMode = ModeBuilder::unserialize(m_serializedModes[m_curMode]);
   //m_serializedModes[m_curMode].compress();
@@ -349,4 +341,18 @@ bool Modes::initCurMode()
   }
   m_pCurMode->init();
   return true;
+}
+
+void Modes::saveCurMode()
+{
+  if (!m_pCurMode) {
+    // if there's no loaded mode currently then there's nothing
+    // to save so there's no error
+    return;
+  }
+  // clear the current mode
+  m_serializedModes[m_curMode].clear();
+  // update the serialized storage
+  m_pCurMode->serialize(m_serializedModes[m_curMode]);
+  //m_serializedModes[m_numModes].compress();
 }

@@ -21,22 +21,24 @@ public:
   static bool init();
   static void cleanup();
 
-  // read data from internal buffer
+  // check whether a full IR message is ready to read
+  static bool dataReady();
+
+  // read any received data from internal buffer
   static bool read(SerialBuffer &data);
-  // write data to internal queue to send
+  // write data to internal to queue for send
   static bool write(SerialBuffer &data);
 
+  // turn the receiver on/off
   static bool beginReceiving();
   static bool endReceiving();
 
 private:
   // writing functions
   static void initpwm();
-  static void delayus(uint16_t time);
   static void write8(uint8_t data);
-  static void write32(uint32_t data);
-  static uint32_t mark(uint16_t time);
-  static uint32_t space(uint16_t time);
+  static void mark(uint16_t time);
+  static void space(uint16_t time);
 
   // reading functions
   // PCI handler for when IR receiver pin changes states
@@ -44,11 +46,10 @@ private:
   static void handleIRTiming(uint32_t diff);
   static void resetIRState();
 
-
   // ===================
   //  private data:
 
-  // BitStream object that feeds bits to the ir data buf
+  // BitStream object that IR data is fed to bit by bit
   static BitStream m_irData;
 
   // Receive state used for state machine in PCIhandler
