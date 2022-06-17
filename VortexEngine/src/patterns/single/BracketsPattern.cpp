@@ -4,7 +4,7 @@
 #include "../../Leds.h"
 
 BracketsPattern::BracketsPattern(uint8_t bracketDuration, uint8_t midDuration, uint8_t offDuration) :
-  Pattern(),
+  SingleLedPattern(),
   m_bracketDuration(bracketDuration),
   m_midDuration(midDuration),
   m_offDuration(offDuration)
@@ -18,7 +18,7 @@ BracketsPattern::~BracketsPattern()
 void BracketsPattern::init()
 {
   // run basic pattern init logic
-  Pattern::init();
+  SingleLedPattern::init();
 
   // reset the blink timer entirely
   m_blinkTimer.reset();

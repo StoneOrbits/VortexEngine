@@ -78,7 +78,7 @@ bool Infrared::dataReady()
   }
   // if there are size + 1 bytes in the IRData receiver
   // then a full message is ready
-  return (m_irData.bytepos() == (size + 1));
+  return (m_irData.bytepos() == (uint32_t)(size + 1));
 }
 
 bool Infrared::read(SerialBuffer &data)
