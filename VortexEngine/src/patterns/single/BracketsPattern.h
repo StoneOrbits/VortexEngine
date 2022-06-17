@@ -3,11 +3,11 @@
 
 #include <inttypes.h>
 
-#include "../Pattern.h"
+#include "SingleLedPattern.h"
 
 #include "../../Timer.h"
 
-class BracketsPattern : public Pattern
+class BracketsPattern : public SingleLedPattern
 {
 public:
   BracketsPattern(uint8_t bracketDuration = 2, uint8_t midDuration = 5, uint8_t gapDuration = 8);

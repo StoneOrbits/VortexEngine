@@ -1,6 +1,5 @@
 #include "Log.h"
 
-#include "VortexFramework.h"
 #include "TimeControl.h"
 
 #include <stdarg.h>

@@ -33,7 +33,8 @@ void RabbitPattern::init()
       return;
     }
     pat->bind(&m_colorset, p);
-    pat->init(); // TODO: does bind() call init()? not atm
+    pat->init();
+    // handle re-initialization and prevent leaks
     if (m_ledPatterns[p]) {
       delete m_ledPatterns[p];
     }

@@ -8,7 +8,6 @@
 #include "menus/PatternSelect.h"
 #include "menus/Randomizer.h"
 
-#include "VortexFramework.h"
 #include "TimeControl.h"
 #include "Timings.h"
 #include "Button.h"

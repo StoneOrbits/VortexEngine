@@ -1,5 +1,5 @@
-#ifndef VORTEX_FRAMEWORK_H
-#define VORTEX_FRAMEWORK_H
+#ifndef VORTEX_ENGINE_H
+#define VORTEX_ENGINE_H
 
 // TODO STILL:
 /*
@@ -13,10 +13,10 @@
 
 #define VORTEX_VERSION "0.1 alpha"
 
-class VortexFramework
+class VortexEngine
 {
   // private unimplemented constructor
-  VortexFramework();
+  VortexEngine();
 
 public:
   // setup and initialization function

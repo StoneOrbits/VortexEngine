@@ -1,4 +1,4 @@
-#include "VortexFramework.h"
+#include "VortexEngine.h"
 #include "TimeControl.h"
 #include "Infrared.h"
 #include "Storage.h"
@@ -10,7 +10,7 @@
 
 #include <Arduino.h>
 
-bool VortexFramework::init()
+bool VortexEngine::init()
 {
   // initialize a random seed
   // Always generate seed before creating button on
@@ -51,7 +51,7 @@ bool VortexFramework::init()
   return true;
 }
 
-void VortexFramework::cleanup()
+void VortexEngine::cleanup()
 {
   // cleanup in reverse order
   // NOTE: the arduino doesn't actually cleanup,
@@ -65,7 +65,7 @@ void VortexFramework::cleanup()
   Time::cleanup();
 }
 
-void VortexFramework::tick()
+void VortexEngine::tick()
 {
   // check for serial communications and enable it for logging
   checkSerial();
