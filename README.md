@@ -1,5 +1,5 @@
-## Vortex Framework
-This is a firmware for a custom arduino based microcontroller gloveset
+## Vortex Engine
+This is a firmware for a custom arduino based gloveset
 
 ### Installation
 In order to get started first you'll need to set up Arduino IDE
