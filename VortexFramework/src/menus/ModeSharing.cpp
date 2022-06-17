@@ -132,34 +132,18 @@ void ModeSharing::receiveMode()
 
 void ModeSharing::showSendMode()
 {
-  // gradually fill from pinkie to thumb
+  // gradually fill from thumb to pinkie
   Leds::clearAll();
-  // position increases once every 100 ticks to a max of LED_LAST
-  LedPos pos = (LedPos)((Time::getCurtime() / Time::msToTicks(100)) % LED_COUNT);
-  Leds::setRange(LED_FIRST, pos, RGB_TEAL);
-#if 0
-  // gradually fill from middle outward
-  Leds::clearAll();
-  int counter = ((Time::getCurtime() / Time::msToTicks(150)) % 5);
-  LedPos pos1 = (LedPos)(MIDDLE_TIP - counter);
-  LedPos pos2 = (LedPos)(MIDDLE_TOP + counter);
-  Leds::setRange(pos1, pos2, RGB_TEAL);
-#endif
+  LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(100) % (LED_COUNT + 1)));
+  if (pos == 10) return;
+  Leds::setRange(pos, LED_LAST, RGB_TEAL);
 }
 
 void ModeSharing::showReceiveMode()
 {
   // gradually empty from thumb to pinkie
   Leds::clearAll();
-  // position decreases once every 100 ticks from LED_LAST to 0
-  LedPos pos = (LedPos)(LED_LAST - ((Time::getCurtime() / Time::msToTicks(100)) % LED_COUNT));
+  LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(200) % (LED_COUNT + 1)));
+  if (pos == 10) return;
   Leds::setRange(LED_FIRST, pos, RGB_PURPLE);
-#if 0
-  // gradually empty from outward to middle
-  Leds::clearAll();
-  int counter = ((Time::getCurtime() / Time::msToTicks(150)) % 5);
-  LedPos pos1 = (LedPos)(MIDDLE_TIP - (4 - counter));
-  LedPos pos2 = (LedPos)(MIDDLE_TOP + (4 - counter));
-  Leds::setRange(pos1, pos2, RGB_PURPLE);
-#endif
 }
