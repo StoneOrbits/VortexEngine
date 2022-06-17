@@ -213,10 +213,10 @@ const Colorset *Mode::getColorset(LedPos pos) const
 
 PatternID Mode::getPatternID(LedPos pos) const
 {
-  if (pos > LED_LAST || !getPattern()) {
+  if (pos > LED_LAST || !getPattern(pos)) {
     return PATTERN_FIRST;
   }
-  return getPattern()->getPatternID();
+  return getPattern(pos)->getPatternID();
 }
 
 bool Mode::setPattern(PatternID pat)
