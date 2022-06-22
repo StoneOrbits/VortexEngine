@@ -12,8 +12,11 @@
 using namespace std;
 
 // the max number of DWORDs that will transfer
-#define MAX_DWORDS_TRANSFER 9
+#define MAX_DWORDS_TRANSFER 1024
 #define MAX_DATA_TRANSFER (MAX_DWORDS_TRANSFER * sizeof(uint32_t))
+
+// the IR receiver buffer size in dwords
+#define IR_RECV_BUF_SIZE MAX_DATA_TRANSFER
 
 //#define IR_TIMING 564
 #define IR_TIMING 1564

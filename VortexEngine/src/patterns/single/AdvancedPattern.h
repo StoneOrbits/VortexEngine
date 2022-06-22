@@ -12,12 +12,12 @@ public:
     uint8_t groupSize, uint8_t skipCols, uint8_t repeatGroup);
   virtual ~AdvancedPattern();
 
-  virtual void init();
+  virtual void init() override;
 
-  virtual void play();
+  virtual void play() override;
 
-  virtual void serialize(SerialBuffer &buffer) const;
-  virtual void unserialize(SerialBuffer &buffer);
+  virtual void serialize(SerialBuffer &buffer) const override;
+  virtual void unserialize(SerialBuffer &buffer) override;
 
 protected:
   // override from basicpattern

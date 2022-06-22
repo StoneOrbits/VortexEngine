@@ -9,6 +9,17 @@
  *   - Implement missing patterns
  *   - Smart randomizer
  *   - Code documentation
+ *   - IR transmission protocol to allow any length data instead of single burst
+ *   - Saving modes that have custom parameters won't work
+ *      - conslusion:
+ *          Will save parameters to serial, at risk of causing misalignments if people remove
+ *          patterns or adjust the number of parameters a pattern takes. This is just part of
+ *          the risk of editing the firmware.
+ *          
+ *          Needs ir improvements first so that added data size can still be transmitted
+ *
+ *   - Writing text to serial for editable savefile
+ *   - eliminate library code to reduce size
  */
 
 #define VORTEX_VERSION "0.1 alpha"

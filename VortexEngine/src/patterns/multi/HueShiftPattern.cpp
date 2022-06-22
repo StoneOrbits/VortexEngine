@@ -1,9 +1,10 @@
 #include "HueShiftPattern.h"
 
+#include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
 #include "../../Leds.h"
 
-HueShiftPattern::HueShiftPattern(uint8_t scale, uint8_t speed) :
+HueShiftPattern::HueShiftPattern(uint8_t speed, uint8_t scale) :
   MultiLedPattern(),
   m_speed(speed),
   m_scale(scale)
@@ -30,4 +31,19 @@ void HueShiftPattern::play()
     hsv.hue = start_hue + (pos * (255 / (LED_COUNT / m_scale)));
     Leds::setIndex(pos, hsv);
   }
+}
+
+// must override the serialize routine to save the pattern
+void HueShiftPattern::serialize(SerialBuffer &buffer) const
+{
+  MultiLedPattern::serialize(buffer);
+  buffer.serialize(m_speed);
+  buffer.serialize(m_scale);
+}
+
+void HueShiftPattern::unserialize(SerialBuffer &buffer)
+{
+  MultiLedPattern::unserialize(buffer);
+  buffer.unserialize(&m_speed);
+  buffer.unserialize(&m_scale);
 }

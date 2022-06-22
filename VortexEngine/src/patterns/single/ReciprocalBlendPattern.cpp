@@ -19,6 +19,18 @@ void ReciprocalBlendPattern::init()
   m_showingComplement = false;
 }
 
+void ReciprocalBlendPattern::serialize(SerialBuffer &buffer) const
+{
+  //DEBUG_LOG("Serialize");
+  BlendPattern::serialize(buffer);
+}
+
+void ReciprocalBlendPattern::unserialize(SerialBuffer &buffer)
+{
+  //DEBUG_LOG("Unserialize");
+  BlendPattern::unserialize(buffer);
+}
+
 void ReciprocalBlendPattern::onBlinkOn()
 {
   // every other tick show the complement color

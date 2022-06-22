@@ -1,7 +1,9 @@
 #include "BracketsPattern.h"
 
+#include "../../SerialBuffer.h"
 #include "../../Colorset.h"
 #include "../../Leds.h"
+#include "../../Log.h"
 
 BracketsPattern::BracketsPattern(uint8_t bracketDuration, uint8_t midDuration, uint8_t offDuration) :
   SingleLedPattern(),
@@ -54,4 +56,22 @@ void BracketsPattern::play()
     Leds::clearIndex(m_ledPos);
     break;
   }
+}
+
+void BracketsPattern::serialize(SerialBuffer &buffer) const
+{
+  //DEBUG_LOG("Serialize");
+  SingleLedPattern::serialize(buffer);
+  buffer.serialize(m_bracketDuration);
+  buffer.serialize(m_midDuration);
+  buffer.serialize(m_offDuration);
+}
+
+void BracketsPattern::unserialize(SerialBuffer &buffer)
+{
+  //DEBUG_LOG("Unserialize");
+  SingleLedPattern::unserialize(buffer);
+  buffer.unserialize(&m_bracketDuration);
+  buffer.unserialize(&m_midDuration);
+  buffer.unserialize(&m_offDuration);
 }

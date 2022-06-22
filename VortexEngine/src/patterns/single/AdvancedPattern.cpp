@@ -95,14 +95,16 @@ void AdvancedPattern::serialize(SerialBuffer &buffer) const
 {
   //DEBUG_LOG("Serialize");
   BasicPattern::serialize(buffer);
-  //buffer.serialize(m_onDuration);
-  //buffer.serialize(m_offDuration);
+  buffer.serialize(m_groupSize);
+  buffer.serialize(m_skipCols);
+  buffer.serialize(m_repeatGroup);
 }
 
 void AdvancedPattern::unserialize(SerialBuffer &buffer)
 {
   //DEBUG_LOG("Unserialize");
   BasicPattern::unserialize(buffer);
-  //buffer.unserialize(&m_onDuration);
-  //buffer.unserialize(&m_offDuration);
+  buffer.unserialize(&m_groupSize);
+  buffer.unserialize(&m_skipCols);
+  buffer.unserialize(&m_repeatGroup);
 }

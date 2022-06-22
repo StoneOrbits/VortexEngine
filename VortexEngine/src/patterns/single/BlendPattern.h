@@ -11,13 +11,12 @@ public:
   BlendPattern(uint8_t onDuration = 2, uint8_t offDuration = 13, uint8_t speed = 1);
   virtual ~BlendPattern();
 
-  virtual void init();
+  virtual void init() override;
 
-  virtual void play();
+  virtual void play() override;
 
-  // not sure these are necessary in derived classes anymore
-  //virtual void serialize(SerialBuffer &buffer) const;
-  //virtual void unserialize(SerialBuffer &buffer);
+  virtual void serialize(SerialBuffer &buffer) const override;
+  virtual void unserialize(SerialBuffer &buffer) override;
 
 protected:
   // only override the onBlinkOn so we can control the color it blinks

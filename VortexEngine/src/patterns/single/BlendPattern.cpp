@@ -34,6 +34,20 @@ void BlendPattern::play()
   BasicPattern::play();
 }
 
+void BlendPattern::serialize(SerialBuffer &buffer) const
+{
+  //DEBUG_LOG("Serialize");
+  BasicPattern::serialize(buffer);
+  buffer.serialize(m_speed);
+}
+
+void BlendPattern::unserialize(SerialBuffer &buffer)
+{
+  //DEBUG_LOG("Unserialize");
+  BasicPattern::unserialize(buffer);
+  buffer.unserialize(&m_speed);
+}
+
 void BlendPattern::onBlinkOn()
 {
   // if the current hue has reached the next hue
