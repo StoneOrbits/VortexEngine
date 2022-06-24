@@ -1,13 +1,14 @@
 #include "Log.h"
 
 #include "TimeControl.h"
+#include "Serial.h"
 
 #include <stdarg.h>
+#include <string.h>
 #include <stdio.h>
+#include <string>
 
 #include <Arduino.h>
-
-#include <string>
 
 #ifdef TEST_FRAMEWORK
 #ifdef LINUX_FRAMEWORK
@@ -19,30 +20,9 @@
 
 using namespace std;
 
-// whether serial communications are initialized
-bool serial_init = false;
-
-void checkSerial()
-{
-  if (serial_init) {
-    return;
-  }
-  // only try to check serial every 1000 ticks otherwise lag
-  if ((Time::getCurtime() % 1000) != 0) {
-    return;
-  }
-  if (!Serial) {
-    return;
-  }
-  serial_init = true;
-  // Setup serial communications
-  Serial.begin(9600);
-  INFO_LOG("== Vortex Framework v" VORTEX_VERSION " (built " __TIMESTAMP__ ") ==");
-}
-
 void DebugMsg(const char *file, const char *func, int line, const char *msg, ...)
 {
-  if (!serial_init) {
+  if (!SerialComs::initialized()) {
     return;
   }
   va_list list;
@@ -71,7 +51,7 @@ void DebugMsg(const char *file, const char *func, int line, const char *msg, ...
 
 void ErrorMsg(const char *func, const char *msg, ...)
 {
-  if (!serial_init) {
+  if (!SerialComs::initialized()) {
     return;
   }
   va_list list;
@@ -90,7 +70,7 @@ void ErrorMsg(const char *func, const char *msg, ...)
 
 void InfoMsg(const char *msg, ...)
 {
-  if (!serial_init) {
+  if (!SerialComs::initialized()) {
     return;
   }
   va_list list;

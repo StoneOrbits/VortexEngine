@@ -1,15 +1,15 @@
 #include <Arduino.h>
 
-#include "src/VortexFramework.h"
+#include "src/VortexEngine.h"
 
 void setup()
 {
-  if (!VortexFramework::init()) {
+  if (!VortexEngine::init()) {
     // uhoh
   }
 }
 
 void loop()
 {
-  VortexFramework::tick();
+  VortexEngine::tick();
 }

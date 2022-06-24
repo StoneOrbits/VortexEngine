@@ -50,6 +50,8 @@ Infrared::Infrared()
 
 bool Infrared::init()
 {
+  // initialize the sender thing
+  initpwm();
   pinMode(RECEIVER_PIN, INPUT_PULLUP);
   pinMode(IR_SEND_PWM_PIN, OUTPUT);
   digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
@@ -98,18 +100,15 @@ bool Infrared::read(SerialBuffer &data)
     DEBUG_LOGF("Received bad data size: %u", size);
     return false;
   }
-  // inintialize the serial buffer for the new data size
-  if (!data.init(size)) {
+  // the actual data starts 1 byte later because of the size byte
+  const uint8_t *actualData = m_irData.data() + 1;
+  if (!data.rawInit(actualData, size)) {
     DEBUG_LOG("Failed to init buffer for IR read");
     return false;
   }
-  // the actual data starts 1 byte later because of the size byte
-  const uint8_t *actualData = m_irData.data() + 1;
   for (uint32_t i = 0; i < size; ++i) {
     DEBUG_LOGF("Read: 0x%x", actualData[i]);
   }
-  // copy in the actual data from the serial buffer
-  memcpy(data.rawData(), actualData, size);
   // reset the IR state and receive buffer
   resetIRState();
   return true;
@@ -117,8 +116,6 @@ bool Infrared::read(SerialBuffer &data)
 
 bool Infrared::write(SerialBuffer &data)
 {
-  // initialize the thing
-  initpwm();
   uint8_t *buf = (uint8_t *)data.rawData();
   uint32_t size = data.rawSize();
   // access the data in dwords
