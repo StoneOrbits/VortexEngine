@@ -116,16 +116,18 @@ bool Infrared::read(SerialBuffer &data)
 
 bool Infrared::write(SerialBuffer &data)
 {
-  uint8_t *buf = (uint8_t *)data.rawData();
   uint32_t size = data.rawSize();
-  // access the data in dwords
+  // ensure the data isn't too big
   if (size > MAX_DATA_TRANSFER) {
     DEBUG_LOGF("Cannot transfer that much data: %u bytes", data.rawSize());
     return false;
   }
   // create a bitstream to walk the bits of the data
+  uint8_t *buf = (uint8_t *)data.rawData();
   BitStream sendStream(buf, size);
-  // wakeup the other receiver with a quick mark/space
+  // init sender before writing, is this necessary here? I think so
+  initpwm();
+  // wakeup the other receiver with a very quick mark/space
   mark(50);
   space(100);
   // now send the header
@@ -136,6 +138,9 @@ bool Infrared::write(SerialBuffer &data)
   // now iterate the bytes of data
   for (uint32_t i = 0; i < size; ++i) {
     write8(buf[i]);
+  }
+  for (uint32_t i = 0; i < size; ++i) {
+    DEBUG_LOGF("Wrote: 0x%x", buf[i]);
   }
   return true;
 }
@@ -221,7 +226,6 @@ void Infrared::write8(uint8_t data)
     // send 1x timing size for space
     space(IR_TIMING);
   }
-  DEBUG_LOGF("Wrote: 0x%x", data);
 }
 
 void Infrared::mark(uint16_t time)
@@ -299,6 +303,9 @@ void Infrared::handleIRTiming(uint32_t diff)
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
     m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
+    if (m_irData.bitpos() > 0 && ((m_irData.bitpos() + 1) % 32) == 0) {
+      DEBUG_LOGF("Read: 0x%x", m_irData.dwData()[m_irData.dwordpos()]);
+    }
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
