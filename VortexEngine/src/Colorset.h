@@ -51,9 +51,8 @@ public:
   // randomize a colorset with a specific number of colors with 
   // various different randomization techniques
   void randomize(uint32_t numColors = 0);
+  void randomizeColorTheory(uint32_t numColors = 0);
   void randomizeMonochromatic(uint32_t numColors = 0);
-  void randomizeAnalogous(uint32_t numColors = 0);
-  void randomizeSplitComplimentary(uint32_t numColors = 0);
   void randomizeDoubleSplitComplimentary(uint32_t numColors = 0);
   void randomizeTetradic(uint32_t numColors = 0);
 
