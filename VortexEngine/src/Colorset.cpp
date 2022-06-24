@@ -180,6 +180,21 @@ void Colorset::randomize(uint32_t numColors)
   }
 }
 
+// create a set according to the rules of color theory
+void Colorset::randomizeColorTheory(uint32_t numColors)
+{
+  clear();
+  if (!numColors) {
+    numColors = random(1, 8);
+  }
+  uint8_t randomizedHue = random(0, 255);
+  uint8_t colorGap = 0;
+  if (numColors != 1) colorGap = random(16, 256/(numColors - 1));
+  for (uint32_t i = 0; i < numColors; i++) {
+    addColorByHue((randomizedHue + (i * colorGap)) % 255);
+  }
+}
+
 // create a set of colors that share a single hue
 void Colorset::randomizeMonochromatic(uint32_t numColors)
 {
@@ -194,49 +209,6 @@ void Colorset::randomizeMonochromatic(uint32_t numColors)
   }
 }
 
-// create a set of colors with equal distance between them
-void Colorset::randomizeAnalogous(uint32_t numColors)
-{
-  clear();
-  if(!numColors){
-    numColors = random(2,7);
-  }
-  uint8_t randomizedHue = random(0,255);
-  uint8_t analogousGap = random(1,64);
-  for(uint32_t i = 1; i < numColors; i += 2){
-    addColorByHue((randomizedHue - (analogousGap * i)) % 255);
-  }
-  addColorByHue(randomizedHue);
-  for(uint32_t i = 1; i < numColors; i += 2){
-    addColorByHue((randomizedHue + (analogousGap * i)) % 255);
-  }
-}
-
-// create a set of 3 colors with the same spacing from the central color
-void Colorset::randomizeSplitComplimentary(uint32_t numColors)
-{
-  clear();
-  if (!numColors) {
-    numColors = random(3, 8);
-  }
-  uint8_t randomizedHue = random(0, 255);
-  uint8_t splitComplimentaryGap = random(1, 128);
-  addColorByHue((randomizedHue - splitComplimentaryGap) % 255);
-  addColorByHue(randomizedHue);
-  addColorByHue((randomizedHue + splitComplimentaryGap) % 255);
-  for (uint32_t i = 3; i < numColors; i++) {
-    if (i % 3 == 1) {
-      addColorByHueRandSV((randomizedHue - splitComplimentaryGap) % 255);
-    }
-    if (i % 3 == 0) {
-      addColorByHueRandSV(randomizedHue);
-    }
-    if (i % 3 == 2) {
-      addColorByHueRandSV((randomizedHue + splitComplimentaryGap) % 255);
-    }
-  }
-}
-
 // create a set of 5 colors with 2 pairs of opposing colors with the same spacing from the central color
 void Colorset::randomizeDoubleSplitComplimentary(uint32_t numColors)
 {
@@ -246,11 +218,11 @@ void Colorset::randomizeDoubleSplitComplimentary(uint32_t numColors)
   }
   uint8_t randomizedHue = random(0, 255);
   uint8_t splitComplimentaryGap = random(1, 64);
-  addColorByHue(randomizedHue);
+  addColorByHue((randomizedHue + splitComplimentaryGap + 128) % 255);
   addColorByHue((randomizedHue - splitComplimentaryGap) % 255);
+  addColorByHue(randomizedHue);
   addColorByHue((randomizedHue + splitComplimentaryGap) % 255);
   addColorByHue((randomizedHue - splitComplimentaryGap + 128) % 255);
-  addColorByHue((randomizedHue + splitComplimentaryGap + 128) % 255);
   if (numColors > 5) {
     addColorByHueRandSV(randomizedHue);
   }
