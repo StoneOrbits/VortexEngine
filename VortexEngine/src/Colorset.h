@@ -45,6 +45,7 @@ public:
   // add a single color
   bool addColor(RGBColor col);
   bool addColorByHue(uint8_t hue);
+  bool addColorByHueRandV(uint8_t hue);
   bool addColorByHueRandSV(uint8_t hue);
   void removeColor(uint32_t index);
 
@@ -53,8 +54,10 @@ public:
   void randomize(uint32_t numColors = 0);
   void randomizeColorTheory(uint32_t numColors = 0);
   void randomizeMonochromatic(uint32_t numColors = 0);
-  void randomizeDoubleSplitComplimentary(uint32_t numColors = 0);
-  void randomizeTetradic(uint32_t numColors = 0);
+
+  // these randomizers have a set amount of colors and don't take any arguments
+  void randomizeDoubleSplitComplimentary();
+  void randomizeTetradic();
 
   // randomize a colorset with N evenly spaced colors
   void randomizeEvenlySpaced(uint32_t spaces = 0);
