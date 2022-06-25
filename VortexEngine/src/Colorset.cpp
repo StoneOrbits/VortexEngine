@@ -148,9 +148,14 @@ bool Colorset::addColorByHue(uint8_t hue)
   return addColor(HSVColor(hue, 255, 255));
 }
 
+bool Colorset::addColorByHueRandV(uint8_t hue)
+{
+  return addColor(HSVColor(hue, 255, 85 * random(1, 4)));
+}
+
 bool Colorset::addColorByHueRandSV(uint8_t hue)
 {
-  return addColor(HSVColor(hue, random(0, 255), random(0, 255)));
+  return addColor(HSVColor(hue, random(0, 256), random(0, 256)));
 }
 
 void Colorset::removeColor(uint32_t index)
@@ -173,10 +178,10 @@ void Colorset::randomize(uint32_t numColors)
 {
   clear();
   if (!numColors) {
-    numColors = random(2, 8);
+    numColors = random(2, 9);
   }
   for (uint32_t i = 0; i < numColors; ++i) {
-    addColorByHueRandSV(random(0, 255));
+    addColorByHueRandSV(random(0, 256));
   }
 }
 
@@ -185,13 +190,13 @@ void Colorset::randomizeColorTheory(uint32_t numColors)
 {
   clear();
   if (!numColors) {
-    numColors = random(1, 8);
+    numColors = random(1, 9);
   }
-  uint8_t randomizedHue = random(0, 255);
+  uint8_t randomizedHue = random(0, 256);
   uint8_t colorGap = 0;
-  if (numColors != 1) colorGap = random(16, 256/(numColors - 1));
+  if (numColors > 1) colorGap = random(16, 256/(numColors - 1));
   for (uint32_t i = 0; i < numColors; i++) {
-    addColorByHue((randomizedHue + (i * colorGap)) % 255);
+    addColorByHueRandV((randomizedHue + (i * colorGap)) % 256);
   }
 }
 
@@ -200,9 +205,9 @@ void Colorset::randomizeMonochromatic(uint32_t numColors)
 {
   clear();
   if (!numColors) {
-    numColors = random(2, 8);
+    numColors = random(2, 9);
   }
-  uint8_t randomizedHue = random(0,255);
+  uint8_t randomizedHue = random(0, 256);
   addColorByHue(randomizedHue);
   for (uint32_t i = 1; i < numColors; i++) {
     addColorByHueRandSV(randomizedHue);
@@ -210,66 +215,39 @@ void Colorset::randomizeMonochromatic(uint32_t numColors)
 }
 
 // create a set of 5 colors with 2 pairs of opposing colors with the same spacing from the central color
-void Colorset::randomizeDoubleSplitComplimentary(uint32_t numColors)
+void Colorset::randomizeDoubleSplitComplimentary()
 {
   clear();
-  if (!numColors) {
-    numColors = random(5, 8);
-  }
-  uint8_t randomizedHue = random(0, 255);
+  uint8_t randomizedHue = random(0, 256);
   uint8_t splitComplimentaryGap = random(1, 64);
-  addColorByHue((randomizedHue + splitComplimentaryGap + 128) % 255);
-  addColorByHue((randomizedHue - splitComplimentaryGap) % 255);
-  addColorByHue(randomizedHue);
-  addColorByHue((randomizedHue + splitComplimentaryGap) % 255);
-  addColorByHue((randomizedHue - splitComplimentaryGap + 128) % 255);
-  if (numColors > 5) {
-    addColorByHueRandSV(randomizedHue);
-  }
-  if (numColors > 6) {
-    addColorByHueRandSV((randomizedHue - splitComplimentaryGap) % 255);
-  }
-  if (numColors > 7) {
-    addColorByHueRandSV((randomizedHue + splitComplimentaryGap) % 255);
-  }
+  addColorByHueRandV((randomizedHue + splitComplimentaryGap + 128) % 256);
+  addColorByHueRandV((randomizedHue - splitComplimentaryGap) % 256);
+  addColorByHueRandV(randomizedHue);
+  addColorByHueRandV((randomizedHue + splitComplimentaryGap) % 256);
+  addColorByHueRandV((randomizedHue - splitComplimentaryGap + 128) % 256);
 }
 
 // create a set of 2 pairs of oposing colors
-void Colorset::randomizeTetradic(uint32_t numColors)
+void Colorset::randomizeTetradic()
 {
   clear();
-  if (!numColors) {
-    numColors = random(4, 8);
-  }
-  uint8_t randomizedHue = random(0, 255);
-  uint8_t randomizedHue2 = random(0, 255);
-  addColorByHue(randomizedHue);
-  addColorByHue(randomizedHue2);
-  addColorByHue((randomizedHue + 128) % 255);
-  addColorByHue((randomizedHue2 + 128) % 255);
-  if (numColors > 4) {
-    addColorByHueRandSV(randomizedHue);
-  }
-  if (numColors > 5) {
-    addColorByHueRandSV(randomizedHue2);
-  }
-  if (numColors > 6) {
-    addColorByHueRandSV((randomizedHue + 128) % 255);
-  }
-  if (numColors > 7) {
-    addColorByHueRandSV((randomizedHue2 + 128) % 255);
-  }
+  uint8_t randomizedHue = random(0, 256);
+  uint8_t randomizedHue2 = random(0, 256);
+  addColorByHueRandV(randomizedHue);
+  addColorByHueRandV(randomizedHue2);
+  addColorByHueRandV((randomizedHue + 128) % 256);
+  addColorByHueRandV((randomizedHue2 + 128) % 256);
 }
 
 void Colorset::randomizeEvenlySpaced(uint32_t spaces)
 {
   clear();
   if (!spaces) {
-    spaces = random(1, 8);
+    spaces = random(1, 9);
   }
-  uint8_t randomizedHue = random(0, 255);
+  uint8_t randomizedHue = random(0, 256);
   for (uint32_t i = 0; i < spaces; i++) {
-    addColorByHue((randomizedHue + (256 / spaces) * i) % 255);
+    addColorByHueRandV((randomizedHue + (256 / spaces) * i) % 256);
   }
 }
 
