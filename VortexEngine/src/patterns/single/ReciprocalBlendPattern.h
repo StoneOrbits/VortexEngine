@@ -11,7 +11,10 @@ public:
   ReciprocalBlendPattern(uint8_t onDuration = 2, uint8_t offDuration = 13, uint8_t speed = 1);
   virtual ~ReciprocalBlendPattern();
 
-  virtual void init();
+  virtual void init() override;
+
+  virtual void serialize(SerialBuffer &buffer) const override;
+  virtual void unserialize(SerialBuffer &buffer) override;
 
 protected:
   // only override the onBlinkOn so we can control the color it blinks

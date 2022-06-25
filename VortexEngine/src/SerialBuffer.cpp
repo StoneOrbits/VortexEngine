@@ -39,6 +39,23 @@ void SerialBuffer::operator=(const SerialBuffer &other)
   m_pData->size = other.m_pData->size;
 }
 
+bool SerialBuffer::rawInit(const uint8_t *rawdata, uint32_t size)
+{
+  if (!rawdata || size < sizeof(RawBuffer)) {
+    return false;
+  }
+  // round up to nearest 4
+  m_capacity = (size + 4) - (size % 4);
+  m_pData = (RawBuffer *)vcalloc(1, m_capacity + sizeof(RawBuffer));
+  if (!m_pData) {
+    m_capacity = 0;
+    ERROR_OUT_OF_MEMORY();
+    return false;
+  }
+  // copy in the actual data from the serial buffer
+  memcpy(m_pData, rawdata, size);
+}
+
 // reset the buffer
 bool SerialBuffer::init(uint32_t capacity, const uint8_t *buf)
 {

@@ -11,12 +11,12 @@ public:
   TracerPattern(uint8_t tracerLength = 20, uint8_t dotLength = 1);
   virtual ~TracerPattern();
 
-  virtual void init();
+  virtual void init() override;
 
-  virtual void play();
+  virtual void play() override;
 
-  virtual void serialize(SerialBuffer &buffer) const;
-  virtual void unserialize(SerialBuffer &buffer);
+  virtual void serialize(SerialBuffer &buffer) const override;
+  virtual void unserialize(SerialBuffer &buffer) override;
 
 private:
   // the duration the light is on/off for

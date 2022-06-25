@@ -72,16 +72,18 @@ void BasicPattern::serialize(SerialBuffer &buffer) const
 {
   //DEBUG_LOG("Serialize");
   SingleLedPattern::serialize(buffer);
-  //buffer.serialize(m_onDuration);
-  //buffer.serialize(m_offDuration);
+  buffer.serialize(m_onDuration);
+  buffer.serialize(m_offDuration);
+  buffer.serialize(m_gapDuration);
 }
 
 void BasicPattern::unserialize(SerialBuffer &buffer)
 {
   //DEBUG_LOG("Unserialize");
   SingleLedPattern::unserialize(buffer);
-  //buffer.unserialize(&m_onDuration);
-  //buffer.unserialize(&m_offDuration);
+  buffer.unserialize(&m_onDuration);
+  buffer.unserialize(&m_offDuration);
+  buffer.unserialize(&m_gapDuration);
 }
 
 void BasicPattern::onBlinkOn()

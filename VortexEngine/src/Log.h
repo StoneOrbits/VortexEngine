@@ -15,21 +15,23 @@
 #else
 #define INFO_LOG(msg) InfoMsg(msg)
 #define INFO_LOGF(msg, ...) InfoMsg(msg, __VA_ARGS__)
-// debug does nothing in final build
-// TODO: fix this for final build because debug logging should be disabled
-//#define DEBUG_LOG(msg)
-//#define DEBUG_LOGF(msg, ...)
+// arduino compiler won't allow for ellipsis macro that's passed no args...
 #define DEBUG_LOG(msg) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg)
 #define DEBUG_LOGF(msg, ...) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg, __VA_ARGS__)
-// but error messages still write to serial, but with just the function name
+// in test build errors are just debug messages
 #define ERROR_LOG(msg) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg)
 #define ERROR_LOGF(msg, ...) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg, __VA_ARGS__)
+// all logging functions do nothing in final build
+//#define INFO_LOG(msg)
+//#define INFO_LOGF(msg, ...)
+//#define DEBUG_LOG(msg) 
+//#define DEBUG_LOGF(msg, ...) 
+//#define ERROR_LOG(msg) 
+//#define ERROR_LOGF(msg, ...) 
 #endif
 
 // report OOM
 #define ERROR_OUT_OF_MEMORY() ERROR_LOG("Out of memory")
-
-void checkSerial();
 
 // debug messages are only in debug builds so they have full file + func + line info
 void DebugMsg(const char *file, const char *func, int line, const char *msg, ...);

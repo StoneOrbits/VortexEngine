@@ -17,14 +17,14 @@ public:
   virtual ~HybridPattern();
 
   // init the pattern to initial state
-  virtual void init();
+  virtual void init() override;
 
   // play the hybrid pattern (play all led patterns)
-  virtual void play();
+  virtual void play() override;
 
   // must override the serialize routine to save the pattern
-  virtual void serialize(SerialBuffer &buffer) const;
-  virtual void unserialize(SerialBuffer &buffer);
+  virtual void serialize(SerialBuffer &buffer) const override;
+  virtual void unserialize(SerialBuffer &buffer) override;
 
 protected:
   void clearPatterns();

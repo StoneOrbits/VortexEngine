@@ -12,10 +12,11 @@ protected:
 public:
   virtual ~MultiLedPattern();
 
+  // multi-led and single-led have different bind functions
   virtual void bind(const Colorset *set);
 
   // init the pattern to initial state
-  virtual void init();
+  virtual void init() override;
 
 private:
 

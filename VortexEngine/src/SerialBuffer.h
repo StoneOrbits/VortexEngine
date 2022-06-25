@@ -17,6 +17,10 @@ public:
   SerialBuffer(const SerialBuffer &other);
   void operator=(const SerialBuffer &other);
 
+  // used to initialize the full RawBuffer with a chunk of data,
+  // this includes the size, flags, crc, and data
+  bool rawInit(const uint8_t *rawdata, uint32_t size);
+
   // reset the buffer to a specific capcity
   bool init(uint32_t capacity = 0, const uint8_t *buf = nullptr);
 

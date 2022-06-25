@@ -5,9 +5,6 @@
 
 #include "BitStream.h"
 
-// the IR receiver buffer size in dwords
-#define IR_RECV_BUF_SIZE 32
-
 class SerialBuffer;
 
 class Infrared

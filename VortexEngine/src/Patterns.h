@@ -29,9 +29,12 @@ enum PatternID : uint8_t
   PATTERN_ADVANCED, // AdvancedPattern
   PATTERN_BLEND,  // BlendPattern 2, 13, 1
   PATTERN_RECIPROCAL_BLEND,  // ReciprocalBlendPattern 2, 13, 1
-  PATTERN_BRACKETS,  // BracketsPattern 
+  PATTERN_BRACKETS,  // BracketsPattern
 
   // ADD NEW SINGLE LED PATTERNS HERE
+  // WARNING This will offset all multi-led patterns so IR sharing
+  //         of patterns will be misaligned. This means there will
+  //         be inconsistencies sharing patterns over IR.
 
   // =====================================
   //  Pattern Meta Constants:

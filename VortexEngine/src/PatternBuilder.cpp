@@ -83,7 +83,7 @@ Pattern *PatternBuilder::generate(PatternID id)
   //       which means altering the tickrate will not change how fast
   //       a pattern displays unless you re-create it
   switch (id) {
-    case PATTERN_STROBE: return new BasicPattern(20, 1);
+    case PATTERN_STROBE: return new BasicPattern(5, 8);
     case PATTERN_HYPERSTROBE: return new BasicPattern(25, 25);
     case PATTERN_DOPS: return new BasicPattern(2, 13);
     case PATTERN_DOPISH: return new BasicPattern(2, 7);

@@ -11,14 +11,14 @@ public:
   virtual ~TheaterChasePattern();
 
   // init the pattern to initial state
-  virtual void init();
+  virtual void init() override;
 
   // pure virtual must override the play function
-  virtual void play();
+  virtual void play() override;
 
   // must override the serialize routine to save the pattern
-  virtual void serialize(SerialBuffer &buffer) const;
-  virtual void unserialize(SerialBuffer &buffer);
+  virtual void serialize(SerialBuffer &buffer) const override;
+  virtual void unserialize(SerialBuffer &buffer) override;
 
 private:
 

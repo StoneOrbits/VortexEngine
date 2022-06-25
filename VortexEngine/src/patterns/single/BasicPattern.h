@@ -13,12 +13,12 @@ public:
   BasicPattern(uint8_t onDuration, uint8_t offDuration = 0, uint8_t gapDuration = 0);
   virtual ~BasicPattern();
 
-  virtual void init();
+  virtual void init() override;
 
-  virtual void play();
+  virtual void play() override;
 
-  virtual void serialize(SerialBuffer &buffer) const;
-  virtual void unserialize(SerialBuffer &buffer);
+  virtual void serialize(SerialBuffer &buffer) const override;
+  virtual void unserialize(SerialBuffer &buffer) override;
 
 protected:
   // callbacks for blinking on/off, can be overridden by derived classes

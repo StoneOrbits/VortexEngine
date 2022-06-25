@@ -3,6 +3,7 @@
 #include "Infrared.h"
 #include "Storage.h"
 #include "Buttons.h"
+#include "Serial.h"
 #include "Modes.h"
 #include "Menus.h"
 #include "Leds.h"
@@ -16,9 +17,12 @@ bool VortexEngine::init()
   // Always generate seed before creating button on
   // digital pin 1 (shared pin with analog 0)
   randomSeed(analogRead(0));
-  checkSerial();
 
   // all of the global controllers
+  if (!SerialComs::init()) {
+    DEBUG_LOG("Serial failed to initialize");
+    return false;
+  }
   if (!Time::init()) {
     DEBUG_LOG("Time failed to initialize");
     return false;
@@ -48,6 +52,10 @@ bool VortexEngine::init()
     return false;
   }
 
+  INFO_LOG("== Vortex Framework v" VORTEX_VERSION " (built " __TIMESTAMP__ ") ==");
+
+  Menus::openMenu(MENU_MODE_SHARING);
+
   return true;
 }
 
@@ -67,14 +75,14 @@ void VortexEngine::cleanup()
 
 void VortexEngine::tick()
 {
-  // check for serial communications and enable it for logging
-  checkSerial();
-
   // tick the current time counter forward
   Time::tickClock();
 
   // poll the buttons for changes
   Buttons::check();
+
+  // check for serial communications
+  SerialComs::checkSerial();
 
   // if the menus don't need to run, or they run and return false
   if (!Menus::run()) {

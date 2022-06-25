@@ -13,13 +13,12 @@ public:
   BracketsPattern(uint8_t bracketDuration = 2, uint8_t midDuration = 5, uint8_t gapDuration = 8);
   virtual ~BracketsPattern();
 
-  virtual void init();
+  virtual void init() override;
 
-  virtual void play();
+  virtual void play() override;
 
-  // not sure these are necessary in derived classes anymore
-  //virtual void serialize(SerialBuffer &buffer) const;
-  //virtual void unserialize(SerialBuffer &buffer);
+  virtual void serialize(SerialBuffer &buffer) const override;
+  virtual void unserialize(SerialBuffer &buffer) override;
 
 protected:
   // the duration of the brackets
