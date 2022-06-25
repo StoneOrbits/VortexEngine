@@ -54,6 +54,7 @@ bool SerialBuffer::rawInit(const uint8_t *rawdata, uint32_t size)
   }
   // copy in the actual data from the serial buffer
   memcpy(m_pData, rawdata, size);
+  return true;
 }
 
 // reset the buffer
