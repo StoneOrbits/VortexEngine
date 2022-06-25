@@ -6,8 +6,8 @@
  *  Everything is working somewhat well
  *
  *  But there is still more to work on:
+ *   - Randomize patterns?
  *   - Implement missing patterns
- *   - Smart randomizer
  *   - IR transmission protocol to allow any length data instead of single burst
  *   - Saving modes that have custom parameters won't work
  *      - conslusion:

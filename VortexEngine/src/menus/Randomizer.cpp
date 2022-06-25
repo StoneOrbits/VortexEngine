@@ -82,13 +82,12 @@ void Randomizer::onLongClick()
 
 bool Randomizer::reRoll()
 {
-  // pick a random type of randomizer
-  uint32_t randType = random(0, 7);
-
-  // fill the array with up to numColors random colors
+  // colorset that will be filled with random colors
   Colorset randomSet;
-  switch (randType)
-  {
+  // pick a random type of randomizer to use then use 
+  // the randomizer to generate a random colorset
+  uint32_t randType = random(0, 7);
+  switch (randType) {
   default:
   case 0:
     randomSet.randomize();
@@ -112,9 +111,6 @@ bool Randomizer::reRoll()
     randomSet.randomizeEvenlySpaced();
     break;
   }
-  DEBUG_LOGF("Randomized set with randomization technique %u and %u colors",
-    randType, randomSet.numColors());
-
   if (!m_pRandomizedMode) {
     if (!m_pCurMode) {
       return false;
@@ -128,6 +124,9 @@ bool Randomizer::reRoll()
     m_pRandomizedMode->setColorset(&randomSet);
   }
   m_pRandomizedMode->init();
+
+  DEBUG_LOGF("Randomized set with randomization technique %u and %u colors",
+    randType, randomSet.numColors());
 
   return true;
 }
