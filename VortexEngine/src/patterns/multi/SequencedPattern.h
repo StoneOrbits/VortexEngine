@@ -77,7 +77,7 @@ public:
     m_duration(0), m_patternMap(), m_colorsetMap()
   {
   }
-  SequenceStep(uint8_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap) :
+  SequenceStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap) :
     m_duration(duration), m_patternMap(patternMap), m_colorsetMap(colorsetMap)
   {
   }
@@ -86,7 +86,7 @@ public:
   {
   }
   // public members
-  uint8_t m_duration;
+  uint16_t m_duration;
   PatternMap m_patternMap;
   ColorsetMap m_colorsetMap;
 };

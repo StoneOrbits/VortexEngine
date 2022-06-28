@@ -35,8 +35,7 @@ Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
 }
 
 Colorset::Colorset(const Colorset &other) :
-  m_curIndex(INDEX_NONE),
-  m_numColors(other.m_numColors)
+  Colorset()
 {
   clear();
   initPalette(other.m_numColors);
