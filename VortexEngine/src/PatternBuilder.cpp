@@ -120,11 +120,7 @@ Pattern *createChaser()
     patMap.setPatternAt(PATTERN_RIBBON, MAP_FINGER(finger));
     colMap.setColorsetAt(Colorset(RGB_RED), MAP_FINGER(finger));
     // fill out this step of the chaserSteps
-    //chaserSteps[i].m_duration = 1000;
-    //chaserSteps[i].m_patternMap = patMap;
-    //chaserSteps[i].m_colorsetMap = colMap;
-    SequenceStep step(1000, patMap, colMap);
-    chaserSteps[i] = step;
+    chaserSteps[i] = SequenceStep(1000, patMap, colMap);
   }
   return new SequencedPattern(8, chaserSteps);
 }
