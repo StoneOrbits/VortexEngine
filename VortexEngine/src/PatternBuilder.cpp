@@ -108,20 +108,21 @@ SequenceStep theaterChaseSteps[] = {
 
 Pattern *createChaser()
 {
-#define NUM_STEPS 8
-  SequenceStep chaserSteps[NUM_STEPS];
-  for (uint32_t i = 0; i <= NUM_STEPS; ++i) {
-    PatternMap map(PATTERN_DOPS);
-    if (i < 5) {
-      map.setPatternAt(PATTERN_RIBBON, (LedPos)i);
-    } else {
-      map.setPatternAt(PATTERN_RIBBON, (LedPos)(8 - i));
+  static SequenceStep chaserSteps[8];
+  for (uint32_t i = 0; i < 8; ++i) {
+    PatternMap patMap(PATTERN_DOPS);
+    ColorsetMap colMap(RGB_SET);
+    LedMap mapping = MAP_FINGER((Finger)i);
+    if (i >= 5) {
+      mapping = MAP_FINGER((Finger)(8 - i));
     }
-    chaserSteps[i].m_colorset = RGB_SET;
-    chaserSteps[i].m_duration = 100;
-    chaserSteps[i].m_map = map;
+    patMap.setPatternAt(PATTERN_RIBBON, mapping);
+    colMap.setColorsetAt(Colorset(RGB_WHITE), mapping);
+    chaserSteps[i].m_duration = 1000;
+    chaserSteps[i].m_patternMap = patMap;
+    chaserSteps[i].m_colorsetMap = colMap;
   }
-  return new SequencedPattern(NUM_STEPS, chaserSteps);
+  return new SequencedPattern(8, chaserSteps);
 }
 
 Pattern *PatternBuilder::generate(PatternID id)
