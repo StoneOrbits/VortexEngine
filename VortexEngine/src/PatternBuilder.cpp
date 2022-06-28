@@ -110,17 +110,17 @@ Pattern *createChaser()
 {
   static SequenceStep chaserSteps[8];
   for (uint32_t i = 0; i < 8; ++i) {
+    // all of the fingers are dops
     PatternMap patMap(PATTERN_DOPS);
+    // and all of the fingers are RGB
     ColorsetMap colMap(RGB_SET);
-    LedMap mapping = MAP_FINGER((Finger)i);
-    if (i >= 5) {
-      mapping = MAP_FINGER((Finger)(8 - i));
-    }
+    // there is one finger mapping that goes back and forth
+    LedMap mapping = MAP_FINGER((Finger)(i < 5 ? i : (8 - i)));
+    // set the pattern = ribbon and colorset = red for that finger
     patMap.setPatternAt(PATTERN_RIBBON, mapping);
-    colMap.setColorsetAt(Colorset(RGB_WHITE), mapping);
-    chaserSteps[i].m_duration = 1000;
-    chaserSteps[i].m_patternMap = patMap;
-    chaserSteps[i].m_colorsetMap = colMap;
+    colMap.setColorsetAt(Colorset(RGB_RED), mapping);
+    // assign the sequence step as 1000ms with the given pattern and colorset mapping
+    chaserSteps[i] = SequenceStep(1000, patMap, colMap);
   }
   return new SequencedPattern(8, chaserSteps);
 }
