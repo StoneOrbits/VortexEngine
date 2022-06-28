@@ -17,6 +17,7 @@
  *          
  *          Needs ir improvements first so that added data size can still be transmitted
  *
+ *   - palm light?
  *   - Code polishing and final build solidification
  *   - Code documentation
  *   - eliminate library code to reduce size

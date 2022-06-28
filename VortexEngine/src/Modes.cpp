@@ -178,17 +178,21 @@ bool Modes::setDefaults()
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
   Colorset defaultSet(RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
   //Colorset defaultSet(HSVColor(254, 255, 255), HSVColor(1, 255, 255), HSVColor(245, 255, 255)); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
-  PatternID default_start = PATTERN_FIRST;
+  PatternID default_start = PATTERN_THEATER_CHASE;
   PatternID default_end = PATTERN_LAST;
+  addMode(PATTERN_DOPS, &defaultSet);
   // initialize a mode for each pattern with an rgb colorset
   for (PatternID pattern = default_start; pattern <= default_end; ++pattern) {
     // randomize the colorset
-    //defaultSet.randomize();
+    if ((int)pattern == 0) {
+      defaultSet.randomize(8);
+    }
     // add another mode with the given pattern and colorset
     if (!addMode(pattern, &defaultSet)) {
       ERROR_LOG("Failed to add mode");
       // return false?
     }
+    break;
   }
   DEBUG_LOGF("Added default patterns %u through %u", default_start, default_end);
 
@@ -334,6 +338,7 @@ bool Modes::initCurMode()
   //m_serializedModes[m_curMode].decompress();
   // make sure the unserializer is reset before trying to unserialize it
   m_serializedModes[m_curMode].resetUnserializer();
+  DEBUG_LOGF("Current Mode size: %u", m_serializedModes[m_curMode].size());
   m_pCurMode = ModeBuilder::unserialize(m_serializedModes[m_curMode]);
   //m_serializedModes[m_curMode].compress();
   if (!m_pCurMode) {

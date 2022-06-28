@@ -45,8 +45,11 @@ void TracerPattern::play()
     // display dot, never display the tracer color which
     // is at index 0 of the colorset
     Leds::setIndex(m_ledPos, m_colorset.get(1 + m_dotColor));
-    // increment tracer counter and wrap at 1 less than num colors
-    m_dotColor = (m_dotColor + 1) % (m_colorset.numColors() - 1);
+    // prevent division by 0
+    if (m_colorset.numColors() > 1) {
+      // increment tracer counter and wrap at 1 less than num colors
+      m_dotColor = (m_dotColor + 1) % (m_colorset.numColors() - 1);
+    }
   }
 }
 

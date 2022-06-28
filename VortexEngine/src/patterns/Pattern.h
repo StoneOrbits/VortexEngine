@@ -55,8 +55,8 @@ public:
   virtual bool equals(const Pattern *other);
 
   // change the colorset
-  void setColorset(const Colorset *set);
-  void clearColorset();
+  virtual void setColorset(const Colorset *set);
+  virtual void clearColorset();
 
   // change the led position
   void setLedPos(LedPos pos) { m_ledPos = pos; }

@@ -9,7 +9,7 @@
 //       because the test framework allocations will be caught as well. Doing 
 //       things like displaying a color for the first time will allocate space
 //       and never really return it
-//#define DEBUG_ALLOCATIONS
+#define DEBUG_ALLOCATIONS
 
 #ifndef DEBUG_ALLOCATIONS
 

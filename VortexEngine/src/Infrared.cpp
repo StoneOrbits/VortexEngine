@@ -71,19 +71,21 @@ void Infrared::cleanup()
 
 bool Infrared::dataReady()
 {
-  // no data
-  if (!m_irData.bytepos()) {
+  // not enough data
+  if (m_irData.bytepos() < 3) {
     return false;
   }
   // read the size out
-  uint8_t size = *m_irData.data();
-  if (!size || size > MAX_DATA_TRANSFER) {
-    DEBUG_LOGF("Bad IR Data size: %u", size);
+  uint8_t blocks = m_irData.data()[0];
+  uint8_t remainder = m_irData.data()[1];
+  uint32_t total = ((blocks - 1) * 32) + remainder;
+  if (!total || total > MAX_DATA_TRANSFER) {
+    DEBUG_LOGF("Bad IR Data size: %u", total);
     return false;
   }
   // if there are size + 1 bytes in the IRData receiver
   // then a full message is ready
-  return (m_irData.bytepos() == (uint32_t)(size + 1));
+  return (m_irData.bytepos() == (uint32_t)(total + 1));
 }
 
 bool Infrared::read(SerialBuffer &data)
@@ -133,14 +135,43 @@ bool Infrared::write(SerialBuffer &data)
   // now send the header
   mark(HEADER_MARK);
   space(HEADER_SPACE);
-  // write the number of bytes being sent, should't exceed MAX_DATA_TRANSFER
-  write8((uint8_t)size);
-  // now iterate the bytes of data
-  for (uint32_t i = 0; i < size; ++i) {
-    write8(buf[i]);
+  // the number of 32-byte blocks that will be sent
+  uint8_t num_blocks = (size + 31) / 32;
+  // the amount in the final block
+  uint8_t remainder = size % 32;
+  // write the number of blocks being sent, most likely just 1
+  write8(num_blocks);
+  // now write the number of bytes in the last block
+  write8(remainder);
+  uint8_t *buf_ptr = buf;
+  // iterate each block
+  for (uint32_t block = 0; block < num_blocks; ++block) {
+    // write the block which is 32 bytes unless on the last block
+    uint32_t blocksize = (num_blocks == 1) ? remainder : 32;
+    // iterate each byte in the block and write it
+    for (uint32_t i = 0; i < blocksize; ++i) {
+      write8(*buf_ptr);
+      buf_ptr++;
+    }
+    // delay if there is more blocks
+    if (block < (num_blocks - 1)) {
+      //mark(HEADER_MARK);
+      space(HEADER_SPACE);
+    }
   }
-  for (uint32_t i = 0; i < size; ++i) {
-    DEBUG_LOGF("Wrote: 0x%x", buf[i]);
+  buf_ptr = buf;
+  for (uint32_t block = 0; block < num_blocks; ++block) {
+    // write the block which is 32 bytes unless on the last block
+    uint32_t blocksize = (num_blocks == 1) ? remainder : 32;
+    // iterate each byte in the block and write it
+    for (uint32_t i = 0; i < blocksize; ++i) {
+      DEBUG_LOGF("Wrote: 0x%x", *buf_ptr);
+      buf_ptr++;
+    }
+    // delay if there is more blocks
+    if (block < (num_blocks - 1)) {
+      DEBUG_LOG("Block");
+    }
   }
   return true;
 }
@@ -306,7 +337,11 @@ void Infrared::handleIRTiming(uint32_t diff)
     if (m_irData.bitpos() > 0 && ((m_irData.bitpos() + 1) % 32) == 0) {
       DEBUG_LOGF("Read: 0x%x", m_irData.dwData()[m_irData.dwordpos()]);
     }
-    m_recvState = READING_DATA_SPACE;
+    if (((m_irData.bytepos() + 1) % 32) == 0) {
+      m_recvState = WAITING_HEADER_SPACE;
+    } else {
+      m_recvState = READING_DATA_SPACE;
+    }
     break;
   case READING_DATA_SPACE:
     // skip spaces

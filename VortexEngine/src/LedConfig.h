@@ -2,6 +2,7 @@
 #define LED_CONFIG_H
 
 #include <inttypes.h>
+#include <stdarg.h>
 
 // Defined the LED positions, their order, and index
 enum LedPos : uint8_t
@@ -65,6 +66,41 @@ inline Finger ledToFinger(LedPos pos)
 {
   // have to flip the index
   return (Finger)(FINGER_THUMB - (Finger)((uint32_t)pos / 2));
+}
+
+// LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
+// or off with a single integer
+typedef int LedMap;
+
+// various macros for mapping leds to an LedMap
+#define MAP_LED(led) (1 << led) 
+#define MAP_FINGER_TIP(finger) MAP_LED(fingerTip(finger))
+#define MAP_FINGER_TOP(finger) MAP_LED(fingerTop(finger))
+#define MAP_FINGER(finger) (MAP_FINGER_TIP(finger) | MAP_FINGER_TOP(finger))
+// bitmap of all fingers (basically LED_COUNT bits)
+#define MAP_FINGER_ALL ((2 << (LED_COUNT - 1)) - 1)
+
+// set a single led
+inline void setLed(LedMap map, LedPos pos)
+{
+  if (pos < LED_COUNT) map |= (1 << pos);
+}
+// set a single finger
+inline void setFinger(LedMap map, Finger finger)
+{
+  setLed(map, fingerTip(finger));
+  setLed(map, fingerTop(finger));
+}
+
+// check if an led is set in the map
+inline bool checkLed(LedMap map, LedPos pos)
+{
+  return ((map & (1 << pos)) != 0);
+}
+// check if a finger is set in the map (both leds)
+inline bool checkFinger(LedMap map, Finger finger)
+{
+  return checkLed(map, fingerTip(finger)) && checkLed(map, fingerTop(finger));
 }
 
 // LedPos operators

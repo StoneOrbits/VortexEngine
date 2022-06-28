@@ -98,7 +98,7 @@ void Colorset::clear()
   init();
 }
 
-bool Colorset::equals(const Colorset *set)
+bool Colorset::equals(const Colorset *set) const
 {
   if (!set) {
     return false;

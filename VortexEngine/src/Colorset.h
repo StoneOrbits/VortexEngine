@@ -37,7 +37,7 @@ public:
   void clear();
 
   // pointer comparison
-  bool equals(const Colorset *set);
+  bool equals(const Colorset *set) const;
 
   // index operator to access color index
   RGBColor operator[](int index) const;

@@ -4,6 +4,7 @@
 #include "TimeControl.h"
 
 #include "patterns/multi/TheaterChasePattern.h"
+#include "patterns/multi/SequencedPattern.h"
 #include "patterns/multi/HueShiftPattern.h"
 #include "patterns/multi/RabbitPattern.h"
 
@@ -77,6 +78,52 @@ Pattern *PatternBuilder::makeInternal(PatternID id)
   return pat;
 }
 
+// bitmaps to map patterns to leds in steps
+LedMap led_oddTips = MAP_FINGER_TIP(FINGER_PINKIE) | MAP_FINGER_TIP(FINGER_MIDDLE) | MAP_FINGER_TIP(FINGER_THUMB);
+LedMap led_oddTops = MAP_FINGER_TOP(FINGER_PINKIE) | MAP_FINGER_TOP(FINGER_MIDDLE) | MAP_FINGER_TOP(FINGER_THUMB);
+LedMap led_evenTips = MAP_FINGER_TIP(FINGER_INDEX) | MAP_FINGER_TIP(FINGER_RING);
+LedMap led_evenTops = MAP_FINGER_TOP(FINGER_INDEX) | MAP_FINGER_TOP(FINGER_RING);
+
+#define oddTips(pattern) PatternMap(pattern, led_oddTips)
+#define oddTops(pattern) PatternMap(pattern, led_oddTops)
+#define evenTips(pattern) PatternMap(pattern, led_evenTips)
+#define evenTops(pattern) PatternMap(pattern, led_evenTops)
+
+#define RGB_SET Colorset(RGB_RED, RGB_GREEN, RGB_BLUE)
+
+// define the pattern as 10 steps made up from the above 4 possible steps
+SequenceStep theaterChaseSteps[] = {
+  // ms   pattern                 colorset
+  { 25,   oddTips(PATTERN_TRACER),  RGB_SET }, // step 1 RGB dops on odd tips for 25
+  { 25,   oddTops(PATTERN_TRACER),  RGB_SET }, // step 2 RGB dops on odd tops for 25
+  { 25,   oddTips(PATTERN_TRACER),  RGB_SET }, // step 3 RGB dops on odd tips for 25
+  { 25,   oddTops(PATTERN_TRACER),  RGB_SET }, // step 4 RGB dops on odd tops for 25
+  { 25,   oddTips(PATTERN_TRACER),  RGB_SET }, // step 5 RGB dops on odd tips for 25
+  { 25,   evenTips(PATTERN_TRACER), RGB_SET }, // step 6 RGB dops on odd tips for 25
+  { 25,   evenTops(PATTERN_TRACER), RGB_SET }, // step 7 RGB dops on odd tops for 25
+  { 25,   evenTips(PATTERN_TRACER), RGB_SET }, // step 8 RGB dops on odd tips for 25
+  { 25,   evenTops(PATTERN_TRACER), RGB_SET }, // step 9 RGB dops on odd tops for 25
+  { 25,   evenTips(PATTERN_TRACER), RGB_SET }, // step 10 RGB dops on odd tips for 25
+};
+
+Pattern *createChaser()
+{
+#define NUM_STEPS 8
+  SequenceStep chaserSteps[NUM_STEPS];
+  for (uint32_t i = 0; i <= NUM_STEPS; ++i) {
+    PatternMap map(PATTERN_DOPS);
+    if (i < 5) {
+      map.setPatternAt(PATTERN_RIBBON, (LedPos)i);
+    } else {
+      map.setPatternAt(PATTERN_RIBBON, (LedPos)(8 - i));
+    }
+    chaserSteps[i].m_colorset = RGB_SET;
+    chaserSteps[i].m_duration = 100;
+    chaserSteps[i].m_map = map;
+  }
+  return new SequencedPattern(NUM_STEPS, chaserSteps);
+}
+
 Pattern *PatternBuilder::generate(PatternID id)
 {
   // NOTE: The timings of patterns are only defined at creation time
@@ -89,8 +136,8 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_DOPISH: return new BasicPattern(2, 7);
     case PATTERN_ULTRADOPS: return new BasicPattern(1, 3);
     case PATTERN_STROBIE: return new BasicPattern(3, 22);
-  #if 0
     case PATTERN_RIBBON: return new BasicPattern(20);
+  #if 0
     case PATTERN_MINIRIBBON: return new BasicPattern(3);
   #endif
     case PATTERN_TRACER: return new TracerPattern();
@@ -102,7 +149,8 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_BRACKETS: return new BracketsPattern();
     case PATTERN_RABBIT: return new RabbitPattern();
     case PATTERN_HUESHIFT: return new HueShiftPattern();
-    case PATTERN_THEATER_CHASE: return new TheaterChasePattern();
+    case PATTERN_THEATER_CHASE: return new SequencedPattern(10, theaterChaseSteps);
+    case PATTERN_CHASER: return createChaser();
     default: break;
   }
   DEBUG_LOGF("Unknown pattern id: %u", id);

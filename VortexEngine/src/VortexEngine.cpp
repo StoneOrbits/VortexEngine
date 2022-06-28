@@ -54,7 +54,7 @@ bool VortexEngine::init()
 
   INFO_LOG("== Vortex Framework v" VORTEX_VERSION " (built " __TIMESTAMP__ ") ==");
 
-  Menus::openMenu(MENU_MODE_SHARING);
+  //Menus::openMenu(MENU_MODE_SHARING);
 
   return true;
 }

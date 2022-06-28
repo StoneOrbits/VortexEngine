@@ -6,6 +6,10 @@
 // list of patterns that can be built
 enum PatternID : uint8_t
 {
+  // no pattern at all, use this sparingly and default to 
+  // PATTERN_FIRST when possible 
+  PATTERN_NONE = (PatternID)-1,
+
   // first pattern of all
   PATTERN_FIRST = 0,
   // first 'single led' pattern
@@ -21,7 +25,7 @@ enum PatternID : uint8_t
   PATTERN_ULTRADOPS, // basicpattern 1 3 0
   PATTERN_STROBIE, // basicpattern 3 22 0
   // these two don't change... why
-  //PATTERN_RIBBON, // basicpattern 20 0 0
+  PATTERN_RIBBON, // basicpattern 20 0 0
   //PATTERN_MINIRIBBON, // basicpattern 3 0 0
   PATTERN_TRACER, // tracerpattern 20 1
   PATTERN_BLINKIE, // BasicPattern 5, 8, 35
@@ -48,6 +52,7 @@ enum PatternID : uint8_t
   PATTERN_RABBIT = PATTERN_MULTI_FIRST, // PATTERN_STROBIE on tops and PATTERN_STROBE on tips
   PATTERN_HUESHIFT,
   PATTERN_THEATER_CHASE,
+  PATTERN_CHASER,
 
   // ADD NEW MULTI LED PATTERNS HERE
 
