@@ -10,7 +10,8 @@ class Mode;
 class Colorset;
 
 // the maximum number of modes that can be stored
-#define NUM_MODES     16
+// TODO: change this back to 16
+#define NUM_MODES     32
 
 class Modes
 {
