@@ -8,64 +8,42 @@
 
 class SequencedPattern;
 class SingleLedPattern;
+class SerialBuffer;
 
 // a map of leds to pattern ids
 class PatternMap
 {
 public:
-  PatternMap() :
-    m_patternMap()
-  {
-    for (uint32_t i = 0; i < LED_COUNT; ++i) {
-      m_patternMap[i] = PATTERN_NONE;
-    }
-  }
-  PatternMap(PatternID pattern, LedMap positions = MAP_LED_ALL) :
-    PatternMap()
-  {
-    setPatternAt(pattern, positions);
-  }
+  PatternMap();
+  PatternMap(PatternID pattern, LedMap positions = MAP_LED_ALL);
 
   // set a pattern at each position in the LedMap
-  void setPatternAt(PatternID pattern, LedMap positions) {
-    for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-      if (checkLed(positions, pos)) {
-        m_patternMap[pos] = pattern;
-      }
-    }
-  }
-  PatternID operator[](LedPos index) const { 
-    return m_patternMap[index]; 
-  }
-  // a list of pattern IDs for each led
+  void setPatternAt(PatternID pattern, LedMap positions);
+  PatternID operator[](LedPos index) const;
+
+  // serialize and unserialize a pattern map
+  void serialize(SerialBuffer &buffer) const;
+  void unserialize(SerialBuffer &buffer);
+
+  // public list of pattern IDs for each led
   PatternID m_patternMap[LED_COUNT];
 };
 
 class ColorsetMap
 {
 public:
-  ColorsetMap() :
-    m_colorsetMap()
-  {
-  }
-  ColorsetMap(const Colorset &colorset, LedMap positions = MAP_LED_ALL) :
-    ColorsetMap()
-  {
-    setColorsetAt(colorset, positions);
-  }
+  ColorsetMap();
+  ColorsetMap(const Colorset &colorset, LedMap positions = MAP_LED_ALL);
 
   // set a pattern at each position in the LedMap
-  void setColorsetAt(const Colorset &colorset, LedMap positions) {
-    for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-      if (checkLed(positions, pos)) {
-        m_colorsetMap[pos] = colorset;
-      }
-    }
-  }
-  const Colorset &operator[](LedPos index) const { 
-    return m_colorsetMap[index]; 
-  }
-  // a list of pattern IDs for each led
+  void setColorsetAt(const Colorset &colorset, LedMap positions);
+  const Colorset &operator[](LedPos index) const;
+
+  // serialize and unserialize a colorset map
+  void serialize(SerialBuffer &buffer) const;
+  void unserialize(SerialBuffer &buffer);
+
+  // public list of pattern IDs for each led
   Colorset m_colorsetMap[LED_COUNT];
 };
 
@@ -73,19 +51,15 @@ public:
 class SequenceStep
 {
 public:
-  SequenceStep() :
-    m_duration(0), m_patternMap(), m_colorsetMap()
-  {
-  }
-  SequenceStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap) :
-    m_duration(duration), m_patternMap(patternMap), m_colorsetMap(colorsetMap)
-  {
-  }
-  SequenceStep(const SequenceStep &other) :
-    SequenceStep(other.m_duration, other.m_patternMap, other.m_colorsetMap)
-  {
-  }
-  // public members
+  SequenceStep();
+  SequenceStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap = Colorset());
+  SequenceStep(const SequenceStep &other);
+
+  // serialize and unserialize a step in the sequencer
+  void serialize(SerialBuffer &buffer) const;
+  void unserialize(SerialBuffer &buffer);
+
+  // public members to allow for easy initialization of an array of SequenceSteps
   uint16_t m_duration;
   PatternMap m_patternMap;
   ColorsetMap m_colorsetMap;
@@ -112,7 +86,7 @@ public:
 protected:
   // static data
   uint32_t m_sequenceLength;
-  const SequenceStep *m_sequenceSteps;
+  SequenceStep *m_sequenceSteps;
 
   // runtime data
   uint32_t m_curSequence;
