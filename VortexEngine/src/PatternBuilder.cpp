@@ -84,58 +84,27 @@ Pattern *PatternBuilder::makeInternal(PatternID id)
 #define evenTipsPattern(pattern) PatternMap(pattern, MAP_FINGER_EVEN_TIPS)
 #define evenTopsPattern(pattern) PatternMap(pattern, MAP_FINGER_EVEN_TOPS)
 
-// macros to create a PatternMap with a given Colorset and some preset LedMaps
-#define oddTipsColorset(colorset) ColorsetMap(colorset, MAP_FINGER_ODD_TIPS)
-#define oddTopsColorset(colorset) ColorsetMap(colorset, MAP_FINGER_ODD_TOPS)
-#define evenTipsColorset(colorset) ColorsetMap(colorset, MAP_FINGER_EVEN_TIPS)
-#define evenTopsColorset(colorset) ColorsetMap(colorset, MAP_FINGER_EVEN_TOPS)
-
-#define RGB_SET Colorset(RGB_RED, RGB_GREEN, RGB_BLUE)
-
-// define the pattern as 10 steps made up from the above 4 possible steps
-SequenceStep theaterChaseSteps[] = {
-  // ms   pattern                        colorset
-  { 25,   oddTipsPattern(PATTERN_DOPS),  ColorsetMap() }, // step 1 RGB dops on odd tips for 25
-  { 25,   oddTopsPattern(PATTERN_DOPS),  ColorsetMap() }, // step 2 RGB dops on odd tops for 25
-  { 25,   oddTipsPattern(PATTERN_DOPS),  ColorsetMap() }, // step 3 RGB dops on odd tips for 25
-  { 25,   oddTopsPattern(PATTERN_DOPS),  ColorsetMap() }, // step 4 RGB dops on odd tops for 25
-  { 25,   oddTipsPattern(PATTERN_DOPS),  ColorsetMap() }, // step 5 RGB dops on odd tips for 25
-  { 25,   evenTipsPattern(PATTERN_DOPS), ColorsetMap() }, // step 6 RGB dops on odd tips for 25
-  { 25,   evenTopsPattern(PATTERN_DOPS), ColorsetMap() }, // step 7 RGB dops on odd tops for 25
-  { 25,   evenTipsPattern(PATTERN_DOPS), ColorsetMap() }, // step 8 RGB dops on odd tips for 25
-  { 25,   evenTopsPattern(PATTERN_DOPS), ColorsetMap() }, // step 9 RGB dops on odd tops for 25
-  { 25,   evenTipsPattern(PATTERN_DOPS), ColorsetMap() }, // step 10 RGB dops on odd tips for 25
-};
-
+// theater chase is 5x 25ms odd tips/tops alternating
+// followed by 5x 25ms even tips/tops alternating
 Pattern *createTheaterChase()
 {
-  static SequenceStep theaterChaseSteps[10];
+  SequenceStep theaterChaseSteps[10];
+  PatternMap patMap;
   for (uint32_t i = 0; i < 10; ++i) {
-    // all of the fingers are dops
-    PatternMap patMap;
-    switch ((i < 5) << 1 | ((i % 2) == 0)) {
-    case 3: // i < 5 && i % 2 == 0
-      patMap = oddTipsPattern(PATTERN_DOPS);
-      break;
-    case 2: // i < 5 && i % 2 != 0
-      patMap = oddTopsPattern(PATTERN_DOPS);
-      break;
-    case 1:
-      patMap = evenTipsPattern(PATTERN_DOPS);
-      break;
-    case 0:
-      patMap = evenTopsPattern(PATTERN_DOPS);
-      break;
+    if (i < 5) {
+      patMap = (i % 2) ? oddTopsPattern(PATTERN_DOPS) : oddTipsPattern(PATTERN_DOPS);
+    } else {
+      patMap = (i % 2) ? evenTopsPattern(PATTERN_DOPS) : evenTipsPattern(PATTERN_DOPS);
     }
-    // fill out this step of the theaterChaseSteps
-    theaterChaseSteps[i] = SequenceStep(25, patMap, Colorset());
+    // add the pattern mapping with default colorset
+    theaterChaseSteps[i] = SequenceStep(25, patMap);
   }
   return new SequencedPattern(10, theaterChaseSteps);
 }
 
 Pattern *createChaser()
 {
-  static SequenceStep chaserSteps[8];
+  SequenceStep chaserSteps[8];
   for (uint32_t i = 0; i < 8; ++i) {
     // all of the fingers are dops
     PatternMap patMap(PATTERN_DOPS);
