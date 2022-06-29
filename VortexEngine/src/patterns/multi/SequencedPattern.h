@@ -1,7 +1,7 @@
 #ifndef SEQUENCED_PATTERN_H
 #define SEQUENCED_PATTERN_H
 
-#include "MultiLedPattern.h"
+#include "HybridPattern.h"
 
 #include "../../LedConfig.h"
 #include "../../Timer.h"
@@ -91,7 +91,7 @@ public:
   ColorsetMap m_colorsetMap;
 };
 
-class SequencedPattern : public MultiLedPattern
+class SequencedPattern : public HybridPattern
 {
 public:
   // initialize a sequence pattern with a list of pointers to sequencesteps and the 
@@ -109,7 +109,7 @@ public:
   virtual void serialize(SerialBuffer &buffer) const override;
   virtual void unserialize(SerialBuffer &buffer) override;
 
-private:
+protected:
   // static data
   uint32_t m_sequenceLength;
   const SequenceStep *m_sequenceSteps;
@@ -117,7 +117,6 @@ private:
   // runtime data
   uint32_t m_curSequence;
   Timer m_timer;
-  SingleLedPattern *m_curPatterns[LED_COUNT];
 };
 
 #endif
