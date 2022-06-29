@@ -4,7 +4,7 @@
 #include <inttypes.h>
 
 #include "../ColorTypes.h"
-#include "../LedConfig.h"
+#include "../LedTypes.h"
 
 class Mode;
 

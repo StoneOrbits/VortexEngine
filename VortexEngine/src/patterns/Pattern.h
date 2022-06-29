@@ -1,7 +1,7 @@
 #ifndef PATTERN_H
 #define PATTERN_H
 
-#include "../LedConfig.h"
+#include "../LedTypes.h"
 #include "../Patterns.h"
 #include "../Colorset.h"
 
@@ -10,10 +10,10 @@
  *                                pattern*
  *                              /        \
  *                single led pat*           multi led pat*
- *                /           \             /            \
- *           basic pat       tracer pat    hybrid pat*    sequenced pat*
- *           /                              /
- *      Advanced pattern                 Rabbit Pattern
+ *                /           \                / 
+ *           basic pat       tracer pat       hybrid pat*
+ *           /                               /           \
+ *      Advanced pattern                 Rabbit Pattern   sequenced pattern
  *
  *     * = abstract class that cannot be instantiated
  */

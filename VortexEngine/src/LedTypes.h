@@ -77,8 +77,16 @@ typedef int LedMap;
 #define MAP_FINGER_TIP(finger) MAP_LED(fingerTip(finger))
 #define MAP_FINGER_TOP(finger) MAP_LED(fingerTop(finger))
 #define MAP_FINGER(finger) (MAP_FINGER_TIP(finger) | MAP_FINGER_TOP(finger))
+
 // bitmap of all fingers (basically LED_COUNT bits)
-#define MAP_FINGER_ALL ((2 << (LED_COUNT - 1)) - 1)
+#define MAP_LED_ALL ((2 << (LED_COUNT - 1)) - 1)
+
+// Some preset bitmaps for finger groupings
+#define MAP_FINGER_ODD_TIPS (MAP_FINGER_TIP(FINGER_PINKIE) | MAP_FINGER_TIP(FINGER_MIDDLE) | MAP_FINGER_TIP(FINGER_THUMB))
+#define MAP_FINGER_ODD_TOPS (MAP_FINGER_TOP(FINGER_PINKIE) | MAP_FINGER_TOP(FINGER_MIDDLE) | MAP_FINGER_TOP(FINGER_THUMB))
+
+#define MAP_FINGER_EVEN_TIPS (MAP_FINGER_TIP(FINGER_INDEX) | MAP_FINGER_TIP(FINGER_RING))
+#define MAP_FINGER_EVEN_TOPS (MAP_FINGER_TOP(FINGER_INDEX) | MAP_FINGER_TOP(FINGER_RING))
 
 // set a single led
 inline void setLed(LedMap map, LedPos pos)

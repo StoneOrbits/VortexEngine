@@ -3,7 +3,7 @@
 
 #include <inttypes.h>
 
-#include "LedConfig.h"
+#include "LedTypes.h"
 
 #define ALARM_NONE -1
 

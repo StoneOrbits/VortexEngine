@@ -99,8 +99,10 @@ void BasicPattern::onBlinkOn()
 
 void BasicPattern::onBlinkOff()
 {
-  // clear the target led
-  Leds::clearIndex(m_ledPos);
+  if (m_offDuration > 0) {
+    // clear the target led if there is an off duration
+    Leds::clearIndex(m_ledPos);
+  }
   // if there's no off duration and this is the last color
   if (!m_offDuration && m_colorset.onEnd()) {
     // then this is the end, run the pattern end callback

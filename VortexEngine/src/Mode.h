@@ -1,7 +1,7 @@
 #ifndef MODE_H
 #define MODE_H
 
-#include "LedConfig.h"
+#include "LedTypes.h"
 #include "Patterns.h"
 
 // minimal stl usage

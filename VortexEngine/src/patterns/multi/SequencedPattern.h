@@ -3,7 +3,7 @@
 
 #include "HybridPattern.h"
 
-#include "../../LedConfig.h"
+#include "../../LedTypes.h"
 #include "../../Timer.h"
 
 class SequencedPattern;
@@ -20,7 +20,7 @@ public:
       m_patternMap[i] = PATTERN_NONE;
     }
   }
-  PatternMap(PatternID pattern, LedMap positions = MAP_FINGER_ALL) :
+  PatternMap(PatternID pattern, LedMap positions = MAP_LED_ALL) :
     PatternMap()
   {
     setPatternAt(pattern, positions);
@@ -48,7 +48,7 @@ public:
     m_colorsetMap()
   {
   }
-  ColorsetMap(const Colorset &colorset, LedMap positions = MAP_FINGER_ALL) :
+  ColorsetMap(const Colorset &colorset, LedMap positions = MAP_LED_ALL) :
     ColorsetMap()
   {
     setColorsetAt(colorset, positions);

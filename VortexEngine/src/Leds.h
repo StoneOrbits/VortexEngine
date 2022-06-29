@@ -7,7 +7,7 @@
 #include <Adafruit_DotStar.h>
 
 #include "ColorTypes.h"
-#include "LedConfig.h"
+#include "LedTypes.h"
 
 // the starting default brightness
 #define DEFAULT_BRIGHTNESS 255

@@ -24,8 +24,8 @@ void SequencedPattern::init()
 {
   HybridPattern::init();
 
-  // let the sequence wrap around to 0 on first alarm
-  m_curSequence = (uint32_t)-1;
+  // start the sequence at 0
+  m_curSequence = 0;
   m_timer.reset();
   
   for (uint32_t i = 0; i < m_sequenceLength; ++i) {
@@ -38,17 +38,21 @@ void SequencedPattern::init()
 // pure virtual must  the play function
 void SequencedPattern::play()
 {
-  if (m_timer.alarm() != -1) {
+  if (m_timer.alarm() != -1 && !m_timer.onStart()) {
     m_curSequence = (m_curSequence + 1) % m_sequenceLength;
   }
   const SequenceStep *step = m_sequenceSteps + m_curSequence;
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    const Colorset *curSet = &m_colorset;
+    if (step->m_colorsetMap[pos].numColors() > 0) {
+      curSet = &step->m_colorsetMap[pos];
+    }
     // unset the pattern if it's wrong pattern id
     if (m_ledPatterns[pos]) {
       if (m_ledPatterns[pos]->getPatternID() != step->m_patternMap[pos] && step->m_patternMap[pos] != PATTERN_NONE) {
         delete m_ledPatterns[pos];
         m_ledPatterns[pos] = nullptr;
-      } else if (!m_ledPatterns[pos]->getColorset()->equals(&step->m_colorsetMap[pos])) {
+      } else if (!m_ledPatterns[pos]->getColorset()->equals(curSet)) {
         delete m_ledPatterns[pos];
         m_ledPatterns[pos] = nullptr;
       }
@@ -57,7 +61,7 @@ void SequencedPattern::play()
     if (!m_ledPatterns[pos] && step->m_patternMap[pos] != PATTERN_NONE) {
       m_ledPatterns[pos] = PatternBuilder::makeSingle(step->m_patternMap[pos]);
       if (m_ledPatterns[pos]) {
-        m_ledPatterns[pos]->bind(&step->m_colorsetMap[pos], pos);
+        m_ledPatterns[pos]->bind(curSet, pos);
         m_ledPatterns[pos]->init();
       }
     }
