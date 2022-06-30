@@ -37,12 +37,8 @@ Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
 Colorset::Colorset(const Colorset &other) :
   Colorset()
 {
-  clear();
-  initPalette(other.m_numColors);
-  for (uint32_t i = 0; i < other.m_numColors; ++i) {
-    m_palette[i] = other.m_palette[i];
-  }
-  init();
+  // invoke = operator
+  *this = other;
 }
 
 Colorset::~Colorset()
@@ -64,20 +60,20 @@ void Colorset::operator=(const Colorset &other)
 {
   clear();
   initPalette(other.m_numColors);
-  for (uint32_t i = 0; i < other.numColors(); ++i) {
+  for (uint32_t i = 0; i < other.m_numColors; ++i) {
     m_palette[i] = other.m_palette[i];
   }
   init();
 }
 
-bool Colorset::operator==(const Colorset &other)
+bool Colorset::operator==(const Colorset &other) const
 {
   // only compare the palettes for equality
   return (m_numColors == other.m_numColors) && 
          (memcmp(m_palette, other.m_palette, m_numColors * sizeof(RGBColor)) == 0);
 }
 
-bool Colorset::operator!=(const Colorset &other)
+bool Colorset::operator!=(const Colorset &other) const
 {
   return !operator==(other);
 }

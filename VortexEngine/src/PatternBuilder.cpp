@@ -2,6 +2,7 @@
 
 #include "SerialBuffer.h"
 #include "TimeControl.h"
+#include "Sequence.h"
 
 #include "patterns/multi/TheaterChasePattern.h"
 #include "patterns/multi/SequencedPattern.h"
@@ -85,38 +86,38 @@ Pattern *PatternBuilder::makeInternal(PatternID id)
 #define evenTipsPattern(pattern) PatternMap(pattern, MAP_FINGER_EVEN_TIPS)
 #define evenTopsPattern(pattern) PatternMap(pattern, MAP_FINGER_EVEN_TOPS)
 
-// theater chase is 5x 25ms odd tips/tops alternating
-// followed by 5x 25ms even tips/tops alternating
 Pattern *createTheaterChase()
 {
-  SequenceStep theaterChaseSteps[10];
+  Sequence theaterChaseSequence;
   PatternMap patMap;
+  // there are 10 steps in the theater chase
   for (uint32_t i = 0; i < 10; ++i) {
     if (i < 5) {
+      // the first 5 steps are odd tips/tops alternating each step
       patMap = (i % 2) ? oddTopsPattern(PATTERN_DOPS) : oddTipsPattern(PATTERN_DOPS);
     } else {
+      // the end 5 steps are even tips/tops alternating each step
       patMap = (i % 2) ? evenTopsPattern(PATTERN_DOPS) : evenTipsPattern(PATTERN_DOPS);
     }
-    // add the pattern mapping with default colorset
-    theaterChaseSteps[i] = SequenceStep(25, patMap);
+    // each step is 25ms long
+    theaterChaseSequence.addStep(25, patMap);
   }
-  return new SequencedPattern(10, theaterChaseSteps);
+  return new SequencedPattern(theaterChaseSequence);
 }
 
 Pattern *createChaser()
 {
-  SequenceStep chaserSteps[8];
+  Sequence chaserSequence;
+  // there are 8 steps in the chaser
   for (uint32_t i = 0; i < 8; ++i) {
-    // all of the fingers are dops
+    // each step starts all fingers are dops
     PatternMap patMap(PATTERN_DOPS);
-    // there is one finger mapping that goes back and forth
-    Finger finger = (Finger)((i < 5) ? i : (8 - i));
-    // set the pattern = ribbon and colorset = red for that one finger
-    patMap.setPatternAt(PATTERN_SOLID, MAP_FINGER(finger));
-    // fill out this step of the chaserSteps
-    chaserSteps[i] = SequenceStep(300, patMap);
+    // and one finger that moves back and forth is solid
+    patMap.setPatternAt(PATTERN_SOLID, MAP_FINGER((Finger)((i < 5) ? i : (8 - i))));
+    // the step lasts for 300ms
+    chaserSequence.addStep(300, patMap);
   }
-  return new SequencedPattern(8, chaserSteps);
+  return new SequencedPattern(chaserSequence);
 }
 
 Pattern *PatternBuilder::generate(PatternID id)

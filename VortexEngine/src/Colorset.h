@@ -27,8 +27,8 @@ public:
   void operator=(const Colorset &other);
 
   // equality operators
-  bool operator==(const Colorset &other);
-  bool operator!=(const Colorset &other);
+  bool operator==(const Colorset &other) const;
+  bool operator!=(const Colorset &other) const;
 
   // initialize the colorset
   void init();
