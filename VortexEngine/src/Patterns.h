@@ -19,6 +19,7 @@ enum PatternID : uint8_t
   // all 'single led' patterns below
 
   PATTERN_STROBE = PATTERN_FIRST,  // basicpattern 5 8 0
+  PATTERN_SOLID,
   PATTERN_HYPERSTROBE, // basicpattern 25 25 0
   PATTERN_DOPS, // basicpattern 2 13 0
   PATTERN_DOPISH, // basicpattern 2 7 0

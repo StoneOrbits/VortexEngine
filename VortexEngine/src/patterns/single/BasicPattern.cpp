@@ -104,7 +104,7 @@ void BasicPattern::onBlinkOff()
     Leds::clearIndex(m_ledPos);
   }
   // if there's no off duration and this is the last color
-  if (!m_offDuration && m_colorset.onEnd()) {
+  if (m_colorset.onEnd()) {
     // then this is the end, run the pattern end callback
     onBasicEnd();
   }

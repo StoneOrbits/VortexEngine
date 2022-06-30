@@ -12,6 +12,7 @@
 #include "patterns/single/BracketsPattern.h"
 #include "patterns/single/AdvancedPattern.h"
 #include "patterns/single/TracerPattern.h"
+#include "patterns/single/SolidPattern.h"
 #include "patterns/single/BasicPattern.h"
 #include "patterns/single/BlendPattern.h"
 
@@ -108,15 +109,12 @@ Pattern *createChaser()
   for (uint32_t i = 0; i < 8; ++i) {
     // all of the fingers are dops
     PatternMap patMap(PATTERN_DOPS);
-    // all of the fingers are default colorset
-    ColorsetMap colMap;
     // there is one finger mapping that goes back and forth
     Finger finger = (Finger)((i < 5) ? i : (8 - i));
     // set the pattern = ribbon and colorset = red for that one finger
-    patMap.setPatternAt(PATTERN_RIBBON, MAP_FINGER(finger));
-    colMap.setColorsetAt(Colorset(RGB_RED), MAP_FINGER(finger));
+    patMap.setPatternAt(PATTERN_SOLID, MAP_FINGER(finger));
     // fill out this step of the chaserSteps
-    chaserSteps[i] = SequenceStep(300, patMap, colMap);
+    chaserSteps[i] = SequenceStep(300, patMap);
   }
   return new SequencedPattern(8, chaserSteps);
 }
@@ -128,6 +126,7 @@ Pattern *PatternBuilder::generate(PatternID id)
   //       a pattern displays unless you re-create it
   switch (id) {
     case PATTERN_STROBE: return new BasicPattern(5, 8);
+    case PATTERN_SOLID: return new SolidPattern(0, 20);
     case PATTERN_HYPERSTROBE: return new BasicPattern(25, 25);
     case PATTERN_DOPS: return new BasicPattern(2, 13);
     case PATTERN_DOPISH: return new BasicPattern(2, 7);
