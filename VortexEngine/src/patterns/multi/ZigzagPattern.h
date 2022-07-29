@@ -3,6 +3,8 @@
 
 #include "multiledpattern.h"
 
+#include "../../Timer.h"
+
 class ZigzagPattern : public MultiLedPattern
 {
 public:
@@ -22,7 +24,8 @@ public:
 private:
   uint8_t m_speed;
   uint8_t m_scale;
-  uint8_t m_step = 0;
-  
+  uint8_t m_step;
+
+  Timer m_blinkTimer;
 };
 #endif
