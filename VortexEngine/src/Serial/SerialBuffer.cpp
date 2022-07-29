@@ -42,6 +42,7 @@ void SerialBuffer::operator=(const SerialBuffer &other)
 bool SerialBuffer::rawInit(const uint8_t *rawdata, uint32_t size)
 {
   if (!rawdata || size < sizeof(RawBuffer)) {
+    DEBUG_LOGF("Cannot rawInit: %p %u", rawdata, size);
     return false;
   }
   // round up to nearest 4

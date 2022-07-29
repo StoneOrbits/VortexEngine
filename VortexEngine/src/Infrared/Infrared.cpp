@@ -4,6 +4,7 @@
 #include "../Serial/BitStream.h"
 #include "../Time/TimeControl.h"
 #include "../Buttons/Buttons.h"
+#include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
@@ -31,6 +32,10 @@ using namespace std;
 #define HEADER_MARK_MAX ((uint32_t)(HEADER_MARK * 1.15))
 #define HEADER_SPACE_MAX ((uint32_t)(HEADER_SPACE * 1.15))
 
+#define DIVIDER_SPACE HEADER_MARK
+#define DIVIDER_SPACE_MIN HEADER_MARK_MIN
+#define DIVIDER_SPACE_MAX HEADER_MARK_MAX
+
 #define IR_SEND_PWM_PIN 0
 #define RECEIVER_PIN 2
 
@@ -43,6 +48,119 @@ BitStream Infrared::m_irData;
 Infrared::RecvState Infrared::m_recvState = WAITING_HEADER_MARK;
 uint64_t Infrared::m_prevTime = 0;
 uint8_t Infrared::m_pinState = HIGH;
+uint32_t Infrared::m_writeCounter = 0;
+
+IRSender::IRSender() :
+  m_serialBuf(),
+  m_isSending(false),
+  m_startTime(0)
+{
+}
+
+IRSender::IRSender(const Mode *targetMode) :
+  IRSender()
+{
+  init(targetMode);
+}
+
+IRSender::~IRSender()
+{
+}
+
+bool IRSender::init(const Mode *targetMode)
+{
+  targetMode->serialize(m_serialBuf);
+  if (!m_serialBuf.compress()) {
+    DEBUG_LOG("Failed to compress, aborting send");
+    return false;
+    // tried
+  }
+  // too big
+  if (m_serialBuf.rawSize() > 8000) {
+    DEBUG_LOGF("too big: %u", m_serialBuf.rawSize());
+    return false;
+  }
+  return true;
+}
+
+bool IRSender::initSend()
+{
+  DEBUG_LOGF("Writing %u buf", m_serialBuf.rawSize());
+  uint64_t startTime = micros();
+  uint32_t size = m_serialBuf.rawSize();
+  // ensure the data isn't too big
+  if (size > MAX_DATA_TRANSFER) {
+    DEBUG_LOGF("Cannot transfer that much data: %u bytes", m_serialBuf.rawSize());
+    return false;
+  }
+  // create a bitstream to walk the bits of the data
+  uint8_t *buf = (uint8_t *)m_serialBuf.rawData();
+  BitStream sendStream(buf, size);
+  // the number of 32-byte blocks that will be sent
+  uint8_t num_blocks = (size + 31) / 32;
+  // the amount in the final block
+  uint8_t remainder = size % 32;
+  m_isSending = true;
+  return true;
+}
+
+// 8 x dwords = 32 bytes the size of a block sent over IR
+struct ir_block
+{
+  uint32_t dword0;
+  uint32_t dword4;
+  uint32_t dword8;
+  uint32_t dword12;
+
+  uint32_t dword16;
+  uint32_t dword20;
+  uint32_t dword24;
+  uint32_t dword28;
+};
+
+void IRSender::send()
+{
+  if (!m_isSending) {
+    if (!initSend()) {
+      return;
+    }
+  }
+#if 0
+  // begin the write
+  Infrared::startWrite();
+  // write the number of blocks being sent, most likely just 1
+  write8(num_blocks);
+  // now write the number of bytes in the last block
+  write8(remainder);
+  uint8_t *buf_ptr = buf;
+  // iterate each block
+  for (uint32_t block = 0; block < num_blocks; ++block) {
+    // write the block which is 32 bytes unless on the last block
+    uint32_t blocksize = (block == (num_blocks - 1)) ? remainder : 32;
+    // iterate each byte in the block and write it
+    for (uint32_t i = 0; i < blocksize; ++i) {
+      write8(*buf_ptr);
+      buf_ptr++;
+    }
+  }
+  //=============================================
+  buf_ptr = buf;
+  for (uint32_t block = 0; block < num_blocks; ++block) {
+    uint32_t blocksize = (num_blocks == 1) ? remainder : 32;
+    for (uint32_t i = 0; i < blocksize; ++i) {
+      DEBUG_LOGF("Wrote %u: 0x%x", i, *buf_ptr);
+      buf_ptr++;
+    }
+    // delay if there is more blocks
+    if (block < (num_blocks - 1)) {
+      DEBUG_LOG("Block");
+    }
+  }
+#endif
+
+  DEBUG_LOGF("Wrote %u buf (%u us)", m_serialBuf.rawSize(), micros() - m_startTime);
+  DEBUG_LOG("Success sending");
+}
 
 Infrared::Infrared()
 {
@@ -85,7 +203,7 @@ bool Infrared::dataReady()
   }
   // if there are size + 1 bytes in the IRData receiver
   // then a full message is ready
-  return (m_irData.bytepos() == (uint32_t)(total + 1));
+  return (m_irData.bytepos() >= (uint32_t)(total + 1));
 }
 
 bool Infrared::read(SerialBuffer &data)
@@ -94,28 +212,55 @@ bool Infrared::read(SerialBuffer &data)
     // nothing to read, or somehow read way too much
     return false;
   }
-  // the first byte received should be the size of data to come
-  uint8_t size = *m_irData.data();
-  DEBUG_LOGF("Data size: %u", size);
-  // validate the size
-  if (size > MAX_DATA_TRANSFER) {
-    DEBUG_LOGF("Received bad data size: %u", size);
+  // read the size out
+  uint8_t blocks = m_irData.data()[0];
+  uint8_t remainder = m_irData.data()[1];
+  uint32_t size = ((blocks - 1) * 32) + remainder;
+  if (!size || size > MAX_DATA_TRANSFER) {
+    DEBUG_LOGF("Bad IR Data size: %u", size);
     return false;
   }
   // the actual data starts 1 byte later because of the size byte
-  const uint8_t *actualData = m_irData.data() + 1;
+  const uint8_t *actualData = m_irData.data() + 2;
   if (!data.rawInit(actualData, size)) {
     DEBUG_LOG("Failed to init buffer for IR read");
     return false;
   }
   for (uint32_t i = 0; i < size; ++i) {
-    DEBUG_LOGF("Read: 0x%x", actualData[i]);
+    DEBUG_LOGF("Read %u: 0x%x", i, actualData[i]);
   }
   // reset the IR state and receive buffer
+  DEBUG_LOG("Read data, resetting...");
   resetIRState();
   return true;
 }
 
+void Infrared::startWrite()
+{
+  // init sender before writing, is this necessary here? I think so
+  initpwm();
+  // wakeup the other receiver with a very quick mark/space
+  mark(50);
+  space(100);
+  // now send the header
+  mark(HEADER_MARK);
+  space(HEADER_SPACE);
+  // reset writeCounter
+  m_writeCounter = 0;
+}
+
+bool Infrared::write(const ir_block *block, uint32_t blocksize)
+{
+  // iterate each byte in the block and write it
+  const uint8_t *buf_ptr = (const uint8_t *)block;
+  for (uint32_t i = 0; i < blocksize; ++i) {
+    write8(*buf_ptr);
+    buf_ptr++;
+  }
+  return true;
+}
+
+#if 0
 bool Infrared::write(SerialBuffer &data)
 {
   uint32_t size = data.rawSize();
@@ -127,14 +272,8 @@ bool Infrared::write(SerialBuffer &data)
   // create a bitstream to walk the bits of the data
   uint8_t *buf = (uint8_t *)data.rawData();
   BitStream sendStream(buf, size);
-  // init sender before writing, is this necessary here? I think so
-  initpwm();
-  // wakeup the other receiver with a very quick mark/space
-  mark(50);
-  space(100);
-  // now send the header
-  mark(HEADER_MARK);
-  space(HEADER_SPACE);
+  // begin the write
+  startWrite();
   // the number of 32-byte blocks that will be sent
   uint8_t num_blocks = (size + 31) / 32;
   // the amount in the final block
@@ -147,6 +286,7 @@ bool Infrared::write(SerialBuffer &data)
   // iterate each block
   for (uint32_t block = 0; block < num_blocks; ++block) {
     // write the block which is 32 bytes unless on the last block
+    //uint32_t blocksize = (block == (num_blocks - 1)) ? remainder : 32;
     uint32_t blocksize = (num_blocks == 1) ? remainder : 32;
     // iterate each byte in the block and write it
     for (uint32_t i = 0; i < blocksize; ++i) {
@@ -175,6 +315,7 @@ bool Infrared::write(SerialBuffer &data)
   }
   return true;
 }
+#endif
 
 bool Infrared::beginReceiving()
 {
@@ -248,6 +389,14 @@ void Infrared::initpwm()
 
 void Infrared::write8(uint8_t data)
 {
+  // delay every 32 bytes
+  if (m_writeCounter && (m_writeCounter % 32) == 0) {
+    //delayMicroseconds(DIVIDER_SPACE * 2);
+    DEBUG_LOG("Sending block boundary");
+    mark(IR_TIMING);
+    space(DIVIDER_SPACE * 4);
+    delay(10);
+  }
   // Sends from left to right, MSB first
   for (int b = 0; b < 8; b++) {
     // grab the bit of data at the index
@@ -256,8 +405,11 @@ void Infrared::write8(uint8_t data)
     mark(IR_TIMING + (IR_TIMING * (2 * bit)));
     // send 1x timing size for space
     space(IR_TIMING);
+    DEBUG_LOGF(" bit: %u", bit);
   }
-}
+  DEBUG_LOGF("Sent byte[%u]: 0x%x", m_writeCounter, data);
+  m_writeCounter++;
+ }
 
 void Infrared::mark(uint16_t time)
 {
@@ -288,6 +440,7 @@ void Infrared::space(uint16_t time)
 // ===================
 // receiver functions
 
+// The recv PCI handler is called every time the pin state changes
 void Infrared::recvPCIHandler()
 {
   // toggle the tracked pin state no matter what
@@ -297,6 +450,7 @@ void Infrared::recvPCIHandler()
   // check previous time for validity
   if (!m_prevTime || m_prevTime > now) {
     m_prevTime = now;
+    DEBUG_LOG("Bad first time diff, resetting...");
     resetIRState();
     return;
   }
@@ -304,23 +458,27 @@ void Infrared::recvPCIHandler()
   uint32_t diff = (uint32_t)(now - m_prevTime);
   // and update the previous changetime for next loop
   m_prevTime = now;
-  // handle the difference in time
+  // handle the blink duration and process it
   handleIRTiming(diff);
 }
 
+// state machine that can be fed IR timings to parse them and interpret the intervals
 void Infrared::handleIRTiming(uint32_t diff)
 {
   // if the diff is too long or too short then it's not useful
-  if (diff > HEADER_MARK_MAX || diff < IR_TIMING_MIN) {
-    DEBUG_LOGF("bad delay: %u", diff);
+  if ((diff > HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < IR_TIMING_MIN) {
+    DEBUG_LOGF("bad delay: %u, resetting...", diff);
     resetIRState();
     return;
   }
+  static uint32_t counter = 0;
+  //DEBUG_LOGF("timing[%u]: %u", counter++, diff);
   switch (m_recvState) {
-  case WAITING_HEADER_MARK:
+  case WAITING_HEADER_MARK: // initial state
     if (diff >= HEADER_MARK_MIN && diff <= HEADER_MARK_MAX) {
       m_recvState = WAITING_HEADER_SPACE;
     } else {
+      DEBUG_LOGF("Bad header mark %u, resetting...", diff);
       resetIRState();
     }
     break;
@@ -328,23 +486,57 @@ void Infrared::handleIRTiming(uint32_t diff)
     if (diff >= HEADER_SPACE_MIN && diff <= HEADER_SPACE_MAX) {
       m_recvState = READING_DATA_MARK;
     } else {
+      DEBUG_LOGF("Bad header space %u, resetting...", diff);
       resetIRState();
     }
     break;
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
     m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
-    if (m_irData.bitpos() > 0 && ((m_irData.bitpos() + 1) % 32) == 0) {
-      DEBUG_LOGF("Read: 0x%x", m_irData.dwData()[m_irData.dwordpos()]);
+#if 1
+    {
+      uint8_t bit = (diff > (IR_TIMING * 2)) ? 1 : 0;
+      static uint8_t byte = 0;
+      static uint8_t cc = 0;
+      if (cc >= 8) {
+        byte = 0;
+        cc = 0;
+      }
+      if (cc > 0) {
+        byte <<= 1;
+      }
+      byte |= bit;
+      cc++;
+      DEBUG_LOGF("  Read bit: %u", bit);
+      if (cc == 8) {
+        static uint32_t counter = 0;
+        DEBUG_LOGF("Read byte[%u]: 0x%x", counter++, byte);
+      }
     }
-    if (((m_irData.bytepos() + 1) % 32) == 0) {
-      m_recvState = WAITING_HEADER_SPACE;
-    } else {
-      m_recvState = READING_DATA_SPACE;
-    }
+#endif
+    m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
-    // skip spaces
+    // every 32 bytes expect a divider
+    if (((m_irData.bitpos() + 1) % 32) == 0) {
+      //m_recvState = READING_DATA_DIVIDER_MARK;
+      //break;
+    }
+    m_recvState = READING_DATA_MARK;
+    {
+      static uint32_t cc = 0;
+      cc++;
+      // every 32 bytes (8 bits in byte)
+      if (cc > 0 && (cc % (32 * 8)) == 0) {
+        m_recvState = READING_DATA_DIVIDER_SPACE;
+        DEBUG_LOG("RECV BLOCK");
+      }
+    }
+    break;
+  case READING_DATA_DIVIDER_MARK:
+    m_recvState = READING_DATA_DIVIDER_SPACE;
+    break;
+  case READING_DATA_DIVIDER_SPACE:
     m_recvState = READING_DATA_MARK;
     break;
   default: // ??
@@ -356,6 +548,13 @@ void Infrared::handleIRTiming(uint32_t diff)
 void Infrared::resetIRState()
 {
   m_recvState = WAITING_HEADER_MARK;
+  DEBUG_LOG("Resetting IR State...");
+  if (m_irData.bytepos()) {
+    for (uint32_t i = 0; i < m_irData.bytepos(); ++i) {
+      DEBUG_LOGF("(on reset) IR Buf %u: 0x%x", i, m_irData.data()[i]);
+    }
+  }
   // zero out the receive buffer and reset bit receiver position
   m_irData.reset();
+  DEBUG_LOG("IR State Reset Complete");
 }

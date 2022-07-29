@@ -206,6 +206,7 @@ bool Modes::setDefaults()
   //Colorset defaultSet(HSVColor(254, 255, 255), HSVColor(1, 255, 255), HSVColor(245, 255, 255)); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
   PatternID default_start = PATTERN_SPLITSTROBIE;
   PatternID default_end = PATTERN_LAST;
+  defaultSet.randomizeTriadic();
   // initialize a mode for each pattern with an rgb colorset
   for (PatternID pattern = default_start; pattern <= default_end; ++pattern) {
     // add another mode with the given pattern and colorset

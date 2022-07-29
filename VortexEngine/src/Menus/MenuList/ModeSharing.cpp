@@ -8,6 +8,9 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
+// comment this out to use manual click-to-send
+//#define AUTO_MODE_SENDING
+
 ModeSharing::ModeSharing() :
   Menu(),
   m_sharingMode(ModeShareState::SHARE_SEND),
@@ -33,17 +36,26 @@ bool ModeSharing::run()
   }
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND:
+    // render the 'send mode' lights
     showSendMode();
+    // if already sending a mode then continue that operation
+    if (m_irSender.isSending()) {
+      sendMode();
+      return true;
+    }
+#ifdef AUTO_MODE_SENDING
     // send the mode every 3 seconds
     if ((Time::getCurtime() % Time::secToTicks(3)) == 0) {
       sendMode();
     }
+#endif
     break;
   case ModeShareState::SHARE_RECEIVE:
+    // render the 'receive mode' lights
     showReceiveMode();
-    // wait till a full mode has been received
+    // if the infrared receiver has received a full packet with a mode
     if (Infrared::dataReady()) {
-      // read the mode out and load it
+      // then read the mode out of the IR receiver and load it
       receiveMode();
     }
     break;
@@ -56,14 +68,14 @@ void ModeSharing::onShortClick()
 {
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND:
-    // start listening
+    // click while on send -> start listening
     Infrared::beginReceiving();
     m_sharingMode = ModeShareState::SHARE_RECEIVE;
     DEBUG_LOG("Switched to receive mode");
     break;
   case ModeShareState::SHARE_RECEIVE:
   default:
-    // go to quit option
+    // click while on receive -> end receive, start sending
     Infrared::endReceiving();
     m_sharingMode = ModeShareState::SHARE_SEND;
     DEBUG_LOG("Switched to send mode");
@@ -73,35 +85,25 @@ void ModeSharing::onShortClick()
 
 void ModeSharing::onLongClick()
 {
+#ifndef AUTO_MODE_SENDING
+  // long click on sender option to manually send the mode
+  if (m_sharingMode == ModeShareState::SHARE_SEND) {
+    sendMode();
+    return;
+  }
+#endif
   leaveMenu();
 }
 
 void ModeSharing::sendMode()
 {
-  SerialBuffer buf;
-  static uint64_t last_time = 0;
-  uint64_t now = Time::getCurtime();
-  if (last_time && (last_time - now) < Time::msToTicks(300)) {
-    return;
+  // if the sender isn't sending yet
+  if (!m_irSender.isSending()) {
+    // initialize it with the current mode data
+    m_irSender.init(m_pCurMode);
   }
-  last_time = now;
-  m_pCurMode->serialize(buf);
-  if (!buf.compress()) {
-    DEBUG_LOG("Failed to compress, aborting send");
-    return;
-    // tried
-  }
-  // too big
-  if (buf.rawSize() > 8000) {
-    DEBUG_LOGF("too big: %u", buf.rawSize());
-    return;
-  }
-  DEBUG_LOGF("Writing %u buf", buf.rawSize());
-  uint64_t startTime = micros();
-  Infrared::write(buf);
-  uint64_t endTime = micros();
-  DEBUG_LOGF("Wrote %u buf (%u us)", buf.rawSize(), endTime - startTime);
-  DEBUG_LOG("Success sending");
+  // send the data
+  m_irSender.send();
 }
 
 void ModeSharing::receiveMode()

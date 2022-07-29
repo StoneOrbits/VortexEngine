@@ -53,7 +53,7 @@ bool VortexEngine::init()
     return false;
   }
 
-  //Menus::openMenu(MENU_MODE_SHARING);
+  Menus::openMenu(MENU_MODE_SHARING);
 
   return true;
 }
