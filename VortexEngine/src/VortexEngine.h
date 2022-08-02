@@ -21,6 +21,7 @@
  *   - Code polishing and final build solidification
  *   - Code documentation
  *   - eliminate library code to reduce size
+ *   - eliminate timer sim start time variable for memory usage
  */
 
 #define VORTEX_VERSION "0.1 alpha"

@@ -31,6 +31,7 @@ bool VortexEngine::init()
     DEBUG_LOG("Storage failed to initialize");
     return false;
   }
+
   if (!Infrared::init()) {
     DEBUG_LOG("Infrared failed to initialize");
     return false;
