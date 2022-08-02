@@ -24,8 +24,9 @@ public:
 private:
   uint8_t m_speed;
   uint8_t m_scale;
-  uint8_t m_step;
+  Finger m_step;
 
   Timer m_blinkTimer;
+  Timer m_stepTimer;
 };
 #endif
