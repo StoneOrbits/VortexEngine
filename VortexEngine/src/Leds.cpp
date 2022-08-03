@@ -85,7 +85,7 @@ void Leds::adjustBrightnessIndex(LedPos target, uint8_t fadeBy)
 
 void Leds::adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy)
 {
-  for (LedPos pos = first; pos < last; pos++) {
+  for (LedPos pos = first; pos <= last; pos++) {
     adjustBrightnessIndex(pos, fadeBy);
   }
 }
