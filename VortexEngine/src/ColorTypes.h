@@ -97,6 +97,7 @@ public:
   bool empty() const;
   void clear();
 
+  void adjustBrightness(uint8_t fadeBy);
   void serialize(SerialBuffer &buffer) const;
   void unserialize(SerialBuffer &buffer);
 

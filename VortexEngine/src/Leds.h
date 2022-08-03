@@ -41,6 +41,11 @@ public:
   static void clearFinger(Finger finger) { setFinger(finger, HSV_OFF); }
   static void clearFingers(Finger first, Finger last) { setFingers(first, last, HSV_OFF); }
 
+  // Dim individual LEDs, these are appropriate to use in internal pattern logic
+  static void adjustBrightnessIndex(LedPos target, int fadeBy) { m_ledColors[target].adjustBrightness(fadeBy); }
+  static void adjustBrightnessRange(LedPos first, LedPos last, int fadeBy);
+  static void adjustBrightnessAll(int fadeBy);
+  
   // Blink an led to blank or a color
   //
   // These APIs work by checking if the current time is within the

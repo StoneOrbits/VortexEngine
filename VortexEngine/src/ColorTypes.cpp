@@ -196,6 +196,13 @@ void RGBColor::clear()
   blue = 0;
 }
 
+void RGBColor::adjustBrightness(uint8_t fadeBy)
+{
+  red = (((int)red) * (int)(255 - fadeBy)) >> 8;
+  green = (((int)green) * (int)(255 - fadeBy)) >> 8;
+  blue = (((int)blue) * (int)(255 - fadeBy)) >> 8;
+}
+
 void RGBColor::serialize(SerialBuffer &buffer) const
 {
   buffer.serialize(red);
