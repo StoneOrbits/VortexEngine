@@ -42,9 +42,9 @@ public:
   static void clearFingers(Finger first, Finger last) { setFingers(first, last, HSV_OFF); }
 
   // Dim individual LEDs, these are appropriate to use in internal pattern logic
-  static void adjustBrightnessIndex(LedPos target, int fadeBy) { m_ledColors[target].adjustBrightness(fadeBy); }
-  static void adjustBrightnessRange(LedPos first, LedPos last, int fadeBy);
-  static void adjustBrightnessAll(int fadeBy);
+  static void adjustBrightnessIndex(LedPos target, uint8_t fadeBy);
+  static void adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy);
+  static void adjustBrightnessAll(uint8_t fadeBy);
   
   // Blink an led to blank or a color
   //
