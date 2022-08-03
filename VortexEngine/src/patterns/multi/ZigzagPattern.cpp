@@ -45,9 +45,11 @@ void ZigzagPattern::init()
 void ZigzagPattern::play()
 {
   // increment to the next step
-  m_step = (Finger)((m_step + 1) % 10);
-  if (m_step == 3 || m_step == 8) {
-    m_colorset.getNext();
+  if (m_stepTimer.alarm() == 0) {
+    m_step = (Finger)((m_step + 1) % 10);
+    if (m_step == 8) {
+      m_colorset.getNext();
+    }
   }
 
   int alm = m_blinkTimer.alarm();
