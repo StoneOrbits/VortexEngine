@@ -78,18 +78,21 @@ void Leds::setFingers(Finger first, Finger last, RGBColor col)
   setRange(fingerTip(first), fingerTop(last), col);
 }
 
-void Leds::adjustBrightnessRange(LedPos first, LedPos last, int fadeBy)
+void Leds::adjustBrightnessIndex(LedPos target, uint8_t fadeBy)
+{
+   m_ledColors[LED_LAST - target].adjustBrightness(fadeBy);
+}
+
+void Leds::adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy)
 {
   for (LedPos pos = first; pos < last; pos++) {
     adjustBrightnessIndex(pos, fadeBy);
   }
 }
 
-void Leds::adjustBrightnessAll(int fadeBy)
+void Leds::adjustBrightnessAll(uint8_t fadeBy)
 {
-  for (int i = 0; i < LED_COUNT; i++) {
-    adjustBrightnessIndex((LedPos)i, fadeBy);
-  }
+  adjustBrightnessRange(LED_FIRST, LED_LAST, fadeBy);
 }
 
 void Leds::blinkIndex(LedPos target, uint32_t offMs, uint32_t onMs, RGBColor col)
