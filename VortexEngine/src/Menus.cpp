@@ -11,6 +11,7 @@
 #include "TimeControl.h"
 #include "Timings.h"
 #include "Button.h"
+#include "Serial.h"
 #include "Modes.h"
 #include "Leds.h"
 #include "Log.h"
@@ -211,6 +212,10 @@ bool Menus::openMenu(uint32_t index)
   m_isOpen = true;
   // clear all the leds
   Leds::clearAll();
+  // check for serial communications when entering and leaving menus because there's 
+  // not much other times to do it and it will take a short delay. If we do it each 
+  // step then it creates a visual effect on the LEDs
+  SerialComs::checkSerial();
   return true;
 }
 
@@ -221,4 +226,8 @@ void Menus::closeCurMenu()
     m_pCurMenu = nullptr;
   }
   m_isOpen = false;
+  // check for serial communications when entering and leaving menus because there's 
+  // not much other times to do it and it will take a short delay. If we do it each 
+  // step then it creates a visual effect on the LEDs
+  SerialComs::checkSerial();
 }

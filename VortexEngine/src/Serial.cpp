@@ -1,5 +1,6 @@
 #include "Serial.h"
 
+#include "VortexEngine.h"
 #include "TimeControl.h"
 #include "Log.h"
 
@@ -32,14 +33,11 @@ void SerialComs::checkSerial()
   if (m_serial_init) {
     return;
   }
-  // only try to check serial every 1000 ticks otherwise lag
-  if ((Time::getCurtime() % 1000) != 0) {
-    return;
-  }
   if (!Serial) {
     return;
   }
   m_serial_init = true;
   // Setup serial communications
   Serial.begin(9600);
+  INFO_LOG("== Vortex Framework v" VORTEX_VERSION " (built " __TIMESTAMP__ ") ==");
 }
