@@ -52,8 +52,6 @@ bool VortexEngine::init()
     return false;
   }
 
-  INFO_LOG("== Vortex Framework v" VORTEX_VERSION " (built " __TIMESTAMP__ ") ==");
-
   //Menus::openMenu(MENU_MODE_SHARING);
 
   return true;
@@ -80,9 +78,6 @@ void VortexEngine::tick()
 
   // poll the buttons for changes
   Buttons::check();
-
-  // check for serial communications
-  SerialComs::checkSerial();
 
   // if the menus don't need to run, or they run and return false
   if (!Menus::run()) {
