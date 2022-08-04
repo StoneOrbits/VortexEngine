@@ -5,10 +5,9 @@
 #include "../../Leds.h"
 #include "../../Log.h"
 
-ZigzagPattern::ZigzagPattern(uint8_t speed, uint8_t scale) :
+ZigzagPattern::ZigzagPattern(bool fade) :
   MultiLedPattern(),
-  m_speed(speed),
-  m_scale(scale),
+  m_fade(fade),
   m_step(FINGER_FIRST),
   m_blinkTimer(),
   m_stepTimer()
@@ -58,11 +57,6 @@ void ZigzagPattern::play()
     // just return
     return;
   }
-  // otherwise first alarm is triggering
-
-  // determine two target leds
-  LedPos target1 = (m_step < 5) ? fingerTip(m_step) : fingerTop((Finger)((LED_COUNT - m_step) - 1));
-  LedPos target2 = (m_step < 5) ? fingerTop((Finger)((5 - m_step) - 1)) : fingerTip((Finger)((m_step - 5)));
 
   // if starting the 'off' phase then turn the leds off
   if (alm == 1) {
@@ -70,23 +64,37 @@ void ZigzagPattern::play()
     return;
   }
 
-  // otherwise alarm is 0, starting the 'on' phase'
-  // turn on target leds with current color
-  Leds::setIndex(target1, m_colorset.cur());
-  Leds::setIndex(target2, m_colorset.peekNext());
+  // otherwise first alarm is triggering
+  // otherwise alarm is 0, starting the 'on' phase' 
+  // Sets the number of loops based on the bool fade
+  for (int snakeSize = 0; snakeSize < 4; snakeSize++) {
+    // Step backwards to calculate trail
+    Finger backStep = Finger((m_step + snakeSize) % 10);
+    
+    // determine two target leds
+    LedPos target1 = (backStep < 5) ? fingerTip(backStep) : fingerTop((Finger)((LED_COUNT - backStep) - 1));
+    LedPos target2 = (backStep < 5) ? fingerTop((Finger)((5 - backStep) - 1)) : fingerTip((Finger)((backStep - 5)));    
+    
+    // turn on target leds with current color
+    Leds::setIndex(target1, m_colorset.cur());
+    Leds::setIndex(target2, m_colorset.peekNext());
+    if (!m_fade) {
+      break;
+    }
+    // Dim each segment
+    if (snakeSize > 0) {
+      Leds::adjustBrightnessAll(75);         
+    }
+  }
 }
 
 // must override the serialize routine to save the pattern
 void ZigzagPattern::serialize(SerialBuffer& buffer) const
 {
   MultiLedPattern::serialize(buffer);
-  buffer.serialize(m_speed);
-  buffer.serialize(m_scale);
 }
 
 void ZigzagPattern::unserialize(SerialBuffer& buffer)
 {
   MultiLedPattern::unserialize(buffer);
-  buffer.unserialize(&m_speed);
-  buffer.unserialize(&m_scale);
 }
