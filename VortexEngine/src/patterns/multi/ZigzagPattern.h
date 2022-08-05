@@ -8,7 +8,7 @@
 class ZigzagPattern : public MultiLedPattern
 {
 public:
-  ZigzagPattern(bool fade = false);
+  ZigzagPattern(uint8_t stepDuration = 50, bool fade = false);
   virtual ~ZigzagPattern();
 
   // init the pattern to initial state
@@ -24,6 +24,7 @@ public:
 private:
   bool m_fade;
   Finger m_step;
+  uint8_t m_stepDuration;
 
   Timer m_blinkTimer;
   Timer m_stepTimer;
