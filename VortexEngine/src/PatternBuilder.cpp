@@ -150,6 +150,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_THEATER_CHASE: return createTheaterChase();
     case PATTERN_CHASER: return createChaser();
     case PATTERN_ZIGZAG: return new ZigzagPattern();
+    case PATTERN_ZIPFADE: return new ZigzagPattern(100, true);
     default: break;
   }
   DEBUG_LOGF("Unknown pattern id: %u", id);
