@@ -95,8 +95,11 @@ public:
   // get the next color in cycle
   RGBColor getNext();
 
-  // peek at the next color but don't iterate
-  RGBColor peekNext() const;
+  // peek at the color indexes from current but don't iterate
+  RGBColor peek(int32_t offset) const;
+
+  // better wording for peek 1 ahead
+  RGBColor peekNext() const { return peek(1); }
 
   // the number of colors in the palette
   uint32_t numColors() const { return m_numColors; }

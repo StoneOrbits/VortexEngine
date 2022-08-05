@@ -99,6 +99,7 @@ bool Randomizer::reRoll()
     randomSet.randomizeMonochromatic();
     break;
   case 3:
+    // TODO: same one twice?
     randomSet.randomizeDoubleSplitComplimentary();
     break;
   case 4:
