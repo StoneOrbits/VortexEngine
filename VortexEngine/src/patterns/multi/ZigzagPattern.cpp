@@ -9,16 +9,17 @@
 // The lights runs across tips, then back across tops.
 // Index this array with m_step in order to get correct LedPos
 const LedPos ZigzagPattern::ledStepPositions[NUM_ZIGZAG_STEPS] = {
-  PINKIE_TIP,
-  RING_TIP,
-  MIDDLE_TIP,
-  INDEX_TIP,
-  THUMB_TIP,
-  THUMB_TOP,
-  INDEX_TOP,
-  MIDDLE_TOP,
-  RING_TOP,
   PINKIE_TOP,
+  RING_TOP,
+  MIDDLE_TOP,
+  INDEX_TOP,
+  THUMB_TOP,
+
+  THUMB_TIP,
+  INDEX_TIP,
+  MIDDLE_TIP,
+  RING_TIP,
+  PINKIE_TIP,
 
   // PaLm LiGhTs?>??!?
 #ifdef USE_PALM_LIGHTS
@@ -29,11 +30,12 @@ const LedPos ZigzagPattern::ledStepPositions[NUM_ZIGZAG_STEPS] = {
 #endif
 };
 
-ZigzagPattern::ZigzagPattern(bool fade) :
+ZigzagPattern::ZigzagPattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
   MultiLedPattern(),
-  m_fade(fade),
-  m_step(FINGER_FIRST),
   m_stepDuration(stepDuration),
+  m_snakeSize(snakeSize),
+  m_fadeAmount(fadeAmount),
+  m_step(FINGER_FIRST),
   m_blinkTimer(),
   m_stepTimer()
 {
@@ -71,8 +73,11 @@ void ZigzagPattern::play()
   // increment to the next step
   if (m_stepTimer.alarm() == 0) {
     m_step = (m_step + 1) % NUM_ZIGZAG_STEPS;
+    if (m_step == ZIGZAG_CHANGE_STEP) {
+      m_colorset.getNext();
+    }
   }
-  
+
   int alm = m_blinkTimer.alarm();
   // if first alarm is not triggering
   if (alm == -1) {
@@ -87,34 +92,38 @@ void ZigzagPattern::play()
   }
 
   // draw two snakes, one on the current step, one on the opposite side
-  drawSnake(4, m_step, 0);
-  drawSnake(4, (m_step + HALF_ZIGZAG_STEPS) % NUM_ZIGZAG_STEPS, 1);
+  drawSnake(m_snakeSize, m_step, 0);
+  drawSnake(m_snakeSize, (m_step + HALF_ZIGZAG_STEPS) % NUM_ZIGZAG_STEPS, 1);
 }
 
-void ZigzagPattern::drawSnake(uint32_t size, uint8_t step, uint32_t colIndex)
+void ZigzagPattern::drawSnakeSegment(uint8_t position, uint32_t colIndex, uint32_t segment)
 {
-  uint8_t offset = 0;
-  do {
-    uint8_t section_step = 0;
-    if (offset > step) {
-      section_step = (NUM_ZIGZAG_STEPS + step) - offset;
-    } else {
-      section_step = step - offset;
+  LedPos target = ledStepPositions[position];
+  RGBColor col = m_colorset.peek(colIndex);
+  // turn on target leds with current color
+  Leds::setIndex(target, col);
+  // Dim each segment after the first
+  if (segment < m_snakeSize) {
+    Leds::adjustBrightnessIndex(target, m_fadeAmount * ((m_snakeSize - segment) - 1));
+  }
+}
+
+void ZigzagPattern::drawSnake(uint32_t size, uint8_t head_position, uint32_t colIndex)
+{
+  for (uint8_t segment = 0; segment < size; ++segment) {
+    // calculate the position of this segment
+    uint8_t segment_position = (head_position + segment) % NUM_ZIGZAG_STEPS;
+    // draw the segment of the snake (head first, then tail segments)
+    drawSnakeSegment(segment_position, colIndex, segment);
+    // if this segment is
+    if (segment_position == ZIGZAG_CHANGE_STEP) {
+      if (!colIndex) {
+        colIndex = m_colorset.numColors() - 1;
+      } else {
+        colIndex--;
+      }
     }
-    LedPos target = ledStepPositions[section_step];
-    RGBColor col = m_colorset.peek(colIndex);
-    // step 8 is right after the middle finger
-    if (offset > 0 && step >= ZIGZAG_CHANGE_STEP && 
-      section_step < ZIGZAG_CHANGE_STEP) {
-      col = m_colorset.peek(colIndex - 1);
-    }
-    // turn on target leds with current color
-    Leds::setIndex(target, col);
-    // Dim each segment after the first
-    if (offset > 0) {
-      Leds::adjustBrightnessIndex(target, 55 * offset);
-    }
-  } while (m_fade && ++offset < size);
+  }
 }
 
 // must override the serialize routine to save the pattern
