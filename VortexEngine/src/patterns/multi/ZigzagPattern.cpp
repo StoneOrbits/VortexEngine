@@ -33,6 +33,7 @@ ZigzagPattern::ZigzagPattern(bool fade) :
   MultiLedPattern(),
   m_fade(fade),
   m_step(FINGER_FIRST),
+  m_stepDuration(stepDuration),
   m_blinkTimer(),
   m_stepTimer()
 {
@@ -57,7 +58,7 @@ void ZigzagPattern::init()
 
   // reset and add alarm
   m_stepTimer.reset();
-  m_stepTimer.addAlarm(50);
+  m_stepTimer.addAlarm(m_stepDuration);
   m_stepTimer.start();
 
   // start on the first color so that cur() works immediately
