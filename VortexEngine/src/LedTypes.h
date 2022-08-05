@@ -4,6 +4,9 @@
 #include <inttypes.h>
 #include <stdarg.h>
 
+// uncomment this to use palm lights
+//#define USE_PALM_LIGHTS
+
 // Defined the LED positions, their order, and index
 enum LedPos : uint8_t
 {
@@ -27,8 +30,15 @@ enum LedPos : uint8_t
   THUMB_TOP,
 
   // INSERT NEW ENTRIES HERE
-  //PALM_TIP,
-  //PALM_TOP,
+
+  // TODO: palm lights????
+#ifdef USE_PALM_LIGHTS
+  PALM_UP,
+  PALM_RIGHT,
+  PALM_DOWN,
+  PALM_LEFT,
+  PALM_CENTER,
+#endif
 
   // the number of entries above
   LED_COUNT,

@@ -9,7 +9,7 @@
 //       because the test framework allocations will be caught as well. Doing 
 //       things like displaying a color for the first time will allocate space
 //       and never really return it
-#define DEBUG_ALLOCATIONS
+//#define DEBUG_ALLOCATIONS
 
 #ifndef DEBUG_ALLOCATIONS
 
@@ -18,7 +18,7 @@
 #define vrealloc(ptr, size) realloc(ptr, size)
 #define vfree(ptr) free(ptr)
 
-#else
+#else // if DEBUG_ALLOCATIONS
 
 // monitored allocation routines
 #define vmalloc(size) _vmalloc(size)

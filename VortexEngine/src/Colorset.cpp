@@ -352,13 +352,23 @@ RGBColor Colorset::getNext()
 }
 
 // peek at the next color but don't iterate
-RGBColor Colorset::peekNext() const
+RGBColor Colorset::peek(int32_t offset) const
 {
   if (!m_numColors || !m_palette) {
     return RGB_OFF;
   }
+  uint32_t nextIndex = 0;
   // get index of the next color
-  uint32_t nextIndex = (m_curIndex + 1) % numColors();
+  if (offset >= 0) {
+    nextIndex = (m_curIndex + offset) % numColors();
+  } else {
+    if (offset < -1 * (numColors())) {
+      // fuck off
+      // TODO: unfuck this
+      return RGB_OFF;
+    }
+    nextIndex = (m_curIndex + numColors()) + offset;
+  }
   // return the color
   return m_palette[nextIndex];
 }
