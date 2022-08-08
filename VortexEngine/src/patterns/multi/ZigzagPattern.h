@@ -9,7 +9,7 @@
 #define NUM_ZIGZAG_STEPS LED_COUNT
 #define HALF_ZIGZAG_STEPS (NUM_ZIGZAG_STEPS / 2)
 // step 8 is right after the middle finger
-#define ZIGZAG_CHANGE_STEP 8
+#define ZIGZAG_CHANGE_STEP 2
 
 class ZigzagPattern : public MultiLedPattern
 {
