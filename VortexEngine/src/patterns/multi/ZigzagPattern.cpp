@@ -8,7 +8,7 @@
 // Mapping of LED positions to steps.
 // The lights runs across tips, then back across tops.
 // Index this array with m_step in order to get correct LedPos
-const LedPos ZigzagPattern::ledStepPositions[NUM_ZIGZAG_STEPS] = {
+const LedPos ZigzagPattern::ledStepPositions[] = {
   PINKIE_TOP,
   RING_TOP,
   MIDDLE_TOP,
@@ -30,11 +30,15 @@ const LedPos ZigzagPattern::ledStepPositions[NUM_ZIGZAG_STEPS] = {
 #endif
 };
 
+// There just happens to be LED_COUNT steps in the pattern
+#define NUM_ZIGZAG_STEPS (sizeof(ledStepPositions) / sizeof(ledStepPositions[0]))
+#define HALF_ZIGZAG_STEPS (NUM_ZIGZAG_STEPS / 2)
+
 ZigzagPattern::ZigzagPattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
   MultiLedPattern(),
   m_stepDuration(stepDuration),
   m_stepTimer(),
-  m_snake1(0, snakeSize, fadeAmount, 2),
+  m_snake1(0, snakeSize, fadeAmount, 3),
   m_snake2(HALF_ZIGZAG_STEPS, snakeSize, fadeAmount, 8)
 {
 }

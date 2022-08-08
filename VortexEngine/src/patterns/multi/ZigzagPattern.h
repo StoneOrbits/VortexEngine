@@ -5,12 +5,6 @@
 
 #include "../../Timer.h"
 
-// There just happens to be LED_COUNT steps in the pattern
-#define NUM_ZIGZAG_STEPS LED_COUNT
-#define HALF_ZIGZAG_STEPS (NUM_ZIGZAG_STEPS / 2)
-// step 8 is right after the middle finger
-#define ZIGZAG_CHANGE_STEP 3
-
 class ZigzagPattern : public MultiLedPattern
 {
 public:
@@ -49,7 +43,7 @@ private:
   };
 
   // path for leds to take, index this with m_step up to LED_COUNT steps
-  static const LedPos ledStepPositions[NUM_ZIGZAG_STEPS];
+  static const LedPos ledStepPositions[];
 
   // how long each step takes
   uint8_t m_stepDuration;

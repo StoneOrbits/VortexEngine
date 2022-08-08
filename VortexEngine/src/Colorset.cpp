@@ -374,8 +374,7 @@ RGBColor Colorset::peek(int32_t offset) const
       // TODO: unfuck this
       return RGB_OFF;
     }
-    int total = (m_curIndex + numColors());
-    nextIndex = (total + (int)offset) % numColors();
+    nextIndex = ((m_curIndex + numColors()) + (int)offset) % numColors();
   }
   // return the color
   return m_palette[nextIndex];
