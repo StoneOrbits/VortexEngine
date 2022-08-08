@@ -10,7 +10,7 @@
 #include "patterns/multi/RabbitPattern.h"
 #include "patterns/multi/ZigzagPattern.h"
 
-#include "patterns/single/ReciprocalBlendPattern.h"
+#include "patterns/single/ComplementaryBlendPattern.h"
 #include "patterns/single/BracketsPattern.h"
 #include "patterns/single/AdvancedPattern.h"
 #include "patterns/single/TracerPattern.h"
@@ -143,7 +143,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_GHOSTCRUSH: return new BasicPattern(1, 0, 50);
     case PATTERN_ADVANCED: return new AdvancedPattern(5, 5, 10, 2, 2, 1);
     case PATTERN_BLEND: return new BlendPattern();
-    case PATTERN_RECIPROCAL_BLEND: return new ReciprocalBlendPattern();
+    case PATTERN_COMPLEMENTARY_BLEND: return new ComplementaryBlendPattern();
     case PATTERN_BRACKETS: return new BracketsPattern();
     case PATTERN_RABBIT: return new RabbitPattern();
     case PATTERN_HUESHIFT: return new HueShiftPattern();
