@@ -31,7 +31,9 @@ public:
   bool operator!=(const Colorset &other) const;
 
   // initialize the colorset
-  void init();
+  void init(RGBColor c1 = RGB_OFF, RGBColor c2 = RGB_OFF, RGBColor c3 = RGB_OFF,
+    RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF, RGBColor c6 = RGB_OFF,
+    RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
 
   // clear the colorset
   void clear();
@@ -85,6 +87,7 @@ public:
 
   // set the current index of the colorset
   void setCurIndex(uint8_t index);
+  void resetIndex();
 
   // the current index
   uint32_t curIndex() const { return m_curIndex; }

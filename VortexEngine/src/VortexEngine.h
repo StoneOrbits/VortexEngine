@@ -7,7 +7,6 @@
  *
  *  But there is still more to work on:
  *   - Randomize patterns?
- *   - eliminate timer sim start time variable for memory usage
  *   - Implement missing patterns
  *   - IR transmission protocol to allow any length data instead of single burst
  *   - eliminate library code to reduce size

@@ -8,8 +8,10 @@ Timer::Timer() :
   m_alarms(nullptr),
   m_numAlarms(0),
   m_curAlarm(0),
-  m_startTime(0),
-  m_simStartTime(0)
+  m_startTime(0)
+#ifdef TEST_FRAMEWORK
+  , m_simStartTime(0)
+#endif
 {
 }
 
@@ -43,7 +45,10 @@ void Timer::restart(uint32_t offset)
 void Timer::start(uint32_t offset)
 {
   // reset the start time
-  m_simStartTime = m_startTime = Time::getCurtime() + offset;
+  m_startTime = Time::getCurtime() + offset;
+#ifdef TEST_FRAMEWORK
+  m_simStartTime = m_startTime;
+#endif
 }
 
 void Timer::reset()
@@ -53,7 +58,9 @@ void Timer::reset()
   m_numAlarms = 0;
   m_curAlarm = 0;
   m_startTime = 0;
+#ifdef TEST_FRAMEWORK
   m_simStartTime = 0;
+#endif
 }
 
 bool Timer::onStart() const
@@ -118,24 +125,28 @@ AlarmID Timer::alarm()
 
 uint64_t Timer::getStartTime() const
 {
+#ifdef TEST_FRAMEWORK
   // timers use a different 'start time' tracker in simulations so that
   // the startTime remains unchanged when the simulation ends
   if (Time::isSimulation() && m_simStartTime) {
     return m_simStartTime;
   }
+#endif
   return m_startTime;
 }
 
 void Timer::setStartTime(uint64_t tick)
 {
+#ifdef TEST_FRAMEWORK
   // if this timer is running in a simulation then don't actually update
   // the starttime, instead update the simulation start time so that when
   // the simulation ends the startTime will not have changed at all
   if (Time::isSimulation()) {
     // move the sim start time
     m_simStartTime = tick;
-  } else {
-    // move the start time forward
-    m_startTime = tick;
+    return;
   }
+#endif
+  // move the start time forward
+  m_startTime = tick;
 }

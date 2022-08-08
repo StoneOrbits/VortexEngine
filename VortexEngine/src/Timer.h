@@ -60,8 +60,12 @@ private:
   AlarmID m_curAlarm;
   // start time in microseconds
   uint64_t m_startTime;
+
+  // only need time simulations for test framework pattern strip generation
+#ifdef TEST_FRAMEWORK
   // the simulation start time
   uint64_t m_simStartTime;
+#endif
 };
 
 #endif

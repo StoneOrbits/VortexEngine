@@ -33,7 +33,7 @@ void Pattern::bind(const Colorset *set, LedPos pos)
 
 void Pattern::init()
 {
-  m_colorset.init();
+  m_colorset.resetIndex();
 }
 
 // must override the serialize routine to save the pattern
