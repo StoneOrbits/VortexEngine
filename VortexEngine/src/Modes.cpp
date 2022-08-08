@@ -182,10 +182,6 @@ bool Modes::setDefaults()
   PatternID default_end = PATTERN_LAST;
   // initialize a mode for each pattern with an rgb colorset
   for (PatternID pattern = default_start; pattern <= default_end; ++pattern) {
-    // randomize the colorset
-    if ((int)pattern == 0) {
-      defaultSet.randomize(8);
-    }
     // add another mode with the given pattern and colorset
     if (!addMode(pattern, &defaultSet)) {
       ERROR_LOG("Failed to add mode");

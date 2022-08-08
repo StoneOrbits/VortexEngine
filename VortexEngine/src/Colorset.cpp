@@ -22,16 +22,7 @@ Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
   RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8) :
   Colorset()
 {
-  // would be nice if we could do this another way
-  if (!c1.empty()) addColor(c1);
-  if (!c2.empty()) addColor(c2);
-  if (!c3.empty()) addColor(c3);
-  if (!c4.empty()) addColor(c4);
-  if (!c5.empty()) addColor(c5);
-  if (!c6.empty()) addColor(c6);
-  if (!c7.empty()) addColor(c7);
-  if (!c8.empty()) addColor(c8);
-  init();
+  init(c1, c2, c3, c4, c5, c6, c7, c8);
 }
 
 Colorset::Colorset(const Colorset &other) :
@@ -63,7 +54,7 @@ void Colorset::operator=(const Colorset &other)
   for (uint32_t i = 0; i < other.m_numColors; ++i) {
     m_palette[i] = other.m_palette[i];
   }
-  init();
+  resetIndex();
 }
 
 bool Colorset::operator==(const Colorset &other) const
@@ -78,9 +69,20 @@ bool Colorset::operator!=(const Colorset &other) const
   return !operator==(other);
 }
 
-void Colorset::init()
+void Colorset::init(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4, 
+  RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8)
 {
-  m_curIndex = INDEX_NONE;
+  // clear any existing colors
+  clear();
+  // would be nice if we could do this another way
+  if (!c1.empty()) addColor(c1);
+  if (!c2.empty()) addColor(c2);
+  if (!c3.empty()) addColor(c3);
+  if (!c4.empty()) addColor(c4);
+  if (!c5.empty()) addColor(c5);
+  if (!c6.empty()) addColor(c6);
+  if (!c7.empty()) addColor(c7);
+  if (!c8.empty()) addColor(c8);
 }
 
 void Colorset::clear()
@@ -90,7 +92,7 @@ void Colorset::clear()
     m_palette = nullptr;
   }
   m_numColors = 0;
-  init();
+  resetIndex();
 }
 
 bool Colorset::equals(const Colorset *set) const
@@ -323,6 +325,11 @@ void Colorset::setCurIndex(uint8_t index)
   m_curIndex = index;
 }
 
+void Colorset::resetIndex()
+{
+  m_curIndex = INDEX_NONE;
+}
+
 RGBColor Colorset::getPrev()
 {
   if (!m_numColors || !m_palette) {
@@ -352,13 +359,23 @@ RGBColor Colorset::getNext()
 }
 
 // peek at the next color but don't iterate
-RGBColor Colorset::peekNext() const
+RGBColor Colorset::peek(int32_t offset) const
 {
   if (!m_numColors || !m_palette) {
     return RGB_OFF;
   }
+  uint32_t nextIndex = 0;
   // get index of the next color
-  uint32_t nextIndex = (m_curIndex + 1) % numColors();
+  if (offset >= 0) {
+    nextIndex = (m_curIndex + offset) % numColors();
+  } else {
+    if (offset < -1 * (numColors())) {
+      // fuck off
+      // TODO: unfuck this
+      return RGB_OFF;
+    }
+    nextIndex = ((m_curIndex + numColors()) + (int)offset) % numColors();
+  }
   // return the color
   return m_palette[nextIndex];
 }

@@ -41,6 +41,11 @@ public:
   static void clearFinger(Finger finger) { setFinger(finger, HSV_OFF); }
   static void clearFingers(Finger first, Finger last) { setFingers(first, last, HSV_OFF); }
 
+  // Dim individual LEDs, these are appropriate to use in internal pattern logic
+  static void adjustBrightnessIndex(LedPos target, uint8_t fadeBy);
+  static void adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy);
+  static void adjustBrightnessAll(uint8_t fadeBy);
+  
   // Blink an led to blank or a color
   //
   // These APIs work by checking if the current time is within the
@@ -57,6 +62,9 @@ public:
   // Blink both LEDs on a finger
   static void blinkFinger(Finger finger, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkFingers(Finger first, Finger last, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+
+  // get the RGBColor of an Led index
+  static RGBColor getLed(int index) { return m_ledColors[index]; }
 
   // global brightness
   static uint32_t getBrightness() { return m_brightness; }

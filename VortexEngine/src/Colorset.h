@@ -31,7 +31,9 @@ public:
   bool operator!=(const Colorset &other) const;
 
   // initialize the colorset
-  void init();
+  void init(RGBColor c1 = RGB_OFF, RGBColor c2 = RGB_OFF, RGBColor c3 = RGB_OFF,
+    RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF, RGBColor c6 = RGB_OFF,
+    RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
 
   // clear the colorset
   void clear();
@@ -85,6 +87,7 @@ public:
 
   // set the current index of the colorset
   void setCurIndex(uint8_t index);
+  void resetIndex();
 
   // the current index
   uint32_t curIndex() const { return m_curIndex; }
@@ -95,8 +98,11 @@ public:
   // get the next color in cycle
   RGBColor getNext();
 
-  // peek at the next color but don't iterate
-  RGBColor peekNext() const;
+  // peek at the color indexes from current but don't iterate
+  RGBColor peek(int32_t offset) const;
+
+  // better wording for peek 1 ahead
+  RGBColor peekNext() const { return peek(1); }
 
   // the number of colors in the palette
   uint32_t numColors() const { return m_numColors; }

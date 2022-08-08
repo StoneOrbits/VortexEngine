@@ -38,7 +38,7 @@ void SolidPattern::unserialize(SerialBuffer &buffer)
 void SolidPattern::onBlinkOn()
 {
   if (m_colIndex == 0) {
-    m_colorset.init();
+    m_colorset.resetIndex();
   } else {
     m_colorset.setCurIndex(m_colIndex - 1);
   }
