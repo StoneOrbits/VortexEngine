@@ -1,37 +1,37 @@
-#include "ReciprocalBlendPattern.h"
+#include "ComplementaryBlendPattern.h"
 
 #include "../../Colorset.h"
 #include "../../Leds.h"
 
-ReciprocalBlendPattern::ReciprocalBlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t blendSpeed) :
+ComplementaryBlendPattern::ComplementaryBlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t blendSpeed) :
   BlendPattern(onDuration, offDuration, blendSpeed),
   m_showingComplement(false)
 {
 }
 
-ReciprocalBlendPattern::~ReciprocalBlendPattern()
+ComplementaryBlendPattern::~ComplementaryBlendPattern()
 {
 }
 
-void ReciprocalBlendPattern::init()
+void ComplementaryBlendPattern::init()
 {
   BlendPattern::init();
   m_showingComplement = false;
 }
 
-void ReciprocalBlendPattern::serialize(SerialBuffer &buffer) const
+void ComplementaryBlendPattern::serialize(SerialBuffer &buffer) const
 {
   //DEBUG_LOG("Serialize");
   BlendPattern::serialize(buffer);
 }
 
-void ReciprocalBlendPattern::unserialize(SerialBuffer &buffer)
+void ComplementaryBlendPattern::unserialize(SerialBuffer &buffer)
 {
   //DEBUG_LOG("Unserialize");
   BlendPattern::unserialize(buffer);
 }
 
-void ReciprocalBlendPattern::onBlinkOn()
+void ComplementaryBlendPattern::onBlinkOn()
 {
   // every other tick show the complement color
   m_showingComplement = !m_showingComplement;

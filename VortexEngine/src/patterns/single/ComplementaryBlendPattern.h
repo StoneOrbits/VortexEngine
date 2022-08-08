@@ -1,15 +1,15 @@
-#ifndef RECIPROCAL_BLEND_PATTERN_H
-#define RECIPROCAL_BLEND_PATTERN_H
+#ifndef COMPLEMENTARY_BLEND_PATTERN_H
+#define COMPLEMENTARY_BLEND_PATTERN_H
 
 #include <inttypes.h>
 
 #include "BlendPattern.h"
 
-class ReciprocalBlendPattern : public BlendPattern
+class ComplementaryBlendPattern : public BlendPattern
 {
 public:
-  ReciprocalBlendPattern(uint8_t onDuration = 2, uint8_t offDuration = 13, uint8_t speed = 1);
-  virtual ~ReciprocalBlendPattern();
+  ComplementaryBlendPattern(uint8_t onDuration = 2, uint8_t offDuration = 13, uint8_t speed = 1);
+  virtual ~ComplementaryBlendPattern();
 
   virtual void init() override;
 
