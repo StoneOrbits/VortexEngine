@@ -91,6 +91,8 @@ typedef int LedMap;
 // bitmap of all fingers (basically LED_COUNT bits)
 #define MAP_LED_ALL ((2 << (LED_COUNT - 1)) - 1)
 
+#define MAP_INVERSE(map) ((~map) & MAP_LED_ALL)
+
 // Some preset bitmaps for finger groupings
 #define MAP_FINGER_ODD_TIPS (MAP_FINGER_TIP(FINGER_PINKIE) | MAP_FINGER_TIP(FINGER_MIDDLE) | MAP_FINGER_TIP(FINGER_THUMB))
 #define MAP_FINGER_ODD_TOPS (MAP_FINGER_TOP(FINGER_PINKIE) | MAP_FINGER_TOP(FINGER_MIDDLE) | MAP_FINGER_TOP(FINGER_THUMB))

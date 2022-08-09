@@ -12,6 +12,8 @@
 // the starting default brightness
 #define DEFAULT_BRIGHTNESS 255
 
+class LedStash;
+
 class Leds
 {
   // private unimplemented constructor
@@ -41,11 +43,35 @@ public:
   static void clearFinger(Finger finger) { setFinger(finger, HSV_OFF); }
   static void clearFingers(Finger first, Finger last) { setFingers(first, last, HSV_OFF); }
 
+  // Controll finger tips
+  static void setRangeTips(Finger first, Finger last, RGBColor);
+  static void setAllTips(RGBColor col);
+  // Controll finger tops
+  static void setRangeTops(Finger first, Finger last, RGBColor);
+  static void setAllTops(RGBColor col);
+
+  // Turn off tips 
+  static void clearRangeTips(Finger first, Finger last);
+  static void clearAllTips();
+  // Turn off tops
+  static void clearRangeTops(Finger first, Finger last);
+  static void clearAllTops();
+
+  // Turn on/off a mapping of leds with a color
+  static void setMap(LedMap map, RGBColor col);
+  static void clearMap(LedMap map);
+
+  // stores Led for later use 
+  static void stashAll(LedStash &stash);
+  
+  // restores Leds from stash
+  static void restoreAll(const LedStash &stash);
+ 
   // Dim individual LEDs, these are appropriate to use in internal pattern logic
   static void adjustBrightnessIndex(LedPos target, uint8_t fadeBy);
   static void adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy);
   static void adjustBrightnessAll(uint8_t fadeBy);
-  
+
   // Blink an led to blank or a color
   //
   // These APIs work by checking if the current time is within the

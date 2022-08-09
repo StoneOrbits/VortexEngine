@@ -9,6 +9,16 @@
 #include "patterns/multi/HueShiftPattern.h"
 #include "patterns/multi/RabbitPattern.h"
 #include "patterns/multi/ZigzagPattern.h"
+#include "patterns/multi/TipTopPattern.h"
+#include "patterns/multi/DripPattern.h"
+#include "patterns/multi/CrossDopsPattern.h"
+#include "patterns/multi/DoubleStrobePattern.h"
+#include "patterns/multi/MeteorPattern.h"
+#include "patterns/multi/SparkleTracePattern.h"
+#include "patterns/multi/VortexWipePattern.h"
+#include "patterns/multi/WarpPattern.h"
+#include "patterns/multi/WarpWormPattern.h"
+#include "patterns/multi/FillPattern.h"
 
 #include "patterns/single/ComplementaryBlendPattern.h"
 #include "patterns/single/BracketsPattern.h"
@@ -157,8 +167,19 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_CHASER: return createChaser();
     case PATTERN_ZIGZAG: return new ZigzagPattern();
     case PATTERN_ZIPFADE: return new ZigzagPattern(100, 4);
+    case PATTERN_TIPTOP: return new TipTopPattern();
+    case PATTERN_DRIP: return new DripPattern();
+    case PATTERN_CROSSDOPS:return new CrossDopsPattern();
+    case PATTERN_DOUBLESTROBE:return new DoubleStrobePattern();
+    case PATTERN_METEOR:return new MeteorPattern();
+    case PATTERN_SPARKLETRACE:return new SparkleTracePattern();
+    case PATTERN_VORTEXWIPE:return new VortexWipePattern();
+    case PATTERN_WARP:return new WarpPattern();
+    case PATTERN_WARPWORM:return new WarpWormPattern();
+    case PATTERN_FILL:return new FillPattern();
     case PATTERN_NONE: return nullptr;
     default: break;
+
   }
   DEBUG_LOGF("Unknown pattern id: %u", id);
   return nullptr;

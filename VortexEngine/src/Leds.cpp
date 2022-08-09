@@ -2,6 +2,7 @@
 #include <Adafruit_DotStar.h>
 
 #include "TimeControl.h"
+#include "LedStash.h"
 #include "Modes.h"
 #include "Leds.h"
 
@@ -76,6 +77,92 @@ void Leds::setFingers(Finger first, Finger last, RGBColor col)
 {
   // start from tip and go to top
   setRange(fingerTip(first), fingerTop(last), col);
+}
+
+void Leds::setRangeTips(Finger first, Finger last, RGBColor col)
+{
+  for (Finger pos = first; pos <= last; pos++) {
+    setIndex(fingerTip(pos), col);
+  }
+}
+
+void Leds::setAllTips(RGBColor col)
+{
+  for (Finger pos = FINGER_FIRST; pos <= FINGER_LAST; pos++) {
+    setIndex(fingerTip(pos), col);
+  }
+}
+
+void Leds::setRangeTops(Finger first, Finger last, RGBColor col)
+{
+  for (Finger pos = first; pos <= last; pos++) {
+    setIndex(fingerTop(pos), col);
+  }
+}
+
+void Leds::setAllTops(RGBColor col)
+{
+  for (Finger pos = FINGER_FIRST; pos <= FINGER_LAST; pos++) {
+    setIndex(fingerTop(pos), col);
+  }
+}
+
+void Leds::clearRangeTips(Finger first, Finger last) {
+  for (Finger pos = first; pos <= last; pos++) {
+    clearIndex(fingerTip(pos));
+  }
+}
+
+void Leds::clearAllTips()
+{
+  for (Finger pos = FINGER_FIRST; pos <= FINGER_LAST; pos++) {
+    clearIndex(fingerTip(pos));
+  }
+}
+
+void Leds::clearRangeTops(Finger first, Finger last) {
+  for (Finger pos = first; pos <= last; pos++) {
+    clearIndex(fingerTop(pos));
+  }
+}
+
+void Leds::clearAllTops()
+{
+  for (Finger pos = FINGER_FIRST; pos <= FINGER_LAST; pos++) {
+    clearIndex(fingerTop(pos));
+  }
+}
+
+void Leds::setMap(LedMap map, RGBColor col)
+{
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    if (checkLed(map, pos)) {
+      setIndex(pos, col);
+    }
+  }
+}
+
+void Leds::clearMap(LedMap map)
+{
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    if (checkLed(map, pos)) {
+      clearIndex(pos);
+    }
+  }
+}
+
+void Leds::stashAll(LedStash &stash)
+{
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    stash.m_ledColorsStash[pos] = m_ledColors[pos];
+  }
+}
+
+void Leds::restoreAll(const LedStash &stash)
+{
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    m_ledColors[pos] = stash.m_ledColorsStash[pos];
+  }
 }
 
 void Leds::adjustBrightnessIndex(LedPos target, uint8_t fadeBy)

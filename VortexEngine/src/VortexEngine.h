@@ -6,6 +6,8 @@
  *  Everything is working somewhat well
  *
  *  But there is still more to work on:
+ *   - Fix bug in compression/decompression chopping last byte (blue)
+ *   - Move timings of blink on/off to Timings.h
  *   - Randomize patterns?
  *   - Implement missing patterns
  *   - IR transmission protocol to allow any length data instead of single burst
