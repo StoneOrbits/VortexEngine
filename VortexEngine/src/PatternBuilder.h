@@ -25,6 +25,8 @@ public:
 
 private:
   // helper routines
+  static Pattern *createTheaterChase();
+  static Pattern *createChaser();
   static Pattern *makeInternal(PatternID id);
   static Pattern *generate(PatternID id);
 };
