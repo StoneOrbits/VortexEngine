@@ -112,7 +112,7 @@ private:
   // the structure of raw data that's written to storage
   struct RawBuffer
   {
-    RawBuffer() : size(0), flags(0), crc32(5381), buf() {}
+    RawBuffer() : size(0), flags(0), crc32(5381) {}
     // hash the raw buffer into crc
     uint32_t hash()
     {
