@@ -61,6 +61,16 @@ enum Finger : uint8_t
   FINGER_LAST = (FINGER_COUNT - 1),
 };
 
+// check if an led is finger tip or top
+inline bool isFingerTip(LedPos pos)
+{
+  return (pos % 2) == 0;
+}
+inline bool isFingerTop(LedPos pos)
+{
+  return (pos % 2) != 0;
+}
+
 // get the led index for the tip/top of a finger
 inline LedPos fingerTip(Finger finger)
 {
@@ -92,6 +102,10 @@ typedef int LedMap;
 #define MAP_LED_ALL ((2 << (LED_COUNT - 1)) - 1)
 
 #define MAP_INVERSE(map) ((~map) & MAP_LED_ALL)
+
+// macro for all tips and all tops
+#define MAP_FINGER_TIPS (MAP_FINGER_TIP(FINGER_PINKIE) | MAP_FINGER_TIP(FINGER_RING) | MAP_FINGER_TIP(FINGER_MIDDLE) | MAP_FINGER_TIP(FINGER_INDEX) | MAP_FINGER_TIP(FINGER_THUMB))
+#define MAP_FINGER_TOPS (MAP_FINGER_TOP(FINGER_PINKIE) | MAP_FINGER_TOP(FINGER_RING) | MAP_FINGER_TOP(FINGER_MIDDLE) | MAP_FINGER_TOP(FINGER_INDEX) | MAP_FINGER_TOP(FINGER_THUMB))
 
 // Some preset bitmaps for finger groupings
 #define MAP_FINGER_ODD_TIPS (MAP_FINGER_TIP(FINGER_PINKIE) | MAP_FINGER_TIP(FINGER_MIDDLE) | MAP_FINGER_TIP(FINGER_THUMB))

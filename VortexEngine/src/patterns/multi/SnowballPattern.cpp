@@ -1,33 +1,35 @@
-#include "WarpWormPattern.h"
+#include "SnowballPattern.h"
 
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
 #include "../../Leds.h"
 #include "../../Log.h"
 
-WarpWormPattern::WarpWormPattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
+#define WORM_SIZE 6
+
+SnowballPattern::SnowballPattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
   BlinkStepPattern(2, 7, 100),
   m_progress()
 {
 }
 
-WarpWormPattern::~WarpWormPattern()
+SnowballPattern::~SnowballPattern()
 {
 }
 
 // init the pattern to initial state
-void WarpWormPattern::init()
+void SnowballPattern::init()
 {
   BlinkStepPattern::init();
-  // start colorset at index 0 so cur() works
+
+  // start at index 1
   m_colorset.setCurIndex(1);
 }
 
-void WarpWormPattern::blinkOn()
+void SnowballPattern::blinkOn()
 {
-  int wormSize = 6;
   Leds::setAll(m_colorset.get(0));
-  for (int body = 0; body < wormSize; ++body) {
+  for (int body = 0; body < WORM_SIZE; ++body) {
     if (body + m_progress < LED_COUNT) {
       Leds::setIndex((LedPos)(body + m_progress), m_colorset.cur());
     } else {
@@ -40,13 +42,11 @@ void WarpWormPattern::blinkOn()
   }
 }
 
-void WarpWormPattern::poststep()
+void SnowballPattern::poststep()
 {
-  m_progress = (m_progress + 1) % LED_COUNT;
-  if (m_progress == 0) {
-    m_colorset.getNext();
-    if (m_colorset.curIndex() == 0) {
-      m_colorset.getNext();
-    }
+  m_colorset.skip();
+  if (m_colorset.curIndex() == 0) {
+    m_progress = (m_progress + 1) % LED_COUNT;
+    m_colorset.skip();
   }
 }

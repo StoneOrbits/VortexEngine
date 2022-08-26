@@ -1,34 +1,35 @@
-#include "FillPattern.h"
+#include "WarpPattern.h"
 
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
 #include "../../Leds.h"
 #include "../../Log.h"
 
-FillPattern::FillPattern() :
+WarpPattern::WarpPattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
   BlinkStepPattern(3, 12, 50),
   m_progress()
 {
 }
 
-FillPattern::~FillPattern()
+WarpPattern::~WarpPattern()
 {
 }
 
-void FillPattern::init()
+// init the pattern to initial state
+void WarpPattern::init()
 {
   BlinkStepPattern::init();
   // start colorset at index 0 so cur() works
   m_colorset.setCurIndex(0);
 }
 
-void FillPattern::blinkOn()
+void WarpPattern::blinkOn()
 {
-  Leds::setFingers(FINGER_FIRST, (Finger)m_progress, m_colorset.peekNext());
-  Leds::setFingers((Finger)m_progress, FINGER_COUNT, m_colorset.cur());
+  Leds::setAll(m_colorset.cur());
+  Leds::setFinger((Finger)m_progress, m_colorset.peekNext());
 }
 
-void FillPattern::poststep()
+void WarpPattern::poststep()
 {
   m_progress = (m_progress + 1) % FINGER_COUNT;
   if (m_progress == 0) {

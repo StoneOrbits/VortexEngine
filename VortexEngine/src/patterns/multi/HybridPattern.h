@@ -27,6 +27,8 @@ public:
   virtual void unserialize(SerialBuffer &buffer) override;
 
 protected:
+  // set a pattern at an index of the hybrid pattern (optionally replace colorset)
+  void setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
   void clearPatterns();
 
   // array of single LED patterns, one for each LED

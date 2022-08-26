@@ -1,0 +1,95 @@
+#include "BlinkStepPattern.h"
+
+#include "../../SerialBuffer.h"
+#include "../../TimeControl.h"
+#include "../../Leds.h"
+#include "../../Log.h"
+
+BlinkStepPattern::BlinkStepPattern(uint8_t blinkOn, uint8_t blinkOff, uint8_t stepDuration) :
+  MultiLedPattern(),
+  m_blinkOnDuration(blinkOn),
+  m_blinkOffDuration(blinkOff),
+  m_stepDuration(stepDuration),
+  m_blinkTimer(),
+  m_stepTimer()
+{
+}
+
+BlinkStepPattern::~BlinkStepPattern()
+{
+}
+
+// init the pattern to initial state
+void BlinkStepPattern::init()
+{
+  MultiLedPattern::init();
+
+  // reset the blink timer entirely
+  m_blinkTimer.reset();
+  // dops timing
+  m_blinkTimer.addAlarm(m_blinkOnDuration);
+  m_blinkTimer.addAlarm(m_blinkOffDuration);
+  // start the blink timer from the next frame
+  m_blinkTimer.start();
+
+  // reset and add alarm
+  m_stepTimer.reset();
+  m_stepTimer.addAlarm(m_stepDuration);
+  m_stepTimer.start();
+}
+
+// pure virtual must override the play function
+void BlinkStepPattern::play()
+{
+  // whether to trigger a step event based on the step timer
+  bool shouldStep = (m_stepTimer.alarm() == 0);
+  if (shouldStep) {
+    prestep();
+  }
+  switch (m_blinkTimer.alarm()) {
+  case -1: // just break and still run post-step
+    break;
+  case 0: // turn on the leds for given mapping
+    blinkOn();
+    break;
+  case 1: // turn off the leds
+    blinkOff();
+    break;
+  }
+  if (shouldStep) {
+    poststep();
+  }
+}
+
+// must override the serialize routine to save the pattern
+void BlinkStepPattern::serialize(SerialBuffer& buffer) const
+{
+  MultiLedPattern::serialize(buffer);
+}
+
+void BlinkStepPattern::unserialize(SerialBuffer& buffer)
+{
+  MultiLedPattern::unserialize(buffer);
+}
+
+void BlinkStepPattern::blinkOn()
+{
+  // override me
+}
+
+void BlinkStepPattern::blinkOff()
+{
+  // override me
+  Leds::clearAll();
+}
+
+void BlinkStepPattern::prestep()
+{
+  // override me
+}
+
+void BlinkStepPattern::poststep()
+{
+  // override me
+  m_colorset.getNext();
+}
