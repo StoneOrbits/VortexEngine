@@ -19,6 +19,14 @@
 #include "patterns/multi/WarpPattern.h"
 #include "patterns/multi/WarpWormPattern.h"
 #include "patterns/multi/FillPattern.h"
+#include "patterns/multi/SnowballPattern.h"
+#include "patterns/multi/LighthousePattern.h"
+#include "patterns/multi/PulsishPattern.h"
+#include "patterns/multi/BouncePattern.h"
+#include "patterns/multi/SplitStrobiePattern.h"
+#include "Patterns/multi/BackStrobePattern.h"
+#include "patterns/multi/FlowersPattern.h"
+#include "patterns/multi/JestPattern.h"
 
 #include "patterns/single/ComplementaryBlendPattern.h"
 #include "patterns/single/BracketsPattern.h"
@@ -176,7 +184,15 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_VORTEXWIPE:return new VortexWipePattern();
     case PATTERN_WARP:return new WarpPattern();
     case PATTERN_WARPWORM:return new WarpWormPattern();
+    case PATTERN_SNOWBALL:return new SnowballPattern();
+    case PATTERN_LIGHTHOUSE:return new LighthousePattern();
+    case PATTERN_PULSISH:return new PulsishPattern();
     case PATTERN_FILL:return new FillPattern();
+    case PATTERN_BOUNCE:return new BouncePattern();
+    case PATTERN_SPLITSTROBIE:return new SplitStrobiePattern();
+    case PATTERN_BACKSTROBE:return new BackStrobePattern();
+    case PATTERN_FLOWERS:return new FlowersPattern();
+    case PATTERN_JEST:return new JestPattern();
     case PATTERN_NONE: return nullptr;
     default: break;
 

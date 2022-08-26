@@ -1,14 +1,9 @@
 #include "CrossDopsPattern.h"
 
-#include "../../SerialBuffer.h"
-#include "../../TimeControl.h"
 #include "../../Leds.h"
-#include "../../Log.h"
 
 CrossDopsPattern::CrossDopsPattern() :
-  MultiLedPattern(),
-  m_blinkTimer(),
-  m_flipTimer(),
+  BlinkStepPattern(2, 13, 100),
   m_ledMap(0)
 {
 }
@@ -20,57 +15,22 @@ CrossDopsPattern::~CrossDopsPattern()
 // init the pattern to initial state
 void CrossDopsPattern::init()
 {
-  MultiLedPattern::init();
-
-  // reset the blink timer entirely
-  m_blinkTimer.reset();
-  // dops timing
-  m_blinkTimer.addAlarm(2);
-  m_blinkTimer.addAlarm(13);
-  // start the blink timer from the next frame
-  m_blinkTimer.start();
-
-  // reset and add alarm
-  m_flipTimer.reset();
-  m_flipTimer.addAlarm(100);
-  m_flipTimer.start();
-
+  BlinkStepPattern::init();
   // Alternating tops and tips mapping of leds to turn on/off
-  m_ledMap = MAP_LED(THUMB_TOP) |
-             MAP_LED(INDEX_TIP) |
-             MAP_LED(MIDDLE_TOP) |
-             MAP_LED(RING_TIP) |
-             MAP_LED(PINKIE_TOP);
+  m_ledMap = MAP_LED(THUMB_TOP) | MAP_LED(INDEX_TIP) | MAP_LED(MIDDLE_TOP) | MAP_LED(RING_TIP) | MAP_LED(PINKIE_TOP);
+  // start colorset at index 0 so cur() works
+  m_colorset.setCurIndex(0);
 }
 
-// pure virtual must override the play function
-void CrossDopsPattern::play()
+void CrossDopsPattern::blinkOn()
 {
-  if (m_flipTimer.alarm() == 0) {
-    m_colorset.getNext();
-    // inverse of all the above tops/tips
-    m_ledMap = MAP_INVERSE(m_ledMap);
-  }
-  
-  switch (m_blinkTimer.alarm()) {
-  case -1: // just return
-    return;
-  case 0: // turn on the leds for given mapping
-    Leds::setMap(m_ledMap, m_colorset.cur());
-    break;
-  case 1: // turn off the leds
-    Leds::clearAll();
-    break;
-  }
+  // set the current color on all the given leds
+  Leds::setMap(m_ledMap, m_colorset.cur());
 }
 
-// must override the serialize routine to save the pattern
-void CrossDopsPattern::serialize(SerialBuffer& buffer) const
+void CrossDopsPattern::poststep()
 {
-  MultiLedPattern::serialize(buffer);
-}
-
-void CrossDopsPattern::unserialize(SerialBuffer& buffer)
-{
-  MultiLedPattern::unserialize(buffer);
+  // iterate to next color and invert of all the tops/tips
+  m_colorset.getNext();
+  m_ledMap = MAP_INVERSE(m_ledMap);
 }

@@ -83,3 +83,21 @@ void HybridPattern::clearPatterns()
     m_ledPatterns[pos] = nullptr;
   }
 }
+
+void HybridPattern::setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set)
+{
+  if (!pat || pos >= LED_COUNT) {
+    return;
+  }
+  if (!set) {
+    set = &m_colorset;
+  }
+  pat->bind(set, pos);
+  pat->init();
+  // handle re-initialization and prevent leaks
+  if (m_ledPatterns[pos]) {
+    delete m_ledPatterns[pos];
+  }
+  // store the pattern for the given led
+  m_ledPatterns[pos] = pat;
+}

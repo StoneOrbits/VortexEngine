@@ -6,9 +6,7 @@
 #include "../../Log.h"
 
 MeteorPattern::MeteorPattern() :
-  MultiLedPattern(),
-  m_blinkTimer(),
-  m_spawnTimer(),
+  BlinkStepPattern(5, 8, 50),
   m_stash()
 {
 }
@@ -17,53 +15,19 @@ MeteorPattern::~MeteorPattern()
 {
 }
 
-// init the pattern to initial state
-void MeteorPattern::init()
+void MeteorPattern::blinkOn()
 {
-  MultiLedPattern::init();
-
-  // reset the blink timer entirely
-  m_blinkTimer.reset();
-  // dops timing
-  m_blinkTimer.addAlarm(5);
-  m_blinkTimer.addAlarm(8);
-  // start the blink timer from the next frame
-  m_blinkTimer.start();
-
-  // reset and add alarm
-  m_spawnTimer.reset();
-  m_spawnTimer.addAlarm(50);
-  m_spawnTimer.start();
+  Leds::restoreAll(m_stash);
+  Leds::adjustBrightnessAll(15);
 }
 
-// pure virtual must override the play function
-void MeteorPattern::play()
+void MeteorPattern::blinkOff()
 {
-  if (m_spawnTimer.alarm() == 0) {
-    Leds::setFinger((Finger)random(FINGER_FIRST, FINGER_LAST + 1), m_colorset.getNext());
-  }
-
-  switch (m_blinkTimer.alarm()) {
-  case -1: // just return
-    return;
-  case 0: // turn on the leds
-    Leds::restoreAll(m_stash);
-    Leds::adjustBrightnessAll(15);
-    break;
-  case 1: // turn on the leds
-    Leds::stashAll(m_stash);
-    Leds::clearAll();
-    break;
-  }
+  Leds::stashAll(m_stash);
+  Leds::clearAll();
 }
 
-// must override the serialize routine to save the pattern
-void MeteorPattern::serialize(SerialBuffer& buffer) const
+void MeteorPattern::poststep()
 {
-  MultiLedPattern::serialize(buffer);
-}
-
-void MeteorPattern::unserialize(SerialBuffer& buffer)
-{
-  MultiLedPattern::unserialize(buffer);
+  Leds::setFinger((Finger)random(FINGER_FIRST, FINGER_COUNT), m_colorset.getNext());
 }
