@@ -19,7 +19,6 @@ enum PatternID : uint8_t
   // all 'single led' patterns below
 
   PATTERN_STROBE = PATTERN_FIRST,  // basicpattern 5 8 0
-  PATTERN_SOLID,
   PATTERN_HYPERSTROBE, // basicpattern 25 25 0
   PATTERN_DOPS, // basicpattern 2 13 0
   PATTERN_DOPISH, // basicpattern 2 7 0
@@ -35,6 +34,11 @@ enum PatternID : uint8_t
   PATTERN_BLEND,  // BlendPattern 2, 13, 1
   PATTERN_COMPLEMENTARY_BLEND,  // ComplementaryBlendPattern 2, 13, 1
   PATTERN_BRACKETS,  // BracketsPattern
+
+  // solid patterns are mainly used as components of complex patterns
+  PATTERN_SOLID0, // solid of 0th color in colorset
+  PATTERN_SOLID1, // solid of 1st color in colorset
+  PATTERN_SOLID2, // solid of 2nd color in colorset
 
   // ADD NEW SINGLE LED PATTERNS HERE
   // WARNING This will offset all multi-led patterns so IR sharing

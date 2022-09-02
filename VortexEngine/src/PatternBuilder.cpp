@@ -3,6 +3,7 @@
 #include "SerialBuffer.h"
 #include "TimeControl.h"
 #include "Sequence.h"
+#include "Timings.h"
 
 #include "patterns/multi/TheaterChasePattern.h"
 #include "patterns/multi/SequencedPattern.h"
@@ -138,7 +139,7 @@ Pattern *PatternBuilder::createChaser()
     // each step starts all fingers are dops
     PatternMap patMap(PATTERN_DOPS);
     // and one finger that moves back and forth is solid
-    patMap.setPatternAt(PATTERN_SOLID, MAP_FINGER((Finger)((i < 5) ? i : (8 - i))));
+    patMap.setPatternAt(PATTERN_SOLID0, MAP_FINGER((Finger)((i < 5) ? i : (8 - i))));
     // the step lasts for 300ms
     chaserSequence.addStep(300, patMap);
   }
@@ -151,10 +152,12 @@ Pattern *PatternBuilder::generate(PatternID id)
   //       which means altering the tickrate will not change how fast
   //       a pattern displays unless you re-create it
   switch (id) {
-    case PATTERN_STROBE: return new BasicPattern(5, 8);
-    case PATTERN_SOLID: return new SolidPattern(0, 20);
-    case PATTERN_HYPERSTROBE: return new BasicPattern(25, 25);
-    case PATTERN_DOPS: return new BasicPattern(2, 13);
+
+    // =====================
+    //  Single Led Patterns:
+    case PATTERN_STROBE: return new BasicPattern(STROBE_ON_DURATION, STROBE_OFF_DURATION);
+    case PATTERN_HYPERSTROBE: return new BasicPattern(HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION);
+    case PATTERN_DOPS: return new BasicPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION);
     case PATTERN_DOPISH: return new BasicPattern(2, 7);
     case PATTERN_ULTRADOPS: return new BasicPattern(1, 3);
     case PATTERN_STROBIE: return new BasicPattern(3, 22);
@@ -169,6 +172,14 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_BLEND: return new BlendPattern();
     case PATTERN_COMPLEMENTARY_BLEND: return new ComplementaryBlendPattern();
     case PATTERN_BRACKETS: return new BracketsPattern();
+
+    // Solid Single led patterns
+    case PATTERN_SOLID0: return new SolidPattern(0, 100);
+    case PATTERN_SOLID1: return new SolidPattern(1, 100);
+    case PATTERN_SOLID2: return new SolidPattern(2, 100);
+
+    // =====================
+    //  Multi Led Patterns:
     case PATTERN_RABBIT: return new RabbitPattern();
     case PATTERN_HUESHIFT: return new HueShiftPattern();
     case PATTERN_THEATER_CHASE: return createTheaterChase();
