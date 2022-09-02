@@ -86,7 +86,7 @@ bool Randomizer::reRoll()
   Colorset randomSet;
   // pick a random type of randomizer to use then use 
   // the randomizer to generate a random colorset
-  uint32_t randType = random(0, 7);
+  uint32_t randType = random(0, 6);
   switch (randType) {
   default:
   case 0:
@@ -99,35 +99,34 @@ bool Randomizer::reRoll()
     randomSet.randomizeMonochromatic();
     break;
   case 3:
-    // TODO: same one twice?
     randomSet.randomizeDoubleSplitComplimentary();
     break;
   case 4:
-    randomSet.randomizeDoubleSplitComplimentary();
-    break;
-  case 5:
     randomSet.randomizeTetradic();
     break;
-  case 6:
+  case 5:
     randomSet.randomizeEvenlySpaced();
     break;
   }
+  // create a random pattern ID from all patterns
+  PatternID randomPattern = (PatternID)random(PATTERN_FIRST, PATTERN_COUNT);
   if (!m_pRandomizedMode) {
     if (!m_pCurMode) {
       return false;
     }
     // create a new randomized mode out of the colors
-    m_pRandomizedMode = ModeBuilder::make(m_pCurMode->getPatternID(), &randomSet);
+    m_pRandomizedMode = ModeBuilder::make(randomPattern, &randomSet);
     if (!m_pRandomizedMode) {
       return false;
     }
   } else {
+    // set Randomized PatternID and color set
+    m_pRandomizedMode->setPattern(randomPattern);
     m_pRandomizedMode->setColorset(&randomSet);
   }
   m_pRandomizedMode->init();
 
-  DEBUG_LOGF("Randomized set with randomization technique %u and %u colors",
-    randType, randomSet.numColors());
-
+  DEBUG_LOGF("Randomized set with randomization technique %u, %u colors, and Pattern number %u",
+    randType, randomSet.numColors(), randomPattern);
   return true;
 }
