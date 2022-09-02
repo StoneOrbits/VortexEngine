@@ -47,4 +47,22 @@
 #define FIXED_TICKRATE
 #endif
 
+// Strobe Timings
+//
+// Below are timings for all different kinds of standard
+// strobes as defined by the gloving community.  All times 
+// are in milliseconds.
+
+// Basic Strobe
+#define STROBE_ON_DURATION          5
+#define STROBE_OFF_DURATION         8
+
+// Hyperstrobe
+#define HYPERSTROBE_ON_DURATION     25
+#define HYPERSTROBE_OFF_DURATION    25
+
+// Dops
+#define DOPS_ON_DURATION            2
+#define DOPS_OFF_DURATION           13
+
 #endif
