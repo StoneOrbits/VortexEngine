@@ -158,15 +158,13 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_STROBE: return new BasicPattern(STROBE_ON_DURATION, STROBE_OFF_DURATION);
     case PATTERN_HYPERSTROBE: return new BasicPattern(HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION);
     case PATTERN_DOPS: return new BasicPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION);
-    case PATTERN_DOPISH: return new BasicPattern(2, 7);
-    case PATTERN_ULTRADOPS: return new BasicPattern(1, 3);
-    case PATTERN_STROBIE: return new BasicPattern(3, 22);
-    case PATTERN_RIBBON: return new BasicPattern(20);
-  #if 0
+    case PATTERN_DOPISH: return new BasicPattern(DOPISH_ON_DURATION, DOPISH_OFF_DURATION);
+    case PATTERN_ULTRADOPS: return new BasicPattern(ULTRADOPS_ON_DURATION, ULTRADOPS_OFF_DURATION);
+    case PATTERN_STROBIE: return new BasicPattern(STROBIE_ON_DURATION, STROBE_OFF_DURATION);
+    case PATTERN_RIBBON: return new BasicPattern(RIBBON_DURATION);
     case PATTERN_MINIRIBBON: return new BasicPattern(3);
-  #endif
     case PATTERN_TRACER: return new TracerPattern();
-    case PATTERN_BLINKIE: return new BasicPattern(5, 8, 35);
+    case PATTERN_BLINKIE: return new BasicPattern(STROBE_ON_DURATION, STROBE_OFF_DURATION, 35);
     case PATTERN_GHOSTCRUSH: return new BasicPattern(1, 0, 50);
     case PATTERN_ADVANCED: return new AdvancedPattern(5, 5, 10, 2, 2, 1);
     case PATTERN_BLEND: return new BlendPattern();
