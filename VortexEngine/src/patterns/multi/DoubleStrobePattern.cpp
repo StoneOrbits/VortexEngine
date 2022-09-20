@@ -2,9 +2,10 @@
 
 #include "../../SerialBuffer.h"
 #include "../../Leds.h"
+#include "../../Timings.h"
 
 DoubleStrobePattern::DoubleStrobePattern() :
-  BlinkStepPattern(2, 13, 100)
+  BlinkStepPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100)
 {
 }
 

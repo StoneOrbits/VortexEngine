@@ -4,6 +4,7 @@
 #include "../../TimeControl.h"
 #include "../../Leds.h"
 #include "../../Log.h"
+#include "../../Timings.h"
 
 // Mapping of LED positions to steps.
 // The lights runs across tips, then back across tops.
@@ -58,8 +59,8 @@ void ZigzagPattern::init()
   m_stepTimer.start();
 
   // initialize the snakes with dops timing
-  m_snake1.init(2, 13, m_colorset, 0);
-  m_snake2.init(2, 13, m_colorset, 1);
+  m_snake1.init(DOPS_ON_DURATION, DOPS_OFF_DURATION, m_colorset, 0);
+  m_snake2.init(DOPS_ON_DURATION, DOPS_OFF_DURATION, m_colorset, 1);
 }
 
 // pure virtual must override the play function

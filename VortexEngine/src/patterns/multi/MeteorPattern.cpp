@@ -4,9 +4,10 @@
 #include "../../TimeControl.h"
 #include "../../Leds.h"
 #include "../../Log.h"
+#include "../../Timings.h"
 
 MeteorPattern::MeteorPattern() :
-  BlinkStepPattern(5, 8, 50),
+  BlinkStepPattern(STROBE_ON_DURATION, STROBE_OFF_DURATION, 50),
   m_stash()
 {
 }

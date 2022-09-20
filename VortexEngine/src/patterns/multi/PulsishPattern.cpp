@@ -4,6 +4,7 @@
 #include "../../TimeControl.h"
 #include "../../Leds.h"
 #include "../../Log.h"
+#include "../../Timings.h"
 
 PulsishPattern::PulsishPattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
   MultiLedPattern(),
@@ -30,14 +31,14 @@ void PulsishPattern::init()
 
   // make blink timer
   m_blinkTimer.reset();
-  m_blinkTimer.addAlarm(2);
-  m_blinkTimer.addAlarm(7);
+  m_blinkTimer.addAlarm(DOPISH_ON_DURATION);
+  m_blinkTimer.addAlarm(DOPISH_OFF_DURATION);
   m_blinkTimer.start();
 
   // make 2nd blink timer
   m_blink2Timer.reset();
-  m_blink2Timer.addAlarm(5);
-  m_blink2Timer.addAlarm(8);
+  m_blink2Timer.addAlarm(STROBE_ON_DURATION);
+  m_blink2Timer.addAlarm(STROBE_OFF_DURATION);
   m_blink2Timer.start();
 }
 // pure virtual must override the play function

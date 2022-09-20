@@ -4,9 +4,10 @@
 #include "../../TimeControl.h"
 #include "../../Leds.h"
 #include "../../Log.h"
+#include "../../Timings.h"
 
 LighthousePattern::LighthousePattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
-  BlinkStepPattern(2, 7, 100),
+  BlinkStepPattern(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 100),
   m_fadeTimer(),
   m_stash(),
   m_progress(0)
