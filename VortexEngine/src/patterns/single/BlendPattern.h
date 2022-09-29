@@ -4,11 +4,12 @@
 #include <inttypes.h>
 
 #include "BasicPattern.h"
+#include "../../Timings.h"
 
 class BlendPattern : public BasicPattern
 {
 public:
-  BlendPattern(uint8_t onDuration = 2, uint8_t offDuration = 13, uint8_t speed = 1);
+  BlendPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t speed = 1);
   virtual ~BlendPattern();
 
   virtual void init() override;

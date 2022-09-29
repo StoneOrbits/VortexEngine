@@ -104,33 +104,6 @@ Pattern *PatternBuilder::makeInternal(PatternID id)
   return pat;
 }
 
-// macros to create a PatternMap with a given PatternID and some preset LedMaps
-#define oddTipsPattern(pattern) PatternMap(pattern, MAP_FINGER_ODD_TIPS)
-#define oddTopsPattern(pattern) PatternMap(pattern, MAP_FINGER_ODD_TOPS)
-#define evenTipsPattern(pattern) PatternMap(pattern, MAP_FINGER_EVEN_TIPS)
-#define evenTopsPattern(pattern) PatternMap(pattern, MAP_FINGER_EVEN_TOPS)
-
-Pattern *PatternBuilder::createTheaterChase()
-{
-  Sequence theaterChaseSequence;
-  LedMap positions;
-  // there are 10 steps in the theater chase
-  for (uint32_t i = 0; i < 10; ++i) {
-    PatternMap patMap;
-    // the first 5 steps are odd tips/tops alternating each step
-    if (i < 5) {
-      positions = (i % 2) ? MAP_FINGER_ODD_TOPS : MAP_FINGER_ODD_TIPS;
-    } else {
-      // the end 5 steps are even tips/tops alternating each step
-      positions = (i % 2) ? MAP_FINGER_EVEN_TOPS : MAP_FINGER_EVEN_TIPS;
-    }
-    patMap.setPatternAt(PATTERN_DOPS, positions);
-    // each step is 25ms long
-    theaterChaseSequence.addStep(25, patMap);
-  }
-  return new SequencedPattern(theaterChaseSequence);
-}
-
 Pattern *PatternBuilder::createChaser()
 {
   Sequence chaserSequence;
@@ -158,15 +131,13 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_STROBE: return new BasicPattern(STROBE_ON_DURATION, STROBE_OFF_DURATION);
     case PATTERN_HYPERSTROBE: return new BasicPattern(HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION);
     case PATTERN_DOPS: return new BasicPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION);
-    case PATTERN_DOPISH: return new BasicPattern(2, 7);
-    case PATTERN_ULTRADOPS: return new BasicPattern(1, 3);
-    case PATTERN_STROBIE: return new BasicPattern(3, 22);
-    case PATTERN_RIBBON: return new BasicPattern(20);
-  #if 0
+    case PATTERN_DOPISH: return new BasicPattern(DOPISH_ON_DURATION, DOPISH_OFF_DURATION);
+    case PATTERN_ULTRADOPS: return new BasicPattern(ULTRADOPS_ON_DURATION, ULTRADOPS_OFF_DURATION);
+    case PATTERN_STROBIE: return new BasicPattern(STROBIE_ON_DURATION, STROBE_OFF_DURATION);
+    case PATTERN_RIBBON: return new BasicPattern(RIBBON_DURATION);
     case PATTERN_MINIRIBBON: return new BasicPattern(3);
-  #endif
     case PATTERN_TRACER: return new TracerPattern();
-    case PATTERN_BLINKIE: return new BasicPattern(5, 8, 35);
+    case PATTERN_BLINKIE: return new BasicPattern(STROBE_ON_DURATION, STROBE_OFF_DURATION, 35);
     case PATTERN_GHOSTCRUSH: return new BasicPattern(1, 0, 50);
     case PATTERN_ADVANCED: return new AdvancedPattern(5, 5, 10, 2, 2, 1);
     case PATTERN_BLEND: return new BlendPattern();
@@ -182,7 +153,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     //  Multi Led Patterns:
     case PATTERN_RABBIT: return new RabbitPattern();
     case PATTERN_HUESHIFT: return new HueShiftPattern();
-    case PATTERN_THEATER_CHASE: return createTheaterChase();
+    case PATTERN_THEATER_CHASE: return new TheaterChasePattern();
     case PATTERN_CHASER: return createChaser();
     case PATTERN_ZIGZAG: return new ZigzagPattern();
     case PATTERN_ZIPFADE: return new ZigzagPattern(100, 4);

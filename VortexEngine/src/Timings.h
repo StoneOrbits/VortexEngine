@@ -65,4 +65,19 @@
 #define DOPS_ON_DURATION            2
 #define DOPS_OFF_DURATION           13
 
+// Dopish
+#define DOPISH_ON_DURATION          2
+#define DOPISH_OFF_DURATION         7
+
+// Ultradops
+#define ULTRADOPS_ON_DURATION       1
+#define ULTRADOPS_OFF_DURATION      3
+
+// Strobie
+#define STROBIE_ON_DURATION         3
+#define STROBIE_OFF_DURATION        22
+
+// Ribbon
+#define RIBBON_DURATION             20
+
 #endif

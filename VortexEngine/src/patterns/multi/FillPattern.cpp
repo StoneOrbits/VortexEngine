@@ -4,9 +4,10 @@
 #include "../../TimeControl.h"
 #include "../../Leds.h"
 #include "../../Log.h"
+#include "../../Timings.h"
 
 FillPattern::FillPattern() :
-  BlinkStepPattern(3, 12, 50),
+  BlinkStepPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50),
   m_progress()
 {
 }
