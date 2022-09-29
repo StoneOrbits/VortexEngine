@@ -2,9 +2,9 @@
 
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
+#include "../../Timings.h"
 #include "../../Leds.h"
 #include "../../Log.h"
-#include "../../Timings.h"
 
 LighthousePattern::LighthousePattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
   BlinkStepPattern(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 100),

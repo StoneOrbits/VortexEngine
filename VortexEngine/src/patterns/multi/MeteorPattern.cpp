@@ -2,9 +2,9 @@
 
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
+#include "../../Timings.h"
 #include "../../Leds.h"
 #include "../../Log.h"
-#include "../../Timings.h"
 
 MeteorPattern::MeteorPattern() :
   BlinkStepPattern(STROBE_ON_DURATION, STROBE_OFF_DURATION, 50),

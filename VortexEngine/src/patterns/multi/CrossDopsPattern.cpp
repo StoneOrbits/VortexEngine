@@ -1,7 +1,7 @@
 #include "CrossDopsPattern.h"
 
-#include "../../Leds.h"
 #include "../../Timings.h"
+#include "../../Leds.h"
 
 CrossDopsPattern::CrossDopsPattern() :
   BlinkStepPattern(DOPS_ON_DURATION, DOPS_ON_DURATION, 100),

@@ -2,9 +2,9 @@
 
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
+#include "../../Timings.h"
 #include "../../Leds.h"
 #include "../../Log.h"
-#include "../../Timings.h"
 
 #define TOTAL_STEPS ((FINGER_COUNT * 2) - 2)
 #define HALF_STEPS (TOTAL_STEPS / 2)

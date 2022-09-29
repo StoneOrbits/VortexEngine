@@ -2,9 +2,9 @@
 
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
+#include "../../Timings.h"
 #include "../../Leds.h"
 #include "../../Log.h"
-#include "../../Timings.h"
 
 #define WORM_SIZE 6
 

@@ -2,9 +2,9 @@
 
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
+#include "../../Timings.h"
 #include "../../Leds.h"
 #include "../../Log.h"
-#include "../../Timings.h"
 
 PulsishPattern::PulsishPattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
   MultiLedPattern(),

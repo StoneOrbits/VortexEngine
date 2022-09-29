@@ -2,9 +2,9 @@
 
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
+#include "../../Timings.h"
 #include "../../Leds.h"
 #include "../../Log.h"
-#include "../../Timings.h"
 
 WarpPattern::WarpPattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
   BlinkStepPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50),
