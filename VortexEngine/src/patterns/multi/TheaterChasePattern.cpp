@@ -4,48 +4,47 @@
 
 #include "../../TimeControl.h"
 #include "../../Colorset.h"
+#include "../../Timings.h"
 #include "../../Leds.h"
 #include "../../Log.h"
 
+#define THEATER_CHASE_STEPS 10
+
 TheaterChasePattern::TheaterChasePattern() :
-  MultiLedPattern(),
-  m_oneHundy(false),
-  m_twentyThree(false)
+  BlinkStepPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION, 25),
+  m_ledPositions(0),
+  m_stepCounter(0)
 {
 }
 
 TheaterChasePattern::~TheaterChasePattern()
 {
 }
-
+  
 void TheaterChasePattern::init()
 {
-  MultiLedPattern::init();
-  m_oneHundy = false;
-  m_twentyThree = false;
+  BlinkStepPattern::init();
+  // starts on odd tips
+  m_ledPositions = MAP_FINGER_ODD_TIPS;
+  m_stepCounter = 0;
+  // start at 0
+  m_colorset.setCurIndex(0);
 }
 
-void TheaterChasePattern::play()
+void TheaterChasePattern::blinkOn()
 {
-  // DO THE STUFF
-  if ((Time::getCurtime() % 100) == 0) {
-    m_oneHundy = !m_oneHundy;
+  Leds::setMap(m_ledPositions, m_colorset.getNext());
+}
+
+void TheaterChasePattern::poststep()
+{
+  // the first 5 steps are odd tips/tops alternating each step
+  if (m_stepCounter < 5) {
+    m_ledPositions = (m_stepCounter % 2) ? MAP_FINGER_ODD_TOPS : MAP_FINGER_ODD_TIPS;
+  } else {
+    // the end 5 steps are even tips/tops alternating each step
+    m_ledPositions = (m_stepCounter % 2) ? MAP_FINGER_EVEN_TOPS : MAP_FINGER_EVEN_TIPS;
   }
-  if ((Time::getCurtime() % 23) == 0) {
-    m_twentyThree = !m_twentyThree;
-  }
-  // if m_twentyThree...
-}
-
-void TheaterChasePattern::serialize(SerialBuffer &buffer) const
-{
-  //DEBUG_LOG("Serialize");
-  MultiLedPattern::serialize(buffer);
-}
-
-// must override unserialize to load patterns
-void TheaterChasePattern::unserialize(SerialBuffer &buffer)
-{
-  //DEBUG_LOG("Unserialize");
-  MultiLedPattern::unserialize(buffer);
+  // increment step counter
+  m_stepCounter = (m_stepCounter + 1) % THEATER_CHASE_STEPS;
 }

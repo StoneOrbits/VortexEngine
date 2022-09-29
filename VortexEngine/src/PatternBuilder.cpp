@@ -104,33 +104,6 @@ Pattern *PatternBuilder::makeInternal(PatternID id)
   return pat;
 }
 
-// macros to create a PatternMap with a given PatternID and some preset LedMaps
-#define oddTipsPattern(pattern) PatternMap(pattern, MAP_FINGER_ODD_TIPS)
-#define oddTopsPattern(pattern) PatternMap(pattern, MAP_FINGER_ODD_TOPS)
-#define evenTipsPattern(pattern) PatternMap(pattern, MAP_FINGER_EVEN_TIPS)
-#define evenTopsPattern(pattern) PatternMap(pattern, MAP_FINGER_EVEN_TOPS)
-
-Pattern *PatternBuilder::createTheaterChase()
-{
-  Sequence theaterChaseSequence;
-  LedMap positions;
-  // there are 10 steps in the theater chase
-  for (uint32_t i = 0; i < 10; ++i) {
-    PatternMap patMap;
-    // the first 5 steps are odd tips/tops alternating each step
-    if (i < 5) {
-      positions = (i % 2) ? MAP_FINGER_ODD_TOPS : MAP_FINGER_ODD_TIPS;
-    } else {
-      // the end 5 steps are even tips/tops alternating each step
-      positions = (i % 2) ? MAP_FINGER_EVEN_TOPS : MAP_FINGER_EVEN_TIPS;
-    }
-    patMap.setPatternAt(PATTERN_DOPS, positions);
-    // each step is 25ms long
-    theaterChaseSequence.addStep(25, patMap);
-  }
-  return new SequencedPattern(theaterChaseSequence);
-}
-
 Pattern *PatternBuilder::createChaser()
 {
   Sequence chaserSequence;
@@ -180,7 +153,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     //  Multi Led Patterns:
     case PATTERN_RABBIT: return new RabbitPattern();
     case PATTERN_HUESHIFT: return new HueShiftPattern();
-    case PATTERN_THEATER_CHASE: return createTheaterChase();
+    case PATTERN_THEATER_CHASE: return new TheaterChasePattern();
     case PATTERN_CHASER: return createChaser();
     case PATTERN_ZIGZAG: return new ZigzagPattern();
     case PATTERN_ZIPFADE: return new ZigzagPattern(100, 4);
