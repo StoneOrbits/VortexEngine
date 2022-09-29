@@ -27,8 +27,6 @@ void TheaterChasePattern::init()
   // starts on odd tips
   m_ledPositions = MAP_FINGER_ODD_TIPS;
   m_stepCounter = 0;
-  // start at 0
-  m_colorset.setCurIndex(0);
 }
 
 void TheaterChasePattern::blinkOn()
