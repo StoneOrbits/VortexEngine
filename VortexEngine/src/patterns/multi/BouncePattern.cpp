@@ -4,12 +4,13 @@
 #include "../../TimeControl.h"
 #include "../../Leds.h"
 #include "../../Log.h"
+#include "../../Timings.h"
 
 #define TOTAL_STEPS ((FINGER_COUNT * 2) - 2)
 #define HALF_STEPS (TOTAL_STEPS / 2)
 
 BouncePattern::BouncePattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
-  BlinkStepPattern(3, 12, 50),
+  BlinkStepPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50),
   m_progress()
 {
 }
