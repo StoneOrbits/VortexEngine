@@ -12,6 +12,7 @@
 #include "patterns/multi/ZigzagPattern.h"
 #include "patterns/multi/TipTopPattern.h"
 #include "patterns/multi/DripPattern.h"
+#include "patterns/multi/DripMorphPattern.h"
 #include "patterns/multi/CrossDopsPattern.h"
 #include "patterns/multi/DoubleStrobePattern.h"
 #include "patterns/multi/MeteorPattern.h"
@@ -159,6 +160,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_ZIPFADE: return new ZigzagPattern(100, 4);
     case PATTERN_TIPTOP: return new TipTopPattern();
     case PATTERN_DRIP: return new DripPattern();
+    case PATTERN_DRIPMORPH: return new DripMorphPattern();
     case PATTERN_CROSSDOPS:return new CrossDopsPattern();
     case PATTERN_DOUBLESTROBE:return new DoubleStrobePattern();
     case PATTERN_METEOR:return new MeteorPattern();
