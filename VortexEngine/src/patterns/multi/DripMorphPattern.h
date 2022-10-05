@@ -8,7 +8,7 @@
 class DripMorphPattern : public MultiLedPattern
 {
 public:
-  DripMorphPattern();
+  DripMorphPattern(uint8_t blinkOn, uint8_t blinkOff, uint8_t speed);
   virtual ~DripMorphPattern();
 
   // init the pattern to initial state

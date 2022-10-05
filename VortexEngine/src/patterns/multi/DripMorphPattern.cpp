@@ -2,12 +2,12 @@
 
 #include "../../Leds.h"
 
-DripMorphPattern::DripMorphPattern() :
+DripMorphPattern::DripMorphPattern(uint8_t blinkOn, uint8_t blinkOff, uint8_t speed) :
   MultiLedPattern(),
-  m_blinkOnDuration(10),
-  m_blinkOffDuration(10),
+  m_blinkOnDuration(blinkOn),
+  m_blinkOffDuration(blinkOff),
   m_blinkTimer(),
-  m_speed(1),
+  m_speed(speed),
   m_cur(),
   m_next()
 {
@@ -77,9 +77,8 @@ void DripMorphPattern::blinkOn()
   //       because it will never reach the target hue and 
   //       always over/under shoot
   m_cur.hue += m_speed * sign;
-  HSVColor showColor = m_cur;
   // set the target led with the current HSV color
-  Leds::setAllTips(showColor);
+  Leds::setAllTips(m_cur);
   Leds::setAllTops(m_colorset.cur());
 }
 
