@@ -2,12 +2,11 @@
 
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
-#include "../../Timings.h"
 #include "../../Leds.h"
 #include "../../Log.h"
 
-WarpWormPattern::WarpWormPattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
-  BlinkStepPattern(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 100),
+WarpWormPattern::WarpWormPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
+  BlinkStepPattern(onDuration, offDuration, stepDuration),
   m_progress()
 {
 }

@@ -1,6 +1,7 @@
 #include "BackStrobePattern.h"
 
 #include "../../PatternBuilder.h"
+#include "../../SerialBuffer.h"
 #include "../../Colorset.h"
 
 BackStrobePattern::BackStrobePattern(uint8_t stepSpeed) :
@@ -53,9 +54,11 @@ void BackStrobePattern::play()
 void BackStrobePattern::serialize(SerialBuffer& buffer) const
 {
   HybridPattern::serialize(buffer);
+  buffer.serialize(m_stepSpeed);
 }
 
 void BackStrobePattern::unserialize(SerialBuffer& buffer)
 {
   HybridPattern::unserialize(buffer);
+  buffer.unserialize(&m_stepSpeed);
 }

@@ -157,7 +157,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_THEATER_CHASE: return new TheaterChasePattern();
     case PATTERN_CHASER: return createChaser();
     case PATTERN_ZIGZAG: return new ZigzagPattern();
-    case PATTERN_ZIPFADE: return new ZigzagPattern(100, 4);
+    case PATTERN_ZIPFADE: return new ZigzagPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100, 4);
     case PATTERN_TIPTOP: return new TipTopPattern();
     case PATTERN_DRIP: return new DripPattern();
     case PATTERN_DRIPMORPH: return new DripMorphPattern();

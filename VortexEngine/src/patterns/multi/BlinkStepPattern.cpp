@@ -65,11 +65,17 @@ void BlinkStepPattern::play()
 void BlinkStepPattern::serialize(SerialBuffer& buffer) const
 {
   MultiLedPattern::serialize(buffer);
+  buffer.serialize(m_blinkOnDuration);
+  buffer.serialize(m_blinkOffDuration);
+  buffer.serialize(m_stepDuration);
 }
 
 void BlinkStepPattern::unserialize(SerialBuffer& buffer)
 {
   MultiLedPattern::unserialize(buffer);
+  buffer.unserialize(&m_blinkOnDuration);
+  buffer.unserialize(&m_blinkOffDuration);
+  buffer.unserialize(&m_stepDuration);
 }
 
 void BlinkStepPattern::blinkOn()

@@ -2,8 +2,8 @@
 
 #include "../../Leds.h"
 
-DripPattern::DripPattern() :
-  BlinkStepPattern(10, 10, 100),
+DripPattern::DripPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
+  BlinkStepPattern(onDuration, offDuration, stepDuration),
   m_sync(true)
 {
 }

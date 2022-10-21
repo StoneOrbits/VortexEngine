@@ -2,15 +2,14 @@
 
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
-#include "../../Timings.h"
 #include "../../Leds.h"
 #include "../../Log.h"
 
 #define TOTAL_STEPS ((FINGER_COUNT * 2) - 2)
 #define HALF_STEPS (TOTAL_STEPS / 2)
 
-BouncePattern::BouncePattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
-  BlinkStepPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50),
+BouncePattern::BouncePattern(int8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
+  BlinkStepPattern(onDuration, offDuration, stepDuration),
   m_progress()
 {
 }

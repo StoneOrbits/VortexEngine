@@ -2,7 +2,6 @@
 
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
-#include "../../Timings.h"
 #include "../../Leds.h"
 #include "../../Log.h"
 
@@ -35,8 +34,10 @@ const LedPos ZigzagPattern::ledStepPositions[] = {
 #define NUM_ZIGZAG_STEPS (sizeof(ledStepPositions) / sizeof(ledStepPositions[0]))
 #define HALF_ZIGZAG_STEPS (NUM_ZIGZAG_STEPS / 2)
 
-ZigzagPattern::ZigzagPattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
+ZigzagPattern::ZigzagPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
   MultiLedPattern(),
+  m_onDuration(onDuration),
+  m_offDuration(offDuration),
   m_stepDuration(stepDuration),
   m_stepTimer(),
   m_snake1(0, snakeSize, fadeAmount, 3),
@@ -59,8 +60,8 @@ void ZigzagPattern::init()
   m_stepTimer.start();
 
   // initialize the snakes with dops timing
-  m_snake1.init(DOPS_ON_DURATION, DOPS_OFF_DURATION, m_colorset, 0);
-  m_snake2.init(DOPS_ON_DURATION, DOPS_OFF_DURATION, m_colorset, 1);
+  m_snake1.init(m_onDuration, m_offDuration, m_colorset, 0);
+  m_snake2.init(m_onDuration, m_offDuration, m_colorset, 1);
 }
 
 // pure virtual must override the play function
@@ -80,11 +81,19 @@ void ZigzagPattern::play()
 void ZigzagPattern::serialize(SerialBuffer& buffer) const
 {
   MultiLedPattern::serialize(buffer);
+  // I feel like snake size and fade amount need to be serialized 
+  // I'm not sure if/how to do this since they're part of the snake class
+  buffer.serialize(m_onDuration);
+  buffer.serialize(m_offDuration);
+  buffer.serialize(m_stepDuration); 
 }
 
 void ZigzagPattern::unserialize(SerialBuffer& buffer)
 {
   MultiLedPattern::unserialize(buffer);
+  buffer.unserialize(&m_onDuration);
+  buffer.unserialize(&m_offDuration);
+  buffer.unserialize(&m_stepDuration);
 }
 
 // ===================

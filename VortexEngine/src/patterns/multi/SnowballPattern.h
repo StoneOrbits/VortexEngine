@@ -1,11 +1,12 @@
 #include "BlinkStepPattern.h"
 
+#include "../../Timings.h"
 #include "../../Timer.h"
 
 class SnowballPattern : public BlinkStepPattern
 {
 public:
-  SnowballPattern(uint8_t stepDuration = 50, uint8_t snakeSize = 1, uint8_t fadeAmount = 55);
+  SnowballPattern(uint8_t onDuration = DOPISH_ON_DURATION, uint8_t offDuration = DOPISH_OFF_DURATION, uint8_t stepDuration = 100);
   virtual ~SnowballPattern();
 
   // init the pattern to initial state

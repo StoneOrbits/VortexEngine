@@ -3,10 +3,12 @@
 
 #include "BlinkStepPattern.h"
 
+#include "../../Timings.h"
+
 class FillPattern : public BlinkStepPattern
 {
 public:
-  FillPattern();
+  FillPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t stepDuration = 50);
   virtual ~FillPattern();
 
   virtual void init() override;

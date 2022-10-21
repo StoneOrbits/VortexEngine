@@ -3,10 +3,12 @@
 
 #include "BlinkStepPattern.h"
 
+#include "../../Timings.h"
+
 class DoubleStrobePattern : public BlinkStepPattern
 {
 public:
-  DoubleStrobePattern();
+  DoubleStrobePattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t stepDuration = 100);
   virtual ~DoubleStrobePattern();
 
   virtual void init() override;

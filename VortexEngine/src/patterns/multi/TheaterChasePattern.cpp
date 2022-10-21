@@ -4,14 +4,13 @@
 
 #include "../../TimeControl.h"
 #include "../../Colorset.h"
-#include "../../Timings.h"
 #include "../../Leds.h"
 #include "../../Log.h"
 
 #define THEATER_CHASE_STEPS 10
 
-TheaterChasePattern::TheaterChasePattern() :
-  BlinkStepPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION, 25),
+TheaterChasePattern::TheaterChasePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
+  BlinkStepPattern(onDuration, offDuration, stepDuration),
   m_ledPositions(0),
   m_stepCounter(0)
 {

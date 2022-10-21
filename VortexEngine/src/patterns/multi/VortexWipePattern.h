@@ -3,10 +3,12 @@
 
 #include "BlinkStepPattern.h"
 
+#include "../../Timings.h"
+
 class VortexWipePattern : public BlinkStepPattern
 {
 public:
-  VortexWipePattern(uint8_t stepDuration = 50, uint8_t snakeSize = 1, uint8_t fadeAmount = 55);
+  VortexWipePattern(uint8_t onDuration = DOPISH_ON_DURATION, uint8_t offDuration = DOPISH_OFF_DURATION, uint8_t stepDuration = 125);
   virtual ~VortexWipePattern();
 
   // init the pattern to initial state

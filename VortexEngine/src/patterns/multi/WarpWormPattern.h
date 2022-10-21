@@ -1,9 +1,11 @@
 #include "BlinkStepPattern.h"
 
+#include "../../Timings.h"
+
 class WarpWormPattern : public BlinkStepPattern
 {
 public:
-  WarpWormPattern(uint8_t stepDuration = 50, uint8_t snakeSize = 1, uint8_t fadeAmount = 55);
+  WarpWormPattern(uint8_t onDuration = DOPISH_ON_DURATION, uint8_t offDuration = DOPISH_OFF_DURATION, uint8_t stepDuration = 100);
   virtual ~WarpWormPattern();
 
   // init the pattern to initial state

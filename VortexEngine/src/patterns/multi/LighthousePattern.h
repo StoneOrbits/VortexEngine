@@ -1,12 +1,14 @@
 #include "BlinkStepPattern.h"
 
-#include "../../Timer.h"
 #include "../../LedStash.h"
+#include "../../Timings.h"
+#include "../../Timer.h"
 
 class LighthousePattern : public BlinkStepPattern
 {
 public:
-  LighthousePattern(uint8_t stepDuration = 50, uint8_t snakeSize = 1, uint8_t fadeAmount = 55);
+  LighthousePattern(uint8_t onDuration = DOPISH_ON_DURATION, uint8_t offDuration = DOPISH_OFF_DURATION, uint8_t stepDuration = 100,
+    uint8_t fadeAmount = 25, uint8_t fadeRate = 5);
   virtual ~LighthousePattern();
 
   // init the pattern to initial state
@@ -14,6 +16,10 @@ public:
 
   // pure virtual must override the play function
   virtual void play() override;
+
+  // must override the serialize routine to save the pattern
+  virtual void serialize(SerialBuffer& buffer) const override;
+  virtual void unserialize(SerialBuffer& buffer) override;
 
 protected:
   // overrideable members:
@@ -25,6 +31,10 @@ protected:
   virtual void fade();
 
 private:
+  // the amount of fade to apply
+  uint8_t m_fadeAmount;
+  // the frequency at which the fade is applied
+  uint8_t m_fadeRate;
   // a timer for controling fade frqeuency
   Timer m_fadeTimer;
   // storage for leds

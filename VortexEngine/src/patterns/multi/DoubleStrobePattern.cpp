@@ -1,11 +1,11 @@
 #include "DoubleStrobePattern.h"
 
 #include "../../SerialBuffer.h"
-#include "../../Timings.h"
+
 #include "../../Leds.h"
 
-DoubleStrobePattern::DoubleStrobePattern() :
-  BlinkStepPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100)
+DoubleStrobePattern::DoubleStrobePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
+  BlinkStepPattern(onDuration, offDuration, stepDuration)
 {
 }
 
