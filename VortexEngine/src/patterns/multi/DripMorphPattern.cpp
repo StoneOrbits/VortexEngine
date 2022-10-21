@@ -1,6 +1,5 @@
 #include "DripMorphPattern.h"
 
-// NOTE: I'm not sure this is right but I'm replicating the recent changes to Blinkstep here
 #include "../../SerialBuffer.h"
 #include "../../Leds.h"
 
