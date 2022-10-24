@@ -2,7 +2,6 @@
 
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
-#include "../../Timings.h"
 #include "../../Leds.h"
 #include "../../Log.h"
 
@@ -20,8 +19,8 @@ const LedPos VortexWipePattern::ledStepPositions[] = {
   THUMB_TIP
 };
 
-VortexWipePattern::VortexWipePattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
-  BlinkStepPattern(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 125),
+VortexWipePattern::VortexWipePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
+  BlinkStepPattern(onDuration, offDuration, stepDuration),
   m_progress()
 {
 }

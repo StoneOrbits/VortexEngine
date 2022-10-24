@@ -1,10 +1,12 @@
 #include "SplitStrobiePattern.h"
 
 #include "../../PatternBuilder.h"
+#include "../../SerialBuffer.h"
 #include "../../Colorset.h"
 
-SplitStrobiePattern::SplitStrobiePattern() :
+SplitStrobiePattern::SplitStrobiePattern(uint8_t stepDuration) :
   HybridPattern(),
+  m_stepDuration(stepDuration),
   m_stepTimer(),
   m_switch()
 {
@@ -21,7 +23,7 @@ void SplitStrobiePattern::init()
 
   // timer for switch
   m_stepTimer.reset();
-  m_stepTimer.addAlarm(1000);
+  m_stepTimer.addAlarm(m_stepDuration);
   m_stepTimer.start();
 }
 
@@ -46,4 +48,17 @@ void SplitStrobiePattern::play()
     }
   }
   HybridPattern::play();
+}
+
+// must override the serialize routine to save the pattern
+void SplitStrobiePattern::serialize(SerialBuffer& buffer) const
+{
+  HybridPattern::serialize(buffer);
+  buffer.serialize(m_stepDuration);
+}
+
+void SplitStrobiePattern::unserialize(SerialBuffer& buffer)
+{
+  HybridPattern::unserialize(buffer);
+  buffer.unserialize(&m_stepDuration);
 }

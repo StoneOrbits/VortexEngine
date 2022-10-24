@@ -1,9 +1,11 @@
 #include "BlinkStepPattern.h"
 
+#include "../../Timings.h"
+
 class BouncePattern : public BlinkStepPattern
 {
 public:
-  BouncePattern(uint8_t stepDuration = 50, uint8_t snakeSize = 1, uint8_t fadeAmount = 55);
+  BouncePattern(int8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t stepDuration = 50);
   virtual ~BouncePattern();
 
   // init the pattern to initial state

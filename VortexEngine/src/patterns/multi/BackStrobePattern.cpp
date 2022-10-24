@@ -1,10 +1,12 @@
 #include "BackStrobePattern.h"
 
 #include "../../PatternBuilder.h"
+#include "../../SerialBuffer.h"
 #include "../../Colorset.h"
 
-BackStrobePattern::BackStrobePattern() :
+BackStrobePattern::BackStrobePattern(uint8_t stepSpeed) :
   HybridPattern(),
+  m_stepSpeed(stepSpeed),
   m_stepTimer(),
   m_switch()
 {
@@ -21,7 +23,7 @@ void BackStrobePattern::init()
 
   // timer for switch
   m_stepTimer.reset();
-  m_stepTimer.addAlarm(1000);
+  m_stepTimer.addAlarm(m_stepSpeed);
   m_stepTimer.start();
 }
 
@@ -46,4 +48,17 @@ void BackStrobePattern::play()
     }
   }
   HybridPattern::play();
+}
+
+// must override the serialize routine to save the pattern
+void BackStrobePattern::serialize(SerialBuffer& buffer) const
+{
+  HybridPattern::serialize(buffer);
+  buffer.serialize(m_stepSpeed);
+}
+
+void BackStrobePattern::unserialize(SerialBuffer& buffer)
+{
+  HybridPattern::unserialize(buffer);
+  buffer.unserialize(&m_stepSpeed);
 }

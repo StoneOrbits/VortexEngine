@@ -3,10 +3,12 @@
 
 #include "BlinkStepPattern.h"
 
+#include "../../Timings.h"
+
 class CrossDopsPattern : public BlinkStepPattern
 {
 public:
-  CrossDopsPattern();
+  CrossDopsPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t stepDuration = 50);
   virtual ~CrossDopsPattern();
 
   // init the pattern to initial state

@@ -3,8 +3,12 @@
 #include "../single/BasicPattern.h"
 #include "../../PatternBuilder.h"
 
-FlowersPattern::FlowersPattern() :
-  HybridPattern()
+FlowersPattern::FlowersPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2, uint8_t offDuration2) :
+  HybridPattern(),
+  m_onDuration1(onDuration1),
+  m_offDuration1(offDuration1),
+  m_onDuration2(onDuration2),
+  m_offDuration2(offDuration2)
 {
 }
 
@@ -18,15 +22,15 @@ void FlowersPattern::init()
   // call base hybrid pattern init to actually initialize sub patterns
   HybridPattern::init();
   
-  setPatternAt(THUMB_TIP, new BasicPattern(5, 25));
-  setPatternAt(THUMB_TOP, new BasicPattern(5, 25));  
-  setPatternAt(PINKIE_TIP, new BasicPattern(5, 25));
-  setPatternAt(PINKIE_TOP, new BasicPattern(5, 25));
+  setPatternAt(THUMB_TIP, new BasicPattern(m_onDuration1, m_offDuration1));
+  setPatternAt(THUMB_TOP, new BasicPattern(m_onDuration1, m_offDuration1));
+  setPatternAt(PINKIE_TIP, new BasicPattern(m_onDuration1, m_offDuration1));
+  setPatternAt(PINKIE_TOP, new BasicPattern(m_onDuration1, m_offDuration1));
 
-  setPatternAt(MIDDLE_TIP, new BasicPattern(3, 5));
-  setPatternAt(MIDDLE_TOP, new BasicPattern(3, 5));
-  setPatternAt(INDEX_TIP, new BasicPattern(3, 5));
-  setPatternAt(INDEX_TOP, new BasicPattern(3, 5));
-  setPatternAt(RING_TOP, new BasicPattern(3, 5));
-  setPatternAt(RING_TIP, new BasicPattern(3, 5));
+  setPatternAt(MIDDLE_TIP, new BasicPattern(m_onDuration2, m_offDuration2));
+  setPatternAt(MIDDLE_TOP, new BasicPattern(m_onDuration2, m_offDuration2));
+  setPatternAt(INDEX_TIP, new BasicPattern(m_onDuration2, m_offDuration2));
+  setPatternAt(INDEX_TOP, new BasicPattern(m_onDuration2, m_offDuration2));
+  setPatternAt(RING_TOP, new BasicPattern(m_onDuration2, m_offDuration2));
+  setPatternAt(RING_TIP, new BasicPattern(m_onDuration2, m_offDuration2));
 }

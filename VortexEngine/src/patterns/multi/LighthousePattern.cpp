@@ -2,12 +2,13 @@
 
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
-#include "../../Timings.h"
 #include "../../Leds.h"
 #include "../../Log.h"
 
-LighthousePattern::LighthousePattern(uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
-  BlinkStepPattern(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 100),
+LighthousePattern::LighthousePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration, uint8_t fadeAmount, uint8_t fadeRate) :
+  BlinkStepPattern(onDuration, offDuration, stepDuration),
+  m_fadeAmount(fadeAmount),
+  m_fadeRate(fadeRate),
   m_fadeTimer(),
   m_stash(),
   m_progress(0)
@@ -25,7 +26,7 @@ void LighthousePattern::init()
 
   // fade timer setup
   m_fadeTimer.reset();
-  m_fadeTimer.addAlarm(5);
+  m_fadeTimer.addAlarm(m_fadeRate);
   m_fadeTimer.start();
 
   // start colorset at index 0 so cur() works
@@ -62,5 +63,20 @@ void LighthousePattern::poststep()
 
 void LighthousePattern::fade()
 {
-  Leds::adjustBrightnessAll(25);
+  Leds::adjustBrightnessAll(m_fadeAmount);
+}
+
+// must override the serialize routine to save the pattern
+void LighthousePattern::serialize(SerialBuffer& buffer) const
+{
+  BlinkStepPattern::serialize(buffer);
+  buffer.serialize(m_fadeAmount);
+  buffer.serialize(m_fadeRate);
+}
+
+void LighthousePattern::unserialize(SerialBuffer& buffer)
+{
+  BlinkStepPattern::unserialize(buffer);
+  buffer.unserialize(&m_fadeAmount);
+  buffer.unserialize(&m_fadeRate);
 }

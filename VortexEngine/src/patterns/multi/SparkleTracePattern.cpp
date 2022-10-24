@@ -5,8 +5,8 @@
 #include "../../Leds.h"
 #include "../../Log.h"
 
-SparkleTracePattern::SparkleTracePattern() :
-  BlinkStepPattern(5, 0, 50)
+SparkleTracePattern::SparkleTracePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
+  BlinkStepPattern(onDuration, offDuration, stepDuration)
 {
 }
 

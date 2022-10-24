@@ -3,12 +3,13 @@
 
 #include "multiledpattern.h"
 
+#include "../../Timings.h"
 #include "../../Timer.h"
 
 class ZigzagPattern : public MultiLedPattern
 {
 public:
-  ZigzagPattern(uint8_t stepDuration = 50, uint8_t snakeSize = 1, uint8_t fadeAmount = 55);
+  ZigzagPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t stepDuration = 50, uint8_t snakeSize = 1, uint8_t fadeAmount = 55);
   virtual ~ZigzagPattern();
 
   // init the pattern to initial state
@@ -44,6 +45,11 @@ private:
 
   // path for leds to take, index this with m_step up to LED_COUNT steps
   static const LedPos ledStepPositions[];
+
+  // blink on duration
+  uint8_t m_onDuration;
+  // blink off duration
+  uint8_t m_offDuration;
 
   // how long each step takes
   uint8_t m_stepDuration;
