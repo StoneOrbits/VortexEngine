@@ -7,7 +7,7 @@
 class SplitStrobiePattern : public HybridPattern
 {
 public:
-  SplitStrobiePattern(uint8_t stepDuration = 1000);
+  SplitStrobiePattern(uint16_t stepDuration = 1000);
   virtual ~SplitStrobiePattern();
 
   // init the pattern to initial state
@@ -18,9 +18,13 @@ public:
   virtual void serialize(SerialBuffer& buffer) const override;
   virtual void unserialize(SerialBuffer& buffer) override;
 
+#ifdef TEST_FRAMEWORK
+  virtual void saveTemplate() const override;
+#endif
+
 private:
   // the duration for the step
-  uint8_t m_stepDuration;
+  uint16_t m_stepDuration;
   // the step timer
   Timer m_stepTimer;
 

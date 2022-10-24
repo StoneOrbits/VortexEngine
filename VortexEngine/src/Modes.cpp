@@ -16,7 +16,7 @@
 uint8_t Modes::m_curMode = 0;
 uint8_t Modes::m_numModes = 0;
 Mode *Modes::m_pCurMode = nullptr;
-SerialBuffer Modes::m_serializedModes[NUM_MODES];
+SerialBuffer Modes::m_serializedModes[MAX_MODES];
 
 bool Modes::init()
 {
@@ -29,6 +29,7 @@ bool Modes::init()
       return false;
     }
   }
+  saveTemplate();
   return true;
 }
 
@@ -80,33 +81,12 @@ bool Modes::loadStorage()
 //       use this function sparingly!
 bool Modes::saveStorage()
 {
-  // legacy data format:
-  //  4 num
-  //  4 pattern num
-  //  4 num colors
-  //   4 hue
-  //   4 sat
-  //   4 val
-  //
-  // new data format:
-  //  1 num modes (1-255)
-  //   4 mode flags (*)
-  //   1 num leds (1 - 10)
-  //     led1..N [
-  //      1 led (0 - 9)
-  //      1 pattern id (0 - 255)
-  //      colorset1..N [
-  //       1 numColors (0 - 255)
-  //       hsv1..N [
-  //        1 hue (0-255)
-  //        1 sat (0-255)
-  //        1 val (0-255)
-  //       ]
-  //      ]
-
   DEBUG_LOG("Saving modes...");
 
   // make sure the current mode is saved to the serial mode storage
+  // NOTE: is this actually necessary? is it possible for the
+  //       current mode to be altered without saving? because saving
+  //       always occurrs when leaving a menu
   saveCurMode();
 
   // now serialize the modes into the mode buffer
@@ -127,6 +107,8 @@ bool Modes::saveStorage()
 // save the mode to serial
 void Modes::serialize(SerialBuffer &modesBuffer)
 {
+  // serialize the brightness
+  modesBuffer.serialize((uint8_t)Leds::getBrightness());
   // serialize the number of modes
   modesBuffer.serialize(m_numModes);
   DEBUG_LOGF("Serialized num modes: %u", m_numModes);
@@ -150,6 +132,13 @@ bool Modes::unserialize(SerialBuffer &modesBuffer)
   // this is good on memory, but it erases what they have stored
   // before we know whether there is something actually saved
   clearModes();
+  // unserialize the brightness
+  uint8_t brightness = 0;
+  modesBuffer.unserialize(&brightness);
+  if (brightness) {
+    Leds::setBrightness(brightness);
+  }
+  // unserialize the number of modes
   uint8_t numModes = 0;
   modesBuffer.resetUnserializer();
   modesBuffer.unserialize(&numModes);
@@ -172,13 +161,45 @@ bool Modes::unserialize(SerialBuffer &modesBuffer)
   return (m_numModes == numModes);
 }
 
+#ifdef TEST_FRAMEWORK
+// Generate the json template for the data format
+void Modes::saveTemplate()
+{
+  InfoMsg("{");
+  InfoMsg("  \"Brightness\": %d,", Leds::getBrightness());
+  // serialize the number of modes
+  InfoMsg("  \"NumModes\": %d,", m_numModes);
+  InfoMsg("  \"Modes\": [");
+  for (uint32_t i = 0; i < m_numModes; ++i) {
+    m_serializedModes[i].resetUnserializer();
+    Mode *pMode = ModeBuilder::unserialize(m_serializedModes[i]);
+    if (!pMode) {
+      return;
+    }
+    // need to init the mode for example if it contains hybrid patterns like 
+    // flower then their child patterns get initialized in the init call
+    pMode->init();
+    // save the mode template
+    InfoMsg("    {");
+    pMode->saveTemplate();
+    InfoMsg("    },");
+    // cleanup the mode
+    delete pMode;
+  }
+  InfoMsg("  ]");
+  InfoMsg("}");
+}
+#endif
+
 bool Modes::setDefaults()
 {
   clearModes();
+#define DEMO_PATTERNS
+#ifdef DEMO_PATTERNS
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
   Colorset defaultSet(RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
   //Colorset defaultSet(HSVColor(254, 255, 255), HSVColor(1, 255, 255), HSVColor(245, 255, 255)); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
-  PatternID default_start = PATTERN_METEOR;
+  PatternID default_start = PATTERN_FIRST;
   PatternID default_end = PATTERN_LAST;
   // initialize a mode for each pattern with an rgb colorset
   for (PatternID pattern = default_start; pattern <= default_end; ++pattern) {
@@ -189,6 +210,10 @@ bool Modes::setDefaults()
     }
   }
   DEBUG_LOGF("Added default patterns %u through %u", default_start, default_end);
+#else
+  addMode(PATTERN_COMPLEMENTARY_BLEND, RGB_RED, RGB_GREEN, RGB_BLUE);
+  addMode(PATTERN_DOPS, RGB_RED, RGB_GREEN, RGB_BLUE);
+#endif
 
   return true;
 }
@@ -212,10 +237,17 @@ bool Modes::addSerializedMode(SerialBuffer &serializedMode)
   return true;
 }
 
+bool Modes::addMode(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
+    RGBColor c4, RGBColor c5, RGBColor c6)
+{
+  Colorset set(c1, c2, c3, c4, c5, c6);
+  return addMode(id, &set);
+}
+
 bool Modes::addMode(PatternID id, const Colorset *set)
 {
   // max modes
-  if (m_numModes >= NUM_MODES || id > PATTERN_LAST || !set) {
+  if (m_numModes >= MAX_MODES || id > PATTERN_LAST || !set) {
     return false;
   }
   Mode *mode = ModeBuilder::make(id, set);
@@ -234,7 +266,7 @@ bool Modes::addMode(PatternID id, const Colorset *set)
 bool Modes::addMode(const Mode *mode)
 {
   // max modes
-  if (m_numModes >= NUM_MODES) {
+  if (m_numModes >= MAX_MODES) {
     return false;
   }
   m_serializedModes[m_numModes].clear();

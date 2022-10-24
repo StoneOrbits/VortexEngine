@@ -2,6 +2,7 @@
 
 #include "../../SerialBuffer.h"
 #include "../../Leds.h"
+#include "../../Log.h"
 
 DripMorphPattern::DripMorphPattern(uint8_t blinkOn, uint8_t blinkOff, uint8_t speed) :
   MultiLedPattern(),
@@ -61,10 +62,20 @@ void DripMorphPattern::serialize(SerialBuffer& buffer) const
 void DripMorphPattern::unserialize(SerialBuffer& buffer)
 {
   MultiLedPattern::unserialize(buffer);
-  buffer.unserialize(& m_blinkOnDuration);
+  buffer.unserialize(&m_blinkOnDuration);
   buffer.unserialize(&m_blinkOffDuration);
   buffer.unserialize(&m_speed);
 }
+
+#ifdef TEST_FRAMEWORK
+void DripMorphPattern::saveTemplate() const
+{
+  MultiLedPattern::saveTemplate();
+  InfoMsg("            \"BlinkOnDuration\": %d,", m_blinkOnDuration);
+  InfoMsg("            \"BlinkOffDuration\": %d,", m_blinkOffDuration);
+  InfoMsg("            \"Speed\": %d,", m_speed);
+}
+#endif
 
 void DripMorphPattern::blinkOn()
 {

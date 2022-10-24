@@ -18,6 +18,10 @@ public:
   virtual void serialize(SerialBuffer &buffer) const override;
   virtual void unserialize(SerialBuffer &buffer) override;
 
+#ifdef TEST_FRAMEWORK
+  virtual void saveTemplate() const override;
+#endif
+
 private:
   // the duration the light is on/off for
   uint8_t m_tracerDuration;

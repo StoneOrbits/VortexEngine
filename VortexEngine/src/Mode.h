@@ -42,6 +42,11 @@ public:
   // load the mode from serial
   void unserialize(SerialBuffer &buffer);
 
+#ifdef TEST_FRAMEWORK
+  // save the data template
+  void saveTemplate();
+#endif
+
   // bind either a multi-led pattern o
   bool bind(PatternID id, const Colorset *set);
   // bind a pattern and colorset to individual LED
@@ -62,6 +67,9 @@ public:
   const Colorset *getColorset(LedPos pos = LED_FIRST) const;
   // get the pattern ID of the given pattern
   PatternID getPatternID(LedPos pos = LED_FIRST) const;
+
+  // mode comparison
+  bool equals(const Mode *other) const;
 
   // set the pattern/colorset of the mode, if a multi-led pattern is provided then the pos
   // is ignored. If a single led pattern is provided then it will be applied to all LEDS

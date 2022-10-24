@@ -78,6 +78,16 @@ void BlinkStepPattern::unserialize(SerialBuffer& buffer)
   buffer.unserialize(&m_stepDuration);
 }
 
+#ifdef TEST_FRAMEWORK
+void BlinkStepPattern::saveTemplate() const
+{
+  MultiLedPattern::saveTemplate();
+  InfoMsg("            \"BlinkOnDuration\": %d,", m_blinkOnDuration);
+  InfoMsg("            \"BlinkOffDuration\": %d,", m_blinkOffDuration);
+  InfoMsg("            \"StepDuration\": %d,", m_stepDuration);
+}
+#endif
+
 void BlinkStepPattern::blinkOn()
 {
   // override me

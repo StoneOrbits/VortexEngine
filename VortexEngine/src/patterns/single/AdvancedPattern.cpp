@@ -108,3 +108,13 @@ void AdvancedPattern::unserialize(SerialBuffer &buffer)
   buffer.unserialize(&m_skipCols);
   buffer.unserialize(&m_repeatGroup);
 }
+
+#ifdef TEST_FRAMEWORK
+void AdvancedPattern::saveTemplate() const
+{
+  BasicPattern::saveTemplate();
+  InfoMsg("            \"GroupSize\": %d,", m_groupSize);
+  InfoMsg("            \"SkipColors\": %d,", m_skipCols);
+  InfoMsg("            \"RepeatGroup\": %d,", m_repeatGroup);
+}
+#endif

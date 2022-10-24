@@ -75,3 +75,15 @@ void BracketsPattern::unserialize(SerialBuffer &buffer)
   buffer.unserialize(&m_midDuration);
   buffer.unserialize(&m_offDuration);
 }
+
+#ifdef TEST_FRAMEWORK
+void BracketsPattern::saveTemplate() const
+{
+  SingleLedPattern::saveTemplate();
+  InfoMsg("            \"BracketDuration\": %d,", m_bracketDuration);
+  InfoMsg("            \"MidDuration\": %d,", m_midDuration);
+  InfoMsg("            \"OffDuration\": %d,", m_offDuration);
+}
+#endif
+
+

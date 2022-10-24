@@ -19,6 +19,10 @@ public:
   virtual void serialize(SerialBuffer &buffer) const override;
   virtual void unserialize(SerialBuffer &buffer) override;
 
+#ifdef TEST_FRAMEWORK
+  virtual void saveTemplate() const override;
+#endif
+
 protected:
   // only override the onBlinkOn so we can control the color it blinks
   virtual void onBlinkOn() override;

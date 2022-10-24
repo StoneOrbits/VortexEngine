@@ -3,6 +3,7 @@
 #include "../TimeControl.h"
 #include "../Colorset.h"
 #include "../Button.h"
+#include "../Modes.h"
 #include "../Mode.h"
 #include "../Leds.h"
 #include "../Log.h"
@@ -107,15 +108,18 @@ void ColorSelect::onShortClick()
 
 void ColorSelect::onLongClick()
 {
+  bool different = false;
   // if we're exiting a menu
   if (m_curSelection == FINGER_THUMB) {
     switch (m_state) {
     case STATE_PICK_SLOT:
+      // check if we actually changed anything
+      different = m_colorset.equals(m_pCurMode->getColorset());
       // save the colorset
       m_pCurMode->setColorset(&m_colorset);
       m_pCurMode->init();
-      // leave menu
-      leaveMenu();
+      // leave menu and save if we made changes
+      leaveMenu(different);
       return;
     case STATE_PICK_HUE1:
       // delete current slot

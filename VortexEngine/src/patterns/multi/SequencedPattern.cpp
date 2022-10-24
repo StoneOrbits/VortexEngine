@@ -93,3 +93,13 @@ void SequencedPattern::unserialize(SerialBuffer &buffer)
   MultiLedPattern::unserialize(buffer);
   m_sequence.unserialize(buffer);
 }
+
+#ifdef TEST_FRAMEWORK
+void SequencedPattern::saveTemplate() const
+{
+  MultiLedPattern::saveTemplate();
+  InfoMsg("            \"Sequence\": {");
+  m_sequence.saveTemplate();
+  InfoMsg("            }");
+}
+#endif

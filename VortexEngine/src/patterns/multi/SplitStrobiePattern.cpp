@@ -3,8 +3,9 @@
 #include "../../PatternBuilder.h"
 #include "../../SerialBuffer.h"
 #include "../../Colorset.h"
+#include "../../Log.h"
 
-SplitStrobiePattern::SplitStrobiePattern(uint8_t stepDuration) :
+SplitStrobiePattern::SplitStrobiePattern(uint16_t stepDuration) :
   HybridPattern(),
   m_stepDuration(stepDuration),
   m_stepTimer(),
@@ -62,3 +63,11 @@ void SplitStrobiePattern::unserialize(SerialBuffer& buffer)
   HybridPattern::unserialize(buffer);
   buffer.unserialize(&m_stepDuration);
 }
+
+#ifdef TEST_FRAMEWORK
+void SplitStrobiePattern::saveTemplate() const
+{
+  HybridPattern::saveTemplate();
+  InfoMsg("            \"StepDuration\": %d,", m_stepDuration);
+}
+#endif

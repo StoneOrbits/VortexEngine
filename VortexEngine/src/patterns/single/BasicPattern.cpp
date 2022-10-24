@@ -86,6 +86,16 @@ void BasicPattern::unserialize(SerialBuffer &buffer)
   buffer.unserialize(&m_gapDuration);
 }
 
+#ifdef TEST_FRAMEWORK
+void BasicPattern::saveTemplate() const
+{
+  SingleLedPattern::saveTemplate();
+  InfoMsg("            \"OnDuration\": %d,", m_onDuration);
+  InfoMsg("            \"OffDuration\": %d,", m_offDuration);
+  InfoMsg("            \"GapDuration\": %d,", m_gapDuration);
+}
+#endif
+
 void BasicPattern::onBlinkOn()
 {
   // if this is the first color in the colorset

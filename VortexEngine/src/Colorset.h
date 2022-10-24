@@ -114,6 +114,7 @@ public:
   // serialize the colorset to save/load
   void serialize(SerialBuffer &buffer) const;
   void unserialize(SerialBuffer &buffer);
+  void saveTemplate() const;
 
 private:
   // pre-allocate the palette

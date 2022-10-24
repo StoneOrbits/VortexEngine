@@ -84,3 +84,20 @@ void InfoMsg(const char *msg, ...)
 #endif
   va_end(list);
 }
+
+void IndentMsg(uint32_t level, const char *msg, ...)
+{
+  if (!SerialComs::initialized()) {
+    return;
+  }
+  va_list list;
+  va_start(list, msg);
+#ifdef TEST_FRAMEWORK
+  TestFramework::printlog(NULL, NULL, 0, msg, list);
+#else
+  char buf[2048] = {0};
+  vsnprintf(buf, sizeof(buf), msg, list);
+  Serial.println(buf);
+#endif
+  va_end(list);
+}

@@ -45,3 +45,13 @@ void MeteorPattern::unserialize(SerialBuffer& buffer)
   BlinkStepPattern::unserialize(buffer);
   buffer.unserialize(&m_fadeAmount);
 }
+
+#ifdef TEST_FRAMEWORK
+void MeteorPattern::saveTemplate() const
+{
+  BlinkStepPattern::saveTemplate();
+  InfoMsg("            \"FadeAmount\": %d,", m_fadeAmount);
+}
+#endif
+
+

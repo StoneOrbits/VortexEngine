@@ -54,17 +54,30 @@ void Pattern::unserialize(SerialBuffer &buffer)
   m_colorset.unserialize(buffer);
 }
 
+#ifdef TEST_FRAMEWORK
+void Pattern::saveTemplate() const
+{
+  InfoMsg("          \"PatternID\": %d,", m_patternID);
+  InfoMsg("          \"Colorset\": {");
+  m_colorset.saveTemplate();
+  InfoMsg("          },");
+  InfoMsg("          \"Params\": {");
+  // derived classes will print out their params, 
+  // then the caller will close the block
+}
+#endif
+
 bool Pattern::equals(const Pattern *other)
 {
   if (!other) {
     return false;
   }
-  // only compare colorset
-  if (!m_colorset.equals(other->getColorset())) {
-    return false;
-  }
   // and pattern id
   if (m_patternID != other->getPatternID()) {
+    return false;
+  }
+  // only compare colorset
+  if (!m_colorset.equals(other->getColorset())) {
     return false;
   }
   return true;

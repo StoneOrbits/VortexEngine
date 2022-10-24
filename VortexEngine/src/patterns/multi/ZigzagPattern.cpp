@@ -96,6 +96,16 @@ void ZigzagPattern::unserialize(SerialBuffer& buffer)
   buffer.unserialize(&m_stepDuration);
 }
 
+#ifdef TEST_FRAMEWORK
+void ZigzagPattern::saveTemplate() const
+{
+  MultiLedPattern::saveTemplate();
+  InfoMsg("            \"OnDuration\": %d,", m_onDuration);
+  InfoMsg("            \"OffDuraiton\": %d,", m_offDuration);
+  InfoMsg("            \"StepDuration\": %d,", m_stepDuration);
+}
+#endif
+
 // ===================
 //  Snake code
 

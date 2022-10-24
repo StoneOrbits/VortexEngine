@@ -26,6 +26,10 @@ public:
   virtual void serialize(SerialBuffer &buffer) const override;
   virtual void unserialize(SerialBuffer &buffer) override;
 
+#ifdef TEST_FRAMEWORK
+  virtual void saveTemplate() const override;
+#endif
+
 protected:
   // set a pattern at an index of the hybrid pattern (optionally replace colorset)
   void setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);

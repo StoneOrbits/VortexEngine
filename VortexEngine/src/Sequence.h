@@ -25,6 +25,10 @@ public:
   void serialize(SerialBuffer &buffer) const;
   void unserialize(SerialBuffer &buffer);
 
+#ifdef TEST_FRAMEWORK
+  void saveTemplate() const;
+#endif
+
   // public list of pattern IDs for each led
   PatternID m_patternMap[LED_COUNT];
 };
@@ -44,6 +48,10 @@ public:
   void serialize(SerialBuffer &buffer) const;
   void unserialize(SerialBuffer &buffer);
 
+#ifdef TEST_FRAMEWORK
+  void saveTemplate() const;
+#endif
+
   // public list of pattern IDs for each led
   Colorset m_colorsetMap[LED_COUNT];
 };
@@ -59,6 +67,10 @@ public:
   // serialize and unserialize a step in the sequencer
   void serialize(SerialBuffer &buffer) const;
   void unserialize(SerialBuffer &buffer);
+
+#ifdef TEST_FRAMEWORK
+  void saveTemplate() const;
+#endif
 
   // public members to allow for easy initialization of an array of SequenceSteps
   uint16_t m_duration;
@@ -87,6 +99,10 @@ public:
 
   void serialize(SerialBuffer &buffer) const;
   void unserialize(SerialBuffer &buffer);
+
+#ifdef TEST_FRAMEWORK
+  void saveTemplate() const;
+#endif
 
   uint32_t numSteps() const;
   const SequenceStep &operator[](uint32_t index) const;

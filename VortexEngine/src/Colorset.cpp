@@ -410,6 +410,20 @@ void Colorset::unserialize(SerialBuffer &buffer)
   }
 }
 
+void Colorset::saveTemplate() const
+{
+  InfoMsg("            \"NumColors\": %d,", m_numColors);
+  InfoMsg("            \"Colors\": [");
+  for (uint32_t i = 0; i < m_numColors; ++i) {
+    InfoMsg("              {");
+    InfoMsg("                \"Red\": %d,", m_palette[i].red);
+    InfoMsg("                \"Green\": %d,", m_palette[i].green);
+    InfoMsg("                \"Blue\": %d", m_palette[i].blue);
+    InfoMsg("              },");
+  }
+  InfoMsg("            ]");
+}
+
 void Colorset::initPalette(uint32_t numColors)
 {
   if (m_palette) {

@@ -51,8 +51,17 @@ public:
   // must override unserialize to load patterns
   virtual void unserialize(SerialBuffer &buffer);
 
+#ifdef TEST_FRAMEWORK
+  // save the data template
+  virtual void saveTemplate() const;
+#endif
+
   // comparison to other pattern
-  virtual bool equals(const Pattern *other);
+  // TODO: add equals override for derived classes with new member variables
+  // NOTE: That may cause problems because the parameter is still a Pattern *
+  //       which means comparison would need to cast the other upwards first
+  // NOTE2: Removing virtual because this probably shouldn't be overridden
+  bool equals(const Pattern *other);
 
   // change the colorset
   virtual void setColorset(const Colorset *set);

@@ -109,6 +109,7 @@ void PatternSelect::nextPattern()
 
 void PatternSelect::onLongClick()
 {
+  bool different = false;
   switch (m_state) {
   case STATE_PICK_LIST:
     m_state = STATE_PICK_PATTERN;
@@ -119,6 +120,8 @@ void PatternSelect::onLongClick()
     DEBUG_LOGF("Started picking pattern at %u", m_newPatternID);
     break;
   case STATE_PICK_PATTERN:
+    // check if the new pattern is different
+    bool different = (m_pCurMode->getPatternID() == m_newPatternID);
     // store the new pattern in the mode
     m_pCurMode->setPattern(m_newPatternID);
     m_pCurMode->init();
@@ -126,7 +129,7 @@ void PatternSelect::onLongClick()
     // go back to beginning for next time
     m_state = STATE_PICK_LIST;
     // done in the pattern select menu
-    leaveMenu();
+    leaveMenu(different);
     break;
   }
   // reset selection after choosing anything

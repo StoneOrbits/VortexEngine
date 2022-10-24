@@ -121,6 +121,40 @@ void Mode::unserialize(SerialBuffer &buffer)
   }
 }
 
+#ifdef TEST_FRAMEWORK
+void Mode::saveTemplate()
+{
+  uint32_t flags = 0;
+  if (isMultiLed()) {
+    flags |= MODE_FLAG_MULTI_LED;
+  } else if (isSameSingleLed()) {
+    flags |= MODE_FLAG_ALL_SAME_SINGLE;
+  }
+  //DEBUG_LOGF("Saved mode flags: %x (%u %u)", flags, buffer.size(), buffer.capacity());
+  InfoMsg("      \"flags\": %d,", flags);
+  InfoMsg("      \"Leds\":[");
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    const Pattern *entry = m_ledEntries[pos];
+    if (!entry) {
+      continue;
+    }
+    InfoMsg("        {");
+    // just serialize the pattern then colorset
+    entry->saveTemplate();
+    // close the Params {
+    InfoMsg("          }");
+    // look screw the json standard I'm putting a comma after every entry, fix it urself.
+    InfoMsg("        },");
+    // if either of these flags are present only serialize the first pattern
+    if (flags & (MODE_FLAG_MULTI_LED | MODE_FLAG_ALL_SAME_SINGLE)) {
+      break;
+    }
+  }
+  InfoMsg("      ]");
+}
+#endif
+
+
 bool Mode::bind(PatternID id, const Colorset *set)
 {
   if (isMultiLedPatternID(id)) {
@@ -217,6 +251,26 @@ PatternID Mode::getPatternID(LedPos pos) const
     return PATTERN_FIRST;
   }
   return getPattern(pos)->getPatternID();
+}
+
+bool Mode::equals(const Mode *other) const
+{
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    // if entry is valid, do a comparison
+    if (m_ledEntries[pos]) {
+      // checks if other is not null and equal
+      if (!m_ledEntries[pos]->equals(other->m_ledEntries[pos])) {
+        return false;
+      }
+      continue;
+    }
+    // current is null, check if other is valid
+    if (other->m_ledEntries[pos]) {
+      return false;
+    }
+    // both are null
+  }
+  return true;
 }
 
 bool Mode::setPattern(PatternID pat)
