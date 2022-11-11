@@ -110,11 +110,11 @@ void AdvancedPattern::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void AdvancedPattern::saveTemplate() const
+void AdvancedPattern::saveTemplate(int level) const
 {
-  BasicPattern::saveTemplate();
-  InfoMsg("            \"GroupSize\": %d,", m_groupSize);
-  InfoMsg("            \"SkipColors\": %d,", m_skipCols);
-  InfoMsg("            \"RepeatGroup\": %d,", m_repeatGroup);
+  BasicPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"GroupSize\": %d,", m_groupSize);
+  IndentMsg(level + 1, "\"SkipColors\": %d,", m_skipCols);
+  IndentMsg(level + 1, "\"RepeatGroup\": %d,", m_repeatGroup);
 }
 #endif

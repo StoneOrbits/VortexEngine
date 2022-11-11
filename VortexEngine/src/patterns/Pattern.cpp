@@ -55,13 +55,13 @@ void Pattern::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void Pattern::saveTemplate() const
+void Pattern::saveTemplate(int level) const
 {
-  InfoMsg("          \"PatternID\": %d,", m_patternID);
-  InfoMsg("          \"Colorset\": {");
-  m_colorset.saveTemplate();
-  InfoMsg("          },");
-  InfoMsg("          \"Params\": {");
+  IndentMsg(level, "\"PatternID\": %d,", m_patternID);
+  IndentMsg(level, "\"Colorset\": {");
+  m_colorset.saveTemplate(level + 1);
+  IndentMsg(level, "},");
+  IndentMsg(level, "\"Params\": {");
   // derived classes will print out their params, 
   // then the caller will close the block
 }

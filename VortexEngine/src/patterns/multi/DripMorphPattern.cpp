@@ -68,12 +68,12 @@ void DripMorphPattern::unserialize(SerialBuffer& buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void DripMorphPattern::saveTemplate() const
+void DripMorphPattern::saveTemplate(int level) const
 {
-  MultiLedPattern::saveTemplate();
-  InfoMsg("            \"BlinkOnDuration\": %d,", m_blinkOnDuration);
-  InfoMsg("            \"BlinkOffDuration\": %d,", m_blinkOffDuration);
-  InfoMsg("            \"Speed\": %d,", m_speed);
+  MultiLedPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"BlinkOnDuration\": %d,", m_blinkOnDuration);
+  IndentMsg(level + 1, "\"BlinkOffDuration\": %d,", m_blinkOffDuration);
+  IndentMsg(level + 1, "\"Speed\": %d,", m_speed);
 }
 #endif
 

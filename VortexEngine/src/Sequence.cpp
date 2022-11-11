@@ -53,10 +53,10 @@ void PatternMap::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void PatternMap::saveTemplate() const
+void PatternMap::saveTemplate(int level) const
 {
   for (uint32_t i = 0; i < LED_COUNT; ++i) {
-    InfoMsg("                  %d,", m_patternMap[i]);
+    IndentMsg(level, "%d,", m_patternMap[i]);
   }
 }
 #endif
@@ -101,12 +101,12 @@ void ColorsetMap::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void ColorsetMap::saveTemplate() const
+void ColorsetMap::saveTemplate(int level) const
 {
   for (uint32_t i = 0; i < LED_COUNT; ++i) {
-    InfoMsg("                  {");
-    m_colorsetMap[i].saveTemplate();
-    InfoMsg("                  },");
+    IndentMsg(level, "{");
+    m_colorsetMap[i].saveTemplate(level + 1);
+    IndentMsg(level, "},");
   }
 }
 #endif
@@ -140,15 +140,15 @@ void SequenceStep::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void SequenceStep::saveTemplate() const
+void SequenceStep::saveTemplate(int level) const
 {
-    InfoMsg("                \"Duration\": %d,", m_duration);
-    InfoMsg("                \"PatternMap\": [");
-    m_patternMap.saveTemplate();
-    InfoMsg("                ],");
-    InfoMsg("                \"ColorsetMap\": [");
-    m_colorsetMap.saveTemplate();
-    InfoMsg("                ],");
+    IndentMsg(level, "\"Duration\": %d,", m_duration);
+    IndentMsg(level, "\"PatternMap\": [");
+    m_patternMap.saveTemplate(level + 1);
+    IndentMsg(level, "],");
+    IndentMsg(level, "\"ColorsetMap\": [");
+    m_colorsetMap.saveTemplate(level + 1);
+    IndentMsg(level, "],");
 }
 #endif
 
@@ -270,16 +270,16 @@ void Sequence::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void Sequence::saveTemplate() const
+void Sequence::saveTemplate(int level) const
 {
-  InfoMsg("            \"NumSteps\": %d,", m_numSteps);
-  InfoMsg("            \"Steps\": [", m_numSteps);
+  IndentMsg(level, "\"NumSteps\": %d,", m_numSteps);
+  IndentMsg(level, "\"Steps\": [", m_numSteps);
   for (uint32_t i = 0; i < m_numSteps; ++i) {
-    InfoMsg("              {");
-    m_sequenceSteps[i].saveTemplate();
-    InfoMsg("              },");
+    IndentMsg(level + 1, "{");
+    m_sequenceSteps[i].saveTemplate(level + 2);
+    IndentMsg(level + 1, "},");
   }
-  InfoMsg("            ]");
+  IndentMsg(level, "]");
 }
 #endif
 

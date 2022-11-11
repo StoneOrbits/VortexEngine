@@ -97,12 +97,12 @@ void ZigzagPattern::unserialize(SerialBuffer& buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void ZigzagPattern::saveTemplate() const
+void ZigzagPattern::saveTemplate(int level) const
 {
-  MultiLedPattern::saveTemplate();
-  InfoMsg("            \"OnDuration\": %d,", m_onDuration);
-  InfoMsg("            \"OffDuraiton\": %d,", m_offDuration);
-  InfoMsg("            \"StepDuration\": %d,", m_stepDuration);
+  MultiLedPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"OnDuration\": %d,", m_onDuration);
+  IndentMsg(level + 1, "\"OffDuraiton\": %d,", m_offDuration);
+  IndentMsg(level + 1, "\"StepDuration\": %d,", m_stepDuration);
 }
 #endif
 

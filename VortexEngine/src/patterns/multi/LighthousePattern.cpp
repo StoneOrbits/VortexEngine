@@ -82,11 +82,11 @@ void LighthousePattern::unserialize(SerialBuffer& buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void LighthousePattern::saveTemplate() const
+void LighthousePattern::saveTemplate(int level) const
 {
-  BlinkStepPattern::saveTemplate();
-  InfoMsg("            \"FadeAmount\": %d,", m_fadeAmount);
-  InfoMsg("            \"FadeRate\": %d,", m_fadeRate);
+  BlinkStepPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"FadeAmount\": %d,", m_fadeAmount);
+  IndentMsg(level + 1, "\"FadeRate\": %d,", m_fadeRate);
 }
 #endif
 

@@ -65,9 +65,9 @@ void SplitStrobiePattern::unserialize(SerialBuffer& buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void SplitStrobiePattern::saveTemplate() const
+void SplitStrobiePattern::saveTemplate(int level) const
 {
-  HybridPattern::saveTemplate();
-  InfoMsg("            \"StepDuration\": %d,", m_stepDuration);
+  HybridPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"StepDuration\": %d,", m_stepDuration);
 }
 #endif

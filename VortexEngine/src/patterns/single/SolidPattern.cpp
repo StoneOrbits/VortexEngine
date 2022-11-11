@@ -36,10 +36,10 @@ void SolidPattern::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void SolidPattern::saveTemplate() const
+void SolidPattern::saveTemplate(int level) const
 {
-  BasicPattern::saveTemplate();
-  InfoMsg("            \"ColorIndex\": %d,", m_colIndex);
+  BasicPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"ColorIndex\": %d,", m_colIndex);
 }
 #endif
 

@@ -44,7 +44,7 @@ public:
 
 #ifdef TEST_FRAMEWORK
   // save the data template
-  void saveTemplate();
+  void saveTemplate(int level = 0);
 #endif
 
   // bind either a multi-led pattern o

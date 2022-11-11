@@ -65,9 +65,9 @@ void BackStrobePattern::unserialize(SerialBuffer& buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void BackStrobePattern::saveTemplate() const
+void BackStrobePattern::saveTemplate(int level) const
 {
-  HybridPattern::saveTemplate();
-  InfoMsg("            \"StepSpeed\": %d,", m_stepSpeed);
+  HybridPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"StepSpeed\": %d,", m_stepSpeed);
 }
 #endif

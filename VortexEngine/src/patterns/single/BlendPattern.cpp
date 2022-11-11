@@ -49,10 +49,10 @@ void BlendPattern::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void BlendPattern::saveTemplate() const
+void BlendPattern::saveTemplate(int level) const
 {
-  BasicPattern::saveTemplate();
-  InfoMsg("            \"BlendSpeed\": %d,", m_speed);
+  BasicPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"BlendSpeed\": %d,", m_speed);
 }
 #endif
 

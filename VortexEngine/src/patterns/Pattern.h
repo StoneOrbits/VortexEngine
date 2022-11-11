@@ -53,7 +53,7 @@ public:
 
 #ifdef TEST_FRAMEWORK
   // save the data template
-  virtual void saveTemplate() const;
+  virtual void saveTemplate(int level = 0) const;
 #endif
 
   // comparison to other pattern

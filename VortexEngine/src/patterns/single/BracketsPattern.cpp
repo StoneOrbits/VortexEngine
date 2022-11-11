@@ -77,12 +77,12 @@ void BracketsPattern::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void BracketsPattern::saveTemplate() const
+void BracketsPattern::saveTemplate(int level) const
 {
-  SingleLedPattern::saveTemplate();
-  InfoMsg("            \"BracketDuration\": %d,", m_bracketDuration);
-  InfoMsg("            \"MidDuration\": %d,", m_midDuration);
-  InfoMsg("            \"OffDuration\": %d,", m_offDuration);
+  SingleLedPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"BracketDuration\": %d,", m_bracketDuration);
+  IndentMsg(level + 1, "\"MidDuration\": %d,", m_midDuration);
+  IndentMsg(level + 1, "\"OffDuration\": %d,", m_offDuration);
 }
 #endif
 

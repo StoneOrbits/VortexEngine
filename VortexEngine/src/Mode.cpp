@@ -122,7 +122,7 @@ void Mode::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void Mode::saveTemplate()
+void Mode::saveTemplate(int level)
 {
   uint32_t flags = 0;
   if (isMultiLed()) {
@@ -131,26 +131,26 @@ void Mode::saveTemplate()
     flags |= MODE_FLAG_ALL_SAME_SINGLE;
   }
   //DEBUG_LOGF("Saved mode flags: %x (%u %u)", flags, buffer.size(), buffer.capacity());
-  InfoMsg("      \"flags\": %d,", flags);
-  InfoMsg("      \"Leds\":[");
+  IndentMsg(level, "\"flags\": %d,", flags);
+  IndentMsg(level, "\"Leds\":[");
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     const Pattern *entry = m_ledEntries[pos];
     if (!entry) {
       continue;
     }
-    InfoMsg("        {");
+    IndentMsg(level + 1, "{");
     // just serialize the pattern then colorset
-    entry->saveTemplate();
+    entry->saveTemplate(level + 2);
     // close the Params {
-    InfoMsg("          }");
+    IndentMsg(level + 2, "}");
     // look screw the json standard I'm putting a comma after every entry, fix it urself.
-    InfoMsg("        },");
+    IndentMsg(level + 1, "},");
     // if either of these flags are present only serialize the first pattern
     if (flags & (MODE_FLAG_MULTI_LED | MODE_FLAG_ALL_SAME_SINGLE)) {
       break;
     }
   }
-  InfoMsg("      ]");
+  IndentMsg(level, "]");
 }
 #endif
 

@@ -95,11 +95,11 @@ void SequencedPattern::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void SequencedPattern::saveTemplate() const
+void SequencedPattern::saveTemplate(int level) const
 {
-  MultiLedPattern::saveTemplate();
-  InfoMsg("            \"Sequence\": {");
-  m_sequence.saveTemplate();
-  InfoMsg("            }");
+  MultiLedPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"Sequence\": {");
+  m_sequence.saveTemplate(level + 2);
+  IndentMsg(level + 1, "}");
 }
 #endif

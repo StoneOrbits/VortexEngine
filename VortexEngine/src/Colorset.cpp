@@ -410,19 +410,25 @@ void Colorset::unserialize(SerialBuffer &buffer)
   }
 }
 
-void Colorset::saveTemplate() const
+#ifdef TEST_FRAMEWORK
+void Colorset::saveTemplate(int level) const
 {
-  InfoMsg("            \"NumColors\": %d,", m_numColors);
-  InfoMsg("            \"Colors\": [");
+  IndentMsg(level, "\"NumColors\": %d,", m_numColors);
+  IndentMsg(level, "\"Colors\": [");
   for (uint32_t i = 0; i < m_numColors; ++i) {
-    InfoMsg("              {");
-    InfoMsg("                \"Red\": %d,", m_palette[i].red);
-    InfoMsg("                \"Green\": %d,", m_palette[i].green);
-    InfoMsg("                \"Blue\": %d", m_palette[i].blue);
-    InfoMsg("              },");
+    IndentMsg(level + 1, "{ \"Red\":%d, \"Green\":%d, \"Blue\":%d },",
+      m_palette[i].red, m_palette[i].green, m_palette[i].blue);
+#if 0
+    IndentMsg(level + 1, "{");
+    IndentMsg(level + 2, "\"Red\": %d,", m_palette[i].red);
+    IndentMsg(level + 2, "\"Green\": %d,", m_palette[i].green);
+    IndentMsg(level + 2, "\"Blue\": %d", m_palette[i].blue);
+    IndentMsg(level + 1, "},");
+#endif
   }
-  InfoMsg("            ]");
+  IndentMsg(level, "]");
 }
+#endif
 
 void Colorset::initPalette(uint32_t numColors)
 {

@@ -72,10 +72,10 @@ void TracerPattern::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void TracerPattern::saveTemplate() const
+void TracerPattern::saveTemplate(int level) const
 {
-  SingleLedPattern::saveTemplate();
-  InfoMsg("            \"TracerDuration\": %d,", m_tracerDuration);
-  InfoMsg("            \"DotDuration\": %d,", m_dotDuration);
+  SingleLedPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"TracerDuration\": %d,", m_tracerDuration);
+  IndentMsg(level + 1, "\"DotDuration\": %d,", m_dotDuration);
 }
 #endif

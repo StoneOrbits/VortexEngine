@@ -42,4 +42,9 @@ void ErrorMsg(const char *func, const char *msg, ...);
 // infos are in final builds and they are meant to be standalone messages
 void InfoMsg(const char *msg, ...);
 
+#ifdef TEST_FRAMEWORK
+// A message with indentation used for json output
+void IndentMsg(int level, const char *msg, ...);
+#endif
+
 #endif

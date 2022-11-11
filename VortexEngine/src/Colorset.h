@@ -114,7 +114,10 @@ public:
   // serialize the colorset to save/load
   void serialize(SerialBuffer &buffer) const;
   void unserialize(SerialBuffer &buffer);
-  void saveTemplate() const;
+
+#ifdef TEST_FRAMEWORK
+  void saveTemplate(int level = 0) const;
+#endif
 
 private:
   // pre-allocate the palette

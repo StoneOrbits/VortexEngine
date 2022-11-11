@@ -26,7 +26,7 @@ public:
   void unserialize(SerialBuffer &buffer);
 
 #ifdef TEST_FRAMEWORK
-  void saveTemplate() const;
+  void saveTemplate(int level = 0) const;
 #endif
 
   // public list of pattern IDs for each led
@@ -49,7 +49,7 @@ public:
   void unserialize(SerialBuffer &buffer);
 
 #ifdef TEST_FRAMEWORK
-  void saveTemplate() const;
+  void saveTemplate(int level = 0) const;
 #endif
 
   // public list of pattern IDs for each led
@@ -69,7 +69,7 @@ public:
   void unserialize(SerialBuffer &buffer);
 
 #ifdef TEST_FRAMEWORK
-  void saveTemplate() const;
+  void saveTemplate(int level = 0) const;
 #endif
 
   // public members to allow for easy initialization of an array of SequenceSteps
@@ -101,7 +101,7 @@ public:
   void unserialize(SerialBuffer &buffer);
 
 #ifdef TEST_FRAMEWORK
-  void saveTemplate() const;
+  void saveTemplate(int level = 0) const;
 #endif
 
   uint32_t numSteps() const;

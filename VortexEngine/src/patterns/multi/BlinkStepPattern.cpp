@@ -79,12 +79,12 @@ void BlinkStepPattern::unserialize(SerialBuffer& buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void BlinkStepPattern::saveTemplate() const
+void BlinkStepPattern::saveTemplate(int level) const
 {
-  MultiLedPattern::saveTemplate();
-  InfoMsg("            \"BlinkOnDuration\": %d,", m_blinkOnDuration);
-  InfoMsg("            \"BlinkOffDuration\": %d,", m_blinkOffDuration);
-  InfoMsg("            \"StepDuration\": %d,", m_stepDuration);
+  MultiLedPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"BlinkOnDuration\": %d,", m_blinkOnDuration);
+  IndentMsg(level + 1, "\"BlinkOffDuration\": %d,", m_blinkOffDuration);
+  IndentMsg(level + 1, "\"StepDuration\": %d,", m_stepDuration);
 }
 #endif
 

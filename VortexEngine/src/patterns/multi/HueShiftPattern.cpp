@@ -50,10 +50,10 @@ void HueShiftPattern::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void HueShiftPattern::saveTemplate() const
+void HueShiftPattern::saveTemplate(int level) const
 {
-  MultiLedPattern::saveTemplate();
-  InfoMsg("            \"Speed\": %d,", m_speed);
-  InfoMsg("            \"Scale\": %d,", m_scale);
+  MultiLedPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"Speed\": %d,", m_speed);
+  IndentMsg(level + 1, "\"Scale\": %d,", m_scale);
 }
 #endif

@@ -43,7 +43,7 @@ public:
 
 #ifdef TEST_FRAMEWORK
   // save the data template
-  static void saveTemplate();
+  static void saveTemplate(int level = 0);
 #endif
 
   // set default settings (must save after)

@@ -47,10 +47,10 @@ void MeteorPattern::unserialize(SerialBuffer& buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void MeteorPattern::saveTemplate() const
+void MeteorPattern::saveTemplate(int level) const
 {
-  BlinkStepPattern::saveTemplate();
-  InfoMsg("            \"FadeAmount\": %d,", m_fadeAmount);
+  BlinkStepPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"FadeAmount\": %d,", m_fadeAmount);
 }
 #endif
 

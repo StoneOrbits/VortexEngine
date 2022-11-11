@@ -22,7 +22,7 @@ public:
   virtual void unserialize(SerialBuffer& buffer) override;
 
 #ifdef TEST_FRAMEWORK
-  virtual void saveTemplate() const override;
+  virtual void saveTemplate(int level = 0) const override;
 #endif
 
 protected:

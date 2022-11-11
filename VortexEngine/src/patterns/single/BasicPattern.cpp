@@ -87,12 +87,12 @@ void BasicPattern::unserialize(SerialBuffer &buffer)
 }
 
 #ifdef TEST_FRAMEWORK
-void BasicPattern::saveTemplate() const
+void BasicPattern::saveTemplate(int level) const
 {
-  SingleLedPattern::saveTemplate();
-  InfoMsg("            \"OnDuration\": %d,", m_onDuration);
-  InfoMsg("            \"OffDuration\": %d,", m_offDuration);
-  InfoMsg("            \"GapDuration\": %d,", m_gapDuration);
+  SingleLedPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"OnDuration\": %d,", m_onDuration);
+  IndentMsg(level + 1, "\"OffDuration\": %d,", m_offDuration);
+  IndentMsg(level + 1, "\"GapDuration\": %d,", m_gapDuration);
 }
 #endif
 

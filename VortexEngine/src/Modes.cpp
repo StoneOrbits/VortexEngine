@@ -163,13 +163,13 @@ bool Modes::unserialize(SerialBuffer &modesBuffer)
 
 #ifdef TEST_FRAMEWORK
 // Generate the json template for the data format
-void Modes::saveTemplate()
+void Modes::saveTemplate(int level)
 {
-  InfoMsg("{");
-  InfoMsg("  \"Brightness\": %d,", Leds::getBrightness());
+  IndentMsg(level, "{");
+  IndentMsg(level + 1, "\"Brightness\": %d,", Leds::getBrightness());
   // serialize the number of modes
-  InfoMsg("  \"NumModes\": %d,", m_numModes);
-  InfoMsg("  \"Modes\": [");
+  IndentMsg(level + 1, "\"NumModes\": %d,", m_numModes);
+  IndentMsg(level + 1, "\"Modes\": [");
   for (uint32_t i = 0; i < m_numModes; ++i) {
     m_serializedModes[i].resetUnserializer();
     Mode *pMode = ModeBuilder::unserialize(m_serializedModes[i]);
@@ -180,14 +180,14 @@ void Modes::saveTemplate()
     // flower then their child patterns get initialized in the init call
     pMode->init();
     // save the mode template
-    InfoMsg("    {");
-    pMode->saveTemplate();
-    InfoMsg("    },");
+    IndentMsg(level + 2, "{");
+    pMode->saveTemplate(level + 3);
+    IndentMsg(level + 2, "},");
     // cleanup the mode
     delete pMode;
   }
-  InfoMsg("  ]");
-  InfoMsg("}");
+  IndentMsg(level + 1, "]");
+  IndentMsg(level, "}");
 }
 #endif
 
