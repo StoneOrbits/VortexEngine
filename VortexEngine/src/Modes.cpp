@@ -29,7 +29,10 @@ bool Modes::init()
       return false;
     }
   }
+#ifdef TEST_FRAMEWORK
+  // generate the json data template
   saveTemplate();
+#endif
   return true;
 }
 
@@ -83,14 +86,10 @@ bool Modes::saveStorage()
 {
   DEBUG_LOG("Saving modes...");
 
-  // make sure the current mode is saved to the serial mode storage
-  // NOTE: is this actually necessary? is it possible for the
-  //       current mode to be altered without saving? because saving
-  //       always occurrs when leaving a menu
-  saveCurMode();
-
-  // now serialize the modes into the mode buffer
+  // A serialbuffer to hold all the serialized data
   SerialBuffer modesBuffer;
+
+  // serialize all modes data into the modesBuffer
   serialize(modesBuffer);
 
   // write the serial buffer to flash storage
@@ -104,52 +103,59 @@ bool Modes::saveStorage()
   return true;
 }
 
-// save the mode to serial
+// Save all of the modes to a serial buffer
 void Modes::serialize(SerialBuffer &modesBuffer)
 {
-  // serialize the brightness
+  // serialize the brightness and number of modes
   modesBuffer.serialize((uint8_t)Leds::getBrightness());
-  // serialize the number of modes
   modesBuffer.serialize(m_numModes);
-  DEBUG_LOGF("Serialized num modes: %u", m_numModes);
+
+  // make sure the current mode is saved in case it has changed somehow
+  saveCurMode();
+
+  // iterate all of the modes and copy their serial data into the modesBuffer
   for (uint32_t i = 0; i < m_numModes; ++i) {
-    if (i == m_curMode && m_pCurMode) {
-      // write the current up to date mode
-      m_pCurMode->serialize(modesBuffer);
-      continue;
-    }
-    // serialize each after decompressing
+    // todo maybe? compress the modes while in storage
+    // if so then need to decompress before appending? idk
     //m_serializedModes[i].decompress();
+
+    // just append each serialized mode to the modesBuffer
     modesBuffer += m_serializedModes[i];
+
     //m_serializedModes[i].compress();
   }
+
+  DEBUG_LOGF("Serialized num modes: %u", m_numModes);
 }
 
-// load the mode from serial
+// load all modes from a serial buffer
 bool Modes::unserialize(SerialBuffer &modesBuffer)
 {
   DEBUG_LOG("Loading modes...");
-  // this is good on memory, but it erases what they have stored
-  // before we know whether there is something actually saved
+  // this is good on memory, but it erases what they have stored before we
+  // know whether there is something actually saved in the serial buffer
   clearModes();
-  // unserialize the brightness
+  // reset the unserializer index before unserializing anything
+  modesBuffer.resetUnserializer();
+  // unserialize the brightness first
   uint8_t brightness = 0;
   modesBuffer.unserialize(&brightness);
   if (brightness) {
     Leds::setBrightness(brightness);
   }
-  // unserialize the number of modes
+  // unserialize the number of modes next
   uint8_t numModes = 0;
-  modesBuffer.resetUnserializer();
   modesBuffer.unserialize(&numModes);
   if (!numModes) {
     DEBUG_LOG("Did not find any modes");
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
-  // in case the one above is removed
-  clearModes();
+  // foreach expected mode
   for (uint8_t i = 0; i < numModes; ++i) {
+    // just copy the serialized mode into the internal storage because
+    // we store the modes in a serialized manner so that they are smaller
+    // then we unpack them when we instantiate the mode
     if (!addSerializedMode(modesBuffer)) {
       DEBUG_LOGF("Failed to add mode %u after unserialization", i);
       clearModes();
@@ -157,7 +163,6 @@ bool Modes::unserialize(SerialBuffer &modesBuffer)
     }
   }
   DEBUG_LOGF("Loaded %u modes from storage (%u bytes)", numModes, modesBuffer.size());
-  // default can't load anything
   return (m_numModes == numModes);
 }
 
@@ -214,7 +219,6 @@ bool Modes::setDefaults()
   addMode(PATTERN_COMPLEMENTARY_BLEND, RGB_RED, RGB_GREEN, RGB_BLUE);
   addMode(PATTERN_DOPS, RGB_RED, RGB_GREEN, RGB_BLUE);
 #endif
-
   return true;
 }
 
@@ -229,6 +233,7 @@ bool Modes::addSerializedMode(SerialBuffer &serializedMode)
   m_serializedModes[m_numModes].clear();
   // re-serialize the mode into the storage buffer
   mode->serialize(m_serializedModes[m_numModes]);
+  // todo maybe? compress the serialized buffer
   //m_serializedModes[m_numModes].compress();
   // increment mode counter
   m_numModes++;
@@ -238,9 +243,9 @@ bool Modes::addSerializedMode(SerialBuffer &serializedMode)
 }
 
 bool Modes::addMode(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
-    RGBColor c4, RGBColor c5, RGBColor c6)
+    RGBColor c4, RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8)
 {
-  Colorset set(c1, c2, c3, c4, c5, c6);
+  Colorset set(c1, c2, c3, c4, c5, c6, c7, c8);
   return addMode(id, &set);
 }
 

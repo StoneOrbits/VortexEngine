@@ -50,8 +50,9 @@ public:
   static bool setDefaults();
 
   // add a new mode in various different ways
-  static bool addMode(PatternID id, RGBColor c1, RGBColor c2 = RGB_OFF, RGBColor c3 = RGB_OFF, 
-    RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF, RGBColor c6 = RGB_OFF);
+  static bool addMode(PatternID id, RGBColor c1, RGBColor c2 = RGB_OFF,
+    RGBColor c3 = RGB_OFF, RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF,
+    RGBColor c6 = RGB_OFF, RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
   static bool addMode(PatternID id, const Colorset *set);
   static bool addMode(const Mode *mode);
 
