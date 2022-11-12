@@ -84,3 +84,33 @@ void InfoMsg(const char *msg, ...)
 #endif
   va_end(list);
 }
+
+#ifdef TEST_FRAMEWORK
+
+// a line of spaces used for indent logging
+#define SPACES "                                                                                                                                "
+// a str with a given amount of spaces
+#define SPACED_STR(num_spaces) ((SPACES + sizeof(SPACES)) - num_spaces)
+
+void IndentMsg(int level, const char *msg, ...)
+{
+  if (!SerialComs::initialized()) {
+    return;
+  }
+  if (level < 0 || level > (int)(sizeof(SPACES) - 1)) {
+    return;
+  }
+  va_list list;
+  va_start(list, msg);
+  std::string spaced_msg = SPACED_STR(level * 2);
+  spaced_msg += msg;
+#ifdef TEST_FRAMEWORK
+  TestFramework::printlog(NULL, NULL, 0, spaced_msg.c_str(), list);
+#else
+  char buf[2048] = {0};
+  vsnprintf(buf, sizeof(buf), spaced_msg.c_str(), list);
+  Serial.println(buf);
+#endif
+  va_end(list);
+}
+#endif

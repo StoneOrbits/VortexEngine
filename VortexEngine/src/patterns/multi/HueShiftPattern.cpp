@@ -3,6 +3,7 @@
 #include "../../SerialBuffer.h"
 #include "../../TimeControl.h"
 #include "../../Leds.h"
+#include "../../Log.h"
 
 HueShiftPattern::HueShiftPattern(uint8_t speed, uint8_t scale) :
   MultiLedPattern(),
@@ -47,3 +48,12 @@ void HueShiftPattern::unserialize(SerialBuffer &buffer)
   buffer.unserialize(&m_speed);
   buffer.unserialize(&m_scale);
 }
+
+#ifdef TEST_FRAMEWORK
+void HueShiftPattern::saveTemplate(int level) const
+{
+  MultiLedPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"Speed\": %d,", m_speed);
+  IndentMsg(level + 1, "\"Scale\": %d,", m_scale);
+}
+#endif

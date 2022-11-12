@@ -115,6 +115,10 @@ public:
   void serialize(SerialBuffer &buffer) const;
   void unserialize(SerialBuffer &buffer);
 
+#ifdef TEST_FRAMEWORK
+  void saveTemplate(int level = 0) const;
+#endif
+
 private:
   // pre-allocate the palette
   void initPalette(uint32_t numColors);

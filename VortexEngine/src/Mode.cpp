@@ -54,26 +54,7 @@ void Mode::play()
 
 void Mode::serialize(SerialBuffer &buffer) const
 {
-  //DEBUG_LOG("Serialize");
-  //   4 mode flags (*)       flags defined whether multi pattern or not
-  //     led1..N {            if multi pattern then 10x led, otherwise 1x
-  //      colorset1..N {
-  //       1 numColors (0 - 255)
-  //       rgb1..N {
-  //        1 red (0-255)
-  //        1 grn (0-255)
-  //        1 blu (0-255)
-  //       }
-  //      }
-  //      1 pattern id (0 - 255)
-  //
-  uint32_t flags = 0;
-  if (isMultiLed()) {
-    flags |= MODE_FLAG_MULTI_LED;
-  } else if (isSameSingleLed()) {
-    flags |= MODE_FLAG_ALL_SAME_SINGLE;
-  }
-  //DEBUG_LOGF("Saved mode flags: %x (%u %u)", flags, buffer.size(), buffer.capacity());
+  uint32_t flags = getFlags();
   buffer.serialize(flags);
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     const Pattern *entry = m_ledEntries[pos];
@@ -120,6 +101,33 @@ void Mode::unserialize(SerialBuffer &buffer)
     }
   }
 }
+
+#ifdef TEST_FRAMEWORK
+void Mode::saveTemplate(int level) const
+{
+  uint32_t flags = getFlags();
+  IndentMsg(level, "\"flags\": %d,", flags);
+  IndentMsg(level, "\"Leds\":[");
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    const Pattern *entry = m_ledEntries[pos];
+    if (!entry) {
+      continue;
+    }
+    IndentMsg(level + 1, "{");
+    // just serialize the pattern then colorset
+    entry->saveTemplate(level + 2);
+    // close the Params {
+    IndentMsg(level + 2, "}");
+    // look screw the json standard I'm putting a comma after every entry, fix it urself.
+    IndentMsg(level + 1, "},");
+    // if either of these flags are present only serialize the first pattern
+    if (flags & (MODE_FLAG_MULTI_LED | MODE_FLAG_ALL_SAME_SINGLE)) {
+      break;
+    }
+  }
+  IndentMsg(level, "]");
+}
+#endif
 
 bool Mode::bind(PatternID id, const Colorset *set)
 {
@@ -219,6 +227,26 @@ PatternID Mode::getPatternID(LedPos pos) const
   return getPattern(pos)->getPatternID();
 }
 
+bool Mode::equals(const Mode *other) const
+{
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    // if entry is valid, do a comparison
+    if (m_ledEntries[pos]) {
+      // checks if other is not null and equal
+      if (!m_ledEntries[pos]->equals(other->m_ledEntries[pos])) {
+        return false;
+      }
+      continue;
+    }
+    // current is null, check if other is valid
+    if (other->m_ledEntries[pos]) {
+      return false;
+    }
+    // both are null
+  }
+  return true;
+}
+
 bool Mode::setPattern(PatternID pat)
 {
   // if it's a multi pattern ID then just set the multi pattern slot
@@ -281,6 +309,17 @@ bool Mode::setColorset(const Colorset *set)
     m_ledEntries[p]->setColorset(set);
   }
   return true;
+}
+
+uint32_t Mode::getFlags() const
+{
+  uint32_t flags = 0;
+  if (isMultiLed()) {
+    flags |= MODE_FLAG_MULTI_LED;
+  } else if (isSameSingleLed()) {
+    flags |= MODE_FLAG_ALL_SAME_SINGLE;
+  }
+  return flags;
 }
 
 // is this a multi-led pattern in the mode?

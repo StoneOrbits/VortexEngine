@@ -108,3 +108,16 @@ void PulsishPattern::unserialize(SerialBuffer& buffer)
   buffer.unserialize(&m_offDuration2);
   buffer.unserialize(&m_stepDuration);
 }
+
+#ifdef TEST_FRAMEWORK
+void PulsishPattern::saveTemplate(int level) const
+{
+  MultiLedPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"OnDuration1\": %d,", m_onDuration1);
+  IndentMsg(level + 1, "\"OffDuration1\": %d,", m_offDuration1);
+  IndentMsg(level + 1, "\"OnDuration2\": %d,", m_onDuration2);
+  IndentMsg(level + 1, "\"OffDuration2\": %d,", m_offDuration2);
+  IndentMsg(level + 1, "\"StepDuration\": %d,", m_stepDuration);
+}
+#endif
+

@@ -154,7 +154,7 @@ bool Infrared::write(SerialBuffer &data)
       buf_ptr++;
     }
     // delay if there is more blocks
-    if (block < (num_blocks - 1)) {
+    if (block < (uint32_t)(num_blocks - 1)) {
       //mark(HEADER_MARK);
       space(HEADER_SPACE);
     }
@@ -169,7 +169,7 @@ bool Infrared::write(SerialBuffer &data)
       buf_ptr++;
     }
     // delay if there is more blocks
-    if (block < (num_blocks - 1)) {
+    if (block < (uint32_t)(num_blocks - 1)) {
       DEBUG_LOG("Block");
     }
   }

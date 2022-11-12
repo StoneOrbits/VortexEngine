@@ -16,6 +16,10 @@ public:
   virtual void serialize(SerialBuffer &buffer) const override;
   virtual void unserialize(SerialBuffer &buffer) override;
 
+#ifdef TEST_FRAMEWORK
+  virtual void saveTemplate(int level = 0) const override;
+#endif
+
 protected:
   // callbacks for blinking on/off, can be overridden by derived classes
   virtual void onBlinkOn();

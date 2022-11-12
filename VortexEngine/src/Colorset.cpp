@@ -369,7 +369,7 @@ RGBColor Colorset::peek(int32_t offset) const
   if (offset >= 0) {
     nextIndex = (m_curIndex + offset) % numColors();
   } else {
-    if (offset < -1 * (numColors())) {
+    if (offset < -1 * (int32_t)(numColors())) {
       // fuck off
       // TODO: unfuck this
       return RGB_OFF;
@@ -409,6 +409,26 @@ void Colorset::unserialize(SerialBuffer &buffer)
     m_palette[i].unserialize(buffer);
   }
 }
+
+#ifdef TEST_FRAMEWORK
+void Colorset::saveTemplate(int level) const
+{
+  IndentMsg(level, "\"NumColors\": %d,", m_numColors);
+  IndentMsg(level, "\"Colors\": [");
+  for (uint32_t i = 0; i < m_numColors; ++i) {
+    IndentMsg(level + 1, "{ \"Red\":%d, \"Green\":%d, \"Blue\":%d },",
+      m_palette[i].red, m_palette[i].green, m_palette[i].blue);
+#if 0
+    IndentMsg(level + 1, "{");
+    IndentMsg(level + 2, "\"Red\": %d,", m_palette[i].red);
+    IndentMsg(level + 2, "\"Green\": %d,", m_palette[i].green);
+    IndentMsg(level + 2, "\"Blue\": %d", m_palette[i].blue);
+    IndentMsg(level + 1, "},");
+#endif
+  }
+  IndentMsg(level, "]");
+}
+#endif
 
 void Colorset::initPalette(uint32_t numColors)
 {

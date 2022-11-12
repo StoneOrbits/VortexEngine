@@ -21,6 +21,10 @@ public:
   virtual void serialize(SerialBuffer& buffer) const override;
   virtual void unserialize(SerialBuffer& buffer) override;
 
+#ifdef TEST_FRAMEWORK
+  virtual void saveTemplate(int level) const override;
+#endif
+
 protected:
   virtual void blinkOn();  // when the leds blink on
   virtual void blinkOff(); // when the leds blink off

@@ -3,8 +3,9 @@
 #include "../../PatternBuilder.h"
 #include "../../SerialBuffer.h"
 #include "../../Colorset.h"
+#include "../../Log.h"
 
-BackStrobePattern::BackStrobePattern(uint8_t stepSpeed) :
+BackStrobePattern::BackStrobePattern(uint16_t stepSpeed) :
   HybridPattern(),
   m_stepSpeed(stepSpeed),
   m_stepTimer(),
@@ -62,3 +63,11 @@ void BackStrobePattern::unserialize(SerialBuffer& buffer)
   HybridPattern::unserialize(buffer);
   buffer.unserialize(&m_stepSpeed);
 }
+
+#ifdef TEST_FRAMEWORK
+void BackStrobePattern::saveTemplate(int level) const
+{
+  HybridPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"StepSpeed\": %d,", m_stepSpeed);
+}
+#endif

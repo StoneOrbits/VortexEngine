@@ -19,18 +19,6 @@ void ComplementaryBlendPattern::init()
   m_showingComplement = false;
 }
 
-void ComplementaryBlendPattern::serialize(SerialBuffer &buffer) const
-{
-  //DEBUG_LOG("Serialize");
-  BlendPattern::serialize(buffer);
-}
-
-void ComplementaryBlendPattern::unserialize(SerialBuffer &buffer)
-{
-  //DEBUG_LOG("Unserialize");
-  BlendPattern::unserialize(buffer);
-}
-
 void ComplementaryBlendPattern::onBlinkOn()
 {
   // every other tick show the complement color

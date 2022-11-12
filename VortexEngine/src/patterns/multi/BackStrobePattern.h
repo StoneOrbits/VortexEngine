@@ -7,7 +7,7 @@
 class BackStrobePattern : public HybridPattern
 {
 public:
-  BackStrobePattern(uint8_t stepSpeed = 1000);
+  BackStrobePattern(uint16_t stepSpeed = 1000);
   virtual ~BackStrobePattern();
 
   // init the pattern to initial state
@@ -18,9 +18,13 @@ public:
   virtual void serialize(SerialBuffer& buffer) const override;
   virtual void unserialize(SerialBuffer& buffer) override;
 
+#ifdef TEST_FRAMEWORK
+  virtual void saveTemplate(int level = 0) const override;
+#endif
+
 private:
   // the speed for the step timer
-  uint8_t m_stepSpeed;
+  uint16_t m_stepSpeed;
   // the step timer
   Timer m_stepTimer;
 

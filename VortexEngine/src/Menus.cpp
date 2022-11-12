@@ -139,10 +139,7 @@ bool Menus::runCurMenu()
   // if the menu run handler returns false that signals the 
   // menu was closed by the user leaving the menu
   if (!m_pCurMenu->run()) {
-    // when a menu closes save all settings
-    if (!Modes::saveStorage()) {
-      ERROR_LOG("Failed to save storage");
-    }
+    // close the current menu when run returns false
     closeCurMenu();
     // return false to let the modes play
     return false;

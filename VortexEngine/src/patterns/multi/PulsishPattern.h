@@ -20,6 +20,10 @@ public:
   virtual void serialize(SerialBuffer& buffer) const override;
   virtual void unserialize(SerialBuffer& buffer) override;
 
+#ifdef TEST_FRAMEWORK
+  virtual void saveTemplate(int level = 0) const override;
+#endif
+
 private:
   // how much the warp has progressed
   uint8_t m_progress;

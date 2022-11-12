@@ -127,7 +127,8 @@ void ModeSharing::receiveMode()
   m_pCurMode->unserialize(buf);
   m_pCurMode->init();
   DEBUG_LOG("Success receiving mode");
-  leaveMenu();
+  // leave menu and save settings
+  leaveMenu(true);
 }
 
 void ModeSharing::showSendMode()

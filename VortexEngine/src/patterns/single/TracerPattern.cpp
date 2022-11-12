@@ -70,3 +70,12 @@ void TracerPattern::unserialize(SerialBuffer &buffer)
   buffer.unserialize(&m_tracerDuration);
   buffer.unserialize(&m_dotDuration);
 }
+
+#ifdef TEST_FRAMEWORK
+void TracerPattern::saveTemplate(int level) const
+{
+  SingleLedPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"TracerDuration\": %d,", m_tracerDuration);
+  IndentMsg(level + 1, "\"DotDuration\": %d,", m_dotDuration);
+}
+#endif

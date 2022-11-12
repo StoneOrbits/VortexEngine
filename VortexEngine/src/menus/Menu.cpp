@@ -54,9 +54,12 @@ void Menu::onLongClick()
 {
 }
 
-void Menu::leaveMenu()
+void Menu::leaveMenu(bool doSave)
 {
   m_shouldClose = true;
+  if (doSave) {
+    Modes::saveStorage();
+  }
   //DEBUG_LOG("Leaving Menu");
 }
 

@@ -80,3 +80,14 @@ void LighthousePattern::unserialize(SerialBuffer& buffer)
   buffer.unserialize(&m_fadeAmount);
   buffer.unserialize(&m_fadeRate);
 }
+
+#ifdef TEST_FRAMEWORK
+void LighthousePattern::saveTemplate(int level) const
+{
+  BlinkStepPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"FadeAmount\": %d,", m_fadeAmount);
+  IndentMsg(level + 1, "\"FadeRate\": %d,", m_fadeRate);
+}
+#endif
+
+

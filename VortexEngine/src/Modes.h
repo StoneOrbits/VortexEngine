@@ -2,6 +2,7 @@
 #define SETTINGS_H
 
 #include "SerialBuffer.h"
+#include "ColorTypes.h"
 #include "Patterns.h"
 
 #include <inttypes.h>
@@ -10,8 +11,12 @@ class Mode;
 class Colorset;
 
 // the maximum number of modes that can be stored
-// TODO: change this back to 16
-#define NUM_MODES     32
+#ifdef TEST_FRAMEWORK
+// crank this up so we can demo all modes and generate the template
+#define MAX_MODES     PATTERN_COUNT
+#else
+#define MAX_MODES     16
+#endif
 
 class Modes
 {
@@ -36,10 +41,18 @@ public:
   // load all modes from a buffer
   static bool unserialize(SerialBuffer &buffer);
 
+#ifdef TEST_FRAMEWORK
+  // save the data template
+  static void saveTemplate(int level = 0);
+#endif
+
   // set default settings (must save after)
   static bool setDefaults();
 
-  // add a new mode with a given pattern and colorset
+  // add a new mode in various different ways
+  static bool addMode(PatternID id, RGBColor c1, RGBColor c2 = RGB_OFF,
+    RGBColor c3 = RGB_OFF, RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF,
+    RGBColor c6 = RGB_OFF, RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
   static bool addMode(PatternID id, const Colorset *set);
   static bool addMode(const Mode *mode);
 
@@ -72,7 +85,7 @@ private:
   static Mode *m_pCurMode;
 
   // list of serialized version of bufers
-  static SerialBuffer m_serializedModes[NUM_MODES];
+  static SerialBuffer m_serializedModes[MAX_MODES];
 };
 
 #endif

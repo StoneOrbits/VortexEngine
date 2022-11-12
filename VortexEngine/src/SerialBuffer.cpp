@@ -159,6 +159,8 @@ bool SerialBuffer::extend(uint32_t size)
 
 bool SerialBuffer::compress()
 {
+  // TODO: COMPRESSION DISABLED FOR NOW
+  return true;
   // only compress if we have valid data
   if (!m_pData) {
     DEBUG_LOG("No data to compress");

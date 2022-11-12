@@ -48,6 +48,14 @@ void BlendPattern::unserialize(SerialBuffer &buffer)
   buffer.unserialize(&m_speed);
 }
 
+#ifdef TEST_FRAMEWORK
+void BlendPattern::saveTemplate(int level) const
+{
+  BasicPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"BlendSpeed\": %d,", m_speed);
+}
+#endif
+
 void BlendPattern::onBlinkOn()
 {
   // if the current hue has reached the next hue

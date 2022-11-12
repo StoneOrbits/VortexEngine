@@ -70,6 +70,8 @@ void Randomizer::onShortClick()
 
 void Randomizer::onLongClick()
 {
+  // check if there was any changes (most likely)
+  bool different = m_pCurMode->equals(m_pRandomizedMode);
   // update the current mode to be a copy of the randomized mode
   if (!Modes::setCurMode(m_pRandomizedMode)) {
     ERROR_LOG("Failed to set randomized mode");
@@ -77,7 +79,7 @@ void Randomizer::onLongClick()
     DEBUG_LOG("Saved new randomization");
   }
   // then done here
-  leaveMenu();
+  leaveMenu(different);
 }
 
 bool Randomizer::reRoll()

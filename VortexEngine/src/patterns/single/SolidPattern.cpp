@@ -1,6 +1,7 @@
 #include "SolidPattern.h"
 
 #include "../../SerialBuffer.h"
+#include "../../Log.h"
 
 SolidPattern::SolidPattern(uint8_t colIndex, uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration) :
   BasicPattern(onDuration, offDuration, gapDuration),
@@ -33,6 +34,14 @@ void SolidPattern::unserialize(SerialBuffer &buffer)
   BasicPattern::unserialize(buffer);
   buffer.unserialize(&m_colIndex);
 }
+
+#ifdef TEST_FRAMEWORK
+void SolidPattern::saveTemplate(int level) const
+{
+  BasicPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"ColorIndex\": %d,", m_colIndex);
+}
+#endif
 
 // callbacks for blinking on/off, can be overridden by derived classes
 void SolidPattern::onBlinkOn()

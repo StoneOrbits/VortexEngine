@@ -73,6 +73,25 @@ void HybridPattern::unserialize(SerialBuffer &buffer)
   }
 }
 
+#ifdef TEST_FRAMEWORK
+void HybridPattern::saveTemplate(int level) const
+{
+  MultiLedPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"SubPatterns\": [");
+  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
+    // this might be ugly
+    if (m_ledPatterns[pos]) {
+      IndentMsg(level + 2, "{");
+      m_ledPatterns[pos]->saveTemplate(level + 3);
+      // close the params of sub pattern
+      IndentMsg(level + 3, "}");
+      IndentMsg(level + 2, "},");
+    }
+  }
+  IndentMsg(level + 1, "],");
+}
+#endif
+
 void HybridPattern::clearPatterns()
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {

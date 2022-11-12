@@ -108,3 +108,13 @@ void AdvancedPattern::unserialize(SerialBuffer &buffer)
   buffer.unserialize(&m_skipCols);
   buffer.unserialize(&m_repeatGroup);
 }
+
+#ifdef TEST_FRAMEWORK
+void AdvancedPattern::saveTemplate(int level) const
+{
+  BasicPattern::saveTemplate(level);
+  IndentMsg(level + 1, "\"GroupSize\": %d,", m_groupSize);
+  IndentMsg(level + 1, "\"SkipColors\": %d,", m_skipCols);
+  IndentMsg(level + 1, "\"RepeatGroup\": %d,", m_repeatGroup);
+}
+#endif

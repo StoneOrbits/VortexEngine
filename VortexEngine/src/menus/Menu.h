@@ -28,7 +28,7 @@ public:
 
 protected:
   // close the current menu
-  virtual void leaveMenu();
+  virtual void leaveMenu(bool doSave = false);
   // blink the selected finger
   virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
 
