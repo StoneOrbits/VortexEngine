@@ -121,7 +121,7 @@ void PatternSelect::onLongClick()
     break;
   case STATE_PICK_PATTERN:
     // check if the new pattern is different
-    bool different = (m_pCurMode->getPatternID() == m_newPatternID);
+    different = (m_pCurMode->getPatternID() == m_newPatternID);
     // store the new pattern in the mode
     m_pCurMode->setPattern(m_newPatternID);
     m_pCurMode->init();

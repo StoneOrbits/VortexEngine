@@ -97,7 +97,7 @@ void IndentMsg(int level, const char *msg, ...)
   if (!SerialComs::initialized()) {
     return;
   }
-  if (level < 0 || level > sizeof(SPACES) - 1) { 
+  if (level < 0 || level > (int)(sizeof(SPACES) - 1)) {
     return;
   }
   va_list list;
