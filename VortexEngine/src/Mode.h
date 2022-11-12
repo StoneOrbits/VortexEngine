@@ -44,7 +44,7 @@ public:
 
 #ifdef TEST_FRAMEWORK
   // save the data template
-  void saveTemplate(int level = 0);
+  void saveTemplate(int level = 0) const;
 #endif
 
   // bind either a multi-led pattern o
@@ -77,6 +77,9 @@ public:
   bool setPattern(PatternID pat);
   bool setColorset(const Colorset *set);
 
+  // get the flags associated with this mode
+  uint32_t getFlags() const;
+
   // is this a multi-led pattern in the mode?
   bool isMultiLed() const;
   // are all the single led patterns and colorsets equal?
@@ -91,20 +94,9 @@ private:
   void clearPattern(LedPos pos);
   void clearColorsets();
 
-  // NOTE: Modes *ALLOW* for one pattern and one colorset on each LED
-  //       but we are not intending to expose that functionality through
-  //       the menus or UI. Instead users will have to customize save
-  //       files with separate software to produce custom multi-pattern
-  //       or multi-colorset modes
-  //
-  //       This means in practice all m_pPatterns and m_pColorsets are
-  //       separate instances of the same class unless somebody has loaded
-  //       a custom savefile
-  //
-  //       Alternatively a Mode can contain a single MultiLedPattern and
-  //       Colorset, where the single pattern will be responsible for all
-  //       of the leds.
-
+  // A mode simply contains a list of patterns for each LED, these can either
+  // be each SingleLedPatterns up to LED_COUNT of them -- or the first entry
+  // can be a MultiLedPattern, just one.
   union {
     // map of led positions => pattern entries
     Pattern *m_ledEntries[LED_COUNT];

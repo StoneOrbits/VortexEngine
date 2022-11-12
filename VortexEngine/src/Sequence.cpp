@@ -142,13 +142,13 @@ void SequenceStep::unserialize(SerialBuffer &buffer)
 #ifdef TEST_FRAMEWORK
 void SequenceStep::saveTemplate(int level) const
 {
-    IndentMsg(level, "\"Duration\": %d,", m_duration);
-    IndentMsg(level, "\"PatternMap\": [");
-    m_patternMap.saveTemplate(level + 1);
-    IndentMsg(level, "],");
-    IndentMsg(level, "\"ColorsetMap\": [");
-    m_colorsetMap.saveTemplate(level + 1);
-    IndentMsg(level, "],");
+  IndentMsg(level, "\"Duration\": %d,", m_duration);
+  IndentMsg(level, "\"PatternMap\": [");
+  m_patternMap.saveTemplate(level + 1);
+  IndentMsg(level, "],");
+  IndentMsg(level, "\"ColorsetMap\": [");
+  m_colorsetMap.saveTemplate(level + 1);
+  IndentMsg(level, "],");
 }
 #endif
 
