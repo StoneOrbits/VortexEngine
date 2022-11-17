@@ -1,7 +1,7 @@
 #ifndef RANDOMIZER_H
 #define RANDOMIZER_H
 
-#include "Menu.h"
+#include "../Menu.h"
 
 class Mode;
 

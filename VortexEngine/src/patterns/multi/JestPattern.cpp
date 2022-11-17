@@ -1,7 +1,7 @@
 #include "JestPattern.h"
 
 #include "../single/AdvancedPattern.h"
-#include "../../PatternBuilder.h"
+#include "../PatternBuilder.h"
 
 JestPattern::JestPattern() :
   HybridPattern()

@@ -5,7 +5,7 @@
 
 #include "SingleLedPattern.h"
 
-#include "../../Timer.h"
+#include "../../Time/Timer.h"
 
 class BasicPattern : public SingleLedPattern
 {

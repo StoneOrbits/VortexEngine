@@ -3,7 +3,7 @@
 
 #include "MultiLedPattern.h"\
 
-#include "../../Timer.h"
+#include "../../Time/Timer.h"
 
 class DripMorphPattern : public MultiLedPattern
 {

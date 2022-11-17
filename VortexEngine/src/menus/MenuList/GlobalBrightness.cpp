@@ -1,8 +1,8 @@
 #include "GlobalBrightness.h"
 
-#include "../Modes.h"
-#include "../Leds.h"
-#include "../Log.h"
+#include "../../Modes/Modes.h"
+#include "../../Leds/Leds.h"
+#include "../../Log/Log.h"
 
 GlobalBrightness::GlobalBrightness() :
   Menu()

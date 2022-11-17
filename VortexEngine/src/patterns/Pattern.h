@@ -1,9 +1,9 @@
 #ifndef PATTERN_H
 #define PATTERN_H
 
-#include "../LedTypes.h"
-#include "../Patterns.h"
-#include "../Colorset.h"
+#include "../Leds/LedTypes.h"
+#include "../Patterns/Patterns.h"
+#include "../Colors/Colorset.h"
 
 // The heirarchy of pattern currently looks like this:
 /*

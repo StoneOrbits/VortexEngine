@@ -3,7 +3,7 @@
 
 #include "BlinkStepPattern.h"
 
-#include "../../Timings.h"
+#include "../../Time/Timings.h"
 
 // Rabbit is PATTERN_STROBIE on tops and PATTERN_STROBE on tips
 class TheaterChasePattern : public BlinkStepPattern

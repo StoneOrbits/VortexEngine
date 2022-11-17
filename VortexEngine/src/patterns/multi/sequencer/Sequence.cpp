@@ -1,9 +1,9 @@
 #include "Sequence.h"
 
-#include "SerialBuffer.h"
-#include "Memory.h"
-#include "Leds.h"
-#include "Log.h"
+#include "../../../Serial/SerialBuffer.h"
+#include "../../../Memory/Memory.h"
+#include "../../../Leds/Leds.h"
+#include "../../../Log/Log.h"
 
 // some arbitrary number
 #define MAX_SEQUENCE_STEPS 64

@@ -1,16 +1,16 @@
 #include "Modes.h"
 
-#include "patterns/Pattern.h"
+#include "../Patterns/Pattern.h"
 
-#include "SerialBuffer.h"
-#include "TimeControl.h"
-#include "ModeBuilder.h"
-#include "Colorset.h"
-#include "Storage.h"
-#include "Buttons.h"
-#include "Mode.h"
-#include "Leds.h"
-#include "Log.h"
+#include "../Serial/SerialBuffer.h"
+#include "../Time/TimeControl.h"
+#include "../Colors/Colorset.h"
+#include "../Storage/Storage.h"
+#include "../Buttons/Buttons.h"
+#include "../Modes/ModeBuilder.h"
+#include "../Modes/Mode.h"
+#include "../Leds/Leds.h"
+#include "../Log/Log.h"
 
 // static members
 uint8_t Modes::m_curMode = 0;

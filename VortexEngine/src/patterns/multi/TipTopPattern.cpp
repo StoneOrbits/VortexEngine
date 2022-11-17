@@ -1,6 +1,6 @@
 #include "TipTopPattern.h"
 
-#include "../../PatternBuilder.h"
+#include "../PatternBuilder.h"
 
 TipTopPattern::TipTopPattern() :
   HybridPattern()

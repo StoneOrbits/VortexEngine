@@ -1,13 +1,13 @@
 #include "ModeBuilder.h"
 
-#include "patterns/single/SingleLedPattern.h"
-#include "patterns/multi/MultiLedPattern.h"
-#include "patterns/Pattern.h"
-#include "PatternBuilder.h"
-#include "SerialBuffer.h"
-#include "Colorset.h"
-#include "Mode.h"
-#include "Log.h"
+#include "../Patterns/single/SingleLedPattern.h"
+#include "../Patterns/multi/MultiLedPattern.h"
+#include "../Patterns/Pattern.h"
+#include "../Patterns/PatternBuilder.h"
+#include "../Serial/SerialBuffer.h"
+#include "../Colors/Colorset.h"
+#include "../Modes/Mode.h"
+#include "../Log/Log.h"
 
 ModeBuilder::ModeBuilder()
 {

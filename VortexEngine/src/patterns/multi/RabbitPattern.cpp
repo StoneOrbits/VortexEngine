@@ -1,7 +1,7 @@
 #include "RabbitPattern.h"
 
-#include "../../PatternBuilder.h"
-#include "../../Colorset.h"
+#include "../PatternBuilder.h"
+#include "../../Colors/Colorset.h"
 
 RabbitPattern::RabbitPattern() :
   HybridPattern()

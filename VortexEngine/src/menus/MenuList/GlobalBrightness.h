@@ -1,7 +1,7 @@
 #ifndef GLOBAL_BRIGHTNESS_H
 #define GLOBAL_BRIGHTNESS_H
 
-#include "Menu.h"
+#include "../Menu.h"
 
 class GlobalBrightness : public Menu
 {

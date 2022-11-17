@@ -1,10 +1,11 @@
 #include <FastLED.h>
 #include <Adafruit_DotStar.h>
 
-#include "TimeControl.h"
 #include "LedStash.h"
-#include "Modes.h"
 #include "Leds.h"
+
+#include "../Time/TimeControl.h"
+#include "../Modes/Modes.h"
 
 #define LED_DATA_PIN  4
 

@@ -1,12 +1,12 @@
 #include "ModeSharing.h"
 
-#include "../SerialBuffer.h"
-#include "../TimeControl.h"
-#include "../Infrared.h"
-#include "../Modes.h"
-#include "../Mode.h"
-#include "../Leds.h"
-#include "../Log.h"
+#include "../../Serial/SerialBuffer.h"
+#include "../../Time/TimeControl.h"
+#include "../../Infrared/Infrared.h"
+#include "../../Modes/Modes.h"
+#include "../../Modes/Mode.h"
+#include "../../Leds/Leds.h"
+#include "../../Log/Log.h"
 
 ModeSharing::ModeSharing() :
   Menu(),

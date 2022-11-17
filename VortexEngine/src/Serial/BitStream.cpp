@@ -1,6 +1,7 @@
 #include "BitStream.h"
-#include "Memory.h"
-#include "Log.h"
+
+#include "../Memory/Memory.h"
+#include "../Log/Log.h"
 
 #include <string.h>
 

@@ -2,10 +2,10 @@
 
 #include <Arduino.h>
 
-#include "../SerialBuffer.h"
-#include "../TimeControl.h"
-#include "../Colorset.h"
-#include "../Log.h"
+#include "../Serial/SerialBuffer.h"
+#include "../Time/TimeControl.h"
+#include "../Colors/Colorset.h"
+#include "../Log/Log.h"
 
 Pattern::Pattern() :
   m_patternID(PATTERN_FIRST),

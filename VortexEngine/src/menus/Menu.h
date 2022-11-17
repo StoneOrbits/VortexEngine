@@ -3,8 +3,8 @@
 
 #include <inttypes.h>
 
-#include "../ColorTypes.h"
-#include "../LedTypes.h"
+#include "../Colors/ColorTypes.h"
+#include "../Leds/LedTypes.h"
 
 class Mode;
 

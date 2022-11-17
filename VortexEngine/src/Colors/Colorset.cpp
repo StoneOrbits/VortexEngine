@@ -1,9 +1,9 @@
 #include "Colorset.h"
 
-#include "SerialBuffer.h"
-#include "Memory.h"
+#include "../Serial/SerialBuffer.h"
+#include "../Memory/Memory.h"
 
-#include "Log.h"
+#include "../Log/Log.h"
 
 #include <Arduino.h>
 #include <cstring>

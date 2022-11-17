@@ -1,15 +1,13 @@
 #include "Mode.h"
 
-#include "patterns/single/SingleLedPattern.h"
-#include "patterns/multi/MultiLedPattern.h"
-#include "patterns/Pattern.h"
-#include "PatternBuilder.h"
-#include "SerialBuffer.h"
-#include "TimeControl.h"
-#include "Colorset.h"
-#include "Log.h"
-
-#include <Arduino.h>
+#include "../Patterns/single/SingleLedPattern.h"
+#include "../Patterns/multi/MultiLedPattern.h"
+#include "../Patterns/PatternBuilder.h"
+#include "../Patterns/Pattern.h"
+#include "../Serial/SerialBuffer.h"
+#include "../Time/TimeControl.h"
+#include "../Colors/Colorset.h"
+#include "../Log/Log.h"
 
 Mode::Mode() :
   m_ledEntries()

@@ -1,9 +1,9 @@
 #include "BracketsPattern.h"
 
-#include "../../SerialBuffer.h"
-#include "../../Colorset.h"
-#include "../../Leds.h"
-#include "../../Log.h"
+#include "../../Serial/SerialBuffer.h"
+#include "../../Colors/Colorset.h"
+#include "../../Leds/Leds.h"
+#include "../../Log/Log.h"
 
 BracketsPattern::BracketsPattern(uint8_t bracketDuration, uint8_t midDuration, uint8_t offDuration) :
   SingleLedPattern(),

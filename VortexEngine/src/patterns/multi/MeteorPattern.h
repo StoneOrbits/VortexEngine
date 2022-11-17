@@ -3,8 +3,8 @@
 
 #include "BlinkStepPattern.h"
 
-#include "../../Timings.h"
-#include "../../LedStash.h"
+#include "../../Time/Timings.h"
+#include "../../Leds/LedStash.h"
 
 class MeteorPattern : public BlinkStepPattern
 {

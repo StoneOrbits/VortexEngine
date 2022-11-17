@@ -3,7 +3,7 @@
 
 #include <inttypes.h>
 
-#include "LedTypes.h"
+#include "../Leds/LedTypes.h"
 
 enum MenuEntries {
   MENU_RANDOMIZER,

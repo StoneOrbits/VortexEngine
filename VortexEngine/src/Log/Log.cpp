@@ -1,7 +1,7 @@
 #include "Log.h"
 
-#include "TimeControl.h"
-#include "Serial.h"
+#include "../Time/TimeControl.h"
+#include "../Serial/Serial.h"
 
 #include <stdarg.h>
 #include <string.h>

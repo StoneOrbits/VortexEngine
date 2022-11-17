@@ -1,9 +1,9 @@
 #include "BouncePattern.h"
 
-#include "../../SerialBuffer.h"
-#include "../../TimeControl.h"
-#include "../../Leds.h"
-#include "../../Log.h"
+#include "../../Serial/SerialBuffer.h"
+#include "../../Time/TimeControl.h"
+#include "../../Leds/Leds.h"
+#include "../../Log/Log.h"
 
 #define TOTAL_STEPS ((FINGER_COUNT * 2) - 2)
 #define HALF_STEPS (TOTAL_STEPS / 2)

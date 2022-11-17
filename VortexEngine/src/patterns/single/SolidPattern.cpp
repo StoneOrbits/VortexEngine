@@ -1,7 +1,7 @@
 #include "SolidPattern.h"
 
-#include "../../SerialBuffer.h"
-#include "../../Log.h"
+#include "../../Serial/SerialBuffer.h"
+#include "../../Log/Log.h"
 
 SolidPattern::SolidPattern(uint8_t colIndex, uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration) :
   BasicPattern(onDuration, offDuration, gapDuration),

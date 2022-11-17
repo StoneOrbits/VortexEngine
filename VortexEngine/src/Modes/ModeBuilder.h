@@ -1,8 +1,8 @@
 #ifndef MODE_BUILDER_H
 #define MODE_BUILDER_H
 
-#include "ColorTypes.h"
-#include "Patterns.h"
+#include "../Colors/ColorTypes.h"
+#include "../Patterns/Patterns.h"
 
 class SerialBuffer;
 class Colorset;

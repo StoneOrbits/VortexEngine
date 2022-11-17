@@ -1,7 +1,7 @@
 #ifndef MODE_SHARING_H
 #define MODE_SHARING_H
 
-#include "Menu.h"
+#include "../Menu.h"
 
 class ModeSharing : public Menu
 {

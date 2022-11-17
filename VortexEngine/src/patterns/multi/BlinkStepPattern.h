@@ -3,8 +3,8 @@
 
 #include "MultiLedPattern.h"
 
-#include "../../Timer.h"
-#include "../../LedTypes.h"
+#include "../../Time/Timer.h"
+#include "../../Leds/LedTypes.h"
 
 class BlinkStepPattern : public MultiLedPattern
 {

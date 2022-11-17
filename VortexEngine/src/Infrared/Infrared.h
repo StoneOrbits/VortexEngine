@@ -3,7 +3,7 @@
 
 #include <inttypes.h>
 
-#include "BitStream.h"
+#include "../Serial/BitStream.h"
 
 class SerialBuffer;
 

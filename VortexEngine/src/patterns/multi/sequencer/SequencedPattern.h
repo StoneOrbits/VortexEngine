@@ -1,11 +1,12 @@
 #ifndef SEQUENCED_PATTERN_H
 #define SEQUENCED_PATTERN_H
 
-#include "HybridPattern.h"
+#include "../HybridPattern.h"
 
-#include "../../Sequence.h"
-#include "../../LedTypes.h"
-#include "../../Timer.h"
+#include "../../../Leds/LedTypes.h"
+#include "../../../Time/Timer.h"
+
+#include "Sequence.h"
 
 class SerialBuffer;
 

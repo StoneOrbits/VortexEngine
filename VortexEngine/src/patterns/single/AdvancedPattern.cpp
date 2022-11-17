@@ -1,10 +1,10 @@
 #include "AdvancedPattern.h"
 
-#include "../../SerialBuffer.h"
-#include "../../TimeControl.h"
-#include "../../Colorset.h"
-#include "../../Leds.h"
-#include "../../Log.h"
+#include "../../Serial/SerialBuffer.h"
+#include "../../Time/TimeControl.h"
+#include "../../Colors/Colorset.h"
+#include "../../Leds/Leds.h"
+#include "../../Log/Log.h"
 
 AdvancedPattern::AdvancedPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration,
                                  uint8_t groupSize, uint8_t skipCols, uint8_t repeatGroup) :

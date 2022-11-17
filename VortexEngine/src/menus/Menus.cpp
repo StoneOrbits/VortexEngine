@@ -1,20 +1,20 @@
 #include "Menus.h"
 
 // menus
-#include "menus/GlobalBrightness.h"
-#include "menus/FactoryReset.h"
-#include "menus/ModeSharing.h"
-#include "menus/ColorSelect.h"
-#include "menus/PatternSelect.h"
-#include "menus/Randomizer.h"
+#include "MenuList/GlobalBrightness.h"
+#include "MenuList/FactoryReset.h"
+#include "MenuList/ModeSharing.h"
+#include "MenuList/ColorSelect.h"
+#include "MenuList/PatternSelect.h"
+#include "MenuList/Randomizer.h"
 
-#include "TimeControl.h"
-#include "Timings.h"
-#include "Button.h"
-#include "Serial.h"
-#include "Modes.h"
-#include "Leds.h"
-#include "Log.h"
+#include "../Time/TimeControl.h"
+#include "../Time/Timings.h"
+#include "../Buttons/Button.h"
+#include "../Serial/Serial.h"
+#include "../Modes/Modes.h"
+#include "../Leds/Leds.h"
+#include "../Log/Log.h"
 
 // comment this out if you want the menu to fill from pinkie
 // the logic is cleaner for fill from pinkie

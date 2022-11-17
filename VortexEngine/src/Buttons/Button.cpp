@@ -2,9 +2,9 @@
 
 #include <Arduino.h>
 
-#include "TimeControl.h"
-#include "Timings.h"
-#include "Log.h"
+#include "../Time/TimeControl.h"
+#include "../Time/Timings.h"
+#include "../Log/Log.h"
 
 Button::Button() :
   m_pinNum(0),

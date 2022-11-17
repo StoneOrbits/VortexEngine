@@ -1,11 +1,11 @@
 #include "Menu.h"
 
-#include "../TimeControl.h"
-#include "../Timings.h"
-#include "../Button.h"
-#include "../Modes.h"
-#include "../Leds.h"
-#include "../Log.h"
+#include "../Time/TimeControl.h"
+#include "../Time/Timings.h"
+#include "../Buttons/Button.h"
+#include "../Modes/Modes.h"
+#include "../Leds/Leds.h"
+#include "../Log/Log.h"
 
 Menu::Menu() :
   m_pCurMode(nullptr),

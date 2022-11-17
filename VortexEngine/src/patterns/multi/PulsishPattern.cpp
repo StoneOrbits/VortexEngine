@@ -1,9 +1,9 @@
 #include "PulsishPattern.h"
 
-#include "../../SerialBuffer.h"
-#include "../../TimeControl.h"
-#include "../../Leds.h"
-#include "../../Log.h"
+#include "../../Serial/SerialBuffer.h"
+#include "../../Time/TimeControl.h"
+#include "../../Leds/Leds.h"
+#include "../../Log/Log.h"
 
 PulsishPattern::PulsishPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2, uint8_t offDuration2, uint8_t stepDuration) :
   MultiLedPattern(),

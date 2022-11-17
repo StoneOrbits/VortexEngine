@@ -1,8 +1,8 @@
 #include "BlinkStepPattern.h"
 
-#include "../../LedStash.h"
-#include "../../Timings.h"
-#include "../../Timer.h"
+#include "../../Leds/LedStash.h"
+#include "../../Time/Timings.h"
+#include "../../Time/Timer.h"
 
 class LighthousePattern : public BlinkStepPattern
 {

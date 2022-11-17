@@ -1,10 +1,10 @@
 #ifndef PATTERN_SELECT_H
 #define PATTERN_SELECT_H
 
-#include "Menu.h"
+#include "../Menu.h"
 
-#include "../Colorset.h"
-#include "../Patterns.h"
+#include "../../Colors/Colorset.h"
+#include "../../Patterns/Patterns.h"
 
 class Mode;
 

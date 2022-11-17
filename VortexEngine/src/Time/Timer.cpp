@@ -1,8 +1,9 @@
 #include "Timer.h"
 
 #include "TimeControl.h"
-#include "Memory.h"
-#include "Log.h"
+
+#include "../Memory/Memory.h"
+#include "../Log/Log.h"
 
 Timer::Timer() :
   m_alarms(nullptr),

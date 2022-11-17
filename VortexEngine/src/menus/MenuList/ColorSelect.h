@@ -1,9 +1,9 @@
 #ifndef COLOR_SELECT_H
 #define COLOR_SELECT_H
 
-#include "Menu.h"
+#include "../Menu.h"
 
-#include "../Colorset.h"
+#include "../../Colors/Colorset.h"
 
 class ColorSelect : public Menu
 {

@@ -3,10 +3,11 @@
 #include <Arduino.h>
 #include <math.h>
 
-#include "Infrared.h"
+#include "../Infrared/Infrared.h"
+#include "../Memory/Memory.h"
+#include "../Log/Log.h"
+
 #include "Timings.h"
-#include "Memory.h"
-#include "Log.h"
 
 // static members
 uint64_t Time::m_curTick = 0;
@@ -32,8 +33,6 @@ bool Time::init()
 void Time::cleanup()
 {
 }
-
-#include "Infrared.h"
 
 void Time::tickClock()
 {

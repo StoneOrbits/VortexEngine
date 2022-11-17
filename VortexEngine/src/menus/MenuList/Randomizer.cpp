@@ -1,16 +1,16 @@
 #include "Randomizer.h"
 
-#include "../Memory.h"
+#include "../../Memory/Memory.h"
 
-#include "../patterns/Pattern.h"
-#include "../ModeBuilder.h"
-#include "../Colorset.h"
-#include "../Timings.h"
-#include "../Button.h"
-#include "../Modes.h"
-#include "../Mode.h"
-#include "../Leds.h"
-#include "../Log.h"
+#include "../../Patterns/Pattern.h"
+#include "../../Colors/Colorset.h"
+#include "../../Time/Timings.h"
+#include "../../Buttons/Button.h"
+#include "../../Modes/ModeBuilder.h"
+#include "../../Modes/Modes.h"
+#include "../../Modes/Mode.h"
+#include "../../Leds/Leds.h"
+#include "../../Log/Log.h"
 
 Randomizer::Randomizer() :
   Menu(),

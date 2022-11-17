@@ -1,12 +1,11 @@
 #include "PatternSelect.h"
 
-#include "../patterns/Pattern.h"
-#include "../PatternBuilder.h"
-#include "../ModeBuilder.h"
-#include "../Mode.h"
-#include "../Leds.h"
-
-#include "../Log.h"
+#include "../../Patterns/PatternBuilder.h"
+#include "../../Patterns/Pattern.h"
+#include "../../Modes/ModeBuilder.h"
+#include "../../Modes/Mode.h"
+#include "../../Leds/Leds.h"
+#include "../../Log/Log.h"
 
 PatternSelect::PatternSelect() :
   Menu(),

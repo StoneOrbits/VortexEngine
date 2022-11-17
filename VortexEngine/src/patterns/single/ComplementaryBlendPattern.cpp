@@ -1,7 +1,7 @@
 #include "ComplementaryBlendPattern.h"
 
-#include "../../Colorset.h"
-#include "../../Leds.h"
+#include "../../Colors/Colorset.h"
+#include "../../Leds/Leds.h"
 
 ComplementaryBlendPattern::ComplementaryBlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t blendSpeed) :
   BlendPattern(onDuration, offDuration, blendSpeed),

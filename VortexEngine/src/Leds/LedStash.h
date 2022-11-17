@@ -1,7 +1,7 @@
 #ifndef LEDSTASH_H
 #define LEDSTASH_H
 
-#include "ColorTypes.h"
+#include "../Colors/ColorTypes.h"
 #include "LedTypes.h"
 
 class LedStash

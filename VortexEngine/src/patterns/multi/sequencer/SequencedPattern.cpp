@@ -1,10 +1,11 @@
 #include "SequencedPattern.h"
 
-#include "../single/SingleLedPattern.h"
+#include "../../Single/SingleLedPattern.h"
 #include "../../PatternBuilder.h"
-#include "../../SerialBuffer.h"
-#include "../../Leds.h"
-#include "../../Log.h"
+
+#include "../../../Serial/SerialBuffer.h"
+#include "../../../Leds/Leds.h"
+#include "../../../Log/Log.h"
 
 #include <string.h>
 

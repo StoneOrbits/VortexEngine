@@ -1,9 +1,9 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include "SerialBuffer.h"
-#include "ColorTypes.h"
-#include "Patterns.h"
+#include "../Serial/SerialBuffer.h"
+#include "../Colors/ColorTypes.h"
+#include "../Patterns/Patterns.h"
 
 #include <inttypes.h>
 

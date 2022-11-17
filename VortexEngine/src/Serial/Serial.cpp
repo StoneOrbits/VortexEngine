@@ -1,8 +1,9 @@
 #include "Serial.h"
 
-#include "VortexEngine.h"
-#include "TimeControl.h"
-#include "Log.h"
+#include "../Time/TimeControl.h"
+#include "../Log/Log.h"
+
+#include "../VortexEngine.h"
 
 #include <Arduino.h>
 

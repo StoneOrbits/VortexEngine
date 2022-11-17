@@ -3,7 +3,7 @@
 
 #include "BlinkStepPattern.h"
 
-#include "../../Timings.h"
+#include "../../Time/Timings.h"
 
 class CrossDopsPattern : public BlinkStepPattern
 {

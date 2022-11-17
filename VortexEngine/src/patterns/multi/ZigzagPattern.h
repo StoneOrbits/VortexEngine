@@ -3,8 +3,8 @@
 
 #include "multiledpattern.h"
 
-#include "../../Timings.h"
-#include "../../Timer.h"
+#include "../../Time/Timings.h"
+#include "../../Time/Timer.h"
 
 class ZigzagPattern : public MultiLedPattern
 {

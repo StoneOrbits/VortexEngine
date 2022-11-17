@@ -1,11 +1,11 @@
 #include "Infrared.h"
 
-#include "SerialBuffer.h"
-#include "TimeControl.h"
-#include "BitStream.h"
-#include "Buttons.h"
-#include "Leds.h"
-#include "Log.h"
+#include "../Serial/SerialBuffer.h"
+#include "../Serial/BitStream.h"
+#include "../Time/TimeControl.h"
+#include "../Buttons/Buttons.h"
+#include "../Leds/Leds.h"
+#include "../Log/Log.h"
 
 #include <Arduino.h>
 

@@ -1,10 +1,10 @@
 #ifndef SEQUENCER_H
 #define SEQUENCER_H
 
-#include "Patterns.h"
-#include "LedTypes.h"
-#include "Colorset.h"
-#include "Timer.h"
+#include "../../Patterns.h"
+#include "../../../Leds/LedTypes.h"
+#include "../../../Colors/Colorset.h"
+#include "../../../Time/Timer.h"
 
 class SequencedPattern;
 class SingleLedPattern;

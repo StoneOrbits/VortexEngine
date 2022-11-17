@@ -6,7 +6,7 @@
 #include <FastLED.h>
 #include <Adafruit_DotStar.h>
 
-#include "ColorTypes.h"
+#include "../Colors/ColorTypes.h"
 #include "LedTypes.h"
 
 // the starting default brightness

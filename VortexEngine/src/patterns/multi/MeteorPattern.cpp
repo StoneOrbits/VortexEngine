@@ -1,9 +1,9 @@
 #include "MeteorPattern.h"
 
-#include "../../SerialBuffer.h"
-#include "../../TimeControl.h"
-#include "../../Leds.h"
-#include "../../Log.h"
+#include "../../Serial/SerialBuffer.h"
+#include "../../Time/TimeControl.h"
+#include "../../Leds/Leds.h"
+#include "../../Log/Log.h"
 
 MeteorPattern::MeteorPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration, uint8_t fadeAmount) :
   BlinkStepPattern(onDuration, offDuration, stepDuration),

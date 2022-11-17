@@ -1,9 +1,9 @@
 #include "SplitStrobiePattern.h"
 
-#include "../../PatternBuilder.h"
-#include "../../SerialBuffer.h"
-#include "../../Colorset.h"
-#include "../../Log.h"
+#include "../PatternBuilder.h"
+#include "../../Serial/SerialBuffer.h"
+#include "../../Colors/Colorset.h"
+#include "../../Log/Log.h"
 
 SplitStrobiePattern::SplitStrobiePattern(uint16_t stepDuration) :
   HybridPattern(),

@@ -1,7 +1,7 @@
 #include "MultiLedPattern.h"
 
-#include "../../Timings.h"
-#include "../../Timer.h"
+#include "../../Time/Timings.h"
+#include "../../Time/Timer.h"
 
 class PulsishPattern : public MultiLedPattern
 {

@@ -1,8 +1,8 @@
 #include "SerialBuffer.h"
 
-#include "BitStream.h"
-#include "Memory.h"
-#include "Log.h"
+#include "../Serial/BitStream.h"
+#include "../Memory/Memory.h"
+#include "../Log/Log.h"
 
 #include <FlashStorage.h>
 #include <string.h>

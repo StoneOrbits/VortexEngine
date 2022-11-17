@@ -1,8 +1,8 @@
 #include "DripMorphPattern.h"
 
-#include "../../SerialBuffer.h"
-#include "../../Leds.h"
-#include "../../Log.h"
+#include "../../Serial/SerialBuffer.h"
+#include "../../Leds/Leds.h"
+#include "../../Log/Log.h"
 
 DripMorphPattern::DripMorphPattern(uint8_t blinkOn, uint8_t blinkOff, uint8_t speed) :
   MultiLedPattern(),

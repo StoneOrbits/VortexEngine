@@ -1,9 +1,9 @@
 #include "ZigzagPattern.h"
 
-#include "../../SerialBuffer.h"
-#include "../../TimeControl.h"
-#include "../../Leds.h"
-#include "../../Log.h"
+#include "../../Serial/SerialBuffer.h"
+#include "../../Time/TimeControl.h"
+#include "../../Leds/Leds.h"
+#include "../../Log/Log.h"
 
 // Mapping of LED positions to steps.
 // The lights runs across tips, then back across tops.

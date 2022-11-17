@@ -1,7 +1,7 @@
 #include "ImpactPattern.h"
 
 #include "../single/BasicPattern.h"
-#include "../../PatternBuilder.h"
+#include "../PatternBuilder.h"
 
 ImpactPattern::ImpactPattern() :
   HybridPattern()

@@ -1,9 +1,9 @@
 #include "BackStrobePattern.h"
 
-#include "../../PatternBuilder.h"
-#include "../../SerialBuffer.h"
-#include "../../Colorset.h"
-#include "../../Log.h"
+#include "../PatternBuilder.h"
+#include "../../Serial/SerialBuffer.h"
+#include "../../Colors/Colorset.h"
+#include "../../Log/Log.h"
 
 BackStrobePattern::BackStrobePattern(uint16_t stepSpeed) :
   HybridPattern(),

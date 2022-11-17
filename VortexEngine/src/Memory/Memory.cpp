@@ -6,7 +6,7 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-#include "Log.h"
+#include "../Log/Log.h"
 
 static uint32_t cur_mem_usage = 0;
 static uint32_t background_usage = 0;

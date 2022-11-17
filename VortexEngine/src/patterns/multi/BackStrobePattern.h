@@ -2,7 +2,7 @@
 #define BACKSTROBE_PATTERN_H
 
 #include "HybridPattern.h"
-#include "../../Timer.h"
+#include "../../Time/Timer.h"
 
 class BackStrobePattern : public HybridPattern
 {

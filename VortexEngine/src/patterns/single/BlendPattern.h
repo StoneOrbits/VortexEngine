@@ -4,7 +4,8 @@
 #include <inttypes.h>
 
 #include "BasicPattern.h"
-#include "../../Timings.h"
+
+#include "../../Time/Timings.h"
 
 class BlendPattern : public BasicPattern
 {

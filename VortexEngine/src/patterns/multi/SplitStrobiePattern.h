@@ -2,7 +2,7 @@
 #define SPLITSTROBIE_PATTERN_H
 
 #include "HybridPattern.h"
-#include "../../Timer.h"
+#include "../../Time/Timer.h"
 
 class SplitStrobiePattern : public HybridPattern
 {

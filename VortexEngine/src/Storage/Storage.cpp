@@ -4,9 +4,9 @@
 #include <string.h>
 #include <stdlib.h>
 
-#include "Memory.h"
-#include "SerialBuffer.h"
-#include "Log.h"
+#include "../Memory/Memory.h"
+#include "../Serial/SerialBuffer.h"
+#include "../Log/Log.h"
 
 #ifdef TEST_FRAMEWORK
 #ifndef LINUX_FRAMEWORK

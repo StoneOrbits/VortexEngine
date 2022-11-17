@@ -1,7 +1,7 @@
 #include "FlowersPattern.h"
 
 #include "../single/BasicPattern.h"
-#include "../../PatternBuilder.h"
+#include "../PatternBuilder.h"
 
 FlowersPattern::FlowersPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2, uint8_t offDuration2) :
   HybridPattern(),
