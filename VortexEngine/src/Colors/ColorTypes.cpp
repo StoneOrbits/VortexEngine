@@ -1,5 +1,6 @@
 #include "ColorTypes.h"
-#include "../Serial/SerialBuffer.h"
+
+#include "../Serial/ByteStream.h"
 
 #include <Arduino.h>
 

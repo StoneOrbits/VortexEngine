@@ -36,6 +36,8 @@ private:
   static void write8(uint8_t data);
   static void mark(uint16_t time);
   static void space(uint16_t time);
+  static void startPWM();
+  static void stopPWM();
 
   // reading functions
   // PCI handler for when IR receiver pin changes states

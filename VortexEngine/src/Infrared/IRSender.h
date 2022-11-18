@@ -1,5 +1,6 @@
 #pragma once
 
+#include "../Serial/ByteStream.h"
 #include "../Serial/BitStream.h"
 
 #include "IRConfig.h"
@@ -21,6 +22,7 @@ public:
 
 private:
   bool initSend();
+  void write8(uint8_t data);
 
   // the serial buffer for the data
   ByteStream m_serialBuf;

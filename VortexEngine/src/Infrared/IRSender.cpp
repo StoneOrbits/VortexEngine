@@ -1,8 +1,6 @@
 #include "IRSender.h"
 #include "Infrared.h"
 
-#include "../Serial/ByteStream.h"
-#include "../Serial/BitStream.h"
 #include "../Modes/Mode.h"
 #include "../Log/Log.h"
 
@@ -13,6 +11,9 @@ IRSender::IRSender(uint32_t block_size_bits) :
   m_bitStream(),
   m_isSending(false),
   m_startTime(0),
+  m_size(0),
+  m_numBlocks(0),
+  m_remainderBlocks(0),
   m_blockSize(block_size_bits)
 {
 }
@@ -73,6 +74,7 @@ void IRSender::send()
       return;
     }
   }
+#if 0
   uint8_t *buf_ptr = buf;
   // iterate each block
   for (uint32_t block = 0; block < num_blocks; ++block) {
@@ -97,9 +99,26 @@ void IRSender::send()
       DEBUG_LOG("Block");
     }
   }
+#endif
 
   DEBUG_LOGF("Wrote %u buf (%u us)", m_serialBuf.rawSize(), micros() - m_startTime);
   DEBUG_LOG("Success sending");
 }
+
+void IRSender::write8(uint8_t data)
+{
+  // Sends from left to right, MSB first
+  for (int b = 0; b < 8; b++) {
+    // grab the bit of data at the index
+    uint32_t bit = (data >> (7 - b)) & 1;
+    // send 3x timing size for 1s and 1x timing for 0
+    Infrared::mark(IR_TIMING + (IR_TIMING * (2 * bit)));
+    // send 1x timing size for space
+    Infrared::space(IR_TIMING);
+    //DEBUG_LOGF(" bit: %u", bit);
+  }
+  //DEBUG_LOGF("Sent byte[%u]: 0x%x", m_writeCounter, data);
+  //m_writeCounter++;
+ }
 
 

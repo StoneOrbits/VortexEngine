@@ -264,14 +264,6 @@ void Infrared::initpwm()
 
 void Infrared::write8(uint8_t data)
 {
-  // delay every 32 bytes
-  if (m_writeCounter && (m_writeCounter % 32) == 0) {
-    //delayMicroseconds(DIVIDER_SPACE * 2);
-    DEBUG_LOG("Sending block boundary");
-    mark(IR_TIMING);
-    space(DIVIDER_SPACE * 4);
-    delay(10);
-  }
   // Sends from left to right, MSB first
   for (int b = 0; b < 8; b++) {
     // grab the bit of data at the index
@@ -292,9 +284,7 @@ void Infrared::mark(uint16_t time)
   // send mark timing over socket
   test_ir_mark(time);
 #else
-  // start the PWM
-  IR_TCCx->CTRLA.reg |= TCC_CTRLA_ENABLE;
-  while (IR_TCCx->SYNCBUSY.bit.ENABLE);
+  startPWM();
   delayMicroseconds(time);
 #endif
 }
@@ -305,10 +295,26 @@ void Infrared::space(uint16_t time)
   // send space timing over socket
   test_ir_space(time);
 #else
+  stopPWM();
+  delayMicroseconds(time);
+#endif
+}
+
+void Infrared::startPWM()
+{
+#ifndef TEST_FRAMEWORK
+  // start the PWM
+  IR_TCCx->CTRLA.reg |= TCC_CTRLA_ENABLE;
+  while (IR_TCCx->SYNCBUSY.bit.ENABLE);
+#endif
+}
+
+void Infrared::stopPWM()
+{
+#ifndef TEST_FRAMEWORK
   // stop the PWM
   IR_TCCx->CTRLA.reg &= ~TCC_CTRLA_ENABLE;
   while (IR_TCCx->SYNCBUSY.bit.ENABLE);
-  delayMicroseconds(time);
 #endif
 }
 
@@ -369,7 +375,7 @@ void Infrared::handleIRTiming(uint32_t diff)
     // classify mark/space based on the timing and write into buffer
     m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
 #if 1
-    {
+    { // logging:
       uint8_t bit = (diff > (IR_TIMING * 2)) ? 1 : 0;
       static uint8_t byte = 0;
       static uint8_t cc = 0;
@@ -392,8 +398,8 @@ void Infrared::handleIRTiming(uint32_t diff)
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
-    // every 32 bytes expect a divider
-    if (((m_irData.bitpos() + 1) % 32) == 0) {
+    // every 32 bits expect a divider
+    if (((m_irData.bitpos() + 1) % DEFAULT_IR_BLOCK_SIZE) == 0) {
       //m_recvState = READING_DATA_DIVIDER_MARK;
       //break;
     }
