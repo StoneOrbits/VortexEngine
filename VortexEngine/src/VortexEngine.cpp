@@ -1,13 +1,14 @@
 #include "VortexEngine.h"
-#include "TimeControl.h"
-#include "Infrared.h"
-#include "Storage.h"
-#include "Buttons.h"
-#include "Serial.h"
-#include "Modes.h"
-#include "Menus.h"
-#include "Leds.h"
-#include "Log.h"
+
+#include "Time/TimeControl.h"
+#include "Infrared/Infrared.h"
+#include "Storage/Storage.h"
+#include "Buttons/Buttons.h"
+#include "Serial/Serial.h"
+#include "Modes/Modes.h"
+#include "Menus/Menus.h"
+#include "Leds/Leds.h"
+#include "Log/Log.h"
 
 #include <Arduino.h>
 
