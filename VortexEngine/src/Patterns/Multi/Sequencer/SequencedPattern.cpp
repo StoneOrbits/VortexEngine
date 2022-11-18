@@ -9,6 +9,13 @@
 
 #include <string.h>
 
+SequencedPattern::SequencedPattern() :
+  HybridPattern(),
+  m_sequence(),
+  m_curSequence(0)
+{
+}
+
 SequencedPattern::SequencedPattern(const Sequence &sequence) :
   HybridPattern(),
   m_sequence(sequence),
@@ -104,3 +111,9 @@ void SequencedPattern::saveTemplate(int level) const
   IndentMsg(level + 1, "}");
 }
 #endif
+
+// apply a sequence to the pattern
+void SequencedPattern::bindSequence(const Sequence &sequence)
+{
+  m_sequence = sequence;
+}

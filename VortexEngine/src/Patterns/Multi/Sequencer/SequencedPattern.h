@@ -15,6 +15,7 @@ class SequencedPattern : public HybridPattern
 public:
   // initialize a sequence pattern with a list of pointers to sequencesteps and the 
   // number of entries in that list
+  SequencedPattern();
   SequencedPattern(const Sequence &sequence);
   virtual ~SequencedPattern();
 
@@ -31,6 +32,9 @@ public:
 #ifdef TEST_FRAMEWORK
   virtual void saveTemplate(int level = 0) const override;
 #endif
+
+  // change the sequence of the pattern
+  void bindSequence(const Sequence &sequence);
 
 protected:
   // static data

@@ -1,5 +1,5 @@
-#ifndef SERIAL_BUFFER_H
-#define SERIAL_BUFFER_H
+#ifndef BYTE_STREAM_H
+#define BYTE_STREAM_H
 
 #include <inttypes.h>
 

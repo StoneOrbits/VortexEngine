@@ -7,6 +7,7 @@
 #include "../Log/Log.h"
 
 #include "Multi/Sequencer/SequencedPattern.h"
+#include "Multi/Sequencer/ChaserPattern.h"
 
 #include "Multi/TheaterChasePattern.h"
 #include "Multi/HueShiftPattern.h"
@@ -105,21 +106,6 @@ Pattern *PatternBuilder::makeInternal(PatternID id)
   return pat;
 }
 
-Pattern *PatternBuilder::createChaser()
-{
-  Sequence chaserSequence;
-  // there are 8 steps in the chaser
-  for (uint32_t i = 0; i < 8; ++i) {
-    // each step starts all fingers are dops
-    PatternMap patMap(PATTERN_DOPS);
-    // and one finger that moves back and forth is solid
-    patMap.setPatternAt(PATTERN_SOLID0, MAP_FINGER((Finger)((i < 5) ? i : (8 - i))));
-    // the step lasts for 300ms
-    chaserSequence.addStep(300, patMap);
-  }
-  return new SequencedPattern(chaserSequence);
-}
-
 Pattern *PatternBuilder::generate(PatternID id)
 {
   // NOTE: The timings of patterns are only defined at creation time
@@ -155,7 +141,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_RABBIT: return new RabbitPattern();
     case PATTERN_HUESHIFT: return new HueShiftPattern();
     case PATTERN_THEATER_CHASE: return new TheaterChasePattern();
-    case PATTERN_CHASER: return createChaser();
+    case PATTERN_CHASER: return new ChaserPattern();
     case PATTERN_ZIGZAG: return new ZigzagPattern();
     case PATTERN_ZIPFADE: return new ZigzagPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100, 4);
     case PATTERN_TIPTOP: return new TipTopPattern();
