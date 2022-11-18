@@ -1,6 +1,6 @@
 #include "BlinkStepPattern.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
@@ -62,7 +62,7 @@ void BlinkStepPattern::play()
 }
 
 // must override the serialize routine to save the pattern
-void BlinkStepPattern::serialize(SerialBuffer& buffer) const
+void BlinkStepPattern::serialize(ByteStream& buffer) const
 {
   MultiLedPattern::serialize(buffer);
   buffer.serialize(m_blinkOnDuration);
@@ -70,7 +70,7 @@ void BlinkStepPattern::serialize(SerialBuffer& buffer) const
   buffer.serialize(m_stepDuration);
 }
 
-void BlinkStepPattern::unserialize(SerialBuffer& buffer)
+void BlinkStepPattern::unserialize(ByteStream& buffer)
 {
   MultiLedPattern::unserialize(buffer);
   buffer.unserialize(&m_blinkOnDuration);

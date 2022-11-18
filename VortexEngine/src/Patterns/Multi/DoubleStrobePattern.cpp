@@ -1,6 +1,6 @@
 #include "DoubleStrobePattern.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 
 #include "../../Leds/Leds.h"
 

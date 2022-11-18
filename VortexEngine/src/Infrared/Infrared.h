@@ -3,31 +3,8 @@
 
 #include <inttypes.h>
 
-#include "../Serial/SerialBuffer.h"
+#include "../Serial/ByteStream.h"
 #include "../Serial/BitStream.h"
-
-class Mode;
-
-class IRSender
-{
-public:
-  IRSender();
-  IRSender(const Mode *targetMode);
-  ~IRSender();
-
-  // initialize the IR sender with a serialized mode to send
-  bool init(const Mode *targetMode);
-  void send();
-
-  bool isSending() const { return m_isSending; }
-
-private:
-  bool initSend();
-
-  SerialBuffer m_serialBuf;
-  bool m_isSending;
-  uint64_t m_startTime;
-};
 
 struct ir_block;
 
@@ -44,13 +21,9 @@ public:
   static void cleanup();
 
   // check whether a full IR message is ready to read
+  // then read the data into a ByteStream
   static bool dataReady();
-
-  // read any received data from internal buffer
-  static bool read(SerialBuffer &data);
-  // write data to internal to queue for send
-  //static bool write(SerialBuffer &data);
-  static bool write(const ir_block *block, uint32_t blocksize = 32);
+  static bool read(ByteStream &data);
 
   // turn the receiver on/off
   static bool beginReceiving();

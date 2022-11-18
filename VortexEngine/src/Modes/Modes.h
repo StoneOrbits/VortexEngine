@@ -1,7 +1,7 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include "../Serial/SerialBuffer.h"
+#include "../Serial/ByteStream.h"
 #include "../Colors/ColorTypes.h"
 #include "../Patterns/Patterns.h"
 
@@ -37,9 +37,9 @@ public:
   static bool saveStorage();
 
   // saves all modes to a buffer
-  static void serialize(SerialBuffer &buffer);
+  static void serialize(ByteStream &buffer);
   // load all modes from a buffer
-  static bool unserialize(SerialBuffer &buffer);
+  static bool unserialize(ByteStream &buffer);
 
 #ifdef TEST_FRAMEWORK
   // save the data template
@@ -57,7 +57,7 @@ public:
   static bool addMode(const Mode *mode);
 
   // add a new mode by unserializing from a buffer
-  static bool addSerializedMode(SerialBuffer &serializedMode);
+  static bool addSerializedMode(ByteStream &serializedMode);
 
   // update the current mode to match the given mode
   static bool setCurMode(PatternID id, const Colorset *set);
@@ -85,7 +85,7 @@ private:
   static Mode *m_pCurMode;
 
   // list of serialized version of bufers
-  static SerialBuffer m_serializedModes[MAX_MODES];
+  static ByteStream m_serializedModes[MAX_MODES];
 };
 
 #endif

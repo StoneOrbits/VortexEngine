@@ -38,7 +38,7 @@
 #define HSV_HUE_PURPLE  192
 #define HSV_HUE_PINK    224
 
-class SerialBuffer;
+class ByteStream;
 class RGBColor;
 
 // todo: remake color classes here
@@ -98,8 +98,8 @@ public:
   void clear();
 
   void adjustBrightness(uint8_t fadeBy);
-  void serialize(SerialBuffer &buffer) const;
-  void unserialize(SerialBuffer &buffer);
+  void serialize(ByteStream &buffer) const;
+  void unserialize(ByteStream &buffer);
 
   // public members
   union

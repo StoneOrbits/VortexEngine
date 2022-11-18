@@ -3,7 +3,7 @@
 #include "../../Single/SingleLedPattern.h"
 #include "../../PatternBuilder.h"
 
-#include "../../../Serial/SerialBuffer.h"
+#include "../../../Serial/ByteStream.h"
 #include "../../../Leds/Leds.h"
 #include "../../../Log/Log.h"
 
@@ -79,7 +79,7 @@ void SequencedPattern::play()
 }
 
 // must  the serialize routine to save the pattern
-void SequencedPattern::serialize(SerialBuffer &buffer) const
+void SequencedPattern::serialize(ByteStream &buffer) const
 {
   // Note: intentionally skipping HybridPattern::serialize because we
   //       don't want to write all the sub patterns since they change.
@@ -88,7 +88,7 @@ void SequencedPattern::serialize(SerialBuffer &buffer) const
   m_sequence.serialize(buffer);
 }
 
-void SequencedPattern::unserialize(SerialBuffer &buffer)
+void SequencedPattern::unserialize(ByteStream &buffer)
 {
   // Note: intentionally skipping HybridPattern::unserialize
   MultiLedPattern::unserialize(buffer);

@@ -2,7 +2,7 @@
 
 #include "../Patterns/Pattern.h"
 
-#include "../Serial/SerialBuffer.h"
+#include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Colors/Colorset.h"
 #include "../Storage/Storage.h"
@@ -16,7 +16,7 @@
 uint8_t Modes::m_curMode = 0;
 uint8_t Modes::m_numModes = 0;
 Mode *Modes::m_pCurMode = nullptr;
-SerialBuffer Modes::m_serializedModes[MAX_MODES];
+ByteStream Modes::m_serializedModes[MAX_MODES];
 
 bool Modes::init()
 {
@@ -70,7 +70,7 @@ bool Modes::loadStorage()
   // this is good on memory, but it erases what they have stored
   // before we know whether there is something actually saved
   clearModes();
-  SerialBuffer modesBuffer;
+  ByteStream modesBuffer;
   // only read storage if the modebuffer isn't filled
   if (!Storage::read(modesBuffer) || !modesBuffer.size()) {
     DEBUG_LOG("Empty buffer read from storage");
@@ -86,8 +86,8 @@ bool Modes::saveStorage()
 {
   DEBUG_LOG("Saving modes...");
 
-  // A serialbuffer to hold all the serialized data
-  SerialBuffer modesBuffer;
+  // A ByteStream to hold all the serialized data
+  ByteStream modesBuffer;
 
   // serialize all modes data into the modesBuffer
   serialize(modesBuffer);
@@ -104,7 +104,7 @@ bool Modes::saveStorage()
 }
 
 // Save all of the modes to a serial buffer
-void Modes::serialize(SerialBuffer &modesBuffer)
+void Modes::serialize(ByteStream &modesBuffer)
 {
   // serialize the brightness and number of modes
   modesBuffer.serialize((uint8_t)Leds::getBrightness());
@@ -129,7 +129,7 @@ void Modes::serialize(SerialBuffer &modesBuffer)
 }
 
 // load all modes from a serial buffer
-bool Modes::unserialize(SerialBuffer &modesBuffer)
+bool Modes::unserialize(ByteStream &modesBuffer)
 {
   DEBUG_LOG("Loading modes...");
   // this is good on memory, but it erases what they have stored before we
@@ -223,7 +223,7 @@ bool Modes::setDefaults()
   return true;
 }
 
-bool Modes::addSerializedMode(SerialBuffer &serializedMode)
+bool Modes::addSerializedMode(ByteStream &serializedMode)
 {
   Mode *mode = ModeBuilder::unserialize(serializedMode);
   if (!mode) {

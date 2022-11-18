@@ -1,7 +1,7 @@
 #include "SplitStrobiePattern.h"
 
 #include "../PatternBuilder.h"
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Colors/Colorset.h"
 #include "../../Log/Log.h"
 
@@ -52,13 +52,13 @@ void SplitStrobiePattern::play()
 }
 
 // must override the serialize routine to save the pattern
-void SplitStrobiePattern::serialize(SerialBuffer& buffer) const
+void SplitStrobiePattern::serialize(ByteStream& buffer) const
 {
   HybridPattern::serialize(buffer);
   buffer.serialize(m_stepDuration);
 }
 
-void SplitStrobiePattern::unserialize(SerialBuffer& buffer)
+void SplitStrobiePattern::unserialize(ByteStream& buffer)
 {
   HybridPattern::unserialize(buffer);
   buffer.unserialize(&m_stepDuration);

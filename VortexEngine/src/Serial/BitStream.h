@@ -22,7 +22,7 @@ public:
   // reset the reader/writer position
   void resetPos();
 
-  // read write a single bit in LSB
+  // read/write a single bit in LSB
   uint8_t read1Bit();
   void write1Bit(uint8_t bit);
   // read/write multiple bits from left to right at LSB

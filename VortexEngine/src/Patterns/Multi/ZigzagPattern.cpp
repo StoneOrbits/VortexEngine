@@ -1,6 +1,6 @@
 #include "ZigzagPattern.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
@@ -78,7 +78,7 @@ void ZigzagPattern::play()
 }
 
 // must override the serialize routine to save the pattern
-void ZigzagPattern::serialize(SerialBuffer& buffer) const
+void ZigzagPattern::serialize(ByteStream& buffer) const
 {
   MultiLedPattern::serialize(buffer);
   // I feel like snake size and fade amount need to be serialized 
@@ -88,7 +88,7 @@ void ZigzagPattern::serialize(SerialBuffer& buffer) const
   buffer.serialize(m_stepDuration); 
 }
 
-void ZigzagPattern::unserialize(SerialBuffer& buffer)
+void ZigzagPattern::unserialize(ByteStream& buffer)
 {
   MultiLedPattern::unserialize(buffer);
   buffer.unserialize(&m_onDuration);

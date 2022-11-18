@@ -1,7 +1,7 @@
 #include "BackStrobePattern.h"
 
 #include "../PatternBuilder.h"
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Colors/Colorset.h"
 #include "../../Log/Log.h"
 
@@ -52,13 +52,13 @@ void BackStrobePattern::play()
 }
 
 // must override the serialize routine to save the pattern
-void BackStrobePattern::serialize(SerialBuffer& buffer) const
+void BackStrobePattern::serialize(ByteStream& buffer) const
 {
   HybridPattern::serialize(buffer);
   buffer.serialize(m_stepSpeed);
 }
 
-void BackStrobePattern::unserialize(SerialBuffer& buffer)
+void BackStrobePattern::unserialize(ByteStream& buffer)
 {
   HybridPattern::unserialize(buffer);
   buffer.unserialize(&m_stepSpeed);

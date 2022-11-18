@@ -1,6 +1,6 @@
 #include "AdvancedPattern.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
@@ -91,7 +91,7 @@ void AdvancedPattern::onBlinkOff()
   }
 }
 
-void AdvancedPattern::serialize(SerialBuffer &buffer) const
+void AdvancedPattern::serialize(ByteStream &buffer) const
 {
   //DEBUG_LOG("Serialize");
   BasicPattern::serialize(buffer);
@@ -100,7 +100,7 @@ void AdvancedPattern::serialize(SerialBuffer &buffer) const
   buffer.serialize(m_repeatGroup);
 }
 
-void AdvancedPattern::unserialize(SerialBuffer &buffer)
+void AdvancedPattern::unserialize(ByteStream &buffer)
 {
   //DEBUG_LOG("Unserialize");
   BasicPattern::unserialize(buffer);

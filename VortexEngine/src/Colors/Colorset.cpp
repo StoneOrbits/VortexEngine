@@ -393,7 +393,7 @@ bool Colorset::onEnd() const
   return (m_curIndex == m_numColors - 1);
 }
 
-void Colorset::serialize(SerialBuffer &buffer) const
+void Colorset::serialize(ByteStream &buffer) const
 {
   buffer.serialize(m_numColors);
   for (uint32_t i = 0; i < m_numColors; ++i) {
@@ -401,7 +401,7 @@ void Colorset::serialize(SerialBuffer &buffer) const
   }
 }
 
-void Colorset::unserialize(SerialBuffer &buffer)
+void Colorset::unserialize(ByteStream &buffer)
 {
   buffer.unserialize(&m_numColors);
   initPalette(m_numColors);

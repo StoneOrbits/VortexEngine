@@ -4,7 +4,7 @@
 #include "../Patterns/multi/MultiLedPattern.h"
 #include "../Patterns/Pattern.h"
 #include "../Patterns/PatternBuilder.h"
-#include "../Serial/SerialBuffer.h"
+#include "../Serial/ByteStream.h"
 #include "../Colors/Colorset.h"
 #include "../Modes/Mode.h"
 #include "../Log/Log.h"
@@ -41,7 +41,7 @@ Mode *ModeBuilder::make(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
   return make(id, &set);
 }
 
-Mode *ModeBuilder::unserialize(SerialBuffer &buffer)
+Mode *ModeBuilder::unserialize(ByteStream &buffer)
 {
   // create the new mode object
   Mode *newMode = new Mode();

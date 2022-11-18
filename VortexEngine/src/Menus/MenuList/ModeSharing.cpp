@@ -1,6 +1,6 @@
 #include "ModeSharing.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Infrared/Infrared.h"
 #include "../../Modes/Modes.h"
@@ -110,7 +110,7 @@ void ModeSharing::receiveMode()
 {
   //uint32_t val = 0;
   // lower 16 is the size of the data to follow
-  SerialBuffer buf;
+  ByteStream buf;
   DEBUG_LOG("Receiving...");
   uint64_t startTime = micros();
   if (!Infrared::read(buf)) {

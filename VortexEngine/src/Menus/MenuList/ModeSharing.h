@@ -3,7 +3,8 @@
 
 #include "../Menu.h"
 
-#include "../../Infrared/Infrared.h"
+// sender is a stream based object, receiving is passive
+#include "../../Infrared/IRSender.h"
 
 class ModeSharing : public Menu
 {

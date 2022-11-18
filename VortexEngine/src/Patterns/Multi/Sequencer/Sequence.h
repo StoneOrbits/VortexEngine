@@ -8,7 +8,7 @@
 
 class SequencedPattern;
 class SingleLedPattern;
-class SerialBuffer;
+class ByteStream;
 
 // a map of leds to pattern ids
 class PatternMap
@@ -22,8 +22,8 @@ public:
   PatternID operator[](LedPos index) const;
 
   // serialize and unserialize a pattern map
-  void serialize(SerialBuffer &buffer) const;
-  void unserialize(SerialBuffer &buffer);
+  void serialize(ByteStream &buffer) const;
+  void unserialize(ByteStream &buffer);
 
 #ifdef TEST_FRAMEWORK
   void saveTemplate(int level = 0) const;
@@ -45,8 +45,8 @@ public:
   const Colorset &operator[](LedPos index) const;
 
   // serialize and unserialize a colorset map
-  void serialize(SerialBuffer &buffer) const;
-  void unserialize(SerialBuffer &buffer);
+  void serialize(ByteStream &buffer) const;
+  void unserialize(ByteStream &buffer);
 
 #ifdef TEST_FRAMEWORK
   void saveTemplate(int level = 0) const;
@@ -65,8 +65,8 @@ public:
   SequenceStep(const SequenceStep &other);
 
   // serialize and unserialize a step in the sequencer
-  void serialize(SerialBuffer &buffer) const;
-  void unserialize(SerialBuffer &buffer);
+  void serialize(ByteStream &buffer) const;
+  void unserialize(ByteStream &buffer);
 
 #ifdef TEST_FRAMEWORK
   void saveTemplate(int level = 0) const;
@@ -97,8 +97,8 @@ public:
   uint32_t addStep(uint32_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap = Colorset());
   void clear();
 
-  void serialize(SerialBuffer &buffer) const;
-  void unserialize(SerialBuffer &buffer);
+  void serialize(ByteStream &buffer) const;
+  void unserialize(ByteStream &buffer);
 
 #ifdef TEST_FRAMEWORK
   void saveTemplate(int level = 0) const;

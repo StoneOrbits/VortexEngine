@@ -1,6 +1,6 @@
 #include "PatternBuilder.h"
 
-#include "../Serial/SerialBuffer.h"
+#include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Patterns/Multi/Sequencer/Sequence.h"
 #include "../Time/Timings.h"
@@ -79,7 +79,7 @@ MultiLedPattern *PatternBuilder::makeMulti(PatternID id)
   return (MultiLedPattern *)pat;
 }
 
-Pattern *PatternBuilder::unserialize(SerialBuffer &buffer)
+Pattern *PatternBuilder::unserialize(ByteStream &buffer)
 {
   Pattern *pat = make((PatternID)buffer.unserialize8());
   if (!pat) {

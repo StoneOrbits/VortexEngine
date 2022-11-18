@@ -1,6 +1,6 @@
 #include "HueShiftPattern.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
@@ -35,14 +35,14 @@ void HueShiftPattern::play()
 }
 
 // must override the serialize routine to save the pattern
-void HueShiftPattern::serialize(SerialBuffer &buffer) const
+void HueShiftPattern::serialize(ByteStream &buffer) const
 {
   MultiLedPattern::serialize(buffer);
   buffer.serialize(m_speed);
   buffer.serialize(m_scale);
 }
 
-void HueShiftPattern::unserialize(SerialBuffer &buffer)
+void HueShiftPattern::unserialize(ByteStream &buffer)
 {
   MultiLedPattern::unserialize(buffer);
   buffer.unserialize(&m_speed);

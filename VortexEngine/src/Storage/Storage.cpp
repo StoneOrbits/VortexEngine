@@ -5,7 +5,7 @@
 #include <stdlib.h>
 
 #include "../Memory/Memory.h"
-#include "../Serial/SerialBuffer.h"
+#include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
 
 #ifdef TEST_FRAMEWORK
@@ -41,7 +41,7 @@ void Storage::cleanup()
 }
 
 // store a serial buffer to storage
-bool Storage::write(SerialBuffer &buffer)
+bool Storage::write(ByteStream &buffer)
 {
   if (buffer.size() > STORAGE_SIZE) {
     ERROR_LOG("Buffer too big");
@@ -59,7 +59,7 @@ bool Storage::write(SerialBuffer &buffer)
 }
 
 // read a serial buffer from storage
-bool Storage::read(SerialBuffer &buffer)
+bool Storage::read(ByteStream &buffer)
 {
   if (!buffer.init(STORAGE_SIZE)) {
     return false;

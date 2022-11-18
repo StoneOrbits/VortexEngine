@@ -1,43 +1,16 @@
 #include "Infrared.h"
 
-#include "../Serial/SerialBuffer.h"
-#include "../Serial/BitStream.h"
+#include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Buttons/Buttons.h"
-#include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
+
+#include "IRConfig.h"
 
 #include <Arduino.h>
 
 using namespace std;
-
-// the max number of DWORDs that will transfer
-#define MAX_DWORDS_TRANSFER 1024
-#define MAX_DATA_TRANSFER (MAX_DWORDS_TRANSFER * sizeof(uint32_t))
-
-// the IR receiver buffer size in dwords
-#define IR_RECV_BUF_SIZE MAX_DATA_TRANSFER
-
-//#define IR_TIMING 564
-#define IR_TIMING 1564
-#define IR_TIMING_MIN ((uint32_t)(IR_TIMING * 0.1))
-
-#define HEADER_MARK (IR_TIMING * 16)
-#define HEADER_SPACE (IR_TIMING * 8)
-
-#define HEADER_MARK_MIN ((uint32_t)(HEADER_MARK * 0.85))
-#define HEADER_SPACE_MIN ((uint32_t)(HEADER_SPACE * 0.85))
-
-#define HEADER_MARK_MAX ((uint32_t)(HEADER_MARK * 1.15))
-#define HEADER_SPACE_MAX ((uint32_t)(HEADER_SPACE * 1.15))
-
-#define DIVIDER_SPACE HEADER_MARK
-#define DIVIDER_SPACE_MIN HEADER_MARK_MIN
-#define DIVIDER_SPACE_MAX HEADER_MARK_MAX
-
-#define IR_SEND_PWM_PIN 0
-#define RECEIVER_PIN 2
 
 #ifndef TEST_FRAMEWORK
 // Timer used for PWM, is initialized in initpwm()
@@ -49,60 +22,6 @@ Infrared::RecvState Infrared::m_recvState = WAITING_HEADER_MARK;
 uint64_t Infrared::m_prevTime = 0;
 uint8_t Infrared::m_pinState = HIGH;
 uint32_t Infrared::m_writeCounter = 0;
-
-IRSender::IRSender() :
-  m_serialBuf(),
-  m_isSending(false),
-  m_startTime(0)
-{
-}
-
-IRSender::IRSender(const Mode *targetMode) :
-  IRSender()
-{
-  init(targetMode);
-}
-
-IRSender::~IRSender()
-{
-}
-
-bool IRSender::init(const Mode *targetMode)
-{
-  targetMode->serialize(m_serialBuf);
-  if (!m_serialBuf.compress()) {
-    DEBUG_LOG("Failed to compress, aborting send");
-    return false;
-    // tried
-  }
-  // too big
-  if (m_serialBuf.rawSize() > 8000) {
-    DEBUG_LOGF("too big: %u", m_serialBuf.rawSize());
-    return false;
-  }
-  return true;
-}
-
-bool IRSender::initSend()
-{
-  DEBUG_LOGF("Writing %u buf", m_serialBuf.rawSize());
-  uint64_t startTime = micros();
-  uint32_t size = m_serialBuf.rawSize();
-  // ensure the data isn't too big
-  if (size > MAX_DATA_TRANSFER) {
-    DEBUG_LOGF("Cannot transfer that much data: %u bytes", m_serialBuf.rawSize());
-    return false;
-  }
-  // create a bitstream to walk the bits of the data
-  uint8_t *buf = (uint8_t *)m_serialBuf.rawData();
-  BitStream sendStream(buf, size);
-  // the number of 32-byte blocks that will be sent
-  uint8_t num_blocks = (size + 31) / 32;
-  // the amount in the final block
-  uint8_t remainder = size % 32;
-  m_isSending = true;
-  return true;
-}
 
 // 8 x dwords = 32 bytes the size of a block sent over IR
 struct ir_block
@@ -117,50 +36,6 @@ struct ir_block
   uint32_t dword24;
   uint32_t dword28;
 };
-
-void IRSender::send()
-{
-  if (!m_isSending) {
-    if (!initSend()) {
-      return;
-    }
-  }
-#if 0
-  // begin the write
-  Infrared::startWrite();
-  // write the number of blocks being sent, most likely just 1
-  write8(num_blocks);
-  // now write the number of bytes in the last block
-  write8(remainder);
-  uint8_t *buf_ptr = buf;
-  // iterate each block
-  for (uint32_t block = 0; block < num_blocks; ++block) {
-    // write the block which is 32 bytes unless on the last block
-    uint32_t blocksize = (block == (num_blocks - 1)) ? remainder : 32;
-    // iterate each byte in the block and write it
-    for (uint32_t i = 0; i < blocksize; ++i) {
-      write8(*buf_ptr);
-      buf_ptr++;
-    }
-  }
-  //=============================================
-  buf_ptr = buf;
-  for (uint32_t block = 0; block < num_blocks; ++block) {
-    uint32_t blocksize = (num_blocks == 1) ? remainder : 32;
-    for (uint32_t i = 0; i < blocksize; ++i) {
-      DEBUG_LOGF("Wrote %u: 0x%x", i, *buf_ptr);
-      buf_ptr++;
-    }
-    // delay if there is more blocks
-    if (block < (num_blocks - 1)) {
-      DEBUG_LOG("Block");
-    }
-  }
-#endif
-
-  DEBUG_LOGF("Wrote %u buf (%u us)", m_serialBuf.rawSize(), micros() - m_startTime);
-  DEBUG_LOG("Success sending");
-}
 
 Infrared::Infrared()
 {
@@ -206,7 +81,7 @@ bool Infrared::dataReady()
   return (m_irData.bytepos() >= (uint32_t)(total + 1));
 }
 
-bool Infrared::read(SerialBuffer &data)
+bool Infrared::read(ByteStream &data)
 {
   if (!m_irData.bytepos() || m_irData.bytepos() > MAX_DATA_TRANSFER) {
     // nothing to read, or somehow read way too much
@@ -249,6 +124,7 @@ void Infrared::startWrite()
   m_writeCounter = 0;
 }
 
+#if 0
 bool Infrared::write(const ir_block *block, uint32_t blocksize)
 {
   // iterate each byte in the block and write it
@@ -260,8 +136,7 @@ bool Infrared::write(const ir_block *block, uint32_t blocksize)
   return true;
 }
 
-#if 0
-bool Infrared::write(SerialBuffer &data)
+bool Infrared::write(ByteStream &data)
 {
   uint32_t size = data.rawSize();
   // ensure the data isn't too big

@@ -1,6 +1,6 @@
 #include "BracketsPattern.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
@@ -58,7 +58,7 @@ void BracketsPattern::play()
   }
 }
 
-void BracketsPattern::serialize(SerialBuffer &buffer) const
+void BracketsPattern::serialize(ByteStream &buffer) const
 {
   //DEBUG_LOG("Serialize");
   SingleLedPattern::serialize(buffer);
@@ -67,7 +67,7 @@ void BracketsPattern::serialize(SerialBuffer &buffer) const
   buffer.serialize(m_offDuration);
 }
 
-void BracketsPattern::unserialize(SerialBuffer &buffer)
+void BracketsPattern::unserialize(ByteStream &buffer)
 {
   //DEBUG_LOG("Unserialize");
   SingleLedPattern::unserialize(buffer);

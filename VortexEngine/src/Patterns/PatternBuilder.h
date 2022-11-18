@@ -4,7 +4,7 @@
 #include "Patterns.h"
 
 class Pattern;
-class SerialBuffer;
+class ByteStream;
 class MultiLedPattern;
 class SingleLedPattern;
 
@@ -21,7 +21,7 @@ public:
   static MultiLedPattern *makeMulti(PatternID id);
 
   // unserialize a buffer into a pattern
-  static Pattern *unserialize(SerialBuffer &buffer);
+  static Pattern *unserialize(ByteStream &buffer);
 
 private:
   // helper routines

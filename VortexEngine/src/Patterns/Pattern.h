@@ -23,7 +23,7 @@
 // the pattern is a multi-pattern
 #define PATTERN_FLAG_MULTI  (1<<0)
 
-class SerialBuffer;
+class ByteStream;
 
 class Pattern
 {
@@ -47,9 +47,9 @@ public:
   virtual void play() = 0;
 
   // must override the serialize routine to save the pattern
-  virtual void serialize(SerialBuffer &buffer) const;
+  virtual void serialize(ByteStream &buffer) const;
   // must override unserialize to load patterns
-  virtual void unserialize(SerialBuffer &buffer);
+  virtual void unserialize(ByteStream &buffer);
 
 #ifdef TEST_FRAMEWORK
   // save the data template

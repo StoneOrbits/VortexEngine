@@ -1,6 +1,6 @@
 #include "LighthousePattern.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
@@ -67,14 +67,14 @@ void LighthousePattern::fade()
 }
 
 // must override the serialize routine to save the pattern
-void LighthousePattern::serialize(SerialBuffer& buffer) const
+void LighthousePattern::serialize(ByteStream& buffer) const
 {
   BlinkStepPattern::serialize(buffer);
   buffer.serialize(m_fadeAmount);
   buffer.serialize(m_fadeRate);
 }
 
-void LighthousePattern::unserialize(SerialBuffer& buffer)
+void LighthousePattern::unserialize(ByteStream& buffer)
 {
   BlinkStepPattern::unserialize(buffer);
   buffer.unserialize(&m_fadeAmount);

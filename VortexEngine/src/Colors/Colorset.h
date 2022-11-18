@@ -6,7 +6,7 @@
 // the max number of colors in a colorset
 #define MAX_COLOR_SLOTS 8
 
-class SerialBuffer;
+class ByteStream;
 
 class Colorset
 {
@@ -112,8 +112,8 @@ public:
   bool onEnd() const;
 
   // serialize the colorset to save/load
-  void serialize(SerialBuffer &buffer) const;
-  void unserialize(SerialBuffer &buffer);
+  void serialize(ByteStream &buffer) const;
+  void unserialize(ByteStream &buffer);
 
 #ifdef TEST_FRAMEWORK
   void saveTemplate(int level = 0) const;
