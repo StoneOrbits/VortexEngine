@@ -13,7 +13,7 @@ IRSender::IRSender(uint32_t block_size_bits) :
   m_startTime(0),
   m_size(0),
   m_numBlocks(0),
-  m_remainderBlocks(0),
+  m_remainder(0),
   m_blockSize(block_size_bits)
 {
 }
@@ -48,7 +48,7 @@ bool IRSender::init(const Mode *targetMode)
   // the number of blocks that will be sent
   m_numBlocks = (m_size + (DEFAULT_IR_BLOCK_SIZE - 1)) / DEFAULT_IR_BLOCK_SIZE;
   // the amount in the final block
-  m_remainderBlocks = m_size % DEFAULT_IR_BLOCK_SIZE;
+  m_remainder = m_size % DEFAULT_IR_BLOCK_SIZE;
   return true;
 }
 
@@ -57,13 +57,13 @@ bool IRSender::initSend()
   uint64_t startTime = micros();
   m_isSending = true;
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)", 
-    startTime, m_size, m_numBlocks, m_remainderBlocks, m_blockSize);
+    startTime, m_size, m_numBlocks, m_remainder, m_blockSize);
   // begin the write
   Infrared::startWrite();
   // write the number of blocks being sent, most likely just 1
   Infrared::write8(m_numBlocks);
   // now write the number of bytes in the last block
-  Infrared::write8(m_remainderBlocks);
+  Infrared::write8(m_remainder);
   return true;
 }
 

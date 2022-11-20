@@ -36,7 +36,7 @@ private:
   // the number of blocks that will be sent
   uint8_t m_numBlocks;
   // the amount in the final block
-  uint8_t m_remainderBlocks;
+  uint8_t m_remainder;
 
   // configuration options for the sender
   uint32_t m_blockSize;

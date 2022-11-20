@@ -521,7 +521,6 @@ ByteStream &ByteStream::operator+=(const uint32_t &rhs)
   return *this;
 }
 
-
 bool ByteStream::is_compressed() const
 {
   if (!m_pData) {
@@ -538,7 +537,10 @@ bool ByteStream::largeEnough(uint32_t amount) const
   return ((m_pData->size + amount) <= m_capacity);
 }
 
-uint32_t ByteStream::getWidth(uint32_t value)
+// get width of bits that makes up value
+// ex: 3 -> 2 bits wide (11)
+//     9 -> 4 bits wide (1001)
+uint32_t ByteStream::getWidth(uint32_t value) const
 {
   if (!value) {
     return 0;
