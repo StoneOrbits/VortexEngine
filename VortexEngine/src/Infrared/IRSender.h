@@ -3,41 +3,49 @@
 #include "../Serial/ByteStream.h"
 #include "../Serial/BitStream.h"
 
-#include "IRConfig.h"
-
 class Mode;
 
 class IRSender
 {
+  IRSender();
+
 public:
-  IRSender(uint32_t block_size_bits = DEFAULT_IR_BLOCK_SIZE);
-  IRSender(const Mode *targetMode);
-  ~IRSender();
+  static bool init();
+  static void cleanup();
 
-  // initialize the IR sender with a serialized mode to send
-  bool init(const Mode *targetMode);
-  void send();
+  // initialize the IR sender with a mode to send
+  static bool loadMode(const Mode *targetMode);
+  static void send();
 
-  bool isSending() const { return m_isSending; }
+  static bool isSending() { return m_isSending; }
 
 private:
-  bool initSend();
-  void write8(uint8_t data);
+  // Pulse-Width Modulator (IR Transmitter)
+  static void initPWM();
+  static void startPWM();
+  static void stopPWM();
+  static void initSend();
+  static void write8(uint8_t data);
+  static void mark(uint16_t time);
+  static void space(uint16_t time);
 
   // the serial buffer for the data
-  ByteStream m_serialBuf;
+  static ByteStream m_serialBuf;
   // a bit walker for the serial data
-  BitStream m_bitStream;
-  bool m_isSending;
-  uint64_t m_startTime;
+  static BitStream m_bitStream;
+  static bool m_isSending;
+  static uint64_t m_startTime;
 
   // some runtime meta info
-  uint32_t m_size;
+  static uint32_t m_size;
   // the number of blocks that will be sent
-  uint8_t m_numBlocks;
+  static uint8_t m_numBlocks;
   // the amount in the final block
-  uint8_t m_remainder;
+  static uint8_t m_remainder;
 
   // configuration options for the sender
-  uint32_t m_blockSize;
+  static uint32_t m_blockSize;
+
+  // write total
+  static uint32_t m_writeCounter;
 };

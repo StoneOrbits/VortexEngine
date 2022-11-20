@@ -1,16 +1,8 @@
 #ifndef IR_CONTROL_H
 #define IR_CONTROL_H
 
-#include <inttypes.h>
-
-#include "../Serial/ByteStream.h"
-#include "../Serial/BitStream.h"
-
-struct ir_block;
-
 class Infrared
 {
-  friend class IRSender;
   // private unimplemented constructor
   Infrared();
 
@@ -20,54 +12,7 @@ public:
   static bool init();
   static void cleanup();
 
-  // check whether a full IR message is ready to read
-  // then read the data into a ByteStream
-  static bool dataReady();
-  static bool read(ByteStream &data);
-
-  // turn the receiver on/off
-  static bool beginReceiving();
-  static bool endReceiving();
-
 private:
-  // writing functions
-  static void initpwm();
-  static void startWrite();
-  static void write8(uint8_t data);
-  static void mark(uint16_t time);
-  static void space(uint16_t time);
-  static void startPWM();
-  static void stopPWM();
-
-  // reading functions
-  // PCI handler for when IR receiver pin changes states
-  static void recvPCIHandler();
-  static void handleIRTiming(uint32_t diff);
-  static void resetIRState();
-
-  // ===================
-  //  private data:
-
-  // BitStream object that IR data is fed to bit by bit
-  static BitStream m_irData;
-
-  // Receive state used for state machine in PCIhandler
-  enum RecvState : uint8_t
-  {
-    WAITING_HEADER_MARK,
-    WAITING_HEADER_SPACE,
-    READING_DATA_MARK,
-    READING_DATA_SPACE,
-    READING_DATA_DIVIDER_MARK,
-    READING_DATA_DIVIDER_SPACE,
-  };
-
-  // state information used by the PCIHandler
-  static RecvState m_recvState;
-  // used to track pin changes
-  static uint64_t m_prevTime;
-  static uint8_t m_pinState;
-  static uint32_t m_writeCounter;
 };
 
 #endif

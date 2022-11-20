@@ -2,7 +2,8 @@
 
 #include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
-#include "../../Infrared/Infrared.h"
+#include "../../Infrared/IRReceiver.h"
+#include "../../Infrared/IRSender.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
@@ -39,7 +40,7 @@ bool ModeSharing::run()
     // render the 'send mode' lights
     showSendMode();
     // if already sending a mode then continue that operation
-    if (m_irSender.isSending()) {
+    if (IRSender::isSending()) {
       sendMode();
       return true;
     }
@@ -54,7 +55,7 @@ bool ModeSharing::run()
     // render the 'receive mode' lights
     showReceiveMode();
     // if the infrared receiver has received a full packet with a mode
-    if (Infrared::dataReady()) {
+    if (IRReceiver::dataReady()) {
       // then read the mode out of the IR receiver and load it
       receiveMode();
     }
@@ -69,14 +70,14 @@ void ModeSharing::onShortClick()
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND:
     // click while on send -> start listening
-    Infrared::beginReceiving();
+    IRReceiver::beginReceiving();
     m_sharingMode = ModeShareState::SHARE_RECEIVE;
     DEBUG_LOG("Switched to receive mode");
     break;
   case ModeShareState::SHARE_RECEIVE:
   default:
     // click while on receive -> end receive, start sending
-    Infrared::endReceiving();
+    IRReceiver::endReceiving();
     m_sharingMode = ModeShareState::SHARE_SEND;
     DEBUG_LOG("Switched to send mode");
     break;
@@ -98,12 +99,12 @@ void ModeSharing::onLongClick()
 void ModeSharing::sendMode()
 {
   // if the sender isn't sending yet
-  if (!m_irSender.isSending()) {
+  if (!IRSender::isSending()) {
     // initialize it with the current mode data
-    m_irSender.init(m_pCurMode);
+    IRSender::loadMode(m_pCurMode);
   }
   // send the data
-  m_irSender.send();
+  IRSender::send();
 }
 
 void ModeSharing::receiveMode()
@@ -113,7 +114,7 @@ void ModeSharing::receiveMode()
   ByteStream buf;
   DEBUG_LOG("Receiving...");
   uint64_t startTime = micros();
-  if (!Infrared::read(buf)) {
+  if (!IRReceiver::read(buf)) {
     // no mode to receive right now
     //DEBUG_LOG("Failed to receive mode");
     return;

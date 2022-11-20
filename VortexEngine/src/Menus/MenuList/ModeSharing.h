@@ -3,9 +3,6 @@
 
 #include "../Menu.h"
 
-// sender is a stream based object, receiving is passive
-#include "../../Infrared/IRSender.h"
-
 class ModeSharing : public Menu
 {
 public:
@@ -34,8 +31,6 @@ private:
   ModeShareState m_sharingMode;
   // last time data was sent/received
   uint64_t m_last_action;
-  // The ir sender context
-  IRSender m_irSender;
 };
 
 #endif
