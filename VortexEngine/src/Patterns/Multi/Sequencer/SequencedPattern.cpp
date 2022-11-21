@@ -42,6 +42,8 @@ void SequencedPattern::init()
   }
 
   m_timer.start();
+
+  // TODO: Play first sequence step in init?
 }
 
 // pure virtual must  the play function

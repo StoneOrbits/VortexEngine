@@ -22,11 +22,13 @@ void FlowersPattern::init()
   // call base hybrid pattern init to actually initialize sub patterns
   HybridPattern::init();
   
+  // thumb and pinkie use duration 1
   setPatternAt(THUMB_TIP, new BasicPattern(m_onDuration1, m_offDuration1));
   setPatternAt(THUMB_TOP, new BasicPattern(m_onDuration1, m_offDuration1));
   setPatternAt(PINKIE_TIP, new BasicPattern(m_onDuration1, m_offDuration1));
   setPatternAt(PINKIE_TOP, new BasicPattern(m_onDuration1, m_offDuration1));
 
+  // middle index ring use duration 2
   setPatternAt(MIDDLE_TIP, new BasicPattern(m_onDuration2, m_offDuration2));
   setPatternAt(MIDDLE_TOP, new BasicPattern(m_onDuration2, m_offDuration2));
   setPatternAt(INDEX_TIP, new BasicPattern(m_onDuration2, m_offDuration2));

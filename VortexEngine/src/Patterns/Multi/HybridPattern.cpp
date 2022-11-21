@@ -120,3 +120,11 @@ void HybridPattern::setPatternAt(LedPos pos, SingleLedPattern *pat, const Colors
   // store the pattern for the given led
   m_ledPatterns[pos] = pat;
 }
+
+void HybridPattern::setTipsTops(PatternID tipPattern, PatternID topPattern)
+{
+  // Set the tipPattern on all fingerTips and topPattern on all fingerTops
+  for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
+    setPatternAt(p, PatternBuilder::makeSingle(isFingerTip(p) ? tipPattern : topPattern));
+  }
+}

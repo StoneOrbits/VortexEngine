@@ -7,8 +7,7 @@ class Infrared
   Infrared();
 
 public:
-  // opting for static class here because there should only ever be one
-  // Led control object and I don't like singletons
+  // The Infrared controller class just wraps the IRReceiver and IRSender classes
   static bool init();
   static void cleanup();
 

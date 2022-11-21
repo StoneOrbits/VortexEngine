@@ -35,6 +35,9 @@ protected:
   void setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
   void clearPatterns();
 
+  // change the patterns on the tips/tops respectively
+  void setTipsTops(PatternID tipPattern, PatternID topPattern);
+
   // array of single LED patterns, one for each LED
   SingleLedPattern *m_ledPatterns[LED_COUNT];
 };

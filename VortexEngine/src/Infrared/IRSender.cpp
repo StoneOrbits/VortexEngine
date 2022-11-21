@@ -1,5 +1,6 @@
 #include "IRSender.h"
 
+#include "../Time/TimeControl.h"
 #include "../Modes/Mode.h"
 #include "../Log/Log.h"
 
@@ -11,8 +12,10 @@
 ByteStream IRSender::m_serialBuf;
 // a bit walker for the serial data
 BitStream IRSender::m_bitStream;
+// whether actively sending
 bool IRSender::m_isSending = false;
-uint64_t IRSender::m_startTime = 0;
+// the time of the last sent chunk
+uint64_t IRSender::m_lastSendTime = 0;
 // some runtime meta info
 uint32_t IRSender::m_size = 0;
 // the number of blocks that will be sent
@@ -44,6 +47,7 @@ void IRSender::cleanup()
 
 bool IRSender::loadMode(const Mode *targetMode)
 {
+  m_serialBuf.clear();
   targetMode->serialize(m_serialBuf);
   if (!m_serialBuf.compress()) {
     DEBUG_LOG("Failed to compress, aborting send");
@@ -59,47 +63,111 @@ bool IRSender::loadMode(const Mode *targetMode)
   m_bitStream.init((uint8_t *)m_serialBuf.rawData(), m_serialBuf.rawSize());
   // the size of the packet
   m_size = m_serialBuf.rawSize();
-  // the number of blocks that will be sent
+  // the number of blocks that will be sent (possibly just 1 with less than 32 bytes)
   m_numBlocks = (m_size + (DEFAULT_IR_BLOCK_SIZE - 1)) / DEFAULT_IR_BLOCK_SIZE;
-  // the amount in the final block
+  // the amount in the final block (possibly the only block)
   m_remainder = m_size % DEFAULT_IR_BLOCK_SIZE;
+  // reset write counter
+  m_writeCounter = 0;
   return true;
 }
 
-void IRSender::send()
+bool IRSender::send()
 {
+  // must have at least one block to send
+  if (m_numBlocks < 1) {
+    m_isSending = false;
+    return m_isSending;
+  }
   if (!m_isSending) {
-    initSend();
+    beginSend();
   }
-#if 0
-  uint8_t *buf_ptr = buf;
-  // iterate each block
-  for (uint32_t block = 0; block < num_blocks; ++block) {
-    // write the block which is 32 bytes unless on the last block
-    uint32_t blocksize = (block == (num_blocks - 1)) ? remainder : 32;
-    // iterate each byte in the block and write it
-    for (uint32_t i = 0; i < blocksize; ++i) {
-      write8(*buf_ptr);
-      buf_ptr++;
-    }
+  if (m_lastSendTime > 0 && m_lastSendTime + DEFAULT_IR_BLOCK_SPACING > Time::getCurtime()) {
+    // don't send yet
+    return m_isSending;
   }
-  //=============================================
-  buf_ptr = buf;
-  for (uint32_t block = 0; block < num_blocks; ++block) {
-    uint32_t blocksize = (num_blocks == 1) ? remainder : 32;
-    for (uint32_t i = 0; i < blocksize; ++i) {
-      DEBUG_LOGF("Wrote %u: 0x%x", i, *buf_ptr);
-      buf_ptr++;
-    }
-    // delay if there is more blocks
-    if (block < (num_blocks - 1)) {
-      DEBUG_LOG("Block");
-    }
+  // blocksize is default unless it's the last block, then it's the remainder
+  uint32_t blocksize = (m_numBlocks == 1) ? m_remainder : DEFAULT_IR_BLOCK_SIZE;
+  DEBUG_LOGF("IRSender Sending block #%u", m_numBlocks);
+  // pointer to the data at the correct location
+  const uint8_t *buf_ptr = m_bitStream.data() + m_writeCounter;
+  // iterate each byte in the block and write it
+  for (uint32_t i = 0; i < blocksize; ++i) {
+    // write the byte
+    sendByte(*buf_ptr);
+    // increment to next byte in buffer
+    buf_ptr++;
+    // record the written byte
+    m_writeCounter++;
   }
-#endif
+  // wrote one block
+  m_numBlocks--;
+  // still sending if we have more blocks
+  m_isSending = (m_numBlocks > 0);
+  // the curtime
+  m_lastSendTime = Time::getCurtime();
+  // return whether still sending
+  return m_isSending;
+}
 
-  DEBUG_LOGF("Wrote %u buf (%u us)", m_serialBuf.rawSize(), micros() - m_startTime);
-  DEBUG_LOG("Success sending");
+void IRSender::beginSend()
+{
+  m_isSending = true;
+  uint64_t startTime = micros();
+  DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
+    startTime, m_size, m_numBlocks, m_remainder, m_blockSize);
+  // init sender before writing, is this necessary here? I think so
+  initPWM();
+  // wakeup the other receiver with a very quick mark/space
+  sendMark(50);
+  sendSpace(100);
+  // now send the header
+  sendMark(HEADER_MARK);
+  sendSpace(HEADER_SPACE);
+  // reset writeCounter
+  m_writeCounter = 0;
+  // write the number of blocks being sent, most likely just 1
+  sendByte(m_numBlocks);
+  // now write the number of bytes in the last block
+  sendByte(m_remainder);
+}
+
+void IRSender::sendByte(uint8_t data)
+{
+  // Sends from left to right, MSB first
+  for (int b = 0; b < 8; b++) {
+    // grab the bit of data at the indexspace
+    uint32_t bit = (data >> (7 - b)) & 1;
+    // send 3x timing size for 1s and 1x timing for 0
+    sendMark(IR_TIMING + (IR_TIMING * (2 * bit)));
+    // send 1x timing size for space
+    sendSpace(IR_TIMING);
+    //DEBUG_LOGF(" bit: %u", bit);
+  }
+  DEBUG_LOGF("Sent byte[%u]: 0x%x", m_writeCounter, data);
+  //m_writeCounter++;
+ }
+
+void IRSender::sendMark(uint16_t time)
+{
+#ifdef TEST_FRAMEWORK
+  // send mark timing over socket
+  test_ir_mark(time);
+#else
+  Infrared::startPWM();
+  delayMicroseconds(time);
+#endif
+}
+
+void IRSender::sendSpace(uint16_t time)
+{
+#ifdef TEST_FRAMEWORK
+  // send space timing over socket
+  test_ir_space(time);
+#else
+  Infrared::stopPWM();
+  delayMicroseconds(time);
+#endif
 }
 
 // shamelessly stolen from IRLib2, thanks
@@ -172,65 +240,3 @@ void IRSender::stopPWM()
   while (IR_TCCx->SYNCBUSY.bit.ENABLE);
 #endif
 }
-
-void IRSender::initSend()
-{
-  m_isSending = true;
-  uint64_t startTime = micros();
-  DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)", 
-    startTime, m_size, m_numBlocks, m_remainder, m_blockSize);
-  // init sender before writing, is this necessary here? I think so
-  initPWM();
-  // wakeup the other receiver with a very quick mark/space
-  mark(50);
-  space(100);
-  // now send the header
-  mark(HEADER_MARK);
-  space(HEADER_SPACE);
-  // reset writeCounter
-  m_writeCounter = 0;
-  // write the number of blocks being sent, most likely just 1
-  write8(m_numBlocks);
-  // now write the number of bytes in the last block
-  write8(m_remainder);
-}
-
-void IRSender::write8(uint8_t data)
-{
-  // Sends from left to right, MSB first
-  for (int b = 0; b < 8; b++) {
-    // grab the bit of data at the index
-    uint32_t bit = (data >> (7 - b)) & 1;
-    // send 3x timing size for 1s and 1x timing for 0
-    mark(IR_TIMING + (IR_TIMING * (2 * bit)));
-    // send 1x timing size for space
-    space(IR_TIMING);
-    DEBUG_LOGF(" bit: %u", bit);
-  }
-  DEBUG_LOGF("Sent byte[%u]: 0x%x", m_writeCounter, data);
-  m_writeCounter++;
- }
-
-void IRSender::mark(uint16_t time)
-{
-#ifdef TEST_FRAMEWORK
-  // send mark timing over socket
-  test_ir_mark(time);
-#else
-  Infrared::startPWM();
-  delayMicroseconds(time);
-#endif
-}
-
-void IRSender::space(uint16_t time)
-{
-#ifdef TEST_FRAMEWORK
-  // send space timing over socket
-  test_ir_space(time);
-#else
-  Infrared::stopPWM();
-  delayMicroseconds(time);
-#endif
-}
-
-

@@ -78,74 +78,6 @@ bool IRReceiver::read(ByteStream &data)
   return true;
 }
 
-#if 0
-bool IRReceiver::write(const ir_block *block, uint32_t blocksize)
-{
-  // iterate each byte in the block and write it
-  const uint8_t *buf_ptr = (const uint8_t *)block;
-  for (uint32_t i = 0; i < blocksize; ++i) {
-    write8(*buf_ptr);
-    buf_ptr++;
-  }
-  return true;
-}
-
-bool IRReceiver::write(ByteStream &data)
-{
-  uint32_t size = data.rawSize();
-  // ensure the data isn't too big
-  if (size > MAX_DATA_TRANSFER) {
-    DEBUG_LOGF("Cannot transfer that much data: %u bytes", data.rawSize());
-    return false;
-  }
-  // create a bitstream to walk the bits of the data
-  uint8_t *buf = (uint8_t *)data.rawData();
-  BitStream sendStream(buf, size);
-  // begin the write
-  startWrite();
-  // the number of 32-byte blocks that will be sent
-  uint8_t num_blocks = (size + 31) / 32;
-  // the amount in the final block
-  uint8_t remainder = size % 32;
-  // write the number of blocks being sent, most likely just 1
-  write8(num_blocks);
-  // now write the number of bytes in the last block
-  write8(remainder);
-  uint8_t *buf_ptr = buf;
-  // iterate each block
-  for (uint32_t block = 0; block < num_blocks; ++block) {
-    // write the block which is 32 bytes unless on the last block
-    //uint32_t blocksize = (block == (num_blocks - 1)) ? remainder : 32;
-    uint32_t blocksize = (num_blocks == 1) ? remainder : 32;
-    // iterate each byte in the block and write it
-    for (uint32_t i = 0; i < blocksize; ++i) {
-      write8(*buf_ptr);
-      buf_ptr++;
-    }
-    // delay if there is more blocks
-    if (block < (uint32_t)(num_blocks - 1)) {
-      //mark(HEADER_MARK);
-      space(HEADER_SPACE);
-    }
-  }
-  buf_ptr = buf;
-  for (uint32_t block = 0; block < num_blocks; ++block) {
-    // write the block which is 32 bytes unless on the last block
-    uint32_t blocksize = (num_blocks == 1) ? remainder : 32;
-    // iterate each byte in the block and write it
-    for (uint32_t i = 0; i < blocksize; ++i) {
-      DEBUG_LOGF("Wrote: 0x%x", *buf_ptr);
-      buf_ptr++;
-    }
-    // delay if there is more blocks
-    if (block < (uint32_t)(num_blocks - 1)) {
-      DEBUG_LOG("Block");
-    }
-  }
-  return true;
-}
-#endif
-
 bool IRReceiver::beginReceiving()
 {
   attachInterrupt(digitalPinToInterrupt(RECEIVER_PIN), IRReceiver::recvPCIHandler, CHANGE);
@@ -159,13 +91,6 @@ bool IRReceiver::endReceiving()
   resetIRState();
   return true;
 }
-
-// ===================
-//  sending functions
-
-
-// ===================
-// receiver functions
 
 // The recv PCI handler is called every time the pin state changes
 void IRReceiver::recvPCIHandler()
@@ -244,21 +169,12 @@ void IRReceiver::handleIRTiming(uint32_t diff)
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
-    // every 32 bits expect a divider
-    if (((m_irData.bitpos() + 1) % DEFAULT_IR_BLOCK_SIZE) == 0) {
+    // every 32 bits expect a divider ?
+    //if (((m_irData.bitpos() + 1) % DEFAULT_IR_BLOCK_SIZE) == 0) {
       //m_recvState = READING_DATA_DIVIDER_MARK;
       //break;
-    }
+    //}
     m_recvState = READING_DATA_MARK;
-    {
-      static uint32_t cc = 0;
-      cc++;
-      // every 32 bytes (8 bits in byte)
-      if (cc > 0 && (cc % (32 * 8)) == 0) {
-        m_recvState = READING_DATA_DIVIDER_SPACE;
-        DEBUG_LOG("RECV BLOCK");
-      }
-    }
     break;
   case READING_DATA_DIVIDER_MARK:
     m_recvState = READING_DATA_DIVIDER_SPACE;

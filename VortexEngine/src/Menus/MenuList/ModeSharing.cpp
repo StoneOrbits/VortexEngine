@@ -1,6 +1,7 @@
 #include "ModeSharing.h"
 
 #include "../../Serial/ByteStream.h"
+#include "../../Modes/ModeBuilder.h"
 #include "../../Time/TimeControl.h"
 #include "../../Infrared/IRReceiver.h"
 #include "../../Infrared/IRSender.h"
@@ -10,7 +11,10 @@
 #include "../../Log/Log.h"
 
 // comment this out to use manual click-to-send
-//#define AUTO_MODE_SENDING
+#define AUTO_SEND_MODE
+#ifdef AUTO_SEND_MODE
+bool sent_once = false;
+#endif
 
 ModeSharing::ModeSharing() :
   Menu(),
@@ -26,6 +30,14 @@ bool ModeSharing::init()
   }
   // just start spewing out modes everywhere
   m_sharingMode = ModeShareState::SHARE_SEND;
+
+  // TODO: removeme
+#ifdef TEST_FRAMEWORK
+  if (is_ir_server()) {
+    m_sharingMode = ModeShareState::SHARE_RECEIVE;
+  }
+#endif
+
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
@@ -39,26 +51,21 @@ bool ModeSharing::run()
   case ModeShareState::SHARE_SEND:
     // render the 'send mode' lights
     showSendMode();
-    // if already sending a mode then continue that operation
-    if (IRSender::isSending()) {
-      sendMode();
-      return true;
-    }
-#ifdef AUTO_MODE_SENDING
-    // send the mode every 3 seconds
-    if ((Time::getCurtime() % Time::secToTicks(3)) == 0) {
-      sendMode();
+#ifdef AUTO_SEND_MODE
+    // begin sending the mode every 3 seconds
+    if ((Time::getCurtime() % Time::secToTicks(3)) == 0 && sent_once == false) {
+      sent_once = true;
+      beginSending();
     }
 #endif
+    // continue sending any data as long as there is more to send
+    continueSending();
     break;
   case ModeShareState::SHARE_RECEIVE:
     // render the 'receive mode' lights
     showReceiveMode();
-    // if the infrared receiver has received a full packet with a mode
-    if (IRReceiver::dataReady()) {
-      // then read the mode out of the IR receiver and load it
-      receiveMode();
-    }
+    // load any modes that are received
+    receiveMode();
     break;
   }
   return true;
@@ -86,29 +93,46 @@ void ModeSharing::onShortClick()
 
 void ModeSharing::onLongClick()
 {
-#ifndef AUTO_MODE_SENDING
   // long click on sender option to manually send the mode
   if (m_sharingMode == ModeShareState::SHARE_SEND) {
-    sendMode();
+    beginSending();
     return;
   }
-#endif
   leaveMenu();
 }
 
-void ModeSharing::sendMode()
+void ModeSharing::beginSending()
 {
-  // if the sender isn't sending yet
-  if (!IRSender::isSending()) {
-    // initialize it with the current mode data
-    IRSender::loadMode(m_pCurMode);
+  // if the sender is sending then cannot start again
+  if (IRSender::isSending()) {
+    ERROR_LOG("Cannot begin sending, sender is busy");
+    return;
   }
-  // send the data
-  IRSender::send();
+  // initialize it with the current mode data
+  IRSender::loadMode(m_pCurMode);
+  // send the first chunk of data, leave if we're done
+  if (!IRSender::send()) {
+    leaveMenu();
+  }
+}
+
+void ModeSharing::continueSending()
+{
+  // if the sender isn't done then keep sending data
+  if (IRSender::isSending()) {
+    if (!IRSender::send()) {
+      leaveMenu();
+    }
+  }
 }
 
 void ModeSharing::receiveMode()
 {
+  // check if the IRReceiver has a full packet available
+  if (!IRReceiver::dataReady()) {
+    // nothing available yet
+    return;
+  }
   //uint32_t val = 0;
   // lower 16 is the size of the data to follow
   ByteStream buf;
@@ -129,7 +153,7 @@ void ModeSharing::receiveMode()
   buf.resetUnserializer();
   m_pCurMode->unserialize(buf);
   m_pCurMode->init();
-  DEBUG_LOG("Success receiving mode");
+  DEBUG_LOGF("Success receiving mode: %u", m_pCurMode->getPatternID());
   // leave menu and save settings
   leaveMenu(true);
 }
