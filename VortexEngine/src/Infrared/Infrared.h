@@ -1,5 +1,5 @@
-#ifndef IR_CONTROL_H
-#define IR_CONTROL_H
+#ifndef INFRARED_H
+#define INFRARED_H
 
 class Infrared
 {

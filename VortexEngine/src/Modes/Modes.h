@@ -5,18 +5,12 @@
 #include "../Colors/ColorTypes.h"
 #include "../Patterns/Patterns.h"
 
+#include "../VortexConfig.h"
+
 #include <inttypes.h>
 
 class Mode;
 class Colorset;
-
-// the maximum number of modes that can be stored
-#ifdef TEST_FRAMEWORK
-// crank this up so we can demo all modes and generate the template
-#define MAX_MODES     PATTERN_COUNT
-#else
-#define MAX_MODES     16
-#endif
 
 class Modes
 {
