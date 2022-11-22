@@ -7,6 +7,7 @@
 #include "../Serial/BitStream.h"
 
 class ByteStream;
+class Mode;
 
 class IRReceiver
 {
@@ -18,9 +19,9 @@ public:
   static void cleanup();
 
   // check whether a full IR message is ready to read
-  // then read the data into a ByteStream
   static bool dataReady();
-  static bool read(ByteStream &data);
+  // receive the IR message into a target mode
+  static bool receiveMode(Mode *pMode);
 
   // turn the receiver on/off
   static bool beginReceiving();
@@ -30,6 +31,7 @@ private:
 
   // reading functions
   // PCI handler for when IR receiver pin changes states
+  static bool read(ByteStream &data);
   static void recvPCIHandler();
   static void handleIRTiming(uint32_t diff);
   static void resetIRState();

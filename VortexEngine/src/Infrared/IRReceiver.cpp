@@ -2,6 +2,7 @@
 
 #include "../Serial/ByteStream.h"
 #include "../Serial/BitStream.h"
+#include "../Modes/Mode.h"
 #include "../Log/Log.h"
 
 #include "IRConfig.h"
@@ -49,32 +50,24 @@ bool IRReceiver::dataReady()
   return (m_irData.bytepos() >= (uint32_t)(total + 1));
 }
 
-bool IRReceiver::read(ByteStream &data)
+bool IRReceiver::receiveMode(Mode *pMode)
 {
-  if (!m_irData.bytepos() || m_irData.bytepos() > MAX_DATA_TRANSFER) {
-    // nothing to read, or somehow read way too much
+  ByteStream buf;
+  // read from the receive buffer into the byte stream
+  if (!read(buf)) {
+    // no data to read right now, or an error
+    DEBUG_LOG("No data available to read, or error reading");
     return false;
   }
-  // read the size out
-  uint8_t blocks = m_irData.data()[0];
-  uint8_t remainder = m_irData.data()[1];
-  uint32_t size = ((blocks - 1) * 32) + remainder;
-  if (!size || size > MAX_DATA_TRANSFER) {
-    DEBUG_LOGF("Bad IR Data size: %u", size);
+  DEBUG_LOGF("Received %u bytes", buf.rawSize());
+  // decompress and check crc at same time
+  if (!buf.decompress()) {
+    DEBUG_LOG("Failed to decompress, crc mismatch or bad data");
     return false;
   }
-  // the actual data starts 1 byte later because of the size byte
-  const uint8_t *actualData = m_irData.data() + 2;
-  if (!data.rawInit(actualData, size)) {
-    DEBUG_LOG("Failed to init buffer for IR read");
-    return false;
-  }
-  for (uint32_t i = 0; i < size; ++i) {
-    DEBUG_LOGF("Read %u: 0x%x", i, actualData[i]);
-  }
-  // reset the IR state and receive buffer
-  DEBUG_LOG("Read data, resetting...");
-  resetIRState();
+  // unserialize into the target mode and initialize it
+  pMode->unserialize(buf);
+  pMode->init();
   return true;
 }
 
@@ -88,6 +81,32 @@ bool IRReceiver::beginReceiving()
 bool IRReceiver::endReceiving()
 {
   detachInterrupt(digitalPinToInterrupt(RECEIVER_PIN));
+  resetIRState();
+  return true;
+}
+
+bool IRReceiver::read(ByteStream &data)
+{
+  if (!m_irData.bytepos() || m_irData.bytepos() > MAX_DATA_TRANSFER) {
+    DEBUG_LOG("Nothing to read, or read too much");
+    return false;
+  }
+  // read the size out (blocks + remainder)
+  uint8_t blocks = m_irData.data()[0];
+  uint8_t remainder = m_irData.data()[1];
+  // calculate size from blocks + remainder
+  uint32_t size = ((blocks - 1) * 32) + remainder;
+  if (!size || size > MAX_DATA_TRANSFER) {
+    DEBUG_LOGF("Bad IR Data size: %u", size);
+    return false;
+  }
+  // the actual data starts 2 bytes later because of the size byte
+  const uint8_t *actualData = m_irData.data() + 2;
+  if (!data.rawInit(actualData, size)) {
+    DEBUG_LOG("Failed to init buffer for IR read");
+    return false;
+  }
+  // reset the IR state and receive buffer now
   resetIRState();
   return true;
 }

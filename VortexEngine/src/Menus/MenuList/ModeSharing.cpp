@@ -133,26 +133,13 @@ void ModeSharing::receiveMode()
     // nothing available yet
     return;
   }
-  //uint32_t val = 0;
-  // lower 16 is the size of the data to follow
-  ByteStream buf;
-  DEBUG_LOG("Receiving...");
-  uint64_t startTime = micros();
-  if (!IRReceiver::read(buf)) {
-    // no mode to receive right now
-    //DEBUG_LOG("Failed to receive mode");
+  DEBUG_LOGF("Mode ready to receive! Receiving...");
+  // receive the IR mode into the current mode
+  if (!IRReceiver::receiveMode(m_pCurMode)) {
+    ERROR_LOGF("Failed to receive mode");
+    leaveMenu();
     return;
   }
-  uint64_t endTime = micros();
-  DEBUG_LOGF("Received %u bytes (%u us)", buf.rawSize(), endTime - startTime);
-  // decompress and check crc at same time
-  if (!buf.decompress()) {
-    DEBUG_LOG("Failed to decompress, crc mismatch or bad data");
-    return;
-  }
-  buf.resetUnserializer();
-  m_pCurMode->unserialize(buf);
-  m_pCurMode->init();
   DEBUG_LOGF("Success receiving mode: %u", m_pCurMode->getPatternID());
   // leave menu and save settings
   leaveMenu(true);
