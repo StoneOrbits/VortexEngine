@@ -141,7 +141,7 @@ void ModeSharing::receiveMode()
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_pCurMode->getPatternID());
-  // leave menu and save settings
+  // leave menu and save settings, even if the mode was the same whatever
   leaveMenu(true);
 }
 

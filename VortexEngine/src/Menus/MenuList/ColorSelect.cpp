@@ -108,18 +108,18 @@ void ColorSelect::onShortClick()
 
 void ColorSelect::onLongClick()
 {
-  bool different = false;
+  bool needsSave = false;
   // if we're exiting a menu
   if (m_curSelection == FINGER_THUMB) {
     switch (m_state) {
     case STATE_PICK_SLOT:
-      // check if we actually changed anything
-      different = m_colorset.equals(m_pCurMode->getColorset());
+      // need to save if the colorset is not equal
+      needsSave = !m_colorset.equals(m_pCurMode->getColorset());
       // save the colorset
       m_pCurMode->setColorset(&m_colorset);
       m_pCurMode->init();
       // leave menu and save if we made changes
-      leaveMenu(different);
+      leaveMenu(needsSave);
       return;
     case STATE_PICK_HUE1:
       // delete current slot

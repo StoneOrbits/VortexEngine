@@ -65,6 +65,8 @@ bool IRReceiver::receiveMode(Mode *pMode)
     DEBUG_LOG("Failed to decompress, crc mismatch or bad data");
     return false;
   }
+  // just in case the decompressor moved it
+  buf.resetUnserializer();
   // unserialize into the target mode and initialize it
   pMode->unserialize(buf);
   pMode->init();
