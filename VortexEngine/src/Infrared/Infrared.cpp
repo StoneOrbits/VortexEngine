@@ -3,7 +3,7 @@
 #include "IRReceiver.h"
 #include "IRSender.h"
 
-#include "Log/Log.h"
+#include "../Log/Log.h"
 
 bool Infrared::init()
 {

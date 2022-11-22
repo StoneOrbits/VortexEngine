@@ -154,7 +154,7 @@ void IRSender::sendMark(uint16_t time)
   // send mark timing over socket
   test_ir_mark(time);
 #else
-  Infrared::startPWM();
+  startPWM();
   delayMicroseconds(time);
 #endif
 }
@@ -165,7 +165,7 @@ void IRSender::sendSpace(uint16_t time)
   // send space timing over socket
   test_ir_space(time);
 #else
-  Infrared::stopPWM();
+  stopPWM();
   delayMicroseconds(time);
 #endif
 }

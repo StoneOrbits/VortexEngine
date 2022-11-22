@@ -133,10 +133,10 @@ void ModeSharing::receiveMode()
     // nothing available yet
     return;
   }
-  DEBUG_LOGF("Mode ready to receive! Receiving...");
+  DEBUG_LOG("Mode ready to receive! Receiving...");
   // receive the IR mode into the current mode
   if (!IRReceiver::receiveMode(m_pCurMode)) {
-    ERROR_LOGF("Failed to receive mode");
+    ERROR_LOG("Failed to receive mode");
     leaveMenu();
     return;
   }
