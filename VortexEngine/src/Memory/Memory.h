@@ -6,7 +6,7 @@
 
 #include "../VortexConfig.h"
 
-#ifndef DEBUG_ALLOCATIONS
+#if DEBUG_ALLOCATIONS == 0
 
 #define vmalloc(size) malloc(size)
 #define vcalloc(size, amount) calloc(size, amount)

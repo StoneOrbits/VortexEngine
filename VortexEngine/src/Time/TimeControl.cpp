@@ -18,10 +18,12 @@ uint32_t Time::m_tickOffset = DEFAULT_TICK_OFFSET;
 uint32_t Time::m_simulationTick = 0;
 bool Time::m_isSimulation = false;
 
-#ifdef FIXED_TICKRATE
-#define TICKRATE DEFAULT_TICKRATE
-#else
+// Within this file TICKRATE may refer to the variable member
+// or the default tickrate constant based on the configuration
+#if VARIABLE_TICKRATE == 1
 #define TICKRATE m_tickrate
+#else
+#define TICKRATE DEFAULT_TICKRATE
 #endif
 
 bool Time::init()
@@ -39,7 +41,7 @@ void Time::tickClock()
   // tick clock forward
   m_curTick++;
 
-#ifdef DEBUG_ALLOCATIONS
+#if DEBUG_ALLOCATIONS == 1
   if ((m_curTick % msToTicks(1000)) == 0) {
     DEBUG_LOGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
   }
@@ -90,7 +92,7 @@ uint32_t Time::getTickOffset(LedPos pos)
 // The valid range for this is 1 <= x <= 1000000
 void Time::setTickrate(uint32_t tickrate)
 {
-#ifndef FIXED_TICKRATE
+#if VARIABLE_TICKRATE == 1
   if (!tickrate) {
     // can't set 0 tickrate, so 0 sets default
     tickrate = DEFAULT_TICKRATE;

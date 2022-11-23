@@ -10,7 +10,7 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-#ifdef AUTO_SEND_MODE
+#if AUTO_SEND_MODE == 1
 bool sent_once = false;
 #endif
 
@@ -49,7 +49,7 @@ bool ModeSharing::run()
   case ModeShareState::SHARE_SEND:
     // render the 'send mode' lights
     showSendMode();
-#ifdef AUTO_SEND_MODE
+#if AUTO_SEND_MODE == 1
     // begin sending the mode every 3 seconds
     if ((Time::getCurtime() % Time::secToTicks(3)) == 0 && sent_once == false) {
       sent_once = true;

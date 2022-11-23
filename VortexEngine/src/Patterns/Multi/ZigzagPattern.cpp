@@ -22,7 +22,7 @@ const LedPos ZigzagPattern::ledStepPositions[] = {
   PINKIE_TIP,
 
   // PaLm LiGhTs?>??!?
-#ifdef USE_PALM_LIGHTS
+#if USE_PALM_LIGHTS == 1
   PALM_LEFT,
   PALM_UP,
   PALM_RIGHT,

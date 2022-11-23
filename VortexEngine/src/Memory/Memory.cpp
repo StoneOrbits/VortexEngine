@@ -1,7 +1,7 @@
 #include "Memory.h"
 
 // everything in here is only really used when allocations are being debugged
-#ifdef DEBUG_ALLOCATIONS
+#if DEBUG_ALLOCATIONS == 1
 
 #include <stdlib.h>
 #include <stdio.h>

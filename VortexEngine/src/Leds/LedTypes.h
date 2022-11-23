@@ -31,7 +31,7 @@ enum LedPos : uint8_t
   // INSERT NEW ENTRIES HERE
 
   // TODO: palm lights????
-#ifdef USE_PALM_LIGHTS
+#if USE_PALM_LIGHTS == 1
   PALM_UP,
   PALM_RIGHT,
   PALM_DOWN,
