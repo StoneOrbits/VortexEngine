@@ -3,11 +3,18 @@
 #include "../../Single/SingleLedPattern.h"
 #include "../../PatternBuilder.h"
 
-#include "../../../Serial/SerialBuffer.h"
+#include "../../../Serial/ByteStream.h"
 #include "../../../Leds/Leds.h"
 #include "../../../Log/Log.h"
 
 #include <string.h>
+
+SequencedPattern::SequencedPattern() :
+  HybridPattern(),
+  m_sequence(),
+  m_curSequence(0)
+{
+}
 
 SequencedPattern::SequencedPattern(const Sequence &sequence) :
   HybridPattern(),
@@ -35,6 +42,8 @@ void SequencedPattern::init()
   }
 
   m_timer.start();
+
+  // TODO: Play first sequence step in init?
 }
 
 // pure virtual must  the play function
@@ -79,7 +88,7 @@ void SequencedPattern::play()
 }
 
 // must  the serialize routine to save the pattern
-void SequencedPattern::serialize(SerialBuffer &buffer) const
+void SequencedPattern::serialize(ByteStream &buffer) const
 {
   // Note: intentionally skipping HybridPattern::serialize because we
   //       don't want to write all the sub patterns since they change.
@@ -88,7 +97,7 @@ void SequencedPattern::serialize(SerialBuffer &buffer) const
   m_sequence.serialize(buffer);
 }
 
-void SequencedPattern::unserialize(SerialBuffer &buffer)
+void SequencedPattern::unserialize(ByteStream &buffer)
 {
   // Note: intentionally skipping HybridPattern::unserialize
   MultiLedPattern::unserialize(buffer);
@@ -104,3 +113,9 @@ void SequencedPattern::saveTemplate(int level) const
   IndentMsg(level + 1, "}");
 }
 #endif
+
+// apply a sequence to the pattern
+void SequencedPattern::bindSequence(const Sequence &sequence)
+{
+  m_sequence = sequence;
+}

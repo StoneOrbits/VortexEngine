@@ -1,6 +1,6 @@
 #include "MeteorPattern.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
@@ -34,13 +34,13 @@ void MeteorPattern::poststep()
 }
 
 // must override the serialize routine to save the pattern
-void MeteorPattern::serialize(SerialBuffer& buffer) const
+void MeteorPattern::serialize(ByteStream& buffer) const
 {
   BlinkStepPattern::serialize(buffer);
   buffer.serialize(m_fadeAmount);
 }
 
-void MeteorPattern::unserialize(SerialBuffer& buffer)
+void MeteorPattern::unserialize(ByteStream& buffer)
 {
   BlinkStepPattern::unserialize(buffer);
   buffer.unserialize(&m_fadeAmount);

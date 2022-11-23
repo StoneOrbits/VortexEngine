@@ -3,7 +3,7 @@
 #include "../single/SingleLedPattern.h"
 
 #include "../PatternBuilder.h"
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Colors/Colorset.h"
 #include "../../Log/Log.h"
 
@@ -44,7 +44,7 @@ void HybridPattern::play()
 }
 
 // must override the serialize routine to save the pattern
-void HybridPattern::serialize(SerialBuffer &buffer) const
+void HybridPattern::serialize(ByteStream &buffer) const
 {
   //DEBUG_LOG("Serialize");
   MultiLedPattern::serialize(buffer);
@@ -58,7 +58,7 @@ void HybridPattern::serialize(SerialBuffer &buffer) const
 }
 
 // must override unserialize to load patterns
-void HybridPattern::unserialize(SerialBuffer &buffer)
+void HybridPattern::unserialize(ByteStream &buffer)
 {
   //DEBUG_LOG("Unserialize");
   clearPatterns();
@@ -119,4 +119,12 @@ void HybridPattern::setPatternAt(LedPos pos, SingleLedPattern *pat, const Colors
   }
   // store the pattern for the given led
   m_ledPatterns[pos] = pat;
+}
+
+void HybridPattern::setTipsTops(PatternID tipPattern, PatternID topPattern)
+{
+  // Set the tipPattern on all fingerTips and topPattern on all fingerTops
+  for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
+    setPatternAt(p, PatternBuilder::makeSingle(isFingerTip(p) ? tipPattern : topPattern));
+  }
 }

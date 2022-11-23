@@ -1,12 +1,13 @@
 #include "PatternBuilder.h"
 
-#include "../Serial/SerialBuffer.h"
+#include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Patterns/Multi/Sequencer/Sequence.h"
 #include "../Time/Timings.h"
 #include "../Log/Log.h"
 
 #include "Multi/Sequencer/SequencedPattern.h"
+#include "Multi/Sequencer/ChaserPattern.h"
 
 #include "Multi/TheaterChasePattern.h"
 #include "Multi/HueShiftPattern.h"
@@ -27,6 +28,7 @@
 #include "Multi/LighthousePattern.h"
 #include "Multi/PulsishPattern.h"
 #include "Multi/BouncePattern.h"
+#include "Multi/ImpactPattern.h"
 #include "Multi/SplitStrobiePattern.h"
 #include "Multi/BackStrobePattern.h"
 #include "Multi/FlowersPattern.h"
@@ -79,7 +81,7 @@ MultiLedPattern *PatternBuilder::makeMulti(PatternID id)
   return (MultiLedPattern *)pat;
 }
 
-Pattern *PatternBuilder::unserialize(SerialBuffer &buffer)
+Pattern *PatternBuilder::unserialize(ByteStream &buffer)
 {
   Pattern *pat = make((PatternID)buffer.unserialize8());
   if (!pat) {
@@ -103,21 +105,6 @@ Pattern *PatternBuilder::makeInternal(PatternID id)
   // set private pattern ID via friend class relationship
   pat->m_patternID = id;
   return pat;
-}
-
-Pattern *PatternBuilder::createChaser()
-{
-  Sequence chaserSequence;
-  // there are 8 steps in the chaser
-  for (uint32_t i = 0; i < 8; ++i) {
-    // each step starts all fingers are dops
-    PatternMap patMap(PATTERN_DOPS);
-    // and one finger that moves back and forth is solid
-    patMap.setPatternAt(PATTERN_SOLID0, MAP_FINGER((Finger)((i < 5) ? i : (8 - i))));
-    // the step lasts for 300ms
-    chaserSequence.addStep(300, patMap);
-  }
-  return new SequencedPattern(chaserSequence);
 }
 
 Pattern *PatternBuilder::generate(PatternID id)
@@ -155,7 +142,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_RABBIT: return new RabbitPattern();
     case PATTERN_HUESHIFT: return new HueShiftPattern();
     case PATTERN_THEATER_CHASE: return new TheaterChasePattern();
-    case PATTERN_CHASER: return createChaser();
+    case PATTERN_CHASER: return new ChaserPattern();
     case PATTERN_ZIGZAG: return new ZigzagPattern();
     case PATTERN_ZIPFADE: return new ZigzagPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100, 4);
     case PATTERN_TIPTOP: return new TipTopPattern();
@@ -173,6 +160,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_PULSISH:return new PulsishPattern();
     case PATTERN_FILL:return new FillPattern();
     case PATTERN_BOUNCE:return new BouncePattern();
+    case PATTERN_IMPACT:return new ImpactPattern();
     case PATTERN_SPLITSTROBIE:return new SplitStrobiePattern();
     case PATTERN_BACKSTROBE:return new BackStrobePattern();
     case PATTERN_FLOWERS:return new FlowersPattern();

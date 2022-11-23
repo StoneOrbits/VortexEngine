@@ -1,22 +1,16 @@
 #ifndef SETTINGS_H
 #define SETTINGS_H
 
-#include "../Serial/SerialBuffer.h"
+#include "../Serial/ByteStream.h"
 #include "../Colors/ColorTypes.h"
 #include "../Patterns/Patterns.h"
+
+#include "../VortexConfig.h"
 
 #include <inttypes.h>
 
 class Mode;
 class Colorset;
-
-// the maximum number of modes that can be stored
-#ifdef TEST_FRAMEWORK
-// crank this up so we can demo all modes and generate the template
-#define MAX_MODES     PATTERN_COUNT
-#else
-#define MAX_MODES     16
-#endif
 
 class Modes
 {
@@ -37,9 +31,9 @@ public:
   static bool saveStorage();
 
   // saves all modes to a buffer
-  static void serialize(SerialBuffer &buffer);
+  static void serialize(ByteStream &buffer);
   // load all modes from a buffer
-  static bool unserialize(SerialBuffer &buffer);
+  static bool unserialize(ByteStream &buffer);
 
 #ifdef TEST_FRAMEWORK
   // save the data template
@@ -57,7 +51,7 @@ public:
   static bool addMode(const Mode *mode);
 
   // add a new mode by unserializing from a buffer
-  static bool addSerializedMode(SerialBuffer &serializedMode);
+  static bool addSerializedMode(ByteStream &serializedMode);
 
   // update the current mode to match the given mode
   static bool setCurMode(PatternID id, const Colorset *set);
@@ -85,7 +79,7 @@ private:
   static Mode *m_pCurMode;
 
   // list of serialized version of bufers
-  static SerialBuffer m_serializedModes[MAX_MODES];
+  static ByteStream m_serializedModes[MAX_MODES];
 };
 
 #endif

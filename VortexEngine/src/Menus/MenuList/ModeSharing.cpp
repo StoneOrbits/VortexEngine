@@ -1,12 +1,18 @@
 #include "ModeSharing.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
+#include "../../Modes/ModeBuilder.h"
 #include "../../Time/TimeControl.h"
-#include "../../Infrared/Infrared.h"
+#include "../../Infrared/IRReceiver.h"
+#include "../../Infrared/IRSender.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
+
+#ifdef AUTO_SEND_MODE
+bool sent_once = false;
+#endif
 
 ModeSharing::ModeSharing() :
   Menu(),
@@ -22,6 +28,14 @@ bool ModeSharing::init()
   }
   // just start spewing out modes everywhere
   m_sharingMode = ModeShareState::SHARE_SEND;
+
+  // TODO: removeme
+#ifdef TEST_FRAMEWORK
+  if (is_ir_server()) {
+    m_sharingMode = ModeShareState::SHARE_RECEIVE;
+  }
+#endif
+
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
@@ -33,19 +47,23 @@ bool ModeSharing::run()
   }
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND:
+    // render the 'send mode' lights
     showSendMode();
-    // send the mode every 3 seconds
-    if ((Time::getCurtime() % Time::secToTicks(3)) == 0) {
-      sendMode();
+#ifdef AUTO_SEND_MODE
+    // begin sending the mode every 3 seconds
+    if ((Time::getCurtime() % Time::secToTicks(3)) == 0 && sent_once == false) {
+      sent_once = true;
+      beginSending();
     }
+#endif
+    // continue sending any data as long as there is more to send
+    continueSending();
     break;
   case ModeShareState::SHARE_RECEIVE:
+    // render the 'receive mode' lights
     showReceiveMode();
-    // wait till a full mode has been received
-    if (Infrared::dataReady()) {
-      // read the mode out and load it
-      receiveMode();
-    }
+    // load any modes that are received
+    receiveMode();
     break;
   }
   return true;
@@ -56,15 +74,15 @@ void ModeSharing::onShortClick()
 {
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND:
-    // start listening
-    Infrared::beginReceiving();
+    // click while on send -> start listening
+    IRReceiver::beginReceiving();
     m_sharingMode = ModeShareState::SHARE_RECEIVE;
     DEBUG_LOG("Switched to receive mode");
     break;
   case ModeShareState::SHARE_RECEIVE:
   default:
-    // go to quit option
-    Infrared::endReceiving();
+    // click while on receive -> end receive, start sending
+    IRReceiver::endReceiving();
     m_sharingMode = ModeShareState::SHARE_SEND;
     DEBUG_LOG("Switched to send mode");
     break;
@@ -73,61 +91,55 @@ void ModeSharing::onShortClick()
 
 void ModeSharing::onLongClick()
 {
+  // long click on sender option to manually send the mode
+  if (m_sharingMode == ModeShareState::SHARE_SEND) {
+    beginSending();
+    return;
+  }
   leaveMenu();
 }
 
-void ModeSharing::sendMode()
+void ModeSharing::beginSending()
 {
-  SerialBuffer buf;
-  static uint64_t last_time = 0;
-  uint64_t now = Time::getCurtime();
-  if (last_time && (last_time - now) < Time::msToTicks(300)) {
+  // if the sender is sending then cannot start again
+  if (IRSender::isSending()) {
+    ERROR_LOG("Cannot begin sending, sender is busy");
     return;
   }
-  last_time = now;
-  m_pCurMode->serialize(buf);
-  if (!buf.compress()) {
-    DEBUG_LOG("Failed to compress, aborting send");
-    return;
-    // tried
+  // initialize it with the current mode data
+  IRSender::loadMode(m_pCurMode);
+  // send the first chunk of data, leave if we're done
+  if (!IRSender::send()) {
+    leaveMenu();
   }
-  // too big
-  if (buf.rawSize() > 8000) {
-    DEBUG_LOGF("too big: %u", buf.rawSize());
-    return;
+}
+
+void ModeSharing::continueSending()
+{
+  // if the sender isn't done then keep sending data
+  if (IRSender::isSending()) {
+    if (!IRSender::send()) {
+      leaveMenu();
+    }
   }
-  DEBUG_LOGF("Writing %u buf", buf.rawSize());
-  uint64_t startTime = micros();
-  Infrared::write(buf);
-  uint64_t endTime = micros();
-  DEBUG_LOGF("Wrote %u buf (%u us)", buf.rawSize(), endTime - startTime);
-  DEBUG_LOG("Success sending");
 }
 
 void ModeSharing::receiveMode()
 {
-  //uint32_t val = 0;
-  // lower 16 is the size of the data to follow
-  SerialBuffer buf;
-  DEBUG_LOG("Receiving...");
-  uint64_t startTime = micros();
-  if (!Infrared::read(buf)) {
-    // no mode to receive right now
-    //DEBUG_LOG("Failed to receive mode");
+  // check if the IRReceiver has a full packet available
+  if (!IRReceiver::dataReady()) {
+    // nothing available yet
     return;
   }
-  uint64_t endTime = micros();
-  DEBUG_LOGF("Received %u bytes (%u us)", buf.rawSize(), endTime - startTime);
-  // decompress and check crc at same time
-  if (!buf.decompress()) {
-    DEBUG_LOG("Failed to decompress, crc mismatch or bad data");
+  DEBUG_LOG("Mode ready to receive! Receiving...");
+  // receive the IR mode into the current mode
+  if (!IRReceiver::receiveMode(m_pCurMode)) {
+    ERROR_LOG("Failed to receive mode");
+    leaveMenu();
     return;
   }
-  buf.resetUnserializer();
-  m_pCurMode->unserialize(buf);
-  m_pCurMode->init();
-  DEBUG_LOG("Success receiving mode");
-  // leave menu and save settings
+  DEBUG_LOGF("Success receiving mode: %u", m_pCurMode->getPatternID());
+  // leave menu and save settings, even if the mode was the same whatever
   leaveMenu(true);
 }
 

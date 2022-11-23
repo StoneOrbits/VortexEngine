@@ -54,6 +54,6 @@ void FactoryReset::onLongClick()
   } else {
     DEBUG_LOG("Exiting factory reset");
   }
-  // done here
-  leaveMenu();
+  // done here, save settings if we chose to factory reset
+  leaveMenu(m_confirm);
 }

@@ -6,18 +6,22 @@ This includes: saving data to storage, Infrared communications, and even just ru
 
 ## [Bit Stream Class](BitStream.h)
 
-This is a class to manage a buffer that can be written-to or read-from one bit at a time.
+This is a lightweight stream object that allows streaming a single bit into or out of the buffer.
 
-This is like a smaller lightweight version of the SerialBuffer class, it is utilized by the SerialBuffer class for operations like compression.
+If you need to read or write one bit at a time then you must use a BitStream, if you are reading/writing bytes at a time then use a ByteStream.
+
+This is like a smaller lightweight version of the ByteStream class, it is utilized by the ByteStream class for operations like compression.
+
+## [Byte Stream Class](ByteStream.h)
+
+This is a more sophisticated stream class that specializing in streaming bytes, words, and dwords in/out of a buffer.
+
+This is mainly used for serializing and unserializing data for storage and IR transfer.
+
+This class also includes a pointer to walk through the stream (for sending the stream) and accessors for reading/writing data in chunks.
+
+Both Storage and Infrared systems are designed to be given ByteStream objects which they walk and write to IR/Serial respectively.
 
 ## [Serial Class](Serial.h)
 
 This is the global Serial communications manager, this class is used to interface over USB with serial operations.
-
-## [Serial Buffer Class](SerialBuffer.h)
-
-This class is the container for any data being serialized, this is like a more sophisticated BitStream buffer.
-
-This class also includes a pointer to walk through the stream (for sending the stream) and accessors for reading/writing data in chunks.
-
-Both Storage and Infrared systems are designed to be given SerialBuffer objects which they walk and write to IR/Serial respectively.

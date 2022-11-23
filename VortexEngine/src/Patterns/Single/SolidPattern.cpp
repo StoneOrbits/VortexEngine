@@ -1,6 +1,6 @@
 #include "SolidPattern.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Log/Log.h"
 
 SolidPattern::SolidPattern(uint8_t colIndex, uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration) :
@@ -23,13 +23,13 @@ void SolidPattern::play()
   BasicPattern::play();
 }
 
-void SolidPattern::serialize(SerialBuffer &buffer) const
+void SolidPattern::serialize(ByteStream &buffer) const
 {
   BasicPattern::serialize(buffer);
   buffer.serialize(m_colIndex);
 }
 
-void SolidPattern::unserialize(SerialBuffer &buffer)
+void SolidPattern::unserialize(ByteStream &buffer)
 {
   BasicPattern::unserialize(buffer);
   buffer.unserialize(&m_colIndex);

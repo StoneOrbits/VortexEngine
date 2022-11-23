@@ -1,6 +1,6 @@
 #include "BasicPattern.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
@@ -68,7 +68,7 @@ void BasicPattern::play()
   }
 }
 
-void BasicPattern::serialize(SerialBuffer &buffer) const
+void BasicPattern::serialize(ByteStream &buffer) const
 {
   //DEBUG_LOG("Serialize");
   SingleLedPattern::serialize(buffer);
@@ -77,7 +77,7 @@ void BasicPattern::serialize(SerialBuffer &buffer) const
   buffer.serialize(m_gapDuration);
 }
 
-void BasicPattern::unserialize(SerialBuffer &buffer)
+void BasicPattern::unserialize(ByteStream &buffer)
 {
   //DEBUG_LOG("Unserialize");
   SingleLedPattern::unserialize(buffer);

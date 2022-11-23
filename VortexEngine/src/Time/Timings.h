@@ -20,33 +20,6 @@
 // The long hold is detected by just checking the holdDuration()
 #define SHORT_CLICK_THRESHOLD Time::msToTicks(250)
 
-// Tickrate in Ticks Per Second (TPS)
-//
-//    Default: 1000
-//
-// The valid range for this is 1 <= x <= 1000000
-//
-// However any value near or above 10000 will most likely be
-// too fast for the processor to handle
-#define DEFAULT_TICKRATE 1000
-
-// Finger time offset in ticks
-//
-// This changes how many ticks out of sync each finger
-// will run. So 33 means each finger runs 33 ticks out
-// of sync with the previous finger
-#define DEFAULT_TICK_OFFSET 0
-
-// Fixed Tickrate
-//
-// Uncomment this to enable a fixed tickrate. That will
-// disable the setTickrate function and use a constant
-// tickrate instead. Use this for final builds when you
-// know the intended tickrate.
-#ifndef TEST_FRAMEWORK
-#define FIXED_TICKRATE
-#endif
-
 // Strobe Timings
 //
 // Below are timings for all different kinds of standard

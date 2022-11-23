@@ -9,7 +9,6 @@ public:
   ModeSharing();
 
   bool init();
-
   bool run();
 
   // handlers for clicks
@@ -17,7 +16,8 @@ public:
   void onLongClick();
 
 private:
-  void sendMode();
+  void beginSending();
+  void continueSending();
   void receiveMode();
 
   void showSendMode();

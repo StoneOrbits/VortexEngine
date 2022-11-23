@@ -15,8 +15,8 @@ public:
 
   virtual void play() override;
 
-  virtual void serialize(SerialBuffer &buffer) const override;
-  virtual void unserialize(SerialBuffer &buffer) override;
+  virtual void serialize(ByteStream &buffer) const override;
+  virtual void unserialize(ByteStream &buffer) override;
 
 #ifdef TEST_FRAMEWORK
   virtual void saveTemplate(int level = 0) const override;

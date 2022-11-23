@@ -1,5 +1,6 @@
 #include "ColorTypes.h"
-#include "../Serial/SerialBuffer.h"
+
+#include "../Serial/ByteStream.h"
 
 #include <Arduino.h>
 
@@ -203,14 +204,14 @@ void RGBColor::adjustBrightness(uint8_t fadeBy)
   blue = (((int)blue) * (int)(256 - fadeBy)) >> 8;
 }
 
-void RGBColor::serialize(SerialBuffer &buffer) const
+void RGBColor::serialize(ByteStream &buffer) const
 {
   buffer.serialize(red);
   buffer.serialize(green);
   buffer.serialize(blue);
 }
 
-void RGBColor::unserialize(SerialBuffer &buffer)
+void RGBColor::unserialize(ByteStream &buffer)
 {
   buffer.unserialize(&red);
   buffer.unserialize(&green);

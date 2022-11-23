@@ -1,6 +1,6 @@
 #include "Sequence.h"
 
-#include "../../../Serial/SerialBuffer.h"
+#include "../../../Serial/ByteStream.h"
 #include "../../../Memory/Memory.h"
 #include "../../../Leds/Leds.h"
 #include "../../../Log/Log.h"
@@ -37,7 +37,7 @@ PatternID PatternMap::operator[](LedPos index) const
   return m_patternMap[index];
 }
 
-void PatternMap::serialize(SerialBuffer &buffer) const
+void PatternMap::serialize(ByteStream &buffer) const
 {
   for (uint32_t i = 0; i < LED_COUNT; ++i) {
     // ensure the PatternID is interpreted as uint8_t
@@ -45,7 +45,7 @@ void PatternMap::serialize(SerialBuffer &buffer) const
   }
 }
 
-void PatternMap::unserialize(SerialBuffer &buffer)
+void PatternMap::unserialize(ByteStream &buffer)
 {
   for (uint32_t i = 0; i < LED_COUNT; ++i) {
     buffer.unserialize((uint8_t *)m_patternMap + i);
@@ -86,14 +86,14 @@ const Colorset &ColorsetMap::operator[](LedPos index) const
   return m_colorsetMap[index];
 }
 
-void ColorsetMap::serialize(SerialBuffer &buffer) const
+void ColorsetMap::serialize(ByteStream &buffer) const
 {
   for (uint32_t i = 0; i < LED_COUNT; ++i) {
     m_colorsetMap[i].serialize(buffer);
   }
 }
 
-void ColorsetMap::unserialize(SerialBuffer &buffer)
+void ColorsetMap::unserialize(ByteStream &buffer)
 {
   for (uint32_t i = 0; i < LED_COUNT; ++i) {
     m_colorsetMap[i].unserialize(buffer);
@@ -125,14 +125,14 @@ SequenceStep::SequenceStep(const SequenceStep &other) :
 {
 }
 
-void SequenceStep::serialize(SerialBuffer &buffer) const
+void SequenceStep::serialize(ByteStream &buffer) const
 {
   buffer.serialize(m_duration);
   m_patternMap.serialize(buffer);
   m_colorsetMap.serialize(buffer);
 }
 
-void SequenceStep::unserialize(SerialBuffer &buffer)
+void SequenceStep::unserialize(ByteStream &buffer)
 {
   buffer.unserialize(&m_duration);
   m_patternMap.unserialize(buffer);
@@ -253,7 +253,7 @@ void Sequence::clear()
   m_numSteps = 0;
 }
 
-void Sequence::serialize(SerialBuffer &buffer) const
+void Sequence::serialize(ByteStream &buffer) const
 {
   buffer.serialize(m_numSteps);
   for (uint32_t i = 0; i < m_numSteps; ++i) {
@@ -261,7 +261,7 @@ void Sequence::serialize(SerialBuffer &buffer) const
   }
 }
 
-void Sequence::unserialize(SerialBuffer &buffer)
+void Sequence::unserialize(ByteStream &buffer)
 {
   buffer.unserialize(&m_numSteps);
   for (uint32_t i = 0; i < m_numSteps; ++i) {

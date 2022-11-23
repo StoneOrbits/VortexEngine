@@ -1,6 +1,6 @@
 #include "DripMorphPattern.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
@@ -51,7 +51,7 @@ void DripMorphPattern::play()
 }
 
 // must override the serialize routine to save the pattern
-void DripMorphPattern::serialize(SerialBuffer& buffer) const
+void DripMorphPattern::serialize(ByteStream& buffer) const
 {
   MultiLedPattern::serialize(buffer);
   buffer.serialize(m_blinkOnDuration);
@@ -59,7 +59,7 @@ void DripMorphPattern::serialize(SerialBuffer& buffer) const
   buffer.serialize(m_speed);
 }
 
-void DripMorphPattern::unserialize(SerialBuffer& buffer)
+void DripMorphPattern::unserialize(ByteStream& buffer)
 {
   MultiLedPattern::unserialize(buffer);
   buffer.unserialize(&m_blinkOnDuration);

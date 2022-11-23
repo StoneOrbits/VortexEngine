@@ -1,21 +1,21 @@
-#ifndef SERIAL_BUFFER_H
-#define SERIAL_BUFFER_H
+#ifndef BYTE_STREAM_H
+#define BYTE_STREAM_H
 
 #include <inttypes.h>
 
 class FlashClass;
 
-class SerialBuffer
+class ByteStream
 {
   friend class Storage;
 
 public:
-  SerialBuffer(uint32_t size = 0, const uint8_t *buf = nullptr);
-  ~SerialBuffer();
+  ByteStream(uint32_t size = 0, const uint8_t *buf = nullptr);
+  ~ByteStream();
 
   // copy and assignment operators
-  SerialBuffer(const SerialBuffer &other);
-  void operator=(const SerialBuffer &other);
+  ByteStream(const ByteStream &other);
+  void operator=(const ByteStream &other);
 
   // used to initialize the full RawBuffer with a chunk of data,
   // this includes the size, flags, crc, and data
@@ -31,7 +31,7 @@ public:
   bool shrink();
 
   // append another buffer
-  bool append(const SerialBuffer &other);
+  bool append(const ByteStream &other);
 
   // extend the storage without changing the size of the data
   bool extend(uint32_t size);
@@ -71,11 +71,11 @@ public:
   uint32_t peek32() const;
 
   // overload += for appending buffer
-  SerialBuffer &operator+=(const SerialBuffer &rhs);
+  ByteStream &operator+=(const ByteStream &rhs);
   // also overload += for appending bytes
-  SerialBuffer &operator+=(const uint8_t &rhs);
-  SerialBuffer &operator+=(const uint16_t &rhs);
-  SerialBuffer &operator+=(const uint32_t &rhs);
+  ByteStream &operator+=(const uint8_t &rhs);
+  ByteStream &operator+=(const uint16_t &rhs);
+  ByteStream &operator+=(const uint32_t &rhs);
 
   // overload [] for array access (no bounds check lol)
   uint8_t &operator[](uint32_t index) { return m_pData->buf[index]; }
@@ -91,14 +91,14 @@ public:
   uint32_t capacity() const { return m_capacity; }
   bool is_compressed() const;
 
-  // this should be fine
-  uint8_t *frontUnserializer() const { return m_pData ? m_pData->buf + m_position : nullptr; }
-
 private:
-  // don't expose this one it's dangerous
+  // fetch pointers that walk the buffer to serialize/unserialize
+  uint8_t *frontUnserializer() const { return m_pData ? m_pData->buf + m_position : nullptr; }
   uint8_t *frontSerializer() const { return m_pData ? m_pData->buf + m_pData->size : nullptr; }
+  // check if the buffer is large enough for the amount
   bool largeEnough(uint32_t amount) const;
-  uint32_t getWidth(uint32_t value);
+  // helper to get width of bits that makes up value
+  uint32_t getWidth(uint32_t value) const;
 
   // inner data buffer
 #ifdef TEST_FRAMEWORK

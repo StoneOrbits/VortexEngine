@@ -13,3 +13,8 @@ This is a basic sequence object, the Sequenced Pattern simply runs a Sequence.
 ## [Sequenced Pattern](SequencedPattern.h)
 
 This is a type of Multi-Led pattern which will run a Sequence on all leds.
+
+## [Chaser Pattern](ChaserPattern.h)
+
+This is a demonstration pattern that utilizes the sequencer to make a pattern with all dops and a solid of the 0th color in
+the colorset which moves back and forth across the fingers

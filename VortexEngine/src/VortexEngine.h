@@ -7,15 +7,13 @@
  *
  *  But there is still more to work on:
  *   - Fix bug in compression/decompression chopping last byte (blue)
- *   - Move timings of blink on/off to Timings.h
- *   - IR transmission protocol to allow any length data instead of single burst
  *   - eliminate library code to reduce size
  *   - palm light?
  *   - Code polishing and final build solidification
  *   - Code documentation (DOXYGEN???)
  */
 
-#define VORTEX_VERSION "0.1 alpha"
+#include "VortexConfig.h"
 
 class VortexEngine
 {

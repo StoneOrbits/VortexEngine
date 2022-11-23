@@ -4,7 +4,7 @@
 #include "../Colors/ColorTypes.h"
 #include "../Patterns/Patterns.h"
 
-class SerialBuffer;
+class ByteStream;
 class Colorset;
 class Pattern;
 class Mode;
@@ -23,7 +23,7 @@ public:
     RGBColor c6 = RGB_OFF, RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
 
   // unserialize a buffer into a mode
-  static Mode *unserialize(SerialBuffer &buffer);
+  static Mode *unserialize(ByteStream &buffer);
 
 private:
 };

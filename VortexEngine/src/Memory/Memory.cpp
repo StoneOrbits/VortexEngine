@@ -11,8 +11,6 @@
 static uint32_t cur_mem_usage = 0;
 static uint32_t background_usage = 0;
 
-#define MAX_MEMORY 50000
-
 struct memory_block
 {
   uint32_t size;

@@ -10,7 +10,7 @@ using namespace std;
 
 class MultiLedPattern;
 class SingleLedPattern;
-class SerialBuffer;
+class ByteStream;
 class Pattern;
 class Colorset;
 
@@ -38,9 +38,9 @@ public:
   void play();
 
   // save the mode to serial
-  void serialize(SerialBuffer &buffer) const;
+  void serialize(ByteStream &buffer) const;
   // load the mode from serial
-  void unserialize(SerialBuffer &buffer);
+  void unserialize(ByteStream &buffer);
 
 #ifdef TEST_FRAMEWORK
   // save the data template

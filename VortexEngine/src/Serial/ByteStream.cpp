@@ -1,4 +1,4 @@
-#include "SerialBuffer.h"
+#include "ByteStream.h"
 
 #include "../Serial/BitStream.h"
 #include "../Memory/Memory.h"
@@ -10,7 +10,7 @@
 // flags for saving buffer to disk
 #define BUFFER_FLAG_COMRPESSED (1<<0)
 
-SerialBuffer::SerialBuffer(uint32_t size, const uint8_t *buf) :
+ByteStream::ByteStream(uint32_t size, const uint8_t *buf) :
   m_pData(),
   m_position(0),
   m_capacity(0)
@@ -18,12 +18,12 @@ SerialBuffer::SerialBuffer(uint32_t size, const uint8_t *buf) :
   init(size, buf);
 }
 
-SerialBuffer::~SerialBuffer()
+ByteStream::~ByteStream()
 {
   clear();
 }
 
-SerialBuffer::SerialBuffer(const SerialBuffer &other)
+ByteStream::ByteStream(const ByteStream &other)
 {
   init(other.capacity(), other.data());
   m_pData->flags = other.m_pData->flags;
@@ -31,7 +31,7 @@ SerialBuffer::SerialBuffer(const SerialBuffer &other)
   m_pData->size = other.m_pData->size;
 }
 
-void SerialBuffer::operator=(const SerialBuffer &other)
+void ByteStream::operator=(const ByteStream &other)
 {
   init(other.capacity(), other.data());
   m_pData->flags = other.m_pData->flags;
@@ -39,9 +39,10 @@ void SerialBuffer::operator=(const SerialBuffer &other)
   m_pData->size = other.m_pData->size;
 }
 
-bool SerialBuffer::rawInit(const uint8_t *rawdata, uint32_t size)
+bool ByteStream::rawInit(const uint8_t *rawdata, uint32_t size)
 {
   if (!rawdata || size < sizeof(RawBuffer)) {
+    DEBUG_LOGF("Cannot rawInit: %p %u", rawdata, size);
     return false;
   }
   // round up to nearest 4
@@ -58,7 +59,7 @@ bool SerialBuffer::rawInit(const uint8_t *rawdata, uint32_t size)
 }
 
 // reset the buffer
-bool SerialBuffer::init(uint32_t capacity, const uint8_t *buf)
+bool ByteStream::init(uint32_t capacity, const uint8_t *buf)
 {
   clear();
   if (capacity) {
@@ -78,7 +79,7 @@ bool SerialBuffer::init(uint32_t capacity, const uint8_t *buf)
   return true;
 }
 
-void SerialBuffer::clear()
+void ByteStream::clear()
 {
   if (m_pData) {
     vfree(m_pData);
@@ -87,7 +88,7 @@ void SerialBuffer::clear()
   m_capacity = 0;
 }
 
-bool SerialBuffer::shrink()
+bool ByteStream::shrink()
 {
   if (!m_pData) {
     return false;
@@ -107,7 +108,7 @@ bool SerialBuffer::shrink()
 }
 
 // append another buffer
-bool SerialBuffer::append(const SerialBuffer &other)
+bool ByteStream::append(const ByteStream &other)
 {
   if (!other.m_pData) {
     // nothing to append
@@ -124,7 +125,7 @@ bool SerialBuffer::append(const SerialBuffer &other)
 }
 
 // extend the storage without changing the size of the data
-bool SerialBuffer::extend(uint32_t size)
+bool ByteStream::extend(uint32_t size)
 {
   if (!size) {
     // ???
@@ -157,7 +158,7 @@ bool SerialBuffer::extend(uint32_t size)
   return true;
 }
 
-bool SerialBuffer::compress()
+bool ByteStream::compress()
 {
   // TODO: COMPRESSION DISABLED FOR NOW
   return true;
@@ -268,7 +269,7 @@ bool SerialBuffer::compress()
   return true;
 }
 
-bool SerialBuffer::decompress()
+bool ByteStream::decompress()
 {
   // only decompress if we have valid data
   if (!m_pData || !m_pData->verify()) {
@@ -355,7 +356,7 @@ bool SerialBuffer::decompress()
   return true;
 }
 
-bool SerialBuffer::serialize(uint8_t byte)
+bool ByteStream::serialize(uint8_t byte)
 {
   //DEBUG_LOGF("Serialize8(): %u", byte);
   if (!m_pData || (m_pData->size + sizeof(uint8_t)) > m_capacity) {
@@ -369,7 +370,7 @@ bool SerialBuffer::serialize(uint8_t byte)
   return true;
 }
 
-bool SerialBuffer::serialize(uint16_t bytes)
+bool ByteStream::serialize(uint16_t bytes)
 {
   //DEBUG_LOGF("Serialize16(): %u", bytes);
   if (!m_pData || (m_pData->size + sizeof(uint16_t)) > m_capacity) {
@@ -382,7 +383,7 @@ bool SerialBuffer::serialize(uint16_t bytes)
   return true;
 }
 
-bool SerialBuffer::serialize(uint32_t bytes)
+bool ByteStream::serialize(uint32_t bytes)
 {
   //DEBUG_LOGF("Serialize32(): %u", bytes);
   if (!m_pData || (m_pData->size + sizeof(uint32_t)) > m_capacity) {
@@ -397,13 +398,13 @@ bool SerialBuffer::serialize(uint32_t bytes)
 
 // reset the unserializer index so that unserialization will
 // begin from the start of the buffer
-void SerialBuffer::resetUnserializer()
+void ByteStream::resetUnserializer()
 {
   moveUnserializer(0);
 }
 
 // move the unserializer index manually
-void SerialBuffer::moveUnserializer(uint32_t idx)
+void ByteStream::moveUnserializer(uint32_t idx)
 {
   if (!m_pData) {
     return;
@@ -415,7 +416,7 @@ void SerialBuffer::moveUnserializer(uint32_t idx)
 }
 
 // unserialize data and walk the buffer that many bytes
-bool SerialBuffer::unserialize(uint8_t *byte)
+bool ByteStream::unserialize(uint8_t *byte)
 {
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint8_t)) {
     return false;
@@ -426,7 +427,7 @@ bool SerialBuffer::unserialize(uint8_t *byte)
   return true;
 }
 
-bool SerialBuffer::unserialize(uint16_t *bytes)
+bool ByteStream::unserialize(uint16_t *bytes)
 {
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
     return false;
@@ -437,7 +438,7 @@ bool SerialBuffer::unserialize(uint16_t *bytes)
   return true;
 }
 
-bool SerialBuffer::unserialize(uint32_t *bytes)
+bool ByteStream::unserialize(uint32_t *bytes)
 {
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
     return false;
@@ -448,28 +449,28 @@ bool SerialBuffer::unserialize(uint32_t *bytes)
   return true;
 }
 
-uint8_t SerialBuffer::unserialize8()
+uint8_t ByteStream::unserialize8()
 {
   uint8_t byte = 0;
   unserialize(&byte);
   return byte;
 }
 
-uint16_t SerialBuffer::unserialize16()
+uint16_t ByteStream::unserialize16()
 {
   uint16_t bytes = 0;
   unserialize(&bytes);
   return bytes;
 }
 
-uint32_t SerialBuffer::unserialize32()
+uint32_t ByteStream::unserialize32()
 {
   uint32_t bytes = 0;
   unserialize(&bytes);
   return bytes;
 }
 
-uint8_t SerialBuffer::peek8() const
+uint8_t ByteStream::peek8() const
 {
   if (!m_pData) {
     return 0;
@@ -477,7 +478,7 @@ uint8_t SerialBuffer::peek8() const
   return *(uint8_t *)frontUnserializer();
 }
 
-uint16_t SerialBuffer::peek16() const
+uint16_t ByteStream::peek16() const
 {
   if (!m_pData) {
     return 0;
@@ -485,7 +486,7 @@ uint16_t SerialBuffer::peek16() const
   return *(uint16_t *)frontUnserializer();
 }
 
-uint32_t SerialBuffer::peek32() const
+uint32_t ByteStream::peek32() const
 {
   if (!m_pData) {
     return 0;
@@ -495,33 +496,32 @@ uint32_t SerialBuffer::peek32() const
 
 // read the data from a flash storage
 // overload += for appending buffer
-SerialBuffer &SerialBuffer::operator+=(const SerialBuffer &rhs)
+ByteStream &ByteStream::operator+=(const ByteStream &rhs)
 {
   append(rhs);
   return *this;
 }
 
 // also overload += for appending bytes
-SerialBuffer &SerialBuffer::operator+=(const uint8_t &rhs)
+ByteStream &ByteStream::operator+=(const uint8_t &rhs)
 {
   serialize(rhs);
   return *this;
 }
 
-SerialBuffer &SerialBuffer::operator+=(const uint16_t &rhs)
+ByteStream &ByteStream::operator+=(const uint16_t &rhs)
 {
   serialize(rhs);
   return *this;
 }
 
-SerialBuffer &SerialBuffer::operator+=(const uint32_t &rhs)
+ByteStream &ByteStream::operator+=(const uint32_t &rhs)
 {
   serialize(rhs);
   return *this;
 }
 
-
-bool SerialBuffer::is_compressed() const
+bool ByteStream::is_compressed() const
 {
   if (!m_pData) {
     return false;
@@ -529,7 +529,7 @@ bool SerialBuffer::is_compressed() const
   return (m_pData->flags & BUFFER_FLAG_COMRPESSED) != 0;
 }
 
-bool SerialBuffer::largeEnough(uint32_t amount) const
+bool ByteStream::largeEnough(uint32_t amount) const
 {
   if (!m_pData) {
     return false;
@@ -537,7 +537,10 @@ bool SerialBuffer::largeEnough(uint32_t amount) const
   return ((m_pData->size + amount) <= m_capacity);
 }
 
-uint32_t SerialBuffer::getWidth(uint32_t value)
+// get width of bits that makes up value
+// ex: 3 -> 2 bits wide (11)
+//     9 -> 4 bits wide (1001)
+uint32_t ByteStream::getWidth(uint32_t value) const
 {
   if (!value) {
     return 0;

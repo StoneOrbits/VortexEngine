@@ -2,7 +2,7 @@
 
 #include "../Patterns/Pattern.h"
 
-#include "../Serial/SerialBuffer.h"
+#include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Colors/Colorset.h"
 #include "../Storage/Storage.h"
@@ -16,7 +16,7 @@
 uint8_t Modes::m_curMode = 0;
 uint8_t Modes::m_numModes = 0;
 Mode *Modes::m_pCurMode = nullptr;
-SerialBuffer Modes::m_serializedModes[MAX_MODES];
+ByteStream Modes::m_serializedModes[MAX_MODES];
 
 bool Modes::init()
 {
@@ -31,7 +31,7 @@ bool Modes::init()
   }
 #ifdef TEST_FRAMEWORK
   // generate the json data template
-  saveTemplate();
+  //saveTemplate();
 #endif
   return true;
 }
@@ -70,7 +70,7 @@ bool Modes::loadStorage()
   // this is good on memory, but it erases what they have stored
   // before we know whether there is something actually saved
   clearModes();
-  SerialBuffer modesBuffer;
+  ByteStream modesBuffer;
   // only read storage if the modebuffer isn't filled
   if (!Storage::read(modesBuffer) || !modesBuffer.size()) {
     DEBUG_LOG("Empty buffer read from storage");
@@ -86,8 +86,8 @@ bool Modes::saveStorage()
 {
   DEBUG_LOG("Saving modes...");
 
-  // A serialbuffer to hold all the serialized data
-  SerialBuffer modesBuffer;
+  // A ByteStream to hold all the serialized data
+  ByteStream modesBuffer;
 
   // serialize all modes data into the modesBuffer
   serialize(modesBuffer);
@@ -104,7 +104,7 @@ bool Modes::saveStorage()
 }
 
 // Save all of the modes to a serial buffer
-void Modes::serialize(SerialBuffer &modesBuffer)
+void Modes::serialize(ByteStream &modesBuffer)
 {
   // serialize the brightness and number of modes
   modesBuffer.serialize((uint8_t)Leds::getBrightness());
@@ -129,7 +129,7 @@ void Modes::serialize(SerialBuffer &modesBuffer)
 }
 
 // load all modes from a serial buffer
-bool Modes::unserialize(SerialBuffer &modesBuffer)
+bool Modes::unserialize(ByteStream &modesBuffer)
 {
   DEBUG_LOG("Loading modes...");
   // this is good on memory, but it erases what they have stored before we
@@ -199,13 +199,14 @@ void Modes::saveTemplate(int level)
 bool Modes::setDefaults()
 {
   clearModes();
-#define DEMO_PATTERNS
-#ifdef DEMO_PATTERNS
+#ifdef DEMO_ALL_PATTERNS
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
   Colorset defaultSet(RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
   //Colorset defaultSet(HSVColor(254, 255, 255), HSVColor(1, 255, 255), HSVColor(245, 255, 255)); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
   PatternID default_start = PATTERN_SPLITSTROBIE;
   PatternID default_end = PATTERN_LAST;
+  //defaultSet.randomizeTriadic();
+  //defaultSet.randomize(8);
   // initialize a mode for each pattern with an rgb colorset
   for (PatternID pattern = default_start; pattern <= default_end; ++pattern) {
     // add another mode with the given pattern and colorset
@@ -216,13 +217,43 @@ bool Modes::setDefaults()
   }
   DEBUG_LOGF("Added default patterns %u through %u", default_start, default_end);
 #else
+  addMode(PATTERN_JEST, HSVColor(0, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255),
+    HSVColor(64, 255, 255), HSVColor(192, 255, 255));
+  addMode(PATTERN_GHOSTCRUSH, HSVColor(0, 0, 255), HSVColor(0, 0, 255), HSVColor(0, 0, 0),
+    HSVColor(0, 255, 170), HSVColor(0, 0, 0));
+  addMode(PATTERN_IMPACT, HSVColor(160, 255, 255), HSVColor(64, 255, 255), HSVColor(160, 255, 255),
+    HSVColor(0, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255), HSVColor(96, 255, 255),
+    HSVColor(160, 255, 255));
+  addMode(PATTERN_WARPWORM, HSVColor(96, 255, 255), HSVColor(192, 255, 170));
+  addMode(PATTERN_PULSISH, HSVColor(128, 255, 255), HSVColor(224, 170, 255), HSVColor(160, 255, 85));
+  addMode(PATTERN_ZIGZAG, HSVColor(80, 255, 0), HSVColor(80, 255, 255), HSVColor(192, 255, 255),
+    HSVColor(0, 0, 0), HSVColor(0, 255, 255), HSVColor(0, 255, 170));
+  addMode(PATTERN_STROBE, HSVColor(240, 255, 255), HSVColor(0, 0, 0), HSVColor(144, 255, 255),
+    HSVColor(0, 0, 0), HSVColor(48, 170, 255), HSVColor(0, 0, 0), HSVColor(144, 255, 255),
+    HSVColor(0, 0, 0));
+  addMode(PATTERN_SNOWBALL, HSVColor(18, 255, 85), HSVColor(103, 255, 191), HSVColor(188, 255, 123));
+  addMode(PATTERN_ULTRADOPS, HSVColor(0, 255, 85), HSVColor(32, 255, 170), HSVColor(64, 255, 255), 
+    HSVColor(96, 255, 85), HSVColor(128, 255, 85), HSVColor(160, 255, 85), HSVColor(192, 255, 170), 
+    HSVColor(224, 255, 85));
+  //TODO: Add Materia mode
+  addMode(PATTERN_FLOWERS, HSVColor(224, 255, 255), HSVColor(160, 85, 255), HSVColor(192, 255, 85),
+    HSVColor(128, 170, 255));
+  addMode(PATTERN_VORTEXWIPE, HSVColor(0, 255, 255), HSVColor(160, 255, 85), HSVColor(160, 255, 85),
+    HSVColor(160, 255, 85), HSVColor(160, 255, 85), HSVColor(160, 255, 85), HSVColor(160, 255, 85),
+    HSVColor(160, 255, 85));
+  addMode(PATTERN_GHOSTCRUSH, HSVColor(192, 255, 170), HSVColor(0, 0, 0), HSVColor(96, 255, 255),
+    HSVColor(96, 0, 255), HSVColor(96, 255, 255), HSVColor(0, 0, 0), HSVColor(192, 255, 170));
+  addMode(PATTERN_VORTEXWIPE, HSVColor(128, 255, 255), HSVColor(208, 255, 255), HSVColor(16, 170, 255));
+  addMode(PATTERN_RABBIT, HSVColor(160, 255, 255), HSVColor(0, 255, 255), HSVColor(96, 255, 255),
+    HSVColor(160, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255));
+
   addMode(PATTERN_COMPLEMENTARY_BLEND, RGB_RED, RGB_GREEN, RGB_BLUE);
   addMode(PATTERN_DOPS, RGB_RED, RGB_GREEN, RGB_BLUE);
 #endif
   return true;
 }
 
-bool Modes::addSerializedMode(SerialBuffer &serializedMode)
+bool Modes::addSerializedMode(ByteStream &serializedMode)
 {
   Mode *mode = ModeBuilder::unserialize(serializedMode);
   if (!mode) {

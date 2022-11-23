@@ -9,9 +9,6 @@
 #include "../Colors/ColorTypes.h"
 #include "LedTypes.h"
 
-// the starting default brightness
-#define DEFAULT_BRIGHTNESS 255
-
 class LedStash;
 
 class Leds

@@ -1,6 +1,6 @@
 #include "Colorset.h"
 
-#include "../Serial/SerialBuffer.h"
+#include "../Serial/ByteStream.h"
 #include "../Memory/Memory.h"
 
 #include "../Log/Log.h"
@@ -8,7 +8,13 @@
 #include <Arduino.h>
 #include <cstring>
 
+// when no color is selected in the colorset the index is this
+// then when you call getNext() for the first time it returns
+// the 0th color in the colorset and after the index will be 0
 #define INDEX_NONE UINT8_MAX
+
+// a helper to avoid typecasting so much when generating random colors
+#define rand8(x, y) ((uint8_t)random(x, y))
 
 Colorset::Colorset() :
   m_palette(nullptr),
@@ -147,12 +153,12 @@ bool Colorset::addColorByHue(uint8_t hue)
 
 bool Colorset::addColorByHueRandV(uint8_t hue)
 {
-  return addColor(HSVColor(hue, 255, 85 * random(1, 4)));
+  return addColor(HSVColor(hue, 255, 85 * rand8(1, 4)));
 }
 
 bool Colorset::addColorByHueRandSV(uint8_t hue)
 {
-  return addColor(HSVColor(hue, random(0, 256), random(0, 256)));
+  return addColor(HSVColor(hue, rand8(0, 256), rand8(0, 256)));
 }
 
 void Colorset::removeColor(uint32_t index)
@@ -175,10 +181,10 @@ void Colorset::randomize(uint32_t numColors)
 {
   clear();
   if (!numColors) {
-    numColors = random(2, 9);
+    numColors = rand8(2, 9);
   }
   for (uint32_t i = 0; i < numColors; ++i) {
-    addColorByHueRandSV(random(0, 256));
+    addColorByHueRandSV(rand8(0, 256));
   }
 }
 
@@ -187,11 +193,11 @@ void Colorset::randomizeColorTheory(uint32_t numColors)
 {
   clear();
   if (!numColors) {
-    numColors = random(1, 9);
+    numColors = rand8(1, 9);
   }
-  uint8_t randomizedHue = random(0, 256);
+  uint8_t randomizedHue = rand8(0, 256);
   uint8_t colorGap = 0;
-  if (numColors > 1) colorGap = random(16, 256/(numColors - 1));
+  if (numColors > 1) colorGap = rand8(16, 256/(numColors - 1));
   for (uint32_t i = 0; i < numColors; i++) {
     addColorByHueRandV((randomizedHue + (i * colorGap)) % 256);
   }
@@ -202,9 +208,9 @@ void Colorset::randomizeMonochromatic(uint32_t numColors)
 {
   clear();
   if (!numColors) {
-    numColors = random(2, 9);
+    numColors = rand8(2, 9);
   }
-  uint8_t randomizedHue = random(0, 256);
+  uint8_t randomizedHue = rand8(0, 256);
   addColorByHue(randomizedHue);
   for (uint32_t i = 1; i < numColors; i++) {
     addColorByHueRandSV(randomizedHue);
@@ -215,8 +221,8 @@ void Colorset::randomizeMonochromatic(uint32_t numColors)
 void Colorset::randomizeDoubleSplitComplimentary()
 {
   clear();
-  uint8_t randomizedHue = random(0, 256);
-  uint8_t splitComplimentaryGap = random(1, 64);
+  uint8_t randomizedHue = rand8(0, 256);
+  uint8_t splitComplimentaryGap = rand8(1, 64);
   addColorByHueRandV((randomizedHue + splitComplimentaryGap + 128) % 256);
   addColorByHueRandV((randomizedHue - splitComplimentaryGap) % 256);
   addColorByHueRandV(randomizedHue);
@@ -228,8 +234,8 @@ void Colorset::randomizeDoubleSplitComplimentary()
 void Colorset::randomizeTetradic()
 {
   clear();
-  uint8_t randomizedHue = random(0, 256);
-  uint8_t randomizedHue2 = random(0, 256);
+  uint8_t randomizedHue = rand8(0, 256);
+  uint8_t randomizedHue2 = rand8(0, 256);
   addColorByHueRandV(randomizedHue);
   addColorByHueRandV(randomizedHue2);
   addColorByHueRandV((randomizedHue + 128) % 256);
@@ -240,9 +246,9 @@ void Colorset::randomizeEvenlySpaced(uint32_t spaces)
 {
   clear();
   if (!spaces) {
-    spaces = random(1, 9);
+    spaces = rand8(1, 9);
   }
-  uint8_t randomizedHue = random(0, 256);
+  uint8_t randomizedHue = rand8(0, 256);
   for (uint32_t i = 0; i < spaces; i++) {
     addColorByHueRandV((randomizedHue + (256 / spaces) * i) % 256);
   }
@@ -393,7 +399,7 @@ bool Colorset::onEnd() const
   return (m_curIndex == m_numColors - 1);
 }
 
-void Colorset::serialize(SerialBuffer &buffer) const
+void Colorset::serialize(ByteStream &buffer) const
 {
   buffer.serialize(m_numColors);
   for (uint32_t i = 0; i < m_numColors; ++i) {
@@ -401,7 +407,7 @@ void Colorset::serialize(SerialBuffer &buffer) const
   }
 }
 
-void Colorset::unserialize(SerialBuffer &buffer)
+void Colorset::unserialize(ByteStream &buffer)
 {
   buffer.unserialize(&m_numColors);
   initPalette(m_numColors);

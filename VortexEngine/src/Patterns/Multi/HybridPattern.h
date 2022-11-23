@@ -23,8 +23,8 @@ public:
   virtual void play() override;
 
   // must override the serialize routine to save the pattern
-  virtual void serialize(SerialBuffer &buffer) const override;
-  virtual void unserialize(SerialBuffer &buffer) override;
+  virtual void serialize(ByteStream &buffer) const override;
+  virtual void unserialize(ByteStream &buffer) override;
 
 #ifdef TEST_FRAMEWORK
   virtual void saveTemplate(int level = 0) const override;
@@ -34,6 +34,9 @@ protected:
   // set a pattern at an index of the hybrid pattern (optionally replace colorset)
   void setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
   void clearPatterns();
+
+  // change the patterns on the tips/tops respectively
+  void setTipsTops(PatternID tipPattern, PatternID topPattern);
 
   // array of single LED patterns, one for each LED
   SingleLedPattern *m_ledPatterns[LED_COUNT];

@@ -1,6 +1,6 @@
 #include "BlendPattern.h"
 
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
@@ -34,14 +34,14 @@ void BlendPattern::play()
   BasicPattern::play();
 }
 
-void BlendPattern::serialize(SerialBuffer &buffer) const
+void BlendPattern::serialize(ByteStream &buffer) const
 {
   //DEBUG_LOG("Serialize");
   BasicPattern::serialize(buffer);
   buffer.serialize(m_speed);
 }
 
-void BlendPattern::unserialize(SerialBuffer &buffer)
+void BlendPattern::unserialize(ByteStream &buffer)
 {
   //DEBUG_LOG("Unserialize");
   BasicPattern::unserialize(buffer);

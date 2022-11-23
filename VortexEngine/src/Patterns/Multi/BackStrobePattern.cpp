@@ -1,7 +1,7 @@
 #include "BackStrobePattern.h"
 
 #include "../PatternBuilder.h"
-#include "../../Serial/SerialBuffer.h"
+#include "../../Serial/ByteStream.h"
 #include "../../Colors/Colorset.h"
 #include "../../Log/Log.h"
 
@@ -26,39 +26,32 @@ void BackStrobePattern::init()
   m_stepTimer.reset();
   m_stepTimer.addAlarm(m_stepSpeed);
   m_stepTimer.start();
+
+  // initialize the sub patterns one time first
+  setTipsTops(PATTERN_STROBE, PATTERN_DOPS);
 }
 
 void BackStrobePattern::play()
 {
   if (m_stepTimer.alarm() == 0) {
+    DEBUG_LOG("Alarm trigger");
+    // switch which patterns are displayed
     m_switch = !m_switch;
-    for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
-      if (isFingerTip(p)) {
-        if (m_switch) {
-          setPatternAt(p, PatternBuilder::makeSingle(PATTERN_DOPS));
-        } else {
-          setPatternAt(p, PatternBuilder::makeSingle(PATTERN_STROBE));
-        }
-      } else {
-        if (m_switch) {
-          setPatternAt(p, PatternBuilder::makeSingle(PATTERN_STROBE));
-        } else {
-          setPatternAt(p, PatternBuilder::makeSingle(PATTERN_DOPS));
-        }
-      }
-    }
+    // update the tip/top patterns based on the switch
+    setTipsTops(m_switch ? PATTERN_DOPS : PATTERN_STROBE,
+                m_switch ? PATTERN_STROBE : PATTERN_DOPS);
   }
   HybridPattern::play();
 }
 
 // must override the serialize routine to save the pattern
-void BackStrobePattern::serialize(SerialBuffer& buffer) const
+void BackStrobePattern::serialize(ByteStream& buffer) const
 {
   HybridPattern::serialize(buffer);
   buffer.serialize(m_stepSpeed);
 }
 
-void BackStrobePattern::unserialize(SerialBuffer& buffer)
+void BackStrobePattern::unserialize(ByteStream& buffer)
 {
   HybridPattern::unserialize(buffer);
   buffer.unserialize(&m_stepSpeed);

@@ -40,9 +40,8 @@ enum PatternID : uint8_t
   PATTERN_SOLID2, // solid of 2nd color in colorset
 
   // ADD NEW SINGLE LED PATTERNS HERE
-  // WARNING This will offset all multi-led patterns so IR sharing
-  //         of patterns will be misaligned. This means there will
-  //         be inconsistencies sharing patterns over IR.
+  // WARNING This will offset all multi-led patterns so sharing of patterns 
+  //         will be misaligned, for ex. IR and save files. 
 
   // =====================================
   //  Pattern Meta Constants:
@@ -74,6 +73,7 @@ enum PatternID : uint8_t
   PATTERN_PULSISH,
   PATTERN_FILL,
   PATTERN_BOUNCE,
+  PATTERN_IMPACT,
   PATTERN_SPLITSTROBIE,
   PATTERN_BACKSTROBE,
   PATTERN_FLOWERS,

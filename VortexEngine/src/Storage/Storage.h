@@ -3,7 +3,7 @@
 
 #define STORAGE_SIZE 8192
 
-class SerialBuffer;
+class ByteStream;
 
 class Storage
 {
@@ -15,9 +15,9 @@ public:
   static void cleanup();
 
   // store a serial buffer to storage
-  static bool write(SerialBuffer &buffer);
+  static bool write(ByteStream &buffer);
   // read a serial buffer from storage
-  static bool read(SerialBuffer &buffer);
+  static bool read(ByteStream &buffer);
 };
 
 #endif

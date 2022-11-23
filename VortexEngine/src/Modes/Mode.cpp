@@ -4,7 +4,7 @@
 #include "../Patterns/multi/MultiLedPattern.h"
 #include "../Patterns/PatternBuilder.h"
 #include "../Patterns/Pattern.h"
-#include "../Serial/SerialBuffer.h"
+#include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Colors/Colorset.h"
 #include "../Log/Log.h"
@@ -50,7 +50,7 @@ void Mode::play()
   }
 }
 
-void Mode::serialize(SerialBuffer &buffer) const
+void Mode::serialize(ByteStream &buffer) const
 {
   uint32_t flags = getFlags();
   buffer.serialize(flags);
@@ -68,7 +68,7 @@ void Mode::serialize(SerialBuffer &buffer) const
   }
 }
 
-void Mode::unserialize(SerialBuffer &buffer)
+void Mode::unserialize(ByteStream &buffer)
 {
   clearPatterns();
   uint32_t flags = 0;
