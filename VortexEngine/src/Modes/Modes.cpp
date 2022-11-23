@@ -218,6 +218,36 @@ bool Modes::setDefaults()
   }
   DEBUG_LOGF("Added default patterns %u through %u", default_start, default_end);
 #else
+  addMode(PATTERN_JEST, HSVColor(0, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255),
+    HSVColor(64, 255, 255), HSVColor(192, 255, 255));
+  addMode(PATTERN_GHOSTCRUSH, HSVColor(0, 0, 255), HSVColor(0, 0, 255), HSVColor(0, 0, 0),
+    HSVColor(0, 255, 170), HSVColor(0, 0, 0));
+  addMode(PATTERN_IMPACT, HSVColor(160, 255, 255), HSVColor(64, 255, 255), HSVColor(160, 255, 255),
+    HSVColor(0, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255), HSVColor(96, 255, 255),
+    HSVColor(160, 255, 255));
+  addMode(PATTERN_WARPWORM, HSVColor(96, 255, 255), HSVColor(192, 255, 170));
+  addMode(PATTERN_PULSISH, HSVColor(128, 255, 255), HSVColor(224, 170, 255), HSVColor(160, 255, 85));
+  addMode(PATTERN_ZIGZAG, HSVColor(80, 255, 0), HSVColor(80, 255, 255), HSVColor(192, 255, 255),
+    HSVColor(0, 0, 0), HSVColor(0, 255, 255), HSVColor(0, 255, 170));
+  addMode(PATTERN_STROBE, HSVColor(240, 255, 255), HSVColor(0, 0, 0), HSVColor(144, 255, 255),
+    HSVColor(0, 0, 0), HSVColor(48, 170, 255), HSVColor(0, 0, 0), HSVColor(144, 255, 255),
+    HSVColor(0, 0, 0));
+  addMode(PATTERN_SNOWBALL, HSVColor(18, 255, 85), HSVColor(103, 255, 191), HSVColor(188, 255, 123));
+  addMode(PATTERN_ULTRADOPS, HSVColor(0, 255, 85), HSVColor(32, 255, 170), HSVColor(64, 255, 255), 
+    HSVColor(96, 255, 85), HSVColor(128, 255, 85), HSVColor(160, 255, 85), HSVColor(192, 255, 170), 
+    HSVColor(224, 255, 85));
+  //TODO: Add Materia mode
+  addMode(PATTERN_FLOWERS, HSVColor(224, 255, 255), HSVColor(160, 85, 255), HSVColor(192, 255, 85),
+    HSVColor(128, 170, 255));
+  addMode(PATTERN_VORTEXWIPE, HSVColor(0, 255, 255), HSVColor(160, 255, 85), HSVColor(160, 255, 85),
+    HSVColor(160, 255, 85), HSVColor(160, 255, 85), HSVColor(160, 255, 85), HSVColor(160, 255, 85),
+    HSVColor(160, 255, 85));
+  addMode(PATTERN_GHOSTCRUSH, HSVColor(192, 255, 170), HSVColor(0, 0, 0), HSVColor(96, 255, 255),
+    HSVColor(96, 0, 255), HSVColor(96, 255, 255), HSVColor(0, 0, 0), HSVColor(192, 255, 170));
+  addMode(PATTERN_VORTEXWIPE, HSVColor(128, 255, 255), HSVColor(208, 255, 255), HSVColor(16, 170, 255));
+  addMode(PATTERN_RABBIT, HSVColor(160, 255, 255), HSVColor(0, 255, 255), HSVColor(96, 255, 255),
+    HSVColor(160, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255));
+
   addMode(PATTERN_COMPLEMENTARY_BLEND, RGB_RED, RGB_GREEN, RGB_BLUE);
   addMode(PATTERN_DOPS, RGB_RED, RGB_GREEN, RGB_BLUE);
 #endif

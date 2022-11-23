@@ -28,6 +28,7 @@
 #include "Multi/LighthousePattern.h"
 #include "Multi/PulsishPattern.h"
 #include "Multi/BouncePattern.h"
+#include "Multi/ImpactPattern.h"
 #include "Multi/SplitStrobiePattern.h"
 #include "Multi/BackStrobePattern.h"
 #include "Multi/FlowersPattern.h"
@@ -159,6 +160,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_PULSISH:return new PulsishPattern();
     case PATTERN_FILL:return new FillPattern();
     case PATTERN_BOUNCE:return new BouncePattern();
+    case PATTERN_IMPACT:return new ImpactPattern();
     case PATTERN_SPLITSTROBIE:return new SplitStrobiePattern();
     case PATTERN_BACKSTROBE:return new BackStrobePattern();
     case PATTERN_FLOWERS:return new FlowersPattern();
