@@ -1,4 +1,5 @@
-#pragma once
+#ifndef VORTEX_CONFIG_H
+#define VORTEX_CONFIG_H
 
 // Here are various configuration options for the vortex engine as a whole
 
@@ -142,5 +143,7 @@
 #undef VARIABLE_TICKRATE
 #define VARIABLE_TICKRATE 1
 
-#endif
+#endif // TEST_FRAMEWORK
 
+
+#endif // VORTEX_CONFIG_H

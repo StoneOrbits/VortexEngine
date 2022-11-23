@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IR_CONFIG_H
+#define IR_CONFIG_H
 
 // the size of IR blocks in bits
 #define DEFAULT_IR_BLOCK_SIZE 32
@@ -31,4 +32,4 @@
 #define IR_SEND_PWM_PIN 0
 #define RECEIVER_PIN 2
 
-
+#endif

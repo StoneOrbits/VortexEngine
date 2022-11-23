@@ -3,6 +3,8 @@
 
 #include <stdarg.h>
 
+#include "../VortexConfig.h"
+
 #ifdef TEST_FRAMEWORK
 #define INFO_LOG(msg) InfoMsg(msg)
 #define INFO_LOGF(msg, ...) InfoMsg(msg, __VA_ARGS__)

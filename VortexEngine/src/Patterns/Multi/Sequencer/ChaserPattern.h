@@ -1,4 +1,5 @@
-#pragma once
+#ifndef CHASER_PATTERN_H
+#define CHASER_PATTERN_H
 
 #include "SequencedPattern.h"
 
@@ -8,3 +9,5 @@ public:
   // Just provide a constructor to build the sequence
   ChaserPattern();
 };
+
+#endif

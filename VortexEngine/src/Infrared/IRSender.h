@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IR_SENDER_H
+#define IR_SENDER_H
 
 #include "../Serial/ByteStream.h"
 #include "../Serial/BitStream.h"
@@ -53,3 +54,5 @@ private:
   // write total
   static uint32_t m_writeCounter;
 };
+
+#endif

@@ -1,4 +1,5 @@
-#pragma once
+#ifndef IR_RECEIVER_H
+#define IR_RECEIVER_H
 
 #include <inttypes.h>
 
@@ -61,3 +62,4 @@ private:
 
 };
 
+#endif
