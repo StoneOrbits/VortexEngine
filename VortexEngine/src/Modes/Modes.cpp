@@ -31,7 +31,7 @@ bool Modes::init()
   }
 #ifdef TEST_FRAMEWORK
   // generate the json data template
-  saveTemplate();
+  //saveTemplate();
 #endif
   return true;
 }
@@ -199,8 +199,7 @@ void Modes::saveTemplate(int level)
 bool Modes::setDefaults()
 {
   clearModes();
-#define DEMO_PATTERNS
-#ifdef DEMO_PATTERNS
+#ifdef DEMO_ALL_PATTERNS
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
   Colorset defaultSet(RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
   //Colorset defaultSet(HSVColor(254, 255, 255), HSVColor(1, 255, 255), HSVColor(245, 255, 255)); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);

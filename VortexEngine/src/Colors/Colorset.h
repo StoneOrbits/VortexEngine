@@ -3,8 +3,7 @@
 
 #include "ColorTypes.h"
 
-// the max number of colors in a colorset
-#define MAX_COLOR_SLOTS 8
+#include "../VortexConfig.h"
 
 class ByteStream;
 

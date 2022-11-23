@@ -16,10 +16,6 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-// comment this out if you want the menu to fill from pinkie
-// the logic is cleaner for fill from pinkie
-#define FILL_FROM_THUMB
-
 // static members
 uint32_t Menus::m_selection = 0;
 bool Menus::m_isOpen = false;

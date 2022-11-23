@@ -4,12 +4,7 @@
 #include <inttypes.h>
 #include <stdlib.h>
 
-// uncomment me to debug allocations
-// NOTE: tracking allocations while using the test framework will be inaccurate
-//       because the test framework allocations will be caught as well. Doing 
-//       things like displaying a color for the first time will allocate space
-//       and never really return it
-//#define DEBUG_ALLOCATIONS
+#include "../VortexConfig.h"
 
 #ifndef DEBUG_ALLOCATIONS
 

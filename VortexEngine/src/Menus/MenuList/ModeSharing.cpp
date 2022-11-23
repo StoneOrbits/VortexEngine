@@ -10,8 +10,6 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-// comment this out to use manual click-to-send
-#define AUTO_SEND_MODE
 #ifdef AUTO_SEND_MODE
 bool sent_once = false;
 #endif

@@ -4,8 +4,7 @@
 #include <inttypes.h>
 #include <stdarg.h>
 
-// uncomment this to use palm lights
-//#define USE_PALM_LIGHTS
+#include "../VortexConfig.h"
 
 // Defined the LED positions, their order, and index
 enum LedPos : uint8_t
