@@ -114,7 +114,7 @@ public:
   void serialize(ByteStream &buffer) const;
   void unserialize(ByteStream &buffer);
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
   void saveTemplate(int level = 0) const;
 #endif
 

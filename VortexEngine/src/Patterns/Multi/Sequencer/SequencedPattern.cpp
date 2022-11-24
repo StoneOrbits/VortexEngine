@@ -104,7 +104,7 @@ void SequencedPattern::unserialize(ByteStream &buffer)
   m_sequence.unserialize(buffer);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void SequencedPattern::saveTemplate(int level) const
 {
   MultiLedPattern::saveTemplate(level);

@@ -49,7 +49,7 @@ void HueShiftPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_scale);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void HueShiftPattern::saveTemplate(int level) const
 {
   MultiLedPattern::saveTemplate(level);

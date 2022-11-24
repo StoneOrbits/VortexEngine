@@ -14,5 +14,6 @@ This is directly opposed to a [Multi Led Pattern](../Multi) which control all Le
 - [Blend Pattern](BlendPattern.h)
 - [Brackets Pattern](BracketsPattern.h)
 - [Complementary Blend Pattern](ComplementaryBlendPattern.h)
+- [Dash Dops Pattern](DashDopsPattern.h)
 - [Solid Pattern](SolidPattern.h)
 - [Tracer Pattern](TracerPattern.h)

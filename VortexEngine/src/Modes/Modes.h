@@ -35,7 +35,7 @@ public:
   // load all modes from a buffer
   static bool unserialize(ByteStream &buffer);
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
   // save the data template
   static void saveTemplate(int level = 0);
 #endif

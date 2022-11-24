@@ -26,7 +26,7 @@ MateriaPattern::~MateriaPattern()
 void MateriaPattern::init()
 {
   MultiLedPattern::init();
-  
+
   // start on index 1
   m_colorset.setCurIndex(1);
   // reset the blink timer entirely
@@ -52,7 +52,7 @@ void MateriaPattern::init()
 
   // map of the Thumb, Index, Ring, and Pinkie Tops
   m_ledMap = MAP_LED(THUMB_TOP) | MAP_LED(INDEX_TOP) | MAP_LED(RING_TOP) | MAP_LED(PINKIE_TOP);
-  
+
   //Set the middle top to solid color 0
   Leds::setIndex(MIDDLE_TOP, m_colorset.get(0));
 }
@@ -123,15 +123,15 @@ void MateriaPattern::unserialize(ByteStream& buffer)
   buffer.serialize(m_stepSpeed);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void MateriaPattern::saveTemplate(int level) const
 {
   MultiLedPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"onDuration1\": %d,", m_onDuration1);
-  IndentMsg(level + 1, "\"offDuration1\": %d,", m_offDuration1);
-  IndentMsg(level + 1, "\"onDuration2\": %d,", m_onDuration2);
-  IndentMsg(level + 1, "\"offDuration2\": %d,", m_offDuration2);
-  IndentMsg(level + 1, "\"stepSpeed\": %d,", m_stepSpeed);
+  IndentMsg(level + 1, "\"OnDuration1\": %d,", m_onDuration1);
+  IndentMsg(level + 1, "\"OffDuration1\": %d,", m_offDuration1);
+  IndentMsg(level + 1, "\"OnDuration2\": %d,", m_onDuration2);
+  IndentMsg(level + 1, "\"OffDuration2\": %d,", m_offDuration2);
+  IndentMsg(level + 1, "\"StepSpeed\": %d,", m_stepSpeed);
 }
 #endif
 

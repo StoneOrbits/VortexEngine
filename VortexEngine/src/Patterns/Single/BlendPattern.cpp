@@ -48,7 +48,7 @@ void BlendPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_speed);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void BlendPattern::saveTemplate(int level) const
 {
   BasicPattern::saveTemplate(level);

@@ -35,7 +35,7 @@ void SolidPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_colIndex);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void SolidPattern::saveTemplate(int level) const
 {
   BasicPattern::saveTemplate(level);

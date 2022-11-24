@@ -96,7 +96,7 @@ void ZigzagPattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_stepDuration);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void ZigzagPattern::saveTemplate(int level) const
 {
   MultiLedPattern::saveTemplate(level);

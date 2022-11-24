@@ -416,7 +416,7 @@ void Colorset::unserialize(ByteStream &buffer)
   }
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void Colorset::saveTemplate(int level) const
 {
   IndentMsg(level, "\"NumColors\": %d,", m_numColors);

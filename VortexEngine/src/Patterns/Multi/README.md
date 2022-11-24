@@ -23,6 +23,7 @@ This is directly opposed to a [Single Led Pattern](../Single) which only control
 - [Impact Pattern](ImpactPattern.h)
 - [Jest Pattern](JestPattern.h)
 - [Lighthouse Pattern](LighthousePattern.h)
+- [Materia Pattern](MateriaPattern.h)
 - [Meteor Pattern](MeteorPattern.h)
 - [Pulsish Pattern](PulsishPattern.h)
 - [Rabbit Pattern](RabbitPattern.h)

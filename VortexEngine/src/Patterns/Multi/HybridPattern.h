@@ -26,7 +26,7 @@ public:
   virtual void serialize(ByteStream &buffer) const override;
   virtual void unserialize(ByteStream &buffer) override;
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
   virtual void saveTemplate(int level = 0) const override;
 #endif
 

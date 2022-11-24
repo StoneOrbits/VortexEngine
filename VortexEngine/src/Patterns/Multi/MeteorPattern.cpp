@@ -46,7 +46,7 @@ void MeteorPattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_fadeAmount);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void MeteorPattern::saveTemplate(int level) const
 {
   BlinkStepPattern::saveTemplate(level);

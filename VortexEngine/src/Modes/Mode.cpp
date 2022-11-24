@@ -100,7 +100,7 @@ void Mode::unserialize(ByteStream &buffer)
   }
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void Mode::saveTemplate(int level) const
 {
   uint32_t flags = getFlags();

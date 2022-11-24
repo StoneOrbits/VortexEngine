@@ -80,7 +80,7 @@ void DashDopsPattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_offDuration);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void DashDopsPattern::saveTemplate(int level) const
 {
   SingleLedPattern::saveTemplate(level);

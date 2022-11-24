@@ -71,7 +71,7 @@ void TracerPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_dotDuration);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void TracerPattern::saveTemplate(int level) const
 {
   SingleLedPattern::saveTemplate(level);

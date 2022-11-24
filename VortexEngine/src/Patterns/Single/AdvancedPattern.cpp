@@ -109,7 +109,7 @@ void AdvancedPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_repeatGroup);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void AdvancedPattern::saveTemplate(int level) const
 {
   BasicPattern::saveTemplate(level);

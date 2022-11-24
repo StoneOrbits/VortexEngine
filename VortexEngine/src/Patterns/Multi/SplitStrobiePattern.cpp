@@ -57,7 +57,7 @@ void SplitStrobiePattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_stepDuration);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void SplitStrobiePattern::saveTemplate(int level) const
 {
   HybridPattern::saveTemplate(level);

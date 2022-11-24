@@ -52,7 +52,7 @@ void PatternMap::unserialize(ByteStream &buffer)
   }
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void PatternMap::saveTemplate(int level) const
 {
   for (uint32_t i = 0; i < LED_COUNT; ++i) {
@@ -100,7 +100,7 @@ void ColorsetMap::unserialize(ByteStream &buffer)
   }
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void ColorsetMap::saveTemplate(int level) const
 {
   for (uint32_t i = 0; i < LED_COUNT; ++i) {
@@ -139,7 +139,7 @@ void SequenceStep::unserialize(ByteStream &buffer)
   m_colorsetMap.unserialize(buffer);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void SequenceStep::saveTemplate(int level) const
 {
   IndentMsg(level, "\"Duration\": %d,", m_duration);
@@ -269,7 +269,7 @@ void Sequence::unserialize(ByteStream &buffer)
   }
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void Sequence::saveTemplate(int level) const
 {
   IndentMsg(level, "\"NumSteps\": %d,", m_numSteps);

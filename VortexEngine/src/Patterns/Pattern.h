@@ -51,7 +51,7 @@ public:
   // must override unserialize to load patterns
   virtual void unserialize(ByteStream &buffer);
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
   // save the data template
   virtual void saveTemplate(int level = 0) const;
 #endif

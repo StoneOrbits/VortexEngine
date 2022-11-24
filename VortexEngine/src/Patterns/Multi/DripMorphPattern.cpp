@@ -67,7 +67,7 @@ void DripMorphPattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_speed);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void DripMorphPattern::saveTemplate(int level) const
 {
   MultiLedPattern::saveTemplate(level);

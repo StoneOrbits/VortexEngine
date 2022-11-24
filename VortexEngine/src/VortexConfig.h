@@ -82,6 +82,13 @@
 // for testing and development
 #define DEMO_ALL_PATTERNS     0
 
+// Save Template
+//
+// Dump the initialized modes in json format to either serial or the console.
+// This will generate a json structure that mirrors that of the binary save
+// file. The result of this can be found in example_modes.json
+#define SAVE_TEMPLATE         1
+
 // Debug Allocations
 //
 // Tracks all memory allocations and logs them, useful for finding leaks

@@ -54,7 +54,7 @@ void Pattern::unserialize(ByteStream &buffer)
   m_colorset.unserialize(buffer);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void Pattern::saveTemplate(int level) const
 {
   IndentMsg(level, "\"PatternID\": %d,", m_patternID);

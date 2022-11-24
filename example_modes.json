@@ -1,3102 +1,1623 @@
 {
-   "Brightness":255,
-   "NumModes":43,
-   "Modes":[
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":0,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+  "Brightness": 255,
+  "NumModes": 15,
+  "Modes": [
+    {
+      "flags": 1,
+      "Leds": [
+        {
+          "PatternID": 44,
+          "Colorset": {
+            "NumColors": 5,
+            "Colors": [
+              {
+                "Red": 255,
+                "Green": 0,
+                "Blue": 0
+              },
+              {
+                "Red": 0,
+                "Green": 255,
+                "Blue": 60
+              },
+              {
+                "Red": 0,
+                "Green": 69,
+                "Blue": 255
+              },
+              {
+                "Red": 129,
+                "Green": 255,
+                "Blue": 0
+              },
+              {
+                "Red": 120,
+                "Green": 0,
+                "Blue": 255
+              }
+            ]
+          },
+          "Params": {
+            "SubPatterns": [
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 5,
+                  "Colors": [
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 120,
+                      "Green": 0,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":5,
-                  "OffDuration":8,
-                  "GapDuration":0
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":1,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 0,
+                  "OffDuration": 1,
+                  "GapDuration": 5,
+                  "GroupSize": 3,
+                  "SkipColors": 0,
+                  "RepeatGroup": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 5,
+                  "Colors": [
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 120,
+                      "Green": 0,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":25,
-                  "OffDuration":25,
-                  "GapDuration":0
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":2,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 0,
+                  "OffDuration": 1,
+                  "GapDuration": 69,
+                  "GroupSize": 3,
+                  "SkipColors": 0,
+                  "RepeatGroup": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 5,
+                  "Colors": [
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 120,
+                      "Green": 0,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":2,
-                  "OffDuration":13,
-                  "GapDuration":0
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":3,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 0,
+                  "OffDuration": 1,
+                  "GapDuration": 5,
+                  "GroupSize": 3,
+                  "SkipColors": 0,
+                  "RepeatGroup": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 5,
+                  "Colors": [
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 120,
+                      "Green": 0,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":2,
-                  "OffDuration":7,
-                  "GapDuration":0
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":4,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 0,
+                  "OffDuration": 1,
+                  "GapDuration": 69,
+                  "GroupSize": 3,
+                  "SkipColors": 0,
+                  "RepeatGroup": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 5,
+                  "Colors": [
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 120,
+                      "Green": 0,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":1,
-                  "OffDuration":3,
-                  "GapDuration":0
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":5,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 0,
+                  "OffDuration": 1,
+                  "GapDuration": 5,
+                  "GroupSize": 3,
+                  "SkipColors": 0,
+                  "RepeatGroup": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 5,
+                  "Colors": [
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 120,
+                      "Green": 0,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":3,
-                  "OffDuration":8,
-                  "GapDuration":0
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":6,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 0,
+                  "OffDuration": 1,
+                  "GapDuration": 69,
+                  "GroupSize": 3,
+                  "SkipColors": 0,
+                  "RepeatGroup": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 5,
+                  "Colors": [
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 120,
+                      "Green": 0,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":20,
-                  "OffDuration":0,
-                  "GapDuration":0
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":7,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 0,
+                  "OffDuration": 1,
+                  "GapDuration": 5,
+                  "GroupSize": 3,
+                  "SkipColors": 0,
+                  "RepeatGroup": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 5,
+                  "Colors": [
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 120,
+                      "Green": 0,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":3,
-                  "OffDuration":0,
-                  "GapDuration":0
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":8,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 0,
+                  "OffDuration": 1,
+                  "GapDuration": 69,
+                  "GroupSize": 3,
+                  "SkipColors": 0,
+                  "RepeatGroup": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 5,
+                  "Colors": [
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 120,
+                      "Green": 0,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "TracerDuration":20,
-                  "DotDuration":1
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":9,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 0,
+                  "OffDuration": 1,
+                  "GapDuration": 5,
+                  "GroupSize": 3,
+                  "SkipColors": 0,
+                  "RepeatGroup": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 5,
+                  "Colors": [
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 120,
+                      "Green": 0,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":5,
-                  "OffDuration":8,
-                  "GapDuration":35
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":10,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 0,
+                  "OffDuration": 1,
+                  "GapDuration": 69,
+                  "GroupSize": 3,
+                  "SkipColors": 0,
+                  "RepeatGroup": 0
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flags": 2,
+      "Leds": [
+        {
+          "PatternID": 11,
+          "Colorset": {
+            "NumColors": 3,
+            "Colors": [
+              {
+                "Red": 255,
+                "Green": 255,
+                "Blue": 255
+              },
+              {
+                "Red": 255,
+                "Green": 255,
+                "Blue": 255
+              },
+              {
+                "Red": 170,
+                "Green": 0,
+                "Blue": 0
+              }
+            ]
+          },
+          "Params": {
+            "OnDuration": 1,
+            "OffDuration": 0,
+            "GapDuration": 50
+          }
+        }
+      ]
+    },
+    {
+      "flags": 1,
+      "Leds": [
+        {
+          "PatternID": 40,
+          "Colorset": {
+            "NumColors": 8,
+            "Colors": [
+              {
+                "Red": 0,
+                "Green": 69,
+                "Blue": 255
+              },
+              {
+                "Red": 129,
+                "Green": 255,
+                "Blue": 0
+              },
+              {
+                "Red": 0,
+                "Green": 69,
+                "Blue": 255
+              },
+              {
+                "Red": 255,
+                "Green": 0,
+                "Blue": 0
+              },
+              {
+                "Red": 0,
+                "Green": 255,
+                "Blue": 60
+              },
+              {
+                "Red": 0,
+                "Green": 69,
+                "Blue": 255
+              },
+              {
+                "Red": 0,
+                "Green": 255,
+                "Blue": 60
+              },
+              {
+                "Red": 0,
+                "Green": 69,
+                "Blue": 255
+              }
+            ]
+          },
+          "Params": {
+            "SubPatterns": [
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 8,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":1,
-                  "OffDuration":0,
-                  "GapDuration":50
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":11,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 5,
+                  "OffDuration": 8,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 1,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":5,
-                  "OffDuration":5,
-                  "GapDuration":10,
-                  "GroupSize":2,
-                  "SkipColors":2,
-                  "RepeatGroup":1
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":12,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 25,
+                  "OffDuration": 250,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 8,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":2,
-                  "OffDuration":13,
-                  "GapDuration":0,
-                  "BlendSpeed":1
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":13,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 5,
+                  "OffDuration": 8,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 1,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":2,
-                  "OffDuration":13,
-                  "GapDuration":0,
-                  "BlendSpeed":1
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":14,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 25,
+                  "OffDuration": 250,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 1,
+                  "Colors": [
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    }
                   ]
-               },
-               "Params":{
-                  "BracketDuration":2,
-                  "MidDuration":5,
-                  "OffDuration":8
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":15,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 25,
+                  "OffDuration": 250,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 1,
+                  "Colors": [
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":100,
-                  "OffDuration":0,
-                  "GapDuration":0,
-                  "ColorIndex":0
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":16,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 25,
+                  "OffDuration": 250,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 8,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 129,
+                      "Green": 255,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":100,
-                  "OffDuration":0,
-                  "GapDuration":0,
-                  "ColorIndex":1
-               }
-            }
-         ]
-      },
-      {
-         "flags":2,
-         "Leds":[
-            {
-               "PatternID":17,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 5,
+                  "OffDuration": 8,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 1,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":100,
-                  "OffDuration":0,
-                  "GapDuration":0,
-                  "ColorIndex":2
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":18,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 25,
+                  "OffDuration": 250,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 1,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "SubPatterns":[
-                     {
-                        "PatternID":1,
-                        "Colorset":{
-                           "NumColors":1,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":25,
-                           "OffDuration":25,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":5,
-                           "OffDuration":8,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":1,
-                        "Colorset":{
-                           "NumColors":1,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":25,
-                           "OffDuration":25,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":5,
-                           "OffDuration":8,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":1,
-                        "Colorset":{
-                           "NumColors":1,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":25,
-                           "OffDuration":25,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":5,
-                           "OffDuration":8,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":1,
-                        "Colorset":{
-                           "NumColors":1,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":25,
-                           "OffDuration":25,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":5,
-                           "OffDuration":8,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":1,
-                        "Colorset":{
-                           "NumColors":1,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":25,
-                           "OffDuration":25,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":5,
-                           "OffDuration":8,
-                           "GapDuration":0
-                        }
-                     }
+                },
+                "Params": {
+                  "OnDuration": 25,
+                  "OffDuration": 250,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 1,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":19,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 25,
+                  "OffDuration": 250,
+                  "GapDuration": 0
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flags": 1,
+      "Leds": [
+        {
+          "PatternID": 34,
+          "Colorset": {
+            "NumColors": 2,
+            "Colors": [
+              {
+                "Red": 0,
+                "Green": 255,
+                "Blue": 60
+              },
+              {
+                "Red": 80,
+                "Green": 0,
+                "Blue": 170
+              }
+            ]
+          },
+          "Params": {
+            "BlinkOnDuration": 2,
+            "BlinkOffDuration": 7,
+            "StepDuration": 100
+          }
+        }
+      ]
+    },
+    {
+      "flags": 1,
+      "Leds": [
+        {
+          "PatternID": 37,
+          "Colorset": {
+            "NumColors": 3,
+            "Colors": [
+              {
+                "Red": 0,
+                "Green": 255,
+                "Blue": 252
+              },
+              {
+                "Red": 255,
+                "Green": 84,
+                "Blue": 219
+              },
+              {
+                "Red": 0,
+                "Green": 23,
+                "Blue": 85
+              }
+            ]
+          },
+          "Params": {
+            "OnDuration1": 2,
+            "OffDuration1": 7,
+            "OnDuration2": 5,
+            "OffDuration2": 8,
+            "StepDuration": 100
+          }
+        }
+      ]
+    },
+    {
+      "flags": 1,
+      "Leds": [
+        {
+          "PatternID": 23,
+          "Colorset": {
+            "NumColors": 4,
+            "Colors": [
+              {
+                "Red": 33,
+                "Green": 255,
+                "Blue": 0
+              },
+              {
+                "Red": 120,
+                "Green": 0,
+                "Blue": 255
+              },
+              {
+                "Red": 255,
+                "Green": 0,
+                "Blue": 0
+              },
+              {
+                "Red": 170,
+                "Green": 0,
+                "Blue": 0
+              }
+            ]
+          },
+          "Params": {
+            "OnDuration": 2,
+            "OffDuraiton": 13,
+            "StepDuration": 50
+          }
+        }
+      ]
+    },
+    {
+      "flags": 2,
+      "Leds": [
+        {
+          "PatternID": 0,
+          "Colorset": {
+            "NumColors": 4,
+            "Colors": [
+              {
+                "Red": 255,
+                "Green": 0,
+                "Blue": 105
+              },
+              {
+                "Red": 0,
+                "Green": 165,
+                "Blue": 255
+              },
+              {
+                "Red": 235,
+                "Green": 255,
+                "Blue": 84
+              },
+              {
+                "Red": 0,
+                "Green": 165,
+                "Blue": 255
+              }
+            ]
+          },
+          "Params": {
+            "OnDuration": 5,
+            "OffDuration": 8,
+            "GapDuration": 0
+          }
+        }
+      ]
+    },
+    {
+      "flags": 1,
+      "Leds": [
+        {
+          "PatternID": 35,
+          "Colorset": {
+            "NumColors": 3,
+            "Colors": [
+              {
+                "Red": 85,
+                "Green": 36,
+                "Blue": 0
+              },
+              {
+                "Red": 0,
+                "Green": 191,
+                "Blue": 76
+              },
+              {
+                "Red": 46,
+                "Green": 0,
+                "Blue": 123
+              }
+            ]
+          },
+          "Params": {
+            "BlinkOnDuration": 2,
+            "BlinkOffDuration": 7,
+            "StepDuration": 100
+          }
+        }
+      ]
+    },
+    {
+      "flags": 2,
+      "Leds": [
+        {
+          "PatternID": 4,
+          "Colorset": {
+            "NumColors": 8,
+            "Colors": [
+              {
+                "Red": 85,
+                "Green": 0,
+                "Blue": 0
+              },
+              {
+                "Red": 170,
+                "Green": 128,
+                "Blue": 0
+              },
+              {
+                "Red": 129,
+                "Green": 255,
+                "Blue": 0
+              },
+              {
+                "Red": 0,
+                "Green": 85,
+                "Blue": 20
+              },
+              {
+                "Red": 0,
+                "Green": 85,
+                "Blue": 84
+              },
+              {
+                "Red": 0,
+                "Green": 23,
+                "Blue": 85
+              },
+              {
+                "Red": 80,
+                "Green": 0,
+                "Blue": 170
+              },
+              {
+                "Red": 85,
+                "Green": 0,
+                "Blue": 67
+              }
+            ]
+          },
+          "Params": {
+            "OnDuration": 1,
+            "OffDuration": 3,
+            "GapDuration": 0
+          }
+        }
+      ]
+    },
+    {
+      "flags": 1,
+      "Leds": [
+        {
+          "PatternID": 45,
+          "Colorset": {
+            "NumColors": 4,
+            "Colors": [
+              {
+                "Red": 255,
+                "Green": 0,
+                "Blue": 201
+              },
+              {
+                "Red": 169,
+                "Green": 193,
+                "Blue": 255
+              },
+              {
+                "Red": 40,
+                "Green": 0,
+                "Blue": 85
+              },
+              {
+                "Red": 84,
+                "Green": 255,
+                "Blue": 253
+              }
+            ]
+          },
+          "Params": {
+            "OnDuration1": 5,
+            "OffDuration1": 8,
+            "OnDuration2": 3,
+            "OffDuration2": 35,
+            "StepSpeed": 800
+          }
+        }
+      ]
+    },
+    {
+      "flags": 1,
+      "Leds": [
+        {
+          "PatternID": 32,
+          "Colorset": {
+            "NumColors": 8,
+            "Colors": [
+              {
+                "Red": 255,
+                "Green": 0,
+                "Blue": 0
+              },
+              {
+                "Red": 0,
+                "Green": 23,
+                "Blue": 85
+              },
+              {
+                "Red": 0,
+                "Green": 23,
+                "Blue": 85
+              },
+              {
+                "Red": 0,
+                "Green": 23,
+                "Blue": 85
+              },
+              {
+                "Red": 0,
+                "Green": 23,
+                "Blue": 85
+              },
+              {
+                "Red": 0,
+                "Green": 23,
+                "Blue": 85
+              },
+              {
+                "Red": 0,
+                "Green": 23,
+                "Blue": 85
+              },
+              {
+                "Red": 0,
+                "Green": 23,
+                "Blue": 85
+              }
+            ]
+          },
+          "Params": {
+            "BlinkOnDuration": 2,
+            "BlinkOffDuration": 7,
+            "StepDuration": 125
+          }
+        }
+      ]
+    },
+    {
+      "flags": 2,
+      "Leds": [
+        {
+          "PatternID": 11,
+          "Colorset": {
+            "NumColors": 5,
+            "Colors": [
+              {
+                "Red": 80,
+                "Green": 0,
+                "Blue": 170
+              },
+              {
+                "Red": 0,
+                "Green": 255,
+                "Blue": 60
+              },
+              {
+                "Red": 255,
+                "Green": 255,
+                "Blue": 255
+              },
+              {
+                "Red": 0,
+                "Green": 255,
+                "Blue": 60
+              },
+              {
+                "Red": 80,
+                "Green": 0,
+                "Blue": 170
+              }
+            ]
+          },
+          "Params": {
+            "OnDuration": 1,
+            "OffDuration": 0,
+            "GapDuration": 50
+          }
+        }
+      ]
+    },
+    {
+      "flags": 1,
+      "Leds": [
+        {
+          "PatternID": 32,
+          "Colorset": {
+            "NumColors": 3,
+            "Colors": [
+              {
+                "Red": 0,
+                "Green": 255,
+                "Blue": 252
+              },
+              {
+                "Red": 216,
+                "Green": 0,
+                "Blue": 255
+              },
+              {
+                "Red": 255,
+                "Green": 149,
+                "Blue": 84
+              }
+            ]
+          },
+          "Params": {
+            "BlinkOnDuration": 2,
+            "BlinkOffDuration": 7,
+            "StepDuration": 125
+          }
+        }
+      ]
+    },
+    {
+      "flags": 1,
+      "Leds": [
+        {
+          "PatternID": 19,
+          "Colorset": {
+            "NumColors": 6,
+            "Colors": [
+              {
+                "Red": 0,
+                "Green": 69,
+                "Blue": 255
+              },
+              {
+                "Red": 255,
+                "Green": 0,
+                "Blue": 0
+              },
+              {
+                "Red": 0,
+                "Green": 255,
+                "Blue": 60
+              },
+              {
+                "Red": 0,
+                "Green": 69,
+                "Blue": 255
+              },
+              {
+                "Red": 0,
+                "Green": 255,
+                "Blue": 60
+              },
+              {
+                "Red": 0,
+                "Green": 69,
+                "Blue": 255
+              }
+            ]
+          },
+          "Params": {
+            "SubPatterns": [
+              {
+                "PatternID": 1,
+                "Colorset": {
+                  "NumColors": 1,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "Speed":1,
-                  "Scale":1
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":20,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 25,
+                  "OffDuration": 25,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 6,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "BlinkOnDuration":2,
-                  "BlinkOffDuration":13,
-                  "StepDuration":25
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":21,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 5,
+                  "OffDuration": 8,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 1,
+                "Colorset": {
+                  "NumColors": 1,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "Sequence":{
-                     "NumSteps":8,
-                     "Steps":[
-                        {
-                           "Duration":300,
-                           "PatternMap":[
-                              15,
-                              15,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2
-                           ],
-                           "ColorsetMap":[
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              }
-                           ]
-                        },
-                        {
-                           "Duration":300,
-                           "PatternMap":[
-                              2,
-                              2,
-                              15,
-                              15,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2
-                           ],
-                           "ColorsetMap":[
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              }
-                           ]
-                        },
-                        {
-                           "Duration":300,
-                           "PatternMap":[
-                              2,
-                              2,
-                              2,
-                              2,
-                              15,
-                              15,
-                              2,
-                              2,
-                              2,
-                              2
-                           ],
-                           "ColorsetMap":[
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              }
-                           ]
-                        },
-                        {
-                           "Duration":300,
-                           "PatternMap":[
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              15,
-                              15,
-                              2,
-                              2
-                           ],
-                           "ColorsetMap":[
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              }
-                           ]
-                        },
-                        {
-                           "Duration":300,
-                           "PatternMap":[
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              15,
-                              15
-                           ],
-                           "ColorsetMap":[
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              }
-                           ]
-                        },
-                        {
-                           "Duration":300,
-                           "PatternMap":[
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              15,
-                              15,
-                              2,
-                              2
-                           ],
-                           "ColorsetMap":[
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              }
-                           ]
-                        },
-                        {
-                           "Duration":300,
-                           "PatternMap":[
-                              2,
-                              2,
-                              2,
-                              2,
-                              15,
-                              15,
-                              2,
-                              2,
-                              2,
-                              2
-                           ],
-                           "ColorsetMap":[
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              }
-                           ]
-                        },
-                        {
-                           "Duration":300,
-                           "PatternMap":[
-                              2,
-                              2,
-                              15,
-                              15,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2,
-                              2
-                           ],
-                           "ColorsetMap":[
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              },
-                              {
-                                 "NumColors":0,
-                                 "Colors":[
-                                    
-                                 ]
-                              }
-                           ]
-                        }
-                     ]
-                  }
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":22,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 25,
+                  "OffDuration": 25,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 6,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":2,
-                  "OffDuraiton":13,
-                  "StepDuration":50
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":23,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 5,
+                  "OffDuration": 8,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 1,
+                "Colorset": {
+                  "NumColors": 1,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "OnDuration":2,
-                  "OffDuraiton":13,
-                  "StepDuration":100
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":24,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 25,
+                  "OffDuration": 25,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 6,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "SubPatterns":[
-                     {
-                        "PatternID":5,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":3,
-                           "OffDuration":8,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":2,
-                        "Colorset":{
-                           "NumColors":1,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":2,
-                           "OffDuration":13,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":5,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":3,
-                           "OffDuration":8,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":2,
-                        "Colorset":{
-                           "NumColors":1,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":2,
-                           "OffDuration":13,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":5,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":3,
-                           "OffDuration":8,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":2,
-                        "Colorset":{
-                           "NumColors":1,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":2,
-                           "OffDuration":13,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":5,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":3,
-                           "OffDuration":8,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":2,
-                        "Colorset":{
-                           "NumColors":1,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":2,
-                           "OffDuration":13,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":5,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":3,
-                           "OffDuration":8,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":2,
-                        "Colorset":{
-                           "NumColors":1,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":2,
-                           "OffDuration":13,
-                           "GapDuration":0
-                        }
-                     }
+                },
+                "Params": {
+                  "OnDuration": 5,
+                  "OffDuration": 8,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 1,
+                "Colorset": {
+                  "NumColors": 1,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":25,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 25,
+                  "OffDuration": 25,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 6,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "BlinkOnDuration":10,
-                  "BlinkOffDuration":10,
-                  "StepDuration":100
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":26,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 5,
+                  "OffDuration": 8,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 1,
+                "Colorset": {
+                  "NumColors": 1,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "BlinkOnDuration":10,
-                  "BlinkOffDuration":10,
-                  "Speed":1
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":27,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
+                },
+                "Params": {
+                  "OnDuration": 25,
+                  "OffDuration": 25,
+                  "GapDuration": 0
+                }
+              },
+              {
+                "PatternID": 0,
+                "Colorset": {
+                  "NumColors": 6,
+                  "Colors": [
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 255,
+                      "Green": 0,
+                      "Blue": 0
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 255,
+                      "Blue": 60
+                    },
+                    {
+                      "Red": 0,
+                      "Green": 69,
+                      "Blue": 255
+                    }
                   ]
-               },
-               "Params":{
-                  "BlinkOnDuration":2,
-                  "BlinkOffDuration":13,
-                  "StepDuration":50
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":28,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "BlinkOnDuration":2,
-                  "BlinkOffDuration":13,
-                  "StepDuration":100
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":29,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "BlinkOnDuration":5,
-                  "BlinkOffDuration":8,
-                  "StepDuration":50,
-                  "FadeAmount":15
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":30,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "BlinkOnDuration":5,
-                  "BlinkOffDuration":0,
-                  "StepDuration":50
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":31,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "BlinkOnDuration":2,
-                  "BlinkOffDuration":7,
-                  "StepDuration":125
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":32,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "BlinkOnDuration":2,
-                  "BlinkOffDuration":13,
-                  "StepDuration":50
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":33,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "BlinkOnDuration":2,
-                  "BlinkOffDuration":7,
-                  "StepDuration":100
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":34,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "BlinkOnDuration":2,
-                  "BlinkOffDuration":7,
-                  "StepDuration":100
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":35,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "BlinkOnDuration":2,
-                  "BlinkOffDuration":7,
-                  "StepDuration":100,
-                  "FadeAmount":25,
-                  "FadeRate":5
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":36,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "OnDuration1":2,
-                  "OffDuration1":7,
-                  "OnDuration2":5,
-                  "OffDuration2":8,
-                  "StepDuration":100
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":37,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "BlinkOnDuration":2,
-                  "BlinkOffDuration":13,
-                  "StepDuration":50
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":38,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "BlinkOnDuration":2,
-                  "BlinkOffDuration":13,
-                  "StepDuration":50
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":39,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "SubPatterns":[
-                     
-                  ],
-                  "StepDuration":1000
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":40,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "SubPatterns":[
-                     
-                  ],
-                  "StepSpeed":1000
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":41,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "SubPatterns":[
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":5,
-                           "OffDuration":25,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":5,
-                           "OffDuration":25,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":3,
-                           "OffDuration":5,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":3,
-                           "OffDuration":5,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":3,
-                           "OffDuration":5,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":3,
-                           "OffDuration":5,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":3,
-                           "OffDuration":5,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":3,
-                           "OffDuration":5,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":5,
-                           "OffDuration":25,
-                           "GapDuration":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":5,
-                           "OffDuration":25,
-                           "GapDuration":0
-                        }
-                     }
-                  ]
-               }
-            }
-         ]
-      },
-      {
-         "flags":1,
-         "Leds":[
-            {
-               "PatternID":42,
-               "Colorset":{
-                  "NumColors":3,
-                  "Colors":[
-                     {
-                        "Red":255,
-                        "Green":0,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":255,
-                        "Blue":0
-                     },
-                     {
-                        "Red":0,
-                        "Green":0,
-                        "Blue":255
-                     }
-                  ]
-               },
-               "Params":{
-                  "SubPatterns":[
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":0,
-                           "OffDuration":1,
-                           "GapDuration":5,
-                           "GroupSize":3,
-                           "SkipColors":0,
-                           "RepeatGroup":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":0,
-                           "OffDuration":1,
-                           "GapDuration":69,
-                           "GroupSize":3,
-                           "SkipColors":0,
-                           "RepeatGroup":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":0,
-                           "OffDuration":1,
-                           "GapDuration":5,
-                           "GroupSize":3,
-                           "SkipColors":0,
-                           "RepeatGroup":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":0,
-                           "OffDuration":1,
-                           "GapDuration":69,
-                           "GroupSize":3,
-                           "SkipColors":0,
-                           "RepeatGroup":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":0,
-                           "OffDuration":1,
-                           "GapDuration":5,
-                           "GroupSize":3,
-                           "SkipColors":0,
-                           "RepeatGroup":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":0,
-                           "OffDuration":1,
-                           "GapDuration":69,
-                           "GroupSize":3,
-                           "SkipColors":0,
-                           "RepeatGroup":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":0,
-                           "OffDuration":1,
-                           "GapDuration":5,
-                           "GroupSize":3,
-                           "SkipColors":0,
-                           "RepeatGroup":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":0,
-                           "OffDuration":1,
-                           "GapDuration":69,
-                           "GroupSize":3,
-                           "SkipColors":0,
-                           "RepeatGroup":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":0,
-                           "OffDuration":1,
-                           "GapDuration":5,
-                           "GroupSize":3,
-                           "SkipColors":0,
-                           "RepeatGroup":0
-                        }
-                     },
-                     {
-                        "PatternID":0,
-                        "Colorset":{
-                           "NumColors":3,
-                           "Colors":[
-                              {
-                                 "Red":255,
-                                 "Green":0,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":255,
-                                 "Blue":0
-                              },
-                              {
-                                 "Red":0,
-                                 "Green":0,
-                                 "Blue":255
-                              }
-                           ]
-                        },
-                        "Params":{
-                           "OnDuration":0,
-                           "OffDuration":1,
-                           "GapDuration":69,
-                           "GroupSize":3,
-                           "SkipColors":0,
-                           "RepeatGroup":0
-                        }
-                     }
-                  ]
-               }
-            }
-         ]
-      }
-   ]
+                },
+                "Params": {
+                  "OnDuration": 5,
+                  "OffDuration": 8,
+                  "GapDuration": 0
+                }
+              }
+            ]
+          }
+        }
+      ]
+    },
+    {
+      "flags": 2,
+      "Leds": [
+        {
+          "PatternID": 14,
+          "Colorset": {
+            "NumColors": 3,
+            "Colors": [
+              {
+                "Red": 255,
+                "Green": 0,
+                "Blue": 0
+              },
+              {
+                "Red": 0,
+                "Green": 255,
+                "Blue": 0
+              },
+              {
+                "Red": 0,
+                "Green": 0,
+                "Blue": 255
+              }
+            ]
+          },
+          "Params": {
+            "OnDuration": 2,
+            "OffDuration": 13,
+            "GapDuration": 0,
+            "BlendSpeed": 1
+          }
+        }
+      ]
+    }
+  ]
 }

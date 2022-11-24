@@ -9,7 +9,7 @@
 class MateriaPattern : public MultiLedPattern
 {
 public:
-  MateriaPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2, uint8_t offDuration2, uint16_t stepSpeed = 800);
+  MateriaPattern(uint8_t onDuration1 = 5, uint8_t offDuration1 = 8, uint8_t onDuration2 = 3, uint8_t offDuration2 = 35, uint16_t stepSpeed = 800);
   virtual ~MateriaPattern();
 
   // init the pattern to initial state
@@ -22,7 +22,7 @@ public:
   virtual void serialize(ByteStream& buffer) const override;
   virtual void unserialize(ByteStream& buffer) override;
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
   virtual void saveTemplate(int level = 0) const override;
 #endif
 
@@ -43,4 +43,4 @@ private:
 
   LedMap m_ledMap;
 };
-#endif 
+#endif

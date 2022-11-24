@@ -81,7 +81,7 @@ void LighthousePattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_fadeRate);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void LighthousePattern::saveTemplate(int level) const
 {
   BlinkStepPattern::saveTemplate(level);

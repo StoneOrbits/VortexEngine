@@ -168,7 +168,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_BACKSTROBE:return new BackStrobePattern();
     case PATTERN_FLOWERS:return new FlowersPattern();
     case PATTERN_JEST:return new JestPattern();
-    case PATTERN_MATERIA:return new MateriaPattern(5,8, 3, 35);
+    case PATTERN_MATERIA:return new MateriaPattern();
     case PATTERN_NONE: return nullptr;
     default: break;
 

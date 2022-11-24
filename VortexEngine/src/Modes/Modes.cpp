@@ -29,9 +29,9 @@ bool Modes::init()
       return false;
     }
   }
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
   // generate the json data template
-  //saveTemplate();
+  saveTemplate();
 #endif
   return true;
 }
@@ -166,7 +166,7 @@ bool Modes::unserialize(ByteStream &modesBuffer)
   return (m_numModes == numModes);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 // Generate the json template for the data format
 void Modes::saveTemplate(int level)
 {
@@ -181,7 +181,7 @@ void Modes::saveTemplate(int level)
     if (!pMode) {
       return;
     }
-    // need to init the mode for example if it contains hybrid patterns like 
+    // need to init the mode for example if it contains hybrid patterns like
     // flower then their child patterns get initialized in the init call
     pMode->init();
     // save the mode template
@@ -232,8 +232,8 @@ bool Modes::setDefaults()
     HSVColor(0, 0, 0), HSVColor(48, 170, 255), HSVColor(0, 0, 0), HSVColor(144, 255, 255),
     HSVColor(0, 0, 0));
   addMode(PATTERN_SNOWBALL, HSVColor(18, 255, 85), HSVColor(103, 255, 191), HSVColor(188, 255, 123));
-  addMode(PATTERN_ULTRADOPS, HSVColor(0, 255, 85), HSVColor(32, 255, 170), HSVColor(64, 255, 255), 
-    HSVColor(96, 255, 85), HSVColor(128, 255, 85), HSVColor(160, 255, 85), HSVColor(192, 255, 170), 
+  addMode(PATTERN_ULTRADOPS, HSVColor(0, 255, 85), HSVColor(32, 255, 170), HSVColor(64, 255, 255),
+    HSVColor(96, 255, 85), HSVColor(128, 255, 85), HSVColor(160, 255, 85), HSVColor(192, 255, 170),
     HSVColor(224, 255, 85));
   addMode(PATTERN_MATERIA, HSVColor(224, 255, 255), HSVColor(160, 85, 255), HSVColor(192, 255, 85),
     HSVColor(128, 170, 255));
@@ -245,8 +245,7 @@ bool Modes::setDefaults()
   addMode(PATTERN_VORTEXWIPE, HSVColor(128, 255, 255), HSVColor(208, 255, 255), HSVColor(16, 170, 255));
   addMode(PATTERN_RABBIT, HSVColor(160, 255, 255), HSVColor(0, 255, 255), HSVColor(96, 255, 255),
     HSVColor(160, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255));
-  addMode(PATTERN_COMPLEMENTARY_BLEND, RGB_RED, RGB_GREEN, RGB_BLUE);
-
+  addMode(PATTERN_COMPLEMENTARY_BLEND, RGBColor(255, 0, 0), RGBColor(0, 255, 0), RGBColor(0, 0, 255));
 #endif
   return true;
 }

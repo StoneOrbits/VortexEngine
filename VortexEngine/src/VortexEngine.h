@@ -9,6 +9,7 @@
  *   - Fix bug in compression/decompression chopping last byte (blue)
  *   - eliminate library code to reduce size
  *   - palm light?
+ *   - refactor color constants (add flag to indicate RGB/HSV)
  *   - Code polishing and final build solidification
  *   - Code documentation (DOXYGEN???)
  */

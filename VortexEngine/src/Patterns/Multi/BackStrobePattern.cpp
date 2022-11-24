@@ -57,7 +57,7 @@ void BackStrobePattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_stepSpeed);
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void BackStrobePattern::saveTemplate(int level) const
 {
   HybridPattern::saveTemplate(level);

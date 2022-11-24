@@ -73,7 +73,7 @@ void HybridPattern::unserialize(ByteStream &buffer)
   }
 }
 
-#ifdef TEST_FRAMEWORK
+#if SAVE_TEMPLATE == 1
 void HybridPattern::saveTemplate(int level) const
 {
   MultiLedPattern::saveTemplate(level);
