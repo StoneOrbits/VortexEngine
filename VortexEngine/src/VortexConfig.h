@@ -88,7 +88,7 @@
 // Dump the initialized modes in json format to either serial or the console.
 // This will generate a json structure that mirrors that of the binary save
 // file. The result of this can be found in example_modes.json
-#define SAVE_TEMPLATE         1
+#define SAVE_TEMPLATE         0
 
 // Debug Allocations
 //
