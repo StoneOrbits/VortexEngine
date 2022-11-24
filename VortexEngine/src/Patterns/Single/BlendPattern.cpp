@@ -14,6 +14,7 @@ BlendPattern::BlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t blen
   m_cur(),
   m_next()
 {
+  m_patternID = PATTERN_BLEND;
 }
 
 BlendPattern::~BlendPattern()
@@ -76,5 +77,5 @@ void BlendPattern::onBlinkOn()
   m_cur.hue += m_speed * sign;
   HSVColor showColor = m_cur;
   // set the target led with the current HSV color
-  Leds::setIndex(m_ledPos, showColor);
+  Leds::setIndex(m_ledPos, hsv_to_rgb_generic(showColor));
 }

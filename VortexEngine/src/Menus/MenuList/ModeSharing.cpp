@@ -10,10 +10,6 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-#if AUTO_SEND_MODE == 1
-bool sent_once = false;
-#endif
-
 ModeSharing::ModeSharing() :
   Menu(),
   m_sharingMode(ModeShareState::SHARE_SEND),
@@ -29,11 +25,12 @@ bool ModeSharing::init()
   // just start spewing out modes everywhere
   m_sharingMode = ModeShareState::SHARE_SEND;
 
-  // TODO: removeme
 #ifdef TEST_FRAMEWORK
+#if INFRARED_TEST == 1 && AUTO_SEND_MODE == 1
   if (is_ir_server()) {
     m_sharingMode = ModeShareState::SHARE_RECEIVE;
   }
+#endif
 #endif
 
   DEBUG_LOG("Entering Mode Sharing");
@@ -50,10 +47,12 @@ bool ModeSharing::run()
     // render the 'send mode' lights
     showSendMode();
 #if AUTO_SEND_MODE == 1
-    // begin sending the mode every 3 seconds
-    if ((Time::getCurtime() % Time::secToTicks(3)) == 0 && sent_once == false) {
-      sent_once = true;
-      beginSending();
+    {
+      static bool sent_once = false;
+      if (!sent_once) {
+        sent_once = true;
+        beginSending();
+      }
     }
 #endif
     // continue sending any data as long as there is more to send
@@ -99,6 +98,35 @@ void ModeSharing::onLongClick()
   leaveMenu();
 }
 
+#if INFRARED_TEST == 1
+#include <vector>
+using namespace std;
+
+class TestMode : public Mode
+{
+public:
+
+  TestMode(uint32_t size = 16) :
+    Mode(),
+    m_size(size)
+  {
+  }
+
+  virtual void serialize(ByteStream &buffer) const override
+  {
+    vector<uint8_t> buf;
+    for (uint32_t i = 0; i < m_size; ++i) {
+      buf.push_back(i);
+    }
+    buffer.init(m_size, buf.data());
+  }
+
+private:
+  uint32_t m_size;
+
+};
+#endif
+
 void ModeSharing::beginSending()
 {
   // if the sender is sending then cannot start again
@@ -107,7 +135,13 @@ void ModeSharing::beginSending()
     return;
   }
   // initialize it with the current mode data
+#if INFRARED_TEST == 1
+  Mode *pMode = new TestMode(250);
+  IRSender::loadMode(pMode);
+  delete pMode;
+#else
   IRSender::loadMode(m_pCurMode);
+#endif
   // send the first chunk of data, leave if we're done
   if (!IRSender::send()) {
     leaveMenu();
@@ -145,8 +179,15 @@ void ModeSharing::receiveMode()
 
 void ModeSharing::showSendMode()
 {
-  // gradually fill from thumb to pinkie
   Leds::clearAll();
+  if (IRSender::isSending()) {
+    // how much is sent?
+    uint32_t percent = IRSender::percentDone();
+    LedPos l = (LedPos)((percent / 10) + 1);
+    Leds::setRange(l, LED_LAST, RGB_YELLOW);
+    return;
+  }
+  // gradually fill from thumb to pinkie
   LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(100) % (LED_COUNT + 1)));
   if (pos == 10) return;
   Leds::setRange(pos, LED_LAST, RGB_TEAL);
@@ -154,8 +195,15 @@ void ModeSharing::showSendMode()
 
 void ModeSharing::showReceiveMode()
 {
-  // gradually empty from thumb to pinkie
   Leds::clearAll();
+  if (IRReceiver::isReceiving()) {
+    // how much is sent?
+    uint32_t percent = IRReceiver::percentReceived();
+    LedPos l = (LedPos)(percent / 10);
+    Leds::setRange(LED_FIRST, l, RGB_ORANGE);
+    return;
+  }
+  // gradually empty from thumb to pinkie
   LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(200) % (LED_COUNT + 1)));
   if (pos == 10) return;
   Leds::setRange(LED_FIRST, pos, RGB_PURPLE);

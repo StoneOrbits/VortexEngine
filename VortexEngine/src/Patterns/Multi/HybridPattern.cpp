@@ -11,6 +11,8 @@ HybridPattern::HybridPattern() :
   MultiLedPattern(),
   m_ledPatterns()
 {
+  // Hybrid is an abstract class it cannot be directly
+  // instantiated so we do not need to assign a pattern id
 }
 
 HybridPattern::~HybridPattern()
@@ -66,6 +68,7 @@ void HybridPattern::unserialize(ByteStream &buffer)
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
     SingleLedPattern *pat = PatternBuilder::makeSingle((PatternID)buffer.unserialize8());
     if (!pat) {
+      ERROR_LOGF("Failed to unserialize hybrid pat %u", pos);
       return;
     }
     pat->unserialize(buffer);

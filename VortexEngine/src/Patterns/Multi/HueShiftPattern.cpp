@@ -10,6 +10,7 @@ HueShiftPattern::HueShiftPattern(uint8_t speed, uint8_t scale) :
   m_speed(speed),
   m_scale(scale)
 {
+  m_patternID = PATTERN_HUESHIFT;
 }
 
 HueShiftPattern::~HueShiftPattern()

@@ -11,6 +11,7 @@ BracketsPattern::BracketsPattern(uint8_t bracketDuration, uint8_t midDuration, u
   m_midDuration(midDuration),
   m_offDuration(offDuration)
 {
+  m_patternID = PATTERN_BRACKETS;
 }
 
 BracketsPattern::~BracketsPattern()

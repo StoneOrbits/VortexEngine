@@ -92,13 +92,15 @@ bool Modes::saveStorage()
   // serialize all modes data into the modesBuffer
   serialize(modesBuffer);
 
+  DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
+
   // write the serial buffer to flash storage
   if (!Storage::write(modesBuffer)) {
     DEBUG_LOG("Failed to write storage");
     return false;
   }
 
-  DEBUG_LOGF("Wrote %u bytes to storage", modesBuffer.size());
+  DEBUG_LOG("Success saving modes to storage");
 
   return true;
 }
@@ -117,12 +119,15 @@ void Modes::serialize(ByteStream &modesBuffer)
   for (uint32_t i = 0; i < m_numModes; ++i) {
     // todo maybe? compress the modes while in storage
     // if so then need to decompress before appending? idk
-    //m_serializedModes[i].decompress();
-
+    bool compressed = m_serializedModes[i].is_compressed();
+    if (compressed) {
+      m_serializedModes[i].decompress();
+    }
     // just append each serialized mode to the modesBuffer
     modesBuffer += m_serializedModes[i];
-
-    //m_serializedModes[i].compress();
+    if (compressed) {
+      m_serializedModes[i].compress();
+    }
   }
 
   DEBUG_LOGF("Serialized num modes: %u", m_numModes);
@@ -199,11 +204,12 @@ void Modes::saveTemplate(int level)
 bool Modes::setDefaults()
 {
   clearModes();
-#if DEMO_ALL_PATTERNS == 1
+  // TODO FIXME
+#if DEMO_ALL_PATTERNS == 1 //|| 1 == 1
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
   Colorset defaultSet(RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
   //Colorset defaultSet(HSVColor(254, 255, 255), HSVColor(1, 255, 255), HSVColor(245, 255, 255)); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
-  PatternID default_start = PATTERN_SPLITSTROBIE;
+  PatternID default_start = PATTERN_MULTI_FIRST;
   PatternID default_end = PATTERN_LAST;
   //defaultSet.randomizeTriadic();
   //defaultSet.randomize(8);
@@ -217,6 +223,35 @@ bool Modes::setDefaults()
   }
   DEBUG_LOGF("Added default patterns %u through %u", default_start, default_end);
 #else
+
+  struct default_mode_entry {
+    PatternID patternID;
+    int cols[MAX_COLOR_SLOTS];
+  };
+
+  default_mode_entry default_modes[] = {
+    // Pattern 1: Jest mode
+    PATTERN_JEST,
+    {
+      HSV(0, 255, 255),
+      HSV(96, 255, 255),
+      HSV(160, 255, 255),
+      HSV(64, 255, 255),
+      HSV(192, 255, 255)
+    },
+
+    // Pattern 2: Ghost Crush Mode
+    PATTERN_GHOSTCRUSH,
+    {
+      HSV(0, 0, 255),
+      HSV(0, 0, 255),
+      HSV(0, 0, 0),
+      HSV(0, 255, 170),
+      HSV(0, 0, 0)
+    },
+  };
+
+  // the list of modes that are initialized onto the gloveset by default
   addMode(PATTERN_JEST, HSVColor(0, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255),
     HSVColor(64, 255, 255), HSVColor(192, 255, 255));
   addMode(PATTERN_GHOSTCRUSH, HSVColor(0, 0, 255), HSVColor(0, 0, 255), HSVColor(0, 0, 0),
@@ -252,6 +287,9 @@ bool Modes::setDefaults()
 
 bool Modes::addSerializedMode(ByteStream &serializedMode)
 {
+  // we must unserialize then re-serialize here because the
+  // input argument may contain other patterns in the buffer
+  // so we cannot just assign the input arg to m_serializedModes
   Mode *mode = ModeBuilder::unserialize(serializedMode);
   if (!mode) {
     DEBUG_LOG("Failed to unserialize mode");
@@ -261,8 +299,8 @@ bool Modes::addSerializedMode(ByteStream &serializedMode)
   m_serializedModes[m_numModes].clear();
   // re-serialize the mode into the storage buffer
   mode->serialize(m_serializedModes[m_numModes]);
-  // todo maybe? compress the serialized buffer
-  //m_serializedModes[m_numModes].compress();
+  // compress the mode when it's not being used
+  m_serializedModes[m_numModes].compress();
   // increment mode counter
   m_numModes++;
   // clean up the mode we used
@@ -305,7 +343,8 @@ bool Modes::addMode(const Mode *mode)
   m_serializedModes[m_numModes].clear();
   // serialize the mode so it can be instantiated anytime
   mode->serialize(m_serializedModes[m_numModes]);
-  //m_serializedModes[m_numModes].compress();
+  // compress the mode when it's not being used
+  m_serializedModes[m_numModes].compress();
   m_numModes++;
   return true;
 }
@@ -394,12 +433,16 @@ bool Modes::initCurMode()
   if (m_pCurMode) {
     return true;
   }
-  //m_serializedModes[m_curMode].decompress();
+  if (m_serializedModes[m_curMode].is_compressed()) {
+    m_serializedModes[m_curMode].decompress();
+  }
   // make sure the unserializer is reset before trying to unserialize it
   m_serializedModes[m_curMode].resetUnserializer();
   DEBUG_LOGF("Current Mode size: %u", m_serializedModes[m_curMode].size());
+  // use the mode builder to unserialize the mode
   m_pCurMode = ModeBuilder::unserialize(m_serializedModes[m_curMode]);
-  //m_serializedModes[m_curMode].compress();
+  // re-compress the buffer if possible
+  m_serializedModes[m_curMode].compress();
   if (!m_pCurMode) {
     return false;
   }
@@ -418,5 +461,56 @@ void Modes::saveCurMode()
   m_serializedModes[m_curMode].clear();
   // update the serialized storage
   m_pCurMode->serialize(m_serializedModes[m_curMode]);
-  //m_serializedModes[m_numModes].compress();
+  // compress the mode when not being used
+  m_serializedModes[m_curMode].compress();
 }
+
+#if SERIALIZATION_TEST == 1
+#include "ModeBuilder.h"
+#include <stdio.h>
+void serializationTest()
+{
+  Colorset bigSet;
+  for (uint32_t i = 0; i < MAX_COLOR_SLOTS; ++i) {
+    bigSet.addColorByHue(i * 31);
+  }
+  DEBUG_LOG("== Beginning Serialization Test ==");
+  for (PatternID patternID = PATTERN_FIRST; patternID < PATTERN_COUNT; ++patternID) {
+    Mode *mode = ModeBuilder::make(patternID, &bigSet);
+    if (!mode) {
+      ERROR_LOGF("ERROR!! Failed to create mode %u", patternID);
+      return;
+    }
+    mode->init();
+    ByteStream buffer;
+    mode->serialize(buffer);
+    if (!buffer.size()) {
+      ERROR_LOGF("ERROR!! Buffer empty after serialize on %u", patternID);
+      return;
+    }
+    Mode *mode2 = ModeBuilder::unserialize(buffer);
+    if (!mode2) {
+      ERROR_LOGF("ERROR!! Failed to unserialize mode on %u", patternID);
+      return;
+    }
+    if (!buffer.unserializerAtEnd()) {
+      ERROR_LOGF("ERROR!! Unserializer still has data on %u", patternID);
+      uint8_t byte = 0;
+      uint32_t count = 0;
+      while (buffer.unserialize(&byte)) {
+        printf("%02x ", byte);
+        if ((++count % 32) == 0) {
+          printf("\n");
+        }
+      }
+      return;
+    }
+    if (!mode->equals(mode2)) {
+      ERROR_LOGF("ERROR!! Modes are not equal on %u", patternID);
+      return;
+    }
+    DEBUG_LOGF("Success pattern %u serialized cleanly", patternID);
+  }
+  DEBUG_LOG("== Success all patterns serialized ==");
+}
+#endif

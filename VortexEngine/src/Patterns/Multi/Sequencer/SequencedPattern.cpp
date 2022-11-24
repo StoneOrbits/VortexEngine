@@ -14,6 +14,8 @@ SequencedPattern::SequencedPattern() :
   m_sequence(),
   m_curSequence(0)
 {
+  // SequencedPattern is an abstract class it cannot be directly
+  // instantiated so we do not need to assign a pattern id
 }
 
 SequencedPattern::SequencedPattern(const Sequence &sequence) :
@@ -21,6 +23,8 @@ SequencedPattern::SequencedPattern(const Sequence &sequence) :
   m_sequence(sequence),
   m_curSequence(0)
 {
+  // SequencedPattern is an abstract class it cannot be directly
+  // instantiated so we do not need to assign a pattern id
 }
 
 SequencedPattern::~SequencedPattern()

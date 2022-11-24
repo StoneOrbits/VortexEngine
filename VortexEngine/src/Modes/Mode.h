@@ -4,10 +4,6 @@
 #include "../Leds/LedTypes.h"
 #include "../Patterns/Patterns.h"
 
-// minimal stl usage
-#include <vector>
-using namespace std;
-
 class MultiLedPattern;
 class SingleLedPattern;
 class ByteStream;
@@ -25,26 +21,34 @@ class Colorset;
 // mode slots at once when using changePattern or changeColorset
 #define ALL_SLOTS LED_COUNT
 
+// A mode is the container for instances of patterns. A pattern
+// must be bound to a colorset and led position with bind() and
+// the Mode class allows that to be done in one step. Other things
+// can be done in the Mode class such as accelerometer reaction,
+// microphone reaction, timed colorset or pattern switches, or any
+// other kind of logic that would involve manipulating the pattern
+// or colorset as a whole
 class Mode
 {
 public:
   Mode();
-  ~Mode();
+  Mode(PatternID id, const Colorset &set);
+  virtual ~Mode();
 
   // initialize the mode to initial state
-  void init();
+  virtual void init();
 
   // Play the mode
-  void play();
+  virtual void play();
 
   // save the mode to serial
-  void serialize(ByteStream &buffer) const;
+  virtual void serialize(ByteStream &buffer) const;
   // load the mode from serial
-  void unserialize(ByteStream &buffer);
+  virtual void unserialize(ByteStream &buffer);
 
 #if SAVE_TEMPLATE == 1
   // save the data template
-  void saveTemplate(int level = 0) const;
+  virtual void saveTemplate(int level = 0) const;
 #endif
 
   // bind either a multi-led pattern o

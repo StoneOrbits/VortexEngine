@@ -58,6 +58,31 @@
 // Mostly for catching leaks or high memory usage in development.
 #define MAX_MEMORY            50000
 
+// Log Level
+//
+// Set the logging level to control info/error/debug logs accordingly
+// The available logging levels are:
+//
+//  0     Off     All logging is disabled
+//  1     Info    Only info logs are present
+//  2     Errors  Info and error logs are present
+//  3     Debug   All logs are present, info, error, and debug
+//
+#define LOGGING_LEVEL         3
+
+// HSV to RGB Conversion Algorithm
+//
+// Here you can choose the HSV to RGB conversion algorithm, this will
+// control the overall appearance of all colours produced with HSV.
+// The available options are:
+//
+//    1     FastLED 'hsv to rgb rainbow'
+//    2     FastLED 'hsv to rgb raw C'
+//    3     generic hsv to rgb 'pastel'
+//
+// Option 1 is the default and legacy choice, also looks best
+#define HSV_TO_RGB_ALGORITHM   1
+
 // ===================================================================
 //  Boolean Configurations (0 or 1)
 
@@ -114,16 +139,34 @@
 // the final build? I'm not sure.
 #define VARIABLE_TICKRATE     0
 
-// Auto Mode-Sharing
+// Auto Send Mode
 //
-// Automatically share the mode every 3 seconds in 'sender' mode
-// as opposed to requiring a long click to send the mode
-//
-// This often has issues and should be used carefully
+// Automatically send the mode as soon as the sending menu
+// is opened, as opposed to requiring a long click
 #define AUTO_SEND_MODE        0
+
+// Compression Test
+//
+// Run the built-in compression test that will find any faults
+// in the compressor or decompressor
+#define COMPRESSION_TEST      0
+
+// Infrared Test
+//
+// Run the build in Infrared communications test to find any faults
+// in the communication protocol
+#define INFRARED_TEST         0
+
+// Serialization Test
+//
+// Run the serializer/unserializer test which will find any objects
+// which don't serialize and unserialize cleanly
+#define SERIALIZATION_TEST    0
 
 // ===================================================================
 //  Test Framework configurations
+//
+//   * Unless you are using the test framework, don't touch these! *
 
 #ifdef TEST_FRAMEWORK
 

@@ -12,6 +12,7 @@ TracerPattern::TracerPattern(uint8_t tracerLength, uint8_t dotLength) :
   m_blinkTimer(),
   m_dotColor(0)
 {
+  m_patternID = PATTERN_TRACER;
 }
 
 TracerPattern::~TracerPattern()

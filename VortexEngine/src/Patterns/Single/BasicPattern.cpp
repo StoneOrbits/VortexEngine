@@ -15,6 +15,7 @@ BasicPattern::BasicPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapD
   m_gapTimer(),
   m_inGap(false)
 {
+  m_patternID = PATTERN_BASIC;
 }
 
 BasicPattern::~BasicPattern()

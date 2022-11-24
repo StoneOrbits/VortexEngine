@@ -15,6 +15,7 @@ AdvancedPattern::AdvancedPattern(uint8_t onDuration, uint8_t offDuration, uint8_
   m_groupCounter(0),
   m_repeatCounter(repeatGroup)
 {
+  m_patternID = PATTERN_ADVANCED;
 }
 
 AdvancedPattern::~AdvancedPattern()

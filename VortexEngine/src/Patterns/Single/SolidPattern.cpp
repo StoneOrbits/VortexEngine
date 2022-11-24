@@ -7,6 +7,7 @@ SolidPattern::SolidPattern(uint8_t colIndex, uint8_t onDuration, uint8_t offDura
   BasicPattern(onDuration, offDuration, gapDuration),
   m_colIndex(colIndex)
 {
+  m_patternID = PATTERN_SOLID0;
 }
 
 SolidPattern::~SolidPattern()

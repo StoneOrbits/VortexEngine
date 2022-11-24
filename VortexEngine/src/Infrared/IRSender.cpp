@@ -66,7 +66,10 @@ bool IRSender::loadMode(const Mode *targetMode)
   // the number of blocks that will be sent (possibly just 1 with less than 32 bytes)
   m_numBlocks = (m_size + (DEFAULT_IR_BLOCK_SIZE - 1)) / DEFAULT_IR_BLOCK_SIZE;
   // the amount in the final block (possibly the only block)
-  m_remainder = m_size % DEFAULT_IR_BLOCK_SIZE;
+  m_remainder = m_size % (DEFAULT_IR_BLOCK_SIZE + 0);
+  DEBUG_LOGF("Num blocks: %u", m_numBlocks);
+  DEBUG_LOGF("Remainder: %u", m_remainder);
+  DEBUG_LOGF("Size: %u", m_size);
   // reset write counter
   m_writeCounter = 0;
   return true;

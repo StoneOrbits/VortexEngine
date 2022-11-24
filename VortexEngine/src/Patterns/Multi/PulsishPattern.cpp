@@ -17,6 +17,7 @@ PulsishPattern::PulsishPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_
   m_blinkTimer(),
   m_blink2Timer()
 {
+  m_patternID = PATTERN_PULSISH;
 }
 
 PulsishPattern::~PulsishPattern()

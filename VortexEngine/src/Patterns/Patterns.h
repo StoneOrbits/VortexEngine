@@ -3,7 +3,13 @@
 
 #include <inttypes.h>
 
-// list of patterns that can be built
+// List of patterns that can be built, both single and multi-led
+// patterns are found in this list.
+// Within both single and multi LED pattern lists there are 'core'
+// patterns which are associated with a class, and there are 'shell'
+// patterns which are simply wrapperns around another pattern with
+// different parameters passed to the constructor.
+// There is no way to know which patterns are 'core' patterns.
 enum PatternID : uint8_t
 {
   // no pattern at all, use this sparingly and default to 
@@ -18,7 +24,8 @@ enum PatternID : uint8_t
 
   // all 'single led' patterns below
 
-  PATTERN_STROBE = PATTERN_FIRST,  // basicpattern 5 8 0
+  PATTERN_BASIC = PATTERN_FIRST,
+  PATTERN_STROBE, // basicpattern 5 8 0
   PATTERN_HYPERSTROBE, // basicpattern 25 25 0
   PATTERN_DOPS, // basicpattern 2 13 0
   PATTERN_DOPISH, // basicpattern 2 7 0
@@ -53,7 +60,7 @@ enum PatternID : uint8_t
 
   // all 'multi led' patterns below
 
-  PATTERN_RABBIT = PATTERN_MULTI_FIRST, // PATTERN_STROBIE on tops and PATTERN_STROBE on tips
+  PATTERN_RABBIT = PATTERN_MULTI_FIRST,
   PATTERN_HUESHIFT,
   PATTERN_THEATER_CHASE,
   PATTERN_CHASER,

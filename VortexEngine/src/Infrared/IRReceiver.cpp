@@ -33,8 +33,8 @@ void IRReceiver::cleanup()
 
 bool IRReceiver::dataReady()
 {
-  // not enough data
-  if (m_irData.bytepos() < 3) {
+  // is the receiver actually receiving data?
+  if (!isReceiving()) {
     return false;
   }
   // read the size out
@@ -45,10 +45,38 @@ bool IRReceiver::dataReady()
     DEBUG_LOGF("Bad IR Data size: %u", total);
     return false;
   }
-  // if there are size + 1 bytes in the IRData receiver
-  // then a full message is ready
-  return (m_irData.bytepos() >= (uint32_t)(total + 1));
+  // if there are size + 2 bytes in the IRData receiver
+  // then a full message is ready, the + 2 is from the
+  // two bytes for blocks + remainder that are sent first
+  return (m_irData.bytepos() >= (uint32_t)(total + 2));
 }
+
+// whether actively receiving
+bool IRReceiver::isReceiving()
+{
+  // if there are at least 2 bytes in the data buffer then
+  // the receiver is receiving a packet. If there is less
+  // than 2 bytes then we're still waiting for the 'blocks'
+  // and 'remainder' bytes which prefix a packet
+  return (m_irData.bytepos() > 2);
+}
+
+// the percent of data received
+uint32_t IRReceiver::percentReceived()
+{
+  if (!isReceiving()) {
+    return 0;
+  }
+  uint8_t blocks = m_irData.data()[0];
+  uint8_t remainder = m_irData.data()[1];
+  uint32_t total = ((blocks - 1) * 32) + remainder;
+  return (uint32_t)(((float)m_irData.bytepos() / (float)total) * 100.0);
+}
+
+#if INFRARED_TEST == 1
+#include "../Leds/Leds.h"
+#include "../Colors/Colorset.h"
+#endif
 
 bool IRReceiver::receiveMode(Mode *pMode)
 {
@@ -67,8 +95,33 @@ bool IRReceiver::receiveMode(Mode *pMode)
   }
   // just in case the decompressor moved it
   buf.resetUnserializer();
-  // unserialize into the target mode and initialize it
+#if INFRARED_TEST == 1
+  // decode and expect contiguous counting data
+  uint32_t counter = 0;
+  DEBUG_LOG("Reading test data...");
+  bool any_bad = false;
+  while (counter < buf.size()) {
+    uint8_t val = 0;
+    buf.unserialize(&val);
+    if ((counter % 256) != val) {
+      DEBUG_LOGF("Bad Data: %u (should be: %u)", val, counter);
+      any_bad = true;
+    } else {
+      DEBUG_LOGF("Good Data: %u is %u", val, counter);
+    }
+    counter++;
+  }
+  DEBUG_LOGF("Done reading test data (counter: %u)", counter);
+  if (any_bad) {
+    DEBUG_LOG("Test Failed!");
+  } else {
+    DEBUG_LOG("Test Passed!");
+  }
+  Colorset newSet(any_bad ? RGB_RED : RGB_GREEN);
+  pMode->setColorset(&newSet);
+#else
   pMode->unserialize(buf);
+#endif
   pMode->init();
   return true;
 }
@@ -144,7 +197,7 @@ void IRReceiver::handleIRTiming(uint32_t diff)
     resetIRState();
     return;
   }
-  static uint32_t counter = 0;
+  //static uint32_t counter = 0;
   //DEBUG_LOGF("timing[%u]: %u", counter++, diff);
   switch (m_recvState) {
   case WAITING_HEADER_MARK: // initial state
@@ -166,7 +219,7 @@ void IRReceiver::handleIRTiming(uint32_t diff)
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
     m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
-#if 1
+#if 0
     { // logging:
       uint8_t bit = (diff > (IR_TIMING * 2)) ? 1 : 0;
       static uint8_t byte = 0;

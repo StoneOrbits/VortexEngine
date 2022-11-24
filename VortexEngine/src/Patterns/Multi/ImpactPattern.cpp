@@ -6,6 +6,7 @@
 ImpactPattern::ImpactPattern() :
   HybridPattern()
 {
+  m_patternID = PATTERN_IMPACT;
 }
 
 ImpactPattern::~ImpactPattern()

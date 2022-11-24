@@ -53,6 +53,19 @@ bool VortexEngine::init()
     return false;
   }
 
+#if COMPRESSION_TEST == 1
+  compressionTest();
+#endif
+
+
+#if SERIALIZATION_TEST == 1
+  serializationTest();
+#endif
+
+#if INFRARED_TEST == 1
+  Menus::openMenu(MENU_MODE_SHARING);
+#endif
+
   return true;
 }
 

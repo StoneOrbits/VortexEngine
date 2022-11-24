@@ -16,6 +16,7 @@ MateriaPattern::MateriaPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_
   m_ledMap(0),
   m_switch(false)
 {
+  m_patternID = PATTERN_MATERIA;
 }
 
 MateriaPattern::~MateriaPattern()
@@ -116,11 +117,11 @@ void MateriaPattern::serialize(ByteStream& buffer) const
 void MateriaPattern::unserialize(ByteStream& buffer)
 {
   MultiLedPattern::unserialize(buffer);
-  buffer.serialize(m_onDuration1);
-  buffer.serialize(m_offDuration1);
-  buffer.serialize(m_onDuration2);
-  buffer.serialize(m_offDuration2);
-  buffer.serialize(m_stepSpeed);
+  buffer.unserialize(&m_onDuration1);
+  buffer.unserialize(&m_offDuration1);
+  buffer.unserialize(&m_onDuration2);
+  buffer.unserialize(&m_offDuration2);
+  buffer.unserialize(&m_stepSpeed);
 }
 
 #if SAVE_TEMPLATE == 1

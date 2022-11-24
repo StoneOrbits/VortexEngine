@@ -6,6 +6,7 @@
 RabbitPattern::RabbitPattern() :
   HybridPattern()
 {
+  m_patternID = PATTERN_RABBIT;
 }
 
 RabbitPattern::~RabbitPattern()

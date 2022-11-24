@@ -8,8 +8,8 @@
 class AdvancedPattern : public BasicPattern
 {
 public:
-  AdvancedPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration,
-    uint8_t groupSize, uint8_t skipCols, uint8_t repeatGroup);
+  AdvancedPattern(uint8_t onDuration = 5, uint8_t offDuration = 5, uint8_t gapDuration = 10,
+    uint8_t groupSize = 2, uint8_t skipCols = 2, uint8_t repeatGroup = 1);
   virtual ~AdvancedPattern();
 
   virtual void init() override;

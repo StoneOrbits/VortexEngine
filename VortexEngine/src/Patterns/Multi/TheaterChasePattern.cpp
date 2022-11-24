@@ -14,6 +14,7 @@ TheaterChasePattern::TheaterChasePattern(uint8_t onDuration, uint8_t offDuration
   m_ledPositions(0),
   m_stepCounter(0)
 {
+  m_patternID = PATTERN_THEATER_CHASE;
 }
 
 TheaterChasePattern::~TheaterChasePattern()

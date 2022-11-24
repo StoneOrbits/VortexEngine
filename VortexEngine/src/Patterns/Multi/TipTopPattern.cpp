@@ -5,6 +5,7 @@
 TipTopPattern::TipTopPattern() :
   HybridPattern()
 {
+  m_patternID = PATTERN_TIPTOP;
 }
 
 TipTopPattern::~TipTopPattern()

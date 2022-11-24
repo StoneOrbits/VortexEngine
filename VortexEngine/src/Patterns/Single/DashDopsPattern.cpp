@@ -13,6 +13,7 @@ DashDopsPattern::DashDopsPattern(uint8_t dashLength, uint8_t dotLength, uint8_t 
   m_blinkTimer(),
   m_dotColor(0)
 {
+  m_patternID = PATTERN_DASHDOPS;
 }
 
 DashDopsPattern::~DashDopsPattern()

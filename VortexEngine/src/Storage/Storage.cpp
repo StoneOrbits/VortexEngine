@@ -30,7 +30,7 @@ bool Storage::init()
 {
 #ifdef TEST_FRAMEWORK
 #ifndef LINUX_FRAMEWORK
-  DeleteFile("FlashStorage.flash");
+  //DeleteFile("FlashStorage.flash");
 #endif
 #endif
   return true;
@@ -73,10 +73,7 @@ bool Storage::read(ByteStream &buffer)
     DEBUG_LOG("Failed to decompress buffer loaded from storage");
     return false;
   }
-  if (!buffer.shrink()) {
-    DEBUG_LOG("Failed to shrink buffer loaded from storage");
-    return false;
-  }
+  // TODO: version check?
   DEBUG_LOGF("Loaded %u bytes from storage", buffer.size());
   return true;
 }

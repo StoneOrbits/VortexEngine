@@ -5,11 +5,11 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-
 FillPattern::FillPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
   BlinkStepPattern(onDuration, offDuration, stepDuration),
   m_progress()
 {
+  m_patternID = PATTERN_FILL;
 }
 
 FillPattern::~FillPattern()

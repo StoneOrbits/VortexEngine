@@ -7,6 +7,7 @@
 DoubleStrobePattern::DoubleStrobePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
   BlinkStepPattern(onDuration, offDuration, stepDuration)
 {
+  m_patternID = PATTERN_DOUBLESTROBE;
 }
 
 DoubleStrobePattern::~DoubleStrobePattern()

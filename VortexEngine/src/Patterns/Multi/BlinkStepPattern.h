@@ -8,8 +8,11 @@
 
 class BlinkStepPattern : public MultiLedPattern
 {
-public:
+protected:
+  // You must derive from BlinkStep to use it
   BlinkStepPattern(uint8_t blinkOn, uint8_t blinkOff, uint8_t stepDuration);
+
+public:
   virtual ~BlinkStepPattern();
 
   // init the pattern to initial state
@@ -28,7 +31,7 @@ public:
 
 protected:
   // overrideable members:
-  virtual void blinkOn();  // when the leds blink on
+  virtual void blinkOn();  // when the leds blink on (must override)
   virtual void blinkOff(); // when the leds blink off
   virtual void prestep();  // when step triggers (before blink on)
   virtual void poststep(); // when step triggers (after blink on)

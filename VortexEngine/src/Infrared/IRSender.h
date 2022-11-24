@@ -20,6 +20,8 @@ public:
 
   static bool isSending() { return m_isSending; }
 
+  static uint32_t percentDone() { return (uint32_t)(((float)m_writeCounter / (float)m_size) * 100.0); }
+
 private:
   // sender functions
   static void beginSend();

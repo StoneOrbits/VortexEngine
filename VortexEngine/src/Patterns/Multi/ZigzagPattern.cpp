@@ -43,6 +43,7 @@ ZigzagPattern::ZigzagPattern(uint8_t onDuration, uint8_t offDuration, uint8_t st
   m_snake1(0, snakeSize, fadeAmount, 3),
   m_snake2(HALF_ZIGZAG_STEPS, snakeSize, fadeAmount, 8)
 {
+  m_patternID = PATTERN_ZIGZAG;
 }
 
 ZigzagPattern::~ZigzagPattern()

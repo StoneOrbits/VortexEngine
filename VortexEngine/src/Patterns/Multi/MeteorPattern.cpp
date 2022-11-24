@@ -10,6 +10,7 @@ MeteorPattern::MeteorPattern(uint8_t onDuration, uint8_t offDuration, uint8_t st
   m_fadeAmount(fadeAmount),
   m_stash()
 {
+  m_patternID = PATTERN_METEOR;
 }
 
 MeteorPattern::~MeteorPattern()

@@ -11,6 +11,7 @@ SplitStrobiePattern::SplitStrobiePattern(uint16_t stepDuration) :
   m_stepTimer(),
   m_switch(false)
 {
+  m_patternID = PATTERN_SPLITSTROBIE;
 }
 
 SplitStrobiePattern::~SplitStrobiePattern()

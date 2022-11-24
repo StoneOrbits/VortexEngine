@@ -6,6 +6,7 @@ CrossDopsPattern::CrossDopsPattern(uint8_t onDuration, uint8_t offDuration, uint
   BlinkStepPattern(onDuration, offDuration, stepDuration),
   m_ledMap(0)
 {
+  m_patternID = PATTERN_CROSSDOPS;
 }
 
 CrossDopsPattern::~CrossDopsPattern()

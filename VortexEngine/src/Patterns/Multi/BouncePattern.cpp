@@ -12,6 +12,7 @@ BouncePattern::BouncePattern(int8_t onDuration, uint8_t offDuration, uint8_t ste
   BlinkStepPattern(onDuration, offDuration, stepDuration),
   m_progress()
 {
+  m_patternID = PATTERN_BOUNCE;
 }
 
 BouncePattern::~BouncePattern()
