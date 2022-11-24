@@ -38,8 +38,8 @@ void BackStrobePattern::play()
     // switch which patterns are displayed
     m_switch = !m_switch;
     // update the tip/top patterns based on the switch
-    setTipsTops(m_switch ? PATTERN_DOPS : PATTERN_STROBE,
-                m_switch ? PATTERN_STROBE : PATTERN_DOPS);
+    setTipsTops(m_switch ? PATTERN_DOPS : PATTERN_HYPERSTROBE,
+                m_switch ? PATTERN_HYPERSTROBE : PATTERN_DOPS);
   }
   HybridPattern::play();
 }

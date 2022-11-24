@@ -33,11 +33,13 @@
 #include "Multi/BackStrobePattern.h"
 #include "Multi/FlowersPattern.h"
 #include "Multi/JestPattern.h"
+#include "Multi/MateriaPattern.h"
 
 #include "Single/ComplementaryBlendPattern.h"
 #include "Single/BracketsPattern.h"
 #include "Single/AdvancedPattern.h"
 #include "Single/TracerPattern.h"
+#include "Single/DashDopsPattern.h"
 #include "Single/SolidPattern.h"
 #include "Single/BasicPattern.h"
 #include "Single/BlendPattern.h"
@@ -125,6 +127,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_RIBBON: return new BasicPattern(RIBBON_DURATION);
     case PATTERN_MINIRIBBON: return new BasicPattern(3);
     case PATTERN_TRACER: return new TracerPattern();
+    case PATTERN_DASHDOPS: return new DashDopsPattern();
     case PATTERN_BLINKIE: return new BasicPattern(STROBE_ON_DURATION, STROBE_OFF_DURATION, 35);
     case PATTERN_GHOSTCRUSH: return new BasicPattern(1, 0, 50);
     case PATTERN_ADVANCED: return new AdvancedPattern(5, 5, 10, 2, 2, 1);
@@ -165,6 +168,7 @@ Pattern *PatternBuilder::generate(PatternID id)
     case PATTERN_BACKSTROBE:return new BackStrobePattern();
     case PATTERN_FLOWERS:return new FlowersPattern();
     case PATTERN_JEST:return new JestPattern();
+    case PATTERN_MATERIA:return new MateriaPattern(5,8, 3, 35);
     case PATTERN_NONE: return nullptr;
     default: break;
 

@@ -27,6 +27,7 @@ enum PatternID : uint8_t
   PATTERN_RIBBON, // basicpattern 20 0 0
   PATTERN_MINIRIBBON, // basicpattern 3 0 0
   PATTERN_TRACER, // tracerpattern 20 1
+  PATTERN_DASHDOPS, // dashDopsPattern 1 5 20
   PATTERN_BLINKIE, // BasicPattern 5, 8, 35
   PATTERN_GHOSTCRUSH, // BasicPattern 1, 0, 50
   PATTERN_ADVANCED, // AdvancedPattern
@@ -62,10 +63,12 @@ enum PatternID : uint8_t
   PATTERN_DRIP,
   PATTERN_DRIPMORPH,
   PATTERN_CROSSDOPS,
-  PATTERN_DOUBLESTROBE,
+  PATTERN_DOUBLESTROBE,// doubleStrobe(5, 8, 75)
+  // TODO: SLoth Strobe doubleStrobe(5, 8, 1000)
   PATTERN_METEOR,
   PATTERN_SPARKLETRACE,
-  PATTERN_VORTEXWIPE,
+  PATTERN_VORTEXWIPE, // vortexWipe(2,7,125)
+  // TODO: UltraWipe vortexWipe(2, 7, 50)
   PATTERN_WARP,
   PATTERN_WARPWORM,
   PATTERN_SNOWBALL,
@@ -78,6 +81,7 @@ enum PatternID : uint8_t
   PATTERN_BACKSTROBE,
   PATTERN_FLOWERS,
   PATTERN_JEST,
+  PATTERN_MATERIA,
 
   // ADD NEW MULTI LED PATTERNS HERE
 

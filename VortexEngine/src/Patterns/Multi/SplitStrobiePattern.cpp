@@ -38,8 +38,8 @@ void SplitStrobiePattern::play()
     // switch which patterns are displayed
     m_switch = !m_switch;
     // update the tip/top patterns based on the switch
-    setTipsTops(m_switch ? PATTERN_DOPS : PATTERN_STROBE,
-                m_switch ? PATTERN_STROBE : PATTERN_DOPS);
+    setTipsTops(m_switch ? PATTERN_DOPS : PATTERN_TRACER,
+                m_switch ? PATTERN_TRACER : PATTERN_DOPS);
   }
   HybridPattern::play();
 }

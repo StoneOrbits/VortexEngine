@@ -235,8 +235,7 @@ bool Modes::setDefaults()
   addMode(PATTERN_ULTRADOPS, HSVColor(0, 255, 85), HSVColor(32, 255, 170), HSVColor(64, 255, 255), 
     HSVColor(96, 255, 85), HSVColor(128, 255, 85), HSVColor(160, 255, 85), HSVColor(192, 255, 170), 
     HSVColor(224, 255, 85));
-  //TODO: Add Materia mode
-  addMode(PATTERN_FLOWERS, HSVColor(224, 255, 255), HSVColor(160, 85, 255), HSVColor(192, 255, 85),
+  addMode(PATTERN_MATERIA, HSVColor(224, 255, 255), HSVColor(160, 85, 255), HSVColor(192, 255, 85),
     HSVColor(128, 170, 255));
   addMode(PATTERN_VORTEXWIPE, HSVColor(0, 255, 255), HSVColor(160, 255, 85), HSVColor(160, 255, 85),
     HSVColor(160, 255, 85), HSVColor(160, 255, 85), HSVColor(160, 255, 85), HSVColor(160, 255, 85),
@@ -246,9 +245,8 @@ bool Modes::setDefaults()
   addMode(PATTERN_VORTEXWIPE, HSVColor(128, 255, 255), HSVColor(208, 255, 255), HSVColor(16, 170, 255));
   addMode(PATTERN_RABBIT, HSVColor(160, 255, 255), HSVColor(0, 255, 255), HSVColor(96, 255, 255),
     HSVColor(160, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255));
-
   addMode(PATTERN_COMPLEMENTARY_BLEND, RGB_RED, RGB_GREEN, RGB_BLUE);
-  addMode(PATTERN_DOPS, RGB_RED, RGB_GREEN, RGB_BLUE);
+
 #endif
   return true;
 }
