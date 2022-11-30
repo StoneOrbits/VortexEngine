@@ -129,4 +129,10 @@ RGBColor hsv_to_rgb_raw_C(const HSVColor &rhs);
 // generic hsv to rgb conversion nothing special
 RGBColor hsv_to_rgb_generic(const HSVColor &rhs);
 
+// Convert rgb to hsv with slower approximation that matches
+// the fastled hsv to rgb 'rainbow'
+HSVColor rgb_to_hsv_approx(const RGBColor &rhs);
+// Convert rgb to hsv with generic fast method
+HSVColor rgb_to_hsv_generic(const RGBColor &rhs);
+
 #endif
