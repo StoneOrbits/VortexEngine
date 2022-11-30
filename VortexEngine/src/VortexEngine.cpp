@@ -1,7 +1,8 @@
 #include "VortexEngine.h"
 
 #include "Time/TimeControl.h"
-#include "Infrared/Infrared.h"
+#include "Infrared/IRReceiver.h"
+#include "Infrared/IRSender.h"
 #include "Storage/Storage.h"
 #include "Buttons/Buttons.h"
 #include "Serial/Serial.h"
@@ -32,8 +33,12 @@ bool VortexEngine::init()
     DEBUG_LOG("Storage failed to initialize");
     return false;
   }
-  if (!Infrared::init()) {
-    DEBUG_LOG("Infrared failed to initialize");
+  if (!IRReceiver::init()) {
+    DEBUG_LOG("Infrared receiver failed to initialize");
+    return false;
+  }
+  if (!IRSender::init()) {
+    DEBUG_LOG("Infrared sender failed to initialize");
     return false;
   }
   if (!Leds::init()) {
@@ -73,9 +78,11 @@ void VortexEngine::cleanup()
   Menus::cleanup();
   Buttons::cleanup();
   Leds::cleanup();
-  Infrared::cleanup();
+  IRSender::cleanup();
+  IRReceiver::cleanup();
   Storage::cleanup();
   Time::cleanup();
+  SerialComs::cleanup();
 }
 
 void VortexEngine::tick()

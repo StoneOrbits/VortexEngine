@@ -3,8 +3,6 @@
 
 #include <inttypes.h>
 
-#include "Infrared.h"
-
 #include "../Serial/BitStream.h"
 
 class ByteStream;
