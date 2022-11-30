@@ -22,6 +22,10 @@ This class also includes a pointer to walk through the stream (for sending the s
 
 Both Storage and Infrared systems are designed to be given ByteStream objects which they walk and write to IR/Serial respectively.
 
+## [Compression](Compression.h)
+
+This is a heavily trimmed down version of lz4 that has been configured to use as small of a footprint as possible.
+
 ## [Serial Class](Serial.h)
 
 This is the global Serial communications manager, this class is used to interface over USB with serial operations.
