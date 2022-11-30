@@ -9,6 +9,7 @@ WarpWormPattern::WarpWormPattern(uint8_t onDuration, uint8_t offDuration, uint8_
   BlinkStepPattern(onDuration, offDuration, stepDuration),
   m_progress()
 {
+  m_patternID = PATTERN_WARPWORM;
 }
 
 WarpWormPattern::~WarpWormPattern()

@@ -13,6 +13,8 @@ BlinkStepPattern::BlinkStepPattern(uint8_t blinkOn, uint8_t blinkOff, uint8_t st
   m_blinkTimer(),
   m_stepTimer()
 {
+  // BlinkStep is an abstract class it cannot be directly
+  // instantiated so we do not need to assign a pattern id
 }
 
 BlinkStepPattern::~BlinkStepPattern()

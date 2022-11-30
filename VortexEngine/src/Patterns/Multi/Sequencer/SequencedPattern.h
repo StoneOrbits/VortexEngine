@@ -12,11 +12,14 @@ class ByteStream;
 
 class SequencedPattern : public HybridPattern
 {
+protected:
+  // SequencedPattern is an abstract class it cannot be directly
+  SequencedPattern();
+  SequencedPattern(const Sequence &sequence);
+
 public:
   // initialize a sequence pattern with a list of pointers to sequencesteps and the 
   // number of entries in that list
-  SequencedPattern();
-  SequencedPattern(const Sequence &sequence);
   virtual ~SequencedPattern();
 
   // init the pattern to initial state

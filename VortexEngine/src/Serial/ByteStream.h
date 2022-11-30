@@ -2,6 +2,7 @@
 #define BYTE_STREAM_H
 
 #include <inttypes.h>
+#include "../Log/Log.h"
 
 class FlashClass;
 
@@ -36,6 +37,9 @@ public:
   // extend the storage without changing the size of the data
   bool extend(uint32_t size);
 
+  // trim the storage and erase some bytes from the end
+  void trim(uint32_t bytes);
+
   // badly written in-place compression and decompression
   // which just uses a table of values then compresses the
   // data into indexes in the table packed into a buffer.
@@ -46,6 +50,12 @@ public:
   bool compress();
   bool decompress();
 
+  // re-calculate the built-in CRC on the bytestream if needed
+  // if the crc is up to date this will do nothing. Optionally
+  // force a re-calculation even if the dirty flag is missing
+  void recalcCRC(bool force = false);
+  bool checkCRC();
+
   // serialize a byte into the buffer
   bool serialize(uint8_t byte);
   bool serialize(uint16_t bytes);
@@ -55,6 +65,8 @@ public:
   void resetUnserializer();
   // move the unserializer index manually
   void moveUnserializer(uint32_t idx);
+  // check if the unserializer is at the end
+  bool unserializerAtEnd() const;
 
   // serialize a byte into the buffer
   bool unserialize(uint8_t *byte);
@@ -133,10 +145,14 @@ private:
       if (!crc32) {
         return true;
       }
+      uint32_t newcrc = hash();
+      if (newcrc != crc32) {
+        DEBUG_LOGF("CRC mismatch: %x should be %x", newcrc, crc32);
+      }
       return crc32 == hash();
     }
     // re-calculate the crc
-    void recalc_crc()
+    void recalcCRC()
     {
       crc32 = hash();
     }

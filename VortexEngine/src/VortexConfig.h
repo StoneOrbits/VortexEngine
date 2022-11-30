@@ -1,10 +1,28 @@
 #ifndef VORTEX_CONFIG_H
 #define VORTEX_CONFIG_H
 
-// Here are various configuration options for the vortex engine as a whole
+// ===================================================================
+//  Version Configurations
 
-// The version number of the vortex engine
-#define VORTEX_VERSION        "1.0 beta"
+// The engine major version indicates the state of the save file,
+// if any changes to the save format occur then the major version
+// must increment so that the savefiles will not be loaded
+#define VORTEX_VERSION_MAJOR  1
+
+// A minor version simply indicates a bugfix or minor change that
+// will not effect the save files produces by the engine. This means
+// a savefile produced by 1.1 should be loadable by an engine on 1.2
+// and vice versa. But an engine on 2.0 cannot share savefiles with
+// either of the engines on version 1.1 or 1.2
+#define VORTEX_VERSION_MINOR  0
+
+// produces a number like 1.0
+#define VORTEX_VERSION_NUMBER VORTEX_VERSION_MAJOR.VORTEX_VERSION_MINOR
+
+// produces a string like "1.0"
+#define ADD_QUOTES(str) #str
+#define EXPAND_AND_QUOTE(str) ADD_QUOTES(str)
+#define VORTEX_VERSION EXPAND_AND_QUOTE(VORTEX_VERSION_NUMBER)
 
 // ===================================================================
 //  Numeric Configurations
@@ -29,7 +47,7 @@
 // so it's hard to pick a number, 16 seems reasonable
 #define MAX_MODES             16
 
-// Tickrate in Ticks Per Second (TPS)
+// Default Tickrate in Ticks Per Second (TPS)
 //
 // The valid range for this is 1 <= x <= 1000000 (default 1000)
 //
@@ -57,6 +75,37 @@
 // so this number doesn't actually do anything in production.
 // Mostly for catching leaks or high memory usage in development.
 #define MAX_MEMORY            50000
+
+// Log Level
+//
+// Set the logging level to control info/error/debug logs accordingly
+// The available logging levels are:
+//
+//  0     Off     All logging is disabled
+//  1     Info    Only info logs are present
+//  2     Errors  Info and error logs are present
+//  3     Debug   All logs are present, info, error, and debug
+//
+#define LOGGING_LEVEL         3
+
+// HSV to RGB Conversion Algorithm
+//
+// Here you can choose the HSV to RGB conversion algorithm, this will
+// control the overall appearance of all colours produced with HSV.
+// The available options are:
+//
+//    1     FastLED 'hsv to rgb rainbow'
+//    2     FastLED 'hsv to rgb raw C'
+//    3     generic hsv to rgb 'pastel'
+//
+// Option 1 is the default and legacy choice, also looks best because
+// it puts even weight into every color of the rainbow which involves
+// stretching some segments like yellow to take up more hue space.
+//
+// Note you can still call the other routines from your pattern code,
+// for example blend and complementary blend use hsv to rgb 'pastel'
+// because it looks better than hsv to rgb rainbow
+#define HSV_TO_RGB_ALGORITHM   1
 
 // ===================================================================
 //  Boolean Configurations (0 or 1)
@@ -104,7 +153,8 @@
 // Variable Tickrate
 //
 // This controls whether the setTickrate function is available and
-// whether changing the tickrate is allowed.
+// whether changing the tickrate is allowed. This goes hand-in-hand
+// with the Default Tickrate configuration above
 //
 // The tickrate should always be fixed in final builds because this
 // functionality induces extra performance costs and the intended
@@ -114,16 +164,29 @@
 // the final build? I'm not sure.
 #define VARIABLE_TICKRATE     0
 
-// Auto Mode-Sharing
+// Auto Send Mode
 //
-// Automatically share the mode every 3 seconds in 'sender' mode
-// as opposed to requiring a long click to send the mode
-//
-// This often has issues and should be used carefully
+// Automatically send the mode as soon as the sending menu
+// is opened, as opposed to requiring a long click
 #define AUTO_SEND_MODE        0
+
+// Compression Test
+//
+// Run the built-in compression test that will find any faults
+// in the compressor or decompressor. This is useful if you install
+// a new compressor or want to test any changes to the compressor
+#define COMPRESSION_TEST      0
+
+// Serialization Test
+//
+// Run the serializer/unserializer test which will find any objects
+// which don't serialize and unserialize cleanly
+#define SERIALIZATION_TEST    0
 
 // ===================================================================
 //  Test Framework configurations
+//
+//   * Unless you are using the test framework, don't touch these! *
 
 #ifdef TEST_FRAMEWORK
 
@@ -131,7 +194,7 @@
 // we should change the max patterns to the total pattern count because
 // the test framework can handle the memory usage and we can't demo
 // all the patterns without the increased limit
-#if DEMO_ALL_PATTERNS == 1
+#if DEMO_ALL_PATTERNS == 1 || SERIALIZATION_TEST == 1
   #undef MAX_MODES
   #include "Patterns/Patterns.h"
   #define MAX_MODES           PATTERN_COUNT
@@ -144,6 +207,4 @@
 #define VARIABLE_TICKRATE 1
 
 #endif // TEST_FRAMEWORK
-
-
 #endif // VORTEX_CONFIG_H

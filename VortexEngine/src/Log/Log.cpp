@@ -6,7 +6,6 @@
 #include <stdarg.h>
 #include <string.h>
 #include <stdio.h>
-#include <string>
 
 #include <Arduino.h>
 
@@ -18,8 +17,47 @@
 #endif
 #endif
 
-using namespace std;
+#if LOGGING_LEVEL > 0
+void InfoMsg(const char *msg, ...)
+{
+  if (!SerialComs::initialized()) {
+    return;
+  }
+  va_list list;
+  va_start(list, msg);
+#ifdef TEST_FRAMEWORK
+  TestFramework::printlog(NULL, NULL, 0, msg, list);
+#else
+  char buf[2048] = {0};
+  vsnprintf(buf, sizeof(buf), msg, list);
+  Serial.println(buf);
+#endif
+  va_end(list);
+}
+#endif
 
+#if LOGGING_LEVEL > 1
+void ErrorMsg(const char *func, const char *msg, ...)
+{
+  if (!SerialComs::initialized()) {
+    return;
+  }
+  va_list list;
+  va_start(list, msg);
+#ifdef TEST_FRAMEWORK
+  TestFramework::printlog(NULL, func, 0, msg, list);
+#else
+  char fmt[2048] = {0};
+  snprintf(fmt, sizeof(fmt), "%s(): %s", func, msg);
+  char buf[2048] = {0};
+  vsnprintf(buf, sizeof(buf), fmt, list);
+  Serial.println(buf);
+#endif
+  va_end(list);
+}
+#endif
+
+#if LOGGING_LEVEL > 2
 void DebugMsg(const char *file, const char *func, int line, const char *msg, ...)
 {
   if (!SerialComs::initialized()) {
@@ -48,45 +86,9 @@ void DebugMsg(const char *file, const char *func, int line, const char *msg, ...
 #endif
   va_end(list);
 }
-
-void ErrorMsg(const char *func, const char *msg, ...)
-{
-  if (!SerialComs::initialized()) {
-    return;
-  }
-  va_list list;
-  va_start(list, msg);
-#ifdef TEST_FRAMEWORK
-  TestFramework::printlog(NULL, func, 0, msg, list);
-#else
-  char fmt[2048] = {0};
-  snprintf(fmt, sizeof(fmt), "%s(): %s", func, msg);
-  char buf[2048] = {0};
-  vsnprintf(buf, sizeof(buf), fmt, list);
-  Serial.println(buf);
 #endif
-  va_end(list);
-}
 
-void InfoMsg(const char *msg, ...)
-{
-  if (!SerialComs::initialized()) {
-    return;
-  }
-  va_list list;
-  va_start(list, msg);
-#ifdef TEST_FRAMEWORK
-  TestFramework::printlog(NULL, NULL, 0, msg, list);
-#else
-  char buf[2048] = {0};
-  vsnprintf(buf, sizeof(buf), msg, list);
-  Serial.println(buf);
-#endif
-  va_end(list);
-}
-
-#ifdef TEST_FRAMEWORK
-
+#if SAVE_TEMPLATE == 1
 // a line of spaces used for indent logging
 #define SPACES "                                                                                                                                "
 // a str with a given amount of spaces

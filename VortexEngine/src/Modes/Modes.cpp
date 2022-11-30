@@ -1,4 +1,5 @@
 #include "Modes.h"
+#include "DefaultModes.h"
 
 #include "../Patterns/Pattern.h"
 
@@ -92,13 +93,15 @@ bool Modes::saveStorage()
   // serialize all modes data into the modesBuffer
   serialize(modesBuffer);
 
+  DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
+
   // write the serial buffer to flash storage
   if (!Storage::write(modesBuffer)) {
     DEBUG_LOG("Failed to write storage");
     return false;
   }
 
-  DEBUG_LOGF("Wrote %u bytes to storage", modesBuffer.size());
+  DEBUG_LOG("Success saving modes to storage");
 
   return true;
 }
@@ -115,14 +118,16 @@ void Modes::serialize(ByteStream &modesBuffer)
 
   // iterate all of the modes and copy their serial data into the modesBuffer
   for (uint32_t i = 0; i < m_numModes; ++i) {
-    // todo maybe? compress the modes while in storage
     // if so then need to decompress before appending? idk
-    //m_serializedModes[i].decompress();
-
+    bool compressed = m_serializedModes[i].is_compressed();
+    if (compressed) {
+      m_serializedModes[i].decompress();
+    }
     // just append each serialized mode to the modesBuffer
     modesBuffer += m_serializedModes[i];
-
-    //m_serializedModes[i].compress();
+    if (compressed) {
+      m_serializedModes[i].compress();
+    }
   }
 
   DEBUG_LOGF("Serialized num modes: %u", m_numModes);
@@ -203,7 +208,7 @@ bool Modes::setDefaults()
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
   Colorset defaultSet(RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
   //Colorset defaultSet(HSVColor(254, 255, 255), HSVColor(1, 255, 255), HSVColor(245, 255, 255)); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
-  PatternID default_start = PATTERN_SPLITSTROBIE;
+  PatternID default_start = PATTERN_MULTI_FIRST;
   PatternID default_end = PATTERN_LAST;
   //defaultSet.randomizeTriadic();
   //defaultSet.randomize(8);
@@ -217,41 +222,21 @@ bool Modes::setDefaults()
   }
   DEBUG_LOGF("Added default patterns %u through %u", default_start, default_end);
 #else
-  addMode(PATTERN_JEST, HSVColor(0, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255),
-    HSVColor(64, 255, 255), HSVColor(192, 255, 255));
-  addMode(PATTERN_GHOSTCRUSH, HSVColor(0, 0, 255), HSVColor(0, 0, 255), HSVColor(0, 0, 0),
-    HSVColor(0, 255, 170), HSVColor(0, 0, 0));
-  addMode(PATTERN_IMPACT, HSVColor(160, 255, 255), HSVColor(64, 255, 255), HSVColor(160, 255, 255),
-    HSVColor(0, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255), HSVColor(96, 255, 255),
-    HSVColor(160, 255, 255));
-  addMode(PATTERN_WARPWORM, HSVColor(96, 255, 255), HSVColor(192, 255, 170));
-  addMode(PATTERN_PULSISH, HSVColor(128, 255, 255), HSVColor(224, 170, 255), HSVColor(160, 255, 85));
-  addMode(PATTERN_ZIGZAG, HSVColor(80, 255, 0), HSVColor(80, 255, 255), HSVColor(192, 255, 255),
-    HSVColor(0, 0, 0), HSVColor(0, 255, 255), HSVColor(0, 255, 170));
-  addMode(PATTERN_STROBE, HSVColor(240, 255, 255), HSVColor(0, 0, 0), HSVColor(144, 255, 255),
-    HSVColor(0, 0, 0), HSVColor(48, 170, 255), HSVColor(0, 0, 0), HSVColor(144, 255, 255),
-    HSVColor(0, 0, 0));
-  addMode(PATTERN_SNOWBALL, HSVColor(18, 255, 85), HSVColor(103, 255, 191), HSVColor(188, 255, 123));
-  addMode(PATTERN_ULTRADOPS, HSVColor(0, 255, 85), HSVColor(32, 255, 170), HSVColor(64, 255, 255),
-    HSVColor(96, 255, 85), HSVColor(128, 255, 85), HSVColor(160, 255, 85), HSVColor(192, 255, 170),
-    HSVColor(224, 255, 85));
-  addMode(PATTERN_MATERIA, HSVColor(224, 255, 255), HSVColor(160, 85, 255), HSVColor(192, 255, 85),
-    HSVColor(128, 170, 255));
-  addMode(PATTERN_VORTEXWIPE, HSVColor(0, 255, 255), HSVColor(160, 255, 85), HSVColor(160, 255, 85),
-    HSVColor(160, 255, 85), HSVColor(160, 255, 85), HSVColor(160, 255, 85), HSVColor(160, 255, 85),
-    HSVColor(160, 255, 85));
-  addMode(PATTERN_GHOSTCRUSH, HSVColor(192, 255, 170), HSVColor(0, 0, 0), HSVColor(96, 255, 255),
-    HSVColor(96, 0, 255), HSVColor(96, 255, 255), HSVColor(0, 0, 0), HSVColor(192, 255, 170));
-  addMode(PATTERN_VORTEXWIPE, HSVColor(128, 255, 255), HSVColor(208, 255, 255), HSVColor(16, 170, 255));
-  addMode(PATTERN_RABBIT, HSVColor(160, 255, 255), HSVColor(0, 255, 255), HSVColor(96, 255, 255),
-    HSVColor(160, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255));
-  addMode(PATTERN_COMPLEMENTARY_BLEND, RGBColor(255, 0, 0), RGBColor(0, 255, 0), RGBColor(0, 0, 255));
+  // add each default mode with each of the given colors
+  for (uint32_t i = 0; i < num_default_modes; ++i) {
+    addMode(default_modes[i].patternID, default_modes[i].cols[0], default_modes[i].cols[1],
+      default_modes[i].cols[2], default_modes[i].cols[3], default_modes[i].cols[4],
+      default_modes[i].cols[5], default_modes[i].cols[6], default_modes[i].cols[7]);
+  }
 #endif
   return true;
 }
 
 bool Modes::addSerializedMode(ByteStream &serializedMode)
 {
+  // we must unserialize then re-serialize here because the
+  // input argument may contain other patterns in the buffer
+  // so we cannot just assign the input arg to m_serializedModes
   Mode *mode = ModeBuilder::unserialize(serializedMode);
   if (!mode) {
     DEBUG_LOG("Failed to unserialize mode");
@@ -261,8 +246,8 @@ bool Modes::addSerializedMode(ByteStream &serializedMode)
   m_serializedModes[m_numModes].clear();
   // re-serialize the mode into the storage buffer
   mode->serialize(m_serializedModes[m_numModes]);
-  // todo maybe? compress the serialized buffer
-  //m_serializedModes[m_numModes].compress();
+  // compress the mode when it's not being used
+  m_serializedModes[m_numModes].compress();
   // increment mode counter
   m_numModes++;
   // clean up the mode we used
@@ -305,7 +290,8 @@ bool Modes::addMode(const Mode *mode)
   m_serializedModes[m_numModes].clear();
   // serialize the mode so it can be instantiated anytime
   mode->serialize(m_serializedModes[m_numModes]);
-  //m_serializedModes[m_numModes].compress();
+  // compress the mode when it's not being used
+  m_serializedModes[m_numModes].compress();
   m_numModes++;
   return true;
 }
@@ -394,12 +380,16 @@ bool Modes::initCurMode()
   if (m_pCurMode) {
     return true;
   }
-  //m_serializedModes[m_curMode].decompress();
+  if (m_serializedModes[m_curMode].is_compressed()) {
+    m_serializedModes[m_curMode].decompress();
+  }
   // make sure the unserializer is reset before trying to unserialize it
   m_serializedModes[m_curMode].resetUnserializer();
   DEBUG_LOGF("Current Mode size: %u", m_serializedModes[m_curMode].size());
+  // use the mode builder to unserialize the mode
   m_pCurMode = ModeBuilder::unserialize(m_serializedModes[m_curMode]);
-  //m_serializedModes[m_curMode].compress();
+  // re-compress the buffer if possible
+  m_serializedModes[m_curMode].compress();
   if (!m_pCurMode) {
     return false;
   }
@@ -418,5 +408,6 @@ void Modes::saveCurMode()
   m_serializedModes[m_curMode].clear();
   // update the serialized storage
   m_pCurMode->serialize(m_serializedModes[m_curMode]);
-  //m_serializedModes[m_numModes].compress();
+  // compress the mode when not being used
+  m_serializedModes[m_curMode].compress();
 }

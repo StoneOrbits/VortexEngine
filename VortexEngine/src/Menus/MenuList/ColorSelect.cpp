@@ -196,7 +196,7 @@ void ColorSelect::showHueSelection1()
 {
   for (LedPos p = PINKIE_TIP; p <= INDEX_TOP; ++p) {
     // generate a hue from the current finger
-    Leds::setIndex(p, HSVColor((255 / 8) * p, 255, 255));
+    Leds::setIndex(p, HSVColor((256 / 8) * p, 255, 170));
   }
 }
 
@@ -204,7 +204,7 @@ void ColorSelect::showHueSelection2()
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // generate a hue from the current finger
-    Leds::setFinger(f, HSVColor(m_newColor.hue + ((255 / 16) * f), 255, 255));
+    Leds::setFinger(f, HSVColor(m_newColor.hue + ((255 / 16) * f), 255, 170));
   }
 }
 

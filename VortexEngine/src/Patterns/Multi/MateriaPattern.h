@@ -39,8 +39,8 @@ private:
   Timer m_blinkTimer2;
   Timer m_stepTimer;
 
-  bool m_switch;
-
   LedMap m_ledMap;
+
+  bool m_switch;
 };
 #endif

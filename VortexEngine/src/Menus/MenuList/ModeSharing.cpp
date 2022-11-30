@@ -10,10 +10,6 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-#if AUTO_SEND_MODE == 1
-bool sent_once = false;
-#endif
-
 ModeSharing::ModeSharing() :
   Menu(),
   m_sharingMode(ModeShareState::SHARE_SEND),
@@ -29,13 +25,6 @@ bool ModeSharing::init()
   // just start spewing out modes everywhere
   m_sharingMode = ModeShareState::SHARE_SEND;
 
-  // TODO: removeme
-#ifdef TEST_FRAMEWORK
-  if (is_ir_server()) {
-    m_sharingMode = ModeShareState::SHARE_RECEIVE;
-  }
-#endif
-
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
@@ -50,10 +39,12 @@ bool ModeSharing::run()
     // render the 'send mode' lights
     showSendMode();
 #if AUTO_SEND_MODE == 1
-    // begin sending the mode every 3 seconds
-    if ((Time::getCurtime() % Time::secToTicks(3)) == 0 && sent_once == false) {
-      sent_once = true;
-      beginSending();
+    {
+      static bool sent_once = false;
+      if (!sent_once) {
+        sent_once = true;
+        beginSending();
+      }
     }
 #endif
     // continue sending any data as long as there is more to send
@@ -145,8 +136,15 @@ void ModeSharing::receiveMode()
 
 void ModeSharing::showSendMode()
 {
-  // gradually fill from thumb to pinkie
   Leds::clearAll();
+  if (IRSender::isSending()) {
+    // how much is sent?
+    uint32_t percent = IRSender::percentDone();
+    LedPos l = (LedPos)((percent / 10) + 1);
+    Leds::setRange(l, LED_LAST, RGB_YELLOW);
+    return;
+  }
+  // gradually fill from thumb to pinkie
   LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(100) % (LED_COUNT + 1)));
   if (pos == 10) return;
   Leds::setRange(pos, LED_LAST, RGB_TEAL);
@@ -154,8 +152,15 @@ void ModeSharing::showSendMode()
 
 void ModeSharing::showReceiveMode()
 {
-  // gradually empty from thumb to pinkie
   Leds::clearAll();
+  if (IRReceiver::isReceiving()) {
+    // how much is sent?
+    uint32_t percent = IRReceiver::percentReceived();
+    LedPos l = (LedPos)(percent / 10);
+    Leds::setRange(LED_FIRST, l, RGB_ORANGE);
+    return;
+  }
+  // gradually empty from thumb to pinkie
   LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(200) % (LED_COUNT + 1)));
   if (pos == 10) return;
   Leds::setRange(LED_FIRST, pos, RGB_PURPLE);

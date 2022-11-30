@@ -6,6 +6,7 @@
 JestPattern::JestPattern() :
   HybridPattern()
 {
+  m_patternID = PATTERN_JEST;
 }
 
 JestPattern::~JestPattern()

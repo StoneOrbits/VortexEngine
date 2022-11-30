@@ -11,6 +11,7 @@ BracketsPattern::BracketsPattern(uint8_t bracketDuration, uint8_t midDuration, u
   m_midDuration(midDuration),
   m_offDuration(offDuration)
 {
+  m_patternID = PATTERN_BRACKETS;
 }
 
 BracketsPattern::~BracketsPattern()
@@ -60,7 +61,6 @@ void BracketsPattern::play()
 
 void BracketsPattern::serialize(ByteStream &buffer) const
 {
-  //DEBUG_LOG("Serialize");
   SingleLedPattern::serialize(buffer);
   buffer.serialize(m_bracketDuration);
   buffer.serialize(m_midDuration);
@@ -69,7 +69,6 @@ void BracketsPattern::serialize(ByteStream &buffer) const
 
 void BracketsPattern::unserialize(ByteStream &buffer)
 {
-  //DEBUG_LOG("Unserialize");
   SingleLedPattern::unserialize(buffer);
   buffer.unserialize(&m_bracketDuration);
   buffer.unserialize(&m_midDuration);

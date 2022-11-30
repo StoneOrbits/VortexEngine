@@ -13,6 +13,7 @@ DripMorphPattern::DripMorphPattern(uint8_t blinkOn, uint8_t blinkOff, uint8_t sp
   m_cur(),
   m_next()
 {
+  m_patternID = PATTERN_DRIPMORPH;
 }
 
 DripMorphPattern::~DripMorphPattern()

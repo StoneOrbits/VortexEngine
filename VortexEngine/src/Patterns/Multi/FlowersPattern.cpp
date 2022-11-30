@@ -10,6 +10,7 @@ FlowersPattern::FlowersPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_
   m_onDuration2(onDuration2),
   m_offDuration2(offDuration2)
 {
+  m_patternID = PATTERN_FLOWERS;
 }
 
 FlowersPattern::~FlowersPattern()

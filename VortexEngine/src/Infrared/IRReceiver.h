@@ -21,6 +21,11 @@ public:
 
   // check whether a full IR message is ready to read
   static bool dataReady();
+  // whether actively receiving
+  static bool isReceiving();
+  // the percent of data received
+  static uint32_t percentReceived();
+
   // receive the IR message into a target mode
   static bool receiveMode(Mode *pMode);
 
@@ -49,9 +54,7 @@ private:
     WAITING_HEADER_MARK,
     WAITING_HEADER_SPACE,
     READING_DATA_MARK,
-    READING_DATA_SPACE,
-    READING_DATA_DIVIDER_MARK,
-    READING_DATA_DIVIDER_SPACE,
+    READING_DATA_SPACE
   };
 
   // state information used by the PCIHandler

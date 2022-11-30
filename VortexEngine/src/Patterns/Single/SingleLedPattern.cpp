@@ -5,6 +5,8 @@
 SingleLedPattern::SingleLedPattern() :
   Pattern()
 {
+  // SingleLed is an abstract class it cannot be directly
+  // instantiated so we do not need to assign a pattern id
 }
 
 SingleLedPattern::~SingleLedPattern()

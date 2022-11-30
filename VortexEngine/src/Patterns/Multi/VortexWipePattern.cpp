@@ -23,6 +23,7 @@ VortexWipePattern::VortexWipePattern(uint8_t onDuration, uint8_t offDuration, ui
   BlinkStepPattern(onDuration, offDuration, stepDuration),
   m_progress()
 {
+  m_patternID = PATTERN_VORTEXWIPE;
 }
 
 VortexWipePattern::~VortexWipePattern()

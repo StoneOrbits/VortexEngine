@@ -33,8 +33,8 @@ void IRReceiver::cleanup()
 
 bool IRReceiver::dataReady()
 {
-  // not enough data
-  if (m_irData.bytepos() < 3) {
+  // is the receiver actually receiving data?
+  if (!isReceiving()) {
     return false;
   }
   // read the size out
@@ -45,9 +45,32 @@ bool IRReceiver::dataReady()
     DEBUG_LOGF("Bad IR Data size: %u", total);
     return false;
   }
-  // if there are size + 1 bytes in the IRData receiver
-  // then a full message is ready
-  return (m_irData.bytepos() >= (uint32_t)(total + 1));
+  // if there are size + 2 bytes in the IRData receiver
+  // then a full message is ready, the + 2 is from the
+  // two bytes for blocks + remainder that are sent first
+  return (m_irData.bytepos() >= (uint32_t)(total + 2));
+}
+
+// whether actively receiving
+bool IRReceiver::isReceiving()
+{
+  // if there are at least 2 bytes in the data buffer then
+  // the receiver is receiving a packet. If there is less
+  // than 2 bytes then we're still waiting for the 'blocks'
+  // and 'remainder' bytes which prefix a packet
+  return (m_irData.bytepos() > 2);
+}
+
+// the percent of data received
+uint32_t IRReceiver::percentReceived()
+{
+  if (!isReceiving()) {
+    return 0;
+  }
+  uint8_t blocks = m_irData.data()[0];
+  uint8_t remainder = m_irData.data()[1];
+  uint32_t total = ((blocks - 1) * 32) + remainder;
+  return (uint32_t)(((float)m_irData.bytepos() / (float)total) * 100.0);
 }
 
 bool IRReceiver::receiveMode(Mode *pMode)
@@ -67,8 +90,9 @@ bool IRReceiver::receiveMode(Mode *pMode)
   }
   // just in case the decompressor moved it
   buf.resetUnserializer();
-  // unserialize into the target mode and initialize it
+  // unserialize the data into the target mode
   pMode->unserialize(buf);
+  // then initialize the mode so that it will play
   pMode->init();
   return true;
 }
@@ -144,8 +168,6 @@ void IRReceiver::handleIRTiming(uint32_t diff)
     resetIRState();
     return;
   }
-  static uint32_t counter = 0;
-  //DEBUG_LOGF("timing[%u]: %u", counter++, diff);
   switch (m_recvState) {
   case WAITING_HEADER_MARK: // initial state
     if (diff >= HEADER_MARK_MIN && diff <= HEADER_MARK_MAX) {
@@ -166,41 +188,10 @@ void IRReceiver::handleIRTiming(uint32_t diff)
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
     m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
-#if 1
-    { // logging:
-      uint8_t bit = (diff > (IR_TIMING * 2)) ? 1 : 0;
-      static uint8_t byte = 0;
-      static uint8_t cc = 0;
-      if (cc >= 8) {
-        byte = 0;
-        cc = 0;
-      }
-      if (cc > 0) {
-        byte <<= 1;
-      }
-      byte |= bit;
-      cc++;
-      DEBUG_LOGF("  Read bit: %u", bit);
-      if (cc == 8) {
-        static uint32_t counter = 0;
-        DEBUG_LOGF("Read byte[%u]: 0x%x", counter++, byte);
-      }
-    }
-#endif
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
-    // every 32 bits expect a divider ?
-    //if (((m_irData.bitpos() + 1) % DEFAULT_IR_BLOCK_SIZE) == 0) {
-      //m_recvState = READING_DATA_DIVIDER_MARK;
-      //break;
-    //}
-    m_recvState = READING_DATA_MARK;
-    break;
-  case READING_DATA_DIVIDER_MARK:
-    m_recvState = READING_DATA_DIVIDER_SPACE;
-    break;
-  case READING_DATA_DIVIDER_SPACE:
+    // the space could be just a regular space, or a gap in between blocks
     m_recvState = READING_DATA_MARK;
     break;
   default: // ??
@@ -212,13 +203,7 @@ void IRReceiver::handleIRTiming(uint32_t diff)
 void IRReceiver::resetIRState()
 {
   m_recvState = WAITING_HEADER_MARK;
-  DEBUG_LOG("Resetting IR State...");
-  if (m_irData.bytepos()) {
-    for (uint32_t i = 0; i < m_irData.bytepos(); ++i) {
-      DEBUG_LOGF("(on reset) IR Buf %u: 0x%x", i, m_irData.data()[i]);
-    }
-  }
   // zero out the receive buffer and reset bit receiver position
   m_irData.reset();
-  DEBUG_LOG("IR State Reset Complete");
+  DEBUG_LOG("IR State Reset");
 }

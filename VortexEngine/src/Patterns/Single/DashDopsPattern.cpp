@@ -13,6 +13,7 @@ DashDopsPattern::DashDopsPattern(uint8_t dashLength, uint8_t dotLength, uint8_t 
   m_blinkTimer(),
   m_dotColor(0)
 {
+  m_patternID = PATTERN_DASHDOPS;
 }
 
 DashDopsPattern::~DashDopsPattern()
@@ -63,7 +64,6 @@ void DashDopsPattern::play()
 // must override the serialize routine to save the pattern
 void DashDopsPattern::serialize(ByteStream& buffer) const
 {
-  //DEBUG_LOG("Serialize");
   SingleLedPattern::serialize(buffer);
   buffer.serialize(m_dashDuration);
   buffer.serialize(m_dotDuration);
@@ -73,7 +73,6 @@ void DashDopsPattern::serialize(ByteStream& buffer) const
 // must override unserialize to load patterns
 void DashDopsPattern::unserialize(ByteStream& buffer)
 {
-  //DEBUG_LOG("Unserialize");
   SingleLedPattern::unserialize(buffer);
   buffer.unserialize(&m_dashDuration);
   buffer.unserialize(&m_dotDuration);

@@ -14,6 +14,12 @@ Mode::Mode() :
 {
 }
 
+Mode::Mode(PatternID id, const Colorset &set) :
+  Mode()
+{
+  bind(id, &set);
+}
+
 Mode::~Mode()
 {
   unbindAll();

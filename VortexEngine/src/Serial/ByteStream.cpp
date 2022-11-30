@@ -6,9 +6,13 @@
 
 #include <FlashStorage.h>
 #include <string.h>
+#include <utility>
+
+#include "Compression.h"
 
 // flags for saving buffer to disk
-#define BUFFER_FLAG_COMRPESSED (1<<0)
+#define BUFFER_FLAG_COMRPESSED (1<<0) // buffer is compressed
+#define BUFFER_FLAG_DIRTY      (1<<1) // buffer crc is dirty
 
 ByteStream::ByteStream(uint32_t size, const uint8_t *buf) :
   m_pData(),
@@ -53,28 +57,34 @@ bool ByteStream::rawInit(const uint8_t *rawdata, uint32_t size)
     ERROR_OUT_OF_MEMORY();
     return false;
   }
-  // copy in the actual data from the serial buffer
+  // copy in the actual data from the serial buffer, this will fill the 
+  // members: size, flags, and crc32 of m_pData as well as the buf
   memcpy(m_pData, rawdata, size);
   return true;
 }
 
 // reset the buffer
-bool ByteStream::init(uint32_t capacity, const uint8_t *buf)
+bool ByteStream::init(uint32_t size, const uint8_t *buf)
 {
   clear();
-  if (capacity) {
+  if (size) {
     // round up to nearest 4
-    m_capacity = (capacity + 4) - (capacity % 4);
+    m_capacity = (size + 4) - (size % 4);
     m_pData = (RawBuffer *)vcalloc(1, m_capacity + sizeof(RawBuffer));
     if (!m_pData) {
       m_capacity = 0;
       ERROR_OUT_OF_MEMORY();
       return false;
     }
+    m_pData->size = 0;
+    m_pData->flags = 0;
+    m_pData->crc32 = 0;
+    memset(m_pData->buf, 0, m_capacity);
   }
   if (buf && m_pData) {
-    memcpy(m_pData->buf, buf, m_capacity);
-    m_pData->size = m_capacity;
+    memcpy(m_pData->buf, buf, size);
+    m_pData->size = size;
+    m_pData->recalcCRC();
   }
   return true;
 }
@@ -96,7 +106,6 @@ bool ByteStream::shrink()
   if (m_pData->size == m_capacity) {
     return true;
   }
-  //DEBUG_LOGF("Extending %u bytes from %u to %u", size, m_capacity, new_size);
   RawBuffer *temp = (RawBuffer *)vrealloc(m_pData, m_pData->size + sizeof(RawBuffer));
   if (!temp) {
     ERROR_OUT_OF_MEMORY();
@@ -124,6 +133,26 @@ bool ByteStream::append(const ByteStream &other)
   return true;
 }
 
+// trim some amount of bytes off the end of the stream
+void ByteStream::trim(uint32_t bytes)
+{
+  if (!m_pData) {
+    return;
+  }
+  // just adjust the data size no need to reallocate, this
+  // will put the extra bytes into 'extra space' and shrink()
+  // could be called to reallocate the buffer without them
+  if (m_pData->size <= bytes) {
+    m_pData->size = 0;
+  } else {
+    m_pData->size -= bytes;
+  }
+  // move the unserializer back if necessary
+  if (m_position >= m_pData->size) {
+    m_position = m_pData->size;
+  }
+}
+
 // extend the storage without changing the size of the data
 bool ByteStream::extend(uint32_t size)
 {
@@ -141,7 +170,6 @@ bool ByteStream::extend(uint32_t size)
   buffer_size -= buffer_size % 4;
   // the size of the actual new block of memory
   uint32_t new_size = buffer_size + sizeof(RawBuffer);
-  //DEBUG_LOGF("Extending %u bytes from %u to %u", size, m_capacity, new_size);
   RawBuffer *temp = (RawBuffer *)vrealloc(m_pData, new_size);
   if (!temp) {
     ERROR_OUT_OF_MEMORY();
@@ -160,112 +188,45 @@ bool ByteStream::extend(uint32_t size)
 
 bool ByteStream::compress()
 {
-  // TODO: COMPRESSION DISABLED FOR NOW
-  return true;
   // only compress if we have valid data
   if (!m_pData) {
     DEBUG_LOG("No data to compress");
     return false;
   }
+  // recalculate the CRC even if we don't compress, this ensures the
+  // CRC is always up to date as long as compress() is called
+  recalcCRC();
+  // check to see if the buffer is already compressed
   if (is_compressed()) {
-    DEBUG_LOG("Data is already compressed");
+    // already compressed
     return true;
   }
-#if 0
-  printf("COMPRESSING:\n");
-  for (uint32_t i = 0; i < m_pData->size; ++i) {
-    printf("%02x ", m_pData->buf[i]);
-    if (i > 0 && ((i + 1) % 32) == 0) {
-      printf("\r\n\t");
-    }
+  // use LZ4_compressBound for the output buffer size, it may be larger
+  // but it will allow for faster compression then we can shrink it after
+  ByteStream compressedBuffer(LZ4_compressBound(m_pData->size));
+  // compress the data
+	int compressedSize = LZ4_compress_default((const char *)m_pData->buf, 
+    (char *)compressedBuffer.m_pData->buf, m_pData->size, compressedBuffer.m_capacity);
+  // check for compression error
+  if (compressedSize < 0) {
+    DEBUG_LOGF("Failed to compress, error: %d", compressedSize);
+    return false;
   }
-  printf("\r\n\r\n");
-#endif
-  uint8_t bytes[256] = {0};
-  uint8_t unique_bytes = 0;
-  // count the unique bytes in the data buffer
-  for (uint32_t i = 0; i < m_pData->size; ++i) {
-    uint8_t b = m_pData->buf[i] & 0xFF;
-    if (bytes[b]) {
-      continue;
-    }
-    bytes[b] = 1;
-    unique_bytes++;
-  }
-  // table = num_entries + entries[]
-  uint32_t table_size = sizeof(uint8_t) + (sizeof(uint8_t) * unique_bytes);
-  uint32_t wid = getWidth(unique_bytes - 1);
-  // data = width(num_entries) * size
-  uint32_t data_size = ((wid * m_pData->size) + 7) / 8;
-  // total = table + data
-  uint32_t total_size = table_size + data_size;
-  uint32_t old_size = m_pData->size;
-  if (total_size >= old_size) {
-    DEBUG_LOGF("new size larger: %u old: %u", total_size, m_pData->size);
-    DEBUG_LOGF("\tUnique bytes: %u", unique_bytes);
-    DEBUG_LOGF("\twidth: %u", wid);
-    DEBUG_LOGF("\tTable size: %u", table_size);
-    DEBUG_LOGF("\tData size: %u", data_size);
-    // NOT A FAILURE, buffer simply not compressed
+  // check for useless compression
+  if (!compressedSize || (uint32_t)compressedSize >= m_pData->size) {
+    // cannot compress, or compressed no smaller than original
     return true;
   }
-  // extend enough for two tables
-  extend(table_size * 2);
-  // put table at end of buffer, in newly extended region
-  uint8_t *table = (m_pData->buf + m_capacity) - table_size;
-  // the number of unique bytes (table size)
-  table[0] = unique_bytes;
-  // the table data index starts offset at 0
-  uint32_t b = 0;
-  // walk all 256 bytes and mirror them in the table
-  for (uint32_t i = 0; i < 256; ++i) {
-    if (!bytes[i]) {
-      continue;
-    }
-    if (b > unique_bytes) {
-      ERROR_LOG("ERROR IN COMPRESSION");
-      return false;
-    }
-    bytes[i] = b;
-    table[++b] = i;
-  }
-
-  BitStream bits(m_pData->buf, data_size);
-
-  for (uint32_t i = 0; i < old_size; ++i) {
-    uint32_t b = m_pData->buf[i];
-    // zero out the current byte so the bits can be written
-    m_pData->buf[i] = 0;
-    // compressed version of the current byte
-    uint32_t compressed = bytes[b];
-    // write the compressed b with width
-    bits.writeBits(wid, compressed);
-    //DEBUG_LOGF("Compressed %u -> %u", b, compressed);
-  }
-
-  // move the data forward
-  memmove(m_pData->buf + table_size, m_pData->buf, data_size);
-  // move the table back
-  memmove(m_pData->buf, (m_pData->buf + m_capacity) - table_size, table_size);
-  // update the size of the buffer
-  m_pData->size = table_size + ((bits.bitpos() + 7) / 8);
-  // buffer is no longer compressed
-  m_pData->flags |= BUFFER_FLAG_COMRPESSED;
+  // update the buffer size
+  compressedBuffer.m_pData->size = compressedSize;
+  // buffer is now compressed
+  compressedBuffer.m_pData->flags = (m_pData->flags | BUFFER_FLAG_COMRPESSED);
   // recalc the crc on the data buffer
-  m_pData->recalc_crc();
-  // shrink to the size of the buffer
-  shrink();
-  DEBUG_LOGF("Compressed %u to %u bytes", old_size, m_pData->size);
-#if 0
-  printf("COMPRESSED:\n");
-  for (uint32_t i = 0; i < m_pData->size; ++i) {
-    printf("%02x ", m_pData->buf[i]);
-    if (i > 0 && ((i + 1) % 32) == 0) {
-      printf("\r\n\t");
-    }
-  }
-  printf("\r\n\r\n");
-#endif
+  compressedBuffer.m_pData->recalcCRC();
+  // shrink buffer capacity to match size
+  compressedBuffer.shrink();
+  // copy into self
+  *this = std::move(compressedBuffer);
   return true;
 }
 
@@ -277,83 +238,60 @@ bool ByteStream::decompress()
     return false;
   }
   if (!is_compressed()) {
-    DEBUG_LOG("Data is already decompressed");
+    // already decompressed
     return true;
   }
-#if 0
-  printf("DECOMPRESSING:\n");
-  for (uint32_t i = 0; i < m_pData->size; ++i) {
-    printf("%02x ", m_pData->buf[i]);
-    if (i > 0 && ((i + 1) % 32) == 0) {
-      printf("\r\n\t");
-    }
-  }
-  printf("\r\n\r\n");
-#endif
-  // WARNING: need to extend buffer more maybe?
-  resetUnserializer();
-  uint8_t unique_bytes = unserialize8();
-  uint8_t *table = m_pData->buf + 1;
-  uint8_t *data = table + unique_bytes;
-  uint8_t *data_end = m_pData->buf + m_pData->size;
-  uint32_t wid = getWidth(unique_bytes - 1);
-  uint32_t data_len = (uint32_t)(data_end - data);
+  // first multiple will be 2x
+  uint32_t multiple = 1;
+  int decompressedSize = 0;
+  ByteStream decompressedBuffer;
+  do {
+    // double the amount each time
+    multiple *= 2;
+    // create buffer to receive decompressed data
+    decompressedBuffer.init(m_pData->size * multiple);
+    // decompress the data
+    decompressedSize = LZ4_decompress_safe((const char *)m_pData->buf,
+      (char *)decompressedBuffer.m_pData->buf, m_pData->size, 
+      decompressedBuffer.m_capacity);
+  } while (decompressedSize < 0 && multiple < 255);
+  // size changed
+  decompressedBuffer.m_pData->size = decompressedSize;
+  // data is no longer compressed
+  decompressedBuffer.m_pData->flags = (m_pData->flags & ~BUFFER_FLAG_COMRPESSED);
+  // recalc crc of buffer
+  decompressedBuffer.m_pData->recalcCRC();
+  DEBUG_LOGF("Decompressed %u to %u bytes", m_pData->size, decompressedBuffer.m_pData->size);
+  // shrink buffer capacity to match size
+  decompressedBuffer.shrink();
+  // copy into self
+  *this = std::move(decompressedBuffer);
+  return true;
+}
 
-  if (!data_len) {
-    DEBUG_LOG("No data to decompress");
+void ByteStream::recalcCRC(bool force)
+{
+  if (!m_pData || !m_pData->size) {
+    return;
+  }
+  // is the crc dirty?
+  // or is the recalc being forced anyway?
+  if (!force && !(m_pData->flags & BUFFER_FLAG_DIRTY)) {
+    return;
+  }
+  // re-calculate the CRC on the buffer
+  m_pData->recalcCRC();
+  // unset dirty flag
+  m_pData->flags &= ~BUFFER_FLAG_DIRTY;
+}
+
+bool ByteStream::checkCRC()
+{
+  if (!m_pData) {
     return false;
   }
-
-  uint32_t expected_inflated_len = ((data_len / wid) + 1) * 8;
-
-  DEBUG_LOGF("Expected Inflated length: %u", expected_inflated_len);
-
-  // TODO: do this without allocating a new buffer, just extend the data
-  uint8_t *out_data = new uint8_t[expected_inflated_len];
-  memset(out_data, 0, expected_inflated_len);
-
-  BitStream bits(data, data_len);
-
-  uint32_t outPos = 0;
-  while (!bits.eof()) {
-    uint32_t val = bits.readBits(wid);
-    if (bits.eof()) {
-      break;
-    }
-    // the table is one byte in
-    out_data[outPos] = table[val];
-    //DEBUG_LOGF("Decompressed [%u] %u -> %u (%u / %u)", outPos, val, out_data[outPos], bits.bitpos(), bits.size() * 8);
-    outPos++;
-  }
-  uint32_t old_size = (uint32_t)(data_end - m_pData->buf);
-  if (outPos > m_capacity) {
-    extend(outPos - m_capacity);
-  }
-  // copy the data in
-  memmove(m_pData->buf, out_data, outPos);
-  // cleanup temp buffer
-  delete[] out_data;
-  // size changed
-  m_pData->size = outPos;
-  // data is no longer compressed
-  m_pData->flags &= ~BUFFER_FLAG_COMRPESSED;
-  // recalc crc of buffer
-  m_pData->recalc_crc();
-  DEBUG_LOGF("Decompressed %u to %u bytes (%u capacity)", old_size, m_pData->size, m_capacity);
-  shrink();
-  // this shouldn't be necessary:
-  resetUnserializer();
-#if 0
-  printf("DECOMPRESSED:\n");
-  for (uint32_t i = 0; i < m_pData->size; ++i) {
-    printf("%02x ", m_pData->buf[i]);
-    if (i > 0 && ((i + 1) % 32) == 0) {
-      printf("\r\n\t");
-    }
-  }
-  printf("\r\n\r\n");
-#endif
-  return true;
+  recalcCRC();
+  return m_pData->verify();
 }
 
 bool ByteStream::serialize(uint8_t byte)
@@ -367,6 +305,8 @@ bool ByteStream::serialize(uint8_t byte)
   memcpy(m_pData->buf + m_pData->size, &byte, sizeof(uint8_t));
   // walk forward
   m_pData->size += sizeof(uint8_t);
+  // dirty the crc
+  m_pData->flags |= BUFFER_FLAG_DIRTY;
   return true;
 }
 
@@ -379,7 +319,10 @@ bool ByteStream::serialize(uint16_t bytes)
     }
   }
   memcpy(m_pData->buf + m_pData->size, &bytes, sizeof(uint16_t));
+  // walk forward
   m_pData->size += sizeof(uint16_t);
+  // dirty the crc
+  m_pData->flags |= BUFFER_FLAG_DIRTY;
   return true;
 }
 
@@ -392,7 +335,10 @@ bool ByteStream::serialize(uint32_t bytes)
     }
   }
   memcpy(m_pData->buf + m_pData->size, &bytes, sizeof(uint32_t));
+  // walk forward
   m_pData->size += sizeof(uint32_t);
+  // dirty the crc
+  m_pData->flags |= BUFFER_FLAG_DIRTY;
   return true;
 }
 
@@ -415,6 +361,14 @@ void ByteStream::moveUnserializer(uint32_t idx)
   m_position = idx;
 }
 
+bool ByteStream::unserializerAtEnd() const
+{
+  // the serializer always points to the end of the buffer,
+  // if the unserializer points there too then there's nothing
+  // more for the unserializer to read
+  return m_pData && m_position == m_pData->size;
+}
+
 // unserialize data and walk the buffer that many bytes
 bool ByteStream::unserialize(uint8_t *byte)
 {
@@ -429,7 +383,7 @@ bool ByteStream::unserialize(uint8_t *byte)
 
 bool ByteStream::unserialize(uint16_t *bytes)
 {
-  if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
+  if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint16_t)) {
     return false;
   }
   memcpy(bytes, m_pData->buf + m_position, sizeof(uint16_t));

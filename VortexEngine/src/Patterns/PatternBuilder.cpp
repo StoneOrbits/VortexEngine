@@ -118,6 +118,7 @@ Pattern *PatternBuilder::generate(PatternID id)
 
     // =====================
     //  Single Led Patterns:
+    case PATTERN_BASIC: return new BasicPattern();
     case PATTERN_STROBE: return new BasicPattern(STROBE_ON_DURATION, STROBE_OFF_DURATION);
     case PATTERN_HYPERSTROBE: return new BasicPattern(HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION);
     case PATTERN_DOPS: return new BasicPattern(DOPS_ON_DURATION, DOPS_OFF_DURATION);

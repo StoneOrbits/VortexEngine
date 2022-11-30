@@ -54,17 +54,17 @@ private:
   // the options for saturations
   const uint32_t sats[4] = {
     255,
-    210,
-    180,
-    150
+    170,
+    85,
+    0
   };
 
   // the options for values
   const uint32_t vals[4] = {
     255,
-    210,
-    180,
-    150
+    170,
+    85,
+    0
   };
 
   // the current state of the color selection menu

@@ -13,6 +13,7 @@ LighthousePattern::LighthousePattern(uint8_t onDuration, uint8_t offDuration, ui
   m_stash(),
   m_progress(0)
 {
+  m_patternID = PATTERN_LIGHTHOUSE;
 }
 
 LighthousePattern::~LighthousePattern()

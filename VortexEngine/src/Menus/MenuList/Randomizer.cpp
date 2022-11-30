@@ -33,7 +33,7 @@ bool Randomizer::init()
   }
   // re-roll the randomization
   if (!reRoll()) {
-    ERROR_LOG("Failed to re-roll randomizer");
+    ERROR_LOG("Failed to roll randomizer");
     return false;
   }
   DEBUG_LOG("Entered randomizer");

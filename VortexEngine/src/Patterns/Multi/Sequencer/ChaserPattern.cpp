@@ -6,6 +6,8 @@
 ChaserPattern::ChaserPattern() :
   SequencedPattern()
 {
+  // set the pattern ID
+  m_patternID = PATTERN_CHASER;
   // There are 8 steps in the chaser, so iterate 8 times and generate
   // a pattern map for each step. A colorset map can also be applied
   // to override certain colors for specific steps, but that's not

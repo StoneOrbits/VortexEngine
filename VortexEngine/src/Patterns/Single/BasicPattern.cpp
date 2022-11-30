@@ -15,6 +15,7 @@ BasicPattern::BasicPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapD
   m_gapTimer(),
   m_inGap(false)
 {
+  m_patternID = PATTERN_BASIC;
 }
 
 BasicPattern::~BasicPattern()
@@ -70,7 +71,6 @@ void BasicPattern::play()
 
 void BasicPattern::serialize(ByteStream &buffer) const
 {
-  //DEBUG_LOG("Serialize");
   SingleLedPattern::serialize(buffer);
   buffer.serialize(m_onDuration);
   buffer.serialize(m_offDuration);
@@ -79,7 +79,6 @@ void BasicPattern::serialize(ByteStream &buffer) const
 
 void BasicPattern::unserialize(ByteStream &buffer)
 {
-  //DEBUG_LOG("Unserialize");
   SingleLedPattern::unserialize(buffer);
   buffer.unserialize(&m_onDuration);
   buffer.unserialize(&m_offDuration);

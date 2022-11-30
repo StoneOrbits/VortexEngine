@@ -17,3 +17,7 @@ This is a global manager class which implements the factory pattern to expose ro
 This is the global manager class for all Mode instances that are loaded.
 
 This class manages running a single mode at a time, and upon receiving a click will iterate to the next Mode.
+
+## [Default Modes](DefaultModes.h)
+
+This contains the list of factory default modes that will be programmed into the set at first launch.

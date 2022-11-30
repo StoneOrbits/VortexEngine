@@ -11,6 +11,7 @@ BackStrobePattern::BackStrobePattern(uint16_t stepSpeed) :
   m_stepTimer(),
   m_switch()
 {
+  m_patternID = PATTERN_BACKSTROBE;
 }
 
 BackStrobePattern::~BackStrobePattern()
@@ -34,7 +35,6 @@ void BackStrobePattern::init()
 void BackStrobePattern::play()
 {
   if (m_stepTimer.alarm() == 0) {
-    DEBUG_LOG("Alarm trigger");
     // switch which patterns are displayed
     m_switch = !m_switch;
     // update the tip/top patterns based on the switch
