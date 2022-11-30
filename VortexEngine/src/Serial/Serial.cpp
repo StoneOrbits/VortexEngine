@@ -9,8 +9,6 @@
 
 bool SerialComs::m_serial_init = false;
 
-char backlog[4096] = {0};
-
 // private constructor
 SerialComs::SerialComs()
 {
