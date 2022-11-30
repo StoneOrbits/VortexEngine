@@ -3,22 +3,14 @@
 
 // so that anything which uses a timing can have access to msToTicks
 #include "TimeControl.h"
+#include "../VortexConfig.h"
 
-// Menu Trigger Thresholds
-//
-// how long must hold to trigger ring menu and
-// how long each ring menu takes to fill
-#define MENU_TRIGGER_THRESHOLD Time::msToTicks(1000)
-#define MENU_DURATION Time::msToTicks(1000)
-
-// Short Click Threshold
-//
-// if click held for <= this value then the click will be registered as
-// a 'short click' otherwise if held longer than this threshold it will
-// be registered as a 'long click'
-//
-// The long hold is detected by just checking the holdDuration()
-#define SHORT_CLICK_THRESHOLD Time::msToTicks(250)
+// local definition which converts the global configuration that
+// is defined in milliseconds into a time in ticks that can be
+// used for comparisons in the menu
+#define MENU_DURATION_TICKS           Time::msToTicks(MENU_DURATION)
+#define MENU_TRIGGER_THRESHOLD_TICKS  Time::msToTicks(MENU_TRIGGER_THRESHOLD)
+#define SHORT_CLICK_THRESHOLD_TICKS   Time::msToTicks(SHORT_CLICK_THRESHOLD)
 
 // Strobe Timings
 //

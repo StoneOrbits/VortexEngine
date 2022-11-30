@@ -27,6 +27,25 @@
 // ===================================================================
 //  Numeric Configurations
 
+// Menu Trigger Threshold (in milliseconds)
+//
+// How long the button must be held to trigger ring menu and begin
+// filling the first menu color
+#define MENU_TRIGGER_THRESHOLD      1000
+
+// Menu Duration (in milliseconds)
+//
+// How long each ring menu takes to fill, after which the next
+// menu will start filling
+#define MENU_DURATION               1000
+
+// Short Click Threshold (in milliseconds)
+//
+// If click held for <= this value then the click will be registered
+// as a 'short click' otherwise if held longer than this threshold
+// it will be registered as a 'long click'
+#define SHORT_CLICK_THRESHOLD       250
+
 // Max Color Slots
 //
 // The max number of colors in a colorset, this was never tested with
@@ -35,8 +54,8 @@
 
 // Default Global Brightness
 //
-// The starting default global brightness if there is no savefile present
-// The maximum value is 255
+// The starting default global brightness if there is no savefile
+// present The maximum value is 255
 #define DEFAULT_BRIGHTNESS    255
 
 // Max Modes
@@ -136,8 +155,8 @@
 
 // Fill From Thumb
 //
-// The ring menu will fill from the thumb if this is present, otherwise it
-// will fill from the pinkie.
+// The ring menu will fill from the thumb if this is present, otherwise
+// it will fill from the pinkie.
 //
 // The logic is cleaner for fill from pinkie but fill from thumb is preferred
 #define FILL_FROM_THUMB       1

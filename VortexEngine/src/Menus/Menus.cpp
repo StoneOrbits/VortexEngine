@@ -88,8 +88,8 @@ bool Menus::runRingFill()
     // continue displaying the menu
     return true;
   }
-  // make sure the button is pressed and held for at least one second
-  if (!g_pButton->isPressed() || g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD) {
+  // make sure the button is pressed and held till the threshold
+  if (!g_pButton->isPressed() || g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD_TICKS) {
     // no menu selected yet
     return false;
   }
@@ -147,24 +147,24 @@ bool Menus::runCurMenu()
 // helper to calculate the relative hold time for the current menu
 LedPos Menus::calcLedPos()
 {
-  uint32_t relativeHoldDur = g_pButton->holdDuration() - MENU_TRIGGER_THRESHOLD;
-  if (g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD) {
+  uint32_t relativeHoldDur = g_pButton->holdDuration() - MENU_TRIGGER_THRESHOLD_TICKS;
+  if (g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD_TICKS) {
     relativeHoldDur = 0;
   }
   // this allows the menu to wrap around to beginning after the end
   // if the user never lets go of the button
-  uint32_t holdDuration = relativeHoldDur % (MENU_DURATION * NUM_MENUS);
+  uint32_t holdDuration = relativeHoldDur % (MENU_DURATION_TICKS * NUM_MENUS);
   // the time when the current menu starts trigger threshold + duration per menu
-  uint32_t menuStartTime = MENU_DURATION * m_selection;
+  uint32_t menuStartTime = MENU_DURATION_TICKS * m_selection;
   if (holdDuration >= menuStartTime) {
-    // the amount of time held in the current menu, should be 0 to MENU_DURATION ticks
+    // the amount of time held in the current menu, should be 0 to MENU_DURATION_TICKS ticks
     uint32_t holdTime = (holdDuration - menuStartTime);
-    // if the holdTime is within MENU_DURATION then it's valid
-    if (holdTime < MENU_DURATION) {
+    // if the holdTime is within MENU_DURATION_TICKS then it's valid
+    if (holdTime < MENU_DURATION_TICKS) {
 #if FILL_FROM_THUMB == 1
-      return (LedPos)(LED_LAST - (((double)holdTime / MENU_DURATION) * LED_COUNT));
+      return (LedPos)(LED_LAST - (((double)holdTime / MENU_DURATION_TICKS) * LED_COUNT));
 #else
-      return (LedPos)(((double)holdTime / MENU_DURATION) * LED_COUNT);
+      return (LedPos)(((double)holdTime / MENU_DURATION_TICKS) * LED_COUNT);
 #endif
     }
   }
