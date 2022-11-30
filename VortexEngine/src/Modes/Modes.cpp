@@ -95,7 +95,8 @@ bool Modes::saveStorage()
 
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
 
-  // write the serial buffer to flash storage
+  // write the serial buffer to flash storage, this
+  // will compress the buffer and include crc/flags
   if (!Storage::write(modesBuffer)) {
     DEBUG_LOG("Failed to write storage");
     return false;

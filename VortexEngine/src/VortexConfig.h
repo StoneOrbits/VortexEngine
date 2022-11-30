@@ -31,20 +31,20 @@
 //
 // How long the button must be held to trigger ring menu and begin
 // filling the first menu color
-#define MENU_TRIGGER_THRESHOLD      1000
+#define MENU_TRIGGER_TIME     1000
 
 // Menu Duration (in milliseconds)
 //
 // How long each ring menu takes to fill, after which the next
 // menu will start filling
-#define MENU_DURATION               1000
+#define MENU_FILL_TIME        1000
 
 // Short Click Threshold (in milliseconds)
 //
 // If click held for <= this value then the click will be registered
 // as a 'short click' otherwise if held longer than this threshold
 // it will be registered as a 'long click'
-#define SHORT_CLICK_THRESHOLD       250
+#define CLICK_THRESHOLD       250
 
 // Max Color Slots
 //

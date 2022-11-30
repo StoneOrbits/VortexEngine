@@ -74,8 +74,8 @@ void Button::check()
   }
 
   // whether a shortclick or long click just occurred
-  m_shortClick = (m_newRelease && (m_holdDuration <= SHORT_CLICK_THRESHOLD));
-  m_longClick = (m_newRelease && (m_holdDuration > SHORT_CLICK_THRESHOLD));
+  m_shortClick = (m_newRelease && (m_holdDuration <= SHORT_CLICK_THRESHOLD_TICKS));
+  m_longClick = (m_newRelease && (m_holdDuration > SHORT_CLICK_THRESHOLD_TICKS));
 
   if (m_shortClick) {
     DEBUG_LOG("Short click");

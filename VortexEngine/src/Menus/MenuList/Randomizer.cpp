@@ -50,7 +50,7 @@ bool Randomizer::run()
   // display the randomized mode
   m_pRandomizedMode->play();
 
-  if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD) {
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     Leds::setAll(RGB_GREEN);
   }
 

@@ -106,13 +106,13 @@ bool ByteStream::shrink()
   if (m_pData->size == m_capacity) {
     return true;
   }
+  m_capacity = m_pData->size;
   RawBuffer *temp = (RawBuffer *)vrealloc(m_pData, m_pData->size + sizeof(RawBuffer));
   if (!temp) {
     ERROR_OUT_OF_MEMORY();
     return false;
   }
   m_pData = temp;
-  m_capacity = m_pData->size;
   return true;
 }
 
