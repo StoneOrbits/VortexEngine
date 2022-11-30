@@ -17,8 +17,8 @@ void InfoMsg(const char *msg, ...);
 
 #if LOGGING_LEVEL > 1
 // in test build errors are just debug messages
-#define ERROR_LOG(msg) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg)
-#define ERROR_LOGF(msg, ...) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg, __VA_ARGS__)
+#define ERROR_LOG(msg) ErrorMsg(__FUNCTION__, msg)
+#define ERROR_LOGF(msg, ...) ErrorMsg(__FUNCTION__, msg, __VA_ARGS__)
 // errors are in final builds so they only have the function name
 void ErrorMsg(const char *func, const char *msg, ...);
 #else

@@ -25,14 +25,6 @@ bool ModeSharing::init()
   // just start spewing out modes everywhere
   m_sharingMode = ModeShareState::SHARE_SEND;
 
-#ifdef TEST_FRAMEWORK
-#if INFRARED_TEST == 1 && AUTO_SEND_MODE == 1
-  if (is_ir_server()) {
-    m_sharingMode = ModeShareState::SHARE_RECEIVE;
-  }
-#endif
-#endif
-
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
@@ -98,35 +90,6 @@ void ModeSharing::onLongClick()
   leaveMenu();
 }
 
-#if INFRARED_TEST == 1
-#include <vector>
-using namespace std;
-
-class TestMode : public Mode
-{
-public:
-
-  TestMode(uint32_t size = 16) :
-    Mode(),
-    m_size(size)
-  {
-  }
-
-  virtual void serialize(ByteStream &buffer) const override
-  {
-    vector<uint8_t> buf;
-    for (uint32_t i = 0; i < m_size; ++i) {
-      buf.push_back(i);
-    }
-    buffer.init(m_size, buf.data());
-  }
-
-private:
-  uint32_t m_size;
-
-};
-#endif
-
 void ModeSharing::beginSending()
 {
   // if the sender is sending then cannot start again
@@ -135,13 +98,7 @@ void ModeSharing::beginSending()
     return;
   }
   // initialize it with the current mode data
-#if INFRARED_TEST == 1
-  Mode *pMode = new TestMode(250);
-  IRSender::loadMode(pMode);
-  delete pMode;
-#else
   IRSender::loadMode(m_pCurMode);
-#endif
   // send the first chunk of data, leave if we're done
   if (!IRSender::send()) {
     leaveMenu();

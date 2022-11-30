@@ -73,11 +73,6 @@ uint32_t IRReceiver::percentReceived()
   return (uint32_t)(((float)m_irData.bytepos() / (float)total) * 100.0);
 }
 
-#if INFRARED_TEST == 1
-#include "../Leds/Leds.h"
-#include "../Colors/Colorset.h"
-#endif
-
 bool IRReceiver::receiveMode(Mode *pMode)
 {
   ByteStream buf;
@@ -95,33 +90,9 @@ bool IRReceiver::receiveMode(Mode *pMode)
   }
   // just in case the decompressor moved it
   buf.resetUnserializer();
-#if INFRARED_TEST == 1
-  // decode and expect contiguous counting data
-  uint32_t counter = 0;
-  DEBUG_LOG("Reading test data...");
-  bool any_bad = false;
-  while (counter < buf.size()) {
-    uint8_t val = 0;
-    buf.unserialize(&val);
-    if ((counter % 256) != val) {
-      DEBUG_LOGF("Bad Data: %u (should be: %u)", val, counter);
-      any_bad = true;
-    } else {
-      DEBUG_LOGF("Good Data: %u is %u", val, counter);
-    }
-    counter++;
-  }
-  DEBUG_LOGF("Done reading test data (counter: %u)", counter);
-  if (any_bad) {
-    DEBUG_LOG("Test Failed!");
-  } else {
-    DEBUG_LOG("Test Passed!");
-  }
-  Colorset newSet(any_bad ? RGB_RED : RGB_GREEN);
-  pMode->setColorset(&newSet);
-#else
+  // unserialize the data into the target mode
   pMode->unserialize(buf);
-#endif
+  // then initialize the mode so that it will play
   pMode->init();
   return true;
 }
@@ -197,8 +168,6 @@ void IRReceiver::handleIRTiming(uint32_t diff)
     resetIRState();
     return;
   }
-  //static uint32_t counter = 0;
-  //DEBUG_LOGF("timing[%u]: %u", counter++, diff);
   switch (m_recvState) {
   case WAITING_HEADER_MARK: // initial state
     if (diff >= HEADER_MARK_MIN && diff <= HEADER_MARK_MAX) {
@@ -219,41 +188,10 @@ void IRReceiver::handleIRTiming(uint32_t diff)
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
     m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
-#if 0
-    { // logging:
-      uint8_t bit = (diff > (IR_TIMING * 2)) ? 1 : 0;
-      static uint8_t byte = 0;
-      static uint8_t cc = 0;
-      if (cc >= 8) {
-        byte = 0;
-        cc = 0;
-      }
-      if (cc > 0) {
-        byte <<= 1;
-      }
-      byte |= bit;
-      cc++;
-      DEBUG_LOGF("  Read bit: %u", bit);
-      if (cc == 8) {
-        static uint32_t counter = 0;
-        DEBUG_LOGF("Read byte[%u]: 0x%x", counter++, byte);
-      }
-    }
-#endif
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
-    // every 32 bits expect a divider ?
-    //if (((m_irData.bitpos() + 1) % DEFAULT_IR_BLOCK_SIZE) == 0) {
-      //m_recvState = READING_DATA_DIVIDER_MARK;
-      //break;
-    //}
-    m_recvState = READING_DATA_MARK;
-    break;
-  case READING_DATA_DIVIDER_MARK:
-    m_recvState = READING_DATA_DIVIDER_SPACE;
-    break;
-  case READING_DATA_DIVIDER_SPACE:
+    // the space could be just a regular space, or a gap in between blocks
     m_recvState = READING_DATA_MARK;
     break;
   default: // ??
@@ -265,13 +203,7 @@ void IRReceiver::handleIRTiming(uint32_t diff)
 void IRReceiver::resetIRState()
 {
   m_recvState = WAITING_HEADER_MARK;
-  DEBUG_LOG("Resetting IR State...");
-  if (m_irData.bytepos()) {
-    for (uint32_t i = 0; i < m_irData.bytepos(); ++i) {
-      DEBUG_LOGF("(on reset) IR Buf %u: 0x%x", i, m_irData.data()[i]);
-    }
-  }
   // zero out the receive buffer and reset bit receiver position
   m_irData.reset();
-  DEBUG_LOG("IR State Reset Complete");
+  DEBUG_LOG("IR State Reset");
 }

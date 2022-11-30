@@ -47,7 +47,6 @@
 class ByteStream;
 class RGBColor;
 
-// todo: remake color classes here
 class HSVColor
 {
 public:

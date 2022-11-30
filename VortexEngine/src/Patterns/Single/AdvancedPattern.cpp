@@ -94,7 +94,6 @@ void AdvancedPattern::onBlinkOff()
 
 void AdvancedPattern::serialize(ByteStream &buffer) const
 {
-  //DEBUG_LOG("Serialize");
   BasicPattern::serialize(buffer);
   buffer.serialize(m_groupSize);
   buffer.serialize(m_skipCols);
@@ -103,7 +102,6 @@ void AdvancedPattern::serialize(ByteStream &buffer) const
 
 void AdvancedPattern::unserialize(ByteStream &buffer)
 {
-  //DEBUG_LOG("Unserialize");
   BasicPattern::unserialize(buffer);
   buffer.unserialize(&m_groupSize);
   buffer.unserialize(&m_skipCols);

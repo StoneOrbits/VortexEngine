@@ -35,7 +35,6 @@ void SplitStrobiePattern::init()
 void SplitStrobiePattern::play()
 {
   if (m_stepTimer.alarm() == 0) {
-    DEBUG_LOG("Alarm trigger");
     // switch which patterns are displayed
     m_switch = !m_switch;
     // update the tip/top patterns based on the switch

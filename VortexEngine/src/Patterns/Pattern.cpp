@@ -39,7 +39,6 @@ void Pattern::init()
 // must override the serialize routine to save the pattern
 void Pattern::serialize(ByteStream &buffer) const
 {
-  //DEBUG_LOG("Serialize");
   buffer.serialize((uint8_t)m_patternID);
   m_colorset.serialize(buffer);
 }
@@ -47,7 +46,6 @@ void Pattern::serialize(ByteStream &buffer) const
 // must override unserialize to load patterns
 void Pattern::unserialize(ByteStream &buffer)
 {
-  //DEBUG_LOG("Unserialize");
   // don't unserialize the pattern ID because it is already
   // unserialized by the pattern builder to decide which pattern
   // to instantiate, instead only unserialize the colorset

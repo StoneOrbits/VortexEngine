@@ -106,7 +106,6 @@ bool ByteStream::shrink()
   if (m_pData->size == m_capacity) {
     return true;
   }
-  //DEBUG_LOGF("Extending %u bytes from %u to %u", size, m_capacity, new_size);
   RawBuffer *temp = (RawBuffer *)vrealloc(m_pData, m_pData->size + sizeof(RawBuffer));
   if (!temp) {
     ERROR_OUT_OF_MEMORY();
@@ -134,6 +133,26 @@ bool ByteStream::append(const ByteStream &other)
   return true;
 }
 
+// trim some amount of bytes off the end of the stream
+void ByteStream::trim(uint32_t bytes)
+{
+  if (!m_pData) {
+    return;
+  }
+  // just adjust the data size no need to reallocate, this
+  // will put the extra bytes into 'extra space' and shrink()
+  // could be called to reallocate the buffer without them
+  if (m_pData->size <= bytes) {
+    m_pData->size = 0;
+  } else {
+    m_pData->size -= bytes;
+  }
+  // move the unserializer back if necessary
+  if (m_position >= m_pData->size) {
+    m_position = m_pData->size;
+  }
+}
+
 // extend the storage without changing the size of the data
 bool ByteStream::extend(uint32_t size)
 {
@@ -151,7 +170,6 @@ bool ByteStream::extend(uint32_t size)
   buffer_size -= buffer_size % 4;
   // the size of the actual new block of memory
   uint32_t new_size = buffer_size + sizeof(RawBuffer);
-  //DEBUG_LOGF("Extending %u bytes from %u to %u", size, m_capacity, new_size);
   RawBuffer *temp = (RawBuffer *)vrealloc(m_pData, new_size);
   if (!temp) {
     ERROR_OUT_OF_MEMORY();
@@ -261,11 +279,8 @@ void ByteStream::recalcCRC(bool force)
   if (!force && !(m_pData->flags & BUFFER_FLAG_DIRTY)) {
     return;
   }
-  uint32_t oldCrc = m_pData->crc32;
+  // re-calculate the CRC on the buffer
   m_pData->recalcCRC();
-  if (oldCrc == m_pData->crc32) {
-    ERROR_LOG("Useless CRC32 calculation");
-  }
   // unset dirty flag
   m_pData->flags &= ~BUFFER_FLAG_DIRTY;
 }
@@ -491,37 +506,3 @@ uint32_t ByteStream::getWidth(uint32_t value) const
   }
   return 0;
 }
-
-#if COMPRESSION_TEST == 1
-#include <stdio.h>
-void compressionTest()
-{
-  ByteStream stream;
-  for (uint32_t len = 1; len < 4096; ++len) {
-    uint8_t *buf = (uint8_t *)vcalloc(1, len + 1);
-    if (!buf) {
-      continue;
-    }
-    for (uint32_t i = 0; i < len; ++i) {
-      buf[i] = (uint8_t)i&0xFF;
-    }
-    stream.init(len, buf);
-    stream.compress();
-    stream.decompress();
-    if (memcmp(stream.data(), buf, len) != 0) {
-      ERROR_LOGF("Buffers not equal: %u", len);
-      printf("\t");
-      for (uint32_t i = 0; i < len; ++i) {
-        printf("%02x ", buf[i]);
-        if (i > 0 && ((i + 1) % 32) == 0) {
-          printf("\r\n\t");
-        }
-      }
-      return;
-    }
-    DEBUG_LOGF("Success %u compressed", len);
-    free(buf);
-  }
-  DEBUG_LOG("Success testing compression");
-}
-#endif

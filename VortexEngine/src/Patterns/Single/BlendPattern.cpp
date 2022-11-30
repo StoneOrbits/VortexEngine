@@ -37,14 +37,12 @@ void BlendPattern::play()
 
 void BlendPattern::serialize(ByteStream &buffer) const
 {
-  //DEBUG_LOG("Serialize");
   BasicPattern::serialize(buffer);
   buffer.serialize(m_speed);
 }
 
 void BlendPattern::unserialize(ByteStream &buffer)
 {
-  //DEBUG_LOG("Unserialize");
   BasicPattern::unserialize(buffer);
   buffer.unserialize(&m_speed);
 }

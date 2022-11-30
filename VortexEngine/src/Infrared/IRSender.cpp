@@ -145,10 +145,8 @@ void IRSender::sendByte(uint8_t data)
     sendMark(IR_TIMING + (IR_TIMING * (2 * bit)));
     // send 1x timing size for space
     sendSpace(IR_TIMING);
-    //DEBUG_LOGF(" bit: %u", bit);
   }
   DEBUG_LOGF("Sent byte[%u]: 0x%x", m_writeCounter, data);
-  //m_writeCounter++;
  }
 
 void IRSender::sendMark(uint16_t time)

@@ -1,4 +1,5 @@
 #include "Modes.h"
+#include "DefaultModes.h"
 
 #include "../Patterns/Pattern.h"
 
@@ -117,7 +118,6 @@ void Modes::serialize(ByteStream &modesBuffer)
 
   // iterate all of the modes and copy their serial data into the modesBuffer
   for (uint32_t i = 0; i < m_numModes; ++i) {
-    // todo maybe? compress the modes while in storage
     // if so then need to decompress before appending? idk
     bool compressed = m_serializedModes[i].is_compressed();
     if (compressed) {
@@ -204,8 +204,7 @@ void Modes::saveTemplate(int level)
 bool Modes::setDefaults()
 {
   clearModes();
-  // TODO FIXME
-#if DEMO_ALL_PATTERNS == 1 //|| 1 == 1
+#if DEMO_ALL_PATTERNS == 1
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
   Colorset defaultSet(RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
   //Colorset defaultSet(HSVColor(254, 255, 255), HSVColor(1, 255, 255), HSVColor(245, 255, 255)); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
@@ -223,64 +222,12 @@ bool Modes::setDefaults()
   }
   DEBUG_LOGF("Added default patterns %u through %u", default_start, default_end);
 #else
-
-  struct default_mode_entry {
-    PatternID patternID;
-    int cols[MAX_COLOR_SLOTS];
-  };
-
-  default_mode_entry default_modes[] = {
-    // Pattern 1: Jest mode
-    PATTERN_JEST,
-    {
-      HSV(0, 255, 255),
-      HSV(96, 255, 255),
-      HSV(160, 255, 255),
-      HSV(64, 255, 255),
-      HSV(192, 255, 255)
-    },
-
-    // Pattern 2: Ghost Crush Mode
-    PATTERN_GHOSTCRUSH,
-    {
-      HSV(0, 0, 255),
-      HSV(0, 0, 255),
-      HSV(0, 0, 0),
-      HSV(0, 255, 170),
-      HSV(0, 0, 0)
-    },
-  };
-
-  // the list of modes that are initialized onto the gloveset by default
-  addMode(PATTERN_JEST, HSVColor(0, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255),
-    HSVColor(64, 255, 255), HSVColor(192, 255, 255));
-  addMode(PATTERN_GHOSTCRUSH, HSVColor(0, 0, 255), HSVColor(0, 0, 255), HSVColor(0, 0, 0),
-    HSVColor(0, 255, 170), HSVColor(0, 0, 0));
-  addMode(PATTERN_IMPACT, HSVColor(160, 255, 255), HSVColor(64, 255, 255), HSVColor(160, 255, 255),
-    HSVColor(0, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255), HSVColor(96, 255, 255),
-    HSVColor(160, 255, 255));
-  addMode(PATTERN_WARPWORM, HSVColor(96, 255, 255), HSVColor(192, 255, 170));
-  addMode(PATTERN_PULSISH, HSVColor(128, 255, 255), HSVColor(224, 170, 255), HSVColor(160, 255, 85));
-  addMode(PATTERN_ZIGZAG, HSVColor(80, 255, 0), HSVColor(80, 255, 255), HSVColor(192, 255, 255),
-    HSVColor(0, 0, 0), HSVColor(0, 255, 255), HSVColor(0, 255, 170));
-  addMode(PATTERN_STROBE, HSVColor(240, 255, 255), HSVColor(0, 0, 0), HSVColor(144, 255, 255),
-    HSVColor(0, 0, 0), HSVColor(48, 170, 255), HSVColor(0, 0, 0), HSVColor(144, 255, 255),
-    HSVColor(0, 0, 0));
-  addMode(PATTERN_SNOWBALL, HSVColor(18, 255, 85), HSVColor(103, 255, 191), HSVColor(188, 255, 123));
-  addMode(PATTERN_ULTRADOPS, HSVColor(0, 255, 85), HSVColor(32, 255, 170), HSVColor(64, 255, 255),
-    HSVColor(96, 255, 85), HSVColor(128, 255, 85), HSVColor(160, 255, 85), HSVColor(192, 255, 170),
-    HSVColor(224, 255, 85));
-  addMode(PATTERN_MATERIA, HSVColor(224, 255, 255), HSVColor(160, 85, 255), HSVColor(192, 255, 85),
-    HSVColor(128, 170, 255));
-  addMode(PATTERN_VORTEXWIPE, HSVColor(0, 255, 255), HSVColor(160, 255, 85), HSVColor(160, 255, 85),
-    HSVColor(160, 255, 85), HSVColor(160, 255, 85), HSVColor(160, 255, 85), HSVColor(160, 255, 85),
-    HSVColor(160, 255, 85));
-  addMode(PATTERN_GHOSTCRUSH, HSVColor(192, 255, 170), HSVColor(0, 0, 0), HSVColor(96, 255, 255),
-    HSVColor(96, 0, 255), HSVColor(96, 255, 255), HSVColor(0, 0, 0), HSVColor(192, 255, 170));
-  addMode(PATTERN_VORTEXWIPE, HSVColor(128, 255, 255), HSVColor(208, 255, 255), HSVColor(16, 170, 255));
-  addMode(PATTERN_RABBIT, HSVColor(160, 255, 255), HSVColor(0, 255, 255), HSVColor(96, 255, 255),
-    HSVColor(160, 255, 255), HSVColor(96, 255, 255), HSVColor(160, 255, 255));
-  addMode(PATTERN_COMPLEMENTARY_BLEND, RGBColor(255, 0, 0), RGBColor(0, 255, 0), RGBColor(0, 0, 255));
+  // add each default mode with each of the given colors
+  for (uint32_t i = 0; i < num_default_modes; ++i) {
+    addMode(default_modes[i].patternID, default_modes[i].cols[0], default_modes[i].cols[1],
+      default_modes[i].cols[2], default_modes[i].cols[3], default_modes[i].cols[4],
+      default_modes[i].cols[5], default_modes[i].cols[6], default_modes[i].cols[7]);
+  }
 #endif
   return true;
 }
@@ -464,53 +411,3 @@ void Modes::saveCurMode()
   // compress the mode when not being used
   m_serializedModes[m_curMode].compress();
 }
-
-#if SERIALIZATION_TEST == 1
-#include "ModeBuilder.h"
-#include <stdio.h>
-void serializationTest()
-{
-  Colorset bigSet;
-  for (uint32_t i = 0; i < MAX_COLOR_SLOTS; ++i) {
-    bigSet.addColorByHue(i * 31);
-  }
-  DEBUG_LOG("== Beginning Serialization Test ==");
-  for (PatternID patternID = PATTERN_FIRST; patternID < PATTERN_COUNT; ++patternID) {
-    Mode *mode = ModeBuilder::make(patternID, &bigSet);
-    if (!mode) {
-      ERROR_LOGF("ERROR!! Failed to create mode %u", patternID);
-      return;
-    }
-    mode->init();
-    ByteStream buffer;
-    mode->serialize(buffer);
-    if (!buffer.size()) {
-      ERROR_LOGF("ERROR!! Buffer empty after serialize on %u", patternID);
-      return;
-    }
-    Mode *mode2 = ModeBuilder::unserialize(buffer);
-    if (!mode2) {
-      ERROR_LOGF("ERROR!! Failed to unserialize mode on %u", patternID);
-      return;
-    }
-    if (!buffer.unserializerAtEnd()) {
-      ERROR_LOGF("ERROR!! Unserializer still has data on %u", patternID);
-      uint8_t byte = 0;
-      uint32_t count = 0;
-      while (buffer.unserialize(&byte)) {
-        printf("%02x ", byte);
-        if ((++count % 32) == 0) {
-          printf("\n");
-        }
-      }
-      return;
-    }
-    if (!mode->equals(mode2)) {
-      ERROR_LOGF("ERROR!! Modes are not equal on %u", patternID);
-      return;
-    }
-    DEBUG_LOGF("Success pattern %u serialized cleanly", patternID);
-  }
-  DEBUG_LOG("== Success all patterns serialized ==");
-}
-#endif

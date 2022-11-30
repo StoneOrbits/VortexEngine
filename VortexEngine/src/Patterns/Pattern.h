@@ -57,7 +57,6 @@ public:
 #endif
 
   // comparison to other pattern
-  // TODO: add equals override for derived classes with new member variables
   // NOTE: That may cause problems because the parameter is still a Pattern *
   //       which means comparison would need to cast the other upwards first
   // NOTE2: Removing virtual because this probably shouldn't be overridden

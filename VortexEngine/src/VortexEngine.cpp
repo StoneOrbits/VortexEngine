@@ -57,13 +57,8 @@ bool VortexEngine::init()
   compressionTest();
 #endif
 
-
 #if SERIALIZATION_TEST == 1
   serializationTest();
-#endif
-
-#if INFRARED_TEST == 1
-  Menus::openMenu(MENU_MODE_SHARING);
 #endif
 
   return true;
@@ -100,3 +95,126 @@ void VortexEngine::tick()
   // update the leds
   Leds::update();
 }
+
+#if COMPRESSION_TEST == 1
+#include <stdio.h>
+#include "Memory/Memory.h"
+void VortexEngine::compressionTest()
+{
+  ByteStream stream;
+  for (uint32_t len = 1; len < 4096; ++len) {
+    uint8_t *buf = (uint8_t *)vcalloc(1, len + 1);
+    if (!buf) {
+      continue;
+    }
+    for (uint32_t i = 0; i < len; ++i) {
+      buf[i] = (uint8_t)i&0xFF;
+    }
+    stream.init(len, buf);
+    stream.compress();
+    stream.decompress();
+    if (memcmp(stream.data(), buf, len) != 0) {
+      ERROR_LOGF("Buffers not equal: %u", len);
+      printf("\t");
+      for (uint32_t i = 0; i < len; ++i) {
+        printf("%02x ", buf[i]);
+        if (i > 0 && ((i + 1) % 32) == 0) {
+          printf("\r\n\t");
+        }
+      }
+      return;
+    }
+    DEBUG_LOGF("Success %u compressed", len);
+    free(buf);
+  }
+  DEBUG_LOG("Success testing compression");
+}
+#endif
+
+#if SERIALIZATION_TEST == 1
+#include "Modes/ModeBuilder.h"
+#include "Modes/Mode.h"
+#include "Colors/Colorset.h"
+#include <stdio.h>
+void VortexEngine::serializationTest()
+{
+  Colorset bigSet;
+  for (uint32_t i = 0; i < MAX_COLOR_SLOTS; ++i) {
+    bigSet.addColorByHue(i * 31);
+  }
+  DEBUG_LOG("== Beginning Serialization Test ==");
+  for (PatternID patternID = PATTERN_FIRST; patternID < PATTERN_COUNT; ++patternID) {
+    Mode *mode = ModeBuilder::make(patternID, &bigSet);
+    if (!mode) {
+      ERROR_LOGF("ERROR!! Failed to create mode %u", patternID);
+      return;
+    }
+    mode->init();
+    ByteStream buffer;
+    mode->serialize(buffer);
+    if (!buffer.size()) {
+      ERROR_LOGF("ERROR!! Buffer empty after serialize on %u", patternID);
+      return;
+    }
+    Mode *mode2 = ModeBuilder::unserialize(buffer);
+    if (!mode2) {
+      ERROR_LOGF("ERROR!! Failed to unserialize mode on %u", patternID);
+      return;
+    }
+    if (!buffer.unserializerAtEnd()) {
+      ERROR_LOGF("ERROR!! Unserializer still has data on %u:", patternID);
+      uint8_t byte = 0;
+      uint32_t count = 0;
+      while (buffer.unserialize(&byte)) {
+        printf("%02x ", byte);
+        if ((++count % 32) == 0) {
+          printf("\n");
+        }
+      }
+      printf("\n");
+      return;
+    }
+    if (!mode->equals(mode2)) {
+      ERROR_LOGF("ERROR!! Modes are not equal on %u", patternID);
+      return;
+    }
+    delete mode;
+    delete mode2;
+    DEBUG_LOGF("Success pattern %u serialized cleanly", patternID);
+  }
+  DEBUG_LOG("All patterns serialized successfully...");
+  DEBUG_LOG("Attempting full serialization of all modes");
+  Modes::clearModes();
+  for (PatternID patternID = PATTERN_FIRST; patternID < PATTERN_COUNT; ++patternID) {
+    if (!Modes::addMode(patternID, &bigSet)) {
+      ERROR_LOGF("ERROR!! Failed to add mode %u", patternID);
+      return;
+    }
+  }
+  ByteStream buffer;
+  Modes::serialize(buffer);
+  if (!buffer.size()) {
+    ERROR_LOG("ERROR!! Buffer empty after modes serialize");
+    return;
+  }
+  Modes::clearModes();
+  Modes::unserialize(buffer);
+  if (!buffer.unserializerAtEnd()) {
+    ERROR_LOG("ERROR!! Unserializer still has data after modes unserialize:");
+    uint8_t byte = 0;
+    uint32_t count = 0;
+    while (buffer.unserialize(&byte)) {
+      printf("%02x ", byte);
+      if ((++count % 32) == 0) {
+        printf("\n");
+      }
+    }
+    printf("\n");
+    return;
+  }
+  Modes::clearModes();
+  DEBUG_LOG("Success all modes serialized cleanly");
+  DEBUG_LOG("== SUCCESS RUNNING SERIALIZATION TEST ==");
+}
+#endif
+

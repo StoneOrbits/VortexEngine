@@ -3,14 +3,11 @@
 
 // TODO STILL:
 /*
- *  Everything is working somewhat well
+ *  Everything is working!
  *
  *  But there is still more to work on:
- *   - Fix bug in compression/decompression chopping last byte (blue)
  *   - eliminate library code to reduce size
  *   - palm light?
- *   - refactor color constants (add flag to indicate RGB/HSV)
- *   - Code polishing and final build solidification
  *   - Code documentation (DOXYGEN???)
  */
 
@@ -31,6 +28,12 @@ public:
   static void tick();
 
 private:
+#if COMPRESSION_TEST == 1
+  static void compressionTest();
+#endif
+#if SERIALIZATION_TEST == 1
+  static void serializationTest();
+#endif
 };
 
 #endif

@@ -37,6 +37,9 @@ public:
   // extend the storage without changing the size of the data
   bool extend(uint32_t size);
 
+  // trim the storage and erase some bytes from the end
+  void trim(uint32_t bytes);
+
   // badly written in-place compression and decompression
   // which just uses a table of values then compresses the
   // data into indexes in the table packed into a buffer.
@@ -170,9 +173,5 @@ private:
   // the actual size of the buffer raw buffer
   uint32_t m_capacity;
 };
-
-#if COMPRESSION_TEST == 1
-void compressionTest();
-#endif
 
 #endif

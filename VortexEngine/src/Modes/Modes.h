@@ -82,8 +82,4 @@ private:
   static ByteStream m_serializedModes[MAX_MODES];
 };
 
-#if SERIALIZATION_TEST == 1
-void serializationTest();
-#endif
-
 #endif
