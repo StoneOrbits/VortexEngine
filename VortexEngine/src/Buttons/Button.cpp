@@ -83,22 +83,4 @@ void Button::check()
   if (m_longClick) {
     DEBUG_LOG("Long click");
   }
-
-#if 0
-  // helpful for debugging
-  DEBUG_LOGF("Button Info:\n\tm_buttonState: %d\n\tm_pressTime: %d\n\tm_releaseTime: %d\n\t"
-    "m_holdDuration: %d\n\tm_releaseDuration: %d\n\tm_newPress: %d\n\t"
-    "m_newRelease: %d\n\t" "m_isPressed: %d\n\tm_shortClick: %d\n\t"
-    "m_longClick: %d\n",
-    m_buttonState,
-    m_pressTime,
-    m_releaseTime,
-    m_holdDuration,
-    m_releaseDuration,
-    m_newPress,
-    m_newRelease,
-    m_isPressed,
-    m_shortClick,
-    m_longClick);
-#endif
 }
