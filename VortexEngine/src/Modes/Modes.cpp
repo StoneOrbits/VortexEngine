@@ -351,7 +351,6 @@ Mode *Modes::nextMode()
   }
   // iterate curmode forward 1 till num modes
   m_curMode = (m_curMode + 1) % m_numModes;
-  DEBUG_LOGF("Iterated to Next Mode: %u / %u", m_curMode, m_numModes - 1);
   // clear the LEDs when switching modes
   Leds::clearAll();
   // delete the current mode
@@ -360,6 +359,8 @@ Mode *Modes::nextMode()
   if (!initCurMode()) {
     return nullptr;
   }
+  DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)", 
+    m_curMode, m_numModes - 1, m_pCurMode->getPatternID());
   // return the new current mode
   return m_pCurMode;
 }
