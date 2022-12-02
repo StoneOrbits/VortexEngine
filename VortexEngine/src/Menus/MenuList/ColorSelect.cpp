@@ -150,7 +150,8 @@ void ColorSelect::onLongClick()
   }
   switch (m_state) {
   case STATE_PICK_SLOT:
-    if (g_pButton->holdDuration() >= COLOR_DELETE_TICKS &&
+    if (m_slot < m_colorset.numColors() &&
+        g_pButton->holdDuration() >= COLOR_DELETE_TICKS &&
        (g_pButton->holdDuration() % (COLOR_DELETE_CYCLE_TICKS * 2)) > (COLOR_DELETE_CYCLE_TICKS)) {
       // delete current slot
       m_colorset.removeColor(m_slot);
