@@ -155,12 +155,8 @@ void ColorSelect::onLongClick()
        (g_pButton->holdDuration() % (DELETE_CYCLE_TICKS * 2)) > (DELETE_CYCLE_TICKS)) {
       // delete current slot
       m_colorset.removeColor(m_slot);
-      if (m_slot >= m_colorset.numColors()) {
-        if (m_colorset.numColors() == 0) {
-          m_slot = 0;
-        } else {
-          m_slot--;
-        }
+      if (m_slot > m_colorset.numColors()) {
+        m_slot--;
       }
       m_curSelection = (Finger)(m_slot % PAGE_SIZE);
       m_curPage = m_slot / PAGE_SIZE;
