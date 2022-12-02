@@ -1,6 +1,7 @@
 #include "ColorSelect.h"
 
 #include "../../Time/TimeControl.h"
+#include "../../Time/Timings.h"
 #include "../../Colors/Colorset.h"
 #include "../../Buttons/Button.h"
 #include "../../Modes/Modes.h"
@@ -79,15 +80,19 @@ void ColorSelect::onShortClick()
   if (m_state == STATE_PICK_SLOT) {
     // if the current selection is on the index finger then it's at the
     // end of the current page and we might need to go to the next page
-    if (m_curSelection == FINGER_THUMB) {
-      // even if there is only 4 colors then we need to allow going to the 5th
-      // slot on the next page in order to add a color
-      if (m_colorset.numColors() > 3) {
-        // increase the page number but wrap at max pages which is by default 2
-        m_curPage = (m_curPage + 1) % NUM_PAGES;
-        // clear all leds because we went to the next page
-        Leds::clearAll();
-      }
+    if ((m_curSelection == FINGER_INDEX && (m_curPage == 0 && m_colorset.numColors() > 3))) {
+      // increase the page number to 1
+      m_curPage = (m_curPage + 1) % NUM_PAGES;
+      // skip past the thumb if we're on index
+      m_curSelection = FINGER_THUMB;
+      // clear all leds because we went to the next page
+      Leds::clearAll();
+    } else if (m_curSelection == FINGER_THUMB && (m_curPage == 1 || (m_curPage == 0 && m_colorset.numColors() <= 3))) {
+      m_curPage = 0;
+      // skip past the thumb if we're on index
+      m_curSelection = FINGER_THUMB;
+      // clear all leds because we went to the next page
+      Leds::clearAll();
     }
   }
   // iterate selection forward and wrap after the thumb
@@ -105,7 +110,6 @@ void ColorSelect::onShortClick()
       m_curSelection = FINGER_FIRST;
     }
   }
-
 }
 
 void ColorSelect::onLongClick()
@@ -115,6 +119,7 @@ void ColorSelect::onLongClick()
   if (m_curSelection == FINGER_THUMB) {
     switch (m_state) {
     case STATE_PICK_SLOT:
+    default:
       // need to save if the colorset is not equal
       needsSave = !m_colorset.equals(m_pCurMode->getColorset());
       // save the colorset
@@ -124,28 +129,42 @@ void ColorSelect::onLongClick()
       leaveMenu(needsSave);
       return;
     case STATE_PICK_HUE1:
-      // delete current slot
-      m_colorset.removeColor(m_slot);
-      if (m_slot > 0) {
-        m_slot--;
-      }
-      m_curSelection = FINGER_FIRST;
       m_state = STATE_PICK_SLOT;
+      // reset selection and page based on chosen slot
+      m_curSelection = (Finger)(m_slot % PAGE_SIZE);
+      m_curPage = m_slot / PAGE_SIZE;
       return;
     case STATE_PICK_HUE2:
-    case STATE_PICK_SAT:
-    case STATE_PICK_VAL:
-    default:
-      // bail out without deletion
-      m_state = STATE_PICK_SLOT;
+      m_state = STATE_PICK_HUE1;
       m_curSelection = FINGER_FIRST;
-      m_newColor.clear();
-      m_slot = 0;
+      return;
+    case STATE_PICK_SAT:
+      m_state = STATE_PICK_HUE2;
+      m_curSelection = FINGER_FIRST;
+      return;
+    case STATE_PICK_VAL:
+      m_state = STATE_PICK_SAT;
+      m_curSelection = FINGER_FIRST;
       return;
     }
   }
   switch (m_state) {
   case STATE_PICK_SLOT:
+    if (g_pButton->holdDuration() >= COLOR_DELETE_TICKS &&
+       (g_pButton->holdDuration() % (COLOR_DELETE_CYCLE_TICKS * 2)) > (COLOR_DELETE_CYCLE_TICKS)) {
+      // delete current slot
+      m_colorset.removeColor(m_slot);
+      if (m_slot >= m_colorset.numColors()) {
+        if (m_colorset.numColors() == 0) {
+          m_slot = 0;
+        } else {
+          m_slot--;
+        }
+      }
+      m_curSelection = (Finger)(m_slot % PAGE_SIZE);
+      m_curPage = m_slot / PAGE_SIZE;
+      return;
+    }
     m_state = STATE_PICK_HUE1;
     // the page is only used for slot selection so reset current page
     // for next time they use the color select
@@ -179,7 +198,12 @@ void ColorSelect::onLongClick()
     m_state = STATE_PICK_SLOT;
     // reset the color
     m_newColor.clear();
-    break;
+    // go back to the slot we just added
+    m_curSelection = (Finger)(m_slot % PAGE_SIZE);
+    m_curPage = m_slot / PAGE_SIZE;
+
+    // return instead of break so the cur selection isn't reset
+    return;
   }
   // reset selection after choosing anything
   m_curSelection = FINGER_FIRST;
@@ -235,9 +259,16 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       // clear the finger so it turns off, then blink this slot green
       // to indicate we can add a color here
       Leds::clearFinger(m_curSelection);
-      Leds::blinkFinger(m_curSelection, 150, 350,
+      Leds::blinkFinger(m_curSelection, Time::getCurtime(), 150, 350,
         g_pButton->isPressed() ? RGB_WHITE : RGB_DIM_WHITE);
       return;
+    } else if (m_slot < m_colorset.numColors() && g_pButton->isPressed() && g_pButton->holdDuration() >= COLOR_DELETE_TICKS) {
+      // if we're pressing down on a slot then glow the tip white/red
+      if ((g_pButton->holdDuration() % (COLOR_DELETE_CYCLE_TICKS * 2)) > COLOR_DELETE_CYCLE_TICKS) {
+        // breath red instead of white blink
+        Leds::breathIndex(fingerTip(m_curSelection), 0, g_pButton->holdDuration());
+        return;
+      }
     }
   }
   // otherwise run the default blink logic

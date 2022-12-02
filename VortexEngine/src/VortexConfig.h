@@ -46,6 +46,18 @@
 // it will be registered as a 'long click'
 #define CLICK_THRESHOLD       250
 
+// Color delete threshold (in milliseconds)
+//
+// How long you must hold down on a color in the color select menu to
+// trigger the delete option to start flashing on the tip
+#define COL_DELETE_THRESHOLD  2000
+
+// Color delete cycle time (in milliseconds)
+//
+// How long the color delete light takes to cycle on/off when holding
+// down the button on a color in the color select menu
+#define COL_DELETE_CYCLE      2000
+
 // Max Color Slots
 //
 // The max number of colors in a colorset, this was never tested with

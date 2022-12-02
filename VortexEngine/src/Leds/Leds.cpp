@@ -1,5 +1,6 @@
 #include <FastLED.h>
 #include <Adafruit_DotStar.h>
+#include <math.h>
 
 #include "LedStash.h"
 #include "Leds.h"
@@ -183,39 +184,44 @@ void Leds::adjustBrightnessAll(uint8_t fadeBy)
   adjustBrightnessRange(LED_FIRST, LED_LAST, fadeBy);
 }
 
-void Leds::blinkIndex(LedPos target, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkIndex(LedPos target, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     setIndex(target, col);
   }
 }
 
-void Leds::blinkRange(LedPos first, LedPos last, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkRange(LedPos first, LedPos last, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     setRange(first, last, col);
   }
 }
 
-void Leds::blinkAll(int32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkAll(uint32_t time, int32_t offMs, uint32_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     setRange(LED_FIRST, LED_LAST, col);
   }
 }
 
-void Leds::blinkFinger(Finger finger, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkFinger(Finger finger, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     setRange(fingerTip(finger), fingerTop(finger), col);
   }
 }
 
-void Leds::blinkFingers(Finger first, Finger last, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkFingers(Finger first, Finger last, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     setRange(fingerTip(first), fingerTop(last), col);
   }
+}
+
+void Leds::breathIndex(LedPos target, uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+{
+  setIndex(target, HSVColor((uint8_t)hue + ((sin(variance * 0.0174533) + 1) * magnitude), sat, val));
 }
 
 void Leds::update()

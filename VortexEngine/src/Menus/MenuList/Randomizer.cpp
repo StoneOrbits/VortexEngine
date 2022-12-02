@@ -111,7 +111,12 @@ bool Randomizer::reRoll()
     break;
   }
   // create a random pattern ID from all patterns
-  PatternID randomPattern = (PatternID)random(PATTERN_FIRST, PATTERN_COUNT);
+  PatternID randomPattern;
+  do {
+    // continuously re-randomize the pattern so we don't get solids
+    randomPattern = (PatternID)random(PATTERN_FIRST, PATTERN_COUNT);
+  } while (randomPattern >= PATTERN_SOLID0 && randomPattern <= PATTERN_SOLID2);
+
   if (!m_pRandomizedMode) {
     if (!m_pCurMode) {
       return false;
