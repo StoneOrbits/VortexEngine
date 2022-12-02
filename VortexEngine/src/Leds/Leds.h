@@ -79,12 +79,12 @@ public:
   // However since these APIs modulate current time to check if within the 'on'
   // threshold that makes them unsuitable for internal pattern usage because it
   // is unpredictable whether they will blink on or off first
-  static void blinkIndex(LedPos target, uint32_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkRange(LedPos first, LedPos last, uint32_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkAll(uint32_t time, int32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkIndex(LedPos target, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkRange(LedPos first, LedPos last, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkAll(uint64_t time, int32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   // Blink both LEDs on a finger
-  static void blinkFinger(Finger finger, uint32_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkFingers(Finger first, Finger last, uint32_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkFinger(Finger finger, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkFingers(Finger first, Finger last, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
 
   // breath the hue on an index
   // warning: uses hsv to rgb in realtime!

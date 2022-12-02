@@ -257,8 +257,8 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
   if (m_state == STATE_PICK_SLOT) {
     // and the current selected slot is the end slot, except for when we're on the thumb
     if (m_slot == m_colorset.numColors() && m_curSelection != FINGER_THUMB) {
-      // clear the finger so it turns off, then blink this slot green
-      // to indicate we can add a color here
+      // clear the finger so it turns off, then blink this slot to either
+      // white or dim white to indicate we can add a color here
       Leds::clearFinger(m_curSelection);
       Leds::blinkFinger(m_curSelection, Time::getCurtime(), 150, 350,
         g_pButton->isPressed() ? RGB_WHITE : RGB_DIM_WHITE);

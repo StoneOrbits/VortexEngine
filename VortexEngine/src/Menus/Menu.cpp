@@ -71,7 +71,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
     blinkCol = RGB_WHITE;
   }
   // if pressed we blink based on how long we pressed
-  uint32_t blinkTime = g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime();
+  uint64_t blinkTime = g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime();
   // thumb should always be off unless it's blinking to red
   Leds::clearFinger(FINGER_THUMB);
   switch (m_curSelection) {
