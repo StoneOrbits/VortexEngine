@@ -189,10 +189,12 @@ void ColorSelect::showSlotSelection()
 {
   // the index of the first color to show changes based on the page
   // will be either 0 or 4 for the two page color select
-  uint32_t colIndex = (m_curPage * PAGE_SIZE);
+  uint32_t idx = (m_curPage * PAGE_SIZE);
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // set the current colorset slot color on the current finger
-    Leds::setFinger(f, m_colorset[colIndex++]);
+    // display the extra slots as solid blank
+    Leds::setFinger(f, (idx >= m_colorset.numColors()) ? RGB_BLANK : m_colorset[idx]);
+    idx++;
   }
 }
 
