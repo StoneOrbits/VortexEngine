@@ -72,7 +72,8 @@ void PatternSelect::showListSelection()
   // TODO: how to lists?
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // hue split into 4 quadrants of 90
-    Leds::setFinger(f, HSVColor(f * (255/4), 255, 255));
+    Leds::setIndex(fingerTop(f), HSVColor(f * (255/4), 255, 255));
+    Leds::setIndex(fingerTip(f), RGB_WHITE);
   }
 }
 
@@ -111,6 +112,10 @@ void PatternSelect::onLongClick()
   bool needsSave = false;
   switch (m_state) {
   case STATE_PICK_LIST:
+    if (m_curSelection == FINGER_THUMB) {
+      leaveMenu();
+      return;
+    }
     m_state = STATE_PICK_PATTERN;
     // start the new pattern ID selection based on the chosen list
     m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));

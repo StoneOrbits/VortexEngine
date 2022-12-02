@@ -26,9 +26,6 @@ private:
   void showSatSelection();
   void showValSelection();
 
-  // Generate hue/sat/val values based on selection rules
-  uint32_t genValue(uint32_t start, uint32_t divisions, uint32_t amount);
-
   // overridden blink logic for the colorselect menu (Controls how m_curSelection blinks)
   void blinkSelection(uint32_t offMs = 350, uint32_t onMs = 500) override;
 
