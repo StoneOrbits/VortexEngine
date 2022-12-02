@@ -52,6 +52,10 @@ void GlobalBrightness::onShortClick()
 
 void GlobalBrightness::onLongClick()
 {
+  if (m_curSelection == FINGER_THUMB) {
+    // no save exit
+    leaveMenu();
+  }
   // need to save if the new brightness is different
   bool needsSave = (Leds::getBrightness() != m_brightnessOptions[m_curSelection]);
   // set the global brightness

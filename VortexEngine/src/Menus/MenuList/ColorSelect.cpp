@@ -117,6 +117,8 @@ void ColorSelect::onLongClick()
   bool needsSave = false;
   // if we're exiting a menu
   if (m_curSelection == FINGER_THUMB) {
+    // leaving a menu, clear everything
+    Leds::clearAll();
     switch (m_state) {
     case STATE_PICK_SLOT:
     default:

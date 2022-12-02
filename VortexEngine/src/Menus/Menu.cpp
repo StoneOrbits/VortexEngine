@@ -70,28 +70,36 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
     // blink green if long pressing on a selection
     blinkCol = RGB_WHITE;
   }
-  // if pressed we blink based on how long we pressed
-  uint64_t blinkTime = g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime();
   // thumb should always be off unless it's blinking to red
   Leds::clearFinger(FINGER_THUMB);
   switch (m_curSelection) {
   case FINGER_THUMB:
-    // exit on thumb blink off/red
-    Leds::blinkIndex(fingerTop(FINGER_THUMB), blinkTime, 250, 500, RGB_RED);
-    Leds::blinkIndex(fingerTip(FINGER_THUMB), blinkTime, 250, 500, RGB_BLANK);
+    // exit thumb breathes red on the tip and is either blank or red on the top
+    // depending on whether you've held for the short click threshold or not
+    Leds::breathIndex(fingerTip(FINGER_THUMB), 250, (uint32_t)(Time::getCurtime() / 2), 10);
+    if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
+      Leds::setIndex(fingerTop(FINGER_THUMB), RGB_RED);
+    } else {
+      Leds::setIndex(fingerTop(FINGER_THUMB), RGB_BLANK);
+    }
     break;
   case FINGER_COUNT:
     // special selection clause 'select all'
     Leds::clearAll();
-    Leds::blinkAll(blinkTime, offMs, onMs, blinkCol);
+    Leds::blinkAll(Time::getCurtime(), offMs, onMs, blinkCol);
     break;
   default:
     // otherwise just blink the selected finger to off from whatever
     // color or pattern it's currently displaying
     if (blinkCol == RGB_OFF && Leds::getLed(fingerTip(m_curSelection)).empty()) {
+      // if the blink color is 'off' and the led is a blank then we
+      // need to blink to a different color
       blinkCol = RGB_BLANK;
     }
-    Leds::blinkFinger(m_curSelection, blinkTime, offMs, onMs, blinkCol);
+    // blink the target finger to the target color
+    Leds::blinkFinger(m_curSelection,
+                      g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime(),
+                      offMs, onMs, blinkCol);
     break;
   }
 }
