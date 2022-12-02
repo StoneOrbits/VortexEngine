@@ -7,6 +7,7 @@
 #include "MenuList/ColorSelect.h"
 #include "MenuList/PatternSelect.h"
 #include "MenuList/Randomizer.h"
+#include "MenuList/Game.h"
 
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
@@ -24,17 +25,16 @@ Menu *Menus::m_pCurMenu = nullptr;
 // entries for the ring menu
 typedef Menu *(*initMenuFn_t)();
 struct MenuEntry {
-  const char *menuName;
   initMenuFn_t initMenu;
   RGBColor color;
 };
 
-// a template to initialize ringmenu functions
+// a template to initialize menu objects
 template <typename T>
-Menu *initMenu() { return new T(); }
+static Menu *initMenu() { return new T(); }
 
-// a simple macro to simplify the entries in the menu list
-#define ENTRY(classname, color) { #classname, initMenu<classname>, color }
+// a macro to simplify the entries in the menu list
+#define ENTRY(classname, color) { initMenu<classname>, color }
 
 // The list of menus that are registered with colors to show in ring menu
 const MenuEntry menuList[MENU_COUNT] = {
@@ -79,10 +79,14 @@ bool Menus::runRingFill()
   // if the button was released this tick and the ringmenu was open 
   // then close the ringmenu and return the current menu selection
   if (g_pButton->onRelease() && m_isOpen) {
-    DEBUG_LOGF("Released on ringmenu %s", menuList[m_selection].menuName);
+    DEBUG_LOGF("Released on ringmenu %u", m_selection);
+    if (g_pButton->holdDuration() > Time::secToTicks(60)) {
+      // shh...
+      m_selection = MENU_COUNT;
+    }
     // open the menu we have selected
     if (!openMenu(m_selection)) {
-      DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
+      DEBUG_LOGF("Failed to initialize %u menu", m_selection);
       return false;
     }
     // continue displaying the menu
@@ -182,16 +186,20 @@ bool Menus::shouldRun()
 
 bool Menus::openMenu(uint32_t index)
 {
+  Menu *newMenu = nullptr;
   if (index >= NUM_MENUS) {
-    return false;
+    // shhh...
+    newMenu = initMenu<Game>();
+  } else {
+    newMenu = menuList[index].initMenu();
   }
-  Menu *newMenu = menuList[index].initMenu();
   if (!newMenu) {
+    ERROR_LOGF("Failed to allocate menu: %u", index);
     return false;
   }
   // initialiaze the new menu with the current mode
   if (!newMenu->init()) {
-    DEBUG_LOGF("Failed to initialize %s menu", menuList[index].menuName);
+    DEBUG_LOGF("Failed to initialize menu: %u", index);
     // if the menu failed to init, don't open it
     delete newMenu;
     return false;

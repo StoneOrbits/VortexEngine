@@ -53,7 +53,7 @@ void GlobalBrightness::onShortClick()
 void GlobalBrightness::onLongClick()
 {
   // need to save if the new brightness is different
-  bool needsSave = (Leds::getBrightness() == m_brightnessOptions[m_curSelection]);
+  bool needsSave = (Leds::getBrightness() != m_brightnessOptions[m_curSelection]);
   // set the global brightness
   Leds::setBrightness(m_brightnessOptions[m_curSelection]);
   // done here, save settings with new brightness

@@ -33,7 +33,7 @@ bool FactoryReset::run()
 
   // set all to dim red, or brighter if confirming
   Leds::setAll(HSVColor(HUE_RED, 255, 50 + 100 * m_confirm));
-  Leds::blinkAll(m_confirm ? 100 : 500);
+  //Leds::blinkAll(m_confirm ? 100 : 500);
 
   // continue
   return true;

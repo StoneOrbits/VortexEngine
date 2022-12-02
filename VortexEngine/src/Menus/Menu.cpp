@@ -16,6 +16,7 @@ Menu::Menu() :
 
 Menu::~Menu()
 {
+
 }
 
 bool Menu::init()
@@ -40,6 +41,11 @@ bool Menu::run()
     // reset this boolean
     m_shouldClose = false;
     // yep close
+    return false;
+  }
+  // render all the options
+  if (!showOptions()) {
+    // stop running menu?
     return false;
   }
   // continue as normal
@@ -75,17 +81,40 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
   switch (m_curSelection) {
   case FINGER_THUMB:
     // exit on thumb blink off/red
-    Leds::blinkFinger(FINGER_THUMB, 250, 500, RGB_RED);
+    //Leds::blinkFinger(FINGER_THUMB, 250, 500, RGB_RED);
     break;
   case FINGER_COUNT:
     // special selection clause 'select all'
     Leds::clearAll();
-    Leds::blinkAll(offMs, onMs, blinkCol);
+    //Leds::blinkAll(offMs, onMs, blinkCol);
     break;
   default:
     // otherwise just blink the selected finger to off from whatever
     // color or pattern it's currently displaying
-    Leds::blinkFinger(m_curSelection, offMs, onMs, blinkCol);
+    //Leds::blinkFinger(m_curSelection, offMs, onMs, blinkCol);
     break;
+  }
+}
+
+bool Menu::showOptions() const
+{
+  OptionIndex idx = OptionIndex::MENU_OPTION_1;
+  while (idx < OptionIndex::MENU_OPTION_COUNT) {
+    Leds::setIndex(fingerTip((Finger)idx), RGB_WHITE);
+    Leds::setIndex(fingerTop((Finger)idx), m_options[idx].color);
+    idx = (OptionIndex)(idx + 1);
+  }
+  return true;
+}
+
+void Menu::setOption(RGBColor col)
+{
+  m_options[option].color = col;
+}
+
+void Menu::setOptions(uint32_t numOptions, const RGBColor *cols)
+{
+  for (uint32_t opt = 0; opt < numOptions; ++opt) {
+    addOption(cols[opt]);
   }
 }

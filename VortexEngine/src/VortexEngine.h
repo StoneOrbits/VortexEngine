@@ -9,6 +9,10 @@
  *   - eliminate library code to reduce size
  *   - palm light?
  *   - Code documentation (DOXYGEN???)
+ *   - Color select ring menu color orange is off
+ *   - in color select:
+ *      - when no colors left thumb stays red pinkie blinks green
+ *      - enhance deletion by blinking tip red/white when selecting color
  */
 
 #include "VortexConfig.h"

@@ -8,6 +8,8 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
+#include <math.h>
+
 // the number of slots in a page
 #define PAGE_SIZE 4
 // the number of pages
@@ -137,6 +139,8 @@ void ColorSelect::onLongClick()
       // bail out without deletion
       m_state = STATE_PICK_SLOT;
       m_curSelection = FINGER_FIRST;
+      m_newColor.clear();
+      m_slot = 0;
       return;
     }
   }
@@ -181,6 +185,8 @@ void ColorSelect::onLongClick()
   m_curSelection = FINGER_FIRST;
 }
 
+#define PI 3.14159265
+
 void ColorSelect::showSlotSelection()
 {
   // the index of the first color to show changes based on the page
@@ -188,7 +194,8 @@ void ColorSelect::showSlotSelection()
   uint32_t colIndex = (m_curPage * PAGE_SIZE);
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // set the current colorset slot color on the current finger
-    Leds::setFinger(f, m_colorset[colIndex++]);
+    Leds::setFinger(f, m_colorset[colIndex].empty() ? RGB_BLANK : m_colorset[colIndex]);
+    colIndex++;
   }
 }
 
@@ -211,7 +218,6 @@ void ColorSelect::showHueSelection2()
 void ColorSelect::showSatSelection()
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
-    // generate saturate on current hue from current finger
     Leds::setFinger(f, HSVColor(m_newColor.hue, sats[f], 255));
   }
 }
@@ -219,15 +225,8 @@ void ColorSelect::showSatSelection()
 void ColorSelect::showValSelection()
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
-    // generate saturate on current hue from current finger
-    Leds::setFinger(f, HSVColor(m_newColor.hue, m_newColor.sat, vals[f]));
+    Leds::setFinger(f, vals[f] ? HSVColor(m_newColor.hue, m_newColor.sat, vals[f]) : RGB_BLANK);
   }
-}
-
-uint32_t ColorSelect::genValue(uint32_t start, uint32_t divisions, uint32_t amount)
-{
-  // make a value between 0-255 with even divisions of 255 starting from an offset
-  return start + (amount * (255 / divisions));
 }
 
 void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
@@ -239,7 +238,7 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       // clear the finger so it turns off, then blink this slot green
       // to indicate we can add a color here
       Leds::clearFinger(m_curSelection);
-      Leds::blinkFinger(m_curSelection, 150, 350, RGB_GREEN);
+      //Leds::blinkFinger(m_curSelection, 150, 350, RGB_GREEN);
       return;
     }
   }
