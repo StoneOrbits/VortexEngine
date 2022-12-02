@@ -87,7 +87,7 @@ public:
   static void blinkFingers(Finger first, Finger last, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
 
   // get the RGBColor of an Led index
-  static RGBColor getLed(int index) { return m_ledColors[index]; }
+  static RGBColor getLed(int index) { return m_ledColors[LED_LAST - index]; }
 
   // global brightness
   static uint32_t getBrightness() { return m_brightness; }

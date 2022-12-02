@@ -85,6 +85,8 @@ void ColorSelect::onShortClick()
       if (m_colorset.numColors() > 3) {
         // increase the page number but wrap at max pages which is by default 2
         m_curPage = (m_curPage + 1) % NUM_PAGES;
+        // clear all leds because we went to the next page
+        Leds::clearAll();
       }
     }
   }
@@ -190,8 +192,7 @@ void ColorSelect::showSlotSelection()
   uint32_t colIndex = (m_curPage * PAGE_SIZE);
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // set the current colorset slot color on the current finger
-    Leds::setFinger(f, m_colorset[colIndex].empty() ? RGB_BLANK : m_colorset[colIndex]);
-    colIndex++;
+    Leds::setFinger(f, m_colorset[colIndex++]);
   }
 }
 
@@ -219,7 +220,7 @@ void ColorSelect::showSatSelection()
 void ColorSelect::showValSelection()
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
-    Leds::setFinger(f, vals[f] ? HSVColor(m_newColor.hue, m_newColor.sat, vals[f]) : RGB_BLANK);
+    Leds::setFinger(f, HSVColor(m_newColor.hue, m_newColor.sat, vals[f]));
   }
 }
 
@@ -232,7 +233,8 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       // clear the finger so it turns off, then blink this slot green
       // to indicate we can add a color here
       Leds::clearFinger(m_curSelection);
-      Leds::blinkFinger(m_curSelection, 150, 350, RGB_GREEN);
+      Leds::blinkFinger(m_curSelection, 150, 350,
+        g_pButton->isPressed() ? RGB_WHITE : RGB_DIM_WHITE);
       return;
     }
   }

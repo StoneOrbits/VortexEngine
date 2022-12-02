@@ -65,7 +65,7 @@ void Menu::leaveMenu(bool doSave)
 
 void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
 {
-  RGBColor blinkCol = RGB_OFF;
+  uint32_t blinkCol = RGB_OFF;
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     // blink green if long pressing on a selection
     blinkCol = RGB_WHITE;
@@ -85,6 +85,9 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
   default:
     // otherwise just blink the selected finger to off from whatever
     // color or pattern it's currently displaying
+    if (blinkCol == RGB_OFF && Leds::getLed(fingerTip(m_curSelection)).empty()) {
+      blinkCol = RGB_BLANK;
+    }
     Leds::blinkFinger(m_curSelection, offMs, onMs, blinkCol);
     break;
   }
