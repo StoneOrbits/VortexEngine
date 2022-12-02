@@ -151,8 +151,8 @@ void ColorSelect::onLongClick()
   switch (m_state) {
   case STATE_PICK_SLOT:
     if (m_slot < m_colorset.numColors() &&
-        g_pButton->holdDuration() >= COLOR_DELETE_TICKS &&
-       (g_pButton->holdDuration() % (COLOR_DELETE_CYCLE_TICKS * 2)) > (COLOR_DELETE_CYCLE_TICKS)) {
+        g_pButton->holdDuration() >= DELETE_THRESHOLD_TICKS &&
+       (g_pButton->holdDuration() % (DELETE_CYCLE_TICKS * 2)) > (DELETE_CYCLE_TICKS)) {
       // delete current slot
       m_colorset.removeColor(m_slot);
       if (m_slot >= m_colorset.numColors()) {
@@ -263,9 +263,11 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       Leds::blinkFinger(m_curSelection, Time::getCurtime(), 150, 350,
         g_pButton->isPressed() ? RGB_WHITE : RGB_DIM_WHITE);
       return;
-    } else if (m_slot < m_colorset.numColors() && g_pButton->isPressed() && g_pButton->holdDuration() >= COLOR_DELETE_TICKS) {
+    } else if (m_slot < m_colorset.numColors() &&
+               g_pButton->isPressed() &&
+               g_pButton->holdDuration() >= DELETE_THRESHOLD_TICKS) {
       // if we're pressing down on a slot then glow the tip white/red
-      if ((g_pButton->holdDuration() % (COLOR_DELETE_CYCLE_TICKS * 2)) > COLOR_DELETE_CYCLE_TICKS) {
+      if ((g_pButton->holdDuration() % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS) {
         // breath red instead of white blink
         Leds::breathIndex(fingerTip(m_curSelection), 0, g_pButton->holdDuration());
         return;

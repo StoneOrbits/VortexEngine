@@ -13,9 +13,9 @@
 #define SHORT_CLICK_THRESHOLD_TICKS   Time::msToTicks(CLICK_THRESHOLD)
 
 // Color delete threshold (in milliseconds)
-#define COLOR_DELETE_TICKS            Time::msToTicks(COL_DELETE_THRESHOLD)
+#define DELETE_THRESHOLD_TICKS        Time::msToTicks(COL_DELETE_THRESHOLD)
 // Color delete cycle time (in milliseconds)
-#define COLOR_DELETE_CYCLE_TICKS      Time::msToTicks(COL_DELETE_CYCLE)
+#define DELETE_CYCLE_TICKS            Time::msToTicks(COL_DELETE_CYCLE)
 
 // Strobe Timings
 //
