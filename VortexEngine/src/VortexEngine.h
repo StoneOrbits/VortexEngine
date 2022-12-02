@@ -9,6 +9,7 @@
  *   - eliminate library code to reduce size
  *   - palm light?
  *   - Code documentation (DOXYGEN???)
+ *   - menu 'blink' api is slightly buggy
  */
 
 #include "VortexConfig.h"

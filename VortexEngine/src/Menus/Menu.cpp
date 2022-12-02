@@ -68,7 +68,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
   RGBColor blinkCol = RGB_OFF;
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     // blink green if long pressing on a selection
-    blinkCol = RGBColor(0, 200, 0);
+    blinkCol = RGB_WHITE;
   }
   // thumb should always be off unless it's blinking to red
   Leds::clearFinger(FINGER_THUMB);

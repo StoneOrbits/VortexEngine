@@ -23,15 +23,15 @@
 
 #define RGB_WHITE   0xaaaaaa
 #define RGB_ORANGE  0xff8000    //
-#define RGB_BLUE    0x0000FF    //   0    0 255
+#define RGB_BLUE    0x0000FF    //   0   0 255
 #define RGB_YELLOW  0xFFFF00    //
-#define RGB_RED     0xFF0000    //   0  255 110
-#define RGB_GREEN   0x00FF00    //  85  255 110
-#define RGB_CYAN    0x00FFFF    //   0  255 255
+#define RGB_RED     0xFF0000    //   0 255 110
+#define RGB_GREEN   0x00FF00    //  85 255 110
+#define RGB_CYAN    0x00FFFF    //   0 255 255
 #define RGB_TEAL    0x00FF80    //
 #define RGB_PURPLE  0x9933FF    //
-#define RGB_BLANK   0x404040    //
-#define RGB_OFF     0x000000    //   0    0   0
+#define RGB_BLANK   0x101010    //  16  16  16
+#define RGB_OFF     0x000000    //   0   0   0
 
 // Some Pre-defined hue values
 // TODO: remove HSV_ underscore once FastLED is gone
