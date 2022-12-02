@@ -2,6 +2,7 @@
 
 #include "../../Patterns/PatternBuilder.h"
 #include "../../Patterns/Pattern.h"
+#include "../../Time/TimeControl.h"
 #include "../../Modes/ModeBuilder.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
@@ -72,7 +73,7 @@ void PatternSelect::showListSelection()
   // TODO: how to lists?
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // hue split into 4 quadrants of 90
-    Leds::setIndex(fingerTop(f), HSVColor(f * (255/4), 255, 255));
+    Leds::breathIndex(fingerTop(f), f * (255/4), Time::getCurtime() / 3, 10, 255, 255);
     Leds::setIndex(fingerTip(f), RGB_WHITE);
   }
 }
