@@ -74,7 +74,7 @@ void FactoryReset::showReset()
     Leds::setRange(LED_FIRST, INDEX_TOP, RGB_BLANK);
     uint32_t duration = (g_pButton->holdDuration() * INDEX_TOP) / FACTORY_RESET_THRESHOLD_TICKS;
     if (duration <= INDEX_TOP) {
-      int8_t hue = 24 - (4 * duration);
+      int8_t hue = 20 - (4 * duration);
       if (hue < 0) {
         hue = 0;
       }
