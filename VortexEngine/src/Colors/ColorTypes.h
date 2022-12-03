@@ -23,7 +23,7 @@
 
 #define RGB_WHITE       0xaaaaaa    // 170 170 170
 #define RGB_DIM_WHITE   0x787878    // 120 120 120
-#define RGB_ORANGE      0xff8000    //
+#define RGB_ORANGE      0x832300
 #define RGB_BLUE        0x0000FF    //   0   0 255
 #define RGB_YELLOW      0xFFFF00    //
 #define RGB_RED         0xFF0000    //   0 255 110
