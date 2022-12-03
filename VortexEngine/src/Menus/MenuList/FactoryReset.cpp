@@ -57,3 +57,8 @@ void FactoryReset::onLongClick()
   // done here, save settings if we chose to factory reset
   leaveMenu(m_confirm);
 }
+
+// override showExit so it isn't displayed on thumb
+void FactoryReset::showExit()
+{
+}

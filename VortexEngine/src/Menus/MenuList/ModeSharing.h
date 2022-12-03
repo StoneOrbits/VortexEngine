@@ -23,6 +23,9 @@ private:
   void showSendMode();
   void showReceiveMode();
 
+  // override showExit so it isn't displayed on thumb
+  virtual void showExit() override;
+
   enum class ModeShareState {
     SHARE_SEND,     // send mode
     SHARE_RECEIVE,  // receive mode

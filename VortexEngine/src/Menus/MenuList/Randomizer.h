@@ -20,6 +20,9 @@ public:
   void onLongClick();
 
 private:
+  // override showExit so it isn't displayed on thumb
+  virtual void showExit() override;
+
   // a pointer to a randomized mode
   Mode *m_pRandomizedMode;
 
