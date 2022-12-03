@@ -66,19 +66,21 @@ void FactoryReset::onLongClick()
 
 void FactoryReset::showReset()
 {
-  Leds::clearRange(LED_FIRST, INDEX_TOP);
-  if (m_curSelection != FINGER_COUNT) {
+  if (m_curSelection == FINGER_THUMB) {
+    Leds::setRange(LED_FIRST, INDEX_TOP, RGB_BLANK);
     return;
   }
   if (g_pButton->isPressed()) {
+    Leds::setRange(LED_FIRST, INDEX_TOP, RGB_BLANK);
     uint32_t duration = (g_pButton->holdDuration() * INDEX_TOP) / FACTORY_RESET_THRESHOLD_TICKS;
     if (duration <= INDEX_TOP) {
       Leds::blinkRange(LED_FIRST, (LedPos)(INDEX_TOP - duration), Time::getCurtime(), 
-        150 - (12 * duration), 200 - (10 * duration), HSVColor(HUE_YELLOW - (10 * duration), 255, 255));
+        150 - (12 * duration), 200 - (10 * duration), HSVColor(HUE_YELLOW - (8 * duration), 255, 255));
     } else {
       Leds::blinkRange(LED_FIRST, INDEX_TOP, Time::getCurtime(), 80, 60, RGB_WHITE);
     }
   } else {
+    Leds::clearRange(LED_FIRST, INDEX_TOP);
     Leds::blinkRange(LED_FIRST, INDEX_TOP, Time::getCurtime(), 250, 150, RGB_BLANK);
   }
 }
