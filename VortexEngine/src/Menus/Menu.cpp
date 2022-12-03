@@ -76,11 +76,12 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
   case FINGER_THUMB:
     // exit thumb breathes red on the tip and is either blank or red on the top
     // depending on whether you've held for the short click threshold or not
-    Leds::breathIndex(fingerTip(FINGER_THUMB), 250, (uint32_t)(Time::getCurtime() / 2), 10);
+    Leds::breathIndex(THUMB_TIP, 250, (uint32_t)(Time::getCurtime() / 2), 10, 255, 180);
     if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
-      Leds::setIndex(fingerTop(FINGER_THUMB), RGB_RED);
+      Leds::setIndex(THUMB_TOP, RGB_RED);
     } else {
-      Leds::setIndex(fingerTop(FINGER_THUMB), RGB_BLANK);
+      Leds::clearIndex(THUMB_TOP);
+      Leds::blinkIndex(THUMB_TOP, Time::getCurtime(), 250, 500, RGB_BLANK);
     }
     break;
   case FINGER_COUNT:
