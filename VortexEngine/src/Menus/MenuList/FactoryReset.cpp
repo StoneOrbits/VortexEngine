@@ -75,7 +75,7 @@ void FactoryReset::showReset()
     uint32_t duration = (g_pButton->holdDuration() * INDEX_TOP) / FACTORY_RESET_THRESHOLD_TICKS;
     if (duration <= INDEX_TOP) {
       Leds::blinkRange(LED_FIRST, (LedPos)(INDEX_TOP - duration), Time::getCurtime(), 
-        150 - (12 * duration), 200 - (10 * duration), HSVColor(HUE_YELLOW - (8 * duration), 255, 255));
+        150 - (12 * duration), 200 - (10 * duration), HSVColor(HUE_ORANGE - (5 * duration), 255, 255));
     } else {
       Leds::blinkRange(LED_FIRST, INDEX_TOP, Time::getCurtime(), 80, 60, RGB_WHITE);
     }
