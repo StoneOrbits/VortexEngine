@@ -42,6 +42,8 @@ bool Menu::run()
     // yep close
     return false;
   }
+  // show the exit on thumb
+  showExit();
   // continue as normal
   return true;
 }
@@ -70,8 +72,6 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
     // blink green if long pressing on a selection
     blinkCol = RGB_WHITE;
   }
-  // thumb should always be off unless it's blinking to red
-  Leds::clearFinger(FINGER_THUMB);
   switch (m_curSelection) {
   case FINGER_THUMB:
     // exit thumb breathes red on the tip and is either blank or red on the top
@@ -97,9 +97,15 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
       blinkCol = RGB_BLANK;
     }
     // blink the target finger to the target color
-    Leds::blinkFinger(m_curSelection,
+    Leds::blinkIndex(fingerTip(m_curSelection),
                       g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime(),
                       offMs, onMs, blinkCol);
     break;
   }
+}
+
+void Menu::showExit()
+{
+  Leds::setIndex(THUMB_TIP, RGB_DARK_RED);
+  Leds::setIndex(THUMB_TOP, RGB_BLANK);
 }

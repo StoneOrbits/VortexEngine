@@ -32,6 +32,9 @@ protected:
   // blink the selected finger
   virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
 
+  // draw the exit on thumb
+  virtual void showExit();
+
   // the current mode that was selected
   Mode *m_pCurMode;
 
