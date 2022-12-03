@@ -1,13 +1,14 @@
 #include "FactoryReset.h"
 
 #include "../../Time/TimeControl.h"
+#include "../../Time/Timings.h"
+#include "../../Buttons/Button.h"
 #include "../../Modes/Modes.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
 FactoryReset::FactoryReset() :
-  Menu(),
-  m_confirm(false)
+  Menu()
 {
 }
 
@@ -16,10 +17,8 @@ bool FactoryReset::init()
   if (!Menu::init()) {
     return false;
   }
-  // reset this just in case
-  m_confirm = false;
-  // factory reset blinks all lights
-  m_curSelection = FINGER_COUNT;
+  // start on exit by default
+  m_curSelection = FINGER_THUMB;
   DEBUG_LOG("Entered factory reset");
   return true;
 }
@@ -31,9 +30,11 @@ bool FactoryReset::run()
     return false;
   }
 
-  // set all to dim red, or brighter if confirming
-  Leds::setAll(HSVColor(HUE_RED, 255, 50 + 100 * m_confirm));
-  Leds::blinkAll(Time::getCurtime(), m_confirm ? 100 : 500);
+  // show the reset menu
+  showReset();
+
+  // blink the selection
+  blinkSelection();
 
   // continue
   return true;
@@ -41,24 +42,43 @@ bool FactoryReset::run()
 
 void FactoryReset::onShortClick()
 {
-  m_confirm = !m_confirm;
-  DEBUG_LOGF("Factory reset confirm = %s", m_confirm ? "Yes" : "No");
+  if (m_curSelection == FINGER_THUMB) {
+    m_curSelection = FINGER_COUNT;
+  } else {
+    m_curSelection = FINGER_THUMB;
+  }
 }
 
 void FactoryReset::onLongClick()
 {
-  if (m_confirm) {
-    // perform the actual reset to default
-    Modes::setDefaults();
-    DEBUG_LOG("Restoring factory settings");
-  } else {
-    DEBUG_LOG("Exiting factory reset");
+  switch (m_curSelection) {
+  case FINGER_THUMB:
+    leaveMenu();
+    return;
+  case FINGER_COUNT:
+    if (g_pButton->holdDuration() > FACTORY_RESET_THRESHOLD_TICKS) {
+      Modes::setDefaults();
+      leaveMenu(true);
+    }
+    break;
   }
-  // done here, save settings if we chose to factory reset
-  leaveMenu(m_confirm);
 }
 
-// override showExit so it isn't displayed on thumb
-void FactoryReset::showExit()
+void FactoryReset::showReset()
 {
+  Leds::clearRange(LED_FIRST, INDEX_TOP);
+  if (m_curSelection != FINGER_COUNT) {
+    return;
+  }
+  if (g_pButton->isPressed()) {
+    uint32_t duration = (g_pButton->holdDuration() * INDEX_TOP) / FACTORY_RESET_THRESHOLD_TICKS;
+    if (duration <= INDEX_TOP) {
+      Leds::blinkRange(LED_FIRST, (LedPos)(INDEX_TOP - duration), Time::getCurtime(), 
+        150 - (12 * duration), 200 - (10 * duration), HSVColor(HUE_YELLOW - (10 * duration), 255, 255));
+    } else {
+      Leds::blinkRange(LED_FIRST, INDEX_TOP, Time::getCurtime(), 80, 60, RGB_WHITE);
+    }
+  } else {
+    Leds::blinkRange(LED_FIRST, INDEX_TOP, Time::getCurtime(), 250, 150, RGB_BLANK);
+  }
 }

@@ -85,9 +85,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
     }
     break;
   case FINGER_COUNT:
-    // special selection clause 'select all'
-    Leds::clearAll();
-    Leds::blinkAll(Time::getCurtime(), offMs, onMs, blinkCol);
+    // special selection clause 'select all' do nothing
     break;
   default:
     // otherwise just blink the selected finger to off from whatever

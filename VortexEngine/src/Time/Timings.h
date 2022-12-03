@@ -17,6 +17,9 @@
 // Color delete cycle time (in milliseconds)
 #define DELETE_CYCLE_TICKS            Time::msToTicks(COL_DELETE_CYCLE)
 
+// Factory reset time
+#define FACTORY_RESET_THRESHOLD_TICKS Time::msToTicks(RESET_HOLD_TIME)
+
 // Strobe Timings
 //
 // Below are timings for all different kinds of standard

@@ -137,16 +137,10 @@ void ColorSelect::onLongClick()
       m_curPage = m_slot / PAGE_SIZE;
       return;
     case STATE_PICK_HUE2:
-      m_state = STATE_PICK_HUE1;
-      m_curSelection = FINGER_FIRST;
-      return;
     case STATE_PICK_SAT:
-      m_state = STATE_PICK_HUE2;
-      m_curSelection = FINGER_FIRST;
-      return;
     case STATE_PICK_VAL:
-      m_state = STATE_PICK_SAT;
-      m_curSelection = FINGER_FIRST;
+      m_state = (ColorSelectState)(m_state - 1);
+      m_curSelection = FINGER_THUMB;
       return;
     }
   }

@@ -58,6 +58,12 @@
 // down the button on a color in the color select menu
 #define COL_DELETE_CYCLE      2000
 
+// Factory Reset Threshold (in milliseconds)
+//
+// This is how long the user must hold down the button on the factory
+// reset menu to confirm the reset and restore factory settings
+#define RESET_HOLD_TIME       8000
+
 // Max Color Slots
 //
 // The max number of colors in a colorset, this was never tested with

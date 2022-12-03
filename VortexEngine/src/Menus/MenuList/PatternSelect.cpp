@@ -72,7 +72,6 @@ bool PatternSelect::run()
 
 void PatternSelect::showListSelection()
 {
-  // TODO: how to lists?
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // hue split into 4 quadrants of 90
     Leds::breathIndex(fingerTop(f), f * (255/4), Time::getCurtime() / 3, 10, 255, 255);

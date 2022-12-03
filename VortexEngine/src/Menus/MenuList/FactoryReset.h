@@ -17,11 +17,8 @@ public:
   void onLongClick();
 
 private:
-  // override showExit so it isn't displayed on thumb
-  virtual void showExit() override;
-
-  // whether to confirm the factory reset
-  bool m_confirm;
+  // show the reset lights
+  void showReset();
 };
 
 #endif
