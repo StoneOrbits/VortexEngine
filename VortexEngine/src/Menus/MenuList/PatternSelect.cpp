@@ -3,7 +3,9 @@
 #include "../../Patterns/PatternBuilder.h"
 #include "../../Patterns/Pattern.h"
 #include "../../Time/TimeControl.h"
+#include "../../Time/Timings.h"
 #include "../../Modes/ModeBuilder.h"
+#include "../../Buttons/Button.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
@@ -83,6 +85,9 @@ void PatternSelect::showPatternSelection()
   if (m_pDemoMode) {
     m_pDemoMode->play();
   }
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
+    Leds::setAll(RGB_DIM_WHITE);
+  }
 }
 
 void PatternSelect::onShortClick()
@@ -139,4 +144,13 @@ void PatternSelect::onLongClick()
   }
   // reset selection after choosing anything
   m_curSelection = FINGER_FIRST;
+}
+
+void PatternSelect::showExit()
+{
+  // don't show the exit when picking pattern
+  if (m_state == STATE_PICK_PATTERN) {
+    return;
+  }
+  Menu::showExit();
 }
