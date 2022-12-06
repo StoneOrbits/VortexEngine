@@ -2,6 +2,7 @@
 
 // menus
 #include "MenuList/GlobalBrightness.h"
+#include "MenuList/EditorConnection.h"
 #include "MenuList/FactoryReset.h"
 #include "MenuList/ModeSharing.h"
 #include "MenuList/ColorSelect.h"
@@ -44,6 +45,7 @@ const MenuEntry menuList[MENU_COUNT] = {
   ENTRY(GlobalBrightness, RGB_YELLOW),  // 3
   ENTRY(FactoryReset,     RGB_RED),     // 4
   ENTRY(ModeSharing,      RGB_TEAL),    // 5
+  ENTRY(EditorConnection, RGB_PURPLE),  // 6
 };
 
 // the number of menus in the above array
@@ -205,10 +207,6 @@ bool Menus::openMenu(uint32_t index)
   m_isOpen = true;
   // clear all the leds
   Leds::clearAll();
-  // check for serial communications when entering and leaving menus because there's 
-  // not much other times to do it and it will take a short delay. If we do it each 
-  // step then it creates a visual effect on the LEDs
-  SerialComs::checkSerial();
   return true;
 }
 
@@ -219,8 +217,4 @@ void Menus::closeCurMenu()
     m_pCurMenu = nullptr;
   }
   m_isOpen = false;
-  // check for serial communications when entering and leaving menus because there's 
-  // not much other times to do it and it will take a short delay. If we do it each 
-  // step then it creates a visual effect on the LEDs
-  SerialComs::checkSerial();
 }

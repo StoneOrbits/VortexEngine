@@ -1,6 +1,7 @@
 #include "ModeSharing.h"
 
 #include "../../Serial/ByteStream.h"
+#include "../../Serial/Serial.h"
 #include "../../Modes/ModeBuilder.h"
 #include "../../Time/TimeControl.h"
 #include "../../Infrared/IRReceiver.h"

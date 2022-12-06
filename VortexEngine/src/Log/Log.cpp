@@ -20,7 +20,7 @@
 #if LOGGING_LEVEL > 0
 void InfoMsg(const char *msg, ...)
 {
-  if (!SerialComs::initialized()) {
+  if (!SerialComs::isConnected()) {
     return;
   }
   va_list list;

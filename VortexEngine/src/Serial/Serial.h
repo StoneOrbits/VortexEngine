@@ -14,14 +14,14 @@ public:
   static void cleanup();
 
   // check for any serial connection or messages
-  static void checkSerial();
+  static bool checkSerial();
 
   // whether serial is initialized
-  static bool initialized() { return m_serial_init; }
+  static bool isConnected();
 
 private:
   // whether serial communications are initialized
-  static bool m_serial_init;
+  static bool m_serialConnected;
 };
 
 #endif
