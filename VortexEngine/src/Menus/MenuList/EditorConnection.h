@@ -18,12 +18,22 @@ public:
 
 private:
   void showEditor();
+  void receiveMessage();
 
   // override showExit so it isn't displayed on thumb
   virtual void showExit() override;
 
-  // whether actively connected to the editor
-  bool m_connected;
+  enum EditorConnectionState {
+    STATE_DISCONNECTED,
+
+    STATE_HELLO,
+    STATE_HELLO_RECEIVE,
+
+    STATE_IDLE,
+  };
+
+  // state of the editor
+  EditorConnectionState m_state;
 };
 
 #endif

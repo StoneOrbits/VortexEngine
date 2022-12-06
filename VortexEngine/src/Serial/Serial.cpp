@@ -1,11 +1,13 @@
 #include "Serial.h"
 
+#include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Log/Log.h"
 
 #include "../VortexEngine.h"
 
 #include <Arduino.h>
+#include <stdio.h>
 
 bool SerialComs::m_serialConnected = false;
 
@@ -26,28 +28,54 @@ void SerialComs::cleanup()
 {
 }
 
-// check for any serial connection or messages
-bool SerialComs::checkSerial()
-{
-  if (m_serialConnected) {
-    return false;
-  }
-  if (!Serial) {
-    return false;
-  }
-  m_serialConnected = true;
-  // Setup serial communications
-  Serial.begin(9600);
-  INFO_LOG("== Vortex Framework v" VORTEX_VERSION " (built " __TIMESTAMP__ ") ==");
-  return true;
-}
-
 bool SerialComs::isConnected()
 {
-  //if (!m_serialConnected) {
-  //  return checkSerial();
-  //}
   return m_serialConnected;
 }
 
+// check for any serial connection or messages
+bool SerialComs::checkSerial()
+{
+  if (isConnected()) {
+    // already connected
+    return true;
+  }
+  // This will check if the serial communication is open
+  if (!Serial) {
+    // serial is not connected
+    return false;
+  }
+  // serial is now connected
+  m_serialConnected = true;
+  // Begin serial communications
+  Serial.begin(9600);
+  return true;
+}
 
+void SerialComs::write(const char *msg, ...)
+{
+  if (!isConnected()) {
+    return;
+  }
+  va_list list;
+  va_start(list, msg);
+  char buf[2048] = {0};
+  vsnprintf(buf, sizeof(buf), msg, list);
+  Serial.print(buf);
+  va_end(list);
+}
+
+void SerialComs::read(ByteStream &byteStream)
+{
+  if (!isConnected()) {
+    return;
+  }
+  uint32_t amt = Serial.available();
+  if (!amt) {
+    return;
+  }
+  do {
+    uint8_t byte = Serial.read();
+    byteStream.serialize(byte);
+  } while (--amt > 0);
+}

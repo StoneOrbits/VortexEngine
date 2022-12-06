@@ -39,7 +39,7 @@ void InfoMsg(const char *msg, ...)
 #if LOGGING_LEVEL > 1
 void ErrorMsg(const char *func, const char *msg, ...)
 {
-  if (!SerialComs::initialized()) {
+  if (!SerialComs::isConnected()) {
     return;
   }
   va_list list;
@@ -60,7 +60,7 @@ void ErrorMsg(const char *func, const char *msg, ...)
 #if LOGGING_LEVEL > 2
 void DebugMsg(const char *file, const char *func, int line, const char *msg, ...)
 {
-  if (!SerialComs::initialized()) {
+  if (!SerialComs::isConnected()) {
     return;
   }
   va_list list;
@@ -96,7 +96,7 @@ void DebugMsg(const char *file, const char *func, int line, const char *msg, ...
 
 void IndentMsg(int level, const char *msg, ...)
 {
-  if (!SerialComs::initialized()) {
+  if (!SerialComs::isConnected()) {
     return;
   }
   if (level < 0 || level > (int)(sizeof(SPACES) - 1)) {

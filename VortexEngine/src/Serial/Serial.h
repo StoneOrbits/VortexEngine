@@ -1,6 +1,8 @@
 #ifndef SERIAL_H
 #define SERIAL_H
 
+class ByteStream;
+
 // Really wish I could name this Serial but arduino ruined that for me
 class SerialComs
 {
@@ -13,11 +15,17 @@ public:
   static bool init();
   static void cleanup();
 
+  // whether serial is initialized
+  static bool isConnected();
+
   // check for any serial connection or messages
   static bool checkSerial();
 
-  // whether serial is initialized
-  static bool isConnected();
+  // write a message to serial
+  static void write(const char *msg, ...);
+  
+  // read a message from serial
+  static void read(ByteStream &byteStream);
 
 private:
   // whether serial communications are initialized

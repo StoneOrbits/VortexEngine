@@ -11,7 +11,7 @@
 
 EditorConnection::EditorConnection() :
   Menu(),
-  m_connected(false)
+  m_state(STATE_DISCONNECTED)
 {
 }
 
@@ -25,28 +25,37 @@ bool EditorConnection::init()
   return true;
 }
 
-#include <string>
-
 bool EditorConnection::run()
 {
   if (!Menu::run()) {
     return false;
   }
   showEditor();
-  if (!SerialComs::isConnected()) {
-    SerialComs::checkSerial();
-    return true;
+  switch (m_state) {
+  case STATE_DISCONNECTED:
+    if (!SerialComs::isConnected()) {
+      if (!SerialComs::checkSerial()) {
+        return true;
+      }
+    }
+    m_state = STATE_HELLO;
+    break;
+  case STATE_HELLO:
+    SerialComs::write("== Vortex Framework v" VORTEX_VERSION " (built " __TIMESTAMP__ ") ==");
+    m_state = STATE_HELLO_RECEIVE;
+    break;
+  case STATE_HELLO_RECEIVE:
+    receiveMessage();
+    break;
   }
-  if (!m_connected) {
-    Serial.println("Hello loser");
-  }
-  m_connected = true;
   return true;
 }
 
 // handlers for clicks
 void EditorConnection::onShortClick()
 {
+  // reset, this won't actually disconnect the com port
+  m_state = STATE_DISCONNECTED;
 }
 
 void EditorConnection::onLongClick()
@@ -60,11 +69,28 @@ void EditorConnection::showEditor()
   // gradually fill from thumb to pinkie
   Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLANK);
   if (SerialComs::isConnected()) {
-    Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_GREEN);
+    if (m_state == STATE_IDLE) {
+      Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLUE);
+    } else {
+      Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_GREEN);
+    }
   }
 }
 
 // override showExit so it isn't displayed on thumb
 void EditorConnection::showExit()
 {
+}
+
+void EditorConnection::receiveMessage()
+{
+  ByteStream receiveBuffer;
+  SerialComs::read(receiveBuffer);
+  if (!receiveBuffer.data() || !receiveBuffer.size()) {
+    return;
+  }
+  SerialComs::write("== Received: [%s] ==", receiveBuffer.data());
+  if (strcmp((char *)receiveBuffer.data(), "Hello") == 0) {
+    m_state = STATE_IDLE;
+  }
 }
