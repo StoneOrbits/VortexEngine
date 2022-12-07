@@ -42,10 +42,15 @@ bool EditorConnection::run()
     break;
   case STATE_HELLO:
     SerialComs::write("== Vortex Framework v" VORTEX_VERSION " (built " __TIMESTAMP__ ") ==");
-    m_state = STATE_HELLO_RECEIVE;
+    m_state = STATE_HELLO_ACK;
     break;
-  case STATE_HELLO_RECEIVE:
+  case STATE_HELLO_ACK:
+  case STATE_SEND_MODES_ACK:
     receiveMessage();
+    break;
+  case STATE_SEND_MODES:
+    sendModes();
+    m_state = STATE_SEND_MODES_ACK;
     break;
   }
   return true;
@@ -82,6 +87,8 @@ void EditorConnection::showExit()
 {
 }
 
+#include <string>
+
 void EditorConnection::receiveMessage()
 {
   ByteStream receiveBuffer;
@@ -89,8 +96,24 @@ void EditorConnection::receiveMessage()
   if (!receiveBuffer.data() || !receiveBuffer.size()) {
     return;
   }
-  SerialComs::write("== Received: [%s] ==", receiveBuffer.data());
-  if (strcmp((char *)receiveBuffer.data(), "Hello") == 0) {
-    m_state = STATE_IDLE;
+  switch (m_state) {
+  case STATE_HELLO_ACK:
+    if (strcmp((char *)receiveBuffer.data(), "Hello") == 0) {
+      m_state = STATE_SEND_MODES;
+    }
+    break;
+  case STATE_SEND_MODES_ACK:
+    if (strcmp((char *)receiveBuffer.data(), "Thanks") == 0) {
+      m_state = STATE_IDLE;
+    }
+    break;
   }
 }
+
+void EditorConnection::sendModes()
+{
+  ByteStream modesBuffer;
+  Modes::serialize(modesBuffer);
+  SerialComs::writeRaw(modesBuffer);
+}
+

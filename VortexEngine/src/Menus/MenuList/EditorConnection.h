@@ -19,6 +19,8 @@ public:
 private:
   void showEditor();
   void receiveMessage();
+  void sendModes();
+
 
   // override showExit so it isn't displayed on thumb
   virtual void showExit() override;
@@ -27,7 +29,10 @@ private:
     STATE_DISCONNECTED,
 
     STATE_HELLO,
-    STATE_HELLO_RECEIVE,
+    STATE_HELLO_ACK,
+
+    STATE_SEND_MODES,
+    STATE_SEND_MODES_ACK,
 
     STATE_IDLE,
   };
