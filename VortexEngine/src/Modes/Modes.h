@@ -62,6 +62,9 @@ public:
   // iterate to next mode and return it
   static Mode *nextMode();
 
+  // the number of modes
+  static uint8_t numModes() { return m_numModes; }
+
   // delete all modes in the list
   static void clearModes();
 
