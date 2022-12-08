@@ -2,6 +2,7 @@
 
 #include "../../Serial/ByteStream.h"
 #include "../../Serial/Serial.h"
+#include "../../Storage/Storage.h"
 #include "../../Modes/ModeBuilder.h"
 #include "../../Time/TimeControl.h"
 #include "../../Modes/Modes.h"
@@ -98,15 +99,34 @@ bool EditorConnection::run()
     // parse the receive buffer for any commands from the editor
     handleCommand();
     break;
-  case STATE_SEND_MODES:
+  case STATE_PULL_MODES:
     sendModes();
-    m_state = STATE_SEND_MODES_ACK;
+    m_state = STATE_PULL_MODES_ACK;
     break;
-  case STATE_SEND_MODES_ACK:
+  case STATE_PULL_MODES_ACK:
     // recive the send modes ack
-    if (receiveMessage(EDITOR_VERB_SEND_MODES_ACK)) {
+    if (receiveMessage(EDITOR_VERB_PULL_MODES_ACK)) {
       m_state = STATE_SEND_IDLE;
     }
+    break;
+  case STATE_PUSH_MODES:
+    // say we are ready
+    SerialComs::write(EDITOR_VERB_PUSH_MODES_RDY);
+    m_receiveBuffer.resetUnserializer();
+    m_receiveBuffer.clear();
+    // move to receiving
+    m_state = STATE_PUSH_MODES_RECEIVE;
+    break;
+  case STATE_PUSH_MODES_RECEIVE:
+    // wait?
+    Modes::unserialize(m_receiveBuffer);
+    Modes::saveStorage();
+    m_state = STATE_PUSH_MODES_DONE;
+    break;
+  case STATE_PUSH_MODES_DONE:
+    // say we are done
+    SerialComs::write(EDITOR_VERB_PUSH_MODES_DONE);
+    m_state = STATE_SEND_IDLE;
     break;
   }
   return true;
@@ -134,8 +154,8 @@ void EditorConnection::showEditor()
     case STATE_IDLE:
       Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLUE);
       break;
-    case STATE_SEND_MODES:
-    case STATE_SEND_MODES_ACK:
+    case STATE_PULL_MODES:
+    case STATE_PULL_MODES_ACK:
       Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_CYAN);
       break;
     default:
@@ -160,12 +180,14 @@ void EditorConnection::sendModes()
 {
   ByteStream modesBuffer;
   Modes::serialize(modesBuffer);
-  SerialComs::writeRaw(modesBuffer);
+  SerialComs::write(modesBuffer);
 }
 
 void EditorConnection::handleCommand()
 {
-  if (receiveMessage(EDITOR_VERB_SEND_MODES)) {
-    m_state = STATE_SEND_MODES;
+  if (receiveMessage(EDITOR_VERB_PULL_MODES)) {
+    m_state = STATE_PULL_MODES;
+  } else if (receiveMessage(EDITOR_VERB_PUSH_MODES)) {
+    m_state = STATE_PUSH_MODES;
   }
 }

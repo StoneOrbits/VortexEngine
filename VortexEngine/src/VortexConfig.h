@@ -262,9 +262,17 @@
 #define EDITOR_VERB_IDLE_ACK          "K"
 
 // the command from the editor to send modes over
-#define EDITOR_VERB_SEND_MODES        "MODESPLZ"
+#define EDITOR_VERB_PULL_MODES        "MODESPLZ"
 // the response from the editor once modes are received
-#define EDITOR_VERB_SEND_MODES_ACK    "THX"
+#define EDITOR_VERB_PULL_MODES_ACK    "THX"
+
+// the command from the editor to send modes over
+#define EDITOR_VERB_PUSH_MODES        "HERESMODES"
+// the response from the gloveset when it's ready to receive a mode
+#define EDITOR_VERB_PUSH_MODES_RDY    "OK"
+// the response from the gloveset when it received the mode
+#define EDITOR_VERB_PUSH_MODES_DONE   "GOTEM"
+
 
 // ===================================================================
 //  Test Framework configurations

@@ -42,9 +42,15 @@ private:
     // entirely idle, waiting for commands
     STATE_IDLE,
 
-    // Send the modes, then wait for the sent modes ack
-    STATE_SEND_MODES,
-    STATE_SEND_MODES_ACK,
+    // engine pulls the modes from gloves, then wait for the sent modes ack
+    STATE_PULL_MODES,
+    STATE_PULL_MODES_ACK,
+
+    // engine pushes modes to gloves, then waits for done
+    STATE_PUSH_MODES,
+    STATE_PUSH_MODES_RECEIVE,
+    STATE_PUSH_MODES_DONE,
+
   };
 
   // state of the editor

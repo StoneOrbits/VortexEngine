@@ -25,7 +25,7 @@ public:
   static void write(const char *msg, ...);
 
   // write raw data
-  static void writeRaw(const ByteStream &byteStream);
+  static void write(const ByteStream &byteStream);
   
   // read a message from serial
   static void read(ByteStream &byteStream);

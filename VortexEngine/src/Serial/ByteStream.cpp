@@ -96,6 +96,7 @@ void ByteStream::clear()
     m_pData = nullptr;
   }
   m_capacity = 0;
+  m_position = 0;
 }
 
 bool ByteStream::shrink()
