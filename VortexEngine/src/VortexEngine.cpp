@@ -58,7 +58,10 @@ bool VortexEngine::init()
     return false;
   }
 
+  //todo REMOVEME
+#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK)
   Menus::openMenu(MENU_EDITOR_CONNECTION);
+#endif
 
 #if COMPRESSION_TEST == 1
   compressionTest();

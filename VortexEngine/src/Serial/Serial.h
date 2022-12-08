@@ -30,6 +30,9 @@ public:
   // read a message from serial
   static void read(ByteStream &byteStream);
 
+  // data in the socket ready to read
+  static bool dataReady();
+
 private:
   // whether serial communications are initialized
   static bool m_serialConnected;

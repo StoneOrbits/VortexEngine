@@ -84,3 +84,11 @@ void SerialComs::read(ByteStream &byteStream)
     byteStream.serialize(byte);
   } while (--amt > 0);
 }
+
+bool SerialComs::dataReady()
+{
+  if (!isConnected()) {
+    return false;
+  }
+  return (Serial.available() > 0);
+}
