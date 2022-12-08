@@ -57,6 +57,7 @@ bool EditorConnection::run()
     // wait for the editor to say "Hello" back to us
     if (m_receiveBuffer.size() > 0 &&
         strcmp((char *)m_receiveBuffer.data(), EDITOR_VERB_HELLO_ACK) == 0) {
+      m_receiveBuffer.clear();
       // found the hello response, start going idle
       m_state = STATE_SEND_IDLE;
     }
@@ -71,6 +72,7 @@ bool EditorConnection::run()
     // wait for the editor to ack the idle
     if (m_receiveBuffer.size() > 0 &&
         strcmp((char *)m_receiveBuffer.data(), EDITOR_VERB_IDLE_ACK) == 0) {
+      m_receiveBuffer.clear();
       // found the idle response, go idle
       m_state = STATE_IDLE;
     }
@@ -85,7 +87,8 @@ bool EditorConnection::run()
     break;
   case STATE_SEND_MODES_ACK:
     if (strcmp((char *)m_receiveBuffer.data(), EDITOR_VERB_PULL_ACK) == 0) {
-      m_state = STATE_IDLE;
+      m_receiveBuffer.clear();
+      m_state = STATE_SEND_IDLE;
     }
     break;
   }
@@ -139,6 +142,7 @@ void EditorConnection::sendModes()
 void EditorConnection::handleCommand()
 {
   if (strcmp((char *)m_receiveBuffer.data(), EDITOR_VERB_PULL) == 0) {
+    m_receiveBuffer.clear();
     m_state = STATE_SEND_MODES;
   }
 }
