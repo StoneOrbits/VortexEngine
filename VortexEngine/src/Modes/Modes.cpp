@@ -298,7 +298,7 @@ bool Modes::addMode(const Mode *mode)
 }
 
 // replace current mode with new one, destroying existing one
-bool Modes::setCurMode(PatternID id, const Colorset *set)
+bool Modes::updateCurMode(PatternID id, const Colorset *set)
 {
   if (id > PATTERN_LAST || !set) {
     ERROR_LOG("Invalid id or set");
@@ -321,9 +321,33 @@ bool Modes::setCurMode(PatternID id, const Colorset *set)
   return true;
 }
 
-bool Modes::setCurMode(const Mode *mode)
+bool Modes::updateCurMode(const Mode *mode)
 {
-  return setCurMode(mode->getPatternID(), mode->getColorset());
+  return updateCurMode(mode->getPatternID(), mode->getColorset());
+}
+
+// set the current active mode by index
+Mode *Modes::setCurMode(uint32_t index)
+{
+  if (!m_numModes) {
+    return nullptr;
+  }
+  // update the current mode and ensure it's within range
+  m_curMode = (index) % m_numModes;
+  // clear the LEDs when switching modes
+  Leds::clearAll();
+  // delete the current mode
+  delete m_pCurMode;
+  m_pCurMode = nullptr;
+  // re-initialize the current mode
+  if (!initCurMode()) {
+    return nullptr;
+  }
+  // log the change
+  DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)",
+    m_curMode, m_numModes - 1, m_pCurMode->getPatternID());
+  // return the new current mode
+  return m_pCurMode;
 }
 
 // the current mode
@@ -349,20 +373,33 @@ Mode *Modes::nextMode()
   if (!m_numModes) {
     return nullptr;
   }
-  // iterate curmode forward 1 till num modes
-  m_curMode = (m_curMode + 1) % m_numModes;
-  // clear the LEDs when switching modes
-  Leds::clearAll();
-  // delete the current mode
-  delete m_pCurMode;
-  m_pCurMode = nullptr;
-  if (!initCurMode()) {
-    return nullptr;
+  // iterate the cur mode forward
+  return setCurMode(m_curMode + 1);
+}
+
+void Modes::deleteCurMode()
+{
+  if (!m_numModes) {
+    return;
   }
-  DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)", 
-    m_curMode, m_numModes - 1, m_pCurMode->getPatternID());
-  // return the new current mode
-  return m_pCurMode;
+  if (m_pCurMode) {
+    delete m_pCurMode;
+    m_pCurMode = nullptr;
+  }
+  // if this is the last mode just clear 0 and return
+  if (!--m_numModes) {
+    m_serializedModes[0].clear();
+    return;
+  }
+  // note m_numModes has been decremented now
+  if (m_curMode >= m_numModes) {
+    m_curMode = m_numModes - 1;
+  }
+  for (uint32_t i = m_curMode; i < m_numModes; ++i) {
+    // move the next entry down one
+    m_serializedModes[i] = m_serializedModes[i + 1];
+  }
+  m_serializedModes[m_numModes].clear();
 }
 
 void Modes::clearModes()

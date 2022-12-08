@@ -54,8 +54,11 @@ public:
   static bool addSerializedMode(ByteStream &serializedMode);
 
   // update the current mode to match the given mode
-  static bool setCurMode(PatternID id, const Colorset *set);
-  static bool setCurMode(const Mode *mode);
+  static bool updateCurMode(PatternID id, const Colorset *set);
+  static bool updateCurMode(const Mode *mode);
+
+  // set the current active mode by index
+  static Mode *setCurMode(uint32_t index);
 
   // get the current mode
   static Mode *curMode();
@@ -64,6 +67,10 @@ public:
 
   // the number of modes
   static uint8_t numModes() { return m_numModes; }
+  static uint8_t curModeIndex() { return m_curMode; }
+
+  // delete the current mode
+  static void deleteCurMode();
 
   // delete all modes in the list
   static void clearModes();

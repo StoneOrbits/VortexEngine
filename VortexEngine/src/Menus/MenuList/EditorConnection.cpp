@@ -44,6 +44,10 @@ bool EditorConnection::receiveMessage(const char *message)
       return false;
     }
   }
+  // if everything was read out, reset
+  if (m_receiveBuffer.unserializerAtEnd()) {
+    m_receiveBuffer.clear();
+  }
   return true;
 }
 
