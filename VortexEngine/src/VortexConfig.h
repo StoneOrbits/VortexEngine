@@ -252,19 +252,19 @@
 //  also so you can configure them at your own free will.
 
 // the initial hello from the gloveset to the editor
-#define EDITOR_VERB_HELLO       "== Vortex Framework v" VORTEX_VERSION " (built " __TIMESTAMP__ ") =="
+#define EDITOR_VERB_HELLO             "== Vortex Framework v" VORTEX_VERSION " (built " __TIMESTAMP__ ") =="
 // the acknowledgement from the editor back to the gloves
-#define EDITOR_VERB_HELLO_ACK   "SUP"
+#define EDITOR_VERB_HELLO_ACK         "SUP"
 
 // the gloveset is going idle and is ready for commands
-#define EDITOR_VERB_IDLE        "IDLE"
+#define EDITOR_VERB_IDLE              "IDLE"
 // the editor acknowledges and is ready to give commands
-#define EDITOR_VERB_IDLE_ACK    "K"
+#define EDITOR_VERB_IDLE_ACK          "K"
 
 // the command from the editor to send modes over
-#define EDITOR_VERB_PULL        "MODESPLZ"
+#define EDITOR_VERB_SEND_MODES        "MODESPLZ"
 // the response from the editor once modes are received
-#define EDITOR_VERB_PULL_ACK    "THX"
+#define EDITOR_VERB_SEND_MODES_ACK    "THX"
 
 // ===================================================================
 //  Test Framework configurations

@@ -25,6 +25,27 @@ bool EditorConnection::init()
   return true;
 }
 
+bool EditorConnection::receiveMessage(const char *message)
+{
+  // wait for the editor to ack the idle
+  if (m_receiveBuffer.size() == 0) {
+    return false;
+  }
+  size_t len = strlen(message);
+  uint8_t byte = 0;
+  for (uint32_t i = 0; i < len; ++i) {
+    if (m_receiveBuffer.peek8() != message[i]) {
+      return false;
+    }
+    m_receiveBuffer.unserialize(&byte);
+    // double check
+    if (byte != message[i]) {
+      return false;
+    }
+  }
+  return true;
+}
+
 bool EditorConnection::run()
 {
   if (!Menu::run()) {
@@ -55,9 +76,7 @@ bool EditorConnection::run()
     break;
   case STATE_HELLO_ACK:
     // wait for the editor to say "Hello" back to us
-    if (m_receiveBuffer.size() > 0 &&
-        strcmp((char *)m_receiveBuffer.data(), EDITOR_VERB_HELLO_ACK) == 0) {
-      m_receiveBuffer.clear();
+    if (receiveMessage(EDITOR_VERB_HELLO_ACK)) {
       // found the hello response, start going idle
       m_state = STATE_SEND_IDLE;
     }
@@ -69,11 +88,9 @@ bool EditorConnection::run()
     m_state = STATE_IDLE_ACK;
     break;
   case STATE_IDLE_ACK:
-    // wait for the editor to ack the idle
-    if (m_receiveBuffer.size() > 0 &&
-        strcmp((char *)m_receiveBuffer.data(), EDITOR_VERB_IDLE_ACK) == 0) {
-      m_receiveBuffer.clear();
-      // found the idle response, go idle
+    // recive the idle ack
+    if (receiveMessage(EDITOR_VERB_IDLE_ACK)) {
+      // full idle, ready for commands
       m_state = STATE_IDLE;
     }
     break;
@@ -86,8 +103,8 @@ bool EditorConnection::run()
     m_state = STATE_SEND_MODES_ACK;
     break;
   case STATE_SEND_MODES_ACK:
-    if (strcmp((char *)m_receiveBuffer.data(), EDITOR_VERB_PULL_ACK) == 0) {
-      m_receiveBuffer.clear();
+    // recive the send modes ack
+    if (receiveMessage(EDITOR_VERB_SEND_MODES_ACK)) {
       m_state = STATE_SEND_IDLE;
     }
     break;
@@ -113,10 +130,17 @@ void EditorConnection::showEditor()
   // gradually fill from thumb to pinkie
   Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLANK);
   if (SerialComs::isConnected()) {
-    if (m_state == STATE_IDLE) {
+    switch (m_state) {
+    case STATE_IDLE:
       Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLUE);
-    } else {
+      break;
+    case STATE_SEND_MODES:
+    case STATE_SEND_MODES_ACK:
+      Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_CYAN);
+      break;
+    default:
       Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_GREEN);
+      break;
     }
   }
 }
@@ -141,8 +165,7 @@ void EditorConnection::sendModes()
 
 void EditorConnection::handleCommand()
 {
-  if (strcmp((char *)m_receiveBuffer.data(), EDITOR_VERB_PULL) == 0) {
-    m_receiveBuffer.clear();
+  if (receiveMessage(EDITOR_VERB_SEND_MODES)) {
     m_state = STATE_SEND_MODES;
   }
 }

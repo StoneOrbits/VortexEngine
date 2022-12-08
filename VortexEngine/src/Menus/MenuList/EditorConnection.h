@@ -22,6 +22,7 @@ private:
   void receiveData();
   void sendModes();
   void handleCommand();
+  bool receiveMessage(const char *message);
 
   // override showExit so it isn't displayed on thumb
   virtual void showExit() override;
