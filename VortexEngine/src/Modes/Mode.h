@@ -89,7 +89,7 @@ public:
   // are all the single led patterns and colorsets equal?
   bool isSameSingleLed() const;
 
-private:
+  // change a single or multi pattern
   bool setSinglePat(PatternID pat, LedPos pos);
   bool setMultiPat(PatternID pat);
 
@@ -97,7 +97,7 @@ private:
   void clearPatterns();
   void clearPattern(LedPos pos);
   void clearColorsets();
-
+private:
   // A mode simply contains a list of patterns for each LED, these can either
   // be each SingleLedPatterns up to LED_COUNT of them -- or the first entry
   // can be a MultiLedPattern, just one.

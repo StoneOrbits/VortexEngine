@@ -26,9 +26,12 @@ void Pattern::bind(const Colorset *set, LedPos pos)
   } else {
     m_colorset = *set;
   }
+  bind(pos);
+}
+
+void Pattern::bind(LedPos pos)
+{
   m_ledPos = pos;
-  // call init here? idk
-  //init();
 }
 
 void Pattern::init()
@@ -84,7 +87,11 @@ bool Pattern::equals(const Pattern *other)
 // change the colorset
 void Pattern::setColorset(const Colorset *set)
 {
-  m_colorset = *set;
+  if (!set) {
+    clearColorset();
+  } else {
+    m_colorset = *set;
+  }
 }
 
 void Pattern::clearColorset()

@@ -37,8 +37,9 @@ protected:
 public:
   virtual ~Pattern();
 
-  // bind a colorset and position to the pattern and initialize
+  // bind a colorset and position to the pattern
   virtual void bind(const Colorset *colorset, LedPos pos);
+  virtual void bind(LedPos pos);
 
   // init the pattern to initial state
   virtual void init();

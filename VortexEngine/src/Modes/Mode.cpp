@@ -102,6 +102,8 @@ void Mode::unserialize(ByteStream &buffer)
         ERROR_LOG("Failed to unserialize pattern from buffer");
         return;
       }
+      // must bind to position, the position isn't serialized
+      m_ledEntries[pos]->bind(pos);
     }
   }
 }
@@ -214,10 +216,6 @@ const Pattern *Mode::getPattern(LedPos pos) const
 const Colorset *Mode::getColorset(LedPos pos) const
 {
   if (pos > LED_LAST || !m_ledEntries[pos]) {
-    // try to return 0 if possible
-    if (m_ledEntries[0]) {
-      return m_ledEntries[0]->getColorset();
-    }
     return nullptr;
   }
   return m_ledEntries[pos]->getColorset();
@@ -267,6 +265,8 @@ bool Mode::setPattern(PatternID pat)
   return true;
 }
 
+#include <stdio.h>
+
 bool Mode::setSinglePat(PatternID pat, LedPos pos)
 {
   SingleLedPattern *newPat = PatternBuilder::makeSingle(pat);
@@ -277,6 +277,7 @@ bool Mode::setSinglePat(PatternID pat, LedPos pos)
   // use current position colorset, if none then use position 0
   const Colorset *set = getColorset(pos) ? getColorset(pos) : getColorset(LED_FIRST);
   newPat->bind(set, pos);
+  printf("Setting single pat: %u pos: %u\n", pat, pos);
   clearPattern(pos);
   m_ledEntries[pos] = newPat;
   return true;
