@@ -21,6 +21,7 @@ private:
   void showEditor();
   void receiveData();
   void sendModes();
+  bool receiveModes();
   void handleCommand();
   bool receiveMessage(const char *message);
 
@@ -50,7 +51,6 @@ private:
     STATE_PUSH_MODES,
     STATE_PUSH_MODES_RECEIVE,
     STATE_PUSH_MODES_DONE,
-
   };
 
   // state of the editor

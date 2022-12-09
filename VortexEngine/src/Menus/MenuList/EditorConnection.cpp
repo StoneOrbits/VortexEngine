@@ -74,6 +74,7 @@ bool EditorConnection::run()
     m_state = STATE_HELLO;
     break;
   case STATE_HELLO:
+    m_receiveBuffer.clear();
     // send the hello greeting with our version number and build time
     SerialComs::write(EDITOR_VERB_HELLO);
     // wait for the acknowledgement
@@ -87,6 +88,7 @@ bool EditorConnection::run()
     }
     break;
   case STATE_SEND_IDLE:
+    m_receiveBuffer.clear();
     // send the hello greeting with our version number and build time
     SerialComs::write(EDITOR_VERB_IDLE);
     // sent the idle verb wait for ack
@@ -104,6 +106,7 @@ bool EditorConnection::run()
     handleCommand();
     break;
   case STATE_PULL_MODES:
+    // editor requested pull modes, send the modes
     sendModes();
     m_state = STATE_PULL_MODES_ACK;
     break;
@@ -114,21 +117,23 @@ bool EditorConnection::run()
     }
     break;
   case STATE_PUSH_MODES:
-    // say we are ready
-    SerialComs::write(EDITOR_VERB_PUSH_MODES_RDY);
-    m_receiveBuffer.resetUnserializer();
+    // editor requested to push modes, clear first and reset first
     m_receiveBuffer.clear();
+    // now say we are ready
+    SerialComs::write(EDITOR_VERB_PUSH_MODES_RDY);
     // move to receiving
     m_state = STATE_PUSH_MODES_RECEIVE;
     break;
   case STATE_PUSH_MODES_RECEIVE:
-    // wait?
-    Modes::unserialize(m_receiveBuffer);
-    Modes::saveStorage();
-    m_state = STATE_PUSH_MODES_DONE;
+    // receive the modes into the receive buffer
+    if (receiveModes()) {
+      // success modes were received send the done
+      m_state = STATE_PUSH_MODES_DONE;
+    }
     break;
   case STATE_PUSH_MODES_DONE:
     // say we are done
+    m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_PUSH_MODES_DONE);
     m_state = STATE_SEND_IDLE;
     break;
@@ -162,6 +167,15 @@ void EditorConnection::showEditor()
     case STATE_PULL_MODES_ACK:
       Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_CYAN);
       break;
+    case STATE_PUSH_MODES:
+      Leds::setAll(RGB_WHITE);
+      break;
+    case STATE_PUSH_MODES_RECEIVE:
+      Leds::setAll(RGB_BLANK);
+      break;
+    case STATE_PUSH_MODES_DONE:
+      Leds::setAll(RGB_ORANGE);
+      break;
     default:
       Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_GREEN);
       break;
@@ -185,6 +199,36 @@ void EditorConnection::sendModes()
   ByteStream modesBuffer;
   Modes::serialize(modesBuffer);
   SerialComs::write(modesBuffer);
+}
+
+bool EditorConnection::receiveModes()
+{
+  // need at least the buffer size first
+  uint32_t size = 0;
+  if (m_receiveBuffer.size() < sizeof(size)) {
+    // wait, not enough data available yet
+    return false;
+  }
+  // grab the size out of the start
+  size = m_receiveBuffer.peek32();
+  if (m_receiveBuffer.size() < (size + sizeof(size))) {
+    // don't unserialize yet, not ready
+    return false;
+  }
+  // okay unserialize now, first unserialize the size
+  m_receiveBuffer.unserialize(&size);
+  // todo: this is kinda jank but w/e
+  memmove(m_receiveBuffer.rawData(),
+    ((uint8_t *)m_receiveBuffer.data()) + sizeof(size),
+    m_receiveBuffer.size());
+  if (!m_receiveBuffer.checkCRC()) {
+    // bad crc
+    return false;
+  }
+  // now unserialize the rest of the data
+  Modes::unserialize(m_receiveBuffer);
+  Modes::saveStorage();
+  return true;
 }
 
 void EditorConnection::handleCommand()

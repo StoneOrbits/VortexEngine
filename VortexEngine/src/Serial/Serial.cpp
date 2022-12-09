@@ -65,9 +65,12 @@ void SerialComs::write(const char *msg, ...)
   va_end(list);
 }
 
-void SerialComs::write(const ByteStream &byteStream)
+void SerialComs::write(ByteStream &byteStream)
 {
-  Serial.write(byteStream.data(), byteStream.size());
+  byteStream.recalcCRC();
+  uint32_t size = byteStream.rawSize();
+  Serial.write((const uint8_t *)&size, sizeof(size));
+  Serial.write((const uint8_t *)byteStream.rawData(), byteStream.rawSize());
 }
 
 void SerialComs::read(ByteStream &byteStream)
