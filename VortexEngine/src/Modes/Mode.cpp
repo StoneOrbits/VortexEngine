@@ -47,7 +47,7 @@ void Mode::play()
       // incomplete pattern/set or empty slot
       continue;
     }
-    // play the curren pattern with current color set on the current finger
+    // play the current pattern with current color set on the current finger
     entry->play();
     // if either of these flags are present only play the first pattern
     if (isMultiLed()) {
@@ -265,8 +265,6 @@ bool Mode::setPattern(PatternID pat)
   return true;
 }
 
-#include <stdio.h>
-
 bool Mode::setSinglePat(PatternID pat, LedPos pos)
 {
   SingleLedPattern *newPat = PatternBuilder::makeSingle(pat);
@@ -274,10 +272,9 @@ bool Mode::setSinglePat(PatternID pat, LedPos pos)
     // failed to build new pattern, user gave multiled pattern id?
     return false;
   }
-  // use current position colorset, if none then use position 0
-  const Colorset *set = getColorset(pos) ? getColorset(pos) : getColorset(LED_FIRST);
-  newPat->bind(set, pos);
-  printf("Setting single pat: %u pos: %u\n", pat, pos);
+  // bind the position and colorset, if the colorset is missing then the
+  // colorset will be empty on the new pattern
+  newPat->bind(getColorset(pos), pos);
   clearPattern(pos);
   m_ledEntries[pos] = newPat;
   return true;
