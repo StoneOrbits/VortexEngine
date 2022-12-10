@@ -19,8 +19,9 @@ SerialComs::SerialComs()
 // init serial
 bool SerialComs::init()
 {
-  // Try connecting serial ?
-  //checkSerial();
+  // Try connecting serial ? I think we need
+  // to for the test framework at least
+  checkSerial();
   return true;
 }
 
