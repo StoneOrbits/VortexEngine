@@ -143,7 +143,23 @@ const Pattern *Mode::getPattern(LedPos pos) const
   return m_ledEntries[pos];
 }
 
+Pattern *Mode::getPattern(LedPos pos)
+{
+  if (pos > LED_LAST) {
+    return nullptr;
+  }
+  return m_ledEntries[pos];
+}
+
 const Colorset *Mode::getColorset(LedPos pos) const
+{
+  if (pos > LED_LAST || !m_ledEntries[pos]) {
+    return nullptr;
+  }
+  return m_ledEntries[pos]->getColorset();
+}
+
+Colorset *Mode::getColorset(LedPos pos)
 {
   if (pos > LED_LAST || !m_ledEntries[pos]) {
     return nullptr;
@@ -154,7 +170,7 @@ const Colorset *Mode::getColorset(LedPos pos) const
 PatternID Mode::getPatternID(LedPos pos) const
 {
   if (pos > LED_LAST || !getPattern(pos)) {
-    return PATTERN_FIRST;
+    return PATTERN_NONE;
   }
   return getPattern(pos)->getPatternID();
 }

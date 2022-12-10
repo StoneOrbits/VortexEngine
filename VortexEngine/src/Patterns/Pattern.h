@@ -75,6 +75,7 @@ public:
 
   // get a pointer to the colorset that is bound to the pattern
   const Colorset *getColorset() const { return &m_colorset; }
+  Colorset *getColorset() { return &m_colorset; }
   LedPos getLedPos() const { return m_ledPos; }
 
   // get the pattern flags

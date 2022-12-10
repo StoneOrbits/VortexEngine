@@ -53,8 +53,10 @@ public:
 
   // Get pointer to an individual pattern/colorset
   const Pattern *getPattern(LedPos pos = LED_FIRST) const;
+  Pattern *getPattern(LedPos pos = LED_FIRST);
   // get a pointer to a colorset
   const Colorset *getColorset(LedPos pos = LED_FIRST) const;
+  Colorset *getColorset(LedPos pos = LED_FIRST);
   // get the pattern ID of the given pattern
   PatternID getPatternID(LedPos pos = LED_FIRST) const;
 

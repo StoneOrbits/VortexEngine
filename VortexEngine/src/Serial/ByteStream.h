@@ -54,7 +54,13 @@ public:
   // if the crc is up to date this will do nothing. Optionally
   // force a re-calculation even if the dirty flag is missing
   void recalcCRC(bool force = false);
-  bool checkCRC();
+
+  // check the CRC without re-calculating, note, if the CRC is
+  // dirty then this will simply return false
+  bool checkCRC() const;
+  // check whether the data in the buffer has changed since the
+  // crc has been re-calculated, if it is dirty, call recalcCRC
+  bool isCRCDirty() const;
 
   // serialize a byte into the buffer
   bool serialize(uint8_t byte);
@@ -126,7 +132,7 @@ private:
   {
     RawBuffer() : size(0), flags(0), crc32(5381) {}
     // hash the raw buffer into crc
-    uint32_t hash()
+    uint32_t hash() const
     {
       uint32_t hash = 5381;
       for (uint32_t i = 0; i < size; ++i) {
@@ -140,7 +146,7 @@ private:
       crc32 = ((crc32 << 5) + crc32) + val;
     }
     // veryify the crc
-    bool verify()
+    bool verify() const
     {
       if (!crc32) {
         return true;
