@@ -70,10 +70,9 @@ public:
   bool setColorsetAt(const Colorset *set, LedPos pos);
 
   // change a single or multi pattern
-  bool setSinglePat(PatternID pat, LedPos pos);
-  bool setSinglePat(SingleLedPattern *pat, LedPos pos);
-  bool setSinglePat(SingleLedPattern *pat, const Colorset *set, LedPos pos);
-  bool setMultiPat(PatternID pat);
+  bool setSinglePat(LedPos pos, PatternID pat, const Colorset *set = nullptr);
+  bool setSinglePat(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
+  bool setMultiPat(PatternID pat, const Colorset *set = nullptr);
   bool setMultiPat(MultiLedPattern *pat, const Colorset *set = nullptr);
 
   // get the flags associated with this mode

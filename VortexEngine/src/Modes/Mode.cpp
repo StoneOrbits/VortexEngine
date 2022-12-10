@@ -183,11 +183,11 @@ bool Mode::setPattern(PatternID pat, const Colorset *set)
 {
   // if it's a multi pattern ID then just set the multi pattern slot
   if (isMultiLedPatternID(pat)) {
-    return setMultiPat(pat);
+    return setMultiPat(pat, set);
   }
   // otherwise iterate all of the LEDs and set single led patterns
   for (LedPos p = LED_FIRST; p < LED_COUNT; ++p) {
-    if (!setSinglePat(pat, p)) {
+    if (!setSinglePat(p, pat, set)) {
       ERROR_LOGF("Failed to set single pattern %u", p);
       return false;
     }
@@ -220,25 +220,17 @@ bool Mode::setColorsetAt(const Colorset *set, LedPos pos)
   return true;
 }
 
-bool Mode::setSinglePat(PatternID pat, LedPos pos)
+bool Mode::setSinglePat(LedPos pos, PatternID pat, const Colorset *set)
 {
   SingleLedPattern *newPat = PatternBuilder::makeSingle(pat);
   if (!newPat) {
     // failed to build new pattern, user gave multiled pattern id?
     return false;
   }
-  return setSinglePat(newPat, pos);
+  return setSinglePat(pos, newPat, set);
 }
 
-bool Mode::setSinglePat(SingleLedPattern *pat, LedPos pos)
-{
-  if (!pat || pos >= LED_COUNT) {
-    return false;
-  }
-  return setSinglePat(pat, getColorset(pos), pos);
-}
-
-bool Mode::setSinglePat(SingleLedPattern *pat, const Colorset *set, LedPos pos)
+bool Mode::setSinglePat(LedPos pos, SingleLedPattern *pat, const Colorset *set)
 {
   if (!pat || pos >= LED_COUNT) {
     return false;
@@ -255,13 +247,13 @@ bool Mode::setSinglePat(SingleLedPattern *pat, const Colorset *set, LedPos pos)
   return true;
 }
 
-bool Mode::setMultiPat(PatternID pat)
+bool Mode::setMultiPat(PatternID pat, const Colorset *set)
 {
   MultiLedPattern *newPat = PatternBuilder::makeMulti(pat);
   if (!newPat) {
     return false;
   }
-  return setMultiPat(newPat);
+  return setMultiPat(newPat, set);
 }
 
 bool Mode::setMultiPat(MultiLedPattern *pat, const Colorset *set)
