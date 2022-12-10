@@ -120,7 +120,7 @@ bool EditorConnection::run()
     // editor requested to push modes, clear first and reset first
     m_receiveBuffer.clear();
     // now say we are ready
-    SerialComs::write(EDITOR_VERB_PUSH_MODES_RDY);
+    SerialComs::write(EDITOR_VERB_READY);
     // move to receiving
     m_state = STATE_PUSH_MODES_RECEIVE;
     break;

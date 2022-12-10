@@ -103,7 +103,7 @@ public:
   void serialize(ByteStream &buffer) const;
   void unserialize(ByteStream &buffer);
 
-  uint32_t raw() const { return (blue << 16) | (green < 8) | red; }
+  uint32_t raw() const { return (blue << 16) | (green << 8) | red; }
 
   // public members
   uint8_t red;

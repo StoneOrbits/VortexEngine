@@ -266,12 +266,21 @@
 // the response from the editor once modes are received
 #define EDITOR_VERB_PULL_MODES_ACK    "THX"
 
+// the response from the gloveset when it's ready to receive something
+// after the editor has given it a command to do something the gloveset
+// will respond with this then once it's done doing the action it will
+// send a different finished response for each action
+#define EDITOR_VERB_READY    "OK"
+
 // the command from the editor to send modes over
 #define EDITOR_VERB_PUSH_MODES        "HERESMODES"
-// the response from the gloveset when it's ready to receive a mode
-#define EDITOR_VERB_PUSH_MODES_RDY    "OK"
 // the response from the gloveset when it received the mode
 #define EDITOR_VERB_PUSH_MODES_DONE   "GOTEM"
+
+// the command from the editor to tell the gloveset to demo a mode
+#define EDITOR_VERB_DEMO_MODE         "DEMOPLZ"
+// the response from the gloveset when it's received the mode to demo
+#define EDITOR_VERB_DEMO_MODE_DONE    "DEMOING"
 
 
 // ===================================================================
