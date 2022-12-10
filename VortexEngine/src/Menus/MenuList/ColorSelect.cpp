@@ -124,9 +124,12 @@ void ColorSelect::onLongClick()
     default:
       // need to save if the colorset is not equal
       needsSave = !m_colorset.equals(m_pCurMode->getColorset());
-      // save the colorset
-      m_pCurMode->setColorset(&m_colorset);
-      m_pCurMode->init();
+      // if we need to save, then actually update the colorset
+      if (needsSave) {
+        // save the colorset
+        m_pCurMode->setColorset(&m_colorset);
+        m_pCurMode->init();
+      }
       // leave menu and save if we made changes
       leaveMenu(needsSave);
       return;
@@ -185,8 +188,6 @@ void ColorSelect::onLongClick()
     // result in adding a new color if the slot is at
     // hightest color index + 1
     m_colorset.set(m_slot, m_newColor);
-    // switch all colorsets to a copy of m_colorset
-    m_pCurMode->setColorset(&m_colorset);
     // go back to beginning for next time
     m_state = STATE_PICK_SLOT;
     // reset the color

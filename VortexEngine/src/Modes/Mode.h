@@ -51,20 +51,6 @@ public:
   virtual void saveTemplate(int level = 0) const;
 #endif
 
-  // bind either a multi-led pattern o
-  bool bind(PatternID id, const Colorset *set);
-  // bind a pattern and colorset to individual LED
-  bool bindSingle(PatternID id, const Colorset *set, LedPos pos = LED_FIRST);
-  // bind a multi led pattern and colorset to all of the LEDs
-  bool bindMulti(PatternID id, const Colorset *set);
-
-  // unbind a single pattern and colorset from the mode
-  void unbindSingle(LedPos pos = LED_FIRST);
-  // unbind a multi pattern and colorset from the mode
-  void unbindMulti();
-  // clear and delete all patterns and colorsets from the mode
-  void unbindAll();
-
   // Get pointer to an individual pattern/colorset
   const Pattern *getPattern(LedPos pos = LED_FIRST) const;
   // get a pointer to a colorset
@@ -78,8 +64,17 @@ public:
   // set the pattern/colorset of the mode, if a multi-led pattern is provided then the pos
   // is ignored. If a single led pattern is provided then it will be applied to all LEDS
   // unless a specific LED is provided
-  bool setPattern(PatternID pat);
+  bool setPattern(PatternID pat, const Colorset *set = nullptr);
   bool setColorset(const Colorset *set);
+
+  bool setColorsetAt(const Colorset *set, LedPos pos);
+
+  // change a single or multi pattern
+  bool setSinglePat(PatternID pat, LedPos pos);
+  bool setSinglePat(SingleLedPattern *pat, LedPos pos);
+  bool setSinglePat(SingleLedPattern *pat, const Colorset *set, LedPos pos);
+  bool setMultiPat(PatternID pat);
+  bool setMultiPat(MultiLedPattern *pat, const Colorset *set = nullptr);
 
   // get the flags associated with this mode
   uint32_t getFlags() const;
@@ -88,10 +83,6 @@ public:
   bool isMultiLed() const;
   // are all the single led patterns and colorsets equal?
   bool isSameSingleLed() const;
-
-  // change a single or multi pattern
-  bool setSinglePat(PatternID pat, LedPos pos);
-  bool setMultiPat(PatternID pat);
 
   // erase any stored patterns or colorsets
   void clearPatterns();

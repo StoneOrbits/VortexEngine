@@ -17,12 +17,12 @@ Mode::Mode() :
 Mode::Mode(PatternID id, const Colorset &set) :
   Mode()
 {
-  bind(id, &set);
+  setPattern(id, &set);
 }
 
 Mode::~Mode()
 {
-  unbindAll();
+  clearPatterns();
 }
 
 void Mode::init()
@@ -135,76 +135,6 @@ void Mode::saveTemplate(int level) const
 }
 #endif
 
-bool Mode::bind(PatternID id, const Colorset *set)
-{
-  if (isMultiLedPatternID(id)) {
-    return bindMulti(id, set);
-  }
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    if (!bindSingle(id, set, pos)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-// bind a single led pattern and colorset to individual LED
-bool Mode::bindSingle(PatternID id, const Colorset *set, LedPos pos)
-{
-  // don't allow binding single on invalid LED, or a mode that already has multi
-  if (pos > LED_LAST) {
-    return false;
-  }
-  SingleLedPattern *pat = PatternBuilder::makeSingle(id);
-  if (!pat) {
-    return false;
-  }
-  pat->bind(set, pos);
-  delete m_ledEntries[pos];
-  m_ledEntries[pos] = pat;
-  return true;
-}
-
-// bind a multi led pattern and colorset to all LEDs
-bool Mode::bindMulti(PatternID id, const Colorset *set)
-{
-  MultiLedPattern *pat = PatternBuilder::makeMulti(id);
-  if (!pat) {
-    return false;
-  }
-  pat->bind(set);
-  unbindAll();
-  m_multiPat = pat;
-  return true;
-}
-
-void Mode::unbindSingle(LedPos pos)
-{
-  if (pos > LED_LAST) {
-    return;
-  }
-  if (m_ledEntries[pos]) {
-    delete m_ledEntries[pos];
-    m_ledEntries[pos] = nullptr;
-  }
-}
-
-void Mode::unbindMulti()
-{
-  if (m_multiPat) {
-    delete m_multiPat;
-    m_multiPat = nullptr;
-  }
-}
-
-void Mode::unbindAll()
-{
-  unbindMulti();
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    unbindSingle(pos);
-  }
-}
-
 const Pattern *Mode::getPattern(LedPos pos) const
 {
   if (pos > LED_LAST) {
@@ -249,7 +179,7 @@ bool Mode::equals(const Mode *other) const
   return true;
 }
 
-bool Mode::setPattern(PatternID pat)
+bool Mode::setPattern(PatternID pat, const Colorset *set)
 {
   // if it's a multi pattern ID then just set the multi pattern slot
   if (isMultiLedPatternID(pat)) {
@@ -265,38 +195,6 @@ bool Mode::setPattern(PatternID pat)
   return true;
 }
 
-bool Mode::setSinglePat(PatternID pat, LedPos pos)
-{
-  SingleLedPattern *newPat = PatternBuilder::makeSingle(pat);
-  if (!newPat) {
-    // failed to build new pattern, user gave multiled pattern id?
-    return false;
-  }
-  // bind the position and colorset, if the colorset is missing then the
-  // colorset will be empty on the new pattern
-  newPat->bind(getColorset(pos), pos);
-  clearPattern(pos);
-  m_ledEntries[pos] = newPat;
-  return true;
-}
-
-bool Mode::setMultiPat(PatternID pat)
-{
-  MultiLedPattern *newPat = PatternBuilder::makeMulti(pat);
-  if (!newPat) {
-    return false;
-  }
-  // initialize the new pattern with the old colorset
-  // if there isn't already a pattern
-  newPat->bind(m_multiPat ? m_multiPat->getColorset() : nullptr);
-  // clear any stored patterns
-  clearPatterns();
-  // update the multi pattern
-  m_multiPat = newPat;
-  return true;
-}
-
-// this will in-place change the colorset for a given led or all slots
 bool Mode::setColorset(const Colorset *set)
 {
   if (isMultiLed()) {
@@ -310,6 +208,74 @@ bool Mode::setColorset(const Colorset *set)
     }
     m_ledEntries[p]->setColorset(set);
   }
+  return true;
+}
+
+bool Mode::setColorsetAt(const Colorset *set, LedPos pos)
+{
+  if (pos >= LED_COUNT || !m_ledEntries[pos]) {
+    return false;
+  }
+  m_ledEntries[pos]->setColorset(set);
+  return true;
+}
+
+bool Mode::setSinglePat(PatternID pat, LedPos pos)
+{
+  SingleLedPattern *newPat = PatternBuilder::makeSingle(pat);
+  if (!newPat) {
+    // failed to build new pattern, user gave multiled pattern id?
+    return false;
+  }
+  return setSinglePat(newPat, pos);
+}
+
+bool Mode::setSinglePat(SingleLedPattern *pat, LedPos pos)
+{
+  if (!pat || pos >= LED_COUNT) {
+    return false;
+  }
+  return setSinglePat(pat, getColorset(pos), pos);
+}
+
+bool Mode::setSinglePat(SingleLedPattern *pat, const Colorset *set, LedPos pos)
+{
+  if (!pat || pos >= LED_COUNT) {
+    return false;
+  }
+  // bind the position and colorset, if the colorset is missing then just
+  // bind the position without a colorset
+  if (set) {
+    pat->bind(set, pos);
+  } else {
+    pat->bind(pos);
+  }
+  clearPattern(pos);
+  m_ledEntries[pos] = pat;
+  return true;
+}
+
+bool Mode::setMultiPat(PatternID pat)
+{
+  MultiLedPattern *newPat = PatternBuilder::makeMulti(pat);
+  if (!newPat) {
+    return false;
+  }
+  return setMultiPat(newPat);
+}
+
+bool Mode::setMultiPat(MultiLedPattern *pat, const Colorset *set)
+{
+  if (!pat) {
+    return false;
+  }
+  // initialize the new pattern with the old colorset
+  // if there isn't already a pattern
+  pat->bind(set ? set : getColorset(LED_FIRST));
+  // clear any stored patterns
+  clearPatterns();
+  // update the multi pattern
+  m_multiPat = pat;
   return true;
 }
 

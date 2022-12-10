@@ -26,7 +26,7 @@ Mode *ModeBuilder::make(PatternID id, const Colorset *set)
     return nullptr;
   }
   // bind the pattern and colorset to the mode
-  if (!newMode->bind(id, set)) {
+  if (!newMode->setPattern(id, set)) {
     delete newMode;
     return nullptr;
   }
