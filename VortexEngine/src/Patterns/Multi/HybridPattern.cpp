@@ -45,35 +45,6 @@ void HybridPattern::play()
   }
 }
 
-// must override the serialize routine to save the pattern
-void HybridPattern::serialize(ByteStream &buffer) const
-{
-  MultiLedPattern::serialize(buffer);
-  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (!m_ledPatterns[pos]) {
-      DEBUG_LOG("Could not serialize hybrid pattern!");
-      return;
-    }
-    m_ledPatterns[pos]->serialize(buffer);
-  }
-}
-
-// must override unserialize to load patterns
-void HybridPattern::unserialize(ByteStream &buffer)
-{
-  clearPatterns();
-  MultiLedPattern::unserialize(buffer);
-  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    SingleLedPattern *pat = PatternBuilder::makeSingle((PatternID)buffer.unserialize8());
-    if (!pat) {
-      ERROR_LOGF("Failed to unserialize hybrid pat %u", pos);
-      return;
-    }
-    pat->unserialize(buffer);
-    m_ledPatterns[pos] = pat;
-  }
-}
-
 #if SAVE_TEMPLATE == 1
 void HybridPattern::saveTemplate(int level) const
 {
