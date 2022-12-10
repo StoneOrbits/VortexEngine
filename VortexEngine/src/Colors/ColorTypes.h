@@ -70,17 +70,12 @@ public:
   bool empty() const;
   void clear();
 
+  uint32_t raw() const { return HSV_BIT | (val << 16) | (sat << 8) | hue; }
+
   // public members
-  union
-  {
-    struct
-    {
-      uint8_t hue;
-      uint8_t sat;
-      uint8_t val;
-    };
-    uint8_t raw[3];
-  };
+  uint8_t hue;
+  uint8_t sat;
+  uint8_t val;
 };
 
 class RGBColor
@@ -108,17 +103,12 @@ public:
   void serialize(ByteStream &buffer) const;
   void unserialize(ByteStream &buffer);
 
+  uint32_t raw() const { return (blue << 16) | (green < 8) | red; }
+
   // public members
-  union
-  {
-    struct
-    {
-      uint8_t red;
-      uint8_t green;
-      uint8_t blue;
-    };
-    uint8_t raw[3];
-  };
+  uint8_t red;
+  uint8_t green;
+  uint8_t blue;
 };
 
 // Stolen from FastLED hsv to rgb full rainbox where all colours

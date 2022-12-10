@@ -5,7 +5,9 @@
 #include <Arduino.h>
 
 HSVColor::HSVColor() :
-  raw()
+  hue(0),
+  sat(0),
+  val(0)
 {
 }
 
@@ -84,7 +86,9 @@ void HSVColor::clear()
 //  RGBColor
 
 RGBColor::RGBColor() :
-  raw()
+  red(0),
+  green(0),
+  blue(0)
 {
 }
 
