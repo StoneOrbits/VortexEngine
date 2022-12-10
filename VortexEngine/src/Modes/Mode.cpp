@@ -236,12 +236,8 @@ bool Mode::setSinglePat(LedPos pos, SingleLedPattern *pat, const Colorset *set)
     return false;
   }
   // bind the position and colorset, if the colorset is missing then just
-  // bind the position without a colorset
-  if (set) {
-    pat->bind(set, pos);
-  } else {
-    pat->bind(pos);
-  }
+  // bind the previously assigned colorset
+  pat->bind(set ? set : getColorset(pos), pos);
   clearPattern(pos);
   m_ledEntries[pos] = pat;
   return true;
