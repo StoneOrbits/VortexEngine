@@ -70,7 +70,7 @@ public:
   bool empty() const;
   void clear();
 
-  uint32_t raw() const { return HSV_BIT | (val << 16) | (sat << 8) | hue; }
+  uint32_t raw() const { return HSV_BIT | (hue << 16) | (sat << 8) | val; }
 
   // public members
   uint8_t hue;
@@ -103,7 +103,7 @@ public:
   void serialize(ByteStream &buffer) const;
   void unserialize(ByteStream &buffer);
 
-  uint32_t raw() const { return (blue << 16) | (green << 8) | red; }
+  uint32_t raw() const { return (red << 16) | (green << 8) | blue; }
 
   // public members
   uint8_t red;

@@ -391,15 +391,16 @@ void Modes::deleteCurMode()
     m_serializedModes[0].clear();
     return;
   }
-  // note m_numModes has been decremented now
-  if (m_curMode >= m_numModes) {
-    m_curMode = m_numModes - 1;
-  }
   for (uint32_t i = m_curMode; i < m_numModes; ++i) {
     // move the next entry down one
     m_serializedModes[i] = m_serializedModes[i + 1];
   }
   m_serializedModes[m_numModes].clear();
+  // note m_numModes has been decremented now
+  if (m_curMode >= m_numModes) {
+    m_curMode = m_numModes - 1;
+  }
+
 }
 
 void Modes::clearModes()
