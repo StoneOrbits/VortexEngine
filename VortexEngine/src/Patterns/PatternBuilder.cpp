@@ -51,9 +51,9 @@ Pattern *PatternBuilder::make(PatternID id, const PatternArgs *args)
     return nullptr;
   }
   if (isMultiLedPatternID(id)) {
-    return makeMulti(id);
+    return makeMulti(id, args);
   }
-  return makeSingle(id);
+  return makeSingle(id, args);
 }
 
 // generate a single LED pattern (nullptr if patternid is not single LED)
@@ -62,7 +62,7 @@ SingleLedPattern *PatternBuilder::makeSingle(PatternID id, const PatternArgs *ar
   if (!isSingleLedPatternID(id)) {
     return nullptr;
   }
-  Pattern *pat = makeInternal(id);
+  Pattern *pat = makeInternal(id, args);
   if (!pat) {
     return nullptr;
   }
@@ -76,7 +76,7 @@ MultiLedPattern *PatternBuilder::makeMulti(PatternID id, const PatternArgs *args
   if (!isMultiLedPatternID(id)) {
     return nullptr;
   }
-  Pattern *pat = makeInternal(id);
+  Pattern *pat = makeInternal(id, args);
   if (!pat) {
     return nullptr;
   }
@@ -99,7 +99,7 @@ Pattern *PatternBuilder::makeInternal(PatternID id, const PatternArgs *args)
     // no error
     return nullptr;
   }
-  Pattern *pat = generate(id);
+  Pattern *pat = generate(id, args);
   if (!pat) {
     ERROR_OUT_OF_MEMORY();
     return nullptr;
