@@ -252,8 +252,17 @@ bool Mode::setSinglePat(LedPos pos, SingleLedPattern *pat, const Colorset *set)
     return false;
   }
   // bind the position and colorset, if the colorset is missing then just
-  // bind the previously assigned colorset
-  pat->bind(set ? set : getColorset(pos), pos);
+  // bind the previously assigned colorset, if that is also missing then
+  // try to grab the colorset from the first led. This could happen for
+  // example if a multi led pattern was set and we're not setting single
+  // led patterns on all the fingers
+  if (!set) {
+    set = getColorset(pos);
+    if (!set) {
+      set = getColorset(LED_FIRST);
+    }
+  }
+  pat->bind(set, pos);
   clearPattern(pos);
   m_ledEntries[pos] = pat;
   return true;
