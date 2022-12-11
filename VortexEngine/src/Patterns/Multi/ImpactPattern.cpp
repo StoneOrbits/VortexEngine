@@ -9,6 +9,11 @@ ImpactPattern::ImpactPattern() :
   m_patternID = PATTERN_IMPACT;
 }
 
+ImpactPattern::ImpactPattern(const PatternArgs &args) :
+  ImpactPattern()
+{
+}
+
 ImpactPattern::~ImpactPattern()
 {
 }

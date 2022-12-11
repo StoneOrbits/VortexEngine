@@ -46,6 +46,11 @@ ZigzagPattern::ZigzagPattern(uint8_t onDuration, uint8_t offDuration, uint8_t st
   m_patternID = PATTERN_ZIGZAG;
 }
 
+ZigzagPattern::ZigzagPattern(const PatternArgs &args) :
+  ZigzagPattern(args.arg1, args.arg2, args.arg3, args.arg4, args.arg5)
+{
+}
+
 ZigzagPattern::~ZigzagPattern()
 {
 }

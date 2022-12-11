@@ -4,6 +4,7 @@
 #include "Patterns.h"
 
 class Pattern;
+class PatternArgs;
 class ByteStream;
 class MultiLedPattern;
 class SingleLedPattern;
@@ -12,21 +13,22 @@ class PatternBuilder
 {
 public:
   // generic make any pattern
-  static Pattern *make(PatternID id);
+  static Pattern *make(PatternID id, const PatternArgs *args = nullptr);
 
   // generate a single LED pattern (nullptr if patternid is not single LED)
-  static SingleLedPattern *makeSingle(PatternID id);
+  static SingleLedPattern *makeSingle(PatternID id, const PatternArgs *args = nullptr);
 
   // generate a multi LED pattern (nullptr if patternid is not multi LED)
-  static MultiLedPattern *makeMulti(PatternID id);
+  static MultiLedPattern *makeMulti(PatternID id, const PatternArgs *args = nullptr);
 
   // unserialize a buffer into a pattern
   static Pattern *unserialize(ByteStream &buffer);
 
 private:
   // helper routines
-  static Pattern *makeInternal(PatternID id);
-  static Pattern *generate(PatternID id);
+  static Pattern *makeInternal(PatternID id, const PatternArgs *args = nullptr);
+  static Pattern *generate(PatternID id, const PatternArgs *args = nullptr);
+  static PatternArgs generateArgs(PatternID id);
 };
 
 #endif

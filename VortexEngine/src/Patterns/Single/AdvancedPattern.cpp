@@ -18,6 +18,11 @@ AdvancedPattern::AdvancedPattern(uint8_t onDuration, uint8_t offDuration, uint8_
   m_patternID = PATTERN_ADVANCED;
 }
 
+AdvancedPattern::AdvancedPattern(const PatternArgs &args) :
+  AdvancedPattern(args.arg1, args.arg2, args.arg3, args.arg4, args.arg5, args.arg6)
+{
+}
+
 AdvancedPattern::~AdvancedPattern()
 {
 }

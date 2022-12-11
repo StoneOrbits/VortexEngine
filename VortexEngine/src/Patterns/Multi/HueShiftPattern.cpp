@@ -13,6 +13,11 @@ HueShiftPattern::HueShiftPattern(uint8_t speed, uint8_t scale) :
   m_patternID = PATTERN_HUESHIFT;
 }
 
+HueShiftPattern::HueShiftPattern(const PatternArgs &args) :
+  HueShiftPattern(args.arg1, args.arg2)
+{
+}
+
 HueShiftPattern::~HueShiftPattern()
 {
 }

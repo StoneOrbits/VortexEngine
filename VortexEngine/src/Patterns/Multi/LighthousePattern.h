@@ -9,6 +9,7 @@ class LighthousePattern : public BlinkStepPattern
 public:
   LighthousePattern(uint8_t onDuration = DOPISH_ON_DURATION, uint8_t offDuration = DOPISH_OFF_DURATION, uint8_t stepDuration = 100,
     uint8_t fadeAmount = 25, uint8_t fadeRate = 5);
+; LighthousePattern(const PatternArgs &args);
   virtual ~LighthousePattern();
 
   // init the pattern to initial state

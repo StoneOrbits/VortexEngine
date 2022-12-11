@@ -8,6 +8,7 @@ class SplitStrobiePattern : public HybridPattern
 {
 public:
   SplitStrobiePattern(uint16_t stepDuration = 1000);
+  SplitStrobiePattern(const PatternArgs &args);
   virtual ~SplitStrobiePattern();
 
   // init the pattern to initial state

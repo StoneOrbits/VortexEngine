@@ -7,6 +7,7 @@ class SnowballPattern : public BlinkStepPattern
 {
 public:
   SnowballPattern(uint8_t onDuration = DOPISH_ON_DURATION, uint8_t offDuration = DOPISH_OFF_DURATION, uint8_t stepDuration = 100);
+  SnowballPattern(const PatternArgs &args);
   virtual ~SnowballPattern();
 
   // init the pattern to initial state

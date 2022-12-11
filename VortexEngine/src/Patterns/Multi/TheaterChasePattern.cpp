@@ -17,6 +17,11 @@ TheaterChasePattern::TheaterChasePattern(uint8_t onDuration, uint8_t offDuration
   m_patternID = PATTERN_THEATER_CHASE;
 }
 
+TheaterChasePattern::TheaterChasePattern(const PatternArgs &args) :
+  TheaterChasePattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 TheaterChasePattern::~TheaterChasePattern()
 {
 }

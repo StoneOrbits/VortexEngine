@@ -13,6 +13,11 @@ FlowersPattern::FlowersPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_
   m_patternID = PATTERN_FLOWERS;
 }
 
+FlowersPattern::FlowersPattern(const PatternArgs &args) :
+  FlowersPattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 FlowersPattern::~FlowersPattern()
 {
 }

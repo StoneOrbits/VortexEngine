@@ -19,6 +19,11 @@ MateriaPattern::MateriaPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_
   m_patternID = PATTERN_MATERIA;
 }
 
+MateriaPattern::MateriaPattern(const PatternArgs &args) :
+  MateriaPattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 MateriaPattern::~MateriaPattern()
 {
 }

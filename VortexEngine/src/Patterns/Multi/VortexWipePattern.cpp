@@ -26,6 +26,11 @@ VortexWipePattern::VortexWipePattern(uint8_t onDuration, uint8_t offDuration, ui
   m_patternID = PATTERN_VORTEXWIPE;
 }
 
+VortexWipePattern::VortexWipePattern(const PatternArgs &args) :
+  VortexWipePattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 VortexWipePattern::~VortexWipePattern()
 {
 }

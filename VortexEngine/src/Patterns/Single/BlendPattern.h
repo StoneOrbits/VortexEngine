@@ -11,6 +11,7 @@ class BlendPattern : public BasicPattern
 {
 public:
   BlendPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t speed = 1);
+; BlendPattern(const PatternArgs &args);
   virtual ~BlendPattern();
 
   virtual void init() override;

@@ -16,6 +16,11 @@ DashDopsPattern::DashDopsPattern(uint8_t dashLength, uint8_t dotLength, uint8_t 
   m_patternID = PATTERN_DASHDOPS;
 }
 
+DashDopsPattern::DashDopsPattern(const PatternArgs &args) :
+  DashDopsPattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 DashDopsPattern::~DashDopsPattern()
 {
 }

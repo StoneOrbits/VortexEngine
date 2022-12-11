@@ -7,6 +7,7 @@ class SparkleTracePattern : public BlinkStepPattern
 {
 public:
   SparkleTracePattern(uint8_t onDuration = 5, uint8_t offDuration = 0, uint8_t stepDuration = 50);
+  SparkleTracePattern(const PatternArgs &args);
   virtual ~SparkleTracePattern();
 
 protected:

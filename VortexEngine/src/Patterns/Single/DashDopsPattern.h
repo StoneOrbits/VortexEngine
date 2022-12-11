@@ -9,6 +9,7 @@ class DashDopsPattern : public SingleLedPattern
 {
 public:
   DashDopsPattern(uint8_t dashLength = 20, uint8_t dotLength = 1, uint8_t offDuration = 5);
+; DashDopsPattern(const PatternArgs &args);
   virtual ~DashDopsPattern();
 
   virtual void init() override;

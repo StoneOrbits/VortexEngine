@@ -8,6 +8,11 @@ TipTopPattern::TipTopPattern() :
   m_patternID = PATTERN_TIPTOP;
 }
 
+TipTopPattern::TipTopPattern(const PatternArgs &args) :
+  TipTopPattern()
+{
+}
+
 TipTopPattern::~TipTopPattern()
 {
 }

@@ -11,6 +11,11 @@ SparkleTracePattern::SparkleTracePattern(uint8_t onDuration, uint8_t offDuration
   m_patternID = PATTERN_SPARKLETRACE;
 }
 
+SparkleTracePattern::SparkleTracePattern(const PatternArgs &args) :
+  SparkleTracePattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 SparkleTracePattern::~SparkleTracePattern()
 {
 }

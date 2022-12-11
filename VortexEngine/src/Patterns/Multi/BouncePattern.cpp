@@ -15,6 +15,11 @@ BouncePattern::BouncePattern(int8_t onDuration, uint8_t offDuration, uint8_t ste
   m_patternID = PATTERN_BOUNCE;
 }
 
+BouncePattern::BouncePattern(const PatternArgs &args) :
+  BouncePattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 BouncePattern::~BouncePattern()
 {
 }

@@ -8,6 +8,7 @@ class PulsishPattern : public MultiLedPattern
 public:
   PulsishPattern(uint8_t onDuration1 = DOPISH_ON_DURATION, uint8_t offDuration1 = DOPISH_OFF_DURATION,
     uint8_t onDuration2 = STROBE_ON_DURATION, uint8_t offDuration2 = STROBE_OFF_DURATION, uint8_t stepDuration = 100);
+  PulsishPattern(const PatternArgs &args);
   virtual ~PulsishPattern();
 
   // init the pattern to initial state

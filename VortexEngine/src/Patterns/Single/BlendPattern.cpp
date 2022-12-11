@@ -17,6 +17,11 @@ BlendPattern::BlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t blen
   m_patternID = PATTERN_BLEND;
 }
 
+BlendPattern::BlendPattern(const PatternArgs &args) :
+  BlendPattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 BlendPattern::~BlendPattern()
 {
 }

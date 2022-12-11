@@ -12,6 +12,11 @@ WarpWormPattern::WarpWormPattern(uint8_t onDuration, uint8_t offDuration, uint8_
   m_patternID = PATTERN_WARPWORM;
 }
 
+WarpWormPattern::WarpWormPattern(const PatternArgs &args) :
+  WarpWormPattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 WarpWormPattern::~WarpWormPattern()
 {
 }

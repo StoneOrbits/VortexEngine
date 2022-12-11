@@ -12,6 +12,11 @@ WarpPattern::WarpPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDu
   m_patternID = PATTERN_WARP;
 }
 
+WarpPattern::WarpPattern(const PatternArgs &args) :
+  WarpPattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 WarpPattern::~WarpPattern()
 {
 }

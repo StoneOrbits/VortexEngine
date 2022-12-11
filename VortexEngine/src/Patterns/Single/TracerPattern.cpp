@@ -15,6 +15,11 @@ TracerPattern::TracerPattern(uint8_t tracerLength, uint8_t dotLength) :
   m_patternID = PATTERN_TRACER;
 }
 
+TracerPattern::TracerPattern(const PatternArgs &args) :
+  TracerPattern(args.arg1, args.arg2)
+{
+}
+
 TracerPattern::~TracerPattern()
 {
 }

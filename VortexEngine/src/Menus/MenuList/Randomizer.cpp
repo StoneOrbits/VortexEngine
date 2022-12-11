@@ -115,7 +115,7 @@ bool Randomizer::reRoll()
   do {
     // continuously re-randomize the pattern so we don't get solids
     randomPattern = (PatternID)random(PATTERN_FIRST, PATTERN_COUNT);
-  } while (randomPattern >= PATTERN_SOLID0 && randomPattern <= PATTERN_SOLID2);
+  } while (randomPattern >= PATTERN_SOLID1 && randomPattern <= PATTERN_SOLID8);
 
   if (!m_pRandomizedMode) {
     if (!m_pCurMode) {

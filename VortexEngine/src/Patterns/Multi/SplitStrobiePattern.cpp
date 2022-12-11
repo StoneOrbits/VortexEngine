@@ -14,6 +14,11 @@ SplitStrobiePattern::SplitStrobiePattern(uint16_t stepDuration) :
   m_patternID = PATTERN_SPLITSTROBIE;
 }
 
+SplitStrobiePattern::SplitStrobiePattern(const PatternArgs &args) :
+  SplitStrobiePattern(args.arg1)
+{
+}
+
 SplitStrobiePattern::~SplitStrobiePattern()
 {
 }

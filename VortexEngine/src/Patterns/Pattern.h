@@ -25,6 +25,24 @@
 
 class ByteStream;
 
+class PatternArgs
+{
+public:
+  PatternArgs(uint8_t a1 = 0, uint8_t a2 = 0, uint8_t a3 = 0, uint8_t a4 = 0,
+    uint8_t a5 = 0, uint8_t a6 = 0, uint8_t a7 = 0, uint8_t a8 = 0) :
+    arg1(a1), arg2(a2), arg3(a3), arg4(a4), arg5(a5), arg6(a6), arg7(a7), arg8(a8)
+  {
+  }
+  uint8_t arg1;
+  uint8_t arg2;
+  uint8_t arg3;
+  uint8_t arg4;
+  uint8_t arg5;
+  uint8_t arg6;
+  uint8_t arg7;
+  uint8_t arg8;
+};
+
 class Pattern
 {
   // PatternBuilder can access the Pattern internals
@@ -33,6 +51,8 @@ class Pattern
 protected:
   // Pattern is an abstract class
   Pattern();
+
+  Pattern(const PatternArgs &args);
 
 public:
   virtual ~Pattern();

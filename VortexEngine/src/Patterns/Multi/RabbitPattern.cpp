@@ -9,6 +9,11 @@ RabbitPattern::RabbitPattern() :
   m_patternID = PATTERN_RABBIT;
 }
 
+RabbitPattern::RabbitPattern(const PatternArgs &args) :
+  RabbitPattern()
+{
+}
+
 RabbitPattern::~RabbitPattern()
 {
 }

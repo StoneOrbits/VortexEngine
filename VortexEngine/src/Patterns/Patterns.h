@@ -33,19 +33,24 @@ enum PatternID : uint8_t
   PATTERN_STROBIE, // basicpattern 3 22 0
   PATTERN_RIBBON, // basicpattern 20 0 0
   PATTERN_MINIRIBBON, // basicpattern 3 0 0
-  PATTERN_TRACER, // tracerpattern 20 1
-  PATTERN_DASHDOPS, // dashDopsPattern 1 5 20
   PATTERN_BLINKIE, // BasicPattern 5, 8, 35
   PATTERN_GHOSTCRUSH, // BasicPattern 1, 0, 50
+  PATTERN_TRACER, // tracerpattern 20 1
+  PATTERN_DASHDOPS, // dashDopsPattern 1 5 20
   PATTERN_ADVANCED, // AdvancedPattern
   PATTERN_BLEND,  // BlendPattern 2, 13, 1
   PATTERN_COMPLEMENTARY_BLEND,  // ComplementaryBlendPattern 2, 13, 1
   PATTERN_BRACKETS,  // BracketsPattern
 
   // solid patterns are mainly used as components of complex patterns
-  PATTERN_SOLID0, // solid of 0th color in colorset
   PATTERN_SOLID1, // solid of 1st color in colorset
   PATTERN_SOLID2, // solid of 2nd color in colorset
+  PATTERN_SOLID3, // solid of 3rd color in colorset
+  PATTERN_SOLID4, // solid of 4th color in colorset
+  PATTERN_SOLID5, // solid of 5th color in colorset
+  PATTERN_SOLID6, // solid of 6th color in colorset
+  PATTERN_SOLID7, // solid of 7th color in colorset
+  PATTERN_SOLID8, // solid of 8th color in colorset
 
   // ADD NEW SINGLE LED PATTERNS HERE
   // WARNING This will offset all multi-led patterns so sharing of patterns 

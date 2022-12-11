@@ -13,6 +13,11 @@ MeteorPattern::MeteorPattern(uint8_t onDuration, uint8_t offDuration, uint8_t st
   m_patternID = PATTERN_METEOR;
 }
 
+MeteorPattern::MeteorPattern(const PatternArgs &args) :
+  MeteorPattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 MeteorPattern::~MeteorPattern()
 {
 }

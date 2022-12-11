@@ -14,6 +14,11 @@ BackStrobePattern::BackStrobePattern(uint16_t stepSpeed) :
   m_patternID = PATTERN_BACKSTROBE;
 }
 
+BackStrobePattern::BackStrobePattern(const PatternArgs &args) :
+  BackStrobePattern(args.arg1)
+{
+}
+
 BackStrobePattern::~BackStrobePattern()
 {
 }

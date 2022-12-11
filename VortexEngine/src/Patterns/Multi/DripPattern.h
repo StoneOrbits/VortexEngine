@@ -7,6 +7,7 @@ class DripPattern : public BlinkStepPattern
 {
 public:
   DripPattern(uint8_t onDuration = 10 , uint8_t offDuration = 10, uint8_t stepDuration = 100);
+; DripPattern(const PatternArgs &args);
   virtual ~DripPattern();
 
   virtual void init() override;

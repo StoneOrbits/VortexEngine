@@ -10,6 +10,11 @@ ComplementaryBlendPattern::ComplementaryBlendPattern(uint8_t onDuration, uint8_t
   m_patternID = PATTERN_COMPLEMENTARY_BLEND;
 }
 
+ComplementaryBlendPattern::ComplementaryBlendPattern(const PatternArgs &args) :
+  ComplementaryBlendPattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 ComplementaryBlendPattern::~ComplementaryBlendPattern()
 {
 }

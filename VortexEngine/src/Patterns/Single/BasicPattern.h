@@ -11,6 +11,7 @@ class BasicPattern : public SingleLedPattern
 {
 public:
   BasicPattern(uint8_t onDuration = 1, uint8_t offDuration = 0, uint8_t gapDuration = 0);
+; BasicPattern(const PatternArgs &args);
   virtual ~BasicPattern();
 
   virtual void init() override;

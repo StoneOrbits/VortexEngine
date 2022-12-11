@@ -12,6 +12,11 @@ FillPattern::FillPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDu
   m_patternID = PATTERN_FILL;
 }
 
+FillPattern::FillPattern(const PatternArgs &args) :
+  FillPattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 FillPattern::~FillPattern()
 {
 }

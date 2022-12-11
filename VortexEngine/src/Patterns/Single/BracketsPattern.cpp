@@ -14,6 +14,11 @@ BracketsPattern::BracketsPattern(uint8_t bracketDuration, uint8_t midDuration, u
   m_patternID = PATTERN_BRACKETS;
 }
 
+BracketsPattern::BracketsPattern(const PatternArgs &args) :
+  BracketsPattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 BracketsPattern::~BracketsPattern()
 {
 }

@@ -20,6 +20,11 @@ PulsishPattern::PulsishPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_
   m_patternID = PATTERN_PULSISH;
 }
 
+PulsishPattern::PulsishPattern(const PatternArgs &args) :
+  PulsishPattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 PulsishPattern::~PulsishPattern()
 {
 }

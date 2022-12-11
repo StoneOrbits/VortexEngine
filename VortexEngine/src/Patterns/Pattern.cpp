@@ -15,6 +15,11 @@ Pattern::Pattern() :
 {
 }
 
+Pattern::Pattern(const PatternArgs &args) :
+  Pattern()
+{
+}
+
 Pattern::~Pattern()
 {
 }

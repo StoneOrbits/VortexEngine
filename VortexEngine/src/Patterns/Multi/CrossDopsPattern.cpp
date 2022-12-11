@@ -9,6 +9,11 @@ CrossDopsPattern::CrossDopsPattern(uint8_t onDuration, uint8_t offDuration, uint
   m_patternID = PATTERN_CROSSDOPS;
 }
 
+CrossDopsPattern::CrossDopsPattern(const PatternArgs &args) :
+  CrossDopsPattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 CrossDopsPattern::~CrossDopsPattern()
 {
 }

@@ -9,6 +9,11 @@ DripPattern::DripPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDu
   m_patternID = PATTERN_DRIP;
 }
 
+DripPattern::DripPattern(const PatternArgs &args) :
+  DripPattern(args.arg1, args.arg2, args.arg3)
+{
+}
+
 DripPattern::~DripPattern()
 {
 }
