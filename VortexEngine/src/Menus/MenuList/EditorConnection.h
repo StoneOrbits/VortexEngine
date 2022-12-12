@@ -22,6 +22,7 @@ private:
   void receiveData();
   void sendModes();
   bool receiveModes();
+  bool receiveDemoMode();
   void handleCommand();
   bool receiveMessage(const char *message);
 
@@ -51,12 +52,19 @@ private:
     STATE_PUSH_MODES,
     STATE_PUSH_MODES_RECEIVE,
     STATE_PUSH_MODES_DONE,
+
+    // engine pushes mode to gloves for demo while idle
+    STATE_DEMO_MODE,
+    STATE_DEMO_MODE_RECEIVE,
+    STATE_DEMO_MODE_DONE,
   };
 
   // state of the editor
   EditorConnectionState m_state;
   // the data that is received
   ByteStream m_receiveBuffer;
+  // the mode to demo if there is one
+  Mode *m_pDemoMode;
 };
 
 #endif

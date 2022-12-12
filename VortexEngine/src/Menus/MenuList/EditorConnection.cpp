@@ -12,7 +12,8 @@
 
 EditorConnection::EditorConnection() :
   Menu(),
-  m_state(STATE_DISCONNECTED)
+  m_state(STATE_DISCONNECTED),
+  m_pDemoMode(nullptr)
 {
 }
 
@@ -21,6 +22,9 @@ bool EditorConnection::init()
   if (!Menu::init()) {
     return false;
   }
+
+  m_pDemoMode = ModeBuilder::make(PATTERN_DOPS, RGB_RED, RGB_GREEN, RGB_BLUE);
+  m_pDemoMode->init();
 
   DEBUG_LOG("Entering Editor Connection");
   return true;
@@ -137,6 +141,27 @@ bool EditorConnection::run()
     SerialComs::write(EDITOR_VERB_PUSH_MODES_DONE);
     m_state = STATE_SEND_IDLE;
     break;
+  case STATE_DEMO_MODE:
+    // editor requested to push modes, clear first and reset first
+    m_receiveBuffer.clear();
+    // now say we are ready
+    SerialComs::write(EDITOR_VERB_READY);
+    // move to receiving
+    m_state = STATE_DEMO_MODE_RECEIVE;
+    break;
+  case STATE_DEMO_MODE_RECEIVE:
+    // receive the modes into the receive buffer
+    if (receiveDemoMode()) {
+      // success modes were received send the done
+      m_state = STATE_DEMO_MODE_DONE;
+    }
+    break;
+  case STATE_DEMO_MODE_DONE:
+    // say we are done
+    m_receiveBuffer.clear();
+    SerialComs::write(EDITOR_VERB_DEMO_MODE_DONE);
+    m_state = STATE_SEND_IDLE;
+    break;
   }
   return true;
 }
@@ -155,31 +180,54 @@ void EditorConnection::onLongClick()
 
 void EditorConnection::showEditor()
 {
-  Leds::clearAll();
-  // gradually fill from thumb to pinkie
-  Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLANK);
-  if (SerialComs::isConnected()) {
-    switch (m_state) {
-    case STATE_IDLE:
+  if (!SerialComs::isConnected()) {
+    Leds::clearAll();
+    // gradually fill from thumb to pinkie
+    Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLANK);
+    return;
+  }
+  switch (m_state) {
+  case STATE_IDLE:
+    if (m_pDemoMode) {
+      // thats all
+      m_pDemoMode->play();
+    } else {
+      Leds::clearAll();
       Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLUE);
-      break;
-    case STATE_PULL_MODES:
-    case STATE_PULL_MODES_ACK:
-      Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_CYAN);
-      break;
-    case STATE_PUSH_MODES:
-      Leds::setAll(RGB_WHITE);
-      break;
-    case STATE_PUSH_MODES_RECEIVE:
-      Leds::setAll(RGB_BLANK);
-      break;
-    case STATE_PUSH_MODES_DONE:
-      Leds::setAll(RGB_ORANGE);
-      break;
-    default:
-      Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_GREEN);
-      break;
     }
+    break;
+  case STATE_PULL_MODES:
+  case STATE_PULL_MODES_ACK:
+    Leds::clearAll();
+    Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_CYAN);
+    break;
+  case STATE_PUSH_MODES:
+    Leds::clearAll();
+    Leds::blinkAll(RGB_WHITE);
+    break;
+  case STATE_PUSH_MODES_RECEIVE:
+    Leds::clearAll();
+    Leds::blinkAll(RGB_BLANK);
+    break;
+  case STATE_PUSH_MODES_DONE:
+    Leds::clearAll();
+    Leds::blinkAll(RGB_ORANGE);
+    break;
+  case STATE_DEMO_MODE:
+    Leds::clearAll();
+    Leds::blinkAll(RGB_YELLOW);
+    break;
+  case STATE_DEMO_MODE_RECEIVE:
+    Leds::clearAll();
+    Leds::blinkAll(RGB_PURPLE);
+    break;
+  case STATE_DEMO_MODE_DONE:
+    Leds::clearAll();
+    Leds::blinkAll(RGB_BLUE);
+    break;
+  default:
+    Leds::setAll(RGB_BLANK);
+    break;
   }
 }
 
@@ -225,9 +273,46 @@ bool EditorConnection::receiveModes()
     // bad crc
     return false;
   }
+  m_receiveBuffer.resetUnserializer();
   // now unserialize the rest of the data
   Modes::unserialize(m_receiveBuffer);
   Modes::saveStorage();
+  return true;
+}
+
+bool EditorConnection::receiveDemoMode()
+{
+  // need at least the buffer size first
+  uint32_t size = 0;
+  if (m_receiveBuffer.size() < sizeof(size)) {
+    // wait, not enough data available yet
+    return false;
+  }
+  // grab the size out of the start
+  size = m_receiveBuffer.peek32();
+  if (m_receiveBuffer.size() < (size + sizeof(size))) {
+    // don't unserialize yet, not ready
+    return false;
+  }
+  // okay unserialize now, first unserialize the size
+  m_receiveBuffer.unserialize(&size);
+  // todo: this is kinda jank but w/e
+  memmove(m_receiveBuffer.rawData(),
+    ((uint8_t *)m_receiveBuffer.data()) + sizeof(size),
+    m_receiveBuffer.size());
+  if (!m_receiveBuffer.checkCRC()) {
+    Leds::setAll(RGB_WHITE);
+    // bad crc
+    return false;
+  }
+  // unserialize the mode into the demo mode
+  if (m_pDemoMode) {
+    delete m_pDemoMode;
+    m_pDemoMode = nullptr;
+  }
+  m_receiveBuffer.resetUnserializer();
+  m_pDemoMode = ModeBuilder::unserialize(m_receiveBuffer);
+  m_pDemoMode->init();
   return true;
 }
 
@@ -237,5 +322,7 @@ void EditorConnection::handleCommand()
     m_state = STATE_PULL_MODES;
   } else if (receiveMessage(EDITOR_VERB_PUSH_MODES)) {
     m_state = STATE_PUSH_MODES;
+  } else if (receiveMessage(EDITOR_VERB_DEMO_MODE)) {
+    m_state = STATE_DEMO_MODE;
   }
 }
