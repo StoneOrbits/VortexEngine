@@ -49,6 +49,10 @@ Mode *ModeBuilder::unserialize(ByteStream &buffer)
     ERROR_OUT_OF_MEMORY();
     return nullptr;
   }
-  newMode->unserialize(buffer);
+  // make sure the mode unserializes
+  if (!newMode->unserialize(buffer)) {
+    delete newMode;
+    return nullptr;
+  }
   return newMode;
 }

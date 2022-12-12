@@ -23,8 +23,24 @@ bool Menu::init()
   // menu is initialized before being run
   m_pCurMode = Modes::curMode();
   if (!m_pCurMode) {
-    // need a mode for menus to operate on
-    return false;
+    // if you enter a menu and there's no modes, it will add an empty one
+    if (Modes::numModes() > 0) {
+      Leds::setAll(RGB_PURPLE);
+      // some kind of serious error
+      return false;
+    }
+    if (!Modes::addMode(PATTERN_BASIC, RGBColor(RGB_OFF))) {
+      Leds::setAll(RGB_YELLOW);
+      // some kind of serious error
+      return false;
+    }
+    // get the mode
+    m_pCurMode = Modes::curMode();
+    if (!m_pCurMode) {
+      Leds::setAll(RGB_ORANGE);
+      // serious error again
+      return false;
+    }
   }
   // reset the current selection
   m_curSelection = FINGER_FIRST;

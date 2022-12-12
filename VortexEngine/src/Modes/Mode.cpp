@@ -74,7 +74,7 @@ void Mode::serialize(ByteStream &buffer) const
   }
 }
 
-void Mode::unserialize(ByteStream &buffer)
+bool Mode::unserialize(ByteStream &buffer)
 {
   clearPatterns();
   uint32_t flags = 0;
@@ -83,7 +83,7 @@ void Mode::unserialize(ByteStream &buffer)
   m_ledEntries[0] = PatternBuilder::unserialize(buffer);
   if (!m_ledEntries[0] || (flags & MODE_FLAG_MULTI_LED)) {
     // done
-    return;
+    return true;
   }
   PatternID firstID = m_ledEntries[0]->getPatternID();
   const Colorset *firstSet = m_ledEntries[0]->getColorset();
@@ -93,19 +93,20 @@ void Mode::unserialize(ByteStream &buffer)
       m_ledEntries[pos] = PatternBuilder::make(firstID);
       if (!m_ledEntries[pos]) {
         ERROR_LOG("Failed to created pattern");
-        return;
+        return false;
       }
       m_ledEntries[pos]->bind(firstSet, pos);
     } else {
       m_ledEntries[pos] = PatternBuilder::unserialize(buffer);
       if (!m_ledEntries[pos]) {
         ERROR_LOG("Failed to unserialize pattern from buffer");
-        return;
+        return false;
       }
       // must bind to position, the position isn't serialized
       m_ledEntries[pos]->bind(pos);
     }
   }
+  return true;
 }
 
 #if SAVE_TEMPLATE == 1

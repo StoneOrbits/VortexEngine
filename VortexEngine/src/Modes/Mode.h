@@ -44,7 +44,7 @@ public:
   // save the mode to serial
   virtual void serialize(ByteStream &buffer) const;
   // load the mode from serial
-  virtual void unserialize(ByteStream &buffer);
+  virtual bool unserialize(ByteStream &buffer);
 
 #if SAVE_TEMPLATE == 1
   // save the data template

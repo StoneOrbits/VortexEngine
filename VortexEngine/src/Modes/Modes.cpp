@@ -164,6 +164,7 @@ bool Modes::unserialize(ByteStream &modesBuffer)
     // then we unpack them when we instantiate the mode
     if (!addSerializedMode(modesBuffer)) {
       DEBUG_LOGF("Failed to add mode %u after unserialization", i);
+      // clear work so far?
       clearModes();
       return false;
     }
@@ -417,7 +418,9 @@ void Modes::clearModes()
 
 bool Modes::initCurMode()
 {
-  if (m_pCurMode) {
+  // if the current mode is already initialized, or we don't have
+  // any modes at all then we're technically successful
+  if (m_pCurMode || !m_numModes) {
     return true;
   }
   if (m_serializedModes[m_curMode].is_compressed()) {
@@ -431,6 +434,7 @@ bool Modes::initCurMode()
   // re-compress the buffer if possible
   m_serializedModes[m_curMode].compress();
   if (!m_pCurMode) {
+    // unable to unserialize a mode, empty modes?
     return false;
   }
   m_pCurMode->init();

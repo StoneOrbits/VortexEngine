@@ -71,7 +71,7 @@ void Randomizer::onShortClick()
 void Randomizer::onLongClick()
 {
   // we will need to save if the randomized mode is not equal to current mode
-  bool needsSave = !m_pCurMode->equals(m_pRandomizedMode);
+  bool needsSave = !m_pCurMode || !m_pCurMode->equals(m_pRandomizedMode);
   // update the current mode to be a copy of the randomized mode
   if (!Modes::updateCurMode(m_pRandomizedMode)) {
     ERROR_LOG("Failed to set randomized mode");
@@ -118,9 +118,6 @@ bool Randomizer::reRoll()
   } while (randomPattern >= PATTERN_SOLID1 && randomPattern <= PATTERN_SOLID8);
 
   if (!m_pRandomizedMode) {
-    if (!m_pCurMode) {
-      return false;
-    }
     // create a new randomized mode out of the colors
     m_pRandomizedMode = ModeBuilder::make(randomPattern, &randomSet);
     if (!m_pRandomizedMode) {
