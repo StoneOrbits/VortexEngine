@@ -113,6 +113,23 @@ void AdvancedPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_repeatGroup);
 }
 
+void AdvancedPattern::setArgs(const PatternArgs &args)
+{
+  BasicPattern::setArgs(args);
+  m_groupSize = args.arg4;
+  m_skipCols = args.arg5;
+  m_repeatGroup = args.arg6;
+}
+
+void AdvancedPattern::getArgs(PatternArgs &args) const
+{
+  BasicPattern::getArgs(args);
+  args.arg4 = m_groupSize;
+  args.arg5 = m_skipCols;
+  args.arg6 = m_repeatGroup;
+  args.numArgs += 3;
+}
+
 #if SAVE_TEMPLATE == 1
 void AdvancedPattern::saveTemplate(int level) const
 {

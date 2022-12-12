@@ -25,13 +25,23 @@
 
 class ByteStream;
 
+// maximum number of args
+#define MAX_ARGS 8
+
+// a structured method for passing arguments to patterns
 class PatternArgs
 {
 public:
   PatternArgs(uint8_t a1 = 0, uint8_t a2 = 0, uint8_t a3 = 0, uint8_t a4 = 0,
     uint8_t a5 = 0, uint8_t a6 = 0, uint8_t a7 = 0, uint8_t a8 = 0) :
-    arg1(a1), arg2(a2), arg3(a3), arg4(a4), arg5(a5), arg6(a6), arg7(a7), arg8(a8)
+    arg1(a1), arg2(a2), arg3(a3), arg4(a4), arg5(a5), arg6(a6), arg7(a7), arg8(a8),
+    numArgs(0)
   {
+  }
+  void init(uint8_t a1 = 0, uint8_t a2 = 0, uint8_t a3 = 0, uint8_t a4 = 0,
+    uint8_t a5 = 0, uint8_t a6 = 0, uint8_t a7 = 0, uint8_t a8 = 0)
+  {
+    *this = PatternArgs(a1, a2, a3, a4, a5, a6, a7, a8);
   }
   uint8_t arg1;
   uint8_t arg2;
@@ -41,6 +51,8 @@ public:
   uint8_t arg6;
   uint8_t arg7;
   uint8_t arg8;
+  // returned by classes getArgs() to indicate how many args they have
+  uint8_t numArgs;
 };
 
 class Pattern
@@ -68,9 +80,13 @@ public:
   virtual void play() = 0;
 
   // must override the serialize routine to save the pattern
-  virtual void serialize(ByteStream &buffer) const;
   // must override unserialize to load patterns
+  virtual void serialize(ByteStream &buffer) const;
   virtual void unserialize(ByteStream &buffer);
+
+  // must override setArgs and getArgs if you have custom params
+  virtual void setArgs(const PatternArgs &args);
+  virtual void getArgs(PatternArgs &args) const;
 
 #if SAVE_TEMPLATE == 1
   // save the data template

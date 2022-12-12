@@ -60,6 +60,15 @@ void Pattern::unserialize(ByteStream &buffer)
   m_colorset.unserialize(buffer);
 }
 
+void Pattern::setArgs(const PatternArgs &args)
+{
+}
+
+void Pattern::getArgs(PatternArgs &args) const
+{
+  args.init();
+}
+
 #if SAVE_TEMPLATE == 1
 void Pattern::saveTemplate(int level) const
 {

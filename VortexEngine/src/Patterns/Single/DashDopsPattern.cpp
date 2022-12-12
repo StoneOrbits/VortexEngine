@@ -84,6 +84,23 @@ void DashDopsPattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_offDuration);
 }
 
+void DashDopsPattern::setArgs(const PatternArgs &args)
+{
+  SingleLedPattern::setArgs(args);
+  m_dashDuration = args.arg1;
+  m_dotDuration = args.arg2;
+  m_offDuration = args.arg3;
+}
+
+void DashDopsPattern::getArgs(PatternArgs &args) const
+{
+  SingleLedPattern::getArgs(args);
+  args.arg1 = m_bracketDuration;
+  args.arg2 = m_midDuration;
+  args.arg3 = m_offDuration;
+  args.numArgs += 3;
+}
+
 #if SAVE_TEMPLATE == 1
 void DashDopsPattern::saveTemplate(int level) const
 {

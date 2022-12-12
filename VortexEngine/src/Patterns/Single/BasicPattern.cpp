@@ -90,6 +90,23 @@ void BasicPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_gapDuration);
 }
 
+void BasicPattern::setArgs(const PatternArgs &args)
+{
+  SingleLedPattern::setArgs(args);
+  m_onDuration = args.arg1;
+  m_offDuration = args.arg2;
+  m_gapDuration = args.arg3;
+}
+
+void BasicPattern::getArgs(PatternArgs &args) const
+{
+  SingleLedPattern::getArgs(args);
+  args.arg1 = m_onDuration;
+  args.arg2 = m_offDuration;
+  args.arg3 = m_gapDuration;
+  args.numArgs += 3;
+}
+
 #if SAVE_TEMPLATE == 1
 void BasicPattern::saveTemplate(int level) const
 {

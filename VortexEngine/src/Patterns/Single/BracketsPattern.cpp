@@ -80,6 +80,23 @@ void BracketsPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_offDuration);
 }
 
+void BracketsPattern::setArgs(const PatternArgs &args)
+{
+  SingleLedPattern::setArgs(args);
+  m_bracketDuration = args.arg1;
+  m_midDuration = args.arg2;
+  m_offDuration = args.arg3;
+}
+
+void BracketsPattern::getArgs(PatternArgs &args) const
+{
+  SingleLedPattern::getArgs(args);
+  args.arg1 = m_bracketDuration;
+  args.arg2 = m_midDuration;
+  args.arg3 = m_offDuration;
+  args.numArgs += 3;
+}
+
 #if SAVE_TEMPLATE == 1
 void BracketsPattern::saveTemplate(int level) const
 {

@@ -52,6 +52,19 @@ void BlendPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_speed);
 }
 
+void BlendPattern::setArgs(const PatternArgs &args)
+{
+  BasicPattern::setArgs(args);
+  m_speed = args.arg4;
+}
+
+void BlendPattern::getArgs(PatternArgs &args) const
+{
+  BasicPattern::getArgs(args);
+  args.arg4 = m_speed;
+  args.numArgs += 1;
+}
+
 #if SAVE_TEMPLATE == 1
 void BlendPattern::saveTemplate(int level) const
 {
