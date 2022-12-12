@@ -53,14 +53,11 @@ void Modes::play()
   if (g_pButton->onShortClick()) {
     nextMode();
   }
-  // empty mode list
-  if (!m_numModes) {
+  // check for empty mode list or missing cur mode
+  if (!m_numModes || !m_pCurMode || !initCurMode()) {
+    // just keep the leds cleared
+    Leds::clearAll();
     return;
-  }
-  if (!m_pCurMode) {
-    if (!initCurMode()) {
-      return;
-    }
   }
   // play the current mode
   m_pCurMode->play();
