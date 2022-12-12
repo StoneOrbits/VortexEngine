@@ -52,6 +52,19 @@ void MeteorPattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_fadeAmount);
 }
 
+void MeteorPattern::setArgs(const PatternArgs &args)
+{
+  BlinkStepPattern::setArgs(args);
+  m_fadeAmount = args.arg1;
+}
+
+void MeteorPattern::getArgs(PatternArgs &args) const
+{
+  BlinkStepPattern::getArgs(args);
+  args.arg1 = m_fadeAmount;
+  args.numArgs += 1;
+}
+
 #if SAVE_TEMPLATE == 1
 void MeteorPattern::saveTemplate(int level) const
 {

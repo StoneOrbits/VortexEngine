@@ -73,6 +73,23 @@ void DripMorphPattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_speed);
 }
 
+void DripMorphPattern::setArgs(const PatternArgs &args)
+{
+  MultiLedPattern::setArgs(args);
+  m_blinkOnDuration = args.arg1;
+  m_blinkOffDuration = args.arg2;
+  m_speed = args.arg3;
+}
+
+void DripMorphPattern::getArgs(PatternArgs &args) const
+{
+  MultiLedPattern::getArgs(args);
+  args.arg1 = m_blinkOnDuration;
+  args.arg2 = m_blinkOffDuration;
+  args.arg3 = m_speed;
+  args.numArgs += 3;
+}
+
 #if SAVE_TEMPLATE == 1
 void DripMorphPattern::saveTemplate(int level) const
 {

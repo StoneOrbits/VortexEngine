@@ -75,6 +75,21 @@ void TracerPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_dotDuration);
 }
 
+void TracerPattern::setArgs(const PatternArgs &args)
+{
+  SingleLedPattern::setArgs(args);
+  m_tracerDuration = args.arg1;
+  m_dotDuration = args.arg2;
+}
+
+void TracerPattern::getArgs(PatternArgs &args) const
+{
+  SingleLedPattern::getArgs(args);
+  args.arg1 = m_tracerDuration;
+  args.arg2 = m_dotDuration;
+  args.numArgs += 2;
+}
+
 #if SAVE_TEMPLATE == 1
 void TracerPattern::saveTemplate(int level) const
 {

@@ -95,8 +95,8 @@ void DashDopsPattern::setArgs(const PatternArgs &args)
 void DashDopsPattern::getArgs(PatternArgs &args) const
 {
   SingleLedPattern::getArgs(args);
-  args.arg1 = m_bracketDuration;
-  args.arg2 = m_midDuration;
+  args.arg1 = m_dashDuration;
+  args.arg2 = m_dotDuration;
   args.arg3 = m_offDuration;
   args.numArgs += 3;
 }

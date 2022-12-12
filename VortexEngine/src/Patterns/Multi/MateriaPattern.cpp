@@ -5,13 +5,13 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-MateriaPattern::MateriaPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2, uint8_t offDuration2, uint16_t stepSpeed) :
+MateriaPattern::MateriaPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2, uint8_t offDuration2, uint8_t stepSpeed100ms) :
   MultiLedPattern(),
   m_onDuration1(onDuration1),
   m_offDuration1(offDuration1),
   m_onDuration2(onDuration2),
   m_offDuration2(offDuration2),
-  m_stepSpeed(stepSpeed),
+  m_stepSpeed(stepSpeed100ms * 100),
   m_stepTimer(),
   m_ledMap(0),
   m_switch(false)
@@ -127,6 +127,27 @@ void MateriaPattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_onDuration2);
   buffer.unserialize(&m_offDuration2);
   buffer.unserialize(&m_stepSpeed);
+}
+
+void MateriaPattern::setArgs(const PatternArgs &args)
+{
+  MultiLedPattern::setArgs(args);
+  m_onDuration1 = args.arg1;
+  m_offDuration1 = args.arg2;
+  m_onDuration2 = args.arg3;
+  m_offDuration2 = args.arg4;
+  m_stepSpeed = args.arg5;
+}
+
+void MateriaPattern::getArgs(PatternArgs &args) const
+{
+  MultiLedPattern::getArgs(args);
+  args.arg1 = m_onDuration1;
+  args.arg2 = m_offDuration1;
+  args.arg3 = m_onDuration2;
+  args.arg4 = m_offDuration2;
+  args.arg5 =   m_stepSpeed;
+  args.numArgs += 5;
 }
 
 #if SAVE_TEMPLATE == 1

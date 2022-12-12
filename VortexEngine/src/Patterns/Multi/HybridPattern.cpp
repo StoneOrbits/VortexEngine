@@ -75,7 +75,8 @@ void HybridPattern::clearPatterns()
   }
 }
 
-void HybridPattern::setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set)
+void HybridPattern::setPatternAt(LedPos pos, SingleLedPattern *pat,
+  const Colorset *set)
 {
   if (!pat || pos >= LED_COUNT) {
     return;
@@ -93,10 +94,22 @@ void HybridPattern::setPatternAt(LedPos pos, SingleLedPattern *pat, const Colors
   m_ledPatterns[pos] = pat;
 }
 
-void HybridPattern::setTipsTops(PatternID tipPattern, PatternID topPattern)
+void HybridPattern::setPatternAt(LedPos pos, PatternID id,
+  const PatternArgs *args, const Colorset *set)
+{
+  if (pos >= LED_COUNT) {
+    return;
+  }
+  setPatternAt(pos, PatternBuilder::makeSingle(id, args), set);
+}
+
+void HybridPattern::setTipsTops(PatternID tipPattern, PatternID topPattern,
+  const PatternArgs *tipArgs, const PatternArgs *topArgs)
 {
   // Set the tipPattern on all fingerTips and topPattern on all fingerTops
   for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
-    setPatternAt(p, PatternBuilder::makeSingle(isFingerTip(p) ? tipPattern : topPattern));
+    const PatternArgs *args = isFingerTip(p) ? tipArgs : topArgs;
+    PatternID id = isFingerTip(p) ? tipPattern : topPattern;
+    setPatternAt(p, PatternBuilder::makeSingle(id, args));
   }
 }

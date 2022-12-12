@@ -5,9 +5,9 @@
 #include "../../Colors/Colorset.h"
 #include "../../Log/Log.h"
 
-BackStrobePattern::BackStrobePattern(uint16_t stepSpeed) :
+BackStrobePattern::BackStrobePattern(uint8_t stepSpeed100ms) :
   HybridPattern(),
-  m_stepSpeed(stepSpeed),
+  m_stepSpeed(stepSpeed100ms * 100),
   m_stepTimer(),
   m_switch()
 {
@@ -60,6 +60,19 @@ void BackStrobePattern::unserialize(ByteStream& buffer)
 {
   HybridPattern::unserialize(buffer);
   buffer.unserialize(&m_stepSpeed);
+}
+
+void BackStrobePattern::setArgs(const PatternArgs &args)
+{
+  HybridPattern::setArgs(args);
+  m_stepSpeed = args.arg1;
+}
+
+void BackStrobePattern::getArgs(PatternArgs &args) const
+{
+  HybridPattern::getArgs(args);
+  args.arg1 = m_stepSpeed;
+  args.numArgs += 1;
 }
 
 #if SAVE_TEMPLATE == 1

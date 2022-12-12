@@ -115,6 +115,27 @@ void PulsishPattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_stepDuration);
 }
 
+void PulsishPattern::setArgs(const PatternArgs &args)
+{
+  MultiLedPattern::setArgs(args);
+  m_onDuration1 = args.arg1;
+  m_offDuration1 = args.arg2;
+  m_onDuration2 = args.arg3;
+  m_offDuration2 = args.arg4;
+  m_stepDuration = args.arg5;
+}
+
+void PulsishPattern::getArgs(PatternArgs &args) const
+{
+  MultiLedPattern::getArgs(args);
+  args.arg1 = m_onDuration1;
+  args.arg2 = m_offDuration1;
+  args.arg3 = m_onDuration2;
+  args.arg4 = m_offDuration2;
+  args.arg5 = m_stepDuration;
+  args.numArgs += 5;
+}
+
 #if SAVE_TEMPLATE == 1
 void PulsishPattern::saveTemplate(int level) const
 {

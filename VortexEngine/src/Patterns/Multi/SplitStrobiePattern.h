@@ -7,7 +7,7 @@
 class SplitStrobiePattern : public HybridPattern
 {
 public:
-  SplitStrobiePattern(uint16_t stepDuration = 1000);
+  SplitStrobiePattern(uint8_t stepDuration100ms = 10);
   SplitStrobiePattern(const PatternArgs &args);
   virtual ~SplitStrobiePattern();
 

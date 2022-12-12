@@ -1,7 +1,5 @@
 #include "TipTopPattern.h"
 
-#include "../PatternBuilder.h"
-
 TipTopPattern::TipTopPattern() :
   HybridPattern()
 {
@@ -24,9 +22,9 @@ void TipTopPattern::init()
   Colorset dopsColor(m_colorset.get(0));
   for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
     if (isFingerTip(p)) {
-      setPatternAt(p, PatternBuilder::makeSingle(PATTERN_STROBIE));
+      setPatternAt(p, PATTERN_STROBIE);
     } else {
-      setPatternAt(p, PatternBuilder::makeSingle(PATTERN_DOPS), &dopsColor);
+      setPatternAt(p, PATTERN_DOPS, nullptr, &dopsColor);
     }
   }
 }

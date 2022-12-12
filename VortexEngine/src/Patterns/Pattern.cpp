@@ -87,12 +87,20 @@ bool Pattern::equals(const Pattern *other)
   if (!other) {
     return false;
   }
-  // and pattern id
+  // compare pattern id
   if (m_patternID != other->getPatternID()) {
     return false;
   }
-  // only compare colorset
+  // then colorset
   if (!m_colorset.equals(other->getColorset())) {
+    return false;
+  }
+  // then compare the extra params
+  PatternArgs myArgs;
+  PatternArgs otherArgs;
+  getArgs(myArgs);
+  other->getArgs(otherArgs);
+  if (myArgs != otherArgs) {
     return false;
   }
   return true;

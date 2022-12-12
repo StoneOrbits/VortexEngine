@@ -5,9 +5,9 @@
 #include "../../Colors/Colorset.h"
 #include "../../Log/Log.h"
 
-SplitStrobiePattern::SplitStrobiePattern(uint16_t stepDuration) :
+SplitStrobiePattern::SplitStrobiePattern(uint8_t stepDuration100ms) :
   HybridPattern(),
-  m_stepDuration(stepDuration),
+  m_stepDuration(stepDuration100ms * 100),
   m_stepTimer(),
   m_switch(false)
 {
@@ -60,6 +60,19 @@ void SplitStrobiePattern::unserialize(ByteStream& buffer)
 {
   HybridPattern::unserialize(buffer);
   buffer.unserialize(&m_stepDuration);
+}
+
+void SplitStrobiePattern::setArgs(const PatternArgs &args)
+{
+  HybridPattern::setArgs(args);
+  m_stepDuration = args.arg1;
+}
+
+void SplitStrobiePattern::getArgs(PatternArgs &args) const
+{
+  HybridPattern::getArgs(args);
+  args.arg1 = m_stepDuration;
+  args.numArgs += 1;
 }
 
 #if SAVE_TEMPLATE == 1

@@ -80,6 +80,23 @@ void BlinkStepPattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_stepDuration);
 }
 
+void BlinkStepPattern::setArgs(const PatternArgs &args)
+{
+  MultiLedPattern::setArgs(args);
+  m_blinkOnDuration = args.arg1;
+  m_blinkOffDuration = args.arg2;
+  m_stepDuration = args.arg3;
+}
+
+void BlinkStepPattern::getArgs(PatternArgs &args) const
+{
+  MultiLedPattern::getArgs(args);
+  args.arg1 = m_blinkOnDuration;
+  args.arg2 = m_blinkOffDuration;
+  args.arg3 = m_stepDuration;
+  args.numArgs += 3;
+}
+
 #if SAVE_TEMPLATE == 1
 void BlinkStepPattern::saveTemplate(int level) const
 {

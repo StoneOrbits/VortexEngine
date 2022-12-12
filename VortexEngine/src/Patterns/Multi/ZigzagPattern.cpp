@@ -102,6 +102,25 @@ void ZigzagPattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_stepDuration);
 }
 
+void ZigzagPattern::setArgs(const PatternArgs &args)
+{
+  MultiLedPattern::setArgs(args);
+  m_onDuration = args.arg1;
+  m_offDuration = args.arg2;
+  m_stepDuration = args.arg3;
+}
+
+void ZigzagPattern::getArgs(PatternArgs &args) const
+{
+  MultiLedPattern::getArgs(args);
+  args.arg1 = m_onDuration;
+  args.arg2 = m_offDuration;
+  args.arg3 = m_stepDuration;
+  args.numArgs += 3;
+}
+
+
+
 #if SAVE_TEMPLATE == 1
 void ZigzagPattern::saveTemplate(int level) const
 {

@@ -41,6 +41,19 @@ void SolidPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_colIndex);
 }
 
+void SolidPattern::setArgs(const PatternArgs &args)
+{
+  BasicPattern::setArgs(args);
+  m_colIndex = args.arg4;
+}
+
+void SolidPattern::getArgs(PatternArgs &args) const
+{
+  SingleLedPattern::getArgs(args);
+  args.arg4 = m_colIndex;
+  args.numArgs += 1;
+}
+
 #if SAVE_TEMPLATE == 1
 void SolidPattern::saveTemplate(int level) const
 {

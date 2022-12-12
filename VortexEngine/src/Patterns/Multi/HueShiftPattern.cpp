@@ -55,6 +55,21 @@ void HueShiftPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_scale);
 }
 
+void HueShiftPattern::setArgs(const PatternArgs &args)
+{
+  MultiLedPattern::setArgs(args);
+  m_speed = args.arg1;
+  m_scale = args.arg2;
+}
+
+void HueShiftPattern::getArgs(PatternArgs &args) const
+{
+  MultiLedPattern::getArgs(args);
+  args.arg1 = m_speed;
+  args.arg2 = m_scale;
+  args.numArgs += 2;
+}
+
 #if SAVE_TEMPLATE == 1
 void HueShiftPattern::saveTemplate(int level) const
 {

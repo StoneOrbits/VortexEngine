@@ -1,6 +1,5 @@
 #include "RabbitPattern.h"
 
-#include "../PatternBuilder.h"
 #include "../../Colors/Colorset.h"
 
 RabbitPattern::RabbitPattern() :
@@ -25,9 +24,9 @@ void RabbitPattern::init()
   Colorset tipsColor(m_colorset.get(0));
   for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
     if (isFingerTip(p)) {
-      setPatternAt(p, PatternBuilder::makeSingle(PATTERN_HYPERSTROBE), &tipsColor);
+      setPatternAt(p, PATTERN_HYPERSTROBE, nullptr, &tipsColor);
     } else {
-      setPatternAt(p, PatternBuilder::makeSingle(PATTERN_STROBE));
+      setPatternAt(p, PATTERN_STROBE);
     }
   }
 }

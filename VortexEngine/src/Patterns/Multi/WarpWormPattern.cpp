@@ -1,5 +1,6 @@
 #include "WarpWormPattern.h"
 
+#include "Patterns/PatternBuilder.h"
 #include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"

@@ -87,6 +87,21 @@ void LighthousePattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_fadeRate);
 }
 
+void LighthousePattern::setArgs(const PatternArgs &args)
+{
+  BlinkStepPattern::setArgs(args);
+  m_fadeAmount = args.arg1;
+  m_fadeRate = args.arg2;
+}
+
+void LighthousePattern::getArgs(PatternArgs &args) const
+{
+  BlinkStepPattern::getArgs(args);
+  args.arg1 = m_fadeAmount;
+  args.arg2 = m_fadeRate;
+  args.numArgs += 2;
+}
+
 #if SAVE_TEMPLATE == 1
 void LighthousePattern::saveTemplate(int level) const
 {

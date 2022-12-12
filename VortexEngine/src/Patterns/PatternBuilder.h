@@ -24,11 +24,13 @@ public:
   // unserialize a buffer into a pattern
   static Pattern *unserialize(ByteStream &buffer);
 
+  // get default args for any given pattern
+  static PatternArgs getDefaultArgs(PatternID id);
+
 private:
   // helper routines
   static Pattern *makeInternal(PatternID id, const PatternArgs *args = nullptr);
   static Pattern *generate(PatternID id, const PatternArgs *args = nullptr);
-  static PatternArgs generateArgs(PatternID id);
 };
 
 #endif
