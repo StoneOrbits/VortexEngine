@@ -23,6 +23,9 @@ bool EditorConnection::init()
     return false;
   }
 
+  if (m_pDemoMode) {
+    delete m_pDemoMode;
+  }
   m_pDemoMode = ModeBuilder::make(PATTERN_DOPS, RGB_RED, RGB_GREEN, RGB_BLUE);
   m_pDemoMode->init();
 

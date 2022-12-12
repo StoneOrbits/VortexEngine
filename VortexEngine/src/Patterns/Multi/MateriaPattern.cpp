@@ -11,7 +11,7 @@ MateriaPattern::MateriaPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_
   m_offDuration1(offDuration1),
   m_onDuration2(onDuration2),
   m_offDuration2(offDuration2),
-  m_stepSpeed(stepSpeed100ms * 100),
+  m_stepSpeed(stepSpeed100ms),
   m_stepTimer(),
   m_ledMap(0),
   m_switch(false)
@@ -53,7 +53,7 @@ void MateriaPattern::init()
 
   // reset and add alarm
   m_stepTimer.reset();
-  m_stepTimer.addAlarm(m_stepSpeed);
+  m_stepTimer.addAlarm(m_stepSpeed * 100);
   m_stepTimer.start();
 
   // map of the Thumb, Index, Ring, and Pinkie Tops

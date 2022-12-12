@@ -27,8 +27,8 @@ public:
 #endif
 
 private:
-  // the duration for the step
-  uint16_t m_stepDuration;
+  // the duration for the step in x100ms
+  uint8_t m_stepDuration;
   // the step timer
   Timer m_stepTimer;
 

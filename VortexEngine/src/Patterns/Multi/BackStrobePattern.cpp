@@ -7,7 +7,7 @@
 
 BackStrobePattern::BackStrobePattern(uint8_t stepSpeed100ms) :
   HybridPattern(),
-  m_stepSpeed(stepSpeed100ms * 100),
+  m_stepSpeed(stepSpeed100ms),
   m_stepTimer(),
   m_switch()
 {
@@ -30,7 +30,7 @@ void BackStrobePattern::init()
 
   // timer for switch
   m_stepTimer.reset();
-  m_stepTimer.addAlarm(m_stepSpeed);
+  m_stepTimer.addAlarm(m_stepSpeed * 100);
   m_stepTimer.start();
 
   // initialize the sub patterns one time first

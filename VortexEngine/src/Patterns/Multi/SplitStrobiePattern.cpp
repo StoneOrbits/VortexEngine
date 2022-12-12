@@ -7,7 +7,7 @@
 
 SplitStrobiePattern::SplitStrobiePattern(uint8_t stepDuration100ms) :
   HybridPattern(),
-  m_stepDuration(stepDuration100ms * 100),
+  m_stepDuration(stepDuration100ms),
   m_stepTimer(),
   m_switch(false)
 {
@@ -30,7 +30,7 @@ void SplitStrobiePattern::init()
 
   // timer for switch
   m_stepTimer.reset();
-  m_stepTimer.addAlarm(m_stepDuration);
+  m_stepTimer.addAlarm(m_stepDuration * 100);
   m_stepTimer.start();
 
   // initialize the sub patterns one time first
