@@ -233,6 +233,9 @@ bool Modes::setDefaults()
 
 bool Modes::addSerializedMode(ByteStream &serializedMode)
 {
+  if (m_numModes >= MAX_MODES) {
+    return false;
+  }
   // we must unserialize then re-serialize here because the
   // input argument may contain other patterns in the buffer
   // so we cannot just assign the input arg to m_serializedModes
