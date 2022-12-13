@@ -9,6 +9,7 @@ class EditorConnection : public Menu
 {
 public:
   EditorConnection();
+  ~EditorConnection();
 
   bool init();
   bool run();

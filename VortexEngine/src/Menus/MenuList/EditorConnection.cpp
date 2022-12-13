@@ -17,6 +17,14 @@ EditorConnection::EditorConnection() :
 {
 }
 
+EditorConnection::~EditorConnection()
+{
+  if (m_pDemoMode) {
+    delete m_pDemoMode;
+    m_pDemoMode = nullptr;
+  }
+}
+
 bool EditorConnection::init()
 {
   if (!Menu::init()) {

@@ -146,7 +146,7 @@ void MateriaPattern::getArgs(PatternArgs &args) const
   args.arg2 = m_offDuration1;
   args.arg3 = m_onDuration2;
   args.arg4 = m_offDuration2;
-  args.arg5 =   m_stepSpeed;
+  args.arg5 = m_stepSpeed;
   args.numArgs += 5;
 }
 
