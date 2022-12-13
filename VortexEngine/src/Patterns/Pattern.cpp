@@ -18,6 +18,7 @@ Pattern::Pattern() :
 Pattern::Pattern(const PatternArgs &args) :
   Pattern()
 {
+  setArgs(args);
 }
 
 Pattern::~Pattern()

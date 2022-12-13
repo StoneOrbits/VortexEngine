@@ -11,8 +11,9 @@ DoubleStrobePattern::DoubleStrobePattern(uint8_t onDuration, uint8_t offDuration
 }
 
 DoubleStrobePattern::DoubleStrobePattern(const PatternArgs &args) :
-  DoubleStrobePattern(args.arg1, args.arg2, args.arg3)
+  DoubleStrobePattern()
 {
+  setArgs(args);
 }
 
 DoubleStrobePattern::~DoubleStrobePattern()

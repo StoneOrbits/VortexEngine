@@ -3,16 +3,17 @@
 #include "../../Serial/ByteStream.h"
 #include "../../Log/Log.h"
 
-SolidPattern::SolidPattern(uint8_t colIndex, uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration) :
+SolidPattern::SolidPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration, uint8_t colIndex) :
   BasicPattern(onDuration, offDuration, gapDuration),
   m_colIndex(colIndex)
 {
-  m_patternID = PATTERN_SOLID1;
+  m_patternID = PATTERN_SOLID;
 }
 
 SolidPattern::SolidPattern(const PatternArgs &args) :
-  SolidPattern(args.arg1, args.arg2, args.arg3, args.arg4)
+  SolidPattern()
 {
+  setArgs(args);
 }
 
 SolidPattern::~SolidPattern()
@@ -49,7 +50,7 @@ void SolidPattern::setArgs(const PatternArgs &args)
 
 void SolidPattern::getArgs(PatternArgs &args) const
 {
-  SingleLedPattern::getArgs(args);
+  BasicPattern::getArgs(args);
   args.arg4 = m_colIndex;
   args.numArgs += 1;
 }

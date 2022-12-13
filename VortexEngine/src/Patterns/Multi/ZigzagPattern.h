@@ -35,9 +35,10 @@ private:
 
   class Snake {
   public:
-    Snake(uint8_t step, uint8_t snakeSize, uint8_t fadeAmount, uint8_t changeBoundary);
+    Snake();
 
-    void init(uint32_t onDuration, uint32_t offDuration, const Colorset &colorset, uint32_t colorOffset);
+    void init(uint32_t onDuration, uint32_t offDuration, const Colorset &colorset, uint32_t colorOffset,
+      uint8_t step = 0, uint8_t snakeSize = 1, uint8_t fadeAmount = 55, uint8_t changeBoundary = 3);
     void step();
     void draw();
 
@@ -59,9 +60,12 @@ private:
   uint8_t m_onDuration;
   // blink off duration
   uint8_t m_offDuration;
-
   // how long each step takes
   uint8_t m_stepDuration;
+  // the snake size
+  uint8_t m_snakeSize;
+  // the fade amount
+  uint8_t m_fadeAmount;
 
   // the step timer
   Timer m_stepTimer;

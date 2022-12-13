@@ -17,8 +17,9 @@ LighthousePattern::LighthousePattern(uint8_t onDuration, uint8_t offDuration, ui
 }
 
 LighthousePattern::LighthousePattern(const PatternArgs &args) :
-  LighthousePattern(args.arg1, args.arg2, args.arg3)
+  LighthousePattern()
 {
+  setArgs(args);
 }
 
 LighthousePattern::~LighthousePattern()

@@ -15,8 +15,9 @@ SplitStrobiePattern::SplitStrobiePattern(uint8_t stepDuration100ms) :
 }
 
 SplitStrobiePattern::SplitStrobiePattern(const PatternArgs &args) :
-  SplitStrobiePattern(args.arg1)
+  SplitStrobiePattern()
 {
+  setArgs(args);
 }
 
 SplitStrobiePattern::~SplitStrobiePattern()
@@ -27,6 +28,9 @@ SplitStrobiePattern::~SplitStrobiePattern()
 void SplitStrobiePattern::init()
 {
   HybridPattern::init();
+
+  // reset switch
+  m_switch = false;
 
   // timer for switch
   m_stepTimer.reset();

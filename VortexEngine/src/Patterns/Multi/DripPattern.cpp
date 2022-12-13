@@ -10,8 +10,9 @@ DripPattern::DripPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDu
 }
 
 DripPattern::DripPattern(const PatternArgs &args) :
-  DripPattern(args.arg1, args.arg2, args.arg3)
+  DripPattern()
 {
+  setArgs(args);
 }
 
 DripPattern::~DripPattern()
@@ -21,6 +22,8 @@ DripPattern::~DripPattern()
 void DripPattern::init()
 {
   BlinkStepPattern::init();
+  // reset sync bool
+  m_sync = true;
   // start colorset at index 0 so cur() works
   m_colorset.setCurIndex(0);
 }

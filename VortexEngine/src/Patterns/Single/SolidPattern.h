@@ -2,11 +2,13 @@
 #define SOLID_PATTERN_H
 
 #include "BasicPattern.h"
+#include "../../Time/Timings.h"
 
 class SolidPattern : public BasicPattern
 {
 public:
-  SolidPattern(uint8_t colIndex, uint8_t onDuration, uint8_t offDuration = 0, uint8_t gapDuration = 0);
+  SolidPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, 
+    uint8_t gapDuration = 0, uint8_t colIndex = 0);
 ; SolidPattern(const PatternArgs &args);
   virtual ~SolidPattern();
 

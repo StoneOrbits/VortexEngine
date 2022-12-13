@@ -7,6 +7,7 @@
 #include "../../Log/Log.h"
 
 DashDopsPattern::DashDopsPattern(uint8_t dashLength, uint8_t dotLength, uint8_t offDuration) :
+  SingleLedPattern(),
   m_dashDuration(dashLength),
   m_dotDuration(dotLength),
   m_offDuration(offDuration),
@@ -17,8 +18,9 @@ DashDopsPattern::DashDopsPattern(uint8_t dashLength, uint8_t dotLength, uint8_t 
 }
 
 DashDopsPattern::DashDopsPattern(const PatternArgs &args) :
-  DashDopsPattern(args.arg1, args.arg2, args.arg3)
+  DashDopsPattern()
 {
+  setArgs(args);
 }
 
 DashDopsPattern::~DashDopsPattern()

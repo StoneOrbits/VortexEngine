@@ -8,8 +8,8 @@
 
 #include <math.h>
 
-BlendPattern::BlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t blendSpeed) :
-  BasicPattern(onDuration, offDuration),
+BlendPattern::BlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration, uint8_t blendSpeed) :
+  BasicPattern(onDuration, offDuration, gapDuration),
   m_speed(blendSpeed),
   m_cur(),
   m_next()
@@ -18,8 +18,9 @@ BlendPattern::BlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t blen
 }
 
 BlendPattern::BlendPattern(const PatternArgs &args) :
-  BlendPattern(args.arg1, args.arg2, args.arg3)
+  BlendPattern()
 {
+  setArgs(args);
 }
 
 BlendPattern::~BlendPattern()

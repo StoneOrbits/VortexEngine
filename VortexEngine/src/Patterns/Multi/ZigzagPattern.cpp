@@ -39,16 +39,19 @@ ZigzagPattern::ZigzagPattern(uint8_t onDuration, uint8_t offDuration, uint8_t st
   m_onDuration(onDuration),
   m_offDuration(offDuration),
   m_stepDuration(stepDuration),
+  m_snakeSize(snakeSize),
+  m_fadeAmount(fadeAmount),
   m_stepTimer(),
-  m_snake1(0, snakeSize, fadeAmount, 3),
-  m_snake2(HALF_ZIGZAG_STEPS, snakeSize, fadeAmount, 8)
+  m_snake1(),
+  m_snake2()
 {
   m_patternID = PATTERN_ZIGZAG;
 }
 
 ZigzagPattern::ZigzagPattern(const PatternArgs &args) :
-  ZigzagPattern(args.arg1, args.arg2, args.arg3, args.arg4, args.arg5)
+  ZigzagPattern()
 {
+  setArgs(args);
 }
 
 ZigzagPattern::~ZigzagPattern()
@@ -66,8 +69,8 @@ void ZigzagPattern::init()
   m_stepTimer.start();
 
   // initialize the snakes with dops timing
-  m_snake1.init(m_onDuration, m_offDuration, m_colorset, 0);
-  m_snake2.init(m_onDuration, m_offDuration, m_colorset, 1);
+  m_snake1.init(m_onDuration, m_offDuration, m_colorset, 0, 0, m_snakeSize, m_fadeAmount, 3);
+  m_snake2.init(m_onDuration, m_offDuration, m_colorset, 1, HALF_ZIGZAG_STEPS, m_snakeSize, m_fadeAmount, 8);
 }
 
 // pure virtual must override the play function
@@ -119,8 +122,6 @@ void ZigzagPattern::getArgs(PatternArgs &args) const
   args.numArgs += 3;
 }
 
-
-
 #if SAVE_TEMPLATE == 1
 void ZigzagPattern::saveTemplate(int level) const
 {
@@ -134,17 +135,18 @@ void ZigzagPattern::saveTemplate(int level) const
 // ===================
 //  Snake code
 
-ZigzagPattern::Snake::Snake(uint8_t step, uint8_t snakeSize, uint8_t fadeAmount, uint8_t changeBoundary) :
+ZigzagPattern::Snake::Snake() :
   m_blinkTimer(),
   m_colorset(),
-  m_step(step),
-  m_snakeSize(snakeSize),
-  m_fadeAmount(fadeAmount),
-  m_changeBoundary(changeBoundary)
+  m_step(0),
+  m_snakeSize(1),
+  m_fadeAmount(55),
+  m_changeBoundary(3)
 {
 }
 
-void ZigzagPattern::Snake::init(uint32_t onDuration, uint32_t offDuration, const Colorset &colorset, uint32_t colorOffset)
+void ZigzagPattern::Snake::init(uint32_t onDuration, uint32_t offDuration, const Colorset &colorset, uint32_t colorOffset,
+  uint8_t step, uint8_t snakeSize, uint8_t fadeAmount, uint8_t changeBoundary)
 {
   // reset the blink timer entirely
   m_blinkTimer.reset();
@@ -156,6 +158,13 @@ void ZigzagPattern::Snake::init(uint32_t onDuration, uint32_t offDuration, const
   // start on the first color so that cur() works immediately
   m_colorset = colorset;
   m_colorset.setCurIndex(colorOffset);
+  // set the starting step
+  m_step = step;
+  // set the snake size
+  m_snakeSize = snakeSize;
+  // set fade amount and change boundary
+  m_fadeAmount = fadeAmount;
+  m_changeBoundary = changeBoundary;
 }
 
 void ZigzagPattern::Snake::step()

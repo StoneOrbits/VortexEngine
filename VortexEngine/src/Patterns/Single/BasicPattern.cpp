@@ -19,8 +19,9 @@ BasicPattern::BasicPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapD
 }
 
 BasicPattern::BasicPattern(const PatternArgs &args) :
-  BasicPattern(args.arg1, args.arg2, args.arg3)
+  BasicPattern()
 {
+  setArgs(args);
 }
 
 BasicPattern::~BasicPattern()

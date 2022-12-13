@@ -18,8 +18,9 @@ TheaterChasePattern::TheaterChasePattern(uint8_t onDuration, uint8_t offDuration
 }
 
 TheaterChasePattern::TheaterChasePattern(const PatternArgs &args) :
-  TheaterChasePattern(args.arg1, args.arg2, args.arg3)
+  TheaterChasePattern()
 {
+  setArgs(args);
 }
 
 TheaterChasePattern::~TheaterChasePattern()

@@ -9,6 +9,7 @@ ImpactPattern::ImpactPattern() :
 ImpactPattern::ImpactPattern(const PatternArgs &args) :
   ImpactPattern()
 {
+  setArgs(args);
 }
 
 ImpactPattern::~ImpactPattern()

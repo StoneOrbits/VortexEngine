@@ -7,6 +7,7 @@
 #include "../../Log/Log.h"
 
 TracerPattern::TracerPattern(uint8_t tracerLength, uint8_t dotLength) :
+  SingleLedPattern(),
   m_tracerDuration(tracerLength),
   m_dotDuration(dotLength),
   m_blinkTimer(),
@@ -16,8 +17,9 @@ TracerPattern::TracerPattern(uint8_t tracerLength, uint8_t dotLength) :
 }
 
 TracerPattern::TracerPattern(const PatternArgs &args) :
-  TracerPattern(args.arg1, args.arg2)
+  TracerPattern()
 {
+  setArgs(args);
 }
 
 TracerPattern::~TracerPattern()

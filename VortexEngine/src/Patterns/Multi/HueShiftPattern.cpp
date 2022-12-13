@@ -14,8 +14,9 @@ HueShiftPattern::HueShiftPattern(uint8_t speed, uint8_t scale) :
 }
 
 HueShiftPattern::HueShiftPattern(const PatternArgs &args) :
-  HueShiftPattern(args.arg1, args.arg2)
+  HueShiftPattern()
 {
+  setArgs(args);
 }
 
 HueShiftPattern::~HueShiftPattern()

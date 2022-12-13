@@ -21,14 +21,15 @@ const LedPos VortexWipePattern::ledStepPositions[] = {
 
 VortexWipePattern::VortexWipePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
   BlinkStepPattern(onDuration, offDuration, stepDuration),
-  m_progress()
+  m_progress(0)
 {
   m_patternID = PATTERN_VORTEXWIPE;
 }
 
 VortexWipePattern::VortexWipePattern(const PatternArgs &args) :
-  VortexWipePattern(args.arg1, args.arg2, args.arg3)
+  VortexWipePattern()
 {
+  setArgs(args);
 }
 
 VortexWipePattern::~VortexWipePattern()
@@ -39,6 +40,8 @@ VortexWipePattern::~VortexWipePattern()
 void VortexWipePattern::init()
 {
   BlinkStepPattern::init();
+  // reset progress
+  m_progress = 0;
   // start colorset at index 0 so cur() works
   m_colorset.setCurIndex(0);
 }

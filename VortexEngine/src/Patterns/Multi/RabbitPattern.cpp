@@ -11,6 +11,7 @@ RabbitPattern::RabbitPattern() :
 RabbitPattern::RabbitPattern(const PatternArgs &args) :
   RabbitPattern()
 {
+  setArgs(args);
 }
 
 RabbitPattern::~RabbitPattern()

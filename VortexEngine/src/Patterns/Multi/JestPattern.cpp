@@ -9,6 +9,7 @@ JestPattern::JestPattern() :
 JestPattern::JestPattern(const PatternArgs &args) :
   JestPattern()
 {
+  setArgs(args);
 }
 
 JestPattern::~JestPattern()

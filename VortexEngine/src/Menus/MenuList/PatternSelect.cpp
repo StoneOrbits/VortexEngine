@@ -34,7 +34,7 @@ bool PatternSelect::init()
   m_state = STATE_PICK_LIST;
   m_newPatternID = PATTERN_FIRST;
   if (!m_pDemoMode) {
-    m_pDemoMode = ModeBuilder::make(m_newPatternID, m_pCurMode->getColorset());
+    m_pDemoMode = ModeBuilder::make(m_newPatternID, nullptr, m_pCurMode->getColorset());
   } else {
     m_pDemoMode->setPattern(m_newPatternID);
   }

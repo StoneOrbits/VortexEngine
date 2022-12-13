@@ -11,8 +11,9 @@ FlowersPattern::FlowersPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_
 }
 
 FlowersPattern::FlowersPattern(const PatternArgs &args) :
-  FlowersPattern(args.arg1, args.arg2, args.arg3)
+  FlowersPattern()
 {
+  setArgs(args);
 }
 
 FlowersPattern::~FlowersPattern()

@@ -127,22 +127,13 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_MINIRIBBON: return PatternArgs(3);
     case PATTERN_BLINKIE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 35);
     case PATTERN_GHOSTCRUSH: return PatternArgs(1, 0, 50);
+    case PATTERN_SOLID: return PatternArgs(250, 0, 0, 0);
     case PATTERN_TRACER: return PatternArgs(20, 1);
     case PATTERN_DASHDOPS: return PatternArgs(20, 1, 5);
     case PATTERN_ADVANCED: return PatternArgs(5, 5, 10, 2, 2, 1);
-    case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 1);
-    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 1);
+    case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 1);
+    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 1);
     case PATTERN_BRACKETS: return PatternArgs(2, 5, 8);
-
-    // Solid Single led patterns
-    case PATTERN_SOLID1: return PatternArgs(1, 250);
-    case PATTERN_SOLID2: return PatternArgs(2, 250);
-    case PATTERN_SOLID3: return PatternArgs(3, 250);
-    case PATTERN_SOLID4: return PatternArgs(4, 250);
-    case PATTERN_SOLID5: return PatternArgs(5, 250);
-    case PATTERN_SOLID6: return PatternArgs(6, 250);
-    case PATTERN_SOLID7: return PatternArgs(7, 250);
-    case PATTERN_SOLID8: return PatternArgs(8, 250);
 
     // =====================
     //  Multi Led Patterns:
@@ -197,22 +188,13 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_MINIRIBBON:
     case PATTERN_BLINKIE:
     case PATTERN_GHOSTCRUSH: return new BasicPattern(args);
+    case PATTERN_SOLID: return new SolidPattern(args);
     case PATTERN_TRACER: return new TracerPattern(args);
     case PATTERN_DASHDOPS: return new DashDopsPattern(args);
     case PATTERN_ADVANCED: return new AdvancedPattern(args);
     case PATTERN_BLEND: return new BlendPattern(args);
     case PATTERN_COMPLEMENTARY_BLEND: return new ComplementaryBlendPattern(args);
     case PATTERN_BRACKETS: return new BracketsPattern(args);
-
-    // Solid Single led patterns
-    case PATTERN_SOLID1:
-    case PATTERN_SOLID2:
-    case PATTERN_SOLID3:
-    case PATTERN_SOLID4:
-    case PATTERN_SOLID5:
-    case PATTERN_SOLID6:
-    case PATTERN_SOLID7:
-    case PATTERN_SOLID8: return new SolidPattern(args);
 
     // =====================
     //  Multi Led Patterns:

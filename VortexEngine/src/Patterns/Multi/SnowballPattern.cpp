@@ -15,8 +15,9 @@ SnowballPattern::SnowballPattern(uint8_t onDuration, uint8_t offDuration, uint8_
 }
 
 SnowballPattern::SnowballPattern(const PatternArgs &args) :
-  SnowballPattern(args.arg1, args.arg2, args.arg3)
+  SnowballPattern()
 {
+  setArgs(args);
 }
 
 SnowballPattern::~SnowballPattern()

@@ -37,7 +37,7 @@ private:
   uint8_t m_onDuration2;
   uint8_t m_offDuration2;
   // the speed for the step timer
-  uint16_t m_stepSpeed;
+  uint8_t m_stepSpeed;
   // the step timer
   Timer m_blinkTimer1;
   Timer m_blinkTimer2;

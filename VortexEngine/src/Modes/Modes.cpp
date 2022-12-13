@@ -258,16 +258,16 @@ bool Modes::addMode(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
     RGBColor c4, RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8)
 {
   Colorset set(c1, c2, c3, c4, c5, c6, c7, c8);
-  return addMode(id, &set);
+  return addMode(id, nullptr, &set);
 }
 
-bool Modes::addMode(PatternID id, const Colorset *set)
+bool Modes::addMode(PatternID id, const PatternArgs *args, const Colorset *set)
 {
   // max modes
   if (m_numModes >= MAX_MODES || id > PATTERN_LAST || !set) {
     return false;
   }
-  Mode *mode = ModeBuilder::make(id, set);
+  Mode *mode = ModeBuilder::make(id, args, set);
   if (!mode) {
     return false;
   }
@@ -303,7 +303,7 @@ bool Modes::updateCurMode(PatternID id, const Colorset *set)
     return false;
   }
   if (!m_pCurMode) {
-    return addMode(id, set);
+    return addMode(id, nullptr, set);
   }
   if (!m_pCurMode->setPattern(id)) {
     DEBUG_LOG("Failed to set pattern of current mode");

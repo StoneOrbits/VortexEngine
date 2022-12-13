@@ -17,8 +17,9 @@ DripMorphPattern::DripMorphPattern(uint8_t blinkOn, uint8_t blinkOff, uint8_t sp
 }
 
 DripMorphPattern::DripMorphPattern(const PatternArgs &args) :
-  DripMorphPattern(args.arg1, args.arg2, args.arg3)
+  DripMorphPattern()
 {
+  setArgs(args);
 }
 
 DripMorphPattern::~DripMorphPattern()

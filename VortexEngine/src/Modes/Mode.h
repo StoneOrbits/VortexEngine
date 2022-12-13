@@ -4,11 +4,12 @@
 #include "../Leds/LedTypes.h"
 #include "../Patterns/Patterns.h"
 
-class MultiLedPattern;
 class SingleLedPattern;
+class MultiLedPattern;
+class PatternArgs;
 class ByteStream;
-class Pattern;
 class Colorset;
+class Pattern;
 
 // Bitflags for saving modes
 #define MODE_FLAG_NONE              0
@@ -33,6 +34,7 @@ class Mode
 public:
   Mode();
   Mode(PatternID id, const Colorset &set);
+  Mode(PatternID id, const PatternArgs &args, const Colorset &set);
   virtual ~Mode();
 
   // initialize the mode to initial state
@@ -66,15 +68,15 @@ public:
   // set the pattern/colorset of the mode, if a multi-led pattern is provided then the pos
   // is ignored. If a single led pattern is provided then it will be applied to all LEDS
   // unless a specific LED is provided
-  bool setPattern(PatternID pat, const Colorset *set = nullptr);
+  bool setPattern(PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   bool setColorset(const Colorset *set);
 
   bool setColorsetAt(const Colorset *set, LedPos pos);
 
   // change a single or multi pattern
-  bool setSinglePat(LedPos pos, PatternID pat, const Colorset *set = nullptr);
+  bool setSinglePat(LedPos pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   bool setSinglePat(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
-  bool setMultiPat(PatternID pat, const Colorset *set = nullptr);
+  bool setMultiPat(PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   bool setMultiPat(MultiLedPattern *pat, const Colorset *set = nullptr);
 
   // get the flags associated with this mode

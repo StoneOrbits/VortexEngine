@@ -9,6 +9,7 @@ TipTopPattern::TipTopPattern() :
 TipTopPattern::TipTopPattern(const PatternArgs &args) :
   TipTopPattern()
 {
+  setArgs(args);
 }
 
 TipTopPattern::~TipTopPattern()

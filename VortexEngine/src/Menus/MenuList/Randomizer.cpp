@@ -115,11 +115,11 @@ bool Randomizer::reRoll()
   do {
     // continuously re-randomize the pattern so we don't get solids
     randomPattern = (PatternID)random(PATTERN_FIRST, PATTERN_COUNT);
-  } while (randomPattern >= PATTERN_SOLID1 && randomPattern <= PATTERN_SOLID8);
+  } while (randomPattern == PATTERN_SOLID);
 
   if (!m_pRandomizedMode) {
     // create a new randomized mode out of the colors
-    m_pRandomizedMode = ModeBuilder::make(randomPattern, &randomSet);
+    m_pRandomizedMode = ModeBuilder::make(randomPattern, nullptr, &randomSet);
     if (!m_pRandomizedMode) {
       return false;
     }

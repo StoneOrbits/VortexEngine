@@ -8,7 +8,8 @@
 class ComplementaryBlendPattern : public BlendPattern
 {
 public:
-  ComplementaryBlendPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t speed = 1);
+  ComplementaryBlendPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION,
+    uint8_t gapDuration = 0, uint8_t speed = 1);
 ; ComplementaryBlendPattern(const PatternArgs &args);
   virtual ~ComplementaryBlendPattern();
 

@@ -15,8 +15,9 @@ BackStrobePattern::BackStrobePattern(uint8_t stepSpeed100ms) :
 }
 
 BackStrobePattern::BackStrobePattern(const PatternArgs &args) :
-  BackStrobePattern(args.arg1)
+  BackStrobePattern()
 {
+  setArgs(args);
 }
 
 BackStrobePattern::~BackStrobePattern()
