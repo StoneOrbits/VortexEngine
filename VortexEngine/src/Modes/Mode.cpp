@@ -87,10 +87,12 @@ bool Mode::unserialize(ByteStream &buffer)
   }
   PatternID firstID = m_ledEntries[0]->getPatternID();
   const Colorset *firstSet = m_ledEntries[0]->getColorset();
+  PatternArgs firstArgs;
+  m_ledEntries[0]->getArgs(firstArgs);
   // loop from 2nd led position to last, skipping first
   for (LedPos pos = (LedPos)(LED_FIRST + 1); pos < LED_COUNT; ++pos) {
     if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
-      m_ledEntries[pos] = PatternBuilder::make(firstID);
+      m_ledEntries[pos] = PatternBuilder::make(firstID, &firstArgs);
       if (!m_ledEntries[pos]) {
         ERROR_LOG("Failed to created pattern");
         return false;
