@@ -51,4 +51,5 @@ ChaserPattern::ChaserPattern() :
 ChaserPattern::ChaserPattern(const PatternArgs &args) :
   ChaserPattern()
 {
+  setArgs(args);
 }

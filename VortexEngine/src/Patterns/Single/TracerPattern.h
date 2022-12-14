@@ -9,7 +9,7 @@ class TracerPattern : public SingleLedPattern
 {
 public:
   TracerPattern(uint8_t tracerLength = 20, uint8_t dotLength = 1);
-; TracerPattern(const PatternArgs &args);
+  TracerPattern(const PatternArgs &args);
   virtual ~TracerPattern();
 
   virtual void init() override;

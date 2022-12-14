@@ -11,7 +11,7 @@ class BracketsPattern : public SingleLedPattern
 {
 public:
   BracketsPattern(uint8_t bracketDuration = 2, uint8_t midDuration = 5, uint8_t gapDuration = 8);
-; BracketsPattern(const PatternArgs &args);
+  BracketsPattern(const PatternArgs &args);
   virtual ~BracketsPattern();
 
   virtual void init() override;

@@ -9,7 +9,7 @@ class SolidPattern : public BasicPattern
 public:
   SolidPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, 
     uint8_t gapDuration = 0, uint8_t colIndex = 0);
-; SolidPattern(const PatternArgs &args);
+  SolidPattern(const PatternArgs &args);
   virtual ~SolidPattern();
 
   virtual void init() override;
