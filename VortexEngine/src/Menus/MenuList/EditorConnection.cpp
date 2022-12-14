@@ -257,6 +257,10 @@ void EditorConnection::sendModes()
 {
   ByteStream modesBuffer;
   Modes::serialize(modesBuffer);
+  if (!modesBuffer.compress()) {
+    // failure?
+    return;
+  }
   SerialComs::write(modesBuffer);
 }
 
@@ -280,7 +284,7 @@ bool EditorConnection::receiveModes()
   memmove(m_receiveBuffer.rawData(),
     ((uint8_t *)m_receiveBuffer.data()) + sizeof(size),
     m_receiveBuffer.size());
-  if (!m_receiveBuffer.checkCRC()) {
+  if (!m_receiveBuffer.decompress()) {
     // bad crc
     return false;
   }
