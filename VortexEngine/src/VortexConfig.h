@@ -276,7 +276,7 @@
 // after the editor has given it a command to do something the gloveset
 // will respond with this then once it's done doing the action it will
 // send a different finished response for each action
-#define EDITOR_VERB_READY    "OK"
+#define EDITOR_VERB_READY             "OK"
 
 // the command from the editor to send modes over
 #define EDITOR_VERB_PUSH_MODES        "HERESMODES"
