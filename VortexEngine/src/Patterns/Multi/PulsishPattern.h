@@ -8,6 +8,7 @@ class PulsishPattern : public MultiLedPattern
 public:
   PulsishPattern(uint8_t onDuration1 = DOPISH_ON_DURATION, uint8_t offDuration1 = DOPISH_OFF_DURATION,
     uint8_t onDuration2 = STROBE_ON_DURATION, uint8_t offDuration2 = STROBE_OFF_DURATION, uint8_t stepDuration = 100);
+  PulsishPattern(const PatternArgs &args);
   virtual ~PulsishPattern();
 
   // init the pattern to initial state
@@ -19,6 +20,9 @@ public:
   // must override the serialize routine to save the pattern
   virtual void serialize(ByteStream& buffer) const override;
   virtual void unserialize(ByteStream& buffer) override;
+
+  virtual void setArgs(const PatternArgs &args) override;
+  virtual void getArgs(PatternArgs &args) const override;
 
 #if SAVE_TEMPLATE == 1
   virtual void saveTemplate(int level = 0) const override;

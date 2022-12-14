@@ -45,35 +45,6 @@ void HybridPattern::play()
   }
 }
 
-// must override the serialize routine to save the pattern
-void HybridPattern::serialize(ByteStream &buffer) const
-{
-  MultiLedPattern::serialize(buffer);
-  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (!m_ledPatterns[pos]) {
-      DEBUG_LOG("Could not serialize hybrid pattern!");
-      return;
-    }
-    m_ledPatterns[pos]->serialize(buffer);
-  }
-}
-
-// must override unserialize to load patterns
-void HybridPattern::unserialize(ByteStream &buffer)
-{
-  clearPatterns();
-  MultiLedPattern::unserialize(buffer);
-  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    SingleLedPattern *pat = PatternBuilder::makeSingle((PatternID)buffer.unserialize8());
-    if (!pat) {
-      ERROR_LOGF("Failed to unserialize hybrid pat %u", pos);
-      return;
-    }
-    pat->unserialize(buffer);
-    m_ledPatterns[pos] = pat;
-  }
-}
-
 #if SAVE_TEMPLATE == 1
 void HybridPattern::saveTemplate(int level) const
 {
@@ -104,7 +75,8 @@ void HybridPattern::clearPatterns()
   }
 }
 
-void HybridPattern::setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set)
+void HybridPattern::setPatternAt(LedPos pos, SingleLedPattern *pat,
+  const Colorset *set)
 {
   if (!pat || pos >= LED_COUNT) {
     return;
@@ -122,10 +94,22 @@ void HybridPattern::setPatternAt(LedPos pos, SingleLedPattern *pat, const Colors
   m_ledPatterns[pos] = pat;
 }
 
-void HybridPattern::setTipsTops(PatternID tipPattern, PatternID topPattern)
+void HybridPattern::setPatternAt(LedPos pos, PatternID id,
+  const PatternArgs *args, const Colorset *set)
+{
+  if (pos >= LED_COUNT) {
+    return;
+  }
+  setPatternAt(pos, PatternBuilder::makeSingle(id, args), set);
+}
+
+void HybridPattern::setTipsTops(PatternID tipPattern, PatternID topPattern,
+  const PatternArgs *tipArgs, const PatternArgs *topArgs)
 {
   // Set the tipPattern on all fingerTips and topPattern on all fingerTops
   for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
-    setPatternAt(p, PatternBuilder::makeSingle(isFingerTip(p) ? tipPattern : topPattern));
+    const PatternArgs *args = isFingerTip(p) ? tipArgs : topArgs;
+    PatternID id = isFingerTip(p) ? tipPattern : topPattern;
+    setPatternAt(p, PatternBuilder::makeSingle(id, args));
   }
 }

@@ -13,6 +13,12 @@ HueShiftPattern::HueShiftPattern(uint8_t speed, uint8_t scale) :
   m_patternID = PATTERN_HUESHIFT;
 }
 
+HueShiftPattern::HueShiftPattern(const PatternArgs &args) :
+  HueShiftPattern()
+{
+  setArgs(args);
+}
+
 HueShiftPattern::~HueShiftPattern()
 {
 }
@@ -48,6 +54,21 @@ void HueShiftPattern::unserialize(ByteStream &buffer)
   MultiLedPattern::unserialize(buffer);
   buffer.unserialize(&m_speed);
   buffer.unserialize(&m_scale);
+}
+
+void HueShiftPattern::setArgs(const PatternArgs &args)
+{
+  MultiLedPattern::setArgs(args);
+  m_speed = args.arg1;
+  m_scale = args.arg2;
+}
+
+void HueShiftPattern::getArgs(PatternArgs &args) const
+{
+  MultiLedPattern::getArgs(args);
+  args.arg1 = m_speed;
+  args.arg2 = m_scale;
+  args.numArgs += 2;
 }
 
 #if SAVE_TEMPLATE == 1

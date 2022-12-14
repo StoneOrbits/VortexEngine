@@ -9,7 +9,8 @@
 class MateriaPattern : public MultiLedPattern
 {
 public:
-  MateriaPattern(uint8_t onDuration1 = 5, uint8_t offDuration1 = 8, uint8_t onDuration2 = 3, uint8_t offDuration2 = 35, uint16_t stepSpeed = 800);
+  MateriaPattern(uint8_t onDuration1 = 5, uint8_t offDuration1 = 8, uint8_t onDuration2 = 3, uint8_t offDuration2 = 35, uint8_t stepSpeed100ms = 8);
+  MateriaPattern(const PatternArgs &args);
   virtual ~MateriaPattern();
 
   // init the pattern to initial state
@@ -22,6 +23,9 @@ public:
   virtual void serialize(ByteStream& buffer) const override;
   virtual void unserialize(ByteStream& buffer) override;
 
+  virtual void setArgs(const PatternArgs &args) override;
+  virtual void getArgs(PatternArgs &args) const override;
+
 #if SAVE_TEMPLATE == 1
   virtual void saveTemplate(int level = 0) const override;
 #endif
@@ -33,7 +37,7 @@ private:
   uint8_t m_onDuration2;
   uint8_t m_offDuration2;
   // the speed for the step timer
-  uint16_t m_stepSpeed;
+  uint8_t m_stepSpeed;
   // the step timer
   Timer m_blinkTimer1;
   Timer m_blinkTimer2;

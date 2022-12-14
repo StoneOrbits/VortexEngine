@@ -13,6 +13,12 @@ MeteorPattern::MeteorPattern(uint8_t onDuration, uint8_t offDuration, uint8_t st
   m_patternID = PATTERN_METEOR;
 }
 
+MeteorPattern::MeteorPattern(const PatternArgs &args) :
+  MeteorPattern()
+{
+  setArgs(args);
+}
+
 MeteorPattern::~MeteorPattern()
 {
 }
@@ -45,6 +51,19 @@ void MeteorPattern::unserialize(ByteStream& buffer)
 {
   BlinkStepPattern::unserialize(buffer);
   buffer.unserialize(&m_fadeAmount);
+}
+
+void MeteorPattern::setArgs(const PatternArgs &args)
+{
+  BlinkStepPattern::setArgs(args);
+  m_fadeAmount = args.arg1;
+}
+
+void MeteorPattern::getArgs(PatternArgs &args) const
+{
+  BlinkStepPattern::getArgs(args);
+  args.arg1 = m_fadeAmount;
+  args.numArgs += 1;
 }
 
 #if SAVE_TEMPLATE == 1

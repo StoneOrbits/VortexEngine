@@ -9,6 +9,7 @@ class DashDopsPattern : public SingleLedPattern
 {
 public:
   DashDopsPattern(uint8_t dashLength = 20, uint8_t dotLength = 1, uint8_t offDuration = 5);
+  DashDopsPattern(const PatternArgs &args);
   virtual ~DashDopsPattern();
 
   virtual void init() override;
@@ -17,6 +18,9 @@ public:
 
   virtual void serialize(ByteStream& buffer) const override;
   virtual void unserialize(ByteStream& buffer) override;
+
+  virtual void setArgs(const PatternArgs &args) override;
+  virtual void getArgs(PatternArgs &args) const override;
 
 #if SAVE_TEMPLATE == 1
   virtual void saveTemplate(int level = 0) const override;

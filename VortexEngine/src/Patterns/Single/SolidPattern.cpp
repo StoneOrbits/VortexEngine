@@ -3,11 +3,17 @@
 #include "../../Serial/ByteStream.h"
 #include "../../Log/Log.h"
 
-SolidPattern::SolidPattern(uint8_t colIndex, uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration) :
+SolidPattern::SolidPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration, uint8_t colIndex) :
   BasicPattern(onDuration, offDuration, gapDuration),
   m_colIndex(colIndex)
 {
-  m_patternID = PATTERN_SOLID0;
+  m_patternID = PATTERN_SOLID;
+}
+
+SolidPattern::SolidPattern(const PatternArgs &args) :
+  SolidPattern()
+{
+  setArgs(args);
 }
 
 SolidPattern::~SolidPattern()
@@ -34,6 +40,19 @@ void SolidPattern::unserialize(ByteStream &buffer)
 {
   BasicPattern::unserialize(buffer);
   buffer.unserialize(&m_colIndex);
+}
+
+void SolidPattern::setArgs(const PatternArgs &args)
+{
+  BasicPattern::setArgs(args);
+  m_colIndex = args.arg4;
+}
+
+void SolidPattern::getArgs(PatternArgs &args) const
+{
+  BasicPattern::getArgs(args);
+  args.arg4 = m_colIndex;
+  args.numArgs += 1;
 }
 
 #if SAVE_TEMPLATE == 1

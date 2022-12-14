@@ -96,6 +96,7 @@ void ByteStream::clear()
     m_pData = nullptr;
   }
   m_capacity = 0;
+  m_position = 0;
 }
 
 bool ByteStream::shrink()
@@ -285,13 +286,18 @@ void ByteStream::recalcCRC(bool force)
   m_pData->flags &= ~BUFFER_FLAG_DIRTY;
 }
 
-bool ByteStream::checkCRC()
+bool ByteStream::checkCRC() const
 {
-  if (!m_pData) {
+  // don't check if dirty
+  if (!m_pData || isCRCDirty()) {
     return false;
   }
-  recalcCRC();
   return m_pData->verify();
+}
+
+bool ByteStream::isCRCDirty() const
+{
+  return (m_pData && (m_pData->flags & BUFFER_FLAG_DIRTY) != 0);
 }
 
 bool ByteStream::serialize(uint8_t byte)

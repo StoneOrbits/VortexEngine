@@ -7,6 +7,7 @@ class RabbitPattern : public HybridPattern
 {
 public:
   RabbitPattern();
+  RabbitPattern(const PatternArgs &args);
   virtual ~RabbitPattern();
 
   // init the pattern to initial state

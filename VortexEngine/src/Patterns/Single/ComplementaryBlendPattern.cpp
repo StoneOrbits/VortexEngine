@@ -3,11 +3,18 @@
 #include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
 
-ComplementaryBlendPattern::ComplementaryBlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t blendSpeed) :
-  BlendPattern(onDuration, offDuration, blendSpeed),
+ComplementaryBlendPattern::ComplementaryBlendPattern(uint8_t onDuration, uint8_t offDuration,
+  uint8_t gapDuration, uint8_t blendSpeed) :
+  BlendPattern(onDuration, offDuration, gapDuration, blendSpeed),
   m_showingComplement(false)
 {
   m_patternID = PATTERN_COMPLEMENTARY_BLEND;
+}
+
+ComplementaryBlendPattern::ComplementaryBlendPattern(const PatternArgs &args) :
+  ComplementaryBlendPattern()
+{
+  setArgs(args);
 }
 
 ComplementaryBlendPattern::~ComplementaryBlendPattern()

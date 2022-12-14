@@ -9,7 +9,9 @@
 class ZigzagPattern : public MultiLedPattern
 {
 public:
-  ZigzagPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t stepDuration = 50, uint8_t snakeSize = 1, uint8_t fadeAmount = 55);
+  ZigzagPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t stepDuration = 50,
+    uint8_t snakeSize = 1, uint8_t fadeAmount = 55);
+  ZigzagPattern(const PatternArgs &args);
   virtual ~ZigzagPattern();
 
   // init the pattern to initial state
@@ -22,6 +24,9 @@ public:
   virtual void serialize(ByteStream& buffer) const override;
   virtual void unserialize(ByteStream& buffer) override;
 
+  virtual void setArgs(const PatternArgs &args) override;
+  virtual void getArgs(PatternArgs &args) const override;
+
 #if SAVE_TEMPLATE == 1
   virtual void saveTemplate(int level = 0) const override;
 #endif
@@ -30,9 +35,10 @@ private:
 
   class Snake {
   public:
-    Snake(uint8_t step, uint8_t snakeSize, uint8_t fadeAmount, uint8_t changeBoundary);
+    Snake();
 
-    void init(uint32_t onDuration, uint32_t offDuration, const Colorset &colorset, uint32_t colorOffset);
+    void init(uint32_t onDuration, uint32_t offDuration, const Colorset &colorset, uint32_t colorOffset,
+      uint8_t step = 0, uint8_t snakeSize = 1, uint8_t fadeAmount = 55, uint8_t changeBoundary = 3);
     void step();
     void draw();
 
@@ -54,9 +60,12 @@ private:
   uint8_t m_onDuration;
   // blink off duration
   uint8_t m_offDuration;
-
   // how long each step takes
   uint8_t m_stepDuration;
+  // the snake size
+  uint8_t m_snakeSize;
+  // the fade amount
+  uint8_t m_fadeAmount;
 
   // the step timer
   Timer m_stepTimer;

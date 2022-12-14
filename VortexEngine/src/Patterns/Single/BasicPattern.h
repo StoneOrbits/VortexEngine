@@ -11,6 +11,7 @@ class BasicPattern : public SingleLedPattern
 {
 public:
   BasicPattern(uint8_t onDuration = 1, uint8_t offDuration = 0, uint8_t gapDuration = 0);
+  BasicPattern(const PatternArgs &args);
   virtual ~BasicPattern();
 
   virtual void init() override;
@@ -19,6 +20,9 @@ public:
 
   virtual void serialize(ByteStream &buffer) const override;
   virtual void unserialize(ByteStream &buffer) override;
+
+  virtual void setArgs(const PatternArgs &args) override;
+  virtual void getArgs(PatternArgs &args) const override;
 
 #if SAVE_TEMPLATE == 1
   virtual void saveTemplate(int level = 0) const override;

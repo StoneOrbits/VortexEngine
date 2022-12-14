@@ -10,6 +10,12 @@ DoubleStrobePattern::DoubleStrobePattern(uint8_t onDuration, uint8_t offDuration
   m_patternID = PATTERN_DOUBLESTROBE;
 }
 
+DoubleStrobePattern::DoubleStrobePattern(const PatternArgs &args) :
+  DoubleStrobePattern()
+{
+  setArgs(args);
+}
+
 DoubleStrobePattern::~DoubleStrobePattern()
 {
 }

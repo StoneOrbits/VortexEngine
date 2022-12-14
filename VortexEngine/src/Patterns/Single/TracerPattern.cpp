@@ -7,12 +7,19 @@
 #include "../../Log/Log.h"
 
 TracerPattern::TracerPattern(uint8_t tracerLength, uint8_t dotLength) :
+  SingleLedPattern(),
   m_tracerDuration(tracerLength),
   m_dotDuration(dotLength),
   m_blinkTimer(),
   m_dotColor(0)
 {
   m_patternID = PATTERN_TRACER;
+}
+
+TracerPattern::TracerPattern(const PatternArgs &args) :
+  TracerPattern()
+{
+  setArgs(args);
 }
 
 TracerPattern::~TracerPattern()
@@ -68,6 +75,21 @@ void TracerPattern::unserialize(ByteStream &buffer)
   SingleLedPattern::unserialize(buffer);
   buffer.unserialize(&m_tracerDuration);
   buffer.unserialize(&m_dotDuration);
+}
+
+void TracerPattern::setArgs(const PatternArgs &args)
+{
+  SingleLedPattern::setArgs(args);
+  m_tracerDuration = args.arg1;
+  m_dotDuration = args.arg2;
+}
+
+void TracerPattern::getArgs(PatternArgs &args) const
+{
+  SingleLedPattern::getArgs(args);
+  args.arg1 = m_tracerDuration;
+  args.arg2 = m_dotDuration;
+  args.numArgs += 2;
 }
 
 #if SAVE_TEMPLATE == 1

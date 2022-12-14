@@ -12,6 +12,7 @@ enum MenuEntries {
   MENU_GLOBAL_BRIGHTNESS,
   MENU_FACTORY_RESET,
   MENU_MODE_SHARING,
+  MENU_EDITOR_CONNECTION,
   // add new menus here
 
   // the total number of menus
@@ -35,7 +36,10 @@ public:
   // returns true if the menu remains open, false if closed
   static bool run();
 
- //private:
+  // open a menu by index in the menu table
+  static bool openMenu(uint32_t index);
+
+private:
   // run the currently open menu
   static bool runCurMenu();
   // run the ring filling logic
@@ -44,8 +48,6 @@ public:
   static LedPos calcLedPos();
   // whether any menus are open
   static bool shouldRun();
-  // open a menu by index in the menu table
-  static bool openMenu(uint32_t index);
   // close the currently open menu
   static void closeCurMenu();
 

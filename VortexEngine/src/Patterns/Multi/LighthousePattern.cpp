@@ -16,6 +16,12 @@ LighthousePattern::LighthousePattern(uint8_t onDuration, uint8_t offDuration, ui
   m_patternID = PATTERN_LIGHTHOUSE;
 }
 
+LighthousePattern::LighthousePattern(const PatternArgs &args) :
+  LighthousePattern()
+{
+  setArgs(args);
+}
+
 LighthousePattern::~LighthousePattern()
 {
 }
@@ -80,6 +86,21 @@ void LighthousePattern::unserialize(ByteStream& buffer)
   BlinkStepPattern::unserialize(buffer);
   buffer.unserialize(&m_fadeAmount);
   buffer.unserialize(&m_fadeRate);
+}
+
+void LighthousePattern::setArgs(const PatternArgs &args)
+{
+  BlinkStepPattern::setArgs(args);
+  m_fadeAmount = args.arg1;
+  m_fadeRate = args.arg2;
+}
+
+void LighthousePattern::getArgs(PatternArgs &args) const
+{
+  BlinkStepPattern::getArgs(args);
+  args.arg1 = m_fadeAmount;
+  args.arg2 = m_fadeRate;
+  args.numArgs += 2;
 }
 
 #if SAVE_TEMPLATE == 1

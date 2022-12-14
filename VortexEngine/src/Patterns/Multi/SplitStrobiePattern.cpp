@@ -5,13 +5,19 @@
 #include "../../Colors/Colorset.h"
 #include "../../Log/Log.h"
 
-SplitStrobiePattern::SplitStrobiePattern(uint16_t stepDuration) :
+SplitStrobiePattern::SplitStrobiePattern(uint8_t stepDuration100ms) :
   HybridPattern(),
-  m_stepDuration(stepDuration),
+  m_stepDuration(stepDuration100ms),
   m_stepTimer(),
   m_switch(false)
 {
   m_patternID = PATTERN_SPLITSTROBIE;
+}
+
+SplitStrobiePattern::SplitStrobiePattern(const PatternArgs &args) :
+  SplitStrobiePattern()
+{
+  setArgs(args);
 }
 
 SplitStrobiePattern::~SplitStrobiePattern()
@@ -23,9 +29,12 @@ void SplitStrobiePattern::init()
 {
   HybridPattern::init();
 
+  // reset switch
+  m_switch = false;
+
   // timer for switch
   m_stepTimer.reset();
-  m_stepTimer.addAlarm(m_stepDuration);
+  m_stepTimer.addAlarm(m_stepDuration * 100);
   m_stepTimer.start();
 
   // initialize the sub patterns one time first
@@ -55,6 +64,19 @@ void SplitStrobiePattern::unserialize(ByteStream& buffer)
 {
   HybridPattern::unserialize(buffer);
   buffer.unserialize(&m_stepDuration);
+}
+
+void SplitStrobiePattern::setArgs(const PatternArgs &args)
+{
+  HybridPattern::setArgs(args);
+  m_stepDuration = args.arg1;
+}
+
+void SplitStrobiePattern::getArgs(PatternArgs &args) const
+{
+  HybridPattern::getArgs(args);
+  args.arg1 = m_stepDuration;
+  args.numArgs += 1;
 }
 
 #if SAVE_TEMPLATE == 1

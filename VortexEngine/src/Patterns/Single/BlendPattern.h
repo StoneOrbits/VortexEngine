@@ -10,7 +10,9 @@
 class BlendPattern : public BasicPattern
 {
 public:
-  BlendPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t speed = 1);
+  BlendPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, 
+    uint8_t gapDuration = 0, uint8_t speed = 1);
+  BlendPattern(const PatternArgs &args);
   virtual ~BlendPattern();
 
   virtual void init() override;
@@ -19,6 +21,9 @@ public:
 
   virtual void serialize(ByteStream &buffer) const override;
   virtual void unserialize(ByteStream &buffer) override;
+
+  virtual void setArgs(const PatternArgs &args) override;
+  virtual void getArgs(PatternArgs &args) const override;
 
 #if SAVE_TEMPLATE == 1
   virtual void saveTemplate(int level = 0) const override;

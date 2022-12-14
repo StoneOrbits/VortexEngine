@@ -18,6 +18,12 @@ BasicPattern::BasicPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapD
   m_patternID = PATTERN_BASIC;
 }
 
+BasicPattern::BasicPattern(const PatternArgs &args) :
+  BasicPattern()
+{
+  setArgs(args);
+}
+
 BasicPattern::~BasicPattern()
 {
 }
@@ -83,6 +89,23 @@ void BasicPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_onDuration);
   buffer.unserialize(&m_offDuration);
   buffer.unserialize(&m_gapDuration);
+}
+
+void BasicPattern::setArgs(const PatternArgs &args)
+{
+  SingleLedPattern::setArgs(args);
+  m_onDuration = args.arg1;
+  m_offDuration = args.arg2;
+  m_gapDuration = args.arg3;
+}
+
+void BasicPattern::getArgs(PatternArgs &args) const
+{
+  SingleLedPattern::getArgs(args);
+  args.arg1 = m_onDuration;
+  args.arg2 = m_offDuration;
+  args.arg3 = m_gapDuration;
+  args.numArgs += 3;
 }
 
 #if SAVE_TEMPLATE == 1

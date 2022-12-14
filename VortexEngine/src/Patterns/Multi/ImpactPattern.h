@@ -7,6 +7,7 @@ class ImpactPattern : public HybridPattern
 {
 public:
   ImpactPattern();
+  ImpactPattern(const PatternArgs &args);
   virtual ~ImpactPattern();
 
   // init the pattern to initial state

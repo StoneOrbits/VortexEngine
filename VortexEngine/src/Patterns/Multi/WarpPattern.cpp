@@ -7,9 +7,15 @@
 
 WarpPattern::WarpPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
   BlinkStepPattern(onDuration, offDuration, stepDuration),
-  m_progress()
+  m_progress(0)
 {
   m_patternID = PATTERN_WARP;
+}
+
+WarpPattern::WarpPattern(const PatternArgs &args) :
+  WarpPattern()
+{
+  setArgs(args);
 }
 
 WarpPattern::~WarpPattern()
@@ -20,6 +26,8 @@ WarpPattern::~WarpPattern()
 void WarpPattern::init()
 {
   BlinkStepPattern::init();
+  // reset progress
+  m_progress = 0;
   // start colorset at index 0 so cur() works
   m_colorset.setCurIndex(0);
 }

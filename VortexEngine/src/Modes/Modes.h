@@ -9,8 +9,9 @@
 
 #include <inttypes.h>
 
-class Mode;
+class PatternArgs;
 class Colorset;
+class Mode;
 
 class Modes
 {
@@ -47,15 +48,18 @@ public:
   static bool addMode(PatternID id, RGBColor c1, RGBColor c2 = RGB_OFF,
     RGBColor c3 = RGB_OFF, RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF,
     RGBColor c6 = RGB_OFF, RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
-  static bool addMode(PatternID id, const Colorset *set);
+  static bool addMode(PatternID id, const PatternArgs *args, const Colorset *set);
   static bool addMode(const Mode *mode);
 
   // add a new mode by unserializing from a buffer
   static bool addSerializedMode(ByteStream &serializedMode);
 
   // update the current mode to match the given mode
-  static bool setCurMode(PatternID id, const Colorset *set);
-  static bool setCurMode(const Mode *mode);
+  static bool updateCurMode(PatternID id, const Colorset *set);
+  static bool updateCurMode(const Mode *mode);
+
+  // set the current active mode by index
+  static Mode *setCurMode(uint32_t index);
 
   // get the current mode
   static Mode *curMode();
@@ -64,6 +68,10 @@ public:
 
   // the number of modes
   static uint8_t numModes() { return m_numModes; }
+  static uint8_t curModeIndex() { return m_curMode; }
+
+  // delete the current mode
+  static void deleteCurMode();
 
   // delete all modes in the list
   static void clearModes();

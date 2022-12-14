@@ -15,6 +15,12 @@ Pattern::Pattern() :
 {
 }
 
+Pattern::Pattern(const PatternArgs &args) :
+  Pattern()
+{
+  setArgs(args);
+}
+
 Pattern::~Pattern()
 {
 }
@@ -26,9 +32,12 @@ void Pattern::bind(const Colorset *set, LedPos pos)
   } else {
     m_colorset = *set;
   }
+  bind(pos);
+}
+
+void Pattern::bind(LedPos pos)
+{
   m_ledPos = pos;
-  // call init here? idk
-  //init();
 }
 
 void Pattern::init()
@@ -52,6 +61,15 @@ void Pattern::unserialize(ByteStream &buffer)
   m_colorset.unserialize(buffer);
 }
 
+void Pattern::setArgs(const PatternArgs &args)
+{
+}
+
+void Pattern::getArgs(PatternArgs &args) const
+{
+  args.init();
+}
+
 #if SAVE_TEMPLATE == 1
 void Pattern::saveTemplate(int level) const
 {
@@ -70,12 +88,20 @@ bool Pattern::equals(const Pattern *other)
   if (!other) {
     return false;
   }
-  // and pattern id
+  // compare pattern id
   if (m_patternID != other->getPatternID()) {
     return false;
   }
-  // only compare colorset
+  // then colorset
   if (!m_colorset.equals(other->getColorset())) {
+    return false;
+  }
+  // then compare the extra params
+  PatternArgs myArgs;
+  PatternArgs otherArgs;
+  getArgs(myArgs);
+  other->getArgs(otherArgs);
+  if (myArgs != otherArgs) {
     return false;
   }
   return true;
@@ -84,7 +110,11 @@ bool Pattern::equals(const Pattern *other)
 // change the colorset
 void Pattern::setColorset(const Colorset *set)
 {
-  m_colorset = *set;
+  if (!set) {
+    clearColorset();
+  } else {
+    m_colorset = *set;
+  }
 }
 
 void Pattern::clearColorset()

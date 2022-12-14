@@ -34,7 +34,7 @@ bool PatternSelect::init()
   m_state = STATE_PICK_LIST;
   m_newPatternID = PATTERN_FIRST;
   if (!m_pDemoMode) {
-    m_pDemoMode = ModeBuilder::make(m_newPatternID, m_pCurMode->getColorset());
+    m_pDemoMode = ModeBuilder::make(m_newPatternID, nullptr, m_pCurMode->getColorset());
   } else {
     m_pDemoMode->setPattern(m_newPatternID);
   }
@@ -74,7 +74,7 @@ void PatternSelect::showListSelection()
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // hue split into 4 quadrants of 90
-    Leds::breathIndex(fingerTop(f), f * (255/4), Time::getCurtime() / 3, 10, 255, 255);
+    Leds::breathIndex(fingerTop(f), f * (255/4), (uint32_t)Time::getCurtime() / 3, 10, 255, 255);
     Leds::setIndex(fingerTip(f), RGB_WHITE);
   }
 }

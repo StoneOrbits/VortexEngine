@@ -11,6 +11,7 @@ class BracketsPattern : public SingleLedPattern
 {
 public:
   BracketsPattern(uint8_t bracketDuration = 2, uint8_t midDuration = 5, uint8_t gapDuration = 8);
+  BracketsPattern(const PatternArgs &args);
   virtual ~BracketsPattern();
 
   virtual void init() override;
@@ -19,6 +20,9 @@ public:
 
   virtual void serialize(ByteStream &buffer) const override;
   virtual void unserialize(ByteStream &buffer) override;
+
+  virtual void setArgs(const PatternArgs &args) override;
+  virtual void getArgs(PatternArgs &args) const override;
 
 #if SAVE_TEMPLATE == 1
   virtual void saveTemplate(int level = 0) const override;

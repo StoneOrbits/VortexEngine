@@ -8,13 +8,19 @@
 
 #include <math.h>
 
-BlendPattern::BlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t blendSpeed) :
-  BasicPattern(onDuration, offDuration),
+BlendPattern::BlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration, uint8_t blendSpeed) :
+  BasicPattern(onDuration, offDuration, gapDuration),
   m_speed(blendSpeed),
   m_cur(),
   m_next()
 {
   m_patternID = PATTERN_BLEND;
+}
+
+BlendPattern::BlendPattern(const PatternArgs &args) :
+  BlendPattern()
+{
+  setArgs(args);
 }
 
 BlendPattern::~BlendPattern()
@@ -45,6 +51,19 @@ void BlendPattern::unserialize(ByteStream &buffer)
 {
   BasicPattern::unserialize(buffer);
   buffer.unserialize(&m_speed);
+}
+
+void BlendPattern::setArgs(const PatternArgs &args)
+{
+  BasicPattern::setArgs(args);
+  m_speed = args.arg4;
+}
+
+void BlendPattern::getArgs(PatternArgs &args) const
+{
+  BasicPattern::getArgs(args);
+  args.arg4 = m_speed;
+  args.numArgs += 1;
 }
 
 #if SAVE_TEMPLATE == 1

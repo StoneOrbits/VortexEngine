@@ -14,7 +14,7 @@ ModeBuilder::ModeBuilder()
 }
 
 // make with pattern and a copy of a colorset set
-Mode *ModeBuilder::make(PatternID id, const Colorset *set)
+Mode *ModeBuilder::make(PatternID id, const PatternArgs *args, const Colorset *set)
 {
   if (id > PATTERN_LAST) {
     return nullptr;
@@ -26,7 +26,7 @@ Mode *ModeBuilder::make(PatternID id, const Colorset *set)
     return nullptr;
   }
   // bind the pattern and colorset to the mode
-  if (!newMode->bind(id, set)) {
+  if (!newMode->setPattern(id, args, set)) {
     delete newMode;
     return nullptr;
   }
@@ -38,7 +38,7 @@ Mode *ModeBuilder::make(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
   RGBColor c4, RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8)
 {
   Colorset set(c1, c2, c3, c4, c5, c6, c7, c8);
-  return make(id, &set);
+  return make(id, nullptr, &set);
 }
 
 Mode *ModeBuilder::unserialize(ByteStream &buffer)
@@ -49,6 +49,10 @@ Mode *ModeBuilder::unserialize(ByteStream &buffer)
     ERROR_OUT_OF_MEMORY();
     return nullptr;
   }
-  newMode->unserialize(buffer);
+  // make sure the mode unserializes
+  if (!newMode->unserialize(buffer)) {
+    delete newMode;
+    return nullptr;
+  }
   return newMode;
 }

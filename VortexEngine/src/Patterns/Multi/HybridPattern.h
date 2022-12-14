@@ -22,10 +22,6 @@ public:
   // play the hybrid pattern (play all led patterns)
   virtual void play() override;
 
-  // must override the serialize routine to save the pattern
-  virtual void serialize(ByteStream &buffer) const override;
-  virtual void unserialize(ByteStream &buffer) override;
-
 #if SAVE_TEMPLATE == 1
   virtual void saveTemplate(int level = 0) const override;
 #endif
@@ -33,10 +29,12 @@ public:
 protected:
   // set a pattern at an index of the hybrid pattern (optionally replace colorset)
   void setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
+  void setPatternAt(LedPos pos, PatternID id, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   void clearPatterns();
 
   // change the patterns on the tips/tops respectively
-  void setTipsTops(PatternID tipPattern, PatternID topPattern);
+  void setTipsTops(PatternID tipPattern, PatternID topPattern, 
+    const PatternArgs *tipArgs = nullptr, const PatternArgs *topArgs = nullptr);
 
   // array of single LED patterns, one for each LED
   SingleLedPattern *m_ledPatterns[LED_COUNT];

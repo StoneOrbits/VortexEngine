@@ -5,13 +5,19 @@
 #include "../../Colors/Colorset.h"
 #include "../../Log/Log.h"
 
-BackStrobePattern::BackStrobePattern(uint16_t stepSpeed) :
+BackStrobePattern::BackStrobePattern(uint8_t stepSpeed100ms) :
   HybridPattern(),
-  m_stepSpeed(stepSpeed),
+  m_stepSpeed(stepSpeed100ms),
   m_stepTimer(),
   m_switch()
 {
   m_patternID = PATTERN_BACKSTROBE;
+}
+
+BackStrobePattern::BackStrobePattern(const PatternArgs &args) :
+  BackStrobePattern()
+{
+  setArgs(args);
 }
 
 BackStrobePattern::~BackStrobePattern()
@@ -25,7 +31,7 @@ void BackStrobePattern::init()
 
   // timer for switch
   m_stepTimer.reset();
-  m_stepTimer.addAlarm(m_stepSpeed);
+  m_stepTimer.addAlarm(m_stepSpeed * 100);
   m_stepTimer.start();
 
   // initialize the sub patterns one time first
@@ -55,6 +61,19 @@ void BackStrobePattern::unserialize(ByteStream& buffer)
 {
   HybridPattern::unserialize(buffer);
   buffer.unserialize(&m_stepSpeed);
+}
+
+void BackStrobePattern::setArgs(const PatternArgs &args)
+{
+  HybridPattern::setArgs(args);
+  m_stepSpeed = args.arg1;
+}
+
+void BackStrobePattern::getArgs(PatternArgs &args) const
+{
+  HybridPattern::getArgs(args);
+  args.arg1 = m_stepSpeed;
+  args.numArgs += 1;
 }
 
 #if SAVE_TEMPLATE == 1

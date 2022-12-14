@@ -53,14 +53,11 @@ void Modes::play()
   if (g_pButton->onShortClick()) {
     nextMode();
   }
-  // empty mode list
-  if (!m_numModes) {
+  // check for empty mode list or missing cur mode
+  if (!m_numModes || !m_pCurMode || !initCurMode()) {
+    // just keep the leds cleared
+    Leds::clearAll();
     return;
-  }
-  if (!m_pCurMode) {
-    if (!initCurMode()) {
-      return;
-    }
   }
   // play the current mode
   m_pCurMode->play();
@@ -164,6 +161,7 @@ bool Modes::unserialize(ByteStream &modesBuffer)
     // then we unpack them when we instantiate the mode
     if (!addSerializedMode(modesBuffer)) {
       DEBUG_LOGF("Failed to add mode %u after unserialization", i);
+      // clear work so far?
       clearModes();
       return false;
     }
@@ -235,6 +233,9 @@ bool Modes::setDefaults()
 
 bool Modes::addSerializedMode(ByteStream &serializedMode)
 {
+  if (m_numModes >= MAX_MODES) {
+    return false;
+  }
   // we must unserialize then re-serialize here because the
   // input argument may contain other patterns in the buffer
   // so we cannot just assign the input arg to m_serializedModes
@@ -260,16 +261,16 @@ bool Modes::addMode(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
     RGBColor c4, RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8)
 {
   Colorset set(c1, c2, c3, c4, c5, c6, c7, c8);
-  return addMode(id, &set);
+  return addMode(id, nullptr, &set);
 }
 
-bool Modes::addMode(PatternID id, const Colorset *set)
+bool Modes::addMode(PatternID id, const PatternArgs *args, const Colorset *set)
 {
   // max modes
   if (m_numModes >= MAX_MODES || id > PATTERN_LAST || !set) {
     return false;
   }
-  Mode *mode = ModeBuilder::make(id, set);
+  Mode *mode = ModeBuilder::make(id, args, set);
   if (!mode) {
     return false;
   }
@@ -298,14 +299,14 @@ bool Modes::addMode(const Mode *mode)
 }
 
 // replace current mode with new one, destroying existing one
-bool Modes::setCurMode(PatternID id, const Colorset *set)
+bool Modes::updateCurMode(PatternID id, const Colorset *set)
 {
   if (id > PATTERN_LAST || !set) {
     ERROR_LOG("Invalid id or set");
     return false;
   }
   if (!m_pCurMode) {
-    return addMode(id, set);
+    return addMode(id, nullptr, set);
   }
   if (!m_pCurMode->setPattern(id)) {
     DEBUG_LOG("Failed to set pattern of current mode");
@@ -321,9 +322,33 @@ bool Modes::setCurMode(PatternID id, const Colorset *set)
   return true;
 }
 
-bool Modes::setCurMode(const Mode *mode)
+bool Modes::updateCurMode(const Mode *mode)
 {
-  return setCurMode(mode->getPatternID(), mode->getColorset());
+  return updateCurMode(mode->getPatternID(), mode->getColorset());
+}
+
+// set the current active mode by index
+Mode *Modes::setCurMode(uint32_t index)
+{
+  if (!m_numModes) {
+    return nullptr;
+  }
+  // update the current mode and ensure it's within range
+  m_curMode = (index) % m_numModes;
+  // clear the LEDs when switching modes
+  Leds::clearAll();
+  // delete the current mode
+  delete m_pCurMode;
+  m_pCurMode = nullptr;
+  // re-initialize the current mode
+  if (!initCurMode()) {
+    return nullptr;
+  }
+  // log the change
+  DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)",
+    m_curMode, m_numModes - 1, m_pCurMode->getPatternID());
+  // return the new current mode
+  return m_pCurMode;
 }
 
 // the current mode
@@ -349,20 +374,34 @@ Mode *Modes::nextMode()
   if (!m_numModes) {
     return nullptr;
   }
-  // iterate curmode forward 1 till num modes
-  m_curMode = (m_curMode + 1) % m_numModes;
-  // clear the LEDs when switching modes
-  Leds::clearAll();
-  // delete the current mode
-  delete m_pCurMode;
-  m_pCurMode = nullptr;
-  if (!initCurMode()) {
-    return nullptr;
+  // iterate the cur mode forward
+  return setCurMode(m_curMode + 1);
+}
+
+void Modes::deleteCurMode()
+{
+  if (!m_numModes) {
+    return;
   }
-  DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)", 
-    m_curMode, m_numModes - 1, m_pCurMode->getPatternID());
-  // return the new current mode
-  return m_pCurMode;
+  if (m_pCurMode) {
+    delete m_pCurMode;
+    m_pCurMode = nullptr;
+  }
+  // if this is the last mode just clear 0 and return
+  if (!--m_numModes) {
+    m_serializedModes[0].clear();
+    return;
+  }
+  for (uint32_t i = m_curMode; i < m_numModes; ++i) {
+    // move the next entry down one
+    m_serializedModes[i] = m_serializedModes[i + 1];
+  }
+  m_serializedModes[m_numModes].clear();
+  // note m_numModes has been decremented now
+  if (m_curMode >= m_numModes) {
+    m_curMode = m_numModes - 1;
+  }
+
 }
 
 void Modes::clearModes()
@@ -379,7 +418,9 @@ void Modes::clearModes()
 
 bool Modes::initCurMode()
 {
-  if (m_pCurMode) {
+  // if the current mode is already initialized, or we don't have
+  // any modes at all then we're technically successful
+  if (m_pCurMode || !m_numModes) {
     return true;
   }
   if (m_serializedModes[m_curMode].is_compressed()) {
@@ -393,6 +434,7 @@ bool Modes::initCurMode()
   // re-compress the buffer if possible
   m_serializedModes[m_curMode].compress();
   if (!m_pCurMode) {
+    // unable to unserialize a mode, empty modes?
     return false;
   }
   m_pCurMode->init();

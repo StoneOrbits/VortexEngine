@@ -7,6 +7,7 @@ class TipTopPattern : public HybridPattern
 {
 public:
   TipTopPattern();
+  TipTopPattern(const PatternArgs &args);
   virtual ~TipTopPattern();
 
   // init the pattern to initial state

@@ -10,6 +10,7 @@ class TheaterChasePattern : public BlinkStepPattern
 {
 public:
   TheaterChasePattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t stepDuration = 25);
+  TheaterChasePattern(const PatternArgs &args);
   virtual ~TheaterChasePattern();
 
   virtual void init();

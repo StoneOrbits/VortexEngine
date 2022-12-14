@@ -1,8 +1,5 @@
 #include "FlowersPattern.h"
 
-#include "../single/BasicPattern.h"
-#include "../PatternBuilder.h"
-
 FlowersPattern::FlowersPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2, uint8_t offDuration2) :
   HybridPattern(),
   m_onDuration1(onDuration1),
@@ -11,6 +8,12 @@ FlowersPattern::FlowersPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_
   m_offDuration2(offDuration2)
 {
   m_patternID = PATTERN_FLOWERS;
+}
+
+FlowersPattern::FlowersPattern(const PatternArgs &args) :
+  FlowersPattern()
+{
+  setArgs(args);
 }
 
 FlowersPattern::~FlowersPattern()
@@ -24,20 +27,22 @@ void FlowersPattern::init()
   HybridPattern::init();
   
   // split colorset
-  Colorset side_set(m_colorset.get(0), m_colorset.get(1));
-  Colorset mid_set(m_colorset.get(2), m_colorset.get(3));
+  Colorset sideSet(m_colorset.get(0), m_colorset.get(1));
+  Colorset midSet(m_colorset.get(2), m_colorset.get(3));
 
   // thumb and pinkie use duration 1
-  setPatternAt(THUMB_TIP, new BasicPattern(m_onDuration1, m_offDuration1), &side_set);
-  setPatternAt(THUMB_TOP, new BasicPattern(m_onDuration1, m_offDuration1), &side_set);
-  setPatternAt(PINKIE_TIP, new BasicPattern(m_onDuration1, m_offDuration1), &side_set);
-  setPatternAt(PINKIE_TOP, new BasicPattern(m_onDuration1, m_offDuration1), &side_set);
+  PatternArgs sideArgs(m_onDuration1, m_offDuration1);
+  setPatternAt(THUMB_TIP, PATTERN_BASIC, &sideArgs, &sideSet);
+  setPatternAt(THUMB_TOP, PATTERN_BASIC, &sideArgs, &sideSet);
+  setPatternAt(PINKIE_TIP, PATTERN_BASIC, &sideArgs, &sideSet);
+  setPatternAt(PINKIE_TOP, PATTERN_BASIC, &sideArgs, &sideSet);
 
   // middle index ring use duration 2
-  setPatternAt(MIDDLE_TIP, new BasicPattern(m_onDuration2, m_offDuration2), &mid_set);
-  setPatternAt(MIDDLE_TOP, new BasicPattern(m_onDuration2, m_offDuration2), &mid_set);
-  setPatternAt(INDEX_TIP, new BasicPattern(m_onDuration2, m_offDuration2), &mid_set);
-  setPatternAt(INDEX_TOP, new BasicPattern(m_onDuration2, m_offDuration2), &mid_set);
-  setPatternAt(RING_TOP, new BasicPattern(m_onDuration2, m_offDuration2), &mid_set);
-  setPatternAt(RING_TIP, new BasicPattern(m_onDuration2, m_offDuration2), &mid_set);
+  PatternArgs midArgs(m_onDuration2, m_offDuration2);
+  setPatternAt(MIDDLE_TIP, PATTERN_BASIC, &midArgs, &midSet);
+  setPatternAt(MIDDLE_TOP, PATTERN_BASIC, &midArgs, &midSet);
+  setPatternAt(INDEX_TIP, PATTERN_BASIC, &midArgs, &midSet);
+  setPatternAt(INDEX_TOP, PATTERN_BASIC, &midArgs, &midSet);
+  setPatternAt(RING_TOP, PATTERN_BASIC, &midArgs, &midSet);
+  setPatternAt(RING_TIP, PATTERN_BASIC, &midArgs, &midSet);
 }

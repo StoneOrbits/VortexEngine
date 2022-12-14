@@ -7,6 +7,7 @@
 #include "../../Log/Log.h"
 
 DashDopsPattern::DashDopsPattern(uint8_t dashLength, uint8_t dotLength, uint8_t offDuration) :
+  SingleLedPattern(),
   m_dashDuration(dashLength),
   m_dotDuration(dotLength),
   m_offDuration(offDuration),
@@ -14,6 +15,12 @@ DashDopsPattern::DashDopsPattern(uint8_t dashLength, uint8_t dotLength, uint8_t 
   m_dotColor(0)
 {
   m_patternID = PATTERN_DASHDOPS;
+}
+
+DashDopsPattern::DashDopsPattern(const PatternArgs &args) :
+  DashDopsPattern()
+{
+  setArgs(args);
 }
 
 DashDopsPattern::~DashDopsPattern()
@@ -77,6 +84,23 @@ void DashDopsPattern::unserialize(ByteStream& buffer)
   buffer.unserialize(&m_dashDuration);
   buffer.unserialize(&m_dotDuration);
   buffer.unserialize(&m_offDuration);
+}
+
+void DashDopsPattern::setArgs(const PatternArgs &args)
+{
+  SingleLedPattern::setArgs(args);
+  m_dashDuration = args.arg1;
+  m_dotDuration = args.arg2;
+  m_offDuration = args.arg3;
+}
+
+void DashDopsPattern::getArgs(PatternArgs &args) const
+{
+  SingleLedPattern::getArgs(args);
+  args.arg1 = m_dashDuration;
+  args.arg2 = m_dotDuration;
+  args.arg3 = m_offDuration;
+  args.numArgs += 3;
 }
 
 #if SAVE_TEMPLATE == 1

@@ -8,6 +8,7 @@ class JestPattern : public HybridPattern
 {
 public:
   JestPattern();
+  JestPattern(const PatternArgs &args);
   virtual ~JestPattern();
 
   // init the pattern to initial state

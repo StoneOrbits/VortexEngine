@@ -7,6 +7,7 @@ class HueShiftPattern : public MultiLedPattern
 {
 public:
   HueShiftPattern(uint8_t speed = 1, uint8_t scale = 1);
+  HueShiftPattern(const PatternArgs &args);
   virtual ~HueShiftPattern();
 
   // init the pattern to initial state
@@ -18,6 +19,9 @@ public:
   // must override the serialize routine to save the pattern
   virtual void serialize(ByteStream &buffer) const override;
   virtual void unserialize(ByteStream &buffer) override;
+
+  virtual void setArgs(const PatternArgs &args) override;
+  virtual void getArgs(PatternArgs &args) const override;
 
 #if SAVE_TEMPLATE == 1
   virtual void saveTemplate(int level = 0) const override;

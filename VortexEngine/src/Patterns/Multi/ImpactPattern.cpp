@@ -1,12 +1,15 @@
 #include "ImpactPattern.h"
 
-#include "../single/BasicPattern.h"
-#include "../PatternBuilder.h"
-
 ImpactPattern::ImpactPattern() :
   HybridPattern()
 {
   m_patternID = PATTERN_IMPACT;
+}
+
+ImpactPattern::ImpactPattern(const PatternArgs &args) :
+  ImpactPattern()
+{
+  setArgs(args);
 }
 
 ImpactPattern::~ImpactPattern()
@@ -20,22 +23,23 @@ void ImpactPattern::init()
   HybridPattern::init();
 
   // thumb, middle and index/ring/pinkie
-  Colorset thumb_set(m_colorset.get(0));
-  Colorset middle_set(m_colorset.get(1));
-  Colorset third_set(m_colorset.get(2));
+  Colorset thumbSet(m_colorset.get(0));
+  Colorset middleSet(m_colorset.get(1));
+  Colorset thirdSet(m_colorset.get(2));
   
-  setPatternAt(THUMB_TIP, new BasicPattern(25, 250), &thumb_set);
-  setPatternAt(THUMB_TOP, new BasicPattern(25, 250), &thumb_set);
+  PatternArgs strobeArgs(25, 250);
+  setPatternAt(THUMB_TIP, PATTERN_BASIC, &strobeArgs, &thumbSet);
+  setPatternAt(THUMB_TOP, PATTERN_BASIC, &strobeArgs, &thumbSet);
 
-  setPatternAt(MIDDLE_TIP, new BasicPattern(25, 250), &middle_set);
-  setPatternAt(MIDDLE_TOP, new BasicPattern(25, 250), &middle_set);
+  setPatternAt(MIDDLE_TIP, PATTERN_BASIC, &strobeArgs, &middleSet);
+  setPatternAt(MIDDLE_TOP, PATTERN_BASIC, &strobeArgs, &middleSet);
 
-  setPatternAt(INDEX_TOP, new BasicPattern(25, 250), &third_set);
-  setPatternAt(RING_TOP, new BasicPattern(25, 250), &third_set);
-  setPatternAt(PINKIE_TOP, new BasicPattern(25, 250), &third_set);
+  setPatternAt(INDEX_TOP, PATTERN_BASIC, &strobeArgs, &thirdSet);
+  setPatternAt(RING_TOP, PATTERN_BASIC, &strobeArgs, &thirdSet);
+  setPatternAt(PINKIE_TOP, PATTERN_BASIC, &strobeArgs, &thirdSet);
 
   // remaining just use default colorset
-  setPatternAt(INDEX_TIP, PatternBuilder::makeSingle(PATTERN_STROBE));
-  setPatternAt(RING_TIP, PatternBuilder::makeSingle(PATTERN_STROBE));
-  setPatternAt(PINKIE_TIP, PatternBuilder::makeSingle(PATTERN_STROBE));
+  setPatternAt(INDEX_TIP, PATTERN_STROBE);
+  setPatternAt(RING_TIP, PATTERN_STROBE);
+  setPatternAt(PINKIE_TIP, PATTERN_STROBE);
 }

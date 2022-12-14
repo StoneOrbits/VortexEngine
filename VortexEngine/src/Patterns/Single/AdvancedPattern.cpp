@@ -18,6 +18,12 @@ AdvancedPattern::AdvancedPattern(uint8_t onDuration, uint8_t offDuration, uint8_
   m_patternID = PATTERN_ADVANCED;
 }
 
+AdvancedPattern::AdvancedPattern(const PatternArgs &args) :
+  AdvancedPattern()
+{
+  setArgs(args);
+}
+
 AdvancedPattern::~AdvancedPattern()
 {
 }
@@ -106,6 +112,23 @@ void AdvancedPattern::unserialize(ByteStream &buffer)
   buffer.unserialize(&m_groupSize);
   buffer.unserialize(&m_skipCols);
   buffer.unserialize(&m_repeatGroup);
+}
+
+void AdvancedPattern::setArgs(const PatternArgs &args)
+{
+  BasicPattern::setArgs(args);
+  m_groupSize = args.arg4;
+  m_skipCols = args.arg5;
+  m_repeatGroup = args.arg6;
+}
+
+void AdvancedPattern::getArgs(PatternArgs &args) const
+{
+  BasicPattern::getArgs(args);
+  args.arg4 = m_groupSize;
+  args.arg5 = m_skipCols;
+  args.arg6 = m_repeatGroup;
+  args.numArgs += 3;
 }
 
 #if SAVE_TEMPLATE == 1

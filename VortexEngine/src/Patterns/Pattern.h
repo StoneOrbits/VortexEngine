@@ -2,8 +2,10 @@
 #define PATTERN_H
 
 #include "../Leds/LedTypes.h"
-#include "../Patterns/Patterns.h"
 #include "../Colors/Colorset.h"
+
+#include "Patterns.h"
+#include "PatternArgs.h"
 
 // The heirarchy of pattern currently looks like this:
 /*
@@ -34,11 +36,14 @@ protected:
   // Pattern is an abstract class
   Pattern();
 
+  Pattern(const PatternArgs &args);
+
 public:
   virtual ~Pattern();
 
-  // bind a colorset and position to the pattern and initialize
+  // bind a colorset and position to the pattern
   virtual void bind(const Colorset *colorset, LedPos pos);
+  virtual void bind(LedPos pos);
 
   // init the pattern to initial state
   virtual void init();
@@ -47,9 +52,13 @@ public:
   virtual void play() = 0;
 
   // must override the serialize routine to save the pattern
-  virtual void serialize(ByteStream &buffer) const;
   // must override unserialize to load patterns
+  virtual void serialize(ByteStream &buffer) const;
   virtual void unserialize(ByteStream &buffer);
+
+  // must override setArgs and getArgs if you have custom params
+  virtual void setArgs(const PatternArgs &args);
+  virtual void getArgs(PatternArgs &args) const;
 
 #if SAVE_TEMPLATE == 1
   // save the data template
@@ -74,6 +83,7 @@ public:
 
   // get a pointer to the colorset that is bound to the pattern
   const Colorset *getColorset() const { return &m_colorset; }
+  Colorset *getColorset() { return &m_colorset; }
   LedPos getLedPos() const { return m_ledPos; }
 
   // get the pattern flags

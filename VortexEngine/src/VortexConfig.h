@@ -64,6 +64,12 @@
 // reset menu to confirm the reset and restore factory settings
 #define RESET_HOLD_TIME       5000
 
+// Serial check time (in milliseconds)
+//
+// This is how quickly the serial class can check for serial connections
+// when the editor menu is open
+#define SERIAL_CHECK_TIME     500
+
 // Max Color Slots
 //
 // The max number of colors in a colorset, this was never tested with
@@ -243,6 +249,45 @@
 // Run the serializer/unserializer test which will find any objects
 // which don't serialize and unserialize cleanly
 #define SERIALIZATION_TEST    0
+
+// ===================================================================
+//  Editor Verbs
+//
+//  These are the commands used in the protocol with the editor.
+//  They are defined here so the editor can access them easily,
+//  also so you can configure them at your own free will.
+
+// the initial hello from the gloveset to the editor
+#define EDITOR_VERB_HELLO             "== Vortex Framework v" VORTEX_VERSION " (built " __TIMESTAMP__ ") =="
+// the acknowledgement from the editor back to the gloves
+#define EDITOR_VERB_HELLO_ACK         "SUP"
+
+// the gloveset is going idle and is ready for commands
+#define EDITOR_VERB_IDLE              "IDLE"
+// the editor acknowledges and is ready to give commands
+#define EDITOR_VERB_IDLE_ACK          "K"
+
+// the command from the editor to send modes over
+#define EDITOR_VERB_PULL_MODES        "MODESPLZ"
+// the response from the editor once modes are received
+#define EDITOR_VERB_PULL_MODES_ACK    "THX"
+
+// the response from the gloveset when it's ready to receive something
+// after the editor has given it a command to do something the gloveset
+// will respond with this then once it's done doing the action it will
+// send a different finished response for each action
+#define EDITOR_VERB_READY             "OK"
+
+// the command from the editor to send modes over
+#define EDITOR_VERB_PUSH_MODES        "HERESMODES"
+// the response from the gloveset when it received the mode
+#define EDITOR_VERB_PUSH_MODES_DONE   "GOTEM"
+
+// the command from the editor to tell the gloveset to demo a mode
+#define EDITOR_VERB_DEMO_MODE         "DEMOPLZ"
+// the response from the gloveset when it's received the mode to demo
+#define EDITOR_VERB_DEMO_MODE_DONE    "DEMOING"
+
 
 // ===================================================================
 //  Test Framework configurations

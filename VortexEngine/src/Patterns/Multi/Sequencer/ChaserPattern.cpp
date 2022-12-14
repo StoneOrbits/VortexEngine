@@ -38,7 +38,7 @@ ChaserPattern::ChaserPattern() :
     // Then this API is used to override specific positions in the Pattern Map
     // with a different pattern ID, we use the Led Map generated above to tell
     // setPatternAt() which indices to override with Solid0
-    patMap.setPatternAt(PATTERN_SOLID0, overrideLeds);
+    patMap.setPatternAt(PATTERN_SOLID, overrideLeds);
     // Then finally we add this pattern mapping to the sequence in a new step
     // that will last 300ms, this means all 8 steps will be 300ms each. 
     // The last parameter of addStep() is omitted, that parameter could be used
@@ -46,4 +46,10 @@ ChaserPattern::ChaserPattern() :
     // is omitted that means this pattern will use whichever colorset is chosen
     m_sequence.addStep(300, patMap);
   }
+}
+
+ChaserPattern::ChaserPattern(const PatternArgs &args) :
+  ChaserPattern()
+{
+  setArgs(args);
 }
