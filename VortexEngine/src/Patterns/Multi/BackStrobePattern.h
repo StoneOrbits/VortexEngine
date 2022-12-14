@@ -8,7 +8,7 @@ class BackStrobePattern : public HybridPattern
 {
 public:
   BackStrobePattern(uint8_t stepSpeed100Ms = 10);
-; BackStrobePattern(const PatternArgs &args);
+  BackStrobePattern(const PatternArgs &args);
   virtual ~BackStrobePattern();
 
   // init the pattern to initial state

@@ -9,7 +9,7 @@ class CrossDopsPattern : public BlinkStepPattern
 {
 public:
   CrossDopsPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t stepDuration = 50);
-; CrossDopsPattern(const PatternArgs &args);
+  CrossDopsPattern(const PatternArgs &args);
   virtual ~CrossDopsPattern();
 
   // init the pattern to initial state

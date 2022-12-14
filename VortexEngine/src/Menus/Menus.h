@@ -12,12 +12,8 @@ enum MenuEntries {
   MENU_GLOBAL_BRIGHTNESS,
   MENU_FACTORY_RESET,
   MENU_MODE_SHARING,
-
-  // add new menus here
-
-  // this one isn't directly accessed, but instead
-  // will automatically open when you connect serial
   MENU_EDITOR_CONNECTION,
+  // add new menus here
 
   // the total number of menus
   MENU_COUNT

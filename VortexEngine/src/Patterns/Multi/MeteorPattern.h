@@ -10,7 +10,7 @@ class MeteorPattern : public BlinkStepPattern
 {
 public:
   MeteorPattern(uint8_t onDuration = STROBE_ON_DURATION, uint8_t offDuration = STROBE_OFF_DURATION, uint8_t stepDuration = 50, uint8_t fadeAmount = 15);
-; MeteorPattern(const PatternArgs &args);
+  MeteorPattern(const PatternArgs &args);
   virtual ~MeteorPattern();
 
   // must override the serialize routine to save the pattern

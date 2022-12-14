@@ -10,7 +10,7 @@ class MateriaPattern : public MultiLedPattern
 {
 public:
   MateriaPattern(uint8_t onDuration1 = 5, uint8_t offDuration1 = 8, uint8_t onDuration2 = 3, uint8_t offDuration2 = 35, uint8_t stepSpeed100ms = 8);
-; MateriaPattern(const PatternArgs &args);
+  MateriaPattern(const PatternArgs &args);
   virtual ~MateriaPattern();
 
   // init the pattern to initial state
