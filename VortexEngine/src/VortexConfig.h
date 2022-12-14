@@ -64,6 +64,12 @@
 // reset menu to confirm the reset and restore factory settings
 #define RESET_HOLD_TIME       5000
 
+// Serial check time (in milliseconds)
+//
+// This is how quickly the serial class can check for serial connections
+// when the editor menu is open
+#define SERIAL_CHECK_TIME     500
+
 // Max Color Slots
 //
 // The max number of colors in a colorset, this was never tested with

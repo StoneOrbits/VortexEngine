@@ -1,6 +1,8 @@
 #ifndef SERIAL_H
 #define SERIAL_H
 
+#include <inttypes.h>
+
 class ByteStream;
 
 // Really wish I could name this Serial but arduino ruined that for me
@@ -36,6 +38,7 @@ public:
 private:
   // whether serial communications are initialized
   static bool m_serialConnected;
+  static uint32_t m_lastCheck;
 };
 
 #endif

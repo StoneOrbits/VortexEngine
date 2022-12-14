@@ -2,6 +2,7 @@
 
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
+#include "../Time/Timings.h"
 #include "../Log/Log.h"
 
 #include "../VortexEngine.h"
@@ -10,11 +11,7 @@
 #include <stdio.h>
 
 bool SerialComs::m_serialConnected = false;
-
-// private constructor
-SerialComs::SerialComs()
-{
-}
+uint32_t SerialComs::m_lastCheck = 0;
 
 // init serial
 bool SerialComs::init()
@@ -40,6 +37,13 @@ bool SerialComs::checkSerial()
     // already connected
     return true;
   }
+  uint64_t now = Time::getCurtime();
+  // don't check for serial too fast
+  if (m_lastCheck && (now - m_lastCheck) < MAX_SERIAL_CHECK_INTERVAL) {
+    // can't check yet too soon
+    return false;
+  }
+  m_lastCheck = now;
   // This will check if the serial communication is open
   if (!Serial) {
     // serial is not connected

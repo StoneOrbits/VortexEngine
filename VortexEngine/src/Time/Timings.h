@@ -20,6 +20,9 @@
 // Factory reset time
 #define FACTORY_RESET_THRESHOLD_TICKS Time::msToTicks(RESET_HOLD_TIME)
 
+// How fast serial can check for connections
+#define MAX_SERIAL_CHECK_INTERVAL     Time::msToTicks(SERIAL_CHECK_TIME)
+
 // Strobe Timings
 //
 // Below are timings for all different kinds of standard
