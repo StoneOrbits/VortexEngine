@@ -27,22 +27,22 @@ void FlowersPattern::init()
   HybridPattern::init();
   
   // split colorset
-  Colorset side_set(m_colorset.get(0), m_colorset.get(1));
-  Colorset mid_set(m_colorset.get(2), m_colorset.get(3));
+  Colorset sideSet(m_colorset.get(0), m_colorset.get(1));
+  Colorset midSet(m_colorset.get(2), m_colorset.get(3));
 
   // thumb and pinkie use duration 1
   PatternArgs sideArgs(m_onDuration1, m_offDuration1);
-  setPatternAt(THUMB_TIP, PATTERN_BASIC, &sideArgs, &side_set);
-  setPatternAt(THUMB_TOP, PATTERN_BASIC, &sideArgs, &side_set);
-  setPatternAt(PINKIE_TIP, PATTERN_BASIC, &sideArgs, &side_set);
-  setPatternAt(PINKIE_TOP, PATTERN_BASIC, &sideArgs, &side_set);
+  setPatternAt(THUMB_TIP, PATTERN_BASIC, &sideArgs, &sideSet);
+  setPatternAt(THUMB_TOP, PATTERN_BASIC, &sideArgs, &sideSet);
+  setPatternAt(PINKIE_TIP, PATTERN_BASIC, &sideArgs, &sideSet);
+  setPatternAt(PINKIE_TOP, PATTERN_BASIC, &sideArgs, &sideSet);
 
   // middle index ring use duration 2
   PatternArgs midArgs(m_onDuration2, m_offDuration2);
-  setPatternAt(MIDDLE_TIP, PATTERN_BASIC, &midArgs, &mid_set);
-  setPatternAt(MIDDLE_TOP, PATTERN_BASIC, &midArgs, &mid_set);
-  setPatternAt(INDEX_TIP, PATTERN_BASIC, &midArgs, &mid_set);
-  setPatternAt(INDEX_TOP, PATTERN_BASIC, &midArgs, &mid_set);
-  setPatternAt(RING_TOP, PATTERN_BASIC, &midArgs, &mid_set);
-  setPatternAt(RING_TIP, PATTERN_BASIC, &midArgs, &mid_set);
+  setPatternAt(MIDDLE_TIP, PATTERN_BASIC, &midArgs, &midSet);
+  setPatternAt(MIDDLE_TOP, PATTERN_BASIC, &midArgs, &midSet);
+  setPatternAt(INDEX_TIP, PATTERN_BASIC, &midArgs, &midSet);
+  setPatternAt(INDEX_TOP, PATTERN_BASIC, &midArgs, &midSet);
+  setPatternAt(RING_TOP, PATTERN_BASIC, &midArgs, &midSet);
+  setPatternAt(RING_TIP, PATTERN_BASIC, &midArgs, &midSet);
 }
