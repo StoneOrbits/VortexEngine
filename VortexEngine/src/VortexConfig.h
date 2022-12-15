@@ -293,8 +293,6 @@
 #define EDITOR_VERB_CLEAR_DEMO_ACK    "AIGHT"
 
 
-
-
 // ===================================================================
 //  Test Framework configurations
 //

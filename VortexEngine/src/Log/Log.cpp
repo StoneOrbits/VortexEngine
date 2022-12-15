@@ -20,9 +20,11 @@
 #if LOGGING_LEVEL > 0
 void InfoMsg(const char *msg, ...)
 {
+#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK)
   if (!SerialComs::isConnected()) {
     return;
   }
+#endif
   va_list list;
   va_start(list, msg);
 #ifdef TEST_FRAMEWORK
@@ -39,9 +41,11 @@ void InfoMsg(const char *msg, ...)
 #if LOGGING_LEVEL > 1
 void ErrorMsg(const char *func, const char *msg, ...)
 {
+#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK)
   if (!SerialComs::isConnected()) {
     return;
   }
+#endif
   va_list list;
   va_start(list, msg);
 #ifdef TEST_FRAMEWORK
@@ -60,9 +64,11 @@ void ErrorMsg(const char *func, const char *msg, ...)
 #if LOGGING_LEVEL > 2
 void DebugMsg(const char *file, const char *func, int line, const char *msg, ...)
 {
+#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK)
   if (!SerialComs::isConnected()) {
     return;
   }
+#endif
   va_list list;
   va_start(list, msg);
   const char *ptr = file + strlen(file);
@@ -89,6 +95,8 @@ void DebugMsg(const char *file, const char *func, int line, const char *msg, ...
 #endif
 
 #if SAVE_TEMPLATE == 1
+#include <string>
+
 // a line of spaces used for indent logging
 #define SPACES "                                                                                                                                "
 // a str with a given amount of spaces
@@ -96,9 +104,11 @@ void DebugMsg(const char *file, const char *func, int line, const char *msg, ...
 
 void IndentMsg(int level, const char *msg, ...)
 {
+#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK)
   if (!SerialComs::isConnected()) {
     return;
   }
+#endif
   if (level < 0 || level > (int)(sizeof(SPACES) - 1)) {
     return;
   }
