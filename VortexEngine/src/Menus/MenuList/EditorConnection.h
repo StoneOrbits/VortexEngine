@@ -26,6 +26,7 @@ private:
   bool receiveDemoMode();
   void handleCommand();
   bool receiveMessage(const char *message);
+  void clearDemo();
 
   // override showExit so it isn't displayed on thumb
   virtual void showExit() override;

@@ -19,10 +19,7 @@ EditorConnection::EditorConnection() :
 
 EditorConnection::~EditorConnection()
 {
-  if (m_pDemoMode) {
-    delete m_pDemoMode;
-    m_pDemoMode = nullptr;
-  }
+  clearDemo();
 }
 
 bool EditorConnection::init()
@@ -30,12 +27,6 @@ bool EditorConnection::init()
   if (!Menu::init()) {
     return false;
   }
-
-  if (m_pDemoMode) {
-    delete m_pDemoMode;
-  }
-  m_pDemoMode = ModeBuilder::make(PATTERN_DOPS, RGB_RED, RGB_GREEN, RGB_BLUE);
-  m_pDemoMode->init();
 
   DEBUG_LOG("Entering Editor Connection");
   return true;
@@ -64,6 +55,15 @@ bool EditorConnection::receiveMessage(const char *message)
     m_receiveBuffer.clear();
   }
   return true;
+}
+
+void EditorConnection::clearDemo()
+{
+  if (!m_pDemoMode) {
+    return;
+  }
+  delete m_pDemoMode;
+  m_pDemoMode = nullptr;
 }
 
 bool EditorConnection::run()
@@ -175,8 +175,7 @@ bool EditorConnection::run()
     m_state = STATE_IDLE;
     break;
   case STATE_CLEAR_DEMO:
-    delete m_pDemoMode;
-    m_pDemoMode = nullptr;
+    clearDemo();
     m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_CLEAR_DEMO_ACK);
     m_state = STATE_IDLE;
@@ -189,6 +188,8 @@ void EditorConnection::onShortClick()
 {
   // reset, this won't actually disconnect the com port
   m_state = STATE_DISCONNECTED;
+  // clear the demo
+  clearDemo();
 }
 
 void EditorConnection::onLongClick()
@@ -330,10 +331,7 @@ bool EditorConnection::receiveDemoMode()
     return false;
   }
   // unserialize the mode into the demo mode
-  if (m_pDemoMode) {
-    delete m_pDemoMode;
-    m_pDemoMode = nullptr;
-  }
+  clearDemo();
   m_receiveBuffer.resetUnserializer();
   m_pDemoMode = ModeBuilder::unserialize(m_receiveBuffer);
   m_pDemoMode->init();
