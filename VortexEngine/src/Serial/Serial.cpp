@@ -71,6 +71,9 @@ void SerialComs::write(const char *msg, ...)
 
 void SerialComs::write(ByteStream &byteStream)
 {
+  if (!isConnected()) {
+    return;
+  }
   byteStream.recalcCRC();
   uint32_t size = byteStream.rawSize();
   Serial.write((const uint8_t *)&size, sizeof(size));

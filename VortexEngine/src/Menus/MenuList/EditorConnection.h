@@ -34,20 +34,20 @@ private:
     // the editor is not connec
     STATE_DISCONNECTED,
 
-    // Sending the hello verb, then waiting for the hello ack verb
-    STATE_HELLO,
-    STATE_HELLO_ACK,
+    // Sending the greeting message
+    STATE_GREETING,
 
-    // send the idle verb, then wait for the idle ack
-    STATE_SEND_IDLE,
-    STATE_IDLE_ACK,
+    // Waiting for the hello, then responding with the ack
+    STATE_HELLO,
+    STATE_HELLO_DONE,
 
     // entirely idle, waiting for commands
     STATE_IDLE,
 
     // engine pulls the modes from gloves, then wait for the sent modes ack
     STATE_PULL_MODES,
-    STATE_PULL_MODES_ACK,
+    STATE_PULL_MODES_SEND,
+    STATE_PULL_MODES_DONE,
 
     // engine pushes modes to gloves, then waits for done
     STATE_PUSH_MODES,
@@ -58,6 +58,9 @@ private:
     STATE_DEMO_MODE,
     STATE_DEMO_MODE_RECEIVE,
     STATE_DEMO_MODE_DONE,
+
+    // engine tells gloves to clear the demo preview, gloves acknowledge
+    STATE_CLEAR_DEMO,
   };
 
   // state of the editor

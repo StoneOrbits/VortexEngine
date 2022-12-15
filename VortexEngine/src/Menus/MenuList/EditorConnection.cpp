@@ -86,35 +86,29 @@ bool EditorConnection::run()
       }
     }
     // a connection was found, say hello
+    m_state = STATE_GREETING;
+    break;
+  case STATE_GREETING:
+    m_receiveBuffer.clear();
+    // send the hello greeting with our version number and build time
+    SerialComs::write(EDITOR_VERB_GREETING);
+    // wait for the acknowledgement
     m_state = STATE_HELLO;
     break;
   case STATE_HELLO:
-    m_receiveBuffer.clear();
-    // send the hello greeting with our version number and build time
-    SerialComs::write(EDITOR_VERB_HELLO);
-    // wait for the acknowledgement
-    m_state = STATE_HELLO_ACK;
-    break;
-  case STATE_HELLO_ACK:
-    // wait for the editor to say "Hello" back to us
-    if (receiveMessage(EDITOR_VERB_HELLO_ACK)) {
+    // wait for the editor to say "Hello" to us
+    if (receiveMessage(EDITOR_VERB_HELLO)) {
       // found the hello response, start going idle
-      m_state = STATE_SEND_IDLE;
+      m_state = STATE_HELLO_DONE;
     }
     break;
-  case STATE_SEND_IDLE:
+  case STATE_HELLO_DONE:
+    // say hello back
     m_receiveBuffer.clear();
     // send the hello greeting with our version number and build time
-    SerialComs::write(EDITOR_VERB_IDLE);
-    // sent the idle verb wait for ack
-    m_state = STATE_IDLE_ACK;
-    break;
-  case STATE_IDLE_ACK:
-    // recive the idle ack
-    if (receiveMessage(EDITOR_VERB_IDLE_ACK)) {
-      // full idle, ready for commands
-      m_state = STATE_IDLE;
-    }
+    SerialComs::write(EDITOR_VERB_HELLO_ACK);
+    // go idle
+    m_state = STATE_IDLE;
     break;
   case STATE_IDLE:
     // parse the receive buffer for any commands from the editor
@@ -123,13 +117,20 @@ bool EditorConnection::run()
   case STATE_PULL_MODES:
     // editor requested pull modes, send the modes
     sendModes();
-    m_state = STATE_PULL_MODES_ACK;
+    m_state = STATE_PULL_MODES_SEND;
     break;
-  case STATE_PULL_MODES_ACK:
-    // recive the send modes ack
-    if (receiveMessage(EDITOR_VERB_PULL_MODES_ACK)) {
-      m_state = STATE_SEND_IDLE;
+  case STATE_PULL_MODES_SEND:
+    // recive the send modes ack from the editor
+    if (receiveMessage(EDITOR_VERB_PULL_MODES_DONE)) {
+      m_state = STATE_PULL_MODES_DONE;
     }
+    break;
+  case STATE_PULL_MODES_DONE:
+    m_receiveBuffer.clear();
+    // send our acknowledgement that the modes were sent
+    SerialComs::write(EDITOR_VERB_PULL_MODES_ACK);
+    // go idle
+    m_state = STATE_IDLE;
     break;
   case STATE_PUSH_MODES:
     // editor requested to push modes, clear first and reset first
@@ -149,8 +150,8 @@ bool EditorConnection::run()
   case STATE_PUSH_MODES_DONE:
     // say we are done
     m_receiveBuffer.clear();
-    SerialComs::write(EDITOR_VERB_PUSH_MODES_DONE);
-    m_state = STATE_SEND_IDLE;
+    SerialComs::write(EDITOR_VERB_PUSH_MODES_ACK);
+    m_state = STATE_IDLE;
     break;
   case STATE_DEMO_MODE:
     // editor requested to push modes, clear first and reset first
@@ -170,9 +171,15 @@ bool EditorConnection::run()
   case STATE_DEMO_MODE_DONE:
     // say we are done
     m_receiveBuffer.clear();
-    SerialComs::write(EDITOR_VERB_DEMO_MODE_DONE);
-    m_state = STATE_SEND_IDLE;
+    SerialComs::write(EDITOR_VERB_DEMO_MODE_ACK);
+    m_state = STATE_IDLE;
     break;
+  case STATE_CLEAR_DEMO:
+    delete m_pDemoMode;
+    m_pDemoMode = nullptr;
+    m_receiveBuffer.clear();
+    SerialComs::write(EDITOR_VERB_CLEAR_DEMO_ACK);
+    m_state = STATE_IDLE;
   }
   return true;
 }
@@ -208,7 +215,7 @@ void EditorConnection::showEditor()
     }
     break;
   case STATE_PULL_MODES:
-  case STATE_PULL_MODES_ACK:
+  case STATE_PULL_MODES_SEND:
     Leds::clearAll();
     Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_CYAN);
     break;
@@ -273,6 +280,7 @@ bool EditorConnection::receiveModes()
     return false;
   }
   // grab the size out of the start
+  m_receiveBuffer.resetUnserializer();
   size = m_receiveBuffer.peek32();
   if (m_receiveBuffer.size() < (size + sizeof(size))) {
     // don't unserialize yet, not ready
@@ -304,6 +312,7 @@ bool EditorConnection::receiveDemoMode()
     return false;
   }
   // grab the size out of the start
+  m_receiveBuffer.resetUnserializer();
   size = m_receiveBuffer.peek32();
   if (m_receiveBuffer.size() < (size + sizeof(size))) {
     // don't unserialize yet, not ready
@@ -339,5 +348,7 @@ void EditorConnection::handleCommand()
     m_state = STATE_PUSH_MODES;
   } else if (receiveMessage(EDITOR_VERB_DEMO_MODE)) {
     m_state = STATE_DEMO_MODE;
+  } else if (receiveMessage(EDITOR_VERB_CLEAR_DEMO)) {
+    m_state = STATE_CLEAR_DEMO;
   }
 }
