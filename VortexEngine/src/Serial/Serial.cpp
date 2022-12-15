@@ -11,7 +11,7 @@
 #include <stdio.h>
 
 bool SerialComs::m_serialConnected = false;
-uint32_t SerialComs::m_lastCheck = 0;
+uint64_t SerialComs::m_lastCheck = 0;
 
 // init serial
 bool SerialComs::init()

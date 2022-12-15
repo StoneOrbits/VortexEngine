@@ -38,7 +38,7 @@ public:
 private:
   // whether serial communications are initialized
   static bool m_serialConnected;
-  static uint32_t m_lastCheck;
+  static uint64_t m_lastCheck;
 };
 
 #endif
