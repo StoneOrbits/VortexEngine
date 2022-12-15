@@ -140,7 +140,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_RABBIT: return PatternArgs();
     case PATTERN_HUESHIFT: return PatternArgs(1, 1);
     case PATTERN_THEATER_CHASE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 25);
-    case PATTERN_CHASER: return PatternArgs();
+    //case PATTERN_CHASER: return PatternArgs();
     case PATTERN_ZIGZAG: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50, 1, 55);
     case PATTERN_ZIPFADE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100, 4);
     case PATTERN_TIPTOP: return PatternArgs();
@@ -201,7 +201,7 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_RABBIT: return new RabbitPattern(args);
     case PATTERN_HUESHIFT: return new HueShiftPattern(args);
     case PATTERN_THEATER_CHASE: return new TheaterChasePattern(args);
-    case PATTERN_CHASER: return new ChaserPattern(args);
+    //case PATTERN_CHASER: return new ChaserPattern(args);
     case PATTERN_ZIGZAG:
     case PATTERN_ZIPFADE: return new ZigzagPattern(args);
     case PATTERN_TIPTOP: return new TipTopPattern(args);
