@@ -38,9 +38,12 @@ void DashDopsPattern::init()
   // add the alarms for on then off
   m_blinkTimer.addAlarm(m_dashDuration);
   m_blinkTimer.addAlarm(m_offDuration);
-  for (uint8_t dots = 0; dots < m_colorset.numColors() - 1; ++dots) {
-    m_blinkTimer.addAlarm(m_dotDuration);
-    m_blinkTimer.addAlarm(m_offDuration);
+
+  if (m_colorset.numColors() > 1) {
+    for (uint8_t dots = 0; dots < m_colorset.numColors() - 1; ++dots) {
+      m_blinkTimer.addAlarm(m_dotDuration);
+      m_blinkTimer.addAlarm(m_offDuration);
+    }
   }
 
   // start the blink timer from the current frame
