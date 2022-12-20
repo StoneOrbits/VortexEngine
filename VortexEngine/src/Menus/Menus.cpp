@@ -72,28 +72,29 @@ bool Menus::run()
     // run just that menu
     return runCurMenu();
   }
-  // otherwise just handle the filling logic
-  return runRingFill();
-}
-
-bool Menus::runRingFill()
-{
-  // if the button was released this tick and the ringmenu was open 
-  // then close the ringmenu and return the current menu selection
-  if (g_pButton->onRelease() && m_isOpen) {
-    DEBUG_LOGF("Released on ringmenu %s", menuList[m_selection].menuName);
+  // make sure the button is pressed and held till the threshold
+  if (!m_isOpen && (!g_pButton->isPressed() || g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD_TICKS) {
+    // no menu open yet
+    return false;
+  }
+  m_isOpen = true;
+  // if the button was pressed this tick and the ringmenu is open 
+  // then open the current menu selection
+  if (g_pButton->onPress()) {
+    if (!m_isOpen) {
+      // if not open yet then open the ring menu
+      m_isOpen = true;
+      return true;
+    }
+    // ringmenu is open so select the menu
+    DEBUG_LOGF("Selected ringmenu %s", menuList[m_selection].menuName);
     // open the menu we have selected
     if (!openMenu(m_selection)) {
       DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
       return false;
     }
-    // continue displaying the menu
+    // display the newly opened menu
     return true;
-  }
-  // make sure the button is pressed and held till the threshold
-  if (!g_pButton->isPressed() || g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD_TICKS) {
-    // no menu selected yet
-    return false;
   }
   // if the menus just opened this tick
   if (!m_isOpen) {
@@ -103,6 +104,13 @@ bool Menus::runRingFill()
     m_isOpen = true;
     DEBUG_LOG("Opened RingMenu");
   }
+
+  // otherwise just handle the filling logic
+  return runRingFill();
+}
+
+bool Menus::runRingFill()
+{
   // clear the leds so it always fills instead of replacing
   Leds::clearAll();
   // calculate how long into the current menu the button was held
