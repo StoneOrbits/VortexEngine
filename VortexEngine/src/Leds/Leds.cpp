@@ -13,6 +13,8 @@
 #define POWER_LED_PIN 7
 #define POWER_LED_CLK 8
 
+#define CLOCK_PIN 3
+
 // array of led color values
 RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 // the onboard LED on the adafruit board
@@ -23,7 +25,7 @@ uint32_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 bool Leds::init()
 {
   // setup leds on data pin 4
-  FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>((CRGB *)m_ledColors, LED_COUNT);
+  FastLED.addLeds<DOTSTAR, LED_DATA_PIN, CLOCK_PIN, BGR>((CRGB *)m_ledColors, LED_COUNT);
   // get screwed fastled, don't throttle us!
   FastLED.setMaxRefreshRate(0, false);
   // clear the onboard led so it displays nothing
