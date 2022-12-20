@@ -39,9 +39,6 @@ protected:
   // the current mode that was selected
   Mode *m_pCurMode;
 
-  // all menus have a 'current selection' which can point at any finger
-  Finger m_curSelection;
-
 private:
   // whether to close the menu
   bool m_shouldClose;

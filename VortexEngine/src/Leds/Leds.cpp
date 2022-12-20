@@ -66,72 +66,6 @@ void Leds::setAll(RGBColor col)
   setRange(LED_FIRST, LED_LAST, col);
 }
 
-void Leds::setFinger(Finger finger, RGBColor col)
-{
-  // start from tip and go to top
-  setRange(fingerTip(finger), fingerTop(finger), col);
-}
-
-void Leds::setFingers(Finger first, Finger last, RGBColor col)
-{
-  // start from tip and go to top
-  setRange(fingerTip(first), fingerTop(last), col);
-}
-
-void Leds::setRangeTips(Finger first, Finger last, RGBColor col)
-{
-  for (Finger pos = first; pos <= last; pos++) {
-    setIndex(fingerTip(pos), col);
-  }
-}
-
-void Leds::setAllTips(RGBColor col)
-{
-  for (Finger pos = FINGER_FIRST; pos <= FINGER_LAST; pos++) {
-    setIndex(fingerTip(pos), col);
-  }
-}
-
-void Leds::setRangeTops(Finger first, Finger last, RGBColor col)
-{
-  for (Finger pos = first; pos <= last; pos++) {
-    setIndex(fingerTop(pos), col);
-  }
-}
-
-void Leds::setAllTops(RGBColor col)
-{
-  for (Finger pos = FINGER_FIRST; pos <= FINGER_LAST; pos++) {
-    setIndex(fingerTop(pos), col);
-  }
-}
-
-void Leds::clearRangeTips(Finger first, Finger last) {
-  for (Finger pos = first; pos <= last; pos++) {
-    clearIndex(fingerTip(pos));
-  }
-}
-
-void Leds::clearAllTips()
-{
-  for (Finger pos = FINGER_FIRST; pos <= FINGER_LAST; pos++) {
-    clearIndex(fingerTip(pos));
-  }
-}
-
-void Leds::clearRangeTops(Finger first, Finger last) {
-  for (Finger pos = first; pos <= last; pos++) {
-    clearIndex(fingerTop(pos));
-  }
-}
-
-void Leds::clearAllTops()
-{
-  for (Finger pos = FINGER_FIRST; pos <= FINGER_LAST; pos++) {
-    clearIndex(fingerTop(pos));
-  }
-}
-
 void Leds::setMap(LedMap map, RGBColor col)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
@@ -199,20 +133,6 @@ void Leds::blinkAll(uint64_t time, int32_t offMs, uint32_t onMs, RGBColor col)
 {
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     setRange(LED_FIRST, LED_LAST, col);
-  }
-}
-
-void Leds::blinkFinger(Finger finger, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
-{
-  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
-    setRange(fingerTip(finger), fingerTop(finger), col);
-  }
-}
-
-void Leds::blinkFingers(Finger first, Finger last, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
-{
-  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
-    setRange(fingerTip(first), fingerTop(last), col);
   }
 }
 
