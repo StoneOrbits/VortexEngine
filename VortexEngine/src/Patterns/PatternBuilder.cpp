@@ -105,39 +105,9 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_TRACER: return PatternArgs(16, 3);
     case PATTERN_DASHDOPS: return PatternArgs(30, 2, 7);
     case PATTERN_ADVANCED: return PatternArgs(5, 5, 10, 2, 2, 1);
-    case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0);
-    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0);
-    case PATTERN_BRACKETS: return PatternArgs(4, 8, 35);
-
-    // =====================
-    //  Multi Led Patterns:
-    case PATTERN_RABBIT: return PatternArgs(8, 10, 0, 6, 28, 0);
-    case PATTERN_HUESHIFT: return PatternArgs(1, 1);
-    case PATTERN_THEATER_CHASE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 28);
-    //case PATTERN_CHASER: return PatternArgs();
-    case PATTERN_ZIGZAG: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 55, 1, 55);
-    case PATTERN_ZIPFADE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100, 4, 1);
-    case PATTERN_TIPTOP: return PatternArgs(32, 28, 0, 8, 10, 0);
-    case PATTERN_DRIP: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 250);
-    case PATTERN_DRIPMORPH: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 1);
-    case PATTERN_CROSSDOPS: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100);
-    case PATTERN_DOUBLESTROBE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 115);
-    case PATTERN_METEOR: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 55, 75);
-    case PATTERN_SPARKLETRACE: return PatternArgs(5, 0, 50);
-    case PATTERN_VORTEXWIPE: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 130);
-    case PATTERN_WARP: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 150);
-    case PATTERN_WARPWORM: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 110);
-    case PATTERN_SNOWBALL: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 110);
-    case PATTERN_LIGHTHOUSE: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 100, 25, 5);
-    case PATTERN_PULSISH: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, STROBE_ON_DURATION, STROBE_OFF_DURATION, 250);
-    case PATTERN_FILL: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 200);
-    case PATTERN_BOUNCE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 200);
-    case PATTERN_IMPACT: return PatternArgs(32, 250, STROBE_ON_DURATION, STROBE_OFF_DURATION, STROBIE_ON_DURATION, STROBIE_OFF_DURATION);
-    case PATTERN_SPLITSTROBIE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 16, 3, 10);
-    case PATTERN_BACKSTROBE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 0, 10);
-    case PATTERN_FLOWERS: return PatternArgs(5, 25, 0, 3, 5, 0);
-    case PATTERN_JEST: return PatternArgs(2, 5, 8, 69, 3);
-    case PATTERN_MATERIA: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 3, 35, 80);
+    case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 1);
+    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 1);
+    case PATTERN_BRACKETS: return PatternArgs(2, 5, 8);
     case PATTERN_NONE: break;
     default: break;
   }
