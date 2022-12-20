@@ -12,32 +12,57 @@ enum LedPos : uint8_t
   // this should always be first
   LED_FIRST = 0,
 
-  // the first should be equal to LED_FIRST
-  PINKIE_TIP = LED_FIRST,
-  PINKIE_TOP,
+  // the first quadrant middle to outside
+  LED_0 = LED_FIRST,
+  LED_1,
+  LED_2,
 
-  RING_TIP,
-  RING_TOP,
+  // first quadrant tip
+  LED_3,
 
-  MIDDLE_TIP,
-  MIDDLE_TOP,
+  // the first quadrant outside to middle
+  LED_4,
+  LED_5,
+  LED_6,
 
-  INDEX_TIP,
-  INDEX_TOP,
+  // the second quadrant middle to outside
+  LED_7,
+  LED_8,
+  LED_9,
 
-  THUMB_TIP,
-  THUMB_TOP,
+  // the second quadrant tip
+  LED_10,
 
-  // INSERT NEW ENTRIES HERE
+  // the second quadrant outside to middle
+  LED_11,
+  LED_12,
+  LED_13,
 
-  // TODO: palm lights????
-#if USE_PALM_LIGHTS == 1
-  PALM_UP,
-  PALM_RIGHT,
-  PALM_DOWN,
-  PALM_LEFT,
-  PALM_CENTER,
-#endif
+  // the third quadrant middle to outside
+  LED_14,
+  LED_15,
+  LED_16,
+
+  // the third quadrant tip
+  LED_17,
+
+  // the third quadrant outside to middle
+  LED_18,
+  LED_19,
+  LED_20,
+
+  // the fourth quadrant middle to outside
+  LED_21,
+  LED_22,
+  LED_23,
+
+  // the fourth quadrant tip
+  LED_24,
+
+  // the fourth quadrant outside to middle
+  LED_25,
+  LED_26,
+  LED_27,
 
   // the number of entries above
   LED_COUNT,
@@ -46,94 +71,41 @@ enum LedPos : uint8_t
   LED_LAST = (LED_COUNT - 1)
 };
 
-enum Finger : uint8_t
+enum Quadrant : uint8_t
 {
-  FINGER_FIRST = 0,
+  QUADRANT_FIRST = 0,
 
-  FINGER_PINKIE = FINGER_FIRST,
-  FINGER_RING,
-  FINGER_MIDDLE,
-  FINGER_INDEX,
-  FINGER_THUMB, // proof thumb is finger confirmed
+  QUADRANT_1 = QUADRANT_FIRST,
+  QUADRANT_2,
+  QUADRANT_3,
+  QUADRANT_4,
 
-  FINGER_COUNT, // 5
-  FINGER_LAST = (FINGER_COUNT - 1),
+  QUADRANT_COUNT, // 5
+  QUADRANT_LAST = (QUADRANT_COUNT - 1),
 };
-
-// check if an led is finger tip or top
-inline bool isFingerTip(LedPos pos)
-{
-  return (pos % 2) == 0;
-}
-inline bool isFingerTop(LedPos pos)
-{
-  return (pos % 2) != 0;
-}
-
-// get the led index for the tip/top of a finger
-inline LedPos fingerTip(Finger finger)
-{
-  return (LedPos)((uint32_t)finger * 2);
-}
-inline LedPos fingerTop(Finger finger)
-{
-  return (LedPos)(((uint32_t)finger * 2) + 1);
-}
-
-// convert an led position to a finger
-inline Finger ledToFinger(LedPos pos)
-{
-  // have to flip the index
-  return (Finger)(FINGER_THUMB - (Finger)((uint32_t)pos / 2));
-}
 
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
 // or off with a single integer
-typedef int LedMap;
+typedef uint64_t LedMap;
 
 // various macros for mapping leds to an LedMap
-#define MAP_LED(led) (1 << led) 
-#define MAP_FINGER_TIP(finger) MAP_LED(fingerTip(finger))
-#define MAP_FINGER_TOP(finger) MAP_LED(fingerTop(finger))
-#define MAP_FINGER(finger) (MAP_FINGER_TIP(finger) | MAP_FINGER_TOP(finger))
+#define MAP_LED(led) (1 << led)
 
 // bitmap of all fingers (basically LED_COUNT bits)
 #define MAP_LED_ALL ((2 << (LED_COUNT - 1)) - 1)
 
 #define MAP_INVERSE(map) ((~map) & MAP_LED_ALL)
 
-// macro for all tips and all tops
-#define MAP_FINGER_TIPS (MAP_FINGER_TIP(FINGER_PINKIE) | MAP_FINGER_TIP(FINGER_RING) | MAP_FINGER_TIP(FINGER_MIDDLE) | MAP_FINGER_TIP(FINGER_INDEX) | MAP_FINGER_TIP(FINGER_THUMB))
-#define MAP_FINGER_TOPS (MAP_FINGER_TOP(FINGER_PINKIE) | MAP_FINGER_TOP(FINGER_RING) | MAP_FINGER_TOP(FINGER_MIDDLE) | MAP_FINGER_TOP(FINGER_INDEX) | MAP_FINGER_TOP(FINGER_THUMB))
-
-// Some preset bitmaps for finger groupings
-#define MAP_FINGER_ODD_TIPS (MAP_FINGER_TIP(FINGER_PINKIE) | MAP_FINGER_TIP(FINGER_MIDDLE) | MAP_FINGER_TIP(FINGER_THUMB))
-#define MAP_FINGER_ODD_TOPS (MAP_FINGER_TOP(FINGER_PINKIE) | MAP_FINGER_TOP(FINGER_MIDDLE) | MAP_FINGER_TOP(FINGER_THUMB))
-
-#define MAP_FINGER_EVEN_TIPS (MAP_FINGER_TIP(FINGER_INDEX) | MAP_FINGER_TIP(FINGER_RING))
-#define MAP_FINGER_EVEN_TOPS (MAP_FINGER_TOP(FINGER_INDEX) | MAP_FINGER_TOP(FINGER_RING))
-
 // set a single led
 inline void setLed(LedMap map, LedPos pos)
 {
   if (pos < LED_COUNT) map |= (1 << pos);
-}
-// set a single finger
-inline void setFinger(LedMap map, Finger finger)
-{
-  setLed(map, fingerTip(finger));
-  setLed(map, fingerTop(finger));
 }
 
 // check if an led is set in the map
 inline bool checkLed(LedMap map, LedPos pos)
 {
   return ((map & (1 << pos)) != 0);
-}
-// check if a finger is set in the map (both leds)
-inline bool checkFinger(LedMap map, Finger finger)
-{
-  return checkLed(map, fingerTip(finger)) && checkLed(map, fingerTop(finger));
 }
 
 // LedPos operators
@@ -167,24 +139,4 @@ inline LedPos& operator-=(LedPos &c, int b)
   return c;
 }
 
-// finger operators
-inline Finger &operator++(Finger &c)
-{
-  c = Finger(((uint32_t)c) + 1);
-  return c;
-}
-inline Finger operator++(Finger &c, int)
-{
-  Finger temp = c;
-  ++c;
-  return temp;
-}
-inline Finger operator+(Finger &c, int b)
-{
-  return (Finger)((uint32_t)c + b);
-}
-inline Finger operator-(Finger &c, int b)
-{
-  return (Finger)((uint32_t)c - b);
-}
 #endif
