@@ -51,10 +51,7 @@ void Leds::setIndex(LedPos target, RGBColor col)
   if (target > LED_LAST) {
     target = LED_LAST;
   }
-  // FLIP THE INDEXES because we want our enums to go from 
-  // PINKIE to INDEX for sake of simple iteration in menus
-  // but the current hardware configuration is flipped
-  m_ledColors[LED_LAST - target] = col;
+  led(target) = col;
 }
 
 void Leds::setRange(LedPos first, LedPos last, RGBColor col)
@@ -156,20 +153,20 @@ void Leds::clearMap(LedMap map)
 void Leds::stashAll(LedStash &stash)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    stash.m_ledColorsStash[pos] = m_ledColors[pos];
+    stash.m_ledColorsStash[pos] = led(pos);
   }
 }
 
 void Leds::restoreAll(const LedStash &stash)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    m_ledColors[pos] = stash.m_ledColorsStash[pos];
+    led(pos) = stash.m_ledColorsStash[pos];
   }
 }
 
 void Leds::adjustBrightnessIndex(LedPos target, uint8_t fadeBy)
 {
-   m_ledColors[LED_LAST - target].adjustBrightness(fadeBy);
+   led(target).adjustBrightness(fadeBy);
 }
 
 void Leds::adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy)

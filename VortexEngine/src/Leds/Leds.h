@@ -92,7 +92,7 @@ public:
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
 
   // get the RGBColor of an Led index
-  static RGBColor getLed(int index) { return m_ledColors[LED_LAST - index]; }
+  static RGBColor getLed(LedPos pos) { return led(pos); }
 
   // global brightness
   static uint32_t getBrightness() { return m_brightness; }
@@ -103,6 +103,18 @@ public:
 
 private:
   static void clearOnboardLED();
+
+  // accessor for led colors, use this for all access to allow for mapping
+  static inline RGBColor &led(LedPos pos)
+  {
+    if (pos > LED_LAST) {
+      pos = LED_LAST;
+    }
+    // FLIP THE INDEXES because we want our enums to go from
+    // PINKIE to INDEX for sake of simple iteration in menus
+    // but the current hardware configuration is flipped
+    return m_ledColors[LED_LAST - pos];
+  }
 
   // the global brightness
   static uint32_t m_brightness;
