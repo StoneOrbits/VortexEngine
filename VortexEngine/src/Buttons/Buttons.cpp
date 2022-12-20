@@ -14,7 +14,7 @@ Button Buttons::m_button;
 bool Buttons::init()
 {
   // initialize the button on pin 1
-  if (!m_button.init(1)) {
+  if (!m_button.init(19)) {
     return false;
   }
   g_pButton = &m_button;
