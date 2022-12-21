@@ -84,6 +84,21 @@ enum Quadrant : uint8_t
   QUADRANT_LAST = (QUADRANT_COUNT - 1),
 };
 
+inline LedPos quadrantFirstLed(Quadrant quadrant)
+{
+  return (LedPos)((uint32_t)quadrant * 7);
+}
+
+inline LedPos quadrantMiddleLed(Quadrant quadrant)
+{
+  return (LedPos)((uint32_t)((quadrant * 7) + 3));
+}
+
+inline LedPos quadrantLastLed(Quadrant quadrant)
+{
+  return(LedPos)((uint32_t)((quadrant * 7) + 6));
+}
+
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
 // or off with a single integer
 typedef uint64_t LedMap;
@@ -139,4 +154,24 @@ inline LedPos& operator-=(LedPos &c, int b)
   return c;
 }
 
+// finger operators
+inline Quadrant& operator++(Quadrant& c)
+{
+  c = Quadrant(((uint32_t)c) + 1);
+  return c;
+}
+inline Quadrant operator++(Quadrant& c, int)
+{
+  Quadrant temp = c;
+  ++c;
+  return temp;
+}
+inline Quadrant operator+(Quadrant& c, int b)
+{
+  return (Quadrant)((uint32_t)c + b);
+}
+inline Quadrant operator-(Quadrant& c, int b)
+{
+  return (Quadrant)((uint32_t)c - b);
+}
 #endif

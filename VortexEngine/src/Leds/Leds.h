@@ -32,6 +32,14 @@ public:
   static void clearRange(LedPos first, LedPos last) { setRange(first, last, HSV_OFF); }
   static void clearAll() { setAll(HSV_OFF); }
 
+  // Control full quadrants of Leds
+  static void setQuadrant(Quadrant quadrant, RGBColor col);
+  static void setQuadrants(Quadrant first, Quadrant last, RGBColor col);
+
+  // Turn off full quadrants
+  static void clearQuadrant(Quadrant quadrant);
+  static void clearQuadrants(Quadrant first, Quadrant last);
+
   // Turn on/off a mapping of leds with a color
   static void setMap(LedMap map, RGBColor col);
   static void clearMap(LedMap map);
@@ -59,6 +67,7 @@ public:
   // is unpredictable whether they will blink on or off first
   static void blinkIndex(LedPos target, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkRange(LedPos first, LedPos last, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkQuadrant(Quadrant target, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkAll(uint64_t time, int32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
 
   // breath the hue on an index

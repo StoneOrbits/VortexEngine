@@ -68,6 +68,30 @@ void Leds::setAll(RGBColor col)
   setRange(LED_FIRST, LED_LAST, col);
 }
 
+void Leds::setQuadrant(Quadrant quadrant, RGBColor col)
+{
+  // start from tip and go to top
+  setRange(quadrantFirstLed(quadrant), quadrantLastLed(quadrant), col);
+}
+
+void Leds::setQuadrants(Quadrant first, Quadrant last, RGBColor col)
+{
+  // start from tip and go to top
+  setRange(quadrantFirstLed(first), quadrantLastLed(last), col);
+}
+
+void Leds::clearQuadrant(Quadrant quadrant)
+{
+  // start from tip and go to top
+  clearRange(quadrantFirstLed(quadrant), quadrantLastLed(quadrant));
+}
+
+void Leds::clearQuadrants(Quadrant first, Quadrant last)
+{
+  // start from tip and go to top
+  clearRange(quadrantFirstLed(first), quadrantLastLed(last));
+}
+
 void Leds::setMap(LedMap map, RGBColor col)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
@@ -128,6 +152,13 @@ void Leds::blinkRange(LedPos first, LedPos last, uint64_t time, uint32_t offMs, 
 {
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     setRange(first, last, col);
+  }
+}
+
+void Leds::blinkQuadrant(Quadrant target, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
+{
+  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+    setQuadrant(target, col);
   }
 }
 

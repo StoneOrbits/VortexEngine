@@ -3,6 +3,9 @@
 // menus
 #include "Menu.h"
 
+#include "MenuList/ColorSelect.h"
+#include "MenuList/Randomizer.h"
+
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
 #include "../Buttons/Button.h"
@@ -34,6 +37,8 @@ Menu *initMenu() { return new T(); }
 
 // The list of menus that are registered with colors to show in ring menu
 const MenuEntry menuList[MENU_COUNT] = {
+  ENTRY(Randomizer,       RGB_WHITE),   // 0
+  ENTRY(ColorSelect,      RGB_ORANGE),  // 1
 };
 
 // the number of menus in the above array
