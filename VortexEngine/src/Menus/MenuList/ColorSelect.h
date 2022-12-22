@@ -63,6 +63,10 @@ private:
     85,
     0
   };
+  
+  // path for leds to take, index this with m_step up to LED_COUNT steps
+  static const LedPos ledColorMenuPositionsTop[];
+  static const LedPos ledColorMenuPositionsBot[];
 
   // the current state of the color selection menu
   ColorSelectState m_state;
