@@ -249,7 +249,7 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
   // if we're in the slot selection
   if (m_state == STATE_PICK_SLOT) {
     // and the current selected slot is the end slot, except for when we're on the thumb
-    if (m_slot == m_colorset.numColors()) {
+    if (m_slot == m_colorset.numColors() && m_curSelection != QUADRANT_LAST) {
       // clear the finger so it turns off, then blink this slot to either
       // white or dim white to indicate we can add a color here
       Leds::clearQuadrant(m_curSelection);
@@ -265,6 +265,8 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
         Leds::breathQuadrant(m_curSelection, 0, g_pButton->holdDuration());
         return;
       }
+    } else if (m_slot == m_colorset.numColors() + 1) {
+      Leds::blinkQuadrantFive(Time::getCurtime(), 150, 350, RGB_WHITE);
     }
   }
   // otherwise run the default blink logic
