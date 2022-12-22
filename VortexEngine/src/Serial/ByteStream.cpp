@@ -27,7 +27,8 @@ ByteStream::~ByteStream()
   clear();
 }
 
-ByteStream::ByteStream(const ByteStream &other)
+ByteStream::ByteStream(const ByteStream &other) :
+  ByteStream()
 {
   init(other.capacity(), other.data());
   m_pData->flags = other.m_pData->flags;
