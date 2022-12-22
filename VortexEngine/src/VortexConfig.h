@@ -79,8 +79,8 @@
 // Default Global Brightness
 //
 // The starting default global brightness if there is no savefile
-// present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    185
+// present The maximum value is 20
+#define DEFAULT_BRIGHTNESS    20
 
 // Max Modes
 //

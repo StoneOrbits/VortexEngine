@@ -14,6 +14,78 @@ const default_mode_entry default_modes[] = {
     HSV(0, 0, 0)
   },
 
+    PATTERN_GHOSTCRUSH, {
+    HSV(0, 0, 255),
+    HSV(0, 0, 255),
+    HSV(0, 0, 0),
+    HSV(30, 255, 170),
+    HSV(0, 0, 0)
+  },
+
+    PATTERN_GHOSTCRUSH, {
+    HSV(0, 0, 255),
+    HSV(0, 0, 255),
+    HSV(0, 0, 0),
+    HSV(50, 255, 170),
+    HSV(0, 0, 0)
+  },
+
+    PATTERN_GHOSTCRUSH, {
+    HSV(0, 0, 255),
+    HSV(0, 0, 255),
+    HSV(0, 0, 0),
+    HSV(80, 255, 170),
+    HSV(0, 0, 0)
+  },
+
+    PATTERN_GHOSTCRUSH, {
+    HSV(0, 0, 255),
+    HSV(0, 0, 255),
+    HSV(0, 0, 0),
+    HSV(110, 255, 170),
+    HSV(0, 0, 0)
+  },
+
+    PATTERN_GHOSTCRUSH, {
+    HSV(0, 0, 255),
+    HSV(0, 0, 255),
+    HSV(0, 0, 0),
+    HSV(140, 255, 170),
+    HSV(0, 0, 0)
+  },
+
+    PATTERN_GHOSTCRUSH, {
+    HSV(0, 0, 255),
+    HSV(0, 0, 255),
+    HSV(0, 0, 0),
+    HSV(170, 255, 170),
+    HSV(0, 0, 0)
+  },
+
+    PATTERN_GHOSTCRUSH, {
+    HSV(0, 0, 255),
+    HSV(0, 0, 255),
+    HSV(0, 0, 0),
+    HSV(200, 255, 170),
+    HSV(0, 0, 0)
+  },
+
+    PATTERN_GHOSTCRUSH, {
+    HSV(0, 0, 255),
+    HSV(0, 0, 255),
+    HSV(0, 0, 0),
+    HSV(230, 255, 170),
+    HSV(0, 0, 0)
+  },
+
+    PATTERN_GHOSTCRUSH, {
+    HSV(0, 0, 255),
+    HSV(0, 0, 255),
+    HSV(0, 0, 0),
+    HSV(0, 255, 170),
+    HSV(0, 0, 0)
+  },
+
   // Pattern 7: Strobe
   PATTERN_STROBE, {
     HSV(240, 255, 255),

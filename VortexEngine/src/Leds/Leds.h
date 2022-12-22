@@ -35,10 +35,12 @@ public:
   // Control full quadrants of Leds
   static void setQuadrant(Quadrant quadrant, RGBColor col);
   static void setQuadrants(Quadrant first, Quadrant last, RGBColor col);
+  static void setQuadrantFive(RGBColor col);
 
   // Turn off full quadrants
-  static void clearQuadrant(Quadrant quadrant);
-  static void clearQuadrants(Quadrant first, Quadrant last);
+  static void clearQuadrant(Quadrant quadrant) { setRange(quadrantFirstLed(quadrant), quadrantLastLed(quadrant), HSV_OFF); }
+  static void clearQuadrants(Quadrant first, Quadrant last) { setRange(quadrantFirstLed(first), quadrantLastLed(last), HSV_OFF); }
+  static void clearQuadrantFive();
 
   // Turn on/off a mapping of leds with a color
   static void setMap(LedMap map, RGBColor col);
@@ -68,11 +70,18 @@ public:
   static void blinkIndex(LedPos target, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkRange(LedPos first, LedPos last, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkQuadrant(Quadrant target, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkQuadrantFive(uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkAll(uint64_t time, int32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
 
   // breath the hue on an index
   // warning: uses hsv to rgb in realtime!
   static void breathIndex(LedPos target, uint32_t hue, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
+
+  static void breathQuadrant(Quadrant target, uint32_t hue, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
+
+  static void breathQuadrantFive(uint32_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
 
   // get the RGBColor of an Led index

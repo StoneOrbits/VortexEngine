@@ -80,23 +80,23 @@ void ColorSelect::onShortClick()
   if (m_state == STATE_PICK_SLOT) {
     // if the current selection is on the index finger then it's at the
     // end of the current page and we might need to go to the next page
-    if ((m_curSelection == QUADRANT_COUNT && (m_curPage == 0 && m_colorset.numColors() > 3))) {
+    if ((m_curSelection == QUADRANT_4 && (m_curPage == 0 && m_colorset.numColors() > 3))) {
       // increase the page number to 1
       m_curPage = (m_curPage + 1) % NUM_PAGES;
       // skip past the thumb if we're on index
-      m_curSelection = QUADRANT_FIRST;
+      m_curSelection = QUADRANT_LAST;
       // clear all leds because we went to the next page
       Leds::clearAll();
-    } else if (m_curSelection == QUADRANT_COUNT && (m_curPage == 1 || (m_curPage == 0 && m_colorset.numColors() <= 3))) {
+    } else if (m_curSelection == QUADRANT_LAST && (m_curPage == 1 || (m_curPage == 0 && m_colorset.numColors() <= 3))) {
       m_curPage = 0;
       // skip past the thumb if we're on index
-      m_curSelection = QUADRANT_COUNT;
+      m_curSelection = QUADRANT_LAST;
       // clear all leds because we went to the next page
       Leds::clearAll();
     }
   }
   // iterate selection forward and wrap after the thumb
-  m_curSelection = (Quadrant)((m_curSelection + 1) % QUADRANT_COUNT);
+  m_curSelection = (Quadrant)((m_curSelection + 1) % (QUADRANT_LAST + 1));
   // only when we're not on thumb calculate the current 'slot' based on page
   if (m_curSelection != QUADRANT_LAST && m_state == STATE_PICK_SLOT) {
     // the slot is an index in the colorset, where as curselection is a finger index
@@ -116,7 +116,7 @@ void ColorSelect::onLongClick()
 {
   bool needsSave = false;
   // if we're exiting a menu
-  if (m_curSelection == QUADRANT_COUNT) {
+  if (m_curSelection == QUADRANT_LAST) {
     // leaving a menu, clear everything
     Leds::clearAll();
     switch (m_state) {
@@ -143,7 +143,7 @@ void ColorSelect::onLongClick()
     case STATE_PICK_SAT:
     case STATE_PICK_VAL:
       m_state = (ColorSelectState)(m_state - 1);
-      m_curSelection = QUADRANT_COUNT;
+      m_curSelection = QUADRANT_LAST;
       return;
     }
   }
@@ -208,7 +208,7 @@ void ColorSelect::showSlotSelection()
   // the index of the first color to show changes based on the page
   // will be either 0 or 4 for the two page color select
   uint32_t idx = (m_curPage * PAGE_SIZE);
-  for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_LAST; ++f) {
+  for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_4; ++f) {
     // set the current colorset slot color on the current finger
     // display the extra slots as solid blank
     Leds::setQuadrant(f, (idx >= m_colorset.numColors()) ? RGB_BLANK : m_colorset[idx]);
@@ -262,7 +262,7 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       // if we're pressing down on a slot then glow the tip white/red
       if ((g_pButton->holdDuration() % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS) {
         // breath red instead of white blink
-        Leds::breathIndex(quadrantMiddleLed(QUADRANT_1), 0, g_pButton->holdDuration());
+        Leds::breathQuadrant(m_curSelection, 0, g_pButton->holdDuration());
         return;
       }
     }

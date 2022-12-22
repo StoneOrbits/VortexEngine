@@ -79,6 +79,7 @@ enum Quadrant : uint8_t
   QUADRANT_2,
   QUADRANT_3,
   QUADRANT_4,
+  QUADRANT_5,
 
   QUADRANT_COUNT, // 5
   QUADRANT_LAST = (QUADRANT_COUNT - 1),
@@ -91,12 +92,12 @@ inline LedPos quadrantFirstLed(Quadrant quadrant)
 
 inline LedPos quadrantMiddleLed(Quadrant quadrant)
 {
-  return (LedPos)((uint32_t)((quadrant * 7) + 3));
+  return (LedPos)(((uint32_t)quadrant * 7) + 3);
 }
 
 inline LedPos quadrantLastLed(Quadrant quadrant)
 {
-  return(LedPos)((uint32_t)((quadrant * 7) + 6));
+  return(LedPos)(((uint32_t)quadrant * 7) + 6);
 }
 
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on

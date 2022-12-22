@@ -80,16 +80,18 @@ void Leds::setQuadrants(Quadrant first, Quadrant last, RGBColor col)
   setRange(quadrantFirstLed(first), quadrantLastLed(last), col);
 }
 
-void Leds::clearQuadrant(Quadrant quadrant)
+void Leds::setQuadrantFive(RGBColor col)
 {
-  // start from tip and go to top
-  clearRange(quadrantFirstLed(quadrant), quadrantLastLed(quadrant));
+  for (LedPos q = LED_FIRST; q < 4; ++q) {
+    led((LedPos)((q * 7) + 3)) = col;
+  }
 }
 
-void Leds::clearQuadrants(Quadrant first, Quadrant last)
+void Leds::clearQuadrantFive()
 {
-  // start from tip and go to top
-  clearRange(quadrantFirstLed(first), quadrantLastLed(last));
+  for (LedPos q = LED_FIRST; q < 4; ++q) {
+    led((LedPos)((q * 7) + 3)) = HSV_OFF;
+  }
 }
 
 void Leds::setMap(LedMap map, RGBColor col)
@@ -162,6 +164,13 @@ void Leds::blinkQuadrant(Quadrant target, uint64_t time, uint32_t offMs, uint32_
   }
 }
 
+void Leds::blinkQuadrantFive( uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
+{
+  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+    setQuadrantFive(col);
+  }
+}
+
 void Leds::blinkAll(uint64_t time, int32_t offMs, uint32_t onMs, RGBColor col)
 {
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
@@ -172,6 +181,20 @@ void Leds::blinkAll(uint64_t time, int32_t offMs, uint32_t onMs, RGBColor col)
 void Leds::breathIndex(LedPos target, uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
   setIndex(target, HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
+}
+
+void Leds::breathQuadrant(Quadrant target, uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+{
+  for (uint8_t pos = 0; pos < 7; ++pos) {
+    setIndex((LedPos)((target * 7) + pos), HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
+  }
+}
+
+void Leds::breathQuadrantFive(uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+{
+  for (int target = 0; target < 4; ++target) {
+    setIndex((LedPos)((target * 7) + 3), HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
+  } 
 }
 
 void Leds::update()
