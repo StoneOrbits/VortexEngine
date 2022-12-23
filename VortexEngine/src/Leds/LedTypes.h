@@ -79,22 +79,233 @@ enum Quadrant : uint8_t
   QUADRANT_2,
   QUADRANT_3,
   QUADRANT_4,
-  QUADRANT_5,
+  QUADRANT_5, // This may look confusing but the extra "quadrant" improves compatibility. The name could improve
 
   QUADRANT_COUNT, // 5
-  QUADRANT_LAST = (QUADRANT_COUNT - 1),
+  QUADRANT_LAST = (QUADRANT_COUNT - 1)
 };
 
+enum LedPair : uint8_t
+{
+  PAIR_FIRST = 0,
+
+  // Quadrant 1
+  PAIR_1 = PAIR_FIRST,
+  PAIR_2,
+  PAIR_3,
+  PAIR_4,
+  // Quadrant 2
+  PAIR_5,
+  PAIR_6,
+  PAIR_7,
+  PAIR_8,
+  // Quadrant 3
+  PAIR_9,
+  PAIR_10,
+  PAIR_11,
+  PAIR_12,
+  // Quadrant 4
+  PAIR_13,
+  PAIR_14,
+  PAIR_15,
+  PAIR_16,
+
+  PAIR_COUNT,
+  PAIR_LAST = (PAIR_COUNT - 1),
+
+};
+
+// check if led is on the top side
+inline bool isPairTop(LedPos pos)
+{
+  switch (pos) {
+  case LED_0: case LED_1: case LED_2:
+  case LED_11: case LED_12: case LED_13:
+  case LED_14: case LED_15: case LED_16:
+  case LED_25: case LED_26: case LED_27:
+    return true;
+  default:
+    return false;
+  }
+}
+
+// check if led is on the bottom side
+inline bool isPairBot(LedPos pos)
+{
+  switch (pos) {
+  case LED_4: case LED_5: case LED_6: 
+  case LED_7: case LED_8: case LED_9: 
+  case LED_18: case LED_19: case LED_20: 
+  case LED_21: case LED_22: case LED_23: 
+    return true;
+  default:
+    return false;
+  }
+}
+
+// check if led is on the side
+inline bool isPairSide(LedPos pos)
+{
+  switch (pos) {
+  case LED_3: case LED_10: case LED_17: case LED_24:
+    return true;
+  default:
+    return false;
+  }
+}
+
+// convert and led postion to a pair
+inline LedPair ledToPair(LedPos pos)
+{
+  switch (pos) {
+  // Quadrant 1
+  case LED_0:
+  case LED_6:
+    return PAIR_1;
+  case LED_1:
+  case LED_5:
+    return PAIR_2;
+  case LED_2:
+  case LED_4:
+    return PAIR_3;
+  case LED_3:
+    return PAIR_4;
+  
+    // Quadrant 2
+  case LED_7:
+  case LED_13:
+    return PAIR_5;
+  case LED_8:
+  case LED_12:
+    return PAIR_6;
+  case LED_9:
+  case LED_11:
+    return PAIR_7;
+  case LED_10:
+    return PAIR_8;
+  
+    // Quadrant 3
+  case LED_14:
+  case LED_20:
+    return PAIR_9;
+  case LED_15:
+  case LED_19:
+    return PAIR_10;
+  case LED_16:
+  case LED_18:
+    return PAIR_11;
+  case LED_17:
+    return PAIR_12;
+  
+    // Quadrant 4
+  case LED_21:
+  case LED_27:
+    return PAIR_13;
+  case LED_22:
+  case LED_26:
+    return PAIR_14;
+  case LED_23:
+  case LED_25:
+    return PAIR_15;
+  case LED_24:
+    return PAIR_16;
+  
+  default:
+    return PAIR_FIRST;
+  }
+}
+
+// get the top led from the pair
+inline LedPos pairTop(LedPair pair)
+{
+  switch (pair) {
+  case PAIR_1:
+    return LED_0;
+  case PAIR_2:
+    return LED_1;
+  case PAIR_3:
+    return LED_2;
+  case PAIR_4:
+    return LED_3;
+  case PAIR_5:
+    return LED_13;
+  case PAIR_6:
+    return LED_12;
+  case PAIR_7:
+    return LED_11;
+  case PAIR_8:
+    return LED_10;
+  case PAIR_9:
+    return LED_14;
+  case PAIR_10:
+    return LED_15;
+  case PAIR_11:
+    return LED_16;
+  case PAIR_12:
+    return LED_17;
+  case PAIR_13:
+    return LED_27;
+  case PAIR_14:
+    return LED_26;
+  case PAIR_15:
+    return LED_25;
+  case PAIR_16:
+    return LED_24;
+  }
+}
+
+// get the bottom led from the pair
+inline LedPos pairBot(LedPair pair)
+{
+  switch (pair) {
+  case PAIR_1:
+    return LED_6;
+  case PAIR_2:
+    return LED_5;
+  case PAIR_3:
+    return LED_4;
+  case PAIR_4:
+    return LED_3;
+  case PAIR_5:
+    return LED_7;
+  case PAIR_6:
+    return LED_8;
+  case PAIR_7:
+    return LED_9;
+  case PAIR_8:
+    return LED_10;
+  case PAIR_9:
+    return LED_20;
+  case PAIR_10:
+    return LED_19;
+  case PAIR_11:
+    return LED_18;
+  case PAIR_12:
+    return LED_17;
+  case PAIR_13:
+    return LED_21;
+  case PAIR_14:
+    return LED_22;
+  case PAIR_15:
+    return LED_23;
+  case PAIR_16:
+    return LED_24;
+  }
+}
+
+// get the first led in the quadrant
 inline LedPos quadrantFirstLed(Quadrant quadrant)
 {
   return (LedPos)((uint32_t)quadrant * 7);
 }
 
+// get the middle led in the quadrant
 inline LedPos quadrantMiddleLed(Quadrant quadrant)
 {
   return (LedPos)(((uint32_t)quadrant * 7) + 3);
 }
 
+// get the last led in the quadrant
 inline LedPos quadrantLastLed(Quadrant quadrant)
 {
   return(LedPos)(((uint32_t)quadrant * 7) + 6);
@@ -155,7 +366,7 @@ inline LedPos& operator-=(LedPos &c, int b)
   return c;
 }
 
-// finger operators
+// Quadrant operators
 inline Quadrant& operator++(Quadrant& c)
 {
   c = Quadrant(((uint32_t)c) + 1);
@@ -174,5 +385,26 @@ inline Quadrant operator+(Quadrant& c, int b)
 inline Quadrant operator-(Quadrant& c, int b)
 {
   return (Quadrant)((uint32_t)c - b);
+}
+
+// Pair operators
+inline LedPair& operator++(LedPair& c)
+{
+  c = LedPair(((uint32_t)c) + 1);
+  return c;
+}
+inline LedPair operator++(LedPair& c, int)
+{
+  LedPair temp = c;
+  ++c;
+  return temp;
+}
+inline LedPair operator+(LedPair& c, int b)
+{
+  return (LedPair)((uint32_t)c + b);
+}
+inline LedPair operator-(LedPair& c, int b)
+{
+  return (LedPair)((uint32_t)c - b);
 }
 #endif

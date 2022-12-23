@@ -41,6 +41,12 @@ public:
   static void clearQuadrant(Quadrant quadrant) { setRange(quadrantFirstLed(quadrant), quadrantLastLed(quadrant), HSV_OFF); }
   static void clearQuadrants(Quadrant first, Quadrant last) { setRange(quadrantFirstLed(first), quadrantLastLed(last), HSV_OFF); }
   static void clearQuadrantFive();
+  
+  // Control pairs of Leds, for menu display
+  static void setPair(LedPair pair, RGBColor col);
+  
+  // Turn off pairs of Leds
+  static void clearPair(LedPair pair);
 
   // Turn on/off a mapping of leds with a color
   static void setMap(LedMap map, RGBColor col);

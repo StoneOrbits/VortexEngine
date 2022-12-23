@@ -9,7 +9,8 @@
 
 Menu::Menu() :
   m_pCurMode(nullptr),
-  m_shouldClose(false)
+  m_shouldClose(false),
+  m_curSelection(QUADRANT_FIRST)
 {
 }
 
@@ -90,7 +91,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
     // exit thumb breathes red on the tip and is either blank or red on the top
     // depending on whether you've held for the short click threshold or not
     if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
-      Leds::setQuadrantFive(RGB_RED);
+      Leds::setQuadrantFive(RGB_WHITE);
     } else {
       Leds::clearQuadrantFive();
       Leds::blinkQuadrantFive(Time::getCurtime(), 250, 500, RGB_BLANK);

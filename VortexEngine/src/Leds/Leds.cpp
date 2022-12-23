@@ -94,6 +94,17 @@ void Leds::clearQuadrantFive()
   }
 }
 
+void Leds::setPair(LedPair pair, RGBColor col)
+{
+  setIndex(pairTop(pair), col);
+  setIndex(pairBot(pair), col);
+}
+
+void Leds::clearPair(LedPair pair) {
+  setIndex(pairTop(pair), HSV_OFF);
+  setIndex(pairBot(pair), HSV_OFF);
+}
+
 void Leds::setMap(LedMap map, RGBColor col)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {

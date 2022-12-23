@@ -14,39 +14,6 @@
 // the number of pages
 #define NUM_PAGES 2
 
-//A Convienent order for menu display
-// each index from Top and Bottom are opposing LEDs
-const LedPos ColorSelect::ledColorMenuPositionsTop[] = { 
-  LED_0,
-  LED_1,
-  LED_2,
-  LED_13,
-  LED_12,
-  LED_11,
-  LED_14,
-  LED_15,
-  LED_16, 
-  LED_27,
-  LED_26,
-  LED_25
-};
-
-// Each top and
-const LedPos ColorSelect::ledColorMenuPositionsBot[] = {
-  LED_6,
-  LED_5,
-  LED_4,
-  LED_7,
-  LED_8,
-  LED_9,
-  LED_20,
-  LED_19,
-  LED_18,
-  LED_21,
-  LED_22,
-  LED_23
-};
-
 ColorSelect::ColorSelect() :
   Menu(),
   m_state(STATE_PICK_SLOT),
@@ -251,29 +218,28 @@ void ColorSelect::showSlotSelection()
 
 void ColorSelect::showHueSelection1()
 {
-  for (LedPos p = LED_FIRST; p <= 12; ++p) {
-    Leds::setIndex(ledColorMenuPositionsTop[p], HSVColor((256 / 12) * p, 255, 255));
-    Leds::setIndex(ledColorMenuPositionsBot[p], HSVColor((256 / 12) * p, 255, 255));
+  for (LedPair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
+    Leds::setPair(p, HSVColor((256 / PAIR_COUNT) * p, 255, 255));
   }
 }
 
 void ColorSelect::showHueSelection2()
 {
-  for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_LAST; ++f) {
+  for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_4; ++f) {
     Leds::setQuadrant(f, HSVColor(m_newColor.hue + ((255 / 16) * f), 255, 255));
   }
 }
 
 void ColorSelect::showSatSelection()
 {
-  for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_LAST; ++f) {
+  for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_4; ++f) {
     Leds::setQuadrant(f, HSVColor(m_newColor.hue, sats[f], 255));
   }
 }
 
 void ColorSelect::showValSelection()
 {
-  for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_LAST; ++f) {
+  for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_4; ++f) {
     Leds::setQuadrant(f, HSVColor(m_newColor.hue, m_newColor.sat, vals[f]));
   }
 }
