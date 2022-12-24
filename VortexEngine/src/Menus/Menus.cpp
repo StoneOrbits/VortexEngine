@@ -3,6 +3,7 @@
 // menus
 #include "Menu.h"
 
+#include "MenuList/PatternSelect.h"
 #include "MenuList/ColorSelect.h"
 #include "MenuList/Randomizer.h"
 
@@ -39,6 +40,7 @@ Menu *initMenu() { return new T(); }
 const MenuEntry menuList[MENU_COUNT] = {
   ENTRY(Randomizer,       RGB_WHITE),   // 0
   ENTRY(ColorSelect,      RGB_ORANGE),  // 1
+  ENTRY(PatternSelect,      RGB_BLUE),  // 1
 };
 
 // the number of menus in the above array
