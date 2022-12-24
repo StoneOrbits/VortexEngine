@@ -112,7 +112,7 @@ private:
     // FLIP THE INDEXES because we want our enums to go from
     // PINKIE to INDEX for sake of simple iteration in menus
     // but the current hardware configuration is flipped
-    return m_ledColors[LED_LAST - pos];
+    return m_ledColors[pos];
   }
 
   // the global brightness

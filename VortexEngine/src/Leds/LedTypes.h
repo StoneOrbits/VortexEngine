@@ -382,9 +382,22 @@ inline Quadrant operator+(Quadrant& c, int b)
 {
   return (Quadrant)((uint32_t)c + b);
 }
+
+inline Quadrant& operator+=(Quadrant& c, int b)
+{
+  c = Quadrant(((uint32_t)c) + b);
+  return c;
+}
+
 inline Quadrant operator-(Quadrant& c, int b)
 {
   return (Quadrant)((uint32_t)c - b);
+}
+
+inline Quadrant& operator-=(Quadrant& c, int b)
+{
+  c = Quadrant(((uint32_t)c) - b);
+  return c;
 }
 
 // Pair operators

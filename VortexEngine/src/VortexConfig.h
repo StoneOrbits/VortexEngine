@@ -196,8 +196,8 @@
 // The ring menu will fill from the thumb if this is present, otherwise
 // it will fill from the pinkie.
 //
-// The logic is cleaner for fill from pinkie but fill from thumb is preferred
-#define FILL_FROM_THUMB       1
+// Fill from 0 to max. 1 to reverse
+#define FILL_FROM_THUMB       0
 
 // Use Palm Lights
 //
