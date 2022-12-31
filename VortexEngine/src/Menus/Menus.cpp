@@ -6,6 +6,7 @@
 #include "MenuList/GlobalBrightness.h"
 #include "MenuList/PatternSelect.h"
 #include "MenuList/FactoryReset.h"
+#include "MenuList/ModeSharing.h"
 #include "MenuList/ColorSelect.h"
 #include "MenuList/Randomizer.h"
 
@@ -45,7 +46,7 @@ const MenuEntry menuList[MENU_COUNT] = {
   ENTRY(PatternSelect,      RGB_BLUE),  // 2
   ENTRY(GlobalBrightness, RGB_YELLOW),  // 3
   ENTRY(FactoryReset,     RGB_RED),     // 4
-  //ENTRY(ModeSharing,      RGB_TEAL),    // 5
+  ENTRY(ModeSharing,      RGB_TEAL),    // 5
 };
 
 // the number of menus in the above array
