@@ -39,7 +39,7 @@ bool ModeSharing::run()
   case ModeShareState::SHARE_SEND:
     // render the 'send mode' lights
     showSendMode();
-#if AUTO_SEND_MODE == 1
+#if AUTO_SEND_MODE == 0
     {
       static bool sent_once = false;
       if (!sent_once) {
@@ -79,15 +79,16 @@ void ModeSharing::onShortClick()
     DEBUG_LOG("Switched to send mode");
     break;
   }
+  Leds::clearAll();
 }
 
 void ModeSharing::onLongClick()
 {
   // long click on sender option to manually send the mode
-  if (m_sharingMode == ModeShareState::SHARE_SEND) {
-    beginSending();
-    return;
-  }
+  //if (m_sharingMode == ModeShareState::SHARE_SEND) {
+  //  beginSending();
+  //  return;
+  //}
   leaveMenu();
 }
 
@@ -102,7 +103,7 @@ void ModeSharing::beginSending()
   IRSender::loadMode(m_pCurMode);
   // send the first chunk of data, leave if we're done
   if (!IRSender::send()) {
-    leaveMenu();
+    //leaveMenu();
   }
 }
 
@@ -111,7 +112,7 @@ void ModeSharing::continueSending()
   // if the sender isn't done then keep sending data
   if (IRSender::isSending()) {
     if (!IRSender::send()) {
-      leaveMenu();
+      beginSending();
     }
   }
 }
@@ -138,17 +139,19 @@ void ModeSharing::receiveMode()
 void ModeSharing::showSendMode()
 {
   Leds::clearAll();
-  if (IRSender::isSending()) {
-    // how much is sent?
-    uint32_t percent = IRSender::percentDone();
-    LedPos l = (LedPos)((percent / 10) + 1);
-    Leds::setRange(l, LED_LAST, RGB_YELLOW);
-    return;
-  }
-  // gradually fill from thumb to pinkie
-  LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(100) % (LED_COUNT + 1)));
-  if (pos == 10) return;
-  Leds::setRange(pos, LED_LAST, RGB_TEAL);
+  //if (IRSender::isSending()) {
+  //  // how much is sent?
+  //  uint32_t percent = IRSender::percentDone();
+  //  LedPos l = (LedPos)((percent / 10) + 1);
+  //  Leds::setRange(l, LED_LAST, RGB_YELLOW);
+  //  return;
+  //}
+  //// gradually fill from thumb to pinkie
+  //LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(100) % (LED_COUNT + 1)));
+  //if (pos == 10) return;
+  //Leds::setRange(pos, LED_LAST, RGB_TEAL);
+  Leds::setAll(RGB_TEAL);
+  Leds::blinkAll(Time::getCurtime(), 10, 50);
 }
 
 void ModeSharing::showReceiveMode()
