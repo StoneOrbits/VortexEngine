@@ -82,7 +82,9 @@ public:
   static void clearModes();
 
 private:
-  static bool initCurMode();
+  // initialize current mode from ByteStream, optionally force re-init which
+  // will destroy the current instantiated mode and re-load it from serial
+  static bool initCurMode(bool force = false);
   static void saveCurMode();
 
   // the current mode we're on

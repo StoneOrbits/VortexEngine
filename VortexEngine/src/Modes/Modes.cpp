@@ -259,6 +259,7 @@ bool Modes::addSerializedMode(ByteStream &serializedMode)
 
 // shift the current mode to a different position relative to current position
 // negative values for up, positive values for down, 0 for no move
+// TODO: combine this with shiftCurModeDown and refactor
 bool Modes::shiftCurModeUp(uint32_t offset)
 {
   if (offset > m_curMode) {
@@ -282,13 +283,17 @@ bool Modes::shiftCurModeUp(uint32_t offset)
     }
     m_serializedModes[i] = m_serializedModes[i - 1];
   }
+  // now change the current mode index without changing the m_pCurMode
+  // so our current mode index points at the new location, but our m_pCurMode
+  // still has the old mode instantiated
   m_curMode = newPos;
+  // now we save the m_pCurMode into the m_curMode position
   saveCurMode();
-  delete m_pCurMode;
-  m_pCurMode = nullptr;
-  initCurMode();
+  // then we forcefully re-initialize the current mode
+  return initCurMode(true);
 }
 
+// TODO: combine this with shiftCurModeUp and refactor
 bool Modes::shiftCurModeDown(uint32_t offset)
 {
   if ((offset + m_curMode) >= m_numModes) {
@@ -301,7 +306,7 @@ bool Modes::shiftCurModeDown(uint32_t offset)
   if (newPos == m_curMode) {
     return true;
   }
-  // shift down, iterate from current down to target and shift up
+  // shift each entry down, iterate from current down to target and shift up
   for (uint32_t i = m_curMode; i < newPos; ++i) {
     if (i == (m_numModes - 1)) {
       m_serializedModes[i].clear();
@@ -309,11 +314,14 @@ bool Modes::shiftCurModeDown(uint32_t offset)
     }
     m_serializedModes[i] = m_serializedModes[i + 1];
   }
+  // now change the current mode index without changing the m_pCurMode
+  // so our current mode index points at the new location, but our m_pCurMode
+  // still has the old mode instantiated
   m_curMode = newPos;
+  // now we save the m_pCurMode into the m_curMode position
   saveCurMode();
-  delete m_pCurMode;
-  m_pCurMode = nullptr;
-  initCurMode();
+  // then we forcefully re-initialize the current mode
+  return initCurMode(true);
 }
 
 bool Modes::addMode(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
@@ -475,8 +483,15 @@ void Modes::clearModes()
   m_numModes = 0;
 }
 
-bool Modes::initCurMode()
+bool Modes::initCurMode(bool force)
 {
+  // force will force the current mode to re-initialize
+  if (force) {
+    if (m_pCurMode) {
+      delete m_pCurMode;
+      m_pCurMode = nullptr;
+    }
+  }
   // if the current mode is already initialized, or we don't have
   // any modes at all then we're technically successful
   if (m_pCurMode || !m_numModes) {
