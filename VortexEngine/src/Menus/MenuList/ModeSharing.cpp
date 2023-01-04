@@ -15,7 +15,8 @@ ModeSharing::ModeSharing() :
   Menu(),
   m_sharingMode(ModeShareState::SHARE_SEND),
   m_last_action(0),
-  m_waitStartTime(0)
+  m_waitStartTime(0),
+  m_timeOutStartTime(0)
 {
 }
 
@@ -150,10 +151,20 @@ void ModeSharing::showReceiveMode()
 {
   Leds::clearAll();
   if (IRReceiver::isReceiving()) {
+    static uint32_t previous;
     // how much is sent?
     uint32_t percent = IRReceiver::percentReceived();
+    if (previous != percent) {
+      m_timeOutStartTime = Time::getCurtime();
+    }
+    else if (Time::getCurtime() - m_timeOutStartTime >= 1000) {
+      IRReceiver::endReceiving();
+      IRReceiver::beginReceiving();
+      return;
+    }
     LedPos l = (LedPos)(percent / 10);
-    Leds::setRange(LED_FIRST, l, RGB_ORANGE);
+    Leds::setRange(LED_FIRST, l, RGB_GREEN);
+    previous = percent;
     return;
   }
   // gradually empty from thumb to pinkie
