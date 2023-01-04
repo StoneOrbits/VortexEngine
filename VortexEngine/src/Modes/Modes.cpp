@@ -257,6 +257,65 @@ bool Modes::addSerializedMode(ByteStream &serializedMode)
   return true;
 }
 
+// shift the current mode to a different position relative to current position
+// negative values for up, positive values for down, 0 for no move
+bool Modes::shiftCurModeUp(uint32_t offset)
+{
+  if (offset > m_curMode) {
+    offset = m_curMode;
+  }
+  uint32_t newPos = m_curMode - offset;
+  if (newPos >= m_numModes) {
+    return false;
+  }
+  if (newPos == m_curMode) {
+    return true;
+  }
+  // shift up, iterate from current up to target and shift down
+  for (int32_t i = (int32_t)m_curMode; i >= (int32_t)newPos; --i) {
+    if (i < 0) {
+      break;
+    }
+    if (i == 0) {
+      m_serializedModes[i].clear();
+      continue;
+    }
+    m_serializedModes[i] = m_serializedModes[i - 1];
+  }
+  m_curMode = newPos;
+  saveCurMode();
+  delete m_pCurMode;
+  m_pCurMode = nullptr;
+  initCurMode();
+}
+
+bool Modes::shiftCurModeDown(uint32_t offset)
+{
+  if ((offset + m_curMode) >= m_numModes) {
+    offset = m_numModes - m_curMode;
+  }
+  uint32_t newPos = m_curMode + offset;
+  if (newPos >= m_numModes) {
+    return false;
+  }
+  if (newPos == m_curMode) {
+    return true;
+  }
+  // shift down, iterate from current down to target and shift up
+  for (uint32_t i = m_curMode; i < newPos; ++i) {
+    if (i == (m_numModes - 1)) {
+      m_serializedModes[i].clear();
+      continue;
+    }
+    m_serializedModes[i] = m_serializedModes[i + 1];
+  }
+  m_curMode = newPos;
+  saveCurMode();
+  delete m_pCurMode;
+  m_pCurMode = nullptr;
+  initCurMode();
+}
+
 bool Modes::addMode(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
     RGBColor c4, RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8)
 {

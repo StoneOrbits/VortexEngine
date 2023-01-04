@@ -44,6 +44,11 @@ public:
   // set default settings (must save after)
   static bool setDefaults();
 
+  // shift the current mode to a different position relative to current position
+  // negative values for up, positive values for down, 0 for no move
+  static bool shiftCurModeUp(uint32_t offset = 1);
+  static bool shiftCurModeDown(uint32_t offset = 1);
+
   // add a new mode in various different ways
   static bool addMode(PatternID id, RGBColor c1, RGBColor c2 = RGB_OFF,
     RGBColor c3 = RGB_OFF, RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF,
