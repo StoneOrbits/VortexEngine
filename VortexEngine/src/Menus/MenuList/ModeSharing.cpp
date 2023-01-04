@@ -15,7 +15,7 @@ ModeSharing::ModeSharing() :
   Menu(),
   m_sharingMode(ModeShareState::SHARE_SEND),
   m_last_action(0),
-  m_breakStartTime(0)
+  m_waitStartTime(0)
 {
 }
 
@@ -39,7 +39,7 @@ bool ModeSharing::run()
   switch (m_sharingMode) {
     // renger the 'wait mode' lights
   case ModeShareState::SHARE_WAIT:
-    showSendBreak();
+    showWaitMode();
     break;
   case ModeShareState::SHARE_SEND:
     // render the 'send mode' lights
@@ -106,7 +106,7 @@ void ModeSharing::continueSending()
   if (IRSender::isSending()) {
     if (!IRSender::send()) {
       // when the sender has nothing left to send, switch to waiting
-      m_breakStartTime = Time::getCurtime();
+      m_waitStartTime = Time::getCurtime();
       m_sharingMode = ModeShareState::SHARE_WAIT;
     }
   }
@@ -131,11 +131,11 @@ void ModeSharing::receiveMode()
   leaveMenu(true);
 }
 
-void ModeSharing::showSendBreak()
+void ModeSharing::showWaitMode()
 {
   Leds::setAll(RGB_ORANGE);
   Leds::blinkAll(Time::getCurtime(),200, 200);
-  if (Time::getCurtime() - m_breakStartTime > 1500) {
+  if (Time::getCurtime() - m_waitStartTime > 1500) {
     Leds::setAll(RGB_TEAL);
     m_sharingMode = ModeShareState::SHARE_SEND;
   }

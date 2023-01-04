@@ -20,7 +20,7 @@ private:
   void continueSending();
   void receiveMode();
   
-  void showSendBreak();
+  void showWaitMode();
   void showSendMode();
   void showReceiveMode();
 
@@ -37,7 +37,10 @@ private:
   // last time data was sent/received
   uint64_t m_last_action;
 
-  uint64_t m_breakStartTime;
+  // the start time when waiting
+  uint64_t m_waitStartTime;
+  // the start time when checking for timing out
+  uint64_t m_timeOutStartTime;
 };
 
 #endif
