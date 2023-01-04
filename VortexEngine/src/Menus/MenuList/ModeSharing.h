@@ -19,7 +19,8 @@ private:
   void beginSending();
   void continueSending();
   void receiveMode();
-
+  
+  void showSendBreak();
   void showSendMode();
   void showReceiveMode();
 
@@ -29,11 +30,14 @@ private:
   enum class ModeShareState {
     SHARE_SEND,     // send mode
     SHARE_RECEIVE,  // receive mode
+    SHARE_WAIT,     // wait before sending again
   };
 
   ModeShareState m_sharingMode;
   // last time data was sent/received
   uint64_t m_last_action;
+
+  uint64_t m_breakStartTime;
 };
 
 #endif

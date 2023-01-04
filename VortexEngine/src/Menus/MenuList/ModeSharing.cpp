@@ -14,7 +14,8 @@
 ModeSharing::ModeSharing() :
   Menu(),
   m_sharingMode(ModeShareState::SHARE_SEND),
-  m_last_action(0)
+  m_last_action(0),
+  m_breakStartTime(0)
 {
 }
 
@@ -36,10 +37,11 @@ bool ModeSharing::run()
     return false;
   }
   switch (m_sharingMode) {
+  case ModeShareState::SHARE_WAIT:
+    showSendBreak();
   case ModeShareState::SHARE_SEND:
     // render the 'send mode' lights
     showSendMode();
-#if AUTO_SEND_MODE == 0
     {
       static bool sent_once = false;
       if (!sent_once) {
@@ -47,7 +49,6 @@ bool ModeSharing::run()
         beginSending();
       }
     }
-#endif
     // continue sending any data as long as there is more to send
     continueSending();
     break;
@@ -65,6 +66,7 @@ bool ModeSharing::run()
 void ModeSharing::onShortClick()
 {
   switch (m_sharingMode) {
+  case ModeShareState::SHARE_WAIT:
   case ModeShareState::SHARE_SEND:
     // click while on send -> start listening
     IRReceiver::beginReceiving();
@@ -112,7 +114,8 @@ void ModeSharing::continueSending()
   // if the sender isn't done then keep sending data
   if (IRSender::isSending()) {
     if (!IRSender::send()) {
-      beginSending();
+      m_breakStartTime = Time::getCurtime();
+      m_sharingMode = ModeShareState::SHARE_WAIT;
     }
   }
 }
@@ -136,6 +139,14 @@ void ModeSharing::receiveMode()
   leaveMenu(true);
 }
 
+void ModeSharing::showSendBreak()
+{
+  Leds::setAll(RGB_ORANGE);
+  if (Time::getCurtime() - m_breakStartTime > 1000) {
+    m_sharingMode = ModeShareState::SHARE_SEND;
+  }
+}
+
 void ModeSharing::showSendMode()
 {
   Leds::clearAll();
@@ -151,7 +162,7 @@ void ModeSharing::showSendMode()
   //if (pos == 10) return;
   //Leds::setRange(pos, LED_LAST, RGB_TEAL);
   Leds::setAll(RGB_TEAL);
-  Leds::blinkAll(Time::getCurtime(), 10, 50);
+  //Leds::blinkAll(Time::getCurtime(), 10, 50);
 }
 
 void ModeSharing::showReceiveMode()
