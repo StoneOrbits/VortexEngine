@@ -14,9 +14,8 @@
 ModeSharing::ModeSharing() :
   Menu(),
   m_sharingMode(ModeShareState::SHARE_SEND),
-  m_last_action(0),
+  m_lastAction(0),
   m_beginSend(false),
-  m_previousSendTime(0),
   m_timeOutStartTime(0)
 {
 }
@@ -48,10 +47,11 @@ bool ModeSharing::run()
       break;
     }
     if (!IRSender::isSending()) {
-      if (!m_previousSendTime || ((m_previousSendTime + Time::msToTicks(1500)) < Time::getCurtime())) {
+      if (!m_lastAction || ((m_lastAction + Time::msToTicks(1500)) < Time::getCurtime())) {
         if (!m_beginSend) {
           Leds::setAll(RGB_TEAL);
-          m_beginSend = true;
+          Leds::update();
+          beginSending();
         }
       }
     }
@@ -105,8 +105,8 @@ void ModeSharing::beginSending()
   IRSender::loadMode(m_pCurMode);
   // send the first chunk of data, leave if we're done
   if (!IRSender::send()) {
-    //do something when done
-    m_previousSendTime = Time::getCurtime();
+    // when send has completed, stores time that last action was completed to calculate interval between sends
+    m_lastAction = Time::getCurtime();
   }
 }
 
@@ -115,23 +115,22 @@ void ModeSharing::continueSending()
   // if the sender isn't done then keep sending data
   if (IRSender::isSending()) {
     if (!IRSender::send()) {
-      // when the sender has nothing left to send update wait start time
-      m_previousSendTime = Time::getCurtime();
+      // when send has completed, stores time that last action was completed to calculate interval between sends
+      m_lastAction = Time::getCurtime();
     }
   }
 }
 
 void ModeSharing::receiveMode()
-{
-  static uint32_t previous = 0;
-  if (IRReceiver::isReceiving() && m_timeOutStartTime > 0 && (m_timeOutStartTime + 1000) < Time::getCurtime()) {
+{ 
+  // if reveiving new data set our last data time
+  if (IRReceiver::onNewData()) {
+    m_timeOutStartTime = Time::getCurtime();
+    // if our last data was more than time out duration reset the recveiver
+  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + 1000) < Time::getCurtime()) {
     IRReceiver::resetIRState();
     return;
   }
-  if (IRReceiver::dataReceived() != previous) {
-    m_timeOutStartTime = Time::getCurtime();
-  }
-  previous = IRReceiver::dataReceived(); 
   // check if the IRReceiver has a full packet available
   if (!IRReceiver::dataReady()) {
     // nothing available yet
@@ -156,7 +155,7 @@ void ModeSharing::showSendMode()
     Leds::setAll(RGB_TEAL);
   } else {    
     Leds::setAll(RGB_ORANGE);
-    Leds::blinkAll(Time::getCurtime(), 200, 200);
+    Leds::blinkAll(Time::getCurtime(), 150, 150);
   } 
 }
 

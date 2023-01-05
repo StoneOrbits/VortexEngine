@@ -23,7 +23,7 @@ public:
   static bool isReceiving();
   // the percent of data received
   static uint32_t percentReceived();
-  static uint32_t dataReceived() { return m_irData.bytepos(); }
+  static uint32_t bytesReceived() { return m_irData.bytepos(); }
 
   // receive the IR message into a target mode
   static bool receiveMode(Mode *pMode);
@@ -31,6 +31,8 @@ public:
   // turn the receiver on/off
   static bool beginReceiving();
   static bool endReceiving();
+  // whether more data has been received since the last time the function was called or since the last reset
+  static bool onNewData();
   // reset IR receiver buffer
   static void resetIRState();
 
@@ -62,6 +64,9 @@ private:
   // used to track pin changes
   static uint64_t m_prevTime;
   static uint8_t m_pinState;
+
+  // used to compare if received data has changed since last checking
+  static uint32_t m_previousBytes;
 
 };
 
