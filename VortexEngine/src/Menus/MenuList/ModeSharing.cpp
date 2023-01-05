@@ -120,7 +120,7 @@ void ModeSharing::receiveMode()
   if (IRReceiver::onNewData()) {
     m_timeOutStartTime = Time::getCurtime();
     // if our last data was more than time out duration reset the recveiver
-  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + 1000) < Time::getCurtime()) {
+  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_WAIT_DURATION) < Time::getCurtime()) {
     IRReceiver::resetIRState();
     m_timeOutStartTime = 0;
     return;
