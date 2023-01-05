@@ -4,6 +4,7 @@
 #include "../../Serial/Serial.h"
 #include "../../Modes/ModeBuilder.h"
 #include "../../Time/TimeControl.h"
+#include "../../Time/Timings.h"
 #include "../../Infrared/IRReceiver.h"
 #include "../../Infrared/IRSender.h"
 #include "../../Modes/Modes.h"
@@ -15,7 +16,6 @@ ModeSharing::ModeSharing() :
   Menu(),
   m_sharingMode(ModeShareState::SHARE_SEND),
   m_lastAction(0),
-  m_beginSend(false),
   m_timeOutStartTime(0)
 {
 }
@@ -41,18 +41,11 @@ bool ModeSharing::run()
   case ModeShareState::SHARE_SEND:
     // render the 'send mode' lights
     showSendMode();
-    if (m_beginSend) {
-      m_beginSend = false;
-      beginSending();
-      break;
-    }
     if (!IRSender::isSending()) {
-      if (!m_lastAction || ((m_lastAction + Time::msToTicks(1500)) < Time::getCurtime())) {
-        if (!m_beginSend) {
-          Leds::setAll(RGB_TEAL);
-          Leds::update();
-          beginSending();
-        }
+      if (!m_lastAction || ((m_lastAction + MAX_TIMEOUT_DURATION) < Time::getCurtime())) {
+        Leds::setAll(RGB_TEAL);
+        Leds::update();
+        beginSending();
       }
     }
     // continue sending any data as long as there is more to send
@@ -129,6 +122,7 @@ void ModeSharing::receiveMode()
     // if our last data was more than time out duration reset the recveiver
   } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + 1000) < Time::getCurtime()) {
     IRReceiver::resetIRState();
+    m_timeOutStartTime = 0;
     return;
   }
   // check if the IRReceiver has a full packet available

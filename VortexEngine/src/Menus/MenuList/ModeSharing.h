@@ -35,8 +35,6 @@ private:
   // last time data was sent/received
   uint64_t m_lastAction;
 
-  // IR sender blocks led Updates, begin send is for an extra tick to update the leds
-  bool m_beginSend;
   // the start time when checking for timing out
   uint64_t m_timeOutStartTime;
 };

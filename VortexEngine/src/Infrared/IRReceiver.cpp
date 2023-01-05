@@ -215,6 +215,6 @@ void IRReceiver::resetIRState()
   m_previousBytes = 0;
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
-  m_irData.reset(); 
+  m_irData.reset();
   DEBUG_LOG("IR State Reset");
 }

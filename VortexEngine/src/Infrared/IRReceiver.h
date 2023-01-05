@@ -31,7 +31,7 @@ public:
   // turn the receiver on/off
   static bool beginReceiving();
   static bool endReceiving();
-  // whether more data has been received since the last time the function was called or since the last reset
+  // checks if there is new data since the last reset or check
   static bool onNewData();
   // reset IR receiver buffer
   static void resetIRState();

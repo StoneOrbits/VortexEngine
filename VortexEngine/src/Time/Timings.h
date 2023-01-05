@@ -23,6 +23,12 @@
 // How fast serial can check for connections
 #define MAX_SERIAL_CHECK_INTERVAL     Time::msToTicks(SERIAL_CHECK_TIME)
 
+// How long to wait before timing out IR receive
+#define MAX_TIMEOUT_DURATION          Time::msToTicks(IR_RECEIVER_TIMEOUT_DURATION)
+
+// How long to wait between each IR send
+#define MAX_WAIT_DURATION             Time::msToTicks(IR_SENDER_WAIT_DURATION)
+
 // Strobe Timings
 //
 // Below are timings for all different kinds of standard
