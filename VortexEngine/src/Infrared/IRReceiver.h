@@ -23,6 +23,7 @@ public:
   static bool isReceiving();
   // the percent of data received
   static uint32_t percentReceived();
+  static uint32_t dataReceived() { return m_irData.bytepos(); }
 
   // receive the IR message into a target mode
   static bool receiveMode(Mode *pMode);
@@ -30,6 +31,8 @@ public:
   // turn the receiver on/off
   static bool beginReceiving();
   static bool endReceiving();
+  // reset IR receiver buffer
+  static void resetIRState();
 
 private:
 
@@ -37,8 +40,7 @@ private:
   // PCI handler for when IR receiver pin changes states
   static bool read(ByteStream &data);
   static void recvPCIHandler();
-  static void handleIRTiming(uint32_t diff);
-  static void resetIRState();
+  static void handleIRTiming(uint32_t diff); 
 
   // ===================
   //  private data:

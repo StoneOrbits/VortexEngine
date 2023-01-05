@@ -19,8 +19,8 @@ private:
   void beginSending();
   void continueSending();
   void receiveMode();
-  
-  void showWaitMode();
+
+  void showWaiting();
   void showSendMode();
   void showReceiveMode();
 
@@ -30,15 +30,16 @@ private:
   enum class ModeShareState {
     SHARE_SEND,     // send mode
     SHARE_RECEIVE,  // receive mode
-    SHARE_WAIT,     // wait before sending again
   };
 
   ModeShareState m_sharingMode;
   // last time data was sent/received
   uint64_t m_last_action;
 
+  // IR sender blocks led Updates, begin send is for an extra tick to update the leds
+  bool m_beginSend;
   // the start time when waiting
-  uint64_t m_waitStartTime;
+  uint64_t m_previousSendTime;
   // the start time when checking for timing out
   uint64_t m_timeOutStartTime;
 };
