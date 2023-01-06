@@ -13,6 +13,7 @@ BitStream IRReceiver::m_irData;
 IRReceiver::RecvState IRReceiver::m_recvState = WAITING_HEADER_MARK;
 uint64_t IRReceiver::m_prevTime = 0;
 uint8_t IRReceiver::m_pinState = HIGH;
+uint32_t IRReceiver::m_previousBytes = 0;
 
 bool IRReceiver::init()
 {
@@ -111,6 +112,15 @@ bool IRReceiver::endReceiving()
   return true;
 }
 
+bool IRReceiver::onNewData()
+{
+  if (bytesReceived() == m_previousBytes) {
+    return false;
+  }
+  m_previousBytes = bytesReceived();
+  return true;
+}
+
 bool IRReceiver::read(ByteStream &data)
 {
   if (!m_irData.bytepos() || m_irData.bytepos() > MAX_DATA_TRANSFER) {
@@ -202,6 +212,7 @@ void IRReceiver::handleIRTiming(uint32_t diff)
 
 void IRReceiver::resetIRState()
 {
+  m_previousBytes = 0;
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
   m_irData.reset();

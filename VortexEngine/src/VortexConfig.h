@@ -174,6 +174,20 @@
 // produced by fastled's hsv to rgb 'rainbow'
 #define RGB_TO_HSV_ALGORITHM   1
 
+// IR Receiver Time-out Duration (ms)
+// 
+// This is the amount of time in ms for the IR receiver to wait 
+// before reseting itself in the case that communication gets 
+// interrupted.
+#define IR_RECEIVER_TIMEOUT_DURATION 1000
+
+// IR Sender Wait Duration (ms)
+//
+// This is the amount of time in ms for the IR sender to wait
+// between IR sends. This duration allows the user to give input
+// as it is not possible to give input during a send.
+#define IR_SENDER_WAIT_DURATION 1000
+
 // ===================================================================
 //  Boolean Configurations (0 or 1)
 

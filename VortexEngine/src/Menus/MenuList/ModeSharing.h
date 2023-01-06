@@ -32,8 +32,11 @@ private:
   };
 
   ModeShareState m_sharingMode;
-  // last time data was sent/received
-  uint64_t m_last_action;
+  // last time data was sent
+  uint64_t m_lastAction;
+
+  // the start time when checking for timing out
+  uint64_t m_timeOutStartTime;
 };
 
 #endif

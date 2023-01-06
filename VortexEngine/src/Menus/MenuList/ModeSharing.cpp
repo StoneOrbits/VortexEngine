@@ -4,6 +4,7 @@
 #include "../../Serial/Serial.h"
 #include "../../Modes/ModeBuilder.h"
 #include "../../Time/TimeControl.h"
+#include "../../Time/Timings.h"
 #include "../../Infrared/IRReceiver.h"
 #include "../../Infrared/IRSender.h"
 #include "../../Modes/Modes.h"
@@ -14,7 +15,8 @@
 ModeSharing::ModeSharing() :
   Menu(),
   m_sharingMode(ModeShareState::SHARE_SEND),
-  m_last_action(0)
+  m_lastAction(0),
+  m_timeOutStartTime(0)
 {
 }
 
@@ -39,15 +41,13 @@ bool ModeSharing::run()
   case ModeShareState::SHARE_SEND:
     // render the 'send mode' lights
     showSendMode();
-#if AUTO_SEND_MODE == 1
-    {
-      static bool sent_once = false;
-      if (!sent_once) {
-        sent_once = true;
+    if (!IRSender::isSending()) {
+      if (!m_lastAction || ((m_lastAction + MAX_WAIT_DURATION) < Time::getCurtime())) {
+        Leds::setAll(RGB_TEAL);
+        Leds::update();
         beginSending();
       }
     }
-#endif
     // continue sending any data as long as there is more to send
     continueSending();
     break;
@@ -79,15 +79,11 @@ void ModeSharing::onShortClick()
     DEBUG_LOG("Switched to send mode");
     break;
   }
+  Leds::clearAll();
 }
 
 void ModeSharing::onLongClick()
 {
-  // long click on sender option to manually send the mode
-  if (m_sharingMode == ModeShareState::SHARE_SEND) {
-    beginSending();
-    return;
-  }
   leaveMenu();
 }
 
@@ -102,7 +98,8 @@ void ModeSharing::beginSending()
   IRSender::loadMode(m_pCurMode);
   // send the first chunk of data, leave if we're done
   if (!IRSender::send()) {
-    leaveMenu();
+    // when send has completed, stores time that last action was completed to calculate interval between sends
+    m_lastAction = Time::getCurtime();
   }
 }
 
@@ -111,13 +108,23 @@ void ModeSharing::continueSending()
   // if the sender isn't done then keep sending data
   if (IRSender::isSending()) {
     if (!IRSender::send()) {
-      leaveMenu();
+      // when send has completed, stores time that last action was completed to calculate interval between sends
+      m_lastAction = Time::getCurtime();
     }
   }
 }
 
 void ModeSharing::receiveMode()
-{
+{ 
+  // if reveiving new data set our last data time
+  if (IRReceiver::onNewData()) {
+    m_timeOutStartTime = Time::getCurtime();
+    // if our last data was more than time out duration reset the recveiver
+  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < Time::getCurtime()) {
+    IRReceiver::resetIRState();
+    m_timeOutStartTime = 0;
+    return;
+  }
   // check if the IRReceiver has a full packet available
   if (!IRReceiver::dataReady()) {
     // nothing available yet
@@ -137,18 +144,13 @@ void ModeSharing::receiveMode()
 
 void ModeSharing::showSendMode()
 {
-  Leds::clearAll();
+  // if it is sending
   if (IRSender::isSending()) {
-    // how much is sent?
-    uint32_t percent = IRSender::percentDone();
-    LedPos l = (LedPos)((percent / 10) + 1);
-    Leds::setRange(l, LED_LAST, RGB_YELLOW);
-    return;
-  }
-  // gradually fill from thumb to pinkie
-  LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(100) % (LED_COUNT + 1)));
-  if (pos == 10) return;
-  Leds::setRange(pos, LED_LAST, RGB_TEAL);
+    Leds::setAll(RGB_TEAL);
+  } else {    
+    Leds::setAll(RGB_ORANGE);
+    Leds::blinkAll(Time::getCurtime(), 150, 150);
+  } 
 }
 
 void ModeSharing::showReceiveMode()
@@ -158,7 +160,7 @@ void ModeSharing::showReceiveMode()
     // how much is sent?
     uint32_t percent = IRReceiver::percentReceived();
     LedPos l = (LedPos)(percent / 10);
-    Leds::setRange(LED_FIRST, l, RGB_ORANGE);
+    Leds::setRange(LED_FIRST, l, RGB_GREEN);
     return;
   }
   // gradually empty from thumb to pinkie
