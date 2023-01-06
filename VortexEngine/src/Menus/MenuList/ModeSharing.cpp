@@ -42,7 +42,7 @@ bool ModeSharing::run()
     // render the 'send mode' lights
     showSendMode();
     if (!IRSender::isSending()) {
-      if (!m_lastAction || ((m_lastAction + MAX_TIMEOUT_DURATION) < Time::getCurtime())) {
+      if (!m_lastAction || ((m_lastAction + MAX_WAIT_DURATION) < Time::getCurtime())) {
         Leds::setAll(RGB_TEAL);
         Leds::update();
         beginSending();
@@ -120,7 +120,7 @@ void ModeSharing::receiveMode()
   if (IRReceiver::onNewData()) {
     m_timeOutStartTime = Time::getCurtime();
     // if our last data was more than time out duration reset the recveiver
-  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_WAIT_DURATION) < Time::getCurtime()) {
+  } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < Time::getCurtime()) {
     IRReceiver::resetIRState();
     m_timeOutStartTime = 0;
     return;
