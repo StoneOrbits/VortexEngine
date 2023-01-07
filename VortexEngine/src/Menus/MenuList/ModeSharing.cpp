@@ -15,7 +15,8 @@
 ModeSharing::ModeSharing() :
   Menu(),
   m_sharingMode(ModeShareState::SHARE_SEND),
-  m_lastAction(0),
+  // This makes send mode begin with waiting instead of sending
+  m_lastActionTime(Time::getCurtime() + 1),
   m_timeOutStartTime(0)
 {
 }
@@ -42,7 +43,7 @@ bool ModeSharing::run()
     // render the 'send mode' lights
     showSendMode();
     if (!IRSender::isSending()) {
-      if (!m_lastAction || ((m_lastAction + MAX_WAIT_DURATION) < Time::getCurtime())) {
+      if (!m_lastActionTime || ((m_lastActionTime + MAX_WAIT_DURATION) < Time::getCurtime())) {
         Leds::setAll(RGB_TEAL);
         Leds::update();
         beginSending();
@@ -99,7 +100,7 @@ void ModeSharing::beginSending()
   // send the first chunk of data, leave if we're done
   if (!IRSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
-    m_lastAction = Time::getCurtime();
+    m_lastActionTime = Time::getCurtime();
   }
 }
 
@@ -109,7 +110,7 @@ void ModeSharing::continueSending()
   if (IRSender::isSending()) {
     if (!IRSender::send()) {
       // when send has completed, stores time that last action was completed to calculate interval between sends
-      m_lastAction = Time::getCurtime();
+      m_lastActionTime = Time::getCurtime();
     }
   }
 }
@@ -148,8 +149,8 @@ void ModeSharing::showSendMode()
   if (IRSender::isSending()) {
     Leds::setAll(RGB_TEAL);
   } else {    
-    Leds::setAll(RGB_ORANGE);
-    Leds::blinkAll(Time::getCurtime(), 150, 150);
+    Leds::setAll(RGB_BLANK);
+    Leds::blinkAll(Time::getCurtime(), 250, 250);
   } 
 }
 
