@@ -15,8 +15,7 @@
 ModeSharing::ModeSharing() :
   Menu(),
   m_sharingMode(ModeShareState::SHARE_SEND),
-  // This makes send mode begin with waiting instead of sending
-  m_lastActionTime(Time::getCurtime() + 1),
+  m_lastActionTime(0),
   m_timeOutStartTime(0)
 {
 }
@@ -26,9 +25,10 @@ bool ModeSharing::init()
   if (!Menu::init()) {
     return false;
   }
+  // This makes send mode begin with waiting instead of sending
+  m_lastActionTime = Time::getCurtime() + 1;
   // just start spewing out modes everywhere
   m_sharingMode = ModeShareState::SHARE_SEND;
-
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
