@@ -166,16 +166,14 @@ void Modes::serialize(ByteStream &modesBuffer)
   saveCurMode();
   // iterate all of the modes and copy their serial data into the modesBuffer
   for (uint32_t i = 0; i < m_numModes; ++i) {
-    // if so then need to decompress before appending? idk
-    bool compressed = m_serializedModes[i].is_compressed();
-    if (compressed) {
-      m_serializedModes[i].decompress();
+    // load the mode and initialize it
+    Mode *tmpMode = ModeBuilder::loadFromBuffer(m_serializedModes[i]);
+    if (!tmpMode) {
+      continue;
     }
-    // just append each serialized mode to the modesBuffer
-    modesBuffer += m_serializedModes[i];
-    if (compressed) {
-      m_serializedModes[i].compress();
-    }
+    // serialize it into the modes buffer
+    tmpMode->serialize(modesBuffer);
+    delete tmpMode;
   }
   DEBUG_LOGF("Serialized num modes: %u", m_numModes);
 }
@@ -280,21 +278,29 @@ bool Modes::addSerializedMode(ByteStream &serializedMode)
   // we must unserialize then re-serialize here because the
   // input argument may contain other patterns in the buffer
   // so we cannot just assign the input arg to m_serializedModes
-  Mode *mode = ModeBuilder::unserialize(serializedMode);
+  Mode *mode = ModeBuilder::unserializeMode(serializedMode);
   if (!mode) {
     DEBUG_LOG("Failed to unserialize mode");
     return false;
   }
-  mode->init();
   m_serializedModes[m_numModes].clear();
   // re-serialize the mode into the storage buffer
-  mode->serialize(m_serializedModes[m_numModes]);
-  // compress the mode when it's not being used
-  m_serializedModes[m_numModes].compress();
+  mode->saveToBuffer(m_serializedModes[m_numModes]);
   // increment mode counter
   m_numModes++;
   // clean up the mode we used
   delete mode;
+  return true;
+}
+
+bool Modes::addModeFromBuffer(ByteStream &serializedMode)
+{
+  if (m_numModes >= MAX_MODES) {
+    return false;
+  }
+  m_serializedModes[m_numModes] = serializedMode;
+  // increment mode counter
+  m_numModes++;
   return true;
 }
 
@@ -399,9 +405,7 @@ bool Modes::addMode(const Mode *mode)
   }
   m_serializedModes[m_numModes].clear();
   // serialize the mode so it can be instantiated anytime
-  mode->serialize(m_serializedModes[m_numModes]);
-  // compress the mode when it's not being used
-  m_serializedModes[m_numModes].compress();
+  mode->saveToBuffer(m_serializedModes[m_numModes]);
   m_numModes++;
   return true;
 }
@@ -538,15 +542,12 @@ bool Modes::initCurMode(bool force)
   if (m_pCurMode || !m_numModes) {
     return true;
   }
-  if (m_serializedModes[m_curMode].is_compressed()) {
-    m_serializedModes[m_curMode].decompress();
-  }
   // make sure the unserializer is reset before trying to unserialize it
   m_serializedModes[m_curMode].resetUnserializer();
   DEBUG_LOGF("Current Mode size: %u", m_serializedModes[m_curMode].size());
   // use the mode builder to unserialize the mode
-  m_pCurMode = ModeBuilder::unserialize(m_serializedModes[m_curMode]);
-  // re-compress the buffer if possible
+  m_pCurMode = ModeBuilder::loadFromBuffer(m_serializedModes[m_curMode]);
+  // re-compress the buffer because loadFromBuffer will decompress it
   m_serializedModes[m_curMode].compress();
   if (!m_pCurMode) {
     // unable to unserialize a mode, empty modes?
@@ -566,7 +567,5 @@ void Modes::saveCurMode()
   // clear the current mode
   m_serializedModes[m_curMode].clear();
   // update the serialized storage
-  m_pCurMode->serialize(m_serializedModes[m_curMode]);
-  // compress the mode when not being used
-  m_serializedModes[m_curMode].compress();
+  m_pCurMode->saveToBuffer(m_serializedModes[m_curMode]);
 }

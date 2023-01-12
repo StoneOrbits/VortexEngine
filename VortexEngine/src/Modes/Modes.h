@@ -60,8 +60,10 @@ public:
   static bool addMode(PatternID id, const PatternArgs *args, const Colorset *set);
   static bool addMode(const Mode *mode);
 
-  // add a new mode by unserializing from a buffer
+  // add a new mode by unserializing raw
   static bool addSerializedMode(ByteStream &serializedMode);
+  // add a new mode by loading from a save buffer
+  static bool addModeFromBuffer(ByteStream &serializedMode);
 
   // update the current mode to match the given mode
   static bool updateCurMode(PatternID id, const Colorset *set);

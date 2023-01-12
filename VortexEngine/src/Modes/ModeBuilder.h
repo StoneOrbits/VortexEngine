@@ -24,8 +24,11 @@ public:
     RGBColor c3 = RGB_OFF, RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF,
     RGBColor c6 = RGB_OFF, RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
 
-  // unserialize a buffer into a mode
-  static Mode *unserialize(ByteStream &buffer);
+  // unserialize a mode that has just been "serialized"
+  static Mode *unserializeMode(ByteStream &buffer);
+
+  // load a mode from a mode save buffer (buffer includes metadata/version/etc)
+  static Mode *loadFromBuffer(ByteStream &buffer);
 
 private:
 };
