@@ -29,6 +29,8 @@ void MeteorPattern::blinkOn()
     m_stash[i].adjustBrightness(m_fadeAmount);
   }
   Leds::restoreAll(m_stash);
+  Leds::adjustBrightnessAll(m_fadeAmount);
+  Leds::stashAll(m_stash);
 }
 
 void MeteorPattern::blinkOff()
