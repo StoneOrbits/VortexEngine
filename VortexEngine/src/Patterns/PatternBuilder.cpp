@@ -159,9 +159,9 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_FILL: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50);
     case PATTERN_BOUNCE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50);
     case PATTERN_IMPACT: return PatternArgs(32, 250, 8, 10, 3, 28);
-    case PATTERN_SPLITSTROBIE: return PatternArgs(10);
-    case PATTERN_BACKSTROBE: return PatternArgs(10);
-    case PATTERN_FLOWERS: return PatternArgs(5, 25, 3, 5);
+    case PATTERN_SPLITSTROBIE: return PatternArgs(4, 16, 0, 32, 28, 0, 10);
+    case PATTERN_BACKSTROBE: return PatternArgs(4, 16, 0, 32, 28, 0, 10);
+    case PATTERN_FLOWERS: return PatternArgs(5, 25, 0, 3, 5, 0);
     case PATTERN_JEST: return PatternArgs(2, 5, 8, 69, 3);
     case PATTERN_MATERIA: return PatternArgs(5, 8, 3, 35, 8);
     case PATTERN_NONE: break;

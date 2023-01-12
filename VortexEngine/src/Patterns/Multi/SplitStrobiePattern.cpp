@@ -5,11 +5,14 @@
 #include "../../Colors/Colorset.h"
 #include "../../Log/Log.h"
 
-SplitStrobiePattern::SplitStrobiePattern(uint8_t stepDuration100ms) :
+SplitStrobiePattern::SplitStrobiePattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration,
+  uint8_t dashDuration, uint8_t dotDuration, uint8_t stepDuration100ms) :
   HybridPattern(),
   m_stepDuration(stepDuration100ms),
   m_stepTimer(),
-  m_switch(false)
+  m_switch(false),
+  m_firstPatternArgs(onDuration, offDuration, gapDuration),
+  m_secondPatternArgs(dashDuration, dotDuration)
 {
   m_patternID = PATTERN_SPLITSTROBIE;
 }
@@ -48,7 +51,9 @@ void SplitStrobiePattern::play()
     m_switch = !m_switch;
     // update the tip/top patterns based on the switch
     setTipsTops(m_switch ? PATTERN_DOPS : PATTERN_TRACER,
-                m_switch ? PATTERN_TRACER : PATTERN_DOPS);
+                m_switch ? PATTERN_TRACER : PATTERN_DOPS,
+                m_switch ? &m_firstPatternArgs : &m_secondPatternArgs,
+                m_switch ? &m_secondPatternArgs : &m_firstPatternArgs);
   }
   HybridPattern::play();
 }
@@ -57,26 +62,46 @@ void SplitStrobiePattern::play()
 void SplitStrobiePattern::serialize(ByteStream& buffer) const
 {
   HybridPattern::serialize(buffer);
+  buffer.serialize(m_firstPatternArgs.arg1);
+  buffer.serialize(m_firstPatternArgs.arg2);
+  buffer.serialize(m_firstPatternArgs.arg3);
+  buffer.serialize(m_secondPatternArgs.arg1);
+  buffer.serialize(m_secondPatternArgs.arg2);
   buffer.serialize(m_stepDuration);
 }
 
 void SplitStrobiePattern::unserialize(ByteStream& buffer)
 {
   HybridPattern::unserialize(buffer);
+  buffer.unserialize(&m_firstPatternArgs.arg1);
+  buffer.unserialize(&m_firstPatternArgs.arg2);
+  buffer.unserialize(&m_firstPatternArgs.arg3);
+  buffer.unserialize(&m_secondPatternArgs.arg1);
+  buffer.unserialize(&m_secondPatternArgs.arg2);
   buffer.unserialize(&m_stepDuration);
 }
 
 void SplitStrobiePattern::setArgs(const PatternArgs &args)
 {
   HybridPattern::setArgs(args);
-  m_stepDuration = args.arg1;
+  m_firstPatternArgs.arg1 = args.arg1;
+  m_firstPatternArgs.arg2 = args.arg2;
+  m_firstPatternArgs.arg3 = args.arg3;
+  m_secondPatternArgs.arg1 = args.arg4;
+  m_secondPatternArgs.arg2 = args.arg5;
+  m_stepDuration = args.arg6;
 }
 
 void SplitStrobiePattern::getArgs(PatternArgs &args) const
 {
   HybridPattern::getArgs(args);
-  args.arg1 = m_stepDuration;
-  args.numArgs += 1;
+  args.arg1 = m_firstPatternArgs.arg1;
+  args.arg2 = m_firstPatternArgs.arg2;
+  args.arg3 = m_firstPatternArgs.arg3;
+  args.arg4 = m_secondPatternArgs.arg1;
+  args.arg5 = m_secondPatternArgs.arg2;
+  args.arg6 = m_stepDuration;
+  args.numArgs += 6;
 }
 
 #if SAVE_TEMPLATE == 1
