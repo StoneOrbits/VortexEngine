@@ -162,7 +162,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_SPLITSTROBIE: return PatternArgs(10);
     case PATTERN_BACKSTROBE: return PatternArgs(10);
     case PATTERN_FLOWERS: return PatternArgs(5, 25, 3, 5);
-    case PATTERN_JEST: return PatternArgs();
+    case PATTERN_JEST: return PatternArgs(2, 5, 8, 69, 3);
     case PATTERN_MATERIA: return PatternArgs(5, 8, 3, 35, 8);
     case PATTERN_NONE: break;
     default: break;

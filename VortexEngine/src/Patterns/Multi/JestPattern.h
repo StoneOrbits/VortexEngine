@@ -7,7 +7,7 @@
 class JestPattern : public HybridPattern
 {
 public:
-  JestPattern(uint8_t onDuration = 0, uint8_t offDuration = 1, uint8_t gapDuration1 = 5,
+  JestPattern(uint8_t onDuration = 2, uint8_t offDuration = 5, uint8_t gapDuration1 = 8,
     uint8_t gapDuration2 = 69, uint8_t groupSize = 3);
   JestPattern(const PatternArgs &args);
   virtual ~JestPattern();
