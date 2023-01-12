@@ -11,7 +11,12 @@ public:
   LedStash();
   ~LedStash();
 
+  void setIndex(LedPos pos, RGBColor col);
+
   void clear();
+
+  // index operator to access color index
+  RGBColor &operator[](int index);
 
 private:
   RGBColor m_ledColorsStash[LED_COUNT];

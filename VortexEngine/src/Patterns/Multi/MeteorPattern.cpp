@@ -27,6 +27,7 @@ void MeteorPattern::blinkOn()
 {
   Leds::restoreAll(m_stash);
   Leds::adjustBrightnessAll(m_fadeAmount);
+  Leds::stashAll(m_stash);
 }
 
 void MeteorPattern::blinkOff()
@@ -37,7 +38,11 @@ void MeteorPattern::blinkOff()
 
 void MeteorPattern::poststep()
 {
-  Leds::setFinger((Finger)random(FINGER_FIRST, FINGER_COUNT), m_colorset.getNext());
+  // when a new meteor is created it is incerted into the stash so the blinking pattern is not interrupted
+  Finger target = (Finger)random(FINGER_FIRST, FINGER_COUNT);
+  RGBColor col = m_colorset.getNext();
+  m_stash.setIndex(fingerTip(target), col);
+  m_stash.setIndex(fingerTop(target), col);
 }
 
 // must override the serialize routine to save the pattern

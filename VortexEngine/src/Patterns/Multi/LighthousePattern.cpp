@@ -54,6 +54,7 @@ void LighthousePattern::blinkOn()
 {
   Leds::restoreAll(m_stash);
   Leds::setIndex((LedPos)m_progress, m_colorset.cur());
+  Leds::stashAll(m_stash);
 }
 
 void LighthousePattern::blinkOff()
@@ -70,7 +71,9 @@ void LighthousePattern::poststep()
 
 void LighthousePattern::fade()
 {
-  Leds::adjustBrightnessAll(m_fadeAmount);
+  for (int i = 0; i < LED_COUNT; ++i) {
+    m_stash[i].adjustBrightness(m_fadeAmount);
+  }
 }
 
 // must override the serialize routine to save the pattern
