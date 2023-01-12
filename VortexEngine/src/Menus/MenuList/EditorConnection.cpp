@@ -264,11 +264,7 @@ void EditorConnection::receiveData()
 void EditorConnection::sendModes()
 {
   ByteStream modesBuffer;
-  Modes::serialize(modesBuffer);
-  if (!modesBuffer.compress()) {
-    // failure?
-    return;
-  }
+  Modes::saveToBuffer(modesBuffer);
   SerialComs::write(modesBuffer);
 }
 
@@ -293,13 +289,7 @@ bool EditorConnection::receiveModes()
   memmove(m_receiveBuffer.rawData(),
     ((uint8_t *)m_receiveBuffer.data()) + sizeof(size),
     m_receiveBuffer.size());
-  if (!m_receiveBuffer.decompress()) {
-    // bad crc
-    return false;
-  }
-  m_receiveBuffer.resetUnserializer();
-  // now unserialize the rest of the data
-  Modes::unserialize(m_receiveBuffer);
+  Modes::loadFromBuffer(m_receiveBuffer);
   Modes::saveStorage();
   return true;
 }
@@ -332,9 +322,7 @@ bool EditorConnection::receiveDemoMode()
   }
   // unserialize the mode into the demo mode
   clearDemo();
-  m_receiveBuffer.resetUnserializer();
   m_pDemoMode = ModeBuilder::loadFromBuffer(m_receiveBuffer);
-  m_pDemoMode->init();
   return true;
 }
 
