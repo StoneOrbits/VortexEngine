@@ -6,13 +6,24 @@
 class TipTopPattern : public HybridPattern
 {
 public:
-  TipTopPattern();
+  TipTopPattern(uint8_t onDuration1 = 8, uint8_t offDuration1 = 10, uint8_t gapDuration1 = 0,
+    uint8_t onDuration2 = 32, uint8_t offDuration2 = 28, uint8_t gapDuration2 = 0);
   TipTopPattern(const PatternArgs &args);
   virtual ~TipTopPattern();
 
   // init the pattern to initial state
   virtual void init() override;
 
+  // must override the serialize routine to save the pattern
+  virtual void serialize(ByteStream& buffer) const override;
+  virtual void unserialize(ByteStream& buffer) override;
+
+  virtual void setArgs(const PatternArgs& args) override;
+  virtual void getArgs(PatternArgs& args) const override;
+
 private:
+
+  PatternArgs m_tipArgs;
+  PatternArgs m_topArgs;
 };
 #endif
