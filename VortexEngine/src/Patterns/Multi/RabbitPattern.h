@@ -14,6 +14,8 @@ public:
   virtual void init() override;
 
 private:
+  PatternArgs m_tipsArgs;
+  PatternArgs m_topsArgs;
 };
 
 #endif

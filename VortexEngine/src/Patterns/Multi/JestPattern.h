@@ -7,14 +7,24 @@
 class JestPattern : public HybridPattern
 {
 public:
-  JestPattern();
+  JestPattern(uint8_t onDuration = 0, uint8_t offDuration = 1, uint8_t gapDuration1 = 5,
+    uint8_t gapDuration2 = 69, uint8_t groupSize = 3);
   JestPattern(const PatternArgs &args);
   virtual ~JestPattern();
 
   // init the pattern to initial state
   virtual void init() override;
 
+  // must override the serialize routine to save the pattern
+  virtual void serialize(ByteStream& buffer) const override;
+  virtual void unserialize(ByteStream& buffer) override;
+
+  virtual void setArgs(const PatternArgs& args) override;
+  virtual void getArgs(PatternArgs& args) const override;
+
 private:
+  PatternArgs m_tipArgs;
+  PatternArgs m_topArgs;
 };
 
 #endif 

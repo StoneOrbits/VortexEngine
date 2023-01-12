@@ -1,6 +1,7 @@
 #include "RabbitPattern.h"
 
 #include "../../Colors/Colorset.h"
+#include "../PatternBuilder.h"
 
 RabbitPattern::RabbitPattern() :
   HybridPattern()
@@ -25,9 +26,11 @@ void RabbitPattern::init()
   Colorset tipsColor(m_colorset.get(0));
   for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
     if (isFingerTip(p)) {
-      setPatternAt(p, PATTERN_HYPERSTROBE, nullptr, &tipsColor);
+      //tipsArgs = { onDuration, offDuration, gapDuration};
+      //setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &args), &tipsColor);
     } else {
-      setPatternAt(p, PATTERN_STROBE);
+      //topsArgs = { onDuration2, offDuration2, gapDuration2 };
+      //setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &args2));
     }
   }
 }

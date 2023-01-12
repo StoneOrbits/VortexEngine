@@ -6,7 +6,7 @@
 // the gloveset upon factory reset
 const default_mode_entry default_modes[] = {
   // Pattern 1: Jest mode
-  PATTERN_METEOR, {
+  PATTERN_JEST, {
     HSV(0, 255, 255),
     HSV(96, 255, 255),
     HSV(160, 255, 255),
