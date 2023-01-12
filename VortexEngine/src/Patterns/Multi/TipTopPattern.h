@@ -6,8 +6,8 @@
 class TipTopPattern : public HybridPattern
 {
 public:
-  TipTopPattern(uint8_t onDuration1 = 8, uint8_t offDuration1 = 10, uint8_t gapDuration1 = 0,
-    uint8_t onDuration2 = 32, uint8_t offDuration2 = 28, uint8_t gapDuration2 = 0);
+  TipTopPattern(uint8_t onDuration1 = 32, uint8_t offDuration1 = 28, uint8_t gapDuration1 = 0,
+    uint8_t onDuration2 = 8, uint8_t offDuration2 = 10, uint8_t gapDuration2 = 0);
   TipTopPattern(const PatternArgs &args);
   virtual ~TipTopPattern();
 

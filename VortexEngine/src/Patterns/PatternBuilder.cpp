@@ -143,7 +143,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     //case PATTERN_CHASER: return PatternArgs();
     case PATTERN_ZIGZAG: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50, 1, 55);
     case PATTERN_ZIPFADE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100, 4, 1);
-    case PATTERN_TIPTOP: return PatternArgs(8, 10, 0, 32, 28, 0);
+    case PATTERN_TIPTOP: return PatternArgs(32, 28, 0, 8, 10, 0);
     case PATTERN_DRIP: return PatternArgs(10, 10, 100);
     case PATTERN_DRIPMORPH: return PatternArgs(10, 10, 1);
     case PATTERN_CROSSDOPS: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50);
