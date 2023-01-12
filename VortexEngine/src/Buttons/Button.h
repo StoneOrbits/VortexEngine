@@ -33,6 +33,11 @@ public:
   // whether the button was long clicked this tick
   bool onLongClick() const { return m_longClick; }
 
+  // when the button was last pressed
+  uint64_t pressTime() const { return m_pressTime; }
+  // when the button was last released
+  uint64_t releaseTime() const { return m_releaseTime; }
+
   // how long the button is currently or was last held down (in ticks)
   uint32_t holdDuration() const { return m_holdDuration; }
   // how long the button is currently or was last released for (in ticks)

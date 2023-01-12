@@ -18,8 +18,9 @@
 #include "../Log/Log.h"
 
 // static members
+Menus::MenuState Menus::m_menuState = MENU_STATE_NOT_OPEN;
+uint64_t Menus::m_openTime = 0;
 uint32_t Menus::m_selection = 0;
-bool Menus::m_isOpen = false;
 Menu *Menus::m_pCurMenu = nullptr;
 
 // entries for the ring menu
@@ -53,6 +54,7 @@ const MenuEntry menuList[MENU_COUNT] = {
 
 bool Menus::init()
 {
+  m_menuState = MENU_STATE_NOT_OPEN;
   // sub-menus are initialized right before they run
   return true;
 }
@@ -64,44 +66,53 @@ void Menus::cleanup()
 
 bool Menus::run()
 {
-  if (!shouldRun()) {
+  switch (m_menuState) {
+  case MENU_STATE_NOT_OPEN:
+  default:
+    // make sure the button is pressed and held till the threshold
+    if (g_pButton->isPressed() && g_pButton->holdDuration() >= MENU_TRIGGER_THRESHOLD_TICKS) {
+      // save the time of when we open the menu so we can fill based on curtime from then
+      m_openTime = Time::getCurtime();
+      // open the menu
+      m_menuState = MENU_STATE_RING_FILL;
+      return true;
+    }
+    // no menu open yet
     return false;
-  }
-  // if there is already a sub-menu open, run that
-  if (m_pCurMenu) {
-    // run just that menu
+  case MENU_STATE_RING_FILL:
+    return runRingFill();
+  case MENU_STATE_IN_MENU:
     return runCurMenu();
   }
-  // otherwise just handle the filling logic
-  return runRingFill();
+  // nothing to run
+  return false;
 }
 
 bool Menus::runRingFill()
 {
-  // if the button was released this tick and the ringmenu was open 
-  // then close the ringmenu and return the current menu selection
-  if (g_pButton->onRelease() && m_isOpen) {
-    DEBUG_LOGF("Released on ringmenu %s", menuList[m_selection].menuName);
-    // open the menu we have selected
-    if (!openMenu(m_selection)) {
-      DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
-      return false;
+  // if the button was pressed then select the menu
+  // then open the current menu selection
+  if (g_pButton->pressTime() > m_openTime) {
+    if (g_pButton->onShortClick()) {
+      // otherwise increment selection and wrap around at num menus
+      m_selection = (m_selection + 1) % NUM_MENUS;
+      // reset the open time so that it starts again
+      m_openTime = Time::getCurtime();
+      // clear the leds
+      Leds::clearAll();
+      return true;
     }
-    // continue displaying the menu
-    return true;
-  }
-  // make sure the button is pressed and held till the threshold
-  if (!g_pButton->isPressed() || g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD_TICKS) {
-    // no menu selected yet
-    return false;
-  }
-  // if the menus just opened this tick
-  if (!m_isOpen) {
-    // reset the current selection just in case
-    m_selection = 0;
-    // the menus are now open
-    m_isOpen = true;
-    DEBUG_LOG("Opened RingMenu");
+    if (g_pButton->onLongClick()) {
+      // ringmenu is open so select the menu
+      DEBUG_LOGF("Selected ringmenu %s", menuList[m_selection].menuName);
+      // open the menu we have selected
+      if (!openMenu(m_selection)) {
+        DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
+        return false;
+      }
+      // display the newly opened menu
+      return true;
+    }
   }
   // clear the leds so it always fills instead of replacing
   Leds::clearAll();
@@ -149,37 +160,16 @@ bool Menus::runCurMenu()
 // helper to calculate the relative hold time for the current menu
 LedPos Menus::calcLedPos()
 {
-  uint32_t relativeHoldDur = g_pButton->holdDuration() - MENU_TRIGGER_THRESHOLD_TICKS;
-  if (g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD_TICKS) {
-    relativeHoldDur = 0;
-  }
-  // this allows the menu to wrap around to beginning after the end
-  // if the user never lets go of the button
-  uint32_t holdDuration = relativeHoldDur % (MENU_DURATION_TICKS * NUM_MENUS);
-  // the time when the current menu starts trigger threshold + duration per menu
-  uint32_t menuStartTime = MENU_DURATION_TICKS * m_selection;
-  if (holdDuration >= menuStartTime) {
-    // the amount of time held in the current menu, should be 0 to MENU_DURATION_TICKS ticks
-    uint32_t holdTime = (holdDuration - menuStartTime);
-    // if the holdTime is within MENU_DURATION_TICKS then it's valid
-    if (holdTime < MENU_DURATION_TICKS) {
+  // this allows the menu to wrap around to beginning after
+  uint32_t holdDuration = (Time::getCurtime() - m_openTime) % MENU_DURATION_TICKS;
+  // calcluate the led for the hold duration
+  LedPos led = (LedPos)(((double)holdDuration / MENU_DURATION_TICKS) * LED_COUNT);
+  // if the holdTime is within MENU_DURATION_TICKS then it's valid
 #if FILL_FROM_THUMB == 1
-      return (LedPos)(LED_LAST - (((double)holdTime / MENU_DURATION_TICKS) * LED_COUNT));
+  return (LedPos)(LED_LAST - led);
 #else
-      return (LedPos)(((double)holdTime / MENU_DURATION_TICKS) * LED_COUNT);
+  return led;
 #endif
-    }
-  }
-  // otherwise increment selection and wrap around at num menus
-  m_selection = (m_selection + 1) % NUM_MENUS;
-  // then re-calculate the holdTime it should be less than 10
-  return calcLedPos();
-}
-
-bool Menus::shouldRun()
-{
-  // run the menus if they are open or the button is pressed
-  return m_isOpen || g_pButton->isPressed();
 }
 
 bool Menus::openMenu(uint32_t index)
@@ -204,9 +194,9 @@ bool Menus::openMenu(uint32_t index)
   // assign the new menu
   m_pCurMenu = newMenu;
   // and the menus are open just in case
-  m_isOpen = true;
   // clear all the leds
   Leds::clearAll();
+  m_menuState = MENU_STATE_IN_MENU;
   return true;
 }
 
@@ -216,5 +206,6 @@ void Menus::closeCurMenu()
     delete m_pCurMenu;
     m_pCurMenu = nullptr;
   }
-  m_isOpen = false;
+  m_menuState = MENU_STATE_NOT_OPEN;
+  m_selection = 0;
 }
