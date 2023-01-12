@@ -32,10 +32,8 @@ void RabbitPattern::init()
   Colorset topsColor(m_colorset.get(0));
   for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
     if (isFingerTip(p)) {
-      //tipsArgs = { onDuration, offDuration, gapDuration};
       setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &m_tipArgs), &tipsColors);
     } else {
-      //topsArgs = { onDuration2, offDuration2, gapDuration2 };
       setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &m_topArgs), &topsColor);
     }
   }
