@@ -27,7 +27,11 @@ public:
   // play the current mode
   static void play();
 
-  // settings save/load
+  // full save/load to/from buffer
+  static bool saveToBuffer(ByteStream &saveBuffer);
+  static bool loadFromBuffer(ByteStream &saveBuffer);
+
+  // full save/load to/from storage
   static bool loadStorage();
   static bool saveStorage();
 
@@ -56,8 +60,10 @@ public:
   static bool addMode(PatternID id, const PatternArgs *args, const Colorset *set);
   static bool addMode(const Mode *mode);
 
-  // add a new mode by unserializing from a buffer
+  // add a new mode by unserializing raw
   static bool addSerializedMode(ByteStream &serializedMode);
+  // add a new mode by loading from a save buffer
+  static bool addModeFromBuffer(ByteStream &serializedMode);
 
   // update the current mode to match the given mode
   static bool updateCurMode(PatternID id, const Colorset *set);

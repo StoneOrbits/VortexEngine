@@ -1,5 +1,7 @@
 #include "Mode.h"
 
+#include "../VortexEngine.h"
+
 #include "../Patterns/single/SingleLedPattern.h"
 #include "../Patterns/multi/MultiLedPattern.h"
 #include "../Patterns/PatternBuilder.h"
@@ -60,6 +62,55 @@ void Mode::play()
       //break;
     }
   }
+}
+
+bool Mode::saveToBuffer(ByteStream &modeBuffer) const
+{
+  // serialize the engine version into the modes buffer
+  VortexEngine::serializeVersion(modeBuffer);
+  // serialize the total number of leds and global brightness
+  modeBuffer.serialize((uint8_t)LED_COUNT);
+  // serialize all mode data into the modeBuffer
+  serialize(modeBuffer);
+  DEBUG_LOGF("Serialized mode, uncompressed size: %u", modesBuffer.size());
+  return modeBuffer.compress();
+}
+
+bool Mode::loadFromBuffer(ByteStream &modeBuffer)
+{
+  if (!modeBuffer.decompress()) {
+    // failed to decompress the mode
+    return false;
+  }
+  // reset the unserializer index before unserializing anything
+  modeBuffer.resetUnserializer();
+  uint8_t major = 0;
+  uint8_t minor = 0;
+  // unserialize the vortex version
+  modeBuffer.unserialize(&major);
+  modeBuffer.unserialize(&minor);
+  // check the version for incompatibility
+  if (!VortexEngine::checkVersion(major, minor)) {
+    // incompatible version
+    ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
+    return false;
+  }
+  uint8_t ledCount = 0;
+  // unserialize the number of leds
+  modeBuffer.unserialize(&ledCount);
+  if (ledCount != LED_COUNT) {
+    // cannot unserialize mode with different number of leds
+    // but maybe in the future we may have explicit handling for
+    // such cases in order to allow sharing between devices
+    return false;
+  }
+  // now just unserialize the list of modes
+  if (!unserialize(modeBuffer)) {
+    return false;
+  }
+  // then initialize the mode so that it is ready to play
+  init();
+  return true;
 }
 
 void Mode::serialize(ByteStream &buffer) const

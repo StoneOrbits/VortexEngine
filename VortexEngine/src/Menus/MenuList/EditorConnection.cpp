@@ -333,7 +333,7 @@ bool EditorConnection::receiveDemoMode()
   // unserialize the mode into the demo mode
   clearDemo();
   m_receiveBuffer.resetUnserializer();
-  m_pDemoMode = ModeBuilder::unserialize(m_receiveBuffer);
+  m_pDemoMode = ModeBuilder::loadFromBuffer(m_receiveBuffer);
   m_pDemoMode->init();
   return true;
 }

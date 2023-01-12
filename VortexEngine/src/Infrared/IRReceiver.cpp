@@ -84,17 +84,8 @@ bool IRReceiver::receiveMode(Mode *pMode)
     return false;
   }
   DEBUG_LOGF("Received %u bytes", buf.rawSize());
-  // decompress and check crc at same time
-  if (!buf.decompress()) {
-    DEBUG_LOG("Failed to decompress, crc mismatch or bad data");
-    return false;
-  }
-  // just in case the decompressor moved it
-  buf.resetUnserializer();
-  // unserialize the data into the target mode
-  pMode->unserialize(buf);
-  // then initialize the mode so that it will play
-  pMode->init();
+  // load the data into the target mode
+  pMode->loadFromBuffer(buf);
   return true;
 }
 

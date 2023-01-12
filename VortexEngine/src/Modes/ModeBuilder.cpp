@@ -41,7 +41,7 @@ Mode *ModeBuilder::make(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
   return make(id, nullptr, &set);
 }
 
-Mode *ModeBuilder::unserialize(ByteStream &buffer)
+Mode *ModeBuilder::unserializeMode(ByteStream &buffer)
 {
   // create the new mode object
   Mode *newMode = new Mode();
@@ -51,6 +51,24 @@ Mode *ModeBuilder::unserialize(ByteStream &buffer)
   }
   // make sure the mode unserializes
   if (!newMode->unserialize(buffer)) {
+    delete newMode;
+    return nullptr;
+  }
+  // init the new mode
+  newMode->init();
+  return newMode;
+}
+
+Mode *ModeBuilder::loadFromBuffer(ByteStream &buffer)
+{
+  // create the new mode object
+  Mode *newMode = new Mode();
+  if (!newMode) {
+    ERROR_OUT_OF_MEMORY();
+    return nullptr;
+  }
+  // load the new mode from buffer, this will uncompress and init
+  if (!newMode->loadFromBuffer(buffer)) {
     delete newMode;
     return nullptr;
   }
