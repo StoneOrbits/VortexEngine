@@ -27,14 +27,16 @@ RabbitPattern::~RabbitPattern()
 void RabbitPattern::init()
 {
   HybridPattern::init();
-  Colorset tipsColor(m_colorset.get(0));
+  Colorset tipsColors(m_colorset.get(1), m_colorset.get(2), m_colorset.get(3), m_colorset.get(4),
+    m_colorset.get(5), m_colorset.get(6), m_colorset.get(7));
+  Colorset topsColor(m_colorset.get(0));
   for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
     if (isFingerTip(p)) {
       //tipsArgs = { onDuration, offDuration, gapDuration};
-      setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &m_tipArgs), &tipsColor);
+      setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &m_tipArgs), &tipsColors);
     } else {
       //topsArgs = { onDuration2, offDuration2, gapDuration2 };
-      setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &m_topArgs));
+      setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &m_topArgs), &topsColor);
     }
   }
 }
@@ -81,6 +83,6 @@ void RabbitPattern::getArgs(PatternArgs& args) const
   args.arg3 = m_tipArgs.arg3;
   args.arg4 = m_topArgs.arg1;
   args.arg5 = m_topArgs.arg2;
-  args.arg5 = m_topArgs.arg3;
+  args.arg6 = m_topArgs.arg3;
   args.numArgs += 6;
 }
