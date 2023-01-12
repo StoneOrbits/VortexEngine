@@ -137,7 +137,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
 
     // =====================
     //  Multi Led Patterns:
-    case PATTERN_RABBIT: return PatternArgs();
+    case PATTERN_RABBIT: return PatternArgs(3, 28, 0, 8, 10, 0);
     case PATTERN_HUESHIFT: return PatternArgs(1, 1);
     case PATTERN_THEATER_CHASE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 25);
     //case PATTERN_CHASER: return PatternArgs();
