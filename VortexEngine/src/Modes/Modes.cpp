@@ -1,6 +1,8 @@
 #include "Modes.h"
 #include "DefaultModes.h"
 
+#include "../VortexEngine.h"
+
 #include "../Patterns/Pattern.h"
 
 #include "../Serial/ByteStream.h"
@@ -75,6 +77,35 @@ bool Modes::loadStorage()
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
+  // reset the unserializer index before unserializing anything
+  modesBuffer.resetUnserializer();
+  uint8_t major = 0;
+  uint8_t minor = 0;
+  // unserialize the vortex version
+  modesBuffer.unserialize(&major);
+  modesBuffer.unserialize(&minor);
+  // check the version for incompatibility
+  if (!VortexEngine::checkVersion(major, minor)) {
+    // incompatible version
+    ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
+    return false;
+  }
+  uint8_t ledCount = 0;
+  // unserialize the number of leds
+  modesBuffer.unserialize(&ledCount);
+  if (ledCount != LED_COUNT) {
+    // cannot unserialize mode with different number of leds
+    // but maybe in the future we may have explicit handling for
+    // such cases in order to allow sharing between devices
+    return false;
+  }
+  // unserialize the global brightness
+  uint8_t brightness = 0;
+  modesBuffer.unserialize(&brightness);
+  if (brightness) {
+    Leds::setBrightness(brightness);
+  }
+  // now just unserialize the list of modes
   return unserialize(modesBuffer);
 }
 
@@ -86,6 +117,13 @@ bool Modes::saveStorage()
 
   // A ByteStream to hold all the serialized data
   ByteStream modesBuffer;
+
+  // serialize the engine version into the modes buffer
+  VortexEngine::serializeVersion(modesBuffer);
+
+  // serialize the total number of leds and global brightness
+  modesBuffer.serialize((uint8_t)LED_COUNT);
+  modesBuffer.serialize((uint8_t)Leds::getBrightness());
 
   // serialize all modes data into the modesBuffer
   serialize(modesBuffer);
@@ -107,6 +145,8 @@ bool Modes::saveStorage()
 // Save all of the modes to a serial buffer
 void Modes::serialize(ByteStream &modesBuffer)
 {
+  // serialize the total number of leds
+  modesBuffer.serialize((uint8_t)LED_COUNT);
   // serialize the brightness and number of modes
   modesBuffer.serialize((uint8_t)Leds::getBrightness());
   modesBuffer.serialize(m_numModes);
@@ -138,14 +178,6 @@ bool Modes::unserialize(ByteStream &modesBuffer)
   // this is good on memory, but it erases what they have stored before we
   // know whether there is something actually saved in the serial buffer
   clearModes();
-  // reset the unserializer index before unserializing anything
-  modesBuffer.resetUnserializer();
-  // unserialize the brightness first
-  uint8_t brightness = 0;
-  modesBuffer.unserialize(&brightness);
-  if (brightness) {
-    Leds::setBrightness(brightness);
-  }
   // unserialize the number of modes next
   uint8_t numModes = 0;
   modesBuffer.unserialize(&numModes);
