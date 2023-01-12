@@ -1,6 +1,8 @@
 #ifndef VORTEX_ENGINE_H
 #define VORTEX_ENGINE_H
 
+#include <inttypes.h>
+
 // TODO STILL:
 /*
  *  Everything is working!
@@ -13,6 +15,8 @@
  */
 
 #include "VortexConfig.h"
+
+class ByteStream;
 
 class VortexEngine
 {
@@ -27,6 +31,10 @@ public:
 
   // tick function for each loop
   static void tick();
+
+  // serialize the version number to a byte stream
+  static void serializeVersion(ByteStream &stream);
+  static bool checkVersion(uint8_t major, uint8_t minor);
 
 private:
 #if COMPRESSION_TEST == 1

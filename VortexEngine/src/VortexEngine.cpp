@@ -102,6 +102,22 @@ void VortexEngine::tick()
   Leds::update();
 }
 
+void VortexEngine::serializeVersion(ByteStream &stream)
+{
+  // serialize the vortex version
+  stream.serialize((uint8_t)VORTEX_VERSION_MAJOR);
+  stream.serialize((uint8_t)VORTEX_VERSION_MINOR);
+}
+
+bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
+{
+  if (major != VORTEX_VERSION_MAJOR) {
+    return false;
+  }
+  // minor version doesn't matter
+  return true;
+}
+
 #if COMPRESSION_TEST == 1
 #include <stdio.h>
 #include "Memory/Memory.h"

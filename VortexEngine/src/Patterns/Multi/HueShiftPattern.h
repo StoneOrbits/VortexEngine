@@ -3,10 +3,13 @@
 
 #include "MultiLedPattern.h"
 
+#include "../../Time/Timings.h"
+#include "../../Time/Timer.h"
+
 class HueShiftPattern : public MultiLedPattern
 {
 public:
-  HueShiftPattern(uint8_t speed = 1, uint8_t scale = 1);
+  HueShiftPattern(uint8_t onDuration = STROBE_ON_DURATION, uint8_t offDuration = STROBE_OFF_DURATION);
   HueShiftPattern(const PatternArgs &args);
   virtual ~HueShiftPattern();
 
@@ -28,7 +31,13 @@ public:
 #endif
 
 private:
-  uint8_t m_speed;
-  uint8_t m_scale;
+  uint8_t m_blinkOnDuration;
+  uint8_t m_blinkOffDuration;
+
+  Timer m_blinkTimer;
+
+  // current color and target blend color
+  HSVColor m_cur;
+  HSVColor m_next;
 };
 #endif
