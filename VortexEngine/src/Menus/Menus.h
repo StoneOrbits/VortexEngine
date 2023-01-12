@@ -32,12 +32,14 @@ public:
   static bool init();
   static void cleanup();
 
-  // Run the ringmenu and any menus it contains
-  // returns true if the menu remains open, false if closed
+  // Run the menus returns true if the menu remains open, false if closed
   static bool run();
 
   // open a menu by index in the menu table
   static bool openMenu(uint32_t index);
+
+  // check if the menus are open
+  static bool checkOpen() { return m_menuState != MENU_STATE_NOT_OPEN; }
 
 private:
   // run the currently open menu
@@ -46,18 +48,30 @@ private:
   static bool runRingFill();
   // helper to calculate the relative hold time for the current menu
   static LedPos calcLedPos();
-  // whether any menus are open
-  static bool shouldRun();
   // close the currently open menu
   static void closeCurMenu();
 
   // =====================
   //  private members
 
+  enum MenuState {
+    // menus aren't open at all
+    MENU_STATE_NOT_OPEN = 0,
+
+    // menus are open and the ring menu is cycling
+    MENU_STATE_RING_FILL,
+
+    // the menus are open and we opened a menu
+    MENU_STATE_IN_MENU
+  };
+
+  // the current menus states
+  static MenuState m_menuState;
+
   // the ring menu section
   static uint32_t m_selection;
-  // whether the ring menu is open
-  static bool m_isOpen;
+  // the time when we first opened the ringmenu
+  static uint64_t m_openTime;
   // the current sub menu that is open
   static Menu *m_pCurMenu;
 };
