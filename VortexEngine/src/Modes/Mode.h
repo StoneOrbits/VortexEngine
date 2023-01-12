@@ -43,6 +43,10 @@ public:
   // Play the mode
   virtual void play();
 
+  // save/load from a buffer for individual mode sharing
+  virtual bool saveToBuffer(ByteStream &saveBuffer) const;
+  virtual bool loadFromBuffer(ByteStream &saveBuffer);
+
   // save the mode to serial
   virtual void serialize(ByteStream &buffer) const;
   // load the mode from serial

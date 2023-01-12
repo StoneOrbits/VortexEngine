@@ -27,7 +27,11 @@ public:
   // play the current mode
   static void play();
 
-  // settings save/load
+  // full save/load to/from buffer
+  static bool saveToBuffer(ByteStream &saveBuffer);
+  static bool loadFromBuffer(ByteStream &saveBuffer);
+
+  // full save/load to/from storage
   static bool loadStorage();
   static bool saveStorage();
 

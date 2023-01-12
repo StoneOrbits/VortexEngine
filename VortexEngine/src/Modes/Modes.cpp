@@ -65,16 +65,28 @@ void Modes::play()
   m_pCurMode->play();
 }
 
-bool Modes::loadStorage()
+// full save/load to/from buffer
+bool Modes::saveToBuffer(ByteStream &modesBuffer)
 {
-  // this is good on memory, but it erases what they have stored
-  // before we know whether there is something actually saved
-  clearModes();
-  ByteStream modesBuffer;
-  // only read storage if the modebuffer isn't filled
-  if (!Storage::read(modesBuffer) || !modesBuffer.size()) {
-    DEBUG_LOG("Empty buffer read from storage");
-    // this kinda sucks whatever they had loaded is gone
+  // serialize the engine version into the modes buffer
+  VortexEngine::serializeVersion(modesBuffer);
+  // serialize the total number of leds and global brightness
+  modesBuffer.serialize((uint8_t)LED_COUNT);
+  modesBuffer.serialize((uint8_t)Leds::getBrightness());
+  // serialize all modes data into the modesBuffer
+  serialize(modesBuffer);
+  DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
+  if (!modesBuffer.compress()) {
+    return false;
+  }
+  return true;
+}
+
+// load modes from a save buffer
+bool Modes::loadFromBuffer(ByteStream &modesBuffer)
+{
+  if (!modesBuffer.decompress()) {
+    // failed to decompress?
     return false;
   }
   // reset the unserializer index before unserializing anything
@@ -109,51 +121,49 @@ bool Modes::loadStorage()
   return unserialize(modesBuffer);
 }
 
+bool Modes::loadStorage()
+{
+  // this is good on memory, but it erases what they have stored
+  // before we know whether there is something actually saved
+  clearModes();
+  ByteStream modesBuffer;
+  // only read storage if the modebuffer isn't filled
+  if (!Storage::read(modesBuffer) || !modesBuffer.size()) {
+    DEBUG_LOG("Empty buffer read from storage");
+    // this kinda sucks whatever they had loaded is gone
+    return false;
+  }
+  return loadFromBuffer(modesBuffer);
+}
+
 // NOTE: Flash storage is limited to about 10,000 writes so
 //       use this function sparingly!
 bool Modes::saveStorage()
 {
   DEBUG_LOG("Saving modes...");
-
   // A ByteStream to hold all the serialized data
   ByteStream modesBuffer;
-
-  // serialize the engine version into the modes buffer
-  VortexEngine::serializeVersion(modesBuffer);
-
-  // serialize the total number of leds and global brightness
-  modesBuffer.serialize((uint8_t)LED_COUNT);
-  modesBuffer.serialize((uint8_t)Leds::getBrightness());
-
-  // serialize all modes data into the modesBuffer
-  serialize(modesBuffer);
-
-  DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
-
+  // save data to the buffer
+  if (!saveToBuffer(modesBuffer)) {
+    return false;
+  }
   // write the serial buffer to flash storage, this
   // will compress the buffer and include crc/flags
   if (!Storage::write(modesBuffer)) {
     DEBUG_LOG("Failed to write storage");
     return false;
   }
-
   DEBUG_LOG("Success saving modes to storage");
-
   return true;
 }
 
 // Save all of the modes to a serial buffer
 void Modes::serialize(ByteStream &modesBuffer)
 {
-  // serialize the total number of leds
-  modesBuffer.serialize((uint8_t)LED_COUNT);
-  // serialize the brightness and number of modes
-  modesBuffer.serialize((uint8_t)Leds::getBrightness());
+  // serialize the number of modes
   modesBuffer.serialize(m_numModes);
-
   // make sure the current mode is saved in case it has changed somehow
   saveCurMode();
-
   // iterate all of the modes and copy their serial data into the modesBuffer
   for (uint32_t i = 0; i < m_numModes; ++i) {
     // if so then need to decompress before appending? idk
@@ -167,7 +177,6 @@ void Modes::serialize(ByteStream &modesBuffer)
       m_serializedModes[i].compress();
     }
   }
-
   DEBUG_LOGF("Serialized num modes: %u", m_numModes);
 }
 
