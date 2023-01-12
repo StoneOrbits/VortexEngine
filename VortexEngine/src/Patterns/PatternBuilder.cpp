@@ -158,7 +158,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_PULSISH: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, STROBE_ON_DURATION, STROBE_OFF_DURATION, 100);
     case PATTERN_FILL: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50);
     case PATTERN_BOUNCE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50);
-    case PATTERN_IMPACT: return PatternArgs();
+    case PATTERN_IMPACT: return PatternArgs(32, 250, 8, 10, 3, 28);
     case PATTERN_SPLITSTROBIE: return PatternArgs(10);
     case PATTERN_BACKSTROBE: return PatternArgs(10);
     case PATTERN_FLOWERS: return PatternArgs(5, 25, 3, 5);
