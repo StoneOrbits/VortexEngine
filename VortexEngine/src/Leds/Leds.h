@@ -58,7 +58,7 @@ public:
   static void setMap(LedMap map, RGBColor col);
   static void clearMap(LedMap map);
 
-  // stores Led for later use 
+  // stores Led for later use
   static void stashAll(LedStash &stash);
   
   // restores Leds from stash

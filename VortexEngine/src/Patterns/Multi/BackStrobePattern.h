@@ -7,7 +7,8 @@
 class BackStrobePattern : public HybridPattern
 {
 public:
-  BackStrobePattern(uint8_t stepSpeed100Ms = 10);
+  BackStrobePattern(uint8_t onDuration1 = 4, uint8_t offDuration1 = 16, uint8_t gapDuration1 = 0,
+    uint8_t onDuration2 = 16, uint8_t offDuration2 = 3, uint8_t gapDuration2 = 0, uint8_t stepSpeed100Ms = 10);
   BackStrobePattern(const PatternArgs &args);
   virtual ~BackStrobePattern();
 
@@ -34,6 +35,9 @@ private:
   Timer m_stepTimer;
 
   bool m_switch;
+
+  PatternArgs m_firstPatternArgs;
+  PatternArgs m_secondPatternArgs;
 };
 
 #endif 

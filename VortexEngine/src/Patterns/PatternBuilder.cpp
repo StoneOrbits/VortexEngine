@@ -131,19 +131,19 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_TRACER: return PatternArgs(20, 1);
     case PATTERN_DASHDOPS: return PatternArgs(20, 1, 5);
     case PATTERN_ADVANCED: return PatternArgs(5, 5, 10, 2, 2, 1);
-    case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 1);
-    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 1);
+    case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0);
+    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0);
     case PATTERN_BRACKETS: return PatternArgs(2, 5, 8);
 
     // =====================
     //  Multi Led Patterns:
-    case PATTERN_RABBIT: return PatternArgs();
+    case PATTERN_RABBIT: return PatternArgs(8, 10, 0, 3, 28, 0);
     case PATTERN_HUESHIFT: return PatternArgs(1, 1);
     case PATTERN_THEATER_CHASE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 25);
     //case PATTERN_CHASER: return PatternArgs();
     case PATTERN_ZIGZAG: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50, 1, 55);
-    case PATTERN_ZIPFADE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100, 4);
-    case PATTERN_TIPTOP: return PatternArgs();
+    case PATTERN_ZIPFADE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100, 4, 1);
+    case PATTERN_TIPTOP: return PatternArgs(32, 28, 0, 8, 10, 0);
     case PATTERN_DRIP: return PatternArgs(10, 10, 100);
     case PATTERN_DRIPMORPH: return PatternArgs(10, 10, 1);
     case PATTERN_CROSSDOPS: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50);
@@ -158,11 +158,11 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_PULSISH: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, STROBE_ON_DURATION, STROBE_OFF_DURATION, 100);
     case PATTERN_FILL: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50);
     case PATTERN_BOUNCE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 50);
-    case PATTERN_IMPACT: return PatternArgs();
-    case PATTERN_SPLITSTROBIE: return PatternArgs(10);
-    case PATTERN_BACKSTROBE: return PatternArgs(10);
-    case PATTERN_FLOWERS: return PatternArgs(5, 25, 3, 5);
-    case PATTERN_JEST: return PatternArgs();
+    case PATTERN_IMPACT: return PatternArgs(32, 250, 8, 10, 3, 28);
+    case PATTERN_SPLITSTROBIE: return PatternArgs(4, 16, 0, 32, 28, 0, 10);
+    case PATTERN_BACKSTROBE: return PatternArgs(4, 16, 0, 32, 28, 0, 10);
+    case PATTERN_FLOWERS: return PatternArgs(5, 25, 0, 3, 5, 0);
+    case PATTERN_JEST: return PatternArgs(2, 5, 8, 69, 3);
     case PATTERN_MATERIA: return PatternArgs(5, 8, 3, 35, 8);
     case PATTERN_NONE: break;
     default: break;

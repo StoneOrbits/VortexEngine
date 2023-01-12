@@ -5,11 +5,14 @@
 #include "../../Colors/Colorset.h"
 #include "../../Log/Log.h"
 
-BackStrobePattern::BackStrobePattern(uint8_t stepSpeed100ms) :
+BackStrobePattern::BackStrobePattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t gapDuration1,
+  uint8_t onDuration2, uint8_t offDuration2, uint8_t gapDuration2, uint8_t stepSpeed100ms) :
   HybridPattern(),
   m_stepSpeed(stepSpeed100ms),
   m_stepTimer(),
-  m_switch()
+  m_switch(),
+  m_firstPatternArgs(onDuration1, offDuration1, gapDuration1),
+  m_secondPatternArgs(onDuration2, offDuration2, gapDuration2)
 {
   m_patternID = PATTERN_BACKSTROBE;
 }
@@ -45,7 +48,9 @@ void BackStrobePattern::play()
     m_switch = !m_switch;
     // update the tip/top patterns based on the switch
     setTipsTops(m_switch ? PATTERN_DOPS : PATTERN_HYPERSTROBE,
-                m_switch ? PATTERN_HYPERSTROBE : PATTERN_DOPS);
+                m_switch ? PATTERN_HYPERSTROBE : PATTERN_DOPS,
+                m_switch ? &m_firstPatternArgs : &m_secondPatternArgs,
+                m_switch ? &m_secondPatternArgs : &m_firstPatternArgs);
   }
   HybridPattern::play();
 }
@@ -54,26 +59,50 @@ void BackStrobePattern::play()
 void BackStrobePattern::serialize(ByteStream& buffer) const
 {
   HybridPattern::serialize(buffer);
+  buffer.serialize(m_firstPatternArgs.arg1);
+  buffer.serialize(m_firstPatternArgs.arg2);
+  buffer.serialize(m_firstPatternArgs.arg3);
+  buffer.serialize(m_secondPatternArgs.arg1);
+  buffer.serialize(m_secondPatternArgs.arg2);
+  buffer.serialize(m_secondPatternArgs.arg3);
   buffer.serialize(m_stepSpeed);
 }
 
 void BackStrobePattern::unserialize(ByteStream& buffer)
 {
   HybridPattern::unserialize(buffer);
+  buffer.unserialize(&m_firstPatternArgs.arg1);
+  buffer.unserialize(&m_firstPatternArgs.arg2);
+  buffer.unserialize(&m_firstPatternArgs.arg3);
+  buffer.unserialize(&m_secondPatternArgs.arg1);
+  buffer.unserialize(&m_secondPatternArgs.arg2);
+  buffer.unserialize(&m_secondPatternArgs.arg3);
   buffer.unserialize(&m_stepSpeed);
 }
 
 void BackStrobePattern::setArgs(const PatternArgs &args)
 {
   HybridPattern::setArgs(args);
-  m_stepSpeed = args.arg1;
+  m_firstPatternArgs.arg1 = args.arg1;
+  m_firstPatternArgs.arg2 = args.arg2;
+  m_firstPatternArgs.arg3 = args.arg3;
+  m_secondPatternArgs.arg1 = args.arg4;
+  m_secondPatternArgs.arg2 = args.arg5;
+  m_secondPatternArgs.arg3 = args.arg6;
+  m_stepSpeed = args.arg7;
 }
 
 void BackStrobePattern::getArgs(PatternArgs &args) const
 {
   HybridPattern::getArgs(args);
-  args.arg1 = m_stepSpeed;
-  args.numArgs += 1;
+  args.arg1 = m_firstPatternArgs.arg1;
+  args.arg2 = m_firstPatternArgs.arg2;
+  args.arg3 = m_firstPatternArgs.arg3;
+  args.arg4 = m_secondPatternArgs.arg1;
+  args.arg5 = m_secondPatternArgs.arg2;
+  args.arg6 = m_secondPatternArgs.arg3;
+  args.arg7 = m_stepSpeed;
+  args.numArgs += 7;
 }
 
 #if SAVE_TEMPLATE == 1

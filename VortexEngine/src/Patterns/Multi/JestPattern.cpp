@@ -1,7 +1,12 @@
 #include "JestPattern.h"
+#include "../../Serial/ByteStream.h"
 
-JestPattern::JestPattern() :
-  HybridPattern()
+JestPattern::JestPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration1,
+  uint8_t gapDuration2, uint8_t groupSize) :
+  HybridPattern(),
+  m_tipArgs(onDuration, offDuration, gapDuration1, groupSize, 0, 0),
+  m_topArgs(onDuration, offDuration, gapDuration2, groupSize, 0, 0)
+
 {
   m_patternID = PATTERN_JEST;
 }
@@ -23,17 +28,57 @@ void JestPattern::init()
   HybridPattern::init();
 
   // advanced pattern args for tips/tops
-  PatternArgs tipArgs = { 0, 1, 5, 3, 0, 0 };
-  setPatternAt(THUMB_TIP, PATTERN_ADVANCED, &tipArgs); 
-  setPatternAt(INDEX_TIP, PATTERN_ADVANCED, &tipArgs);
-  setPatternAt(MIDDLE_TIP, PATTERN_ADVANCED, &tipArgs);
-  setPatternAt(RING_TIP, PATTERN_ADVANCED, &tipArgs);
-  setPatternAt(PINKIE_TIP, PATTERN_ADVANCED, &tipArgs);
+  setPatternAt(THUMB_TIP, PATTERN_ADVANCED, &m_tipArgs); 
+  setPatternAt(INDEX_TIP, PATTERN_ADVANCED, &m_tipArgs);
+  setPatternAt(MIDDLE_TIP, PATTERN_ADVANCED, &m_tipArgs);
+  setPatternAt(RING_TIP, PATTERN_ADVANCED, &m_tipArgs);
+  setPatternAt(PINKIE_TIP, PATTERN_ADVANCED, &m_tipArgs);
 
-  PatternArgs topArgs = { 0, 1, 69, 3, 0, 0 };
-  setPatternAt(THUMB_TOP, PATTERN_ADVANCED, &topArgs);
-  setPatternAt(INDEX_TOP, PATTERN_ADVANCED, &topArgs);
-  setPatternAt(MIDDLE_TOP, PATTERN_ADVANCED, &topArgs);
-  setPatternAt(RING_TOP, PATTERN_ADVANCED, &topArgs);
-  setPatternAt(PINKIE_TOP, PATTERN_ADVANCED, &topArgs);
+  setPatternAt(THUMB_TOP, PATTERN_ADVANCED, &m_topArgs);
+  setPatternAt(INDEX_TOP, PATTERN_ADVANCED, &m_topArgs);
+  setPatternAt(MIDDLE_TOP, PATTERN_ADVANCED, &m_topArgs);
+  setPatternAt(RING_TOP, PATTERN_ADVANCED, &m_topArgs);
+  setPatternAt(PINKIE_TOP, PATTERN_ADVANCED, &m_topArgs);
+}
+
+// must override the serialize routine to save the pattern
+void JestPattern::serialize(ByteStream& buffer) const
+{
+  HybridPattern::serialize(buffer);
+  buffer.serialize(m_tipArgs.arg1);
+  buffer.serialize(m_tipArgs.arg2);
+  buffer.serialize(m_tipArgs.arg3);
+  buffer.serialize(m_topArgs.arg3);
+  buffer.serialize(m_topArgs.arg4);
+}
+
+void JestPattern::unserialize(ByteStream& buffer)
+{
+  HybridPattern::unserialize(buffer);
+  buffer.unserialize(&m_tipArgs.arg1);
+  buffer.unserialize(&m_tipArgs.arg2);
+  buffer.unserialize(&m_tipArgs.arg3);
+  buffer.unserialize(&m_topArgs.arg3);
+  buffer.unserialize(&m_topArgs.arg4);
+}
+
+void JestPattern::setArgs(const PatternArgs& args)
+{
+  HybridPattern::setArgs(args);
+  m_tipArgs.arg1 = args.arg1;
+  m_tipArgs.arg2 = args.arg2;
+  m_tipArgs.arg3 = args.arg3;
+  m_topArgs.arg3 = args.arg4;
+  m_topArgs.arg4 = args.arg5;
+}
+
+void JestPattern::getArgs(PatternArgs& args) const
+{
+  HybridPattern::getArgs(args);
+  args.arg1 = m_tipArgs.arg1;
+  args.arg2 = m_tipArgs.arg2;
+  args.arg3 = m_tipArgs.arg3;
+  args.arg4 = m_topArgs.arg3;
+  args.arg5 = m_topArgs.arg4;
+  args.numArgs += 5;
 }

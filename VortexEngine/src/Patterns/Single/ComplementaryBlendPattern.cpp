@@ -4,8 +4,8 @@
 #include "../../Leds/Leds.h"
 
 ComplementaryBlendPattern::ComplementaryBlendPattern(uint8_t onDuration, uint8_t offDuration,
-  uint8_t gapDuration, uint8_t blendSpeed) :
-  BlendPattern(onDuration, offDuration, gapDuration, blendSpeed),
+  uint8_t gapDuration) :
+  BlendPattern(onDuration, offDuration, gapDuration),
   m_showingComplement(false)
 {
   m_patternID = PATTERN_COMPLEMENTARY_BLEND;

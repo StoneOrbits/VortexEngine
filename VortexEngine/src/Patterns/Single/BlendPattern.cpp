@@ -8,9 +8,8 @@
 
 #include <math.h>
 
-BlendPattern::BlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration, uint8_t blendSpeed) :
+BlendPattern::BlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration) :
   BasicPattern(onDuration, offDuration, gapDuration),
-  m_speed(blendSpeed),
   m_cur(),
   m_next()
 {
@@ -41,31 +40,6 @@ void BlendPattern::play()
   BasicPattern::play();
 }
 
-void BlendPattern::serialize(ByteStream &buffer) const
-{
-  BasicPattern::serialize(buffer);
-  buffer.serialize(m_speed);
-}
-
-void BlendPattern::unserialize(ByteStream &buffer)
-{
-  BasicPattern::unserialize(buffer);
-  buffer.unserialize(&m_speed);
-}
-
-void BlendPattern::setArgs(const PatternArgs &args)
-{
-  BasicPattern::setArgs(args);
-  m_speed = args.arg4;
-}
-
-void BlendPattern::getArgs(PatternArgs &args) const
-{
-  BasicPattern::getArgs(args);
-  args.arg4 = m_speed;
-  args.numArgs += 1;
-}
-
 #if SAVE_TEMPLATE == 1
 void BlendPattern::saveTemplate(int level) const
 {
@@ -91,7 +65,7 @@ void BlendPattern::onBlinkOn()
   //       it will cause oscillation around the target hue 
   //       because it will never reach the target hue and 
   //       always over/under shoot
-  m_cur.hue += m_speed * sign;
+  m_cur.hue += sign;
   HSVColor showColor = m_cur;
   // set the target led with the current HSV color
   Leds::setIndex(m_ledPos, hsv_to_rgb_generic(showColor));

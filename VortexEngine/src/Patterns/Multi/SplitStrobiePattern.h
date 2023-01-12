@@ -7,7 +7,8 @@
 class SplitStrobiePattern : public HybridPattern
 {
 public:
-  SplitStrobiePattern(uint8_t stepDuration100ms = 10);
+  SplitStrobiePattern(uint8_t onDuration = 4, uint8_t offDuration = 16, uint8_t gapDuration = 0,
+    uint8_t dashDuration = 16, uint8_t dotDuration = 3, uint8_t stepDuration100ms = 10);
   SplitStrobiePattern(const PatternArgs &args);
   virtual ~SplitStrobiePattern();
 
@@ -33,6 +34,9 @@ private:
   Timer m_stepTimer;
 
   bool m_switch;
+
+  PatternArgs m_firstPatternArgs;
+  PatternArgs m_secondPatternArgs;
 };
 
 #endif 

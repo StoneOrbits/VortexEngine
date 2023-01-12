@@ -1,7 +1,14 @@
 #include "ImpactPattern.h"
 
-ImpactPattern::ImpactPattern() :
-  HybridPattern()
+#include "../../Serial/ByteStream.h"
+#include "../PatternBuilder.h"
+
+ImpactPattern::ImpactPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2,
+  uint8_t offDuration2, uint8_t onDuration3, uint8_t offDuration3) :
+  HybridPattern(),
+  m_thumbArgs(onDuration1, offDuration1),
+  m_middleArgs(onDuration2, offDuration2),
+  m_otherArgs(onDuration3, offDuration3)
 {
   m_patternID = PATTERN_IMPACT;
 }
@@ -26,20 +33,65 @@ void ImpactPattern::init()
   Colorset thumbSet(m_colorset.get(0));
   Colorset middleSet(m_colorset.get(1));
   Colorset thirdSet(m_colorset.get(2));
+  Colorset fourthSet(m_colorset.get(3), m_colorset.get(4), m_colorset.get(5), m_colorset.get(6), m_colorset.get(7));
   
-  PatternArgs strobeArgs(25, 250);
-  setPatternAt(THUMB_TIP, PATTERN_BASIC, &strobeArgs, &thumbSet);
-  setPatternAt(THUMB_TOP, PATTERN_BASIC, &strobeArgs, &thumbSet);
+  setPatternAt(THUMB_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_thumbArgs), &thumbSet);
+  setPatternAt(THUMB_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_thumbArgs), &thumbSet);
 
-  setPatternAt(MIDDLE_TIP, PATTERN_BASIC, &strobeArgs, &middleSet);
-  setPatternAt(MIDDLE_TOP, PATTERN_BASIC, &strobeArgs, &middleSet);
+  setPatternAt(MIDDLE_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &middleSet);
+  setPatternAt(MIDDLE_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &middleSet);
 
-  setPatternAt(INDEX_TOP, PATTERN_BASIC, &strobeArgs, &thirdSet);
-  setPatternAt(RING_TOP, PATTERN_BASIC, &strobeArgs, &thirdSet);
-  setPatternAt(PINKIE_TOP, PATTERN_BASIC, &strobeArgs, &thirdSet);
+  setPatternAt(INDEX_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
+  setPatternAt(RING_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
+  setPatternAt(PINKIE_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
+  
+  setPatternAt(INDEX_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &fourthSet);
+  setPatternAt(RING_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &fourthSet);
+  setPatternAt(PINKIE_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &fourthSet);  
+}
 
-  // remaining just use default colorset
-  setPatternAt(INDEX_TIP, PATTERN_STROBE);
-  setPatternAt(RING_TIP, PATTERN_STROBE);
-  setPatternAt(PINKIE_TIP, PATTERN_STROBE);
+// must override the serialize routine to save the pattern
+void ImpactPattern::serialize(ByteStream& buffer) const
+{
+  HybridPattern::serialize(buffer);
+  buffer.serialize(m_thumbArgs.arg1);
+  buffer.serialize(m_thumbArgs.arg2);
+  buffer.serialize(m_middleArgs.arg1);
+  buffer.serialize(m_middleArgs.arg2);
+  buffer.serialize(m_otherArgs.arg1);
+  buffer.serialize(m_otherArgs.arg2);
+}
+
+void ImpactPattern::unserialize(ByteStream& buffer)
+{
+  HybridPattern::unserialize(buffer);
+  buffer.unserialize(&m_thumbArgs.arg1);
+  buffer.unserialize(&m_thumbArgs.arg2);
+  buffer.unserialize(&m_middleArgs.arg1);
+  buffer.unserialize(&m_middleArgs.arg2);
+  buffer.unserialize(&m_otherArgs.arg1);
+  buffer.unserialize(&m_otherArgs.arg2);
+}
+
+void ImpactPattern::setArgs(const PatternArgs& args)
+{
+  HybridPattern::setArgs(args);
+  m_thumbArgs.arg1 = args.arg1;
+  m_thumbArgs.arg2 = args.arg2;
+  m_middleArgs.arg1 = args.arg3;
+  m_middleArgs.arg2 = args.arg4;
+  m_otherArgs.arg1 = args.arg5;
+  m_otherArgs.arg2 = args.arg6;
+}
+
+void ImpactPattern::getArgs(PatternArgs& args) const
+{
+  HybridPattern::getArgs(args);
+  args.arg1 = m_thumbArgs.arg1;
+  args.arg2 = m_thumbArgs.arg2;
+  args.arg3 = m_middleArgs.arg1;
+  args.arg4 = m_middleArgs.arg2;
+  args.arg5 = m_otherArgs.arg1;
+  args.arg6 = m_otherArgs.arg2;
+  args.numArgs += 6;
 }
