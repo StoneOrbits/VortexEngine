@@ -90,29 +90,28 @@ bool Menus::run()
 
 bool Menus::runRingFill()
 {
-  // if the button was pressed then select the menu
-  // then open the current menu selection
-  if (g_pButton->pressTime() > m_openTime) {
-    if (g_pButton->onShortClick()) {
-      // otherwise increment selection and wrap around at num menus
-      m_selection = (m_selection + 1) % NUM_MENUS;
-      // reset the open time so that it starts again
-      m_openTime = Time::getCurtime();
-      // clear the leds
-      Leds::clearAll();
-      return true;
+  if (g_pButton->onShortClick()) {
+    // otherwise increment selection and wrap around at num menus
+    m_selection = (m_selection + 1) % NUM_MENUS;
+    // reset the open time so that it starts again
+    m_openTime = Time::getCurtime();
+    // clear the leds
+    Leds::clearAll();
+    return true;
+  }
+  // if the button was long pressed then select this menu, but we
+  // need to check the presstime to ensure we don't catch the initial
+  // release after opening the ringmenu
+  if (g_pButton->onLongClick() && g_pButton->pressTime() >= m_openTime) {
+    // ringmenu is open so select the menu
+    DEBUG_LOGF("Selected ringmenu %s", menuList[m_selection].menuName);
+    // open the menu we have selected
+    if (!openMenu(m_selection)) {
+      DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
+      return false;
     }
-    if (g_pButton->onLongClick()) {
-      // ringmenu is open so select the menu
-      DEBUG_LOGF("Selected ringmenu %s", menuList[m_selection].menuName);
-      // open the menu we have selected
-      if (!openMenu(m_selection)) {
-        DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
-        return false;
-      }
-      // display the newly opened menu
-      return true;
-    }
+    // display the newly opened menu
+    return true;
   }
   // clear the leds so it always fills instead of replacing
   Leds::clearAll();
