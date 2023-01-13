@@ -80,7 +80,7 @@
 //
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    255
+#define DEFAULT_BRIGHTNESS    185
 
 // Max Modes
 //
@@ -244,12 +244,6 @@
 // However there may be some clever uses for variable tickrate in
 // the final build? I'm not sure.
 #define VARIABLE_TICKRATE     0
-
-// Auto Send Mode
-//
-// Automatically send the mode as soon as the sending menu
-// is opened, as opposed to requiring a long click
-#define AUTO_SEND_MODE        0
 
 // Compression Test
 //

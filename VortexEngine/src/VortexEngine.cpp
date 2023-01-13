@@ -166,7 +166,7 @@ void VortexEngine::serializationTest()
   }
   DEBUG_LOG("== Beginning Serialization Test ==");
   for (PatternID patternID = PATTERN_FIRST; patternID < PATTERN_COUNT; ++patternID) {
-    Mode *mode = ModeBuilder::make(patternID, &bigSet);
+    Mode *mode = ModeBuilder::make(patternID, nullptr, &bigSet);
     if (!mode) {
       ERROR_LOGF("ERROR!! Failed to create mode %u", patternID);
       return;
@@ -178,7 +178,7 @@ void VortexEngine::serializationTest()
       ERROR_LOGF("ERROR!! Buffer empty after serialize on %u", patternID);
       return;
     }
-    Mode *mode2 = ModeBuilder::unserialize(buffer);
+    Mode *mode2 = ModeBuilder::unserializeMode(buffer);
     if (!mode2) {
       ERROR_LOGF("ERROR!! Failed to unserialize mode on %u", patternID);
       return;
@@ -208,7 +208,7 @@ void VortexEngine::serializationTest()
   DEBUG_LOG("Attempting full serialization of all modes");
   Modes::clearModes();
   for (PatternID patternID = PATTERN_FIRST; patternID < PATTERN_COUNT; ++patternID) {
-    if (!Modes::addMode(patternID, &bigSet)) {
+    if (!Modes::addMode(patternID, nullptr, &bigSet)) {
       ERROR_LOGF("ERROR!! Failed to add mode %u", patternID);
       return;
     }
