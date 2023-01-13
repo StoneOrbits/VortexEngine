@@ -3,10 +3,13 @@
 
 #include "BlinkStepPattern.h"
 
+#include "../../Time/Timings.h"
+
+
 class DripPattern : public BlinkStepPattern
 {
 public:
-  DripPattern(uint8_t onDuration = 10 , uint8_t offDuration = 10, uint8_t stepDuration = 100);
+  DripPattern(uint8_t onDuration = STROBE_ON_DURATION, uint8_t offDuration = STROBE_OFF_DURATION, uint8_t stepDuration = 250);
   DripPattern(const PatternArgs &args);
   virtual ~DripPattern();
 

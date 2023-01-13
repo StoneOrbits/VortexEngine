@@ -3,12 +3,14 @@
 
 #include "HybridPattern.h"
 #include "../../Time/Timer.h"
+#include "../../Time/Timings.h"
+
 
 class BackStrobePattern : public HybridPattern
 {
 public:
-  BackStrobePattern(uint8_t onDuration1 = 4, uint8_t offDuration1 = 16, uint8_t gapDuration1 = 0,
-    uint8_t onDuration2 = 16, uint8_t offDuration2 = 3, uint8_t gapDuration2 = 0, uint8_t stepSpeed100Ms = 10);
+  BackStrobePattern(uint8_t onDuration1 = DOPS_ON_DURATION, uint8_t offDuration1 = DOPS_OFF_DURATION, uint8_t gapDuration1 = 0,
+    uint8_t onDuration2 = HYPERSTROBE_ON_DURATION, uint8_t offDuration2 = HYPERSTROBE_OFF_DURATION, uint8_t gapDuration2 = 0, uint8_t stepSpeed100Ms = 10);
   BackStrobePattern(const PatternArgs &args);
   virtual ~BackStrobePattern();
 

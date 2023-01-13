@@ -3,11 +3,12 @@
 
 #include "HybridPattern.h"
 #include "../../Time/Timer.h"
+#include "../../Time/Timings.h"
 
 class SplitStrobiePattern : public HybridPattern
 {
 public:
-  SplitStrobiePattern(uint8_t onDuration = 4, uint8_t offDuration = 16, uint8_t gapDuration = 0,
+  SplitStrobiePattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t gapDuration = 0,
     uint8_t dashDuration = 16, uint8_t dotDuration = 3, uint8_t stepDuration100ms = 10);
   SplitStrobiePattern(const PatternArgs &args);
   virtual ~SplitStrobiePattern();
