@@ -4,11 +4,13 @@
 #include "MultiLedPattern.h"\
 
 #include "../../Time/Timer.h"
+#include "../../Time/Timings.h"
+
 
 class DripMorphPattern : public MultiLedPattern
 {
 public:
-  DripMorphPattern(uint8_t blinkOn = 10, uint8_t blinkOff = 10, uint8_t speed = 1);
+  DripMorphPattern(uint8_t blinkOn = STROBE_ON_DURATION, uint8_t blinkOff = STROBE_OFF_DURATION, uint8_t speed = 1);
   DripMorphPattern(const PatternArgs &args);
   virtual ~DripMorphPattern();
 

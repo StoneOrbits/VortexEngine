@@ -10,7 +10,7 @@
 class BracketsPattern : public SingleLedPattern
 {
 public:
-  BracketsPattern(uint8_t bracketDuration = 2, uint8_t midDuration = 5, uint8_t gapDuration = 8);
+  BracketsPattern(uint8_t bracketDuration = 4, uint8_t midDuration = 8, uint8_t gapDuration = 35);
   BracketsPattern(const PatternArgs &args);
   virtual ~BracketsPattern();
 
