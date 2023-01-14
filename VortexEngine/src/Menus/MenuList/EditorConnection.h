@@ -38,10 +38,6 @@ private:
     // Sending the greeting message
     STATE_GREETING,
 
-    // Waiting for the hello, then responding with the ack
-    STATE_HELLO,
-    STATE_HELLO_DONE,
-
     // entirely idle, waiting for commands
     STATE_IDLE,
 

@@ -269,8 +269,6 @@
 #define EDITOR_VERB_GREETING          "== Vortex Framework v" VORTEX_VERSION " (built " __TIMESTAMP__ ") =="
 // the hello from the editor to the gloves
 #define EDITOR_VERB_HELLO             "SUHHH"
-// the hello ack from the gloves to the gloves
-#define EDITOR_VERB_HELLO_ACK         "NMYOU"
 
 // the response from the gloveset when it's ready to receive something
 // after the editor has given it a command to do something the gloveset

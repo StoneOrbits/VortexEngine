@@ -92,22 +92,6 @@ bool EditorConnection::run()
     m_receiveBuffer.clear();
     // send the hello greeting with our version number and build time
     SerialComs::write(EDITOR_VERB_GREETING);
-    // wait for the acknowledgement
-    m_state = STATE_HELLO;
-    break;
-  case STATE_HELLO:
-    // wait for the editor to say "Hello" to us
-    if (receiveMessage(EDITOR_VERB_HELLO)) {
-      // found the hello response, start going idle
-      m_state = STATE_HELLO_DONE;
-    }
-    break;
-  case STATE_HELLO_DONE:
-    // say hello back
-    m_receiveBuffer.clear();
-    // send the hello greeting with our version number and build time
-    SerialComs::write(EDITOR_VERB_HELLO_ACK);
-    // go idle
     m_state = STATE_IDLE;
     break;
   case STATE_IDLE:
@@ -199,13 +183,12 @@ void EditorConnection::onLongClick()
 
 void EditorConnection::showEditor()
 {
-  if (!SerialComs::isConnected()) {
+  switch (m_state) {
+  case STATE_DISCONNECTED:
     Leds::clearAll();
     // gradually fill from thumb to pinkie
     Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLANK);
-    return;
-  }
-  switch (m_state) {
+    break;
   case STATE_IDLE:
     if (m_pDemoMode) {
       // thats all
