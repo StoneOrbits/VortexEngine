@@ -194,8 +194,7 @@ void EditorConnection::showEditor()
       // thats all
       m_pDemoMode->play();
     } else {
-      Leds::clearAll();
-      Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLUE);
+      Leds::setAll(RGB_BLANK);
     }
     break;
   case STATE_PULL_MODES:
