@@ -298,6 +298,9 @@
 // the response from the gloveset when it's received disabled the demo
 #define EDITOR_VERB_CLEAR_DEMO_ACK    "AIGHT"
 
+// when the gloveset is leaving the menu and needs to tell the editor
+// that it's no longer listening
+#define EDITOR_VERB_GOODBYE           "GOODBYE"
 
 // ===================================================================
 //  Test Framework configurations
