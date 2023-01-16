@@ -25,6 +25,7 @@ private:
   bool receiveModes();
   bool receiveDemoMode();
   void handleCommand();
+  void sendMessage(const char *message);
   bool receiveMessage(const char *message);
   void clearDemo();
 

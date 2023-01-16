@@ -12,6 +12,15 @@
  *   - palm light?
  *   - Code documentation (DOXYGEN???)
  *   - menu 'blink' api is slightly buggy
+ * 
+ *   - Editor!
+ *   - color wheel/picker!
+ *   - color 'mode' (rainbow/generic)
+ *   - global brightness slider in editor?
+ *   - brightness control PER MODE?
+ *   - refactor message pump for editor
+ *   - solve issue with editor parsing handshake properly, need to split messages, need delimiter
+ *   - 
  */
 
 #include "VortexConfig.h"
