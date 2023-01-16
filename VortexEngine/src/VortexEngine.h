@@ -12,6 +12,9 @@
  *   - palm light?
  *   - Code documentation (DOXYGEN???)
  *   - menu 'blink' api is slightly buggy
+ *   - randomizer auto random
+ *   - randomizer individual randomizers (colorset, pattern, full, game?)
+ *   - update color or pattern used to display send/receive
  * 
  *   - Editor!
  *   - color wheel/picker!

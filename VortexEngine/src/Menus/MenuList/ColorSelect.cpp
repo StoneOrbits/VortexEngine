@@ -219,28 +219,28 @@ void ColorSelect::showSlotSelection()
 void ColorSelect::showHueSelection1()
 {
   for (LedPos p = PINKIE_TIP; p <= INDEX_TOP; ++p) {
-    Leds::setIndex(p, HSVColor((256 / 8) * p, 255, 255));
+    Leds::setIndex(p, hsv_to_rgb_rainbow(HSVColor((256 / 8) * p, 255, 255)));
   }
 }
 
 void ColorSelect::showHueSelection2()
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
-    Leds::setFinger(f, HSVColor(m_newColor.hue + ((255 / 16) * f), 255, 255));
+    Leds::setFinger(f, hsv_to_rgb_rainbow(HSVColor(m_newColor.hue + ((255 / 16) * f), 255, 255)));
   }
 }
 
 void ColorSelect::showSatSelection()
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
-    Leds::setFinger(f, HSVColor(m_newColor.hue, sats[f], 255));
+    Leds::setFinger(f, hsv_to_rgb_rainbow(HSVColor(m_newColor.hue, sats[f], 255)));
   }
 }
 
 void ColorSelect::showValSelection()
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
-    Leds::setFinger(f, HSVColor(m_newColor.hue, m_newColor.sat, vals[f]));
+    Leds::setFinger(f, hsv_to_rgb_rainbow(HSVColor(m_newColor.hue, m_newColor.sat, vals[f])));
   }
 }
 
