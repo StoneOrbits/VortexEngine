@@ -179,7 +179,7 @@ void EditorConnection::onShortClick()
 void EditorConnection::onLongClick()
 {
   SerialComs::write(EDITOR_VERB_GOODBYE);
-  leaveMenu();
+  leaveMenu(true);
 }
 
 void EditorConnection::showEditor()
