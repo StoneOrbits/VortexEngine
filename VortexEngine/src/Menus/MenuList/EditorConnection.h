@@ -18,6 +18,9 @@ public:
   void onShortClick();
   void onLongClick();
 
+  // menu conn
+  void leaveMenu(bool doSave = false) override;
+
 private:
   void showEditor();
   void receiveData();
@@ -25,7 +28,6 @@ private:
   bool receiveModes();
   bool receiveDemoMode();
   void handleCommand();
-  void sendMessage(const char *message);
   bool receiveMessage(const char *message);
   void clearDemo();
 
