@@ -66,7 +66,6 @@ void SerialComs::write(const char *msg, ...)
   char buf[2048] = {0};
   vsnprintf(buf, sizeof(buf), msg, list);
   Serial.print(buf);
-  printf("Wrote: [%s]\n", msg);
   va_end(list);
 }
 
@@ -79,7 +78,6 @@ void SerialComs::write(ByteStream &byteStream)
   uint32_t size = byteStream.rawSize();
   Serial.write((const uint8_t *)&size, sizeof(size));
   Serial.write((const uint8_t *)byteStream.rawData(), byteStream.rawSize());
-  printf("Wrote raw: [%u]\n", size);
 }
 
 void SerialComs::read(ByteStream &byteStream)
@@ -95,7 +93,6 @@ void SerialComs::read(ByteStream &byteStream)
     uint8_t byte = Serial.read();
     byteStream.serialize(byte);
   } while (--amt > 0);
-  printf("Read: [%c] (%u)\n", byteStream.data()[0], byteStream.size());
 }
 
 bool SerialComs::dataReady()
