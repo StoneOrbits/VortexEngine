@@ -273,9 +273,9 @@
 // the hello from the editor to the gloves
 #define EDITOR_VERB_HELLO             "a"
 
-// the response from the gloveset when it"s ready to receive something
+// the response from the gloveset when it's ready to receive something
 // after the editor has given it a command to do something the gloveset
-// will respond with this then once it"s done doing the action it will
+// will respond with this then once it's done doing the action it will
 // send a different finished response for each action
 #define EDITOR_VERB_READY             "b"
 
@@ -293,16 +293,16 @@
 
 // the command from the editor to tell the gloveset to demo a mode
 #define EDITOR_VERB_DEMO_MODE         "h"
-// the response from the gloveset when it"s received the mode to demo
+// the response from the gloveset when it's received the mode to demo
 #define EDITOR_VERB_DEMO_MODE_ACK     "i"
 
 // the command from the editor to tell the gloveset to clear the demo
 #define EDITOR_VERB_CLEAR_DEMO        "j"
-// the response from the gloveset when it"s received disabled the demo
+// the response from the gloveset when it's received disabled the demo
 #define EDITOR_VERB_CLEAR_DEMO_ACK    "k"
 
 // when the gloveset is leaving the menu and needs to tell the editor
-// that it"s no longer listening
+// that it's no longer listening
 #define EDITOR_VERB_GOODBYE           "l"
 
 // ===================================================================
