@@ -178,8 +178,13 @@ void EditorConnection::onShortClick()
 
 void EditorConnection::onLongClick()
 {
-  SerialComs::write(EDITOR_VERB_GOODBYE);
   leaveMenu(true);
+}
+
+void EditorConnection::leaveMenu(bool doSave)
+{
+  SerialComs::write(EDITOR_VERB_GOODBYE);
+  Menu::leaveMenu(true);
 }
 
 void EditorConnection::showEditor()

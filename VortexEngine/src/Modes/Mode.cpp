@@ -72,7 +72,7 @@ bool Mode::saveToBuffer(ByteStream &modeBuffer) const
   modeBuffer.serialize((uint8_t)LED_COUNT);
   // serialize all mode data into the modeBuffer
   serialize(modeBuffer);
-  DEBUG_LOGF("Serialized mode, uncompressed size: %u", modesBuffer.size());
+  DEBUG_LOGF("Serialized mode, uncompressed size: %u", modeBuffer.size());
   return modeBuffer.compress();
 }
 

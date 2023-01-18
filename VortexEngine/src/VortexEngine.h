@@ -12,6 +12,24 @@
  *   - palm light?
  *   - Code documentation (DOXYGEN???)
  *   - menu 'blink' api is slightly buggy
+ * 
+ *   - Editor!
+ *   - color wheel/picker!
+ *   - color 'mode' (rainbow/generic)
+ *   - global brightness slider in editor? - tools > brightness
+ *   - refactor message pump for editor to solve issue with editor 
+ *     parsing handshake properly, need to split messages, need delimiter
+ *
+ *   - options!
+ *   -  load default modes
+ *   -  ?
+ *   - timers for auto demo? auto random?
+ *   - 
+ *
+ *   - test framework
+ *    - could it be a demo gloveset?
+ *    - with a moving pattern strip to demo the pattern
+ *    - and a glove background picture
  */
 
 #include "VortexConfig.h"

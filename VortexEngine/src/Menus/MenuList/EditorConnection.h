@@ -18,6 +18,9 @@ public:
   void onShortClick();
   void onLongClick();
 
+  // menu conn
+  void leaveMenu(bool doSave = false) override;
+
 private:
   void showEditor();
   void receiveData();
