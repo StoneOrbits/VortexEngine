@@ -67,6 +67,10 @@ public:
   HSVColor(const RGBColor &rhs);
   HSVColor &operator=(const RGBColor &rhs);
 
+  // equality operators
+  bool operator==(const HSVColor &other) const;
+  bool operator!=(const HSVColor &other) const;
+
   bool empty() const;
   void clear();
 
@@ -95,6 +99,10 @@ public:
   // construction/assignment from HSV
   RGBColor(const HSVColor &rhs);
   RGBColor &operator=(const HSVColor &rhs);
+
+  // equality operators
+  bool operator==(const RGBColor &other) const;
+  bool operator!=(const RGBColor &other) const;
 
   bool empty() const;
   void clear();

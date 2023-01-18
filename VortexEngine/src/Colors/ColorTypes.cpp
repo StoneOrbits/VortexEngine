@@ -70,6 +70,16 @@ HSVColor &HSVColor::operator=(const RGBColor &rhs)
   return *this;
 }
 
+bool HSVColor::operator==(const HSVColor &other) const
+{
+  return (other.raw() == raw());
+}
+
+bool HSVColor::operator!=(const HSVColor &other) const
+{
+  return (other.raw() != raw());
+}
+
 bool HSVColor::empty() const
 {
   return !hue && !sat && !val;
@@ -151,6 +161,16 @@ RGBColor &RGBColor::operator=(const HSVColor &rhs)
   *this = hsv_to_rgb_generic(rhs);
 #endif
   return *this;
+}
+
+bool RGBColor::operator==(const RGBColor &other) const
+{
+  return (other.raw() == raw());
+}
+
+bool RGBColor::operator!=(const RGBColor &other) const
+{
+  return (other.raw() != raw());
 }
 
 bool RGBColor::empty() const
