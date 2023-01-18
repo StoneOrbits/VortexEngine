@@ -62,7 +62,6 @@ bool Storage::read(ByteStream &buffer)
   // read directly into the rawdata of the byte array, this will
   // include the crc, size, flags and entire buffer of data
   storage.read(buffer.rawData());
-  DEBUG_LOGF("Successfully loaded save (Version: %u.%u Size: %u -> %u)",
-    version.major, version.minor, compressedSize, buffer.size());
+  DEBUG_LOGF("Loaded savedata (Size: %u)", buffer.size());
   return true;
 }
