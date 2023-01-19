@@ -94,6 +94,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
       Leds::setQuadrantFive(RGB_WHITE);
     } else {
       Leds::clearQuadrantFive();
+      Leds::setQuadrantFive(RGB_RED);
       Leds::blinkQuadrantFive(Time::getCurtime(), 250, 500, RGB_BLANK);
     }
     break;
