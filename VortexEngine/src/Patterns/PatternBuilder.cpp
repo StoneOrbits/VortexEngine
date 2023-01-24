@@ -10,6 +10,30 @@
 #include "Multi/Sequencer/Sequence.h"
 
 #include "Multi/RabbitPattern.h"
+#include "Multi/HueShiftPattern.h"
+#include "Multi/TheaterChasePattern.h"
+#include "Multi/ZigzagPattern.h"
+#include "Multi/TipTopPattern.h"
+#include "Multi/DripPattern.h"
+#include "Multi/DripMorphPattern.h"
+#include "Multi/CrossDopsPattern.h"
+#include "Multi/DoubleStrobePattern.h"
+#include "Multi/MeteorPattern.h"
+#include "Multi/SparkleTracePattern.h"
+#include "Multi/VortexWipePattern.h"
+#include "Multi/WarpPattern.h"
+#include "Multi/WarpWormPattern.h"
+#include "Multi/FillPattern.h"
+#include "Multi/SnowballPattern.h"
+#include "Multi/LighthousePattern.h"
+#include "Multi/PulsishPattern.h"
+#include "Multi/BouncePattern.h"
+#include "Multi/ImpactPattern.h"
+#include "Multi/SplitStrobiePattern.h"
+#include "Multi/BackStrobePattern.h"
+#include "Multi/FlowersPattern.h"
+#include "Multi/JestPattern.h"
+#include "Multi/MateriaPattern.h"
 
 #include "Single/ComplementaryBlendPattern.h"
 #include "Single/BracketsPattern.h"
@@ -114,6 +138,32 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     // =====================
     //  Multi Led Patterns:
     case PATTERN_RABBIT: return PatternArgs(8, 10, 0, 6, 28, 0);
+    case PATTERN_HUESHIFT: return PatternArgs(1, 1);
+    case PATTERN_THEATER_CHASE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 28);
+      //case PATTERN_CHASER: return PatternArgs();
+    case PATTERN_ZIGZAG: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 55, 6, 55);
+    case PATTERN_ZIPFADE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100, 12, 5);
+    case PATTERN_TIPTOP: return PatternArgs(32, 28, 0, 8, 10, 0);
+    case PATTERN_DRIP: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 250);
+    case PATTERN_DRIPMORPH: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 1);
+    case PATTERN_CROSSDOPS: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100);
+    case PATTERN_DOUBLESTROBE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 115);
+    case PATTERN_METEOR: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 55, 75);
+    case PATTERN_SPARKLETRACE: return PatternArgs(5, 0, 50);
+    case PATTERN_VORTEXWIPE: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 130);
+    case PATTERN_WARP: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 150);
+    case PATTERN_WARPWORM: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 110);
+    case PATTERN_SNOWBALL: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 110);
+    case PATTERN_LIGHTHOUSE: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 40, 25, 5);
+    case PATTERN_PULSISH: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, STROBE_ON_DURATION, STROBE_OFF_DURATION, 250);
+    case PATTERN_FILL: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 200);
+    case PATTERN_BOUNCE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 200);
+    case PATTERN_IMPACT: return PatternArgs(32, 250, STROBE_ON_DURATION, STROBE_OFF_DURATION, STROBIE_ON_DURATION, STROBIE_OFF_DURATION);
+    case PATTERN_SPLITSTROBIE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 16, 3, 10);
+    case PATTERN_BACKSTROBE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 0, 10);
+    case PATTERN_FLOWERS: return PatternArgs(5, 25, 0, 3, 5, 0);
+    case PATTERN_JEST: return PatternArgs(2, 5, 8, 69, 3);
+    case PATTERN_MATERIA: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 3, 35, 80);
     case PATTERN_NONE: break;
     default: break;
   }
@@ -149,6 +199,32 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     // =====================
     //  Multi Led Patterns:
     case PATTERN_RABBIT: return new RabbitPattern(args);
+    case PATTERN_HUESHIFT: return new HueShiftPattern(args);
+    case PATTERN_THEATER_CHASE: return new TheaterChasePattern(args);
+    //  //case PATTERN_CHASER: return new ChaserPattern(args);
+    case PATTERN_ZIGZAG:
+    case PATTERN_ZIPFADE: return new ZigzagPattern(args);
+    case PATTERN_TIPTOP: return new TipTopPattern(args);
+    case PATTERN_DRIP: return new DripPattern(args);
+    case PATTERN_DRIPMORPH: return new DripMorphPattern(args);
+    case PATTERN_CROSSDOPS: return new CrossDopsPattern(args);
+    case PATTERN_DOUBLESTROBE: return new DoubleStrobePattern(args);
+    case PATTERN_METEOR: return new MeteorPattern(args);
+    case PATTERN_SPARKLETRACE: return new SparkleTracePattern(args);
+    case PATTERN_VORTEXWIPE: return new VortexWipePattern(args);
+    case PATTERN_WARP: return new WarpPattern(args);
+    case PATTERN_WARPWORM: return new WarpWormPattern(args);
+    case PATTERN_SNOWBALL: return new SnowballPattern(args);
+    case PATTERN_LIGHTHOUSE: return new LighthousePattern(args);
+    case PATTERN_PULSISH: return new PulsishPattern(args);
+    case PATTERN_FILL: return new FillPattern(args);
+    case PATTERN_BOUNCE: return new BouncePattern(args);
+    case PATTERN_IMPACT: return new ImpactPattern(args);
+    case PATTERN_SPLITSTROBIE: return new SplitStrobiePattern(args);
+    case PATTERN_BACKSTROBE: return new BackStrobePattern(args);
+    case PATTERN_FLOWERS: return new FlowersPattern(args);
+    case PATTERN_JEST: return new JestPattern(args);
+    case PATTERN_MATERIA: return new MateriaPattern(args);
     case PATTERN_NONE: return nullptr;
     default: break;
   }

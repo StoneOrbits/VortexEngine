@@ -102,3 +102,13 @@ void HybridPattern::setPatternAt(LedPos pos, PatternID id,
   }
   setPatternAt(pos, PatternBuilder::makeSingle(id, args), set);
 }
+
+void HybridPattern::setEvensOdds(PatternID evenPattern, PatternID oddPattern, const PatternArgs* evenArgs, const PatternArgs* oddArgs)
+{
+  // Set the tipPattern on all fingerTips and topPattern on all fingerTops
+  for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
+    const PatternArgs* args = isEven(p) ? evenArgs : oddArgs;
+    PatternID id = isEven(p) ? evenPattern : oddPattern;
+    setPatternAt(p, PatternBuilder::makeSingle(id, args));
+  }
+}

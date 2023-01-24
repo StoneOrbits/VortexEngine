@@ -31,6 +31,7 @@ protected:
   void setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
   void setPatternAt(LedPos pos, PatternID id, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   void clearPatterns();
+  void setEvensOdds(PatternID evenPattern, PatternID oddPattern, const PatternArgs* evenArgs = nullptr, const PatternArgs* oddArgs = nullptr);
 
   // array of single LED patterns, one for each LED
   SingleLedPattern *m_ledPatterns[LED_COUNT];

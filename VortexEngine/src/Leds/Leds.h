@@ -32,6 +32,14 @@ public:
   static void clearRange(LedPos first, LedPos last) { setRange(first, last, HSV_OFF); }
   static void clearAll() { setAll(HSV_OFF); }
 
+  // control all evens/odds
+  static void setAllEvens(RGBColor col);
+  static void setAllOdds(RGBColor col);
+
+  // clear evens/odds
+  static void clearAllEvens();
+  static void clearAllOdds();
+
   // Control full quadrants of Leds
   static void setQuadrant(Quadrant quadrant, RGBColor col);
   static void setQuadrants(Quadrant first, Quadrant last, RGBColor col);

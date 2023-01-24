@@ -68,6 +68,42 @@ void Leds::setAll(RGBColor col)
   setRange(LED_FIRST, LED_LAST, col);
 }
 
+void Leds::setAllEvens(RGBColor col) 
+{
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
+    if ((i % 2) == 0) {
+      setIndex(i, col);
+    }
+  }
+}
+
+void Leds::setAllOdds(RGBColor col)
+{
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
+    if ((i % 2) != 0) {
+      setIndex(i, col);
+    }
+  }
+}
+
+void Leds::clearAllEvens()
+{
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
+    if ((i % 2) == 0) {
+      clearIndex(i);
+    }
+  }
+}
+
+void Leds::clearAllOdds()
+{
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
+    if ((i % 2) != 0) {
+      clearIndex(i);
+    }
+  }
+}
+
 void Leds::setQuadrant(Quadrant quadrant, RGBColor col)
 {
   // start from tip and go to top

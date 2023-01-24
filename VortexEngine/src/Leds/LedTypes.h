@@ -115,6 +115,16 @@ enum LedPair : uint8_t
 
 };
 
+// check if an led is finger tip or top
+inline bool isEven(LedPos pos)
+{
+  return (pos % 2) == 0;
+}
+inline bool isOdd(LedPos pos)
+{
+  return (pos % 2) != 0;
+}
+
 // check if led is on the top side
 inline bool isPairTop(LedPos pos)
 {
