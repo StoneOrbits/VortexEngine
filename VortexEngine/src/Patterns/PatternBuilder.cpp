@@ -9,6 +9,8 @@
 #include "Multi/Sequencer/ChaserPattern.h"
 #include "Multi/Sequencer/Sequence.h"
 
+#include "Multi/RabbitPattern.h"
+
 #include "Single/ComplementaryBlendPattern.h"
 #include "Single/BracketsPattern.h"
 #include "Single/AdvancedPattern.h"
@@ -108,6 +110,10 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0);
     case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0);
     case PATTERN_BRACKETS: return PatternArgs(2, 5, 8);
+
+    // =====================
+    //  Multi Led Patterns:
+    case PATTERN_RABBIT: return PatternArgs(8, 10, 0, 6, 28, 0);
     case PATTERN_NONE: break;
     default: break;
   }
@@ -142,6 +148,7 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
 
     // =====================
     //  Multi Led Patterns:
+    case PATTERN_RABBIT: return new RabbitPattern(args);
     case PATTERN_NONE: return nullptr;
     default: break;
   }
