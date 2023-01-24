@@ -130,6 +130,34 @@ void Leds::clearQuadrantFive()
   }
 }
 
+void Leds::setRing(Ring ring, RGBColor col)
+{
+  for (LedPair i = PAIR_FIRST; i < 4; ++i) {
+    setPair((LedPair)(ring + (4 * i)), col);
+  }
+}
+
+void Leds::setRings(Ring first, Ring last, RGBColor col)
+{
+  for (Ring i = first; i <= last; ++i) {
+    setRing(i, col);
+  }
+}
+
+void Leds::clearRing(Ring ring)
+{
+  for (LedPair i = PAIR_FIRST; i < 4; ++i) {
+    clearPair((LedPair)(ring + (4 * i)));
+  }
+}
+
+void Leds::clearRings(Ring first, Ring last)
+{
+  for (Ring i = first; i <= last; ++i) {
+    clearRing(i);
+  }
+}
+
 void Leds::setPair(LedPair pair, RGBColor col)
 {
   setIndex(pairTop(pair), col);

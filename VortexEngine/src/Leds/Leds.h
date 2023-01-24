@@ -50,6 +50,14 @@ public:
   static void clearQuadrants(Quadrant first, Quadrant last) { setRange(quadrantFirstLed(first), quadrantLastLed(last), HSV_OFF); }
   static void clearQuadrantFive();
   
+  // set a ring of leds
+  static void setRing(Ring ring, RGBColor col);
+  static void setRings(Ring first, Ring last, RGBColor col);
+
+  // clear a ring of leds
+  static void clearRing(Ring ring);
+  static void clearRings(Ring first, Ring last);
+
   // Control pairs of Leds, for menu display
   static void setPair(LedPair pair, RGBColor col);
   

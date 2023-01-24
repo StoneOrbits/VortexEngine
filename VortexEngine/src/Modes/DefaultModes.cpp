@@ -6,10 +6,10 @@
 // the gloveset upon factory reset
 const default_mode_entry default_modes[] = {
   // Pattern 2: Ghost Crush Mode
-    PATTERN_MATERIA, {
+    PATTERN_BOUNCE, {
     HSV(0, 255, 255),
     HSV(96, 255, 255),
-    HSV(165, 255, 255)
+    HSV(160, 255, 255)
   },
 
     PATTERN_GHOSTCRUSH, {

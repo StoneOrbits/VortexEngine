@@ -85,6 +85,17 @@ enum Quadrant : uint8_t
   QUADRANT_LAST = (QUADRANT_COUNT - 1)
 };
 
+enum Ring : uint8_t
+{
+  RING_FIRST = 0,
+  RING_1 = RING_FIRST,
+  RING_2,
+  RING_3,
+  RING_4,
+  RING_COUNT,
+  RING_LAST = (RING_COUNT - 1)
+};
+
 enum LedPair : uint8_t
 {
   PAIR_FIRST = 0,
@@ -407,6 +418,40 @@ inline Quadrant operator-(Quadrant& c, int b)
 inline Quadrant& operator-=(Quadrant& c, int b)
 {
   c = Quadrant(((uint32_t)c) - b);
+  return c;
+}
+
+// Ring operators
+inline Ring& operator++(Ring& c)
+{
+  c = Ring(((uint32_t)c) + 1);
+  return c;
+}
+inline Ring operator++(Ring& c, int)
+{
+  Ring temp = c;
+  ++c;
+  return temp;
+}
+inline Ring operator+(Ring& c, int b)
+{
+  return (Ring)((uint32_t)c + b);
+}
+
+inline Ring& operator+=(Ring& c, int b)
+{
+  c = Ring(((uint32_t)c) + b);
+  return c;
+}
+
+inline Ring operator-(Ring& c, int b)
+{
+  return (Ring)((uint32_t)c - b);
+}
+
+inline Ring& operator-=(Ring& c, int b)
+{
+  c = Ring(((uint32_t)c) - b);
   return c;
 }
 

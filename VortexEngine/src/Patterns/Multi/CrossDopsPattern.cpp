@@ -33,7 +33,7 @@ void CrossDopsPattern::blinkOn()
   int firstQuarter = (LED_COUNT / 4);
   int half = (LED_COUNT / 2);
   int thirdQuarter = firstQuarter * 3;
-  for (LedPos i = LED_FIRST; i < LED_LAST; ++i) {
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     if (m_switch) {
       if (i < firstQuarter || (i >= half && i < thirdQuarter)) {
         Leds::setIndex(i, m_colorset.cur());

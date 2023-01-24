@@ -5,7 +5,7 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-#define TOTAL_STEPS ((QUADRANT_LAST * 2) - 2)
+#define TOTAL_STEPS ((RING_COUNT * 2) - 2)
 #define HALF_STEPS (TOTAL_STEPS / 2)
 
 BouncePattern::BouncePattern(int8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
@@ -37,11 +37,11 @@ void BouncePattern::init()
 
 void BouncePattern::blinkOn()
 {
-  Leds::setAll(m_colorset.cur());
-  if (m_progress < QUADRANT_LAST) {
-    Leds::setQuadrant((Quadrant)m_progress, m_colorset.peekNext());
+  //Leds::setAll(m_colorset.cur());
+  if (m_progress < RING_LAST) {
+    Leds::setRing((Ring)m_progress, m_colorset.peekNext());
   } else {
-    Leds::setQuadrant((Quadrant)(TOTAL_STEPS - m_progress), m_colorset.peekNext());
+    Leds::setRing((Ring)(TOTAL_STEPS - m_progress), m_colorset.peekNext());
   }
 }
 
