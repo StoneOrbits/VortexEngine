@@ -5,12 +5,14 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-#define TOTAL_STEPS ((RING_COUNT * 2) - 2)
+#define TOTAL_STEPS ((RING_COUNT * 2))
 #define HALF_STEPS (TOTAL_STEPS / 2)
 
-BouncePattern::BouncePattern(int8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
+BouncePattern::BouncePattern(int8_t onDuration, uint8_t offDuration, uint8_t stepDuration, uint8_t fadeAmount) :
   BlinkStepPattern(onDuration, offDuration, stepDuration),
-  m_progress(0)
+  m_progress(0),
+  m_fadeAmount(fadeAmount),
+  m_stash()
 {
   m_patternID = PATTERN_BOUNCE;
 }
@@ -37,12 +39,17 @@ void BouncePattern::init()
 
 void BouncePattern::blinkOn()
 {
-  //Leds::setAll(m_colorset.cur());
-  if (m_progress < RING_LAST) {
-    Leds::setRing((Ring)m_progress, m_colorset.peekNext());
-  } else {
-    Leds::setRing((Ring)(TOTAL_STEPS - m_progress), m_colorset.peekNext());
+  for (int i = 0; i < LED_COUNT; ++i) {
+    m_stash[i].adjustBrightness(m_fadeAmount);
   }
+  Leds::restoreAll(m_stash);
+  //Leds::setAll(m_colorset.cur());
+  if (m_progress < RING_COUNT) {
+    Leds::setRing((Ring)m_progress, m_colorset.cur());
+  } else {
+    Leds::setRing((Ring)(TOTAL_STEPS - (m_progress + 1)), m_colorset.cur());
+  }
+  Leds::stashAll(m_stash);
 }
 
 void BouncePattern::poststep()
@@ -51,4 +58,30 @@ void BouncePattern::poststep()
   if (m_progress == 0 || m_progress == HALF_STEPS) {
     m_colorset.getNext();
   }
+}
+
+// must override the serialize routine to save the pattern
+void BouncePattern::serialize(ByteStream& buffer) const
+{
+  BlinkStepPattern::serialize(buffer);
+  buffer.serialize(m_fadeAmount);
+}
+
+void BouncePattern::unserialize(ByteStream& buffer)
+{
+  BlinkStepPattern::unserialize(buffer);
+  buffer.unserialize(&m_fadeAmount);
+}
+
+void BouncePattern::setArgs(const PatternArgs& args)
+{
+  BlinkStepPattern::setArgs(args);
+  m_fadeAmount = args.arg1;
+}
+
+void BouncePattern::getArgs(PatternArgs& args) const
+{
+  BlinkStepPattern::getArgs(args);
+  args.arg1 = m_fadeAmount;
+  args.numArgs += 1;
 }
