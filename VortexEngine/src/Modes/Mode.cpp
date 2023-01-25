@@ -196,6 +196,7 @@ bool Mode::unserialize(ByteStream &buffer, uint32_t numLeds)
       src = (LedPos)((src + 1) % numLeds);
     }
   }
+  return true;
 }
 
 #if SAVE_TEMPLATE == 1
