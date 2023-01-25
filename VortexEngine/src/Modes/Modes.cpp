@@ -55,6 +55,11 @@ void Modes::play()
   if (g_pButton->onShortClick()) {
     nextMode();
   }
+  // shortclick on button 2 cycles to the previous mode
+  if (g_pButton2->onShortClick()) {
+    previousMode();
+  }
+
   // check for empty mode list or missing cur mode
   if (!m_numModes || !m_pCurMode || !initCurMode()) {
     // just keep the leds cleared
@@ -482,6 +487,19 @@ Mode *Modes::nextMode()
   }
   // iterate the cur mode forward
   return setCurMode(m_curMode + 1);
+}
+
+// iterate to next mode and return it
+Mode* Modes::previousMode()
+{
+  if (!m_numModes) {
+    return nullptr;
+  }
+  // iterate the cur mode backwards
+  if (!m_curMode) {
+    return setCurMode(numModes() - 1);
+  }
+  return setCurMode(m_curMode - 1);
 }
 
 void Modes::deleteCurMode()

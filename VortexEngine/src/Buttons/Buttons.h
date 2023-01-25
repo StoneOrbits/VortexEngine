@@ -19,9 +19,11 @@ public:
 private:
   // feel free to add more I guess
   static Button m_button;
+  static Button m_button2;
 };
 
 // best way I think
 extern Button *g_pButton;
+extern Button *g_pButton2;
 
 #endif
