@@ -134,38 +134,74 @@ void Mode::serialize(ByteStream &buffer) const
 bool Mode::unserialize(ByteStream &buffer, uint32_t numLeds)
 {
   clearPatterns();
+  // unserialize the flags value
   uint32_t flags = 0;
   buffer.unserialize(&flags);
   // unserialize the first pattern
   m_ledEntries[0] = PatternBuilder::unserialize(buffer);
+  // if there is no first pattern, or the flags indicate it's a multi-led
+  // pattern then there's nothing more to unserialize and we're done
   if (!m_ledEntries[0] || (flags & MODE_FLAG_MULTI_LED)) {
-    // done
     return true;
   }
-  PatternID firstID = m_ledEntries[0]->getPatternID();
-  const Colorset *firstSet = m_ledEntries[0]->getColorset();
-  PatternArgs firstArgs;
-  m_ledEntries[0]->getArgs(firstArgs);
-  // loop from 2nd led position to last, skipping first
-  for (LedPos pos = (LedPos)(LED_FIRST + 1); pos < LED_COUNT; ++pos) {
-    if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
-      m_ledEntries[pos] = PatternBuilder::make(firstID, &firstArgs);
-      if (!m_ledEntries[pos]) {
-        ERROR_LOG("Failed to created pattern");
-        return false;
+  // if it's an 'all same single' pattern where it's the same single led pattern
+  // repeated across all leds then we can just re-apply the first led that was
+  // just unserialized to each of the other leds
+  if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
+    Pattern *firstPat = m_ledEntries[0];
+    PatternID firstID = firstPat->getPatternID();
+    const Colorset *firstSet = firstPat->getColorset();
+    PatternArgs firstArgs;
+    firstPat->getArgs(firstArgs);
+    for (LedPos pos = (LedPos)(LED_FIRST + 1); pos < LED_COUNT; ++pos) {
+      if (!setSinglePat(pos, firstID, &firstArgs, firstSet)) {
+        // fail?
+        continue;
       }
-      m_ledEntries[pos]->bind(firstSet, pos);
-    } else {
-      m_ledEntries[pos] = PatternBuilder::unserialize(buffer);
-      if (!m_ledEntries[pos]) {
-        ERROR_LOG("Failed to unserialize pattern from buffer");
-        return false;
+    }
+    return true;
+  }
+  // we already loaded led 0 so the led position starts at 1
+  LedPos pos = (LedPos)(LED_FIRST + 1);
+  // unserialize the rest of the leds out of the savefile which 
+  // is numleds - 1 because we already loaded the first led
+  for (uint32_t i = 0; i < (numLeds - 1); ++i) {
+    Pattern *pat = PatternBuilder::unserialize(buffer);
+    // if we have loaded all of our available leds
+    if (pos >= LED_COUNT) {
+      // then just discard this pattern we cannot apply it
+      delete pat;
+      continue;
+    }
+    if (!pat) {
+      ERROR_LOG("Failed to unserialize pattern from buffer");
+      return false;
+    }
+    // must bind the pattern to position so the pattern knows which led
+    pat->bind(pos);
+    // then store the pattern in the leds array at the right position
+    m_ledEntries[pos] = pat;
+    // move forward to next position
+    pos++;
+  }
+  // at this point if our pos isn't our LED_LAST then that means the
+  // savefile had less entries in it than we can support and we need
+  // to repeat those entries to fill up our slots
+  if (pos < LED_COUNT) {
+    LedPos src = LED_FIRST;
+    for(;pos < LED_COUNT; ++pos) {
+      Pattern *pat = m_ledEntries[src];
+      if (!pat) {
+        continue;
       }
-      // must bind to position, the position isn't serialized
-      m_ledEntries[pos]->bind(pos);
+      PatternArgs args;
+      pat->getArgs(args);
+      setSinglePat(pos, pat->getPatternID(), &args, pat->getColorset());
+      // increment the src led but wrap at the ledcount so for example
+      // a savefile with only 3 leds saved will come out as ABCABCABCA
+      src = (LedPos)((src + 1) % numLeds);
     }
   }
-  return true;
 }
 
 #if SAVE_TEMPLATE == 1
