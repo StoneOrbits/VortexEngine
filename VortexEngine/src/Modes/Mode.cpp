@@ -98,14 +98,8 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
   uint8_t ledCount = 0;
   // unserialize the number of leds
   modeBuffer.unserialize(&ledCount);
-  if (ledCount != LED_COUNT) {
-    // cannot unserialize mode with different number of leds
-    // but maybe in the future we may have explicit handling for
-    // such cases in order to allow sharing between devices
-    return false;
-  }
   // now just unserialize the list of modes
-  if (!unserialize(modeBuffer)) {
+  if (!unserialize(modeBuffer, ledCount)) {
     return false;
   }
   // then initialize the mode so that it is ready to play
