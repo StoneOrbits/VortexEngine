@@ -49,8 +49,8 @@ public:
 
   // save the mode to serial
   virtual void serialize(ByteStream &buffer) const;
-  // load the mode from serial
-  virtual bool unserialize(ByteStream &buffer);
+  // load the mode from serial (optional led count)
+  virtual bool unserialize(ByteStream &buffer, uint32_t numLeds = LED_COUNT);
 
 #if SAVE_TEMPLATE == 1
   // save the data template

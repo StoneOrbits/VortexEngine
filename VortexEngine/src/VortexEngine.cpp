@@ -111,6 +111,10 @@ void VortexEngine::serializeVersion(ByteStream &stream)
 
 bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
 {
+  // backwards compatibility for major version 1 savefile
+  if (major == 1) {
+    return true;
+  }
   if (major != VORTEX_VERSION_MAJOR) {
     return false;
   }

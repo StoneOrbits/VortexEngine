@@ -105,12 +105,6 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   uint8_t ledCount = 0;
   // unserialize the number of leds
   modesBuffer.unserialize(&ledCount);
-  if (ledCount != LED_COUNT) {
-    // cannot unserialize mode with different number of leds
-    // but maybe in the future we may have explicit handling for
-    // such cases in order to allow sharing between devices
-    return false;
-  }
   // unserialize the global brightness
   uint8_t brightness = 0;
   modesBuffer.unserialize(&brightness);
@@ -118,7 +112,7 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
     Leds::setBrightness(brightness);
   }
   // now just unserialize the list of modes
-  return unserialize(modesBuffer);
+  return unserialize(modesBuffer, ledCount);
 }
 
 bool Modes::loadStorage()
@@ -179,7 +173,7 @@ void Modes::serialize(ByteStream &modesBuffer)
 }
 
 // load all modes from a serial buffer
-bool Modes::unserialize(ByteStream &modesBuffer)
+bool Modes::unserialize(ByteStream &modesBuffer, uint32_t numLeds)
 {
   DEBUG_LOG("Loading modes...");
   // this is good on memory, but it erases what they have stored before we
@@ -270,7 +264,7 @@ bool Modes::setDefaults()
   return true;
 }
 
-bool Modes::addSerializedMode(ByteStream &serializedMode)
+bool Modes::addSerializedMode(ByteStream &serializedMode, uint32_t numLeds)
 {
   if (m_numModes >= MAX_MODES) {
     return false;

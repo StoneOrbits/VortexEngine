@@ -37,8 +37,8 @@ public:
 
   // saves all modes to a buffer
   static void serialize(ByteStream &buffer);
-  // load all modes from a buffer
-  static bool unserialize(ByteStream &buffer);
+  // load all modes from a buffer, optionally specify number of leds
+  static bool unserialize(ByteStream &buffer, uint32_t numLeds = LED_COUNT);
 
 #if SAVE_TEMPLATE == 1
   // save the data template
@@ -60,8 +60,8 @@ public:
   static bool addMode(PatternID id, const PatternArgs *args, const Colorset *set);
   static bool addMode(const Mode *mode);
 
-  // add a new mode by unserializing raw
-  static bool addSerializedMode(ByteStream &serializedMode);
+  // add a new mode by unserializing raw (optionally specify number of leds)
+  static bool addSerializedMode(ByteStream &serializedMode, uint32_t numLeds = LED_COUNT);
   // add a new mode by loading from a save buffer
   static bool addModeFromBuffer(ByteStream &serializedMode);
 

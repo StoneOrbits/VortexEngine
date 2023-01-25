@@ -131,7 +131,7 @@ void Mode::serialize(ByteStream &buffer) const
   }
 }
 
-bool Mode::unserialize(ByteStream &buffer)
+bool Mode::unserialize(ByteStream &buffer, uint32_t numLeds)
 {
   clearPatterns();
   uint32_t flags = 0;
