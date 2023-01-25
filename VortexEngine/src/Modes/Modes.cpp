@@ -105,12 +105,6 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   uint8_t ledCount = 0;
   // unserialize the number of leds
   modesBuffer.unserialize(&ledCount);
-  if (ledCount != LED_COUNT) {
-    // cannot unserialize mode with different number of leds
-    // but maybe in the future we may have explicit handling for
-    // such cases in order to allow sharing between devices
-    return false;
-  }
   // unserialize the global brightness
   uint8_t brightness = 0;
   modesBuffer.unserialize(&brightness);
@@ -118,7 +112,7 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
     Leds::setBrightness(brightness);
   }
   // now just unserialize the list of modes
-  return unserialize(modesBuffer);
+  return unserialize(modesBuffer, ledCount);
 }
 
 bool Modes::loadStorage()
@@ -179,7 +173,7 @@ void Modes::serialize(ByteStream &modesBuffer)
 }
 
 // load all modes from a serial buffer
-bool Modes::unserialize(ByteStream &modesBuffer)
+bool Modes::unserialize(ByteStream &modesBuffer, uint32_t numLeds)
 {
   DEBUG_LOG("Loading modes...");
   // this is good on memory, but it erases what they have stored before we
@@ -198,7 +192,7 @@ bool Modes::unserialize(ByteStream &modesBuffer)
     // just copy the serialized mode into the internal storage because
     // we store the modes in a serialized manner so that they are smaller
     // then we unpack them when we instantiate the mode
-    if (!addSerializedMode(modesBuffer)) {
+    if (!addSerializedMode(modesBuffer, numLeds)) {
       DEBUG_LOGF("Failed to add mode %u after unserialization", i);
       // clear work so far?
       clearModes();
@@ -270,7 +264,7 @@ bool Modes::setDefaults()
   return true;
 }
 
-bool Modes::addSerializedMode(ByteStream &serializedMode)
+bool Modes::addSerializedMode(ByteStream &serializedMode, uint32_t numLeds)
 {
   if (m_numModes >= MAX_MODES) {
     return false;
@@ -278,7 +272,7 @@ bool Modes::addSerializedMode(ByteStream &serializedMode)
   // we must unserialize then re-serialize here because the
   // input argument may contain other patterns in the buffer
   // so we cannot just assign the input arg to m_serializedModes
-  Mode *mode = ModeBuilder::unserializeMode(serializedMode);
+  Mode *mode = ModeBuilder::unserializeMode(serializedMode, numLeds);
   if (!mode) {
     DEBUG_LOG("Failed to unserialize mode");
     return false;
