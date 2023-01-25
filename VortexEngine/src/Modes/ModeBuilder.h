@@ -3,6 +3,7 @@
 
 #include "../Colors/ColorTypes.h"
 #include "../Patterns/Patterns.h"
+#include "../Leds/Leds.h"
 
 class PatternArgs;
 class ByteStream;

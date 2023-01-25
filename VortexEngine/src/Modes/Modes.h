@@ -4,6 +4,7 @@
 #include "../Serial/ByteStream.h"
 #include "../Colors/ColorTypes.h"
 #include "../Patterns/Patterns.h"
+#include "../Leds/Leds.h"
 
 #include "../VortexConfig.h"
 
