@@ -192,7 +192,7 @@ bool Modes::unserialize(ByteStream &modesBuffer, uint32_t numLeds)
     // just copy the serialized mode into the internal storage because
     // we store the modes in a serialized manner so that they are smaller
     // then we unpack them when we instantiate the mode
-    if (!addSerializedMode(modesBuffer)) {
+    if (!addSerializedMode(modesBuffer, numLeds)) {
       DEBUG_LOGF("Failed to add mode %u after unserialization", i);
       // clear work so far?
       clearModes();
@@ -272,7 +272,7 @@ bool Modes::addSerializedMode(ByteStream &serializedMode, uint32_t numLeds)
   // we must unserialize then re-serialize here because the
   // input argument may contain other patterns in the buffer
   // so we cannot just assign the input arg to m_serializedModes
-  Mode *mode = ModeBuilder::unserializeMode(serializedMode);
+  Mode *mode = ModeBuilder::unserializeMode(serializedMode, numLeds);
   if (!mode) {
     DEBUG_LOG("Failed to unserialize mode");
     return false;
