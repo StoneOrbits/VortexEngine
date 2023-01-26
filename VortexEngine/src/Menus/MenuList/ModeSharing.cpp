@@ -170,7 +170,7 @@ void ModeSharing::showReceiveMode()
   if (IRReceiver::isReceiving()) {
     // how much is sent?
     uint32_t percent = IRReceiver::percentReceived();
-    LedPos l = (LedPos)(percent / LED_COUNT);
+    LedPos l = (LedPos)(percent / (100 / LED_COUNT));
     Leds::setRange(LED_FIRST, l, RGB_GREEN);
     return;
   }
