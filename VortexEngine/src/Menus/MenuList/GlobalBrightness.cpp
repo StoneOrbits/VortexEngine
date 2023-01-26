@@ -50,6 +50,16 @@ void GlobalBrightness::onShortClick()
   m_curSelection = (Quadrant)(((uint32_t)m_curSelection + 1) % (QUADRANT_COUNT));
 }
 
+void GlobalBrightness::onShortClick2()
+{
+  // four options in global brightness
+  if (!m_curSelection) {
+    m_curSelection = QUADRANT_LAST;
+  } else {
+    m_curSelection = m_curSelection - 1;
+  }
+}
+
 void GlobalBrightness::onLongClick()
 {
   if (m_curSelection == QUADRANT_LAST) {
@@ -63,4 +73,9 @@ void GlobalBrightness::onLongClick()
   Leds::setBrightness(m_brightnessOptions[m_curSelection]);
   // done here, save settings with new brightness
   leaveMenu(needsSave);
+}
+
+void GlobalBrightness::onLongClick2()
+{
+  leaveMenu();
 }

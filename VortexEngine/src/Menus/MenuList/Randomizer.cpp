@@ -82,6 +82,11 @@ void Randomizer::onLongClick()
   leaveMenu(needsSave);
 }
 
+void Randomizer::onLongClick2()
+{
+  leaveMenu();
+}
+
 bool Randomizer::reRoll()
 {
   // colorset that will be filled with random colors

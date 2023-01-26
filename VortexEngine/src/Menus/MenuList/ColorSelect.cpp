@@ -141,8 +141,8 @@ void ColorSelect::onShortClick2()
       Leds::clearAll();
       // if we are moving backwards from the first slot in a 4 color set
     } else if (m_curSelection == QUADRANT_5 && m_curPage > 0) {
-      //m_curSelection = QUADRANT_1;
-      //Leds::clearAll();
+      m_curSelection = (Quadrant)((m_colorset.numColors() + 1) % PAGE_SIZE);
+      Leds::clearAll();
     }
   }
   // iterate selection backward and wrap after the thumb

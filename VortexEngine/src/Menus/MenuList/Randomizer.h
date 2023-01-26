@@ -18,6 +18,7 @@ public:
   // handlers for clicks
   void onShortClick();
   void onLongClick();
+  void onLongClick2();
 
 private:
   // override showExit so it isn't displayed on thumb

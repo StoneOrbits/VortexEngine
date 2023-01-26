@@ -83,7 +83,17 @@ void ModeSharing::onShortClick()
   Leds::clearAll();
 }
 
+void ModeSharing::onShortClick2()
+{
+  onShortClick();
+}
+
 void ModeSharing::onLongClick()
+{
+  leaveMenu();
+}
+
+void ModeSharing::onLongClick2()
 {
   leaveMenu();
 }

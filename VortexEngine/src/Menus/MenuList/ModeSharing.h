@@ -13,7 +13,9 @@ public:
 
   // handlers for clicks
   void onShortClick();
+  void onShortClick2();
   void onLongClick();
+  void onLongClick2();
 
 private:
   void beginSending();

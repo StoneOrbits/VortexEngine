@@ -102,10 +102,41 @@ void PatternSelect::onShortClick()
   }
 }
 
+void PatternSelect::onShortClick2()
+{
+  switch (m_state) {
+  case STATE_PICK_LIST:
+    // wrap at the index back to pinkie
+    if (!m_curSelection) {
+      m_curSelection = QUADRANT_LAST;
+    } else {
+      m_curSelection = m_curSelection - 1;
+    }
+    break;
+  case STATE_PICK_PATTERN:
+    previousPattern();
+    break;
+  }
+}
+
 void PatternSelect::nextPattern()
 {
   // increment to next pattern
   m_newPatternID = (PatternID)((m_newPatternID + 1) % PATTERN_COUNT);
+  // change the pattern of demo mode
+  m_pDemoMode->setPattern(m_newPatternID);
+  m_pDemoMode->init();
+  DEBUG_LOGF("Demoing Pattern %u", m_newPatternID);
+}
+
+void PatternSelect::previousPattern()
+{
+  // decrement to previous pattern
+  if (!m_newPatternID) {
+    m_newPatternID = PATTERN_LAST;
+  } else {
+    m_newPatternID = m_newPatternID - 1;
+  }
   // change the pattern of demo mode
   m_pDemoMode->setPattern(m_newPatternID);
   m_pDemoMode->init();
@@ -143,6 +174,11 @@ void PatternSelect::onLongClick()
   }
   // reset selection after choosing anything
   m_curSelection = QUADRANT_FIRST;
+}
+
+void PatternSelect::onLongClick2()
+{
+  leaveMenu();
 }
 
 void PatternSelect::showExit()

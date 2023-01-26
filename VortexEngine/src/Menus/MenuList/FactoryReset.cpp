@@ -49,6 +49,11 @@ void FactoryReset::onShortClick()
   }
 }
 
+void FactoryReset::onShortClick2()
+{
+  onShortClick();
+}
+
 void FactoryReset::onLongClick()
 {
   switch (m_curSelection) {
@@ -63,6 +68,11 @@ void FactoryReset::onLongClick()
     }
     break;
   }
+}
+
+void FactoryReset::onLongClick2()
+{
+  leaveMenu();
 }
 
 void FactoryReset::showReset()
