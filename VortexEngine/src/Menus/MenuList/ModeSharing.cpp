@@ -160,13 +160,13 @@ void ModeSharing::showReceiveMode()
   if (IRReceiver::isReceiving()) {
     // how much is sent?
     uint32_t percent = IRReceiver::percentReceived();
-    LedPos l = (LedPos)(percent / 10);
+    LedPos l = (LedPos)(percent / LED_COUNT);
     Leds::setRange(LED_FIRST, l, RGB_GREEN);
     return;
   }
   // gradually empty from thumb to pinkie
   LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(200) % (LED_COUNT + 1)));
-  if (pos == 10) return;
+  if (pos == LED_COUNT) return;
   Leds::setRange(LED_FIRST, pos, RGB_PURPLE);
 }
 

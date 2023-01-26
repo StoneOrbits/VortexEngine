@@ -33,6 +33,12 @@
  *    - could it be a demo gloveset?
  *    - with a moving pattern strip to demo the pattern
  *    - and a glove background picture
+ *
+ *   - Major version 2.0 notes:
+ *      - dynamically save params, allows for loading of params with different amount prevents errors
+ *      - but doesn't really make sense because same pattern should have same params in each place
+ *
+ *      - readout for how big a mode is vs total storage used (progress bar?)
  */
 
 #include "VortexConfig.h"
