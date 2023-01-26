@@ -108,6 +108,16 @@ bool Menus::runRingFill()
     Leds::clearAll();
     return true;
   }
+  if (g_pButton2->onShortClick()) {
+    // increment down the menu list and wrap at 0
+    if (!m_selection) {
+      m_selection = MENU_COUNT - 1;
+    } else {
+      --m_selection;
+    }
+    Leds::clearAll();
+    return true;
+  }
   // if the button was long pressed then select this menu, but we
   // need to check the presstime to ensure we don't catch the initial
   // release after opening the ringmenu
@@ -121,6 +131,13 @@ bool Menus::runRingFill()
     }
     // display the newly opened menu
     return true;
+  }
+  // if you long click the 2nd button exit the menu list
+  if (g_pButton2->onLongClick()) {
+    // close the current menu when run returns false
+    closeCurMenu();
+    // return false to let the modes play
+    return false;
   }
   // clear the leds so it always fills instead of replacing
   Leds::clearAll();
@@ -149,8 +166,14 @@ bool Menus::runCurMenu()
   if (g_pButton->onShortClick()) {
     m_pCurMenu->onShortClick();
   }
+  if (g_pButton2->onShortClick()) {
+    m_pCurMenu->onShortClick2();
+  }
   if (g_pButton->onLongClick()) {
     m_pCurMenu->onLongClick();
+  }
+  if (g_pButton2->onLongClick()) {
+    m_pCurMenu->onLongClick2();
   }
 
   // if the menu run handler returns false that signals the 

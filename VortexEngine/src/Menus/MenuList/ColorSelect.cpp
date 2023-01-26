@@ -112,6 +112,63 @@ void ColorSelect::onShortClick()
   }
 }
 
+void ColorSelect::onShortClick2() 
+{  
+  // keep track of pages when in slot selection
+  if (m_state == STATE_PICK_SLOT) {
+    // if the current selection is on the index finger then it's at the
+    // end of the current page and we might need to go to the next page
+    if (m_curSelection == QUADRANT_1 && m_curPage > 0) {
+      // increase the page number to 1
+      if (!m_curPage) {
+        m_curPage = NUM_PAGES - 1;
+      } else {
+        --m_curPage;
+      }
+      // skip past the 
+      m_curSelection = QUADRANT_5;
+      // clear all leds because we went to the next page
+      Leds::clearAll();
+    } else if (m_curSelection == QUADRANT_1 && (m_curPage > 0 || (m_curPage == 0 && m_colorset.numColors() > 3))) {
+      if (!m_curPage) {
+        m_curPage = NUM_PAGES - 1;
+      } else {
+        --m_curPage;
+      }
+      // skip past the thumb if we're on index
+      m_curSelection = QUADRANT_5;
+      // clear all leds because we went to the next page
+      Leds::clearAll();
+      // if we are moving backwards from the first slot in a 4 color set
+    } else if (m_curSelection == QUADRANT_5 && m_curPage > 0) {
+      //m_curSelection = QUADRANT_1;
+      //Leds::clearAll();
+    }
+  }
+  // iterate selection backward and wrap after the thumb
+  if (!m_curSelection) {
+    if (!m_curPage) {
+      m_curSelection = QUADRANT_5;
+    } else {
+      m_curSelection = QUADRANT_LAST;
+    }
+  } else {
+    m_curSelection = m_curSelection - 1;
+  }
+  if (m_curSelection != QUADRANT_5 && m_state == STATE_PICK_SLOT) {
+    // the slot is an index in the colorset, where as curselection is a finger index
+    m_slot = (uint32_t)m_curSelection + (m_curPage * PAGE_SIZE);
+  }
+  if (m_slot > m_colorset.numColors()) {
+    if (m_curSelection != QUADRANT_5) {
+      m_curSelection = QUADRANT_5;
+    } else {
+      m_curPage = m_slot = 0;
+      m_curSelection = QUADRANT_FIRST;
+    }
+  }
+}
+
 void ColorSelect::onLongClick()
 {
   bool needsSave = false;
@@ -201,6 +258,30 @@ void ColorSelect::onLongClick()
   }
   // reset selection after choosing anything
   m_curSelection = QUADRANT_FIRST;
+}
+
+void ColorSelect::onLongClick2()
+{
+  // leaving a menu, clear everything
+  Leds::clearAll();
+  switch (m_state) {
+  case STATE_PICK_SLOT:
+  default:
+    // leave menu without saving
+    leaveMenu();
+    return;
+  case STATE_PICK_HUE1:
+    m_state = STATE_PICK_SLOT;
+    // reset selection and page based on chosen slot
+    m_curSelection = (Quadrant)((m_slot % PAGE_SIZE));
+    m_curPage = m_slot / PAGE_SIZE;
+    return;
+  case STATE_PICK_HUE2:
+  case STATE_PICK_SAT:
+  case STATE_PICK_VAL:
+    m_state = (ColorSelectState)(m_state - 1);
+    return;
+  }
 }
 
 void ColorSelect::showSlotSelection()

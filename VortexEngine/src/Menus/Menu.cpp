@@ -66,7 +66,15 @@ void Menu::onShortClick()
 {
 }
 
+void Menu::onShortClick2()
+{
+}
+
 void Menu::onLongClick()
+{
+}
+
+void Menu::onLongClick2()
 {
 }
 

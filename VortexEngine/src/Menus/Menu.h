@@ -24,7 +24,9 @@ public:
 
   // optional handlers for clicks
   virtual void onShortClick();
+  virtual void onShortClick2();
   virtual void onLongClick();
+  virtual void onLongClick2();
 
   // close the current menu
   virtual void leaveMenu(bool doSave = false);
