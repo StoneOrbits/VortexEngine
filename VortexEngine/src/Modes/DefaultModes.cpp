@@ -6,13 +6,13 @@
 // the gloveset upon factory reset
 const default_mode_entry default_modes[] = {
   // Pattern 2: Ghost Crush Mode
-    PATTERN_BOUNCE, {
+  PATTERN_BOUNCE, {
     HSV(0, 255, 255),
     HSV(96, 255, 255),
     HSV(160, 255, 255)
   },
 
-    PATTERN_GHOSTCRUSH, {
+  PATTERN_GHOSTCRUSH, {
     HSV(0, 0, 255),
     HSV(0, 0, 255),
     HSV(0, 0, 0),
@@ -20,7 +20,7 @@ const default_mode_entry default_modes[] = {
     HSV(0, 0, 0)
   },
 
-    PATTERN_GHOSTCRUSH, {
+  PATTERN_GHOSTCRUSH, {
     HSV(0, 0, 255),
     HSV(0, 0, 255),
     HSV(0, 0, 0),
@@ -28,7 +28,7 @@ const default_mode_entry default_modes[] = {
     HSV(0, 0, 0)
   },
 
-    PATTERN_GHOSTCRUSH, {
+  PATTERN_GHOSTCRUSH, {
     HSV(0, 0, 255),
     HSV(0, 0, 255),
     HSV(0, 0, 0),
@@ -36,7 +36,7 @@ const default_mode_entry default_modes[] = {
     HSV(0, 0, 0)
   },
 
-    PATTERN_GHOSTCRUSH, {
+  PATTERN_GHOSTCRUSH, {
     HSV(0, 0, 255),
     HSV(0, 0, 255),
     HSV(0, 0, 0),
@@ -44,7 +44,7 @@ const default_mode_entry default_modes[] = {
     HSV(0, 0, 0)
   },
 
-    PATTERN_GHOSTCRUSH, {
+  PATTERN_GHOSTCRUSH, {
     HSV(0, 0, 255),
     HSV(0, 0, 255),
     HSV(0, 0, 0),
@@ -52,7 +52,7 @@ const default_mode_entry default_modes[] = {
     HSV(0, 0, 0)
   },
 
-    PATTERN_GHOSTCRUSH, {
+  PATTERN_GHOSTCRUSH, {
     HSV(0, 0, 255),
     HSV(0, 0, 255),
     HSV(0, 0, 0),
@@ -60,7 +60,7 @@ const default_mode_entry default_modes[] = {
     HSV(0, 0, 0)
   },
 
-    PATTERN_GHOSTCRUSH, {
+  PATTERN_GHOSTCRUSH, {
     HSV(0, 0, 255),
     HSV(0, 0, 255),
     HSV(0, 0, 0),
@@ -68,7 +68,7 @@ const default_mode_entry default_modes[] = {
     HSV(0, 0, 0)
   },
 
-    PATTERN_GHOSTCRUSH, {
+  PATTERN_GHOSTCRUSH, {
     HSV(0, 0, 255),
     HSV(0, 0, 255),
     HSV(0, 0, 0),
@@ -76,7 +76,7 @@ const default_mode_entry default_modes[] = {
     HSV(0, 0, 0)
   },
 
-    PATTERN_GHOSTCRUSH, {
+  PATTERN_GHOSTCRUSH, {
     HSV(0, 0, 255),
     HSV(0, 0, 255),
     HSV(0, 0, 0),
