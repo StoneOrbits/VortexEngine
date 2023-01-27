@@ -54,19 +54,6 @@ void BouncePattern::poststep()
   }
 }
 
-// must override the serialize routine to save the pattern
-void BouncePattern::serialize(ByteStream& buffer) const
-{
-  BlinkStepPattern::serialize(buffer);
-  buffer.serialize(m_fadeAmount);
-}
-
-void BouncePattern::unserialize(ByteStream& buffer)
-{
-  BlinkStepPattern::unserialize(buffer);
-  buffer.unserialize(&m_fadeAmount);
-}
-
 void BouncePattern::setArgs(const PatternArgs& args)
 {
   BlinkStepPattern::setArgs(args);

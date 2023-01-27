@@ -76,21 +76,6 @@ void LighthousePattern::fade()
   }
 }
 
-// must override the serialize routine to save the pattern
-void LighthousePattern::serialize(ByteStream& buffer) const
-{
-  BlinkStepPattern::serialize(buffer);
-  buffer.serialize(m_fadeAmount);
-  buffer.serialize(m_fadeRate);
-}
-
-void LighthousePattern::unserialize(ByteStream& buffer)
-{
-  BlinkStepPattern::unserialize(buffer);
-  buffer.unserialize(&m_fadeAmount);
-  buffer.unserialize(&m_fadeRate);
-}
-
 void LighthousePattern::setArgs(const PatternArgs &args)
 {
   BlinkStepPattern::setArgs(args);

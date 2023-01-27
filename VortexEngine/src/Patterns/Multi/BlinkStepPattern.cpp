@@ -63,23 +63,6 @@ void BlinkStepPattern::play()
   }
 }
 
-// must override the serialize routine to save the pattern
-void BlinkStepPattern::serialize(ByteStream& buffer) const
-{
-  MultiLedPattern::serialize(buffer);
-  buffer.serialize(m_blinkOnDuration);
-  buffer.serialize(m_blinkOffDuration);
-  buffer.serialize(m_stepDuration);
-}
-
-void BlinkStepPattern::unserialize(ByteStream& buffer)
-{
-  MultiLedPattern::unserialize(buffer);
-  buffer.unserialize(&m_blinkOnDuration);
-  buffer.unserialize(&m_blinkOffDuration);
-  buffer.unserialize(&m_stepDuration);
-}
-
 void BlinkStepPattern::setArgs(const PatternArgs &args)
 {
   MultiLedPattern::setArgs(args);

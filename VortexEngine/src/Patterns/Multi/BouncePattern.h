@@ -13,10 +13,6 @@ public:
   // init the pattern to initial state
   virtual void init() override;
 
-  // must override the serialize routine to save the pattern
-  virtual void serialize(ByteStream& buffer) const override;
-  virtual void unserialize(ByteStream& buffer) override;
-
   virtual void setArgs(const PatternArgs& args) override;
   virtual void getArgs(PatternArgs& args) const override;
 
