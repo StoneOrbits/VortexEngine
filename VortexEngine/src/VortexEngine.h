@@ -23,19 +23,13 @@
  *     parsing handshake properly, need to split messages, need delimiter
  *     otherwise if you disconenct, reconnect and press button it parses them all
  *     in the parsehandshake function and will only see the goodbye
+ *   - readout for how big a mode is vs total storage used (progress bar?)
  *
  *   - options!
  *   -  load default modes
  *   -  ?
  *   - timers for auto demo? auto random?
  *
- *   - Major version 2.0 notes:
- *      - dynamically save params, allows for loading of params with different amount prevents errors
- *      - but doesn't really make sense because same pattern should have same params in each place
- *      - but it eliminates all the serialize overrides
- *
- *      - readout for how big a mode is vs total storage used (progress bar?)
- *      - seems we already broken binary compatibility by adding a param to bounce, so 2.0 must be next release
  */
 
 #include "VortexConfig.h"

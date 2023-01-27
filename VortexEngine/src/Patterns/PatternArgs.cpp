@@ -114,6 +114,9 @@ void PatternArgs::serialize(ByteStream &buffer) const
 void PatternArgs::unserialize(ByteStream &buffer)
 {
   buffer.unserialize(&numArgs);
+  if (numArgs > MAX_ARGS) {
+    numArgs = MAX_ARGS;
+  }
   for (uint8_t i = 0; i < numArgs; ++i) {
     buffer.unserialize(args + i);
   }
