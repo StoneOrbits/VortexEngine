@@ -50,6 +50,9 @@ void Pattern::serialize(ByteStream &buffer) const
 {
   buffer.serialize((uint8_t)m_patternID);
   m_colorset.serialize(buffer);
+  PatternArgs args;
+  getArgs(args);
+  args.serialize(buffer);
 }
 
 // must override unserialize to load patterns
@@ -59,6 +62,9 @@ void Pattern::unserialize(ByteStream &buffer)
   // unserialized by the pattern builder to decide which pattern
   // to instantiate, instead only unserialize the colorset
   m_colorset.unserialize(buffer);
+  PatternArgs args;
+  args.unserialize(buffer);
+  setArgs(args);
 }
 
 void Pattern::setArgs(const PatternArgs &args)

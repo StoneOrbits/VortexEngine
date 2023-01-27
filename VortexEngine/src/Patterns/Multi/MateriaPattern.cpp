@@ -109,27 +109,6 @@ void MateriaPattern::play()
   }
  }
 
-// must override the serialize routine to save the pattern
-void MateriaPattern::serialize(ByteStream& buffer) const
-{
-  MultiLedPattern::serialize(buffer);
-  buffer.serialize(m_onDuration1);
-  buffer.serialize(m_offDuration1);
-  buffer.serialize(m_onDuration2);
-  buffer.serialize(m_offDuration2);
-  buffer.serialize(m_stepSpeed);
-}
-
-void MateriaPattern::unserialize(ByteStream& buffer)
-{
-  MultiLedPattern::unserialize(buffer);
-  buffer.unserialize(&m_onDuration1);
-  buffer.unserialize(&m_offDuration1);
-  buffer.unserialize(&m_onDuration2);
-  buffer.unserialize(&m_offDuration2);
-  buffer.unserialize(&m_stepSpeed);
-}
-
 void MateriaPattern::setArgs(const PatternArgs &args)
 {
   MultiLedPattern::setArgs(args);

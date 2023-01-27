@@ -45,19 +45,6 @@ void MeteorPattern::poststep()
   m_stash.setIndex(fingerTop(target), col);
 }
 
-// must override the serialize routine to save the pattern
-void MeteorPattern::serialize(ByteStream& buffer) const
-{
-  BlinkStepPattern::serialize(buffer);
-  buffer.serialize(m_fadeAmount);
-}
-
-void MeteorPattern::unserialize(ByteStream& buffer)
-{
-  BlinkStepPattern::unserialize(buffer);
-  buffer.unserialize(&m_fadeAmount);
-}
-
 void MeteorPattern::setArgs(const PatternArgs &args)
 {
   BlinkStepPattern::setArgs(args);

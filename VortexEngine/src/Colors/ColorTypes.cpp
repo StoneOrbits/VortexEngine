@@ -62,7 +62,7 @@ HSVColor::HSVColor(const RGBColor &rhs)
 
 HSVColor &HSVColor::operator=(const RGBColor &rhs)
 {
-#if RGB_TO_HSV_ALGORITHM == 1
+#if HSV_TO_RGB_ALGORITHM == 1
   *this = rgb_to_hsv_approx(rhs);
 #else
   *this = rgb_to_hsv_generic(rhs);
@@ -719,4 +719,3 @@ HSVColor rgb_to_hsv_generic(const RGBColor &rhs)
   }
   return hsv;
 }
-

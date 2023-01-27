@@ -148,31 +148,7 @@
 // Note you can still call the other routines from your pattern code,
 // for example blend and complementary blend use hsv to rgb 'pastel'
 // because it looks better than hsv to rgb rainbow
-#define HSV_TO_RGB_ALGORITHM   1
-
-// RGB to HSV Conversion Algorithm
-//
-// Here you can choose the RGB to HSV conversion algorithm, this will
-// not effect much except the test framework which uses rgb -> hsv
-// when it samples the LED buffer to produce the pattern strip.
-//
-// The Vortex Engine itself doesn't actually rely on rgb -> hsv for
-// any purpose, and it really shouldn't. If you find yourself needing
-// this it is suggested to rethink the approach and see if you can
-// avoid this step entirely by providing HSV values directly
-//
-// The available options are:
-//
-//    1     FastLED 'rgb to hsv approximation'
-//    2     generic rgb to hsv
-//
-// The first option is actually a lot slower but it will provide a
-// mostly accurate inverse for fastled hsv to rgb 'rainbow'
-//
-// Where as option 2 is the inverse of generic hsv to rgb 'pastel'
-// and it is faster, but it will be incorrect when inverting colors
-// produced by fastled's hsv to rgb 'rainbow'
-#define RGB_TO_HSV_ALGORITHM   1
+#define HSV_TO_RGB_ALGORITHM   3
 
 // IR Receiver Time-out Duration (ms)
 // 

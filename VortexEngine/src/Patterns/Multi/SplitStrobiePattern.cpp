@@ -58,29 +58,6 @@ void SplitStrobiePattern::play()
   HybridPattern::play();
 }
 
-// must override the serialize routine to save the pattern
-void SplitStrobiePattern::serialize(ByteStream& buffer) const
-{
-  HybridPattern::serialize(buffer);
-  buffer.serialize(m_firstPatternArgs.arg1);
-  buffer.serialize(m_firstPatternArgs.arg2);
-  buffer.serialize(m_firstPatternArgs.arg3);
-  buffer.serialize(m_secondPatternArgs.arg1);
-  buffer.serialize(m_secondPatternArgs.arg2);
-  buffer.serialize(m_stepDuration);
-}
-
-void SplitStrobiePattern::unserialize(ByteStream& buffer)
-{
-  HybridPattern::unserialize(buffer);
-  buffer.unserialize(&m_firstPatternArgs.arg1);
-  buffer.unserialize(&m_firstPatternArgs.arg2);
-  buffer.unserialize(&m_firstPatternArgs.arg3);
-  buffer.unserialize(&m_secondPatternArgs.arg1);
-  buffer.unserialize(&m_secondPatternArgs.arg2);
-  buffer.unserialize(&m_stepDuration);
-}
-
 void SplitStrobiePattern::setArgs(const PatternArgs &args)
 {
   HybridPattern::setArgs(args);
