@@ -16,6 +16,8 @@
  *   - randomizer individual randomizers (colorset, pattern, full, game?)
  *   - update color or pattern used to display send/receive the teal/purple filling
  *     is too much like the previous menu before it
+ *   - timers for auto demo? auto random?
+ *   - TODO: implement last arg of bounce in gloves
  * 
  *   - Editor!
  *   - global brightness slider in editor? - tools > brightness
@@ -24,11 +26,7 @@
  *     otherwise if you disconenct, reconnect and press button it parses them all
  *     in the parsehandshake function and will only see the goodbye
  *   - readout for how big a mode is vs total storage used (progress bar?)
- *
- *   - options!
- *   -  load default modes
- *   -  ?
- *   - timers for auto demo? auto random?
+ *   - options menu along with tools/help etc
  *
  */
 
