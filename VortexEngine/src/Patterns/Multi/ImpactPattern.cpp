@@ -66,29 +66,6 @@ void ImpactPattern::init()
   setPatternAt(LED_24, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
 }
 
-// must override the serialize routine to save the pattern
-void ImpactPattern::serialize(ByteStream& buffer) const
-{
-  HybridPattern::serialize(buffer);
-  buffer.serialize(m_firstSideArgs.arg1);
-  buffer.serialize(m_firstSideArgs.arg2);
-  buffer.serialize(m_secondSideArgs.arg1);
-  buffer.serialize(m_secondSideArgs.arg2);
-  buffer.serialize(m_otherArgs.arg1);
-  buffer.serialize(m_otherArgs.arg2);
-}
-
-void ImpactPattern::unserialize(ByteStream& buffer)
-{
-  HybridPattern::unserialize(buffer);
-  buffer.unserialize(&m_firstSideArgs.arg1);
-  buffer.unserialize(&m_firstSideArgs.arg2);
-  buffer.unserialize(&m_secondSideArgs.arg1);
-  buffer.unserialize(&m_secondSideArgs.arg2);
-  buffer.unserialize(&m_otherArgs.arg1);
-  buffer.unserialize(&m_otherArgs.arg2);
-}
-
 void ImpactPattern::setArgs(const PatternArgs& args)
 {
   HybridPattern::setArgs(args);
