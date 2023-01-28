@@ -152,7 +152,7 @@ inline LedPos operator+(LedPos &c, int b)
 {
   return (LedPos)((uint32_t)c + b);
 }
-inline LedPos& operator+=(LedPos &c, int b)
+inline LedPos &operator+=(LedPos &c, int b)
 {
   c = LedPos(((uint32_t)c) + b);
   return c;
@@ -161,7 +161,7 @@ inline LedPos operator-(LedPos &c, int b)
 {
   return (LedPos)((uint32_t)c - b);
 }
-inline LedPos& operator-=(LedPos &c, int b)
+inline LedPos &operator-=(LedPos &c, int b)
 {
   c = LedPos(((uint32_t)c) - b);
   return c;
