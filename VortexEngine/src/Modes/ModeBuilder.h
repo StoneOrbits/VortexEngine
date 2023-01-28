@@ -26,7 +26,7 @@ public:
     RGBColor c6 = RGB_OFF, RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
 
   // unserialize a mode that has just been "serialized" (optional led count)
-  static Mode *unserializeMode(ByteStream &buffer, uint32_t numLeds = LED_COUNT);
+  static Mode *unserializeMode(ByteStream &buffer);
 
   // load a mode from a mode save buffer (buffer includes metadata/version/etc)
   static Mode *loadFromBuffer(ByteStream &buffer);

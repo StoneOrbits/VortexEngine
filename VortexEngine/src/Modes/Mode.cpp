@@ -12,12 +12,26 @@
 #include "../Memory/Memory.h"
 #include "../Log/Log.h"
 
+#if FIXED_LED_COUNT == 0
+// for internal reference to the led count
+#define MODE_LEDCOUNT m_numLeds
 Mode::Mode(uint32_t numLeds) :
   m_numLeds(numLeds),
   m_ledEntries(nullptr)
 {
   setLedCount(m_numLeds);
 }
+#else
+// for internal reference to the led count
+#define MODE_LEDCOUNT LED_COUNT
+Mode::Mode() :
+  m_ledEntries()
+{
+  for (uint32_t i = 0; i < LED_COUNT; ++i) {
+    m_ledEntries[i] = nullptr;
+  }
+}
+#endif
 
 Mode::Mode(PatternID id, const Colorset &set) :
   Mode()
@@ -34,13 +48,15 @@ Mode::Mode(PatternID id, const PatternArgs &args, const Colorset &set) :
 Mode::~Mode()
 {
   clearPatterns();
+#if FIXED_LED_COUNT == 0
   free(m_ledEntries);
+#endif
 }
 
 void Mode::init()
 {
   // otherwise regular init
-  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     // grab the entry for this led and initialize it
     Pattern *entry = m_ledEntries[pos];
     if (!entry) {
@@ -52,7 +68,7 @@ void Mode::init()
 
 void Mode::play()
 {
-  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     // grab the entry for this led
     Pattern *entry = m_ledEntries[pos];
     if (!entry) {
@@ -72,8 +88,6 @@ bool Mode::saveToBuffer(ByteStream &modeBuffer) const
 {
   // serialize the engine version into the modes buffer
   VortexEngine::serializeVersion(modeBuffer);
-  // serialize the total number of leds and global brightness
-  modeBuffer.serialize(m_numLeds);
   // serialize all mode data into the modeBuffer
   serialize(modeBuffer);
   DEBUG_LOGF("Serialized mode, uncompressed size: %u", modeBuffer.size());
@@ -99,17 +113,8 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
     ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
     return false;
   }
-  uint8_t ledCount = 0;
-  // unserialize the number of leds
-  modeBuffer.unserialize(&ledCount);
-#if FIXED_LED_COUNT == 0
-  if (ledCount != m_numLeds) {
-    // adjust the internal LED count
-    setLedCount(ledCount);
-  }
-#endif
   // now just unserialize the list of patterns
-  if (!unserialize(modeBuffer, ledCount)) {
+  if (!unserialize(modeBuffer)) {
     return false;
   }
   // then initialize the mode so that it is ready to play
@@ -119,9 +124,12 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
 
 void Mode::serialize(ByteStream &buffer) const
 {
+  // serialize the number of leds
+  buffer.serialize((uint8_t)MODE_LEDCOUNT);
+  // serialize the flags
   uint32_t flags = getFlags();
   buffer.serialize(flags);
-  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     const Pattern *entry = m_ledEntries[pos];
     if (!entry) {
       continue;
@@ -135,9 +143,18 @@ void Mode::serialize(ByteStream &buffer) const
   }
 }
 
-bool Mode::unserialize(ByteStream &buffer, uint32_t numLeds)
+bool Mode::unserialize(ByteStream &buffer)
 {
   clearPatterns();
+  uint8_t ledCount = 0;
+  // unserialize the number of leds
+  buffer.unserialize(&ledCount);
+#if FIXED_LED_COUNT == 0
+  if (ledCount != m_numLeds) {
+    // adjust the internal LED count
+    setLedCount(ledCount);
+  }
+#endif
   // unserialize the flags value
   uint32_t flags = 0;
   buffer.unserialize(&flags);
@@ -157,7 +174,7 @@ bool Mode::unserialize(ByteStream &buffer, uint32_t numLeds)
     const Colorset *firstSet = firstPat->getColorset();
     PatternArgs firstArgs;
     firstPat->getArgs(firstArgs);
-    for (LedPos pos = (LedPos)(LED_FIRST + 1); pos < m_numLeds; ++pos) {
+    for (LedPos pos = (LedPos)(LED_FIRST + 1); pos < MODE_LEDCOUNT; ++pos) {
       if (!setSinglePat(pos, firstID, &firstArgs, firstSet)) {
         // fail?
         continue;
@@ -168,11 +185,11 @@ bool Mode::unserialize(ByteStream &buffer, uint32_t numLeds)
   // we already loaded led 0 so the led position starts at 1
   LedPos pos = (LedPos)(LED_FIRST + 1);
   // unserialize the rest of the leds out of the savefile which
-  // is numleds - 1 because we already loaded the first led
-  for (uint32_t i = 0; i < (numLeds - 1); ++i) {
+  // is ledCount - 1 because we already loaded the first led
+  for (uint32_t i = 0; i < (ledCount - 1); ++i) {
     Pattern *pat = PatternBuilder::unserialize(buffer);
     // if we have loaded all of our available leds
-    if (pos >= m_numLeds) {
+    if (pos >= MODE_LEDCOUNT) {
       // then just discard this pattern we cannot apply it
       delete pat;
       continue;
@@ -191,9 +208,9 @@ bool Mode::unserialize(ByteStream &buffer, uint32_t numLeds)
   // at this point if our pos isn't our LED_LAST then that means the
   // savefile had less entries in it than we can support and we need
   // to repeat those entries to fill up our slots
-  if (pos < m_numLeds) {
+  if (pos < MODE_LEDCOUNT) {
     LedPos src = LED_FIRST;
-    for(;pos < m_numLeds; ++pos) {
+    for(;pos < MODE_LEDCOUNT; ++pos) {
       Pattern *pat = m_ledEntries[src];
       if (!pat) {
         continue;
@@ -203,7 +220,7 @@ bool Mode::unserialize(ByteStream &buffer, uint32_t numLeds)
       setSinglePat(pos, pat->getPatternID(), &args, pat->getColorset());
       // increment the src led but wrap at the ledcount so for example
       // a savefile with only 3 leds saved will come out as ABCABCABCA
-      src = (LedPos)((src + 1) % numLeds);
+      src = (LedPos)((src + 1) % ledCount);
     }
   }
   return true;
@@ -215,7 +232,7 @@ void Mode::saveTemplate(int level) const
   uint32_t flags = getFlags();
   IndentMsg(level, "\"flags\": %d,", flags);
   IndentMsg(level, "\"Leds\":[");
-  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     const Pattern *entry = m_ledEntries[pos];
     if (!entry) {
       continue;
@@ -236,24 +253,35 @@ void Mode::saveTemplate(int level) const
 }
 #endif
 
+#if FIXED_LED_COUNT == 0
 // change the internal pattern count in the mode object
-void Mode::setLedCount(uint32_t numPatterns)
+void Mode::setLedCount(uint8_t numLeds)
 {
   if (m_ledEntries) {
     clearPatterns();
     free(m_ledEntries);
   }
-  m_numLeds = numPatterns;
+  m_numLeds = numLeds;
   m_ledEntries = (Pattern **)vcalloc(m_numLeds, sizeof(Pattern *));
   if (!m_ledEntries) {
     // big error
     return;
   }
 }
+#endif
+
+uint8_t Mode::getLedCount() const
+{
+#if FIXED_LED_COUNT == 0
+  return m_numLeds;
+#else
+  return LED_COUNT;
+#endif
+}
 
 const Pattern *Mode::getPattern(LedPos pos) const
 {
-  if (pos > LED_LAST) {
+  if (pos >= m_numLeds) {
     return nullptr;
   }
   return m_ledEntries[pos];
@@ -261,7 +289,7 @@ const Pattern *Mode::getPattern(LedPos pos) const
 
 Pattern *Mode::getPattern(LedPos pos)
 {
-  if (pos > LED_LAST) {
+  if (pos >= m_numLeds) {
     return nullptr;
   }
   return m_ledEntries[pos];
@@ -269,7 +297,7 @@ Pattern *Mode::getPattern(LedPos pos)
 
 const Colorset *Mode::getColorset(LedPos pos) const
 {
-  if (pos > LED_LAST || !m_ledEntries[pos]) {
+  if (pos >= m_numLeds || !m_ledEntries[pos]) {
     return nullptr;
   }
   return m_ledEntries[pos]->getColorset();
@@ -277,7 +305,7 @@ const Colorset *Mode::getColorset(LedPos pos) const
 
 Colorset *Mode::getColorset(LedPos pos)
 {
-  if (pos > LED_LAST || !m_ledEntries[pos]) {
+  if (pos >= m_numLeds || !m_ledEntries[pos]) {
     return nullptr;
   }
   return m_ledEntries[pos]->getColorset();
@@ -285,7 +313,7 @@ Colorset *Mode::getColorset(LedPos pos)
 
 PatternID Mode::getPatternID(LedPos pos) const
 {
-  if (pos > LED_LAST || !getPattern(pos)) {
+  if (pos >= m_numLeds || !getPattern(pos)) {
     return PATTERN_NONE;
   }
   return getPattern(pos)->getPatternID();
@@ -293,7 +321,7 @@ PatternID Mode::getPatternID(LedPos pos) const
 
 bool Mode::equals(const Mode *other) const
 {
-  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     // if entry is valid, do a comparison
     if (m_ledEntries[pos]) {
       // checks if other is not null and equal
@@ -318,7 +346,7 @@ bool Mode::setPattern(PatternID pat, const PatternArgs *args, const Colorset *se
     return setMultiPat(pat, args, set);
   }
   // otherwise iterate all of the LEDs and set single led patterns
-  for (LedPos p = LED_FIRST; p < m_numLeds; ++p) {
+  for (LedPos p = LED_FIRST; p < MODE_LEDCOUNT; ++p) {
     if (!setSinglePat(p, pat, args, set)) {
       ERROR_LOGF("Failed to set single pattern %u", p);
       return false;
@@ -334,7 +362,7 @@ bool Mode::setColorset(const Colorset *set)
     return true;
   }
   // otherwise set all of the colorsets
-  for (LedPos p = LED_FIRST; p < m_numLeds; ++p) {
+  for (LedPos p = LED_FIRST; p < MODE_LEDCOUNT; ++p) {
     if (!m_ledEntries[p]) {
       continue;
     }
@@ -345,7 +373,7 @@ bool Mode::setColorset(const Colorset *set)
 
 bool Mode::setColorsetAt(const Colorset *set, LedPos pos)
 {
-  if (pos >= m_numLeds || !m_ledEntries[pos]) {
+  if (pos >= MODE_LEDCOUNT || !m_ledEntries[pos]) {
     return false;
   }
   m_ledEntries[pos]->setColorset(set);
@@ -364,7 +392,7 @@ bool Mode::setSinglePat(LedPos pos, PatternID pat, const PatternArgs *args, cons
 
 bool Mode::setSinglePat(LedPos pos, SingleLedPattern *pat, const Colorset *set)
 {
-  if (!pat || pos >= m_numLeds) {
+  if (!pat || pos >= MODE_LEDCOUNT) {
     return false;
   }
   // bind the position and colorset, if the colorset is missing then just
@@ -437,7 +465,7 @@ bool Mode::isSameSingleLed() const
   if (isMultiLed()) {
     return false;
   }
-  for (uint32_t i = LED_FIRST + 1; i < m_numLeds; ++i) {
+  for (uint32_t i = LED_FIRST + 1; i < MODE_LEDCOUNT; ++i) {
     // if any don't match 0 then no good
     if (!m_ledEntries[i] || !m_ledEntries[i]->equals(m_ledEntries[0])) {
       return false;
@@ -452,7 +480,7 @@ void Mode::clearPatterns()
   if (!m_ledEntries) {
     return;
   }
-  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     clearPattern(pos);
   }
 }
@@ -468,7 +496,7 @@ void Mode::clearPattern(LedPos pos)
 
 void Mode::clearColorsets()
 {
-  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     if (!m_ledEntries[pos]) {
       continue;
     }

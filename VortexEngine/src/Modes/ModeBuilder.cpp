@@ -41,7 +41,7 @@ Mode *ModeBuilder::make(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
   return make(id, nullptr, &set);
 }
 
-Mode *ModeBuilder::unserializeMode(ByteStream &buffer, uint32_t numLeds)
+Mode *ModeBuilder::unserializeMode(ByteStream &buffer)
 {
   // create the new mode object
   Mode *newMode = new Mode();
@@ -50,7 +50,7 @@ Mode *ModeBuilder::unserializeMode(ByteStream &buffer, uint32_t numLeds)
     return nullptr;
   }
   // make sure the mode unserializes
-  if (!newMode->unserialize(buffer, numLeds)) {
+  if (!newMode->unserialize(buffer)) {
     delete newMode;
     return nullptr;
   }

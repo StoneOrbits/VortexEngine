@@ -70,8 +70,7 @@ bool Modes::saveToBuffer(ByteStream &modesBuffer)
 {
   // serialize the engine version into the modes buffer
   VortexEngine::serializeVersion(modesBuffer);
-  // serialize the total number of leds and global brightness
-  modesBuffer.serialize((uint8_t)LED_COUNT);
+  // serialize the global brightness
   modesBuffer.serialize((uint8_t)Leds::getBrightness());
   // serialize all modes data into the modesBuffer
   serialize(modesBuffer);
@@ -102,9 +101,6 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
     ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
     return false;
   }
-  uint8_t ledCount = 0;
-  // unserialize the number of leds
-  modesBuffer.unserialize(&ledCount);
   // unserialize the global brightness
   uint8_t brightness = 0;
   modesBuffer.unserialize(&brightness);
@@ -112,7 +108,7 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
     Leds::setBrightness(brightness);
   }
   // now just unserialize the list of modes
-  return unserialize(modesBuffer, ledCount);
+  return unserialize(modesBuffer);
 }
 
 bool Modes::loadStorage()
@@ -173,7 +169,7 @@ void Modes::serialize(ByteStream &modesBuffer)
 }
 
 // load all modes from a serial buffer
-bool Modes::unserialize(ByteStream &modesBuffer, uint32_t numLeds)
+bool Modes::unserialize(ByteStream &modesBuffer)
 {
   DEBUG_LOG("Loading modes...");
   // this is good on memory, but it erases what they have stored before we
@@ -192,7 +188,7 @@ bool Modes::unserialize(ByteStream &modesBuffer, uint32_t numLeds)
     // just copy the serialized mode into the internal storage because
     // we store the modes in a serialized manner so that they are smaller
     // then we unpack them when we instantiate the mode
-    if (!addSerializedMode(modesBuffer, numLeds)) {
+    if (!addSerializedMode(modesBuffer)) {
       DEBUG_LOGF("Failed to add mode %u after unserialization", i);
       // clear work so far?
       clearModes();
@@ -272,7 +268,7 @@ bool Modes::addSerializedMode(ByteStream &serializedMode, uint32_t numLeds)
   // we must unserialize then re-serialize here because the
   // input argument may contain other patterns in the buffer
   // so we cannot just assign the input arg to m_serializedModes
-  Mode *mode = ModeBuilder::unserializeMode(serializedMode, numLeds);
+  Mode *mode = ModeBuilder::unserializeMode(serializedMode);
   if (!mode) {
     DEBUG_LOG("Failed to unserialize mode");
     return false;
