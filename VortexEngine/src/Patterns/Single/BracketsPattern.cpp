@@ -65,22 +65,6 @@ void BracketsPattern::play()
   }
 }
 
-void BracketsPattern::serialize(ByteStream &buffer) const
-{
-  SingleLedPattern::serialize(buffer);
-  buffer.serialize(m_bracketDuration);
-  buffer.serialize(m_midDuration);
-  buffer.serialize(m_offDuration);
-}
-
-void BracketsPattern::unserialize(ByteStream &buffer)
-{
-  SingleLedPattern::unserialize(buffer);
-  buffer.unserialize(&m_bracketDuration);
-  buffer.unserialize(&m_midDuration);
-  buffer.unserialize(&m_offDuration);
-}
-
 void BracketsPattern::setArgs(const PatternArgs &args)
 {
   SingleLedPattern::setArgs(args);

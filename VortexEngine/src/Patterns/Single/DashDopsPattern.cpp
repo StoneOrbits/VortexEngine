@@ -71,24 +71,6 @@ void DashDopsPattern::play()
   }
 }
 
-// must override the serialize routine to save the pattern
-void DashDopsPattern::serialize(ByteStream& buffer) const
-{
-  SingleLedPattern::serialize(buffer);
-  buffer.serialize(m_dashDuration);
-  buffer.serialize(m_dotDuration);
-  buffer.serialize(m_offDuration);
-}
-
-// must override unserialize to load patterns
-void DashDopsPattern::unserialize(ByteStream& buffer)
-{
-  SingleLedPattern::unserialize(buffer);
-  buffer.unserialize(&m_dashDuration);
-  buffer.unserialize(&m_dotDuration);
-  buffer.unserialize(&m_offDuration);
-}
-
 void DashDopsPattern::setArgs(const PatternArgs &args)
 {
   SingleLedPattern::setArgs(args);
