@@ -39,7 +39,7 @@ void RabbitPattern::init()
   }
 }
 
-void RabbitPattern::setArgs(const PatternArgs& args)
+void RabbitPattern::setArgs(const PatternArgs &args)
 {
   HybridPattern::setArgs(args);
   m_tipArgs.arg1 = args.arg1;
@@ -50,7 +50,7 @@ void RabbitPattern::setArgs(const PatternArgs& args)
   m_topArgs.arg3 = args.arg6;
 }
 
-void RabbitPattern::getArgs(PatternArgs& args) const
+void RabbitPattern::getArgs(PatternArgs &args) const
 {
   HybridPattern::getArgs(args);
   args.arg1 = m_tipArgs.arg1;

@@ -21,7 +21,7 @@ void LedStash::clear()
 }
 
 // index operator to access color index
-RGBColor& LedStash::operator[](int index)
+RGBColor &LedStash::operator[](int index)
 {
   return m_ledColorsStash[index];
 }

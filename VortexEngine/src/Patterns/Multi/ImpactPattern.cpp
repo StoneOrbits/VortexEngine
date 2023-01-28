@@ -50,7 +50,7 @@ void ImpactPattern::init()
   setPatternAt(PINKIE_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &fourthSet);
 }
 
-void ImpactPattern::setArgs(const PatternArgs& args)
+void ImpactPattern::setArgs(const PatternArgs &args)
 {
   HybridPattern::setArgs(args);
   m_thumbArgs.arg1 = args.arg1;
@@ -61,7 +61,7 @@ void ImpactPattern::setArgs(const PatternArgs& args)
   m_otherArgs.arg2 = args.arg6;
 }
 
-void ImpactPattern::getArgs(PatternArgs& args) const
+void ImpactPattern::getArgs(PatternArgs &args) const
 {
   HybridPattern::getArgs(args);
   args.arg1 = m_thumbArgs.arg1;

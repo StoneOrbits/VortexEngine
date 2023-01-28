@@ -54,13 +54,13 @@ void BouncePattern::poststep()
   }
 }
 
-void BouncePattern::setArgs(const PatternArgs& args)
+void BouncePattern::setArgs(const PatternArgs &args)
 {
   BlinkStepPattern::setArgs(args);
   m_fadeAmount = args.arg4;
 }
 
-void BouncePattern::getArgs(PatternArgs& args) const
+void BouncePattern::getArgs(PatternArgs &args) const
 {
   BlinkStepPattern::getArgs(args);
   args.arg4 = m_fadeAmount;

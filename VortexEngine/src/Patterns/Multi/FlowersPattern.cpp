@@ -47,7 +47,7 @@ void FlowersPattern::init()
   setPatternAt(RING_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstPatternArgs), &midSet);
 }
 
-void FlowersPattern::setArgs(const PatternArgs& args)
+void FlowersPattern::setArgs(const PatternArgs &args)
 {
   HybridPattern::setArgs(args);
   m_firstPatternArgs.arg1 = args.arg1;
@@ -58,7 +58,7 @@ void FlowersPattern::setArgs(const PatternArgs& args)
   m_secondPatternArgs.arg3 = args.arg6;
 }
 
-void FlowersPattern::getArgs(PatternArgs& args) const
+void FlowersPattern::getArgs(PatternArgs &args) const
 {
   HybridPattern::getArgs(args);
   args.arg1 = m_firstPatternArgs.arg1;
