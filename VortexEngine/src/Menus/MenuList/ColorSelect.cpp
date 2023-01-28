@@ -140,7 +140,7 @@ void ColorSelect::onShortClick2()
       // clear all leds because we went to the next page
       Leds::clearAll();
       // if we are moving backwards from the first slot in a 4 color set
-    } else if (m_curSelection == QUADRANT_5 && m_curPage > 0) {
+    } else if (m_curSelection == QUADRANT_5) {
       m_curSelection = (Quadrant)((m_colorset.numColors() + 1) % PAGE_SIZE);
       Leds::clearAll();
     }

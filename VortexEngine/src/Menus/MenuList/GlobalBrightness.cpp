@@ -34,7 +34,7 @@ bool GlobalBrightness::run()
 
   // display brightnesses on each finger
   for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_4; ++f) {
-    Leds::setQuadrant(f, HSVColor(0, 0, m_brightnessOptions[f] * 5 + (f * 10)));
+    Leds::setQuadrant(f, HSVColor(0, 0, m_brightnessOptions[f]));
   }
 
   // blink the current selection
