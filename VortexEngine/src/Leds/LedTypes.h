@@ -116,7 +116,7 @@ typedef uint64_t LedMap;
 // set a single led
 inline void setLed(LedMap map, LedPos pos)
 {
-  if (pos < LED_COUNT) map |= (1 << pos);
+  if (pos < LED_COUNT) map |= (1ull << pos);
 }
 // set a single finger
 inline void setFinger(LedMap map, Finger finger)
@@ -128,7 +128,7 @@ inline void setFinger(LedMap map, Finger finger)
 // check if an led is set in the map
 inline bool checkLed(LedMap map, LedPos pos)
 {
-  return ((map & (1 << pos)) != 0);
+  return ((map & (1ull << pos)) != 0);
 }
 // check if a finger is set in the map (both leds)
 inline bool checkFinger(LedMap map, Finger finger)
