@@ -13,7 +13,7 @@ RabbitPattern::RabbitPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t 
   m_patternID = PATTERN_RABBIT;
 }
 
-RabbitPattern::RabbitPattern(const PatternArgs& args) :
+RabbitPattern::RabbitPattern(const PatternArgs &args) :
   RabbitPattern()
 {
   setArgs(args);
