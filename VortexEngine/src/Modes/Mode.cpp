@@ -9,11 +9,14 @@
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Colors/Colorset.h"
+#include "../Memory/Memory.h"
 #include "../Log/Log.h"
 
-Mode::Mode() :
-  m_ledEntries()
+Mode::Mode(uint32_t numLeds) :
+  m_numLeds(numLeds),
+  m_ledEntries(nullptr)
 {
+  setLedCount(m_numLeds);
 }
 
 Mode::Mode(PatternID id, const Colorset &set) :
@@ -31,6 +34,7 @@ Mode::Mode(PatternID id, const PatternArgs &args, const Colorset &set) :
 Mode::~Mode()
 {
   clearPatterns();
+  free(m_ledEntries);
 }
 
 void Mode::init()
@@ -232,6 +236,21 @@ void Mode::saveTemplate(int level) const
 }
 #endif
 
+// change the internal pattern count in the mode object
+void Mode::setLedCount(uint32_t numPatterns)
+{
+  if (m_ledEntries) {
+    clearPatterns();
+    free(m_ledEntries);
+  }
+  m_numLeds = numPatterns;
+  m_ledEntries = (Pattern **)vcalloc(m_numLeds, sizeof(Pattern *));
+  if (!m_ledEntries) {
+    // big error
+    return;
+  }
+}
+
 const Pattern *Mode::getPattern(LedPos pos) const
 {
   if (pos > LED_LAST) {
@@ -311,7 +330,7 @@ bool Mode::setPattern(PatternID pat, const PatternArgs *args, const Colorset *se
 bool Mode::setColorset(const Colorset *set)
 {
   if (isMultiLed()) {
-    m_multiPat->setColorset(set);
+    m_ledEntries[0]->setColorset(set);
     return true;
   }
   // otherwise set all of the colorsets
@@ -385,7 +404,7 @@ bool Mode::setMultiPat(MultiLedPattern *pat, const Colorset *set)
   // clear any stored patterns
   clearPatterns();
   // update the multi pattern
-  m_multiPat = pat;
+  m_ledEntries[0] = pat;
   return true;
 }
 
@@ -440,7 +459,7 @@ void Mode::clearPatterns()
 
 void Mode::clearPattern(LedPos pos)
 {
-  if (!m_ledEntries[pos]) {
+  if (!m_ledEntries || !m_ledEntries[pos]) {
     return;
   }
   delete m_ledEntries[pos];
