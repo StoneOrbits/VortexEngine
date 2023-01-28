@@ -45,6 +45,38 @@ Mode::Mode(PatternID id, const PatternArgs &args, const Colorset &set) :
   setPattern(id, &args, &set);
 }
 
+Mode::Mode(PatternID id, const PatternArgs *args, const Colorset *set) :
+  Mode()
+{
+  setPattern(id, args, set);
+}
+
+Mode::Mode(ByteStream &buffer) :
+  Mode()
+{
+  // make sure the mode unserializes
+  if (!unserialize(buffer)) {
+    // if not, clear I guess?
+    clearPatterns();
+  }
+}
+
+Mode::Mode(const Mode *other) :
+  Mode()
+{
+  if (!other) {
+    return;
+  }
+  setLedCount(other->m_numLeds);
+  for (uint32_t i = 0; i < other->m_numLeds; ++i) {
+    Pattern *otherPat = other->m_ledEntries[i];
+    if (!otherPat) {
+      continue;
+    }
+    m_ledEntries[i] = PatternBuilder::dupe(otherPat);
+  }
+}
+
 Mode::~Mode()
 {
   clearPatterns();
@@ -326,6 +358,12 @@ PatternID Mode::getPatternID(LedPos pos) const
 
 bool Mode::equals(const Mode *other) const
 {
+  if (!other) {
+    return false;
+  }
+  if (other->m_numLeds != m_numLeds) {
+    return false;
+  }
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     // if entry is valid, do a comparison
     if (m_ledEntries[pos]) {

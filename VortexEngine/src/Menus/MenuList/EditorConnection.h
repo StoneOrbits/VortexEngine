@@ -7,6 +7,9 @@
 
 class EditorConnection : public Menu
 {
+#ifdef TEST_FRAMEWORK
+  friend class TestFramework;
+#endif
 public:
   EditorConnection();
   ~EditorConnection();

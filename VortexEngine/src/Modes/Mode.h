@@ -35,6 +35,9 @@ public:
 #endif
   Mode(PatternID id, const Colorset &set);
   Mode(PatternID id, const PatternArgs &args, const Colorset &set);
+  Mode(PatternID id, const PatternArgs *args, const Colorset *set);
+  Mode(ByteStream &stream);
+  Mode(const Mode *other);
   virtual ~Mode();
 
   // initialize the mode to initial state

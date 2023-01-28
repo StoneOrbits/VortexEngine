@@ -231,6 +231,21 @@ bool Menus::openMenu(uint32_t index)
   return true;
 }
 
+bool Menus::checkOpen()
+{
+  return m_menuState != MENU_STATE_NOT_OPEN;
+}
+
+Menu *Menus::curMenu()
+{
+  return m_pCurMenu;
+}
+
+MenuEntries Menus::curMenuID()
+{
+  return (MenuEntries)m_selection;
+}
+
 void Menus::closeCurMenu()
 {
   if (m_pCurMenu) {

@@ -10,7 +10,6 @@
 #include "../Colors/Colorset.h"
 #include "../Storage/Storage.h"
 #include "../Buttons/Buttons.h"
-#include "../Modes/ModeBuilder.h"
 #include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
@@ -162,13 +161,11 @@ void Modes::serialize(ByteStream &modesBuffer)
   // iterate all of the modes and copy their serial data into the modesBuffer
   for (uint32_t i = 0; i < m_numModes; ++i) {
     // load the mode and initialize it
-    Mode *tmpMode = ModeBuilder::loadFromBuffer(m_serializedModes[i]);
-    if (!tmpMode) {
-      continue;
-    }
+    Mode tmpMode(m_serializedModes[i]);
+    // initialize before serializing the data
+    tmpMode.init();
     // serialize it into the modes buffer
-    tmpMode->serialize(modesBuffer);
-    delete tmpMode;
+    tmpMode.serialize(modesBuffer);
   }
   DEBUG_LOGF("Serialized num modes: %u", m_numModes);
 }
@@ -273,18 +270,14 @@ bool Modes::addSerializedMode(ByteStream &serializedMode, uint32_t numLeds)
   // we must unserialize then re-serialize here because the
   // input argument may contain other patterns in the buffer
   // so we cannot just assign the input arg to m_serializedModes
-  Mode *mode = ModeBuilder::unserializeMode(serializedMode);
-  if (!mode) {
-    DEBUG_LOG("Failed to unserialize mode");
-    return false;
-  }
+  Mode tmpMode(serializedMode);
+  // initialize the mode
+  tmpMode.init();
   m_serializedModes[m_numModes].clear();
   // re-serialize the mode into the storage buffer
-  mode->saveToBuffer(m_serializedModes[m_numModes]);
+  tmpMode.saveToBuffer(m_serializedModes[m_numModes]);
   // increment mode counter
   m_numModes++;
-  // clean up the mode we used
-  delete mode;
   return true;
 }
 
@@ -376,19 +369,15 @@ bool Modes::addMode(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
 bool Modes::addMode(PatternID id, const PatternArgs *args, const Colorset *set)
 {
   // max modes
-  if (m_numModes >= MAX_MODES || id > PATTERN_LAST || !set) {
+  if (m_numModes >= MAX_MODES || id > PATTERN_LAST) {
     return false;
   }
-  Mode *mode = ModeBuilder::make(id, args, set);
-  if (!mode) {
-    return false;
-  }
+  Mode tmpMode(id, args, set);
   // must init the mode so that it can be serialized
-  mode->init();
+  tmpMode.init();
   // not a very good way to do this but it ensures the mode is
   // added in the same way
-  addMode(mode);
-  delete mode;
+  addMode(&tmpMode);
   return true;
 }
 
@@ -554,7 +543,11 @@ bool Modes::initCurMode(bool force)
   m_serializedModes[m_curMode].resetUnserializer();
   DEBUG_LOGF("Current Mode size: %u", m_serializedModes[m_curMode].size());
   // use the mode builder to unserialize the mode
-  m_pCurMode = ModeBuilder::loadFromBuffer(m_serializedModes[m_curMode]);
+  m_pCurMode = new Mode(m_serializedModes[m_curMode]);
+  if (!m_pCurMode) {
+    // failure
+    return false;
+  }
   // re-compress the buffer because loadFromBuffer will decompress it
   m_serializedModes[m_curMode].compress();
   if (!m_pCurMode) {
