@@ -61,22 +61,6 @@ void TracerPattern::play()
   }
 }
 
-// must override the serialize routine to save the pattern
-void TracerPattern::serialize(ByteStream &buffer) const
-{
-  SingleLedPattern::serialize(buffer);
-  buffer.serialize(m_tracerDuration);
-  buffer.serialize(m_dotDuration);
-}
-
-// must override unserialize to load patterns
-void TracerPattern::unserialize(ByteStream &buffer)
-{
-  SingleLedPattern::unserialize(buffer);
-  buffer.unserialize(&m_tracerDuration);
-  buffer.unserialize(&m_dotDuration);
-}
-
 void TracerPattern::setArgs(const PatternArgs &args)
 {
   SingleLedPattern::setArgs(args);

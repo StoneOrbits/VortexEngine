@@ -98,22 +98,6 @@ void AdvancedPattern::onBlinkOff()
   }
 }
 
-void AdvancedPattern::serialize(ByteStream &buffer) const
-{
-  BasicPattern::serialize(buffer);
-  buffer.serialize(m_groupSize);
-  buffer.serialize(m_skipCols);
-  buffer.serialize(m_repeatGroup);
-}
-
-void AdvancedPattern::unserialize(ByteStream &buffer)
-{
-  BasicPattern::unserialize(buffer);
-  buffer.unserialize(&m_groupSize);
-  buffer.unserialize(&m_skipCols);
-  buffer.unserialize(&m_repeatGroup);
-}
-
 void AdvancedPattern::setArgs(const PatternArgs &args)
 {
   BasicPattern::setArgs(args);
