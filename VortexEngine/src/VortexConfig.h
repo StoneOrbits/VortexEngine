@@ -231,7 +231,7 @@
 //
 // NOTE: This does not touch the 'leds' class itself it only adjusts whether
 //       a mode will stretch it's list of patterns to match the number of leds
-#define FIXED_LED_COUNT       0
+#define FIXED_LED_COUNT       1
 
 // Compression Test
 //
@@ -319,5 +319,16 @@
 #undef DEFAULT_BRIGHTNESS
 #define DEFAULT_BRIGHTNESS 255
 
+#undef FIXED_LED_COUNT
+#define FIXED_LED_COUNT 0
+
 #endif // TEST_FRAMEWORK
+
+#ifdef EDITOR_FRAMEWORK
+
+#undef FIXED_LED_COUNT
+#define FIXED_LED_COUNT 0
+
+#endif
+
 #endif // VORTEX_CONFIG_H
