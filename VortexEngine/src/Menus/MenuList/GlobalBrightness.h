@@ -20,7 +20,7 @@ public:
 
 private:
   // the four preset brightness options
-  const uint32_t m_brightnessOptions[4] = { 50, 40, 30, 20 };
+  const uint32_t m_brightnessOptions[4] = { 20, 65, 110, 155 };
 };
 
 #endif
