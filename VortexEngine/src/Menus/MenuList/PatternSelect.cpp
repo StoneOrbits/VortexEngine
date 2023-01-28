@@ -180,12 +180,3 @@ void PatternSelect::onLongClick2()
 {
   leaveMenu();
 }
-
-void PatternSelect::showExit()
-{
-  // don't show the exit when picking pattern
-  if (m_state == STATE_PICK_PATTERN) {
-    return;
-  }
-  Menu::showExit();
-}

@@ -56,8 +56,6 @@ bool Menu::run()
     // yep close
     return false;
   }
-  // show the exit on thumb
-  showExit();
   // continue as normal
   return true;
 }
@@ -123,9 +121,4 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
         offMs, onMs, blinkCol);
       break;
   }
-}
-
-void Menu::showExit()
-{
-  //Leds::setQuadrantFive(RGB_DARK_RED);
 }

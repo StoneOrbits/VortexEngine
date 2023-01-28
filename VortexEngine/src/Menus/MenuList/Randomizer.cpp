@@ -139,8 +139,3 @@ bool Randomizer::reRoll()
     randType, randomSet.numColors(), randomPattern);
   return true;
 }
-
-// override showExit so it isn't displayed on thumb
-void Randomizer::showExit()
-{
-}
