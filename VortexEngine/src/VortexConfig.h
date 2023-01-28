@@ -151,9 +151,9 @@
 #define HSV_TO_RGB_ALGORITHM   3
 
 // IR Receiver Time-out Duration (ms)
-// 
-// This is the amount of time in ms for the IR receiver to wait 
-// before reseting itself in the case that communication gets 
+//
+// This is the amount of time in ms for the IR receiver to wait
+// before reseting itself in the case that communication gets
 // interrupted.
 #define IR_RECEIVER_TIMEOUT_DURATION 1000
 

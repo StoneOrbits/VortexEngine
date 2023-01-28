@@ -28,7 +28,7 @@ void JestPattern::init()
   HybridPattern::init();
 
   // advanced pattern args for tips/tops
-  setPatternAt(THUMB_TIP, PATTERN_ADVANCED, &m_tipArgs); 
+  setPatternAt(THUMB_TIP, PATTERN_ADVANCED, &m_tipArgs);
   setPatternAt(INDEX_TIP, PATTERN_ADVANCED, &m_tipArgs);
   setPatternAt(MIDDLE_TIP, PATTERN_ADVANCED, &m_tipArgs);
   setPatternAt(RING_TIP, PATTERN_ADVANCED, &m_tipArgs);

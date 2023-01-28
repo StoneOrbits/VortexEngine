@@ -23,4 +23,4 @@ private:
   PatternArgs m_secondPatternArgs;
 };
 
-#endif 
+#endif

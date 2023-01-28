@@ -66,7 +66,7 @@ void Colorset::operator=(const Colorset &other)
 bool Colorset::operator==(const Colorset &other) const
 {
   // only compare the palettes for equality
-  return (m_numColors == other.m_numColors) && 
+  return (m_numColors == other.m_numColors) &&
          (memcmp(m_palette, other.m_palette, m_numColors * sizeof(RGBColor)) == 0);
 }
 
@@ -75,7 +75,7 @@ bool Colorset::operator!=(const Colorset &other) const
   return !operator==(other);
 }
 
-void Colorset::init(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4, 
+void Colorset::init(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
   RGBColor c5, RGBColor c6, RGBColor c7, RGBColor c8)
 {
   // clear any existing colors
@@ -131,7 +131,7 @@ bool Colorset::addColor(RGBColor col)
   // if there is already some colors in the palette
   if (m_numColors && m_palette) {
     // copy over existing colors
-    for (uint32_t i = 0; i < m_numColors; ++i) { 
+    for (uint32_t i = 0; i < m_numColors; ++i) {
       temp[i] = m_palette[i];
     }
     // and delete the existing palette

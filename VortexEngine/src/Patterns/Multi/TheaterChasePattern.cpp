@@ -26,7 +26,7 @@ TheaterChasePattern::TheaterChasePattern(const PatternArgs &args) :
 TheaterChasePattern::~TheaterChasePattern()
 {
 }
-  
+
 void TheaterChasePattern::init()
 {
   BlinkStepPattern::init();

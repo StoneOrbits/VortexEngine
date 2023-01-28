@@ -183,13 +183,13 @@ void IRSender::initPWM()
   ETCChannel IR_TCC_Channel = TCC0_CH0;
   int8_t IR_PER_EorF = PORT_PMUX_PMUXE_E;
   //println();Serial.print("Port:"); Serial.print(port,DEC); Serial.print(" Pin:"); Serial.println(pin,DEC);
-  // Enable the port multiplexer for the PWM channel on pin   
+  // Enable the port multiplexer for the PWM channel on pin
   PORT->Group[port].PINCFG[pin].bit.PMUXEN = 1;
-  
-  // Connect the TCC timer to the port outputs - port pins are paired odd PMUXO and even PMUXEII 
+
+  // Connect the TCC timer to the port outputs - port pins are paired odd PMUXO and even PMUXEII
   // F & E peripherals specify the timers: TCC0, TCC1 and TCC2
-  PORT->Group[port].PMUX[pin >> 1].reg |= IR_PER_EorF; 
-  
+  PORT->Group[port].PMUX[pin >> 1].reg |= IR_PER_EorF;
+
 //  pinPeripheral (IR_SEND_PWM_PIN,PIO_TIMER_ALT);
   // Feed GCLK0 to TCC0 and TCC1
   REG_GCLK_CLKCTRL = GCLK_CLKCTRL_CLKEN |       // Enable GCLK0 to TCC0 and TCC1
@@ -197,7 +197,7 @@ void IRSender::initPWM()
                      GCLK_CLKCTRL_ID_TCC0_TCC1; // Feed GCLK0 to TCC0 and TCC1
   while (GCLK->STATUS.bit.SYNCBUSY);            // Wait for synchronization
 
-  // Normal (single slope) PWM operation: timers countinuously count up to PER 
+  // Normal (single slope) PWM operation: timers countinuously count up to PER
   // register value and then is reset to 0
   IR_TCCx = (Tcc*) GetTC(IR_TCC_Channel);
   IR_TCCx->WAVE.reg |= TCC_WAVE_WAVEGEN_NPWM;   // Setup single slope PWM on TCCx
@@ -209,9 +209,9 @@ void IRSender::initPWM()
   IR_TCCx->PER.reg = cc;      // Set the frequency of the PWM on IR_TCCx
   while(IR_TCCx->SYNCBUSY.bit.PER);
 
-  // The CCx register value corresponds to the pulsewidth in microseconds (us) 
+  // The CCx register value corresponds to the pulsewidth in microseconds (us)
   // Set the duty cycle of the PWM on TCC0 to 33%
-  IR_TCCx->CC[GetTCChannelNumber(IR_TCC_Channel)].reg = cc/3;      
+  IR_TCCx->CC[GetTCChannelNumber(IR_TCC_Channel)].reg = cc/3;
   while (IR_TCCx->SYNCBUSY.reg & TCC_SYNCBUSY_MASK);
   //while(IR_TCCx->SYNCBUSY.bit.CC3);
 

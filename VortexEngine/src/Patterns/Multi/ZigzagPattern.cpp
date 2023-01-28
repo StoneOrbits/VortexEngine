@@ -52,11 +52,11 @@ ZigzagPattern::ZigzagPattern(const PatternArgs &args) :
   ZigzagPattern()
 {
   setArgs(args);
-  // WORKAROUND: 
+  // WORKAROUND:
   //  Unfortunately snakesize and fadeamount cannot be set/get through
   //  the setArgs and getArgs apis which means they are not exposed as
   //  params beyond the constructor above. Because of this we need to
-  //  manually handle snakeSize and fadeAmount in order to properly 
+  //  manually handle snakeSize and fadeAmount in order to properly
   //  construct a ZigZag pattern from PatternArgs
   m_snakeSize = args.arg4;
   m_fadeAmount = args.arg5;
@@ -85,7 +85,7 @@ void ZigzagPattern::init()
 void ZigzagPattern::play()
 {
   // when the step timer triggers
-  if (m_stepTimer.alarm() == 0) {  
+  if (m_stepTimer.alarm() == 0) {
     m_snake1.step();
     m_snake2.step();
   }
@@ -206,7 +206,7 @@ void ZigzagPattern::Snake::drawSnake()
     Leds::setIndex(ledStepPositions[segment_position], col);
     // if this segment is on the step where the color changes
     if (segment_position == m_changeBoundary) {
-      // then decrement the color index for the rest of the snake so that the 
+      // then decrement the color index for the rest of the snake so that the
       // tail of the snake has the old color till it reaches the change point
       colIndex--;
     }

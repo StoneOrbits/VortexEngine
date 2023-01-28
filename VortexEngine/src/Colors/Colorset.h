@@ -50,7 +50,7 @@ public:
   bool addColorByHueRandSV(uint8_t hue);
   void removeColor(uint32_t index);
 
-  // randomize a colorset with a specific number of colors with 
+  // randomize a colorset with a specific number of colors with
   // various different randomization techniques
   void randomize(uint32_t numColors = 0);
   void randomizeColorTheory(uint32_t numColors = 0);

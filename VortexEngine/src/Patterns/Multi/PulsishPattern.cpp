@@ -66,7 +66,7 @@ void PulsishPattern::play()
   case 0: // turn on the leds
     for (Finger finger = FINGER_FIRST; finger < FINGER_COUNT; ++finger) {
       if (finger != m_progress) {
-        Leds::setFinger(finger, m_colorset.cur());        
+        Leds::setFinger(finger, m_colorset.cur());
       }
     }
     m_colorset.skip();

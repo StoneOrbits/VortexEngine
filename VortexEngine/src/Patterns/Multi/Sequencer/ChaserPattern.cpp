@@ -21,9 +21,9 @@ ChaserPattern::ChaserPattern() :
     // Override a single finger in the pattern map with the Solid0 pattern
     // which will use the 0th color from the colorset as the solid color.
     // An LedMap is a bitmap that indicates which leds are turned on or off
-    // at any given time. This will generate an Led Map based on the current 
+    // at any given time. This will generate an Led Map based on the current
     // step index like this:
-    // 
+    //
     //  step -> finger index -> target leds -> LedMap
     // -----------------------------------------------------
     //     0         0             0, 1        00 00 00 00 11
@@ -40,7 +40,7 @@ ChaserPattern::ChaserPattern() :
     // setPatternAt() which indices to override with Solid0
     patMap.setPatternAt(PATTERN_SOLID, overrideLeds);
     // Then finally we add this pattern mapping to the sequence in a new step
-    // that will last 300ms, this means all 8 steps will be 300ms each. 
+    // that will last 300ms, this means all 8 steps will be 300ms each.
     // The last parameter of addStep() is omitted, that parameter could be used
     // to override the colorset for specific Leds on any given step. Since it
     // is omitted that means this pattern will use whichever colorset is chosen

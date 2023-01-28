@@ -18,10 +18,10 @@
  *     is too much like the previous menu before it
  *   - timers for auto demo? auto random?
  *   - TODO: implement last arg of bounce in gloves
- * 
+ *
  *   - Editor!
  *   - global brightness slider in editor? - tools > brightness
- *   - refactor message pump for editor to solve issue with editor 
+ *   - refactor message pump for editor to solve issue with editor
  *     parsing handshake properly, need to split messages, need delimiter
  *     otherwise if you disconenct, reconnect and press button it parses them all
  *     in the parsehandshake function and will only see the goodbye

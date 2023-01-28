@@ -33,7 +33,7 @@ protected:
   void clearPatterns();
 
   // change the patterns on the tips/tops respectively
-  void setTipsTops(PatternID tipPattern, PatternID topPattern, 
+  void setTipsTops(PatternID tipPattern, PatternID topPattern,
     const PatternArgs *tipArgs = nullptr, const PatternArgs *topArgs = nullptr);
 
   // array of single LED patterns, one for each LED

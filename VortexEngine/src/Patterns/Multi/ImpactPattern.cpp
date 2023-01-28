@@ -34,7 +34,7 @@ void ImpactPattern::init()
   Colorset middleSet(m_colorset.get(1));
   Colorset thirdSet(m_colorset.get(2));
   Colorset fourthSet(m_colorset.get(3), m_colorset.get(4), m_colorset.get(5), m_colorset.get(6), m_colorset.get(7));
-  
+
   setPatternAt(THUMB_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_thumbArgs), &thumbSet);
   setPatternAt(THUMB_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_thumbArgs), &thumbSet);
 
@@ -44,10 +44,10 @@ void ImpactPattern::init()
   setPatternAt(INDEX_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
   setPatternAt(RING_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
   setPatternAt(PINKIE_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
-  
+
   setPatternAt(INDEX_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &fourthSet);
   setPatternAt(RING_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &fourthSet);
-  setPatternAt(PINKIE_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &fourthSet);  
+  setPatternAt(PINKIE_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &fourthSet);
 }
 
 void ImpactPattern::setArgs(const PatternArgs& args)

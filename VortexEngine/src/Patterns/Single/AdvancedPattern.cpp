@@ -82,7 +82,7 @@ void AdvancedPattern::endGap()
 
 void AdvancedPattern::onBasicEnd()
 {
-  // This is overridding BasicPattern::onBasicEnd so that we don't run 
+  // This is overridding BasicPattern::onBasicEnd so that we don't run
   // default basic pattern logic which is responsible for triggering gaps
   // because we will be inserting the gap in other places ourselves.
 }

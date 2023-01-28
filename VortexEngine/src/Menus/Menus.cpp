@@ -151,7 +151,7 @@ bool Menus::runCurMenu()
     m_pCurMenu->onLongClick();
   }
 
-  // if the menu run handler returns false that signals the 
+  // if the menu run handler returns false that signals the
   // menu was closed by the user leaving the menu
   if (!m_pCurMenu->run()) {
     // close the current menu when run returns false

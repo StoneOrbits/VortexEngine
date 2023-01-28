@@ -27,7 +27,7 @@ void FlowersPattern::init()
 {
   // call base hybrid pattern init to actually initialize sub patterns
   HybridPattern::init();
-  
+
   // split colorset
   Colorset sideSet(m_colorset.get(0), m_colorset.get(1));
   Colorset midSet(m_colorset.get(2), m_colorset.get(3));

@@ -47,7 +47,7 @@ public:
   static void setRangeTops(Finger first, Finger last, RGBColor);
   static void setAllTops(RGBColor col);
 
-  // Turn off tips 
+  // Turn off tips
   static void clearRangeTips(Finger first, Finger last);
   static void clearAllTips();
   // Turn off tops
@@ -60,10 +60,10 @@ public:
 
   // stores Led for later use
   static void stashAll(LedStash &stash);
-  
+
   // restores Leds from stash
   static void restoreAll(const LedStash &stash);
- 
+
   // Dim individual LEDs, these are appropriate to use in internal pattern logic
   static void adjustBrightnessIndex(LedPos target, uint8_t fadeBy);
   static void adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy);

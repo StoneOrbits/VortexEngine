@@ -28,7 +28,7 @@ protected:
 private:
   // the fade amount
   uint8_t m_fadeAmount;
-  
+
   LedStash m_stash;
 };
 #endif

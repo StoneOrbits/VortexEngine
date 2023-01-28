@@ -32,7 +32,7 @@
 // Strobe Timings
 //
 // Below are timings for all different kinds of standard
-// strobes as defined by the gloving community.  All times 
+// strobes as defined by the gloving community.  All times
 // are in milliseconds.
 
 // Basic Strobe

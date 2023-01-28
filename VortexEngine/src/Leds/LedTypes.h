@@ -92,7 +92,7 @@ inline Finger ledToFinger(LedPos pos)
 typedef uint64_t LedMap;
 
 // various macros for mapping leds to an LedMap
-#define MAP_LED(led) (1 << led) 
+#define MAP_LED(led) (1 << led)
 #define MAP_FINGER_TIP(finger) MAP_LED(fingerTip(finger))
 #define MAP_FINGER_TOP(finger) MAP_LED(fingerTop(finger))
 #define MAP_FINGER(finger) (MAP_FINGER_TIP(finger) | MAP_FINGER_TOP(finger))

@@ -12,7 +12,7 @@
  *                                pattern*
  *                              /        \
  *                single led pat*           multi led pat*
- *                /           \                / 
+ *                /           \                /
  *           basic pat       tracer pat       hybrid pat*
  *           /                               /           \
  *      Advanced pattern                 Rabbit Pattern   sequenced pattern

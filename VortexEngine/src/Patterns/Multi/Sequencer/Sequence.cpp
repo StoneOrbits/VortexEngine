@@ -225,7 +225,7 @@ uint32_t Sequence::addStep(const SequenceStep &step)
   // if there is already some colors in the palette
   if (m_numSteps && m_sequenceSteps) {
     // copy over existing colors
-    for (uint32_t i = 0; i < m_numSteps; ++i) { 
+    for (uint32_t i = 0; i < m_numSteps; ++i) {
       temp[i] = m_sequenceSteps[i];
     }
     // and delete the existing palette

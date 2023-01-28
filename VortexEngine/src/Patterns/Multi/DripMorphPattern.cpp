@@ -98,8 +98,8 @@ void DripMorphPattern::blinkOn()
   int sign = ((((m_next.hue + 255) - m_cur.hue) % 256) <= 128) ? 1 : -1;
   // move hue in the direction of next hue at chosen speed
   // NOTE: if the speed isn't a multiple of the hue values then
-  //       it will cause oscillation around the target hue 
-  //       because it will never reach the target hue and 
+  //       it will cause oscillation around the target hue
+  //       because it will never reach the target hue and
   //       always over/under shoot
   m_cur.hue += m_speed * sign;
   // set the target led with the current HSV color
