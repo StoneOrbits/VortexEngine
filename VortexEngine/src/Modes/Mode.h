@@ -96,17 +96,11 @@ public:
   void clearPattern(LedPos pos);
   void clearColorsets();
 private:
-  // A mode simply contains a list of patterns for each LED, these can either
-  // be each SingleLedPatterns up to LED_COUNT of them -- or the first entry
-  // can be a MultiLedPattern, just one.
-  union {
-    // map of led positions => pattern entries
-    Pattern *m_ledEntries[LED_COUNT];
-    // accessors for single leds
-    SingleLedPattern *m_singleLedEntries[LED_COUNT];
-    // or the first one is also a multi led pat
-    MultiLedPattern *m_multiPat;
-  };
+  // the number of leds the mode is targetting
+  uint8_t m_numLeds;
+  // list of pointers to Patterns, one for each led or if it
+  // is a multi-led pattern then there is only one total
+  Pattern **m_ledEntries;
 };
 
 #endif
