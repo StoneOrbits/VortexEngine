@@ -45,7 +45,7 @@ private:
   PatternSelectState m_state;
 
   // an internal mode used for demoing patterns
-  Mode* m_pDemoMode;
+  Mode *m_pDemoMode;
 
   // the patternid of the current demo
   PatternID m_newPatternID;
