@@ -96,7 +96,7 @@ public:
   void clearColorsets();
 private:
   // the number of leds the mode is targetting
-  uint32_t m_numLeds;
+  uint8_t m_numLeds;
   // list of pointers to Patterns, one for each led or if it
   // is a multi-led pattern then there is only one total
   Pattern **m_ledEntries;

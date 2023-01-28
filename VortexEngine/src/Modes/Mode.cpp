@@ -40,7 +40,7 @@ Mode::~Mode()
 void Mode::init()
 {
   // otherwise regular init
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
     // grab the entry for this led and initialize it
     Pattern *entry = m_ledEntries[pos];
     if (!entry) {
@@ -52,7 +52,7 @@ void Mode::init()
 
 void Mode::play()
 {
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
     // grab the entry for this led
     Pattern *entry = m_ledEntries[pos];
     if (!entry) {
@@ -73,7 +73,7 @@ bool Mode::saveToBuffer(ByteStream &modeBuffer) const
   // serialize the engine version into the modes buffer
   VortexEngine::serializeVersion(modeBuffer);
   // serialize the total number of leds and global brightness
-  modeBuffer.serialize((uint8_t)LED_COUNT);
+  modeBuffer.serialize(m_numLeds);
   // serialize all mode data into the modeBuffer
   serialize(modeBuffer);
   DEBUG_LOGF("Serialized mode, uncompressed size: %u", modeBuffer.size());
@@ -102,7 +102,13 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
   uint8_t ledCount = 0;
   // unserialize the number of leds
   modeBuffer.unserialize(&ledCount);
-  // now just unserialize the list of modes
+#if FIXED_LED_COUNT == 0
+  if (ledCount != m_numLeds) {
+    // adjust the internal LED count
+    setLedCount(ledCount);
+  }
+#endif
+  // now just unserialize the list of patterns
   if (!unserialize(modeBuffer, ledCount)) {
     return false;
   }
@@ -115,7 +121,7 @@ void Mode::serialize(ByteStream &buffer) const
 {
   uint32_t flags = getFlags();
   buffer.serialize(flags);
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
     const Pattern *entry = m_ledEntries[pos];
     if (!entry) {
       continue;
@@ -151,7 +157,7 @@ bool Mode::unserialize(ByteStream &buffer, uint32_t numLeds)
     const Colorset *firstSet = firstPat->getColorset();
     PatternArgs firstArgs;
     firstPat->getArgs(firstArgs);
-    for (LedPos pos = (LedPos)(LED_FIRST + 1); pos < LED_COUNT; ++pos) {
+    for (LedPos pos = (LedPos)(LED_FIRST + 1); pos < m_numLeds; ++pos) {
       if (!setSinglePat(pos, firstID, &firstArgs, firstSet)) {
         // fail?
         continue;
@@ -166,7 +172,7 @@ bool Mode::unserialize(ByteStream &buffer, uint32_t numLeds)
   for (uint32_t i = 0; i < (numLeds - 1); ++i) {
     Pattern *pat = PatternBuilder::unserialize(buffer);
     // if we have loaded all of our available leds
-    if (pos >= LED_COUNT) {
+    if (pos >= m_numLeds) {
       // then just discard this pattern we cannot apply it
       delete pat;
       continue;
@@ -185,9 +191,9 @@ bool Mode::unserialize(ByteStream &buffer, uint32_t numLeds)
   // at this point if our pos isn't our LED_LAST then that means the
   // savefile had less entries in it than we can support and we need
   // to repeat those entries to fill up our slots
-  if (pos < LED_COUNT) {
+  if (pos < m_numLeds) {
     LedPos src = LED_FIRST;
-    for(;pos < LED_COUNT; ++pos) {
+    for(;pos < m_numLeds; ++pos) {
       Pattern *pat = m_ledEntries[src];
       if (!pat) {
         continue;
@@ -209,7 +215,7 @@ void Mode::saveTemplate(int level) const
   uint32_t flags = getFlags();
   IndentMsg(level, "\"flags\": %d,", flags);
   IndentMsg(level, "\"Leds\":[");
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
     const Pattern *entry = m_ledEntries[pos];
     if (!entry) {
       continue;
@@ -287,7 +293,7 @@ PatternID Mode::getPatternID(LedPos pos) const
 
 bool Mode::equals(const Mode *other) const
 {
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
     // if entry is valid, do a comparison
     if (m_ledEntries[pos]) {
       // checks if other is not null and equal
@@ -312,7 +318,7 @@ bool Mode::setPattern(PatternID pat, const PatternArgs *args, const Colorset *se
     return setMultiPat(pat, args, set);
   }
   // otherwise iterate all of the LEDs and set single led patterns
-  for (LedPos p = LED_FIRST; p < LED_COUNT; ++p) {
+  for (LedPos p = LED_FIRST; p < m_numLeds; ++p) {
     if (!setSinglePat(p, pat, args, set)) {
       ERROR_LOGF("Failed to set single pattern %u", p);
       return false;
@@ -328,7 +334,7 @@ bool Mode::setColorset(const Colorset *set)
     return true;
   }
   // otherwise set all of the colorsets
-  for (LedPos p = LED_FIRST; p < LED_COUNT; ++p) {
+  for (LedPos p = LED_FIRST; p < m_numLeds; ++p) {
     if (!m_ledEntries[p]) {
       continue;
     }
@@ -339,7 +345,7 @@ bool Mode::setColorset(const Colorset *set)
 
 bool Mode::setColorsetAt(const Colorset *set, LedPos pos)
 {
-  if (pos >= LED_COUNT || !m_ledEntries[pos]) {
+  if (pos >= m_numLeds || !m_ledEntries[pos]) {
     return false;
   }
   m_ledEntries[pos]->setColorset(set);
@@ -358,7 +364,7 @@ bool Mode::setSinglePat(LedPos pos, PatternID pat, const PatternArgs *args, cons
 
 bool Mode::setSinglePat(LedPos pos, SingleLedPattern *pat, const Colorset *set)
 {
-  if (!pat || pos >= LED_COUNT) {
+  if (!pat || pos >= m_numLeds) {
     return false;
   }
   // bind the position and colorset, if the colorset is missing then just
@@ -431,7 +437,7 @@ bool Mode::isSameSingleLed() const
   if (isMultiLed()) {
     return false;
   }
-  for (uint32_t i = LED_FIRST + 1; i < LED_COUNT; ++i) {
+  for (uint32_t i = LED_FIRST + 1; i < m_numLeds; ++i) {
     // if any don't match 0 then no good
     if (!m_ledEntries[i] || !m_ledEntries[i]->equals(m_ledEntries[0])) {
       return false;
@@ -446,7 +452,7 @@ void Mode::clearPatterns()
   if (!m_ledEntries) {
     return;
   }
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
     clearPattern(pos);
   }
 }
@@ -462,7 +468,7 @@ void Mode::clearPattern(LedPos pos)
 
 void Mode::clearColorsets()
 {
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < m_numLeds; ++pos) {
     if (!m_ledEntries[pos]) {
       continue;
     }

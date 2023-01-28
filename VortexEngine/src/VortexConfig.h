@@ -221,6 +221,18 @@
 // the final build? I'm not sure.
 #define VARIABLE_TICKRATE     0
 
+// Fixed LED Count
+//
+// Do not allow the Mode loader to dynamically load however many modes
+// are saved in the savefile. This should be enabled for arduino or vortex
+// device builds because they cannot change their number of LEDs. However
+// other tools like the editor or vortex emulator may be able to make use
+// of this to dynamically adjust the number of leds that a mode can handle
+//
+// NOTE: This does not touch the 'leds' class itself it only adjusts whether
+//       a mode will stretch it's list of patterns to match the number of leds
+#define FIXED_LED_COUNT       0
+
 // Compression Test
 //
 // Run the built-in compression test that will find any faults
