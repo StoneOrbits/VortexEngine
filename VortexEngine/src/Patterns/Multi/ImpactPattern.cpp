@@ -66,7 +66,7 @@ void ImpactPattern::init()
   setPatternAt(LED_24, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
 }
 
-void ImpactPattern::setArgs(const PatternArgs& args)
+void ImpactPattern::setArgs(const PatternArgs &args)
 {
   HybridPattern::setArgs(args);
   m_firstSideArgs.arg1 = args.arg1;
@@ -77,7 +77,7 @@ void ImpactPattern::setArgs(const PatternArgs& args)
   m_otherArgs.arg2 = args.arg6;
 }
 
-void ImpactPattern::getArgs(PatternArgs& args) const
+void ImpactPattern::getArgs(PatternArgs &args) const
 {
   HybridPattern::getArgs(args);
   args.arg1 = m_firstSideArgs.arg1;

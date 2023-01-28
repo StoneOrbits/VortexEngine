@@ -59,7 +59,7 @@ void JestPattern::init()
   setPatternAt(LED_24, PATTERN_ADVANCED, &m_topArgs);
 }
 
-void JestPattern::setArgs(const PatternArgs& args)
+void JestPattern::setArgs(const PatternArgs &args)
 {
   HybridPattern::setArgs(args);
   m_tipArgs.arg1 = args.arg1;
@@ -69,7 +69,7 @@ void JestPattern::setArgs(const PatternArgs& args)
   m_topArgs.arg4 = args.arg5;
 }
 
-void JestPattern::getArgs(PatternArgs& args) const
+void JestPattern::getArgs(PatternArgs &args) const
 {
   HybridPattern::getArgs(args);
   args.arg1 = m_tipArgs.arg1;

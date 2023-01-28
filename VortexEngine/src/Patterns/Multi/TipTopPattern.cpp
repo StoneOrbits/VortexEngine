@@ -38,7 +38,7 @@ void TipTopPattern::init()
   }
 }
 
-void TipTopPattern::setArgs(const PatternArgs& args)
+void TipTopPattern::setArgs(const PatternArgs &args)
 {
   HybridPattern::setArgs(args);
   m_tipArgs.arg1 = args.arg1;
@@ -49,7 +49,7 @@ void TipTopPattern::setArgs(const PatternArgs& args)
   m_topArgs.arg3 = args.arg6;
 }
 
-void TipTopPattern::getArgs(PatternArgs& args) const
+void TipTopPattern::getArgs(PatternArgs &args) const
 {
   HybridPattern::getArgs(args);
   args.arg1 = m_tipArgs.arg1;

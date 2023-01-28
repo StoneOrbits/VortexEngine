@@ -14,8 +14,8 @@ public:
   // init the pattern to initial state
   virtual void init() override;
 
-  virtual void setArgs(const PatternArgs& args) override;
-  virtual void getArgs(PatternArgs& args) const override;
+  virtual void setArgs(const PatternArgs &args) override;
+  virtual void getArgs(PatternArgs &args) const override;
 
 private:
 
