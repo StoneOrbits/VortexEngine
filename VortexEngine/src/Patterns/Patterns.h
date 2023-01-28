@@ -87,6 +87,8 @@ enum PatternID : uint8_t
   PATTERN_JEST,
   PATTERN_MATERIA,
 
+  // ADD NEW MULTI LED PATTERNS HERE
+
   // =====================================
   INTERNAL_PATTERNS_END, // <<< DON'T USE OR TOUCH THIS ONE
   PATTERN_MULTI_LAST = (INTERNAL_PATTERNS_END - 1),

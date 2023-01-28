@@ -33,8 +33,7 @@ void RabbitPattern::init()
   for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
     if (isPairSide(p)) {
       setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &m_tipArgs), &tipsColors);
-    }
-    else {
+    } else {
       setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &m_topArgs), &topsColor);
     }
   }

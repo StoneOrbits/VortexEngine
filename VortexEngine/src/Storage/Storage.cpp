@@ -29,7 +29,7 @@ Storage::Storage()
 bool Storage::init()
 {
 #ifdef TEST_FRAMEWORK
-    DeleteFile("FlashStorage.flash");
+  DeleteFile("FlashStorage.flash");
 #endif
   return true;
 }
