@@ -150,8 +150,12 @@ bool Mode::unserialize(ByteStream &buffer)
   // unserialize the number of leds
   buffer.unserialize(&ledCount);
 #if FIXED_LED_COUNT == 0
-  if (ledCount != m_numLeds) {
-    // adjust the internal LED count
+  // it's important that we only increase the led count if necessary
+  // otherwise we may end up reducing our led count and only rendering
+  // a few leds on the device
+  if (ledCount > m_numLeds) {
+    // adjust the internal LED count of the mode itself, this allows it to
+    // actually manage that many patterns at once
     setLedCount(ledCount);
   }
 #endif
@@ -186,7 +190,8 @@ bool Mode::unserialize(ByteStream &buffer)
   LedPos pos = (LedPos)(LED_FIRST + 1);
   // unserialize the rest of the leds out of the savefile which
   // is ledCount - 1 because we already loaded the first led
-  for (uint32_t i = 0; i < (ledCount - 1); ++i) {
+  uint32_t ledsLeft = ledCount ? ledCount - 1 : 0;
+  for (uint32_t i = 0; i < ledsLeft; ++i) {
     Pattern *pat = PatternBuilder::unserialize(buffer);
     // if we have loaded all of our available leds
     if (pos >= MODE_LEDCOUNT) {
