@@ -12,7 +12,7 @@ enum MenuEntries {
   MENU_GLOBAL_BRIGHTNESS,
   MENU_FACTORY_RESET,
   MENU_MODE_SHARING,
-  MENU_EDITOR,
+  MENU_EDITOR_CONNECTION,
   // add new menus here
 
   // the total number of menus
