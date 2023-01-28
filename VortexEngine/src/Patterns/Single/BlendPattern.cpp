@@ -41,24 +41,6 @@ void BlendPattern::play()
   BasicPattern::play();
 }
 
-void BlendPattern::serialize(ByteStream &buffer) const
-{
-  SingleLedPattern::serialize(buffer);
-  buffer.serialize(m_onDuration);
-  buffer.serialize(m_offDuration);
-  buffer.serialize(m_gapDuration);
-  buffer.serialize(m_hueOffset);
-}
-
-void BlendPattern::unserialize(ByteStream &buffer)
-{
-  SingleLedPattern::unserialize(buffer);
-  buffer.unserialize(&m_onDuration);
-  buffer.unserialize(&m_offDuration);
-  buffer.unserialize(&m_gapDuration);
-  buffer.unserialize(&m_hueOffset);
-}
-
 void BlendPattern::setArgs(const PatternArgs &args)
 {
   SingleLedPattern::setArgs(args);

@@ -30,18 +30,6 @@ void SolidPattern::play()
   BasicPattern::play();
 }
 
-void SolidPattern::serialize(ByteStream &buffer) const
-{
-  BasicPattern::serialize(buffer);
-  buffer.serialize(m_colIndex);
-}
-
-void SolidPattern::unserialize(ByteStream &buffer)
-{
-  BasicPattern::unserialize(buffer);
-  buffer.unserialize(&m_colIndex);
-}
-
 void SolidPattern::setArgs(const PatternArgs &args)
 {
   BasicPattern::setArgs(args);
