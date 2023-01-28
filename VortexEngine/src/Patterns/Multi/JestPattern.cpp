@@ -59,27 +59,6 @@ void JestPattern::init()
   setPatternAt(LED_24, PATTERN_ADVANCED, &m_topArgs);
 }
 
-// must override the serialize routine to save the pattern
-void JestPattern::serialize(ByteStream& buffer) const
-{
-  HybridPattern::serialize(buffer);
-  buffer.serialize(m_tipArgs.arg1);
-  buffer.serialize(m_tipArgs.arg2);
-  buffer.serialize(m_tipArgs.arg3);
-  buffer.serialize(m_topArgs.arg3);
-  buffer.serialize(m_topArgs.arg4);
-}
-
-void JestPattern::unserialize(ByteStream& buffer)
-{
-  HybridPattern::unserialize(buffer);
-  buffer.unserialize(&m_tipArgs.arg1);
-  buffer.unserialize(&m_tipArgs.arg2);
-  buffer.unserialize(&m_tipArgs.arg3);
-  buffer.unserialize(&m_topArgs.arg3);
-  buffer.unserialize(&m_topArgs.arg4);
-}
-
 void JestPattern::setArgs(const PatternArgs& args)
 {
   HybridPattern::setArgs(args);

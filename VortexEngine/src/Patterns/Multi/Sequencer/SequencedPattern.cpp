@@ -91,23 +91,6 @@ void SequencedPattern::play()
   }
 }
 
-// must  the serialize routine to save the pattern
-void SequencedPattern::serialize(ByteStream &buffer) const
-{
-  // Note: intentionally skipping HybridPattern::serialize because we
-  //       don't want to write all the sub patterns since they change.
-  //       Instead we need to write all the sequencer steps
-  MultiLedPattern::serialize(buffer);
-  //m_sequence.serialize(buffer);
-}
-
-void SequencedPattern::unserialize(ByteStream &buffer)
-{
-  // Note: intentionally skipping HybridPattern::unserialize
-  MultiLedPattern::unserialize(buffer);
-  //m_sequence.unserialize(buffer);
-}
-
 #if SAVE_TEMPLATE == 1
 void SequencedPattern::saveTemplate(int level) const
 {
