@@ -68,7 +68,7 @@ void Leds::setAll(RGBColor col)
   setRange(LED_FIRST, LED_LAST, col);
 }
 
-void Leds::setAllEvens(RGBColor col) 
+void Leds::setAllEvens(RGBColor col)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     if ((i % 2) == 0) {
@@ -269,7 +269,7 @@ void Leds::breathQuadrantFive(uint32_t hue, uint32_t variance, uint32_t magnitud
 {
   for (int target = 0; target < 4; ++target) {
     setIndex((LedPos)((target * 7) + 3), HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
-  } 
+  }
 }
 
 void Leds::update()
