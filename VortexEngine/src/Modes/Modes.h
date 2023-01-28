@@ -39,7 +39,7 @@ public:
   // saves all modes to a buffer
   static void serialize(ByteStream &buffer);
   // load all modes from a buffer, optionally specify number of leds
-  static bool unserialize(ByteStream &buffer, uint32_t numLeds = LED_COUNT);
+  static bool unserialize(ByteStream &buffer);
 
 #if SAVE_TEMPLATE == 1
   // save the data template

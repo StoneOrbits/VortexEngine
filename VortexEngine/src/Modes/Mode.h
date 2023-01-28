@@ -28,7 +28,11 @@ class Pattern;
 class Mode
 {
 public:
+#if FIXED_LED_COUNT == 0
   Mode(uint32_t numLeds = LED_COUNT);
+#else
+  Mode();
+#endif
   Mode(PatternID id, const Colorset &set);
   Mode(PatternID id, const PatternArgs &args, const Colorset &set);
   virtual ~Mode();
@@ -46,15 +50,18 @@ public:
   // save the mode to serial
   virtual void serialize(ByteStream &buffer) const;
   // load the mode from serial (optional led count)
-  virtual bool unserialize(ByteStream &buffer, uint32_t numLeds = LED_COUNT);
+  virtual bool unserialize(ByteStream &buffer);
 
 #if SAVE_TEMPLATE == 1
   // save the data template
   virtual void saveTemplate(int level = 0) const;
 #endif
 
+#if FIXED_LED_COUNT == 0
   // change the internal pattern count in the mode object
-  void setLedCount(uint32_t numPatterns);
+  void setLedCount(uint8_t numLeds);
+#endif
+  uint8_t getLedCount() const;
 
   // Get pointer to an individual pattern/colorset
   const Pattern *getPattern(LedPos pos = LED_FIRST) const;
@@ -95,11 +102,15 @@ public:
   void clearPattern(LedPos pos);
   void clearColorsets();
 private:
+#if FIXED_LED_COUNT == 0
   // the number of leds the mode is targetting
   uint8_t m_numLeds;
   // list of pointers to Patterns, one for each led or if it
   // is a multi-led pattern then there is only one total
   Pattern **m_ledEntries;
+#else
+  Pattern *m_ledEntries[LED_COUNT];
+#endif
 };
 
 #endif
