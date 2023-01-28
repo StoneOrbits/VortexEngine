@@ -56,6 +56,16 @@ Pattern *PatternBuilder::make(PatternID id, const PatternArgs *args)
   return makeSingle(id, args);
 }
 
+Pattern *PatternBuilder::dupe(const Pattern *pat)
+{
+  if (!pat) {
+    return nullptr;
+  }
+  PatternArgs args;
+  pat->getArgs(args);
+  return make(pat->getPatternID(), &args);
+}
+
 // generate a single LED pattern (nullptr if patternid is not single LED)
 SingleLedPattern *PatternBuilder::makeSingle(PatternID id, const PatternArgs *args)
 {

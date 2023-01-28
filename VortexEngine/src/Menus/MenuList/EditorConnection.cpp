@@ -3,7 +3,6 @@
 #include "../../Serial/ByteStream.h"
 #include "../../Serial/Serial.h"
 #include "../../Storage/Storage.h"
-#include "../../Modes/ModeBuilder.h"
 #include "../../Time/TimeControl.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
@@ -310,7 +309,10 @@ bool EditorConnection::receiveDemoMode()
   }
   // unserialize the mode into the demo mode
   clearDemo();
-  m_pDemoMode = ModeBuilder::loadFromBuffer(m_receiveBuffer);
+  m_pDemoMode = new Mode(m_receiveBuffer);
+  if (!m_pDemoMode) {
+    // error!
+  }
   return true;
 }
 

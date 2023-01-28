@@ -15,6 +15,9 @@ public:
   // generic make any pattern
   static Pattern *make(PatternID id, const PatternArgs *args = nullptr);
 
+  // make a copy of an existing pattern
+  static Pattern *dupe(const Pattern *pat);
+
   // generate a single LED pattern (nullptr if patternid is not single LED)
   static SingleLedPattern *makeSingle(PatternID id, const PatternArgs *args = nullptr);
 

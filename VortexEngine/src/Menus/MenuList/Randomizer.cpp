@@ -6,7 +6,6 @@
 #include "../../Colors/Colorset.h"
 #include "../../Time/Timings.h"
 #include "../../Buttons/Button.h"
-#include "../../Modes/ModeBuilder.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
@@ -119,7 +118,7 @@ bool Randomizer::reRoll()
 
   if (!m_pRandomizedMode) {
     // create a new randomized mode out of the colors
-    m_pRandomizedMode = ModeBuilder::make(randomPattern, nullptr, &randomSet);
+    m_pRandomizedMode = new Mode(randomPattern, nullptr, &randomSet);
     if (!m_pRandomizedMode) {
       return false;
     }

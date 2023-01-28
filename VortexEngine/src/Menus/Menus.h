@@ -6,7 +6,10 @@
 #include "../Leds/LedTypes.h"
 
 enum MenuEntries {
-  MENU_RANDOMIZER,
+  MENU_NONE = -1,
+  MENU_FIRST = 0,
+
+  MENU_RANDOMIZER = MENU_FIRST,
   MENU_COLOR_SELECT,
   MENU_PATTERN_SELECT,
   MENU_GLOBAL_BRIGHTNESS,
@@ -39,7 +42,9 @@ public:
   static bool openMenu(uint32_t index);
 
   // check if the menus are open
-  static bool checkOpen() { return m_menuState != MENU_STATE_NOT_OPEN; }
+  static bool checkOpen();
+  static Menu *curMenu();
+  static MenuEntries curMenuID();
 
 private:
   // run the currently open menu
