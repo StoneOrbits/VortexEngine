@@ -30,8 +30,6 @@ private:
   void nextPattern();
   void previousPattern();
 
-  void showExit() override;
-
   // private enumeration for internal state of pattern selection
   enum PatternSelectState : uint32_t
   {

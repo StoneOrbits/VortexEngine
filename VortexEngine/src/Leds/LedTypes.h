@@ -241,6 +241,7 @@ inline LedPos pairTop(LedPair pair)
 {
   switch (pair) {
   case PAIR_1:
+  default:
     return LED_0;
   case PAIR_2:
     return LED_1;
@@ -280,6 +281,7 @@ inline LedPos pairBot(LedPair pair)
 {
   switch (pair) {
   case PAIR_1:
+  default:
     return LED_6;
   case PAIR_2:
     return LED_5;
