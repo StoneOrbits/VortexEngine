@@ -16,7 +16,7 @@ HueShiftPattern::HueShiftPattern(uint8_t onDuration, uint8_t offDuration) :
   m_patternID = PATTERN_HUESHIFT;
 }
 
-HueShiftPattern::HueShiftPattern(const PatternArgs& args) :
+HueShiftPattern::HueShiftPattern(const PatternArgs &args) :
   HueShiftPattern()
 {
   setArgs(args);
@@ -77,14 +77,14 @@ void HueShiftPattern::play()
   }
 }
 
-void HueShiftPattern::setArgs(const PatternArgs& args)
+void HueShiftPattern::setArgs(const PatternArgs &args)
 {
   MultiLedPattern::setArgs(args);
   m_blinkOnDuration = args.arg1;
   m_blinkOffDuration = args.arg2;
 }
 
-void HueShiftPattern::getArgs(PatternArgs& args) const
+void HueShiftPattern::getArgs(PatternArgs &args) const
 {
   MultiLedPattern::getArgs(args);
   args.arg1 = m_blinkOnDuration;

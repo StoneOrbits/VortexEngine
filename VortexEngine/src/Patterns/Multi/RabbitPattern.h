@@ -8,7 +8,7 @@ class RabbitPattern : public HybridPattern
 public:
   RabbitPattern(uint8_t onDuration1 = 8, uint8_t offDuration1 = 10, uint8_t gapDuration1 = 0,
     uint8_t onDuration2 = 6, uint8_t offDuration2 = 28, uint8_t gapDuration2 = 0);
-  RabbitPattern(const PatternArgs& args);
+  RabbitPattern(const PatternArgs &args);
   virtual ~RabbitPattern();
 
   // init the pattern to initial state

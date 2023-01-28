@@ -372,7 +372,7 @@ inline LedPos operator+(LedPos &c, int b)
 {
   return (LedPos)((uint32_t)c + b);
 }
-inline LedPos& operator+=(LedPos &c, int b)
+inline LedPos &operator+=(LedPos &c, int b)
 {
   c = LedPos(((uint32_t)c) + b);
   return c;
@@ -381,97 +381,97 @@ inline LedPos operator-(LedPos &c, int b)
 {
   return (LedPos)((uint32_t)c - b);
 }
-inline LedPos& operator-=(LedPos &c, int b)
+inline LedPos &operator-=(LedPos &c, int b)
 {
   c = LedPos(((uint32_t)c) - b);
   return c;
 }
 
 // Quadrant operators
-inline Quadrant& operator++(Quadrant& c)
+inline Quadrant &operator++(Quadrant &c)
 {
   c = Quadrant(((uint32_t)c) + 1);
   return c;
 }
-inline Quadrant operator++(Quadrant& c, int)
+inline Quadrant operator++(Quadrant &c, int)
 {
   Quadrant temp = c;
   ++c;
   return temp;
 }
-inline Quadrant operator+(Quadrant& c, int b)
+inline Quadrant operator+(Quadrant &c, int b)
 {
   return (Quadrant)((uint32_t)c + b);
 }
 
-inline Quadrant& operator+=(Quadrant& c, int b)
+inline Quadrant &operator+=(Quadrant &c, int b)
 {
   c = Quadrant(((uint32_t)c) + b);
   return c;
 }
 
-inline Quadrant operator-(Quadrant& c, int b)
+inline Quadrant operator-(Quadrant &c, int b)
 {
   return (Quadrant)((uint32_t)c - b);
 }
 
-inline Quadrant& operator-=(Quadrant& c, int b)
+inline Quadrant &operator-=(Quadrant &c, int b)
 {
   c = Quadrant(((uint32_t)c) - b);
   return c;
 }
 
 // Ring operators
-inline Ring& operator++(Ring& c)
+inline Ring &operator++(Ring &c)
 {
   c = Ring(((uint32_t)c) + 1);
   return c;
 }
-inline Ring operator++(Ring& c, int)
+inline Ring operator++(Ring &c, int)
 {
   Ring temp = c;
   ++c;
   return temp;
 }
-inline Ring operator+(Ring& c, int b)
+inline Ring operator+(Ring &c, int b)
 {
   return (Ring)((uint32_t)c + b);
 }
 
-inline Ring& operator+=(Ring& c, int b)
+inline Ring &operator+=(Ring &c, int b)
 {
   c = Ring(((uint32_t)c) + b);
   return c;
 }
 
-inline Ring operator-(Ring& c, int b)
+inline Ring operator-(Ring &c, int b)
 {
   return (Ring)((uint32_t)c - b);
 }
 
-inline Ring& operator-=(Ring& c, int b)
+inline Ring &operator-=(Ring &c, int b)
 {
   c = Ring(((uint32_t)c) - b);
   return c;
 }
 
 // Pair operators
-inline LedPair& operator++(LedPair& c)
+inline LedPair &operator++(LedPair &c)
 {
   c = LedPair(((uint32_t)c) + 1);
   return c;
 }
-inline LedPair operator++(LedPair& c, int)
+inline LedPair operator++(LedPair &c, int)
 {
   LedPair temp = c;
   ++c;
   return temp;
 }
-inline LedPair operator+(LedPair& c, int b)
+inline LedPair operator+(LedPair &c, int b)
 {
   return (LedPair)((uint32_t)c + b);
 }
-inline LedPair operator-(LedPair& c, int b)
+inline LedPair operator-(LedPair &c, int b)
 {
   return (LedPair)((uint32_t)c - b);
 }

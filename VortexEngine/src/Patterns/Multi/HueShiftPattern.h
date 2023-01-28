@@ -10,7 +10,7 @@ class HueShiftPattern : public MultiLedPattern
 {
 public:
   HueShiftPattern(uint8_t onDuration = STROBE_ON_DURATION, uint8_t offDuration = STROBE_OFF_DURATION);
-  HueShiftPattern(const PatternArgs& args);
+  HueShiftPattern(const PatternArgs &args);
   virtual ~HueShiftPattern();
 
   // init the pattern to initial state
@@ -19,8 +19,8 @@ public:
   // pure virtual must override the play function
   virtual void play() override;
 
-  virtual void setArgs(const PatternArgs& args) override;
-  virtual void getArgs(PatternArgs& args) const override;
+  virtual void setArgs(const PatternArgs &args) override;
+  virtual void getArgs(PatternArgs &args) const override;
 
 #if SAVE_TEMPLATE == 1
   virtual void saveTemplate(int level = 0) const override;
