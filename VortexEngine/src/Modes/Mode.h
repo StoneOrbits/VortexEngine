@@ -18,10 +18,6 @@ class Pattern;
 // the mode is utilizing the same single-led pattern on each finger
 #define MODE_FLAG_ALL_SAME_SINGLE   (1 << 1)
 
-// the keyword 'ALL_SLOTS' can be used to refer to all of the
-// mode slots at once when using changePattern or changeColorset
-#define ALL_SLOTS LED_COUNT
-
 // A mode is the container for instances of patterns. A pattern
 // must be bound to a colorset and led position with bind() and
 // the Mode class allows that to be done in one step. Other things
@@ -32,7 +28,7 @@ class Pattern;
 class Mode
 {
 public:
-  Mode();
+  Mode(uint32_t numLeds = LED_COUNT);
   Mode(PatternID id, const Colorset &set);
   Mode(PatternID id, const PatternArgs &args, const Colorset &set);
   virtual ~Mode();
@@ -56,6 +52,9 @@ public:
   // save the data template
   virtual void saveTemplate(int level = 0) const;
 #endif
+
+  // change the internal pattern count in the mode object
+  void setLedCount(uint32_t numPatterns);
 
   // Get pointer to an individual pattern/colorset
   const Pattern *getPattern(LedPos pos = LED_FIRST) const;
@@ -96,17 +95,11 @@ public:
   void clearPattern(LedPos pos);
   void clearColorsets();
 private:
-  // A mode simply contains a list of patterns for each LED, these can either
-  // be each SingleLedPatterns up to LED_COUNT of them -- or the first entry
-  // can be a MultiLedPattern, just one.
-  union {
-    // map of led positions => pattern entries
-    Pattern *m_ledEntries[LED_COUNT];
-    // accessors for single leds
-    SingleLedPattern *m_singleLedEntries[LED_COUNT];
-    // or the first one is also a multi led pat
-    MultiLedPattern *m_multiPat;
-  };
+  // the number of leds the mode is targetting
+  uint32_t m_numLeds;
+  // list of pointers to Patterns, one for each led or if it
+  // is a multi-led pattern then there is only one total
+  Pattern **m_ledEntries;
 };
 
 #endif
