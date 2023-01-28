@@ -65,7 +65,7 @@ private:
     85,
     0
   };
-  
+
   // the current state of the color selection menu
   ColorSelectState m_state;
 

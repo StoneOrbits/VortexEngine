@@ -31,7 +31,7 @@ protected:
   virtual void blinkOn();  // when the leds blink on
   virtual void blinkOff(); // when the leds blink off
 
-private:  
+private:
   uint8_t m_blinkOnDuration;
   uint8_t m_blinkOffDuration;
   Timer m_blinkTimer;

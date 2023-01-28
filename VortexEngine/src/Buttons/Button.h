@@ -4,7 +4,7 @@
 #include <inttypes.h>
 
 // although there is only one button on the VortexFramework
-// I am still opting for a non-static button class 
+// I am still opting for a non-static button class
 class Button
 {
 private:

@@ -91,7 +91,7 @@ bool Randomizer::reRoll()
 {
   // colorset that will be filled with random colors
   Colorset randomSet;
-  // pick a random type of randomizer to use then use 
+  // pick a random type of randomizer to use then use
   // the randomizer to generate a random colorset
   uint32_t randType = random(0, 6);
   switch (randType) {

@@ -25,4 +25,4 @@ private:
   PatternArgs m_otherArgs;
 };
 
-#endif 
+#endif

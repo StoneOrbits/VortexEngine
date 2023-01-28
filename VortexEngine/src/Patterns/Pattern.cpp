@@ -84,7 +84,7 @@ void Pattern::saveTemplate(int level) const
   m_colorset.saveTemplate(level + 1);
   IndentMsg(level, "},");
   IndentMsg(level, "\"Params\": {");
-  // derived classes will print out their params, 
+  // derived classes will print out their params,
   // then the caller will close the block
 }
 #endif

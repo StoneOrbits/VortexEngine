@@ -25,7 +25,7 @@ TheaterChasePattern::TheaterChasePattern(const PatternArgs &args) :
 TheaterChasePattern::~TheaterChasePattern()
 {
 }
-  
+
 void TheaterChasePattern::init()
 {
   BlinkStepPattern::init();
@@ -39,7 +39,7 @@ void TheaterChasePattern::blinkOn()
     if ((i % 3) == m_stepCounter) {
       Leds::setIndex(i, m_colorset.getNext());
     }
-  } 
+  }
 }
 
 void TheaterChasePattern::poststep()

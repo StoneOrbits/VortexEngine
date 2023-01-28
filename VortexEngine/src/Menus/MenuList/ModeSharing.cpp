@@ -126,7 +126,7 @@ void ModeSharing::continueSending()
 }
 
 void ModeSharing::receiveMode()
-{ 
+{
   // if reveiving new data set our last data time
   if (IRReceiver::onNewData()) {
     m_timeOutStartTime = Time::getCurtime();
@@ -158,10 +158,10 @@ void ModeSharing::showSendMode()
   // if it is sending
   if (IRSender::isSending()) {
     Leds::setAll(RGB_TEAL);
-  } else {    
+  } else {
     Leds::setAll(RGB_BLANK);
     Leds::blinkAll(Time::getCurtime(), 250, 250);
-  } 
+  }
 }
 
 void ModeSharing::showReceiveMode()
@@ -178,7 +178,7 @@ void ModeSharing::showReceiveMode()
   LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(200) % (LED_COUNT + 1)));
   if (pos == LED_COUNT) return;
   Leds::setRange(LED_FIRST, pos, RGB_PURPLE);
-} 
+}
 
 // override showExit so it isn't displayed on thumb
 void ModeSharing::showExit()

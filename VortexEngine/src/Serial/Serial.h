@@ -28,7 +28,7 @@ public:
 
   // write raw data
   static void write(ByteStream &byteStream);
-  
+
   // read a message from serial
   static void read(ByteStream &byteStream);
 

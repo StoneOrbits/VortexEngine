@@ -1,7 +1,7 @@
 #include "LedStash.h"
 
 LedStash::LedStash() :
-  m_ledColorsStash() 
+  m_ledColorsStash()
 {
 }
 

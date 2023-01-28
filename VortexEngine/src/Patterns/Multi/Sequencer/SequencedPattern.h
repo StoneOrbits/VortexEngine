@@ -18,7 +18,7 @@ protected:
   SequencedPattern(const Sequence &sequence);
 
 public:
-  // initialize a sequence pattern with a list of pointers to sequencesteps and the 
+  // initialize a sequence pattern with a list of pointers to sequencesteps and the
   // number of entries in that list
   virtual ~SequencedPattern();
 

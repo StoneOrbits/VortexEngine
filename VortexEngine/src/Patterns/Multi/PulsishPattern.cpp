@@ -66,7 +66,7 @@ void PulsishPattern::play()
   case 0: // turn on the leds
     for (Quadrant quadrant = QUADRANT_FIRST; quadrant < QUADRANT_COUNT; ++quadrant) {
       if (quadrant != m_progress) {
-        Leds::setQuadrant(quadrant, m_colorset.cur());        
+        Leds::setQuadrant(quadrant, m_colorset.cur());
       }
     }
     m_colorset.skip();

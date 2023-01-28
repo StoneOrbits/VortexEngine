@@ -157,7 +157,7 @@ bool Mode::unserialize(ByteStream &buffer, uint32_t numLeds)
   }
   // we already loaded led 0 so the led position starts at 1
   LedPos pos = (LedPos)(LED_FIRST + 1);
-  // unserialize the rest of the leds out of the savefile which 
+  // unserialize the rest of the leds out of the savefile which
   // is numleds - 1 because we already loaded the first led
   for (uint32_t i = 0; i < (numLeds - 1); ++i) {
     Pattern *pat = PatternBuilder::unserialize(buffer);

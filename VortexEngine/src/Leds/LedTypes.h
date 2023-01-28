@@ -154,10 +154,10 @@ inline bool isPairTop(LedPos pos)
 inline bool isPairBot(LedPos pos)
 {
   switch (pos) {
-  case LED_4: case LED_5: case LED_6: 
-  case LED_7: case LED_8: case LED_9: 
-  case LED_18: case LED_19: case LED_20: 
-  case LED_21: case LED_22: case LED_23: 
+  case LED_4: case LED_5: case LED_6:
+  case LED_7: case LED_8: case LED_9:
+  case LED_18: case LED_19: case LED_20:
+  case LED_21: case LED_22: case LED_23:
     return true;
   default:
     return false;
@@ -191,7 +191,7 @@ inline LedPair ledToPair(LedPos pos)
     return PAIR_3;
   case LED_3:
     return PAIR_4;
-  
+
     // Quadrant 2
   case LED_7:
   case LED_13:
@@ -204,7 +204,7 @@ inline LedPair ledToPair(LedPos pos)
     return PAIR_7;
   case LED_10:
     return PAIR_8;
-  
+
     // Quadrant 3
   case LED_14:
   case LED_20:
@@ -217,7 +217,7 @@ inline LedPair ledToPair(LedPos pos)
     return PAIR_11;
   case LED_17:
     return PAIR_12;
-  
+
     // Quadrant 4
   case LED_21:
   case LED_27:
@@ -230,7 +230,7 @@ inline LedPair ledToPair(LedPos pos)
     return PAIR_15;
   case LED_24:
     return PAIR_16;
-  
+
   default:
     return PAIR_FIRST;
   }

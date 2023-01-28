@@ -58,7 +58,7 @@ bool ByteStream::rawInit(const uint8_t *rawdata, uint32_t size)
     ERROR_OUT_OF_MEMORY();
     return false;
   }
-  // copy in the actual data from the serial buffer, this will fill the 
+  // copy in the actual data from the serial buffer, this will fill the
   // members: size, flags, and crc32 of m_pData as well as the buf
   memcpy(m_pData, rawdata, size);
   return true;
@@ -207,7 +207,7 @@ bool ByteStream::compress()
   // but it will allow for faster compression then we can shrink it after
   ByteStream compressedBuffer(LZ4_compressBound(m_pData->size));
   // compress the data
-	int compressedSize = LZ4_compress_default((const char *)m_pData->buf, 
+	int compressedSize = LZ4_compress_default((const char *)m_pData->buf,
     (char *)compressedBuffer.m_pData->buf, m_pData->size, compressedBuffer.m_capacity);
   // check for compression error
   if (compressedSize < 0) {
@@ -254,7 +254,7 @@ bool ByteStream::decompress()
     decompressedBuffer.init(m_pData->size * multiple);
     // decompress the data
     decompressedSize = LZ4_decompress_safe((const char *)m_pData->buf,
-      (char *)decompressedBuffer.m_pData->buf, m_pData->size, 
+      (char *)decompressedBuffer.m_pData->buf, m_pData->size,
       decompressedBuffer.m_capacity);
   } while (decompressedSize < 0 && multiple < 255);
   // size changed

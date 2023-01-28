@@ -112,8 +112,8 @@ void ColorSelect::onShortClick()
   }
 }
 
-void ColorSelect::onShortClick2() 
-{  
+void ColorSelect::onShortClick2()
+{
   // keep track of pages when in slot selection
   if (m_state == STATE_PICK_SLOT) {
     // if the current selection is on the index finger then it's at the
@@ -125,7 +125,7 @@ void ColorSelect::onShortClick2()
       } else {
         --m_curPage;
       }
-      // skip past the 
+      // skip past the
       m_curSelection = QUADRANT_5;
       // clear all leds because we went to the next page
       Leds::clearAll();

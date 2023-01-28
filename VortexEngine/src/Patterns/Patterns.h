@@ -12,8 +12,8 @@
 // There is no way to know which patterns are 'core' patterns.
 enum PatternID : uint8_t
 {
-  // no pattern at all, use this sparingly and default to 
-  // PATTERN_FIRST when possible 
+  // no pattern at all, use this sparingly and default to
+  // PATTERN_FIRST when possible
   PATTERN_NONE = (PatternID)-1,
 
   // first pattern of all
@@ -44,8 +44,8 @@ enum PatternID : uint8_t
   PATTERN_BRACKETS,  // BracketsPattern
 
   // ADD NEW SINGLE LED PATTERNS HERE
-  // WARNING This will offset all multi-led patterns so sharing of patterns 
-  //         will be misaligned, for ex. IR and save files. 
+  // WARNING This will offset all multi-led patterns so sharing of patterns
+  //         will be misaligned, for ex. IR and save files.
 
   // =====================================
   //  Pattern Meta Constants:
