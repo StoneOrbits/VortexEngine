@@ -96,7 +96,7 @@ void FactoryReset::showReset()
   // relative to the factory reset threshold time
   float progress = (float)g_pButton->holdDuration() / FACTORY_RESET_THRESHOLD_TICKS;
   // prevents the countdown timer from showing unless button is held longer than 3% of the reset Threshold (this is for short clicks)
-  if (progress < .03) {
+  if (progress < 0.03) {
     return;
   }
   // the ledProgress is just an LED from pinky tip to index top based on progress

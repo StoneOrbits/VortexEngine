@@ -48,7 +48,7 @@ const MenuEntry menuList[MENU_COUNT] = {
   ENTRY(GlobalBrightness, RGB_YELLOW),  // 3
   ENTRY(FactoryReset,     RGB_RED),     // 4
   ENTRY(ModeSharing,      RGB_TEAL),    // 5
-  ENTRY(EditorConnection, RGB_PURPLE),  // 5
+  ENTRY(EditorConnection, RGB_PURPLE),  // 6
 };
 
 // the number of menus in the above array
