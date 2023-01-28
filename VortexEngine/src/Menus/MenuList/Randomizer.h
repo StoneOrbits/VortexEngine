@@ -26,7 +26,7 @@ private:
   // a pointer to a randomized mode
   Mode *m_pRandomizedMode;
 
-  // re-roll a new randomizatiok
+  // re-roll a new randomization
   bool reRoll();
 };
 

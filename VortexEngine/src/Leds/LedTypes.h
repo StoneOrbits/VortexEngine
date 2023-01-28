@@ -89,7 +89,7 @@ inline Finger ledToFinger(LedPos pos)
 
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
 // or off with a single integer
-typedef int LedMap;
+typedef uint64_t LedMap;
 
 // various macros for mapping leds to an LedMap
 #define MAP_LED(led) (1 << led) 
