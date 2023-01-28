@@ -37,4 +37,3 @@ private:
   HSVColor m_next;
 };
 #endif
-
