@@ -19,11 +19,6 @@ public:
   void onShortClick();
   void onLongClick();
 
-#ifdef TEST_FRAMEWORK
-  // so the pattern strip will draw the right mode
-  virtual Mode *curMode() const { return m_pRandomizedMode; }
-#endif
-
 private:
   // override showExit so it isn't displayed on thumb
   virtual void showExit() override;

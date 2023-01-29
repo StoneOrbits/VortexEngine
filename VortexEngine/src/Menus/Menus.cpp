@@ -183,13 +183,14 @@ bool Menus::openMenu(uint32_t index)
   if (index >= NUM_MENUS) {
     return false;
   }
-  Menu *newMenu = menuList[index].initMenu();
+  m_selection = index;
+  Menu *newMenu = menuList[m_selection].initMenu();
   if (!newMenu) {
     return false;
   }
   // initialiaze the new menu with the current mode
   if (!newMenu->init()) {
-    DEBUG_LOGF("Failed to initialize %s menu", menuList[index].menuName);
+    DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
     // if the menu failed to init, don't open it
     delete newMenu;
     return false;
@@ -208,7 +209,7 @@ bool Menus::openMenu(uint32_t index)
 
 bool Menus::checkOpen()
 {
-  return m_menuState != MENU_STATE_NOT_OPEN;
+  return m_menuState == MENU_STATE_IN_MENU;
 }
 
 Menu *Menus::curMenu()
