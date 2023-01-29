@@ -363,10 +363,10 @@ Colorset *Mode::getColorset(LedPos pos)
 
 PatternID Mode::getPatternID(LedPos pos) const
 {
-  if (pos >= m_numLeds || !getPattern(pos)) {
+  if (pos >= m_numLeds || !m_ledEntries[pos]) {
     return PATTERN_NONE;
   }
-  return getPattern(pos)->getPatternID();
+  return m_ledEntries[pos]->getPatternID();
 }
 
 bool Mode::equals(const Mode *other) const
