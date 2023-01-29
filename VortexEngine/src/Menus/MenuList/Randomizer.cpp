@@ -50,7 +50,7 @@ bool Randomizer::run()
   m_pRandomizedMode->play();
 
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
-    Leds::setAll(RGB_DIM_WHITE);
+    Leds::setAll(RGB_DIM_WHITE2);
   }
 
   // return true to continue staying in randomizer menu

@@ -5,7 +5,6 @@
 // Here is the array of 'default modes' that are assigned to
 // the gloveset upon factory reset
 const default_mode_entry default_modes[] = {
-  // Pattern 2: Ghost Crush Mode
   PATTERN_BOUNCE, {
     HSV(0, 255, 255),
     HSV(96, 255, 255),
@@ -84,42 +83,38 @@ const default_mode_entry default_modes[] = {
     HSV(0, 0, 0)
   },
 
-  // Pattern 7: Strobe
   PATTERN_STROBE, {
-    HSV(240, 255, 255),
-    HSV(0, 0, 0),
-    HSV(144, 255, 255),
-    HSV(0, 0, 0),
-    HSV(48, 170, 255),
-    HSV(0, 0, 0),
-    HSV(144, 255, 255),
-    HSV(0, 0, 0)
+    0xD4002B,
+    RGB_OFF,
+    0x0056AA,
+    RGB_OFF,
+    0x8E711C,
+    RGB_OFF,
+    0x0056AA,
+    RGB_OFF
   },
 
-  // Pattern 9: Ultradops
   PATTERN_ULTRADOPS, {
-    HSV(0, 255, 85),
-    HSV(32, 255, 170),
-    HSV(64, 255, 255),
-    HSV(96, 255, 85),
-    HSV(128, 255, 85),
-    HSV(160, 255, 85),
-    HSV(192, 255, 170),
-    HSV(224, 255, 85)
+    0x1C0000,
+    0x4B2600,
+    0xABAA00,
+    0x001C00,
+    0x00130A,
+    0x00001C,
+    0x26004B,
+    0x13000A
   },
 
-  // Pattern 12: GhostCrush
   PATTERN_GHOSTCRUSH, {
-    HSV(192, 255, 170),
-    HSV(0, 0, 0),
-    HSV(96, 255, 255),
-    HSV(96, 0, 255),
-    HSV(96, 255, 255),
-    HSV(0, 0, 0),
-    HSV(192, 255, 170)
+    0x26004B,
+    RGB_OFF,
+    RGB_GREEN,
+    RGB_WHITE,
+    RGB_GREEN,
+    RGB_OFF,
+    0x26004B,
   },
 
-  // Pattern 15: Complementary Blend
   PATTERN_COMPLEMENTARY_BLEND, {
     RGB_RED,
     RGB_GREEN,

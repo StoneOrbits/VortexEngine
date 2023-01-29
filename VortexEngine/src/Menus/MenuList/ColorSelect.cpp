@@ -335,7 +335,7 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       // white or dim white to indicate we can add a color here
       Leds::clearQuadrant(m_curSelection);
       Leds::blinkQuadrant(m_curSelection, Time::getCurtime(), 150, 350,
-        g_pButton->isPressed() ? RGB_WHITE : RGB_DIM_WHITE);
+        g_pButton->isPressed() ? RGB_DIM_WHITE1 : RGB_DIM_WHITE2);
       return;
     } else if (m_slot < m_colorset.numColors() &&
       g_pButton->isPressed() &&

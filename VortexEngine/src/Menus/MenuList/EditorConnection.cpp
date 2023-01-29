@@ -219,7 +219,7 @@ void EditorConnection::showEditor()
     break;
   case STATE_PUSH_MODES:
     Leds::clearAll();
-    Leds::blinkAll(RGB_WHITE);
+    Leds::blinkAll(RGB_DIM_WHITE1);
     break;
   case STATE_PUSH_MODES_RECEIVE:
     Leds::clearAll();
@@ -308,7 +308,7 @@ bool EditorConnection::receiveDemoMode()
     ((uint8_t *)m_receiveBuffer.data()) + sizeof(size),
     m_receiveBuffer.size());
   if (!m_receiveBuffer.checkCRC()) {
-    Leds::setAll(RGB_WHITE);
+    Leds::setAll(RGB_DIM_WHITE1);
     // bad crc
     return false;
   }

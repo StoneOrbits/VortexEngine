@@ -84,7 +84,7 @@ void PatternSelect::showPatternSelection()
     m_pDemoMode->play();
   }
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
-    Leds::setAll(RGB_DIM_WHITE);
+    Leds::setAll(RGB_DIM_WHITE2);
   }
 }
 

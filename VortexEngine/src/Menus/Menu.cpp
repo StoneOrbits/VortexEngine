@@ -90,7 +90,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
   uint32_t blinkCol = RGB_OFF;
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     // blink green if long pressing on a selection
-    blinkCol = RGB_WHITE;
+    blinkCol = RGB_DIM_WHITE1;
   }
   switch (m_curSelection) {
   case QUADRANT_LAST:
