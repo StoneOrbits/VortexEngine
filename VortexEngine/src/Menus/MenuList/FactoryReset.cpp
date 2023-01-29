@@ -90,7 +90,7 @@ void FactoryReset::showReset()
   // max the led progress at index top (don't include thumb)
   if (ledProgress > INDEX_TOP) {
     // when we reach the end of the progress bar just blink white
-    Leds::blinkRange(LED_FIRST, INDEX_TOP, Time::getCurtime(), 80, 60, RGB_WHITE);
+    Leds::blinkRange(LED_FIRST, INDEX_TOP, Time::getCurtime(), 80, 60, RGB_DIM_WHITE1);
     return;
   }
 

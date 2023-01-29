@@ -77,8 +77,10 @@ Mode::Mode(const Mode &other) :
 
 void Mode::operator=(const Mode &other)
 {
-  setLedCount(other.m_numLeds);
-  for (uint32_t i = 0; i < other.m_numLeds; ++i) {
+#if FIXED_LED_COUNT == 0
+  setLedCount(other.getLedCount());
+#endif
+  for (uint32_t i = 0; i < other.getLedCount(); ++i) {
     Pattern *otherPat = other.m_ledEntries[i];
     if (!otherPat) {
       continue;
@@ -331,7 +333,7 @@ uint8_t Mode::getLedCount() const
 
 const Pattern *Mode::getPattern(LedPos pos) const
 {
-  if (pos >= m_numLeds) {
+  if (pos >= MODE_LEDCOUNT) {
     return nullptr;
   }
   return m_ledEntries[pos];
@@ -339,7 +341,7 @@ const Pattern *Mode::getPattern(LedPos pos) const
 
 Pattern *Mode::getPattern(LedPos pos)
 {
-  if (pos >= m_numLeds) {
+  if (pos >= MODE_LEDCOUNT) {
     return nullptr;
   }
   return m_ledEntries[pos];
@@ -347,7 +349,7 @@ Pattern *Mode::getPattern(LedPos pos)
 
 const Colorset *Mode::getColorset(LedPos pos) const
 {
-  if (pos >= m_numLeds || !m_ledEntries[pos]) {
+  if (pos >= MODE_LEDCOUNT || !m_ledEntries[pos]) {
     return nullptr;
   }
   return m_ledEntries[pos]->getColorset();
@@ -355,7 +357,7 @@ const Colorset *Mode::getColorset(LedPos pos) const
 
 Colorset *Mode::getColorset(LedPos pos)
 {
-  if (pos >= m_numLeds || !m_ledEntries[pos]) {
+  if (pos >= MODE_LEDCOUNT || !m_ledEntries[pos]) {
     return nullptr;
   }
   return m_ledEntries[pos]->getColorset();
@@ -363,7 +365,7 @@ Colorset *Mode::getColorset(LedPos pos)
 
 PatternID Mode::getPatternID(LedPos pos) const
 {
-  if (pos >= m_numLeds || !m_ledEntries[pos]) {
+  if (pos >= MODE_LEDCOUNT || !m_ledEntries[pos]) {
     return PATTERN_NONE;
   }
   return m_ledEntries[pos]->getPatternID();
@@ -374,7 +376,7 @@ bool Mode::equals(const Mode *other) const
   if (!other) {
     return false;
   }
-  if (other->m_numLeds != m_numLeds) {
+  if (other->getLedCount() != MODE_LEDCOUNT) {
     return false;
   }
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {

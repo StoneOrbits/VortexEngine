@@ -21,8 +21,9 @@
 #define HSV_BLANK   HSV_BIT | 0x000040    //   0   0  40
 #define HSV_OFF     HSV_BIT | 0x000000    //   0   0   0
 
-#define RGB_WHITE       0xaaaaaa    // 170 170 170
-#define RGB_DIM_WHITE   0x787878    // 120 120 120
+#define RGB_WHITE       0xFFFFFF    // 170 170 170
+#define RGB_DIM_WHITE1  0xaaaaaa    // 170 170 170
+#define RGB_DIM_WHITE2  0x787878    // 120 120 120
 #define RGB_ORANGE      0x832300
 #define RGB_BLUE        0x0000FF    //   0   0 255
 #define RGB_YELLOW      0xFFFF00    //
