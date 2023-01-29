@@ -162,7 +162,7 @@ void Modes::serialize(ByteStream &modesBuffer)
   for (uint32_t i = 0; i < m_numModes; ++i) {
     // load the mode and initialize it
     Mode tmpMode;
-    if (!tmpMode.unserialize(m_serializedModes[i])) {
+    if (!tmpMode.loadFromBuffer(m_serializedModes[i])) {
       continue;
     }
     // initialize before serializing the data
