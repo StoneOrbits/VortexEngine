@@ -201,48 +201,19 @@ void EditorConnection::showEditor()
   switch (m_state) {
   case STATE_DISCONNECTED:
     Leds::clearAll();
-    // gradually fill from thumb to pinkie
     Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLANK);
     break;
   case STATE_IDLE:
-    if (m_pDemoMode) {
-      // thats all
+    if (!m_pDemoMode) {
       m_pDemoMode->play();
     } else {
       Leds::setAll(RGB_BLANK);
     }
     break;
-  case STATE_PULL_MODES:
-  case STATE_PULL_MODES_SEND:
-    Leds::clearAll();
-    Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_CYAN);
-    break;
-  case STATE_PUSH_MODES:
-    Leds::clearAll();
-    Leds::blinkAll(RGB_DIM_WHITE1);
-    break;
-  case STATE_PUSH_MODES_RECEIVE:
-    Leds::clearAll();
-    Leds::blinkAll(RGB_BLANK);
-    break;
-  case STATE_PUSH_MODES_DONE:
-    Leds::clearAll();
-    Leds::blinkAll(RGB_ORANGE);
-    break;
-  case STATE_DEMO_MODE:
-    Leds::clearAll();
-    Leds::blinkAll(RGB_YELLOW);
-    break;
-  case STATE_DEMO_MODE_RECEIVE:
-    Leds::clearAll();
-    Leds::blinkAll(RGB_PURPLE);
-    break;
-  case STATE_DEMO_MODE_DONE:
-    Leds::clearAll();
-    Leds::blinkAll(RGB_BLUE);
-    break;
   default:
-    Leds::setAll(RGB_BLANK);
+    // do nothing!
+    // Note if you clear the leds while selecting color
+    // it may make the color selection choppy
     break;
   }
 }
