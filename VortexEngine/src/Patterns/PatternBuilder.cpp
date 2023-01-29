@@ -63,7 +63,12 @@ Pattern *PatternBuilder::dupe(const Pattern *pat)
   }
   PatternArgs args;
   pat->getArgs(args);
-  return make(pat->getPatternID(), &args);
+  Pattern *newPat = make(pat->getPatternID(), &args);
+  if (!newPat) {
+    return nullptr;
+  }
+  newPat->setColorset(pat->getColorset());
+  return newPat;
 }
 
 // generate a single LED pattern (nullptr if patternid is not single LED)

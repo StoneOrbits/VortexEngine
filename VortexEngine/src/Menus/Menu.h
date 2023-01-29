@@ -29,6 +29,13 @@ public:
   // close the current menu
   virtual void leaveMenu(bool doSave = false);
 
+#ifdef TEST_FRAMEWORK
+  // the test framework uses this to watch for changes to the mode and
+  // trigger redraws, override this to have your menu draw a different
+  // pattern strip while it's open
+  virtual Mode *curMode() const { return m_pCurMode; }
+#endif
+
 protected:
   // blink the selected finger
   virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);

@@ -51,30 +51,13 @@ Mode::Mode(PatternID id, const PatternArgs *args, const Colorset *set) :
   setPattern(id, args, set);
 }
 
-Mode::Mode(ByteStream &buffer) :
-  Mode()
-{
-  // make sure the mode unserializes
-  if (!unserialize(buffer)) {
-    // if not, clear I guess?
-    clearPatterns();
-  }
-}
-
 Mode::Mode(const Mode *other) :
   Mode()
 {
   if (!other) {
     return;
   }
-  setLedCount(other->m_numLeds);
-  for (uint32_t i = 0; i < other->m_numLeds; ++i) {
-    Pattern *otherPat = other->m_ledEntries[i];
-    if (!otherPat) {
-      continue;
-    }
-    m_ledEntries[i] = PatternBuilder::dupe(otherPat);
-  }
+  *this = *other;
 }
 
 Mode::~Mode()
@@ -83,6 +66,36 @@ Mode::~Mode()
 #if FIXED_LED_COUNT == 0
   free(m_ledEntries);
 #endif
+}
+
+// copy and assignment operators
+Mode::Mode(const Mode &other) :
+  Mode()
+{
+  *this = other;
+}
+
+void Mode::operator=(const Mode &other)
+{
+  setLedCount(other.m_numLeds);
+  for (uint32_t i = 0; i < other.m_numLeds; ++i) {
+    Pattern *otherPat = other.m_ledEntries[i];
+    if (!otherPat) {
+      continue;
+    }
+    m_ledEntries[i] = PatternBuilder::dupe(otherPat);
+  }
+}
+
+// equality operators
+bool Mode::operator==(const Mode &other) const
+{
+  return equals(&other);
+}
+
+bool Mode::operator!=(const Mode &other) const
+{
+  return !equals(&other);
 }
 
 void Mode::init()

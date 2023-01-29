@@ -156,7 +156,10 @@ void Modes::serialize(ByteStream &modesBuffer)
   // iterate all of the modes and copy their serial data into the modesBuffer
   for (uint32_t i = 0; i < m_numModes; ++i) {
     // load the mode and initialize it
-    Mode tmpMode(m_serializedModes[i]);
+    Mode tmpMode;
+    if (!tmpMode.unserialize(m_serializedModes[i])) {
+      continue;
+    }
     // initialize before serializing the data
     tmpMode.init();
     // serialize it into the modes buffer
@@ -265,7 +268,10 @@ bool Modes::addSerializedMode(ByteStream &serializedMode, uint32_t numLeds)
   // we must unserialize then re-serialize here because the
   // input argument may contain other patterns in the buffer
   // so we cannot just assign the input arg to m_serializedModes
-  Mode tmpMode(serializedMode);
+  Mode tmpMode;
+  if (!tmpMode.unserialize(serializedMode)) {
+    return false;
+  }
   // initialize the mode
   tmpMode.init();
   m_serializedModes[m_numModes].clear();
@@ -372,8 +378,7 @@ bool Modes::addMode(PatternID id, const PatternArgs *args, const Colorset *set)
   tmpMode.init();
   // not a very good way to do this but it ensures the mode is
   // added in the same way
-  addMode(&tmpMode);
-  return true;
+  return addMode(&tmpMode);
 }
 
 bool Modes::addMode(const Mode *mode)
@@ -384,7 +389,9 @@ bool Modes::addMode(const Mode *mode)
   }
   m_serializedModes[m_numModes].clear();
   // serialize the mode so it can be instantiated anytime
-  mode->saveToBuffer(m_serializedModes[m_numModes]);
+  if (!mode->saveToBuffer(m_serializedModes[m_numModes])) {
+    return false;
+  }
   m_numModes++;
   return true;
 }
@@ -525,9 +532,12 @@ bool Modes::initCurMode(bool force)
   m_serializedModes[m_curMode].resetUnserializer();
   DEBUG_LOGF("Current Mode size: %u", m_serializedModes[m_curMode].size());
   // use the mode builder to unserialize the mode
-  m_pCurMode = new Mode(m_serializedModes[m_curMode]);
+  m_pCurMode = new Mode();
   if (!m_pCurMode) {
     // failure
+    return false;
+  }
+  if (!m_pCurMode->loadFromBuffer(m_serializedModes[m_curMode])) {
     return false;
   }
   // re-compress the buffer because loadFromBuffer will decompress it

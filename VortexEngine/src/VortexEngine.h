@@ -18,6 +18,9 @@
  *     is too much like the previous menu before it
  *   - timers for auto demo? auto random?
  *   - TODO: implement last arg of bounce in gloves
+ *   - Implement a class for the exported mode format instead of using serialbuffer
+ *     wrap a class around serialbuffer + the extra info so that the apis are more clear
+ *     between unserialize and loadFromBuffer
  *
  *   - Editor!
  *   - global brightness slider in editor? - tools > brightness
