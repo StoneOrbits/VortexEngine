@@ -194,7 +194,7 @@ void EditorConnection::showEditor()
     Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLANK);
     break;
   case STATE_IDLE:
-    if (!m_pDemoMode) {
+    if (m_pDemoMode) {
       m_pDemoMode->play();
     } else {
       Leds::setAll(RGB_BLANK);
