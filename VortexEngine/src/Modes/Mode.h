@@ -36,9 +36,16 @@ public:
   Mode(PatternID id, const Colorset &set);
   Mode(PatternID id, const PatternArgs &args, const Colorset &set);
   Mode(PatternID id, const PatternArgs *args, const Colorset *set);
-  Mode(ByteStream &stream);
   Mode(const Mode *other);
   virtual ~Mode();
+
+  // copy and assignment operators
+  Mode(const Mode &other);
+  void operator=(const Mode &other);
+
+  // equality operators
+  bool operator==(const Mode &other) const;
+  bool operator!=(const Mode &other) const;
 
   // initialize the mode to initial state
   virtual void init();

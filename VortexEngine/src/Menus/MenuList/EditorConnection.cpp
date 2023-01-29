@@ -314,10 +314,11 @@ bool EditorConnection::receiveDemoMode()
   }
   // unserialize the mode into the demo mode
   clearDemo();
-  m_pDemoMode = new Mode(m_receiveBuffer);
+  m_pDemoMode = new Mode();
   if (!m_pDemoMode) {
     // error!
   }
+  m_pDemoMode->loadFromBuffer(m_receiveBuffer);
   return true;
 }
 
