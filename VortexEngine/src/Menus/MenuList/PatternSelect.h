@@ -29,11 +29,6 @@ public:
   virtual Mode *curMode() const { return m_pDemoMode; }
 #endif
 
-#ifdef TEST_FRAMEWORK
-  // so the pattern strip will draw the right mode
-  virtual Mode *curMode() const { return m_pDemoMode; }
-#endif
-
 private:
   void showListSelection();
   void showPatternSelection();
