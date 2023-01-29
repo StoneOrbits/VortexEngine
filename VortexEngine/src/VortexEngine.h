@@ -31,6 +31,12 @@
  *   - readout for how big a mode is vs total storage used (progress bar?)
  *   - options menu along with tools/help etc
  *
+ *   - far future patttern list 2.0:
+ *      - blend needs to be named hueshift
+ *      - hueshift is kinda pointless
+ *      - a real blend should be created that blends from one col to next
+ *        - mitigate browns by reducing duration of blend (param for blend speed)
+ *
  */
 
 #include "VortexConfig.h"
