@@ -23,11 +23,6 @@ public:
   // menu conn
   void leaveMenu(bool doSave = false) override;
 
-#ifdef TEST_FRAMEWORK
-  // so the pattern strip will draw the right mode
-  virtual Mode *curMode() const { return m_pDemoMode; }
-#endif
-
 private:
   void showEditor();
   void receiveData();

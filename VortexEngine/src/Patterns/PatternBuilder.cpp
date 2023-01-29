@@ -68,6 +68,7 @@ Pattern *PatternBuilder::dupe(const Pattern *pat)
     return nullptr;
   }
   newPat->setColorset(pat->getColorset());
+  newPat->bind(pat->getLedPos());
   return newPat;
 }
 
