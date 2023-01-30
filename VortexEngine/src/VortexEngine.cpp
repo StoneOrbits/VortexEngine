@@ -58,8 +58,6 @@ bool VortexEngine::init()
     return false;
   }
 
-  Menus::openMenu(MENU_EDITOR_CONNECTION);
-
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif
@@ -156,7 +154,6 @@ void VortexEngine::compressionTest()
 #endif
 
 #if SERIALIZATION_TEST == 1
-#include "Modes/ModeBuilder.h"
 #include "Modes/Mode.h"
 #include "Colors/Colorset.h"
 #include <stdio.h>
@@ -168,23 +165,16 @@ void VortexEngine::serializationTest()
   }
   DEBUG_LOG("== Beginning Serialization Test ==");
   for (PatternID patternID = PATTERN_FIRST; patternID < PATTERN_COUNT; ++patternID) {
-    Mode *mode = ModeBuilder::make(patternID, nullptr, &bigSet);
-    if (!mode) {
-      ERROR_LOGF("ERROR!! Failed to create mode %u", patternID);
-      return;
-    }
-    mode->init();
+    Mode tmpMode(patternID, nullptr, &bigSet);
+    tmpMode.init();
     ByteStream buffer;
-    mode->serialize(buffer);
+    tmpMode.serialize(buffer);
     if (!buffer.size()) {
       ERROR_LOGF("ERROR!! Buffer empty after serialize on %u", patternID);
       return;
     }
-    Mode *mode2 = ModeBuilder::unserializeMode(buffer);
-    if (!mode2) {
-      ERROR_LOGF("ERROR!! Failed to unserialize mode on %u", patternID);
-      return;
-    }
+    Mode tmpMode2;
+    tmpMode2.unserialize(buffer);
     if (!buffer.unserializerAtEnd()) {
       ERROR_LOGF("ERROR!! Unserializer still has data on %u:", patternID);
       uint8_t byte = 0;
@@ -198,12 +188,10 @@ void VortexEngine::serializationTest()
       printf("\n");
       return;
     }
-    if (!mode->equals(mode2)) {
+    if (!tmpMode.equals(&tmpMode2)) {
       ERROR_LOGF("ERROR!! Modes are not equal on %u", patternID);
       return;
     }
-    delete mode;
-    delete mode2;
     DEBUG_LOGF("Success pattern %u serialized cleanly", patternID);
   }
   DEBUG_LOG("All patterns serialized successfully...");
