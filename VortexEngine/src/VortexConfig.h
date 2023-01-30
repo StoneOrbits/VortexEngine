@@ -299,17 +299,6 @@
 //   * Unless you are using the test framework, don't touch these! *
 
 #ifdef TEST_FRAMEWORK
-
-// When running in the test framework with demo all patterns enabled
-// we should change the max patterns to the total pattern count because
-// the test framework can handle the memory usage and we can't demo
-// all the patterns without the increased limit
-#if DEMO_ALL_PATTERNS == 1 || SERIALIZATION_TEST == 1
-  #undef MAX_MODES
-  #include "Patterns/Patterns.h"
-  #define MAX_MODES           PATTERN_COUNT
-#endif
-
 // In the test framework variable tickrate must be enabled to allow
 // the tickrate slider to function, also the test framework never runs
 // at full tickrate, maximum is 500 tps
@@ -329,6 +318,18 @@
 #undef FIXED_LED_COUNT
 #define FIXED_LED_COUNT 0
 
+#endif
+
+// When running in the test framework with demo all patterns enabled
+// we should change the max patterns to the total pattern count because
+// the test framework can handle the memory usage and we can't demo
+// all the patterns without the increased limit
+#if DEMO_ALL_PATTERNS == 1 || SERIALIZATION_TEST == 1 || COMPRESSION_TEST == 1
+  #undef MAX_MODES
+  #include "Patterns/Patterns.h"
+  #define MAX_MODES           PATTERN_COUNT
+  #undef LOGGING_LEVEL
+  #define LOGGING_LEVEL         3
 #endif
 
 #endif // VORTEX_CONFIG_H

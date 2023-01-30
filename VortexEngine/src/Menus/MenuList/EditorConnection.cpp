@@ -33,21 +33,17 @@ bool EditorConnection::init()
 
 bool EditorConnection::receiveMessage(const char *message)
 {
-  // wait for the editor to ack the idle
-  if (m_receiveBuffer.size() == 0) {
-    return false;
-  }
   size_t len = strlen(message);
   uint8_t byte = 0;
+  // wait for the editor to ack the idle
+  if (m_receiveBuffer.size() < len) {
+    return false;
+  }
+  if (memcmp(m_receiveBuffer.frontUnserializer(), message, len) != 0) {
+    return false;
+  }
   for (uint32_t i = 0; i < len; ++i) {
-    if (m_receiveBuffer.peek8() != message[i]) {
-      return false;
-    }
     m_receiveBuffer.unserialize(&byte);
-    // double check
-    if (byte != message[i]) {
-      return false;
-    }
   }
   // if everything was read out, reset
   if (m_receiveBuffer.unserializerAtEnd()) {
@@ -243,11 +239,15 @@ bool EditorConnection::receiveModes()
   }
   // okay unserialize now, first unserialize the size
   m_receiveBuffer.unserialize(&size);
-  // todo: this is kinda jank but w/e
-  memmove(m_receiveBuffer.rawData(),
-    ((uint8_t *)m_receiveBuffer.data()) + sizeof(size),
-    m_receiveBuffer.size());
-  Modes::loadFromBuffer(m_receiveBuffer);
+  // create a new ByteStream that will hold the full buffer of data
+  ByteStream buf(m_receiveBuffer.rawSize());
+  // then copy everything from the receive buffer into the rawdata
+  // which is going to overwrite the crc/size/flags of the ByteStream
+  memcpy(buf.rawData(), m_receiveBuffer.data() + sizeof(size),
+    m_receiveBuffer.size() - sizeof(size));
+  // clear the receive buffer
+  m_receiveBuffer.clear();
+  Modes::loadFromBuffer(buf);
   Modes::saveStorage();
   return true;
 }
@@ -269,22 +269,21 @@ bool EditorConnection::receiveDemoMode()
   }
   // okay unserialize now, first unserialize the size
   m_receiveBuffer.unserialize(&size);
-  // todo: this is kinda jank but w/e
-  memmove(m_receiveBuffer.rawData(),
-    ((uint8_t *)m_receiveBuffer.data()) + sizeof(size),
-    m_receiveBuffer.size());
-  if (!m_receiveBuffer.checkCRC()) {
-    Leds::setAll(RGB_DIM_WHITE1);
-    // bad crc
-    return false;
-  }
+  // create a new ByteStream that will hold the full buffer of data
+  ByteStream buf(m_receiveBuffer.rawSize());
+  // then copy everything from the receive buffer into the rawdata
+  // which is going to overwrite the crc/size/flags of the ByteStream
+  memcpy(buf.rawData(), m_receiveBuffer.data() + sizeof(size),
+    m_receiveBuffer.size() - sizeof(size));
+  // clear the receive buffer
+  m_receiveBuffer.clear();
   // unserialize the mode into the demo mode
-  clearDemo();
-  m_pDemoMode = new Mode();
   if (!m_pDemoMode) {
-    // error!
+    m_pDemoMode = new Mode();
   }
-  m_pDemoMode->loadFromBuffer(m_receiveBuffer);
+  if (!m_pDemoMode->loadFromBuffer(buf)) {
+    // failure
+  }
   return true;
 }
 

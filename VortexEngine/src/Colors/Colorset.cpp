@@ -440,6 +440,10 @@ void Colorset::initPalette(uint32_t numColors)
 {
   if (m_palette) {
     delete[] m_palette;
+    m_palette = nullptr;
+  }
+  if (!numColors) {
+    return;
   }
   //m_palette = (RGBColor *)vcalloc(numColors, sizeof(RGBColor));
   m_palette = new RGBColor[numColors];
