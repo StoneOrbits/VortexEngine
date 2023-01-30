@@ -2,6 +2,7 @@
 #define RANDOMIZER_H
 
 #include "../Menu.h"
+#include "../../Modes/Mode.h"
 
 class Mode;
 
@@ -23,8 +24,8 @@ private:
   // override showExit so it isn't displayed on thumb
   virtual void showExit() override;
 
-  // a pointer to a randomized mode
-  Mode *m_pRandomizedMode;
+  // a demo mode for the current randomization
+  Mode m_demoMode;
 
   // re-roll a new randomization
   bool reRoll();
