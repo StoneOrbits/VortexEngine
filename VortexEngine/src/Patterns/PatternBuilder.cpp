@@ -127,20 +127,24 @@ Pattern *PatternBuilder::makeInternal(PatternID id, const PatternArgs *args)
 
 // if your pattern ID wraps a core pattern with custom args then define
 // those custom args here in this function
+//
+// NOTE: The number of args in each constructor here should match *exactly*
+//       to the number of args in the respective constructor it will call
+//       so for example PATTERN_BASIC should have 3 just like BasicPattern()
 PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
 {
   switch (id) {
     // =====================
     //  Single Led Patterns:
     case PATTERN_BASIC: return PatternArgs(1, 0, 0);
-    case PATTERN_STROBE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION);
-    case PATTERN_HYPERSTROBE: return PatternArgs(HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION);
-    case PATTERN_DOPS: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION);
-    case PATTERN_DOPISH: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION);
-    case PATTERN_ULTRADOPS: return PatternArgs(ULTRADOPS_ON_DURATION, ULTRADOPS_OFF_DURATION);
-    case PATTERN_STROBIE: return PatternArgs(STROBIE_ON_DURATION, STROBE_OFF_DURATION);
-    case PATTERN_RIBBON: return PatternArgs(RIBBON_DURATION);
-    case PATTERN_MINIRIBBON: return PatternArgs(3);
+    case PATTERN_STROBE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 0);
+    case PATTERN_HYPERSTROBE: return PatternArgs(HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 0);
+    case PATTERN_DOPS: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0);
+    case PATTERN_DOPISH: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 0);
+    case PATTERN_ULTRADOPS: return PatternArgs(ULTRADOPS_ON_DURATION, ULTRADOPS_OFF_DURATION, 0);
+    case PATTERN_STROBIE: return PatternArgs(STROBIE_ON_DURATION, STROBE_OFF_DURATION, 0);
+    case PATTERN_RIBBON: return PatternArgs(RIBBON_DURATION, 0, 0);
+    case PATTERN_MINIRIBBON: return PatternArgs(3, 0, 0);
     case PATTERN_BLINKIE: return PatternArgs(3, 6, 60);
     case PATTERN_GHOSTCRUSH: return PatternArgs(4, 1, 55);
     case PATTERN_SOLID: return PatternArgs(250, 0, 0, 0);

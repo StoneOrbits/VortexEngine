@@ -33,7 +33,9 @@ void AdvancedPattern::init()
   // run base pattern init logic
   BasicPattern::init();
   if (!m_groupSize || m_groupSize > m_colorset.numColors()) {
-    m_groupSize = m_colorset.numColors();
+    m_realGroupSize = m_colorset.numColors();
+  } else {
+    m_realGroupSize = m_groupSize;
   }
   m_groupCounter = 0;
   m_repeatCounter = m_repeatGroup;
@@ -68,7 +70,7 @@ void AdvancedPattern::endGap()
     // each time an entire group has been displayed
     m_repeatCounter--;
     // to "repeat" we simply move the colorset back one group size
-    m_colorset.skip(-(int32_t)m_groupSize);
+    m_colorset.skip(-(int32_t)m_realGroupSize);
     // nothing more to do
     return;
   }
@@ -93,7 +95,7 @@ void AdvancedPattern::onBlinkOff()
   // count a blink in the group
   m_groupCounter++;
   // check if the group has reached the intended size
-  if (m_groupCounter >= m_groupSize) {
+  if (m_groupCounter >= m_realGroupSize) {
     triggerGap();
   }
 }

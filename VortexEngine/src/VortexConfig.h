@@ -244,7 +244,7 @@
 //
 // Run the serializer/unserializer test which will find any objects
 // which don't serialize and unserialize cleanly
-#define SERIALIZATION_TEST    0
+#define SERIALIZATION_TEST    1
 
 // ===================================================================
 //  Editor Verbs
