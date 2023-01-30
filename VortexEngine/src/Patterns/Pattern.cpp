@@ -64,7 +64,9 @@ void Pattern::unserialize(ByteStream &buffer)
   m_colorset.unserialize(buffer);
   PatternArgs args;
   args.unserialize(buffer);
-  setArgs(args);
+  if (args.numArgs > 0) {
+    setArgs(args);
+  }
 }
 
 void Pattern::setArgs(const PatternArgs &args)
