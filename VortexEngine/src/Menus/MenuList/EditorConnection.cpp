@@ -70,22 +70,6 @@ bool EditorConnection::run()
   showEditor();
   // receive any data from serial into the receive buffer
   receiveData();
-
-  //static bool done_yet = false;
-  //if (!done_yet && SerialComs::checkSerial()) {
-  //  done_yet = true;
-  //  // this kills the vortex
-  //  uint8_t buf[] = {
-  //    0x3c, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x5d, 0xf0, 0x0e, 0x2a, 0xf1,
-  //    0x06, 0x01, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x03, 0x02, 0x4b, 0x00, 0x29, 0xe2, 0x1c, 0x1b, 0x03,
-  //    0x04, 0x10, 0x00, 0x03, 0x00, 0x06, 0x00, 0x08, 0x12, 0x00, 0x40, 0x02, 0x22, 0x03, 0x02, 0x26, 0x00,
-  //    0x00, 0x1e, 0x00, 0x0f, 0x18, 0x00, 0x2f, 0x50, 0x00, 0x03, 0x04, 0x10, 0x00
-  //  };
-  //  m_receiveBuffer.init(sizeof(buf), buf);
-  //  m_state = STATE_DEMO_MODE_RECEIVE;
-  //  DEBUG_LOG("STARTING");
-  //}
-
   // operate on the state of the editor connection
   switch (m_state) {
   case STATE_DISCONNECTED:
@@ -100,7 +84,7 @@ bool EditorConnection::run()
     m_state = STATE_GREETING;
     break;
   case STATE_GREETING:
-    //m_receiveBuffer.clear();
+    m_receiveBuffer.clear();
     // send the hello greeting with our version number and build time
     SerialComs::write(EDITOR_VERB_GREETING);
     m_state = STATE_IDLE;
@@ -121,7 +105,7 @@ bool EditorConnection::run()
     }
     break;
   case STATE_PULL_MODES_DONE:
-    //m_receiveBuffer.clear();
+    m_receiveBuffer.clear();
     // send our acknowledgement that the modes were sent
     SerialComs::write(EDITOR_VERB_PULL_MODES_ACK);
     // go idle
@@ -129,7 +113,7 @@ bool EditorConnection::run()
     break;
   case STATE_PUSH_MODES:
     // editor requested to push modes, clear first and reset first
-    //m_receiveBuffer.clear();
+    m_receiveBuffer.clear();
     // now say we are ready
     SerialComs::write(EDITOR_VERB_READY);
     // move to receiving
@@ -144,13 +128,13 @@ bool EditorConnection::run()
     break;
   case STATE_PUSH_MODES_DONE:
     // say we are done
-    //m_receiveBuffer.clear();
+    m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_PUSH_MODES_ACK);
     m_state = STATE_IDLE;
     break;
   case STATE_DEMO_MODE:
     // editor requested to push modes, clear first and reset first
-    //m_receiveBuffer.clear();
+    m_receiveBuffer.clear();
     // now say we are ready
     SerialComs::write(EDITOR_VERB_READY);
     // move to receiving
@@ -165,13 +149,13 @@ bool EditorConnection::run()
     break;
   case STATE_DEMO_MODE_DONE:
     // say we are done
-    //m_receiveBuffer.clear();
+    m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_DEMO_MODE_ACK);
     m_state = STATE_IDLE;
     break;
   case STATE_CLEAR_DEMO:
     clearDemo();
-    //m_receiveBuffer.clear();
+    m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_CLEAR_DEMO_ACK);
     m_state = STATE_IDLE;
   }
@@ -255,11 +239,15 @@ bool EditorConnection::receiveModes()
   }
   // okay unserialize now, first unserialize the size
   m_receiveBuffer.unserialize(&size);
-  // todo: this is kinda jank but w/e
-  memmove(m_receiveBuffer.rawData(),
-    ((uint8_t *)m_receiveBuffer.data()) + sizeof(size),
-    m_receiveBuffer.size());
-  Modes::loadFromBuffer(m_receiveBuffer);
+  // create a new ByteStream that will hold the full buffer of data
+  ByteStream buf(m_receiveBuffer.rawSize());
+  // then copy everything from the receive buffer into the rawdata
+  // which is going to overwrite the crc/size/flags of the ByteStream
+  memcpy(buf.rawData(), m_receiveBuffer.data() + sizeof(size),
+    m_receiveBuffer.size() - sizeof(size));
+  // clear the receive buffer
+  m_receiveBuffer.clear();
+  Modes::loadFromBuffer(buf);
   Modes::saveStorage();
   return true;
 }
