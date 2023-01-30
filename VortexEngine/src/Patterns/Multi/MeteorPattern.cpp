@@ -47,13 +47,13 @@ void MeteorPattern::poststep()
 void MeteorPattern::setArgs(const PatternArgs &args)
 {
   BlinkStepPattern::setArgs(args);
-  m_fadeAmount = args.arg1;
+  m_fadeAmount = args.arg4;
 }
 
 void MeteorPattern::getArgs(PatternArgs &args) const
 {
   BlinkStepPattern::getArgs(args);
-  args.arg1 = m_fadeAmount;
+  args.arg4 = m_fadeAmount;
   args.numArgs += 1;
 }
 

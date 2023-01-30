@@ -38,6 +38,8 @@ protected:
   uint8_t m_skipCols;
   uint8_t m_repeatGroup;
 
+  // the real group size based on num colors
+  uint8_t m_realGroupSize;
   // the counter for groups
   uint8_t m_groupCounter;
   // the repeat counter

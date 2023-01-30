@@ -79,15 +79,15 @@ void LighthousePattern::fade()
 void LighthousePattern::setArgs(const PatternArgs &args)
 {
   BlinkStepPattern::setArgs(args);
-  m_fadeAmount = args.arg1;
-  m_fadeRate = args.arg2;
+  m_fadeAmount = args.arg4;
+  m_fadeRate = args.arg5;
 }
 
 void LighthousePattern::getArgs(PatternArgs &args) const
 {
   BlinkStepPattern::getArgs(args);
-  args.arg1 = m_fadeAmount;
-  args.arg2 = m_fadeRate;
+  args.arg4 = m_fadeAmount;
+  args.arg5 = m_fadeRate;
   args.numArgs += 2;
 }
 

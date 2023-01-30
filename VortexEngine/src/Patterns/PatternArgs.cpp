@@ -86,11 +86,13 @@ bool PatternArgs::operator==(const PatternArgs &rhs)
   if (rhs.numArgs != numArgs) {
     return false;
   }
-  // compare all args
-  return (arg1 == rhs.arg1 && arg2 == rhs.arg2 &&
-    arg3 == rhs.arg3 && arg4 == rhs.arg4 &&
-    arg5 == rhs.arg5 && arg6 == rhs.arg6 &&
-    arg7 == rhs.arg7 && arg8 == rhs.arg8);
+  // compare num args
+  for (uint32_t i = 0; i < numArgs; ++i) {
+    if (args[i] != rhs.args[i]) {
+      return false;
+    }
+  }
+  return true;
 }
 
 uint8_t PatternArgs::operator[](int index) const

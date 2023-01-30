@@ -156,6 +156,9 @@ void VortexEngine::compressionTest()
 #if SERIALIZATION_TEST == 1
 #include "Modes/Mode.h"
 #include "Colors/Colorset.h"
+#include "Patterns/Pattern.h"
+#include "Patterns/PatternArgs.h"
+#include "Patterns/PatternBuilder.h"
 #include <stdio.h>
 void VortexEngine::serializationTest()
 {
@@ -165,7 +168,10 @@ void VortexEngine::serializationTest()
   }
   DEBUG_LOG("== Beginning Serialization Test ==");
   for (PatternID patternID = PATTERN_FIRST; patternID < PATTERN_COUNT; ++patternID) {
-    Mode tmpMode(patternID, nullptr, &bigSet);
+    PatternArgs defaults = PatternBuilder::getDefaultArgs(patternID);
+    PatternArgs args(0xAA, 0xBB, 0xCC, 0xDD, 0xEE, 0x11, 0x22, 0x33);
+    args.numArgs = defaults.numArgs;
+    Mode tmpMode(patternID, &args, &bigSet);
     tmpMode.init();
     ByteStream buffer;
     tmpMode.serialize(buffer);
@@ -190,6 +196,12 @@ void VortexEngine::serializationTest()
     }
     if (!tmpMode.equals(&tmpMode2)) {
       ERROR_LOGF("ERROR!! Modes are not equal on %u", patternID);
+      return;
+    }
+    PatternArgs pulledArgs;
+    tmpMode2.getPattern()->getArgs(pulledArgs);
+    if (pulledArgs != args) {
+      DEBUG_LOGF("ERROR!! Pattern args are not equal on %u", patternID);
       return;
     }
     DEBUG_LOGF("Success pattern %u serialized cleanly", patternID);

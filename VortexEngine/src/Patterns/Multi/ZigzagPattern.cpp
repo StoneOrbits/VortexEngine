@@ -27,14 +27,6 @@ ZigzagPattern::ZigzagPattern(const PatternArgs &args) :
   ZigzagPattern()
 {
   setArgs(args);
-  // WORKAROUND:
-  //  Unfortunately snakesize and fadeamount cannot be set/get through
-  //  the setArgs and getArgs apis which means they are not exposed as
-  //  params beyond the constructor above. Because of this we need to
-  //  manually handle snakeSize and fadeAmount in order to properly
-  //  construct a ZigZag pattern from PatternArgs
-  m_snakeSize = args.arg4;
-  m_fadeAmount = args.arg5;
 }
 
 ZigzagPattern::~ZigzagPattern()
@@ -75,6 +67,8 @@ void ZigzagPattern::setArgs(const PatternArgs &args)
   m_onDuration = args.arg1;
   m_offDuration = args.arg2;
   m_stepDuration = args.arg3;
+  m_snakeSize = args.arg4;
+  m_fadeAmount = args.arg5;
 }
 
 void ZigzagPattern::getArgs(PatternArgs &args) const
@@ -83,7 +77,9 @@ void ZigzagPattern::getArgs(PatternArgs &args) const
   args.arg1 = m_onDuration;
   args.arg2 = m_offDuration;
   args.arg3 = m_stepDuration;
-  args.numArgs += 3;
+  args.arg4 = m_snakeSize ;
+  args.arg5 = m_fadeAmount ;
+  args.numArgs += 5;
 }
 
 #if SAVE_TEMPLATE == 1
