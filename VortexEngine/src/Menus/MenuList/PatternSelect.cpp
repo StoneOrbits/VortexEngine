@@ -123,8 +123,8 @@ void PatternSelect::previousPattern()
     m_newPatternID = m_newPatternID - 1;
   }
   // change the pattern of demo mode
-  m_pDemoMode->setPattern(m_newPatternID);
-  m_pDemoMode->init();
+  m_demoMode.setPattern(m_newPatternID);
+  m_demoMode.init();
   DEBUG_LOGF("Demoing Pattern %u", m_newPatternID);
 }
 
