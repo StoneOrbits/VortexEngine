@@ -266,9 +266,6 @@ bool EditorConnection::receiveModes()
 
 bool EditorConnection::receiveDemoMode()
 {
-  m_receiveBuffer.clear();
-  return true;
-
   // need at least the buffer size first
   uint32_t size = 0;
   if (m_receiveBuffer.size() < sizeof(size)) {
@@ -284,15 +281,19 @@ bool EditorConnection::receiveDemoMode()
   }
   // okay unserialize now, first unserialize the size
   m_receiveBuffer.unserialize(&size);
-  // todo: this is kinda jank but w/e
-  memmove(m_receiveBuffer.rawData(),
-    ((uint8_t *)m_receiveBuffer.data()) + sizeof(size),
-    m_receiveBuffer.size());
+  // create a new ByteStream that will hold the full buffer of data
+  ByteStream buf(m_receiveBuffer.rawSize());
+  // then copy everything from the receive buffer into the rawdata
+  // which is going to overwrite the crc/size/flags of the ByteStream
+  memcpy(buf.rawData(), m_receiveBuffer.data() + sizeof(size),
+    m_receiveBuffer.size() - sizeof(size));
+  // clear the receive buffer
+  m_receiveBuffer.clear();
   // unserialize the mode into the demo mode
   if (!m_pDemoMode) {
     m_pDemoMode = new Mode();
   }
-  if (!m_pDemoMode->loadFromBuffer(m_receiveBuffer)) {
+  if (!m_pDemoMode->loadFromBuffer(buf)) {
     // failure
   }
   return true;
