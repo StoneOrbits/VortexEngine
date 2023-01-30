@@ -63,9 +63,9 @@ void SerialComs::write(const char *msg, ...)
   }
   va_list list;
   va_start(list, msg);
-  char buf[2048] = {0};
-  vsnprintf(buf, sizeof(buf), msg, list);
-  Serial.print(buf);
+  uint8_t buf[2048] = {0};
+  int len = vsnprintf((char *)buf, sizeof(buf), msg, list);
+  Serial.write(buf, len);
   va_end(list);
 }
 

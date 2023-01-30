@@ -33,21 +33,17 @@ bool EditorConnection::init()
 
 bool EditorConnection::receiveMessage(const char *message)
 {
-  // wait for the editor to ack the idle
-  if (m_receiveBuffer.size() == 0) {
-    return false;
-  }
   size_t len = strlen(message);
   uint8_t byte = 0;
+  // wait for the editor to ack the idle
+  if (m_receiveBuffer.size() < len) {
+    return false;
+  }
+  if (memcmp(m_receiveBuffer.frontUnserializer(), message, len) != 0) {
+    return false;
+  }
   for (uint32_t i = 0; i < len; ++i) {
-    if (m_receiveBuffer.peek8() != message[i]) {
-      return false;
-    }
     m_receiveBuffer.unserialize(&byte);
-    // double check
-    if (byte != message[i]) {
-      return false;
-    }
   }
   // if everything was read out, reset
   if (m_receiveBuffer.unserializerAtEnd()) {
@@ -74,6 +70,22 @@ bool EditorConnection::run()
   showEditor();
   // receive any data from serial into the receive buffer
   receiveData();
+
+  //static bool done_yet = false;
+  //if (!done_yet && SerialComs::checkSerial()) {
+  //  done_yet = true;
+  //  // this kills the vortex
+  //  uint8_t buf[] = {
+  //    0x3c, 0x00, 0x00, 0x00, 0x30, 0x00, 0x00, 0x00, 0x01, 0x00, 0x00, 0x00, 0x5d, 0xf0, 0x0e, 0x2a, 0xf1,
+  //    0x06, 0x01, 0x00, 0x0a, 0x00, 0x00, 0x00, 0x00, 0x03, 0x02, 0x4b, 0x00, 0x29, 0xe2, 0x1c, 0x1b, 0x03,
+  //    0x04, 0x10, 0x00, 0x03, 0x00, 0x06, 0x00, 0x08, 0x12, 0x00, 0x40, 0x02, 0x22, 0x03, 0x02, 0x26, 0x00,
+  //    0x00, 0x1e, 0x00, 0x0f, 0x18, 0x00, 0x2f, 0x50, 0x00, 0x03, 0x04, 0x10, 0x00
+  //  };
+  //  m_receiveBuffer.init(sizeof(buf), buf);
+  //  m_state = STATE_DEMO_MODE_RECEIVE;
+  //  DEBUG_LOG("STARTING");
+  //}
+
   // operate on the state of the editor connection
   switch (m_state) {
   case STATE_DISCONNECTED:
@@ -88,7 +100,7 @@ bool EditorConnection::run()
     m_state = STATE_GREETING;
     break;
   case STATE_GREETING:
-    m_receiveBuffer.clear();
+    //m_receiveBuffer.clear();
     // send the hello greeting with our version number and build time
     SerialComs::write(EDITOR_VERB_GREETING);
     m_state = STATE_IDLE;
@@ -109,7 +121,7 @@ bool EditorConnection::run()
     }
     break;
   case STATE_PULL_MODES_DONE:
-    m_receiveBuffer.clear();
+    //m_receiveBuffer.clear();
     // send our acknowledgement that the modes were sent
     SerialComs::write(EDITOR_VERB_PULL_MODES_ACK);
     // go idle
@@ -117,7 +129,7 @@ bool EditorConnection::run()
     break;
   case STATE_PUSH_MODES:
     // editor requested to push modes, clear first and reset first
-    m_receiveBuffer.clear();
+    //m_receiveBuffer.clear();
     // now say we are ready
     SerialComs::write(EDITOR_VERB_READY);
     // move to receiving
@@ -132,13 +144,13 @@ bool EditorConnection::run()
     break;
   case STATE_PUSH_MODES_DONE:
     // say we are done
-    m_receiveBuffer.clear();
+    //m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_PUSH_MODES_ACK);
     m_state = STATE_IDLE;
     break;
   case STATE_DEMO_MODE:
     // editor requested to push modes, clear first and reset first
-    m_receiveBuffer.clear();
+    //m_receiveBuffer.clear();
     // now say we are ready
     SerialComs::write(EDITOR_VERB_READY);
     // move to receiving
@@ -153,13 +165,13 @@ bool EditorConnection::run()
     break;
   case STATE_DEMO_MODE_DONE:
     // say we are done
-    m_receiveBuffer.clear();
+    //m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_DEMO_MODE_ACK);
     m_state = STATE_IDLE;
     break;
   case STATE_CLEAR_DEMO:
     clearDemo();
-    m_receiveBuffer.clear();
+    //m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_CLEAR_DEMO_ACK);
     m_state = STATE_IDLE;
   }
@@ -254,6 +266,9 @@ bool EditorConnection::receiveModes()
 
 bool EditorConnection::receiveDemoMode()
 {
+  m_receiveBuffer.clear();
+  return true;
+
   // need at least the buffer size first
   uint32_t size = 0;
   if (m_receiveBuffer.size() < sizeof(size)) {
@@ -273,18 +288,13 @@ bool EditorConnection::receiveDemoMode()
   memmove(m_receiveBuffer.rawData(),
     ((uint8_t *)m_receiveBuffer.data()) + sizeof(size),
     m_receiveBuffer.size());
-  if (!m_receiveBuffer.checkCRC()) {
-    Leds::setAll(RGB_DIM_WHITE1);
-    // bad crc
-    return false;
-  }
   // unserialize the mode into the demo mode
-  clearDemo();
-  m_pDemoMode = new Mode();
   if (!m_pDemoMode) {
-    // error!
+    m_pDemoMode = new Mode();
   }
-  m_pDemoMode->loadFromBuffer(m_receiveBuffer);
+  if (!m_pDemoMode->loadFromBuffer(m_receiveBuffer)) {
+    // failure
+  }
   return true;
 }
 

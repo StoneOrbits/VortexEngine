@@ -109,10 +109,12 @@ public:
   uint32_t capacity() const { return m_capacity; }
   bool is_compressed() const;
   const uint32_t CRC() const { return m_pData ? m_pData->crc32 : 0; }
+  
+  uint8_t *frontUnserializer() const { return m_pData ? m_pData->buf + m_position : nullptr; }
 
 private:
   // fetch pointers that walk the buffer to serialize/unserialize
-  uint8_t *frontUnserializer() const { return m_pData ? m_pData->buf + m_position : nullptr; }
+  //uint8_t *frontUnserializer() const { return m_pData ? m_pData->buf + m_position : nullptr; }
   uint8_t *frontSerializer() const { return m_pData ? m_pData->buf + m_pData->size : nullptr; }
   // check if the buffer is large enough for the amount
   bool largeEnough(uint32_t amount) const;
