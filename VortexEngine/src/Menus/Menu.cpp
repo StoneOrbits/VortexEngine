@@ -110,15 +110,15 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
   default:
     // otherwise just blink the selected finger to off from whatever
     // color or pattern it's currently displaying
-      if (blinkCol == RGB_OFF && Leds::getLed(quadrantFirstLed(m_curSelection)).empty()) {
-        // if the blink color is 'off' and the led is a blank then we
-        // need to blink to a different color
-        blinkCol = RGB_BLANK;
-      }
-      // blink the target finger to the target color
-      Leds::blinkQuadrant(m_curSelection,
-        g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime(),
-        offMs, onMs, blinkCol);
-      break;
+    if (blinkCol == RGB_OFF && Leds::getLed(quadrantFirstLed(m_curSelection)).empty()) {
+      // if the blink color is 'off' and the led is a blank then we
+      // need to blink to a different color
+      blinkCol = RGB_BLANK;
+    }
+    // blink the target finger to the target color
+    Leds::blinkQuadrant(m_curSelection,
+      g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime(),
+      offMs, onMs, blinkCol);
+    break;
   }
 }
