@@ -9,8 +9,8 @@
 
 Menu::Menu() :
   m_pCurMode(nullptr),
-  m_shouldClose(false),
-  m_curSelection(QUADRANT_FIRST)
+  m_curSelection(QUADRANT_FIRST),
+  m_shouldClose(false)
 {
 }
 
