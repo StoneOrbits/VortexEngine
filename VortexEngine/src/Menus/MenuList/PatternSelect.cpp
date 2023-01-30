@@ -12,17 +12,13 @@
 PatternSelect::PatternSelect() :
   Menu(),
   m_state(STATE_PICK_LIST),
-  m_pDemoMode(nullptr),
+  m_demoMode(),
   m_newPatternID(PATTERN_FIRST)
 {
 }
 
 PatternSelect::~PatternSelect()
 {
-  if (m_pDemoMode) {
-    delete m_pDemoMode;
-    m_pDemoMode = nullptr;
-  }
 }
 
 bool PatternSelect::init()
@@ -32,16 +28,8 @@ bool PatternSelect::init()
   }
   m_state = STATE_PICK_LIST;
   m_newPatternID = PATTERN_FIRST;
-  if (!m_pDemoMode) {
-    m_pDemoMode = new Mode(m_newPatternID, nullptr, m_pCurMode->getColorset());
-  } else {
-    m_pDemoMode->setPattern(m_newPatternID);
-  }
-  if (!m_pDemoMode) {
-    DEBUG_LOG("Failed to build demo mode for pattern select");
-    return false;
-  }
-  m_pDemoMode->init();
+  m_demoMode.setPattern(m_newPatternID, nullptr, m_pCurMode->getColorset());
+  m_demoMode.init();
   DEBUG_LOG("Entered pattern select");
   return true;
 }
@@ -80,9 +68,7 @@ void PatternSelect::showListSelection()
 
 void PatternSelect::showPatternSelection()
 {
-  if (m_pDemoMode) {
-    m_pDemoMode->play();
-  }
+  m_demoMode.play();
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     Leds::setAll(RGB_DIM_WHITE2);
   }
@@ -123,8 +109,8 @@ void PatternSelect::nextPattern()
   // increment to next pattern
   m_newPatternID = (PatternID)((m_newPatternID + 1) % PATTERN_COUNT);
   // change the pattern of demo mode
-  m_pDemoMode->setPattern(m_newPatternID);
-  m_pDemoMode->init();
+  m_demoMode.setPattern(m_newPatternID);
+  m_demoMode.init();
   DEBUG_LOGF("Demoing Pattern %u", m_newPatternID);
 }
 
@@ -154,8 +140,8 @@ void PatternSelect::onLongClick()
     m_state = STATE_PICK_PATTERN;
     // start the new pattern ID selection based on the chosen list
     m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));
-    m_pDemoMode->setPattern(m_newPatternID);
-    m_pDemoMode->init();
+    m_demoMode.setPattern(m_newPatternID);
+    m_demoMode.init();
     DEBUG_LOGF("Started picking pattern at %u", m_newPatternID);
     break;
   case STATE_PICK_PATTERN:

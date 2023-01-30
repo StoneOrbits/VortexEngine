@@ -5,8 +5,7 @@
 
 #include "../../Colors/Colorset.h"
 #include "../../Patterns/Patterns.h"
-
-class Mode;
+#include "../../Modes/Mode.h"
 
 class PatternSelect : public Menu
 {
@@ -43,7 +42,7 @@ private:
   PatternSelectState m_state;
 
   // an internal mode used for demoing patterns
-  Mode *m_pDemoMode;
+  Mode m_demoMode;
 
   // the patternid of the current demo
   PatternID m_newPatternID;

@@ -2,6 +2,7 @@
 #define RANDOMIZER_H
 
 #include "../Menu.h"
+#include "../../Modes/Mode.h"
 
 class Mode;
 
@@ -21,8 +22,8 @@ public:
   void onLongClick2();
 
 private:
-  // a pointer to a randomized mode
-  Mode *m_pRandomizedMode;
+  // a demo mode for the current randomization
+  Mode m_demoMode;
 
   // re-roll a new randomization
   bool reRoll();

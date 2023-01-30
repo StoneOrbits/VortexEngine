@@ -4,6 +4,7 @@
 #include "../../Serial/Serial.h"
 #include "../../Storage/Storage.h"
 #include "../../Time/TimeControl.h"
+#include "../../Colors/Colorset.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
@@ -12,7 +13,7 @@
 EditorConnection::EditorConnection() :
   Menu(),
   m_state(STATE_DISCONNECTED),
-  m_pDemoMode(nullptr)
+  m_demoMode()
 {
 }
 
@@ -54,11 +55,8 @@ bool EditorConnection::receiveMessage(const char *message)
 
 void EditorConnection::clearDemo()
 {
-  if (!m_pDemoMode) {
-    return;
-  }
-  delete m_pDemoMode;
-  m_pDemoMode = nullptr;
+  Colorset set(RGB_BLANK);
+  m_demoMode.setPattern(PATTERN_BASIC, nullptr, &set);
 }
 
 bool EditorConnection::run()
@@ -200,11 +198,7 @@ void EditorConnection::showEditor()
     Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLANK);
     break;
   case STATE_IDLE:
-    if (m_pDemoMode) {
-      m_pDemoMode->play();
-    } else {
-      Leds::setAll(RGB_BLANK);
-    }
+    m_demoMode.play();
     break;
   default:
     // do nothing!
@@ -283,10 +277,7 @@ bool EditorConnection::receiveDemoMode()
   // clear the receive buffer
   m_receiveBuffer.clear();
   // unserialize the mode into the demo mode
-  if (!m_pDemoMode) {
-    m_pDemoMode = new Mode();
-  }
-  if (!m_pDemoMode->loadFromBuffer(buf)) {
+  if (!m_demoMode.loadFromBuffer(buf)) {
     // failure
   }
   return true;

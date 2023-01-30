@@ -4,6 +4,7 @@
 #include "../Menu.h"
 
 #include "../../Serial/ByteStream.h"
+#include "../../Modes/Mode.h"
 
 class EditorConnection : public Menu
 {
@@ -67,7 +68,7 @@ private:
   // the data that is received
   ByteStream m_receiveBuffer;
   // the mode to demo if there is one
-  Mode *m_pDemoMode;
+  Mode m_demoMode;
 };
 
 #endif

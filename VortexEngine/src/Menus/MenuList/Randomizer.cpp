@@ -13,16 +13,12 @@
 
 Randomizer::Randomizer() :
   Menu(),
-  m_pRandomizedMode(nullptr)
+  m_demoMode()
 {
 }
 
 Randomizer::~Randomizer()
 {
-  if (m_pRandomizedMode) {
-    delete m_pRandomizedMode;
-    m_pRandomizedMode = nullptr;
-  }
 }
 
 bool Randomizer::init()
@@ -47,7 +43,7 @@ bool Randomizer::run()
   }
 
   // display the randomized mode
-  m_pRandomizedMode->play();
+  m_demoMode.play();
 
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     Leds::setAll(RGB_DIM_WHITE2);
@@ -70,9 +66,9 @@ void Randomizer::onShortClick()
 void Randomizer::onLongClick()
 {
   // we will need to save if the randomized mode is not equal to current mode
-  bool needsSave = !m_pCurMode || !m_pCurMode->equals(m_pRandomizedMode);
+  bool needsSave = !m_pCurMode || !m_pCurMode->equals(&m_demoMode);
   // update the current mode to be a copy of the randomized mode
-  if (!Modes::updateCurMode(m_pRandomizedMode)) {
+  if (!Modes::updateCurMode(&m_demoMode)) {
     ERROR_LOG("Failed to set randomized mode");
   } else {
     DEBUG_LOG("Saved new randomization");
@@ -121,18 +117,9 @@ bool Randomizer::reRoll()
     randomPattern = (PatternID)random(PATTERN_FIRST, PATTERN_COUNT);
   } while (randomPattern == PATTERN_SOLID);
 
-  if (!m_pRandomizedMode) {
-    // create a new randomized mode out of the colors
-    m_pRandomizedMode = new Mode(randomPattern, nullptr, &randomSet);
-    if (!m_pRandomizedMode) {
-      return false;
-    }
-  } else {
-    // set Randomized PatternID and color set
-    m_pRandomizedMode->setPattern(randomPattern);
-    m_pRandomizedMode->setColorset(&randomSet);
-  }
-  m_pRandomizedMode->init();
+  // set Randomized PatternID and color set
+  m_demoMode.setPattern(randomPattern, nullptr, &randomSet);
+  m_demoMode.init();
 
   DEBUG_LOGF("Randomized set with randomization technique %u, %u colors, and Pattern number %u",
     randType, randomSet.numColors(), randomPattern);
