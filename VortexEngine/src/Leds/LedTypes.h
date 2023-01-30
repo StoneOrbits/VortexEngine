@@ -331,7 +331,7 @@ inline LedPos quadrantMiddleLed(Quadrant quadrant)
 // get the last led in the quadrant
 inline LedPos quadrantLastLed(Quadrant quadrant)
 {
-  return(LedPos)(((uint32_t)quadrant * 7) + 6);
+  return (LedPos)(((uint32_t)quadrant * 7) + 6);
 }
 
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
