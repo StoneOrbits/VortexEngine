@@ -259,39 +259,39 @@
 #define EDITOR_VERB_GREETING          EDITOR_VERB_GREETING_PREFIX VORTEX_VERSION EDITOR_VERB_GREETING_POSTFIX
 
 // the hello from the editor to the gloves
-#define EDITOR_VERB_HELLO             "hello_editor"
+#define EDITOR_VERB_HELLO             "a"
 
 // the response from the gloveset when it's ready to receive something
 // after the editor has given it a command to do something the gloveset
 // will respond with this then once it's done doing the action it will
 // send a different finished response for each action
-#define EDITOR_VERB_READY             "i_am_readyyy"
+#define EDITOR_VERB_READY             "b"
 
 // the command from the editor to send modes over
-#define EDITOR_VERB_PULL_MODES        "i_give_modes"
+#define EDITOR_VERB_PULL_MODES        "c"
 // the response from the editor once modes are received
-#define EDITOR_VERB_PULL_MODES_DONE   "i_gave_modes"
+#define EDITOR_VERB_PULL_MODES_DONE   "d"
 // the response from the gloves once it acknowledges the editor got the modes
-#define EDITOR_VERB_PULL_MODES_ACK    "i_gott_modes"
+#define EDITOR_VERB_PULL_MODES_ACK    "e"
 
 // the command from the editor to send modes over
-#define EDITOR_VERB_PUSH_MODES        "save_modesss"
+#define EDITOR_VERB_PUSH_MODES        "f"
 // the response from the gloveset when it received the mode
-#define EDITOR_VERB_PUSH_MODES_ACK    "isave_modess"
+#define EDITOR_VERB_PUSH_MODES_ACK    "g"
 
 // the command from the editor to tell the gloveset to demo a mode
-#define EDITOR_VERB_DEMO_MODE         "demo_da_mode"
+#define EDITOR_VERB_DEMO_MODE         "h"
 // the response from the gloveset when it's received the mode to demo
-#define EDITOR_VERB_DEMO_MODE_ACK     "i_demodamode"
+#define EDITOR_VERB_DEMO_MODE_ACK     "i"
 
 // the command from the editor to tell the gloveset to clear the demo
-#define EDITOR_VERB_CLEAR_DEMO        "clear_dademo"
+#define EDITOR_VERB_CLEAR_DEMO        "j"
 // the response from the gloveset when it's received disabled the demo
-#define EDITOR_VERB_CLEAR_DEMO_ACK    "cleared_demo"
+#define EDITOR_VERB_CLEAR_DEMO_ACK    "k"
 
 // when the gloveset is leaving the menu and needs to tell the editor
 // that it's no longer listening
-#define EDITOR_VERB_GOODBYE           "goodbyeloser"
+#define EDITOR_VERB_GOODBYE           "l"
 
 // ===================================================================
 //  Test Framework configurations
