@@ -62,11 +62,6 @@ public:
   // load the mode from serial (optional led count)
   virtual bool unserialize(ByteStream &buffer);
 
-#if SAVE_TEMPLATE == 1
-  // save the data template
-  virtual void saveTemplate(int level = 0) const;
-#endif
-
 #if FIXED_LED_COUNT == 0
   // change the internal pattern count in the mode object
   void setLedCount(uint8_t numLeds);

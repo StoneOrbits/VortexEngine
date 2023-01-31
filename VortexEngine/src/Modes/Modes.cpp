@@ -199,51 +199,27 @@ bool Modes::unserialize(ByteStream &modesBuffer)
   return (m_numModes == numModes);
 }
 
-#if SAVE_TEMPLATE == 1
-// Generate the json template for the data format
-void Modes::saveTemplate(int level)
-{
-  IndentMsg(level, "{");
-  IndentMsg(level + 1, "\"Brightness\": %d,", Leds::getBrightness());
-  // serialize the number of modes
-  IndentMsg(level + 1, "\"NumModes\": %d,", m_numModes);
-  IndentMsg(level + 1, "\"Modes\": [");
-  for (uint32_t i = 0; i < m_numModes; ++i) {
-    m_serializedModes[i].resetUnserializer();
-    Mode *pMode = ModeBuilder::unserialize(m_serializedModes[i]);
-    if (!pMode) {
-      return;
-    }
-    // need to init the mode for example if it contains hybrid patterns like
-    // flower then their child patterns get initialized in the init call
-    pMode->init();
-    // save the mode template
-    IndentMsg(level + 2, "{");
-    pMode->saveTemplate(level + 3);
-    IndentMsg(level + 2, "},");
-    // cleanup the mode
-    delete pMode;
-  }
-  IndentMsg(level + 1, "]");
-  IndentMsg(level, "}");
-}
-#endif
-
 bool Modes::setDefaults()
 {
   clearModes();
 #if DEMO_ALL_PATTERNS == 1
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
-  Colorset defaultSet(RGB_RED, RGB_GREEN, RGB_BLUE); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
-  //Colorset defaultSet(HSVColor(254, 255, 255), HSVColor(1, 255, 255), HSVColor(245, 255, 255)); //, RGB_TEAL, RGB_PURPLE, RGB_ORANGE);
-  PatternID default_start = PATTERN_MULTI_FIRST;
+  PatternID default_start = PATTERN_FIRST;
   PatternID default_end = PATTERN_LAST;
-  //defaultSet.randomizeTriadic();
-  //defaultSet.randomize(8);
   // initialize a mode for each pattern with an rgb colorset
   for (PatternID pattern = default_start; pattern <= default_end; ++pattern) {
+    Colorset defaultSet;
+    defaultSet.randomize(8);
+    Mode tmpMode(pattern, nullptr, &defaultSet);
+    for (LedPos led = LED_FIRST; led < LED_COUNT; ++led) {
+      // create a random pattern ID from all patterns
+      PatternID randomPattern = (PatternID)random(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
+      Colorset randSet;
+      randSet.randomize(8);
+      tmpMode.setSinglePat(led, randomPattern, nullptr, &randSet);
+    }
     // add another mode with the given pattern and colorset
-    if (!addMode(pattern, &defaultSet)) {
+    if (!addMode(&tmpMode)) {
       ERROR_LOG("Failed to add mode");
       // return false?
     }
@@ -499,7 +475,6 @@ void Modes::deleteCurMode()
   if (m_curMode >= m_numModes) {
     m_curMode = m_numModes - 1;
   }
-
 }
 
 void Modes::clearModes()

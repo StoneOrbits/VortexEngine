@@ -60,11 +60,6 @@ public:
   virtual void setArgs(const PatternArgs &args);
   virtual void getArgs(PatternArgs &args) const;
 
-#if SAVE_TEMPLATE == 1
-  // save the data template
-  virtual void saveTemplate(int level = 0) const;
-#endif
-
   // comparison to other pattern
   // NOTE: That may cause problems because the parameter is still a Pattern *
   //       which means comparison would need to cast the other upwards first
