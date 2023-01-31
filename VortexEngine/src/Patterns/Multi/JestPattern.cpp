@@ -25,36 +25,14 @@ void JestPattern::init()
   // call base hybrid pattern init to actually initialize sub patterns
   HybridPattern::init();
 
-  // advanced pattern args for tips/tops
-  setPatternAt(LED_0, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_1, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_2, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_4, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_5, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_6, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_7, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_8, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_9, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_11, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_12, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_13, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_14, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_15, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_16, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_18, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_19, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_20, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_21, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_22, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_23, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_25, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_26, PATTERN_ADVANCED, &m_tipArgs);
-  setPatternAt(LED_27, PATTERN_ADVANCED, &m_tipArgs);
-
-  setPatternAt(LED_3, PATTERN_ADVANCED, &m_topArgs);
-  setPatternAt(LED_10, PATTERN_ADVANCED, &m_topArgs);
-  setPatternAt(LED_17, PATTERN_ADVANCED, &m_topArgs);
-  setPatternAt(LED_24, PATTERN_ADVANCED, &m_topArgs);
+  // advanced pattern args for top and bottom leds
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
+    if (isPairTop(i) || isPairBot(i)) {
+      setPatternAt(i, PATTERN_ADVANCED, &m_tipArgs);
+    } else {
+      setPatternAt(i, PATTERN_ADVANCED, &m_topArgs);
+    }
+  }
 }
 
 void JestPattern::setArgs(const PatternArgs &args)
