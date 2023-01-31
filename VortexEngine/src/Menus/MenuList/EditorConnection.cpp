@@ -1,5 +1,6 @@
 #include "EditorConnection.h"
 
+#include "../../Patterns/PatternArgs.h"
 #include "../../Serial/ByteStream.h"
 #include "../../Serial/Serial.h"
 #include "../../Storage/Storage.h"
@@ -27,6 +28,8 @@ bool EditorConnection::init()
   if (!Menu::init()) {
     return false;
   }
+
+  clearDemo();
 
   DEBUG_LOG("Entering Editor Connection");
   return true;
@@ -56,7 +59,9 @@ bool EditorConnection::receiveMessage(const char *message)
 void EditorConnection::clearDemo()
 {
   Colorset set(RGB_BLANK);
-  m_demoMode.setPattern(PATTERN_BASIC, nullptr, &set);
+  PatternArgs args(1, 0, 0);
+  m_demoMode.setPattern(PATTERN_BASIC, &args, &set);
+  m_demoMode.init();
 }
 
 bool EditorConnection::run()
