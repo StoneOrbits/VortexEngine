@@ -84,11 +84,14 @@
 
 // Max Modes
 //
-// The maximum number of modes that can be active at once
-// this should reflect the available RAM of the device.
-// However it is also heavily influenced by the active patterns
-// so it's hard to pick a number, 16 seems reasonable
-#define MAX_MODES             16
+// The maximum number of modes that can be stored on the device.
+// This should reflect the available RAM of the device.
+//
+// In our tests even 45 fully loaded modes only took up 15kb
+//
+// Set this to 0 for no limit on the number of modes
+//
+#define MAX_MODES             0
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -187,7 +190,7 @@
 //
 // This can be used to quickly demo all possible patterns, mostly useful
 // for testing and development
-#define DEMO_ALL_PATTERNS     0
+#define DEMO_ALL_PATTERNS     1
 
 // Save Template
 //
@@ -294,6 +297,28 @@
 #define EDITOR_VERB_GOODBYE           "l"
 
 // ===================================================================
+//  Manually Configured Sizes
+//
+//  These are the various storage space constants of the vortex device
+
+// maximum storage space in bytes
+#define MAX_STORAGE_SPACE 262144
+
+// the size of the compiled engine
+#define ENGINE_SIZE 88776
+
+// the raw amount of available space
+#define RAW_AVAILABLE_SPACE (MAX_STORAGE_SPACE - ENGINE_SIZE)
+
+// usable flash space is one eighth of what we have left idk why I 
+// just kept picking numbers till it worked
+#define USABLE_SPACE (RAW_AVAILABLE_SPACE / 8)
+
+// the space available for storing modes is the usable space rounded 
+// down to nearest 4096
+#define STORAGE_SIZE (USABLE_SPACE - (USABLE_SPACE % 4096))
+
+// ===================================================================
 //  Test Framework configurations
 //
 //   * Unless you are using the test framework, don't touch these! *
@@ -327,7 +352,7 @@
 #if DEMO_ALL_PATTERNS == 1 || SERIALIZATION_TEST == 1 || COMPRESSION_TEST == 1
   #undef MAX_MODES
   #include "Patterns/Patterns.h"
-  #define MAX_MODES           PATTERN_COUNT
+  #define MAX_MODES           0
   #undef LOGGING_LEVEL
   #define LOGGING_LEVEL         3
 #endif

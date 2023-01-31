@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "../VortexConfig.h"
 #include "../Memory/Memory.h"
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
@@ -31,6 +32,8 @@ bool Storage::init()
 #ifdef TEST_FRAMEWORK
   DeleteFile("FlashStorage.flash");
 #endif
+  DEBUG_LOGF("Total space: %u Engine size: %u Available space: %u",
+    MAX_STORAGE_SPACE, ENGINE_SIZE, STORAGE_SIZE);
   return true;
 }
 
@@ -67,4 +70,14 @@ bool Storage::read(ByteStream &buffer)
   storage.read(buffer.rawData());
   DEBUG_LOGF("Loaded savedata (Size: %u)", buffer.size());
   return true;
+}
+
+uint32_t Storage::totalSpace()
+{
+  return MAX_STORAGE_SPACE - ENGINE_SIZE;
+}
+
+uint32_t Storage::lastSaveSize()
+{
+  return *(uint32_t *)_storagedata;
 }

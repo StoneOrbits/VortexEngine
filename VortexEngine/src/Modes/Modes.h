@@ -84,6 +84,12 @@ public:
   static void clearModes();
 
 private:
+  // linked list of internal mode storage
+  class ModeLink {
+    ByteStream storedMode;
+    ModeLink *next;
+  };
+
   // initialize current mode from ByteStream, optionally force re-init which
   // will destroy the current instantiated mode and re-load it from serial
   static bool initCurMode(bool force = false);
@@ -99,7 +105,8 @@ private:
   static Mode *m_pCurMode;
 
   // list of serialized version of bufers
-  static ByteStream m_serializedModes[MAX_MODES];
+  //static ByteStream m_serializedModes[MAX_MODES];
+  static ModeLink *m_storedModes;
 };
 
 #endif
