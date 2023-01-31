@@ -30,21 +30,13 @@ void CrossDopsPattern::init()
 void CrossDopsPattern::blinkOn()
 {
   // set the current color on all the given leds
-  int firstQuarter = (LED_COUNT / 4);
-  int half = (LED_COUNT / 2);
-  int thirdQuarter = firstQuarter * 3;
-  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    if (m_switch) {
-      if (i < firstQuarter || (i >= half && i < thirdQuarter)) {
-        Leds::setIndex(i, m_colorset.cur());
-      }
-    } else {
-      if ((i >= firstQuarter && i < half) || i > thirdQuarter) {
-        Leds::setIndex(i, m_colorset.cur());
-      }
-    }
+  if (m_switch) {
+    Leds::setQuadrant(QUADRANT_1, m_colorset.cur());
+    Leds::setQuadrant(QUADRANT_3, m_colorset.cur());
+  } else {
+    Leds::setQuadrant(QUADRANT_2, m_colorset.cur());
+    Leds::setQuadrant(QUADRANT_4, m_colorset.cur());
   }
-
 }
 
 void CrossDopsPattern::poststep()
