@@ -9,9 +9,9 @@
 #include "Multi/Sequencer/ChaserPattern.h"
 #include "Multi/Sequencer/Sequence.h"
 
-#include "Multi/RabbitPattern.h"
-#include "Multi/HueShiftPattern.h"
 #include "Multi/TheaterChasePattern.h"
+#include "Multi/HueShiftPattern.h"
+#include "Multi/RabbitPattern.h"
 #include "Multi/ZigzagPattern.h"
 #include "Multi/TipTopPattern.h"
 #include "Multi/DripPattern.h"
