@@ -1,6 +1,5 @@
 #include "FlowersPattern.h"
 
-#include "../PatternBuilder.h"
 #include "../../Serial/ByteStream.h"
 
 FlowersPattern::FlowersPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t gapDuration1,
@@ -34,12 +33,12 @@ void FlowersPattern::init()
 
   // quadrant 1 and 3 use duration 1
   for (LedPos led = LED_FIRST; led < LED_COUNT; ++led) {
-    if (led < LED_7 || (led > LED_13 && led < LED_21)) {
+    if (ledToQuadrant(led) % 2) {
       // 1-6 and 14-20
-      setPatternAt(led, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstPatternArgs), &set1);
+      setPatternAt(led, PATTERN_BASIC, &m_firstPatternArgs, &set1);
     } else {
       // 7-13 and 21-27
-      setPatternAt(led, PatternBuilder::makeSingle(PATTERN_BASIC, &m_secondPatternArgs), &set2);
+      setPatternAt(led, PATTERN_BASIC, &m_secondPatternArgs, &set2);
     }
   }
 }

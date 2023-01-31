@@ -227,6 +227,12 @@ inline LedPos pairBot(LedPair pair)
   }
 }
 
+// get the quadrant an led is in
+inline Quadrant ledToQuadrant(LedPos led)
+{
+  return (Quadrant)(led / 7);
+}
+
 // get the first led in the quadrant
 inline LedPos quadrantFirstLed(Quadrant quadrant)
 {
