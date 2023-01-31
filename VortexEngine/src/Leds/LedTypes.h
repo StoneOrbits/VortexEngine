@@ -179,140 +179,51 @@ inline bool isPairSide(LedPos pos)
 inline LedPair ledToPair(LedPos pos)
 {
   switch (pos) {
-  // Quadrant 1
-  case LED_0:
-  case LED_6:
-    return PAIR_1;
-  case LED_1:
-  case LED_5:
-    return PAIR_2;
-  case LED_2:
-  case LED_4:
-    return PAIR_3;
-  case LED_3:
-    return PAIR_4;
-
+    // Quadrant 1
+    case LED_0:  case LED_6:  return PAIR_1;
+    case LED_1:  case LED_5:  return PAIR_2;
+    case LED_2:  case LED_4:  return PAIR_3;
+    case LED_3:               return PAIR_4;
     // Quadrant 2
-  case LED_7:
-  case LED_13:
-    return PAIR_5;
-  case LED_8:
-  case LED_12:
-    return PAIR_6;
-  case LED_9:
-  case LED_11:
-    return PAIR_7;
-  case LED_10:
-    return PAIR_8;
-
+    case LED_7:  case LED_13: return PAIR_5;
+    case LED_8:  case LED_12: return PAIR_6;
+    case LED_9:  case LED_11: return PAIR_7;
+    case LED_10:              return PAIR_8;
     // Quadrant 3
-  case LED_14:
-  case LED_20:
-    return PAIR_9;
-  case LED_15:
-  case LED_19:
-    return PAIR_10;
-  case LED_16:
-  case LED_18:
-    return PAIR_11;
-  case LED_17:
-    return PAIR_12;
-
+    case LED_14: case LED_20: return PAIR_9;
+    case LED_15: case LED_19: return PAIR_10;
+    case LED_16: case LED_18: return PAIR_11;
+    case LED_17:              return PAIR_12;
     // Quadrant 4
-  case LED_21:
-  case LED_27:
-    return PAIR_13;
-  case LED_22:
-  case LED_26:
-    return PAIR_14;
-  case LED_23:
-  case LED_25:
-    return PAIR_15;
-  case LED_24:
-    return PAIR_16;
-
-  default:
-    return PAIR_FIRST;
+    case LED_21: case LED_27: return PAIR_13;
+    case LED_22: case LED_26: return PAIR_14;
+    case LED_23: case LED_25: return PAIR_15;
+    case LED_24:              return PAIR_16;
+    default:                  return PAIR_FIRST;
   }
 }
 
 // get the top led from the pair
 inline LedPos pairTop(LedPair pair)
 {
-  switch (pair) {
-  case PAIR_1:
-  default:
-    return LED_0;
-  case PAIR_2:
-    return LED_1;
-  case PAIR_3:
-    return LED_2;
-  case PAIR_4:
-    return LED_3;
-  case PAIR_5:
-    return LED_13;
-  case PAIR_6:
-    return LED_12;
-  case PAIR_7:
-    return LED_11;
-  case PAIR_8:
-    return LED_10;
-  case PAIR_9:
-    return LED_14;
-  case PAIR_10:
-    return LED_15;
-  case PAIR_11:
-    return LED_16;
-  case PAIR_12:
-    return LED_17;
-  case PAIR_13:
-    return LED_27;
-  case PAIR_14:
-    return LED_26;
-  case PAIR_15:
-    return LED_25;
-  case PAIR_16:
-    return LED_24;
+  switch (((int)pair) / 4) {
+    case 0:  return (LedPos)pair;         // pair 0 1 2 3 -> 0 1 2 3
+    case 1:  return (LedPos)(17 - pair);  // pair 4 5 6 7 -> 13 12 11 10
+    case 2:  return (LedPos)(6 + pair);   // pair 8 9 10 11 -> 14 15 16 17
+    case 3:  return (LedPos)(39 - pair);  // pair 12 13 14 15 -> 27 26 25 24
+    default: return LED_FIRST;
   }
 }
 
 // get the bottom led from the pair
 inline LedPos pairBot(LedPair pair)
 {
-  switch (pair) {
-  case PAIR_1:
-  default:
-    return LED_6;
-  case PAIR_2:
-    return LED_5;
-  case PAIR_3:
-    return LED_4;
-  case PAIR_4:
-    return LED_3;
-  case PAIR_5:
-    return LED_7;
-  case PAIR_6:
-    return LED_8;
-  case PAIR_7:
-    return LED_9;
-  case PAIR_8:
-    return LED_10;
-  case PAIR_9:
-    return LED_20;
-  case PAIR_10:
-    return LED_19;
-  case PAIR_11:
-    return LED_18;
-  case PAIR_12:
-    return LED_17;
-  case PAIR_13:
-    return LED_21;
-  case PAIR_14:
-    return LED_22;
-  case PAIR_15:
-    return LED_23;
-  case PAIR_16:
-    return LED_24;
+  switch (((int)pair) / 4) {
+    case 0:  return (LedPos)(6 - pair);   // pair 0 1 2 3 -> 6 5 4 3
+    case 1:  return (LedPos)(2 + pair);   // pair 4 5 6 7 -> 7 8 9 10
+    case 2:  return (LedPos)(28 - pair);  // pair 8 9 10 11 -> 20 19 18 17
+    case 3:  return (LedPos)(8 + pair);   // pair 13 14 15 16 -> 21 22 23 24
+    default: return LED_FIRST;
   }
 }
 
