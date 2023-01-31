@@ -1,8 +1,5 @@
 #include "FlowersPattern.h"
 
-#include "../PatternBuilder.h"
-#include "../../Serial/ByteStream.h"
-
 FlowersPattern::FlowersPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t gapDuration1,
   uint8_t onDuration2, uint8_t offDuration2, uint8_t gapDuration2) :
   HybridPattern(),
@@ -33,18 +30,18 @@ void FlowersPattern::init()
   Colorset midSet(m_colorset.get(2), m_colorset.get(3));
 
   // thumb and pinkie use duration 1
-  setPatternAt(THUMB_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstPatternArgs), &sideSet);
-  setPatternAt(THUMB_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstPatternArgs), &sideSet);
-  setPatternAt(PINKIE_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstPatternArgs), &sideSet);
-  setPatternAt(PINKIE_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstPatternArgs), &sideSet);
+  setPatternAt(THUMB_TIP, PATTERN_BASIC, &m_firstPatternArgs, &sideSet);
+  setPatternAt(THUMB_TOP, PATTERN_BASIC, &m_firstPatternArgs, &sideSet);
+  setPatternAt(PINKIE_TOP, PATTERN_BASIC, &m_firstPatternArgs, &sideSet);
+  setPatternAt(PINKIE_TIP, PATTERN_BASIC, &m_firstPatternArgs, &sideSet);
 
   // middle index ring use duration 2
-  setPatternAt(MIDDLE_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstPatternArgs), &midSet);
-  setPatternAt(MIDDLE_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstPatternArgs), &midSet);
-  setPatternAt(INDEX_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstPatternArgs), &midSet);
-  setPatternAt(INDEX_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstPatternArgs), &midSet);
-  setPatternAt(RING_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstPatternArgs), &midSet);
-  setPatternAt(RING_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstPatternArgs), &midSet);
+  setPatternAt(MIDDLE_TIP, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
+  setPatternAt(MIDDLE_TOP, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
+  setPatternAt(INDEX_TOP, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
+  setPatternAt(INDEX_TIP, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
+  setPatternAt(RING_TOP, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
+  setPatternAt(RING_TIP, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
 }
 
 void FlowersPattern::setArgs(const PatternArgs &args)

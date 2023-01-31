@@ -92,16 +92,6 @@ void BasicPattern::getArgs(PatternArgs &args) const
   args.numArgs += 3;
 }
 
-#if SAVE_TEMPLATE == 1
-void BasicPattern::saveTemplate(int level) const
-{
-  SingleLedPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"OnDuration\": %d,", m_onDuration);
-  IndentMsg(level + 1, "\"OffDuration\": %d,", m_offDuration);
-  IndentMsg(level + 1, "\"GapDuration\": %d,", m_gapDuration);
-}
-#endif
-
 void BasicPattern::onBlinkOn()
 {
   // if this is the first color in the colorset

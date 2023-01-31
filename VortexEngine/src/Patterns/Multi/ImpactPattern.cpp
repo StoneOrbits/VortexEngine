@@ -1,8 +1,5 @@
 #include "ImpactPattern.h"
 
-#include "../../Serial/ByteStream.h"
-#include "../PatternBuilder.h"
-
 ImpactPattern::ImpactPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2,
   uint8_t offDuration2, uint8_t onDuration3, uint8_t offDuration3) :
   HybridPattern(),
@@ -35,19 +32,19 @@ void ImpactPattern::init()
   Colorset thirdSet(m_colorset.get(2));
   Colorset fourthSet(m_colorset.get(3), m_colorset.get(4), m_colorset.get(5), m_colorset.get(6), m_colorset.get(7));
 
-  setPatternAt(THUMB_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_thumbArgs), &thumbSet);
-  setPatternAt(THUMB_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_thumbArgs), &thumbSet);
+  setPatternAt(THUMB_TIP, PATTERN_BASIC, &m_thumbArgs, &thumbSet);
+  setPatternAt(THUMB_TOP, PATTERN_BASIC, &m_thumbArgs, &thumbSet);
 
-  setPatternAt(MIDDLE_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &middleSet);
-  setPatternAt(MIDDLE_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &middleSet);
+  setPatternAt(MIDDLE_TIP, PATTERN_BASIC, &m_middleArgs, &middleSet);
+  setPatternAt(MIDDLE_TOP, PATTERN_BASIC, &m_middleArgs, &middleSet);
 
-  setPatternAt(INDEX_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
-  setPatternAt(RING_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
-  setPatternAt(PINKIE_TOP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
+  setPatternAt(INDEX_TOP, PATTERN_BASIC, &m_otherArgs, &thirdSet);
+  setPatternAt(RING_TOP, PATTERN_BASIC, &m_otherArgs, &thirdSet);
+  setPatternAt(PINKIE_TOP, PATTERN_BASIC, &m_otherArgs, &thirdSet);
 
-  setPatternAt(INDEX_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &fourthSet);
-  setPatternAt(RING_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &fourthSet);
-  setPatternAt(PINKIE_TIP, PatternBuilder::makeSingle(PATTERN_BASIC, &m_middleArgs), &fourthSet);
+  setPatternAt(INDEX_TIP, PATTERN_BASIC, &m_middleArgs, &fourthSet);
+  setPatternAt(RING_TIP, PATTERN_BASIC, &m_middleArgs, &fourthSet);
+  setPatternAt(PINKIE_TIP, PATTERN_BASIC, &m_middleArgs, &fourthSet);
 }
 
 void ImpactPattern::setArgs(const PatternArgs &args)

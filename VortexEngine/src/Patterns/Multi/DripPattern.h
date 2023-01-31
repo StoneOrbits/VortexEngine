@@ -5,7 +5,6 @@
 
 #include "../../Time/Timings.h"
 
-
 class DripPattern : public BlinkStepPattern
 {
 public:

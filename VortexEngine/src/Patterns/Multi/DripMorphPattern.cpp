@@ -74,16 +74,6 @@ void DripMorphPattern::getArgs(PatternArgs &args) const
   args.numArgs += 3;
 }
 
-#if SAVE_TEMPLATE == 1
-void DripMorphPattern::saveTemplate(int level) const
-{
-  MultiLedPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"BlinkOnDuration\": %d,", m_blinkOnDuration);
-  IndentMsg(level + 1, "\"BlinkOffDuration\": %d,", m_blinkOffDuration);
-  IndentMsg(level + 1, "\"Speed\": %d,", m_speed);
-}
-#endif
-
 void DripMorphPattern::blinkOn()
 {
   // if the current hue has reached the next hue

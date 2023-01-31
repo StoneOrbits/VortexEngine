@@ -1,11 +1,6 @@
 #include "TheaterChasePattern.h"
 
-#include "MultiLedPattern.h"
-
-#include "../../Time/TimeControl.h"
-#include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
 #define THEATER_CHASE_STEPS 10
 

@@ -1,9 +1,6 @@
 #include "SnowballPattern.h"
 
-#include "../../Serial/ByteStream.h"
-#include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
 #define WORM_SIZE 6
 

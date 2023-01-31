@@ -1,6 +1,5 @@
 #include "ZigzagPattern.h"
 
-#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
@@ -106,16 +105,6 @@ void ZigzagPattern::getArgs(PatternArgs &args) const
   args.arg5 = m_fadeAmount ;
   args.numArgs += 5;
 }
-
-#if SAVE_TEMPLATE == 1
-void ZigzagPattern::saveTemplate(int level) const
-{
-  MultiLedPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"OnDuration\": %d,", m_onDuration);
-  IndentMsg(level + 1, "\"OffDuraiton\": %d,", m_offDuration);
-  IndentMsg(level + 1, "\"StepDuration\": %d,", m_stepDuration);
-}
-#endif
 
 // ===================
 //  Snake code

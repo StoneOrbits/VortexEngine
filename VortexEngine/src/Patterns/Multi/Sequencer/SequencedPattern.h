@@ -28,10 +28,6 @@ public:
   // pure virtual must override the play function
   virtual void play() override;
 
-#if SAVE_TEMPLATE == 1
-  virtual void saveTemplate(int level = 0) const override;
-#endif
-
   // change the sequence of the pattern
   void bindSequence(const Sequence &sequence);
 

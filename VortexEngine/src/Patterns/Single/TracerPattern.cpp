@@ -1,10 +1,6 @@
 #include "TracerPattern.h"
 
-#include "../../Serial/ByteStream.h"
-#include "../../Time/TimeControl.h"
-#include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
 TracerPattern::TracerPattern(uint8_t tracerLength, uint8_t dotLength) :
   SingleLedPattern(),
@@ -75,12 +71,3 @@ void TracerPattern::getArgs(PatternArgs &args) const
   args.arg2 = m_dotDuration;
   args.numArgs += 2;
 }
-
-#if SAVE_TEMPLATE == 1
-void TracerPattern::saveTemplate(int level) const
-{
-  SingleLedPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"TracerDuration\": %d,", m_tracerDuration);
-  IndentMsg(level + 1, "\"DotDuration\": %d,", m_dotDuration);
-}
-#endif

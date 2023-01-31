@@ -81,15 +81,3 @@ void BracketsPattern::getArgs(PatternArgs &args) const
   args.arg3 = m_offDuration;
   args.numArgs += 3;
 }
-
-#if SAVE_TEMPLATE == 1
-void BracketsPattern::saveTemplate(int level) const
-{
-  SingleLedPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"BracketDuration\": %d,", m_bracketDuration);
-  IndentMsg(level + 1, "\"MidDuration\": %d,", m_midDuration);
-  IndentMsg(level + 1, "\"OffDuration\": %d,", m_offDuration);
-}
-#endif
-
-

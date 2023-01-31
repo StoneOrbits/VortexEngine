@@ -1,7 +1,6 @@
 #include "BlinkStepPattern.h"
 
 #include "../../Time/Timings.h"
-#include "../../Time/Timer.h"
 
 class SnowballPattern : public BlinkStepPattern
 {

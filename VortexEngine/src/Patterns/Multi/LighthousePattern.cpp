@@ -90,14 +90,3 @@ void LighthousePattern::getArgs(PatternArgs &args) const
   args.arg5 = m_fadeRate;
   args.numArgs += 2;
 }
-
-#if SAVE_TEMPLATE == 1
-void LighthousePattern::saveTemplate(int level) const
-{
-  BlinkStepPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"FadeAmount\": %d,", m_fadeAmount);
-  IndentMsg(level + 1, "\"FadeRate\": %d,", m_fadeRate);
-}
-#endif
-
-

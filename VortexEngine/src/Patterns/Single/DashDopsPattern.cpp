@@ -1,10 +1,6 @@
 #include "DashDopsPattern.h"
 
-#include "../../Serial/ByteStream.h"
-#include "../../Time/TimeControl.h"
-#include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
 DashDopsPattern::DashDopsPattern(uint8_t dashLength, uint8_t dotLength, uint8_t offDuration) :
   SingleLedPattern(),
@@ -87,13 +83,3 @@ void DashDopsPattern::getArgs(PatternArgs &args) const
   args.arg3 = m_offDuration;
   args.numArgs += 3;
 }
-
-#if SAVE_TEMPLATE == 1
-void DashDopsPattern::saveTemplate(int level) const
-{
-  SingleLedPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"DashDuration\": %d,", m_dashDuration);
-  IndentMsg(level + 1, "\"DotDuration\": %d,", m_dotDuration);
-  IndentMsg(level + 1, "\"OffDuration\": %d,", m_offDuration);
-}
-#endif

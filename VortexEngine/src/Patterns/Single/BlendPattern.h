@@ -1,8 +1,6 @@
 #ifndef BLEND_PATTERN_H
 #define BLEND_PATTERN_H
 
-#include <inttypes.h>
-
 #include "BasicPattern.h"
 
 #include "../../Time/Timings.h"
@@ -21,10 +19,6 @@ public:
 
   virtual void setArgs(const PatternArgs &args) override;
   virtual void getArgs(PatternArgs &args) const override;
-
-#if SAVE_TEMPLATE == 1
-  virtual void saveTemplate(int level = 0) const override;
-#endif
 
 protected:
   // only override the onBlinkOn so we can control the color it blinks

@@ -80,16 +80,6 @@ void BlinkStepPattern::getArgs(PatternArgs &args) const
   args.numArgs += 3;
 }
 
-#if SAVE_TEMPLATE == 1
-void BlinkStepPattern::saveTemplate(int level) const
-{
-  MultiLedPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"BlinkOnDuration\": %d,", m_blinkOnDuration);
-  IndentMsg(level + 1, "\"BlinkOffDuration\": %d,", m_blinkOffDuration);
-  IndentMsg(level + 1, "\"StepDuration\": %d,", m_stepDuration);
-}
-#endif
-
 void BlinkStepPattern::blinkOn()
 {
   // override me

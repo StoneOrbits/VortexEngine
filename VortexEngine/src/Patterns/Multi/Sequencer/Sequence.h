@@ -25,10 +25,6 @@ public:
   void serialize(ByteStream &buffer) const;
   void unserialize(ByteStream &buffer);
 
-#if SAVE_TEMPLATE == 1
-  void saveTemplate(int level = 0) const;
-#endif
-
   // public list of pattern IDs for each led
   PatternID m_patternMap[LED_COUNT];
 };
