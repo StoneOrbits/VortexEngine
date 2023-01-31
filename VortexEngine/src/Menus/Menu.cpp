@@ -42,6 +42,8 @@ bool Menu::init()
       return false;
     }
   }
+  // reset the current selection
+  m_curSelection = QUADRANT_FIRST;
   // just in case
   m_shouldClose = false;
   return true;
