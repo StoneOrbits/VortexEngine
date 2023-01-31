@@ -29,38 +29,18 @@ void ImpactPattern::init()
   // thumb, middle and index/ring/pinkie
   Colorset firstSideSet(m_colorset.get(0));
   Colorset secondSideSet(m_colorset.get(1));
-  Colorset thirdSet(m_colorset.get(2), m_colorset.get(3), m_colorset.get(4), m_colorset.get(5), m_colorset.get(6), m_colorset.get(7));
+  Colorset thirdSet(m_colorset.get(2), m_colorset.get(3), m_colorset.get(4),
+    m_colorset.get(5), m_colorset.get(6), m_colorset.get(7));
 
-  setPatternAt(LED_0, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
-  setPatternAt(LED_1, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
-  setPatternAt(LED_2, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
-  setPatternAt(LED_11, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
-  setPatternAt(LED_12, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
-  setPatternAt(LED_13, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
-  setPatternAt(LED_14, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
-  setPatternAt(LED_15, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
-  setPatternAt(LED_16, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
-  setPatternAt(LED_25, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
-  setPatternAt(LED_26, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
-  setPatternAt(LED_27, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
-
-  setPatternAt(LED_4, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
-  setPatternAt(LED_5, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
-  setPatternAt(LED_6, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
-  setPatternAt(LED_7, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
-  setPatternAt(LED_8, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
-  setPatternAt(LED_9, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
-  setPatternAt(LED_18, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
-  setPatternAt(LED_19, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
-  setPatternAt(LED_20, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
-  setPatternAt(LED_21, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
-  setPatternAt(LED_22, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
-  setPatternAt(LED_23, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
-
-  setPatternAt(LED_3, PATTERN_BASIC, &m_otherArgs, &thirdSet);
-  setPatternAt(LED_10, PATTERN_BASIC, &m_otherArgs, &thirdSet);
-  setPatternAt(LED_17, PATTERN_BASIC, &m_otherArgs, &thirdSet);
-  setPatternAt(LED_24, PATTERN_BASIC, &m_otherArgs, &thirdSet);
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
+    if (isPairTop(i)) {
+      setPatternAt(i, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
+    } else if (isPairBot(i)) {
+      setPatternAt(i, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
+    } else {
+      setPatternAt(i, PATTERN_BASIC, &m_otherArgs, &thirdSet);
+    }
+  }
 }
 
 void ImpactPattern::setArgs(const PatternArgs &args)
