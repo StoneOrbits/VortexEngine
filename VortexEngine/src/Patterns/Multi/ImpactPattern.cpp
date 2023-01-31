@@ -1,8 +1,5 @@
 #include "ImpactPattern.h"
 
-#include "../../Serial/ByteStream.h"
-#include "../PatternBuilder.h"
-
 ImpactPattern::ImpactPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2,
   uint8_t offDuration2, uint8_t onDuration3, uint8_t offDuration3) :
   HybridPattern(),
@@ -34,36 +31,36 @@ void ImpactPattern::init()
   Colorset secondSideSet(m_colorset.get(1));
   Colorset thirdSet(m_colorset.get(2), m_colorset.get(3), m_colorset.get(4), m_colorset.get(5), m_colorset.get(6), m_colorset.get(7));
 
-  setPatternAt(LED_0, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstSideArgs), &firstSideSet);
-  setPatternAt(LED_1, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstSideArgs), &firstSideSet);
-  setPatternAt(LED_2, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstSideArgs), &firstSideSet);
-  setPatternAt(LED_11, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstSideArgs), &firstSideSet);
-  setPatternAt(LED_12, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstSideArgs), &firstSideSet);
-  setPatternAt(LED_13, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstSideArgs), &firstSideSet);
-  setPatternAt(LED_14, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstSideArgs), &firstSideSet);
-  setPatternAt(LED_15, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstSideArgs), &firstSideSet);
-  setPatternAt(LED_16, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstSideArgs), &firstSideSet);
-  setPatternAt(LED_25, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstSideArgs), &firstSideSet);
-  setPatternAt(LED_26, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstSideArgs), &firstSideSet);
-  setPatternAt(LED_27, PatternBuilder::makeSingle(PATTERN_BASIC, &m_firstSideArgs), &firstSideSet);
+  setPatternAt(LED_0, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
+  setPatternAt(LED_1, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
+  setPatternAt(LED_2, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
+  setPatternAt(LED_11, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
+  setPatternAt(LED_12, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
+  setPatternAt(LED_13, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
+  setPatternAt(LED_14, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
+  setPatternAt(LED_15, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
+  setPatternAt(LED_16, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
+  setPatternAt(LED_25, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
+  setPatternAt(LED_26, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
+  setPatternAt(LED_27, PATTERN_BASIC, &m_firstSideArgs, &firstSideSet);
 
-  setPatternAt(LED_4, PatternBuilder::makeSingle(PATTERN_BASIC, &m_secondSideArgs), &secondSideSet);
-  setPatternAt(LED_5, PatternBuilder::makeSingle(PATTERN_BASIC, &m_secondSideArgs), &secondSideSet);
-  setPatternAt(LED_6, PatternBuilder::makeSingle(PATTERN_BASIC, &m_secondSideArgs), &secondSideSet);
-  setPatternAt(LED_7, PatternBuilder::makeSingle(PATTERN_BASIC, &m_secondSideArgs), &secondSideSet);
-  setPatternAt(LED_8, PatternBuilder::makeSingle(PATTERN_BASIC, &m_secondSideArgs), &secondSideSet);
-  setPatternAt(LED_9, PatternBuilder::makeSingle(PATTERN_BASIC, &m_secondSideArgs), &secondSideSet);
-  setPatternAt(LED_18, PatternBuilder::makeSingle(PATTERN_BASIC, &m_secondSideArgs), &secondSideSet);
-  setPatternAt(LED_19, PatternBuilder::makeSingle(PATTERN_BASIC, &m_secondSideArgs), &secondSideSet);
-  setPatternAt(LED_20, PatternBuilder::makeSingle(PATTERN_BASIC, &m_secondSideArgs), &secondSideSet);
-  setPatternAt(LED_21, PatternBuilder::makeSingle(PATTERN_BASIC, &m_secondSideArgs), &secondSideSet);
-  setPatternAt(LED_22, PatternBuilder::makeSingle(PATTERN_BASIC, &m_secondSideArgs), &secondSideSet);
-  setPatternAt(LED_23, PatternBuilder::makeSingle(PATTERN_BASIC, &m_secondSideArgs), &secondSideSet);
+  setPatternAt(LED_4, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
+  setPatternAt(LED_5, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
+  setPatternAt(LED_6, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
+  setPatternAt(LED_7, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
+  setPatternAt(LED_8, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
+  setPatternAt(LED_9, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
+  setPatternAt(LED_18, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
+  setPatternAt(LED_19, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
+  setPatternAt(LED_20, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
+  setPatternAt(LED_21, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
+  setPatternAt(LED_22, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
+  setPatternAt(LED_23, PATTERN_BASIC, &m_secondSideArgs, &secondSideSet);
 
-  setPatternAt(LED_3, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
-  setPatternAt(LED_10, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
-  setPatternAt(LED_17, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
-  setPatternAt(LED_24, PatternBuilder::makeSingle(PATTERN_BASIC, &m_otherArgs), &thirdSet);
+  setPatternAt(LED_3, PATTERN_BASIC, &m_otherArgs, &thirdSet);
+  setPatternAt(LED_10, PATTERN_BASIC, &m_otherArgs, &thirdSet);
+  setPatternAt(LED_17, PATTERN_BASIC, &m_otherArgs, &thirdSet);
+  setPatternAt(LED_24, PATTERN_BASIC, &m_otherArgs, &thirdSet);
 }
 
 void ImpactPattern::setArgs(const PatternArgs &args)

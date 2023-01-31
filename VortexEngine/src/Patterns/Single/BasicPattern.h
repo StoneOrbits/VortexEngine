@@ -1,8 +1,6 @@
 #ifndef BASIC_PATTERN_H
 #define BASIC_PATTERN_H
 
-#include <inttypes.h>
-
 #include "SingleLedPattern.h"
 
 #include "../../Time/Timer.h"
@@ -20,10 +18,6 @@ public:
 
   virtual void setArgs(const PatternArgs &args) override;
   virtual void getArgs(PatternArgs &args) const override;
-
-#if SAVE_TEMPLATE == 1
-  virtual void saveTemplate(int level = 0) const override;
-#endif
 
 protected:
   // callbacks for blinking on/off, can be overridden by derived classes

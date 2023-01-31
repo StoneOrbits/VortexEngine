@@ -1,8 +1,6 @@
 #ifndef COMPLEMENTARY_BLEND_PATTERN_H
 #define COMPLEMENTARY_BLEND_PATTERN_H
 
-#include <inttypes.h>
-
 #include "BlendPattern.h"
 
 class ComplementaryBlendPattern : public BlendPattern
@@ -18,6 +16,7 @@ public:
 protected:
   // only override the onBlinkOn so we can control the color it blinks
   virtual void onBlinkOn() override;
+
   bool m_showingComplement;
 };
 

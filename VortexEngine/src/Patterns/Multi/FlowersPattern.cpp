@@ -1,7 +1,5 @@
 #include "FlowersPattern.h"
 
-#include "../../Serial/ByteStream.h"
-
 FlowersPattern::FlowersPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t gapDuration1,
   uint8_t onDuration2, uint8_t offDuration2, uint8_t gapDuration2) :
   HybridPattern(),

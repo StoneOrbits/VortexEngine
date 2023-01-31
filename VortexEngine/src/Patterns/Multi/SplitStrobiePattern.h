@@ -2,6 +2,7 @@
 #define SPLITSTROBIE_PATTERN_H
 
 #include "HybridPattern.h"
+
 #include "../../Time/Timer.h"
 #include "../../Time/Timings.h"
 
@@ -19,10 +20,6 @@ public:
 
   virtual void setArgs(const PatternArgs &args) override;
   virtual void getArgs(PatternArgs &args) const override;
-
-#if SAVE_TEMPLATE == 1
-  virtual void saveTemplate(int level = 0) const override;
-#endif
 
 private:
   // the duration for the step in x100ms

@@ -1,10 +1,8 @@
 #include "AdvancedPattern.h"
 
-#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
 AdvancedPattern::AdvancedPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration,
                                  uint8_t groupSize, uint8_t skipCols, uint8_t repeatGroup) :
@@ -12,6 +10,7 @@ AdvancedPattern::AdvancedPattern(uint8_t onDuration, uint8_t offDuration, uint8_
   m_groupSize(groupSize),
   m_skipCols(skipCols),
   m_repeatGroup(repeatGroup),
+  m_realGroupSize(0),
   m_groupCounter(0),
   m_repeatCounter(repeatGroup)
 {
@@ -116,13 +115,3 @@ void AdvancedPattern::getArgs(PatternArgs &args) const
   args.arg6 = m_repeatGroup;
   args.numArgs += 3;
 }
-
-#if SAVE_TEMPLATE == 1
-void AdvancedPattern::saveTemplate(int level) const
-{
-  BasicPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"GroupSize\": %d,", m_groupSize);
-  IndentMsg(level + 1, "\"SkipColors\": %d,", m_skipCols);
-  IndentMsg(level + 1, "\"RepeatGroup\": %d,", m_repeatGroup);
-}
-#endif

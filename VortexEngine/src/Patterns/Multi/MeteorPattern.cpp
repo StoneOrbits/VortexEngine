@@ -56,13 +56,3 @@ void MeteorPattern::getArgs(PatternArgs &args) const
   args.arg4 = m_fadeAmount;
   args.numArgs += 1;
 }
-
-#if SAVE_TEMPLATE == 1
-void MeteorPattern::saveTemplate(int level) const
-{
-  BlinkStepPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"FadeAmount\": %d,", m_fadeAmount);
-}
-#endif
-
-

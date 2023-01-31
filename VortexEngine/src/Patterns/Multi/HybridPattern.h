@@ -22,10 +22,6 @@ public:
   // play the hybrid pattern (play all led patterns)
   virtual void play() override;
 
-#if SAVE_TEMPLATE == 1
-  virtual void saveTemplate(int level = 0) const override;
-#endif
-
 protected:
   // set a pattern at an index of the hybrid pattern (optionally replace colorset)
   void setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);

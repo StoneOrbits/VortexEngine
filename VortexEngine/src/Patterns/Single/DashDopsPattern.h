@@ -19,10 +19,6 @@ public:
   virtual void setArgs(const PatternArgs &args) override;
   virtual void getArgs(PatternArgs &args) const override;
 
-#if SAVE_TEMPLATE == 1
-  virtual void saveTemplate(int level = 0) const override;
-#endif
-
 private:
   // the duration the light is on/off for
   uint8_t m_dashDuration;

@@ -16,10 +16,6 @@ public:
   virtual void setArgs(const PatternArgs &args) override;
   virtual void getArgs(PatternArgs &args) const override;
 
-#if SAVE_TEMPLATE == 1
-  virtual void saveTemplate(int level = 0) const override;
-#endif
-
 protected:
   virtual void blinkOn() override;
   virtual void blinkOff() override;

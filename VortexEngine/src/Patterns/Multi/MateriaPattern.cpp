@@ -129,17 +129,3 @@ void MateriaPattern::getArgs(PatternArgs &args) const
   args.arg5 = m_stepSpeed;
   args.numArgs += 5;
 }
-
-#if SAVE_TEMPLATE == 1
-void MateriaPattern::saveTemplate(int level) const
-{
-  MultiLedPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"OnDuration1\": %d,", m_onDuration1);
-  IndentMsg(level + 1, "\"OffDuration1\": %d,", m_offDuration1);
-  IndentMsg(level + 1, "\"OnDuration2\": %d,", m_onDuration2);
-  IndentMsg(level + 1, "\"OffDuration2\": %d,", m_offDuration2);
-  IndentMsg(level + 1, "\"StepSpeed\": %d,", m_stepSpeed);
-}
-#endif
-
-

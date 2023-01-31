@@ -1,9 +1,7 @@
 #include "PulsishPattern.h"
 
-#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
 PulsishPattern::PulsishPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2, uint8_t offDuration2, uint8_t stepDuration) :
   MultiLedPattern(),
@@ -115,16 +113,3 @@ void PulsishPattern::getArgs(PatternArgs &args) const
   args.arg5 = m_stepDuration;
   args.numArgs += 5;
 }
-
-#if SAVE_TEMPLATE == 1
-void PulsishPattern::saveTemplate(int level) const
-{
-  MultiLedPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"OnDuration1\": %d,", m_onDuration1);
-  IndentMsg(level + 1, "\"OffDuration1\": %d,", m_offDuration1);
-  IndentMsg(level + 1, "\"OnDuration2\": %d,", m_onDuration2);
-  IndentMsg(level + 1, "\"OffDuration2\": %d,", m_offDuration2);
-  IndentMsg(level + 1, "\"StepDuration\": %d,", m_stepDuration);
-}
-#endif
-

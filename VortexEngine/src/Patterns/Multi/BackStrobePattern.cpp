@@ -1,10 +1,5 @@
 #include "BackStrobePattern.h"
 
-#include "../PatternBuilder.h"
-#include "../../Serial/ByteStream.h"
-#include "../../Colors/Colorset.h"
-#include "../../Log/Log.h"
-
 BackStrobePattern::BackStrobePattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t gapDuration1,
   uint8_t onDuration2, uint8_t offDuration2, uint8_t gapDuration2, uint8_t stepSpeed100ms) :
   HybridPattern(),
@@ -79,11 +74,3 @@ void BackStrobePattern::getArgs(PatternArgs &args) const
   args.arg7 = m_stepSpeed;
   args.numArgs += 7;
 }
-
-#if SAVE_TEMPLATE == 1
-void BackStrobePattern::saveTemplate(int level) const
-{
-  HybridPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"StepSpeed\": %d,", m_stepSpeed);
-}
-#endif

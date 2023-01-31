@@ -91,16 +91,6 @@ void SequencedPattern::play()
   }
 }
 
-#if SAVE_TEMPLATE == 1
-void SequencedPattern::saveTemplate(int level) const
-{
-  MultiLedPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"Sequence\": {");
-  m_sequence.saveTemplate(level + 2);
-  IndentMsg(level + 1, "}");
-}
-#endif
-
 // apply a sequence to the pattern
 void SequencedPattern::bindSequence(const Sequence &sequence)
 {

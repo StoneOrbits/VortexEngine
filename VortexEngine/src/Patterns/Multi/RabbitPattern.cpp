@@ -1,8 +1,6 @@
 #include "RabbitPattern.h"
 
-#include "../../Serial/ByteStream.h"
 #include "../../Colors/Colorset.h"
-#include "../PatternBuilder.h"
 
 RabbitPattern::RabbitPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t gapDuration1,
   uint8_t onDuration2, uint8_t offDuration2, uint8_t gapDuration2) :
@@ -32,9 +30,9 @@ void RabbitPattern::init()
   Colorset topsColor(m_colorset.get(0));
   for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
     if (isPairSide(p)) {
-      setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &m_tipArgs), &tipsColors);
+      setPatternAt(p, PATTERN_BASIC, &m_tipArgs, &tipsColors);
     } else {
-      setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &m_topArgs), &topsColor);
+      setPatternAt(p, PATTERN_BASIC, &m_topArgs, &topsColor);
     }
   }
 }

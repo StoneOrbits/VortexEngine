@@ -269,20 +269,6 @@ void Sequence::unserialize(ByteStream &buffer)
   }
 }
 
-#if SAVE_TEMPLATE == 1
-void Sequence::saveTemplate(int level) const
-{
-  IndentMsg(level, "\"NumSteps\": %d,", m_numSteps);
-  IndentMsg(level, "\"Steps\": [", m_numSteps);
-  for (uint32_t i = 0; i < m_numSteps; ++i) {
-    IndentMsg(level + 1, "{");
-    m_sequenceSteps[i].saveTemplate(level + 2);
-    IndentMsg(level + 1, "},");
-  }
-  IndentMsg(level, "]");
-}
-#endif
-
 uint32_t Sequence::numSteps() const
 {
   return m_numSteps;

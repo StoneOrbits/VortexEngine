@@ -1,12 +1,10 @@
 #include "JestPattern.h"
-#include "../../Serial/ByteStream.h"
 
 JestPattern::JestPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration1,
   uint8_t gapDuration2, uint8_t groupSize) :
   HybridPattern(),
   m_tipArgs(onDuration, offDuration, gapDuration1, groupSize, 0, 0),
   m_topArgs(onDuration, offDuration, gapDuration2, groupSize, 0, 0)
-
 {
   m_patternID = PATTERN_JEST;
 }

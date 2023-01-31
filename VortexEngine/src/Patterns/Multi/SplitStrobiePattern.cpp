@@ -80,12 +80,3 @@ void SplitStrobiePattern::getArgs(PatternArgs &args) const
   args.arg6 = m_stepDuration;
   args.numArgs += 6;
 }
-
-#if SAVE_TEMPLATE == 1
-void SplitStrobiePattern::saveTemplate(int level) const
-{
-  HybridPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"StepDuration\": %d,", m_stepDuration);
-}
-#endif
-

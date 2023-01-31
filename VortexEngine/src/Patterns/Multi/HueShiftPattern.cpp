@@ -91,12 +91,3 @@ void HueShiftPattern::getArgs(PatternArgs &args) const
   args.arg2 = m_blinkOffDuration;
   args.numArgs += 2;
 }
-
-#if SAVE_TEMPLATE == 1
-void HueShiftPattern::saveTemplate(int level) const
-{
-  MultiLedPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"Speed\": %d,", m_speed);
-  IndentMsg(level + 1, "\"Scale\": %d,", m_scale);
-}
-#endif

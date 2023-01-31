@@ -1,8 +1,5 @@
 #include "TipTopPattern.h"
 
-#include "../../Serial/ByteStream.h"
-#include "../PatternBuilder.h"
-
 TipTopPattern::TipTopPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t gapDuration1,
   uint8_t onDuration2, uint8_t offDuration2, uint8_t gapDuration2) :
   HybridPattern(),
@@ -27,13 +24,13 @@ void TipTopPattern::init()
 {
   HybridPattern::init();
   Colorset tipsColor(m_colorset.get(0));
-  Colorset topsColors(m_colorset.get(1), m_colorset.get(2), m_colorset.get(3), m_colorset.get(4),
-    m_colorset.get(5), m_colorset.get(6), m_colorset.get(7));
+  Colorset topsColors(m_colorset.get(1), m_colorset.get(2), m_colorset.get(3), 
+    m_colorset.get(4), m_colorset.get(5), m_colorset.get(6), m_colorset.get(7));
   for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
     if (isPairSide(p)) {
-      setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &m_tipArgs), &tipsColor);
+      setPatternAt(p, PATTERN_BASIC, &m_tipArgs, &tipsColor);
     } else {
-      setPatternAt(p, PatternBuilder::makeSingle(PATTERN_BASIC, &m_topArgs), &topsColors);
+      setPatternAt(p, PATTERN_BASIC, &m_topArgs, &topsColors);
     }
   }
 }

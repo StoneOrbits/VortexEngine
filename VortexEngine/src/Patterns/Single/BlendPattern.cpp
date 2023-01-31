@@ -1,10 +1,8 @@
 #include "BlendPattern.h"
 
-#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
-#include "../../Log/Log.h"
 
 #include <math.h>
 
@@ -59,14 +57,6 @@ void BlendPattern::getArgs(PatternArgs &args) const
   args.arg4 = m_hueOffset;
   args.numArgs += 4;
 }
-
-#if SAVE_TEMPLATE == 1
-void BlendPattern::saveTemplate(int level) const
-{
-  BasicPattern::saveTemplate(level);
-  IndentMsg(level + 1, "\"BlendSpeed\": %d,", m_speed);
-}
-#endif
 
 void BlendPattern::onBlinkOn()
 {
