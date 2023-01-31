@@ -482,7 +482,7 @@ Mode *Modes::nextMode()
 }
 
 // iterate to next mode and return it
-Mode* Modes::previousMode()
+Mode *Modes::previousMode()
 {
   if (!m_numModes) {
     return nullptr;
