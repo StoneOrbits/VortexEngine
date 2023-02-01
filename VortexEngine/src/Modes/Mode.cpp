@@ -278,33 +278,6 @@ bool Mode::unserialize(ByteStream &buffer)
   return true;
 }
 
-#if SAVE_TEMPLATE == 1
-void Mode::saveTemplate(int level) const
-{
-  uint32_t flags = getFlags();
-  IndentMsg(level, "\"flags\": %d,", flags);
-  IndentMsg(level, "\"Leds\":[");
-  for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
-    const Pattern *entry = m_ledEntries[pos];
-    if (!entry) {
-      continue;
-    }
-    IndentMsg(level + 1, "{");
-    // just serialize the pattern then colorset
-    entry->saveTemplate(level + 2);
-    // close the Params {
-    IndentMsg(level + 2, "}");
-    // look screw the json standard I'm putting a comma after every entry, fix it urself.
-    IndentMsg(level + 1, "},");
-    // if either of these flags are present only serialize the first pattern
-    if (flags & (MODE_FLAG_MULTI_LED | MODE_FLAG_ALL_SAME_SINGLE)) {
-      break;
-    }
-  }
-  IndentMsg(level, "]");
-}
-#endif
-
 #if FIXED_LED_COUNT == 0
 // change the internal pattern count in the mode object
 void Mode::setLedCount(uint8_t numLeds)

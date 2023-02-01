@@ -78,19 +78,6 @@ void Pattern::getArgs(PatternArgs &args) const
   args.init();
 }
 
-#if SAVE_TEMPLATE == 1
-void Pattern::saveTemplate(int level) const
-{
-  IndentMsg(level, "\"PatternID\": %d,", m_patternID);
-  IndentMsg(level, "\"Colorset\": {");
-  m_colorset.saveTemplate(level + 1);
-  IndentMsg(level, "},");
-  IndentMsg(level, "\"Params\": {");
-  // derived classes will print out their params,
-  // then the caller will close the block
-}
-#endif
-
 bool Pattern::equals(const Pattern *other)
 {
   if (!other) {

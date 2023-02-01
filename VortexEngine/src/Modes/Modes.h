@@ -41,11 +41,6 @@ public:
   // load all modes from a buffer, optionally specify number of leds
   static bool unserialize(ByteStream &buffer);
 
-#if SAVE_TEMPLATE == 1
-  // save the data template
-  static void saveTemplate(int level = 0);
-#endif
-
   // set default settings (must save after)
   static bool setDefaults();
 

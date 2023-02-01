@@ -114,10 +114,6 @@ public:
   void serialize(ByteStream &buffer) const;
   void unserialize(ByteStream &buffer);
 
-#if SAVE_TEMPLATE == 1
-  void saveTemplate(int level = 0) const;
-#endif
-
 private:
   // pre-allocate the palette
   void initPalette(uint32_t numColors);

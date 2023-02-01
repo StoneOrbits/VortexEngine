@@ -52,15 +52,6 @@ void PatternMap::unserialize(ByteStream &buffer)
   }
 }
 
-#if SAVE_TEMPLATE == 1
-void PatternMap::saveTemplate(int level) const
-{
-  for (uint32_t i = 0; i < LED_COUNT; ++i) {
-    IndentMsg(level, "%d,", m_patternMap[i]);
-  }
-}
-#endif
-
 ColorsetMap::ColorsetMap() :
   m_colorsetMap()
 {
@@ -100,17 +91,6 @@ void ColorsetMap::unserialize(ByteStream &buffer)
   }
 }
 
-#if SAVE_TEMPLATE == 1
-void ColorsetMap::saveTemplate(int level) const
-{
-  for (uint32_t i = 0; i < LED_COUNT; ++i) {
-    IndentMsg(level, "{");
-    m_colorsetMap[i].saveTemplate(level + 1);
-    IndentMsg(level, "},");
-  }
-}
-#endif
-
 // Make an array of sequence steps to create a sequenced pattern
 SequenceStep::SequenceStep() :
   m_duration(0), m_patternMap(), m_colorsetMap()
@@ -138,19 +118,6 @@ void SequenceStep::unserialize(ByteStream &buffer)
   m_patternMap.unserialize(buffer);
   m_colorsetMap.unserialize(buffer);
 }
-
-#if SAVE_TEMPLATE == 1
-void SequenceStep::saveTemplate(int level) const
-{
-  IndentMsg(level, "\"Duration\": %d,", m_duration);
-  IndentMsg(level, "\"PatternMap\": [");
-  m_patternMap.saveTemplate(level + 1);
-  IndentMsg(level, "],");
-  IndentMsg(level, "\"ColorsetMap\": [");
-  m_colorsetMap.saveTemplate(level + 1);
-  IndentMsg(level, "],");
-}
-#endif
 
 Sequence::Sequence() :
   m_sequenceSteps(nullptr),
