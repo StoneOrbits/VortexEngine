@@ -12,6 +12,8 @@
 #ifdef TEST_FRAMEWORK
 #ifndef LINUX_FRAMEWORK
 #include <Windows.h>
+#else
+#include <unistd.h>
 #endif
 #endif
 
@@ -30,7 +32,11 @@ Storage::Storage()
 bool Storage::init()
 {
 #ifdef TEST_FRAMEWORK
+#ifndef LINUX_FRAMEWORK
   DeleteFile("FlashStorage.flash");
+#else
+  unlink("FlashStorage.flash");
+#endif
 #endif
   DEBUG_LOGF("Total space: %u Engine size: %u Available space: %u",
     MAX_STORAGE_SPACE, ENGINE_SIZE, STORAGE_SIZE);

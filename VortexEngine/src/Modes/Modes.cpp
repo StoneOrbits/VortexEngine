@@ -486,17 +486,17 @@ Mode *Modes::initCurMode(bool force)
   if (!m_numModes) {
     return nullptr;
   }
-  // if the current mode is already initialized, or we don't have
-  // any modes at all then we're technically successful
-  if (!force && m_pCurModeLink) {
-    return m_pCurModeLink->instantiate();
-  }
   // cleanup the current mode link
-  m_pCurModeLink->uninstantiate();
+  if (m_pCurModeLink) {
+    m_pCurModeLink->uninstantiate();
+  }
   // update the current mode link based on the curmode index
   m_pCurModeLink = getModeLink(m_curMode);
   if (!m_pCurModeLink) {
     return nullptr;
+  }
+  if (force) {
+    m_pCurModeLink->uninstantiate();
   }
   return m_pCurModeLink->instantiate();
 }
