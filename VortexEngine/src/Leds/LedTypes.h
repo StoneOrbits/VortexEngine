@@ -220,9 +220,9 @@ inline LedPos pairBot(LedPair pair)
 {
   switch (((int)pair) / 4) {
     case 0:  return (LedPos)(6 - pair);   // pair 0 1 2 3 -> 6 5 4 3
-    case 1:  return (LedPos)(2 + pair);   // pair 4 5 6 7 -> 7 8 9 10
+    case 1:  return (LedPos)(3 + pair);   // pair 4 5 6 7 -> 7 8 9 10
     case 2:  return (LedPos)(28 - pair);  // pair 8 9 10 11 -> 20 19 18 17
-    case 3:  return (LedPos)(8 + pair);   // pair 13 14 15 16 -> 21 22 23 24
+    case 3:  return (LedPos)(9 + pair);   // pair 12 13 14 15 -> 21 22 23 24
     default: return LED_FIRST;
   }
 }

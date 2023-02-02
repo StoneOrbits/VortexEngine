@@ -6,8 +6,8 @@
 class RabbitPattern : public HybridPattern
 {
 public:
-  RabbitPattern(uint8_t onDuration1 = 8, uint8_t offDuration1 = 10, uint8_t gapDuration1 = 0,
-    uint8_t onDuration2 = 6, uint8_t offDuration2 = 28, uint8_t gapDuration2 = 0);
+  RabbitPattern(uint8_t onDuration1 = 1, uint8_t offDuration1 = 2, uint8_t gapDuration1 = 5,
+    uint8_t onDuration2 = 3, uint8_t offDuration2 = 12, uint8_t gapDuration2 = 0);
   RabbitPattern(const PatternArgs &args);
   virtual ~RabbitPattern();
 

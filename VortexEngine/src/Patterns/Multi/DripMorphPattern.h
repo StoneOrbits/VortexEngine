@@ -9,7 +9,7 @@
 class DripMorphPattern : public MultiLedPattern
 {
 public:
-  DripMorphPattern(uint8_t blinkOn = STROBE_ON_DURATION, uint8_t blinkOff = STROBE_OFF_DURATION, uint8_t speed = 1);
+  DripMorphPattern(uint8_t blinkOn = 2, uint8_t blinkOff = STROBE_OFF_DURATION, uint8_t speed = 1);
   DripMorphPattern(const PatternArgs &args);
   virtual ~DripMorphPattern();
 

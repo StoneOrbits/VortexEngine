@@ -7,8 +7,8 @@
 class FlowersPattern : public HybridPattern
 {
 public:
-  FlowersPattern(uint8_t onDuration1 = 2, uint8_t offDuration1 = 25, uint8_t gapDuration1 = 0,
-    uint8_t onDuration2 = 3, uint8_t offDuration2 = 5, uint8_t gapDuration2 = 0);
+  FlowersPattern(uint8_t onDuration1 = 5, uint8_t offDuration1 = 8, uint8_t gapDuration1 = 0,
+    uint8_t onDuration2 = 1, uint8_t offDuration2 = 3, uint8_t gapDuration2 = 0);
   FlowersPattern(const PatternArgs &args);
   virtual ~FlowersPattern();
 

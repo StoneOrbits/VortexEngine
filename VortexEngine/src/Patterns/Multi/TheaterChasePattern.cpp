@@ -32,7 +32,7 @@ void TheaterChasePattern::blinkOn()
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     if ((i % 3) == m_stepCounter) {
-      Leds::setIndex(i, m_colorset.getNext());
+      Leds::setIndex(i, m_colorset.cur());
     }
   }
 }
@@ -41,4 +41,5 @@ void TheaterChasePattern::poststep()
 {
   // increment step counter
   m_stepCounter = (m_stepCounter + 1) % THEATER_CHASE_STEPS;
+  m_colorset.getNext();
 }

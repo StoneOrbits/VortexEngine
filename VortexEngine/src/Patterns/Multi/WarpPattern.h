@@ -5,7 +5,7 @@
 class WarpPattern : public BlinkStepPattern
 {
 public:
-  WarpPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t stepDuration = 150);
+  WarpPattern(uint8_t onDuration = 2, uint8_t offDuration = 8, uint8_t stepDuration = 100);
   WarpPattern(const PatternArgs &args);
   virtual ~WarpPattern();
 

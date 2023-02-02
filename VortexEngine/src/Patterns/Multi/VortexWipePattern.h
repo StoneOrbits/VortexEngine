@@ -8,7 +8,7 @@
 class VortexWipePattern : public BlinkStepPattern
 {
 public:
-  VortexWipePattern(uint8_t onDuration = DOPISH_ON_DURATION, uint8_t offDuration = DOPISH_OFF_DURATION, uint8_t stepDuration = 130);
+  VortexWipePattern(uint8_t onDuration = 2, uint8_t offDuration = 4, uint8_t stepDuration = 75);
   VortexWipePattern(const PatternArgs &args);
   virtual ~VortexWipePattern();
 

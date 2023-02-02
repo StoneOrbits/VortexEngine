@@ -39,7 +39,7 @@ void MeteorPattern::blinkOff()
 void MeteorPattern::poststep()
 {
   // when a new meteor is created it is incerted into the stash so the blinking pattern is not interrupted
-  LedPos target = (LedPos)random(LED_FIRST, LED_LAST);
+  LedPos target = (LedPos)random(LED_FIRST, LED_COUNT);
   RGBColor col = m_colorset.getNext();
   m_stash.setIndex(target, col);
 }

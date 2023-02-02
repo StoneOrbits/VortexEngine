@@ -9,7 +9,7 @@
 class HueShiftPattern : public MultiLedPattern
 {
 public:
-  HueShiftPattern(uint8_t onDuration = STROBE_ON_DURATION, uint8_t offDuration = STROBE_OFF_DURATION);
+  HueShiftPattern(uint8_t onDuration = 1, uint8_t offDuration = 2);
   HueShiftPattern(const PatternArgs &args);
   virtual ~HueShiftPattern();
 

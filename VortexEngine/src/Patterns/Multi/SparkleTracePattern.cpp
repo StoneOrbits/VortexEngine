@@ -29,7 +29,7 @@ void SparkleTracePattern::blinkOn()
 void SparkleTracePattern::poststep()
 {
   for (int dot = 0; dot < 6; ++dot) {
-    Leds::setIndex((LedPos)random(LED_FIRST, LED_LAST), m_colorset.cur());
+    Leds::setIndex((LedPos)random(LED_FIRST, LED_COUNT), m_colorset.cur());
   }
   m_colorset.skip();
   if (m_colorset.curIndex() == 0) {

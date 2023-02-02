@@ -13,7 +13,6 @@ MateriaPattern::MateriaPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_
   m_offDuration2(offDuration2),
   m_stepSpeed(stepSpeed100ms),
   m_stepTimer(),
-  m_ledMap(0),
   m_switch(false)
 {
   m_patternID = PATTERN_MATERIA;
@@ -57,11 +56,8 @@ void MateriaPattern::init()
   m_stepTimer.addAlarm(m_stepSpeed * 100);
   m_stepTimer.start();
 
-  // map of the Thumb, Index, Ring, and Pinkie Tops
-  m_ledMap = MAP_LED(LED_3) | MAP_LED(LED_10) | MAP_LED(LED_17) | MAP_LED(LED_24);
-
   //Set the middle top to solid color 0
-  Leds::setAllOdds(m_colorset.get(0));
+  Leds::setRing(RING_2, m_colorset.get(0));
 }
 
 // pure virtual must override the play function
@@ -83,17 +79,17 @@ void MateriaPattern::play()
     if (m_switch) {
       // if this is the last color of the set, skip color 0 (color 0 is for Middle top only)
       if (m_colorset.curIndex() != m_colorset.numColors() - 1) {
-        Leds::setAllEvens(m_colorset.peekNext());
+        Leds::setRing(RING_1, m_colorset.peekNext());
       } else {
-        Leds::setAllEvens(m_colorset.peek(2));
+        Leds::setRing(RING_1, m_colorset.peek(2));
       }
     }
     else {
-      Leds::setAllEvens(m_colorset.cur());
+      Leds::setRing(RING_1, m_colorset.cur());
     }
     break;
   case 1: // turn off the leds
-    Leds::clearAllEvens();
+    Leds::clearRing(RING_1);
     break;
   }
 
@@ -101,10 +97,10 @@ void MateriaPattern::play()
   case -1: // just break and still run post-step
     break;
   case 0: // turn on the leds for given mapping
-    Leds::setMap(m_ledMap, m_colorset.cur());
+    Leds::setRings(RING_3, RING_4, m_colorset.cur());
     break;
   case 1: // turn off the leds
-    Leds::clearMap(m_ledMap);
+    Leds::clearRing(RING_4);
     break;
   }
  }

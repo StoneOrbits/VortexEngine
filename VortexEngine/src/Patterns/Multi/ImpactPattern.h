@@ -8,8 +8,8 @@
 class ImpactPattern : public HybridPattern
 {
 public:
-  ImpactPattern(uint8_t onDuration1 = 32, uint8_t offDuration1 = 250, uint8_t onDuration2 = STROBE_ON_DURATION,
-    uint8_t offDuration2 = STROBE_OFF_DURATION, uint8_t onDuration3 = STROBE_ON_DURATION, uint8_t offDuration3 = STROBIE_OFF_DURATION);
+  ImpactPattern(uint8_t onDuration1 = 2, uint8_t offDuration1 = 8, uint8_t onDuration2 = STROBE_ON_DURATION,
+    uint8_t offDuration2 = STROBE_OFF_DURATION, uint8_t onDuration3 = 25, uint8_t offDuration3 = 20);
   ImpactPattern(const PatternArgs &args);
   virtual ~ImpactPattern();
 

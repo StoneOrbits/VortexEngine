@@ -9,8 +9,8 @@
 class ZigzagPattern : public MultiLedPattern
 {
 public:
-  ZigzagPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t stepDuration = 55,
-    uint8_t snakeSize = 6, uint8_t fadeAmount = 55);
+  ZigzagPattern(uint8_t onDuration = 1, uint8_t offDuration = 3, uint8_t stepDuration = 10,
+    uint8_t snakeSize = 5, uint8_t fadeAmount = 55);
   ZigzagPattern(const PatternArgs &args);
   virtual ~ZigzagPattern();
 

@@ -10,8 +10,8 @@
 class MateriaPattern : public MultiLedPattern
 {
 public:
-  MateriaPattern(uint8_t onDuration1 = STROBE_ON_DURATION, uint8_t offDuration1 = STROBE_OFF_DURATION, uint8_t onDuration2 = 3, 
-    uint8_t offDuration2 = 35, uint8_t stepSpeed100ms = 8);
+  MateriaPattern(uint8_t onDuration1 = STROBE_ON_DURATION, uint8_t offDuration1 = STROBE_OFF_DURATION, uint8_t onDuration2 = 1, 
+    uint8_t offDuration2 = 4, uint8_t stepSpeed100ms = 8);
   MateriaPattern(const PatternArgs &args);
   virtual ~MateriaPattern();
 
@@ -36,8 +36,6 @@ private:
   Timer m_blinkTimer1;
   Timer m_blinkTimer2;
   Timer m_stepTimer;
-
-  LedMap m_ledMap;
 
   bool m_switch;
 };
