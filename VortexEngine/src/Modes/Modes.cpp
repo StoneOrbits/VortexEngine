@@ -258,7 +258,6 @@ bool Modes::addSerializedMode(ByteStream &serializedMode, uint32_t numLeds)
   // initialize the mode because a pattern could theoretically serialize 
   // differently after it has initialized
   tmpMode.init();
-  // add the mode as normal
   return addMode(&tmpMode);
 }
 
