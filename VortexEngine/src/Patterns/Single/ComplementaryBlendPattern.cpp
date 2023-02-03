@@ -2,17 +2,11 @@
 
 #include "../../Leds/Leds.h"
 
-ComplementaryBlendPattern::ComplementaryBlendPattern(uint8_t onDuration, uint8_t offDuration,
-  uint8_t gapDuration) :
-  BlendPattern(onDuration, offDuration, gapDuration),
+ComplementaryBlendPattern::ComplementaryBlendPattern(const PatternArgs &args) :
+  BlendPattern(args),
   m_showingComplement(false)
 {
   m_patternID = PATTERN_COMPLEMENTARY_BLEND;
-}
-
-ComplementaryBlendPattern::ComplementaryBlendPattern(const PatternArgs &args) :
-  ComplementaryBlendPattern()
-{
   setArgs(args);
 }
 

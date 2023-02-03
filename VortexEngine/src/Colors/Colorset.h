@@ -13,9 +13,9 @@ public:
   // empty colorset
   Colorset();
   // constructor for 1-8 color slots
-  Colorset(RGBColor c1, RGBColor c2 = RGB_OFF, RGBColor c3 = RGB_OFF,
-    RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF, RGBColor c6 = RGB_OFF,
-    RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
+  Colorset(RGBColor c1, RGBColor c2 = RGBColor(), RGBColor c3 = RGBColor(),
+    RGBColor c4 = RGBColor(), RGBColor c5 = RGBColor(), RGBColor c6 = RGBColor(),
+    RGBColor c7 = RGBColor(), RGBColor c8 = RGBColor());
   ~Colorset();
 
   // move constructor
@@ -30,9 +30,9 @@ public:
   bool operator!=(const Colorset &other) const;
 
   // initialize the colorset
-  void init(RGBColor c1 = RGB_OFF, RGBColor c2 = RGB_OFF, RGBColor c3 = RGB_OFF,
-    RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF, RGBColor c6 = RGB_OFF,
-    RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
+  void init(RGBColor c1 = RGBColor(), RGBColor c2 = RGBColor(), RGBColor c3 = RGBColor(),
+    RGBColor c4 = RGBColor(), RGBColor c5 = RGBColor(), RGBColor c6 = RGBColor(),
+    RGBColor c7 = RGBColor(), RGBColor c8 = RGBColor());
 
   // clear the colorset
   void clear();
@@ -62,14 +62,6 @@ public:
 
   // randomize a colorset with N evenly spaced colors
   void randomizeEvenlySpaced(uint32_t spaces = 0);
-
-  // wrappers for various spacings
-  void randomizeSolid() { randomizeEvenlySpaced(1); }
-  void randomizeComplimentary() { randomizeEvenlySpaced(2); }
-  void randomizeTriadic() { randomizeEvenlySpaced(3); }
-  void randomizeSquare() { randomizeEvenlySpaced(4); }
-  void randomizePentadic() { randomizeEvenlySpaced(5); }
-  void randomizeRainbow() { randomizeEvenlySpaced(8); }
 
   // get a color from the colorset
   RGBColor get(uint32_t index = 0) const;

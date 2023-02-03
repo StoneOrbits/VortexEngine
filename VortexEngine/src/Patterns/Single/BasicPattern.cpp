@@ -6,21 +6,16 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-BasicPattern::BasicPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration) :
-  SingleLedPattern(),
-  m_onDuration(onDuration),
-  m_offDuration(offDuration),
-  m_gapDuration(gapDuration),
+BasicPattern::BasicPattern(const PatternArgs &args) :
+  Pattern(args),
+  m_onDuration(0),
+  m_offDuration(0),
+  m_gapDuration(0),
   m_blinkTimer(),
   m_gapTimer(),
   m_inGap(false)
 {
   m_patternID = PATTERN_BASIC;
-}
-
-BasicPattern::BasicPattern(const PatternArgs &args) :
-  BasicPattern()
-{
   setArgs(args);
 }
 
@@ -31,7 +26,7 @@ BasicPattern::~BasicPattern()
 void BasicPattern::init()
 {
   // run base pattern init logic
-  SingleLedPattern::init();
+  Pattern::init();
 
   m_inGap = false;
 
@@ -77,7 +72,7 @@ void BasicPattern::play()
 
 void BasicPattern::setArgs(const PatternArgs &args)
 {
-  SingleLedPattern::setArgs(args);
+  Pattern::setArgs(args);
   m_onDuration = args.arg1;
   m_offDuration = args.arg2;
   m_gapDuration = args.arg3;
@@ -85,7 +80,7 @@ void BasicPattern::setArgs(const PatternArgs &args)
 
 void BasicPattern::getArgs(PatternArgs &args) const
 {
-  SingleLedPattern::getArgs(args);
+  Pattern::getArgs(args);
   args.arg1 = m_onDuration;
   args.arg2 = m_offDuration;
   args.arg3 = m_gapDuration;

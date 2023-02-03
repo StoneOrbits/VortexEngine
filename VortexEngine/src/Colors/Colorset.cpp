@@ -339,7 +339,7 @@ void Colorset::resetIndex()
 RGBColor Colorset::getPrev()
 {
   if (!m_numColors || !m_palette) {
-    return RGB_OFF;
+    return RGBColor();
   }
   // handle wrapping at 0
   if (m_curIndex == 0) {
@@ -354,7 +354,7 @@ RGBColor Colorset::getPrev()
 RGBColor Colorset::getNext()
 {
   if (!m_numColors || !m_palette) {
-    return RGB_OFF;
+    return RGBColor();
   }
   // iterate current index, let it wrap at max uint8
   m_curIndex++;
@@ -368,7 +368,7 @@ RGBColor Colorset::getNext()
 RGBColor Colorset::peek(int32_t offset) const
 {
   if (!m_numColors || !m_palette) {
-    return RGB_OFF;
+    return RGBColor();
   }
   uint32_t nextIndex = 0;
   // get index of the next color
@@ -376,7 +376,7 @@ RGBColor Colorset::peek(int32_t offset) const
     nextIndex = (m_curIndex + offset) % numColors();
   } else {
     if (offset < -1 * (int32_t)(numColors())) {
-      return RGB_OFF;
+      return RGBColor();
     }
     nextIndex = ((m_curIndex + numColors()) + (int)offset) % numColors();
   }

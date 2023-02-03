@@ -99,7 +99,7 @@
 //
 // Set this to 0 for no limit on the number of modes
 //
-#define MAX_MODES             0
+#define MAX_MODES             1
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -128,7 +128,7 @@
 // The memory tracker isn't present in final builds, only debug
 // so this number doesn't actually do anything in production.
 // Mostly for catching leaks or high memory usage in development.
-#define MAX_MEMORY            50000
+#define MAX_MEMORY            8000
 
 // Log Level
 //

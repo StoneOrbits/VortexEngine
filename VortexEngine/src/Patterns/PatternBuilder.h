@@ -6,8 +6,6 @@
 class Pattern;
 class PatternArgs;
 class ByteStream;
-class MultiLedPattern;
-class SingleLedPattern;
 
 class PatternBuilder
 {
@@ -17,12 +15,6 @@ public:
 
   // make a copy of an existing pattern
   static Pattern *dupe(const Pattern *pat);
-
-  // generate a single LED pattern (nullptr if patternid is not single LED)
-  static SingleLedPattern *makeSingle(PatternID id, const PatternArgs *args = nullptr);
-
-  // generate a multi LED pattern (nullptr if patternid is not multi LED)
-  static MultiLedPattern *makeMulti(PatternID id, const PatternArgs *args = nullptr);
 
   // unserialize a buffer into a pattern
   static Pattern *unserialize(ByteStream &buffer);

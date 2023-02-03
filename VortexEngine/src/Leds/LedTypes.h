@@ -12,32 +12,8 @@ enum LedPos : uint8_t
   // this should always be first
   LED_FIRST = 0,
 
-  // the first should be equal to LED_FIRST
-  PINKIE_TIP = LED_FIRST,
-  PINKIE_TOP,
-
-  RING_TIP,
-  RING_TOP,
-
-  MIDDLE_TIP,
-  MIDDLE_TOP,
-
-  INDEX_TIP,
-  INDEX_TOP,
-
-  THUMB_TIP,
-  THUMB_TOP,
-
-  // INSERT NEW ENTRIES HERE
-
-  // TODO: palm lights????
-#if USE_PALM_LIGHTS == 1
-  PALM_UP,
-  PALM_RIGHT,
-  PALM_DOWN,
-  PALM_LEFT,
-  PALM_CENTER,
-#endif
+  LED_0 = LED_FIRST,
+  LED_1,
 
   // the number of entries above
   LED_COUNT,
@@ -49,12 +25,6 @@ enum LedPos : uint8_t
 enum Finger : uint8_t
 {
   FINGER_FIRST = 0,
-
-  FINGER_PINKIE = FINGER_FIRST,
-  FINGER_RING,
-  FINGER_MIDDLE,
-  FINGER_INDEX,
-  FINGER_THUMB, // proof thumb is finger confirmed
 
   FINGER_COUNT, // 5
   FINGER_LAST = (FINGER_COUNT - 1),
@@ -84,56 +54,7 @@ inline LedPos fingerTop(Finger finger)
 inline Finger ledToFinger(LedPos pos)
 {
   // have to flip the index
-  return (Finger)(FINGER_THUMB - (Finger)((uint32_t)pos / 2));
-}
-
-// LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
-// or off with a single integer
-typedef uint64_t LedMap;
-
-// various macros for mapping leds to an LedMap
-#define MAP_LED(led) (1 << led)
-#define MAP_FINGER_TIP(finger) MAP_LED(fingerTip(finger))
-#define MAP_FINGER_TOP(finger) MAP_LED(fingerTop(finger))
-#define MAP_FINGER(finger) (MAP_FINGER_TIP(finger) | MAP_FINGER_TOP(finger))
-
-// bitmap of all fingers (basically LED_COUNT bits)
-#define MAP_LED_ALL ((2 << (LED_COUNT - 1)) - 1)
-
-#define MAP_INVERSE(map) ((~map) & MAP_LED_ALL)
-
-// macro for all tips and all tops
-#define MAP_FINGER_TIPS (MAP_FINGER_TIP(FINGER_PINKIE) | MAP_FINGER_TIP(FINGER_RING) | MAP_FINGER_TIP(FINGER_MIDDLE) | MAP_FINGER_TIP(FINGER_INDEX) | MAP_FINGER_TIP(FINGER_THUMB))
-#define MAP_FINGER_TOPS (MAP_FINGER_TOP(FINGER_PINKIE) | MAP_FINGER_TOP(FINGER_RING) | MAP_FINGER_TOP(FINGER_MIDDLE) | MAP_FINGER_TOP(FINGER_INDEX) | MAP_FINGER_TOP(FINGER_THUMB))
-
-// Some preset bitmaps for finger groupings
-#define MAP_FINGER_ODD_TIPS (MAP_FINGER_TIP(FINGER_PINKIE) | MAP_FINGER_TIP(FINGER_MIDDLE) | MAP_FINGER_TIP(FINGER_THUMB))
-#define MAP_FINGER_ODD_TOPS (MAP_FINGER_TOP(FINGER_PINKIE) | MAP_FINGER_TOP(FINGER_MIDDLE) | MAP_FINGER_TOP(FINGER_THUMB))
-
-#define MAP_FINGER_EVEN_TIPS (MAP_FINGER_TIP(FINGER_INDEX) | MAP_FINGER_TIP(FINGER_RING))
-#define MAP_FINGER_EVEN_TOPS (MAP_FINGER_TOP(FINGER_INDEX) | MAP_FINGER_TOP(FINGER_RING))
-
-// set a single led
-inline void setLed(LedMap map, LedPos pos)
-{
-  if (pos < LED_COUNT) map |= (1ull << pos);
-}
-// set a single finger
-inline void setFinger(LedMap map, Finger finger)
-{
-  setLed(map, fingerTip(finger));
-  setLed(map, fingerTop(finger));
-}
-
-// check if an led is set in the map
-inline bool checkLed(LedMap map, LedPos pos)
-{
-  return ((map & (1ull << pos)) != 0);
-}
-// check if a finger is set in the map (both leds)
-inline bool checkFinger(LedMap map, Finger finger)
-{
-  return checkLed(map, fingerTip(finger)) && checkLed(map, fingerTop(finger));
+  return FINGER_FIRST;
 }
 
 // LedPos operators

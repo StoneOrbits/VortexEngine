@@ -8,8 +8,6 @@
 class BlendPattern : public BasicPattern
 {
 public:
-  BlendPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION,
-    uint8_t gapDuration = 0, uint8_t offset = 0);
   BlendPattern(const PatternArgs &args);
   virtual ~BlendPattern();
 

@@ -1,14 +1,13 @@
 #ifndef BASIC_PATTERN_H
 #define BASIC_PATTERN_H
 
-#include "SingleLedPattern.h"
+#include "../Pattern.h"
 
 #include "../../Time/Timer.h"
 
-class BasicPattern : public SingleLedPattern
+class BasicPattern : public Pattern
 {
 public:
-  BasicPattern(uint8_t onDuration = 1, uint8_t offDuration = 0, uint8_t gapDuration = 0);
   BasicPattern(const PatternArgs &args);
   virtual ~BasicPattern();
 

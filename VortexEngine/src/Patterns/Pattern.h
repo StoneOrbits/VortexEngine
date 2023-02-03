@@ -69,26 +69,16 @@ public:
   virtual void setColorset(const Colorset *set);
   virtual void clearColorset();
 
-  // change the led position
-  void setLedPos(LedPos pos) { m_ledPos = pos; }
-
   // get/set the ID of the pattern (set by mode builder)
   PatternID getPatternID() const { return m_patternID; }
 
   // get a pointer to the colorset that is bound to the pattern
   const Colorset *getColorset() const { return &m_colorset; }
   Colorset *getColorset() { return &m_colorset; }
-  LedPos getLedPos() const { return m_ledPos; }
-
-  // get the pattern flags
-  uint32_t getFlags() const { return m_patternFlags; }
-  bool hasFlags(uint32_t flags) const { return (m_patternFlags & flags) != 0; }
 
 protected:
   // the ID of this pattern (set by pattern builder)
   PatternID m_patternID;
-  // any flags the pattern has
-  uint8_t m_patternFlags;
   // a copy of the colorset that this pattern is initialized with
   Colorset m_colorset;
   // the Led the pattern is running on

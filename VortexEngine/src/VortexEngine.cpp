@@ -1,17 +1,18 @@
 #include "VortexEngine.h"
 
+#include "Serial/ByteStream.h"
 #include "Time/TimeControl.h"
-#include "Infrared/IRReceiver.h"
-#include "Infrared/IRSender.h"
+#include "Patterns/Pattern.h"
 #include "Storage/Storage.h"
-#include "Buttons/Buttons.h"
 #include "Serial/Serial.h"
-#include "Modes/Modes.h"
-#include "Menus/Menus.h"
+#include "Time/Timings.h"
 #include "Leds/Leds.h"
 #include "Log/Log.h"
 
 #include <Arduino.h>
+
+Mode VortexEngine::m_mode;
+Button VortexEngine::m_button;
 
 bool VortexEngine::init()
 {
@@ -33,30 +34,23 @@ bool VortexEngine::init()
     DEBUG_LOG("Storage failed to initialize");
     return false;
   }
-  if (!IRReceiver::init()) {
-    DEBUG_LOG("Infrared receiver failed to initialize");
-    return false;
-  }
-  if (!IRSender::init()) {
-    DEBUG_LOG("Infrared sender failed to initialize");
-    return false;
-  }
   if (!Leds::init()) {
     DEBUG_LOG("Leds failed to initialize");
     return false;
   }
-  if (!Buttons::init()) {
+  if (!m_button.init(5)) {
     DEBUG_LOG("Buttons failed to initialize");
     return false;
   }
-  if (!Menus::init()) {
-    DEBUG_LOG("Menus failed to initialize");
-    return false;
-  }
-  if (!Modes::init()) {
-    DEBUG_LOG("Settings failed to initialize");
-    return false;
-  }
+  
+  // for access from other files
+  g_pButton = &m_button;
+  
+  Colorset set1(RGBColor(255, 0, 0), RGBColor(0, 255, 0), RGBColor(0, 0, 255));
+  Colorset set2(RGBColor(255, 255, 0), RGBColor(0, 255, 255), RGBColor(255, 0, 255));
+  m_mode.setSinglePat(LED_FIRST, PATTERN_STROBE, nullptr, &set1); 
+  m_mode.setSinglePat(LED_LAST, PATTERN_HYPERSTROBE, nullptr, &set2); 
+  m_mode.init();
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -70,18 +64,6 @@ bool VortexEngine::init()
 
 void VortexEngine::cleanup()
 {
-  // cleanup in reverse order
-  // NOTE: the arduino doesn't actually cleanup,
-  //       but the test frameworks do
-  Modes::cleanup();
-  Menus::cleanup();
-  Buttons::cleanup();
-  Leds::cleanup();
-  IRSender::cleanup();
-  IRReceiver::cleanup();
-  Storage::cleanup();
-  Time::cleanup();
-  SerialComs::cleanup();
 }
 
 void VortexEngine::tick()
@@ -89,15 +71,25 @@ void VortexEngine::tick()
   // tick the current time counter forward
   Time::tickClock();
 
-  // poll the buttons for changes
-  Buttons::check();
+  m_button.check();
 
-  // if the menus don't need to run, or they run and return false
-  if (!Menus::run()) {
-    // then just play the mode
-    Modes::play();
+  // cycle modes?
+  if (m_button.onShortClick()) {
+    m_mode.nextPat();
   }
-
+  if (m_button.onLongClick()) {
+    m_mode.rollColorset(m_button.holdDuration() / SHORT_CLICK_THRESHOLD_TICKS);
+  }
+  if (m_button.isPressed() && m_button.holdDuration() >= SHORT_CLICK_THRESHOLD_TICKS) {
+    int val = (m_button.holdDuration() / SHORT_CLICK_THRESHOLD_TICKS);
+    if (val > 8) {
+      val = 8;
+    }
+    Leds::setAll(hsv_to_rgb_rainbow(HSVColor(val * 30, 255, 255)));
+  } else {
+    // then just play the mode
+    m_mode.play();
+  }
   // update the leds
   Leds::update();
 }

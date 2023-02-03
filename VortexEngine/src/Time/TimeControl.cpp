@@ -18,8 +18,10 @@ uint64_t Time::m_prevTime = 0;
 uint64_t Time::m_firstTime = 0;
 uint32_t Time::m_tickrate = DEFAULT_TICKRATE;
 uint32_t Time::m_tickOffset = DEFAULT_TICK_OFFSET;
+#ifdef TEST_FRAMEWORK
 uint32_t Time::m_simulationTick = 0;
 bool Time::m_isSimulation = false;
+#endif
 
 // Within this file TICKRATE may refer to the variable member
 // or the default tickrate constant based on the configuration
@@ -86,7 +88,11 @@ uint64_t Time::getCurtime(LedPos pos)
 {
   // the current tick, plus the time offset per LED, plus any
   // simulation offset
+#ifdef TEST_FRAMEWORK
   return m_curTick + getTickOffset(pos) + getSimulationTick();
+#else
+  return m_curTick + getTickOffset(pos);
+#endif
 }
 
 // the real current time, bypass simulations, used by timers
@@ -139,6 +145,8 @@ uint32_t Time::msToTicks(uint32_t ms)
   return ticks;
 }
 
+#ifdef TEST_FRAMEWORK
+
 // Start a time simulation, while the simulation is active you can
 // increment the 'current time' with tickSimulation() then when you
 // call endSimulation() the currentTime will be restored
@@ -175,4 +183,6 @@ uint32_t Time::endSimulation()
   m_isSimulation = false;
   return endTick;
 }
+
+#endif
 

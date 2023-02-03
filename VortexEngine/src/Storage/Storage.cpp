@@ -1,5 +1,6 @@
 #include "Storage.h"
 
+#include <inttypes.h>
 #include <string.h>
 #include <stdlib.h>
 #include <FlashStorage.h>
@@ -15,14 +16,8 @@
 #include <unistd.h>
 #endif
 
-__attribute__((__aligned__(256)))
-#ifndef VORTEX_ARDUINO
+// global for storage data I guess
 uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
-#else
-// only arduino needs const I guess?
-const uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
-#endif
-FlashClass storage(_storagedata, STORAGE_SIZE);
 
 uint32_t Storage::m_lastSaveSize = 0;
 
@@ -57,12 +52,10 @@ bool Storage::write(ByteStream &buffer)
     return false;
   }
   // clear existing storage, this is necessary even if it's empty
-  storage.erase();
-  // set the last save size
-  m_lastSaveSize = buffer.size();
+  memset(_storagedata, 0, sizeof(_storagedata));
   // write out the buffer to storage
-  storage.write(_storagedata, buffer.rawData(), buffer.rawSize());
-  DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, totalSpace());
+  memcpy(_storagedata, buffer.rawData(), buffer.rawSize());
+  DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", buffer.size(), STORAGE_SIZE);
   return true;
 }
 
@@ -76,9 +69,8 @@ bool Storage::read(ByteStream &buffer)
   }
   // read directly into the rawdata of the byte array, this will
   // include the crc, size, flags and entire buffer of data
-  storage.read(buffer.rawData());
-  m_lastSaveSize = buffer.size();
-  DEBUG_LOGF("Loaded savedata (Size: %u)", m_lastSaveSize);
+  memcpy(buffer.rawData(), _storagedata, STORAGE_SIZE);
+  DEBUG_LOGF("Loaded savedata (Size: %u)", buffer.size());
   return true;
 }
 

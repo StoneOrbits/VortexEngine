@@ -1,14 +1,12 @@
-#include <FastLED.h>
-#include <Adafruit_DotStar.h>
 #include <math.h>
 
-#include "LedStash.h"
+#include <Arduino.h>
+
 #include "Leds.h"
 
 #include "../Time/TimeControl.h"
-#include "../Modes/Modes.h"
 
-#define LED_DATA_PIN  4
+#define LED_DATA_PIN  9
 
 #define POWER_LED_PIN 7
 #define POWER_LED_CLK 8
@@ -16,18 +14,28 @@
 // array of led color values
 RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 // the onboard LED on the adafruit board
-Adafruit_DotStar Leds::m_onboardLED(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR);
+//Adafruit_DotStar Leds::m_onboardLED(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR);
 // global brightness
 uint32_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
+
+#ifdef TEST_FRAMEWORK
+tinyNeoPixel Leds::m_pixels;
+#else
+tinyNeoPixel Leds::m_pixels = tinyNeoPixel(LED_COUNT, LED_DATA_PIN, NEO_GRB, (byte *)m_ledColors);
+#endif
 
 bool Leds::init()
 {
   // setup leds on data pin 4
-  FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>((CRGB *)m_ledColors, LED_COUNT);
+  //FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>((CRGB *)m_ledColors, LED_COUNT);
   // get screwed fastled, don't throttle us!
-  FastLED.setMaxRefreshRate(0, false);
+  //FastLED.setMaxRefreshRate(0, false);
   // clear the onboard led so it displays nothing
-  clearOnboardLED();
+  // tiny neo pixels
+#ifdef TEST_FRAMEWORK
+  m_pixels = tinyNeoPixel(LED_COUNT, LED_DATA_PIN, NEO_RGB + NEO_KHZ800, m_ledColors);
+#endif
+  pinMode(LED_DATA_PIN, OUTPUT);
   return true;
 }
 
@@ -36,13 +44,6 @@ void Leds::cleanup()
   for (uint32_t i = 0; i < LED_COUNT; ++i) {
     m_ledColors[i].clear();
   }
-}
-
-void Leds::clearOnboardLED()
-{
-  // show nothing otherwise it might show random colours
-  m_onboardLED.begin();
-  m_onboardLED.show();
 }
 
 void Leds::setIndex(LedPos target, RGBColor col)
@@ -132,38 +133,6 @@ void Leds::clearAllTops()
   }
 }
 
-void Leds::setMap(LedMap map, RGBColor col)
-{
-  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (checkLed(map, pos)) {
-      setIndex(pos, col);
-    }
-  }
-}
-
-void Leds::clearMap(LedMap map)
-{
-  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (checkLed(map, pos)) {
-      clearIndex(pos);
-    }
-  }
-}
-
-void Leds::stashAll(LedStash &stash)
-{
-  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    stash.m_ledColorsStash[pos] = led(pos);
-  }
-}
-
-void Leds::restoreAll(const LedStash &stash)
-{
-  for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    led(pos) = stash.m_ledColorsStash[pos];
-  }
-}
-
 void Leds::adjustBrightnessIndex(LedPos target, uint8_t fadeBy)
 {
    led(target).adjustBrightness(fadeBy);
@@ -223,5 +192,5 @@ void Leds::breathIndex(LedPos target, uint32_t hue, uint32_t variance, uint32_t 
 
 void Leds::update()
 {
-  FastLED.show(m_brightness);
+  m_pixels.show();
 }

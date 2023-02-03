@@ -1,11 +1,9 @@
 #include "ByteStream.h"
 
-#include "../Serial/BitStream.h"
 #include "../Memory/Memory.h"
 #include "../Log/Log.h"
 
 #include <string.h>
-#include <FlashStorage.h>
 
 #include "Compression.h"
 
@@ -203,6 +201,9 @@ bool ByteStream::extend(uint32_t size)
 
 bool ByteStream::compress()
 {
+#if 1
+  return true;
+#else
   // only compress if we have valid data
   if (!m_pData) {
     DEBUG_LOG("No data to compress");
@@ -242,11 +243,15 @@ bool ByteStream::compress()
   compressedBuffer.shrink();
   // move into self
   compressedBuffer.move(this);
+#endif
   return true;
 }
 
 bool ByteStream::decompress()
 {
+#if 1
+  return true;
+#else
   // only decompress if we have valid data
   if (!m_pData || !m_pData->verify()) {
     DEBUG_LOG("Cannot verify crc, not decompressing");
@@ -286,6 +291,7 @@ bool ByteStream::decompress()
   decompressedBuffer.shrink();
   // move into self
   decompressedBuffer.move(this);
+#endif
   return true;
 }
 

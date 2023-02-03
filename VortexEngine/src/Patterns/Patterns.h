@@ -48,58 +48,15 @@ enum PatternID : uint8_t
   //         will be misaligned, for ex. IR and save files.
 
   // =====================================
-  //  Pattern Meta Constants:
-  PATTERN_MULTI_FIRST,
-  PATTERN_SINGLE_LAST = (PATTERN_MULTI_FIRST - 1),
-  PATTERN_SINGLE_COUNT = (PATTERN_SINGLE_LAST - PATTERN_SINGLE_FIRST) + 1,
-  // =====================================
-
-  // all 'multi led' patterns below
-
-  PATTERN_RABBIT = PATTERN_MULTI_FIRST,
-  PATTERN_HUESHIFT,
-  PATTERN_THEATER_CHASE,
-  // sequencer has some bugs to work out
-  // PATTERN_CHASER,
-  PATTERN_ZIGZAG,
-  PATTERN_ZIPFADE,
-  PATTERN_TIPTOP,
-  PATTERN_DRIP,
-  PATTERN_DRIPMORPH,
-  PATTERN_CROSSDOPS,
-  PATTERN_DOUBLESTROBE,// doubleStrobe(5, 8, 75)
-  // TODO: SLoth Strobe doubleStrobe(5, 8, 1000)
-  PATTERN_METEOR,
-  PATTERN_SPARKLETRACE,
-  PATTERN_VORTEXWIPE, // vortexWipe(2,7,125)
-  // TODO: UltraWipe vortexWipe(2, 7, 50)
-  PATTERN_WARP,
-  PATTERN_WARPWORM,
-  PATTERN_SNOWBALL,
-  PATTERN_LIGHTHOUSE,
-  PATTERN_PULSISH,
-  PATTERN_FILL,
-  PATTERN_BOUNCE,
-  PATTERN_IMPACT,
-  PATTERN_SPLITSTROBIE,
-  PATTERN_BACKSTROBE,
-  PATTERN_FLOWERS,
-  PATTERN_JEST,
-  PATTERN_MATERIA,
-
-  // ADD NEW MULTI LED PATTERNS HERE
-
-  // =====================================
   INTERNAL_PATTERNS_END, // <<< DON'T USE OR TOUCH THIS ONE
-  PATTERN_MULTI_LAST = (INTERNAL_PATTERNS_END - 1),
-  PATTERN_MULTI_COUNT = (PATTERN_MULTI_LAST - PATTERN_MULTI_FIRST) + 1,
-  PATTERN_LAST = PATTERN_MULTI_LAST,
+  PATTERN_SINGLE_LAST = (INTERNAL_PATTERNS_END - 1),
+  PATTERN_SINGLE_COUNT = (PATTERN_SINGLE_LAST - PATTERN_SINGLE_FIRST) + 1,
+  PATTERN_LAST = PATTERN_SINGLE_LAST,
   PATTERN_COUNT = (PATTERN_LAST - PATTERN_FIRST) + 1, // total number of patterns
 };
 
 // some helper functions to improve readability
-inline bool isMultiLedPatternID(PatternID id) { return id >= PATTERN_MULTI_FIRST; }
-inline bool isSingleLedPatternID(PatternID id) { return id < PATTERN_MULTI_FIRST; }
+inline bool isSingleLedPatternID(PatternID id) { return id < PATTERN_COUNT; }
 
 // PatternID operators
 inline PatternID &operator++(PatternID &c)

@@ -100,3 +100,5 @@ void Button::check()
     DEBUG_LOG("Long click");
   }
 }
+
+Button *g_pButton = nullptr;

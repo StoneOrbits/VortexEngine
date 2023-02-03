@@ -42,9 +42,13 @@
  *
  */
 
+#include "Buttons/Button.h"
+#include "Modes/Mode.h"
+
 #include "VortexConfig.h"
 
 class ByteStream;
+class Pattern;
 
 class VortexEngine
 {
@@ -71,7 +75,12 @@ public:
   static uint32_t savefileSize();
 #endif
 
+  static Mode *curMode() { return &m_mode; }
+
 private:
+  static Mode m_mode;
+  static Button m_button;
+
 #if COMPRESSION_TEST == 1
   static void compressionTest();
 #endif

@@ -6,18 +6,14 @@
 
 #include <math.h>
 
-BlendPattern::BlendPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration, uint8_t offset) :
-  BasicPattern(onDuration, offDuration, gapDuration),
-  m_hueOffset(offset),
+BlendPattern::BlendPattern(const PatternArgs &args) :
+  BasicPattern(args),
+  m_hueOffset(0),
   m_cur(),
   m_next()
+
 {
   m_patternID = PATTERN_BLEND;
-}
-
-BlendPattern::BlendPattern(const PatternArgs &args) :
-  BlendPattern()
-{
   setArgs(args);
 }
 
@@ -71,7 +67,7 @@ void BlendPattern::onBlinkOn()
   //       always over/under shoot
   m_cur.hue += sign;
   // apply the hue offset
-  m_cur.hue += m_hueOffset * m_ledPos;
+  m_cur.hue += m_hueOffset;
   HSVColor showColor = m_cur;
   // set the target led with the current HSV color
   Leds::setIndex(m_ledPos, hsv_to_rgb_generic(showColor));

@@ -6,8 +6,6 @@
 class AdvancedPattern : public BasicPattern
 {
 public:
-  AdvancedPattern(uint8_t onDuration = 5, uint8_t offDuration = 5, uint8_t gapDuration = 10,
-    uint8_t groupSize = 2, uint8_t skipCols = 2, uint8_t repeatGroup = 1);
   AdvancedPattern(const PatternArgs &args);
   virtual ~AdvancedPattern();
 

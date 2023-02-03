@@ -3,7 +3,7 @@
 
 #include <inttypes.h>
 
-#include <Adafruit_DotStar.h>
+#include "tinyNeoPixel_Static.h"
 
 #include "../Colors/ColorTypes.h"
 #include "LedTypes.h"
@@ -53,16 +53,6 @@ public:
   static void clearRangeTops(Finger first, Finger last);
   static void clearAllTops();
 
-  // Turn on/off a mapping of leds with a color
-  static void setMap(LedMap map, RGBColor col);
-  static void clearMap(LedMap map);
-
-  // stores Led for later use
-  static void stashAll(LedStash &stash);
-
-  // restores Leds from stash
-  static void restoreAll(const LedStash &stash);
-
   // Dim individual LEDs, these are appropriate to use in internal pattern logic
   static void adjustBrightnessIndex(LedPos target, uint8_t fadeBy);
   static void adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy);
@@ -101,8 +91,6 @@ public:
   static void update();
 
 private:
-  static void clearOnboardLED();
-
   // accessor for led colors, use this for all access to allow for mapping
   static inline RGBColor &led(LedPos pos)
   {
@@ -112,7 +100,7 @@ private:
     // FLIP THE INDEXES because we want our enums to go from
     // PINKIE to INDEX for sake of simple iteration in menus
     // but the current hardware configuration is flipped
-    return m_ledColors[LED_LAST - pos];
+    return m_ledColors[pos];
   }
 
   // the global brightness
@@ -121,8 +109,8 @@ private:
   // array of led color values
   static RGBColor m_ledColors[LED_COUNT];
 
-  // the onboard LED on the adafruit board
-  static Adafruit_DotStar m_onboardLED;
+  // tiny neo pixels
+  static tinyNeoPixel m_pixels;
 };
 
 #endif

@@ -1,14 +1,13 @@
 #ifndef TRACER_PATTERN_H
 #define TRACER_PATTERN_H
 
-#include "SingleLedPattern.h"
+#include "../Pattern.h"
 
 #include "../../Time/Timer.h"
 
-class TracerPattern : public SingleLedPattern
+class TracerPattern : public Pattern
 {
 public:
-  TracerPattern(uint8_t tracerLength = 16, uint8_t dotLength = 3);
   TracerPattern(const PatternArgs &args);
   virtual ~TracerPattern();
 

@@ -4,22 +4,16 @@
 #include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
 
-AdvancedPattern::AdvancedPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration,
-                                 uint8_t groupSize, uint8_t skipCols, uint8_t repeatGroup) :
-  BasicPattern(onDuration, offDuration, gapDuration),
-  m_groupSize(groupSize),
-  m_skipCols(skipCols),
-  m_repeatGroup(repeatGroup),
+AdvancedPattern::AdvancedPattern(const PatternArgs &args) :
+  BasicPattern(args),
+  m_groupSize(0),
+  m_skipCols(0),
+  m_repeatGroup(0),
   m_realGroupSize(0),
   m_groupCounter(0),
-  m_repeatCounter(repeatGroup)
+  m_repeatCounter(0)
 {
   m_patternID = PATTERN_ADVANCED;
-}
-
-AdvancedPattern::AdvancedPattern(const PatternArgs &args) :
-  AdvancedPattern()
-{
   setArgs(args);
 }
 

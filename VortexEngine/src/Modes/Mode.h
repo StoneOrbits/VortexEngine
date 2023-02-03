@@ -5,8 +5,6 @@
 #include "../Patterns/Patterns.h"
 #include "../VortexConfig.h"
 
-class SingleLedPattern;
-class MultiLedPattern;
 class PatternArgs;
 class ByteStream;
 class Colorset;
@@ -14,8 +12,6 @@ class Pattern;
 
 // Bitflags for saving modes
 #define MODE_FLAG_NONE              0
-// the mode is utilizing a multi-led pattern
-#define MODE_FLAG_MULTI_LED         (1 << 0)
 // the mode is utilizing the same single-led pattern on each finger
 #define MODE_FLAG_ALL_SAME_SINGLE   (1 << 1)
 
@@ -38,7 +34,7 @@ public:
   Mode(PatternID id, const PatternArgs &args, const Colorset &set);
   Mode(PatternID id, const PatternArgs *args, const Colorset *set);
   Mode(const Mode *other);
-  virtual ~Mode();
+  ~Mode();
 
   // copy and assignment operators
   Mode(const Mode &other);
@@ -49,25 +45,30 @@ public:
   bool operator!=(const Mode &other) const;
 
   // initialize the mode to initial state
-  virtual void init();
+  void init();
+  void clear();
 
   // Play the mode
-  virtual void play();
+  void play();
 
   // save/load from a buffer for individual mode sharing
-  virtual bool saveToBuffer(ByteStream &saveBuffer) const;
-  virtual bool loadFromBuffer(ByteStream &saveBuffer);
+  bool saveToBuffer(ByteStream &saveBuffer) const;
+  bool loadFromBuffer(ByteStream &saveBuffer);
 
   // save the mode to serial
-  virtual void serialize(ByteStream &buffer) const;
+  void serialize(ByteStream &buffer) const;
   // load the mode from serial (optional led count)
-  virtual bool unserialize(ByteStream &buffer);
+  bool unserialize(ByteStream &buffer);
 
 #if FIXED_LED_COUNT == 0
   // change the internal pattern count in the mode object
   void setLedCount(uint8_t numLeds);
 #endif
   uint8_t getLedCount() const;
+
+  // iterate all patterns to the next id
+  void nextPat();
+  void rollColorset(uint32_t numColors = 3);
 
   // Get pointer to an individual pattern/colorset
   const Pattern *getPattern(LedPos pos = LED_FIRST) const;
@@ -91,20 +92,14 @@ public:
 
   // change a single or multi pattern
   bool setSinglePat(LedPos pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
-  bool setSinglePat(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
-  bool setMultiPat(PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
-  bool setMultiPat(MultiLedPattern *pat, const Colorset *set = nullptr);
 
   // get the flags associated with this mode
   uint32_t getFlags() const;
 
-  // is this a multi-led pattern in the mode?
-  bool isMultiLed() const;
   // are all the single led patterns and colorsets equal?
   bool isSameSingleLed() const;
 
   // erase any stored patterns or colorsets
-  void clearPatterns();
   void clearPattern(LedPos pos);
   void clearColorsets();
 private:
