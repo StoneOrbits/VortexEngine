@@ -551,6 +551,7 @@ bool Modes::ModeLink::init(const Mode *mode)
   if (!mode) {
     return false;
   }
+  m_storedMode.clear();
   // serialize the mode so it can be instantiated anytime
   if (!mode->saveToBuffer(m_storedMode)) {
     return false;
@@ -667,5 +668,6 @@ void Modes::ModeLink::save()
   if (!m_pInstantiatedMode) {
     return;
   }
+  m_storedMode.clear();
   m_pInstantiatedMode->saveToBuffer(m_storedMode);
 }
