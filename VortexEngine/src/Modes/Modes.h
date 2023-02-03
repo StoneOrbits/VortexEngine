@@ -55,8 +55,8 @@ public:
   static bool addMode(PatternID id, const PatternArgs *args, const Colorset *set);
   static bool addMode(const Mode *mode);
 
-  // add a new mode by unserializing raw (optionally specify number of leds)
-  static bool addSerializedMode(ByteStream &serializedMode, uint32_t numLeds = LED_COUNT);
+  // add a new mode by unserializing raw
+  static bool addSerializedMode(ByteStream &serializedMode);
   // add a new mode by loading from a save buffer
   static bool addModeFromBuffer(ByteStream &serializedMode);
 
@@ -81,6 +81,10 @@ public:
 
   // delete all modes in the list
   static void clearModes();
+
+#if MODES_TEST == 1
+  static void test();
+#endif
 
 private:
   // linked list of internal mode storage

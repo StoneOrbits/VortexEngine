@@ -24,6 +24,10 @@ Modes::ModeLink *Modes::m_storedModes = nullptr;
 
 bool Modes::init()
 {
+#if MODES_TEST == 1
+  test();
+  return true;
+#endif
   // try to load the saved settings or set defaults
   if (!loadStorage()) {
     if (!setDefaults()) {
@@ -211,11 +215,9 @@ bool Modes::setDefaults()
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
   PatternID default_start = PATTERN_FIRST;
   PatternID default_end = PATTERN_LAST;
-  // initialize a mode for each pattern with an rgb colorset
-  for (PatternID pattern = default_start; pattern <= default_end; ++pattern) {
-    Colorset defaultSet;
-    defaultSet.randomize(8);
-    Mode tmpMode(pattern, nullptr, &defaultSet);
+  // add 65 randomized modes
+  for (int i = 0; i < 65; ++i) {
+    Mode tmpMode;
     for (LedPos led = LED_FIRST; led < LED_COUNT; ++led) {
       // create a random pattern ID from all patterns
       PatternID randomPattern = (PatternID)random(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
@@ -241,7 +243,7 @@ bool Modes::setDefaults()
   return true;
 }
 
-bool Modes::addSerializedMode(ByteStream &serializedMode, uint32_t numLeds)
+bool Modes::addSerializedMode(ByteStream &serializedMode)
 {
 #if MAX_MODES != 0
   if (m_numModes >= MAX_MODES) {
@@ -255,7 +257,7 @@ bool Modes::addSerializedMode(ByteStream &serializedMode, uint32_t numLeds)
   if (!tmpMode.unserialize(serializedMode)) {
     return false;
   }
-  // initialize the mode because a pattern could theoretically serialize 
+  // initialize the mode because a pattern could theoretically serialize
   // differently after it has initialized
   tmpMode.init();
   return addMode(&tmpMode);
@@ -294,12 +296,27 @@ bool Modes::shiftCurMode(int32_t offset)
     // invalid new position?
     return false;
   }
+  // special case for moving first in list forward
+  if (!m_curMode && offset > 0) {
+    // update main list ptr
+    m_storedModes = m_storedModes->next();
+  }
   // unlink the current link
   m_pCurModeLink->unlinkSelf();
-  // link the link before our target link
-  target->linkBefore(m_pCurModeLink);
-  // then update the current position to reflect our new pos
+  // update the current position to reflect our new pos
   m_curMode = newPos;
+  // then re-link the mode at the new spot
+  if (offset < 0) {
+    // link the link before our target link
+    target->linkBefore(m_pCurModeLink);
+    // special case for moving into first in list
+    if (!m_curMode) {
+      m_storedModes = m_pCurModeLink;
+    }
+  } else {
+    // link the link after our target link
+    target->linkAfter(m_pCurModeLink);
+  }
   return true;
 }
 
@@ -356,7 +373,7 @@ bool Modes::addMode(const Mode *mode)
 // replace current mode with new one, destroying existing one
 bool Modes::updateCurMode(PatternID id, const Colorset *set)
 {
-  if (id > PATTERN_LAST || !set) {
+  if (id > PATTERN_LAST) {
     ERROR_LOG("Invalid id or set");
     return false;
   }
@@ -396,12 +413,17 @@ Mode *Modes::setCurMode(uint32_t index)
   if (m_pCurModeLink) {
     m_pCurModeLink->uninstantiate();
   }
-  m_pCurModeLink = getModeLink(m_curMode);
-  Mode *newCur = m_pCurModeLink->instantiate();
+  ModeLink *newCurLink = getModeLink(m_curMode);
+  if (!newCurLink) {
+    // what
+    return nullptr;
+  }
+  Mode *newCur = newCurLink->instantiate();
   if (!newCur) {
     ERROR_OUT_OF_MEMORY();
     return nullptr;
   }
+  m_pCurModeLink = newCurLink;
   // log the change
   DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)",
     m_curMode, m_numModes - 1, newCur->getPatternID());
@@ -446,6 +468,9 @@ void Modes::deleteCurMode()
   ModeLink *newCur = m_pCurModeLink->unlinkSelf();
   delete m_pCurModeLink;
   m_pCurModeLink = newCur;
+  if (m_curMode) {
+    m_curMode--;
+  }
   m_numModes--;
   if (!m_numModes) {
     m_storedModes = nullptr;
@@ -573,6 +598,7 @@ bool Modes::ModeLink::append(const Mode *next)
     ERROR_OUT_OF_MEMORY();
     return false;
   }
+  m_next->m_prev = this;
   return true;
 }
 
@@ -581,14 +607,16 @@ bool Modes::ModeLink::append(const ByteStream &next)
   if (!next.size()) {
     return false;
   }
+  // if not end of chain, recurse on next link
   if (m_next) {
-    delete m_next;
+    return m_next->append(next);
   }
   m_next = new ModeLink(next);
   if (!m_next) {
     ERROR_OUT_OF_MEMORY();
     return false;
   }
+  m_next->m_prev = this;
   return true;
 }
 
@@ -602,13 +630,19 @@ void Modes::ModeLink::play()
 
 Modes::ModeLink *Modes::ModeLink::unlinkSelf()
 {
+  // unlink this node from the chain
   if (m_prev) {
     m_prev->m_next = m_next;
   }
   if (m_next) {
     m_next->m_prev = m_prev;
   }
-  return m_prev ? m_prev : m_next;
+  // grab the new link that will take this place
+  ModeLink *newLink = m_prev ? m_prev : m_next;
+  // clear the links of this node
+  m_prev = nullptr;
+  m_next = nullptr;
+  return newLink;
 }
 
 void Modes::ModeLink::linkAfter(ModeLink *link)
@@ -671,3 +705,103 @@ void Modes::ModeLink::save()
   m_storedMode.clear();
   m_pInstantiatedMode->saveToBuffer(m_storedMode);
 }
+
+#if MODES_TEST == 1
+#include <assert.h>
+#include <stdio.h>
+
+#include "Patterns/PatternBuilder.h"
+
+void Modes::test()
+{
+  printf("== Beginning Modes Test ==\n");
+
+  RGBColor col = RGB_RED;
+  assert(!addMode(PATTERN_COUNT, col));
+  for (PatternID pat = PATTERN_FIRST; pat < PATTERN_COUNT; ++pat) {
+    assert(addMode(pat, col));
+  }
+  assert(numModes() == PATTERN_COUNT);
+  clearModes();
+  assert(numModes() == 0);
+
+  Colorset set(RGB_RED, RGB_GREEN, RGB_BLUE);
+  assert(!addMode(PATTERN_COUNT, nullptr, &set));
+  for (PatternID pat = PATTERN_FIRST; pat < PATTERN_COUNT; ++pat) {
+    assert(addMode(pat, nullptr, &set));
+  }
+  assert(numModes() == PATTERN_COUNT);
+  clearModes();
+  assert(numModes() == 0);
+
+  // add a new mode in various different ways
+  assert(!addMode(PATTERN_COUNT, col));
+  Colorset set2(RGB_RED, RGB_GREEN, RGB_BLUE);
+  for (PatternID pat = PATTERN_FIRST; pat < PATTERN_COUNT; ++pat) {
+    Mode tmpMode(pat, nullptr, &set2);
+    assert(addMode(&tmpMode));
+  }
+  assert(numModes() == PATTERN_COUNT);
+  clearModes();
+  assert(numModes() == 0);
+
+  printf("addMode(): success\n");
+
+  ByteStream modebuf;
+  ByteStream modesave;
+  PatternArgs args = PatternBuilder::getDefaultArgs(PATTERN_BASIC);
+  Mode tmpMode(PATTERN_BASIC, &args, &set);
+  tmpMode.serialize(modebuf);
+  tmpMode.saveToBuffer(modesave);
+  assert(addSerializedMode(modebuf));
+  assert(numModes() == 1);
+  assert(addModeFromBuffer(modesave));
+  assert(numModes() == 2);
+  assert(getModeLink(0) != nullptr);
+  Mode *mode1 = getModeLink(0)->instantiate();
+  assert(mode1 != nullptr);
+  Mode *mode2 = getModeLink(1)->instantiate();
+  assert(mode2 != nullptr);
+  assert(mode1->equals(mode2));
+
+  printf("addSerializedMode(): success\n");
+
+  Colorset newset(RGB_BLUE, RGB_RED, RGB_GREEN);
+  assert(updateCurMode(PATTERN_HYPERSTROBE, nullptr));
+  assert(getModeLink(0)->mode()->getPatternID() == PATTERN_HYPERSTROBE);
+  assert(setCurMode(1));
+  // update the current mode to match the given mode
+  assert(updateCurMode(PATTERN_DOPS, &newset));
+  assert(getModeLink(1)->mode()->getPatternID() == PATTERN_DOPS);
+  Mode newTmp(PATTERN_BLEND, PatternBuilder::getDefaultArgs(PATTERN_BLEND),
+    Colorset(RGB_YELLOW, RGB_ORANGE, RGB_CYAN, RGB_BLUE, RGB_WHITE, RGB_RED));
+
+  printf("updateCurMode(): success\n");
+
+  assert(shiftCurMode(-1));
+  assert(m_curMode == 0);
+  assert(getModeLink(0)->instantiate()->getPatternID() == PATTERN_DOPS);
+  assert(getModeLink(1)->instantiate()->getPatternID() == PATTERN_HYPERSTROBE);
+  assert(shiftCurMode(0));
+  assert(m_curMode == 0);
+  assert(getModeLink(0)->instantiate()->getPatternID() == PATTERN_DOPS);
+  assert(getModeLink(1)->instantiate()->getPatternID() == PATTERN_HYPERSTROBE);
+  assert(shiftCurMode(1));
+  assert(m_curMode == 1);
+  assert(getModeLink(0)->instantiate()->getPatternID() == PATTERN_HYPERSTROBE);
+  assert(getModeLink(1)->instantiate()->getPatternID() == PATTERN_DOPS);
+
+  printf("shiftCurMode(): success\n");
+
+  deleteCurMode();
+  assert(m_numModes == 1);
+  assert(m_curMode == 0);
+  deleteCurMode();
+  assert(m_numModes == 0);
+  assert(m_curMode == 0);
+
+  printf("deleteCurMode(): success\n");
+
+  printf("== Success Running Modes Test ==\n");
+}
+#endif

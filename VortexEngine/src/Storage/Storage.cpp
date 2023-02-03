@@ -25,6 +25,8 @@ const uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
 #endif
 FlashClass storage(_storagedata, STORAGE_SIZE);
 
+uint32_t Storage::m_lastSaveSize = 0;
+
 Storage::Storage()
 {
 }
@@ -57,9 +59,11 @@ bool Storage::write(ByteStream &buffer)
   }
   // clear existing storage, this is necessary even if it's empty
   storage.erase();
+  // set the last save size
+  m_lastSaveSize = buffer.size();
   // write out the buffer to storage
   storage.write(_storagedata, buffer.rawData(), buffer.rawSize());
-  DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", buffer.size(), STORAGE_SIZE);
+  DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, totalSpace());
   return true;
 }
 
@@ -74,7 +78,8 @@ bool Storage::read(ByteStream &buffer)
   // read directly into the rawdata of the byte array, this will
   // include the crc, size, flags and entire buffer of data
   storage.read(buffer.rawData());
-  DEBUG_LOGF("Loaded savedata (Size: %u)", buffer.size());
+  m_lastSaveSize = buffer.size();
+  DEBUG_LOGF("Loaded savedata (Size: %u)", m_lastSaveSize);
   return true;
 }
 
@@ -85,5 +90,5 @@ uint32_t Storage::totalSpace()
 
 uint32_t Storage::lastSaveSize()
 {
-  return *(uint32_t *)_storagedata;
+  return m_lastSaveSize;
 }

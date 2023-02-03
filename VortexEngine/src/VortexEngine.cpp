@@ -125,10 +125,7 @@ uint32_t VortexEngine::totalStorageSpace()
 
 uint32_t VortexEngine::savefileSize()
 {
-  ByteStream buf;
-  return 0;
-  //Modes::saveToBuffer(buf);
-  //return buf.rawSize();
+  return Storage::lastSaveSize();
 }
 
 #if COMPRESSION_TEST == 1

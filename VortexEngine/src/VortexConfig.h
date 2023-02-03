@@ -24,6 +24,14 @@
 #define EXPAND_AND_QUOTE(str) ADD_QUOTES(str)
 #define VORTEX_VERSION EXPAND_AND_QUOTE(VORTEX_VERSION_NUMBER)
 
+// the engine flavour, this should change for each device/flavour
+// of the engine that branches off from the main indefinitely
+#define VORTEX_NAME "Igneous"
+
+// the full name of this build for ex:
+//    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
+#define VORTEX_FULL_NAME "Vortex Engine v" VORTEX_VERSION " '" VORTEX_NAME "' ( built " __TIMESTAMP__ ")"
+
 // ===================================================================
 //  Numeric Configurations
 
@@ -249,6 +257,14 @@
 // which don't serialize and unserialize cleanly
 #define SERIALIZATION_TEST    0
 
+// Modes Test
+//
+// Run unit tests on the Modes class which manages the list of Modes.
+// If any patterns fail to instantiate or perform basic operations
+// it should show up in the modes test. Also if the Modes api has been
+// updated then this will test for any issues
+#define MODES_TEST            0
+
 // ===================================================================
 //  Editor Verbs
 //
@@ -257,9 +273,10 @@
 //  also so you can configure them at your own free will.
 
 // the initial hello from the gloveset to the editor
-#define EDITOR_VERB_GREETING_PREFIX   "== Vortex Engine v"
-#define EDITOR_VERB_GREETING_POSTFIX  " (built " __TIMESTAMP__ ") =="
-#define EDITOR_VERB_GREETING          EDITOR_VERB_GREETING_PREFIX VORTEX_VERSION EDITOR_VERB_GREETING_POSTFIX
+// is the full name of this build of vortex
+#define EDITOR_VERB_GREETING_PREFIX   "== "
+#define EDITOR_VERB_GREETING_POSTFIX  " =="
+#define EDITOR_VERB_GREETING          EDITOR_VERB_GREETING_PREFIX VORTEX_FULL_NAME EDITOR_VERB_GREETING_POSTFIX
 
 // the hello from the editor to the gloves
 #define EDITOR_VERB_HELLO             "a"
