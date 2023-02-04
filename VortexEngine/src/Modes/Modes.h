@@ -46,8 +46,7 @@ public:
 
   // shift the current mode to a different position relative to current position
   // negative values for up, positive values for down, 0 for no move
-  static bool shiftCurModeUp(uint32_t offset = 1);
-  static bool shiftCurModeDown(uint32_t offset = 1);
+  static bool shiftCurMode(int32_t offset = 1);
 
   // add a new mode in various different ways
   static bool addMode(PatternID id, RGBColor c1, RGBColor c2 = RGB_OFF,
@@ -56,13 +55,13 @@ public:
   static bool addMode(PatternID id, const PatternArgs *args, const Colorset *set);
   static bool addMode(const Mode *mode);
 
-  // add a new mode by unserializing raw (optionally specify number of leds)
-  static bool addSerializedMode(ByteStream &serializedMode, uint32_t numLeds = LED_COUNT);
+  // add a new mode by unserializing raw
+  static bool addSerializedMode(ByteStream &serializedMode);
   // add a new mode by loading from a save buffer
   static bool addModeFromBuffer(ByteStream &serializedMode);
 
   // update the current mode to match the given mode
-  static bool updateCurMode(PatternID id, const Colorset *set);
+  static bool updateCurMode(PatternID id, const Colorset *set = nullptr);
   static bool updateCurMode(const Mode *mode);
 
   // set the current active mode by index
@@ -85,10 +84,64 @@ public:
   // delete all modes in the list
   static void clearModes();
 
+#if MODES_TEST == 1
+  static void test();
+#endif
+
 private:
+  // linked list of internal mode storage
+  class ModeLink {
+  public:
+    // construct a link and optionally instantiate the link
+    ModeLink(const Mode *src = nullptr, bool inst = false);
+    ModeLink(const ByteStream &src, bool inst = false);
+    ~ModeLink();
+
+    // init the link and append another link
+    bool init(const Mode *mode = nullptr);
+    bool append(const Mode *next);
+    bool append(const ByteStream &next);
+
+    // play the instantiated mode inside
+    void play();
+
+    // unlink self from the chain, returns link that takes position
+    ModeLink *unlinkSelf();
+
+    // link in a node before or after self
+    void linkAfter(ModeLink *link);
+    void linkBefore(ModeLink *link);
+
+    // instantiate/destroy the mode
+    Mode *instantiate();
+    void uninstantiate();
+
+    // if the mode is instantiated and the instantiated version
+    // has changed at all then save will re-save it to the buffer
+    void save();
+
+    // accessors
+    ByteStream &buffer() { return m_storedMode; }
+    Mode *mode() { return m_pInstantiatedMode; }
+    ModeLink *next() { return m_next; }
+    ModeLink *prev() { return m_prev; }
+
+    operator ByteStream &() { return m_storedMode; }
+    operator ByteStream() { return m_storedMode; }
+    operator Mode *() { return m_pInstantiatedMode; }
+  private:
+    Mode *m_pInstantiatedMode;
+    ByteStream m_storedMode;
+    ModeLink *m_next;
+    ModeLink *m_prev;
+  };
+
+  // fetch a link from the chain by index
+  static ModeLink *getModeLink(uint32_t index);
+
   // initialize current mode from ByteStream, optionally force re-init which
   // will destroy the current instantiated mode and re-load it from serial
-  static bool initCurMode(bool force = false);
+  static Mode *initCurMode(bool force = false);
   static void saveCurMode();
 
   // the current mode we're on
@@ -97,11 +150,11 @@ private:
   // the number of modes loaded
   static uint8_t m_numModes;
 
-  // the current instantiated mode
-  static Mode *m_pCurMode;
+  // the current instantiated mode and it's respective link
+  static ModeLink *m_pCurModeLink;
 
   // list of serialized version of bufers
-  static ByteStream m_serializedModes[MAX_MODES];
+  static ModeLink *m_storedModes;
 };
 
 #endif

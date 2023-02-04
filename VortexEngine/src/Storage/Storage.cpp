@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdlib.h>
 
+#include "../VortexConfig.h"
 #include "../Memory/Memory.h"
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
@@ -11,6 +12,8 @@
 #ifdef TEST_FRAMEWORK
 #ifndef LINUX_FRAMEWORK
 #include <Windows.h>
+#else
+#include <unistd.h>
 #endif
 #endif
 
@@ -22,6 +25,8 @@ const uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
 #endif
 FlashClass storage(_storagedata, STORAGE_SIZE);
 
+uint32_t Storage::m_lastSaveSize = 0;
+
 Storage::Storage()
 {
 }
@@ -29,8 +34,14 @@ Storage::Storage()
 bool Storage::init()
 {
 #ifdef TEST_FRAMEWORK
+#ifndef LINUX_FRAMEWORK
   DeleteFile("FlashStorage.flash");
+#else
+  unlink("FlashStorage.flash");
 #endif
+#endif
+  DEBUG_LOGF("Total space: %u Engine size: %u Available space: %u",
+    MAX_STORAGE_SPACE, ENGINE_SIZE, STORAGE_SIZE);
   return true;
 }
 
@@ -48,9 +59,11 @@ bool Storage::write(ByteStream &buffer)
   }
   // clear existing storage, this is necessary even if it's empty
   storage.erase();
+  // set the last save size
+  m_lastSaveSize = buffer.size();
   // write out the buffer to storage
   storage.write(_storagedata, buffer.rawData(), buffer.rawSize());
-  DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", buffer.size(), STORAGE_SIZE);
+  DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, totalSpace());
   return true;
 }
 
@@ -65,6 +78,17 @@ bool Storage::read(ByteStream &buffer)
   // read directly into the rawdata of the byte array, this will
   // include the crc, size, flags and entire buffer of data
   storage.read(buffer.rawData());
-  DEBUG_LOGF("Loaded savedata (Size: %u)", buffer.size());
+  m_lastSaveSize = buffer.size();
+  DEBUG_LOGF("Loaded savedata (Size: %u)", m_lastSaveSize);
   return true;
+}
+
+uint32_t Storage::totalSpace()
+{
+  return MAX_STORAGE_SPACE - ENGINE_SIZE;
+}
+
+uint32_t Storage::lastSaveSize()
+{
+  return m_lastSaveSize;
 }

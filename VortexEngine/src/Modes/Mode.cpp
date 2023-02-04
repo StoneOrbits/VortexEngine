@@ -206,6 +206,10 @@ bool Mode::unserialize(ByteStream &buffer)
     setLedCount(ledCount);
   }
 #endif
+  if (!ledCount) {
+    // empty mode?
+    return true;
+  }
   // unserialize the flags value
   uint32_t flags = 0;
   buffer.unserialize(&flags);

@@ -61,7 +61,15 @@ public:
   static void serializeVersion(ByteStream &stream);
   static bool checkVersion(uint8_t major, uint8_t minor);
 
+  // the total available storage space
+  static uint32_t totalStorageSpace();
+  // the size of the savefile
+  static uint32_t savefileSize();
+
 private:
+  // the size of the savefile
+  uint32_t m_savefileSize;
+
 #if COMPRESSION_TEST == 1
   static void compressionTest();
 #endif

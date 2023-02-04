@@ -1,7 +1,7 @@
 #ifndef STORAGE_H
 #define STORAGE_H
 
-#define STORAGE_SIZE 8192
+#include <inttypes.h>
 
 class ByteStream;
 
@@ -18,6 +18,14 @@ public:
   static bool write(ByteStream &buffer);
   // read a serial buffer from storage
   static bool read(ByteStream &buffer);
+
+  // the total available storage space
+  static uint32_t totalSpace();
+  static uint32_t lastSaveSize();
+
+private:
+  // the size of the last save
+  static uint32_t m_lastSaveSize;
 };
 
 #endif

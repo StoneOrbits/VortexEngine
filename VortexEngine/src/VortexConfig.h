@@ -24,6 +24,14 @@
 #define EXPAND_AND_QUOTE(str) ADD_QUOTES(str)
 #define VORTEX_VERSION EXPAND_AND_QUOTE(VORTEX_VERSION_NUMBER)
 
+// the engine flavour, this should change for each device/flavour
+// of the engine that branches off from the main indefinitely
+#define VORTEX_NAME "Igneous"
+
+// the full name of this build for ex:
+//    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
+#define VORTEX_FULL_NAME "Vortex Engine v" VORTEX_VERSION " '" VORTEX_NAME "' ( built " __TIMESTAMP__ ")"
+
 // ===================================================================
 //  Numeric Configurations
 
@@ -84,11 +92,14 @@
 
 // Max Modes
 //
-// The maximum number of modes that can be active at once
-// this should reflect the available RAM of the device.
-// However it is also heavily influenced by the active patterns
-// so it's hard to pick a number, 16 seems reasonable
-#define MAX_MODES             16
+// The maximum number of modes that can be stored on the device.
+// This should reflect the available RAM of the device.
+//
+// In our tests even 45 fully loaded modes only took up 15kb
+//
+// Set this to 0 for no limit on the number of modes
+//
+#define MAX_MODES             0
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -187,7 +198,7 @@
 //
 // This can be used to quickly demo all possible patterns, mostly useful
 // for testing and development
-#define DEMO_ALL_PATTERNS     0
+#define DEMO_ALL_PATTERNS     1
 
 // Save Template
 //
@@ -246,6 +257,14 @@
 // which don't serialize and unserialize cleanly
 #define SERIALIZATION_TEST    0
 
+// Modes Test
+//
+// Run unit tests on the Modes class which manages the list of Modes.
+// If any patterns fail to instantiate or perform basic operations
+// it should show up in the modes test. Also if the Modes api has been
+// updated then this will test for any issues
+#define MODES_TEST            0
+
 // ===================================================================
 //  Editor Verbs
 //
@@ -254,9 +273,10 @@
 //  also so you can configure them at your own free will.
 
 // the initial hello from the gloveset to the editor
-#define EDITOR_VERB_GREETING_PREFIX   "== Vortex Engine v"
-#define EDITOR_VERB_GREETING_POSTFIX  " (built " __TIMESTAMP__ ") =="
-#define EDITOR_VERB_GREETING          EDITOR_VERB_GREETING_PREFIX VORTEX_VERSION EDITOR_VERB_GREETING_POSTFIX
+// is the full name of this build of vortex
+#define EDITOR_VERB_GREETING_PREFIX   "== "
+#define EDITOR_VERB_GREETING_POSTFIX  " =="
+#define EDITOR_VERB_GREETING          EDITOR_VERB_GREETING_PREFIX VORTEX_FULL_NAME EDITOR_VERB_GREETING_POSTFIX
 
 // the hello from the editor to the gloves
 #define EDITOR_VERB_HELLO             "a"
@@ -294,6 +314,28 @@
 #define EDITOR_VERB_GOODBYE           "l"
 
 // ===================================================================
+//  Manually Configured Sizes
+//
+//  These are the various storage space constants of the vortex device
+
+// maximum storage space in bytes
+#define MAX_STORAGE_SPACE 262144
+
+// the size of the compiled engine
+#define ENGINE_SIZE 88776
+
+// the raw amount of available space
+#define RAW_AVAILABLE_SPACE (MAX_STORAGE_SPACE - ENGINE_SIZE)
+
+// usable flash space is one eighth of what we have left idk why I
+// just kept picking numbers till it worked
+#define USABLE_SPACE (RAW_AVAILABLE_SPACE / 8)
+
+// the space available for storing modes is the usable space rounded
+// down to nearest 4096
+#define STORAGE_SIZE (USABLE_SPACE - (USABLE_SPACE % 4096))
+
+// ===================================================================
 //  Test Framework configurations
 //
 //   * Unless you are using the test framework, don't touch these! *
@@ -327,7 +369,7 @@
 #if DEMO_ALL_PATTERNS == 1 || SERIALIZATION_TEST == 1 || COMPRESSION_TEST == 1
   #undef MAX_MODES
   #include "Patterns/Patterns.h"
-  #define MAX_MODES           PATTERN_COUNT
+  #define MAX_MODES           0
   #undef LOGGING_LEVEL
   #define LOGGING_LEVEL         3
 #endif
