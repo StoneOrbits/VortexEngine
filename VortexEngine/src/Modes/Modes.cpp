@@ -470,6 +470,8 @@ void Modes::deleteCurMode()
   m_pCurModeLink = newCur;
   if (m_curMode) {
     m_curMode--;
+  } else {
+    m_storedModes = m_pCurModeLink;
   }
   m_numModes--;
   if (!m_numModes) {
