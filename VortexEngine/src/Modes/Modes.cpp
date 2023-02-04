@@ -51,6 +51,7 @@ void Modes::cleanup()
 
 void Modes::play()
 {
+  if (!m_numModes) {
     // nothing to do just keep the leds cleared
     Leds::clearAll();
     return;
@@ -67,12 +68,6 @@ void Modes::play()
   // shortclick on button 2 cycles to the previous mode
   if (g_pButton2->onShortClick()) {
     previousMode();
-  }
-  // check for empty mode list or missing cur mode
-  if (!m_numModes || !m_pCurMode || !initCurMode()) {
-    // just keep the leds cleared
-    Leds::clearAll();
-    return;
   }
   // play the current mode
   m_pCurModeLink->play();
@@ -235,7 +230,7 @@ bool Modes::setDefaults()
       tmpMode.setSinglePat(led, randomPattern, nullptr, &randSet);
     }
     // add another mode with the given pattern and colorset
-    if (!addMode(pattern, nullptr, &defaultSet)) {
+    if (!addMode(&tmpMode)) {
       ERROR_LOG("Failed to add mode");
       // return false?
     }

@@ -198,7 +198,7 @@
 //
 // This can be used to quickly demo all possible patterns, mostly useful
 // for testing and development
-#define DEMO_ALL_PATTERNS     1
+#define DEMO_ALL_PATTERNS     0
 
 // Save Template
 //
