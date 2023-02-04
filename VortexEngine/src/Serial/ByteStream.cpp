@@ -256,7 +256,12 @@ bool ByteStream::decompress()
     decompressedSize = LZ4_decompress_safe((const char *)m_pData->buf,
       (char *)decompressedBuffer.m_pData->buf, m_pData->size,
       decompressedBuffer.m_capacity);
-  } while (decompressedSize < 0 && multiple < 255);
+  } while (decompressedSize < 0 && multiple < 512);
+  // still error
+  if (decompressedSize < 0) {
+    ERROR_LOGF("Failed to decompress: %d", decompressedSize);
+    return false;
+  }
   // size changed
   decompressedBuffer.m_pData->size = decompressedSize;
   // data is no longer compressed

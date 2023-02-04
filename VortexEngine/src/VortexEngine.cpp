@@ -118,6 +118,16 @@ bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
   return true;
 }
 
+uint32_t VortexEngine::totalStorageSpace()
+{
+  return STORAGE_SIZE;
+}
+
+uint32_t VortexEngine::savefileSize()
+{
+  return Storage::lastSaveSize();
+}
+
 #if COMPRESSION_TEST == 1
 #include <stdio.h>
 #include "Memory/Memory.h"

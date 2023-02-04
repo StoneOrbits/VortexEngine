@@ -17,11 +17,17 @@
 // static members
 uint8_t Modes::m_curMode = 0;
 uint8_t Modes::m_numModes = 0;
-Mode *Modes::m_pCurMode = nullptr;
-ByteStream Modes::m_serializedModes[MAX_MODES];
+// the current instantiated mode and it's respective link
+Modes::ModeLink *Modes::m_pCurModeLink = nullptr;
+// list of serialized version of bufers
+Modes::ModeLink *Modes::m_storedModes = nullptr;
 
 bool Modes::init()
 {
+#if MODES_TEST == 1
+  test();
+  return true;
+#endif
   // try to load the saved settings or set defaults
   if (!loadStorage()) {
     if (!setDefaults()) {
@@ -45,8 +51,13 @@ void Modes::cleanup()
 
 void Modes::play()
 {
+  if (!m_numModes) {
+    // nothing to do just keep the leds cleared
+    Leds::clearAll();
+    return;
+  }
   // should be able to initialize the current mode
-  if (!m_pCurMode && !initCurMode()) {
+  if (!m_pCurModeLink && !initCurMode()) {
     DEBUG_LOG("Error failed to load any modes!");
     return;
   }
@@ -54,14 +65,8 @@ void Modes::play()
   if (g_pButton->onShortClick()) {
     nextMode();
   }
-  // check for empty mode list or missing cur mode
-  if (!m_numModes || !m_pCurMode || !initCurMode()) {
-    // just keep the leds cleared
-    Leds::clearAll();
-    return;
-  }
   // play the current mode
-  m_pCurMode->play();
+  m_pCurModeLink->play();
 }
 
 // full save/load to/from buffer
@@ -153,17 +158,21 @@ void Modes::serialize(ByteStream &modesBuffer)
   modesBuffer.serialize(m_numModes);
   // make sure the current mode is saved in case it has changed somehow
   saveCurMode();
-  // iterate all of the modes and copy their serial data into the modesBuffer
-  for (uint32_t i = 0; i < m_numModes; ++i) {
-    // load the mode and initialize it
-    Mode tmpMode;
-    if (!tmpMode.loadFromBuffer(m_serializedModes[i])) {
-      continue;
+  ModeLink *ptr = m_storedModes;
+  while (ptr) {
+    // instantiate the mode temporarily
+    Mode *mode = ptr->instantiate();
+    if (!mode) {
+      ERROR_OUT_OF_MEMORY();
+      return;
     }
-    // initialize before serializing the data
-    tmpMode.init();
-    // serialize it into the modes buffer
-    tmpMode.serialize(modesBuffer);
+    mode->serialize(modesBuffer);
+    // if this isn't our current running mode, uninstantiate it
+    if (ptr != m_pCurModeLink) {
+      ptr->uninstantiate();
+    }
+    // next mode
+    ptr = ptr->next();
   }
   DEBUG_LOGF("Serialized num modes: %u", m_numModes);
 }
@@ -206,11 +215,9 @@ bool Modes::setDefaults()
   // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
   PatternID default_start = PATTERN_FIRST;
   PatternID default_end = PATTERN_LAST;
-  // initialize a mode for each pattern with an rgb colorset
-  for (PatternID pattern = default_start; pattern <= default_end; ++pattern) {
-    Colorset defaultSet;
-    defaultSet.randomize(8);
-    Mode tmpMode(pattern, nullptr, &defaultSet);
+  // add 65 randomized modes
+  for (int i = 0; i < 65; ++i) {
+    Mode tmpMode;
     for (LedPos led = LED_FIRST; led < LED_COUNT; ++led) {
       // create a random pattern ID from all patterns
       PatternID randomPattern = (PatternID)random(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
@@ -236,34 +243,37 @@ bool Modes::setDefaults()
   return true;
 }
 
-bool Modes::addSerializedMode(ByteStream &serializedMode, uint32_t numLeds)
+bool Modes::addSerializedMode(ByteStream &serializedMode)
 {
+#if MAX_MODES != 0
   if (m_numModes >= MAX_MODES) {
     return false;
   }
+#endif
   // we must unserialize then re-serialize here because the
   // input argument may contain other patterns in the buffer
-  // so we cannot just assign the input arg to m_serializedModes
+  // so we cannot just append the input arg to m_storedModes
   Mode tmpMode;
   if (!tmpMode.unserialize(serializedMode)) {
     return false;
   }
-  // initialize the mode
+  // initialize the mode because a pattern could theoretically serialize
+  // differently after it has initialized
   tmpMode.init();
-  m_serializedModes[m_numModes].clear();
-  // re-serialize the mode into the storage buffer
-  tmpMode.saveToBuffer(m_serializedModes[m_numModes]);
-  // increment mode counter
-  m_numModes++;
-  return true;
+  return addMode(&tmpMode);
 }
 
 bool Modes::addModeFromBuffer(ByteStream &serializedMode)
 {
+#if MAX_MODES != 0
   if (m_numModes >= MAX_MODES) {
     return false;
   }
-  m_serializedModes[m_numModes] = serializedMode;
+#endif
+  if (!m_storedModes->append(serializedMode)) {
+    ERROR_OUT_OF_MEMORY();
+    return false;
+  }
   // increment mode counter
   m_numModes++;
   return true;
@@ -271,69 +281,43 @@ bool Modes::addModeFromBuffer(ByteStream &serializedMode)
 
 // shift the current mode to a different position relative to current position
 // negative values for up, positive values for down, 0 for no move
-// TODO: combine this with shiftCurModeDown and refactor
-bool Modes::shiftCurModeUp(uint32_t offset)
+bool Modes::shiftCurMode(int32_t offset)
 {
-  if (offset > m_curMode) {
-    offset = m_curMode;
-  }
-  uint32_t newPos = m_curMode - offset;
+  uint32_t newPos = (uint32_t)((int32_t)m_curMode + offset);
   if (newPos >= m_numModes) {
     return false;
   }
   if (newPos == m_curMode) {
     return true;
   }
-  // shift up, iterate from current up to target and shift down
-  for (int32_t i = (int32_t)m_curMode; i >= (int32_t)newPos; --i) {
-    if (i < 0) {
-      break;
-    }
-    if (i == 0) {
-      m_serializedModes[i].clear();
-      continue;
-    }
-    m_serializedModes[i] = m_serializedModes[i - 1];
-  }
-  // now change the current mode index without changing the m_pCurMode
-  // so our current mode index points at the new location, but our m_pCurMode
-  // still has the old mode instantiated
-  m_curMode = newPos;
-  // now we save the m_pCurMode into the m_curMode position
-  saveCurMode();
-  // then we forcefully re-initialize the current mode
-  return initCurMode(true);
-}
-
-// TODO: combine this with shiftCurModeUp and refactor
-bool Modes::shiftCurModeDown(uint32_t offset)
-{
-  if ((offset + m_curMode) >= m_numModes) {
-    offset = m_numModes - m_curMode;
-  }
-  uint32_t newPos = m_curMode + offset;
-  if (newPos >= m_numModes) {
+  // get the target mode at the position of the shift
+  ModeLink *target = getModeLink(newPos);
+  if (!target) {
+    // invalid new position?
     return false;
   }
-  if (newPos == m_curMode) {
-    return true;
+  // special case for moving first in list forward
+  if (!m_curMode && offset > 0) {
+    // update main list ptr
+    m_storedModes = m_storedModes->next();
   }
-  // shift each entry down, iterate from current down to target and shift up
-  for (uint32_t i = m_curMode; i < newPos; ++i) {
-    if (i == (m_numModes - 1)) {
-      m_serializedModes[i].clear();
-      continue;
-    }
-    m_serializedModes[i] = m_serializedModes[i + 1];
-  }
-  // now change the current mode index without changing the m_pCurMode
-  // so our current mode index points at the new location, but our m_pCurMode
-  // still has the old mode instantiated
+  // unlink the current link
+  m_pCurModeLink->unlinkSelf();
+  // update the current position to reflect our new pos
   m_curMode = newPos;
-  // now we save the m_pCurMode into the m_curMode position
-  saveCurMode();
-  // then we forcefully re-initialize the current mode
-  return initCurMode(true);
+  // then re-link the mode at the new spot
+  if (offset < 0) {
+    // link the link before our target link
+    target->linkBefore(m_pCurModeLink);
+    // special case for moving into first in list
+    if (!m_curMode) {
+      m_storedModes = m_pCurModeLink;
+    }
+  } else {
+    // link the link after our target link
+    target->linkAfter(m_pCurModeLink);
+  }
+  return true;
 }
 
 bool Modes::addMode(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
@@ -346,7 +330,12 @@ bool Modes::addMode(PatternID id, RGBColor c1, RGBColor c2, RGBColor c3,
 bool Modes::addMode(PatternID id, const PatternArgs *args, const Colorset *set)
 {
   // max modes
-  if (m_numModes >= MAX_MODES || id > PATTERN_LAST) {
+#if MAX_MODES != 0
+  if (m_numModes >= MAX_MODES) {
+    return false;
+  }
+#endif
+  if (id > PATTERN_LAST) {
     return false;
   }
   Mode tmpMode(id, args, set);
@@ -359,14 +348,23 @@ bool Modes::addMode(PatternID id, const PatternArgs *args, const Colorset *set)
 
 bool Modes::addMode(const Mode *mode)
 {
+#if MAX_MODES != 0
   // max modes
   if (m_numModes >= MAX_MODES) {
     return false;
   }
-  m_serializedModes[m_numModes].clear();
-  // serialize the mode so it can be instantiated anytime
-  if (!mode->saveToBuffer(m_serializedModes[m_numModes])) {
-    return false;
+#endif
+  if (!m_storedModes) {
+    m_storedModes = new ModeLink(mode);
+    if (!m_storedModes) {
+      ERROR_OUT_OF_MEMORY();
+      return false;
+    }
+  } else {
+    if (!m_storedModes->append(mode)) {
+      ERROR_OUT_OF_MEMORY();
+      return false;
+    }
   }
   m_numModes++;
   return true;
@@ -375,22 +373,23 @@ bool Modes::addMode(const Mode *mode)
 // replace current mode with new one, destroying existing one
 bool Modes::updateCurMode(PatternID id, const Colorset *set)
 {
-  if (id > PATTERN_LAST || !set) {
+  if (id > PATTERN_LAST) {
     ERROR_LOG("Invalid id or set");
     return false;
   }
-  if (!m_pCurMode) {
+  Mode *pCur = curMode();
+  if (!pCur) {
     return addMode(id, nullptr, set);
   }
-  if (!m_pCurMode->setPattern(id)) {
+  if (!pCur->setPattern(id)) {
     DEBUG_LOG("Failed to set pattern of current mode");
     // failed to set pattern?
   }
-  if (!m_pCurMode->setColorset(set)) {
+  if (set && !pCur->setColorset(set)) {
     DEBUG_LOG("Failed to set colorset of current mode");
   }
   // initialize the mode with new pattern and colorset
-  m_pCurMode->init();
+  pCur->init();
   // save the current mode to the serialized modes storage
   saveCurMode();
   return true;
@@ -411,18 +410,25 @@ Mode *Modes::setCurMode(uint32_t index)
   m_curMode = (index) % m_numModes;
   // clear the LEDs when switching modes
   Leds::clearAll();
-  // delete the current mode
-  delete m_pCurMode;
-  m_pCurMode = nullptr;
-  // re-initialize the current mode
-  if (!initCurMode()) {
+  if (m_pCurModeLink) {
+    m_pCurModeLink->uninstantiate();
+  }
+  ModeLink *newCurLink = getModeLink(m_curMode);
+  if (!newCurLink) {
+    // what
     return nullptr;
   }
+  Mode *newCur = newCurLink->instantiate();
+  if (!newCur) {
+    ERROR_OUT_OF_MEMORY();
+    return nullptr;
+  }
+  m_pCurModeLink = newCurLink;
   // log the change
   DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)",
-    m_curMode, m_numModes - 1, m_pCurMode->getPatternID());
+    m_curMode, m_numModes - 1, newCur->getPatternID());
   // return the new current mode
-  return m_pCurMode;
+  return newCur;
 }
 
 // the current mode
@@ -432,14 +438,14 @@ Mode *Modes::curMode()
   if (!m_numModes) {
     return nullptr;
   }
-  if (!m_pCurMode) {
+  if (!m_pCurModeLink) {
     if (!initCurMode()) {
       ERROR_LOG("Failed to initialize current mode");
       return nullptr;
     }
   }
-  // get current mode
-  return m_pCurMode;
+  // get current mode, instantiate it if necessary
+  return m_pCurModeLink->instantiate();
 }
 
 // iterate to next mode and return it
@@ -454,86 +460,348 @@ Mode *Modes::nextMode()
 
 void Modes::deleteCurMode()
 {
+  if (!m_numModes || !m_pCurModeLink) {
+    return;
+  }
+  // unlink the current mode so it can be deleted and
+  // update the current mode link accordingly
+  ModeLink *newCur = m_pCurModeLink->unlinkSelf();
+  delete m_pCurModeLink;
+  m_pCurModeLink = newCur;
+  if (m_curMode) {
+    m_curMode--;
+  }
+  m_numModes--;
   if (!m_numModes) {
-    return;
-  }
-  if (m_pCurMode) {
-    delete m_pCurMode;
-    m_pCurMode = nullptr;
-  }
-  // if this is the last mode just clear 0 and return
-  if (!--m_numModes) {
-    m_serializedModes[0].clear();
-    return;
-  }
-  for (uint32_t i = m_curMode; i < m_numModes; ++i) {
-    // move the next entry down one
-    m_serializedModes[i] = m_serializedModes[i + 1];
-  }
-  m_serializedModes[m_numModes].clear();
-  // note m_numModes has been decremented now
-  if (m_curMode >= m_numModes) {
-    m_curMode = m_numModes - 1;
+    m_storedModes = nullptr;
   }
 }
 
 void Modes::clearModes()
 {
-  if (m_pCurMode) {
-    delete m_pCurMode;
-    m_pCurMode = nullptr;
+  if (!m_numModes || !m_storedModes) {
+    return;
   }
-  for (uint32_t i = 0; i < m_numModes; ++i) {
-    m_serializedModes[i].clear();
-  }
+  // delete the first node and it will delete the entire chain
+  delete m_storedModes;
+  m_pCurModeLink = nullptr;
+  m_storedModes = nullptr;
   m_numModes = 0;
+  // might as well clear the leds
+  Leds::clearAll();
 }
 
-bool Modes::initCurMode(bool force)
+// fetch a link from the chain by index
+Modes::ModeLink *Modes::getModeLink(uint32_t index)
 {
-  // force will force the current mode to re-initialize
+  if (index >= m_numModes) {
+    return nullptr;
+  }
+  ModeLink *ptr = m_storedModes;
+  while (index > 0 && ptr) {
+    ptr = ptr->next();
+    index--;
+  }
+  return ptr;
+}
+
+Mode *Modes::initCurMode(bool force)
+{
+  if (!m_numModes) {
+    return nullptr;
+  }
+  // cleanup the current mode link
+  if (m_pCurModeLink) {
+    m_pCurModeLink->uninstantiate();
+  }
+  // update the current mode link based on the curmode index
+  m_pCurModeLink = getModeLink(m_curMode);
+  if (!m_pCurModeLink) {
+    return nullptr;
+  }
   if (force) {
-    if (m_pCurMode) {
-      delete m_pCurMode;
-      m_pCurMode = nullptr;
-    }
+    m_pCurModeLink->uninstantiate();
   }
-  // if the current mode is already initialized, or we don't have
-  // any modes at all then we're technically successful
-  if (m_pCurMode || !m_numModes) {
-    return true;
-  }
-  // make sure the unserializer is reset before trying to unserialize it
-  m_serializedModes[m_curMode].resetUnserializer();
-  DEBUG_LOGF("Current Mode size: %u", m_serializedModes[m_curMode].size());
-  // use the mode builder to unserialize the mode
-  m_pCurMode = new Mode();
-  if (!m_pCurMode) {
-    // failure
-    return false;
-  }
-  if (!m_pCurMode->loadFromBuffer(m_serializedModes[m_curMode])) {
-    return false;
-  }
-  // re-compress the buffer because loadFromBuffer will decompress it
-  m_serializedModes[m_curMode].compress();
-  if (!m_pCurMode) {
-    // unable to unserialize a mode, empty modes?
-    return false;
-  }
-  m_pCurMode->init();
-  return true;
+  return m_pCurModeLink->instantiate();
 }
 
 void Modes::saveCurMode()
 {
-  if (!m_pCurMode) {
+  if (!m_pCurModeLink) {
     // if there's no loaded mode currently then there's nothing
     // to save so there's no error
     return;
   }
-  // clear the current mode
-  m_serializedModes[m_curMode].clear();
-  // update the serialized storage
-  m_pCurMode->saveToBuffer(m_serializedModes[m_curMode]);
+  // force the current mode to save back to serial to catch changes
+  m_pCurModeLink->save();
 }
+
+Modes::ModeLink::ModeLink(const Mode *src, bool inst) :
+  m_pInstantiatedMode(nullptr),
+  m_storedMode(),
+  m_next(nullptr),
+  m_prev(nullptr)
+{
+  if (src) {
+    init(src);
+  }
+  if (src && inst) {
+    instantiate();
+  }
+}
+
+Modes::ModeLink::ModeLink(const ByteStream &src, bool inst) :
+  m_pInstantiatedMode(nullptr),
+  m_storedMode(src),
+  m_next(nullptr),
+  m_prev(nullptr)
+{
+  if (src.size() && inst) {
+    instantiate();
+  }
+}
+
+Modes::ModeLink::~ModeLink()
+{
+  if (m_next) {
+    delete m_next;
+  }
+  if (m_pInstantiatedMode) {
+    delete m_pInstantiatedMode;
+  }
+}
+
+bool Modes::ModeLink::init(const Mode *mode)
+{
+  if (!mode) {
+    return false;
+  }
+  m_storedMode.clear();
+  // serialize the mode so it can be instantiated anytime
+  if (!mode->saveToBuffer(m_storedMode)) {
+    return false;
+  }
+  return true;
+}
+
+bool Modes::ModeLink::append(const Mode *next)
+{
+  if (!next) {
+    return false;
+  }
+  // if not end of chain, recurse on next link
+  if (m_next) {
+    return m_next->append(next);
+  }
+  m_next = new ModeLink(next);
+  if (!m_next) {
+    ERROR_OUT_OF_MEMORY();
+    return false;
+  }
+  m_next->m_prev = this;
+  return true;
+}
+
+bool Modes::ModeLink::append(const ByteStream &next)
+{
+  if (!next.size()) {
+    return false;
+  }
+  // if not end of chain, recurse on next link
+  if (m_next) {
+    return m_next->append(next);
+  }
+  m_next = new ModeLink(next);
+  if (!m_next) {
+    ERROR_OUT_OF_MEMORY();
+    return false;
+  }
+  m_next->m_prev = this;
+  return true;
+}
+
+void Modes::ModeLink::play()
+{
+  if (!m_pInstantiatedMode) {
+    return;
+  }
+  m_pInstantiatedMode->play();
+}
+
+Modes::ModeLink *Modes::ModeLink::unlinkSelf()
+{
+  // unlink this node from the chain
+  if (m_prev) {
+    m_prev->m_next = m_next;
+  }
+  if (m_next) {
+    m_next->m_prev = m_prev;
+  }
+  // grab the new link that will take this place
+  ModeLink *newLink = m_prev ? m_prev : m_next;
+  // clear the links of this node
+  m_prev = nullptr;
+  m_next = nullptr;
+  return newLink;
+}
+
+void Modes::ModeLink::linkAfter(ModeLink *link)
+{
+  if (!link) {
+    return;
+  }
+  if (m_next) {
+    m_next->m_prev = link;
+    link->m_next = m_next;
+  }
+  m_next = link;
+  link->m_prev = this;
+}
+
+void Modes::ModeLink::linkBefore(ModeLink *link)
+{
+  if (!link) {
+    return;
+  }
+  if (m_prev) {
+    m_prev->m_next = link;
+    link->m_prev = m_prev;
+  }
+  m_prev = link;
+  link->m_next = this;
+}
+
+Mode *Modes::ModeLink::instantiate()
+{
+  if (m_pInstantiatedMode) {
+    return m_pInstantiatedMode;
+  }
+  Mode *newMode = new Mode();
+  if (!newMode) {
+    ERROR_OUT_OF_MEMORY();
+    return nullptr;
+  }
+  m_storedMode.resetUnserializer();
+  if (!newMode->loadFromBuffer(m_storedMode)) {
+    return nullptr;
+  }
+  m_pInstantiatedMode = newMode;
+  return m_pInstantiatedMode;
+}
+
+void Modes::ModeLink::uninstantiate()
+{
+  if (m_pInstantiatedMode) {
+    delete m_pInstantiatedMode;
+    m_pInstantiatedMode = nullptr;
+  }
+}
+
+void Modes::ModeLink::save()
+{
+  if (!m_pInstantiatedMode) {
+    return;
+  }
+  m_storedMode.clear();
+  m_pInstantiatedMode->saveToBuffer(m_storedMode);
+}
+
+#if MODES_TEST == 1
+#include <assert.h>
+#include <stdio.h>
+
+#include "Patterns/PatternBuilder.h"
+
+void Modes::test()
+{
+  printf("== Beginning Modes Test ==\n");
+
+  RGBColor col = RGB_RED;
+  assert(!addMode(PATTERN_COUNT, col));
+  for (PatternID pat = PATTERN_FIRST; pat < PATTERN_COUNT; ++pat) {
+    assert(addMode(pat, col));
+  }
+  assert(numModes() == PATTERN_COUNT);
+  clearModes();
+  assert(numModes() == 0);
+
+  Colorset set(RGB_RED, RGB_GREEN, RGB_BLUE);
+  assert(!addMode(PATTERN_COUNT, nullptr, &set));
+  for (PatternID pat = PATTERN_FIRST; pat < PATTERN_COUNT; ++pat) {
+    assert(addMode(pat, nullptr, &set));
+  }
+  assert(numModes() == PATTERN_COUNT);
+  clearModes();
+  assert(numModes() == 0);
+
+  // add a new mode in various different ways
+  assert(!addMode(PATTERN_COUNT, col));
+  Colorset set2(RGB_RED, RGB_GREEN, RGB_BLUE);
+  for (PatternID pat = PATTERN_FIRST; pat < PATTERN_COUNT; ++pat) {
+    Mode tmpMode(pat, nullptr, &set2);
+    assert(addMode(&tmpMode));
+  }
+  assert(numModes() == PATTERN_COUNT);
+  clearModes();
+  assert(numModes() == 0);
+
+  printf("addMode(): success\n");
+
+  ByteStream modebuf;
+  ByteStream modesave;
+  PatternArgs args = PatternBuilder::getDefaultArgs(PATTERN_BASIC);
+  Mode tmpMode(PATTERN_BASIC, &args, &set);
+  tmpMode.serialize(modebuf);
+  tmpMode.saveToBuffer(modesave);
+  assert(addSerializedMode(modebuf));
+  assert(numModes() == 1);
+  assert(addModeFromBuffer(modesave));
+  assert(numModes() == 2);
+  assert(getModeLink(0) != nullptr);
+  Mode *mode1 = getModeLink(0)->instantiate();
+  assert(mode1 != nullptr);
+  Mode *mode2 = getModeLink(1)->instantiate();
+  assert(mode2 != nullptr);
+  assert(mode1->equals(mode2));
+
+  printf("addSerializedMode(): success\n");
+
+  Colorset newset(RGB_BLUE, RGB_RED, RGB_GREEN);
+  assert(updateCurMode(PATTERN_HYPERSTROBE, nullptr));
+  assert(getModeLink(0)->mode()->getPatternID() == PATTERN_HYPERSTROBE);
+  assert(setCurMode(1));
+  // update the current mode to match the given mode
+  assert(updateCurMode(PATTERN_DOPS, &newset));
+  assert(getModeLink(1)->mode()->getPatternID() == PATTERN_DOPS);
+  Mode newTmp(PATTERN_BLEND, PatternBuilder::getDefaultArgs(PATTERN_BLEND),
+    Colorset(RGB_YELLOW, RGB_ORANGE, RGB_CYAN, RGB_BLUE, RGB_WHITE, RGB_RED));
+
+  printf("updateCurMode(): success\n");
+
+  assert(shiftCurMode(-1));
+  assert(m_curMode == 0);
+  assert(getModeLink(0)->instantiate()->getPatternID() == PATTERN_DOPS);
+  assert(getModeLink(1)->instantiate()->getPatternID() == PATTERN_HYPERSTROBE);
+  assert(shiftCurMode(0));
+  assert(m_curMode == 0);
+  assert(getModeLink(0)->instantiate()->getPatternID() == PATTERN_DOPS);
+  assert(getModeLink(1)->instantiate()->getPatternID() == PATTERN_HYPERSTROBE);
+  assert(shiftCurMode(1));
+  assert(m_curMode == 1);
+  assert(getModeLink(0)->instantiate()->getPatternID() == PATTERN_HYPERSTROBE);
+  assert(getModeLink(1)->instantiate()->getPatternID() == PATTERN_DOPS);
+
+  printf("shiftCurMode(): success\n");
+
+  deleteCurMode();
+  assert(m_numModes == 1);
+  assert(m_curMode == 0);
+  deleteCurMode();
+  assert(m_numModes == 0);
+  assert(m_curMode == 0);
+
+  printf("deleteCurMode(): success\n");
+
+  printf("== Success Running Modes Test ==\n");
+}
+#endif

@@ -53,6 +53,7 @@ void FactoryReset::onLongClick()
 {
   switch (m_curSelection) {
   case FINGER_THUMB:
+  default:
     leaveMenu();
     return;
   case FINGER_COUNT:
