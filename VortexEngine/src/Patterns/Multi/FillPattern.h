@@ -1,5 +1,5 @@
 #ifndef FILL_PATTERN_H
-#define FILL_PATTERN_h
+#define FILL_PATTERN_H
 
 #include "BlinkStepPattern.h"
 

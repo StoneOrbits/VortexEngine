@@ -22,7 +22,7 @@ public:
 
 protected:
   // callbacks for blinking on/off, can be overridden by derived classes
-  virtual void onBlinkOn();
+  virtual void onBlinkOn() override;
 
   uint8_t m_colIndex;
 };

@@ -76,7 +76,8 @@ void SequencedPattern::play()
       curPat = m_ledPatterns[pos] = PatternBuilder::makeSingle(stepPattern);
       // if a pattern was created then bind and init it
       if (curPat) {
-        curPat->bind(curSet, pos);
+        curPat->bind(pos);
+        curPat->setColorset(curSet);
         curPat->init();
       }
     }

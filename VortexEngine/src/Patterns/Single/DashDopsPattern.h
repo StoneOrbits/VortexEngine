@@ -1,5 +1,5 @@
 #ifndef DASHDOPS_PATTERN_H
-#define DASHSOPS_PATTERN_H
+#define DASHDOPS_PATTERN_H
 
 #include "SingleLedPattern.h"
 

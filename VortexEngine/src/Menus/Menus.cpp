@@ -80,6 +80,7 @@ bool Menus::run()
   default:
     // make sure the button is pressed and held till the threshold
     if (g_pButton->isPressed() && g_pButton->holdDuration() >= MENU_TRIGGER_THRESHOLD_TICKS) {
+      DEBUG_LOG("Entering ring fill...");
       // save the time of when we open the menu so we can fill based on curtime from then
       m_openTime = Time::getCurtime();
       // open the menu
@@ -102,6 +103,7 @@ bool Menus::runRingFill()
   if (g_pButton->onShortClick()) {
     // otherwise increment selection and wrap around at num menus
     m_selection = (m_selection + 1) % NUM_MENUS;
+    DEBUG_LOGF("Cyling to ring menu %u", m_selection);
     // reset the open time so that it starts again
     m_openTime = Time::getCurtime();
     // clear the leds

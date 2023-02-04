@@ -10,15 +10,15 @@ class ColorSelect : public Menu
 public:
   ColorSelect();
 
-  bool init();
+  bool init() override;
 
-  bool run();
+  bool run() override;
 
   // handlers for clicks
-  void onShortClick();
-  void onShortClick2();
-  void onLongClick();
-  void onLongClick2();
+  void onShortClick() override;
+  void onShortClick2() override;
+  void onLongClick() override;
+  void onLongClick2() override;
 
 private:
   // internal routines for the color select

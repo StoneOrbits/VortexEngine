@@ -13,7 +13,7 @@ public:
   virtual ~MultiLedPattern();
 
   // multi-led and single-led have different bind functions
-  virtual void bind(const Colorset *set);
+  virtual void bind(LedPos pos) override;
 
   // init the pattern to initial state
   virtual void init() override;

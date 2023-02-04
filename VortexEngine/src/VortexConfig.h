@@ -198,7 +198,7 @@
 //
 // This can be used to quickly demo all possible patterns, mostly useful
 // for testing and development
-#define DEMO_ALL_PATTERNS     1
+#define DEMO_ALL_PATTERNS     0
 
 // Save Template
 //
@@ -352,6 +352,12 @@
 
 #undef FIXED_LED_COUNT
 #define FIXED_LED_COUNT 0
+
+// force logging to 3 on linux build
+#ifdef LINUX_FRAMEWORK
+#undef LOGGING_LEVEL
+#define LOGGING_LEVEL 3
+#endif
 
 #endif // TEST_FRAMEWORK
 

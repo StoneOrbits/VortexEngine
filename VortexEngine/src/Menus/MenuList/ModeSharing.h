@@ -8,14 +8,14 @@ class ModeSharing : public Menu
 public:
   ModeSharing();
 
-  bool init();
-  bool run();
+  bool init() override;
+  bool run() override;
 
   // handlers for clicks
-  void onShortClick();
-  void onShortClick2();
-  void onLongClick();
-  void onLongClick2();
+  void onShortClick() override;
+  void onShortClick2() override;
+  void onLongClick() override;
+  void onLongClick2() override;
 
 private:
   void beginSending();

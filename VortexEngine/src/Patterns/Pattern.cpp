@@ -25,16 +25,6 @@ Pattern::~Pattern()
 {
 }
 
-void Pattern::bind(const Colorset *set, LedPos pos)
-{
-  if (!set) {
-    m_colorset.clear();
-  } else {
-    m_colorset = *set;
-  }
-  bind(pos);
-}
-
 void Pattern::bind(LedPos pos)
 {
   m_ledPos = pos;
