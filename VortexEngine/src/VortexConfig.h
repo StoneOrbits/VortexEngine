@@ -353,6 +353,12 @@
 #undef FIXED_LED_COUNT
 #define FIXED_LED_COUNT 0
 
+// force logging to 3 on linux build
+#ifdef LINUX_FRAMEWORK
+#undef LOGGING_LEVEL
+#define LOGGING_LEVEL 3
+#endif
+
 #endif // TEST_FRAMEWORK
 
 #ifdef EDITOR_FRAMEWORK
