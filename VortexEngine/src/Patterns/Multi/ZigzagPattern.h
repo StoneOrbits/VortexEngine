@@ -1,7 +1,7 @@
 #ifndef ZIGZAG_PATTERN_H
-#define ZIGZAG_PATTERN_h
+#define ZIGZAG_PATTERN_H
 
-#include "multiledpattern.h"
+#include "MultiLedPattern.h"
 
 #include "../../Time/Timings.h"
 #include "../../Time/Timer.h"

@@ -12,12 +12,12 @@ public:
   EditorConnection();
   ~EditorConnection();
 
-  bool init();
-  bool run();
+  bool init() override;
+  bool run() override;
 
   // handlers for clicks
-  void onShortClick();
-  void onLongClick();
+  void onShortClick() override;
+  void onLongClick() override;
 
   // menu conn
   void leaveMenu(bool doSave = false) override;

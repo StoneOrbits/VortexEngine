@@ -62,7 +62,8 @@ void HybridPattern::setPatternAt(LedPos pos, SingleLedPattern *pat,
   if (!set) {
     set = &m_colorset;
   }
-  pat->bind(set, pos);
+  pat->bind(pos);
+  pat->setColorset(set);
   pat->init();
   // handle re-initialization and prevent leaks
   if (m_ledPatterns[pos]) {

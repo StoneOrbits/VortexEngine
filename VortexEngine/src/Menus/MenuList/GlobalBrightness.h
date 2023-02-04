@@ -8,13 +8,13 @@ class GlobalBrightness : public Menu
 public:
   GlobalBrightness();
 
-  bool init();
+  bool init() override;
 
-  bool run();
+  bool run() override;
 
   // handlers for clicks
-  void onShortClick();
-  void onLongClick();
+  void onShortClick() override;
+  void onLongClick() override;
 
 private:
   // the four preset brightness options

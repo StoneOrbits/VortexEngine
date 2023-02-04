@@ -441,7 +441,8 @@ bool Mode::setSinglePat(LedPos pos, SingleLedPattern *pat, const Colorset *set)
       set = getColorset(LED_FIRST);
     }
   }
-  pat->bind(set, pos);
+  pat->bind(pos);
+  pat->setColorset(set);
   clearPattern(pos);
   m_ledEntries[pos] = pat;
   return true;
@@ -463,7 +464,7 @@ bool Mode::setMultiPat(MultiLedPattern *pat, const Colorset *set)
   }
   // initialize the new pattern with the old colorset
   // if there isn't already a pattern
-  pat->bind(set ? set : getColorset(LED_FIRST));
+  pat->setColorset(set ? set : getColorset(LED_FIRST));
   // clear any stored patterns
   clearPatterns();
   // update the multi pattern

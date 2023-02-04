@@ -13,7 +13,7 @@ public:
   TheaterChasePattern(const PatternArgs &args);
   virtual ~TheaterChasePattern();
 
-  virtual void init();
+  virtual void init() override;
 
 protected:
   virtual void blinkOn() override;

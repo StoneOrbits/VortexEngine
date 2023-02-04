@@ -14,11 +14,11 @@ MultiLedPattern::~MultiLedPattern()
 {
 }
 
-void MultiLedPattern::bind(const Colorset *set)
+void MultiLedPattern::bind(LedPos pos)
 {
   // the 'LedPos' is LED_COUNT when binding a multi-led pattern
   // as opposed to being an individual LED when it's single
-  Pattern::bind(set, LED_COUNT);
+  Pattern::bind(LED_COUNT);
 }
 
 // init the pattern to initial state

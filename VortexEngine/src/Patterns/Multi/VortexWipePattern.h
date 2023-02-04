@@ -1,5 +1,5 @@
 #ifndef VORTEXWIPE_PATTERN_H
-#define VORTEXWIPE_PATTERN_h
+#define VORTEXWIPE_PATTERN_H
 
 #include "BlinkStepPattern.h"
 
