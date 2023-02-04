@@ -7,6 +7,9 @@
 // I am still opting for a non-static button class
 class Button
 {
+#ifdef TEST_FRAMEWORK
+  friend class TestFramework;
+#endif
 private:
   // private unimplemented copy and assignment constructors to prevent copies
   Button(Button const &);
