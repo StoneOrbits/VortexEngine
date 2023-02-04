@@ -6,7 +6,6 @@
 
 #include <FlashStorage.h>
 #include <string.h>
-#include <utility>
 
 #include "Compression.h"
 
@@ -42,6 +41,20 @@ void ByteStream::operator=(const ByteStream &other)
   m_pData->flags = other.m_pData->flags;
   m_pData->crc32 = other.m_pData->crc32;
   m_pData->size = other.m_pData->size;
+}
+
+void ByteStream::move(ByteStream *target)
+{
+  if (!target) {
+    return;
+  }
+  target->clear();
+  target->m_pData = m_pData;
+  target->m_position = m_position;
+  target->m_capacity = m_capacity;
+  m_pData = nullptr;
+  m_position = 0;
+  m_capacity = 0;
 }
 
 bool ByteStream::rawInit(const uint8_t *rawdata, uint32_t size)
@@ -227,8 +240,8 @@ bool ByteStream::compress()
   compressedBuffer.m_pData->recalcCRC();
   // shrink buffer capacity to match size
   compressedBuffer.shrink();
-  // copy into self
-  *this = std::move(compressedBuffer);
+  // move into self
+  compressedBuffer.move(this);
   return true;
 }
 
@@ -271,8 +284,8 @@ bool ByteStream::decompress()
   DEBUG_LOGF("Decompressed %u to %u bytes", m_pData->size, decompressedBuffer.m_pData->size);
   // shrink buffer capacity to match size
   decompressedBuffer.shrink();
-  // copy into self
-  *this = std::move(decompressedBuffer);
+  // move into self
+  decompressedBuffer.move(this);
   return true;
 }
 

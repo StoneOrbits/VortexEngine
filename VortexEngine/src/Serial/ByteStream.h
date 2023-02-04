@@ -18,6 +18,9 @@ public:
   ByteStream(const ByteStream &other);
   void operator=(const ByteStream &other);
 
+  // move operator since std::move not always available
+  void move(ByteStream *target);
+
   // used to initialize the full RawBuffer with a chunk of data,
   // this includes the size, flags, crc, and data
   bool rawInit(const uint8_t *rawdata, uint32_t size);
