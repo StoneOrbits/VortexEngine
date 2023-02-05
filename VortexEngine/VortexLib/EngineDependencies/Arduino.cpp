@@ -134,6 +134,9 @@ unsigned long micros()
 #else
   LARGE_INTEGER now;
   QueryPerformanceCounter(&now);
+  if (!tps.QuadPart) {
+    return 0;
+  }
   // yes, this will overflow, that's how arduino micros() works *shrug*
   return (unsigned long)((now.QuadPart - start.QuadPart) * 1000000 / tps.QuadPart);
 #endif
