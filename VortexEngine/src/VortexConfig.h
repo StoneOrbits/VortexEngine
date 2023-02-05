@@ -340,6 +340,10 @@
 //
 //   * Unless you are using the test framework, don't touch these! *
 
+#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK) && !defined(VORTEX_LIB)
+#define VORTEX_ARDUINO 1
+#endif
+
 #ifdef TEST_FRAMEWORK
 // In the test framework variable tickrate must be enabled to allow
 // the tickrate slider to function, also the test framework never runs

@@ -27,7 +27,7 @@ uint32_t IRSender::m_blockSize = 0;
 // write total
 uint32_t IRSender::m_writeCounter = 0;
 
-#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK)
+#ifdef VORTEX_ARDUINO
 // Timer used for PWM, is initialized in initpwm()
 Tcc *IR_TCCx;
 #endif
@@ -173,7 +173,7 @@ void IRSender::sendSpace(uint16_t time)
 // shamelessly stolen from IRLib2, thanks
 void IRSender::initPWM()
 {
-#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK)
+#ifdef VORTEX_ARDUINO
   // just in case
   pinMode(IR_SEND_PWM_PIN, OUTPUT);
   digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
@@ -225,7 +225,7 @@ void IRSender::initPWM()
 
 void IRSender::startPWM()
 {
-#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK)
+#ifdef VORTEX_ARDUINO
   // start the PWM
   IR_TCCx->CTRLA.reg |= TCC_CTRLA_ENABLE;
   while (IR_TCCx->SYNCBUSY.bit.ENABLE);
@@ -234,7 +234,7 @@ void IRSender::startPWM()
 
 void IRSender::stopPWM()
 {
-#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK)
+#ifdef VORTEX_ARDUINO
   // stop the PWM
   IR_TCCx->CTRLA.reg &= ~TCC_CTRLA_ENABLE;
   while (IR_TCCx->SYNCBUSY.bit.ENABLE);

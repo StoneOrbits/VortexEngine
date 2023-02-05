@@ -125,7 +125,7 @@ private:
   uint32_t getWidth(uint32_t value) const;
 
   // inner data buffer
-#if defined(TEST_FRAMEWORK) || defined(EDITOR_FRAMEWORK)
+#if defined(TEST_FRAMEWORK) || defined(EDITOR_FRAMEWORK) || defined(VORTEX_LIB)
 #ifndef LINUX_FRAMEWORK
   // disable warning about using flexible array at end of structure,
   // stfu compiler I know what im doing
