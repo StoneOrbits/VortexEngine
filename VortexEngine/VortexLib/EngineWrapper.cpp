@@ -48,6 +48,7 @@ void VEngine::init()
 
 void VEngine::cleanup()
 {
+  VortexEngine::cleanup();
 }
 
 void VEngine::getStorageStats(uint32_t *outTotal, uint32_t *outUsed)
