@@ -246,9 +246,6 @@
     <ClCompile Include="VortexLib\EngineDependencies\FlashStorage.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="VortexLib\DllMain.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Buttons\Button.h">

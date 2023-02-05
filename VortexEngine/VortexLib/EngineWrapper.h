@@ -21,7 +21,7 @@ class VEngine
   VEngine();
 public:
 
-  static void init();
+  static bool init();
   static void cleanup();
 
   // get total/used storage space

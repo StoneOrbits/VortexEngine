@@ -12,6 +12,81 @@
 // for random()
 #include "Arduino.h"
 
+#ifdef WASM
+#include <emscripten/bind.h>
+
+using namespace emscripten;
+
+EMSCRIPTEN_BINDINGS(vengine) {
+  class_<VEngine>("VEngine")
+    .class_function("init", &VEngine::init)
+    .class_function("cleanup", &VEngine::cleanup)
+    //.function<uint32_t *, uint32_t *>("getStorageStats", &VEngine::getStorageStats)
+
+#if 0
+  static bool getModes(ByteStream &outStream);
+  static bool setModes(ByteStream &stream, bool save = true);
+  static bool getCurMode(ByteStream &stream);
+
+  // functions to operate on the current mode selection
+  static uint32_t curMode();
+  static uint32_t numModes();
+  static uint32_t numLedsInMode();
+  static bool addNewMode(bool save = true);
+  static bool addNewMode(ByteStream &stream, bool save = true);
+  static bool setCurMode(uint32_t index, bool save = true);
+  static bool nextMode(bool save = true);
+  static bool delCurMode(bool save = true);
+  static bool shiftCurMode(int8_t offset, bool save = true);
+
+  // functions to operate on the current Mode
+  static bool setPattern(PatternID id, const PatternArgs *args = nullptr,
+    const Colorset *set = nullptr, bool save = true);
+  static PatternID getPatternID(LedPos pos = LED_FIRST);
+  static std::string getPatternName(LedPos pos = LED_FIRST);
+  static std::string getModeName();
+  static bool setSinglePat(LedPos pos, PatternID id,
+    const PatternArgs *args = nullptr, const Colorset *set = nullptr, 
+    bool save = true);
+  static bool getColorset(LedPos pos, Colorset &set);
+  static bool setColorset(LedPos pos, const Colorset &set, bool save = true);
+  static bool getPatternArgs(LedPos pos, PatternArgs &args);
+  static bool setPatternArgs(LedPos pos, PatternArgs &args, bool save = true);
+
+  // Helpers for converting pattern id and led id to string
+  static std::string patternToString(PatternID id = PATTERN_NONE);
+  static std::string ledToString(LedPos pos);
+  static uint32_t numCustomParams(PatternID id);
+  static std::vector<std::string> getCustomParams(PatternID id);
+
+  // undo redo
+  static void setUndoBufferLimit(uint32_t limit);
+  static bool addUndoBuffer();
+  static bool undo();
+  static bool redo();
+
+  // enable/disable undo
+  static void enableUndo(bool enabled) { m_undoEnabled = enabled; }
+
+private:
+  // save and add undo buffer
+  static bool doSave();
+  static bool applyUndo();
+
+  // undo buffer
+  static std::deque<ByteStream> m_undoBuffer;
+  // the undo limit
+  static uint32_t m_undoLimit;
+  // undo position in buffer
+  static uint32_t m_undoIndex;
+  // whether undo buffer is disabled recording
+  static bool m_undoEnabled;
+#endif
+    ;
+}
+
+#endif
+
 using namespace std;
 
 // the undo buffer and data
@@ -24,7 +99,7 @@ VEngine::VEngine()
 {
 }
 
-void VEngine::init()
+bool VEngine::init()
 {
   // init the engine
   VortexEngine::init();
@@ -33,17 +108,16 @@ void VEngine::init()
   // save and set undo buffer
   doSave();
 
-  // check all custom params
+  // check all custom params match the mapped list of words
   for (PatternID id = PATTERN_FIRST; id < PATTERN_COUNT; ++id) {
     vector<string> params = VEngine::getCustomParams(id);
     PatternArgs args = PatternBuilder::getDefaultArgs(id);
     if (params.size() != args.numArgs) {
-      // TODO: Handle this more elegantly and just return false when
-      //       VEngine is used a wrapper for exposing Vortex in a dll
-      MessageBox(NULL, ("Update tooltips for pattern ID " + to_string(id)).c_str(), "FATAL ERROR", 0);
-      PostQuitMessage(0);
+      // Params not even!
+      return false;
     }
   }
+  return true;
 }
 
 void VEngine::cleanup()
@@ -473,7 +547,7 @@ bool VEngine::applyUndo()
   if (!m_undoBuffer.size()) {
     return false;
   }
-  uint32_t highestIndex = m_undoBuffer.size() - 1;
+  uint32_t highestIndex = (uint32_t)m_undoBuffer.size() - 1;
   if (m_undoIndex > highestIndex) {
     m_undoIndex = highestIndex;
   }
@@ -501,7 +575,7 @@ bool VEngine::undo()
   if (!m_undoBuffer.size()) {
     return false;
   }
-  uint32_t highestIndex = m_undoBuffer.size() - 1;
+  uint32_t highestIndex = (uint32_t)m_undoBuffer.size() - 1;
   // cannot undo further into history
   if (m_undoIndex > highestIndex) {
     m_undoIndex = highestIndex;

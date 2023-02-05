@@ -22,7 +22,7 @@
 
 #include <stdio.h>
 
-#ifndef LINUX_FRAMEWORK
+#ifdef _MSC_VER
 #include <Windows.h>
 #endif
 
@@ -68,7 +68,7 @@ void FlashClass::write(const volatile void *flash_ptr, const void *data, uint32_
   }
   printf("\r\n\r\n");
 #endif
-#ifdef LINUX_FRAMEWORK
+#ifndef _MSC_VER
   FILE *f = fopen("FlashStorage.flash", "w");
   if (!f) {
     return;
@@ -114,7 +114,7 @@ void FlashClass::erase(const volatile void *flash_ptr)
 
 void FlashClass::read(const volatile void *flash_ptr, void *data, uint32_t size)
 {
-#ifdef LINUX_FRAMEWORK
+#ifndef _MSC_VER
   FILE *f = fopen("FlashStorage.flash", "r");
   if (!f) {
     return;

@@ -218,7 +218,6 @@
     <ClCompile Include="src\Time\TimeControl.cpp" />
     <ClCompile Include="src\Time\Timer.cpp" />
     <ClCompile Include="src\VortexEngine.cpp" />
-    <ClCompile Include="VortexLib\DllMain.cpp" />
     <ClCompile Include="VortexLib\EngineDependencies\Arduino.cpp" />
     <ClCompile Include="VortexLib\EngineDependencies\FastLED.cpp" />
     <ClCompile Include="VortexLib\EngineDependencies\FlashStorage.cpp" />

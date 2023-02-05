@@ -513,9 +513,11 @@ bool Mode::isSameSingleLed() const
 
 void Mode::clearPatterns()
 {
+#if FIXED_LED_COUNT == 0
   if (!m_ledEntries) {
     return;
   }
+#endif
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     clearPattern(pos);
   }
@@ -523,7 +525,12 @@ void Mode::clearPatterns()
 
 void Mode::clearPattern(LedPos pos)
 {
-  if (!m_ledEntries || !m_ledEntries[pos]) {
+#if FIXED_LED_COUNT == 0
+  if (!m_ledEntries) {
+    return;
+  }
+#endif
+  if (!m_ledEntries[pos]) {
     return;
   }
   delete m_ledEntries[pos];

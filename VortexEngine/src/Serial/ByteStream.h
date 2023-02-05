@@ -126,7 +126,7 @@ private:
 
   // inner data buffer
 #if defined(TEST_FRAMEWORK) || defined(EDITOR_FRAMEWORK) || defined(VORTEX_LIB)
-#ifndef LINUX_FRAMEWORK
+#if !defined(LINUX_FRAMEWORK) && defined(_MSC_VER)
   // disable warning about using flexible array at end of structure,
   // stfu compiler I know what im doing
 #pragma warning(disable : 4200)
