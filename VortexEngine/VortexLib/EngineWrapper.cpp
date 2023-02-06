@@ -104,6 +104,26 @@ deque<ByteStream> VEngine::m_undoBuffer;
 uint32_t VEngine::m_undoLimit = 0;
 uint32_t VEngine::m_undoIndex = 0;
 bool VEngine::m_undoEnabled = true;
+VEngine::readHookFn VEngine::m_digitalReadCallback = nullptr;
+
+#ifdef _MSC_VER
+#include <Windows.h>
+BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
+{
+  // Perform actions based on the reason for calling.
+  switch (fdwReason) {
+  case DLL_PROCESS_ATTACH:
+    break;
+  case DLL_THREAD_ATTACH:
+    break;
+  case DLL_THREAD_DETACH:
+    break;
+  case DLL_PROCESS_DETACH:
+    break;
+  }
+  return TRUE;  // Successful DLL_PROCESS_ATTACH.
+}
+#endif
 
 VEngine::VEngine()
 {
@@ -133,6 +153,11 @@ bool VEngine::init()
 void VEngine::cleanup()
 {
   VortexEngine::cleanup();
+}
+
+void VEngine::installDigitalReadCallback(readHookFn readHook)
+{
+  m_digitalReadCallback = readHook;
 }
 
 void VEngine::getStorageStats(uint32_t *outTotal, uint32_t *outUsed)
@@ -605,6 +630,14 @@ bool VEngine::redo()
     m_undoIndex--;
   }
   return applyUndo();
+}
+
+long VEngine::digitalReadCallback(uint32_t pin)
+{
+  if (!m_digitalReadCallback) {
+    return 0;
+  }
+  return m_digitalReadCallback(pin);
 }
 
 bool VEngine::doSave()

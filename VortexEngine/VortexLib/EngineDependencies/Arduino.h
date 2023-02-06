@@ -38,6 +38,11 @@ void attachInterrupt(int interrupt, void (*func)(), int type);
 void detachInterrupt(int interrupt);
 int digitalPinToInterrupt(int pin);
 
+#if defined(TEST_FRAMEWORK) || defined(VORTEX_LIB)
+// the library
+void installIRCallback(void (*func)(uint32_t));
+#endif
+
 class SerialClass
 {
 public:
