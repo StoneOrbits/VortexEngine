@@ -14,15 +14,40 @@ class PatternArgs;
 class ByteStream;
 class Colorset;
 
+// ============================================================================
+//  Vortex Engine Wrapper
+//
+// This file is the interface for the Vortex Engine.
+//
+// In cases where the engine is not running with the true arduino framework it
+// will instead use the drop-in files in 'EngineDependencies' folder. These
+// files provide the main arduino and library apis that are used by the engine
+// and instead provide hooks for a user to connect to them.
+//
+// The things you can hook into include:
+//
+//  - The serial input/output callbacks (editor connection)
+//  - The Infrared input/output callbacks (mode sharing)
+//  - The digital pin input/output callbacks (buttons)
+//  - The led strip and all the colors
+//
+//
+
+
 // Vortex Engine wrapper class, use this to interface with
 // the vortex engine as much as possible
 class VEngine
 {
   VEngine();
 public:
+  // a read hook callback
+  typedef long (*readHookFn)(uint32_t pin);
 
   static bool init();
   static void cleanup();
+
+  // install a callback for digital reads (button press)
+  static void installDigitalReadCallback(readHookFn readHook);
 
   // get total/used storage space
   static void getStorageStats(uint32_t *outTotal, uint32_t *outUsed);
@@ -49,7 +74,7 @@ public:
   static std::string getPatternName(LedPos pos = LED_FIRST);
   static std::string getModeName();
   static bool setSinglePat(LedPos pos, PatternID id,
-    const PatternArgs *args = nullptr, const Colorset *set = nullptr, 
+    const PatternArgs *args = nullptr, const Colorset *set = nullptr,
     bool save = true);
   static bool getColorset(LedPos pos, Colorset &set);
   static bool setColorset(LedPos pos, const Colorset &set, bool save = true);
@@ -71,6 +96,9 @@ public:
   // enable/disable undo
   static void enableUndo(bool enabled) { m_undoEnabled = enabled; }
 
+  // call the digital read callback with a value
+  static long digitalReadCallback(uint32_t pin);
+
 private:
   // save and add undo buffer
   static bool doSave();
@@ -84,4 +112,7 @@ private:
   static uint32_t m_undoIndex;
   // whether undo buffer is disabled recording
   static bool m_undoEnabled;
+
+  // callback for digital reads
+  static readHookFn m_digitalReadCallback;
 };

@@ -22,31 +22,13 @@ SerialClass Serial;
 #ifdef _MSC_VER
 static LARGE_INTEGER start;
 static LARGE_INTEGER tps; //tps = ticks per second
-
-BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
-{
-  // Perform actions based on the reason for calling.
-  switch (fdwReason) {
-  case DLL_PROCESS_ATTACH:
-    VEngine::init();
-    break;
-  case DLL_THREAD_ATTACH:
-    break;
-  case DLL_THREAD_DETACH:
-    break;
-  case DLL_PROCESS_DETACH:
-    VEngine::cleanup();
-    break;
-  }
-  return TRUE;  // Successful DLL_PROCESS_ATTACH.
-}
 #endif
 
 void init_arduino()
 {
-#ifdef LINUX_FRAMEWORK
+#ifndef _MSC_VER
   start = micros();
-#elif TEST_FRAMEWORK
+#else
   QueryPerformanceFrequency(&tps);
   QueryPerformanceCounter(&start);
 #endif
@@ -78,20 +60,7 @@ unsigned long analogRead(uint32_t pin)
 // used to read button input
 unsigned long digitalRead(uint32_t pin)
 {
-#ifdef TEST_FRAMEWORK
-  // get button state
-  if (pin == 19) {
-    if (g_pTestFramework->isButtonPressed(0)) {
-      return LOW;
-    }
-  }
-  if (pin == 20) {
-    if (g_pTestFramework->isButtonPressed(1)) {
-      return LOW;
-    }
-  }
-#endif
-  return HIGH;
+  return VEngine::digitalReadCallback(pin);
 }
 
 void digitalWrite(uint32_t pin,  uint32_t val)

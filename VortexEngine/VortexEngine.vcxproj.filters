@@ -115,6 +115,12 @@
     <Filter Include="Source Files\Time">
       <UniqueIdentifier>{5a6af467-4127-41b8-aad8-449d45a128da}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\VortexLib\EngineDependencies">
+      <UniqueIdentifier>{c3a8c145-00b1-4f3a-885d-92b432c4fe93}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\VortexLib\EngineDependencies">
+      <UniqueIdentifier>{0f3464ce-ff50-455a-b16c-7f86e6eb52c0}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\VortexEngine.cpp">
@@ -336,17 +342,17 @@
     <ClCompile Include="src\Time\Timer.cpp">
       <Filter>Source Files\Time</Filter>
     </ClCompile>
-    <ClCompile Include="VortexLib\EngineDependencies\Arduino.cpp">
-      <Filter>Source Files\VortexLib</Filter>
-    </ClCompile>
     <ClCompile Include="VortexLib\EngineWrapper.cpp">
       <Filter>Source Files\VortexLib</Filter>
     </ClCompile>
+    <ClCompile Include="VortexLib\EngineDependencies\Arduino.cpp">
+      <Filter>Source Files\VortexLib\EngineDependencies</Filter>
+    </ClCompile>
     <ClCompile Include="VortexLib\EngineDependencies\FastLED.cpp">
-      <Filter>Source Files\VortexLib</Filter>
+      <Filter>Source Files\VortexLib\EngineDependencies</Filter>
     </ClCompile>
     <ClCompile Include="VortexLib\EngineDependencies\FlashStorage.cpp">
-      <Filter>Source Files\VortexLib</Filter>
+      <Filter>Source Files\VortexLib\EngineDependencies</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -584,20 +590,20 @@
     <ClInclude Include="src\Time\Timings.h">
       <Filter>Header Files\Time</Filter>
     </ClInclude>
-    <ClInclude Include="VortexLib\EngineDependencies\Arduino.h">
-      <Filter>Header Files\VortexLib</Filter>
-    </ClInclude>
     <ClInclude Include="VortexLib\EngineWrapper.h">
-      <Filter>Header Files\VortexLib</Filter>
-    </ClInclude>
-    <ClInclude Include="VortexLib\EngineDependencies\FastLED.h">
       <Filter>Header Files\VortexLib</Filter>
     </ClInclude>
     <ClInclude Include="VortexLib\EngineDependencies\FlashStorage.h">
       <Filter>Header Files\Storage</Filter>
     </ClInclude>
     <ClInclude Include="VortexLib\EngineDependencies\Adafruit_Dotstar.h">
-      <Filter>Header Files\VortexLib</Filter>
+      <Filter>Header Files\VortexLib\EngineDependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="VortexLib\EngineDependencies\Arduino.h">
+      <Filter>Header Files\VortexLib\EngineDependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="VortexLib\EngineDependencies\FastLED.h">
+      <Filter>Header Files\VortexLib\EngineDependencies</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
