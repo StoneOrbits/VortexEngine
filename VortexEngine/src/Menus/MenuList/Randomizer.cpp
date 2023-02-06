@@ -11,6 +11,8 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
+#include <Arduino.h>
+
 Randomizer::Randomizer() :
   Menu(),
   m_demoMode()

@@ -3,6 +3,7 @@
 
 #include "../Leds/LedTypes.h"
 #include "../Patterns/Patterns.h"
+#include "../VortexConfig.h"
 
 class SingleLedPattern;
 class MultiLedPattern;
@@ -33,6 +34,7 @@ public:
 #else
   Mode();
 #endif
+
   Mode(PatternID id, const Colorset &set);
   Mode(PatternID id, const PatternArgs &args, const Colorset &set);
   Mode(PatternID id, const PatternArgs *args, const Colorset *set);

@@ -11,6 +11,8 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
+#include <string.h>
+
 EditorConnection::EditorConnection() :
   Menu(),
   m_state(STATE_DISCONNECTED),

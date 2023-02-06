@@ -73,6 +73,10 @@ private:
   bool m_shortClick;
   // whether a long click occurred
   bool m_longClick;
+
+#ifdef VORTEX_LIB
+  friend class Vortex;
+#endif
 };
 
 // See Button.cpp for info about this

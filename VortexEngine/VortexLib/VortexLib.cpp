@@ -2,11 +2,14 @@
 
 // VortexEngine includes
 #include "VortexEngine.h"
+#include "Buttons/Button.h"
 #include "Serial/ByteStream.h"
 #include "Infrared/IRReceiver.h"
 #include "Patterns/PatternBuilder.h"
 #include "Patterns/Pattern.h"
 #include "Colors/Colorset.h"
+#include "Time/TimeControl.h"
+#include "Time/Timings.h"
 #include "Modes/Modes.h"
 #include "Modes/Mode.h"
 
@@ -19,12 +22,13 @@
 
 using namespace emscripten;
 
-EMSCRIPTEN_BINDINGS(vortex_engine) {
+EMSCRIPTEN_BINDINGS(vortex_engine)
+{
   value_object<ByteStream>("ByteStream")
     .field("data"
-    .element(&Point2f::x)
-    .element(&Point2f::y)
-    ;
+      .element(&Point2f::x)
+      .element(&Point2f::y)
+      ;
   class_<ByteStream>("ByteStream")
     .constructor<uint32_t, const uint8_t *>()
     .function("data", &ByteStream::data)
@@ -44,6 +48,7 @@ deque<ByteStream> Vortex::m_undoBuffer;
 uint32_t Vortex::m_undoLimit = 0;
 uint32_t Vortex::m_undoIndex = 0;
 bool Vortex::m_undoEnabled = true;
+//bool Vortex::m_buttonPressed = false;
 VortexCallbacks defaultCallbacks;
 VortexCallbacks *Vortex::m_storedCallbacks = &defaultCallbacks;
 
@@ -70,12 +75,17 @@ Vortex::Vortex()
 {
 }
 
-bool Vortex::init()
+bool Vortex::init(VortexCallbacks *callbacks)
 {
+  // store the callbacks object
+  m_storedCallbacks = callbacks;
+
+  // init the arduino drop-in replacement
+  init_arduino();
   // init the engine
   VortexEngine::init();
   // clear the modes
-  Modes::clearModes();
+  //Modes::clearModes();
   // save and set undo buffer
   doSave();
 
@@ -99,6 +109,44 @@ void Vortex::cleanup()
 void Vortex::installCallbacks(VortexCallbacks *callbacks)
 {
   m_storedCallbacks = callbacks;
+}
+
+// send various clicks
+void Vortex::shortClick()
+{
+  printf("short click\n");
+  g_pButton->m_newRelease = true;
+  g_pButton->m_shortClick = true;
+  g_pButton->m_pressTime = Time::getCurtime();
+  g_pButton->m_holdDuration = 200;
+}
+
+void Vortex::longClick()
+{
+  printf("long click\n");
+  g_pButton->m_newRelease = true;
+  g_pButton->m_longClick = true;
+  g_pButton->m_pressTime = Time::getCurtime();
+  g_pButton->m_holdDuration = SHORT_CLICK_THRESHOLD_TICKS + 1;
+}
+
+void Vortex::menuEnterClick()
+{
+  printf("menu enter click\n");
+  g_pButton->m_longClick = true;
+  g_pButton->m_isPressed = true;
+  g_pButton->m_holdDuration = MENU_TRIGGER_THRESHOLD_TICKS + 1;
+}
+
+void Vortex::toggleClick()
+{
+  printf("toggle\n");
+  //m_buttonPressed = !m_buttonPressed;
+}
+
+void Vortex::quitClick() // ??
+{
+  cleanup();
 }
 
 void Vortex::IRDeliver(uint32_t timing)
@@ -173,7 +221,7 @@ bool Vortex::addNewMode(bool save)
 {
   Colorset set;
   set.randomize();
-    // create a random pattern ID from all patterns
+  // create a random pattern ID from all patterns
   PatternID randomPattern;
   do {
     // continuously re-randomize the pattern so we don't get solids
@@ -402,77 +450,77 @@ vector<string> Vortex::getCustomParams(PatternID id)
   switch (id) {
   case PATTERN_BASIC:
   case PATTERN_STROBE:
-    case PATTERN_HYPERSTROBE:
-    case PATTERN_DOPS:
-    case PATTERN_DOPISH:
-    case PATTERN_ULTRADOPS:
-    case PATTERN_STROBIE:
-    case PATTERN_RIBBON:
-    case PATTERN_MINIRIBBON:
-    case PATTERN_BLINKIE:
-    case PATTERN_GHOSTCRUSH:
-      return { "On Duration", "Off Duration", "Gap Duration" };
-    case PATTERN_SOLID:
-      return { "On Duration", "Off Duration", "Gap Duration", "Color Index" };
-    case PATTERN_TRACER:
-      return { "Tracer Duration", "Dot Duration" };
-    case PATTERN_DASHDOPS:
-      return { "Dash Duration", "Dot Duration", "Off Duration" };
-    case PATTERN_ADVANCED:
-      return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group" };
-    case PATTERN_BLEND:
-    case PATTERN_COMPLEMENTARY_BLEND:
-      return { "On Duration", "Off Duration", "Gap Duration", "Start Offset" };
-    case PATTERN_BRACKETS:
-      return { "Bracket Duration", "Mid Duration", "Off Duration" };
-    case PATTERN_RABBIT:
-    case PATTERN_FLOWERS:
-    case PATTERN_TIPTOP:
-      return { "On Duration 1", "Off Duration 1", "Gap Duration 1",
-        "On Duration 2", "Off Duration 2", "Gap Duration 2" };
-    case PATTERN_IMPACT:
-      return { "On Duration 1", "Off Duration 1", "On Duration 2",
-        "Off Duration 2", "On Duration 3", "Off Duration 3" };
-    case PATTERN_JEST:
-      return { "On Duration" , "Off Duration", "Gap 1 Duration", "Gap 2 Duration", "Group Size" };
-    case PATTERN_HUESHIFT:
-      return { "Speed", "Scale" };
-    case PATTERN_THEATER_CHASE:
-      return { "On Duration", "Off Duration", "Step Duration" };
-    case PATTERN_ZIGZAG:
-    case PATTERN_ZIPFADE:
-      return { "On Duration", "Off Duration", "Step Duration", "Snake Size", "Fade Amount" };
-    case PATTERN_DRIP:
-    case PATTERN_CROSSDOPS:
-    case PATTERN_DOUBLESTROBE:
-    case PATTERN_SPARKLETRACE:
-    case PATTERN_VORTEXWIPE:
-    case PATTERN_WARP:
-    case PATTERN_WARPWORM:
-    case PATTERN_SNOWBALL:
-    case PATTERN_FILL:
-      return { "On Duration", "Off Duration", "Step Duration" };
-    case PATTERN_BOUNCE:
-      return { "On Duration", "Off Duration", "Step Duration", "Fade Amount" };
+  case PATTERN_HYPERSTROBE:
+  case PATTERN_DOPS:
+  case PATTERN_DOPISH:
+  case PATTERN_ULTRADOPS:
+  case PATTERN_STROBIE:
+  case PATTERN_RIBBON:
+  case PATTERN_MINIRIBBON:
+  case PATTERN_BLINKIE:
+  case PATTERN_GHOSTCRUSH:
+    return { "On Duration", "Off Duration", "Gap Duration" };
+  case PATTERN_SOLID:
+    return { "On Duration", "Off Duration", "Gap Duration", "Color Index" };
+  case PATTERN_TRACER:
+    return { "Tracer Duration", "Dot Duration" };
+  case PATTERN_DASHDOPS:
+    return { "Dash Duration", "Dot Duration", "Off Duration" };
+  case PATTERN_ADVANCED:
+    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group" };
+  case PATTERN_BLEND:
+  case PATTERN_COMPLEMENTARY_BLEND:
+    return { "On Duration", "Off Duration", "Gap Duration", "Start Offset" };
+  case PATTERN_BRACKETS:
+    return { "Bracket Duration", "Mid Duration", "Off Duration" };
+  case PATTERN_RABBIT:
+  case PATTERN_FLOWERS:
+  case PATTERN_TIPTOP:
+    return { "On Duration 1", "Off Duration 1", "Gap Duration 1",
+      "On Duration 2", "Off Duration 2", "Gap Duration 2" };
+  case PATTERN_IMPACT:
+    return { "On Duration 1", "Off Duration 1", "On Duration 2",
+      "Off Duration 2", "On Duration 3", "Off Duration 3" };
+  case PATTERN_JEST:
+    return { "On Duration" , "Off Duration", "Gap 1 Duration", "Gap 2 Duration", "Group Size" };
+  case PATTERN_HUESHIFT:
+    return { "Speed", "Scale" };
+  case PATTERN_THEATER_CHASE:
+    return { "On Duration", "Off Duration", "Step Duration" };
+  case PATTERN_ZIGZAG:
+  case PATTERN_ZIPFADE:
+    return { "On Duration", "Off Duration", "Step Duration", "Snake Size", "Fade Amount" };
+  case PATTERN_DRIP:
+  case PATTERN_CROSSDOPS:
+  case PATTERN_DOUBLESTROBE:
+  case PATTERN_SPARKLETRACE:
+  case PATTERN_VORTEXWIPE:
+  case PATTERN_WARP:
+  case PATTERN_WARPWORM:
+  case PATTERN_SNOWBALL:
+  case PATTERN_FILL:
+    return { "On Duration", "Off Duration", "Step Duration" };
+  case PATTERN_BOUNCE:
+    return { "On Duration", "Off Duration", "Step Duration", "Fade Amount" };
     //case PATTERN_CHASER:
-    case PATTERN_DRIPMORPH:
-      return { "On Duration", "Off Duration", "Speed" };
-    case PATTERN_METEOR:
-      return { "On Duration", "Off Duration", "Step Duration", "Fade Amount" };
-    case PATTERN_LIGHTHOUSE:
-      return { "On Duration", "Off Duration", "Step Duration", "Fade Amount", "Fade Rate" };
-    case PATTERN_PULSISH:
-    case PATTERN_MATERIA:
-      return { "On Duration 1", "Off Duration 1", "On Duration 2", "Off Duration 2", "Step Duration" };
-    case PATTERN_SPLITSTROBIE:
-      return { "On Duration", "Off Duration", "Gap Duration", "Dash Duration",
-        "Dot Duration", "Step Duration x 100ms" };
-    case PATTERN_BACKSTROBE:
-      return { "On Duration 1", "Off Duration 1", "Gap Duration 1",  "On Duration 2", "Off Duration 2",
-        "Gap Duration 2", "Step Duration x 100ms" };
-    case PATTERN_NONE:
-    default:
-      break;
+  case PATTERN_DRIPMORPH:
+    return { "On Duration", "Off Duration", "Speed" };
+  case PATTERN_METEOR:
+    return { "On Duration", "Off Duration", "Step Duration", "Fade Amount" };
+  case PATTERN_LIGHTHOUSE:
+    return { "On Duration", "Off Duration", "Step Duration", "Fade Amount", "Fade Rate" };
+  case PATTERN_PULSISH:
+  case PATTERN_MATERIA:
+    return { "On Duration 1", "Off Duration 1", "On Duration 2", "Off Duration 2", "Step Duration" };
+  case PATTERN_SPLITSTROBIE:
+    return { "On Duration", "Off Duration", "Gap Duration", "Dash Duration",
+      "Dot Duration", "Step Duration x 100ms" };
+  case PATTERN_BACKSTROBE:
+    return { "On Duration 1", "Off Duration 1", "Gap Duration 1",  "On Duration 2", "Off Duration 2",
+      "Gap Duration 2", "Step Duration x 100ms" };
+  case PATTERN_NONE:
+  default:
+    break;
   }
   return vector<string>();
 }

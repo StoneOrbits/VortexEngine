@@ -1,5 +1,9 @@
 #pragma once
 
+#ifdef _MSC_VER
+#include <Windows.h>
+#endif
+
 #include "VortexEngine.h"
 #include "Patterns/Patterns.h"
 #include "Leds/LedTypes.h"
@@ -25,7 +29,7 @@
 //  - The serial input/output callbacks (editor connection)
 //  - The Infrared input/output callbacks (mode sharing)
 //  - The digital pin input/output callbacks (buttons)
-//  - The led strip and all the colors
+//  - The led strip initialization, brightness control, and display
 //
 //
 
@@ -53,6 +57,12 @@ public:
   virtual size_t serialRead(char *buf, size_t amt) { return 0; }
   // called when engine writes to serial, use this to read data from the vortex engine
   virtual uint32_t serialWrite(const uint8_t *buf, size_t amt) { return 0; }
+  // called when the LED strip is initialized
+  virtual void ledsInit(CRGB *cl, int count) { }
+  // called when the brightness is changed
+  virtual void ledsBrightness(int brightness) { }
+  // called when the leds are shown
+  virtual void ledsShow() { }
 };
 
 class PatternArgs;
@@ -64,12 +74,29 @@ class Colorset;
 class Vortex
 {
   Vortex();
+  // internal initializer
+  static bool init(VortexCallbacks *callbacks);
 public:
-  static bool init();
+
+  template <typename T>
+  static bool init() 
+  {
+    if (!std::is_base_of<VortexCallbacks, T>()) {
+      return false;
+    }
+    return init(new T());
+  }
   static void cleanup();
 
   // install a callback for digital reads (button press)
   static void installCallbacks(VortexCallbacks *callbacks);
+
+  // send various clicks
+  static void shortClick();
+  static void longClick();
+  static void menuEnterClick();
+  static void toggleClick();
+  static void quitClick(); //??
 
   // deliver IR timing, the system expects mark first, but it doesn't matter
   // because the system will reset on bad data and then it can interpret any 
@@ -126,6 +153,8 @@ public:
   // access stored callbacks
   static VortexCallbacks *vcallbacks() { return m_storedCallbacks; }
 
+  //static bool isButtonPressed() { return m_buttonPressed; }
+
 private:
   // save and add undo buffer
   static bool doSave();
@@ -139,7 +168,8 @@ private:
   static uint32_t m_undoIndex;
   // whether undo buffer is disabled recording
   static bool m_undoEnabled;
-
+  // whether the button is pressed
+  //static bool m_buttonPressed;
   // stored callbacks
   static VortexCallbacks *m_storedCallbacks;
 };
