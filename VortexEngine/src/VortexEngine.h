@@ -61,10 +61,12 @@ public:
   static void serializeVersion(ByteStream &stream);
   static bool checkVersion(uint8_t major, uint8_t minor);
 
+#ifdef VORTEX_LIB
   // the total available storage space
   static uint32_t totalStorageSpace();
   // the size of the savefile
   static uint32_t savefileSize();
+#endif
 
 private:
   // the size of the savefile

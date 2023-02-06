@@ -3,6 +3,7 @@
 // VortexEngine includes
 #include "VortexEngine.h"
 #include "Serial/ByteStream.h"
+#include "Infrared/IRReceiver.h"
 #include "Patterns/PatternBuilder.h"
 #include "Patterns/Pattern.h"
 #include "Colors/Colorset.h"
@@ -28,10 +29,10 @@ EMSCRIPTEN_BINDINGS(vortex_engine) {
     .constructor<uint32_t, const uint8_t *>()
     .function("data", &ByteStream::data)
     ;
-  class_<VEngine>("VEngine")
-    .class_function("init", &VEngine::init)
-    .class_function("cleanup", &VEngine::cleanup)
-    //.class_function("getStorageStats", &VEngine::getStorageStats)
+  class_<Vortex>("Vortex")
+    .class_function("init", &Vortex::init)
+    .class_function("cleanup", &Vortex::cleanup)
+    //.class_function("getStorageStats", &Vortex::getStorageStats)
     ;
 
 #if 0
@@ -57,7 +58,7 @@ EMSCRIPTEN_BINDINGS(vortex_engine) {
   static std::string getPatternName(LedPos pos = LED_FIRST);
   static std::string getModeName();
   static bool setSinglePat(LedPos pos, PatternID id,
-    const PatternArgs *args = nullptr, const Colorset *set = nullptr, 
+    const PatternArgs *args = nullptr, const Colorset *set = nullptr,
     bool save = true);
   static bool getColorset(LedPos pos, Colorset &set);
   static bool setColorset(LedPos pos, const Colorset &set, bool save = true);
@@ -100,11 +101,30 @@ private:
 using namespace std;
 
 // the undo buffer and data
-deque<ByteStream> VEngine::m_undoBuffer;
-uint32_t VEngine::m_undoLimit = 0;
-uint32_t VEngine::m_undoIndex = 0;
-bool VEngine::m_undoEnabled = true;
-VEngine::readHookFn VEngine::m_digitalReadCallback = nullptr;
+deque<ByteStream> Vortex::m_undoBuffer;
+uint32_t Vortex::m_undoLimit = 0;
+uint32_t Vortex::m_undoIndex = 0;
+bool Vortex::m_undoEnabled = true;
+
+long readHookDefault(uint32_t pin) { return 0; }
+void infraredWriteDefault(bool mark, uint32_t pin) { }
+bool serialCheckDefault() { return false; }
+void serialBeginDefault(uint32_t baud) { }
+int32_t serialAvailDefault() { return 0; }
+size_t serialReadDefault(char *buf, size_t amt) { return 0; }
+uint32_t serialWriteDefault(const uint8_t *buf, size_t amt) { return 0; }
+
+// stored callbacks have defaults so that they don't segfault
+// if you install incomplete callbacks that's on you
+VortexCallbacks Vortex::m_storedCallbacks = {
+  readHookDefault,
+  infraredWriteDefault,
+  serialCheckDefault,
+  serialBeginDefault,
+  serialAvailDefault,
+  serialReadDefault,
+  serialWriteDefault,
+};
 
 #ifdef _MSC_VER
 #include <Windows.h>
@@ -125,11 +145,11 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 }
 #endif
 
-VEngine::VEngine()
+Vortex::Vortex()
 {
 }
 
-bool VEngine::init()
+bool Vortex::init()
 {
   // init the engine
   VortexEngine::init();
@@ -140,7 +160,7 @@ bool VEngine::init()
 
   // check all custom params match the mapped list of words
   for (PatternID id = PATTERN_FIRST; id < PATTERN_COUNT; ++id) {
-    vector<string> params = VEngine::getCustomParams(id);
+    vector<string> params = Vortex::getCustomParams(id);
     PatternArgs args = PatternBuilder::getDefaultArgs(id);
     if (params.size() != args.numArgs) {
       // Params not even!
@@ -150,17 +170,22 @@ bool VEngine::init()
   return true;
 }
 
-void VEngine::cleanup()
+void Vortex::cleanup()
 {
   VortexEngine::cleanup();
 }
 
-void VEngine::installDigitalReadCallback(readHookFn readHook)
+void Vortex::installCallbacks(const VortexCallbacks &callbacks)
 {
-  m_digitalReadCallback = readHook;
+  m_storedCallbacks = callbacks;
 }
 
-void VEngine::getStorageStats(uint32_t *outTotal, uint32_t *outUsed)
+void Vortex::IRDeliver(uint32_t timing)
+{
+  IRReceiver::handleIRTiming(timing);
+}
+
+void Vortex::getStorageStats(uint32_t *outTotal, uint32_t *outUsed)
 {
   if (outTotal) {
     *outTotal = VortexEngine::totalStorageSpace();
@@ -170,7 +195,7 @@ void VEngine::getStorageStats(uint32_t *outTotal, uint32_t *outUsed)
   }
 }
 
-bool VEngine::getModes(ByteStream &outStream)
+bool Vortex::getModes(ByteStream &outStream)
 {
   // save to ensure we get the correct mode, not using doSave() because it causes
   // an undo buffer entry to be added
@@ -180,7 +205,7 @@ bool VEngine::getModes(ByteStream &outStream)
   return true;
 }
 
-bool VEngine::setModes(ByteStream &stream, bool save)
+bool Vortex::setModes(ByteStream &stream, bool save)
 {
   // now unserialize the stream of data that was read
   if (!Modes::loadFromBuffer(stream)) {
@@ -190,7 +215,7 @@ bool VEngine::setModes(ByteStream &stream, bool save)
   return !save || doSave();
 }
 
-bool VEngine::getCurMode(ByteStream &outStream)
+bool Vortex::getCurMode(ByteStream &outStream)
 {
   Mode *pMode = Modes::curMode();
   if (!pMode) {
@@ -204,17 +229,17 @@ bool VEngine::getCurMode(ByteStream &outStream)
   return pMode->saveToBuffer(outStream);
 }
 
-uint32_t VEngine::curMode()
+uint32_t Vortex::curMode()
 {
   return Modes::curModeIndex();
 }
 
-uint32_t VEngine::numModes()
+uint32_t Vortex::numModes()
 {
   return Modes::numModes();
 }
 
-uint32_t VEngine::numLedsInMode()
+uint32_t Vortex::numLedsInMode()
 {
   Mode *pMode = Modes::curMode();
   if (!pMode) {
@@ -223,7 +248,7 @@ uint32_t VEngine::numLedsInMode()
   return pMode->getLedCount();
 }
 
-bool VEngine::addNewMode(bool save)
+bool Vortex::addNewMode(bool save)
 {
   Colorset set;
   set.randomize();
@@ -239,7 +264,7 @@ bool VEngine::addNewMode(bool save)
   return !save || doSave();
 }
 
-bool VEngine::addNewMode(ByteStream &stream, bool save)
+bool Vortex::addNewMode(ByteStream &stream, bool save)
 {
   if (!Modes::addModeFromBuffer(stream)) {
     return false;
@@ -247,25 +272,25 @@ bool VEngine::addNewMode(ByteStream &stream, bool save)
   return !save || doSave();
 }
 
-bool VEngine::setCurMode(uint32_t index, bool save)
+bool Vortex::setCurMode(uint32_t index, bool save)
 {
   Modes::setCurMode(index);
   return !save || doSave();
 }
 
-bool VEngine::nextMode(bool save)
+bool Vortex::nextMode(bool save)
 {
   Modes::nextMode();
   return !save || doSave();
 }
 
-bool VEngine::delCurMode(bool save)
+bool Vortex::delCurMode(bool save)
 {
   Modes::deleteCurMode();
   return !save || doSave();
 }
 
-bool VEngine::shiftCurMode(int8_t offset, bool save)
+bool Vortex::shiftCurMode(int8_t offset, bool save)
 {
   if (offset == 0) {
     return true;
@@ -274,7 +299,7 @@ bool VEngine::shiftCurMode(int8_t offset, bool save)
   return !save || doSave();
 }
 
-bool VEngine::setPattern(PatternID id, const PatternArgs *args, const Colorset *set, bool save)
+bool Vortex::setPattern(PatternID id, const PatternArgs *args, const Colorset *set, bool save)
 {
   Mode *pMode = Modes::curMode();
   if (!pMode) {
@@ -286,7 +311,7 @@ bool VEngine::setPattern(PatternID id, const PatternArgs *args, const Colorset *
   return !save || doSave();
 }
 
-PatternID VEngine::getPatternID(LedPos pos)
+PatternID Vortex::getPatternID(LedPos pos)
 {
   Mode *pMode = Modes::curMode();
   if (!pMode) {
@@ -295,12 +320,12 @@ PatternID VEngine::getPatternID(LedPos pos)
   return pMode->getPatternID(pos);
 }
 
-string VEngine::getPatternName(LedPos pos)
+string Vortex::getPatternName(LedPos pos)
 {
   return patternToString(getPatternID(pos));
 }
 
-string VEngine::getModeName()
+string Vortex::getModeName()
 {
   Mode *pMode = Modes::curMode();
   if (!pMode) {
@@ -329,7 +354,7 @@ string VEngine::getModeName()
   return "custom";
 }
 
-bool VEngine::setSinglePat(LedPos pos, PatternID id,
+bool Vortex::setSinglePat(LedPos pos, PatternID id,
   const PatternArgs *args, const Colorset *set, bool save)
 {
   Mode *pMode = Modes::curMode();
@@ -342,7 +367,7 @@ bool VEngine::setSinglePat(LedPos pos, PatternID id,
   return !save || doSave();
 }
 
-bool VEngine::getColorset(LedPos pos, Colorset &set)
+bool Vortex::getColorset(LedPos pos, Colorset &set)
 {
   Mode *pMode = Modes::curMode();
   if (!pMode) {
@@ -356,7 +381,7 @@ bool VEngine::getColorset(LedPos pos, Colorset &set)
   return true;
 }
 
-bool VEngine::setColorset(LedPos pos, const Colorset &set, bool save)
+bool Vortex::setColorset(LedPos pos, const Colorset &set, bool save)
 {
   Mode *pMode = Modes::curMode();
   if (!pMode) {
@@ -370,7 +395,7 @@ bool VEngine::setColorset(LedPos pos, const Colorset &set, bool save)
   return !save || doSave();
 }
 
-bool VEngine::getPatternArgs(LedPos pos, PatternArgs &args)
+bool Vortex::getPatternArgs(LedPos pos, PatternArgs &args)
 {
   Mode *pMode = Modes::curMode();
   if (!pMode) {
@@ -384,7 +409,7 @@ bool VEngine::getPatternArgs(LedPos pos, PatternArgs &args)
   return true;
 }
 
-bool VEngine::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
+bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
 {
   Mode *pMode = Modes::curMode();
   if (!pMode) {
@@ -401,7 +426,7 @@ bool VEngine::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
   return !save || doSave();
 }
 
-string VEngine::patternToString(PatternID id)
+string Vortex::patternToString(PatternID id)
 {
   if (id == PATTERN_NONE || id >= PATTERN_COUNT) {
     return "pattern_none";
@@ -421,7 +446,7 @@ string VEngine::patternToString(PatternID id)
 }
 
 // this shouldn't change much so this is fine
-string VEngine::ledToString(LedPos pos)
+string Vortex::ledToString(LedPos pos)
 {
   if (numLedsInMode() != 10 || pos >= 10) {
     return "led " + to_string(pos);
@@ -438,7 +463,7 @@ string VEngine::ledToString(LedPos pos)
 }
 
 // the number of custom parameters for any given pattern id
-uint32_t VEngine::numCustomParams(PatternID id)
+uint32_t Vortex::numCustomParams(PatternID id)
 {
   Pattern *pat = PatternBuilder::make(id);
   if (!pat) {
@@ -451,7 +476,7 @@ uint32_t VEngine::numCustomParams(PatternID id)
   return numArgs;
 }
 
-vector<string> VEngine::getCustomParams(PatternID id)
+vector<string> Vortex::getCustomParams(PatternID id)
 {
   switch (id) {
   case PATTERN_BASIC:
@@ -519,7 +544,7 @@ vector<string> VEngine::getCustomParams(PatternID id)
     case PATTERN_MATERIA:
       return { "On Duration 1", "Off Duration 1", "On Duration 2", "Off Duration 2", "Step Duration" };
     case PATTERN_SPLITSTROBIE:
-      return { "On Duration", "Off Duration", "Gap Duration", "Dash Duration", 
+      return { "On Duration", "Off Duration", "Gap Duration", "Dash Duration",
         "Dot Duration", "Step Duration x 100ms" };
     case PATTERN_BACKSTROBE:
       return { "On Duration 1", "Off Duration 1", "Gap Duration 1",  "On Duration 2", "Off Duration 2",
@@ -531,12 +556,12 @@ vector<string> VEngine::getCustomParams(PatternID id)
   return vector<string>();
 }
 
-void VEngine::setUndoBufferLimit(uint32_t limit)
+void Vortex::setUndoBufferLimit(uint32_t limit)
 {
   m_undoLimit = limit;
 }
 
-bool VEngine::addUndoBuffer()
+bool Vortex::addUndoBuffer()
 {
   if (!m_undoEnabled) {
     return true;
@@ -577,7 +602,7 @@ bool VEngine::addUndoBuffer()
   return true;
 }
 
-bool VEngine::applyUndo()
+bool Vortex::applyUndo()
 {
   if (!m_undoBuffer.size()) {
     return false;
@@ -601,11 +626,11 @@ bool VEngine::applyUndo()
   // index from the back instead of the front
   uint32_t backIndex = highestIndex - m_undoIndex;
   m_undoBuffer[backIndex].resetUnserializer();
-  VEngine::setModes(m_undoBuffer[backIndex], false);
+  Vortex::setModes(m_undoBuffer[backIndex], false);
   return true;
 }
 
-bool VEngine::undo()
+bool Vortex::undo()
 {
   if (!m_undoBuffer.size()) {
     return false;
@@ -620,7 +645,7 @@ bool VEngine::undo()
   return applyUndo();
 }
 
-bool VEngine::redo()
+bool Vortex::redo()
 {
   if (!m_undoBuffer.size()) {
     return false;
@@ -632,15 +657,7 @@ bool VEngine::redo()
   return applyUndo();
 }
 
-long VEngine::digitalReadCallback(uint32_t pin)
-{
-  if (!m_digitalReadCallback) {
-    return 0;
-  }
-  return m_digitalReadCallback(pin);
-}
-
-bool VEngine::doSave()
+bool Vortex::doSave()
 {
   return Modes::saveStorage() && addUndoBuffer();
 }

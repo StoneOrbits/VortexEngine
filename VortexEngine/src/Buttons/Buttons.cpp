@@ -1,9 +1,5 @@
 #include "Buttons.h"
 
-#ifdef TEST_FRAMEWORK
-#include "TestFramework.h"
-#endif
-
 // Since there is only one button I am just going to expose a global pointer to
 // access it, instead of making the Button class static in case a second button
 // is added. This makes it easier to access the button from other places while
@@ -34,7 +30,4 @@ void Buttons::check()
   // would iterate all buttons and check them here
   // but there's only one button so
   m_button.check();
-#ifdef TEST_FRAMEWORK
-  g_pTestFramework->injectButtons();
-#endif
 }

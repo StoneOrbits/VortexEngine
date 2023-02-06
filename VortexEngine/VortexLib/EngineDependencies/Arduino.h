@@ -12,9 +12,6 @@
 #define OUTPUT 1
 #define CHANGE 1
 
-// uncommont this to enable IR comms simulation
-//#define SIMULATE_IR_COMMS
-
 // init this drop-in framework
 void init_arduino();
 void cleanup_arduino();
@@ -38,16 +35,17 @@ void attachInterrupt(int interrupt, void (*func)(), int type);
 void detachInterrupt(int interrupt);
 int digitalPinToInterrupt(int pin);
 
-#if defined(TEST_FRAMEWORK) || defined(VORTEX_LIB)
-// the library
-void installIRCallback(void (*func)(uint32_t));
+#if defined(VORTEX_LIB)
+// not actually from arduino but we use to simulate ir comms
+void send_ir_mark(uint32_t duration);
+void send_ir_space(uint32_t duration);
 #endif
 
 class SerialClass
 {
 public:
   SerialClass() : connected(false) {}
-  void begin(uint32_t i);
+   void begin(uint32_t i);
   void print(uint32_t i);
   void print(const char *s);
   void println(const char *s);

@@ -40,11 +40,6 @@ void cleanup_arduino()
 
 void delay(size_t amt)
 {
-#ifndef _MSC_VER
-  sleep(amt);
-#else
-  Sleep((DWORD)amt);
-#endif
 }
 
 void delayMicroseconds(size_t us)
@@ -60,7 +55,7 @@ unsigned long analogRead(uint32_t pin)
 // used to read button input
 unsigned long digitalRead(uint32_t pin)
 {
-  return VEngine::digitalReadCallback(pin);
+  return Vortex::vcallbacks().readHook(pin);
 }
 
 void digitalWrite(uint32_t pin,  uint32_t val)
@@ -116,7 +111,6 @@ unsigned long random(uint32_t low, uint32_t high)
   return low + (rand() % (high - low));
 }
 
-
 void randomSeed(uint32_t seed)
 {
 #ifndef _MSC_VER
@@ -139,23 +133,14 @@ void detachInterrupt(int interrupt)
 {
 }
 
-void test_ir_mark(uint32_t duration)
+void send_ir_mark(uint32_t duration)
 {
-#ifndef _MSC_VER
-#endif
+  Vortex::vcallbacks().irWrite(true, duration);
 }
 
-void test_ir_space(uint32_t duration)
+void send_ir_space(uint32_t duration)
 {
-#ifndef _MSC_VER
-#endif
-}
-
-// this is only used on the windows framework to test IR
-void (*IR_change_callback)(uint32_t data);
-void installIRCallback(void (*func)(uint32_t))
-{
-  IR_change_callback = func;
+  Vortex::vcallbacks().irWrite(false, duration);
 }
 
 int digitalPinToInterrupt(int pin)
@@ -163,8 +148,9 @@ int digitalPinToInterrupt(int pin)
   return 0;
 }
 
-void SerialClass::begin(uint32_t i)
+void SerialClass::begin(uint32_t baud)
 {
+  Vortex::vcallbacks().serialBegin(baud);
 }
 
 void SerialClass::print(uint32_t i)
@@ -188,7 +174,7 @@ void SerialClass::println(const char *s)
 
 uint32_t SerialClass::write(const uint8_t *buf, size_t len)
 {
-  return 0;
+  return Vortex::vcallbacks().serialWrite(buf, len);
 }
 
 SerialClass::operator bool()
@@ -196,20 +182,21 @@ SerialClass::operator bool()
   if (connected) {
     return true;
   }
+  if (!Vortex::vcallbacks().serialCheck()) {
+    return false;
+  }
   connected = true;
   return true;
 }
 
 int32_t SerialClass::available()
 {
-  int32_t amount = 0;
-  return amount;
+  return Vortex::vcallbacks().serialAvail();
 }
 
 size_t SerialClass::readBytes(char *buf, size_t amt)
 {
-  size_t total = 0;
-  return total;
+  return Vortex::vcallbacks().serialRead(buf, amt);
 }
 
 uint8_t SerialClass::read()

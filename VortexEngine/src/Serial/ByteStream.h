@@ -4,6 +4,14 @@
 #include <inttypes.h>
 #include "../Log/Log.h"
 
+// disable warning about using flexible array at end of structure
+// otherwise visual studio dumps a million warnings about the buf[]
+// flexible array member at the end of the inner data structure.
+// Yes I know it's scary Visual Studio, please shut up now.
+#ifdef _MSC_VER
+#pragma warning(disable : 4200)
+#endif
+
 class FlashClass;
 
 class ByteStream
@@ -123,15 +131,6 @@ private:
   bool largeEnough(uint32_t amount) const;
   // helper to get width of bits that makes up value
   uint32_t getWidth(uint32_t value) const;
-
-  // inner data buffer
-#if defined(TEST_FRAMEWORK) || defined(EDITOR_FRAMEWORK) || defined(VORTEX_LIB)
-#if !defined(LINUX_FRAMEWORK) && defined(_MSC_VER)
-  // disable warning about using flexible array at end of structure,
-  // stfu compiler I know what im doing
-#pragma warning(disable : 4200)
-#endif
-#endif
 
   // the structure of raw data that's written to storage
   struct RawBuffer

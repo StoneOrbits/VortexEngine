@@ -9,18 +9,11 @@
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
 
-#ifdef TEST_FRAMEWORK
-#ifndef LINUX_FRAMEWORK
-#include <Windows.h>
-#else
-#include <unistd.h>
-#endif
-#endif
-
 __attribute__((__aligned__(256)))
-#ifdef TEST_FRAMEWORK
+#ifndef VORTEX_ARDUINO
 uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
 #else
+// only arduino needs const I guess?
 const uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
 #endif
 FlashClass storage(_storagedata, STORAGE_SIZE);
