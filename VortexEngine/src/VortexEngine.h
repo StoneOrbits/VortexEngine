@@ -30,6 +30,9 @@
  *     in the parsehandshake function and will only see the goodbye
  *   - readout for how big a mode is vs total storage used (progress bar?)
  *   - options menu along with tools/help etc
+ *   - tools window for the pattern strip (moving/movable?)
+ *   - tools window for the virtual glove maybe?
+ *      - or just enhance test framework?
  *
  *   - far future patttern list 2.0:
  *      - blend needs to be named hueshift

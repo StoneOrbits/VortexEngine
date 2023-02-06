@@ -154,7 +154,7 @@ bool Vortex::init()
   // init the engine
   VortexEngine::init();
   // clear the modes
-  //Modes::clearModes();
+  Modes::clearModes();
   // save and set undo buffer
   doSave();
 
