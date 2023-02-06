@@ -13,7 +13,7 @@
 #include <string>
 #include <time.h>
 
-#include "EngineWrapper.h"
+#include "VortexLib.h"
 
 using namespace std;
 

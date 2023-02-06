@@ -1,4 +1,4 @@
-#include "EngineWrapper.h"
+#include "VortexLib.h"
 
 // VortexEngine includes
 #include "VortexEngine.h"

@@ -342,7 +342,7 @@
     <ClCompile Include="src\Time\Timer.cpp">
       <Filter>Source Files\Time</Filter>
     </ClCompile>
-    <ClCompile Include="VortexLib\EngineWrapper.cpp">
+    <ClCompile Include="VortexLib\VortexLib.cpp">
       <Filter>Source Files\VortexLib</Filter>
     </ClCompile>
     <ClCompile Include="VortexLib\EngineDependencies\Arduino.cpp">
@@ -590,7 +590,7 @@
     <ClInclude Include="src\Time\Timings.h">
       <Filter>Header Files\Time</Filter>
     </ClInclude>
-    <ClInclude Include="VortexLib\EngineWrapper.h">
+    <ClInclude Include="VortexLib\VortexLib.h">
       <Filter>Header Files\VortexLib</Filter>
     </ClInclude>
     <ClInclude Include="VortexLib\EngineDependencies\FlashStorage.h">

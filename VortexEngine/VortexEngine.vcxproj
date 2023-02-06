@@ -221,7 +221,7 @@
     <ClCompile Include="VortexLib\EngineDependencies\Arduino.cpp" />
     <ClCompile Include="VortexLib\EngineDependencies\FastLED.cpp" />
     <ClCompile Include="VortexLib\EngineDependencies\FlashStorage.cpp" />
-    <ClCompile Include="VortexLib\EngineWrapper.cpp" />
+    <ClCompile Include="VortexLib\VortexLib.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\Buttons\Button.h" />
@@ -306,7 +306,7 @@
     <ClInclude Include="VortexLib\EngineDependencies\Arduino.h" />
     <ClInclude Include="VortexLib\EngineDependencies\FastLED.h" />
     <ClInclude Include="VortexLib\EngineDependencies\FlashStorage.h" />
-    <ClInclude Include="VortexLib\EngineWrapper.h" />
+    <ClInclude Include="VortexLib\VortexLib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
