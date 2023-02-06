@@ -437,90 +437,90 @@
     <ClInclude Include="src\Patterns\Multi\Sequencer\SequencedPattern.h">
       <Filter>Header Files\Patterns\Multi\Sequencer</Filter>
     </ClInclude>
-    <ClCompile Include="src\Patterns\Multi\BackStrobePattern.h">
+    <ClInclude Include="src\Patterns\Multi\BackStrobePattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\BlinkStepPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\BlinkStepPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\BouncePattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\BouncePattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\CrossDopsPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\CrossDopsPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\DoubleStrobePattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\DoubleStrobePattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\DripMorphPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\DripMorphPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\DripPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\DripPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\FillPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\FillPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\FlowersPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\FlowersPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\HueShiftPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\HueShiftPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\HybridPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\HybridPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\ImpactPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\ImpactPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\JestPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\JestPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\LighthousePattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\LighthousePattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\MateriaPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\MateriaPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\MeteorPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\MeteorPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\MultiLedPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\MultiLedPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\PulsishPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\PulsishPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\RabbitPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\RabbitPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\SnowballPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\SnowballPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\SparkleTracePattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\SparkleTracePattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\SplitStrobiePattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\SplitStrobiePattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\TheaterChasePattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\TheaterChasePattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\TipTopPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\TipTopPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\VortexWipePattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\VortexWipePattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\WarpPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\WarpPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\WarpWormPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\WarpWormPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\ZigzagPattern.h">
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Multi\ZigzagPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
-    </ClCompile>
+    </ClInclude>
     <ClInclude Include="src\Patterns\Single\AdvancedPattern.h">
       <Filter>Header Files\Patterns\Single</Filter>
     </ClInclude>
