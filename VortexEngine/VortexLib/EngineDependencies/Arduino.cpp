@@ -19,14 +19,16 @@ using namespace std;
 
 SerialClass Serial;
 
-#ifdef _MSC_VER
+#if !defined(_MSC_VER) || defined(WASM)
+uint64_t start = 0;
+#else
 static LARGE_INTEGER start;
 static LARGE_INTEGER tps; //tps = ticks per second
 #endif
 
 void init_arduino()
 {
-#ifndef _MSC_VER
+#if !defined(_MSC_VER) || defined(WASM)
   start = micros();
 #else
   QueryPerformanceFrequency(&tps);
