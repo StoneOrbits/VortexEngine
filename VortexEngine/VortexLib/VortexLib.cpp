@@ -34,68 +34,7 @@ EMSCRIPTEN_BINDINGS(vortex_engine) {
     .class_function("cleanup", &Vortex::cleanup)
     //.class_function("getStorageStats", &Vortex::getStorageStats)
     ;
-
-#if 0
-  static bool getModes(ByteStream &outStream);
-  static bool setModes(ByteStream &stream, bool save = true);
-  static bool getCurMode(ByteStream &stream);
-
-  // functions to operate on the current mode selection
-  static uint32_t curMode();
-  static uint32_t numModes();
-  static uint32_t numLedsInMode();
-  static bool addNewMode(bool save = true);
-  static bool addNewMode(ByteStream &stream, bool save = true);
-  static bool setCurMode(uint32_t index, bool save = true);
-  static bool nextMode(bool save = true);
-  static bool delCurMode(bool save = true);
-  static bool shiftCurMode(int8_t offset, bool save = true);
-
-  // functions to operate on the current Mode
-  static bool setPattern(PatternID id, const PatternArgs *args = nullptr,
-    const Colorset *set = nullptr, bool save = true);
-  static PatternID getPatternID(LedPos pos = LED_FIRST);
-  static std::string getPatternName(LedPos pos = LED_FIRST);
-  static std::string getModeName();
-  static bool setSinglePat(LedPos pos, PatternID id,
-    const PatternArgs *args = nullptr, const Colorset *set = nullptr,
-    bool save = true);
-  static bool getColorset(LedPos pos, Colorset &set);
-  static bool setColorset(LedPos pos, const Colorset &set, bool save = true);
-  static bool getPatternArgs(LedPos pos, PatternArgs &args);
-  static bool setPatternArgs(LedPos pos, PatternArgs &args, bool save = true);
-
-  // Helpers for converting pattern id and led id to string
-  static std::string patternToString(PatternID id = PATTERN_NONE);
-  static std::string ledToString(LedPos pos);
-  static uint32_t numCustomParams(PatternID id);
-  static std::vector<std::string> getCustomParams(PatternID id);
-
-  // undo redo
-  static void setUndoBufferLimit(uint32_t limit);
-  static bool addUndoBuffer();
-  static bool undo();
-  static bool redo();
-
-  // enable/disable undo
-  static void enableUndo(bool enabled) { m_undoEnabled = enabled; }
-
-private:
-  // save and add undo buffer
-  static bool doSave();
-  static bool applyUndo();
-
-  // undo buffer
-  static std::deque<ByteStream> m_undoBuffer;
-  // the undo limit
-  static uint32_t m_undoLimit;
-  // undo position in buffer
-  static uint32_t m_undoIndex;
-  // whether undo buffer is disabled recording
-  static bool m_undoEnabled;
-#endif
 }
-
 #endif
 
 using namespace std;
@@ -105,26 +44,8 @@ deque<ByteStream> Vortex::m_undoBuffer;
 uint32_t Vortex::m_undoLimit = 0;
 uint32_t Vortex::m_undoIndex = 0;
 bool Vortex::m_undoEnabled = true;
-
-long readHookDefault(uint32_t pin) { return 0; }
-void infraredWriteDefault(bool mark, uint32_t pin) { }
-bool serialCheckDefault() { return false; }
-void serialBeginDefault(uint32_t baud) { }
-int32_t serialAvailDefault() { return 0; }
-size_t serialReadDefault(char *buf, size_t amt) { return 0; }
-uint32_t serialWriteDefault(const uint8_t *buf, size_t amt) { return 0; }
-
-// stored callbacks have defaults so that they don't segfault
-// if you install incomplete callbacks that's on you
-VortexCallbacks Vortex::m_storedCallbacks = {
-  readHookDefault,
-  infraredWriteDefault,
-  serialCheckDefault,
-  serialBeginDefault,
-  serialAvailDefault,
-  serialReadDefault,
-  serialWriteDefault,
-};
+VortexCallbacks defaultCallbacks;
+VortexCallbacks *Vortex::m_storedCallbacks = &defaultCallbacks;
 
 #ifdef _MSC_VER
 #include <Windows.h>
@@ -175,7 +96,7 @@ void Vortex::cleanup()
   VortexEngine::cleanup();
 }
 
-void Vortex::installCallbacks(const VortexCallbacks &callbacks)
+void Vortex::installCallbacks(VortexCallbacks *callbacks)
 {
   m_storedCallbacks = callbacks;
 }

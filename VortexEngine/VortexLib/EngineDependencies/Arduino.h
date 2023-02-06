@@ -37,8 +37,7 @@ int digitalPinToInterrupt(int pin);
 
 #if defined(VORTEX_LIB)
 // not actually from arduino but we use to simulate ir comms
-void send_ir_mark(uint32_t duration);
-void send_ir_space(uint32_t duration);
+void send_ir(bool mark, uint32_t duration);
 #endif
 
 class SerialClass

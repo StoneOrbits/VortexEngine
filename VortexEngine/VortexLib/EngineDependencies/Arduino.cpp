@@ -55,7 +55,7 @@ unsigned long analogRead(uint32_t pin)
 // used to read button input
 unsigned long digitalRead(uint32_t pin)
 {
-  return Vortex::vcallbacks().readHook(pin);
+  return Vortex::vcallbacks()->readHook(pin);
 }
 
 void digitalWrite(uint32_t pin,  uint32_t val)
@@ -133,14 +133,9 @@ void detachInterrupt(int interrupt)
 {
 }
 
-void send_ir_mark(uint32_t duration)
+void send_ir(bool mark, uint32_t duration)
 {
-  Vortex::vcallbacks().irWrite(true, duration);
-}
-
-void send_ir_space(uint32_t duration)
-{
-  Vortex::vcallbacks().irWrite(false, duration);
+  Vortex::vcallbacks()->infraredWrite(mark, duration);
 }
 
 int digitalPinToInterrupt(int pin)
@@ -150,7 +145,7 @@ int digitalPinToInterrupt(int pin)
 
 void SerialClass::begin(uint32_t baud)
 {
-  Vortex::vcallbacks().serialBegin(baud);
+  Vortex::vcallbacks()->serialBegin(baud);
 }
 
 void SerialClass::print(uint32_t i)
@@ -174,7 +169,7 @@ void SerialClass::println(const char *s)
 
 uint32_t SerialClass::write(const uint8_t *buf, size_t len)
 {
-  return Vortex::vcallbacks().serialWrite(buf, len);
+  return Vortex::vcallbacks()->serialWrite(buf, len);
 }
 
 SerialClass::operator bool()
@@ -182,7 +177,7 @@ SerialClass::operator bool()
   if (connected) {
     return true;
   }
-  if (!Vortex::vcallbacks().serialCheck()) {
+  if (!Vortex::vcallbacks()->serialCheck()) {
     return false;
   }
   connected = true;
@@ -191,12 +186,12 @@ SerialClass::operator bool()
 
 int32_t SerialClass::available()
 {
-  return Vortex::vcallbacks().serialAvail();
+  return Vortex::vcallbacks()->serialAvail();
 }
 
 size_t SerialClass::readBytes(char *buf, size_t amt)
 {
-  return Vortex::vcallbacks().serialRead(buf, amt);
+  return Vortex::vcallbacks()->serialRead(buf, amt);
 }
 
 uint8_t SerialClass::read()

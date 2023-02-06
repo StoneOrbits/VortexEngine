@@ -151,7 +151,7 @@ void IRSender::sendMark(uint16_t time)
 {
 #ifdef VORTEX_LIB
   // send mark timing over socket
-  send_ir_mark(time);
+  send_ir(true, time);
 #else
   startPWM();
   delayMicroseconds(time);
@@ -162,7 +162,7 @@ void IRSender::sendSpace(uint16_t time)
 {
 #ifdef VORTEX_LIB
   // send space timing over socket
-  send_ir_space(time);
+  send_ir(false, time);
 #else
   stopPWM();
   delayMicroseconds(time);
