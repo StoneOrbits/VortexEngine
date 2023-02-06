@@ -14,14 +14,25 @@
 
 #ifdef WASM
 #include <emscripten/bind.h>
+#include <emscripten/val.h>
 
 using namespace emscripten;
 
-EMSCRIPTEN_BINDINGS(vengine) {
+EMSCRIPTEN_BINDINGS(vortex_engine) {
+  value_object<ByteStream>("ByteStream")
+    .field("data"
+    .element(&Point2f::x)
+    .element(&Point2f::y)
+    ;
+  class_<ByteStream>("ByteStream")
+    .constructor<uint32_t, const uint8_t *>()
+    .function("data", &ByteStream::data)
+    ;
   class_<VEngine>("VEngine")
     .class_function("init", &VEngine::init)
     .class_function("cleanup", &VEngine::cleanup)
-    //.function<uint32_t *, uint32_t *>("getStorageStats", &VEngine::getStorageStats)
+    //.class_function("getStorageStats", &VEngine::getStorageStats)
+    ;
 
 #if 0
   static bool getModes(ByteStream &outStream);
@@ -82,7 +93,6 @@ private:
   // whether undo buffer is disabled recording
   static bool m_undoEnabled;
 #endif
-    ;
 }
 
 #endif
