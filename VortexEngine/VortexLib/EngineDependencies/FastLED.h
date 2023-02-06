@@ -1,7 +1,7 @@
 #pragma once
 
 // for CRGB?
-#if defined(LINUX_FRAMEWORK)
+#if defined(LINUX_FRAMEWORK) || defined(WASM)
 #include <inttypes.h>
 typedef struct tagCRGB
 {

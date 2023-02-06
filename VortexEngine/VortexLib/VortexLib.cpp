@@ -24,6 +24,8 @@ using namespace emscripten;
 
 EMSCRIPTEN_BINDINGS(vortex_engine)
 {
+#if 0
+EMSCRIPTEN_BINDINGS(vortex_engine) {
   value_object<ByteStream>("ByteStream")
     .field("data"
       .element(&Point2f::x)
@@ -39,6 +41,7 @@ EMSCRIPTEN_BINDINGS(vortex_engine)
     //.class_function("getStorageStats", &Vortex::getStorageStats)
     ;
 }
+#endif
 #endif
 
 using namespace std;
