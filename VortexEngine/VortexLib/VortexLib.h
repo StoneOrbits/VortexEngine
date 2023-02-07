@@ -4,7 +4,6 @@
 #include <Windows.h>
 #endif
 
-#include "VortexEngine.h"
 #include "Patterns/Patterns.h"
 #include "Leds/LedTypes.h"
 
@@ -12,6 +11,7 @@
 
 #include <vector>
 #include <string>
+#include <queue>
 #include <deque>
 
 // ============================================================================
@@ -35,21 +35,41 @@
 
 // todo: maybe? led changed callback??
 
-// button information to override current button info this tick
-// this is used to inject button events into the engine
-struct VortexButtonEvent
+enum VortexButtonEventType
 {
-  uint32_t m_buttonState;
-  uint64_t m_pressTime;
-  uint64_t m_releaseTime;
-  uint32_t m_holdDuration;
-  uint32_t m_releaseDuration;
-  bool m_newPress;
-  bool m_newRelease;
-  bool m_isPressed;
-  bool m_shortClick;
-  bool m_longClick;
+  // no event
+  EVENT_NONE,
+
+  // a short click
+  EVENT_SHORT_CLICK,
+  // a long click
+  EVENT_LONG_CLICK,
+  // a click that is long enough to open the ring menu
+  EVENT_MENU_ENTER_CLICK,
+  // toggle the button
+  EVENT_TOGGLE_CLICK,
+  // quit the engine (not really a 'click')
+  EVENT_QUIT_CLICK,
+
+  // this is an automated event that will reset the button click
+  // after the ring menu hold-to-enter sequence
+  EVENT_RESET_CLICK,
 };
+
+class VortexButtonEvent
+{
+public:
+  VortexButtonEvent(uint32_t target, VortexButtonEventType type) :
+    target(target), type(type)
+  {
+  }
+  // target button index
+  uint32_t target;
+  // the event to trigger
+  VortexButtonEventType type;
+};
+
+class Button;
 
 class VortexCallbacks
 {
@@ -57,10 +77,7 @@ public:
   VortexCallbacks() {}
   virtual ~VortexCallbacks() {}
   // called when engine reads digital pins, use this to feed button presses to the engine
-  virtual long checkPinHook(uint32_t pin) { return 0; }
-  // called right after the engine polls for buttons, if this return true then the provided
-  // button Event will override the button member data for that tick
-  virtual bool injectButtonsHook(VortexButtonEvent &buttonEvent) { return false; }
+  virtual long checkPinHook(uint32_t pin) { return 1; }
   // called when engine writes to ir, use this to read data from the vortex engine
   // the data received will be in timings of milliseconds
   // NOTE: to send data to IR use Vortex::IRDeliver at any time
@@ -93,12 +110,13 @@ class Colorset;
 class Vortex
 {
   Vortex();
+  ~Vortex();
   // internal initializer
   static bool init(VortexCallbacks *callbacks);
 public:
 
   template <typename T>
-  static bool init() 
+  static bool init()
   {
     if (!std::is_base_of<VortexCallbacks, T>()) {
       return false;
@@ -107,18 +125,23 @@ public:
   }
   static void cleanup();
 
+  // tick the engine forward, return false if engine exits
+  static bool tick();
+
   // install a callback for digital reads (button press)
   static void installCallbacks(VortexCallbacks *callbacks);
 
   // send various clicks
-  static void shortClick();
-  static void longClick();
-  static void menuEnterClick();
-  static void toggleClick();
-  static void quitClick(); //??
+  static void shortClick(uint32_t buttonIndex = 0);
+  static void longClick(uint32_t buttonIndex = 0);
+  static void menuEnterClick(uint32_t buttonIndex = 0);
+  static void toggleClick(uint32_t buttonIndex = 0);
+
+  // special 'click' that quits the engine
+  static void quitClick();
 
   // deliver IR timing, the system expects mark first, but it doesn't matter
-  // because the system will reset on bad data and then it can interpret any 
+  // because the system will reset on bad data and then it can interpret any
   // timing either way
   static void IRDeliver(uint32_t timing);
 
@@ -172,8 +195,13 @@ public:
   // access stored callbacks
   static VortexCallbacks *vcallbacks() { return m_storedCallbacks; }
 
-  //static bool isButtonPressed() { return m_buttonPressed; }
+  // called by the engine right after all buttons are checked, this will process
+  // the input queue that is fed by the apis like shortClick() above and translate
+  // those messages into actual button events by overwriting button data that tick
+  static void handleInputQueue(Button *buttons, uint32_t numButtons);
 
+  // printing to log system
+  static void printlog(const char *file, const char *func, int line, const char *msg, va_list list);
 private:
   // save and add undo buffer
   static bool doSave();
@@ -187,8 +215,15 @@ private:
   static uint32_t m_undoIndex;
   // whether undo buffer is disabled recording
   static bool m_undoEnabled;
-  // whether the button is pressed
-  //static bool m_buttonPressed;
   // stored callbacks
   static VortexCallbacks *m_storedCallbacks;
+  // handle to the console and logfile
+  static FILE *m_consoleHandle;
+#if LOG_TO_FILE == 1
+  static FILE *m_logHandle;
+#endif
+  // queue of button events
+  static std::queue<VortexButtonEvent> m_buttonEventQueue;
+  // whether initialized
+  static bool m_initialized;
 };

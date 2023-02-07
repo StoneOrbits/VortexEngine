@@ -78,7 +78,7 @@ bool Menus::run()
   default:
     // make sure the button is pressed and held till the threshold
     if (g_pButton->isPressed() && g_pButton->holdDuration() >= MENU_TRIGGER_THRESHOLD_TICKS) {
-      DEBUG_LOG("Entering ring fill...");
+      DEBUG_LOGF("Entering ring fill... %u %u", g_pButton->isPressed(), g_pButton->holdDuration());
       // save the time of when we open the menu so we can fill based on curtime from then
       m_openTime = Time::getCurtime();
       // open the menu

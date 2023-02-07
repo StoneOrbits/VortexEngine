@@ -200,13 +200,6 @@
 // for testing and development
 #define DEMO_ALL_PATTERNS     0
 
-// Save Template
-//
-// Dump the initialized modes in json format to either serial or the console.
-// This will generate a json structure that mirrors that of the binary save
-// file. The result of this can be found in example_modes.json
-#define SAVE_TEMPLATE         0
-
 // Debug Allocations
 //
 // Tracks all memory allocations and logs them, useful for finding leaks
@@ -264,6 +257,22 @@
 // it should show up in the modes test. Also if the Modes api has been
 // updated then this will test for any issues
 #define MODES_TEST            0
+
+// Log to Console
+//
+// Enable logging to console, still need to change LOGGING_LEVEL
+// this only enables the console output connection
+#define LOG_TO_CONSOLE        1
+
+// Log to File
+//
+// Enable this configuration to enable logging to the file
+#define LOG_TO_FILE           0
+
+// Log Name
+//
+// The name of the file on disk that will receive the log info
+#define VORTEX_LOG_NAME       "vortexlog"
 
 // ===================================================================
 //  Editor Verbs

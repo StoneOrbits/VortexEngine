@@ -31,6 +31,18 @@ Button::~Button()
 
 bool Button::init(int pin)
 {
+  m_pinNum = 0;
+  m_buttonState = HIGH;
+  m_pressTime = 0;
+  m_releaseTime = 0;
+  m_holdDuration = 0;
+  m_releaseDuration = 0;
+  m_newPress = false;
+  m_newRelease = false;
+  m_isPressed = false;
+  m_shortClick = false;
+  m_longClick = false;
+
   m_pinNum = pin;
   pinMode(m_pinNum, INPUT_PULLUP);
   return true;
@@ -87,23 +99,4 @@ void Button::check()
   if (m_longClick) {
     DEBUG_LOG("Long click");
   }
-
-#ifdef VORTEX_LIB
-  // the vortex library allows the buttons to be overridden each tick
-  // by the button injection hook, if it returns true then all members
-  // will be overridden with the given values in the buttonEvent
-  VortexButtonEvent buttonEvent;
-  if (Vortex::vcallbacks()->injectButtonsHook(buttonEvent)) {
-    m_buttonState = buttonEvent.m_buttonState;
-    m_pressTime = buttonEvent.m_pressTime;
-    m_releaseTime = buttonEvent.m_releaseTime;
-    m_holdDuration = buttonEvent.m_holdDuration;
-    m_releaseDuration = buttonEvent.m_releaseDuration;
-    m_newPress = buttonEvent.m_newPress;
-    m_newRelease = buttonEvent.m_newRelease;
-    m_isPressed = buttonEvent.m_isPressed;
-    m_shortClick = buttonEvent.m_shortClick;
-    m_longClick = buttonEvent.m_longClick;
-  }
-#endif
 }

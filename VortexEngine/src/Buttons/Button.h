@@ -73,6 +73,13 @@ private:
   bool m_shortClick;
   // whether a long click occurred
   bool m_longClick;
+
+#ifdef VORTEX_LIB
+  // allow the VortexLib class to manipulate the members of this
+  // class so that it can inject button events to make apis like
+  // Vortex::shortClick() and Vortex::longClick() possible
+  friend class Vortex;
+#endif
 };
 
 // See Button.cpp for info about this
