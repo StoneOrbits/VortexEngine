@@ -140,7 +140,7 @@
 //  2     Errors  Info and error logs are present
 //  3     Debug   All logs are present, info, error, and debug
 //
-#define LOGGING_LEVEL         0
+#define LOGGING_LEVEL         3
 
 // HSV to RGB Conversion Algorithm
 //
@@ -344,6 +344,8 @@
 #define VORTEX_ARDUINO 1
 #endif
 
+// TODO: proper config override
+#if 0
 #ifdef TEST_FRAMEWORK
 // In the test framework variable tickrate must be enabled to allow
 // the tickrate slider to function, also the test framework never runs
@@ -370,6 +372,7 @@
 #undef FIXED_LED_COUNT
 #define FIXED_LED_COUNT 0
 
+#endif
 #endif
 
 // When running in the test framework with demo all patterns enabled

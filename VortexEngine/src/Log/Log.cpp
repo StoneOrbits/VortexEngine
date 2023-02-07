@@ -9,7 +9,9 @@
 
 #include <Arduino.h>
 
-#ifdef TEST_FRAMEWORK
+// Currently working on making the logging system work on linux build
+// and potentially exposing logging output callbacks to Vortex engin
+#ifndef ARDUINO_BUILD
 #include "TestFramework.h"
 #endif
 
@@ -23,12 +25,12 @@ void InfoMsg(const char *msg, ...)
 #endif
   va_list list;
   va_start(list, msg);
-#ifdef TEST_FRAMEWORK
-  TestFramework::printlog(NULL, NULL, 0, msg, list);
-#else
+#ifdef ARDUINO_BUILD
   char buf[2048] = {0};
   vsnprintf(buf, sizeof(buf), msg, list);
   Serial.println(buf);
+#else
+  TestFramework::printlog(NULL, NULL, 0, msg, list);
 #endif
   va_end(list);
 }

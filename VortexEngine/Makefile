@@ -11,7 +11,7 @@ RM=rm -rf
 AR=ar cru
 RANLIB=ranlib
 
-CFLAGS=-O2 -Wall
+CFLAGS=-g -O2 -Wall
 
 # compiler defines
 DEFINES=\
@@ -73,7 +73,7 @@ TESTS=\
 
 # target files
 TARGETS=\
-    vortex.lib \
+    vortex.a \
 
 # Default target for 'make' command
 all: $(TARGETS)
@@ -82,7 +82,7 @@ all: $(TARGETS)
 tests: $(TESTS)
 
 # target for detect_gibberish
-vortex.lib: $(DEPS)
+vortex.a: $(DEPS)
 	$(AR) $@ $^ $^
 
 vortex.js: $(DEPS)

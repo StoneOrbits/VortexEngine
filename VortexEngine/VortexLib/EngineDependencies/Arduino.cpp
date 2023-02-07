@@ -57,7 +57,7 @@ unsigned long analogRead(uint32_t pin)
 // used to read button input
 unsigned long digitalRead(uint32_t pin)
 {
-  return Vortex::vcallbacks()->readHook(pin);
+  return Vortex::vcallbacks()->checkPinHook(pin);
 }
 
 void digitalWrite(uint32_t pin,  uint32_t val)

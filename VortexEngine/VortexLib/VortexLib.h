@@ -1,6 +1,6 @@
 #pragma once
 
-#ifdef _MSC_VER
+#if defined(_MSC_VER)
 #include <Windows.h>
 #endif
 
@@ -35,14 +35,32 @@
 
 // todo: maybe? led changed callback??
 
+// button information to override current button info this tick
+// this is used to inject button events into the engine
+struct VortexButtonEvent
+{
+  uint32_t m_buttonState;
+  uint64_t m_pressTime;
+  uint64_t m_releaseTime;
+  uint32_t m_holdDuration;
+  uint32_t m_releaseDuration;
+  bool m_newPress;
+  bool m_newRelease;
+  bool m_isPressed;
+  bool m_shortClick;
+  bool m_longClick;
+};
+
 class VortexCallbacks
 {
 public:
   VortexCallbacks() {}
   virtual ~VortexCallbacks() {}
-
   // called when engine reads digital pins, use this to feed button presses to the engine
-  virtual long readHook(uint32_t pin) { return 0; }
+  virtual long checkPinHook(uint32_t pin) { return 0; }
+  // called right after the engine polls for buttons, if this return true then the provided
+  // button Event will override the button member data for that tick
+  virtual bool injectButtonsHook(VortexButtonEvent &buttonEvent) { return false; }
   // called when engine writes to ir, use this to read data from the vortex engine
   // the data received will be in timings of milliseconds
   // NOTE: to send data to IR use Vortex::IRDeliver at any time
@@ -54,11 +72,12 @@ public:
   // called when engine checks for data on serial, use this to tell the engine data is ready
   virtual int32_t serialAvail() { return 0; }
   // called when engine reads from serial, use this to deliver data to the vortex engine
+  // TODO: buffer this in libengine and add a deliver api like IR
   virtual size_t serialRead(char *buf, size_t amt) { return 0; }
   // called when engine writes to serial, use this to read data from the vortex engine
   virtual uint32_t serialWrite(const uint8_t *buf, size_t amt) { return 0; }
   // called when the LED strip is initialized
-  virtual void ledsInit(CRGB *cl, int count) { }
+  virtual void ledsInit(void *cl, int count) { }
   // called when the brightness is changed
   virtual void ledsBrightness(int brightness) { }
   // called when the leds are shown

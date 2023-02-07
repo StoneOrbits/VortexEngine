@@ -9,6 +9,10 @@
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
 
+#ifdef LINUX_FRAMEWORK
+#include <unistd.h>
+#endif
+
 __attribute__((__aligned__(256)))
 #ifndef VORTEX_ARDUINO
 uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };

@@ -6,6 +6,10 @@
 #include "../Time/Timings.h"
 #include "../Log/Log.h"
 
+#ifdef VORTEX_LIB
+#include "VortexLib.h"
+#endif
+
 Button::Button() :
   m_pinNum(0),
   m_buttonState(HIGH),
@@ -83,4 +87,23 @@ void Button::check()
   if (m_longClick) {
     DEBUG_LOG("Long click");
   }
+
+#ifdef VORTEX_LIB
+  // the vortex library allows the buttons to be overridden each tick
+  // by the button injection hook, if it returns true then all members
+  // will be overridden with the given values in the buttonEvent
+  VortexButtonEvent buttonEvent;
+  if (Vortex::vcallbacks()->injectButtonsHook(buttonEvent)) {
+    m_buttonState = buttonEvent.m_buttonState;
+    m_pressTime = buttonEvent.m_pressTime;
+    m_releaseTime = buttonEvent.m_releaseTime;
+    m_holdDuration = buttonEvent.m_holdDuration;
+    m_releaseDuration = buttonEvent.m_releaseDuration;
+    m_newPress = buttonEvent.m_newPress;
+    m_newRelease = buttonEvent.m_newRelease;
+    m_isPressed = buttonEvent.m_isPressed;
+    m_shortClick = buttonEvent.m_shortClick;
+    m_longClick = buttonEvent.m_longClick;
+  }
+#endif
 }

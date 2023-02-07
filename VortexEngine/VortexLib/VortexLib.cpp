@@ -22,9 +22,9 @@
 
 using namespace emscripten;
 
+#if 0
 EMSCRIPTEN_BINDINGS(vortex_engine)
 {
-#if 0
 EMSCRIPTEN_BINDINGS(vortex_engine) {
   value_object<ByteStream>("ByteStream")
     .field("data"
@@ -118,27 +118,27 @@ void Vortex::installCallbacks(VortexCallbacks *callbacks)
 void Vortex::shortClick()
 {
   printf("short click\n");
-  g_pButton->m_newRelease = true;
-  g_pButton->m_shortClick = true;
-  g_pButton->m_pressTime = Time::getCurtime();
-  g_pButton->m_holdDuration = 200;
+  //g_pButton->m_newRelease = true;
+  //g_pButton->m_shortClick = true;
+  //g_pButton->m_pressTime = Time::getCurtime();
+  //g_pButton->m_holdDuration = 200;
 }
 
 void Vortex::longClick()
 {
   printf("long click\n");
-  g_pButton->m_newRelease = true;
-  g_pButton->m_longClick = true;
-  g_pButton->m_pressTime = Time::getCurtime();
-  g_pButton->m_holdDuration = SHORT_CLICK_THRESHOLD_TICKS + 1;
+  //g_pButton->m_newRelease = true;
+  //g_pButton->m_longClick = true;
+  //g_pButton->m_pressTime = Time::getCurtime();
+  //g_pButton->m_holdDuration = SHORT_CLICK_THRESHOLD_TICKS + 1;
 }
 
 void Vortex::menuEnterClick()
 {
   printf("menu enter click\n");
-  g_pButton->m_longClick = true;
-  g_pButton->m_isPressed = true;
-  g_pButton->m_holdDuration = MENU_TRIGGER_THRESHOLD_TICKS + 1;
+  //g_pButton->m_longClick = true;
+  //g_pButton->m_isPressed = true;
+  //g_pButton->m_holdDuration = MENU_TRIGGER_THRESHOLD_TICKS + 1;
 }
 
 void Vortex::toggleClick()
