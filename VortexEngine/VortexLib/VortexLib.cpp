@@ -262,9 +262,6 @@ void Vortex::getStorageStats(uint32_t *outTotal, uint32_t *outUsed)
 
 bool Vortex::getModes(ByteStream &outStream)
 {
-  // save to ensure we get the correct mode, not using doSave() because it causes
-  // an undo buffer entry to be added
-  Modes::saveStorage();
   // now serialize all the modes
   Modes::saveToBuffer(outStream);
   return true;
@@ -339,24 +336,36 @@ bool Vortex::addNewMode(ByteStream &stream, bool save)
 
 bool Vortex::setCurMode(uint32_t index, bool save)
 {
+  if (index >= Modes::numModes()) {
+    return true;
+  }
   Modes::setCurMode(index);
   return !save || doSave();
 }
 
 bool Vortex::nextMode(bool save)
 {
+  if (!Modes::numModes()) {
+    return true;
+  }
   Modes::nextMode();
   return !save || doSave();
 }
 
 bool Vortex::delCurMode(bool save)
 {
+  if (!Modes::numModes()) {
+    return true;
+  }
   Modes::deleteCurMode();
   return !save || doSave();
 }
 
 bool Vortex::shiftCurMode(int8_t offset, bool save)
 {
+  if (!Modes::numModes()) {
+    return true;
+  }
   if (offset == 0) {
     return true;
   }
