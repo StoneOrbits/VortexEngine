@@ -21,7 +21,7 @@ CFLAGS=-g -O2 -Wall
 
 # compiler defines
 DEFINES=\
-	-D VORTEX_LIB 
+	-D VORTEX_LIB
 
 # compiler include paths
 INCLUDES=\
@@ -32,6 +32,14 @@ INCLUDES=\
 
 ifdef WASM
 DEFINES += -D WASM
+endif
+
+ifdef TESTFRAMEWORK
+# This is a lowercase define because it matches the solution name 'VortexTestingFramework'
+# because in the windows build a trick is used to put the solution name into the preprocessor
+# so that the engine can check which solution it is compiling inside. Because of that we
+# need to use the same define here
+DEFINES += -D VortexTestingFramework
 endif
 
 # only set them if they're not empty to prevent unnecessary whitespace
@@ -80,9 +88,6 @@ DEPS=\
 
 # unit tests
 TESTS=\
-
-ifdef WASM
-endif
 
 # target files
 TARGETS=\
