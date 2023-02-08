@@ -174,14 +174,11 @@ bool Vortex::tick()
     cleanup();
     return false;
   }
-#ifndef _MSC_VER
+#if !defined(_MSC_VER) && !defined(WASM)
   uint32_t numInputs = 0;
   ioctl(STDIN_FILENO, FIONREAD, &numInputs);
   // iterate the number of inputs on stdin and parse each letter
   // into a command for the engine
-  if (numInputs) {
-    printf("Getting %u inputs...\n", numInputs);
-  }
   for (uint32_t i = 0; i < numInputs; ++i) {
     switch (getchar()) {
     case 'a':
@@ -217,31 +214,26 @@ void Vortex::installCallbacks(VortexCallbacks *callbacks)
 // send various clicks
 void Vortex::shortClick(uint32_t buttonIndex)
 {
-  printf("short click\n");
   m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_SHORT_CLICK));
 }
 
 void Vortex::longClick(uint32_t buttonIndex)
 {
-  printf("long click\n");
   m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_LONG_CLICK));
 }
 
 void Vortex::menuEnterClick(uint32_t buttonIndex)
 {
-  printf("menu enter click\n");
   m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_MENU_ENTER_CLICK));
 }
 
 void Vortex::toggleClick(uint32_t buttonIndex)
 {
-  printf("toggle\n");
   m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_TOGGLE_CLICK));
 }
 
 void Vortex::quitClick()
 {
-  printf("Quitting\n");
   m_buttonEventQueue.push(VortexButtonEvent(0, EVENT_QUIT_CLICK));
 }
 
