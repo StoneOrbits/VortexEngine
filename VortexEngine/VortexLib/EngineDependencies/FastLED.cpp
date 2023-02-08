@@ -1,5 +1,5 @@
-#include "FastLED.h"
 #include "VortexLib.h"
+#include "FastLED.h"
 
 // global instance
 FastLEDClass FastLED;

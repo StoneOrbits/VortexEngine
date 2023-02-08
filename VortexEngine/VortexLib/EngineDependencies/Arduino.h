@@ -3,7 +3,7 @@
 // drop in replacement for the arduino framework
 
 #include <inttypes.h>
-#include <string.h>
+#include <stddef.h>
 
 #define HIGH 1
 #define LOW 0

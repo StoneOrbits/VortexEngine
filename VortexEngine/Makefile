@@ -5,10 +5,16 @@
 .PHONY: all tests clean wasm
 
 # compiler tool definitions
+ifdef WASM
+CC=em++
+AR=emar cru
+else
 CC=g++
+AR=ar cru
+endif
+
 MAKE=make
 RM=rm -rf
-AR=ar cru
 RANLIB=ranlib
 
 CFLAGS=-g -O2 -Wall
@@ -23,6 +29,10 @@ INCLUDES=\
 	-I ./VortexLib/ \
 	-I ./src/ \
 	-I ./ \
+
+ifdef WASM
+DEFINES += -D WASM
+endif
 
 # only set them if they're not empty to prevent unnecessary whitespace
 ifneq ($(DEFINES),)
@@ -71,6 +81,9 @@ DEPS=\
 # unit tests
 TESTS=\
 
+ifdef WASM
+endif
+
 # target files
 TARGETS=\
     vortex.a \
@@ -81,30 +94,13 @@ all: $(TARGETS)
 # unit test target
 tests: $(TESTS)
 
+# force sub-build of wasm
+wasm: FORCE
+	env WASM=1 $(MAKE)
+
 # target for detect_gibberish
 vortex.a: $(DEPS)
 	$(AR) $@ $^ $^
-
-vortex.js: $(DEPS)
-	$(CC) $(CFLAGS) --bind $^ -o $@ $(LIBS)
-
-wasm: CC=em++
-wasm: AR=emar cru
-wasm: DEFINES += -D WASM
-wasm: INCLUDES += -I ../../emcc/emsdk/upstream/emscripten/cache/sysroot/include/
-wasm: $(DEPS) vortex.js
-
-valgrind: vortex
-	rm -f valg.out
-	valgrind \
-	  -v \
-	  --leak-check=full \
-	  --show-leak-kinds=all \
-	  --track-origins=yes \
-	  --gen-suppressions=all \
-	  --log-file=valg.out \
-	  ./vortex
-	cat valg.out
 
 # catch-all make target to generate .o and .d files
 %.o: %.cpp
@@ -114,8 +110,11 @@ valgrind: vortex
 # <directory>/<library.a>
 # this expects that the makefile in <directory> has a
 # make target named <library>
-%.a:
+%.a: FORCE
 	$(MAKE) -C $(dir $@) $(notdir $@)
+
+# Empty rule that forces %.a to run all the time
+FORCE:
 
 # generic clean target
 clean:

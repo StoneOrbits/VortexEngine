@@ -1,8 +1,9 @@
 #pragma once
 
+#include <inttypes.h>
+
 // for CRGB?
 #if defined(LINUX_FRAMEWORK) || defined(WASM) || (defined(VORTEX_LIB) && !defined(_MSC_VER))
-#include <inttypes.h>
 typedef struct tagCRGB
 {
     uint8_t    bRed;
@@ -13,8 +14,6 @@ typedef struct tagCRGB
 #else
 #include <Windows.h>
 #endif
-
-#include <inttypes.h>
 
 #include "Arduino.h"
 

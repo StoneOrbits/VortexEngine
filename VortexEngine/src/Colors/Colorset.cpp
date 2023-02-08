@@ -6,6 +6,7 @@
 #include "../Log/Log.h"
 
 #include <Arduino.h>
+#include <string.h>
 
 // when no color is selected in the colorset the index is this
 // then when you call getNext() for the first time it returns

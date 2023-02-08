@@ -17,10 +17,10 @@
   Foundation, Inc., 51 Franklin St, Fifth Floor, Boston, MA  02110-1301  USA
 */
 
-#include "FlashStorage.h"
 #include <string.h>
-
 #include <stdio.h>
+
+#include "FlashStorage.h"
 
 #ifdef _MSC_VER
 #include <Windows.h>
