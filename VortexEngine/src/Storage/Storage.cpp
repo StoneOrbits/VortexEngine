@@ -9,7 +9,9 @@
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
 
-#ifdef LINUX_FRAMEWORK
+#ifdef _MSC_VER
+#include <Windows.h>
+#else
 #include <unistd.h>
 #endif
 
@@ -30,8 +32,8 @@ Storage::Storage()
 
 bool Storage::init()
 {
-#ifdef TEST_FRAMEWORK
-#ifndef LINUX_FRAMEWORK
+#ifdef VORTEX_LIB
+#ifdef _MSC_VER
   DeleteFile("FlashStorage.flash");
 #else
   unlink("FlashStorage.flash");

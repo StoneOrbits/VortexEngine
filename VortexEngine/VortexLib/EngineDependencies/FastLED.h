@@ -3,7 +3,9 @@
 #include <inttypes.h>
 
 // for CRGB?
-#if defined(LINUX_FRAMEWORK) || defined(WASM) || (defined(VORTEX_LIB) && !defined(_MSC_VER))
+#ifdef _MSC_VER
+#include <Windows.h>
+#else
 typedef struct tagCRGB
 {
     uint8_t    bRed;
@@ -11,8 +13,6 @@ typedef struct tagCRGB
     uint8_t    bBlue;
     uint8_t    bExtra;
 } CRGB;           /* RGB Color */
-#else
-#include <Windows.h>
 #endif
 
 #include "Arduino.h"

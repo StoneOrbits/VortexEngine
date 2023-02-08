@@ -349,13 +349,16 @@
 //
 //   * Unless you are using the test framework, don't touch these! *
 
-#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK) && !defined(VORTEX_LIB)
+// These defines come from the project settings for preprocessor, an
+// entry for $(SolutionName) produces preprocessor definitions that
+// match the solution that is compiling the engine
+#if !defined(VortexTestingFramework) && !defined(VortexEditor) && !defined(VORTEX_LIB)
 #define VORTEX_ARDUINO 1
 #endif
 
-// TODO: proper config override
-#if 0
-#ifdef TEST_FRAMEWORK
+// This will be defined if the project is being built inside the test framework
+#ifdef VortexTestingFramework
+
 // In the test framework variable tickrate must be enabled to allow
 // the tickrate slider to function, also the test framework never runs
 // at full tickrate, maximum is 500 tps
@@ -369,20 +372,20 @@
 #define FIXED_LED_COUNT 0
 
 // force logging to 3 on linux build
-#ifdef LINUX_FRAMEWORK
+#ifndef _MSC_VER
 #undef LOGGING_LEVEL
 #define LOGGING_LEVEL 3
 #endif
 
-#endif // TEST_FRAMEWORK
+#endif // VortexTestingFramework
 
-#ifdef EDITOR_FRAMEWORK
+// This will be defined if the project is being built inside the editor
+#ifdef VortexEditor
 
 #undef FIXED_LED_COUNT
 #define FIXED_LED_COUNT 0
 
-#endif
-#endif
+#endif // VortexEditor
 
 // When running in the test framework with demo all patterns enabled
 // we should change the max patterns to the total pattern count because
