@@ -223,7 +223,7 @@
 //
 // However there may be some clever uses for variable tickrate in
 // the final build? I'm not sure.
-#define VARIABLE_TICKRATE     1
+#define VARIABLE_TICKRATE     0
 
 // Fixed LED Count
 //
