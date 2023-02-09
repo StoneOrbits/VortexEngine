@@ -30,10 +30,9 @@ class Mode
 {
 public:
 #if FIXED_LED_COUNT == 0
-  Mode(uint32_t numLeds = LED_COUNT);
-#else
-  Mode();
+  Mode(uint32_t numLeds);
 #endif
+  Mode();
 
   Mode(PatternID id, const Colorset &set);
   Mode(PatternID id, const PatternArgs &args, const Colorset &set);

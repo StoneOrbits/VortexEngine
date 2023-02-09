@@ -21,6 +21,10 @@ Mode::Mode(uint32_t numLeds) :
 {
   setLedCount(m_numLeds);
 }
+Mode::Mode() :
+  Mode(LED_COUNT)
+{
+}
 #else
 // for internal reference to the led count
 #define MODE_LEDCOUNT LED_COUNT

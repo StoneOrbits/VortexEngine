@@ -77,7 +77,7 @@ public:
   VortexCallbacks() {}
   virtual ~VortexCallbacks() {}
   // called when engine reads digital pins, use this to feed button presses to the engine
-  virtual long checkPinHook(uint32_t pin) { return 1; }
+  virtual long checkPinHook(uint32_t pin);
   // called when engine writes to ir, use this to read data from the vortex engine
   // the data received will be in timings of milliseconds
   // NOTE: to send data to IR use Vortex::IRDeliver at any time
@@ -136,6 +136,7 @@ public:
   static void longClick(uint32_t buttonIndex = 0);
   static void menuEnterClick(uint32_t buttonIndex = 0);
   static void toggleClick(uint32_t buttonIndex = 0);
+  static bool isButtonPressed(uint32_t buttonIndex = 0);
 
   // special 'click' that quits the engine
   static void quitClick();
@@ -226,4 +227,6 @@ private:
   static std::queue<VortexButtonEvent> m_buttonEventQueue;
   // whether initialized
   static bool m_initialized;
+  // whether the button is toggled at the vortexlib level
+  static bool m_buttonPressed;
 };

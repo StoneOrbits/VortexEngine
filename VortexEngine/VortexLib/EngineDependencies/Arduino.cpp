@@ -46,6 +46,20 @@ void delay(size_t amt)
 
 void delayMicroseconds(size_t us)
 {
+#ifdef _MSC_VER
+  HANDLE timer;
+  LARGE_INTEGER ft;
+  ft.QuadPart = -((__int64)us);
+  timer = CreateWaitableTimer(NULL, TRUE, NULL);
+  if (!timer) {
+    return;
+  }
+  SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0);
+  WaitForSingleObject(timer, INFINITE);
+  CloseHandle(timer);
+#else
+  usleep(us);
+#endif
 }
 
 // used for seeding randomSeed()
@@ -57,7 +71,11 @@ unsigned long analogRead(uint32_t pin)
 // used to read button input
 unsigned long digitalRead(uint32_t pin)
 {
-  return Vortex::vcallbacks()->checkPinHook(pin);
+  if (Vortex::vcallbacks()->checkPinHook(pin) == LOW) {
+    return LOW;
+  }
+  return HIGH;
+  //return Vortex::isButtonPressed() ? LOW : HIGH;
 }
 
 void digitalWrite(uint32_t pin,  uint32_t val)

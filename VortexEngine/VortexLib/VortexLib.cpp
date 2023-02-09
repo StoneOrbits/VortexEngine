@@ -64,6 +64,7 @@ FILE *Vortex::m_logHandle = nullptr;
 #endif
 queue<VortexButtonEvent> Vortex::m_buttonEventQueue;
 bool Vortex::m_initialized = false;
+bool Vortex::m_buttonPressed = false;
 
 #ifdef _MSC_VER
 #include <Windows.h>
@@ -83,6 +84,15 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
   return TRUE;  // Successful DLL_PROCESS_ATTACH.
 }
 #endif
+
+// called when engine reads digital pins, use this to feed button presses to the engine
+long VortexCallbacks::checkPinHook(uint32_t pin)
+{
+  if (Vortex::isButtonPressed(pin)) {
+    return 0; // LOW
+  }
+  return 1; // HIGH
+}
 
 Vortex::Vortex()
 {
@@ -229,7 +239,13 @@ void Vortex::menuEnterClick(uint32_t buttonIndex)
 
 void Vortex::toggleClick(uint32_t buttonIndex)
 {
-  m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_TOGGLE_CLICK));
+  //m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_TOGGLE_CLICK));
+  m_buttonPressed = !m_buttonPressed;
+}
+
+bool Vortex::isButtonPressed(uint32_t buttonIndex)
+{
+  return m_buttonPressed;
 }
 
 void Vortex::quitClick()
@@ -788,6 +804,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
       pButton->m_pressTime = Time::getCurtime();
       pButton->m_newPress = true;
     }
+    break;
   case EVENT_QUIT_CLICK:
     // just uninitialize so tick returns false
     m_initialized = false;
