@@ -117,12 +117,19 @@ class Vortex
 public:
 
   template <typename T>
-  static bool init()
+  static T *init()
   {
     if (!std::is_base_of<VortexCallbacks, T>()) {
-      return false;
+      return nullptr;
     }
-    return init(new T());
+    T *callbacks = new T();
+    if (!callbacks) {
+      return nullptr;
+    }
+    if (!init(callbacks)) {
+      return nullptr;
+    }
+    return callbacks;
   }
   static void cleanup();
 
