@@ -58,6 +58,7 @@ void FactoryReset::onLongClick()
 {
   switch (m_curSelection) {
   case QUADRANT_LAST:
+  default:
     leaveMenu();
     return;
   case QUADRANT_COUNT:
