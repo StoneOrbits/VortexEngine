@@ -770,6 +770,11 @@ void Vortex::setTickrate(uint32_t tickrate)
   Time::setTickrate(tickrate);
 }
 
+uint32_t Vortex::getTickrate()
+{
+  return Time::getTickrate();
+}
+
 bool Vortex::doSave()
 {
   return Modes::saveStorage() && addUndoBuffer();
