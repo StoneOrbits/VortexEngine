@@ -187,7 +187,10 @@ bool Vortex::tick()
     cleanup();
     return false;
   }
+  // On linux we need to poll stdin for input to handle commands
 #if !defined(_MSC_VER) && !defined(WASM)
+  // use ioctl to determine how many characters are on stdin so that
+  // we don't call getchar() too many times and accidentally block
   uint32_t numInputs = 0;
   ioctl(STDIN_FILENO, FIONREAD, &numInputs);
   // iterate the number of inputs on stdin and parse each letter
