@@ -69,6 +69,7 @@ public:
   VortexButtonEventType type;
 };
 
+class Mode;
 class Button;
 
 class VortexCallbacks
@@ -139,6 +140,9 @@ public:
   static void releaseButton(uint32_t buttonIndex = 0);
   static bool isButtonPressed(uint32_t buttonIndex = 0);
 
+  // get the current menu demo mode
+  static Mode *getMenuDemoMode();
+
   // special 'click' that quits the engine
   static void quitClick();
 
@@ -190,6 +194,9 @@ public:
   static bool addUndoBuffer();
   static bool undo();
   static bool redo();
+
+  // change tickrate of the engine if the engine was configured to support it
+  static void setTickrate(uint32_t tickrate);
 
   // enable/disable undo
   static void enableUndo(bool enabled) { m_undoEnabled = enabled; }

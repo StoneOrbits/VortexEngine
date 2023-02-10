@@ -10,6 +10,9 @@
 #include "Colors/Colorset.h"
 #include "Time/TimeControl.h"
 #include "Time/Timings.h"
+#include "Menus/Menus.h"
+#include "Menus/MenuList/EditorConnection.h"
+#include "Menus/MenuList/Randomizer.h"
 #include "Modes/Modes.h"
 #include "Modes/Mode.h"
 
@@ -245,6 +248,21 @@ void Vortex::pressButton(uint32_t buttonIndex)
 void Vortex::releaseButton(uint32_t buttonIndex)
 {
   m_buttonPressed = false;
+}
+
+Mode *Vortex::getMenuDemoMode()
+{
+  void *pMenu = Menus::curMenu();
+  if (!pMenu) {
+    return nullptr;
+  }
+  MenuEntryID id = Menus::curMenuID();
+  if (id == MENU_RANDOMIZER) {
+    return &((Randomizer *)pMenu)->m_demoMode;
+  } else if (id == MENU_EDITOR_CONNECTION) {
+    return &((EditorConnection *)pMenu)->m_demoMode;
+  }
+  return nullptr;
 }
 
 bool Vortex::isButtonPressed(uint32_t buttonIndex)
@@ -741,6 +759,11 @@ bool Vortex::redo()
     m_undoIndex--;
   }
   return applyUndo();
+}
+
+void Vortex::setTickrate(uint32_t tickrate)
+{
+  Time::setTickrate(tickrate);
 }
 
 bool Vortex::doSave()

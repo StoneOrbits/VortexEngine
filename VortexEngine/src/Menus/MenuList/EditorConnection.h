@@ -70,6 +70,11 @@ private:
   ByteStream m_receiveBuffer;
   // the mode to demo if there is one
   Mode m_demoMode;
+
+#ifdef VORTEX_LIB
+  // so that vortex can reach in and grab the demo mode
+  friend class Vortex;
+#endif
 };
 
 #endif

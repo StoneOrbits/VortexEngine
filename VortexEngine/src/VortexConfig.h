@@ -262,7 +262,7 @@
 //
 // Enable logging to console, still need to change LOGGING_LEVEL
 // this only enables the console output connection
-#define LOG_TO_CONSOLE        1
+#define LOG_TO_CONSOLE        0
 
 // Log to File
 //
