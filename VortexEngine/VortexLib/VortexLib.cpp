@@ -207,7 +207,11 @@ bool Vortex::tick()
       Vortex::quitClick();
       break;
     case 'f':
-      Vortex::toggleClick();
+      if (Vortex::isButtonPressed()) {
+        Vortex::releaseButton();
+      } else {
+        Vortex::pressButton();
+      }
       break;
     default:
       break;
