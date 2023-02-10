@@ -197,6 +197,7 @@ public:
 
   // change tickrate of the engine if the engine was configured to support it
   static void setTickrate(uint32_t tickrate);
+  static uint32_t getTickrate();
 
   // enable/disable undo
   static void enableUndo(bool enabled) { m_undoEnabled = enabled; }
