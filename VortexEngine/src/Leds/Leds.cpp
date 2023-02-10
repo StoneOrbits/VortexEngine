@@ -18,7 +18,7 @@
 // array of led color values
 RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 // the onboard LED on the adafruit board
-Adafruit_DotStar *Leds::m_onboardLED = nullptr;
+Adafruit_DotStar Leds::m_onboardLED(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR);
 // global brightness
 uint32_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 
@@ -38,25 +38,13 @@ void Leds::cleanup()
   for (uint32_t i = 0; i < LED_COUNT; ++i) {
     m_ledColors[i].clear();
   }
-  if (m_onboardLED) {
-    delete m_onboardLED;
-    m_onboardLED = nullptr;
-  }
 }
 
 void Leds::clearOnboardLED()
 {
-  // used new to avoid including adafruit in Leds.h which caused issues because Leds.h
-  // is included by multiple things like TestFramework and in those cases the global include
-  // paths are different so Adafruit_Dotstar.h might not get included properly. This is solved
-  // by just keeping Adafruit_Dotstar out of the header and only in the cpp file
-  m_onboardLED = new Adafruit_DotStar(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR);
-  if (!m_onboardLED) {
-    return;
-  }
   // show nothing otherwise it might show random colours
-  m_onboardLED->begin();
-  m_onboardLED->show();
+  m_onboardLED.begin();
+  m_onboardLED.show();
 }
 
 void Leds::setIndex(LedPos target, RGBColor col)
