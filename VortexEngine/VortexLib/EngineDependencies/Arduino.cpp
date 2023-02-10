@@ -74,8 +74,7 @@ unsigned long digitalRead(uint32_t pin)
   if (Vortex::vcallbacks()->checkPinHook(pin) == LOW) {
     return LOW;
   }
-  return HIGH;
-  //return Vortex::isButtonPressed() ? LOW : HIGH;
+  return Vortex::isButtonPressed() ? LOW : HIGH;
 }
 
 void digitalWrite(uint32_t pin,  uint32_t val)

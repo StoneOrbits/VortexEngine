@@ -237,10 +237,14 @@ void Vortex::menuEnterClick(uint32_t buttonIndex)
   m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_MENU_ENTER_CLICK));
 }
 
-void Vortex::toggleClick(uint32_t buttonIndex)
+void Vortex::pressButton(uint32_t buttonIndex)
 {
-  //m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_TOGGLE_CLICK));
-  m_buttonPressed = !m_buttonPressed;
+  m_buttonPressed = true;
+}
+
+void Vortex::releaseButton(uint32_t buttonIndex)
+{
+  m_buttonPressed = false;
 }
 
 bool Vortex::isButtonPressed(uint32_t buttonIndex)

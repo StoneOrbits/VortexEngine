@@ -135,7 +135,8 @@ public:
   static void shortClick(uint32_t buttonIndex = 0);
   static void longClick(uint32_t buttonIndex = 0);
   static void menuEnterClick(uint32_t buttonIndex = 0);
-  static void toggleClick(uint32_t buttonIndex = 0);
+  static void pressButton(uint32_t buttonIndex = 0);
+  static void releaseButton(uint32_t buttonIndex = 0);
   static bool isButtonPressed(uint32_t buttonIndex = 0);
 
   // special 'click' that quits the engine
