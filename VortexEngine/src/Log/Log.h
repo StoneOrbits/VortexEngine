@@ -40,9 +40,4 @@ void DebugMsg(const char *file, const char *func, int line, const char *msg, ...
 // report OOM
 #define ERROR_OUT_OF_MEMORY() ERROR_LOG("Out of memory")
 
-#if SAVE_TEMPLATE == 1
-// A message with indentation used for json output
-void IndentMsg(int level, const char *msg, ...);
-#endif
-
 #endif

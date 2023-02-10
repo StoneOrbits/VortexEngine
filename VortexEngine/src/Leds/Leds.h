@@ -3,12 +3,10 @@
 
 #include <inttypes.h>
 
-#include <FastLED.h>
-#include <Adafruit_DotStar.h>
-
 #include "../Colors/ColorTypes.h"
 #include "LedTypes.h"
 
+class Adafruit_DotStar;
 class LedStash;
 
 class Leds
@@ -135,7 +133,7 @@ private:
   static RGBColor m_ledColors[LED_COUNT];
 
   // the onboard LED on the adafruit board
-  static Adafruit_DotStar m_onboardLED;
+  static Adafruit_DotStar *m_onboardLED;
 };
 
 #endif

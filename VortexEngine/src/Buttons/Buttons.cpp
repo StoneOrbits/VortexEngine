@@ -1,7 +1,7 @@
 #include "Buttons.h"
 
-#ifdef TEST_FRAMEWORK
-#include "TestFramework.h"
+#ifdef VORTEX_LIB
+#include "VortexLib.h"
 #endif
 
 // Since there is only one button I am just going to expose a global pointer to
@@ -14,20 +14,19 @@ Button *g_pButton = nullptr;
 Button *g_pButton2 = nullptr;
 
 // static members
-Button Buttons::m_button;
-Button Buttons::m_button2;
+Button Buttons::m_buttons[NUM_BUTTONS];
 
 bool Buttons::init()
 {
-  // initialize the button on pin 1
-  if (!m_button.init(19)) {
+  // initialize the buttons on pins 19 and 20
+  if (!m_buttons[0].init(19)) {
     return false;
   }
-  if (!m_button2.init(20)) {
+  if (!m_buttons[1].init(20)) {
     return false;
   }
-  g_pButton = &m_button;
-  g_pButton2 = &m_button2;
+  g_pButton = &m_buttons[0];
+  g_pButton2 = &m_buttons[1];
   return true;
 }
 
@@ -39,9 +38,11 @@ void Buttons::check()
 {
   // would iterate all buttons and check them here
   // but there's only one button so
-  m_button.check();
-  m_button2.check();
-#ifdef TEST_FRAMEWORK
-  g_pTestFramework->injectButtons();
+  for (uint32_t i = 0; i < NUM_BUTTONS; ++i) {
+    m_buttons[i].check();
+  }
+#ifdef VORTEX_LIB
+  // read input from the vortex lib interface, for example Vortex::shortClick()
+  Vortex::handleInputQueue(m_buttons, NUM_BUTTONS);
 #endif
 }

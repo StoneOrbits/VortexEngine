@@ -3,6 +3,10 @@
 #include <Arduino.h>
 #include <math.h>
 
+#ifdef _MSC_VER
+#include <Windows.h>
+#endif
+
 #include "../Memory/Memory.h"
 #include "../Log/Log.h"
 
@@ -59,6 +63,16 @@ void Time::tickClock()
       // otherwise calculate regular difference
       elapsed_us = (uint32_t)(us - m_prevTime);
     }
+#if defined(VORTEX_LIB) && !defined(_MSC_VER)
+    uint32_t required = (1000000 / TICKRATE);
+    if (required > elapsed_us) {
+      // in vortex lib on linux we can just sleep instead of spinning
+      // but on arduino we must spin and on windows it actually ends
+      // up being more accurate to poll QPF + QPC
+      delayMicroseconds(required - elapsed_us);
+    }
+    break;
+#endif
     // 1000us per ms, divided by tickrate gives
     // the number of microseconds per tick
   } while (elapsed_us < (1000000 / TICKRATE));

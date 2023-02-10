@@ -68,6 +68,9 @@ private:
   // used to compare if received data has changed since last checking
   static uint32_t m_previousBytes;
 
+#ifdef VORTEX_LIB
+  friend class Vortex;
+#endif
 };
 
 #endif

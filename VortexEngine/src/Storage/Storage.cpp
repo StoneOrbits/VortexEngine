@@ -1,26 +1,25 @@
 #include "Storage.h"
 
-#include <FlashStorage.h>
 #include <string.h>
 #include <stdlib.h>
+#include <FlashStorage.h>
 
 #include "../VortexConfig.h"
 #include "../Memory/Memory.h"
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
 
-#ifdef TEST_FRAMEWORK
-#ifndef LINUX_FRAMEWORK
+#ifdef _MSC_VER
 #include <Windows.h>
 #else
 #include <unistd.h>
 #endif
-#endif
 
 __attribute__((__aligned__(256)))
-#ifdef TEST_FRAMEWORK
+#ifndef VORTEX_ARDUINO
 uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
 #else
+// only arduino needs const I guess?
 const uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
 #endif
 FlashClass storage(_storagedata, STORAGE_SIZE);
@@ -33,8 +32,8 @@ Storage::Storage()
 
 bool Storage::init()
 {
-#ifdef TEST_FRAMEWORK
-#ifndef LINUX_FRAMEWORK
+#ifdef VORTEX_LIB
+#ifdef _MSC_VER
   DeleteFile("FlashStorage.flash");
 #else
   unlink("FlashStorage.flash");

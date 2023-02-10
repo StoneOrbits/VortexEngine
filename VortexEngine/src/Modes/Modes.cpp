@@ -37,10 +37,6 @@ bool Modes::init()
       return false;
     }
   }
-#if SAVE_TEMPLATE == 1
-  // generate the json data template
-  saveTemplate();
-#endif
   return true;
 }
 

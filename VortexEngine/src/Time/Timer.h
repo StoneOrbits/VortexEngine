@@ -62,7 +62,7 @@ private:
   uint64_t m_startTime;
 
   // only need time simulations for test framework pattern strip generation
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
   // the simulation start time
   uint64_t m_simStartTime;
 #endif

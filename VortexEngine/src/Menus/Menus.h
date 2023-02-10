@@ -5,7 +5,8 @@
 
 #include "../Leds/LedTypes.h"
 
-enum MenuEntries {
+enum MenuEntryID
+{
   MENU_NONE = -1,
   MENU_FIRST = 0,
 
@@ -44,7 +45,7 @@ public:
   // check if the menus are open
   static bool checkOpen();
   static Menu *curMenu();
-  static MenuEntries curMenuID();
+  static MenuEntryID curMenuID();
 
 private:
   // run the currently open menu

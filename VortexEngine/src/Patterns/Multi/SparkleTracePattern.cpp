@@ -1,9 +1,10 @@
 #include "SparkleTracePattern.h"
 
-#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
+
+#include <Arduino.h>
 
 SparkleTracePattern::SparkleTracePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
   BlinkStepPattern(onDuration, offDuration, stepDuration)

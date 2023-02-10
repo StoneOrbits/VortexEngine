@@ -1,5 +1,5 @@
-#ifndef SETTINGS_H
-#define SETTINGS_H
+#ifndef MODES_H
+#define MODES_H
 
 #include "../Serial/ByteStream.h"
 #include "../Colors/ColorTypes.h"

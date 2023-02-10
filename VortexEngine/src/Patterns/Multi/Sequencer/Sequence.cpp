@@ -5,6 +5,8 @@
 #include "../../../Leds/Leds.h"
 #include "../../../Log/Log.h"
 
+#include <string.h>
+
 // some arbitrary number
 #define MAX_SEQUENCE_STEPS 64
 
