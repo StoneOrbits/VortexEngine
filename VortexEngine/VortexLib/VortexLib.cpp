@@ -65,7 +65,7 @@ FILE *Vortex::m_consoleHandle = nullptr;
 #if LOG_TO_FILE == 1
 FILE *Vortex::m_logHandle = nullptr;
 #endif
-queue<VortexButtonEvent> Vortex::m_buttonEventQueue;
+queue<Vortex::VortexButtonEvent> Vortex::m_buttonEventQueue;
 bool Vortex::m_initialized = false;
 bool Vortex::m_buttonPressed = false;
 
