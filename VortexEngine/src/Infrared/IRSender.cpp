@@ -27,7 +27,7 @@ uint32_t IRSender::m_blockSize = 0;
 // write total
 uint32_t IRSender::m_writeCounter = 0;
 
-#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK)
+#ifdef VORTEX_ARDUINO
 // Timer used for PWM, is initialized in initpwm()
 Tcc *IR_TCCx;
 #endif
@@ -115,9 +115,8 @@ bool IRSender::send()
 void IRSender::beginSend()
 {
   m_isSending = true;
-  uint64_t startTime = micros();
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
-    startTime, m_size, m_numBlocks, m_remainder, m_blockSize);
+    micros(), m_size, m_numBlocks, m_remainder, m_blockSize);
   // init sender before writing, is this necessary here? I think so
   initPWM();
   // wakeup the other receiver with a very quick mark/space
@@ -150,9 +149,9 @@ void IRSender::sendByte(uint8_t data)
 
 void IRSender::sendMark(uint16_t time)
 {
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
   // send mark timing over socket
-  test_ir_mark(time);
+  send_ir(true, time);
 #else
   startPWM();
   delayMicroseconds(time);
@@ -161,9 +160,9 @@ void IRSender::sendMark(uint16_t time)
 
 void IRSender::sendSpace(uint16_t time)
 {
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
   // send space timing over socket
-  test_ir_space(time);
+  send_ir(false, time);
 #else
   stopPWM();
   delayMicroseconds(time);
@@ -173,7 +172,7 @@ void IRSender::sendSpace(uint16_t time)
 // shamelessly stolen from IRLib2, thanks
 void IRSender::initPWM()
 {
-#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK)
+#ifdef VORTEX_ARDUINO
   // just in case
   pinMode(IR_SEND_PWM_PIN, OUTPUT);
   digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
@@ -225,7 +224,7 @@ void IRSender::initPWM()
 
 void IRSender::startPWM()
 {
-#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK)
+#ifdef VORTEX_ARDUINO
   // start the PWM
   IR_TCCx->CTRLA.reg |= TCC_CTRLA_ENABLE;
   while (IR_TCCx->SYNCBUSY.bit.ENABLE);
@@ -234,7 +233,7 @@ void IRSender::startPWM()
 
 void IRSender::stopPWM()
 {
-#if !defined(TEST_FRAMEWORK) && !defined(EDITOR_FRAMEWORK)
+#ifdef VORTEX_ARDUINO
   // stop the PWM
   IR_TCCx->CTRLA.reg &= ~TCC_CTRLA_ENABLE;
   while (IR_TCCx->SYNCBUSY.bit.ENABLE);

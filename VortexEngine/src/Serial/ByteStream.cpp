@@ -4,8 +4,8 @@
 #include "../Memory/Memory.h"
 #include "../Log/Log.h"
 
-#include <FlashStorage.h>
 #include <string.h>
+#include <FlashStorage.h>
 
 #include "Compression.h"
 

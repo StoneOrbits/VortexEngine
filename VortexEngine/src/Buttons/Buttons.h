@@ -3,6 +3,12 @@
 
 #include "Button.h"
 
+// the number of buttons, this isn't an arduino config because
+// changing it won't really work without updating other things
+// like which pins the buttons are attached to. So this is more
+// of a hardcoded constant than a configuration setting
+#define NUM_BUTTONS 1
+
 class Buttons
 {
   // private unimplemented constructor
@@ -18,7 +24,7 @@ public:
 
 private:
   // feel free to add more I guess
-  static Button m_button;
+  static Button m_buttons[NUM_BUTTONS];
 };
 
 // best way I think

@@ -6,6 +6,10 @@
 #include "../Time/Timings.h"
 #include "../Log/Log.h"
 
+#ifdef VORTEX_LIB
+#include "VortexLib.h"
+#endif
+
 Button::Button() :
   m_pinNum(0),
   m_buttonState(HIGH),
@@ -27,6 +31,18 @@ Button::~Button()
 
 bool Button::init(int pin)
 {
+  m_pinNum = 0;
+  m_buttonState = HIGH;
+  m_pressTime = 0;
+  m_releaseTime = 0;
+  m_holdDuration = 0;
+  m_releaseDuration = 0;
+  m_newPress = false;
+  m_newRelease = false;
+  m_isPressed = false;
+  m_shortClick = false;
+  m_longClick = false;
+
   m_pinNum = pin;
   pinMode(m_pinNum, INPUT_PULLUP);
   return true;

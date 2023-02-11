@@ -219,9 +219,9 @@ Menu *Menus::curMenu()
   return m_pCurMenu;
 }
 
-MenuEntries Menus::curMenuID()
+MenuEntryID Menus::curMenuID()
 {
-  return (MenuEntries)m_selection;
+  return (MenuEntryID)m_selection;
 }
 
 void Menus::closeCurMenu()

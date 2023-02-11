@@ -10,7 +10,7 @@ Timer::Timer() :
   m_numAlarms(0),
   m_curAlarm(0),
   m_startTime(0)
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
   , m_simStartTime(0)
 #endif
 {
@@ -47,7 +47,7 @@ void Timer::start(uint32_t offset)
 {
   // reset the start time
   m_startTime = Time::getCurtime() + offset;
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
   m_simStartTime = m_startTime;
 #endif
 }
@@ -59,7 +59,7 @@ void Timer::reset()
   m_numAlarms = 0;
   m_curAlarm = 0;
   m_startTime = 0;
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
   m_simStartTime = 0;
 #endif
 }
@@ -126,7 +126,7 @@ AlarmID Timer::alarm()
 
 uint64_t Timer::getStartTime() const
 {
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
   // timers use a different 'start time' tracker in simulations so that
   // the startTime remains unchanged when the simulation ends
   if (Time::isSimulation() && m_simStartTime) {
@@ -138,7 +138,7 @@ uint64_t Timer::getStartTime() const
 
 void Timer::setStartTime(uint64_t tick)
 {
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
   // if this timer is running in a simulation then don't actually update
   // the starttime, instead update the simulation start time so that when
   // the simulation ends the startTime will not have changed at all

@@ -1,9 +1,10 @@
 #include "MeteorPattern.h"
 
-#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
+
+#include <Arduino.h>
 
 MeteorPattern::MeteorPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration, uint8_t fadeAmount) :
   BlinkStepPattern(onDuration, offDuration, stepDuration),

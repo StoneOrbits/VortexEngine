@@ -19,12 +19,6 @@ bool IRReceiver::init()
 {
   pinMode(RECEIVER_PIN, INPUT_PULLUP);
   m_irData.init(IR_RECV_BUF_SIZE);
-#ifdef TEST_FRAMEWORK
-  // the test framework will feed timings directly to handleIRTiming
-  // instead of calling the recvPCIHandler in intervals which might
-  // be unreliable or problematic
-  installIRCallback(handleIRTiming);
-#endif
   return true;
 }
 

@@ -3,7 +3,6 @@
 
 #include <inttypes.h>
 
-#include <FastLED.h>
 #include <Adafruit_DotStar.h>
 
 #include "../Colors/ColorTypes.h"

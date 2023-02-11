@@ -30,6 +30,9 @@
  *     in the parsehandshake function and will only see the goodbye
  *   - readout for how big a mode is vs total storage used (progress bar?)
  *   - options menu along with tools/help etc
+ *   - tools window for the pattern strip (moving/movable?)
+ *   - tools window for the virtual glove maybe?
+ *      - or just enhance test framework?
  *
  *   - far future patttern list 2.0:
  *      - blend needs to be named hueshift
@@ -61,15 +64,14 @@ public:
   static void serializeVersion(ByteStream &stream);
   static bool checkVersion(uint8_t major, uint8_t minor);
 
+#ifdef VORTEX_LIB
   // the total available storage space
   static uint32_t totalStorageSpace();
   // the size of the savefile
   static uint32_t savefileSize();
+#endif
 
 private:
-  // the size of the savefile
-  uint32_t m_savefileSize;
-
 #if COMPRESSION_TEST == 1
   static void compressionTest();
 #endif
