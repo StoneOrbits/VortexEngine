@@ -3,8 +3,6 @@
 
 #include <inttypes.h>
 
-#define STORAGE_SIZE 256
-
 class ByteStream;
 
 class Storage

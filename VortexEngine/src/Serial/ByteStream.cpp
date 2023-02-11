@@ -201,7 +201,7 @@ bool ByteStream::extend(uint32_t size)
 
 bool ByteStream::compress()
 {
-#if 1
+#if 0
   return true;
 #else
   // only compress if we have valid data
@@ -249,7 +249,7 @@ bool ByteStream::compress()
 
 bool ByteStream::decompress()
 {
-#if 1
+#if 0
   return true;
 #else
   // only decompress if we have valid data

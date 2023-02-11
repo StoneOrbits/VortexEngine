@@ -19,7 +19,7 @@ bool VortexEngine::init()
   // initialize a random seed
   // Always generate seed before creating button on
   // digital pin 1 (shared pin with analog 0)
-  randomSeed(analogRead(0));
+  randomSeed(1);
 
   // all of the global controllers
   if (!SerialComs::init()) {
@@ -47,10 +47,15 @@ bool VortexEngine::init()
   g_pButton = &m_button;
   
   Colorset set1(RGBColor(255, 0, 0), RGBColor(0, 255, 0), RGBColor(0, 0, 255));
-  Colorset set2(RGBColor(255, 255, 0), RGBColor(0, 255, 255), RGBColor(255, 0, 255));
-  m_mode.setSinglePat(LED_FIRST, PATTERN_STROBE, nullptr, &set1); 
-  m_mode.setSinglePat(LED_LAST, PATTERN_HYPERSTROBE, nullptr, &set2); 
+  Colorset set2(RGBColor(255, 0, 0), RGBColor(0, 0, 255));
+  m_mode.setSinglePat(LED_FIRST, PATTERN_BLEND, nullptr, &set1); 
+  m_mode.setSinglePat(LED_LAST, PATTERN_DOPS, nullptr, &set2); 
   m_mode.init();
+  //ByteStream data;
+  //m_mode.saveToBuffer(data);
+  ////data.compress();
+  ////data.decompress();
+  //m_mode.loadFromBuffer(data);
 
 #if COMPRESSION_TEST == 1
   compressionTest();

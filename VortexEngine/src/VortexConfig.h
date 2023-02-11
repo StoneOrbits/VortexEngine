@@ -328,10 +328,10 @@
 //  These are the various storage space constants of the vortex device
 
 // maximum storage space in bytes
-#define MAX_STORAGE_SPACE 262144
+#define MAX_STORAGE_SPACE 16000
 
 // the size of the compiled engine
-#define ENGINE_SIZE 88776
+#define ENGINE_SIZE 14000
 
 // the raw amount of available space
 #define RAW_AVAILABLE_SPACE (MAX_STORAGE_SPACE - ENGINE_SIZE)
@@ -352,12 +352,12 @@
 // These defines come from the project settings for preprocessor, an
 // entry for $(SolutionName) produces preprocessor definitions that
 // match the solution that is compiling the engine
-#if !defined(VortexTestingFramework) && !defined(VortexEditor) && !defined(VORTEX_LIB)
+#if !defined(PROJECT_NAME_VortexTestingFramework) && !defined(PROJECT_NAME_VortexEditor) && !defined(VORTEX_LIB)
 #define VORTEX_ARDUINO 1
 #endif
 
 // This will be defined if the project is being built inside the test framework
-#ifdef VortexTestingFramework
+#ifdef PROJECT_NAME_VortexTestingFramework
 
 // In the test framework variable tickrate must be enabled to allow
 // the tickrate slider to function, also the test framework never runs
@@ -380,7 +380,7 @@
 #endif // VortexTestingFramework
 
 // This will be defined if the project is being built inside the editor
-#ifdef VortexEditor
+#ifdef PROJECT_NAME_VortexEditor
 
 #undef FIXED_LED_COUNT
 #define FIXED_LED_COUNT 0

@@ -3,7 +3,6 @@
 #include <inttypes.h>
 #include <string.h>
 #include <stdlib.h>
-#include <FlashStorage.h>
 
 #include "../VortexConfig.h"
 #include "../Memory/Memory.h"

@@ -319,7 +319,8 @@ void Mode::nextPat()
     if (!newPat) {
       return;
     }
-    newPat->bind(pat->getColorset(), pos);
+    newPat->bind(pos);
+    newPat->setColorset(pat->getColorset());
     newPat->init();
     delete m_ledEntries[pos];
     m_ledEntries[pos] = newPat;

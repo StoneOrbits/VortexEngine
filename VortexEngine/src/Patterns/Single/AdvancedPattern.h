@@ -1,9 +1,10 @@
 #ifndef ADVANCED_PATTERN_H
 #define ADVANCED_PATTERN_H
 
-#include "BasicPattern.h"
+#include "../Pattern.h"
+#include "../../Time/Timer.h"
 
-class AdvancedPattern : public BasicPattern
+class AdvancedPattern : public Pattern
 {
 public:
   AdvancedPattern(const PatternArgs &args);
@@ -17,14 +18,21 @@ public:
   virtual void getArgs(PatternArgs &args) const override;
 
 protected:
-  // override from basicpattern
-  virtual void onBasicEnd() override;
-  virtual void onBlinkOff() override;
+  // when blinking off
+  virtual void onBlinkOn();
+  virtual void onBlinkOff();
 
-  // override from gappattern
-  virtual void triggerGap() override;
-  virtual void endGap() override;
+  // trigger the gap
+  virtual void triggerGap();
+  virtual void endGap();
 
+  // whether in the gap
+  bool inGap() const { return m_inGap; }
+
+  // the duration the light is on/off for
+  uint8_t m_onDuration;
+  uint8_t m_offDuration;
+  uint8_t m_gapDuration;
   // the duration the light is on/off for
   uint8_t m_groupSize;
   uint8_t m_skipCols;
@@ -36,6 +44,11 @@ protected:
   uint8_t m_groupCounter;
   // the repeat counter
   uint8_t m_repeatCounter;
+
+  // the blink timer
+  Timer m_blinkTimer;
+  Timer m_gapTimer;
+  bool m_inGap;
 };
 
 #endif

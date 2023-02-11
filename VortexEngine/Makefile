@@ -39,7 +39,7 @@ ifdef TESTFRAMEWORK
 # because in the windows build a trick is used to put the solution name into the preprocessor
 # so that the engine can check which solution it is compiling inside. Because of that we
 # need to use the same define here
-DEFINES += -D VortexTestingFramework
+DEFINES += -D PROJECT_NAME_VortexTestingFramework
 endif
 
 # only set them if they're not empty to prevent unnecessary whitespace

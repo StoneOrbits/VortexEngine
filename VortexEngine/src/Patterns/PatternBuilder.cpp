@@ -5,10 +5,7 @@
 #include "../Time/Timings.h"
 #include "../Log/Log.h"
 
-#include "Single/ComplementaryBlendPattern.h"
 #include "Single/AdvancedPattern.h"
-#include "Single/TracerPattern.h"
-#include "Single/BasicPattern.h"
 #include "Single/BlendPattern.h"
 
 Pattern *PatternBuilder::make(PatternID id, const PatternArgs *args)
@@ -87,10 +84,13 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_MINIRIBBON: return PatternArgs(3, 0, 0);
     case PATTERN_BLINKIE: return PatternArgs(3, 6, 60);
     case PATTERN_GHOSTCRUSH: return PatternArgs(4, 1, 55);
+    case PATTERN_SOLID: return PatternArgs(250, 0, 0, 0);
     case PATTERN_TRACER: return PatternArgs(16, 3);
+    case PATTERN_DASHDOPS: return PatternArgs(30, 2, 7);
     case PATTERN_ADVANCED: return PatternArgs(5, 5, 10, 2, 2, 1);
-    case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0);
-    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0);
+    case PATTERN_BLEND: return PatternArgs(2, 13, 0, 0, 0, 0, 0, 2);
+    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(5, 5, 10, 2, 2, 1, 0, 3);
+    case PATTERN_BRACKETS: return PatternArgs(4, 8, 35);
     case PATTERN_NONE: break;
     default: break;
   }
@@ -104,26 +104,9 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
   switch (id) {
     // =====================
     //  Single Led Patterns:
-    case PATTERN_BASIC:
-    case PATTERN_STROBE:
-    case PATTERN_HYPERSTROBE:
-    case PATTERN_DOPS:
-    case PATTERN_DOPISH:
-    case PATTERN_ULTRADOPS:
-    case PATTERN_STROBIE:
-    case PATTERN_RIBBON:
-    case PATTERN_MINIRIBBON:
-    case PATTERN_BLINKIE:
-    case PATTERN_SOLID:
-    case PATTERN_DASHDOPS:
-    case PATTERN_BRACKETS:
-    case PATTERN_GHOSTCRUSH: return new BasicPattern(args);
-    case PATTERN_TRACER: return new TracerPattern(args);
+    default:
     case PATTERN_ADVANCED: return new AdvancedPattern(args);
     case PATTERN_BLEND: return new BlendPattern(args);
-    case PATTERN_COMPLEMENTARY_BLEND: return new ComplementaryBlendPattern(args);
-    case PATTERN_NONE: return nullptr;
-    default: break;
   }
   DEBUG_LOGF("Unknown pattern id: %u", id);
   return nullptr;

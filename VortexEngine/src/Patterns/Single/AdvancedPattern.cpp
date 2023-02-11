@@ -5,13 +5,19 @@
 #include "../../Leds/Leds.h"
 
 AdvancedPattern::AdvancedPattern(const PatternArgs &args) :
-  BasicPattern(args),
+  Pattern(args),
+  m_onDuration(0),
+  m_offDuration(0),
+  m_gapDuration(0),
   m_groupSize(0),
   m_skipCols(0),
   m_repeatGroup(0),
   m_realGroupSize(0),
   m_groupCounter(0),
-  m_repeatCounter(0)
+  m_repeatCounter(0),
+  m_blinkTimer(),
+  m_gapTimer(),
+  m_inGap(false)
 {
   m_patternID = PATTERN_ADVANCED;
   setArgs(args);
@@ -24,7 +30,20 @@ AdvancedPattern::~AdvancedPattern()
 void AdvancedPattern::init()
 {
   // run base pattern init logic
-  BasicPattern::init();
+  Pattern::init();
+
+  m_inGap = false;
+
+  // don't start the gap timer till we're in a gap
+  m_gapTimer.reset();
+  m_gapTimer.addAlarm(m_gapDuration);
+
+  // start the blink timer now
+  m_blinkTimer.reset();
+  m_blinkTimer.addAlarm(m_onDuration);
+  m_blinkTimer.addAlarm(m_offDuration);
+  m_blinkTimer.start();
+
   if (!m_groupSize || m_groupSize > m_colorset.numColors()) {
     m_realGroupSize = m_colorset.numColors();
   } else {
@@ -36,27 +55,45 @@ void AdvancedPattern::init()
 
 void AdvancedPattern::play()
 {
-  // the advanced pattern is just a basic pattern but
-  // with some of the callbacks overridden to perform
-  // actions at certain times in the pattern
-  BasicPattern::play();
+  if (m_inGap) {
+    // check to see if the gap timer triggered to end the gap
+    if (m_gapTimer.onEnd()) {
+      endGap();
+    }
+    Leds::clearIndex(m_ledPos);
+    return;
+  }
+
+  // check the alarm to toggle the light
+  AlarmID id = m_blinkTimer.alarm();
+
+  if (id == 0) {
+    // when timer 0 starts it's time to blink on
+    onBlinkOn();
+  } else if (id == 1) {
+    // when timer 1 starts it's time to blink off
+    onBlinkOff();
+  } else if (m_blinkTimer.curAlarm() == 1 && m_blinkTimer.onEnd() && m_colorset.onEnd()) {
+    // trigger the gap in the pattern
+    triggerGap();
+  }
 }
 
 void AdvancedPattern::triggerGap()
 {
-  // This is an override from BasicPattern::triggerGap()
-  // When the basic triggers in the basic pattern we need to
-  // reset the group counter in the advanced pattern
-  // because the only way for the basic to trigger is via
-  // the group counter logic in endGap
-  BasicPattern::triggerGap();
+  if (m_gapDuration > 0) {
+    // next frame will be a gap
+    m_gapTimer.restart(1);
+    m_inGap = true;
+  }
   m_groupCounter = 0;
 }
 
 void AdvancedPattern::endGap()
 {
-  // This is an override for the BasicPattern callback endGap()
-  BasicPattern::endGap();
+  // next frame will not be a gap
+  m_blinkTimer.restart(1);
+  m_inGap = false;
   // Here we perform logic for repeating groups
   if (m_repeatCounter > 0) {
     // the repeat counter starts at group size and counts down
@@ -75,16 +112,18 @@ void AdvancedPattern::endGap()
   }
 }
 
-void AdvancedPattern::onBasicEnd()
+void AdvancedPattern::onBlinkOn()
 {
-  // This is overridding BasicPattern::onBasicEnd so that we don't run
-  // default basic pattern logic which is responsible for triggering gaps
-  // because we will be inserting the gap in other places ourselves.
+  // set the target led with the given color
+  Leds::setIndex(m_ledPos, m_colorset.getNext());
 }
 
 void AdvancedPattern::onBlinkOff()
 {
-  BasicPattern::onBlinkOff();
+  if (m_offDuration > 0) {
+    // clear the target led if there is an off duration
+    Leds::clearIndex(m_ledPos);
+  }
   // count a blink in the group
   m_groupCounter++;
   // check if the group has reached the intended size
@@ -95,7 +134,10 @@ void AdvancedPattern::onBlinkOff()
 
 void AdvancedPattern::setArgs(const PatternArgs &args)
 {
-  BasicPattern::setArgs(args);
+  Pattern::setArgs(args);
+  m_onDuration = args.arg1;
+  m_offDuration = args.arg2;
+  m_gapDuration = args.arg3;
   m_groupSize = args.arg4;
   m_skipCols = args.arg5;
   m_repeatGroup = args.arg6;
@@ -103,9 +145,12 @@ void AdvancedPattern::setArgs(const PatternArgs &args)
 
 void AdvancedPattern::getArgs(PatternArgs &args) const
 {
-  BasicPattern::getArgs(args);
+  Pattern::getArgs(args);
+  args.arg1 = m_onDuration;
+  args.arg2 = m_offDuration;
+  args.arg3 = m_gapDuration;
   args.arg4 = m_groupSize;
   args.arg5 = m_skipCols;
   args.arg6 = m_repeatGroup;
-  args.numArgs += 3;
+  args.numArgs += 6;
 }

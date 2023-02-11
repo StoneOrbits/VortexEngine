@@ -19,9 +19,6 @@
     <Filter Include="Header Files\Colors">
       <UniqueIdentifier>{92329e32-c298-4612-a624-9a36aa7ed6ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Infrared">
-      <UniqueIdentifier>{1ca998e7-1201-4502-bfc4-f044bcb4ad43}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Leds">
       <UniqueIdentifier>{f7568e98-ef08-4a67-9030-c8bd47d19a7f}</UniqueIdentifier>
     </Filter>
@@ -31,12 +28,6 @@
     <Filter Include="Header Files\Memory">
       <UniqueIdentifier>{f0ab29bb-250c-4865-9d43-51752bf00dd2}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Menus">
-      <UniqueIdentifier>{ffa5b130-aa90-4320-b1ac-d1765aef5efd}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Menus\MenuList">
-      <UniqueIdentifier>{8c7f64e8-bb6c-424b-a79b-d270f45a0f77}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Modes">
       <UniqueIdentifier>{1f458ae0-5e6d-400d-a78f-56759e57634c}</UniqueIdentifier>
     </Filter>
@@ -45,12 +36,6 @@
     </Filter>
     <Filter Include="Header Files\Patterns">
       <UniqueIdentifier>{f31fc02b-3d25-4b05-be83-c18738f075f9}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Patterns\Multi">
-      <UniqueIdentifier>{7d160b3e-54b5-46cc-964e-29df55b17c89}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Header Files\Patterns\Multi\Sequencer">
-      <UniqueIdentifier>{430915e2-2790-49e0-a869-2f0f765cc74f}</UniqueIdentifier>
     </Filter>
     <Filter Include="Header Files\Patterns\Single">
       <UniqueIdentifier>{3ef98a11-0ff7-4870-acca-19936e477c79}</UniqueIdentifier>
@@ -70,9 +55,6 @@
     <Filter Include="Source Files\Colors">
       <UniqueIdentifier>{985fa140-8070-4c8e-8ee3-30cd004f8280}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Infrared">
-      <UniqueIdentifier>{53027bd8-836b-491d-9b40-25ea0061bce9}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Leds">
       <UniqueIdentifier>{7b92d454-723f-461a-8bcf-22ae6a4db4ef}</UniqueIdentifier>
     </Filter>
@@ -82,12 +64,6 @@
     <Filter Include="Source Files\Memory">
       <UniqueIdentifier>{31512464-93e9-4b03-8324-eadb2e6f01dd}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Source Files\Menus">
-      <UniqueIdentifier>{61739a3a-8b8e-42f5-a221-ff73fed28a69}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Menus\MenuList">
-      <UniqueIdentifier>{2e1efd1c-8c41-46ed-a112-cb749c6adc2c}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Source Files\Modes">
       <UniqueIdentifier>{09bfdf79-8025-4de8-af42-a04e2b88f4c0}</UniqueIdentifier>
     </Filter>
@@ -96,12 +72,6 @@
     </Filter>
     <Filter Include="Source Files\Patterns">
       <UniqueIdentifier>{a6867a20-62de-46d8-8fbf-9216953d359e}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Patterns\Multi">
-      <UniqueIdentifier>{01272c29-3fcc-4432-bc7d-284dd2b02597}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Patterns\Multi\Sequencer">
-      <UniqueIdentifier>{7e5dbc20-95d7-4778-850a-c4df515a9b78}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Patterns\Single">
       <UniqueIdentifier>{f903f874-ed0f-4fa1-9c4a-333a904961cc}</UniqueIdentifier>
@@ -129,25 +99,13 @@
     <ClCompile Include="src\Buttons\Button.cpp">
       <Filter>Source Files\Buttons</Filter>
     </ClCompile>
-    <ClCompile Include="src\Buttons\Buttons.cpp">
-      <Filter>Source Files\Buttons</Filter>
-    </ClCompile>
     <ClCompile Include="src\Colors\Colorset.cpp">
       <Filter>Source Files\Colors</Filter>
     </ClCompile>
     <ClCompile Include="src\Colors\ColorTypes.cpp">
       <Filter>Source Files\Colors</Filter>
     </ClCompile>
-    <ClCompile Include="src\Infrared\IRReceiver.cpp">
-      <Filter>Source Files\Infrared</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Infrared\IRSender.cpp">
-      <Filter>Source Files\Infrared</Filter>
-    </ClCompile>
     <ClCompile Include="src\Leds\Leds.cpp">
-      <Filter>Source Files\Leds</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Leds\LedStash.cpp">
       <Filter>Source Files\Leds</Filter>
     </ClCompile>
     <ClCompile Include="src\Log\Log.cpp">
@@ -156,160 +114,13 @@
     <ClCompile Include="src\Memory\Memory.cpp">
       <Filter>Source Files\Memory</Filter>
     </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\ColorSelect.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\EditorConnection.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\FactoryReset.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\GlobalBrightness.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\ModeSharing.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\PatternSelect.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\Randomizer.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\Menu.cpp">
-      <Filter>Source Files\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\Menus.cpp">
-      <Filter>Source Files\Menus</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Modes\DefaultModes.cpp">
-      <Filter>Source Files\Modes</Filter>
-    </ClCompile>
     <ClCompile Include="src\Modes\Mode.cpp">
       <Filter>Source Files\Modes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Modes\Modes.cpp">
-      <Filter>Source Files\Modes</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\Sequencer\ChaserPattern.cpp">
-      <Filter>Source Files\Patterns\Multi\Sequencer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\Sequencer\Sequence.cpp">
-      <Filter>Source Files\Patterns\Multi\Sequencer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\Sequencer\SequencedPattern.cpp">
-      <Filter>Source Files\Patterns\Multi\Sequencer</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\BackStrobePattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\BlinkStepPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\BouncePattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\CrossDopsPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\DoubleStrobePattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\DripMorphPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\DripPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\FillPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\FlowersPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\HueShiftPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\HybridPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\ImpactPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\JestPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\LighthousePattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\MateriaPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\MeteorPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\MultiLedPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\PulsishPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\RabbitPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\SnowballPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\SparkleTracePattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\SplitStrobiePattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\TheaterChasePattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\TipTopPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\VortexWipePattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\WarpPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\WarpWormPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\ZigzagPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Single\AdvancedPattern.cpp">
       <Filter>Source Files\Patterns\Single</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Single\BasicPattern.cpp">
-      <Filter>Source Files\Patterns\Single</Filter>
-    </ClCompile>
     <ClCompile Include="src\Patterns\Single\BlendPattern.cpp">
-      <Filter>Source Files\Patterns\Single</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Single\BracketsPattern.cpp">
-      <Filter>Source Files\Patterns\Single</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Single\ComplementaryBlendPattern.cpp">
-      <Filter>Source Files\Patterns\Single</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Single\DashDopsPattern.cpp">
-      <Filter>Source Files\Patterns\Single</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Single\SingleLedPattern.cpp">
-      <Filter>Source Files\Patterns\Single</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Single\SolidPattern.cpp">
-      <Filter>Source Files\Patterns\Single</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Single\TracerPattern.cpp">
       <Filter>Source Files\Patterns\Single</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Pattern.cpp">
@@ -320,9 +131,6 @@
     </ClCompile>
     <ClCompile Include="src\Patterns\PatternBuilder.cpp">
       <Filter>Source Files\Patterns</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Serial\BitStream.cpp">
-      <Filter>Source Files\Serial</Filter>
     </ClCompile>
     <ClCompile Include="src\Serial\ByteStream.cpp">
       <Filter>Source Files\Serial</Filter>
@@ -362,9 +170,6 @@
     <ClInclude Include="src\VortexEngine.h">
       <Filter>Header Files</Filter>
     </ClInclude>
-    <ClInclude Include="src\Buttons\Buttons.h">
-      <Filter>Header Files\Buttons</Filter>
-    </ClInclude>
     <ClInclude Include="src\Buttons\Button.h">
       <Filter>Header Files\Buttons</Filter>
     </ClInclude>
@@ -374,19 +179,7 @@
     <ClInclude Include="src\Colors\ColorTypes.h">
       <Filter>Header Files\Colors</Filter>
     </ClInclude>
-    <ClInclude Include="src\Infrared\IRConfig.h">
-      <Filter>Header Files\Infrared</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Infrared\IRReceiver.h">
-      <Filter>Header Files\Infrared</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Infrared\IRSender.h">
-      <Filter>Header Files\Infrared</Filter>
-    </ClInclude>
     <ClInclude Include="src\Leds\Leds.h">
-      <Filter>Header Files\Leds</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Leds\LedStash.h">
       <Filter>Header Files\Leds</Filter>
     </ClInclude>
     <ClInclude Include="src\Leds\LedTypes.h">
@@ -398,160 +191,13 @@
     <ClInclude Include="src\Memory\Memory.h">
       <Filter>Header Files\Memory</Filter>
     </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\ColorSelect.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\EditorConnection.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\FactoryReset.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\GlobalBrightness.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\ModeSharing.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\PatternSelect.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\Randomizer.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\Menu.h">
-      <Filter>Header Files\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\Menus.h">
-      <Filter>Header Files\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Modes\DefaultModes.h">
-      <Filter>Header Files\Modes</Filter>
-    </ClInclude>
     <ClInclude Include="src\Modes\Mode.h">
       <Filter>Header Files\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Modes\Modes.h">
-      <Filter>Header Files\Modes</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\Sequencer\ChaserPattern.h">
-      <Filter>Header Files\Patterns\Multi\Sequencer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\Sequencer\Sequence.h">
-      <Filter>Header Files\Patterns\Multi\Sequencer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\Sequencer\SequencedPattern.h">
-      <Filter>Header Files\Patterns\Multi\Sequencer</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\BackStrobePattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\BlinkStepPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\BouncePattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\CrossDopsPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\DoubleStrobePattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\DripMorphPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\DripPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\FillPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\FlowersPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\HueShiftPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\HybridPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\ImpactPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\JestPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\LighthousePattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\MateriaPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\MeteorPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\MultiLedPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\PulsishPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\RabbitPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\SnowballPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\SparkleTracePattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\SplitStrobiePattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\TheaterChasePattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\TipTopPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\VortexWipePattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\WarpPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\WarpWormPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\ZigzagPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Single\AdvancedPattern.h">
       <Filter>Header Files\Patterns\Single</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Single\BasicPattern.h">
-      <Filter>Header Files\Patterns\Single</Filter>
-    </ClInclude>
     <ClInclude Include="src\Patterns\Single\BlendPattern.h">
-      <Filter>Header Files\Patterns\Single</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Single\BracketsPattern.h">
-      <Filter>Header Files\Patterns\Single</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Single\ComplementaryBlendPattern.h">
-      <Filter>Header Files\Patterns\Single</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Single\DashDopsPattern.h">
-      <Filter>Header Files\Patterns\Single</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Single\SingleLedPattern.h">
-      <Filter>Header Files\Patterns\Single</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Single\SolidPattern.h">
-      <Filter>Header Files\Patterns\Single</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Single\TracerPattern.h">
       <Filter>Header Files\Patterns\Single</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Pattern.h">
@@ -565,9 +211,6 @@
     </ClInclude>
     <ClInclude Include="src\Patterns\PatternBuilder.h">
       <Filter>Header Files\Patterns</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Serial\BitStream.h">
-      <Filter>Header Files\Serial</Filter>
     </ClInclude>
     <ClInclude Include="src\Serial\ByteStream.h">
       <Filter>Header Files\Serial</Filter>
@@ -593,9 +236,6 @@
     <ClInclude Include="VortexLib\VortexLib.h">
       <Filter>Header Files\VortexLib</Filter>
     </ClInclude>
-    <ClInclude Include="VortexLib\EngineDependencies\FlashStorage.h">
-      <Filter>Header Files\Storage</Filter>
-    </ClInclude>
     <ClInclude Include="VortexLib\EngineDependencies\Adafruit_Dotstar.h">
       <Filter>Header Files\VortexLib\EngineDependencies</Filter>
     </ClInclude>
@@ -603,6 +243,9 @@
       <Filter>Header Files\VortexLib\EngineDependencies</Filter>
     </ClInclude>
     <ClInclude Include="VortexLib\EngineDependencies\FastLED.h">
+      <Filter>Header Files\VortexLib\EngineDependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="VortexLib\EngineDependencies\FlashStorage.h">
       <Filter>Header Files\VortexLib\EngineDependencies</Filter>
     </ClInclude>
   </ItemGroup>
