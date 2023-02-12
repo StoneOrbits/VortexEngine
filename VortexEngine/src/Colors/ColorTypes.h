@@ -3,11 +3,16 @@
 
 #include <inttypes.h>
 
+#include "../VortexConfig.h"
+
 // if this bit is present it's an HSV constant
 #define HSV_BIT (1 << 7)
 
+
 // produce a DWORD HSV constant
-//#define HSV(h, s, v) (HSV_BIT | (h << 16) | (s << 8) | v)
+#ifdef VORTEX_LIB
+#define HSV(h, s, v) (HSV_BIT | (h << 16) | (s << 8) | v)
+#endif
 
 // Pre defined hex HSV values
 #ifdef VORTEX_LIB
