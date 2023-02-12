@@ -193,6 +193,7 @@
     <ClInclude Include="src\Time\Timings.h" />
     <ClInclude Include="src\VortexConfig.h" />
     <ClInclude Include="src\VortexEngine.h" />
+    <ClInclude Include="VortexLib\EngineDependencies\tinyNeoPixel_Static.h" />
     <ClInclude Include="VortexLib\EngineDependencies\Adafruit_Dotstar.h" />
     <ClInclude Include="VortexLib\EngineDependencies\Arduino.h" />
     <ClInclude Include="VortexLib\EngineDependencies\FastLED.h" />

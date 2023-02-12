@@ -18,7 +18,7 @@ uint64_t Time::m_prevTime = 0;
 uint64_t Time::m_firstTime = 0;
 uint32_t Time::m_tickrate = DEFAULT_TICKRATE;
 uint32_t Time::m_tickOffset = DEFAULT_TICK_OFFSET;
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
 uint32_t Time::m_simulationTick = 0;
 bool Time::m_isSimulation = false;
 #endif
@@ -88,7 +88,7 @@ uint64_t Time::getCurtime(LedPos pos)
 {
   // the current tick, plus the time offset per LED, plus any
   // simulation offset
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
   return m_curTick + getTickOffset(pos) + getSimulationTick();
 #else
   return m_curTick + getTickOffset(pos);
@@ -145,7 +145,7 @@ uint32_t Time::msToTicks(uint32_t ms)
   return ticks;
 }
 
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
 
 // Start a time simulation, while the simulation is active you can
 // increment the 'current time' with tickSimulation() then when you

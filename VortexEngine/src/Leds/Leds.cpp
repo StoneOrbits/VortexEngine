@@ -18,21 +18,17 @@ RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 // global brightness
 uint32_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
 tinyNeoPixel Leds::m_pixels;
 #else
-tinyNeoPixel Leds::m_pixels = tinyNeoPixel(LED_COUNT, LED_DATA_PIN, NEO_GRB, (byte *)m_ledColors);
+tinyNeoPixel Leds::m_pixels = tinyNeoPixel(LED_COUNT, LED_DATA_PIN, NEO_RGB + NEO_KHZ800, (void *)m_ledColors);
 #endif
 
 bool Leds::init()
 {
-  // setup leds on data pin 4
-  //FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>((CRGB *)m_ledColors, LED_COUNT);
-  // get screwed fastled, don't throttle us!
-  //FastLED.setMaxRefreshRate(0, false);
   // clear the onboard led so it displays nothing
   // tiny neo pixels
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
   m_pixels = tinyNeoPixel(LED_COUNT, LED_DATA_PIN, NEO_RGB + NEO_KHZ800, m_ledColors);
 #endif
   pinMode(LED_DATA_PIN, OUTPUT);

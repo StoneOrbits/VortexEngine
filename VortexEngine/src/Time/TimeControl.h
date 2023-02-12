@@ -54,7 +54,7 @@ public:
   // convert seconds to a tickcount based on tickrate
   static uint32_t secToTicks(uint32_t sec) { return msToTicks(sec * 1000); }
 
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
   // Start a time simulation, while the simulation is active you can
   // increment the 'current time' with tickSimulation() and all calls
   // to Time::getCurtime will reflect the changes, then when you call
@@ -90,7 +90,7 @@ private:
   // the offset in ticks for each finger
   static uint32_t m_tickOffset;
 
-#ifdef TEST_FRAMEWORK
+#ifdef VORTEX_LIB
   // the current simulation offset, simulations are
   // used to fastforward patterns and colorsets by
   // simulating tick changes and running pattern logic

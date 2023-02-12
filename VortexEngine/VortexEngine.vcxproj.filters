@@ -248,5 +248,8 @@
     <ClInclude Include="VortexLib\EngineDependencies\FlashStorage.h">
       <Filter>Header Files\VortexLib\EngineDependencies</Filter>
     </ClInclude>
+    <ClInclude Include="VortexLib\EngineDependencies\tinyNeoPixel_Static.h">
+      <Filter>Header Files\VortexLib\EngineDependencies</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
