@@ -356,6 +356,15 @@
 #define VORTEX_ARDUINO 1
 #endif
 
+// if building for editor or test framework then we're building vortex lib, it should
+// be defined in the project settings but sometimes it's not for example if a cpp file
+// from the test framework includes a header from the engine it might not have VORTEX_LIB
+// this will ensure that anything which includes this config file will have VORTEX_LIB
+#if defined(PROJECT_NAME_VortexTestingFramework) || defined(PROJECT_NAME_VortexEditor)
+#undef VORTEX_LIB
+#define VORTEX_LIB
+#endif
+
 // This will be defined if the project is being built inside the test framework
 #ifdef VortexTestingFramework
 
