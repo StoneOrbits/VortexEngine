@@ -167,6 +167,7 @@
     <ClCompile Include="VortexLib\EngineDependencies\Arduino.cpp" />
     <ClCompile Include="VortexLib\EngineDependencies\FastLED.cpp" />
     <ClCompile Include="VortexLib\EngineDependencies\FlashStorage.cpp" />
+    <ClCompile Include="VortexLib\EngineDependencies\tinyNeoPixel_Static.cpp" />
     <ClCompile Include="VortexLib\VortexLib.cpp" />
   </ItemGroup>
   <ItemGroup>
