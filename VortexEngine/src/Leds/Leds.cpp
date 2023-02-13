@@ -21,7 +21,7 @@ uint32_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 #ifdef VORTEX_LIB
 tinyNeoPixel Leds::m_pixels;
 #else
-tinyNeoPixel Leds::m_pixels = tinyNeoPixel(LED_COUNT, LED_DATA_PIN, NEO_RGB + NEO_KHZ800, (void *)m_ledColors);
+tinyNeoPixel Leds::m_pixels = tinyNeoPixel(LED_COUNT, LED_DATA_PIN, NEO_RGB + NEO_KHZ800, (uint8_t *)m_ledColors);
 #endif
 
 bool Leds::init()

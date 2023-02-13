@@ -78,6 +78,8 @@ public:
   static Mode *curMode() { return &m_mode; }
 
 private:
+  static void enterSleep();
+
   static Mode m_mode;
   static Button m_button;
 

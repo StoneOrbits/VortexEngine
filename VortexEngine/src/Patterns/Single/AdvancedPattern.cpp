@@ -115,14 +115,15 @@ void AdvancedPattern::endGap()
 void AdvancedPattern::onBlinkOn()
 {
   // set the target led with the given color
-  Leds::setIndex(m_ledPos, m_colorset.getNext());
+  Leds::setIndex(LED_0, m_colorset.getNext());
 }
 
 void AdvancedPattern::onBlinkOff()
 {
   if (m_offDuration > 0) {
     // clear the target led if there is an off duration
-    Leds::clearIndex(m_ledPos);
+    Leds::clearIndex(LED_0);
+    Leds::clearIndex(LED_1);
   }
   // count a blink in the group
   m_groupCounter++;

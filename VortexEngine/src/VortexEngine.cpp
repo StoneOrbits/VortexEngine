@@ -11,15 +11,55 @@
 
 #include <Arduino.h>
 
+#ifdef VORTEX_ARDUINO
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
+#endif
+
 Mode VortexEngine::m_mode;
 Button VortexEngine::m_button;
+uint16_t g_sleepCount = 0;
+
+void VortexEngine::enterSleep()
+{
+  // clear all the leds
+  Leds::clearAll();
+  Leds::update();
+  g_sleepCount = 0;
+#ifdef VORTEX_ARDUINO
+  // Initialize RTC
+  while (RTC.STATUS > 0) {
+    // wait till RTC is ready
+  }
+  // 32.768kHz Internal Ultra-Low-Power Oscillator (OSCULP32K)
+  RTC.CLKSEL = RTC_CLKSEL_INT32K_gc;
+  // PIT Interrupt: enabled
+  RTC.PITINTCTRL = RTC_PI_bm;           
+  // RTC Clock Cycles 16384, resulting in 32.768kHz/16384 = 2Hz
+  RTC.PITCTRLA = RTC_PERIOD_CYC16384_gc | RTC_PITEN_bm;
+  // enter sleep
+  sleep_cpu();
+#endif
+}
+
+#ifdef VORTEX_ARDUINO
+ISR(RTC_PIT_vect)
+{
+  RTC.PITINTFLAGS = RTC_PI_bm;          /* Clear interrupt flag by writing '1' (required) */
+  g_sleepCount++;
+  if (g_sleepCount > 3 && digitalRead(5) == LOW) {
+    // perform software reset to wake up
+    _PROTECTED_WRITE(RSTCTRL.SWRR, 1);
+  }
+}
+#endif
 
 bool VortexEngine::init()
 {
   // initialize a random seed
   // Always generate seed before creating button on
   // digital pin 1 (shared pin with analog 0)
-  randomSeed(1);
+  randomSeed(analogRead(0));
 
   // all of the global controllers
   if (!SerialComs::init()) {
@@ -47,15 +87,24 @@ bool VortexEngine::init()
   g_pButton = &m_button;
   
   Colorset set1(RGBColor(255, 0, 0), RGBColor(0, 255, 0), RGBColor(0, 0, 255));
-  Colorset set2(RGBColor(255, 0, 0), RGBColor(0, 0, 255));
+  Colorset set2(RGBColor(0xaa, 0xaa, 0xaa), RGBColor(0, 130, 0));
   m_mode.setSinglePat(LED_FIRST, PATTERN_BLEND, nullptr, &set1); 
-  m_mode.setSinglePat(LED_LAST, PATTERN_DOPS, nullptr, &set2); 
+  m_mode.setSinglePat(LED_LAST, PATTERN_BLEND, nullptr, &set1); 
   m_mode.init();
+  m_mode.getPattern(LED_FIRST)->play();
+  m_mode.getPattern(LED_FIRST)->play();
+  m_mode.getPattern(LED_FIRST)->play();
   //ByteStream data;
   //m_mode.saveToBuffer(data);
   ////data.compress();
   ////data.decompress();
   //m_mode.loadFromBuffer(data);
+
+#ifdef VORTEX_ARDUINO
+  // set the sleep mode and enable sleep functionality
+  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  sleep_enable();
+#endif
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -78,23 +127,34 @@ void VortexEngine::tick()
 
   m_button.check();
 
+  // check for sleep click
+  if (m_button.isPressed() && m_button.holdDuration() >= SLEEP_ENTER_THRESHOLD_TICKS) {
+    // enter sleep and return
+    enterSleep();
+    return;
+  }
+
   // cycle modes?
+#if 0
   if (m_button.onShortClick()) {
-    m_mode.nextPat();
-  }
-  if (m_button.onLongClick()) {
-    m_mode.rollColorset(m_button.holdDuration() / SHORT_CLICK_THRESHOLD_TICKS);
-  }
-  if (m_button.isPressed() && m_button.holdDuration() >= SHORT_CLICK_THRESHOLD_TICKS) {
-    int val = (m_button.holdDuration() / SHORT_CLICK_THRESHOLD_TICKS);
-    if (val > 8) {
-      val = 8;
+    PatternArgs args;
+    m_mode.getPattern(LED_1)->getArgs(args);
+    for (uint32_t i = 0; i < args.numArgs; ++i) {
+      args.args[i] = random(30);
     }
-    Leds::setAll(hsv_to_rgb_rainbow(HSVColor(val * 30, 255, 255)));
-  } else {
-    // then just play the mode
-    m_mode.play();
+    m_mode.getPattern(LED_1)->setArgs(args);
   }
+#endif
+  if (m_button.onShortClick()) {
+    m_mode.getPattern(LED_1)->getColorset()->randomizeEvenlySpaced(2);
+  }
+  //int val = (m_button.holdDuration() / SHORT_CLICK_THRESHOLD_TICKS);
+  //if (val > 8) {
+  //  val = 8;
+  //}
+  //Leds::setAll(hsv_to_rgb_rainbow(HSVColor(val * 30, 255, 255)));
+  // then just play the mode
+  m_mode.play();
   // update the leds
   Leds::update();
 }

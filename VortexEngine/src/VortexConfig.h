@@ -54,6 +54,12 @@
 // it will be registered as a 'long click'
 #define CLICK_THRESHOLD       250
 
+// Sleep Enter Threshold (in milliseconds)
+//
+// How long the button has to be held at the main mode area to enter
+// sleep mode
+#define SLEEP_TRIGGER_TIME    4000
+
 // Color delete threshold (in milliseconds)
 //
 // How long you must hold down on a color in the color select menu to
