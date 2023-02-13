@@ -34,7 +34,7 @@ void VortexEngine::enterSleep()
   // 32.768kHz Internal Ultra-Low-Power Oscillator (OSCULP32K)
   RTC.CLKSEL = RTC_CLKSEL_INT32K_gc;
   // PIT Interrupt: enabled
-  RTC.PITINTCTRL = RTC_PI_bm;           
+  RTC.PITINTCTRL = RTC_PI_bm;
   // RTC Clock Cycles 16384, resulting in 32.768kHz/16384 = 2Hz
   RTC.PITCTRLA = RTC_PERIOD_CYC16384_gc | RTC_PITEN_bm;
   // enter sleep
@@ -82,18 +82,15 @@ bool VortexEngine::init()
     DEBUG_LOG("Buttons failed to initialize");
     return false;
   }
-  
+
   // for access from other files
   g_pButton = &m_button;
-  
-  Colorset set1(RGBColor(255, 0, 0), RGBColor(0, 255, 0), RGBColor(0, 0, 255));
-  Colorset set2(RGBColor(0xaa, 0xaa, 0xaa), RGBColor(0, 130, 0));
-  m_mode.setSinglePat(LED_FIRST, PATTERN_BLEND, nullptr, &set1); 
-  m_mode.setSinglePat(LED_LAST, PATTERN_BLEND, nullptr, &set1); 
+
+  // rgb blend on both
+  Colorset set(RGBColor(255, 0, 0), RGBColor(0, 255, 0), RGBColor(0, 0, 255));
+  m_mode.setPattern(PATTERN_BLEND);
+  m_mode.setColorset(&set);
   m_mode.init();
-  m_mode.getPattern(LED_FIRST)->play();
-  m_mode.getPattern(LED_FIRST)->play();
-  m_mode.getPattern(LED_FIRST)->play();
   //ByteStream data;
   //m_mode.saveToBuffer(data);
   ////data.compress();
@@ -146,7 +143,7 @@ void VortexEngine::tick()
   }
 #endif
   if (m_button.onShortClick()) {
-    m_mode.getPattern(LED_1)->getColorset()->randomizeEvenlySpaced(2);
+    m_mode.init();
   }
   //int val = (m_button.holdDuration() / SHORT_CLICK_THRESHOLD_TICKS);
   //if (val > 8) {
