@@ -162,6 +162,9 @@
     <ClCompile Include="VortexLib\EngineDependencies\FlashStorage.cpp">
       <Filter>Source Files\VortexLib\EngineDependencies</Filter>
     </ClCompile>
+    <ClCompile Include="VortexLib\EngineDependencies\tinyNeoPixel_Static.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\VortexConfig.h">

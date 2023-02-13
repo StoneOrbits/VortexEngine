@@ -8,13 +8,7 @@
 class tinyNeoPixel
 {
 public:
-  tinyNeoPixel()
-  {
-  }
-  tinyNeoPixel(int a, int b, int c, void *d)
-  {
-  }
-  void show()
-  {
-  }
+  tinyNeoPixel();
+  tinyNeoPixel(int a, int b, int c, void *d);
+  void show();
 };

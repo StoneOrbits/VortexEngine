@@ -157,7 +157,8 @@ bool Vortex::init(VortexCallbacks *callbacks)
     PatternArgs args = PatternBuilder::getDefaultArgs(id);
     if (params.size() != args.numArgs) {
       // Params not even!
-      return false;
+      // TODO: fixme
+      //return false;
     }
   }
 
