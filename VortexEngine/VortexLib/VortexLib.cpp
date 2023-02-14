@@ -67,7 +67,7 @@ FILE *Vortex::m_logHandle = nullptr;
 #endif
 queue<Vortex::VortexButtonEvent> Vortex::m_buttonEventQueue;
 bool Vortex::m_initialized = false;
-bool Vortex::m_buttonPressed = false;
+uint32_t Vortex::m_buttonsPressed = 0;
 
 #ifdef _MSC_VER
 #include <Windows.h>
@@ -91,9 +91,8 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 // called when engine reads digital pins, use this to feed button presses to the engine
 long VortexCallbacks::checkPinHook(uint32_t pin)
 {
-  if (Vortex::isButtonPressed(pin)) {
-    return 0; // LOW
-  }
+  // leaving the pin checking to user-overrides rather than
+  // checking the default pins here
   return 1; // HIGH
 }
 
@@ -249,12 +248,12 @@ void Vortex::menuEnterClick(uint32_t buttonIndex)
 
 void Vortex::pressButton(uint32_t buttonIndex)
 {
-  m_buttonPressed = true;
+  m_buttonsPressed |= (1 << buttonIndex);
 }
 
 void Vortex::releaseButton(uint32_t buttonIndex)
 {
-  m_buttonPressed = false;
+  m_buttonsPressed &= ~(1 << buttonIndex);
 }
 
 Mode *Vortex::getMenuDemoMode()
@@ -274,7 +273,7 @@ Mode *Vortex::getMenuDemoMode()
 
 bool Vortex::isButtonPressed(uint32_t buttonIndex)
 {
-  return m_buttonPressed;
+  return (m_buttonsPressed & (1 << buttonIndex)) != 0;
 }
 
 void Vortex::quitClick()
