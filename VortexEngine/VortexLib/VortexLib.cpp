@@ -91,6 +91,8 @@ BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 // called when engine reads digital pins, use this to feed button presses to the engine
 long VortexCallbacks::checkPinHook(uint32_t pin)
 {
+  // leaving the pin checking to user-overrides rather than
+  // checking the default pins here
   return 1; // HIGH
 }
 

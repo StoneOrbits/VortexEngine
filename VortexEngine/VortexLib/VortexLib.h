@@ -246,7 +246,7 @@ private:
   static std::queue<VortexButtonEvent> m_buttonEventQueue;
   // whether initialized
   static bool m_initialized;
-  // whether each button is pressed (bitflags) so technically this only 
+  // whether each button is pressed (bitflags) so technically this only
   // supports 32 buttons but idc whoever adds 33 buttons can fix this
   static uint32_t m_buttonsPressed;
 };
