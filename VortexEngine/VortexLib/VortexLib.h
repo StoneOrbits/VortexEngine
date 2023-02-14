@@ -21,56 +21,20 @@
 //
 // In cases where the engine is not running with the true arduino framework it
 // will instead use the drop-in files in 'EngineDependencies' folder. These
-// files provide the main arduino and library apis that are used by the engine
+// files provide the main arduino and library APIs that are used by the engine
 // and instead provide hooks for a user to connect to them.
 //
 // The things you can hook into include:
 //
 //  - The serial input/output callbacks (editor connection)
 //  - The Infrared input/output callbacks (mode sharing)
-//  - The digital pin input/output callbacks (buttons)
-//  - The led strip initialization, brightness control, and display
+//  - The digital pin read callbacks (buttons press)
+//  - The leds init, brightness, and display (render the lights)
 //
+// Then on top of being able to hook into the various actions of the engine
+// the Vortex class provides all kinds of APIs for controlling and manipulating
+// the engine while it is running.
 //
-
-// todo: maybe? led changed callback??
-
-enum VortexButtonEventType
-{
-  // no event
-  EVENT_NONE,
-
-  // a short click
-  EVENT_SHORT_CLICK,
-  // a long click
-  EVENT_LONG_CLICK,
-  // a click that is long enough to open the ring menu
-  EVENT_MENU_ENTER_CLICK,
-  // toggle the button
-  EVENT_TOGGLE_CLICK,
-  // quit the engine (not really a 'click')
-  EVENT_QUIT_CLICK,
-
-  // this is an automated event that will reset the button click
-  // after the ring menu hold-to-enter sequence
-  EVENT_RESET_CLICK,
-};
-
-class VortexButtonEvent
-{
-public:
-  VortexButtonEvent(uint32_t target, VortexButtonEventType type) :
-    target(target), type(type)
-  {
-  }
-  // target button index
-  uint32_t target;
-  // the event to trigger
-  VortexButtonEventType type;
-};
-
-class Mode;
-class Button;
 
 class VortexCallbacks
 {
@@ -102,9 +66,12 @@ public:
   virtual void ledsShow() { }
 };
 
+// forward decls for various classes
 class PatternArgs;
 class ByteStream;
 class Colorset;
+class Button;
+class Mode;
 
 // Vortex Engine wrapper class, use this to interface with
 // the vortex engine as much as possible
@@ -116,6 +83,7 @@ class Vortex
   static bool init(VortexCallbacks *callbacks);
 public:
 
+  // public initializer, you must provide a derivation of the class VortexCallbacks
   template <typename T>
   static T *init()
   {
@@ -220,6 +188,41 @@ public:
   // printing to log system
   static void printlog(const char *file, const char *func, int line, const char *msg, va_list list);
 private:
+  // The various different button events that can be injected into vortex
+  enum VortexButtonEventType
+  {
+    // no event
+    EVENT_NONE,
+
+    // a short click
+    EVENT_SHORT_CLICK,
+    // a long click
+    EVENT_LONG_CLICK,
+    // a press that is just long enough to open the ring menu
+    EVENT_MENU_ENTER_CLICK,
+    // toggle the button (press or unpress it)
+    EVENT_TOGGLE_CLICK,
+    // quit the engine (not really a 'click')
+    EVENT_QUIT_CLICK,
+
+    // this is an automated event that will reset the button click
+    // after the ring menu hold-to-enter sequence
+    EVENT_RESET_CLICK,
+  };
+
+  class VortexButtonEvent
+  {
+  public:
+    VortexButtonEvent(uint32_t target, VortexButtonEventType type) :
+      target(target), type(type)
+    {
+    }
+    // target button index
+    uint32_t target;
+    // the event to trigger
+    VortexButtonEventType type;
+  };
+
   // save and add undo buffer
   static bool doSave();
   static bool applyUndo();
