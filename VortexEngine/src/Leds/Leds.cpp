@@ -18,20 +18,20 @@ RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 // global brightness
 uint32_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 
-#ifdef VORTEX_LIB
-tinyNeoPixel Leds::m_pixels;
-#else
-tinyNeoPixel Leds::m_pixels = tinyNeoPixel(LED_COUNT, LED_DATA_PIN, NEO_RGB + NEO_KHZ800, (uint8_t *)m_ledColors);
-#endif
+// Output PORT register
+volatile uint8_t *Leds::m_port = nullptr;
+// Output PORT bitmask
+uint8_t Leds::m_pinMask = 0;
 
 bool Leds::init()
 {
   // clear the onboard led so it displays nothing
   // tiny neo pixels
-#ifdef VORTEX_LIB
-  m_pixels = tinyNeoPixel(LED_COUNT, LED_DATA_PIN, NEO_RGB + NEO_KHZ800, m_ledColors);
-#endif
   pinMode(LED_DATA_PIN, OUTPUT);
+  // register ouput port
+  m_port = portOutputRegister(digitalPinToPort(LED_DATA_PIN));
+  // create a pin mask to use later
+  m_pinMask = digitalPinToBitMask(LED_DATA_PIN);
   return true;
 }
 
@@ -188,5 +188,66 @@ void Leds::breathIndex(LedPos target, uint32_t hue, uint32_t variance, uint32_t 
 
 void Leds::update()
 {
-  m_pixels.show();
+  // Thanks to TinyNeoPixel for this code
+#ifdef VORTEX_ARDUINO
+  noInterrupts();
+  volatile uint16_t
+    i = LED_COUNT * sizeof(RGBColor); // Loop counter
+  volatile uint8_t
+    *ptr = (volatile uint8_t *)m_ledColors,   // Pointer to next byte
+    b = *ptr++,   // Current byte value
+    hi,             // PORT w/output bit set high
+    lo;             // PORT w/output bit set low
+
+  // 25 inst. clocks per bit: HHHHHHHxxxxxxxxLLLLLLLLLL
+  // ST instructions:         ^      ^       ^       (T=0,7,15)
+
+  volatile uint8_t next, bit;
+
+  hi = *m_port | m_pinMask;
+  lo = *m_port & ~m_pinMask;
+  next = lo;
+  bit = 8;
+
+  asm volatile(
+    "head20:"                   "\n\t" // Clk  Pseudocode    (T =  0)
+    "st   %a[port],  %[hi]"    "\n\t" // 1    PORT = hi     (T =  1)
+    "sbrc %[byte],  7"         "\n\t" // 1-2  if (b & 128)
+    "mov  %[next], %[hi]"      "\n\t" // 0-1   next = hi    (T =  3)
+    "dec  %[bit]"              "\n\t" // 1    bit--         (T =  4)
+    "nop"                      "\n\t" // 1    nop           (T =  5)
+    "rjmp .+0"                 "\n\t" // 2    nop nop       (T =  7)
+    "st   %a[port],  %[next]"  "\n\t" // 1    PORT = next   (T =  8)
+    "mov  %[next] ,  %[lo]"    "\n\t" // 1    next = lo     (T =  9)
+    "breq nextbyte20"          "\n\t" // 1-2  if (bit == 0) (from dec above)
+    "rol  %[byte]"             "\n\t" // 1    b <<= 1       (T = 11)
+    "rjmp .+0"                 "\n\t" // 2    nop nop       (T = 13)
+    "rjmp .+0"                 "\n\t" // 2    nop nop       (T = 15)
+    "st   %a[port],  %[lo]"    "\n\t" // 1    PORT = lo     (T = 16)
+    "nop"                      "\n\t" // 1    nop           (T = 17)
+    "rjmp .+0"                 "\n\t" // 2    nop nop       (T = 19)
+    "rjmp .+0"                 "\n\t" // 2    nop nop       (T = 21)
+    "rjmp .+0"                 "\n\t" // 2    nop nop       (T = 23)
+    "rjmp head20"              "\n\t" // 2    -> head20 (next bit out)
+    "nextbyte20:"              "\n\t" //                    (T = 11)
+    "ldi  %[bit]  ,  8"        "\n\t" // 1    bit = 8       (T = 12)
+    "ld   %[byte] ,  %a[ptr]+" "\n\t" // 2    b = *ptr++    (T = 14)
+    "nop"                      "\n\t" // 1    nop           (T = 15)
+    "st   %a[port], %[lo]"     "\n\t" // 1    PORT = lo     (T = 16)
+    "nop"                      "\n\t" // 1    nop           (T = 17)
+    "rjmp .+0"                 "\n\t" // 2    nop nop       (T = 19)
+    "rjmp .+0"                 "\n\t" // 2    nop nop       (T = 21)
+    "sbiw %[count], 1"         "\n\t" // 2    i--           (T = 23)
+    "brne head20"              "\n"   // 2    if (i != 0) -> (next byte)  ()
+    : [ptr] "+e" (ptr),
+    [byte]  "+r" (b),
+    [bit]   "+d" (bit),
+    [next]  "+r" (next),
+    [count] "+w" (i)
+    : [port] "e" (m_port),
+    [hi]     "r" (hi),
+    [lo]     "r" (lo));
+
+  interrupts();
+#endif
 }

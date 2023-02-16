@@ -3,8 +3,6 @@
 
 #include <inttypes.h>
 
-#include "tinyNeoPixel_Static.h"
-
 #include "../Colors/ColorTypes.h"
 #include "LedTypes.h"
 
@@ -109,8 +107,8 @@ private:
   // array of led color values
   static RGBColor m_ledColors[LED_COUNT];
 
-  // tiny neo pixels
-  static tinyNeoPixel m_pixels;
+  static volatile uint8_t *m_port;         // Output PORT register
+  static uint8_t m_pinMask;       // Output PORT bitmask
 };
 
 #endif
