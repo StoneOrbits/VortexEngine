@@ -348,7 +348,7 @@ RGBColor hsv_to_rgb_rainbow(const HSVColor &rhs)
 // generic hsv to rgb conversion nothing special
 RGBColor hsv_to_rgb_generic(const HSVColor &rhs)
 {
-  unsigned char region, remainder, p, q, t;
+  uint16_t region, remainder, p, q, t;
   RGBColor col;
 
   if (rhs.sat == 0) {

@@ -97,12 +97,6 @@ bool VortexEngine::init()
   ////data.decompress();
   //m_mode.loadFromBuffer(data);
 
-#ifdef VORTEX_ARDUINO
-  // set the sleep mode and enable sleep functionality
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-  sleep_enable();
-#endif
-
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif

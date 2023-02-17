@@ -116,6 +116,7 @@ void AdvancedPattern::onBlinkOn()
 {
   // set the target led with the given color
   Leds::setIndex(LED_0, m_colorset.getNext());
+  Leds::setIndex(LED_1, m_colorset.cur());
 }
 
 void AdvancedPattern::onBlinkOff()
