@@ -367,22 +367,22 @@ RGBColor hsv_to_rgb_generic(const HSVColor &rhs)
 
   switch (region) {
   case 0:
-    col.red = rhs.val; col.green = t; col.blue = p;
+    col.red = rhs.val; col.green = (uint8_t)t; col.blue = (uint8_t)p;
     break;
   case 1:
-    col.red = q; col.green = rhs.val; col.blue = p;
+    col.red = (uint8_t)q; col.green = rhs.val; col.blue = (uint8_t)p;
     break;
   case 2:
-    col.red = p; col.green = rhs.val; col.blue = t;
+    col.red = (uint8_t)p; col.green = rhs.val; col.blue = (uint8_t)t;
     break;
   case 3:
-    col.red = p; col.green = q; col.blue = rhs.val;
+    col.red = (uint8_t)p; col.green = (uint8_t)q; col.blue = rhs.val;
     break;
   case 4:
-    col.red = t; col.green = p; col.blue = rhs.val;
+    col.red = (uint8_t)t; col.green = (uint8_t)p; col.blue = rhs.val;
     break;
   default:
-    col.red = rhs.val; col.green = p; col.blue = q;
+    col.red = rhs.val; col.green = (uint8_t)p; col.blue = (uint8_t)q;
     break;
   }
   return col;

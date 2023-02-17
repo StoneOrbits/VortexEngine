@@ -12,6 +12,20 @@
 
 #include "Timings.h"
 
+
+#include "../Leds/Leds.h"
+
+#ifdef VORTEX_ARDUINO
+#include <avr/sleep.h>
+#endif
+
+// this is how long it takes for the arduino to go to sleep and wakeup when
+// using the idle sleep state, so if trying to put the cpu to sleep for some
+// amount of time it must be at least this amount or more.
+//
+// The real value is something like 712 but we overestimate just in case.
+#define ARDUINO_IDLE_SLEEP_MINIMUM 800
+
 // static members
 uint64_t Time::m_curTick = 0;
 uint64_t Time::m_prevTime = 0;
@@ -52,6 +66,11 @@ void Time::tickClock()
   }
 #endif
 
+#ifdef VORTEX_ARDUINO
+  set_sleep_mode(SLEEP_MODE_IDLE);
+  sleep_enable();
+#endif
+
   // perform timestep
   uint32_t elapsed_us;
   uint32_t us;
@@ -65,15 +84,30 @@ void Time::tickClock()
       // otherwise calculate regular difference
       elapsed_us = (uint32_t)(us - m_prevTime);
     }
-#if defined(VORTEX_LIB) && !defined(_MSC_VER)
+    // if building anywhere except visual studio then we can run alternate sleep code
+    // because in visual studio + windows it's better to just spin and check the high
+    // resolution clock instead of trying to sleep for microseconds. However on linux
+    // and arduino we can sleep for microseconds at a time, on linux it's precise, but
+    // on arduino we just get to sleep for some amount
+#if !defined(_MSC_VER)
     uint32_t required = (1000000 / TICKRATE);
+    uint32_t sleepTime = 0;
     if (required > elapsed_us) {
       // in vortex lib on linux we can just sleep instead of spinning
       // but on arduino we must spin and on windows it actually ends
       // up being more accurate to poll QPF + QPC
-      delayMicroseconds(required - elapsed_us);
+      sleepTime = required - elapsed_us;
     }
+
+#if defined(VORTEX_LIB)
+    delayMicroseconds(sleepTime);
+    // when running
     break;
+#else
+    for (uint8_t i = 0; i < sleepTime / ARDUINO_IDLE_SLEEP_MINIMUM; ++i) {
+      sleep_cpu();
+    }
+#endif
 #endif
     // 1000us per ms, divided by tickrate gives
     // the number of microseconds per tick
