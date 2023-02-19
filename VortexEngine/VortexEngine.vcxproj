@@ -151,7 +151,9 @@
     <ClCompile Include="src\Leds\Leds.cpp" />
     <ClCompile Include="src\Log\Log.cpp" />
     <ClCompile Include="src\Memory\Memory.cpp" />
+    <ClCompile Include="src\Modes\DefaultModes.cpp" />
     <ClCompile Include="src\Modes\Mode.cpp" />
+    <ClCompile Include="src\Modes\Modes.cpp" />
     <ClCompile Include="src\Patterns\Pattern.cpp" />
     <ClCompile Include="src\Patterns\PatternArgs.cpp" />
     <ClCompile Include="src\Patterns\PatternBuilder.cpp" />
@@ -178,7 +180,9 @@
     <ClInclude Include="src\Leds\LedTypes.h" />
     <ClInclude Include="src\Log\Log.h" />
     <ClInclude Include="src\Memory\Memory.h" />
+    <ClInclude Include="src\Modes\DefaultModes.h" />
     <ClInclude Include="src\Modes\Mode.h" />
+    <ClInclude Include="src\Modes\Modes.h" />
     <ClInclude Include="src\Patterns\Pattern.h" />
     <ClInclude Include="src\Patterns\PatternArgs.h" />
     <ClInclude Include="src\Patterns\PatternBuilder.h" />

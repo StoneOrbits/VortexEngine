@@ -302,3 +302,20 @@ void VortexEngine::serializationTest()
 }
 #endif
 
+#if TIMER_TEST == 1
+#include "Time/Timer.h"
+
+#include <assert.h>
+
+void VortexEngine::timerTest()
+{
+  DEBUG_LOG("== Beginning Timer Test ==");
+  // run the general time test
+  Time::test();
+  // run the timer test
+  Time::test();
+  // if we made it to here then success
+  DEBUG_LOG("== Beginning Timer Test ==");
+}
+#endif
+

@@ -256,6 +256,12 @@
 // which don't serialize and unserialize cleanly
 #define SERIALIZATION_TEST    0
 
+// Timer Test
+//
+// Run the time control and timer tests to check if the time system, timers, and
+// alarms can all function properly under the given configuration
+#define TIMER_TEST            0
+
 // Modes Test
 //
 // Run unit tests on the Modes class which manages the list of Modes.

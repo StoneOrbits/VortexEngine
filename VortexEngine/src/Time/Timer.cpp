@@ -24,6 +24,16 @@ Timer::~Timer()
   }
 }
 
+void Timer::init(uint8_t flags, uint8_t alarm1, uint8_t alarm2, uint8_t alarm3, uint8_t alarm4)
+{
+  reset();
+  if ((flags & TIMER_ALARM_MASK) >= TIMER_1_ALARM) addAlarm(alarm1);
+  if ((flags & TIMER_ALARM_MASK) >= TIMER_2_ALARMS) addAlarm(alarm2);
+  if ((flags & TIMER_ALARM_MASK) >= TIMER_3_ALARMS) addAlarm(alarm3);
+  if ((flags & TIMER_ALARM_MASK) >= TIMER_4_ALARMS) addAlarm(alarm4);
+  if ((flags & TIMER_START) != 0) start();
+}
+
 AlarmID Timer::addAlarm(uint32_t interval)
 {
   void *temp = vrealloc(m_alarms, sizeof(uint32_t) * (m_numAlarms + 1));
@@ -151,3 +161,25 @@ void Timer::setStartTime(uint64_t tick)
   // move the start time forward
   m_startTime = tick;
 }
+
+#if TIMER_TEST == 1
+#include <assert.h>
+
+void Timer::test()
+{
+#ifdef VORTEX_LIB
+  // Test time simulation apis in vortex lib builds
+  Timer newTimer;
+
+  newTimer.init();
+  assert(newTimer.alarm() == ALARM_NONE);
+  Time::startSimulation();
+  for (uint32_t t = 0; t < 100; ++t) {
+    assert(newTimer.alarm() == ALARM_NONE);
+    Time::tickSimulation();
+  }
+  Time::endSimulation();
+#endif
+
+}
+#endif

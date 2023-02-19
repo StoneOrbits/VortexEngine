@@ -35,14 +35,10 @@ void AdvancedPattern::init()
   m_inGap = false;
 
   // don't start the gap timer till we're in a gap
-  m_gapTimer.reset();
-  m_gapTimer.addAlarm(m_gapDuration);
+  m_gapTimer.init(TIMER_1_ALARM, m_gapDuration);
 
   // start the blink timer now
-  m_blinkTimer.reset();
-  m_blinkTimer.addAlarm(m_onDuration);
-  m_blinkTimer.addAlarm(m_offDuration);
-  m_blinkTimer.start();
+  m_blinkTimer.init(TIMER_2_ALARMS | TIMER_START, m_onDuration, m_offDuration);
 
   if (!m_groupSize || m_groupSize > m_colorset.numColors()) {
     m_realGroupSize = m_colorset.numColors();

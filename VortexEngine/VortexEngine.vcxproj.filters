@@ -165,6 +165,12 @@
     <ClCompile Include="VortexLib\EngineDependencies\tinyNeoPixel_Static.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Modes\Modes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Modes\DefaultModes.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\VortexConfig.h">
@@ -253,6 +259,12 @@
     </ClInclude>
     <ClInclude Include="VortexLib\EngineDependencies\tinyNeoPixel_Static.h">
       <Filter>Header Files\VortexLib\EngineDependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modes\Modes.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Modes\DefaultModes.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>
