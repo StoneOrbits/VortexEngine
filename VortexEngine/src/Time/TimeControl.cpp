@@ -81,11 +81,6 @@ void Time::tickClock()
   }
 #endif
 
-#ifdef VORTEX_ARDUINO
-  set_sleep_mode(SLEEP_MODE_IDLE);
-  sleep_enable();
-#endif
-
   // perform timestep
   uint32_t elapsed_us;
   uint32_t us;

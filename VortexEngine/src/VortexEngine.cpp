@@ -27,6 +27,9 @@ void VortexEngine::enterSleep()
   Leds::update();
   g_sleepCount = 0;
 #ifdef VORTEX_ARDUINO
+  // set sleep mode
+  set_sleep_mode(SLEEP_MODE_PWR_DWN);
+  sleep_enable();
   // Initialize RTC
   while (RTC.STATUS > 0) {
     // wait till RTC is ready
@@ -96,6 +99,11 @@ bool VortexEngine::init()
   ////data.compress();
   ////data.decompress();
   //m_mode.loadFromBuffer(data);
+
+#ifdef VORTEX_ARDUINO
+  set_sleep_mode(SLEEP_MODE_IDLE);
+  sleep_enable();
+#endif
 
 #if COMPRESSION_TEST == 1
   compressionTest();
