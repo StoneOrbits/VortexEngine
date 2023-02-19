@@ -6,6 +6,10 @@
 
 #include "../Time/TimeControl.h"
 
+#ifdef VORTEX_LIB
+#include "VortexLib.h"
+#endif
+
 #define LED_DATA_PIN  9
 
 #define POWER_LED_PIN 7
@@ -32,6 +36,9 @@ bool Leds::init()
   m_port = portOutputRegister(digitalPinToPort(LED_DATA_PIN));
   // create a pin mask to use later
   m_pinMask = digitalPinToBitMask(LED_DATA_PIN);
+#ifdef VORTEX_LIB
+  Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
+#endif
   return true;
 }
 
@@ -1114,5 +1121,8 @@ void Leds::update()
   // END AVR ----------------------------------------------------------------
 
   interrupts();
+#endif
+#ifdef VORTEX_LIB
+  Vortex::vcallbacks()->ledsShow();
 #endif
 }
