@@ -3,7 +3,6 @@
 
 #include "HybridPattern.h"
 
-// Rabbit is PATTERN_STROBIE on tops and PATTERN_STROBE on tips
 class FlowersPattern : public HybridPattern
 {
 public:

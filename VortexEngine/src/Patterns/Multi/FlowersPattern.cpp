@@ -30,18 +30,18 @@ void FlowersPattern::init()
   Colorset midSet(m_colorset.get(2), m_colorset.get(3));
 
   // thumb and pinkie use duration 1
-  setPatternAt(THUMB_TIP, PATTERN_BASIC, &m_firstPatternArgs, &sideSet);
-  setPatternAt(THUMB_TOP, PATTERN_BASIC, &m_firstPatternArgs, &sideSet);
-  setPatternAt(PINKIE_TOP, PATTERN_BASIC, &m_firstPatternArgs, &sideSet);
-  setPatternAt(PINKIE_TIP, PATTERN_BASIC, &m_firstPatternArgs, &sideSet);
+  setPatternAt(LED_0, PATTERN_BASIC, &m_firstPatternArgs, &sideSet);
+  setPatternAt(LED_1, PATTERN_BASIC, &m_firstPatternArgs, &sideSet);
+  setPatternAt(LED_8, PATTERN_BASIC, &m_firstPatternArgs, &sideSet);
+  setPatternAt(LED_9, PATTERN_BASIC, &m_firstPatternArgs, &sideSet);
 
   // middle index ring use duration 2
-  setPatternAt(MIDDLE_TIP, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
-  setPatternAt(MIDDLE_TOP, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
-  setPatternAt(INDEX_TOP, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
-  setPatternAt(INDEX_TIP, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
-  setPatternAt(RING_TOP, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
-  setPatternAt(RING_TIP, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
+  setPatternAt(LED_2, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
+  setPatternAt(LED_3, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
+  setPatternAt(LED_4, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
+  setPatternAt(LED_5, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
+  setPatternAt(LED_6, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
+  setPatternAt(LED_7, PATTERN_BASIC, &m_firstPatternArgs, &midSet);
 }
 
 void FlowersPattern::setArgs(const PatternArgs &args)

@@ -31,8 +31,8 @@ void DripPattern::init()
 void DripPattern::blinkOn()
 {
   if (!m_sync) {
-    Leds::setAllTips(m_colorset.cur());
-    Leds::setAllTops(m_colorset.peekNext());
+    Leds::setAllEvens(m_colorset.cur());
+    Leds::setAllOdds(m_colorset.peekNext());
   } else {
     Leds::setAll(m_colorset.cur());
   }

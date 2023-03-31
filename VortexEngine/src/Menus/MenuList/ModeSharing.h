@@ -7,6 +7,7 @@ class ModeSharing : public Menu
 {
 public:
   ModeSharing();
+  ~ModeSharing();
 
   bool init() override;
   bool run() override;
@@ -16,27 +17,6 @@ public:
   void onLongClick() override;
 
 private:
-  void beginSending();
-  void continueSending();
-  void receiveMode();
-
-  void showSendMode();
-  void showReceiveMode();
-
-  // override showExit so it isn't displayed on thumb
-  virtual void showExit() override;
-
-  enum class ModeShareState {
-    SHARE_SEND,     // send mode
-    SHARE_RECEIVE,  // receive mode
-  };
-
-  ModeShareState m_sharingMode;
-  // last time data was sent
-  uint64_t m_lastActionTime;
-
-  // the start time when checking for timing out
-  uint64_t m_timeOutStartTime;
 };
 
 #endif

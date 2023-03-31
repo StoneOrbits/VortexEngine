@@ -5,20 +5,20 @@
 #include "../../Log/Log.h"
 
 // Mapping of LED positions to steps.
-// The lights runs across tips, then back across tops.
+// The lights runs across evens, then back across odds.
 // Index this array with m_step in order to get correct LedPos
 const LedPos ZigzagPattern::ledStepPositions[] = {
-  PINKIE_TOP,
-  RING_TOP,
-  MIDDLE_TOP,
-  INDEX_TOP,
-  THUMB_TOP,
+  LED_1,
+  LED_3,
+  LED_5,
+  LED_7,
+  LED_9,
 
-  THUMB_TIP,
-  INDEX_TIP,
-  MIDDLE_TIP,
-  RING_TIP,
-  PINKIE_TIP,
+  LED_8,
+  LED_6,
+  LED_4,
+  LED_2,
+  LED_0,
 
   // PaLm LiGhTs?>??!?
 #if USE_PALM_LIGHTS == 1

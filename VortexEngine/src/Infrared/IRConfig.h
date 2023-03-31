@@ -1,6 +1,12 @@
 #ifndef IR_CONFIG_H
 #define IR_CONFIG_H
 
+// IR Enable
+//
+// Whether to enable the IR system as a whole
+//
+#define IR_ENABLE        0
+
 #define IR_TEST_BLOCK_SIZE 16
 
 // the size of IR blocks in bits

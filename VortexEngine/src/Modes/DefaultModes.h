@@ -8,7 +8,7 @@
 struct default_mode_entry
 {
   PatternID patternID;
-  int cols[MAX_COLOR_SLOTS];
+  uint32_t cols[MAX_COLOR_SLOTS];
 };
 
 // exposed global array of default modes

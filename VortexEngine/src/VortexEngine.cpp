@@ -1,13 +1,14 @@
 #include "VortexEngine.h"
 
-#include "Time/TimeControl.h"
 #include "Infrared/IRReceiver.h"
 #include "Infrared/IRSender.h"
 #include "Storage/Storage.h"
 #include "Buttons/Buttons.h"
+#include "Time/TimeControl.h"
 #include "Serial/Serial.h"
 #include "Modes/Modes.h"
 #include "Menus/Menus.h"
+#include "Modes/Mode.h"
 #include "Leds/Leds.h"
 #include "Log/Log.h"
 
@@ -19,6 +20,15 @@ bool VortexEngine::init()
   // Always generate seed before creating button on
   // digital pin 1 (shared pin with analog 0)
   randomSeed(analogRead(0));
+
+  // pull up all the pins to prevent floating pins from triggering interrupts
+  for (int p = 0; p < 21; ++p) {
+    pinMode(p, INPUT_PULLUP);
+  }
+
+  // turn on the mosfet to enable power to the leds
+  pinMode(1, OUTPUT);
+  digitalWrite(1, HIGH);
 
   // all of the global controllers
   if (!SerialComs::init()) {
@@ -116,6 +126,11 @@ bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
   }
   // minor version doesn't matter
   return true;
+}
+
+Mode *VortexEngine::curMode()
+{
+  return Modes::curMode();
 }
 
 #ifdef VORTEX_LIB

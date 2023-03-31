@@ -159,6 +159,21 @@ int digitalPinToInterrupt(int pin)
   return 0;
 }
 
+uint8_t *portOutputRegister(int port)
+{
+  return 0;
+}
+
+int digitalPinToPort(int pin)
+{
+  return 0;
+}
+
+int digitalPinToBitMask(int pin)
+{
+  return 0;
+}
+
 void SerialClass::begin(uint32_t baud)
 {
   Vortex::vcallbacks()->serialBegin(baud);

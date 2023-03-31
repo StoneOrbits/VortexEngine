@@ -40,10 +40,10 @@ void MeteorPattern::blinkOff()
 void MeteorPattern::poststep()
 {
   // when a new meteor is created it is incerted into the stash so the blinking pattern is not interrupted
-  Finger target = (Finger)random(FINGER_FIRST, FINGER_COUNT);
+  Pair target = (Pair)random(PAIR_FIRST, PAIR_COUNT);
   RGBColor col = m_colorset.getNext();
-  m_stash.setIndex(fingerTip(target), col);
-  m_stash.setIndex(fingerTop(target), col);
+  m_stash.setIndex(pairEven(target), col);
+  m_stash.setIndex(pairOdd(target), col);
 }
 
 void MeteorPattern::setArgs(const PatternArgs &args)

@@ -41,7 +41,7 @@ void SplitStrobiePattern::init()
   m_stepTimer.start();
 
   // initialize the sub patterns one time first
-  setTipsTops(PATTERN_STROBE, PATTERN_DOPS);
+  setEvensOdds(PATTERN_STROBE, PATTERN_DOPS);
 }
 
 void SplitStrobiePattern::play()
@@ -50,7 +50,7 @@ void SplitStrobiePattern::play()
     // switch which patterns are displayed
     m_switch = !m_switch;
     // update the tip/top patterns based on the switch
-    setTipsTops(m_switch ? PATTERN_DOPS : PATTERN_TRACER,
+    setEvensOdds(m_switch ? PATTERN_DOPS : PATTERN_TRACER,
                 m_switch ? PATTERN_TRACER : PATTERN_DOPS,
                 m_switch ? &m_firstPatternArgs : &m_secondPatternArgs,
                 m_switch ? &m_secondPatternArgs : &m_firstPatternArgs);

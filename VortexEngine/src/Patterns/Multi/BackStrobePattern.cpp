@@ -33,7 +33,7 @@ void BackStrobePattern::init()
   m_stepTimer.start();
 
   // initialize the sub patterns one time first
-  setTipsTops(PATTERN_STROBE, PATTERN_DOPS);
+  setEvensOdds(PATTERN_STROBE, PATTERN_DOPS);
 }
 
 void BackStrobePattern::play()
@@ -42,7 +42,7 @@ void BackStrobePattern::play()
     // switch which patterns are displayed
     m_switch = !m_switch;
     // update the tip/top patterns based on the switch
-    setTipsTops(m_switch ? PATTERN_DOPS : PATTERN_HYPERSTROBE,
+    setEvensOdds(m_switch ? PATTERN_DOPS : PATTERN_HYPERSTROBE,
                 m_switch ? PATTERN_HYPERSTROBE : PATTERN_DOPS,
                 m_switch ? &m_firstPatternArgs : &m_secondPatternArgs,
                 m_switch ? &m_secondPatternArgs : &m_firstPatternArgs);

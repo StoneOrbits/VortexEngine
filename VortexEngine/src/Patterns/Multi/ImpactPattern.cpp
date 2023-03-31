@@ -32,19 +32,19 @@ void ImpactPattern::init()
   Colorset thirdSet(m_colorset.get(2));
   Colorset fourthSet(m_colorset.get(3), m_colorset.get(4), m_colorset.get(5), m_colorset.get(6), m_colorset.get(7));
 
-  setPatternAt(THUMB_TIP, PATTERN_BASIC, &m_thumbArgs, &thumbSet);
-  setPatternAt(THUMB_TOP, PATTERN_BASIC, &m_thumbArgs, &thumbSet);
+  setPatternAt(LED_8, PATTERN_BASIC, &m_thumbArgs, &thumbSet);
+  setPatternAt(LED_9, PATTERN_BASIC, &m_thumbArgs, &thumbSet);
 
-  setPatternAt(MIDDLE_TIP, PATTERN_BASIC, &m_middleArgs, &middleSet);
-  setPatternAt(MIDDLE_TOP, PATTERN_BASIC, &m_middleArgs, &middleSet);
+  setPatternAt(LED_4, PATTERN_BASIC, &m_middleArgs, &middleSet);
+  setPatternAt(LED_5, PATTERN_BASIC, &m_middleArgs, &middleSet);
 
-  setPatternAt(INDEX_TOP, PATTERN_BASIC, &m_otherArgs, &thirdSet);
-  setPatternAt(RING_TOP, PATTERN_BASIC, &m_otherArgs, &thirdSet);
-  setPatternAt(PINKIE_TOP, PATTERN_BASIC, &m_otherArgs, &thirdSet);
+  setPatternAt(LED_7, PATTERN_BASIC, &m_otherArgs, &thirdSet);
+  setPatternAt(LED_3, PATTERN_BASIC, &m_otherArgs, &thirdSet);
+  setPatternAt(LED_1, PATTERN_BASIC, &m_otherArgs, &thirdSet);
 
-  setPatternAt(INDEX_TIP, PATTERN_BASIC, &m_middleArgs, &fourthSet);
-  setPatternAt(RING_TIP, PATTERN_BASIC, &m_middleArgs, &fourthSet);
-  setPatternAt(PINKIE_TIP, PATTERN_BASIC, &m_middleArgs, &fourthSet);
+  setPatternAt(LED_6, PATTERN_BASIC, &m_middleArgs, &fourthSet);
+  setPatternAt(LED_2, PATTERN_BASIC, &m_middleArgs, &fourthSet);
+  setPatternAt(LED_0, PATTERN_BASIC, &m_middleArgs, &fourthSet);
 }
 
 void ImpactPattern::setArgs(const PatternArgs &args)

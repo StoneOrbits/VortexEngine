@@ -93,8 +93,8 @@ void DripMorphPattern::blinkOn()
   //       always over/under shoot
   m_cur.hue += m_speed * sign;
   // set the target led with the current HSV color
-  Leds::setAllTips(m_cur);
-  Leds::setAllTops(m_colorset.cur());
+  Leds::setAllEvens(m_cur);
+  Leds::setAllOdds(m_colorset.cur());
 }
 
 void DripMorphPattern::blinkOff()

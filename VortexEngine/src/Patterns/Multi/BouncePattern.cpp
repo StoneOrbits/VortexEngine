@@ -5,7 +5,7 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-#define TOTAL_STEPS ((FINGER_COUNT * 2) - 2)
+#define TOTAL_STEPS ((PAIR_COUNT * 2) - 2)
 #define HALF_STEPS (TOTAL_STEPS / 2)
 
 BouncePattern::BouncePattern(int8_t onDuration, uint8_t offDuration, uint8_t stepDuration, uint8_t fadeAmount) :
@@ -39,10 +39,10 @@ void BouncePattern::init()
 void BouncePattern::blinkOn()
 {
   Leds::setAll(m_colorset.cur());
-  if (m_progress < FINGER_COUNT) {
-    Leds::setFinger((Finger)m_progress, m_colorset.peekNext());
+  if (m_progress < PAIR_COUNT) {
+    Leds::setPair((Pair)m_progress, m_colorset.peekNext());
   } else {
-    Leds::setFinger((Finger)(TOTAL_STEPS - m_progress), m_colorset.peekNext());
+    Leds::setPair((Pair)(TOTAL_STEPS - m_progress), m_colorset.peekNext());
   }
 }
 

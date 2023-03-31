@@ -30,7 +30,7 @@ void SparkleTracePattern::blinkOn()
 void SparkleTracePattern::poststep()
 {
   for (int dot = 0; dot < 4; ++dot) {
-    Leds::setFinger((Finger)random(FINGER_FIRST, FINGER_LAST + 1), m_colorset.cur());
+    Leds::setPair((Pair)random(PAIR_FIRST, PAIR_LAST + 1), m_colorset.cur());
   }
   m_colorset.skip();
   if (m_colorset.curIndex() == 0) {

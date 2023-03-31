@@ -6,17 +6,17 @@
 #include "../../Log/Log.h"
 
 const LedPos VortexWipePattern::ledStepPositions[] = {
-  THUMB_TOP,
-  INDEX_TOP,
-  MIDDLE_TOP,
-  RING_TOP,
-  PINKIE_TOP,
+  LED_9,
+  LED_7,
+  LED_5,
+  LED_3,
+  LED_1,
 
-  PINKIE_TIP,
-  RING_TIP,
-  MIDDLE_TIP,
-  INDEX_TIP,
-  THUMB_TIP
+  LED_0,
+  LED_2,
+  LED_4,
+  LED_6,
+  LED_8
 };
 
 VortexWipePattern::VortexWipePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :

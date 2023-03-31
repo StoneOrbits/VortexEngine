@@ -30,17 +30,8 @@ public:
   virtual void leaveMenu(bool doSave = false);
 
 protected:
-  // blink the selected finger
-  virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
-
-  // draw the exit on thumb
-  virtual void showExit();
-
   // the current mode that was selected
   Mode *m_pCurMode;
-
-  // all menus have a 'current selection' which can point at any finger
-  Finger m_curSelection;
 
 private:
   // whether to close the menu

@@ -7,9 +7,9 @@ class FactoryReset : public Menu
 {
 public:
   FactoryReset();
+  ~FactoryReset();
 
   bool init() override;
-
   bool run() override;
 
   // handlers for clicks
@@ -17,8 +17,6 @@ public:
   void onLongClick() override;
 
 private:
-  // show the reset lights
-  void showReset();
 };
 
 #endif

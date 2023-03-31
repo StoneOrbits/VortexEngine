@@ -265,7 +265,7 @@ static unsigned LZ4_NbCommonBytes(reg_t val)
       return (unsigned)(((U64)((val & (m - 1)) * m)) >> 56);
     } else /* 32 bits */ {
       const U32 m = 0x01010101;
-      return (unsigned)((((val - 1) ^ val) & (m - 1)) * m) >> 24;
+      return (unsigned)((U32)((((val - 1) ^ val) & (m - 1)) * m) >> 24);
     }
   } else   /* Big Endian CPU */ {
     if (sizeof(val) == 8) {

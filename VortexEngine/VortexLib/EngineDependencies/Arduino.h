@@ -35,6 +35,10 @@ void attachInterrupt(int interrupt, void (*func)(), int type);
 void detachInterrupt(int interrupt);
 int digitalPinToInterrupt(int pin);
 
+uint8_t *portOutputRegister(int port);
+int digitalPinToPort(int pin);
+int digitalPinToBitMask(int pin);
+
 #if defined(VORTEX_LIB)
 // not actually from arduino but we use to simulate ir comms
 void send_ir(bool mark, uint32_t duration);

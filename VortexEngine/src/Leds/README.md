@@ -8,7 +8,7 @@ This is a small helper class used for in patterns stashing away a copy of the co
 
 # [Led Types](LedTypes.h)
 
-This contains the enumerated types for iterating across the Leds or Fingers on the device.
+This contains the enumerated types for iterating across the Leds or Pairs on the device.
 
 Each finger contains two leds so this also contains methods for for targetting multiple leds at once.
 

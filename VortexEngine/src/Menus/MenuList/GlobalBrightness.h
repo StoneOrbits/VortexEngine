@@ -7,9 +7,9 @@ class GlobalBrightness : public Menu
 {
 public:
   GlobalBrightness();
+  ~GlobalBrightness();
 
   bool init() override;
-
   bool run() override;
 
   // handlers for clicks

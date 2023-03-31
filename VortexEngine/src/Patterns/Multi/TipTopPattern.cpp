@@ -23,14 +23,14 @@ TipTopPattern::~TipTopPattern()
 void TipTopPattern::init()
 {
   HybridPattern::init();
-  Colorset tipsColor(m_colorset.get(0));
-  Colorset topsColors(m_colorset.get(1), m_colorset.get(2), m_colorset.get(3), 
+  Colorset evenColors(m_colorset.get(0));
+  Colorset oddsColors(m_colorset.get(1), m_colorset.get(2), m_colorset.get(3), 
     m_colorset.get(4), m_colorset.get(5), m_colorset.get(6), m_colorset.get(7));
   for (LedPos p = LED_FIRST; p <= LED_LAST; p++) {
-    if (isFingerTip(p)) {
-      setPatternAt(p, PATTERN_BASIC, &m_tipArgs, &tipsColor);
+    if (isEven(p)) {
+      setPatternAt(p, PATTERN_BASIC, &m_tipArgs, &evenColors);
     } else {
-      setPatternAt(p, PATTERN_BASIC, &m_topArgs, &topsColors);
+      setPatternAt(p, PATTERN_BASIC, &m_topArgs, &oddsColors);
     }
   }
 }

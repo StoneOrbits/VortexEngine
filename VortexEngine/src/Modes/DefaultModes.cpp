@@ -16,6 +16,7 @@ const default_mode_entry default_modes[] = {
     }
   },
 
+#if 0
   // Pattern 2: Ghost Crush Mode
   {
     PATTERN_GHOSTCRUSH, {
@@ -173,6 +174,7 @@ const default_mode_entry default_modes[] = {
       RGB_BLUE
     }
   }
+#endif
 };
 
 // exposed size of the default modes array

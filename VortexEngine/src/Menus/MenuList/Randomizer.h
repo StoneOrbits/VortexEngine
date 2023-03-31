@@ -21,19 +21,6 @@ public:
   void onLongClick() override;
 
 private:
-  // override showExit so it isn't displayed on thumb
-  virtual void showExit() override;
-
-  // a demo mode for the current randomization
-  Mode m_demoMode;
-
-  // re-roll a new randomization
-  bool reRoll();
-
-#ifdef VORTEX_LIB
-  // so that vortex can reach in and grab the demo mode
-  friend class Vortex;
-#endif
 };
 
 #endif

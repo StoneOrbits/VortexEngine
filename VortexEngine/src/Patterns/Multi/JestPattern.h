@@ -3,7 +3,6 @@
 
 #include "HybridPattern.h"
 
-// Rabbit is PATTERN_STROBIE on tops and PATTERN_STROBE on tips
 class JestPattern : public HybridPattern
 {
 public:
@@ -19,8 +18,8 @@ public:
   virtual void getArgs(PatternArgs &args) const override;
 
 private:
-  PatternArgs m_tipArgs;
-  PatternArgs m_topArgs;
+  PatternArgs m_evenArgs;
+  PatternArgs m_oddArgs;
 };
 
 #endif

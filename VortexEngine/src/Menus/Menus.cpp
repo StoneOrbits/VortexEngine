@@ -40,6 +40,9 @@ Menu *initMenu() { return new T(); }
 
 // The list of menus that are registered with colors to show in ring menu
 const MenuEntry menuList[MENU_COUNT] = {
+  // =========================
+  //  Default menu setup:
+#if 0
   ENTRY(Randomizer,       RGB_DIM_WHITE1),  // 0
   ENTRY(ColorSelect,      RGB_ORANGE),      // 1
   ENTRY(PatternSelect,    RGB_BLUE),        // 2
@@ -47,6 +50,7 @@ const MenuEntry menuList[MENU_COUNT] = {
   ENTRY(FactoryReset,     RGB_RED),         // 4
   ENTRY(ModeSharing,      RGB_TEAL),        // 5
   ENTRY(EditorConnection, RGB_PURPLE),      // 6
+#endif
 };
 
 // the number of menus in the above array

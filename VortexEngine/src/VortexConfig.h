@@ -112,7 +112,7 @@
 // than some pattern timings which results in unexpected behaviour
 #define DEFAULT_TICKRATE      1000
 
-// Finger time offset in ticks
+// Pair time offset in ticks
 //
 // This changes how many ticks out of sync each finger will run.
 // So 33 means each finger runs 33 ticks out of sync with the
@@ -128,7 +128,7 @@
 // The memory tracker isn't present in final builds, only debug
 // so this number doesn't actually do anything in production.
 // Mostly for catching leaks or high memory usage in development.
-#define MAX_MEMORY            50000
+#define MAX_MEMORY            8000
 
 // Log Level
 //
@@ -328,21 +328,21 @@
 //  These are the various storage space constants of the vortex device
 
 // maximum storage space in bytes
-#define MAX_STORAGE_SPACE 262144
+#define MAX_STORAGE_SPACE 32000
 
 // the size of the compiled engine
-#define ENGINE_SIZE 88776
+#define ENGINE_SIZE 28000
 
 // the raw amount of available space
 #define RAW_AVAILABLE_SPACE (MAX_STORAGE_SPACE - ENGINE_SIZE)
 
 // usable flash space is one eighth of what we have left idk why I
 // just kept picking numbers till it worked
-#define USABLE_SPACE (RAW_AVAILABLE_SPACE / 8)
+#define USABLE_SPACE (RAW_AVAILABLE_SPACE / 4)
 
 // the space available for storing modes is the usable space rounded
 // down to nearest 4096
-#define STORAGE_SIZE (USABLE_SPACE - (USABLE_SPACE % 4096))
+#define STORAGE_SIZE (USABLE_SPACE - (USABLE_SPACE % 256))
 
 // ===================================================================
 //  Test Framework configurations
@@ -352,7 +352,7 @@
 // These defines come from the project settings for preprocessor, an
 // entry for $(SolutionName) produces preprocessor definitions that
 // match the solution that is compiling the engine
-#if !defined(VortexTestingFramework) && !defined(VortexEditor) && !defined(VORTEX_LIB)
+#if !defined(PROJECT_NAME_VortexTestingFramework) && !defined(PROJECT_NAME_VortexEditor) && !defined(VORTEX_LIB)
 #define VORTEX_ARDUINO 1
 #endif
 
@@ -366,7 +366,7 @@
 #endif
 
 // This will be defined if the project is being built inside the test framework
-#ifdef VortexTestingFramework
+#ifdef PROJECT_NAME_VortexTestingFramework
 
 // In the test framework variable tickrate must be enabled to allow
 // the tickrate slider to function, also the test framework never runs
