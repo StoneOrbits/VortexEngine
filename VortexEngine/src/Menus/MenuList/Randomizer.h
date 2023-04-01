@@ -17,8 +17,8 @@ public:
   bool run() override;
 
   // handlers for clicks
-  void onShortClick() override;
-  void onLongClick() override;
+  //void onShortClick() override;
+  //void onLongClick() override;
 
 private:
 };

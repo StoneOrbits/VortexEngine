@@ -27,11 +27,3 @@ bool ModeSharing::run()
   }
   return true;
 }
-
-void ModeSharing::onShortClick()
-{
-}
-
-void ModeSharing::onLongClick()
-{
-}

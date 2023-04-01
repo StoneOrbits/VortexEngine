@@ -27,11 +27,3 @@ bool Randomizer::run()
   }
   return true;
 }
-
-void Randomizer::onShortClick()
-{
-}
-
-void Randomizer::onLongClick()
-{
-}

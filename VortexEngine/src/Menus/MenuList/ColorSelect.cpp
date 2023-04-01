@@ -27,11 +27,3 @@ bool ColorSelect::run()
   }
   return true;
 }
-
-void ColorSelect::onShortClick()
-{
-}
-
-void ColorSelect::onLongClick()
-{
-}

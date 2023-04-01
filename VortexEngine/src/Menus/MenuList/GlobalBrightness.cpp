@@ -27,11 +27,3 @@ bool GlobalBrightness::run()
   }
   return true;
 }
-
-void GlobalBrightness::onShortClick()
-{
-}
-
-void GlobalBrightness::onLongClick()
-{
-}

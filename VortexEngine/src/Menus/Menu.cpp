@@ -65,6 +65,7 @@ void Menu::onShortClick()
 
 void Menu::onLongClick()
 {
+  leaveMenu(false);
 }
 
 void Menu::leaveMenu(bool doSave)

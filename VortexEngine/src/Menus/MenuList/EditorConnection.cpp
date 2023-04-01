@@ -27,11 +27,3 @@ bool EditorConnection::run()
   }
   return true;
 }
-
-void EditorConnection::onShortClick()
-{
-}
-
-void EditorConnection::onLongClick()
-{
-}

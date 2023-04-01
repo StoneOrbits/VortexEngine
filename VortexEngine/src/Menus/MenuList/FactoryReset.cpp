@@ -27,11 +27,3 @@ bool FactoryReset::run()
   }
   return true;
 }
-
-void FactoryReset::onShortClick()
-{
-}
-
-void FactoryReset::onLongClick()
-{
-}

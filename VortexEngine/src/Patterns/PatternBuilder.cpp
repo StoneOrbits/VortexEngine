@@ -171,9 +171,13 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_SPLITSTROBIE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 16, 3, 10, PATTERN_DOPS, PATTERN_TRACER);
     case PATTERN_BACKSTROBE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 10, PATTERN_DOPS, PATTERN_HYPERSTROBE);
     case PATTERN_MATERIA: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 3, 35, 80);
-#endif
     case PATTERN_NONE: break;
     default: break;
+#else
+    // in vortex slim just use DOPS for all mult-led
+    case PATTERN_NONE: break;
+    default: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0, 0, 0);
+#endif
   }
   return PatternArgs();
 }
@@ -228,9 +232,13 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_SPLITSTROBIE:
     case PATTERN_BACKSTROBE: return new BackStrobePattern(args);
     case PATTERN_MATERIA: return new MateriaPattern(args);
-#endif
     case PATTERN_NONE: return nullptr;
     default: break;
+#else
+    // in vortex slim just use basic pattern for all multi led
+    case PATTERN_NONE: return nullptr;
+    default: return new BasicPattern(args);
+#endif
   }
   DEBUG_LOGF("Unknown pattern id: %u", id);
   return nullptr;

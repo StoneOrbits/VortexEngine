@@ -27,11 +27,3 @@ bool PatternSelect::run()
   }
   return true;
 }
-
-void PatternSelect::onShortClick()
-{
-}
-
-void PatternSelect::onLongClick()
-{
-}

@@ -160,6 +160,7 @@ bool Vortex::init(VortexCallbacks *callbacks)
     vector<string> params = Vortex::getCustomParams(id);
     PatternArgs args = PatternBuilder::getDefaultArgs(id);
     if (params.size() != args.numArgs) {
+      ERROR_LOG("/!\\ PARAMS NOT EVEN /!\\");
       // Params not even!
       return false;
     }
@@ -611,6 +612,7 @@ vector<string> Vortex::getCustomParams(PatternID id)
     return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group", "Start Offset", "Num Flips"};
   case PATTERN_BRACKETS:
     return { "Bracket Duration", "Mid Duration", "Off Duration" };
+#if VORTEX_SLIM == 0
   case PATTERN_HUESHIFT:
     return { "Speed", "Scale" };
   case PATTERN_THEATER_CHASE:
@@ -630,7 +632,6 @@ vector<string> Vortex::getCustomParams(PatternID id)
     return { "On Duration", "Off Duration", "Step Duration" };
   case PATTERN_BOUNCE:
     return { "On Duration", "Off Duration", "Step Duration", "Fade Amount" };
-    //case PATTERN_CHASER:
   case PATTERN_DRIPMORPH:
     return { "On Duration", "Off Duration", "Speed" };
   case PATTERN_METEOR:
@@ -644,9 +645,14 @@ vector<string> Vortex::getCustomParams(PatternID id)
   case PATTERN_BACKSTROBE:
     return { "On Duration 1", "Off Duration 1", "Gap Duration 1",  "On Duration 2", "Off Duration 2",
       "Step Duration x 100ms", "Pattern 1 ID", "Pattern 2 ID"};
+  case PATTERN_CHASER:
   case PATTERN_NONE:
   default:
     break;
+#else
+  default:
+    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group" };
+#endif
   }
   return vector<string>();
 }
