@@ -5,20 +5,17 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-HueShiftPattern::HueShiftPattern(uint8_t onDuration, uint8_t offDuration) :
-  MultiLedPattern(),
-  m_blinkOnDuration(onDuration),
-  m_blinkOffDuration(offDuration),
+HueShiftPattern::HueShiftPattern(const PatternArgs &args) :
+  MultiLedPattern(args),
+  m_blinkOnDuration(0),
+  m_blinkOffDuration(0),
   m_blinkTimer(),
   m_cur(0),
   m_next(0)
 {
   m_patternID = PATTERN_HUESHIFT;
-}
-
-HueShiftPattern::HueShiftPattern(const PatternArgs &args) :
-  HueShiftPattern()
-{
+  REGISTER_ARG(m_blinkOnDuration);
+  REGISTER_ARG(m_blinkOffDuration);
   setArgs(args);
 }
 
@@ -75,19 +72,4 @@ void HueShiftPattern::play()
     Leds::setIndex(pos, hsv_to_rgb_generic(showColor));
     showColor.hue = (showColor.hue + 5) % 256;
   }
-}
-
-void HueShiftPattern::setArgs(const PatternArgs &args)
-{
-  MultiLedPattern::setArgs(args);
-  m_blinkOnDuration = args.arg1;
-  m_blinkOffDuration = args.arg2;
-}
-
-void HueShiftPattern::getArgs(PatternArgs &args) const
-{
-  MultiLedPattern::getArgs(args);
-  args.arg1 = m_blinkOnDuration;
-  args.arg2 = m_blinkOffDuration;
-  args.numArgs += 2;
 }

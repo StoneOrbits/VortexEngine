@@ -13,9 +13,6 @@ public:
 
   virtual void init() override;
 
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
-
 protected:
   // only override the onBlinkOn so we can control the color it blinks
   virtual void onBlinkOn() override;

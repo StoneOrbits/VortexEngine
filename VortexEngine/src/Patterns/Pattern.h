@@ -7,6 +7,8 @@
 #include "Patterns.h"
 #include "PatternArgs.h"
 
+#define MAX_PATTERN_ARGS 8
+
 // The heirarchy of pattern currently looks like this:
 /*
  *                                pattern*
@@ -24,6 +26,9 @@
 
 // the pattern is a multi-pattern
 #define PATTERN_FLAG_MULTI  (1<<0)
+
+// macro to register args of a pattern
+#define REGISTER_ARG(arg) registerArg(((uintptr_t)&arg - (uintptr_t)this));
 
 class ByteStream;
 
@@ -56,8 +61,8 @@ public:
   virtual void unserialize(ByteStream &buffer);
 
   // must override setArgs and getArgs if you have custom params
-  virtual void setArgs(const PatternArgs &args);
-  virtual void getArgs(PatternArgs &args) const;
+  void setArgs(const PatternArgs &args);
+  void getArgs(PatternArgs &args) const;
 
   // comparison to other pattern
   // NOTE: That may cause problems because the parameter is still a Pattern *
@@ -93,6 +98,11 @@ protected:
   Colorset m_colorset;
   // the Led the pattern is running on
   LedPos m_ledPos;
+
+  void registerArg(uint8_t argOffset);
+
+  uint8_t *m_argList;
+  uint8_t m_numArgs;
 };
 
 #endif

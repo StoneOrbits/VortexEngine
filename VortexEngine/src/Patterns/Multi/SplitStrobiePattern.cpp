@@ -5,21 +5,21 @@
 #include "../../Colors/Colorset.h"
 #include "../../Log/Log.h"
 
-SplitStrobiePattern::SplitStrobiePattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration,
-  uint8_t dashDuration, uint8_t dotDuration, uint8_t stepDuration100ms) :
-  HybridPattern(),
-  m_stepDuration(stepDuration100ms),
+SplitStrobiePattern::SplitStrobiePattern(const PatternArgs &args) :
+  HybridPattern(args),
+  m_stepDuration(0),
   m_stepTimer(),
   m_switch(false),
-  m_firstPatternArgs(onDuration, offDuration, gapDuration),
-  m_secondPatternArgs(dashDuration, dotDuration)
+  m_firstPatternArgs(0, 0, 0),
+  m_secondPatternArgs(0, 0)
 {
   m_patternID = PATTERN_SPLITSTROBIE;
-}
-
-SplitStrobiePattern::SplitStrobiePattern(const PatternArgs &args) :
-  SplitStrobiePattern()
-{
+  REGISTER_ARG(m_firstPatternArgs.arg1);
+  REGISTER_ARG(m_firstPatternArgs.arg2);
+  REGISTER_ARG(m_firstPatternArgs.arg3);
+  REGISTER_ARG(m_secondPatternArgs.arg1);
+  REGISTER_ARG(m_secondPatternArgs.arg2);
+  REGISTER_ARG(m_stepDuration);
   setArgs(args);
 }
 
@@ -56,27 +56,4 @@ void SplitStrobiePattern::play()
                 m_switch ? &m_secondPatternArgs : &m_firstPatternArgs);
   }
   HybridPattern::play();
-}
-
-void SplitStrobiePattern::setArgs(const PatternArgs &args)
-{
-  HybridPattern::setArgs(args);
-  m_firstPatternArgs.arg1 = args.arg1;
-  m_firstPatternArgs.arg2 = args.arg2;
-  m_firstPatternArgs.arg3 = args.arg3;
-  m_secondPatternArgs.arg1 = args.arg4;
-  m_secondPatternArgs.arg2 = args.arg5;
-  m_stepDuration = args.arg6;
-}
-
-void SplitStrobiePattern::getArgs(PatternArgs &args) const
-{
-  HybridPattern::getArgs(args);
-  args.arg1 = m_firstPatternArgs.arg1;
-  args.arg2 = m_firstPatternArgs.arg2;
-  args.arg3 = m_firstPatternArgs.arg3;
-  args.arg4 = m_secondPatternArgs.arg1;
-  args.arg5 = m_secondPatternArgs.arg2;
-  args.arg6 = m_stepDuration;
-  args.numArgs += 6;
 }

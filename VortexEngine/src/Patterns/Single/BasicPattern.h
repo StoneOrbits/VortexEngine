@@ -14,9 +14,6 @@ public:
 
   virtual void play() override;
 
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
-
 protected:
   // when blinking off
   virtual void onBlinkOn();

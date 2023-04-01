@@ -4,6 +4,8 @@ SolidPattern::SolidPattern(const PatternArgs &args) :
   BasicPattern(args),
   m_colIndex(0)
 {
+  m_patternID = PATTERN_SOLID;
+  REGISTER_ARG(m_colIndex);
   setArgs(args);
 }
 
@@ -19,19 +21,6 @@ void SolidPattern::init()
 void SolidPattern::play()
 {
   BasicPattern::play();
-}
-
-void SolidPattern::setArgs(const PatternArgs &args)
-{
-  BasicPattern::setArgs(args);
-  m_colIndex = args.arg7;
-}
-
-void SolidPattern::getArgs(PatternArgs &args) const
-{
-  BasicPattern::getArgs(args);
-  args.arg7 = m_colIndex;
-  args.numArgs += 1;
 }
 
 // callbacks for blinking on/off, can be overridden by derived classes

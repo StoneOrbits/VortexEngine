@@ -9,8 +9,8 @@
 
 #include <string.h>
 
-SequencedPattern::SequencedPattern() :
-  HybridPattern(),
+SequencedPattern::SequencedPattern(const PatternArgs &args) :
+  HybridPattern(args),
   m_sequence(),
   m_curSequence(0)
 {
@@ -18,8 +18,8 @@ SequencedPattern::SequencedPattern() :
   // instantiated so we do not need to assign a pattern id
 }
 
-SequencedPattern::SequencedPattern(const Sequence &sequence) :
-  HybridPattern(),
+SequencedPattern::SequencedPattern(const PatternArgs &args, const Sequence &sequence) :
+  HybridPattern(args),
   m_sequence(sequence),
   m_curSequence(0)
 {

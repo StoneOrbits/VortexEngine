@@ -4,15 +4,10 @@
 
 #include "../../Leds/Leds.h"
 
-DoubleStrobePattern::DoubleStrobePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration)
+DoubleStrobePattern::DoubleStrobePattern(const PatternArgs &args) :
+  BlinkStepPattern(args)
 {
   m_patternID = PATTERN_DOUBLESTROBE;
-}
-
-DoubleStrobePattern::DoubleStrobePattern(const PatternArgs &args) :
-  DoubleStrobePattern()
-{
   setArgs(args);
 }
 

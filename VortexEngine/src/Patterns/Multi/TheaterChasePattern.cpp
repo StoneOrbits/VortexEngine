@@ -4,17 +4,12 @@
 
 #define THEATER_CHASE_STEPS 10
 
-TheaterChasePattern::TheaterChasePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration),
+TheaterChasePattern::TheaterChasePattern(const PatternArgs &args) :
+  BlinkStepPattern(args),
   m_ledPositions(0),
   m_stepCounter(0)
 {
   m_patternID = PATTERN_THEATER_CHASE;
-}
-
-TheaterChasePattern::TheaterChasePattern(const PatternArgs &args) :
-  TheaterChasePattern()
-{
   setArgs(args);
 }
 

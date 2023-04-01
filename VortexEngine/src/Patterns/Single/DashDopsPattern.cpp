@@ -2,20 +2,18 @@
 
 #include "../../Leds/Leds.h"
 
-DashDopsPattern::DashDopsPattern(uint8_t dashLength, uint8_t dotLength, uint8_t offDuration) :
-  SingleLedPattern(),
-  m_dashDuration(dashLength),
-  m_dotDuration(dotLength),
-  m_offDuration(offDuration),
+DashDopsPattern::DashDopsPattern(const PatternArgs &args) :
+  SingleLedPattern(args),
+  m_dashDuration(0),
+  m_dotDuration(0),
+  m_offDuration(0),
   m_blinkTimer(),
   m_dotColor(0)
 {
   m_patternID = PATTERN_DASHDOPS;
-}
-
-DashDopsPattern::DashDopsPattern(const PatternArgs &args) :
-  DashDopsPattern()
-{
+  REGISTER_ARG(m_dashDuration);
+  REGISTER_ARG(m_dotDuration);
+  REGISTER_ARG(m_offDuration);
   setArgs(args);
 }
 
@@ -65,21 +63,4 @@ void DashDopsPattern::play()
       m_dotColor = (m_dotColor + 1) % (m_colorset.numColors() - 1);
     }
   }
-}
-
-void DashDopsPattern::setArgs(const PatternArgs &args)
-{
-  SingleLedPattern::setArgs(args);
-  m_dashDuration = args.arg1;
-  m_dotDuration = args.arg2;
-  m_offDuration = args.arg3;
-}
-
-void DashDopsPattern::getArgs(PatternArgs &args) const
-{
-  SingleLedPattern::getArgs(args);
-  args.arg1 = m_dashDuration;
-  args.arg2 = m_dotDuration;
-  args.arg3 = m_offDuration;
-  args.numArgs += 3;
 }

@@ -8,17 +8,13 @@
 #define TOTAL_STEPS ((PAIR_COUNT * 2) - 2)
 #define HALF_STEPS (TOTAL_STEPS / 2)
 
-BouncePattern::BouncePattern(int8_t onDuration, uint8_t offDuration, uint8_t stepDuration, uint8_t fadeAmount) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration),
+BouncePattern::BouncePattern(const PatternArgs &args) :
+  BlinkStepPattern(args),
   m_progress(0),
-  m_fadeAmount(fadeAmount)
+  m_fadeAmount(0)
 {
   m_patternID = PATTERN_BOUNCE;
-}
-
-BouncePattern::BouncePattern(const PatternArgs &args) :
-  BouncePattern()
-{
+  REGISTER_ARG(m_fadeAmount);
   setArgs(args);
 }
 
@@ -52,17 +48,4 @@ void BouncePattern::poststep()
   if (m_progress == 0 || m_progress == HALF_STEPS) {
     m_colorset.getNext();
   }
-}
-
-void BouncePattern::setArgs(const PatternArgs &args)
-{
-  BlinkStepPattern::setArgs(args);
-  m_fadeAmount = args.arg4;
-}
-
-void BouncePattern::getArgs(PatternArgs &args) const
-{
-  BlinkStepPattern::getArgs(args);
-  args.arg4 = m_fadeAmount;
-  args.numArgs += 1;
 }

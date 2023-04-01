@@ -2,16 +2,11 @@
 
 #include "../../Leds/Leds.h"
 
-CrossDopsPattern::CrossDopsPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration),
+CrossDopsPattern::CrossDopsPattern(const PatternArgs &args) :
+  BlinkStepPattern(args),
   m_ledMap(0)
 {
   m_patternID = PATTERN_CROSSDOPS;
-}
-
-CrossDopsPattern::CrossDopsPattern(const PatternArgs &args) :
-  CrossDopsPattern()
-{
   setArgs(args);
 }
 

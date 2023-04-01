@@ -11,7 +11,7 @@ class HybridPattern : public MultiLedPattern
 {
 protected:
   // HybridPattern is an abstract class
-  HybridPattern();
+  HybridPattern(const PatternArgs &args);
 
 public:
   virtual ~HybridPattern();

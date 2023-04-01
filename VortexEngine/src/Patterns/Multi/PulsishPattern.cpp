@@ -3,24 +3,24 @@
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 
-PulsishPattern::PulsishPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2, uint8_t offDuration2, uint8_t stepDuration) :
-  MultiLedPattern(),
+PulsishPattern::PulsishPattern(const PatternArgs &args) :
+  MultiLedPattern(args),
   m_progress(),
-  m_stepDuration(stepDuration),
+  m_stepDuration(0),
   m_stepTimer(),
-  m_onDuration1(onDuration1),
-  m_offDuration1(offDuration1),
-  m_onDuration2(onDuration2),
-  m_offDuration2(offDuration2),
+  m_onDuration1(0),
+  m_offDuration1(0),
+  m_onDuration2(0),
+  m_offDuration2(0),
   m_blinkTimer(),
   m_blink2Timer()
 {
   m_patternID = PATTERN_PULSISH;
-}
-
-PulsishPattern::PulsishPattern(const PatternArgs &args) :
-  PulsishPattern()
-{
+  REGISTER_ARG(m_onDuration1);
+  REGISTER_ARG(m_offDuration1);
+  REGISTER_ARG(m_onDuration2);
+  REGISTER_ARG(m_offDuration2);
+  REGISTER_ARG(m_stepDuration);
   setArgs(args);
 }
 
@@ -91,25 +91,4 @@ void PulsishPattern::play()
     Leds::clearPair((Pair)m_progress);
     break;
   }
-}
-
-void PulsishPattern::setArgs(const PatternArgs &args)
-{
-  MultiLedPattern::setArgs(args);
-  m_onDuration1 = args.arg1;
-  m_offDuration1 = args.arg2;
-  m_onDuration2 = args.arg3;
-  m_offDuration2 = args.arg4;
-  m_stepDuration = args.arg5;
-}
-
-void PulsishPattern::getArgs(PatternArgs &args) const
-{
-  MultiLedPattern::getArgs(args);
-  args.arg1 = m_onDuration1;
-  args.arg2 = m_offDuration1;
-  args.arg3 = m_onDuration2;
-  args.arg4 = m_offDuration2;
-  args.arg5 = m_stepDuration;
-  args.numArgs += 5;
 }

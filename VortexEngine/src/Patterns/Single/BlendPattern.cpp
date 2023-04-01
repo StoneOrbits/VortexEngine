@@ -15,6 +15,8 @@ BlendPattern::BlendPattern(const PatternArgs &args) :
   m_flip(0)
 {
   m_patternID = PATTERN_BLEND;
+  REGISTER_ARG(m_hueOffset);
+  REGISTER_ARG(m_numFlips);
   setArgs(args);
 }
 
@@ -31,21 +33,6 @@ void BlendPattern::init()
   m_next = m_colorset.getNext();
   // reset the flip count
   m_flip = 0;
-}
-
-void BlendPattern::setArgs(const PatternArgs &args)
-{
-  BasicPattern::setArgs(args);
-  m_hueOffset = args.arg7;
-  m_numFlips = args.arg8;
-}
-
-void BlendPattern::getArgs(PatternArgs &args) const
-{
-  BasicPattern::getArgs(args);
-  args.arg7 = m_hueOffset;
-  args.arg8 = m_numFlips;
-  args.numArgs += 2;
 }
 
 void BlendPattern::onBlinkOn()

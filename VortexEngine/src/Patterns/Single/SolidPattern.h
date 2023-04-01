@@ -15,9 +15,6 @@ public:
 
   virtual void play() override;
 
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
-
 protected:
   // callbacks for blinking on/off, can be overridden by derived classes
   virtual void onBlinkOn() override;

@@ -5,6 +5,7 @@
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Colors/Colorset.h"
+#include "../Memory/Memory.h"
 #include "../Log/Log.h"
 
 Pattern::Pattern() :
@@ -61,11 +62,17 @@ void Pattern::unserialize(ByteStream &buffer)
 
 void Pattern::setArgs(const PatternArgs &args)
 {
+  for (uint32_t i = 0; i < m_numArgs; ++i) {
+    *((uint8_t *)this + m_argList[i]) = args.args[i];
+  }
 }
 
 void Pattern::getArgs(PatternArgs &args) const
 {
   args.init();
+  for (uint32_t i = 0; i < m_numArgs; ++i) {
+    args.addArgs(*((uint8_t *)this + m_argList[i]));
+  }
 }
 
 bool Pattern::equals(const Pattern *other)
@@ -105,4 +112,17 @@ void Pattern::setColorset(const Colorset *set)
 void Pattern::clearColorset()
 {
   m_colorset.clear();
+}
+
+void Pattern::registerArg(uint8_t argOffset)
+{
+  if (m_numArgs >= MAX_PATTERN_ARGS) {
+    return;
+  }
+  void *temp = vrealloc(m_argList, sizeof(uint8_t) * m_numArgs + 1);
+  if (!temp) {
+    return;
+  }
+  m_argList = (uint8_t *)temp;
+  m_argList[m_numArgs++] = argOffset;
 }

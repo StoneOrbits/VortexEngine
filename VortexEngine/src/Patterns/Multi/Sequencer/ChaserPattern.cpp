@@ -3,9 +3,10 @@
 // This pattern aims to be a demonstration of the sequencer.
 // There are always many ways to implement a pattern, it's best
 // to choose the method that is most suitable for the pattern.
-ChaserPattern::ChaserPattern() :
-  SequencedPattern()
+ChaserPattern::ChaserPattern(const PatternArgs &args) :
+  SequencedPattern(args)
 {
+  setArgs(args);
   // set the pattern ID
   //m_patternID = PATTERN_CHASER;
   // There are 8 steps in the chaser, so iterate 8 times and generate
@@ -46,10 +47,4 @@ ChaserPattern::ChaserPattern() :
     // is omitted that means this pattern will use whichever colorset is chosen
     m_sequence.addStep(300, patMap);
   }
-}
-
-ChaserPattern::ChaserPattern(const PatternArgs &args) :
-  ChaserPattern()
-{
-  setArgs(args);
 }

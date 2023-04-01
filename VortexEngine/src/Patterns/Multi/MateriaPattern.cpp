@@ -5,23 +5,23 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-MateriaPattern::MateriaPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2, uint8_t offDuration2, uint8_t stepSpeed100ms) :
-  MultiLedPattern(),
-  m_onDuration1(onDuration1),
-  m_offDuration1(offDuration1),
-  m_onDuration2(onDuration2),
-  m_offDuration2(offDuration2),
-  m_stepSpeed(stepSpeed100ms),
+MateriaPattern::MateriaPattern(const PatternArgs &args) :
+  MultiLedPattern(args),
+  m_onDuration1(0),
+  m_offDuration1(0),
+  m_onDuration2(0),
+  m_offDuration2(0),
+  m_stepSpeed(0),
   m_stepTimer(),
   m_ledMap(0),
   m_switch(false)
 {
   m_patternID = PATTERN_MATERIA;
-}
-
-MateriaPattern::MateriaPattern(const PatternArgs &args) :
-  MateriaPattern()
-{
+  REGISTER_ARG(m_onDuration1);
+  REGISTER_ARG(m_offDuration1);
+  REGISTER_ARG(m_onDuration2);
+  REGISTER_ARG(m_offDuration2);
+  REGISTER_ARG(m_stepSpeed);
   setArgs(args);
 }
 
@@ -108,24 +108,3 @@ void MateriaPattern::play()
     break;
   }
  }
-
-void MateriaPattern::setArgs(const PatternArgs &args)
-{
-  MultiLedPattern::setArgs(args);
-  m_onDuration1 = args.arg1;
-  m_offDuration1 = args.arg2;
-  m_onDuration2 = args.arg3;
-  m_offDuration2 = args.arg4;
-  m_stepSpeed = args.arg5;
-}
-
-void MateriaPattern::getArgs(PatternArgs &args) const
-{
-  MultiLedPattern::getArgs(args);
-  args.arg1 = m_onDuration1;
-  args.arg2 = m_offDuration1;
-  args.arg3 = m_onDuration2;
-  args.arg4 = m_offDuration2;
-  args.arg5 = m_stepSpeed;
-  args.numArgs += 5;
-}

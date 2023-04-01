@@ -4,8 +4,8 @@
 #include "../../Colors/Colorset.h"
 #include "../PatternBuilder.h"
 
-HybridPattern::HybridPattern() :
-  MultiLedPattern(),
+HybridPattern::HybridPattern(const PatternArgs &args) :
+  MultiLedPattern(args),
   m_ledPatterns()
 {
   // Hybrid is an abstract class it cannot be directly

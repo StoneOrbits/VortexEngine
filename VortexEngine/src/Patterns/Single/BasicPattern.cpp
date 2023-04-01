@@ -20,6 +20,12 @@ BasicPattern::BasicPattern(const PatternArgs &args) :
   m_inGap(false)
 {
   m_patternID = PATTERN_BASIC;
+  REGISTER_ARG(m_onDuration);
+  REGISTER_ARG(m_offDuration);
+  REGISTER_ARG(m_gapDuration);
+  REGISTER_ARG(m_groupSize);
+  REGISTER_ARG(m_skipCols);
+  REGISTER_ARG(m_repeatGroup);
   setArgs(args);
 }
 
@@ -128,27 +134,4 @@ void BasicPattern::onBlinkOff()
   if (m_groupCounter >= m_realGroupSize) {
     triggerGap();
   }
-}
-
-void BasicPattern::setArgs(const PatternArgs &args)
-{
-  Pattern::setArgs(args);
-  m_onDuration = args.arg1;
-  m_offDuration = args.arg2;
-  m_gapDuration = args.arg3;
-  m_groupSize = args.arg4;
-  m_skipCols = args.arg5;
-  m_repeatGroup = args.arg6;
-}
-
-void BasicPattern::getArgs(PatternArgs &args) const
-{
-  Pattern::getArgs(args);
-  args.arg1 = m_onDuration;
-  args.arg2 = m_offDuration;
-  args.arg3 = m_gapDuration;
-  args.arg4 = m_groupSize;
-  args.arg5 = m_skipCols;
-  args.arg6 = m_repeatGroup;
-  args.numArgs += 6;
 }

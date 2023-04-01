@@ -6,15 +6,10 @@
 
 #include <Arduino.h>
 
-SparkleTracePattern::SparkleTracePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration)
+SparkleTracePattern::SparkleTracePattern(const PatternArgs &args) :
+  BlinkStepPattern(args)
 {
   m_patternID = PATTERN_SPARKLETRACE;
-}
-
-SparkleTracePattern::SparkleTracePattern(const PatternArgs &args) :
-  SparkleTracePattern()
-{
   setArgs(args);
 }
 

@@ -9,12 +9,8 @@
 class MeteorPattern : public BlinkStepPattern
 {
 public:
-  MeteorPattern(uint8_t onDuration = STROBE_ON_DURATION, uint8_t offDuration = STROBE_OFF_DURATION, uint8_t stepDuration = 55, uint8_t fadeAmount = 75);
   MeteorPattern(const PatternArgs &args);
   virtual ~MeteorPattern();
-
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
 
 protected:
   virtual void blinkOn() override;

@@ -35,6 +35,15 @@ public:
   void init(uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4, uint8_t a5, uint8_t a6, uint8_t a7);
   void init(uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4, uint8_t a5, uint8_t a6, uint8_t a7, uint8_t a8);
 
+  void addArgs(uint8_t a1);
+  void addArgs(uint8_t a1, uint8_t a2);
+  void addArgs(uint8_t a1, uint8_t a2, uint8_t a3);
+  void addArgs(uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4);
+  void addArgs(uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4, uint8_t a5);
+  void addArgs(uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4, uint8_t a5, uint8_t a6);
+  void addArgs(uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4, uint8_t a5, uint8_t a6, uint8_t a7);
+  void addArgs(uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4, uint8_t a5, uint8_t a6, uint8_t a7, uint8_t a8);
+
   bool operator!=(const PatternArgs &rhs);
   bool operator==(const PatternArgs &rhs);
   uint8_t operator[](int index) const;
