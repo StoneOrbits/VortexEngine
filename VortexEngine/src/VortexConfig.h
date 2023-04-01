@@ -343,7 +343,7 @@
 
 // usable flash space is one eighth of what we have left idk why I
 // just kept picking numbers till it worked
-#define USABLE_SPACE (RAW_AVAILABLE_SPACE / 4)
+#define USABLE_SPACE (RAW_AVAILABLE_SPACE / 2)
 
 // the space available for storing modes is the usable space rounded
 // down to nearest 4096

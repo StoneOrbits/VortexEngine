@@ -15,7 +15,7 @@
 #endif
 
 // only arduino needs const I guess?
-static const uint8_t _storagedata[1] = { };
+static const uint8_t _storagedata[STORAGE_SIZE] = { };
 
 uint32_t Storage::m_lastSaveSize = 0;
 
