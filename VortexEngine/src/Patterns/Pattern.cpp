@@ -12,14 +12,15 @@ Pattern::Pattern() :
   m_patternID(PATTERN_FIRST),
   m_patternFlags(0),
   m_colorset(),
-  m_ledPos(LED_FIRST)
+  m_ledPos(LED_FIRST),
+  m_argList(nullptr),
+  m_numArgs(0)
 {
 }
 
 Pattern::Pattern(const PatternArgs &args) :
   Pattern()
 {
-  setArgs(args);
 }
 
 Pattern::~Pattern()
