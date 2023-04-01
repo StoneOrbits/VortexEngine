@@ -25,22 +25,22 @@ enum PatternID : uint8_t
   // all 'single led' patterns below
 
   PATTERN_BASIC = PATTERN_FIRST,
-  PATTERN_STROBE, // basicpattern 5 8 0
-  PATTERN_HYPERSTROBE, // basicpattern 25 25 0
-  PATTERN_DOPS, // basicpattern 2 13 0
-  PATTERN_DOPISH, // basicpattern 2 7 0
-  PATTERN_ULTRADOPS, // basicpattern 1 3 0
-  PATTERN_STROBIE, // basicpattern 3 22 0
-  PATTERN_RIBBON, // basicpattern 20 0 0
-  PATTERN_MINIRIBBON, // basicpattern 3 0 0
-  PATTERN_BLINKIE, // BasicPattern 5, 8, 35
-  PATTERN_GHOSTCRUSH, // BasicPattern 1, 0, 50
-  PATTERN_SOLID, // solid color
-  PATTERN_TRACER, // tracerpattern 20 1
-  PATTERN_DASHDOPS, // dashDopsPattern 1 5 20
-  PATTERN_BLEND,  // BlendPattern 2, 13, 1
-  PATTERN_COMPLEMENTARY_BLEND,  // ComplementaryBlendPattern 2, 13, 1
-  PATTERN_BRACKETS,  // BracketsPattern
+  PATTERN_STROBE,
+  PATTERN_HYPERSTROBE,
+  PATTERN_DOPS,
+  PATTERN_DOPISH,
+  PATTERN_ULTRADOPS,
+  PATTERN_STROBIE,
+  PATTERN_RIBBON,
+  PATTERN_MINIRIBBON,
+  PATTERN_BLINKIE,
+  PATTERN_GHOSTCRUSH,
+  PATTERN_SOLID,
+  PATTERN_TRACER,
+  PATTERN_DASHDOPS,
+  PATTERN_BLEND, 
+  PATTERN_COMPLEMENTARY_BLEND, 
+  PATTERN_BRACKETS, 
 
   // ADD NEW SINGLE LED PATTERNS HERE
   // WARNING This will offset all multi-led patterns so sharing of patterns
@@ -57,19 +57,16 @@ enum PatternID : uint8_t
 
   PATTERN_HUESHIFT = PATTERN_MULTI_FIRST,
   PATTERN_THEATER_CHASE,
-  // sequencer has some bugs to work out
-  // PATTERN_CHASER,
+  PATTERN_CHASER,
   PATTERN_ZIGZAG,
   PATTERN_ZIPFADE,
   PATTERN_DRIP,
   PATTERN_DRIPMORPH,
   PATTERN_CROSSDOPS,
-  PATTERN_DOUBLESTROBE,// doubleStrobe(5, 8, 75)
-  // TODO: SLoth Strobe doubleStrobe(5, 8, 1000)
+  PATTERN_DOUBLESTROBE,
   PATTERN_METEOR,
   PATTERN_SPARKLETRACE,
-  PATTERN_VORTEXWIPE, // vortexWipe(2,7,125)
-  // TODO: UltraWipe vortexWipe(2, 7, 50)
+  PATTERN_VORTEXWIPE,
   PATTERN_WARP,
   PATTERN_WARPWORM,
   PATTERN_SNOWBALL,

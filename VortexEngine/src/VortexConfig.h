@@ -32,6 +32,11 @@
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
 #define VORTEX_FULL_NAME "Vortex Engine v" VORTEX_VERSION " '" VORTEX_NAME "' ( built " __TIMESTAMP__ ")"
 
+// Vortex Slim
+//
+// Turn on this flag to enable the 'slim' version of the engine
+#define VORTEX_SLIM           1
+
 // ===================================================================
 //  Numeric Configurations
 

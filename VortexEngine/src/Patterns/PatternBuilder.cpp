@@ -148,9 +148,10 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
 
     // =====================
     //  Multi Led Patterns:
+#if VORTEX_SLIM == 0
     case PATTERN_HUESHIFT: return PatternArgs(1, 1);
     case PATTERN_THEATER_CHASE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 28);
-    //case PATTERN_CHASER: return PatternArgs();
+    case PATTERN_CHASER: return PatternArgs();
     case PATTERN_ZIGZAG: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 55, 1, 55);
     case PATTERN_ZIPFADE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 100, 4, 1);
     case PATTERN_DRIP: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 250);
@@ -170,6 +171,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_SPLITSTROBIE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 16, 3, 10, PATTERN_DOPS, PATTERN_TRACER);
     case PATTERN_BACKSTROBE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 10, PATTERN_DOPS, PATTERN_HYPERSTROBE);
     case PATTERN_MATERIA: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 3, 35, 80);
+#endif
     case PATTERN_NONE: break;
     default: break;
   }
@@ -203,9 +205,10 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
 
     // =====================
     //  Multi Led Patterns:
+#if VORTEX_SLIM == 0
     case PATTERN_HUESHIFT: return new HueShiftPattern(args);
     case PATTERN_THEATER_CHASE: return new TheaterChasePattern(args);
-    //case PATTERN_CHASER: return new ChaserPattern(args);
+    case PATTERN_CHASER: return new ChaserPattern(args);
     case PATTERN_ZIGZAG:
     case PATTERN_ZIPFADE: return new ZigzagPattern(args);
     case PATTERN_DRIP: return new DripPattern(args);
@@ -225,6 +228,7 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_SPLITSTROBIE:
     case PATTERN_BACKSTROBE: return new BackStrobePattern(args);
     case PATTERN_MATERIA: return new MateriaPattern(args);
+#endif
     case PATTERN_NONE: return nullptr;
     default: break;
   }
