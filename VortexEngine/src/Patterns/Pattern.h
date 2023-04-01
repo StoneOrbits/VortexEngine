@@ -28,7 +28,7 @@
 #define PATTERN_FLAG_MULTI  (1<<0)
 
 // macro to register args of a pattern
-#define REGISTER_ARG(arg) registerArg(((uintptr_t)&arg - (uintptr_t)this));
+#define REGISTER_ARG(arg) registerArg((uint8_t)(((uintptr_t)&arg - (uintptr_t)this)));
 
 class ByteStream;
 
