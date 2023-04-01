@@ -1,14 +1,8 @@
 #include "SolidPattern.h"
 
-SolidPattern::SolidPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration, uint8_t colIndex) :
-  BasicPattern(onDuration, offDuration, gapDuration),
-  m_colIndex(colIndex)
-{
-  m_patternID = PATTERN_SOLID;
-}
-
 SolidPattern::SolidPattern(const PatternArgs &args) :
-  SolidPattern()
+  BasicPattern(args),
+  m_colIndex(0)
 {
   setArgs(args);
 }
@@ -30,13 +24,13 @@ void SolidPattern::play()
 void SolidPattern::setArgs(const PatternArgs &args)
 {
   BasicPattern::setArgs(args);
-  m_colIndex = args.arg4;
+  m_colIndex = args.arg7;
 }
 
 void SolidPattern::getArgs(PatternArgs &args) const
 {
   BasicPattern::getArgs(args);
-  args.arg4 = m_colIndex;
+  args.arg7 = m_colIndex;
   args.numArgs += 1;
 }
 

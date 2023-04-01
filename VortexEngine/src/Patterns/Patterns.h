@@ -38,7 +38,6 @@ enum PatternID : uint8_t
   PATTERN_SOLID, // solid color
   PATTERN_TRACER, // tracerpattern 20 1
   PATTERN_DASHDOPS, // dashDopsPattern 1 5 20
-  PATTERN_ADVANCED, // AdvancedPattern
   PATTERN_BLEND,  // BlendPattern 2, 13, 1
   PATTERN_COMPLEMENTARY_BLEND,  // ComplementaryBlendPattern 2, 13, 1
   PATTERN_BRACKETS,  // BracketsPattern
@@ -56,14 +55,12 @@ enum PatternID : uint8_t
 
   // all 'multi led' patterns below
 
-  PATTERN_RABBIT = PATTERN_MULTI_FIRST,
-  PATTERN_HUESHIFT,
+  PATTERN_HUESHIFT = PATTERN_MULTI_FIRST,
   PATTERN_THEATER_CHASE,
   // sequencer has some bugs to work out
   // PATTERN_CHASER,
   PATTERN_ZIGZAG,
   PATTERN_ZIPFADE,
-  PATTERN_TIPTOP,
   PATTERN_DRIP,
   PATTERN_DRIPMORPH,
   PATTERN_CROSSDOPS,
@@ -80,11 +77,8 @@ enum PatternID : uint8_t
   PATTERN_PULSISH,
   PATTERN_FILL,
   PATTERN_BOUNCE,
-  PATTERN_IMPACT,
   PATTERN_SPLITSTROBIE,
   PATTERN_BACKSTROBE,
-  PATTERN_FLOWERS,
-  PATTERN_JEST,
   PATTERN_MATERIA,
 
   // ADD NEW MULTI LED PATTERNS HERE

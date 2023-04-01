@@ -545,12 +545,10 @@ string Vortex::patternToString(PatternID id)
   static const char *patternNames[PATTERN_COUNT] = {
     "basic", "strobe", "hyperstrobe", "dops", "dopish", "ultradops", "strobie",
     "ribbon", "miniribbon", "blinkie", "ghostcrush", "solid", "tracer",
-    "dashdops", "advanced", "blend", "complementary blend", "brackets",
-    "rabbit", "hueshift", "theater chase", /*"chaser",*/ "zigzag", "zipfade",
-    "tiptop", "drip", "dripmorph", "crossdops", "doublestrobe", "meteor",
+    "dashdops", "blend", "brackets", "hueshift", "theater chase", /*"chaser",*/
+    "zigzag", "zipfade", "drip", "dripmorph", "crossdops", "doublestrobe", "meteor",
     "sparkletrace", "vortexwipe", "warp", "warpworm", "snowball", "lighthouse",
-    "pulsish", "fill", "bounce", "impact", "splitstrobie", "backstrobe",
-    "flowers", "jest", "materia",
+    "pulsish", "fill", "bounce", "splitstrobie", "backstrobe", "materia",
   };
   return patternNames[id];
 }
@@ -601,30 +599,18 @@ vector<string> Vortex::getCustomParams(PatternID id)
   case PATTERN_MINIRIBBON:
   case PATTERN_BLINKIE:
   case PATTERN_GHOSTCRUSH:
-    return { "On Duration", "Off Duration", "Gap Duration" };
   case PATTERN_SOLID:
+    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group" };
     return { "On Duration", "Off Duration", "Gap Duration", "Color Index" };
   case PATTERN_TRACER:
     return { "Tracer Duration", "Dot Duration" };
   case PATTERN_DASHDOPS:
     return { "Dash Duration", "Dot Duration", "Off Duration" };
-  case PATTERN_ADVANCED:
-    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group" };
   case PATTERN_BLEND:
   case PATTERN_COMPLEMENTARY_BLEND:
     return { "On Duration", "Off Duration", "Gap Duration", "Start Offset" };
   case PATTERN_BRACKETS:
     return { "Bracket Duration", "Mid Duration", "Off Duration" };
-  case PATTERN_RABBIT:
-  case PATTERN_FLOWERS:
-  case PATTERN_TIPTOP:
-    return { "On Duration 1", "Off Duration 1", "Gap Duration 1",
-      "On Duration 2", "Off Duration 2", "Gap Duration 2" };
-  case PATTERN_IMPACT:
-    return { "On Duration 1", "Off Duration 1", "On Duration 2",
-      "Off Duration 2", "On Duration 3", "Off Duration 3" };
-  case PATTERN_JEST:
-    return { "On Duration" , "Off Duration", "Gap 1 Duration", "Gap 2 Duration", "Group Size" };
   case PATTERN_HUESHIFT:
     return { "Speed", "Scale" };
   case PATTERN_THEATER_CHASE:
