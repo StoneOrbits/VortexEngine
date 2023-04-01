@@ -13,7 +13,7 @@ Pattern::Pattern() :
   m_patternFlags(0),
   m_colorset(),
   m_ledPos(LED_FIRST),
-  m_argList(nullptr),
+  m_argList(),
   m_numArgs(0)
 {
 }
@@ -117,13 +117,5 @@ void Pattern::clearColorset()
 
 void Pattern::registerArg(uint8_t argOffset)
 {
-  if (m_numArgs >= MAX_PATTERN_ARGS) {
-    return;
-  }
-  void *temp = vrealloc(m_argList, sizeof(uint8_t) * m_numArgs + 1);
-  if (!temp) {
-    return;
-  }
-  m_argList = (uint8_t *)temp;
   m_argList[m_numArgs++] = argOffset;
 }

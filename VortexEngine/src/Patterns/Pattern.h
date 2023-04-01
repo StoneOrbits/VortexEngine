@@ -101,7 +101,7 @@ protected:
 
   void registerArg(uint8_t argOffset);
 
-  uint8_t *m_argList;
+  uint8_t m_argList[MAX_PATTERN_ARGS];
   uint8_t m_numArgs;
 };
 
