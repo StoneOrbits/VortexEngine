@@ -16,7 +16,7 @@ const default_mode_entry default_modes[] = {
     }
   },
 
-#if 0
+#if 1
   // Pattern 2: Ghost Crush Mode
   {
     PATTERN_GHOSTCRUSH, {
@@ -25,20 +25,6 @@ const default_mode_entry default_modes[] = {
       RGB_OFF,
       0x700000,
       RGB_OFF,
-    }
-  },
-
-  // Pattern 3: Impact
-  {
-    PATTERN_IMPACT, {
-      RGB_BLUE,
-      0xABAA00,
-      RGB_BLUE,
-      RGB_RED,
-      RGB_GREEN,
-      RGB_BLUE,
-      RGB_GREEN,
-      RGB_BLUE
     }
   },
 
@@ -151,18 +137,6 @@ const default_mode_entry default_modes[] = {
       0x00AB55,
       0x7F0081,
       0xAA381C,
-    }
-  },
-
-  // Pattern 14: Rabbit
-  {
-    PATTERN_RABBIT, {
-      RGB_BLUE,
-      RGB_RED,
-      RGB_GREEN,
-      RGB_BLUE,
-      RGB_GREEN,
-      RGB_BLUE,
     }
   },
 

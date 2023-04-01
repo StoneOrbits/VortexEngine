@@ -176,7 +176,7 @@
     <ClCompile Include="src\Patterns\Multi\DripPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\FillPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\HueShiftPattern.cpp" />
-    <ClCompile Include="src\Patterns\Multi\HybridPattern.cpp" />
+    <ClCompile Include="src\Patterns\Multi\CompoundPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\LighthousePattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\MateriaPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\MeteorPattern.cpp" />
@@ -187,7 +187,6 @@
     <ClCompile Include="src\Patterns\Multi\Sequencer\SequencedPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\SnowballPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\SparkleTracePattern.cpp" />
-    <ClCompile Include="src\Patterns\Multi\SplitStrobiePattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\TheaterChasePattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\VortexWipePattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\WarpPattern.cpp" />
@@ -250,7 +249,7 @@
     <ClInclude Include="src\Patterns\Multi\DripPattern.h" />
     <ClInclude Include="src\Patterns\Multi\FillPattern.h" />
     <ClInclude Include="src\Patterns\Multi\HueShiftPattern.h" />
-    <ClInclude Include="src\Patterns\Multi\HybridPattern.h" />
+    <ClInclude Include="src\Patterns\Multi\CompoundPattern.h" />
     <ClInclude Include="src\Patterns\Multi\LighthousePattern.h" />
     <ClInclude Include="src\Patterns\Multi\MateriaPattern.h" />
     <ClInclude Include="src\Patterns\Multi\MeteorPattern.h" />
@@ -261,7 +260,6 @@
     <ClInclude Include="src\Patterns\Multi\Sequencer\SequencedPattern.h" />
     <ClInclude Include="src\Patterns\Multi\SnowballPattern.h" />
     <ClInclude Include="src\Patterns\Multi\SparkleTracePattern.h" />
-    <ClInclude Include="src\Patterns\Multi\SplitStrobiePattern.h" />
     <ClInclude Include="src\Patterns\Multi\TheaterChasePattern.h" />
     <ClInclude Include="src\Patterns\Multi\VortexWipePattern.h" />
     <ClInclude Include="src\Patterns\Multi\WarpPattern.h" />

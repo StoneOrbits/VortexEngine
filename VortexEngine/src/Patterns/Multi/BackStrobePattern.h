@@ -1,12 +1,12 @@
 #ifndef BACKSTROBE_PATTERN_H
 #define BACKSTROBE_PATTERN_H
 
-#include "HybridPattern.h"
+#include "CompoundPattern.h"
 
 #include "../../Time/Timer.h"
 #include "../../Time/Timings.h"
 
-class BackStrobePattern : public HybridPattern
+class BackStrobePattern : public CompoundPattern
 {
 public:
   BackStrobePattern(const PatternArgs &args);
@@ -27,6 +27,8 @@ private:
 
   PatternArgs m_firstPatternArgs;
   PatternArgs m_secondPatternArgs;
+  uint8_t m_firstPat;
+  uint8_t m_secPat;
 };
 
 #endif

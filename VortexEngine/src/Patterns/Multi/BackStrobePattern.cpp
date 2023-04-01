@@ -1,12 +1,14 @@
 #include "BackStrobePattern.h"
 
 BackStrobePattern::BackStrobePattern(const PatternArgs &args) :
-  HybridPattern(args),
+  CompoundPattern(args),
   m_stepSpeed(0),
   m_stepTimer(),
   m_switch(),
   m_firstPatternArgs(0, 0, 0),
-  m_secondPatternArgs(0, 0, 0)
+  m_secondPatternArgs(0, 0, 0),
+  m_firstPat(PATTERN_DOPS),
+  m_secPat(PATTERN_STROBE)
 {
   m_patternID = PATTERN_BACKSTROBE;
   REGISTER_ARG(m_firstPatternArgs.arg1);
@@ -14,8 +16,9 @@ BackStrobePattern::BackStrobePattern(const PatternArgs &args) :
   REGISTER_ARG(m_firstPatternArgs.arg3);
   REGISTER_ARG(m_secondPatternArgs.arg1);
   REGISTER_ARG(m_secondPatternArgs.arg2);
-  REGISTER_ARG(m_secondPatternArgs.arg3);
   REGISTER_ARG(m_stepSpeed);
+  REGISTER_ARG(m_firstPat);
+  REGISTER_ARG(m_secPat);
   setArgs(args);
 }
 
@@ -26,7 +29,7 @@ BackStrobePattern::~BackStrobePattern()
 // init the pattern to initial state
 void BackStrobePattern::init()
 {
-  HybridPattern::init();
+  CompoundPattern::init();
 
   // timer for switch
   m_stepTimer.reset();
@@ -34,7 +37,7 @@ void BackStrobePattern::init()
   m_stepTimer.start();
 
   // initialize the sub patterns one time first
-  setEvensOdds(PATTERN_STROBE, PATTERN_DOPS);
+  setEvensOdds((PatternID)m_firstPat, (PatternID)m_secPat, &m_firstPatternArgs, &m_secondPatternArgs);
 }
 
 void BackStrobePattern::play()
@@ -43,10 +46,10 @@ void BackStrobePattern::play()
     // switch which patterns are displayed
     m_switch = !m_switch;
     // update the tip/top patterns based on the switch
-    setEvensOdds(m_switch ? PATTERN_DOPS : PATTERN_HYPERSTROBE,
-                m_switch ? PATTERN_HYPERSTROBE : PATTERN_DOPS,
+    setEvensOdds(m_switch ? (PatternID)m_firstPat : (PatternID)m_secPat,
+                m_switch ? (PatternID)m_secPat : (PatternID)m_firstPat,
                 m_switch ? &m_firstPatternArgs : &m_secondPatternArgs,
                 m_switch ? &m_secondPatternArgs : &m_firstPatternArgs);
   }
-  HybridPattern::play();
+  CompoundPattern::play();
 }

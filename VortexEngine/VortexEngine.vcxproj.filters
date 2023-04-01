@@ -225,19 +225,10 @@
     <ClCompile Include="src\Patterns\Multi\FillPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\FlowersPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
     <ClCompile Include="src\Patterns\Multi\HueShiftPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\HybridPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\ImpactPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\JestPattern.cpp">
+    <ClCompile Include="src\Patterns\Multi\CompoundPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Multi\LighthousePattern.cpp">
@@ -255,22 +246,13 @@
     <ClCompile Include="src\Patterns\Multi\PulsishPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\RabbitPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
     <ClCompile Include="src\Patterns\Multi\SnowballPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Multi\SparkleTracePattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\SplitStrobiePattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
     <ClCompile Include="src\Patterns\Multi\TheaterChasePattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\TipTopPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Multi\VortexWipePattern.cpp">
@@ -285,9 +267,6 @@
     <ClCompile Include="src\Patterns\Multi\ZigzagPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Single\AdvancedPattern.cpp">
-      <Filter>Source Files\Patterns\Single</Filter>
-    </ClCompile>
     <ClCompile Include="src\Patterns\Single\BasicPattern.cpp">
       <Filter>Source Files\Patterns\Single</Filter>
     </ClCompile>
@@ -295,9 +274,6 @@
       <Filter>Source Files\Patterns\Single</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Single\BracketsPattern.cpp">
-      <Filter>Source Files\Patterns\Single</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Single\ComplementaryBlendPattern.cpp">
       <Filter>Source Files\Patterns\Single</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Single\DashDopsPattern.cpp">
@@ -467,19 +443,10 @@
     <ClInclude Include="src\Patterns\Multi\FillPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\FlowersPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
     <ClInclude Include="src\Patterns\Multi\HueShiftPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\HybridPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\ImpactPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\JestPattern.h">
+    <ClInclude Include="src\Patterns\Multi\CompoundPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Multi\LighthousePattern.h">
@@ -497,22 +464,13 @@
     <ClInclude Include="src\Patterns\Multi\PulsishPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\RabbitPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
     <ClInclude Include="src\Patterns\Multi\SnowballPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Multi\SparkleTracePattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\SplitStrobiePattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
     <ClInclude Include="src\Patterns\Multi\TheaterChasePattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\TipTopPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Multi\VortexWipePattern.h">
@@ -527,9 +485,6 @@
     <ClInclude Include="src\Patterns\Multi\ZigzagPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Single\AdvancedPattern.h">
-      <Filter>Header Files\Patterns\Single</Filter>
-    </ClInclude>
     <ClInclude Include="src\Patterns\Single\BasicPattern.h">
       <Filter>Header Files\Patterns\Single</Filter>
     </ClInclude>
@@ -537,9 +492,6 @@
       <Filter>Header Files\Patterns\Single</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Single\BracketsPattern.h">
-      <Filter>Header Files\Patterns\Single</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Single\ComplementaryBlendPattern.h">
       <Filter>Header Files\Patterns\Single</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Single\DashDopsPattern.h">

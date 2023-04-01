@@ -641,11 +641,9 @@ vector<string> Vortex::getCustomParams(PatternID id)
   case PATTERN_MATERIA:
     return { "On Duration 1", "Off Duration 1", "On Duration 2", "Off Duration 2", "Step Duration" };
   case PATTERN_SPLITSTROBIE:
-    return { "On Duration", "Off Duration", "Gap Duration", "Dash Duration",
-      "Dot Duration", "Step Duration x 100ms" };
   case PATTERN_BACKSTROBE:
     return { "On Duration 1", "Off Duration 1", "Gap Duration 1",  "On Duration 2", "Off Duration 2",
-      "Gap Duration 2", "Step Duration x 100ms" };
+      "Step Duration x 100ms", "Pattern 1 ID", "Pattern 2 ID"};
   case PATTERN_NONE:
   default:
     break;

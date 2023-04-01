@@ -26,7 +26,6 @@
 #include "Multi/LighthousePattern.h"
 #include "Multi/PulsishPattern.h"
 #include "Multi/BouncePattern.h"
-#include "Multi/SplitStrobiePattern.h"
 #include "Multi/BackStrobePattern.h"
 #include "Multi/MateriaPattern.h"
 
@@ -168,8 +167,8 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_PULSISH: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, STROBE_ON_DURATION, STROBE_OFF_DURATION, 250);
     case PATTERN_FILL: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 200);
     case PATTERN_BOUNCE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 200, 10);
-    case PATTERN_SPLITSTROBIE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 16, 3, 10);
-    case PATTERN_BACKSTROBE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 0, 10);
+    case PATTERN_SPLITSTROBIE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 16, 3, 10, PATTERN_DOPS, PATTERN_TRACER);
+    case PATTERN_BACKSTROBE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 10, PATTERN_DOPS, PATTERN_HYPERSTROBE);
     case PATTERN_MATERIA: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 3, 35, 80);
     case PATTERN_NONE: break;
     default: break;
@@ -223,7 +222,7 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_PULSISH: return new PulsishPattern(args);
     case PATTERN_FILL: return new FillPattern(args);
     case PATTERN_BOUNCE: return new BouncePattern(args);
-    case PATTERN_SPLITSTROBIE: return new SplitStrobiePattern(args);
+    case PATTERN_SPLITSTROBIE:
     case PATTERN_BACKSTROBE: return new BackStrobePattern(args);
     case PATTERN_MATERIA: return new MateriaPattern(args);
     case PATTERN_NONE: return nullptr;

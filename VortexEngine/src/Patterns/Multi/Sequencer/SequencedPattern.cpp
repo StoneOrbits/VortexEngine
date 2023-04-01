@@ -10,7 +10,7 @@
 #include <string.h>
 
 SequencedPattern::SequencedPattern(const PatternArgs &args) :
-  HybridPattern(args),
+  CompoundPattern(args),
   m_sequence(),
   m_curSequence(0)
 {
@@ -19,7 +19,7 @@ SequencedPattern::SequencedPattern(const PatternArgs &args) :
 }
 
 SequencedPattern::SequencedPattern(const PatternArgs &args, const Sequence &sequence) :
-  HybridPattern(args),
+  CompoundPattern(args),
   m_sequence(sequence),
   m_curSequence(0)
 {
@@ -34,7 +34,7 @@ SequencedPattern::~SequencedPattern()
 // init the pattern to initial state
 void SequencedPattern::init()
 {
-  HybridPattern::init();
+  CompoundPattern::init();
 
   // start the sequence at 0
   m_curSequence = 0;
