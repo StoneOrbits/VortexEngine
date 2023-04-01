@@ -7,7 +7,7 @@
 const default_mode_entry default_modes[] = {
   // Pattern 1: Jest mode
   {
-    PATTERN_DOPS, {
+    PATTERN_BACKSTROBE, {
       RGB_RED,
       RGB_GREEN,
       RGB_BLUE,

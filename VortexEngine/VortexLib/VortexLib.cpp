@@ -599,16 +599,16 @@ vector<string> Vortex::getCustomParams(PatternID id)
   case PATTERN_MINIRIBBON:
   case PATTERN_BLINKIE:
   case PATTERN_GHOSTCRUSH:
-  case PATTERN_SOLID:
     return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group" };
-    return { "On Duration", "Off Duration", "Gap Duration", "Color Index" };
+  case PATTERN_SOLID:
+    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group", "Color Index" };
   case PATTERN_TRACER:
     return { "Tracer Duration", "Dot Duration" };
   case PATTERN_DASHDOPS:
     return { "Dash Duration", "Dot Duration", "Off Duration" };
   case PATTERN_BLEND:
   case PATTERN_COMPLEMENTARY_BLEND:
-    return { "On Duration", "Off Duration", "Gap Duration", "Start Offset" };
+    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group", "Start Offset", "Num Flips"};
   case PATTERN_BRACKETS:
     return { "Bracket Duration", "Mid Duration", "Off Duration" };
   case PATTERN_HUESHIFT:

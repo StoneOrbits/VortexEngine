@@ -35,6 +35,7 @@
 #include "Single/DashDopsPattern.h"
 #include "Single/BasicPattern.h"
 #include "Single/BlendPattern.h"
+#include "Single/SolidPattern.h"
 
 Pattern *PatternBuilder::make(PatternID id, const PatternArgs *args)
 {
@@ -128,18 +129,18 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
   switch (id) {
     // =====================
     //  Single Led Patterns:
-    case PATTERN_BASIC: return PatternArgs(1, 0, 0);
-    case PATTERN_STROBE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 0);
-    case PATTERN_HYPERSTROBE: return PatternArgs(HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 0);
-    case PATTERN_DOPS: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0);
-    case PATTERN_DOPISH: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 0);
-    case PATTERN_ULTRADOPS: return PatternArgs(ULTRADOPS_ON_DURATION, ULTRADOPS_OFF_DURATION, 0);
-    case PATTERN_STROBIE: return PatternArgs(STROBIE_ON_DURATION, STROBE_OFF_DURATION, 0);
-    case PATTERN_RIBBON: return PatternArgs(RIBBON_DURATION, 0, 0);
-    case PATTERN_MINIRIBBON: return PatternArgs(3, 0, 0);
-    case PATTERN_BLINKIE: return PatternArgs(3, 6, 60);
-    case PATTERN_GHOSTCRUSH: return PatternArgs(4, 1, 55);
-    case PATTERN_SOLID: return PatternArgs(250, 0, 0, 0);
+    case PATTERN_BASIC: return PatternArgs(1, 0, 0, 0, 0, 0);
+    case PATTERN_STROBE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 0, 0, 0, 0);
+    case PATTERN_HYPERSTROBE: return PatternArgs(HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 0, 0, 0, 0);
+    case PATTERN_DOPS: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0, 0, 0);
+    case PATTERN_DOPISH: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 0, 0, 0, 0);
+    case PATTERN_ULTRADOPS: return PatternArgs(ULTRADOPS_ON_DURATION, ULTRADOPS_OFF_DURATION, 0, 0, 0, 0);
+    case PATTERN_STROBIE: return PatternArgs(STROBIE_ON_DURATION, STROBE_OFF_DURATION, 0, 0, 0, 0);
+    case PATTERN_RIBBON: return PatternArgs(RIBBON_DURATION, 0, 0, 0, 0, 0);
+    case PATTERN_MINIRIBBON: return PatternArgs(3, 0, 0, 0, 0, 0);
+    case PATTERN_BLINKIE: return PatternArgs(3, 6, 60, 0, 0, 0);
+    case PATTERN_GHOSTCRUSH: return PatternArgs(4, 1, 55, 0, 0, 0);
+    case PATTERN_SOLID: return PatternArgs(250, 0, 0, 0, 0, 0, 0);
     case PATTERN_TRACER: return PatternArgs(16, 3);
     case PATTERN_DASHDOPS: return PatternArgs(30, 2, 7);
     case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0, 0, 0, 0, 2);
@@ -193,8 +194,8 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_RIBBON:
     case PATTERN_MINIRIBBON:
     case PATTERN_BLINKIE:
-    case PATTERN_GHOSTCRUSH:
-    case PATTERN_SOLID: return new BasicPattern(args);
+    case PATTERN_GHOSTCRUSH: return new BasicPattern(args);
+    case PATTERN_SOLID: return new SolidPattern(args);
     case PATTERN_TRACER: return new TracerPattern(args);
     case PATTERN_DASHDOPS: return new DashDopsPattern(args);
     case PATTERN_BLEND:

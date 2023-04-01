@@ -214,6 +214,6 @@ void Leds::breathIndex(LedPos target, uint32_t hue, uint32_t variance, uint32_t 
 void Leds::update()
 {
 #ifdef VORTEX_LIB
-  Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
+  Vortex::vcallbacks()->ledsShow();
 #endif
 }
