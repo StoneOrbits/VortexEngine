@@ -6,7 +6,11 @@
 #include "../../Log/Log.h"
 
 BracketsPattern::BracketsPattern(const PatternArgs &args) :
-  SingleLedPattern(args)
+  SingleLedPattern(args),
+  m_bracketDuration(0),
+  m_midDuration(0),
+  m_offDuration(0),
+  m_blinkTimer()
 {
   m_patternID = PATTERN_BRACKETS;
   REGISTER_ARG(m_bracketDuration);
