@@ -10,11 +10,6 @@
 #include "../../VortexLib/VortexLib.h"
 #endif
 
-#define LED_DATA_PIN  4
-
-#define POWER_LED_PIN 7
-#define POWER_LED_CLK 8
-
 // array of led color values
 RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 // global brightness
