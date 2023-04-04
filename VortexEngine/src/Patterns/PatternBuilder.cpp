@@ -143,7 +143,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_TRACER: return PatternArgs(16, 3);
     case PATTERN_DASHDOPS: return PatternArgs(30, 2, 7);
     case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0, 0, 0, 0, 2);
-    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(5, 5, 10, 2, 2, 1, 0, 3);
+    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(2, 13, 0, 0, 0, 0, 0, 2);
     case PATTERN_BRACKETS: return PatternArgs(4, 8, 35);
 
     // =====================
