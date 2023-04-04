@@ -288,20 +288,22 @@ bool ByteStream::decompress()
   return true;
 }
 
-void ByteStream::recalcCRC(bool force)
+uint32_t ByteStream::recalcCRC(bool force)
 {
   if (!m_pData || !m_pData->size) {
-    return;
+    return 0;
   }
   // is the crc dirty?
   // or is the recalc being forced anyway?
   if (!force && !(m_pData->flags & BUFFER_FLAG_DIRTY)) {
-    return;
+    return 0;
   }
   // re-calculate the CRC on the buffer
   m_pData->recalcCRC();
   // unset dirty flag
   m_pData->flags &= ~BUFFER_FLAG_DIRTY;
+  // return the newly calculated crc
+  return m_pData->crc32;
 }
 
 bool ByteStream::checkCRC() const

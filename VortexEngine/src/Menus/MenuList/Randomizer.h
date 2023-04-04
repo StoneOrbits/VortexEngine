@@ -17,10 +17,20 @@ public:
   bool run() override;
 
   // handlers for clicks
-  //void onShortClick() override;
-  //void onLongClick() override;
+  void onShortClick() override;
+  void onLongClick() override;
 
 private:
+  // a demo mode for the current randomization
+  Mode m_demoMode;
+
+  // re-roll a new randomization
+  bool reRoll();
+
+#ifdef VORTEX_LIB
+  // so that vortex can reach in and grab the demo mode
+  friend class Vortex;
+#endif
 };
 
 #endif

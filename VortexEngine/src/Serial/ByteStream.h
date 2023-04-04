@@ -63,8 +63,9 @@ public:
 
   // re-calculate the built-in CRC on the bytestream if needed
   // if the crc is up to date this will do nothing. Optionally
-  // force a re-calculation even if the dirty flag is missing
-  void recalcCRC(bool force = false);
+  // force a re-calculation even if the dirty flag is missing.
+  // Will return the new CRC value.
+  uint32_t recalcCRC(bool force = false);
 
   // check the CRC without re-calculating, note, if the CRC is
   // dirty then this will simply return false
