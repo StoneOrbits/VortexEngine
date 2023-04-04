@@ -491,11 +491,12 @@ RGBColor hsv_to_rgb_generic(const HSVColor &rhs)
   }
 
   region = rhs.hue / 43;
-  remainder = (rhs.hue - (region * 43)) * 6;
+  remainder = ((rhs.hue - (region * 43)) * 6) % 256;
 
-  p = (rhs.val * (255 - rhs.sat)) >> 8;
-  q = (rhs.val * (255 - ((rhs.sat * remainder) >> 8))) >> 8;
-  t = (rhs.val * (255 - ((rhs.sat * (255 - remainder)) >> 8))) >> 8;
+  // extraneous casts to uint16_t are to prevent overflow
+  p = (uint8_t)(((uint16_t)(rhs.val) * (255 - rhs.sat)) >> 8);
+  q = (uint8_t)(((uint16_t)(rhs.val) * (255 - (((uint16_t)(rhs.sat) * remainder) >> 8))) >> 8);
+  t = (uint8_t)(((uint16_t)(rhs.val) * (255 - (((uint16_t)(rhs.sat) * (255 - remainder)) >> 8))) >> 8);
 
   switch (region) {
   case 0:
