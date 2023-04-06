@@ -36,9 +36,9 @@
 #define FASTLOOP_SAFE_DISTANCE 64
 static const int LZ4_minLength = (MFLIMIT + 1);
 
-#define KB *((uint32_t)1 <<10)
-#define MB *((uint32_t)1 <<20)
-#define GB *((uint32_t)1U<<30)
+#define KB *(1 <<10)
+#define MB *(1 <<20)
+#define GB *(1U<<30)
 
 #define LZ4_DISTANCE_ABSOLUTE_MAX 65535
 #if (LZ4_DISTANCE_MAX > LZ4_DISTANCE_ABSOLUTE_MAX)   /* max supported by LZ4 format */
@@ -265,7 +265,7 @@ static unsigned LZ4_NbCommonBytes(reg_t val)
       return (unsigned)(((U64)((val & (m - 1)) * m)) >> 56);
     } else /* 32 bits */ {
       const U32 m = 0x01010101;
-      return (unsigned)((U32)((((val - 1) ^ val) & (m - 1)) * m) >> 24);
+      return (unsigned)((((val - 1) ^ val) & (m - 1)) * m) >> 24;
     }
   } else   /* Big Endian CPU */ {
     if (sizeof(val) == 8) {
@@ -276,18 +276,8 @@ static unsigned LZ4_NbCommonBytes(reg_t val)
       Just to avoid some static analyzer complaining about shift by 32 on 32-bits target.
       Note that this code path is never triggered in 32-bits mode. */
       unsigned r;
-      if (!(val >> by32)) {
-        r = 4;
-      } else {
-        r = 0;
-        val >>= by32;
-      }
-      if (!((uint32_t)val >> 16)) {
-        r += 2;
-        val >>= 8;
-      } else {
-        val >>= (sizeof(uint32_t) * 8 - 24);
-      }
+      if (!(val >> by32)) { r = 4; } else { r = 0; val >>= by32; }
+      if (!(val >> 16)) { r += 2; val >>= 8; } else { val >>= 24; }
       r += (!val);
       return r;
     } else /* 32 bits */ {
@@ -331,7 +321,7 @@ unsigned LZ4_count(const BYTE *pIn, const BYTE *pMatch, const BYTE *pInLimit)
 /*-************************************
 *  Local Constants
 **************************************/
-static const U32 LZ4_64Klimit = ((64 KB) + (MFLIMIT - 1));
+static const int LZ4_64Klimit = ((64 KB) + (MFLIMIT - 1));
 static const U32 LZ4_skipTrigger = 6;  /* Increase this value ==> compression run slower on incompressible data */
 
 
@@ -370,7 +360,7 @@ typedef enum { noDictIssue = 0, dictSmall } dictIssue_directive;
 /*-************************************
 *  Local Utils
 **************************************/
-int LZ4_compressBound(uint32_t isize) { return LZ4_COMPRESSBOUND(isize); }
+int LZ4_compressBound(int isize) { return LZ4_COMPRESSBOUND(isize); }
 
 /*-******************************
 *  Compression functions
@@ -488,7 +478,7 @@ int LZ4_compress_generic_validated(
   LZ4_stream_t_internal *const cctx,
   const char *const source,
   char *const dest,
-  const U32 inputSize,
+  const int inputSize,
   int *inputConsumed, /* only written when outputDirective == fillOutput */
   const int maxOutputSize,
   const limitedOutput_directive outputDirective,
@@ -922,7 +912,7 @@ int LZ4_compress_generic(
     tableType, dictDirective, dictIssue, acceleration);
 }
 
-int LZ4_compress_fast_extState(void *state, const char *source, char *dest, uint32_t inputSize, int maxOutputSize, int32_t acceleration)
+int LZ4_compress_fast_extState(void *state, const char *source, char *dest, int inputSize, int maxOutputSize, int acceleration)
 {
   LZ4_stream_t_internal *const ctx = &LZ4_initStream(state, sizeof(LZ4_stream_t))->internal_donotuse;
   assert(ctx != NULL);
@@ -945,7 +935,7 @@ int LZ4_compress_fast_extState(void *state, const char *source, char *dest, uint
   }
 }
 
-int LZ4_compress_fast(const char *source, char *dest, uint32_t inputSize, int maxOutputSize, int acceleration)
+int LZ4_compress_fast(const char *source, char *dest, int inputSize, int maxOutputSize, int acceleration)
 {
   int result;
   LZ4_stream_t *ctxPtr = (LZ4_stream_t *)vmalloc(sizeof(LZ4_stream_t));   /* malloc-calloc always properly aligned */

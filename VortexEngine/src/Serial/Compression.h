@@ -3,7 +3,6 @@
 
 // This is a heavily stripped down version of lz4
 
-#include <inttypes.h>
 #include <stddef.h>
 
 // memory usage cranked down to minimum
@@ -70,7 +69,7 @@ int LZ4_decompress_safe(const char *src, char *dst, int compressedSize, int dstC
         return : maximum output size in a "worst case" scenario
               or 0, if input size is incorrect (too large or negative)
 */
-int LZ4_compressBound(uint32_t inputSize);
+int LZ4_compressBound(int inputSize);
 
 /*! LZ4_compress_fast() :
     Same as LZ4_compress_default(), but allows selection of "acceleration" factor.
@@ -80,7 +79,7 @@ int LZ4_compressBound(uint32_t inputSize);
     Values <= 0 will be replaced by LZ4_ACCELERATION_DEFAULT (currently == 1, see lz4.c).
     Values > LZ4_ACCELERATION_MAX will be replaced by LZ4_ACCELERATION_MAX (currently == 65537, see lz4.c).
 */
-int LZ4_compress_fast(const char *src, char *dst, uint32_t srcSize, int dstCapacity, int acceleration);
+int LZ4_compress_fast(const char *src, char *dst, int srcSize, int dstCapacity, int acceleration);
 
 /*! LZ4_compress_fast_extState() :
  *  Same as LZ4_compress_fast(), using an externally allocated memory space for its state.
@@ -88,7 +87,7 @@ int LZ4_compress_fast(const char *src, char *dst, uint32_t srcSize, int dstCapac
  *  and allocate it on 8-bytes boundaries (using `malloc()` typically).
  *  Then, provide this buffer as `void* state` to compression function.
  */
-int LZ4_compress_fast_extState(void *state, const char *src, char *dst, uint32_t srcSize, int dstCapacity, int32_t acceleration);
+int LZ4_compress_fast_extState(void *state, const char *src, char *dst, int srcSize, int dstCapacity, int acceleration);
 
 /*-*********************************************
 *  Streaming Compression Functions
