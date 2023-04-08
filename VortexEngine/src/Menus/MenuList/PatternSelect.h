@@ -10,11 +10,11 @@
 class PatternSelect : public Menu
 {
 public:
-  PatternSelect();
+  PatternSelect(const RGBColor &col);
   ~PatternSelect();
 
   bool init() override;
-  bool run() override;
+  MenuAction run() override;
 
   // handlers for clicks
   void onShortClick() override;

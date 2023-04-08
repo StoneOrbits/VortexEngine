@@ -39,6 +39,9 @@ public:
   // Run the menus returns true if the menu remains open, false if closed
   static bool run();
 
+  // open the ring menu
+  static bool openRingMenu();
+
   // open a menu by index in the menu table
   static bool openMenu(uint32_t index);
 

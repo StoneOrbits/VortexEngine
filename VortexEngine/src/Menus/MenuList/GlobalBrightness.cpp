@@ -2,8 +2,8 @@
 
 #include "../../Log/Log.h"
 
-GlobalBrightness::GlobalBrightness() :
-  Menu()
+GlobalBrightness::GlobalBrightness(const RGBColor &col) :
+  Menu(col)
 {
 }
 
@@ -20,10 +20,11 @@ bool GlobalBrightness::init()
   return true;
 }
 
-bool GlobalBrightness::run()
+Menu::MenuAction GlobalBrightness::run()
 {
-  if (!Menu::run()) {
-    return false;
+  MenuAction result = Menu::run();
+  if (result != MENU_CONTINUE) {
+    return result;
   }
-  return true;
+  return MENU_CONTINUE;
 }

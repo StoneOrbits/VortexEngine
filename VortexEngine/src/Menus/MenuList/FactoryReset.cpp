@@ -7,8 +7,8 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-FactoryReset::FactoryReset() :
-  Menu(),
+FactoryReset::FactoryReset(const RGBColor &col) :
+  Menu(col),
   m_resetMode(false)
 {
 }
@@ -27,10 +27,11 @@ bool FactoryReset::init()
   return true;
 }
 
-bool FactoryReset::run()
+Menu::MenuAction FactoryReset::run()
 {
-  if (!Menu::run()) {
-    return false;
+  MenuAction result = Menu::run();
+  if (result != MENU_CONTINUE) {
+    return result;
   }
   Leds::clearAll();
   if (m_resetMode) {
@@ -45,7 +46,7 @@ bool FactoryReset::run()
   if (g_pButton->isPressed() && g_pButton->holdDuration() >= SHORT_CLICK_THRESHOLD_TICKS) {
     Leds::setAll(RGB_WHITE);
   }
-  return true;
+  return MENU_CONTINUE;
 }
 
 void FactoryReset::onShortClick()

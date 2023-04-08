@@ -217,10 +217,10 @@ bool ByteStream::compress()
   }
   // use LZ4_compressBound for the output buffer size, it may be larger
   // but it will allow for faster compression then we can shrink it after
-  ByteStream compressedBuffer(LZ4_compressBound(m_pData->size));
+  ByteStream compressedBuffer(compress_size(m_pData->size));
   // compress the data
-	int compressedSize = LZ4_compress_default((const char *)m_pData->buf,
-    (char *)compressedBuffer.m_pData->buf, m_pData->size, compressedBuffer.m_capacity);
+  int compressedSize = compress_buffer(m_pData->buf, compressedBuffer.m_pData->buf,
+    m_pData->size, compressedBuffer.m_capacity);
   // check for compression error
   if (compressedSize < 0) {
     DEBUG_LOGF("Failed to compress, error: %d", compressedSize);
@@ -265,9 +265,8 @@ bool ByteStream::decompress()
     // create buffer to receive decompressed data
     decompressedBuffer.init(m_pData->size * multiple);
     // decompress the data
-    decompressedSize = LZ4_decompress_safe((const char *)m_pData->buf,
-      (char *)decompressedBuffer.m_pData->buf, m_pData->size,
-      decompressedBuffer.m_capacity);
+    decompressedSize = decompress_buffer(m_pData->buf, decompressedBuffer.m_pData->buf,
+      m_pData->size, decompressedBuffer.m_capacity);
   } while (decompressedSize < 0 && multiple < 512);
   // still error
   if (decompressedSize < 0) {

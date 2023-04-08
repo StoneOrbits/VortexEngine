@@ -128,7 +128,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
   switch (id) {
     // =====================
     //  Single Led Patterns:
-    case PATTERN_BASIC: return PatternArgs(1, 0, 0, 0, 0, 0);
+    case PATTERN_BASIC: return PatternArgs(DOPS_ON_DURATION, STROBE_OFF_DURATION, 10, 2, 2, 1);
     case PATTERN_STROBE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 0, 0, 0, 0);
     case PATTERN_HYPERSTROBE: return PatternArgs(HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 0, 0, 0, 0);
     case PATTERN_DOPS: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0, 0, 0);
@@ -142,7 +142,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_SOLID: return PatternArgs(250, 0, 0, 0, 0, 0, 0);
     case PATTERN_TRACER: return PatternArgs(16, 3);
     case PATTERN_DASHDOPS: return PatternArgs(30, 2, 7);
-    case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0, 0, 0, 0, 2);
+    case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0, 0, 0, 0, 1);
     case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(2, 13, 0, 0, 0, 0, 0, 2);
     case PATTERN_BRACKETS: return PatternArgs(4, 8, 35);
 

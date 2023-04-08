@@ -5,6 +5,7 @@
 #include "Storage/Storage.h"
 #include "Buttons/Buttons.h"
 #include "Time/TimeControl.h"
+#include "Time/Timings.h"
 #include "Serial/Serial.h"
 #include "Modes/Modes.h"
 #include "Menus/Menus.h"
@@ -16,11 +17,6 @@
 
 bool VortexEngine::init()
 {
-  // initialize a random seed
-  // Always generate seed before creating button on
-  // digital pin 1 (shared pin with analog 0)
-  randomSeed(analogRead(0));
-
   // pull up all the pins to prevent floating pins from triggering interrupts
   for (int p = 0; p < 21; ++p) {
     pinMode(p, INPUT_PULLUP);
@@ -99,17 +95,35 @@ void VortexEngine::tick()
   // tick the current time counter forward
   Time::tickClock();
 
-  // poll the buttons for changes
-  Buttons::check();
-
-  // if the menus don't need to run, or they run and return false
-  if (!Menus::run()) {
-    // then just play the mode
-    Modes::play();
+  // don't poll the button till some cycles have passed, this prevents
+  // the wakeup from cycling to the next mode
+  if (Time::getCurtime() > IGNORE_BUTTON_TICKS) {
+    Buttons::check();
   }
+
+  // run the main logic for the engine
+  runMainLogic();
 
   // update the leds
   Leds::update();
+}
+
+void VortexEngine::runMainLogic()
+{
+  // if the menus are open and running then just return
+  if (Menus::run()) {
+    return;
+  }
+  // otherwise if the button is not pressed just run the modes
+  if (!g_pButton->isPressed()) {
+    Modes::play();
+    return;
+  }
+  // then check to see if we've held long enough to enter the menu
+  if (g_pButton->holdDuration() >= MENU_TRIGGER_THRESHOLD_TICKS) {
+    DEBUG_LOG("Entering ring fill...");
+    Menus::openRingMenu();
+  }
 }
 
 void VortexEngine::serializeVersion(ByteStream &stream)
@@ -223,7 +237,7 @@ void VortexEngine::serializationTest()
     }
     if (!tmpMode.equals(&tmpMode2)) {
       ERROR_LOGF("ERROR!! Modes are not equal on %u", patternID);
-      return;
+      return;0
     }
     PatternArgs pulledArgs;
     tmpMode2.getPattern()->getArgs(pulledArgs);

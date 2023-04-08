@@ -11,11 +11,15 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-ModeSharing::ModeSharing() :
-  Menu(),
+ModeSharing::ModeSharing(const RGBColor &col) :
+  Menu(col),
   m_sharingMode(ModeShareState::SHARE_SEND),
   m_lastActionTime(0),
   m_timeOutStartTime(0)
+{
+}
+
+ModeSharing::~ModeSharing()
 {
 }
 
@@ -32,10 +36,11 @@ bool ModeSharing::init()
   return true;
 }
 
-bool ModeSharing::run()
+Menu::MenuAction ModeSharing::run()
 {
-  if (!Menu::run()) {
-    return false;
+  MenuAction result = Menu::run();
+  if (result != MENU_CONTINUE) {
+    return result;
   }
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND:
@@ -58,7 +63,7 @@ bool ModeSharing::run()
     receiveMode();
     break;
   }
-  return true;
+  return MENU_CONTINUE;
 }
 
 // handlers for clicks

@@ -1,5 +1,5 @@
-#ifndef ADVANCED_PATTERN_H
-#define ADVANCED_PATTERN_H
+#ifndef BASIC_PATTERN_H
+#define BASIC_PATTERN_H
 
 #include "../Pattern.h"
 #include "../../Time/Timer.h"

@@ -11,16 +11,22 @@ class Mode;
 class Menu
 {
 public:
-  Menu();
+  Menu(const RGBColor &col);
   virtual ~Menu();
 
-  // optional init function can be overridden, this is called when the menu is
-  // first opened to initialize the menu. It will be called each time the menu
-  // is opened
   virtual bool init();
 
-  // when the menu runs it will have access to time, the button and led control
-  virtual bool run() = 0;
+  // the action for the menu to execute
+  enum MenuAction :uint8_t {
+    // quit the menus
+    MENU_QUIT,
+    // continue running the menu
+    MENU_CONTINUE,
+    // don't run derived menu code, this is used internally
+    // by the menu class itself
+    MENU_SKIP
+  };
+  virtual MenuAction run();
 
   // optional handlers for clicks
   virtual void onShortClick();
@@ -32,9 +38,11 @@ public:
 protected:
   // the current mode that was selected
   Mode *m_pCurMode;
+  // the color of this menu
+  RGBColor m_menuColor;
 
 private:
-  // whether to close the menu
+  // internal flag to close the menu
   bool m_shouldClose;
 };
 

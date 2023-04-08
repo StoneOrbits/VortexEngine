@@ -61,6 +61,9 @@ public:
   // tick function for each loop
   static void tick();
 
+  // run the main logic of the engine
+  static void runMainLogic();
+
   // serialize the version number to a byte stream
   static void serializeVersion(ByteStream &stream);
   static bool checkVersion(uint8_t major, uint8_t minor);

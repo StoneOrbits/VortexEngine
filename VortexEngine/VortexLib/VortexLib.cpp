@@ -347,15 +347,19 @@ uint32_t Vortex::numLedsInMode()
   return pMode->getLedCount();
 }
 
-bool Vortex::addNewMode(bool save)
+bool Vortex::addNewMode(Random *pRandCtx, bool save)
 {
   Colorset set;
-  set.randomize();
+  Random ctx;
+  if (!pRandCtx) {
+    pRandCtx = &ctx;
+  }
+  set.randomize(*pRandCtx);
   // create a random pattern ID from all patterns
   PatternID randomPattern;
   do {
     // continuously re-randomize the pattern so we don't get solids
-    randomPattern = (PatternID)random(PATTERN_FIRST, PATTERN_COUNT);
+    randomPattern = (PatternID)pRandCtx->next(PATTERN_FIRST, PATTERN_COUNT);
   } while (randomPattern == PATTERN_SOLID);
   if (!Modes::addMode(randomPattern, nullptr, &set)) {
     return false;

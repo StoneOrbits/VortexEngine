@@ -121,6 +121,12 @@
     <Filter Include="Source Files\VortexLib\EngineDependencies">
       <UniqueIdentifier>{0f3464ce-ff50-455a-b16c-7f86e6eb52c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Random">
+      <UniqueIdentifier>{44457553-3b97-4708-904c-8f36dbcbcc92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Random">
+      <UniqueIdentifier>{3cbbe587-ec8b-4902-9fe7-e7277e5e6b69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\VortexEngine.cpp">
@@ -329,6 +335,9 @@
     </ClCompile>
     <ClCompile Include="VortexLib\EngineDependencies\FlashStorage.cpp">
       <Filter>Source Files\VortexLib\EngineDependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Random\Random.cpp">
+      <Filter>Source Files\Random</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -556,6 +565,9 @@
     </ClInclude>
     <ClInclude Include="VortexLib\EngineDependencies\FastLED.h">
       <Filter>Header Files\VortexLib\EngineDependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Random\Random.h">
+      <Filter>Header Files\Random</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

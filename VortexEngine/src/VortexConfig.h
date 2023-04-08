@@ -59,6 +59,12 @@
 // it will be registered as a 'long click'
 #define CLICK_THRESHOLD       250
 
+// Startup Ignore Button Time (in milliseconds)
+//
+// The amount of time the engine will ignore button presses after
+// it has started up, this is to prevent accidental button presses
+#define IGNORE_BUTTON_TIME    150
+
 // Color delete threshold (in milliseconds)
 //
 // How long you must hold down on a color in the color select menu to

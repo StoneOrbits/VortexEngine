@@ -87,6 +87,12 @@ public:
   // warning: uses hsv to rgb in realtime!
   static void breathIndex(LedPos target, uint32_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
+  // warning: uses hsv to rgb in realtime!
+  static void breathIndexSat(LedPos target, uint32_t hue, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
+  // warning: uses hsv to rgb in realtime!
+  static void breathIndexVal(LedPos target, uint32_t hue, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
 
   // get the RGBColor of an Led index
   static RGBColor getLed(LedPos pos) { return led(pos); }

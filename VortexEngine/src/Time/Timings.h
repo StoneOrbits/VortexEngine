@@ -12,6 +12,9 @@
 #define MENU_TRIGGER_THRESHOLD_TICKS  Time::msToTicks(MENU_TRIGGER_TIME)
 #define SHORT_CLICK_THRESHOLD_TICKS   Time::msToTicks(CLICK_THRESHOLD)
 
+// how long after startup before the button starts responding
+#define IGNORE_BUTTON_TICKS           Time::msToTicks(IGNORE_BUTTON_TIME)
+
 // Color delete threshold (in milliseconds)
 #define DELETE_THRESHOLD_TICKS        Time::msToTicks(COL_DELETE_THRESHOLD)
 // Color delete cycle time (in milliseconds)

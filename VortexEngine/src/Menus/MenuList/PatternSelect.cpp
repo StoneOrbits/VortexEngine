@@ -2,8 +2,8 @@
 
 #include "../../Log/Log.h"
 
-PatternSelect::PatternSelect() :
-  Menu(),
+PatternSelect::PatternSelect(const RGBColor &col) :
+  Menu(col),
   m_targetLed(LED_0)
 {
 }
@@ -26,13 +26,14 @@ bool PatternSelect::init()
   return true;
 }
 
-bool PatternSelect::run()
+Menu::MenuAction PatternSelect::run()
 {
-  if (!Menu::run()) {
-    return false;
+  MenuAction result = Menu::run();
+  if (result != MENU_CONTINUE) {
+    return result;
   }
   m_pCurMode->play();
-  return true;
+  return MENU_CONTINUE;
 }
 
 void PatternSelect::onShortClick()

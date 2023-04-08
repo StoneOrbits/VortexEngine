@@ -91,7 +91,8 @@ void Leds::setAllOdds(RGBColor col)
   }
 }
 
-void Leds::clearRangeEvens(Pair first, Pair last) {
+void Leds::clearRangeEvens(Pair first, Pair last)
+{
   for (Pair pos = first; pos <= last; pos++) {
     clearIndex(pairEven(pos));
   }
@@ -104,7 +105,8 @@ void Leds::clearAllEvens()
   }
 }
 
-void Leds::clearRangeOdds(Pair first, Pair last) {
+void Leds::clearRangeOdds(Pair first, Pair last)
+{
   for (Pair pos = first; pos <= last; pos++) {
     clearIndex(pairOdd(pos));
   }
@@ -151,7 +153,7 @@ void Leds::restoreAll(const LedStash &stash)
 
 void Leds::adjustBrightnessIndex(LedPos target, uint8_t fadeBy)
 {
-   led(target).adjustBrightness(fadeBy);
+  led(target).adjustBrightness(fadeBy);
 }
 
 void Leds::adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy)
@@ -204,6 +206,16 @@ void Leds::blinkPairs(Pair first, Pair last, uint64_t time, uint32_t offMs, uint
 void Leds::breathIndex(LedPos target, uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
   setIndex(target, HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
+}
+
+void Leds::breathIndexSat(LedPos target, uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+{
+  setIndex(target, HSVColor(hue, 255 - (uint8_t)(sat + ((sin(variance * 0.0174533) + 1) * magnitude)), val));
+}
+
+void Leds::breathIndexVal(LedPos target, uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+{
+  setIndex(target, HSVColor(hue, sat, 255 - (uint8_t)(val + ((sin(variance * 0.0174533) + 1) * magnitude))));
 }
 
 void Leds::update()

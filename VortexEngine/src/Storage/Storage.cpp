@@ -45,7 +45,7 @@ void Storage::cleanup()
 bool Storage::write(ByteStream &buffer)
 {
   // check size
-  if (buffer.size() > STORAGE_SIZE) {
+  if (buffer.rawSize() > STORAGE_SIZE) {
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }

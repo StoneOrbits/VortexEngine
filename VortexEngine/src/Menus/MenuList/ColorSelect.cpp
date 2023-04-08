@@ -2,8 +2,8 @@
 
 #include "../../Log/Log.h"
 
-ColorSelect::ColorSelect() :
-  Menu()
+ColorSelect::ColorSelect(const RGBColor &col) :
+  Menu(col)
 {
 }
 
@@ -20,10 +20,11 @@ bool ColorSelect::init()
   return true;
 }
 
-bool ColorSelect::run()
+Menu::MenuAction ColorSelect::run()
 {
-  if (!Menu::run()) {
-    return false;
+  MenuAction result = Menu::run();
+  if (result != MENU_CONTINUE) {
+    return result;
   }
-  return true;
+  return MENU_CONTINUE;
 }

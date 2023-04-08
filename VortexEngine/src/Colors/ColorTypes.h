@@ -31,6 +31,7 @@
 #define RGB_YELLOW      (uint32_t)0xFFFF00    //
 #define RGB_RED         (uint32_t)0xFF0000    //   0 255 110
 #define RGB_DARK_RED    (uint32_t)0x110000    //   0 255 110
+#define RGB_DARK_ORANGE (uint32_t)0x100400    // 160   4   0
 #define RGB_GREEN       (uint32_t)0x00FF00    //  85 255 110
 #define RGB_CYAN        (uint32_t)0x00FFFF    //   0 255 255
 #define RGB_TEAL        (uint32_t)0x00FF80    //
@@ -48,6 +49,17 @@
 #define HSV_HUE_BLUE    160
 #define HSV_HUE_PURPLE  192
 #define HSV_HUE_PINK    224
+
+enum hsv_to_rgb_algorithm : uint8_t
+{
+  HSV_TO_RGB_GENERIC,
+  HSV_TO_RGB_RAW,
+  HSV_TO_RGB_RAINBOW
+};
+
+// global hsv to rgb algorithm selector, switch this to control
+// all hsv to rgb conversions
+extern hsv_to_rgb_algorithm g_hsv_rgb_alg;
 
 class ByteStream;
 class RGBColor;

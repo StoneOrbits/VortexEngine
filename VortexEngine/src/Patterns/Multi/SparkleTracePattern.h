@@ -3,6 +3,8 @@
 
 #include "BlinkStepPattern.h"
 
+#include "../../Random/Random.h"
+
 class SparkleTracePattern : public BlinkStepPattern
 {
 public:
@@ -12,5 +14,7 @@ public:
 protected:
   virtual void blinkOn() override;
   virtual void poststep() override;
+
+  Random m_randCtx;
 };
 #endif

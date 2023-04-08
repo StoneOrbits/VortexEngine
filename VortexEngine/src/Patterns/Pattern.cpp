@@ -8,6 +8,8 @@
 #include "../Memory/Memory.h"
 #include "../Log/Log.h"
 
+#include "../VortexConfig.h"
+
 Pattern::Pattern() :
   m_patternID(PATTERN_FIRST),
   m_patternFlags(0),
@@ -117,5 +119,11 @@ void Pattern::clearColorset()
 
 void Pattern::registerArg(uint8_t argOffset)
 {
+#ifndef VORTEX_ARDUINO
+  if (m_numArgs >= MAX_PATTERN_ARGS) {
+    ERROR_LOG("too many args");
+    return;
+  }
+#endif
   m_argList[m_numArgs++] = argOffset;
 }

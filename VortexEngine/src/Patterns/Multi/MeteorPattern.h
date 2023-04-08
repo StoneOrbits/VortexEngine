@@ -5,6 +5,7 @@
 
 #include "../../Time/Timings.h"
 #include "../../Leds/LedStash.h"
+#include "../../Random/Random.h"
 
 class MeteorPattern : public BlinkStepPattern
 {
@@ -20,6 +21,9 @@ protected:
 private:
   // the fade amount
   uint8_t m_fadeAmount;
+
+  // for random operations
+  Random m_randCtx;
 
   LedStash m_stash;
 };

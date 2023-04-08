@@ -4,6 +4,9 @@
 
 #include <Arduino.h>
 
+// global hsv to rgb algorithm selector
+hsv_to_rgb_algorithm g_hsv_rgb_alg = HSV_TO_RGB_GENERIC;
+
 HSVColor::HSVColor() :
   hue(0),
   sat(0),
@@ -153,13 +156,17 @@ RGBColor::RGBColor(const HSVColor &rhs)
 
 RGBColor &RGBColor::operator=(const HSVColor &rhs)
 {
-#if HSV_TO_RGB_ALGORITHM == 1
-  *this = hsv_to_rgb_rainbow(rhs);
-#elif HSV_TO_RGB_ALGORITHM == 2
-  *this = hsv_to_rgb_raw_C(rhs);
-#elif HSV_TO_RGB_ALGORITHM == 3
-  *this = hsv_to_rgb_generic(rhs);
-#endif
+  switch (g_hsv_rgb_alg) {
+  case HSV_TO_RGB_RAINBOW:
+    *this = hsv_to_rgb_rainbow(rhs);
+    break;
+  case HSV_TO_RGB_RAW:
+    *this = hsv_to_rgb_raw_C(rhs);
+    break;
+  case HSV_TO_RGB_GENERIC:
+    *this = hsv_to_rgb_generic(rhs);
+    break;
+  }
   return *this;
 }
 

@@ -230,10 +230,10 @@ bool Modes::setDefaults()
   DEBUG_LOGF("Added default patterns %u through %u", default_start, default_end);
 #else
   // add each default mode with each of the given colors
-  for (uint32_t i = 0; i < num_default_modes; ++i) {
-    addMode(default_modes[i].patternID, default_modes[i].cols[0], default_modes[i].cols[1],
-      default_modes[i].cols[2], default_modes[i].cols[3], default_modes[i].cols[4],
-      default_modes[i].cols[5], default_modes[i].cols[6], default_modes[i].cols[7]);
+  for (uint8_t i = 0; i < num_default_modes; ++i) {
+    const default_mode_entry &def = default_modes[i];
+    Colorset set(def.numColors, def.cols);
+    addMode(def.patternID, nullptr, &set);
   }
 #endif
   return true;
