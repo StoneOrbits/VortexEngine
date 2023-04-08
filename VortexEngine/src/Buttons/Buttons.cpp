@@ -18,11 +18,8 @@ Button Buttons::m_buttons[NUM_BUTTONS];
 
 bool Buttons::init()
 {
-  // initialize the buttons on pins 19 and 20
-  if (!m_buttons[0].init(19)) {
-    return false;
-  }
-  if (!m_buttons[1].init(20)) {
+  // initialize the button on pin 1
+  if (!m_buttons[0].init(19) || !m_buttons[1].init(20)) {
     return false;
   }
   g_pButton = &m_buttons[0];

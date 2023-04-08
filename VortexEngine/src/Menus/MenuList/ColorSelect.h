@@ -8,11 +8,11 @@
 class ColorSelect : public Menu
 {
 public:
-  ColorSelect();
+  ColorSelect(const RGBColor &col);
+  ~ColorSelect();
 
   bool init() override;
-
-  bool run() override;
+  MenuAction run() override;
 
   // handlers for clicks
   void onShortClick() override;

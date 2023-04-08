@@ -6,17 +6,13 @@
 
 #include <Arduino.h>
 
-MeteorPattern::MeteorPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration, uint8_t fadeAmount) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration),
-  m_fadeAmount(fadeAmount),
+MeteorPattern::MeteorPattern(const PatternArgs &args) :
+  BlinkStepPattern(args),
+  m_fadeAmount(0),
   m_stash()
 {
   m_patternID = PATTERN_METEOR;
-}
-
-MeteorPattern::MeteorPattern(const PatternArgs &args) :
-  MeteorPattern()
-{
+  REGISTER_ARG(m_fadeAmount);
   setArgs(args);
 }
 
@@ -40,20 +36,8 @@ void MeteorPattern::blinkOff()
 void MeteorPattern::poststep()
 {
   // when a new meteor is created it is incerted into the stash so the blinking pattern is not interrupted
-  LedPos target = (LedPos)random(LED_FIRST, LED_COUNT);
+  Pair target = (Pair)m_randCtx.next(PAIR_FIRST, PAIR_COUNT);
   RGBColor col = m_colorset.getNext();
-  m_stash.setIndex(target, col);
-}
-
-void MeteorPattern::setArgs(const PatternArgs &args)
-{
-  BlinkStepPattern::setArgs(args);
-  m_fadeAmount = args.arg4;
-}
-
-void MeteorPattern::getArgs(PatternArgs &args) const
-{
-  BlinkStepPattern::getArgs(args);
-  args.arg4 = m_fadeAmount;
-  args.numArgs += 1;
+  m_stash.setIndex(pairEven(target), col);
+  m_stash.setIndex(pairOdd(target), col);
 }

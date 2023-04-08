@@ -8,16 +8,12 @@
 class DashDopsPattern : public SingleLedPattern
 {
 public:
-  DashDopsPattern(uint8_t dashLength = 30, uint8_t dotLength = 2, uint8_t offDuration = 7);
   DashDopsPattern(const PatternArgs &args);
   virtual ~DashDopsPattern();
 
   virtual void init() override;
 
   virtual void play() override;
-
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
 
 private:
   // the duration the light is on/off for

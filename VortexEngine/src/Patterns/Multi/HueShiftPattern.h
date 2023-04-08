@@ -9,7 +9,6 @@
 class HueShiftPattern : public MultiLedPattern
 {
 public:
-  HueShiftPattern(uint8_t onDuration = 1, uint8_t offDuration = 2);
   HueShiftPattern(const PatternArgs &args);
   virtual ~HueShiftPattern();
 
@@ -18,9 +17,6 @@ public:
 
   // pure virtual must override the play function
   virtual void play() override;
-
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
 
 private:
   uint8_t m_blinkOnDuration;

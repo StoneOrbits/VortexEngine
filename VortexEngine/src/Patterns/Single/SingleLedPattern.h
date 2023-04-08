@@ -7,7 +7,7 @@ class SingleLedPattern : public Pattern
 {
 protected:
   // SingleLedPattern is an abstract class
-  SingleLedPattern();
+  SingleLedPattern(const PatternArgs &args);
 
 public:
   virtual ~SingleLedPattern();

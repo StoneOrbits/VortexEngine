@@ -6,7 +6,7 @@
 // the gloveset upon factory reset
 const default_mode_entry default_modes[] = {
   {
-    PATTERN_BOUNCE, {
+    PATTERN_BOUNCE, 3, {
       HSV(0, 255, 255),
       HSV(96, 255, 255),
       HSV(160, 255, 255)
@@ -14,7 +14,7 @@ const default_mode_entry default_modes[] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, {
+    PATTERN_GHOSTCRUSH, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
@@ -24,7 +24,7 @@ const default_mode_entry default_modes[] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, {
+    PATTERN_GHOSTCRUSH, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
@@ -34,7 +34,7 @@ const default_mode_entry default_modes[] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, {
+    PATTERN_GHOSTCRUSH, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
@@ -44,7 +44,7 @@ const default_mode_entry default_modes[] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, {
+    PATTERN_GHOSTCRUSH, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
@@ -54,7 +54,7 @@ const default_mode_entry default_modes[] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, {
+    PATTERN_GHOSTCRUSH, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
@@ -64,7 +64,7 @@ const default_mode_entry default_modes[] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, {
+    PATTERN_GHOSTCRUSH, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
@@ -74,7 +74,7 @@ const default_mode_entry default_modes[] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, {
+    PATTERN_GHOSTCRUSH, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
@@ -84,7 +84,7 @@ const default_mode_entry default_modes[] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, {
+    PATTERN_GHOSTCRUSH, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
@@ -94,7 +94,7 @@ const default_mode_entry default_modes[] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, {
+    PATTERN_GHOSTCRUSH, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
@@ -104,7 +104,7 @@ const default_mode_entry default_modes[] = {
   },
 
   {
-    PATTERN_STROBE, {
+    PATTERN_STROBE, 8, {
       0xD4002B,
       RGB_OFF,
       0x0056AA,
@@ -117,7 +117,7 @@ const default_mode_entry default_modes[] = {
   },
 
   {
-    PATTERN_ULTRADOPS, {
+    PATTERN_ULTRADOPS, 8, {
       0x1C0000,
       0x4B2600,
       0xABAA00,
@@ -130,7 +130,7 @@ const default_mode_entry default_modes[] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, {
+    PATTERN_GHOSTCRUSH, 7, {
       0x26004B,
       RGB_OFF,
       RGB_GREEN,
@@ -142,7 +142,7 @@ const default_mode_entry default_modes[] = {
   },
 
   {
-    PATTERN_COMPLEMENTARY_BLEND, {
+    PATTERN_COMPLEMENTARY_BLEND, 3, {
       RGB_RED,
       RGB_GREEN,
       RGB_BLUE
@@ -151,4 +151,4 @@ const default_mode_entry default_modes[] = {
 };
 
 // exposed size of the default modes array
-const uint32_t num_default_modes = (sizeof(default_modes) / sizeof(default_modes[0]));
+const uint8_t num_default_modes = (sizeof(default_modes) / sizeof(default_modes[0]));

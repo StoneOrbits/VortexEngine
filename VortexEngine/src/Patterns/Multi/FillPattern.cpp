@@ -5,16 +5,11 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-FillPattern::FillPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration),
+FillPattern::FillPattern(const PatternArgs &args) :
+  BlinkStepPattern(args),
   m_progress(0)
 {
   m_patternID = PATTERN_FILL;
-}
-
-FillPattern::FillPattern(const PatternArgs &args) :
-  FillPattern()
-{
   setArgs(args);
 }
 
@@ -33,13 +28,13 @@ void FillPattern::init()
 
 void FillPattern::blinkOn()
 {
-  Leds::setQuadrants(QUADRANT_FIRST, (Quadrant)m_progress, m_colorset.peekNext());
-  Leds::setQuadrants((Quadrant)m_progress, QUADRANT_LAST, m_colorset.cur());
+  Leds::setPairs(PAIR_FIRST, (Pair)m_progress, m_colorset.peekNext());
+  Leds::setPairs((Pair)m_progress, PAIR_COUNT, m_colorset.cur());
 }
 
 void FillPattern::poststep()
 {
-  m_progress = (m_progress + 1) % QUADRANT_LAST;
+  m_progress = (m_progress + 1) % PAIR_COUNT;
   if (m_progress == 0) {
     m_colorset.getNext();
   }

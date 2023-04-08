@@ -70,6 +70,7 @@ public:
 class PatternArgs;
 class ByteStream;
 class Colorset;
+class Random;
 class Button;
 class Mode;
 
@@ -137,7 +138,7 @@ public:
   static uint32_t curMode();
   static uint32_t numModes();
   static uint32_t numLedsInMode();
-  static bool addNewMode(bool save = true);
+  static bool addNewMode(Random *pRandCtx = nullptr, bool save = true);
   static bool addNewMode(ByteStream &stream, bool save = true);
   static bool setCurMode(uint32_t index, bool save = true);
   static bool nextMode(bool save = true);

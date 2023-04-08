@@ -8,7 +8,6 @@
 class FillPattern : public BlinkStepPattern
 {
 public:
-  FillPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = 6, uint8_t stepDuration = 100);
   FillPattern(const PatternArgs &args);
   virtual ~FillPattern();
 

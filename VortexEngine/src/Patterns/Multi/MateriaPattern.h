@@ -10,8 +10,6 @@
 class MateriaPattern : public MultiLedPattern
 {
 public:
-  MateriaPattern(uint8_t onDuration1 = STROBE_ON_DURATION, uint8_t offDuration1 = STROBE_OFF_DURATION, uint8_t onDuration2 = 1, 
-    uint8_t offDuration2 = 4, uint8_t stepSpeed100ms = 8);
   MateriaPattern(const PatternArgs &args);
   virtual ~MateriaPattern();
 
@@ -20,9 +18,6 @@ public:
 
   // pure virtual must override the play function
   virtual void play() override;
-
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
 
 private:
   // blink durations
@@ -36,6 +31,8 @@ private:
   Timer m_blinkTimer1;
   Timer m_blinkTimer2;
   Timer m_stepTimer;
+
+  LedMap m_ledMap;
 
   bool m_switch;
 };

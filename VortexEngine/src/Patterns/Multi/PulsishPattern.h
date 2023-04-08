@@ -6,8 +6,6 @@
 class PulsishPattern : public MultiLedPattern
 {
 public:
-  PulsishPattern(uint8_t onDuration1 = DOPISH_ON_DURATION, uint8_t offDuration1 = DOPISH_OFF_DURATION,
-    uint8_t onDuration2 = STROBE_ON_DURATION, uint8_t offDuration2 = STROBE_OFF_DURATION, uint8_t stepDuration = 100);
   PulsishPattern(const PatternArgs &args);
   virtual ~PulsishPattern();
 
@@ -16,9 +14,6 @@ public:
 
   // pure virtual must override the play function
   virtual void play() override;
-
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
 
 private:
   // how much the warp has progressed

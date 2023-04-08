@@ -5,20 +5,24 @@
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Colors/Colorset.h"
+#include "../Memory/Memory.h"
 #include "../Log/Log.h"
+
+#include "../VortexConfig.h"
 
 Pattern::Pattern() :
   m_patternID(PATTERN_FIRST),
   m_patternFlags(0),
   m_colorset(),
-  m_ledPos(LED_FIRST)
+  m_ledPos(LED_FIRST),
+  m_argList(),
+  m_numArgs(0)
 {
 }
 
 Pattern::Pattern(const PatternArgs &args) :
   Pattern()
 {
-  setArgs(args);
 }
 
 Pattern::~Pattern()
@@ -61,11 +65,17 @@ void Pattern::unserialize(ByteStream &buffer)
 
 void Pattern::setArgs(const PatternArgs &args)
 {
+  for (uint32_t i = 0; i < m_numArgs; ++i) {
+    *((uint8_t *)this + m_argList[i]) = args.args[i];
+  }
 }
 
 void Pattern::getArgs(PatternArgs &args) const
 {
   args.init();
+  for (uint32_t i = 0; i < m_numArgs; ++i) {
+    args.addArgs(*((uint8_t *)this + m_argList[i]));
+  }
 }
 
 bool Pattern::equals(const Pattern *other)
@@ -105,4 +115,15 @@ void Pattern::setColorset(const Colorset *set)
 void Pattern::clearColorset()
 {
   m_colorset.clear();
+}
+
+void Pattern::registerArg(uint8_t argOffset)
+{
+#ifndef VORTEX_ARDUINO
+  if (m_numArgs >= MAX_PATTERN_ARGS) {
+    ERROR_LOG("too many args");
+    return;
+  }
+#endif
+  m_argList[m_numArgs++] = argOffset;
 }

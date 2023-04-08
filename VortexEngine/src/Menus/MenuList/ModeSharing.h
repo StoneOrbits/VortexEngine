@@ -6,10 +6,11 @@
 class ModeSharing : public Menu
 {
 public:
-  ModeSharing();
+  ModeSharing(const RGBColor &col);
+  ~ModeSharing();
 
   bool init() override;
-  bool run() override;
+  MenuAction run() override;
 
   // handlers for clicks
   void onShortClick() override;

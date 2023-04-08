@@ -9,8 +9,6 @@
 class ZigzagPattern : public MultiLedPattern
 {
 public:
-  ZigzagPattern(uint8_t onDuration = 1, uint8_t offDuration = 3, uint8_t stepDuration = 10,
-    uint8_t snakeSize = 5, uint8_t fadeAmount = 55);
   ZigzagPattern(const PatternArgs &args);
   virtual ~ZigzagPattern();
 
@@ -19,9 +17,6 @@ public:
 
   // pure virtual must override the play function
   virtual void play() override;
-
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
 
 private:
 

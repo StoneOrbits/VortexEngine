@@ -5,16 +5,11 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-WarpPattern::WarpPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration),
+WarpPattern::WarpPattern(const PatternArgs &args) :
+  BlinkStepPattern(args),
   m_progress(0)
 {
   m_patternID = PATTERN_WARP;
-}
-
-WarpPattern::WarpPattern(const PatternArgs &args) :
-  WarpPattern()
-{
   setArgs(args);
 }
 
@@ -35,12 +30,12 @@ void WarpPattern::init()
 void WarpPattern::blinkOn()
 {
   Leds::setAll(m_colorset.cur());
-  Leds::setQuadrant((Quadrant)m_progress, m_colorset.peekNext());
+  Leds::setPair((Pair)m_progress, m_colorset.peekNext());
 }
 
 void WarpPattern::poststep()
 {
-  m_progress = (m_progress + 1) % QUADRANT_LAST;
+  m_progress = (m_progress + 1) % PAIR_COUNT;
   if (m_progress == 0) {
     m_colorset.getNext();
   }

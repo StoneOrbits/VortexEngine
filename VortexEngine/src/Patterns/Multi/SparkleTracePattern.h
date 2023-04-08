@@ -3,15 +3,18 @@
 
 #include "BlinkStepPattern.h"
 
+#include "../../Random/Random.h"
+
 class SparkleTracePattern : public BlinkStepPattern
 {
 public:
-  SparkleTracePattern(uint8_t onDuration = 1, uint8_t offDuration = 10, uint8_t stepDuration = 15);
   SparkleTracePattern(const PatternArgs &args);
   virtual ~SparkleTracePattern();
 
 protected:
   virtual void blinkOn() override;
   virtual void poststep() override;
+
+  Random m_randCtx;
 };
 #endif

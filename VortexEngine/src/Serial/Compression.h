@@ -3,7 +3,26 @@
 
 // This is a heavily stripped down version of lz4
 
+#include "../VortexConfig.h"
+
+#include <inttypes.h>
 #include <stddef.h>
+
+// super basic runtime length encoding compression because LZ4 overflows the stack on attiny
+#if VORTEX_SLIM == 1
+
+#define compress_size(srcSize) (2 * (srcSize))
+#define compress_buffer(src, dst, srcSize, dstCapacity) mixed_RLE_compress(src, dst, srcSize, dstCapacity)
+#define decompress_buffer(src, dst, srcSize, dstCapacity) mixed_RLE_decompress(src, dst, srcSize, dstCapacity)
+
+int mixed_RLE_compress(const uint8_t *src, uint8_t *dst, int srcSize, int dstCapacity);
+int mixed_RLE_decompress(const uint8_t *src, uint8_t *dst, int srcSize, int dstCapacity);
+
+#else
+
+#define compress_size(srcSize) LZ4_compressBound(srcSize)
+#define compress_buffer(src, dst, srcSize, dstCapacity) LZ4_compress_default((const char *)src, (char *)dst, srcSize, dstCapacity)
+#define decompress_buffer(src, dst, srcSize, dstCapacity) LZ4_decompress_safe((const char *)src, (char *)dst, srcSize, dstCapacity)
 
 // memory usage cranked down to minimum
 #define LZ4_MEMORY_USAGE_MIN 10
@@ -199,4 +218,5 @@ union LZ4_streamDecode_u
   LZ4_streamDecode_t_internal internal_donotuse;
 };   /* previously typedef'd to LZ4_streamDecode_t */
 
+#endif
 #endif

@@ -2,18 +2,14 @@
 
 #include "../../Leds/Leds.h"
 
-#define THEATER_CHASE_STEPS 3
+#define THEATER_CHASE_STEPS 10
 
-TheaterChasePattern::TheaterChasePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration),
+TheaterChasePattern::TheaterChasePattern(const PatternArgs &args) :
+  BlinkStepPattern(args),
+  m_ledPositions(0),
   m_stepCounter(0)
 {
   m_patternID = PATTERN_THEATER_CHASE;
-}
-
-TheaterChasePattern::TheaterChasePattern(const PatternArgs &args) :
-  TheaterChasePattern()
-{
   setArgs(args);
 }
 
@@ -24,22 +20,25 @@ TheaterChasePattern::~TheaterChasePattern()
 void TheaterChasePattern::init()
 {
   BlinkStepPattern::init();
-  // starts on odd tips
+  // starts on odd evens
+  m_ledPositions = MAP_PAIR_ODD_EVENS;
   m_stepCounter = 0;
 }
 
 void TheaterChasePattern::blinkOn()
 {
-  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    if ((i % 3) == m_stepCounter) {
-      Leds::setIndex(i, m_colorset.cur());
-    }
-  }
+  Leds::setMap(m_ledPositions, m_colorset.getNext());
 }
 
 void TheaterChasePattern::poststep()
 {
+  // the first 5 steps are odd evens/odds alternating each step
+  if (m_stepCounter < 5) {
+    m_ledPositions = (m_stepCounter % 2) ? MAP_PAIR_ODD_ODDS : MAP_PAIR_ODD_EVENS;
+  } else {
+    // the end 5 steps are even evens/odds alternating each step
+    m_ledPositions = (m_stepCounter % 2) ? MAP_PAIR_EVEN_ODDS : MAP_PAIR_EVEN_EVENS;
+  }
   // increment step counter
   m_stepCounter = (m_stepCounter + 1) % THEATER_CHASE_STEPS;
-  m_colorset.getNext();
 }

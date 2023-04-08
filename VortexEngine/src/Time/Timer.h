@@ -10,11 +10,29 @@
 // an alarm id is just an int
 typedef int8_t AlarmID;
 
+#define TIMER_FLAGS_NONE  0
+
+// the number of alarms
+#define TIMER_1_ALARM     1
+#define TIMER_2_ALARMS    2
+#define TIMER_3_ALARMS    3
+#define TIMER_4_ALARMS    4
+
+// bitmask for all alarms
+#define TIMER_ALARM_MASK  ( 1 | 2 | 3 | 4 )
+
+// start the alarm
+#define TIMER_START       (1 << 7)
+
 class Timer
 {
 public:
   Timer();
   ~Timer();
+
+  // init a timer with a number of alarms and optionally start it
+  void init(uint8_t flags = TIMER_FLAGS_NONE, uint8_t alarm1 = 0,
+    uint8_t alarm2 = 0, uint8_t alarm3 = 0, uint8_t alarm4 = 0);
 
   // add alarms to the timer and returns it's ID
   // Alarm IDs start at 0 and count upward
@@ -47,6 +65,10 @@ public:
 
   // the start time of the timer
   uint64_t startTime() const { return m_startTime; }
+
+#if TIMER_TEST == 1
+  static void test();
+#endif
 
 private:
   // helpers to set/get start time

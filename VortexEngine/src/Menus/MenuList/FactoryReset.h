@@ -6,11 +6,11 @@
 class FactoryReset : public Menu
 {
 public:
-  FactoryReset();
+  FactoryReset(const RGBColor &col);
+  ~FactoryReset();
 
   bool init() override;
-
-  bool run() override;
+  MenuAction run() override;
 
   // handlers for clicks
   void onShortClick() override;

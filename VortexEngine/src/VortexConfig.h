@@ -32,6 +32,11 @@
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
 #define VORTEX_FULL_NAME "Vortex Engine v" VORTEX_VERSION " '" VORTEX_NAME "' ( built " __TIMESTAMP__ ")"
 
+// Vortex Slim
+//
+// Turn on this flag to enable the 'slim' version of the engine
+#define VORTEX_SLIM           0
+
 // ===================================================================
 //  Numeric Configurations
 
@@ -53,6 +58,12 @@
 // as a 'short click' otherwise if held longer than this threshold
 // it will be registered as a 'long click'
 #define CLICK_THRESHOLD       250
+
+// Startup Ignore Button Time (in milliseconds)
+//
+// The amount of time the engine will ignore button presses after
+// it has started up, this is to prevent accidental button presses
+#define IGNORE_BUTTON_TIME    150
 
 // Color delete threshold (in milliseconds)
 //
@@ -87,7 +98,7 @@
 // Default Global Brightness
 //
 // The starting default global brightness if there is no savefile
-// present The maximum value is 155
+// present The maximum value is 255
 #define DEFAULT_BRIGHTNESS    20
 
 // Max Modes
@@ -112,7 +123,7 @@
 // than some pattern timings which results in unexpected behaviour
 #define DEFAULT_TICKRATE      1000
 
-// Finger time offset in ticks
+// Pair time offset in ticks
 //
 // This changes how many ticks out of sync each finger will run.
 // So 33 means each finger runs 33 ticks out of sync with the
@@ -128,7 +139,7 @@
 // The memory tracker isn't present in final builds, only debug
 // so this number doesn't actually do anything in production.
 // Mostly for catching leaks or high memory usage in development.
-#define MAX_MEMORY            50000
+#define MAX_MEMORY            8000
 
 // Log Level
 //
@@ -183,7 +194,7 @@
 // The ring menu will fill from the thumb if this is present, otherwise
 // it will fill from the pinkie.
 //
-// Fill from 0 to max. 1 to reverse
+// The logic is cleaner for fill from pinkie but fill from thumb is preferred
 #define FILL_FROM_THUMB       0
 
 // Use Palm Lights
@@ -352,7 +363,7 @@
 // These defines come from the project settings for preprocessor, an
 // entry for $(SolutionName) produces preprocessor definitions that
 // match the solution that is compiling the engine
-#if !defined(VortexTestingFramework) && !defined(VortexEditor) && !defined(VORTEX_LIB)
+#if !defined(PROJECT_NAME_VortexTestingFramework) && !defined(PROJECT_NAME_VortexEditor) && !defined(VORTEX_LIB)
 #define VORTEX_ARDUINO 1
 #endif
 
@@ -366,7 +377,7 @@
 #endif
 
 // This will be defined if the project is being built inside the test framework
-#ifdef VortexTestingFramework
+#ifdef PROJECT_NAME_VortexTestingFramework
 
 // In the test framework variable tickrate must be enabled to allow
 // the tickrate slider to function, also the test framework never runs

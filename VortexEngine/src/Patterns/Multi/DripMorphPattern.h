@@ -9,7 +9,6 @@
 class DripMorphPattern : public MultiLedPattern
 {
 public:
-  DripMorphPattern(uint8_t blinkOn = 2, uint8_t blinkOff = STROBE_OFF_DURATION, uint8_t speed = 1);
   DripMorphPattern(const PatternArgs &args);
   virtual ~DripMorphPattern();
 
@@ -18,9 +17,6 @@ public:
 
   // pure virtual must override the play function
   virtual void play() override;
-
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
 
 protected:
   virtual void blinkOn();  // when the leds blink on

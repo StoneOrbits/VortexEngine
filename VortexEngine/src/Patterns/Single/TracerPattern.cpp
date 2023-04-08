@@ -2,19 +2,16 @@
 
 #include "../../Leds/Leds.h"
 
-TracerPattern::TracerPattern(uint8_t tracerLength, uint8_t dotLength) :
-  SingleLedPattern(),
-  m_tracerDuration(tracerLength),
-  m_dotDuration(dotLength),
+TracerPattern::TracerPattern(const PatternArgs &args) :
+  SingleLedPattern(args),
+  m_tracerDuration(0),
+  m_dotDuration(0),
   m_blinkTimer(),
   m_dotColor(0)
 {
   m_patternID = PATTERN_TRACER;
-}
-
-TracerPattern::TracerPattern(const PatternArgs &args) :
-  TracerPattern()
-{
+  REGISTER_ARG(m_tracerDuration);
+  REGISTER_ARG(m_dotDuration);
   setArgs(args);
 }
 
@@ -55,19 +52,4 @@ void TracerPattern::play()
       m_dotColor = (m_dotColor + 1) % (m_colorset.numColors() - 1);
     }
   }
-}
-
-void TracerPattern::setArgs(const PatternArgs &args)
-{
-  SingleLedPattern::setArgs(args);
-  m_tracerDuration = args.arg1;
-  m_dotDuration = args.arg2;
-}
-
-void TracerPattern::getArgs(PatternArgs &args) const
-{
-  SingleLedPattern::getArgs(args);
-  args.arg1 = m_tracerDuration;
-  args.arg2 = m_dotDuration;
-  args.numArgs += 2;
 }

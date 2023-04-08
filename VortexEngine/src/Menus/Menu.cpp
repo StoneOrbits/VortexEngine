@@ -7,8 +7,9 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-Menu::Menu() :
+Menu::Menu(const RGBColor &col) :
   m_pCurMode(nullptr),
+  m_menuColor(col),
   m_curSelection(QUADRANT_FIRST),
   m_shouldClose(false)
 {
@@ -49,17 +50,17 @@ bool Menu::init()
   return true;
 }
 
-bool Menu::run()
+Menu::MenuAction Menu::run()
 {
   // should close?
   if (m_shouldClose) {
     // reset this boolean
     m_shouldClose = false;
     // yep close
-    return false;
+    return MENU_QUIT;
   }
   // continue as normal
-  return true;
+  return MENU_CONTINUE;
 }
 
 void Menu::onShortClick()

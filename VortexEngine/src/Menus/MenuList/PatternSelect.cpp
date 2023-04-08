@@ -9,8 +9,8 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-PatternSelect::PatternSelect() :
-  Menu(),
+PatternSelect::PatternSelect(const RGBColor &col) :
+  Menu(col),
   m_state(STATE_PICK_LIST),
   m_demoMode(),
   m_newPatternID(PATTERN_FIRST)
@@ -34,11 +34,11 @@ bool PatternSelect::init()
   return true;
 }
 
-bool PatternSelect::run()
+Menu::MenuAction PatternSelect::run()
 {
-  // handle base menu logic
-  if (!Menu::run()) {
-    return false;
+  MenuAction result = Menu::run();
+  if (result != MENU_CONTINUE) {
+    return result;
   }
 
   switch (m_state) {
@@ -54,7 +54,7 @@ bool PatternSelect::run()
   }
 
   // continue
-  return true;
+  return MENU_CONTINUE;
 }
 
 void PatternSelect::showListSelection()

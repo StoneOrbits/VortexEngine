@@ -4,21 +4,19 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-DripMorphPattern::DripMorphPattern(uint8_t blinkOn, uint8_t blinkOff, uint8_t speed) :
-  MultiLedPattern(),
-  m_blinkOnDuration(blinkOn),
-  m_blinkOffDuration(blinkOff),
+DripMorphPattern::DripMorphPattern(const PatternArgs &args) :
+  MultiLedPattern(args),
+  m_blinkOnDuration(0),
+  m_blinkOffDuration(0),
   m_blinkTimer(),
-  m_speed(speed),
+  m_speed(0),
   m_cur(),
   m_next()
 {
   m_patternID = PATTERN_DRIPMORPH;
-}
-
-DripMorphPattern::DripMorphPattern(const PatternArgs &args) :
-  DripMorphPattern()
-{
+  REGISTER_ARG(m_blinkOnDuration);
+  REGISTER_ARG(m_blinkOffDuration);
+  REGISTER_ARG(m_speed);
   setArgs(args);
 }
 
@@ -55,23 +53,6 @@ void DripMorphPattern::play()
     blinkOff();
     break;
   }
-}
-
-void DripMorphPattern::setArgs(const PatternArgs &args)
-{
-  MultiLedPattern::setArgs(args);
-  m_blinkOnDuration = args.arg1;
-  m_blinkOffDuration = args.arg2;
-  m_speed = args.arg3;
-}
-
-void DripMorphPattern::getArgs(PatternArgs &args) const
-{
-  MultiLedPattern::getArgs(args);
-  args.arg1 = m_blinkOnDuration;
-  args.arg2 = m_blinkOffDuration;
-  args.arg3 = m_speed;
-  args.numArgs += 3;
 }
 
 void DripMorphPattern::blinkOn()

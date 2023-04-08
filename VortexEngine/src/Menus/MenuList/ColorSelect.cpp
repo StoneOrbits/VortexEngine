@@ -14,13 +14,17 @@
 // the number of pages
 #define NUM_PAGES 2
 
-ColorSelect::ColorSelect() :
-  Menu(),
+ColorSelect::ColorSelect(const RGBColor &col) :
+  Menu(col),
   m_state(STATE_PICK_SLOT),
   m_curPage(0),
   m_slot(0),
   m_quadrant(0),
   m_newColor()
+{
+}
+
+ColorSelect::~ColorSelect()
 {
 }
 
@@ -42,11 +46,11 @@ bool ColorSelect::init()
   return true;
 }
 
-bool ColorSelect::run()
+Menu::MenuAction ColorSelect::run()
 {
-  // handle base menu logic
-  if (!Menu::run()) {
-    return false;
+  MenuAction result = Menu::run();
+  if (result != MENU_CONTINUE) {
+    return result;
   }
 
   // display different leds based on the state of the color select
@@ -71,7 +75,7 @@ bool ColorSelect::run()
   // blink whichever slot is currently selected regardless of state
   blinkSelection();
 
-  return true;
+  return MENU_CONTINUE;
 }
 
 void ColorSelect::onShortClick()

@@ -160,6 +160,7 @@ bool Vortex::init(VortexCallbacks *callbacks)
     vector<string> params = Vortex::getCustomParams(id);
     PatternArgs args = PatternBuilder::getDefaultArgs(id);
     if (params.size() != args.numArgs) {
+      ERROR_LOG("/!\\ PARAMS NOT EVEN /!\\");
       // Params not even!
       return false;
     }
@@ -264,7 +265,7 @@ Mode *Vortex::getMenuDemoMode()
   }
   MenuEntryID id = Menus::curMenuID();
   if (id == MENU_RANDOMIZER) {
-    return &((Randomizer *)pMenu)->m_demoMode;
+    return Modes::curMode();
   } else if (id == MENU_EDITOR_CONNECTION) {
     return &((EditorConnection *)pMenu)->m_demoMode;
   }
@@ -346,15 +347,19 @@ uint32_t Vortex::numLedsInMode()
   return pMode->getLedCount();
 }
 
-bool Vortex::addNewMode(bool save)
+bool Vortex::addNewMode(Random *pRandCtx, bool save)
 {
   Colorset set;
-  set.randomize();
+  Random ctx;
+  if (!pRandCtx) {
+    pRandCtx = &ctx;
+  }
+  set.randomize(*pRandCtx);
   // create a random pattern ID from all patterns
   PatternID randomPattern;
   do {
     // continuously re-randomize the pattern so we don't get solids
-    randomPattern = (PatternID)random(PATTERN_FIRST, PATTERN_COUNT);
+    randomPattern = (PatternID)pRandCtx->next(PATTERN_FIRST, PATTERN_COUNT);
   } while (randomPattern == PATTERN_SOLID);
   if (!Modes::addMode(randomPattern, nullptr, &set)) {
     return false;
@@ -545,12 +550,10 @@ string Vortex::patternToString(PatternID id)
   static const char *patternNames[PATTERN_COUNT] = {
     "basic", "strobe", "hyperstrobe", "dops", "dopish", "ultradops", "strobie",
     "ribbon", "miniribbon", "blinkie", "ghostcrush", "solid", "tracer",
-    "dashdops", "advanced", "blend", "complementary blend", "brackets",
-    "rabbit", "hueshift", "theater chase", /*"chaser",*/ "zigzag", "zipfade",
-    "tiptop", "drip", "dripmorph", "crossdops", "doublestrobe", "meteor",
+    "dashdops", "blend", "brackets", "hueshift", "theater chase", /*"chaser",*/
+    "zigzag", "zipfade", "drip", "dripmorph", "crossdops", "doublestrobe", "meteor",
     "sparkletrace", "vortexwipe", "warp", "warpworm", "snowball", "lighthouse",
-    "pulsish", "fill", "bounce", "impact", "splitstrobie", "backstrobe",
-    "flowers", "jest", "materia",
+    "pulsish", "fill", "bounce", "splitstrobie", "backstrobe", "materia",
   };
   return patternNames[id];
 }
@@ -558,18 +561,7 @@ string Vortex::patternToString(PatternID id)
 // this shouldn't change much so this is fine
 string Vortex::ledToString(LedPos pos)
 {
-  if (numLedsInMode() != 10 || pos >= 10) {
-    return "led " + to_string(pos);
-  }
-  static const char *ledNames[10] = {
-    // tips       tops
-    "pinkie tip", "pinkie top",
-    "ring tip",   "ring top",
-    "middle tip", "middle top",
-    "index tip",  "index top",
-    "thumb tip",  "thumb top",
-  };
-  return ledNames[pos];
+  return "led " + to_string(pos);
 }
 
 // the number of custom parameters for any given pattern id
@@ -600,30 +592,19 @@ vector<string> Vortex::getCustomParams(PatternID id)
   case PATTERN_MINIRIBBON:
   case PATTERN_BLINKIE:
   case PATTERN_GHOSTCRUSH:
-    return { "On Duration", "Off Duration", "Gap Duration" };
+    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group" };
   case PATTERN_SOLID:
-    return { "On Duration", "Off Duration", "Gap Duration", "Color Index" };
+    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group", "Color Index" };
   case PATTERN_TRACER:
     return { "Tracer Duration", "Dot Duration" };
   case PATTERN_DASHDOPS:
     return { "Dash Duration", "Dot Duration", "Off Duration" };
-  case PATTERN_ADVANCED:
-    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group" };
   case PATTERN_BLEND:
   case PATTERN_COMPLEMENTARY_BLEND:
-    return { "On Duration", "Off Duration", "Gap Duration", "Start Offset" };
+    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group", "Start Offset", "Num Flips"};
   case PATTERN_BRACKETS:
     return { "Bracket Duration", "Mid Duration", "Off Duration" };
-  case PATTERN_RABBIT:
-  case PATTERN_FLOWERS:
-  case PATTERN_TIPTOP:
-    return { "On Duration 1", "Off Duration 1", "Gap Duration 1",
-      "On Duration 2", "Off Duration 2", "Gap Duration 2" };
-  case PATTERN_IMPACT:
-    return { "On Duration 1", "Off Duration 1", "On Duration 2",
-      "Off Duration 2", "On Duration 3", "Off Duration 3" };
-  case PATTERN_JEST:
-    return { "On Duration" , "Off Duration", "Gap 1 Duration", "Gap 2 Duration", "Group Size" };
+#if VORTEX_SLIM == 0
   case PATTERN_HUESHIFT:
     return { "Speed", "Scale" };
   case PATTERN_THEATER_CHASE:
@@ -643,7 +624,6 @@ vector<string> Vortex::getCustomParams(PatternID id)
     return { "On Duration", "Off Duration", "Step Duration" };
   case PATTERN_BOUNCE:
     return { "On Duration", "Off Duration", "Step Duration", "Fade Amount" };
-    //case PATTERN_CHASER:
   case PATTERN_DRIPMORPH:
     return { "On Duration", "Off Duration", "Speed" };
   case PATTERN_METEOR:
@@ -654,14 +634,17 @@ vector<string> Vortex::getCustomParams(PatternID id)
   case PATTERN_MATERIA:
     return { "On Duration 1", "Off Duration 1", "On Duration 2", "Off Duration 2", "Step Duration" };
   case PATTERN_SPLITSTROBIE:
-    return { "On Duration", "Off Duration", "Gap Duration", "Dash Duration",
-      "Dot Duration", "Step Duration x 100ms" };
   case PATTERN_BACKSTROBE:
     return { "On Duration 1", "Off Duration 1", "Gap Duration 1",  "On Duration 2", "Off Duration 2",
-      "Gap Duration 2", "Step Duration x 100ms" };
+      "Step Duration x 100ms", "Pattern 1 ID", "Pattern 2 ID"};
+  case PATTERN_CHASER:
   case PATTERN_NONE:
   default:
     break;
+#else
+  default:
+    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group" };
+#endif
   }
   return vector<string>();
 }

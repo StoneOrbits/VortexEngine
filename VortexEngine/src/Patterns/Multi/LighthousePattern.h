@@ -7,8 +7,6 @@
 class LighthousePattern : public BlinkStepPattern
 {
 public:
-  LighthousePattern(uint8_t onDuration = 2, uint8_t offDuration = 4, uint8_t stepDuration = 15,
-    uint8_t fadeAmount = 25, uint8_t fadeRate = 8);
   LighthousePattern(const PatternArgs &args);
   virtual ~LighthousePattern();
 
@@ -17,9 +15,6 @@ public:
 
   // pure virtual must override the play function
   virtual void play() override;
-
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
 
 protected:
   // overrideable members:

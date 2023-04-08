@@ -1,13 +1,15 @@
 #include "VortexEngine.h"
 
-#include "Time/TimeControl.h"
 #include "Infrared/IRReceiver.h"
 #include "Infrared/IRSender.h"
 #include "Storage/Storage.h"
 #include "Buttons/Buttons.h"
+#include "Time/TimeControl.h"
+#include "Time/Timings.h"
 #include "Serial/Serial.h"
 #include "Modes/Modes.h"
 #include "Menus/Menus.h"
+#include "Modes/Mode.h"
 #include "Leds/Leds.h"
 #include "Log/Log.h"
 
@@ -15,10 +17,14 @@
 
 bool VortexEngine::init()
 {
-  // initialize a random seed
-  // Always generate seed before creating button on
-  // digital pin 1 (shared pin with analog 0)
-  randomSeed(analogRead(0));
+  // pull up all the pins to prevent floating pins from triggering interrupts
+  for (int p = 0; p < 21; ++p) {
+    pinMode(p, INPUT_PULLUP);
+  }
+
+  // turn on the mosfet to enable power to the leds
+  pinMode(1, OUTPUT);
+  digitalWrite(1, HIGH);
 
   // all of the global controllers
   if (!SerialComs::init()) {
@@ -89,17 +95,35 @@ void VortexEngine::tick()
   // tick the current time counter forward
   Time::tickClock();
 
-  // poll the buttons for changes
-  Buttons::check();
-
-  // if the menus don't need to run, or they run and return false
-  if (!Menus::run()) {
-    // then just play the mode
-    Modes::play();
+  // don't poll the button till some cycles have passed, this prevents
+  // the wakeup from cycling to the next mode
+  if (Time::getCurtime() > IGNORE_BUTTON_TICKS) {
+    Buttons::check();
   }
+
+  // run the main logic for the engine
+  runMainLogic();
 
   // update the leds
   Leds::update();
+}
+
+void VortexEngine::runMainLogic()
+{
+  // if the menus are open and running then just return
+  if (Menus::run()) {
+    return;
+  }
+  // otherwise if the button is not pressed just run the modes
+  if (!g_pButton->isPressed()) {
+    Modes::play();
+    return;
+  }
+  // then check to see if we've held long enough to enter the menu
+  if (g_pButton->holdDuration() >= MENU_TRIGGER_THRESHOLD_TICKS) {
+    DEBUG_LOG("Entering ring fill...");
+    Menus::openRingMenu();
+  }
 }
 
 void VortexEngine::serializeVersion(ByteStream &stream)
@@ -116,6 +140,11 @@ bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
   }
   // minor version doesn't matter
   return true;
+}
+
+Mode *VortexEngine::curMode()
+{
+  return Modes::curMode();
 }
 
 #ifdef VORTEX_LIB

@@ -5,16 +5,19 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-BlinkStepPattern::BlinkStepPattern(uint8_t blinkOn, uint8_t blinkOff, uint8_t stepDuration) :
-  MultiLedPattern(),
-  m_blinkOnDuration(blinkOn),
-  m_blinkOffDuration(blinkOff),
-  m_stepDuration(stepDuration),
+BlinkStepPattern::BlinkStepPattern(const PatternArgs &args) :
+  MultiLedPattern(args),
+  m_blinkOnDuration(0),
+  m_blinkOffDuration(0),
+  m_stepDuration(0),
   m_blinkTimer(),
   m_stepTimer()
 {
   // BlinkStep is an abstract class it cannot be directly
   // instantiated so we do not need to assign a pattern id
+  REGISTER_ARG(m_blinkOnDuration);
+  REGISTER_ARG(m_blinkOffDuration);
+  REGISTER_ARG(m_stepDuration);
 }
 
 BlinkStepPattern::~BlinkStepPattern()
@@ -61,23 +64,6 @@ void BlinkStepPattern::play()
   if (shouldStep) {
     poststep();
   }
-}
-
-void BlinkStepPattern::setArgs(const PatternArgs &args)
-{
-  MultiLedPattern::setArgs(args);
-  m_blinkOnDuration = args.arg1;
-  m_blinkOffDuration = args.arg2;
-  m_stepDuration = args.arg3;
-}
-
-void BlinkStepPattern::getArgs(PatternArgs &args) const
-{
-  MultiLedPattern::getArgs(args);
-  args.arg1 = m_blinkOnDuration;
-  args.arg2 = m_blinkOffDuration;
-  args.arg3 = m_stepDuration;
-  args.numArgs += 3;
 }
 
 void BlinkStepPattern::blinkOn()

@@ -7,8 +7,12 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-FactoryReset::FactoryReset() :
-  Menu()
+FactoryReset::FactoryReset(const RGBColor &col) :
+  Menu(col)
+{
+}
+
+FactoryReset::~FactoryReset()
 {
 }
 
@@ -23,11 +27,11 @@ bool FactoryReset::init()
   return true;
 }
 
-bool FactoryReset::run()
+Menu::MenuAction FactoryReset::run()
 {
-  // handle base menu logic
-  if (!Menu::run()) {
-    return false;
+  MenuAction result = Menu::run();
+  if (result != MENU_CONTINUE) {
+    return result;
   }
 
   // show the reset menu
@@ -37,7 +41,7 @@ bool FactoryReset::run()
   blinkSelection();
 
   // continue
-  return true;
+  return MENU_CONTINUE;
 }
 
 void FactoryReset::onShortClick()

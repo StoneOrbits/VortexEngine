@@ -121,6 +121,12 @@
     <Filter Include="Source Files\VortexLib\EngineDependencies">
       <UniqueIdentifier>{0f3464ce-ff50-455a-b16c-7f86e6eb52c0}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Source Files\Random">
+      <UniqueIdentifier>{44457553-3b97-4708-904c-8f36dbcbcc92}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Header Files\Random">
+      <UniqueIdentifier>{3cbbe587-ec8b-4902-9fe7-e7277e5e6b69}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\VortexEngine.cpp">
@@ -225,19 +231,10 @@
     <ClCompile Include="src\Patterns\Multi\FillPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\FlowersPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
     <ClCompile Include="src\Patterns\Multi\HueShiftPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\HybridPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\ImpactPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\JestPattern.cpp">
+    <ClCompile Include="src\Patterns\Multi\CompoundPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Multi\LighthousePattern.cpp">
@@ -255,22 +252,13 @@
     <ClCompile Include="src\Patterns\Multi\PulsishPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\RabbitPattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
     <ClCompile Include="src\Patterns\Multi\SnowballPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Multi\SparkleTracePattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\SplitStrobiePattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
     <ClCompile Include="src\Patterns\Multi\TheaterChasePattern.cpp">
-      <Filter>Source Files\Patterns\Multi</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\TipTopPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Multi\VortexWipePattern.cpp">
@@ -285,9 +273,6 @@
     <ClCompile Include="src\Patterns\Multi\ZigzagPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Single\AdvancedPattern.cpp">
-      <Filter>Source Files\Patterns\Single</Filter>
-    </ClCompile>
     <ClCompile Include="src\Patterns\Single\BasicPattern.cpp">
       <Filter>Source Files\Patterns\Single</Filter>
     </ClCompile>
@@ -295,9 +280,6 @@
       <Filter>Source Files\Patterns\Single</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Single\BracketsPattern.cpp">
-      <Filter>Source Files\Patterns\Single</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Patterns\Single\ComplementaryBlendPattern.cpp">
       <Filter>Source Files\Patterns\Single</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Single\DashDopsPattern.cpp">
@@ -353,6 +335,9 @@
     </ClCompile>
     <ClCompile Include="VortexLib\EngineDependencies\FlashStorage.cpp">
       <Filter>Source Files\VortexLib\EngineDependencies</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Random\Random.cpp">
+      <Filter>Source Files\Random</Filter>
     </ClCompile>
   </ItemGroup>
   <ItemGroup>
@@ -467,19 +452,10 @@
     <ClInclude Include="src\Patterns\Multi\FillPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\FlowersPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
     <ClInclude Include="src\Patterns\Multi\HueShiftPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\HybridPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\ImpactPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\JestPattern.h">
+    <ClInclude Include="src\Patterns\Multi\CompoundPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Multi\LighthousePattern.h">
@@ -497,22 +473,13 @@
     <ClInclude Include="src\Patterns\Multi\PulsishPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\RabbitPattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
     <ClInclude Include="src\Patterns\Multi\SnowballPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Multi\SparkleTracePattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\SplitStrobiePattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
     <ClInclude Include="src\Patterns\Multi\TheaterChasePattern.h">
-      <Filter>Header Files\Patterns\Multi</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\TipTopPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Multi\VortexWipePattern.h">
@@ -527,9 +494,6 @@
     <ClInclude Include="src\Patterns\Multi\ZigzagPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Single\AdvancedPattern.h">
-      <Filter>Header Files\Patterns\Single</Filter>
-    </ClInclude>
     <ClInclude Include="src\Patterns\Single\BasicPattern.h">
       <Filter>Header Files\Patterns\Single</Filter>
     </ClInclude>
@@ -537,9 +501,6 @@
       <Filter>Header Files\Patterns\Single</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Single\BracketsPattern.h">
-      <Filter>Header Files\Patterns\Single</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Single\ComplementaryBlendPattern.h">
       <Filter>Header Files\Patterns\Single</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Single\DashDopsPattern.h">
@@ -604,6 +565,9 @@
     </ClInclude>
     <ClInclude Include="VortexLib\EngineDependencies\FastLED.h">
       <Filter>Header Files\VortexLib\EngineDependencies</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Random\Random.h">
+      <Filter>Header Files\Random</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

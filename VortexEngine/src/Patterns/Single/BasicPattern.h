@@ -1,14 +1,12 @@
 #ifndef BASIC_PATTERN_H
 #define BASIC_PATTERN_H
 
-#include "SingleLedPattern.h"
-
+#include "../Pattern.h"
 #include "../../Time/Timer.h"
 
-class BasicPattern : public SingleLedPattern
+class BasicPattern : public Pattern
 {
 public:
-  BasicPattern(uint8_t onDuration = 1, uint8_t offDuration = 0, uint8_t gapDuration = 0);
   BasicPattern(const PatternArgs &args);
   virtual ~BasicPattern();
 
@@ -16,17 +14,10 @@ public:
 
   virtual void play() override;
 
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
-
 protected:
-  // callbacks for blinking on/off, can be overridden by derived classes
+  // when blinking off
   virtual void onBlinkOn();
   virtual void onBlinkOff();
-
-  // callbacks for when the pattern starts/stops
-  virtual void onBasicStart();
-  virtual void onBasicEnd();
 
   // trigger the gap
   virtual void triggerGap();
@@ -39,6 +30,17 @@ protected:
   uint8_t m_onDuration;
   uint8_t m_offDuration;
   uint8_t m_gapDuration;
+  // the duration the light is on/off for
+  uint8_t m_groupSize;
+  uint8_t m_skipCols;
+  uint8_t m_repeatGroup;
+
+  // the real group size based on num colors
+  uint8_t m_realGroupSize;
+  // the counter for groups
+  uint8_t m_groupCounter;
+  // the repeat counter
+  uint8_t m_repeatCounter;
 
   // the blink timer
   Timer m_blinkTimer;

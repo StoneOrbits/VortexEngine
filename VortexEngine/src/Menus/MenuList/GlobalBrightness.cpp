@@ -4,8 +4,12 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-GlobalBrightness::GlobalBrightness() :
-  Menu()
+GlobalBrightness::GlobalBrightness(const RGBColor &col) :
+  Menu(col)
+{
+}
+
+GlobalBrightness::~GlobalBrightness()
 {
 }
 
@@ -25,11 +29,11 @@ bool GlobalBrightness::init()
   return true;
 }
 
-bool GlobalBrightness::run()
+Menu::MenuAction GlobalBrightness::run()
 {
-  // handle base menu logic
-  if (!Menu::run()) {
-    return false;
+  MenuAction result = Menu::run();
+  if (result != MENU_CONTINUE) {
+    return result;
   }
 
   // display brightnesses on each finger
@@ -41,7 +45,7 @@ bool GlobalBrightness::run()
   blinkSelection();
 
   // continue
-  return true;
+  return MENU_CONTINUE;
 }
 
 void GlobalBrightness::onShortClick()

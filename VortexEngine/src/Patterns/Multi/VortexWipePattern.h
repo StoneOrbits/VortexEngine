@@ -8,7 +8,6 @@
 class VortexWipePattern : public BlinkStepPattern
 {
 public:
-  VortexWipePattern(uint8_t onDuration = 2, uint8_t offDuration = 4, uint8_t stepDuration = 75);
   VortexWipePattern(const PatternArgs &args);
   virtual ~VortexWipePattern();
 
@@ -21,7 +20,7 @@ protected:
 
 private:
   // path for leds to take, index this with m_step up to LED_COUNT steps
-  static const LedPair ledStepPairs[];
+  static const LedPos ledStepPositions[];
 
   // how much the fill has progressed
   uint8_t m_progress;

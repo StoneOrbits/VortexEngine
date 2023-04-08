@@ -2,16 +2,11 @@
 
 #include "../../Leds/Leds.h"
 
-DripPattern::DripPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration),
+DripPattern::DripPattern(const PatternArgs &args) :
+  BlinkStepPattern(args),
   m_sync(true)
 {
   m_patternID = PATTERN_DRIP;
-}
-
-DripPattern::DripPattern(const PatternArgs &args) :
-  DripPattern()
-{
   setArgs(args);
 }
 

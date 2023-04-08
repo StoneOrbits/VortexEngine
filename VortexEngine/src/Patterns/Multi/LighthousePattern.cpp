@@ -5,20 +5,17 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-LighthousePattern::LighthousePattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration, uint8_t fadeAmount, uint8_t fadeRate) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration),
-  m_fadeAmount(fadeAmount),
-  m_fadeRate(fadeRate),
+LighthousePattern::LighthousePattern(const PatternArgs &args) :
+  BlinkStepPattern(args),
+  m_fadeAmount(0),
+  m_fadeRate(0),
   m_fadeTimer(),
   m_stash(),
   m_progress(0)
 {
   m_patternID = PATTERN_LIGHTHOUSE;
-}
-
-LighthousePattern::LighthousePattern(const PatternArgs &args) :
-  LighthousePattern()
-{
+  REGISTER_ARG(m_fadeAmount);
+  REGISTER_ARG(m_fadeRate);
   setArgs(args);
 }
 
@@ -74,19 +71,4 @@ void LighthousePattern::fade()
   for (int i = 0; i < LED_COUNT; ++i) {
     m_stash[i].adjustBrightness(m_fadeAmount);
   }
-}
-
-void LighthousePattern::setArgs(const PatternArgs &args)
-{
-  BlinkStepPattern::setArgs(args);
-  m_fadeAmount = args.arg4;
-  m_fadeRate = args.arg5;
-}
-
-void LighthousePattern::getArgs(PatternArgs &args) const
-{
-  BlinkStepPattern::getArgs(args);
-  args.arg4 = m_fadeAmount;
-  args.arg5 = m_fadeRate;
-  args.numArgs += 2;
 }

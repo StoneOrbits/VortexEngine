@@ -9,11 +9,11 @@
 class EditorConnection : public Menu
 {
 public:
-  EditorConnection();
+  EditorConnection(const RGBColor &col);
   ~EditorConnection();
 
   bool init() override;
-  bool run() override;
+  MenuAction run() override;
 
   // handlers for clicks
   void onShortClick() override;

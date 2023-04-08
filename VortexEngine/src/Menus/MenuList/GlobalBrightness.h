@@ -6,11 +6,11 @@
 class GlobalBrightness : public Menu
 {
 public:
-  GlobalBrightness();
+  GlobalBrightness(const RGBColor &col);
+  ~GlobalBrightness();
 
   bool init() override;
-
-  bool run() override;
+  MenuAction run() override;
 
   // handlers for clicks
   void onShortClick() override;

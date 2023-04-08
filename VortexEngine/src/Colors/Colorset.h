@@ -6,6 +6,7 @@
 #include "../VortexConfig.h"
 
 class ByteStream;
+class Random;
 
 class Colorset
 {
@@ -16,6 +17,7 @@ public:
   Colorset(RGBColor c1, RGBColor c2 = RGB_OFF, RGBColor c3 = RGB_OFF,
     RGBColor c4 = RGB_OFF, RGBColor c5 = RGB_OFF, RGBColor c6 = RGB_OFF,
     RGBColor c7 = RGB_OFF, RGBColor c8 = RGB_OFF);
+  Colorset(uint8_t numCols, const uint32_t *cols);
   ~Colorset();
 
   // move constructor
@@ -43,33 +45,50 @@ public:
   // index operator to access color index
   RGBColor operator[](int index) const;
 
+  enum ValueStyle : uint8_t
+  {
+    // Random values
+    VAL_STYLE_RANDOM = 0,
+    // First color low value, the rest are random
+    VAL_STYLE_LOW_FIRST_COLOR,
+    // First color high value, the rest are low
+    VAL_STYLE_HIGH_FIRST_COLOR,
+    // Alternat between high and low value
+    VAL_STYLE_ALTERNATING,
+    // Ascending values from low to high
+    VAL_STYLE_ASCENDING,
+    // Descending values from high to low
+    VAL_STYLE_DESCENDING,
+    // Total number of value styles
+    VAL_STYLE_COUNT
+  };
+
   // add a single color
   bool addColor(RGBColor col);
-  bool addColorByHue(uint8_t hue);
-  bool addColorByHueRandV(uint8_t hue);
-  bool addColorByHueRandSV(uint8_t hue);
+  bool addColorHSV(uint8_t hue, uint8_t sat, uint8_t val);
+  void addColorWithValueStyle(Random &ctx, uint8_t hue, uint8_t sat, uint8_t valStyle, uint8_t numColors, uint8_t index);
   void removeColor(uint32_t index);
 
   // randomize a colorset with a specific number of colors with
   // various different randomization techniques
-  void randomize(uint32_t numColors = 0);
-  void randomizeColorTheory(uint32_t numColors = 0);
-  void randomizeMonochromatic(uint32_t numColors = 0);
+  void randomize(Random &ctx, uint32_t numColors = 0);
+  void randomizeColorTheory(Random &ctx, uint32_t numColors = 0);
+  void randomizeMonochromatic(Random &ctx, uint32_t numColors = 0);
 
   // these randomizers have a set amount of colors and don't take any arguments
-  void randomizeDoubleSplitComplimentary();
-  void randomizeTetradic();
+  void randomizeDoubleSplitComplimentary(Random &ctx);
+  void randomizeTetradic(Random &ctx);
 
   // randomize a colorset with N evenly spaced colors
-  void randomizeEvenlySpaced(uint32_t spaces = 0);
+  void randomizeEvenlySpaced(Random &ctx, uint32_t spaces = 0);
 
   // wrappers for various spacings
-  void randomizeSolid() { randomizeEvenlySpaced(1); }
-  void randomizeComplimentary() { randomizeEvenlySpaced(2); }
-  void randomizeTriadic() { randomizeEvenlySpaced(3); }
-  void randomizeSquare() { randomizeEvenlySpaced(4); }
-  void randomizePentadic() { randomizeEvenlySpaced(5); }
-  void randomizeRainbow() { randomizeEvenlySpaced(8); }
+  void randomizeSolid(Random &ctx) { randomizeEvenlySpaced(ctx, 1); }
+  void randomizeComplimentary(Random &ctx) { randomizeEvenlySpaced(ctx, 2); }
+  void randomizeTriadic(Random &ctx) { randomizeEvenlySpaced(ctx, 3); }
+  void randomizeSquare(Random &ctx) { randomizeEvenlySpaced(ctx, 4); }
+  void randomizePentadic(Random &ctx) { randomizeEvenlySpaced(ctx, 5); }
+  void randomizeRainbow(Random &ctx) { randomizeEvenlySpaced(ctx, 8); }
 
   // get a color from the colorset
   RGBColor get(uint32_t index = 0) const;

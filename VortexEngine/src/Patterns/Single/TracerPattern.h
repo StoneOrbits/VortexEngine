@@ -8,16 +8,12 @@
 class TracerPattern : public SingleLedPattern
 {
 public:
-  TracerPattern(uint8_t tracerLength = 8, uint8_t dotLength = 3);
   TracerPattern(const PatternArgs &args);
   virtual ~TracerPattern();
 
   virtual void init() override;
 
   virtual void play() override;
-
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
 
 private:
   // the duration the light is on/off for

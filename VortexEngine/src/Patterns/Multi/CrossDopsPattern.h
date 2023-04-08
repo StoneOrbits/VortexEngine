@@ -8,7 +8,6 @@
 class CrossDopsPattern : public BlinkStepPattern
 {
 public:
-  CrossDopsPattern(uint8_t onDuration = 2, uint8_t offDuration = 12, uint8_t stepDuration = 50);
   CrossDopsPattern(const PatternArgs &args);
   virtual ~CrossDopsPattern();
 
@@ -21,7 +20,7 @@ protected:
   virtual void poststep() override;
 
 private:
-  bool m_switch;
+  LedMap m_ledMap;
 };
 
 #endif

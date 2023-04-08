@@ -65,7 +65,8 @@ void delayMicroseconds(size_t us)
 // used for seeding randomSeed()
 unsigned long analogRead(uint32_t pin)
 {
-  return 0;
+  // random number generator will use this as seed, the answer to life
+  return 42;
 }
 
 // used to read button input
@@ -122,20 +123,6 @@ unsigned long micros()
 #endif
 }
 
-unsigned long random(uint32_t low, uint32_t high)
-{
-  return low + (rand() % (high - low));
-}
-
-void randomSeed(uint32_t seed)
-{
-#ifndef _MSC_VER
-  srand(time(NULL));
-#else
-  srand((uint32_t)GetTickCount() ^ (uint32_t)GetCurrentProcessId());
-#endif
-}
-
 void pinMode(uint32_t pin, uint32_t mode)
 {
   // ???
@@ -155,6 +142,21 @@ void send_ir(bool mark, uint32_t duration)
 }
 
 int digitalPinToInterrupt(int pin)
+{
+  return 0;
+}
+
+uint8_t *portOutputRegister(int port)
+{
+  return 0;
+}
+
+int digitalPinToPort(int pin)
+{
+  return 0;
+}
+
+int digitalPinToBitMask(int pin)
 {
   return 0;
 }

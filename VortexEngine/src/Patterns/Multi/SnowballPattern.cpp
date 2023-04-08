@@ -4,16 +4,11 @@
 
 #define WORM_SIZE 6
 
-SnowballPattern::SnowballPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration),
+SnowballPattern::SnowballPattern(const PatternArgs &args) :
+  BlinkStepPattern(args),
   m_progress()
 {
   m_patternID = PATTERN_SNOWBALL;
-}
-
-SnowballPattern::SnowballPattern(const PatternArgs &args) :
-  SnowballPattern()
-{
   setArgs(args);
 }
 
