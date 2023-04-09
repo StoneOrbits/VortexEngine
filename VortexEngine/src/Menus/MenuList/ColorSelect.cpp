@@ -22,10 +22,19 @@ ColorSelect::ColorSelect(const RGBColor &col) :
   m_quadrant(0),
   m_newColor()
 {
+  // NOTE! Specifically using hsv_to_rgb_rainbow instead of generic because
+  // it will generate nicer looking colors and a nicer rainbow to select
+  // from than a regular hsv conversion will.  This is because the rainbow
+  // function uses a different algorithm to generate the colors that results
+  // in a smaller color space with less bright colors. The tradeoff is you lose
+  // the bright colors but the rainbow looks a lot better
+  g_hsv_rgb_alg = HSV_TO_RGB_RAINBOW;
 }
 
 ColorSelect::~ColorSelect()
 {
+  // revert the hsv to rgb algorithm to normal
+  g_hsv_rgb_alg = HSV_TO_RGB_GENERIC;
 }
 
 bool ColorSelect::init()
@@ -37,11 +46,7 @@ bool ColorSelect::init()
   m_curPage = 0;
   m_slot = 0;
   m_quadrant = 0;
-  // There is no way to change the colorsets of the rest of the leds past LED_FIRST, that
-  // would need a more advanced menu.  So we make a copy of the primary colorset, this is
-  // either the colorset of the first individual pattern or if the mode has a multi-led
-  // pattern then it's the multi-led pattern's colorset
-  m_colorset = *m_pCurMode->getColorset();
+  m_colorset = *m_pCurMode->getColorset(m_targetLed);
   DEBUG_LOG("Entered color select");
   return true;
 }

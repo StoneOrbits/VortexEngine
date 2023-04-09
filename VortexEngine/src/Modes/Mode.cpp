@@ -314,23 +314,29 @@ uint8_t Mode::getLedCount() const
 
 const Pattern *Mode::getPattern(LedPos pos) const
 {
+  // if fetching for 'all' leds just return the first pattern
   if (pos >= MODE_LEDCOUNT) {
-    return nullptr;
+    pos = LED_FIRST;
   }
   return m_ledEntries[pos];
 }
 
 Pattern *Mode::getPattern(LedPos pos)
 {
+  // if fetching for 'all' leds just return the first pattern
   if (pos >= MODE_LEDCOUNT) {
-    return nullptr;
+    pos = LED_FIRST;
   }
   return m_ledEntries[pos];
 }
 
 const Colorset *Mode::getColorset(LedPos pos) const
 {
-  if (pos >= MODE_LEDCOUNT || !m_ledEntries[pos]) {
+  // if fetching for 'all' leds just return the first
+  if (pos >= MODE_LEDCOUNT) {
+    pos = LED_FIRST;
+  }
+  if (!m_ledEntries[pos]) {
     return nullptr;
   }
   return m_ledEntries[pos]->getColorset();
@@ -338,7 +344,11 @@ const Colorset *Mode::getColorset(LedPos pos) const
 
 Colorset *Mode::getColorset(LedPos pos)
 {
-  if (pos >= MODE_LEDCOUNT || !m_ledEntries[pos]) {
+  // if fetching for 'all' leds just return the first
+  if (pos >= MODE_LEDCOUNT) {
+    pos = LED_FIRST;
+  }
+  if (!m_ledEntries[pos]) {
     return nullptr;
   }
   return m_ledEntries[pos]->getColorset();
@@ -346,7 +356,11 @@ Colorset *Mode::getColorset(LedPos pos)
 
 PatternID Mode::getPatternID(LedPos pos) const
 {
-  if (pos >= MODE_LEDCOUNT || !m_ledEntries[pos]) {
+  // if fetching for 'all' leds just return the first
+  if (pos >= MODE_LEDCOUNT) {
+    pos = LED_FIRST;
+  }
+  if (!m_ledEntries[pos]) {
     return PATTERN_NONE;
   }
   return m_ledEntries[pos]->getPatternID();
@@ -412,7 +426,10 @@ bool Mode::setColorset(const Colorset *set)
 
 bool Mode::setColorsetAt(const Colorset *set, LedPos pos)
 {
-  if (pos >= MODE_LEDCOUNT || !m_ledEntries[pos]) {
+  if (pos >= MODE_LEDCOUNT) {
+    return setColorset(set);
+  }
+  if (!m_ledEntries[pos]) {
     return false;
   }
   m_ledEntries[pos]->setColorset(set);
@@ -421,6 +438,9 @@ bool Mode::setColorsetAt(const Colorset *set, LedPos pos)
 
 bool Mode::setSinglePat(LedPos pos, PatternID pat, const PatternArgs *args, const Colorset *set)
 {
+  if (pos >= MODE_LEDCOUNT) {
+    return setPattern(pat, args, set);
+  }
   SingleLedPattern *newPat = PatternBuilder::makeSingle(pat, args);
   if (!newPat) {
     // failed to build new pattern, user gave multiled pattern id?
@@ -431,8 +451,13 @@ bool Mode::setSinglePat(LedPos pos, PatternID pat, const PatternArgs *args, cons
 
 bool Mode::setSinglePat(LedPos pos, SingleLedPattern *pat, const Colorset *set)
 {
-  if (!pat || pos >= MODE_LEDCOUNT) {
+  if (!pat) {
     return false;
+  }
+  if (pos >= MODE_LEDCOUNT) {
+    PatternArgs args;
+    pat->getArgs(args);
+    return setPattern(pat->getPatternID(), &args, set);
   }
   // bind the position and colorset, if the colorset is missing then just
   // bind the previously assigned colorset, if that is also missing then
