@@ -36,10 +36,16 @@ public:
   virtual void leaveMenu(bool doSave = false);
 
 protected:
+  void showBulbSelection();
+
   // the current mode that was selected
   Mode *m_pCurMode;
   // the color of this menu
   RGBColor m_menuColor;
+  // tracks the current selected led
+  LedPos m_targetLed;
+  // true once a an led is selected
+  bool m_ledSelected;
 
 private:
   // internal flag to close the menu
