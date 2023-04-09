@@ -51,6 +51,10 @@ public:
   static void clearRangeOdds(Pair first, Pair last);
   static void clearAllOdds();
 
+  // Control pairs of leds
+  static void setPair(Pair pair, RGBColor col);
+  static void clearPair(Pair pair);
+
   // Turn on/off a mapping of leds with a color
   static void setMap(LedMap map, RGBColor col);
   static void clearMap(LedMap map);
@@ -84,13 +88,11 @@ public:
   static void blinkPairs(Pair first, Pair last, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
 
   // breath the hue on an index
-  // warning: uses hsv to rgb in realtime!
+  // warning: these use hsv to rgb in realtime!
   static void breathIndex(LedPos target, uint32_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  // warning: uses hsv to rgb in realtime!
   static void breathIndexSat(LedPos target, uint32_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  // warning: uses hsv to rgb in realtime!
   static void breathIndexVal(LedPos target, uint32_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
 
