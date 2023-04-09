@@ -237,7 +237,7 @@ void VortexEngine::serializationTest()
     }
     if (!tmpMode.equals(&tmpMode2)) {
       ERROR_LOGF("ERROR!! Modes are not equal on %u", patternID);
-      return;0
+      return;
     }
     PatternArgs pulledArgs;
     tmpMode2.getPattern()->getArgs(pulledArgs);
