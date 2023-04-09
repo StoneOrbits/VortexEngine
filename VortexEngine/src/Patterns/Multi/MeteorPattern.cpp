@@ -9,6 +9,7 @@
 MeteorPattern::MeteorPattern(const PatternArgs &args) :
   BlinkStepPattern(args),
   m_fadeAmount(0),
+  m_randCtx(),
   m_stash()
 {
   m_patternID = PATTERN_METEOR;
