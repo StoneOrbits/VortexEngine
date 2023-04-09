@@ -31,6 +31,14 @@ public:
   static void clearRange(LedPos first, LedPos last) { setRange(first, last, HSV_OFF); }
   static void clearAll() { setAll(HSV_OFF); }
 
+  // control two LEDs on a pair, these are appropriate for use in internal pattern logic
+  static void setPair(Pair pair, RGBColor col);
+  static void setPairs(Pair first, Pair last, RGBColor col);
+
+  // Turn off both LEDs on a pair, these are appropriate for use in internal pattern logic
+  static void clearPair(Pair pair) { setPair(pair, HSV_OFF); }
+  static void clearPairs(Pair first, Pair last) { setPairs(first, last, HSV_OFF); }
+
   // control all evens/odds
   static void setAllEvens(RGBColor col);
   static void setAllOdds(RGBColor col);
@@ -56,10 +64,6 @@ public:
   // clear a ring of leds
   static void clearRing(Ring ring);
   static void clearRings(Ring first, Ring last);
-
-  // Control pairs of leds
-  static void setPair(Pair pair, RGBColor col);
-  static void clearPair(Pair pair);
 
   // Turn on/off a mapping of leds with a color
   static void setMap(LedMap map, RGBColor col);

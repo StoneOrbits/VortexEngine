@@ -75,6 +75,20 @@ void Leds::setAll(RGBColor col)
   setRange(LED_FIRST, LED_LAST, col);
 }
 
+void Leds::setPair(Pair pair, RGBColor col)
+{
+  setIndex(pairTop(pair), col);
+  setIndex(pairBot(pair), col);
+}
+
+void Leds::setPairs(Pair first, Pair last, RGBColor col)
+{
+  // start from tip and go to top
+  for (Pair p = first; p < last; ++p) {
+    setPair(p, col);
+  }
+}
+
 void Leds::setAllEvens(RGBColor col)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
@@ -163,18 +177,6 @@ void Leds::clearRings(Ring first, Ring last)
   for (Ring i = first; i <= last; ++i) {
     clearRing(i);
   }
-}
-
-void Leds::setPair(Pair pair, RGBColor col)
-{
-  setIndex(pairTop(pair), col);
-  setIndex(pairBot(pair), col);
-}
-
-void Leds::clearPair(Pair pair)
-{
-  clearIndex(pairTop(pair));
-  clearIndex(pairBot(pair));
 }
 
 void Leds::setMap(LedMap map, RGBColor col)
