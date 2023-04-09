@@ -12,7 +12,7 @@ Random::Random(uint32_t newseed)
   seed(newseed);
 }
 
-Random::Random()
+Random::~Random()
 {
 }
 

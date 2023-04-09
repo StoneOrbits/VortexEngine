@@ -38,6 +38,8 @@ public:
   virtual void leaveMenu(bool doSave = false);
 
 protected:
+  void showBulbSelection();
+
   // blink the selected finger
   virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
 
@@ -45,6 +47,10 @@ protected:
   Mode *m_pCurMode;
   // the color of this menu
   RGBColor m_menuColor;
+  // tracks the current selected led
+  LedPos m_targetLed;
+  // true once a an led is selected
+  bool m_ledSelected;
   // all menus have a 'current selection which can point at any led
   Quadrant m_curSelection;
 

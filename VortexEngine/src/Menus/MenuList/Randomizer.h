@@ -27,7 +27,7 @@ private:
 
   // re-roll a new randomization with a given context on an led
   bool reRoll(LedPos led, Random &ctx);
-  void reRoll();
+  bool reRoll();
 };
 
 #endif

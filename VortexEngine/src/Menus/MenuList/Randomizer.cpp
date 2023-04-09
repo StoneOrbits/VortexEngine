@@ -135,13 +135,16 @@ bool Randomizer::reRoll(LedPos led, Random &ctx)
   return true;
 }
 
-void Randomizer::reRoll()
+bool Randomizer::reRoll()
 {
   if (m_targetLed < LED_COUNT) {
-    reRoll(m_targetLed, m_randCtx[m_targetLed]);
+    return reRoll(m_targetLed, m_randCtx[m_targetLed]);
   }
   // otherwise re-roll all of the leds
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
-    reRoll(l, m_randCtx[l]);
+    if (!reRoll(l, m_randCtx[l])) {
+      return false;
+    }
   }
+  return true;
 }

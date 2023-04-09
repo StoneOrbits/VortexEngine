@@ -10,6 +10,8 @@
 Menu::Menu(const RGBColor &col) :
   m_pCurMode(nullptr),
   m_menuColor(col),
+  m_targetLed(LED_0),
+  m_ledSelected(false),
   m_curSelection(QUADRANT_FIRST),
   m_shouldClose(false)
 {
@@ -52,15 +54,47 @@ bool Menu::init()
 
 Menu::MenuAction Menu::run()
 {
-  // should close?
+  // check whether the close flag has been set
   if (m_shouldClose) {
-    // reset this boolean
+    // reset flag and close
     m_shouldClose = false;
-    // yep close
     return MENU_QUIT;
   }
-  // continue as normal
-  return MENU_CONTINUE;
+
+  // if the led has already been selected continue as normal
+  // and allow derived menu logic to perform work
+  if (m_ledSelected) {
+    return MENU_CONTINUE;
+  }
+
+  // using manual onShortClick and onLongClick check here because
+  // there is no guarantee the child class will call the parent
+  // class's onShortClick and onLongClick functions so
+
+  // every time the button is clicked, change the target led
+  if (g_pButton->onShortClick()) {
+    // The target led can be 0 through LED_COUNT to represent any led or all leds
+    // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
+    m_targetLed = (LedPos)((m_targetLed + 1) % (LED_COUNT + 1));
+  }
+  // on a long press of the button, lock in the target led
+  if (g_pButton->onLongClick()) {
+    m_ledSelected = true;
+  }
+
+  // render the bulb selection
+  showBulbSelection();
+
+  // return MENU_SKIP to indicate to derived menu classes that
+  // they should skip their logic and just return so that the
+  // bulb selection can be rendered
+  return MENU_SKIP;
+}
+
+void Menu::showBulbSelection()
+{
+  Leds::clearAll();
+  Leds::setIndex(m_targetLed, m_menuColor);
 }
 
 void Menu::onShortClick()
@@ -73,6 +107,7 @@ void Menu::onShortClick2()
 
 void Menu::onLongClick()
 {
+  leaveMenu(false);
 }
 
 void Menu::onLongClick2()
