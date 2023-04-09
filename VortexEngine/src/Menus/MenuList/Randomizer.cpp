@@ -16,8 +16,7 @@
 #include <Arduino.h>
 
 Randomizer::Randomizer(const RGBColor &col) :
-  Menu(col),
-  m_randCtx()
+  Menu(col)
 {
 }
 
@@ -35,7 +34,7 @@ bool Randomizer::init()
   // CRC of the colorset on the respective LED
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
     ByteStream ledData;
-    Pattern *pat = m_pCurMode->getPattern(m_pCurMode->isMultiLed() ? l : LED_FIRST);
+    Pattern *pat = m_pCurMode->getPattern(m_pCurMode->isMultiLed() ? LED_FIRST : l);
     if (!pat) {
       continue;
     }
@@ -60,7 +59,9 @@ Menu::MenuAction Randomizer::run()
   }
 
   // display the randomized mode
-  m_pCurMode->play();
+  if (m_pCurMode) {
+    m_pCurMode->play();
+  }
 
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     Leds::setAll(RGB_DIM_WHITE2);
@@ -136,7 +137,10 @@ bool Randomizer::reRoll(LedPos led, Random &ctx)
 
 void Randomizer::reRoll()
 {
-  // reroll each led with it's respective random context
+  if (m_targetLed < LED_COUNT) {
+    reRoll(m_targetLed, m_randCtx[m_targetLed]);
+  }
+  // otherwise re-roll all of the leds
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
     reRoll(l, m_randCtx[l]);
   }
