@@ -15,7 +15,6 @@ public:
   ~Randomizer();
 
   bool init() override;
-
   MenuAction run() override;
 
   // handlers for clicks
@@ -23,9 +22,6 @@ public:
   void onLongClick() override;
 
 private:
-  // a demo mode for the current randomization
-  //Mode m_demoMode;
-
   // random context for each led
   Random m_randCtx[LED_COUNT];
 

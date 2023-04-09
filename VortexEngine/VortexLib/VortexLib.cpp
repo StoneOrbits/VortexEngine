@@ -264,11 +264,11 @@ Mode *Vortex::getMenuDemoMode()
     return nullptr;
   }
   MenuEntryID id = Menus::curMenuID();
-  //if (id == MENU_RANDOMIZER) {
-  //  return &((Randomizer *)pMenu)->m_demoMode;
-  //} else if (id == MENU_EDITOR_CONNECTION) {
-  //  return &((EditorConnection *)pMenu)->m_demoMode;
-  //}
+  if (id == MENU_RANDOMIZER) {
+    return Modes::curMode();
+  } else if (id == MENU_EDITOR_CONNECTION) {
+    return &((EditorConnection *)pMenu)->m_demoMode;
+  }
   return nullptr;
 }
 
@@ -561,19 +561,7 @@ string Vortex::patternToString(PatternID id)
 // this shouldn't change much so this is fine
 string Vortex::ledToString(LedPos pos)
 {
-  if (numLedsInMode() != LED_COUNT || pos >= LED_COUNT) {
-    return "led " + to_string(pos);
-  }
-  static const char *ledNames[LED_COUNT] = {
-    // using string literals here so that they can be easily overridden to real names
-    // evens odds
-    "led 0", "led 1",
-    "led 2", "led 3",
-    "led 4", "led 5",
-    "led 6", "led 7",
-    "led 8", "led 9",
-  };
-  return ledNames[pos];
+  return "led " + to_string(pos);
 }
 
 // the number of custom parameters for any given pattern id
