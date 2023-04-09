@@ -96,30 +96,30 @@ enum Ring : uint8_t
   RING_LAST = (RING_COUNT - 1)
 };
 
-enum LedPair : uint8_t
+enum Pair : uint8_t
 {
   PAIR_FIRST = 0,
 
   // Quadrant 1
-  PAIR_1 = PAIR_FIRST,
+  PAIR_0 = PAIR_FIRST,
+  PAIR_1,
   PAIR_2,
   PAIR_3,
-  PAIR_4,
   // Quadrant 2
+  PAIR_4,
   PAIR_5,
   PAIR_6,
   PAIR_7,
-  PAIR_8,
   // Quadrant 3
+  PAIR_8,
   PAIR_9,
   PAIR_10,
   PAIR_11,
-  PAIR_12,
   // Quadrant 4
+  PAIR_12,
   PAIR_13,
   PAIR_14,
   PAIR_15,
-  PAIR_16,
 
   PAIR_COUNT,
   PAIR_LAST = (PAIR_COUNT - 1),
@@ -176,35 +176,35 @@ inline bool isPairSide(LedPos pos)
 }
 
 // convert and led postion to a pair
-inline LedPair ledToPair(LedPos pos)
+inline Pair ledToPair(LedPos pos)
 {
   switch (pos) {
     // Quadrant 1
-    case LED_0:  case LED_6:  return PAIR_1;
-    case LED_1:  case LED_5:  return PAIR_2;
-    case LED_2:  case LED_4:  return PAIR_3;
-    case LED_3:               return PAIR_4;
+    case LED_0:  case LED_6:  return PAIR_0;
+    case LED_1:  case LED_5:  return PAIR_1;
+    case LED_2:  case LED_4:  return PAIR_2;
+    case LED_3:               return PAIR_3;
     // Quadrant 2
-    case LED_7:  case LED_13: return PAIR_5;
-    case LED_8:  case LED_12: return PAIR_6;
-    case LED_9:  case LED_11: return PAIR_7;
-    case LED_10:              return PAIR_8;
+    case LED_7:  case LED_13: return PAIR_4;
+    case LED_8:  case LED_12: return PAIR_5;
+    case LED_9:  case LED_11: return PAIR_6;
+    case LED_10:              return PAIR_7;
     // Quadrant 3
-    case LED_14: case LED_20: return PAIR_9;
-    case LED_15: case LED_19: return PAIR_10;
-    case LED_16: case LED_18: return PAIR_11;
-    case LED_17:              return PAIR_12;
+    case LED_14: case LED_20: return PAIR_8;
+    case LED_15: case LED_19: return PAIR_9;
+    case LED_16: case LED_18: return PAIR_10;
+    case LED_17:              return PAIR_11;
     // Quadrant 4
-    case LED_21: case LED_27: return PAIR_13;
-    case LED_22: case LED_26: return PAIR_14;
-    case LED_23: case LED_25: return PAIR_15;
-    case LED_24:              return PAIR_16;
+    case LED_21: case LED_27: return PAIR_12;
+    case LED_22: case LED_26: return PAIR_13;
+    case LED_23: case LED_25: return PAIR_14;
+    case LED_24:              return PAIR_15;
     default:                  return PAIR_FIRST;
   }
 }
 
 // get the top led from the pair
-inline LedPos pairTop(LedPair pair)
+inline LedPos pairTop(Pair pair)
 {
   switch (((int)pair) / 4) {
     case 0:  return (LedPos)pair;         // pair 0 1 2 3 -> 0 1 2 3
@@ -216,7 +216,7 @@ inline LedPos pairTop(LedPair pair)
 }
 
 // get the bottom led from the pair
-inline LedPos pairBot(LedPair pair)
+inline LedPos pairBot(Pair pair)
 {
   switch (((int)pair) / 4) {
     case 0:  return (LedPos)(6 - pair);   // pair 0 1 2 3 -> 6 5 4 3
@@ -257,11 +257,25 @@ typedef uint64_t LedMap;
 
 // various macros for mapping leds to an LedMap
 #define MAP_LED(led) (1 << led)
+#define MAP_PAIR_EVEN(pair) MAP_LED(pairTop(pair))
+#define MAP_PAIR_ODD(pair) MAP_LED(pairBot(pair))
+#define MAP_PAIR(pair) (MAP_PAIR_EVEN(pair) | MAP_PAIR_ODD(pair))
 
 // bitmap of all fingers (basically LED_COUNT bits)
 #define MAP_LED_ALL ((2 << (LED_COUNT - 1)) - 1)
 
 #define MAP_INVERSE(map) ((~map) & MAP_LED_ALL)
+
+// macro for all evens and odds
+#define MAP_PAIR_EVENS (MAP_PAIR_EVEN(PAIR_0) | MAP_PAIR_EVEN(PAIR_1) | MAP_PAIR_EVEN(PAIR_2) | MAP_PAIR_EVEN(PAIR_3) | MAP_PAIR_EVEN(PAIR_4))
+#define MAP_PAIR_ODDS (MAP_PAIR_ODD(PAIR_0) | MAP_PAIR_ODD(PAIR_1) | MAP_PAIR_ODD(PAIR_2) | MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_4))
+
+// Some preset bitmaps for pair groupings
+#define MAP_PAIR_ODD_EVENS (MAP_PAIR_EVEN(PAIR_0) | MAP_PAIR_EVEN(PAIR_2) | MAP_PAIR_EVEN(PAIR_4))
+#define MAP_PAIR_ODD_ODDS (MAP_PAIR_ODD(PAIR_0) | MAP_PAIR_ODD(PAIR_2) | MAP_PAIR_ODD(PAIR_4))
+
+#define MAP_PAIR_EVEN_EVENS (MAP_PAIR_EVEN(PAIR_3) | MAP_PAIR_EVEN(PAIR_1))
+#define MAP_PAIR_EVEN_ODDS (MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_1))
 
 // set a single led
 inline void setLed(LedMap map, LedPos pos)
@@ -375,23 +389,23 @@ inline Ring &operator-=(Ring &c, int b)
 }
 
 // Pair operators
-inline LedPair &operator++(LedPair &c)
+inline Pair &operator++(Pair &c)
 {
-  c = LedPair(((uint32_t)c) + 1);
+  c = Pair(((uint32_t)c) + 1);
   return c;
 }
-inline LedPair operator++(LedPair &c, int)
+inline Pair operator++(Pair &c, int)
 {
-  LedPair temp = c;
+  Pair temp = c;
   ++c;
   return temp;
 }
-inline LedPair operator+(LedPair &c, int b)
+inline Pair operator+(Pair &c, int b)
 {
-  return (LedPair)((uint32_t)c + b);
+  return (Pair)((uint32_t)c + b);
 }
-inline LedPair operator-(LedPair &c, int b)
+inline Pair operator-(Pair &c, int b)
 {
-  return (LedPair)((uint32_t)c - b);
+  return (Pair)((uint32_t)c - b);
 }
 #endif

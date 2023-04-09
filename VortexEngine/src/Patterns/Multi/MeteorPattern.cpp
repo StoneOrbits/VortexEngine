@@ -9,6 +9,7 @@
 MeteorPattern::MeteorPattern(const PatternArgs &args) :
   BlinkStepPattern(args),
   m_fadeAmount(0),
+  m_randCtx(),
   m_stash()
 {
   m_patternID = PATTERN_METEOR;
@@ -36,8 +37,7 @@ void MeteorPattern::blinkOff()
 void MeteorPattern::poststep()
 {
   // when a new meteor is created it is incerted into the stash so the blinking pattern is not interrupted
-  Pair target = (Pair)m_randCtx.next(PAIR_FIRST, PAIR_COUNT);
+  LedPos target = (LedPos)m_randCtx.next(LED_FIRST, LED_COUNT);
   RGBColor col = m_colorset.getNext();
-  m_stash.setIndex(pairEven(target), col);
-  m_stash.setIndex(pairOdd(target), col);
+  m_stash.setIndex(target, col);
 }

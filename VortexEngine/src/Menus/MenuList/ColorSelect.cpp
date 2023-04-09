@@ -303,7 +303,7 @@ void ColorSelect::showSlotSelection()
 
 void ColorSelect::showHueSelection1()
 {
-  for (LedPair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
+  for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
     Leds::setPair(p, HSVColor((256 / PAIR_COUNT) * p, 255, 255));
   }
 }
