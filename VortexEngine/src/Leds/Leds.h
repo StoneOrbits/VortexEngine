@@ -57,10 +57,8 @@ public:
   static void clearRing(Ring ring);
   static void clearRings(Ring first, Ring last);
 
-  // Control pairs of Leds, for menu display
+  // Control pairs of leds
   static void setPair(Pair pair, RGBColor col);
-
-  // Turn off pairs of Leds
   static void clearPair(Pair pair);
 
   // Turn on/off a mapping of leds with a color
@@ -93,15 +91,20 @@ public:
   static void blinkQuadrant(Quadrant target, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkQuadrantFive(uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkAll(uint64_t time, int32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  // Blink both LEDs on a pair
+  static void blinkPair(Pair pair, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col);
+  static void blinkPairs(Pair first, Pair last, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col);
 
   // breath the hue on an index
-  // warning: uses hsv to rgb in realtime!
+  // warning: these use hsv to rgb in realtime!
   static void breathIndex(LedPos target, uint32_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-
+  static void breathIndexSat(LedPos target, uint32_t hue, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
+  static void breathIndexVal(LedPos target, uint32_t hue, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
   static void breathQuadrant(Quadrant target, uint32_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-
   static void breathQuadrantFive(uint32_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
 

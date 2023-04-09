@@ -261,7 +261,7 @@ typedef uint64_t LedMap;
 #define MAP_PAIR_ODD(pair) MAP_LED(pairBot(pair))
 #define MAP_PAIR(pair) (MAP_PAIR_EVEN(pair) | MAP_PAIR_ODD(pair))
 
-// bitmap of all fingers (basically LED_COUNT bits)
+// bitmap of all pairs (basically LED_COUNT bits)
 #define MAP_LED_ALL ((2 << (LED_COUNT - 1)) - 1)
 
 #define MAP_INVERSE(map) ((~map) & MAP_LED_ALL)
@@ -283,10 +283,23 @@ inline void setLed(LedMap map, LedPos pos)
   if (pos < LED_COUNT) map |= (1ull << pos);
 }
 
+// set a single pair
+inline void setPair(LedMap map, Pair pair)
+{
+  setLed(map, pairTop(pair));
+  setLed(map, pairBot(pair));
+}
+
 // check if an led is set in the map
 inline bool checkLed(LedMap map, LedPos pos)
 {
   return ((map & (1ull << pos)) != 0);
+}
+
+// check if a pair is set in the map (both leds)
+inline bool checkPair(LedMap map, Pair pair)
+{
+  return checkLed(map, pairTop(pair)) && checkLed(map, pairBot(pair));
 }
 
 // LedPos operators
@@ -408,4 +421,5 @@ inline Pair operator-(Pair &c, int b)
 {
   return (Pair)((uint32_t)c - b);
 }
+
 #endif
