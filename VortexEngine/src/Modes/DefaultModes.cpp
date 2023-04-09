@@ -5,7 +5,6 @@
 // Here is the array of 'default modes' that are assigned to
 // the gloveset upon factory reset
 const default_mode_entry default_modes[] = {
-  // Pattern 1: Jest mode
   {
     PATTERN_DOPS, 5, {
       RGB_RED,
@@ -15,9 +14,6 @@ const default_mode_entry default_modes[] = {
       0x5500AB
     }
   },
-
-#if 1
-  // Pattern 2: Ghost Crush Mode
   {
     PATTERN_GHOSTCRUSH, 5, {
       RGB_WHITE,
@@ -27,16 +23,12 @@ const default_mode_entry default_modes[] = {
       RGB_OFF,
     }
   },
-
-  // Pattern 4: Warp Worm
   {
     PATTERN_WARPWORM, 2, {
       RGB_GREEN,
       0x26004B,
     }
   },
-
-  // Pattern 5: Pulsish
   {
     PATTERN_PULSISH, 3, {
       0x00AB55,
@@ -44,8 +36,6 @@ const default_mode_entry default_modes[] = {
       0x00001C
     }
   },
-
-  // Pattern 6: ZigZag
   {
     PATTERN_ZIGZAG, 6, {
       RGB_OFF,
@@ -56,8 +46,6 @@ const default_mode_entry default_modes[] = {
       0x700000
     }
   },
-
-  // Pattern 7: Strobe
   {
     PATTERN_STROBE, 8, {
       0xD4002B,
@@ -70,8 +58,6 @@ const default_mode_entry default_modes[] = {
       RGB_OFF
     }
   },
-
-  // Pattern 8: Snowball
   {
     PATTERN_SNOWBALL, 3, {
       0x170600,
@@ -79,8 +65,6 @@ const default_mode_entry default_modes[] = {
       0x12002A
     }
   },
-
-  // Pattern 9: Ultradops
   {
     PATTERN_ULTRADOPS, 8, {
       0x1C0000,
@@ -93,8 +77,6 @@ const default_mode_entry default_modes[] = {
       0x13000A
     }
   },
-
-  // Pattern 10: Materia
   {
     PATTERN_MATERIA, 4, {
       0xAA0055,
@@ -103,8 +85,6 @@ const default_mode_entry default_modes[] = {
       0x1C8E55,
     }
   },
-
-  // Pattern 11: VortexWipe
   {
     PATTERN_VORTEXWIPE, 8, {
       RGB_RED,
@@ -117,8 +97,6 @@ const default_mode_entry default_modes[] = {
       0x00001C,
     }
   },
-
-  // Pattern 12: GhostCrush
   {
     PATTERN_GHOSTCRUSH, 7, {
       0x26004B,
@@ -130,8 +108,6 @@ const default_mode_entry default_modes[] = {
       0x26004B,
     }
   },
-
-  // Pattern 13: VortexWipe2
   {
     PATTERN_VORTEXWIPE, 3, {
       0x00AB55,
@@ -139,8 +115,6 @@ const default_mode_entry default_modes[] = {
       0xAA381C,
     }
   },
-
-  // Pattern 15: Complementary Blend
   {
     PATTERN_COMPLEMENTARY_BLEND, 3, {
       RGB_RED,
@@ -148,7 +122,6 @@ const default_mode_entry default_modes[] = {
       RGB_BLUE
     }
   }
-#endif
 };
 
 // exposed size of the default modes array

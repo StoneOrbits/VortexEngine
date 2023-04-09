@@ -146,4 +146,5 @@ bool Randomizer::reRoll()
       return false;
     }
   }
+  return true;
 }
