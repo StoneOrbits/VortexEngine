@@ -32,9 +32,9 @@ void Leds::cleanup()
 
 void Leds::setIndex(LedPos target, RGBColor col)
 {
-  // safety
-  if (target > LED_LAST) {
-    target = LED_LAST;
+  if (target >= LED_COUNT) {
+    setAll(col);
+    return;
   }
   led(target) = col;
 }

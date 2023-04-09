@@ -115,12 +115,9 @@ void VortexEngine::runMainLogic()
     return;
   }
   // otherwise if the button is not pressed just run the modes
-  if (!g_pButton->isPressed()) {
+  if (!g_pButton->isPressed() || g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD_TICKS) {
     Modes::play();
-    return;
-  }
-  // then check to see if we've held long enough to enter the menu
-  if (g_pButton->holdDuration() >= MENU_TRIGGER_THRESHOLD_TICKS) {
+  } else {
     DEBUG_LOG("Entering ring fill...");
     Menus::openRingMenu();
   }

@@ -2,9 +2,18 @@
 
 #include <Arduino.h>
 
+Random::Random() :
+  m_seed(0)
+{
+}
+
 Random::Random(uint32_t newseed)
 {
   seed(newseed);
+}
+
+Random::Random()
+{
 }
 
 void Random::seed(uint32_t newseed)

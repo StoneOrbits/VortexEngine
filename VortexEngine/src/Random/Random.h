@@ -5,7 +5,9 @@
 class Random 
 {
 public:
-  Random(uint32_t newseed = 0);
+  Random();
+  Random(uint32_t newseed);
+  ~Random();
 
   void seed(uint32_t newseed);
 
