@@ -51,10 +51,6 @@ public:
   static void clearRangeOdds(Pair first, Pair last);
   static void clearAllOdds();
 
-  // Control pairs of leds
-  static void setPair(Pair pair, RGBColor col);
-  static void clearPair(Pair pair);
-
   // Turn on/off a mapping of leds with a color
   static void setMap(LedMap map, RGBColor col);
   static void clearMap(LedMap map);

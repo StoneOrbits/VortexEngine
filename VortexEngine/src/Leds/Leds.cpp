@@ -119,18 +119,6 @@ void Leds::clearAllOdds()
   }
 }
 
-void Leds::setPair(Pair pair, RGBColor col)
-{
-  setIndex(pairEven(pair), col);
-  setIndex(pairOdd(pair), col);
-}
-
-void Leds::clearPair(Pair pair)
-{
-  clearIndex(pairEven(pair));
-  clearIndex(pairOdd(pair));
-}
-
 void Leds::setMap(LedMap map, RGBColor col)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
