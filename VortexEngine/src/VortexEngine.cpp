@@ -18,13 +18,13 @@
 bool VortexEngine::init()
 {
   // pull up all the pins to prevent floating pins from triggering interrupts
-  for (int p = 0; p < 21; ++p) {
-    pinMode(p, INPUT_PULLUP);
-  }
+  //for (int p = 0; p < 21; ++p) {
+  //  pinMode(p, INPUT_PULLUP);
+  //}
 
   // turn on the mosfet to enable power to the leds
-  pinMode(1, OUTPUT);
-  digitalWrite(1, HIGH);
+  //pinMode(1, OUTPUT);
+  //digitalWrite(1, HIGH);
 
   // all of the global controllers
   if (!SerialComs::init()) {
