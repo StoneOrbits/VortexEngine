@@ -550,9 +550,9 @@ string Vortex::patternToString(PatternID id)
   static const char *patternNames[PATTERN_COUNT] = {
     "basic", "strobe", "hyperstrobe", "dops", "dopish", "ultradops", "strobie",
     "ribbon", "miniribbon", "blinkie", "ghostcrush", "solid", "tracer",
-    "dashdops", "blend", "brackets", "hueshift", "theater chase", /*"chaser",*/
-    "zigzag", "zipfade", "drip", "dripmorph", "crossdops", "doublestrobe", "meteor",
-    "sparkletrace", "vortexwipe", "warp", "warpworm", "snowball", "lighthouse",
+    "dashdops", "blend", "complementary blend", "brackets", "hueshift", "theater chase",
+    "chaser", "zigzag", "zipfade", "drip", "dripmorph", "crossdops", "doublestrobe",
+    "meteor", "sparkletrace", "vortexwipe", "warp", "warpworm", "snowball", "lighthouse",
     "pulsish", "fill", "bounce", "splitstrobie", "backstrobe", "materia",
   };
   return patternNames[id];
