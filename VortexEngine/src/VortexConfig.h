@@ -35,7 +35,7 @@
 // Vortex Slim
 //
 // Turn on this flag to enable the 'slim' version of the engine
-#define VORTEX_SLIM           1
+#define VORTEX_SLIM           0
 
 // ===================================================================
 //  Numeric Configurations
@@ -400,7 +400,7 @@
 #endif // VortexTestingFramework
 
 // This will be defined if the project is being built inside the editor
-#ifdef VortexEditor
+#ifdef PROJECT_NAME_VortexEditor
 
 #undef FIXED_LED_COUNT
 #define FIXED_LED_COUNT 0
