@@ -109,5 +109,4 @@ void Menu::leaveMenu(bool doSave)
   if (doSave) {
     Modes::saveStorage();
   }
-  //DEBUG_LOG("Leaving Menu");
 }

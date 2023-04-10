@@ -28,6 +28,8 @@ bool ModeSharing::init()
   if (!Menu::init()) {
     return false;
   }
+  // skip led selection
+  m_ledSelected = true;
   // This makes send mode begin with waiting instead of sending
   m_lastActionTime = Time::getCurtime() + 1;
   // just start spewing out modes everywhere
