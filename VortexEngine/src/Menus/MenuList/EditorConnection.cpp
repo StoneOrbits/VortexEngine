@@ -30,9 +30,9 @@ bool EditorConnection::init()
   if (!Menu::init()) {
     return false;
   }
-
+  // skip led selection
+  m_ledSelected = true;
   clearDemo();
-
   DEBUG_LOG("Entering Editor Connection");
   return true;
 }

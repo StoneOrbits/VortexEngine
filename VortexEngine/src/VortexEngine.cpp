@@ -17,15 +17,6 @@
 
 bool VortexEngine::init()
 {
-  // pull up all the pins to prevent floating pins from triggering interrupts
-  //for (int p = 0; p < 21; ++p) {
-  //  pinMode(p, INPUT_PULLUP);
-  //}
-
-  // turn on the mosfet to enable power to the leds
-  //pinMode(1, OUTPUT);
-  //digitalWrite(1, HIGH);
-
   // all of the global controllers
   if (!SerialComs::init()) {
     DEBUG_LOG("Serial failed to initialize");
@@ -114,13 +105,14 @@ void VortexEngine::runMainLogic()
   if (Menus::run()) {
     return;
   }
-  // otherwise if the button is not pressed just run the modes
-  if (!g_pButton->isPressed() || g_pButton->holdDuration() < MENU_TRIGGER_THRESHOLD_TICKS) {
-    Modes::play();
-  } else {
+  // check if we should enter the menu
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > MENU_TRIGGER_THRESHOLD_TICKS) {
     DEBUG_LOG("Entering ring fill...");
     Menus::openRingMenu();
+    return;
   }
+  // otherwise just play the modes
+  Modes::play();
 }
 
 void VortexEngine::serializeVersion(ByteStream &stream)
