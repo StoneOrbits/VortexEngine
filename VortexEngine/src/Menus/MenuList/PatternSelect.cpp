@@ -22,6 +22,8 @@ bool PatternSelect::init()
   }
   // todo: get the target led from the menu
   m_targetLed = LED_0;
+  m_pCurMode->setSinglePat(m_targetLed, PATTERN_FIRST);
+  m_pCurMode->init();
   DEBUG_LOG("Entered pattern select");
   return true;
 }
@@ -38,7 +40,14 @@ Menu::MenuAction PatternSelect::run()
 
 void PatternSelect::onShortClick()
 {
-  m_pCurMode->setSinglePat(m_targetLed, (PatternID)(m_pCurMode->getPatternID(m_targetLed) + 1));
+  PatternID newID = (PatternID)(m_pCurMode->getPatternID(m_targetLed) + 1);
+  if (newID == PATTERN_SOLID) {
+    ++newID;
+  }
+  if (newID > PATTERN_SINGLE_LAST) {
+    newID = PATTERN_SINGLE_FIRST;
+  }
+  m_pCurMode->setSinglePat(m_targetLed, newID);
   m_pCurMode->init();
 }
 
