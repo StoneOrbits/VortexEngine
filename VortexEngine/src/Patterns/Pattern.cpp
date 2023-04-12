@@ -15,8 +15,8 @@ Pattern::Pattern() :
   m_patternFlags(0),
   m_colorset(),
   m_ledPos(LED_FIRST),
-  m_argList(),
-  m_numArgs(0)
+  m_numArgs(0),
+  m_argList()
 {
 }
 
@@ -61,6 +61,22 @@ void Pattern::unserialize(ByteStream &buffer)
   if (args.numArgs > 0) {
     setArgs(args);
   }
+}
+
+void Pattern::setArg(uint8_t index, uint8_t value)
+{
+  if (index >= m_numArgs) {
+    return;
+  }
+  *((uint8_t *)this + m_argList[index]) = value;
+}
+
+uint8_t Pattern::getArg(uint8_t index) const
+{
+  if (index >= m_numArgs) {
+    return 0;
+  }
+  return *((uint8_t *)this + m_argList[index]);
 }
 
 void Pattern::setArgs(const PatternArgs &args)
@@ -117,13 +133,18 @@ void Pattern::clearColorset()
   m_colorset.clear();
 }
 
+#ifdef VORTEX_LIB
+void Pattern::registerArg(const char *name, uint8_t argOffset)
+#else
 void Pattern::registerArg(uint8_t argOffset)
+#endif
 {
-#ifndef VORTEX_ARDUINO
   if (m_numArgs >= MAX_PATTERN_ARGS) {
     ERROR_LOG("too many args");
     return;
   }
+#ifdef VORTEX_LIB
+  m_argNameList[m_numArgs] = name;
 #endif
   m_argList[m_numArgs++] = argOffset;
 }

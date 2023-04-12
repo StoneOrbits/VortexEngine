@@ -30,6 +30,7 @@
 #define RGB_BLUE        (uint32_t)0x0000FF    //   0   0 255
 #define RGB_YELLOW      (uint32_t)0xFFFF00    //
 #define RGB_RED         (uint32_t)0xFF0000    //   0 255 110
+#define RGB_DIM_RED     (uint32_t)0x700000    //   0 255 110
 #define RGB_DARK_RED    (uint32_t)0x110000    //   0 255 110
 #define RGB_DARK_ORANGE (uint32_t)0x100400    // 160   4   0
 #define RGB_GREEN       (uint32_t)0x00FF00    //  85 255 110

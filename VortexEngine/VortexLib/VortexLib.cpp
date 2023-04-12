@@ -546,14 +546,16 @@ string Vortex::patternToString(PatternID id)
   if (id == PATTERN_NONE || id >= PATTERN_COUNT) {
     return "pattern_none";
   }
-  // This is awful but idk how else to do it for now
   static const char *patternNames[PATTERN_COUNT] = {
-    "basic", "strobe", "hyperstrobe", "dops", "dopish", "ultradops", "strobie",
-    "ribbon", "miniribbon", "blinkie", "ghostcrush", "solid", "tracer",
-    "dashdops", "blend", "complementary blend", "brackets", "hueshift", "theater chase",
-    "chaser", "zigzag", "zipfade", "drip", "dripmorph", "crossdops", "doublestrobe",
-    "meteor", "sparkletrace", "vortexwipe", "warp", "warpworm", "snowball", "lighthouse",
-    "pulsish", "fill", "bounce", "splitstrobie", "backstrobe", "materia",
+    "basic", "strobe", "hyperstrobe", "strobie", "dops", "dopish",
+    "ultradops", "strobe2", "hyperstrobe2", "dops2", "dopish2", "blinkie",
+    "ultradops2", "ghostcrush", "brackets", "blend", "blendstrobe",
+    "complementary_blend", "complementary_blendstrobe", "dashdops",
+    "dashcrush", "tracer", "ribbon", "miniribbon", "solid",
+    "hueshift", "theater_chase", "chaser", "zigzag", "zipfade", "drip",
+    "dripmorph", "crossdops", "doublestrobe", "meteor", "sparkletrace",
+    "vortexwipe", "warp", "warpworm", "snowball", "lighthouse", "pulsish",
+    "fill", "bounce", "splitstrobie", "backstrobe", "materia",
   };
   return patternNames[id];
 }
@@ -571,82 +573,22 @@ uint32_t Vortex::numCustomParams(PatternID id)
   if (!pat) {
     return 0;
   }
-  PatternArgs args;
-  pat->getArgs(args);
-  uint32_t numArgs = args.numArgs;
+  uint32_t numArgs = pat->getNumArgs();
   delete pat;
   return numArgs;
 }
 
 vector<string> Vortex::getCustomParams(PatternID id)
 {
-  switch (id) {
-  case PATTERN_BASIC:
-  case PATTERN_STROBE:
-  case PATTERN_HYPERSTROBE:
-  case PATTERN_DOPS:
-  case PATTERN_DOPISH:
-  case PATTERN_ULTRADOPS:
-  case PATTERN_STROBIE:
-  case PATTERN_RIBBON:
-  case PATTERN_MINIRIBBON:
-  case PATTERN_BLINKIE:
-  case PATTERN_GHOSTCRUSH:
-    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group" };
-  case PATTERN_SOLID:
-    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group", "Color Index" };
-  case PATTERN_TRACER:
-    return { "Tracer Duration", "Dot Duration" };
-  case PATTERN_DASHDOPS:
-    return { "Dash Duration", "Dot Duration", "Off Duration" };
-  case PATTERN_BLEND:
-  case PATTERN_COMPLEMENTARY_BLEND:
-    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group", "Start Offset", "Num Flips"};
-  case PATTERN_BRACKETS:
-    return { "Bracket Duration", "Mid Duration", "Off Duration" };
-#if VORTEX_SLIM == 0
-  case PATTERN_HUESHIFT:
-    return { "Speed", "Scale" };
-  case PATTERN_THEATER_CHASE:
-    return { "On Duration", "Off Duration", "Step Duration" };
-  case PATTERN_ZIGZAG:
-  case PATTERN_ZIPFADE:
-    return { "On Duration", "Off Duration", "Step Duration", "Snake Size", "Fade Amount" };
-  case PATTERN_DRIP:
-  case PATTERN_CROSSDOPS:
-  case PATTERN_DOUBLESTROBE:
-  case PATTERN_SPARKLETRACE:
-  case PATTERN_VORTEXWIPE:
-  case PATTERN_WARP:
-  case PATTERN_WARPWORM:
-  case PATTERN_SNOWBALL:
-  case PATTERN_FILL:
-    return { "On Duration", "Off Duration", "Step Duration" };
-  case PATTERN_BOUNCE:
-    return { "On Duration", "Off Duration", "Step Duration", "Fade Amount" };
-  case PATTERN_DRIPMORPH:
-    return { "On Duration", "Off Duration", "Speed" };
-  case PATTERN_METEOR:
-    return { "On Duration", "Off Duration", "Step Duration", "Fade Amount" };
-  case PATTERN_LIGHTHOUSE:
-    return { "On Duration", "Off Duration", "Step Duration", "Fade Amount", "Fade Rate" };
-  case PATTERN_PULSISH:
-  case PATTERN_MATERIA:
-    return { "On Duration 1", "Off Duration 1", "On Duration 2", "Off Duration 2", "Step Duration" };
-  case PATTERN_SPLITSTROBIE:
-  case PATTERN_BACKSTROBE:
-    return { "On Duration 1", "Off Duration 1", "Gap Duration 1",  "On Duration 2", "Off Duration 2",
-      "Step Duration x 100ms", "Pattern 1 ID", "Pattern 2 ID"};
-  case PATTERN_CHASER:
-  case PATTERN_NONE:
-  default:
-    break;
-#else
-  default:
-    return { "On Duration", "Off Duration", "Gap Duration", "Group Size", "Skip Colors", "Repeat Group" };
-#endif
+  Pattern *pat = PatternBuilder::make(id);
+  vector<string> params;
+  if (!pat) {
+    return params;
   }
-  return vector<string>();
+  for (uint32_t i = 0; i < pat->getNumArgs(); ++i) {
+    params.push_back(pat->getArgName(i));
+  }
+  return params;
 }
 
 void Vortex::setUndoBufferLimit(uint32_t limit)
