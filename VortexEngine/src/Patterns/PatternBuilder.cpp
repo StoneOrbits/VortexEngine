@@ -142,7 +142,8 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_BLINKIE: return PatternArgs(3, 6, 60, 0, 0, 0);
     case PATTERN_ULTRADOPS2: return PatternArgs(ULTRADOPS_ON_DURATION, ULTRADOPS_OFF_DURATION, 25, 0, 0, 0); 
     case PATTERN_GHOSTCRUSH: return PatternArgs(4, 1, 55, 0, 0, 0);
-    case PATTERN_BRACKETS: return PatternArgs(4, 8, 35);
+    case PATTERN_BRACKETS: return PatternArgs(4, 4, 20, 1, 2, 1);
+    case PATTERN_SANDWICH: return PatternArgs(4, 4, 20, 1, 3, 1);
     case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0, 0, 0, 0, 1);
     case PATTERN_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, 28, 0, 0, 0, 0, 0, 1);
     case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(2, 13, 0, 0, 0, 0, 0, 2);
@@ -213,8 +214,9 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_ULTRADOPS2:
     case PATTERN_RIBBON:
     case PATTERN_MINIRIBBON:
-    case PATTERN_GHOSTCRUSH: return new BasicPattern(args);
-    case PATTERN_BRACKETS: return new BracketsPattern(args);
+    case PATTERN_GHOSTCRUSH:
+    case PATTERN_BRACKETS:
+    case PATTERN_SANDWICH: return new BasicPattern(args);
     case PATTERN_BLEND:
     case PATTERN_BLENDSTROBE:
     case PATTERN_COMPLEMENTARY_BLEND:

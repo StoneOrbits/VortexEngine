@@ -279,9 +279,6 @@
     <ClCompile Include="src\Patterns\Single\BlendPattern.cpp">
       <Filter>Source Files\Patterns\Single</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Single\BracketsPattern.cpp">
-      <Filter>Source Files\Patterns\Single</Filter>
-    </ClCompile>
     <ClCompile Include="src\Patterns\Single\DashDopsPattern.cpp">
       <Filter>Source Files\Patterns\Single</Filter>
     </ClCompile>
@@ -498,9 +495,6 @@
       <Filter>Header Files\Patterns\Single</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Single\BlendPattern.h">
-      <Filter>Header Files\Patterns\Single</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Patterns\Single\BracketsPattern.h">
       <Filter>Header Files\Patterns\Single</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Single\DashDopsPattern.h">
