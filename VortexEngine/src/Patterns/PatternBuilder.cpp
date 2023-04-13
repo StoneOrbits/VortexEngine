@@ -29,7 +29,6 @@
 #include "Multi/BackStrobePattern.h"
 #include "Multi/MateriaPattern.h"
 
-#include "Single/BracketsPattern.h"
 #include "Single/TracerPattern.h"
 #include "Single/DashDopsPattern.h"
 #include "Single/BasicPattern.h"
@@ -141,7 +140,6 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_DOPISH2: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, 30, 0, 0, 0);
     case PATTERN_ULTRADOPS2: return PatternArgs(ULTRADOPS_ON_DURATION, ULTRADOPS_OFF_DURATION, 25, 0, 0, 0);
     case PATTERN_BLINKIE: return PatternArgs(3, 6, 60, 0, 0, 0);
-    case PATTERN_ULTRADOPS2: return PatternArgs(ULTRADOPS_ON_DURATION, ULTRADOPS_OFF_DURATION, 25, 0, 0, 0); 
     case PATTERN_GHOSTCRUSH: return PatternArgs(4, 1, 55, 0, 0, 0);
     case PATTERN_BASIC: return PatternArgs(4, 4, 35, 2, 0, 2);
     case PATTERN_BASIC2: return PatternArgs(DOPS_ON_DURATION, STROBE_OFF_DURATION, 10, 1, 0, 2);
@@ -257,7 +255,6 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_BACKSTROBE: return new BackStrobePattern(args);
     case PATTERN_MATERIA: return new MateriaPattern(args);
     case PATTERN_NONE: return nullptr;
-    default: break;
 #else
     // in vortex slim just use basic pattern for all multi led
     case PATTERN_NONE: return nullptr;
