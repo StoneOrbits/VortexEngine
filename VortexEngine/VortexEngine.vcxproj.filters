@@ -327,9 +327,6 @@
     <ClCompile Include="VortexLib\EngineDependencies\Arduino.cpp">
       <Filter>Source Files\VortexLib\EngineDependencies</Filter>
     </ClCompile>
-    <ClCompile Include="VortexLib\EngineDependencies\FastLED.cpp">
-      <Filter>Source Files\VortexLib\EngineDependencies</Filter>
-    </ClCompile>
     <ClCompile Include="VortexLib\EngineDependencies\FlashStorage.cpp">
       <Filter>Source Files\VortexLib\EngineDependencies</Filter>
     </ClCompile>
@@ -555,9 +552,6 @@
       <Filter>Header Files\VortexLib\EngineDependencies</Filter>
     </ClInclude>
     <ClInclude Include="VortexLib\EngineDependencies\Arduino.h">
-      <Filter>Header Files\VortexLib\EngineDependencies</Filter>
-    </ClInclude>
-    <ClInclude Include="VortexLib\EngineDependencies\FastLED.h">
       <Filter>Header Files\VortexLib\EngineDependencies</Filter>
     </ClInclude>
     <ClInclude Include="src\Random\Random.h">
