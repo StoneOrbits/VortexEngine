@@ -21,7 +21,6 @@ public:
   void onLongClick() override;
 
 private:
-  LedPos m_targetLed;
 };
 
 #endif
