@@ -3,8 +3,6 @@
 
 #include <inttypes.h>
 
-#include <Adafruit_DotStar.h>
-
 #include "../Colors/ColorTypes.h"
 #include "LedTypes.h"
 
@@ -123,8 +121,6 @@ public:
   static void update();
 
 private:
-  static void clearOnboardLED();
-
   // accessor for led colors, use this for all access to allow for mapping
   static inline RGBColor &led(LedPos pos)
   {
@@ -139,9 +135,6 @@ private:
 
   // array of led color values
   static RGBColor m_ledColors[LED_COUNT];
-
-  // the onboard LED on the adafruit board
-  static Adafruit_DotStar m_onboardLED;
 };
 
 #endif

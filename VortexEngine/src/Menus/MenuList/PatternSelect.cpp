@@ -54,10 +54,6 @@ Menu::MenuAction PatternSelect::run()
   }
 
   // continue
-=======
-  // run the current mode
-  m_pCurMode->play();
->>>>>>> 1872867 (Killed fastled dropin code, not necessary anymore)
   return MENU_CONTINUE;
 }
 

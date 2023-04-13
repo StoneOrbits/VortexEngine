@@ -1,5 +1,3 @@
-#include <FastLED.h>
-#include <Adafruit_DotStar.h>
 #include <math.h>
 
 #include "LedStash.h"
@@ -8,31 +6,42 @@
 #include "../Time/TimeControl.h"
 #include "../Modes/Modes.h"
 
+#include "../VortexConfig.h"
+
 #ifdef VORTEX_LIB
 #include "../../VortexLib/VortexLib.h"
 #endif
 
+#ifdef VORTEX_ARDUINO
+#include <FastLED.h>
+
 #define LED_DATA_PIN  4
 #define CLOCK_PIN 3
 
+// TODO: remove this and just set the pins to INPUT
+// onboard LED on adafruit
+#include <Adafruit_DotStar.h>
 #define POWER_LED_PIN 7
 #define POWER_LED_CLK 8
+Adafruit_DotStar onboardLED(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR);
+#endif
 
 // array of led color values
 RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
-// onboard LED on adafruit
-Adafruit_DotStar Leds::m_onboardLED(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR);
 // global brightness
 uint32_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 
 bool Leds::init()
 {
+#ifdef VORTEX_ARDUINO
   // setup leds on data pin 4
   FastLED.addLeds<DOTSTAR, LED_DATA_PIN, CLOCK_PIN, BGR>((CRGB *)m_ledColors, LED_COUNT);
   // get screwed fastled, don't throttle us!
   FastLED.setMaxRefreshRate(0, false);
   // clear the onboard led so it displays nothing
-  clearOnboardLED();
+  onboardLED.begin();
+  onboardLED.show();
+#endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
 #endif
@@ -44,13 +53,6 @@ void Leds::cleanup()
   for (uint32_t i = 0; i < LED_COUNT; ++i) {
     m_ledColors[i].clear();
   }
-}
-
-void Leds::clearOnboardLED()
-{
-  // show nothing otherwise it might show random colours
-  m_onboardLED.begin();
-  m_onboardLED.show();
 }
 
 void Leds::setIndex(LedPos target, RGBColor col)
@@ -307,7 +309,9 @@ void Leds::breathQuadrantFive(uint32_t hue, uint32_t variance, uint32_t magnitud
 
 void Leds::update()
 {
+#ifdef VORTEX_ARDUINO
   FastLED.show(m_brightness);
+#endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsShow();
 #endif
