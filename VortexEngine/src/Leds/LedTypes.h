@@ -123,7 +123,6 @@ enum Pair : uint8_t
 
   PAIR_COUNT,
   PAIR_LAST = (PAIR_COUNT - 1),
-
 };
 
 // check if an led is finger tip or top
@@ -268,8 +267,10 @@ typedef uint64_t LedMap;
 
 // various macros for mapping leds to an LedMap
 #define MAP_LED(led) (1 << led)
-#define MAP_PAIR_EVEN(pair) MAP_LED(pairTop(pair))
-#define MAP_PAIR_ODD(pair) MAP_LED(pairBot(pair))
+#define MAP_PAIR_TOP(pair) MAP_LED(pairTop(pair))
+#define MAP_PAIR_BOT(pair) MAP_LED(pairBot(pair))
+#define MAP_PAIR_EVEN(pair) MAP_LED(pairEven(pair))
+#define MAP_PAIR_ODD(pair) MAP_LED(pairOdd(pair))
 #define MAP_PAIR(pair) (MAP_PAIR_EVEN(pair) | MAP_PAIR_ODD(pair))
 
 // bitmap of all pairs (basically LED_COUNT bits)
