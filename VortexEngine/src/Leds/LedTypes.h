@@ -136,6 +136,17 @@ inline bool isOdd(LedPos pos)
   return (pos % 2) != 0;
 }
 
+// get the even index in a pair
+inline LedPos pairEven(Pair pair)
+{
+  return (LedPos)((uint32_t)pair * 2);
+}
+// get the odd index in a pair
+inline LedPos pairOdd(Pair pair)
+{
+  return (LedPos)(((uint32_t)pair * 2) + 1);
+}
+
 // check if led is on the top side
 inline bool isPairTop(LedPos pos)
 {
