@@ -137,6 +137,7 @@ bool Randomizer::reRoll(LedPos led, Random &ctx)
 
 bool Randomizer::reRoll()
 {
+  // if the target led isn't 'all' then roll that led
   if (m_targetLed < LED_COUNT) {
     return reRoll(m_targetLed, m_randCtx[m_targetLed]);
   }
