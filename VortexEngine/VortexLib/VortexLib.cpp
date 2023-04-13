@@ -543,20 +543,28 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
 
 string Vortex::patternToString(PatternID id)
 {
-  if (id == PATTERN_NONE || id >= PATTERN_COUNT) {
-    return "pattern_none";
-  }
-  static const char *patternNames[PATTERN_COUNT] = {
-    "basic", "strobe", "hyperstrobe", "strobie", "dops", "dopish",
-    "ultradops", "strobe2", "hyperstrobe2", "dops2", "dopish2", "blinkie",
-    "ultradops2", "ghostcrush", "brackets", "blend", "blendstrobe",
-    "complementary_blend", "complementary_blendstrobe", "dashdops",
-    "dashcrush", "tracer", "ribbon", "miniribbon", "solid",
+  // I wish there was a way to do this automatically but it would be
+  // quite messy and idk if it's worth it
+  static const char *patternNames[] = {
+    "strobe", "hyperstrobe", "strobie", "strobie2", "dops", "dopish",
+    "ultradops", "strobe2", "hyperstrobe2", "dops2", "dopish2", "ultradops2",
+    "blinkie", "ghostcrush", "basic", "basic2", "brackets", "sandwich", "blend",
+    "blendstrobe", "complementary_blend", "complementary_blendstrobe",
+    "dashdops", "dashcrush", "tracer", "ribbon", "miniribbon", "solid",
     "hueshift", "theater_chase", "chaser", "zigzag", "zipfade", "drip",
     "dripmorph", "crossdops", "doublestrobe", "meteor", "sparkletrace",
     "vortexwipe", "warp", "warpworm", "snowball", "lighthouse", "pulsish",
     "fill", "bounce", "splitstrobie", "backstrobe", "materia",
   };
+  if (sizeof(patternNames) / sizeof(patternNames[0]) != PATTERN_COUNT) {
+    // if you see this it means the list of strings above is not equal to
+    // the number of patterns in the enum, so you need to update the list
+    // above to match the enum.
+    return "fix patternToString()";
+  }
+  if (id == PATTERN_NONE || id >= PATTERN_COUNT) {
+    return "pattern_none";
+  }
   return patternNames[id];
 }
 
