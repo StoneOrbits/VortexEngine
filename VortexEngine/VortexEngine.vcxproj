@@ -197,7 +197,6 @@
     <ClCompile Include="src\Patterns\PatternBuilder.cpp" />
     <ClCompile Include="src\Patterns\Single\BasicPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\BlendPattern.cpp" />
-    <ClCompile Include="src\Patterns\Single\BracketsPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\DashDopsPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\SingleLedPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\SolidPattern.cpp" />
@@ -272,7 +271,6 @@
     <ClInclude Include="src\Patterns\Patterns.h" />
     <ClInclude Include="src\Patterns\Single\BasicPattern.h" />
     <ClInclude Include="src\Patterns\Single\BlendPattern.h" />
-    <ClInclude Include="src\Patterns\Single\BracketsPattern.h" />
     <ClInclude Include="src\Patterns\Single\DashDopsPattern.h" />
     <ClInclude Include="src\Patterns\Single\SingleLedPattern.h" />
     <ClInclude Include="src\Patterns\Single\SolidPattern.h" />
