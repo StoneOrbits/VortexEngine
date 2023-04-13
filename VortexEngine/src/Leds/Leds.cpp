@@ -13,15 +13,14 @@
 #endif
 
 #define LED_DATA_PIN  4
+#define CLOCK_PIN 3
 
 #define POWER_LED_PIN 7
 #define POWER_LED_CLK 8
 
-#define CLOCK_PIN 3
-
 // array of led color values
 RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
-// the onboard LED on the adafruit board
+// onboard LED on adafruit
 Adafruit_DotStar Leds::m_onboardLED(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR);
 // global brightness
 uint32_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
