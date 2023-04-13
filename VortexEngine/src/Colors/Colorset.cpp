@@ -388,7 +388,7 @@ RGBColor Colorset::getPrev()
     return RGB_OFF;
   }
   // handle wrapping at 0
-  if (m_curIndex == 0) {
+  if (m_curIndex == 0 || m_curIndex == INDEX_NONE) {
     m_curIndex = numColors() - 1;
   } else {
     m_curIndex--;

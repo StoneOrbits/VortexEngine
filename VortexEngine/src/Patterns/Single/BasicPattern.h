@@ -32,7 +32,7 @@ protected:
   uint8_t m_gapDuration;
   // the duration the light is on/off for
   uint8_t m_groupSize;
-  uint8_t m_skipCols;
+  uint8_t m_reflectIndex;
   uint8_t m_repeatGroup;
 
   // the real group size based on num colors
@@ -41,6 +41,9 @@ protected:
   uint8_t m_groupCounter;
   // the repeat counter
   uint8_t m_repeatCounter;
+
+  // the reflection bool
+  bool m_reflect;
 
   // the blink timer
   Timer m_blinkTimer;

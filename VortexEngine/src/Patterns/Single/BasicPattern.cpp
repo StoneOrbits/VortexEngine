@@ -10,11 +10,12 @@ BasicPattern::BasicPattern(const PatternArgs &args) :
   m_offDuration(0),
   m_gapDuration(0),
   m_groupSize(0),
-  m_skipCols(0),
+  m_reflectIndex(0),
   m_repeatGroup(0),
   m_realGroupSize(0),
   m_groupCounter(0),
   m_repeatCounter(0),
+  m_reflect(false),
   m_blinkTimer(),
   m_gapTimer(),
   m_inGap(false)
@@ -24,7 +25,7 @@ BasicPattern::BasicPattern(const PatternArgs &args) :
   REGISTER_ARG(m_offDuration);
   REGISTER_ARG(m_gapDuration);
   REGISTER_ARG(m_groupSize);
-  REGISTER_ARG(m_skipCols);
+  REGISTER_ARG(m_reflectIndex);
   REGISTER_ARG(m_repeatGroup);
   setArgs(args);
 }
@@ -39,6 +40,7 @@ void BasicPattern::init()
   Pattern::init();
 
   m_inGap = false;
+  m_reflect = false;
 
   // don't start the gap timer till we're in a gap
   m_gapTimer.init(TIMER_1_ALARM, m_gapDuration);
@@ -46,7 +48,7 @@ void BasicPattern::init()
   // start the blink timer now
   m_blinkTimer.init(TIMER_2_ALARMS | TIMER_START, m_onDuration, m_offDuration);
 
-  if (!m_groupSize || m_groupSize > m_colorset.numColors()) {
+  if (!m_groupSize) {
     m_realGroupSize = m_colorset.numColors();
   } else {
     m_realGroupSize = m_groupSize;
@@ -75,7 +77,7 @@ void BasicPattern::play()
   } else if (id == 1) {
     // when timer 1 starts it's time to blink off
     onBlinkOff();
-  } else if (m_blinkTimer.curAlarm() == 1 && m_blinkTimer.onEnd() && m_colorset.onEnd()) {
+  } else if (m_blinkTimer.curAlarm() == 1 && m_blinkTimer.onEnd() && m_colorset.onEnd() && !m_realGroupSize) {
     // trigger the gap in the pattern
     triggerGap();
   }
@@ -106,9 +108,6 @@ void BasicPattern::endGap()
     // nothing more to do
     return;
   }
-  if (m_skipCols > 0) {
-    m_colorset.skip(m_skipCols);
-  }
   if (!m_repeatCounter) {
     m_repeatCounter = m_repeatGroup;
   }
@@ -117,7 +116,7 @@ void BasicPattern::endGap()
 void BasicPattern::onBlinkOn()
 {
   // set the target led with the given color
-  Leds::setIndex(m_ledPos, m_colorset.getNext());
+  Leds::setIndex(m_ledPos, m_reflect ? m_colorset.getNext() : m_colorset.getPrev());
 }
 
 void BasicPattern::onBlinkOff()
@@ -126,10 +125,19 @@ void BasicPattern::onBlinkOff()
     // clear the target led if there is an off duration
     Leds::clearIndex(m_ledPos);
   }
+
   // count a blink in the group
   m_groupCounter++;
+
+  if (m_reflectIndex && m_reflectIndex == m_groupCounter) {
+    // switch direction of colors
+    m_reflect = !m_reflect;
+  }
+
   // check if the group has reached the intended size
-  if (m_groupCounter >= m_realGroupSize) {
+  if (m_groupCounter >= m_realGroupSize && !m_reflectIndex) {
+    triggerGap();
+  } else if (m_groupCounter == (m_reflectIndex * 2) - 1) {
     triggerGap();
   }
 }
