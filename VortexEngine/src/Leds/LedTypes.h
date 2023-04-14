@@ -185,7 +185,7 @@ inline bool isPairSide(LedPos pos)
   }
 }
 
-// convert an led postion to a pair
+// convert an led position to a pair
 inline Pair ledToPair(LedPos pos)
 {
   switch (pos) {
