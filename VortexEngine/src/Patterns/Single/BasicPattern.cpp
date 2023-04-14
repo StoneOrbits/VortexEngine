@@ -104,19 +104,31 @@ void BasicPattern::endGap()
     // each time an entire group has been displayed
     m_repeatCounter--;
     // to "repeat" we simply move the colorset back one group size
-    m_colorset.skip(-(int32_t)m_realGroupSize);
+    if (!m_reflectIndex) {
+      m_colorset.skip(-(int32_t)m_realGroupSize);
+    } else {
+      m_colorset.skip(-1);
+      m_reflect = !m_reflect;
+    }
     // nothing more to do
     return;
   }
   if (!m_repeatCounter) {
     m_repeatCounter = m_repeatGroup;
+    // here is additional logic for when there is a refelct index set
+    if (m_reflectIndex) {
+      // this sets the colorset to the color after the central color in the previous reflection
+      m_colorset.skip(-(int32_t)((m_colorset.numColors() - m_reflectIndex) + 1));
+      m_reflect = !m_reflect;
+      return;
+    }
   }
 }
 
 void BasicPattern::onBlinkOn()
 {
   // set the target led with the given color
-  Leds::setIndex(m_ledPos, m_reflect ? m_colorset.getNext() : m_colorset.getPrev());
+  Leds::setIndex(m_ledPos, m_reflect ? m_colorset.getPrev() : m_colorset.getNext());
 }
 
 void BasicPattern::onBlinkOff()
