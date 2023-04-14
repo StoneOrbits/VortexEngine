@@ -6,6 +6,8 @@
 #include "../Time/TimeControl.h"
 #include "../Modes/Modes.h"
 
+#include "../VortexConfig.h"
+
 #ifdef VORTEX_LIB
 #include "../../VortexLib/VortexLib.h"
 #endif
