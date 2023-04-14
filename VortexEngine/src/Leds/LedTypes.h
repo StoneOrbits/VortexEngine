@@ -125,7 +125,7 @@ enum Pair : uint8_t
   PAIR_LAST = (PAIR_COUNT - 1),
 };
 
-// check if an led is finger tip or top
+// check if an led is even or odd
 inline bool isEven(LedPos pos)
 {
   return (pos % 2) == 0;
@@ -185,7 +185,7 @@ inline bool isPairSide(LedPos pos)
   }
 }
 
-// convert and led postion to a pair
+// convert an led postion to a pair
 inline Pair ledToPair(LedPos pos)
 {
   switch (pos) {
