@@ -631,6 +631,7 @@ vector<string> Vortex::getCustomParams(PatternID id)
   for (uint32_t i = 0; i < pat->getNumArgs(); ++i) {
     params.push_back(pat->getArgName(i));
   }
+  delete pat;
   return params;
 }
 
