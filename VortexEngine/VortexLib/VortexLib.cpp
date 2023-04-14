@@ -297,6 +297,41 @@ void Vortex::getStorageStats(uint32_t *outTotal, uint32_t *outUsed)
   }
 }
 
+void Vortex::openRandomizer()
+{
+  Menus::openMenu(MENU_RANDOMIZER);
+}
+
+void Vortex::openColorSelect()
+{
+  Menus::openMenu(MENU_COLOR_SELECT);
+}
+
+void Vortex::openPatternSelect()
+{
+  Menus::openMenu(MENU_PATTERN_SELECT);
+}
+
+void Vortex::openGlobalBrightness()
+{
+  Menus::openMenu(MENU_GLOBAL_BRIGHTNESS);
+}
+
+void Vortex::openFactoryReset()
+{
+  Menus::openMenu(MENU_FACTORY_RESET);
+}
+
+void Vortex::openModeSharing()
+{
+  Menus::openMenu(MENU_MODE_SHARING);
+}
+
+void Vortex::openEditorConnection()
+{
+  Menus::openMenu(MENU_EDITOR_CONNECTION);
+}
+
 bool Vortex::getModes(ByteStream &outStream)
 {
   // now serialize all the modes
@@ -328,7 +363,7 @@ bool Vortex::getCurMode(ByteStream &outStream)
   return pMode->saveToBuffer(outStream);
 }
 
-uint32_t Vortex::curMode()
+uint32_t Vortex::curModeIndex()
 {
   return Modes::curModeIndex();
 }

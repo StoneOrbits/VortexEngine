@@ -130,12 +130,22 @@ public:
   // get total/used storage space
   static void getStorageStats(uint32_t *outTotal, uint32_t *outUsed);
 
+  // open various menus on the core (if they exist!)
+  static void openRandomizer();
+  static void openColorSelect();
+  static void openPatternSelect();
+  static void openGlobalBrightness();
+  static void openFactoryReset();
+  static void openModeSharing();
+  static void openEditorConnection();
+
+  // convert modes to/from a bytestream
   static bool getModes(ByteStream &outStream);
   static bool setModes(ByteStream &stream, bool save = true);
   static bool getCurMode(ByteStream &stream);
 
   // functions to operate on the current mode selection
-  static uint32_t curMode();
+  static uint32_t curModeIndex();
   static uint32_t numModes();
   static uint32_t numLedsInMode();
   static bool addNewMode(Random *pRandCtx = nullptr, bool save = true);
