@@ -117,6 +117,7 @@ Pattern *PatternBuilder::makeInternal(PatternID id, const PatternArgs *args)
 }
 
 // This is just the default arguments for any given pattern id
+// it will *not* indicate the true amount of arguments a pattern has
 // Some pattern ids are purely defined by their unique arguments
 // to a class, so calling them 'default' might be misleading
 PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
@@ -187,6 +188,17 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
 #endif
   }
   return PatternArgs();
+}
+
+uint8_t PatternBuilder::numDefaultArgs(PatternID id)
+{
+  Pattern *pat = make(id);
+  if (!pat) {
+    return 0;
+  }
+  uint8_t numArgs = pat->getNumArgs();
+  delete pat;
+  return numArgs;
 }
 
 // This is responsible for instantiating the basic core patterns

@@ -612,13 +612,7 @@ string Vortex::ledToString(LedPos pos)
 // the number of custom parameters for any given pattern id
 uint32_t Vortex::numCustomParams(PatternID id)
 {
-  Pattern *pat = PatternBuilder::make(id);
-  if (!pat) {
-    return 0;
-  }
-  uint32_t numArgs = pat->getNumArgs();
-  delete pat;
-  return numArgs;
+  return PatternBuilder::numDefaultArgs(id);
 }
 
 vector<string> Vortex::getCustomParams(PatternID id)
