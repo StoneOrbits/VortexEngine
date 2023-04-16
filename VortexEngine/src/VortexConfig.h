@@ -42,15 +42,9 @@
 
 // Menu Trigger Threshold (in milliseconds)
 //
-// How long the button must be held to trigger ring menu and begin
-// filling the first menu color
+// How long the button must be held to trigger menu selection and
+// begin blinking the first menu color
 #define MENU_TRIGGER_TIME     1000
-
-// Menu Duration (in milliseconds)
-//
-// How long each ring menu takes to fill, after which the next
-// menu will start filling
-#define MENU_FILL_TIME        1000
 
 // Short Click Threshold (in milliseconds)
 //
@@ -63,12 +57,13 @@
 //
 // The amount of time the engine will ignore button presses after
 // it has started up, this is to prevent accidental button presses
+// after sleep or immediately on startup
 #define IGNORE_BUTTON_TIME    150
 
 // Color delete threshold (in milliseconds)
 //
 // How long you must hold down on a color in the color select menu to
-// trigger the delete option to start flashing on the tip
+// trigger the delete option to start flashing
 #define COL_DELETE_THRESHOLD  2000
 
 // Color delete cycle time (in milliseconds)
@@ -86,13 +81,16 @@
 // Serial check time (in milliseconds)
 //
 // This is how quickly the serial class can check for serial connections
-// when the editor menu is open
+// when the editor menu is open, if you lower this then the editor will
+// connect quicker but the vortex device will have to do more work
 #define SERIAL_CHECK_TIME     500
 
 // Max Color Slots
 //
-// The max number of colors in a colorset, this was never tested with
-// anything other than 8, you have been warned
+// The max number of colors in a colorset, this was never tested or
+// designed to be anything other than 8, you have been warned. If you
+// want to increase this or change this then it is suggested you review
+// all locations where it or colorset code is being used
 #define MAX_COLOR_SLOTS       8
 
 // Default Global Brightness
@@ -106,9 +104,17 @@
 // The maximum number of modes that can be stored on the device.
 // This should reflect the available RAM of the device.
 //
-// In our tests even 45 fully loaded modes only took up 15kb
+// In our tests even 45 fully loaded modes only took up 15kb,
+// however this is heavily dependent on the state of compression.
 //
-// Set this to 0 for no limit on the number of modes
+// Smaller devices aren't able to comrpess as easily due to the lack
+// of stack space for compression algorithms. This means they have
+// two fold the issues with space because they are already limited
+// and the lack of compression makes their save files bigger
+//
+// This is set to 0 by default which allows for any number of modes
+// to be stored, however this is not recommended for production and
+// a specific maximum should be chosen for each device
 //
 #define MAX_MODES             0
 
@@ -120,7 +126,17 @@
 // the processor to handle.
 //
 // Any value less than 100 and you risk a single tick taking longer
-// than some pattern timings which results in unexpected behaviour
+// than some pattern timings which results in very weird behaviour
+//
+// It's probably best that you leave this at 1000
+//
+// WARNING:
+//
+//  The timer system was not designed to handle ticks that are not
+//  exactly 1 ms. This means that if you change the tickrate to any
+//  value other than 1000 the timer system will miss alarms, patterns
+//  will not look correct and there is no fix at the moment.
+//
 #define DEFAULT_TICKRATE      1000
 
 // Pair time offset in ticks
