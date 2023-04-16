@@ -454,7 +454,7 @@ Mode *Modes::nextMode()
   return setCurMode(m_curMode + 1);
 }
 
-// iterate to next mode and return it
+// iterate to previous mode and return it
 Mode *Modes::previousMode()
 {
   if (!m_numModes) {

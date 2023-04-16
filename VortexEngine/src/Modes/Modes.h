@@ -72,7 +72,7 @@ public:
   // iterate to next mode and return it
   static Mode *nextMode();
   // iterate to previous mode and return it
-  Mode *Modes::previousMode();
+  static Mode *previousMode();
 
   // the number of modes
   static uint8_t numModes() { return m_numModes; }
