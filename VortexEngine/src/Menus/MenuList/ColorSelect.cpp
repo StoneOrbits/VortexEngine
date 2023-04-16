@@ -224,7 +224,6 @@ void ColorSelect::showHueSelection1()
     return;
   }
   uint8_t hue1 = m_curSelection * (255 / 4);
-  uint8_t hue2 = hue1 + (255 / 8);
   Leds::breathIndex(LED_COUNT, hue1, (uint32_t)(Time::getCurtime() / 2) + 62, 22, 255, 180);
 }
 
