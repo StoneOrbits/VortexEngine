@@ -454,6 +454,19 @@ Mode *Modes::nextMode()
   return setCurMode(m_curMode + 1);
 }
 
+// iterate to next mode and return it
+Mode *Modes::previousMode()
+{
+  if (!m_numModes) {
+    return nullptr;
+  }
+  // iterate the cur mode backwards
+  if (!m_curMode) {
+    return setCurMode(numModes() - 1);
+  }
+  return setCurMode(m_curMode - 1);
+}
+
 void Modes::deleteCurMode()
 {
   if (!m_numModes || !m_pCurModeLink) {
