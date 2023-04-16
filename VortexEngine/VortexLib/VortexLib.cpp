@@ -258,7 +258,7 @@ Mode *Vortex::getMenuDemoMode()
   }
   // attiny just demos the cur mode in menus to save on space
   return Modes::curMode();
- }
+}
 
 bool Vortex::isButtonPressed(uint32_t buttonIndex)
 {
