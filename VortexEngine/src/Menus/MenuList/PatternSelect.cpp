@@ -19,7 +19,6 @@ bool PatternSelect::init()
   if (!m_pCurMode) {
     return false;
   }
-  // re-initialize the current mode
   m_pCurMode->init();
   DEBUG_LOG("Entered pattern select");
   return true;
