@@ -129,9 +129,13 @@ bool Menus::runMenuSelection()
   Leds::clearAll();
   // blink every even/odd of every pair
   for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
-    Leds::blinkIndex(pairEven(p), Time::getCurtime(), 200, 200, menuList[m_selection].color);
-    Leds::setIndex(pairOdd(p), menuList[m_selection].color);
-    Leds::blinkIndex(pairOdd(p), Time::getCurtime(), 200, 200, RGB_OFF);
+    if (pairEven(p) < LED_COUNT) {
+      Leds::blinkIndex(pairEven(p), Time::getCurtime(), 200, 200, menuList[m_selection].color);
+    }
+    if (pairOdd(p) < LED_COUNT) {
+      Leds::setIndex(pairOdd(p), menuList[m_selection].color);
+      Leds::blinkIndex(pairOdd(p), Time::getCurtime(), 200, 200, RGB_OFF);
+    }
   }
   // continue in the menu
   return true;
