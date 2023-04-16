@@ -62,6 +62,7 @@ bool VortexEngine::init()
 #if SERIALIZATION_TEST == 1
   serializationTest();
 #endif
+
   return true;
 }
 
