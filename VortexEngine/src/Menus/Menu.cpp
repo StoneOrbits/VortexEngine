@@ -12,8 +12,8 @@ Menu::Menu(const RGBColor &col) :
   m_menuColor(col),
   m_targetLed(LED_COUNT),
   m_ledSelected(false),
-  m_shouldClose(false),
-  m_curSelection(0)
+  m_curSelection(0),
+  m_shouldClose(false)
 {
 }
 
