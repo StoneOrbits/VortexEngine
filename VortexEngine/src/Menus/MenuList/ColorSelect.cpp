@@ -137,7 +137,6 @@ void ColorSelect::onLongClick()
       // if our selection is on the exit index then check if the
       // colorset has been changed and save if necessary
       Pattern *pat = m_pCurMode->getPattern(m_targetLed);
-      bool needssave = false;
       if (pat && !m_colorset.equals(pat->getColorset())) {
         m_pCurMode->setColorsetAt(&m_colorset, m_targetLed);
         m_pCurMode->init();
