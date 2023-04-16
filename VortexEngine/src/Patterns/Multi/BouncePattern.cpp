@@ -5,12 +5,8 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-#define TOTAL_STEPS ((PAIR_COUNT * 2) - 2)
 // safety to prevent divide by 0
-#if TOTAL_STEPS == 0
-#undef TOTAL_STEPS
-#define TOTAL_STEPS 1
-#endif
+#define TOTAL_STEPS (((PAIR_COUNT * 2) - 2) ? ((PAIR_COUNT * 2) - 2) : 1)
 #define HALF_STEPS (TOTAL_STEPS / 2)
 
 BouncePattern::BouncePattern(const PatternArgs &args) :

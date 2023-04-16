@@ -2,9 +2,13 @@
 
 #if VORTEX_ERROR_BLINK == 1
 
-static ErrorCode g_error = ERROR_NONE;
+#include "../Leds/Leds.h"
 
-void setError(ErrorCode err)
+#include <Arduino.h>
+
+static uint16_t g_error = ERROR_NONE;
+
+void setError(uint16_t err)
 {
   if (g_error != ERROR_NONE) {
     // do not overwrite errors, the first error gets precedent
@@ -13,7 +17,7 @@ void setError(ErrorCode err)
   g_error = err;
 }
 
-ErrorCode getError()
+uint16_t getError()
 {
   return g_error;
 }
