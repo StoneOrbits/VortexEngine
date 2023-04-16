@@ -40,7 +40,7 @@ public:
   static bool run();
 
   // open the ring menu
-  static bool openRingMenu();
+  static bool openMenuSelection();
 
   // open a menu by index in the menu table
   static bool openMenu(uint32_t index);
@@ -54,7 +54,7 @@ private:
   // run the currently open menu
   static bool runCurMenu();
   // run the ring filling logic
-  static bool runRingFill();
+  static bool runMenuSelection();
   // helper to calculate the relative hold time for the current menu
   static LedPos calcLedPos();
   // close the currently open menu
@@ -67,8 +67,8 @@ private:
     // menus aren't open at all
     MENU_STATE_NOT_OPEN = 0,
 
-    // menus are open and the ring menu is cycling
-    MENU_STATE_RING_FILL,
+    // menus are open and the user is choosing a menu
+    MENU_STATE_MENU_SELECTION,
 
     // the menus are open and we opened a menu
     MENU_STATE_IN_MENU

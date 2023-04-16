@@ -92,14 +92,14 @@ bool Menus::run()
   default:
     // nothing to run
     return false;
-  case MENU_STATE_RING_FILL:
-    return runRingFill();
+  case MENU_STATE_MENU_SELECTION:
+    return runMenuSelection();
   case MENU_STATE_IN_MENU:
     return runCurMenu();
   }
 }
 
-bool Menus::runRingFill()
+bool Menus::runMenuSelection()
 {
   if (g_pButton->onShortClick()) {
     // otherwise increment selection and wrap around at num menus
@@ -127,21 +127,12 @@ bool Menus::runRingFill()
   }
   // clear the leds so it always fills instead of replacing
   Leds::clearAll();
-  // calculate how long into the current menu the button was held
-  // this will be a value between 0 and LED_COUNT based on the current
-  // menu selection and hold time
-  // the leds turn on in sequence every tick another turns on:
-  //  000ms = led 0 to 0
-  //  100ms = led 0 to 1
-  //  200ms = led 0 to 2
-  LedPos led = calcLedPos();
-#if FILL_FROM_THUMB == 1
-  // turn on leds from led to LED_LAST because the menu is filling downward
-  Leds::setRange(led, LED_LAST, menuList[m_selection].color);
-#else
-  // turn on leds LED_FIRST through led with the selected menu's given color
-  Leds::setRange(LED_FIRST, led, menuList[m_selection].color);
-#endif
+  // blink every even/odd of every pair
+  for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
+    Leds::blinkIndex(pairEven(p), Time::getCurtime(), 200, 200, menuList[m_selection].color);
+    Leds::setIndex(pairOdd(p), menuList[m_selection].color);
+    Leds::blinkIndex(pairOdd(p), Time::getCurtime(), 200, 200, RGB_OFF);
+  }
   // continue in the menu
   return true;
 }
@@ -174,23 +165,8 @@ bool Menus::runCurMenu()
   return true;
 }
 
-// helper to calculate the relative hold time for the current menu
-LedPos Menus::calcLedPos()
-{
-  // this allows the menu to wrap around to beginning after
-  uint32_t holdDuration = (Time::getCurtime() - m_openTime) % MENU_DURATION_TICKS;
-  // calcluate the led for the hold duration
-  LedPos led = (LedPos)(((double)holdDuration / MENU_DURATION_TICKS) * LED_COUNT);
-  // if the holdTime is within MENU_DURATION_TICKS then it's valid
-#if FILL_FROM_THUMB == 1
-  return (LedPos)(LED_LAST - led);
-#else
-  return led;
-#endif
-}
-
-  // open the ring menu
-bool Menus::openRingMenu()
+// open the menu selection ring
+bool Menus::openMenuSelection()
 {
   if (m_menuState != MENU_STATE_NOT_OPEN) {
     return false;
@@ -198,7 +174,7 @@ bool Menus::openRingMenu()
   // save the time of when we open the menu so we can fill based on curtime from then
   m_openTime = Time::getCurtime();
   // open the menu
-  m_menuState = MENU_STATE_RING_FILL;
+  m_menuState = MENU_STATE_MENU_SELECTION;
   // clear the leds
   Leds::clearAll();
   return true;
