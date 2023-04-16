@@ -333,6 +333,9 @@
     <ClCompile Include="src\Random\Random.cpp">
       <Filter>Source Files\Random</Filter>
     </ClCompile>
+    <ClCompile Include="src\Log\ErrorBlinker.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\VortexConfig.h">
@@ -556,6 +559,9 @@
     </ClInclude>
     <ClInclude Include="src\Random\Random.h">
       <Filter>Header Files\Random</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Log\ErrorBlinker.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

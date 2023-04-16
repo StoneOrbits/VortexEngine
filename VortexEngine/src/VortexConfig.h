@@ -236,6 +236,25 @@
 // the final build? I'm not sure.
 #define VARIABLE_TICKRATE     0
 
+// Error Blinker System
+//
+// This toggles the vortex error blinker system, this system reports
+// fatal errors as a series of blinks. If an error is encountered the
+// chip will only blink out the error code from there forward.
+//
+// Note that enabling this system takes a non-negligible amount
+// of space for all of the code, it really should only be used
+// for debug settings or given tiers like logging level.
+//
+// This is mainly useful for tracking down issues on devices that don't
+// have a serial connection like the attiny. Use FATAL_ERROR(code) to
+// set the error code and then the device will blink out the error
+//
+// for ex: red red green blue blue blue is code 213
+//
+// See Log/ErrorBlinker.h for details on the error codes
+#define VORTEX_ERROR_BLINK    0
+
 // Fixed LED Count
 //
 // Do not allow the Mode loader to dynamically load however many modes
