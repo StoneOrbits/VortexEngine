@@ -12,14 +12,23 @@
 
 #include "Timings.h"
 
+#include "../Leds/Leds.h"
+
+#ifdef VORTEX_ARDUINO
+#include <avr/sleep.h>
+#endif
+
 // static members
 uint64_t Time::m_curTick = 0;
 uint64_t Time::m_prevTime = 0;
 uint64_t Time::m_firstTime = 0;
+#if VARIABLE_TICKRATE == 1
 uint32_t Time::m_tickrate = DEFAULT_TICKRATE;
-uint32_t Time::m_tickOffset = DEFAULT_TICK_OFFSET;
+#endif
+#ifdef VORTEX_LIB
 uint32_t Time::m_simulationTick = 0;
 bool Time::m_isSimulation = false;
+#endif
 
 // Within this file TICKRATE may refer to the variable member
 // or the default tickrate constant based on the configuration
@@ -32,6 +41,14 @@ bool Time::m_isSimulation = false;
 bool Time::init()
 {
   m_firstTime = m_prevTime = micros();
+  m_curTick = 0;
+#if VARIABLE_TICKRATE == 1
+  m_tickrate = DEFAULT_TICKRATE;
+#endif
+#ifdef VORTEX_LIB
+  m_simulationTick = 0;
+  m_isSimulation = false;
+#endif
   return true;
 }
 
@@ -43,6 +60,12 @@ void Time::tickClock()
 {
   // tick clock forward
   m_curTick++;
+
+#if TIMER_TEST == 1
+  // just return immediately when testing the time system, this prevents the actual
+  // delay from occurring and allows us to tick forward as fast as we want
+  return;
+#endif
 
 #if DEBUG_ALLOCATIONS == 1
   if ((m_curTick % msToTicks(1000)) == 0) {
@@ -63,15 +86,27 @@ void Time::tickClock()
       // otherwise calculate regular difference
       elapsed_us = (uint32_t)(us - m_prevTime);
     }
-#if defined(VORTEX_LIB) && !defined(_MSC_VER)
+    // if building anywhere except visual studio then we can run alternate sleep code
+    // because in visual studio + windows it's better to just spin and check the high
+    // resolution clock instead of trying to sleep for microseconds. However on linux
+    // and arduino we can sleep for microseconds at a time, on linux it's precise, but
+    // on arduino we just get to sleep for some amount
+#if !defined(_MSC_VER)
     uint32_t required = (1000000 / TICKRATE);
+    uint32_t sleepTime = 0;
     if (required > elapsed_us) {
       // in vortex lib on linux we can just sleep instead of spinning
       // but on arduino we must spin and on windows it actually ends
-      // up being more accurate to poll QPF + QPC
-      delayMicroseconds(required - elapsed_us);
+      // up being more accurate to poll QPF + QPC via micros()
+      sleepTime = required - elapsed_us;
     }
+
+#if defined(VORTEX_LIB)
+    // delay when on linux vortexlib but not windows
+    delayMicroseconds(sleepTime);
+    // when running
     break;
+#endif
 #endif
     // 1000us per ms, divided by tickrate gives
     // the number of microseconds per tick
@@ -86,7 +121,11 @@ uint64_t Time::getCurtime(LedPos pos)
 {
   // the current tick, plus the time offset per LED, plus any
   // simulation offset
-  return m_curTick + getTickOffset(pos) + getSimulationTick();
+#ifdef VORTEX_LIB
+  return m_curTick + getSimulationTick();
+#else
+  return m_curTick;
+#endif
 }
 
 // the real current time, bypass simulations, used by timers
@@ -95,10 +134,9 @@ uint64_t Time::getRealCurtime()
   return m_curTick;
 }
 
-// get the amount of ticks this led position runs out of sync
-uint32_t Time::getTickOffset(LedPos pos)
+uint32_t Time::getTickrate()
 {
-  return (pos * m_tickOffset);
+  return TICKRATE;
 }
 
 // Set tickrate in Ticks Per Second (TPS)
@@ -118,11 +156,6 @@ void Time::setTickrate(uint32_t tickrate)
 #endif
 }
 
-void Time::setTickOffset(uint32_t tickOffset)
-{
-  m_tickOffset = tickOffset;
-}
-
 uint32_t Time::msToTicks(uint32_t ms)
 {
   // 0ms = 0 ticks
@@ -138,6 +171,8 @@ uint32_t Time::msToTicks(uint32_t ms)
   }
   return ticks;
 }
+
+#ifdef VORTEX_LIB
 
 // Start a time simulation, while the simulation is active you can
 // increment the 'current time' with tickSimulation() then when you
@@ -176,3 +211,11 @@ uint32_t Time::endSimulation()
   return endTick;
 }
 
+#endif
+
+#if TIMER_TEST == 1
+void Time::test()
+{
+
+}
+#endif

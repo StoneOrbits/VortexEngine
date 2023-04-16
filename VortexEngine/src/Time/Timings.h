@@ -8,7 +8,6 @@
 // local definition which converts the global configuration that
 // is defined in milliseconds into a time in ticks that can be
 // used for comparisons in the menu
-#define MENU_DURATION_TICKS           Time::msToTicks(MENU_FILL_TIME)
 #define MENU_TRIGGER_THRESHOLD_TICKS  Time::msToTicks(MENU_TRIGGER_TIME)
 #define SHORT_CLICK_THRESHOLD_TICKS   Time::msToTicks(CLICK_THRESHOLD)
 
