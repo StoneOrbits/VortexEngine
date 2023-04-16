@@ -15,10 +15,56 @@ public:
   MenuAction run() override;
 
   // handlers for clicks
-  //void onShortClick() override;
-  //void onLongClick() override;
+  void onShortClick() override;
+  void onLongClick() override;
 
 private:
+  enum ColorSelectState
+  {
+    // first run after the menu is entered
+    STATE_INIT,
+    STATE_PICK_SLOT,
+    STATE_PICK_HUE1,
+    STATE_PICK_HUE2,
+    STATE_PICK_SAT,
+    STATE_PICK_VAL
+  };
+
+  void showSlotSelection();
+  void showHueSelection1();
+  void showHueSelection2();
+  void showSatSelection();
+  void showValSelection();
+  void showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs);
+
+  // the options for saturations
+  const uint32_t sats[4] = {
+    255,
+    170,
+    85,
+    0
+  };
+
+  // the options for values
+  const uint32_t vals[4] = {
+    255,
+    170,
+    85,
+    0
+  };
+
+  // the state of the color select menu
+  ColorSelectState m_state;
+  // the new color being built via hue, sat then val
+  HSVColor m_newColor;
+  // A copy of the colorset being changed
+  Colorset m_colorset;
+  // current selection id for any given state, the last selection
+  // of any color select menu is the exit option. Depending on the
+  // state the selection options are different
+  uint8_t m_curSelection;
+  // the target slot in the color slot that was selected
+  uint8_t m_targetSlot;
 };
 
 #endif

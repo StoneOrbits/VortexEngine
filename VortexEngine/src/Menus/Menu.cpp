@@ -91,7 +91,30 @@ Menu::MenuAction Menu::run()
 void Menu::showBulbSelection()
 {
   Leds::clearAll();
-  Leds::setIndex(m_targetLed, m_menuColor);
+  Leds::blinkIndex(m_targetLed, Time::getCurtime(), 250, 500, m_menuColor);
+  // blink when selecting
+  showSelect(m_targetLed);
+}
+
+void Menu::showSelect(LedPos targetLed, uint8_t blinkTimeMs)
+{
+  // blink the tip led white for 150ms when the short
+  // click threshold has been surpassed
+  if (g_pButton->isPressed() &&
+    g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS &&
+    g_pButton->holdDuration() < (SHORT_CLICK_THRESHOLD_TICKS + Time::msToTicks(250))) {
+    Leds::setAll(RGB_DIM_WHITE1);
+  }
+}
+
+void Menu::showExit()
+{
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
+    Leds::setAll(RGB_RED);
+    return;
+  }
+  Leds::clearAll();
+  Leds::blinkAll(Time::getCurtime(), 250, 500, RGB_DARK_RED);
 }
 
 void Menu::onShortClick()

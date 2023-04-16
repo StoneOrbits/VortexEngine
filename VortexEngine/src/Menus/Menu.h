@@ -37,6 +37,8 @@ public:
 
 protected:
   void showBulbSelection();
+  void showSelect(LedPos targetLed = LED_0, uint8_t blinkTimeMs = 100);
+  void showExit();
 
   // the current mode that was selected
   Mode *m_pCurMode;
