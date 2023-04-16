@@ -10,7 +10,7 @@
 Menu::Menu(const RGBColor &col) :
   m_pCurMode(nullptr),
   m_menuColor(col),
-  m_targetLed(LED_0),
+  m_targetLed(LED_COUNT),
   m_ledSelected(false),
   m_shouldClose(false),
   m_curSelection(0)
