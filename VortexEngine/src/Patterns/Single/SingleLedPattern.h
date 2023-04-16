@@ -14,10 +14,6 @@ public:
 
   virtual void init() override;
 
-  // skip the pattern ahead some ticks
-  // NOTE: This is not working properly at the moment
-  virtual void skip(uint32_t ticks);
-
 private:
 
 };

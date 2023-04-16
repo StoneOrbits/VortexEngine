@@ -59,6 +59,11 @@ public:
   // pure virtual must override the play function
   virtual void play() = 0;
 
+#ifdef VORTEX_LIB
+  // skip the pattern ahead some ticks
+  virtual void skip(uint32_t ticks);
+#endif
+
   // must override the serialize routine to save the pattern
   // must override unserialize to load patterns
   virtual void serialize(ByteStream &buffer) const;

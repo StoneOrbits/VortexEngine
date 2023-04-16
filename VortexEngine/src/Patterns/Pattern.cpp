@@ -39,6 +39,18 @@ void Pattern::init()
   m_colorset.resetIndex();
 }
 
+#ifdef VORTEX_LIB
+void Pattern::skip(uint32_t ticks)
+{
+  Time::startSimulation();
+  for (uint32_t i = 0; i < ticks; ++i) {
+    play();  // simulate playing the pattern
+    Time::tickSimulation();
+  }
+  Time::endSimulation();
+}
+#endif
+
 // must override the serialize routine to save the pattern
 void Pattern::serialize(ByteStream &buffer) const
 {
