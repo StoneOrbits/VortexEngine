@@ -22,8 +22,6 @@ private:
   // the list of brightness options, this can be
   // any length really and the menu will adjust
   const uint8_t m_brightnessOptions[4] = { 40, 120, 185, 255 };
-  // the current selection in the menu
-  uint8_t m_curSelection;
 };
 
 #endif

@@ -59,10 +59,6 @@ private:
   HSVColor m_newColor;
   // A copy of the colorset being changed
   Colorset m_colorset;
-  // current selection id for any given state, the last selection
-  // of any color select menu is the exit option. Depending on the
-  // state the selection options are different
-  uint8_t m_curSelection;
   // the target slot in the color slot that was selected
   uint8_t m_targetSlot;
 };

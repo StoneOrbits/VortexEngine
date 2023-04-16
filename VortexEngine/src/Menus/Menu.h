@@ -48,6 +48,8 @@ protected:
   LedPos m_targetLed;
   // true once a an led is selected
   bool m_ledSelected;
+  // all menus have a 'current selection'
+  uint8_t m_curSelection;
 
 private:
   // internal flag to close the menu

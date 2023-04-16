@@ -18,7 +18,6 @@ public:
 
 private:
   void showReset();
-  bool m_curSelection;
 };
 
 #endif

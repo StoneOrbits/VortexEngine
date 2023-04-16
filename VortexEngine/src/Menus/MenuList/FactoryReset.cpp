@@ -14,8 +14,7 @@
 #include <Arduino.h>
 
 FactoryReset::FactoryReset(const RGBColor &col) :
-  Menu(col),
-  m_curSelection(false)
+  Menu(col)
 {
 }
 

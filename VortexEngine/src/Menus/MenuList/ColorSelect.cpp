@@ -15,7 +15,6 @@ ColorSelect::ColorSelect(const RGBColor &col) :
   m_state(STATE_PICK_SLOT),
   m_newColor(),
   m_colorset(),
-  m_curSelection(0),
   m_targetSlot(0)
 {
   // NOTE! Specifically using hsv_to_rgb_rainbow instead of generic because
