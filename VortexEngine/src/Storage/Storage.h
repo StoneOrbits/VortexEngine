@@ -19,8 +19,7 @@ public:
   // read a serial buffer from storage
   static bool read(ByteStream &buffer);
 
-  // the total available storage space
-  static uint32_t totalSpace();
+  // the last save size (use STORAGE_SIZE For total space)
   static uint32_t lastSaveSize();
 
 private:

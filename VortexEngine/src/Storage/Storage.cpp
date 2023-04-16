@@ -65,11 +65,6 @@ bool Storage::read(ByteStream &buffer)
   return true;
 }
 
-uint32_t Storage::totalSpace()
-{
-  return MAX_STORAGE_SPACE - ENGINE_SIZE;
-}
-
 uint32_t Storage::lastSaveSize()
 {
   return m_lastSaveSize;
