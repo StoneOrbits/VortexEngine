@@ -7,7 +7,8 @@ Random::Random() :
 {
 }
 
-Random::Random(uint32_t newseed)
+Random::Random(uint32_t newseed) :
+  Random()
 {
   seed(newseed);
 }
