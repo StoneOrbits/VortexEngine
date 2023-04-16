@@ -25,8 +25,6 @@
 
 // set an error code and blink it
 #define FATAL_ERROR(err) setError(err);
-// the error check routine when blinks are enabled
-#define HANDLE_FATAL_ERROR() blinkError();
 
 // set an error code
 void setError(uint16_t err);
