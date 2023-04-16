@@ -116,23 +116,10 @@ void VortexEngine::runMainLogic()
   if (Menus::run()) {
     return;
   }
-  // otherwise check for any press or hold to enter sleep or enter menus
-  uint32_t holdTime = g_pButton->holdDuration();
-  // if the user releases the button after the sleep threshold and
-  // we're still in menu state not open, then we can go to sleep
-  if (g_pButton->onLongClick() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
-    // enter sleep mode, this won't return
-    enterSleep();
-  }
-  if (g_pButton->isPressed() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
-    // and finally if the button is pressed then clear the leds if within
-    // the sleep window and open the ring menu if past that
-    Leds::clearAll();
-    // then check to see if we've held long enough to enter the menu
-    if (holdTime >= (SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS)) {
-      DEBUG_LOG("Entering ring fill...");
-      Menus::openMenuSelection();
-    }
+  // check if we should enter the menu
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > MENU_TRIGGER_THRESHOLD_TICKS) {
+    DEBUG_LOG("Entering Menu Selection...");
+    Menus::openMenuSelection();
     return;
   }
   // otherwise just play the modes
