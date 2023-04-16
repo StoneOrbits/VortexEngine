@@ -155,17 +155,6 @@ bool Vortex::init(VortexCallbacks *callbacks)
   // save and set undo buffer
   doSave();
 
-  // check all custom params match the mapped list of words
-  for (PatternID id = PATTERN_FIRST; id < PATTERN_COUNT; ++id) {
-    vector<string> params = Vortex::getCustomParams(id);
-    PatternArgs args = PatternBuilder::getDefaultArgs(id);
-    if (params.size() != args.numArgs) {
-      ERROR_LOG("/!\\ PARAMS NOT EVEN /!\\");
-      // Params not even!
-      return false;
-    }
-  }
-
   m_initialized = true;
 
   return true;

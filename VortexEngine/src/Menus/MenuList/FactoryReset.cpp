@@ -1,15 +1,21 @@
 #include "FactoryReset.h"
 
+#include "../../Modes/DefaultModes.h"
 #include "../../Time/TimeControl.h"
+#include "../../Patterns/Pattern.h"
 #include "../../Buttons/Button.h"
 #include "../../Time/Timings.h"
 #include "../../Modes/Modes.h"
+#include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
+#include "../../VortexConfig.h"
+#include <Arduino.h>
+
 FactoryReset::FactoryReset(const RGBColor &col) :
   Menu(col),
-  m_resetMode(false)
+  m_curSelection(false)
 {
 }
 
@@ -22,7 +28,8 @@ bool FactoryReset::init()
   if (!Menu::init()) {
     return false;
   }
-  m_resetMode = false;
+  // Start on exit by default
+  m_curSelection = false;
   DEBUG_LOG("Entered factory reset");
   return true;
 }
@@ -33,34 +40,74 @@ Menu::MenuAction FactoryReset::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
-  Leds::clearAll();
-  if (m_resetMode) {
-    // blink red with a darker red
-    Leds::blinkIndex(LED_0, Time::getCurtime(), 250, 500, RGB_RED);
-    Leds::blinkIndex(LED_1, Time::getCurtime(), 250, 500, RGBColor(0, 100, 0));
-  } else {
-    // blink grey with a dark green for exit
-    Leds::blinkIndex(LED_0, Time::getCurtime(), 100, 200, RGBColor(40, 40, 40));
-    Leds::blinkIndex(LED_1, Time::getCurtime(), 100, 200, RGBColor(60, 0, 0));
-  }
-  if (g_pButton->isPressed() && g_pButton->holdDuration() >= SHORT_CLICK_THRESHOLD_TICKS) {
-    Leds::setAll(RGB_WHITE);
-  }
+  showReset();
   return MENU_CONTINUE;
 }
 
 void FactoryReset::onShortClick()
 {
-  m_resetMode = !m_resetMode;
+  m_curSelection = !m_curSelection;
 }
 
 void FactoryReset::onLongClick()
 {
-  if (m_resetMode) {
-    // do the reset
-    Modes::clearModes();
-    Modes::setDefaults();
-    Modes::saveStorage();
+  if (m_curSelection == 0) {
+    // if the selection isn't actually on factory reset then just leave
+    leaveMenu();
+    return;
   }
-  leaveMenu(m_resetMode);
+  // if the button hasn't been held long enough just return
+  if (g_pButton->holdDuration() <= (FACTORY_RESET_THRESHOLD_TICKS + Time::msToTicks(10))) {
+    return;
+  }
+  // the button was held down long enough so actually perform the factory reset
+  uint8_t curModeIndex = Modes::curModeIndex();
+  // reset the target mode slot on the target led
+  const default_mode_entry &def = default_modes[curModeIndex];
+  Colorset set(def.numColors, def.cols);
+  m_pCurMode->setSinglePat(m_targetLed, def.patternID, nullptr, &set);
+  // re-initialize the current mode
+  m_pCurMode->init();
+  // save and leave the menu
+  leaveMenu(true);
+}
+
+void FactoryReset::showReset()
+{
+  if (m_curSelection == 0) {
+    Leds::clearAll();
+    Leds::blinkAll(Time::getCurtime(), 350, 350, RGB_BLANK);
+    DEBUG_LOGF("select 0");
+    return;
+  }
+
+  if (!g_pButton->isPressed()) {
+    Leds::clearAll();
+    Leds::blinkAll(Time::getCurtime(), 150, 150, RGB_DIM_RED);
+    DEBUG_LOGF("not pressed");
+    return;
+  }
+
+  // don't start the fill until the button has been held for a bit
+  uint32_t holdDur = g_pButton->holdDuration();
+  if (holdDur < Time::msToTicks(100)) {
+    return;
+  }
+
+  float progress = (float)holdDur / FACTORY_RESET_THRESHOLD_TICKS;
+  LedPos ledProgress = (LedPos)(progress * 2);
+
+  DEBUG_LOGF("progress: %f %u", progress, ledProgress);
+
+  if (ledProgress > 1) {
+    Leds::setAll(RGB_WHITE);
+    return;
+  }
+
+  uint32_t offMs = 100 - (30 * ledProgress);
+  uint32_t onMs = 100 - (30 * ledProgress);
+  int8_t sat = (ledProgress < 2) ? (int8_t)(255 * progress) : 255;
+
+  Leds::clearAll();
+  Leds::blinkAll(Time::getCurtime(), offMs, onMs, HSVColor(0, 255 - sat, 180));
 }

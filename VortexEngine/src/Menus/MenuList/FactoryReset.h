@@ -17,7 +17,8 @@ public:
   void onLongClick() override;
 
 private:
-  bool m_resetMode;
+  void showReset();
+  bool m_curSelection;
 };
 
 #endif

@@ -13,12 +13,17 @@ public:
   MenuAction run() override;
 
   // handlers for clicks
-  //void onShortClick() override;
-  //void onLongClick() override;
+  void onShortClick() override;
+  void onLongClick() override;
 
 private:
-  // the four preset brightness options
-  const uint32_t m_brightnessOptions[4] = { 40, 120, 185, 255 };
+  void showBrightnessSelection();
+
+  // the list of brightness options, this can be
+  // any length really and the menu will adjust
+  const uint8_t m_brightnessOptions[4] = { 40, 120, 185, 255 };
+  // the current selection in the menu
+  uint8_t m_curSelection;
 };
 
 #endif
