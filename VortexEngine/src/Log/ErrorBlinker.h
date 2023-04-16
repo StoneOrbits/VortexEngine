@@ -14,26 +14,27 @@ enum ErrorCode : uint8_t
   ERROR_NONE = 0,
 
   // For example this would just be 'B' (1 blink)
-  ERROR_INIT_FAILED = 1,
-
+  ERROR_EXAMPLE1 = 1,
   // this would be "R R G G G B"
-  ERROR_EXAMPLE = 231,
+  ERROR_EXAMPLE2 = 231,
 };
 
 #if VORTEX_ERROR_BLINK == 0
+
 // normal builds don't do anything
 #define FATAL_ERROR(err)
+
 #else
 
 // set an error code and blink it
 #define FATAL_ERROR(err) setError(err);
+// the error check routine when blinks are enabled
+#define HANDLE_FATAL_ERROR() blinkError();
 
 // set an error code
 void setError(ErrorCode err);
-
 // fetch the current error code
-ErrorCode checkError();
-
+ErrorCode getError();
 // blink the current error
 void blinkError();
 

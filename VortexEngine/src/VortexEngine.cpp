@@ -84,6 +84,16 @@ void VortexEngine::cleanup()
 
 void VortexEngine::tick()
 {
+  // handle any fatal errors that may have occurred
+  // but only if the error blinker is enabled
+#if VORTEX_ERROR_BLINK == 1
+  if (getError() != ERROR_NONE) {
+    // just blink the error and don't run anything
+    blinkError();
+    return;
+  }
+#endif
+
   // tick the current time counter forward
   Time::tickClock();
 

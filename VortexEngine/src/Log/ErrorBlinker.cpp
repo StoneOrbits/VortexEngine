@@ -13,7 +13,7 @@ void setError(ErrorCode err)
   g_error = err;
 }
 
-ErrorCode checkError()
+ErrorCode getError()
 {
   return g_error;
 }
