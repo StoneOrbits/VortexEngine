@@ -88,10 +88,8 @@ void Time::tickClock()
     }
     // if building anywhere except visual studio then we can run alternate sleep code
     // because in visual studio + windows it's better to just spin and check the high
-    // resolution clock instead of trying to sleep for microseconds. However on linux
-    // and arduino we can sleep for microseconds at a time, on linux it's precise, but
-    // on arduino we just get to sleep for some amount
-#if !defined(_MSC_VER)
+    // resolution clock instead of trying to sleep for microseconds.
+#if !defined(_MSC_VER) && defined(VORTEX_LIB)
     uint32_t required = (1000000 / TICKRATE);
     uint32_t sleepTime = 0;
     if (required > elapsed_us) {
@@ -100,13 +98,8 @@ void Time::tickClock()
       // up being more accurate to poll QPF + QPC via micros()
       sleepTime = required - elapsed_us;
     }
-
-#if defined(VORTEX_LIB)
-    // delay when on linux vortexlib but not windows
     delayMicroseconds(sleepTime);
-    // when running
     break;
-#endif
 #endif
     // 1000us per ms, divided by tickrate gives
     // the number of microseconds per tick
