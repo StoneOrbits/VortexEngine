@@ -150,34 +150,57 @@ uint32_t VortexEngine::savefileSize()
 #endif
 
 #if COMPRESSION_TEST == 1
+#include <string.h>
 #include <stdio.h>
+#include "Colors/Colorset.h"
 #include "Memory/Memory.h"
 void VortexEngine::compressionTest()
 {
+  // always use same seed
+  randomSeed(0xdeadbeef);
   ByteStream stream;
+  Modes::clearModes();
   for (uint32_t len = 1; len < 4096; ++len) {
     uint8_t *buf = (uint8_t *)vcalloc(1, len + 1);
     if (!buf) {
       continue;
     }
+    ByteStream modeStream;
+    Modes::serialize(modeStream);
+    while (modeStream.size() < len) {
+      Mode tmpMode;
+      tmpMode.setPattern((PatternID)(len % PATTERN_COUNT));
+      Colorset set;
+      set.randomizeColorTheory(8);
+      tmpMode.setColorset(&set);
+      Modes::addMode(&tmpMode);
+      modeStream.clear();
+      Modes::serialize(modeStream);
+    }
+    stream = modeStream;
+#if 0
     for (uint32_t i = 0; i < len; ++i) {
       buf[i] = (uint8_t)i&0xFF;
     }
     stream.init(len, buf);
+#endif
     stream.compress();
+    int complen = stream.size();
     stream.decompress();
-    if (memcmp(stream.data(), buf, len) != 0) {
-      ERROR_LOGF("Buffers not equal: %u", len);
+    if (memcmp(stream.data(), modeStream.data(), modeStream.size()) != 0) {
+      ERROR_LOGF("Buffers not equal: %u", modeStream.size());
       printf("\t");
       for (uint32_t i = 0; i < len; ++i) {
-        printf("%02x ", buf[i]);
+        printf("%02x ", modeStream.data()[i]);
         if (i > 0 && ((i + 1) % 32) == 0) {
           printf("\r\n\t");
         }
       }
       return;
     }
-    DEBUG_LOGF("Success %u compressed", len);
+    if (modeStream.size() != complen) {
+      DEBUG_LOGF("Success %u compressed to %u", modeStream.size(), complen);
+    }
     free(buf);
   }
   DEBUG_LOG("Success testing compression");
@@ -272,4 +295,3 @@ void VortexEngine::serializationTest()
   DEBUG_LOG("== SUCCESS RUNNING SERIALIZATION TEST ==");
 }
 #endif
-
