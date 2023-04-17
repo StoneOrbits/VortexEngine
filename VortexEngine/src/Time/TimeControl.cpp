@@ -203,8 +203,62 @@ uint32_t Time::endSimulation()
 #endif
 
 #if TIMER_TEST == 1
+#include <assert.h>
+
 void Time::test()
 {
+  DEBUG_LOG("Starting Time class tests...");
 
+  // Test init function
+  assert(init());
+  DEBUG_LOG("Init test passed");
+  cleanup();
+
+  // Test tickClock function
+  uint64_t initialTick = m_curTick;
+  tickClock();
+  assert(m_curTick == initialTick + 1);
+  DEBUG_LOG("tickClock test passed");
+
+  // Test msToTicks function
+  assert(msToTicks(1000) == TICKRATE);
+  assert(msToTicks(500) == TICKRATE / 2);
+  assert(msToTicks(0) == 0);
+  DEBUG_LOG("msToTicks test passed");
+
+  // Test getRealCurtime function
+  assert(getRealCurtime() == m_curTick);
+  DEBUG_LOG("getRealCurtime test passed");
+
+  // Test getTickrate function
+  assert(getTickrate() == TICKRATE);
+  DEBUG_LOG("getTickrate test passed");
+
+  // Test setTickrate function (only when VARIABLE_TICKRATE is enabled)
+#if VARIABLE_TICKRATE == 1
+  uint32_t newTickrate = TICKRATE * 2;
+  setTickrate(newTickrate);
+  assert(getTickrate() == newTickrate);
+  DEBUG_LOG("setTickrate test passed");
+#endif
+
+#ifdef VORTEX_LIB
+  // Test simulation functions
+  uint32_t simulationStartTick = startSimulation();
+  assert(isSimulation());
+  assert(getSimulationTick() == 0);
+  DEBUG_LOG("startSimulation test passed");
+
+  uint32_t simulationTick = tickSimulation();
+  assert(getSimulationTick() == 1);
+  DEBUG_LOGF("tickSimulation test passed, simulationTick: %u", simulationTick);
+
+  uint32_t simulationEndTick = endSimulation();
+  assert(!isSimulation());
+  assert(simulationEndTick == simulationStartTick + 1);
+  DEBUG_LOGF("endSimulation test passed, simulationEndTick: %u", simulationEndTick);
+#endif
+
+  DEBUG_LOG("Time class tests completed successfully.");
 }
 #endif

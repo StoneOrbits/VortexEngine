@@ -63,6 +63,10 @@ bool VortexEngine::init()
   serializationTest();
 #endif
 
+#if TIMER_TEST == 1
+  timerTest();
+#endif
+
   return true;
 }
 
@@ -303,5 +307,17 @@ void VortexEngine::serializationTest()
   Modes::clearModes();
   DEBUG_LOG("Success all modes serialized cleanly");
   DEBUG_LOG("== SUCCESS RUNNING SERIALIZATION TEST ==");
+}
+#endif
+
+#if TIMER_TEST == 1
+#include "Time/TimeControl.h"
+#include "Time/timer.h"
+void VortexEngine::timerTest()
+{
+  DEBUG_LOG("== BEGINNING TIMER TESTS ==");
+  Time::test();
+  Timer::test();
+  DEBUG_LOG("== SUCCESS TIMER TESTS PASSED ==");
 }
 #endif

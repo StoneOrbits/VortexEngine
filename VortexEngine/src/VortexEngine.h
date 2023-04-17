@@ -85,6 +85,9 @@ private:
 #if SERIALIZATION_TEST == 1
   static void serializationTest();
 #endif
+#if TIMER_TEST == 1
+  static void timerTest();
+#endif
 };
 
 #endif

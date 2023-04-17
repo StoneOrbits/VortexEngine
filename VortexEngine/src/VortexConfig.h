@@ -315,6 +315,12 @@
 // updated then this will test for any issues
 #define MODES_TEST            0
 
+// Timer Test
+//
+// Tests the timers, time control, and timestep system to ensure they
+// are all working as expected and behaving properly
+#define TIMER_TEST            0
+
 // ===================================================================
 //  Editor Verbs
 //
