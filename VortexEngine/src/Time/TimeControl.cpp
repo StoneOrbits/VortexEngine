@@ -14,10 +14,6 @@
 
 #include "../Leds/Leds.h"
 
-#ifdef VORTEX_ARDUINO
-#include <avr/sleep.h>
-#endif
-
 // static members
 uint64_t Time::m_curTick = 0;
 uint64_t Time::m_prevTime = 0;
