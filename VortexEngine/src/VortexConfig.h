@@ -169,6 +169,22 @@
 //
 #define LOGGING_LEVEL         0
 
+// Log to Console
+//
+// Enable logging to console, still need to change LOGGING_LEVEL
+// this only enables the console output connection
+#define LOG_TO_CONSOLE        0
+
+// Log to File
+//
+// Enable this configuration to enable logging to the file
+#define LOG_TO_FILE           0
+
+// Log Name
+//
+// The name of the file on disk that will receive the log info
+#define VORTEX_LOG_NAME       "vortexlog"
+
 // HSV to RGB Conversion Algorithm
 //
 // Here you can choose the HSV to RGB conversion algorithm, this will
@@ -298,22 +314,6 @@
 // it should show up in the modes test. Also if the Modes api has been
 // updated then this will test for any issues
 #define MODES_TEST            0
-
-// Log to Console
-//
-// Enable logging to console, still need to change LOGGING_LEVEL
-// this only enables the console output connection
-#define LOG_TO_CONSOLE        0
-
-// Log to File
-//
-// Enable this configuration to enable logging to the file
-#define LOG_TO_FILE           0
-
-// Log Name
-//
-// The name of the file on disk that will receive the log info
-#define VORTEX_LOG_NAME       "vortexlog"
 
 // ===================================================================
 //  Editor Verbs
