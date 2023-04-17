@@ -104,9 +104,10 @@ public:
   bool isSameSingleLed() const;
 
   // erase any stored patterns or colorsets
-  void clearPattern();
+  void clearPatterns();
   void clearPatternAt(LedPos pos);
-  void clearColorset();
+  void clearColorsets();
+  void clearColorsetAt(LedPos pos);
 
 #if MODES_TEST == 1
   static void test();

@@ -66,7 +66,7 @@ Mode::Mode(const Mode *other) :
 
 Mode::~Mode()
 {
-  clearPattern();
+  clearPatterns();
 #if FIXED_LED_COUNT == 0
   free(m_ledEntries);
 #endif
@@ -196,7 +196,7 @@ void Mode::serialize(ByteStream &buffer) const
 
 bool Mode::unserialize(ByteStream &buffer)
 {
-  clearPattern();
+  clearPatterns();
   uint8_t ledCount = 0;
   // unserialize the number of leds
   buffer.unserialize(&ledCount);
@@ -291,7 +291,7 @@ bool Mode::unserialize(ByteStream &buffer)
 void Mode::setLedCount(uint8_t numLeds)
 {
   if (m_ledEntries) {
-    clearPattern();
+    clearPatterns();
     free(m_ledEntries);
   }
   m_numLeds = numLeds;
@@ -495,7 +495,7 @@ bool Mode::setMultiPat(MultiLedPattern *pat, const Colorset *set)
   // if there isn't already a pattern
   pat->setColorset(set ? set : getColorset(LED_FIRST));
   // clear any stored patterns
-  clearPattern();
+  clearPatterns();
   // update the multi pattern
   m_ledEntries[0] = pat;
   return true;
@@ -540,7 +540,7 @@ bool Mode::isSameSingleLed() const
   return true;
 }
 
-void Mode::clearPattern()
+void Mode::clearPatterns()
 {
 #if FIXED_LED_COUNT == 0
   if (!m_ledEntries) {
@@ -566,7 +566,7 @@ void Mode::clearPatternAt(LedPos pos)
   m_ledEntries[pos] = nullptr;
 }
 
-void Mode::clearColorset()
+void Mode::clearColorsets()
 {
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     if (!m_ledEntries[pos]) {
@@ -574,6 +574,19 @@ void Mode::clearColorset()
     }
     m_ledEntries[pos]->clearColorset();
   }
+}
+
+void Mode::clearColorsetAt(LedPos pos)
+{
+#if FIXED_LED_COUNT == 0
+  if (!m_ledEntries) {
+    return;
+  }
+#endif
+  if (!m_ledEntries[pos]) {
+    return;
+  }
+  m_ledEntries[pos]->clearColorset();
 }
 
 #if MODES_TEST == 1
