@@ -45,7 +45,7 @@ void PatternSelect::onShortClick()
     newID = PATTERN_SINGLE_FIRST;
   }
   // iterate the pattern forward on current mode
-  m_pCurMode->setSinglePat(m_targetLed, newID);
+  m_pCurMode->setPatternAt(m_targetLed, newID);
   m_pCurMode->init();
 }
 

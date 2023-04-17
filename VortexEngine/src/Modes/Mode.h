@@ -90,8 +90,8 @@ public:
   bool setColorsetAt(const Colorset *set, LedPos pos);
 
   // change a single or multi pattern
-  bool setSinglePat(LedPos pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
-  bool setSinglePat(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
+  bool setPatternAt(LedPos pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
+  bool setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
   bool setMultiPat(PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   bool setMultiPat(MultiLedPattern *pat, const Colorset *set = nullptr);
 
@@ -104,9 +104,14 @@ public:
   bool isSameSingleLed() const;
 
   // erase any stored patterns or colorsets
-  void clearPatterns();
-  void clearPattern(LedPos pos);
-  void clearColorsets();
+  void clearPattern();
+  void clearPatternAt(LedPos pos);
+  void clearColorset();
+
+#if MODES_TEST == 1
+  static void test();
+#endif
+
 private:
 #if FIXED_LED_COUNT == 0
   // the number of leds the mode is targetting

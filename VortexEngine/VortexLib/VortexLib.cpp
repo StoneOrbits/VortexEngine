@@ -492,14 +492,14 @@ string Vortex::getModeName()
   return "custom";
 }
 
-bool Vortex::setSinglePat(LedPos pos, PatternID id,
+bool Vortex::setPatternAt(LedPos pos, PatternID id,
   const PatternArgs *args, const Colorset *set, bool save)
 {
   Mode *pMode = Modes::curMode();
   if (!pMode) {
     return false;
   }
-  if (!pMode->setSinglePat(pos, id, args, set)) {
+  if (!pMode->setPatternAt(pos, id, args, set)) {
     return false;
   }
   return !save || doSave();

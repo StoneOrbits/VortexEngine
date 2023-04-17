@@ -127,7 +127,7 @@ bool Randomizer::reRoll(LedPos led, Random &ctx)
     newPat = (PatternID)ctx.next(PATTERN_FIRST, PATTERN_SINGLE_LAST);
   } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
   // update the led with the new random
-  m_pCurMode->setSinglePat(led, newPat, nullptr, &randomSet);
+  m_pCurMode->setPatternAt(led, newPat, nullptr, &randomSet);
   // initialize the mode with the new pattern and colorset
   m_pCurMode->init();
   DEBUG_LOGF("Randomized set with randomization technique %u, %u colors, and Pattern number %u",

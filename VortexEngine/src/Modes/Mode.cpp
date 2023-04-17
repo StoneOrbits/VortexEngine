@@ -66,7 +66,7 @@ Mode::Mode(const Mode *other) :
 
 Mode::~Mode()
 {
-  clearPatterns();
+  clearPattern();
 #if FIXED_LED_COUNT == 0
   free(m_ledEntries);
 #endif
@@ -196,7 +196,7 @@ void Mode::serialize(ByteStream &buffer) const
 
 bool Mode::unserialize(ByteStream &buffer)
 {
-  clearPatterns();
+  clearPattern();
   uint8_t ledCount = 0;
   // unserialize the number of leds
   buffer.unserialize(&ledCount);
@@ -234,7 +234,7 @@ bool Mode::unserialize(ByteStream &buffer)
     PatternArgs firstArgs;
     firstPat->getArgs(firstArgs);
     for (LedPos pos = (LedPos)(LED_FIRST + 1); pos < MODE_LEDCOUNT; ++pos) {
-      if (!setSinglePat(pos, firstID, &firstArgs, firstSet)) {
+      if (!setPatternAt(pos, firstID, &firstArgs, firstSet)) {
         // fail?
         continue;
       }
@@ -277,7 +277,7 @@ bool Mode::unserialize(ByteStream &buffer)
       }
       PatternArgs args;
       pat->getArgs(args);
-      setSinglePat(pos, pat->getPatternID(), &args, pat->getColorset());
+      setPatternAt(pos, pat->getPatternID(), &args, pat->getColorset());
       // increment the src led but wrap at the ledcount so for example
       // a savefile with only 3 leds saved will come out as ABCABCABCA
       src = (LedPos)((src + 1) % ledCount);
@@ -291,7 +291,7 @@ bool Mode::unserialize(ByteStream &buffer)
 void Mode::setLedCount(uint8_t numLeds)
 {
   if (m_ledEntries) {
-    clearPatterns();
+    clearPattern();
     free(m_ledEntries);
   }
   m_numLeds = numLeds;
@@ -400,7 +400,7 @@ bool Mode::setPattern(PatternID pat, const PatternArgs *args, const Colorset *se
   }
   // otherwise iterate all of the LEDs and set single led patterns
   for (LedPos p = LED_FIRST; p < MODE_LEDCOUNT; ++p) {
-    if (!setSinglePat(p, pat, args, set)) {
+    if (!setPatternAt(p, pat, args, set)) {
       ERROR_LOGF("Failed to set single pattern %u", p);
       return false;
     }
@@ -436,7 +436,7 @@ bool Mode::setColorsetAt(const Colorset *set, LedPos pos)
   return true;
 }
 
-bool Mode::setSinglePat(LedPos pos, PatternID pat, const PatternArgs *args, const Colorset *set)
+bool Mode::setPatternAt(LedPos pos, PatternID pat, const PatternArgs *args, const Colorset *set)
 {
   if (pos >= MODE_LEDCOUNT) {
     return setPattern(pat, args, set);
@@ -446,10 +446,10 @@ bool Mode::setSinglePat(LedPos pos, PatternID pat, const PatternArgs *args, cons
     // failed to build new pattern, user gave multiled pattern id?
     return false;
   }
-  return setSinglePat(pos, newPat, set);
+  return setPatternAt(pos, newPat, set);
 }
 
-bool Mode::setSinglePat(LedPos pos, SingleLedPattern *pat, const Colorset *set)
+bool Mode::setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set)
 {
   if (!pat) {
     return false;
@@ -472,7 +472,7 @@ bool Mode::setSinglePat(LedPos pos, SingleLedPattern *pat, const Colorset *set)
   }
   pat->bind(pos);
   pat->setColorset(set);
-  clearPattern(pos);
+  clearPatternAt(pos);
   m_ledEntries[pos] = pat;
   return true;
 }
@@ -495,7 +495,7 @@ bool Mode::setMultiPat(MultiLedPattern *pat, const Colorset *set)
   // if there isn't already a pattern
   pat->setColorset(set ? set : getColorset(LED_FIRST));
   // clear any stored patterns
-  clearPatterns();
+  clearPattern();
   // update the multi pattern
   m_ledEntries[0] = pat;
   return true;
@@ -540,7 +540,7 @@ bool Mode::isSameSingleLed() const
   return true;
 }
 
-void Mode::clearPatterns()
+void Mode::clearPattern()
 {
 #if FIXED_LED_COUNT == 0
   if (!m_ledEntries) {
@@ -548,11 +548,11 @@ void Mode::clearPatterns()
   }
 #endif
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
-    clearPattern(pos);
+    clearPatternAt(pos);
   }
 }
 
-void Mode::clearPattern(LedPos pos)
+void Mode::clearPatternAt(LedPos pos)
 {
 #if FIXED_LED_COUNT == 0
   if (!m_ledEntries) {
@@ -566,7 +566,7 @@ void Mode::clearPattern(LedPos pos)
   m_ledEntries[pos] = nullptr;
 }
 
-void Mode::clearColorsets()
+void Mode::clearColorset()
 {
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     if (!m_ledEntries[pos]) {
@@ -575,3 +575,172 @@ void Mode::clearColorsets()
     m_ledEntries[pos]->clearColorset();
   }
 }
+
+#if MODES_TEST == 1
+#include <assert.h>
+
+// Mode::Test function
+void Mode::test()
+{
+  // Test setPattern
+  Mode modeTest;
+  PatternID testPatternID = PATTERN_SOLID;
+  PatternArgs testPatternArgs = { 100, 255, 0, 10 };
+  Colorset testColorset(0, 0, 255);
+
+  modeTest.setPattern(testPatternID, &testPatternArgs, &testColorset);
+
+  // Check if the pattern and colorset were set correctly
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    assert(modeTest.getPatternID(pos) == testPatternID);
+    assert(modeTest.getColorset(pos)->equals(&testColorset));
+  }
+  DEBUG_LOG("Test setPattern passed.");
+
+  // Test setColorsetAt
+  Colorset newColorset(255, 255, 0);
+  LedPos setColorsetPosition = LED_3;
+  modeTest.setColorsetAt(&newColorset, setColorsetPosition);
+
+  // Check if the colorset was set correctly at the specified position
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    if (pos == setColorsetPosition) {
+      assert(modeTest.getColorset(pos)->equals(&newColorset));
+    } else {
+      assert(modeTest.getColorset(pos)->equals(&testColorset));
+    }
+  }
+  DEBUG_LOG("Test setColorsetAt passed.");
+
+  // Add more test cases as needed
+
+  // Test clearPattern
+  Mode modeClearTest;
+  modeClearTest.setPattern(testPatternID, &testPatternArgs, &testColorset);
+  modeClearTest.clearPattern();
+
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    assert(modeClearTest.getPatternID(pos) == PATTERN_NONE);
+  }
+  DEBUG_LOG("Test clearPattern passed.");
+
+  // Test setPatternAt
+  Mode modeSetPatternAtTest;
+  LedPos setPatternAtPosition = LED_5;
+  modeSetPatternAtTest.setPatternAt(setPatternAtPosition, testPatternID, &testPatternArgs, &testColorset);
+
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    if (pos == setPatternAtPosition) {
+      assert(modeSetPatternAtTest.getPatternID(pos) == testPatternID);
+    } else {
+      assert(modeSetPatternAtTest.getPatternID(pos) == PATTERN_NONE);
+    }
+  }
+  DEBUG_LOG("Test setPatternAt passed.");
+
+  // Test clearPatternAt
+  Mode modeClearPatternAtTest;
+  LedPos clearPatternAtPosition = LED_7;
+  modeClearPatternAtTest.setPattern(testPatternID, &testPatternArgs, &testColorset);
+  modeClearPatternAtTest.clearPatternAt(clearPatternAtPosition);
+
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    if (pos == clearPatternAtPosition) {
+      assert(modeClearPatternAtTest.getPatternID(pos) == PATTERN_NONE);
+    } else {
+      assert(modeClearPatternAtTest.getPatternID(pos) == testPatternID);
+    }
+  }
+  DEBUG_LOG("Test clearPatternAt passed.");
+
+  // Test setPatternAt for a specific position
+  Mode modePatternAtTest;
+  Colorset colorset(0xFF0000, 0x00FF00, 0x0000FF);
+  PatternID patternId = PATTERN_SOLID;
+  assert(modePatternAtTest.setPatternAt(LED_FIRST, patternId, nullptr, &colorset));
+  assert(modePatternAtTest.getPatternID(LED_FIRST) == patternId);
+  assert(modePatternAtTest.getColorset(LED_FIRST)->equals(&colorset));
+  DEBUG_LOG("Test clearPatternAt passed.");
+
+  // Test setColorsetAt for a specific position
+  Mode modeSetColorsetAtTest;
+  assert(modeSetColorsetAtTest.setPattern(PATTERN_BASIC));
+  assert(modeSetColorsetAtTest.setColorsetAt(&colorset, LED_FIRST));
+  assert(modeSetColorsetAtTest.getColorset(LED_FIRST));
+  assert(modeSetColorsetAtTest.getColorset(LED_FIRST)->equals(&colorset));
+  DEBUG_LOG("Test setColorsetAt passed.");
+
+  // Test setMultiPat
+  Mode modeSetMultiPatTest;
+  assert(modeSetMultiPatTest.setMultiPat(PATTERN_MULTI_FIRST, nullptr, &colorset));
+  assert(modeSetMultiPatTest.isMultiLed());
+  assert(modeSetMultiPatTest.getPatternID() == PATTERN_MULTI_FIRST);
+  assert(modeSetMultiPatTest.getColorset()->equals(&colorset));
+  DEBUG_LOG("Test setMultiPat passed.");
+
+  // Test clearColorset
+  Mode modeClearColorsetTest;
+  assert(modeClearColorsetTest.setPatternAt(LED_FIRST, patternId, nullptr, &colorset));
+  modeClearColorsetTest.clearColorset();
+  assert(modeClearColorsetTest.getColorset(LED_FIRST)->numColors() == 0);
+  DEBUG_LOG("Test clearColorset passed.");
+
+  // Test clearPatternAt for a specific position
+  modeClearPatternAtTest.init();
+  assert(modeClearPatternAtTest.setPatternAt(LED_FIRST, patternId, nullptr, &colorset));
+  modeClearPatternAtTest.clearPatternAt(LED_FIRST);
+  assert(modeClearPatternAtTest.getPattern(LED_FIRST) == nullptr);
+  assert(modeClearPatternAtTest.getColorset(LED_FIRST) == nullptr);
+  DEBUG_LOG("Test clearColorsetAt passed.");
+
+  // Test copy constructor
+  Mode modeCopyConstructorTest;
+  assert(modeCopyConstructorTest.setPatternAt(LED_FIRST, patternId, nullptr, &colorset));
+  Mode modeCopyConstructorTestCopy(modeCopyConstructorTest);
+  assert(modeCopyConstructorTestCopy.getPatternID(LED_FIRST) == patternId);
+  assert(modeCopyConstructorTestCopy.getColorset(LED_FIRST)->equals(&colorset));
+  DEBUG_LOG("Test copy constructor passed.");
+
+  // Test assignment operator
+  Mode modeAssignmentOperatorTest;
+  assert(modeAssignmentOperatorTest.setPatternAt(LED_FIRST, patternId, nullptr, &colorset));
+  Mode modeAssignmentOperatorTestCopy;
+  modeAssignmentOperatorTestCopy = modeAssignmentOperatorTest;
+  assert(modeAssignmentOperatorTestCopy.getPatternID(LED_FIRST) == patternId);
+  assert(modeAssignmentOperatorTestCopy.getColorset(LED_FIRST)->equals(&colorset));
+  DEBUG_LOG("Test assignment operator passed.");
+
+  // Test equality operator
+  Mode modeEqualityOperatorTest1;
+  Mode modeEqualityOperatorTest2;
+  assert(modeEqualityOperatorTest1.setPatternAt(LED_FIRST, patternId, nullptr, &colorset));
+  assert(modeEqualityOperatorTest2.setPatternAt(LED_FIRST, patternId, nullptr, &colorset));
+  assert(modeEqualityOperatorTest1 == modeEqualityOperatorTest2);
+  DEBUG_LOG("Test equality operator passed.");
+
+  // Test inequality operator
+  Mode modeInequalityOperatorTest1;
+  Mode modeInequalityOperatorTest2;
+  assert(modeInequalityOperatorTest1.setPatternAt(LED_FIRST, patternId, nullptr, &colorset));
+  assert(modeInequalityOperatorTest2.setPatternAt(LED_LAST, patternId, nullptr, &colorset));
+  assert(modeInequalityOperatorTest1 != modeInequalityOperatorTest2);
+  DEBUG_LOG("Test inequality operator passed.");
+
+  // Test isSameSingleLed
+  Mode modeSameSingleLedTest;
+  assert(modeSameSingleLedTest.setPattern(patternId, nullptr, &colorset));
+  assert(modeSameSingleLedTest.isSameSingleLed());
+  DEBUG_LOG("Test isSameSingleLed passed.");
+
+  // Test getLedCount
+#if FIXED_LED_COUNT == 0
+  Mode modeGetLedCountTest(5);
+  assert(modeGetLedCountTest.getLedCount() == 5);
+  Mode modeSetLedCountTest2(3);
+  modeSetLedCountTest2.setLedCount(7);
+  assert(modeSetLedCountTest2.getLedCount() == 7);
+  DEBUG_LOG("Test getLedCount passed.");
+#endif
+
+}
+#endif

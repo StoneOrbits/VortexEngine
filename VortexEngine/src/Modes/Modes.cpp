@@ -25,6 +25,7 @@ Modes::ModeLink *Modes::m_storedModes = nullptr;
 bool Modes::init()
 {
 #if MODES_TEST == 1
+  Mode::test();
   test();
   return true;
 #endif
@@ -219,7 +220,7 @@ bool Modes::setDefaults()
       PatternID randomPattern = (PatternID)random(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
       Colorset randSet;
       randSet.randomize(8);
-      tmpMode.setSinglePat(led, randomPattern, nullptr, &randSet);
+      tmpMode.setPatternAt(led, randomPattern, nullptr, &randSet);
     }
     // add another mode with the given pattern and colorset
     if (!addMode(&tmpMode)) {

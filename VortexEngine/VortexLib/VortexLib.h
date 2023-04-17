@@ -161,7 +161,7 @@ public:
   static PatternID getPatternID(LedPos pos = LED_FIRST);
   static std::string getPatternName(LedPos pos = LED_FIRST);
   static std::string getModeName();
-  static bool setSinglePat(LedPos pos, PatternID id,
+  static bool setPatternAt(LedPos pos, PatternID id,
     const PatternArgs *args = nullptr, const Colorset *set = nullptr,
     bool save = true);
   static bool getColorset(LedPos pos, Colorset &set);

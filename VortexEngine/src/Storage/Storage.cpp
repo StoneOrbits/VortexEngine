@@ -49,7 +49,7 @@ bool Storage::write(ByteStream &buffer)
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }
-  DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, totalSpace());
+  DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
   return true;
 }
 
