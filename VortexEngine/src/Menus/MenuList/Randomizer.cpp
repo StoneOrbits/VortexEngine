@@ -83,10 +83,12 @@ void Randomizer::onLongClick()
   leaveMenu(true);
 }
 
-bool Randomizer::reRoll(LedPos led, Random &ctx)
+bool Randomizer::reRoll(LedPos pos)
 {
   // colorset that will be filled with random colors
   Colorset randomSet;
+  // grab local reference to the target random context
+  Random &ctx = m_randCtx[pos];
   // pick a random type of randomizer to use then use
   // the randomizer to generate a random colorset
   uint32_t randType = ctx.next(0, 9);
@@ -127,7 +129,7 @@ bool Randomizer::reRoll(LedPos led, Random &ctx)
     newPat = (PatternID)ctx.next(PATTERN_FIRST, PATTERN_SINGLE_LAST);
   } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
   // update the led with the new random
-  m_pCurMode->setPatternAt(led, newPat, nullptr, &randomSet);
+  m_pCurMode->setPatternAt(pos, newPat, nullptr, &randomSet);
   // initialize the mode with the new pattern and colorset
   m_pCurMode->init();
   DEBUG_LOGF("Randomized set with randomization technique %u, %u colors, and Pattern number %u",
@@ -137,13 +139,8 @@ bool Randomizer::reRoll(LedPos led, Random &ctx)
 
 bool Randomizer::reRoll()
 {
-  // if the target led isn't 'all' then roll that led
-  if (m_targetLed < LED_COUNT) {
-    return reRoll(m_targetLed, m_randCtx[m_targetLed]);
-  }
-  // otherwise re-roll all of the leds
-  for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
-    if (!reRoll(l, m_randCtx[l])) {
+  MAP_FOREACH_LED(m_targetLeds) {
+    if (!reRoll(pos)) {
       return false;
     }
   }

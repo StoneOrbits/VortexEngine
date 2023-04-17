@@ -424,7 +424,7 @@ bool Mode::setColorset(const Colorset *set)
   return true;
 }
 
-bool Mode::setColorsetAt(const Colorset *set, LedPos pos)
+bool Mode::setColorsetAt(LedPos pos, const Colorset *set)
 {
   if (pos >= MODE_LEDCOUNT) {
     return setColorset(set);
@@ -433,6 +433,16 @@ bool Mode::setColorsetAt(const Colorset *set, LedPos pos)
     return false;
   }
   m_ledEntries[pos]->setColorset(set);
+  return true;
+}
+
+bool Mode::setColorsetAt(LedMap map, const Colorset *set)
+{
+  MAP_FOREACH_LED(map) {
+    if (!setColorsetAt(pos, set)) {
+      return false;
+    }
+  }
   return true;
 }
 
@@ -474,6 +484,26 @@ bool Mode::setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set)
   pat->setColorset(set);
   clearPatternAt(pos);
   m_ledEntries[pos] = pat;
+  return true;
+}
+
+bool Mode::setPatternAt(LedMap map, PatternID pat, const PatternArgs *args, const Colorset *set)
+{
+  MAP_FOREACH_LED(map) {
+    if (!setPatternAt(pos, pat, args, set)) {
+      return false;
+    }
+  }
+  return true;
+}
+
+bool Mode::setPatternAt(LedMap map, SingleLedPattern *pat, const Colorset *set)
+{
+  MAP_FOREACH_LED(map) {
+    if (!setPatternAt(pos, pat, set)) {
+      return false;
+    }
+  }
   return true;
 }
 
@@ -566,6 +596,13 @@ void Mode::clearPatternAt(LedPos pos)
   m_ledEntries[pos] = nullptr;
 }
 
+void Mode::clearPatternAt(LedMap map)
+{
+  MAP_FOREACH_LED(map) {
+    clearPatternAt(pos);
+  }
+}
+
 void Mode::clearColorsets()
 {
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
@@ -587,6 +624,13 @@ void Mode::clearColorsetAt(LedPos pos)
     return;
   }
   m_ledEntries[pos]->clearColorset();
+}
+
+void Mode::clearColorsetAt(LedMap map)
+{
+  MAP_FOREACH_LED(map) {
+    clearColorsetAt(pos);
+  }
 }
 
 #if MODES_TEST == 1

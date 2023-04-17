@@ -26,7 +26,7 @@ private:
   Random m_randCtx[LED_COUNT];
 
   // re-roll a new randomization with a given context on an led
-  bool reRoll(LedPos led, Random &ctx);
+  bool reRoll(LedPos pos);
   bool reRoll();
 };
 

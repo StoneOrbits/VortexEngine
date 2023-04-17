@@ -76,7 +76,7 @@
 //
 // This is how long the user must hold down the button on the factory
 // reset menu to confirm the reset and restore factory settings
-#define RESET_HOLD_TIME       5000
+#define RESET_HOLD_TIME       2500
 
 // Serial check time (in milliseconds)
 //

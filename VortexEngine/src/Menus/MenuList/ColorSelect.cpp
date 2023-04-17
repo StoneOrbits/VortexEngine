@@ -59,7 +59,7 @@ Menu::MenuAction ColorSelect::run()
     m_curSelection = 0;
     m_targetSlot = 0;
     // grab the colorset from our selected target led
-    m_colorset = *m_pCurMode->getColorset(m_targetLed);
+    m_colorset = *m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
     // move on to picking slot
     m_state = STATE_PICK_SLOT;
     break;
@@ -133,11 +133,18 @@ void ColorSelect::onLongClick()
     // then the exit is the number of colors + 1. Example: with 4 cols,
     // cols are on 0, 1, 2, 3, add-color is 4, and exit is 5
     if (m_curSelection == m_colorset.numColors() + (m_colorset.numColors() < MAX_COLOR_SLOTS)) {
+      // if we're targetting more than one led then screw
+      // checking if the colorset has changed because it's
+      // not worth the effort
+      if (!MAP_IS_ONE_LED(m_targetLeds)) {
+        leaveMenu(true);
+        return;
+      }
       // if our selection is on the exit index then check if the
       // colorset has been changed and save if necessary
-      Pattern *pat = m_pCurMode->getPattern(m_targetLed);
+      Pattern *pat = m_pCurMode->getPattern(mapGetFirstLed(m_targetLeds));
       if (pat && !m_colorset.equals(pat->getColorset())) {
-        m_pCurMode->setColorsetAt(&m_colorset, m_targetLed);
+        m_pCurMode->setColorsetAt(mapGetFirstLed(m_targetLeds), &m_colorset);
         m_pCurMode->init();
         needsSave = true;
       }

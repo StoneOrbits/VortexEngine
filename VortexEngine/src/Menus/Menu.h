@@ -37,15 +37,16 @@ public:
 
 protected:
   void showBulbSelection();
-  void showSelect(LedPos targetLed = LED_0, uint8_t blinkTimeMs = 100);
+  void showSelect();
   void showExit();
 
   // the current mode that was selected
   Mode *m_pCurMode;
   // the color of this menu
   RGBColor m_menuColor;
-  // tracks the current selected led
-  LedPos m_targetLed;
+  // tracks the targetted leds for this menu
+  // note this is an led map
+  LedMap m_targetLeds;
   // true once a an led is selected
   bool m_ledSelected;
   // all menus have a 'current selection'

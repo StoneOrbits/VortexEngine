@@ -4,13 +4,14 @@
 #include "../Time/Timings.h"
 #include "../Buttons/Button.h"
 #include "../Modes/Modes.h"
+#include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
 Menu::Menu(const RGBColor &col) :
   m_pCurMode(nullptr),
   m_menuColor(col),
-  m_targetLed(LED_COUNT),
+  m_targetLeds(MAP_LED_ALL),
   m_ledSelected(false),
   m_curSelection(0),
   m_shouldClose(false)
@@ -73,7 +74,33 @@ Menu::MenuAction Menu::run()
   if (g_pButton->onShortClick()) {
     // The target led can be 0 through LED_COUNT to represent any led or all leds
     // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
-    m_targetLed = (LedPos)((m_targetLed + 1) % (LED_COUNT + 1));
+    switch (m_targetLeds) {
+    case MAP_LED_ALL:
+      if (m_pCurMode->isMultiLed()) {
+        // do not allow multi led to select anything else
+        break;
+      }
+      m_targetLeds = MAP_LED(LED_FIRST);
+      break;
+    case MAP_LED(LED_LAST):
+      m_targetLeds = MAP_PAIR_EVENS;
+      break;
+    case MAP_PAIR_EVENS:
+      m_targetLeds = MAP_PAIR_ODDS;
+      break;
+    case MAP_PAIR_ODDS:
+      m_targetLeds = MAP_LED_ALL;
+      break;
+    default: // LED_FIRST through LED_LAST
+      // do not allow multi led to select anything else
+      if (m_pCurMode->isMultiLed()) {
+        m_targetLeds = MAP_LED_ALL;
+        break;
+      }
+      // iterate as normal
+      m_targetLeds = MAP_LED(((mapGetFirstLed(m_targetLeds) + 1) % (LED_COUNT + 1)));
+      break;
+    }
   }
   // on a long press of the button, lock in the target led
   if (g_pButton->onLongClick()) {
@@ -92,12 +119,12 @@ Menu::MenuAction Menu::run()
 void Menu::showBulbSelection()
 {
   Leds::clearAll();
-  Leds::blinkIndex(m_targetLed, Time::getCurtime(), 250, 500, m_menuColor);
+  Leds::blinkMap(m_targetLeds, Time::getCurtime(), 250, 500, m_menuColor);
   // blink when selecting
-  showSelect(m_targetLed);
+  showSelect();
 }
 
-void Menu::showSelect(LedPos targetLed, uint8_t blinkTimeMs)
+void Menu::showSelect()
 {
   // blink the tip led white for 150ms when the short
   // click threshold has been surpassed

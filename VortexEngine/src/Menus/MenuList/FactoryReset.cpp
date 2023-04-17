@@ -64,7 +64,7 @@ void FactoryReset::onLongClick()
   // reset the target mode slot on the target led
   const default_mode_entry &def = default_modes[curModeIndex];
   Colorset set(def.numColors, def.cols);
-  m_pCurMode->setPatternAt(m_targetLed, def.patternID, nullptr, &set);
+  m_pCurMode->setPatternAt(m_targetLeds, def.patternID, nullptr, &set);
   // re-initialize the current mode
   m_pCurMode->init();
   // save and leave the menu
@@ -93,19 +93,18 @@ void FactoryReset::showReset()
     return;
   }
 
-  float progress = (float)holdDur / FACTORY_RESET_THRESHOLD_TICKS;
-  LedPos ledProgress = (LedPos)(progress * 2);
+  uint16_t progress = ((holdDur * 100) / FACTORY_RESET_THRESHOLD_TICKS);
 
   DEBUG_LOGF("progress: %f %u", progress, ledProgress);
 
-  if (ledProgress > 1) {
+  if (progress >= 100) {
     Leds::setAll(RGB_WHITE);
     return;
   }
 
-  uint32_t offMs = 100 - (30 * ledProgress);
-  uint32_t onMs = 100 - (30 * ledProgress);
-  int8_t sat = (ledProgress < 2) ? (int8_t)(255 * progress) : 255;
+  uint32_t offMs = 120 - (progress / 2);
+  uint32_t onMs = 120 - (progress / 2);
+  int8_t sat = (int8_t)(2.5 * progress);
 
   Leds::clearAll();
   Leds::blinkAll(Time::getCurtime(), offMs, onMs, HSVColor(0, 255 - sat, 180));

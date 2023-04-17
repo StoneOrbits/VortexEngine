@@ -47,41 +47,59 @@ enum Pair : uint8_t
 };
 
 // check if an led is even or odd
-inline bool isEven(LedPos pos)
-{
-  return (pos % 2) == 0;
-}
-inline bool isOdd(LedPos pos)
-{
-  return (pos % 2) != 0;
-}
+#define isEven(pos) ((pos % 2) == 0)
+#define isOdd(pos) ((pos % 2) != 0)
 
-// get the even index in a pair
-inline LedPos pairEven(Pair pair)
-{
-  return (LedPos)((uint32_t)pair * 2);
-}
-// get the odd index in a pair
-inline LedPos pairOdd(Pair pair)
-{
-  return (LedPos)(((uint32_t)pair * 2) + 1);
-}
+// convert a pair to even or odd led position
+#define pairEven(pair) (LedPos)((uint32_t)pair * 2)
+#define pairOdd(pair) (LedPos)(((uint32_t)pair * 2) + 1)
 
 // convert an led position to a pair
-inline Pair ledToPair(LedPos pos)
-{
-  return (Pair)((uint32_t)pos / 2);
-}
+#define ledToPair(pos) (Pair)((uint32_t)pos / 2)
 
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
 // or off with a single integer
 typedef uint64_t LedMap;
 
 // various macros for mapping leds to an LedMap
-#define MAP_LED(led) (1 << led)
+#define MAP_LED(led) (LedMap)((uint64_t)1 << led)
 #define MAP_PAIR_EVEN(pair) MAP_LED(pairEven(pair))
 #define MAP_PAIR_ODD(pair) MAP_LED(pairOdd(pair))
 #define MAP_PAIR(pair) (MAP_PAIR_EVEN(pair) | MAP_PAIR_ODD(pair))
+
+// check if a map is purely just 1 led or not
+#define MAP_IS_ONE_LED(map) (map && !(map & (map-1)))
+
+// foreach led macro
+#define MAP_FOREACH_LED(map) for (LedPos pos = mapGetFirstLed(map); pos < LED_COUNT; pos = mapGetNextLed(map, pos))
+
+// convert a map to the first Led position in the map
+inline LedPos mapGetFirstLed(LedMap map)
+{
+  LedPos pos = LED_FIRST;
+  while (map && pos < LED_COUNT) {
+    if (map & 1) {
+      return pos;
+    }
+    map >>= 1;
+    pos = (LedPos)(pos + 1);
+  }
+  return LED_COUNT;
+}
+
+// given an led map and a position, find the next position in the map
+inline LedPos mapGetNextLed(LedMap map, LedPos pos)
+{
+  pos = (LedPos)(pos + 1);
+  while (map && pos < LED_COUNT) {
+    if (map & 1) {
+      return pos;
+    }
+    map >>= 1;
+    pos = (LedPos)(pos + 1);
+  }
+  return LED_COUNT;
+}
 
 // bitmap of all pairs (basically LED_COUNT bits)
 #define MAP_LED_ALL ((2 << (LED_COUNT - 1)) - 1)

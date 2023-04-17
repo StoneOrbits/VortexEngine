@@ -184,6 +184,17 @@ void Leds::blinkRange(LedPos first, LedPos last, uint64_t time, uint32_t offMs, 
   }
 }
 
+void Leds::blinkMap(LedMap targets, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
+{
+  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+    for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
+      if (checkLed(targets, pos)) {
+        setIndex(pos, col);
+      }
+    }
+  }
+}
+
 void Leds::blinkAll(uint64_t time, int32_t offMs, uint32_t onMs, RGBColor col)
 {
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
