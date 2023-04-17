@@ -213,11 +213,6 @@
 // The logic is cleaner for fill from pinkie but fill from thumb is preferred
 #define FILL_FROM_THUMB       1
 
-// Use Palm Lights
-//
-// Adjust the engine to account for palm lights
-#define USE_PALM_LIGHTS       0
-
 // Demo All Patterns
 //
 // The default modes that are set on the gloveset will be dynamically
