@@ -45,7 +45,7 @@ Menu::MenuAction FactoryReset::run()
 
 void FactoryReset::onShortClick()
 {
-  m_curSelection = !m_curSelection;
+  m_curSelection = (uint8_t)!m_curSelection;
 }
 
 void FactoryReset::onLongClick()
