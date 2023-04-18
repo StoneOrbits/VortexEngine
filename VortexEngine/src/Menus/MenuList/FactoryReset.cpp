@@ -107,5 +107,6 @@ void FactoryReset::showReset()
   int8_t sat = (int8_t)(2.5 * progress);
 
   Leds::clearAll();
-  Leds::blinkAll(Time::getCurtime(), offMs, onMs, HSVColor(0, 255 - sat, 180));
+  Leds::blinkIndex(LED_0, Time::getCurtime(), offMs, onMs, HSVColor(0, 255 - sat, 180));
+  Leds::blinkIndex(LED_1, Time::getCurtime(), offMs, onMs, RGB_BLANK);
 }
