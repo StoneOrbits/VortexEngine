@@ -119,12 +119,12 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 #define MAP_PAIR_EVEN_ODDS (MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_1))
 
 // set a single led
-inline void setLed(LedMap map, LedPos pos)
+inline void setLed(LedMap &map, LedPos pos)
 {
   if (pos < LED_COUNT) map |= (1ull << pos);
 }
 // set a single pair
-inline void setPair(LedMap map, Pair pair)
+inline void setPair(LedMap &map, Pair pair)
 {
   setLed(map, pairEven(pair));
   setLed(map, pairOdd(pair));
