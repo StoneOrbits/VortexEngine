@@ -3,10 +3,102 @@
 // This is a heavily stripped down version of lz4
 
 #include "../Memory/Memory.h"
+#include "../VortexConfig.h"
 
 #include <string.h>
 #include <limits.h>
 #include <stdint.h>
+
+#include <stdint.h>
+#include <stddef.h>
+#include <limits.h>
+
+#if VORTEX_SLIM == 1
+
+#include <stdint.h>
+#include <stddef.h>
+
+int mixed_RLE_compress(const uint8_t *src, uint8_t *dst, int srcSize, int dstCapacity)
+{
+  int srcPos = 0;
+  int dstPos = 0;
+
+  while (srcPos < srcSize) {
+    // Process repeating bytes
+    if (src[srcPos] == src[srcPos + 1]) {
+      int runLength = 1;
+
+      while (srcPos < srcSize - 1 && src[srcPos] == src[srcPos + 1] && runLength < 255) {
+        runLength++;
+        srcPos++;
+      }
+
+      if (dstPos + 3 > dstCapacity) {
+        return 0; // Compression failed due to insufficient output buffer capacity
+      }
+
+      dst[dstPos++] = 0; // Repeating byte sequence marker
+      dst[dstPos++] = src[srcPos];
+      dst[dstPos++] = (uint8_t)runLength;
+
+      srcPos++;
+    } else {
+      // Process non-repeating bytes
+      int runLength = 0;
+
+      while (srcPos < srcSize - 1 && src[srcPos] != src[srcPos + 1] && runLength < 254) {
+        runLength++;
+        srcPos++;
+      }
+
+      if (dstPos + runLength + 2 > dstCapacity) {
+        return 0; // Compression failed due to insufficient output buffer capacity
+      }
+
+      dst[dstPos++] = (uint8_t)runLength; // Non-repeating byte sequence marker and length
+
+      for (int i = 0; i < runLength; i++) {
+        dst[dstPos++] = src[srcPos - runLength + i];
+      }
+    }
+  }
+
+  return dstPos;
+}
+
+int mixed_RLE_decompress(const uint8_t *src, uint8_t *dst, int srcSize, int dstCapacity)
+{
+  int srcPos = 0;
+  int dstPos = 0;
+
+  while (srcPos < srcSize) {
+    int runLength = src[srcPos++];
+
+    if (runLength == 0) { // Repeating byte sequence
+      uint8_t currentChar = src[srcPos++];
+      runLength = src[srcPos++];
+
+      if (dstPos + runLength > dstCapacity) {
+        return 0; // Decompression failed due to insufficient output buffer capacity
+      }
+
+      memset(dst + dstPos, currentChar, runLength);
+      dstPos += runLength;
+    } else { // Non-repeating byte sequence
+      if (dstPos + runLength > dstCapacity) {
+        return 0; // Decompression failed due to insufficient output buffer capacity
+      }
+
+      for (int i = 0; i < runLength; i++) {
+        dst[dstPos++] = src[srcPos++];
+      }
+    }
+  }
+
+  return dstPos;
+}
+
+#else // VORTEX_SLIM == 0
 
 #if (defined(__GNUC__) && (__GNUC__ >= 3)) || (defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 800)) || defined(__clang__)
 #  define expect(expr,value)    (__builtin_expect ((expr),(value)) )
@@ -1457,3 +1549,5 @@ int LZ4_decompress_safe(const char *source, char *dest, int compressedSize, int 
     endOnInputSize, decode_full_block, noDict,
     (BYTE *)dest, NULL, 0);
 }
+
+#endif // VORTEX_SLIM == 0

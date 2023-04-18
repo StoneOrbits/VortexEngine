@@ -4,8 +4,14 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-GlobalBrightness::GlobalBrightness() :
-  Menu()
+#define NUM_BRIGHTNESS_OPTIONS (sizeof(m_brightnessOptions) / sizeof(m_brightnessOptions[0]))
+
+GlobalBrightness::GlobalBrightness(const RGBColor &col) :
+  Menu(col)
+{
+}
+
+GlobalBrightness::~GlobalBrightness()
 {
 }
 
@@ -15,44 +21,42 @@ bool GlobalBrightness::init()
     return false;
   }
   // would be nice if there was a more elegant way to do this
-  for (uint32_t i = 0; i < 4; ++i) {
+  for (uint8_t i = 0; i < NUM_BRIGHTNESS_OPTIONS; ++i) {
     if (m_brightnessOptions[i] == Leds::getBrightness()) {
       // make sure the default selection matches cur value
-      m_curSelection = (Finger)i;
+      m_curSelection = i;
     }
   }
   DEBUG_LOG("Entered global brightness");
   return true;
 }
 
-bool GlobalBrightness::run()
+Menu::MenuAction GlobalBrightness::run()
 {
-  // handle base menu logic
-  if (!Menu::run()) {
-    return false;
+  MenuAction result = Menu::run();
+  if (result != MENU_CONTINUE) {
+    return result;
   }
 
-  // display brightnesses on each finger
-  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
-    Leds::setFinger(f, HSVColor(0, 0, m_brightnessOptions[f]));
-  }
+  // show the current brightness
+  showBrightnessSelection();
 
-  // blink the current selection
-  blinkSelection();
+  // show selections
+  showSelect();
 
   // continue
-  return true;
+  return MENU_CONTINUE;
 }
 
 void GlobalBrightness::onShortClick()
 {
-  // four options in global brightness
-  m_curSelection = (Finger)(((uint32_t)m_curSelection + 1) % (FINGER_THUMB + 1));
+  // include one extra option for the exit slot
+  m_curSelection = (m_curSelection + 1) % (NUM_BRIGHTNESS_OPTIONS + 1);
 }
 
 void GlobalBrightness::onLongClick()
 {
-  if (m_curSelection == FINGER_THUMB) {
+  if (m_curSelection >= NUM_BRIGHTNESS_OPTIONS) {
     // no save exit
     leaveMenu();
     return;
@@ -63,4 +67,13 @@ void GlobalBrightness::onLongClick()
   Leds::setBrightness(m_brightnessOptions[m_curSelection]);
   // done here, save settings with new brightness
   leaveMenu(needsSave);
+}
+
+void GlobalBrightness::showBrightnessSelection()
+{
+  if (m_curSelection >= NUM_BRIGHTNESS_OPTIONS) {
+    showExit();
+    return;
+  }
+  Leds::setAll(HSVColor(0, 0, m_brightnessOptions[m_curSelection]));
 }

@@ -24,6 +24,16 @@ Timer::~Timer()
   }
 }
 
+void Timer::init(uint8_t flags, uint8_t alarm1, uint8_t alarm2, uint8_t alarm3, uint8_t alarm4)
+{
+  reset();
+  if ((flags & TIMER_ALARM_MASK) >= TIMER_1_ALARM) addAlarm(alarm1);
+  if ((flags & TIMER_ALARM_MASK) >= TIMER_2_ALARMS) addAlarm(alarm2);
+  if ((flags & TIMER_ALARM_MASK) >= TIMER_3_ALARMS) addAlarm(alarm3);
+  if ((flags & TIMER_ALARM_MASK) >= TIMER_4_ALARMS) addAlarm(alarm4);
+  if ((flags & TIMER_START) != 0) start();
+}
+
 AlarmID Timer::addAlarm(uint32_t interval)
 {
   void *temp = vrealloc(m_alarms, sizeof(uint32_t) * (m_numAlarms + 1));
@@ -151,3 +161,88 @@ void Timer::setStartTime(uint64_t tick)
   // move the start time forward
   m_startTime = tick;
 }
+
+#if TIMER_TEST == 1
+#include <assert.h>
+
+void Timer::test()
+{
+  DEBUG_LOG("Starting Timer class tests...");
+  Timer newTimer;
+
+  // Test: Add alarms and check if alarms are added correctly
+  newTimer.init();
+  AlarmID alarm0 = newTimer.addAlarm(5);
+  AlarmID alarm1 = newTimer.addAlarm(10);
+  AlarmID alarm2 = newTimer.addAlarm(20);
+  assert(alarm0 == 0);
+  assert(alarm1 == 1);
+  assert(alarm2 == 2);
+  DEBUG_LOG("Alarm addition tests passed.");
+
+  // Test: Start timer and check for alarms
+  newTimer.start();
+  // alarm1 should trigger immediately because it is starting
+  assert(newTimer.alarm() == alarm0);
+  DEBUG_LOG("Alarm start test passed.");
+
+  // Test: Advance time and check for alarms
+  for (uint32_t t = 0; t <= 35; ++t) {
+    AlarmID alarm = newTimer.alarm();
+    if (t == 0) { // 0th tick timer 0 fires as it begins
+      assert(alarm == alarm0);
+      DEBUG_LOG("Alarm 1 triggered as expected.");
+    } else if (t == 5) { // 6th tick timer 1 fires after 5 ticks of timer 0
+      assert(alarm == alarm1);
+      DEBUG_LOG("Alarm 2 triggered as expected.");
+    } else if (t == 15) { // 16th tick timer 2 fires after 15 ticks of timer 0 and 1
+      assert(alarm == alarm2);
+      DEBUG_LOG("Alarm 3 triggered as expected.");
+    } else if (t == 35) { // 36th tick timer 0 fires against after 35 ticks of 0 1 2
+      assert(alarm == alarm0);
+      DEBUG_LOG("Alarm 1 triggered as expected.");
+    } else {
+      assert(alarm == ALARM_NONE);
+    }
+    Time::tickClock();
+  }
+
+#ifdef VORTEX_LIB
+  // Test time simulation APIs in vortex lib builds
+  newTimer.init();
+
+  // Add alarms
+  AlarmID simAlarm0 = newTimer.addAlarm(5);
+  AlarmID simAlarm1 = newTimer.addAlarm(10);
+  AlarmID simAlarm2 = newTimer.addAlarm(20);
+
+  newTimer.start();
+  assert(newTimer.alarm() == simAlarm0);
+
+  Time::startSimulation();
+  for (uint32_t t = 0; t <= 35; ++t) {
+    AlarmID alarm = newTimer.alarm();
+    if (t == 0) { // 0th tick timer 0 fires as it begins
+      assert(alarm == simAlarm0);
+      DEBUG_LOG("Alarm 1 triggered as expected.");
+    } else if (t == 5) { // 6th tick timer 1 fires after 5 ticks of timer 0
+      assert(alarm == simAlarm1);
+      DEBUG_LOG("Alarm 2 triggered as expected.");
+    } else if (t == 15) { // 16th tick timer 2 fires after 15 ticks of timer 0 and 1
+      assert(alarm == simAlarm2);
+      DEBUG_LOG("Alarm 3 triggered as expected.");
+    } else if (t == 35) { // 36th tick timer 0 fires against after 35 ticks of 0 1 2
+      assert(alarm == simAlarm0);
+      DEBUG_LOG("Alarm 1 triggered as expected.");
+    } else {
+      assert(alarm == ALARM_NONE);
+    }
+    Time::tickSimulation();
+  }
+  Time::endSimulation();
+  DEBUG_LOG("Time simulation tests passed.");
+#endif
+
+  DEBUG_LOG("Timer class tests completed successfully.");
+}
+#endif

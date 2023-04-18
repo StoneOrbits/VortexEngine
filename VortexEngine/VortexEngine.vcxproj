@@ -86,7 +86,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>VORTEX_LIB;$(SolutionName);WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VORTEX_LIB;PROJECT_NAME_$(SolutionName);WIN32;_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\src;$(ProjectDir)\VortexLib;$(ProjectDir)\VortexLib\EngineDependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -101,7 +101,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>VORTEX_LIB;$(SolutionName);WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VORTEX_LIB;PROJECT_NAME_$(SolutionName);WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\src;$(ProjectDir)\VortexLib;$(ProjectDir)\VortexLib\EngineDependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -117,7 +117,7 @@
     <ClCompile>
       <WarningLevel>Level3</WarningLevel>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>VORTEX_LIB;$(SolutionName);_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VORTEX_LIB;PROJECT_NAME_$(SolutionName);_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\src;$(ProjectDir)\VortexLib;$(ProjectDir)\VortexLib\EngineDependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
     </ClCompile>
@@ -132,7 +132,7 @@
       <FunctionLevelLinking>true</FunctionLevelLinking>
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <SDLCheck>true</SDLCheck>
-      <PreprocessorDefinitions>VORTEX_LIB;$(SolutionName);NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
+      <PreprocessorDefinitions>VORTEX_LIB;PROJECT_NAME_$(SolutionName);NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
       <AdditionalIncludeDirectories>$(ProjectDir);$(ProjectDir)\src;$(ProjectDir)\VortexLib;$(ProjectDir)\VortexLib\EngineDependencies;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
       <RuntimeLibrary>MultiThreaded</RuntimeLibrary>
@@ -153,6 +153,7 @@
     <ClCompile Include="src\Infrared\IRSender.cpp" />
     <ClCompile Include="src\Leds\Leds.cpp" />
     <ClCompile Include="src\Leds\LedStash.cpp" />
+    <ClCompile Include="src\Log\ErrorBlinker.cpp" />
     <ClCompile Include="src\Log\Log.cpp" />
     <ClCompile Include="src\Memory\Memory.cpp" />
     <ClCompile Include="src\Menus\Menu.cpp" />
@@ -175,25 +176,19 @@
     <ClCompile Include="src\Patterns\Multi\DripMorphPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\DripPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\FillPattern.cpp" />
-    <ClCompile Include="src\Patterns\Multi\FlowersPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\HueShiftPattern.cpp" />
-    <ClCompile Include="src\Patterns\Multi\HybridPattern.cpp" />
-    <ClCompile Include="src\Patterns\Multi\ImpactPattern.cpp" />
-    <ClCompile Include="src\Patterns\Multi\JestPattern.cpp" />
+    <ClCompile Include="src\Patterns\Multi\CompoundPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\LighthousePattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\MateriaPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\MeteorPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\MultiLedPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\PulsishPattern.cpp" />
-    <ClCompile Include="src\Patterns\Multi\RabbitPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\Sequencer\ChaserPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\Sequencer\Sequence.cpp" />
     <ClCompile Include="src\Patterns\Multi\Sequencer\SequencedPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\SnowballPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\SparkleTracePattern.cpp" />
-    <ClCompile Include="src\Patterns\Multi\SplitStrobiePattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\TheaterChasePattern.cpp" />
-    <ClCompile Include="src\Patterns\Multi\TipTopPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\VortexWipePattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\WarpPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\WarpWormPattern.cpp" />
@@ -201,15 +196,13 @@
     <ClCompile Include="src\Patterns\Pattern.cpp" />
     <ClCompile Include="src\Patterns\PatternArgs.cpp" />
     <ClCompile Include="src\Patterns\PatternBuilder.cpp" />
-    <ClCompile Include="src\Patterns\Single\AdvancedPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\BasicPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\BlendPattern.cpp" />
-    <ClCompile Include="src\Patterns\Single\BracketsPattern.cpp" />
-    <ClCompile Include="src\Patterns\Single\ComplementaryBlendPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\DashDopsPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\SingleLedPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\SolidPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\TracerPattern.cpp" />
+    <ClCompile Include="src\Random\Random.cpp" />
     <ClCompile Include="src\Serial\BitStream.cpp" />
     <ClCompile Include="src\Serial\ByteStream.cpp" />
     <ClCompile Include="src\Serial\Compression.cpp" />
@@ -219,7 +212,6 @@
     <ClCompile Include="src\Time\Timer.cpp" />
     <ClCompile Include="src\VortexEngine.cpp" />
     <ClCompile Include="VortexLib\EngineDependencies\Arduino.cpp" />
-    <ClCompile Include="VortexLib\EngineDependencies\FastLED.cpp" />
     <ClCompile Include="VortexLib\EngineDependencies\FlashStorage.cpp" />
     <ClCompile Include="VortexLib\VortexLib.cpp" />
   </ItemGroup>
@@ -234,6 +226,7 @@
     <ClInclude Include="src\Leds\Leds.h" />
     <ClInclude Include="src\Leds\LedStash.h" />
     <ClInclude Include="src\Leds\LedTypes.h" />
+    <ClInclude Include="src\Log\ErrorBlinker.h" />
     <ClInclude Include="src\Log\Log.h" />
     <ClInclude Include="src\Memory\Memory.h" />
     <ClInclude Include="src\Menus\Menu.h" />
@@ -256,25 +249,19 @@
     <ClInclude Include="src\Patterns\Multi\DripMorphPattern.h" />
     <ClInclude Include="src\Patterns\Multi\DripPattern.h" />
     <ClInclude Include="src\Patterns\Multi\FillPattern.h" />
-    <ClInclude Include="src\Patterns\Multi\FlowersPattern.h" />
     <ClInclude Include="src\Patterns\Multi\HueShiftPattern.h" />
-    <ClInclude Include="src\Patterns\Multi\HybridPattern.h" />
-    <ClInclude Include="src\Patterns\Multi\ImpactPattern.h" />
-    <ClInclude Include="src\Patterns\Multi\JestPattern.h" />
+    <ClInclude Include="src\Patterns\Multi\CompoundPattern.h" />
     <ClInclude Include="src\Patterns\Multi\LighthousePattern.h" />
     <ClInclude Include="src\Patterns\Multi\MateriaPattern.h" />
     <ClInclude Include="src\Patterns\Multi\MeteorPattern.h" />
     <ClInclude Include="src\Patterns\Multi\MultiLedPattern.h" />
     <ClInclude Include="src\Patterns\Multi\PulsishPattern.h" />
-    <ClInclude Include="src\Patterns\Multi\RabbitPattern.h" />
     <ClInclude Include="src\Patterns\Multi\Sequencer\ChaserPattern.h" />
     <ClInclude Include="src\Patterns\Multi\Sequencer\Sequence.h" />
     <ClInclude Include="src\Patterns\Multi\Sequencer\SequencedPattern.h" />
     <ClInclude Include="src\Patterns\Multi\SnowballPattern.h" />
     <ClInclude Include="src\Patterns\Multi\SparkleTracePattern.h" />
-    <ClInclude Include="src\Patterns\Multi\SplitStrobiePattern.h" />
     <ClInclude Include="src\Patterns\Multi\TheaterChasePattern.h" />
-    <ClInclude Include="src\Patterns\Multi\TipTopPattern.h" />
     <ClInclude Include="src\Patterns\Multi\VortexWipePattern.h" />
     <ClInclude Include="src\Patterns\Multi\WarpPattern.h" />
     <ClInclude Include="src\Patterns\Multi\WarpWormPattern.h" />
@@ -283,15 +270,13 @@
     <ClInclude Include="src\Patterns\PatternArgs.h" />
     <ClInclude Include="src\Patterns\PatternBuilder.h" />
     <ClInclude Include="src\Patterns\Patterns.h" />
-    <ClInclude Include="src\Patterns\Single\AdvancedPattern.h" />
     <ClInclude Include="src\Patterns\Single\BasicPattern.h" />
     <ClInclude Include="src\Patterns\Single\BlendPattern.h" />
-    <ClInclude Include="src\Patterns\Single\BracketsPattern.h" />
-    <ClInclude Include="src\Patterns\Single\ComplementaryBlendPattern.h" />
     <ClInclude Include="src\Patterns\Single\DashDopsPattern.h" />
     <ClInclude Include="src\Patterns\Single\SingleLedPattern.h" />
     <ClInclude Include="src\Patterns\Single\SolidPattern.h" />
     <ClInclude Include="src\Patterns\Single\TracerPattern.h" />
+    <ClInclude Include="src\Random\Random.h" />
     <ClInclude Include="src\Serial\BitStream.h" />
     <ClInclude Include="src\Serial\ByteStream.h" />
     <ClInclude Include="src\Serial\Compression.h" />
@@ -304,7 +289,6 @@
     <ClInclude Include="src\VortexEngine.h" />
     <ClInclude Include="VortexLib\EngineDependencies\Adafruit_Dotstar.h" />
     <ClInclude Include="VortexLib\EngineDependencies\Arduino.h" />
-    <ClInclude Include="VortexLib\EngineDependencies\FastLED.h" />
     <ClInclude Include="VortexLib\EngineDependencies\FlashStorage.h" />
     <ClInclude Include="VortexLib\VortexLib.h" />
   </ItemGroup>

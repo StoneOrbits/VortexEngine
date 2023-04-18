@@ -70,6 +70,7 @@ public:
 class PatternArgs;
 class ByteStream;
 class Colorset;
+class Random;
 class Button;
 class Mode;
 
@@ -129,15 +130,25 @@ public:
   // get total/used storage space
   static void getStorageStats(uint32_t *outTotal, uint32_t *outUsed);
 
+  // open various menus on the core (if they exist!)
+  static void openRandomizer();
+  static void openColorSelect();
+  static void openPatternSelect();
+  static void openGlobalBrightness();
+  static void openFactoryReset();
+  static void openModeSharing();
+  static void openEditorConnection();
+
+  // convert modes to/from a bytestream
   static bool getModes(ByteStream &outStream);
   static bool setModes(ByteStream &stream, bool save = true);
   static bool getCurMode(ByteStream &stream);
 
   // functions to operate on the current mode selection
-  static uint32_t curMode();
+  static uint32_t curModeIndex();
   static uint32_t numModes();
   static uint32_t numLedsInMode();
-  static bool addNewMode(bool save = true);
+  static bool addNewMode(Random *pRandCtx = nullptr, bool save = true);
   static bool addNewMode(ByteStream &stream, bool save = true);
   static bool setCurMode(uint32_t index, bool save = true);
   static bool nextMode(bool save = true);
@@ -150,7 +161,7 @@ public:
   static PatternID getPatternID(LedPos pos = LED_FIRST);
   static std::string getPatternName(LedPos pos = LED_FIRST);
   static std::string getModeName();
-  static bool setSinglePat(LedPos pos, PatternID id,
+  static bool setPatternAt(LedPos pos, PatternID id,
     const PatternArgs *args = nullptr, const Colorset *set = nullptr,
     bool save = true);
   static bool getColorset(LedPos pos, Colorset &set);

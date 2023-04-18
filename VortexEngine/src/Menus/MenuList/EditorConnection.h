@@ -9,11 +9,11 @@
 class EditorConnection : public Menu
 {
 public:
-  EditorConnection();
+  EditorConnection(const RGBColor &col);
   ~EditorConnection();
 
   bool init() override;
-  bool run() override;
+  MenuAction run() override;
 
   // handlers for clicks
   void onShortClick() override;
@@ -31,9 +31,6 @@ private:
   void handleCommand();
   bool receiveMessage(const char *message);
   void clearDemo();
-
-  // override showExit so it isn't displayed on thumb
-  virtual void showExit() override;
 
   enum EditorConnectionState {
     // the editor is not connec

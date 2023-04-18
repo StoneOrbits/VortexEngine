@@ -5,11 +5,9 @@
 
 #include "../../Time/Timings.h"
 
-// Rabbit is PATTERN_STROBIE on tops and PATTERN_STROBE on tips
 class TheaterChasePattern : public BlinkStepPattern
 {
 public:
-  TheaterChasePattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION, uint8_t stepDuration = 28);
   TheaterChasePattern(const PatternArgs &args);
   virtual ~TheaterChasePattern();
 

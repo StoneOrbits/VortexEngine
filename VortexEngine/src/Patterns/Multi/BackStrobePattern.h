@@ -1,25 +1,20 @@
 #ifndef BACKSTROBE_PATTERN_H
 #define BACKSTROBE_PATTERN_H
 
-#include "HybridPattern.h"
+#include "CompoundPattern.h"
 
 #include "../../Time/Timer.h"
 #include "../../Time/Timings.h"
 
-class BackStrobePattern : public HybridPattern
+class BackStrobePattern : public CompoundPattern
 {
 public:
-  BackStrobePattern(uint8_t onDuration1 = DOPS_ON_DURATION, uint8_t offDuration1 = DOPS_OFF_DURATION, uint8_t gapDuration1 = 0,
-    uint8_t onDuration2 = HYPERSTROBE_ON_DURATION, uint8_t offDuration2 = HYPERSTROBE_OFF_DURATION, uint8_t gapDuration2 = 0, uint8_t stepSpeed100Ms = 10);
   BackStrobePattern(const PatternArgs &args);
   virtual ~BackStrobePattern();
 
   // init the pattern to initial state
   virtual void init() override;
   virtual void play() override;
-
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
 
 private:
   // the speed for the step timer in x100 ms chunks, so a value of 10
@@ -32,6 +27,8 @@ private:
 
   PatternArgs m_firstPatternArgs;
   PatternArgs m_secondPatternArgs;
+  uint8_t m_firstPat;
+  uint8_t m_secPat;
 };
 
 #endif

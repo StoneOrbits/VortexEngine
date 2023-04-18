@@ -11,11 +11,15 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-ModeSharing::ModeSharing() :
-  Menu(),
+ModeSharing::ModeSharing(const RGBColor &col) :
+  Menu(col),
   m_sharingMode(ModeShareState::SHARE_SEND),
   m_lastActionTime(0),
   m_timeOutStartTime(0)
+{
+}
+
+ModeSharing::~ModeSharing()
 {
 }
 
@@ -24,6 +28,8 @@ bool ModeSharing::init()
   if (!Menu::init()) {
     return false;
   }
+  // skip led selection
+  m_ledSelected = true;
   // This makes send mode begin with waiting instead of sending
   m_lastActionTime = Time::getCurtime() + 1;
   // just start spewing out modes everywhere
@@ -32,10 +38,11 @@ bool ModeSharing::init()
   return true;
 }
 
-bool ModeSharing::run()
+Menu::MenuAction ModeSharing::run()
 {
-  if (!Menu::run()) {
-    return false;
+  MenuAction result = Menu::run();
+  if (result != MENU_CONTINUE) {
+    return result;
   }
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND:
@@ -58,7 +65,7 @@ bool ModeSharing::run()
     receiveMode();
     break;
   }
-  return true;
+  return MENU_CONTINUE;
 }
 
 // handlers for clicks
@@ -167,9 +174,4 @@ void ModeSharing::showReceiveMode()
   LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(200) % (LED_COUNT + 1)));
   if (pos == LED_COUNT) return;
   Leds::setRange(LED_FIRST, pos, RGB_PURPLE);
-}
-
-// override showExit so it isn't displayed on thumb
-void ModeSharing::showExit()
-{
 }

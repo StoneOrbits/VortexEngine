@@ -27,8 +27,11 @@ public:
   // unserialize a buffer into a pattern
   static Pattern *unserialize(ByteStream &buffer);
 
-  // get default args for any given pattern
+  // This is just the default arguments for any given pattern id
+  // it will *not* indicate the true amount of arguments a pattern has
   static PatternArgs getDefaultArgs(PatternID id);
+  // this will give you actual amount of default args
+  static uint8_t numDefaultArgs(PatternID id);
 
 private:
   // helper routines

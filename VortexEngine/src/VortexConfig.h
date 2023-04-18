@@ -32,20 +32,19 @@
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
 #define VORTEX_FULL_NAME "Vortex Engine v" VORTEX_VERSION " '" VORTEX_NAME "' ( built " __TIMESTAMP__ ")"
 
+// Vortex Slim
+//
+// Turn on this flag to enable the 'slim' version of the engine
+#define VORTEX_SLIM           0
+
 // ===================================================================
 //  Numeric Configurations
 
 // Menu Trigger Threshold (in milliseconds)
 //
-// How long the button must be held to trigger ring menu and begin
-// filling the first menu color
+// How long the button must be held to trigger menu selection and
+// begin blinking the first menu color
 #define MENU_TRIGGER_TIME     1000
-
-// Menu Duration (in milliseconds)
-//
-// How long each ring menu takes to fill, after which the next
-// menu will start filling
-#define MENU_FILL_TIME        1000
 
 // Short Click Threshold (in milliseconds)
 //
@@ -54,10 +53,17 @@
 // it will be registered as a 'long click'
 #define CLICK_THRESHOLD       250
 
+// Startup Ignore Button Time (in milliseconds)
+//
+// The amount of time the engine will ignore button presses after
+// it has started up, this is to prevent accidental button presses
+// after sleep or immediately on startup
+#define IGNORE_BUTTON_TIME    150
+
 // Color delete threshold (in milliseconds)
 //
 // How long you must hold down on a color in the color select menu to
-// trigger the delete option to start flashing on the tip
+// trigger the delete option to start flashing
 #define COL_DELETE_THRESHOLD  2000
 
 // Color delete cycle time (in milliseconds)
@@ -70,18 +76,21 @@
 //
 // This is how long the user must hold down the button on the factory
 // reset menu to confirm the reset and restore factory settings
-#define RESET_HOLD_TIME       5000
+#define RESET_HOLD_TIME       2500
 
 // Serial check time (in milliseconds)
 //
 // This is how quickly the serial class can check for serial connections
-// when the editor menu is open
+// when the editor menu is open, if you lower this then the editor will
+// connect quicker but the vortex device will have to do more work
 #define SERIAL_CHECK_TIME     500
 
 // Max Color Slots
 //
-// The max number of colors in a colorset, this was never tested with
-// anything other than 8, you have been warned
+// The max number of colors in a colorset, this was never tested or
+// designed to be anything other than 8, you have been warned. If you
+// want to increase this or change this then it is suggested you review
+// all locations where it or colorset code is being used
 #define MAX_COLOR_SLOTS       8
 
 // Default Global Brightness
@@ -95,9 +104,17 @@
 // The maximum number of modes that can be stored on the device.
 // This should reflect the available RAM of the device.
 //
-// In our tests even 45 fully loaded modes only took up 15kb
+// In our tests even 45 fully loaded modes only took up 15kb,
+// however this is heavily dependent on the state of compression.
 //
-// Set this to 0 for no limit on the number of modes
+// Smaller devices aren't able to comrpess as easily due to the lack
+// of stack space for compression algorithms. This means they have
+// two fold the issues with space because they are already limited
+// and the lack of compression makes their save files bigger
+//
+// This is set to 0 by default which allows for any number of modes
+// to be stored, however this is not recommended for production and
+// a specific maximum should be chosen for each device
 //
 #define MAX_MODES             0
 
@@ -109,10 +126,20 @@
 // the processor to handle.
 //
 // Any value less than 100 and you risk a single tick taking longer
-// than some pattern timings which results in unexpected behaviour
+// than some pattern timings which results in very weird behaviour
+//
+// It's probably best that you leave this at 1000
+//
+// WARNING:
+//
+//  The timer system was not designed to handle ticks that are not
+//  exactly 1 ms. This means that if you change the tickrate to any
+//  value other than 1000 the timer system will miss alarms, patterns
+//  will not look correct and there is no fix at the moment.
+//
 #define DEFAULT_TICKRATE      1000
 
-// Finger time offset in ticks
+// Pair time offset in ticks
 //
 // This changes how many ticks out of sync each finger will run.
 // So 33 means each finger runs 33 ticks out of sync with the
@@ -128,7 +155,7 @@
 // The memory tracker isn't present in final builds, only debug
 // so this number doesn't actually do anything in production.
 // Mostly for catching leaks or high memory usage in development.
-#define MAX_MEMORY            50000
+#define MAX_MEMORY            8000
 
 // Log Level
 //
@@ -141,6 +168,22 @@
 //  3     Debug   All logs are present, info, error, and debug
 //
 #define LOGGING_LEVEL         0
+
+// Log to Console
+//
+// Enable logging to console, still need to change LOGGING_LEVEL
+// this only enables the console output connection
+#define LOG_TO_CONSOLE        0
+
+// Log to File
+//
+// Enable this configuration to enable logging to the file
+#define LOG_TO_FILE           0
+
+// Log Name
+//
+// The name of the file on disk that will receive the log info
+#define VORTEX_LOG_NAME       "vortexlog"
 
 // HSV to RGB Conversion Algorithm
 //
@@ -186,11 +229,6 @@
 // The logic is cleaner for fill from pinkie but fill from thumb is preferred
 #define FILL_FROM_THUMB       1
 
-// Use Palm Lights
-//
-// Adjust the engine to account for palm lights
-#define USE_PALM_LIGHTS       0
-
 // Demo All Patterns
 //
 // The default modes that are set on the gloveset will be dynamically
@@ -225,6 +263,25 @@
 // the final build? I'm not sure.
 #define VARIABLE_TICKRATE     0
 
+// Error Blinker System
+//
+// This toggles the vortex error blinker system, this system reports
+// fatal errors as a series of blinks. If an error is encountered the
+// chip will only blink out the error code from there forward.
+//
+// Note that enabling this system takes a non-negligible amount
+// of space for all of the code, it really should only be used
+// for debug settings or given tiers like logging level.
+//
+// This is mainly useful for tracking down issues on devices that don't
+// have a serial connection like the attiny. Use FATAL_ERROR(code) to
+// set the error code and then the device will blink out the error
+//
+// for ex: red red green blue blue blue is code 213
+//
+// See Log/ErrorBlinker.h for details on the error codes
+#define VORTEX_ERROR_BLINK    0
+
 // Fixed LED Count
 //
 // Do not allow the Mode loader to dynamically load however many modes
@@ -258,21 +315,11 @@
 // updated then this will test for any issues
 #define MODES_TEST            0
 
-// Log to Console
+// Timer Test
 //
-// Enable logging to console, still need to change LOGGING_LEVEL
-// this only enables the console output connection
-#define LOG_TO_CONSOLE        0
-
-// Log to File
-//
-// Enable this configuration to enable logging to the file
-#define LOG_TO_FILE           0
-
-// Log Name
-//
-// The name of the file on disk that will receive the log info
-#define VORTEX_LOG_NAME       "vortexlog"
+// Tests the timers, time control, and timestep system to ensure they
+// are all working as expected and behaving properly
+#define TIMER_TEST            0
 
 // ===================================================================
 //  Editor Verbs
@@ -328,21 +375,21 @@
 //  These are the various storage space constants of the vortex device
 
 // maximum storage space in bytes
-#define MAX_STORAGE_SPACE 262144
+#define MAX_STORAGE_SPACE 32000
 
 // the size of the compiled engine
-#define ENGINE_SIZE 88776
+#define ENGINE_SIZE 28000
 
 // the raw amount of available space
 #define RAW_AVAILABLE_SPACE (MAX_STORAGE_SPACE - ENGINE_SIZE)
 
 // usable flash space is one eighth of what we have left idk why I
 // just kept picking numbers till it worked
-#define USABLE_SPACE (RAW_AVAILABLE_SPACE / 8)
+#define USABLE_SPACE (RAW_AVAILABLE_SPACE / 2)
 
 // the space available for storing modes is the usable space rounded
 // down to nearest 4096
-#define STORAGE_SIZE (USABLE_SPACE - (USABLE_SPACE % 4096))
+#define STORAGE_SIZE (USABLE_SPACE - (USABLE_SPACE % 256))
 
 // ===================================================================
 //  Test Framework configurations
@@ -352,7 +399,7 @@
 // These defines come from the project settings for preprocessor, an
 // entry for $(SolutionName) produces preprocessor definitions that
 // match the solution that is compiling the engine
-#if !defined(VortexTestingFramework) && !defined(VortexEditor) && !defined(VORTEX_LIB)
+#if !defined(PROJECT_NAME_VortexTestingFramework) && !defined(PROJECT_NAME_VortexEditor) && !defined(VORTEX_LIB)
 #define VORTEX_ARDUINO 1
 #endif
 
@@ -366,7 +413,7 @@
 #endif
 
 // This will be defined if the project is being built inside the test framework
-#ifdef VortexTestingFramework
+#ifdef PROJECT_NAME_VortexTestingFramework
 
 // In the test framework variable tickrate must be enabled to allow
 // the tickrate slider to function, also the test framework never runs
@@ -389,7 +436,7 @@
 #endif // VortexTestingFramework
 
 // This will be defined if the project is being built inside the editor
-#ifdef VortexEditor
+#ifdef PROJECT_NAME_VortexEditor
 
 #undef FIXED_LED_COUNT
 #define FIXED_LED_COUNT 0

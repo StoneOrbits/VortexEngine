@@ -8,13 +8,14 @@
 struct default_mode_entry
 {
   PatternID patternID;
-  int cols[MAX_COLOR_SLOTS];
+  uint8_t numColors;
+  uint32_t cols[MAX_COLOR_SLOTS];
 };
 
 // exposed global array of default modes
 extern const default_mode_entry default_modes[];
 
 // exposed size of the default modes array
-extern const uint32_t num_default_modes;
+extern const uint8_t num_default_modes;
 
 #endif

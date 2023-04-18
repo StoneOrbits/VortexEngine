@@ -5,51 +5,43 @@
 #include "../../Log/Log.h"
 
 // Mapping of LED positions to steps.
-// The lights runs across tips, then back across tops.
+// The lights runs across evens, then back across odds.
 // Index this array with m_step in order to get correct LedPos
 const LedPos ZigzagPattern::ledStepPositions[] = {
-  PINKIE_TOP,
-  RING_TOP,
-  MIDDLE_TOP,
-  INDEX_TOP,
-  THUMB_TOP,
+  LED_1,
+  LED_3,
+  LED_5,
+  LED_7,
+  LED_9,
 
-  THUMB_TIP,
-  INDEX_TIP,
-  MIDDLE_TIP,
-  RING_TIP,
-  PINKIE_TIP,
-
-  // PaLm LiGhTs?>??!?
-#if USE_PALM_LIGHTS == 1
-  PALM_LEFT,
-  PALM_UP,
-  PALM_RIGHT,
-  PALM_DOWN
-#endif
+  LED_8,
+  LED_6,
+  LED_4,
+  LED_2,
+  LED_0,
 };
 
 // There just happens to be LED_COUNT steps in the pattern
 #define NUM_ZIGZAG_STEPS (sizeof(ledStepPositions) / sizeof(ledStepPositions[0]))
 #define HALF_ZIGZAG_STEPS (NUM_ZIGZAG_STEPS / 2)
 
-ZigzagPattern::ZigzagPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration, uint8_t snakeSize, uint8_t fadeAmount) :
-  MultiLedPattern(),
-  m_onDuration(onDuration),
-  m_offDuration(offDuration),
-  m_stepDuration(stepDuration),
-  m_snakeSize(snakeSize),
-  m_fadeAmount(fadeAmount),
+ZigzagPattern::ZigzagPattern(const PatternArgs &args) :
+  MultiLedPattern(args),
+  m_onDuration(0),
+  m_offDuration(0),
+  m_stepDuration(0),
+  m_snakeSize(0),
+  m_fadeAmount(0),
   m_stepTimer(),
   m_snake1(),
   m_snake2()
 {
   m_patternID = PATTERN_ZIGZAG;
-}
-
-ZigzagPattern::ZigzagPattern(const PatternArgs &args) :
-  ZigzagPattern()
-{
+  REGISTER_ARG(m_onDuration);
+  REGISTER_ARG(m_offDuration);
+  REGISTER_ARG(m_stepDuration);
+  REGISTER_ARG(m_snakeSize);
+  REGISTER_ARG(m_fadeAmount);
   setArgs(args);
 }
 
@@ -83,27 +75,6 @@ void ZigzagPattern::play()
 
   m_snake1.draw();
   m_snake2.draw();
-}
-
-void ZigzagPattern::setArgs(const PatternArgs &args)
-{
-  MultiLedPattern::setArgs(args);
-  m_onDuration = args.arg1;
-  m_offDuration = args.arg2;
-  m_stepDuration = args.arg3;
-  m_snakeSize = args.arg4;
-  m_fadeAmount = args.arg5;
-}
-
-void ZigzagPattern::getArgs(PatternArgs &args) const
-{
-  MultiLedPattern::getArgs(args);
-  args.arg1 = m_onDuration;
-  args.arg2 = m_offDuration;
-  args.arg3 = m_stepDuration;
-  args.arg4 = m_snakeSize ;
-  args.arg5 = m_fadeAmount ;
-  args.numArgs += 5;
 }
 
 // ===================

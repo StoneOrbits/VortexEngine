@@ -5,20 +5,24 @@
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Colors/Colorset.h"
+#include "../Memory/Memory.h"
 #include "../Log/Log.h"
+
+#include "../VortexConfig.h"
 
 Pattern::Pattern() :
   m_patternID(PATTERN_FIRST),
   m_patternFlags(0),
   m_colorset(),
-  m_ledPos(LED_FIRST)
+  m_ledPos(LED_FIRST),
+  m_numArgs(0),
+  m_argList()
 {
 }
 
 Pattern::Pattern(const PatternArgs &args) :
   Pattern()
 {
-  setArgs(args);
 }
 
 Pattern::~Pattern()
@@ -34,6 +38,18 @@ void Pattern::init()
 {
   m_colorset.resetIndex();
 }
+
+#ifdef VORTEX_LIB
+void Pattern::skip(uint32_t ticks)
+{
+  Time::startSimulation();
+  for (uint32_t i = 0; i < ticks; ++i) {
+    play();  // simulate playing the pattern
+    Time::tickSimulation();
+  }
+  Time::endSimulation();
+}
+#endif
 
 // must override the serialize routine to save the pattern
 void Pattern::serialize(ByteStream &buffer) const
@@ -59,13 +75,35 @@ void Pattern::unserialize(ByteStream &buffer)
   }
 }
 
+void Pattern::setArg(uint8_t index, uint8_t value)
+{
+  if (index >= m_numArgs) {
+    return;
+  }
+  *((uint8_t *)this + m_argList[index]) = value;
+}
+
+uint8_t Pattern::getArg(uint8_t index) const
+{
+  if (index >= m_numArgs) {
+    return 0;
+  }
+  return *((uint8_t *)this + m_argList[index]);
+}
+
 void Pattern::setArgs(const PatternArgs &args)
 {
+  for (uint32_t i = 0; i < m_numArgs; ++i) {
+    *((uint8_t *)this + m_argList[i]) = args.args[i];
+  }
 }
 
 void Pattern::getArgs(PatternArgs &args) const
 {
   args.init();
+  for (uint32_t i = 0; i < m_numArgs; ++i) {
+    args.addArgs(*((uint8_t *)this + m_argList[i]));
+  }
 }
 
 bool Pattern::equals(const Pattern *other)
@@ -105,4 +143,20 @@ void Pattern::setColorset(const Colorset *set)
 void Pattern::clearColorset()
 {
   m_colorset.clear();
+}
+
+#ifdef VORTEX_LIB
+void Pattern::registerArg(const char *name, uint8_t argOffset)
+#else
+void Pattern::registerArg(uint8_t argOffset)
+#endif
+{
+  if (m_numArgs >= MAX_PATTERN_ARGS) {
+    ERROR_LOG("too many args");
+    return;
+  }
+#ifdef VORTEX_LIB
+  m_argNameList[m_numArgs] = name;
+#endif
+  m_argList[m_numArgs++] = argOffset;
 }

@@ -5,23 +5,23 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-MateriaPattern::MateriaPattern(uint8_t onDuration1, uint8_t offDuration1, uint8_t onDuration2, uint8_t offDuration2, uint8_t stepSpeed100ms) :
-  MultiLedPattern(),
-  m_onDuration1(onDuration1),
-  m_offDuration1(offDuration1),
-  m_onDuration2(onDuration2),
-  m_offDuration2(offDuration2),
-  m_stepSpeed(stepSpeed100ms),
+MateriaPattern::MateriaPattern(const PatternArgs &args) :
+  MultiLedPattern(args),
+  m_onDuration1(0),
+  m_offDuration1(0),
+  m_onDuration2(0),
+  m_offDuration2(0),
+  m_stepSpeed(0),
   m_stepTimer(),
   m_ledMap(0),
   m_switch(false)
 {
   m_patternID = PATTERN_MATERIA;
-}
-
-MateriaPattern::MateriaPattern(const PatternArgs &args) :
-  MateriaPattern()
-{
+  REGISTER_ARG(m_onDuration1);
+  REGISTER_ARG(m_offDuration1);
+  REGISTER_ARG(m_onDuration2);
+  REGISTER_ARG(m_offDuration2);
+  REGISTER_ARG(m_stepSpeed);
   setArgs(args);
 }
 
@@ -58,10 +58,10 @@ void MateriaPattern::init()
   m_stepTimer.start();
 
   // map of the Thumb, Index, Ring, and Pinkie Tops
-  m_ledMap = MAP_LED(THUMB_TOP) | MAP_LED(INDEX_TOP) | MAP_LED(RING_TOP) | MAP_LED(PINKIE_TOP);
+  m_ledMap = MAP_LED(LED_9) | MAP_LED(LED_7) | MAP_LED(LED_3) | MAP_LED(LED_1);
 
   //Set the middle top to solid color 0
-  Leds::setIndex(MIDDLE_TOP, m_colorset.get(0));
+  Leds::setIndex(LED_5, m_colorset.get(0));
 }
 
 // pure virtual must override the play function
@@ -83,17 +83,17 @@ void MateriaPattern::play()
     if (m_switch) {
       // if this is the last color of the set, skip color 0 (color 0 is for Middle top only)
       if (m_colorset.curIndex() != m_colorset.numColors() - 1) {
-        Leds::setAllTips(m_colorset.peekNext());
+        Leds::setAllEvens(m_colorset.peekNext());
       } else {
-        Leds::setAllTips(m_colorset.peek(2));
+        Leds::setAllEvens(m_colorset.peek(2));
       }
     }
     else {
-      Leds::setAllTips(m_colorset.cur());
+      Leds::setAllEvens(m_colorset.cur());
     }
     break;
   case 1: // turn off the leds
-    Leds::clearAllTips();
+    Leds::clearAllEvens();
     break;
   }
 
@@ -108,24 +108,3 @@ void MateriaPattern::play()
     break;
   }
  }
-
-void MateriaPattern::setArgs(const PatternArgs &args)
-{
-  MultiLedPattern::setArgs(args);
-  m_onDuration1 = args.arg1;
-  m_offDuration1 = args.arg2;
-  m_onDuration2 = args.arg3;
-  m_offDuration2 = args.arg4;
-  m_stepSpeed = args.arg5;
-}
-
-void MateriaPattern::getArgs(PatternArgs &args) const
-{
-  MultiLedPattern::getArgs(args);
-  args.arg1 = m_onDuration1;
-  args.arg2 = m_offDuration1;
-  args.arg3 = m_onDuration2;
-  args.arg4 = m_offDuration2;
-  args.arg5 = m_stepSpeed;
-  args.numArgs += 5;
-}

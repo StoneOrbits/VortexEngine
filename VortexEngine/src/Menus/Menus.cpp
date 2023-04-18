@@ -11,6 +11,7 @@
 
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
+#include "../VortexEngine.h"
 #include "../Buttons/Button.h"
 #include "../Serial/Serial.h"
 #include "../Modes/Modes.h"
@@ -23,23 +24,35 @@ uint64_t Menus::m_openTime = 0;
 uint32_t Menus::m_selection = 0;
 Menu *Menus::m_pCurMenu = nullptr;
 
+// typedef for the menu initialization function
+typedef Menu *(*initMenuFn_t)(const RGBColor &col);
+
 // entries for the ring menu
-typedef Menu *(*initMenuFn_t)();
 struct MenuEntry {
+#if LOGGING_LEVEL > 2
+  // only store the name if the logging is enabled
   const char *menuName;
+#endif
   initMenuFn_t initMenu;
   RGBColor color;
 };
 
 // a template to initialize ringmenu functions
 template <typename T>
-Menu *initMenu() { return new T(); }
+Menu *initMenu(const RGBColor &col) { return new T(col); }
 
 // a simple macro to simplify the entries in the menu list
+#if LOGGING_LEVEL > 2
+// if the logging is enabled then we need to store the name of the menu
 #define ENTRY(classname, color) { #classname, initMenu<classname>, color }
+#else
+#define ENTRY(classname, color) { initMenu<classname>, color }
+#endif
 
 // The list of menus that are registered with colors to show in ring menu
-const MenuEntry menuList[MENU_COUNT] = {
+const MenuEntry menuList[] = {
+  // =========================
+  //  Default menu setup:
   ENTRY(Randomizer,       RGB_DIM_WHITE1),  // 0
   ENTRY(ColorSelect,      RGB_ORANGE),      // 1
   ENTRY(PatternSelect,    RGB_BLUE),        // 2
@@ -73,30 +86,20 @@ void Menus::cleanup()
 
 bool Menus::run()
 {
+  // if there are no menus, then we don't need to run
   switch (m_menuState) {
   case MENU_STATE_NOT_OPEN:
   default:
-    // make sure the button is pressed and held till the threshold
-    if (g_pButton->isPressed() && g_pButton->holdDuration() >= MENU_TRIGGER_THRESHOLD_TICKS) {
-      DEBUG_LOG("Entering ring fill...");
-      // save the time of when we open the menu so we can fill based on curtime from then
-      m_openTime = Time::getCurtime();
-      // open the menu
-      m_menuState = MENU_STATE_RING_FILL;
-      return true;
-    }
-    // no menu open yet
+    // nothing to run
     return false;
-  case MENU_STATE_RING_FILL:
-    return runRingFill();
+  case MENU_STATE_MENU_SELECTION:
+    return runMenuSelection();
   case MENU_STATE_IN_MENU:
     return runCurMenu();
   }
-  // nothing to run
-  return false;
 }
 
-bool Menus::runRingFill()
+bool Menus::runMenuSelection()
 {
   if (g_pButton->onShortClick()) {
     // otherwise increment selection and wrap around at num menus
@@ -124,60 +127,61 @@ bool Menus::runRingFill()
   }
   // clear the leds so it always fills instead of replacing
   Leds::clearAll();
-  // calculate how long into the current menu the button was held
-  // this will be a value between 0 and LED_COUNT based on the current
-  // menu selection and hold time
-  // the leds turn on in sequence every tick another turns on:
-  //  000ms = led 0 to 0
-  //  100ms = led 0 to 1
-  //  200ms = led 0 to 2
-  LedPos led = calcLedPos();
-#if FILL_FROM_THUMB == 1
-  // turn on leds from led to LED_LAST because the menu is filling downward
-  Leds::setRange(led, LED_LAST, menuList[m_selection].color);
-#else
-  // turn on leds LED_FIRST through led with the selected menu's given color
-  Leds::setRange(LED_FIRST, led, menuList[m_selection].color);
-#endif
+  // blink every even/odd of every pair
+  for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
+    if (pairEven(p) < LED_COUNT) {
+      Leds::blinkIndex(pairEven(p), Time::getCurtime(), 200, 200, menuList[m_selection].color);
+    }
+    if (pairOdd(p) < LED_COUNT) {
+      Leds::setIndex(pairOdd(p), menuList[m_selection].color);
+      Leds::blinkIndex(pairOdd(p), Time::getCurtime(), 200, 200, RGB_OFF);
+    }
+  }
   // continue in the menu
   return true;
 }
 
 bool Menus::runCurMenu()
 {
-  // first run the click handlers for the menu
-  if (g_pButton->onShortClick()) {
-    m_pCurMenu->onShortClick();
-  }
-  if (g_pButton->onLongClick()) {
-    m_pCurMenu->onLongClick();
-  }
-
   // if the menu run handler returns false that signals the
   // menu was closed by the user leaving the menu
-  if (!m_pCurMenu->run()) {
+  switch (m_pCurMenu->run()) {
+  case Menu::MENU_QUIT:
     // close the current menu when run returns false
     closeCurMenu();
     // return false to let the modes play
     return false;
+  case Menu::MENU_CONTINUE:
+    // if Menu continue run the click handlers for the menu
+    if (g_pButton->onShortClick()) {
+      m_pCurMenu->onShortClick();
+    }
+    if (g_pButton->onLongClick()) {
+      m_pCurMenu->onLongClick();
+    }
+    break;
+  case Menu::MENU_SKIP:
+    // dont run click handlers in this case
+    // so the core menu class can handle them
+    break;
   }
   // the opened menu and don't play modes
   return true;
 }
 
-// helper to calculate the relative hold time for the current menu
-LedPos Menus::calcLedPos()
+// open the menu selection ring
+bool Menus::openMenuSelection()
 {
-  // this allows the menu to wrap around to beginning after
-  uint32_t holdDuration = (Time::getCurtime() - m_openTime) % MENU_DURATION_TICKS;
-  // calcluate the led for the hold duration
-  LedPos led = (LedPos)(((double)holdDuration / MENU_DURATION_TICKS) * LED_COUNT);
-  // if the holdTime is within MENU_DURATION_TICKS then it's valid
-#if FILL_FROM_THUMB == 1
-  return (LedPos)(LED_LAST - led);
-#else
-  return led;
-#endif
+  if (m_menuState != MENU_STATE_NOT_OPEN) {
+    return false;
+  }
+  // save the time of when we open the menu so we can fill based on curtime from then
+  m_openTime = Time::getCurtime();
+  // open the menu
+  m_menuState = MENU_STATE_MENU_SELECTION;
+  // clear the leds
+  Leds::clearAll();
+  return true;
 }
 
 bool Menus::openMenu(uint32_t index)
@@ -186,7 +190,7 @@ bool Menus::openMenu(uint32_t index)
     return false;
   }
   m_selection = index;
-  Menu *newMenu = menuList[m_selection].initMenu();
+  Menu *newMenu = menuList[m_selection].initMenu(menuList[m_selection].color);
   if (!newMenu) {
     return false;
   }
@@ -211,7 +215,7 @@ bool Menus::openMenu(uint32_t index)
 
 bool Menus::checkOpen()
 {
-  return m_menuState == MENU_STATE_IN_MENU;
+  return m_menuState != MENU_STATE_NOT_OPEN;
 }
 
 Menu *Menus::curMenu()
@@ -226,10 +230,13 @@ MenuEntryID Menus::curMenuID()
 
 void Menus::closeCurMenu()
 {
+  // delete the currently open menu object
   if (m_pCurMenu) {
     delete m_pCurMenu;
     m_pCurMenu = nullptr;
   }
   m_menuState = MENU_STATE_NOT_OPEN;
   m_selection = 0;
+  // clear the leds
+  Leds::clearAll();
 }

@@ -7,14 +7,14 @@ class SingleLedPattern;
 
 // A hybrid pattern is a type of multi-led pattern that works by displaying
 // pre-existing patterns on different leds simultaneously
-class HybridPattern : public MultiLedPattern
+class CompoundPattern : public MultiLedPattern
 {
 protected:
-  // HybridPattern is an abstract class
-  HybridPattern();
+  // CompoundPattern is an abstract class
+  CompoundPattern(const PatternArgs &args);
 
 public:
-  virtual ~HybridPattern();
+  virtual ~CompoundPattern();
 
   // init the pattern to initial state
   virtual void init() override;
@@ -28,8 +28,8 @@ protected:
   void setPatternAt(LedPos pos, PatternID id, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   void clearPatterns();
 
-  // change the patterns on the tips/tops respectively
-  void setTipsTops(PatternID tipPattern, PatternID topPattern,
+  // change the patterns on the evens/odds respectively
+  void setEvensOdds(PatternID tipPattern, PatternID topPattern,
     const PatternArgs *tipArgs = nullptr, const PatternArgs *topArgs = nullptr);
 
   // array of single LED patterns, one for each LED

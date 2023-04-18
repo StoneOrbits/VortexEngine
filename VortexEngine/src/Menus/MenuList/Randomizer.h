@@ -2,6 +2,8 @@
 #define RANDOMIZER_H
 
 #include "../Menu.h"
+
+#include "../../Random/Random.h"
 #include "../../Modes/Mode.h"
 
 class Mode;
@@ -9,31 +11,23 @@ class Mode;
 class Randomizer : public Menu
 {
 public:
-  Randomizer();
+  Randomizer(const RGBColor &col);
   ~Randomizer();
 
   bool init() override;
-
-  bool run() override;
+  MenuAction run() override;
 
   // handlers for clicks
   void onShortClick() override;
   void onLongClick() override;
 
 private:
-  // override showExit so it isn't displayed on thumb
-  virtual void showExit() override;
+  // random context for each led
+  Random m_randCtx[LED_COUNT];
 
-  // a demo mode for the current randomization
-  Mode m_demoMode;
-
-  // re-roll a new randomization
+  // re-roll a new randomization with a given context on an led
+  bool reRoll(LedPos pos);
   bool reRoll();
-
-#ifdef VORTEX_LIB
-  // so that vortex can reach in and grab the demo mode
-  friend class Vortex;
-#endif
 };
 
 #endif

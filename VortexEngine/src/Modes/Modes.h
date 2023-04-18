@@ -71,6 +71,8 @@ public:
   static Mode *curMode();
   // iterate to next mode and return it
   static Mode *nextMode();
+  // iterate to previous mode and return it
+  static Mode *previousMode();
 
   // the number of modes
   static uint8_t numModes() { return m_numModes; }

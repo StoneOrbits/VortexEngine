@@ -3,9 +3,10 @@
 // This pattern aims to be a demonstration of the sequencer.
 // There are always many ways to implement a pattern, it's best
 // to choose the method that is most suitable for the pattern.
-ChaserPattern::ChaserPattern() :
-  SequencedPattern()
+ChaserPattern::ChaserPattern(const PatternArgs &args) :
+  SequencedPattern(args)
 {
+  setArgs(args);
   // set the pattern ID
   //m_patternID = PATTERN_CHASER;
   // There are 8 steps in the chaser, so iterate 8 times and generate
@@ -34,7 +35,7 @@ ChaserPattern::ChaserPattern() :
     //     5         3             6, 7        00 11 00 00 00
     //     6         2             4, 5        00 00 11 00 00
     //     7         1             2, 3        00 00 00 11 00
-    LedMap overrideLeds = MAP_FINGER((Finger)((i < 5) ? i : (8 - i)));
+    LedMap overrideLeds = MAP_PAIR((Pair)((i < 5) ? i : (8 - i)));
     // Then this API is used to override specific positions in the Pattern Map
     // with a different pattern ID, we use the Led Map generated above to tell
     // setPatternAt() which indices to override with Solid0
@@ -46,10 +47,4 @@ ChaserPattern::ChaserPattern() :
     // is omitted that means this pattern will use whichever colorset is chosen
     m_sequence.addStep(300, patMap);
   }
-}
-
-ChaserPattern::ChaserPattern(const PatternArgs &args) :
-  ChaserPattern()
-{
-  setArgs(args);
 }

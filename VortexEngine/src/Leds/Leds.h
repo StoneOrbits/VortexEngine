@@ -3,8 +3,6 @@
 
 #include <inttypes.h>
 
-#include <Adafruit_DotStar.h>
-
 #include "../Colors/ColorTypes.h"
 #include "LedTypes.h"
 
@@ -31,27 +29,27 @@ public:
   static void clearRange(LedPos first, LedPos last) { setRange(first, last, HSV_OFF); }
   static void clearAll() { setAll(HSV_OFF); }
 
-  // control two LEDs on a finger, these are appropriate for use in internal pattern logic
-  static void setFinger(Finger finger, RGBColor col);
-  static void setFingers(Finger first, Finger last, RGBColor col);
+  // control two LEDs on a pair, these are appropriate for use in internal pattern logic
+  static void setPair(Pair pair, RGBColor col);
+  static void setPairs(Pair first, Pair last, RGBColor col);
 
-  // Turn off both LEDs on a finger, these are appropriate for use in internal pattern logic
-  static void clearFinger(Finger finger) { setFinger(finger, HSV_OFF); }
-  static void clearFingers(Finger first, Finger last) { setFingers(first, last, HSV_OFF); }
+  // Turn off both LEDs on a pair, these are appropriate for use in internal pattern logic
+  static void clearPair(Pair pair) { setPair(pair, HSV_OFF); }
+  static void clearPairs(Pair first, Pair last) { setPairs(first, last, HSV_OFF); }
 
-  // Controll finger tips
-  static void setRangeTips(Finger first, Finger last, RGBColor);
-  static void setAllTips(RGBColor col);
-  // Controll finger tops
-  static void setRangeTops(Finger first, Finger last, RGBColor);
-  static void setAllTops(RGBColor col);
+  // Controll pair evens
+  static void setRangeEvens(Pair first, Pair last, RGBColor);
+  static void setAllEvens(RGBColor col);
+  // Controll pair odds
+  static void setRangeOdds(Pair first, Pair last, RGBColor);
+  static void setAllOdds(RGBColor col);
 
   // Turn off tips
-  static void clearRangeTips(Finger first, Finger last);
-  static void clearAllTips();
+  static void clearRangeEvens(Pair first, Pair last);
+  static void clearAllEvens();
   // Turn off tops
-  static void clearRangeTops(Finger first, Finger last);
-  static void clearAllTops();
+  static void clearRangeOdds(Pair first, Pair last);
+  static void clearAllOdds();
 
   // Turn on/off a mapping of leds with a color
   static void setMap(LedMap map, RGBColor col);
@@ -80,14 +78,19 @@ public:
   // is unpredictable whether they will blink on or off first
   static void blinkIndex(LedPos target, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkRange(LedPos first, LedPos last, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkMap(LedMap targets, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkAll(uint64_t time, int32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  // Blink both LEDs on a finger
-  static void blinkFinger(Finger finger, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkFingers(Finger first, Finger last, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  // Blink both LEDs on a pair
+  static void blinkPair(Pair pair, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkPairs(Pair first, Pair last, uint64_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
 
   // breath the hue on an index
-  // warning: uses hsv to rgb in realtime!
+  // warning: these use hsv to rgb in realtime!
   static void breathIndex(LedPos target, uint32_t hue, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
+  static void breathIndexSat(LedPos target, uint32_t hue, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
+  static void breathIndexVal(LedPos target, uint32_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
 
   // get the RGBColor of an Led index
@@ -101,18 +104,13 @@ public:
   static void update();
 
 private:
-  static void clearOnboardLED();
-
   // accessor for led colors, use this for all access to allow for mapping
   static inline RGBColor &led(LedPos pos)
   {
     if (pos > LED_LAST) {
       pos = LED_LAST;
     }
-    // FLIP THE INDEXES because we want our enums to go from
-    // PINKIE to INDEX for sake of simple iteration in menus
-    // but the current hardware configuration is flipped
-    return m_ledColors[LED_LAST - pos];
+    return m_ledColors[pos];
   }
 
   // the global brightness
@@ -120,9 +118,6 @@ private:
 
   // array of led color values
   static RGBColor m_ledColors[LED_COUNT];
-
-  // the onboard LED on the adafruit board
-  static Adafruit_DotStar m_onboardLED;
 };
 
 #endif

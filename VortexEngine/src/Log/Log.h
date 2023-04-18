@@ -5,6 +5,10 @@
 
 #include "../VortexConfig.h"
 
+// just self-inclode the error blinker so that anybody who includes log has
+// access to the error blinker since it's only enabled in debug builds
+#include "../Log/ErrorBlinker.h"
+
 #if LOGGING_LEVEL > 0
 #define INFO_LOG(msg) InfoMsg(msg)
 #define INFO_LOGF(msg, ...) InfoMsg(msg, __VA_ARGS__)

@@ -1,13 +1,15 @@
 #include "VortexEngine.h"
 
-#include "Time/TimeControl.h"
 #include "Infrared/IRReceiver.h"
 #include "Infrared/IRSender.h"
 #include "Storage/Storage.h"
 #include "Buttons/Buttons.h"
+#include "Time/TimeControl.h"
+#include "Time/Timings.h"
 #include "Serial/Serial.h"
 #include "Modes/Modes.h"
 #include "Menus/Menus.h"
+#include "Modes/Mode.h"
 #include "Leds/Leds.h"
 #include "Log/Log.h"
 
@@ -15,11 +17,6 @@
 
 bool VortexEngine::init()
 {
-  // initialize a random seed
-  // Always generate seed before creating button on
-  // digital pin 1 (shared pin with analog 0)
-  randomSeed(analogRead(0));
-
   // all of the global controllers
   if (!SerialComs::init()) {
     DEBUG_LOG("Serial failed to initialize");
@@ -65,6 +62,11 @@ bool VortexEngine::init()
 #if SERIALIZATION_TEST == 1
   serializationTest();
 #endif
+
+#if TIMER_TEST == 1
+  timerTest();
+#endif
+
   return true;
 }
 
@@ -86,20 +88,46 @@ void VortexEngine::cleanup()
 
 void VortexEngine::tick()
 {
+  // handle any fatal errors that may have occurred
+  // but only if the error blinker is enabled
+#if VORTEX_ERROR_BLINK == 1
+  if (getError() != ERROR_NONE) {
+    // just blink the error and don't run anything
+    blinkError();
+    return;
+  }
+#endif
+
   // tick the current time counter forward
   Time::tickClock();
 
-  // poll the buttons for changes
-  Buttons::check();
-
-  // if the menus don't need to run, or they run and return false
-  if (!Menus::run()) {
-    // then just play the mode
-    Modes::play();
+  // don't poll the button till some cycles have passed, this prevents
+  // the wakeup from cycling to the next mode
+  if (Time::getCurtime() > IGNORE_BUTTON_TICKS) {
+    Buttons::check();
   }
+
+  // run the main logic for the engine
+  runMainLogic();
 
   // update the leds
   Leds::update();
+}
+
+void VortexEngine::runMainLogic()
+{
+  // if the menus are open and running then just return
+  if (Menus::run()) {
+    return;
+  }
+  // check if we should enter the menu
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > MENU_TRIGGER_THRESHOLD_TICKS) {
+    DEBUG_LOG("Entering Menu Selection...");
+    Menus::openMenuSelection();
+    return;
+  }
+  // otherwise just play the modes
+  Modes::play();
 }
 
 void VortexEngine::serializeVersion(ByteStream &stream)
@@ -118,6 +146,11 @@ bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
   return true;
 }
 
+Mode *VortexEngine::curMode()
+{
+  return Modes::curMode();
+}
+
 #ifdef VORTEX_LIB
 uint32_t VortexEngine::totalStorageSpace()
 {
@@ -131,34 +164,57 @@ uint32_t VortexEngine::savefileSize()
 #endif
 
 #if COMPRESSION_TEST == 1
+#include <string.h>
 #include <stdio.h>
+#include "Colors/Colorset.h"
 #include "Memory/Memory.h"
 void VortexEngine::compressionTest()
 {
+  // always use same seed
+  randomSeed(0xdeadbeef);
   ByteStream stream;
+  Modes::clearModes();
   for (uint32_t len = 1; len < 4096; ++len) {
     uint8_t *buf = (uint8_t *)vcalloc(1, len + 1);
     if (!buf) {
       continue;
     }
+    ByteStream modeStream;
+    Modes::serialize(modeStream);
+    while (modeStream.size() < len) {
+      Mode tmpMode;
+      tmpMode.setPattern((PatternID)(len % PATTERN_COUNT));
+      Colorset set;
+      set.randomizeColorTheory(8);
+      tmpMode.setColorset(&set);
+      Modes::addMode(&tmpMode);
+      modeStream.clear();
+      Modes::serialize(modeStream);
+    }
+    stream = modeStream;
+#if 0
     for (uint32_t i = 0; i < len; ++i) {
       buf[i] = (uint8_t)i&0xFF;
     }
     stream.init(len, buf);
+#endif
     stream.compress();
+    int complen = stream.size();
     stream.decompress();
-    if (memcmp(stream.data(), buf, len) != 0) {
-      ERROR_LOGF("Buffers not equal: %u", len);
+    if (memcmp(stream.data(), modeStream.data(), modeStream.size()) != 0) {
+      ERROR_LOGF("Buffers not equal: %u", modeStream.size());
       printf("\t");
       for (uint32_t i = 0; i < len; ++i) {
-        printf("%02x ", buf[i]);
+        printf("%02x ", modeStream.data()[i]);
         if (i > 0 && ((i + 1) % 32) == 0) {
           printf("\r\n\t");
         }
       }
       return;
     }
-    DEBUG_LOGF("Success %u compressed", len);
+    if (modeStream.size() != complen) {
+      DEBUG_LOGF("Success %u compressed to %u", modeStream.size(), complen);
+    }
     free(buf);
   }
   DEBUG_LOG("Success testing compression");
@@ -254,3 +310,14 @@ void VortexEngine::serializationTest()
 }
 #endif
 
+#if TIMER_TEST == 1
+#include "Time/TimeControl.h"
+#include "Time/timer.h"
+void VortexEngine::timerTest()
+{
+  DEBUG_LOG("== BEGINNING TIMER TESTS ==");
+  Time::test();
+  Timer::test();
+  DEBUG_LOG("== SUCCESS TIMER TESTS PASSED ==");
+}
+#endif

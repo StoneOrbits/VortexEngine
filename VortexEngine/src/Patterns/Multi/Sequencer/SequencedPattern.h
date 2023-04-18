@@ -1,7 +1,7 @@
 #ifndef SEQUENCED_PATTERN_H
 #define SEQUENCED_PATTERN_H
 
-#include "../HybridPattern.h"
+#include "../CompoundPattern.h"
 
 #include "../../../Leds/LedTypes.h"
 #include "../../../Time/Timer.h"
@@ -10,12 +10,12 @@
 
 class ByteStream;
 
-class SequencedPattern : public HybridPattern
+class SequencedPattern : public CompoundPattern
 {
 protected:
   // SequencedPattern is an abstract class it cannot be directly
-  SequencedPattern();
-  SequencedPattern(const Sequence &sequence);
+  SequencedPattern(const PatternArgs &args);
+  SequencedPattern(const PatternArgs &args, const Sequence &sequence);
 
 public:
   // initialize a sequence pattern with a list of pointers to sequencesteps and the

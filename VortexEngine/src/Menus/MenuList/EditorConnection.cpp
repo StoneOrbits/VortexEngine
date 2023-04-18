@@ -13,8 +13,8 @@
 
 #include <string.h>
 
-EditorConnection::EditorConnection() :
-  Menu(),
+EditorConnection::EditorConnection(const RGBColor &col) :
+  Menu(col),
   m_state(STATE_DISCONNECTED),
   m_demoMode()
 {
@@ -30,9 +30,9 @@ bool EditorConnection::init()
   if (!Menu::init()) {
     return false;
   }
-
+  // skip led selection
+  m_ledSelected = true;
   clearDemo();
-
   DEBUG_LOG("Entering Editor Connection");
   return true;
 }
@@ -66,10 +66,11 @@ void EditorConnection::clearDemo()
   m_demoMode.init();
 }
 
-bool EditorConnection::run()
+Menu::MenuAction EditorConnection::run()
 {
-  if (!Menu::run()) {
-    return false;
+  MenuAction result = Menu::run();
+  if (result != MENU_CONTINUE) {
+    return result;
   }
   // show the editor
   showEditor();
@@ -82,7 +83,7 @@ bool EditorConnection::run()
     if (!SerialComs::isConnected()) {
       if (!SerialComs::checkSerial()) {
         // no connection found just continue waiting
-        return true;
+        break;
       }
     }
     // a connection was found, say hello
@@ -163,8 +164,9 @@ bool EditorConnection::run()
     m_receiveBuffer.clear();
     SerialComs::write(EDITOR_VERB_CLEAR_DEMO_ACK);
     m_state = STATE_IDLE;
+    break;
   }
-  return true;
+  return MENU_CONTINUE;
 }
 
 // handlers for clicks
@@ -203,11 +205,6 @@ void EditorConnection::showEditor()
     // it may make the color selection choppy
     break;
   }
-}
-
-// override showExit so it isn't displayed on thumb
-void EditorConnection::showExit()
-{
 }
 
 void EditorConnection::receiveData()

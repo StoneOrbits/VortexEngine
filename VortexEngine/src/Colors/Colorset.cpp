@@ -1,6 +1,7 @@
 #include "Colorset.h"
 
 #include "../Serial/ByteStream.h"
+#include "../Random/Random.h"
 #include "../Memory/Memory.h"
 
 #include "../Log/Log.h"
@@ -12,9 +13,6 @@
 // then when you call getNext() for the first time it returns
 // the 0th color in the colorset and after the index will be 0
 #define INDEX_NONE UINT8_MAX
-
-// a helper to avoid typecasting so much when generating random colors
-#define rand8(x, y) ((uint8_t)random(x, y))
 
 Colorset::Colorset() :
   m_palette(nullptr),
@@ -29,6 +27,17 @@ Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
   Colorset()
 {
   init(c1, c2, c3, c4, c5, c6, c7, c8);
+}
+
+Colorset::Colorset(uint8_t numCols, const uint32_t *cols) :
+  Colorset()
+{
+  if (numCols > MAX_COLOR_SLOTS) {
+    numCols = MAX_COLOR_SLOTS;
+  }
+  for (uint8_t i = 0; i < numCols; ++i) {
+    addColor(RGBColor(cols[i]));
+  }
 }
 
 Colorset::Colorset(const Colorset &other) :
@@ -145,20 +154,49 @@ bool Colorset::addColor(RGBColor col)
   return true;
 }
 
-// add a single color with maximum hue and staturation
-bool Colorset::addColorByHue(uint8_t hue)
+bool Colorset::addColorHSV(uint8_t hue, uint8_t sat, uint8_t val)
 {
-  return addColor(HSVColor(hue, 255, 255));
+  return addColor(HSVColor(hue, sat, val));
 }
 
-bool Colorset::addColorByHueRandV(uint8_t hue)
+void Colorset::addColorWithValueStyle(Random &ctx, uint8_t hue, uint8_t sat, uint8_t valStyle, uint8_t numColors, uint8_t index)
 {
-  return addColor(HSVColor(hue, 255, 85 * rand8(1, 4)));
-}
-
-bool Colorset::addColorByHueRandSV(uint8_t hue)
-{
-  return addColor(HSVColor(hue, rand8(0, 256), rand8(0, 256)));
+  if (numColors != 1) {
+    switch (valStyle) {
+    default:
+    case VAL_STYLE_RANDOM:
+      addColorHSV(hue, sat, 85 * ctx.next8(1, 4));
+      break;
+    case VAL_STYLE_LOW_FIRST_COLOR:
+      if (index == 0) {
+        addColorHSV(hue, sat, ctx.next8(0, 86));
+      } else {
+        addColorHSV(hue, sat, 85 * ctx.next8(1, 4));
+      }
+      break;
+    case VAL_STYLE_HIGH_FIRST_COLOR:
+      if (index == 0) {
+        addColorHSV(hue, sat, 255);
+      } else {
+        addColorHSV(hue, sat, ctx.next8(0, 86));
+      }
+      break;
+    case VAL_STYLE_ALTERNATING:
+      if (index % 2 == 0) {
+        addColorHSV(hue, sat, 255);
+      } else {
+        addColorHSV(hue, sat, 85);
+      }
+      break;
+    case VAL_STYLE_ASCENDING:
+      addColorHSV(hue, sat, index * (256 / numColors));
+      break;
+    case VAL_STYLE_DESCENDING:
+      addColorHSV(hue, sat, 255 - (index * (256 / numColors)));
+    }
+  } else {
+    addColorHSV(hue, sat, ctx.next8(16, 255));
+  }
 }
 
 void Colorset::removeColor(uint32_t index)
@@ -177,80 +215,88 @@ void Colorset::removeColor(uint32_t index)
 }
 
 // create a set of truely random colors
-void Colorset::randomize(uint32_t numColors)
+void Colorset::randomize(Random &ctx, uint32_t numColors)
 {
   clear();
   if (!numColors) {
-    numColors = rand8(2, 9);
+    numColors = ctx.next8(2, 9);
   }
+  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
   for (uint32_t i = 0; i < numColors; ++i) {
-    addColorByHueRandSV(rand8(0, 256));
+    addColorWithValueStyle(ctx, ctx.next8(), ctx.next8(), valStyle, numColors, i);
   }
 }
 
 // create a set according to the rules of color theory
-void Colorset::randomizeColorTheory(uint32_t numColors)
+void Colorset::randomizeColorTheory(Random &ctx, uint32_t numColors)
 {
   clear();
   if (!numColors) {
-    numColors = rand8(1, 9);
+    numColors = ctx.next8(1, 9);
   }
-  uint8_t randomizedHue = rand8(0, 256);
+  uint8_t randomizedHue = ctx.next8();
   uint8_t colorGap = 0;
-  if (numColors > 1) colorGap = rand8(16, 256/(numColors - 1));
+  if (numColors > 1) colorGap = ctx.next8(16, 256/(numColors - 1));
+  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
   for (uint32_t i = 0; i < numColors; i++) {
-    addColorByHueRandV((randomizedHue + (i * colorGap)) % 256);
+    uint8_t nextHue = (randomizedHue + (i * colorGap)) % 256;
+    addColorWithValueStyle(ctx, nextHue, 255, valStyle, numColors, i);
   }
 }
 
 // create a set of colors that share a single hue
-void Colorset::randomizeMonochromatic(uint32_t numColors)
+void Colorset::randomizeMonochromatic(Random &ctx, uint32_t numColors)
 {
   clear();
   if (!numColors) {
-    numColors = rand8(2, 9);
+    numColors = ctx.next8(2, 9);
   }
-  uint8_t randomizedHue = rand8(0, 256);
-  addColorByHue(randomizedHue);
-  for (uint32_t i = 1; i < numColors; i++) {
-    addColorByHueRandSV(randomizedHue);
+  uint8_t randomizedHue = ctx.next8();
+  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+  for (uint32_t i = 0; i < numColors; i++) {
+    uint8_t decrement = 255 - (i * (256 / numColors));
+    addColorWithValueStyle(ctx, randomizedHue, decrement, valStyle, numColors, i);
   }
 }
 
 // create a set of 5 colors with 2 pairs of opposing colors with the same spacing from the central color
-void Colorset::randomizeDoubleSplitComplimentary()
+void Colorset::randomizeDoubleSplitComplimentary(Random &ctx)
 {
   clear();
-  uint8_t randomizedHue = rand8(0, 256);
-  uint8_t splitComplimentaryGap = rand8(1, 64);
-  addColorByHueRandV((randomizedHue + splitComplimentaryGap + 128) % 256);
-  addColorByHueRandV((randomizedHue - splitComplimentaryGap) % 256);
-  addColorByHueRandV(randomizedHue);
-  addColorByHueRandV((randomizedHue + splitComplimentaryGap) % 256);
-  addColorByHueRandV((randomizedHue - splitComplimentaryGap + 128) % 256);
+  uint8_t randomizedHue = ctx.next8();
+  uint8_t splitComplimentaryGap = ctx.next8(1, 64);
+  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+  addColorWithValueStyle(ctx, (randomizedHue + splitComplimentaryGap + 128) % 256, 255, valStyle, 5, 0);
+  addColorWithValueStyle(ctx, (randomizedHue - splitComplimentaryGap) % 256, 255, valStyle, 5, 1);
+  addColorWithValueStyle(ctx, randomizedHue, 255, valStyle, 5, 2);
+  addColorWithValueStyle(ctx, (randomizedHue + splitComplimentaryGap) % 256, 255, valStyle, 5, 3);
+  addColorWithValueStyle(ctx, (randomizedHue - splitComplimentaryGap + 128) % 256, 255, valStyle, 5, 4);
 }
 
 // create a set of 2 pairs of oposing colors
-void Colorset::randomizeTetradic()
+void Colorset::randomizeTetradic(Random &ctx)
 {
   clear();
-  uint8_t randomizedHue = rand8(0, 256);
-  uint8_t randomizedHue2 = rand8(0, 256);
-  addColorByHueRandV(randomizedHue);
-  addColorByHueRandV(randomizedHue2);
-  addColorByHueRandV((randomizedHue + 128) % 256);
-  addColorByHueRandV((randomizedHue2 + 128) % 256);
+  uint8_t randomizedHue = ctx.next8();
+  uint8_t randomizedHue2 = ctx.next8();
+  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+  addColorWithValueStyle(ctx, randomizedHue, 255, valStyle, 4, 0);
+  addColorWithValueStyle(ctx, randomizedHue2, 255, valStyle, 4, 1);
+  addColorWithValueStyle(ctx, (randomizedHue + 128) % 256, 255, valStyle, 4, 2);
+  addColorWithValueStyle(ctx, (randomizedHue2 + 128) % 256, 255, valStyle, 4, 3);
 }
 
-void Colorset::randomizeEvenlySpaced(uint32_t spaces)
+void Colorset::randomizeEvenlySpaced(Random &ctx, uint32_t spaces)
 {
   clear();
   if (!spaces) {
-    spaces = rand8(1, 9);
+    spaces = ctx.next8(1, 9);
   }
-  uint8_t randomizedHue = rand8(0, 256);
+  uint8_t randomizedHue = ctx.next8();
+  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
   for (uint32_t i = 0; i < spaces; i++) {
-    addColorByHueRandV((randomizedHue + (256 / spaces) * i) % 256);
+    uint8_t nextHue = (randomizedHue + (256 / spaces) * i) % 256;
+    addColorWithValueStyle(ctx, nextHue, 255, valStyle, spaces, i);
   }
 }
 
@@ -342,7 +388,7 @@ RGBColor Colorset::getPrev()
     return RGB_OFF;
   }
   // handle wrapping at 0
-  if (m_curIndex == 0) {
+  if (m_curIndex == 0 || m_curIndex == INDEX_NONE) {
     m_curIndex = numColors() - 1;
   } else {
     m_curIndex--;

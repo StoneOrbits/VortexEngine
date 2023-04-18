@@ -25,6 +25,7 @@ Modes::ModeLink *Modes::m_storedModes = nullptr;
 bool Modes::init()
 {
 #if MODES_TEST == 1
+  Mode::test();
   test();
   return true;
 #endif
@@ -219,7 +220,7 @@ bool Modes::setDefaults()
       PatternID randomPattern = (PatternID)random(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
       Colorset randSet;
       randSet.randomize(8);
-      tmpMode.setSinglePat(led, randomPattern, nullptr, &randSet);
+      tmpMode.setPatternAt(led, randomPattern, nullptr, &randSet);
     }
     // add another mode with the given pattern and colorset
     if (!addMode(&tmpMode)) {
@@ -230,10 +231,10 @@ bool Modes::setDefaults()
   DEBUG_LOGF("Added default patterns %u through %u", default_start, default_end);
 #else
   // add each default mode with each of the given colors
-  for (uint32_t i = 0; i < num_default_modes; ++i) {
-    addMode(default_modes[i].patternID, default_modes[i].cols[0], default_modes[i].cols[1],
-      default_modes[i].cols[2], default_modes[i].cols[3], default_modes[i].cols[4],
-      default_modes[i].cols[5], default_modes[i].cols[6], default_modes[i].cols[7]);
+  for (uint8_t i = 0; i < num_default_modes; ++i) {
+    const default_mode_entry &def = default_modes[i];
+    Colorset set(def.numColors, def.cols);
+    addMode(def.patternID, nullptr, &set);
   }
 #endif
   return true;
@@ -452,6 +453,19 @@ Mode *Modes::nextMode()
   }
   // iterate the cur mode forward
   return setCurMode(m_curMode + 1);
+}
+
+// iterate to previous mode and return it
+Mode *Modes::previousMode()
+{
+  if (!m_numModes) {
+    return nullptr;
+  }
+  // iterate the cur mode backwards
+  if (!m_curMode) {
+    return setCurMode(numModes() - 1);
+  }
+  return setCurMode(m_curMode - 1);
 }
 
 void Modes::deleteCurMode()

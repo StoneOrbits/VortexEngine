@@ -1,15 +1,11 @@
 #include "SolidPattern.h"
 
-SolidPattern::SolidPattern(uint8_t onDuration, uint8_t offDuration, uint8_t gapDuration, uint8_t colIndex) :
-  BasicPattern(onDuration, offDuration, gapDuration),
-  m_colIndex(colIndex)
+SolidPattern::SolidPattern(const PatternArgs &args) :
+  BasicPattern(args),
+  m_colIndex(0)
 {
   m_patternID = PATTERN_SOLID;
-}
-
-SolidPattern::SolidPattern(const PatternArgs &args) :
-  SolidPattern()
-{
+  REGISTER_ARG(m_colIndex);
   setArgs(args);
 }
 
@@ -25,19 +21,6 @@ void SolidPattern::init()
 void SolidPattern::play()
 {
   BasicPattern::play();
-}
-
-void SolidPattern::setArgs(const PatternArgs &args)
-{
-  BasicPattern::setArgs(args);
-  m_colIndex = args.arg4;
-}
-
-void SolidPattern::getArgs(PatternArgs &args) const
-{
-  BasicPattern::getArgs(args);
-  args.arg4 = m_colIndex;
-  args.numArgs += 1;
 }
 
 // callbacks for blinking on/off, can be overridden by derived classes

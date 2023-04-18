@@ -6,10 +6,11 @@
 class ModeSharing : public Menu
 {
 public:
-  ModeSharing();
+  ModeSharing(const RGBColor &col);
+  ~ModeSharing();
 
   bool init() override;
-  bool run() override;
+  MenuAction run() override;
 
   // handlers for clicks
   void onShortClick() override;
@@ -22,9 +23,6 @@ private:
 
   void showSendMode();
   void showReceiveMode();
-
-  // override showExit so it isn't displayed on thumb
-  virtual void showExit() override;
 
   enum class ModeShareState {
     SHARE_SEND,     // send mode

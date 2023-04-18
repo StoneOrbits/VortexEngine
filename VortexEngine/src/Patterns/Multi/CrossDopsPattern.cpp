@@ -2,16 +2,11 @@
 
 #include "../../Leds/Leds.h"
 
-CrossDopsPattern::CrossDopsPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration),
+CrossDopsPattern::CrossDopsPattern(const PatternArgs &args) :
+  BlinkStepPattern(args),
   m_ledMap(0)
 {
   m_patternID = PATTERN_CROSSDOPS;
-}
-
-CrossDopsPattern::CrossDopsPattern(const PatternArgs &args) :
-  CrossDopsPattern()
-{
   setArgs(args);
 }
 
@@ -23,8 +18,8 @@ CrossDopsPattern::~CrossDopsPattern()
 void CrossDopsPattern::init()
 {
   BlinkStepPattern::init();
-  // Alternating tops and tips mapping of leds to turn on/off
-  m_ledMap = MAP_LED(THUMB_TOP) | MAP_LED(INDEX_TIP) | MAP_LED(MIDDLE_TOP) | MAP_LED(RING_TIP) | MAP_LED(PINKIE_TOP);
+  // Alternating evens and odds mapping of leds to turn on/off
+  m_ledMap = MAP_LED(LED_9) | MAP_LED(LED_6) | MAP_LED(LED_5) | MAP_LED(LED_2) | MAP_LED(LED_1);
   // start colorset at index 0 so cur() works
   m_colorset.setCurIndex(0);
 }
@@ -37,7 +32,7 @@ void CrossDopsPattern::blinkOn()
 
 void CrossDopsPattern::poststep()
 {
-  // iterate to next color and invert of all the tops/tips
+  // iterate to next color and invert of all the evens/odds
   m_colorset.getNext();
   m_ledMap = MAP_INVERSE(m_ledMap);
 }

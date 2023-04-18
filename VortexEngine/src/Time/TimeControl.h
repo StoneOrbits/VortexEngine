@@ -25,10 +25,6 @@ public:
   // this ignore simulation time, it's used by timers to make simulations work
   static uint64_t getRealCurtime();
 
-  // get the amount of ticks this led position runs out of sync
-  // the 1st index led gets exactly 1x the tick offset
-  static uint32_t getTickOffset(LedPos pos = (LedPos)1);
-
   // Set tickrate in Ticks Per Second (TPS)
   // The valid range for this is 1 <= x <= 1000000
   //
@@ -42,11 +38,7 @@ public:
   static void setTickrate(uint32_t tickrate = 0);
 
   // The current tickrate
-  static uint32_t getTickrate() { return m_tickrate; }
-
-  // change the number of ticks each LED runs out of sync
-  // 0 will run all of the lights in sync
-  static void setTickOffset(uint32_t tickOffset = 0);
+  static uint32_t getTickrate();
 
   // convert milliseconds to a tickcount based on tickrate
   static uint32_t msToTicks(uint32_t ms);
@@ -54,6 +46,7 @@ public:
   // convert seconds to a tickcount based on tickrate
   static uint32_t secToTicks(uint32_t sec) { return msToTicks(sec * 1000); }
 
+#ifdef VORTEX_LIB
   // Start a time simulation, while the simulation is active you can
   // increment the 'current time' with tickSimulation() and all calls
   // to Time::getCurtime will reflect the changes, then when you call
@@ -71,6 +64,11 @@ public:
 
   // Finish a time simulation
   static uint32_t endSimulation();
+#endif
+
+#if TIMER_TEST == 1
+  static void test();
+#endif
 
 private:
   // global tick counter
@@ -82,12 +80,12 @@ private:
   // the first timestamp
   static uint64_t m_firstTime;
 
+#if VARIABLE_TICKRATE == 1
   // the number of ticks per second
   static uint32_t m_tickrate;
+#endif
 
-  // the offset in ticks for each finger
-  static uint32_t m_tickOffset;
-
+#ifdef VORTEX_LIB
   // the current simulation offset, simulations are
   // used to fastforward patterns and colorsets by
   // simulating tick changes and running pattern logic
@@ -96,6 +94,7 @@ private:
 
   // whether the timer is running a simulation
   static bool m_isSimulation;
+#endif
 };
 
 #endif

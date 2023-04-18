@@ -7,6 +7,8 @@
 #include "Patterns.h"
 #include "PatternArgs.h"
 
+#define MAX_PATTERN_ARGS 8
+
 // The heirarchy of pattern currently looks like this:
 /*
  *                                pattern*
@@ -24,6 +26,13 @@
 
 // the pattern is a multi-pattern
 #define PATTERN_FLAG_MULTI  (1<<0)
+
+// macro to register args of a pattern
+#ifdef VORTEX_LIB
+#define REGISTER_ARG(arg) registerArg(#arg, (uint8_t)(((uintptr_t)&arg - (uintptr_t)this)));
+#else
+#define REGISTER_ARG(arg) registerArg((uint8_t)(((uintptr_t)&arg - (uintptr_t)this)));
+#endif
 
 class ByteStream;
 
@@ -50,14 +59,31 @@ public:
   // pure virtual must override the play function
   virtual void play() = 0;
 
+#ifdef VORTEX_LIB
+  // skip the pattern ahead some ticks
+  virtual void skip(uint32_t ticks);
+#endif
+
   // must override the serialize routine to save the pattern
   // must override unserialize to load patterns
   virtual void serialize(ByteStream &buffer) const;
   virtual void unserialize(ByteStream &buffer);
 
-  // must override setArgs and getArgs if you have custom params
-  virtual void setArgs(const PatternArgs &args);
-  virtual void getArgs(PatternArgs &args) const;
+  // get or set a single arg
+  void setArg(uint8_t index, uint8_t value);
+  uint8_t getArg(uint8_t index) const;
+
+#ifdef VORTEX_LIB
+  // get the name of an arg
+  const char *getArgName(uint8_t index) const { return index >= m_numArgs ? "" : m_argNameList[index]; }
+#endif
+
+  // get or set the entire list of pattern args
+  void setArgs(const PatternArgs &args);
+  void getArgs(PatternArgs &args) const;
+
+  // number of args the pattern has
+  uint8_t getNumArgs() const { return m_numArgs; }
 
   // comparison to other pattern
   // NOTE: That may cause problems because the parameter is still a Pattern *
@@ -93,6 +119,16 @@ protected:
   Colorset m_colorset;
   // the Led the pattern is running on
   LedPos m_ledPos;
+
+  uint8_t m_numArgs;
+  uint8_t m_argList[MAX_PATTERN_ARGS];
+
+#ifdef VORTEX_LIB
+  void registerArg(const char *name, uint8_t argOffset);
+  const char *m_argNameList[MAX_PATTERN_ARGS];
+#else
+  void registerArg(uint8_t argOffset);
+#endif
 };
 
 #endif

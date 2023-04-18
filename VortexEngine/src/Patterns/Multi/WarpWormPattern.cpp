@@ -5,16 +5,11 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-WarpWormPattern::WarpWormPattern(uint8_t onDuration, uint8_t offDuration, uint8_t stepDuration) :
-  BlinkStepPattern(onDuration, offDuration, stepDuration),
+WarpWormPattern::WarpWormPattern(const PatternArgs &args) :
+  BlinkStepPattern(args),
   m_progress(0)
 {
   m_patternID = PATTERN_WARPWORM;
-}
-
-WarpWormPattern::WarpWormPattern(const PatternArgs &args) :
-  WarpWormPattern()
-{
   setArgs(args);
 }
 

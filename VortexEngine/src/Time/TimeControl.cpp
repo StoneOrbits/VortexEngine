@@ -12,14 +12,19 @@
 
 #include "Timings.h"
 
+#include "../Leds/Leds.h"
+
 // static members
 uint64_t Time::m_curTick = 0;
 uint64_t Time::m_prevTime = 0;
 uint64_t Time::m_firstTime = 0;
+#if VARIABLE_TICKRATE == 1
 uint32_t Time::m_tickrate = DEFAULT_TICKRATE;
-uint32_t Time::m_tickOffset = DEFAULT_TICK_OFFSET;
+#endif
+#ifdef VORTEX_LIB
 uint32_t Time::m_simulationTick = 0;
 bool Time::m_isSimulation = false;
+#endif
 
 // Within this file TICKRATE may refer to the variable member
 // or the default tickrate constant based on the configuration
@@ -32,6 +37,14 @@ bool Time::m_isSimulation = false;
 bool Time::init()
 {
   m_firstTime = m_prevTime = micros();
+  m_curTick = 0;
+#if VARIABLE_TICKRATE == 1
+  m_tickrate = DEFAULT_TICKRATE;
+#endif
+#ifdef VORTEX_LIB
+  m_simulationTick = 0;
+  m_isSimulation = false;
+#endif
   return true;
 }
 
@@ -43,6 +56,12 @@ void Time::tickClock()
 {
   // tick clock forward
   m_curTick++;
+
+#if TIMER_TEST == 1
+  // just return immediately when testing the time system, this prevents the actual
+  // delay from occurring and allows us to tick forward as fast as we want
+  return;
+#endif
 
 #if DEBUG_ALLOCATIONS == 1
   if ((m_curTick % msToTicks(1000)) == 0) {
@@ -63,14 +82,19 @@ void Time::tickClock()
       // otherwise calculate regular difference
       elapsed_us = (uint32_t)(us - m_prevTime);
     }
-#if defined(VORTEX_LIB) && !defined(_MSC_VER)
+    // if building anywhere except visual studio then we can run alternate sleep code
+    // because in visual studio + windows it's better to just spin and check the high
+    // resolution clock instead of trying to sleep for microseconds.
+#if !defined(_MSC_VER) && defined(VORTEX_LIB)
     uint32_t required = (1000000 / TICKRATE);
+    uint32_t sleepTime = 0;
     if (required > elapsed_us) {
       // in vortex lib on linux we can just sleep instead of spinning
       // but on arduino we must spin and on windows it actually ends
-      // up being more accurate to poll QPF + QPC
-      delayMicroseconds(required - elapsed_us);
+      // up being more accurate to poll QPF + QPC via micros()
+      sleepTime = required - elapsed_us;
     }
+    delayMicroseconds(sleepTime);
     break;
 #endif
     // 1000us per ms, divided by tickrate gives
@@ -86,7 +110,11 @@ uint64_t Time::getCurtime(LedPos pos)
 {
   // the current tick, plus the time offset per LED, plus any
   // simulation offset
-  return m_curTick + getTickOffset(pos) + getSimulationTick();
+#ifdef VORTEX_LIB
+  return m_curTick + getSimulationTick();
+#else
+  return m_curTick;
+#endif
 }
 
 // the real current time, bypass simulations, used by timers
@@ -95,10 +123,9 @@ uint64_t Time::getRealCurtime()
   return m_curTick;
 }
 
-// get the amount of ticks this led position runs out of sync
-uint32_t Time::getTickOffset(LedPos pos)
+uint32_t Time::getTickrate()
 {
-  return (pos * m_tickOffset);
+  return TICKRATE;
 }
 
 // Set tickrate in Ticks Per Second (TPS)
@@ -118,11 +145,6 @@ void Time::setTickrate(uint32_t tickrate)
 #endif
 }
 
-void Time::setTickOffset(uint32_t tickOffset)
-{
-  m_tickOffset = tickOffset;
-}
-
 uint32_t Time::msToTicks(uint32_t ms)
 {
   // 0ms = 0 ticks
@@ -138,6 +160,8 @@ uint32_t Time::msToTicks(uint32_t ms)
   }
   return ticks;
 }
+
+#ifdef VORTEX_LIB
 
 // Start a time simulation, while the simulation is active you can
 // increment the 'current time' with tickSimulation() then when you
@@ -176,3 +200,65 @@ uint32_t Time::endSimulation()
   return endTick;
 }
 
+#endif
+
+#if TIMER_TEST == 1
+#include <assert.h>
+
+void Time::test()
+{
+  DEBUG_LOG("Starting Time class tests...");
+
+  // Test init function
+  assert(init());
+  DEBUG_LOG("Init test passed");
+  cleanup();
+
+  // Test tickClock function
+  uint64_t initialTick = m_curTick;
+  tickClock();
+  assert(m_curTick == initialTick + 1);
+  DEBUG_LOG("tickClock test passed");
+
+  // Test msToTicks function
+  assert(msToTicks(1000) == TICKRATE);
+  assert(msToTicks(500) == TICKRATE / 2);
+  assert(msToTicks(0) == 0);
+  DEBUG_LOG("msToTicks test passed");
+
+  // Test getRealCurtime function
+  assert(getRealCurtime() == m_curTick);
+  DEBUG_LOG("getRealCurtime test passed");
+
+  // Test getTickrate function
+  assert(getTickrate() == TICKRATE);
+  DEBUG_LOG("getTickrate test passed");
+
+  // Test setTickrate function (only when VARIABLE_TICKRATE is enabled)
+#if VARIABLE_TICKRATE == 1
+  uint32_t newTickrate = TICKRATE * 2;
+  setTickrate(newTickrate);
+  assert(getTickrate() == newTickrate);
+  DEBUG_LOG("setTickrate test passed");
+#endif
+
+#ifdef VORTEX_LIB
+  // Test simulation functions
+  uint32_t simulationStartTick = startSimulation();
+  assert(isSimulation());
+  assert(getSimulationTick() == 0);
+  DEBUG_LOG("startSimulation test passed");
+
+  uint32_t simulationTick = tickSimulation();
+  assert(getSimulationTick() == 1);
+  DEBUG_LOGF("tickSimulation test passed, simulationTick: %u", simulationTick);
+
+  uint32_t simulationEndTick = endSimulation();
+  assert(!isSimulation());
+  assert(simulationEndTick == simulationStartTick + 1);
+  DEBUG_LOGF("endSimulation test passed, simulationEndTick: %u", simulationEndTick);
+#endif
+
+  DEBUG_LOG("Time class tests completed successfully.");
+}
+#endif

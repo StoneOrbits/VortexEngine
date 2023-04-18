@@ -11,16 +11,22 @@ class Mode;
 class Menu
 {
 public:
-  Menu();
+  Menu(const RGBColor &col);
   virtual ~Menu();
 
-  // optional init function can be overridden, this is called when the menu is
-  // first opened to initialize the menu. It will be called each time the menu
-  // is opened
   virtual bool init();
 
-  // when the menu runs it will have access to time, the button and led control
-  virtual bool run() = 0;
+  // the action for the menu to execute
+  enum MenuAction :uint8_t {
+    // quit the menus
+    MENU_QUIT,
+    // continue running the menu
+    MENU_CONTINUE,
+    // don't run derived menu code, this is used internally
+    // by the menu class itself
+    MENU_SKIP
+  };
+  virtual MenuAction run();
 
   // optional handlers for clicks
   virtual void onShortClick();
@@ -30,20 +36,24 @@ public:
   virtual void leaveMenu(bool doSave = false);
 
 protected:
-  // blink the selected finger
-  virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
-
-  // draw the exit on thumb
-  virtual void showExit();
+  void showBulbSelection();
+  void showSelect();
+  void showExit();
 
   // the current mode that was selected
   Mode *m_pCurMode;
-
-  // all menus have a 'current selection' which can point at any finger
-  Finger m_curSelection;
+  // the color of this menu
+  RGBColor m_menuColor;
+  // tracks the targetted leds for this menu
+  // note this is an led map
+  LedMap m_targetLeds;
+  // true once a an led is selected
+  bool m_ledSelected;
+  // all menus have a 'current selection'
+  uint8_t m_curSelection;
 
 private:
-  // whether to close the menu
+  // internal flag to close the menu
   bool m_shouldClose;
 };
 

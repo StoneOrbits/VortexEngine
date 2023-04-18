@@ -8,17 +8,12 @@
 class SolidPattern : public BasicPattern
 {
 public:
-  SolidPattern(uint8_t onDuration = DOPS_ON_DURATION, uint8_t offDuration = DOPS_OFF_DURATION,
-    uint8_t gapDuration = 0, uint8_t colIndex = 0);
   SolidPattern(const PatternArgs &args);
   virtual ~SolidPattern();
 
   virtual void init() override;
 
   virtual void play() override;
-
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
 
 protected:
   // callbacks for blinking on/off, can be overridden by derived classes

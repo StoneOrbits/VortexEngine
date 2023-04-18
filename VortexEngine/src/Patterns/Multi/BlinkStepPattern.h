@@ -10,7 +10,7 @@ class BlinkStepPattern : public MultiLedPattern
 {
 protected:
   // You must derive from BlinkStep to use it
-  BlinkStepPattern(uint8_t blinkOn, uint8_t blinkOff, uint8_t stepDuration);
+  BlinkStepPattern(const PatternArgs &args);
 
 public:
   virtual ~BlinkStepPattern();
@@ -20,9 +20,6 @@ public:
 
   // pure virtual must override the play function
   virtual void play() override;
-
-  virtual void setArgs(const PatternArgs &args) override;
-  virtual void getArgs(PatternArgs &args) const override;
 
 protected:
   // overrideable members:

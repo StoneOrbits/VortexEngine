@@ -5,9 +5,8 @@
 // Here is the array of 'default modes' that are assigned to
 // the gloveset upon factory reset
 const default_mode_entry default_modes[] = {
-  // Pattern 1: Jest mode
   {
-    PATTERN_JEST, {
+    PATTERN_DOPS, 5, {
       RGB_RED,
       RGB_GREEN,
       RGB_BLUE,
@@ -15,10 +14,8 @@ const default_mode_entry default_modes[] = {
       0x5500AB
     }
   },
-
-  // Pattern 2: Ghost Crush Mode
   {
-    PATTERN_GHOSTCRUSH, {
+    PATTERN_GHOSTCRUSH, 5, {
       RGB_WHITE,
       RGB_WHITE,
       RGB_OFF,
@@ -26,41 +23,21 @@ const default_mode_entry default_modes[] = {
       RGB_OFF,
     }
   },
-
-  // Pattern 3: Impact
   {
-    PATTERN_IMPACT, {
-      RGB_BLUE,
-      0xABAA00,
-      RGB_BLUE,
-      RGB_RED,
-      RGB_GREEN,
-      RGB_BLUE,
-      RGB_GREEN,
-      RGB_BLUE
-    }
-  },
-
-  // Pattern 4: Warp Worm
-  {
-    PATTERN_WARPWORM, {
+    PATTERN_WARPWORM, 2, {
       RGB_GREEN,
       0x26004B,
     }
   },
-
-  // Pattern 5: Pulsish
   {
-    PATTERN_PULSISH, {
+    PATTERN_PULSISH, 3, {
       0x00AB55,
       0x8D1C55,
       0x00001C
     }
   },
-
-  // Pattern 6: ZigZag
   {
-    PATTERN_ZIGZAG, {
+    PATTERN_ZIGZAG, 6, {
       RGB_OFF,
       0x56D400,
       0x5500AB,
@@ -69,10 +46,8 @@ const default_mode_entry default_modes[] = {
       0x700000
     }
   },
-
-  // Pattern 7: Strobe
   {
-    PATTERN_STROBE, {
+    PATTERN_STROBE, 8, {
       0xD4002B,
       RGB_OFF,
       0x0056AA,
@@ -83,19 +58,15 @@ const default_mode_entry default_modes[] = {
       RGB_OFF
     }
   },
-
-  // Pattern 8: Snowball
   {
-    PATTERN_SNOWBALL, {
+    PATTERN_SNOWBALL, 3, {
       0x170600,
       0x00840A,
       0x12002A
     }
   },
-
-  // Pattern 9: Ultradops
   {
-    PATTERN_ULTRADOPS, {
+    PATTERN_ULTRADOPS, 8, {
       0x1C0000,
       0x4B2600,
       0xABAA00,
@@ -106,20 +77,16 @@ const default_mode_entry default_modes[] = {
       0x13000A
     }
   },
-
-  // Pattern 10: Materia
   {
-    PATTERN_MATERIA, {
+    PATTERN_MATERIA, 4, {
       0xAA0055,
       0x7070C5,
       0x0A0013,
       0x1C8E55,
     }
   },
-
-  // Pattern 11: VortexWipe
   {
-    PATTERN_VORTEXWIPE, {
+    PATTERN_VORTEXWIPE, 8, {
       RGB_RED,
       0x00001C,
       0x00001C,
@@ -130,10 +97,8 @@ const default_mode_entry default_modes[] = {
       0x00001C,
     }
   },
-
-  // Pattern 12: GhostCrush
   {
-    PATTERN_GHOSTCRUSH, {
+    PATTERN_GHOSTCRUSH, 7, {
       0x26004B,
       RGB_OFF,
       RGB_GREEN,
@@ -143,31 +108,15 @@ const default_mode_entry default_modes[] = {
       0x26004B,
     }
   },
-
-  // Pattern 13: VortexWipe2
   {
-    PATTERN_VORTEXWIPE, {
+    PATTERN_VORTEXWIPE, 3, {
       0x00AB55,
       0x7F0081,
       0xAA381C,
     }
   },
-
-  // Pattern 14: Rabbit
   {
-    PATTERN_RABBIT, {
-      RGB_BLUE,
-      RGB_RED,
-      RGB_GREEN,
-      RGB_BLUE,
-      RGB_GREEN,
-      RGB_BLUE,
-    }
-  },
-
-  // Pattern 15: Complementary Blend
-  {
-    PATTERN_COMPLEMENTARY_BLEND, {
+    PATTERN_COMPLEMENTARY_BLEND, 3, {
       RGB_RED,
       RGB_GREEN,
       RGB_BLUE
@@ -176,4 +125,4 @@ const default_mode_entry default_modes[] = {
 };
 
 // exposed size of the default modes array
-const uint32_t num_default_modes = (sizeof(default_modes) / sizeof(default_modes[0]));
+const uint8_t num_default_modes = (sizeof(default_modes) / sizeof(default_modes[0]));

@@ -45,6 +45,7 @@
 #include "VortexConfig.h"
 
 class ByteStream;
+class Mode;
 
 class VortexEngine
 {
@@ -60,9 +61,15 @@ public:
   // tick function for each loop
   static void tick();
 
+  // run the main logic of the engine
+  static void runMainLogic();
+
   // serialize the version number to a byte stream
   static void serializeVersion(ByteStream &stream);
   static bool checkVersion(uint8_t major, uint8_t minor);
+
+  // get the current mode
+  static Mode *curMode();
 
 #ifdef VORTEX_LIB
   // the total available storage space
@@ -77,6 +84,9 @@ private:
 #endif
 #if SERIALIZATION_TEST == 1
   static void serializationTest();
+#endif
+#if TIMER_TEST == 1
+  static void timerTest();
 #endif
 };
 

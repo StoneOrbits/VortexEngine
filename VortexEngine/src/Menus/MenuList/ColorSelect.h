@@ -8,45 +8,34 @@
 class ColorSelect : public Menu
 {
 public:
-  ColorSelect();
+  ColorSelect(const RGBColor &col);
+  ~ColorSelect();
 
   bool init() override;
-
-  bool run() override;
+  MenuAction run() override;
 
   // handlers for clicks
   void onShortClick() override;
   void onLongClick() override;
 
 private:
-  // internal routines for the color select
+  enum ColorSelectState
+  {
+    // first run after the menu is entered
+    STATE_INIT,
+    STATE_PICK_SLOT,
+    STATE_PICK_HUE1,
+    STATE_PICK_HUE2,
+    STATE_PICK_SAT,
+    STATE_PICK_VAL
+  };
+
   void showSlotSelection();
   void showHueSelection1();
   void showHueSelection2();
   void showSatSelection();
   void showValSelection();
-
-  // overridden blink logic for the colorselect menu (Controls how m_curSelection blinks)
-  void blinkSelection(uint32_t offMs = 350, uint32_t onMs = 500) override;
-
-  // private enumeration for internal state of color selection
-  enum ColorSelectState : uint32_t
-  {
-    // currently picking the color slot to change
-    STATE_PICK_SLOT,
-
-    // first pick a quadrant 0, 90, 180, 240
-    STATE_PICK_HUE1,
-
-    // next pick a quadrant within that quadrant 0, 25, 50, 70
-    STATE_PICK_HUE2,
-
-    // picking a saturation for the color
-    STATE_PICK_SAT,
-
-    // picking a value for the color
-    STATE_PICK_VAL,
-  };
+  void showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs);
 
   // the options for saturations
   const uint32_t sats[4] = {
@@ -64,23 +53,14 @@ private:
     0
   };
 
-  // the current state of the color selection menu
+  // the state of the color select menu
   ColorSelectState m_state;
-
-  // A copy of the colorset from the current mode
-  Colorset m_colorset;
-
-  // the colorselect has multiple pages
-  uint32_t m_curPage;
-
-  // the target color slot to change
-  uint32_t m_slot;
-
-  // the chosen quadrant
-  uint32_t m_quadrant;
-
-  // the new color to set
+  // the new color being built via hue, sat then val
   HSVColor m_newColor;
+  // A copy of the colorset being changed
+  Colorset m_colorset;
+  // the target slot in the color slot that was selected
+  uint8_t m_targetSlot;
 };
 
 #endif

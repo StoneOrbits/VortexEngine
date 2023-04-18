@@ -1,5 +1,3 @@
-#include <FastLED.h>
-#include <Adafruit_DotStar.h>
 #include <math.h>
 
 #include "LedStash.h"
@@ -8,26 +6,22 @@
 #include "../Time/TimeControl.h"
 #include "../Modes/Modes.h"
 
-#define LED_DATA_PIN  4
+#include "../VortexConfig.h"
 
-#define POWER_LED_PIN 7
-#define POWER_LED_CLK 8
+#ifdef VORTEX_LIB
+#include "../../VortexLib/VortexLib.h"
+#endif
 
 // array of led color values
 RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
-// the onboard LED on the adafruit board
-Adafruit_DotStar Leds::m_onboardLED(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR);
 // global brightness
 uint32_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 
 bool Leds::init()
 {
-  // setup leds on data pin 4
-  FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>((CRGB *)m_ledColors, LED_COUNT);
-  // get screwed fastled, don't throttle us!
-  FastLED.setMaxRefreshRate(0, false);
-  // clear the onboard led so it displays nothing
-  clearOnboardLED();
+#ifdef VORTEX_LIB
+  Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
+#endif
   return true;
 }
 
@@ -38,18 +32,11 @@ void Leds::cleanup()
   }
 }
 
-void Leds::clearOnboardLED()
-{
-  // show nothing otherwise it might show random colours
-  m_onboardLED.begin();
-  m_onboardLED.show();
-}
-
 void Leds::setIndex(LedPos target, RGBColor col)
 {
-  // safety
-  if (target > LED_LAST) {
-    target = LED_LAST;
+  if (target >= LED_COUNT) {
+    setAll(col);
+    return;
   }
   led(target) = col;
 }
@@ -66,69 +53,71 @@ void Leds::setAll(RGBColor col)
   setRange(LED_FIRST, LED_LAST, col);
 }
 
-void Leds::setFinger(Finger finger, RGBColor col)
+void Leds::setPair(Pair pair, RGBColor col)
 {
   // start from tip and go to top
-  setRange(fingerTip(finger), fingerTop(finger), col);
+  setRange(pairEven(pair), pairOdd(pair), col);
 }
 
-void Leds::setFingers(Finger first, Finger last, RGBColor col)
+void Leds::setPairs(Pair first, Pair last, RGBColor col)
 {
   // start from tip and go to top
-  setRange(fingerTip(first), fingerTop(last), col);
+  setRange(pairEven(first), pairOdd(last), col);
 }
 
-void Leds::setRangeTips(Finger first, Finger last, RGBColor col)
+void Leds::setRangeEvens(Pair first, Pair last, RGBColor col)
 {
-  for (Finger pos = first; pos <= last; pos++) {
-    setIndex(fingerTip(pos), col);
+  for (Pair pos = first; pos <= last; pos++) {
+    setIndex(pairEven(pos), col);
   }
 }
 
-void Leds::setAllTips(RGBColor col)
+void Leds::setAllEvens(RGBColor col)
 {
-  for (Finger pos = FINGER_FIRST; pos <= FINGER_LAST; pos++) {
-    setIndex(fingerTip(pos), col);
+  for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
+    setIndex(pairEven(pos), col);
   }
 }
 
-void Leds::setRangeTops(Finger first, Finger last, RGBColor col)
+void Leds::setRangeOdds(Pair first, Pair last, RGBColor col)
 {
-  for (Finger pos = first; pos <= last; pos++) {
-    setIndex(fingerTop(pos), col);
+  for (Pair pos = first; pos <= last; pos++) {
+    setIndex(pairOdd(pos), col);
   }
 }
 
-void Leds::setAllTops(RGBColor col)
+void Leds::setAllOdds(RGBColor col)
 {
-  for (Finger pos = FINGER_FIRST; pos <= FINGER_LAST; pos++) {
-    setIndex(fingerTop(pos), col);
+  for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
+    setIndex(pairOdd(pos), col);
   }
 }
 
-void Leds::clearRangeTips(Finger first, Finger last) {
-  for (Finger pos = first; pos <= last; pos++) {
-    clearIndex(fingerTip(pos));
-  }
-}
-
-void Leds::clearAllTips()
+void Leds::clearRangeEvens(Pair first, Pair last)
 {
-  for (Finger pos = FINGER_FIRST; pos <= FINGER_LAST; pos++) {
-    clearIndex(fingerTip(pos));
+  for (Pair pos = first; pos <= last; pos++) {
+    clearIndex(pairEven(pos));
   }
 }
 
-void Leds::clearRangeTops(Finger first, Finger last) {
-  for (Finger pos = first; pos <= last; pos++) {
-    clearIndex(fingerTop(pos));
-  }
-}
-
-void Leds::clearAllTops()
+void Leds::clearAllEvens()
 {
-  for (Finger pos = FINGER_FIRST; pos <= FINGER_LAST; pos++) {
-    clearIndex(fingerTop(pos));
+  for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
+    clearIndex(pairEven(pos));
+  }
+}
+
+void Leds::clearRangeOdds(Pair first, Pair last)
+{
+  for (Pair pos = first; pos <= last; pos++) {
+    clearIndex(pairOdd(pos));
+  }
+}
+
+void Leds::clearAllOdds()
+{
+  for (Pair pos = PAIR_FIRST; pos <= PAIR_LAST; pos++) {
+    clearIndex(pairOdd(pos));
   }
 }
 
@@ -166,7 +155,7 @@ void Leds::restoreAll(const LedStash &stash)
 
 void Leds::adjustBrightnessIndex(LedPos target, uint8_t fadeBy)
 {
-   led(target).adjustBrightness(fadeBy);
+  led(target).adjustBrightness(fadeBy);
 }
 
 void Leds::adjustBrightnessRange(LedPos first, LedPos last, uint8_t fadeBy)
@@ -195,6 +184,17 @@ void Leds::blinkRange(LedPos first, LedPos last, uint64_t time, uint32_t offMs, 
   }
 }
 
+void Leds::blinkMap(LedMap targets, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
+{
+  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+    for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
+      if (checkLed(targets, pos)) {
+        setIndex(pos, col);
+      }
+    }
+  }
+}
+
 void Leds::blinkAll(uint64_t time, int32_t offMs, uint32_t onMs, RGBColor col)
 {
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
@@ -202,17 +202,17 @@ void Leds::blinkAll(uint64_t time, int32_t offMs, uint32_t onMs, RGBColor col)
   }
 }
 
-void Leds::blinkFinger(Finger finger, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkPair(Pair pair, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
-    setRange(fingerTip(finger), fingerTop(finger), col);
+    setRange(pairEven(pair), pairOdd(pair), col);
   }
 }
 
-void Leds::blinkFingers(Finger first, Finger last, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkPairs(Pair first, Pair last, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
-    setRange(fingerTip(first), fingerTop(last), col);
+    setRange(pairEven(first), pairOdd(last), col);
   }
 }
 
@@ -221,7 +221,19 @@ void Leds::breathIndex(LedPos target, uint32_t hue, uint32_t variance, uint32_t 
   setIndex(target, HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
 }
 
+void Leds::breathIndexSat(LedPos target, uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+{
+  setIndex(target, HSVColor(hue, 255 - (uint8_t)(sat + ((sin(variance * 0.0174533) + 1) * magnitude)), val));
+}
+
+void Leds::breathIndexVal(LedPos target, uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+{
+  setIndex(target, HSVColor(hue, sat, 255 - (uint8_t)(val + ((sin(variance * 0.0174533) + 1) * magnitude))));
+}
+
 void Leds::update()
 {
-  FastLED.show(m_brightness);
+#ifdef VORTEX_LIB
+  Vortex::vcallbacks()->ledsShow();
+#endif
 }
