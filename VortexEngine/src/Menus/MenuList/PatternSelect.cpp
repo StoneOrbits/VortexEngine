@@ -1,9 +1,19 @@
 #include "PatternSelect.h"
 
+#include "../../Patterns/PatternBuilder.h"
+#include "../../Patterns/Pattern.h"
+#include "../../Time/TimeControl.h"
+#include "../../Time/Timings.h"
+#include "../../Buttons/Button.h"
+#include "../../Modes/Mode.h"
+#include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
 PatternSelect::PatternSelect(const RGBColor &col) :
-  Menu(col)
+  Menu(col),
+  m_state(STATE_PICK_LIST),
+  m_demoMode(),
+  m_newPatternID(PATTERN_FIRST)
 {
 }
 
@@ -16,10 +26,10 @@ bool PatternSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  if (!m_pCurMode) {
-    return false;
-  }
-  m_pCurMode->init();
+  m_state = STATE_PICK_LIST;
+  m_newPatternID = PATTERN_FIRST;
+  m_demoMode.setPattern(m_newPatternID, nullptr, m_pCurMode->getColorset());
+  m_demoMode.init();
   DEBUG_LOG("Entered pattern select");
   return true;
 }
@@ -30,26 +40,101 @@ Menu::MenuAction PatternSelect::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
-  // run the current mode
-  m_pCurMode->play();
+
+  switch (m_state) {
+  case STATE_PICK_LIST:
+    // display lists
+    showListSelection();
+    blinkSelection();
+    break;
+  case STATE_PICK_PATTERN:
+    // display patterns
+    showPatternSelection();
+    break;
+  }
+
+  // continue
   return MENU_CONTINUE;
+}
+
+void PatternSelect::showListSelection()
+{
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
+    // hue split into 4 quadrants of 90
+    Leds::breathIndex(fingerTop(f), f * (255/4), (uint32_t)Time::getCurtime() / 3, 10, 255, 255);
+    Leds::setIndex(fingerTip(f), RGB_DIM_WHITE1);
+  }
+}
+
+void PatternSelect::showPatternSelection()
+{
+  m_demoMode.play();
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
+    Leds::setAll(RGB_DIM_WHITE2);
+  }
 }
 
 void PatternSelect::onShortClick()
 {
-  PatternID newID = (PatternID)(m_pCurMode->getPatternID(mapGetFirstLed(m_targetLeds)) + 1);
-  if (newID == PATTERN_SOLID) {
-    ++newID;
+  switch (m_state) {
+  case STATE_PICK_LIST:
+    // wrap at the index back to pinkie
+    m_curSelection = (Finger)((m_curSelection + 1) % (FINGER_THUMB + 1));
+    break;
+  case STATE_PICK_PATTERN:
+    nextPattern();
+    break;
   }
-  if (newID > PATTERN_SINGLE_LAST) {
-    newID = PATTERN_SINGLE_FIRST;
-  }
-  // iterate the pattern forward on current mode
-  m_pCurMode->setPatternAt(m_targetLeds, newID);
-  m_pCurMode->init();
+}
+
+void PatternSelect::nextPattern()
+{
+  // increment to next pattern
+  m_newPatternID = (PatternID)((m_newPatternID + 1) % PATTERN_COUNT);
+  // change the pattern of demo mode
+  m_demoMode.setPattern(m_newPatternID);
+  m_demoMode.init();
+  DEBUG_LOGF("Demoing Pattern %u", m_newPatternID);
 }
 
 void PatternSelect::onLongClick()
 {
-  leaveMenu(true);
+  bool needsSave = false;
+  switch (m_state) {
+  case STATE_PICK_LIST:
+    if (m_curSelection == FINGER_THUMB) {
+      leaveMenu();
+      return;
+    }
+    m_state = STATE_PICK_PATTERN;
+    // start the new pattern ID selection based on the chosen list
+    m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));
+    m_demoMode.setPattern(m_newPatternID);
+    m_demoMode.init();
+    DEBUG_LOGF("Started picking pattern at %u", m_newPatternID);
+    break;
+  case STATE_PICK_PATTERN:
+    // need to save the new pattern if it's different from current
+    needsSave = (m_pCurMode->getPatternID() != m_newPatternID);
+    // store the new pattern in the mode
+    m_pCurMode->setPattern(m_newPatternID);
+    m_pCurMode->init();
+    DEBUG_LOGF("Saving pattern %u", m_newPatternID);
+    // go back to beginning for next time
+    m_state = STATE_PICK_LIST;
+    // done in the pattern select menu
+    leaveMenu(needsSave);
+    break;
+  }
+  // reset selection after choosing anything
+  m_curSelection = FINGER_FIRST;
+}
+
+void PatternSelect::showExit()
+{
+  // don't show the exit when picking pattern
+  if (m_state == STATE_PICK_PATTERN) {
+    return;
+  }
+  Menu::showExit();
 }

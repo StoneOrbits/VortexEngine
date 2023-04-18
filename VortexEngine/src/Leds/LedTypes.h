@@ -24,12 +24,40 @@ enum LedPos : uint8_t
   LED_8,
   LED_9,
 
+// TODO: palm lights????
+#if USE_PALM_LIGHTS == 1
+  LED_10,
+  LED_11,
+  LED_12,
+  LED_13,
+  LED_14,
+#endif
+
   // the number of entries above
   LED_COUNT,
 
   // the last LED index
   LED_LAST = (LED_COUNT - 1)
 };
+
+#define PINKIE_TIP  LED_0
+#define PINKIE_TOP  LED_1
+#define RING_TIP    LED_2
+#define RING_TOP    LED_3
+#define MIDDLE_TIP  LED_4
+#define MIDDLE_TOP  LED_5
+#define INDEX_TIP   LED_6
+#define INDEX_TOP   LED_7
+#define THUMB_TIP   LED_8
+#define THUMB_TOP   LED_9
+
+#if USE_PALM_LIGHTS == 1
+#define PALM_UP     LED_10
+#define PALM_RIGHT  LED_11
+#define PALM_DOWN   LED_12
+#define PALM_LEFT   LED_13
+#define PALM_CENTER LED_14
+#endif
 
 enum Pair : uint8_t
 {
@@ -45,6 +73,29 @@ enum Pair : uint8_t
   PAIR_COUNT,
   PAIR_LAST = (PAIR_COUNT - 1),
 };
+
+// finger is a pair
+typedef Pair Finger;
+
+#define FINGER_FIRST   PAIR_FIRST
+#define FINGER_PINKIE  PAIR_0
+#define FINGER_RING    PAIR_1
+#define FINGER_MIDDLE  PAIR_2
+#define FINGER_INDEX   PAIR_3
+#define FINGER_THUMB   PAIR_4 // proof thumb is finger confirmed
+#define FINGER_LAST    PAIR_LAST
+#define FINGER_COUNT   PAIR_COUNT
+
+#define isFingerTip(led) isEven(led)
+#define isFingerTop(led) isOdd(led)
+
+#define fingerTip(finger) pairEven(finger)
+#define fingerTop(finger) pairOdd(finger)
+
+#define ledToFinger(led) ledToPair(led)
+
+#define setFinger(map, finger) setPair(map, finger)
+#define checkFinger(map, finger) checkPair(map, finger)
 
 // check if an led is even or odd
 #define isEven(pos) ((pos % 2) == 0)
@@ -66,6 +117,9 @@ typedef uint64_t LedMap;
 #define MAP_PAIR_EVEN(pair) MAP_LED(pairEven(pair))
 #define MAP_PAIR_ODD(pair) MAP_LED(pairOdd(pair))
 #define MAP_PAIR(pair) (MAP_PAIR_EVEN(pair) | MAP_PAIR_ODD(pair))
+#define MAP_FINGER_TIP(finger) MAP_LED(fingerTip(finger))
+#define MAP_FINGER_TOP(finger) MAP_LED(fingerTop(finger))
+#define MAP_FINGER(finger) (MAP_FINGER_TIP(finger) | MAP_FINGER_TOP(finger))
 
 // check if a map is purely just 1 led or not
 #define MAP_IS_ONE_LED(map) (map && !(map & (map-1)))
@@ -117,6 +171,17 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 
 #define MAP_PAIR_EVEN_EVENS (MAP_PAIR_EVEN(PAIR_3) | MAP_PAIR_EVEN(PAIR_1))
 #define MAP_PAIR_EVEN_ODDS (MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_1))
+
+// macro for all tips and all tops
+#define MAP_FINGER_TIPS (MAP_FINGER_TIP(FINGER_PINKIE) | MAP_FINGER_TIP(FINGER_RING) | MAP_FINGER_TIP(FINGER_MIDDLE) | MAP_FINGER_TIP(FINGER_INDEX) | MAP_FINGER_TIP(FINGER_THUMB))
+#define MAP_FINGER_TOPS (MAP_FINGER_TOP(FINGER_PINKIE) | MAP_FINGER_TOP(FINGER_RING) | MAP_FINGER_TOP(FINGER_MIDDLE) | MAP_FINGER_TOP(FINGER_INDEX) | MAP_FINGER_TOP(FINGER_THUMB))
+
+// Some preset bitmaps for finger groupings
+#define MAP_FINGER_ODD_TIPS (MAP_FINGER_TIP(FINGER_PINKIE) | MAP_FINGER_TIP(FINGER_MIDDLE) | MAP_FINGER_TIP(FINGER_THUMB))
+#define MAP_FINGER_ODD_TOPS (MAP_FINGER_TOP(FINGER_PINKIE) | MAP_FINGER_TOP(FINGER_MIDDLE) | MAP_FINGER_TOP(FINGER_THUMB))
+
+#define MAP_FINGER_EVEN_TIPS (MAP_FINGER_TIP(FINGER_INDEX) | MAP_FINGER_TIP(FINGER_RING))
+#define MAP_FINGER_EVEN_TOPS (MAP_FINGER_TOP(FINGER_INDEX) | MAP_FINGER_TOP(FINGER_RING))
 
 // set a single led
 inline void setLed(LedMap &map, LedPos pos)
