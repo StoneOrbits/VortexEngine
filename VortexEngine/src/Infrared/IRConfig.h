@@ -5,7 +5,7 @@
 //
 // Whether to enable the IR system as a whole
 //
-#define IR_ENABLE        0
+#define IR_ENABLE        1
 
 #define IR_TEST_BLOCK_SIZE 16
 

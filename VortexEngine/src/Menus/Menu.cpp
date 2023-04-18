@@ -13,7 +13,7 @@ Menu::Menu(const RGBColor &col) :
   m_menuColor(col),
   m_targetLeds(MAP_LED_ALL),
   m_ledSelected(false),
-  m_curSelection(0),
+  m_curSelection(QUADRANT_FIRST),
   m_shouldClose(false)
 {
 }
@@ -46,6 +46,8 @@ bool Menu::init()
       return false;
     }
   }
+  // reset the current selection
+  m_curSelection = QUADRANT_FIRST;
   // just in case
   m_shouldClose = false;
   return true;
@@ -149,9 +151,17 @@ void Menu::onShortClick()
 {
 }
 
+void Menu::onShortClick2()
+{
+}
+
 void Menu::onLongClick()
 {
   leaveMenu(false);
+}
+
+void Menu::onLongClick2()
+{
 }
 
 void Menu::leaveMenu(bool doSave)
@@ -159,5 +169,43 @@ void Menu::leaveMenu(bool doSave)
   m_shouldClose = true;
   if (doSave) {
     Modes::saveStorage();
+  }
+}
+
+void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
+{
+  uint32_t blinkCol = RGB_OFF;
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
+    // blink green if long pressing on a selection
+    blinkCol = RGB_DIM_WHITE1;
+  }
+  switch (m_curSelection) {
+  case QUADRANT_LAST:
+    // exit thumb breathes red on the tip and is either blank or red on the top
+    // depending on whether you've held for the short click threshold or not
+    if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
+      Leds::setQuadrantFive(RGB_WHITE);
+    } else {
+      Leds::clearQuadrantFive();
+      Leds::setQuadrantFive(RGB_RED);
+      Leds::blinkQuadrantFive(Time::getCurtime(), 250, 500, RGB_BLANK);
+    }
+    break;
+  case QUADRANT_COUNT:
+    // special selection clause 'select all' do nothing
+    break;
+  default:
+    // otherwise just blink the selected finger to off from whatever
+    // color or pattern it's currently displaying
+    if (blinkCol == RGB_OFF && Leds::getLed(quadrantFirstLed(m_curSelection)).empty()) {
+      // if the blink color is 'off' and the led is a blank then we
+      // need to blink to a different color
+      blinkCol = RGB_BLANK;
+    }
+    // blink the target finger to the target color
+    Leds::blinkQuadrant(m_curSelection,
+      g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime(),
+      offMs, onMs, blinkCol);
+    break;
   }
 }

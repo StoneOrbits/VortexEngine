@@ -17,7 +17,9 @@ public:
 
   // handlers for clicks
   void onShortClick() override;
+  void onShortClick2() override;
   void onLongClick() override;
+  void onLongClick2() override;
 
   // menu conn
   void leaveMenu(bool doSave = false) override;

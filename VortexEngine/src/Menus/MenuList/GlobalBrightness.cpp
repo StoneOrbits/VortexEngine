@@ -24,7 +24,7 @@ bool GlobalBrightness::init()
   for (uint8_t i = 0; i < NUM_BRIGHTNESS_OPTIONS; ++i) {
     if (m_brightnessOptions[i] == Leds::getBrightness()) {
       // make sure the default selection matches cur value
-      m_curSelection = i;
+      m_curSelection = (Quadrant)i;
     }
   }
   DEBUG_LOG("Entered global brightness");
@@ -41,8 +41,8 @@ Menu::MenuAction GlobalBrightness::run()
   // show the current brightness
   showBrightnessSelection();
 
-  // show selections
-  showSelect();
+  // blink the current selection
+  blinkSelection();
 
   // continue
   return MENU_CONTINUE;
@@ -51,7 +51,17 @@ Menu::MenuAction GlobalBrightness::run()
 void GlobalBrightness::onShortClick()
 {
   // include one extra option for the exit slot
-  m_curSelection = (m_curSelection + 1) % (NUM_BRIGHTNESS_OPTIONS + 1);
+  m_curSelection = (Quadrant)(((uint32_t)m_curSelection + 1) % (NUM_BRIGHTNESS_OPTIONS + 1));
+}
+
+void GlobalBrightness::onShortClick2()
+{
+  // four options in global brightness
+  if (!m_curSelection) {
+    m_curSelection = QUADRANT_LAST;
+  } else {
+    m_curSelection = m_curSelection - 1;
+  }
 }
 
 void GlobalBrightness::onLongClick()
@@ -69,11 +79,15 @@ void GlobalBrightness::onLongClick()
   leaveMenu(needsSave);
 }
 
+void GlobalBrightness::onLongClick2()
+{
+  leaveMenu();
+}
+
 void GlobalBrightness::showBrightnessSelection()
 {
-  if (m_curSelection >= NUM_BRIGHTNESS_OPTIONS) {
-    showExit();
-    return;
+  // display brightnesses on each finger
+  for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_4; ++f) {
+    Leds::setQuadrant(f, HSVColor(0, 0, m_brightnessOptions[f]));
   }
-  Leds::setAll(HSVColor(0, 0, m_brightnessOptions[m_curSelection]));
 }

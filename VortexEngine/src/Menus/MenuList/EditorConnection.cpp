@@ -178,7 +178,17 @@ void EditorConnection::onShortClick()
   clearDemo();
 }
 
+void EditorConnection::onShortClick2()
+{
+  onShortClick();
+}
+
 void EditorConnection::onLongClick()
+{
+  leaveMenu(true);
+}
+
+void EditorConnection::onLongClick2()
 {
   leaveMenu(true);
 }

@@ -6,46 +6,103 @@
 // the gloveset upon factory reset
 const default_mode_entry default_modes[] = {
   {
-    PATTERN_DOPS, 5, {
-      RGB_RED,
-      RGB_GREEN,
-      RGB_BLUE,
-      0xABAA00,
-      0x5500AB
+    PATTERN_BOUNCE, 3, {
+      HSV(0, 255, 255),
+      HSV(96, 255, 255),
+      HSV(160, 255, 255)
     }
   },
+
   {
     PATTERN_GHOSTCRUSH, 5, {
-      RGB_WHITE,
-      RGB_WHITE,
-      RGB_OFF,
-      0x700000,
-      RGB_OFF,
+      HSV(0, 0, 255),
+      HSV(0, 0, 255),
+      HSV(0, 0, 0),
+      HSV(30, 255, 170),
+      HSV(0, 0, 0)
     }
   },
+
   {
-    PATTERN_WARPWORM, 2, {
-      RGB_GREEN,
-      0x26004B,
+    PATTERN_GHOSTCRUSH, 5, {
+      HSV(0, 0, 255),
+      HSV(0, 0, 255),
+      HSV(0, 0, 0),
+      HSV(50, 255, 170),
+      HSV(0, 0, 0)
     }
   },
+
   {
-    PATTERN_PULSISH, 3, {
-      0x00AB55,
-      0x8D1C55,
-      0x00001C
+    PATTERN_GHOSTCRUSH, 5, {
+      HSV(0, 0, 255),
+      HSV(0, 0, 255),
+      HSV(0, 0, 0),
+      HSV(80, 255, 170),
+      HSV(0, 0, 0)
     }
   },
+
   {
-    PATTERN_ZIGZAG, 6, {
-      RGB_OFF,
-      0x56D400,
-      0x5500AB,
-      RGB_OFF,
-      RGB_RED,
-      0x700000
+    PATTERN_GHOSTCRUSH, 5, {
+      HSV(0, 0, 255),
+      HSV(0, 0, 255),
+      HSV(0, 0, 0),
+      HSV(110, 255, 170),
+      HSV(0, 0, 0)
     }
   },
+
+  {
+    PATTERN_GHOSTCRUSH, 5, {
+      HSV(0, 0, 255),
+      HSV(0, 0, 255),
+      HSV(0, 0, 0),
+      HSV(140, 255, 170),
+      HSV(0, 0, 0)
+    }
+  },
+
+  {
+    PATTERN_GHOSTCRUSH, 5, {
+      HSV(0, 0, 255),
+      HSV(0, 0, 255),
+      HSV(0, 0, 0),
+      HSV(170, 255, 170),
+      HSV(0, 0, 0)
+    }
+  },
+
+  {
+    PATTERN_GHOSTCRUSH, 5, {
+      HSV(0, 0, 255),
+      HSV(0, 0, 255),
+      HSV(0, 0, 0),
+      HSV(200, 255, 170),
+      HSV(0, 0, 0)
+    }
+  },
+
+  {
+    PATTERN_GHOSTCRUSH, 5, {
+      HSV(0, 0, 255),
+      HSV(0, 0, 255),
+      HSV(0, 0, 0),
+      HSV(230, 255, 170),
+      HSV(0, 0, 0)
+    }
+  },
+
+  {
+    PATTERN_GHOSTCRUSH, 5, {
+      HSV(0, 0, 255),
+      HSV(0, 0, 255),
+      HSV(0, 0, 0),
+      HSV(0, 255, 170),
+      HSV(0, 0, 0)
+    }
+  },
+
   {
     PATTERN_STROBE, 8, {
       0xD4002B,
@@ -58,13 +115,7 @@ const default_mode_entry default_modes[] = {
       RGB_OFF
     }
   },
-  {
-    PATTERN_SNOWBALL, 3, {
-      0x170600,
-      0x00840A,
-      0x12002A
-    }
-  },
+
   {
     PATTERN_ULTRADOPS, 8, {
       0x1C0000,
@@ -77,26 +128,7 @@ const default_mode_entry default_modes[] = {
       0x13000A
     }
   },
-  {
-    PATTERN_MATERIA, 4, {
-      0xAA0055,
-      0x7070C5,
-      0x0A0013,
-      0x1C8E55,
-    }
-  },
-  {
-    PATTERN_VORTEXWIPE, 8, {
-      RGB_RED,
-      0x00001C,
-      0x00001C,
-      0x00001C,
-      0x00001C,
-      0x00001C,
-      0x00001C,
-      0x00001C,
-    }
-  },
+
   {
     PATTERN_GHOSTCRUSH, 7, {
       0x26004B,
@@ -108,13 +140,7 @@ const default_mode_entry default_modes[] = {
       0x26004B,
     }
   },
-  {
-    PATTERN_VORTEXWIPE, 3, {
-      0x00AB55,
-      0x7F0081,
-      0xAA381C,
-    }
-  },
+
   {
     PATTERN_COMPLEMENTARY_BLEND, 3, {
       RGB_RED,
