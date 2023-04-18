@@ -17,7 +17,7 @@
 #define MODE_LEDCOUNT m_numLeds
 Mode::Mode(uint32_t numLeds) :
   m_numLeds(numLeds),
-  m_ledEntries(nullptr)
+  m_singlePats(nullptr)
 {
   setLedCount(m_numLeds);
 }
@@ -29,10 +29,10 @@ Mode::Mode() :
 // for internal reference to the led count
 #define MODE_LEDCOUNT LED_COUNT
 Mode::Mode() :
-  m_ledEntries()
+  m_singlePats()
 {
   for (uint32_t i = 0; i < LED_COUNT; ++i) {
-    m_ledEntries[i] = nullptr;
+    m_singlePats[i] = nullptr;
   }
 }
 #endif
@@ -68,7 +68,7 @@ Mode::~Mode()
 {
   clearPatterns();
 #if FIXED_LED_COUNT == 0
-  free(m_ledEntries);
+  free(m_singlePats);
 #endif
 }
 
@@ -85,11 +85,12 @@ void Mode::operator=(const Mode &other)
   setLedCount(other.getLedCount());
 #endif
   for (uint32_t i = 0; i < other.getLedCount(); ++i) {
-    Pattern *otherPat = other.m_ledEntries[i];
+    Pattern *otherPat = other.m_singlePats[i];
     if (!otherPat) {
       continue;
     }
-    m_ledEntries[i] = PatternBuilder::dupe(otherPat);
+    // todo: dupeSingle?
+    m_singlePats[i] = PatternBuilder::dupe(otherPat);
   }
 }
 
@@ -109,7 +110,7 @@ void Mode::init()
   // otherwise regular init
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     // grab the entry for this led and initialize it
-    Pattern *entry = m_ledEntries[pos];
+    Pattern *entry = m_singlePats[pos];
     if (!entry) {
       continue;
     }
@@ -121,7 +122,7 @@ void Mode::play()
 {
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     // grab the entry for this led
-    Pattern *entry = m_ledEntries[pos];
+    Pattern *entry = m_singlePats[pos];
     if (!entry) {
       // incomplete pattern/set or empty slot
       continue;
@@ -177,18 +178,37 @@ void Mode::serialize(ByteStream &buffer) const
 {
   // serialize the number of leds
   buffer.serialize((uint8_t)MODE_LEDCOUNT);
+  // empty mode?
+  if (!MODE_LEDCOUNT) {
+    return;
+  }
   // serialize the flags
   uint32_t flags = getFlags();
   buffer.serialize(flags);
+  // serialiaze the multi led?
+  if (flags & MODE_FLAG_MULTI_LED) {
+    // serialize the multi led
+    m_multiPat->serialize(buffer);
+  }
+  // if no single leds then just stop here
+  if (!(flags & MODE_FLAG_SINGLE_LED)) {
+    return;
+  }
+  // if there are any sparse singles (spaces) then we need to
+  // serialize an led map of which singles are set
+  if (flags & MODE_FLAG_SPARSE_SINGLES) {
+    buffer.serialize((uint32_t)getSingleLedMap());
+  }
+  // then iterate each single led and serialize it
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
-    const Pattern *entry = m_ledEntries[pos];
+    const Pattern *entry = m_singlePats[pos];
     if (!entry) {
       continue;
     }
     // just serialize the pattern then colorset
     entry->serialize(buffer);
-    // if either of these flags are present only serialize the first pattern
-    if (flags & (MODE_FLAG_MULTI_LED | MODE_FLAG_ALL_SAME_SINGLE)) {
+    // if they are all same single then only serialize one
+    if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
       break;
     }
   }
@@ -217,36 +237,44 @@ bool Mode::unserialize(ByteStream &buffer)
   // unserialize the flags value
   uint32_t flags = 0;
   buffer.unserialize(&flags);
-  // unserialize the first pattern
-  m_ledEntries[0] = PatternBuilder::unserialize(buffer);
-  // if there is no first pattern, or the flags indicate it's a multi-led
-  // pattern then there's nothing more to unserialize and we're done
-  if (!m_ledEntries[0] || (flags & MODE_FLAG_MULTI_LED)) {
-    return true;
+  // if there is a multi led pattern then unserialize it
+  if (flags & MODE_FLAG_MULTI_LED) {
+    m_multiPat = PatternBuilder::unserialize(buffer);
   }
-  // if it's an 'all same single' pattern where it's the same single led pattern
-  // repeated across all leds then we can just re-apply the first led that was
-  // just unserialized to each of the other leds
-  if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
-    Pattern *firstPat = m_ledEntries[0];
-    PatternID firstID = firstPat->getPatternID();
-    const Colorset *firstSet = firstPat->getColorset();
-    PatternArgs firstArgs;
-    firstPat->getArgs(firstArgs);
-    for (LedPos pos = (LedPos)(LED_FIRST + 1); pos < MODE_LEDCOUNT; ++pos) {
-      if (!setPatternAt(pos, firstID, &firstArgs, firstSet)) {
-        // fail?
-        continue;
-      }
+  // if there is no single led patterns just stop here
+  if (!(flags & MODE_FLAG_SINGLE_LED)) {
+    return;
+  }
+  // is there an led map to unserialize? if not default to all
+  LedMap map = MAP_LED_ALL;
+  if (flags & MODE_FLAG_SPARSE_SINGLES) {
+    buffer.unserialize((uint32_t *)&map);
+  }
+  // unserialize all singleled patterns into their positions
+  Pattern *firstPat = nullptr;
+  MAP_FOREACH_LED(map) {
+    if (pos >= LED_COUNT || !ledCount) {
+      // in case the map encodes led positions this device doesn't support
+      break;
     }
-    return true;
+    if (!firstPat) {
+      // save the first pattern so that it can be duped if this is 'all same'
+      m_singlePats[pos] = firstPat = PatternBuilder::unserialize(buffer);
+    } else if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
+      // if all same then just dupe first
+      m_singlePats[pos] = PatternBuilder::dupe(firstPat);
+    } else {
+      // otherwise unserialize the pattern like normal
+      m_singlePats[pos] = PatternBuilder::unserialize(buffer);
+    }
+    ledCount--;
   }
-  // we already loaded led 0 so the led position starts at 1
-  LedPos pos = (LedPos)(LED_FIRST + 1);
-  // unserialize the rest of the leds out of the savefile which
-  // is ledCount - 1 because we already loaded the first led
-  uint32_t ledsLeft = ledCount ? ledCount - 1 : 0;
-  for (uint32_t i = 0; i < ledsLeft; ++i) {
+  // if the mode is sparse singles then do not perform stretching
+  if (flags & MODE_FLAG_SPARSE_SINGLES || !ledCount) {
+    return;
+  }
+
+  for (uint32_t i = 0; i < ledCount; ++i) {
     Pattern *pat = PatternBuilder::unserialize(buffer);
     // if we have loaded all of our available leds
     if (pos >= MODE_LEDCOUNT) {
@@ -261,7 +289,7 @@ bool Mode::unserialize(ByteStream &buffer)
     // must bind the pattern to position so the pattern knows which led
     pat->bind(pos);
     // then store the pattern in the leds array at the right position
-    m_ledEntries[pos] = pat;
+    m_singlePats[pos] = pat;
     // move forward to next position
     pos++;
   }
@@ -271,7 +299,7 @@ bool Mode::unserialize(ByteStream &buffer)
   if (pos < MODE_LEDCOUNT) {
     LedPos src = LED_FIRST;
     for(;pos < MODE_LEDCOUNT; ++pos) {
-      Pattern *pat = m_ledEntries[src];
+      Pattern *pat = m_singlePats[src];
       if (!pat) {
         continue;
       }
@@ -290,13 +318,13 @@ bool Mode::unserialize(ByteStream &buffer)
 // change the internal pattern count in the mode object
 void Mode::setLedCount(uint8_t numLeds)
 {
-  if (m_ledEntries) {
+  if (m_singlePats) {
     clearPatterns();
-    free(m_ledEntries);
+    free(m_singlePats);
   }
   m_numLeds = numLeds;
-  m_ledEntries = (Pattern **)vcalloc(m_numLeds, sizeof(Pattern *));
-  if (!m_ledEntries) {
+  m_singlePats = (Pattern **)vcalloc(m_numLeds, sizeof(Pattern *));
+  if (!m_singlePats) {
     // big error
     return;
   }
@@ -318,7 +346,7 @@ const Pattern *Mode::getPattern(LedPos pos) const
   if (pos >= MODE_LEDCOUNT) {
     pos = LED_FIRST;
   }
-  return m_ledEntries[pos];
+  return m_singlePats[pos];
 }
 
 Pattern *Mode::getPattern(LedPos pos)
@@ -327,7 +355,17 @@ Pattern *Mode::getPattern(LedPos pos)
   if (pos >= MODE_LEDCOUNT) {
     pos = LED_FIRST;
   }
-  return m_ledEntries[pos];
+  return m_singlePats[pos];
+}
+
+const Pattern *Mode::getMultiPat() const
+{
+  return m_multiPat;
+}
+
+Pattern *Mode::getMultiPat()
+{
+  return m_multiPat;
 }
 
 const Colorset *Mode::getColorset(LedPos pos) const
@@ -336,10 +374,10 @@ const Colorset *Mode::getColorset(LedPos pos) const
   if (pos >= MODE_LEDCOUNT) {
     pos = LED_FIRST;
   }
-  if (!m_ledEntries[pos]) {
+  if (!m_singlePats[pos]) {
     return nullptr;
   }
-  return m_ledEntries[pos]->getColorset();
+  return m_singlePats[pos]->getColorset();
 }
 
 Colorset *Mode::getColorset(LedPos pos)
@@ -348,10 +386,26 @@ Colorset *Mode::getColorset(LedPos pos)
   if (pos >= MODE_LEDCOUNT) {
     pos = LED_FIRST;
   }
-  if (!m_ledEntries[pos]) {
+  if (!m_singlePats[pos]) {
     return nullptr;
   }
-  return m_ledEntries[pos]->getColorset();
+  return m_singlePats[pos]->getColorset();
+}
+
+const Colorset *Mode::getMultiColorset(LedPos pos) const
+{
+  if (!m_multiPat) {
+    return nullptr;
+  }
+  return m_multiPat->getColorset();
+}
+
+Colorset *Mode::getMultiColorset(LedPos pos)
+{
+  if (!m_multiPat) {
+    return nullptr;
+  }
+  return m_multiPat->getColorset();
 }
 
 PatternID Mode::getPatternID(LedPos pos) const
@@ -360,10 +414,18 @@ PatternID Mode::getPatternID(LedPos pos) const
   if (pos >= MODE_LEDCOUNT) {
     pos = LED_FIRST;
   }
-  if (!m_ledEntries[pos]) {
+  if (!m_singlePats[pos]) {
     return PATTERN_NONE;
   }
-  return m_ledEntries[pos]->getPatternID();
+  return m_singlePats[pos]->getPatternID();
+}
+
+PatternID Mode::getMultiPatID() const
+{
+  if (!m_multiPat) {
+    return PATTERN_NONE;
+  }
+  return m_multiPat->getPatternID();
 }
 
 bool Mode::equals(const Mode *other) const
@@ -376,15 +438,15 @@ bool Mode::equals(const Mode *other) const
   }
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     // if entry is valid, do a comparison
-    if (m_ledEntries[pos]) {
+    if (m_singlePats[pos]) {
       // checks if other is not null and equal
-      if (!m_ledEntries[pos]->equals(other->m_ledEntries[pos])) {
+      if (!m_singlePats[pos]->equals(other->m_singlePats[pos])) {
         return false;
       }
       continue;
     }
     // current is null, check if other is valid
-    if (other->m_ledEntries[pos]) {
+    if (other->m_singlePats[pos]) {
       return false;
     }
     // both are null
@@ -411,15 +473,15 @@ bool Mode::setPattern(PatternID pat, const PatternArgs *args, const Colorset *se
 bool Mode::setColorset(const Colorset *set)
 {
   if (isMultiLed()) {
-    m_ledEntries[0]->setColorset(set);
+    m_multiPat->setColorset(set);
     return true;
   }
   // otherwise set all of the colorsets
   for (LedPos p = LED_FIRST; p < MODE_LEDCOUNT; ++p) {
-    if (!m_ledEntries[p]) {
+    if (!m_singlePats[p]) {
       continue;
     }
-    m_ledEntries[p]->setColorset(set);
+    m_singlePats[p]->setColorset(set);
   }
   return true;
 }
@@ -429,10 +491,10 @@ bool Mode::setColorsetAt(LedPos pos, const Colorset *set)
   if (pos >= MODE_LEDCOUNT) {
     return setColorset(set);
   }
-  if (!m_ledEntries[pos]) {
+  if (!m_singlePats[pos]) {
     return false;
   }
-  m_ledEntries[pos]->setColorset(set);
+  m_singlePats[pos]->setColorset(set);
   return true;
 }
 
@@ -483,7 +545,7 @@ bool Mode::setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set)
   pat->bind(pos);
   pat->setColorset(set);
   clearPatternAt(pos);
-  m_ledEntries[pos] = pat;
+  m_singlePats[pos] = pat;
   return true;
 }
 
@@ -525,55 +587,25 @@ bool Mode::setMultiPat(MultiLedPattern *pat, const Colorset *set)
   // if there isn't already a pattern
   pat->setColorset(set ? set : getColorset(LED_FIRST));
   // clear any stored patterns
-  clearPatterns();
+  clearMultiPat();
   // update the multi pattern
-  m_ledEntries[0] = pat;
+  m_multiPat = pat;
   return true;
 }
 
-uint32_t Mode::getFlags() const
+bool Mode::setMultiColorset(const Colorset *set)
 {
-  uint32_t flags = 0;
-  if (isMultiLed()) {
-    flags |= MODE_FLAG_MULTI_LED;
-  } else if (isSameSingleLed()) {
-    flags |= MODE_FLAG_ALL_SAME_SINGLE;
-  }
-  return flags;
-}
-
-// is this a multi-led pattern in the mode?
-bool Mode::isMultiLed() const
-{
-  if (!m_ledEntries[0]) {
+  if (!m_multiPat) {
     return false;
   }
-  return m_ledEntries[0]->hasFlags(PATTERN_FLAG_MULTI);
-}
-
-// are all the single led patterns and colorsets equal?
-bool Mode::isSameSingleLed() const
-{
-  if (!m_ledEntries[0]) {
-    return false;
-  }
-  if (isMultiLed()) {
-    return false;
-  }
-  for (uint32_t i = LED_FIRST + 1; i < MODE_LEDCOUNT; ++i) {
-    // if any don't match 0 then no good
-    if (!m_ledEntries[i] || !m_ledEntries[i]->equals(m_ledEntries[0])) {
-      return false;
-    }
-  }
-  // all the same
+  m_multiPat->setColorset(set);
   return true;
 }
 
 void Mode::clearPatterns()
 {
 #if FIXED_LED_COUNT == 0
-  if (!m_ledEntries) {
+  if (!m_singlePats) {
     return;
   }
 #endif
@@ -585,15 +617,15 @@ void Mode::clearPatterns()
 void Mode::clearPatternAt(LedPos pos)
 {
 #if FIXED_LED_COUNT == 0
-  if (!m_ledEntries) {
+  if (!m_singlePats) {
     return;
   }
 #endif
-  if (!m_ledEntries[pos]) {
+  if (!m_singlePats[pos]) {
     return;
   }
-  delete m_ledEntries[pos];
-  m_ledEntries[pos] = nullptr;
+  delete m_singlePats[pos];
+  m_singlePats[pos] = nullptr;
 }
 
 void Mode::clearPatternAt(LedMap map)
@@ -603,27 +635,36 @@ void Mode::clearPatternAt(LedMap map)
   }
 }
 
+void Mode::clearMultiPat()
+{
+  if (!m_multiPat) {
+    return;
+  }
+  delete m_multiPat;
+  m_multiPat = nullptr;
+}
+
 void Mode::clearColorsets()
 {
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
-    if (!m_ledEntries[pos]) {
+    if (!m_singlePats[pos]) {
       continue;
     }
-    m_ledEntries[pos]->clearColorset();
+    m_singlePats[pos]->clearColorset();
   }
 }
 
 void Mode::clearColorsetAt(LedPos pos)
 {
 #if FIXED_LED_COUNT == 0
-  if (!m_ledEntries) {
+  if (!m_singlePats) {
     return;
   }
 #endif
-  if (!m_ledEntries[pos]) {
+  if (!m_singlePats[pos]) {
     return;
   }
-  m_ledEntries[pos]->clearColorset();
+  m_singlePats[pos]->clearColorset();
 }
 
 void Mode::clearColorsetAt(LedMap map)
@@ -631,6 +672,90 @@ void Mode::clearColorsetAt(LedMap map)
   MAP_FOREACH_LED(map) {
     clearColorsetAt(pos);
   }
+}
+
+void Mode::clearMultiColorset()
+{
+  if (!m_multiPat) {
+    return;
+  }
+  m_multiPat->clearColorset();
+}
+
+uint32_t Mode::getFlags() const
+{
+  uint32_t flags = 0;
+  if (hasMultiLed()) flags |= MODE_FLAG_MULTI_LED;
+  if (hasSingleLed()) flags |= MODE_FLAG_SINGLE_LED;
+  if (hasSameSingleLed()) flags |= MODE_FLAG_ALL_SAME_SINGLE;
+  return flags;
+}
+
+// whether a multi-led pattern is present in the mode
+bool Mode::hasMultiLed() const
+{
+  return (m_multiPat != nullptr);
+}
+
+// whether at least one single-led pattern is present in the mode
+bool Mode::hasSingleLed() const
+{
+  for (uint32_t i = LED_FIRST; i < MODE_LEDCOUNT; ++i) {
+    if (m_singlePats[i]) {
+      return true;
+    }
+  }
+  return false;
+}
+
+// are all the single led patterns and colorsets equal?
+bool Mode::hasSameSingleLed() const
+{
+  Pattern *firstPat = nullptr;
+  for (uint32_t i = LED_FIRST + 1; i < MODE_LEDCOUNT; ++i) {
+    if (!m_singlePats[i]) {
+      continue;
+    }
+    if (!firstPat) {
+      firstPat = m_singlePats[i];
+      continue;
+    }
+    if (!firstPat->equals(m_singlePats[i])) {
+      return false;
+    }
+  }
+  // all the same if at least one pattern was found
+  return (firstPat != nullptr);
+}
+
+bool Mode::hasSparseSingleLed() const
+{
+  switch (getSingleLedMap()) {
+  case MAP_LED_ALL:
+  case 0:
+    // if all or none are set it's not sparse
+    return false;
+  default:
+    // if anything else is set it's sparse
+    return true;
+  }
+}
+
+LedMap Mode::getSingleLedMap() const
+{
+  LedMap map = 0;
+  for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; pos++) {
+    if (m_singlePats[pos]) {
+      setLed(map, pos);
+    }
+  }
+  return map;
+}
+
+// is this a multi-led pattern in the mode?
+bool Mode::isMultiLed() const
+{
+  return hasMultiLed() && !hasSingleLed();
 }
 
 #if MODES_TEST == 1

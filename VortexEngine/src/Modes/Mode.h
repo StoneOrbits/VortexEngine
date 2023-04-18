@@ -16,8 +16,14 @@ class Pattern;
 #define MODE_FLAG_NONE              0
 // the mode is utilizing a multi-led pattern
 #define MODE_FLAG_MULTI_LED         (1 << 0)
+// the mode is utilizing at least one single-led pattern
+#define MODE_FLAG_SINGLE_LED        (1 << 1)
 // the mode is utilizing the same single-led pattern on each finger
-#define MODE_FLAG_ALL_SAME_SINGLE   (1 << 1)
+// optimization will be done when saving and only one led is saved
+#define MODE_FLAG_ALL_SAME_SINGLE   (1 << 2)
+// the mode is missing leds on some single slots, an led map is
+// present in savefile in order to convey which leds are missing
+#define MODE_FLAG_SPARSE_SINGLES    (1 << 3)
 
 // A mode is the container for instances of patterns. A pattern
 // must be bound to a colorset and led position with bind() and
@@ -72,64 +78,94 @@ public:
   // Get pointer to an individual pattern/colorset
   const Pattern *getPattern(LedPos pos = LED_FIRST) const;
   Pattern *getPattern(LedPos pos = LED_FIRST);
-  // get a pointer to a colorset
+  // get a pointer to the multi pattern
+  const Pattern *getMultiPat() const;
+  Pattern *getMultiPat();
+  // get a pointer to a colorset, if pos == LED_FIRST and no
+  // single led pattern is there then the multi will be returned
   const Colorset *getColorset(LedPos pos = LED_FIRST) const;
   Colorset *getColorset(LedPos pos = LED_FIRST);
+  // get a pointer to the multi colorset
+  const Colorset *getMultiColorset(LedPos pos = LED_FIRST) const;
+  Colorset *getMultiColorset(LedPos pos = LED_FIRST);
   // get the pattern ID of the given pattern
   PatternID getPatternID(LedPos pos = LED_FIRST) const;
+  // get the multi LED pattern ID
+  PatternID getMultiPatID() const;
 
   // mode comparison
   bool equals(const Mode *other) const;
 
-  // set the pattern/colorset of the mode, if a multi-led pattern is provided then the pos
-  // is ignored. If a single led pattern is provided then it will be applied to all LEDS
-  // unless a specific LED is provided
+  // set the pattern/colorset of the mode, if a single-led pattern is provided
+  // then it will be applied to all single-led pattern slots. If a multi-led
+  // is provided then it will be applied to the multi-led pattern slot
   bool setPattern(PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
+  // This will apply the colorset to all patterns in the mode
   bool setColorset(const Colorset *set);
 
+  // change a single led colorset
   bool setColorsetAt(LedPos pos, const Colorset *set);
   bool setColorsetAt(LedMap map, const Colorset *set);
 
-  // change a single or multi pattern
+  // change the multi led colorset
+  bool setMultiColorset(const Colorset *set);
+
+  // change a single led pattern
   bool setPatternAt(LedPos pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   bool setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
   bool setPatternAt(LedMap pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   bool setPatternAt(LedMap pos, SingleLedPattern *pat, const Colorset *set = nullptr);
+
+  // change the multi pattern
   bool setMultiPat(PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   bool setMultiPat(MultiLedPattern *pat, const Colorset *set = nullptr);
+
+  // clear stored patterns in various ways
+  void clearPatterns();
+  void clearPatternAt(LedPos pos);
+  void clearPatternAt(LedMap map);
+  void clearMultiPat();
+
+  // clear colorset in various ways
+  void clearColorsets();
+  void clearColorsetAt(LedPos pos);
+  void clearColorsetAt(LedMap map);
+  void clearMultiColorset();
 
   // get the flags associated with this mode
   uint32_t getFlags() const;
 
-  // is this a multi-led pattern in the mode?
-  bool isMultiLed() const;
-  // are all the single led patterns and colorsets equal?
-  bool isSameSingleLed() const;
+  // whether a multi-led pattern is present in the mode
+  bool hasMultiLed() const;
+  // whether at least one single-led pattern is present in the mode
+  bool hasSingleLed() const;
+  // whether this mode has all same single-led patterns
+  bool hasSameSingleLed() const;
+  // whether this mode has sparse single-led patterns (missing some slots)
+  bool hasSparseSingleLed() const;
 
-  // erase any stored patterns or colorsets
-  void clearPatterns();
-  void clearPatternAt(LedPos pos);
-  void clearPatternAt(LedMap map);
-  void clearColorsets();
-  void clearColorsetAt(LedPos pos);
-  void clearColorsetAt(LedMap map);
+  // get the led map of which singles are set
+  LedMap getSingleLedMap() const;
+
+  // whether this mode purely a multi-led pattern with no singles
+  bool isMultiLed() const;
 
 #if MODES_TEST == 1
   static void test();
 #endif
 
 private:
+  // the multi-led pattern slot
+  Pattern *m_multiPat;
+  // a list of slots for each single led pattern
 #if FIXED_LED_COUNT == 0
   // the number of leds the mode is targetting
   uint8_t m_numLeds;
-  // list of pointers to Patterns, one for each led or if it
-  // is a multi-led pattern then there is only one total
-  Pattern **m_ledEntries;
+  // list of pointers to Patterns, one for each led
+  Pattern **m_singlePats;
 #else
-  Pattern *m_ledEntries[LED_COUNT];
+  Pattern *m_singlePats[LED_COUNT];
 #endif
-  // TODO: separate multi pattern
-  //MultiLedPattern *m_multiPat;
 };
 
 #endif
