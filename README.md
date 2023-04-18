@@ -1,5 +1,26 @@
-## Vortex Engine
-This is a firmware for a custom arduino based gloveset
+# Vortex Engine
+
+Welcome to the Vortex Engine firmware repository! This open-source project is designed for use with our Arduino-based LED devices: Orbit, Gloves, Handle, and Microlight. The firmware enables users to create mesmerizing light shows by completely unlocking their ability to program any flashing patterns, colorsets, or effects onto their devices.
+
+**Note**: While this firmware can be modified and re-flashed by experienced users, it is not intended for basic users to do so.
+
+## Repository Structure
+
+This repository is organized into branches, with each branch corresponding to one of the four devices:
+
+- `master`: Firmware core that all branches derive from
+- `orbit`: Firmware for the Vortex Orbit
+- `handle`: Firmware for the Omega Handles
+- `gloves`: Firmware for the Vortex Gloves
+- `finger`: Firmware for the Microlight
+
+To access the firmware for a specific device, switch to the corresponding branch.
+
+## Contributing
+
+We welcome and encourage contributions from the community! If you would like to contribute to this project, please follow our [contribution guidelines](CONTRIBUTING.md).
+
+Note: While this firmware can be modified and re-flashed by experienced users, it is not intended for basic users to do so.
 
 ### Installation
 In order to get started first you'll need to set up Arduino IDE
@@ -8,14 +29,18 @@ https://www.arduino.cc/en/software
 
 ### Setup 
 Next we'll need to configure Arduino to work with our hardware!
-The board we're using is called the Trinket m0 by Adafruit, and they have a fantastic guide on how to set up Arduino to support it. Just make sure to use the reccomended board versions below.
+
+#### Trinket Based Devices
+
+For the Orbit, Gloves and Handle you need to setup arduino for a trinket m0
+
 https://learn.adafruit.com/adafruit-trinket-m0-circuitpython-arduino/arduino-ide-setup
 
 You will need to select the following board to install, make sure to select the correct version
 
-##### Adafruit SAMD Boards v1.7.7
+### ATTiny Based Devices
 
-Newer versions have issues and do not work.
+For the attiny based devices (microlight) you will need to get megaTinyCore installed and you will need an Arduino Uno to be used as a jtag2updi programmer.
 
 ### Library Setup
 Lastly we need to copy the libraries folder to the directory C:\Users\YourPCName\Documents\Arduino
