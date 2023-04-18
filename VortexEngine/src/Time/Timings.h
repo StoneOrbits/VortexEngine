@@ -14,6 +14,10 @@
 // how long after startup before the button starts responding
 #define IGNORE_BUTTON_TICKS           Time::msToTicks(IGNORE_BUTTON_TIME)
 
+// the number of ticks to enter sleep mode
+#define SLEEP_ENTER_THRESHOLD_TICKS   Time::msToTicks(SLEEP_TRIGGER_TIME)
+#define SLEEP_WINDOW_THRESHOLD_TICKS  Time::msToTicks(SLEEP_WINDOW_TIME)
+
 // Color delete threshold (in milliseconds)
 #define DELETE_THRESHOLD_TICKS        Time::msToTicks(COL_DELETE_THRESHOLD)
 // Color delete cycle time (in milliseconds)

@@ -16,13 +16,6 @@ enum LedPos : uint8_t
   LED_0 = LED_FIRST,
   LED_1,
   LED_2,
-  LED_3,
-  LED_4,
-  LED_5,
-  LED_6,
-  LED_7,
-  LED_8,
-  LED_9,
 
   // the number of entries above
   LED_COUNT,
@@ -31,6 +24,10 @@ enum LedPos : uint8_t
   LED_LAST = (LED_COUNT - 1)
 };
 
+// some helpers for microlight code
+#define LED_TIP LED_0
+#define LED_TOP LED_1
+
 enum Pair : uint8_t
 {
   PAIR_FIRST = 0,
@@ -38,13 +35,22 @@ enum Pair : uint8_t
   // one pair for each pair of leds, adjust this to be 2x the LED_COUNT
   PAIR_0 = PAIR_FIRST,
   PAIR_1,
-  PAIR_2,
-  PAIR_3,
-  PAIR_4,
 
   PAIR_COUNT,
   PAIR_LAST = (PAIR_COUNT - 1),
 };
+
+// backwards compatibility for multi led patterns
+#define LED_3 LED_0
+#define LED_4 LED_1
+#define LED_5 LED_2
+#define LED_6 LED_0
+#define LED_7 LED_1
+#define LED_8 LED_2
+#define LED_9 LED_0
+#define PAIR_2 PAIR_0
+#define PAIR_3 PAIR_1
+#define PAIR_4 PAIR_0
 
 // check if an led is even or odd
 #define isEven(pos) ((pos % 2) == 0)
