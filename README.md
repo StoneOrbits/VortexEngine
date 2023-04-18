@@ -38,7 +38,7 @@ https://learn.adafruit.com/adafruit-trinket-m0-circuitpython-arduino/arduino-ide
 
 You will need to select the following board to install, make sure to select the correct version
 
-### ATTiny Based Devices
+#### ATTiny Based Devices
 
 For the attiny based devices (microlight) you will need to get megaTinyCore installed and you will need an Arduino Uno to be used as a jtag2updi programmer.
 
