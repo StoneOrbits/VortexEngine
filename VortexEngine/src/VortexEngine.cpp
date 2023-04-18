@@ -15,27 +15,20 @@
 
 #include <Arduino.h>
 
+#ifdef VORTEX_ARDUINO
+#include <avr/interrupt.h>
+#include <avr/sleep.h>
+#endif
+
 bool VortexEngine::init()
 {
   // all of the global controllers
-  if (!SerialComs::init()) {
-    DEBUG_LOG("Serial failed to initialize");
-    return false;
-  }
   if (!Time::init()) {
     DEBUG_LOG("Time failed to initialize");
     return false;
   }
   if (!Storage::init()) {
     DEBUG_LOG("Storage failed to initialize");
-    return false;
-  }
-  if (!IRReceiver::init()) {
-    DEBUG_LOG("Infrared receiver failed to initialize");
-    return false;
-  }
-  if (!IRSender::init()) {
-    DEBUG_LOG("Infrared sender failed to initialize");
     return false;
   }
   if (!Leds::init()) {
@@ -79,11 +72,8 @@ void VortexEngine::cleanup()
   Menus::cleanup();
   Buttons::cleanup();
   Leds::cleanup();
-  IRSender::cleanup();
-  IRReceiver::cleanup();
   Storage::cleanup();
   Time::cleanup();
-  SerialComs::cleanup();
 }
 
 void VortexEngine::tick()
@@ -116,14 +106,36 @@ void VortexEngine::tick()
 
 void VortexEngine::runMainLogic()
 {
+  // otherwise check for any press or hold to enter sleep or enter menus
+  uint32_t holdTime = g_pButton->holdDuration();
+  // force-sleep check
+  if (holdTime >= FORCE_SLEEP_THRESHOLD_TICKS) {
+    if (g_pButton->isPressed()) {
+      Leds::clearAll();
+    } else if (g_pButton->onLongClick()) {
+      enterSleep();
+    }
+    return;
+  }
   // if the menus are open and running then just return
   if (Menus::run()) {
     return;
   }
-  // check if we should enter the menu
-  if (g_pButton->isPressed() && g_pButton->holdDuration() > MENU_TRIGGER_THRESHOLD_TICKS) {
-    DEBUG_LOG("Entering Menu Selection...");
-    Menus::openMenuSelection();
+  // if the user releases the button after the sleep threshold and
+  // we're still in menu state not open, then we can go to sleep
+  if (g_pButton->onLongClick() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
+    // enter sleep mode, this won't return
+    enterSleep();
+  }
+  if (g_pButton->isPressed() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
+    // and finally if the button is pressed then clear the leds if within
+    // the sleep window and open the ring menu if past that
+    Leds::clearAll();
+    // then check to see if we've held long enough to enter the menu
+    if (holdTime >= (SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS)) {
+      DEBUG_LOG("Entering ring fill...");
+      Menus::openMenuSelection();
+    }
     return;
   }
   // otherwise just play the modes
@@ -162,6 +174,36 @@ uint32_t VortexEngine::savefileSize()
   return Storage::lastSaveSize();
 }
 #endif
+
+void VortexEngine::enterSleep()
+{
+  // clear all the leds
+  Leds::clearAll();
+  Leds::update();
+#ifdef VORTEX_ARDUINO
+  delay(500);
+  // Set LED data pin to input to prevent power vampirism while alseep
+  pinMode(7, INPUT_PULLUP);
+  attachInterrupt(digitalPinToInterrupt(9), VortexEngine::wakeUp, RISING);
+  digitalWrite(1, LOW); //This closes the gate on the mofset
+  set_sleep_mode(SLEEP_MODE_PWR_DOWN);  /* Set sleep mode to POWER DOWN mode */
+  sleep_enable();                       /* Enable sleep mode, but not going to sleep yet */
+  // enter sleep
+  sleep_cpu();
+#else
+  INFO_LOG("SLEEPING");
+#endif
+}
+
+void VortexEngine::wakeUp()
+{
+  // turn the LED MOSFET back on
+  digitalWrite(1, HIGH);
+  // perform digital reset
+#ifdef VORTEX_ARDUINO
+  _PROTECTED_WRITE(RSTCTRL.SWRR, 1);
+#endif
+}
 
 #if COMPRESSION_TEST == 1
 #include <string.h>

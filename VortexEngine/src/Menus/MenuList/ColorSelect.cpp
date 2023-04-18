@@ -197,13 +197,14 @@ void ColorSelect::showSlotSelection()
     if (g_pButton->isPressed() && g_pButton->holdDuration() >= DELETE_THRESHOLD_TICKS) {
       if ((g_pButton->holdDuration() % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS) {
         // breath red instead of white blink
-        Leds::breathIndex(LED_COUNT, 0, g_pButton->holdDuration());
+        Leds::breathIndex(LED_0, 0, g_pButton->holdDuration());
         return;
       }
     }
     // just render that led
     Leds::clearAll();
-    Leds::blinkIndex(LED_COUNT, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
+    Leds::blinkIndex(LED_0, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
+    Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_OFF : 0x050505);
   }
   // exit index is num colors unless we have less than 8 colors
   uint8_t exitIndex = m_colorset.numColors();
@@ -220,7 +221,7 @@ void ColorSelect::showSlotSelection()
   }
   // selecting the exit
   if (m_curSelection == exitIndex) {
-    showFullSet(LED_COUNT, Time::getCurtime(), 50, 100);
+    showFullSet(LED_0, Time::getCurtime(), 50, 100);
   }
 }
 
@@ -230,8 +231,9 @@ void ColorSelect::showHueSelection1()
     showExit();
     return;
   }
-  uint8_t hue1 = m_curSelection * (255 / 4);
-  Leds::breathIndex(LED_COUNT, hue1, (uint32_t)(Time::getCurtime() / 2) + 62, 22, 255, 180);
+  uint8_t hue = m_curSelection * (255 / 4);
+  Leds::breathIndex(LED_0, hue, (uint32_t)(Time::getCurtime() / 2), 22, 255, 180);
+  Leds::breathIndex(LED_1, hue, (uint32_t)(Time::getCurtime() / 2) + 125, 22, 255, 180);
 }
 
 void ColorSelect::showHueSelection2()
@@ -250,8 +252,8 @@ void ColorSelect::showSatSelection()
     showExit();
     return;
   }
-
-  Leds::setIndex(LED_COUNT, HSVColor(m_newColor.hue, sats[m_curSelection], 255));
+  Leds::setIndex(LED_0, HSVColor(m_newColor.hue, sats[m_curSelection], 255));
+  Leds::breathIndexSat(LED_1, m_newColor.hue, (uint32_t)(Time::getCurtime() / 3), 100, 30, 30);
 }
 
 void ColorSelect::showValSelection()
@@ -260,13 +262,15 @@ void ColorSelect::showValSelection()
     showExit();
     return;
   }
-  Leds::setIndex(LED_COUNT, HSVColor(m_newColor.hue, m_newColor.sat, vals[m_curSelection]));
+  Leds::setIndex(LED_0, HSVColor(m_newColor.hue, m_newColor.sat, vals[m_curSelection]));
+  Leds::breathIndexVal(LED_1, m_newColor.hue, (uint32_t)(Time::getCurtime() / 3), 100, m_newColor.sat, 30);
 }
 
 void ColorSelect::showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs)
 {
   Leds::clearAll();
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
-    Leds::setIndex(LED_COUNT, m_colorset.get(((time / Time::msToTicks(offMs + onMs))) % m_colorset.numColors()));
+    Leds::setIndex(target, m_colorset.get(((time / Time::msToTicks(offMs + onMs))) % m_colorset.numColors()));
   }
+  Leds::setIndex(LED_1, 0x001000);
 }

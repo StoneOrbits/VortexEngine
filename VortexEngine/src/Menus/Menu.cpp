@@ -83,12 +83,6 @@ Menu::MenuAction Menu::run()
       m_targetLeds = MAP_LED(LED_FIRST);
       break;
     case MAP_LED(LED_LAST):
-      m_targetLeds = MAP_PAIR_EVENS;
-      break;
-    case MAP_PAIR_EVENS:
-      m_targetLeds = MAP_PAIR_ODDS;
-      break;
-    case MAP_PAIR_ODDS:
       m_targetLeds = MAP_LED_ALL;
       break;
     default: // LED_FIRST through LED_LAST
@@ -137,12 +131,14 @@ void Menu::showSelect()
 
 void Menu::showExit()
 {
+
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
-    Leds::setAll(RGB_RED);
-    return;
+    Leds::setIndex(LED_1, RGB_RED);
+  } else {
+    Leds::clearIndex(LED_1);
+    Leds::blinkIndex(LED_0, Time::getCurtime(), 250, 500, RGB_BLANK);
+    Leds::blinkIndex(LED_1, Time::getCurtime(), 250, 500, RGB_DARK_RED);
   }
-  Leds::clearAll();
-  Leds::blinkAll(Time::getCurtime(), 250, 500, RGB_DARK_RED);
 }
 
 void Menu::onShortClick()
