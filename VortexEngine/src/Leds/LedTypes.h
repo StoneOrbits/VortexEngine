@@ -91,6 +91,7 @@ inline LedPos mapGetFirstLed(LedMap map)
 inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 {
   pos = (LedPos)(pos + 1);
+  map >>= pos;
   while (map && pos < LED_COUNT) {
     if (map & 1) {
       return pos;
