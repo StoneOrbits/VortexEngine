@@ -35,7 +35,7 @@
 // Vortex Slim
 //
 // Turn on this flag to enable the 'slim' version of the engine
-#define VORTEX_SLIM           0
+#define VORTEX_SLIM           1
 
 // ===================================================================
 //  Numeric Configurations
@@ -44,7 +44,7 @@
 //
 // How long the button must be held to trigger menu selection and
 // begin blinking the first menu color
-#define MENU_TRIGGER_TIME     1000
+#define MENU_TRIGGER_TIME     300
 
 // Short Click Threshold (in milliseconds)
 //
@@ -52,6 +52,22 @@
 // as a 'short click' otherwise if held longer than this threshold
 // it will be registered as a 'long click'
 #define CLICK_THRESHOLD       250
+
+// Sleep Enter Threshold (in milliseconds)
+//
+// How long the button has to be held at the main mode area to enter
+// sleep mode
+#define SLEEP_TRIGGER_TIME    500
+
+// Sleep Window Time (in milliseconds)
+//
+// How long the user has to release the button to enter sleep
+#define SLEEP_WINDOW_TIME     350
+
+// Force Sleep Time (in milliseconds)
+//
+// How long the user has to hold the button anywhere to force sleep
+#define FORCE_SLEEP_TIME      5000
 
 // Startup Ignore Button Time (in milliseconds)
 //
@@ -63,8 +79,8 @@
 // Color delete threshold (in milliseconds)
 //
 // How long you must hold down on a color in the color select menu to
-// trigger the delete option to start flashing
-#define COL_DELETE_THRESHOLD  2000
+// trigger the delete option to start flashing on the tip
+#define COL_DELETE_THRESHOLD  500
 
 // Color delete cycle time (in milliseconds)
 //
@@ -389,7 +405,7 @@
 
 // the space available for storing modes is the usable space rounded
 // down to nearest 4096
-#define STORAGE_SIZE (USABLE_SPACE - (USABLE_SPACE % 256))
+#define STORAGE_SIZE 255 // (USABLE_SPACE - (USABLE_SPACE % 256))
 
 // ===================================================================
 //  Test Framework configurations

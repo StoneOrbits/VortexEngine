@@ -14,8 +14,9 @@
 #include <unistd.h>
 #endif
 
-// only arduino needs const I guess?
-static const uint8_t _storagedata[STORAGE_SIZE] = { };
+#ifdef VORTEX_ARDUINO
+#include <EEPROM.h>
+#endif
 
 uint32_t Storage::m_lastSaveSize = 0;
 
@@ -49,6 +50,12 @@ bool Storage::write(ByteStream &buffer)
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }
+#ifdef VORTEX_ARDUINO
+  // write out the buffer to storage
+  for (size_t i = 0; i < buffer.rawSize(); ++i) {
+    EEPROM.update(i, ((uint8_t *)buffer.rawData())[i]);
+  }
+#endif
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
   return true;
 }
@@ -61,7 +68,19 @@ bool Storage::read(ByteStream &buffer)
     ERROR_LOGF("Could not initialize buffer with %u bytes", STORAGE_SIZE);
     return false;
   }
-  DEBUG_LOGF("Loaded savedata (Size: %u)", m_lastSaveSize);
+#ifdef VORTEX_ARDUINO
+  // Read the data from EEPROM into the buffer
+  for (size_t i = 0; i < STORAGE_SIZE; ++i) {
+    ((uint8_t *)buffer.rawData())[i] = EEPROM.read(i);
+  }
+  // check crc immediately since we read into raw data copying the
+  // array could be dangerous
+  if (!buffer.checkCRC()) {
+    ERROR_LOG("Could not verify buffer");
+    return false;
+  }
+#endif
+  DEBUG_LOGF("Loaded savedata (Size: %u)", buffer.size());
   return true;
 }
 

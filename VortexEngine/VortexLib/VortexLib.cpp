@@ -248,14 +248,6 @@ void Vortex::releaseButton(uint32_t buttonIndex)
 
 Mode *Vortex::getMenuDemoMode()
 {
-  void *pMenu = Menus::curMenu();
-  if (pMenu) {
-    // note the cur menu ID is only valid if the menus are open
-    MenuEntryID id = Menus::curMenuID();
-    if (id == MENU_EDITOR_CONNECTION) {
-      return &((EditorConnection *)pMenu)->m_demoMode;
-    }
-  }
   // attiny just demos the cur mode in menus to save on space
   return Modes::curMode();
 }
@@ -302,7 +294,7 @@ void Vortex::openPatternSelect()
 
 void Vortex::openGlobalBrightness()
 {
-  Menus::openMenu(MENU_GLOBAL_BRIGHTNESS);
+  // doesn't exist here
 }
 
 void Vortex::openFactoryReset()
@@ -312,12 +304,12 @@ void Vortex::openFactoryReset()
 
 void Vortex::openModeSharing()
 {
-  Menus::openMenu(MENU_MODE_SHARING);
+  // doesn't exist here
 }
 
 void Vortex::openEditorConnection()
 {
-  Menus::openMenu(MENU_EDITOR_CONNECTION);
+  // doesn't exist here
 }
 
 bool Vortex::getModes(ByteStream &outStream)

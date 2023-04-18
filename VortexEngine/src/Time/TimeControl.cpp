@@ -14,6 +14,18 @@
 
 #include "../Leds/Leds.h"
 
+#ifdef VORTEX_ARDUINO
+#include <avr/sleep.h>
+// This is how long it takes for the attiny to go to sleep and wakeup when
+// using the idle sleep state, so if trying to put the cpu to sleep for
+// some amount of time it must be at least this amount or more.
+//
+// The real value is something like 712 but we overestimate just in case.
+// This isn't in VortexConfig because it's not configurable, it's a hardware
+// constant that can't be avoided
+#define ATTINY_IDLE_SLEEP_MINIMUM 800
+#endif
+
 // static members
 uint64_t Time::m_curTick = 0;
 uint64_t Time::m_prevTime = 0;
@@ -85,7 +97,7 @@ void Time::tickClock()
     // if building anywhere except visual studio then we can run alternate sleep code
     // because in visual studio + windows it's better to just spin and check the high
     // resolution clock instead of trying to sleep for microseconds.
-#if !defined(_MSC_VER) && defined(VORTEX_LIB)
+#if !defined(_MSC_VER)
     uint32_t required = (1000000 / TICKRATE);
     uint32_t sleepTime = 0;
     if (required > elapsed_us) {
@@ -94,8 +106,16 @@ void Time::tickClock()
       // up being more accurate to poll QPF + QPC via micros()
       sleepTime = required - elapsed_us;
     }
+#if defined(VORTEX_LIB)
     delayMicroseconds(sleepTime);
     break;
+#elif defined(VORTEX_ARDUINO)
+    // on the attiny we can sleep for any amount more than the minimum
+    // amount of cycles it takes to actually run the sleep code
+    for (uint8_t i = 0; i < sleepTime / ATTINY_IDLE_SLEEP_MINIMUM; ++i) {
+      sleep_cpu();
+    }
+#endif
 #endif
     // 1000us per ms, divided by tickrate gives
     // the number of microseconds per tick
