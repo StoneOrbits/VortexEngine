@@ -175,3 +175,8 @@ void ModeSharing::showReceiveMode()
   if (pos == LED_COUNT) return;
   Leds::setRange(LED_FIRST, pos, RGB_PURPLE);
 }
+
+// override showExit so it isn't displayed on thumb
+void ModeSharing::showExit()
+{
+}
