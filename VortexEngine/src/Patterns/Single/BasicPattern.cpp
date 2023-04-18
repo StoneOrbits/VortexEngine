@@ -9,6 +9,7 @@ BasicPattern::BasicPattern(const PatternArgs &args) :
   m_onDuration(0),
   m_offDuration(0),
   m_gapDuration(0),
+  m_dashDuration(30),
   m_groupSize(0),
   m_reflectIndex(0),
   m_repeatGroup(0),
@@ -18,7 +19,10 @@ BasicPattern::BasicPattern(const PatternArgs &args) :
   m_reflect(false),
   m_blinkTimer(),
   m_gapTimer(),
-  m_inGap(false)
+  m_inGap(false),
+  m_dashTimer(),
+  m_inDash(false),
+  m_dashTriggered(false)
 {
   m_patternID = PATTERN_BASIC;
   REGISTER_ARG(m_onDuration);
@@ -41,9 +45,13 @@ void BasicPattern::init()
 
   m_inGap = false;
   m_reflect = false;
+  m_inDash = false;
+  m_dashTriggered = false;
 
   // don't start the gap timer till we're in a gap
   m_gapTimer.init(TIMER_1_ALARM, m_gapDuration);
+
+  m_dashTimer.init(TIMER_3_ALARMS, m_dashDuration);
 
   // start the blink timer now
   m_blinkTimer.init(TIMER_2_ALARMS | TIMER_START, m_onDuration, m_offDuration);
@@ -65,6 +73,15 @@ void BasicPattern::play()
       endGap();
     }
     Leds::clearIndex(m_ledPos);
+    return;
+  }
+
+  // check to see if the ribbon timer triggered to end the ribbon
+  if (m_inDash) {
+    if (m_dashTimer.onEnd()) {
+      endDash();
+    }
+    Leds::setIndex(m_ledPos, m_colorset.get(0));
     return;
   }
 
@@ -98,6 +115,10 @@ void BasicPattern::endGap()
   // next frame will not be a gap
   m_blinkTimer.restart(1);
   m_inGap = false;
+  if (!m_dashTriggered) {
+    triggerDash();
+  }
+  m_dashTriggered = false;
   // Here we perform logic for repeating groups
   if (m_repeatCounter > 0) {
     // the repeat counter starts at group size and counts down
@@ -118,15 +139,36 @@ void BasicPattern::endGap()
     // here is additional logic for when there is a refelct index set
     if (m_reflectIndex) {
       // this sets the colorset to the color after the central color in the previous reflection
-      m_colorset.skip(-(int32_t)((m_colorset.numColors() - m_reflectIndex) + 1));
+      m_colorset.skip(-(int32_t)((m_colorset.numColors() - m_reflectIndex) + 1 + m_groupSize));
       m_reflect = !m_reflect;
       return;
     }
   }
 }
 
+void BasicPattern::triggerDash()
+{
+  if (m_dashDuration > 0) {
+    //next frame will be a ribbon
+    m_dashTimer.restart(1);
+    m_inDash = true;
+  }
+}
+
+void BasicPattern::endDash()
+{
+  m_blinkTimer.restart(1);
+  m_inDash = false;
+  m_dashTriggered = true;
+  triggerGap();
+}
+
 void BasicPattern::onBlinkOn()
 {
+  //// skip color 0 if there is a dash enabled
+  //if (m_dashDuration && m_colorset.curIndex() == 0) {
+  //  m_colorset.skip(1);
+  //}
   // set the target led with the given color
   Leds::setIndex(m_ledPos, m_reflect ? m_colorset.getPrev() : m_colorset.getNext());
 }
