@@ -35,7 +35,7 @@ ChaserPattern::ChaserPattern(const PatternArgs &args) :
     //     5         3             6, 7        00 11 00 00 00
     //     6         2             4, 5        00 00 11 00 00
     //     7         1             2, 3        00 00 00 11 00
-    LedMap overrideLeds = MAP_PAIR((Pair)((i < 5) ? i : (8 - i)));
+    LedMap overrideLeds = 0; //MAP_PAIR((Pair)((i < 5) ? i : (8 - i)));
     // Then this API is used to override specific positions in the Pattern Map
     // with a different pattern ID, we use the Led Map generated above to tell
     // setPatternAt() which indices to override with Solid0

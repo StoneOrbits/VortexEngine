@@ -16,26 +16,39 @@ public:
 
   // handlers for clicks
   void onShortClick() override;
+  void onShortClick2() override;
   void onLongClick() override;
+  void onLongClick2() override;
 
 private:
-  enum ColorSelectState
-  {
-    // first run after the menu is entered
-    STATE_INIT,
-    STATE_PICK_SLOT,
-    STATE_PICK_HUE1,
-    STATE_PICK_HUE2,
-    STATE_PICK_SAT,
-    STATE_PICK_VAL
-  };
-
+  // internal routines for the color select
   void showSlotSelection();
   void showHueSelection1();
   void showHueSelection2();
   void showSatSelection();
   void showValSelection();
-  void showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs);
+
+  // overridden blink logic for the colorselect menu (Controls how m_curSelection blinks)
+  void blinkSelection(uint32_t offMs = 350, uint32_t onMs = 500) override;
+
+  // private enumeration for internal state of color selection
+  enum ColorSelectState : uint32_t
+  {
+    // currently picking the color slot to change
+    STATE_PICK_SLOT,
+
+    // first pick a quadrant 0, 90, 180, 240
+    STATE_PICK_HUE1,
+
+    // next pick a quadrant within that quadrant 0, 25, 50, 70
+    STATE_PICK_HUE2,
+
+    // picking a saturation for the color
+    STATE_PICK_SAT,
+
+    // picking a value for the color
+    STATE_PICK_VAL,
+  };
 
   // the options for saturations
   const uint32_t sats[4] = {
@@ -53,14 +66,23 @@ private:
     0
   };
 
-  // the state of the color select menu
+  // the current state of the color selection menu
   ColorSelectState m_state;
-  // the new color being built via hue, sat then val
-  HSVColor m_newColor;
-  // A copy of the colorset being changed
+
+  // A copy of the colorset from the current mode
   Colorset m_colorset;
-  // the target slot in the color slot that was selected
-  uint8_t m_targetSlot;
+
+  // the colorselect has multiple pages
+  uint32_t m_curPage;
+
+  // the target color slot to change
+  uint32_t m_slot;
+
+  // the chosen quadrant
+  uint32_t m_quadrant;
+
+  // the new color to set
+  HSVColor m_newColor;
 };
 
 #endif

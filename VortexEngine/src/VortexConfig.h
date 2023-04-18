@@ -97,7 +97,7 @@
 //
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    185
+#define DEFAULT_BRIGHTNESS    20
 
 // Max Modes
 //
@@ -227,7 +227,7 @@
 // it will fill from the pinkie.
 //
 // The logic is cleaner for fill from pinkie but fill from thumb is preferred
-#define FILL_FROM_THUMB       1
+#define FILL_FROM_THUMB       0
 
 // Demo All Patterns
 //
@@ -375,21 +375,21 @@
 //  These are the various storage space constants of the vortex device
 
 // maximum storage space in bytes
-#define MAX_STORAGE_SPACE 32000
+#define MAX_STORAGE_SPACE 262144
 
 // the size of the compiled engine
-#define ENGINE_SIZE 28000
+#define ENGINE_SIZE 88776
 
 // the raw amount of available space
 #define RAW_AVAILABLE_SPACE (MAX_STORAGE_SPACE - ENGINE_SIZE)
 
 // usable flash space is one eighth of what we have left idk why I
 // just kept picking numbers till it worked
-#define USABLE_SPACE (RAW_AVAILABLE_SPACE / 2)
+#define USABLE_SPACE (RAW_AVAILABLE_SPACE / 8)
 
 // the space available for storing modes is the usable space rounded
 // down to nearest 4096
-#define STORAGE_SIZE (USABLE_SPACE - (USABLE_SPACE % 256))
+#define STORAGE_SIZE (USABLE_SPACE - (USABLE_SPACE % 4096))
 
 // ===================================================================
 //  Test Framework configurations

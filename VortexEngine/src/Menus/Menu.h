@@ -30,7 +30,9 @@ public:
 
   // optional handlers for clicks
   virtual void onShortClick();
+  virtual void onShortClick2();
   virtual void onLongClick();
+  virtual void onLongClick2();
 
   // close the current menu
   virtual void leaveMenu(bool doSave = false);
@@ -39,6 +41,9 @@ protected:
   void showBulbSelection();
   void showSelect();
   void showExit();
+
+  // blink the selected finger
+  virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
 
   // the current mode that was selected
   Mode *m_pCurMode;
@@ -49,8 +54,8 @@ protected:
   LedMap m_targetLeds;
   // true once a an led is selected
   bool m_ledSelected;
-  // all menus have a 'current selection'
-  uint8_t m_curSelection;
+  // all menus have a 'current selection which can point at any led
+  Quadrant m_curSelection;
 
 private:
   // internal flag to close the menu

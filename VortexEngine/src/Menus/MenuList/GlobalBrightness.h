@@ -14,14 +14,16 @@ public:
 
   // handlers for clicks
   void onShortClick() override;
+  void onShortClick2() override;
   void onLongClick() override;
+  void onLongClick2() override;
 
 private:
   void showBrightnessSelection();
 
   // the list of brightness options, this can be
   // any length really and the menu will adjust
-  const uint8_t m_brightnessOptions[4] = { 40, 120, 185, 255 };
+  const uint8_t m_brightnessOptions[4] = { 20, 65, 110, 155 };
 };
 
 #endif

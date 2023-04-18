@@ -28,8 +28,8 @@ void FillPattern::init()
 
 void FillPattern::blinkOn()
 {
-  Leds::setPairs(PAIR_FIRST, (Pair)m_progress, m_colorset.peekNext());
-  Leds::setPairs((Pair)m_progress, PAIR_COUNT, m_colorset.cur());
+  Leds::setQuadrants(QUADRANT_FIRST, (Quadrant)m_progress, m_colorset.peekNext());
+  Leds::setQuadrants((Quadrant)m_progress, QUADRANT_LAST, m_colorset.cur());
 }
 
 void FillPattern::poststep()

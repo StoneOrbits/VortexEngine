@@ -62,6 +62,10 @@ void Modes::play()
   if (g_pButton->onShortClick()) {
     nextMode();
   }
+  // shortclick on button 2 cycles to the previous mode
+  if (g_pButton2->onShortClick()) {
+    previousMode();
+  }
   // play the current mode
   m_pCurModeLink->play();
 }
