@@ -75,21 +75,28 @@ public:
 #endif
   uint8_t getLedCount() const;
 
-  // Get pointer to an individual pattern/colorset
-  const Pattern *getPattern(LedPos pos = LED_FIRST) const;
-  Pattern *getPattern(LedPos pos = LED_FIRST);
+  // get the effective pattern on a mode
+  const Pattern *getPattern() const;
+  Pattern *getPattern();
+  // get the pattern at a position
+  const Pattern *getPatternAt(LedPos pos) const;
+  Pattern *getPatternAt(LedPos pos);
   // get a pointer to the multi pattern
   const Pattern *getMultiPat() const;
   Pattern *getMultiPat();
-  // get a pointer to a colorset, if pos == LED_FIRST and no
-  // single led pattern is there then the multi will be returned
-  const Colorset *getColorset(LedPos pos = LED_FIRST) const;
-  Colorset *getColorset(LedPos pos = LED_FIRST);
+  // get the effective colorset on a mode
+  const Colorset *getColorset() const;
+  Colorset *getColorset();
+  // get the colorset at a position
+  const Colorset *getColorsetAt(LedPos pos) const;
+  Colorset *getColorsetAt(LedPos pos);
   // get a pointer to the multi colorset
-  const Colorset *getMultiColorset(LedPos pos = LED_FIRST) const;
-  Colorset *getMultiColorset(LedPos pos = LED_FIRST);
+  const Colorset *getMultiColorset() const;
+  Colorset *getMultiColorset();
+  // get the effective pattern id on a mode
+  PatternID getPatternID() const;
   // get the pattern ID of the given pattern
-  PatternID getPatternID(LedPos pos = LED_FIRST) const;
+  PatternID getPatternIDAt(LedPos pos) const;
   // get the multi LED pattern ID
   PatternID getMultiPatID() const;
 

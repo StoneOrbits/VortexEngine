@@ -511,7 +511,7 @@ bool Vortex::getColorset(LedPos pos, Colorset &set)
   if (!pMode) {
     return false;
   }
-  const Colorset *pSet = pMode->getColorset(pos);
+  const Colorset *pSet = pMode->getColorsetAt(pos);
   if (!pSet) {
     return false;
   }
