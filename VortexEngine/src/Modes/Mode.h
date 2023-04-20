@@ -107,16 +107,6 @@ public:
   // then it will be applied to all single-led pattern slots. If a multi-led
   // is provided then it will be applied to the multi-led pattern slot
   bool setPattern(PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
-  // This will apply the colorset to all patterns in the mode
-  bool setColorset(const Colorset *set);
-
-  // change a single led colorset
-  bool setColorsetAt(LedPos pos, const Colorset *set);
-  bool setColorsetAt(LedMap map, const Colorset *set);
-
-  // change the multi led colorset
-  bool setMultiColorset(const Colorset *set);
-
   // change a single led pattern
   bool setPatternAt(LedPos pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   bool setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
@@ -126,6 +116,15 @@ public:
   // change the multi pattern
   bool setMultiPat(PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   bool setMultiPat(MultiLedPattern *pat, const Colorset *set = nullptr);
+
+  // This will apply the colorset to all patterns in the mode
+  bool setColorset(const Colorset *set);
+  // set colorset at a specific position
+  bool setColorsetAt(LedPos pos, const Colorset *set);
+  // set colorset at each position in a map
+  bool setColorsetAt(LedMap map, const Colorset *set);
+  // change the multi led colorset
+  bool setMultiColorset(const Colorset *set);
 
   // clear stored patterns in various ways
   void clearPatterns();
@@ -162,8 +161,10 @@ public:
 #endif
 
 private:
-  // the multi-led pattern slot
+#if VORTEX_SLIM == 0
+  // the multi-led pattern slot is only present in non-slim builds
   Pattern *m_multiPat;
+#endif
   // a list of slots for each single led pattern
 #if FIXED_LED_COUNT == 0
   // the number of leds the mode is targetting

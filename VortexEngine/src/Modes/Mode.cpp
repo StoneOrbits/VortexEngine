@@ -16,7 +16,9 @@
 // for internal reference to the led count
 #define MODE_LEDCOUNT m_numLeds
 Mode::Mode(uint32_t numLeds) :
+#if VORTEX_SLIM == 0
   m_multiPat(nullptr),
+#endif
   m_numLeds(numLeds),
   m_singlePats(nullptr)
 {
@@ -30,7 +32,9 @@ Mode::Mode() :
 // for internal reference to the led count
 #define MODE_LEDCOUNT LED_COUNT
 Mode::Mode() :
+#if VORTEX_SLIM == 0
   m_multiPat(nullptr),
+#endif
   m_singlePats()
 {
   for (uint32_t i = 0; i < LED_COUNT; ++i) {
@@ -87,9 +91,11 @@ void Mode::operator=(const Mode &other)
   setLedCount(other.getLedCount());
 #endif
   clearPatterns();
+#if VORTEX_SLIM == 0
   if (other.m_multiPat) {
     m_multiPat = PatternBuilder::dupe(other.m_multiPat);
   }
+#endif
   for (uint32_t i = 0; i < other.getLedCount(); ++i) {
     Pattern *otherPat = other.m_singlePats[i];
     if (!otherPat) {
@@ -113,10 +119,12 @@ bool Mode::operator!=(const Mode &other) const
 
 void Mode::init()
 {
+#if VORTEX_SLIM == 0
   // initialize the multi pattern if it's present
   if (m_multiPat) {
     m_multiPat->init();
   }
+#endif
   // otherwise regular init
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     // grab the entry for this led and initialize it
@@ -130,10 +138,12 @@ void Mode::init()
 
 void Mode::play()
 {
+#if VORTEX_SLIM == 0
   // play multi pattern first so that the singles can override
   if (m_multiPat) {
     m_multiPat->play();
   }
+#endif
   // now iterate all singles and play
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     // grab the entry for this led
@@ -189,18 +199,22 @@ void Mode::serialize(ByteStream &buffer) const
 {
   // serialize the number of leds
   buffer.serialize((uint8_t)MODE_LEDCOUNT);
+#if FIXED_LED_COUNT == 0
   // empty mode?
   if (!MODE_LEDCOUNT) {
     return;
   }
+#endif
   // serialize the flags
   uint32_t flags = getFlags();
   buffer.serialize(flags);
+#if VORTEX_SLIM == 0
   // serialiaze the multi led?
   if ((flags & MODE_FLAG_MULTI_LED) && m_multiPat) {
     // serialize the multi led
     m_multiPat->serialize(buffer);
   }
+#endif
   // if no single leds then just stop here
   if (!(flags & MODE_FLAG_SINGLE_LED)) {
     return;
@@ -251,8 +265,14 @@ bool Mode::unserialize(ByteStream &buffer)
   buffer.unserialize(&flags);
   // if there is a multi led pattern then unserialize it
   if (flags & MODE_FLAG_MULTI_LED) {
+#if VORTEX_SLIM == 1
+    // unserialize the multi pattern but just discard it
+    PatternBuilder::unserialize(buffer);
+#else
+    // otherwise in normal build actually unserialize it
     m_multiPat = PatternBuilder::unserialize(buffer);
     m_multiPat->init();
+#endif
   }
   // if there is no single led patterns just stop here
   if (!(flags & MODE_FLAG_SINGLE_LED)) {
@@ -341,9 +361,11 @@ const Pattern *Mode::getPattern() const
 
 Pattern *Mode::getPattern()
 {
+#if VORTEX_SLIM == 0
   if (m_multiPat) {
     return m_multiPat;
   }
+#endif
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     if (m_singlePats[pos]) {
       return m_singlePats[pos];
@@ -373,7 +395,11 @@ const Pattern *Mode::getMultiPat() const
 
 Pattern *Mode::getMultiPat()
 {
+#if VORTEX_SLIM == 1
+  return nullptr;
+#else
   return m_multiPat;
+#endif
 }
 
 const Colorset *Mode::getColorset() const
@@ -383,9 +409,11 @@ const Colorset *Mode::getColorset() const
 
 Colorset *Mode::getColorset()
 {
+#if VORTEX_SLIM == 0
   if (m_multiPat) {
     return m_multiPat->getColorset();
   }
+#endif
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     if (m_singlePats[pos]) {
       return m_singlePats[pos]->getColorset();
@@ -411,19 +439,30 @@ Colorset *Mode::getColorsetAt(LedPos pos)
   return m_singlePats[pos]->getColorset();
 }
 
+const Colorset *Mode::getMultiColorset() const
+{
+  return ((Mode *)this)->getMultiColorset();
+}
+
 Colorset *Mode::getMultiColorset()
 {
+#if VORTEX_SLIM == 0
   if (!m_multiPat) {
     return nullptr;
   }
   return m_multiPat->getColorset();
+#else
+  return nullptr;
+#endif
 }
 
 PatternID Mode::getPatternID() const
 {
+#if VORTEX_SLIM == 0
   if (m_multiPat) {
     return getMultiPatID();
   }
+#endif
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     if (m_singlePats[pos]) {
       return m_singlePats[pos]->getPatternID();
@@ -446,10 +485,14 @@ PatternID Mode::getPatternIDAt(LedPos pos) const
 
 PatternID Mode::getMultiPatID() const
 {
+#if VORTEX_SLIM == 0
   if (!m_multiPat) {
     return PATTERN_NONE;
   }
   return m_multiPat->getPatternID();
+#else
+  return PATTERN_NONE;
+#endif
 }
 
 bool Mode::equals(const Mode *other) const
@@ -461,10 +504,12 @@ bool Mode::equals(const Mode *other) const
   if (other->getLedCount() != MODE_LEDCOUNT) {
     return false;
   }
+#if VORTEX_SLIM == 0
   // compare the multi pattern
   if (m_multiPat && !m_multiPat->equals(other->m_multiPat)) {
     return false;
   }
+#endif
   // compare all the singles
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
     // if entry is valid, do a comparison
@@ -494,44 +539,6 @@ bool Mode::setPattern(PatternID pat, const PatternArgs *args, const Colorset *se
   for (LedPos p = LED_FIRST; p < MODE_LEDCOUNT; ++p) {
     if (!setPatternAt(p, pat, args, set)) {
       ERROR_LOGF("Failed to set single pattern %u", p);
-      return false;
-    }
-  }
-  return true;
-}
-
-bool Mode::setColorset(const Colorset *set)
-{
-  if (isMultiLed()) {
-    m_multiPat->setColorset(set);
-    return true;
-  }
-  // otherwise set all of the colorsets
-  for (LedPos p = LED_FIRST; p < MODE_LEDCOUNT; ++p) {
-    if (!m_singlePats[p]) {
-      continue;
-    }
-    m_singlePats[p]->setColorset(set);
-  }
-  return true;
-}
-
-bool Mode::setColorsetAt(LedPos pos, const Colorset *set)
-{
-  if (pos >= MODE_LEDCOUNT) {
-    return setColorset(set);
-  }
-  if (!m_singlePats[pos]) {
-    return false;
-  }
-  m_singlePats[pos]->setColorset(set);
-  return true;
-}
-
-bool Mode::setColorsetAt(LedMap map, const Colorset *set)
-{
-  MAP_FOREACH_LED(map) {
-    if (!setColorsetAt(pos, set)) {
       return false;
     }
   }
@@ -601,15 +608,20 @@ bool Mode::setPatternAt(LedMap map, SingleLedPattern *pat, const Colorset *set)
 
 bool Mode::setMultiPat(PatternID pat, const PatternArgs *args, const Colorset *set)
 {
+#if VORTEX_SLIM == 0
   MultiLedPattern *newPat = PatternBuilder::makeMulti(pat, args);
   if (!newPat) {
     return false;
   }
   return setMultiPat(newPat, set);
+#else
+  return false;
+#endif
 }
 
 bool Mode::setMultiPat(MultiLedPattern *pat, const Colorset *set)
 {
+#if VORTEX_SLIM == 0
   if (!pat) {
     return false;
   }
@@ -621,15 +633,63 @@ bool Mode::setMultiPat(MultiLedPattern *pat, const Colorset *set)
   // update the multi pattern
   m_multiPat = pat;
   return true;
+#else
+  return false;
+#endif
+}
+
+bool Mode::setColorset(const Colorset *set)
+{
+#if VORTEX_SLIM == 0
+  if (isMultiLed()) {
+    m_multiPat->setColorset(set);
+  }
+#endif
+  // otherwise set all of the colorsets
+  for (LedPos p = LED_FIRST; p < MODE_LEDCOUNT; ++p) {
+    if (!m_singlePats[p]) {
+      continue;
+    }
+    m_singlePats[p]->setColorset(set);
+  }
+  return true;
+}
+
+// set colorset at a specific position
+bool Mode::setColorsetAt(LedPos pos, const Colorset *set)
+{
+  if (pos >= MODE_LEDCOUNT) {
+    return setColorset(set);
+  }
+  if (!m_singlePats[pos]) {
+    return false;
+  }
+  m_singlePats[pos]->setColorset(set);
+  return true;
+}
+
+// set colorset at each position in a map
+bool Mode::setColorsetAt(LedMap map, const Colorset *set)
+{
+  MAP_FOREACH_LED(map) {
+    if (!setColorsetAt(pos, set)) {
+      return false;
+    }
+  }
+  return true;
 }
 
 bool Mode::setMultiColorset(const Colorset *set)
 {
+#if VORTEX_SLIM == 0
   if (!m_multiPat) {
     return false;
   }
   m_multiPat->setColorset(set);
   return true;
+#else
+  return false;
+#endif
 }
 
 void Mode::clearPatterns()
@@ -668,11 +728,13 @@ void Mode::clearPatternAt(LedMap map)
 
 void Mode::clearMultiPat()
 {
+#if VORTEX_SLIM == 0
   if (!m_multiPat) {
     return;
   }
   delete m_multiPat;
   m_multiPat = nullptr;
+#endif
 }
 
 void Mode::clearColorsets()
@@ -705,10 +767,12 @@ void Mode::clearColorsetAt(LedMap map)
 
 void Mode::clearMultiColorset()
 {
+#if VORTEX_SLIM == 0
   if (!m_multiPat) {
     return;
   }
   m_multiPat->clearColorset();
+#endif
 }
 
 uint32_t Mode::getFlags() const
@@ -723,7 +787,11 @@ uint32_t Mode::getFlags() const
 // whether a multi-led pattern is present in the mode
 bool Mode::hasMultiLed() const
 {
+#if VORTEX_SLIM == 0
   return (m_multiPat != nullptr);
+#else
+  return false;
+#endif
 }
 
 // whether at least one single-led pattern is present in the mode
@@ -784,7 +852,11 @@ LedMap Mode::getSingleLedMap() const
 // is this a multi-led pattern in the mode?
 bool Mode::isMultiLed() const
 {
+#if VORTEX_SLIM == 0
   return hasMultiLed() && !hasSingleLed();
+#else
+  return false;
+#endif
 }
 
 #if MODES_TEST == 1
