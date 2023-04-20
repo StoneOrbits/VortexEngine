@@ -330,7 +330,7 @@ bool Mode::unserialize(ByteStream &buffer)
 
 #if FIXED_LED_COUNT == 0
 // change the internal pattern count in the mode object
-void Mode::setLedCount(uint8_t numLeds)
+bool Mode::setLedCount(uint8_t numLeds)
 {
   if (m_singlePats) {
     clearPatterns();
@@ -339,9 +339,10 @@ void Mode::setLedCount(uint8_t numLeds)
   m_numLeds = numLeds;
   m_singlePats = (Pattern **)vcalloc(m_numLeds, sizeof(Pattern *));
   if (!m_singlePats) {
-    // big error
-    return;
+    ERROR_OUT_OF_MEMORY();
+    return false;
   }
+  return true;
 }
 #endif
 
@@ -381,9 +382,8 @@ const Pattern *Mode::getPatternAt(LedPos pos) const
 
 Pattern *Mode::getPatternAt(LedPos pos)
 {
-  // if fetching for 'all' leds just return the first pattern
   if (pos >= MODE_LEDCOUNT) {
-    pos = LED_FIRST;
+    return nullptr;
   }
   return m_singlePats[pos];
 }
@@ -429,11 +429,7 @@ const Colorset *Mode::getColorsetAt(LedPos pos) const
 
 Colorset *Mode::getColorsetAt(LedPos pos)
 {
-  // if fetching for 'all' leds just return the first
-  if (pos >= MODE_LEDCOUNT) {
-    pos = LED_FIRST;
-  }
-  if (!m_singlePats[pos]) {
+  if (pos >= MODE_LEDCOUNT || !m_singlePats[pos]) {
     return nullptr;
   }
   return m_singlePats[pos]->getColorset();
@@ -473,11 +469,7 @@ PatternID Mode::getPatternID() const
 
 PatternID Mode::getPatternIDAt(LedPos pos) const
 {
-  // if fetching for 'all' leds just return the first
-  if (pos >= MODE_LEDCOUNT) {
-    pos = LED_FIRST;
-  }
-  if (!m_singlePats[pos]) {
+  if (pos >= MODE_LEDCOUNT || !m_singlePats[pos]) {
     return PATTERN_NONE;
   }
   return m_singlePats[pos]->getPatternID();
@@ -870,8 +862,22 @@ void Mode::test()
 
   INFO_LOG("= Testing Mode::setPattern =\n");
 
-  // Test setPattern
   Mode modeTest;
+
+  assert(modeTest.getMultiPatID() == PATTERN_NONE);
+  assert(modeTest.getMultiColorset() == nullptr);
+  assert(modeTest.getMultiPat() == nullptr);
+
+  // Check if default constructor initializes Mode object correctly
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    assert(modeTest.getPatternIDAt(pos) == PATTERN_NONE);
+    assert(modeTest.getColorsetAt(pos) == nullptr);
+    assert(modeTest.getPatternAt(pos) == nullptr);
+  }
+
+  INFO_LOG("Test Mode default constructor passed.\n");
+
+  // Test setPattern
   PatternID testPatternID = PATTERN_SOLID;
   PatternArgs testPatternArgs = { 100, 255, 0, 10 };
   Colorset testColorset(0, 0, 255);
@@ -1105,5 +1111,72 @@ void Mode::test()
   success = modeInvalidLEDPositionSetColorsetTest.setColorsetAt(invalidPos, &testColorset);
   assert(success);
   INFO_LOG("Test setColorsetAt with invalid LED position passed.\n");
+
+  // Test clearPatternAt with an invalid LED position
+  Mode modeInvalidLEDPositionClearPatternTest;
+  modeInvalidLEDPositionClearPatternTest.setPattern(PATTERN_BLENDSTROBE);
+  modeInvalidLEDPositionClearPatternTest.clearPatternAt(invalidPos);
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    assert(modeInvalidLEDPositionClearPatternTest.getPatternAt(pos) != nullptr);
+  }
+  INFO_LOG("Test clearPatternAt with invalid LED position passed.\n");
+
+  // Test clearColorsetAt with an invalid LED position
+  Mode modeInvalidLEDPositionClearColorsetTest;
+  modeInvalidLEDPositionClearColorsetTest.setPattern(PATTERN_BLEND);
+  modeInvalidLEDPositionClearColorsetTest.clearColorsetAt(invalidPos);
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    assert(modeInvalidLEDPositionClearColorsetTest.getColorsetAt(pos) != nullptr);
+  }
+  INFO_LOG("Test clearColorsetAt with invalid LED position passed.\n");
+
+  // Test setPatternAt with PATTERN_NONE
+  Mode modePatternNoneTest;
+  modePatternNoneTest.setPatternAt(LED_2, PATTERN_NONE, &testPatternArgs, &testColorset);
+  assert(modePatternNoneTest.getPatternIDAt(LED_2) == PATTERN_NONE);
+  INFO_LOG("Test setPatternAt with PATTERN_NONE passed.\n");
+
+  // Test setPattern with PATTERN_NONE
+  Mode modeSetPatternNoneTest;
+  modeSetPatternNoneTest.setPattern(PATTERN_NONE, &testPatternArgs, &testColorset);
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    assert(modeSetPatternNoneTest.getPatternIDAt(pos) == PATTERN_NONE);
+  }
+  INFO_LOG("Test setPattern with PATTERN_NONE passed.\n");
+
+  // Test setPattern with PATTERN_MULTI_LAST
+  Mode modeSetPatternMultiLastTest;
+  modeSetPatternMultiLastTest.setPattern(PATTERN_MULTI_LAST, &testPatternArgs, &testColorset);
+  assert(modeSetPatternMultiLastTest.getPatternID() == PATTERN_MULTI_LAST);
+  assert(modeSetPatternMultiLastTest.getMultiPatID() == PATTERN_MULTI_LAST);
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    assert(modeSetPatternNoneTest.getPatternIDAt(pos) == PATTERN_NONE);
+  }
+  INFO_LOG("Test setPattern with PATTERN_MULTI_LAST passed.\n");
+
+  // Test setMultiPat with PATTERN_MULTI_FIRST
+  Mode modeSetMultiPatMultiFirstTest;
+  modeSetMultiPatMultiFirstTest.setMultiPat(PATTERN_MULTI_FIRST, &testPatternArgs, &testColorset);
+  assert(modeSetMultiPatMultiFirstTest.getPatternID() == PATTERN_MULTI_FIRST);
+  INFO_LOG("Test setMultiPat with PATTERN_MULTI_FIRST passed.\n");
+
+  // Test setMultiPat with PATTERN_MULTI_LAST
+  Mode modeSetMultiPatMultiLastTest;
+  modeSetMultiPatMultiLastTest.setMultiPat(PATTERN_MULTI_LAST, &testPatternArgs, &testColorset);
+  assert(modeSetMultiPatMultiLastTest.getPatternID() == PATTERN_MULTI_LAST);
+  INFO_LOG("Test setMultiPat with PATTERN_MULTI_LAST passed.\n");
+
+  // Test setMultiPat with PATTERN_SINGLE_FIRST
+  Mode modeSetMultiPatSingleFirstTest;
+  bool setMultiPatSingleFirstSuccess = modeSetMultiPatSingleFirstTest.setMultiPat(PATTERN_SINGLE_FIRST, &testPatternArgs, &testColorset);
+  assert(!setMultiPatSingleFirstSuccess);
+  INFO_LOG("Test setMultiPat with PATTERN_SINGLE_FIRST passed.\n");
+
+  // Test setMultiPat with PATTERN_SINGLE_LAST
+  Mode modeSetMultiPatSingleLastTest;
+  bool setMultiPatSingleLastSuccess = modeSetMultiPatSingleLastTest.setMultiPat(PATTERN_SINGLE_LAST, &testPatternArgs, &testColorset);
+  assert(!setMultiPatSingleLastSuccess);
+  INFO_LOG("Test setMultiPat with PATTERN_SINGLE_LAST passed.\n");
 }
+
 #endif

@@ -71,7 +71,7 @@ public:
 
 #if FIXED_LED_COUNT == 0
   // change the internal pattern count in the mode object
-  void setLedCount(uint8_t numLeds);
+  bool setLedCount(uint8_t numLeds);
 #endif
   uint8_t getLedCount() const;
 
