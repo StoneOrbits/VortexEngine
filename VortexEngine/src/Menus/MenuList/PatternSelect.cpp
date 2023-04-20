@@ -37,7 +37,7 @@ Menu::MenuAction PatternSelect::run()
 
 void PatternSelect::onShortClick()
 {
-  PatternID newID = (PatternID)(m_pCurMode->getPatternID(mapGetFirstLed(m_targetLeds)) + 1);
+  PatternID newID = (PatternID)(m_pCurMode->getPatternIDAt(mapGetFirstLed(m_targetLeds)) + 1);
   if (newID == PATTERN_SOLID) {
     ++newID;
   }

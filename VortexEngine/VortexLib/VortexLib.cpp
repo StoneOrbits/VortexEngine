@@ -455,7 +455,10 @@ PatternID Vortex::getPatternID(LedPos pos)
   if (!pMode) {
     return PATTERN_NONE;
   }
-  return pMode->getPatternID(pos);
+  if (pMode->isMultiLed()) {
+    return pMode->getMultiPatID();
+  }
+  return pMode->getPatternIDAt(pos);
 }
 
 string Vortex::getPatternName(LedPos pos)
@@ -470,16 +473,16 @@ string Vortex::getModeName()
     return patternToString(PATTERN_NONE);
   }
   if (pMode->isMultiLed()) {
-    return patternToString(getPatternID(LED_FIRST));
+    return patternToString(pMode->getMultiPatID());
   }
   // can't use isSampleSingleLed because that will compare the entire
   // pattern for differences in any single led pattern, we only care
   // about the pattern id being different
   bool all_same_id = true;
-  PatternID first = pMode->getPatternID(LED_FIRST);
+  PatternID first = pMode->getPatternIDAt(LED_FIRST);
   for (uint32_t i = LED_FIRST + 1; i < numLedsInMode(); ++i) {
     // if any don't match 0 then no good
-    if (pMode->getPatternID((LedPos)i) != first) {
+    if (pMode->getPatternIDAt((LedPos)i) != first) {
       all_same_id = false;
       break;
     }
@@ -525,7 +528,7 @@ bool Vortex::setColorset(LedPos pos, const Colorset &set, bool save)
   if (!pMode) {
     return false;
   }
-  Pattern *pat = pMode->getPattern(pos);
+  Pattern *pat = pMode->getPatternAt(pos);
   if (!pat) {
     return false;
   }
@@ -539,7 +542,7 @@ bool Vortex::getPatternArgs(LedPos pos, PatternArgs &args)
   if (!pMode) {
     return false;
   }
-  Pattern *pat = pMode->getPattern(pos);
+  Pattern *pat = pMode->getPatternAt(pos);
   if (!pat) {
     return false;
   }
@@ -553,7 +556,7 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
   if (!pMode) {
     return false;
   }
-  Pattern *pat = pMode->getPattern(pos);
+  Pattern *pat = pMode->getPatternAt(pos);
   if (!pat) {
     return false;
   }

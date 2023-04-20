@@ -376,6 +376,24 @@ Pattern *Mode::getMultiPat()
   return m_multiPat;
 }
 
+const Colorset *Mode::getColorset() const
+{
+  return ((Mode *)this)->getColorset();
+}
+
+Colorset *Mode::getColorset()
+{
+  if (m_multiPat) {
+    return m_multiPat->getColorset();
+  }
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    if (m_singlePats[pos]) {
+      return m_singlePats[pos]->getColorset();
+    }
+  }
+  return nullptr;
+}
+
 const Colorset *Mode::getColorsetAt(LedPos pos) const
 {
   return ((Mode *)this)->getColorsetAt(pos);

@@ -34,7 +34,7 @@ bool Randomizer::init()
   // CRC of the colorset on the respective LED
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
     ByteStream ledData;
-    Pattern *pat = m_pCurMode->getPattern(m_pCurMode->isMultiLed() ? LED_FIRST : l);
+    Pattern *pat = m_pCurMode->isMultiLed() ? m_pCurMode->getMultiPat() : m_pCurMode->getPatternAt(l);
     if (!pat) {
       continue;
     }
