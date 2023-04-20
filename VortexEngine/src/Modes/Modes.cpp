@@ -722,11 +722,11 @@ void Modes::ModeLink::save()
 #include <assert.h>
 #include <stdio.h>
 
-#include "Patterns/PatternBuilder.h"
+#include "../Patterns/PatternBuilder.h"
 
 void Modes::test()
 {
-  printf("== Beginning Modes Test ==\n");
+  INFO_LOG("== Beginning Modes Test ==\n");
 
   RGBColor col = RGB_RED;
   assert(!addMode(PATTERN_COUNT, col));
@@ -757,7 +757,7 @@ void Modes::test()
   clearModes();
   assert(numModes() == 0);
 
-  printf("addMode(): success\n");
+  INFO_LOG("addMode(): success\n");
 
   ByteStream modebuf;
   ByteStream modesave;
@@ -776,7 +776,7 @@ void Modes::test()
   assert(mode2 != nullptr);
   assert(mode1->equals(mode2));
 
-  printf("addSerializedMode(): success\n");
+  INFO_LOG("addSerializedMode(): success\n");
 
   Colorset newset(RGB_BLUE, RGB_RED, RGB_GREEN);
   assert(updateCurMode(PATTERN_HYPERSTROBE, nullptr));
@@ -788,7 +788,7 @@ void Modes::test()
   Mode newTmp(PATTERN_BLEND, PatternBuilder::getDefaultArgs(PATTERN_BLEND),
     Colorset(RGB_YELLOW, RGB_ORANGE, RGB_CYAN, RGB_BLUE, RGB_WHITE, RGB_RED));
 
-  printf("updateCurMode(): success\n");
+  INFO_LOG("updateCurMode(): success\n");
 
   assert(shiftCurMode(-1));
   assert(m_curMode == 0);
@@ -803,7 +803,7 @@ void Modes::test()
   assert(getModeLink(0)->instantiate()->getPatternID() == PATTERN_HYPERSTROBE);
   assert(getModeLink(1)->instantiate()->getPatternID() == PATTERN_DOPS);
 
-  printf("shiftCurMode(): success\n");
+  INFO_LOG("shiftCurMode(): success\n");
 
   deleteCurMode();
   assert(m_numModes == 1);
@@ -812,8 +812,8 @@ void Modes::test()
   assert(m_numModes == 0);
   assert(m_curMode == 0);
 
-  printf("deleteCurMode(): success\n");
+  INFO_LOG("deleteCurMode(): success\n");
 
-  printf("== Success Running Modes Test ==\n");
+  INFO_LOG("== Success Running Modes Test ==\n");
 }
 #endif

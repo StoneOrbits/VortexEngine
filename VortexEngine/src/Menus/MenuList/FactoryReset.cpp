@@ -76,14 +76,12 @@ void FactoryReset::showReset()
   if (m_curSelection == 0) {
     Leds::clearAll();
     Leds::blinkAll(Time::getCurtime(), 350, 350, RGB_BLANK);
-    DEBUG_LOGF("select 0");
     return;
   }
 
   if (!g_pButton->isPressed()) {
     Leds::clearAll();
     Leds::blinkAll(Time::getCurtime(), 150, 150, RGB_DIM_RED);
-    DEBUG_LOGF("not pressed");
     return;
   }
 
@@ -95,7 +93,7 @@ void FactoryReset::showReset()
 
   uint16_t progress = ((holdDur * 100) / FACTORY_RESET_THRESHOLD_TICKS);
 
-  DEBUG_LOGF("progress: %f %u", progress, ledProgress);
+  DEBUG_LOGF("progress: %f", progress);
 
   if (progress >= 100) {
     Leds::setAll(RGB_WHITE);
