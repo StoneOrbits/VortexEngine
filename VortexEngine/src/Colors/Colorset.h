@@ -66,7 +66,8 @@ public:
   // add a single color
   bool addColor(RGBColor col);
   bool addColorHSV(uint8_t hue, uint8_t sat, uint8_t val);
-  void addColorWithValueStyle(Random &ctx, uint8_t hue, uint8_t sat, uint8_t valStyle, uint8_t numColors, uint8_t index);
+  void addColorWithValueStyle(Random &ctx, uint8_t hue, uint8_t sat,
+    ValueStyle valStyle, uint8_t numColors);
   void removeColor(uint32_t index);
 
   // randomize a colorset with a specific number of colors with

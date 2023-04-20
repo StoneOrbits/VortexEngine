@@ -168,10 +168,11 @@ uint32_t VortexEngine::savefileSize()
 #include <stdio.h>
 #include "Colors/Colorset.h"
 #include "Memory/Memory.h"
+#include "Random/Random.h"
 void VortexEngine::compressionTest()
 {
   // always use same seed
-  randomSeed(0xdeadbeef);
+  Random rand(0xdeadbeef);
   ByteStream stream;
   Modes::clearModes();
   for (uint32_t len = 1; len < 4096; ++len) {
@@ -185,7 +186,7 @@ void VortexEngine::compressionTest()
       Mode tmpMode;
       tmpMode.setPattern((PatternID)(len % PATTERN_COUNT));
       Colorset set;
-      set.randomizeColorTheory(8);
+      set.randomizeColorTheory(rand, 8);
       tmpMode.setColorset(&set);
       Modes::addMode(&tmpMode);
       modeStream.clear();
@@ -203,7 +204,7 @@ void VortexEngine::compressionTest()
     stream.decompress();
     if (memcmp(stream.data(), modeStream.data(), modeStream.size()) != 0) {
       ERROR_LOGF("Buffers not equal: %u", modeStream.size());
-      printf("\t");
+      INFO_LOG("\t");
       for (uint32_t i = 0; i < len; ++i) {
         printf("%02x ", modeStream.data()[i]);
         if (i > 0 && ((i + 1) % 32) == 0) {
@@ -212,11 +213,12 @@ void VortexEngine::compressionTest()
       }
       return;
     }
-    if (modeStream.size() != complen) {
+    if (modeStream.size() != (size_t)complen) {
       DEBUG_LOGF("Success %u compressed to %u", modeStream.size(), complen);
     }
     free(buf);
   }
+  Modes::clearModes();
   DEBUG_LOG("Success testing compression");
 }
 #endif
@@ -227,12 +229,14 @@ void VortexEngine::compressionTest()
 #include "Patterns/Pattern.h"
 #include "Patterns/PatternArgs.h"
 #include "Patterns/PatternBuilder.h"
+#include "Random/Random.h"
 #include <stdio.h>
 void VortexEngine::serializationTest()
 {
   Colorset bigSet;
+  Random rand;
   for (uint32_t i = 0; i < MAX_COLOR_SLOTS; ++i) {
-    bigSet.addColorByHue(i * 31);
+    bigSet.addColorWithValueStyle(rand, i * 31, 255, Colorset::VAL_STYLE_ALTERNATING, MAX_COLOR_SLOTS);
   }
   DEBUG_LOG("== Beginning Serialization Test ==");
   for (PatternID patternID = PATTERN_FIRST; patternID < PATTERN_COUNT; ++patternID) {
@@ -254,12 +258,12 @@ void VortexEngine::serializationTest()
       uint8_t byte = 0;
       uint32_t count = 0;
       while (buffer.unserialize(&byte)) {
-        printf("%02x ", byte);
+        INFO_LOGF("%02x ", byte);
         if ((++count % 32) == 0) {
-          printf("\n");
+          INFO_LOG("\n");
         }
       }
-      printf("\n");
+      INFO_LOG("\n");
       return;
     }
     if (!tmpMode.equals(&tmpMode2)) {
@@ -296,7 +300,7 @@ void VortexEngine::serializationTest()
     uint8_t byte = 0;
     uint32_t count = 0;
     while (buffer.unserialize(&byte)) {
-      printf("%02x ", byte);
+      INFO_LOGF("%02x ", byte);
       if ((++count % 32) == 0) {
         printf("\n");
       }
