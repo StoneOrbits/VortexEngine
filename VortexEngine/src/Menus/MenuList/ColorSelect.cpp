@@ -71,16 +71,10 @@ Menu::MenuAction ColorSelect::run()
     showSlotSelection();
     break;
   case STATE_PICK_HUE1:
-    showHueSelection1();
-    break;
   case STATE_PICK_HUE2:
-    showHueSelection2();
-    break;
   case STATE_PICK_SAT:
-    showSatSelection();
-    break;
   case STATE_PICK_VAL:
-    showValSelection();
+    showSelection(m_state);
     break;
   }
 
@@ -229,45 +223,39 @@ void ColorSelect::showSlotSelection()
   }
 }
 
-void ColorSelect::showHueSelection1()
+void ColorSelect::showSelection(ColorSelectState mode)
 {
   if (m_curSelection >= 4) {
     showExit();
     return;
   }
-  uint8_t hue = m_curSelection * (255 / 4);
-  Leds::breathIndex(LED_0, hue, (uint32_t)(Time::getCurtime() / 2), 22, 255, 180);
-  Leds::breathIndex(LED_1, hue, (uint32_t)(Time::getCurtime() / 2) + 125, 22, 255, 180);
-}
 
-void ColorSelect::showHueSelection2()
-{
-  if (m_curSelection >= 4) {
-    showExit();
-    return;
-  }
-  uint8_t hue = m_newColor.hue + (m_curSelection * (255 / 16));
-  Leds::setAll(HSVColor(hue, 255, 255));
-}
+  uint8_t hue = m_newColor.hue;
+  uint8_t sat = m_newColor.sat;
+  uint8_t val = 255;
 
-void ColorSelect::showSatSelection()
-{
-  if (m_curSelection >= 4) {
-    showExit();
+  switch (mode) {
+  default:
     return;
+  case STATE_PICK_HUE1:
+    hue = m_curSelection * (255 / 4);
+    Leds::breathIndex(LED_0, hue, (uint32_t)(Time::getCurtime() / 2), 22, 255, 180);
+    Leds::breathIndex(LED_1, hue, (uint32_t)(Time::getCurtime() / 2) + 125, 22, 255, 180);
+    return;
+  case STATE_PICK_HUE2:
+    hue += (m_curSelection * (255 / 16));
+    break;
+  case STATE_PICK_SAT:
+    sat = sats[m_curSelection];
+    break;
+  case STATE_PICK_VAL:
+    val = vals[m_curSelection];
+    break;
   }
-  Leds::setIndex(LED_0, HSVColor(m_newColor.hue, sats[m_curSelection], 255));
-  Leds::breathIndexSat(LED_1, m_newColor.hue, (uint32_t)(Time::getCurtime() / 3), 100, 30, 30);
-}
 
-void ColorSelect::showValSelection()
-{
-  if (m_curSelection >= 4) {
-    showExit();
-    return;
-  }
-  Leds::setIndex(LED_0, HSVColor(m_newColor.hue, m_newColor.sat, vals[m_curSelection]));
-  Leds::breathIndexVal(LED_1, m_newColor.hue, (uint32_t)(Time::getCurtime() / 3), 100, m_newColor.sat, 30);
+  Leds::setIndex(LED_0, HSVColor(hue, sat, val));
+  Leds::breathIndex(mode == STATE_PICK_SAT ? LED_1 : LED_1, hue,
+    (uint32_t)(Time::getCurtime() / 3), 100, mode == STATE_PICK_SAT ? 30 : m_newColor.sat, 30);
 }
 
 void ColorSelect::showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs)

@@ -31,10 +31,7 @@ private:
   };
 
   void showSlotSelection();
-  void showHueSelection1();
-  void showHueSelection2();
-  void showSatSelection();
-  void showValSelection();
+  void showSelection(ColorSelectState mode);
   void showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs);
 
   // the options for saturations
