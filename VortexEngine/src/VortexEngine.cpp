@@ -31,7 +31,6 @@ bool VortexEngine::init()
     DEBUG_LOG("Storage failed to initialize");
     return false;
   }
-  IRReceiver::init();
   if (!Leds::init()) {
     DEBUG_LOG("Leds failed to initialize");
     return false;
@@ -73,7 +72,6 @@ void VortexEngine::cleanup()
   Menus::cleanup();
   Buttons::cleanup();
   Leds::cleanup();
-  IRReceiver::cleanup();
   Storage::cleanup();
   Time::cleanup();
 }

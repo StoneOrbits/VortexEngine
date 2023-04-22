@@ -254,8 +254,12 @@ void ColorSelect::showSelection(ColorSelectState mode)
   }
 
   Leds::setIndex(LED_0, HSVColor(hue, sat, val));
-  Leds::breathIndex(mode == STATE_PICK_SAT ? LED_1 : LED_1, hue,
-    (uint32_t)(Time::getCurtime() / 3), 100, mode == STATE_PICK_SAT ? 30 : m_newColor.sat, 30);
+  uint8_t satt = 30;
+  if (mode == STATE_PICK_SAT) {
+    satt = m_newColor.sat;
+  }
+  Leds::breathIndex(LED_1, hue,
+    (uint32_t)(Time::getCurtime() / 3), 100, satt, 30);
 }
 
 void ColorSelect::showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs)

@@ -3,14 +3,13 @@
 
 #include <inttypes.h>
 
+#include "../VortexConfig.h"
+
 class ByteStream;
 
 // Really wish I could name this Serial but arduino ruined that for me
 class SerialComs
 {
-  // private constructor
-  SerialComs();
-
 public:
 
   // init serial
@@ -36,9 +35,11 @@ public:
   static bool dataReady();
 
 private:
+#if VORTEX_SLIM == 0
   // whether serial communications are initialized
   static bool m_serialConnected;
   static uint64_t m_lastCheck;
+#endif
 };
 
 #endif

@@ -57,7 +57,7 @@ const MenuEntry menuList[] = {
   ENTRY(ColorSelect,        0x401200),      // 1 (dim orange)
   ENTRY(PatternSelect,      0x000010),      // 2 (dim blue)
   ENTRY(FactoryReset,       0x100000),      // 4 (dim red)
-  ENTRY(ModeSharing,        0x505000),      // 4 (dim red)
+  //ENTRY(ModeSharing,        0x505000),      // 4 (dim red)
 };
 
 // the number of menus in the above array
