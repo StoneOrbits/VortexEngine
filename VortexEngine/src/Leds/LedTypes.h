@@ -31,12 +31,20 @@ enum LedPos : uint8_t
   LED_LAST = (LED_COUNT - 1),
 
   // target all leds (multi and single)
+  // When fetching this the same as LED_ANY
+  // When setting this will set the multi led slot
   LED_ALL = LED_COUNT,
 
   // target the multi led slot
+  //
+  // When fetching this will return the multi led slot
+  // When setting this will set the multi led slot
   LED_MULTI = (LED_COUNT + 1),
 
   // target all single led slots
+  //
+  // When fetching this will return the first single led slot
+  // When setting this will set all single led slots
   LED_ALL_SINGLE = (LED_COUNT + 2),
 
   // Target the 'effective' led slot (any slot)
