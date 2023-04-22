@@ -25,10 +25,8 @@ enum LedPos : uint8_t
   // target all leds (multi and single)
   LED_ALL = LED_COUNT,
 
-#if VORTEX_SLIM == 0
   // target the multi led slot
   LED_MULTI = (LED_COUNT + 1),
-#endif
 
   // target all single led slots
   LED_ALL_SINGLE = (LED_COUNT + 2),
