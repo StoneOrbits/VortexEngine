@@ -78,7 +78,7 @@ Menu::MenuAction Menu::run()
     case MAP_LED_ALL:
       if (m_pCurMode->isMultiLed()) {
         // do not allow multi led to select anything else
-        break;
+        //break;
       }
       m_targetLeds = MAP_LED(LED_FIRST);
       break;
@@ -88,8 +88,8 @@ Menu::MenuAction Menu::run()
     default: // LED_FIRST through LED_LAST
       // do not allow multi led to select anything else
       if (m_pCurMode->isMultiLed()) {
-        m_targetLeds = MAP_LED_ALL;
-        break;
+        //m_targetLeds = MAP_LED_ALL;
+        //break;
       }
       // iterate as normal
       m_targetLeds = MAP_LED(((mapGetFirstLed(m_targetLeds) + 1) % (LED_COUNT + 1)));

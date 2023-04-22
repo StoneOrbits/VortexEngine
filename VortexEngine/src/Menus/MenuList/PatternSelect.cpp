@@ -37,7 +37,7 @@ Menu::MenuAction PatternSelect::run()
 
 void PatternSelect::onShortClick()
 {
-  PatternID newID = (PatternID)(m_pCurMode->getPatternIDAt(mapGetFirstLed(m_targetLeds)) + 1);
+  PatternID newID = (PatternID)(m_pCurMode->getPatternID(mapGetFirstLed(m_targetLeds)) + 1);
   if (newID == PATTERN_SOLID) {
     ++newID;
   }
@@ -45,7 +45,7 @@ void PatternSelect::onShortClick()
     newID = PATTERN_SINGLE_FIRST;
   }
   // iterate the pattern forward on current mode
-  m_pCurMode->setPatternAt(m_targetLeds, newID);
+  m_pCurMode->setPatternMap(m_targetLeds, newID);
   m_pCurMode->init();
 }
 
