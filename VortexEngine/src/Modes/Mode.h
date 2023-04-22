@@ -69,6 +69,9 @@ public:
   // load the mode from serial (optional led count)
   virtual bool unserialize(ByteStream &buffer);
 
+  // mode comparison
+  bool equals(const Mode *other) const;
+
 #if FIXED_LED_COUNT == 0
   // change the internal pattern count in the mode object
   bool setLedCount(uint8_t numLeds);
@@ -85,9 +88,6 @@ public:
 
   // get the pattern ID of the given pattern
   PatternID getPatternID(LedPos pos = LED_ANY) const;
-
-  // mode comparison
-  bool equals(const Mode *other) const;
 
   // change a single led pattern
   bool setPattern(PatternID pat, LedPos pos = LED_ANY, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
