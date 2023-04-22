@@ -64,7 +64,7 @@ void FactoryReset::onLongClick()
   // reset the target mode slot on the target led
   const default_mode_entry &def = default_modes[curModeIndex];
   Colorset set(def.numColors, def.cols);
-  m_pCurMode->setPatternAt(m_targetLeds, def.patternID, nullptr, &set);
+  m_pCurMode->setPatternMap(m_targetLeds, def.patternID, nullptr, &set);
   // re-initialize the current mode
   m_pCurMode->init();
   // save and leave the menu

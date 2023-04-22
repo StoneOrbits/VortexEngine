@@ -443,7 +443,7 @@ bool Vortex::setPattern(PatternID id, const PatternArgs *args, const Colorset *s
   if (!pMode) {
     return false;
   }
-  if (!pMode->setPattern(id, args, set)) {
+  if (!pMode->setPattern(id, LED_ANY, args, set)) {
     return false;
   }
   return !save || doSave();
@@ -455,10 +455,7 @@ PatternID Vortex::getPatternID(LedPos pos)
   if (!pMode) {
     return PATTERN_NONE;
   }
-  if (pMode->isMultiLed()) {
-    return pMode->getMultiPatID();
-  }
-  return pMode->getPatternIDAt(pos);
+  return pMode->getPatternID(pos);
 }
 
 string Vortex::getPatternName(LedPos pos)
@@ -473,16 +470,16 @@ string Vortex::getModeName()
     return patternToString(PATTERN_NONE);
   }
   if (pMode->isMultiLed()) {
-    return patternToString(pMode->getMultiPatID());
+    return patternToString(pMode->getPatternID(LED_MULTI));
   }
   // can't use isSampleSingleLed because that will compare the entire
   // pattern for differences in any single led pattern, we only care
   // about the pattern id being different
   bool all_same_id = true;
-  PatternID first = pMode->getPatternIDAt(LED_FIRST);
+  PatternID first = pMode->getPatternID(LED_FIRST);
   for (uint32_t i = LED_FIRST + 1; i < numLedsInMode(); ++i) {
     // if any don't match 0 then no good
-    if (pMode->getPatternIDAt((LedPos)i) != first) {
+    if (pMode->getPatternID((LedPos)i) != first) {
       all_same_id = false;
       break;
     }
@@ -502,7 +499,7 @@ bool Vortex::setPatternAt(LedPos pos, PatternID id,
   if (!pMode) {
     return false;
   }
-  if (!pMode->setPatternAt(pos, id, args, set)) {
+  if (!pMode->setPattern(id, pos, args, set)) {
     return false;
   }
   return !save || doSave();
@@ -514,7 +511,7 @@ bool Vortex::getColorset(LedPos pos, Colorset &set)
   if (!pMode) {
     return false;
   }
-  const Colorset *pSet = pMode->getColorsetAt(pos);
+  const Colorset *pSet = pMode->getColorset(pos);
   if (!pSet) {
     return false;
   }
@@ -528,7 +525,7 @@ bool Vortex::setColorset(LedPos pos, const Colorset &set, bool save)
   if (!pMode) {
     return false;
   }
-  Pattern *pat = pMode->getPatternAt(pos);
+  Pattern *pat = pMode->getPattern(pos);
   if (!pat) {
     return false;
   }
@@ -542,7 +539,7 @@ bool Vortex::getPatternArgs(LedPos pos, PatternArgs &args)
   if (!pMode) {
     return false;
   }
-  Pattern *pat = pMode->getPatternAt(pos);
+  Pattern *pat = pMode->getPattern(pos);
   if (!pat) {
     return false;
   }
@@ -556,7 +553,7 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
   if (!pMode) {
     return false;
   }
-  Pattern *pat = pMode->getPatternAt(pos);
+  Pattern *pat = pMode->getPattern(pos);
   if (!pat) {
     return false;
   }

@@ -75,68 +75,36 @@ public:
 #endif
   uint8_t getLedCount() const;
 
-  // get the effective pattern on a mode
-  const Pattern *getPattern() const;
-  Pattern *getPattern();
   // get the pattern at a position
-  const Pattern *getPatternAt(LedPos pos) const;
-  Pattern *getPatternAt(LedPos pos);
-  // get a pointer to the multi pattern
-  const Pattern *getMultiPat() const;
-  Pattern *getMultiPat();
-  // get the effective colorset on a mode
-  const Colorset *getColorset() const;
-  Colorset *getColorset();
+  const Pattern *getPattern(LedPos pos = LED_ANY) const;
+  Pattern *getPattern(LedPos pos = LED_ANY);
+
   // get the colorset at a position
-  const Colorset *getColorsetAt(LedPos pos) const;
-  Colorset *getColorsetAt(LedPos pos);
-  // get a pointer to the multi colorset
-  const Colorset *getMultiColorset() const;
-  Colorset *getMultiColorset();
-  // get the effective pattern id on a mode
-  PatternID getPatternID() const;
+  const Colorset *getColorset(LedPos pos = LED_ANY) const;
+  Colorset *getColorset(LedPos pos = LED_ANY);
+
   // get the pattern ID of the given pattern
-  PatternID getPatternIDAt(LedPos pos) const;
-  // get the multi LED pattern ID
-  PatternID getMultiPatID() const;
+  PatternID getPatternID(LedPos pos = LED_ANY) const;
 
   // mode comparison
   bool equals(const Mode *other) const;
 
-  // set the pattern/colorset of the mode, if a single-led pattern is provided
-  // then it will be applied to all single-led pattern slots. If a multi-led
-  // is provided then it will be applied to the multi-led pattern slot
-  bool setPattern(PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   // change a single led pattern
-  bool setPatternAt(LedPos pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
-  bool setPatternAt(LedPos pos, SingleLedPattern *pat, const Colorset *set = nullptr);
-  bool setPatternAt(LedMap pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
-  bool setPatternAt(LedMap pos, SingleLedPattern *pat, const Colorset *set = nullptr);
+  bool setPattern(PatternID pat, LedPos pos = LED_ANY, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
+  bool setPatternMap(LedMap pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
 
-  // change the multi pattern
-  bool setMultiPat(PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
-  bool setMultiPat(MultiLedPattern *pat, const Colorset *set = nullptr);
-
-  // This will apply the colorset to all patterns in the mode
-  bool setColorset(const Colorset *set);
   // set colorset at a specific position
-  bool setColorsetAt(LedPos pos, const Colorset *set);
+  bool setColorset(const Colorset *set, LedPos pos = LED_ANY);
   // set colorset at each position in a map
-  bool setColorsetAt(LedMap map, const Colorset *set);
-  // change the multi led colorset
-  bool setMultiColorset(const Colorset *set);
+  bool setColorsetMap(LedMap map, const Colorset *set);
 
   // clear stored patterns in various ways
-  void clearPatterns();
-  void clearPatternAt(LedPos pos);
-  void clearPatternAt(LedMap map);
-  void clearMultiPat();
+  void clearPattern(LedPos pos = LED_ALL);
+  void clearPatternMap(LedMap map);
 
   // clear colorset in various ways
-  void clearColorsets();
-  void clearColorsetAt(LedPos pos);
-  void clearColorsetAt(LedMap map);
-  void clearMultiColorset();
+  void clearColorset(LedPos pos = LED_ALL);
+  void clearColorsetMap(LedMap map);
 
   // get the flags associated with this mode
   uint32_t getFlags() const;

@@ -62,7 +62,7 @@ Menu::MenuAction ColorSelect::run()
     if (m_targetLeds == MAP_LED_ALL) {
       m_colorset = *m_pCurMode->getColorset();
     } else {
-      m_colorset = *m_pCurMode->getColorsetAt(mapGetFirstLed(m_targetLeds));
+      m_colorset = *m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
     }
     // move on to picking slot
     m_state = STATE_PICK_SLOT;
@@ -146,9 +146,9 @@ void ColorSelect::onLongClick()
       }
       // if our selection is on the exit index then check if the
       // colorset has been changed and save if necessary
-      Pattern *pat = m_pCurMode->getPatternAt(mapGetFirstLed(m_targetLeds));
+      Pattern *pat = m_pCurMode->getPattern(mapGetFirstLed(m_targetLeds));
       if (pat && !m_colorset.equals(pat->getColorset())) {
-        m_pCurMode->setColorsetAt(mapGetFirstLed(m_targetLeds), &m_colorset);
+        m_pCurMode->setColorset(&m_colorset, mapGetFirstLed(m_targetLeds));
         m_pCurMode->init();
         needsSave = true;
       }

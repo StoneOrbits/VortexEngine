@@ -28,7 +28,34 @@ enum LedPos : uint8_t
   LED_COUNT,
 
   // the last LED index
-  LED_LAST = (LED_COUNT - 1)
+  LED_LAST = (LED_COUNT - 1),
+
+  // target all leds (multi and single)
+  LED_ALL = LED_COUNT,
+
+#if VORTEX_SLIM == 0
+  // target the multi led slot
+  LED_MULTI = (LED_COUNT + 1),
+#endif
+
+  // target all single led slots
+  LED_ALL_SINGLE = (LED_COUNT + 2),
+
+  // Target the 'effective' led slot (any slot)
+  //
+  // When fetching this will:
+  //    1. return the multi led slot if it exists
+  //    2. otherwise the first single led slot
+  // 
+  // When setting this will:
+  //    1. if setting single led pattern will set all
+  //    2. if setting multi led pattern will set multi
+  //    3. will unset the opposite type of pattern
+  LED_ANY = (LED_COUNT + 3),
+
+  // other customs?
+  // LED_EVENS = (LED_COUNT + 2),
+  // LED_ODDS = (LED_COUNT + 3),
 };
 
 enum Pair : uint8_t

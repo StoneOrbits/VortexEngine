@@ -34,7 +34,7 @@ bool Randomizer::init()
   // CRC of the colorset on the respective LED
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
     ByteStream ledData;
-    Pattern *pat = m_pCurMode->isMultiLed() ? m_pCurMode->getMultiPat() : m_pCurMode->getPatternAt(l);
+    Pattern *pat = m_pCurMode->getPattern(m_pCurMode->isMultiLed() ? LED_MULTI : l);
     if (!pat) {
       continue;
     }
@@ -129,7 +129,7 @@ bool Randomizer::reRoll(LedPos pos)
     newPat = (PatternID)ctx.next(PATTERN_FIRST, PATTERN_SINGLE_LAST);
   } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
   // update the led with the new random
-  m_pCurMode->setPatternAt(pos, newPat, nullptr, &randomSet);
+  m_pCurMode->setPattern(newPat, pos, nullptr, &randomSet);
   // initialize the mode with the new pattern and colorset
   m_pCurMode->init();
   DEBUG_LOGF("Randomized set with randomization technique %u, %u colors, and Pattern number %u",
