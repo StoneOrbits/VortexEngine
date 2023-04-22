@@ -69,10 +69,12 @@ void Modes::play()
 // full save/load to/from buffer
 bool Modes::saveToBuffer(ByteStream &modesBuffer)
 {
+#if VORTEX_SMALL_SAVES == 0
   // serialize the engine version into the modes buffer
   VortexEngine::serializeVersion(modesBuffer);
   // serialize the global brightness
   modesBuffer.serialize((uint8_t)Leds::getBrightness());
+#endif
   // serialize all modes data into the modesBuffer
   serialize(modesBuffer);
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
@@ -94,8 +96,8 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
-  modesBuffer.unserialize(&major);
-  modesBuffer.unserialize(&minor);
+  //modesBuffer.unserialize(&major);
+  //modesBuffer.unserialize(&minor);
   // check the version for incompatibility
   if (!VortexEngine::checkVersion(major, minor)) {
     // incompatible version
@@ -104,7 +106,7 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   }
   // unserialize the global brightness
   uint8_t brightness = 0;
-  modesBuffer.unserialize(&brightness);
+  //modesBuffer.unserialize(&brightness);
   if (brightness) {
     Leds::setBrightness(brightness);
   }
@@ -151,8 +153,10 @@ bool Modes::saveStorage()
 // Save all of the modes to a serial buffer
 void Modes::serialize(ByteStream &modesBuffer)
 {
+#if VORTEX_SMALL_SAVES == 0
   // serialize the number of modes
   modesBuffer.serialize(m_numModes);
+#endif
   // make sure the current mode is saved in case it has changed somehow
   saveCurMode();
   ModeLink *ptr = m_storedModes;
@@ -183,12 +187,16 @@ bool Modes::unserialize(ByteStream &modesBuffer)
   clearModes();
   // unserialize the number of modes next
   uint8_t numModes = 0;
+#if VORTEX_SMALL_SAVES == 0
   modesBuffer.unserialize(&numModes);
   if (!numModes) {
     DEBUG_LOG("Did not find any modes");
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
+#else
+  numModes = MAX_MODES;
+#endif
   // foreach expected mode
   for (uint8_t i = 0; i < numModes; ++i) {
     // just copy the serialized mode into the internal storage because

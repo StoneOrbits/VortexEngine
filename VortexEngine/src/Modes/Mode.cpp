@@ -243,6 +243,7 @@ void Mode::serialize(ByteStream &buffer) const
 bool Mode::unserialize(ByteStream &buffer)
 {
   clearPattern(LED_ALL);
+#if VORTEX_SMALL_SAVES == 0
   uint8_t ledCount = 0;
   // unserialize the number of leds
   buffer.unserialize(&ledCount);
@@ -255,11 +256,12 @@ bool Mode::unserialize(ByteStream &buffer)
     // actually manage that many patterns at once
     setLedCount(ledCount);
   }
-#endif
+#endif // FIXED_LED_COUNT
   if (!ledCount) {
     // empty mode?
     return true;
   }
+#endif // VORTEX_SMALL_SAVES
   // unserialize the flags value
   uint32_t flags = 0;
   buffer.unserialize(&flags);
