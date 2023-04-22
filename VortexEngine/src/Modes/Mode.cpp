@@ -481,7 +481,7 @@ bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const 
     if (pos == LED_MULTI) {
       // don't fallthrough if actually multi, it's possible
       // we got here by falling through from LED_ALL
-      break;
+      return false;
     }
     // fall through if LED_ALL and delete the single leds
 #endif
@@ -500,7 +500,7 @@ bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const 
       m_singlePats[pos]->bind(pos);
     }
     // actually break here
-    break;
+    return true;
   default:
 #if FIXED_LED_COUNT == 0
     if (!m_singlePats) {
@@ -521,6 +521,7 @@ bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const 
     m_singlePats[pos]->bind(pos);
     return true;
   }
+  return false;
 }
 
 bool Mode::setPatternMap(LedMap map, PatternID pat, const PatternArgs *args, const Colorset *set)
