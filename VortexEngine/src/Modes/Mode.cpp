@@ -473,10 +473,11 @@ bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const 
     // fallthrough
 #if VORTEX_SLIM == 0
   case LED_MULTI:
+    if (m_multiPat) {
+      delete m_multiPat;
+      m_multiPat = nullptr;
+    }
     if (isMultiLedPatternID(pat)) {
-      if (m_multiPat) {
-        delete m_multiPat;
-      }
       m_multiPat = PatternBuilder::makeMulti(pat, args);
       if (m_multiPat) {
         // they could set PATTERN_NONE to clear
@@ -654,7 +655,7 @@ bool Mode::hasSingleLed() const
 bool Mode::hasSameSingleLed() const
 {
   Pattern *firstPat = nullptr;
-  for (uint32_t i = LED_FIRST + 1; i < MODE_LEDCOUNT; ++i) {
+  for (uint32_t i = LED_FIRST; i < MODE_LEDCOUNT; ++i) {
     if (!m_singlePats[i]) {
       continue;
     }
