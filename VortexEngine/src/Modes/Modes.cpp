@@ -382,7 +382,7 @@ bool Modes::updateCurMode(PatternID id, const Colorset *set)
     DEBUG_LOG("Failed to set pattern of current mode");
     // failed to set pattern?
   }
-  if (set && !pCur->setColorset(set)) {
+  if (set && !pCur->setColorset(*set)) {
     DEBUG_LOG("Failed to set colorset of current mode");
   }
   // initialize the mode with new pattern and colorset
@@ -394,7 +394,8 @@ bool Modes::updateCurMode(PatternID id, const Colorset *set)
 
 bool Modes::updateCurMode(const Mode *mode)
 {
-  return updateCurMode(mode->getPatternID(), mode->getColorset());
+  Colorset set = mode->getColorset();
+  return updateCurMode(mode->getPatternID(), &set);
 }
 
 // set the current active mode by index

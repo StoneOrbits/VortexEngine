@@ -110,6 +110,11 @@ void Colorset::clear()
   resetIndex();
 }
 
+bool Colorset::equals(const Colorset &set) const
+{
+  return equals(&set);
+}
+
 bool Colorset::equals(const Colorset *set) const
 {
   if (!set) {
