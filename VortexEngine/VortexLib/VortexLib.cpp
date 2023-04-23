@@ -503,11 +503,7 @@ bool Vortex::getColorset(LedPos pos, Colorset &set)
   if (!pMode) {
     return false;
   }
-  const Colorset *pSet = pMode->getColorset(pos);
-  if (!pSet) {
-    return false;
-  }
-  set = *pSet;
+  set = pMode->getColorset(pos);
   return true;
 }
 
@@ -521,7 +517,7 @@ bool Vortex::setColorset(LedPos pos, const Colorset &set, bool save)
   if (!pat) {
     return false;
   }
-  pat->setColorset(&set);
+  pat->setColorset(set);
   return !save || doSave();
 }
 
@@ -554,6 +550,15 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
   pMode->init();
   // save the new params
   return !save || doSave();
+}
+
+bool Vortex::isCurModeMulti()
+{
+  Mode *pMode = Modes::curMode();
+  if (!pMode) {
+    return false;
+  }
+  return pMode->isMultiLed();
 }
 
 string Vortex::patternToString(PatternID id)

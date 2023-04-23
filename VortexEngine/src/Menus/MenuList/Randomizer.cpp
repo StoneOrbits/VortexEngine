@@ -38,11 +38,7 @@ bool Randomizer::init()
     if (!pat) {
       continue;
     }
-    Colorset *set = pat->getColorset();
-    if (!set) {
-      continue;
-    }
-    set->serialize(ledData);
+    pat->getColorset().serialize(ledData);
     m_randCtx[l].seed(ledData.recalcCRC());
   }
 

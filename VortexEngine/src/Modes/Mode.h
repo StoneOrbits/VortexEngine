@@ -83,8 +83,8 @@ public:
   Pattern *getPattern(LedPos pos = LED_ANY);
 
   // get the colorset at a position
-  const Colorset *getColorset(LedPos pos = LED_ANY) const;
-  Colorset *getColorset(LedPos pos = LED_ANY);
+  const Colorset getColorset(LedPos pos = LED_ANY) const;
+  Colorset getColorset(LedPos pos = LED_ANY);
 
   // get the pattern ID of the given pattern
   PatternID getPatternID(LedPos pos = LED_ANY) const;
@@ -94,9 +94,9 @@ public:
   bool setPatternMap(LedMap pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
 
   // set colorset at a specific position
-  bool setColorset(const Colorset *set, LedPos pos = LED_ANY);
+  bool setColorset(const Colorset &set, LedPos pos = LED_ANY);
   // set colorset at each position in a map
-  bool setColorsetMap(LedMap map, const Colorset *set);
+  bool setColorsetMap(LedMap map, const Colorset &set);
 
   // clear stored patterns in various ways
   void clearPattern(LedPos pos = LED_ALL);

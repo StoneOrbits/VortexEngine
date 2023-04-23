@@ -442,16 +442,16 @@ Pattern *Mode::getPattern(LedPos pos)
   return nullptr;
 }
 
-const Colorset *Mode::getColorset(LedPos pos) const
+const Colorset Mode::getColorset(LedPos pos) const
 {
   return ((Mode *)this)->getColorset(pos);
 }
 
-Colorset *Mode::getColorset(LedPos pos)
+Colorset Mode::getColorset(LedPos pos)
 {
   Pattern *pat = getPattern(pos);
   if (!pat) {
-    return nullptr;
+    return Colorset();
   }
   return pat->getColorset();
 }
@@ -467,6 +467,20 @@ PatternID Mode::getPatternID(LedPos pos) const
 
 bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const Colorset *set)
 {
+  Colorset newSet;
+  if (!set) {
+    // try to get the colorset in the target position first
+    // and if it's not available use the effective colorset
+    Pattern *pat = getPattern(pos);
+    if (!pat) {
+      pat = getPattern();
+    }
+    if (pat) {
+      newSet = pat->getColorset();
+    }
+  } else {
+    newSet = *set;
+  }
   switch (pos) {
   case LED_ANY:
   case LED_ALL:
@@ -481,8 +495,11 @@ bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const 
       m_multiPat = PatternBuilder::makeMulti(pat, args);
       if (m_multiPat) {
         // they could set PATTERN_NONE to clear
-        m_multiPat->setColorset(set);
+        m_multiPat->setColorset(newSet);
       }
+      // TODO: don't clear single leds if we're setting multi
+      // but for now it's easier to just clear them
+      clearPattern(LED_ALL_SINGLE);
       return true;
     }
     if (pos == LED_MULTI) {
@@ -499,7 +516,7 @@ bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const 
     }
 #endif
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-      if (!setPattern(pat, pos, args, set)) {
+      if (!setPattern(pat, pos, args, &newSet)) {
         return false;
       }
     }
@@ -520,7 +537,7 @@ bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const 
     m_singlePats[pos] = PatternBuilder::makeSingle(pat, args);
     // they could set PATTERN_NONE to clear
     if (m_singlePats[pos]) {
-      m_singlePats[pos]->setColorset(set);
+      m_singlePats[pos]->setColorset(newSet);
       m_singlePats[pos]->bind(pos);
     }
     return true;
@@ -539,7 +556,7 @@ bool Mode::setPatternMap(LedMap map, PatternID pat, const PatternArgs *args, con
 }
 
 // set colorset at a specific position
-bool Mode::setColorset(const Colorset *set, LedPos pos)
+bool Mode::setColorset(const Colorset &set, LedPos pos)
 {
   switch (pos) {
   case LED_ANY:
@@ -586,7 +603,7 @@ bool Mode::setColorset(const Colorset *set, LedPos pos)
 }
 
 // set colorset at each position in a map
-bool Mode::setColorsetMap(LedMap map, const Colorset *set)
+bool Mode::setColorsetMap(LedMap map, const Colorset &set)
 {
   MAP_FOREACH_LED(map) {
     if (!setColorset(set, pos)) {
@@ -611,7 +628,7 @@ void Mode::clearPatternMap(LedMap map)
 void Mode::clearColorset(LedPos pos)
 {
   Colorset empty;
-  setColorset(&empty, pos);
+  setColorset(empty, pos);
 }
 
 void Mode::clearColorsetMap(LedMap map)

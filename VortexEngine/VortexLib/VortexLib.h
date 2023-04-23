@@ -158,8 +158,8 @@ public:
   // functions to operate on the current Mode
   static bool setPattern(PatternID id, const PatternArgs *args = nullptr,
     const Colorset *set = nullptr, bool save = true);
-  static PatternID getPatternID(LedPos pos = LED_FIRST);
-  static std::string getPatternName(LedPos pos = LED_FIRST);
+  static PatternID getPatternID(LedPos pos = LED_ANY);
+  static std::string getPatternName(LedPos pos = LED_ANY);
   static std::string getModeName();
   static bool setPatternAt(LedPos pos, PatternID id,
     const PatternArgs *args = nullptr, const Colorset *set = nullptr,
@@ -168,6 +168,9 @@ public:
   static bool setColorset(LedPos pos, const Colorset &set, bool save = true);
   static bool getPatternArgs(LedPos pos, PatternArgs &args);
   static bool setPatternArgs(LedPos pos, PatternArgs &args, bool save = true);
+
+  // whether the current mode is a multi-led pattern
+  static bool isCurModeMulti();
 
   // Helpers for converting pattern id and led id to string
   static std::string patternToString(PatternID id = PATTERN_NONE);
