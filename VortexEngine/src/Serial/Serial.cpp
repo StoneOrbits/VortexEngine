@@ -10,10 +10,8 @@
 #include <Arduino.h>
 #include <stdio.h>
 
-#if VORTEX_SLIM == 0
 bool SerialComs::m_serialConnected = false;
 uint64_t SerialComs::m_lastCheck = 0;
-#endif
 
 // init serial
 bool SerialComs::init()
@@ -29,11 +27,7 @@ void SerialComs::cleanup()
 
 bool SerialComs::isConnected()
 {
-#if VORTEX_SLIM == 0
   return m_serialConnected;
-#else
-  return false;
-#endif
 }
 
 // check for any serial connection or messages
@@ -56,14 +50,12 @@ bool SerialComs::checkSerial()
     // serial is not connected
     return false;
   }
-  // serial is now connected
-  m_serialConnected = true;
   // Begin serial communications
   Serial.begin(9600);
-  return true;
-#else
-  return false;
 #endif
+  // serial is now connected
+  m_serialConnected = true;
+  return true;
 }
 
 void SerialComs::write(const char *msg, ...)
