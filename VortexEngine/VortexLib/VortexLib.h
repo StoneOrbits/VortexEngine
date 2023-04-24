@@ -108,6 +108,9 @@ public:
   // install a callback for digital reads (button press)
   static void installCallbacks(VortexCallbacks *callbacks);
 
+  // control whether the engine will tick instantly or not
+  static void setInstantTimestep(bool timestep);
+
   // send various clicks
   static void shortClick(uint32_t buttonIndex = 0);
   static void longClick(uint32_t buttonIndex = 0);
@@ -115,6 +118,10 @@ public:
   static void pressButton(uint32_t buttonIndex = 0);
   static void releaseButton(uint32_t buttonIndex = 0);
   static bool isButtonPressed(uint32_t buttonIndex = 0);
+
+  // send a wait event, will let the engine run a tick if running in lockstep
+  // for example when running the testing system
+  static void sendWait(uint32_t amount = 0);
 
   // get the current menu demo mode
   static Mode *getMenuDemoMode();
@@ -214,6 +221,8 @@ private:
     EVENT_LONG_CLICK,
     // a press that is just long enough to open the ring menu
     EVENT_MENU_ENTER_CLICK,
+    // just wait around a tick (mainly used for testing)
+    EVENT_WAIT,
     // toggle the button (press or unpress it)
     EVENT_TOGGLE_CLICK,
     // quit the engine (not really a 'click')

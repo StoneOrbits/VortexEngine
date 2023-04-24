@@ -184,8 +184,13 @@ bool Vortex::tick()
   ioctl(STDIN_FILENO, FIONREAD, &numInputs);
   // iterate the number of inputs on stdin and parse each letter
   // into a command for the engine
+  char lastc = 0;
   for (uint32_t i = 0; i < numInputs; ++i) {
-    switch (getchar()) {
+    char c = getchar();
+    if (isprint(c)) {
+      DEBUG_LOGF("Processing '%c'...\n", c);
+    }
+    switch (c) {
     case 'a':
       Vortex::shortClick();
       break;
@@ -196,6 +201,7 @@ bool Vortex::tick()
       Vortex::menuEnterClick();
       break;
     case 'q':
+    //case '\n':
       Vortex::quitClick();
       break;
     case 'f':
@@ -205,9 +211,32 @@ bool Vortex::tick()
         Vortex::pressButton();
       }
       break;
+    case 'w':
+      Vortex::sendWait();
+      break;
     default:
+      if (isdigit(c) && lastc) {
+        int repeatval = c - '0';
+        while (i < numInputs) {
+          char newc = getchar();
+          if (!isdigit(newc)) {
+            // reached end of wait time
+            ungetc(newc, stdin);
+            // shove the inputs back into stdin
+            numInputs += repeatval;
+            while (repeatval--) {
+              ungetc(lastc, stdin);
+            }
+            break;
+          }
+          repeatval = (repeatval * 10) + (newc - '0');
+          i++;
+        }
+      }
       break;
     }
+    // hold onto last char for repeats
+    lastc = c;
   }
 #endif
   // tick the vortex engine forward
@@ -215,9 +244,15 @@ bool Vortex::tick()
   return true;
 }
 
+
 void Vortex::installCallbacks(VortexCallbacks *callbacks)
 {
   m_storedCallbacks = callbacks;
+}
+
+void Vortex::setInstantTimestep(bool timestep)
+{
+  Time::setInstantTimestep(timestep);
 }
 
 // send various clicks
@@ -234,6 +269,12 @@ void Vortex::longClick(uint32_t buttonIndex)
 void Vortex::menuEnterClick(uint32_t buttonIndex)
 {
   m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_MENU_ENTER_CLICK));
+}
+
+void Vortex::sendWait(uint32_t amount)
+{
+  // reusing the button index as the wait amount
+  m_buttonEventQueue.push(VortexButtonEvent(amount, EVENT_WAIT));
 }
 
 void Vortex::pressButton(uint32_t buttonIndex)
@@ -745,12 +786,16 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   // pop the event from the front of the queue
   VortexButtonEvent buttonEvent = m_buttonEventQueue.front();
   m_buttonEventQueue.pop();
-  // make sure the button that is targeted is actually a valid index
-  if (buttonEvent.target >= numButtons) {
-    return;
+  // the target button for this event (might be nullptr if event is just 'wait')
+  Button *pButton = nullptr;
+  if (buttonEvent.type != EVENT_WAIT) {
+    // make sure the button that is targeted is actually a valid index
+    if (buttonEvent.target >= numButtons) {
+      return;
+    }
+    // assigned the button based on the array index target
+    pButton = buttons + buttonEvent.target;
   }
-  // grab the target button for this event
-  Button *pButton = buttons + buttonEvent.target;
   // switch on the type of event and then run the operation
   switch (buttonEvent.type) {
   case EVENT_NONE:
@@ -777,6 +822,20 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_holdDuration = MENU_TRIGGER_THRESHOLD_TICKS + 1;
     pButton->m_isPressed = true;
     m_buttonEventQueue.push(VortexButtonEvent(0, EVENT_RESET_CLICK));
+    break;
+  case EVENT_WAIT:
+    if (buttonEvent.target) {
+      // backup the event queue and clear it
+      auto backupQueue = m_buttonEventQueue;
+      m_buttonEventQueue.empty();
+      // ticks the engine forward some number of ticks, the event queue is empty
+      // so the engine won't process any input events while doing this
+      for (uint32_t i = 0; i < buttonEvent.target; ++i) {
+        VortexEngine::tick();
+      }
+      // then restore the event queue so that events are processed like normal
+      m_buttonEventQueue = backupQueue;
+    }
     break;
   case EVENT_TOGGLE_CLICK:
     if (pButton->isPressed()) {
