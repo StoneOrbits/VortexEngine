@@ -56,7 +56,6 @@ enum LedPos : uint8_t
   // When setting this will:
   //    1. if setting single led pattern will set all
   //    2. if setting multi led pattern will set multi
-  //    3. will unset the opposite type of pattern
   LED_ANY = (LED_COUNT + 3),
 
   // other customs?
