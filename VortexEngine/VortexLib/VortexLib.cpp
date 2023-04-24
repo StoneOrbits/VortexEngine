@@ -56,6 +56,7 @@ EMSCRIPTEN_BINDINGS(vortex_engine) {
 using namespace std;
 
 // static vortex data
+char Vortex::m_lastCommand = 0;
 deque<ByteStream> Vortex::m_undoBuffer;
 uint32_t Vortex::m_undoLimit = 0;
 uint32_t Vortex::m_undoIndex = 0;
@@ -170,6 +171,74 @@ void Vortex::cleanup()
   m_initialized = false;
 }
 
+void Vortex::handleRepeat(char c)
+{
+  if (!isdigit(c) || !m_lastCommand) {
+    return;
+  }
+  int repeatAmount = c - '0';
+  char newc = 0;
+  // read the digits into the repeatAmount
+  while (1) {
+    newc = getchar();
+    if (!isdigit(newc)) {
+      // stop once we reach a non digit
+      break;
+    }
+    // accumulate the digits into the repeat amount
+    repeatAmount = (repeatAmount * 10) + (newc - '0');
+  }
+  if (repeatAmount > 0) {
+    // offset repeat amount by exactly 1 because it's already done
+    repeatAmount--;
+  }
+  // shove the last non-digit back into the stream
+  ungetc(newc, stdin);
+  // repeat the last command that many times
+  while (repeatAmount > 0) {
+    doCommand(m_lastCommand);
+    repeatAmount--;
+  }
+}
+
+void Vortex::doCommand(char c)
+{
+  if (!isprint(c)) {
+    return;
+  }
+  DEBUG_LOGF("Processing '%c'...\n", c);
+  switch (c) {
+  case 'a':
+    Vortex::shortClick();
+    break;
+  case 's':
+    Vortex::longClick();
+    break;
+  case 'd':
+    Vortex::menuEnterClick();
+    break;
+  case 'q':
+    //case '\n':
+    Vortex::quitClick();
+    break;
+  case 'f':
+    if (Vortex::isButtonPressed()) {
+      Vortex::releaseButton();
+    } else {
+      Vortex::pressButton();
+    }
+    break;
+  case 'w':
+    Vortex::sendWait();
+    break;
+  default:
+    handleRepeat(c);
+    // return instead of break because this isn't a command
+    return;
+  }
+  m_lastCommand = c;
+}
+
 bool Vortex::tick()
 {
   if (!m_initialized) {
@@ -184,59 +253,8 @@ bool Vortex::tick()
   ioctl(STDIN_FILENO, FIONREAD, &numInputs);
   // iterate the number of inputs on stdin and parse each letter
   // into a command for the engine
-  char lastc = 0;
   for (uint32_t i = 0; i < numInputs; ++i) {
-    char c = getchar();
-    if (isprint(c)) {
-      DEBUG_LOGF("Processing '%c'...\n", c);
-    }
-    switch (c) {
-    case 'a':
-      Vortex::shortClick();
-      break;
-    case 's':
-      Vortex::longClick();
-      break;
-    case 'd':
-      Vortex::menuEnterClick();
-      break;
-    case 'q':
-    //case '\n':
-      Vortex::quitClick();
-      break;
-    case 'f':
-      if (Vortex::isButtonPressed()) {
-        Vortex::releaseButton();
-      } else {
-        Vortex::pressButton();
-      }
-      break;
-    case 'w':
-      Vortex::sendWait();
-      break;
-    default:
-      if (isdigit(c) && lastc) {
-        int repeatval = c - '0';
-        while (i < numInputs) {
-          char newc = getchar();
-          if (!isdigit(newc)) {
-            // reached end of wait time
-            ungetc(newc, stdin);
-            // shove the inputs back into stdin
-            numInputs += repeatval;
-            while (repeatval--) {
-              ungetc(lastc, stdin);
-            }
-            break;
-          }
-          repeatval = (repeatval * 10) + (newc - '0');
-          i++;
-        }
-      }
-      break;
-    }
-    // hold onto last char for repeats
-    lastc = c;
+    doCommand(getchar());
   }
 #endif
   // tick the vortex engine forward
@@ -826,15 +844,15 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   case EVENT_WAIT:
     if (buttonEvent.target) {
       // backup the event queue and clear it
-      auto backupQueue = m_buttonEventQueue;
-      m_buttonEventQueue.empty();
+      queue<Vortex::VortexButtonEvent> backup;
+      std::swap(backup, m_buttonEventQueue);
       // ticks the engine forward some number of ticks, the event queue is empty
       // so the engine won't process any input events while doing this
       for (uint32_t i = 0; i < buttonEvent.target; ++i) {
         VortexEngine::tick();
       }
       // then restore the event queue so that events are processed like normal
-      m_buttonEventQueue = backupQueue;
+      std::swap(backup, m_buttonEventQueue);
     }
     break;
   case EVENT_TOGGLE_CLICK:

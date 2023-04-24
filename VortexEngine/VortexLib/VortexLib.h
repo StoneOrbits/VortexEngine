@@ -209,6 +209,11 @@ public:
   // printing to log system
   static void printlog(const char *file, const char *func, int line, const char *msg, va_list list);
 private:
+  // run an internal command char
+  static void doCommand(char c);
+  static void handleRepeat(char c);
+  static char m_lastCommand;
+
   // The various different button events that can be injected into vortex
   enum VortexButtonEventType
   {
