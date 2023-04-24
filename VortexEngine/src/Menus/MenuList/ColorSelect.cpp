@@ -37,6 +37,9 @@ bool ColorSelect::init()
   if (!Menu::init()) {
     return false;
   }
+  if (m_pCurMode->isMultiLed()) {
+    m_ledSelected = true;
+  }
   m_state = STATE_INIT;
   DEBUG_LOG("Entered color select");
   return true;
