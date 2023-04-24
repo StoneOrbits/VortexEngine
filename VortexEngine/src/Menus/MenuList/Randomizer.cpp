@@ -30,15 +30,29 @@ bool Randomizer::init()
     return false;
   }
 
+  if (!m_pCurMode) {
+    return false;
+  }
+
+  // if they are trying to randomize a multi-led pattern just convert
+  // the pattern to all singles with the same colorset upon entry
+  if (m_pCurMode->isMultiLed()) {
+    // convert the pattern to a single led pattern, this will map
+    // all multi led patterns to single led patterns using modulo
+    // so no matter which multi-led pattern they have selected it
+    // will convert to a single led pattern of some kind
+    PatternID newID = (PatternID)((m_pCurMode->getPatternID() - PATTERN_MULTI_FIRST) % PATTERN_SINGLE_COUNT);
+    // solid sucks
+    if (newID == PATTERN_SOLID) ++newID;
+    m_pCurMode->setPattern(newID);
+    m_pCurMode->init();
+  }
+
   // initialize the randomseed of each led with the
   // CRC of the colorset on the respective LED
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
     ByteStream ledData;
-    Pattern *pat = m_pCurMode->getPattern(m_pCurMode->isMultiLed() ? LED_MULTI : l);
-    if (!pat) {
-      continue;
-    }
-    pat->getColorset().serialize(ledData);
+    m_pCurMode->getColorset(l).serialize(ledData);
     m_randCtx[l].seed(ledData.recalcCRC());
   }
 

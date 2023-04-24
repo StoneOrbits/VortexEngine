@@ -467,20 +467,8 @@ PatternID Mode::getPatternID(LedPos pos) const
 
 bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const Colorset *set)
 {
-  Colorset newSet;
-  if (!set) {
-    // try to get the colorset in the target position first
-    // and if it's not available use the effective colorset
-    Pattern *pat = getPattern(pos);
-    if (!pat) {
-      pat = getPattern();
-    }
-    if (pat) {
-      newSet = pat->getColorset();
-    }
-  } else {
-    newSet = *set;
-  }
+  // Use provided colorset, or colorset from pos if valid, otherwise use effective colorset
+  Colorset newSet = set ? *set : getColorset(((pos < LED_COUNT) && m_singlePats[pos]) ? pos : LED_ANY);
   switch (pos) {
   case LED_ANY:
   case LED_ALL:
@@ -644,6 +632,7 @@ uint32_t Mode::getFlags() const
   if (hasMultiLed()) flags |= MODE_FLAG_MULTI_LED;
   if (hasSingleLed()) flags |= MODE_FLAG_SINGLE_LED;
   if (hasSameSingleLed()) flags |= MODE_FLAG_ALL_SAME_SINGLE;
+  if (hasSparseSingleLed()) flags |= MODE_FLAG_SPARSE_SINGLES;
   return flags;
 }
 
