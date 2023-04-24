@@ -521,11 +521,9 @@ bool Vortex::setColorset(LedPos pos, const Colorset &set, bool save)
   if (!pMode) {
     return false;
   }
-  Pattern *pat = pMode->getPattern(pos);
-  if (!pat) {
+  if (!pMode->setColorset(set, pos)) {
     return false;
   }
-  pat->setColorset(set);
   return !save || doSave();
 }
 
