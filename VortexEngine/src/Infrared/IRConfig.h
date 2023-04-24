@@ -11,7 +11,7 @@
 
 // the size of IR blocks in bits
 #define DEFAULT_IR_BLOCK_SIZE 32
-#define DEFAULT_IR_BLOCK_SPACING Time::msToTicks(300)
+#define DEFAULT_IR_BLOCK_SPACING Time::msToTicks(1000)
 
 // the max number of DWORDs that will transfer
 #define MAX_DWORDS_TRANSFER 1024
@@ -20,7 +20,8 @@
 // the IR receiver buffer size in dwords
 #define IR_RECV_BUF_SIZE MAX_DATA_TRANSFER
 
-#define IR_TIMING 562
+#define MS *1000
+#define IR_TIMING 5000
 #define IR_TIMING_MIN ((uint32_t)(IR_TIMING * 0.75))
 
 #define HEADER_MARK (IR_TIMING * 16)

@@ -10,6 +10,9 @@
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
+#include <string>
+
+#include <Arduino.h>
 
 ModeSharing::ModeSharing(const RGBColor &col) :
   Menu(col),
@@ -33,10 +36,18 @@ bool ModeSharing::init()
   // This makes send mode begin with waiting instead of sending
   m_lastActionTime = Time::getCurtime() + 1;
   // just start spewing out modes everywhere
-  m_sharingMode = ModeShareState::SHARE_SEND;
+  m_sharingMode = ModeShareState::SHARE_RECEIVE;
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
+
+bool previousSense = false;
+bool sensorActive = false;
+const int windowSize = 4;
+int buffer[windowSize];
+int bufferIndex = 0;
+int bufferSum = 0;
+int previousDigitalValue = -1;
 
 Menu::MenuAction ModeSharing::run()
 {
@@ -59,8 +70,31 @@ Menu::MenuAction ModeSharing::run()
     continueSending();
     break;
   case ModeShareState::SHARE_RECEIVE:
+  {
+    int sensorVal = analogRead(A3);
+    bufferSum -= buffer[bufferIndex];
+    buffer[bufferIndex] = sensorVal;
+    bufferSum += sensorVal;
+
+    bufferIndex = (bufferIndex + 1) % windowSize;
+
+    float runningAverage = static_cast<float>(bufferSum) / windowSize;
+    //Serial.println((int)(runningAverage + 0.5));
+    
+    if (!sensorActive && runningAverage < 100) {
+      sensorActive = true;
+    } else if (sensorActive && runningAverage >= 100) {
+      sensorActive = false;
+    }
+    if (sensorActive != previousSense) {
+      IRReceiver::recvPCIHandler();
+      previousSense = sensorActive;
+      //Serial.println("change");
+    }
+  }
+    SerialComs::checkSerial();
     // render the 'receive mode' lights
-    showReceiveMode();
+    //showReceiveMode();
     // load any modes that are received
     receiveMode();
     break;
@@ -144,20 +178,13 @@ void ModeSharing::receiveMode()
     leaveMenu();
     return;
   }
-  DEBUG_LOGF("Success receiving mode: %u", m_pCurMode->getPatternID());
+  INFO_LOGF("Success receiving mode: %u", m_pCurMode->getPatternID());
   // leave menu and save settings, even if the mode was the same whatever
   leaveMenu(true);
 }
 
 void ModeSharing::showSendMode()
 {
-  // if it is sending
-  if (IRSender::isSending()) {
-    Leds::setAll(RGB_TEAL);
-  } else {
-    Leds::setAll(RGB_BLANK);
-    Leds::blinkAll(Time::getCurtime(), 250, 250);
-  }
 }
 
 void ModeSharing::showReceiveMode()

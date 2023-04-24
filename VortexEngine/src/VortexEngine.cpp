@@ -66,6 +66,7 @@ bool VortexEngine::init()
 #if TIMER_TEST == 1
   timerTest();
 #endif
+  Menus::openMenu(MENU_MODE_SHARING);
 
   return true;
 }
@@ -109,8 +110,12 @@ void VortexEngine::tick()
 
   // run the main logic for the engine
   runMainLogic();
-
-  // update the leds
+  //if (g_pButton->isPressed()) {
+  //  Leds::setAll(RGB_WHITE);
+  //} else {
+  //  Leds::clearAll();
+  //}
+  //update the leds
   Leds::update();
 }
 

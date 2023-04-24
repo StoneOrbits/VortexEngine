@@ -28,8 +28,8 @@ private:
   // send a full 8 bits in a tight loop
   static void sendByte(uint8_t data);
   // send a mark/space by turning PWM on/off
-  static void sendMark(uint16_t time);
-  static void sendSpace(uint16_t time);
+  static void sendMark(uint32_t time);
+  static void sendSpace(uint32_t time);
   // Pulse-Width Modulator (IR Transmitter)
   static void initPWM();
   // turn the IR transmitter on/off in realtime

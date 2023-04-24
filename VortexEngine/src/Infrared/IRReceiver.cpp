@@ -77,7 +77,7 @@ bool IRReceiver::receiveMode(Mode *pMode)
     DEBUG_LOG("No data available to read, or error reading");
     return false;
   }
-  DEBUG_LOGF("Received %u bytes", buf.rawSize());
+  INFO_LOGF("Received %u bytes", buf.rawSize());
   // load the data into the target mode
   pMode->loadFromBuffer(buf);
   return true;
@@ -154,6 +154,8 @@ void IRReceiver::recvPCIHandler()
   handleIRTiming(diff);
 }
 
+int counterer = 0;
+
 // state machine that can be fed IR timings to parse them and interpret the intervals
 void IRReceiver::handleIRTiming(uint32_t diff)
 {
@@ -197,6 +199,8 @@ void IRReceiver::handleIRTiming(uint32_t diff)
 
 void IRReceiver::resetIRState()
 {
+  INFO_LOGF("Received %d bits", m_irData.bitpos());
+  counterer = 0;
   m_previousBytes = 0;
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position

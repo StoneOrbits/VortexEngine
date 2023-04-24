@@ -60,19 +60,6 @@ Menu::MenuAction ColorSelect::run()
 
   // display different leds based on the state of the color select
   switch (m_state) {
-  case STATE_INIT:
-    // this is separate from the init function because the target led
-    // hasn't been chosen yet at the time of the init function running
-    // where as this will run after the target led has been chosen and
-    // we can fetch the correct colorset to work with
-    m_newColor.clear();
-    m_curSelection = 0;
-    m_targetSlot = 0;
-    // grab the colorset from our selected target led
-    m_colorset = *m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
-    // move on to picking slot
-    m_state = STATE_PICK_SLOT;
-    break;
   case STATE_PICK_SLOT:
     showSlotSelection();
     break;

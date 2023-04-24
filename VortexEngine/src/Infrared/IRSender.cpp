@@ -3,6 +3,7 @@
 #include "../Time/TimeControl.h"
 #include "../Modes/Mode.h"
 #include "../Log/Log.h"
+#include "../Leds/Leds.h"
 
 #include "IRConfig.h"
 
@@ -112,13 +113,16 @@ bool IRSender::send()
   return m_isSending;
 }
 
+int counter = 0;
+
 void IRSender::beginSend()
 {
+  counter = 0;
   m_isSending = true;
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
     micros(), m_size, m_numBlocks, m_remainder, m_blockSize);
   // init sender before writing, is this necessary here? I think so
-  initPWM();
+  //initPWM();
   // wakeup the other receiver with a very quick mark/space
   sendMark(50);
   sendSpace(100);
@@ -139,6 +143,8 @@ void IRSender::sendByte(uint8_t data)
   for (int b = 0; b < 8; b++) {
     // grab the bit of data at the indexspace
     uint32_t bit = (data >> (7 - b)) & 1;
+    INFO_LOGF("%d:%d", counter, (data >> (7 - b)) & 1);
+    ++counter;
     // send 3x timing size for 1s and 1x timing for 0
     sendMark(IR_TIMING + (IR_TIMING * (2 * bit)));
     // send 1x timing size for space
@@ -147,25 +153,27 @@ void IRSender::sendByte(uint8_t data)
   DEBUG_LOGF("Sent byte[%u]: 0x%x", m_writeCounter, data);
  }
 
-void IRSender::sendMark(uint16_t time)
+void IRSender::sendMark(uint32_t time)
 {
 #ifdef VORTEX_LIB
   // send mark timing over socket
   send_ir(true, time);
 #else
   startPWM();
-  delayMicroseconds(time);
+  delay(time/1000);
+  //delayMicroseconds(time);
 #endif
 }
 
-void IRSender::sendSpace(uint16_t time)
+void IRSender::sendSpace(uint32_t time)
 {
 #ifdef VORTEX_LIB
   // send space timing over socket
   send_ir(false, time);
 #else
   stopPWM();
-  delayMicroseconds(time);
+  delay(time/1000);
+  //delayMicroseconds(time);
 #endif
 }
 
@@ -224,18 +232,12 @@ void IRSender::initPWM()
 
 void IRSender::startPWM()
 {
-#if defined(VORTEX_ARDUINO) && IR_ENABLE == 1
-  // start the PWM
-  IR_TCCx->CTRLA.reg |= TCC_CTRLA_ENABLE;
-  while (IR_TCCx->SYNCBUSY.bit.ENABLE);
-#endif
+  Leds::setAll(RGB_WHITE);
+  Leds::update();
 }
 
 void IRSender::stopPWM()
 {
-#if defined(VORTEX_ARDUINO) && IR_ENABLE == 1
-  // stop the PWM
-  IR_TCCx->CTRLA.reg &= ~TCC_CTRLA_ENABLE;
-  while (IR_TCCx->SYNCBUSY.bit.ENABLE);
-#endif
+  Leds::clearAll();
+  Leds::update();
 }

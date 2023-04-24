@@ -56,6 +56,7 @@ void Time::tickClock()
 {
   // tick clock forward
   m_curTick++;
+  //return;
 
 #if TIMER_TEST == 1
   // just return immediately when testing the time system, this prevents the actual

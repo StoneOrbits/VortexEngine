@@ -167,7 +167,7 @@
 //  2     Errors  Info and error logs are present
 //  3     Debug   All logs are present, info, error, and debug
 //
-#define LOGGING_LEVEL         0
+#define LOGGING_LEVEL        0
 
 // Log to Console
 //
