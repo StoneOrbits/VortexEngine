@@ -66,7 +66,7 @@ FILE *Vortex::m_consoleHandle = nullptr;
 #if LOG_TO_FILE == 1
 FILE *Vortex::m_logHandle = nullptr;
 #endif
-queue<Vortex::VortexButtonEvent> Vortex::m_buttonEventQueue;
+deque<Vortex::VortexButtonEvent> Vortex::m_buttonEventQueue;
 bool Vortex::m_initialized = false;
 uint32_t Vortex::m_buttonsPressed = 0;
 
@@ -194,6 +194,7 @@ void Vortex::handleRepeat(char c)
   }
   // shove the last non-digit back into the stream
   ungetc(newc, stdin);
+  DEBUG_LOGF("Repeating last command (%c) x%u times", m_lastCommand, repeatAmount);
   // repeat the last command that many times
   while (repeatAmount > 0) {
     doCommand(m_lastCommand);
@@ -206,29 +207,49 @@ void Vortex::doCommand(char c)
   if (!isprint(c)) {
     return;
   }
-  DEBUG_LOGF("Processing '%c'...\n", c);
   switch (c) {
   case 'a':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting short click");
+    }
     Vortex::shortClick();
     break;
   case 's':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting long click");
+    }
     Vortex::longClick();
     break;
   case 'd':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting menu enter click");
+    }
     Vortex::menuEnterClick();
     break;
   case 'q':
     //case '\n':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting quit click");
+    }
     Vortex::quitClick();
     break;
   case 'f':
     if (Vortex::isButtonPressed()) {
+      if (m_lastCommand != c) {
+        DEBUG_LOG("Injecting release");
+      }
       Vortex::releaseButton();
     } else {
+      if (m_lastCommand != c) {
+        DEBUG_LOG("Injecting press");
+      }
       Vortex::pressButton();
     }
     break;
   case 'w':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting wait");
+    }
     Vortex::sendWait();
     break;
   default:
@@ -276,23 +297,23 @@ void Vortex::setInstantTimestep(bool timestep)
 // send various clicks
 void Vortex::shortClick(uint32_t buttonIndex)
 {
-  m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_SHORT_CLICK));
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_SHORT_CLICK));
 }
 
 void Vortex::longClick(uint32_t buttonIndex)
 {
-  m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_LONG_CLICK));
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_LONG_CLICK));
 }
 
 void Vortex::menuEnterClick(uint32_t buttonIndex)
 {
-  m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_MENU_ENTER_CLICK));
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_MENU_ENTER_CLICK));
 }
 
 void Vortex::sendWait(uint32_t amount)
 {
   // reusing the button index as the wait amount
-  m_buttonEventQueue.push(VortexButtonEvent(amount, EVENT_WAIT));
+  m_buttonEventQueue.push_back(VortexButtonEvent(amount, EVENT_WAIT));
 }
 
 void Vortex::pressButton(uint32_t buttonIndex)
@@ -326,7 +347,7 @@ bool Vortex::isButtonPressed(uint32_t buttonIndex)
 
 void Vortex::quitClick()
 {
-  m_buttonEventQueue.push(VortexButtonEvent(0, EVENT_QUIT_CLICK));
+  m_buttonEventQueue.push_back(VortexButtonEvent(0, EVENT_QUIT_CLICK));
 }
 
 void Vortex::IRDeliver(uint32_t timing)
@@ -803,7 +824,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   }
   // pop the event from the front of the queue
   VortexButtonEvent buttonEvent = m_buttonEventQueue.front();
-  m_buttonEventQueue.pop();
+  m_buttonEventQueue.pop_front();
   // the target button for this event (might be nullptr if event is just 'wait')
   Button *pButton = nullptr;
   if (buttonEvent.type != EVENT_WAIT) {
@@ -824,12 +845,14 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_shortClick = true;
     pButton->m_pressTime = Time::getCurtime();
     pButton->m_holdDuration = 200;
+    DEBUG_LOG("Injecting short click");
     break;
   case EVENT_LONG_CLICK:
     pButton->m_newRelease = true;
     pButton->m_longClick = true;
     pButton->m_pressTime = Time::getCurtime();
     pButton->m_holdDuration = SHORT_CLICK_THRESHOLD_TICKS + 1;
+    DEBUG_LOG("Injecting long click");
     break;
   case EVENT_MENU_ENTER_CLICK:
     // to do this we simply press the button and set the press time
@@ -839,12 +862,13 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_pressTime = Time::getCurtime();
     pButton->m_holdDuration = MENU_TRIGGER_THRESHOLD_TICKS + 1;
     pButton->m_isPressed = true;
-    m_buttonEventQueue.push(VortexButtonEvent(0, EVENT_RESET_CLICK));
+    m_buttonEventQueue.push_front(VortexButtonEvent(0, EVENT_RESET_CLICK));
+    DEBUG_LOG("Injecting menu enter click");
     break;
   case EVENT_WAIT:
     if (buttonEvent.target) {
       // backup the event queue and clear it
-      queue<Vortex::VortexButtonEvent> backup;
+      deque<Vortex::VortexButtonEvent> backup;
       std::swap(backup, m_buttonEventQueue);
       // ticks the engine forward some number of ticks, the event queue is empty
       // so the engine won't process any input events while doing this
@@ -866,17 +890,20 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
       pButton->m_newRelease = true;
       pButton->m_shortClick = (pButton->m_holdDuration <= SHORT_CLICK_THRESHOLD_TICKS);
       pButton->m_longClick = !pButton->m_shortClick;
+      DEBUG_LOG("Injecting release");
     } else {
       pButton->m_buttonState = LOW;
       pButton->m_isPressed = true;
       pButton->m_releaseDuration = (uint32_t)(Time::getCurtime() - pButton->m_releaseTime);
       pButton->m_pressTime = Time::getCurtime();
       pButton->m_newPress = true;
+      DEBUG_LOG("Injecting press");
     }
     break;
   case EVENT_QUIT_CLICK:
     // just uninitialize so tick returns false
     m_initialized = false;
+    DEBUG_LOG("Injecting quit");
     break;
   case EVENT_RESET_CLICK:
     pButton->m_isPressed = false;

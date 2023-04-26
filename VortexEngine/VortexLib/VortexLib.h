@@ -11,7 +11,7 @@
 
 #include <vector>
 #include <string>
-#include <queue>
+#include <deque>
 #include <deque>
 
 // ============================================================================
@@ -202,7 +202,7 @@ public:
   static VortexCallbacks *vcallbacks() { return m_storedCallbacks; }
 
   // called by the engine right after all buttons are checked, this will process
-  // the input queue that is fed by the apis like shortClick() above and translate
+  // the input deque that is fed by the apis like shortClick() above and translate
   // those messages into actual button events by overwriting button data that tick
   static void handleInputQueue(Button *buttons, uint32_t numButtons);
 
@@ -270,8 +270,8 @@ private:
 #if LOG_TO_FILE == 1
   static FILE *m_logHandle;
 #endif
-  // queue of button events
-  static std::queue<VortexButtonEvent> m_buttonEventQueue;
+  // queue of button events, deque so can push to front and back
+  static std::deque<VortexButtonEvent> m_buttonEventQueue;
   // whether initialized
   static bool m_initialized;
   // whether each button is pressed (bitflags) so technically this only
