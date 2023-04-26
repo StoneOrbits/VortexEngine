@@ -52,13 +52,17 @@ Menu::MenuAction ColorSelect::run()
     return result;
   }
 
+  // all states start with a blank slate
+  Leds::clearAll();
+
   switch (m_state) {
   case STATE_INIT:
     // this is separate from the init function because the target led
     // hasn't been chosen yet at the time of the init function running
     // where as this will run after the target led has been chosen and
     // we can fetch the correct colorset to work with
-    m_newColor.clear();
+    //m_newColor.clear();
+    m_newColor = HSVColor(0, 255, 255);
     m_curSelection = 0;
     m_targetSlot = 0;
     // grab the colorset from our selected target led
@@ -137,17 +141,11 @@ void ColorSelect::onLongClick()
       // if we're targetting more than one led then screw
       // checking if the colorset has changed because it's
       // not worth the effort
-      if (!MAP_IS_ONE_LED(m_targetLeds)) {
-        leaveMenu(true);
-        return;
-      }
-      // if our selection is on the exit index then check if the
-      // colorset has been changed and save if necessary
-      Pattern *pat = m_pCurMode->getPattern(mapGetFirstLed(m_targetLeds));
-      if (pat && !m_colorset.equals(pat->getColorset())) {
-        m_pCurMode->setColorset(m_colorset, mapGetFirstLed(m_targetLeds));
+      needsSave = (!MAP_IS_ONE_LED(m_targetLeds) ||
+          !m_colorset.equals(m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds))));
+      if (needsSave) {
+        m_pCurMode->setColorsetMap(m_targetLeds, m_colorset);
         m_pCurMode->init();
-        needsSave = true;
       }
       leaveMenu(needsSave);
       return;
@@ -165,19 +163,15 @@ void ColorSelect::onLongClick()
     }
     // otherwise store the target slot continue onto the hue selection
     m_targetSlot = m_curSelection;
-    m_state = STATE_PICK_HUE1;
     break;
   case STATE_PICK_HUE1:
     m_newColor.hue = m_curSelection * (255 / 4);
-    m_state = STATE_PICK_HUE2;
     break;
   case STATE_PICK_HUE2:
     m_newColor.hue += m_curSelection * (255 / 16);
-    m_state = STATE_PICK_SAT;
     break;
   case STATE_PICK_SAT:
     m_newColor.sat = sats[m_curSelection];
-    m_state = STATE_PICK_VAL;
     break;
   case STATE_PICK_VAL:
     m_newColor.val = vals[m_curSelection];
@@ -188,42 +182,69 @@ void ColorSelect::onLongClick()
     m_state = STATE_PICK_SLOT;
     return;
   }
+  m_state = (ColorSelectState)(m_state + 1);
   m_curSelection = 0;
 }
 
 void ColorSelect::showSlotSelection()
 {
-  // selecting an led regular
-  if (m_curSelection < m_colorset.numColors()) {
-    if (g_pButton->isPressed() && g_pButton->holdDuration() >= DELETE_THRESHOLD_TICKS) {
-      if ((g_pButton->holdDuration() % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS) {
-        // breath red instead of white blink
-        Leds::breathIndex(LED_COUNT, 0, g_pButton->holdDuration());
-        return;
-      }
-    }
-    // just render that led
-    Leds::clearAll();
-    Leds::blinkIndex(LED_COUNT, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
-  }
-  // exit index is num colors unless we have less than 8 colors
   uint8_t exitIndex = m_colorset.numColors();
-  // otherwise check if we're on add-color or exit
-  if (m_colorset.numColors() < MAX_COLOR_SLOTS) {
-    // selecting an led to add a new color
+  uint32_t holdDur = g_pButton->holdDuration();
+
+  bool withinNumColors = m_curSelection < m_colorset.numColors();
+  bool holdDurationCheck = g_pButton->isPressed() && holdDur >= DELETE_THRESHOLD_TICKS;
+  bool holdDurationModCheck = (holdDur % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS;
+
+  if (withinNumColors && holdDurationCheck && holdDurationModCheck) {
+    // breath red for delete slot
+    Leds::breathIndex(LED_COUNT, 0, holdDur);
+  } else if (withinNumColors) {
+    // blink the selected slot color
+    Leds::blinkIndex(LED_COUNT, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
+  } else if (m_colorset.numColors() < MAX_COLOR_SLOTS) {
     if (m_curSelection == m_colorset.numColors()) {
-      // blinks to indicate this will be a new color added here
-      Leds::clearAll();
+      // blink faster to indicate 'add' new color
       Leds::blinkAll(Time::getCurtime(), 100, 150, RGB_BLANK);
     }
-    // if less than 8 colors the exit index is the num colors plus 1
     exitIndex = m_colorset.numColors() + 1;
   }
-  // selecting the exit
+
   if (m_curSelection == exitIndex) {
     showFullSet(LED_COUNT, Time::getCurtime(), 50, 100);
   }
 }
+//void ColorSelect::showSlotSelection()
+//{
+//  uint32_t holdDur = g_pButton->holdDuration();
+//  // selecting an led regular
+//  if (m_curSelection < m_colorset.numColors()) {
+//    if (g_pButton->isPressed() && holdDur >= DELETE_THRESHOLD_TICKS) {
+//      if ((holdDur % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS) {
+//        // breath red instead of white blink
+//        Leds::breathIndex(LED_COUNT, 0, holdDur);
+//        return;
+//      }
+//    }
+//    // just render that led
+//    Leds::blinkIndex(LED_COUNT, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
+//  }
+//  // exit index is num colors unless we have less than 8 colors
+//  uint8_t exitIndex = m_colorset.numColors();
+//  // otherwise check if we're on add-color or exit
+//  if (m_colorset.numColors() < MAX_COLOR_SLOTS) {
+//    // selecting an led to add a new color
+//    if (m_curSelection == m_colorset.numColors()) {
+//      // blinks to indicate this will be a new color added here
+//      Leds::blinkAll(Time::getCurtime(), 100, 150, RGB_BLANK);
+//    }
+//    // if less than 8 colors the exit index is the num colors plus 1
+//    exitIndex = m_colorset.numColors() + 1;
+//  }
+//  // selecting the exit
+//  if (m_curSelection == exitIndex) {
+//    showFullSet(LED_COUNT, Time::getCurtime(), 50, 100);
+//  }
+//}
 
 void ColorSelect::showSelection(ColorSelectState mode)
 {
@@ -241,8 +262,12 @@ void ColorSelect::showSelection(ColorSelectState mode)
     return;
   case STATE_PICK_HUE1:
     hue = m_curSelection * (255 / 4);
-    Leds::breathIndex(LED_0, hue, (uint32_t)(Time::getCurtime() / 2), 22, 255, 180);
-    Leds::breathIndex(LED_1, hue, (uint32_t)(Time::getCurtime() / 2) + 125, 22, 255, 180);
+    MAP_FOREACH_LED(MAP_PAIR_EVENS) {
+      Leds::breathIndex(pos, hue, (uint32_t)(Time::getCurtime() / 2), 22, 255, 180);
+    }
+    MAP_FOREACH_LED(MAP_PAIR_ODDS) {
+      Leds::breathIndex(pos, hue, (uint32_t)(Time::getCurtime() / 2) + 125, 22, 255, 180);
+    }
     return;
   case STATE_PICK_HUE2:
     hue += (m_curSelection * (255 / 16));
@@ -255,19 +280,24 @@ void ColorSelect::showSelection(ColorSelectState mode)
     break;
   }
 
-  Leds::setIndex(LED_0, HSVColor(hue, sat, val));
-  uint8_t satt = 30;
-  if (mode == STATE_PICK_SAT) {
-    satt = m_newColor.sat;
+  Leds::setMap(MAP_PAIR_ODDS, HSVColor(hue, sat, val));
+  uint8_t satt = (mode == STATE_PICK_SAT) ? m_newColor.sat : 30;
+  MAP_FOREACH_LED(MAP_PAIR_EVENS) {
+    Leds::breathIndex(pos, hue, (uint32_t)(Time::getCurtime() / 3), 100, satt, 30);
   }
-  Leds::breathIndex(LED_1, hue,
-    (uint32_t)(Time::getCurtime() / 3), 100, satt, 30);
 }
 
 void ColorSelect::showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs)
 {
-  Leds::clearAll();
+  if (!m_colorset.numColors()) {
+    // wat do?
+    return;
+  }
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
-    Leds::setIndex(LED_COUNT, m_colorset.get(((time / Time::msToTicks(offMs + onMs))) % m_colorset.numColors()));
+    int divisor = Time::msToTicks(offMs + onMs);
+    if (!divisor) {
+      divisor = 1;
+    }
+    Leds::setIndex(LED_COUNT, m_colorset.get(((time / divisor)) % m_colorset.numColors()));
   }
 }

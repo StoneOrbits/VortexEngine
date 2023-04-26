@@ -34,18 +34,11 @@ bool Randomizer::init()
     return false;
   }
 
-  // if they are trying to randomize a multi-led pattern just convert
-  // the pattern to all singles with the same colorset upon entry
-  if (m_pCurMode->isMultiLed()) {
-    // convert the pattern to a single led pattern, this will map
-    // all multi led patterns to single led patterns using modulo
-    // so no matter which multi-led pattern they have selected it
-    // will convert to a single led pattern of some kind
-    PatternID newID = (PatternID)((m_pCurMode->getPatternID() - PATTERN_MULTI_FIRST) % PATTERN_SINGLE_COUNT);
-    // solid sucks
-    if (newID == PATTERN_SOLID) ++newID;
-    m_pCurMode->setPattern(newID);
-    m_pCurMode->init();
+  // grab the multi ld pattern colorset crc if it's present
+  if (m_pCurMode->hasMultiLed()) {
+    ByteStream ledData;
+    m_pCurMode->getColorset(LED_MULTI).serialize(ledData);
+    m_multiRandCtx.seed(ledData.recalcCRC());
   }
 
   // initialize the randomseed of each led with the
@@ -53,7 +46,7 @@ bool Randomizer::init()
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
     ByteStream ledData;
     m_pCurMode->getColorset(l).serialize(ledData);
-    m_randCtx[l].seed(ledData.recalcCRC());
+    m_singlesRandCtx[l].seed(ledData.recalcCRC());
   }
 
   DEBUG_LOG("Entered randomizer");
@@ -66,6 +59,20 @@ Menu::MenuAction Randomizer::run()
   MenuAction result = Menu::run();
   if (result != MENU_CONTINUE) {
     return result;
+  }
+
+  // if they are trying to randomize a multi-led pattern just convert
+  // the pattern to all singles with the same colorset upon entry
+  if (m_pCurMode->isMultiLed() && m_targetLeds != MAP_LED(LED_MULTI)) {
+    // convert the pattern to a single led pattern, this will map
+    // all multi led patterns to single led patterns using modulo
+    // so no matter which multi-led pattern they have selected it
+    // will convert to a single led pattern of some kind
+    PatternID newID = (PatternID)((m_pCurMode->getPatternID() - PATTERN_MULTI_FIRST) % PATTERN_SINGLE_COUNT);
+    // solid sucks
+    if (newID == PATTERN_SOLID) ++newID;
+    m_pCurMode->setPattern(newID);
+    m_pCurMode->init();
   }
 
   // display the randomized mode
@@ -98,7 +105,7 @@ bool Randomizer::reRoll(LedPos pos)
   // colorset that will be filled with random colors
   Colorset randomSet;
   // grab local reference to the target random context
-  Random &ctx = m_randCtx[pos];
+  Random &ctx = (pos < LED_COUNT) ? m_singlesRandCtx[pos] : m_multiRandCtx;
   // pick a random type of randomizer to use then use
   // the randomizer to generate a random colorset
   uint32_t randType = ctx.next(0, 9);
@@ -132,11 +139,22 @@ bool Randomizer::reRoll(LedPos pos)
     randomSet.randomizeEvenlySpaced(ctx, 3);
     break;
   }
+  // the random range begin/end
+  PatternID rbegin = PATTERN_SINGLE_FIRST;
+  PatternID rend = PATTERN_SINGLE_LAST;
+  // is the multi led present in the target led map
+  if (m_targetLeds & MAP_LED(LED_MULTI)) {
+    // if so enable that one
+    rend = PATTERN_MULTI_LAST;
+    if (m_targetLeds == MAP_LED(LED_MULTI)) {
+      rbegin = PATTERN_MULTI_FIRST;
+    }
+  }
   // create a random pattern ID from all patterns
   PatternID newPat;
   do {
     // continuously re-randomize the pattern so we don't get undesirable patterns
-    newPat = (PatternID)ctx.next(PATTERN_FIRST, PATTERN_SINGLE_LAST);
+    newPat = (PatternID)ctx.next(rbegin, rend);
   } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
   // update the led with the new random
   m_pCurMode->setPattern(newPat, pos, nullptr, &randomSet);
@@ -149,6 +167,9 @@ bool Randomizer::reRoll(LedPos pos)
 
 bool Randomizer::reRoll()
 {
+  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+    return reRoll(LED_MULTI);
+  }
   MAP_FOREACH_LED(m_targetLeds) {
     if (!reRoll(pos)) {
       return false;

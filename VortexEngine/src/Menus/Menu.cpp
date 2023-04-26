@@ -29,19 +29,16 @@ bool Menu::init()
   if (!m_pCurMode) {
     // if you enter a menu and there's no modes, it will add an empty one
     if (Modes::numModes() > 0) {
-      Leds::setAll(RGB_PURPLE);
       // some kind of serious error
       return false;
     }
     if (!Modes::addMode(PATTERN_BASIC, RGBColor(RGB_OFF))) {
-      Leds::setAll(RGB_YELLOW);
       // some kind of serious error
       return false;
     }
     // get the mode
     m_pCurMode = Modes::curMode();
     if (!m_pCurMode) {
-      Leds::setAll(RGB_ORANGE);
       // serious error again
       return false;
     }
@@ -89,6 +86,9 @@ Menu::MenuAction Menu::run()
       m_targetLeds = MAP_PAIR_ODDS;
       break;
     case MAP_PAIR_ODDS:
+      m_targetLeds = MAP_LED(LED_MULTI);
+      break;
+    case MAP_LED(LED_MULTI):
       m_targetLeds = MAP_LED_ALL;
       break;
     default: // LED_FIRST through LED_LAST
@@ -119,7 +119,12 @@ Menu::MenuAction Menu::run()
 void Menu::showBulbSelection()
 {
   Leds::clearAll();
-  Leds::blinkMap(m_targetLeds, Time::getCurtime(), 250, 500, m_menuColor);
+  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+    LedPos pos = (LedPos)((Time::getCurtime() / 30) % LED_COUNT);
+    Leds::blinkIndex(pos, Time::getCurtime() + (pos * 10), 50, 500, m_menuColor);
+  } else {
+    Leds::blinkMap(m_targetLeds, Time::getCurtime(), 250, 500, m_menuColor);
+  }
   // blink when selecting
   showSelect();
 }
