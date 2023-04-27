@@ -333,8 +333,8 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 #define MAP_INVERSE(map) ((~map) & MAP_LED_ALL)
 
 // macro for all evens and odds
-#define MAP_PAIR_EVENS (MAP_PAIR_EVEN(PAIR_0) | MAP_PAIR_EVEN(PAIR_1) | MAP_PAIR_EVEN(PAIR_2) | MAP_PAIR_EVEN(PAIR_3) | MAP_PAIR_EVEN(PAIR_4))
-#define MAP_PAIR_ODDS (MAP_PAIR_ODD(PAIR_0) | MAP_PAIR_ODD(PAIR_1) | MAP_PAIR_ODD(PAIR_2) | MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_4))
+#define MAP_PAIR_EVENS (((1 << LED_COUNT) - 1) & 0xAAAAAAAA)
+#define MAP_PAIR_ODDS (((1 << LED_COUNT) - 1) & 0x55555555)
 
 // Some preset bitmaps for pair groupings
 #define MAP_PAIR_ODD_EVENS (MAP_PAIR_EVEN(PAIR_0) | MAP_PAIR_EVEN(PAIR_2) | MAP_PAIR_EVEN(PAIR_4))
