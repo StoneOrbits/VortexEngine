@@ -43,9 +43,6 @@ bool ColorSelect::init()
     return false;
   }
   m_state = STATE_INIT;
-  if (m_pCurMode->isMultiLed()) {
-    m_ledSelected = true;
-  }
   DEBUG_LOG("Entered color select");
   return true;
 }
@@ -60,6 +57,7 @@ Menu::MenuAction ColorSelect::run()
   // all states start with a blank slate
   Leds::clearAll();
 
+  // display different leds based on the state of the color select
   switch (m_state) {
   case STATE_INIT:
     // this is separate from the init function because the target led
@@ -83,16 +81,16 @@ Menu::MenuAction ColorSelect::run()
   case STATE_PICK_SLOT:
     showSlotSelection();
     break;
-   case STATE_PICK_HUE1:
+  case STATE_PICK_HUE1:
     showHueSelection1();
     break;
-   case STATE_PICK_HUE2:
+  case STATE_PICK_HUE2:
     showHueSelection2();
     break;
-   case STATE_PICK_SAT:
+  case STATE_PICK_SAT:
     showSatSelection();
     break;
-   case STATE_PICK_VAL:
+  case STATE_PICK_VAL:
     showValSelection();
     break;
   }
@@ -250,12 +248,15 @@ void ColorSelect::onLongClick()
       m_curPage = m_slot / PAGE_SIZE;
       return;
     }
-    // otherwise store the target slot continue onto the hue selection
-    m_targetSlot = m_curSelection;
+    m_state = STATE_PICK_HUE1;
+    // the page is only used for slot selection so reset current page
+    // for next time they use the color select
+    m_curPage = 0;
     break;
   case STATE_PICK_HUE1:
     // pick a hue1
     m_newColor.hue = m_curSelection * (255 / 4);
+    m_state = STATE_PICK_HUE2;
     break;
   case STATE_PICK_HUE2:
     // pick a hue2
@@ -265,6 +266,7 @@ void ColorSelect::onLongClick()
   case STATE_PICK_SAT:
     // pick a saturation
     m_newColor.sat = sats[m_curSelection];
+    m_state = STATE_PICK_VAL;
     break;
   case STATE_PICK_VAL:
     // pick a value
@@ -325,7 +327,7 @@ void ColorSelect::showSlotSelection()
   }
 }
 
-void ColorSelect::showHueSelection1(ColorSelectState mode)
+void ColorSelect::showHueSelection1()
 {
   for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
     Leds::setPair(p, HSVColor((256 / PAIR_COUNT) * p, 255, 255));
