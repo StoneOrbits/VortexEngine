@@ -201,18 +201,32 @@ public:
   // access stored callbacks
   static VortexCallbacks *vcallbacks() { return m_storedCallbacks; }
 
+  // printing to log system
+  static void printlog(const char *file, const char *func, int line, const char *msg, va_list list);
+
+  // injects a command into the engine, the engine will parse one command
+  // per tick so multiple commands will be queued up
+  static void doCommand(char c);
+
+  // enable, fetch and clear the internal command log
+  static void enableCommandLog(bool enable) { m_commandLogEnabled = enable; }
+  static const std::string &getCommandLog() { return m_commandLog; }
+  static void clearCommandLog() { m_commandLog.clear(); }
+
+private:
+  // the last command to have been executed
+  static char m_lastCommand;
+
+  // internal function to handle repeating commands
+  static void handleRepeat(char c);
+
+  // so that the buttons class can call handleInputQueue
+  friend class Buttons;
+
   // called by the engine right after all buttons are checked, this will process
   // the input deque that is fed by the apis like shortClick() above and translate
   // those messages into actual button events by overwriting button data that tick
   static void handleInputQueue(Button *buttons, uint32_t numButtons);
-
-  // printing to log system
-  static void printlog(const char *file, const char *func, int line, const char *msg, va_list list);
-private:
-  // run an internal command char
-  static void doCommand(char c);
-  static void handleRepeat(char c);
-  static char m_lastCommand;
 
   // The various different button events that can be injected into vortex
   enum VortexButtonEventType
@@ -277,4 +291,8 @@ private:
   // whether each button is pressed (bitflags) so technically this only
   // supports 32 buttons but idc whoever adds 33 buttons can fix this
   static uint32_t m_buttonsPressed;
+  // keeps a log of all the commands issued
+  static std::string m_commandLog;
+  // whether to record commands
+  static bool m_commandLogEnabled;
 };

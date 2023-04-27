@@ -69,6 +69,8 @@ FILE *Vortex::m_logHandle = nullptr;
 deque<Vortex::VortexButtonEvent> Vortex::m_buttonEventQueue;
 bool Vortex::m_initialized = false;
 uint32_t Vortex::m_buttonsPressed = 0;
+std::string Vortex::m_commandLog;
+bool Vortex::m_commandLogEnabled = false;
 
 #ifdef _MSC_VER
 #include <Windows.h>
@@ -195,6 +197,7 @@ void Vortex::handleRepeat(char c)
   // shove the last non-digit back into the stream
   ungetc(newc, stdin);
   DEBUG_LOGF("Repeating last command (%c) x%u times", m_lastCommand, repeatAmount);
+  m_commandLog += to_string(repeatAmount);
   // repeat the last command that many times
   while (repeatAmount > 0) {
     doCommand(m_lastCommand);
@@ -202,11 +205,16 @@ void Vortex::handleRepeat(char c)
   }
 }
 
+// injects a command into the engine, the engine will parse one command
+// per tick so multiple commands will be queued up
 void Vortex::doCommand(char c)
 {
   if (!isprint(c)) {
     return;
   }
+
+  m_commandLog += c;
+
   switch (c) {
   case 'a':
     if (m_lastCommand != c) {
@@ -273,7 +281,9 @@ bool Vortex::tick()
   uint32_t numInputs = 0;
   ioctl(STDIN_FILENO, FIONREAD, &numInputs);
   // iterate the number of inputs on stdin and parse each letter
-  // into a command for the engine
+  // into a command for the engine, this will inject all of the commands
+  // that are available into the engine but that doesn't necessarily
+  // mean that the engine will do anything with them right away
   for (uint32_t i = 0; i < numInputs; ++i) {
     doCommand(getchar());
   }
