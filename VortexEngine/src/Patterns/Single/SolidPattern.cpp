@@ -9,20 +9,6 @@ SolidPattern::SolidPattern(const PatternArgs &args) :
   setArgs(args);
 }
 
-SolidPattern::~SolidPattern()
-{
-}
-
-void SolidPattern::init()
-{
-  BasicPattern::init();
-}
-
-void SolidPattern::play()
-{
-  BasicPattern::play();
-}
-
 // callbacks for blinking on/off, can be overridden by derived classes
 void SolidPattern::onBlinkOn()
 {

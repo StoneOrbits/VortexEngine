@@ -61,13 +61,12 @@ public:
 
 #ifdef VORTEX_LIB
   // skip the pattern ahead some ticks
-  virtual void skip(uint32_t ticks);
+  void skip(uint32_t ticks);
 #endif
 
-  // must override the serialize routine to save the pattern
-  // must override unserialize to load patterns
-  virtual void serialize(ByteStream &buffer) const;
-  virtual void unserialize(ByteStream &buffer);
+  // serialize and unserialize a pattern to a bytestream
+  void serialize(ByteStream &buffer) const;
+  void unserialize(ByteStream &buffer);
 
   // get or set a single arg
   void setArg(uint8_t index, uint8_t value);
@@ -92,8 +91,10 @@ public:
   bool equals(const Pattern *other);
 
   // change the colorset
-  virtual void setColorset(const Colorset *set);
-  virtual void clearColorset();
+  const Colorset getColorset() const { return m_colorset; }
+  Colorset getColorset() { return m_colorset; }
+  void setColorset(const Colorset &set);
+  void clearColorset();
 
   // change the led position
   void setLedPos(LedPos pos) { m_ledPos = pos; }
@@ -102,8 +103,6 @@ public:
   PatternID getPatternID() const { return m_patternID; }
 
   // get a pointer to the colorset that is bound to the pattern
-  const Colorset *getColorset() const { return &m_colorset; }
-  Colorset *getColorset() { return &m_colorset; }
   LedPos getLedPos() const { return m_ledPos; }
 
   // get the pattern flags

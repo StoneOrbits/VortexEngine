@@ -39,6 +39,12 @@ Menu::MenuAction FactoryReset::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
+  // bypass led selection for fac reset if a multi was set on
+  // the current slot because it doesn't make sense to pick
+  if (m_pCurMode->isMultiLed()) {
+    m_ledSelected = true;
+    m_targetLeds = MAP_LED(LED_MULTI);
+  }
   showReset();
   return MENU_CONTINUE;
 }
@@ -64,7 +70,7 @@ void FactoryReset::onLongClick()
   // reset the target mode slot on the target led
   const default_mode_entry &def = default_modes[curModeIndex];
   Colorset set(def.numColors, def.cols);
-  m_pCurMode->setPatternAt(m_targetLeds, def.patternID, nullptr, &set);
+  m_pCurMode->setPatternMap(m_targetLeds, def.patternID, nullptr, &set);
   // re-initialize the current mode
   m_pCurMode->init();
   // save and leave the menu
@@ -76,14 +82,12 @@ void FactoryReset::showReset()
   if (m_curSelection == 0) {
     Leds::clearAll();
     Leds::blinkAll(Time::getCurtime(), 350, 350, RGB_BLANK);
-    DEBUG_LOGF("select 0");
     return;
   }
 
   if (!g_pButton->isPressed()) {
     Leds::clearAll();
     Leds::blinkAll(Time::getCurtime(), 150, 150, RGB_DIM_RED);
-    DEBUG_LOGF("not pressed");
     return;
   }
 
@@ -95,7 +99,7 @@ void FactoryReset::showReset()
 
   uint16_t progress = ((holdDur * 100) / FACTORY_RESET_THRESHOLD_TICKS);
 
-  DEBUG_LOGF("progress: %f %u", progress, ledProgress);
+  DEBUG_LOGF("progress: %f", progress);
 
   if (progress >= 100) {
     Leds::setAll(RGB_WHITE);

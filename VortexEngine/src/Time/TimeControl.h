@@ -64,6 +64,10 @@ public:
 
   // Finish a time simulation
   static uint32_t endSimulation();
+
+  // Toggle instant step
+  static void setInstantTimestep(bool instant) { m_instantTimestep = instant; }
+  static bool isInstantStepping() { return m_instantTimestep; }
 #endif
 
 #if TIMER_TEST == 1
@@ -94,6 +98,9 @@ private:
 
   // whether the timer is running a simulation
   static bool m_isSimulation;
+
+  // whether to disable timestep and instantly tick
+  static bool m_instantTimestep;
 #endif
 };
 
