@@ -40,6 +40,9 @@ protected:
   void showSelect();
   void showExit();
 
+  // iterate to next bulb selection
+  void nextBulbSelection();
+
   // the current mode that was selected
   Mode *m_pCurMode;
   // the color of this menu
