@@ -368,6 +368,7 @@ bool Modes::addMode(const Mode *mode)
 }
 
 // replace current mode with new one, destroying existing one
+// TODO: is this api necessary?
 bool Modes::updateCurMode(PatternID id, const Colorset *set)
 {
   if (id > PATTERN_LAST) {

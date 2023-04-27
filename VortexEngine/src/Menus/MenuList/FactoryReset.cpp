@@ -39,6 +39,12 @@ Menu::MenuAction FactoryReset::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
+  // bypass led selection for fac reset if a multi was set on
+  // the current slot because it doesn't make sense to pick
+  if (m_pCurMode->isMultiLed()) {
+    m_ledSelected = true;
+    m_targetLeds = MAP_LED(LED_MULTI);
+  }
   showReset();
   return MENU_CONTINUE;
 }

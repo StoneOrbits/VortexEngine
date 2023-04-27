@@ -93,9 +93,7 @@ void VortexEngine::tick()
 
   // don't poll the button till some cycles have passed, this prevents
   // the wakeup from cycling to the next mode
-  if (Time::getCurtime() > IGNORE_BUTTON_TICKS) {
-    Buttons::check();
-  }
+  Buttons::check();
 
   // run the main logic for the engine
   runMainLogic();

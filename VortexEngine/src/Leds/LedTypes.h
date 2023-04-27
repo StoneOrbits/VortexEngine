@@ -24,7 +24,7 @@ enum LedPos : uint8_t
 
   // target all leds (multi and single)
   // When fetching this the same as LED_ANY
-  // When setting this will set the multi led slot
+  // When setting this will set all of the leds
   LED_ALL = LED_COUNT,
 
   // target the multi led slot
@@ -48,7 +48,6 @@ enum LedPos : uint8_t
   // When setting this will:
   //    1. if setting single led pattern will set all
   //    2. if setting multi led pattern will set multi
-  //    3. will unset the opposite type of pattern
   LED_ANY = (LED_COUNT + 3),
 
   // other customs?
@@ -110,7 +109,7 @@ typedef uint64_t LedMap;
 // check if a map is purely just 1 led or not
 #define MAP_IS_ONE_LED(map) (map && !(map & (map-1)))
 
-// foreach led macro
+// foreach led macro (only iterates singles)
 #define MAP_FOREACH_LED(map) for (LedPos pos = mapGetFirstLed(map); pos < LED_COUNT; pos = mapGetNextLed(map, pos))
 
 // convert a map to the first Led position in the map

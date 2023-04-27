@@ -11,7 +11,7 @@
 
 #include <vector>
 #include <string>
-#include <queue>
+#include <deque>
 #include <deque>
 
 // ============================================================================
@@ -108,6 +108,9 @@ public:
   // install a callback for digital reads (button press)
   static void installCallbacks(VortexCallbacks *callbacks);
 
+  // control whether the engine will tick instantly or not
+  static void setInstantTimestep(bool timestep);
+
   // send various clicks
   static void shortClick(uint32_t buttonIndex = 0);
   static void longClick(uint32_t buttonIndex = 0);
@@ -115,6 +118,10 @@ public:
   static void pressButton(uint32_t buttonIndex = 0);
   static void releaseButton(uint32_t buttonIndex = 0);
   static bool isButtonPressed(uint32_t buttonIndex = 0);
+
+  // send a wait event, will let the engine run a tick if running in lockstep
+  // for example when running the testing system
+  static void sendWait(uint32_t amount = 0);
 
   // get the current menu demo mode
   static Mode *getMenuDemoMode();
@@ -194,14 +201,33 @@ public:
   // access stored callbacks
   static VortexCallbacks *vcallbacks() { return m_storedCallbacks; }
 
+  // printing to log system
+  static void printlog(const char *file, const char *func, int line, const char *msg, va_list list);
+
+  // injects a command into the engine, the engine will parse one command
+  // per tick so multiple commands will be queued up
+  static void doCommand(char c);
+
+  // enable, fetch and clear the internal command log
+  static void enableCommandLog(bool enable) { m_commandLogEnabled = enable; }
+  static const std::string &getCommandLog() { return m_commandLog; }
+  static void clearCommandLog() { m_commandLog.clear(); }
+
+private:
+  // the last command to have been executed
+  static char m_lastCommand;
+
+  // internal function to handle repeating commands
+  static void handleRepeat(char c);
+
+  // so that the buttons class can call handleInputQueue
+  friend class Buttons;
+
   // called by the engine right after all buttons are checked, this will process
-  // the input queue that is fed by the apis like shortClick() above and translate
+  // the input deque that is fed by the apis like shortClick() above and translate
   // those messages into actual button events by overwriting button data that tick
   static void handleInputQueue(Button *buttons, uint32_t numButtons);
 
-  // printing to log system
-  static void printlog(const char *file, const char *func, int line, const char *msg, va_list list);
-private:
   // The various different button events that can be injected into vortex
   enum VortexButtonEventType
   {
@@ -214,6 +240,8 @@ private:
     EVENT_LONG_CLICK,
     // a press that is just long enough to open the ring menu
     EVENT_MENU_ENTER_CLICK,
+    // just wait around a tick (mainly used for testing)
+    EVENT_WAIT,
     // toggle the button (press or unpress it)
     EVENT_TOGGLE_CLICK,
     // quit the engine (not really a 'click')
@@ -256,11 +284,15 @@ private:
 #if LOG_TO_FILE == 1
   static FILE *m_logHandle;
 #endif
-  // queue of button events
-  static std::queue<VortexButtonEvent> m_buttonEventQueue;
+  // queue of button events, deque so can push to front and back
+  static std::deque<VortexButtonEvent> m_buttonEventQueue;
   // whether initialized
   static bool m_initialized;
   // whether each button is pressed (bitflags) so technically this only
   // supports 32 buttons but idc whoever adds 33 buttons can fix this
   static uint32_t m_buttonsPressed;
+  // keeps a log of all the commands issued
+  static std::string m_commandLog;
+  // whether to record commands
+  static bool m_commandLogEnabled;
 };
