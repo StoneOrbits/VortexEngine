@@ -22,6 +22,14 @@
 
 bool VortexEngine::init()
 {
+  // Set all pins to input to reduce power draw
+  for (int x = 0; x < 20; ++x) {
+    pinMode(x, INPUT_PULLUP);
+  }
+  // set Mosfet pin to output to allow power to flow to LED and LIFI
+  pinMode(16, OUTPUT);
+  digitalWrite(16, HIGH);
+
   // all of the global controllers
   if (!Time::init()) {
     DEBUG_LOG("Time failed to initialize");
@@ -184,8 +192,10 @@ void VortexEngine::enterSleep()
   delay(500);
   // Set LED data pin to input to prevent power vampirism while alseep
   pinMode(7, INPUT_PULLUP);
+  // Set LIFI pin to input to prevent power vampirism while asleep
+  pinMode(21, INPUT_PULLUP);
   attachInterrupt(digitalPinToInterrupt(9), VortexEngine::wakeUp, RISING);
-  digitalWrite(1, LOW); //This closes the gate on the mofset
+  digitalWrite(16, LOW); //This closes the gate on the mofset
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);  /* Set sleep mode to POWER DOWN mode */
   sleep_enable();                       /* Enable sleep mode, but not going to sleep yet */
   // enter sleep
@@ -198,7 +208,7 @@ void VortexEngine::enterSleep()
 void VortexEngine::wakeUp()
 {
   // turn the LED MOSFET back on
-  digitalWrite(1, HIGH);
+  digitalWrite(16, HIGH);
   // perform digital reset
 #ifdef VORTEX_ARDUINO
   _PROTECTED_WRITE(RSTCTRL.SWRR, 1);
