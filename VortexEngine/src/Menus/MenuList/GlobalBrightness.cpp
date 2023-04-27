@@ -20,6 +20,8 @@ bool GlobalBrightness::init()
   if (!Menu::init()) {
     return false;
   }
+  // bypass led selection
+  m_ledSelected = true;
   // would be nice if there was a more elegant way to do this
   for (uint8_t i = 0; i < NUM_BRIGHTNESS_OPTIONS; ++i) {
     if (m_brightnessOptions[i] == Leds::getBrightness()) {

@@ -29,19 +29,16 @@ bool Menu::init()
   if (!m_pCurMode) {
     // if you enter a menu and there's no modes, it will add an empty one
     if (Modes::numModes() > 0) {
-      Leds::setAll(RGB_PURPLE);
       // some kind of serious error
       return false;
     }
     if (!Modes::addMode(PATTERN_BASIC, RGBColor(RGB_OFF))) {
-      Leds::setAll(RGB_YELLOW);
       // some kind of serious error
       return false;
     }
     // get the mode
     m_pCurMode = Modes::curMode();
     if (!m_pCurMode) {
-      Leds::setAll(RGB_ORANGE);
       // serious error again
       return false;
     }
@@ -72,35 +69,7 @@ Menu::MenuAction Menu::run()
 
   // every time the button is clicked, change the target led
   if (g_pButton->onShortClick()) {
-    // The target led can be 0 through LED_COUNT to represent any led or all leds
-    // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
-    switch (m_targetLeds) {
-    case MAP_LED_ALL:
-      if (m_pCurMode->isMultiLed()) {
-        // do not allow multi led to select anything else
-        break;
-      }
-      m_targetLeds = MAP_LED(LED_FIRST);
-      break;
-    case MAP_LED(LED_LAST):
-      m_targetLeds = MAP_PAIR_EVENS;
-      break;
-    case MAP_PAIR_EVENS:
-      m_targetLeds = MAP_PAIR_ODDS;
-      break;
-    case MAP_PAIR_ODDS:
-      m_targetLeds = MAP_LED_ALL;
-      break;
-    default: // LED_FIRST through LED_LAST
-      // do not allow multi led to select anything else
-      if (m_pCurMode->isMultiLed()) {
-        m_targetLeds = MAP_LED_ALL;
-        break;
-      }
-      // iterate as normal
-      m_targetLeds = MAP_LED(((mapGetFirstLed(m_targetLeds) + 1) % (LED_COUNT + 1)));
-      break;
-    }
+    nextBulbSelection();
   }
   // on a long press of the button, lock in the target led
   if (g_pButton->onLongClick()) {
@@ -119,7 +88,12 @@ Menu::MenuAction Menu::run()
 void Menu::showBulbSelection()
 {
   Leds::clearAll();
-  Leds::blinkMap(m_targetLeds, Time::getCurtime(), 250, 500, m_menuColor);
+  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+    LedPos pos = (LedPos)((Time::getCurtime() / 30) % LED_COUNT);
+    Leds::blinkIndex(pos, Time::getCurtime() + (pos * 10), 50, 500, m_menuColor);
+  } else {
+    Leds::blinkMap(m_targetLeds, Time::getCurtime(), 250, 500, m_menuColor);
+  }
   // blink when selecting
   showSelect();
 }
@@ -143,6 +117,42 @@ void Menu::showExit()
   }
   Leds::clearAll();
   Leds::blinkAll(Time::getCurtime(), 250, 500, RGB_DARK_RED);
+}
+
+void Menu::nextBulbSelection()
+{
+  // The target led can be 0 through LED_COUNT to represent any led or all leds
+  // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
+  switch (m_targetLeds) {
+  case MAP_LED_ALL:
+    if (m_pCurMode->isMultiLed()) {
+      // do not allow multi led to select anything else
+      //break;
+    }
+    m_targetLeds = MAP_LED(LED_FIRST);
+    break;
+  case MAP_LED(LED_LAST):
+    m_targetLeds = MAP_PAIR_EVENS;
+    break;
+  case MAP_PAIR_EVENS:
+    m_targetLeds = MAP_PAIR_ODDS;
+    break;
+  case MAP_PAIR_ODDS:
+    m_targetLeds = MAP_LED(LED_MULTI);
+    break;
+  case MAP_LED(LED_MULTI):
+    m_targetLeds = MAP_LED_ALL;
+    break;
+  default: // LED_FIRST through LED_LAST
+    // do not allow multi led to select anything else
+    if (m_pCurMode->isMultiLed()) {
+      //m_targetLeds = MAP_LED_ALL;
+      //break;
+    }
+    // iterate as normal
+    m_targetLeds = MAP_LED(((mapGetFirstLed(m_targetLeds) + 1) % (LED_COUNT + 1)));
+    break;
+  }
 }
 
 void Menu::onShortClick()
