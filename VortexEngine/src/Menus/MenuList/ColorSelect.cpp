@@ -171,6 +171,7 @@ void ColorSelect::onLongClick()
   }
   switch (m_state) {
   case STATE_PICK_SLOT:
+  default:
     if (m_slot < m_colorset.numColors() &&
         g_pButton->holdDuration() >= DELETE_THRESHOLD_TICKS &&
        (g_pButton->holdDuration() % (DELETE_CYCLE_TICKS * 2)) > (DELETE_CYCLE_TICKS)) {
