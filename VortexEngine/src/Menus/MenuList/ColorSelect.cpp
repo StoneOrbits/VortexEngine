@@ -42,11 +42,10 @@ bool ColorSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  m_state = STATE_PICK_SLOT;
-  m_curPage = 0;
-  m_slot = 0;
-  m_quadrant = 0;
-  m_colorset = *m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+  m_state = STATE_INIT;
+  if (m_pCurMode->isMultiLed()) {
+    m_ledSelected = true;
+  }
   DEBUG_LOG("Entered color select");
   return true;
 }
@@ -58,22 +57,37 @@ Menu::MenuAction ColorSelect::run()
     return result;
   }
 
-  // display different leds based on the state of the color select
+  // all states start with a blank slate
+  Leds::clearAll();
+
   switch (m_state) {
+  case STATE_INIT:
+    // this is separate from the init function because the target led
+    // hasn't been chosen yet at the time of the init function running
+    // where as this will run after the target led has been chosen and
+    // we can fetch the correct colorset to work with
+    //m_newColor.clear();
+    m_newColor = HSVColor(0, 255, 255);
+    m_curPage = 0;
+    m_slot = 0;
+    m_quadrant = 0;
+    // grab the colorset from our selected target led
+    if (m_targetLeds == MAP_LED_ALL) {
+      m_colorset = m_pCurMode->getColorset();
+    } else {
+      m_colorset = m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+    }
+    // move on to picking slot
+    m_state = STATE_PICK_SLOT;
+    break;
   case STATE_PICK_SLOT:
     showSlotSelection();
     break;
   case STATE_PICK_HUE1:
-    showHueSelection1();
-    break;
   case STATE_PICK_HUE2:
-    showHueSelection2();
-    break;
   case STATE_PICK_SAT:
-    showSatSelection();
-    break;
   case STATE_PICK_VAL:
-    showValSelection();
+    showSelection(m_state);
     break;
   }
 
@@ -227,25 +241,21 @@ void ColorSelect::onLongClick()
       m_curPage = m_slot / PAGE_SIZE;
       return;
     }
-    m_state = STATE_PICK_HUE1;
-    // the page is only used for slot selection so reset current page
-    // for next time they use the color select
-    m_curPage = 0;
+    // otherwise store the target slot continue onto the hue selection
+    m_targetSlot = m_curSelection;
     break;
   case STATE_PICK_HUE1:
     // pick a hue1
     m_newColor.hue = m_curSelection * (255 / 4);
-    m_state = STATE_PICK_HUE2;
     break;
   case STATE_PICK_HUE2:
     // pick a hue2
-    m_newColor.hue = m_newColor.hue + ((255 / 16) * m_curSelection);
+    m_newColor.hue += m_curSelection * (255 / 16);
     m_state = STATE_PICK_SAT;
     break;
   case STATE_PICK_SAT:
     // pick a saturation
     m_newColor.sat = sats[m_curSelection];
-    m_state = STATE_PICK_VAL;
     break;
   case STATE_PICK_VAL:
     // pick a value
@@ -306,7 +316,7 @@ void ColorSelect::showSlotSelection()
   }
 }
 
-void ColorSelect::showHueSelection1()
+void ColorSelect::showSelection(ColorSelectState mode)
 {
   for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
     Leds::setPair(p, HSVColor((256 / PAIR_COUNT) * p, 255, 255));

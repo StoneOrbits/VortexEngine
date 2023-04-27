@@ -34,6 +34,8 @@ private:
   // private enumeration for internal state of color selection
   enum ColorSelectState : uint32_t
   {
+    STATE_INIT,
+
     // currently picking the color slot to change
     STATE_PICK_SLOT,
 

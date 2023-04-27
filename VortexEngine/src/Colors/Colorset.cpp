@@ -110,6 +110,11 @@ void Colorset::clear()
   resetIndex();
 }
 
+bool Colorset::equals(const Colorset &set) const
+{
+  return equals(&set);
+}
+
 bool Colorset::equals(const Colorset *set) const
 {
   if (!set) {
@@ -159,43 +164,44 @@ bool Colorset::addColorHSV(uint8_t hue, uint8_t sat, uint8_t val)
   return addColor(HSVColor(hue, sat, val));
 }
 
-void Colorset::addColorWithValueStyle(Random &ctx, uint8_t hue, uint8_t sat, uint8_t valStyle, uint8_t numColors, uint8_t index)
+void Colorset::addColorWithValueStyle(Random &ctx, uint8_t hue, uint8_t sat, ValueStyle valStyle, uint8_t numColors)
 {
-  if (numColors != 1) {
-    switch (valStyle) {
-    default:
-    case VAL_STYLE_RANDOM:
-      addColorHSV(hue, sat, 85 * ctx.next8(1, 4));
-      break;
-    case VAL_STYLE_LOW_FIRST_COLOR:
-      if (index == 0) {
-        addColorHSV(hue, sat, ctx.next8(0, 86));
-      } else {
-        addColorHSV(hue, sat, 85 * ctx.next8(1, 4));
-      }
-      break;
-    case VAL_STYLE_HIGH_FIRST_COLOR:
-      if (index == 0) {
-        addColorHSV(hue, sat, 255);
-      } else {
-        addColorHSV(hue, sat, ctx.next8(0, 86));
-      }
-      break;
-    case VAL_STYLE_ALTERNATING:
-      if (index % 2 == 0) {
-        addColorHSV(hue, sat, 255);
-      } else {
-        addColorHSV(hue, sat, 85);
-      }
-      break;
-    case VAL_STYLE_ASCENDING:
-      addColorHSV(hue, sat, index * (256 / numColors));
-      break;
-    case VAL_STYLE_DESCENDING:
-      addColorHSV(hue, sat, 255 - (index * (256 / numColors)));
-    }
-  } else {
+  if (numColors == 1) {
     addColorHSV(hue, sat, ctx.next8(16, 255));
+    return;
+  }
+  switch (valStyle) {
+  default:
+  case VAL_STYLE_RANDOM:
+    addColorHSV(hue, sat, 85 * ctx.next8(1, 4));
+    break;
+  case VAL_STYLE_LOW_FIRST_COLOR:
+    if (m_numColors == 0) {
+      addColorHSV(hue, sat, ctx.next8(0, 86));
+    } else {
+      addColorHSV(hue, sat, 85 * ctx.next8(1, 4));
+    }
+    break;
+  case VAL_STYLE_HIGH_FIRST_COLOR:
+    if (m_numColors == 0) {
+      addColorHSV(hue, sat, 255);
+    } else {
+      addColorHSV(hue, sat, ctx.next8(0, 86));
+    }
+    break;
+  case VAL_STYLE_ALTERNATING:
+    if (m_numColors % 2 == 0) {
+      addColorHSV(hue, sat, 255);
+    } else {
+      addColorHSV(hue, sat, 85);
+    }
+    break;
+  case VAL_STYLE_ASCENDING:
+    addColorHSV(hue, sat, m_numColors * (256 / numColors));
+    break;
+  case VAL_STYLE_DESCENDING:
+    addColorHSV(hue, sat, 255 - (m_numColors * (256 / numColors)));
+    break;
   }
 }
 
@@ -223,7 +229,7 @@ void Colorset::randomize(Random &ctx, uint32_t numColors)
   }
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
   for (uint32_t i = 0; i < numColors; ++i) {
-    addColorWithValueStyle(ctx, ctx.next8(), ctx.next8(), valStyle, numColors, i);
+    addColorWithValueStyle(ctx, ctx.next8(), ctx.next8(), valStyle, numColors);
   }
 }
 
@@ -240,7 +246,7 @@ void Colorset::randomizeColorTheory(Random &ctx, uint32_t numColors)
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
   for (uint32_t i = 0; i < numColors; i++) {
     uint8_t nextHue = (randomizedHue + (i * colorGap)) % 256;
-    addColorWithValueStyle(ctx, nextHue, 255, valStyle, numColors, i);
+    addColorWithValueStyle(ctx, nextHue, 255, valStyle, numColors);
   }
 }
 
@@ -255,7 +261,7 @@ void Colorset::randomizeMonochromatic(Random &ctx, uint32_t numColors)
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
   for (uint32_t i = 0; i < numColors; i++) {
     uint8_t decrement = 255 - (i * (256 / numColors));
-    addColorWithValueStyle(ctx, randomizedHue, decrement, valStyle, numColors, i);
+    addColorWithValueStyle(ctx, randomizedHue, decrement, valStyle, numColors);
   }
 }
 
@@ -263,14 +269,14 @@ void Colorset::randomizeMonochromatic(Random &ctx, uint32_t numColors)
 void Colorset::randomizeDoubleSplitComplimentary(Random &ctx)
 {
   clear();
-  uint8_t randomizedHue = ctx.next8();
-  uint8_t splitComplimentaryGap = ctx.next8(1, 64);
+  uint8_t rHue = ctx.next8();
+  uint8_t splitGap = ctx.next8(1, 64);
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  addColorWithValueStyle(ctx, (randomizedHue + splitComplimentaryGap + 128) % 256, 255, valStyle, 5, 0);
-  addColorWithValueStyle(ctx, (randomizedHue - splitComplimentaryGap) % 256, 255, valStyle, 5, 1);
-  addColorWithValueStyle(ctx, randomizedHue, 255, valStyle, 5, 2);
-  addColorWithValueStyle(ctx, (randomizedHue + splitComplimentaryGap) % 256, 255, valStyle, 5, 3);
-  addColorWithValueStyle(ctx, (randomizedHue - splitComplimentaryGap + 128) % 256, 255, valStyle, 5, 4);
+  addColorWithValueStyle(ctx, (rHue + splitGap + 128) % 256, 255, valStyle, 5);
+  addColorWithValueStyle(ctx, (rHue - splitGap) % 256, 255, valStyle, 5);
+  addColorWithValueStyle(ctx, rHue, 255, valStyle, 5);
+  addColorWithValueStyle(ctx, (rHue + splitGap) % 256, 255, valStyle, 5);
+  addColorWithValueStyle(ctx, (rHue - splitGap + 128) % 256, 255, valStyle, 5);
 }
 
 // create a set of 2 pairs of oposing colors
@@ -280,10 +286,10 @@ void Colorset::randomizeTetradic(Random &ctx)
   uint8_t randomizedHue = ctx.next8();
   uint8_t randomizedHue2 = ctx.next8();
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  addColorWithValueStyle(ctx, randomizedHue, 255, valStyle, 4, 0);
-  addColorWithValueStyle(ctx, randomizedHue2, 255, valStyle, 4, 1);
-  addColorWithValueStyle(ctx, (randomizedHue + 128) % 256, 255, valStyle, 4, 2);
-  addColorWithValueStyle(ctx, (randomizedHue2 + 128) % 256, 255, valStyle, 4, 3);
+  addColorWithValueStyle(ctx, randomizedHue, 255, valStyle, 4);
+  addColorWithValueStyle(ctx, randomizedHue2, 255, valStyle, 4);
+  addColorWithValueStyle(ctx, (randomizedHue + 128) % 256, 255, valStyle, 4);
+  addColorWithValueStyle(ctx, (randomizedHue2 + 128) % 256, 255, valStyle, 4);
 }
 
 void Colorset::randomizeEvenlySpaced(Random &ctx, uint32_t spaces)
@@ -296,7 +302,7 @@ void Colorset::randomizeEvenlySpaced(Random &ctx, uint32_t spaces)
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
   for (uint32_t i = 0; i < spaces; i++) {
     uint8_t nextHue = (randomizedHue + (256 / spaces) * i) % 256;
-    addColorWithValueStyle(ctx, nextHue, 255, valStyle, spaces, i);
+    addColorWithValueStyle(ctx, nextHue, 255, valStyle, spaces);
   }
 }
 

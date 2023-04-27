@@ -106,26 +106,64 @@ void PatternSelect::onShortClick2()
 
 void PatternSelect::nextPattern()
 {
-  // increment to next pattern
-  m_newPatternID = (PatternID)((m_newPatternID + 1) % PATTERN_COUNT);
-  // change the pattern of demo mode
-  m_demoMode.setPattern(m_newPatternID);
-  m_demoMode.init();
-  DEBUG_LOGF("Demoing Pattern %u", m_newPatternID);
+  LedPos srcLed = LED_MULTI;
+  if (!m_pCurMode->isMultiLed()) {
+    srcLed = mapGetFirstLed(m_targetLeds);
+  }
+  PatternID newID = (PatternID)(m_pCurMode->getPatternID(srcLed) + 1);
+  if (newID == PATTERN_SOLID) {
+    ++newID;
+  }
+  PatternID endList = PATTERN_SINGLE_LAST;
+  PatternID beginList = PATTERN_SINGLE_FIRST;
+  if (m_targetLeds == MAP_LED_ALL || m_targetLeds == MAP_LED(LED_MULTI)) {
+    endList = PATTERN_MULTI_LAST;
+  }
+  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+    beginList = PATTERN_MULTI_FIRST;
+  }
+  if (newID > endList || newID < beginList) {
+    newID = beginList;
+  }
+  // set the new pattern id
+  if (isMultiLedPatternID(newID)) {
+    m_pCurMode->setPattern(newID);
+  } else {
+    m_pCurMode->setPatternMap(m_targetLeds, newID);
+  }
+  m_pCurMode->init();
+  DEBUG_LOGF("Iterated to pattern id %d", newID);
 }
 
 void PatternSelect::previousPattern()
 {
-  // decrement to previous pattern
-  if (!m_newPatternID) {
-    m_newPatternID = PATTERN_LAST;
-  } else {
-    m_newPatternID = m_newPatternID - 1;
+  LedPos srcLed = LED_MULTI;
+  if (!m_pCurMode->isMultiLed()) {
+    srcLed = mapGetFirstLed(m_targetLeds);
   }
-  // change the pattern of demo mode
-  m_demoMode.setPattern(m_newPatternID);
-  m_demoMode.init();
-  DEBUG_LOGF("Demoing Pattern %u", m_newPatternID);
+  PatternID newID = (PatternID)(m_pCurMode->getPatternID(srcLed) - 1);
+  if (newID == PATTERN_SOLID) {
+    --newID;
+  }
+  PatternID endList = PATTERN_SINGLE_LAST;
+  PatternID beginList = PATTERN_SINGLE_FIRST;
+  if (m_targetLeds == MAP_LED_ALL || m_targetLeds == MAP_LED(LED_MULTI)) {
+    endList = PATTERN_MULTI_LAST;
+  }
+  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+    beginList = PATTERN_MULTI_FIRST;
+  }
+  if (newID > endList || newID < beginList) {
+    newID = endList;
+  }
+  // set the new pattern id
+  if (isMultiLedPatternID(newID)) {
+    m_pCurMode->setPattern(newID);
+  } else {
+    m_pCurMode->setPatternMap(m_targetLeds, newID);
+  }
+  m_pCurMode->init();
+  DEBUG_LOGF("Iterated to pattern id %d", newID);
 }
 
 void PatternSelect::onLongClick()
