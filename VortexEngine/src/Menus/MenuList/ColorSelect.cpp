@@ -57,9 +57,9 @@ Menu::MenuAction ColorSelect::run()
     return result;
   }
 
+  // all states start with a blank slate
   Leds::clearAll();
 
-  // display different leds based on the state of the color select
   switch (m_state) {
   case STATE_INIT:
     // this is separate from the init function because the target led
@@ -83,16 +83,10 @@ Menu::MenuAction ColorSelect::run()
     showSlotSelection();
     break;
   case STATE_PICK_HUE1:
-    showHueSelection1();
-    break;
   case STATE_PICK_HUE2:
-    showHueSelection2();
-    break;
   case STATE_PICK_SAT:
-    showSatSelection();
-    break;
   case STATE_PICK_VAL:
-    showValSelection();
+    showSelection(m_state);
     break;
   }
 
@@ -197,17 +191,14 @@ void ColorSelect::onLongClick()
   case STATE_PICK_HUE1:
     // pick a hue1
     m_newColor.hue = m_curSelection * (255 / 4);
-    m_state = STATE_PICK_HUE2;
     break;
   case STATE_PICK_HUE2:
     // pick a hue2
-    m_newColor.hue = m_newColor.hue + ((255 / 16) * m_curSelection);
-    m_state = STATE_PICK_SAT;
+    m_newColor.hue += m_curSelection * (255 / 16);
     break;
   case STATE_PICK_SAT:
     // pick a saturation
     m_newColor.sat = sats[m_curSelection];
-    m_state = STATE_PICK_VAL;
     break;
   case STATE_PICK_VAL:
     // pick a value
@@ -228,6 +219,7 @@ void ColorSelect::onLongClick()
     return;
   }
   // reset selection after choosing anything
+  m_state = (ColorSelectState)(m_state + 1);
   m_curSelection = FINGER_FIRST;
 }
 
@@ -244,31 +236,31 @@ void ColorSelect::showSlotSelection()
   }
 }
 
-void ColorSelect::showHueSelection1()
-{
-  for (LedPos p = PINKIE_TIP; p <= INDEX_TOP; ++p) {
-    Leds::setIndex(p, HSVColor((256 / 8) * p, 255, 255));
-  }
-}
-
-void ColorSelect::showHueSelection2()
+void ColorSelect::showSelection(ColorSelectState mode)
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
-    Leds::setFinger(f, HSVColor(m_newColor.hue + ((255 / 16) * f), 255, 255));
-  }
-}
-
-void ColorSelect::showSatSelection()
-{
-  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
-    Leds::setFinger(f, HSVColor(m_newColor.hue, sats[f], 255));
-  }
-}
-
-void ColorSelect::showValSelection()
-{
-  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
-    Leds::setFinger(f, HSVColor(m_newColor.hue, m_newColor.sat, vals[f]));
+    HSVColor color;
+    switch (mode) {
+    case STATE_PICK_HUE1:
+      if (f == FINGER_PINKIE) {
+        for (LedPos p = PINKIE_TIP; p <= INDEX_TOP; ++p) {
+          Leds::setIndex(p, HSVColor((256 / 8) * p, 255, 255));
+        }
+      }
+      return;
+    case STATE_PICK_HUE2:
+      color = HSVColor(m_newColor.hue + ((255 / 16) * f), 255, 255);
+      break;
+    case STATE_PICK_SAT:
+      color = HSVColor(m_newColor.hue, sats[f], 255);
+      break;
+    case STATE_PICK_VAL:
+      color = HSVColor(m_newColor.hue, m_newColor.sat, vals[f]);
+      break;
+    default:
+      return;
+    }
+    Leds::setFinger(f, color);
   }
 }
 
