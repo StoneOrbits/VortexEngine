@@ -59,11 +59,8 @@ void CompoundPattern::setPatternAt(LedPos pos, SingleLedPattern *pat,
   if (!pat || pos >= LED_COUNT) {
     return;
   }
-  if (!set) {
-    set = &m_colorset;
-  }
   pat->bind(pos);
-  pat->setColorset(set);
+  pat->setColorset(set ? *set : m_colorset);
   pat->init();
   // handle re-initialization and prevent leaks
   if (m_ledPatterns[pos]) {

@@ -455,4 +455,10 @@
   #define LOGGING_LEVEL         3
 #endif
 
+// no ignore button time when running vortex lib
+#ifdef VORTEX_LIB
+#undef IGNORE_BUTTON_TIME
+#define IGNORE_BUTTON_TIME 0
+#endif
+
 #endif // VORTEX_CONFIG_H
