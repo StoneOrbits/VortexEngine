@@ -14,7 +14,6 @@ enum MenuEntryID
   MENU_COLOR_SELECT,
   MENU_PATTERN_SELECT,
   MENU_FACTORY_RESET,
-  MENU_MODE_SHARING,
   // add new menus here
 
   // the total number of menus
