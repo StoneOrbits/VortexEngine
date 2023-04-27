@@ -73,6 +73,9 @@ Menu::MenuAction Menu::run()
   if (g_pButton->onShortClick()) {
     nextBulbSelection();
   }
+  if (g_pButton2->onShortClick()) {
+    prevBulbSelection();
+  }
   // on a long press of the button, lock in the target led
   if (g_pButton->onLongClick()) {
     m_ledSelected = true;
@@ -153,6 +156,42 @@ void Menu::nextBulbSelection()
     }
     // iterate as normal
     m_targetLeds = MAP_LED(((mapGetFirstLed(m_targetLeds) + 1) % (LED_COUNT + 1)));
+    break;
+  }
+}
+
+void Menu::prevBulbSelection()
+{
+  // The target led can be 0 through LED_COUNT to represent any led or all leds
+  // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
+  switch (m_targetLeds) {
+  case MAP_LED_ALL:
+    if (m_pCurMode->isMultiLed()) {
+      // do not allow multi led to select anything else
+      //break;
+    }
+    m_targetLeds = MAP_LED(LED_MULTI);
+    break;
+  case MAP_LED(LED_FIRST):
+    m_targetLeds = MAP_LED_ALL;
+    break;
+  case MAP_PAIR_EVENS:
+    m_targetLeds = MAP_LED(LED_LAST);
+    break;
+  case MAP_PAIR_ODDS:
+    m_targetLeds = MAP_PAIR_EVENS;
+    break;
+  case MAP_LED(LED_MULTI):
+    m_targetLeds = MAP_PAIR_ODDS;
+    break;
+  default: // LED_FIRST through LED_LAST
+    // do not allow multi led to select anything else
+    if (m_pCurMode->isMultiLed()) {
+      //m_targetLeds = MAP_LED_ALL;
+      //break;
+    }
+    // iterate as normal
+    m_targetLeds = MAP_LED((mapGetFirstLed(m_targetLeds) + (LED_COUNT - 1)) % (LED_COUNT + 1));
     break;
   }
 }
