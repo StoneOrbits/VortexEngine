@@ -43,6 +43,9 @@ protected:
   // blink the selected finger
   virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
 
+  // iterate to next bulb selection
+  void nextBulbSelection();
+
   // the current mode that was selected
   Mode *m_pCurMode;
   // the color of this menu

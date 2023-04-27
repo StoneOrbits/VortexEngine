@@ -37,7 +37,39 @@ enum LedPos : uint8_t
   LED_COUNT,
 
   // the last LED index
-  LED_LAST = (LED_COUNT - 1)
+  LED_LAST = (LED_COUNT - 1),
+
+  // target all leds (multi and single)
+  // When fetching this the same as LED_ANY
+  // When setting this will set all of the leds
+  LED_ALL = LED_COUNT,
+
+  // target the multi led slot
+  //
+  // When fetching this will return the multi led slot
+  // When setting this will set the multi led slot
+  LED_MULTI = (LED_COUNT + 1),
+
+  // target all single led slots
+  //
+  // When fetching this will return the first single led slot
+  // When setting this will set all single led slots
+  LED_ALL_SINGLE = (LED_COUNT + 2),
+
+  // Target the 'effective' led slot (any slot)
+  //
+  // When fetching this will:
+  //    1. return the multi led slot if it exists
+  //    2. otherwise the first single led slot
+  // 
+  // When setting this will:
+  //    1. if setting single led pattern will set all
+  //    2. if setting multi led pattern will set multi
+  LED_ANY = (LED_COUNT + 3),
+
+  // other customs?
+  // LED_EVENS = (LED_COUNT + 2),
+  // LED_ODDS = (LED_COUNT + 3),
 };
 
 #define PINKIE_TIP  LED_0
@@ -124,7 +156,7 @@ typedef uint64_t LedMap;
 // check if a map is purely just 1 led or not
 #define MAP_IS_ONE_LED(map) (map && !(map & (map-1)))
 
-// foreach led macro
+// foreach led macro (only iterates singles)
 #define MAP_FOREACH_LED(map) for (LedPos pos = mapGetFirstLed(map); pos < LED_COUNT; pos = mapGetNextLed(map, pos))
 
 // convert a map to the first Led position in the map
@@ -162,8 +194,8 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 #define MAP_INVERSE(map) ((~map) & MAP_LED_ALL)
 
 // macro for all evens and odds
-#define MAP_PAIR_EVENS (MAP_PAIR_EVEN(PAIR_0) | MAP_PAIR_EVEN(PAIR_1) | MAP_PAIR_EVEN(PAIR_2) | MAP_PAIR_EVEN(PAIR_3) | MAP_PAIR_EVEN(PAIR_4))
-#define MAP_PAIR_ODDS (MAP_PAIR_ODD(PAIR_0) | MAP_PAIR_ODD(PAIR_1) | MAP_PAIR_ODD(PAIR_2) | MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_4))
+#define MAP_PAIR_EVENS (((1 << LED_COUNT) - 1) & 0xAAAAAAAA)
+#define MAP_PAIR_ODDS (((1 << LED_COUNT) - 1) & 0x55555555)
 
 // Some preset bitmaps for pair groupings
 #define MAP_PAIR_ODD_EVENS (MAP_PAIR_EVEN(PAIR_0) | MAP_PAIR_EVEN(PAIR_2) | MAP_PAIR_EVEN(PAIR_4))

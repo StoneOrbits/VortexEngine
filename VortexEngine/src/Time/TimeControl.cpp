@@ -24,6 +24,7 @@ uint32_t Time::m_tickrate = DEFAULT_TICKRATE;
 #ifdef VORTEX_LIB
 uint32_t Time::m_simulationTick = 0;
 bool Time::m_isSimulation = false;
+bool Time::m_instantTimestep = false;
 #endif
 
 // Within this file TICKRATE may refer to the variable member
@@ -44,6 +45,7 @@ bool Time::init()
 #ifdef VORTEX_LIB
   m_simulationTick = 0;
   m_isSimulation = false;
+  m_instantTimestep = false;
 #endif
   return true;
 }
@@ -57,10 +59,10 @@ void Time::tickClock()
   // tick clock forward
   m_curTick++;
 
-#if TIMER_TEST == 1
-  // just return immediately when testing the time system, this prevents the actual
-  // delay from occurring and allows us to tick forward as fast as we want
-  return;
+#ifdef VORTEX_LIB
+  if (m_instantTimestep) {
+    return;
+  }
 #endif
 
 #if DEBUG_ALLOCATIONS == 1
@@ -208,6 +210,11 @@ uint32_t Time::endSimulation()
 void Time::test()
 {
   DEBUG_LOG("Starting Time class tests...");
+
+  // just return immediately when testing the time system,
+  // this prevents the actual delay from occurring and
+  // allows us to tick forward as fast as we want
+  setInstantTimestep(true);
 
   // Test init function
   assert(init());

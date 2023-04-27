@@ -8,9 +8,6 @@ class ByteStream;
 // Really wish I could name this Serial but arduino ruined that for me
 class SerialComs
 {
-  // private constructor
-  SerialComs();
-
 public:
 
   // init serial

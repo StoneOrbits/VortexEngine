@@ -28,7 +28,8 @@ bool PatternSelect::init()
   }
   m_state = STATE_PICK_LIST;
   m_newPatternID = PATTERN_FIRST;
-  m_demoMode.setPattern(m_newPatternID, nullptr, m_pCurMode->getColorset());
+  m_demoMode.setPattern(m_newPatternID);
+  m_demoMode.setColorset(m_pCurMode->getColorset(), LED_ALL);
   m_demoMode.init();
   DEBUG_LOG("Entered pattern select");
   return true;

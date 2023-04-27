@@ -9,11 +9,6 @@ class SolidPattern : public BasicPattern
 {
 public:
   SolidPattern(const PatternArgs &args);
-  virtual ~SolidPattern();
-
-  virtual void init() override;
-
-  virtual void play() override;
 
 protected:
   // callbacks for blinking on/off, can be overridden by derived classes

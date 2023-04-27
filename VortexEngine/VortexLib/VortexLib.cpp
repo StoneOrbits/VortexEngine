@@ -56,6 +56,7 @@ EMSCRIPTEN_BINDINGS(vortex_engine) {
 using namespace std;
 
 // static vortex data
+char Vortex::m_lastCommand = 0;
 deque<ByteStream> Vortex::m_undoBuffer;
 uint32_t Vortex::m_undoLimit = 0;
 uint32_t Vortex::m_undoIndex = 0;
@@ -65,9 +66,11 @@ FILE *Vortex::m_consoleHandle = nullptr;
 #if LOG_TO_FILE == 1
 FILE *Vortex::m_logHandle = nullptr;
 #endif
-queue<Vortex::VortexButtonEvent> Vortex::m_buttonEventQueue;
+deque<Vortex::VortexButtonEvent> Vortex::m_buttonEventQueue;
 bool Vortex::m_initialized = false;
 uint32_t Vortex::m_buttonsPressed = 0;
+std::string Vortex::m_commandLog;
+bool Vortex::m_commandLogEnabled = false;
 
 #ifdef _MSC_VER
 #include <Windows.h>
@@ -170,6 +173,101 @@ void Vortex::cleanup()
   m_initialized = false;
 }
 
+void Vortex::handleRepeat(char c)
+{
+  if (!isdigit(c) || !m_lastCommand) {
+    return;
+  }
+  int repeatAmount = c - '0';
+  char newc = 0;
+  // read the digits into the repeatAmount
+  while (1) {
+    newc = getchar();
+    if (!isdigit(newc)) {
+      // stop once we reach a non digit
+      break;
+    }
+    // accumulate the digits into the repeat amount
+    repeatAmount = (repeatAmount * 10) + (newc - '0');
+  }
+  if (repeatAmount > 0) {
+    // offset repeat amount by exactly 1 because it's already done
+    repeatAmount--;
+  }
+  // shove the last non-digit back into the stream
+  ungetc(newc, stdin);
+  DEBUG_LOGF("Repeating last command (%c) x%u times", m_lastCommand, repeatAmount);
+  m_commandLog += to_string(repeatAmount);
+  // repeat the last command that many times
+  while (repeatAmount > 0) {
+    doCommand(m_lastCommand);
+    repeatAmount--;
+  }
+}
+
+// injects a command into the engine, the engine will parse one command
+// per tick so multiple commands will be queued up
+void Vortex::doCommand(char c)
+{
+  if (!isprint(c)) {
+    return;
+  }
+
+  m_commandLog += c;
+
+  switch (c) {
+  case 'a':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting short click");
+    }
+    Vortex::shortClick();
+    break;
+  case 's':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting long click");
+    }
+    Vortex::longClick();
+    break;
+  case 'd':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting menu enter click");
+    }
+    Vortex::menuEnterClick();
+    break;
+  case 'q':
+    //case '\n':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting quit click");
+    }
+    Vortex::quitClick();
+    break;
+  case 'f':
+    if (Vortex::isButtonPressed()) {
+      if (m_lastCommand != c) {
+        DEBUG_LOG("Injecting release");
+      }
+      Vortex::releaseButton();
+    } else {
+      if (m_lastCommand != c) {
+        DEBUG_LOG("Injecting press");
+      }
+      Vortex::pressButton();
+    }
+    break;
+  case 'w':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting wait");
+    }
+    Vortex::sendWait();
+    break;
+  default:
+    handleRepeat(c);
+    // return instead of break because this isn't a command
+    return;
+  }
+  m_lastCommand = c;
+}
+
 bool Vortex::tick()
 {
   if (!m_initialized) {
@@ -183,31 +281,11 @@ bool Vortex::tick()
   uint32_t numInputs = 0;
   ioctl(STDIN_FILENO, FIONREAD, &numInputs);
   // iterate the number of inputs on stdin and parse each letter
-  // into a command for the engine
+  // into a command for the engine, this will inject all of the commands
+  // that are available into the engine but that doesn't necessarily
+  // mean that the engine will do anything with them right away
   for (uint32_t i = 0; i < numInputs; ++i) {
-    switch (getchar()) {
-    case 'a':
-      Vortex::shortClick();
-      break;
-    case 's':
-      Vortex::longClick();
-      break;
-    case 'd':
-      Vortex::menuEnterClick();
-      break;
-    case 'q':
-      Vortex::quitClick();
-      break;
-    case 'f':
-      if (Vortex::isButtonPressed()) {
-        Vortex::releaseButton();
-      } else {
-        Vortex::pressButton();
-      }
-      break;
-    default:
-      break;
-    }
+    doCommand(getchar());
   }
 #endif
   // tick the vortex engine forward
@@ -215,25 +293,37 @@ bool Vortex::tick()
   return true;
 }
 
+
 void Vortex::installCallbacks(VortexCallbacks *callbacks)
 {
   m_storedCallbacks = callbacks;
 }
 
+void Vortex::setInstantTimestep(bool timestep)
+{
+  Time::setInstantTimestep(timestep);
+}
+
 // send various clicks
 void Vortex::shortClick(uint32_t buttonIndex)
 {
-  m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_SHORT_CLICK));
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_SHORT_CLICK));
 }
 
 void Vortex::longClick(uint32_t buttonIndex)
 {
-  m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_LONG_CLICK));
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_LONG_CLICK));
 }
 
 void Vortex::menuEnterClick(uint32_t buttonIndex)
 {
-  m_buttonEventQueue.push(VortexButtonEvent(buttonIndex, EVENT_MENU_ENTER_CLICK));
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_MENU_ENTER_CLICK));
+}
+
+void Vortex::sendWait(uint32_t amount)
+{
+  // reusing the button index as the wait amount
+  m_buttonEventQueue.push_back(VortexButtonEvent(amount, EVENT_WAIT));
 }
 
 void Vortex::pressButton(uint32_t buttonIndex)
@@ -268,7 +358,7 @@ bool Vortex::isButtonPressed(uint32_t buttonIndex)
 
 void Vortex::quitClick()
 {
-  m_buttonEventQueue.push(VortexButtonEvent(0, EVENT_QUIT_CLICK));
+  m_buttonEventQueue.push_back(VortexButtonEvent(0, EVENT_QUIT_CLICK));
 }
 
 void Vortex::IRDeliver(uint32_t timing)
@@ -444,7 +534,7 @@ bool Vortex::setPattern(PatternID id, const PatternArgs *args, const Colorset *s
   if (!pMode) {
     return false;
   }
-  if (!pMode->setPattern(id, args, set)) {
+  if (!pMode->setPattern(id, LED_ANY, args, set)) {
     return false;
   }
   return !save || doSave();
@@ -471,7 +561,7 @@ string Vortex::getModeName()
     return patternToString(PATTERN_NONE);
   }
   if (pMode->isMultiLed()) {
-    return patternToString(getPatternID(LED_FIRST));
+    return patternToString(pMode->getPatternID(LED_MULTI));
   }
   // can't use isSampleSingleLed because that will compare the entire
   // pattern for differences in any single led pattern, we only care
@@ -500,7 +590,7 @@ bool Vortex::setPatternAt(LedPos pos, PatternID id,
   if (!pMode) {
     return false;
   }
-  if (!pMode->setPatternAt(pos, id, args, set)) {
+  if (!pMode->setPattern(id, pos, args, set)) {
     return false;
   }
   return !save || doSave();
@@ -512,11 +602,7 @@ bool Vortex::getColorset(LedPos pos, Colorset &set)
   if (!pMode) {
     return false;
   }
-  const Colorset *pSet = pMode->getColorset(pos);
-  if (!pSet) {
-    return false;
-  }
-  set = *pSet;
+  set = pMode->getColorset(pos);
   return true;
 }
 
@@ -526,11 +612,9 @@ bool Vortex::setColorset(LedPos pos, const Colorset &set, bool save)
   if (!pMode) {
     return false;
   }
-  Pattern *pat = pMode->getPattern(pos);
-  if (!pat) {
+  if (!pMode->setColorset(set, pos)) {
     return false;
   }
-  pat->setColorset(&set);
   return !save || doSave();
 }
 
@@ -563,6 +647,15 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
   pMode->init();
   // save the new params
   return !save || doSave();
+}
+
+bool Vortex::isCurModeMulti()
+{
+  Mode *pMode = Modes::curMode();
+  if (!pMode) {
+    return false;
+  }
+  return pMode->isMultiLed();
 }
 
 string Vortex::patternToString(PatternID id)
@@ -742,13 +835,17 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   }
   // pop the event from the front of the queue
   VortexButtonEvent buttonEvent = m_buttonEventQueue.front();
-  m_buttonEventQueue.pop();
-  // make sure the button that is targeted is actually a valid index
-  if (buttonEvent.target >= numButtons) {
-    return;
+  m_buttonEventQueue.pop_front();
+  // the target button for this event (might be nullptr if event is just 'wait')
+  Button *pButton = nullptr;
+  if (buttonEvent.type != EVENT_WAIT) {
+    // make sure the button that is targeted is actually a valid index
+    if (buttonEvent.target >= numButtons) {
+      return;
+    }
+    // assigned the button based on the array index target
+    pButton = buttons + buttonEvent.target;
   }
-  // grab the target button for this event
-  Button *pButton = buttons + buttonEvent.target;
   // switch on the type of event and then run the operation
   switch (buttonEvent.type) {
   case EVENT_NONE:
@@ -759,12 +856,14 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_shortClick = true;
     pButton->m_pressTime = Time::getCurtime();
     pButton->m_holdDuration = 200;
+    DEBUG_LOG("Injecting short click");
     break;
   case EVENT_LONG_CLICK:
     pButton->m_newRelease = true;
     pButton->m_longClick = true;
     pButton->m_pressTime = Time::getCurtime();
     pButton->m_holdDuration = SHORT_CLICK_THRESHOLD_TICKS + 1;
+    DEBUG_LOG("Injecting long click");
     break;
   case EVENT_MENU_ENTER_CLICK:
     // to do this we simply press the button and set the press time
@@ -774,7 +873,22 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_pressTime = Time::getCurtime();
     pButton->m_holdDuration = MENU_TRIGGER_THRESHOLD_TICKS + 1;
     pButton->m_isPressed = true;
-    m_buttonEventQueue.push(VortexButtonEvent(0, EVENT_RESET_CLICK));
+    m_buttonEventQueue.push_front(VortexButtonEvent(0, EVENT_RESET_CLICK));
+    DEBUG_LOG("Injecting menu enter click");
+    break;
+  case EVENT_WAIT:
+    if (buttonEvent.target) {
+      // backup the event queue and clear it
+      deque<Vortex::VortexButtonEvent> backup;
+      std::swap(backup, m_buttonEventQueue);
+      // ticks the engine forward some number of ticks, the event queue is empty
+      // so the engine won't process any input events while doing this
+      for (uint32_t i = 0; i < buttonEvent.target; ++i) {
+        VortexEngine::tick();
+      }
+      // then restore the event queue so that events are processed like normal
+      std::swap(backup, m_buttonEventQueue);
+    }
     break;
   case EVENT_TOGGLE_CLICK:
     if (pButton->isPressed()) {
@@ -787,17 +901,20 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
       pButton->m_newRelease = true;
       pButton->m_shortClick = (pButton->m_holdDuration <= SHORT_CLICK_THRESHOLD_TICKS);
       pButton->m_longClick = !pButton->m_shortClick;
+      DEBUG_LOG("Injecting release");
     } else {
       pButton->m_buttonState = LOW;
       pButton->m_isPressed = true;
       pButton->m_releaseDuration = (uint32_t)(Time::getCurtime() - pButton->m_releaseTime);
       pButton->m_pressTime = Time::getCurtime();
       pButton->m_newPress = true;
+      DEBUG_LOG("Injecting press");
     }
     break;
   case EVENT_QUIT_CLICK:
     // just uninitialize so tick returns false
     m_initialized = false;
+    DEBUG_LOG("Injecting quit");
     break;
   case EVENT_RESET_CLICK:
     pButton->m_isPressed = false;
