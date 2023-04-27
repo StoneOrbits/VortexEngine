@@ -74,12 +74,11 @@ bool Menus::init()
 
 void Menus::cleanup()
 {
-  // close any open menu
-  if (m_menuState == MENU_STATE_IN_MENU) {
-    m_pCurMenu->leaveMenu();
+  if (m_pCurMenu) {
+    delete m_pCurMenu;
     m_pCurMenu = nullptr;
-    m_menuState = MENU_STATE_NOT_OPEN;
   }
+  m_menuState = MENU_STATE_NOT_OPEN;
   m_selection = 0;
   m_openTime = 0;
 }
