@@ -69,7 +69,7 @@ void SequencedPattern::play()
       curSet = &step.m_colorsetMap[pos];
     }
     // if there's no pattern, or pattern is wrong colorset or pattern ID
-    if (!curPat || !curPat->getColorset()->equals(curSet) || curPat->getPatternID() != stepPattern) {
+    if (!curPat || !curPat->getColorset().equals(curSet) || curPat->getPatternID() != stepPattern) {
       // delete any existing pattern and re-create it
       delete m_ledPatterns[pos];
       // create whichever pattern this step is (maybe PATTERN_NONE)
@@ -77,7 +77,7 @@ void SequencedPattern::play()
       // if a pattern was created then bind and init it
       if (curPat) {
         curPat->bind(pos);
-        curPat->setColorset(curSet);
+        curPat->setColorset(*curSet);
         curPat->init();
       }
     }

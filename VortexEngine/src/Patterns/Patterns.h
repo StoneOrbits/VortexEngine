@@ -100,8 +100,12 @@ enum PatternID : uint8_t
 };
 
 // some helper functions to improve readability
-inline bool isMultiLedPatternID(PatternID id) { return id >= PATTERN_MULTI_FIRST; }
-inline bool isSingleLedPatternID(PatternID id) { return id < PATTERN_MULTI_FIRST; }
+inline bool isMultiLedPatternID(PatternID id) {
+  return id >= PATTERN_MULTI_FIRST && id <= PATTERN_MULTI_LAST;
+}
+inline bool isSingleLedPatternID(PatternID id) {
+  return id < PATTERN_MULTI_FIRST;
+}
 
 // PatternID operators
 inline PatternID &operator++(PatternID &c)

@@ -42,6 +42,10 @@ protected:
   void showSelect();
   void showExit();
 
+  // iterate to next bulb selection
+  void nextBulbSelection();
+  void prevBulbSelection();
+
   // blink the selected finger
   virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
 

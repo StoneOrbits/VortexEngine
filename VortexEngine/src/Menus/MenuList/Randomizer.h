@@ -22,8 +22,9 @@ public:
   void onLongClick() override;
 
 private:
-  // random context for each led
-  Random m_randCtx[LED_COUNT];
+  // random context for each led and led multi (LED_COUNT + 1)
+  Random m_singlesRandCtx[LED_COUNT];
+  Random m_multiRandCtx;
 
   // re-roll a new randomization with a given context on an led
   bool reRoll(LedPos pos);

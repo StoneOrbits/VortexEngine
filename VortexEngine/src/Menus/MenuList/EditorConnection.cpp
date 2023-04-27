@@ -62,7 +62,7 @@ void EditorConnection::clearDemo()
 {
   Colorset set(RGB_BLANK);
   PatternArgs args(1, 0, 0);
-  m_demoMode.setPattern(PATTERN_BASIC, &args, &set);
+  m_demoMode.setPattern(PATTERN_BASIC, LED_ALL, &args, &set);
   m_demoMode.init();
 }
 
