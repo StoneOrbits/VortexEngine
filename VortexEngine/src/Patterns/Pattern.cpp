@@ -112,32 +112,30 @@ bool Pattern::equals(const Pattern *other)
     return false;
   }
   // compare pattern id
-  if (m_patternID != other->getPatternID()) {
+  if (m_patternID != other->m_patternID) {
     return false;
   }
   // then colorset
-  if (!m_colorset.equals(other->getColorset())) {
+  if (!m_colorset.equals(&other->m_colorset)) {
     return false;
   }
-  // then compare the extra params
-  PatternArgs myArgs;
-  PatternArgs otherArgs;
-  getArgs(myArgs);
-  other->getArgs(otherArgs);
-  if (myArgs != otherArgs) {
+  // number of args
+  if (m_numArgs != other->m_numArgs) {
     return false;
+  }
+  // compare each arg
+  for (uint8_t i = 0; i < m_numArgs; ++i) {
+    if (getArg(i) != other->getArg(i)) {
+      return false;
+    }
   }
   return true;
 }
 
 // change the colorset
-void Pattern::setColorset(const Colorset *set)
+void Pattern::setColorset(const Colorset &set)
 {
-  if (!set) {
-    clearColorset();
-  } else {
-    m_colorset = *set;
-  }
+  m_colorset = set;
 }
 
 void Pattern::clearColorset()

@@ -36,8 +36,17 @@ Menu::MenuAction FactoryReset::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
+<<<<<<< HEAD
 
   // show the reset menu
+=======
+  // bypass led selection for fac reset if a multi was set on
+  // the current slot because it doesn't make sense to pick
+  if (m_pCurMode->isMultiLed()) {
+    m_ledSelected = true;
+    m_targetLeds = MAP_LED(LED_MULTI);
+  }
+>>>>>>> daniel/mode_refactor
   showReset();
 
   // blink the selection
@@ -80,7 +89,7 @@ void FactoryReset::onLongClick()
   // reset the target mode slot on the target led
   const default_mode_entry &def = default_modes[curModeIndex];
   Colorset set(def.numColors, def.cols);
-  m_pCurMode->setPatternAt(m_targetLeds, def.patternID, nullptr, &set);
+  m_pCurMode->setPatternMap(m_targetLeds, def.patternID, nullptr, &set);
   // re-initialize the current mode
   m_pCurMode->init();
   // save and leave the menu

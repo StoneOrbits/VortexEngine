@@ -42,11 +42,10 @@ bool ColorSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  m_state = STATE_PICK_SLOT;
-  m_curPage = 0;
-  m_slot = 0;
-  m_quadrant = 0;
-  m_colorset = *m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+  if (m_pCurMode->isMultiLed()) {
+    m_ledSelected = true;
+  }
+  m_state = STATE_INIT;
   DEBUG_LOG("Entered color select");
   return true;
 }
@@ -58,18 +57,25 @@ Menu::MenuAction ColorSelect::run()
     return result;
   }
 
-  // display different leds based on the state of the color select
+  // all states start with a blank slate
+  Leds::clearAll();
+
   switch (m_state) {
   case STATE_INIT:
     // this is separate from the init function because the target led
     // hasn't been chosen yet at the time of the init function running
     // where as this will run after the target led has been chosen and
     // we can fetch the correct colorset to work with
-    m_newColor.clear();
+    //m_newColor.clear();
+    m_newColor = HSVColor(0, 255, 255);
     m_curSelection = 0;
     m_targetSlot = 0;
     // grab the colorset from our selected target led
-    m_colorset = *m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+    if (m_targetLeds == MAP_LED_ALL) {
+      m_colorset = m_pCurMode->getColorset();
+    } else {
+      m_colorset = m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+    }
     // move on to picking slot
     m_state = STATE_PICK_SLOT;
     break;
@@ -77,16 +83,10 @@ Menu::MenuAction ColorSelect::run()
     showSlotSelection();
     break;
   case STATE_PICK_HUE1:
-    showHueSelection1();
-    break;
   case STATE_PICK_HUE2:
-    showHueSelection2();
-    break;
   case STATE_PICK_SAT:
-    showSatSelection();
-    break;
   case STATE_PICK_VAL:
-    showValSelection();
+    showSelection(m_state);
     break;
   }
 
@@ -137,19 +137,40 @@ void ColorSelect::onShortClick()
 void ColorSelect::onLongClick()
 {
   bool needsSave = false;
-  // if we're exiting a menu
-  if (m_curSelection == FINGER_THUMB) {
-    // leaving a menu, clear everything
-    Leds::clearAll();
-    switch (m_state) {
-    case STATE_PICK_SLOT:
-    default:
-      // need to save if the colorset is not equal
-      needsSave = !m_colorset.equals(m_pCurMode->getColorset());
-      // if we need to save, then actually update the colorset
+  // if we're on 'exit' and we're on any menu past the slot selection
+  if (m_curSelection == 4 && m_state > STATE_PICK_SLOT) {
+    // move back to the previous selection
+    m_state = (ColorSelectState)(m_state - 1);
+    if (m_state == STATE_PICK_SLOT) {
+      // if we're back to the slot selection then set our position
+      // back to the slot we selected
+      m_curSelection = m_targetSlot;
+    } else {
+      // otherwise reset our selection position to 0
+      // NOTE: we could try to reset our position to whatever we selected
+      //       on the previous menu but it's not worth the effort
+      m_curSelection = 0;
+    }
+    return;
+  }
+  switch (m_state) {
+  case STATE_INIT:
+    // nothing
+    return;
+  case STATE_PICK_SLOT:
+    // if the exit is selected then save and exit, this depends on the
+    // number of colors in the colorset. If the colorset is full then
+    // the exit is just the number of colors (8) but if it's not full
+    // then the exit is the number of colors + 1. Example: with 4 cols,
+    // cols are on 0, 1, 2, 3, add-color is 4, and exit is 5
+    if (m_curSelection == m_colorset.numColors() + (m_colorset.numColors() < MAX_COLOR_SLOTS)) {
+      // if we're targetting more than one led then screw
+      // checking if the colorset has changed because it's
+      // not worth the effort
+      needsSave = (!MAP_IS_ONE_LED(m_targetLeds) ||
+          !m_colorset.equals(m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds))));
       if (needsSave) {
-        // save the colorset
-        m_pCurMode->setColorset(&m_colorset);
+        m_pCurMode->setColorsetMap(m_targetLeds, m_colorset);
         m_pCurMode->init();
       }
       // leave menu and save if we made changes
@@ -187,21 +208,20 @@ void ColorSelect::onLongClick()
     // the page is only used for slot selection so reset current page
     // for next time they use the color select
     m_curPage = 0;
+    m_targetSlot = m_curSelection;
     break;
   case STATE_PICK_HUE1:
     // pick a hue1
     m_newColor.hue = m_curSelection * (255 / 4);
-    m_state = STATE_PICK_HUE2;
     break;
   case STATE_PICK_HUE2:
     // pick a hue2
-    m_newColor.hue = m_newColor.hue + ((255 / 16) * m_curSelection);
+    m_newColor.hue += m_curSelection * (255 / 16);
     m_state = STATE_PICK_SAT;
     break;
   case STATE_PICK_SAT:
     // pick a saturation
     m_newColor.sat = sats[m_curSelection];
-    m_state = STATE_PICK_VAL;
     break;
   case STATE_PICK_VAL:
     // pick a value
@@ -223,6 +243,7 @@ void ColorSelect::onLongClick()
   }
   // reset selection after choosing anything
   m_curSelection = FINGER_FIRST;
+  m_state = (ColorSelectState)(m_state + 1);
 }
 
 void ColorSelect::showSlotSelection()
@@ -238,7 +259,7 @@ void ColorSelect::showSlotSelection()
   }
 }
 
-void ColorSelect::showHueSelection1()
+void ColorSelect::showSelection(ColorSelectState mode)
 {
   for (LedPos p = PINKIE_TIP; p <= INDEX_TOP; ++p) {
     Leds::setIndex(p, HSVColor((256 / 8) * p, 255, 255));
