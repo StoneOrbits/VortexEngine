@@ -83,11 +83,17 @@ Menu::MenuAction ColorSelect::run()
   case STATE_PICK_SLOT:
     showSlotSelection();
     break;
-  case STATE_PICK_HUE1:
-  case STATE_PICK_HUE2:
-  case STATE_PICK_SAT:
-  case STATE_PICK_VAL:
-    showSelection(m_state);
+   case STATE_PICK_HUE1:
+    showHueSelection1();
+    break;
+   case STATE_PICK_HUE2:
+    showHueSelection2();
+    break;
+   case STATE_PICK_SAT:
+    showSatSelection();
+    break;
+   case STATE_PICK_VAL:
+    showValSelection();
     break;
   }
 
@@ -202,12 +208,15 @@ void ColorSelect::onLongClick()
     switch (m_state) {
     case STATE_PICK_SLOT:
     default:
-      // need to save if the colorset is not equal
-      needsSave = !m_colorset.equals(m_pCurMode->getColorset());
+      // if we're targetting more than one led then screw
+      // checking if the colorset has changed because it's
+      // not worth the effort
+      needsSave = (!MAP_IS_ONE_LED(m_targetLeds) ||
+        !m_colorset.equals(m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds))));
       // if we need to save, then actually update the colorset
       if (needsSave) {
         // save the colorset
-        m_pCurMode->setColorset(&m_colorset);
+        m_pCurMode->setColorsetMap(m_targetLeds, m_colorset);
         m_pCurMode->init();
       }
       // leave menu and save if we made changes
@@ -316,7 +325,7 @@ void ColorSelect::showSlotSelection()
   }
 }
 
-void ColorSelect::showSelection(ColorSelectState mode)
+void ColorSelect::showHueSelection1(ColorSelectState mode)
 {
   for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
     Leds::setPair(p, HSVColor((256 / PAIR_COUNT) * p, 255, 255));
