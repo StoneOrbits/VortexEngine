@@ -213,38 +213,6 @@ void ColorSelect::showSlotSelection()
     showFullSet(LED_COUNT, Time::getCurtime(), 50, 100);
   }
 }
-//void ColorSelect::showSlotSelection()
-//{
-//  uint32_t holdDur = g_pButton->holdDuration();
-//  // selecting an led regular
-//  if (m_curSelection < m_colorset.numColors()) {
-//    if (g_pButton->isPressed() && holdDur >= DELETE_THRESHOLD_TICKS) {
-//      if ((holdDur % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS) {
-//        // breath red instead of white blink
-//        Leds::breathIndex(LED_COUNT, 0, holdDur);
-//        return;
-//      }
-//    }
-//    // just render that led
-//    Leds::blinkIndex(LED_COUNT, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
-//  }
-//  // exit index is num colors unless we have less than 8 colors
-//  uint8_t exitIndex = m_colorset.numColors();
-//  // otherwise check if we're on add-color or exit
-//  if (m_colorset.numColors() < MAX_COLOR_SLOTS) {
-//    // selecting an led to add a new color
-//    if (m_curSelection == m_colorset.numColors()) {
-//      // blinks to indicate this will be a new color added here
-//      Leds::blinkAll(Time::getCurtime(), 100, 150, RGB_BLANK);
-//    }
-//    // if less than 8 colors the exit index is the num colors plus 1
-//    exitIndex = m_colorset.numColors() + 1;
-//  }
-//  // selecting the exit
-//  if (m_curSelection == exitIndex) {
-//    showFullSet(LED_COUNT, Time::getCurtime(), 50, 100);
-//  }
-//}
 
 void ColorSelect::showSelection(ColorSelectState mode)
 {
