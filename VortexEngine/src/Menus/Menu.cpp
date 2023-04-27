@@ -191,7 +191,7 @@ void Menu::prevBulbSelection()
       //break;
     }
     // iterate as normal
-    m_targetLeds = MAP_LED((mapGetFirstLed(m_targetLeds) + (LED_COUNT - 1)) % (LED_COUNT + 1));
+    m_targetLeds = MAP_LED((mapGetFirstLed(m_targetLeds) + (LED_COUNT)) % (LED_COUNT + 1));
     break;
   }
 }
