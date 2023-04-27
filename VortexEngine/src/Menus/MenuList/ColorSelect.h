@@ -21,19 +21,14 @@ public:
   void onLongClick2() override;
 
 private:
-  // internal routines for the color select
-  void showSlotSelection();
-  void showHueSelection1();
-  void showHueSelection2();
-  void showSatSelection();
-  void showValSelection();
-
   // overridden blink logic for the colorselect menu (Controls how m_curSelection blinks)
   void blinkSelection(uint32_t offMs = 350, uint32_t onMs = 500) override;
 
   // private enumeration for internal state of color selection
   enum ColorSelectState : uint32_t
   {
+    STATE_INIT,
+
     // currently picking the color slot to change
     STATE_PICK_SLOT,
 
@@ -49,6 +44,10 @@ private:
     // picking a value for the color
     STATE_PICK_VAL,
   };
+
+  // internal routines for the color select
+  void showSlotSelection();
+  void showSelection(ColorSelectState mode);
 
   // the options for saturations
   const uint32_t sats[4] = {

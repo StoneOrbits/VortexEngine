@@ -33,6 +33,7 @@ bool SerialComs::isConnected()
 // check for any serial connection or messages
 bool SerialComs::checkSerial()
 {
+#if VORTEX_SLIM == 0
   if (isConnected()) {
     // already connected
     return true;
@@ -49,15 +50,17 @@ bool SerialComs::checkSerial()
     // serial is not connected
     return false;
   }
-  // serial is now connected
-  m_serialConnected = true;
   // Begin serial communications
   Serial.begin(9600);
+#endif
+  // serial is now connected
+  m_serialConnected = true;
   return true;
 }
 
 void SerialComs::write(const char *msg, ...)
 {
+#if VORTEX_SLIM == 0
   if (!isConnected()) {
     return;
   }
@@ -67,10 +70,12 @@ void SerialComs::write(const char *msg, ...)
   int len = vsnprintf((char *)buf, sizeof(buf), msg, list);
   Serial.write(buf, len);
   va_end(list);
+#endif
 }
 
 void SerialComs::write(ByteStream &byteStream)
 {
+#if VORTEX_SLIM == 0
   if (!isConnected()) {
     return;
   }
@@ -78,10 +83,12 @@ void SerialComs::write(ByteStream &byteStream)
   uint32_t size = byteStream.rawSize();
   Serial.write((const uint8_t *)&size, sizeof(size));
   Serial.write((const uint8_t *)byteStream.rawData(), byteStream.rawSize());
+#endif
 }
 
 void SerialComs::read(ByteStream &byteStream)
 {
+#if VORTEX_SLIM == 0
   if (!isConnected()) {
     return;
   }
@@ -93,12 +100,17 @@ void SerialComs::read(ByteStream &byteStream)
     uint8_t byte = Serial.read();
     byteStream.serialize(byte);
   } while (--amt > 0);
+#endif
 }
 
 bool SerialComs::dataReady()
 {
+#if VORTEX_SLIM == 0
   if (!isConnected()) {
     return false;
   }
   return (Serial.available() > 0);
+#else
+  return false;
+#endif
 }
