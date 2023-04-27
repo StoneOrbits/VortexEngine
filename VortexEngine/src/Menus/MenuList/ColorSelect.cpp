@@ -42,11 +42,10 @@ bool ColorSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  m_state = STATE_PICK_SLOT;
-  m_curPage = 0;
-  m_slot = 0;
-  m_quadrant = 0;
-  m_colorset = m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+  if (m_pCurMode->isMultiLed()) {
+    m_ledSelected = true;
+  }
+  m_state = STATE_INIT;
   DEBUG_LOG("Entered color select");
   return true;
 }
@@ -58,6 +57,8 @@ Menu::MenuAction ColorSelect::run()
     return result;
   }
 
+  Leds::clearAll();
+
   // display different leds based on the state of the color select
   switch (m_state) {
   case STATE_INIT:
@@ -65,10 +66,16 @@ Menu::MenuAction ColorSelect::run()
     // hasn't been chosen yet at the time of the init function running
     // where as this will run after the target led has been chosen and
     // we can fetch the correct colorset to work with
-    m_newColor.clear();
+    m_newColor = HSVColor(0, 255, 255);
     m_curSelection = FINGER_FIRST;
+    m_curPage = 0;
+    m_slot = 0;
     // grab the colorset from our selected target led
-    m_colorset = m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+    if (m_targetLeds == MAP_LED_ALL) {
+      m_colorset = m_pCurMode->getColorset();
+    } else {
+      m_colorset = m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+    }
     // move on to picking slot
     m_state = STATE_PICK_SLOT;
     break;
