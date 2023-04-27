@@ -338,8 +338,11 @@ bool Mode::equals(const Mode *other) const
     return false;
   }
 #if VORTEX_SLIM == 0
-  // compare the multi pattern
-  if (m_multiPat && !m_multiPat->equals(other->m_multiPat)) {
+  // compare the multi pattern, either:
+  //   have a local pat and it's not equal to other (other could be null)
+  //   or have no local pat and other has one
+  if ((m_multiPat && !m_multiPat->equals(other->m_multiPat)) ||
+      (!m_multiPat && other->m_multiPat)) {
     return false;
   }
 #endif
