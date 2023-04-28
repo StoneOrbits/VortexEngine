@@ -213,6 +213,10 @@ public:
   static const std::string &getCommandLog() { return m_commandLog; }
   static void clearCommandLog() { m_commandLog.clear(); }
 
+  // enable/disable lockstep mode (one tick per input)
+  static bool enableLockstep(bool enable) { return m_lockstepEnabled = enable; }
+  static bool isLockstep() { return m_lockstepEnabled; }
+
 private:
   // the last command to have been executed
   static char m_lastCommand;
@@ -295,4 +299,6 @@ private:
   static std::string m_commandLog;
   // whether to record commands
   static bool m_commandLogEnabled;
+  // whether to run in lockstep mode (one input per step)
+  static bool m_lockstepEnabled;
 };

@@ -71,6 +71,7 @@ bool Vortex::m_initialized = false;
 uint32_t Vortex::m_buttonsPressed = 0;
 std::string Vortex::m_commandLog;
 bool Vortex::m_commandLogEnabled = false;
+bool Vortex::m_lockstepEnabled = false;
 
 #ifdef _MSC_VER
 #include <Windows.h>
@@ -280,6 +281,10 @@ bool Vortex::tick()
   // we don't call getchar() too many times and accidentally block
   uint32_t numInputs = 0;
   ioctl(STDIN_FILENO, FIONREAD, &numInputs);
+  if (m_lockstepEnabled && !numInputs) {
+    // don't tick till we have input
+    return true;
+  }
   // iterate the number of inputs on stdin and parse each letter
   // into a command for the engine, this will inject all of the commands
   // that are available into the engine but that doesn't necessarily
