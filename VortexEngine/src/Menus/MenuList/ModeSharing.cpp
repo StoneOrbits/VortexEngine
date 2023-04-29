@@ -151,7 +151,6 @@ void ModeSharing::receiveMode()
   // receive the IR mode into the current mode
   if (!IRReceiver::receiveMode(m_pCurMode)) {
     ERROR_LOG("Failed to receive mode");
-    leaveMenu();
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_pCurMode->getPatternID());
