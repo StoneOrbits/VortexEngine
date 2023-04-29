@@ -7,8 +7,6 @@
 //
 #define IR_ENABLE        1
 
-#define IR_TEST_BLOCK_SIZE 16
-
 // the size of IR blocks in bits
 #define DEFAULT_IR_BLOCK_SIZE 32
 #define DEFAULT_IR_BLOCK_SPACING Time::msToTicks(300)
