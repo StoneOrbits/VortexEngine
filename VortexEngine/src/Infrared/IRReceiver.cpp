@@ -79,8 +79,7 @@ bool IRReceiver::receiveMode(Mode *pMode)
   }
   DEBUG_LOGF("Received %u bytes", buf.rawSize());
   // load the data into the target mode
-  pMode->loadFromBuffer(buf);
-  return true;
+  return pMode->loadFromBuffer(buf);
 }
 
 bool IRReceiver::beginReceiving()
