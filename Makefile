@@ -1,8 +1,37 @@
 # Compiler settings
-CC = C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\DxCore\\tools\\avr-gcc\\7.3.0-atmel3.6.1-azduino6/bin/avr-g++.exe
+CC = C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\DxCore\\tools\\avr-gcc\\7.3.0-atmel3.6.1-azduino6/bin/avr-gcc.exe
 LD = C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\DxCore\\tools\\avr-gcc\\7.3.0-atmel3.6.1-azduino6/bin/avr-gcc.exe
 OBJCOPY = C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\DxCore\\tools\\avr-gcc\\7.3.0-atmel3.6.1-azduino6/bin/avr-objcopy.exe
-CFLAGS = -Wall -Os \
+AR = C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\DxCore\\tools\\avr-gcc\\7.3.0-atmel3.6.1-azduino6/bin/avr-gcc-ar.exe
+SIZE = C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\DxCore\\tools\\avr-gcc\\7.3.0-atmel3.6.1-azduino6/bin/avr-size
+
+ASMFLAGS = \
+  -x assembler-with-cpp \
+  -flto \
+  -MMD \
+  -mmcu=attiny3217 \
+  -DF_CPU=20000000L \
+  -DCLOCK_SOURCE=0 \
+  -DTWI_MORS \
+  -DMILLIS_USE_TIMERD0 \
+  -DCORE_ATTACH_ALL \
+  -DUSE_TIMERD0_PWM \
+  -DARDUINO=10819 \
+  -DARDUINO_AVR_ATtiny3217 \
+  -DARDUINO_ARCH_MEGAAVR \
+  -DMEGATINYCORE=\"2.6.7.1\" \
+  -DMEGATINYCORE_MAJOR=2UL \
+  -DMEGATINYCORE_MINOR=6UL \
+  -DMEGATINYCORE_PATCH=7UL \
+  -DMEGATINYCORE_RELEASED=1 \
+  -DARDUINO_attinyxy7 \
+  -I C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\megaTinyCore\\hardware\\megaavr\\2.6.7\\cores\\megatinycore/api/deprecated \
+  -I C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\megaTinyCore\\hardware\\megaavr\\2.6.7\\cores\\megatinycore \
+  -I C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\megaTinyCore\\hardware\\megaavr\\2.6.7\\variants\\txy7 
+
+CFLAGS = \
+  -Wall \
+  -Os \
   -std=gnu++17 \
   -fpermissive \
   -Wno-sized-deallocation \
@@ -118,16 +147,59 @@ SRCS = \
 
 OBJS = $(SRCS:.cpp=.o)
 
+COREASM = \
+	./libraries/megatinycore/wiring_pulse.S
+
+CORESRC = \
+	./libraries/megatinycore/abi.cpp \
+	./libraries/megatinycore/api/Common.cpp \
+	./libraries/megatinycore/api/IPAddress.cpp \
+	./libraries/megatinycore/api/PluggableUSB.cpp \
+	./libraries/megatinycore/api/Print.cpp \
+	./libraries/megatinycore/api/RingBuffer.cpp \
+	./libraries/megatinycore/api/Stream.cpp \
+	./libraries/megatinycore/api/String.cpp \
+	./libraries/megatinycore/ExtraWiring.cpp \
+	./libraries/megatinycore/main.cpp \
+	./libraries/megatinycore/new.cpp \
+	./libraries/megatinycore/Tone.cpp \
+	./libraries/megatinycore/UART.cpp \
+	./libraries/megatinycore/UART0.cpp \
+	./libraries/megatinycore/UART1.cpp \
+	./libraries/megatinycore/wiring_extra.cpp \
+	./libraries/megatinycore/WMath.cpp 
+
+CORESRCC = \
+	./libraries/megatinycore/hooks.c \
+	./libraries/megatinycore/WInterrupts.c \
+	./libraries/megatinycore/WInterrupts_PA.c \
+	./libraries/megatinycore/WInterrupts_PB.c \
+	./libraries/megatinycore/WInterrupts_PC.c \
+	./libraries/megatinycore/wiring.c \
+	./libraries/megatinycore/wiring_analog.c \
+	./libraries/megatinycore/wiring_digital.c \
+	./libraries/megatinycore/wiring_pulse.c \
+	./libraries/megatinycore/wiring_shift.c 
+
+COREOBJS = $(COREASM:.S=.o) $(CORESRC:.cpp=.o) $(CORESRCC:.c=.o)
+
 # Target name
 TARGET = main
 
 all: $(TARGET).hex
+	./avrsize.sh
 
 $(TARGET).hex: $(TARGET).elf
 	$(OBJCOPY) -O ihex -R .eeprom $< $@
 
-$(TARGET).elf: $(OBJS)
+$(TARGET).elf: $(OBJS) core.a
 	$(LD) $(LDFLAGS) $^ -o $@
+
+core.a: $(COREOBJS)
+	$(AR) rcs $@ $^
+	
+%.o: %.S
+	$(CC) $(ASMFLAGS) -c $< -o $@
 
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
@@ -139,5 +211,5 @@ upload: $(TARGET).hex
 	avrdude -p $(MCU) -c jtag2updi -P COM14 -U flash:w:$< -U lfuse:w:0xFF:m -U hfuse:w:
 
 clean:
-	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex
+	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex core.a $(COREOBJS)
 
