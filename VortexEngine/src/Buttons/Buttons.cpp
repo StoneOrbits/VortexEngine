@@ -2,6 +2,9 @@
 
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
+#else
+#include "../Time/TimeControl.h"
+#include "../Time/Timings.h"
 #endif
 
 // Since there is only one button I am just going to expose a global pointer to
