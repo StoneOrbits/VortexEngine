@@ -1,9 +1,16 @@
-# Compiler settings
-CC = C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\DxCore\\tools\\avr-gcc\\7.3.0-atmel3.6.1-azduino6/bin/avr-gcc.exe
-LD = C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\DxCore\\tools\\avr-gcc\\7.3.0-atmel3.6.1-azduino6/bin/avr-gcc.exe
-OBJCOPY = C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\DxCore\\tools\\avr-gcc\\7.3.0-atmel3.6.1-azduino6/bin/avr-objcopy.exe
-AR = C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\DxCore\\tools\\avr-gcc\\7.3.0-atmel3.6.1-azduino6/bin/avr-gcc-ar.exe
-SIZE = C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\DxCore\\tools\\avr-gcc\\7.3.0-atmel3.6.1-azduino6/bin/avr-size
+CC = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-gcc
+LD = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-gcc
+OBJCOPY = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-objcopy
+AR = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-gcc-ar
+SIZE = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-size
+OBJDUMP = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-objdump
+NM = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-nm
+AVRDUDE =  C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avrdude/6.3.0-arduino17or18/bin/avrdude
+
+AVRDUDE_CONF = C:/Users/danie/source/repos/VortexAVR/VortexEngine/avrdude.conf
+AVRDUDE_PORT = COM12
+AVRDUDE_BAUDRATE = 115200
+AVRDUDE_FLAGS = -C$(AVRDUDE_CONF) -v -pattiny3217 -cjtag2updi -P$(AVRDUDE_PORT) -b$(AVRDUDE_BAUDRATE)
 
 ASMFLAGS = \
   -x assembler-with-cpp \
@@ -25,9 +32,9 @@ ASMFLAGS = \
   -DMEGATINYCORE_PATCH=7UL \
   -DMEGATINYCORE_RELEASED=1 \
   -DARDUINO_attinyxy7 \
-  -I C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\megaTinyCore\\hardware\\megaavr\\2.6.7\\cores\\megatinycore/api/deprecated \
-  -I C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\megaTinyCore\\hardware\\megaavr\\2.6.7\\cores\\megatinycore \
-  -I C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\megaTinyCore\\hardware\\megaavr\\2.6.7\\variants\\txy7 
+  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore/api/deprecated \
+  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore \
+  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/variants/txy7 
 
 CFLAGS = \
   -Wall \
@@ -59,13 +66,13 @@ CFLAGS = \
   -DMEGATINYCORE_PATCH=7UL \
   -DMEGATINYCORE_RELEASED=1 \
   -DARDUINO_attinyxy7  \
-  -I C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\megaTinyCore\\hardware\\megaavr\\2.6.7\\cores\\megatinycore/api/deprecated \
-  -I C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\megaTinyCore\\hardware\\megaavr\\2.6.7\\cores\\megatinycore \
-  -I C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\megaTinyCore\\hardware\\megaavr\\2.6.7\\variants\\txy7
+  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore/api/deprecated \
+  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore \
+  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/variants/txy7
 
 #LDFLAGS = -mmcu=attiny3217 -nostartfiles -flto -fuse-linker-plugin -Wl,--gc-sections -Wl,--section-start=.text=0x0 -lm
 
-LDFLAGS = -Wall -Os -flto -fuse-linker-plugin -Wl,--gc-sections -Wl,--section-start=.text=0x0 -mrelax -mmcu=attiny3217 -lm
+LDFLAGS = -Wall -Os -flto -fuse-linker-plugin -Wl,--gc-sections -Wl,--section-start=.text=0x0 -mrelax -mmcu=attiny3217 -lm -Wl,-T,custom.xn
 
 INCLUDES=\
 	-I ./VortexEngine/src/ \
@@ -143,7 +150,6 @@ SRCS = \
 	./VortexEngine/src/Time/TimeControl.cpp \
 	./VortexEngine/src/Time/Timer.cpp \
 	./VortexEngine/src/VortexEngine.cpp \
-        ./main.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -167,7 +173,8 @@ CORESRC = \
 	./libraries/megatinycore/UART0.cpp \
 	./libraries/megatinycore/UART1.cpp \
 	./libraries/megatinycore/wiring_extra.cpp \
-	./libraries/megatinycore/WMath.cpp 
+	./libraries/megatinycore/WMath.cpp \
+	./appmain.cpp
 
 CORESRCC = \
 	./libraries/megatinycore/hooks.c \
@@ -187,9 +194,13 @@ COREOBJS = $(COREASM:.S=.o) $(CORESRC:.cpp=.o) $(CORESRCC:.c=.o)
 TARGET = main
 
 all: $(TARGET).hex
+	$(OBJDUMP) --disassemble --source --line-numbers --demangle --section=.text $(TARGET).elf > $(TARGET).lst
+	$(NM) --numeric-sort --line-numbers --demangle --print-size --format=s $(TARGET).elf > $(TARGET).map
 	./avrsize.sh
 
 $(TARGET).hex: $(TARGET).elf
+	$(OBJCOPY) -O binary -R .eeprom $(TARGET).elf $(TARGET).bin
+	$(OBJCOPY) -O ihex -j .eeprom --set-section-flags=.eeprom=alloc,load --no-change-warnings --change-section-lma .eeprom=0 $(TARGET).elf $(TARGET).eep
 	$(OBJCOPY) -O ihex -R .eeprom $< $@
 
 $(TARGET).elf: $(OBJS) core.a
@@ -204,11 +215,8 @@ core.a: $(COREOBJS)
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-flash: $(TARGET).hex
-	avrdude -p $(MCU) -c jtag2updi -P COM14 -U flash:w:$<
-
 upload: $(TARGET).hex
-	avrdude -p $(MCU) -c jtag2updi -P COM14 -U flash:w:$< -U lfuse:w:0xFF:m -U hfuse:w:
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -Ufuse0:w:0b00000000:m -Ufuse2:w:0x02:m -Ufuse5:w:0b11000101:m -Ufuse6:w:0x04:m -Ufuse7:w:0x7c:m -Ufuse8:w:0x00:m -Uflash:w:$(TARGET).hex:i
 
 clean:
 	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex core.a $(COREOBJS)

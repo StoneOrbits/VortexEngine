@@ -37,7 +37,7 @@ uint8_t __attribute__((weak)) onAfterInit() {
 
 
 
-int main()  __attribute__((weak));
+//int main()  __attribute__((weak));
 /* The main function - call initialization functions (in wiring.c) then setup, and finally loop *
  * repeatedly. If SerialEvent is enabled (which should be unusual, as it is no longer a menu    *
  * option even, that gets checked for after each call to loop). Note that _pre_main() is        *
@@ -46,16 +46,16 @@ int main()  __attribute__((weak));
  * overrides main. In the past there was a USB-related function here, that is removed, as work  *
  * will be needed in any event at the core level if VUSB-based "stuff" arrives, but really I'm  *
  * just waiting for the DU-series now                                                           */
-int main() {
-  onBeforeInit(); // Emnpty callback called before init but after the .init stuff. First normal code executed
-  init(); // Interrupts are turned on just prior to init() returning.
-  initVariant();
-  if (!onAfterInit()) sei();  // enable interrupts.
-  setup();
-  for (;;) {
-    loop();
-  }
-}
+//int main() {
+//  onBeforeInit(); // Emnpty callback called before init but after the .init stuff. First normal code executed
+//  init(); // Interrupts are turned on just prior to init() returning.
+//  initVariant();
+//  if (!onAfterInit()) sei();  // enable interrupts.
+//  setup();
+//  for (;;) {
+//    loop();
+//  }
+//}
 
 
 
