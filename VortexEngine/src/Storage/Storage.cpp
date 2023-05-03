@@ -21,7 +21,8 @@
 #include <unistd.h>
 #endif
 
-#define storage_data ((uint8_t *)0x7c00)
+__attribute__((section(".storage"), used))
+static const uint8_t storage_data[0x400] = {0};
 
 uint32_t Storage::m_lastSaveSize = 0;
 
@@ -77,57 +78,28 @@ void ledVerification(uint8_t val, uint8_t d)
 #endif
 }
 
-/**
- * \brief Erase a page in flash
- *
- * \param[in] flash_adr The byte-address in flash to erase. Must point to start-of-page.
- *
- * \return Status of the operation
- */
-void erase_flash_page(uint16_t flash_adr)
-{
-	// Create a pointer in unified memory map to the page to erase
-	uint8_t *data_space = (uint8_t *)(flash_adr);
-	// Perform a dummy write to this address to update the address register in NVMCTL
-	*data_space = 0;
-	// Erase the flash page
-	_PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, NVMCTRL_CMD_PAGEERASE_gc);
-	while (NVMCTRL.STATUS & NVMCTRL_FBUSY_bm);
-}
-
-/**
- * \brief Write a page in flash.
- *
- * \param[in] flash_adr The byte-address of the flash page to write to. Must point to start-of-page.
- * \param[in] data The data to write to the flash page
- *
- * \return Status of the operation
- */
-void write_flash_page(uint16_t flash_adr, uint8_t *data)
-{
-
-	// Create a pointer in unified memory map to the page to write
-	uint8_t *data_space = (uint8_t *)(flash_adr);
-	// Write data to the page buffer
-	memcpy(data_space, data, PROGMEM_PAGE_SIZE);
-	// Write the flash page
-	_PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, NVMCTRL_CMD_PAGEWRITE_gc);
-	while (NVMCTRL.STATUS & NVMCTRL_FBUSY_bm);
-}
-
 // store a serial buffer to storage
 bool Storage::write(ByteStream &buffer)
 {
   // Check size
-  if (buffer.rawSize() > STORAGE_SIZE) {
+  const uint16_t size = buffer.rawSize();
+  if (!size || size > STORAGE_SIZE) {
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
-  const uint8_t *end = buf + buffer.rawSize();
-  for (uint16_t i = 0; i < buffer.rawSize(); i += PROGMEM_PAGE_SIZE) {
-		erase_flash_page(storage_data + i);
-		write_flash_page(storage_data + i, buf + i);
+  for (uint16_t i = 0; i < size; i += PROGMEM_PAGE_SIZE) {
+    // don't read past the end of the input buffer
+    uint16_t s = ((i + PROGMEM_PAGE_SIZE) >= size) ? (size % PROGMEM_PAGE_SIZE) : PROGMEM_PAGE_SIZE;
+    // copy in the chunk of bytes
+    memcpy(storage_data + i, buf + i, s);
+    // Erase + write the flash page
+    _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, 0x3);
+    while (NVMCTRL.STATUS & NVMCTRL_FBUSY_bm);
+  }
+  for (uint16_t i = 0; i < size; i++) {
+    uint8_t b = storage_data[i];
+    ledVerification(b, buf[i]);
   }
 
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
@@ -144,7 +116,7 @@ bool Storage::read(ByteStream &buffer)
   }
 #ifdef VORTEX_ARDUINO
   // Read data from Flash
-  for (uint32_t i = 0; i < STORAGE_SIZE; i++) {
+  for (uint16_t i = 0; i < STORAGE_SIZE; i++) {
     ((uint8_t *)buffer.rawData())[i] = storage_data[i];
   }
 #endif
