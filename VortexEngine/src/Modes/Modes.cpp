@@ -72,9 +72,9 @@ bool Modes::saveToBuffer(ByteStream &modesBuffer)
 #if VORTEX_SMALL_SAVES == 0
   // serialize the engine version into the modes buffer
   VortexEngine::serializeVersion(modesBuffer);
+#endif
   // serialize the global brightness
   modesBuffer.serialize((uint8_t)Leds::getBrightness());
-#endif
   // serialize all modes data into the modesBuffer
   serialize(modesBuffer);
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
@@ -93,17 +93,19 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   }
   // reset the unserializer index before unserializing anything
   modesBuffer.resetUnserializer();
+#if VORTEX_SMALL_SAVES == 0
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
-  //modesBuffer.unserialize(&major);
-  //modesBuffer.unserialize(&minor);
+  modesBuffer.unserialize(&major);
+  modesBuffer.unserialize(&minor);
   // check the version for incompatibility
   if (!VortexEngine::checkVersion(major, minor)) {
     // incompatible version
     ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
     return false;
   }
+#endif
   // unserialize the global brightness
   uint8_t brightness = 0;
   //modesBuffer.unserialize(&brightness);

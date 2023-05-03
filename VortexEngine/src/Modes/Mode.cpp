@@ -159,8 +159,10 @@ void Mode::play()
 
 bool Mode::saveToBuffer(ByteStream &modeBuffer) const
 {
+#if VORTEX_SMALL_SAVES == 0
   // serialize the engine version into the modes buffer
   VortexEngine::serializeVersion(modeBuffer);
+#endif
   // serialize all mode data into the modeBuffer
   serialize(modeBuffer);
   DEBUG_LOGF("Serialized mode, uncompressed size: %u", modeBuffer.size());
@@ -175,6 +177,7 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
   }
   // reset the unserializer index before unserializing anything
   modeBuffer.resetUnserializer();
+#if VORTEX_SMALL_SAVES == 0
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
@@ -186,6 +189,7 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
     ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
     return false;
   }
+#endif
   // now just unserialize the list of patterns
   if (!unserialize(modeBuffer)) {
     return false;
@@ -197,6 +201,7 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
 
 void Mode::serialize(ByteStream &buffer) const
 {
+#if VORTEX_SMALL_SAVES == 0
   // serialize the number of leds
   buffer.serialize((uint8_t)MODE_LEDCOUNT);
 #if FIXED_LED_COUNT == 0
@@ -204,6 +209,7 @@ void Mode::serialize(ByteStream &buffer) const
   if (!MODE_LEDCOUNT) {
     return;
   }
+#endif
 #endif
   // serialize the flags
   uint32_t flags = getFlags();
@@ -243,8 +249,8 @@ void Mode::serialize(ByteStream &buffer) const
 bool Mode::unserialize(ByteStream &buffer)
 {
   clearPattern(LED_ALL);
+  uint8_t ledCount = LED_COUNT;
 #if VORTEX_SMALL_SAVES == 0
-  uint8_t ledCount = 0;
   // unserialize the number of leds
   buffer.unserialize(&ledCount);
 #if FIXED_LED_COUNT == 0

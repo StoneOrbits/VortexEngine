@@ -197,7 +197,7 @@
 //  2     Errors  Info and error logs are present
 //  3     Debug   All logs are present, info, error, and debug
 //
-#define LOGGING_LEVEL         0
+#define LOGGING_LEVEL         3
 
 // Log to Console
 //
@@ -329,7 +329,7 @@
 // Run the built-in compression test that will find any faults
 // in the compressor or decompressor. This is useful if you install
 // a new compressor or want to test any changes to the compressor
-#define COMPRESSION_TEST      0
+#define COMPRESSION_TEST      1
 
 // Serialization Test
 //
@@ -489,6 +489,12 @@
 #ifdef VORTEX_LIB
 #undef IGNORE_BUTTON_TIME
 #define IGNORE_BUTTON_TIME 0
+#endif
+
+// maybe?
+#if VORTEX_SMALL_SAVES == 1
+//#undef MAX_COLOR_SLOTS
+//#define MAX_COLOR_SLOTS 6
 #endif
 
 #endif // VORTEX_CONFIG_H
