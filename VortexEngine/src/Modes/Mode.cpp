@@ -212,7 +212,7 @@ void Mode::serialize(ByteStream &buffer) const
 #endif
 #endif
   // serialize the flags
-  uint32_t flags = getFlags();
+  ModeFlags flags = getFlags();
   buffer.serialize(flags);
 #if VORTEX_SLIM == 0
   // serialiaze the multi led?
@@ -269,7 +269,7 @@ bool Mode::unserialize(ByteStream &buffer)
   }
 #endif // VORTEX_SMALL_SAVES
   // unserialize the flags value
-  uint32_t flags = 0;
+  ModeFlags flags = 0;
   buffer.unserialize(&flags);
   // if there is a multi led pattern then unserialize it
   if (flags & MODE_FLAG_MULTI_LED) {
@@ -637,9 +637,9 @@ void Mode::clearColorsetMap(LedMap map)
   }
 }
 
-uint32_t Mode::getFlags() const
+ModeFlags Mode::getFlags() const
 {
-  uint32_t flags = 0;
+  ModeFlags flags = 0;
   if (hasMultiLed()) flags |= MODE_FLAG_MULTI_LED;
   if (hasSingleLed()) flags |= MODE_FLAG_SINGLE_LED;
   if (hasSameSingleLed()) flags |= MODE_FLAG_ALL_SAME_SINGLE;

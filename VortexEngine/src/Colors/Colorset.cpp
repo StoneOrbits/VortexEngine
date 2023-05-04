@@ -454,13 +454,13 @@ void Colorset::serialize(ByteStream &buffer) const
   buffer.serialize(m_numColors);
   // write all the reds/greens/blues together to maximize chance of
   // repeated values to improve RLE compression
-  for (uint32_t i = 0; i < m_numColors; ++i) {
+  for (uint8_t i = 0; i < m_numColors; ++i) {
     buffer.serialize(m_palette[i].red);
   }
-  for (uint32_t i = 0; i < m_numColors; ++i) {
+  for (uint8_t i = 0; i < m_numColors; ++i) {
     buffer.serialize(m_palette[i].green);
   }
-  for (uint32_t i = 0; i < m_numColors; ++i) {
+  for (uint8_t i = 0; i < m_numColors; ++i) {
     buffer.serialize(m_palette[i].blue);
   }
 }
@@ -469,14 +469,14 @@ void Colorset::unserialize(ByteStream &buffer)
 {
   buffer.unserialize(&m_numColors);
   initPalette(m_numColors);
-  for (uint32_t i = 0; i < m_numColors; ++i) {
+  for (uint8_t i = 0; i < m_numColors; ++i) {
     buffer.unserialize(&m_palette[i].red);
   }
-  for (uint32_t i = 0; i < m_numColors; ++i) {
+  for (uint8_t i = 0; i < m_numColors; ++i) {
     buffer.unserialize(&m_palette[i].green);
   }
-  for (uint32_t i = 0; i < m_numColors; ++i) {
-    buffer.unserialize(&m_palette[i].red);
+  for (uint8_t i = 0; i < m_numColors; ++i) {
+    buffer.unserialize(&m_palette[i].blue);
   }
 }
 

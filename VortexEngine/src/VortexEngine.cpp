@@ -1,5 +1,6 @@
 #include "VortexEngine.h"
 
+#include <stdio.h>
 #include "Infrared/IRReceiver.h"
 #include "Infrared/IRSender.h"
 #include "Storage/Storage.h"
@@ -55,6 +56,9 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
+
+  uint32_t maxsize = Modes::maxModeSize();
+  printf("Max mode size: %u\n", maxsize);
 
 #if COMPRESSION_TEST == 1
   compressionTest();

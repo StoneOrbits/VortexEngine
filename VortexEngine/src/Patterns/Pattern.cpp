@@ -2,6 +2,7 @@
 
 #include <Arduino.h>
 
+#include "../Patterns/PatternBuilder.h"
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Colors/Colorset.h"
@@ -58,7 +59,15 @@ void Pattern::serialize(ByteStream &buffer) const
   m_colorset.serialize(buffer);
   PatternArgs args;
   getArgs(args);
-  args.serialize(buffer);
+  PatternArgs defaults = PatternBuilder::getDefaultArgs(m_patternID);
+  // generate a bitmap of which args are defaulted
+  uint8_t argmap = ARG_NONE;
+  for (uint32_t i = 0; i < args.numArgs; ++i) {
+    if (args.args[i] != defaults.args[i]) {
+      ARGMAP_SET(argmap, i);
+    }
+  }
+  args.serialize(buffer, argmap);
 }
 
 // must override unserialize to load patterns
@@ -68,9 +77,11 @@ void Pattern::unserialize(ByteStream &buffer)
   // unserialized by the pattern builder to decide which pattern
   // to instantiate, instead only unserialize the colorset
   m_colorset.unserialize(buffer);
-  PatternArgs args;
-  args.unserialize(buffer);
-  if (args.numArgs > 0) {
+  // start with the default args for this pattern
+  PatternArgs args = PatternBuilder::getDefaultArgs(m_patternID);
+  // then unserialize any different args overtop of the defaults
+  if (args.unserialize(buffer) != ARG_NONE) {
+    // if any args were unserialized, set them
     setArgs(args);
   }
 }

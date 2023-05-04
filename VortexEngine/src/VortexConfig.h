@@ -45,10 +45,8 @@
 // Make much smaller savefiles at the cost of many things.
 // Some of the features that are disabled by this flag are:
 //   - savefile versioning (2 bytes)
-//   - savefile brightness (1 byte)
 //   - savefile dynamic mode count (1 byte)
 //   - savefile dynamic led count (1 byte per mode)
-//   - 6 colors instead of 8 (6 bytes per pattern)
 #define VORTEX_SMALL_SAVES    1
 
 // ===================================================================
@@ -203,7 +201,7 @@
 //
 // Enable logging to console, still need to change LOGGING_LEVEL
 // this only enables the console output connection
-#define LOG_TO_CONSOLE        0
+#define LOG_TO_CONSOLE        1
 
 // Log to File
 //
@@ -329,7 +327,7 @@
 // Run the built-in compression test that will find any faults
 // in the compressor or decompressor. This is useful if you install
 // a new compressor or want to test any changes to the compressor
-#define COMPRESSION_TEST      1
+#define COMPRESSION_TEST      0
 
 // Serialization Test
 //

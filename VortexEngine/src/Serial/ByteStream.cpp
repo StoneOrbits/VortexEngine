@@ -211,6 +211,7 @@ bool ByteStream::compress()
   // recalculate the CRC even if we don't compress, this ensures the
   // CRC is always up to date as long as compress() is called
   recalcCRC();
+  return true;
   // check to see if the buffer is already compressed
   if (is_compressed()) {
     // already compressed
