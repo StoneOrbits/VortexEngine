@@ -33,7 +33,6 @@ const default_mode_entry default_modes[] = {
       0x700000
     }
   },
-#if 0
   {
     PATTERN_ULTRADOPS, 8, {
       0x1C0000,
@@ -53,7 +52,6 @@ const default_mode_entry default_modes[] = {
       RGB_BLUE
     }
   }
-#endif
 };
 
 // exposed size of the default modes array
