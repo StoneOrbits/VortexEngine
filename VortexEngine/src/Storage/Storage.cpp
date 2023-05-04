@@ -110,10 +110,6 @@ bool Storage::write(ByteStream &buffer)
 // read a serial buffer from storage
 bool Storage::read(ByteStream &buffer)
 {
-  uint32_t size = (*(uint32_t *)storage_data) + sizeof(ByteStream::RawBuffer);
-  if (!size || size > STORAGE_SIZE) {
-    return false;
-  }
 #ifdef VORTEX_ARDUINO
   uint32_t size = (*(uint32_t *)storage_data) + sizeof(ByteStream::RawBuffer);
   if (!size || size > STORAGE_SIZE) {
