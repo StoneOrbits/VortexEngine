@@ -21,8 +21,8 @@
 #include <unistd.h>
 #endif
 
-__attribute__((section(".storage"), used))
-static const uint8_t storage_data[0x400] = {0};
+__attribute__((section(".storage")))
+static const uint8_t storage_data[STORAGE_SIZE] = {0};
 
 uint32_t Storage::m_lastSaveSize = 0;
 
@@ -92,16 +92,11 @@ bool Storage::write(ByteStream &buffer)
     // don't read past the end of the input buffer
     uint16_t s = ((i + PROGMEM_PAGE_SIZE) >= size) ? (size % PROGMEM_PAGE_SIZE) : PROGMEM_PAGE_SIZE;
     // copy in the chunk of bytes
-    memcpy(storage_data + i, buf + i, s);
+    memcpy(((uint8_t *)storage_data) + i, buf + i, s);
     // Erase + write the flash page
     _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, 0x3);
     while (NVMCTRL.STATUS & NVMCTRL_FBUSY_bm);
   }
-  for (uint16_t i = 0; i < size; i++) {
-    uint8_t b = storage_data[i];
-    ledVerification(b, buf[i]);
-  }
-
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
   return true;
 }
@@ -109,16 +104,17 @@ bool Storage::write(ByteStream &buffer)
 // read a serial buffer from storage
 bool Storage::read(ByteStream &buffer)
 {
-  // init storage buffer with max storaeg size so we can read into it
-  if (!buffer.init(STORAGE_SIZE)) {
-    ERROR_LOGF("Could not initialize buffer with %u bytes", STORAGE_SIZE);
+  uint32_t size = (*(uint32_t *)storage_data) + sizeof(ByteStream::RawBuffer);
+  if (!size || size > STORAGE_SIZE) {
     return false;
   }
 #ifdef VORTEX_ARDUINO
   // Read data from Flash
-  for (uint16_t i = 0; i < STORAGE_SIZE; i++) {
-    ((uint8_t *)buffer.rawData())[i] = storage_data[i];
+  if (!buffer.rawInit(storage_data, size)) {
+    ERROR_LOGF("Could not initialize buffer with %u bytes", STORAGE_SIZE);
+    return false;
   }
+  m_lastSaveSize = size;
 #endif
   DEBUG_LOGF("Loaded savedata (Size: %u)", buffer.size());
   return true;

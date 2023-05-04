@@ -219,7 +219,14 @@ core.a: $(COREOBJS)
 # fuse7 = APPEND
 # fuse8 = BOOTEND
 upload: $(TARGET).hex
-	$(AVRDUDE) $(AVRDUDE_FLAGS) -Ufuse0:w:0b00000000:m -Ufuse2:w:0x02:m -Ufuse5:w:0b11000101:m -Ufuse6:w:0x04:m -Ufuse7:w:0x7C:m -Ufuse8:w:0x00:m -Uflash:w:$(TARGET).hex:i
+	$(AVRDUDE) $(AVRDUDE_FLAGS) \
+		-Ufuse0:w:0b00000000:m \
+		-Ufuse2:w:0x02:m \
+		-Ufuse5:w:0b11000101:m \
+		-Ufuse6:w:0x04:m \
+		-Ufuse7:w:0x7C:m \
+		-Ufuse8:w:0x00:m \
+		-Uflash:w:$(TARGET).hex:i
 
 clean:
 	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex core.a $(COREOBJS)
