@@ -216,7 +216,6 @@ bool ByteStream::compress()
     // already compressed
     return true;
   }
-  return true;
   // use LZ4_compressBound for the output buffer size, it may be larger
   // but it will allow for faster compression then we can shrink it after
   ByteStream compressedBuffer(compress_size(m_pData->size));

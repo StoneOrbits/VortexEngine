@@ -113,7 +113,7 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
 #endif
   // unserialize the global brightness
   uint8_t brightness = 0;
-  //modesBuffer.unserialize(&brightness);
+  modesBuffer.unserialize(&brightness);
   if (brightness) {
     Leds::setBrightness(brightness);
   }
