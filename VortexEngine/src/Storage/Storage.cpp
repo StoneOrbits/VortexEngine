@@ -21,8 +21,10 @@
 #include <unistd.h>
 #endif
 
+#ifdef VORTEX_ARDUINO
 __attribute__((section(".storage")))
 static const uint8_t storage_data[STORAGE_SIZE] = {0};
+#endif
 
 uint32_t Storage::m_lastSaveSize = 0;
 
@@ -81,6 +83,7 @@ void ledVerification(uint8_t val, uint8_t d)
 // store a serial buffer to storage
 bool Storage::write(ByteStream &buffer)
 {
+#ifdef VORTEX_ARDUINO
   // Check size
   const uint16_t size = buffer.rawSize();
   if (!size || size > STORAGE_SIZE) {
@@ -100,6 +103,7 @@ bool Storage::write(ByteStream &buffer)
     while (NVMCTRL.STATUS & NVMCTRL_FBUSY_bm);
   }
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
+#endif
   return true;
 }
 
@@ -111,6 +115,10 @@ bool Storage::read(ByteStream &buffer)
     return false;
   }
 #ifdef VORTEX_ARDUINO
+  uint32_t size = (*(uint32_t *)storage_data) + sizeof(ByteStream::RawBuffer);
+  if (!size || size > STORAGE_SIZE) {
+    return false;
+  }
   // Read data from Flash
   if (!buffer.rawInit(storage_data, STORAGE_SIZE)) {
     ERROR_LOGF("Could not initialize buffer with %u bytes", STORAGE_SIZE);

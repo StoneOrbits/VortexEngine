@@ -200,6 +200,7 @@ bool ByteStream::extend(uint32_t size)
   return true;
 }
 
+#include <stdio.h>
 bool ByteStream::compress()
 {
   // only compress if we have valid data
@@ -210,6 +211,7 @@ bool ByteStream::compress()
   // recalculate the CRC even if we don't compress, this ensures the
   // CRC is always up to date as long as compress() is called
   recalcCRC();
+  return true;
   // check to see if the buffer is already compressed
   if (is_compressed()) {
     // already compressed
@@ -219,6 +221,14 @@ bool ByteStream::compress()
   // use LZ4_compressBound for the output buffer size, it may be larger
   // but it will allow for faster compression then we can shrink it after
   ByteStream compressedBuffer(compress_size(m_pData->size));
+  printf("checking to compress data size [%u]...\n", m_pData->size);
+  for (uint32_t i = 0; i < m_pData->size; ++i) {
+    printf("%02x ", m_pData->buf[i]);
+    if (i > 0 && (i + 1) % 32 == 0) {
+      printf("\n");
+    }
+  }
+  printf("\n");
   // compress the data
   int compressedSize = compress_buffer(m_pData->buf, compressedBuffer.m_pData->buf,
     m_pData->size, compressedBuffer.m_capacity);
@@ -227,6 +237,14 @@ bool ByteStream::compress()
     DEBUG_LOGF("Failed to compress, error: %d", compressedSize);
     return false;
   }
+  printf("compressed data [%u]:\n", compressedSize);
+  for (uint32_t i = 0; i < compressedSize; ++i) {
+    printf("%02x ", compressedBuffer.m_pData->buf[i]);
+    if (i > 0 && (i + 1) % 32 == 0) {
+      printf("\n");
+    }
+  }
+  printf("\n");
   // check for useless compression
   if (!compressedSize || (uint32_t)compressedSize >= m_pData->size) {
     // cannot compress, or compressed no smaller than original

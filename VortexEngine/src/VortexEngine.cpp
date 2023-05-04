@@ -237,7 +237,7 @@ void VortexEngine::compressionTest()
       tmpMode.setPattern((PatternID)(len % PATTERN_COUNT));
       Colorset set;
       set.randomizeColorTheory(rand, 8);
-      tmpMode.setColorset(&set);
+      tmpMode.setColorset(set);
       Modes::addMode(&tmpMode);
       modeStream.clear();
       Modes::serialize(modeStream);

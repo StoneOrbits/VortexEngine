@@ -74,8 +74,10 @@ void Modes::play()
 // full save/load to/from buffer
 bool Modes::saveToBuffer(ByteStream &modesBuffer)
 {
+#if VORTEX_SMALL_SAVES == 0
   // serialize the engine version into the modes buffer
   VortexEngine::serializeVersion(modesBuffer);
+#endif
   // serialize the global brightness
   modesBuffer.serialize((uint8_t)Leds::getBrightness());
   // serialize all modes data into the modesBuffer
@@ -96,6 +98,7 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   }
   // reset the unserializer index before unserializing anything
   modesBuffer.resetUnserializer();
+#if VORTEX_SMALL_SAVES == 0
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
@@ -107,9 +110,10 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
     ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
     return false;
   }
+#endif
   // unserialize the global brightness
   uint8_t brightness = 0;
-  modesBuffer.unserialize(&brightness);
+  //modesBuffer.unserialize(&brightness);
   if (brightness) {
     Leds::setBrightness(brightness);
   }
@@ -156,8 +160,10 @@ bool Modes::saveStorage()
 // Save all of the modes to a serial buffer
 void Modes::serialize(ByteStream &modesBuffer)
 {
+#if VORTEX_SMALL_SAVES == 0
   // serialize the number of modes
   modesBuffer.serialize(m_numModes);
+#endif
   // make sure the current mode is saved in case it has changed somehow
   saveCurMode();
   ModeLink *ptr = m_storedModes;
@@ -188,12 +194,16 @@ bool Modes::unserialize(ByteStream &modesBuffer)
   clearModes();
   // unserialize the number of modes next
   uint8_t numModes = 0;
+#if VORTEX_SMALL_SAVES == 0
   modesBuffer.unserialize(&numModes);
   if (!numModes) {
     DEBUG_LOG("Did not find any modes");
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
+#else
+  numModes = MAX_MODES;
+#endif
   // foreach expected mode
   for (uint8_t i = 0; i < numModes; ++i) {
     // just copy the serialized mode into the internal storage because
@@ -509,6 +519,65 @@ void Modes::clearModes()
   // might as well clear the leds
   Leds::clearAll();
 }
+
+#ifdef VORTEX_LIB
+#include "Patterns/PatternBuilder.h"
+// get the maximum size a mode can occupy
+uint32_t Modes::maxModeSize()
+{
+  Mode maxMode;
+  uint8_t x = 0;
+  for (LedPos p = LED_FIRST; p < LED_COUNT; ++p) {
+    // blend takes up 8 params
+    PatternArgs maxArgs((uint8_t)p + 0xd2, (uint8_t)p + 0xd3, (uint8_t)p + 0xd4, (uint8_t)p + 0xd5,
+      (uint8_t)p + 0xd6, (uint8_t)p + 0xd7, (uint8_t)p + 0xd8, (uint8_t)p + 0xd9);
+    //PatternArgs typicalArgs = PatternBuilder::getDefaultArgs(PATTERN_BLEND);
+    Colorset maxSet;
+    for (uint8_t i = 0; i < MAX_COLOR_SLOTS; ++i) {
+      // different color in each slot
+      maxSet.addColor(RGBColor(++x, ++x, ++x));
+    }
+    maxMode.setPattern(PATTERN_BLEND, p, &maxArgs, &maxSet);
+  }
+  ByteStream stream;
+  maxMode.saveToBuffer(stream);
+  return stream.size();
+}
+
+// get the maximum size a savefile can occupy
+uint32_t Modes::maxSaveSize()
+{
+#if MAX_MODES == 0
+  // unbounded
+  return 0;
+#else
+  ByteStream backupModes;
+  saveToBuffer(backupModes);
+  for (uint32_t i = 0; i < MAX_MODES; ++i) {
+    Mode maxMode;
+    for (LedPos p = LED_FIRST; p < LED_COUNT; ++p) {
+      // blend takes up 8 params
+      PatternArgs maxArgs((uint8_t)p + 2, (uint8_t)p + 3, (uint8_t)p + 4, (uint8_t)p + 5,
+        (uint8_t)p + 6, (uint8_t)p + 7, (uint8_t)p + 8, (uint8_t)p + 9);
+      Colorset maxSet;
+      for (uint32_t i = 0; i < MAX_COLOR_SLOTS; ++i) {
+        // different color in each slot
+        maxSet.addColor(RGBColor((uint8_t)p + (i * 3), (uint8_t)p + (i * 3) + 1, (uint8_t)p + (i * 3) + 2));
+      }
+      maxMode.setPattern(PATTERN_BLEND, p, &maxArgs, &maxSet);
+    }
+    addMode(&maxMode);
+  }
+  // grab the size of the new buffer
+  ByteStream stream;
+  saveToBuffer(stream);
+  uint32_t size = stream.size();
+  // restore backed up modes
+  loadFromBuffer(backupModes);
+  return size;
+#endif
+}
+#endif
 
 // fetch a link from the chain by index
 Modes::ModeLink *Modes::getModeLink(uint32_t index)

@@ -34,8 +34,20 @@
 
 // Vortex Slim
 //
-// Turn on this flag to enable the 'slim' version of the engine
+// Turn on this flag to enable the 'slim' version of the engine.
+// This disabled multi-led patterns and compression because the
+// multi-led patterns take up too much space and the compression
+// uses too much stack space to run on smaller devices
 #define VORTEX_SLIM           1
+
+// Vortex Small Saves
+//
+// Make much smaller savefiles at the cost of many things.
+// Some of the features that are disabled by this flag are:
+//   - savefile versioning (2 bytes)
+//   - savefile dynamic mode count (1 byte)
+//   - savefile dynamic led count (1 byte per mode)
+#define VORTEX_SMALL_SAVES    1
 
 // ===================================================================
 //  Numeric Configurations
@@ -132,7 +144,7 @@
 // to be stored, however this is not recommended for production and
 // a specific maximum should be chosen for each device
 //
-#define MAX_MODES             0
+#define MAX_MODES             5
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -475,6 +487,12 @@
 #ifdef VORTEX_LIB
 #undef IGNORE_BUTTON_TIME
 #define IGNORE_BUTTON_TIME 0
+#endif
+
+// maybe?
+#if VORTEX_SMALL_SAVES == 1
+//#undef MAX_COLOR_SLOTS
+//#define MAX_COLOR_SLOTS 6
 #endif
 
 #endif // VORTEX_CONFIG_H
