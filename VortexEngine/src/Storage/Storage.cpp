@@ -87,12 +87,14 @@ bool Storage::write(ByteStream &buffer)
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }
+  uint16_t pages = (size / PROGMEM_PAGE_SIZE) + 1;
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
-  for (uint16_t i = 0; i < size; i += PROGMEM_PAGE_SIZE) {
+  for (uint16_t i = 0; i < pages; i++) {
     // don't read past the end of the input buffer
-    uint16_t s = ((i + PROGMEM_PAGE_SIZE) >= size) ? (size % PROGMEM_PAGE_SIZE) : PROGMEM_PAGE_SIZE;
+    uint16_t target = i * PROGMEM_PAGE_SIZE;
+    uint16_t s = ((target + PROGMEM_PAGE_SIZE) >= size) ? (size % PROGMEM_PAGE_SIZE) : PROGMEM_PAGE_SIZE;
     // copy in the chunk of bytes
-    memcpy(((uint8_t *)storage_data) + i, buf + i, s);
+    memcpy(((uint8_t *)storage_data) + target, buf + target, s);
     // Erase + write the flash page
     _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, 0x3);
     while (NVMCTRL.STATUS & NVMCTRL_FBUSY_bm);
@@ -110,7 +112,7 @@ bool Storage::read(ByteStream &buffer)
   }
 #ifdef VORTEX_ARDUINO
   // Read data from Flash
-  if (!buffer.rawInit(storage_data, size)) {
+  if (!buffer.rawInit(storage_data, STORAGE_SIZE)) {
     ERROR_LOGF("Could not initialize buffer with %u bytes", STORAGE_SIZE);
     return false;
   }
