@@ -68,6 +68,7 @@ CFLAGS = \
   -DARDUINO_attinyxy7  \
   -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore/api/deprecated \
   -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore \
+  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/libraries/EEPROM/src/ \
   -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/variants/txy7
 
 #LDFLAGS = -mmcu=attiny3217 -nostartfiles -flto -fuse-linker-plugin -Wl,--gc-sections -Wl,--section-start=.text=0x0 -lm
@@ -224,7 +225,7 @@ upload: $(TARGET).hex
 		-Ufuse2:w:0x02:m \
 		-Ufuse5:w:0b11000101:m \
 		-Ufuse6:w:0x04:m \
-		-Ufuse7:w:0x7C:m \
+		-Ufuse7:w:0x00:m \
 		-Ufuse8:w:0x00:m \
 		-Uflash:w:$(TARGET).hex:i
 

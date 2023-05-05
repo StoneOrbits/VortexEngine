@@ -417,7 +417,7 @@
 
 // the space available for storing modes is the usable space rounded
 // down to nearest 4096
-#define STORAGE_SIZE 0x100 // (USABLE_SPACE - (USABLE_SPACE % 256))
+#define STORAGE_SIZE 128 // (USABLE_SPACE - (USABLE_SPACE % 256))
 
 // ===================================================================
 //  Test Framework configurations
