@@ -133,8 +133,8 @@ void VortexEngine::tick()
     buf[i] = i;
   }
   ByteStream indata;
-  indata.recalcCRC();
   indata.init(sizeof(buf), buf);
+  indata.recalcCRC();
   Storage::write(indata);
 
   ByteStream outdata;

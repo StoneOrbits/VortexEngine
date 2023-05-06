@@ -7,6 +7,7 @@
 #include "../Memory/Memory.h"
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
+#include "../Leds/Leds.h"
 
 #ifdef VORTEX_ARDUINO
 #include <avr/io.h>
@@ -21,14 +22,14 @@
 #include <unistd.h>
 #endif
 
-#define USE_EEPROM 1
+//#define USE_EEPROM 1
 
 #ifdef VORTEX_ARDUINO
 
 #ifdef USE_EEPROM
 #include <EEPROM.h>
 #else
-#define storage_data ((uint8_t *)0x9000)
+#define storage_data ((uint8_t *)0x8000 + 0x2000)
 #endif
 
 #endif
@@ -83,6 +84,11 @@ bool Storage::write(ByteStream &buffer)
     // Erase + write the flash page
     _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, 0x3);
     while (NVMCTRL.STATUS & 0x3);
+    if (NVMCTRL.STATUS == 4) {
+      Leds::setAll(RGB_BLUE);
+      Leds::update();
+      while (1);
+    }
   }
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
 #endif // USE_EEPROM

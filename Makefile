@@ -85,19 +85,6 @@ endif
 
 # Source files
 SRCS = \
-	./VortexEngine/src/Colors/ColorTypes.cpp \
-	./VortexEngine/src/Leds/Leds.cpp \
-	./VortexEngine/src/Log/ErrorBlinker.cpp \
-	./VortexEngine/src/Log/Log.cpp \
-	./VortexEngine/src/Memory/Memory.cpp \
-	./VortexEngine/src/Modes/Mode.cpp \
-	./VortexEngine/src/Modes/Modes.cpp \
-	./VortexEngine/src/Serial/BitStream.cpp \
-	./VortexEngine/src/Serial/ByteStream.cpp \
-	./VortexEngine/src/Serial/Compression.cpp \
-	./VortexEngine/src/Serial/Serial.cpp \
-	./VortexEngine/src/Storage/Storage.cpp \
-	./VortexEngine/src/VortexEngine.cpp \
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -173,7 +160,7 @@ upload: $(TARGET).hex
 		-Ufuse5:w:0b11000101:m \
 		-Ufuse6:w:0x04:m \
 		-Ufuse7:w:0x00:m \
-		-Ufuse8:w:0x00:m \
+		-Ufuse8:w:0x40:m \
 		-Uflash:w:$(TARGET).hex:i
 
 clean:
