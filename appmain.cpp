@@ -1,5 +1,3 @@
-#include "VortexEngine.h"
-
 #include <Arduino.h>
 
 #define STORAGE_SIZE 128
