@@ -196,7 +196,7 @@ TARGET = main
 
 all: $(TARGET).hex
 	$(OBJDUMP) --disassemble --source --line-numbers --demangle --section=.text $(TARGET).elf > $(TARGET).lst
-	$(OBJDUMP) --disassemble --source --line-numbers --demangle --section=.storage $(TARGET).elf > $(TARGET)-storage.lst
+	#$(OBJDUMP) --disassemble --source --line-numbers --demangle --section=.storage $(TARGET).elf > $(TARGET)-storage.lst
 	$(NM) --numeric-sort --line-numbers --demangle --print-size --format=s $(TARGET).elf > $(TARGET).map
 	./avrsize.sh
 
@@ -225,7 +225,7 @@ upload: $(TARGET).hex
 		-Ufuse2:w:0x02:m \
 		-Ufuse5:w:0b11000101:m \
 		-Ufuse6:w:0x04:m \
-		-Ufuse7:w:0x00:m \
+		-Ufuse7:w:0x78:m \
 		-Ufuse8:w:0x00:m \
 		-Uflash:w:$(TARGET).hex:i
 
