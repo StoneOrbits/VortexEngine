@@ -34,92 +34,149 @@ __ctors_end         |0000007e|   T  |            NOTYPE|        |     |.text	../
 __dtors_end         |0000007e|   T  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:230
 __dtors_start       |0000007e|   T  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:230
 __init              |0000007e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:230
-_initThreeStuff()   |0000008a|   T  |              FUNC|00000018|     |.text
-__do_copy_data      |000000a2|   T  |            NOTYPE|00000016|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2409
-__do_clear_bss      |000000b8|   T  |            NOTYPE|00000010|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2441
-.do_clear_bss_loop  |000000c0|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2446
-.do_clear_bss_start |000000c2|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2448
-__do_global_ctors   |000000c8|   T  |            NOTYPE|00000014|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2466
-__bad_interrupt     |000000e0|   T  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_1          |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_10         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_11         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_12         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_13         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_14         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_16         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_17         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_18         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_19         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_2          |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_20         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_21         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_22         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_23         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_24         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_25         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_26         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_27         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_28         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_29         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_30         |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_6          |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_7          |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_8          |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_9          |000000e0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-micros              |000000e2|   t  |              FUNC|00000076|     |.text
+_initThreeStuff()   |0000008a|   T  |              FUNC|00000002|     |.text
+__do_copy_data      |0000008c|   T  |            NOTYPE|00000016|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2409
+__do_clear_bss      |000000a2|   T  |            NOTYPE|00000010|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2441
+.do_clear_bss_loop  |000000aa|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2446
+.do_clear_bss_start |000000ac|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2448
+__do_global_ctors   |000000b2|   T  |            NOTYPE|00000016|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2466
+__bad_interrupt     |000000d0|   T  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_1          |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_10         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_11         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_12         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_13         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_14         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_16         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_17         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_18         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_19         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_2          |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_20         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_21         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_22         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_23         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_24         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_25         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_26         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_27         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_28         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_29         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_30         |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_6          |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_7          |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_8          |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+__vector_9          |000000d0|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:209
+init_reset_flags()  |000000d2|   t  |              FUNC|0000001a|     |.text
+initVariant         |000000ec|   t  |              FUNC|00000002|     |.text
+onAfterInit         |000000ee|   t  |              FUNC|00000004|     |.text
+onBeforeInit        |000000f2|   t  |              FUNC|00000002|     |.text
+onPreMain           |000000f4|   t  |              FUNC|00000002|     |.text
+init_TCA0           |000000f6|   t  |              FUNC|00000018|     |.text
 __EEPROM_REGION_LENGTH__|00000100|   A  |            NOTYPE|        |     |*ABS*
-delay               |00000158|   t  |              FUNC|00000052|     |.text
-ByteStream::RawBuffer::recalcCRC()|000001aa|   t  |              FUNC|00000086|     |.text
-Leds::update()      |00000230|   t  |              FUNC|000000f4|     |.text
-head20              |000002b4|   t  |            NOTYPE|        |     |.text
-nextbyte20          |000002d8|   t  |            NOTYPE|        |     |.text
-Leds::setAll(RGBColor)|00000324|   t  |              FUNC|0000001a|     |.text
-RGBColor::operator=(unsigned long const&)|0000033e|   t  |              FUNC|00000154|     |.text
+init_timers         |0000010e|   t  |              FUNC|00000002|     |.text
+init_ADC0           |00000110|   t  |              FUNC|00000016|     |.text
+init_clock          |00000126|   t  |              FUNC|0000000c|     |.text
+init_millis         |00000132|   t  |              FUNC|0000001c|     |.text
+init                |0000014e|   t  |              FUNC|00000012|     |.text
+micros              |00000160|   t  |              FUNC|00000074|     |.text
+delay               |000001d4|   t  |              FUNC|00000052|     |.text
+Storage::write(ByteStream&)|00000226|   t  |              FUNC|000000a8|     |.text
+Storage::init()     |000002ce|   t  |              FUNC|00000004|     |.text
+ByteStream::isCRCDirty() const|000002d2|   t  |              FUNC|0000001c|     |.text
+ByteStream::checkCRC() const|000002ee|   t  |              FUNC|00000104|     |.text
+ByteStream::recalcCRC(bool)|000003f2|   t  |              FUNC|0000012e|     |.text
 __LOCK_REGION_LENGTH__|00000400|   A  |            NOTYPE|        |     |*ABS*
 __SIGNATURE_REGION_LENGTH__|00000400|   A  |            NOTYPE|        |     |*ABS*
 __USER_SIGNATURE_REGION_LENGTH__|00000400|   A  |            NOTYPE|        |     |*ABS*
-ByteStream::init(unsigned long, unsigned char const*)|00000492|   t  |              FUNC|000000fe|     |.text
-__vector_15         |00000590|   T  |              FUNC|00000074|     |.text
-lower               |000005bc|   t  |            NOTYPE|        |     |.text
-__vector_5          |00000604|   T  |              FUNC|00000006|     |.text
-__vector_4          |0000060a|   T  |              FUNC|00000006|     |.text
-__vector_3          |00000610|   T  |              FUNC|00000006|     |.text
-AttachedISR         |00000616|   t  |            NOTYPE|        |     |.text
-isrBody             |00000616|   T  |              FUNC|0000008e|     |.text
-AIntLoop            |0000065c|   t  |            NOTYPE|        |     |.text
-AIntEnd             |00000672|   t  |            NOTYPE|        |     |.text
-main                |000006a4|   T  |              FUNC|0000046c|     |.text
+Leds::update()      |00000520|   t  |              FUNC|000000fc|     |.text
+head20              |000005ac|   t  |            NOTYPE|        |     |.text
+nextbyte20          |000005d0|   t  |            NOTYPE|        |     |.text
+RGBColor::operator=(RGBColor const&)|0000061c|   t  |              FUNC|00000018|     |.text
+RGBColor::RGBColor(RGBColor const&)|00000634|   t  |              FUNC|00000018|     |.text
+RGBColor::RGBColor(RGBColor const&)|00000634|   t  |              FUNC|00000018|     |.text
+Leds::setIndex(LedPos, RGBColor)|0000064c|   t  |              FUNC|0000003c|     |.text
+Leds::setRange(LedPos, LedPos, RGBColor)|00000688|   t  |              FUNC|00000048|     |.text
+Leds::setAll(RGBColor)|000006d0|   t  |              FUNC|0000002c|     |.text
+RGBColor::RGBColor(unsigned char, unsigned char, unsigned char)|000006fc|   t  |              FUNC|0000000a|     |.text
+RGBColor::RGBColor(unsigned char, unsigned char, unsigned char)|000006fc|   t  |              FUNC|0000000a|     |.text
+RGBColor::RGBColor()|00000706|   t  |              FUNC|0000000a|     |.text
+RGBColor::RGBColor()|00000706|   t  |              FUNC|0000000a|     |.text
+hsv_to_rgb_generic(HSVColor const&)|00000710|   t  |              FUNC|00000150|     |.text
 __DATA_REGION_LENGTH__|00000800|   A  |            NOTYPE|        |     |*ABS*
-_GLOBAL__sub_I__ZN4Leds11m_ledColorsE|00000b10|   t  |              FUNC|00000046|     |.text
-__udivmodqi4        |00000b56|   T  |            NOTYPE|00000018|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1346
-__udivmodqi4_loop   |00000b5c|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1350
-__udivmodqi4_ep     |00000b64|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1355
-__divmodhi4         |00000b6e|   T  |            NOTYPE|00000026|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1440
-_div                |00000b6e|   T  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1440
-__divmodhi4_neg1    |00000b84|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1454
-__divmodhi4_neg2    |00000b8c|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1460
-__divmodhi4_exit    |00000b92|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1464
-__muluhisi3         |00000b94|   T  |            NOTYPE|00000014|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:626
-__udivmodhi4        |00000ba8|   T  |            NOTYPE|00000028|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1408
-__udivmodhi4_loop   |00000bb0|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1413
-__udivmodhi4_ep     |00000bbe|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1421
-__tablejump2__      |00000bd0|   T  |            NOTYPE|0000000c|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2296
-__umulhisi3         |00000bdc|   T  |            NOTYPE|0000001e|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:564
-calloc              |00000bfa|   T  |              FUNC|00000034|     |.text
-malloc              |00000c2e|   T  |              FUNC|00000138|     |.text
-free                |00000d66|   T  |              FUNC|00000112|     |.text
-memcpy              |00000e78|   T  |              FUNC|00000012|     |.text
-memset              |00000e8a|   T  |              FUNC|0000000e|     |.text
-_exit               |00000e98|   T  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
-exit                |00000e98|   W  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
-__stop_program      |00000e9a|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2280
-__data_load_start   |00000e9c|   A  |            NOTYPE|        |     |*ABS*
-_etext              |00000e9c|   T  |            NOTYPE|        |     |.text
-__data_load_end     |00000ea8|   A  |            NOTYPE|        |     |*ABS*
+hsv_to_rgb_raw_C(HSVColor const&)|00000860|   t  |              FUNC|000000ae|     |.text
+hsv_to_rgb_rainbow(HSVColor const&)|0000090e|   t  |              FUNC|00000172|     |.text
+RGBColor::operator=(HSVColor const&)|00000a80|   t  |              FUNC|00000034|     |.text
+HSVColor::operator=(HSVColor const&)|00000ab4|   t  |              FUNC|00000018|     |.text
+HSVColor::HSVColor()|00000acc|   t  |              FUNC|0000000a|     |.text
+HSVColor::HSVColor()|00000acc|   t  |              FUNC|0000000a|     |.text
+rgb_to_hsv_generic(RGBColor const&)|00000ad6|   t  |              FUNC|000000fe|     |.text
+HSVColor::operator=(RGBColor const&)|00000bd4|   t  |              FUNC|00000034|     |.text
+HSVColor::HSVColor(unsigned long)|00000c08|   t  |              FUNC|00000036|     |.text
+HSVColor::HSVColor(unsigned long)|00000c08|   t  |              FUNC|00000036|     |.text
+RGBColor::operator=(unsigned long const&)|00000c3e|   t  |              FUNC|00000056|     |.text
+RGBColor::RGBColor(unsigned long)|00000c94|   t  |              FUNC|00000036|     |.text
+RGBColor::RGBColor(unsigned long)|00000c94|   t  |              FUNC|00000036|     |.text
+ledVerification(unsigned char, unsigned char)|00000cca|   t  |              FUNC|0000008c|     |.text
+__static_initialization_and_destruction_0(int, int)|00000d56|   t  |              FUNC|00000040|     |.text
+HSVColor::operator=(unsigned long const&)|00000d96|   t  |              FUNC|00000056|     |.text
+pinMode             |00000dec|   t  |              FUNC|00000050|     |.text
+Leds::init()        |00000e3c|   t  |              FUNC|0000001c|     |.text
+VortexEngine::init()|00000e58|   t  |              FUNC|0000000c|     |.text
+ByteStream::clear() |00000e64|   t  |              FUNC|0000002a|     |.text
+ByteStream::init(unsigned long, unsigned char const*)|00000e8e|   t  |              FUNC|00000158|     |.text
+Storage::read(ByteStream&)|00000fe6|   t  |              FUNC|0000003e|     |.text
+ByteStream::ByteStream(unsigned long, unsigned char const*)|00001024|   t  |              FUNC|00000018|     |.text
+ByteStream::ByteStream(unsigned long, unsigned char const*)|00001024|   t  |              FUNC|00000018|     |.text
+VortexEngine::tick()|0000103c|   t  |              FUNC|000001ac|     |.text
+__vector_15         |000011e8|   T  |              FUNC|00000074|     |.text
+lower               |00001214|   t  |            NOTYPE|        |     |.text
+__vector_5          |0000125c|   T  |              FUNC|00000006|     |.text
+__vector_4          |00001262|   T  |              FUNC|00000006|     |.text
+__vector_3          |00001268|   T  |              FUNC|00000006|     |.text
+AttachedISR         |0000126e|   t  |            NOTYPE|        |     |.text
+isrBody             |0000126e|   T  |              FUNC|0000008e|     |.text
+AIntLoop            |000012b4|   t  |            NOTYPE|        |     |.text
+AIntEnd             |000012ca|   t  |            NOTYPE|        |     |.text
+main                |000012fc|   T  |              FUNC|00000012|     |.text
+_GLOBAL__sub_I__ZN4Leds11m_ledColorsE|0000130e|   t  |              FUNC|0000000a|     |.text
+__divmodhi4         |00001318|   T  |            NOTYPE|00000026|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1440
+_div                |00001318|   T  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1440
+__divmodhi4_neg1    |0000132e|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1454
+__divmodhi4_neg2    |00001336|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1460
+__divmodhi4_exit    |0000133c|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1464
+__divmodsi4         |0000133e|   T  |            NOTYPE|00000028|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1686
+__divmodsi4_neg2    |00001356|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1701
+__divmodsi4_exit    |00001364|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1709
+__negsi2            |00001366|   T  |            NOTYPE|00000010|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1718
+__usmulhisi3        |00001376|   T  |            NOTYPE|00000002|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:545
+__usmulhisi3_tail   |00001378|   T  |            NOTYPE|0000000a|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:551
+__muluhisi3         |00001382|   T  |            NOTYPE|00000014|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:626
+__udivmodhi4        |00001396|   T  |            NOTYPE|00000028|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1408
+__udivmodhi4_loop   |0000139e|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1413
+__udivmodhi4_ep     |000013ac|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1421
+__udivmodsi4        |000013be|   T  |            NOTYPE|00000044|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1638
+__udivmodsi4_loop   |000013ca|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1646
+__udivmodsi4_ep     |000013e4|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:1660
+__tablejump2__      |00001402|   T  |            NOTYPE|0000000c|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2296
+__umulhisi3         |0000140e|   T  |            NOTYPE|0000001e|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:564
+calloc              |0000142c|   T  |              FUNC|00000034|     |.text
+malloc              |00001460|   T  |              FUNC|00000138|     |.text
+free                |00001598|   T  |              FUNC|00000112|     |.text
+memcpy              |000016aa|   T  |              FUNC|00000012|     |.text
+memset              |000016bc|   T  |              FUNC|0000000e|     |.text
+_exit               |000016ca|   T  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
+exit                |000016ca|   W  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
+__stop_program      |000016cc|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2280
+_etext              |000016ce|   T  |            NOTYPE|        |     |.text
+__data_load_start   |00001710|   A  |            NOTYPE|        |     |*ABS*
+__data_load_end     |0000171c|   A  |            NOTYPE|        |     |*ABS*
 __stack             |00003fff|   W  |            NOTYPE|        |     |*ABS*
 __RODATA_PM_OFFSET__|00008000|   A  |            NOTYPE|        |     |*ABS*
 __TEXT_REGION_LENGTH__|00008000|   A  |            NOTYPE|        |     |*ABS*
+digital_pin_to_bit_position|000096ce|   r  |            OBJECT|00000016|     |.rodata
+digital_pin_to_port |000096e4|   r  |            OBJECT|00000016|     |.rodata
+digital_pin_to_bit_mask|000096fa|   r  |            OBJECT|00000016|     |.rodata
 __DATA_REGION_ORIGIN__|00803800|   A  |            NOTYPE|        |     |*ABS*
 __data_start        |00803800|   D  |            NOTYPE|        |     |.data
 intFunc             |00803800|   d  |            OBJECT|00000006|     |.data
@@ -132,9 +189,9 @@ _edata              |0080380c|   D  |            NOTYPE|        |     |.data
 intFunc_C           |0080380c|   b  |            OBJECT|0000000c|     |.bss
 intFunc_B           |00803818|   b  |            OBJECT|00000010|     |.bss
 intFunc_A           |00803828|   b  |            OBJECT|00000010|     |.bss
-Leds::m_ledColors   |00803838|   b  |            OBJECT|00000006|     |.bss
-Leds::m_pinMask     |0080383e|   b  |            OBJECT|00000001|     |.bss
-Leds::m_port        |0080383f|   b  |            OBJECT|00000002|     |.bss
+Leds::m_pinMask     |00803838|   b  |            OBJECT|00000001|     |.bss
+Leds::m_port        |00803839|   b  |            OBJECT|00000002|     |.bss
+Leds::m_ledColors   |0080383b|   b  |            OBJECT|00000006|     |.bss
 timingStruct        |00803841|   b  |            OBJECT|0000000a|     |.bss
 __brkval            |0080384b|   B  |            OBJECT|00000002|     |.bss
 __flp               |0080384d|   B  |            OBJECT|00000002|     |.bss

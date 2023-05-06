@@ -38,7 +38,7 @@ ASMFLAGS = \
 
 CFLAGS = \
   -Wall \
-  -Os \
+  -Og \
   -std=gnu++17 \
   -fpermissive \
   -Wno-sized-deallocation \
@@ -73,7 +73,7 @@ CFLAGS = \
 
 #LDFLAGS = -mmcu=attiny3217 -nostartfiles -flto -fuse-linker-plugin -Wl,--gc-sections -Wl,--section-start=.text=0x0 -lm
 
-LDFLAGS = -Wall -Os -flto -fuse-linker-plugin -Wl,--gc-sections -Wl,--section-start=.text=0x0 -mrelax -mmcu=attiny3217 -lm -Wl,-T,custom.xn
+LDFLAGS = -Wall -Og -flto -fuse-linker-plugin -Wl,--gc-sections -Wl,--section-start=.text=0x0 -mrelax -mmcu=attiny3217 -lm -Wl,-T,custom.xn
 
 INCLUDES=\
 	-I ./VortexEngine/src/ \
