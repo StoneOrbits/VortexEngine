@@ -22,86 +22,55 @@ __dtors_start       |0000007c|   T  |            NOTYPE|        |     |.text	../
 __init              |0000007c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:230
 __trampolines_end   |0000007c|   T  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:230
 __trampolines_start |0000007c|   T  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:230
-_initThreeStuff()   |00000088|   T  |              FUNC|00000002|     |.text
-__do_clear_bss      |0000008a|   T  |            NOTYPE|00000010|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2441
-.do_clear_bss_loop  |00000092|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2446
-.do_clear_bss_start |00000094|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2448
-__bad_interrupt     |0000009e|   T  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_1          |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_10         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_11         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_12         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_13         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_14         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_16         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_17         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_18         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_19         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_2          |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_20         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_21         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_22         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_23         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_24         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_25         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_26         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_27         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_28         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_29         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_3          |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_30         |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_4          |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_5          |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_6          |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_7          |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_8          |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_9          |0000009e|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-init_reset_flags()  |000000a0|   t  |              FUNC|0000001a|     |.text
-initVariant         |000000ba|   t  |              FUNC|00000002|     |.text
-onAfterInit         |000000bc|   t  |              FUNC|00000004|     |.text
-onBeforeInit        |000000c0|   t  |              FUNC|00000002|     |.text
-onPreMain           |000000c2|   t  |              FUNC|00000002|     |.text
-init_TCA0           |000000c4|   t  |              FUNC|00000018|     |.text
-init_timers         |000000dc|   t  |              FUNC|00000002|     |.text
-init_ADC0           |000000de|   t  |              FUNC|00000016|     |.text
-init_clock          |000000f4|   t  |              FUNC|0000000c|     |.text
+__bad_interrupt     |0000008c|   T  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_1          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_10         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_11         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_12         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_13         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_14         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_15         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_16         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_17         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_18         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_19         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_2          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_20         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_21         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_22         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_23         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_24         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_25         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_26         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_27         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_28         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_29         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_3          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_30         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_4          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_5          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_6          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_7          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_8          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_9          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+storage_read(unsigned char*)|0000008e|   t  |              FUNC|0000002e|     |.text
+storage_write(unsigned char*)|000000bc|   t  |              FUNC|00000040|     |.text
+main                |000000fc|   T  |              FUNC|000000aa|     |.text
 __EEPROM_REGION_LENGTH__|00000100|   A  |            NOTYPE|        |     |*ABS*
-init_millis         |00000100|   t  |              FUNC|0000001c|     |.text
-init                |0000011c|   t  |              FUNC|00000012|     |.text
-leds_update()       |0000012e|   t  |              FUNC|000000a0|     |.text
-head20              |00000180|   t  |            NOTYPE|        |     |.text
-nextbyte20          |000001a4|   t  |            NOTYPE|        |     |.text
-storage_read(unsigned char*)|000001ce|   t  |              FUNC|00000024|     |.text
-storage_write(unsigned char*)|000001f2|   t  |              FUNC|00000040|     |.text
-do_work()           |00000232|   t  |              FUNC|000000b4|     |.text
-pinMode             |000002e6|   t  |              FUNC|00000050|     |.text
-leds_init()         |00000336|   t  |              FUNC|0000001c|     |.text
-__vector_15         |00000352|   T  |              FUNC|00000074|     |.text
-lower               |0000037e|   t  |            NOTYPE|        |     |.text
-main                |000003c6|   T  |              FUNC|0000001c|     |.text
-_exit               |000003e2|   T  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
-exit                |000003e2|   W  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
-__stop_program      |000003e4|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2280
-_etext              |000003e6|   T  |            NOTYPE|        |     |.text
+_exit               |000001a6|   T  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
+exit                |000001a6|   W  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
+__stop_program      |000001a8|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2280
+__data_load_end     |000001aa|   A  |            NOTYPE|        |     |*ABS*
+__data_load_start   |000001aa|   a  |            NOTYPE|        |     |*ABS*
+_etext              |000001aa|   T  |            NOTYPE|        |     |.text
 __LOCK_REGION_LENGTH__|00000400|   A  |            NOTYPE|        |     |*ABS*
 __SIGNATURE_REGION_LENGTH__|00000400|   A  |            NOTYPE|        |     |*ABS*
 __USER_SIGNATURE_REGION_LENGTH__|00000400|   A  |            NOTYPE|        |     |*ABS*
-__data_load_end     |00000428|   A  |            NOTYPE|        |     |*ABS*
-__data_load_start   |00000428|   a  |            NOTYPE|        |     |*ABS*
 __DATA_REGION_LENGTH__|00000800|   A  |            NOTYPE|        |     |*ABS*
 __stack             |00003fff|   W  |            NOTYPE|        |     |*ABS*
 __RODATA_PM_OFFSET__|00008000|   A  |            NOTYPE|        |     |*ABS*
 __TEXT_REGION_LENGTH__|00008000|   A  |            NOTYPE|        |     |*ABS*
-digital_pin_to_bit_position|000083e6|   r  |            OBJECT|00000016|     |.rodata
-digital_pin_to_port |000083fc|   r  |            OBJECT|00000016|     |.rodata
-digital_pin_to_bit_mask|00008412|   r  |            OBJECT|00000016|     |.rodata
-__bss_start         |00803800|   B  |            NOTYPE|        |     |.bss
 __DATA_REGION_ORIGIN__|00803800|   A  |            NOTYPE|        |     |*ABS*
 _edata              |00803800|   D  |            NOTYPE|        |     |.data
-m_pinMask           |00803800|   b  |            OBJECT|00000001|     |.bss
-m_port              |00803801|   b  |            OBJECT|00000002|     |.bss
-m_ledColors         |00803803|   b  |            OBJECT|00000006|     |.bss
-timingStruct        |00803809|   b  |            OBJECT|0000000a|     |.bss
-__bss_end           |00803813|   B  |            NOTYPE|        |     |.bss
-_end                |00803813|   N  |            NOTYPE|        |     |.comment
-__eeprom_end        |00810000|   N  |            NOTYPE|        |     |.comment
+_end                |00803800|   T  |            NOTYPE|        |     |.text
+__eeprom_end        |00810000|   T  |            NOTYPE|        |     |.text

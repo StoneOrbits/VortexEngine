@@ -92,36 +92,9 @@ COREASM = \
 	./libraries/megatinycore/wiring_pulse.S
 
 CORESRC = \
-	./libraries/megatinycore/abi.cpp \
-	./libraries/megatinycore/api/Common.cpp \
-	./libraries/megatinycore/api/IPAddress.cpp \
-	./libraries/megatinycore/api/PluggableUSB.cpp \
-	./libraries/megatinycore/api/Print.cpp \
-	./libraries/megatinycore/api/RingBuffer.cpp \
-	./libraries/megatinycore/api/Stream.cpp \
-	./libraries/megatinycore/api/String.cpp \
-	./libraries/megatinycore/ExtraWiring.cpp \
-	./libraries/megatinycore/main.cpp \
-	./libraries/megatinycore/new.cpp \
-	./libraries/megatinycore/Tone.cpp \
-	./libraries/megatinycore/UART.cpp \
-	./libraries/megatinycore/UART0.cpp \
-	./libraries/megatinycore/UART1.cpp \
-	./libraries/megatinycore/wiring_extra.cpp \
-	./libraries/megatinycore/WMath.cpp \
 	./appmain.cpp
 
 CORESRCC = \
-	./libraries/megatinycore/hooks.c \
-	./libraries/megatinycore/WInterrupts.c \
-	./libraries/megatinycore/WInterrupts_PA.c \
-	./libraries/megatinycore/WInterrupts_PB.c \
-	./libraries/megatinycore/WInterrupts_PC.c \
-	./libraries/megatinycore/wiring.c \
-	./libraries/megatinycore/wiring_analog.c \
-	./libraries/megatinycore/wiring_digital.c \
-	./libraries/megatinycore/wiring_pulse.c \
-	./libraries/megatinycore/wiring_shift.c 
 
 COREOBJS = $(COREASM:.S=.o) $(CORESRC:.cpp=.o) $(CORESRCC:.c=.o)
 
