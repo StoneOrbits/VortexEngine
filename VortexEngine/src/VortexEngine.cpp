@@ -1,17 +1,18 @@
 #include "VortexEngine.h"
 
-#include "Infrared/IRReceiver.h"
-#include "Infrared/IRSender.h"
+//#include "Infrared/IRReceiver.h"
+//#include "Infrared/IRSender.h"
 #include "Storage/Storage.h"
-#include "Buttons/Buttons.h"
-#include "Time/TimeControl.h"
-#include "Time/Timings.h"
-#include "Serial/Serial.h"
-#include "Modes/Modes.h"
-#include "Menus/Menus.h"
-#include "Modes/Mode.h"
+//#include "Buttons/Buttons.h"
+//#include "Time/TimeControl.h"
+//#include "Time/Timings.h"
+//#include "Serial/Serial.h"
+#include "Serial/ByteStream.h"
+//#include "Modes/Modes.h"
+//#include "Menus/Menus.h"
+//#include "Modes/Mode.h"
 #include "Leds/Leds.h"
-#include "Log/Log.h"
+//#include "Log/Log.h"
 
 #include <Arduino.h>
 
@@ -22,19 +23,19 @@
 
 bool VortexEngine::init()
 {
-  // Set all pins to input to reduce power draw
-  for (int x = 0; x < 20; ++x) {
-    pinMode(x, INPUT_PULLUP);
-  }
-  // set Mosfet pin to output to allow power to flow to LED and LIFI
-  pinMode(16, OUTPUT);
-  digitalWrite(16, HIGH);
+  //// Set all pins to input to reduce power draw
+  //for (int x = 0; x < 20; ++x) {
+  //  pinMode(x, INPUT_PULLUP);
+  //}
+  //// set Mosfet pin to output to allow power to flow to LED and LIFI
+  //pinMode(16, OUTPUT);
+  //digitalWrite(16, HIGH);
 
-  // all of the global controllers
-  if (!Time::init()) {
-    DEBUG_LOG("Time failed to initialize");
-    return false;
-  }
+  //// all of the global controllers
+  //if (!Time::init()) {
+  //  DEBUG_LOG("Time failed to initialize");
+  //  return false;
+  //}
   if (!Storage::init()) {
     DEBUG_LOG("Storage failed to initialize");
     return false;
@@ -43,18 +44,18 @@ bool VortexEngine::init()
     DEBUG_LOG("Leds failed to initialize");
     return false;
   }
-  if (!Buttons::init()) {
-    DEBUG_LOG("Buttons failed to initialize");
-    return false;
-  }
-  if (!Menus::init()) {
-    DEBUG_LOG("Menus failed to initialize");
-    return false;
-  }
-  if (!Modes::init()) {
-    DEBUG_LOG("Settings failed to initialize");
-    return false;
-  }
+  //if (!Buttons::init()) {
+  //  DEBUG_LOG("Buttons failed to initialize");
+  //  return false;
+  //}
+  //if (!Menus::init()) {
+  //  DEBUG_LOG("Menus failed to initialize");
+  //  return false;
+  //}
+  //if (!Modes::init()) {
+  //  DEBUG_LOG("Settings failed to initialize");
+  //  return false;
+  //}
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -76,12 +77,42 @@ void VortexEngine::cleanup()
   // cleanup in reverse order
   // NOTE: the arduino doesn't actually cleanup,
   //       but the test frameworks do
-  Modes::cleanup();
-  Menus::cleanup();
-  Buttons::cleanup();
-  Leds::cleanup();
-  Storage::cleanup();
-  Time::cleanup();
+  //Modes::cleanup();
+  //Menus::cleanup();
+  //Buttons::cleanup();
+  //Leds::cleanup();
+  //Storage::cleanup();
+  //Time::cleanup();
+}
+
+#include "Leds/Leds.h"
+#include <Arduino.h>
+void ledVerification(uint8_t val, uint8_t d)
+{
+#ifdef VORTEX_ARDUINO
+  uint8_t updateTime = 30;
+  // check for write errors
+  if (d == 0) {
+    // blank = data to write is 0 so cannot test
+    Leds::setAll(RGB_OFF);
+    updateTime = 0;
+  } else {
+    if (val == d) {
+      // green = flash data is good
+      Leds::setAll(RGBColor(0, 255, 0));
+    } else {
+      if (val == 0) {
+        // red = the flash data is still 0
+        Leds::setAll(RGBColor(255, 0, 0));
+      } else {
+        // yellow = the flash data is't 0 but not right
+        Leds::setAll(RGBColor(0, 0, val));
+      }
+    }
+  }
+  Leds::update();
+  delay(updateTime);
+#endif
 }
 
 void VortexEngine::tick()
@@ -96,22 +127,59 @@ void VortexEngine::tick()
   }
 #endif
 
+#define BUFSIZE 64
+  uint8_t buf[BUFSIZE];
+  for (int i = 0; i < BUFSIZE; ++i) {
+    buf[i] = i;
+  }
+  ByteStream indata;
+  indata.recalcCRC();
+  indata.init(sizeof(buf), buf);
+  Storage::write(indata);
+
+  ByteStream outdata;
+  if (!Storage::read(outdata)) {
+    Leds::setAll(RGB_WHITE);
+    Leds::update();
+  } else {
+    if (outdata.size() != indata.size()) {
+      if (outdata.size() > indata.size()) {
+        Leds::setAll(RGB_CYAN);
+      } else {
+        Leds::setAll(RGB_PURPLE);
+      }
+      Leds::update();
+      delay(1000);
+    } else {
+      for (int i = 0; i < BUFSIZE; ++i) {
+        ledVerification(outdata.data()[i], indata.data()[i]);
+        Leds::clearAll();
+        Leds::update();
+        delay(50);
+      }
+    }
+    Leds::setAll(RGB_BLANK);
+    Leds::update();
+  }
+  while (1);
+
   // tick the current time counter forward
-  Time::tickClock();
+  //Time::tickClock();
 
   // don't poll the button till some cycles have passed, this prevents
   // the wakeup from cycling to the next mode
-  Buttons::check();
+  //Buttons::check();
 
   // run the main logic for the engine
-  runMainLogic();
+  //runMainLogic();
 
   // update the leds
-  Leds::update();
+  //Leds::update();
 }
 
 void VortexEngine::runMainLogic()
 {
+#if 0
   // otherwise check for any press or hold to enter sleep or enter menus
   uint32_t holdTime = g_pButton->holdDuration();
   // force-sleep check
@@ -146,6 +214,7 @@ void VortexEngine::runMainLogic()
   }
   // otherwise just play the modes
   Modes::play();
+#endif
 }
 
 void VortexEngine::serializeVersion(ByteStream &stream)
@@ -166,7 +235,8 @@ bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
 
 Mode *VortexEngine::curMode()
 {
-  return Modes::curMode();
+  return nullptr;
+  //return Modes::curMode();
 }
 
 #ifdef VORTEX_LIB

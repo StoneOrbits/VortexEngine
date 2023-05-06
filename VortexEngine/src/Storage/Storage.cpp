@@ -21,16 +21,16 @@
 #include <unistd.h>
 #endif
 
-//#define USE_EEPROM 1
+#define USE_EEPROM 1
 
 #ifdef VORTEX_ARDUINO
+
 #ifdef USE_EEPROM
 #include <EEPROM.h>
 #else
-#define storage_data ((uint8_t *)storage_buf)
-__attribute__((section(".storage")))
-const uint8_t storage_buf[STORAGE_SIZE] = {0};
+#define storage_data ((uint8_t *)0x9000)
 #endif
+
 #endif
 
 uint32_t Storage::m_lastSaveSize = 0;
@@ -55,36 +55,6 @@ bool Storage::init()
 
 void Storage::cleanup()
 {
-}
-
-#include "../Leds/Leds.h"
-#include <Arduino.h>
-void ledVerification(uint8_t val, uint8_t d)
-{
-#ifdef VORTEX_ARDUINO
-  uint8_t updateTime = 30;
-  // check for write errors
-  if (d == 0) {
-    // blank = data to write is 0 so cannot test
-    Leds::setAll(RGB_OFF);
-    updateTime = 0;
-  } else {
-    if (val == d) {
-      // green = flash data is good
-      Leds::setAll(RGBColor(0, 255, 0));
-    } else {
-      if (val == 0) {
-        // red = the flash data is still 0
-        Leds::setAll(RGBColor(255, 0, 0));
-      } else {
-        // yellow = the flash data is't 0 but not right
-        Leds::setAll(RGBColor(150, 150, 0));
-      }
-    }
-  }
-  Leds::update();
-  delay(updateTime);
-#endif
 }
 
 // store a serial buffer to storage
@@ -124,23 +94,14 @@ bool Storage::write(ByteStream &buffer)
 bool Storage::read(ByteStream &buffer)
 {
 #ifdef VORTEX_ARDUINO
-  //uint32_t size = (*(uint32_t *)storage_data);
-  //if (!size || size > STORAGE_SIZE) {
-  //  return false;
-  //}
-  // Read data from Flash
-  //if (!buffer.rawInit(storage_data, size + sizeof(ByteStream::RawBuffer))) {
-  //  ERROR_LOGF("Could not initialize buffer with %u bytes", STORAGE_SIZE);
-  //  return false;
-  //}
-	//size += sizeof(ByteStream::RawBuffer);
-	buffer.init(STORAGE_SIZE);
+  buffer.init(STORAGE_SIZE);
   // Read the data from EEPROM into the buffer
   for (size_t i = 0; i < STORAGE_SIZE; ++i) {
 #ifdef USE_EEPROM
     ((uint8_t *)buffer.rawData())[i] = EEPROM.read(i);
 #else
-    ((uint8_t *)buffer.rawData())[i] = pgm_read_byte_near(storage_data + i);
+    //((uint8_t *)buffer.rawData())[i] = pgm_read_byte_near(storage_data + i);
+    ((uint8_t *)buffer.rawData())[i] = storage_data[i];
 #endif
   }
   // check crc immediately since we read into raw data copying the
