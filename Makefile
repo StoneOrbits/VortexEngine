@@ -159,8 +159,8 @@ upload: $(TARGET).hex
 		-Ufuse2:w:0x02:m \
 		-Ufuse5:w:0b11000101:m \
 		-Ufuse6:w:0x04:m \
-		-Ufuse7:w:0x00:m \
-		-Ufuse8:w:0x40:m \
+		-Ufuse7:w:0x04:m \
+		-Ufuse8:w:0x00:m \
 		-Uflash:w:$(TARGET).hex:i
 
 clean:

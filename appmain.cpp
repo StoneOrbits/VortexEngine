@@ -1,6 +1,6 @@
 #include <Arduino.h>
 
-#define STORAGE_SIZE 128
+#define STORAGE_SIZE PROGMEM_PAGE_SIZE
 
 #define LED_DATA_PIN 7
 #define LED_COUNT 2
@@ -19,13 +19,15 @@ volatile uint8_t *m_port = nullptr;
 uint8_t m_pinMask = 0;
 RGBColor m_ledColors[LED_COUNT] = { 0 };
 
-#define storage_data ((uint8_t *)0x8000 + 0x2000)
+#define storage_data ((uint8_t *)0x10000 - 0x400)
 
 // store a serial buffer to storage
 bool storage_write(uint8_t *buf)
 {
   // copy in page
-  memcpy(storage_data, buf, PROGMEM_PAGE_SIZE);
+  for (uint8_t i = 0; i < PROGMEM_PAGE_SIZE; ++i) {
+    storage_data[i] = buf[i];
+  }
     // Erase + write the flash page
   _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, 0x3);
   while (NVMCTRL.STATUS & 0x3);
@@ -116,20 +118,28 @@ void leds_update()
 
 bool do_work()
 {
-#define BUFSIZE 16
+#define BUFSIZE PROGMEM_PAGE_SIZE
   uint8_t inbuf[BUFSIZE] = {0};
   uint8_t outbuf[BUFSIZE] = {0};
   for (uint8_t i = 0; i < BUFSIZE; ++i) {
     inbuf[i] = i;
   }
   if (!storage_write(inbuf)) {
+    // yellow
+    m_ledColors[0].red = 255;
+    m_ledColors[0].green = 255;
     return false;
   }
   if (!storage_read(outbuf)) {
+    // blue
+    m_ledColors[0].blue = 255;
     return false;
   }
   for (uint8_t i = 0; i < BUFSIZE; ++i) {
     if (inbuf[i] != outbuf[i]) {
+      // purple
+      m_ledColors[0].blue = 255;
+      m_ledColors[0].red = 255;
       return false;
     }
   }
@@ -150,8 +160,6 @@ int main()
 
   if (do_work()) {
     m_ledColors[0].green = 255;
-  } else {
-    m_ledColors[0].red = 255;
   }
   leds_update();
   while(1);

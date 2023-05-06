@@ -72,29 +72,29 @@ leds_update()       |0000012e|   t  |              FUNC|000000a0|     |.text
 head20              |00000180|   t  |            NOTYPE|        |     |.text
 nextbyte20          |000001a4|   t  |            NOTYPE|        |     |.text
 storage_read(unsigned char*)|000001ce|   t  |              FUNC|00000024|     |.text
-pinMode             |000001f2|   t  |              FUNC|00000050|     |.text
-leds_init()         |00000242|   t  |              FUNC|0000001c|     |.text
-storage_write(unsigned char*)|0000025e|   t  |              FUNC|00000032|     |.text
-do_work()           |00000290|   t  |              FUNC|00000094|     |.text
-__vector_15         |00000324|   T  |              FUNC|00000074|     |.text
-lower               |00000350|   t  |            NOTYPE|        |     |.text
-main                |00000398|   T  |              FUNC|00000024|     |.text
-_exit               |000003bc|   T  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
-exit                |000003bc|   W  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
-__stop_program      |000003be|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2280
-_etext              |000003c0|   T  |            NOTYPE|        |     |.text
+storage_write(unsigned char*)|000001f2|   t  |              FUNC|00000040|     |.text
+do_work()           |00000232|   t  |              FUNC|000000b4|     |.text
+pinMode             |000002e6|   t  |              FUNC|00000050|     |.text
+leds_init()         |00000336|   t  |              FUNC|0000001c|     |.text
+__vector_15         |00000352|   T  |              FUNC|00000074|     |.text
+lower               |0000037e|   t  |            NOTYPE|        |     |.text
+main                |000003c6|   T  |              FUNC|0000001c|     |.text
+_exit               |000003e2|   T  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
+exit                |000003e2|   W  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
+__stop_program      |000003e4|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2280
+_etext              |000003e6|   T  |            NOTYPE|        |     |.text
 __LOCK_REGION_LENGTH__|00000400|   A  |            NOTYPE|        |     |*ABS*
 __SIGNATURE_REGION_LENGTH__|00000400|   A  |            NOTYPE|        |     |*ABS*
 __USER_SIGNATURE_REGION_LENGTH__|00000400|   A  |            NOTYPE|        |     |*ABS*
-__data_load_end     |00000402|   A  |            NOTYPE|        |     |*ABS*
-__data_load_start   |00000402|   a  |            NOTYPE|        |     |*ABS*
+__data_load_end     |00000428|   A  |            NOTYPE|        |     |*ABS*
+__data_load_start   |00000428|   a  |            NOTYPE|        |     |*ABS*
 __DATA_REGION_LENGTH__|00000800|   A  |            NOTYPE|        |     |*ABS*
 __stack             |00003fff|   W  |            NOTYPE|        |     |*ABS*
 __RODATA_PM_OFFSET__|00008000|   A  |            NOTYPE|        |     |*ABS*
 __TEXT_REGION_LENGTH__|00008000|   A  |            NOTYPE|        |     |*ABS*
-digital_pin_to_bit_position|000083c0|   r  |            OBJECT|00000016|     |.rodata
-digital_pin_to_port |000083d6|   r  |            OBJECT|00000016|     |.rodata
-digital_pin_to_bit_mask|000083ec|   r  |            OBJECT|00000016|     |.rodata
+digital_pin_to_bit_position|000083e6|   r  |            OBJECT|00000016|     |.rodata
+digital_pin_to_port |000083fc|   r  |            OBJECT|00000016|     |.rodata
+digital_pin_to_bit_mask|00008412|   r  |            OBJECT|00000016|     |.rodata
 __bss_start         |00803800|   B  |            NOTYPE|        |     |.bss
 __DATA_REGION_ORIGIN__|00803800|   A  |            NOTYPE|        |     |*ABS*
 _edata              |00803800|   D  |            NOTYPE|        |     |.data

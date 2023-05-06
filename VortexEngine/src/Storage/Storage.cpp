@@ -29,7 +29,7 @@
 #ifdef USE_EEPROM
 #include <EEPROM.h>
 #else
-#define storage_data ((uint8_t *)0x8000 + 0x2000)
+#define storage_data ((uint8_t *)0x8000 + 1024)
 #endif
 
 #endif
