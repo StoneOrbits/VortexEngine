@@ -73,7 +73,7 @@ CFLAGS = \
 
 #LDFLAGS = -mmcu=attiny3217 -nostartfiles -flto -fuse-linker-plugin -Wl,--gc-sections -Wl,--section-start=.text=0x0 -lm
 
-LDFLAGS = -Wall -Os -flto -fuse-linker-plugin -Wl,--gc-sections -Wl,--section-start=.text=0x0 -mrelax -mmcu=attiny3217 -lm -Wl,-T,custom.xn
+LDFLAGS = -Wall -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mrelax -mmcu=attiny3217 -lm -Wl,-T,custom.xn
 
 INCLUDES=\
 	-I ./VortexEngine/src/ \
@@ -225,8 +225,8 @@ upload: $(TARGET).hex
 		-Ufuse2:w:0x02:m \
 		-Ufuse5:w:0b11000101:m \
 		-Ufuse6:w:0x04:m \
-		-Ufuse7:w:0x78:m \
-		-Ufuse8:w:0x00:m \
+		-Ufuse7:w:0x00:m \
+		-Ufuse8:w:0x73:m \
 		-Uflash:w:$(TARGET).hex:i
 
 clean:

@@ -27,9 +27,7 @@
 #ifdef USE_EEPROM
 #include <EEPROM.h>
 #else
-#define storage_data ((uint8_t *)storage_buf)
-__attribute__((section(".storage")))
-const uint8_t storage_buf[STORAGE_SIZE] = {0};
+#define storage_data ((uint8_t *)(0xF300))
 #endif
 #endif
 
@@ -113,6 +111,9 @@ bool Storage::write(ByteStream &buffer)
     // Erase + write the flash page
     _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, 0x3);
     while (NVMCTRL.STATUS & 0x3);
+    if (NVMCTRL.STATUS == 4) {
+      return false;
+    }
   }
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
 #endif // USE_EEPROM
@@ -140,7 +141,7 @@ bool Storage::read(ByteStream &buffer)
 #ifdef USE_EEPROM
     ((uint8_t *)buffer.rawData())[i] = EEPROM.read(i);
 #else
-    ((uint8_t *)buffer.rawData())[i] = pgm_read_byte_near(storage_data + i);
+    ((uint8_t *)buffer.rawData())[i] = storage_data[i];
 #endif
   }
   // check crc immediately since we read into raw data copying the
