@@ -10,94 +10,94 @@ __vectors():
    0:	3d c0       	rjmp	.+122    	; 0x7c <__ctors_end>
    2:	00 00       	nop
 ../../../../crt1/gcrt1.S:67
-   4:	43 c0       	rjmp	.+134    	; 0x8c <__bad_interrupt>
+   4:	4b c0       	rjmp	.+150    	; 0x9c <__bad_interrupt>
    6:	00 00       	nop
 ../../../../crt1/gcrt1.S:68
-   8:	41 c0       	rjmp	.+130    	; 0x8c <__bad_interrupt>
+   8:	49 c0       	rjmp	.+146    	; 0x9c <__bad_interrupt>
    a:	00 00       	nop
 ../../../../crt1/gcrt1.S:69
-   c:	3f c0       	rjmp	.+126    	; 0x8c <__bad_interrupt>
+   c:	47 c0       	rjmp	.+142    	; 0x9c <__bad_interrupt>
    e:	00 00       	nop
 ../../../../crt1/gcrt1.S:70
-  10:	3d c0       	rjmp	.+122    	; 0x8c <__bad_interrupt>
+  10:	45 c0       	rjmp	.+138    	; 0x9c <__bad_interrupt>
   12:	00 00       	nop
 ../../../../crt1/gcrt1.S:71
-  14:	3b c0       	rjmp	.+118    	; 0x8c <__bad_interrupt>
+  14:	43 c0       	rjmp	.+134    	; 0x9c <__bad_interrupt>
   16:	00 00       	nop
 ../../../../crt1/gcrt1.S:72
-  18:	39 c0       	rjmp	.+114    	; 0x8c <__bad_interrupt>
+  18:	41 c0       	rjmp	.+130    	; 0x9c <__bad_interrupt>
   1a:	00 00       	nop
 ../../../../crt1/gcrt1.S:73
-  1c:	37 c0       	rjmp	.+110    	; 0x8c <__bad_interrupt>
+  1c:	3f c0       	rjmp	.+126    	; 0x9c <__bad_interrupt>
   1e:	00 00       	nop
 ../../../../crt1/gcrt1.S:74
-  20:	35 c0       	rjmp	.+106    	; 0x8c <__bad_interrupt>
+  20:	3d c0       	rjmp	.+122    	; 0x9c <__bad_interrupt>
   22:	00 00       	nop
 ../../../../crt1/gcrt1.S:75
-  24:	33 c0       	rjmp	.+102    	; 0x8c <__bad_interrupt>
+  24:	3b c0       	rjmp	.+118    	; 0x9c <__bad_interrupt>
   26:	00 00       	nop
 ../../../../crt1/gcrt1.S:76
-  28:	31 c0       	rjmp	.+98     	; 0x8c <__bad_interrupt>
+  28:	39 c0       	rjmp	.+114    	; 0x9c <__bad_interrupt>
   2a:	00 00       	nop
 ../../../../crt1/gcrt1.S:77
-  2c:	2f c0       	rjmp	.+94     	; 0x8c <__bad_interrupt>
+  2c:	37 c0       	rjmp	.+110    	; 0x9c <__bad_interrupt>
   2e:	00 00       	nop
 ../../../../crt1/gcrt1.S:78
-  30:	2d c0       	rjmp	.+90     	; 0x8c <__bad_interrupt>
+  30:	35 c0       	rjmp	.+106    	; 0x9c <__bad_interrupt>
   32:	00 00       	nop
 ../../../../crt1/gcrt1.S:79
-  34:	2b c0       	rjmp	.+86     	; 0x8c <__bad_interrupt>
+  34:	33 c0       	rjmp	.+102    	; 0x9c <__bad_interrupt>
   36:	00 00       	nop
 ../../../../crt1/gcrt1.S:80
-  38:	29 c0       	rjmp	.+82     	; 0x8c <__bad_interrupt>
+  38:	31 c0       	rjmp	.+98     	; 0x9c <__bad_interrupt>
   3a:	00 00       	nop
 ../../../../crt1/gcrt1.S:81
-  3c:	27 c0       	rjmp	.+78     	; 0x8c <__bad_interrupt>
+  3c:	6b c1       	rjmp	.+726    	; 0x314 <__vector_15>
   3e:	00 00       	nop
 ../../../../crt1/gcrt1.S:82
-  40:	25 c0       	rjmp	.+74     	; 0x8c <__bad_interrupt>
+  40:	2d c0       	rjmp	.+90     	; 0x9c <__bad_interrupt>
   42:	00 00       	nop
 ../../../../crt1/gcrt1.S:83
-  44:	23 c0       	rjmp	.+70     	; 0x8c <__bad_interrupt>
+  44:	2b c0       	rjmp	.+86     	; 0x9c <__bad_interrupt>
   46:	00 00       	nop
 ../../../../crt1/gcrt1.S:84
-  48:	21 c0       	rjmp	.+66     	; 0x8c <__bad_interrupt>
+  48:	29 c0       	rjmp	.+82     	; 0x9c <__bad_interrupt>
   4a:	00 00       	nop
 ../../../../crt1/gcrt1.S:85
-  4c:	1f c0       	rjmp	.+62     	; 0x8c <__bad_interrupt>
+  4c:	27 c0       	rjmp	.+78     	; 0x9c <__bad_interrupt>
   4e:	00 00       	nop
 ../../../../crt1/gcrt1.S:86
-  50:	1d c0       	rjmp	.+58     	; 0x8c <__bad_interrupt>
+  50:	25 c0       	rjmp	.+74     	; 0x9c <__bad_interrupt>
   52:	00 00       	nop
 ../../../../crt1/gcrt1.S:87
-  54:	1b c0       	rjmp	.+54     	; 0x8c <__bad_interrupt>
+  54:	23 c0       	rjmp	.+70     	; 0x9c <__bad_interrupt>
   56:	00 00       	nop
 ../../../../crt1/gcrt1.S:88
-  58:	19 c0       	rjmp	.+50     	; 0x8c <__bad_interrupt>
+  58:	21 c0       	rjmp	.+66     	; 0x9c <__bad_interrupt>
   5a:	00 00       	nop
 ../../../../crt1/gcrt1.S:89
-  5c:	17 c0       	rjmp	.+46     	; 0x8c <__bad_interrupt>
+  5c:	1f c0       	rjmp	.+62     	; 0x9c <__bad_interrupt>
   5e:	00 00       	nop
 ../../../../crt1/gcrt1.S:90
-  60:	15 c0       	rjmp	.+42     	; 0x8c <__bad_interrupt>
+  60:	1d c0       	rjmp	.+58     	; 0x9c <__bad_interrupt>
   62:	00 00       	nop
 ../../../../crt1/gcrt1.S:91
-  64:	13 c0       	rjmp	.+38     	; 0x8c <__bad_interrupt>
+  64:	1b c0       	rjmp	.+54     	; 0x9c <__bad_interrupt>
   66:	00 00       	nop
 ../../../../crt1/gcrt1.S:92
-  68:	11 c0       	rjmp	.+34     	; 0x8c <__bad_interrupt>
+  68:	19 c0       	rjmp	.+50     	; 0x9c <__bad_interrupt>
   6a:	00 00       	nop
 ../../../../crt1/gcrt1.S:93
-  6c:	0f c0       	rjmp	.+30     	; 0x8c <__bad_interrupt>
+  6c:	17 c0       	rjmp	.+46     	; 0x9c <__bad_interrupt>
   6e:	00 00       	nop
 ../../../../crt1/gcrt1.S:94
-  70:	0d c0       	rjmp	.+26     	; 0x8c <__bad_interrupt>
+  70:	15 c0       	rjmp	.+42     	; 0x9c <__bad_interrupt>
   72:	00 00       	nop
 ../../../../crt1/gcrt1.S:95
-  74:	0b c0       	rjmp	.+22     	; 0x8c <__bad_interrupt>
+  74:	13 c0       	rjmp	.+38     	; 0x9c <__bad_interrupt>
   76:	00 00       	nop
 ../../../../crt1/gcrt1.S:96
-  78:	09 c0       	rjmp	.+18     	; 0x8c <__bad_interrupt>
+  78:	11 c0       	rjmp	.+34     	; 0x9c <__bad_interrupt>
 	...
 
 0000007c <__ctors_end>:
@@ -114,167 +114,863 @@ __trampolines_start():
   84:	df e3       	ldi	r29, 0x3F	; 63
 ../../../../crt1/gcrt1.S:237
   86:	de bf       	out	0x3e, r29	; 62
+
+00000088 <__do_clear_bss>:
+__do_clear_bss():
+/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2441
+  88:	28 e3       	ldi	r18, 0x38	; 56
+/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2442
+  8a:	a0 e0       	ldi	r26, 0x00	; 0
+/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2443
+  8c:	b8 e3       	ldi	r27, 0x38	; 56
+/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2444
+  8e:	01 c0       	rjmp	.+2      	; 0x92 <.do_clear_bss_start>
+
+00000090 <.do_clear_bss_loop>:
+/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2446
+  90:	1d 92       	st	X+, r1
+
+00000092 <.do_clear_bss_start>:
+/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2448
+  92:	a0 31       	cpi	r26, 0x10	; 16
+/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2449
+  94:	b2 07       	cpc	r27, r18
+/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2450
+  96:	e1 f7       	brne	.-8      	; 0x90 <.do_clear_bss_loop>
+.do_clear_bss_start():
 ../../../../crt1/gcrt1.S:314
-  88:	39 d0       	rcall	.+114    	; 0xfc <main>
+  98:	77 d1       	rcall	.+750    	; 0x388 <main>
 ../../../../crt1/gcrt1.S:315
-  8a:	8d c0       	rjmp	.+282    	; 0x1a6 <_exit>
+  9a:	80 c1       	rjmp	.+768    	; 0x39c <_exit>
 
-0000008c <__bad_interrupt>:
+0000009c <__bad_interrupt>:
 __vector_22():
-  8c:	b9 cf       	rjmp	.-142    	; 0x0 <__vectors>
+  9c:	b1 cf       	rjmp	.-158    	; 0x0 <__vectors>
 
-0000008e <storage_read(unsigned char*)>:
+0000009e <onAfterInit>:
+onAfterInit():
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1767
+}
+
+
+__attribute__((weak)) void onPreMain() {;}
+__attribute__((weak)) void onBeforeInit() {;}
+__attribute__((weak)) uint8_t onAfterInit() {return 1;}
+  9e:	81 e0       	ldi	r24, 0x01	; 1
+  a0:	08 95       	ret
+
+000000a2 <init_TCA0>:
+init_TCA0():
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1743
+
+void __attribute__((weak)) init_TCA0() {
+  /*  TYPE A TIMER   */
+  #if !defined(TCA_BUFFERED_3PIN)
+    #if defined(PORTMUX_CTRLC)
+      PORTMUX.CTRLC = TCA_PORTMUX;
+  a2:	10 92 02 02 	sts	0x0202, r1	; 0x800202 <digital_pin_to_bit_mask+0x7f7e36>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1747
+    #else
+      PORTMUX.TCAROUTEA = TCA_PORTMUX;
+    #endif
+    TCA0.SPLIT.CTRLD   = TCA_SPLIT_SPLITM_bm;
+  a6:	e0 e0       	ldi	r30, 0x00	; 0
+  a8:	fa e0       	ldi	r31, 0x0A	; 10
+  aa:	81 e0       	ldi	r24, 0x01	; 1
+  ac:	83 83       	std	Z+3, r24	; 0x03
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1748
+    TCA0.SPLIT.LPER    = PWM_TIMER_PERIOD;
+  ae:	8e ef       	ldi	r24, 0xFE	; 254
+  b0:	86 a3       	std	Z+38, r24	; 0x26
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1749
+    TCA0.SPLIT.HPER    = PWM_TIMER_PERIOD;
+  b2:	87 a3       	std	Z+39, r24	; 0x27
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1750
+    TCA0.SPLIT.CTRLA   = (TIMERA_PRESCALER_bm | TCA_SPLIT_ENABLE_bm);
+  b4:	8b e0       	ldi	r24, 0x0B	; 11
+  b6:	80 83       	st	Z, r24
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1762
+    TCA0.SINGLE.PER    = PWM_TIMER_PERIOD;
+    TCA0.SINGLE.CTRLB  = TCA_SINGLE_WGMODE_SINGLESLOPE_gc;
+    TCA0.SINGLE.CTRLA  = (TIMERA_PRESCALER_bm | TCA_SINGLE_ENABLE_bm);
+  #endif
+
+}
+  b8:	08 95       	ret
+
+000000ba <init_timers>:
+init_timers():
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1720
+    pADC->CTRLA    = ADC_ENABLE_bm;
+  }
+#endif
+
+void init_timers()  {
+  init_TCA0();
+  ba:	f3 cf       	rjmp	.-26     	; 0xa2 <init_TCA0>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1724
+  #if (defined(TCD0) && defined(USE_TIMERD0_PWM) && !defined(MILLIS_USE_TIMERD0))
+    init_TCD0();
+  #endif
+}
+  bc:	08 95       	ret
+
+000000be <init_ADC0>:
+init_ADC0():
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1616
+
+
+/********************************* ADC ****************************************/
+void __attribute__((weak)) init_ADC0() {
+  ADC_t* pADC;
+  _fastPtr_d(pADC, &ADC0);
+  be:	e0 e0       	ldi	r30, 0x00	; 0
+  c0:	f6 e0       	ldi	r31, 0x06	; 6
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1637
+   **************************************************************************/
+    //                              30 MHz / 32 = 937 kHz,  32 MHz / 32 =  1 MHz.
+    #if   F_CPU   > 24000000     // 24 MHz / 16 = 1.5 MHz,  25 MHz / 32 =  780 kHz
+      pADC->CTRLC  = ADC_PRESC_DIV32_gc | ADC_REFSEL_VDDREF_gc | ADC_SAMPCAP_bm;
+    #elif F_CPU  >= 12000000    // 16 MHz / 16 = 1.0 MHz,  20 MHz / 16 = 1.25 MHz
+      pADC->CTRLC  = ADC_PRESC_DIV16_gc | ADC_REFSEL_VDDREF_gc | ADC_SAMPCAP_bm;
+  c2:	83 e5       	ldi	r24, 0x53	; 83
+  c4:	82 83       	std	Z+2, r24	; 0x02
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1648
+      pADC->CTRLC  =  ADC_PRESC_DIV2_gc | ADC_REFSEL_VDDREF_gc | ADC_SAMPCAP_bm;
+    #endif
+    #if   (F_CPU == 6000000 || F_CPU == 12000000 || F_CPU == 24000000 || F_CPU ==25000000)
+      pADC->SAMPCTRL = (7); // 9 ADC clocks, 12 us
+    #elif (F_CPU == 5000000 || F_CPU == 10000000 || F_CPU == 20000000)
+      pADC->SAMPCTRL = (13);   // 15 ADC clock,s 12 us
+  c6:	8d e0       	ldi	r24, 0x0D	; 13
+  c8:	85 83       	std	Z+5, r24	; 0x05
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1652
+    #else
+      pADC->SAMPCTRL = (10); // 12 ADC clocks, 12 us
+    #endif
+    pADC->CTRLD    = ADC_INITDLY_DLY16_gc;
+  ca:	80 e2       	ldi	r24, 0x20	; 32
+  cc:	83 83       	std	Z+3, r24	; 0x03
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1653
+    pADC->CTRLA    = ADC_ENABLE_bm;
+  ce:	81 e0       	ldi	r24, 0x01	; 1
+  d0:	80 83       	st	Z, r24
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1688
+    /* Note that we don't *enable* it automatically in init().
+     * 3/4th bias is good up to 4 MHz CLK_ADC, 15 ADC Clocks to sample the PGA
+     * up to 5 MHz, so within the regime of speeds that have to be compatible
+     * with internal references, we are in the clear there. */
+  #endif
+}
+  d2:	08 95       	ret
+
+000000d4 <init_clock>:
+init_clock():
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1501
+    #if (defined(CLOCK_TUNE_INTERNAL))
+      tune_internal(); // Will be inlined as only called once. Just too long and ugly to put two implementations in middle of this.
+    #else
+      #if (F_CPU == 20000000)
+        /* No division on clock */
+        _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, 0x00);
+  d4:	88 ed       	ldi	r24, 0xD8	; 216
+  d6:	90 e0       	ldi	r25, 0x00	; 0
+  d8:	84 bf       	out	0x34, r24	; 52
+  da:	90 93 61 00 	sts	0x0061, r25	; 0x800061 <digital_pin_to_bit_mask+0x7f7c95>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1543
+      _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, 0x00);
+    }
+  #else
+    #error "CLOCK_SOURCE is defined, but it isn't 0 (internal) or 2 (external clock), and those are the only clock sources supported by this part."
+  #endif
+}
+  de:	08 95       	ret
+
+000000e0 <init_millis>:
+init_millis():
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1392
+      #endif
+    #elif defined(MILLIS_USE_TIMERA1)
+      TCA1.SPLIT.INTCTRL |= TCA_SPLIT_HUNF_bm;
+    #elif defined(MILLIS_USE_TIMERD0)
+      TCD_t* pTCD;
+      _fastPtr_d(pTCD, &TCD0);
+  e0:	e0 e8       	ldi	r30, 0x80	; 128
+  e2:	fa e0       	ldi	r31, 0x0A	; 10
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1393
+      pTCD->CMPBCLR        = TIME_TRACKING_TIMER_PERIOD; // essentially, this is TOP
+  e4:	8d ef       	ldi	r24, 0xFD	; 253
+  e6:	91 e0       	ldi	r25, 0x01	; 1
+  e8:	86 a7       	std	Z+46, r24	; 0x2e
+  ea:	97 a7       	std	Z+47, r25	; 0x2f
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1394
+      pTCD->CTRLB          = 0x00; // oneramp mode
+  ec:	11 82       	std	Z+1, r1	; 0x01
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1395
+      pTCD->CTRLC          = 0x80;
+  ee:	80 e8       	ldi	r24, 0x80	; 128
+  f0:	82 83       	std	Z+2, r24	; 0x02
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1396
+      pTCD->INTCTRL        = 0x01; // enable interrupt
+  f2:	81 e0       	ldi	r24, 0x01	; 1
+  f4:	84 87       	std	Z+12, r24	; 0x0c
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1397
+      pTCD->CTRLA          = TIMERD0_PRESCALER | 0x01; // set clock source and enable!
+  f6:	81 e1       	ldi	r24, 0x11	; 17
+  f8:	80 83       	st	Z, r24
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1473
+  #endif
+}
+
+void init() {
+  // Initializes hardware: First we configure the main clock, then fire up the other peripherals
+  init_clock();
+  fa:	08 95       	ret
+
+000000fc <init>:
+init():
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1474
+  init_ADC0();
+  fc:	eb df       	rcall	.-42     	; 0xd4 <init_clock>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1475
+  init_timers();
+  fe:	df df       	rcall	.-66     	; 0xbe <init_ADC0>
+ 100:	dc df       	rcall	.-72     	; 0xba <init_timers>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1477
+  #ifndef MILLIS_USE_TIMERNONE
+    init_millis();
+ 102:	ee df       	rcall	.-36     	; 0xe0 <init_millis>
+ 104:	cc df       	rcall	.-104    	; 0x9e <onAfterInit>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1481
+  #endif
+  /*************************** ENABLE GLOBAL INTERRUPTS *************************/
+  // Finally, after everything is initialized, we go ahead and enable interrupts.
+  if (onAfterInit()) {
+ 106:	88 23       	and	r24, r24
+ 108:	09 f0       	breq	.+2      	; 0x10c <__EEPROM_REGION_LENGTH__+0xc>
+ 10a:	78 94       	sei
+ 10c:	08 95       	ret
+
+0000010e <leds_update()>:
+_Z11leds_updatev():
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1482
+    sei();
+ 10e:	cf 93       	push	r28
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1484
+  }
+}
+ 110:	df 93       	push	r29
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:61
+  m_pinMask = digitalPinToBitMask(LED_DATA_PIN);
+  return true;
+}
+
+void leds_update()
+{
+ 112:	cd b7       	in	r28, 0x3d	; 61
+ 114:	de b7       	in	r29, 0x3e	; 62
+ 116:	27 97       	sbiw	r28, 0x07	; 7
+ 118:	cd bf       	out	0x3d, r28	; 61
+ 11a:	de bf       	out	0x3e, r29	; 62
+ 11c:	f8 94       	cli
+ 11e:	83 e0       	ldi	r24, 0x03	; 3
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:62
+  noInterrupts();
+ 120:	90 e0       	ldi	r25, 0x00	; 0
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:64
+  volatile uint16_t
+    i = LED_COUNT * sizeof(RGBColor); // Loop counter
+ 122:	89 83       	std	Y+1, r24	; 0x01
+ 124:	9a 83       	std	Y+2, r25	; 0x02
+ 126:	80 91 03 38 	lds	r24, 0x3803	; 0x803803 <m_ledColors>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:67
+  volatile uint8_t
+    *ptr = (volatile uint8_t *)m_ledColors,   // Pointer to next byte
+    b = *ptr++,   // Current byte value
+ 12a:	8b 83       	std	Y+3, r24	; 0x03
+ 12c:	a0 91 01 38 	lds	r26, 0x3801	; 0x803801 <m_port>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:73
+    hi,             // PORT w/output bit set high
+    lo;             // PORT w/output bit set low
+
+    volatile uint8_t next, bit;
+
+    hi   = *m_port |  m_pinMask;
+ 130:	b0 91 02 38 	lds	r27, 0x3802	; 0x803802 <m_port+0x1>
+ 134:	9c 91       	ld	r25, X
+ 136:	80 91 00 38 	lds	r24, 0x3800	; 0x803800 <__DATA_REGION_ORIGIN__>
+ 13a:	98 2b       	or	r25, r24
+ 13c:	9c 83       	std	Y+4, r25	; 0x04
+ 13e:	9c 91       	ld	r25, X
+ 140:	80 95       	com	r24
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:74
+    lo   = *m_port & ~m_pinMask;
+ 142:	89 23       	and	r24, r25
+ 144:	8d 83       	std	Y+5, r24	; 0x05
+ 146:	8d 81       	ldd	r24, Y+5	; 0x05
+ 148:	8e 83       	std	Y+6, r24	; 0x06
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:75
+    next = lo;
+ 14a:	88 e0       	ldi	r24, 0x08	; 8
+ 14c:	8f 83       	std	Y+7, r24	; 0x07
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:76
+    bit  = 8;
+ 14e:	5c 81       	ldd	r21, Y+4	; 0x04
+ 150:	6d 81       	ldd	r22, Y+5	; 0x05
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:115
+      [bit]   "+d" (bit),
+      [next]  "+r" (next),
+      [count] "+w" (i)
+    : [port]   "e" (m_port),
+      [hi]     "r" (hi),
+      [lo]     "r" (lo));
+ 152:	4b 81       	ldd	r20, Y+3	; 0x03
+ 154:	3f 81       	ldd	r19, Y+7	; 0x07
+ 156:	2e 81       	ldd	r18, Y+6	; 0x06
+ 158:	89 81       	ldd	r24, Y+1	; 0x01
+ 15a:	9a 81       	ldd	r25, Y+2	; 0x02
+ 15c:	e4 e0       	ldi	r30, 0x04	; 4
+ 15e:	f8 e3       	ldi	r31, 0x38	; 56
+
+00000160 <head20>:
+ 160:	5c 93       	st	X, r21
+ 162:	47 fd       	sbrc	r20, 7
+ 164:	25 2f       	mov	r18, r21
+ 166:	3a 95       	dec	r19
+ 168:	00 00       	nop
+ 16a:	00 c0       	rjmp	.+0      	; 0x16c <head20+0xc>
+ 16c:	2c 93       	st	X, r18
+ 16e:	26 2f       	mov	r18, r22
+ 170:	49 f0       	breq	.+18     	; 0x184 <nextbyte20>
+ 172:	44 1f       	adc	r20, r20
+ 174:	00 c0       	rjmp	.+0      	; 0x176 <head20+0x16>
+ 176:	00 c0       	rjmp	.+0      	; 0x178 <head20+0x18>
+ 178:	6c 93       	st	X, r22
+ 17a:	00 00       	nop
+ 17c:	00 c0       	rjmp	.+0      	; 0x17e <head20+0x1e>
+ 17e:	00 c0       	rjmp	.+0      	; 0x180 <head20+0x20>
+ 180:	00 c0       	rjmp	.+0      	; 0x182 <head20+0x22>
+ 182:	ee cf       	rjmp	.-36     	; 0x160 <head20>
+
+00000184 <nextbyte20>:
+ 184:	38 e0       	ldi	r19, 0x08	; 8
+ 186:	41 91       	ld	r20, Z+
+ 188:	00 00       	nop
+ 18a:	6c 93       	st	X, r22
+ 18c:	00 00       	nop
+ 18e:	00 c0       	rjmp	.+0      	; 0x190 <nextbyte20+0xc>
+ 190:	00 c0       	rjmp	.+0      	; 0x192 <nextbyte20+0xe>
+ 192:	01 97       	sbiw	r24, 0x01	; 1
+ 194:	29 f7       	brne	.-54     	; 0x160 <head20>
+ 196:	4b 83       	std	Y+3, r20	; 0x03
+ 198:	3f 83       	std	Y+7, r19	; 0x07
+ 19a:	2e 83       	std	Y+6, r18	; 0x06
+ 19c:	89 83       	std	Y+1, r24	; 0x01
+ 19e:	9a 83       	std	Y+2, r25	; 0x02
+ 1a0:	78 94       	sei
+ 1a2:	27 96       	adiw	r28, 0x07	; 7
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:117
+
+  interrupts();
+ 1a4:	cd bf       	out	0x3d, r28	; 61
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:118
+}
+ 1a6:	de bf       	out	0x3e, r29	; 62
+ 1a8:	df 91       	pop	r29
+ 1aa:	cf 91       	pop	r28
+ 1ac:	08 95       	ret
+
+000001ae <pinMode>:
+pinMode():
+ 1ae:	28 2f       	mov	r18, r24
+ 1b0:	30 e0       	ldi	r19, 0x00	; 0
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/Arduino.h:814
+#if !defined(NUM_TOTAL_PINS)
+  #define NUM_TOTAL_PINS                (NUM_DIGITAL_PINS) /* Used the same way as NUM_DIGITAL_PINS. so it doesn't mean what it's named  - I didn't make the convention*/
+#endif
+
+inline __attribute__((always_inline)) void check_valid_digital_pin(pin_size_t pin) {
+  if (__builtin_constant_p(pin)) {
+ 1b2:	86 31       	cpi	r24, 0x16	; 22
+ 1b4:	f8 f4       	brcc	.+62     	; 0x1f4 <pinMode+0x46>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:44
+}
+
+void pinMode(uint8_t pin, uint8_t mode) {
+  check_valid_digital_pin(pin);         /* generate compile error if a constant that is not a valid pin is used as the pin */
+  check_valid_pin_mode(mode);           /* generate compile error if a constant that is not a valid pin mode is used as the mode */
+  uint8_t bit_mask = digitalPinToBitMask(pin);
+ 1b6:	f9 01       	movw	r30, r18
+ 1b8:	e4 53       	subi	r30, 0x34	; 52
+ 1ba:	fc 47       	sbci	r31, 0x7C	; 124
+ 1bc:	80 81       	ld	r24, Z
+ 1be:	8f 3f       	cpi	r24, 0xFF	; 255
+ 1c0:	c9 f0       	breq	.+50     	; 0x1f4 <pinMode+0x46>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:45
+  if ((bit_mask == NOT_A_PIN) || (mode > INPUT_PULLUP)) {
+ 1c2:	63 30       	cpi	r22, 0x03	; 3
+ 1c4:	b8 f4       	brcc	.+46     	; 0x1f4 <pinMode+0x46>
+ 1c6:	f9 01       	movw	r30, r18
+ 1c8:	ea 54       	subi	r30, 0x4A	; 74
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:48
+    return;                             /* ignore invalid pins passed at runtime */
+  }
+  volatile uint8_t * port_base = (volatile uint8_t *) (uint16_t) ((&PORTA) + digitalPinToPort(pin));
+ 1ca:	fc 47       	sbci	r31, 0x7C	; 124
+ 1cc:	e0 81       	ld	r30, Z
+ 1ce:	90 e2       	ldi	r25, 0x20	; 32
+ 1d0:	e9 9f       	mul	r30, r25
+ 1d2:	f0 01       	movw	r30, r0
+ 1d4:	11 24       	eor	r1, r1
+ 1d6:	fc 5f       	subi	r31, 0xFC	; 252
+ 1d8:	60 ff       	sbrs	r22, 0
+ 1da:	0d c0       	rjmp	.+26     	; 0x1f6 <pinMode+0x48>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:49
+  if (mode & 0x01) {
+ 1dc:	81 83       	std	Z+1, r24	; 0x01
+ 1de:	20 56       	subi	r18, 0x60	; 96
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:51
+    // OUTPUT mode, so write DIRSET with the mask.
+    *(port_base + 1) = bit_mask;
+ 1e0:	3c 47       	sbci	r19, 0x7C	; 124
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:77
+  // then load with displacement 2 clocks. IFF the compiler puts this pointer into Y or Z, it is faster and smaller
+  // by 2 bytes and one clock. And let's hope it is, because the code above would suck too if it was in X.
+  // Handwritten assembly that exploited the knowledge that there will never be a carry would save 1 word and 1 clock.
+  // and could probably save at least several times that in initializing the port_base pointer. But if you're using
+  // pinMode you probably don't care.
+  port_base += (uint8_t) digitalPinToBitPosition(pin);
+ 1e2:	d9 01       	movw	r26, r18
+ 1e4:	8c 91       	ld	r24, X
+ 1e6:	e8 0f       	add	r30, r24
+ 1e8:	f1 1d       	adc	r31, r1
+ 1ea:	80 89       	ldd	r24, Z+16	; 0x10
+ 1ec:	61 ff       	sbrs	r22, 1
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:78
+  bit_mask = *(port_base + 0x10);
+ 1ee:	05 c0       	rjmp	.+10     	; 0x1fa <pinMode+0x4c>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:79
+  if (mode & 2) {
+ 1f0:	88 60       	ori	r24, 0x08	; 8
+ 1f2:	80 8b       	std	Z+16, r24	; 0x10
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:80
+    bit_mask |= 0x08;
+ 1f4:	08 95       	ret
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:84
+  } else {
+    bit_mask &= 0xF7;
+  }
+  *(port_base + 0x10) = bit_mask;
+ 1f6:	82 83       	std	Z+2, r24	; 0x02
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:85
+}
+ 1f8:	f2 cf       	rjmp	.-28     	; 0x1de <pinMode+0x30>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:53
+  volatile uint8_t * port_base = (volatile uint8_t *) (uint16_t) ((&PORTA) + digitalPinToPort(pin));
+  if (mode & 0x01) {
+    // OUTPUT mode, so write DIRSET with the mask.
+    *(port_base + 1) = bit_mask;
+  } else { // otherwise it's input so we write DIRCLR
+    *(port_base + 2) = bit_mask;
+ 1fa:	87 7f       	andi	r24, 0xF7	; 247
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:82
+  port_base += (uint8_t) digitalPinToBitPosition(pin);
+  bit_mask = *(port_base + 0x10);
+  if (mode & 2) {
+    bit_mask |= 0x08;
+  } else {
+    bit_mask &= 0xF7;
+ 1fc:	fa cf       	rjmp	.-12     	; 0x1f2 <pinMode+0x44>
+
+000001fe <leds_init()>:
+_Z9leds_initv():
+ 1fe:	61 e0       	ldi	r22, 0x01	; 1
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:52
+
+bool leds_init()
+{
+  // clear the onboard led so it displays nothing
+  // tiny neo pixels
+  pinMode(LED_DATA_PIN, OUTPUT);
+ 200:	87 e0       	ldi	r24, 0x07	; 7
+ 202:	d5 df       	rcall	.-86     	; 0x1ae <pinMode>
+ 204:	84 e2       	ldi	r24, 0x24	; 36
+ 206:	94 e0       	ldi	r25, 0x04	; 4
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:54
+  // register ouput port
+  m_port = portOutputRegister(digitalPinToPort(LED_DATA_PIN));
+ 208:	80 93 01 38 	sts	0x3801, r24	; 0x803801 <m_port>
+ 20c:	90 93 02 38 	sts	0x3802, r25	; 0x803802 <m_port+0x1>
+ 210:	80 e1       	ldi	r24, 0x10	; 16
+ 212:	80 93 00 38 	sts	0x3800, r24	; 0x803800 <__DATA_REGION_ORIGIN__>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:56
+  // create a pin mask to use later
+  m_pinMask = digitalPinToBitMask(LED_DATA_PIN);
+ 216:	81 e0       	ldi	r24, 0x01	; 1
+ 218:	08 95       	ret
+
+0000021a <storage_read(unsigned char*)>:
 _Z12storage_readPh():
-  8e:	9c 01       	movw	r18, r24
-  90:	40 e0       	ldi	r20, 0x00	; 0
-  92:	50 e0       	ldi	r21, 0x00	; 0
-  94:	ba 01       	movw	r22, r20
-  96:	40 38       	cpi	r20, 0x80	; 128
-  98:	51 05       	cpc	r21, r1
-  9a:	61 05       	cpc	r22, r1
-  9c:	71 05       	cpc	r23, r1
-  9e:	60 f4       	brcc	.+24     	; 0xb8 <storage_read(unsigned char*)+0x2a>
-  a0:	f9 01       	movw	r30, r18
-  a2:	e4 0f       	add	r30, r20
-  a4:	f5 1f       	adc	r31, r21
-  a6:	da 01       	movw	r26, r20
-  a8:	b4 50       	subi	r27, 0x04	; 4
-  aa:	9c 91       	ld	r25, X
-  ac:	90 83       	st	Z, r25
-  ae:	4f 5f       	subi	r20, 0xFF	; 255
-  b0:	5f 4f       	sbci	r21, 0xFF	; 255
-  b2:	6f 4f       	sbci	r22, 0xFF	; 255
-  b4:	7f 4f       	sbci	r23, 0xFF	; 255
-  b6:	ef cf       	rjmp	.-34     	; 0x96 <storage_read(unsigned char*)+0x8>
-  b8:	81 e0       	ldi	r24, 0x01	; 1
-  ba:	08 95       	ret
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:58
+  return true;
+}
+ 21a:	dc 01       	movw	r26, r24
+ 21c:	90 e8       	ldi	r25, 0x80	; 128
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:42
+  return (NVMCTRL.STATUS != 4);
+}
 
-000000bc <storage_write(unsigned char*)>:
+// read a serial buffer from storage
+bool storage_read(uint8_t *buf)
+{
+ 21e:	e0 e0       	ldi	r30, 0x00	; 0
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:44
+  // Read the data from EEPROM into the buffer
+  memcpy(buf, storage_data, STORAGE_SIZE);
+ 220:	f4 e8       	ldi	r31, 0x84	; 132
+ 222:	01 90       	ld	r0, Z+
+ 224:	0d 92       	st	X+, r0
+ 226:	9a 95       	dec	r25
+ 228:	e1 f7       	brne	.-8      	; 0x222 <storage_read(unsigned char*)+0x8>
+ 22a:	81 e0       	ldi	r24, 0x01	; 1
+ 22c:	08 95       	ret
+
+0000022e <storage_write(unsigned char*)>:
 _Z13storage_writePh():
-  bc:	ac 01       	movw	r20, r24
-  be:	90 e0       	ldi	r25, 0x00	; 0
-  c0:	99 23       	and	r25, r25
-  c2:	5c f0       	brlt	.+22     	; 0xda <storage_write(unsigned char*)+0x1e>
-  c4:	29 2f       	mov	r18, r25
-  c6:	30 e0       	ldi	r19, 0x00	; 0
-  c8:	f9 01       	movw	r30, r18
-  ca:	f4 50       	subi	r31, 0x04	; 4
-  cc:	24 0f       	add	r18, r20
-  ce:	35 1f       	adc	r19, r21
-  d0:	d9 01       	movw	r26, r18
-  d2:	2c 91       	ld	r18, X
-  d4:	20 83       	st	Z, r18
-  d6:	9f 5f       	subi	r25, 0xFF	; 255
-  d8:	f3 cf       	rjmp	.-26     	; 0xc0 <storage_write(unsigned char*)+0x4>
-  da:	8d e9       	ldi	r24, 0x9D	; 157
-  dc:	93 e0       	ldi	r25, 0x03	; 3
-  de:	84 bf       	out	0x34, r24	; 52
-  e0:	90 93 00 10 	sts	0x1000, r25	; 0x801000 <__RODATA_PM_OFFSET__+0x7f9000>
-  e4:	80 91 02 10 	lds	r24, 0x1002	; 0x801002 <__RODATA_PM_OFFSET__+0x7f9002>
-  e8:	83 70       	andi	r24, 0x03	; 3
-  ea:	e1 f7       	brne	.-8      	; 0xe4 <storage_write(unsigned char*)+0x28>
-  ec:	90 91 02 10 	lds	r25, 0x1002	; 0x801002 <__RODATA_PM_OFFSET__+0x7f9002>
-  f0:	81 e0       	ldi	r24, 0x01	; 1
-  f2:	94 30       	cpi	r25, 0x04	; 4
-  f4:	09 f0       	breq	.+2      	; 0xf8 <storage_write(unsigned char*)+0x3c>
-  f6:	08 95       	ret
-  f8:	80 e0       	ldi	r24, 0x00	; 0
-  fa:	fd cf       	rjmp	.-6      	; 0xf6 <storage_write(unsigned char*)+0x3a>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:46
+  return true;
+}
+ 22e:	fc 01       	movw	r30, r24
+ 230:	90 e8       	ldi	r25, 0x80	; 128
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:31
+uint8_t m_pinMask = 0;
+RGBColor m_ledColors[LED_COUNT] = { 0 };
 
-000000fc <main>:
+// store a serial buffer to storage
+bool storage_write(uint8_t *buf)
+{
+ 232:	a0 e0       	ldi	r26, 0x00	; 0
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:33
+  // copy in page
+  memcpy(storage_data, buf, STORAGE_SIZE);
+ 234:	b4 e8       	ldi	r27, 0x84	; 132
+ 236:	01 90       	ld	r0, Z+
+ 238:	0d 92       	st	X+, r0
+ 23a:	9a 95       	dec	r25
+ 23c:	e1 f7       	brne	.-8      	; 0x236 <storage_write(unsigned char*)+0x8>
+ 23e:	8d e9       	ldi	r24, 0x9D	; 157
+ 240:	93 e0       	ldi	r25, 0x03	; 3
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:35
+  // Erase + write the flash page
+  _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, 0x3);
+ 242:	84 bf       	out	0x34, r24	; 52
+ 244:	90 93 00 10 	sts	0x1000, r25	; 0x801000 <digital_pin_to_bit_mask+0x7f8c34>
+ 248:	80 91 02 10 	lds	r24, 0x1002	; 0x801002 <digital_pin_to_bit_mask+0x7f8c36>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:36
+  while (NVMCTRL.STATUS & 0x3);
+ 24c:	83 70       	andi	r24, 0x03	; 3
+ 24e:	e1 f7       	brne	.-8      	; 0x248 <storage_write(unsigned char*)+0x1a>
+ 250:	90 91 02 10 	lds	r25, 0x1002	; 0x801002 <digital_pin_to_bit_mask+0x7f8c36>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:37
+  return (NVMCTRL.STATUS != 4);
+ 254:	81 e0       	ldi	r24, 0x01	; 1
+ 256:	94 30       	cpi	r25, 0x04	; 4
+ 258:	09 f0       	breq	.+2      	; 0x25c <storage_write(unsigned char*)+0x2e>
+ 25a:	08 95       	ret
+ 25c:	80 e0       	ldi	r24, 0x00	; 0
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:38
+}
+ 25e:	fd cf       	rjmp	.-6      	; 0x25a <storage_write(unsigned char*)+0x2c>
+
+00000260 <do_work()>:
+_Z7do_workv():
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:37
+  // copy in page
+  memcpy(storage_data, buf, STORAGE_SIZE);
+  // Erase + write the flash page
+  _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, 0x3);
+  while (NVMCTRL.STATUS & 0x3);
+  return (NVMCTRL.STATUS != 4);
+ 260:	cf 93       	push	r28
+ 262:	df 93       	push	r29
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:121
+
+  interrupts();
+}
+
+bool do_work()
+{
+ 264:	cd b7       	in	r28, 0x3d	; 61
+ 266:	de b7       	in	r29, 0x3e	; 62
+ 268:	da 95       	dec	r29
+ 26a:	cd bf       	out	0x3d, r28	; 61
+ 26c:	de bf       	out	0x3e, r29	; 62
+ 26e:	80 e8       	ldi	r24, 0x80	; 128
+ 270:	fe 01       	movw	r30, r28
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:123
+#define BUFSIZE PROGMEM_PAGE_SIZE
+  uint8_t inbuf[BUFSIZE] = {0};
+ 272:	31 96       	adiw	r30, 0x01	; 1
+ 274:	df 01       	movw	r26, r30
+ 276:	68 2f       	mov	r22, r24
+ 278:	1d 92       	st	X+, r1
+ 27a:	6a 95       	dec	r22
+ 27c:	e9 f7       	brne	.-6      	; 0x278 <do_work()+0x18>
+ 27e:	e0 58       	subi	r30, 0x80	; 128
+ 280:	ff 4f       	sbci	r31, 0xFF	; 255
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:124
+  uint8_t outbuf[BUFSIZE] = {0};
+ 282:	df 01       	movw	r26, r30
+ 284:	1d 92       	st	X+, r1
+ 286:	8a 95       	dec	r24
+ 288:	e9 f7       	brne	.-6      	; 0x284 <do_work()+0x24>
+ 28a:	80 e0       	ldi	r24, 0x00	; 0
+ 28c:	88 23       	and	r24, r24
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:125
+  for (uint8_t i = 0; i < BUFSIZE; ++i) {
+ 28e:	4c f0       	brlt	.+18     	; 0x2a2 <do_work()+0x42>
+ 290:	e1 e0       	ldi	r30, 0x01	; 1
+ 292:	f0 e0       	ldi	r31, 0x00	; 0
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:126
+    inbuf[i] = i;
+ 294:	ec 0f       	add	r30, r28
+ 296:	fd 1f       	adc	r31, r29
+ 298:	e8 0f       	add	r30, r24
+ 29a:	f1 1d       	adc	r31, r1
+ 29c:	80 83       	st	Z, r24
+ 29e:	8f 5f       	subi	r24, 0xFF	; 255
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:125
+bool do_work()
+{
+#define BUFSIZE PROGMEM_PAGE_SIZE
+  uint8_t inbuf[BUFSIZE] = {0};
+  uint8_t outbuf[BUFSIZE] = {0};
+  for (uint8_t i = 0; i < BUFSIZE; ++i) {
+ 2a0:	f5 cf       	rjmp	.-22     	; 0x28c <do_work()+0x2c>
+ 2a2:	ce 01       	movw	r24, r28
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:128
+    inbuf[i] = i;
+  }
+  if (!storage_write(inbuf)) {
+ 2a4:	01 96       	adiw	r24, 0x01	; 1
+ 2a6:	c3 df       	rcall	.-122    	; 0x22e <storage_write(unsigned char*)>
+ 2a8:	81 11       	cpse	r24, r1
+ 2aa:	0b c0       	rjmp	.+22     	; 0x2c2 <do_work()+0x62>
+ 2ac:	e3 e0       	ldi	r30, 0x03	; 3
+ 2ae:	f8 e3       	ldi	r31, 0x38	; 56
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:130
+    // yellow
+    m_ledColors[0].red = 255;
+ 2b0:	9f ef       	ldi	r25, 0xFF	; 255
+ 2b2:	90 83       	st	Z, r25
+ 2b4:	91 83       	std	Z+1, r25	; 0x01
+ 2b6:	d3 95       	inc	r29
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:131
+    m_ledColors[0].green = 255;
+ 2b8:	cd bf       	out	0x3d, r28	; 61
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:148
+      m_ledColors[0].red = 255;
+      return false;
+    }
+  }
+  return true;
+}
+ 2ba:	de bf       	out	0x3e, r29	; 62
+ 2bc:	df 91       	pop	r29
+ 2be:	cf 91       	pop	r28
+ 2c0:	08 95       	ret
+ 2c2:	ce 01       	movw	r24, r28
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:134
+    // yellow
+    m_ledColors[0].red = 255;
+    m_ledColors[0].green = 255;
+    return false;
+  }
+  if (!storage_read(outbuf)) {
+ 2c4:	8f 57       	subi	r24, 0x7F	; 127
+ 2c6:	9f 4f       	sbci	r25, 0xFF	; 255
+ 2c8:	a8 df       	rcall	.-176    	; 0x21a <storage_read(unsigned char*)>
+ 2ca:	88 23       	and	r24, r24
+ 2cc:	c1 f0       	breq	.+48     	; 0x2fe <do_work()+0x9e>
+ 2ce:	90 e0       	ldi	r25, 0x00	; 0
+ 2d0:	99 23       	and	r25, r25
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:139
+    // blue
+    m_ledColors[0].blue = 255;
+    return false;
+  }
+  for (uint8_t i = 0; i < BUFSIZE; ++i) {
+ 2d2:	8c f3       	brlt	.-30     	; 0x2b6 <do_work()+0x56>
+ 2d4:	29 2f       	mov	r18, r25
+ 2d6:	30 e0       	ldi	r19, 0x00	; 0
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:140
+    if (inbuf[i] != outbuf[i]) {
+ 2d8:	e1 e0       	ldi	r30, 0x01	; 1
+ 2da:	f0 e0       	ldi	r31, 0x00	; 0
+ 2dc:	ec 0f       	add	r30, r28
+ 2de:	fd 1f       	adc	r31, r29
+ 2e0:	e2 0f       	add	r30, r18
+ 2e2:	f3 1f       	adc	r31, r19
+ 2e4:	40 81       	ld	r20, Z
+ 2e6:	e1 e8       	ldi	r30, 0x81	; 129
+ 2e8:	f0 e0       	ldi	r31, 0x00	; 0
+ 2ea:	ec 0f       	add	r30, r28
+ 2ec:	fd 1f       	adc	r31, r29
+ 2ee:	2e 0f       	add	r18, r30
+ 2f0:	3f 1f       	adc	r19, r31
+ 2f2:	d9 01       	movw	r26, r18
+ 2f4:	2c 91       	ld	r18, X
+ 2f6:	42 13       	cpse	r20, r18
+ 2f8:	06 c0       	rjmp	.+12     	; 0x306 <do_work()+0xa6>
+ 2fa:	9f 5f       	subi	r25, 0xFF	; 255
+ 2fc:	e9 cf       	rjmp	.-46     	; 0x2d0 <do_work()+0x70>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:139
+  if (!storage_read(outbuf)) {
+    // blue
+    m_ledColors[0].blue = 255;
+    return false;
+  }
+  for (uint8_t i = 0; i < BUFSIZE; ++i) {
+ 2fe:	9f ef       	ldi	r25, 0xFF	; 255
+ 300:	90 93 05 38 	sts	0x3805, r25	; 0x803805 <m_ledColors+0x2>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:136
+    m_ledColors[0].green = 255;
+    return false;
+  }
+  if (!storage_read(outbuf)) {
+    // blue
+    m_ledColors[0].blue = 255;
+ 304:	d8 cf       	rjmp	.-80     	; 0x2b6 <do_work()+0x56>
+ 306:	e3 e0       	ldi	r30, 0x03	; 3
+ 308:	f8 e3       	ldi	r31, 0x38	; 56
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:142
+    return false;
+  }
+  for (uint8_t i = 0; i < BUFSIZE; ++i) {
+    if (inbuf[i] != outbuf[i]) {
+      // purple
+      m_ledColors[0].blue = 255;
+ 30a:	8f ef       	ldi	r24, 0xFF	; 255
+ 30c:	82 83       	std	Z+2, r24	; 0x02
+ 30e:	80 83       	st	Z, r24
+ 310:	80 e0       	ldi	r24, 0x00	; 0
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:143
+      m_ledColors[0].red = 255;
+ 312:	d1 cf       	rjmp	.-94     	; 0x2b6 <do_work()+0x56>
+
+00000314 <__vector_15>:
+__vector_15():
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:144
+      return false;
+ 314:	ef 93       	push	r30
+ 316:	ff 93       	push	r31
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:200
+      }
+      RTC.INTFLAGS = RTC_OVF_bm | RTC_CMP_bm; // clear flag
+    }
+  #else
+    ISR(MILLIS_TIMER_VECTOR, ISR_NAKED) {
+      __asm__ __volatile__(
+ 318:	e6 e0       	ldi	r30, 0x06	; 6
+ 31a:	f8 e3       	ldi	r31, 0x38	; 56
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:248
+          #endif
+          _timer->INTFLAGS = TCB_CAPT_bm;   // reset Interrupt flag of TCBx
+        }
+      */
+    #else // TCA0 or TCD0, also naked
+      __asm__ __volatile__(
+ 31c:	8f 93       	push	r24
+ 31e:	8f b7       	in	r24, 0x3f	; 63
+ 320:	8f 93       	push	r24
+ 322:	9f 93       	push	r25
+ 324:	7f 93       	push	r23
+ 326:	70 e0       	ldi	r23, 0x00	; 0
+ 328:	80 81       	ld	r24, Z
+ 32a:	91 81       	ldd	r25, Z+1	; 0x01
+ 32c:	80 5d       	subi	r24, 0xD0	; 208
+ 32e:	9c 4f       	sbci	r25, 0xFC	; 252
+ 330:	80 83       	st	Z, r24
+ 332:	91 83       	std	Z+1, r25	; 0x01
+ 334:	88 5e       	subi	r24, 0xE8	; 232
+ 336:	93 40       	sbci	r25, 0x03	; 3
+ 338:	18 f0       	brcs	.+6      	; 0x340 <lower>
+ 33a:	80 83       	st	Z, r24
+ 33c:	91 83       	std	Z+1, r25	; 0x01
+ 33e:	7f 5f       	subi	r23, 0xFF	; 255
+
+00000340 <lower>:
+ 340:	92 81       	ldd	r25, Z+2	; 0x02
+ 342:	97 0f       	add	r25, r23
+ 344:	92 83       	std	Z+2, r25	; 0x02
+ 346:	80 e0       	ldi	r24, 0x00	; 0
+ 348:	93 81       	ldd	r25, Z+3	; 0x03
+ 34a:	98 1f       	adc	r25, r24
+ 34c:	93 83       	std	Z+3, r25	; 0x03
+ 34e:	94 81       	ldd	r25, Z+4	; 0x04
+ 350:	98 1f       	adc	r25, r24
+ 352:	94 83       	std	Z+4, r25	; 0x04
+ 354:	95 81       	ldd	r25, Z+5	; 0x05
+ 356:	98 1f       	adc	r25, r24
+ 358:	95 83       	std	Z+5, r25	; 0x05
+ 35a:	96 81       	ldd	r25, Z+6	; 0x06
+ 35c:	9f 5f       	subi	r25, 0xFF	; 255
+ 35e:	96 83       	std	Z+6, r25	; 0x06
+ 360:	97 81       	ldd	r25, Z+7	; 0x07
+ 362:	9f 4f       	sbci	r25, 0xFF	; 255
+ 364:	97 83       	std	Z+7, r25	; 0x07
+ 366:	90 85       	ldd	r25, Z+8	; 0x08
+ 368:	9f 4f       	sbci	r25, 0xFF	; 255
+ 36a:	90 87       	std	Z+8, r25	; 0x08
+ 36c:	91 85       	ldd	r25, Z+9	; 0x09
+ 36e:	9f 4f       	sbci	r25, 0xFF	; 255
+ 370:	91 87       	std	Z+9, r25	; 0x09
+ 372:	81 e0       	ldi	r24, 0x01	; 1
+ 374:	80 93 8d 0a 	sts	0x0A8D, r24	; 0x800a8d <digital_pin_to_bit_mask+0x7f86c1>
+ 378:	7f 91       	pop	r23
+ 37a:	9f 91       	pop	r25
+ 37c:	8f 91       	pop	r24
+ 37e:	8f bf       	out	0x3f, r24	; 63
+ 380:	8f 91       	pop	r24
+ 382:	ff 91       	pop	r31
+ 384:	ef 91       	pop	r30
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:153
+}
+
+int main()
+{
+  // init megatinycore
+  init();
+ 386:	18 95       	reti
+
+00000388 <main>:
 main():
-  fc:	cf 93       	push	r28
-  fe:	df 93       	push	r29
- 100:	cd b7       	in	r28, 0x3d	; 61
- 102:	de b7       	in	r29, 0x3e	; 62
- 104:	da 95       	dec	r29
- 106:	cd bf       	out	0x3d, r28	; 61
- 108:	de bf       	out	0x3e, r29	; 62
- 10a:	80 e8       	ldi	r24, 0x80	; 128
- 10c:	fe 01       	movw	r30, r28
- 10e:	31 96       	adiw	r30, 0x01	; 1
- 110:	df 01       	movw	r26, r30
- 112:	48 2f       	mov	r20, r24
- 114:	1d 92       	st	X+, r1
- 116:	4a 95       	dec	r20
- 118:	e9 f7       	brne	.-6      	; 0x114 <__EEPROM_REGION_LENGTH__+0x14>
- 11a:	e0 58       	subi	r30, 0x80	; 128
- 11c:	ff 4f       	sbci	r31, 0xFF	; 255
- 11e:	df 01       	movw	r26, r30
- 120:	1d 92       	st	X+, r1
- 122:	8a 95       	dec	r24
- 124:	e9 f7       	brne	.-6      	; 0x120 <__EEPROM_REGION_LENGTH__+0x20>
- 126:	80 e0       	ldi	r24, 0x00	; 0
- 128:	88 23       	and	r24, r24
- 12a:	4c f0       	brlt	.+18     	; 0x13e <__EEPROM_REGION_LENGTH__+0x3e>
- 12c:	e1 e0       	ldi	r30, 0x01	; 1
- 12e:	f0 e0       	ldi	r31, 0x00	; 0
- 130:	ec 0f       	add	r30, r28
- 132:	fd 1f       	adc	r31, r29
- 134:	e8 0f       	add	r30, r24
- 136:	f1 1d       	adc	r31, r1
- 138:	80 83       	st	Z, r24
- 13a:	8f 5f       	subi	r24, 0xFF	; 255
- 13c:	f5 cf       	rjmp	.-22     	; 0x128 <__EEPROM_REGION_LENGTH__+0x28>
- 13e:	ce 01       	movw	r24, r28
- 140:	01 96       	adiw	r24, 0x01	; 1
- 142:	bc df       	rcall	.-136    	; 0xbc <storage_write(unsigned char*)>
- 144:	81 11       	cpse	r24, r1
- 146:	08 c0       	rjmp	.+16     	; 0x158 <__EEPROM_REGION_LENGTH__+0x58>
- 148:	81 e0       	ldi	r24, 0x01	; 1
- 14a:	90 e0       	ldi	r25, 0x00	; 0
- 14c:	d3 95       	inc	r29
- 14e:	cd bf       	out	0x3d, r28	; 61
- 150:	de bf       	out	0x3e, r29	; 62
- 152:	df 91       	pop	r29
- 154:	cf 91       	pop	r28
- 156:	08 95       	ret
- 158:	ce 01       	movw	r24, r28
- 15a:	8f 57       	subi	r24, 0x7F	; 127
- 15c:	9f 4f       	sbci	r25, 0xFF	; 255
- 15e:	97 df       	rcall	.-210    	; 0x8e <storage_read(unsigned char*)>
- 160:	88 23       	and	r24, r24
- 162:	c1 f0       	breq	.+48     	; 0x194 <__EEPROM_REGION_LENGTH__+0x94>
- 164:	20 e0       	ldi	r18, 0x00	; 0
- 166:	22 23       	and	r18, r18
- 168:	c4 f0       	brlt	.+48     	; 0x19a <__EEPROM_REGION_LENGTH__+0x9a>
- 16a:	82 2f       	mov	r24, r18
- 16c:	90 e0       	ldi	r25, 0x00	; 0
- 16e:	e1 e0       	ldi	r30, 0x01	; 1
- 170:	f0 e0       	ldi	r31, 0x00	; 0
- 172:	ec 0f       	add	r30, r28
- 174:	fd 1f       	adc	r31, r29
- 176:	e8 0f       	add	r30, r24
- 178:	f9 1f       	adc	r31, r25
- 17a:	30 81       	ld	r19, Z
- 17c:	e1 e8       	ldi	r30, 0x81	; 129
- 17e:	f0 e0       	ldi	r31, 0x00	; 0
- 180:	ec 0f       	add	r30, r28
- 182:	fd 1f       	adc	r31, r29
- 184:	8e 0f       	add	r24, r30
- 186:	9f 1f       	adc	r25, r31
- 188:	dc 01       	movw	r26, r24
- 18a:	8c 91       	ld	r24, X
- 18c:	38 13       	cpse	r19, r24
- 18e:	08 c0       	rjmp	.+16     	; 0x1a0 <__EEPROM_REGION_LENGTH__+0xa0>
- 190:	2f 5f       	subi	r18, 0xFF	; 255
- 192:	e9 cf       	rjmp	.-46     	; 0x166 <__EEPROM_REGION_LENGTH__+0x66>
- 194:	81 e0       	ldi	r24, 0x01	; 1
- 196:	90 e0       	ldi	r25, 0x00	; 0
- 198:	d9 cf       	rjmp	.-78     	; 0x14c <__EEPROM_REGION_LENGTH__+0x4c>
- 19a:	90 e0       	ldi	r25, 0x00	; 0
- 19c:	80 e0       	ldi	r24, 0x00	; 0
- 19e:	d6 cf       	rjmp	.-84     	; 0x14c <__EEPROM_REGION_LENGTH__+0x4c>
- 1a0:	81 e0       	ldi	r24, 0x01	; 1
- 1a2:	90 e0       	ldi	r25, 0x00	; 0
- 1a4:	d3 cf       	rjmp	.-90     	; 0x14c <__EEPROM_REGION_LENGTH__+0x4c>
+ 388:	b9 de       	rcall	.-654    	; 0xfc <init>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:157
 
-000001a6 <_exit>:
+  // == DONE MEGATINYCORE INIT ==
+
+  leds_init();
+ 38a:	39 df       	rcall	.-398    	; 0x1fe <leds_init()>
+ 38c:	69 df       	rcall	.-302    	; 0x260 <do_work()>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:159
+
+  if (do_work()) {
+ 38e:	88 23       	and	r24, r24
+ 390:	19 f0       	breq	.+6      	; 0x398 <main+0x10>
+ 392:	8f ef       	ldi	r24, 0xFF	; 255
+ 394:	80 93 04 38 	sts	0x3804, r24	; 0x803804 <m_ledColors+0x1>
+C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:160
+    m_ledColors[0].green = 255;
+ 398:	ba de       	rcall	.-652    	; 0x10e <leds_update()>
+ 39a:	ff cf       	rjmp	.-2      	; 0x39a <main+0x12>
+
+0000039c <_exit>:
 exit():
 /home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
- 1a6:	f8 94       	cli
+ 39c:	f8 94       	cli
 
-000001a8 <__stop_program>:
+0000039e <__stop_program>:
 __stop_program():
 /home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2280
- 1a8:	ff cf       	rjmp	.-2      	; 0x1a8 <__stop_program>
+ 39e:	ff cf       	rjmp	.-2      	; 0x39e <__stop_program>

@@ -22,47 +22,64 @@ __dtors_start       |0000007c|   T  |            NOTYPE|        |     |.text	../
 __init              |0000007c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:230
 __trampolines_end   |0000007c|   T  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:230
 __trampolines_start |0000007c|   T  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:230
-__bad_interrupt     |0000008c|   T  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_1          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_10         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_11         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_12         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_13         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_14         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_15         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_16         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_17         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_18         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_19         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_2          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_20         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_21         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_22         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_23         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_24         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_25         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_26         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_27         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_28         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_29         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_3          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_30         |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_4          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_5          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_6          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_7          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_8          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-__vector_9          |0000008c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
-storage_read(unsigned char*)|0000008e|   t  |              FUNC|0000002e|     |.text
-storage_write(unsigned char*)|000000bc|   t  |              FUNC|00000040|     |.text
-main                |000000fc|   T  |              FUNC|000000aa|     |.text
+__do_clear_bss      |00000088|   T  |            NOTYPE|00000010|     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2441
+.do_clear_bss_loop  |00000090|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2446
+.do_clear_bss_start |00000092|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2448
+__bad_interrupt     |0000009c|   T  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_1          |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_10         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_11         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_12         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_13         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_14         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_16         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_17         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_18         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_19         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_2          |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_20         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_21         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_22         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_23         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_24         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_25         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_26         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_27         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_28         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_29         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_3          |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_30         |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_4          |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_5          |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_6          |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_7          |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_8          |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+__vector_9          |0000009c|   W  |            NOTYPE|        |     |.text	../../../../crt1/gcrt1.S:315
+onAfterInit         |0000009e|   t  |              FUNC|00000004|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1767
+init_TCA0           |000000a2|   t  |              FUNC|00000018|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1739
+init_timers         |000000ba|   t  |              FUNC|00000004|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1719
+init_ADC0           |000000be|   t  |              FUNC|00000016|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1614
+init_clock          |000000d4|   t  |              FUNC|0000000c|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1491
+init_millis         |000000e0|   t  |              FUNC|0000001c|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1377
+init                |000000fc|   t  |              FUNC|00000012|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1471
 __EEPROM_REGION_LENGTH__|00000100|   A  |            NOTYPE|        |     |*ABS*
-_exit               |000001a6|   T  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
-exit                |000001a6|   W  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
-__stop_program      |000001a8|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2280
-__data_load_end     |000001aa|   A  |            NOTYPE|        |     |*ABS*
-__data_load_start   |000001aa|   a  |            NOTYPE|        |     |*ABS*
-_etext              |000001aa|   T  |            NOTYPE|        |     |.text
+leds_update()       |0000010e|   t  |              FUNC|000000a0|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1482
+head20              |00000160|   t  |            NOTYPE|        |     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:115
+nextbyte20          |00000184|   t  |            NOTYPE|        |     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:115
+pinMode             |000001ae|   t  |              FUNC|00000050|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:41
+leds_init()         |000001fe|   t  |              FUNC|0000001c|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:82
+storage_read(unsigned char*)|0000021a|   t  |              FUNC|00000014|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:58
+storage_write(unsigned char*)|0000022e|   t  |              FUNC|00000032|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:46
+do_work()           |00000260|   t  |              FUNC|000000b4|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:37
+__vector_15         |00000314|   T  |              FUNC|00000074|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:199
+lower               |00000340|   t  |            NOTYPE|        |     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:248
+main                |00000388|   T  |              FUNC|00000014|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:150
+_exit               |0000039c|   T  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
+exit                |0000039c|   W  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
+__stop_program      |0000039e|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2280
+_etext              |000003a0|   T  |            NOTYPE|        |     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:162
+__data_load_end     |000003e2|   A  |            NOTYPE|        |     |*ABS*
+__data_load_start   |000003e2|   a  |            NOTYPE|        |     |*ABS*
 __LOCK_REGION_LENGTH__|00000400|   A  |            NOTYPE|        |     |*ABS*
 __SIGNATURE_REGION_LENGTH__|00000400|   A  |            NOTYPE|        |     |*ABS*
 __USER_SIGNATURE_REGION_LENGTH__|00000400|   A  |            NOTYPE|        |     |*ABS*
@@ -70,7 +87,16 @@ __DATA_REGION_LENGTH__|00000800|   A  |            NOTYPE|        |     |*ABS*
 __stack             |00003fff|   W  |            NOTYPE|        |     |*ABS*
 __RODATA_PM_OFFSET__|00008000|   A  |            NOTYPE|        |     |*ABS*
 __TEXT_REGION_LENGTH__|00008000|   A  |            NOTYPE|        |     |*ABS*
+digital_pin_to_bit_position|000083a0|   r  |            OBJECT|00000016|     |.rodata	C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/variants/txy7/pins_arduino.h:342
+digital_pin_to_port |000083b6|   r  |            OBJECT|00000016|     |.rodata	C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/variants/txy7/pins_arduino.h:315
+digital_pin_to_bit_mask|000083cc|   r  |            OBJECT|00000016|     |.rodata	C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/variants/txy7/pins_arduino.h:369
+__bss_start         |00803800|   B  |            NOTYPE|        |     |.bss
 __DATA_REGION_ORIGIN__|00803800|   A  |            NOTYPE|        |     |*ABS*
 _edata              |00803800|   D  |            NOTYPE|        |     |.data
-_end                |00803800|   T  |            NOTYPE|        |     |.text
-__eeprom_end        |00810000|   T  |            NOTYPE|        |     |.text
+m_pinMask           |00803800|   b  |            OBJECT|00000001|     |.bss	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:26
+m_port              |00803801|   b  |            OBJECT|00000002|     |.bss	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:24
+m_ledColors         |00803803|   b  |            OBJECT|00000003|     |.bss	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:27
+timingStruct        |00803806|   b  |            OBJECT|0000000a|     |.bss	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:186
+__bss_end           |00803810|   B  |            NOTYPE|        |     |.bss
+_end                |00803810|   N  |            NOTYPE|        |     |.comment
+__eeprom_end        |00810000|   N  |            NOTYPE|        |     |.comment
