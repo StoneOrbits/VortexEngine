@@ -1471,16 +1471,16 @@ void nudge_millis(__attribute__((unused)) uint16_t nudgesize) {
 void init() {
   // Initializes hardware: First we configure the main clock, then fire up the other peripherals
   init_clock();
-  init_ADC0();
-  init_timers();
+  //init_ADC0();
+  //init_timers();
   #ifndef MILLIS_USE_TIMERNONE
     init_millis();
   #endif
   /*************************** ENABLE GLOBAL INTERRUPTS *************************/
   // Finally, after everything is initialized, we go ahead and enable interrupts.
-  if (onAfterInit()) {
-    sei();
-  }
+  //if (onAfterInit()) {
+  //  sei();
+  //}
 }
 
   /******************************** CLOCK STUFF *********************************/

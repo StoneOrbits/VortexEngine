@@ -144,7 +144,7 @@
 // to be stored, however this is not recommended for production and
 // a specific maximum should be chosen for each device
 //
-#define MAX_MODES             5
+#define MAX_MODES             6
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -417,7 +417,7 @@
 
 // the space available for storing modes is the usable space rounded
 // down to nearest 4096
-#define STORAGE_SIZE 128 // (USABLE_SPACE - (USABLE_SPACE % 256))
+#define STORAGE_SIZE 0x200 // (USABLE_SPACE - (USABLE_SPACE % 256))
 
 // ===================================================================
 //  Test Framework configurations

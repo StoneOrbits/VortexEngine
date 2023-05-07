@@ -30,19 +30,17 @@ bool Modes::init()
   return true;
 #endif
   // try to load the saved settings or set defaults
-  //if (!loadStorage()) {
+  if (!loadStorage()) {
     if (!setDefaults()) {
       return false;
     }
-    //if (!saveStorage()) {
-    //  return false;
-    //}
-    //clearModes();
-    //if (!loadStorage()) {
-    //  Colorset set(RGB_BLANK);
-    //  addMode(PATTERN_SOLID, nullptr, &set);
-    //}
-  //}
+    if (!saveStorage()) {
+      clearModes();
+      Colorset set(RGB_BLANK);
+      addMode(PATTERN_SOLID, nullptr, &set);
+      return false;
+    }
+  }
   return true;
 }
 

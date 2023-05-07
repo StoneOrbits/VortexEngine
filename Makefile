@@ -32,8 +32,7 @@ ASMFLAGS = \
   -DMEGATINYCORE_PATCH=7UL \
   -DMEGATINYCORE_RELEASED=1 \
   -DARDUINO_attinyxy7 \
-  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore/api/deprecated \
-  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore \
+  -I ./libraries/megatinycore \
   -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/variants/txy7 
 
 CFLAGS = \
@@ -66,8 +65,7 @@ CFLAGS = \
   -DMEGATINYCORE_PATCH=7UL \
   -DMEGATINYCORE_RELEASED=1 \
   -DARDUINO_attinyxy7  \
-  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore/api/deprecated \
-  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore \
+  -I ./libraries/megatinycore \
   -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/libraries/EEPROM/src/ \
   -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/variants/txy7
 
@@ -159,35 +157,14 @@ COREASM = \
 
 CORESRC = \
 	./libraries/megatinycore/abi.cpp \
-	./libraries/megatinycore/api/Common.cpp \
-	./libraries/megatinycore/api/IPAddress.cpp \
-	./libraries/megatinycore/api/PluggableUSB.cpp \
-	./libraries/megatinycore/api/Print.cpp \
-	./libraries/megatinycore/api/RingBuffer.cpp \
-	./libraries/megatinycore/api/Stream.cpp \
-	./libraries/megatinycore/api/String.cpp \
-	./libraries/megatinycore/ExtraWiring.cpp \
 	./libraries/megatinycore/main.cpp \
 	./libraries/megatinycore/new.cpp \
-	./libraries/megatinycore/Tone.cpp \
-	./libraries/megatinycore/UART.cpp \
-	./libraries/megatinycore/UART0.cpp \
-	./libraries/megatinycore/UART1.cpp \
-	./libraries/megatinycore/wiring_extra.cpp \
-	./libraries/megatinycore/WMath.cpp \
 	./appmain.cpp
 
 CORESRCC = \
-	./libraries/megatinycore/hooks.c \
 	./libraries/megatinycore/WInterrupts.c \
-	./libraries/megatinycore/WInterrupts_PA.c \
-	./libraries/megatinycore/WInterrupts_PB.c \
-	./libraries/megatinycore/WInterrupts_PC.c \
 	./libraries/megatinycore/wiring.c \
-	./libraries/megatinycore/wiring_analog.c \
 	./libraries/megatinycore/wiring_digital.c \
-	./libraries/megatinycore/wiring_pulse.c \
-	./libraries/megatinycore/wiring_shift.c 
 
 COREOBJS = $(COREASM:.S=.o) $(CORESRC:.cpp=.o) $(CORESRCC:.c=.o)
 
@@ -226,7 +203,7 @@ upload: $(TARGET).hex
 		-Ufuse5:w:0b11000101:m \
 		-Ufuse6:w:0x04:m \
 		-Ufuse7:w:0x00:m \
-		-Ufuse8:w:0x73:m \
+		-Ufuse8:w:0x76:m \
 		-Uflash:w:$(TARGET).hex:i
 
 clean:
