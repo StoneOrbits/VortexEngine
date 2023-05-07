@@ -9,9 +9,6 @@
 
 #define storage_data ((uint8_t *)0x8400)
 
-__attribute__((section(".storage"), used))
-static const uint8_t storage_buf[STORAGE_SIZE * 5] = {0};
-
 struct RGBColor
 {
   // public members

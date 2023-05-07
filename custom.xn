@@ -166,10 +166,6 @@ SECTIONS
     KEEP (*(.fini0))
      _etext = . ;
   }  > text
-  .storage :
-  {
-    *(.storage)
-  } > text
   .rodata  ADDR(.text) + SIZEOF (.text) + __RODATA_PM_OFFSET__    :
   {
     *(.rodata)

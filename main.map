@@ -64,20 +64,20 @@ init_millis         |000000e0|   t  |              FUNC|0000001c|     |.text	C:\
 init                |000000fc|   t  |              FUNC|00000012|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1471
 __EEPROM_REGION_LENGTH__|00000100|   A  |            NOTYPE|        |     |*ABS*
 leds_update()       |0000010e|   t  |              FUNC|000000a0|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:1482
-head20              |00000160|   t  |            NOTYPE|        |     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:115
-nextbyte20          |00000184|   t  |            NOTYPE|        |     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:115
+head20              |00000160|   t  |            NOTYPE|        |     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:112
+nextbyte20          |00000184|   t  |            NOTYPE|        |     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:112
 pinMode             |000001ae|   t  |              FUNC|00000050|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:41
 leds_init()         |000001fe|   t  |              FUNC|0000001c|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring_digital.c:82
-storage_read(unsigned char*)|0000021a|   t  |              FUNC|00000014|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:58
-storage_write(unsigned char*)|0000022e|   t  |              FUNC|00000032|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:46
-do_work()           |00000260|   t  |              FUNC|000000b4|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:37
+storage_read(unsigned char*)|0000021a|   t  |              FUNC|00000014|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:55
+storage_write(unsigned char*)|0000022e|   t  |              FUNC|00000032|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:43
+do_work()           |00000260|   t  |              FUNC|000000b4|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:34
 __vector_15         |00000314|   T  |              FUNC|00000074|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:199
 lower               |00000340|   t  |            NOTYPE|        |     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:248
-main                |00000388|   T  |              FUNC|00000014|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:150
+main                |00000388|   T  |              FUNC|00000014|     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:147
 _exit               |0000039c|   T  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
 exit                |0000039c|   W  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2278
 __stop_program      |0000039e|   t  |            NOTYPE|        |     |.text	/home/admin/Arduino/toolchain-avr-special/gcc-build/avr/avrxmega3/libgcc/../../../../gcc/libgcc/config/avr/lib1funcs.S:2280
-_etext              |000003a0|   T  |            NOTYPE|        |     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:162
+_etext              |000003a0|   T  |            NOTYPE|        |     |.text	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:159
 __data_load_end     |000003e2|   A  |            NOTYPE|        |     |*ABS*
 __data_load_start   |000003e2|   a  |            NOTYPE|        |     |*ABS*
 __LOCK_REGION_LENGTH__|00000400|   A  |            NOTYPE|        |     |*ABS*
@@ -93,9 +93,9 @@ digital_pin_to_bit_mask|000083cc|   r  |            OBJECT|00000016|     |.rodat
 __bss_start         |00803800|   B  |            NOTYPE|        |     |.bss
 __DATA_REGION_ORIGIN__|00803800|   A  |            NOTYPE|        |     |*ABS*
 _edata              |00803800|   D  |            NOTYPE|        |     |.data
-m_pinMask           |00803800|   b  |            OBJECT|00000001|     |.bss	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:26
-m_port              |00803801|   b  |            OBJECT|00000002|     |.bss	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:24
-m_ledColors         |00803803|   b  |            OBJECT|00000003|     |.bss	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:27
+m_pinMask           |00803800|   b  |            OBJECT|00000001|     |.bss	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:23
+m_port              |00803801|   b  |            OBJECT|00000002|     |.bss	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:21
+m_ledColors         |00803803|   b  |            OBJECT|00000003|     |.bss	C:\Users\danie\source\repos\VortexAVR\VortexEngine/appmain.cpp:24
 timingStruct        |00803806|   b  |            OBJECT|0000000a|     |.bss	C:\Users\danie\source\repos\VortexAVR\VortexEngine/libraries/megatinycore/wiring.c:186
 __bss_end           |00803810|   B  |            NOTYPE|        |     |.bss
 _end                |00803810|   N  |            NOTYPE|        |     |.comment
