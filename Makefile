@@ -149,24 +149,16 @@ SRCS = \
 	./VortexEngine/src/Time/TimeControl.cpp \
 	./VortexEngine/src/Time/Timer.cpp \
 	./VortexEngine/src/VortexEngine.cpp \
+	./appmain.cpp
 
 OBJS = $(SRCS:.cpp=.o)
-
-COREASM = \
-	./libraries/megatinycore/wiring_pulse.S
-
-CORESRC = \
-	./libraries/megatinycore/abi.cpp \
-	./libraries/megatinycore/main.cpp \
-	./libraries/megatinycore/new.cpp \
-	./appmain.cpp
 
 CORESRCC = \
 	./libraries/megatinycore/WInterrupts.c \
 	./libraries/megatinycore/wiring.c \
 	./libraries/megatinycore/wiring_digital.c \
 
-COREOBJS = $(COREASM:.S=.o) $(CORESRC:.cpp=.o) $(CORESRCC:.c=.o)
+COREOBJS = $(CORESRCC:.c=.o)
 
 # Target name
 TARGET = main

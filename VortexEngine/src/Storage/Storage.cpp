@@ -21,15 +21,7 @@
 #include <unistd.h>
 #endif
 
-//#define USE_EEPROM 1
-
-#ifdef VORTEX_ARDUINO
-#ifdef USE_EEPROM
-#include <EEPROM.h>
-#else
 #define storage_data ((uint8_t *)(0xF600))
-#endif
-#endif
 
 uint32_t Storage::m_lastSaveSize = 0;
 
@@ -65,12 +57,6 @@ bool Storage::write(ByteStream &buffer)
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }
-#ifdef USE_EEPROM
-  // write out the buffer to storage
-  for (size_t i = 0; i < buffer.rawSize(); ++i) {
-    EEPROM.update(i, ((uint8_t *)buffer.rawData())[i]);
-  }
-#else
   uint16_t pages = (size / PROGMEM_PAGE_SIZE) + 1;
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   for (uint16_t i = 0; i < pages; i++) {
@@ -83,7 +69,6 @@ bool Storage::write(ByteStream &buffer)
     while (NVMCTRL.STATUS & 0x3);
   }
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
-#endif // USE_EEPROM
 #endif // VORTEX_ARDUINO
   return (NVMCTRL.STATUS & 4) == 0;
 }
@@ -101,10 +86,6 @@ bool Storage::read(ByteStream &buffer)
     ERROR_LOGF("Could not initialize buffer with %u bytes", STORAGE_SIZE);
     return false;
   }
-  //size += sizeof(ByteStream::RawBuffer);
-  //buffer.init(size);
-  //// Read the data from EEPROM into the buffer
-  //memcpy(buffer.rawData(), storage_data, size);
   // check crc immediately since we read into raw data copying the
   // array could be dangerous
   if (!buffer.checkCRC()) {
@@ -112,7 +93,7 @@ bool Storage::read(ByteStream &buffer)
     ERROR_LOG("Could not verify buffer");
     return false;
   }
-  //m_lastSaveSize = size;
+  m_lastSaveSize = size;
 #endif
   DEBUG_LOGF("Loaded savedata (Size: %u)", buffer.size());
   return true;
