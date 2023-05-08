@@ -88,12 +88,7 @@ Menu::MenuAction Menu::run()
 void Menu::showBulbSelection()
 {
   Leds::clearAll();
-  if (m_targetLeds == MAP_LED(LED_MULTI)) {
-    LedPos pos = (LedPos)((Time::getCurtime() / 30) % LED_COUNT);
-    Leds::blinkIndex(pos, Time::getCurtime() + (pos * 10), 50, 500, m_menuColor);
-  } else {
-    Leds::blinkMap(m_targetLeds, Time::getCurtime(), 250, 500, m_menuColor);
-  }
+  Leds::blinkMap(m_targetLeds, Time::getCurtime(), 250, 500, m_menuColor);
   // blink when selecting
   showSelect();
 }
@@ -134,9 +129,6 @@ void Menu::nextBulbSelection()
     m_targetLeds = MAP_LED(LED_FIRST);
     break;
   case MAP_LED(LED_LAST):
-    m_targetLeds = MAP_LED(LED_MULTI);
-    break;
-  case MAP_LED(LED_MULTI):
     m_targetLeds = MAP_LED_ALL;
     break;
   default: // LED_FIRST through LED_LAST

@@ -154,11 +154,11 @@ SRCS = \
 OBJS = $(SRCS:.cpp=.o)
 
 CORESRCC = \
-	./libraries/megatinycore/WInterrupts.c \
-	./libraries/megatinycore/wiring.c \
 	./libraries/megatinycore/wiring_digital.c \
 
 COREOBJS = $(CORESRCC:.c=.o)
+
+DFILES = $(SRCS:.cpp=.d) $(CORESRCC:.c:.d)
 
 # Target name
 TARGET = main
@@ -201,3 +201,4 @@ upload: $(TARGET).hex
 clean:
 	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex core.a $(COREOBJS)
 
+-include $(DFILES)

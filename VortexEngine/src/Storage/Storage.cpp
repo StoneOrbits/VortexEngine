@@ -21,7 +21,7 @@
 #include <unistd.h>
 #endif
 
-#define storage_data ((uint8_t *)(0xF600))
+#define storage_data ((uint8_t *)(0x10000 - STORAGE_SIZE))
 
 uint32_t Storage::m_lastSaveSize = 0;
 

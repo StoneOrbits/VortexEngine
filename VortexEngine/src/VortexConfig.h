@@ -415,9 +415,9 @@
 // just kept picking numbers till it worked
 #define USABLE_SPACE (RAW_AVAILABLE_SPACE / 2)
 
-// the space available for storing modes is the usable space rounded
-// down to nearest 4096
-#define STORAGE_SIZE 0x200 // (USABLE_SPACE - (USABLE_SPACE % 256))
+// setting a hard limit of 512 on the microlight because it has to load
+// this into stack space and there's only 2k of stack available
+#define STORAGE_SIZE 512
 
 // ===================================================================
 //  Test Framework configurations
