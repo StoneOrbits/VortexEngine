@@ -1,12 +1,12 @@
 #include "Memory.h"
 
-// everything in here is only really used when allocations are being debugged
-#if DEBUG_ALLOCATIONS == 1
-
 #include <stdlib.h>
 #include <stdio.h>
 
 #include "../Log/Log.h"
+
+// everything in here is only really used when allocations are being debugged
+#if DEBUG_ALLOCATIONS == 1
 
 static uint32_t cur_mem_usage = 0;
 static uint32_t background_usage = 0;
@@ -115,24 +115,24 @@ uint32_t cur_memory_usage_total()
   return cur_mem_usage + background_usage;
 }
 
-void *operator new(size_t size)
-{
-  return _vmalloc(size);
-}
+#endif // DEBUG_ALLOCATIONS == 1
 
-void operator delete(void *ptr) noexcept
-{
-  _vfree(ptr);
-}
+// for C++11 need the following:
+void *operator new  (size_t size) { return vmalloc(size); }
+void *operator new[](size_t size) { return vmalloc(size); }
+void  operator delete  (void *ptr) { vfree(ptr); }
+void  operator delete[](void *ptr) { vfree(ptr); }
+void *operator new  (size_t size, void *ptr) noexcept { return ptr; }
+void *operator new[](size_t size, void *ptr) noexcept { return ptr; }
+void  operator delete  (void *ptr, size_t size) noexcept { vfree(ptr); }
+void  operator delete[](void *ptr, size_t size) noexcept { vfree(ptr); }
+void *operator new  (size_t size, std::align_val_t al) { return vmalloc(size); }
+void *operator new[](size_t size, std::align_val_t al) { return vmalloc(size); }
+void  operator delete  (void *ptr, std::align_val_t al) noexcept { vfree(ptr); }
+void  operator delete[](void *ptr, std::align_val_t al) noexcept { vfree(ptr); }
+void  operator delete  (void *ptr, size_t size, std::align_val_t al) noexcept { vfree(ptr); }
+void  operator delete[](void *ptr, size_t size, std::align_val_t al) noexcept { vfree(ptr); }
 
-void *operator new[](size_t size)
-{
-  return _vmalloc(size);
-}
-
-void operator delete[](void *ptr) noexcept
-{
-  _vfree(ptr);
-}
-
-#endif
+// needed for C++ virtual functions
+extern "C" void __cxa_pure_virtual(void) {}
+extern "C" void __cxa_deleted_virtual(void) {}

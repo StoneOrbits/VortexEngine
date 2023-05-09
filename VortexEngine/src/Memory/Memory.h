@@ -6,14 +6,7 @@
 
 #include "../VortexConfig.h"
 
-#if DEBUG_ALLOCATIONS == 0
-
-#define vmalloc(size) malloc(size)
-#define vcalloc(size, amount) calloc(size, amount)
-#define vrealloc(ptr, size) realloc(ptr, size)
-#define vfree(ptr) free(ptr)
-
-#else // if DEBUG_ALLOCATIONS
+#if DEBUG_ALLOCATIONS == 1
 
 // monitored allocation routines
 #define vmalloc(size) _vmalloc(size)
@@ -34,11 +27,28 @@ uint32_t cur_memory_usage_background();
 // memory used by everything
 uint32_t cur_memory_usage_total();
 
-void *operator new(size_t size);
-void operator delete(void *ptr) noexcept;
-void *operator new[](size_t size);
-void operator delete[](void *ptr) noexcept;
+#else // if DEBUG_ALLOCATIONS
+
+#define vmalloc(size) malloc(size)
+#define vcalloc(size, amount) calloc(size, amount)
+#define vrealloc(ptr, size) realloc(ptr, size)
+#define vfree(ptr) free(ptr)
 
 #endif
+
+void *operator new  (size_t size);
+void *operator new[](size_t size);
+void  operator delete  (void *ptr);
+void  operator delete[](void *ptr);
+void *operator new  (size_t size, void *ptr) noexcept;
+void *operator new[](size_t size, void *ptr) noexcept;
+void  operator delete  (void *ptr, size_t size) noexcept;
+void  operator delete[](void *ptr, size_t size) noexcept;
+void *operator new  (size_t size, std::align_val_t al);
+void *operator new[](size_t size, std::align_val_t al);
+void  operator delete  (void *ptr, std::align_val_t al) noexcept;
+void  operator delete[](void *ptr, std::align_val_t al) noexcept;
+void  operator delete  (void *ptr, size_t size, std::align_val_t al) noexcept;
+void  operator delete[](void *ptr, size_t size, std::align_val_t al) noexcept;
 
 #endif

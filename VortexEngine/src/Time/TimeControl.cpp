@@ -231,8 +231,9 @@ static void do_init_millis()
 
 bool Time::init()
 {
-  do_init_clock();
   do_init_millis();
+  do_init_clock();
+  _PROTECTED_WRITE(CPUINT_CTRLA,CPUINT_IVSEL_bm);
   m_firstTime = m_prevTime = time_micros();
   m_curTick = 0;
 #if VARIABLE_TICKRATE == 1
