@@ -227,12 +227,13 @@ static void do_init_millis()
   pTCD->INTCTRL        = 0x01; // enable interrupt
   pTCD->CTRLA          = TIMERD0_PRESCALER | 0x01; // set clock source and enable!
 }
-#endif
+#endif // VORTEX_ARDUINO
 
 bool Time::init()
 {
-  do_init_millis();
+  sei();
   do_init_clock();
+  do_init_millis();
   _PROTECTED_WRITE(CPUINT_CTRLA,CPUINT_IVSEL_bm);
   m_firstTime = m_prevTime = time_micros();
   m_curTick = 0;
@@ -290,7 +291,7 @@ void Time::tickClock()
     if (required > elapsed_us) {
       // in vortex lib on linux we can just sleep instead of spinning
       // but on arduino we must spin and on windows it actually ends
-      // up being more accurate to poll QPF + QPC via micros()
+      // up being more accurate to poll QPF + QPC via time_micros()
       sleepTime = required - elapsed_us;
     }
 #if defined(VORTEX_LIB)

@@ -17,7 +17,7 @@ ASMFLAGS = \
   -flto \
   -MMD \
   -mmcu=attiny3217 \
-  -DF_CPU=20000000L \
+  -DF_CPU=10000000L \
   -DCLOCK_SOURCE=0 \
   -DTWI_MORS \
   -DMILLIS_USE_TIMERD0 \
@@ -50,7 +50,7 @@ CFLAGS = \
   -flto \
   -mrelax \
   -mmcu=attiny3217 \
-  -DF_CPU=20000000L \
+  -DF_CPU=10000000L \
   -DCLOCK_SOURCE=0 \
   -DTWI_MORS \
   -DMILLIS_USE_TIMERD0 \
