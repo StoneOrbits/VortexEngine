@@ -227,6 +227,301 @@ static void do_init_millis()
   pTCD->INTCTRL        = 0x01; // enable interrupt
   pTCD->CTRLA          = TIMERD0_PRESCALER | 0x01; // set clock source and enable!
 }
+
+__attribute__ ((noinline)) void delayMicroseconds(unsigned int us) {
+ /* Must be noinline because we rely on function-call overhead */
+#if F_CPU == 48000000L
+  // make the initial delay 24 cycles
+  __asm__ __volatile__ (
+    "rjmp .+2" "\n\t"     // 2 cycles - jump over next instruction.
+    "ret" "\n\t"          // 4 cycles - rjmped over initially....
+    "rcall .-4");         // 2 cycles - ... but then called here);
+                          // wait 8 cycles with 3 words
+  // the loop takes 1/4 of a microsecond (12 cycles) per iteration
+  // so execute it four times for each microsecond of delay requested.
+  us <<= 2; // x4 us, = 4 cycles
+  // we only burned ~22 cycles above, subtraction takes another 2 - so we've lost
+  // half a us and only need to drop 2 rounds through the loop!
+  us -= 2; // = 2 cycles,
+
+#elif F_CPU >= 44000000L
+  // Again, we can do all this in half of 1 us, so we
+  // just pass through the loop 2 times for 1 us delay.
+  __asm__ __volatile__(
+    "rjmp .+0" "\n\t"     // 2 cycles
+    "rjmp .+0" "\n\t"     // 2 cycles
+    "nop");               // 1 cycles
+                          // Wait 5 cycles in 3 words.
+  // the loop takes 1/4 of a microsecond (11 cycles) per iteration
+  // so execute it four times for each microsecond of delay requested.
+  us <<= 2; // x4 us, = 4 cycles
+  // we just burned 19 (21) cycles above, remove 2
+  // us is at least 8 so we can subtract 2
+  us -= 2;
+
+#elif F_CPU >= 40000000L
+  // Again, we can do all this in half of 1 us, so we
+  // just pass through the loop 2 times for 1 us delay.
+  __asm__ __volatile__(
+    "rjmp .+0" "\n\t"     // 2 cycles
+    "nop");               // 1 cycles
+                          // Wait 3 cycles in 2 words.
+  // the loop takes 1/4 of a microsecond (10 cycles) per iteration
+  // so execute it four times for each microsecond of delay requested.
+  us <<= 2; // x4 us, = 4 cycles
+  // we just burned 17 (19) cycles above, remove 2.
+  // us is at least 8 so we can subtract 2
+  us -= 2;
+
+#elif F_CPU >= 36000000L
+  // Here we get the initial delay is about 24 cycles, so we pass through
+  // the loop once for 1us delay.
+  __asm__ __volatile__ (
+    "rjmp .+0" "\n\t"     // 2 cycles
+    "rjmp .+2" "\n\t"     // 2 cycles - jump over next instruction.
+    "ret" "\n\t"          // 4 cycles - rjmped over initially....
+    "rcall .-4");         // 2 cycles - ... but then called here);
+                          // wait 10 cycles in 4 words
+  // the loop takes 1/3 of a microsecond (12 cycles) per iteration
+  // so execute it three times for each microsecond of delay requested.
+  us = (us << 1) + us; // x3 us, = 5 cycles
+  // we just burned 23 (25) cycles above, remove 2
+  us -= 2; // 2 cycles
+
+#elif F_CPU >= 32000000L
+  // here, we only take half a us at the start
+  __asm__ __volatile__ ("rjmp .+0");
+                          // wait 2 cycles
+  // in by the end of this section.
+  // the loop takes 1/4 of a microsecond (8 cycles) per iteration
+  // so execute it four times for each microsecond of delay requested.
+  us <<= 2; // x4 us, = 4 cycles
+  // we only burned ~14 cycles above, subtraction takes another 2 - so we've lost half a us,
+  // and only need to drop 2 rounds through the loop!
+  us -= 2; // = 2 cycles
+
+#elif F_CPU >= 30000000L
+  // for a one-microsecond delay, burn 14 cycles and return
+  __asm__ __volatile__ (
+    "rjmp .+2" "\n\t"     // 2 cycles - jump over the return.
+    "ret" "\n\t"          // 4 cycles - rjmped over initially...
+    "rcall .-4" "\n\t"    // 2 cycles - ... but then called here...
+    "rcall .-6");         // 2+4 cycles - ... and here again!
+                          // Waiting 14 cycles in only 4 words
+  if (us <= 1) return; // = 3 cycles, (4 when true)
+  // the loop takes 1/3 of a microsecond (10 cycles) per iteration
+  // so execute it three times for each microsecond of delay requested.
+  us = (us << 1) + us; // x3 us, = 5 cycles
+  // we just burned 28 (30) cycles above, remove 3
+  us -= 3; // 2 cycles
+
+#elif F_CPU >= 28000000L
+  // for a one-microsecond delay, burn 12 cycles and return
+  __asm__ __volatile__ (
+    "rjmp .+0" "\n\t"     // 2 cycles
+    "rjmp .+0" "\n\t"     // 2 cycles
+    "rjmp .+2" "\n\t"     // 2 cycles - jump over next instruction.
+    "ret" "\n\t"          // 4 cycles - rjmped over initially....
+    "rcall .-4");         // 2 cycles - ... but then called here);
+                          // wait 12 cycles in 5 words
+  if (us <= 1) return; //  = 3 cycles, (4 when true)
+
+  // the loop takes 1/4 of a microsecond (7 cycles) per iteration
+  // so execute it four times for each microsecond of delay requested.
+  us <<= 2; // x4 us, = 4 cycles=
+  // we just burned 27 (29) cycles above, remove 4, (7*4=28)
+  // us is at least 8 so we can subtract 5
+  us -= 4; // = 2 cycles,
+
+#elif F_CPU >= 27000000L
+  // for a one-microsecond delay, burn 11 cycles and return
+  __asm__ __volatile__ (  // wait 8 cycles with 3 words
+    "rjmp .+2" "\n\t"     // 2 cycles - jump over next instruction.
+    "ret" "\n\t"          // 4 cycles - rjmped over initially....
+    "rcall .-4" "\n\t"    // 2 cycles - ... but then called here);
+    "rjmp .+0" "\n\t"     // 2 cycles
+    "nop");               // 1 more  == 11 total
+  if (us <= 1) return;    //  = 3 cycles, (4 when true)
+
+  // the loop takes 1/3 of a microsecond (8 cycles) per iteration
+  // so execute it three times for each microsecond of delay requested.
+  us = (us << 1) + us; // x3 us, = 5 cycles
+  // we just burned 27 (24) cycles above, remove 3
+  us -= 3; // 2 cycles
+
+
+#elif F_CPU >= 24000000L
+  // for a one-microsecond delay, burn 8 cycles and return
+  __asm__ __volatile__ (
+    "rjmp .+2" "\n\t"     // 2 cycles - jump over next instruction.
+    "ret" "\n\t"          // 4 cycles - rjmped over initially....
+    "rcall .-4");         // 2 cycles - ... but then called here);
+                          // wait 8 cycles with 3 words
+  if (us <= 1) return; //  = 3 cycles, (4 when true)
+
+  // the loop takes 1/3 of a microsecond (8 cycles) per iteration
+  // so execute it three times for each microsecond of delay requested.
+  us = (us << 1) + us; // x3 us, = 5 cycles
+  // we just burned 24 (22) cycles above, remove 3
+  us -= 3; // 2 cycles
+
+#elif F_CPU >= 20000000L
+  // for a one-microsecond delay, burn 4 clocks and then return
+  __asm__ __volatile__ (
+    "rjmp .+0" "\n\t"     // 2 cycles
+    "nop" );              // 1 cycle
+                          // wait 3 cycles with 2 words
+  if (us <= 1) return; //  = 3 cycles, (4 when true)
+  // the loop takes a 1/2 of a microsecond (10 cycles) per iteration
+  // so execute it twice for each microsecond of delay requested.
+  us = us << 1; // x2 us, = 2 cycles
+  // we just burned 21 (23) cycles above, remove 2
+  // us is at least 4 so we can subtract 2.
+  us -= 2; // 2 cycles
+
+#elif F_CPU >= 16000000L
+  // for a one-microsecond delay, simply return.  the overhead
+  // of the function call takes 14 (16) cycles, which is 1us
+  if (us <= 1) return; //  = 3 cycles, (4 when true)
+  // the loop takes 1/4 of a microsecond (4 cycles) per iteration
+  // so execute it four times for each microsecond of delay requested.
+  us <<= 2; // x4 us, = 4 cycles
+  // we just burned 19 (21) cycles above, remove 5, (5*4=20)
+  // us is at least 8 so we can subtract 5
+  us -= 5; // = 2 cycles
+
+#elif F_CPU >= 12000000L
+  // for a 1 microsecond delay, simply return.  the overhead
+  // of the function call takes 14 (16) cycles, which is 1.5us
+  if (us <= 1) return; //  = 3 cycles, (4 when true)
+  // the loop takes 1/3 of a microsecond (4 cycles) per iteration
+  // so execute it three times for each microsecond of delay requested.
+  us = (us << 1) + us; // x3 us, = 5 cycles
+  // we just burned 20 (22) cycles above, remove 5, (5*4=20)
+  // us is at least 6 so we can subtract 5
+  us -= 5; // 2 cycles
+
+#elif F_CPU >= 10000000L
+  // for a 1 microsecond delay, simply return.  the overhead
+  // of the function call takes 14 (16) cycles, which is 1.5us
+  if (us <= 2) return; //  = 3 cycles, (4 when true)
+  // the loop takes 1/2 of a microsecond (5 cycles) per iteration
+  // so execute it 2 times for each microsecond of delay requested.
+  us = us << 1; // x2 us, = 2 cycles
+  // we just burned 20 (22) cycles above, remove 4, (5*4=20)
+  // us is at least 6 so we can subtract 4
+  us -= 4; // 2 cycles
+
+#elif F_CPU >= 8000000L
+  // for a 1 and 2 microsecond delay, simply return.  the overhead
+  // of the function call takes 14 (16) cycles, which is 2us
+  if (us <= 2) return; //  = 3 cycles, (4 when true)
+  // the loop takes 1/2 of a microsecond (4 cycles) per iteration
+  // so execute it twice for each microsecond of delay requested.
+  us <<= 1; // x2 us, = 2 cycles
+  // we just burned 17 (19) cycles above, remove 5, (4*5=20)
+  // us is at least 6 so we can subtract 4
+  us -= 5; // = 2 cycles
+
+#elif F_CPU >= 5000000L
+  // for a 1 ~ 3 microsecond delay, simply return.  the overhead
+  // of the function call takes 14 (16) cycles, which is 3us
+  if (us <= 3) return; // 3 cycles, (4 when true)
+  // the loop takes 1 microsecond (5 cycles) per iteration
+  // so just remove 3 loops for overhead
+  us -= 3; // = 2 cycles
+
+#elif F_CPU >= 4000000L
+  // for a 1 ~ 4 microsecond delay, simply return.  the overhead
+  // of the function call takes 14 (16) cycles, which is 4us
+  if (us <= 4) return; // 3 cycles, (4 when true)
+  // the loop takes 1 microsecond (4 cycles) per iteration,
+  // just remove 4 loops for overhead
+  us -= 4; // = 2 cycles for the time taken up with call overhead and test above
+
+#elif F_CPU >= 2000000L
+  // for a 1 ~ 4 microsecond delay, simply return.  the overhead
+  // of the function call takes 14 (16) cycles, which is 8us
+  if (us <= 8) return; // 3 cycles, (4 when true)
+  // the loop takes 2 microsecond (4 cycles) per iteration,
+  // just remove 4 loops for overhead
+  us >>= 1; // divide by 2.
+  us -= 4; // = 2 cycles for the time taken up with call overhead and test above
+
+#else // F_CPU >= 1000000
+  // for the 1 MHz internal clock (default settings for common AVR microcontrollers)
+  // the overhead of the function calls is 14 (16) cycles
+  if (us <= 16) return; // 3 cycles, (4 when true)
+  if (us <= 25) return; // 3 cycles, (4 when true), (must be at least 26 if we want to subtract 22 and rightshift twice.)
+  // compensate for the time taken by the preceding and following commands (about 22 cycles)
+  us -= 22; // = 2 cycles
+  // the loop takes 4 microseconds (4 cycles)
+  // per iteration, so execute it us/4 times
+  // us is at least 4, divided by 4 gives us 1 (no zero delay bug)
+  us >>= 2; // us div 4, = 4 cycles
+#endif
+/* Implementation of the delay loop of 4, 5, 7, 8, 10, 11, or 12 clocks. */
+#if defined(DELAYMICROS_TWELVE)
+  __asm__ __volatile__ (
+    "1: sbiw %0, 1" "\n\t"            // 2 cycles
+    "rjmp .+2"      "\n\t"            // 2 cycles - jump over next instruction.
+    "ret"           "\n\t"            // 4 cycles - rjmped over initially....
+    "rcall .-4"     "\n\t"            // 2 cycles - ... but then called here
+    "brne 1b" : "=w" (us) : "0" (us)  // 2 cycles
+  );
+#elif defined(DELAYMICROS_ELEVEN)
+  __asm__ __volatile__ (
+    "1: sbiw %0, 1" "\n\t"            // 2 cycles
+    "nop"           "\n\t"            // 1 cycle
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "brne 1b" : "=w" (us) : "0" (us)  // 2 cycles
+  );
+#elif defined(DELAYMICROS_TEN)
+  __asm__ __volatile__ (
+    "1: sbiw %0, 1" "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "brne 1b" : "=w" (us) : "0" (us)  // 2 cycles
+  );
+#elif defined(DELAYMICROS_NINE)
+  __asm__ __volatile__ (
+    "1: sbiw %0, 1" "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "nop"           "\n\t"
+    "brne 1b" : "=w" (us) : "0" (us)  // 2 cycles
+  );
+#elif defined(DELAYMICROS_EIGHT)
+  __asm__ __volatile__ (
+    "1: sbiw %0, 1" "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "brne 1b" : "=w" (us) : "0" (us)  // 2 cycles
+  );
+#elif defined(DELAYMICROS_SEVEN)
+  __asm__ __volatile__ (
+    "1: sbiw %0, 1" "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "nop"           "\n\t"            // 1 cycle
+    "brne 1b" : "=w" (us) : "0" (us)  // 2 cycles
+  );
+#elif defined(DELAYMICROS_FIVE)
+  __asm__ __volatile__ (
+    "1: sbiw %0, 1" "\n\t"            // 2 cycles
+    "nop"           "\n\t"            // 1 cycle
+    "brne 1b" : "=w" (us) : "0" (us)  // 2 cycles
+  );
+#else // the classic 4 cycle delay loop...
+  __asm__ __volatile__ (
+    "1: sbiw %0, 1" "\n\t"            // 2 cycles
+    "brne 1b" : "=w" (us) : "0" (us)  // 2 cycles
+  );
+#endif
+  // return = 4 cycles
+}
 #endif // VORTEX_ARDUINO
 
 bool Time::init()

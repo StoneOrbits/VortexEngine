@@ -17,7 +17,8 @@ uint32_t IRReceiver::m_previousBytes = 0;
 
 bool IRReceiver::init()
 {
-  pinMode(RECEIVER_PIN, INPUT_PULLUP);
+  // TODO:
+  //pinMode(RECEIVER_PIN, INPUT_PULLUP);
   m_irData.init(IR_RECV_BUF_SIZE);
   return true;
 }
@@ -84,14 +85,14 @@ bool IRReceiver::receiveMode(Mode *pMode)
 
 bool IRReceiver::beginReceiving()
 {
-  attachInterrupt(digitalPinToInterrupt(RECEIVER_PIN), IRReceiver::recvPCIHandler, CHANGE);
+  //attachInterrupt(digitalPinToInterrupt(RECEIVER_PIN), IRReceiver::recvPCIHandler, CHANGE);
   resetIRState();
   return true;
 }
 
 bool IRReceiver::endReceiving()
 {
-  detachInterrupt(digitalPinToInterrupt(RECEIVER_PIN));
+  //detachInterrupt(digitalPinToInterrupt(RECEIVER_PIN));
   resetIRState();
   return true;
 }

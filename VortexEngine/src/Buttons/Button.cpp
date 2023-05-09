@@ -44,7 +44,7 @@ bool Button::init(int pin)
   m_longClick = false;
 
   m_pinNum = pin;
-  pinMode(m_pinNum, INPUT_PULLUP);
+  PORTB.PIN2CTRL = PORT_PULLUPEN_bm;
   return true;
 }
 
@@ -55,7 +55,7 @@ void Button::check()
   m_newRelease = false;
 
   // read the new button state
-  uint32_t newButtonState = (uint32_t)digitalRead(m_pinNum);
+  uint8_t newButtonState = (PORTB.IN & PIN2_bm) ? 1 : 0;
 
   // did the button change (press/release occurred)
   if (newButtonState != m_buttonState) {

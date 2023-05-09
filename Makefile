@@ -155,7 +155,6 @@ SRCS = \
 OBJS = $(SRCS:.cpp=.o)
 
 CORESRCC = \
-	./libraries/megatinycore/wiring_digital.c \
 
 COREOBJS = $(CORESRCC:.c=.o)
 

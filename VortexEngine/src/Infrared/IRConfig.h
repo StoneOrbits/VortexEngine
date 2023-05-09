@@ -5,7 +5,7 @@
 //
 // Whether to enable the IR system as a whole
 //
-#define IR_ENABLE        0
+#define IR_ENABLE        1
 
 // the size of IR blocks in bits
 #define DEFAULT_IR_BLOCK_SIZE 32

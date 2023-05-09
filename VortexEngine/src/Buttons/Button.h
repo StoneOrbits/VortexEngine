@@ -51,7 +51,7 @@ private:
   // state data that is populated each check
 
   // the active state of the button
-  uint32_t m_buttonState;
+  uint8_t m_buttonState;
 
   // the timestamp of when the button was pressed
   uint64_t m_pressTime;

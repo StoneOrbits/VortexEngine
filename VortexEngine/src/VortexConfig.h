@@ -47,7 +47,7 @@
 //   - savefile versioning (2 bytes)
 //   - savefile dynamic mode count (1 byte)
 //   - savefile dynamic led count (1 byte per mode)
-#define VORTEX_SMALL_SAVES    1
+#define VORTEX_SMALL_SAVES    0
 
 // ===================================================================
 //  Numeric Configurations

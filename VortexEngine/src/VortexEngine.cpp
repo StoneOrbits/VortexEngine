@@ -1,7 +1,7 @@
 #include "VortexEngine.h"
 
-//#include "Infrared/IRReceiver.h"
-//#include "Infrared/IRSender.h"
+#include "Infrared/IRReceiver.h"
+#include "Infrared/IRSender.h"
 #include "Storage/Storage.h"
 #include "Buttons/Buttons.h"
 #include "Time/TimeControl.h"
@@ -55,6 +55,14 @@ bool VortexEngine::init()
     DEBUG_LOG("Storage failed to initialize");
     return false;
   }
+  if (!IRReceiver::init()) {
+    DEBUG_LOG("IRReceiver failed to initialize");
+    return false;
+  }
+  if (!IRSender::init()) {
+    DEBUG_LOG("IRSender failed to initialize");
+    return false;
+  }
   if (!Leds::init()) {
     DEBUG_LOG("Leds failed to initialize");
     return false;
@@ -96,6 +104,8 @@ void VortexEngine::cleanup()
   Menus::cleanup();
   Buttons::cleanup();
   Leds::cleanup();
+  IRSender::cleanup();
+  IRReceiver::cleanup();
   Storage::cleanup();
   Time::cleanup();
 }
@@ -226,15 +236,17 @@ void VortexEngine::enterSleep()
 }
 
 #ifdef VORTEX_ARDUINO
-// interrupt handler to wakeup device on button rpess
+// interrupt handler to wakeup device on button press
 ISR(PORTB_PORT_vect)
 {
   if (!(PORTB.INTFLAGS & (1 << 2))) {
     // don't trigger unless it was from the button press
     return;
   }
+  // handled
+  PORTB.INTFLAGS = (1 << 2);
   // turn off interrupt
-  PORTB.PIN2CTRL = 0;
+  PORTB.PIN2CTRL &= ~PORT_ISC_gm;
   // turn the LED mosfet back on
   //PORTB.OUTSET = PIN0_bm;
   // just reset

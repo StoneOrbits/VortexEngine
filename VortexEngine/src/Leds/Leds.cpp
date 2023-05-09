@@ -32,11 +32,11 @@ bool Leds::init()
 {
   // clear the onboard led so it displays nothing
   // tiny neo pixels
-  pinMode(LED_DATA_PIN, OUTPUT);
+  PORTB.DIRSET = PIN4_bm;
   // register ouput port
-  m_port = portOutputRegister(digitalPinToPort(LED_DATA_PIN));
+  m_port = &PORTB.OUT;
   // create a pin mask to use later
-  m_pinMask = digitalPinToBitMask(LED_DATA_PIN);
+  m_pinMask = PIN4_bm;
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
 #endif
