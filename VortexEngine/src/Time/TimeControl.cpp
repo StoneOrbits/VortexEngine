@@ -234,7 +234,7 @@ bool Time::init()
   sei();
   do_init_clock();
   do_init_millis();
-  _PROTECTED_WRITE(CPUINT_CTRLA,CPUINT_IVSEL_bm);
+  _PROTECTED_WRITE(CPUINT_CTRLA, CPUINT_IVSEL_bm);
   m_firstTime = m_prevTime = time_micros();
   m_curTick = 0;
 #if VARIABLE_TICKRATE == 1

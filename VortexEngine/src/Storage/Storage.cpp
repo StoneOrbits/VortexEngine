@@ -66,10 +66,13 @@ bool Storage::write(ByteStream &buffer)
   }
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom
-  for (uint8_t i = 0; i < 256; ++i) {
+  for (uint8_t i = 0; i < EEPROM_SIZE; ++i) {
       EEPROM.update(i, *buf);
       buf++;
       size--;
+      if (!size) {
+        return true;
+      }
   }
   // write the rest to flash
   uint16_t pages = (size / PROGMEM_PAGE_SIZE) + 1;
@@ -91,19 +94,25 @@ bool Storage::write(ByteStream &buffer)
 bool Storage::read(ByteStream &buffer)
 {
 #ifdef VORTEX_ARDUINO
-  uint32_t size = *(uint32_t *)MAPPED_EEPROM_START;
+  uint32_t size = STORAGE_SIZE;
   if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
     return false;
   }
+  buffer.init(STORAGE_SIZE);
   // Read the data from EEPROM first
   uint8_t *pos = (uint8_t *)buffer.rawData();
-  for (size_t i = 0; i < 256; ++i) {
+  for (size_t i = 0; i < EEPROM_SIZE; ++i) {
     *pos = EEPROM.read(i);
     pos++;
     size--;
+    if (!size) {
+      break;
+    }
   }
-  // Read the rest of data from Flash
-  memcpy(pos, FLASH_STORAGE_SPACE, size);
+  if (size) {
+    // Read the rest of data from Flash
+    memcpy(pos, FLASH_STORAGE_SPACE, size);
+  }
   // check crc immediately since we read into raw data copying the
   // array could be dangerous
   if (!buffer.checkCRC()) {

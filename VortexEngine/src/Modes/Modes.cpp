@@ -34,7 +34,7 @@ bool Modes::init()
     if (!setDefaults()) {
       return false;
     }
-    if (!saveStorage()) {
+    if (!saveStorage() || !loadStorage()) {
       clearModes();
       Colorset set(RGB_BLANK);
       addMode(PATTERN_SOLID, nullptr, &set);

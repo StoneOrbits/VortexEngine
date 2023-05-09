@@ -92,12 +92,12 @@ void VortexEngine::cleanup()
   // cleanup in reverse order
   // NOTE: the arduino doesn't actually cleanup,
   //       but the test frameworks do
-  //Modes::cleanup();
-  //Menus::cleanup();
-  //Buttons::cleanup();
-  //Leds::cleanup();
-  //Storage::cleanup();
-  //Time::cleanup();
+  Modes::cleanup();
+  Menus::cleanup();
+  Buttons::cleanup();
+  Leds::cleanup();
+  Storage::cleanup();
+  Time::cleanup();
 }
 
 void VortexEngine::tick()
