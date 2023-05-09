@@ -3,18 +3,16 @@
 //#include "Infrared/IRReceiver.h"
 //#include "Infrared/IRSender.h"
 #include "Storage/Storage.h"
-//#include "Buttons/Buttons.h"
-//#include "Time/TimeControl.h"
-//#include "Time/Timings.h"
+#include "Buttons/Buttons.h"
+#include "Time/TimeControl.h"
+#include "Time/Timings.h"
 //#include "Serial/Serial.h"
 #include "Serial/ByteStream.h"
-//#include "Modes/Modes.h"
-//#include "Menus/Menus.h"
-//#include "Modes/Mode.h"
+#include "Modes/Modes.h"
+#include "Menus/Menus.h"
+#include "Modes/Mode.h"
 #include "Leds/Leds.h"
 //#include "Log/Log.h"
-
-#include <Arduino.h>
 
 #ifdef VORTEX_ARDUINO
 #include <avr/interrupt.h>
@@ -23,19 +21,36 @@
 
 bool VortexEngine::init()
 {
-  //// Set all pins to input to reduce power draw
-  //for (int x = 0; x < 20; ++x) {
-  //  pinMode(x, INPUT_PULLUP);
-  //}
-  //// set Mosfet pin to output to allow power to flow to LED and LIFI
-  //pinMode(16, OUTPUT);
-  //digitalWrite(16, HIGH);
+  //// Set all pins to input with pull-ups
+  //PORTA.DIRCLR = 0xFF;
+  //PORTA.PIN0CTRL = PORT_PULLUPEN_bm;
+  //PORTA.PIN1CTRL = PORT_PULLUPEN_bm;
+  //PORTA.PIN2CTRL = PORT_PULLUPEN_bm;
+  //PORTA.PIN3CTRL = PORT_PULLUPEN_bm;
+  //PORTA.PIN4CTRL = PORT_PULLUPEN_bm;
+  //PORTA.PIN5CTRL = PORT_PULLUPEN_bm;
+  //PORTA.PIN6CTRL = PORT_PULLUPEN_bm;
+  //PORTA.PIN7CTRL = PORT_PULLUPEN_bm;
 
-  //// all of the global controllers
-  //if (!Time::init()) {
-  //  DEBUG_LOG("Time failed to initialize");
-  //  return false;
-  //}
+  //PORTB.DIRCLR = 0xFF;
+  //PORTB.PIN0CTRL = PORT_PULLUPEN_bm;
+  //PORTB.PIN1CTRL = PORT_PULLUPEN_bm;
+  //PORTB.PIN2CTRL = PORT_PULLUPEN_bm;
+  //PORTB.PIN3CTRL = PORT_PULLUPEN_bm;
+  //PORTB.PIN4CTRL = PORT_PULLUPEN_bm;
+  //PORTB.PIN5CTRL = PORT_PULLUPEN_bm;
+  //PORTB.PIN6CTRL = PORT_PULLUPEN_bm;
+  //PORTB.PIN7CTRL = PORT_PULLUPEN_bm;
+
+  //// Set Mosfet pin (PB0) to output and set it HIGH
+  //PORTB.DIRSET = PIN0_bm;
+  //PORTB.OUTSET = PIN0_bm;
+
+  // all of the global controllers
+  if (!Time::init()) {
+    DEBUG_LOG("Time failed to initialize");
+    return false;
+  }
   if (!Storage::init()) {
     DEBUG_LOG("Storage failed to initialize");
     return false;
@@ -44,18 +59,18 @@ bool VortexEngine::init()
     DEBUG_LOG("Leds failed to initialize");
     return false;
   }
-  //if (!Buttons::init()) {
-  //  DEBUG_LOG("Buttons failed to initialize");
-  //  return false;
-  //}
-  //if (!Menus::init()) {
-  //  DEBUG_LOG("Menus failed to initialize");
-  //  return false;
-  //}
-  //if (!Modes::init()) {
-  //  DEBUG_LOG("Settings failed to initialize");
-  //  return false;
-  //}
+  if (!Buttons::init()) {
+    DEBUG_LOG("Buttons failed to initialize");
+    return false;
+  }
+  if (!Menus::init()) {
+    DEBUG_LOG("Menus failed to initialize");
+    return false;
+  }
+  if (!Modes::init()) {
+    DEBUG_LOG("Settings failed to initialize");
+    return false;
+  }
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -85,36 +100,6 @@ void VortexEngine::cleanup()
   //Time::cleanup();
 }
 
-#include "Leds/Leds.h"
-#include <Arduino.h>
-void ledVerification(uint8_t val, uint8_t d)
-{
-#ifdef VORTEX_ARDUINO
-  uint8_t updateTime = 30;
-  // check for write errors
-  if (d == 0) {
-    // blank = data to write is 0 so cannot test
-    Leds::setAll(RGB_OFF);
-    updateTime = 0;
-  } else {
-    if (val == d) {
-      // green = flash data is good
-      Leds::setAll(RGBColor(0, 255, 0));
-    } else {
-      if (val == 0) {
-        // red = the flash data is still 0
-        Leds::setAll(RGBColor(255, 0, 0));
-      } else {
-        // yellow = the flash data is't 0 but not right
-        Leds::setAll(RGBColor(0, 0, val));
-      }
-    }
-  }
-  Leds::update();
-  delay(updateTime);
-#endif
-}
-
 void VortexEngine::tick()
 {
   // handle any fatal errors that may have occurred
@@ -127,59 +112,22 @@ void VortexEngine::tick()
   }
 #endif
 
-#define BUFSIZE 64
-  uint8_t buf[BUFSIZE];
-  for (int i = 0; i < BUFSIZE; ++i) {
-    buf[i] = i;
-  }
-  ByteStream indata;
-  indata.init(sizeof(buf), buf);
-  indata.recalcCRC();
-  Storage::write(indata);
-
-  ByteStream outdata;
-  if (!Storage::read(outdata)) {
-    Leds::setAll(RGB_WHITE);
-    Leds::update();
-  } else {
-    if (outdata.size() != indata.size()) {
-      if (outdata.size() > indata.size()) {
-        Leds::setAll(RGB_CYAN);
-      } else {
-        Leds::setAll(RGB_PURPLE);
-      }
-      Leds::update();
-      delay(1000);
-    } else {
-      for (int i = 0; i < BUFSIZE; ++i) {
-        ledVerification(outdata.data()[i], indata.data()[i]);
-        Leds::clearAll();
-        Leds::update();
-        delay(50);
-      }
-    }
-    Leds::setAll(RGB_BLANK);
-    Leds::update();
-  }
-  while (1);
-
   // tick the current time counter forward
-  //Time::tickClock();
+  Time::tickClock();
 
   // don't poll the button till some cycles have passed, this prevents
   // the wakeup from cycling to the next mode
-  //Buttons::check();
+  Buttons::check();
 
   // run the main logic for the engine
-  //runMainLogic();
+  runMainLogic();
 
   // update the leds
-  //Leds::update();
+  Leds::update();
 }
 
 void VortexEngine::runMainLogic()
 {
-#if 0
   // otherwise check for any press or hold to enter sleep or enter menus
   uint32_t holdTime = g_pButton->holdDuration();
   // force-sleep check
@@ -214,7 +162,6 @@ void VortexEngine::runMainLogic()
   }
   // otherwise just play the modes
   Modes::play();
-#endif
 }
 
 void VortexEngine::serializeVersion(ByteStream &stream)
@@ -257,15 +204,20 @@ void VortexEngine::enterSleep()
   Leds::clearAll();
   Leds::update();
 #ifdef VORTEX_ARDUINO
-  delay(500);
-  // Set LED data pin to input to prevent power vampirism while alseep
-  pinMode(7, INPUT_PULLUP);
-  // Set LIFI pin to input to prevent power vampirism while asleep
-  pinMode(21, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(9), VortexEngine::wakeUp, RISING);
-  digitalWrite(16, LOW); //This closes the gate on the mofset
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);  /* Set sleep mode to POWER DOWN mode */
-  sleep_enable();                       /* Enable sleep mode, but not going to sleep yet */
+  // Set LED data pin (PA7) to input with pull-up resistor
+  //PORTA.DIRCLR = PIN7_bm;
+  //PORTA.PIN7CTRL = PORT_PULLUPEN_bm;
+  //// Set Li-Fi pin (PC5) to input with pull-up resistor
+  //PORTC.DIRCLR = PIN5_bm;
+  //PORTC.PIN5CTRL = PORT_PULLUPEN_bm;
+  // Set wake interrupt on both edges
+  PORTB.PIN2CTRL = 0x1;
+  // close gate to mosfet to cut power to peripherals
+  //PORTB.OUTCLR = PIN0_bm;
+  // Set sleep mode to POWER DOWN mode
+  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  // Enable sleep mode, but not going to sleep yet
+  sleep_enable();
   // enter sleep
   sleep_cpu();
 #else
@@ -273,15 +225,22 @@ void VortexEngine::enterSleep()
 #endif
 }
 
-void VortexEngine::wakeUp()
-{
-  // turn the LED MOSFET back on
-  digitalWrite(16, HIGH);
-  // perform digital reset
 #ifdef VORTEX_ARDUINO
+// interrupt handler to wakeup device on button rpess
+ISR(PORTB_PORT_vect)
+{
+  if (!(PORTB.INTFLAGS & (1 << 2))) {
+    // don't trigger unless it was from the button press
+    return;
+  }
+  // turn off interrupt
+  PORTB.PIN2CTRL = 0;
+  // turn the LED mosfet back on
+  //PORTB.OUTSET = PIN0_bm;
+  // just reset
   _PROTECTED_WRITE(RSTCTRL.SWRR, 1);
-#endif
 }
+#endif
 
 #if COMPRESSION_TEST == 1
 #include <string.h>

@@ -22,16 +22,12 @@
 #include <unistd.h>
 #endif
 
-//#define USE_EEPROM 1
-
 #ifdef VORTEX_ARDUINO
-
-#ifdef USE_EEPROM
 #include <EEPROM.h>
-#else
-#define storage_data ((uint8_t *)0x8000 + 1024)
-#endif
-
+// flash is the rest
+#define FLASH_STORAGE_SIZE (STORAGE_SIZE - EEPROM_SIZE)
+// storage space is right at end of flash
+#define FLASH_STORAGE_SPACE ((uint8_t *)(0x10000 - FLASH_STORAGE_SIZE))
 #endif
 
 uint32_t Storage::m_lastSaveSize = 0;
@@ -63,60 +59,59 @@ bool Storage::write(ByteStream &buffer)
 {
 #ifdef VORTEX_ARDUINO
   // Check size
-  const uint16_t size = buffer.rawSize();
+  uint16_t size = buffer.rawSize();
   if (!size || size > STORAGE_SIZE) {
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }
-#ifdef USE_EEPROM
-  // write out the buffer to storage
-  for (size_t i = 0; i < buffer.rawSize(); ++i) {
-    EEPROM.update(i, ((uint8_t *)buffer.rawData())[i]);
-  }
-#else
-  uint16_t pages = (size / PROGMEM_PAGE_SIZE) + 1;
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
+  // start writing to eeprom
+  for (uint8_t i = 0; i < 256; ++i) {
+      EEPROM.update(i, *buf);
+      buf++;
+      size--;
+  }
+  // write the rest to flash
+  uint16_t pages = (size / PROGMEM_PAGE_SIZE) + 1;
   for (uint16_t i = 0; i < pages; i++) {
     // don't read past the end of the input buffer
     uint16_t target = i * PROGMEM_PAGE_SIZE;
     uint16_t s = ((target + PROGMEM_PAGE_SIZE) > size) ? (size % PROGMEM_PAGE_SIZE) : PROGMEM_PAGE_SIZE;
-    memcpy(storage_data + target, buf + target, s);
+    memcpy(FLASH_STORAGE_SPACE + target, buf + target, s);
     // Erase + write the flash page
     _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, 0x3);
     while (NVMCTRL.STATUS & 0x3);
-    if (NVMCTRL.STATUS == 4) {
-      Leds::setAll(RGB_BLUE);
-      Leds::update();
-      while (1);
-    }
   }
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
-#endif // USE_EEPROM
 #endif // VORTEX_ARDUINO
-  return true;
+  return (NVMCTRL.STATUS & 4) == 0;
 }
 
 // read a serial buffer from storage
 bool Storage::read(ByteStream &buffer)
 {
 #ifdef VORTEX_ARDUINO
-  buffer.init(STORAGE_SIZE);
-  // Read the data from EEPROM into the buffer
-  for (size_t i = 0; i < STORAGE_SIZE; ++i) {
-#ifdef USE_EEPROM
-    ((uint8_t *)buffer.rawData())[i] = EEPROM.read(i);
-#else
-    //((uint8_t *)buffer.rawData())[i] = pgm_read_byte_near(storage_data + i);
-    ((uint8_t *)buffer.rawData())[i] = storage_data[i];
-#endif
+  uint32_t size = *(uint32_t *)MAPPED_EEPROM_START;
+  if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
+    return false;
   }
+  // Read the data from EEPROM first
+  uint8_t *pos = (uint8_t *)buffer.rawData();
+  for (size_t i = 0; i < 256; ++i) {
+    *pos = EEPROM.read(i);
+    pos++;
+    size--;
+  }
+  // Read the rest of data from Flash
+  memcpy(pos, FLASH_STORAGE_SPACE, size);
   // check crc immediately since we read into raw data copying the
   // array could be dangerous
   if (!buffer.checkCRC()) {
+    buffer.clear();
     ERROR_LOG("Could not verify buffer");
     return false;
   }
-  //m_lastSaveSize = size;
+  m_lastSaveSize = size;
 #endif
   DEBUG_LOGF("Loaded savedata (Size: %u)", buffer.size());
   return true;

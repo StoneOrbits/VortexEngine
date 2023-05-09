@@ -20,7 +20,7 @@ Button Buttons::m_buttons[NUM_BUTTONS];
 
 bool Buttons::init()
 {
-  // initialize the button on pin 1
+  // initialize the button on pin 9
   if (!m_buttons[0].init(9)) {
     return false;
   }

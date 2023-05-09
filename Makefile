@@ -16,8 +16,9 @@ ASMFLAGS = \
   -x assembler-with-cpp \
   -flto \
   -MMD \
+  -Os \
   -mmcu=attiny3217 \
-  -DF_CPU=20000000L \
+  -DF_CPU=10000000L \
   -DCLOCK_SOURCE=0 \
   -DTWI_MORS \
   -DMILLIS_USE_TIMERD0 \
@@ -32,14 +33,12 @@ ASMFLAGS = \
   -DMEGATINYCORE_PATCH=7UL \
   -DMEGATINYCORE_RELEASED=1 \
   -DARDUINO_attinyxy7 \
-  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore/api/deprecated \
-  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore \
+  -I ./libraries/megatinycore \
   -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/variants/txy7 
 
 CFLAGS = \
   -Wall \
-	-g \
-  -Og \
+  -Os \
   -std=gnu++17 \
   -fpermissive \
   -Wno-sized-deallocation \
@@ -52,7 +51,7 @@ CFLAGS = \
   -flto \
   -mrelax \
   -mmcu=attiny3217 \
-  -DF_CPU=20000000L \
+  -DF_CPU=10000000L \
   -DCLOCK_SOURCE=0 \
   -DTWI_MORS \
   -DMILLIS_USE_TIMERD0 \
@@ -67,14 +66,13 @@ CFLAGS = \
   -DMEGATINYCORE_PATCH=7UL \
   -DMEGATINYCORE_RELEASED=1 \
   -DARDUINO_attinyxy7  \
-  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore/api/deprecated \
-  -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/cores/megatinycore \
+  -I ./libraries/megatinycore \
   -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/libraries/EEPROM/src/ \
   -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/variants/txy7
 
 #LDFLAGS = -mmcu=attiny3217 -nostartfiles -flto -fuse-linker-plugin -Wl,--gc-sections -Wl,--section-start=.text=0x0 -lm
 
-LDFLAGS = -Wall -g -Og -flto -fuse-linker-plugin -Wl,--gc-sections -Wl,--section-start=.text=0x0 -mrelax -mmcu=attiny3217 -lm -Wl,-T,custom.xn
+LDFLAGS = -Wall -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mrelax -mmcu=attiny3217 -lm -Wl,-T,custom.xn
 
 INCLUDES=\
 	-I ./VortexEngine/src/ \
@@ -86,45 +84,82 @@ endif
 
 # Source files
 SRCS = \
+	./VortexEngine/src/Buttons/Button.cpp \
+	./VortexEngine/src/Buttons/Buttons.cpp \
+	./VortexEngine/src/Colors/Colorset.cpp \
+	./VortexEngine/src/Colors/ColorTypes.cpp \
+	./VortexEngine/src/Infrared/IRReceiver.cpp \
+	./VortexEngine/src/Infrared/IRSender.cpp \
+	./VortexEngine/src/Leds/Leds.cpp \
+	./VortexEngine/src/Leds/LedStash.cpp \
+	./VortexEngine/src/Log/ErrorBlinker.cpp \
+	./VortexEngine/src/Log/Log.cpp \
+	./VortexEngine/src/Memory/Memory.cpp \
+	./VortexEngine/src/Menus/Menu.cpp \
+	./VortexEngine/src/Menus/MenuList/ColorSelect.cpp \
+	./VortexEngine/src/Menus/MenuList/EditorConnection.cpp \
+	./VortexEngine/src/Menus/MenuList/FactoryReset.cpp \
+	./VortexEngine/src/Menus/MenuList/GlobalBrightness.cpp \
+	./VortexEngine/src/Menus/MenuList/ModeSharing.cpp \
+	./VortexEngine/src/Menus/MenuList/PatternSelect.cpp \
+	./VortexEngine/src/Menus/MenuList/Randomizer.cpp \
+	./VortexEngine/src/Menus/Menus.cpp \
+	./VortexEngine/src/Modes/DefaultModes.cpp \
+	./VortexEngine/src/Modes/Mode.cpp \
+	./VortexEngine/src/Modes/Modes.cpp \
+	./VortexEngine/src/Patterns/Multi/BackStrobePattern.cpp \
+	./VortexEngine/src/Patterns/Multi/BlinkStepPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/BouncePattern.cpp \
+	./VortexEngine/src/Patterns/Multi/CompoundPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/CrossDopsPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/DoubleStrobePattern.cpp \
+	./VortexEngine/src/Patterns/Multi/DripMorphPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/DripPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/FillPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/HueShiftPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/LighthousePattern.cpp \
+	./VortexEngine/src/Patterns/Multi/MateriaPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/MeteorPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/MultiLedPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/PulsishPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/Sequencer/ChaserPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/Sequencer/Sequence.cpp \
+	./VortexEngine/src/Patterns/Multi/Sequencer/SequencedPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/SnowballPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/SparkleTracePattern.cpp \
+	./VortexEngine/src/Patterns/Multi/TheaterChasePattern.cpp \
+	./VortexEngine/src/Patterns/Multi/VortexWipePattern.cpp \
+	./VortexEngine/src/Patterns/Multi/WarpPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/WarpWormPattern.cpp \
+	./VortexEngine/src/Patterns/Multi/ZigzagPattern.cpp \
+	./VortexEngine/src/Patterns/Pattern.cpp \
+	./VortexEngine/src/Patterns/PatternArgs.cpp \
+	./VortexEngine/src/Patterns/PatternBuilder.cpp \
+	./VortexEngine/src/Patterns/Single/BasicPattern.cpp \
+	./VortexEngine/src/Patterns/Single/BlendPattern.cpp \
+	./VortexEngine/src/Patterns/Single/DashDopsPattern.cpp \
+	./VortexEngine/src/Patterns/Single/SingleLedPattern.cpp \
+	./VortexEngine/src/Patterns/Single/SolidPattern.cpp \
+	./VortexEngine/src/Patterns/Single/TracerPattern.cpp \
+	./VortexEngine/src/Random/Random.cpp \
+	./VortexEngine/src/Serial/BitStream.cpp \
+	./VortexEngine/src/Serial/ByteStream.cpp \
+	./VortexEngine/src/Serial/Compression.cpp \
+	./VortexEngine/src/Serial/Serial.cpp \
+	./VortexEngine/src/Storage/Storage.cpp \
+	./VortexEngine/src/Time/TimeControl.cpp \
+	./VortexEngine/src/Time/Timer.cpp \
+	./VortexEngine/src/VortexEngine.cpp \
+	./appmain.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
-COREASM = \
-	./libraries/megatinycore/wiring_pulse.S
-
-CORESRC = \
-	./libraries/megatinycore/abi.cpp \
-	./libraries/megatinycore/api/Common.cpp \
-	./libraries/megatinycore/api/IPAddress.cpp \
-	./libraries/megatinycore/api/PluggableUSB.cpp \
-	./libraries/megatinycore/api/Print.cpp \
-	./libraries/megatinycore/api/RingBuffer.cpp \
-	./libraries/megatinycore/api/Stream.cpp \
-	./libraries/megatinycore/api/String.cpp \
-	./libraries/megatinycore/ExtraWiring.cpp \
-	./libraries/megatinycore/main.cpp \
-	./libraries/megatinycore/new.cpp \
-	./libraries/megatinycore/Tone.cpp \
-	./libraries/megatinycore/UART.cpp \
-	./libraries/megatinycore/UART0.cpp \
-	./libraries/megatinycore/UART1.cpp \
-	./libraries/megatinycore/wiring_extra.cpp \
-	./libraries/megatinycore/WMath.cpp \
-	./appmain.cpp
-
 CORESRCC = \
-	./libraries/megatinycore/hooks.c \
-	./libraries/megatinycore/WInterrupts.c \
-	./libraries/megatinycore/WInterrupts_PA.c \
-	./libraries/megatinycore/WInterrupts_PB.c \
-	./libraries/megatinycore/WInterrupts_PC.c \
-	./libraries/megatinycore/wiring.c \
-	./libraries/megatinycore/wiring_analog.c \
 	./libraries/megatinycore/wiring_digital.c \
-	./libraries/megatinycore/wiring_pulse.c \
-	./libraries/megatinycore/wiring_shift.c 
 
-COREOBJS = $(COREASM:.S=.o) $(CORESRC:.cpp=.o) $(CORESRCC:.c=.o)
+COREOBJS = $(CORESRCC:.c=.o)
+
+DFILES = $(SRCS:.cpp=.d) $(CORESRCC:.c:.d)
 
 # Target name
 TARGET = main
@@ -161,9 +196,10 @@ upload: $(TARGET).hex
 		-Ufuse5:w:0b11000101:m \
 		-Ufuse6:w:0x04:m \
 		-Ufuse7:w:0x00:m \
-		-Ufuse8:w:0x04:m \
+		-Ufuse8:w:0x76:m \
 		-Uflash:w:$(TARGET).hex:i
 
 clean:
 	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex core.a $(COREOBJS)
 
+-include $(DFILES)

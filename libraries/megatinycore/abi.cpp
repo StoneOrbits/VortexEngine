@@ -18,17 +18,17 @@
 
 #include <stdlib.h>
 
-extern "C" void __cxa_pure_virtual(void) __attribute__((__noreturn__));
-extern "C" void __cxa_deleted_virtual(void) __attribute__((__noreturn__));
+extern "C" void __cxa_pure_virtual(void);
+extern "C" void __cxa_deleted_virtual(void);
 
 void __cxa_pure_virtual(void) {
   // We might want to write some diagnostics to uart in this case
   // std::terminate();
-  abort();
+  //abort();
 }
 
 void __cxa_deleted_virtual(void) {
   // We might want to write some diagnostics to uart in this case
   // std::terminate();
-  abort();
+  //abort();
 }

@@ -28,5 +28,5 @@ PROGRAM_STORAGE_PERCENT=$(awk -v used="$PROGRAM_STORAGE_USED" -v total="$PROGRAM
 DYNAMIC_MEMORY_PERCENT=$(awk -v used="$DYNAMIC_MEMORY_USED" -v total="$DYNAMIC_MEMORY" 'BEGIN { printf("%.2f", used / total * 100) }')
 
 # Display the results
-echo "Sketch uses $PROGRAM_STORAGE_USED bytes ($PROGRAM_STORAGE_PERCENT%) of program storage space. Maximum is $PROGRAM_STORAGE bytes."
-echo "Global variables use $DYNAMIC_MEMORY_USED bytes ($DYNAMIC_MEMORY_PERCENT%) of dynamic memory, leaving $(($DYNAMIC_MEMORY - $DYNAMIC_MEMORY_USED)) bytes for local variables. Maximum is $DYNAMIC_MEMORY bytes."
+echo "Sketch uses $PROGRAM_STORAGE_USED bytes ($PROGRAM_STORAGE_PERCENT%) of program storage space. Maximum is $PROGRAM_STORAGE bytes. (Hex: $(printf '%x' $PROGRAM_STORAGE_USED)/$(printf '%x' $PROGRAM_STORAGE))"
+echo "Global variables use $DYNAMIC_MEMORY_USED bytes ($DYNAMIC_MEMORY_PERCENT%) of dynamic memory, leaving $(($DYNAMIC_MEMORY - $DYNAMIC_MEMORY_USED)) bytes for local variables. Maximum is $DYNAMIC_MEMORY bytes. (Hex: $(printf '%x' $DYNAMIC_MEMORY_USED)/$(printf '%x' $DYNAMIC_MEMORY))"
