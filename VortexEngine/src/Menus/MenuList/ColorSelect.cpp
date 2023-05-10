@@ -253,13 +253,14 @@ void ColorSelect::onLongClick()
     // the page is only used for slot selection so reset current page
     // for next time they use the color select
     m_curPage = 0;
+    m_quadrant = 0;
     break;
   case STATE_PICK_HUE1:
-    // pick a hue1
-    m_newColor.hue = m_curSelection * (255 / 4);
     // save the quadrant of hue that was selected so that if
     // they navigate backwards we know where to place them
-    m_quadrant = m_slot;
+    m_quadrant = m_curSelection;
+    // pick a hue1
+    m_newColor.hue = m_quadrant * (255 / 4);
     m_state = STATE_PICK_HUE2;
     break;
   case STATE_PICK_HUE2:
