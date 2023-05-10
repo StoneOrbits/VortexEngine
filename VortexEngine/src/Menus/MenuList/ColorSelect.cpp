@@ -252,6 +252,7 @@ void ColorSelect::onLongClick()
   case STATE_PICK_HUE1:
     // pick a hue1
     m_newColor.hue = m_curSelection * (255 / 4);
+    m_state = STATE_PICK_HUE2;
     break;
   case STATE_PICK_HUE2:
     // pick a hue2
@@ -261,6 +262,7 @@ void ColorSelect::onLongClick()
   case STATE_PICK_SAT:
     // pick a saturation
     m_newColor.sat = sats[m_curSelection];
+    m_state = STATE_PICK_VAL;
     break;
   case STATE_PICK_VAL:
     // pick a value
