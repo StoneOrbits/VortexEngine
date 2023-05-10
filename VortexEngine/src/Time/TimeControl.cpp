@@ -49,6 +49,31 @@ bool Time::m_instantTimestep = false;
 #endif
 
 #ifdef VORTEX_ARDUINO
+
+/************/
+/* _fastPtr */
+/************/
+#define _fastPtr_z(__localVar__, __pointer__) __asm__ __volatile__("\n\t": "=&z" (__localVar__) : "0" (__pointer__));  // r30:r31
+#define _fastPtr_y(__localVar__, __pointer__) __asm__ __volatile__("\n\t": "=&y" (__localVar__) : "0" (__pointer__));  // r28:r29
+#define _fastPtr_x(__localVar__, __pointer__) __asm__ __volatile__("\n\t": "=&x" (__localVar__) : "0" (__pointer__));  // r26:r27
+#define _fastPtr_d(__localVar__, __pointer__) __asm__ __volatile__("\n\t": "=&b" (__localVar__) : "0" (__pointer__));  // Y or Z
+#define   _fastPtr(__localVar__, __pointer__) __asm__ __volatile__("\n\t": "=&e" (__localVar__) : "0" (__pointer__));  // X,Y or Z
+
+#define TIMERD0_PRESCALER (TCD_CLKSEL_20MHZ_gc | TCD_CNTPRES_DIV32_gc | TCD_SYNCPRES_DIV2_gc)
+
+#define millisClockCyclesPerMicrosecond() ((uint16_t) (20))  // this always runs off the 20MHz oscillator
+#define millisClockCyclesToMicroseconds(a) ((uint32_t)((a) / millisClockCyclesPerMicrosecond()))
+#define microsecondsToMillisClockCycles(a) ((uint32_t)((a) * millisClockCyclesPerMicrosecond()))
+
+#define TIME_TRACKING_TIMER_PERIOD    (0x1FD)
+#define TIME_TRACKING_TIMER_DIVIDER   (64)    /* Clock divider for TCD0 */
+
+#define FRACT_MAX (1000)
+#define TIME_TRACKING_TICKS_PER_OVF   (TIME_TRACKING_TIMER_PERIOD   + 1UL)
+#define TIME_TRACKING_CYCLES_PER_OVF  (TIME_TRACKING_TICKS_PER_OVF  * TIME_TRACKING_TIMER_DIVIDER)
+#define FRACT_INC (millisClockCyclesToMicroseconds(TIME_TRACKING_CYCLES_PER_OVF)%1000)
+#define MILLIS_INC (millisClockCyclesToMicroseconds(TIME_TRACKING_CYCLES_PER_OVF)/1000)
+
 struct sTimeMillis {
     volatile uint16_t timer_fract;
     volatile uint32_t timer_millis;
@@ -90,10 +115,6 @@ static unsigned long time_micros()
 #endif
   return microseconds;
 }
-
-#define FRACT_MAX (1000)
-#define FRACT_INC (millisClockCyclesToMicroseconds(TIME_TRACKING_CYCLES_PER_OVF)%1000)
-#define MILLIS_INC (millisClockCyclesToMicroseconds(TIME_TRACKING_CYCLES_PER_OVF)/1000)
 
 struct sTimer {
   uint8_t            intClear;

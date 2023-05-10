@@ -23,12 +23,14 @@
 #endif
 
 #ifdef VORTEX_ARDUINO
-#include <EEPROM.h>
 // flash is the rest
 #define FLASH_STORAGE_SIZE (STORAGE_SIZE - EEPROM_SIZE)
 // storage space is right at end of flash
 #define FLASH_STORAGE_SPACE ((uint8_t *)(0x10000 - FLASH_STORAGE_SIZE))
 #endif
+
+// write out the eeprom byte
+static void eeprom_write_byte(uint16_t index, uint8_t in);
 
 uint32_t Storage::m_lastSaveSize = 0;
 
@@ -67,7 +69,7 @@ bool Storage::write(ByteStream &buffer)
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom
   for (uint8_t i = 0; i < EEPROM_SIZE; ++i) {
-      EEPROM.update(i, *buf);
+      eeprom_write_byte(i, *buf);
       buf++;
       size--;
       if (!size) {
@@ -102,7 +104,7 @@ bool Storage::read(ByteStream &buffer)
   // Read the data from EEPROM first
   uint8_t *pos = (uint8_t *)buffer.rawData();
   for (size_t i = 0; i < EEPROM_SIZE; ++i) {
-    *pos = EEPROM.read(i);
+    *pos = *(uint8_t *)(MAPPED_EEPROM_START + i);
     pos++;
     size--;
     if (!size) {
@@ -130,3 +132,27 @@ uint32_t Storage::lastSaveSize()
 {
   return m_lastSaveSize;
 }
+
+static void eeprom_write_byte(uint16_t index, uint8_t in)
+{
+  uint16_t adr = (uint16_t)MAPPED_EEPROM_START + index;
+  __asm__ __volatile__(
+      "ldi r30, 0x00"     "\n\t"
+      "ldi r31, 0x10"     "\n\t"
+      "in r0, 0x3f"       "\n\t"
+      "ldd r18, Z+2"      "\n\t"
+      "andi r18, 3"       "\n\t"
+      "brne .-6"          "\n\t"
+      "cli"               "\n\t"
+      "st X, %0"          "\n\t"
+      "ldi %0, 0x9D"      "\n\t"
+      "out 0x34, %0"      "\n\t"
+      "ldi %0, 0x03"      "\n\t"
+      "st Z, %0"          "\n\t"
+      "out 0x3f, r0"      "\n"
+      :"+d"(in)
+      : "x"(adr)
+      : "r30", "r31", "r18");
+}
+
+

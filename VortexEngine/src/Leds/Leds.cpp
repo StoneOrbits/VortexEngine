@@ -13,6 +13,10 @@
 #include "../../VortexLib/VortexLib.h"
 #endif
 
+#ifdef VORTEX_ARDUINO
+#include <avr/io.h>
+#endif
+
 // swap two variables in place
 #define SWAP(x, y) x ^= y; y ^= x; x ^= y;
 
@@ -263,7 +267,7 @@ void Leds::update()
 
   // Thanks to TinyNeoPixel for this code
 #ifdef VORTEX_ARDUINO
-  noInterrupts();
+  __asm("cli");
   volatile uint16_t
     i = LED_COUNT * sizeof(RGBColor); // Loop counter
   volatile uint8_t
@@ -1186,7 +1190,7 @@ void Leds::update()
   #endif
   // END AVR ----------------------------------------------------------------
 
-  interrupts();
+  __asm("sei");
 #endif
 
 #ifdef VORTEX_ARDUINO

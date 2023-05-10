@@ -17,7 +17,7 @@ public:
   ~Button();
 
   // initialize a new button object with a pin number
-  bool init(int pin);
+  bool init();
   // check the state of the button by querying the pin
   void check();
 
@@ -44,9 +44,6 @@ public:
   uint32_t releaseDuration() const { return m_releaseDuration; }
 
 private:
-  // the pin number that is read
-  int m_pinNum;
-
   // ========================================
   // state data that is populated each check
 

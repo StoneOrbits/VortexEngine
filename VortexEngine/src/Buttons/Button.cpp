@@ -10,8 +10,11 @@
 #include "VortexLib.h"
 #endif
 
+#ifdef VORTEX_ARDUINO
+#include <avr/io.h>
+#endif
+
 Button::Button() :
-  m_pinNum(0),
   m_buttonState(HIGH),
   m_pressTime(0),
   m_releaseTime(0),
@@ -29,9 +32,8 @@ Button::~Button()
 {
 }
 
-bool Button::init(int pin)
+bool Button::init()
 {
-  m_pinNum = 0;
   m_buttonState = HIGH;
   m_pressTime = 0;
   m_releaseTime = 0;
@@ -43,8 +45,9 @@ bool Button::init(int pin)
   m_shortClick = false;
   m_longClick = false;
 
-  m_pinNum = pin;
+#ifdef VORTEX_ARDUINO
   PORTB.PIN2CTRL = PORT_PULLUPEN_bm;
+#endif
   return true;
 }
 
@@ -55,7 +58,11 @@ void Button::check()
   m_newRelease = false;
 
   // read the new button state
+#ifdef VORTEX_LIB
+  uint8_t newButtonState = digitalRead(9);
+#elif defined(VORTEX_ARDUINO)
   uint8_t newButtonState = (PORTB.IN & PIN2_bm) ? 1 : 0;
+#endif
 
   // did the button change (press/release occurred)
   if (newButtonState != m_buttonState) {
