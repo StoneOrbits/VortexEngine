@@ -223,10 +223,15 @@ void ColorSelect::onLongClick()
       m_curPage = m_slot / PAGE_SIZE;
       return;
     case STATE_PICK_HUE2:
+      // save the quadrant of hue that was selected so that if
+      // they navigate backwards we know where to place them
+      m_curSelection = (Quadrant)m_quadrant;
+      m_state = (ColorSelectState)(m_state - 1);
+      return;
     case STATE_PICK_SAT:
     case STATE_PICK_VAL:
       m_state = (ColorSelectState)(m_state - 1);
-      m_curSelection = QUADRANT_LAST;
+      m_curSelection = QUADRANT_FIRST;
       return;
     }
   }
@@ -252,6 +257,9 @@ void ColorSelect::onLongClick()
   case STATE_PICK_HUE1:
     // pick a hue1
     m_newColor.hue = m_curSelection * (255 / 4);
+    // save the quadrant of hue that was selected so that if
+    // they navigate backwards we know where to place them
+    m_quadrant = m_slot;
     m_state = STATE_PICK_HUE2;
     break;
   case STATE_PICK_HUE2:
@@ -325,36 +333,39 @@ void ColorSelect::showSlotSelection()
 
 void ColorSelect::showSelection(ColorSelectState mode)
 {
-	if (m_curSelection >= 4) {
-		showExit();
-		return;
-	}
+  if (m_curSelection >= 4) {
+    showExit();
+    return;
+  }
 
-	for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_4; ++f) {
-		HSVColor color;
-		switch (mode) {
-		case STATE_PICK_HUE1:
-			if (f != QUADRANT_FIRST) {
-				return;
-			}
-			for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
-				Leds::setPair(p, HSVColor((256 / PAIR_COUNT) * p, 255, 255));
-			}
-			return;
-		case STATE_PICK_HUE2:
-			color = HSVColor(m_newColor.hue + ((255 / 16) * f), 255, 255);
-			break;
-		case STATE_PICK_SAT:
-			color = HSVColor(m_newColor.hue, sats[f], 255);
-			break;
-		case STATE_PICK_VAL:
-			color = HSVColor(m_newColor.hue, m_newColor.sat, vals[f]);
-			break;
-		default:
-			return;
-		}
-		Leds::setQuadrant(f, color);
-	}
+  for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_4; ++f) {
+    HSVColor color;
+    switch (mode) {
+    case STATE_PICK_HUE1:
+      if (f != QUADRANT_FIRST) {
+        return;
+      }
+      for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
+        Leds::setPair(p, HSVColor((256 / PAIR_COUNT) * p, 255, 255));
+      }
+      return;
+    case STATE_PICK_HUE2:
+      // calculate the hue with the stored 'quadrant' variable because
+      // they may have gotten here by going back from the next state (pick sat)
+      // and the m_newColor.hue value may have been irreversibly changed
+      color = HSVColor((m_quadrant * (255 / 4)) + ((255 / 16) * f), 255, 255);
+      break;
+    case STATE_PICK_SAT:
+      color = HSVColor(m_newColor.hue, sats[f], 255);
+      break;
+    case STATE_PICK_VAL:
+      color = HSVColor(m_newColor.hue, m_newColor.sat, vals[f]);
+      break;
+    default:
+      return;
+    }
+    Leds::setQuadrant(f, color);
+  }
 }
 
 void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)

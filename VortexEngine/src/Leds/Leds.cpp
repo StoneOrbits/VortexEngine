@@ -140,16 +140,18 @@ void Leds::setQuadrants(Quadrant first, Quadrant last, RGBColor col)
 
 void Leds::setQuadrantFive(RGBColor col)
 {
-  for (LedPos q = LED_FIRST; q < 4; ++q) {
-    led((LedPos)((q * 7) + 3)) = col;
-  }
+  led(LED_3) = col;
+  led(LED_10) = col;
+  led(LED_17) = col;
+  led(LED_24) = col;
 }
 
 void Leds::clearQuadrantFive()
 {
-  for (LedPos q = LED_FIRST; q < 4; ++q) {
-    led((LedPos)((q * 7) + 3)) = HSV_OFF;
-  }
+  led(LED_3) = RGB_OFF;
+  led(LED_10) = RGB_OFF;
+  led(LED_17) = RGB_OFF;
+  led(LED_24) = RGB_OFF;
 }
 
 void Leds::setRing(Ring ring, RGBColor col)
