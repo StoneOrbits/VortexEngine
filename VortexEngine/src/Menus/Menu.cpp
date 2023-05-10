@@ -120,8 +120,8 @@ void Menu::showExit()
     Leds::setAll(RGB_RED);
     return;
   }
-  Leds::clearAll();
-  Leds::blinkAll(Time::getCurtime(), 250, 500, RGB_DARK_RED);
+  Leds::clearQuadrantFive();
+  Leds::blinkQuadrantFive(Time::getCurtime(), 250, 500, RGB_DARK_RED);
 }
 
 void Menu::nextBulbSelection()
