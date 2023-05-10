@@ -40,6 +40,6 @@ void Buttons::check()
   g_pButton->check();
 #ifdef VORTEX_LIB
   // read input from the vortex lib interface, for example Vortex::shortClick()
-  Vortex::handleInputQueue(m_buttons, NUM_BUTTONS);
+  Vortex::handleInputQueue(g_pButton, NUM_BUTTONS);
 #endif
 }

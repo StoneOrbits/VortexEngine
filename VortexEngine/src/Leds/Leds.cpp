@@ -34,6 +34,7 @@ uint8_t Leds::m_pinMask = 0;
 
 bool Leds::init()
 {
+#ifdef VORTEX_ARDUINO
   // clear the onboard led so it displays nothing
   // tiny neo pixels
   PORTB.DIRSET = PIN4_bm;
@@ -41,6 +42,7 @@ bool Leds::init()
   m_port = &PORTB.OUT;
   // create a pin mask to use later
   m_pinMask = PIN4_bm;
+#endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
 #endif

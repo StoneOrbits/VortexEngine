@@ -117,6 +117,8 @@ uint32_t cur_memory_usage_total()
 
 #endif // DEBUG_ALLOCATIONS == 1
 
+#ifndef VORTEX_LIB
+
 // for C++11 need the following:
 void *operator new  (size_t size) { return vmalloc(size); }
 void *operator new[](size_t size) { return vmalloc(size); }
@@ -136,3 +138,5 @@ void  operator delete[](void *ptr, size_t size, std::align_val_t al) noexcept { 
 // needed for C++ virtual functions
 extern "C" void __cxa_pure_virtual(void) {}
 extern "C" void __cxa_deleted_virtual(void) {}
+
+#endif

@@ -88,8 +88,10 @@ bool Storage::write(ByteStream &buffer)
     while (NVMCTRL.STATUS & 0x3);
   }
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
-#endif // VORTEX_ARDUINO
   return (NVMCTRL.STATUS & 4) == 0;
+#else
+  return true;
+#endif // VORTEX_ARDUINO
 }
 
 // read a serial buffer from storage
@@ -135,6 +137,7 @@ uint32_t Storage::lastSaveSize()
 
 static void eeprom_write_byte(uint16_t index, uint8_t in)
 {
+#ifdef VORTEX_ARDUINO
   uint16_t adr = (uint16_t)MAPPED_EEPROM_START + index;
   __asm__ __volatile__(
       "ldi r30, 0x00"     "\n\t"
@@ -153,6 +156,7 @@ static void eeprom_write_byte(uint16_t index, uint8_t in)
       :"+d"(in)
       : "x"(adr)
       : "r30", "r31", "r18");
+#endif
 }
 
 

@@ -80,7 +80,7 @@ struct sTimeMillis {
     volatile uint32_t timer_overflow_count;
 } timingStruct;
 
-static unsigned long time_micros()
+static unsigned long micros()
 {
   uint32_t overflows, microseconds;
   uint16_t ticks;
@@ -547,11 +547,13 @@ __attribute__ ((noinline)) void delayMicroseconds(unsigned int us) {
 
 bool Time::init()
 {
+#ifdef VORTEX_ARDUINO
   sei();
   do_init_clock();
   do_init_millis();
   _PROTECTED_WRITE(CPUINT_CTRLA, CPUINT_IVSEL_bm);
-  m_firstTime = m_prevTime = time_micros();
+#endif
+  m_firstTime = m_prevTime = micros();
   m_curTick = 0;
 #if VARIABLE_TICKRATE == 1
   m_tickrate = DEFAULT_TICKRATE;
@@ -589,7 +591,7 @@ void Time::tickClock()
   uint32_t elapsed_us;
   uint32_t us;
   do {
-    us = time_micros();
+    us = micros();
     // detect rollover of microsecond counter
     if (us < m_prevTime) {
       // calculate wrapped around difference
@@ -607,7 +609,7 @@ void Time::tickClock()
     if (required > elapsed_us) {
       // in vortex lib on linux we can just sleep instead of spinning
       // but on arduino we must spin and on windows it actually ends
-      // up being more accurate to poll QPF + QPC via time_micros()
+      // up being more accurate to poll QPF + QPC via micros()
       sleepTime = required - elapsed_us;
     }
 #if defined(VORTEX_LIB)
@@ -626,7 +628,7 @@ void Time::tickClock()
   } while (elapsed_us < (1000000 / TICKRATE));
 
   // store current time
-  m_prevTime = time_micros();
+  m_prevTime = micros();
 }
 
 // get the current time with optional led position time offset

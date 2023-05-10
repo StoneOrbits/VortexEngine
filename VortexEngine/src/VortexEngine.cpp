@@ -192,8 +192,12 @@ bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
 
 Mode *VortexEngine::curMode()
 {
+#ifdef VORTEX_LIB
+  return Modes::curMode();
+#else
+  // don't need this outside vortex lib
   return nullptr;
-  //return Modes::curMode();
+#endif
 }
 
 #ifdef VORTEX_LIB
