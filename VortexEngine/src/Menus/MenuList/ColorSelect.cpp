@@ -334,11 +334,6 @@ void ColorSelect::showSlotSelection()
 
 void ColorSelect::showSelection(ColorSelectState mode)
 {
-  if (m_curSelection >= 4) {
-    showExit();
-    return;
-  }
-
   for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_4; ++f) {
     HSVColor color;
     switch (mode) {
@@ -366,6 +361,9 @@ void ColorSelect::showSelection(ColorSelectState mode)
       return;
     }
     Leds::setQuadrant(f, color);
+  }
+  if (m_curSelection >= 4) {
+    showExit();
   }
 }
 
