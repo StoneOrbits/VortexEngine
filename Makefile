@@ -1,11 +1,13 @@
-CC = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-gcc
-LD = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-gcc
-OBJCOPY = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-objcopy -v
-AR = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-gcc-ar
-SIZE = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-size
-OBJDUMP = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-objdump
-NM = C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-nm
-AVRDUDE =  C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avrdude/6.3.0-arduino17or18/bin/avrdude
+BINDIR=C:/Users/danie/AppData/Local/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin
+
+CC = ${BINDIR}/avr-gcc
+LD = ${BINDIR}/avr-gcc
+OBJCOPY = ${BINDIR}/avr-objcopy -v
+AR = ${BINDIR}/avr-gcc-ar
+SIZE = ${BINDIR}/avr-size
+OBJDUMP = ${BINDIR}/avr-objdump
+NM = ${BINDIR}/avr-nm
+AVRDUDE = ${BINDIR}/avrdude
 
 AVRDUDE_CONF = C:/Users/danie/source/repos/VortexAVR/VortexEngine/avrdude.conf
 AVRDUDE_PORT = COM12
