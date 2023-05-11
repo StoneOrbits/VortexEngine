@@ -640,7 +640,12 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
   // there's no setPatternArgs for an LedPos in the engine, it's not
   // useful there and ends up causing more bloat than it's worth.
   // So we just force an args change by setting the pattern again
-  if (!pMode->setPattern(PATTERN_FIRST, pos, &args)) {
+  // TODO: So this will actually technically change the pattern if you change
+  //       the args and the patterns are different on different leds this will
+  //       set one pattern on all in order to solve we need a setPatternArgs
+  //       func in the core Mode class that follows the same pattern as
+  //       setPattern and setColorset
+  if (!pMode->setPattern(pMode->getPatternID(pos), pos, &args)) {
     return false;
   }
   // re-initialize the mode after changing pattern args
