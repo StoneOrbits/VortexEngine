@@ -19,6 +19,9 @@ bool Buttons::init()
 {
   // initialize the button on pin 9
   g_pButton = new Button();
+  if (!g_pButton) {
+    return false;
+  }
   return true;
 }
 
