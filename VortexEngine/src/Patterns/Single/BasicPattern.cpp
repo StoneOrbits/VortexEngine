@@ -51,7 +51,7 @@ void BasicPattern::init()
   // don't start the gap timer till we're in a gap
   m_gapTimer.init(TIMER_1_ALARM, m_gapDuration);
 
-  m_dashTimer.init(TIMER_3_ALARMS, m_dashDuration);
+  m_dashTimer.init(TIMER_1_ALARM, m_dashDuration);
 
   // start the blink timer now
   m_blinkTimer.init(TIMER_2_ALARMS | TIMER_START, m_onDuration, m_offDuration);
@@ -60,6 +60,9 @@ void BasicPattern::init()
     m_realGroupSize = m_colorset.numColors();
   } else {
     m_realGroupSize = m_groupSize;
+  }
+  if (m_dashDuration && m_colorset.numColors() > 1) {
+    m_realGroupSize -= 1;
   }
   m_groupCounter = 0;
   m_repeatCounter = m_repeatGroup;
@@ -106,8 +109,11 @@ void BasicPattern::triggerGap()
     // next frame will be a gap
     m_gapTimer.restart(1);
     m_inGap = true;
+  } else {
+    triggerDash();
   }
   m_groupCounter = 0;
+
 }
 
 void BasicPattern::endGap()
@@ -160,7 +166,12 @@ void BasicPattern::endDash()
   m_blinkTimer.restart(1);
   m_inDash = false;
   m_dashTriggered = true;
-  triggerGap();
+  if (m_gapDuration) {
+    triggerGap();
+  }
+  if (!m_groupSize) {
+    m_colorset.setCurIndex(0);
+  }
 }
 
 void BasicPattern::onBlinkOn()
@@ -170,6 +181,9 @@ void BasicPattern::onBlinkOn()
   //  m_colorset.skip(1);
   //}
   // set the target led with the given color
+  if ( m_dashDuration && m_colorset.onEnd()) {
+    m_colorset.skip();
+  }
   Leds::setIndex(m_ledPos, m_reflect ? m_colorset.getPrev() : m_colorset.getNext());
 }
 

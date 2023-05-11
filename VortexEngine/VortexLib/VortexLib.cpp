@@ -533,6 +533,7 @@ bool Vortex::setPattern(PatternID id, const PatternArgs *args, const Colorset *s
   if (!pMode->setPattern(id, LED_ANY, args, set)) {
     return false;
   }
+  pMode->init();
   return !save || doSave();
 }
 
@@ -589,6 +590,7 @@ bool Vortex::setPatternAt(LedPos pos, PatternID id,
   if (!pMode->setPattern(id, pos, args, set)) {
     return false;
   }
+  pMode->init();
   return !save || doSave();
 }
 
@@ -611,6 +613,7 @@ bool Vortex::setColorset(LedPos pos, const Colorset &set, bool save)
   if (!pMode->setColorset(set, pos)) {
     return false;
   }
+  pMode->init();
   return !save || doSave();
 }
 
@@ -634,11 +637,13 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
   if (!pMode) {
     return false;
   }
-  Pattern *pat = pMode->getPattern(pos);
-  if (!pat) {
+  // there's no setPatternArgs for an LedPos in the engine, it's not
+  // useful there and ends up causing more bloat than it's worth.
+  // So we just force an args change by setting the pattern again
+  Colorset set(RGB_RED, RGB_GREEN);
+  if (!pMode->setPattern(PATTERN_FIRST, pos, &args)) {
     return false;
   }
-  pat->setArgs(args);
   // re-initialize the mode after changing pattern args
   pMode->init();
   // save the new params

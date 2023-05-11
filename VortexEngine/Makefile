@@ -17,7 +17,7 @@ MAKE=make
 RM=rm -rf
 RANLIB=ranlib
 
-CFLAGS=-O2 -Wall
+CFLAGS=-O2 -g -Wall
 
 # compiler defines
 DEFINES=\
