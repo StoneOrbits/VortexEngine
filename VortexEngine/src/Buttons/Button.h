@@ -50,9 +50,6 @@ private:
   // ========================================
   // state data that is populated each check
 
-  // the active state of the button
-  uint32_t m_buttonState;
-
   // the timestamp of when the button was pressed
   uint64_t m_pressTime;
   // the timestamp of when the button was released
@@ -62,6 +59,9 @@ private:
   uint32_t m_holdDuration;
   // the last release duration
   uint32_t m_releaseDuration;
+
+  // the active state of the button
+  bool m_buttonState;
 
   // whether pressed this tick
   bool m_newPress;

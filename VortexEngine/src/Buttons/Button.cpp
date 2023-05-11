@@ -12,11 +12,11 @@
 
 Button::Button() :
   m_pinNum(0),
-  m_buttonState(HIGH),
   m_pressTime(0),
   m_releaseTime(0),
   m_holdDuration(0),
   m_releaseDuration(0),
+  m_buttonState(false),
   m_newPress(false),
   m_newRelease(false),
   m_isPressed(false),
@@ -32,11 +32,11 @@ Button::~Button()
 bool Button::init(int pin)
 {
   m_pinNum = 0;
-  m_buttonState = HIGH;
   m_pressTime = 0;
   m_releaseTime = 0;
   m_holdDuration = 0;
   m_releaseDuration = 0;
+  m_buttonState = false;
   m_newPress = false;
   m_newRelease = false;
   m_isPressed = false;
@@ -54,15 +54,15 @@ void Button::check()
   m_newPress = false;
   m_newRelease = false;
 
-  // read the new button state
-  uint32_t newButtonState = (uint32_t)digitalRead(m_pinNum);
+  // read the new button state, 0 (LOW) means pressed
+  bool newButtonState = (digitalRead(m_pinNum) == 0);
 
   // did the button change (press/release occurred)
   if (newButtonState != m_buttonState) {
     // set the new state
     m_buttonState = newButtonState;
     // update the currently pressed member
-    m_isPressed = (m_buttonState == LOW);
+    m_isPressed = m_buttonState;
 
     // update the press/release times and newpress/newrelease members
     if (m_isPressed) {
