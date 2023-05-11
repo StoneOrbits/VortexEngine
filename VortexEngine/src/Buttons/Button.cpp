@@ -14,7 +14,6 @@
 #endif
 
 Button::Button() :
-  m_pinNum(0),
   m_pressTime(0),
   m_releaseTime(0),
   m_holdDuration(0),
@@ -34,7 +33,6 @@ Button::~Button()
 
 bool Button::init()
 {
-  m_pinNum = 0;
   m_pressTime = 0;
   m_releaseTime = 0;
   m_holdDuration = 0;

@@ -44,7 +44,7 @@ void delay(size_t amt)
 {
 }
 
-void delayMicroseconds(size_t us)
+void delayMicroseconds(uint32_t us)
 {
 #ifdef _MSC_VER
   HANDLE timer;

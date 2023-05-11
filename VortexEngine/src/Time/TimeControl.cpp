@@ -248,7 +248,7 @@ static void do_init_millis()
   pTCD->CTRLA          = TIMERD0_PRESCALER | 0x01; // set clock source and enable!
 }
 
-__attribute__ ((noinline)) void delayMicroseconds(unsigned int us)
+__attribute__ ((noinline)) void delayMicroseconds(uint32_t us)
 {
  /* Must be noinline because we rely on function-call overhead */
 #if F_CPU == 48000000L
