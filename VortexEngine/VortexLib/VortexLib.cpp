@@ -640,7 +640,6 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
   // there's no setPatternArgs for an LedPos in the engine, it's not
   // useful there and ends up causing more bloat than it's worth.
   // So we just force an args change by setting the pattern again
-  Colorset set(RGB_RED, RGB_GREEN);
   if (!pMode->setPattern(PATTERN_FIRST, pos, &args)) {
     return false;
   }
