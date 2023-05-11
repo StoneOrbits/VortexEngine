@@ -8,6 +8,7 @@
 
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
+#include "Arduino.h"
 #endif
 
 Button::Button() :
@@ -55,7 +56,11 @@ void Button::check()
   m_newRelease = false;
 
   // read the new button state
-  uint32_t newButtonState = (uint32_t)digitalRead(m_pinNum);
+#ifdef VORTEX_LIB
+  uint8_t newButtonState = (uint8_t)!digitalRead(9);
+#elif defined(VORTEX_ARDUINO)
+  uint8_t newButtonState = (PORTB.IN & PIN2_bm) ? 0 : 1;
+#endif
 
   // did the button change (press/release occurred)
   if (newButtonState != m_buttonState) {

@@ -25,6 +25,8 @@
 #include <stdio.h>
 #endif
 
+#include "Arduino.h"
+
 #ifdef WASM
 #include <emscripten/bind.h>
 #include <emscripten/val.h>
@@ -926,7 +928,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     if (pButton->isPressed()) {
       // re-calc all this stuff because there's no api in Button class to do it
       // I don't want to add the api there because it's useless besides for this
-      pButton->m_buttonState = HIGH;
+      pButton->m_buttonState = 0;
       pButton->m_isPressed = false;
       pButton->m_holdDuration = (uint32_t)(Time::getCurtime() - pButton->m_pressTime);
       pButton->m_releaseTime = Time::getCurtime();
@@ -935,7 +937,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
       pButton->m_longClick = !pButton->m_shortClick;
       DEBUG_LOG("Injecting release");
     } else {
-      pButton->m_buttonState = LOW;
+      pButton->m_buttonState = 1;
       pButton->m_isPressed = true;
       pButton->m_releaseDuration = (uint32_t)(Time::getCurtime() - pButton->m_releaseTime);
       pButton->m_pressTime = Time::getCurtime();
