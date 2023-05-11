@@ -23,9 +23,6 @@ protected:
   virtual void triggerGap();
   virtual void endGap();
 
-  virtual void triggerDash();
-  virtual void endDash();
-
   // whether in the gap
   bool inGap() const { return m_inGap; }
 
@@ -33,7 +30,6 @@ protected:
   uint8_t m_onDuration;
   uint8_t m_offDuration;
   uint8_t m_gapDuration;
-  uint8_t m_dashDuration;
   // the duration the light is on/off for
   uint8_t m_groupSize;
   uint8_t m_reflectIndex;
@@ -52,10 +48,7 @@ protected:
   // the blink timer
   Timer m_blinkTimer;
   Timer m_gapTimer;
-  Timer m_dashTimer;
   bool m_inGap;
-  bool m_inDash;
-  bool m_dashTriggered;
 };
 
 #endif
