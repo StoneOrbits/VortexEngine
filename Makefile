@@ -141,7 +141,7 @@ $(TARGET).elf: $(OBJS) core.a
 
 core.a: $(COREOBJS)
 	$(AR) rcs $@ $^
-	
+
 %.o: %.S
 	$(CC) $(ASMFLAGS) -c $< -o $@
 
