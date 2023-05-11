@@ -89,7 +89,7 @@ public:
   // get the pattern ID of the given pattern
   PatternID getPatternID(LedPos pos = LED_ANY) const;
 
-  // change a single led pattern
+  // change the pattern on a mode (NOTE: you may need to call init() after!)
   bool setPattern(PatternID pat, LedPos pos = LED_ANY, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   bool setPatternMap(LedMap pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
 
