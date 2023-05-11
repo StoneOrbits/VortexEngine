@@ -1,6 +1,5 @@
 #include "TimeControl.h"
 
-#include <Arduino.h>
 #include <math.h>
 
 #ifdef _MSC_VER
@@ -80,7 +79,7 @@ struct sTimeMillis {
     volatile uint32_t timer_overflow_count;
 } timingStruct;
 
-static unsigned long micros()
+unsigned long micros()
 {
   uint32_t overflows, microseconds;
   uint16_t ticks;
@@ -249,7 +248,8 @@ static void do_init_millis()
   pTCD->CTRLA          = TIMERD0_PRESCALER | 0x01; // set clock source and enable!
 }
 
-__attribute__ ((noinline)) void delayMicroseconds(unsigned int us) {
+__attribute__ ((noinline)) void delayMicroseconds(unsigned int us)
+{
  /* Must be noinline because we rely on function-call overhead */
 #if F_CPU == 48000000L
   // make the initial delay 24 cycles

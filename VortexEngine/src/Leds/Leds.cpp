@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <math.h>
 
 #include "LedStash.h"

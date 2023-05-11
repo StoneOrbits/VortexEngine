@@ -1,5 +1,3 @@
-#include "Arduino.h"
-
 #ifdef _MSC_VER
 #include <Windows.h>
 #else

@@ -1,7 +1,5 @@
 #include "Pattern.h"
 
-#include <Arduino.h>
-
 #include "../Patterns/PatternBuilder.h"
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"

@@ -104,4 +104,9 @@ private:
 #endif
 };
 
+#ifdef VORTEX_ARDUINO
+void delayMicroseconds(unsigned int us);
+unsigned long micros();
+#endif
+
 #endif

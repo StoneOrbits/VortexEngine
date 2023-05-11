@@ -7,8 +7,6 @@
 #include <string.h>
 #include <stdio.h>
 
-#include <Arduino.h>
-
 #ifndef VORTEX_ARDUINO
 #include "VortexLib.h"
 #endif

@@ -7,8 +7,6 @@
 
 #include "IRConfig.h"
 
-#include <Arduino.h>
-
 // the serial buffer for the data
 ByteStream IRSender::m_serialBuf;
 // a bit walker for the serial data

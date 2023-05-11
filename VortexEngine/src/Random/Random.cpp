@@ -1,7 +1,5 @@
 #include "Random.h"
 
-#include <Arduino.h>
-
 Random::Random() :
   m_seed(0)
 {

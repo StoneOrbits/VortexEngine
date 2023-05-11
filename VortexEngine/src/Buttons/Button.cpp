@@ -1,7 +1,5 @@
 #include "Button.h"
 
-#include <Arduino.h>
-
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
 #include "../Log/Log.h"
@@ -15,7 +13,7 @@
 #endif
 
 Button::Button() :
-  m_buttonState(HIGH),
+  m_buttonState(0),
   m_pressTime(0),
   m_releaseTime(0),
   m_holdDuration(0),
@@ -34,7 +32,7 @@ Button::~Button()
 
 bool Button::init()
 {
-  m_buttonState = HIGH;
+  m_buttonState = 0;
   m_pressTime = 0;
   m_releaseTime = 0;
   m_holdDuration = 0;
@@ -69,7 +67,7 @@ void Button::check()
     // set the new state
     m_buttonState = newButtonState;
     // update the currently pressed member
-    m_isPressed = (m_buttonState == LOW);
+    m_isPressed = (m_buttonState == 1);
 
     // update the press/release times and newpress/newrelease members
     if (m_isPressed) {

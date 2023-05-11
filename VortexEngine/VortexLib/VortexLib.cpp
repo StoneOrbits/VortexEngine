@@ -16,9 +16,6 @@
 #include "Modes/Modes.h"
 #include "Modes/Mode.h"
 
-// for random()
-#include "Arduino.h"
-
 #ifndef _MSC_VER
 #include <sys/ioctl.h>
 #include <unistd.h>
