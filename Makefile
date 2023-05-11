@@ -12,9 +12,10 @@ NM = ${BINDIR}/avr-nm
 AVRDUDE = ${AVRDUDEDIR}/avrdude
 
 AVRDUDE_CONF = C:/Users/danie/source/repos/VortexAVR/VortexEngine/avrdude.conf
-AVRDUDE_PORT = COM12
+AVRDUDE_PORT = usb
+AVRDUDE_PROGRAMMER = atmelice_updi
 AVRDUDE_BAUDRATE = 115200
-AVRDUDE_FLAGS = -C$(AVRDUDE_CONF) -v -pattiny3217 -cjtag2updi -P$(AVRDUDE_PORT) -b$(AVRDUDE_BAUDRATE)
+AVRDUDE_FLAGS = -C$(AVRDUDE_CONF) -v -pattiny3217 -c$(AVRDUDE_PROGRAMMER) -P$(AVRDUDE_PORT) -b$(AVRDUDE_BAUDRATE)
 
 CFLAGS = \
   -Os \
