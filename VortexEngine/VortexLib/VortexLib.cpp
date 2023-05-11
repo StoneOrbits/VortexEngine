@@ -912,7 +912,12 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
     pButton->m_pressTime = Time::getCurtime();
+#ifdef SLEEP_ENTER_THRESHOLD_TICKS
+    // microlight must hold longer (past sleep time)
+    pButton->m_holdDuration = MENU_TRIGGER_THRESHOLD_TICKS + SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS + 1;
+#else
     pButton->m_holdDuration = MENU_TRIGGER_THRESHOLD_TICKS + 1;
+#endif
     pButton->m_isPressed = true;
     m_buttonEventQueue.push_front(VortexButtonEvent(0, EVENT_RESET_CLICK));
     DEBUG_LOG("Injecting menu enter click");
@@ -935,7 +940,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     if (pButton->isPressed()) {
       // re-calc all this stuff because there's no api in Button class to do it
       // I don't want to add the api there because it's useless besides for this
-      pButton->m_buttonState = HIGH;
+      pButton->m_buttonState = true;
       pButton->m_isPressed = false;
       pButton->m_holdDuration = (uint32_t)(Time::getCurtime() - pButton->m_pressTime);
       pButton->m_releaseTime = Time::getCurtime();
@@ -944,7 +949,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
       pButton->m_longClick = !pButton->m_shortClick;
       DEBUG_LOG("Injecting release");
     } else {
-      pButton->m_buttonState = LOW;
+      pButton->m_buttonState = false;
       pButton->m_isPressed = true;
       pButton->m_releaseDuration = (uint32_t)(Time::getCurtime() - pButton->m_releaseTime);
       pButton->m_pressTime = Time::getCurtime();
