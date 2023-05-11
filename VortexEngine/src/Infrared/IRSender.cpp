@@ -7,6 +7,10 @@
 
 #include "IRConfig.h"
 
+#ifdef VORTEX_LIB
+#include "Arduino.h"
+#endif
+
 // the serial buffer for the data
 ByteStream IRSender::m_serialBuf;
 // a bit walker for the serial data
