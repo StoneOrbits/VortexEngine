@@ -646,21 +646,48 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
   if (!pMode) {
     return false;
   }
-  // there's no setPatternArgs for an LedPos in the engine, it's not
-  // useful there and ends up causing more bloat than it's worth.
-  // So we just force an args change by setting the pattern again
-  // TODO: So this will actually technically change the pattern if you change
-  //       the args and the patterns are different on different leds this will
-  //       set one pattern on all in order to solve we need a setPatternArgs
-  //       func in the core Mode class that follows the same pattern as
-  //       setPattern and setColorset
-  if (!pMode->setPattern(pMode->getPatternID(pos), pos, &args)) {
-    return false;
+  Pattern *pat = nullptr;
+  switch (pos) {
+  case LED_ANY:
+  case LED_ALL:
+    // fallthrough
+#if VORTEX_SLIM == 0
+  case LED_MULTI:
+    pat = pMode->getPattern(LED_MULTI);
+    if (pat) {
+      pat->setArgs(args);
+    }
+    if (pos == LED_MULTI) {
+      // don't fallthrough if actually multi, it's possible
+      // we got here by falling through from LED_ALL
+      pMode->init();
+      return !save || doSave();
+    }
+    // fall through if LED_ALL and change the single leds
+#endif
+  case LED_ALL_SINGLE:
+    for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+      pat = pMode->getPattern(pos);
+      if (pat) {
+        pat->setArgs(args);
+      }
+    }
+    pMode->init();
+    // actually break here
+    return !save || doSave();
+  default:
+    if (pos >= LED_COUNT) {
+      return false;
+    }
+    pat = pMode->getPattern(pos);
+    if (!pat) {
+      return false;
+    }
+    pat->setArgs(args);
+    pMode->init();
+    return !save || doSave();
   }
-  // re-initialize the mode after changing pattern args
-  pMode->init();
-  // save the new params
-  return !save || doSave();
+  return false;
 }
 
 bool Vortex::isCurModeMulti()
