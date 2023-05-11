@@ -13,7 +13,7 @@
 
 Button::Button() :
   m_pinNum(0),
-  m_buttonState(HIGH),
+  m_buttonState(0),
   m_pressTime(0),
   m_releaseTime(0),
   m_holdDuration(0),
@@ -33,7 +33,7 @@ Button::~Button()
 bool Button::init(int pin)
 {
   m_pinNum = 0;
-  m_buttonState = HIGH;
+  m_buttonState = 0;
   m_pressTime = 0;
   m_releaseTime = 0;
   m_holdDuration = 0;
@@ -57,7 +57,7 @@ void Button::check()
 
   // read the new button state
 #ifdef VORTEX_LIB
-  uint8_t newButtonState = (uint8_t)!digitalRead(9);
+  uint8_t newButtonState = (uint8_t)digitalRead(9) ? 0 : 1;
 #elif defined(VORTEX_ARDUINO)
   uint8_t newButtonState = (PORTB.IN & PIN2_bm) ? 0 : 1;
 #endif
@@ -67,7 +67,7 @@ void Button::check()
     // set the new state
     m_buttonState = newButtonState;
     // update the currently pressed member
-    m_isPressed = (m_buttonState == LOW);
+    m_isPressed = (m_buttonState == 1);
 
     // update the press/release times and newpress/newrelease members
     if (m_isPressed) {
