@@ -4,6 +4,8 @@
 #include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
 
+#include <stdio.h>
+
 BasicPattern::BasicPattern(const PatternArgs &args) :
   Pattern(args),
   m_onDuration(0),
@@ -38,7 +40,7 @@ void BasicPattern::init()
   // if there's no on duration or dash duration the led is just disabled
   if (!m_onDuration && !m_dashDuration) {
     m_state = STATE_DISABLED;
-  } 
+  }
 }
 
 void BasicPattern::nextState(uint8_t timing)
@@ -59,7 +61,7 @@ replay:
     m_state = STATE_BLINK_OFF;
   case STATE_BLINK_OFF:
     if (m_offDuration > 0) { onBlinkOff(); nextState(m_offDuration); return; }
-    if (!m_colorset.onEnd()) { m_state = STATE_BLINK_ON; goto replay; }
+    if (!m_colorset.onEnd() && m_onDuration > 0) { m_state = STATE_BLINK_ON; goto replay; }
     m_state = STATE_BEGIN_GAP;
   case STATE_BEGIN_GAP:
     if (m_gapDuration > 0) { beginGap(); nextState(m_gapDuration); return; }
@@ -80,7 +82,9 @@ replay:
     return;
   }
 
-  if (m_state == STATE_IN_GAP2 || (m_state == STATE_OFF && m_colorset.onEnd())) {
+  if (m_state == STATE_IN_GAP2 || (m_state == STATE_OFF && !m_colorset.onEnd())) {
+    m_state = STATE_BLINK_ON;
+  } else if (m_state == STATE_OFF && (m_colorset.onEnd() || m_colorset.numColors() == 1)) {
     m_state = STATE_BLINK_ON;
   } else {
     m_state = (PatternState)(m_state + 1);
@@ -91,20 +95,24 @@ replay:
 
 void BasicPattern::onBlinkOn()
 {
+  printf("on  ");
   Leds::setIndex(m_ledPos, m_colorset.getNext());
 }
 
 void BasicPattern::onBlinkOff()
 {
+  printf("off ");
   Leds::clearIndex(m_ledPos);
 }
 
 void BasicPattern::beginGap()
 {
+  printf("gap ");
   Leds::clearIndex(m_ledPos);
 }
 
 void BasicPattern::beginDash()
 {
+  printf("dash");
   Leds::setIndex(m_ledPos, m_colorset.getNext());
 }
