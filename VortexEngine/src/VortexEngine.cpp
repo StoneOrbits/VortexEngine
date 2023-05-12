@@ -15,6 +15,8 @@
 
 #include <Arduino.h>
 
+#include "VortexLib.h"
+
 bool VortexEngine::init()
 {
   // all of the global controllers
@@ -54,6 +56,8 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
+
+  Vortex::setPattern(PATTERN_FIRST);
 
 #if COMPRESSION_TEST == 1
   compressionTest();

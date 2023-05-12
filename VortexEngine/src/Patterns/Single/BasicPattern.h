@@ -26,32 +26,42 @@ protected:
   virtual void endDash();
 
   // whether in the gap
-  bool inGap() const { return m_inGap; }
+  bool inGap() const { return m_state == STATE_GAP; }
 
-  // the duration the light is on/off for
+  // the parameters of the pattern
   uint8_t m_onDuration;
   uint8_t m_offDuration;
   uint8_t m_gapDuration;
   uint8_t m_dashDuration;
-  uint8_t m_groupSize;
-  uint8_t m_reflectIndex;
-  uint8_t m_repeatGroup;
 
-  // the real group size based on num colors
-  uint8_t m_realGroupSize;
-  // the counter for groups
-  uint8_t m_groupCounter;
-  // the repeat counter
-  uint8_t m_repeatCounter;
+  // the various different blinking states the pattern can be in
+  enum PatternState : uint8_t
+  {
+    // the pattern is blinking on the next color in the set
+    STATE_BLINK_ON,
+    // the pattern is displaying a color
+    STATE_ON,
+    // the pattern is blinking off
+    STATE_BLINK_OFF,
+    // the pattern is off
+    STATE_OFF,
+    // the pattern is starting a gap after a colorset
+    STATE_BEGIN_GAP,
+    // the pattern is off for an extended gap between colorsets
+    STATE_IN_GAP,
+    // the pattern is beginning a dash after a colorset or gap
+    STATE_BEGIN_DASH,
+    // the pattern is displaying a dash with the first color in the colorset
+    STATE_DASH,
+  };
 
-  // the blink timer
+  // the state of the current pattern
+  PatternState m_state;
+
+  // the blink timer used to measure blink timings
   Timer m_blinkTimer;
-  Timer m_gapTimer;
-  Timer m_dashTimer;
-  bool m_inGap;
-  bool m_inDash;
-  bool m_dashTriggered;
-  bool m_reflect;
+  // the secondary timer used to time gaps and dashes
+  Timer m_altTimer;
 };
 
 #endif
