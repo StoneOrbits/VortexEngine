@@ -30,7 +30,6 @@
 #include "Multi/MateriaPattern.h"
 
 #include "Single/TracerPattern.h"
-#include "Single/DashDopsPattern.h"
 #include "Single/BasicPattern.h"
 #include "Single/BlendPattern.h"
 #include "Single/SolidPattern.h"
@@ -139,16 +138,13 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_ULTRADOPS2: return PatternArgs(ULTRADOPS_ON_DURATION, ULTRADOPS_OFF_DURATION, 25);
     case PATTERN_BLINKIE: return PatternArgs(3, 6, 60);
     case PATTERN_GHOSTCRUSH: return PatternArgs(4, 1, 55);
-    case PATTERN_BASIC: return PatternArgs(4, 4, 35, 2, 0, 2);
-    case PATTERN_BASIC2: return PatternArgs(DOPS_ON_DURATION, STROBE_OFF_DURATION, 10, 1, 0, 2);
-    case PATTERN_BRACKETS: return PatternArgs(4, 4, 20, 1, 2, 1);
-    case PATTERN_SANDWICH: return PatternArgs(4, 4, 20, 1, 3, 1);
+    case PATTERN_BASIC: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 35, 10);
     case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0, 0, 0, 0, 1);
     case PATTERN_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, 28, 0, 0, 0, 0, 0, 1);
     case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(2, 13, 0, 0, 0, 0, 0, 2);
     case PATTERN_COMPLEMENTARY_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, 28, 0, 0, 0, 0, 0, 2);
-    case PATTERN_DASHDOPS: return PatternArgs(30, 2, 7);
-    case PATTERN_DASHCRUSH: return PatternArgs(30, 4, 1);
+    case PATTERN_DASHDOPS: return PatternArgs(2, 7, 7, 30);
+    case PATTERN_DASHCRUSH: return PatternArgs(4, 1, 10, 30);
     case PATTERN_TRACER: return PatternArgs(16, 3);
     case PATTERN_RIBBON: return PatternArgs(RIBBON_DURATION);
     case PATTERN_MINIRIBBON: return PatternArgs(3);
@@ -224,17 +220,16 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_BLINKIE:
     case PATTERN_GHOSTCRUSH:
     case PATTERN_BASIC:
-    case PATTERN_BASIC2:
     case PATTERN_BRACKETS:
     case PATTERN_SANDWICH:
     case PATTERN_RIBBON:
+    case PATTERN_DASHDOPS:
+    case PATTERN_DASHCRUSH:
     case PATTERN_MINIRIBBON: return new BasicPattern(args);
     case PATTERN_BLEND:
     case PATTERN_BLENDSTROBE:
     case PATTERN_COMPLEMENTARY_BLEND:
     case PATTERN_COMPLEMENTARY_BLENDSTROBE: return new BlendPattern(args);
-    case PATTERN_DASHDOPS:
-    case PATTERN_DASHCRUSH: return new DashDopsPattern(args);
     case PATTERN_TRACER: return new TracerPattern(args);
     case PATTERN_SOLID: return new SolidPattern(args);
 
