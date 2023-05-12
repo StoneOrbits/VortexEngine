@@ -5,7 +5,7 @@
 #include "../../Leds/Leds.h"
 
 // uncomment me to print debug labels on the pattern states
-#define DEBUG_BASIC_PATTERN
+//#define DEBUG_BASIC_PATTERN
 
 #ifdef DEBUG_BASIC_PATTERN
 #include <stdio.h>
@@ -56,7 +56,12 @@ void BasicPattern::nextState(uint8_t timing)
 
 void BasicPattern::play()
 {
+
+  // Sometimes the pattern needs to cycle multiple states in a single frame so
+  // instead of using a loop or recursion I have just used a simple goto
 replay:
+
+
   // its kinda evolving as i go
   switch (m_state) {
   case STATE_DISABLED:
@@ -65,8 +70,12 @@ replay:
     if (m_onDuration > 0) { onBlinkOn(); nextState(m_onDuration); return; }
     m_state = STATE_BLINK_OFF;
   case STATE_BLINK_OFF:
-    if (m_offDuration > 0) { onBlinkOff(); nextState(m_offDuration); return; }
-    if (!m_colorset.onEnd() && m_onDuration > 0) { m_state = STATE_BLINK_ON; goto replay; }
+    // the whole 'should blink off' situation is tricky because we might need
+    // to go back to blinking on if or colorset isn't at the end yet
+    if (!m_colorset.onEnd() || (!m_gapDuration && !m_dashDuration)) {
+      if (m_offDuration > 0) { onBlinkOff(); nextState(m_offDuration); return; }
+      if (!m_colorset.onEnd() && m_onDuration > 0) { m_state = STATE_BLINK_ON; goto replay; }
+    }
     m_state = STATE_BEGIN_GAP;
   case STATE_BEGIN_GAP:
     if (m_gapDuration > 0) { beginGap(); nextState(m_gapDuration); return; }
@@ -85,23 +94,12 @@ replay:
   if (m_blinkTimer.alarm() == -1) {
 #ifdef DEBUG_BASIC_PATTERN
     switch (m_state) {
-    case STATE_ON:
-      printf("on  ");
-      break;
-    case STATE_OFF:
-      printf("off ");
-      break;
-    case STATE_IN_GAP:
-      printf("gap1");
-      break;
-    case STATE_IN_DASH:
-      printf("dash");
-      break;
-    case STATE_IN_GAP2:
-      printf("gap2");
-      break;
-    default:
-      break;
+    case STATE_ON: printf("on  "); break;
+    case STATE_OFF: printf("off "); break;
+    case STATE_IN_GAP: printf("gap1"); break;
+    case STATE_IN_DASH: printf("dash"); break;
+    case STATE_IN_GAP2: printf("gap2"); break;
+    default: break;
     }
 #endif
     // no alarm triggered?
@@ -142,11 +140,7 @@ void BasicPattern::onBlinkOff()
 void BasicPattern::beginGap()
 {
 #ifdef DEBUG_BASIC_PATTERN
-  if (m_state == STATE_BEGIN_GAP) {
-    printf("gap1");
-  } else {
-    printf("gap2");
-  }
+  printf("gap%d", (m_state == STATE_BEGIN_GAP) ? 1 : 2);
 #endif
   Leds::clearIndex(m_ledPos);
 }
