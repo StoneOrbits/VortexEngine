@@ -5,10 +5,11 @@
 #include "../../Leds/Leds.h"
 
 // uncomment me to print debug labels on the pattern states
-//#define DEBUG_BASIC_PATTERN
+#define DEBUG_BASIC_PATTERN
 
 #ifdef DEBUG_BASIC_PATTERN
 #include <stdio.h>
+uint64_t lastPrint = 0;
 #endif
 
 BasicPattern::BasicPattern(const PatternArgs &args) :
@@ -49,7 +50,7 @@ void BasicPattern::init()
   if ((!m_onDuration && !m_dashDuration) || !m_colorset.numColors()) {
     m_state = STATE_DISABLED;
   }
-  m_groupCounter = m_groupSize ? m_groupSize : m_colorset.numColors();
+  m_groupCounter = m_groupSize ? m_groupSize : (m_colorset.numColors() - (m_dashDuration != 0));
 }
 
 void BasicPattern::nextState(uint8_t timing)
@@ -82,7 +83,7 @@ replay:
     }
     m_state = STATE_BEGIN_GAP;
   case STATE_BEGIN_GAP:
-    m_groupCounter = m_groupSize ? m_groupSize : m_colorset.numColors();
+    m_groupCounter = m_groupSize ? m_groupSize : (m_colorset.numColors() - (m_dashDuration != 0));
     if (m_gapDuration > 0) { beginGap(); nextState(m_gapDuration); return; }
     m_state = STATE_BEGIN_DASH;
   case STATE_BEGIN_DASH:
@@ -98,14 +99,18 @@ replay:
 
   if (m_blinkTimer.alarm() == -1) {
 #ifdef DEBUG_BASIC_PATTERN
+    if (lastPrint == Time::getCurtime()) {
+      return;
+    }
     switch (m_state) {
     case STATE_ON: printf("on  "); break;
     case STATE_OFF: printf("off "); break;
     case STATE_IN_GAP: printf("gap1"); break;
     case STATE_IN_DASH: printf("dash"); break;
     case STATE_IN_GAP2: printf("gap2"); break;
-    default: break;
+    default: return;
     }
+    lastPrint = Time::getCurtime();
 #endif
     // no alarm triggered?
     return;
@@ -113,13 +118,13 @@ replay:
 
   // this just transitions the state into the next state, with some edge conditions for
   // transitioning to different states under certain circumstances
-  if (m_state == STATE_IN_GAP2 || (m_state == STATE_OFF && !m_colorset.onEnd())) {
+  if (m_state == STATE_IN_GAP2 || (m_state == STATE_OFF && m_groupCounter > 0)) {
     if (!m_onDuration && !m_gapDuration) {
       m_state = STATE_BEGIN_DASH;
     } else {
       m_state = STATE_BLINK_ON;
     }
-  } else if (m_state == STATE_OFF && (m_colorset.onEnd() || m_colorset.numColors() == 1)) {
+  } else if (m_state == STATE_OFF && (!m_groupCounter || m_colorset.numColors() == 1)) {
     if (m_groupCounter > 0) {
       m_state = STATE_BLINK_ON;
     } else {
@@ -135,7 +140,10 @@ replay:
 void BasicPattern::onBlinkOn()
 {
 #ifdef DEBUG_BASIC_PATTERN
-  printf("on  ");
+  if (lastPrint != Time::getCurtime()) {
+    printf("on  ");
+    lastPrint = Time::getCurtime();
+  }
 #endif
   Leds::setIndex(m_ledPos, m_colorset.getNext());
 }
@@ -143,7 +151,10 @@ void BasicPattern::onBlinkOn()
 void BasicPattern::onBlinkOff()
 {
 #ifdef DEBUG_BASIC_PATTERN
-  printf("off ");
+  if (lastPrint != Time::getCurtime()) {
+    printf("off ");
+    lastPrint = Time::getCurtime();
+  }
 #endif
   Leds::clearIndex(m_ledPos);
 }
@@ -151,7 +162,10 @@ void BasicPattern::onBlinkOff()
 void BasicPattern::beginGap()
 {
 #ifdef DEBUG_BASIC_PATTERN
-  printf("gap%d", (m_state == STATE_BEGIN_GAP) ? 1 : 2);
+  if (lastPrint != Time::getCurtime()) {
+    printf("gap%d", (m_state == STATE_BEGIN_GAP) ? 1 : 2);
+    lastPrint = Time::getCurtime();
+  }
 #endif
   Leds::clearIndex(m_ledPos);
 }
@@ -159,7 +173,10 @@ void BasicPattern::beginGap()
 void BasicPattern::beginDash()
 {
 #ifdef DEBUG_BASIC_PATTERN
-  printf("dash");
+  if (lastPrint != Time::getCurtime()) {
+    printf("dash");
+    lastPrint = Time::getCurtime();
+  }
 #endif
   Leds::setIndex(m_ledPos, m_colorset.getNext());
 }
