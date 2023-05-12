@@ -61,12 +61,6 @@ bool VortexEngine::init()
     return false;
   }
 
-  Vortex::setPattern(PATTERN_FIRST);
-  PatternArgs args = PatternArgs(0,1,0,1);
-  Colorset set(RGB_RED, RGB_GREEN);
-  Vortex::setPatternArgs(LED_ALL, args);
-  Vortex::setColorset(LED_ALL, set);
-
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif
