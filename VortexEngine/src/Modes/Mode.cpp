@@ -510,6 +510,7 @@ bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const 
       if (!setPattern(pat, pos, args, &newSet)) {
         return false;
       }
+      break;
     }
     // actually break here
     return true;

@@ -13,6 +13,9 @@
 #include "Leds/Leds.h"
 #include "Log/Log.h"
 
+#include "Patterns/PatternArgs.h"
+#include "Leds/LedTypes.h"
+
 #include <Arduino.h>
 
 #include "VortexLib.h"
@@ -58,6 +61,8 @@ bool VortexEngine::init()
   }
 
   Vortex::setPattern(PATTERN_FIRST);
+  PatternArgs args = PatternArgs(0, 0, 0, 1);
+  Vortex::setPatternArgs(LED_ALL, args);
 
 #if COMPRESSION_TEST == 1
   compressionTest();
