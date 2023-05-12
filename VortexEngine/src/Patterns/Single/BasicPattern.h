@@ -23,14 +23,14 @@ protected:
   // iterate to next state
   void nextState(uint8_t timing);
 
-  // begin a state if we are in the correct state
-  //bool beginState();
-
   // the parameters of the pattern
   uint8_t m_onDuration;
   uint8_t m_offDuration;
   uint8_t m_gapDuration;
   uint8_t m_dashDuration;
+  uint8_t m_groupSize;
+
+  uint8_t m_groupCounter;
 
   // the various different blinking states the pattern can be in
   enum PatternState : uint8_t

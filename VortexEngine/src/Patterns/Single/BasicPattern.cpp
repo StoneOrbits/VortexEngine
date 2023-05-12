@@ -17,6 +17,8 @@ BasicPattern::BasicPattern(const PatternArgs &args) :
   m_offDuration(0),
   m_gapDuration(0),
   m_dashDuration(0),
+  m_groupSize(0),
+  m_groupCounter(0),
   m_state(STATE_BLINK_ON),
   m_blinkTimer()
 {
@@ -25,6 +27,7 @@ BasicPattern::BasicPattern(const PatternArgs &args) :
   REGISTER_ARG(m_offDuration);
   REGISTER_ARG(m_gapDuration);
   REGISTER_ARG(m_dashDuration);
+  REGISTER_ARG(m_groupSize);
   setArgs(args);
 }
 
@@ -43,9 +46,10 @@ void BasicPattern::init()
     m_state = STATE_BEGIN_DASH;
   }
   // if there's no on duration or dash duration the led is just disabled
-  if (!m_onDuration && !m_dashDuration) {
+  if ((!m_onDuration && !m_dashDuration) || !m_colorset.numColors()) {
     m_state = STATE_DISABLED;
   }
+  m_groupCounter = m_groupSize ? m_groupSize : m_colorset.numColors();
 }
 
 void BasicPattern::nextState(uint8_t timing)
@@ -67,17 +71,18 @@ replay:
   case STATE_DISABLED:
     return;
   case STATE_BLINK_ON:
-    if (m_onDuration > 0) { onBlinkOn(); nextState(m_onDuration); return; }
+    if (m_onDuration > 0) { onBlinkOn(); --m_groupCounter; nextState(m_onDuration); return; }
     m_state = STATE_BLINK_OFF;
   case STATE_BLINK_OFF:
     // the whole 'should blink off' situation is tricky because we might need
     // to go back to blinking on if or colorset isn't at the end yet
-    if (!m_colorset.onEnd() || (!m_gapDuration && !m_dashDuration)) {
+    if (m_groupCounter > 0 || (!m_gapDuration && !m_dashDuration)) {
       if (m_offDuration > 0) { onBlinkOff(); nextState(m_offDuration); return; }
-      if (!m_colorset.onEnd() && m_onDuration > 0) { m_state = STATE_BLINK_ON; goto replay; }
+      if (m_groupCounter > 0 && m_onDuration > 0) { m_state = STATE_BLINK_ON; goto replay; }
     }
     m_state = STATE_BEGIN_GAP;
   case STATE_BEGIN_GAP:
+    m_groupCounter = m_groupSize ? m_groupSize : m_colorset.numColors();
     if (m_gapDuration > 0) { beginGap(); nextState(m_gapDuration); return; }
     m_state = STATE_BEGIN_DASH;
   case STATE_BEGIN_DASH:
@@ -106,6 +111,8 @@ replay:
     return;
   }
 
+  // this just transitions the state into the next state, with some edge conditions for
+  // transitioning to different states under certain circumstances
   if (m_state == STATE_IN_GAP2 || (m_state == STATE_OFF && !m_colorset.onEnd())) {
     if (!m_onDuration && !m_gapDuration) {
       m_state = STATE_BEGIN_DASH;
@@ -113,7 +120,11 @@ replay:
       m_state = STATE_BLINK_ON;
     }
   } else if (m_state == STATE_OFF && (m_colorset.onEnd() || m_colorset.numColors() == 1)) {
-    m_state = STATE_BEGIN_GAP;
+    if (m_groupCounter > 0) {
+      m_state = STATE_BLINK_ON;
+    } else {
+      m_state = STATE_BEGIN_GAP;
+    }
   } else {
     m_state = (PatternState)(m_state + 1);
   }
