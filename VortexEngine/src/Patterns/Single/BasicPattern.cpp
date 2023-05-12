@@ -4,8 +4,10 @@
 #include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
 
-// uncomment me to print debug labels on the pattern states
-#define DEBUG_BASIC_PATTERN
+// uncomment me to print debug labels on the pattern states, this is useful if you
+// are debugging a pattern strip from the command line and want to see what state
+// the pattern is in each tick of the pattern
+//#define DEBUG_BASIC_PATTERN
 
 #ifdef DEBUG_BASIC_PATTERN
 #include <stdio.h>
@@ -61,11 +63,9 @@ void BasicPattern::nextState(uint8_t timing)
 
 void BasicPattern::play()
 {
-
   // Sometimes the pattern needs to cycle multiple states in a single frame so
   // instead of using a loop or recursion I have just used a simple goto
 replay:
-
 
   // its kinda evolving as i go
   switch (m_state) {
@@ -99,16 +99,14 @@ replay:
 
   if (m_blinkTimer.alarm() == -1) {
 #ifdef DEBUG_BASIC_PATTERN
-    if (lastPrint == Time::getCurtime()) {
-      return;
-    }
+    if (lastPrint == Time::getCurtime()) return;
     switch (m_state) {
-    case STATE_ON: printf("on  "); break;
-    case STATE_OFF: printf("off "); break;
-    case STATE_IN_GAP: printf("gap1"); break;
-    case STATE_IN_DASH: printf("dash"); break;
-    case STATE_IN_GAP2: printf("gap2"); break;
-    default: return;
+      case STATE_ON: printf("on  "); break;
+      case STATE_OFF: printf("off "); break;
+      case STATE_IN_GAP: printf("gap1"); break;
+      case STATE_IN_DASH: printf("dash"); break;
+      case STATE_IN_GAP2: printf("gap2"); break;
+      default: return;
     }
     lastPrint = Time::getCurtime();
 #endif
@@ -119,17 +117,9 @@ replay:
   // this just transitions the state into the next state, with some edge conditions for
   // transitioning to different states under certain circumstances
   if (m_state == STATE_IN_GAP2 || (m_state == STATE_OFF && m_groupCounter > 0)) {
-    if (!m_onDuration && !m_gapDuration) {
-      m_state = STATE_BEGIN_DASH;
-    } else {
-      m_state = STATE_BLINK_ON;
-    }
+    m_state = (!m_onDuration && !m_gapDuration) ? STATE_BEGIN_DASH : STATE_BLINK_ON;
   } else if (m_state == STATE_OFF && (!m_groupCounter || m_colorset.numColors() == 1)) {
-    if (m_groupCounter > 0) {
-      m_state = STATE_BLINK_ON;
-    } else {
-      m_state = STATE_BEGIN_GAP;
-    }
+    m_state = (m_groupCounter > 0) ? STATE_BLINK_ON : STATE_BEGIN_GAP;
   } else {
     m_state = (PatternState)(m_state + 1);
   }
