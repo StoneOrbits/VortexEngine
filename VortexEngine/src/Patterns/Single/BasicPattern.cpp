@@ -100,6 +100,8 @@ replay:
     case STATE_IN_GAP2:
       printf("gap2");
       break;
+    default:
+      break;
     }
 #endif
     // no alarm triggered?
