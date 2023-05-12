@@ -6,7 +6,7 @@
 // the gloveset upon factory reset
 const default_mode_entry default_modes[] = {
   {
-    PATTERN_DASHCRUSH, 5, {
+    PATTERN_DOPS, 5, {
       RGB_RED,
       RGB_GREEN,
       RGB_BLUE,

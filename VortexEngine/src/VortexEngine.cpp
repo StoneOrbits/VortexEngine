@@ -13,13 +13,7 @@
 #include "Leds/Leds.h"
 #include "Log/Log.h"
 
-#include "Patterns/PatternArgs.h"
-#include "Colors/Colorset.h"
-#include "Leds/LedTypes.h"
-
 #include <Arduino.h>
-
-#include "VortexLib.h"
 
 bool VortexEngine::init()
 {
