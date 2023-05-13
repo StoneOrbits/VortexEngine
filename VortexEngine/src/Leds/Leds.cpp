@@ -36,9 +36,9 @@ bool Leds::init()
 #ifdef VORTEX_ARDUINO
   // clear the onboard led so it displays nothing
   // tiny neo pixels
-  PORTB.DIRSET = PIN4_bm;
+  VPORTB.DIR |= PIN4_bm;
   // register ouput port
-  m_port = &PORTB.OUT;
+  m_port = &VPORTB.OUT;
   // create a pin mask to use later
   m_pinMask = PIN4_bm;
 #endif

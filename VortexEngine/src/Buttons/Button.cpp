@@ -45,7 +45,12 @@ bool Button::init()
   m_longClick = false;
 
 #ifdef VORTEX_ARDUINO
-  PORTB.PIN2CTRL = PORT_PULLUPEN_bm;
+	// Set PB2 as input
+	PORTB.DIRCLR |= (1 << 2);
+	VPORTB.DIR &= ~(1 << 2);
+	// Enable pull-up resistor on PB2
+	PORTB.PIN2CTRL |= (1 << 3);
+	//PORTB.PIN2CTRL &= ~7;
 #endif
   return true;
 }
@@ -60,7 +65,7 @@ void Button::check()
 #ifdef VORTEX_LIB
   bool newButtonState = digitalRead(9) ? false : true;
 #else
-  bool newButtonState = (PORTB.IN & PIN2_bm) ? false : true;
+  bool newButtonState = ((VPORTB.IN & (1 << 2)) == 0) ? false : true;
 #endif
 
   // did the button change (press/release occurred)
