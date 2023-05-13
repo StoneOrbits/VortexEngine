@@ -100,7 +100,6 @@ SRCS = \
 	./VortexEngine/src/Patterns/PatternBuilder.cpp \
 	./VortexEngine/src/Patterns/Single/BasicPattern.cpp \
 	./VortexEngine/src/Patterns/Single/BlendPattern.cpp \
-	./VortexEngine/src/Patterns/Single/DashDopsPattern.cpp \
 	./VortexEngine/src/Patterns/Single/SingleLedPattern.cpp \
 	./VortexEngine/src/Patterns/Single/SolidPattern.cpp \
 	./VortexEngine/src/Patterns/Single/TracerPattern.cpp \
