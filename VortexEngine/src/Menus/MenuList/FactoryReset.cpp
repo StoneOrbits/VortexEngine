@@ -11,7 +11,6 @@
 #include "../../Log/Log.h"
 
 #include "../../VortexConfig.h"
-#include <Arduino.h>
 
 FactoryReset::FactoryReset(const RGBColor &col) :
   Menu(col)
