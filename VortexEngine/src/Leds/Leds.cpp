@@ -31,16 +31,18 @@ volatile uint8_t *Leds::m_port = nullptr;
 // Output PORT bitmask
 uint8_t Leds::m_pinMask = 0;
 
+void pinMode(uint8_t pin, uint8_t mode);
+
 bool Leds::init()
 {
 #ifdef VORTEX_ARDUINO
   // clear the onboard led so it displays nothing
   // tiny neo pixels
-  VPORTB.DIR |= PIN4_bm;
+  PORTB.DIRSET |= (1<<4);
   // register ouput port
-  m_port = &PORTB.OUT;
+  m_port = (uint8_t *)(&PORTB.OUT);
   // create a pin mask to use later
-  m_pinMask = PIN4_bm;
+  m_pinMask = (1 << 4);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);

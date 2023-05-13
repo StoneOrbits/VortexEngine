@@ -50,7 +50,6 @@ bool Button::init()
 	PORTB.DIR &= ~(1 << 2);
 	// Enable pull-up resistor on PB2
 	PORTB.PIN2CTRL |= (1 << 3);
-	PORTB.PIN2CTRL &= 0xF8;
 #endif
   return true;
 }
@@ -63,9 +62,9 @@ void Button::check()
 
   // read the new button state
 #ifdef VORTEX_LIB
-  bool newButtonState = digitalRead(9) ? false : true;
+  bool newButtonState = (digitalRead(9) == 0) ? true : false;
 #else
-  bool newButtonState = ((PORTB.IN & (1 << 2)) == 0) ? false : true;
+  bool newButtonState = (VPORTB.IN & (1 << 2)) ? false : true;
 #endif
 
   // did the button change (press/release occurred)
