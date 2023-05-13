@@ -16,13 +16,13 @@
 #include "Modes/Modes.h"
 #include "Modes/Mode.h"
 
+#include "Arduino.h"
+
 #ifndef _MSC_VER
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <stdio.h>
 #endif
-
-#include "Arduino.h"
 
 #ifdef WASM
 #include <emscripten/bind.h>
