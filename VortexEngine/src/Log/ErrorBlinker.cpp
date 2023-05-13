@@ -4,6 +4,8 @@
 
 #include "../Leds/Leds.h"
 
+#include <Arduino.h>
+
 static uint16_t g_error = ERROR_NONE;
 
 void setError(uint16_t err)
