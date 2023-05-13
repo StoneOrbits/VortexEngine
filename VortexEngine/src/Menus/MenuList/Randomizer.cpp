@@ -13,8 +13,6 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-#include <Arduino.h>
-
 Randomizer::Randomizer(const RGBColor &col) :
   Menu(col)
 {
