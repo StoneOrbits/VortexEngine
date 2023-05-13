@@ -7,6 +7,7 @@
 
 #include "../VortexEngine.h"
 
+#include <Arduino.h>
 #include <stdio.h>
 
 bool SerialComs::m_serialConnected = false;
