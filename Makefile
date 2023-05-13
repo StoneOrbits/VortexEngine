@@ -35,7 +35,7 @@ CFLAGS = \
   -Wno-sized-deallocation \
   -I C:/Users/danie/AppData/Local/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.7/libraries/EEPROM/src/ \
 
-LDFLAGS = -Wall -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mrelax -mmcu=attiny3217 -lm -Wl,-T,custom.xn
+LDFLAGS = -Wall -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mrelax -mmcu=attiny3217 -lm
 
 INCLUDES=\
 	-I ./VortexEngine/src/ \
