@@ -139,10 +139,10 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_BLINKIE: return PatternArgs(3, 6, 60);
     case PATTERN_GHOSTCRUSH: return PatternArgs(4, 1, 55);
     case PATTERN_BASIC: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 35, 10);
-    case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0, 0, 0, 0, 1);
-    case PATTERN_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, 28, 0, 0, 0, 0, 0, 1);
-    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(2, 13, 0, 0, 0, 0, 0, 2);
-    case PATTERN_COMPLEMENTARY_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, 28, 0, 0, 0, 0, 0, 2);
+    case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0, 0, 0, 1);
+    case PATTERN_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, 28, 0, 0, 0, 0, 1);
+    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(2, 13, 0, 0, 0, 0, 2);
+    case PATTERN_COMPLEMENTARY_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, 28, 0, 0, 0, 0, 2);
     case PATTERN_DASHDOPS: return PatternArgs(2, 7, 7, 30);
     case PATTERN_DASHCRUSH: return PatternArgs(4, 1, 10, 30);
     case PATTERN_TRACER: return PatternArgs(16, 3);
