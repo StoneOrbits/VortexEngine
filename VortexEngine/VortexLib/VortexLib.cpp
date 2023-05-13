@@ -24,8 +24,6 @@
 #include <stdio.h>
 #endif
 
-#include "Arduino.h"
-
 #ifdef WASM
 #include <emscripten/bind.h>
 #include <emscripten/val.h>
