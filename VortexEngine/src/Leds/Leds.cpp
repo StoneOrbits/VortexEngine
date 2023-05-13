@@ -38,7 +38,7 @@ bool Leds::init()
   // tiny neo pixels
   VPORTB.DIR |= PIN4_bm;
   // register ouput port
-  m_port = &VPORTB.OUT;
+  m_port = &PORTB.OUT;
   // create a pin mask to use later
   m_pinMask = PIN4_bm;
 #endif
