@@ -374,22 +374,9 @@
 //
 //  These are the various storage space constants of the vortex device
 
-// maximum storage space in bytes
-#define MAX_STORAGE_SPACE 32000
-
-// the size of the compiled engine
-#define ENGINE_SIZE 28000
-
-// the raw amount of available space
-#define RAW_AVAILABLE_SPACE (MAX_STORAGE_SPACE - ENGINE_SIZE)
-
-// usable flash space is one eighth of what we have left idk why I
-// just kept picking numbers till it worked
-#define USABLE_SPACE (RAW_AVAILABLE_SPACE / 2)
-
-// the space available for storing modes is the usable space rounded
-// down to nearest 4096
-#define STORAGE_SIZE (USABLE_SPACE - (USABLE_SPACE % 256))
+// the space available for storing modes, we can't make this too big
+// otherwise we will have trouble loading it into memory
+#define STORAGE_SIZE 4096
 
 // ===================================================================
 //  Test Framework configurations
