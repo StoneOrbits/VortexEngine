@@ -2,8 +2,6 @@
 
 #include "../Serial/ByteStream.h"
 
-#include <Arduino.h>
-
 // global hsv to rgb algorithm selector
 hsv_to_rgb_algorithm g_hsv_rgb_alg = HSV_TO_RGB_GENERIC;
 
