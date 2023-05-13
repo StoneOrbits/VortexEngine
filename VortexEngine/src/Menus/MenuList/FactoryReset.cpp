@@ -10,6 +10,8 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
+#include "../../VortexConfig.h"
+
 FactoryReset::FactoryReset(const RGBColor &col) :
   Menu(col)
 {
