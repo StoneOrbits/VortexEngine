@@ -171,23 +171,24 @@ uint8_t PatternArgs::operator[](int index) const
   return args[index];
 }
 
-// must override the serialize routine to save the pattern
-void PatternArgs::serialize(ByteStream &buffer) const
+void PatternArgs::serialize(ByteStream &buffer, ArgMap argmap) const
 {
-  buffer.serialize(numArgs);
+  buffer.serialize(argmap);
   for (uint8_t i = 0; i < numArgs; ++i) {
-    buffer.serialize(args[i]);
+    if (ARGMAP_ISSET(argmap, i)) {
+      buffer.serialize(args[i]);
+    }
   }
 }
 
-// must override unserialize to load patterns
-void PatternArgs::unserialize(ByteStream &buffer)
+ArgMap PatternArgs::unserialize(ByteStream &buffer)
 {
-  buffer.unserialize(&numArgs);
-  if (numArgs > MAX_ARGS) {
-    numArgs = MAX_ARGS;
+  ArgMap argmap = ARG_NONE;
+  buffer.unserialize(&argmap);
+  for (uint8_t i = 0; i < MAX_ARGS; ++i) {
+    if (ARGMAP_ISSET(argmap, i)) {
+      buffer.unserialize(args + i);
+    }
   }
-  for (uint8_t i = 0; i < numArgs; ++i) {
-    buffer.unserialize(args + i);
-  }
+  return argmap;
 }

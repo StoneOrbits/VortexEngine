@@ -12,6 +12,8 @@ class ByteStream;
 class Colorset;
 class Pattern;
 
+typedef uint8_t ModeFlags;
+
 // Bitflags for saving modes
 #define MODE_FLAG_NONE              0
 // the mode is utilizing a multi-led pattern
@@ -107,7 +109,7 @@ public:
   void clearColorsetMap(LedMap map);
 
   // get the flags associated with this mode
-  uint32_t getFlags() const;
+  ModeFlags getFlags() const;
 
   // whether a multi-led pattern is present in the mode
   bool hasMultiLed() const;
