@@ -216,19 +216,19 @@ void Vortex::doCommand(char c)
   m_commandLog += c;
 
   switch (c) {
-  case 'a':
+  case 'c':
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting short click");
     }
     Vortex::shortClick();
     break;
-  case 's':
+  case 'l':
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting long click");
     }
     Vortex::longClick();
     break;
-  case 'd':
+  case 'm':
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting menu enter click");
     }
@@ -241,7 +241,7 @@ void Vortex::doCommand(char c)
     }
     Vortex::quitClick();
     break;
-  case 'f':
+  case 't':
     if (Vortex::isButtonPressed()) {
       if (m_lastCommand != c) {
         DEBUG_LOG("Injecting release");
