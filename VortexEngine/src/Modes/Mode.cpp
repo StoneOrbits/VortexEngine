@@ -199,11 +199,11 @@ void Mode::serialize(ByteStream &buffer) const
 {
   // serialize the number of leds
   buffer.serialize((uint8_t)MODE_LEDCOUNT);
+#if FIXED_LED_COUNT == 0
   // empty mode?
   if (!MODE_LEDCOUNT) {
     return;
   }
-#endif
 #endif
   // serialize the flags
   ModeFlags flags = getFlags();
