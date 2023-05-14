@@ -79,10 +79,6 @@ public:
   bool serialize(uint16_t bytes);
   bool serialize(uint32_t bytes);
 
-  // serialize n bits
-  bool serializeBits(uint8_t byte, uint8_t nBits);
-  bool serializeBit(uint8_t bit);
-
   // reset the unserializer index
   void resetUnserializer();
   // move the unserializer index manually
@@ -94,9 +90,6 @@ public:
   bool unserialize(uint8_t *byte);
   bool unserialize(uint16_t *bytes);
   bool unserialize(uint32_t *bytes);
-
-  // unserialize n bits
-  bool unserializeBits(uint8_t *byte, uint8_t nBits);
 
   // same thing but via return value
   uint8_t unserialize8();
