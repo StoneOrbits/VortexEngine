@@ -49,16 +49,7 @@ bool Time::m_instantTimestep = false;
 
 #ifdef VORTEX_ARDUINO
 
-/************/
-/* _fastPtr */
-/************/
-#define _fastPtr_z(__localVar__, __pointer__) __asm__ __volatile__("\n\t": "=&z" (__localVar__) : "0" (__pointer__));  // r30:r31
-#define _fastPtr_y(__localVar__, __pointer__) __asm__ __volatile__("\n\t": "=&y" (__localVar__) : "0" (__pointer__));  // r28:r29
-#define _fastPtr_x(__localVar__, __pointer__) __asm__ __volatile__("\n\t": "=&x" (__localVar__) : "0" (__pointer__));  // r26:r27
-#define _fastPtr_d(__localVar__, __pointer__) __asm__ __volatile__("\n\t": "=&b" (__localVar__) : "0" (__pointer__));  // Y or Z
-#define   _fastPtr(__localVar__, __pointer__) __asm__ __volatile__("\n\t": "=&e" (__localVar__) : "0" (__pointer__));  // X,Y or Z
-
-#define TIMERD0_PRESCALER (TCD_CLKSEL_20MHZ_gc | TCD_CNTPRES_DIV32_gc | TCD_SYNCPRES_DIV2_gc)
+#define TIMERD0_PRESCALER 
 
 #define millisClockCyclesPerMicrosecond() ((uint16_t) (20))  // this always runs off the 20MHz oscillator
 #define millisClockCyclesToMicroseconds(a) ((uint32_t)((a) / millisClockCyclesPerMicrosecond()))
@@ -68,8 +59,8 @@ bool Time::m_instantTimestep = false;
 #define TIME_TRACKING_TIMER_DIVIDER   (64)    /* Clock divider for TCD0 */
 
 #define FRACT_MAX (1000)
-#define TIME_TRACKING_TICKS_PER_OVF   (TIME_TRACKING_TIMER_PERIOD   + 1UL)
-#define TIME_TRACKING_CYCLES_PER_OVF  (TIME_TRACKING_TICKS_PER_OVF  * TIME_TRACKING_TIMER_DIVIDER)
+#define TIME_TRACKING_TICKS_PER_OVF (TIME_TRACKING_TIMER_PERIOD   + 1UL)
+#define TIME_TRACKING_CYCLES_PER_OVF (TIME_TRACKING_TICKS_PER_OVF  * TIME_TRACKING_TIMER_DIVIDER)
 #define FRACT_INC (millisClockCyclesToMicroseconds(TIME_TRACKING_CYCLES_PER_OVF)%1000)
 #define MILLIS_INC (millisClockCyclesToMicroseconds(TIME_TRACKING_CYCLES_PER_OVF)/1000)
 
@@ -120,10 +111,14 @@ struct sTimer {
   volatile uint8_t  *intStatusReg;
 };
 
-const struct sTimer _timerS = {TCD_OVF_bm, &TCD0.INTFLAGS};
+const struct sTimer _timerS = {
+  TCD_OVF_bm,
+  &TCD0.INTFLAGS
+};
 
 // Now for the ISRs. This gets a little bit more interesting now...
-ISR(TCD0_OVF_vect, ISR_NAKED) {
+ISR(TCD0_OVF_vect, ISR_NAKED)
+{
   __asm__ __volatile__(
   "push       r30"          "\n\t" // First we make room for the pointer to timingStruct by pushing the Z registers
   "push       r31"          "\n\t" //
@@ -200,52 +195,6 @@ ISR(TCD0_OVF_vect, ISR_NAKED) {
     [CLRFL]  "M" (_timerS.intClear),
     [PTCLR]  "m" (*_timerS.intStatusReg)
   );
-}
-
-static void do_init_clock()
-{
-#if (F_CPU == 20000000)
-  /* No division on clock */
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, 0x00);
-#elif (F_CPU == 16000000)
-  /* No division on clock */
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, 0x00);
-#elif (F_CPU == 10000000) // 20MHz prescaled by 2
-  /* Clock DIV2 */
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_2X_gc));
-#elif (F_CPU == 8000000) // 16MHz prescaled by 2
-  /* Clock DIV2 */
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_2X_gc));
-#elif (F_CPU == 5000000) // 20MHz prescaled by 4
-  /* Clock DIV4 */
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_4X_gc));
-#elif (F_CPU == 4000000) // 16MHz prescaled by 4
-  /* Clock DIV4 */
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_4X_gc));
-#elif (F_CPU == 2000000) // 16MHz prescaled by 8
-  /* Clock DIV8 */
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_8X_gc));
-#elif (F_CPU == 1000000) // 16MHz prescaled by 16
-  /* Clock DIV16 */
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_16X_gc));
-#else
-#ifndef F_CPU
-#error "F_CPU not defined"
-#else
-#error "F_CPU defined as an unsupported value for untuned internal oscillator"
-#endif
-#endif
-}
-
-static void do_init_millis()
-{
-  TCD_t* pTCD;
-  _fastPtr_d(pTCD, &TCD0);
-  pTCD->CMPBCLR        = TIME_TRACKING_TIMER_PERIOD; // essentially, this is TOP
-  pTCD->CTRLB          = 0x00; // oneramp mode
-  pTCD->CTRLC          = 0x80;
-  pTCD->INTCTRL        = 0x01; // enable interrupt
-  pTCD->CTRLA          = TIMERD0_PRESCALER | 0x01; // set clock source and enable!
 }
 
 __attribute__ ((noinline)) void delayMicroseconds(uint32_t us)
@@ -548,9 +497,37 @@ __attribute__ ((noinline)) void delayMicroseconds(uint32_t us)
 bool Time::init()
 {
 #ifdef VORTEX_ARDUINO
+  // enable interrupts
   sei();
-  do_init_clock();
-  do_init_millis();
+
+  // initialize main clock
+#if (F_CPU == 20000000)
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, 0x00); // No division on clock
+#elif (F_CPU == 16000000)
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, 0x00); // No division on clock
+#elif (F_CPU == 10000000) // 20MHz prescaled by 2
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_2X_gc)); // Clock DIV2
+#elif (F_CPU == 8000000) // 16MHz prescaled by 2
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_2X_gc)); // Clock DIV2
+#elif (F_CPU == 5000000) // 20MHz prescaled by 4
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_4X_gc)); // Clock DIV4
+#elif (F_CPU == 4000000) // 16MHz prescaled by 4
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_4X_gc)); // Clock DIV4
+#elif (F_CPU == 2000000) // 16MHz prescaled by 8
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_8X_gc)); // Clock DIV8
+#elif (F_CPU == 1000000) // 16MHz prescaled by 16
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_16X_gc)); // Clock DIV16
+#else
+  #error "F_CPU not supported"
+#endif
+
+  // initialize TCD0
+  TCD0.CMPBCLR = TIME_TRACKING_TIMER_PERIOD;
+  TCD0.CTRLB = 0x00;
+  TCD0.CTRLC = 0x80;
+  TCD0.INTCTRL = 0x01;
+  TCD0.CTRLA = TCD_CLKSEL_20MHZ_gc | TCD_CNTPRES_DIV32_gc | TCD_SYNCPRES_DIV2_gc | 0x01;
+
   _PROTECTED_WRITE(CPUINT_CTRLA, CPUINT_IVSEL_bm);
 #endif
   m_firstTime = m_prevTime = micros();

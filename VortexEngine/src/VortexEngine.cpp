@@ -220,9 +220,17 @@ void VortexEngine::enterSleep()
   Leds::clearAll();
   Leds::update();
 #ifdef VORTEX_ARDUINO
+  // wait for the button to be released
+  delayMicroseconds(350);
   // Set LED data pin (PA7) to input with pull-up resistor
-  //PORTA.DIRCLR = PIN7_bm;
-  //PORTA.PIN7CTRL = PORT_PULLUPEN_bm;
+  PORTB.OUTSET |= PIN4_bm;
+  PORTB.DIRCLR |= PIN4_bm;
+  PORTB.PIN4CTRL = PORT_PULLUPEN_bm;
+  // this is an ISR that runs in the timecontrol system to handle
+  // millis and micros, it will wake the device up after some time
+  // if it isn't disabled
+  TCD0.INTCTRL = 0;
+  TCD0.CTRLA = 0;
   //// Set Li-Fi pin (PC5) to input with pull-up resistor
   //PORTC.DIRCLR = PIN5_bm;
   //PORTC.PIN5CTRL = PORT_PULLUPEN_bm;
