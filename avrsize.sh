@@ -1,10 +1,15 @@
 #!/bin/bash
 
-# Replace this with the path to your avr-size executable
-AVR_SIZE="C:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\DxCore\\tools\\avr-gcc\\7.3.0-atmel3.6.1-azduino6/bin/avr-size"
+# need megatinycore installed for this
+AVR_SIZE="$LOCALAPPDATA/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin/avr-size"
 
 # Replace this with the path to your .elf file
-ELF_FILE="main.elf"
+ELF_FILE=$1
+
+if [ "$ELF_FILE" == "" ]; then
+  echo "Please specify a file: $0 <file>"
+  exit 1
+fi
 
 # Constants for program storage and dynamic memory size
 PROGRAM_STORAGE=32768
