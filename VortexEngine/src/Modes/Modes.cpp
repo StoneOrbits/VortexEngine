@@ -524,7 +524,11 @@ uint32_t Modes::maxModeSize()
     Colorset maxSet;
     for (uint8_t i = 0; i < MAX_COLOR_SLOTS; ++i) {
       // different color in each slot
-      maxSet.addColor(RGBColor(++x, ++x, ++x));
+      RGBColor col;
+      col.red = ++x;
+      col.green = ++x;
+      col.blue = ++x;
+      maxSet.addColor(col);
     }
     maxMode.setPattern(PATTERN_BLEND, p, &maxArgs, &maxSet);
   }
