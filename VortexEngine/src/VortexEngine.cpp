@@ -6,14 +6,13 @@
 #include "Buttons/Buttons.h"
 #include "Time/TimeControl.h"
 #include "Time/Timings.h"
-#include "Serial/Serial.h"
+//#include "Serial/Serial.h"
+#include "Serial/ByteStream.h"
 #include "Modes/Modes.h"
 #include "Menus/Menus.h"
 #include "Modes/Mode.h"
 #include "Leds/Leds.h"
-#include "Log/Log.h"
-
-#include <Arduino.h>
+//#include "Log/Log.h"
 
 #ifdef VORTEX_ARDUINO
 #include <avr/interrupt.h>
@@ -22,13 +21,32 @@
 
 bool VortexEngine::init()
 {
-  // Set all pins to input to reduce power draw
-  for (int x = 0; x < 20; ++x) {
-    pinMode(x, INPUT_PULLUP);
-  }
-  // set Mosfet pin to output to allow power to flow to LED and LIFI
-  pinMode(16, OUTPUT);
-  digitalWrite(16, HIGH);
+#ifdef VORTEX_ARDUINO
+  // Set all pins to input with pull-ups
+  PORTA.DIRCLR = 0xFF;
+  PORTA.PIN0CTRL = PORT_PULLUPEN_bm;
+  PORTA.PIN1CTRL = PORT_PULLUPEN_bm;
+  PORTA.PIN2CTRL = PORT_PULLUPEN_bm;
+  PORTA.PIN3CTRL = PORT_PULLUPEN_bm;
+  PORTA.PIN4CTRL = PORT_PULLUPEN_bm;
+  PORTA.PIN5CTRL = PORT_PULLUPEN_bm;
+  PORTA.PIN6CTRL = PORT_PULLUPEN_bm;
+  PORTA.PIN7CTRL = PORT_PULLUPEN_bm;
+
+  PORTB.DIRCLR = 0xFF;
+  PORTB.PIN0CTRL = PORT_PULLUPEN_bm;
+  PORTB.PIN1CTRL = PORT_PULLUPEN_bm;
+  PORTB.PIN2CTRL = PORT_PULLUPEN_bm;
+  PORTB.PIN3CTRL = PORT_PULLUPEN_bm;
+  PORTB.PIN4CTRL = PORT_PULLUPEN_bm;
+  PORTB.PIN5CTRL = PORT_PULLUPEN_bm;
+  PORTB.PIN6CTRL = PORT_PULLUPEN_bm;
+  PORTB.PIN7CTRL = PORT_PULLUPEN_bm;
+
+  //// Set Mosfet pin (PB0) to output and set it HIGH
+  //PORTB.DIRSET = PIN0_bm;
+  //PORTB.OUTSET = PIN0_bm;
+#endif
 
   // all of the global controllers
   if (!Time::init()) {
@@ -37,6 +55,14 @@ bool VortexEngine::init()
   }
   if (!Storage::init()) {
     DEBUG_LOG("Storage failed to initialize");
+    return false;
+  }
+  if (!IRReceiver::init()) {
+    DEBUG_LOG("IRReceiver failed to initialize");
+    return false;
+  }
+  if (!IRSender::init()) {
+    DEBUG_LOG("IRSender failed to initialize");
     return false;
   }
   if (!Leds::init()) {
@@ -80,6 +106,8 @@ void VortexEngine::cleanup()
   Menus::cleanup();
   Buttons::cleanup();
   Leds::cleanup();
+  IRSender::cleanup();
+  IRReceiver::cleanup();
   Storage::cleanup();
   Time::cleanup();
 }
@@ -166,7 +194,12 @@ bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
 
 Mode *VortexEngine::curMode()
 {
+#ifdef VORTEX_LIB
   return Modes::curMode();
+#else
+  // don't need this outside vortex lib
+  return nullptr;
+#endif
 }
 
 #ifdef VORTEX_LIB
@@ -187,15 +220,20 @@ void VortexEngine::enterSleep()
   Leds::clearAll();
   Leds::update();
 #ifdef VORTEX_ARDUINO
-  delay(500);
-  // Set LED data pin to input to prevent power vampirism while alseep
-  pinMode(7, INPUT_PULLUP);
-  // Set LIFI pin to input to prevent power vampirism while asleep
-  pinMode(21, INPUT_PULLUP);
-  attachInterrupt(digitalPinToInterrupt(9), VortexEngine::wakeUp, RISING);
-  digitalWrite(16, LOW); //This closes the gate on the mofset
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);  /* Set sleep mode to POWER DOWN mode */
-  sleep_enable();                       /* Enable sleep mode, but not going to sleep yet */
+  // Set LED data pin (PA7) to input with pull-up resistor
+  //PORTA.DIRCLR = PIN7_bm;
+  //PORTA.PIN7CTRL = PORT_PULLUPEN_bm;
+  //// Set Li-Fi pin (PC5) to input with pull-up resistor
+  //PORTC.DIRCLR = PIN5_bm;
+  //PORTC.PIN5CTRL = PORT_PULLUPEN_bm;
+  // Set wake interrupt on both edges
+  PORTB.PIN2CTRL = 0x1;
+  // close gate to mosfet to cut power to peripherals
+  //PORTB.OUTCLR = PIN0_bm;
+  // Set sleep mode to POWER DOWN mode
+  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  // Enable sleep mode, but not going to sleep yet
+  sleep_enable();
   // enter sleep
   sleep_cpu();
 #else
@@ -203,15 +241,24 @@ void VortexEngine::enterSleep()
 #endif
 }
 
-void VortexEngine::wakeUp()
-{
-  // turn the LED MOSFET back on
-  digitalWrite(16, HIGH);
-  // perform digital reset
 #ifdef VORTEX_ARDUINO
+// interrupt handler to wakeup device on button press
+ISR(PORTB_PORT_vect)
+{
+  if (!(PORTB.INTFLAGS & (1 << 2))) {
+    // don't trigger unless it was from the button press
+    return;
+  }
+  // handled
+  PORTB.INTFLAGS = (1 << 2);
+  // turn off interrupt
+  PORTB.PIN2CTRL &= ~PORT_ISC_gm;
+  // turn the LED mosfet back on
+  //PORTB.OUTSET = PIN0_bm;
+  // just reset
   _PROTECTED_WRITE(RSTCTRL.SWRR, 1);
-#endif
 }
+#endif
 
 #if COMPRESSION_TEST == 1
 #include <string.h>
@@ -237,7 +284,7 @@ void VortexEngine::compressionTest()
       tmpMode.setPattern((PatternID)(len % PATTERN_COUNT));
       Colorset set;
       set.randomizeColorTheory(rand, 8);
-      tmpMode.setColorset(&set);
+      tmpMode.setColorset(set);
       Modes::addMode(&tmpMode);
       modeStream.clear();
       Modes::serialize(modeStream);

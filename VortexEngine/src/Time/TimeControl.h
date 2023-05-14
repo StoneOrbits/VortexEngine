@@ -104,7 +104,7 @@ private:
 #endif
 };
 
-void delayMicroseconds(unsigned int us);
+void delayMicroseconds(uint32_t us);
 unsigned long micros();
 
 #endif

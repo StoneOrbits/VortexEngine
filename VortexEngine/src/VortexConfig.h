@@ -34,7 +34,10 @@
 
 // Vortex Slim
 //
-// Turn on this flag to enable the 'slim' version of the engine
+// Turn on this flag to enable the 'slim' version of the engine.
+// This disabled multi-led patterns and compression because the
+// multi-led patterns take up too much space and the compression
+// uses too much stack space to run on smaller devices
 #define VORTEX_SLIM           1
 
 // ===================================================================
@@ -132,7 +135,7 @@
 // to be stored, however this is not recommended for production and
 // a specific maximum should be chosen for each device
 //
-#define MAX_MODES             0
+#define MAX_MODES             6
 
 // Default Tickrate in Ticks Per Second (TPS)
 //

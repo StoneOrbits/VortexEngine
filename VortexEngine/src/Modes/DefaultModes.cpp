@@ -34,6 +34,14 @@ const default_mode_entry default_modes[] = {
     }
   },
   {
+    PATTERN_ULTRADOPS, 4, {
+      0x1C0000,
+      0x4B2600,
+      0x00130A,
+      0x00001C,
+    }
+  },
+  {
     PATTERN_ULTRADOPS, 8, {
       0x1C0000,
       0x4B2600,

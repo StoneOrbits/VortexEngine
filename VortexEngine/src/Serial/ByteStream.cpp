@@ -210,6 +210,8 @@ bool ByteStream::compress()
   // recalculate the CRC even if we don't compress, this ensures the
   // CRC is always up to date as long as compress() is called
   recalcCRC();
+  // don't actually perform any compression if VORTEX SLIM is enabled
+#if VORTEX_SLIM == 0
   // check to see if the buffer is already compressed
   if (is_compressed()) {
     // already compressed
@@ -241,6 +243,7 @@ bool ByteStream::compress()
   compressedBuffer.shrink();
   // move into self
   compressedBuffer.move(this);
+#endif
   return true;
 }
 
@@ -251,6 +254,8 @@ bool ByteStream::decompress()
     DEBUG_LOG("Cannot verify crc, not decompressing");
     return false;
   }
+  // don't actually perform any compression if VORTEX SLIM is enabled
+#if VORTEX_SLIM == 0
   if (!is_compressed()) {
     // already decompressed
     return true;
@@ -284,6 +289,7 @@ bool ByteStream::decompress()
   decompressedBuffer.shrink();
   // move into self
   decompressedBuffer.move(this);
+#endif
   return true;
 }
 

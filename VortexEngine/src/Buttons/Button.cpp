@@ -1,7 +1,5 @@
 #include "Button.h"
 
-#include <Arduino.h>
-
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
 #include "../Log/Log.h"
@@ -11,8 +9,11 @@
 #include "Arduino.h"
 #endif
 
+#ifdef VORTEX_ARDUINO
+#include <avr/io.h>
+#endif
+
 Button::Button() :
-  m_pinNum(0),
   m_pressTime(0),
   m_releaseTime(0),
   m_holdDuration(0),
@@ -30,9 +31,8 @@ Button::~Button()
 {
 }
 
-bool Button::init(int pin)
+bool Button::init()
 {
-  m_pinNum = 0;
   m_pressTime = 0;
   m_releaseTime = 0;
   m_holdDuration = 0;
@@ -44,8 +44,13 @@ bool Button::init(int pin)
   m_shortClick = false;
   m_longClick = false;
 
-  m_pinNum = pin;
-  pinMode(m_pinNum, INPUT_PULLUP);
+#ifdef VORTEX_ARDUINO
+	// Set PB2 as input
+	PORTB.DIRCLR |= (1 << 2);
+	PORTB.DIR &= ~(1 << 2);
+	// Enable pull-up resistor on PB2
+	PORTB.PIN2CTRL |= (1 << 3);
+#endif
   return true;
 }
 
@@ -57,9 +62,9 @@ void Button::check()
 
   // read the new button state
 #ifdef VORTEX_LIB
-  bool newButtonState = digitalRead(9) ? false : true;
-#elif defined(VORTEX_ARDUINO)
-  bool newButtonState = (PORTB.IN & PIN2_bm) ? false : true;
+  bool newButtonState = (digitalRead(9) == 0) ? true : false;
+#else
+  bool newButtonState = (VPORTB.IN & (1 << 2)) ? false : true;
 #endif
 
   // did the button change (press/release occurred)

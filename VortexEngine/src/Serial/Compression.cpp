@@ -18,85 +18,78 @@
 #include <stdint.h>
 #include <stddef.h>
 
-int mixed_RLE_compress(const uint8_t *src, uint8_t *dst, int srcSize, int dstCapacity)
+#include <stdint.h>
+
+#include <stdint.h>
+
+int rle_compress(const uint8_t *src, uint8_t *dst, int srcSize, int dstCapacity)
 {
-  int srcPos = 0;
-  int dstPos = 0;
+  int srcPos = 0, dstPos = 0;
 
   while (srcPos < srcSize) {
-    // Process repeating bytes
-    if (src[srcPos] == src[srcPos + 1]) {
-      int runLength = 1;
+    uint8_t value = src[srcPos];
+    if (value == 0xFE) {
+      value = 0xFF;
+    }
+    dst[dstPos++] = value;
 
-      while (srcPos < srcSize - 1 && src[srcPos] == src[srcPos + 1] && runLength < 255) {
+    if (value == 0) {
+      uint8_t runLength = 1;
+
+      while (srcPos + runLength < srcSize && src[srcPos + runLength] == 0 && runLength < 255) {
         runLength++;
+      }
+
+      if (runLength > 2) {
+        if (dstPos + 2 > dstCapacity) {
+          return 0;
+        }
+        dst[dstPos++] = 0xFE;
+        dst[dstPos++] = runLength;
+        srcPos += runLength;
+      } else {
         srcPos++;
       }
-
-      if (dstPos + 3 > dstCapacity) {
-        return 0; // Compression failed due to insufficient output buffer capacity
-      }
-
-      dst[dstPos++] = 0; // Repeating byte sequence marker
-      dst[dstPos++] = src[srcPos];
-      dst[dstPos++] = (uint8_t)runLength;
-
-      srcPos++;
     } else {
-      // Process non-repeating bytes
-      int runLength = 0;
-
-      while (srcPos < srcSize - 1 && src[srcPos] != src[srcPos + 1] && runLength < 254) {
-        runLength++;
-        srcPos++;
-      }
-
-      if (dstPos + runLength + 2 > dstCapacity) {
-        return 0; // Compression failed due to insufficient output buffer capacity
-      }
-
-      dst[dstPos++] = (uint8_t)runLength; // Non-repeating byte sequence marker and length
-
-      for (int i = 0; i < runLength; i++) {
-        dst[dstPos++] = src[srcPos - runLength + i];
-      }
+      srcPos++;
     }
   }
 
   return dstPos;
 }
 
-int mixed_RLE_decompress(const uint8_t *src, uint8_t *dst, int srcSize, int dstCapacity)
+int rle_decompress(const uint8_t *src, uint8_t *dst, int srcSize, int dstCapacity)
 {
-  int srcPos = 0;
-  int dstPos = 0;
+  int srcPos = 0, dstPos = 0;
 
   while (srcPos < srcSize) {
-    int runLength = src[srcPos++];
+    uint8_t value = src[srcPos++];
 
-    if (runLength == 0) { // Repeating byte sequence
-      uint8_t currentChar = src[srcPos++];
-      runLength = src[srcPos++];
-
-      if (dstPos + runLength > dstCapacity) {
-        return 0; // Decompression failed due to insufficient output buffer capacity
+    if (value == 0xFE) {
+      if (srcPos < srcSize) {
+        uint8_t runLength = src[srcPos++];
+        if (dstPos + runLength > dstCapacity) {
+          return 0;
+        }
+        for (int i = 0; i < runLength; i++) {
+          dst[dstPos++] = 0;
+        }
       }
-
-      memset(dst + dstPos, currentChar, runLength);
-      dstPos += runLength;
-    } else { // Non-repeating byte sequence
-      if (dstPos + runLength > dstCapacity) {
-        return 0; // Decompression failed due to insufficient output buffer capacity
+    } else {
+      if (value == 0xFF) {
+        value = 0xFE;
       }
-
-      for (int i = 0; i < runLength; i++) {
-        dst[dstPos++] = src[srcPos++];
+      if (dstPos < dstCapacity) {
+        dst[dstPos++] = value;
+      } else {
+        return 0;
       }
     }
   }
 
   return dstPos;
 }
+
 
 #else // VORTEX_SLIM == 0
 

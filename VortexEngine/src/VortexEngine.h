@@ -80,8 +80,6 @@ public:
 
   // enter sleep mode
   static void enterSleep();
-  // callback for wakeup
-  static void wakeUp();
 
 private:
 #if COMPRESSION_TEST == 1

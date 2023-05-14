@@ -1,4 +1,3 @@
-#include <Arduino.h>
 #include <math.h>
 
 #include "LedStash.h"
@@ -11,6 +10,10 @@
 
 #ifdef VORTEX_LIB
 #include "../../VortexLib/VortexLib.h"
+#endif
+
+#ifdef VORTEX_ARDUINO
+#include <avr/io.h>
 #endif
 
 // swap two variables in place
@@ -28,15 +31,19 @@ volatile uint8_t *Leds::m_port = nullptr;
 // Output PORT bitmask
 uint8_t Leds::m_pinMask = 0;
 
+void pinMode(uint8_t pin, uint8_t mode);
+
 bool Leds::init()
 {
+#ifdef VORTEX_ARDUINO
   // clear the onboard led so it displays nothing
   // tiny neo pixels
-  pinMode(LED_DATA_PIN, OUTPUT);
+  PORTB.DIRSET |= (1<<4);
   // register ouput port
-  m_port = portOutputRegister(digitalPinToPort(LED_DATA_PIN));
+  m_port = (uint8_t *)(&PORTB.OUT);
   // create a pin mask to use later
-  m_pinMask = digitalPinToBitMask(LED_DATA_PIN);
+  m_pinMask = (1 << 4);
+#endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
 #endif
@@ -263,7 +270,7 @@ void Leds::update()
 
   // Thanks to TinyNeoPixel for this code
 #ifdef VORTEX_ARDUINO
-  noInterrupts();
+  __asm("cli");
   volatile uint16_t
     i = LED_COUNT * sizeof(RGBColor); // Loop counter
   volatile uint8_t
@@ -1186,7 +1193,7 @@ void Leds::update()
   #endif
   // END AVR ----------------------------------------------------------------
 
-  interrupts();
+  __asm("sei");
 #endif
 
 #ifdef VORTEX_ARDUINO

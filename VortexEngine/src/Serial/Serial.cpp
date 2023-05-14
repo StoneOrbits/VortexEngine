@@ -7,8 +7,10 @@
 
 #include "../VortexEngine.h"
 
+#ifdef VORTEX_LIB
 #include <Arduino.h>
 #include <stdio.h>
+#endif
 
 bool SerialComs::m_serialConnected = false;
 uint64_t SerialComs::m_lastCheck = 0;
