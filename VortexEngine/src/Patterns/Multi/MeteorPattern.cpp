@@ -4,8 +4,6 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-#include <Arduino.h>
-
 MeteorPattern::MeteorPattern(const PatternArgs &args) :
   BlinkStepPattern(args),
   m_fadeAmount(0),
