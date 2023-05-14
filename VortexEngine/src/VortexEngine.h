@@ -81,6 +81,9 @@ public:
   // enter sleep mode
   static void enterSleep();
 
+  // clear output pins
+  static void clearOutputPins();
+
 private:
 #if COMPRESSION_TEST == 1
   static void compressionTest();
