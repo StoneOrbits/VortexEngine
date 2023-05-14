@@ -115,9 +115,14 @@ replay:
   }
 
   // this just transitions the state into the next state, with some edge conditions for
-  // transitioning to different states under certain circumstances
+  // transitioning to different states under certain circumstances. Honestly this is
+  // a nightmare to read now and idk how to fix it
   if (m_state == STATE_IN_GAP2 || (m_state == STATE_OFF && m_groupCounter > 0)) {
-    m_state = (!m_onDuration && !m_gapDuration) ? STATE_BEGIN_DASH : STATE_BLINK_ON;
+    if (m_onDuration) {
+      m_state = STATE_BLINK_ON;
+    } else {
+      m_state = m_dashDuration ? STATE_BEGIN_DASH : STATE_BEGIN_GAP;
+    }
   } else if (m_state == STATE_OFF && (!m_groupCounter || m_colorset.numColors() == 1)) {
     m_state = (m_groupCounter > 0) ? STATE_BLINK_ON : STATE_BEGIN_GAP;
   } else {
