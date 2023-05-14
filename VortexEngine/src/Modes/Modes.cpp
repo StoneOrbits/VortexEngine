@@ -505,6 +505,65 @@ void Modes::clearModes()
   Leds::clearAll();
 }
 
+#ifdef VORTEX_LIB
+#include "Patterns/PatternBuilder.h"
+// get the maximum size a mode can occupy
+uint32_t Modes::maxModeSize()
+{
+  Mode maxMode;
+  uint8_t x = 0;
+  for (LedPos p = LED_FIRST; p < LED_COUNT; ++p) {
+    // blend takes up 8 params
+    PatternArgs maxArgs((uint8_t)p + 0xd2, (uint8_t)p + 0xd3, (uint8_t)p + 0xd4, (uint8_t)p + 0xd5,
+      (uint8_t)p + 0xd6, (uint8_t)p + 0xd7, (uint8_t)p + 0xd8, (uint8_t)p + 0xd9);
+    //PatternArgs typicalArgs = PatternBuilder::getDefaultArgs(PATTERN_BLEND);
+    Colorset maxSet;
+    for (uint8_t i = 0; i < MAX_COLOR_SLOTS; ++i) {
+      // different color in each slot
+      maxSet.addColor(RGBColor(++x, ++x, ++x));
+    }
+    maxMode.setPattern(PATTERN_BLEND, p, &maxArgs, &maxSet);
+  }
+  ByteStream stream;
+  maxMode.saveToBuffer(stream);
+  return stream.size();
+}
+
+// get the maximum size a savefile can occupy
+uint32_t Modes::maxSaveSize()
+{
+#if MAX_MODES == 0
+  // unbounded
+  return 0;
+#else
+  ByteStream backupModes;
+  saveToBuffer(backupModes);
+  for (uint32_t i = 0; i < MAX_MODES; ++i) {
+    Mode maxMode;
+    for (LedPos p = LED_FIRST; p < LED_COUNT; ++p) {
+      // blend takes up 8 params
+      PatternArgs maxArgs((uint8_t)p + 2, (uint8_t)p + 3, (uint8_t)p + 4, (uint8_t)p + 5,
+        (uint8_t)p + 6, (uint8_t)p + 7, (uint8_t)p + 8, (uint8_t)p + 9);
+      Colorset maxSet;
+      for (uint32_t i = 0; i < MAX_COLOR_SLOTS; ++i) {
+        // different color in each slot
+        maxSet.addColor(RGBColor((uint8_t)p + (i * 3), (uint8_t)p + (i * 3) + 1, (uint8_t)p + (i * 3) + 2));
+      }
+      maxMode.setPattern(PATTERN_BLEND, p, &maxArgs, &maxSet);
+    }
+    addMode(&maxMode);
+  }
+  // grab the size of the new buffer
+  ByteStream stream;
+  saveToBuffer(stream);
+  uint32_t size = stream.size();
+  // restore backed up modes
+  loadFromBuffer(backupModes);
+  return size;
+#endif
+}
+#endif
+
 // fetch a link from the chain by index
 Modes::ModeLink *Modes::getModeLink(uint32_t index)
 {

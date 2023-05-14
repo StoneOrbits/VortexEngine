@@ -9,6 +9,28 @@
 
 class ByteStream;
 
+// a bit map of arguments, this is used to indicate which arguments
+// are present in a pattern when saved to storage
+typedef uint8_t ArgMap;
+
+// some macros to access each arg in the argmap
+#define ARG_NONE  0
+#define ARG(x)    (1 << x)
+#define ARG1      (1 << 0)
+#define ARG2      (1 << 1)
+#define ARG3      (1 << 2)
+#define ARG4      (1 << 3)
+#define ARG5      (1 << 4)
+#define ARG6      (1 << 5)
+#define ARG7      (1 << 6)
+#define ARG8      (1 << 7)
+#define ARG_ALL   0xFF
+
+// some helpers to set/clear/check
+#define ARGMAP_SET(map, arg)    (map |= ARG(arg))
+#define ARGMAP_CLEAR(map, arg)  (map &= ~ARG(arg))
+#define ARGMAP_ISSET(map, arg)  (map & ARG(arg))
+
 // a structured method for passing arguments to patterns, there's definitely more dynamic
 // ways to approach this but I'm aiming for simple and lightweight here
 class PatternArgs
@@ -48,10 +70,11 @@ public:
   bool operator==(const PatternArgs &rhs);
   uint8_t operator[](int index) const;
 
-  // must override the serialize routine to save the pattern
-  void serialize(ByteStream &buffer) const;
-  // must override unserialize to load patterns
-  void unserialize(ByteStream &buffer);
+  // serialize the pattern args with a specific mapping of which args to store
+  void serialize(ByteStream &buffer, ArgMap argmap = ARG_ALL) const;
+  // unserialize the pattern args and return the argmap of which args were loaded
+  // NOTE: You should start with an instance of the default args before you unserialize
+  ArgMap unserialize(ByteStream &buffer);
 
   // TODO: apis around arg access?
   // public access to args

@@ -88,6 +88,13 @@ public:
   static void test();
 #endif
 
+#ifdef VORTEX_LIB
+  // get the maximum size a mode can occupy
+  static uint32_t maxModeSize();
+  // get the maximum size a savefile can occupy
+  static uint32_t maxSaveSize();
+#endif
+
 private:
   // linked list of internal mode storage
   class ModeLink {
