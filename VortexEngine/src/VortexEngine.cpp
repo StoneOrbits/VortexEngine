@@ -31,11 +31,11 @@ bool VortexEngine::init()
     return false;
   }
   if (!IRReceiver::init()) {
-    DEBUG_LOG("Infrared receiver failed to initialize");
+    DEBUG_LOG("IRReceiver failed to initialize");
     return false;
   }
   if (!IRSender::init()) {
-    DEBUG_LOG("Infrared sender failed to initialize");
+    DEBUG_LOG("IRSender failed to initialize");
     return false;
   }
   if (!Leds::init()) {
@@ -146,7 +146,12 @@ bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
 
 Mode *VortexEngine::curMode()
 {
+#ifdef VORTEX_LIB
   return Modes::curMode();
+#else
+  // don't need this outside vortex lib
+  return nullptr;
+#endif
 }
 
 #ifdef VORTEX_LIB
@@ -185,7 +190,7 @@ void VortexEngine::compressionTest()
       tmpMode.setPattern((PatternID)(len % PATTERN_COUNT));
       Colorset set;
       set.randomizeColorTheory(rand, 8);
-      tmpMode.setColorset(&set);
+      tmpMode.setColorset(set);
       Modes::addMode(&tmpMode);
       modeStream.clear();
       Modes::serialize(modeStream);
