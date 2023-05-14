@@ -40,15 +40,6 @@
 // uses too much stack space to run on smaller devices
 #define VORTEX_SLIM           1
 
-// Vortex Small Saves
-//
-// Make much smaller savefiles at the cost of many things.
-// Some of the features that are disabled by this flag are:
-//   - savefile versioning (2 bytes)
-//   - savefile dynamic mode count (1 byte)
-//   - savefile dynamic led count (1 byte per mode)
-#define VORTEX_SMALL_SAVES    0
-
 // ===================================================================
 //  Numeric Configurations
 
@@ -474,12 +465,6 @@
 #ifdef VORTEX_LIB
 #undef IGNORE_BUTTON_TIME
 #define IGNORE_BUTTON_TIME 0
-#endif
-
-// maybe?
-#if VORTEX_SMALL_SAVES == 1
-//#undef MAX_COLOR_SLOTS
-//#define MAX_COLOR_SLOTS 6
 #endif
 
 #endif // VORTEX_CONFIG_H
