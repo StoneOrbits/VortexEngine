@@ -23,14 +23,36 @@
 #endif
 
 #ifdef VORTEX_ARDUINO
-// flash is the rest
+// The first half of the data goes into the eeprom and then the rest goes into
+// flash, the EEPROM is 256 and storage size is 512 so the flash storage is 256
 #define FLASH_STORAGE_SIZE (STORAGE_SIZE - EEPROM_SIZE)
-// storage space is right at end of flash
+// The position of the flash storage is right before the end of the flash, as long
+// as the program leaves 256 bytes of space at the end of flash then this will fit
 #define FLASH_STORAGE_SPACE ((uint8_t *)(0x10000 - FLASH_STORAGE_SIZE))
-#endif
 
 // write out the eeprom byte
-static void eeprom_write_byte(uint16_t index, uint8_t in);
+static void eeprom_write_byte(uint16_t index, uint8_t in)
+{
+  uint16_t adr = (uint16_t)MAPPED_EEPROM_START + index;
+  __asm__ __volatile__(
+      "ldi r30, 0x00"     "\n\t"
+      "ldi r31, 0x10"     "\n\t"
+      "in r0, 0x3f"       "\n\t"
+      "ldd r18, Z+2"      "\n\t"
+      "andi r18, 3"       "\n\t"
+      "brne .-6"          "\n\t"
+      "cli"               "\n\t"
+      "st X, %0"          "\n\t"
+      "ldi %0, 0x9D"      "\n\t"
+      "out 0x34, %0"      "\n\t"
+      "ldi %0, 0x03"      "\n\t"
+      "st Z, %0"          "\n\t"
+      "out 0x3f, r0"      "\n"
+      :"+d"(in)
+      : "x"(adr)
+      : "r30", "r31", "r18");
+}
+#endif
 
 uint32_t Storage::m_lastSaveSize = 0;
 
@@ -133,30 +155,6 @@ bool Storage::read(ByteStream &buffer)
 uint32_t Storage::lastSaveSize()
 {
   return m_lastSaveSize;
-}
-
-static void eeprom_write_byte(uint16_t index, uint8_t in)
-{
-#ifdef VORTEX_ARDUINO
-  uint16_t adr = (uint16_t)MAPPED_EEPROM_START + index;
-  __asm__ __volatile__(
-      "ldi r30, 0x00"     "\n\t"
-      "ldi r31, 0x10"     "\n\t"
-      "in r0, 0x3f"       "\n\t"
-      "ldd r18, Z+2"      "\n\t"
-      "andi r18, 3"       "\n\t"
-      "brne .-6"          "\n\t"
-      "cli"               "\n\t"
-      "st X, %0"          "\n\t"
-      "ldi %0, 0x9D"      "\n\t"
-      "out 0x34, %0"      "\n\t"
-      "ldi %0, 0x03"      "\n\t"
-      "st Z, %0"          "\n\t"
-      "out 0x3f, r0"      "\n"
-      :"+d"(in)
-      : "x"(adr)
-      : "r30", "r31", "r18");
-#endif
 }
 
 
