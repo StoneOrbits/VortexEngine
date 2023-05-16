@@ -58,6 +58,9 @@ bool VortexEngine::init()
     return false;
   }
 
+  // open the mosfet so that power can flow to the leds
+  enableMOSFET(true);
+
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif
@@ -198,11 +201,8 @@ void VortexEngine::enterSleep()
 #ifdef VORTEX_ARDUINO
   // init the output pins to prevent any floating pins
   clearOutputPins();
-  // clear the output pin to prevent any floating pins
-  PORTB.OUTSET |= PIN4_bm;
-  // Set LED data pin (PA7) to input with pull-up resistor
-  //PORTB.DIRCLR |= PIN4_bm;
-  //PORTB.PIN4CTRL = PORT_PULLUPEN_bm;
+  // close the mosfet so that power cannot flow to the leds
+  enableMOSFET(false);
   // now that pins are cleared, wait for button to be released, make
   // sure not to do this turning off TCD0
   delayMicroseconds(350);
@@ -211,13 +211,8 @@ void VortexEngine::enterSleep()
   // if it isn't disabled
   TCD0.INTCTRL = 0;
   TCD0.CTRLA = 0;
-  //// Set Li-Fi pin (PC5) to input with pull-up resistor
-  //PORTC.DIRCLR = PIN5_bm;
-  //PORTC.PIN5CTRL = PORT_PULLUPEN_bm;
   // Set wake interrupt on both edges
   PORTB.PIN2CTRL = 0x1;
-  // close gate to mosfet to cut power to peripherals
-  //PORTB.OUTCLR = PIN0_bm;
   // Set sleep mode to POWER DOWN mode
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
   // Enable sleep mode, but not going to sleep yet
@@ -233,39 +228,27 @@ void VortexEngine::clearOutputPins()
 {
 #ifdef VORTEX_ARDUINO
   // Set all pins to input with pull-ups
-  PORTA.DIRCLR = 0xFF;
-  PORTA.PIN0CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN1CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN2CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN3CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN4CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN5CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN6CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN7CTRL = PORT_PULLUPEN_bm;
+  PORTA.DIRSET = 0xFF;
+  PORTA.OUTSET = 0xFF;
+  PORTB.DIRSET = 0xFF;
+  PORTB.OUTSET = 0xFF;
+  PORTC.DIRSET = 0xFF;
+  PORTC.OUTSET = 0xFF;
+#endif
+}
 
-  PORTB.DIRCLR = 0xFF;
-  PORTB.PIN0CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN1CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN2CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN3CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN4CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN5CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN6CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN7CTRL = PORT_PULLUPEN_bm;
-
-  PORTC.DIRCLR = 0xFF;
-  PORTC.PIN0CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN1CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN2CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN3CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN4CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN5CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN6CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN7CTRL = PORT_PULLUPEN_bm;
-
-  //// Set Mosfet pin (PB0) to output and set it HIGH
-  //PORTB.DIRSET = PIN0_bm;
-  //PORTB.OUTSET = PIN0_bm;
+void VortexEngine::enableMOSFET(bool enabled)
+{
+#ifdef VORTEX_ARDUINO
+  if (enabled) {
+    // Set Mosfet pin (PC4) to output and set it HIGH
+    PORTC.DIRSET = PIN4_bm;
+    PORTC.OUTSET = PIN4_bm;
+  } else {
+    // Set Mosfet pin (PC4) to output and set it LOW
+    PORTC.DIRSET = PIN4_bm;
+    PORTC.OUTCLR = PIN4_bm;
+  }
 #endif
 }
 

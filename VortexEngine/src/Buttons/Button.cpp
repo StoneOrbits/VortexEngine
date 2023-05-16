@@ -45,11 +45,13 @@ bool Button::init()
   m_longClick = false;
 
 #ifdef VORTEX_ARDUINO
-	// Set PB2 as input
-	PORTB.DIRCLR |= (1 << 2);
-	PORTB.DIR &= ~(1 << 2);
-	// Enable pull-up resistor on PB2
-	PORTB.PIN2CTRL |= (1 << 3);
+  // Set PB2 as input
+  PORTB.DIRCLR = (1 << 2);
+  // Enable pull-up resistor on PB2 and disable interrupt and enable input buffer
+  // PULLUPEN = 1        = 0x8
+  // ISC = INPUT_DISABLE = 0x4
+  //               total = 0x12
+  PORTB.PIN2CTRL = 0x12;
 #endif
   return true;
 }

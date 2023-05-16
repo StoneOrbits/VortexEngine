@@ -75,6 +75,10 @@ public:
 #endif
 
 private:
+#ifdef VORTEX_ARDUINO
+  static void initArduinoTime();
+#endif
+
   // global tick counter
   static uint64_t m_curTick;
 

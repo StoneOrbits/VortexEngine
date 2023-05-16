@@ -78,11 +78,15 @@ public:
   static uint32_t savefileSize();
 #endif
 
-  // enter sleep mode
+  // enter sleep mode, technically still available outside arduino for logging purposes
   static void enterSleep();
 
+#ifdef VORTEX_ARDUINO
   // clear output pins
   static void clearOutputPins();
+  // enable/disable the mosfet
+  static void enableMOSFET(bool enabled);
+#endif
 
 private:
 #if COMPRESSION_TEST == 1
