@@ -9,10 +9,10 @@ Welcome to the Vortex Engine firmware repository! This open-source project is de
 This repository is organized into branches, with each branch corresponding to one of the four devices:
 
 - `master`: Firmware core that all branches derive from
-- `orbit`: Firmware for the Vortex Orbit
-- `handle`: Firmware for the Omega Handles
-- `gloves`: Firmware for the Vortex Gloves
-- `finger`: Firmware for the Microlight
+- `orbit`: Firmware for the Vortex Classic Orbit
+- `handle`: Firmware for the Vortex Omega Handles
+- `gloves`: Firmware for the Vortex Wired Gloveset
+- `duo`: Firmware for the Vortex Duo Modular Chip
 
 To access the firmware for a specific device, switch to the corresponding branch.
 
