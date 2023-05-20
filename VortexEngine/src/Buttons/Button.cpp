@@ -18,6 +18,7 @@ Button::Button() :
   m_releaseTime(0),
   m_holdDuration(0),
   m_releaseDuration(0),
+  m_consecutivePresses(0),
   m_buttonState(false),
   m_newPress(false),
   m_newRelease(false),
@@ -37,6 +38,7 @@ bool Button::init()
   m_releaseTime = 0;
   m_holdDuration = 0;
   m_releaseDuration = 0;
+  m_consecutivePresses = 0;
   m_buttonState = false;
   m_newPress = false;
   m_newRelease = false;
@@ -55,6 +57,8 @@ bool Button::init()
 #endif
   return true;
 }
+
+#include <stdio.h>
 
 void Button::check()
 {
@@ -99,6 +103,18 @@ void Button::check()
     if (Time::getCurtime() >= m_releaseTime) {
       m_releaseDuration = (uint32_t)(Time::getCurtime() - m_releaseTime);
     }
+  }
+
+  // update the consecutive presses if a new press just occurred
+  if (m_releaseDuration > CONSECUTIVE_WINDOW_TICKS) {
+    if (m_consecutivePresses) {
+      printf("Consecutive presses reset\n");
+    }
+    // if the release duration is greater than the threshold, reset the consecutive presses
+    m_consecutivePresses = 0;
+  } else if (m_newPress) {
+    m_consecutivePresses++;
+    printf("Consecutive press %u\n", m_consecutivePresses);
   }
 
   // whether a shortclick or long click just occurred

@@ -10,6 +10,7 @@
 #include "../Colors/Colorset.h"
 #include "../Storage/Storage.h"
 #include "../Buttons/Buttons.h"
+#include "../Time/Timings.h"
 #include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
@@ -21,6 +22,8 @@ uint8_t Modes::m_numModes = 0;
 Modes::ModeLink *Modes::m_pCurModeLink = nullptr;
 // list of serialized version of bufers
 Modes::ModeLink *Modes::m_storedModes = nullptr;
+// whether instant-on is enabled or not
+bool Modes::m_instantOnOff = false;
 
 bool Modes::init()
 {
@@ -58,8 +61,22 @@ void Modes::play()
     DEBUG_LOG("Error failed to load any modes!");
     return;
   }
-  // shortclick cycles to the next mode
+  // shortclick either turns off the lights, cycles to the next mode
+  // or possible locks the lights based on the situation
   if (g_pButton->onShortClick()) {
+    if (Modes::instantOnOffEnabled()) {
+      VortexEngine::enterSleep();
+      return;
+    }
+    // last mode?
+    if (m_curMode == m_numModes - 1) {
+      // Did they click through them all within the threshold?
+      if (Time::getCurtime() < LOCK_CLICK_WINDOW_TICKS) {
+        VortexEngine::enterSleep();
+        // enable lock
+        return;
+      }
+    }
     nextMode();
   }
   // play the current mode
@@ -71,8 +88,10 @@ bool Modes::saveToBuffer(ByteStream &modesBuffer)
 {
   // serialize the engine version into the modes buffer
   VortexEngine::serializeVersion(modesBuffer);
-  // serialize the global brightness
-  modesBuffer.serialize((uint8_t)Leds::getBrightness());
+  // NOTE: instead of global brightness the duo uses this to store the
+  //       startup mode ID. The duo doesn't offer a global brightness option
+  uint8_t startupMode = m_instantOnOff ? m_curMode : 255;
+  modesBuffer.serialize(startupMode);
   // serialize all modes data into the modesBuffer
   serialize(modesBuffer);
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
@@ -102,14 +121,21 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
     ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
     return false;
   }
+  // NOTE: instead of global brightness the duo uses this to store the
+  //       startup mode ID. The duo doesn't offer a global brightness option
   // unserialize the global brightness
-  uint8_t brightness = 0;
-  modesBuffer.unserialize(&brightness);
-  if (brightness) {
-    Leds::setBrightness(brightness);
-  }
+  uint8_t startupMode = 0;
+  modesBuffer.unserialize(&startupMode);
   // now just unserialize the list of modes
-  return unserialize(modesBuffer);
+  if (!unserialize(modesBuffer)) {
+    return false;
+  }
+  if (startupMode < m_numModes) {
+    // set the current mode to the startup mode
+    setCurMode(startupMode);
+    m_instantOnOff = true;
+  }
+  return true;
 }
 
 bool Modes::loadStorage()
@@ -503,6 +529,18 @@ void Modes::clearModes()
   m_numModes = 0;
   // might as well clear the leds
   Leds::clearAll();
+}
+
+bool Modes::toggleInstantOnOff(bool save)
+{
+  m_instantOnOff = !m_instantOnOff;
+  DEBUG_LOGF("Toggled instant on/off to %s", m_instantOnOff ? "on" : "off");
+  return !save || saveStorage();
+}
+
+bool Modes::instantOnOffEnabled()
+{
+  return m_instantOnOff;
 }
 
 #ifdef VORTEX_LIB

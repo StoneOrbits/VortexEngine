@@ -78,8 +78,9 @@ public:
   static uint32_t savefileSize();
 #endif
 
-  // enter sleep mode, technically still available outside arduino for logging purposes
+  // enter/leave sleep mode
   static void enterSleep();
+  static void wakeup();
 
 #ifdef VORTEX_ARDUINO
   // clear output pins
@@ -89,6 +90,11 @@ public:
 #endif
 
 private:
+#ifdef VORTEX_LIB
+  // bool in vortexlib to simulate sleeping
+  static bool m_sleeping;
+#endif
+
 #if COMPRESSION_TEST == 1
   static void compressionTest();
 #endif

@@ -84,6 +84,10 @@ public:
   // delete all modes in the list
   static void clearModes();
 
+  // toggle the instant one-click on/off
+  static bool toggleInstantOnOff(bool save = true);
+  static bool instantOnOffEnabled();
+
 #if MODES_TEST == 1
   static void test();
 #endif
@@ -162,6 +166,9 @@ private:
 
   // list of serialized version of bufers
   static ModeLink *m_storedModes;
+
+  // whether instant-on is enabled or not
+  static bool m_instantOnOff;
 };
 
 #endif

@@ -43,6 +43,9 @@ public:
   // how long the button is currently or was last released for (in ticks)
   uint32_t releaseDuration() const { return m_releaseDuration; }
 
+  // the number of consecutive presses
+  uint8_t consecutivePresses() const { return m_consecutivePresses; }
+
 private:
   // ========================================
   // state data that is populated each check
@@ -56,6 +59,9 @@ private:
   uint32_t m_holdDuration;
   // the last release duration
   uint32_t m_releaseDuration;
+
+  // the number of repeated presses
+  uint8_t m_consecutivePresses;
 
   // the active state of the button
   bool m_buttonState;

@@ -19,10 +19,17 @@
 #include <avr/sleep.h>
 #endif
 
+#ifdef VORTEX_LIB
+// bool in vortexlib to simulate sleeping
+bool VortexEngine::m_sleeping = false;
+#endif
+
 bool VortexEngine::init()
 {
+#ifdef VORTEX_ARDUINO
   // clear the output pins to initialize everything
   clearOutputPins();
+#endif
 
   // all of the global controllers
   if (!Time::init()) {
@@ -58,8 +65,10 @@ bool VortexEngine::init()
     return false;
   }
 
+#ifdef VORTEX_ARDUINO
   // open the mosfet so that power can flow to the leds
   enableMOSFET(true);
+#endif
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -110,6 +119,15 @@ void VortexEngine::tick()
   // the wakeup from cycling to the next mode
   Buttons::check();
 
+#ifdef VORTEX_LIB
+  if (m_sleeping) {
+    if (g_pButton->onRelease()) {
+      wakeup();
+    }
+    return;
+  }
+#endif
+
   // run the main logic for the engine
   runMainLogic();
 
@@ -119,13 +137,16 @@ void VortexEngine::tick()
 
 void VortexEngine::runMainLogic()
 {
-  // otherwise check for any press or hold to enter sleep or enter menus
   uint32_t holdTime = g_pButton->holdDuration();
-  // force-sleep check
+  // force-sleep check takes precedence above all
   if (holdTime >= FORCE_SLEEP_THRESHOLD_TICKS) {
     if (g_pButton->isPressed()) {
       Leds::clearAll();
     } else if (g_pButton->onLongClick()) {
+      // if there's no menus open when the user force-slept then toggle instant on/off
+      if (!Menus::checkInMenu()) {
+        Modes::toggleInstantOnOff();
+      }
       enterSleep();
     }
     return;
@@ -136,16 +157,17 @@ void VortexEngine::runMainLogic()
   }
   // if the user releases the button after the sleep threshold and
   // we're still in menu state not open, then we can go to sleep
-  if (g_pButton->onLongClick() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
-    // enter sleep mode, this won't return
+  if (g_pButton->onRelease() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
+    // enter sleep mode
     enterSleep();
+    return;
   }
-  if (g_pButton->isPressed() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
+  if (g_pButton->isPressed() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS ) {
     // and finally if the button is pressed then clear the leds if within
     // the sleep window and open the ring menu if past that
     Leds::clearAll();
-    // then check to see if we've held long enough to enter the menu
     if (holdTime >= (SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS)) {
+      // then check to see if we've held long enough to enter the menu
       DEBUG_LOG("Entering ring fill...");
       Menus::openMenuSelection();
     }
@@ -195,6 +217,7 @@ uint32_t VortexEngine::savefileSize()
 
 void VortexEngine::enterSleep()
 {
+  DEBUG_LOG("Sleeping");
   // clear all the leds
   Leds::clearAll();
   Leds::update();
@@ -204,15 +227,15 @@ void VortexEngine::enterSleep()
   // close the mosfet so that power cannot flow to the leds
   enableMOSFET(false);
   // now that pins are cleared, wait for button to be released, make
-  // sure not to do this turning off TCD0
+  // sure not to do this before turning off TCD0
   delayMicroseconds(350);
   // this is an ISR that runs in the timecontrol system to handle
   // millis and micros, it will wake the device up after some time
   // if it isn't disabled
   TCD0.INTCTRL = 0;
   TCD0.CTRLA = 0;
-  // Set wake interrupt on both edges
-  PORTB.PIN2CTRL = 0x1;
+  // Set wake interrupt on falling edges
+  PORTB.PIN2CTRL = 0x3;
   // Set sleep mode to POWER DOWN mode
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
   // Enable sleep mode, but not going to sleep yet
@@ -220,13 +243,29 @@ void VortexEngine::enterSleep()
   // enter sleep
   sleep_cpu();
 #else
-  INFO_LOG("SLEEPING");
+  m_sleeping = true;
 #endif
 }
 
+void VortexEngine::wakeup()
+{
+  DEBUG_LOG("Waking up");
+#ifdef VORTEX_ARDUINO
+  // turn the LED mosfet back on
+  enableMOSFET(true);
+  // just reset
+  _PROTECTED_WRITE(RSTCTRL.SWRR, 1);
+#else
+  // need a way to fake the reset, lol this works I guess
+  cleanup();
+  init();
+  m_sleeping = false;
+#endif
+}
+
+#ifdef VORTEX_ARDUINO
 void VortexEngine::clearOutputPins()
 {
-#ifdef VORTEX_ARDUINO
   // Set all pins to input with pull-ups
   PORTA.DIRSET = 0xFF;
   PORTA.OUTSET = 0xFF;
@@ -234,12 +273,10 @@ void VortexEngine::clearOutputPins()
   PORTB.OUTSET = 0xFF;
   PORTC.DIRSET = 0xFF;
   PORTC.OUTSET = 0xFF;
-#endif
 }
 
 void VortexEngine::enableMOSFET(bool enabled)
 {
-#ifdef VORTEX_ARDUINO
   if (enabled) {
     // Set Mosfet pin (PC4) to output and set it HIGH
     PORTC.DIRSET = PIN4_bm;
@@ -249,10 +286,8 @@ void VortexEngine::enableMOSFET(bool enabled)
     PORTC.DIRSET = PIN4_bm;
     PORTC.OUTCLR = PIN4_bm;
   }
-#endif
 }
 
-#ifdef VORTEX_ARDUINO
 // interrupt handler to wakeup device on button press
 ISR(PORTB_PORT_vect)
 {
@@ -264,10 +299,8 @@ ISR(PORTB_PORT_vect)
   PORTB.INTFLAGS = (1 << 2);
   // turn off interrupt
   PORTB.PIN2CTRL &= ~PORT_ISC_gm;
-  // turn the LED mosfet back on
-  //PORTB.OUTSET = PIN0_bm;
-  // just reset
-  _PROTECTED_WRITE(RSTCTRL.SWRR, 1);
+  // wakeup
+  VortexEngine::wakeup();
 }
 #endif
 

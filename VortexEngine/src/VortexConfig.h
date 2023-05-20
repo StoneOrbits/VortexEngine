@@ -67,6 +67,18 @@
 // How long the user has to release the button to enter sleep
 #define SLEEP_WINDOW_TIME     350
 
+// Instant On Off Time (in milliseconds)
+//
+// How long past the menus opening the user must hold in order to toggle
+// the instant on-off feature for the current mode
+#define INSTANT_ON_OFF_TIME   2000
+
+// Lock Click Window (in milliseconds)
+//
+// How long the user has to press the button 5 times in order to enable
+// or disable the light lock
+#define LOCK_CLICK_WINDOW     1000
+
 // Force Sleep Time (in milliseconds)
 //
 // How long the user has to hold the button anywhere to force sleep
@@ -78,6 +90,12 @@
 // it has started up, this is to prevent accidental button presses
 // after sleep or immediately on startup
 #define IGNORE_BUTTON_TIME    150
+
+// Rapid Press Window (in milliseconds)
+//
+// How long the user has after releasing to short click the button
+// again and be counted as a 'consecutive press'
+#define CONSECUTIVE_WINDOW    100
 
 // Color delete threshold (in milliseconds)
 //

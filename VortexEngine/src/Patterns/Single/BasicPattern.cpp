@@ -11,7 +11,24 @@
 
 #ifdef DEBUG_BASIC_PATTERN
 #include <stdio.h>
-uint64_t lastPrint = 0;
+// print out the current state of the pattern
+#define PRINT_STATE(state) printState(state)
+static void printState(PatternState state)
+{
+  static uint64_t lastPrint = 0;
+  if (lastPrint == Time::getCurtime()) return;
+  switch (m_state) {
+  case STATE_ON: printf("on  "); break;
+  case STATE_OFF: printf("off "); break;
+  case STATE_IN_GAP: printf("gap1"); break;
+  case STATE_IN_DASH: printf("dash"); break;
+  case STATE_IN_GAP2: printf("gap2"); break;
+  default: return;
+  }
+  lastPrint = Time::getCurtime();
+}
+#else
+#define PRINT_STATE(state) // do nothing
 #endif
 
 BasicPattern::BasicPattern(const PatternArgs &args) :
@@ -72,25 +89,49 @@ replay:
   case STATE_DISABLED:
     return;
   case STATE_BLINK_ON:
-    if (m_onDuration > 0) { onBlinkOn(); --m_groupCounter; nextState(m_onDuration); return; }
+    if (m_onDuration > 0) {
+      onBlinkOn();
+      --m_groupCounter;
+      nextState(m_onDuration);
+      return;
+    }
     m_state = STATE_BLINK_OFF;
   case STATE_BLINK_OFF:
     // the whole 'should blink off' situation is tricky because we might need
-    // to go back to blinking on if or colorset isn't at the end yet
+    // to go back to blinking on if our colorset isn't at the end yet
     if (m_groupCounter > 0 || (!m_gapDuration && !m_dashDuration)) {
-      if (m_offDuration > 0) { onBlinkOff(); nextState(m_offDuration); return; }
-      if (m_groupCounter > 0 && m_onDuration > 0) { m_state = STATE_BLINK_ON; goto replay; }
+      if (m_offDuration > 0) {
+        onBlinkOff();
+        nextState(m_offDuration);
+        return;
+      }
+      if (m_groupCounter > 0 && m_onDuration > 0) {
+        m_state = STATE_BLINK_ON;
+        goto replay;
+      }
     }
     m_state = STATE_BEGIN_GAP;
   case STATE_BEGIN_GAP:
     m_groupCounter = m_groupSize ? m_groupSize : (m_colorset.numColors() - (m_dashDuration != 0));
-    if (m_gapDuration > 0) { beginGap(); nextState(m_gapDuration); return; }
+    if (m_gapDuration > 0) {
+      beginGap();
+      nextState(m_gapDuration);
+      return;
+    }
     m_state = STATE_BEGIN_DASH;
   case STATE_BEGIN_DASH:
-    if (m_dashDuration > 0) { beginDash(); nextState(m_dashDuration); return; }
+    if (m_dashDuration > 0) {
+      beginDash();
+      nextState(m_dashDuration);
+      return;
+    }
     m_state = STATE_BEGIN_GAP2;
   case STATE_BEGIN_GAP2:
-    if (m_dashDuration > 0 && m_gapDuration > 0) { beginGap(); nextState(m_gapDuration); return; }
+    if (m_dashDuration > 0 && m_gapDuration > 0) {
+      beginGap();
+      nextState(m_gapDuration);
+      return;
+    }
     m_state = STATE_BLINK_ON;
     goto replay;
   default:
@@ -98,19 +139,8 @@ replay:
   }
 
   if (m_blinkTimer.alarm() == -1) {
-#ifdef DEBUG_BASIC_PATTERN
-    if (lastPrint == Time::getCurtime()) return;
-    switch (m_state) {
-      case STATE_ON: printf("on  "); break;
-      case STATE_OFF: printf("off "); break;
-      case STATE_IN_GAP: printf("gap1"); break;
-      case STATE_IN_DASH: printf("dash"); break;
-      case STATE_IN_GAP2: printf("gap2"); break;
-      default: return;
-    }
-    lastPrint = Time::getCurtime();
-#endif
-    // no alarm triggered?
+    // no alarm triggered just stay in current state, return and don't transition states
+    PRINT_STATE(m_state);
     return;
   }
 
@@ -118,60 +148,42 @@ replay:
   // transitioning to different states under certain circumstances. Honestly this is
   // a nightmare to read now and idk how to fix it
   if (m_state == STATE_IN_GAP2 || (m_state == STATE_OFF && m_groupCounter > 0)) {
-    if (m_onDuration) {
-      m_state = STATE_BLINK_ON;
-    } else {
-      m_state = m_dashDuration ? STATE_BEGIN_DASH : STATE_BEGIN_GAP;
-    }
+    // this is an edge condition for when in the second gap or off in the non-last off blink
+    // then the state actually needs to jump backwards rather than iterate
+    m_state = m_onDuration ? STATE_BLINK_ON : (m_dashDuration ? STATE_BEGIN_DASH : STATE_BEGIN_GAP);
   } else if (m_state == STATE_OFF && (!m_groupCounter || m_colorset.numColors() == 1)) {
+    // this is an edge condition when the state is off but this is the last off blink in the
+    // group or there's literally only one color in the group then if there is more blinks
+    // left in the group we need to cycle back to blink on instead of to the next state
     m_state = (m_groupCounter > 0) ? STATE_BLINK_ON : STATE_BEGIN_GAP;
   } else {
+    // this is the standard case, iterate to the next state
     m_state = (PatternState)(m_state + 1);
   }
-  // recurse with the new state change
+  // poor-mans recurse with the new state change (this transitions to a new state within the same tick)
   goto replay;
 }
 
 void BasicPattern::onBlinkOn()
 {
-#ifdef DEBUG_BASIC_PATTERN
-  if (lastPrint != Time::getCurtime()) {
-    printf("on  ");
-    lastPrint = Time::getCurtime();
-  }
-#endif
+  PRINT_STATE(STATE_ON);
   Leds::setIndex(m_ledPos, m_colorset.getNext());
 }
 
 void BasicPattern::onBlinkOff()
 {
-#ifdef DEBUG_BASIC_PATTERN
-  if (lastPrint != Time::getCurtime()) {
-    printf("off ");
-    lastPrint = Time::getCurtime();
-  }
-#endif
+  PRINT_STATE(STATE_OFF);
   Leds::clearIndex(m_ledPos);
 }
 
 void BasicPattern::beginGap()
 {
-#ifdef DEBUG_BASIC_PATTERN
-  if (lastPrint != Time::getCurtime()) {
-    printf("gap%d", (m_state == STATE_BEGIN_GAP) ? 1 : 2);
-    lastPrint = Time::getCurtime();
-  }
-#endif
+  PRINT_STATE(STATE_IN_GAP);
   Leds::clearIndex(m_ledPos);
 }
 
 void BasicPattern::beginDash()
 {
-#ifdef DEBUG_BASIC_PATTERN
-  if (lastPrint != Time::getCurtime()) {
-    printf("dash");
-    lastPrint = Time::getCurtime();
-  }
-#endif
+  PRINT_STATE(STATE_IN_DASH);
   Leds::setIndex(m_ledPos, m_colorset.getNext());
 }
