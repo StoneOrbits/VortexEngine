@@ -65,17 +65,10 @@ void Modes::play()
   // or possible locks the lights based on the situation
   if (g_pButton->onShortClick()) {
     if (Modes::instantOnOffEnabled()) {
+      // enter sleep doesn't return on arduino, but it does on vortexlib
+      // so we need to return right after -- we can't just use an else
       VortexEngine::enterSleep();
       return;
-    }
-    // last mode?
-    if (m_curMode == m_numModes - 1) {
-      // Did they click through them all within the threshold?
-      if (Time::getCurtime() < LOCK_CLICK_WINDOW_TICKS) {
-        VortexEngine::enterSleep();
-        // enable lock
-        return;
-      }
     }
     nextMode();
   }

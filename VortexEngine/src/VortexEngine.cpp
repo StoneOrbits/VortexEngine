@@ -29,6 +29,8 @@ bool VortexEngine::init()
 #ifdef VORTEX_ARDUINO
   // clear the output pins to initialize everything
   clearOutputPins();
+  // open the mosfet so that power can flow to the leds
+  enableMOSFET(true);
 #endif
 
   // all of the global controllers
@@ -64,11 +66,6 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
-
-#ifdef VORTEX_ARDUINO
-  // open the mosfet so that power can flow to the leds
-  enableMOSFET(true);
-#endif
 
 #if COMPRESSION_TEST == 1
   compressionTest();
