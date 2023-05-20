@@ -274,13 +274,12 @@ void VortexEngine::clearOutputPins()
 
 void VortexEngine::enableMOSFET(bool enabled)
 {
+  PORTC.DIRSET = PIN4_bm;
   if (enabled) {
     // Set Mosfet pin (PC4) to output and set it HIGH
-    PORTC.DIRSET = PIN4_bm;
     PORTC.OUTSET = PIN4_bm;
   } else {
     // Set Mosfet pin (PC4) to output and set it LOW
-    PORTC.DIRSET = PIN4_bm;
     PORTC.OUTCLR = PIN4_bm;
   }
 }
