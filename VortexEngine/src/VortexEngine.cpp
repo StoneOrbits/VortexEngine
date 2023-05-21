@@ -285,19 +285,19 @@ void VortexEngine::enableMOSFET(bool enabled)
 }
 
 // interrupt handler to wakeup device on button press
-ISR(PORTB_PORT_vect)
-{
-  if (!(PORTB.INTFLAGS & (1 << 2))) {
-    // don't trigger unless it was from the button press
-    return;
-  }
-  // handled
-  PORTB.INTFLAGS = (1 << 2);
-  // turn off interrupt
-  PORTB.PIN2CTRL &= ~PORT_ISC_gm;
-  // wakeup
-  VortexEngine::wakeup();
-}
+//ISR(PORTB_PORT_vect)
+//{
+//  if (!(PORTB.INTFLAGS & (1 << 2))) {
+//    // don't trigger unless it was from the button press
+//    return;
+//  }
+//  // handled
+//  PORTB.INTFLAGS = (1 << 2);
+//  // turn off interrupt
+//  PORTB.PIN2CTRL &= ~PORT_ISC_gm;
+//  // wakeup
+//  VortexEngine::wakeup();
+//}
 #endif
 
 #if COMPRESSION_TEST == 1

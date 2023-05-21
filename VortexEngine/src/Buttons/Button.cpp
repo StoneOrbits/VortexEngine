@@ -48,17 +48,15 @@ bool Button::init()
 
 #ifdef VORTEX_ARDUINO
   // Set PB2 as input
-  PORTB.DIRCLR = (1 << 2);
+  PORTB.DIRCLR = PIN3_bm;
   // Enable pull-up resistor on PB2 and disable interrupt and enable input buffer
   // PULLUPEN = 1        = 0x8
   // ISC = INPUT_DISABLE = 0x4
   //               total = 0x12
-  PORTB.PIN2CTRL = 0x12;
+  PORTB.PIN3CTRL = 0x12;
 #endif
   return true;
 }
-
-#include <stdio.h>
 
 void Button::check()
 {
@@ -70,7 +68,7 @@ void Button::check()
 #ifdef VORTEX_LIB
   bool newButtonState = (digitalRead(9) == 0) ? true : false;
 #else
-  bool newButtonState = (VPORTB.IN & (1 << 2)) ? false : true;
+  bool newButtonState = (VPORTB.IN & PIN3_bm) ? false : true;
 #endif
 
   // did the button change (press/release occurred)
@@ -108,13 +106,11 @@ void Button::check()
   // update the consecutive presses if a new press just occurred
   if (m_releaseDuration > CONSECUTIVE_WINDOW_TICKS) {
     if (m_consecutivePresses) {
-      printf("Consecutive presses reset\n");
     }
     // if the release duration is greater than the threshold, reset the consecutive presses
     m_consecutivePresses = 0;
   } else if (m_newPress) {
     m_consecutivePresses++;
-    printf("Consecutive press %u\n", m_consecutivePresses);
   }
 
   // whether a shortclick or long click just occurred
