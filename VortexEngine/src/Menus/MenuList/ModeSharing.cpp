@@ -162,6 +162,8 @@ void ModeSharing::showSendMode()
 void ModeSharing::showReceiveMode()
 {
   Leds::clearAll();
+  // TODO: removeme
+  return;
   if (IRReceiver::isReceiving()) {
     // how much is sent?
     uint32_t percent = IRReceiver::percentReceived();

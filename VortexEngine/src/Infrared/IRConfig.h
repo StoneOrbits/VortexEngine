@@ -18,7 +18,7 @@
 // the IR receiver buffer size in dwords
 #define IR_RECV_BUF_SIZE MAX_DATA_TRANSFER
 
-#define IR_TIMING 562
+#define IR_TIMING 1562
 #define IR_TIMING_MIN ((uint32_t)(IR_TIMING * 0.75))
 
 #define HEADER_MARK (IR_TIMING * 16)

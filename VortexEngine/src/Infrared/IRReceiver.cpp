@@ -4,9 +4,15 @@
 #include "../Serial/BitStream.h"
 #include "../Time/TimeControl.h"
 #include "../Modes/Mode.h"
+#include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
 #include "IRConfig.h"
+
+#ifdef VORTEX_ARDUINO
+#include <avr/interrupt.h>
+#include <avr/io.h>
+#endif
 
 BitStream IRReceiver::m_irData;
 IRReceiver::RecvState IRReceiver::m_recvState = WAITING_HEADER_MARK;
@@ -14,10 +20,18 @@ uint64_t IRReceiver::m_prevTime = 0;
 uint8_t IRReceiver::m_pinState = 0;
 uint32_t IRReceiver::m_previousBytes = 0;
 
+#ifdef VORTEX_ARDUINO
+bool wasAboveThreshold = false;  // this will store the last known state
+uint16_t threshold = 1000;
+#endif
+
 bool IRReceiver::init()
 {
-  // TODO:
-  //pinMode(RECEIVER_PIN, INPUT_PULLUP);
+#ifdef VORTEX_ARDUINO
+  // Disable digital input buffer on the pin to save power
+  PORTB.PIN1CTRL &= ~PORT_ISC_gm;
+  PORTB.PIN1CTRL |= PORT_ISC_INPUT_DISABLE_gc;
+#endif
   m_irData.init(IR_RECV_BUF_SIZE);
   return true;
 }
@@ -84,17 +98,70 @@ bool IRReceiver::receiveMode(Mode *pMode)
 
 bool IRReceiver::beginReceiving()
 {
-  //attachInterrupt(digitalPinToInterrupt(RECEIVER_PIN), IRReceiver::recvPCIHandler, CHANGE);
+#ifdef VORTEX_ARDUINO
+  // Set up the ADC
+  // VDD reference, prescaler division by 4
+  ADC0.CTRLC = ADC_PRESC_DIV256_gc | ADC_REFSEL_VDDREF_gc | ADC_SAMPCAP_bm;
+  ADC0.CTRLD = 0;
+
+  // sample length
+  ADC0.SAMPCTRL = 13;
+
+  // PB1
+  ADC0.MUXPOS = ADC_MUXPOS_AIN10_gc;
+
+  // Initialize the Window Comparator Mode based on an initial ADC reading
+  ADC0.CTRLE = ADC_WINCM_ABOVE_gc;
+  // Set the threshold value
+  ADC0.WINHT = 0x1;
+  ADC0.WINLT = 0;
+
+  // set sampling number
+  //   0x0 NONE No accumulation
+  //   0x1 ACC2 2 results accumulated  > doesn't work well with 5 samp
+  //   0x2 ACC4 4 results accumulated  > works okay with 5 samp
+  //   0x3 ACC8 8 results accumulated
+  //   0x4 ACC16 16 results accumulated
+  //   0x5 ACC32 32 results accumulated
+  //   0x6 ACC64 64 results accumulated  > doesn't work well with 5 samp
+  ADC0.CTRLB = ADC_SAMPNUM_ACC4_gc;
+  // Enable Window Comparator interrupt
+  ADC0.INTCTRL = ADC_WCMP_bm;
+  // Enable the ADC and start continuous conversions
+  ADC0.CTRLA = ADC_ENABLE_bm | ADC_FREERUN_bm;
+  // start the first conversion
+  ADC0.COMMAND = ADC_STCONV_bm;
+#endif
   resetIRState();
   return true;
 }
 
 bool IRReceiver::endReceiving()
 {
-  //detachInterrupt(digitalPinToInterrupt(RECEIVER_PIN));
+#ifdef VORTEX_ARDUINO
+  // Stop conversions and disable the ADC
+  ADC0.CTRLA &= ~(ADC_ENABLE_bm | ADC_FREERUN_bm);
+  ADC0.INTCTRL = 0;
+#endif
   resetIRState();
   return true;
 }
+
+#ifdef VORTEX_ARDUINO
+ISR(ADC0_WCOMP_vect)
+{
+  bool isAboveThreshold = (ADC0.RES > threshold);
+  Leds::setIndex(LED_0, (isAboveThreshold ? RGB_DIM_RED : RGB_BLANK));
+  Leds::clearIndex(LED_1);
+  Leds::update();
+  if (wasAboveThreshold != isAboveThreshold) {
+    IRReceiver::recvPCIHandler();
+    wasAboveThreshold = isAboveThreshold;
+  }
+  // Clear the Window Comparator interrupt flag
+  ADC0.INTFLAGS = ADC_WCMP_bm;
+}
+#endif
 
 bool IRReceiver::onNewData()
 {

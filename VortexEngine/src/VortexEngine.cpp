@@ -289,8 +289,6 @@ void VortexEngine::clearOutputPins()
   PORTC.PIN3CTRL = PORT_PULLUPEN_bm;
   PORTC.PIN4CTRL = PORT_PULLUPEN_bm;
   PORTC.PIN5CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN6CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN7CTRL = PORT_PULLUPEN_bm;
 }
 
 void VortexEngine::enableMOSFET(bool enabled)
