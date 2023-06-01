@@ -14,6 +14,7 @@
 
 #ifdef VORTEX_ARDUINO
 #include <avr/io.h>
+#include <string.h>
 #endif
 
 // swap two variables in place
@@ -254,9 +255,17 @@ void Leds::breathIndexVal(LedPos target, uint32_t hue, uint32_t variance, uint32
   setIndex(target, HSVColor(hue, sat, 255 - (uint8_t)(val + ((sin(variance * 0.0174533) + 1) * magnitude))));
 }
 
+#define BRIGHTNESSSCALE 1.0
 void Leds::update()
 {
 #ifdef VORTEX_ARDUINO
+  RGBColor ledbackups[LED_COUNT];
+  memcpy(ledbackups, m_ledColors, sizeof(m_ledColors));
+  for (int c = 0; c < LED_COUNT; ++c) {
+    m_ledColors[c].red *= BRIGHTNESSSCALE;
+    m_ledColors[c].green *= BRIGHTNESSSCALE;
+    m_ledColors[c].blue *= BRIGHTNESSSCALE;
+  }
   // swap the red and green channels for the 2nd led on the microlight,
   // they will be swapped back at the end of this function
   SWAP(m_ledColors[LED_1].red, m_ledColors[LED_1].green);
@@ -1197,5 +1206,7 @@ void Leds::update()
 #ifdef VORTEX_ARDUINO
   // swap red and green channels back so all algorithms continue working
   SWAP(m_ledColors[LED_1].red, m_ledColors[LED_1].green);
+
+  memcpy(m_ledColors, ledbackups, sizeof(m_ledColors));
 #endif
 }

@@ -232,7 +232,7 @@ void VortexEngine::enterSleep()
   TCD0.INTCTRL = 0;
   TCD0.CTRLA = 0;
   // Set wake interrupt on falling edges
-  PORTB.PIN2CTRL = 0x3;
+  PORTC.PIN2CTRL = 0x3;
   // Set sleep mode to POWER DOWN mode
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
   // Enable sleep mode, but not going to sleep yet
@@ -304,19 +304,19 @@ void VortexEngine::enableMOSFET(bool enabled)
 }
 
 // interrupt handler to wakeup device on button press
-//ISR(PORTB_PORT_vect)
-//{
-//  if (!(PORTB.INTFLAGS & (1 << 2))) {
-//    // don't trigger unless it was from the button press
-//    return;
-//  }
-//  // handled
-//  PORTB.INTFLAGS = (1 << 2);
-//  // turn off interrupt
-//  PORTB.PIN2CTRL &= ~PORT_ISC_gm;
-//  // wakeup
-//  VortexEngine::wakeup();
-//}
+ISR(PORTC_PORT_vect)
+{
+  if (!(PORTC.INTFLAGS & PIN2_bm)) {
+    // don't trigger unless it was from the button press
+    return;
+  }
+  // handled
+  PORTC.INTFLAGS = PIN2_bm;
+  // turn off interrupt
+  PORTC.PIN2CTRL &= ~PORT_ISC_gm;
+  // wakeup
+  VortexEngine::wakeup();
+}
 #endif
 
 #if COMPRESSION_TEST == 1

@@ -68,7 +68,7 @@ void Button::check()
 #ifdef VORTEX_LIB
   bool newButtonState = (digitalRead(9) == 0) ? true : false;
 #else
-  bool newButtonState = (VPORTB.IN & PIN3_bm) ? false : true;
+  bool newButtonState = (VPORTC.IN & PIN2_bm) ? false : true;
 #endif
 
   // did the button change (press/release occurred)
