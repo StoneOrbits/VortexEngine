@@ -67,8 +67,6 @@ bool VortexEngine::init()
     return false;
   }
 
-  enterSleep();
-
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif
