@@ -18,8 +18,10 @@ public:
 
   // initialize a new button object with a pin number
   bool init();
-  // check the state of the button by querying the pin
-  void check();
+  // directly poll the pin for whether it's pressed right now
+  bool check();
+  // poll the button pin and update the state of the button object
+  void update();
 
   // whether the button was pressed this tick
   bool onPress() const { return m_newPress; }

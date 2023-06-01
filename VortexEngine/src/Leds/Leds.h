@@ -100,9 +100,6 @@ public:
   static uint32_t getBrightness() { return m_brightness; }
   static void setBrightness(uint32_t brightness) { m_brightness = brightness; }
 
-  // brightness scale
-  static void setBrightnessScale(float brightnessScale) { m_brightnessScale = brightnessScale; }
-
   // actually update the LEDs and show the changes
   static void update();
 
@@ -118,9 +115,6 @@ private:
 
   // the global brightness
   static uint32_t m_brightness;
-
-  // the brightness scale
-  static float m_brightnessScale;
 
   // array of led color values
   static RGBColor m_ledColors[LED_COUNT];

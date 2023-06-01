@@ -19,6 +19,7 @@ Button::Button() :
   m_holdDuration(0),
   m_releaseDuration(0),
   m_consecutivePresses(0),
+  m_releaseCount(0),
   m_buttonState(false),
   m_newPress(false),
   m_newRelease(false),
@@ -53,27 +54,28 @@ bool Button::init()
   //               total = 0x8
   //PORTB.PIN3CTRL = 0x8;
 #endif
-#ifdef VORTEX_LIB
-  m_buttonState = (digitalRead(9) == 0) ? true : false;
-#else
-  m_buttonState = (VPORTC.IN & PIN2_bm) ? false : true;
-#endif
+  m_buttonState = check();
   m_isPressed = m_buttonState;
   return true;
 }
 
-void Button::check()
+bool Button::check()
+{
+#ifdef VORTEX_LIB
+  return (digitalRead(9) == 0) ? true : false;
+#else
+  return (VPORTB.IN & PIN2_bm) ? false : true;
+#endif
+}
+
+void Button::update()
 {
   // reset the new press/release members this tick
   m_newPress = false;
   m_newRelease = false;
 
   // read the new button state
-#ifdef VORTEX_LIB
-  bool newButtonState = (digitalRead(9) == 0) ? true : false;
-#else
-  bool newButtonState = (VPORTC.IN & PIN2_bm) ? false : true;
-#endif
+  bool newButtonState = check();
 
   // did the button change (press/release occurred)
   if (newButtonState != m_buttonState) {
@@ -88,9 +90,17 @@ void Button::check()
       m_pressTime = Time::getCurtime();
       m_newPress = true;
     } else {
-      // the button was just released
-      m_releaseTime = Time::getCurtime();
-      m_newRelease = true;
+#ifndef VORTEX_LIB
+      // on real devices ignore button presses at startup
+      if (Time::getCurtime() > IGNORE_BUTTON_TICKS) 
+#endif
+      {
+        // the button was just released
+        m_releaseTime = Time::getCurtime();
+        m_newRelease = true;
+      }
+      // count releases even inside the ignore window so that
+      // we can tell if the button was released to stop ignoring
       m_releaseCount++;
     }
   }

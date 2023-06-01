@@ -55,8 +55,11 @@ class VortexEngine
 public:
   // setup and initialization function
   static bool init();
-  // cleanup
+
+#ifdef VORTEX_LIB
+  // no cleanup on arduino
   static void cleanup();
+#endif
 
   // tick function for each loop
   static void tick();

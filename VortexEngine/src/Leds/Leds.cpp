@@ -27,9 +27,6 @@ RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 // global brightness
 uint32_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 
-// brightness scale
-float Leds::m_brightnessScale = 1.0;
-
 // Output PORT register
 volatile uint8_t *Leds::m_port = nullptr;
 // Output PORT bitmask
@@ -264,9 +261,10 @@ void Leds::update()
   RGBColor ledbackups[LED_COUNT];
   memcpy(ledbackups, m_ledColors, sizeof(m_ledColors));
   for (int c = 0; c < LED_COUNT; ++c) {
-    m_ledColors[c].red *= m_brightnessScale;
-    m_ledColors[c].green *= m_brightnessScale;
-    m_ledColors[c].blue *= m_brightnessScale;
+#define SCALE8(i, scale)  (((uint16_t)i * (uint16_t)(scale)) >> 8)
+    m_ledColors[c].red = SCALE8(m_ledColors[c].red, m_brightness);
+    m_ledColors[c].green = SCALE8(m_ledColors[c].green, m_brightness);
+    m_ledColors[c].blue = SCALE8(m_ledColors[c].blue, m_brightness);
   }
   // swap the red and green channels for the 2nd led on the microlight,
   // they will be swapped back at the end of this function

@@ -82,6 +82,7 @@ bool VortexEngine::init()
   return true;
 }
 
+#ifdef VORTEX_LIB
 void VortexEngine::cleanup()
 {
   // cleanup in reverse order
@@ -96,9 +97,19 @@ void VortexEngine::cleanup()
   Storage::cleanup();
   Time::cleanup();
 }
+#endif
 
 void VortexEngine::tick()
 {
+#ifdef VORTEX_LIB
+  if (m_sleeping) {
+    // directly poll the button to wakeup so that we do't need Buttons::update()
+    if (g_pButton->check()) {
+      wakeup();
+    }
+    return;
+  }
+#endif
   // handle any fatal errors that may have occurred
   // but only if the error blinker is enabled
 #if VORTEX_ERROR_BLINK == 1
@@ -112,18 +123,8 @@ void VortexEngine::tick()
   // tick the current time counter forward
   Time::tickClock();
 
-  // don't poll the button till some cycles have passed, this prevents
-  // the wakeup from cycling to the next mode
-  Buttons::check();
-
-#ifdef VORTEX_LIB
-  if (m_sleeping) {
-    if (g_pButton->onRelease()) {
-      wakeup();
-    }
-    return;
-  }
-#endif
+  // poll the button(s) and update the button object states
+  Buttons::update();
 
   // run the main logic for the engine
   runMainLogic();
@@ -134,46 +135,52 @@ void VortexEngine::tick()
 
 void VortexEngine::runMainLogic()
 {
-  // if the button is held for 2 seconds from off, switch the brigness scale
-  if (Time::getCurtime() == 500 && g_pButton->releaseCount() == 0) {
-    Leds::setBrightnessScale(0.2);
-  }
-
-  uint32_t holdTime = g_pButton->holdDuration();
-  // force-sleep check takes precedence above all
-  if (holdTime >= FORCE_SLEEP_THRESHOLD_TICKS) {
-    if (g_pButton->isPressed()) {
-      Leds::clearAll();
-    } else if (g_pButton->onLongClick()) {
-      // if there's no menus open when the user force-slept then toggle instant on/off
-      if (!Menus::checkInMenu()) {
-        Modes::toggleInstantOnOff();
+  // if the button hasn't been released since turning on then there is custom logic
+  if (g_pButton->releaseCount() == 0) {
+    // if the button is held for 2 seconds from off, switch the brigness scale
+    if (Time::getCurtime() == 500 && g_pButton->isPressed()) {
+      // update brightness and save the changes
+      Leds::setBrightness(Leds::getBrightness() == 255 ? 60 : 255);
+      Modes::saveStorage();
+    }
+    // do nothing till the user releases the button... No menus mothing
+  } else {
+    uint32_t holdTime = g_pButton->holdDuration();
+    // force-sleep check takes precedence above all
+    if (holdTime >= FORCE_SLEEP_THRESHOLD_TICKS) {
+      if (g_pButton->isPressed()) {
+        Leds::clearAll();
+      } else if (g_pButton->onLongClick()) {
+        // if there's no menus open when the user force-slept then toggle instant on/off
+        if (!Menus::checkInMenu()) {
+          Modes::toggleInstantOnOff();
+        }
+        enterSleep();
       }
+      return;
+    }
+    // if the menus are open and running then just return
+    if (Menus::run()) {
+      return;
+    }
+    // if the user releases the button after the sleep threshold and
+    // we're still in menu state not open, then we can go to sleep
+    if (g_pButton->onRelease() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
+      // enter sleep mode
       enterSleep();
+      return;
     }
-    return;
-  }
-  // if the menus are open and running then just return
-  if (Menus::run()) {
-    return;
-  }
-  // if the user releases the button after the sleep threshold and
-  // we're still in menu state not open, then we can go to sleep
-  if (g_pButton->onRelease() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
-    // enter sleep mode
-    enterSleep();
-    return;
-  }
-  if (g_pButton->isPressed() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS ) {
-    // and finally if the button is pressed then clear the leds if within
-    // the sleep window and open the ring menu if past that
-    Leds::clearAll();
-    if (holdTime >= (SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS)) {
-      // then check to see if we've held long enough to enter the menu
-      DEBUG_LOG("Entering ring fill...");
-      Menus::openMenuSelection();
+    if (g_pButton->isPressed() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
+      // and finally if the button is pressed then clear the leds if within
+      // the sleep window and open the ring menu if past that
+      Leds::clearAll();
+      if (holdTime >= (SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS)) {
+        // then check to see if we've held long enough to enter the menu
+        DEBUG_LOG("Entering ring fill...");
+        Menus::openMenuSelection();
+      }
+      return;
     }
-    return;
   }
   // otherwise just play the modes
   Modes::play();
@@ -237,7 +244,7 @@ void VortexEngine::enterSleep()
   TCD0.INTCTRL = 0;
   TCD0.CTRLA = 0;
   // Set wake interrupt on falling edges
-  PORTC.PIN2CTRL = 0x3;
+  PORTB.PIN2CTRL = 0x3;
   // Set sleep mode to POWER DOWN mode
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
   // Enable sleep mode, but not going to sleep yet
@@ -309,16 +316,16 @@ void VortexEngine::enableMOSFET(bool enabled)
 }
 
 // interrupt handler to wakeup device on button press
-ISR(PORTC_PORT_vect)
+ISR(PORTB_PORT_vect)
 {
-  if (!(PORTC.INTFLAGS & PIN2_bm)) {
+  if (!(PORTB.INTFLAGS & PIN2_bm)) {
     // don't trigger unless it was from the button press
     return;
   }
   // handled
-  PORTC.INTFLAGS = PIN2_bm;
+  PORTB.INTFLAGS = PIN2_bm;
   // turn off interrupt
-  PORTC.PIN2CTRL &= ~PORT_ISC_gm;
+  PORTB.PIN2CTRL &= ~PORT_ISC_gm;
   // wakeup
   VortexEngine::wakeup();
 }

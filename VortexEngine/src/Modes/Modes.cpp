@@ -83,8 +83,12 @@ bool Modes::saveToBuffer(ByteStream &modesBuffer)
   VortexEngine::serializeVersion(modesBuffer);
   // NOTE: instead of global brightness the duo uses this to store the
   //       startup mode ID. The duo doesn't offer a global brightness option
-  uint8_t startupMode = m_instantOnOff ? m_curMode : 255;
-  modesBuffer.serialize(startupMode);
+  uint8_t startupMode = (m_curMode + 1) * m_instantOnOff;
+  // flags are just the startup mode right now, 4 bits unused
+  uint8_t flags = startupMode << 4;
+  modesBuffer.serialize(flags);
+  // serialize the global brightness
+  modesBuffer.serialize((uint8_t)Leds::getBrightness());
   // serialize all modes data into the modesBuffer
   serialize(modesBuffer);
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
@@ -117,15 +121,24 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   // NOTE: instead of global brightness the duo uses this to store the
   //       startup mode ID. The duo doesn't offer a global brightness option
   // unserialize the global brightness
-  uint8_t startupMode = 0;
-  modesBuffer.unserialize(&startupMode);
+  uint8_t flags = 0;
+  modesBuffer.unserialize(&flags);
+  uint8_t startupMode = (flags & 0xF0) >> 4;
+  // unserialize the global brightness
+  uint8_t brightness = 0;
+  modesBuffer.unserialize(&brightness);
+  if (brightness) {
+    Leds::setBrightness(brightness);
+  }
   // now just unserialize the list of modes
   if (!unserialize(modesBuffer)) {
     return false;
   }
-  if (startupMode < m_numModes) {
+  // startupMode is 1-based offset that encodes both the index to start at and
+  // whether the system is enabled, hence why 0 cannot be used as an offset
+  if (startupMode > 0) {
     // set the current mode to the startup mode
-    setCurMode(startupMode);
+    setCurMode(startupMode - 1);
     m_instantOnOff = true;
   }
   return true;
