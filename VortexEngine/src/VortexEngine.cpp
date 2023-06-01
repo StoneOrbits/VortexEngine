@@ -67,6 +67,8 @@ bool VortexEngine::init()
     return false;
   }
 
+  enterSleep();
+
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif
@@ -140,7 +142,7 @@ void VortexEngine::runMainLogic()
     // if the button is held for 2 seconds from off, switch the brigness scale
     if (Time::getCurtime() == 500 && g_pButton->isPressed()) {
       // update brightness and save the changes
-      Leds::setBrightness(Leds::getBrightness() == 255 ? 60 : 255);
+      Leds::setBrightness(Leds::getBrightness() == 255 ? 50 : 255);
       Modes::saveStorage();
     }
     // do nothing till the user releases the button... No menus mothing

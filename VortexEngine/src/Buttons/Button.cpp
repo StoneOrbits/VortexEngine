@@ -40,22 +40,14 @@ bool Button::init()
   m_holdDuration = 0;
   m_releaseDuration = 0;
   m_consecutivePresses = 0;
+  m_releaseCount = 0;
+  m_buttonState = check();
   m_newPress = false;
   m_newRelease = false;
+  m_isPressed = m_buttonState;
+  m_releaseCount = !m_isPressed;
   m_shortClick = false;
   m_longClick = false;
-
-#ifdef VORTEX_ARDUINO
-  // Set PB2 as input
-  //PORTB.DIRCLR = PIN3_bm;
-  // Enable pull-up resistor on PB2 and disable interrupt and enable input buffer
-  // PULLUPEN = 1        = 0x8
-  // ISC = INTDISABLE    = 0x0
-  //               total = 0x8
-  //PORTB.PIN3CTRL = 0x8;
-#endif
-  m_buttonState = check();
-  m_isPressed = m_buttonState;
   return true;
 }
 

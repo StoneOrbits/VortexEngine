@@ -22,6 +22,7 @@ bool Buttons::init()
   if (!g_pButton) {
     return false;
   }
+  g_pButton->init();
   return true;
 }
 

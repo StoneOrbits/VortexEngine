@@ -63,7 +63,7 @@ bool Storage::init()
 {
 #ifdef VORTEX_LIB
 #ifdef _MSC_VER
-  //DeleteFile("FlashStorage.flash");
+  DeleteFile("FlashStorage.flash");
 #else
   unlink("FlashStorage.flash");
 #endif
