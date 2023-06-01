@@ -79,12 +79,13 @@ public:
   static uint32_t totalStorageSpace();
   // the size of the savefile
   static uint32_t savefileSize();
+  // whether sleeping or not
+  static bool isSleeping() { return m_sleeping; }
 #endif
 
   // enter/leave sleep mode
   static void enterSleep();
   static void wakeup();
-  static bool isSleeping() { return m_sleeping; }
 
 #ifdef VORTEX_ARDUINO
   // clear output pins
