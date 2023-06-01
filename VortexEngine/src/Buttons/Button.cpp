@@ -39,11 +39,14 @@ bool Button::init()
   m_holdDuration = 0;
   m_releaseDuration = 0;
   m_consecutivePresses = 0;
-  m_buttonState = false;
+#ifdef VORTEX_LIB
+  m_buttonState = (digitalRead(9) == 0) ? true : false;
+#else
+  m_buttonState = (VPORTC.IN & PIN2_bm) ? false : true;
+#endif
   m_newPress = false;
   m_newRelease = false;
-  m_releaseCount = 0;
-  m_isPressed = false;
+  m_isPressed = m_buttonState;
   m_shortClick = false;
   m_longClick = false;
 

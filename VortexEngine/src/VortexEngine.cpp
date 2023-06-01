@@ -116,11 +116,6 @@ void VortexEngine::tick()
   // the wakeup from cycling to the next mode
   Buttons::check();
 
-  // if the button is held for 2 seconds from off, switch the brigness scale
-  if (Time::getCurtime() == 2000 && g_pButton->isPressed() && g_pButton->releaseCount() == 0) {
-    Leds::setBrightnessScale(0.2);
-  }
-
 #ifdef VORTEX_LIB
   if (m_sleeping) {
     if (g_pButton->onRelease()) {
@@ -139,6 +134,11 @@ void VortexEngine::tick()
 
 void VortexEngine::runMainLogic()
 {
+  // if the button is held for 2 seconds from off, switch the brigness scale
+  if (Time::getCurtime() == 1000 && g_pButton->isPressed() && g_pButton->releaseCount() == 0) {
+    Leds::setBrightnessScale(0.2);
+  }
+
   uint32_t holdTime = g_pButton->holdDuration();
   // force-sleep check takes precedence above all
   if (holdTime >= FORCE_SLEEP_THRESHOLD_TICKS) {
