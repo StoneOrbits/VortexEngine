@@ -82,11 +82,9 @@ void Button::update()
       m_pressTime = Time::getCurtime();
       m_newPress = true;
     } else {
-#ifndef VORTEX_LIB
-      // on real devices ignore button presses at startup
-      if (Time::getCurtime() > IGNORE_BUTTON_TICKS) 
-#endif
-      {
+      // simply ignore the first release, always. Because they just turned the device
+      // on and we don't want them to cycle to the next mode or something
+      if (m_releaseCount > 0) {
         // the button was just released
         m_releaseTime = Time::getCurtime();
         m_newRelease = true;

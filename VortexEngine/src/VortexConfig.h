@@ -84,13 +84,6 @@
 // How long the user has to hold the button anywhere to force sleep
 #define FORCE_SLEEP_TIME      5000
 
-// Startup Ignore Button Time (in milliseconds)
-//
-// The amount of time the engine will ignore button presses after
-// it has started up, this is to prevent accidental button presses
-// after sleep or immediately on startup
-#define IGNORE_BUTTON_TIME    150
-
 // Rapid Press Window (in milliseconds)
 //
 // How long the user has after releasing to short click the button

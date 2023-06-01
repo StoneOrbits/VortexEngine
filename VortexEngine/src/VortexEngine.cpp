@@ -138,9 +138,13 @@ void VortexEngine::runMainLogic()
   // if the button hasn't been released since turning on then there is custom logic
   if (g_pButton->releaseCount() == 0) {
     // if the button is held for 2 seconds from off, switch the brigness scale
-    if (Time::getCurtime() == 500 && g_pButton->isPressed()) {
+    if (Time::getCurtime() == SHORT_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
       // update brightness and save the changes
       Leds::setBrightness(Leds::getBrightness() == 255 ? 50 : 255);
+      // set to yellow before saving storage so that it turns yellow for storing
+      Leds::setAll(RGB_YELLOW);
+      Leds::update();
+      // save the new brightness
       Modes::saveStorage();
     }
     // do nothing till the user releases the button... No menus mothing
