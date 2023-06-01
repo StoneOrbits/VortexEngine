@@ -135,7 +135,7 @@ void VortexEngine::tick()
 void VortexEngine::runMainLogic()
 {
   // if the button is held for 2 seconds from off, switch the brigness scale
-  if (Time::getCurtime() == 1000 && g_pButton->isPressed() && g_pButton->releaseCount() == 0) {
+  if (Time::getCurtime() == 500 && g_pButton->releaseCount() == 0) {
     Leds::setBrightnessScale(0.2);
   }
 
