@@ -45,6 +45,8 @@ public:
 
   // the number of consecutive presses
   uint8_t consecutivePresses() const { return m_consecutivePresses; }
+  // the number of releases
+  uint8_t releaseCount() const { return m_releaseCount; }
 
 private:
   // ========================================
@@ -62,6 +64,8 @@ private:
 
   // the number of repeated presses
   uint8_t m_consecutivePresses;
+  // the number of times released
+  uint32_t m_releaseCount;
 
   // the active state of the button
   bool m_buttonState;

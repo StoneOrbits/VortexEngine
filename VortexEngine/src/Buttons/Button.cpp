@@ -42,6 +42,7 @@ bool Button::init()
   m_buttonState = false;
   m_newPress = false;
   m_newRelease = false;
+  m_releaseCount = 0;
   m_isPressed = false;
   m_shortClick = false;
   m_longClick = false;
@@ -87,6 +88,7 @@ void Button::check()
       // the button was just released
       m_releaseTime = Time::getCurtime();
       m_newRelease = true;
+      m_releaseCount++;
     }
   }
 
