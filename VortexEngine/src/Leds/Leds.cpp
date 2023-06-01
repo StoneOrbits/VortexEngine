@@ -27,6 +27,9 @@ RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 // global brightness
 uint32_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 
+// brightness scale
+float Leds::m_brightnessScale = 1.0;
+
 // Output PORT register
 volatile uint8_t *Leds::m_port = nullptr;
 // Output PORT bitmask
@@ -255,16 +258,15 @@ void Leds::breathIndexVal(LedPos target, uint32_t hue, uint32_t variance, uint32
   setIndex(target, HSVColor(hue, sat, 255 - (uint8_t)(val + ((sin(variance * 0.0174533) + 1) * magnitude))));
 }
 
-#define BRIGHTNESSSCALE 1.0
 void Leds::update()
 {
 #ifdef VORTEX_ARDUINO
   RGBColor ledbackups[LED_COUNT];
   memcpy(ledbackups, m_ledColors, sizeof(m_ledColors));
   for (int c = 0; c < LED_COUNT; ++c) {
-    m_ledColors[c].red *= BRIGHTNESSSCALE;
-    m_ledColors[c].green *= BRIGHTNESSSCALE;
-    m_ledColors[c].blue *= BRIGHTNESSSCALE;
+    m_ledColors[c].red *= m_brightnessScale;
+    m_ledColors[c].green *= m_brightnessScale;
+    m_ledColors[c].blue *= m_brightnessScale;
   }
   // swap the red and green channels for the 2nd led on the microlight,
   // they will be swapped back at the end of this function

@@ -24,6 +24,8 @@
 bool VortexEngine::m_sleeping = false;
 #endif
 
+bool heldFromOff = false;
+
 bool VortexEngine::init()
 {
 #ifdef VORTEX_ARDUINO
@@ -66,6 +68,10 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
+
+  // this is true if the button continues to 
+  // be held after waking the device (nearly always)
+  heldFromOff = (VPORTC.IN & PIN2_bm) ? false : true;
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -134,6 +140,9 @@ void VortexEngine::tick()
 
 void VortexEngine::runMainLogic()
 {
+  if (heldFromOff == true && (VPORTC.IN & PIN2_bm) == false) {
+    heldFromOff = false;
+  }
   uint32_t holdTime = g_pButton->holdDuration();
   // force-sleep check takes precedence above all
   if (holdTime >= FORCE_SLEEP_THRESHOLD_TICKS) {
@@ -142,7 +151,11 @@ void VortexEngine::runMainLogic()
     } else if (g_pButton->onLongClick()) {
       // if there's no menus open when the user force-slept then toggle instant on/off
       if (!Menus::checkInMenu()) {
-        Modes::toggleInstantOnOff();
+        if (heldFromOff) {
+          Leds::setBrightnessScale(0.2);
+        } else {
+          Modes::toggleInstantOnOff();
+        }
       }
       enterSleep();
     }
