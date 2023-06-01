@@ -30,7 +30,7 @@
 #define FLASH_STORAGE_SPACE ((uint8_t *)(0x10000 - FLASH_STORAGE_SIZE))
 
 // write out the eeprom byte
-static void eeprom_write_byte(uint16_t index, uint8_t in)
+void Storage::eepromWriteByte(uint16_t index, uint8_t in)
 {
   uint16_t adr = (uint16_t)MAPPED_EEPROM_START + index;
   __asm__ __volatile__(
@@ -89,7 +89,7 @@ bool Storage::write(ByteStream &buffer)
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom
   for (uint8_t i = 0; i < EEPROM_SIZE; ++i) {
-      eeprom_write_byte(i, *buf);
+      eepromWriteByte(i, *buf);
       buf++;
       size--;
       if (!size) {

@@ -6,13 +6,11 @@
 #include "Buttons/Buttons.h"
 #include "Time/TimeControl.h"
 #include "Time/Timings.h"
-//#include "Serial/Serial.h"
 #include "Serial/ByteStream.h"
 #include "Modes/Modes.h"
 #include "Menus/Menus.h"
 #include "Modes/Mode.h"
 #include "Leds/Leds.h"
-//#include "Log/Log.h"
 
 #ifdef VORTEX_ARDUINO
 #include <avr/interrupt.h>
@@ -23,6 +21,8 @@
 // bool in vortexlib to simulate sleeping
 bool VortexEngine::m_sleeping = false;
 #endif
+// whether the engine needs to save before sleeping
+bool VortexEngine::m_needsSave = false;
 
 bool VortexEngine::init()
 {
@@ -140,12 +140,8 @@ void VortexEngine::runMainLogic()
     // if the button is held for 2 seconds from off, switch the brigness scale
     if (Time::getCurtime() == SHORT_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
       // update brightness and save the changes
-      Leds::setBrightness(Leds::getBrightness() == 255 ? 50 : 255);
-      // set to yellow before saving storage so that it turns yellow for storing
-      Leds::setAll(RGB_YELLOW);
-      Leds::update();
-      // save the new brightness
-      Modes::saveStorage();
+      Leds::setBrightness(Leds::getBrightness() == DEFAULT_BRIGHTNESS ? DEFAULT_DIMNESS : DEFAULT_BRIGHTNESS);
+      m_needsSave = true;
     }
     // do nothing till the user releases the button... No menus mothing
   } else {
@@ -239,9 +235,12 @@ void VortexEngine::enterSleep()
   clearOutputPins();
   // close the mosfet so that power cannot flow to the leds
   enableMOSFET(false);
-  // now that pins are cleared, wait for button to be released, make
-  // sure not to do this before turning off TCD0
-  delayMicroseconds(350);
+  if (m_needsSave) {
+    Modes::saveStorage();
+  } else {
+    // delay for a bit to let the mosfet close and leds turn off
+    delayMicroseconds(250);
+  }
   // this is an ISR that runs in the timecontrol system to handle
   // millis and micros, it will wake the device up after some time
   // if it isn't disabled

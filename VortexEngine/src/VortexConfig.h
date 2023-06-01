@@ -129,6 +129,11 @@
 // present The maximum value is 255
 #define DEFAULT_BRIGHTNESS    185
 
+// Default Global Dimness
+//
+// The starting default dim level when switching to low brightness mode
+#define DEFAULT_DIMNESS       50
+
 // Max Modes
 //
 // The maximum number of modes that can be stored on the device.

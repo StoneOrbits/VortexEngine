@@ -99,6 +99,9 @@ private:
   // bool in vortexlib to simulate sleeping
   static bool m_sleeping;
 #endif
+  // TODO: check the brightness in the save storage to see if it's different, but for
+  // now I can't seem to get that working so just using a global flag to trigger the save
+  static bool m_needsSave;
 
 #if COMPRESSION_TEST == 1
   static void compressionTest();
