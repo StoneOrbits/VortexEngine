@@ -144,6 +144,8 @@ void VortexEngine::runMainLogic()
       // go back to sleep if they don't unlock in time
       enterSleep();
     }
+    // OPTIONAL: render a dim led during unlock window waiting for clicks?
+    // Leds::setIndex(LED_1, RGB_DIM_RED);
     // don't do anything else while locked, just return
     return;
   }
