@@ -22,6 +22,7 @@
 #define LOCK_CLICK_WINDOW_TICKS       Time::msToTicks(LOCK_CLICK_WINDOW)
 
 #define CONSECUTIVE_WINDOW_TICKS      Time::msToTicks(CONSECUTIVE_WINDOW)
+#define UNLOCK_WAKE_WINDOW_TICKS      Time::msToTicks(UNLOCK_WAKE_WINDOW)
 
 // Color delete threshold (in milliseconds)
 #define DELETE_THRESHOLD_TICKS        Time::msToTicks(COL_DELETE_THRESHOLD)

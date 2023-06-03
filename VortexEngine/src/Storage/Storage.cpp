@@ -89,12 +89,14 @@ bool Storage::write(ByteStream &buffer)
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom
   for (uint8_t i = 0; i < EEPROM_SIZE; ++i) {
+    if (*buf != *(uint8_t *)(MAPPED_EEPROM_START + i)) {
       eepromWriteByte(i, *buf);
-      buf++;
-      size--;
-      if (!size) {
-        return true;
-      }
+    }
+    buf++;
+    size--;
+    if (!size) {
+      return true;
+    }
   }
   // write the rest to flash
   uint16_t pages = (size / PROGMEM_PAGE_SIZE) + 1;

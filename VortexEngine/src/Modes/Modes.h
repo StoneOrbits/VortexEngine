@@ -14,6 +14,9 @@ class PatternArgs;
 class Colorset;
 class Mode;
 
+// the device is locked and needs to be unlocked to turn on
+#define MODES_FLAG_LOCKED (1 << 0)
+
 class Modes
 {
   // private unimplemented constructor
@@ -85,8 +88,12 @@ public:
   static void clearModes();
 
   // toggle the instant one-click on/off
-  static bool toggleInstantOnOff(bool save = true);
+  static bool setInstantOnOff(bool enable, bool save = true);
   static bool instantOnOffEnabled();
+
+  // toggle the locked state
+  static bool setLocked(bool locked, bool save = true);
+  static bool locked();
 
 #if MODES_TEST == 1
   static void test();
@@ -167,8 +174,8 @@ private:
   // list of serialized version of bufers
   static ModeLink *m_storedModes;
 
-  // whether instant-on is enabled or not
-  static bool m_instantOnOff;
+  // global flags for all modes
+  static uint8_t m_globalFlags;
 };
 
 #endif

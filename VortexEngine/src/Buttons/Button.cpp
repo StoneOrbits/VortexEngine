@@ -105,16 +105,14 @@ void Button::update()
     // update the release duration as long as the button is released
     if (Time::getCurtime() >= m_releaseTime) {
       m_releaseDuration = (uint32_t)(Time::getCurtime() - m_releaseTime);
+      if (m_releaseDuration > CONSECUTIVE_WINDOW_TICKS) {
+        // if the release duration is greater than the threshold, reset the consecutive presses
+        m_consecutivePresses = 0;
+      }
     }
   }
 
-  // update the consecutive presses if a new press just occurred
-  if (m_releaseDuration > CONSECUTIVE_WINDOW_TICKS) {
-    if (m_consecutivePresses) {
-    }
-    // if the release duration is greater than the threshold, reset the consecutive presses
-    m_consecutivePresses = 0;
-  } else if (m_newPress) {
+  if (m_newRelease) {
     m_consecutivePresses++;
   }
 

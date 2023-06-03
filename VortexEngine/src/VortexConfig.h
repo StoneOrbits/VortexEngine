@@ -88,7 +88,22 @@
 //
 // How long the user has after releasing to short click the button
 // again and be counted as a 'consecutive press'
-#define CONSECUTIVE_WINDOW    100
+#define CONSECUTIVE_WINDOW    200
+
+// Device Unlock Window (in milliseconds)
+//
+// How long the user has to perform 5 rapid clicks to unlock the device.
+// This is how long the device will turn on and wait for input before going
+// back to sleep when the button is pressed while the device is locked
+#define UNLOCK_WAKE_WINDOW    2000
+
+// Device Lock Clicks
+//
+// How many rapid clicks the user must perform to lock/unlock the device.
+// At the main menus this many rapid clicks will locks the device.
+// When the device is locked the first click will turn it on and then the user
+// has UNLOCK_WAKE_WINDOW time to press the button this many times to wake the device
+#define DEVICE_LOCK_CLICKS    5
 
 // Color delete threshold (in milliseconds)
 //
@@ -448,6 +463,10 @@
 
 #undef FIXED_LED_COUNT
 #define FIXED_LED_COUNT 0
+
+// test framework needs more time to click idk
+#undef CONSECUTIVE_WINDOW
+#define CONSECUTIVE_WINDOW 300
 
 // force logging to 3 on linux build
 #ifndef _MSC_VER

@@ -22,8 +22,8 @@ uint8_t Modes::m_numModes = 0;
 Modes::ModeLink *Modes::m_pCurModeLink = nullptr;
 // list of serialized version of bufers
 Modes::ModeLink *Modes::m_storedModes = nullptr;
-// whether instant-on is enabled or not
-bool Modes::m_instantOnOff = false;
+// global flags for all modes
+uint8_t Modes::m_globalFlags = 0;
 
 bool Modes::init()
 {
@@ -83,10 +83,7 @@ bool Modes::saveToBuffer(ByteStream &modesBuffer)
   VortexEngine::serializeVersion(modesBuffer);
   // NOTE: instead of global brightness the duo uses this to store the
   //       startup mode ID. The duo doesn't offer a global brightness option
-  uint8_t startupMode = (m_curMode + 1) * m_instantOnOff;
-  // flags are just the startup mode right now, 4 bits unused
-  uint8_t flags = startupMode << 4;
-  modesBuffer.serialize(flags);
+  modesBuffer.serialize(m_globalFlags);
   // serialize the global brightness
   modesBuffer.serialize((uint8_t)Leds::getBrightness());
   // serialize all modes data into the modesBuffer
@@ -121,9 +118,7 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   // NOTE: instead of global brightness the duo uses this to store the
   //       startup mode ID. The duo doesn't offer a global brightness option
   // unserialize the global brightness
-  uint8_t flags = 0;
-  modesBuffer.unserialize(&flags);
-  uint8_t startupMode = (flags & 0xF0) >> 4;
+  modesBuffer.unserialize(&m_globalFlags);
   // unserialize the global brightness
   uint8_t brightness = 0;
   modesBuffer.unserialize(&brightness);
@@ -136,10 +131,10 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   }
   // startupMode is 1-based offset that encodes both the index to start at and
   // whether the system is enabled, hence why 0 cannot be used as an offset
+  uint8_t startupMode = (m_globalFlags & 0xF0) >> 4;
   if (startupMode > 0) {
     // set the current mode to the startup mode
     setCurMode(startupMode - 1);
-    m_instantOnOff = true;
   }
   return true;
 }
@@ -537,16 +532,38 @@ void Modes::clearModes()
   Leds::clearAll();
 }
 
-bool Modes::toggleInstantOnOff(bool save)
+bool Modes::setInstantOnOff(bool enable, bool save)
 {
-  m_instantOnOff = !m_instantOnOff;
+  // zero out the upper nibble to disable
+  m_globalFlags &= 0x0F;
+  // then actually if it's enabled ensure the upper nibble is set
+  if (enable) {
+    // set the cur mode index as the upper nibble
+    m_globalFlags |= ((m_curMode + 1) << 4);
+  }
   DEBUG_LOGF("Toggled instant on/off to %s", m_instantOnOff ? "on" : "off");
   return !save || saveStorage();
 }
 
 bool Modes::instantOnOffEnabled()
 {
-  return m_instantOnOff;
+  return ((m_globalFlags & 0xF0) != 0);
+}
+
+bool Modes::setLocked(bool locked, bool save)
+{
+  if (locked) {
+    m_globalFlags |= MODES_FLAG_LOCKED;
+  } else {
+    m_globalFlags &= ~MODES_FLAG_LOCKED;
+  }
+  DEBUG_LOGF("Toggled locked to %s", m_locked ? "on" : "off");
+  return !save || saveStorage();
+}
+
+bool Modes::locked()
+{
+  return (m_globalFlags & MODES_FLAG_LOCKED) != 0;
 }
 
 #ifdef VORTEX_LIB

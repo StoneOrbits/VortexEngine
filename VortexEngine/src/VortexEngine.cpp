@@ -21,8 +21,6 @@
 // bool in vortexlib to simulate sleeping
 bool VortexEngine::m_sleeping = false;
 #endif
-// whether the engine needs to save before sleeping
-bool VortexEngine::m_needsSave = false;
 
 bool VortexEngine::init()
 {
@@ -82,9 +80,9 @@ bool VortexEngine::init()
   return true;
 }
 
-#ifdef VORTEX_LIB
 void VortexEngine::cleanup()
 {
+#ifdef VORTEX_LIB
   // cleanup in reverse order
   // NOTE: the arduino doesn't actually cleanup,
   //       but the test frameworks do
@@ -96,8 +94,8 @@ void VortexEngine::cleanup()
   IRReceiver::cleanup();
   Storage::cleanup();
   Time::cleanup();
-}
 #endif
+}
 
 void VortexEngine::tick()
 {
@@ -133,56 +131,105 @@ void VortexEngine::tick()
   Leds::update();
 }
 
+// warning this function is quite heavy at this point, it could probably be split
 void VortexEngine::runMainLogic()
 {
+  if (Modes::locked()) {
+    // 5 fast clicks will lock the device
+    if (g_pButton->consecutivePresses() >= DEVICE_LOCK_CLICKS) {
+      // unlock and just wakeup to reset
+      Modes::setLocked(false);
+      wakeup();
+    }
+    // if the device is locked it only stays on for the wake window then go back to sleep
+    // the user must press the button X times in this window to turn on the device
+    if (Time::getCurtime() > UNLOCK_WAKE_WINDOW_TICKS) {
+      // go back to sleep
+      enterSleep();
+    } else {
+      // if you want to indicate the window where sleep can be woken
+      //Leds::setIndex(LED_1, RGB_DIM_RED);
+    }
+    // don't do anything else while locked
+    return;
+  }
+
+  // the device is not locked, proceed with regular logic
+
   // if the button hasn't been released since turning on then there is custom logic
   if (g_pButton->releaseCount() == 0) {
     // if the button is held for 2 seconds from off, switch the brigness scale
     if (Time::getCurtime() == SHORT_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
       // update brightness and save the changes
       Leds::setBrightness(Leds::getBrightness() == DEFAULT_BRIGHTNESS ? DEFAULT_DIMNESS : DEFAULT_BRIGHTNESS);
-      m_needsSave = true;
+      Modes::saveStorage();
     }
     // do nothing till the user releases the button... No menus mothing
-  } else {
-    uint32_t holdTime = g_pButton->holdDuration();
-    // force-sleep check takes precedence above all
-    if (holdTime >= FORCE_SLEEP_THRESHOLD_TICKS) {
-      if (g_pButton->isPressed()) {
-        Leds::clearAll();
-      } else if (g_pButton->onLongClick()) {
-        // if there's no menus open when the user force-slept then toggle instant on/off
-        if (!Menus::checkInMenu()) {
-          Modes::toggleInstantOnOff();
-        }
-        enterSleep();
-      }
-      return;
-    }
-    // if the menus are open and running then just return
-    if (Menus::run()) {
-      return;
-    }
-    // if the user releases the button after the sleep threshold and
-    // we're still in menu state not open, then we can go to sleep
-    if (g_pButton->onRelease() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
-      // enter sleep mode
-      enterSleep();
-      return;
-    }
-    if (g_pButton->isPressed() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
-      // and finally if the button is pressed then clear the leds if within
-      // the sleep window and open the ring menu if past that
-      Leds::clearAll();
-      if (holdTime >= (SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS)) {
-        // then check to see if we've held long enough to enter the menu
-        DEBUG_LOG("Entering ring fill...");
-        Menus::openMenuSelection();
-      }
-      return;
-    }
+    Modes::play();
+    return;
   }
-  // otherwise just play the modes
+
+  // finally the user has released the button after initially turning it on,
+  // just run the regular main logic of the system
+
+  // first look for the force-sleep and instant on/off toggle
+  uint32_t holdTime = g_pButton->holdDuration();
+  // force-sleep check takes precedence above all
+  if (holdTime >= FORCE_SLEEP_THRESHOLD_TICKS) {
+    // as long as they hold down past this threshold just turn off
+    if (g_pButton->isPressed()) {
+      Leds::clearAll();
+      return;
+    }
+    // but as soon as they actually release put the device to sleep and also
+    // toggle the instant on/off if they were at the main menu
+    if (g_pButton->onRelease()) {
+      if (!Menus::checkInMenu()) {
+        Modes::setInstantOnOff(!Modes::instantOnOffEnabled());
+      }
+      enterSleep();
+    }
+    return;
+  }
+
+  // run the menus to see if they are open and need to do anything
+  if (Menus::run()) {
+    // if they return true that means the menus are open and rendering so just return
+    return;
+  }
+
+  // if the user releases the button after the sleep threshold and
+  // we're still in menu state not open, then we can go to sleep
+  if (g_pButton->onRelease() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
+    // enter sleep mode
+    enterSleep();
+    return;
+  }
+
+  // if the button is just held beyond the sleep threshold then
+  if (g_pButton->isPressed() && holdTime >= SLEEP_ENTER_THRESHOLD_TICKS) {
+    // clear all the leds for a short moment
+    Leds::clearAll();
+    // then oncethe user holds past the sleep window threshold open up the menus
+    if (holdTime >= (SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS)) {
+      // open the menu selection area
+      DEBUG_LOG("Entering ring fill...");
+      Menus::openMenuSelection();
+    }
+    // don't play the modes because the user is going into menus
+    return;
+  }
+
+  // lastly check if we are locking the device, which can only happen at the
+  // main modes playing
+  if (g_pButton->consecutivePresses() >= DEVICE_LOCK_CLICKS) {
+    // lock and just go to sleep
+    Modes::setLocked(true);
+    enterSleep();
+    return;
+  }
+
+  // otherwise finally just play the modes like normal
   Modes::play();
 }
 
@@ -235,12 +282,8 @@ void VortexEngine::enterSleep()
   clearOutputPins();
   // close the mosfet so that power cannot flow to the leds
   enableMOSFET(false);
-  if (m_needsSave) {
-    Modes::saveStorage();
-  } else {
-    // delay for a bit to let the mosfet close and leds turn off
-    delayMicroseconds(250);
-  }
+  // delay for a bit to let the mosfet close and leds turn off
+  delayMicroseconds(250);
   // this is an ISR that runs in the timecontrol system to handle
   // millis and micros, it will wake the device up after some time
   // if it isn't disabled
@@ -268,7 +311,7 @@ void VortexEngine::wakeup()
   // just reset
   _PROTECTED_WRITE(RSTCTRL.SWRR, 1);
 #else
-  // need a way to fake the reset, lol this works I guess
+  // need to fake the reset in vortexlib, lol this works I guess
   cleanup();
   init();
   m_sleeping = false;
