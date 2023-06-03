@@ -135,14 +135,14 @@ void VortexEngine::tick()
 void VortexEngine::runMainLogic()
 {
   if (Modes::locked()) {
-    // 5 fast clicks will lock the device
+    // 5 fast clicks will unlock the device
     if (g_pButton->consecutivePresses() >= DEVICE_LOCK_CLICKS) {
       // unlock and just wakeup to reset
       Modes::setLocked(false);
       wakeup();
     }
-    // if the device is locked it only stays on for the wake window then go back to sleep
-    // the user must press the button X times in this window to turn on the device
+    // if the device is locked it only stays awake for the wake window
+    // the user must press the button X times in this window to unlock
     if (Time::getCurtime() > UNLOCK_WAKE_WINDOW_TICKS) {
       // go back to sleep
       enterSleep();
