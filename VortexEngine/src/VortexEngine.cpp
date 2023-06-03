@@ -140,17 +140,11 @@ void VortexEngine::runMainLogic()
       // unlock and just wakeup to reset
       Modes::setLocked(false);
       wakeup();
-    }
-    // if the device is locked it only stays awake for the wake window
-    // the user must press the button X times in this window to unlock
-    if (Time::getCurtime() > UNLOCK_WAKE_WINDOW_TICKS) {
-      // go back to sleep
+    } else if (Time::getCurtime() > UNLOCK_WAKE_WINDOW_TICKS) {
+      // go back to sleep if they don't unlock in time
       enterSleep();
-    } else {
-      // if you want to indicate the window where sleep can be woken
-      //Leds::setIndex(LED_1, RGB_DIM_RED);
     }
-    // don't do anything else while locked
+    // don't do anything else while locked, just return
     return;
   }
 
