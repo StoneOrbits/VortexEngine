@@ -134,10 +134,12 @@ void VortexEngine::tick()
 // warning this function is quite heavy at this point, it could probably be split
 void VortexEngine::runMainLogic()
 {
+  // if the device is locked then that takes priority over all, while locked the 
+  // device will only listen for clicks to wakeup momentarily then go back to sleep
   if (Modes::locked()) {
-    // 5 fast clicks will unlock the device
+    // several fast clicks will unlock the device
     if (g_pButton->consecutivePresses() >= DEVICE_LOCK_CLICKS) {
-      // unlock and just wakeup to reset
+      // turn off the lock flag and save it to disk then wakeup (reset)
       Modes::setLocked(false);
       wakeup();
     } else if (Time::getCurtime() > UNLOCK_WAKE_WINDOW_TICKS) {
@@ -169,7 +171,7 @@ void VortexEngine::runMainLogic()
   // just run the regular main logic of the system
 
   // first look for the force-sleep and instant on/off toggle
-  uint32_t holdTime = g_pButton->holdDuration();
+  const uint32_t holdTime = g_pButton->holdDuration();
   // force-sleep check takes precedence above all
   if (holdTime >= FORCE_SLEEP_THRESHOLD_TICKS) {
     // as long as they hold down past this threshold just turn off
