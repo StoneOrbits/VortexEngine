@@ -287,8 +287,8 @@ void VortexEngine::enterSleep()
   // if it isn't disabled
   TCD0.INTCTRL = 0;
   TCD0.CTRLA = 0;
-  // Set wake interrupt on falling edges
-  PORTB.PIN2CTRL = 0x3;
+  // Enable wake on interrupt for the button
+  g_pButton->enableWake();
   // Set sleep mode to POWER DOWN mode
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
   // Enable sleep mode, but not going to sleep yet
@@ -357,21 +357,6 @@ void VortexEngine::enableMOSFET(bool enabled)
     // Set Mosfet pin (PC4) to output and set it LOW
     PORTC.OUTCLR |= PIN4_bm;
   }
-}
-
-// interrupt handler to wakeup device on button press
-ISR(PORTB_PORT_vect)
-{
-  if (!(PORTB.INTFLAGS & PIN2_bm)) {
-    // don't trigger unless it was from the button press
-    return;
-  }
-  // handled
-  PORTB.INTFLAGS = PIN2_bm;
-  // turn off interrupt
-  PORTB.PIN2CTRL &= ~PORT_ISC_gm;
-  // wakeup
-  VortexEngine::wakeup();
 }
 #endif
 

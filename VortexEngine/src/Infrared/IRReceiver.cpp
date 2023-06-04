@@ -100,30 +100,37 @@ bool IRReceiver::beginReceiving()
 {
 #ifdef VORTEX_ARDUINO
   // Set up the ADC
-  // VDD reference, prescaler division by 4
-  ADC0.CTRLC = ADC_PRESC_DIV256_gc | ADC_REFSEL_VDDREF_gc | ADC_SAMPCAP_bm;
+  // sample campacitance, VDD reference, prescaler division
+  //  0x0 DIV2 CLK_PER divided by 2
+  //  0x1 DIV4 CLK_PER divided by 4
+  //  0x2 DIV8 CLK_PER divided by 8
+  //  0x3 DIV16 CLK_PER divided by 16
+  //  0x4 DIV32 CLK_PER divided by 32 > doesn't work
+  //  0x5 DIV64 CLK_PER divided by 64 > doesn't work
+  //  0x6 DIV128 CLK_PER divided by 128 > works
+  //  0x7 DIV256 CLK_PER divided by 256 > works
+  ADC0.CTRLC = ADC_SAMPCAP_bm | ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV128_gc;
+  // no sampling delay and no delay variation
   ADC0.CTRLD = 0;
-
   // sample length
-  ADC0.SAMPCTRL = 13;
-
-  // PB1
+  //  0 = doesn't work
+  //  1+ = works
+  ADC0.SAMPCTRL = 1;
+  // Select the analog pin input PB1 (AIN10)
   ADC0.MUXPOS = ADC_MUXPOS_AIN10_gc;
-
-  // Initialize the Window Comparator Mode based on an initial ADC reading
+  // Initialize the Window Comparator Mode in above
   ADC0.CTRLE = ADC_WINCM_ABOVE_gc;
-  // Set the threshold value
+  // Set the threshold value very low
   ADC0.WINHT = 0x1;
   ADC0.WINLT = 0;
-
-  // set sampling number
-  //   0x0 NONE No accumulation
-  //   0x1 ACC2 2 results accumulated  > doesn't work well with 5 samp
-  //   0x2 ACC4 4 results accumulated  > works okay with 5 samp
+  // set sampling amount
+  //   0x0 NONE No accumulation > doesn't work
+  //   0x1 ACC2 2 results accumulated  > doesn't work
+  //   0x2 ACC4 4 results accumulated  > works okay
   //   0x3 ACC8 8 results accumulated
   //   0x4 ACC16 16 results accumulated
   //   0x5 ACC32 32 results accumulated
-  //   0x6 ACC64 64 results accumulated  > doesn't work well with 5 samp
+  //   0x6 ACC64 64 results accumulated
   ADC0.CTRLB = ADC_SAMPNUM_ACC4_gc;
   // Enable Window Comparator interrupt
   ADC0.INTCTRL = ADC_WCMP_bm;
@@ -151,9 +158,6 @@ bool IRReceiver::endReceiving()
 ISR(ADC0_WCOMP_vect)
 {
   bool isAboveThreshold = (ADC0.RES > threshold);
-  Leds::setIndex(LED_0, (isAboveThreshold ? RGB_DIM_RED : RGB_BLANK));
-  Leds::clearIndex(LED_1);
-  Leds::update();
   if (wasAboveThreshold != isAboveThreshold) {
     IRReceiver::recvPCIHandler();
     wasAboveThreshold = isAboveThreshold;
@@ -223,6 +227,10 @@ void IRReceiver::recvPCIHandler()
 // state machine that can be fed IR timings to parse them and interpret the intervals
 void IRReceiver::handleIRTiming(uint32_t diff)
 {
+  Leds::setIndex(LED_0, (diff > 1000 ? RGB_DIM_RED : RGB_BLANK));
+  Leds::clearIndex(LED_1);
+  Leds::update();
+  return;
   // if the diff is too long or too short then it's not useful
   if ((diff > HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < IR_TIMING_MIN) {
     DEBUG_LOGF("bad delay: %u, resetting...", diff);

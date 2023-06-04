@@ -10,7 +10,47 @@
 #endif
 
 #ifdef VORTEX_ARDUINO
+#include "VortexEngine.h"
+#include <avr/interrupt.h>
 #include <avr/io.h>
+
+// Update here to change button pin/port
+#define PIN_NUM 2
+#define PORT_LETTER B
+
+// expands out details to make the macros work
+#define CONCATENATE_DETAIL(x, y) x##y
+#define CONCATENATE(x, y) CONCATENATE_DETAIL(x, y)
+#define CONCATENATE_DETAIL_3(x, y, z) x##y##z
+#define CONCATENATE_3(x, y, z) CONCATENATE_DETAIL_3(x, y, z)
+
+// macros for the button pin/port
+#define BUTTON_PORT   CONCATENATE(PORT, PORT_LETTER)
+#define BUTTON_VPORT  CONCATENATE(VPORT, PORT_LETTER)
+#define BUTTON_PIN    CONCATENATE_3(PIN, PIN_NUM, _bm)
+#define PIN_CTRL      CONCATENATE_3(PIN, PIN_NUM, CTRL)
+#define PORT_VECT     CONCATENATE_3(PORT, PORT_LETTER, _PORT_vect)
+
+// interrupt handler to wakeup device on button press
+ISR(PORT_VECT)
+{
+  // make sure the interrupt fired from the button pin
+  if (!(BUTTON_PORT.INTFLAGS & BUTTON_PIN)) {
+    return;
+  }
+  // mark the interrupt as handled
+  BUTTON_PORT.INTFLAGS = BUTTON_PIN;
+  // turn off the interrupt
+  BUTTON_PORT.PIN_CTRL &= ~PORT_ISC_gm;
+  // call the wakeup routine in the engine
+  VortexEngine::wakeup();
+}
+
+void Button::enableWake()
+{
+  // turn on the above interrupt for FALLING edge
+  BUTTON_PORT.PIN_CTRL = 0x3;
+}
 #endif
 
 Button::Button() :
@@ -56,7 +96,7 @@ bool Button::check()
 #ifdef VORTEX_LIB
   return (digitalRead(9) == 0) ? true : false;
 #else
-  return (VPORTB.IN & PIN2_bm) ? false : true;
+  return (BUTTON_VPORT.IN & BUTTON_PIN) ? false : true;
 #endif
 }
 

@@ -3,6 +3,8 @@
 
 #include <inttypes.h>
 
+#include "VortexConfig.h"
+
 // although there is only one button on the VortexFramework
 // I am still opting for a non-static button class
 class Button
@@ -22,6 +24,11 @@ public:
   bool check();
   // poll the button pin and update the state of the button object
   void update();
+
+#ifdef VORTEX_ARDUINO
+  // enable the button-wake trigger to wake the device on press
+  void enableWake();
+#endif
 
   // whether the button was pressed this tick
   bool onPress() const { return m_newPress; }
@@ -64,10 +71,10 @@ private:
   // the last release duration
   uint32_t m_releaseDuration;
 
-  // the number of repeated presses
+  // the number of repeated presses (automatically detects rapid presses)
   uint8_t m_consecutivePresses;
-  // the number of times released
-  uint32_t m_releaseCount;
+  // the number of times released, will overflow at 255
+  uint8_t m_releaseCount;
 
   // the active state of the button
   bool m_buttonState;
