@@ -3,7 +3,7 @@
 
 #include <inttypes.h>
 
-#include "VortexConfig.h"
+#include "../VortexConfig.h"
 
 // although there is only one button on the VortexFramework
 // I am still opting for a non-static button class

@@ -33,11 +33,12 @@ bool ModeSharing::init()
   // This makes send mode begin with waiting instead of sending
   m_lastActionTime = Time::getCurtime() + 1;
   // just start spewing out modes everywhere
-  m_sharingMode = ModeShareState::SHARE_SEND;
+  m_sharingMode = ModeShareState::SHARE_RECEIVE;
+  IRReceiver::beginReceiving();
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
-
+#include "../../Infrared/IRConfig.h"
 Menu::MenuAction ModeSharing::run()
 {
   MenuAction result = Menu::run();
@@ -47,16 +48,16 @@ Menu::MenuAction ModeSharing::run()
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND:
     // render the 'send mode' lights
-    showSendMode();
+    //showSendMode();
     if (!IRSender::isSending()) {
       if (!m_lastActionTime || ((m_lastActionTime + MAX_WAIT_DURATION) < Time::getCurtime())) {
-        Leds::setAll(RGB_TEAL);
-        Leds::update();
+        //Leds::setAll(RGB_TEAL);
+        //Leds::update();
         beginSending();
       }
     }
     // continue sending any data as long as there is more to send
-    continueSending();
+    //continueSending();
     break;
   case ModeShareState::SHARE_RECEIVE:
     // render the 'receive mode' lights
@@ -96,6 +97,12 @@ void ModeSharing::onLongClick()
 
 void ModeSharing::beginSending()
 {
+  IRSender::sendByte(69);
+  Leds::clearAll();
+  Leds::update();
+  m_lastActionTime = Time::getCurtime();
+  return;
+  
   // if the sender is sending then cannot start again
   if (IRSender::isSending()) {
     ERROR_LOG("Cannot begin sending, sender is busy");
@@ -161,13 +168,14 @@ void ModeSharing::showSendMode()
 
 void ModeSharing::showReceiveMode()
 {
-  Leds::clearAll();
+  //Leds::clearAll();
   // TODO: removeme
   return;
   if (IRReceiver::isReceiving()) {
     // how much is sent?
     uint32_t percent = IRReceiver::percentReceived();
-    LedPos l = (LedPos)(percent / (100.0 / LED_COUNT));
+	// add half of the divisor to round instead of floor
+	LedPos l = (LedPos)((percent * LED_COUNT + 50) / 100);
     Leds::setRange(LED_FIRST, l, RGB_GREEN);
     return;
   }

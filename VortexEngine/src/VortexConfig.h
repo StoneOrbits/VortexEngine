@@ -266,7 +266,7 @@
 // This is the amount of time in ms for the IR sender to wait
 // between IR sends. This duration allows the user to give input
 // as it is not possible to give input during a send.
-#define IR_SENDER_WAIT_DURATION 1000
+#define IR_SENDER_WAIT_DURATION 3000
 
 // ===================================================================
 //  Boolean Configurations (0 or 1)

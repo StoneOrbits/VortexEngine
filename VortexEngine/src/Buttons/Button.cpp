@@ -10,13 +10,13 @@
 #endif
 
 #ifdef VORTEX_ARDUINO
-#include "VortexEngine.h"
+#include "../VortexEngine.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
 
 // Update here to change button pin/port
 #define PIN_NUM 2
-#define PORT_LETTER B
+#define PORT_LETTER C
 
 // expands out details to make the macros work
 #define CONCATENATE_DETAIL(x, y) x##y

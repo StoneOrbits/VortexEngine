@@ -422,7 +422,7 @@ ISR(TCD0_OVF_vect, ISR_NAKED)
   );
 }
 
-__attribute__ ((noinline)) void delayMicroseconds(uint32_t us)
+__attribute__ ((noinline)) void delayMicroseconds(uint16_t us)
 {
 #if F_CPU >= 20000000L
   // for a one-microsecond delay, burn 4 clocks and then return

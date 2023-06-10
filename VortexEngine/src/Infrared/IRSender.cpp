@@ -49,8 +49,8 @@ bool IRSender::loadMode(const Mode *targetMode)
   m_serialBuf.clear();
   // save the target mode to it's savefile buffer format
   if (!targetMode->saveToBuffer(m_serialBuf)) {
-    DEBUG_LOG("Failed to save mode to buffer");
-    return false;
+	  DEBUG_LOG("Failed to save mode to buffer");
+	  return false;
   }
   // ensure the data isn't too big
   if (m_serialBuf.rawSize() > MAX_DATA_TRANSFER) {
@@ -117,8 +117,8 @@ void IRSender::beginSend()
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
     micros(), m_size, m_numBlocks, m_remainder, m_blockSize);
   // wakeup the other receiver with a very quick mark/space
-  sendMark(50);
-  sendSpace(100);
+  //sendMark(50);
+  //sendSpace(100);
   // now send the header
   sendMark(HEADER_MARK);
   sendSpace(HEADER_SPACE);
@@ -169,7 +169,7 @@ void IRSender::sendSpace(uint16_t time)
 void IRSender::startPWM()
 {
 #if defined(VORTEX_ARDUINO) && IR_ENABLE == 1
-  Leds::setAll(RGB_WHITE);
+  Leds::setAll(RGB_BLANK);
   Leds::update();
 #endif
 }

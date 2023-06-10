@@ -22,7 +22,7 @@ uint32_t IRReceiver::m_previousBytes = 0;
 
 #ifdef VORTEX_ARDUINO
 bool wasAboveThreshold = false;  // this will store the last known state
-uint16_t threshold = 1000;
+uint16_t threshold = 500;
 #endif
 
 bool IRReceiver::init()
@@ -43,17 +43,36 @@ void IRReceiver::cleanup()
 bool IRReceiver::dataReady()
 {
   // is the receiver actually receiving data?
-  if (!isReceiving()) {
-    return false;
+  //if (!isReceiving()) {
+    //return false;
+  //}
+  if (m_irData.bitpos() < 7) {
+	  return false;
   }
   // read the size out
   uint8_t blocks = m_irData.data()[0];
+  if (blocks == 0) {
+	  return false;  
+  }
+  if (blocks == 69) {
+	  Leds::setAll(RGB_GREEN);
+  } else {
+	  Leds::setAll(blocks > 69 ? RGB_BLUE : RGB_RED);
+  }
+  Leds::update();
+  int i = 50;
+  while (i-- > 0) delayMicroseconds(1000);
+  resetIRState();
+  Leds::clearAll();
+  Leds::update();
+  return false;
   uint8_t remainder = m_irData.data()[1];
   uint32_t total = ((blocks - 1) * 32) + remainder;
   if (!total || total > MAX_DATA_TRANSFER) {
     DEBUG_LOGF("Bad IR Data size: %u", total);
     return false;
   }
+  //dostuff(total);
   // if there are size + 2 bytes in the IRData receiver
   // then a full message is ready, the + 2 is from the
   // two bytes for blocks + remainder that are sent first
@@ -79,7 +98,7 @@ uint32_t IRReceiver::percentReceived()
   uint8_t blocks = m_irData.data()[0];
   uint8_t remainder = m_irData.data()[1];
   uint32_t total = ((blocks - 1) * 32) + remainder;
-  return (uint32_t)(((float)m_irData.bytepos() / (float)total) * 100.0);
+  return (uint32_t)((m_irData.bytepos() * 100) / (total * 100));
 }
 
 bool IRReceiver::receiveMode(Mode *pMode)
@@ -155,9 +174,26 @@ bool IRReceiver::endReceiving()
 }
 
 #ifdef VORTEX_ARDUINO
+#define NUM_SAMPLES 16
+uint32_t samples_sum = 0;
+uint16_t samples[NUM_SAMPLES] = {0};
+uint8_t sample_index = 0;
+
 ISR(ADC0_WCOMP_vect)
 {
-  bool isAboveThreshold = (ADC0.RES > threshold);
+  uint16_t val = (ADC0.RES >> 2);
+  
+   //// Update samples_sum and samples
+  //samples_sum -= samples[sample_index];
+  //samples[sample_index] = val;
+  //samples_sum += samples[sample_index];
+  //sample_index = (sample_index + 1) % NUM_SAMPLES;
+  //
+  //// Calculate the new threshold
+  //threshold = (samples_sum / NUM_SAMPLES) / 2;
+  
+  bool isAboveThreshold = (val > 250);
+  //Leds::setIndex(LED_0, RGBColor(val < 256 ? val : 0, (val - 256) < 256 ? val - 256 : 0, (val - 512) < 256 ? val - 512 : 0));
   if (wasAboveThreshold != isAboveThreshold) {
     IRReceiver::recvPCIHandler();
     wasAboveThreshold = isAboveThreshold;
@@ -220,17 +256,39 @@ void IRReceiver::recvPCIHandler()
   uint32_t diff = (uint32_t)(now - m_prevTime);
   // and update the previous changetime for next loop
   m_prevTime = now;
-  // handle the blink duration and process it
+  // handle the bliank duration and process it
+  //if (m_pinState)
   handleIRTiming(diff);
 }
+
+int a = 0;
+
+#define num_diffs 16
+
+uint32_t diffs[num_diffs] = {0};
+	#include <string.h>
+	__attribute__ ((noinline)) void done() {
+		memset(diffs, 0, sizeof(diffs));
+		a = 0;
+	}
 
 // state machine that can be fed IR timings to parse them and interpret the intervals
 void IRReceiver::handleIRTiming(uint32_t diff)
 {
-  Leds::setIndex(LED_0, (diff > 1000 ? RGB_DIM_RED : RGB_BLANK));
-  Leds::clearIndex(LED_1);
-  Leds::update();
-  return;
+
+  //int i = 50;
+  //while (i-- > 0) delayMicroseconds(10000);
+  //if (diff > IR_TIMING_MIN && diff < IR_TIMING_MAX) {
+    //Leds::setAll(RGB_BLUE);
+  //} else {
+    //Leds::setAll(diff > (IR_TIMING_MAX) ? RGB_GREEN : RGB_RED);
+  //}
+  //Leds::update();
+  //i = 50;
+  //while (i-- > 0) delayMicroseconds(10000);
+  //Leds::clearAll();
+  //Leds::update();
+  //return;
   // if the diff is too long or too short then it's not useful
   if ((diff > HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < IR_TIMING_MIN) {
     DEBUG_LOGF("bad delay: %u, resetting...", diff);
@@ -256,23 +314,29 @@ void IRReceiver::handleIRTiming(uint32_t diff)
     break;
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
-    m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
+	m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
+	diffs[a++] = diff;
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
     // the space could be just a regular space, or a gap in between blocks
     m_recvState = READING_DATA_MARK;
+	diffs[a++] = diff;
     break;
   default: // ??
     DEBUG_LOGF("Bad receive state: %u", m_recvState);
     break;
+  }
+  if (a >= num_diffs) {
+	  done();
   }
 }
 
 void IRReceiver::resetIRState()
 {
   m_previousBytes = 0;
-  m_recvState = WAITING_HEADER_MARK;
+  //m_recvState = WAITING_HEADER_MARK;
+  m_recvState = READING_DATA_MARK;
   // zero out the receive buffer and reset bit receiver position
   m_irData.reset();
   DEBUG_LOG("IR State Reset");
