@@ -30,7 +30,7 @@ CFLAGS+=$(INCLUDES)
 # Source files
 SRCS = \
        $(shell find ./VortexEngine/src/ -type f -name '\*.cpp') \
-       ./appmain.cpp
+       ./VortexEngine/appmain.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
