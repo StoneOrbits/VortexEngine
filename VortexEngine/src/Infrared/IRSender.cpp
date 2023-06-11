@@ -30,8 +30,19 @@ uint32_t IRSender::m_blockSize = 0;
 // write total
 uint32_t IRSender::m_writeCounter = 0;
 
+#include "IRReceiver.h"
+
 bool IRSender::init()
 {
+	mmax = 0;
+	mmin = 0;
+	
+	samples_sum = 0;
+	samples[0] = 0;
+	sample_index = 0;
+	
+	wasAboveThreshold = 0;
+	threshold = 0;
   return true;
 }
 

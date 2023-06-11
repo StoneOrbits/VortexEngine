@@ -21,8 +21,8 @@ uint8_t IRReceiver::m_pinState = 0;
 uint32_t IRReceiver::m_previousBytes = 0;
 
 #ifdef VORTEX_ARDUINO
-bool wasAboveThreshold = false;  // this will store the last known state
-uint16_t threshold = 500;
+volatile bool wasAboveThreshold = false;  // this will store the last known state
+volatile uint16_t threshold = 500;
 #endif
 
 bool IRReceiver::init()
@@ -153,10 +153,34 @@ bool IRReceiver::endReceiving()
 }
 
 #ifdef VORTEX_ARDUINO
+
+volatile uint32_t samples_sum = 0;
+volatile uint16_t samples[NUM_SAMPLES] = {0};
+volatile uint8_t sample_index = 0;
+
+volatile uint16_t mmax = 0;
+volatile uint16_t mmin = UINT16_MAX;
+
 ISR(ADC0_WCOMP_vect)
 {
   uint16_t val = (ADC0.RES >> 2);
-  bool isAboveThreshold = (val > 250);
+  
+  //if (val > mmax) {
+	  //mmax = val;
+  //}
+  //if (val < mmin) {
+	  //mmin = val;
+  //}
+  //
+  //// Update samples_sum and samples
+  //samples_sum -= samples[sample_index];
+  //samples[sample_index] = val;
+  //samples_sum += samples[sample_index];
+  //sample_index = (sample_index + 1) % NUM_SAMPLES;
+  //// Calculate the new threshold
+  //threshold = (samples_sum / NUM_SAMPLES);
+
+  bool isAboveThreshold = (val > 400);
   //Leds::setIndex(LED_0, RGBColor(val < 256 ? val : 0, (val - 256) < 256 ? val - 256 : 0, (val - 512) < 256 ? val - 512 : 0));
   if (wasAboveThreshold != isAboveThreshold) {
     IRReceiver::recvPCIHandler();

@@ -8,8 +8,8 @@
 #define IR_ENABLE        1
 
 // the size of IR blocks in bits
-#define DEFAULT_IR_BLOCK_SIZE 32
-#define DEFAULT_IR_BLOCK_SPACING Time::msToTicks(300)
+#define DEFAULT_IR_BLOCK_SIZE 256
+#define DEFAULT_IR_BLOCK_SPACING Time::msToTicks(5)
 
 // the max number of DWORDs that will transfer
 #define MAX_DWORDS_TRANSFER 128
