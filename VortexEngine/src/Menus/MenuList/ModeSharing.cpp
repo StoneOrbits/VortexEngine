@@ -38,7 +38,7 @@ bool ModeSharing::init()
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
-#include "../../Infrared/IRConfig.h"
+
 Menu::MenuAction ModeSharing::run()
 {
   MenuAction result = Menu::run();
@@ -48,11 +48,9 @@ Menu::MenuAction ModeSharing::run()
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND:
     // render the 'send mode' lights
-    //showSendMode();
+    showSendMode();
     if (!IRSender::isSending()) {
       if (!m_lastActionTime || ((m_lastActionTime + MAX_WAIT_DURATION) < Time::getCurtime())) {
-        //Leds::setAll(RGB_TEAL);
-        //Leds::update();
         beginSending();
       }
     }
@@ -97,12 +95,6 @@ void ModeSharing::onLongClick()
 
 void ModeSharing::beginSending()
 {
-  //IRSender::sendByte(69);
-  //Leds::clearAll();
-  //Leds::update();
-  //m_lastActionTime = Time::getCurtime();
-  //return;
-  
   // if the sender is sending then cannot start again
   if (IRSender::isSending()) {
     ERROR_LOG("Cannot begin sending, sender is busy");
@@ -157,30 +149,14 @@ void ModeSharing::receiveMode()
 
 void ModeSharing::showSendMode()
 {
-  // if it is sending
-  if (IRSender::isSending()) {
-    Leds::setAll(RGB_TEAL);
-  } else {
-    Leds::setAll(RGB_BLANK);
-    Leds::blinkAll(Time::getCurtime(), 250, 250);
+  // if it is not sending show blank
+  if (!IRSender::isSending()) {
+    Leds::setAll(RGB_OFF);
   }
 }
 
 void ModeSharing::showReceiveMode()
 {
-  //Leds::clearAll();
-  // TODO: removeme
-  return;
-  if (IRReceiver::isReceiving()) {
-    // how much is sent?
-    uint32_t percent = IRReceiver::percentReceived();
-	// add half of the divisor to round instead of floor
-	LedPos l = (LedPos)((percent * LED_COUNT + 50) / 100);
-    Leds::setRange(LED_FIRST, l, RGB_GREEN);
-    return;
-  }
-  // gradually empty from thumb to pinkie
-  LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(200) % (LED_COUNT + 1)));
-  if (pos == LED_COUNT) return;
-  Leds::setRange(LED_FIRST, pos, RGB_PURPLE);
+  Leds::setIndex(LED_0, IRReceiver::isReceiving() ? RGB_GREEN : RGB_BLANK);
+  Leds::clearIndex(LED_1);
 }
