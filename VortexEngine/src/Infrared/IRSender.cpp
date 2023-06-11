@@ -30,11 +30,6 @@ uint32_t IRSender::m_blockSize = 0;
 // write total
 uint32_t IRSender::m_writeCounter = 0;
 
-#if defined(VORTEX_ARDUINO) && IR_ENABLE == 1
-// Timer used for PWM, is initialized in initpwm()
-//Tcc *IR_TCCx;
-#endif
-
 bool IRSender::init()
 {
   return true;
