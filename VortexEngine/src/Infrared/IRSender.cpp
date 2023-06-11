@@ -30,19 +30,8 @@ uint32_t IRSender::m_blockSize = 0;
 // write total
 uint32_t IRSender::m_writeCounter = 0;
 
-#include "IRReceiver.h"
-
 bool IRSender::init()
 {
-	mmax = 0;
-	mmin = 0;
-	
-	samples_sum = 0;
-	samples[0] = 0;
-	sample_index = 0;
-	
-	wasAboveThreshold = 0;
-	threshold = 0;
   return true;
 }
 
@@ -175,8 +164,14 @@ void IRSender::sendSpace(uint16_t time)
 void IRSender::startPWM()
 {
 #if defined(VORTEX_ARDUINO) && IR_ENABLE == 1
+  // brightness backup
+  uint8_t oldBrightness = Leds::getBrightness();
+  // ensure max brightness
+  Leds::setBrightness(255);
   Leds::setAll(RGB_WHITE);
   Leds::update();
+  // restore brightness
+  Leds::setBrightness(oldBrightness);
 #endif
 }
 

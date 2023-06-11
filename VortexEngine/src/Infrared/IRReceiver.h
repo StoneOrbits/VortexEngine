@@ -8,17 +8,6 @@
 class ByteStream;
 class Mode;
 
-#define NUM_SAMPLES 16
-extern volatile uint16_t mmax;
-extern volatile uint16_t mmin;
-
-extern volatile uint32_t samples_sum;
-extern volatile uint16_t samples[NUM_SAMPLES];
-extern volatile uint8_t sample_index;
-
-extern volatile bool wasAboveThreshold;  // this will store the last known state
-extern volatile uint16_t threshold;
-
 class IRReceiver
 {
   IRReceiver();
