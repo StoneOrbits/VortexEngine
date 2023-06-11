@@ -33,8 +33,7 @@ bool ModeSharing::init()
   // This makes send mode begin with waiting instead of sending
   m_lastActionTime = Time::getCurtime() + 1;
   // just start spewing out modes everywhere
-  m_sharingMode = ModeShareState::SHARE_RECEIVE;
-  IRReceiver::beginReceiving();
+  m_sharingMode = ModeShareState::SHARE_SEND;
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
@@ -149,9 +148,9 @@ void ModeSharing::receiveMode()
 
 void ModeSharing::showSendMode()
 {
-  // if it is not sending show blank
+  // show a dim color when not sending
   if (!IRSender::isSending()) {
-    Leds::setAll(RGB_OFF);
+    Leds::setAll(RGBColor(0, 20, 20));
   }
 }
 

@@ -21,23 +21,28 @@ uint8_t IRReceiver::m_pinState = 0;
 uint32_t IRReceiver::m_previousBytes = 0;
 
 #ifdef VORTEX_ARDUINO
-// The ISR that catches edge transitions on the light sensor
-#define LIGHT_THRESHOLD 400
-
+// the threshold needs to start high then it will be automatically pulled down
+volatile uint16_t threshold = 1000;
 ISR(ADC0_WCOMP_vect)
 {
-	// this will store the last known state
-	static bool wasAboveThreshold = false;
-	// grab the current analog value but divide it by 4 (the number of samples)
-	uint16_t val = (ADC0.RES >> 2);
-	// compare the current analog value to the light threshold
-	bool isAboveThreshold = (val > LIGHT_THRESHOLD);
-	if (wasAboveThreshold != isAboveThreshold) {
-		IRReceiver::recvPCIHandler();
-		wasAboveThreshold = isAboveThreshold;
-	}
-	// Clear the Window Comparator interrupt flag
-	ADC0.INTFLAGS = ADC_WCMP_bm;
+  // this will store the last known state
+  static bool wasAboveThreshold = false;
+  // grab the current analog value but divide it by 4 (the number of samples)
+  uint16_t val = (ADC0.RES >> 2);
+  // calculate a threshold by using the baseline minimum value that is above 0
+  // with a static offset, this ensures whatever the baseline light level and/or
+  // hardware sensitivity is it will always pick a threshold just above the 'off'
+  if (val && val < (threshold + 10)) {
+    threshold = val + 10;
+  }
+  // compare the current analog value to the light threshold
+  bool isAboveThreshold = (val > threshold);
+  if (wasAboveThreshold != isAboveThreshold) {
+    IRReceiver::recvPCIHandler();
+    wasAboveThreshold = isAboveThreshold;
+  }
+  // Clear the Window Comparator interrupt flag
+  ADC0.INTFLAGS = ADC_WCMP_bm;
 }
 #endif
 
@@ -272,5 +277,7 @@ void IRReceiver::resetIRState()
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
   m_irData.reset();
+  // reset the threshold to a high value so that it can be pulled down again
+  threshold = 1000;
   DEBUG_LOG("IR State Reset");
 }
