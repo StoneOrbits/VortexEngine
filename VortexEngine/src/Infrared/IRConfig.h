@@ -12,24 +12,28 @@
 #define DEFAULT_IR_BLOCK_SPACING Time::msToTicks(300)
 
 // the max number of DWORDs that will transfer
-#define MAX_DWORDS_TRANSFER 1024
+#define MAX_DWORDS_TRANSFER 128
 #define MAX_DATA_TRANSFER (MAX_DWORDS_TRANSFER * sizeof(uint32_t))
 
 // the IR receiver buffer size in dwords
 #define IR_RECV_BUF_SIZE MAX_DATA_TRANSFER
 
-#define IR_TIMING (uint32_t)3000
-#define IR_TIMING_MIN ((uint32_t)(IR_TIMING * 0.75))
-#define IR_TIMING_MAX ((uint32_t)(IR_TIMING * 1.25))
+#define IR_THRESHOLD 0.5
+#define THRES_UP	(1 + IR_THRESHOLD)
+#define THRES_DOWN	(1 - IR_THRESHOLD)
+
+#define IR_TIMING (uint32_t)2800
+#define IR_TIMING_MIN ((uint32_t)(IR_TIMING * THRES_DOWN))
+#define IR_TIMING_MAX ((uint32_t)(IR_TIMING * THRES_UP))
 
 #define HEADER_MARK (uint32_t)(IR_TIMING * 16)
 #define HEADER_SPACE (uint32_t)(IR_TIMING * 8)
 
-#define HEADER_MARK_MIN ((uint32_t)(HEADER_MARK * 0.75))
-#define HEADER_SPACE_MIN ((uint32_t)(HEADER_SPACE * 0.75))
+#define HEADER_MARK_MIN ((uint32_t)(HEADER_MARK * THRES_DOWN))
+#define HEADER_SPACE_MIN ((uint32_t)(HEADER_SPACE * THRES_DOWN))
 
-#define HEADER_MARK_MAX ((uint32_t)(HEADER_MARK * 1.25))
-#define HEADER_SPACE_MAX ((uint32_t)(HEADER_SPACE * 1.25))
+#define HEADER_MARK_MAX ((uint32_t)(HEADER_MARK * THRES_UP))
+#define HEADER_SPACE_MAX ((uint32_t)(HEADER_SPACE * THRES_UP))
 
 #define DIVIDER_SPACE HEADER_MARK
 #define DIVIDER_SPACE_MIN HEADER_MARK_MIN

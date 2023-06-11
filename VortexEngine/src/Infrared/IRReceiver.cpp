@@ -32,46 +32,57 @@ bool IRReceiver::init()
   PORTB.PIN1CTRL &= ~PORT_ISC_gm;
   PORTB.PIN1CTRL |= PORT_ISC_INPUT_DISABLE_gc;
 #endif
-  m_irData.init(IR_RECV_BUF_SIZE);
-  return true;
+  return m_irData.init(IR_RECV_BUF_SIZE);
 }
 
 void IRReceiver::cleanup()
 {
 }
 
+
+__attribute__ ((noinline)) void done2() {
+	Leds::update();
+}
+
 bool IRReceiver::dataReady()
 {
   // is the receiver actually receiving data?
-  //if (!isReceiving()) {
-    //return false;
+  if (!isReceiving()) {
+    return false;
+  }
+  //// read the size out
+
+  //if (blocks == 0) {
+	  //return false;  
   //}
-  if (m_irData.bitpos() < 7) {
-	  return false;
-  }
-  // read the size out
+  //if (blocks == 69) {
+	  //Leds::setAll(RGB_GREEN);
+  //} else {
+	  //Leds::setAll(blocks > 69 ? RGB_BLUE : RGB_RED);
+  //}
+  //done2();
+  //int i = 500;
+  //while (i-- > 0) delayMicroseconds(1000);
+  //resetIRState();
+  //Leds::clearAll();
+  //Leds::update();
+  //return false;
+  //done2();
   uint8_t blocks = m_irData.data()[0];
-  if (blocks == 0) {
-	  return false;  
-  }
-  if (blocks == 69) {
-	  Leds::setAll(RGB_GREEN);
-  } else {
-	  Leds::setAll(blocks > 69 ? RGB_BLUE : RGB_RED);
-  }
-  Leds::update();
-  int i = 50;
-  while (i-- > 0) delayMicroseconds(1000);
-  resetIRState();
-  Leds::clearAll();
-  Leds::update();
-  return false;
   uint8_t remainder = m_irData.data()[1];
   uint32_t total = ((blocks - 1) * 32) + remainder;
   if (!total || total > MAX_DATA_TRANSFER) {
     DEBUG_LOGF("Bad IR Data size: %u", total);
     return false;
   }
+  //uint32_t pos = m_irData.bytepos();
+  //bool success = (pos >= (uint32_t)(total + 2));
+  //if (success) {
+    	//Leds::setAll(RGB_GREEN);
+  	//Leds::update();
+  	//while(1);
+  //}
+  //done2();
   //dostuff(total);
   // if there are size + 2 bytes in the IRData receiver
   // then a full message is ready, the + 2 is from the
@@ -108,6 +119,9 @@ bool IRReceiver::receiveMode(Mode *pMode)
   if (!read(buf)) {
     // no data to read right now, or an error
     DEBUG_LOG("No data available to read, or error reading");
+	  Leds::setAll(RGB_RED);
+	  Leds::update();
+	  while(1);
     return false;
   }
   DEBUG_LOGF("Received %u bytes", buf.rawSize());
@@ -174,10 +188,10 @@ bool IRReceiver::endReceiving()
 }
 
 #ifdef VORTEX_ARDUINO
-#define NUM_SAMPLES 16
-uint32_t samples_sum = 0;
-uint16_t samples[NUM_SAMPLES] = {0};
-uint8_t sample_index = 0;
+//#define NUM_SAMPLES 16
+//uint32_t samples_sum = 0;
+//uint16_t samples[NUM_SAMPLES] = {0};
+//uint8_t sample_index = 0;
 
 ISR(ADC0_WCOMP_vect)
 {
@@ -261,21 +275,26 @@ void IRReceiver::recvPCIHandler()
   handleIRTiming(diff);
 }
 
-int a = 0;
-
-#define num_diffs 16
-
-uint32_t diffs[num_diffs] = {0};
-	#include <string.h>
-	__attribute__ ((noinline)) void done() {
-		memset(diffs, 0, sizeof(diffs));
-		a = 0;
-	}
+	//__attribute__ ((noinline)) void done() {
+		////memset(diffs, 0, sizeof(diffs));
+		////a = 0;
+		////mm = true;
+		////g_data.ddone = true;
+	//}
 
 // state machine that can be fed IR timings to parse them and interpret the intervals
 void IRReceiver::handleIRTiming(uint32_t diff)
 {
-
+  //if (!g_data.mm && !g_data.ddone) {
+	  //if (g_data.amt < NUMDIFFS) {
+		//diffs[g_data.amt++] = (uint8_t)(diff > (IR_TIMING * 2)) ? 1 : 0;
+	  //}
+	////if (g_data.amt >= NUMDIFFS) {
+	  ////done();
+	////}
+  //}
+  //g_data.mm = !g_data.mm;
+  //return;
   //int i = 50;
   //while (i-- > 0) delayMicroseconds(10000);
   //if (diff > IR_TIMING_MIN && diff < IR_TIMING_MAX) {
@@ -297,7 +316,7 @@ void IRReceiver::handleIRTiming(uint32_t diff)
   }
   switch (m_recvState) {
   case WAITING_HEADER_MARK: // initial state
-    if (diff >= HEADER_MARK_MIN && diff <= HEADER_MARK_MAX) {
+    if (diff >= HEADER_SPACE_MIN && diff <= HEADER_MARK_MAX) {
       m_recvState = WAITING_HEADER_SPACE;
     } else {
       DEBUG_LOGF("Bad header mark %u, resetting...", diff);
@@ -305,7 +324,7 @@ void IRReceiver::handleIRTiming(uint32_t diff)
     }
     break;
   case WAITING_HEADER_SPACE:
-    if (diff >= HEADER_SPACE_MIN && diff <= HEADER_SPACE_MAX) {
+    if (diff >= HEADER_SPACE_MIN && diff <= HEADER_MARK_MAX) {
       m_recvState = READING_DATA_MARK;
     } else {
       DEBUG_LOGF("Bad header space %u, resetting...", diff);
@@ -315,28 +334,24 @@ void IRReceiver::handleIRTiming(uint32_t diff)
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
 	m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
-	diffs[a++] = diff;
+	//diffs[g_data.amt++] = (uint8_t)(diff > (IR_TIMING * 2)) ? 1 : 0;
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
     // the space could be just a regular space, or a gap in between blocks
     m_recvState = READING_DATA_MARK;
-	diffs[a++] = diff;
     break;
   default: // ??
     DEBUG_LOGF("Bad receive state: %u", m_recvState);
     break;
-  }
-  if (a >= num_diffs) {
-	  done();
   }
 }
 
 void IRReceiver::resetIRState()
 {
   m_previousBytes = 0;
-  //m_recvState = WAITING_HEADER_MARK;
-  m_recvState = READING_DATA_MARK;
+  m_recvState = WAITING_HEADER_MARK;
+  //m_recvState = READING_DATA_MARK;
   // zero out the receive buffer and reset bit receiver position
   m_irData.reset();
   DEBUG_LOG("IR State Reset");

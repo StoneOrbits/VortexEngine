@@ -259,7 +259,7 @@
 // This is the amount of time in ms for the IR receiver to wait
 // before reseting itself in the case that communication gets
 // interrupted.
-#define IR_RECEIVER_TIMEOUT_DURATION 1000
+#define IR_RECEIVER_TIMEOUT_DURATION 3000
 
 // IR Sender Wait Duration (ms)
 //

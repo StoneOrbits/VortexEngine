@@ -31,22 +31,25 @@ BitStream::~BitStream()
   }
 }
 
-void BitStream::init(uint8_t *buf, uint32_t size)
+bool BitStream::init(uint8_t *buf, uint32_t size)
 {
   m_buf = buf;
   m_buf_size = size;
   resetPos();
+  return true;
 }
 
-void BitStream::init(uint32_t size)
+bool BitStream::init(uint32_t size)
 {
   m_buf = (uint8_t *)vcalloc(1, size);
   if (!m_buf) {
     ERROR_OUT_OF_MEMORY();
+	return false;
   }
   m_buf_size = size;
   m_allocated = true;
   resetPos();
+  return true;
 }
 
 void BitStream::reset()

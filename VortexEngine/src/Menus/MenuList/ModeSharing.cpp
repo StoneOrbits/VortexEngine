@@ -57,7 +57,7 @@ Menu::MenuAction ModeSharing::run()
       }
     }
     // continue sending any data as long as there is more to send
-    //continueSending();
+    continueSending();
     break;
   case ModeShareState::SHARE_RECEIVE:
     // render the 'receive mode' lights
@@ -97,11 +97,11 @@ void ModeSharing::onLongClick()
 
 void ModeSharing::beginSending()
 {
-  IRSender::sendByte(69);
-  Leds::clearAll();
-  Leds::update();
-  m_lastActionTime = Time::getCurtime();
-  return;
+  //IRSender::sendByte(69);
+  //Leds::clearAll();
+  //Leds::update();
+  //m_lastActionTime = Time::getCurtime();
+  //return;
   
   // if the sender is sending then cannot start again
   if (IRSender::isSending()) {
