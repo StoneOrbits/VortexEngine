@@ -44,8 +44,8 @@ bool IRSender::loadMode(const Mode *targetMode)
   m_serialBuf.clear();
   // save the target mode to it's savefile buffer format
   if (!targetMode->saveToBuffer(m_serialBuf)) {
-	  DEBUG_LOG("Failed to save mode to buffer");
-	  return false;
+    DEBUG_LOG("Failed to save mode to buffer");
+    return false;
   }
   // ensure the data isn't too big
   if (m_serialBuf.rawSize() > MAX_DATA_TRANSFER) {

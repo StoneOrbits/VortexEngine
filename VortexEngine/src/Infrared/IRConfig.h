@@ -18,9 +18,9 @@
 // the IR receiver buffer size in dwords
 #define IR_RECV_BUF_SIZE MAX_DATA_TRANSFER
 
-#define IR_THRESHOLD 0.5
-#define THRES_UP	(1 + IR_THRESHOLD)
-#define THRES_DOWN	(1 - IR_THRESHOLD)
+#define IR_THRESHOLD  0.5
+#define THRES_UP      (1 + IR_THRESHOLD)
+#define THRES_DOWN    (1 - IR_THRESHOLD)
 
 #define IR_TIMING (uint32_t)2800
 #define IR_TIMING_MIN ((uint32_t)(IR_TIMING * THRES_DOWN))

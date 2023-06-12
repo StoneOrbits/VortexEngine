@@ -258,7 +258,7 @@ void IRReceiver::handleIRTiming(uint32_t diff)
     break;
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
-	m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
+    m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:

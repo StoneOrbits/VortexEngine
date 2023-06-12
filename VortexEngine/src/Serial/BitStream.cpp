@@ -44,7 +44,7 @@ bool BitStream::init(uint32_t size)
   m_buf = (uint8_t *)vcalloc(1, size);
   if (!m_buf) {
     ERROR_OUT_OF_MEMORY();
-	return false;
+    return false;
   }
   m_buf_size = size;
   m_allocated = true;
