@@ -21,8 +21,11 @@ uint8_t IRReceiver::m_pinState = 0;
 uint32_t IRReceiver::m_previousBytes = 0;
 
 #ifdef VORTEX_ARDUINO
+#define MIN_THRESHOLD   200
+#define BASE_OFFSET     100
+#define THRESHOLD_BEGIN (MIN_THRESHOLD + BASE_OFFSET)
 // the threshold needs to start high then it will be automatically pulled down
-volatile uint16_t threshold = 1000;
+uint16_t threshold = THRESHOLD_BEGIN;
 ISR(ADC0_WCOMP_vect)
 {
   // this will store the last known state
@@ -32,8 +35,8 @@ ISR(ADC0_WCOMP_vect)
   // calculate a threshold by using the baseline minimum value that is above 0
   // with a static offset, this ensures whatever the baseline light level and/or
   // hardware sensitivity is it will always pick a threshold just above the 'off'
-  if (val && val < (threshold + 10)) {
-    threshold = val + 10;
+  if (val > MIN_THRESHOLD && val < (threshold + BASE_OFFSET)) {
+    threshold = val + BASE_OFFSET;
   }
   // compare the current analog value to the light threshold
   bool isAboveThreshold = (val > threshold);
@@ -278,6 +281,6 @@ void IRReceiver::resetIRState()
   // zero out the receive buffer and reset bit receiver position
   m_irData.reset();
   // reset the threshold to a high value so that it can be pulled down again
-  threshold = 1000;
+  threshold = THRESHOLD_BEGIN;
   DEBUG_LOG("IR State Reset");
 }

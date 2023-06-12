@@ -32,8 +32,10 @@ bool ModeSharing::init()
   m_ledSelected = true;
   // This makes send mode begin with waiting instead of sending
   m_lastActionTime = Time::getCurtime() + 1;
-  // just start spewing out modes everywhere
-  m_sharingMode = ModeShareState::SHARE_SEND;
+  // start on receive because it's the more responsive of the two
+  // the odds of opening receive and then accidentally receiving
+  // a mode that is being broadcast nearby is completely unlikely
+  m_sharingMode = ModeShareState::SHARE_RECEIVE;
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
