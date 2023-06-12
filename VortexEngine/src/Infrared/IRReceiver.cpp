@@ -101,7 +101,8 @@ uint32_t IRReceiver::percentReceived()
   uint8_t blocks = m_irData.data()[0];
   uint8_t remainder = m_irData.data()[1];
   uint32_t total = ((blocks - 1) * 32) + remainder;
-  return (uint32_t)((m_irData.bytepos() * 100) / (total * 100));
+  // round by adding half of the total to the numerator
+  return (uint32_t)((m_irData.bytepos() * 100 + (total / 2)) / total);
 }
 
 bool IRReceiver::receiveMode(Mode *pMode)
@@ -280,7 +281,9 @@ void IRReceiver::resetIRState()
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
   m_irData.reset();
+#ifdef VORTEX_ARDUINO
   // reset the threshold to a high value so that it can be pulled down again
   threshold = THRESHOLD_BEGIN;
+#endif
   DEBUG_LOG("IR State Reset");
 }
