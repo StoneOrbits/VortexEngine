@@ -36,6 +36,8 @@ bool ModeSharing::init()
   // the odds of opening receive and then accidentally receiving
   // a mode that is being broadcast nearby is completely unlikely
   m_sharingMode = ModeShareState::SHARE_RECEIVE;
+  // need to trigger the receiver to start right away
+  IRReceiver::beginReceiving();
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
