@@ -1206,7 +1206,7 @@ void Leds::update()
 #ifdef VORTEX_ARDUINO
   // swap red and green channels back so all algorithms continue working
   SWAP(m_ledColors[LED_1].red, m_ledColors[LED_1].green);
-
+  // restore the led colors from the backup (brightness mod)
   memcpy(m_ledColors, ledbackups, sizeof(m_ledColors));
 #endif
 }
