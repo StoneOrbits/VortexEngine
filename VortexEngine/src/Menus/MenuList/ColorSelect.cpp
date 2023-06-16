@@ -248,20 +248,23 @@ void ColorSelect::showSelection(ColorSelectState mode)
     return;
   case STATE_PICK_HUE2:
     hue = m_base.hue + (m_curSelection * (255 / 16));
+    Leds::setIndex(LED_1, RGB_BLANK);
     break;
   case STATE_PICK_SAT:
     sat = sats[m_curSelection];
+    Leds::breathIndexSat(LED_1, hue, (uint32_t)(Time::getCurtime() / 10), 50, 255, 150);
     break;
   case STATE_PICK_VAL:
     val = vals[m_curSelection];
+    Leds::breathIndexVal(LED_1, hue, (uint32_t)(Time::getCurtime() / 10), 50, sat, 150);
     break;
   }
 
   Leds::setMap(MAP_PAIR_ODDS, HSVColor(hue, sat, val));
-  uint8_t satt = (mode == STATE_PICK_SAT) ? m_newColor.sat : 30;
-  MAP_FOREACH_LED(MAP_PAIR_EVENS) {
-    Leds::breathIndex(pos, hue, (uint32_t)(Time::getCurtime() / 3), 100, satt, 30);
-  }
+  //uint8_t satt = (mode == STATE_PICK_SAT) ? m_newColor.sat : 30;
+  //MAP_FOREACH_LED(MAP_PAIR_EVENS) {
+  //  Leds::breathIndex(pos, hue, (uint32_t)(Time::getCurtime() / 3), 100, satt, 30);
+  //}
 }
 
 void ColorSelect::showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs)
