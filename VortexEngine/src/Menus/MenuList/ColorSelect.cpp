@@ -14,9 +14,11 @@ ColorSelect::ColorSelect(const RGBColor &col) :
   Menu(col),
   m_state(STATE_PICK_SLOT),
   m_newColor(),
-  m_base(),
   m_colorset(),
-  m_targetSlot(0)
+  m_targetSlot(0),
+  m_targetHue1(0),
+  m_targetHue2(0),
+  m_targetSat(0)
 {
   // NOTE! Specifically using hsv_to_rgb_rainbow instead of generic because
   // it will generate nicer looking colors and a nicer rainbow to select
@@ -64,7 +66,10 @@ Menu::MenuAction ColorSelect::run()
     // we can fetch the correct colorset to work with
     //m_newColor.clear();
     m_newColor = HSVColor(0, 255, 255);
-    m_base = HSVColor(0, 0, 0);
+    m_targetSlot = 0;
+    m_targetHue1 = 0;
+    m_targetHue2 = 0;
+    m_targetSat = 0;
     m_curSelection = 0;
     m_targetSlot = 0;
     // grab the colorset from our selected target led
@@ -122,15 +127,13 @@ void ColorSelect::onLongClick()
       // back to the slot we selected
       m_curSelection = m_targetSlot;
     } else {
-      // otherwise reset our selection position to 0
+      // otherwise reset our selection position based on the state
       // NOTE: we could try to reset our position to whatever we selected
-      //       on the previous menu but it's not worth the effort
+      //       on the previous menu but we found that it's actually more
+      //       visually appealing to return to the first selection on the
+      //       previous menu, otherwise it can be harder to tell whether
+      //       you have gone back a menu or not
       m_curSelection = 0;
-    }
-    // if returning to hue2, reset sat to maximum
-    if (m_state == STATE_PICK_HUE2) {
-      m_newColor.sat = 255;
-      m_newColor.hue = 0;
     }
     return;
   }
@@ -172,16 +175,19 @@ void ColorSelect::onLongClick()
     m_targetSlot = m_curSelection;
     break;
   case STATE_PICK_HUE1:
-    m_newColor.hue = m_curSelection * (255 / 4);
-    m_base.hue = m_curSelection * (255 / 4);
+    m_targetHue1 = m_curSelection;
+    m_newColor.hue = m_targetHue1 * (255 / 4);
     break;
   case STATE_PICK_HUE2:
-    m_newColor.hue += m_curSelection * (255 / 16);
+    m_targetHue2 = m_curSelection;
+    m_newColor.hue = (m_targetHue1 * (255 / 4)) + m_targetHue2 * (255 / 16);
     break;
   case STATE_PICK_SAT:
-    m_newColor.sat = sats[m_curSelection];
+    m_targetSat = m_curSelection;
+    m_newColor.sat = sats[m_targetSat];
     break;
   case STATE_PICK_VAL:
+    // no m_targetVal because you can't go back after this
     m_newColor.val = vals[m_curSelection];
     // specifically using hsv to rgb rainbow to generate the color
     m_colorset.set(m_targetSlot, m_newColor);
@@ -245,10 +251,15 @@ void ColorSelect::showSelection(ColorSelectState mode)
     hue = m_curSelection * (255 / 4);
     Leds::breathIndex(LED_0, hue, (uint32_t)(Time::getCurtime() / 2), 22, 255, 180);
     Leds::breathIndex(LED_1, hue, (uint32_t)(Time::getCurtime() / 2) + 125, 22, 255, 180);
+    // force sat at hue level1
+    sat = 255;
+    // NOTE: return here
     return;
   case STATE_PICK_HUE2:
-    hue = m_base.hue + (m_curSelection * (255 / 16));
+    hue = m_targetHue1 * (255 / 4) + (m_curSelection * (255 / 16));
     Leds::setIndex(LED_1, RGB_BLANK);
+    // force sat at hue level2
+    sat = 255;
     break;
   case STATE_PICK_SAT:
     sat = sats[m_curSelection];
@@ -259,12 +270,7 @@ void ColorSelect::showSelection(ColorSelectState mode)
     Leds::breathIndexVal(LED_1, hue, (uint32_t)(Time::getCurtime() / 10), 50, sat, 150);
     break;
   }
-
-  Leds::setMap(MAP_PAIR_ODDS, HSVColor(hue, sat, val));
-  //uint8_t satt = (mode == STATE_PICK_SAT) ? m_newColor.sat : 30;
-  //MAP_FOREACH_LED(MAP_PAIR_EVENS) {
-  //  Leds::breathIndex(pos, hue, (uint32_t)(Time::getCurtime() / 3), 100, satt, 30);
-  //}
+  Leds::setMap(MAP_PAIR_EVENS, HSVColor(hue, sat, val));
 }
 
 void ColorSelect::showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs)
