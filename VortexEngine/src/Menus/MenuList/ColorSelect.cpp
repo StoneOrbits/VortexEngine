@@ -14,6 +14,7 @@ ColorSelect::ColorSelect(const RGBColor &col) :
   Menu(col),
   m_state(STATE_PICK_SLOT),
   m_newColor(),
+  m_base(),
   m_colorset(),
   m_targetSlot(0)
 {
@@ -63,6 +64,7 @@ Menu::MenuAction ColorSelect::run()
     // we can fetch the correct colorset to work with
     //m_newColor.clear();
     m_newColor = HSVColor(0, 255, 255);
+    m_base = HSVColor(0, 0, 0);
     m_curSelection = 0;
     m_targetSlot = 0;
     // grab the colorset from our selected target led
@@ -125,6 +127,11 @@ void ColorSelect::onLongClick()
       //       on the previous menu but it's not worth the effort
       m_curSelection = 0;
     }
+    // if returning to hue2, reset sat to maximum
+    if (m_state == STATE_PICK_HUE2) {
+      m_newColor.sat = 255;
+      m_newColor.hue = 0;
+    }
     return;
   }
   switch (m_state) {
@@ -166,6 +173,7 @@ void ColorSelect::onLongClick()
     break;
   case STATE_PICK_HUE1:
     m_newColor.hue = m_curSelection * (255 / 4);
+    m_base.hue = m_curSelection * (255 / 4);
     break;
   case STATE_PICK_HUE2:
     m_newColor.hue += m_curSelection * (255 / 16);
@@ -203,17 +211,20 @@ void ColorSelect::showSlotSelection()
     Leds::blinkIndex(LED_COUNT, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
   } else if (m_colorset.numColors() < MAX_COLOR_SLOTS) {
     if (m_curSelection == m_colorset.numColors()) {
-      // blink faster to indicate 'add' new color
+      // blink both leds and blink faster to indicate 'add' new color
       Leds::blinkAll(Time::getCurtime(), 100, 150, RGB_BLANK);
-    }
+     }
     exitIndex = m_colorset.numColors() + 1;
   }
 
   if (m_curSelection == exitIndex) {
     showFullSet(LED_0, Time::getCurtime(), 50, 100);
+    // set LED_1 to green to indicate save and exit
+    Leds::setIndex(LED_1, 0x000500);
+    // if not on exitIndex or add new color set LED_1 based on button state
+  } else if (m_curSelection != m_colorset.numColors()) {
+    Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_OFF : 0x050505);
   }
-
-  Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_OFF : 0x050505);
 }
 
 void ColorSelect::showSelection(ColorSelectState mode)
@@ -236,7 +247,7 @@ void ColorSelect::showSelection(ColorSelectState mode)
     Leds::breathIndex(LED_1, hue, (uint32_t)(Time::getCurtime() / 2) + 125, 22, 255, 180);
     return;
   case STATE_PICK_HUE2:
-    hue += (m_curSelection * (255 / 16));
+    hue = m_base.hue + (m_curSelection * (255 / 16));
     break;
   case STATE_PICK_SAT:
     sat = sats[m_curSelection];

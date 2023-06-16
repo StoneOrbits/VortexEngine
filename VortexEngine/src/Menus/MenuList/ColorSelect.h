@@ -54,6 +54,8 @@ private:
   ColorSelectState m_state;
   // the new color being built via hue, sat then val
   HSVColor m_newColor;
+  // a color used to return to earlier levels of the color selection
+  HSVColor m_base;
   // A copy of the colorset being changed
   Colorset m_colorset;
   // the target slot in the color slot that was selected
