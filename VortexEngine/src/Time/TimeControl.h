@@ -109,6 +109,7 @@ private:
 };
 
 void delayMicroseconds(uint16_t us);
+void delay(uint16_t ms);
 unsigned long micros();
 
 #endif

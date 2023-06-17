@@ -457,6 +457,14 @@ __attribute__ ((noinline)) void delayMicroseconds(uint16_t us)
   );
   // return = 4 cycles
 }
+
+// not very accurate
+__attribute__((noinline)) void delay(uint16_t ms)
+{
+  for (uint16_t i = 0; i < ms; ++i) {
+    delayMicroseconds(1000);
+  }
+}
 #endif // VORTEX_ARDUINO
 
 #if TIMER_TEST == 1

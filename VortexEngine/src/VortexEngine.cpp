@@ -134,7 +134,7 @@ void VortexEngine::tick()
 // warning this function is quite heavy at this point, it could probably be split
 void VortexEngine::runMainLogic()
 {
-  // if the device is locked then that takes priority over all, while locked the 
+  // if the device is locked then that takes priority over all, while locked the
   // device will only listen for clicks to wakeup momentarily then go back to sleep
   if (Modes::locked()) {
     // several fast clicks will unlock the device

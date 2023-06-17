@@ -14,7 +14,9 @@
 #include "../../Log/Log.h"
 
 Randomizer::Randomizer(const RGBColor &col) :
-  Menu(col)
+  Menu(col),
+  m_lastRandomization(0),
+  m_autoMode(false)
 {
 }
 
@@ -73,14 +75,28 @@ Menu::MenuAction Randomizer::run()
     m_pCurMode->init();
   }
 
+  // if the user fast-clicks 3 times then toggle automode
+  if (g_pButton->onRelease() && g_pButton->consecutivePresses() == 3) {
+    m_autoMode = !m_autoMode;
+    // display a quick flash of either green or red to indicate whether auto mode is on or not
+    Leds::setAll((m_autoMode ? RGB_GREEN : RGB_RED));
+    Leds::update();
+    delay(250);
+    return MENU_CONTINUE;
+  }
+
+  if (m_autoMode && (m_lastRandomization + AUTO_RANDOM_DELAY_TICKS < Time::getCurtime())) {
+    m_lastRandomization = Time::getCurtime();
+    reRoll();
+  }
+
   // display the randomized mode
   if (m_pCurMode) {
     m_pCurMode->play();
   }
 
-  if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
-    Leds::setAll(RGB_DIM_WHITE2);
-  }
+  // show the selection
+  showSelect();
 
   // return true to continue staying in randomizer menu
   return MENU_CONTINUE;

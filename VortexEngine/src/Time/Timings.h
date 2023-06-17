@@ -24,6 +24,8 @@
 #define CONSECUTIVE_WINDOW_TICKS      Time::msToTicks(CONSECUTIVE_WINDOW)
 #define UNLOCK_WAKE_WINDOW_TICKS      Time::msToTicks(UNLOCK_WAKE_WINDOW)
 
+#define AUTO_RANDOM_DELAY_TICKS       Time::msToTicks(AUTO_RANDOM_DELAY)
+
 // Color delete threshold (in milliseconds)
 #define DELETE_THRESHOLD_TICKS        Time::msToTicks(COL_DELETE_THRESHOLD)
 // Color delete cycle time (in milliseconds)
