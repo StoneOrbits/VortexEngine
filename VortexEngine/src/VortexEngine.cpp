@@ -167,6 +167,19 @@ void VortexEngine::runMainLogic()
     return;
   }
 
+#ifdef VORTEX_ARDUINO
+  // ESD PROTECTION!
+  // Sometimes the chip can be turned on via ESD triggering the wakeup pin
+  // if the engine makes it here in less than 2 ticks that means the device turned on
+  // via ESD and not via a normal click which cannot possibly be done in less than 1 tick
+  if (Time::getCurtime() < 2) {
+    // if that happens then just gracefully go back to sleep to prevent the chip
+    // from turning on randomly in a plastic bag
+    enterSleep();
+    return;
+  }
+#endif
+
   // finally the user has released the button after initially turning it on,
   // just run the regular main logic of the system
 
