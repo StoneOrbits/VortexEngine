@@ -32,6 +32,8 @@ Menu::MenuAction PatternSelect::run()
   }
   // run the current mode
   m_pCurMode->play();
+  // show selections
+  showSelect();
   return MENU_CONTINUE;
 }
 

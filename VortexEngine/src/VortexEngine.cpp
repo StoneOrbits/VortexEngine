@@ -219,8 +219,8 @@ void VortexEngine::runMainLogic()
   }
 
   // lastly check if we are locking the device, which can only happen if they click the
-  // button 5 times quickly starting from sleep
-  if (g_pButton->consecutivePresses() >= DEVICE_LOCK_CLICKS && g_pButton->releaseCount() == 6) {
+  // button 5 times quickly when the device was off, so 4 times in the first x ticks
+  if (g_pButton->consecutivePresses() >= DEVICE_LOCK_CLICKS && Time::getCurtime() < (CONSECUTIVE_WINDOW_TICKS * 4)) {
     // lock and just go to sleep
     Modes::setLocked(true);
     enterSleep();
