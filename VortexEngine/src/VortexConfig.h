@@ -155,12 +155,12 @@
 //
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    185
+#define DEFAULT_BRIGHTNESS    255
 
 // Default Global Dimness
 //
 // The starting default dim level when switching to low brightness mode
-#define DEFAULT_DIMNESS       50
+#define DEFAULT_DIMNESS       64
 
 // Max Modes
 //
