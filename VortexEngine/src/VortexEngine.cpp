@@ -64,6 +64,8 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
+  
+  Menus::openMenu(MENU_MODE_SHARING);
 
 #if COMPRESSION_TEST == 1
   compressionTest();
