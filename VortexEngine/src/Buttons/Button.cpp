@@ -18,6 +18,8 @@ Button::Button() :
   m_releaseTime(0),
   m_holdDuration(0),
   m_releaseDuration(0),
+  m_consecutivePresses(0),
+  m_releaseCount(0),
   m_buttonState(false),
   m_newPress(false),
   m_newRelease(false),
@@ -37,10 +39,12 @@ bool Button::init()
   m_releaseTime = 0;
   m_holdDuration = 0;
   m_releaseDuration = 0;
-  m_buttonState = false;
+  m_consecutivePresses = 0;
+  m_releaseCount = 0;
+  m_buttonState = check();
   m_newPress = false;
   m_newRelease = false;
-  m_isPressed = false;
+  m_isPressed = m_buttonState;
   m_shortClick = false;
   m_longClick = false;
 
@@ -56,7 +60,12 @@ bool Button::init()
   return true;
 }
 
-void Button::check()
+bool Button::check()
+{
+  return (digitalRead(m_pinNum) == 0);
+}
+
+void Button::update()
 {
   // reset the new press/release members this tick
   m_newPress = false;
@@ -98,7 +107,15 @@ void Button::check()
     // update the release duration as long as the button is released
     if (Time::getCurtime() >= m_releaseTime) {
       m_releaseDuration = (uint32_t)(Time::getCurtime() - m_releaseTime);
+      if (m_releaseDuration > CONSECUTIVE_WINDOW_TICKS) {
+        // if the release duration is greater than the threshold, reset the consecutive presses
+        m_consecutivePresses = 0;
+      }
     }
+  }
+
+  if (m_newRelease) {
+    m_consecutivePresses++;
   }
 
   // whether a shortclick or long click just occurred

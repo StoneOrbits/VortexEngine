@@ -76,6 +76,8 @@ public:
   static uint32_t totalStorageSpace();
   // the size of the savefile
   static uint32_t savefileSize();
+  // whether sleeping or not, some versions support sleep
+  static bool isSleeping() { return false; }
 #endif
 
   // enter sleep mode, technically still available outside arduino for logging purposes

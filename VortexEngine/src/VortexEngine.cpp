@@ -81,6 +81,7 @@ void VortexEngine::cleanup()
   // cleanup in reverse order
   // NOTE: the arduino doesn't actually cleanup,
   //       but the test frameworks do
+#ifdef VORTEX_LIB
   Modes::cleanup();
   Menus::cleanup();
   Buttons::cleanup();
@@ -89,6 +90,7 @@ void VortexEngine::cleanup()
   IRReceiver::cleanup();
   Storage::cleanup();
   Time::cleanup();
+#endif
 }
 
 void VortexEngine::tick()
@@ -106,9 +108,8 @@ void VortexEngine::tick()
   // tick the current time counter forward
   Time::tickClock();
 
-  // don't poll the button till some cycles have passed, this prevents
-  // the wakeup from cycling to the next mode
-  Buttons::check();
+  // poll the button(s) and update the button object states
+  Buttons::update();
 
   // run the main logic for the engine
   runMainLogic();

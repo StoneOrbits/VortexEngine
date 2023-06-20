@@ -31,17 +31,11 @@ void Buttons::cleanup()
   g_pButton = nullptr;
 }
 
-void Buttons::check()
+void Buttons::update()
 {
-#ifndef VORTEX_LIB
-  // on real devices ignore button presses at startup
-  if (Time::getCurtime() <= IGNORE_BUTTON_TICKS) {
-    return;
-  }
-#endif
   // would iterate all buttons and check them here
   // but there's only one button so
-  g_pButton->check();
+  g_pButton->update();
 #ifdef VORTEX_LIB
   // read input from the vortex lib interface, for example Vortex::shortClick()
   Vortex::handleInputQueue(g_pButton, NUM_BUTTONS);

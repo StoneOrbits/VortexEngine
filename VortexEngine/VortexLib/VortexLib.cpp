@@ -268,6 +268,11 @@ void Vortex::doCommand(char c)
   m_lastCommand = c;
 }
 
+bool Vortex::isSleeping()
+{
+  return VortexEngine::isSleeping();
+}
+
 bool Vortex::tick()
 {
   if (!m_initialized) {
