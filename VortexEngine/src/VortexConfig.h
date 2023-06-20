@@ -63,6 +63,25 @@
 // after sleep or immediately on startup
 #define IGNORE_BUTTON_TIME    150
 
+// Rapid Press Window (in milliseconds)
+//
+// How long the user has after releasing to short click the button
+// again and be counted as a 'consecutive press'
+#define CONSECUTIVE_WINDOW    150
+
+// Auto Randomization Delay (in milliseconds)
+//
+// How long the randomizer will wait before it triggers another randomization
+// when it's been set to auto mode.
+//
+// Most electronic music often falls within a range of approximately 120-130 BPM
+// To convert BPM to a measure of time in milliseconds (ms) we can do:
+// Milliseconds per beat at 128 BPM = 1/128 * 60,000 = approximately 468.75 ms
+// So, a beat at 128 BPM lasts about 468.75 ms, so 4 beats would be about 1875.
+//
+// This will make the randomizer wait approximately 4 edm beats between switches
+#define AUTO_RANDOM_DELAY     1875
+
 // Color delete threshold (in milliseconds)
 //
 // How long you must hold down on a color in the color select menu to
@@ -416,6 +435,10 @@
 
 #undef FIXED_LED_COUNT
 #define FIXED_LED_COUNT 0
+
+// test framework needs more time to click idk
+#undef CONSECUTIVE_WINDOW
+#define CONSECUTIVE_WINDOW 300
 
 // force logging to 3 on linux build
 #ifndef _MSC_VER

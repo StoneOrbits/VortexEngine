@@ -30,7 +30,7 @@ Adafruit_DotStar onboardLED(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR);
 // array of led color values
 RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 // global brightness
-uint32_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
+uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 
 bool Leds::init()
 {
@@ -247,12 +247,12 @@ void Leds::breathIndex(LedPos target, uint32_t hue, uint32_t variance, uint32_t 
 
 void Leds::breathIndexSat(LedPos target, uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
-  setIndex(target, HSVColor(hue, 255 - (uint8_t)(sat + ((sin(variance * 0.0174533) + 1) * magnitude)), val));
+  setIndex(target, HSVColor(hue, 255 - (uint8_t)(sat + 128 + ((sin(variance * 0.0174533) + 1) * magnitude)), val));
 }
 
 void Leds::breathIndexVal(LedPos target, uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
-  setIndex(target, HSVColor(hue, sat, 255 - (uint8_t)(val + ((sin(variance * 0.0174533) + 1) * magnitude))));
+  setIndex(target, HSVColor(hue, sat, 255 - (uint8_t)(val + 128 + ((sin(variance * 0.0174533) + 1) * magnitude))));
 }
 
 void Leds::update()

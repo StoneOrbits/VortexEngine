@@ -11,8 +11,9 @@
 #define MENU_TRIGGER_THRESHOLD_TICKS  Time::msToTicks(MENU_TRIGGER_TIME)
 #define SHORT_CLICK_THRESHOLD_TICKS   Time::msToTicks(CLICK_THRESHOLD)
 
-// how long after startup before the button starts responding
-#define IGNORE_BUTTON_TICKS           Time::msToTicks(IGNORE_BUTTON_TIME)
+#define CONSECUTIVE_WINDOW_TICKS      Time::msToTicks(CONSECUTIVE_WINDOW)
+
+#define AUTO_RANDOM_DELAY_TICKS       Time::msToTicks(AUTO_RANDOM_DELAY)
 
 // the number of ticks to enter sleep mode
 #define SLEEP_ENTER_THRESHOLD_TICKS   Time::msToTicks(SLEEP_TRIGGER_TIME)

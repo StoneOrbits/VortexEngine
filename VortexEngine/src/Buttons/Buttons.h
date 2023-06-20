@@ -20,7 +20,7 @@ public:
   static void cleanup();
 
   // poll the buttons
-  static void check();
+  static void update();
 
 private:
   // feel free to add more I guess

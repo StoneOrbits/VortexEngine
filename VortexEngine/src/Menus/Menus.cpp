@@ -217,6 +217,11 @@ bool Menus::checkOpen()
   return m_menuState != MENU_STATE_NOT_OPEN;
 }
 
+bool Menus::checkInMenu()
+{
+  return m_menuState == MENU_STATE_IN_MENU;
+}
+
 Menu *Menus::curMenu()
 {
   return m_pCurMenu;

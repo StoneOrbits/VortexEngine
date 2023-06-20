@@ -26,6 +26,11 @@ private:
   Random m_singlesRandCtx[LED_COUNT];
   Random m_multiRandCtx;
 
+  // the time of the last randomization
+  uint64_t m_lastRandomization;
+  // whether auto-randomize is enabled
+  bool m_autoMode;
+
   // re-roll a new randomization with a given context on an led
   bool reRoll(LedPos pos);
   bool reRoll();
