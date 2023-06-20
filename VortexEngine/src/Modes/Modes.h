@@ -14,6 +14,9 @@ class PatternArgs;
 class Colorset;
 class Mode;
 
+// the device is locked and needs to be unlocked to turn on
+#define MODES_FLAG_LOCKED (1 << 0)
+
 class Modes
 {
   // private unimplemented constructor
@@ -83,6 +86,10 @@ public:
 
   // delete all modes in the list
   static void clearModes();
+
+  // toggle the locked state
+  static bool setLocked(bool locked, bool save = true);
+  static bool locked();
 
 #if MODES_TEST == 1
   static void test();
@@ -162,6 +169,9 @@ private:
 
   // list of serialized version of bufers
   static ModeLink *m_storedModes;
+
+  // global flags for all modes
+  static uint8_t m_globalFlags;
 };
 
 #endif

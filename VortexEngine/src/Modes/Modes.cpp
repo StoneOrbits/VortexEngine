@@ -7,6 +7,7 @@
 
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
+#include "../Time/Timings.h"
 #include "../Colors/Colorset.h"
 #include "../Storage/Storage.h"
 #include "../Buttons/Buttons.h"
@@ -21,6 +22,8 @@ uint8_t Modes::m_numModes = 0;
 Modes::ModeLink *Modes::m_pCurModeLink = nullptr;
 // list of serialized version of bufers
 Modes::ModeLink *Modes::m_storedModes = nullptr;
+// global flags for all modes
+uint8_t Modes::m_globalFlags = 0;
 
 bool Modes::init()
 {
@@ -71,6 +74,9 @@ bool Modes::saveToBuffer(ByteStream &modesBuffer)
 {
   // serialize the engine version into the modes buffer
   VortexEngine::serializeVersion(modesBuffer);
+  // NOTE: instead of global brightness the duo uses this to store the
+  //       startup mode ID. The duo doesn't offer a global brightness option
+  modesBuffer.serialize(m_globalFlags);
   // serialize the global brightness
   modesBuffer.serialize((uint8_t)Leds::getBrightness());
   // serialize all modes data into the modesBuffer
@@ -102,6 +108,10 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
     ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
     return false;
   }
+  // NOTE: instead of global brightness the duo uses this to store the
+  //       startup mode ID. The duo doesn't offer a global brightness option
+  // unserialize the global brightness
+  modesBuffer.unserialize(&m_globalFlags);
   // unserialize the global brightness
   uint8_t brightness = 0;
   modesBuffer.unserialize(&brightness);
@@ -109,7 +119,17 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
     Leds::setBrightness(brightness);
   }
   // now just unserialize the list of modes
-  return unserialize(modesBuffer);
+  if (!unserialize(modesBuffer)) {
+    return false;
+  }
+  // startupMode is 1-based offset that encodes both the index to start at and
+  // whether the system is enabled, hence why 0 cannot be used as an offset
+  uint8_t startupMode = (m_globalFlags & 0xF0) >> 4;
+  if (startupMode > 0) {
+    // set the current mode to the startup mode
+    setCurMode(startupMode - 1);
+  }
+  return true;
 }
 
 bool Modes::loadStorage()
@@ -503,6 +523,22 @@ void Modes::clearModes()
   m_numModes = 0;
   // might as well clear the leds
   Leds::clearAll();
+}
+
+bool Modes::setLocked(bool locked, bool save)
+{
+  if (locked) {
+    m_globalFlags |= MODES_FLAG_LOCKED;
+  } else {
+    m_globalFlags &= ~MODES_FLAG_LOCKED;
+  }
+  DEBUG_LOGF("Toggled locked to %s", m_locked ? "on" : "off");
+  return !save || saveStorage();
+}
+
+bool Modes::locked()
+{
+  return (m_globalFlags & MODES_FLAG_LOCKED) != 0;
 }
 
 #ifdef VORTEX_LIB
