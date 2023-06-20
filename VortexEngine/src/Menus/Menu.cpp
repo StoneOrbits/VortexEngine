@@ -110,7 +110,7 @@ void Menu::showSelect()
   if (g_pButton->isPressed() &&
     g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS &&
     g_pButton->holdDuration() < (SHORT_CLICK_THRESHOLD_TICKS + Time::msToTicks(250))) {
-    Leds::setAll(RGB_DIM_WHITE1);
+    Leds::setAll(RGB_DIM_WHITE2);
   }
 }
 

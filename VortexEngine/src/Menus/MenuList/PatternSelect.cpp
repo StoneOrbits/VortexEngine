@@ -54,7 +54,8 @@ Menu::MenuAction PatternSelect::run()
     break;
   }
 
-  // continue
+  // show selections
+  showSelect();
   return MENU_CONTINUE;
 }
 

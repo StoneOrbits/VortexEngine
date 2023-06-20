@@ -29,7 +29,7 @@
 #include "Multi/BackStrobePattern.h"
 #include "Multi/MateriaPattern.h"
 
-#include "Single/TracerPattern.h"
+#include "Single/SingleLedPattern.h"
 #include "Single/BasicPattern.h"
 #include "Single/BlendPattern.h"
 #include "Single/SolidPattern.h"
@@ -145,7 +145,6 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_COMPLEMENTARY_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, 28, 0, 0, 0, 0, 2);
     case PATTERN_DASHDOPS: return PatternArgs(2, 7, 7, 30);
     case PATTERN_DASHCRUSH: return PatternArgs(4, 1, 10, 30);
-    case PATTERN_TRACER: return PatternArgs(16, 3);
     case PATTERN_RIBBON: return PatternArgs(RIBBON_DURATION);
     case PATTERN_MINIRIBBON: return PatternArgs(3);
     case PATTERN_SOLID: return PatternArgs(250);
@@ -172,7 +171,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_PULSISH: return PatternArgs(DOPISH_ON_DURATION, DOPISH_OFF_DURATION, STROBE_ON_DURATION, STROBE_OFF_DURATION, 250);
     case PATTERN_FILL: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 200);
     case PATTERN_BOUNCE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 200, 10);
-    case PATTERN_SPLITSTROBIE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 16, 3, 10, PATTERN_DOPS, PATTERN_TRACER);
+    case PATTERN_SPLITSTROBIE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 16, 3, 10, PATTERN_DOPS, PATTERN_STROBIE);
     case PATTERN_BACKSTROBE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 10, PATTERN_DOPS, PATTERN_HYPERSTROBE);
     case PATTERN_MATERIA: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 3, 35, 80);
     case PATTERN_NONE: break;
@@ -230,7 +229,6 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_BLENDSTROBE:
     case PATTERN_COMPLEMENTARY_BLEND:
     case PATTERN_COMPLEMENTARY_BLENDSTROBE: return new BlendPattern(args);
-    case PATTERN_TRACER: return new TracerPattern(args);
     case PATTERN_SOLID: return new SolidPattern(args);
 
     // =====================

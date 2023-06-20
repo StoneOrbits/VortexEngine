@@ -208,6 +208,9 @@ public:
   // per tick so multiple commands will be queued up
   static void doCommand(char c);
 
+  // whether the engine is asleep
+  static bool isSleeping();
+
   // enable, fetch and clear the internal command log
   static void enableCommandLog(bool enable) { m_commandLogEnabled = enable; }
   static const std::string &getCommandLog() { return m_commandLog; }

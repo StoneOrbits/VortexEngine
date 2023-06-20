@@ -13,9 +13,9 @@ public:
   ~BitStream();
 
   // init the stream with a buffer
-  void init(uint8_t *buf, uint32_t size);
+  bool init(uint8_t *buf, uint32_t size);
   // init the stream and allocate a buffer
-  void init(uint32_t size);
+  bool init(uint32_t size);
 
   // clear the target buffer to 0 and reset position
   void reset();
