@@ -153,6 +153,8 @@ void ModeSharing::showSendMode()
 
 void ModeSharing::showReceiveMode()
 {
-  Leds::setIndex(LED_0, IRReceiver::isReceiving() ? RGB_GREEN : RGB_BLANK);
+  // using uint32_t to avoid overflow, the result should be within 10 to 255
+  uint32_t grn = 10 + (((uint32_t)IRReceiver::percentReceived() * 245) / 100);
+  Leds::setIndex(LED_0, IRReceiver::isReceiving() ? RGBColor(0, (uint8_t)grn, 0) : RGB_BLANK);
   Leds::clearIndex(LED_1);
 }
