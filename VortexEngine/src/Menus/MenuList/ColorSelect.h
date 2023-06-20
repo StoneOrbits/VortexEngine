@@ -56,8 +56,15 @@ private:
   HSVColor m_newColor;
   // A copy of the colorset being changed
   Colorset m_colorset;
-  // the target slot in the color slot that was selected
+
+  // below are the selection indexes for each level
+
+  // the target values selected at each level to build the color, the value
+  // selected at the last level isn't stored because you can't go back after
   uint8_t m_targetSlot;
+  uint8_t m_targetHue1;
+  uint8_t m_targetHue2;
+  uint8_t m_targetSat;
 };
 
 #endif
