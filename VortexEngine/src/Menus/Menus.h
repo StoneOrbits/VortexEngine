@@ -47,6 +47,7 @@ public:
 
   // check if the menus are open
   static bool checkOpen();
+  static bool checkInMenu();
   static Menu *curMenu();
   static MenuEntryID curMenuID();
 

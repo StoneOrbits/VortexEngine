@@ -19,6 +19,7 @@ public:
 private:
   void beginSending();
   void continueSending();
+  void beginReceiving();
   void receiveMode();
 
   void showSendMode();
@@ -30,8 +31,6 @@ private:
   };
 
   ModeShareState m_sharingMode;
-  // last time data was sent
-  uint64_t m_lastActionTime;
 
   // the start time when checking for timing out
   uint64_t m_timeOutStartTime;

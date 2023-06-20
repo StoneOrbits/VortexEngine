@@ -18,8 +18,10 @@ public:
 
   // initialize a new button object with a pin number
   bool init(int pin);
-  // check the state of the button by querying the pin
-  void check();
+  // directly poll the pin for whether it's pressed right now
+  bool check();
+  // poll the button pin and update the state of the button object
+  void update();
 
   // whether the button was pressed this tick
   bool onPress() const { return m_newPress; }
@@ -43,6 +45,11 @@ public:
   // how long the button is currently or was last released for (in ticks)
   uint32_t releaseDuration() const { return m_releaseDuration; }
 
+  // the number of consecutive presses
+  uint8_t consecutivePresses() const { return m_consecutivePresses; }
+  // the number of releases
+  uint8_t releaseCount() const { return m_releaseCount; }
+
 private:
   // the pin number that is read
   int m_pinNum;
@@ -59,6 +66,11 @@ private:
   uint32_t m_holdDuration;
   // the last release duration
   uint32_t m_releaseDuration;
+
+  // the number of repeated presses (automatically detects rapid presses)
+  uint8_t m_consecutivePresses;
+  // the number of times released, will overflow at 255
+  uint8_t m_releaseCount;
 
   // the active state of the button
   bool m_buttonState;
