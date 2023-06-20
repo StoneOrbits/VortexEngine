@@ -67,17 +67,56 @@
 // How long the user has to release the button to enter sleep
 #define SLEEP_WINDOW_TIME     350
 
+// Instant On Off Time (in milliseconds)
+//
+// How long past the menus opening the user must hold in order to toggle
+// the instant on-off feature for the current mode
+#define INSTANT_ON_OFF_TIME   2000
+
+// Lock Click Window (in milliseconds)
+//
+// How long the user has to press the button 5 times in order to enable
+// or disable the light lock
+#define LOCK_CLICK_WINDOW     1000
+
 // Force Sleep Time (in milliseconds)
 //
 // How long the user has to hold the button anywhere to force sleep
-#define FORCE_SLEEP_TIME      5000
+#define FORCE_SLEEP_TIME      4269
 
-// Startup Ignore Button Time (in milliseconds)
+// Rapid Press Window (in milliseconds)
 //
-// The amount of time the engine will ignore button presses after
-// it has started up, this is to prevent accidental button presses
-// after sleep or immediately on startup
-#define IGNORE_BUTTON_TIME    150
+// How long the user has after releasing to short click the button
+// again and be counted as a 'consecutive press'
+#define CONSECUTIVE_WINDOW    150
+
+// Auto Randomization Delay (in milliseconds)
+//
+// How long the randomizer will wait before it triggers another randomization
+// when it's been set to auto mode.
+//
+// Most electronic music often falls within a range of approximately 120-130 BPM
+// To convert BPM to a measure of time in milliseconds (ms) we can do:
+// Milliseconds per beat at 128 BPM = 1/128 * 60,000 = approximately 468.75 ms
+// So, a beat at 128 BPM lasts about 468.75 ms, so 4 beats would be about 1875.
+//
+// This will make the randomizer wait approximately 4 edm beats between switches
+#define AUTO_RANDOM_DELAY     1875
+
+// Device Unlock Window (in milliseconds)
+//
+// How long the user has to perform 5 rapid clicks to unlock the device.
+// This is how long the device will turn on and wait for input before going
+// back to sleep when the button is pressed while the device is locked
+#define UNLOCK_WAKE_WINDOW    2000
+
+// Device Lock Clicks
+//
+// How many rapid clicks the user must perform to lock/unlock the device.
+// At the main menus this many rapid clicks will locks the device.
+// When the device is locked the first click will turn it on and then the user
+// has UNLOCK_WAKE_WINDOW time to press the button this many times to wake the device
+#define DEVICE_LOCK_CLICKS    5
 
 // Rapid Press Window (in milliseconds)
 //
@@ -135,7 +174,12 @@
 //
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    185
+#define DEFAULT_BRIGHTNESS    255
+
+// Default Global Dimness
+//
+// The starting default dim level when switching to low brightness mode
+#define DEFAULT_DIMNESS       64
 
 // Max Modes
 //
@@ -247,14 +291,14 @@
 // This is the amount of time in ms for the IR receiver to wait
 // before reseting itself in the case that communication gets
 // interrupted.
-#define IR_RECEIVER_TIMEOUT_DURATION 1000
+#define IR_RECEIVER_TIMEOUT_DURATION 2000
 
 // IR Sender Wait Duration (ms)
 //
 // This is the amount of time in ms for the IR sender to wait
 // between IR sends. This duration allows the user to give input
 // as it is not possible to give input during a send.
-#define IR_SENDER_WAIT_DURATION 1000
+#define IR_SENDER_WAIT_DURATION 2000
 
 // ===================================================================
 //  Boolean Configurations (0 or 1)

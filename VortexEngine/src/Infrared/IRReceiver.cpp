@@ -4,9 +4,15 @@
 #include "../Serial/BitStream.h"
 #include "../Time/TimeControl.h"
 #include "../Modes/Mode.h"
+#include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
 #include "IRConfig.h"
+
+#ifdef VORTEX_ARDUINO
+#include <avr/interrupt.h>
+#include <avr/io.h>
+#endif
 
 BitStream IRReceiver::m_irData;
 IRReceiver::RecvState IRReceiver::m_recvState = WAITING_HEADER_MARK;
@@ -14,12 +20,43 @@ uint64_t IRReceiver::m_prevTime = 0;
 uint8_t IRReceiver::m_pinState = 0;
 uint32_t IRReceiver::m_previousBytes = 0;
 
+#ifdef VORTEX_ARDUINO
+#define MIN_THRESHOLD   200
+#define BASE_OFFSET     100
+#define THRESHOLD_BEGIN (MIN_THRESHOLD + BASE_OFFSET)
+// the threshold needs to start high then it will be automatically pulled down
+uint16_t threshold = THRESHOLD_BEGIN;
+ISR(ADC0_WCOMP_vect)
+{
+  // this will store the last known state
+  static bool wasAboveThreshold = false;
+  // grab the current analog value but divide it by 4 (the number of samples)
+  uint16_t val = (ADC0.RES >> 2);
+  // calculate a threshold by using the baseline minimum value that is above 0
+  // with a static offset, this ensures whatever the baseline light level and/or
+  // hardware sensitivity is it will always pick a threshold just above the 'off'
+  if (val > MIN_THRESHOLD && val < (threshold + BASE_OFFSET)) {
+    threshold = val + BASE_OFFSET;
+  }
+  // compare the current analog value to the light threshold
+  bool isAboveThreshold = (val > threshold);
+  if (wasAboveThreshold != isAboveThreshold) {
+    IRReceiver::recvPCIHandler();
+    wasAboveThreshold = isAboveThreshold;
+  }
+  // Clear the Window Comparator interrupt flag
+  ADC0.INTFLAGS = ADC_WCMP_bm;
+}
+#endif
+
 bool IRReceiver::init()
 {
-  // TODO:
-  //pinMode(RECEIVER_PIN, INPUT_PULLUP);
-  m_irData.init(IR_RECV_BUF_SIZE);
-  return true;
+#ifdef VORTEX_ARDUINO
+  // Disable digital input buffer on the pin to save power
+  PORTB.PIN1CTRL &= ~PORT_ISC_gm;
+  PORTB.PIN1CTRL |= PORT_ISC_INPUT_DISABLE_gc;
+#endif
+  return m_irData.init(IR_RECV_BUF_SIZE);
 }
 
 void IRReceiver::cleanup()
@@ -32,7 +69,6 @@ bool IRReceiver::dataReady()
   if (!isReceiving()) {
     return false;
   }
-  // read the size out
   uint8_t blocks = m_irData.data()[0];
   uint8_t remainder = m_irData.data()[1];
   uint32_t total = ((blocks - 1) * 32) + remainder;
@@ -65,7 +101,8 @@ uint32_t IRReceiver::percentReceived()
   uint8_t blocks = m_irData.data()[0];
   uint8_t remainder = m_irData.data()[1];
   uint32_t total = ((blocks - 1) * 32) + remainder;
-  return (uint32_t)(((float)m_irData.bytepos() / (float)total) * 100.0);
+  // round by adding half of the total to the numerator
+  return (uint32_t)((m_irData.bytepos() * 100 + (total / 2)) / total);
 }
 
 bool IRReceiver::receiveMode(Mode *pMode)
@@ -84,14 +121,58 @@ bool IRReceiver::receiveMode(Mode *pMode)
 
 bool IRReceiver::beginReceiving()
 {
-  //attachInterrupt(digitalPinToInterrupt(RECEIVER_PIN), IRReceiver::recvPCIHandler, CHANGE);
+#ifdef VORTEX_ARDUINO
+  // Set up the ADC
+  // sample campacitance, VDD reference, prescaler division
+  //  0x0 DIV2 CLK_PER divided by 2
+  //  0x1 DIV4 CLK_PER divided by 4
+  //  0x2 DIV8 CLK_PER divided by 8
+  //  0x3 DIV16 CLK_PER divided by 16
+  //  0x4 DIV32 CLK_PER divided by 32 > doesn't work
+  //  0x5 DIV64 CLK_PER divided by 64 > doesn't work
+  //  0x6 DIV128 CLK_PER divided by 128 > works
+  //  0x7 DIV256 CLK_PER divided by 256 > works
+  ADC0.CTRLC = ADC_SAMPCAP_bm | ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV128_gc;
+  // no sampling delay and no delay variation
+  ADC0.CTRLD = 0;
+  // sample length
+  //  0 = doesn't work
+  //  1+ = works
+  ADC0.SAMPCTRL = 1;
+  // Select the analog pin input PB1 (AIN10)
+  ADC0.MUXPOS = ADC_MUXPOS_AIN10_gc;
+  // Initialize the Window Comparator Mode in above
+  ADC0.CTRLE = ADC_WINCM_ABOVE_gc;
+  // Set the threshold value very low
+  ADC0.WINHT = 0x1;
+  ADC0.WINLT = 0;
+  // set sampling amount
+  //   0x0 NONE No accumulation > doesn't work
+  //   0x1 ACC2 2 results accumulated  > doesn't work
+  //   0x2 ACC4 4 results accumulated  > works okay
+  //   0x3 ACC8 8 results accumulated
+  //   0x4 ACC16 16 results accumulated
+  //   0x5 ACC32 32 results accumulated
+  //   0x6 ACC64 64 results accumulated
+  ADC0.CTRLB = ADC_SAMPNUM_ACC4_gc;
+  // Enable Window Comparator interrupt
+  ADC0.INTCTRL = ADC_WCMP_bm;
+  // Enable the ADC and start continuous conversions
+  ADC0.CTRLA = ADC_ENABLE_bm | ADC_FREERUN_bm;
+  // start the first conversion
+  ADC0.COMMAND = ADC_STCONV_bm;
+#endif
   resetIRState();
   return true;
 }
 
 bool IRReceiver::endReceiving()
 {
-  //detachInterrupt(digitalPinToInterrupt(RECEIVER_PIN));
+#ifdef VORTEX_ARDUINO
+  // Stop conversions and disable the ADC
+  ADC0.CTRLA &= ~(ADC_ENABLE_bm | ADC_FREERUN_bm);
+  ADC0.INTCTRL = 0;
+#endif
   resetIRState();
   return true;
 }
@@ -149,7 +230,7 @@ void IRReceiver::recvPCIHandler()
   uint32_t diff = (uint32_t)(now - m_prevTime);
   // and update the previous changetime for next loop
   m_prevTime = now;
-  // handle the blink duration and process it
+  // handle the bliank duration and process it
   handleIRTiming(diff);
 }
 
@@ -164,7 +245,7 @@ void IRReceiver::handleIRTiming(uint32_t diff)
   }
   switch (m_recvState) {
   case WAITING_HEADER_MARK: // initial state
-    if (diff >= HEADER_MARK_MIN && diff <= HEADER_MARK_MAX) {
+    if (diff >= HEADER_SPACE_MIN && diff <= HEADER_MARK_MAX) {
       m_recvState = WAITING_HEADER_SPACE;
     } else {
       DEBUG_LOGF("Bad header mark %u, resetting...", diff);
@@ -172,7 +253,7 @@ void IRReceiver::handleIRTiming(uint32_t diff)
     }
     break;
   case WAITING_HEADER_SPACE:
-    if (diff >= HEADER_SPACE_MIN && diff <= HEADER_SPACE_MAX) {
+    if (diff >= HEADER_SPACE_MIN && diff <= HEADER_MARK_MAX) {
       m_recvState = READING_DATA_MARK;
     } else {
       DEBUG_LOGF("Bad header space %u, resetting...", diff);
@@ -200,5 +281,9 @@ void IRReceiver::resetIRState()
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
   m_irData.reset();
+#ifdef VORTEX_ARDUINO
+  // reset the threshold to a high value so that it can be pulled down again
+  threshold = THRESHOLD_BEGIN;
+#endif
   DEBUG_LOG("IR State Reset");
 }

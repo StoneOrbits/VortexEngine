@@ -10,7 +10,47 @@
 #endif
 
 #ifdef VORTEX_ARDUINO
+#include "../VortexEngine.h"
+#include <avr/interrupt.h>
 #include <avr/io.h>
+
+// Update here to change button pin/port
+#define PIN_NUM 2
+#define PORT_LETTER C
+
+// expands out details to make the macros work
+#define CONCATENATE_DETAIL(x, y) x##y
+#define CONCATENATE(x, y) CONCATENATE_DETAIL(x, y)
+#define CONCATENATE_DETAIL_3(x, y, z) x##y##z
+#define CONCATENATE_3(x, y, z) CONCATENATE_DETAIL_3(x, y, z)
+
+// macros for the button pin/port
+#define BUTTON_PORT   CONCATENATE(PORT, PORT_LETTER)
+#define BUTTON_VPORT  CONCATENATE(VPORT, PORT_LETTER)
+#define BUTTON_PIN    CONCATENATE_3(PIN, PIN_NUM, _bm)
+#define PIN_CTRL      CONCATENATE_3(PIN, PIN_NUM, CTRL)
+#define PORT_VECT     CONCATENATE_3(PORT, PORT_LETTER, _PORT_vect)
+
+// interrupt handler to wakeup device on button press
+ISR(PORT_VECT)
+{
+  // make sure the interrupt fired from the button pin
+  if (!(BUTTON_PORT.INTFLAGS & BUTTON_PIN)) {
+    return;
+  }
+  // mark the interrupt as handled
+  BUTTON_PORT.INTFLAGS = BUTTON_PIN;
+  // turn off the interrupt
+  BUTTON_PORT.PIN_CTRL &= ~PORT_ISC_gm;
+  // call the wakeup routine in the engine
+  VortexEngine::wakeup();
+}
+
+void Button::enableWake()
+{
+  // turn on the above interrupt for FALLING edge
+  BUTTON_PORT.PIN_CTRL = 0x3;
+}
 #endif
 
 Button::Button() :
@@ -40,29 +80,23 @@ bool Button::init()
   m_holdDuration = 0;
   m_releaseDuration = 0;
   m_consecutivePresses = 0;
-  m_releaseCount = 0;
   m_buttonState = check();
   m_newPress = false;
   m_newRelease = false;
   m_isPressed = m_buttonState;
+  m_releaseCount = !m_isPressed;
   m_shortClick = false;
   m_longClick = false;
-
-#ifdef VORTEX_ARDUINO
-  // Set PB2 as input
-  PORTB.DIRCLR = (1 << 2);
-  // Enable pull-up resistor on PB2 and disable interrupt and enable input buffer
-  // PULLUPEN = 1        = 0x8
-  // ISC = INPUT_DISABLE = 0x4
-  //               total = 0x12
-  PORTB.PIN2CTRL = 0x12;
-#endif
   return true;
 }
 
 bool Button::check()
 {
-  return (digitalRead(m_pinNum) == 0);
+#ifdef VORTEX_LIB
+  return (digitalRead(9) == 0) ? true : false;
+#else
+  return (BUTTON_VPORT.IN & BUTTON_PIN) ? false : true;
+#endif
 }
 
 void Button::update()
@@ -72,11 +106,7 @@ void Button::update()
   m_newRelease = false;
 
   // read the new button state
-#ifdef VORTEX_LIB
-  bool newButtonState = (digitalRead(9) == 0) ? true : false;
-#else
-  bool newButtonState = (VPORTB.IN & (1 << 2)) ? false : true;
-#endif
+  bool newButtonState = check();
 
   // did the button change (press/release occurred)
   if (newButtonState != m_buttonState) {
@@ -91,9 +121,16 @@ void Button::update()
       m_pressTime = Time::getCurtime();
       m_newPress = true;
     } else {
-      // the button was just released
-      m_releaseTime = Time::getCurtime();
-      m_newRelease = true;
+      // simply ignore the first release, always. Because they just turned the device
+      // on and we don't want them to cycle to the next mode or something
+      if (m_releaseCount > 0) {
+        // the button was just released
+        m_releaseTime = Time::getCurtime();
+        m_newRelease = true;
+      }
+      // count releases even inside the ignore window so that
+      // we can tell if the button was released to stop ignoring
+      m_releaseCount++;
     }
   }
 

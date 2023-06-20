@@ -12,15 +12,15 @@ NM = ${BINDIR}/avr-nm
 AVRDUDE = ${AVRDUDEDIR}/avrdude
 
 AVRDUDE_CONF = avrdude.conf
-AVRDUDE_PORT = COM12
+AVRDUDE_PORT = COM85
 AVRDUDE_PROGRAMMER = jtag2updi
 AVRDUDE_BAUDRATE = 115200
 AVRDUDE_CHIP = attiny3217
 AVRDUDE_FLAGS = -C$(AVRDUDE_CONF) -v -p$(AVRDUDE_CHIP) -c$(AVRDUDE_PROGRAMMER) -P$(AVRDUDE_PORT) -b$(AVRDUDE_BAUDRATE)
 
-CFLAGS = -Os -MMD -Wall -flto -mrelax -std=gnu++17 -fno-threadsafe-statics -fno-exceptions -mmcu=$(AVRDUDE_CHIP) -DF_CPU=20000000L
+CFLAGS = -g -Os -MMD -Wall -flto -mrelax -std=gnu++17 -fno-threadsafe-statics -fno-exceptions -mmcu=$(AVRDUDE_CHIP) -DF_CPU=20000000L
 
-LDFLAGS = -Wall -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mrelax -mmcu=$(AVRDUDE_CHIP) -lm
+LDFLAGS = -g -Wall -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mrelax -mmcu=$(AVRDUDE_CHIP) -lm
 
 INCLUDES=\
 	-I ./VortexEngine/src/
@@ -30,7 +30,7 @@ CFLAGS+=$(INCLUDES)
 # Source files
 SRCS = \
        $(shell find ./VortexEngine/src/ -type f -name '\*.cpp') \
-       ./appmain.cpp
+       ./VortexEngine/appmain.cpp
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -58,14 +58,22 @@ $(TARGET).elf: $(OBJS)
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
+#  0x7e = 0x7e00 flash and 0x100 appcode for storage
+# fuse6 = 
 # fuse7 = APPEND
 # fuse8 = BOOTEND
-#  0x7e = 0x7e00 flash and 0x100 appcode for storage
+SAVE_EEPROM = 1
+FUSE0 = 0b00000000
+FUSE2 = 0x02
+FUSE5 = 0b1100010$(SAVE_EEPROM)
+FUSE6 = 0x04
+FUSE7 = 0x00
+FUSE8 = 0x7e
 upload: $(TARGET).hex
-	$(AVRDUDE) $(AVRDUDE_FLAGS) -Ufuse0:w:0b00000000:m -Ufuse2:w:0x02:m -Ufuse5:w:0b11000101:m -Ufuse6:w:0x04:m -Ufuse7:w:0x00:m -Ufuse8:w:0x7e:m -Uflash:w:$(TARGET).hex:i
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -Ufuse0:w:$(FUSE0):m -Ufuse2:w:$(FUSE2):m -Ufuse5:w:$(FUSE5):m -Ufuse6:w:$(FUSE6):m -Ufuse7:w:$(FUSE7):m -Ufuse8:w:$(FUSE8):m -Uflash:w:$(TARGET).hex:i
 
 clean:
-	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex
+	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex $(DFILES)
 
 # include dependency files to ensure partial rebuilds work correctly
 -include $(DFILES)

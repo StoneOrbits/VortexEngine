@@ -11,6 +11,7 @@
 #include "../Colors/Colorset.h"
 #include "../Storage/Storage.h"
 #include "../Buttons/Buttons.h"
+#include "../Time/Timings.h"
 #include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
@@ -61,8 +62,15 @@ void Modes::play()
     DEBUG_LOG("Error failed to load any modes!");
     return;
   }
-  // shortclick cycles to the next mode
+  // shortclick either turns off the lights, cycles to the next mode
+  // or possible locks the lights based on the situation
   if (g_pButton->onShortClick()) {
+    if (Modes::instantOnOffEnabled()) {
+      // enter sleep doesn't return on arduino, but it does on vortexlib
+      // so we need to return right after -- we can't just use an else
+      VortexEngine::enterSleep();
+      return;
+    }
     nextMode();
   }
   // play the current mode
@@ -523,6 +531,24 @@ void Modes::clearModes()
   m_numModes = 0;
   // might as well clear the leds
   Leds::clearAll();
+}
+
+bool Modes::setInstantOnOff(bool enable, bool save)
+{
+  // zero out the upper nibble to disable
+  m_globalFlags &= 0x0F;
+  // then actually if it's enabled ensure the upper nibble is set
+  if (enable) {
+    // set the cur mode index as the upper nibble
+    m_globalFlags |= ((m_curMode + 1) << 4);
+  }
+  DEBUG_LOGF("Toggled instant on/off to %s", m_instantOnOff ? "on" : "off");
+  return !save || saveStorage();
+}
+
+bool Modes::instantOnOffEnabled()
+{
+  return ((m_globalFlags & 0xF0) != 0);
 }
 
 bool Modes::setLocked(bool locked, bool save)

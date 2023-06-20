@@ -87,6 +87,10 @@ public:
   // delete all modes in the list
   static void clearModes();
 
+  // toggle the instant one-click on/off
+  static bool setInstantOnOff(bool enable, bool save = true);
+  static bool instantOnOffEnabled();
+
   // toggle the locked state
   static bool setLocked(bool locked, bool save = true);
   static bool locked();

@@ -3,6 +3,8 @@
 
 #include <inttypes.h>
 
+#include "../VortexConfig.h"
+
 // although there is only one button on the VortexFramework
 // I am still opting for a non-static button class
 class Button
@@ -17,11 +19,16 @@ public:
   ~Button();
 
   // initialize a new button object with a pin number
-  bool init(int pin);
+  bool init();
   // directly poll the pin for whether it's pressed right now
   bool check();
   // poll the button pin and update the state of the button object
   void update();
+
+#ifdef VORTEX_ARDUINO
+  // enable the button-wake trigger to wake the device on press
+  void enableWake();
+#endif
 
   // whether the button was pressed this tick
   bool onPress() const { return m_newPress; }

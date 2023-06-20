@@ -55,7 +55,7 @@ class VortexEngine
 public:
   // setup and initialization function
   static bool init();
-  // cleanup
+  // no cleanup on arduino
   static void cleanup();
 
   // tick function for each loop
@@ -76,12 +76,13 @@ public:
   static uint32_t totalStorageSpace();
   // the size of the savefile
   static uint32_t savefileSize();
-  // whether sleeping or not, some versions support sleep
-  static bool isSleeping() { return false; }
+  // whether sleeping or not
+  static bool isSleeping() { return m_sleeping; }
 #endif
 
-  // enter sleep mode, technically still available outside arduino for logging purposes
+  // enter/leave sleep mode
   static void enterSleep();
+  static void wakeup();
 
 #ifdef VORTEX_ARDUINO
   // clear output pins
@@ -91,6 +92,11 @@ public:
 #endif
 
 private:
+#ifdef VORTEX_LIB
+  // bool in vortexlib to simulate sleeping
+  static bool m_sleeping;
+#endif
+
 #if COMPRESSION_TEST == 1
   static void compressionTest();
 #endif

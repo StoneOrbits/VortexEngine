@@ -106,7 +106,6 @@ void Menu::showSelect()
 
 void Menu::showExit()
 {
-
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     Leds::setIndex(LED_1, RGB_RED);
   } else {

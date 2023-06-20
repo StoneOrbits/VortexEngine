@@ -30,11 +30,6 @@ uint32_t IRSender::m_blockSize = 0;
 // write total
 uint32_t IRSender::m_writeCounter = 0;
 
-#if defined(VORTEX_ARDUINO) && IR_ENABLE == 1
-// Timer used for PWM, is initialized in initpwm()
-//Tcc *IR_TCCx;
-#endif
-
 bool IRSender::init()
 {
   return true;
@@ -169,8 +164,14 @@ void IRSender::sendSpace(uint16_t time)
 void IRSender::startPWM()
 {
 #if defined(VORTEX_ARDUINO) && IR_ENABLE == 1
+  // brightness backup
+  uint8_t oldBrightness = Leds::getBrightness();
+  // ensure max brightness
+  Leds::setBrightness(255);
   Leds::setAll(RGB_WHITE);
   Leds::update();
+  // restore brightness
+  Leds::setBrightness(oldBrightness);
 #endif
 }
 

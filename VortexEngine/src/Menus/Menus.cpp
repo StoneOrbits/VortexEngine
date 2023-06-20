@@ -54,10 +54,10 @@ const MenuEntry menuList[] = {
   // =========================
   //  Default menu setup:
   ENTRY(Randomizer,         0x101010),      // 0 (dim white)
-  ENTRY(ColorSelect,        0x401200),      // 1 (dim orange)
+  ENTRY(ColorSelect,        0x001000),      // 1 (dim green)
   ENTRY(PatternSelect,      0x000010),      // 2 (dim blue)
   ENTRY(FactoryReset,       0x100000),      // 4 (dim red)
-  ENTRY(ModeSharing,        0x101000),      // 5 (idk)
+  ENTRY(ModeSharing,        0x001010),      // 5 (dim teal)
 };
 
 // the number of menus in the above array

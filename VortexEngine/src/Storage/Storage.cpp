@@ -30,7 +30,7 @@
 #define FLASH_STORAGE_SPACE ((uint8_t *)(0x10000 - FLASH_STORAGE_SIZE))
 
 // write out the eeprom byte
-static void eeprom_write_byte(uint16_t index, uint8_t in)
+void Storage::eepromWriteByte(uint16_t index, uint8_t in)
 {
   uint16_t adr = (uint16_t)MAPPED_EEPROM_START + index;
   __asm__ __volatile__(
@@ -68,8 +68,7 @@ bool Storage::init()
   unlink("FlashStorage.flash");
 #endif
 #endif
-  DEBUG_LOGF("Total space: %u Engine size: %u Available space: %u",
-    MAX_STORAGE_SPACE, ENGINE_SIZE, STORAGE_SIZE);
+  DEBUG_LOGF("Total available space: %u", STORAGE_SIZE);
   return true;
 }
 
@@ -90,12 +89,14 @@ bool Storage::write(ByteStream &buffer)
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom
   for (uint8_t i = 0; i < EEPROM_SIZE; ++i) {
-      eeprom_write_byte(i, *buf);
-      buf++;
-      size--;
-      if (!size) {
-        return true;
-      }
+    if (*buf != *(uint8_t *)(MAPPED_EEPROM_START + i)) {
+      eepromWriteByte(i, *buf);
+    }
+    buf++;
+    size--;
+    if (!size) {
+      return true;
+    }
   }
   // write the rest to flash
   uint16_t pages = (size / PROGMEM_PAGE_SIZE) + 1;
@@ -111,6 +112,17 @@ bool Storage::write(ByteStream &buffer)
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
   return (NVMCTRL.STATUS & 4) == 0;
 #else
+  HANDLE hFile = CreateFile("FlashStorage.flash", GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+  if (!hFile) {
+    // error
+    return false;
+  }
+  DWORD written = 0;
+  if (!WriteFile(hFile, buffer.rawData(), buffer.rawSize(), &written, NULL)) {
+    // error
+    return false;
+  }
+  CloseHandle(hFile);
   return true;
 #endif // VORTEX_ARDUINO
 }
@@ -118,12 +130,12 @@ bool Storage::write(ByteStream &buffer)
 // read a serial buffer from storage
 bool Storage::read(ByteStream &buffer)
 {
-#ifdef VORTEX_ARDUINO
   uint32_t size = STORAGE_SIZE;
   if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
     return false;
   }
   buffer.init(STORAGE_SIZE);
+#ifdef VORTEX_ARDUINO
   // Read the data from EEPROM first
   uint8_t *pos = (uint8_t *)buffer.rawData();
   for (size_t i = 0; i < EEPROM_SIZE; ++i) {
@@ -138,6 +150,19 @@ bool Storage::read(ByteStream &buffer)
     // Read the rest of data from Flash
     memcpy(pos, FLASH_STORAGE_SPACE, size);
   }
+#else
+  HANDLE hFile = CreateFile("FlashStorage.flash", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+  if (!hFile) {
+    // error
+    return false;
+  }
+  DWORD bytesRead = 0;
+  if (!ReadFile(hFile, buffer.rawData(), size, &bytesRead, NULL)) {
+    // error
+    return false;
+  }
+  CloseHandle(hFile);
+#endif
   // check crc immediately since we read into raw data copying the
   // array could be dangerous
   if (!buffer.checkCRC()) {
@@ -146,7 +171,6 @@ bool Storage::read(ByteStream &buffer)
     return false;
   }
   m_lastSaveSize = size;
-#endif
   DEBUG_LOGF("Loaded savedata (Size: %u)", buffer.size());
   return true;
 }

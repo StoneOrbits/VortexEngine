@@ -19,6 +19,16 @@
 #define SLEEP_ENTER_THRESHOLD_TICKS   Time::msToTicks(SLEEP_TRIGGER_TIME)
 #define SLEEP_WINDOW_THRESHOLD_TICKS  Time::msToTicks(SLEEP_WINDOW_TIME)
 #define FORCE_SLEEP_THRESHOLD_TICKS   Time::msToTicks(FORCE_SLEEP_TIME)
+#define INSTANT_ON_OFF_TICKS          Time::msToTicks(INSTANT_ON_OFF_TIME)
+
+// the window of how many ticks within the user must
+// click the button 5 times to enable the lock
+#define LOCK_CLICK_WINDOW_TICKS       Time::msToTicks(LOCK_CLICK_WINDOW)
+
+#define CONSECUTIVE_WINDOW_TICKS      Time::msToTicks(CONSECUTIVE_WINDOW)
+#define UNLOCK_WAKE_WINDOW_TICKS      Time::msToTicks(UNLOCK_WAKE_WINDOW)
+
+#define AUTO_RANDOM_DELAY_TICKS       Time::msToTicks(AUTO_RANDOM_DELAY)
 
 // Color delete threshold (in milliseconds)
 #define DELETE_THRESHOLD_TICKS        Time::msToTicks(COL_DELETE_THRESHOLD)

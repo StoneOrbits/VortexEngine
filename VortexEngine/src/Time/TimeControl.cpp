@@ -277,29 +277,6 @@ void Time::initArduinoTime()
   #error "F_CPU not supported"
 #endif
 
-  // initialize ADC0
-   //                              30 MHz / 32 = 937 kHz,  32 MHz / 32 =  1 MHz.
-#if   F_CPU   > 24000000     // 24 MHz / 16 = 1.5 MHz,  25 MHz / 32 =  780 kHz
-  ADC0.CTRLC = ADC_PRESC_DIV32_gc | ADC_REFSEL_VDDREF_gc | ADC_SAMPCAP_bm;
-#elif F_CPU  >= 12000000    // 16 MHz / 16 = 1.0 MHz,  20 MHz / 16 = 1.25 MHz
-  ADC0.CTRLC = ADC_PRESC_DIV16_gc | ADC_REFSEL_VDDREF_gc | ADC_SAMPCAP_bm;
-#elif F_CPU  >=  6000000    //  8 MHz /  8 = 1.0 MHz,  10 MHz /  8 = 1.25 MHz
-  ADC0.CTRLC = ADC_PRESC_DIV8_gc | ADC_REFSEL_VDDREF_gc | ADC_SAMPCAP_bm;
-#elif F_CPU  >=  3000000    //  4 MHz /  4 = 1.0 MHz,   5 MHz /  4 = 1.25 MHz
-  ADC0.CTRLC = ADC_PRESC_DIV4_gc | ADC_REFSEL_VDDREF_gc | ADC_SAMPCAP_bm;
-#else                       //  1 MHz /  2 = 500 kHz - the lowest setting
-  ADC0.CTRLC = ADC_PRESC_DIV2_gc | ADC_REFSEL_VDDREF_gc | ADC_SAMPCAP_bm;
-#endif
-#if   (F_CPU == 6000000 || F_CPU == 12000000 || F_CPU == 24000000 || F_CPU ==25000000)
-  ADC0.SAMPCTRL = (7); // 9 ADC clocks, 12 us
-#elif (F_CPU == 5000000 || F_CPU == 10000000 || F_CPU == 20000000)
-  ADC0.SAMPCTRL = (13);   // 15 ADC clock,s 12 us
-#else
-  ADC0.SAMPCTRL = (10); // 12 ADC clocks, 12 us
-#endif
-  ADC0.CTRLD = ADC_INITDLY_DLY16_gc;
-  ADC0.CTRLA = ADC_ENABLE_bm;
-
   // configure TCA (dont want it)
   TCA0.SPLIT.CTRLA = 0;
   TCA0.SINGLE.CTRLA = 0;
@@ -445,7 +422,7 @@ ISR(TCD0_OVF_vect, ISR_NAKED)
   );
 }
 
-__attribute__ ((noinline)) void delayMicroseconds(uint32_t us)
+__attribute__ ((noinline)) void delayMicroseconds(uint16_t us)
 {
 #if F_CPU >= 20000000L
   // for a one-microsecond delay, burn 4 clocks and then return
@@ -471,12 +448,22 @@ __attribute__ ((noinline)) void delayMicroseconds(uint32_t us)
   // us is at least 6 so we can subtract 4
   us -= 4; // 2 cycles
 #endif
-  // delay loop of 4 clocks.
-  __asm__ __volatile__ (
+  __asm__ __volatile__(
     "1: sbiw %0, 1" "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
     "brne 1b" : "=w" (us) : "0" (us)  // 2 cycles
   );
   // return = 4 cycles
+}
+
+// not very accurate
+__attribute__((noinline)) void delay(uint16_t ms)
+{
+  for (uint16_t i = 0; i < ms; ++i) {
+    delayMicroseconds(1000);
+  }
 }
 #endif // VORTEX_ARDUINO
 
