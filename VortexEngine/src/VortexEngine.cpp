@@ -86,6 +86,7 @@ void VortexEngine::cleanup()
   // cleanup in reverse order
   // NOTE: the arduino doesn't actually cleanup,
   //       but the test frameworks do
+#ifdef VORTEX_LIB
   Modes::cleanup();
   Menus::cleanup();
   Buttons::cleanup();
