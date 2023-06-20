@@ -200,7 +200,6 @@
     <ClCompile Include="src\Patterns\Single\BlendPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\SingleLedPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\SolidPattern.cpp" />
-    <ClCompile Include="src\Patterns\Single\TracerPattern.cpp" />
     <ClCompile Include="src\Random\Random.cpp" />
     <ClCompile Include="src\Serial\BitStream.cpp" />
     <ClCompile Include="src\Serial\ByteStream.cpp" />
@@ -273,7 +272,6 @@
     <ClInclude Include="src\Patterns\Single\BlendPattern.h" />
     <ClInclude Include="src\Patterns\Single\SingleLedPattern.h" />
     <ClInclude Include="src\Patterns\Single\SolidPattern.h" />
-    <ClInclude Include="src\Patterns\Single\TracerPattern.h" />
     <ClInclude Include="src\Random\Random.h" />
     <ClInclude Include="src\Serial\BitStream.h" />
     <ClInclude Include="src\Serial\ByteStream.h" />

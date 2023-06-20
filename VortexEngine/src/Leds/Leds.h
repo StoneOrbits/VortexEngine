@@ -97,8 +97,8 @@ public:
   static RGBColor getLed(LedPos pos) { return led(pos); }
 
   // global brightness
-  static uint32_t getBrightness() { return m_brightness; }
-  static void setBrightness(uint32_t brightness) { m_brightness = brightness; }
+  static uint8_t getBrightness() { return m_brightness; }
+  static void setBrightness(uint8_t brightness) { m_brightness = brightness; }
 
   // actually update the LEDs and show the changes
   static void update();
@@ -117,7 +117,7 @@ private:
   }
 
   // the global brightness
-  static uint32_t m_brightness;
+  static uint8_t m_brightness;
 
   // array of led color values
   static RGBColor m_ledColors[LED_COUNT];

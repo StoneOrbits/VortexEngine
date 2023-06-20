@@ -1,6 +1,6 @@
 # Vortex Engine
 
-Welcome to the Vortex Engine firmware repository! This open-source project is designed for use with our Arduino-based LED devices: Orbit, Gloves, Handle, and Microlight. The firmware enables users to create mesmerizing light shows by completely unlocking their ability to program any flashing patterns, colorsets, or effects onto their devices.
+Welcome to the Vortex Engine firmware repository! This open-source project is designed for use with our Arduino-based LED devices: Orbit, Gloves, Handle, and Duo chip. The firmware enables users to create mesmerizing light shows by completely unlocking their ability to program any flashing patterns, colorsets, or effects onto their devices.
 
 **Note**: While this firmware can be modified and re-flashed by experienced users, it is not intended for basic users to do so.
 
@@ -9,10 +9,10 @@ Welcome to the Vortex Engine firmware repository! This open-source project is de
 This repository is organized into branches, with each branch corresponding to one of the four devices:
 
 - `master`: Firmware core that all branches derive from
-- `orbit`: Firmware for the Vortex Orbit
-- `handle`: Firmware for the Omega Handles
-- `gloves`: Firmware for the Vortex Gloves
-- `finger`: Firmware for the Microlight
+- `orbit`: Firmware for the Vortex Classic Orbit
+- `handle`: Firmware for the Vortex Omega Handles
+- `gloves`: Firmware for the Vortex Wired Gloveset
+- `duo`: Firmware for the Vortex Duo Modular Chip
 
 To access the firmware for a specific device, switch to the corresponding branch.
 
@@ -40,7 +40,7 @@ You will need to select the following board to install, make sure to select the 
 
 #### ATTiny Based Devices
 
-For the attiny based devices (microlight) you will need to get megaTinyCore installed and you will need an Arduino Uno to be used as a jtag2updi programmer.
+For the attiny based devices (duo chip) you will need to get megaTinyCore installed and you will need an Arduino Uno to be used as a jtag2updi programmer.
 
 ### Library Setup
 Lastly we need to copy the libraries folder to the directory C:\Users\YourPCName\Documents\Arduino
