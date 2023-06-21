@@ -15,11 +15,11 @@ private:
   void operator=(Button const &);
 
 public:
-  Button(uint8_t pin);
+  Button();
   ~Button();
 
   // initialize a new button object with a pin number
-  bool init();
+  bool init(uint8_t pin);
   // directly poll the pin for whether it's pressed right now
   bool check();
   // poll the button pin and update the state of the button object
