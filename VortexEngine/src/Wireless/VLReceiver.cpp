@@ -16,8 +16,6 @@
 #include <avr/io.h>
 #endif
 
-#if VL_ENABLE_RECEIVER == 1
-
 BitStream VLReceiver::m_vlData;
 VLReceiver::RecvState VLReceiver::m_recvState = WAITING_HEADER_MARK;
 uint64_t VLReceiver::m_prevTime = 0;
@@ -291,5 +289,3 @@ void VLReceiver::resetVLState()
 #endif
   DEBUG_LOG("VL State Reset");
 }
-
-#endif
