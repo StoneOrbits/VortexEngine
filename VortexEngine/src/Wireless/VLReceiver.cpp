@@ -7,16 +7,18 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-#include "VLConfig.h"
-
+#ifdef VORTEX_LIB
 #include <Arduino.h>
+#endif
 
 #ifdef VORTEX_ARDUINO
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #endif
 
-BitStream VLReceiver::m_irData;
+#if VL_ENABLE_RECEIVER == 1
+
+BitStream VLReceiver::m_vlData;
 VLReceiver::RecvState VLReceiver::m_recvState = WAITING_HEADER_MARK;
 uint64_t VLReceiver::m_prevTime = 0;
 uint8_t VLReceiver::m_pinState = 0;
@@ -58,7 +60,7 @@ bool VLReceiver::init()
   PORTB.PIN1CTRL &= ~PORT_ISC_gm;
   PORTB.PIN1CTRL |= PORT_ISC_INPUT_DISABLE_gc;
 #endif
-  return m_irData.init(VL_RECV_BUF_SIZE);
+  return m_vlData.init(VL_RECV_BUF_SIZE);
 }
 
 void VLReceiver::cleanup()
@@ -71,8 +73,8 @@ bool VLReceiver::dataReady()
   if (!isReceiving()) {
     return false;
   }
-  uint8_t blocks = m_irData.data()[0];
-  uint8_t remainder = m_irData.data()[1];
+  uint8_t blocks = m_vlData.data()[0];
+  uint8_t remainder = m_vlData.data()[1];
   uint32_t total = ((blocks - 1) * 32) + remainder;
   if (!total || total > VL_MAX_DATA_TRANSFER) {
     DEBUG_LOGF("Bad VL Data size: %u", total);
@@ -81,7 +83,7 @@ bool VLReceiver::dataReady()
   // if there are size + 2 bytes in the VLData receiver
   // then a full message is ready, the + 2 is from the
   // two bytes for blocks + remainder that are sent first
-  return (m_irData.bytepos() >= (uint32_t)(total + 2));
+  return (m_vlData.bytepos() >= (uint32_t)(total + 2));
 }
 
 // whether actively receiving
@@ -91,7 +93,7 @@ bool VLReceiver::isReceiving()
   // the receiver is receiving a packet. If there is less
   // than 2 bytes then we're still waiting for the 'blocks'
   // and 'remainder' bytes which prefix a packet
-  return (m_irData.bytepos() > 2);
+  return (m_vlData.bytepos() > 2);
 }
 
 // the percent of data received
@@ -100,11 +102,11 @@ uint32_t VLReceiver::percentReceived()
   if (!isReceiving()) {
     return 0;
   }
-  uint8_t blocks = m_irData.data()[0];
-  uint8_t remainder = m_irData.data()[1];
+  uint8_t blocks = m_vlData.data()[0];
+  uint8_t remainder = m_vlData.data()[1];
   uint32_t total = ((blocks - 1) * 32) + remainder;
   // round by adding half of the total to the numerator
-  return (uint32_t)((m_irData.bytepos() * 100 + (total / 2)) / total);
+  return (uint32_t)((m_vlData.bytepos() * 255 + (total / 2)) / total);
 }
 
 bool VLReceiver::receiveMode(Mode *pMode)
@@ -190,13 +192,13 @@ bool VLReceiver::onNewData()
 
 bool VLReceiver::read(ByteStream &data)
 {
-  if (!m_irData.bytepos() || m_irData.bytepos() > VL_MAX_DATA_TRANSFER) {
+  if (!m_vlData.bytepos() || m_vlData.bytepos() > VL_MAX_DATA_TRANSFER) {
     DEBUG_LOG("Nothing to read, or read too much");
     return false;
   }
   // read the size out (blocks + remainder)
-  uint8_t blocks = m_irData.data()[0];
-  uint8_t remainder = m_irData.data()[1];
+  uint8_t blocks = m_vlData.data()[0];
+  uint8_t remainder = m_vlData.data()[1];
   // calculate size from blocks + remainder
   uint32_t size = ((blocks - 1) * 32) + remainder;
   if (!size || size > VL_MAX_DATA_TRANSFER) {
@@ -204,7 +206,7 @@ bool VLReceiver::read(ByteStream &data)
     return false;
   }
   // the actual data starts 2 bytes later because of the size byte
-  const uint8_t *actualData = m_irData.data() + 2;
+  const uint8_t *actualData = m_vlData.data() + 2;
   if (!data.rawInit(actualData, size)) {
     DEBUG_LOG("Failed to init buffer for VL read");
     return false;
@@ -264,7 +266,7 @@ void VLReceiver::handleVLTiming(uint32_t diff)
     break;
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
-    m_irData.write1Bit((diff > (VL_TIMING * 2)) ? 1 : 0);
+    m_vlData.write1Bit((diff > (VL_TIMING * 2)) ? 1 : 0);
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
@@ -282,10 +284,12 @@ void VLReceiver::resetVLState()
   m_previousBytes = 0;
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
-  m_irData.reset();
+  m_vlData.reset();
 #ifdef VORTEX_ARDUINO
   // reset the threshold to a high value so that it can be pulled down again
   threshold = THRESHOLD_BEGIN;
 #endif
   DEBUG_LOG("VL State Reset");
 }
+
+#endif
