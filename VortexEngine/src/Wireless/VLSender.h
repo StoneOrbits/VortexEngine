@@ -6,8 +6,6 @@
 
 #include "VLConfig.h"
 
-#if VL_ENABLE_SENDER == 1
-
 class Mode;
 
 class VLSender
@@ -60,7 +58,5 @@ private:
   // write total
   static uint32_t m_writeCounter;
 };
-
-#endif
 
 #endif
