@@ -5,6 +5,10 @@
 
 #include "../Serial/BitStream.h"
 
+#include "IRConfig.h"
+
+#if IR_ENABLE_RECEIVER == 1
+
 class ByteStream;
 class Mode;
 
@@ -72,5 +76,7 @@ private:
   friend class Vortex;
 #endif
 };
+
+#endif
 
 #endif

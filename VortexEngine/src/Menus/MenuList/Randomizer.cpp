@@ -13,9 +13,7 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-#ifdef VORTEX_LIB
 #include <Arduino.h>
-#endif
 
 Randomizer::Randomizer(const RGBColor &col) :
   Menu(col),
