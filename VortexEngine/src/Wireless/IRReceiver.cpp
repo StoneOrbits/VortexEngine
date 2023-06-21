@@ -12,6 +12,8 @@
 #include <avr/io.h>
 #endif
 
+#if IR_ENABLE_RECEIVER == 1
+
 BitStream IRReceiver::m_irData;
 IRReceiver::RecvState IRReceiver::m_recvState = WAITING_HEADER_MARK;
 uint64_t IRReceiver::m_prevTime = 0;
@@ -285,3 +287,5 @@ void IRReceiver::resetIRState()
 #endif
   DEBUG_LOG("IR State Reset");
 }
+
+#endif
