@@ -17,7 +17,7 @@ uint32_t IRReceiver::m_previousBytes = 0;
 
 bool IRReceiver::init()
 {
-  pinMode(RECEIVER_PIN, INPUT_PULLUP);
+  pinMode(IR_RECEIVER_PIN, INPUT_PULLUP);
   m_irData.init(IR_RECV_BUF_SIZE);
   return true;
 }
@@ -36,7 +36,7 @@ bool IRReceiver::dataReady()
   uint8_t blocks = m_irData.data()[0];
   uint8_t remainder = m_irData.data()[1];
   uint32_t total = ((blocks - 1) * 32) + remainder;
-  if (!total || total > MAX_DATA_TRANSFER) {
+  if (!total || total > IR_MAX_DATA_TRANSFER) {
     DEBUG_LOGF("Bad IR Data size: %u", total);
     return false;
   }
@@ -84,14 +84,14 @@ bool IRReceiver::receiveMode(Mode *pMode)
 
 bool IRReceiver::beginReceiving()
 {
-  attachInterrupt(digitalPinToInterrupt(RECEIVER_PIN), IRReceiver::recvPCIHandler, CHANGE);
+  attachInterrupt(digitalPinToInterrupt(IR_RECEIVER_PIN), IRReceiver::recvPCIHandler, CHANGE);
   resetIRState();
   return true;
 }
 
 bool IRReceiver::endReceiving()
 {
-  detachInterrupt(digitalPinToInterrupt(RECEIVER_PIN));
+  detachInterrupt(digitalPinToInterrupt(IR_RECEIVER_PIN));
   resetIRState();
   return true;
 }
@@ -107,7 +107,7 @@ bool IRReceiver::onNewData()
 
 bool IRReceiver::read(ByteStream &data)
 {
-  if (!m_irData.bytepos() || m_irData.bytepos() > MAX_DATA_TRANSFER) {
+  if (!m_irData.bytepos() || m_irData.bytepos() > IR_MAX_DATA_TRANSFER) {
     DEBUG_LOG("Nothing to read, or read too much");
     return false;
   }
@@ -116,7 +116,7 @@ bool IRReceiver::read(ByteStream &data)
   uint8_t remainder = m_irData.data()[1];
   // calculate size from blocks + remainder
   uint32_t size = ((blocks - 1) * 32) + remainder;
-  if (!size || size > MAX_DATA_TRANSFER) {
+  if (!size || size > IR_MAX_DATA_TRANSFER) {
     DEBUG_LOGF("Bad IR Data size: %u", size);
     return false;
   }
@@ -157,14 +157,14 @@ void IRReceiver::recvPCIHandler()
 void IRReceiver::handleIRTiming(uint32_t diff)
 {
   // if the diff is too long or too short then it's not useful
-  if ((diff > HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < IR_TIMING_MIN) {
+  if ((diff > IR_HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < IR_TIMING_MIN) {
     DEBUG_LOGF("bad delay: %u, resetting...", diff);
     resetIRState();
     return;
   }
   switch (m_recvState) {
   case WAITING_HEADER_MARK: // initial state
-    if (diff >= HEADER_MARK_MIN && diff <= HEADER_MARK_MAX) {
+    if (diff >= IR_HEADER_MARK_MIN && diff <= IR_HEADER_MARK_MAX) {
       m_recvState = WAITING_HEADER_SPACE;
     } else {
       DEBUG_LOGF("Bad header mark %u, resetting...", diff);
@@ -172,7 +172,7 @@ void IRReceiver::handleIRTiming(uint32_t diff)
     }
     break;
   case WAITING_HEADER_SPACE:
-    if (diff >= HEADER_SPACE_MIN && diff <= HEADER_SPACE_MAX) {
+    if (diff >= IR_HEADER_SPACE_MIN && diff <= IR_HEADER_SPACE_MAX) {
       m_recvState = READING_DATA_MARK;
     } else {
       DEBUG_LOGF("Bad header space %u, resetting...", diff);

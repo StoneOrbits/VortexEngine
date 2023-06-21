@@ -4,7 +4,7 @@
 #include "VortexEngine.h"
 #include "Buttons/Button.h"
 #include "Serial/ByteStream.h"
-#include "Infrared/IRReceiver.h"
+#include "Wireless/IRReceiver.h"
 #include "Patterns/PatternBuilder.h"
 #include "Patterns/Pattern.h"
 #include "Colors/Colorset.h"
