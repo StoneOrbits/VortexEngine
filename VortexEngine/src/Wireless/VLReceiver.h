@@ -5,6 +5,10 @@
 
 #include "../Serial/BitStream.h"
 
+#include "VLConfig.h"
+
+#if VL_ENABLE_RECEIVER == 1
+
 class ByteStream;
 class Mode;
 
@@ -23,7 +27,7 @@ public:
   static bool isReceiving();
   // the percent of data received
   static uint32_t percentReceived();
-  static uint32_t bytesReceived() { return m_irData.bytepos(); }
+  static uint32_t bytesReceived() { return m_vlData.bytepos(); }
 
   // receive the VL message into a target mode
   static bool receiveMode(Mode *pMode);
@@ -36,19 +40,20 @@ public:
   // reset VL receiver buffer
   static void resetVLState();
 
+  static void recvPCIHandler();
+
 private:
 
   // reading functions
   // PCI handler for when VL receiver pin changes states
   static bool read(ByteStream &data);
-  static void recvPCIHandler();
   static void handleVLTiming(uint32_t diff);
 
   // ===================
   //  private data:
 
   // BitStream object that VL data is fed to bit by bit
-  static BitStream m_irData;
+  static BitStream m_vlData;
 
   // Receive state used for state machine in PCIhandler
   enum RecvState : uint8_t
@@ -72,5 +77,7 @@ private:
   friend class Vortex;
 #endif
 };
+
+#endif
 
 #endif
