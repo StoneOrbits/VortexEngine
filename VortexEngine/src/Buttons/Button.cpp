@@ -80,13 +80,15 @@ bool Button::init(uint8_t pin)
   m_holdDuration = 0;
   m_releaseDuration = 0;
   m_consecutivePresses = 0;
-  m_releaseCount = 0;
-  m_buttonState = check();
   m_newPress = false;
   m_newRelease = false;
-  m_isPressed = m_buttonState;
   m_shortClick = false;
   m_longClick = false;
+  // this is weird, when I did m_releaseCount = !m_buttonState the
+  // compiler generated a huge amount of assembly, but not !check()
+  m_buttonState = check();
+  m_releaseCount = !check();
+  m_isPressed = m_buttonState;
   return true;
 }
 
