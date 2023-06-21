@@ -1,7 +1,9 @@
 #include "VortexEngine.h"
 
-#include "Infrared/IRReceiver.h"
-#include "Infrared/IRSender.h"
+#include "Wireless/IRReceiver.h"
+#include "Wireless/IRSender.h"
+#include "Wireless/VLReceiver.h"
+#include "Wireless/VLSender.h"
 #include "Storage/Storage.h"
 #include "Buttons/Buttons.h"
 #include "Time/TimeControl.h"
@@ -36,6 +38,14 @@ bool VortexEngine::init()
   }
   if (!IRSender::init()) {
     DEBUG_LOG("IRSender failed to initialize");
+    return false;
+  }
+  if (!VLReceiver::init()) {
+    DEBUG_LOG("VLReceiver failed to initialize");
+    return false;
+  }
+  if (!VLSender::init()) {
+    DEBUG_LOG("VLSender failed to initialize");
     return false;
   }
   if (!Leds::init()) {
@@ -80,6 +90,8 @@ void VortexEngine::cleanup()
   Menus::cleanup();
   Buttons::cleanup();
   Leds::cleanup();
+  VLSender::cleanup();
+  VLReceiver::cleanup();
   IRSender::cleanup();
   IRReceiver::cleanup();
   Storage::cleanup();
