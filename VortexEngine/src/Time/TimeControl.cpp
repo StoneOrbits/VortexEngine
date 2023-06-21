@@ -230,14 +230,14 @@ uint32_t Time::endSimulation()
 
 #ifdef VORTEX_ARDUINO
 
-#define TIMERD0_PRESCALER 
+#define TIMERD0_PRESCALER
 
 #define millisClockCyclesPerMicrosecond() ((uint16_t) (20))  // this always runs off the 20MHz oscillator
 #define millisClockCyclesToMicroseconds(a) ((uint32_t)((a) / millisClockCyclesPerMicrosecond()))
 #define microsecondsToMillisClockCycles(a) ((uint32_t)((a) * millisClockCyclesPerMicrosecond()))
 
 #define TIME_TRACKING_TIMER_PERIOD    (0x1FD)
-#define TIME_TRACKING_TIMER_DIVIDER   (64)    // Clock divider for TCD0 
+#define TIME_TRACKING_TIMER_DIVIDER   (64)    // Clock divider for TCD0
 
 #define FRACT_MAX (1000)
 #define TIME_TRACKING_TICKS_PER_OVF (TIME_TRACKING_TIMER_PERIOD   + 1UL)
@@ -303,7 +303,7 @@ unsigned long micros()
   uint8_t flags;
   // Save current state and disable interrupts
   uint8_t oldSREG = SREG;
-  cli(); // INTERRUPTS OFF 
+  cli(); // INTERRUPTS OFF
   TCD0.CTRLE = TCD_SCAPTUREA_bm;
   while (!(TCD0.STATUS & TCD_CMDRDY_bm)); // wait for sync - should be only one iteration of this loop
   flags = TCD0.INTFLAGS;
@@ -315,7 +315,7 @@ unsigned long micros()
   // Get current number of overflows and timer count
   overflows = timingStruct.timer_overflow_count;
   // Turn interrupts back on, assuming they were on when micros was called.
-  SREG = oldSREG; // INTERRUPTS ON 
+  SREG = oldSREG; // INTERRUPTS ON
   if ((flags & TCD_OVF_bm) && (ticks < 0x07)) {
     overflows++;
   } // end getting ticks
