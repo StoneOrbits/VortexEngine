@@ -403,7 +403,7 @@ void Vortex::openFactoryReset()
 
 void Vortex::openModeSharing()
 {
-  // doesn't exist here
+  Menus::openMenu(MENU_MODE_SHARING);
 }
 
 void Vortex::openEditorConnection()

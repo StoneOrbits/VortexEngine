@@ -82,7 +82,6 @@ bool VortexEngine::init()
 
 void VortexEngine::cleanup()
 {
-#ifdef VORTEX_LIB
   // cleanup in reverse order
   // NOTE: the arduino doesn't actually cleanup,
   //       but the test frameworks do
