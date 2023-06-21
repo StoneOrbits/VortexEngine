@@ -15,7 +15,7 @@ private:
   void operator=(Button const &);
 
 public:
-  Button();
+  Button(uint8_t pin);
   ~Button();
 
   // initialize a new button object with a pin number

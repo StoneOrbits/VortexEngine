@@ -53,7 +53,7 @@ void Button::enableWake()
 }
 #endif
 
-Button::Button() :
+Button::Button(uint8_t pin) :
   m_pressTime(0),
   m_releaseTime(0),
   m_holdDuration(0),

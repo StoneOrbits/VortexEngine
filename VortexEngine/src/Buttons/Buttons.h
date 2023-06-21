@@ -23,6 +23,8 @@ public:
   static void update();
 
 private:
+  // feel free to add more I guess
+  static Button m_buttons[NUM_BUTTONS];
 };
 
 // best way I think
