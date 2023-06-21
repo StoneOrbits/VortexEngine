@@ -9,6 +9,8 @@
 #include "Arduino.h"
 #endif
 
+#if VL_ENABLE_SENDER == 1
+
 // the serial buffer for the data
 ByteStream VLSender::m_serialBuf;
 // a bit walker for the serial data
@@ -180,3 +182,5 @@ void VLSender::stopPWM()
   Leds::update();
 #endif
 }
+
+#endif

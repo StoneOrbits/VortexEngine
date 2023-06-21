@@ -11,6 +11,8 @@
 #include "Arduino.h"
 #endif
 
+#if IR_ENABLE_SENDER == 1
+
 // the serial buffer for the data
 ByteStream IRSender::m_serialBuf;
 // a bit walker for the serial data
@@ -182,3 +184,5 @@ void IRSender::stopPWM()
   Leds::update();
 #endif
 }
+
+#endif
