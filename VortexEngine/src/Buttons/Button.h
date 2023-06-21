@@ -17,7 +17,7 @@ public:
   ~Button();
 
   // initialize a new button object with a pin number
-  bool init(int pin);
+  bool init(uint8_t pin);
   // directly poll the pin for whether it's pressed right now
   bool check();
   // poll the button pin and update the state of the button object
@@ -52,7 +52,7 @@ public:
 
 private:
   // the pin number that is read
-  int m_pinNum;
+  uint8_t m_pinNum;
 
   // ========================================
   // state data that is populated each check

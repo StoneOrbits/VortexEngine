@@ -31,7 +31,7 @@ Button::~Button()
 {
 }
 
-bool Button::init(int pin)
+bool Button::init(uint8_t pin)
 {
   m_pinNum = 0;
   m_pressTime = 0;
