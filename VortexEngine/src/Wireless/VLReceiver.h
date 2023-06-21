@@ -7,7 +7,7 @@
 
 #include "VLConfig.h"
 
-#if VL_ENABLE == 1
+#if VL_ENABLE_RECEIVER == 1
 
 class ByteStream;
 class Mode;

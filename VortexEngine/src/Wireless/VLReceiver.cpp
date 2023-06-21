@@ -16,7 +16,7 @@
 #include <avr/io.h>
 #endif
 
-#if VL_ENABLE == 1
+#if VL_ENABLE_RECEIVER == 1
 
 BitStream VLReceiver::m_vlData;
 VLReceiver::RecvState VLReceiver::m_recvState = WAITING_HEADER_MARK;

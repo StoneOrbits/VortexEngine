@@ -6,7 +6,7 @@
 
 #include "VLConfig.h"
 
-#if VL_ENABLE == 1
+#if VL_ENABLE_SENDER == 1
 
 class Mode;
 
