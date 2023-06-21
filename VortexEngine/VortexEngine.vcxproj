@@ -149,8 +149,8 @@
     <ClCompile Include="src\Buttons\Buttons.cpp" />
     <ClCompile Include="src\Colors\Colorset.cpp" />
     <ClCompile Include="src\Colors\ColorTypes.cpp" />
-    <ClCompile Include="src\Infrared\IRReceiver.cpp" />
-    <ClCompile Include="src\Infrared\IRSender.cpp" />
+    <ClCompile Include="src\Wireless\IRReceiver.cpp" />
+    <ClCompile Include="src\Wireless\IRSender.cpp" />
     <ClCompile Include="src\Leds\Leds.cpp" />
     <ClCompile Include="src\Leds\LedStash.cpp" />
     <ClCompile Include="src\Log\ErrorBlinker.cpp" />
@@ -209,6 +209,8 @@
     <ClCompile Include="src\Time\TimeControl.cpp" />
     <ClCompile Include="src\Time\Timer.cpp" />
     <ClCompile Include="src\VortexEngine.cpp" />
+    <ClCompile Include="src\Wireless\VLReceiver.cpp" />
+    <ClCompile Include="src\Wireless\VLSender.cpp" />
     <ClCompile Include="VortexLib\EngineDependencies\Arduino.cpp" />
     <ClCompile Include="VortexLib\EngineDependencies\FlashStorage.cpp" />
     <ClCompile Include="VortexLib\VortexLib.cpp" />
@@ -218,9 +220,9 @@
     <ClInclude Include="src\Buttons\Buttons.h" />
     <ClInclude Include="src\Colors\Colorset.h" />
     <ClInclude Include="src\Colors\ColorTypes.h" />
-    <ClInclude Include="src\Infrared\IRConfig.h" />
-    <ClInclude Include="src\Infrared\IRReceiver.h" />
-    <ClInclude Include="src\Infrared\IRSender.h" />
+    <ClInclude Include="src\Wireless\IRConfig.h" />
+    <ClInclude Include="src\Wireless\IRReceiver.h" />
+    <ClInclude Include="src\Wireless\IRSender.h" />
     <ClInclude Include="src\Leds\Leds.h" />
     <ClInclude Include="src\Leds\LedStash.h" />
     <ClInclude Include="src\Leds\LedTypes.h" />
@@ -283,6 +285,9 @@
     <ClInclude Include="src\Time\Timings.h" />
     <ClInclude Include="src\VortexConfig.h" />
     <ClInclude Include="src\VortexEngine.h" />
+    <ClInclude Include="src\Wireless\VLConfig.h" />
+    <ClInclude Include="src\Wireless\VLReceiver.h" />
+    <ClInclude Include="src\Wireless\VLSender.h" />
     <ClInclude Include="VortexLib\EngineDependencies\Adafruit_Dotstar.h" />
     <ClInclude Include="VortexLib\EngineDependencies\Arduino.h" />
     <ClInclude Include="VortexLib\EngineDependencies\FlashStorage.h" />
