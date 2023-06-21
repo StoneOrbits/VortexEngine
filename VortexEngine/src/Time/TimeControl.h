@@ -108,6 +108,8 @@ private:
 #endif
 };
 
+// TODO: properly move these apis into here so that VortexLib doesn't
+//       need to provide them somehow
 void delayMicroseconds(uint16_t us);
 void delay(uint16_t ms);
 unsigned long micros();
