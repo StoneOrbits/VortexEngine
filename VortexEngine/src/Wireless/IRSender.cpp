@@ -5,11 +5,11 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-#include "IRConfig.h"
-
 #ifdef VORTEX_LIB
 #include "Arduino.h"
 #endif
+
+#if IR_ENABLE == 1
 
 // the serial buffer for the data
 ByteStream IRSender::m_serialBuf;
@@ -48,7 +48,7 @@ bool IRSender::loadMode(const Mode *targetMode)
     return false;
   }
   // ensure the data isn't too big
-  if (m_serialBuf.rawSize() > MAX_DATA_TRANSFER) {
+  if (m_serialBuf.rawSize() > IR_MAX_DATA_TRANSFER) {
     DEBUG_LOGF("Cannot transfer that much data: %u bytes", m_serialBuf.rawSize());
     return false;
   }
@@ -57,9 +57,9 @@ bool IRSender::loadMode(const Mode *targetMode)
   // the size of the packet
   m_size = m_serialBuf.rawSize();
   // the number of blocks that will be sent (possibly just 1 with less than 32 bytes)
-  m_numBlocks = (m_size + (DEFAULT_IR_BLOCK_SIZE - 1)) / DEFAULT_IR_BLOCK_SIZE;
+  m_numBlocks = (m_size + (IR_DEFAULT_BLOCK_SIZE - 1)) / IR_DEFAULT_BLOCK_SIZE;
   // the amount in the final block (possibly the only block)
-  m_remainder = m_size % (DEFAULT_IR_BLOCK_SIZE + 0);
+  m_remainder = m_size % (IR_DEFAULT_BLOCK_SIZE + 0);
   DEBUG_LOGF("Num blocks: %u", m_numBlocks);
   DEBUG_LOGF("Remainder: %u", m_remainder);
   DEBUG_LOGF("Size: %u", m_size);
@@ -78,12 +78,12 @@ bool IRSender::send()
   if (!m_isSending) {
     beginSend();
   }
-  if (m_lastSendTime > 0 && m_lastSendTime + DEFAULT_IR_BLOCK_SPACING > Time::getCurtime()) {
+  if (m_lastSendTime > 0 && m_lastSendTime + IR_DEFAULT_BLOCK_SPACING > Time::getCurtime()) {
     // don't send yet
     return m_isSending;
   }
   // blocksize is default unless it's the last block, then it's the remainder
-  uint32_t blocksize = (m_numBlocks == 1) ? m_remainder : DEFAULT_IR_BLOCK_SIZE;
+  uint32_t blocksize = (m_numBlocks == 1) ? m_remainder : IR_DEFAULT_BLOCK_SIZE;
   DEBUG_LOGF("IRSender Sending block #%u", m_numBlocks);
   // pointer to the data at the correct location
   const uint8_t *buf_ptr = m_bitStream.data() + m_writeCounter;
@@ -115,8 +115,8 @@ void IRSender::beginSend()
   sendMark(50);
   sendSpace(100);
   // now send the header
-  sendMark(HEADER_MARK);
-  sendSpace(HEADER_SPACE);
+  sendMark(IR_HEADER_MARK);
+  sendSpace(IR_HEADER_SPACE);
   // reset writeCounter
   m_writeCounter = 0;
   // write the number of blocks being sent, most likely just 1
@@ -182,3 +182,5 @@ void IRSender::stopPWM()
   Leds::update();
 #endif
 }
+
+#endif

@@ -1,20 +1,24 @@
-#ifndef IR_SENDER_H
-#define IR_SENDER_H
+#ifndef VL_SENDER_H
+#define VL_SENDER_H
 
 #include "../Serial/ByteStream.h"
 #include "../Serial/BitStream.h"
 
+#include "VLConfig.h"
+
+#if VL_ENABLE == 1
+
 class Mode;
 
-class IRSender
+class VLSender
 {
-  IRSender();
+  VLSender();
 
 public:
   static bool init();
   static void cleanup();
 
-  // initialize the IR sender with a mode to send
+  // initialize the VL sender with a mode to send
   static bool loadMode(const Mode *targetMode);
   static bool send();
 
@@ -30,9 +34,9 @@ private:
   // send a mark/space by turning PWM on/off
   static void sendMark(uint16_t time);
   static void sendSpace(uint16_t time);
-  // Pulse-Width Modulator (IR Transmitter)
+  // Pulse-Width Modulator (VL Transmitter)
   static void initPWM();
-  // turn the IR transmitter on/off in realtime
+  // turn the VL transmitter on/off in realtime
   static void startPWM();
   static void stopPWM();
 
@@ -56,5 +60,7 @@ private:
   // write total
   static uint32_t m_writeCounter;
 };
+
+#endif
 
 #endif

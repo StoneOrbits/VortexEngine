@@ -19,9 +19,6 @@
     <Filter Include="Header Files\Colors">
       <UniqueIdentifier>{92329e32-c298-4612-a624-9a36aa7ed6ef}</UniqueIdentifier>
     </Filter>
-    <Filter Include="Header Files\Infrared">
-      <UniqueIdentifier>{1ca998e7-1201-4502-bfc4-f044bcb4ad43}</UniqueIdentifier>
-    </Filter>
     <Filter Include="Header Files\Leds">
       <UniqueIdentifier>{f7568e98-ef08-4a67-9030-c8bd47d19a7f}</UniqueIdentifier>
     </Filter>
@@ -69,9 +66,6 @@
     </Filter>
     <Filter Include="Source Files\Colors">
       <UniqueIdentifier>{985fa140-8070-4c8e-8ee3-30cd004f8280}</UniqueIdentifier>
-    </Filter>
-    <Filter Include="Source Files\Infrared">
-      <UniqueIdentifier>{53027bd8-836b-491d-9b40-25ea0061bce9}</UniqueIdentifier>
     </Filter>
     <Filter Include="Source Files\Leds">
       <UniqueIdentifier>{7b92d454-723f-461a-8bcf-22ae6a4db4ef}</UniqueIdentifier>
@@ -127,6 +121,12 @@
     <Filter Include="Header Files\Random">
       <UniqueIdentifier>{3cbbe587-ec8b-4902-9fe7-e7277e5e6b69}</UniqueIdentifier>
     </Filter>
+    <Filter Include="Header Files\Wireless">
+      <UniqueIdentifier>{1ca998e7-1201-4502-bfc4-f044bcb4ad43}</UniqueIdentifier>
+    </Filter>
+    <Filter Include="Source Files\Wireless">
+      <UniqueIdentifier>{53027bd8-836b-491d-9b40-25ea0061bce9}</UniqueIdentifier>
+    </Filter>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="src\VortexEngine.cpp">
@@ -144,11 +144,11 @@
     <ClCompile Include="src\Colors\ColorTypes.cpp">
       <Filter>Source Files\Colors</Filter>
     </ClCompile>
-    <ClCompile Include="src\Infrared\IRReceiver.cpp">
-      <Filter>Source Files\Infrared</Filter>
+    <ClCompile Include="src\Wireless\IRReceiver.cpp">
+      <Filter>Source Files\Wireless</Filter>
     </ClCompile>
-    <ClCompile Include="src\Infrared\IRSender.cpp">
-      <Filter>Source Files\Infrared</Filter>
+    <ClCompile Include="src\Wireless\IRSender.cpp">
+      <Filter>Source Files\Wireless</Filter>
     </ClCompile>
     <ClCompile Include="src\Leds\Leds.cpp">
       <Filter>Source Files\Leds</Filter>
@@ -330,6 +330,12 @@
     <ClCompile Include="src\Log\ErrorBlinker.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\Wireless\VLReceiver.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Wireless\VLSender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\VortexConfig.h">
@@ -350,14 +356,14 @@
     <ClInclude Include="src\Colors\ColorTypes.h">
       <Filter>Header Files\Colors</Filter>
     </ClInclude>
-    <ClInclude Include="src\Infrared\IRConfig.h">
-      <Filter>Header Files\Infrared</Filter>
+    <ClInclude Include="src\Wireless\IRConfig.h">
+      <Filter>Header Files\Wireless</Filter>
     </ClInclude>
-    <ClInclude Include="src\Infrared\IRReceiver.h">
-      <Filter>Header Files\Infrared</Filter>
+    <ClInclude Include="src\Wireless\IRReceiver.h">
+      <Filter>Header Files\Wireless</Filter>
     </ClInclude>
-    <ClInclude Include="src\Infrared\IRSender.h">
-      <Filter>Header Files\Infrared</Filter>
+    <ClInclude Include="src\Wireless\IRSender.h">
+      <Filter>Header Files\Wireless</Filter>
     </ClInclude>
     <ClInclude Include="src\Leds\Leds.h">
       <Filter>Header Files\Leds</Filter>
@@ -549,6 +555,15 @@
       <Filter>Header Files\Random</Filter>
     </ClInclude>
     <ClInclude Include="src\Log\ErrorBlinker.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Wireless\VLConfig.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Wireless\VLReceiver.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Wireless\VLSender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

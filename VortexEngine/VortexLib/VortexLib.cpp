@@ -4,7 +4,8 @@
 #include "VortexEngine.h"
 #include "Buttons/Button.h"
 #include "Serial/ByteStream.h"
-#include "Infrared/IRReceiver.h"
+//#include "Wireless/IRReceiver.h"
+#include "Wireless/VLReceiver.h"
 #include "Patterns/PatternBuilder.h"
 #include "Patterns/Pattern.h"
 #include "Colors/Colorset.h"
@@ -363,7 +364,16 @@ void Vortex::quitClick()
 
 void Vortex::IRDeliver(uint32_t timing)
 {
+#if IR_ENABLE == 1
   IRReceiver::handleIRTiming(timing);
+#endif
+}
+
+void Vortex::VLDeliver(uint32_t timing)
+{
+#if VL_ENABLE == 1
+  VLReceiver::handleVLTiming(timing);
+#endif
 }
 
 void Vortex::getStorageStats(uint32_t *outTotal, uint32_t *outUsed)

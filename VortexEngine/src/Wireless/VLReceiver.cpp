@@ -1,4 +1,4 @@
-#include "IRReceiver.h"
+#include "VLReceiver.h"
 
 #include "../Serial/ByteStream.h"
 #include "../Serial/BitStream.h"
@@ -7,18 +7,22 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-#include "IRConfig.h"
+#ifdef VORTEX_LIB
+#include <Arduino.h>
+#endif
 
 #ifdef VORTEX_ARDUINO
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #endif
 
-BitStream IRReceiver::m_irData;
-IRReceiver::RecvState IRReceiver::m_recvState = WAITING_HEADER_MARK;
-uint64_t IRReceiver::m_prevTime = 0;
-uint8_t IRReceiver::m_pinState = 0;
-uint32_t IRReceiver::m_previousBytes = 0;
+#if VL_ENABLE == 1
+
+BitStream VLReceiver::m_vlData;
+VLReceiver::RecvState VLReceiver::m_recvState = WAITING_HEADER_MARK;
+uint64_t VLReceiver::m_prevTime = 0;
+uint8_t VLReceiver::m_pinState = 0;
+uint32_t VLReceiver::m_previousBytes = 0;
 
 #ifdef VORTEX_ARDUINO
 #define MIN_THRESHOLD   200
@@ -41,7 +45,7 @@ ISR(ADC0_WCOMP_vect)
   // compare the current analog value to the light threshold
   bool isAboveThreshold = (val > threshold);
   if (wasAboveThreshold != isAboveThreshold) {
-    IRReceiver::recvPCIHandler();
+    VLReceiver::recvPCIHandler();
     wasAboveThreshold = isAboveThreshold;
   }
   // Clear the Window Comparator interrupt flag
@@ -49,63 +53,63 @@ ISR(ADC0_WCOMP_vect)
 }
 #endif
 
-bool IRReceiver::init()
+bool VLReceiver::init()
 {
 #ifdef VORTEX_ARDUINO
   // Disable digital input buffer on the pin to save power
   PORTB.PIN1CTRL &= ~PORT_ISC_gm;
   PORTB.PIN1CTRL |= PORT_ISC_INPUT_DISABLE_gc;
 #endif
-  return m_irData.init(IR_RECV_BUF_SIZE);
+  return m_vlData.init(VL_RECV_BUF_SIZE);
 }
 
-void IRReceiver::cleanup()
+void VLReceiver::cleanup()
 {
 }
 
-bool IRReceiver::dataReady()
+bool VLReceiver::dataReady()
 {
   // is the receiver actually receiving data?
   if (!isReceiving()) {
     return false;
   }
-  uint8_t blocks = m_irData.data()[0];
-  uint8_t remainder = m_irData.data()[1];
+  uint8_t blocks = m_vlData.data()[0];
+  uint8_t remainder = m_vlData.data()[1];
   uint32_t total = ((blocks - 1) * 32) + remainder;
-  if (!total || total > MAX_DATA_TRANSFER) {
-    DEBUG_LOGF("Bad IR Data size: %u", total);
+  if (!total || total > VL_MAX_DATA_TRANSFER) {
+    DEBUG_LOGF("Bad VL Data size: %u", total);
     return false;
   }
-  // if there are size + 2 bytes in the IRData receiver
+  // if there are size + 2 bytes in the VLData receiver
   // then a full message is ready, the + 2 is from the
   // two bytes for blocks + remainder that are sent first
-  return (m_irData.bytepos() >= (uint32_t)(total + 2));
+  return (m_vlData.bytepos() >= (uint32_t)(total + 2));
 }
 
 // whether actively receiving
-bool IRReceiver::isReceiving()
+bool VLReceiver::isReceiving()
 {
   // if there are at least 2 bytes in the data buffer then
   // the receiver is receiving a packet. If there is less
   // than 2 bytes then we're still waiting for the 'blocks'
   // and 'remainder' bytes which prefix a packet
-  return (m_irData.bytepos() > 2);
+  return (m_vlData.bytepos() > 2);
 }
 
 // the percent of data received
-uint32_t IRReceiver::percentReceived()
+uint32_t VLReceiver::percentReceived()
 {
   if (!isReceiving()) {
     return 0;
   }
-  uint8_t blocks = m_irData.data()[0];
-  uint8_t remainder = m_irData.data()[1];
+  uint8_t blocks = m_vlData.data()[0];
+  uint8_t remainder = m_vlData.data()[1];
   uint32_t total = ((blocks - 1) * 32) + remainder;
   // round by adding half of the total to the numerator
-  return (uint32_t)((m_irData.bytepos() * 100 + (total / 2)) / total);
+  return (uint32_t)((m_vlData.bytepos() * 255 + (total / 2)) / total);
 }
 
-bool IRReceiver::receiveMode(Mode *pMode)
+bool VLReceiver::receiveMode(Mode *pMode)
 {
   ByteStream buf;
   // read from the receive buffer into the byte stream
@@ -119,7 +123,7 @@ bool IRReceiver::receiveMode(Mode *pMode)
   return pMode->loadFromBuffer(buf);
 }
 
-bool IRReceiver::beginReceiving()
+bool VLReceiver::beginReceiving()
 {
 #ifdef VORTEX_ARDUINO
   // Set up the ADC
@@ -162,22 +166,22 @@ bool IRReceiver::beginReceiving()
   // start the first conversion
   ADC0.COMMAND = ADC_STCONV_bm;
 #endif
-  resetIRState();
+  resetVLState();
   return true;
 }
 
-bool IRReceiver::endReceiving()
+bool VLReceiver::endReceiving()
 {
 #ifdef VORTEX_ARDUINO
   // Stop conversions and disable the ADC
   ADC0.CTRLA &= ~(ADC_ENABLE_bm | ADC_FREERUN_bm);
   ADC0.INTCTRL = 0;
 #endif
-  resetIRState();
+  resetVLState();
   return true;
 }
 
-bool IRReceiver::onNewData()
+bool VLReceiver::onNewData()
 {
   if (bytesReceived() == m_previousBytes) {
     return false;
@@ -186,34 +190,34 @@ bool IRReceiver::onNewData()
   return true;
 }
 
-bool IRReceiver::read(ByteStream &data)
+bool VLReceiver::read(ByteStream &data)
 {
-  if (!m_irData.bytepos() || m_irData.bytepos() > MAX_DATA_TRANSFER) {
+  if (!m_vlData.bytepos() || m_vlData.bytepos() > VL_MAX_DATA_TRANSFER) {
     DEBUG_LOG("Nothing to read, or read too much");
     return false;
   }
   // read the size out (blocks + remainder)
-  uint8_t blocks = m_irData.data()[0];
-  uint8_t remainder = m_irData.data()[1];
+  uint8_t blocks = m_vlData.data()[0];
+  uint8_t remainder = m_vlData.data()[1];
   // calculate size from blocks + remainder
   uint32_t size = ((blocks - 1) * 32) + remainder;
-  if (!size || size > MAX_DATA_TRANSFER) {
-    DEBUG_LOGF("Bad IR Data size: %u", size);
+  if (!size || size > VL_MAX_DATA_TRANSFER) {
+    DEBUG_LOGF("Bad VL Data size: %u", size);
     return false;
   }
   // the actual data starts 2 bytes later because of the size byte
-  const uint8_t *actualData = m_irData.data() + 2;
+  const uint8_t *actualData = m_vlData.data() + 2;
   if (!data.rawInit(actualData, size)) {
-    DEBUG_LOG("Failed to init buffer for IR read");
+    DEBUG_LOG("Failed to init buffer for VL read");
     return false;
   }
-  // reset the IR state and receive buffer now
-  resetIRState();
+  // reset the VL state and receive buffer now
+  resetVLState();
   return true;
 }
 
 // The recv PCI handler is called every time the pin state changes
-void IRReceiver::recvPCIHandler()
+void VLReceiver::recvPCIHandler()
 {
   // toggle the tracked pin state no matter what
   m_pinState = (uint8_t)!m_pinState;
@@ -223,7 +227,7 @@ void IRReceiver::recvPCIHandler()
   if (!m_prevTime || m_prevTime > now) {
     m_prevTime = now;
     DEBUG_LOG("Bad first time diff, resetting...");
-    resetIRState();
+    resetVLState();
     return;
   }
   // calc time difference between previous change and now
@@ -231,38 +235,38 @@ void IRReceiver::recvPCIHandler()
   // and update the previous changetime for next loop
   m_prevTime = now;
   // handle the bliank duration and process it
-  handleIRTiming(diff);
+  handleVLTiming(diff);
 }
 
-// state machine that can be fed IR timings to parse them and interpret the intervals
-void IRReceiver::handleIRTiming(uint32_t diff)
+// state machine that can be fed VL timings to parse them and interpret the intervals
+void VLReceiver::handleVLTiming(uint32_t diff)
 {
   // if the diff is too long or too short then it's not useful
-  if ((diff > HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < IR_TIMING_MIN) {
+  if ((diff > VL_HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < VL_TIMING_MIN) {
     DEBUG_LOGF("bad delay: %u, resetting...", diff);
-    resetIRState();
+    resetVLState();
     return;
   }
   switch (m_recvState) {
   case WAITING_HEADER_MARK: // initial state
-    if (diff >= HEADER_SPACE_MIN && diff <= HEADER_MARK_MAX) {
+    if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
       m_recvState = WAITING_HEADER_SPACE;
     } else {
       DEBUG_LOGF("Bad header mark %u, resetting...", diff);
-      resetIRState();
+      resetVLState();
     }
     break;
   case WAITING_HEADER_SPACE:
-    if (diff >= HEADER_SPACE_MIN && diff <= HEADER_MARK_MAX) {
+    if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
       m_recvState = READING_DATA_MARK;
     } else {
       DEBUG_LOGF("Bad header space %u, resetting...", diff);
-      resetIRState();
+      resetVLState();
     }
     break;
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
-    m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
+    m_vlData.write1Bit((diff > (VL_TIMING * 2)) ? 1 : 0);
     m_recvState = READING_DATA_SPACE;
     break;
   case READING_DATA_SPACE:
@@ -275,15 +279,17 @@ void IRReceiver::handleIRTiming(uint32_t diff)
   }
 }
 
-void IRReceiver::resetIRState()
+void VLReceiver::resetVLState()
 {
   m_previousBytes = 0;
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
-  m_irData.reset();
+  m_vlData.reset();
 #ifdef VORTEX_ARDUINO
   // reset the threshold to a high value so that it can be pulled down again
   threshold = THRESHOLD_BEGIN;
 #endif
-  DEBUG_LOG("IR State Reset");
+  DEBUG_LOG("VL State Reset");
 }
+
+#endif

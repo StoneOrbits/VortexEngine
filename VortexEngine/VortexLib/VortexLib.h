@@ -133,6 +133,7 @@ public:
   // because the system will reset on bad data and then it can interpret any
   // timing either way
   static void IRDeliver(uint32_t timing);
+  static void VLDeliver(uint32_t timing);
 
   // get total/used storage space
   static void getStorageStats(uint32_t *outTotal, uint32_t *outUsed);

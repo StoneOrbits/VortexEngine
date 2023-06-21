@@ -4,8 +4,8 @@
 #include "../../Serial/Serial.h"
 #include "../../Time/TimeControl.h"
 #include "../../Time/Timings.h"
-#include "../../Infrared/IRReceiver.h"
-#include "../../Infrared/IRSender.h"
+#include "../../Wireless/VLReceiver.h"
+#include "../../Wireless/VLSender.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
@@ -66,7 +66,7 @@ void ModeSharing::onShortClick()
   switch (m_sharingMode) {
   case ModeShareState::SHARE_RECEIVE:
     // click while on receive -> end receive, start sending
-    IRReceiver::endReceiving();
+    VLReceiver::endReceiving();
     beginSending();
     DEBUG_LOG("Switched to send mode");
     break;
@@ -84,15 +84,15 @@ void ModeSharing::onLongClick()
 void ModeSharing::beginSending()
 {
   // if the sender is sending then cannot start again
-  if (IRSender::isSending()) {
+  if (VLSender::isSending()) {
     ERROR_LOG("Cannot begin sending, sender is busy");
     return;
   }
   m_sharingMode = ModeShareState::SHARE_SEND;
   // initialize it with the current mode data
-  IRSender::loadMode(m_pCurMode);
+  VLSender::loadMode(m_pCurMode);
   // send the first chunk of data, leave if we're done
-  if (!IRSender::send()) {
+  if (!VLSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
     beginReceiving();
   }
@@ -101,10 +101,10 @@ void ModeSharing::beginSending()
 void ModeSharing::continueSending()
 {
   // if the sender isn't sending then nothing to do
-  if (!IRSender::isSending()) {
+  if (!VLSender::isSending()) {
     return;
   }
-  if (!IRSender::send()) {
+  if (!VLSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
     beginReceiving();
   }
@@ -113,28 +113,28 @@ void ModeSharing::continueSending()
 void ModeSharing::beginReceiving()
 {
   m_sharingMode = ModeShareState::SHARE_RECEIVE;
-  IRReceiver::beginReceiving();
+  VLReceiver::beginReceiving();
 }
 
 void ModeSharing::receiveMode()
 {
   // if reveiving new data set our last data time
-  if (IRReceiver::onNewData()) {
+  if (VLReceiver::onNewData()) {
     m_timeOutStartTime = Time::getCurtime();
     // if our last data was more than time out duration reset the recveiver
   } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < Time::getCurtime()) {
-    IRReceiver::resetIRState();
+    VLReceiver::resetVLState();
     m_timeOutStartTime = 0;
     return;
   }
-  // check if the IRReceiver has a full packet available
-  if (!IRReceiver::dataReady()) {
+  // check if the VLReceiver has a full packet available
+  if (!VLReceiver::dataReady()) {
     // nothing available yet
     return;
   }
   DEBUG_LOG("Mode ready to receive! Receiving...");
-  // receive the IR mode into the current mode
-  if (!IRReceiver::receiveMode(m_pCurMode)) {
+  // receive the VL mode into the current mode
+  if (!VLReceiver::receiveMode(m_pCurMode)) {
     ERROR_LOG("Failed to receive mode");
     return;
   }
@@ -146,7 +146,7 @@ void ModeSharing::receiveMode()
 void ModeSharing::showSendMode()
 {
   // show a dim color when not sending
-  if (!IRSender::isSending()) {
+  if (!VLSender::isSending()) {
     Leds::setAll(RGBColor(0, 20, 20));
   }
 }
@@ -154,7 +154,6 @@ void ModeSharing::showSendMode()
 void ModeSharing::showReceiveMode()
 {
   // using uint32_t to avoid overflow, the result should be within 10 to 255
-  uint32_t grn = 10 + (((uint32_t)IRReceiver::percentReceived() * 245) / 100);
-  Leds::setIndex(LED_0, IRReceiver::isReceiving() ? RGBColor(0, (uint8_t)grn, 0) : RGB_BLANK);
+  Leds::setIndex(LED_0, VLReceiver::isReceiving() ? RGBColor(0, VLReceiver::percentReceived(), 0) : RGB_BLANK);
   Leds::clearIndex(LED_1);
 }
