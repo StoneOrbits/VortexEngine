@@ -7,6 +7,8 @@
 
 #include "VLConfig.h"
 
+#if VL_ENABLE_RECEIVER == 1
+
 class ByteStream;
 class Mode;
 
@@ -75,5 +77,7 @@ private:
   friend class Vortex;
 #endif
 };
+
+#endif
 
 #endif
