@@ -32,7 +32,7 @@ static void printState(PatternState state)
 #endif
 
 BasicPattern::BasicPattern(const PatternArgs &args) :
-  Pattern(args),
+  SingleLedPattern(args),
   m_onDuration(0),
   m_offDuration(0),
   m_gapDuration(0),
