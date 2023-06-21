@@ -7,8 +7,6 @@
 
 #include "IRConfig.h"
 
-#if IR_ENABLE == 1
-
 class ByteStream;
 class Mode;
 
@@ -77,7 +75,5 @@ private:
   friend class Vortex;
 #endif
 };
-
-#endif
 
 #endif

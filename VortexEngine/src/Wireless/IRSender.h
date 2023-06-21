@@ -6,8 +6,6 @@
 
 #include "IRConfig.h"
 
-#if IR_ENABLE == 1
-
 class Mode;
 
 class IRSender
@@ -60,7 +58,5 @@ private:
   // write total
   static uint32_t m_writeCounter;
 };
-
-#endif
 
 #endif
