@@ -80,11 +80,11 @@ bool Button::init()
   m_holdDuration = 0;
   m_releaseDuration = 0;
   m_consecutivePresses = 0;
+  m_releaseCount = 0;
   m_buttonState = check();
   m_newPress = false;
   m_newRelease = false;
   m_isPressed = m_buttonState;
-  m_releaseCount = !m_isPressed;
   m_shortClick = false;
   m_longClick = false;
   return true;
