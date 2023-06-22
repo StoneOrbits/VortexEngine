@@ -7,7 +7,7 @@
 
 #include "IRConfig.h"
 
-//#include <Arduino.h>
+#include <Arduino.h>
 
 #if IR_ENABLE_SENDER == 1
 
