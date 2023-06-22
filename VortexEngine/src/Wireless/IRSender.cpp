@@ -5,9 +5,9 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-#ifdef VORTEX_LIB
-#include "Arduino.h"
-#endif
+#include "IRConfig.h"
+
+#include <Arduino.h>
 
 #if IR_ENABLE_SENDER == 1
 
