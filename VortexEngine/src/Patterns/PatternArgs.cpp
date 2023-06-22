@@ -155,7 +155,7 @@ bool PatternArgs::operator==(const PatternArgs &rhs)
     return false;
   }
   // compare num args
-  for (uint32_t i = 0; i < numArgs; ++i) {
+  for (uint8_t i = 0; i < numArgs; ++i) {
     if (args[i] != rhs.args[i]) {
       return false;
     }

@@ -13,7 +13,7 @@ ChaserPattern::ChaserPattern(const PatternArgs &args) :
   // a pattern map for each step. A colorset map can also be applied
   // to override certain colors for specific steps, but that's not
   // what is being done here
-  for (uint32_t i = 0; i < 8; ++i) {
+  for (uint8_t i = 0; i < 8; ++i) {
     // Each step all fingers are dops except for one, so start with a
     // Pattern Map that has dops on all fingers. A Pattern Map will map
     // a Pattern ID to each LED on the device, then we will override a

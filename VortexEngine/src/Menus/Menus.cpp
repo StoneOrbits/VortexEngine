@@ -21,7 +21,7 @@
 // static members
 Menus::MenuState Menus::m_menuState = MENU_STATE_NOT_OPEN;
 uint64_t Menus::m_openTime = 0;
-uint32_t Menus::m_selection = 0;
+uint8_t Menus::m_selection = 0;
 Menu *Menus::m_pCurMenu = nullptr;
 
 // typedef for the menu initialization function

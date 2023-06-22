@@ -97,16 +97,16 @@ bool VLReceiver::isReceiving()
 }
 
 // the percent of data received
-uint32_t VLReceiver::percentReceived()
+uint16_t VLReceiver::percentReceived()
 {
   if (!isReceiving()) {
     return 0;
   }
   uint8_t blocks = m_vlData.data()[0];
   uint8_t remainder = m_vlData.data()[1];
-  uint32_t total = ((blocks - 1) * 32) + remainder;
+  uint16_t total = ((blocks - 1) * 32) + remainder;
   // round by adding half of the total to the numerator
-  return (uint32_t)((m_vlData.bytepos() * 255 + (total / 2)) / total);
+  return (uint16_t)((m_vlData.bytepos() * 255 + (total / 2)) / total);
 }
 
 bool VLReceiver::receiveMode(Mode *pMode)

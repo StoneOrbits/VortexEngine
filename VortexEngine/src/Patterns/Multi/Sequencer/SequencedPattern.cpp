@@ -41,7 +41,7 @@ void SequencedPattern::init()
   m_timer.reset();
 
   // create an alarm for each duration in the sequence
-  for (uint32_t i = 0; i < m_sequence.numSteps(); ++i) {
+  for (uint8_t i = 0; i < m_sequence.numSteps(); ++i) {
     m_timer.addAlarm(m_sequence[i].m_duration);
   }
 
