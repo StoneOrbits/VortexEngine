@@ -202,19 +202,13 @@ void ModeSharing::receiveModeIR()
 void ModeSharing::showSendModeVL()
 {
   // show a dim color when not sending
-  if (!VLSender::isSending()) {
-    Leds::setAll(RGBColor(0, 20, 20));
-  }
+  Leds::clearAll();
 }
 
 void ModeSharing::showSendModeIR()
 {
   // show a dim color when not sending
-  if (!IRSender::isSending()) {
-    Leds::setAll(RGBColor(0, 20, 20));
-  } else {
-    Leds::clearAll();
-  }
+  Leds::clearAll();
 }
 
 void ModeSharing::showReceiveMode()
