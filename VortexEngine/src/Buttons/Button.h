@@ -57,6 +57,9 @@ public:
   // the number of releases
   uint8_t releaseCount() const { return m_releaseCount; }
 
+  // reset the consecutive press counter
+  void resetConsecutivePresses() { m_consecutivePresses = 0; }
+
 private:
   // ========================================
   // state data that is populated each check

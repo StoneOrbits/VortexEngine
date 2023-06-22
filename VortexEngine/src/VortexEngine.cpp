@@ -27,8 +27,6 @@ bool VortexEngine::init()
 #ifdef VORTEX_ARDUINO
   // clear the output pins to initialize everything
   clearOutputPins();
-  // open the mosfet so that power can flow to the leds
-  enableMOSFET(true);
 #endif
 
   // all of the global controllers
@@ -64,6 +62,11 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
+
+#ifdef VORTEX_ARDUINO
+  // set the state of the mosfet based on whether the chip is locked or not
+  enableMOSFET(!Modes::locked());
+#endif
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -138,16 +141,21 @@ void VortexEngine::runMainLogic()
   // device will only listen for clicks to wakeup momentarily then go back to sleep
   if (Modes::locked()) {
     // several fast clicks will unlock the device
-    if (g_pButton->consecutivePresses() >= DEVICE_LOCK_CLICKS) {
-      // turn off the lock flag and save it to disk then wakeup (reset)
+    if (g_pButton->consecutivePresses() >= (DEVICE_LOCK_CLICKS - 1)) {
+      // turn off the lock flag and save it to disk
       Modes::setLocked(false);
-      wakeup();
+#ifdef VORTEX_ARDUINO
+      // then enable the mosfet
+      enableMOSFET(true);
+#endif
+      // reset the consecutive press counter so the device doesn't lock again
+      g_pButton->resetConsecutivePresses();
     } else if (Time::getCurtime() > UNLOCK_WAKE_WINDOW_TICKS) {
       // go back to sleep if they don't unlock in time
       enterSleep();
     }
     // OPTIONAL: render a dim led during unlock window waiting for clicks?
-    // Leds::setIndex(LED_1, RGB_DIM_RED);
+    Leds::setIndex(LED_1, RGB_DIM_RED);
     // don't do anything else while locked, just return
     return;
   }
@@ -233,7 +241,7 @@ void VortexEngine::runMainLogic()
 
   // lastly check if we are locking the device, which can only happen if they click the
   // button 5 times quickly when the device was off, so 4 times in the first x ticks
-  if (g_pButton->consecutivePresses() >= DEVICE_LOCK_CLICKS && Time::getCurtime() < (CONSECUTIVE_WINDOW_TICKS * 4)) {
+  if (g_pButton->consecutivePresses() >= (DEVICE_LOCK_CLICKS - 1) && Time::getCurtime() < (CONSECUTIVE_WINDOW_TICKS * DEVICE_LOCK_CLICKS)) {
     // lock and just go to sleep
     Modes::setLocked(true);
     enterSleep();

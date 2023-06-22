@@ -84,25 +84,6 @@
 // How long the user has to hold the button anywhere to force sleep
 #define FORCE_SLEEP_TIME      4269
 
-// Rapid Press Window (in milliseconds)
-//
-// How long the user has after releasing to short click the button
-// again and be counted as a 'consecutive press'
-#define CONSECUTIVE_WINDOW    150
-
-// Auto Randomization Delay (in milliseconds)
-//
-// How long the randomizer will wait before it triggers another randomization
-// when it's been set to auto mode.
-//
-// Most electronic music often falls within a range of approximately 120-130 BPM
-// To convert BPM to a measure of time in milliseconds (ms) we can do:
-// Milliseconds per beat at 128 BPM = 1/128 * 60,000 = approximately 468.75 ms
-// So, a beat at 128 BPM lasts about 468.75 ms, so 4 beats would be about 1875.
-//
-// This will make the randomizer wait approximately 4 edm beats between switches
-#define AUTO_RANDOM_DELAY     1875
-
 // Device Unlock Window (in milliseconds)
 //
 // How long the user has to perform 5 rapid clicks to unlock the device.
@@ -122,26 +103,7 @@
 //
 // How long the user has after releasing to short click the button
 // again and be counted as a 'consecutive press'
-#define CONSECUTIVE_WINDOW    150
-
-// Auto Randomization Delay (in milliseconds)
-//
-// How long the randomizer will wait before it triggers another randomization
-// when it's been set to auto mode.
-//
-// Most electronic music often falls within a range of approximately 120-130 BPM
-// To convert BPM to a measure of time in milliseconds (ms) we can do:
-// Milliseconds per beat at 128 BPM = 1/128 * 60,000 = approximately 468.75 ms
-// So, a beat at 128 BPM lasts about 468.75 ms, so 4 beats would be about 1875.
-//
-// This will make the randomizer wait approximately 4 edm beats between switches
-#define AUTO_RANDOM_DELAY     1875
-
-// Rapid Press Window (in milliseconds)
-//
-// How long the user has after releasing to short click the button
-// again and be counted as a 'consecutive press'
-#define CONSECUTIVE_WINDOW    150
+#define CONSECUTIVE_WINDOW    175
 
 // Auto Randomization Delay (in milliseconds)
 //
