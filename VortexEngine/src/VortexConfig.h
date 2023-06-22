@@ -84,13 +84,6 @@
 // How long the user has to hold the button anywhere to force sleep
 #define FORCE_SLEEP_TIME      4269
 
-// Device Unlock Window (in milliseconds)
-//
-// How long the user has to perform 5 rapid clicks to unlock the device.
-// This is how long the device will turn on and wait for input before going
-// back to sleep when the button is pressed while the device is locked
-#define UNLOCK_WAKE_WINDOW    2000
-
 // Device Lock Clicks
 //
 // How many rapid clicks the user must perform to lock/unlock the device.

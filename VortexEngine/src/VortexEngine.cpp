@@ -150,7 +150,7 @@ void VortexEngine::runMainLogic()
 #endif
       // reset the consecutive press counter so the device doesn't lock again
       g_pButton->resetConsecutivePresses();
-    } else if (Time::getCurtime() > UNLOCK_WAKE_WINDOW_TICKS) {
+    } else if (Time::getCurtime() > (CONSECUTIVE_WINDOW_TICKS * DEVICE_LOCK_CLICKS)) {
       // go back to sleep if they don't unlock in time
       enterSleep();
     }
