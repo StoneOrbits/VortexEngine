@@ -263,11 +263,21 @@ bool Mode::unserialize(ByteStream &buffer)
   // unserialize the flags value
   ModeFlags flags = 0;
   buffer.unserialize(&flags);
+  Pattern *firstPat = nullptr;
   // if there is a multi led pattern then unserialize it
   if (flags & MODE_FLAG_MULTI_LED) {
 #if VORTEX_SLIM == 1
-    // unserialize the multi pattern but just discard it
-    PatternBuilder::unserialize(buffer);
+    // unserialize the multi pattern
+    Pattern *multiPat = PatternBuilder::unserialize(buffer);
+    // if there are no single leds then discard the firstpat
+    if ((flags & MODE_FLAG_SINGLE_LED) != 0 && multiPat) {
+      // discard the multi pattern
+      delete multiPat;
+    } else {
+      // otherwise turn on the all same single flag to use the multi as a single
+      flags = MODE_FLAG_SINGLE_LED | MODE_FLAG_ALL_SAME_SINGLE;
+      firstPat = multiPat;
+    }
 #else
     // otherwise in normal build actually unserialize it
     m_multiPat = PatternBuilder::unserialize(buffer);
@@ -284,7 +294,6 @@ bool Mode::unserialize(ByteStream &buffer)
     buffer.unserialize((uint32_t *)&map);
   }
   // unserialize all singleled patterns into their positions
-  Pattern *firstPat = nullptr;
   MAP_FOREACH_LED(map) {
     if (pos >= LED_COUNT) {
       // in case the map encodes led positions this device doesn't support
