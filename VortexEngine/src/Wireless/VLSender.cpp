@@ -5,7 +5,7 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-#include "Arduino.h"
+#include <Arduino.h>
 
 #if VL_ENABLE_SENDER == 1
 
@@ -45,7 +45,7 @@ bool VLSender::loadMode(const Mode *targetMode)
     DEBUG_LOG("Failed to save mode to buffer");
     return false;
   }
-  // decompress the mode
+  // decompress the mode on lifi, no compression here
   if (!m_serialBuf.decompress()) {
     DEBUG_LOG("Failed to decompress VL buf for sending");
     return false;
@@ -166,7 +166,7 @@ void VLSender::sendSpace(uint16_t time)
 
 void VLSender::startPWM()
 {
-#if defined(VORTEX_ARDUINO) && VL_ENABLE == 1
+#if defined(VORTEX_ARDUINO)
   // brightness backup
   uint8_t oldBrightness = Leds::getBrightness();
   // ensure max brightness
@@ -181,7 +181,7 @@ void VLSender::startPWM()
 
 void VLSender::stopPWM()
 {
-#if defined(VORTEX_ARDUINO) && VL_ENABLE == 1
+#if defined(VORTEX_ARDUINO)
   Leds::clearAll();
   Leds::update();
 #endif
