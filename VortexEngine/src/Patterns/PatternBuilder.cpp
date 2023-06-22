@@ -36,9 +36,13 @@
 
 Pattern *PatternBuilder::make(PatternID id, const PatternArgs *args)
 {
+#if VORTEX_SLIM == 0
   if (id > PATTERN_LAST) {
+#else
+  if (id > PATTERN_SINGLE_LAST) {
+#endif
     DEBUG_LOGF("Invalid pattern id: %u", id);
-    return nullptr;
+    id = PATTERN_FIRST;
   }
   if (isMultiLedPatternID(id)) {
     return makeMulti(id, args);
