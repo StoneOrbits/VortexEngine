@@ -157,12 +157,12 @@ void Mode::play()
   }
 }
 
-bool Mode::saveToBuffer(ByteStream &modeBuffer) const
+bool Mode::saveToBuffer(ByteStream &modeBuffer, uint8_t numLeds) const
 {
   // serialize the engine version into the modes buffer
   VortexEngine::serializeVersion(modeBuffer);
   // serialize all mode data into the modeBuffer
-  serialize(modeBuffer);
+  serialize(modeBuffer, numLeds);
   DEBUG_LOGF("Serialized mode, uncompressed size: %u", modeBuffer.size());
   return modeBuffer.compress();
 }
@@ -195,16 +195,17 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
   return true;
 }
 
-void Mode::serialize(ByteStream &buffer) const
+void Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
 {
+  if (!numLeds) {
+    numLeds = MODE_LEDCOUNT;
+  }
   // serialize the number of leds
-  buffer.serialize((uint8_t)MODE_LEDCOUNT);
-#if FIXED_LED_COUNT == 0
+  buffer.serialize(numLeds);
   // empty mode?
-  if (!MODE_LEDCOUNT) {
+  if (!numLeds) {
     return;
   }
-#endif
   // serialize the flags
   ModeFlags flags = getFlags();
   buffer.serialize(flags);
@@ -225,7 +226,7 @@ void Mode::serialize(ByteStream &buffer) const
     buffer.serialize((uint32_t)getSingleLedMap());
   }
   // then iterate each single led and serialize it
-  for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
+  for (LedPos pos = LED_FIRST; pos < numLeds; ++pos) {
     const Pattern *entry = m_singlePats[pos];
     if (!entry) {
       continue;

@@ -208,7 +208,7 @@ uint8_t Sequence::addStep(const SequenceStep &step)
   return true;
 }
 
-uint8_t Sequence::addStep(uint8_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap)
+uint8_t Sequence::addStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap)
 {
   return addStep(SequenceStep(duration, patternMap, colorsetMap));
 }
