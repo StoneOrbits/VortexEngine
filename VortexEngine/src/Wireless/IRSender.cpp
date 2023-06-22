@@ -7,9 +7,7 @@
 
 #include "IRConfig.h"
 
-#ifdef VORTEX_LIB
-#include "Arduino.h"
-#endif
+#include <Arduino.h>
 
 #if IR_ENABLE_SENDER == 1
 
