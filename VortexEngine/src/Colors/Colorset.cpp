@@ -65,7 +65,7 @@ void Colorset::operator=(const Colorset &other)
 {
   clear();
   initPalette(other.m_numColors);
-  for (uint32_t i = 0; i < other.m_numColors; ++i) {
+  for (uint8_t i = 0; i < other.m_numColors; ++i) {
     m_palette[i] = other.m_palette[i];
   }
   resetIndex();
@@ -144,7 +144,7 @@ bool Colorset::addColor(RGBColor col)
   // if there is already some colors in the palette
   if (m_numColors && m_palette) {
     // copy over existing colors
-    for (uint32_t i = 0; i < m_numColors; ++i) {
+    for (uint8_t i = 0; i < m_numColors; ++i) {
       temp[i] = m_palette[i];
     }
     // and delete the existing palette
@@ -204,7 +204,7 @@ void Colorset::addColorWithValueStyle(Random &ctx, uint8_t hue, uint8_t sat, Val
   }
 }
 
-void Colorset::removeColor(uint32_t index)
+void Colorset::removeColor(uint8_t index)
 {
   if (index >= m_numColors) {
     return;
@@ -220,20 +220,20 @@ void Colorset::removeColor(uint32_t index)
 }
 
 // create a set of truely random colors
-void Colorset::randomize(Random &ctx, uint32_t numColors)
+void Colorset::randomize(Random &ctx, uint8_t numColors)
 {
   clear();
   if (!numColors) {
     numColors = ctx.next8(2, 9);
   }
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  for (uint32_t i = 0; i < numColors; ++i) {
+  for (uint8_t i = 0; i < numColors; ++i) {
     addColorWithValueStyle(ctx, ctx.next8(), ctx.next8(), valStyle, numColors);
   }
 }
 
 // create a set according to the rules of color theory
-void Colorset::randomizeColorTheory(Random &ctx, uint32_t numColors)
+void Colorset::randomizeColorTheory(Random &ctx, uint8_t numColors)
 {
   clear();
   if (!numColors) {
@@ -243,14 +243,14 @@ void Colorset::randomizeColorTheory(Random &ctx, uint32_t numColors)
   uint8_t colorGap = 0;
   if (numColors > 1) colorGap = ctx.next8(16, 256/(numColors - 1));
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  for (uint32_t i = 0; i < numColors; i++) {
+  for (uint8_t i = 0; i < numColors; i++) {
     uint8_t nextHue = (randomizedHue + (i * colorGap)) % 256;
     addColorWithValueStyle(ctx, nextHue, 255, valStyle, numColors);
   }
 }
 
 // create a set of colors that share a single hue
-void Colorset::randomizeMonochromatic(Random &ctx, uint32_t numColors)
+void Colorset::randomizeMonochromatic(Random &ctx, uint8_t numColors)
 {
   clear();
   if (!numColors) {
@@ -258,7 +258,7 @@ void Colorset::randomizeMonochromatic(Random &ctx, uint32_t numColors)
   }
   uint8_t randomizedHue = ctx.next8();
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  for (uint32_t i = 0; i < numColors; i++) {
+  for (uint8_t i = 0; i < numColors; i++) {
     uint8_t decrement = 255 - (i * (256 / numColors));
     addColorWithValueStyle(ctx, randomizedHue, decrement, valStyle, numColors);
   }
@@ -291,7 +291,7 @@ void Colorset::randomizeTetradic(Random &ctx)
   addColorWithValueStyle(ctx, (randomizedHue2 + 128) % 256, 255, valStyle, 4);
 }
 
-void Colorset::randomizeEvenlySpaced(Random &ctx, uint32_t spaces)
+void Colorset::randomizeEvenlySpaced(Random &ctx, uint8_t spaces)
 {
   clear();
   if (!spaces) {
@@ -299,14 +299,14 @@ void Colorset::randomizeEvenlySpaced(Random &ctx, uint32_t spaces)
   }
   uint8_t randomizedHue = ctx.next8();
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  for (uint32_t i = 0; i < spaces; i++) {
+  for (uint8_t i = 0; i < spaces; i++) {
     uint8_t nextHue = (randomizedHue + (256 / spaces) * i) % 256;
     addColorWithValueStyle(ctx, nextHue, 255, valStyle, spaces);
   }
 }
 
 // get a color from the colorset
-RGBColor Colorset::get(uint32_t index) const
+RGBColor Colorset::get(uint8_t index) const
 {
   if (index >= m_numColors || !m_palette) {
     return RGBColor(0, 0, 0);
@@ -316,7 +316,7 @@ RGBColor Colorset::get(uint32_t index) const
 
 // set an rgb color in a slot, or add a new color if you specify
 // a slot higher than the number of colors in the colorset
-void Colorset::set(uint32_t index, RGBColor col)
+void Colorset::set(uint8_t index, RGBColor col)
 {
   // special case for 'setting' a color at the edge of the palette,
   // ie adding a new color when you set an index higher than the max
@@ -421,7 +421,7 @@ RGBColor Colorset::peek(int32_t offset) const
   if (!m_numColors || !m_palette) {
     return RGB_OFF;
   }
-  uint32_t nextIndex = 0;
+  uint8_t nextIndex = 0;
   // get index of the next color
   if (offset >= 0) {
     nextIndex = (m_curIndex + offset) % numColors();
@@ -479,7 +479,7 @@ void Colorset::unserialize(ByteStream &buffer)
   }
 }
 
-void Colorset::initPalette(uint32_t numColors)
+void Colorset::initPalette(uint8_t numColors)
 {
   if (m_palette) {
     delete[] m_palette;

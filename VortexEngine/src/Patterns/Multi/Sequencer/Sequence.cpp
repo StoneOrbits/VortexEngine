@@ -13,7 +13,7 @@
 PatternMap::PatternMap() :
   m_patternMap()
 {
-  for (uint32_t i = 0; i < LED_COUNT; ++i) {
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     m_patternMap[i] = PATTERN_NONE;
   }
 }
@@ -41,7 +41,7 @@ PatternID PatternMap::operator[](LedPos index) const
 
 void PatternMap::serialize(ByteStream &buffer) const
 {
-  for (uint32_t i = 0; i < LED_COUNT; ++i) {
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     // ensure the PatternID is interpreted as uint8_t
     buffer.serialize((uint8_t)m_patternMap[i]);
   }
@@ -49,7 +49,7 @@ void PatternMap::serialize(ByteStream &buffer) const
 
 void PatternMap::unserialize(ByteStream &buffer)
 {
-  for (uint32_t i = 0; i < LED_COUNT; ++i) {
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     buffer.unserialize((uint8_t *)m_patternMap + i);
   }
 }
@@ -81,14 +81,14 @@ const Colorset &ColorsetMap::operator[](LedPos index) const
 
 void ColorsetMap::serialize(ByteStream &buffer) const
 {
-  for (uint32_t i = 0; i < LED_COUNT; ++i) {
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     m_colorsetMap[i].serialize(buffer);
   }
 }
 
 void ColorsetMap::unserialize(ByteStream &buffer)
 {
-  for (uint32_t i = 0; i < LED_COUNT; ++i) {
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     m_colorsetMap[i].unserialize(buffer);
   }
 }
@@ -151,7 +151,7 @@ void Sequence::operator=(const Sequence &other)
 {
   clear();
   initSteps(other.m_numSteps);
-  for (uint32_t i = 0; i < other.m_numSteps; ++i) {
+  for (uint8_t i = 0; i < other.m_numSteps; ++i) {
     m_sequenceSteps[i] = other.m_sequenceSteps[i];
   }
 }
@@ -168,7 +168,7 @@ bool Sequence::operator!=(const Sequence &other) const
   return !operator==(other);
 }
 
-void Sequence::initSteps(uint32_t numSteps)
+void Sequence::initSteps(uint8_t numSteps)
 {
   if (m_sequenceSteps) {
     delete[] m_sequenceSteps;
@@ -181,7 +181,7 @@ void Sequence::initSteps(uint32_t numSteps)
   m_numSteps = numSteps;
 }
 
-uint32_t Sequence::addStep(const SequenceStep &step)
+uint8_t Sequence::addStep(const SequenceStep &step)
 {
   if (m_numSteps >= MAX_SEQUENCE_STEPS) {
     return false;
@@ -194,7 +194,7 @@ uint32_t Sequence::addStep(const SequenceStep &step)
   // if there is already some colors in the palette
   if (m_numSteps && m_sequenceSteps) {
     // copy over existing colors
-    for (uint32_t i = 0; i < m_numSteps; ++i) {
+    for (uint8_t i = 0; i < m_numSteps; ++i) {
       temp[i] = m_sequenceSteps[i];
     }
     // and delete the existing palette
@@ -208,7 +208,7 @@ uint32_t Sequence::addStep(const SequenceStep &step)
   return true;
 }
 
-uint32_t Sequence::addStep(uint32_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap)
+uint8_t Sequence::addStep(uint8_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap)
 {
   return addStep(SequenceStep(duration, patternMap, colorsetMap));
 }
@@ -225,7 +225,7 @@ void Sequence::clear()
 void Sequence::serialize(ByteStream &buffer) const
 {
   buffer.serialize(m_numSteps);
-  for (uint32_t i = 0; i < m_numSteps; ++i) {
+  for (uint8_t i = 0; i < m_numSteps; ++i) {
     m_sequenceSteps[i].serialize(buffer);
   }
 }
@@ -233,17 +233,17 @@ void Sequence::serialize(ByteStream &buffer) const
 void Sequence::unserialize(ByteStream &buffer)
 {
   buffer.unserialize(&m_numSteps);
-  for (uint32_t i = 0; i < m_numSteps; ++i) {
+  for (uint8_t i = 0; i < m_numSteps; ++i) {
     m_sequenceSteps[i].unserialize(buffer);
   }
 }
 
-uint32_t Sequence::numSteps() const
+uint8_t Sequence::numSteps() const
 {
   return m_numSteps;
 }
 
-const SequenceStep &Sequence::operator[](uint32_t index) const
+const SequenceStep &Sequence::operator[](uint8_t index) const
 {
   return m_sequenceSteps[index];
 }

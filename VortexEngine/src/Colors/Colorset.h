@@ -69,20 +69,20 @@ public:
   bool addColorHSV(uint8_t hue, uint8_t sat, uint8_t val);
   void addColorWithValueStyle(Random &ctx, uint8_t hue, uint8_t sat,
     ValueStyle valStyle, uint8_t numColors);
-  void removeColor(uint32_t index);
+  void removeColor(uint8_t index);
 
   // randomize a colorset with a specific number of colors with
   // various different randomization techniques
-  void randomize(Random &ctx, uint32_t numColors = 0);
-  void randomizeColorTheory(Random &ctx, uint32_t numColors = 0);
-  void randomizeMonochromatic(Random &ctx, uint32_t numColors = 0);
+  void randomize(Random &ctx, uint8_t numColors = 0);
+  void randomizeColorTheory(Random &ctx, uint8_t numColors = 0);
+  void randomizeMonochromatic(Random &ctx, uint8_t numColors = 0);
 
   // these randomizers have a set amount of colors and don't take any arguments
   void randomizeDoubleSplitComplimentary(Random &ctx);
   void randomizeTetradic(Random &ctx);
 
   // randomize a colorset with N evenly spaced colors
-  void randomizeEvenlySpaced(Random &ctx, uint32_t spaces = 0);
+  void randomizeEvenlySpaced(Random &ctx, uint8_t spaces = 0);
 
   // wrappers for various spacings
   void randomizeSolid(Random &ctx) { randomizeEvenlySpaced(ctx, 1); }
@@ -93,11 +93,11 @@ public:
   void randomizeRainbow(Random &ctx) { randomizeEvenlySpaced(ctx, 8); }
 
   // get a color from the colorset
-  RGBColor get(uint32_t index = 0) const;
+  RGBColor get(uint8_t index = 0) const;
 
   // set an rgb color in a slot, or add a new color if you specify
   // a slot higher than the number of colors in the colorset
-  void set(uint32_t index, RGBColor col);
+  void set(uint8_t index, RGBColor col);
 
   // skip some amount of colors
   void skip(int32_t amount = 1);
@@ -110,7 +110,7 @@ public:
   void resetIndex();
 
   // the current index
-  uint32_t curIndex() const { return m_curIndex; }
+  uint8_t curIndex() const { return m_curIndex; }
 
   // get the prev color in cycle
   RGBColor getPrev();
@@ -125,7 +125,7 @@ public:
   RGBColor peekNext() const { return peek(1); }
 
   // the number of colors in the palette
-  uint32_t numColors() const { return m_numColors; }
+  uint8_t numColors() const { return m_numColors; }
 
   // whether the colorset is currently on the first color or last color
   bool onStart() const;
@@ -137,7 +137,7 @@ public:
 
 private:
   // pre-allocate the palette
-  void initPalette(uint32_t numColors);
+  void initPalette(uint8_t numColors);
 
   // palette of colors
   RGBColor *m_palette;
