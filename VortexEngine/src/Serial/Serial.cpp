@@ -7,9 +7,8 @@
 
 #include "../VortexEngine.h"
 
-#include <Arduino.h>
-
 #ifdef VORTEX_LIB
+#include <Arduino.h>
 #include <stdio.h>
 #endif
 
