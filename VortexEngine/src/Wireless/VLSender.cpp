@@ -5,9 +5,7 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-#ifdef VORTEX_LIB
 #include "Arduino.h"
-#endif
 
 #if VL_ENABLE_SENDER == 1
 
@@ -45,6 +43,11 @@ bool VLSender::loadMode(const Mode *targetMode)
   // save the target mode to it's savefile buffer format
   if (!targetMode->saveToBuffer(m_serialBuf)) {
     DEBUG_LOG("Failed to save mode to buffer");
+    return false;
+  }
+  // decompress the mode
+  if (!m_serialBuf.decompress()) {
+    DEBUG_LOG("Failed to decompress VL buf for sending");
     return false;
   }
   // ensure the data isn't too big
@@ -168,7 +171,8 @@ void VLSender::startPWM()
   uint8_t oldBrightness = Leds::getBrightness();
   // ensure max brightness
   Leds::setBrightness(255);
-  Leds::setAll(RGB_WHITE);
+  Leds::clearAll();
+  Leds::setIndex(LED_17, RGB_WHITE);
   Leds::update();
   // restore brightness
   Leds::setBrightness(oldBrightness);
