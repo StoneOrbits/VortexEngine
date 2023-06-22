@@ -63,11 +63,11 @@ public:
   virtual void play();
 
   // save/load from a buffer for individual mode sharing
-  virtual bool saveToBuffer(ByteStream &saveBuffer) const;
+  virtual bool saveToBuffer(ByteStream &saveBuffer, uint8_t numLeds = 0) const;
   virtual bool loadFromBuffer(ByteStream &saveBuffer);
 
   // save the mode to serial
-  virtual void serialize(ByteStream &buffer) const;
+  virtual void serialize(ByteStream &buffer, uint8_t numLeds = 0) const;
   // load the mode from serial (optional led count)
   virtual bool unserialize(ByteStream &buffer);
 
