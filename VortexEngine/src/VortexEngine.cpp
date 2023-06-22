@@ -321,19 +321,23 @@ void VortexEngine::enterSleep()
 #endif
 }
 
-void VortexEngine::wakeup()
+void VortexEngine::wakeup(bool reset)
 {
   DEBUG_LOG("Waking up");
 #ifdef VORTEX_ARDUINO
   // turn the LED mosfet back on
   enableMOSFET(true);
-  // just reset
-  _PROTECTED_WRITE(RSTCTRL.SWRR, 1);
+  if (reset) {
+    // just reset
+    _PROTECTED_WRITE(RSTCTRL.SWRR, 1);
+  }
 #else
   // need to fake the reset in vortexlib, lol this works I guess
-  cleanup();
-  init();
   m_sleeping = false;
+  if (reset) {
+    cleanup();
+    init();
+  }
 #endif
 }
 

@@ -82,7 +82,7 @@ public:
 
   // enter/leave sleep mode
   static void enterSleep();
-  static void wakeup();
+  static void wakeup(bool reset = true);
 
 #ifdef VORTEX_ARDUINO
   // clear output pins
