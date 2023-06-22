@@ -141,7 +141,7 @@ void VortexEngine::runMainLogic()
   // device will only listen for clicks to wakeup momentarily then go back to sleep
   if (Modes::locked()) {
     // several fast clicks will unlock the device
-    if (g_pButton->consecutivePresses() >= DEVICE_LOCK_CLICKS) {
+    if (g_pButton->consecutivePresses() >= (DEVICE_LOCK_CLICKS - 1)) {
       // turn off the lock flag and save it to disk
       Modes::setLocked(false);
 #ifdef VORTEX_ARDUINO
