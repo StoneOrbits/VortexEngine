@@ -14,19 +14,25 @@ public:
 
   // handlers for clicks
   void onShortClick() override;
+  void onShortClick2() override;
   void onLongClick() override;
+  void onLongClick2() override;
 
 private:
-  void beginSending();
-  void continueSending();
-  void beginReceiving();
-  void receiveMode();
+  void beginSendingVL();
+  void beginSendingIR();
+  void continueSendingVL();
+  void continueSendingIR();
+  void beginReceivingIR();
+  void receiveModeIR();
 
-  void showSendMode();
+  void showSendModeVL();
+  void showSendModeIR();
   void showReceiveMode();
 
   enum class ModeShareState {
-    SHARE_SEND,     // send mode
+    SHARE_SEND_IR,  // send mode over ir
+    SHARE_SEND_VL,  // send mode over vl
     SHARE_RECEIVE,  // receive mode
   };
 
