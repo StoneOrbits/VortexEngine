@@ -82,7 +82,7 @@ public:
 
   void initSteps(uint8_t numSteps);
   uint8_t addStep(const SequenceStep &step);
-  uint8_t addStep(uint8_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap = Colorset());
+  uint8_t addStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap = Colorset());
   void clear();
 
   void serialize(ByteStream &buffer) const;
