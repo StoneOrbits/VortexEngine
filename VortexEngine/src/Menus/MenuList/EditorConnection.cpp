@@ -48,7 +48,7 @@ bool EditorConnection::receiveMessage(const char *message)
   if (memcmp(m_receiveBuffer.frontUnserializer(), message, len) != 0) {
     return false;
   }
-  for (uint32_t i = 0; i < len; ++i) {
+  for (size_t i = 0; i < len; ++i) {
     m_receiveBuffer.unserialize(&byte);
   }
   // if everything was read out, reset

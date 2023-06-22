@@ -38,7 +38,7 @@ void Buttons::update()
 {
   // would iterate all buttons and check them here
   // but there's only one button so
-  for (uint32_t i = 0; i < NUM_BUTTONS; ++i) {
+  for (uint8_t i = 0; i < NUM_BUTTONS; ++i) {
     m_buttons[i].update();
   }
 #ifdef VORTEX_LIB

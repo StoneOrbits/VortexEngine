@@ -33,7 +33,7 @@ void blinkError()
   uint8_t errTens = ((g_error - errOnes) % 100) / 10;
   uint8_t errHunds = (g_error - (errTens + errOnes)) / 100;
   Leds::setIndex(LED_1, RGBColor(40, 40, 40));
-  const uint32_t msWait = 500;
+  const uint8_t msWait = 500;
   for (uint8_t i = 0; i < errHunds; ++i) {
     Leds::setIndex(LED_0, RGBColor(255, 0, 0)); Leds::update(); delay(msWait);
     Leds::clearIndex(LED_0); Leds::update(); delay(msWait);

@@ -80,21 +80,21 @@ public:
   bool operator==(const Sequence &other) const;
   bool operator!=(const Sequence &other) const;
 
-  void initSteps(uint32_t numSteps);
-  uint32_t addStep(const SequenceStep &step);
-  uint32_t addStep(uint32_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap = Colorset());
+  void initSteps(uint8_t numSteps);
+  uint8_t addStep(const SequenceStep &step);
+  uint8_t addStep(uint8_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap = Colorset());
   void clear();
 
   void serialize(ByteStream &buffer) const;
   void unserialize(ByteStream &buffer);
 
-  uint32_t numSteps() const;
-  const SequenceStep &operator[](uint32_t index) const;
+  uint8_t numSteps() const;
+  const SequenceStep &operator[](uint8_t index) const;
 
 private:
   // static data
   SequenceStep *m_sequenceSteps;
-  uint32_t m_numSteps;
+  uint8_t m_numSteps;
 };
 
 #endif

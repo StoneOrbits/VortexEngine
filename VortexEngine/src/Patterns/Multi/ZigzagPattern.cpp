@@ -90,7 +90,7 @@ ZigzagPattern::Snake::Snake() :
 {
 }
 
-void ZigzagPattern::Snake::init(uint32_t onDuration, uint32_t offDuration, const Colorset &colorset, uint32_t colorOffset,
+void ZigzagPattern::Snake::init(uint8_t onDuration, uint8_t offDuration, const Colorset &colorset, uint32_t colorOffset,
   uint8_t step, uint8_t snakeSize, uint8_t fadeAmount, uint8_t changeBoundary)
 {
   // reset the blink timer entirely
