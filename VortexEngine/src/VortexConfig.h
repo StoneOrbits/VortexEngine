@@ -94,9 +94,9 @@
 // Device Lock Clicks
 //
 // How many rapid clicks the user must perform to lock/unlock the device.
-// At the main menus this many rapid clicks will locks the device.
-// When the device is locked the first click will turn it on and then the user
-// has UNLOCK_WAKE_WINDOW time to press the button this many times to wake the device
+// From sleep, this many rapid clicks will locks the device.
+// From locked, the first click will turn it on into 'twilight mode' and then the user
+// has UNLOCK_WAKE_WINDOW time to press the button this many times to wake the device.
 #define DEVICE_LOCK_CLICKS    5
 
 // Rapid Press Window (in milliseconds)
