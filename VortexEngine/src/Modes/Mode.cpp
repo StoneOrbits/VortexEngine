@@ -15,7 +15,7 @@
 #if FIXED_LED_COUNT == 0
 // for internal reference to the led count
 #define MODE_LEDCOUNT m_numLeds
-Mode::Mode(uint32_t numLeds) :
+Mode::Mode(uint8_t numLeds) :
 #if VORTEX_SLIM == 0
   m_multiPat(nullptr),
 #endif
@@ -37,7 +37,7 @@ Mode::Mode() :
 #endif
   m_singlePats()
 {
-  for (uint32_t i = 0; i < LED_COUNT; ++i) {
+  for (uint8_t i = 0; i < LED_COUNT; ++i) {
     m_singlePats[i] = nullptr;
   }
 }
@@ -96,7 +96,7 @@ void Mode::operator=(const Mode &other)
     m_multiPat = PatternBuilder::dupe(other.m_multiPat);
   }
 #endif
-  for (uint32_t i = 0; i < other.getLedCount(); ++i) {
+  for (uint8_t i = 0; i < other.getLedCount(); ++i) {
     Pattern *otherPat = other.m_singlePats[i];
     if (!otherPat) {
       continue;
@@ -661,7 +661,7 @@ bool Mode::hasMultiLed() const
 // whether at least one single-led pattern is present in the mode
 bool Mode::hasSingleLed() const
 {
-  for (uint32_t i = LED_FIRST; i < MODE_LEDCOUNT; ++i) {
+  for (uint8_t i = LED_FIRST; i < MODE_LEDCOUNT; ++i) {
     if (m_singlePats[i]) {
       return true;
     }
@@ -673,7 +673,7 @@ bool Mode::hasSingleLed() const
 bool Mode::hasSameSingleLed() const
 {
   Pattern *firstPat = nullptr;
-  for (uint32_t i = LED_FIRST; i < MODE_LEDCOUNT; ++i) {
+  for (uint8_t i = LED_FIRST; i < MODE_LEDCOUNT; ++i) {
     if (!m_singlePats[i]) {
       continue;
     }

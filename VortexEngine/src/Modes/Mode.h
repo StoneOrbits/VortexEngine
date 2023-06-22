@@ -38,7 +38,7 @@ class Mode
 {
 public:
 #if FIXED_LED_COUNT == 0
-  Mode(uint32_t numLeds);
+  Mode(uint8_t numLeds);
 #endif
   Mode();
 

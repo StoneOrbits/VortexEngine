@@ -108,7 +108,7 @@ inline bool isSingleLedPatternID(PatternID id) {
 // PatternID operators
 inline PatternID &operator++(PatternID &c)
 {
-  c = PatternID(((uint32_t)c) + 1);
+  c = PatternID(((uint16_t)c) + 1);
   return c;
 }
 inline PatternID operator++(PatternID &c, int)
@@ -119,11 +119,11 @@ inline PatternID operator++(PatternID &c, int)
 }
 inline PatternID operator+(PatternID &c, int b)
 {
-  return (PatternID)((uint32_t)c + b);
+  return (PatternID)((uint16_t)c + b);
 }
 inline PatternID operator-(PatternID &c, int b)
 {
-  return (PatternID)((uint32_t)c - b);
+  return (PatternID)((uint16_t)c - b);
 }
 
 #endif

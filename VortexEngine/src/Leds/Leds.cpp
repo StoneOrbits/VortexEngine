@@ -51,7 +51,7 @@ bool Leds::init()
 
 void Leds::cleanup()
 {
-  for (uint32_t i = 0; i < LED_COUNT; ++i) {
+  for (uint8_t i = 0; i < LED_COUNT; ++i) {
     m_ledColors[i].clear();
   }
 }

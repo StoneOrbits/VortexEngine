@@ -35,7 +35,7 @@ private:
   void showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs);
 
   // the options for saturations
-  const uint32_t sats[4] = {
+  const uint8_t sats[4] = {
     255,
     170,
     85,
@@ -43,7 +43,7 @@ private:
   };
 
   // the options for values
-  const uint32_t vals[4] = {
+  const uint8_t vals[4] = {
     255,
     170,
     85,
