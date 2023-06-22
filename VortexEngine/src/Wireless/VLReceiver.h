@@ -26,7 +26,7 @@ public:
   // whether actively receiving
   static bool isReceiving();
   // the percent of data received
-  static uint32_t percentReceived();
+  static uint16_t percentReceived();
   static uint32_t bytesReceived() { return m_vlData.bytepos(); }
 
   // receive the VL message into a target mode

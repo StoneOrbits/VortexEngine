@@ -24,7 +24,7 @@ private:
   public:
     Snake();
 
-    void init(uint32_t onDuration, uint32_t offDuration, const Colorset &colorset, uint32_t colorOffset,
+    void init(uint8_t onDuration, uint8_t offDuration, const Colorset &colorset, uint32_t colorOffset,
       uint8_t step = 0, uint8_t snakeSize = 1, uint8_t fadeAmount = 55, uint8_t changeBoundary = 3);
     void step();
     void draw();

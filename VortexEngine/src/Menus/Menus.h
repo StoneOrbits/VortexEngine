@@ -77,7 +77,7 @@ private:
   static MenuState m_menuState;
 
   // the ring menu section
-  static uint32_t m_selection;
+  static uint8_t m_selection;
   // the time when we first opened the ringmenu
   static uint64_t m_openTime;
   // the current sub menu that is open

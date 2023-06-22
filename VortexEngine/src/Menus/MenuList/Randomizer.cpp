@@ -122,7 +122,7 @@ bool Randomizer::reRoll(LedPos pos)
   Random &ctx = (pos < LED_COUNT) ? m_singlesRandCtx[pos] : m_multiRandCtx;
   // pick a random type of randomizer to use then use
   // the randomizer to generate a random colorset
-  uint32_t randType = ctx.next(0, 9);
+  uint8_t randType = (uint8_t)ctx.next(0, 9);
   switch (randType) {
   default:
   case 0:

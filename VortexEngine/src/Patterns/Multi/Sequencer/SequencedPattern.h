@@ -36,7 +36,7 @@ protected:
   Sequence m_sequence;
 
   // runtime data
-  uint32_t m_curSequence;
+  uint8_t m_curSequence;
   Timer m_timer;
 };
 

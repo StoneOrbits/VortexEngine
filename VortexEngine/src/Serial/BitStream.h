@@ -32,17 +32,17 @@ public:
   // metainfo about the bit stream
   bool eof() const { return m_buf_eof; }
   bool allocated() const { return m_allocated; }
-  uint32_t size() const { return m_buf_size; }
+  uint16_t size() const { return m_buf_size; }
   const uint8_t *data() const { return m_buf; }
   const uint32_t *dwData() const { return (uint32_t *)m_buf; }
-  uint32_t dwordpos() const { return m_bit_pos / 32; }
-  uint32_t bytepos() const { return m_bit_pos / 8; }
-  uint32_t bitpos() const { return m_bit_pos; }
+  uint16_t dwordpos() const { return m_bit_pos / 32; }
+  uint16_t bytepos() const { return m_bit_pos / 8; }
+  uint16_t bitpos() const { return m_bit_pos; }
 
 private:
   uint8_t *m_buf;
-  uint32_t m_buf_size;
-  uint32_t m_bit_pos;
+  uint16_t m_buf_size;
+  uint16_t m_bit_pos;
   bool m_buf_eof;
   bool m_allocated;
 };
