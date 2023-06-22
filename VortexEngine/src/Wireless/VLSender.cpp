@@ -5,7 +5,9 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
+#ifdef VORTEX_LIB
 #include <Arduino.h>
+#endif
 
 #if VL_ENABLE_SENDER == 1
 
