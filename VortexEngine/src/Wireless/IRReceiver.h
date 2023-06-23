@@ -26,8 +26,8 @@ public:
   // whether actively receiving
   static bool isReceiving();
   // the percent of data received
-  static uint32_t percentReceived();
-  static uint32_t bytesReceived() { return m_irData.bytepos(); }
+  static uint8_t percentReceived();
+  static uint16_t bytesReceived() { return m_irData.bytepos(); }
 
   // receive the IR message into a target mode
   static bool receiveMode(Mode *pMode);
