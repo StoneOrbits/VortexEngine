@@ -127,7 +127,7 @@ void ColorSelect::onLongClick()
       // back to the slot we selected
       m_curSelection = m_targetSlot;
     } else {
-      // otherwise reset our selection position based on the state
+      // otherwise reset our selection position to 0
       // NOTE: we could try to reset our position to whatever we selected
       //       on the previous menu but we found that it's actually more
       //       visually appealing to return to the first selection on the
@@ -219,7 +219,7 @@ void ColorSelect::showSlotSelection()
     if (m_curSelection == m_colorset.numColors()) {
       // blink both leds and blink faster to indicate 'add' new color
       Leds::blinkAll(Time::getCurtime(), 100, 150, RGB_BLANK);
-     }
+    }
     exitIndex = m_colorset.numColors() + 1;
   }
 
