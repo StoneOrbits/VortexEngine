@@ -54,12 +54,12 @@ const MenuEntry menuList[] = {
   // =========================
   //  Default menu setup:
   ENTRY(Randomizer,         RGB_LOW_WHITE),  // 0 (dim white)
+  ENTRY(ModeSharing,        RGB_LOW_TEAL),   // 5 (dim teal)
+  ENTRY(EditorConnection,   RGB_LOW_PURPLE), // 6 (dim purple)
   ENTRY(ColorSelect,        RGB_LOW_GREEN),  // 1 (dim green)
   ENTRY(PatternSelect,      RGB_LOW_BLUE),   // 2 (dim blue)
   ENTRY(GlobalBrightness,   RGB_LOW_YELLOW), // 3 (dim yellow)
   ENTRY(FactoryReset,       RGB_LOW_RED),    // 4 (dim red)
-  ENTRY(ModeSharing,        RGB_LOW_TEAL),   // 5 (dim teal)
-  ENTRY(EditorConnection,   RGB_LOW_PURPLE), // 6 (dim purple)
 };
 
 // the number of menus in the above array
