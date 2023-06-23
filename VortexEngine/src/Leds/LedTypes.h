@@ -343,6 +343,16 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 #define MAP_PAIR_EVEN_EVENS (MAP_PAIR_EVEN(PAIR_3) | MAP_PAIR_EVEN(PAIR_1))
 #define MAP_PAIR_EVEN_ODDS (MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_1))
 
+// all top leds
+#define MAP_ALL_TOP (MAP_LED(LED_0) | MAP_LED(LED_1) | MAP_LED(LED_2) | MAP_LED(LED_11) | \
+                     MAP_LED(LED_12) | MAP_LED(LED_13) | MAP_LED(LED_14) | MAP_LED(LED_15) | \
+                     MAP_LED(LED_16) | MAP_LED(LED_25) | MAP_LED(LED_26) | MAP_LED(LED_27))
+
+// all bottom leds
+#define MAP_ALL_BOT (MAP_LED(LED_4) | MAP_LED(LED_5) | MAP_LED(LED_6) | MAP_LED(LED_7) | \
+                     MAP_LED(LED_8) | MAP_LED(LED_9) | MAP_LED(LED_18) | MAP_LED(LED_19) | \
+                     MAP_LED(LED_20) | MAP_LED(LED_21) | MAP_LED(LED_22) | MAP_LED(LED_23))
+
 // set a single led
 inline void setLed(LedMap &map, LedPos pos)
 {

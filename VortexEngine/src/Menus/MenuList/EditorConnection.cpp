@@ -4,6 +4,7 @@
 #include "../../Serial/ByteStream.h"
 #include "../../Serial/Serial.h"
 #include "../../Storage/Storage.h"
+#include "../../Wireless/VLSender.h"
 #include "../../Time/TimeControl.h"
 #include "../../Colors/Colorset.h"
 #include "../../Modes/Modes.h"
@@ -165,6 +166,12 @@ Menu::MenuAction EditorConnection::run()
     SerialComs::write(EDITOR_VERB_CLEAR_DEMO_ACK);
     m_state = STATE_IDLE;
     break;
+  case STATE_SEND_MODE_VL:
+    if (!VLSender::isSending() || !VLSender::send()) {
+      m_state = STATE_IDLE;
+    }
+    // continue sending
+    break;
   }
   return MENU_CONTINUE;
 }
@@ -180,7 +187,9 @@ void EditorConnection::onShortClick()
 
 void EditorConnection::onShortClick2()
 {
-  onShortClick();
+  VLSender::loadMode(&m_demoMode);
+  VLSender::send();
+  m_state = STATE_SEND_MODE_VL;
 }
 
 void EditorConnection::onLongClick()

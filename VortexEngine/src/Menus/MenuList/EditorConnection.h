@@ -61,6 +61,9 @@ private:
 
     // engine tells gloves to clear the demo preview, gloves acknowledge
     STATE_CLEAR_DEMO,
+
+    // send the mode over visible light
+    STATE_SEND_MODE_VL,
   };
 
   // state of the editor
