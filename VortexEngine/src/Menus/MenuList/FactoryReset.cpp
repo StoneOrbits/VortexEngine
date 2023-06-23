@@ -98,7 +98,7 @@ void FactoryReset::showReset()
     return;
   }
   uint32_t offMs = 120;
-  uint32_t onMs = 120 - (progress >> 1); // Using bit shift for division by 2
+  uint32_t onMs = 120; // Using bit shift for division by 2
   uint8_t sat = (uint8_t)((progress * 5) >> 1); // Using bit shift for division by 2
   Leds::clearAll();
   Leds::blinkIndex(LED_0, curTime, offMs, onMs, HSVColor(0, 255 - sat, 180));
