@@ -6,6 +6,7 @@
 #include "../../Time/Timings.h"
 #include "../../Wireless/IRReceiver.h"
 #include "../../Wireless/IRSender.h"
+#include "../../Buttons/Button.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
@@ -27,6 +28,9 @@ bool ModeSharing::init()
 {
   if (!Menu::init()) {
     return false;
+  }
+  if (g_pButton->holdDuration() > 500) {
+    m_continuousReceive = true;
   }
   // skip led selection
   m_ledSelected = true;
@@ -91,7 +95,8 @@ void ModeSharing::onShortClick()
 
 void ModeSharing::onLongClick()
 {
-  leaveMenu();
+  Modes::updateCurMode(m_pCurMode);
+  leaveMenu(true);
 }
 
 void ModeSharing::beginSending()
@@ -144,8 +149,10 @@ void ModeSharing::receiveMode()
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_pCurMode->getPatternID());
-  // leave menu and save settings, even if the mode was the same whatever
-  leaveMenu(true);
+  if (!m_continuousReceive) {
+    // leave menu and save settings, even if the mode was the same whatever
+    leaveMenu(true);
+  }
 }
 
 void ModeSharing::showSendMode()
