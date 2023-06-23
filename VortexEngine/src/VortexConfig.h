@@ -240,7 +240,6 @@
 // as it is not possible to give input during a send.
 #define IR_SENDER_WAIT_DURATION 1000
 
-
 // Enter Advanced Menus Click Duration (ms)
 //
 // How long the user must long click on the menu item to enter the
