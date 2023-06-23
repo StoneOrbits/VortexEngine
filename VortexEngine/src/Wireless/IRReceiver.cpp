@@ -230,7 +230,7 @@ void IRReceiver::recvPCIHandler()
   uint32_t diff = (uint32_t)(now - m_prevTime);
   // and update the previous changetime for next loop
   m_prevTime = now;
-  // handle the bliank duration and process it
+  // handle the blank duration and process it
   handleIRTiming(diff);
 }
 
