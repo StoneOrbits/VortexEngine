@@ -41,7 +41,7 @@ bool VLSender::loadMode(const Mode *targetMode)
 {
   m_serialBuf.clear();
   // save the target mode to it's savefile buffer format
-  if (!targetMode->saveToBuffer(m_serialBuf)) {
+  if (!targetMode->saveToBuffer(m_serialBuf, 2)) {
     DEBUG_LOG("Failed to save mode to buffer");
     return false;
   }
