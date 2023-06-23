@@ -37,7 +37,7 @@ Mode::Mode() :
 #endif
   m_singlePats()
 {
-  for (uint8_t i = 0; i < LED_COUNT; ++i) {
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     m_singlePats[i] = nullptr;
   }
 }
@@ -96,7 +96,7 @@ void Mode::operator=(const Mode &other)
     m_multiPat = PatternBuilder::dupe(other.m_multiPat);
   }
 #endif
-  for (uint8_t i = 0; i < other.getLedCount(); ++i) {
+  for (LedPos i = LED_FIRST; i < other.getLedCount(); ++i) {
     Pattern *otherPat = other.m_singlePats[i];
     if (!otherPat) {
       continue;

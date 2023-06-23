@@ -42,7 +42,7 @@ void cleanup_arduino()
 
 void delay(uint16_t amt)
 {
-  for (uint16_t i = 0; i < amt; i++) {
+  for (uint16_t i = 0; i < amt; ++i) {
     delayMicroseconds(1000);
   }
 }
