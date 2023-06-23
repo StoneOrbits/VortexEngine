@@ -6,6 +6,7 @@
 #include "../../Time/Timings.h"
 #include "../../Wireless/VLReceiver.h"
 #include "../../Wireless/VLSender.h"
+#include "../../Buttons/Button.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
@@ -14,7 +15,8 @@
 ModeSharing::ModeSharing(const RGBColor &col) :
   Menu(col),
   m_sharingMode(ModeShareState::SHARE_SEND),
-  m_timeOutStartTime(0)
+  m_timeOutStartTime(0),
+  m_continuousReceive(false)
 {
 }
 
@@ -26,6 +28,9 @@ bool ModeSharing::init()
 {
   if (!Menu::init()) {
     return false;
+  }
+  if (g_pButton->holdDuration() > 500) {
+    m_continuousReceive = true;
   }
   // skip led selection
   m_ledSelected = true;
@@ -78,7 +83,8 @@ void ModeSharing::onShortClick()
 
 void ModeSharing::onLongClick()
 {
-  leaveMenu();
+  Modes::updateCurMode(m_pCurMode);
+  leaveMenu(true);
 }
 
 void ModeSharing::beginSending()
@@ -139,8 +145,10 @@ void ModeSharing::receiveMode()
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_pCurMode->getPatternID());
-  // leave menu and save settings, even if the mode was the same whatever
-  leaveMenu(true);
+  if (!m_continuousReceive) {
+    // leave menu and save settings, even if the mode was the same whatever
+    leaveMenu(true);
+  }
 }
 
 void ModeSharing::showSendMode()
@@ -153,7 +161,15 @@ void ModeSharing::showSendMode()
 
 void ModeSharing::showReceiveMode()
 {
-  // using uint32_t to avoid overflow, the result should be within 10 to 255
-  Leds::setIndex(LED_0, VLReceiver::isReceiving() ? RGBColor(0, VLReceiver::percentReceived(), 0) : RGB_BLANK);
-  Leds::clearIndex(LED_1);
+  if (VLReceiver::isReceiving()) {
+    // using uint32_t to avoid overflow, the result should be within 10 to 255
+    Leds::setIndex(LED_0, RGBColor(0, VLReceiver::percentReceived(), 0));
+    Leds::clearIndex(LED_1);
+  } else {
+    if (m_continuousReceive && m_pCurMode) {
+      m_pCurMode->play();
+    } else {
+      Leds::setAll(RGB_BLANK);
+    }
+  }
 }
