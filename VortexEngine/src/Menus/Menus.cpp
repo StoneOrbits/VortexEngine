@@ -143,6 +143,9 @@ bool Menus::runMenuSelection()
   }
   // clear the leds so it always fills instead of replacing
   Leds::clearAll();
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS) {
+    Leds::setAll(RGB_DARK_ORANGE);
+  }
   // blink every even/odd of every pair
   for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
     if (pairEven(p) < LED_COUNT) {
