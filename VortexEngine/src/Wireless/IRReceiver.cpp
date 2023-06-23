@@ -34,7 +34,6 @@ bool IRReceiver::dataReady()
   if (!isReceiving()) {
     return false;
   }
-  // read the size out
   uint8_t blocks = m_irData.data()[0];
   uint8_t remainder = m_irData.data()[1];
   uint32_t total = ((blocks - 1) * 32) + remainder;
@@ -59,7 +58,7 @@ bool IRReceiver::isReceiving()
 }
 
 // the percent of data received
-uint32_t IRReceiver::percentReceived()
+uint8_t IRReceiver::percentReceived()
 {
   if (!isReceiving()) {
     return 0;
@@ -67,7 +66,8 @@ uint32_t IRReceiver::percentReceived()
   uint8_t blocks = m_irData.data()[0];
   uint8_t remainder = m_irData.data()[1];
   uint32_t total = ((blocks - 1) * 32) + remainder;
-  return (uint32_t)(((float)m_irData.bytepos() / (float)total) * 100.0);
+  // round by adding half of the total to the numerator
+  return (uint32_t)((m_irData.bytepos() * 100 + (total / 2)) / total);
 }
 
 bool IRReceiver::receiveMode(Mode *pMode)
