@@ -53,13 +53,13 @@ Menu *initMenu(const RGBColor &col) { return new T(col); }
 const MenuEntry menuList[] = {
   // =========================
   //  Default menu setup:
-  ENTRY(Randomizer,         0x101010),      // 0 (dim white)
-  ENTRY(ColorSelect,        0x401200),      // 1 (dim orange)
-  ENTRY(PatternSelect,      0x000010),      // 2 (dim blue)
-  ENTRY(GlobalBrightness, RGB_YELLOW),      // 3
-  ENTRY(FactoryReset,       0x100000),      // 4 (dim red)
-  ENTRY(ModeSharing,      RGB_TEAL),      // 5
-  ENTRY(EditorConnection, RGB_PURPLE),    // 6
+  ENTRY(Randomizer,         RGB_LOW_WHITE),  // 0 (dim white)
+  ENTRY(ColorSelect,        RGB_LOW_GREEN),  // 1 (dim green)
+  ENTRY(PatternSelect,      RGB_LOW_BLUE),   // 2 (dim blue)
+  ENTRY(GlobalBrightness,   RGB_LOW_YELLOW), // 3 (dim yellow)
+  ENTRY(FactoryReset,       RGB_LOW_RED),    // 4 (dim red)
+  ENTRY(ModeSharing,        RGB_LOW_TEAL),   // 5 (dim teal)
+  ENTRY(EditorConnection,   RGB_LOW_PURPLE), // 6 (dim purple)
 };
 
 // the number of menus in the above array

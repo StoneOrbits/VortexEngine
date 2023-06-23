@@ -40,8 +40,11 @@ void cleanup_arduino()
 {
 }
 
-void delay(size_t amt)
+void delay(uint16_t amt)
 {
+  for (uint16_t i = 0; i < amt; ++i) {
+    delayMicroseconds(1000);
+  }
 }
 
 void delayMicroseconds(uint32_t us)
