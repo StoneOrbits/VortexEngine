@@ -225,7 +225,7 @@ void ColorSelect::showSlotSelection()
 
   if (m_curSelection == exitIndex) {
     showFullSet(LED_ALL, Time::getCurtime(), 50, 100);
-   }
+  }
 }
 
 void ColorSelect::showSelection(ColorSelectState mode)

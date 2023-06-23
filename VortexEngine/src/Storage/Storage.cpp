@@ -32,8 +32,7 @@ bool Storage::init()
   unlink("FlashStorage.flash");
 #endif
 #endif
-  DEBUG_LOGF("Total space: %u Engine size: %u Available space: %u",
-    MAX_STORAGE_SPACE, ENGINE_SIZE, STORAGE_SIZE);
+  DEBUG_LOGF("Total available space: %u", STORAGE_SIZE);
   return true;
 }
 
