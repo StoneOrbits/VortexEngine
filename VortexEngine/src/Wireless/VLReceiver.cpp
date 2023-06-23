@@ -106,7 +106,7 @@ uint16_t VLReceiver::percentReceived()
   uint8_t remainder = m_vlData.data()[1];
   uint16_t total = ((blocks - 1) * 32) + remainder;
   // round by adding half of the total to the numerator
-  return (uint32_t)((m_irData.bytepos() * 100 + (total / 2)) / total);
+  return (uint32_t)((m_vlData.bytepos() * 100 + (total / 2)) / total);
 }
 
 bool VLReceiver::receiveMode(Mode *pMode)
