@@ -201,9 +201,9 @@ void ModeSharing::showSendModeIR()
 
 void ModeSharing::showReceiveMode()
 {
-  if (VLReceiver::isReceiving()) {
+  if (IRReceiver::isReceiving()) {
     // using uint32_t to avoid overflow, the result should be within 10 to 255
-    Leds::setAll(RGBColor(0, VLReceiver::percentReceived(), 0));
+    Leds::setAll(RGBColor(0, IRReceiver::percentReceived(), 0));
   } else {
     if (m_continuousReceive && m_pCurMode) {
       m_pCurMode->play();
