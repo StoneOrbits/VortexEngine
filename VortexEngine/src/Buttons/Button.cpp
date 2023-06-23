@@ -63,7 +63,7 @@ void Button::update()
   m_newPress = false;
   m_newRelease = false;
 
-  // read the new button state, 0 (LOW) means pressed
+  // read the new button state
   bool newButtonState = check();
 
   // did the button change (press/release occurred)

@@ -40,6 +40,15 @@
 #define RGB_BLANK       (uint32_t)0x101010    //  16  16  16
 #define RGB_OFF         (uint32_t)0x000000    //   0   0   0
 
+// very low versions of each color
+#define RGB_LOW_WHITE   (uint32_t)0x101010
+#define RGB_LOW_GREEN   (uint32_t)0x001000
+#define RGB_LOW_BLUE    (uint32_t)0x000010
+#define RGB_LOW_YELLOW  (uint32_t)0x101000
+#define RGB_LOW_RED     (uint32_t)0x100000
+#define RGB_LOW_TEAL    (uint32_t)0x001010
+#define RGB_LOW_PURPLE  (uint32_t)0x090310
+
 // Some Pre-defined hue values
 // TODO: remove HSV_ underscore once FastLED is gone
 #define HSV_HUE_RED     0
