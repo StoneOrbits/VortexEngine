@@ -67,7 +67,7 @@
 //
 // How long the user has after releasing to short click the button
 // again and be counted as a 'consecutive press'
-#define CONSECUTIVE_WINDOW    150
+#define CONSECUTIVE_WINDOW    175
 
 // Auto Randomization Delay (in milliseconds)
 //
