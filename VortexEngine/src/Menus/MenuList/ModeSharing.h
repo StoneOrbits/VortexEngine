@@ -17,20 +17,16 @@ public:
   void onLongClick() override;
 
 private:
-  void beginSendingVL();
-  void beginSendingIR();
-  void continueSendingVL();
-  void continueSendingIR();
-  void beginReceivingIR();
-  void receiveModeIR();
+  void beginSending();
+  void continueSending();
+  void beginReceiving();
+  void receiveMode();
 
-  void showSendModeVL();
-  void showSendModeIR();
+  void showSendMode();
   void showReceiveMode();
 
   enum class ModeShareState {
-    SHARE_SEND_IR,  // send mode over ir
-    SHARE_SEND_VL,  // send mode over vl
+    SHARE_SEND,     // send mode
     SHARE_RECEIVE,  // receive mode
   };
 
