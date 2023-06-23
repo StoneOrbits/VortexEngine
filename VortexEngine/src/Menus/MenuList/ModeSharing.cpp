@@ -13,7 +13,7 @@
 
 ModeSharing::ModeSharing(const RGBColor &col) :
   Menu(col),
-  m_sharingMode(ModeShareState::SHARE_SEND),
+  m_sharingMode(ModeShareState::SHARE_RECEIVE),
   m_timeOutStartTime(0)
 {
 }
