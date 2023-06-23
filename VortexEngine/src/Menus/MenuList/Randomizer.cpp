@@ -155,6 +155,45 @@ bool Randomizer::reRoll(LedPos pos)
     randomSet.randomizeEvenlySpaced(ctx, 3);
     break;
   }
+
+  // take the randomized colorset and repeate colors to make an additional pattern
+  switch (randomSet.numColors()) {
+  case 2:
+    //do nothing
+    //double both colors
+    //double one color
+    //mirror colors 121
+    break;
+  case 3:
+    //do nothing
+    //double all colors
+    //double one color
+    //mirror colors 12321
+    break;
+  case 4:
+    //do nothing
+    //double all colors
+    //double one color
+    //mirror colors 1234321
+    break;
+  case 5:
+    //do nothing
+    //double one color
+    break;
+  case 6:
+    //do nothing
+    //double one color
+    break;
+  case 7:
+    //do nothing
+    //double one color
+    break;
+  default:
+
+  }
+
+  
+
   // the random range begin/end
   PatternID rbegin = PATTERN_SINGLE_FIRST;
   PatternID rend = PATTERN_SINGLE_LAST;
