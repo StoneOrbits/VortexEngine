@@ -662,7 +662,7 @@ bool Mode::hasMultiLed() const
 // whether at least one single-led pattern is present in the mode
 bool Mode::hasSingleLed() const
 {
-  for (uint8_t i = LED_FIRST; i < MODE_LEDCOUNT; ++i) {
+  for (LedPos i = LED_FIRST; i < MODE_LEDCOUNT; ++i) {
     if (m_singlePats[i]) {
       return true;
     }
@@ -674,7 +674,7 @@ bool Mode::hasSingleLed() const
 bool Mode::hasSameSingleLed() const
 {
   Pattern *firstPat = nullptr;
-  for (uint8_t i = LED_FIRST; i < MODE_LEDCOUNT; ++i) {
+  for (LedPos i = LED_FIRST; i < MODE_LEDCOUNT; ++i) {
     if (!m_singlePats[i]) {
       continue;
     }
