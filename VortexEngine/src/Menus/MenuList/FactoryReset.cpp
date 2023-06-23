@@ -26,6 +26,8 @@ bool FactoryReset::init()
   if (!Menu::init()) {
     return false;
   }
+  // skip led selection
+  m_ledSelected = true;
   // Start on exit by default
   m_curSelection = false;
   DEBUG_LOG("Entered factory reset");
@@ -65,51 +67,41 @@ void FactoryReset::onLongClick()
     return;
   }
   // the button was held down long enough so actually perform the factory reset
-  uint8_t curModeIndex = Modes::curModeIndex();
-  // reset the target mode slot on the target led
-  const default_mode_entry &def = default_modes[curModeIndex];
-  Colorset set(def.numColors, def.cols);
-  m_pCurMode->setPatternMap(m_targetLeds, def.patternID, nullptr, &set);
-  // re-initialize the current mode
-  m_pCurMode->init();
-  // save and leave the menu
+  // restore defaults and then leave menu and save
+  Modes::setDefaults();
   leaveMenu(true);
 }
 
 void FactoryReset::showReset()
 {
+  uint32_t curTime = Time::getCurtime();
   if (m_curSelection == 0) {
     Leds::clearAll();
-    Leds::blinkAll(Time::getCurtime(), 350, 350, RGB_BLANK);
+    Leds::blinkAll(curTime, 350, 350, RGB_BLANK);
     return;
   }
-
-  if (!g_pButton->isPressed()) {
+  bool isPressed = g_pButton->isPressed();
+  if (!isPressed) {
     Leds::clearAll();
-    Leds::blinkAll(Time::getCurtime(), 150, 150, RGB_DIM_RED);
+    Leds::blinkAll(curTime, 150, 150, RGB_DIM_RED);
     return;
   }
-
   // don't start the fill until the button has been held for a bit
   uint32_t holdDur = g_pButton->holdDuration();
   if (holdDur < Time::msToTicks(100)) {
     return;
   }
-
   uint16_t progress = ((holdDur * 100) / FACTORY_RESET_THRESHOLD_TICKS);
-
-  DEBUG_LOGF("progress: %f", progress);
-
+  DEBUG_LOGF("progress: %d", progress);
   if (progress >= 100) {
     Leds::setAll(RGB_WHITE);
     return;
   }
-
-  uint32_t offMs = 120 - (progress / 2);
-  uint32_t onMs = 120 - (progress / 2);
-  int8_t sat = (int8_t)(2.5 * progress);
-
+  uint32_t offMs = 120;
+  uint32_t onMs = 120 - (progress >> 1); // Using bit shift for division by 2
+  uint8_t sat = (uint8_t)((progress * 5) >> 1); // Using bit shift for division by 2
   Leds::clearAll();
-  Leds::blinkIndex(LED_0, Time::getCurtime(), offMs, onMs, HSVColor(0, 255 - sat, 180));
-  Leds::blinkIndex(LED_1, Time::getCurtime(), offMs, onMs, RGB_BLANK);
+  Leds::blinkIndex(LED_0, curTime, offMs, onMs, HSVColor(0, 255 - sat, 180));
+  Leds::blinkIndex(LED_1, curTime, offMs, onMs, RGB_BLANK);
 }
+
