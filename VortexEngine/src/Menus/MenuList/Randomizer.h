@@ -34,9 +34,6 @@ private:
   // re-roll a new randomization with a given context on an led
   bool reRoll(LedPos pos);
   bool reRoll();
-  
-  // makes a pattern from existing colors
-  void colorPattern();
 };
 
 #endif

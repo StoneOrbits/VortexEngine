@@ -181,10 +181,6 @@ bool Randomizer::reRoll(LedPos pos)
   return true;
 }
 
-void Randomizer::colorPattern() {
-
-}
-
 bool Randomizer::reRoll()
 {
   if (m_targetLeds == MAP_LED(LED_MULTI)) {
