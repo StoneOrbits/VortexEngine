@@ -77,14 +77,8 @@ void FactoryReset::onLongClick()
     return;
   }
   // the button was held down long enough so actually perform the factory reset
-  uint8_t curModeIndex = Modes::curModeIndex();
-  // reset the target mode slot on the target led
-  const default_mode_entry &def = default_modes[curModeIndex];
-  Colorset set(def.numColors, def.cols);
-  m_pCurMode->setPatternMap(m_targetLeds, def.patternID, nullptr, &set);
-  // re-initialize the current mode
-  m_pCurMode->init();
-  // save and leave the menu
+  // restore defaults and then leave menu and save
+  Modes::setDefaults();
   leaveMenu(true);
 }
 
@@ -133,3 +127,4 @@ void FactoryReset::showReset()
   // and blink the background the regular blank color
   Leds::blinkRange((LedPos)(endLed + 1), INDEX_TOP, Time::getCurtime(), offMs, onMs, RGB_BLANK);
 }
+
