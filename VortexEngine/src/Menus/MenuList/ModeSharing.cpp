@@ -32,7 +32,7 @@ bool ModeSharing::init()
   // start on receive because it's the more responsive of the two
   // the odds of opening receive and then accidentally receiving
   // a mode that is being broadcast nearby is completely unlikely
-  beginReceiving();
+  beginReceivingIR();
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
@@ -44,17 +44,23 @@ Menu::MenuAction ModeSharing::run()
     return result;
   }
   switch (m_sharingMode) {
-  case ModeShareState::SHARE_SEND:
+  case ModeShareState::SHARE_SEND_IR:
     // render the 'send mode' lights
-    showSendMode();
+    showSendModeIR();
     // continue sending any data as long as there is more to send
-    continueSending();
+    continueSendingIR();
+    break;
+  case ModeShareState::SHARE_SEND_VL:
+    // render the 'send mode' lights
+    showSendModeVL();
+    // continue sending any data as long as there is more to send
+    continueSendingVL();
     break;
   case ModeShareState::SHARE_RECEIVE:
     // render the 'receive mode' lights
     showReceiveMode();
     // load any modes that are received
-    receiveMode();
+    receiveModeIR();
     break;
   }
   return MENU_CONTINUE;
@@ -81,24 +87,41 @@ void ModeSharing::onLongClick()
   leaveMenu();
 }
 
-void ModeSharing::beginSending()
+void ModeSharing::beginSendingVL()
 {
   // if the sender is sending then cannot start again
   if (VLSender::isSending()) {
     ERROR_LOG("Cannot begin sending, sender is busy");
     return;
   }
-  m_sharingMode = ModeShareState::SHARE_SEND;
+  m_sharingMode = ModeShareState::SHARE_SEND_VL;
   // initialize it with the current mode data
   VLSender::loadMode(m_pCurMode);
   // send the first chunk of data, leave if we're done
   if (!VLSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceiving();
+    beginReceivingIR();
   }
 }
 
-void ModeSharing::continueSending()
+void ModeSharing::beginSendingIR()
+{
+  // if the sender is sending then cannot start again
+  if (VLSender::isSending()) {
+    ERROR_LOG("Cannot begin sending, sender is busy");
+    return;
+  }
+  m_sharingMode = ModeShareState::SHARE_SEND_IR;
+  // initialize it with the current mode data
+  VLSender::loadMode(m_pCurMode);
+  // send the first chunk of data, leave if we're done
+  if (!VLSender::send()) {
+    // when send has completed, stores time that last action was completed to calculate interval between sends
+    beginReceivingIR();
+  }
+}
+
+void ModeSharing::continueSendingVL()
 {
   // if the sender isn't sending then nothing to do
   if (!VLSender::isSending()) {
@@ -106,17 +129,29 @@ void ModeSharing::continueSending()
   }
   if (!VLSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceiving();
+    beginReceivingIR();
   }
 }
 
-void ModeSharing::beginReceiving()
+void ModeSharing::continueSendingIR()
+{
+  // if the sender isn't sending then nothing to do
+  if (!VLSender::isSending()) {
+    return;
+  }
+  if (!VLSender::send()) {
+    // when send has completed, stores time that last action was completed to calculate interval between sends
+    beginReceivingIR();
+  }
+}
+
+void ModeSharing::beginReceivingIR()
 {
   m_sharingMode = ModeShareState::SHARE_RECEIVE;
   VLReceiver::beginReceiving();
 }
 
-void ModeSharing::receiveMode()
+void ModeSharing::receiveModeIR()
 {
   // if reveiving new data set our last data time
   if (VLReceiver::onNewData()) {
@@ -143,12 +178,16 @@ void ModeSharing::receiveMode()
   leaveMenu(true);
 }
 
-void ModeSharing::showSendMode()
+void ModeSharing::showSendModeVL()
 {
   // show a dim color when not sending
-  if (!VLSender::isSending()) {
-    Leds::setAll(RGBColor(0, 20, 20));
-  }
+  Leds::clearAll();
+}
+
+void ModeSharing::showSendModeIR()
+{
+  // show a dim color when not sending
+  Leds::clearAll();
 }
 
 void ModeSharing::showReceiveMode()
