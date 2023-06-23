@@ -93,7 +93,7 @@ bool IRReceiver::isReceiving()
 }
 
 // the percent of data received
-uint32_t IRReceiver::percentReceived()
+uint8_t IRReceiver::percentReceived()
 {
   if (!isReceiving()) {
     return 0;
