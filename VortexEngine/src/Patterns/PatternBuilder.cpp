@@ -223,8 +223,6 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_BLINKIE:
     case PATTERN_GHOSTCRUSH:
     case PATTERN_BASIC:
-    case PATTERN_BRACKETS:
-    case PATTERN_SANDWICH:
     case PATTERN_RIBBON:
     case PATTERN_DASHDOPS:
     case PATTERN_DASHCRUSH:
