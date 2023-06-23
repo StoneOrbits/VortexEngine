@@ -45,6 +45,9 @@
 // How long to wait between each IR send
 #define MAX_WAIT_DURATION             Time::msToTicks(IR_SENDER_WAIT_DURATION)
 
+// how long the user must press on a menu entry to enter the advanced menu
+#define ADV_MENU_DURATION_TICKS       Time::msToTicks(ADVANCED_MENU_ENTER_DURATION)
+
 // Strobe Timings
 //
 // Below are timings for all different kinds of standard

@@ -281,7 +281,6 @@
 // 'advanced' version of the menu
 #define ADVANCED_MENU_ENTER_DURATION 5000
 
-
 // Enter Advanced Menus Click Duration (ms)
 //
 // How long the user must long click on the menu item to enter the
