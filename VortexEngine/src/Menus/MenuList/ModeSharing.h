@@ -21,16 +21,14 @@ private:
   void continueSending();
   void receiveMode();
 
-  void showSendModeVL();
-  void showSendModeIR();
+  void showSendMode();
   void showReceiveMode();
 
   // override showExit so it isn't displayed on thumb
   virtual void showExit() override;
 
   enum class ModeShareState {
-    SHARE_SEND_IR,  // send mode over ir
-    SHARE_SEND_VL,  // send mode over vl
+    SHARE_SEND,     // send mode
     SHARE_RECEIVE,  // receive mode
   };
 
