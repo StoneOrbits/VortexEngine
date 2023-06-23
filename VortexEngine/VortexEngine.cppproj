@@ -182,12 +182,6 @@
     <Compile Include="src\Colors\ColorTypes.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\Infrared\IRReceiver.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Infrared\IRSender.cpp">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\Leds\Leds.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -374,15 +368,6 @@
     <Compile Include="src\Colors\ColorTypes.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\Infrared\IRConfig.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Infrared\IRReceiver.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Infrared\IRSender.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\Leds\Leds.h">
       <SubType>compile</SubType>
     </Compile>
@@ -563,6 +548,36 @@
     <Compile Include="src\Time\Timings.h">
       <SubType>compile</SubType>
     </Compile>
+    <Compile Include="src\Wireless\IRConfig.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Wireless\IRReceiver.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Wireless\IRReceiver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Wireless\IRSender.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Wireless\IRSender.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Wireless\VLConfig.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Wireless\VLReceiver.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Wireless\VLReceiver.h">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Wireless\VLSender.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Wireless\VLSender.h">
+      <SubType>compile</SubType>
+    </Compile>
     <Compile Include="src\VortexConfig.h">
       <SubType>compile</SubType>
     </Compile>
@@ -574,7 +589,6 @@
     <Folder Include="src\" />
     <Folder Include="src\Buttons\" />
     <Folder Include="src\Colors\" />
-    <Folder Include="src\Infrared\" />
     <Folder Include="src\Leds\" />
     <Folder Include="src\Log\" />
     <Folder Include="src\Memory\" />
@@ -589,6 +603,7 @@
     <Folder Include="src\Serial\" />
     <Folder Include="src\Storage\" />
     <Folder Include="src\Time\" />
+    <Folder Include="src\Wireless\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>
