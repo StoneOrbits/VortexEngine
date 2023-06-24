@@ -153,6 +153,19 @@ bool Randomizer::reRoll(LedPos pos)
     randomSet.randomizeEvenlySpaced(ctx, 3);
     break;
   }
+
+  // take the randomized colorset and repeate colors to make an additional pattern
+  bool reflect = false;
+  if (randomSet.numColors() <= 4) {
+    reflect = ctx.next8(0, 1);
+  }
+  if (reflect) {
+    int startingNumColors = randomSet.numColors();
+    for (int i = 0; i < startingNumColors - 1; ++i) {
+      // add a duplicate of each color in the colorset to in reverse
+      randomSet.addColor(randomSet.get(startingNumColors - (i + 2)));
+    }
+  }
   // the new pattern id to set
   PatternID newPat;
   // if normal mode generate a random pattern id, advanced don't change the pat id
