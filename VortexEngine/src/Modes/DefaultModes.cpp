@@ -24,7 +24,7 @@ const default_mode_entry default_modes[] = {
     }
   },
   {
-    PATTERN_BRACKETS, 6, {
+    PATTERN_DASHDOPS, 6, {
       RGB_OFF,
       0x56D400,
       0x5500AB,
