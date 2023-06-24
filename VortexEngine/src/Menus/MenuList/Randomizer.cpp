@@ -157,13 +157,10 @@ bool Randomizer::reRoll(LedPos pos)
   }
 
   // take the randomized colorset and repeate colors to make an additional pattern
-  bool reflect = false;
-  if (randomSet.numColors() <= 4) {
-    reflect = ctx.next8(0, 1);
-  }
-  if (reflect) {
-    int startingNumColors = randomSet.numColors();
-    for (int i = 0; i < startingNumColors - 1; ++i) {
+  if (randomSet.numColors() <= 4 && ctx.next8(0, 1) != 0) {
+    // using uint8_t here actually costs more bytes than int16_t
+    int16_t startingNumColors = randomSet.numColors();
+    for (int16_t i = 0; i < startingNumColors - 1; ++i) {
       // add a duplicate of each color in the colorset to in reverse
       randomSet.addColor(randomSet.get(startingNumColors - (i + 2)));
     }

@@ -27,7 +27,7 @@ private:
   Random m_multiRandCtx;
 
   // the time of the last randomization
-  uint64_t m_lastRandomization;
+  uint32_t m_lastRandomization;
   // whether auto-randomize is enabled
   bool m_autoMode;
 

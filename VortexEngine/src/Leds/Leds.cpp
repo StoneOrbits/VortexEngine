@@ -170,21 +170,21 @@ void Leds::adjustBrightnessAll(uint8_t fadeBy)
   adjustBrightnessRange(LED_FIRST, LED_LAST, fadeBy);
 }
 
-void Leds::blinkIndex(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkIndex(LedPos target, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     setIndex(target, col);
   }
 }
 
-void Leds::blinkRange(LedPos first, LedPos last, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkRange(LedPos first, LedPos last, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     setRange(first, last, col);
   }
 }
 
-void Leds::blinkMap(LedMap targets, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkMap(LedMap targets, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
@@ -195,21 +195,21 @@ void Leds::blinkMap(LedMap targets, uint64_t time, uint32_t offMs, uint32_t onMs
   }
 }
 
-void Leds::blinkAll(uint64_t time, int32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkAll(uint32_t time, int32_t offMs, uint32_t onMs, RGBColor col)
 {
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     setRange(LED_FIRST, LED_LAST, col);
   }
 }
 
-void Leds::blinkPair(Pair pair, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkPair(Pair pair, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     setRange(pairEven(pair), pairOdd(pair), col);
   }
 }
 
-void Leds::blinkPairs(Pair first, Pair last, uint64_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkPairs(Pair first, Pair last, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     setRange(pairEven(first), pairOdd(last), col);
