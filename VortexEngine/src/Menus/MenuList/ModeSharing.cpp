@@ -164,6 +164,8 @@ void ModeSharing::showReceiveMode()
   } else {
     if (m_advanced && m_pCurMode) {
       m_pCurMode->play();
+      // don't play on LED 1 so that it doesn't interfere
+      Leds::clearIndex(LED_1);
     } else {
       Leds::setAll(RGB_BLANK);
     }
