@@ -40,7 +40,8 @@ public:
   // open the ring menu
   static bool openMenuSelection();
 
-  // open a menu by index in the menu table
+  // open a menu by index in the menu table, optionally specify to
+  // open the advanced version of the menu (default basic version)
   static bool openMenu(uint32_t index, bool advanced = false);
 
   // whether the menus are actually open (The user has let go after opening)
