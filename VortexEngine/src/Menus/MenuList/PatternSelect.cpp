@@ -10,7 +10,7 @@
 #include "../../Log/Log.h"
 
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
-  Menu(col, advanced)
+  Menu(col, advanced),
   m_state(STATE_PICK_LIST),
   m_demoMode(),
   m_newPatternID(PATTERN_FIRST)
