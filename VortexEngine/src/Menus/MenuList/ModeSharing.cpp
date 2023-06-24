@@ -79,7 +79,6 @@ void ModeSharing::onShortClick()
 
 void ModeSharing::onLongClick()
 {
-  Modes::updateCurMode(m_pCurMode);
   leaveMenu(true);
 }
 
