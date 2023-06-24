@@ -14,7 +14,7 @@ Menu::Menu(const RGBColor &col, bool advanced) :
   m_targetLeds(MAP_LED_ALL),
   m_curSelection(FINGER_FIRST),
   m_ledSelected(false),
-  m_advanced(false),
+  m_advanced(advanced),
   m_shouldClose(false)
 {
 }
