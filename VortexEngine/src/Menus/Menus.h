@@ -42,11 +42,13 @@ public:
   // open the ring menu
   static bool openMenuSelection();
 
-  // open a menu by index in the menu table
-  static bool openMenu(uint32_t index);
+  // open a menu by index in the menu table, optionally specify to
+  // open the advanced version of the menu (default basic version)
+  static bool openMenu(uint32_t index, bool advanced = false);
 
-  // check if the menus are open
+  // whether the menus are actually open (The user has let go after opening)
   static bool checkOpen();
+  // whether the user is actually in a menu
   static bool checkInMenu();
   static Menu *curMenu();
   static MenuEntryID curMenuID();

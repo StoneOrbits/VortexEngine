@@ -8,12 +8,13 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-Menu::Menu(const RGBColor &col) :
+Menu::Menu(const RGBColor &col, bool advanced) :
   m_pCurMode(nullptr),
   m_menuColor(col),
   m_targetLeds(MAP_LED_ALL),
-  m_ledSelected(false),
   m_curSelection(0),
+  m_ledSelected(false),
+  m_advanced(false),
   m_shouldClose(false)
 {
 }

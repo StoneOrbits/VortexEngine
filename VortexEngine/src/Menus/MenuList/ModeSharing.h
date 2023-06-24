@@ -6,7 +6,7 @@
 class ModeSharing : public Menu
 {
 public:
-  ModeSharing(const RGBColor &col);
+  ModeSharing(const RGBColor &col, bool advanced);
   ~ModeSharing();
 
   bool init() override;

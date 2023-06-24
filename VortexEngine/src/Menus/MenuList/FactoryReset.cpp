@@ -12,8 +12,8 @@
 
 #include "../../VortexConfig.h"
 
-FactoryReset::FactoryReset(const RGBColor &col) :
-  Menu(col)
+FactoryReset::FactoryReset(const RGBColor &col, bool advanced) :
+  Menu(col, advanced)
 {
 }
 
@@ -26,8 +26,10 @@ bool FactoryReset::init()
   if (!Menu::init()) {
     return false;
   }
-  // skip led selection
-  m_ledSelected = true;
+  if (!m_advanced) {
+    // skip led selection
+    m_ledSelected = true;
+  }
   // Start on exit by default
   m_curSelection = false;
   DEBUG_LOG("Entered factory reset");
@@ -68,7 +70,17 @@ void FactoryReset::onLongClick()
   }
   // the button was held down long enough so actually perform the factory reset
   // restore defaults and then leave menu and save
-  Modes::setDefaults();
+  if (m_advanced) {
+    uint8_t curModeIndex = Modes::curModeIndex();
+    // reset the target mode slot on the target led
+    const default_mode_entry &def = default_modes[curModeIndex];
+    Colorset set(def.numColors, def.cols);
+    m_pCurMode->setPatternMap(m_targetLeds, def.patternID, nullptr, &set);
+    // re-initialize the current mode
+    m_pCurMode->init();
+  } else {
+    Modes::setDefaults();
+  }
   leaveMenu(true);
 }
 
@@ -97,8 +109,8 @@ void FactoryReset::showReset()
     Leds::setAll(RGB_WHITE);
     return;
   }
-  uint32_t offMs = 120;
-  uint32_t onMs = 120; // Using bit shift for division by 2
+  uint8_t offMs = 120;
+  uint8_t onMs = (progress > 60) ? 50 : 120;
   uint8_t sat = (uint8_t)((progress * 5) >> 1); // Using bit shift for division by 2
   Leds::clearAll();
   Leds::blinkIndex(LED_0, curTime, offMs, onMs, HSVColor(0, 255 - sat, 180));
