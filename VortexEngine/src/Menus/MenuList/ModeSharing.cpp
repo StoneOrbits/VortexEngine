@@ -13,11 +13,10 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-ModeSharing::ModeSharing(const RGBColor &col) :
-  Menu(col),
+ModeSharing::ModeSharing(const RGBColor &col, bool advanced) :
+  Menu(col, advanced),
   m_sharingMode(ModeShareState::SHARE_RECEIVE),
-  m_timeOutStartTime(0),
-  m_continuousReceive(false)
+  m_timeOutStartTime(0)
 {
 }
 
@@ -29,9 +28,6 @@ bool ModeSharing::init()
 {
   if (!Menu::init()) {
     return false;
-  }
-  if (g_pButton->holdDuration() > 500) {
-    m_continuousReceive = true;
   }
   // skip led selection
   m_ledSelected = true;
@@ -201,7 +197,7 @@ void ModeSharing::receiveModeIR()
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_pCurMode->getPatternID());
-  if (!m_continuousReceive) {
+  if (!m_advanced) {
     // leave menu and save settings, even if the mode was the same whatever
     leaveMenu(true);
   }
@@ -225,7 +221,7 @@ void ModeSharing::showReceiveMode()
     // using uint32_t to avoid overflow, the result should be within 10 to 255
     Leds::setAll(RGBColor(0, IRReceiver::percentReceived(), 0));
   } else {
-    if (m_continuousReceive && m_pCurMode) {
+    if (m_advanced && m_pCurMode) {
       m_pCurMode->play();
     } else {
       Leds::setAll(RGB_BLANK);

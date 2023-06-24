@@ -11,7 +11,7 @@ class Mode;
 class Randomizer : public Menu
 {
 public:
-  Randomizer(const RGBColor &col);
+  Randomizer(const RGBColor &col, bool advanced);
   ~Randomizer();
 
   bool init() override;
@@ -27,7 +27,7 @@ private:
   Random m_multiRandCtx;
 
   // the time of the last randomization
-  uint64_t m_lastRandomization;
+  uint32_t m_lastRandomization;
   // whether auto-randomize is enabled
   bool m_autoMode;
 

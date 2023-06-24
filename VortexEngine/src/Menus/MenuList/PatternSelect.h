@@ -10,7 +10,7 @@
 class PatternSelect : public Menu
 {
 public:
-  PatternSelect(const RGBColor &col);
+  PatternSelect(const RGBColor &col, bool advanced);
   ~PatternSelect();
 
   bool init() override;

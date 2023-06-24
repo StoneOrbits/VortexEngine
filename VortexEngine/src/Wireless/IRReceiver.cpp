@@ -13,8 +13,8 @@
 
 BitStream IRReceiver::m_irData;
 IRReceiver::RecvState IRReceiver::m_recvState = WAITING_HEADER_MARK;
-uint64_t IRReceiver::m_prevTime = 0;
-uint8_t IRReceiver::m_pinState = HIGH;
+uint32_t IRReceiver::m_prevTime = 0;
+uint8_t IRReceiver::m_pinState = 0;
 uint32_t IRReceiver::m_previousBytes = 0;
 
 bool IRReceiver::init()

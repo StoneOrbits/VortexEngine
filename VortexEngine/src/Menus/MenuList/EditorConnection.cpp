@@ -14,8 +14,8 @@
 
 #include <string.h>
 
-EditorConnection::EditorConnection(const RGBColor &col) :
-  Menu(col),
+EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
+  Menu(col, advanced),
   m_state(STATE_DISCONNECTED),
   m_demoMode()
 {

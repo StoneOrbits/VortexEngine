@@ -12,8 +12,8 @@
 
 #include "../../VortexConfig.h"
 
-FactoryReset::FactoryReset(const RGBColor &col) :
-  Menu(col)
+FactoryReset::FactoryReset(const RGBColor &col, bool advanced) :
+  Menu(col, advanced)
 {
 }
 
@@ -25,6 +25,10 @@ bool FactoryReset::init()
 {
   if (!Menu::init()) {
     return false;
+  }
+  if (!m_advanced) {
+    // skip led selection
+    m_ledSelected = true;
   }
   // start on exit by default
   m_curSelection = QUADRANT_LAST;
@@ -90,7 +94,17 @@ void FactoryReset::onLongClick()
   }
   // the button was held down long enough so actually perform the factory reset
   // restore defaults and then leave menu and save
-  Modes::setDefaults();
+  if (m_advanced) {
+    uint8_t curModeIndex = Modes::curModeIndex();
+    // reset the target mode slot on the target led
+    const default_mode_entry &def = default_modes[curModeIndex];
+    Colorset set(def.numColors, def.cols);
+    m_pCurMode->setPatternMap(m_targetLeds, def.patternID, nullptr, &set);
+    // re-initialize the current mode
+    m_pCurMode->init();
+  } else {
+    Modes::setDefaults();
+  }
   leaveMenu(true);
 }
 

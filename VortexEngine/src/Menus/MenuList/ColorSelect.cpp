@@ -14,8 +14,8 @@
 // the number of pages
 #define NUM_PAGES 2
 
-ColorSelect::ColorSelect(const RGBColor &col) :
-  Menu(col),
+ColorSelect::ColorSelect(const RGBColor &col, bool advanced) :
+  Menu(col, advanced),
   m_state(STATE_PICK_SLOT),
   m_curPage(0),
   m_slot(0),

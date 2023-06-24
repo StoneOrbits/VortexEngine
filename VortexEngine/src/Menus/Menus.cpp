@@ -20,12 +20,12 @@
 
 // static members
 Menus::MenuState Menus::m_menuState = MENU_STATE_NOT_OPEN;
-uint64_t Menus::m_openTime = 0;
+uint32_t Menus::m_openTime = 0;
 uint8_t Menus::m_selection = 0;
 Menu *Menus::m_pCurMenu = nullptr;
 
 // typedef for the menu initialization function
-typedef Menu *(*initMenuFn_t)(const RGBColor &col);
+typedef Menu *(*initMenuFn_t)(const RGBColor &col, bool advanced);
 
 // entries for the ring menu
 struct MenuEntry {
@@ -39,7 +39,7 @@ struct MenuEntry {
 
 // a template to initialize ringmenu functions
 template <typename T>
-Menu *initMenu(const RGBColor &col) { return new T(col); }
+Menu *initMenu(const RGBColor &col, bool advanced) { return new T(col, advanced); }
 
 // a simple macro to simplify the entries in the menu list
 #if LOGGING_LEVEL > 2
@@ -120,31 +120,34 @@ bool Menus::runMenuSelection()
     Leds::clearAll();
     return true;
   }
+  // clear the leds so it always fills instead of replacing
+  Leds::clearAll();
   // if the button was long pressed then select this menu, but we
   // need to check the presstime to ensure we don't catch the initial
   // release after opening the ringmenu
-  if (g_pButton->onLongClick() && g_pButton->pressTime() >= m_openTime) {
-    // ringmenu is open so select the menu
-    DEBUG_LOGF("Selected ringmenu %s", menuList[m_selection].menuName);
-    // open the menu we have selected
-    if (!openMenu(m_selection)) {
-      DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
+  if (g_pButton->pressTime() >= m_openTime) {
+    if (g_pButton->onLongClick()) {
+      // ringmenu is open so select the menu
+      DEBUG_LOGF("Selected ringmenu %s", menuList[m_selection].menuName);
+      // open the menu we have selected
+      if (!openMenu(m_selection, g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS)) {
+        DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
+        return false;
+      }
+      // display the newly opened menu
+      return true;
+    }
+    // if you long click the 2nd button exit the menu list
+    if (g_pButton2->onLongClick()) {
+      // close the current menu when run returns false
+      closeCurMenu();
+      // return false to let the modes play
       return false;
     }
-    // display the newly opened menu
-    return true;
-  }
-  // if you long click the 2nd button exit the menu list
-  if (g_pButton2->onLongClick()) {
-    // close the current menu when run returns false
-    closeCurMenu();
-    // return false to let the modes play
-    return false;
-  }
-  // clear the leds so it always fills instead of replacing
-  Leds::clearAll();
-  if (g_pButton->isPressed() && g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS) {
-    Leds::setAll(RGB_DARK_ORANGE);
+    // if holding down to select the menu option
+    if (g_pButton->isPressed() && g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS) {
+      Leds::setAll(RGB_DARK_ORANGE);
+    }
   }
   // blink every even/odd of every pair
   for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
@@ -209,13 +212,13 @@ bool Menus::openMenuSelection()
   return true;
 }
 
-bool Menus::openMenu(uint32_t index)
+bool Menus::openMenu(uint32_t index, bool advanced)
 {
   if (index >= NUM_MENUS) {
     return false;
   }
   m_selection = index;
-  Menu *newMenu = menuList[m_selection].initMenu(menuList[m_selection].color);
+  Menu *newMenu = menuList[m_selection].initMenu(menuList[m_selection].color, advanced);
   if (!newMenu) {
     return false;
   }
@@ -240,7 +243,7 @@ bool Menus::openMenu(uint32_t index)
 
 bool Menus::checkOpen()
 {
-  return m_menuState != MENU_STATE_NOT_OPEN;
+  return m_menuState != MENU_STATE_NOT_OPEN && g_pButton->releaseTime() > m_openTime;
 }
 
 bool Menus::checkInMenu()

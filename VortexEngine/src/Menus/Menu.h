@@ -11,7 +11,7 @@ class Mode;
 class Menu
 {
 public:
-  Menu(const RGBColor &col);
+  Menu(const RGBColor &col, bool advanced);
   virtual ~Menu();
 
   virtual bool init();
@@ -56,10 +56,12 @@ protected:
   // tracks the targetted leds for this menu
   // note this is an led map
   LedMap m_targetLeds;
-  // true once a an led is selected
-  bool m_ledSelected;
   // all menus have a 'current selection which can point at any led
   Quadrant m_curSelection;
+  // true once a an led is selected
+  bool m_ledSelected;
+  // whether advanced menu was activated
+  bool m_advanced;
 
 private:
   // internal flag to close the menu
