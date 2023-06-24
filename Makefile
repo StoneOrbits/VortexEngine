@@ -68,7 +68,7 @@ FUSE2 = 0x02
 FUSE5 = 0b1100010$(SAVE_EEPROM)
 FUSE6 = 0x04
 FUSE7 = 0x00
-FUSE8 = 0x7e
+FUSE8 = 0x7f
 upload: $(TARGET).hex
 	$(AVRDUDE) $(AVRDUDE_FLAGS) -Ufuse0:w:$(FUSE0):m -Ufuse2:w:$(FUSE2):m -Ufuse5:w:$(FUSE5):m -Ufuse6:w:$(FUSE6):m -Ufuse7:w:$(FUSE7):m -Ufuse8:w:$(FUSE8):m -Uflash:w:$(TARGET).hex:i
 
