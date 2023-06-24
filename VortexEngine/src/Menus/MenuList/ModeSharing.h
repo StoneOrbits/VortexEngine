@@ -34,9 +34,6 @@ private:
 
   // the start time when checking for timing out
   uint64_t m_timeOutStartTime;
-
-  // whether continuous receive mode is enabled
-  bool m_continuousReceive;
 };
 
 #endif

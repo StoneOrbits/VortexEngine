@@ -153,25 +153,31 @@ bool Randomizer::reRoll(LedPos pos)
     randomSet.randomizeEvenlySpaced(ctx, 3);
     break;
   }
-  // the random range begin/end
-  PatternID rbegin = PATTERN_SINGLE_FIRST;
-  PatternID rend = PATTERN_SINGLE_LAST;
-  // is the multi led present in the target led map
-  if (m_targetLeds & MAP_LED(LED_MULTI)) {
-    // if so enable that one
-    rend = PATTERN_MULTI_LAST;
-    if (m_targetLeds == MAP_LED(LED_MULTI)) {
-      rbegin = PATTERN_MULTI_FIRST;
-    }
-  }
-  // create a random pattern ID from all patterns
+  // the new pattern id to set
   PatternID newPat;
-  do {
-    // continuously re-randomize the pattern so we don't get undesirable patterns
-    newPat = (PatternID)ctx.next(rbegin, rend);
-  } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
-  // update the led with the new random
-  m_pCurMode->setPattern(newPat, pos, nullptr, &randomSet);
+  // if normal mode generate a random pattern id, advanced don't change the pat id
+  if (!m_advanced) {
+    // the random range begin/end
+    PatternID rbegin = PATTERN_SINGLE_FIRST;
+    PatternID rend = PATTERN_SINGLE_LAST;
+    // is the multi led present in the target led map
+    if (m_targetLeds & MAP_LED(LED_MULTI)) {
+      // if so enable that one
+      rend = PATTERN_MULTI_LAST;
+      if (m_targetLeds == MAP_LED(LED_MULTI)) {
+        rbegin = PATTERN_MULTI_FIRST;
+      }
+    }
+    do {
+      // continuously re-randomize the pattern so we don't get undesirable patterns
+      newPat = (PatternID)ctx.next(rbegin, rend);
+    } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
+    // update the led with the new random
+    m_pCurMode->setPattern(newPat, pos, nullptr, &randomSet);
+  } else {
+    // update the led with just the colorset
+    m_pCurMode->setColorset(randomSet, pos);
+  }
   // initialize the mode with the new pattern and colorset
   m_pCurMode->init();
   DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
