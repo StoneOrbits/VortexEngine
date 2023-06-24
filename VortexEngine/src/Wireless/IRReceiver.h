@@ -66,7 +66,7 @@ private:
   // state information used by the PCIHandler
   static RecvState m_recvState;
   // used to track pin changes
-  static uint64_t m_prevTime;
+  static uint32_t m_prevTime;
   static uint8_t m_pinState;
 
   // used to compare if received data has changed since last checking

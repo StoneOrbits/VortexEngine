@@ -14,7 +14,7 @@
 #endif
 
 bool SerialComs::m_serialConnected = false;
-uint64_t SerialComs::m_lastCheck = 0;
+uint32_t SerialComs::m_lastCheck = 0;
 
 // init serial
 bool SerialComs::init()
@@ -41,7 +41,7 @@ bool SerialComs::checkSerial()
     // already connected
     return true;
   }
-  uint64_t now = Time::getCurtime();
+  uint32_t now = Time::getCurtime();
   // don't check for serial too fast
   if (m_lastCheck && (now - m_lastCheck) < MAX_SERIAL_CHECK_INTERVAL) {
     // can't check yet too soon

@@ -10,8 +10,8 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-ColorSelect::ColorSelect(const RGBColor &col) :
-  Menu(col),
+ColorSelect::ColorSelect(const RGBColor &col, bool advanced) :
+  Menu(col, advanced),
   m_state(STATE_PICK_SLOT),
   m_newColor(),
   m_colorset(),
@@ -275,7 +275,7 @@ void ColorSelect::showSelection(ColorSelectState mode)
   }
 }
 
-void ColorSelect::showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs)
+void ColorSelect::showFullSet(LedPos target, uint32_t time, uint32_t offMs, uint32_t onMs)
 {
   if (!m_colorset.numColors()) {
     // wat do?
