@@ -12,8 +12,8 @@
 
 #include "../../VortexConfig.h"
 
-FactoryReset::FactoryReset(const RGBColor &col) :
-  Menu(col)
+FactoryReset::FactoryReset(const RGBColor &col, bool advanced) :
+  Menu(col, advanced)
 {
 }
 
@@ -74,7 +74,7 @@ void FactoryReset::onLongClick()
 
 void FactoryReset::showReset()
 {
-  uint32_t curTime = Time::getCurtime();
+  uint64_t curTime = Time::getCurtime();
   if (m_curSelection == 0) {
     Leds::clearAll();
     Leds::blinkAll(curTime, 350, 350, RGB_BLANK);

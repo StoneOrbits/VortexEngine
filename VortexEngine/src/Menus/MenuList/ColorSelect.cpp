@@ -10,8 +10,8 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-ColorSelect::ColorSelect(const RGBColor &col) :
-  Menu(col),
+ColorSelect::ColorSelect(const RGBColor &col, bool advanced) :
+  Menu(col, advanced),
   m_state(STATE_PICK_SLOT),
   m_newColor(),
   m_colorset(),

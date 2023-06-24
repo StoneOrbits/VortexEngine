@@ -13,8 +13,8 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-Randomizer::Randomizer(const RGBColor &col) :
-  Menu(col),
+Randomizer::Randomizer(const RGBColor &col, bool advanced) :
+  Menu(col, advanced),
   m_lastRandomization(0),
   m_autoMode(false)
 {
