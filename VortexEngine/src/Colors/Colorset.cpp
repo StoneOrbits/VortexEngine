@@ -227,6 +227,7 @@ void Colorset::randomize(Random &ctx, uint8_t numColors)
     numColors = ctx.next8(2, 9);
   }
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+
   for (uint8_t i = 0; i < numColors; ++i) {
     addColorWithValueStyle(ctx, ctx.next8(), ctx.next8(), valStyle, numColors);
   }
@@ -243,9 +244,24 @@ void Colorset::randomizeColorTheory(Random &ctx, uint8_t numColors)
   uint8_t colorGap = 0;
   if (numColors > 1) colorGap = ctx.next8(16, 256/(numColors - 1));
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+  
+  // the double bools decide if some colors are added to the set twice
+  bool doubleOne = false;
+  bool doubleAll = false;
+  if (numColors <= 7) {
+    doubleOne = (ctx.next8(0, 1));
+  }
+  if (numColors <= 4) {
+    doubleAll = (ctx.next8(0, 1));
+  }
   for (uint8_t i = 0; i < numColors; i++) {
     uint8_t nextHue = (randomizedHue + (i * colorGap)) % 256;
     addColorWithValueStyle(ctx, nextHue, 255, valStyle, numColors);
+    if (doubleAll) {
+      addColorWithValueStyle(ctx, nextHue, 255, valStyle, numColors);
+    } else if (doubleOne && !i) {
+      addColorWithValueStyle(ctx, nextHue, 255, valStyle, numColors);
+    }
   }
 }
 
@@ -258,9 +274,24 @@ void Colorset::randomizeMonochromatic(Random &ctx, uint8_t numColors)
   }
   uint8_t randomizedHue = ctx.next8();
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+
+  // the double bools decide if some colors are added to the set twice
+  bool doubleOne = false;
+  bool doubleAll = false;
+  if (numColors <= 7) {
+    doubleOne = (ctx.next8(0, 1));
+  }
+  if (numColors <= 4) {
+    doubleAll = (ctx.next8(0, 1));
+  }
   for (uint8_t i = 0; i < numColors; i++) {
     uint8_t decrement = 255 - (i * (256 / numColors));
     addColorWithValueStyle(ctx, randomizedHue, decrement, valStyle, numColors);
+    if (doubleAll) {
+      addColorWithValueStyle(ctx, randomizedHue, decrement, valStyle, numColors);
+    } else if (doubleOne && !i) {
+      addColorWithValueStyle(ctx, randomizedHue, decrement, valStyle, numColors);
+    }
   }
 }
 
@@ -299,9 +330,23 @@ void Colorset::randomizeEvenlySpaced(Random &ctx, uint8_t spaces)
   }
   uint8_t randomizedHue = ctx.next8();
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+  // the double bools decide if some colors are added to the set twice
+  bool doubleOne = false;
+  bool doubleAll = false;
+  if (spaces <= 7) {
+    doubleOne = (ctx.next8(0, 1));
+  }
+  if (spaces <= 4) {
+    doubleAll = (ctx.next8(0, 1));
+  }
   for (uint8_t i = 0; i < spaces; i++) {
     uint8_t nextHue = (randomizedHue + (256 / spaces) * i) % 256;
     addColorWithValueStyle(ctx, nextHue, 255, valStyle, spaces);
+    if (doubleAll) {
+      addColorWithValueStyle(ctx, nextHue, 255, valStyle, spaces);
+    } else if (doubleOne && !i) {
+      addColorWithValueStyle(ctx, nextHue, 255, valStyle, spaces);
+    }
   }
 }
 

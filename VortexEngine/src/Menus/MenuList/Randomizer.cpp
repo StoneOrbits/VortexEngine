@@ -157,42 +157,17 @@ bool Randomizer::reRoll(LedPos pos)
   }
 
   // take the randomized colorset and repeate colors to make an additional pattern
-  switch (randomSet.numColors()) {
-  case 2:
-    //do nothing
-    //double both colors
-    //double one color
-    //mirror colors 121
-    break;
-  case 3:
-    //do nothing
-    //double all colors
-    //double one color
-    //mirror colors 12321
-    break;
-  case 4:
-    //do nothing
-    //double all colors
-    //double one color
-    //mirror colors 1234321
-    break;
-  case 5:
-    //do nothing
-    //double one color
-    break;
-  case 6:
-    //do nothing
-    //double one color
-    break;
-  case 7:
-    //do nothing
-    //double one color
-    break;
-  default:
-
+  bool reflect = false;
+  if (randomSet.numColors() <= 4) {
+    reflect = ctx.next8(0, 1);
   }
-
-  
+  if (reflect) {
+    int startingNumColors = randomSet.numColors();
+    for (int i = 0; i < startingNumColors - 1; ++i) {
+      // add a duplicate of each color in the colorset to in reverse
+      randomSet.addColor(randomSet.get(startingNumColors - (i + 2)));
+    }
+  }
 
   // the random range begin/end
   PatternID rbegin = PATTERN_SINGLE_FIRST;
