@@ -18,7 +18,19 @@ AVRDUDE_BAUDRATE = 115200
 AVRDUDE_CHIP = attiny3217
 AVRDUDE_FLAGS = -C$(AVRDUDE_CONF) -v -p$(AVRDUDE_CHIP) -c$(AVRDUDE_PROGRAMMER) -P$(AVRDUDE_PORT) -b$(AVRDUDE_BAUDRATE)
 
-CFLAGS = -g -Os -MMD -Wall -flto -mrelax -std=gnu++17 -fno-threadsafe-statics -fno-exceptions -mmcu=$(AVRDUDE_CHIP) -DF_CPU=20000000L
+CPU_SPEED=10000000L
+
+CFLAGS = -g \
+	 -Os \
+	 -MMD \
+	 -Wall \
+	 -flto \
+	 -mrelax \
+	 -std=gnu++17 \
+	 -fno-threadsafe-statics \
+	 -fno-exceptions \
+	 -mmcu=$(AVRDUDE_CHIP) \
+	 -DF_CPU=$(CPU_SPEED)
 
 LDFLAGS = -g -Wall -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mrelax -mmcu=$(AVRDUDE_CHIP) -lm
 
