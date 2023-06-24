@@ -6,7 +6,7 @@
 class ModeSharing : public Menu
 {
 public:
-  ModeSharing(const RGBColor &col);
+  ModeSharing(const RGBColor &col, bool advanced);
   ~ModeSharing();
 
   bool init() override;
@@ -37,10 +37,7 @@ private:
   uint64_t m_lastActionTime;
 
   // the start time when checking for timing out
-  uint64_t m_timeOutStartTime;
-
-  // whether continuous receive mode is enabled
-  bool m_continuousReceive;
+  uint32_t m_timeOutStartTime;
 };
 
 #endif

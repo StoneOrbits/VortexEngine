@@ -60,6 +60,8 @@ public:
     VAL_STYLE_ASCENDING,
     // Descending values from high to low
     VAL_STYLE_DESCENDING,
+    // Constant value
+    VAL_STYLE_CONSTANT,
     // Total number of value styles
     VAL_STYLE_COUNT
   };
@@ -68,7 +70,7 @@ public:
   bool addColor(RGBColor col);
   bool addColorHSV(uint8_t hue, uint8_t sat, uint8_t val);
   void addColorWithValueStyle(Random &ctx, uint8_t hue, uint8_t sat,
-    ValueStyle valStyle, uint8_t numColors);
+    ValueStyle valStyle, uint8_t numColors, uint8_t colorPos);
   void removeColor(uint8_t index);
 
   // randomize a colorset with a specific number of colors with

@@ -15,9 +15,9 @@
 #include "../Leds/Leds.h"
 
 // static members
-uint64_t Time::m_curTick = 0;
-uint64_t Time::m_prevTime = 0;
-uint64_t Time::m_firstTime = 0;
+uint32_t Time::m_curTick = 0;
+uint32_t Time::m_prevTime = 0;
+uint32_t Time::m_firstTime = 0;
 #if VARIABLE_TICKRATE == 1
 uint32_t Time::m_tickrate = DEFAULT_TICKRATE;
 #endif
@@ -108,7 +108,7 @@ void Time::tickClock()
 }
 
 // get the current time with optional led position time offset
-uint64_t Time::getCurtime(LedPos pos)
+uint32_t Time::getCurtime(LedPos pos)
 {
   // the current tick, plus the time offset per LED, plus any
   // simulation offset
@@ -120,7 +120,7 @@ uint64_t Time::getCurtime(LedPos pos)
 }
 
 // the real current time, bypass simulations, used by timers
-uint64_t Time::getRealCurtime()
+uint32_t Time::getRealCurtime()
 {
   return m_curTick;
 }
@@ -222,7 +222,7 @@ void Time::test()
   cleanup();
 
   // Test tickClock function
-  uint64_t initialTick = m_curTick;
+  uint32_t initialTick = m_curTick;
   tickClock();
   assert(m_curTick == initialTick + 1);
   DEBUG_LOG("tickClock test passed");

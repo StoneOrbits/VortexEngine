@@ -17,7 +17,7 @@ BitStream IRSender::m_bitStream;
 // whether actively sending
 bool IRSender::m_isSending = false;
 // the time of the last sent chunk
-uint64_t IRSender::m_lastSendTime = 0;
+uint32_t IRSender::m_lastSendTime = 0;
 // some runtime meta info
 uint32_t IRSender::m_size = 0;
 // the number of blocks that will be sent

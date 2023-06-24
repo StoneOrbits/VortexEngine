@@ -6,8 +6,8 @@
 
 #define NUM_BRIGHTNESS_OPTIONS (sizeof(m_brightnessOptions) / sizeof(m_brightnessOptions[0]))
 
-GlobalBrightness::GlobalBrightness(const RGBColor &col) :
-  Menu(col)
+GlobalBrightness::GlobalBrightness(const RGBColor &col, bool advanced) :
+  Menu(col, advanced)
 {
 }
 

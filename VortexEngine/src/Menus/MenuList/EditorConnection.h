@@ -9,7 +9,7 @@
 class EditorConnection : public Menu
 {
 public:
-  EditorConnection(const RGBColor &col);
+  EditorConnection(const RGBColor &col, bool advanced);
   ~EditorConnection();
 
   bool init() override;

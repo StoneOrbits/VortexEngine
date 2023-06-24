@@ -93,9 +93,9 @@ bool Timer::onEnd() const
     return true;
   }
   // grab curTime
-  uint64_t now = Time::getCurtime();
+  uint32_t now = Time::getCurtime();
   // get the start time of the timer
-  uint64_t startTime = getStartTime();
+  uint32_t startTime = getStartTime();
   // time since start (forward or backwards)
   int32_t timeDiff = (int32_t)(int64_t)(now - startTime);
   // if no time since start then this definitely isn't the end
@@ -111,7 +111,7 @@ AlarmID Timer::alarm()
   if (!m_numAlarms || !m_alarms || m_curAlarm == ALARM_NONE) {
     return ALARM_NONE;
   }
-  uint64_t now = Time::getCurtime();
+  uint32_t now = Time::getCurtime();
   // time since start (forward or backwards)
   int32_t timeDiff = (int32_t)(int64_t)(now - getStartTime());
   if (timeDiff < 0) {
@@ -134,7 +134,7 @@ AlarmID Timer::alarm()
   return m_curAlarm;
 }
 
-uint64_t Timer::getStartTime() const
+uint32_t Timer::getStartTime() const
 {
 #ifdef VORTEX_LIB
   // timers use a different 'start time' tracker in simulations so that
@@ -146,7 +146,7 @@ uint64_t Timer::getStartTime() const
   return m_startTime;
 }
 
-void Timer::setStartTime(uint64_t tick)
+void Timer::setStartTime(uint32_t tick)
 {
 #ifdef VORTEX_LIB
   // if this timer is running in a simulation then don't actually update

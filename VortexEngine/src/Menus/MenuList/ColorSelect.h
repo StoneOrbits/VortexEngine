@@ -8,7 +8,7 @@
 class ColorSelect : public Menu
 {
 public:
-  ColorSelect(const RGBColor &col);
+  ColorSelect(const RGBColor &col, bool advanced);
   ~ColorSelect();
 
   bool init() override;

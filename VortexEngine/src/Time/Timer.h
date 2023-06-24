@@ -64,7 +64,7 @@ public:
   uint32_t curAlarm() const { return m_curAlarm; }
 
   // the start time of the timer
-  uint64_t startTime() const { return m_startTime; }
+  uint32_t startTime() const { return m_startTime; }
 
 #if TIMER_TEST == 1
   static void test();
@@ -72,8 +72,8 @@ public:
 
 private:
   // helpers to set/get start time
-  uint64_t getStartTime() const;
-  void setStartTime(uint64_t);
+  uint32_t getStartTime() const;
+  void setStartTime(uint32_t);
 
   // the list of alarms and number of alarms
   uint32_t *m_alarms;
@@ -81,12 +81,12 @@ private:
   // the current alarm being checked
   AlarmID m_curAlarm;
   // start time in microseconds
-  uint64_t m_startTime;
+  uint32_t m_startTime;
 
   // only need time simulations for test framework pattern strip generation
 #ifdef VORTEX_LIB
   // the simulation start time
-  uint64_t m_simStartTime;
+  uint32_t m_simStartTime;
 #endif
 };
 
