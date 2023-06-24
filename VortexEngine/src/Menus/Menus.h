@@ -11,10 +11,10 @@ enum MenuEntryID
   MENU_FIRST = 0,
 
   MENU_RANDOMIZER = MENU_FIRST,
+  MENU_MODE_SHARING,
   MENU_COLOR_SELECT,
   MENU_PATTERN_SELECT,
   MENU_FACTORY_RESET,
-  MENU_MODE_SHARING,
   // add new menus here
 
   // the total number of menus
