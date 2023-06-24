@@ -86,7 +86,7 @@ void FactoryReset::onLongClick()
 
 void FactoryReset::showReset()
 {
-  uint64_t curTime = Time::getCurtime();
+  uint32_t curTime = Time::getCurtime();
   if (m_curSelection == 0) {
     Leds::clearAll();
     Leds::blinkAll(curTime, 350, 350, RGB_BLANK);

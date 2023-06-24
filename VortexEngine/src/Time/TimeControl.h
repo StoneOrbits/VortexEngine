@@ -20,10 +20,10 @@ public:
   static void tickClock();
 
   // get the current time with optional led position time offset
-  static uint64_t getCurtime(LedPos pos = LED_FIRST);
+  static uint32_t getCurtime(LedPos pos = LED_FIRST);
 
   // this ignore simulation time, it's used by timers to make simulations work
-  static uint64_t getRealCurtime();
+  static uint32_t getRealCurtime();
 
   // Set tickrate in Ticks Per Second (TPS)
   // The valid range for this is 1 <= x <= 1000000
@@ -80,13 +80,13 @@ private:
 #endif
 
   // global tick counter
-  static uint64_t m_curTick;
+  static uint32_t m_curTick;
 
   // the last frame timestamp
-  static uint64_t m_prevTime;
+  static uint32_t m_prevTime;
 
   // the first timestamp
-  static uint64_t m_firstTime;
+  static uint32_t m_firstTime;
 
 #if VARIABLE_TICKRATE == 1
   // the number of ticks per second

@@ -45,7 +45,7 @@ private:
   // a bit walker for the serial data
   static BitStream m_bitStream;
   static bool m_isSending;
-  static uint64_t m_lastSendTime;
+  static uint32_t m_lastSendTime;
 
   // some runtime meta info
   static uint32_t m_size;

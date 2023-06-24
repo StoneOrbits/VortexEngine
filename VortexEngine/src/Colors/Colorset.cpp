@@ -111,7 +111,7 @@ void Colorset::clear()
 
 bool Colorset::equals(const Colorset &set) const
 {
-  return equals(&set);
+  return operator==(set);
 }
 
 bool Colorset::equals(const Colorset *set) const
@@ -119,10 +119,7 @@ bool Colorset::equals(const Colorset *set) const
   if (!set) {
     return false;
   }
-  if (set->m_numColors != m_numColors) {
-    return false;
-  }
-  return (memcmp(m_palette, set->m_palette, m_numColors * sizeof(RGBColor)) == 0);
+  return operator==(*set);
 }
 
 RGBColor Colorset::operator[](int index) const
@@ -244,9 +241,8 @@ void Colorset::randomizeColorTheory(Random &ctx, uint8_t numColors)
   }
   uint8_t randomizedHue = ctx.next8();
   uint8_t colorGap = 0;
-  if (numColors > 1) colorGap = ctx.next8(16, 256/(numColors - 1));
+  if (numColors > 1) colorGap = ctx.next8(16, 256 / (numColors - 1));
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  
   // the doubleStyle decides if some colors are added to the set twice
   uint8_t doubleStyle = 0;
   if (numColors <= 7) {
@@ -274,7 +270,6 @@ void Colorset::randomizeMonochromatic(Random &ctx, uint8_t numColors)
   }
   uint8_t randomizedHue = ctx.next8();
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-
   // the doubleStyle decides if some colors are added to the set twice
   uint8_t doubleStyle = 0;
   if (numColors <= 7) {

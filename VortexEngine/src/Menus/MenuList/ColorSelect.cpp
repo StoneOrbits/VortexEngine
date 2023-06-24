@@ -273,7 +273,7 @@ void ColorSelect::showSelection(ColorSelectState mode)
   Leds::setMap(MAP_PAIR_EVENS, HSVColor(hue, sat, val));
 }
 
-void ColorSelect::showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs)
+void ColorSelect::showFullSet(LedPos target, uint32_t time, uint32_t offMs, uint32_t onMs)
 {
   if (!m_colorset.numColors()) {
     // wat do?

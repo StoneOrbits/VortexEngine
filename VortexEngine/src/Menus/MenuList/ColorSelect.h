@@ -32,7 +32,7 @@ private:
 
   void showSlotSelection();
   void showSelection(ColorSelectState mode);
-  void showFullSet(LedPos target, uint64_t time, uint32_t offMs, uint32_t onMs);
+  void showFullSet(LedPos target, uint32_t time, uint32_t offMs, uint32_t onMs);
 
   // the options for saturations
   const uint8_t sats[4] = {

@@ -33,7 +33,7 @@ private:
   ModeShareState m_sharingMode;
 
   // the start time when checking for timing out
-  uint64_t m_timeOutStartTime;
+  uint32_t m_timeOutStartTime;
 };
 
 #endif

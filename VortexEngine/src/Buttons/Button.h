@@ -43,9 +43,9 @@ public:
   bool onLongClick() const { return m_longClick; }
 
   // when the button was last pressed
-  uint64_t pressTime() const { return m_pressTime; }
+  uint32_t pressTime() const { return m_pressTime; }
   // when the button was last released
-  uint64_t releaseTime() const { return m_releaseTime; }
+  uint32_t releaseTime() const { return m_releaseTime; }
 
   // how long the button is currently or was last held down (in ticks)
   uint32_t holdDuration() const { return m_holdDuration; }
@@ -65,9 +65,9 @@ private:
   // state data that is populated each check
 
   // the timestamp of when the button was pressed
-  uint64_t m_pressTime;
+  uint32_t m_pressTime;
   // the timestamp of when the button was released
-  uint64_t m_releaseTime;
+  uint32_t m_releaseTime;
 
   // the last hold duration
   uint32_t m_holdDuration;
