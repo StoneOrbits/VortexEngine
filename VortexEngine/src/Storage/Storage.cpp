@@ -88,7 +88,7 @@ bool Storage::write(ByteStream &buffer)
   }
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom
-  for (uint8_t i = 0; i < EEPROM_SIZE; ++i) {
+  for (uint16_t i = 0; i < EEPROM_SIZE; ++i) {
     if (*buf != *(uint8_t *)(MAPPED_EEPROM_START + i)) {
       eepromWriteByte(i, *buf);
     }
@@ -107,7 +107,6 @@ bool Storage::write(ByteStream &buffer)
     memcpy(FLASH_STORAGE_SPACE + target, buf + target, s);
     // Erase + write the flash page
     _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, 0x3);
-    while (NVMCTRL.STATUS & 0x3);
   }
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
   return (NVMCTRL.STATUS & 4) == 0;
