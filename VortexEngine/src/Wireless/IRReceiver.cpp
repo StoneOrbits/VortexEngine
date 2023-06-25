@@ -100,9 +100,9 @@ uint8_t IRReceiver::percentReceived()
   }
   uint8_t blocks = m_irData.data()[0];
   uint8_t remainder = m_irData.data()[1];
-  uint32_t total = ((blocks - 1) * 32) + remainder;
+  uint16_t total = ((blocks - 1) * 32) + remainder;
   // round by adding half of the total to the numerator
-  return (uint32_t)((m_irData.bytepos() * 100 + (total / 2)) / total);
+  return (uint8_t)((uint16_t)((m_irData.bytepos() * 100 + (total / 2)) / total));
 }
 
 bool IRReceiver::receiveMode(Mode *pMode)
