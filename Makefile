@@ -1,9 +1,12 @@
 # need to install megatinycore and it should work
-BINDIR="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/DxCore/tools/avr-gcc/7.3.0-atmel3.6.1-azduino6/bin"
+BINDIR="C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/"
 AVRDUDEDIR="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/DxCore/tools/avrdude/6.3.0-arduino17or18/bin"
 
-CC = ${BINDIR}/avr-gcc
-LD = ${BINDIR}/avr-gcc
+DEVICE_DIR="C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.10.348/gcc/dev/attiny3217"
+INCLUDE_DIR="C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.10.348/include/"
+
+CC = ${BINDIR}/avr-g++
+LD = ${BINDIR}/avr-g++
 OBJCOPY = ${BINDIR}/avr-objcopy -v
 AR = ${BINDIR}/avr-gcc-ar
 SIZE = ${BINDIR}/avr-size
@@ -18,23 +21,40 @@ AVRDUDE_BAUDRATE = 115200
 AVRDUDE_CHIP = attiny3217
 AVRDUDE_FLAGS = -C$(AVRDUDE_CONF) -v -p$(AVRDUDE_CHIP) -c$(AVRDUDE_PROGRAMMER) -P$(AVRDUDE_PORT) -b$(AVRDUDE_BAUDRATE)
 
-CPU_SPEED=20000000L
+CPU_SPEED = 10000000L
 
 CFLAGS = -g \
+	 -funsigned-char \
+	 -funsigned-bitfields \
 	 -Os \
 	 -MMD \
 	 -Wall \
 	 -flto \
 	 -mrelax \
+	 -ffunction-sections\
+	 -fdata-sections \
+	 -fpack-struct \
+	 -fshort-enums \
 	 -std=gnu++17 \
 	 -fno-threadsafe-statics \
 	 -fno-exceptions \
+	 -B $(DEVICE_DIR) \
 	 -mmcu=$(AVRDUDE_CHIP) \
 	 -DF_CPU=$(CPU_SPEED)
 
-LDFLAGS = -g -Wall -Os -flto -fuse-linker-plugin -Wl,--gc-sections -mrelax -mmcu=$(AVRDUDE_CHIP) -lm
+LDFLAGS = -g \
+	  -Wall \
+	  -Os \
+	  -flto \
+	  -fuse-linker-plugin \
+	  -Wl,--gc-sections \
+	  -mrelax \
+	  -lm \
+	  -mmcu=$(AVRDUDE_CHIP) \
+	  -B $(DEVICE_DIR)
 
 INCLUDES=\
+	-I $(INCLUDE_DIR) \
 	-I ./VortexEngine/src/
 
 CFLAGS+=$(INCLUDES)
