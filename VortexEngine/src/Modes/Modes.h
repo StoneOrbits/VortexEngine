@@ -99,6 +99,7 @@ public:
 
   // set the startup mode index (which mode will be displayed on startup)
   static void setStartupMode(uint8_t index);
+  static uint8_t startupMode();
 
   // toggle the instant one-click on/off
   static bool setOneClickMode(bool enable, bool save = true);

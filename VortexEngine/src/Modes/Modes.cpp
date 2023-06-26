@@ -544,6 +544,12 @@ void Modes::setStartupMode(uint8_t index)
   m_globalFlags |= (index << 4) & 0xF0;
 }
 
+uint8_t Modes::startupMode()
+{
+  // zero out the upper nibble to disable
+  return (m_globalFlags & 0xF0) >> 4;
+}
+
 bool Modes::setOneClickMode(bool enable, bool save)
 {
   // then actually if it's enabled ensure the upper nibble is set

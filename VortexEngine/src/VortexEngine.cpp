@@ -171,12 +171,12 @@ void VortexEngine::runMainLogic()
     if (Time::getCurtime() == SHORT_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
       // toggle one click mode
       Modes::setOneClickMode(!Modes::oneClickMode());
+      // switch to the one click startup mode
+      Modes::setCurMode(Modes::startupMode());
       // flash either low white or dim white2 to indicate
       // whether one-click mode has been turned on or off
-      Leds::holdIndex(LED_ALL, 250, (Modes::oneClickMode() ? RGB_LOW_WHITE : RGB_DIM_WHITE2));
+      Leds::holdIndex(LED_ALL, 200, (Modes::oneClickMode() ? RGB_LOW_WHITE : RGB_DIM_WHITE2));
     }
-    // do nothing till the user releases the button... No menus mothing
-    Modes::play();
     return;
   }
 
