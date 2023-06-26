@@ -40,6 +40,10 @@ Menu::MenuAction GlobalBrightness::run()
     return result;
   }
 
+  if (m_advanced) {
+    // ??
+  }
+
   // show the current brightness
   showBrightnessSelection();
 

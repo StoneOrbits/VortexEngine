@@ -24,6 +24,8 @@ Modes::ModeLink *Modes::m_pCurModeLink = nullptr;
 Modes::ModeLink *Modes::m_storedModes = nullptr;
 // global flags for all modes
 uint8_t Modes::m_globalFlags = 0;
+// the last switch time of the modes
+uint32_t Modes::m_lastSwitchTime = 0;
 
 bool Modes::init()
 {
@@ -450,6 +452,8 @@ Mode *Modes::setCurMode(uint8_t index)
     return nullptr;
   }
   m_pCurModeLink = newCurLink;
+  // record the current time as the last switch time
+  m_lastSwitchTime = Time::getCurtime();
   // log the change
   DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)",
     m_curMode, m_numModes - 1, newCur->getPatternID());

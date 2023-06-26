@@ -22,6 +22,9 @@
 bool VortexEngine::m_sleeping = false;
 #endif
 
+// auto cycling
+bool VortexEngine::m_autoCycle = false;
+
 bool VortexEngine::init()
 {
 #ifdef VORTEX_ARDUINO
@@ -245,6 +248,19 @@ void VortexEngine::runMainLogic()
     Modes::setLocked(true);
     enterSleep();
     return;
+  }
+
+  // toggle auto cycle mode with many clicks at main modes
+  if (g_pButton->consecutivePresses() > AUTO_CYCLE_MODES_CLICKS) {
+    m_autoCycle = !m_autoCycle;
+    g_pButton->resetConsecutivePresses();
+    Leds::holdIndex(LED_ALL, 500, (m_autoCycle ? RGB_LOW_PURPLE : RGB_LOW_TEAL));
+  }
+
+  // if auto cycle is enabled and the last switch was more than the delay ago
+  if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < Time::getCurtime())) {
+    // then switch to the next mode automatically
+    Modes::nextMode();
   }
 
   // otherwise finally just play the modes like normal

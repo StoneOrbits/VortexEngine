@@ -88,6 +88,9 @@ public:
   static uint8_t numModes() { return m_numModes; }
   static uint8_t curModeIndex() { return m_curMode; }
 
+  // the last time the modes switched to a new mode
+  static uint32_t lastSwitchTime() { return m_lastSwitchTime; }
+
   // delete the current mode
   static void deleteCurMode();
 
@@ -186,6 +189,9 @@ private:
 
   // global flags for all modes
   static uint8_t m_globalFlags;
+
+  // the last switch time of the modes
+  static uint32_t m_lastSwitchTime;
 };
 
 #endif

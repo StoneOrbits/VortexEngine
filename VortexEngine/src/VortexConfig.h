@@ -111,6 +111,15 @@
 // This will make the randomizer wait approximately 4 edm beats between switches
 #define AUTO_RANDOM_DELAY     1875
 
+// Auto Cycle Modes Clicks
+//
+// The number of consecutive clicks required to toggle the auto-cycle modes feature
+// on the main modes list. This will auto cycle to the next mode at the same time
+// as the auto random delay. This number is intentionally high because we really
+// don't want it activated automatically but it's there for demo purposes and as
+// a fun little easter egg to anybody that might come across it
+#define AUTO_CYCLE_MODES_CLICKS 16
+
 // Color delete threshold (in milliseconds)
 //
 // How long you must hold down on a color in the color select menu to

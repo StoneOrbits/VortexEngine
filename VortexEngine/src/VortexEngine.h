@@ -97,6 +97,9 @@ private:
   static bool m_sleeping;
 #endif
 
+  // whether auto cycle modes is turned on
+  static bool m_autoCycle;
+
 #if COMPRESSION_TEST == 1
   static void compressionTest();
 #endif

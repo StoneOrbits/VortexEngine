@@ -111,6 +111,9 @@ bool Menus::runMenuSelection()
   }
   // clear the leds so it always fills instead of replacing
   Leds::clearAll();
+  // timings for blink later
+  uint8_t offtime = 200;
+  uint8_t ontime = 200;
   // if the button was long pressed then select this menu, but we
   // need to check the presstime to ensure we don't catch the initial
   // release after opening the ringmenu
@@ -128,17 +131,19 @@ bool Menus::runMenuSelection()
     }
     // if holding down to select the menu option
     if (g_pButton->isPressed() && g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS) {
-      Leds::setAll(RGB_DARK_ORANGE);
+      // make it strobe aw yiss
+      offtime = HYPERSTROBE_OFF_DURATION;
+      ontime = HYPERSTROBE_ON_DURATION;
     }
   }
   // blink every even/odd of every pair
   for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
     if (pairEven(p) < LED_COUNT) {
-      Leds::blinkIndex(pairEven(p), Time::getCurtime(), 200, 200, menuList[m_selection].color);
+      Leds::blinkIndex(pairEven(p), Time::getCurtime(), offtime, ontime, menuList[m_selection].color);
     }
     if (pairOdd(p) < LED_COUNT) {
       Leds::setIndex(pairOdd(p), menuList[m_selection].color);
-      Leds::blinkIndex(pairOdd(p), Time::getCurtime(), 200, 200, RGB_OFF);
+      Leds::blinkIndex(pairOdd(p), Time::getCurtime(), offtime, ontime, RGB_OFF);
     }
   }
   // continue in the menu
