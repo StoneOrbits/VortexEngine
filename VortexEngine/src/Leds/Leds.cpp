@@ -349,6 +349,7 @@ void Leds::update()
       "rcall bitTimeD"          "\n\t" // Bit 1
       // Bit 0:
       "st   %a[port], %[hi]"    "\n\t" // 1    PORT = hi    (T =  1)
+      "nop                 "    "\n\t" // nop fix for timing issue
       "ld   %[byte] , %a[ptr]+" "\n\t" // 2    b = *ptr++   (T =  5)
       "st   %a[port], %[next]"  "\n\t" // 1    PORT = next  (T =  6)
       "mov  %[next] , %[lo]"    "\n\t" // 1    next = lo    (T =  7)

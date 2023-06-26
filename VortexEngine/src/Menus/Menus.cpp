@@ -146,13 +146,11 @@ bool Menus::runMenuSelection()
       Leds::blinkIndex(pairOdd(p), Time::getCurtime(), offtime, ontime, RGB_OFF);
     }
   }
-  RGBColor brighterMenuCol;
-#define SCALE8(i, scale)  (((uint16_t)i * (uint16_t)(scale)) >> 8)
-  brighterMenuCol.red = SCALE8(menuList[m_selection].color.red, 255);
-  brighterMenuCol.green = SCALE8(menuList[m_selection].color.green, 255);
-  brighterMenuCol.blue = SCALE8(menuList[m_selection].color.blue, 255);
   // show when the user selects a menu option
-  showSelection(brighterMenuCol);
+  showSelection(RGBColor(
+    menuList[m_selection].color.red << 3,
+    menuList[m_selection].color.green << 3,
+    menuList[m_selection].color.blue << 3));
   // continue in the menu
   return true;
 }
