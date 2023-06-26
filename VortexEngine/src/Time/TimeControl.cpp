@@ -441,9 +441,6 @@ __attribute__ ((noinline)) void delayMicroseconds(uint16_t us)
   // for a 1 microsecond delay, simply return.  the overhead
   // of the function call takes 14 (16) cycles, which is 1.5us
   if (us <= 2) return; //  = 3 cycles, (4 when true)
-  // the loop takes 1/2 of a microsecond (5 cycles) per iteration
-  // so execute it 2 times for each microsecond of delay requested.
-  us = us << 1; // x2 us, = 2 cycles
   // we just burned 20 (22) cycles above, remove 4, (5*4=20)
   // us is at least 6 so we can subtract 4
   us -= 4; // 2 cycles
