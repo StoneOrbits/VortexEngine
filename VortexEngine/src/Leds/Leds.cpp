@@ -255,6 +255,13 @@ void Leds::breathIndexVal(LedPos target, uint32_t hue, uint32_t variance, uint32
   setIndex(target, HSVColor(hue, sat, 255 - (uint8_t)(val + 128 + ((sin(variance * 0.0174533) + 1) * magnitude))));
 }
 
+void Leds::holdIndex(LedPos target, uint16_t ms, RGBColor col)
+{
+  setIndex(target, col);
+  update();
+  delay(ms);
+}
+
 void Leds::update()
 {
 #ifdef VORTEX_ARDUINO

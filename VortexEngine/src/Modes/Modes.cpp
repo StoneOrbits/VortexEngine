@@ -64,7 +64,7 @@ void Modes::play()
   // shortclick either turns off the lights, cycles to the next mode
   // or possible locks the lights based on the situation
   if (g_pButton->onShortClick()) {
-    if (Modes::instantOnOffEnabled()) {
+    if (Modes::oneClickMode()) {
       // enter sleep doesn't return on arduino, but it does on vortexlib
       // so we need to return right after -- we can't just use an else
       VortexEngine::enterSleep();
@@ -134,7 +134,7 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   uint8_t startupMode = (m_globalFlags & 0xF0) >> 4;
   if (startupMode > 0) {
     // set the current mode to the startup mode
-    setCurMode(startupMode - 1);
+    setCurMode(startupMode);
   }
   return true;
 }
@@ -450,8 +450,6 @@ Mode *Modes::setCurMode(uint8_t index)
     return nullptr;
   }
   m_pCurModeLink = newCurLink;
-  // set it as the startup mode?
-  setStartupMode(index);
   // log the change
   DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)",
     m_curMode, m_numModes - 1, newCur->getPatternID());
@@ -542,7 +540,7 @@ void Modes::setStartupMode(uint8_t index)
   m_globalFlags |= (index << 4) & 0xF0;
 }
 
-bool Modes::setInstantOnOff(bool enable, bool save)
+bool Modes::setOneClickMode(bool enable, bool save)
 {
   // then actually if it's enabled ensure the upper nibble is set
   if (enable) {
@@ -555,7 +553,7 @@ bool Modes::setInstantOnOff(bool enable, bool save)
   return !save || saveStorage();
 }
 
-bool Modes::instantOnOffEnabled()
+bool Modes::oneClickMode()
 {
   return ((m_globalFlags & MODES_FLAG_ONE_CLICK) != 0);
 }

@@ -77,5 +77,5 @@ void GlobalBrightness::showBrightnessSelection()
     showExit();
     return;
   }
-  Leds::setAll(HSVColor(0, 0, m_brightnessOptions[m_curSelection]));
+  Leds::setAll(HSVColor(38, 255, m_brightnessOptions[m_curSelection]));
 }

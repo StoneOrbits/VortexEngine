@@ -98,8 +98,8 @@ public:
   static void setStartupMode(uint8_t index);
 
   // toggle the instant one-click on/off
-  static bool setInstantOnOff(bool enable, bool save = true);
-  static bool instantOnOffEnabled();
+  static bool setOneClickMode(bool enable, bool save = true);
+  static bool oneClickMode();
 
   // toggle the locked state
   static bool setLocked(bool locked, bool save = true);

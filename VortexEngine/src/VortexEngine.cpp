@@ -166,9 +166,11 @@ void VortexEngine::runMainLogic()
   if (g_pButton->releaseCount() == 0) {
     // if the button is held for 2 seconds from off, switch the brigness scale
     if (Time::getCurtime() == SHORT_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
-      // update brightness and save the changes
-      Leds::setBrightness(Leds::getBrightness() == DEFAULT_BRIGHTNESS ? DEFAULT_DIMNESS : DEFAULT_BRIGHTNESS);
-      Modes::saveStorage();
+      // toggle one click mode
+      Modes::setOneClickMode(!Modes::oneClickMode());
+      // flash either low white or dim white2 to indicate
+      // whether one-click mode has been turned on or off
+      Leds::holdIndex(LED_ALL, 250, (Modes::oneClickMode() ? RGB_LOW_WHITE : RGB_DIM_WHITE2));
     }
     // do nothing till the user releases the button... No menus mothing
     Modes::play();
@@ -203,9 +205,6 @@ void VortexEngine::runMainLogic()
     // but as soon as they actually release put the device to sleep and also
     // toggle the instant on/off if they were at the main menu
     if (g_pButton->onRelease()) {
-      if (!Menus::checkInMenu()) {
-        Modes::setInstantOnOff(!Modes::instantOnOffEnabled());
-      }
       enterSleep();
     }
     return;
@@ -293,6 +292,10 @@ uint32_t VortexEngine::savefileSize()
 void VortexEngine::enterSleep()
 {
   DEBUG_LOG("Sleeping");
+  // set it as the startup mode?
+  Modes::setStartupMode(Modes::curModeIndex());
+  // save anything that hasn't been saved
+  Modes::saveStorage();
   // clear all the leds
   Leds::clearAll();
   Leds::update();
