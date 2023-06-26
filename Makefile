@@ -108,7 +108,7 @@ FUSE6 = 0x04
 FUSE7 = 0x00
 FUSE8 = 0x7f
 upload: $(TARGET).hex
-	$(AVRDUDE) $(AVRDUDE_FLAGS) -Ufuse0:w:$(FUSE0):m -Ufuse2:w:$(FUSE2):m -Ufuse5:w:$(FUSE5):m -Ufuse6:w:$(FUSE6):m -Ufuse7:w:$(FUSE7):m -Ufuse8:w:$(FUSE8):m -Uflash:w:$(TARGET).hex:i
+	C:\Users\Shane\AppData\Local\Arduino15\packages\megaTinyCore\tools\python3\3.7.2-post1/python3 -u C:\Users\Shane\AppData\Local\Arduino15\packages\megaTinyCore\hardware\megaavr\2.6.5/tools/prog.py -t uart -u COM11 -b 921600 -d attiny3217 --fuses 0:0b00000000 2:0x02 6:0x04 7:0x00 8:0x7f -f$< -a write -v
 
 clean:
 	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex $(DFILES)
