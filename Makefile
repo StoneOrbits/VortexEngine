@@ -2,6 +2,10 @@
 BINDIR="C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/"
 AVRDUDEDIR="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/DxCore/tools/avrdude/6.3.0-arduino17or18/bin"
 
+# tools for serial upload
+PYTHON="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/megaTinyCore/tools/python3/3.7.2-post1/python3"
+PYPROG="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.5/tools/prog.py"
+
 DEVICE_DIR="C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.10.348/gcc/dev/attiny3217"
 INCLUDE_DIR="C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.10.348/include/"
 
@@ -28,6 +32,19 @@ AVRDUDE_FLAGS = -C$(AVRDUDE_CONF) \
 		-v
 
 CPU_SPEED = 10000000L
+
+# the port for serial upload
+SERIAL_PORT = COM11
+
+SAVE_EEPROM = 1
+FUSE0 = 0b00000000
+FUSE2 = 0x02
+FUSE5 = 0b1100010$(SAVE_EEPROM)
+FUSE6 = 0x04
+# fuse7 = APPEND
+FUSE7 = 0x00
+# fuse8 = BOOTEND
+FUSE8 = 0x7f
 
 CFLAGS = -g \
 	 -Os \
@@ -96,22 +113,12 @@ $(TARGET).elf: $(OBJS)
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
-PYTHON="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/megaTinyCore/tools/python3/3.7.2-post1/python3"
-PYPROG="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.5/tools/prog.py"
-
-#  0x7e = 0x7e00 flash and 0x100 appcode for storage
-# fuse6 = 
-# fuse7 = APPEND
-# fuse8 = BOOTEND
-SAVE_EEPROM = 1
-FUSE0 = 0b00000000
-FUSE2 = 0x02
-FUSE5 = 0b1100010$(SAVE_EEPROM)
-FUSE6 = 0x04
-FUSE7 = 0x00
-FUSE8 = 0x7f
 upload: $(TARGET).hex
-	$(PYTHON) -u $(PYPROG) -t uart -u COM11 -b 921600 -d attiny3217 --fuses 0:0b00000000 2:0x02 6:0x04 7:0x00 8:0x7f -f$< -a write -v
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -Ufuse0:w:$(FUSE0):m -Ufuse2:w:$(FUSE2):m -Ufuse5:w:$(FUSE5):m -Ufuse6:w:$(FUSE6):m -Ufuse7:w:$(FUSE7):m -Ufuse8:w:$(FUSE8):m -Uflash:w:$(TARGET).hex:i
+
+# upload via SerialUPDI
+serial: $(TARGET).hex
+	$(PYTHON) -u $(PYPROG) -t uart -u $(SERIAL_PORT) -b 921600 -d $(AVRDUDE_CHIP) --fuses 0:$(FUSE0) 2:$(FUSE2) 5:$(FUSE5) 6:$(FUSE6) 7:$(FUSE7) 8:$(FUSE8) -f $< -a write -v
 
 clean:
 	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex $(DFILES)
