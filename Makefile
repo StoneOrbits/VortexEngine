@@ -19,28 +19,34 @@ AVRDUDE_PORT = usb
 AVRDUDE_PROGRAMMER = atmelice_updi
 AVRDUDE_BAUDRATE = 115200
 AVRDUDE_CHIP = attiny3217
-AVRDUDE_FLAGS = -C$(AVRDUDE_CONF) -v -p$(AVRDUDE_CHIP) -c$(AVRDUDE_PROGRAMMER) -P$(AVRDUDE_PORT) -b$(AVRDUDE_BAUDRATE)
+
+AVRDUDE_FLAGS = -C$(AVRDUDE_CONF) \
+		-p$(AVRDUDE_CHIP) \
+		-c$(AVRDUDE_PROGRAMMER) \
+		-P$(AVRDUDE_PORT) \
+		-b$(AVRDUDE_BAUDRATE) \
+		-v
 
 CPU_SPEED = 10000000L
 
 CFLAGS = -g \
-	 -funsigned-char \
-	 -funsigned-bitfields \
 	 -Os \
 	 -MMD \
 	 -Wall \
 	 -flto \
 	 -mrelax \
-	 -ffunction-sections\
-	 -fdata-sections \
-	 -fpack-struct \
-	 -fshort-enums \
 	 -std=gnu++17 \
-	 -fno-threadsafe-statics \
+	 -fshort-enums \
+	 -fpack-struct \
 	 -fno-exceptions \
-	 -B $(DEVICE_DIR) \
+	 -fdata-sections \
+	 -funsigned-char \
+	 -ffunction-sections\
+	 -funsigned-bitfields \
+	 -fno-threadsafe-statics \
 	 -mmcu=$(AVRDUDE_CHIP) \
-	 -DF_CPU=$(CPU_SPEED)
+	 -DF_CPU=$(CPU_SPEED) \
+	 -B $(DEVICE_DIR)
 
 LDFLAGS = -g \
 	  -Wall \
