@@ -57,6 +57,7 @@ const MenuEntry menuList[] = {
   ENTRY(ModeSharing,        RGB_LOW_TEAL),   // 5 (dim teal)
   ENTRY(ColorSelect,        RGB_LOW_GREEN),  // 1 (dim green)
   ENTRY(PatternSelect,      RGB_LOW_BLUE),   // 2 (dim blue)
+  ENTRY(GlobalBrightness,   RGB_LOW_YELLOW), // 2 (dim yellow)
   ENTRY(FactoryReset,       RGB_LOW_RED),    // 4 (dim red)
 };
 
