@@ -1,5 +1,8 @@
 #include "PatternSelect.h"
 
+#include "../../Patterns/PatternArgs.h"
+#include "../../Serial/ByteStream.h"
+#include "../../Random/Random.h"
 #include "../../Log/Log.h"
 
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
@@ -39,6 +42,20 @@ Menu::MenuAction PatternSelect::run()
 
 void PatternSelect::onShortClick()
 {
+  if (m_advanced) {
+    PatternArgs newArgs;
+    ByteStream ledData;
+    m_pCurMode->serialize(ledData);
+    Random ctx(ledData.recalcCRC());
+    uint8_t numargs = ctx.next8(2, 5);
+    for (uint8_t i = 0; i < numargs; ++i) {
+      newArgs.addArgs(ctx.next8(0, i < 3 ? 50 : m_pCurMode->getColorset().numColors()));
+    }
+    m_pCurMode->setPatternMap(m_targetLeds, PATTERN_BASIC, &newArgs);
+    m_pCurMode->init();
+    return;
+  }
+
   LedPos srcLed = LED_MULTI;
   if (!m_pCurMode->isMultiLed()) {
     srcLed = mapGetFirstLed(m_targetLeds);
