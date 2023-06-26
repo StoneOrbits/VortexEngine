@@ -3,6 +3,7 @@
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
 #include "../Buttons/Button.h"
+#include "../Menus/Menus.h"
 #include "../Modes/Modes.h"
 #include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
@@ -91,18 +92,7 @@ void Menu::showBulbSelection()
   Leds::clearAll();
   Leds::blinkMap(m_targetLeds, Time::getCurtime(), 250, 500, m_menuColor);
   // blink when selecting
-  showSelect();
-}
-
-void Menu::showSelect()
-{
-  // blink the tip led white for 150ms when the short
-  // click threshold has been surpassed
-  if (g_pButton->isPressed() &&
-    g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS &&
-    g_pButton->holdDuration() < (SHORT_CLICK_THRESHOLD_TICKS + Time::msToTicks(250))) {
-    Leds::setAll(RGB_DIM_WHITE2);
-  }
+  Menus::showSelection();
 }
 
 void Menu::showExit()

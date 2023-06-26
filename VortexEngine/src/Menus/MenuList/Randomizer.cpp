@@ -8,6 +8,7 @@
 #include "../../Random/Random.h"
 #include "../../Time/Timings.h"
 #include "../../Buttons/Button.h"
+#include "../../Menus/Menus.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
@@ -94,7 +95,7 @@ Menu::MenuAction Randomizer::run()
   }
 
   // show the selection
-  showSelect();
+  Menus::showSelection();
 
   // return true to continue staying in randomizer menu
   return MENU_CONTINUE;

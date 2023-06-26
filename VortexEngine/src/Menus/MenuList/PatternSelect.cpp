@@ -3,6 +3,7 @@
 #include "../../Patterns/PatternArgs.h"
 #include "../../Serial/ByteStream.h"
 #include "../../Random/Random.h"
+#include "../../Menus/Menus.h"
 #include "../../Log/Log.h"
 
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
@@ -36,7 +37,7 @@ Menu::MenuAction PatternSelect::run()
   // run the current mode
   m_pCurMode->play();
   // show selections
-  showSelect();
+  Menus::showSelection();
   return MENU_CONTINUE;
 }
 

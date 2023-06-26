@@ -146,6 +146,8 @@ bool Menus::runMenuSelection()
       Leds::blinkIndex(pairOdd(p), Time::getCurtime(), offtime, ontime, RGB_OFF);
     }
   }
+  // show when the user selects a menu option
+  showSelection();
   // continue in the menu
   return true;
 }
@@ -220,6 +222,17 @@ bool Menus::openMenu(uint32_t index, bool advanced)
   Leds::clearAll();
   m_menuState = MENU_STATE_IN_MENU;
   return true;
+}
+
+void Menus::showSelection()
+{
+  // blink the tip led white for 150ms when the short
+  // click threshold has been surpassed
+  if (g_pButton->isPressed() &&
+    g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS &&
+    g_pButton->holdDuration() < (SHORT_CLICK_THRESHOLD_TICKS + Time::msToTicks(250))) {
+    Leds::setAll(RGB_DIM_WHITE2);
+  }
 }
 
 bool Menus::checkOpen()

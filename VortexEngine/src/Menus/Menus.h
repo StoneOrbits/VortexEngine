@@ -45,6 +45,10 @@ public:
   // open the advanced version of the menu (default basic version)
   static bool openMenu(uint32_t index, bool advanced = false);
 
+  // if you call this then a blink will be shown when the user has
+  // held the button for at least the long click duration
+  static void showSelection();
+
   // whether the menus are actually open (The user has let go after opening)
   static bool checkOpen();
   // whether the user is actually in a menu
