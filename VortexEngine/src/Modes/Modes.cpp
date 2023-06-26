@@ -134,7 +134,7 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   // startupMode is 1-based offset that encodes both the index to start at and
   // whether the system is enabled, hence why 0 cannot be used as an offset
   uint8_t startupMode = (m_globalFlags & 0xF0) >> 4;
-  if (startupMode > 0) {
+  if (oneClickMode() && startupMode > 0) {
     // set the current mode to the startup mode
     setCurMode(startupMode);
   }

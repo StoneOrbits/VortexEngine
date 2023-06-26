@@ -147,7 +147,7 @@ bool Menus::runMenuSelection()
     }
   }
   // show when the user selects a menu option
-  showSelection();
+  showSelection(menuList[m_selection].color);
   // continue in the menu
   return true;
 }
@@ -224,14 +224,14 @@ bool Menus::openMenu(uint32_t index, bool advanced)
   return true;
 }
 
-void Menus::showSelection()
+void Menus::showSelection(RGBColor colval)
 {
   // blink the tip led white for 150ms when the short
   // click threshold has been surpassed
   if (g_pButton->isPressed() &&
     g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS &&
     g_pButton->holdDuration() < (SHORT_CLICK_THRESHOLD_TICKS + Time::msToTicks(250))) {
-    Leds::setAll(RGB_DIM_WHITE2);
+    Leds::setAll(colval);
   }
 }
 

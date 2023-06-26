@@ -3,6 +3,7 @@
 
 #include <inttypes.h>
 
+#include "../Colors/ColorTypes.h"
 #include "../Leds/LedTypes.h"
 
 enum MenuEntryID
@@ -47,7 +48,7 @@ public:
 
   // if you call this then a blink will be shown when the user has
   // held the button for at least the long click duration
-  static void showSelection();
+  static void showSelection(RGBColor colval = RGB_DIM_WHITE2);
 
   // whether the menus are actually open (The user has let go after opening)
   static bool checkOpen();
