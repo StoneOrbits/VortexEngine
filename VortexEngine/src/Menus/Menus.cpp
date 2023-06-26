@@ -54,12 +54,12 @@ const MenuEntry menuList[] = {
   // =========================
   //  Default menu setup:
   ENTRY(Randomizer,         RGB_LOW_WHITE),  // 0 (dim white)
-  ENTRY(ModeSharing,        RGB_LOW_TEAL),   // 5 (dim teal)
-  ENTRY(EditorConnection,   RGB_LOW_PURPLE), // 6 (dim purple)
-  ENTRY(ColorSelect,        RGB_LOW_GREEN),  // 1 (dim green)
-  ENTRY(PatternSelect,      RGB_LOW_BLUE),   // 2 (dim blue)
-  ENTRY(GlobalBrightness,   RGB_LOW_YELLOW), // 3 (dim yellow)
-  ENTRY(FactoryReset,       RGB_LOW_RED),    // 4 (dim red)
+  ENTRY(ModeSharing,        RGB_LOW_TEAL),   // 1 (dim teal)
+  ENTRY(EditorConnection,   RGB_LOW_PURPLE), // 2 (dim purple)
+  ENTRY(ColorSelect,        RGB_LOW_GREEN),  // 3 (dim green)
+  ENTRY(PatternSelect,      RGB_LOW_BLUE),   // 4 (dim blue)
+  ENTRY(GlobalBrightness,   RGB_LOW_YELLOW), // 5 (dim yellow)
+  ENTRY(FactoryReset,       RGB_LOW_RED),    // 6 (dim red)
 };
 
 // the number of menus in the above array
@@ -112,6 +112,9 @@ bool Menus::runMenuSelection()
   }
   // clear the leds so it always fills instead of replacing
   Leds::clearAll();
+  // timings for blink later
+  uint8_t offtime = 200;
+  uint8_t ontime = 200;
   // if the button was long pressed then select this menu, but we
   // need to check the presstime to ensure we don't catch the initial
   // release after opening the ringmenu
@@ -129,17 +132,19 @@ bool Menus::runMenuSelection()
     }
     // if holding down to select the menu option
     if (g_pButton->isPressed() && g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS) {
-      Leds::setAll(RGB_DARK_ORANGE);
+      // make it strobe aw yiss
+      offtime = HYPERSTROBE_OFF_DURATION;
+      ontime = HYPERSTROBE_ON_DURATION;
     }
   }
   // blink every even/odd of every pair
   for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
     if (pairEven(p) < LED_COUNT) {
-      Leds::blinkIndex(pairEven(p), Time::getCurtime(), 200, 200, menuList[m_selection].color);
+      Leds::blinkIndex(pairEven(p), Time::getCurtime(), offtime, ontime, menuList[m_selection].color);
     }
     if (pairOdd(p) < LED_COUNT) {
       Leds::setIndex(pairOdd(p), menuList[m_selection].color);
-      Leds::blinkIndex(pairOdd(p), Time::getCurtime(), 200, 200, RGB_OFF);
+      Leds::blinkIndex(pairOdd(p), Time::getCurtime(), offtime, ontime, RGB_OFF);
     }
   }
   // continue in the menu

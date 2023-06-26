@@ -81,9 +81,7 @@ Menu::MenuAction Randomizer::run()
   if (g_pButton->onRelease() && g_pButton->consecutivePresses() == 3) {
     m_autoMode = !m_autoMode;
     // display a quick flash of either green or red to indicate whether auto mode is on or not
-    Leds::setAll((m_autoMode ? RGB_GREEN : RGB_RED));
-    Leds::update();
-    delay(250);
+    Leds::holdIndex(LED_ALL, 250, (m_autoMode ? RGB_GREEN : RGB_RED));
     return MENU_CONTINUE;
   }
 

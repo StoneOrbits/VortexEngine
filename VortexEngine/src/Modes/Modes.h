@@ -15,7 +15,14 @@ class Colorset;
 class Mode;
 
 // the device is locked and needs to be unlocked to turn on
-#define MODES_FLAG_LOCKED (1 << 0)
+#define MODES_FLAG_LOCKED     (1 << 0)
+// the device will turn on and off with a single click
+#define MODES_FLAG_ONE_CLICK  (1 << 1)
+// unused flags, feel free to make use of these
+#define MODES_FLAG_UNUSED_1   (1 << 2)
+#define MODES_FLAG_UNUSED_2   (1 << 3)
+// WARNING!! The upper 4 bits of the flags are taken by the startup mode id,
+//           you can only use 4 global flags!
 
 class Modes
 {
@@ -68,7 +75,7 @@ public:
   static bool updateCurMode(const Mode *mode);
 
   // set the current active mode by index
-  static Mode *setCurMode(uint32_t index);
+  static Mode *setCurMode(uint8_t index);
 
   // get the current mode
   static Mode *curMode();
@@ -86,6 +93,8 @@ public:
 
   // delete all modes in the list
   static void clearModes();
+
+  static void setStartupMode(uint8_t index);
 
   // toggle the locked state
   static bool setLocked(bool locked, bool save = true);
@@ -172,6 +181,9 @@ private:
 
   // global flags for all modes
   static uint8_t m_globalFlags;
+
+  // the last switch time of the modes
+  static uint32_t m_lastSwitchTime;
 };
 
 #endif

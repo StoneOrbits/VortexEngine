@@ -24,6 +24,8 @@ Modes::ModeLink *Modes::m_pCurModeLink = nullptr;
 Modes::ModeLink *Modes::m_storedModes = nullptr;
 // global flags for all modes
 uint8_t Modes::m_globalFlags = 0;
+// the last switch time of the modes
+uint32_t Modes::m_lastSwitchTime = 0;
 
 bool Modes::init()
 {
@@ -127,7 +129,7 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   uint8_t startupMode = (m_globalFlags & 0xF0) >> 4;
   if (startupMode > 0) {
     // set the current mode to the startup mode
-    setCurMode(startupMode - 1);
+    setCurMode(startupMode);
   }
   return true;
 }
@@ -420,7 +422,7 @@ bool Modes::updateCurMode(const Mode *mode)
 }
 
 // set the current active mode by index
-Mode *Modes::setCurMode(uint32_t index)
+Mode *Modes::setCurMode(uint8_t index)
 {
   if (!m_numModes) {
     return nullptr;
@@ -443,6 +445,8 @@ Mode *Modes::setCurMode(uint32_t index)
     return nullptr;
   }
   m_pCurModeLink = newCurLink;
+  // record the current time as the last switch time
+  m_lastSwitchTime = Time::getCurtime();
   // log the change
   DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)",
     m_curMode, m_numModes - 1, newCur->getPatternID());
@@ -523,6 +527,14 @@ void Modes::clearModes()
   m_numModes = 0;
   // might as well clear the leds
   Leds::clearAll();
+}
+
+void Modes::setStartupMode(uint8_t index)
+{
+  // zero out the upper nibble to disable
+  m_globalFlags &= 0x0F;
+  // or in the index value shifted into the upper nibble
+  m_globalFlags |= (index << 4) & 0xF0;
 }
 
 bool Modes::setLocked(bool locked, bool save)
