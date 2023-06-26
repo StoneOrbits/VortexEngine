@@ -96,6 +96,9 @@ $(TARGET).elf: $(OBJS)
 %.o: %.cpp
 	$(CC) $(CFLAGS) -c $< -o $@
 
+PYTHON="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/megaTinyCore/tools/python3/3.7.2-post1/python3"
+PYPROG="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.5/tools/prog.py"
+
 #  0x7e = 0x7e00 flash and 0x100 appcode for storage
 # fuse6 = 
 # fuse7 = APPEND
@@ -108,7 +111,7 @@ FUSE6 = 0x04
 FUSE7 = 0x00
 FUSE8 = 0x7f
 upload: $(TARGET).hex
-	C:\Users\Shane\AppData\Local\Arduino15\packages\megaTinyCore\tools\python3\3.7.2-post1/python3 -u C:\Users\Shane\AppData\Local\Arduino15\packages\megaTinyCore\hardware\megaavr\2.6.5/tools/prog.py -t uart -u COM11 -b 921600 -d attiny3217 --fuses 0:0b00000000 2:0x02 6:0x04 7:0x00 8:0x7f -f$< -a write -v
+	$(PYTHON) -u $(PYPROG) -t uart -u COM11 -b 921600 -d attiny3217 --fuses 0:0b00000000 2:0x02 6:0x04 7:0x00 8:0x7f -f$< -a write -v
 
 clean:
 	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex $(DFILES)
