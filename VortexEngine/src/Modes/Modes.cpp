@@ -427,7 +427,7 @@ bool Modes::updateCurMode(const Mode *mode)
 }
 
 // set the current active mode by index
-Mode *Modes::setCurMode(uint32_t index)
+Mode *Modes::setCurMode(uint8_t index)
 {
   if (!m_numModes) {
     return nullptr;
@@ -450,6 +450,8 @@ Mode *Modes::setCurMode(uint32_t index)
     return nullptr;
   }
   m_pCurModeLink = newCurLink;
+  // set it as the startup mode?
+  setStartupMode(index);
   // log the change
   DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)",
     m_curMode, m_numModes - 1, newCur->getPatternID());
@@ -532,14 +534,22 @@ void Modes::clearModes()
   Leds::clearAll();
 }
 
-bool Modes::setInstantOnOff(bool enable, bool save)
+void Modes::setStartupMode(uint8_t index)
 {
   // zero out the upper nibble to disable
   m_globalFlags &= 0x0F;
+  // or in the index value shifted into the upper nibble
+  m_globalFlags |= (index << 4) & 0xF0;
+}
+
+bool Modes::setInstantOnOff(bool enable, bool save)
+{
   // then actually if it's enabled ensure the upper nibble is set
   if (enable) {
     // set the cur mode index as the upper nibble
-    m_globalFlags |= ((m_curMode + 1) << 4);
+    m_globalFlags |= MODES_FLAG_ONE_CLICK;
+  } else {
+    m_globalFlags &= ~MODES_FLAG_ONE_CLICK;
   }
   DEBUG_LOGF("Toggled instant on/off to %s", m_instantOnOff ? "on" : "off");
   return !save || saveStorage();
@@ -547,7 +557,7 @@ bool Modes::setInstantOnOff(bool enable, bool save)
 
 bool Modes::instantOnOffEnabled()
 {
-  return ((m_globalFlags & 0xF0) != 0);
+  return ((m_globalFlags & MODES_FLAG_ONE_CLICK) != 0);
 }
 
 bool Modes::setLocked(bool locked, bool save)
