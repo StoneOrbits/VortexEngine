@@ -91,14 +91,6 @@ bool Menus::run()
     // nothing to run
     return false;
   case MENU_STATE_MENU_SELECTION:
-    if (g_pButton->consecutivePresses() > EGG_CLICKS) {
-      Modes::setEgg(!Modes::eggMode());
-      g_pButton->resetConsecutivePresses();
-      for (int i = 0; i < 255; ++i) {
-        Leds::holdIndex(LED_0, 3, HSVColor(255 - i, 255, 255));
-        Leds::holdIndex(LED_1, 3, HSVColor(i, 255, 255));
-      }
-    }
     return runMenuSelection();
   case MENU_STATE_IN_MENU:
     return runCurMenu();
@@ -152,6 +144,20 @@ bool Menus::runMenuSelection()
     if (pairOdd(p) < LED_COUNT) {
       Leds::setIndex(pairOdd(p), menuList[m_selection].color);
       Leds::blinkIndex(pairOdd(p), Time::getCurtime(), offtime, ontime, RGB_OFF);
+    }
+  }
+  // check on our eggs
+  if (g_pButton->consecutivePresses() > EGG_CLICKS) {
+    Modes::setEgg(!Modes::eggMode());
+    g_pButton->resetConsecutivePresses();
+    bool other = false;
+    uint8_t val = Modes::eggMode() ? 255 : 40;
+    for (int i = 0; i < 255; ++i) {
+      bool even = ((i % 2) == 0);
+      if (even) other = !other;
+      Leds::holdIndex(LED_ALL,
+        even ? other ? DOPS_ON_DURATION : 1 : DOPS_OFF_DURATION,
+        even ? HSVColor(i, other ? 255 : 0, val) : RGB_OFF);
     }
   }
   // show when the user selects a menu option
