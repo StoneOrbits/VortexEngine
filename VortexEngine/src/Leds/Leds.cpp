@@ -332,42 +332,43 @@ void Leds::update()
     // Don't "optimize" the OUT calls into the bitTime subroutine;
     // we're exploiting the RCALL and RET as 3- and 4-cycle NOPs!
     asm volatile(
-     "headD:"                   "\n\t" //        (T =  0)
-      "st   %a[port], %[hi]"    "\n\t" //        (T =  1)
-      "rcall bitTimeD"          "\n\t" // Bit 7  (T = 14)
-      "st   %a[port], %[hi]"    "\n\t"
-      "rcall bitTimeD"          "\n\t" // Bit 6
-      "st   %a[port], %[hi]"    "\n\t"
-      "rcall bitTimeD"          "\n\t" // Bit 5
-      "st   %a[port], %[hi]"    "\n\t"
-      "rcall bitTimeD"          "\n\t" // Bit 4
-      "st   %a[port], %[hi]"    "\n\t"
-      "rcall bitTimeD"          "\n\t" // Bit 3
-      "st   %a[port], %[hi]"    "\n\t"
-      "rcall bitTimeD"          "\n\t" // Bit 2
-      "st   %a[port], %[hi]"    "\n\t"
-      "rcall bitTimeD"          "\n\t" // Bit 1
+      "_head10:"                  "\n\t" //        (T =  0)
+      "st   %a[port], %[hi]"      "\n\t" //        (T =  1)
+      "rcall _bitTime10"          "\n\t" // Bit 7  (T = 14)
+      "st   %a[port], %[hi]"      "\n\t"
+      "rcall _bitTime10"          "\n\t" // Bit 6
+      "st   %a[port], %[hi]"      "\n\t"
+      "rcall _bitTime10"          "\n\t" // Bit 5
+      "st   %a[port], %[hi]"      "\n\t"
+      "rcall _bitTime10"          "\n\t" // Bit 4
+      "st   %a[port], %[hi]"      "\n\t"
+      "rcall _bitTime10"          "\n\t" // Bit 3
+      "st   %a[port], %[hi]"      "\n\t"
+      "rcall _bitTime10"          "\n\t" // Bit 2
+      "st   %a[port], %[hi]"      "\n\t"
+      "rcall _bitTime10"          "\n\t" // Bit 1
       // Bit 0:
-      "st   %a[port], %[hi]"    "\n\t" // 1    PORT = hi    (T =  1)
-      "nop                 "    "\n\t" // nop fix for timing issue
-      "ld   %[byte] , %a[ptr]+" "\n\t" // 2    b = *ptr++   (T =  5)
-      "st   %a[port], %[next]"  "\n\t" // 1    PORT = next  (T =  6)
-      "mov  %[next] , %[lo]"    "\n\t" // 1    next = lo    (T =  7)
-      "sbrc %[byte] , 7"        "\n\t" // 1-2  if (b & 0x80) (T =  8)
-       "mov %[next] , %[hi]"    "\n\t" // 0-1    next = hi  (T =  9)
-      "st   %a[port], %[lo]"    "\n\t" // 1    PORT = lo    (T = 10)
-      "sbiw %[count], 1"        "\n\t" // 2    i--          (T = 12)
-      "brne headD"              "\n\t" // 2    if (i != 0) -> (next byte) (T = 14)
-       "rjmp doneD"             "\n\t"
-      "bitTimeD:"               "\n\t" //      nop nop nop     (T =  4)
-       "st   %a[port], %[next]" "\n\t" // 1    PORT = next     (T =  5)
-       "mov  %[next], %[lo]"    "\n\t" // 1    next = lo       (T =  6)
-       "lsl  %[byte]"           "\n\t" // 1    b <<= 1         (T =  7)
-       "sbrc %[byte], 7"        "\n\t" // 1-2  if (b & 0x80)    (T =  8)
-        "mov %[next], %[hi]"    "\n\t" // 0-1   next = hi      (T =  9)
-       "st   %a[port], %[lo]"   "\n\t" // 1    PORT = lo       (T = 10)
-       "ret"                    "\n\t" // 4    nop nop nop nop (T = 14)
-       "doneD:"                 "\n"
+      "st   %a[port], %[hi]"      "\n\t" // 1    PORT = hi    (T =  1)
+      "nop"                       "\n\t" // 1    nop          (T =  2)
+      "ld   %[byte] , %a[ptr]+"   "\n\t" // 2    b = *ptr++   (T =  4)
+      "st   %a[port], %[next]"    "\n\t" // 1    PORT = next  (T =  5)
+      "nop"                       "\n\t" // 1    nop          (T =  6)
+      "mov  %[next] , %[lo]"      "\n\t" // 1    next = lo    (T =  7)
+      "sbrc %[byte] , 7"          "\n\t" // 1-2  if (b & 0x80) (T =  8)
+       "mov %[next] , %[hi]"      "\n\t" // 0-1    next = hi  (T =  9)
+      "st   %a[port], %[lo]"      "\n\t" // 1    PORT = lo    (T = 10)
+      "sbiw %[count], 1"          "\n\t" // 2    i--          (T = 12)
+      "brne _head10"              "\n\t" // 2    if (i != 0) -> (next byte) (T = 14)
+       "rjmp _done10"             "\n\t"
+      "_bitTime10:"               "\n\t" //      nop nop nop     (T =  4)
+       "st   %a[port], %[next]"   "\n\t" // 1    PORT = next     (T =  5)
+       "mov  %[next], %[lo]"      "\n\t" // 1    next = lo       (T =  6)
+       "lsl  %[byte]"             "\n\t" // 1    b <<= 1         (T =  7)
+       "sbrc %[byte], 7"          "\n\t" // 1-2  if (b & 0x80)    (T =  8)
+        "mov %[next], %[hi]"      "\n\t" // 0-1   next = hi      (T =  9)
+       "st   %a[port], %[lo]"     "\n\t" // 1    PORT = lo       (T = 10)
+       "ret"                      "\n\t" // 4    return to above where we called from
+       "_done10:"                 "\n"
     : [ptr]   "+e" (ptr),
       [byte]  "+r" (b),
       [next]  "+r" (next),
