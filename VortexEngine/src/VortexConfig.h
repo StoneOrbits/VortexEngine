@@ -98,10 +98,6 @@
 // again and be counted as a 'consecutive press'
 #define CONSECUTIVE_WINDOW    175
 
-// Number of concecutive clicks the user must perform in the menu
-// to discover eggs
-#define EGG_CLICKS 15
-
 // Auto Randomization Delay (in milliseconds)
 //
 // How long the randomizer will wait before it triggers another randomization
@@ -451,7 +447,7 @@
 
 // the space available for storing modes, we can't make this too big
 // otherwise we will have trouble loading it into memory
-#define STORAGE_SIZE 512
+#define STORAGE_SIZE          512
 
 // ===================================================================
 //  Test Framework configurations
@@ -526,5 +522,10 @@
 #undef IGNORE_BUTTON_TIME
 #define IGNORE_BUTTON_TIME 0
 #endif
+
+// ===================================================================
+// This might be something interesting but it's probably nothing, continue
+// along and don't worry about it.
+#define EGG_CLICKS            15
 
 #endif // VORTEX_CONFIG_H
