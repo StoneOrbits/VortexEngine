@@ -349,7 +349,6 @@ void Leds::update()
       "rcall _bitTime10"          "\n\t" // Bit 1
       // Bit 0:
       "st   %a[port], %[hi]"      "\n\t" // 1    PORT = hi    (T =  1)
-      "nop"                       "\n\t" // 1    nop          (T =  2)
       "ld   %[byte] , %a[ptr]+"   "\n\t" // 2    b = *ptr++   (T =  4)
       "st   %a[port], %[next]"    "\n\t" // 1    PORT = next  (T =  5)
       "nop"                       "\n\t" // 1    nop          (T =  6)
