@@ -67,12 +67,14 @@ void PatternSelect::onShortClick()
   }
   PatternID endList = PATTERN_SINGLE_LAST;
   PatternID beginList = PATTERN_SINGLE_FIRST;
+#if VORTEX_SLIM == 0
   if (m_targetLeds == MAP_LED_ALL || m_targetLeds == MAP_LED(LED_MULTI)) {
     endList = PATTERN_MULTI_LAST;
   }
   if (m_targetLeds == MAP_LED(LED_MULTI)) {
     beginList = PATTERN_MULTI_FIRST;
   }
+#endif
   if (newID > endList || newID < beginList) {
     newID = beginList;
   }
