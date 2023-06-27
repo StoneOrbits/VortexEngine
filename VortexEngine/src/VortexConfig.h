@@ -98,6 +98,10 @@
 // again and be counted as a 'consecutive press'
 #define CONSECUTIVE_WINDOW    175
 
+// Number of concecutive clicks the user must perform in the menu
+// to discover eggs
+#define EGG_CLICKS 15
+
 // Auto Randomization Delay (in milliseconds)
 //
 // How long the randomizer will wait before it triggers another randomization

@@ -91,6 +91,14 @@ bool Menus::run()
     // nothing to run
     return false;
   case MENU_STATE_MENU_SELECTION:
+    if (g_pButton->consecutivePresses() > EGG_CLICKS) {
+      Modes::setEgg(!Modes::eggMode());
+      g_pButton->resetConsecutivePresses();
+      for (int i = 0; i < 255; ++i) {
+        Leds::holdIndex(LED_0, 3, HSVColor(255 - i, 255, 255));
+        Leds::holdIndex(LED_1, 3, HSVColor(i, 255, 255));
+      }
+    }
     return runMenuSelection();
   case MENU_STATE_IN_MENU:
     return runCurMenu();
@@ -122,7 +130,7 @@ bool Menus::runMenuSelection()
       // ringmenu is open so select the menu
       DEBUG_LOGF("Selected ringmenu %s", menuList[m_selection].menuName);
       // open the menu we have selected
-      if (!openMenu(m_selection, g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS)) {
+      if (!openMenu(m_selection, (g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS) && Modes::eggMode())) {
         DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
         return false;
       }
@@ -130,7 +138,7 @@ bool Menus::runMenuSelection()
       return true;
     }
     // if holding down to select the menu option
-    if (g_pButton->isPressed() && g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS) {
+    if (g_pButton->isPressed() && g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS && Modes::eggMode()) {
       // make it strobe aw yiss
       offtime = HYPERSTROBE_OFF_DURATION;
       ontime = HYPERSTROBE_ON_DURATION;

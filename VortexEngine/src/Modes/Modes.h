@@ -18,8 +18,9 @@ class Mode;
 #define MODES_FLAG_LOCKED     (1 << 0)
 // the device will turn on and off with a single click
 #define MODES_FLAG_ONE_CLICK  (1 << 1)
-// unused flags, feel free to make use of these
-#define MODES_FLAG_UNUSED_1   (1 << 2)
+// the device will have more 
+#define MODES_FLAG_EGG (1 << 2)
+// unused flag, feel free to make use of it
 #define MODES_FLAG_UNUSED_2   (1 << 3)
 // WARNING!! The upper 4 bits of the flags are taken by the startup mode id,
 //           you can only use 4 global flags!
@@ -108,6 +109,10 @@ public:
   // toggle the locked state
   static bool setLocked(bool locked, bool save = true);
   static bool locked();
+
+  // toggle the eggs
+  static bool setEgg(bool active, bool save = true);
+  static bool eggMode();
 
 #if MODES_TEST == 1
   static void test();

@@ -584,6 +584,22 @@ bool Modes::locked()
   return (m_globalFlags & MODES_FLAG_LOCKED) != 0;
 }
 
+bool Modes::setEgg(bool active, bool save)
+{
+  if (active) {
+    m_globalFlags |= MODES_FLAG_EGG;
+  } else {
+    m_globalFlags &= ~MODES_FLAG_EGG;
+  }
+  DEBUG_LOGF("Toggle egg mode to %s", m_egg ? "on" : "off");
+  return !save || saveStorage();
+}
+
+bool Modes::eggMode()
+{
+  return (m_globalFlags & MODES_FLAG_EGG) != 0;
+}
+
 #ifdef VORTEX_LIB
 #include "Patterns/PatternBuilder.h"
 // get the maximum size a mode can occupy
