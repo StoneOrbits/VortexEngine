@@ -1,6 +1,7 @@
 #include "GlobalBrightness.h"
 
 #include "../../Patterns/PatternArgs.h"
+#include "../../Patterns/Pattern.h"
 #include "../../Time/TimeControl.h"
 #include "../../Colors/Colorset.h"
 #include "../../Buttons/Button.h"
@@ -16,7 +17,8 @@
 GlobalBrightness::GlobalBrightness(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_inovaState(INOVA_STATE_OFF),
-  m_lastStateChange(0)
+  m_lastStateChange(0),
+  m_inovaColCount(0)
 {
 }
 
@@ -156,6 +158,7 @@ void GlobalBrightness::setInovaState(inova_state newState)
   m_lastStateChange = Time::getCurtime();
   PatternID newID = PATTERN_DOPS;
   PatternArgs args;
+  m_inovaMode.getPattern()->getArgs(args);
   switch (m_inovaState) {
   case INOVA_STATE_OFF:
   default:
@@ -164,8 +167,11 @@ void GlobalBrightness::setInovaState(inova_state newState)
     return;
   case INOVA_STATE_SOLID:
     // just 0 offtime
+    newID = PATTERN_SOLID;
     args.arg1 = 200;
     args.arg2 = 0;
+    args.arg6 = m_inovaColCount;
+    m_inovaColCount = (m_inovaColCount + 1) % m_pCurMode->getColorset().numColors();
     break;
   case INOVA_STATE_DOPS:
     // args for dops
