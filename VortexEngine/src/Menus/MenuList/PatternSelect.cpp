@@ -62,9 +62,6 @@ void PatternSelect::onShortClick()
     srcLed = mapGetFirstLed(m_targetLeds);
   }
   PatternID newID = (PatternID)(m_pCurMode->getPatternID(srcLed) + 1);
-  if (newID == PATTERN_SOLID) {
-    ++newID;
-  }
   PatternID endList = PATTERN_SINGLE_LAST;
   PatternID beginList = PATTERN_SINGLE_FIRST;
 #if VORTEX_SLIM == 0
