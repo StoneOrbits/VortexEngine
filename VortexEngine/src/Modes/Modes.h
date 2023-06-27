@@ -18,8 +18,8 @@ class Mode;
 #define MODES_FLAG_LOCKED     (1 << 0)
 // the device will turn on and off with a single click
 #define MODES_FLAG_ONE_CLICK  (1 << 1)
-// the device will have more 
-#define MODES_FLAG_EGG (1 << 2)
+// toggles the egg or something
+#define MODES_FLAG_EGG        (1 << 2)
 // unused flag, feel free to make use of it
 #define MODES_FLAG_UNUSED_2   (1 << 3)
 // WARNING!! The upper 4 bits of the flags are taken by the startup mode id,
