@@ -91,8 +91,8 @@
 // Below are blink timings used for various menus and indication blinks
 
 // Bulb selection blink speed
-#define BULB_SELECT_ON_MS           500
-#define BULB_SELECT_OFF_MS          250
+#define BULB_SELECT_ON_MS           150
+#define BULB_SELECT_OFF_MS          50
 
 // Exit Menu blink speed
 #define EXIT_MENU_ON_MS             500
