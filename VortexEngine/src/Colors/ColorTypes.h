@@ -35,6 +35,17 @@
 #define RGB_TEAL        (uint32_t)0x008080    //   0 128 128
 #define RGB_OFF         (uint32_t)0x000000    //   0   0   0
 
+// very low versions of each color
+#define RGB_MIN_WHITE   (uint32_t)0x101010
+#define RGB_MIN_BLUE    (uint32_t)0x000010
+#define RGB_MIN_YELLOW  (uint32_t)0x101000
+#define RGB_MIN_RED     (uint32_t)0x100000
+#define RGB_MIN_GREEN   (uint32_t)0x001000
+#define RGB_MIN_CYAN    (uint32_t)0x001010
+#define RGB_MIN_PURPLE  (uint32_t)0x090310
+#define RGB_MIN_ORANGE  (uint32_t)0x100800
+#define RGB_MIN_TEAL    (uint32_t)0x001010
+
 // Low versions of each color
 #define RGB_LOW1_WHITE  (uint32_t)0x333333    //  51  51  51
 #define RGB_LOW1_BLUE   (uint32_t)0x000033    //   0   0  51
