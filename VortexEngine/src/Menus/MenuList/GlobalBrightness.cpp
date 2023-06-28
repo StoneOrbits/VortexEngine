@@ -156,12 +156,12 @@ void GlobalBrightness::setInovaState(inova_state newState)
   m_inovaState = (inova_state)(newState % INOVA_STATE_COUNT);
   // record the time of this statechange
   m_lastStateChange = Time::getCurtime();
-  PatternID newID = m_pCurMode->getPatternID();
   PatternArgs args;
   Pattern *pat = m_inovaMode.getPattern();
   if (pat) {
     pat->getArgs(args);
   }
+  args.arg6 = m_inovaColCount;
   switch (m_inovaState) {
   case INOVA_STATE_OFF:
   default:
@@ -172,32 +172,22 @@ void GlobalBrightness::setInovaState(inova_state newState)
     return;
   case INOVA_STATE_SOLID:
     // just 0 offtime
-    newID = PATTERN_SOLID;
     args.arg1 = 200;
     args.arg2 = 0;
-    args.arg6 = m_inovaColCount;
     break;
   case INOVA_STATE_DOPS:
     // args for dops
     args.arg1 = DOPS_ON_DURATION;
     args.arg2 = DOPS_OFF_DURATION;
-    // if the user provided a solid pattern then set the color index
-    if (newID == PATTERN_SOLID) {
-      args.arg6 = m_inovaColCount;
-    }
     break;
   case INOVA_STATE_SIGNAL:
     // signal blink timing
     args.arg1 = 16;
     args.arg2 = 120;
-    // if the user provided a solid pattern then set the color index
-    if (newID == PATTERN_SOLID) {
-      args.arg6 = m_inovaColCount;
-    }
     break;
   }
   // update mode and ensure current colorset is always used
-  m_inovaMode.setPattern(newID, LED_ALL, &args);
+  m_inovaMode.setPattern(PATTERN_SOLID, LED_ALL, &args);
   m_inovaMode.setColorset(m_pCurMode->getColorset(), LED_ALL);
   m_inovaMode.init();
 }
