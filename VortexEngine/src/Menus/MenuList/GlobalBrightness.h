@@ -47,7 +47,7 @@ private:
 
   inova_state m_inovaState;
   uint32_t m_lastStateChange;
-  uint8_t m_inovaColCount;
+  uint8_t m_colorIndex;
   Mode m_inovaMode;
 
   void setInovaState(inova_state newState);

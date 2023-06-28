@@ -18,7 +18,7 @@ GlobalBrightness::GlobalBrightness(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_inovaState(INOVA_STATE_OFF),
   m_lastStateChange(0),
-  m_inovaColCount(0)
+  m_colorIndex(0)
 {
 }
 
@@ -104,49 +104,36 @@ void GlobalBrightness::showBrightnessSelection()
 // ==================== INOVA STUFF ====================
 
 // don't worry about this stuff
-#define INOVA_TIMER_MS    2100
-#define INOVA_TIMER_TICKS Time::msToTicks(INOVA_TIMER_MS)
-#define INOVA_EXIT_HOLD   2000
+#define INOVA_TIMER_MS      2100
+#define INOVA_TIMER_TICKS   Time::msToTicks(INOVA_TIMER_MS)
+#define INOVA_EXIT_CLICKS   8
 
 // bonus simulate inova in this menu
 Menu::MenuAction GlobalBrightness::runInova()
 {
-  uint32_t nextAlarm = (m_lastStateChange + INOVA_TIMER_TICKS);
-  bool pressedBefore = (g_pButton->pressTime() < nextAlarm);
-  // when the button is pressed
-  if (g_pButton->isPressed()) {
-    if (m_inovaState == INOVA_STATE_OFF && g_pButton->pressTime() > m_lastStateChange) {
-      setInovaState(INOVA_STATE_SOLID);
-    } else if (pressedBefore) {
-      Leds::clearAll();
-    } else {
-      setInovaState(INOVA_STATE_OFF);
-    }
+  // check for exit
+  if (g_pButton->consecutivePresses() > INOVA_EXIT_CLICKS) {
+    return MENU_QUIT;
+  }
+  // whether the button was pressed before the timer expired
+  // when the button is first pressed after the window has expired switch off
+  if (g_pButton->onPress() && m_inovaState != INOVA_STATE_OFF && Time::getCurtime() > (m_lastStateChange + INOVA_TIMER_TICKS)) {
+    setInovaState(INOVA_STATE_OFF);
     return MENU_CONTINUE;
   }
-  // when the button is released
-  if (g_pButton->onRelease()) {
-    // detect quit
-    if (g_pButton->holdDuration() > INOVA_EXIT_HOLD && m_inovaState == INOVA_STATE_SOLID) {
-      // don't save, nothing changed
-      leaveMenu(false);
-    }
-    if ((m_inovaState > INOVA_STATE_SOLID || g_pButton->pressTime() > m_lastStateChange)) {
-      // advance the state or turn off based on press time
-      setInovaState(pressedBefore ? (inova_state)(m_inovaState + 1) : INOVA_STATE_OFF);
-    }
+  // when the button is released, but only if they pressed it within this state
+  if (g_pButton->onRelease() && g_pButton->pressTime() > m_lastStateChange) {
+    // advance the state or turn off based on press time
+    setInovaState((inova_state)(m_inovaState + 1));
+    return MENU_CONTINUE;
   }
-  // check if the timer has run out
-  if (m_inovaState != INOVA_STATE_OFF && m_inovaState != INOVA_STATE_SIGNAL && nextAlarm < Time::getCurtime()) {
-    // inova alarm triggered, switch off
-    setInovaState(INOVA_STATE_OFF);
-  }
-  if (m_inovaState == INOVA_STATE_OFF) {
+  // as long as the button is held down the leds clear
+  if (g_pButton->isPressed()) {
     Leds::clearAll();
-  } else {
-    // play the inova mode
-    m_inovaMode.play();
+    return MENU_CONTINUE;
   }
+  // play the inova mode
+  m_inovaMode.play();
   return MENU_CONTINUE;
 }
 
@@ -156,37 +143,28 @@ void GlobalBrightness::setInovaState(inova_state newState)
   m_inovaState = (inova_state)(newState % INOVA_STATE_COUNT);
   // record the time of this statechange
   m_lastStateChange = Time::getCurtime();
+  // the args that will define the timing of the blink on the solid pattern
   PatternArgs args;
-  Pattern *pat = m_inovaMode.getPattern();
-  if (pat) {
-    pat->getArgs(args);
-  }
-  args.arg6 = m_inovaColCount;
   switch (m_inovaState) {
   case INOVA_STATE_OFF:
   default:
-    // turn off the leds
-    Leds::clearAll();
     // iterate to next color
-    m_inovaColCount = (m_inovaColCount + 1) % m_pCurMode->getColorset().numColors();
-    return;
+    m_colorIndex = (m_colorIndex + 1) % m_pCurMode->getColorset().numColors();
+    break;
   case INOVA_STATE_SOLID:
-    // just 0 offtime
-    args.arg1 = 200;
-    args.arg2 = 0;
+    args.init(200);
     break;
   case INOVA_STATE_DOPS:
-    // args for dops
-    args.arg1 = DOPS_ON_DURATION;
-    args.arg2 = DOPS_OFF_DURATION;
+    args.init(DOPS_ON_DURATION, DOPS_OFF_DURATION);
     break;
   case INOVA_STATE_SIGNAL:
-    // signal blink timing
-    args.arg1 = 16;
-    args.arg2 = 120;
+    args.init(SIGNAL_ON_DURATION, SIGNAL_OFF_DURATION);
     break;
   }
-  // update mode and ensure current colorset is always used
+  // update the mode and ensure current colorset is always used, use PATTERN_SOLID
+  // because that will never iterate to the next color and allows us to force 
+  // the color index via argument 6
+  args.arg6 = m_colorIndex;
   m_inovaMode.setPattern(PATTERN_SOLID, LED_ALL, &args);
   m_inovaMode.setColorset(m_pCurMode->getColorset(), LED_ALL);
   m_inovaMode.init();
