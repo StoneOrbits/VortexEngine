@@ -232,7 +232,7 @@ void ColorSelect::showSlotSelection()
   } else if (m_colorset.numColors() < MAX_COLOR_SLOTS) {
     if (m_curSelection == m_colorset.numColors()) {
       // blink both leds and blink faster to indicate 'add' new color
-      Leds::blinkAll(Time::getCurtime(), 100, 150, RGB_BLANK);
+      Leds::blinkAll(Time::getCurtime(), 100, 150, RGB_WHITE0);
     }
     exitIndex = m_colorset.numColors() + 1;
   }
@@ -271,7 +271,7 @@ void ColorSelect::showSelection(ColorSelectState mode)
     return;
   case STATE_PICK_HUE2:
     hue = m_targetHue1 * (255 / 4) + (m_curSelection * (255 / 16));
-    Leds::setIndex(LED_1, RGB_BLANK);
+    Leds::setIndex(LED_1, RGB_WHITE0);
     // force sat at hue level2
     sat = 255;
     break;

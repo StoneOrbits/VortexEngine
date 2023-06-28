@@ -51,14 +51,12 @@ Menu *initMenu(const RGBColor &col, bool advanced) { return new T(col, advanced)
 
 // The list of menus that are registered with colors to show in ring menu
 const MenuEntry menuList[] = {
-  // =========================
-  //  Default menu setup:
-  ENTRY(Randomizer,         RGB_LOW_WHITE),  // 0 (dim white)
-  ENTRY(ModeSharing,        RGB_LOW_TEAL),   // 5 (dim teal)
-  ENTRY(ColorSelect,        RGB_LOW_GREEN),  // 1 (dim green)
-  ENTRY(PatternSelect,      RGB_LOW_BLUE),   // 2 (dim blue)
-  ENTRY(GlobalBrightness,   RGB_LOW_YELLOW), // 2 (dim yellow)
-  ENTRY(FactoryReset,       RGB_LOW_RED),    // 4 (dim red)
+  ENTRY(Randomizer, RGB_MENU_RANDOMIZER),
+  ENTRY(ModeSharing, RGB_MENU_MODE_SHARING),
+  ENTRY(ColorSelect, RGB_MENU_COLOR_SELECT),
+  ENTRY(PatternSelect, RGB_MENU_PATTERN_SELECT),
+  ENTRY(GlobalBrightness, RGB_MENU_BRIGHTNESS_SELECT),
+  ENTRY(FactoryReset, RGB_MENU_FACTORY_RESET),
 };
 
 // the number of menus in the above array

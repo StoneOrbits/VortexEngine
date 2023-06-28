@@ -60,7 +60,7 @@ bool EditorConnection::receiveMessage(const char *message)
 
 void EditorConnection::clearDemo()
 {
-  Colorset set(RGB_BLANK);
+  Colorset set(RGB_WHITE0);
   PatternArgs args(1, 0, 0);
   m_demoMode.setPattern(PATTERN_BASIC, LED_ALL, &args, &set);
   m_demoMode.init();
@@ -194,7 +194,7 @@ void EditorConnection::showEditor()
   switch (m_state) {
   case STATE_DISCONNECTED:
     Leds::clearAll();
-    Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_BLANK);
+    Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_WHITE0);
     break;
   case STATE_IDLE:
     m_demoMode.play();

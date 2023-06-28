@@ -101,8 +101,8 @@ void Menu::showExit()
     Leds::setIndex(LED_1, RGB_RED);
   } else {
     Leds::clearIndex(LED_1);
-    Leds::blinkIndex(LED_0, Time::getCurtime(), EXIT_MENU_OFF_MS, EXIT_MENU_ON_MS, RGB_BLANK);
-    Leds::blinkIndex(LED_1, Time::getCurtime(), EXIT_MENU_OFF_MS, EXIT_MENU_ON_MS, RGB_DARK_RED);
+    Leds::blinkIndex(LED_0, Time::getCurtime(), EXIT_MENU_OFF_MS, EXIT_MENU_ON_MS, RGB_WHITE0);
+    Leds::blinkIndex(LED_1, Time::getCurtime(), EXIT_MENU_OFF_MS, EXIT_MENU_ON_MS, RGB_RED0);
   }
 }
 

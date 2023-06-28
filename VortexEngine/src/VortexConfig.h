@@ -392,6 +392,39 @@
 // are all working as expected and behaving properly
 #define TIMER_TEST            0
 
+
+// ===================================================================
+//  Menu Colors
+//
+//  These are the colors for the respective menus, each color should
+//  be unique and distinct from the others. It should also be bright
+//  enough to be seen on the lowest brightness setting of the device
+//
+//  See the below header for all of the available color constants
+#include "Colors/ColorConstants.h"
+
+// Randomizer Menu Color
+#define RGB_MENU_RANDOMIZER         RGB_WHITE1
+
+// Mode Sharing Menu Color
+#define RGB_MENU_MODE_SHARING       RGB_CYAN1
+
+// Editor Connection Menu Color
+#define RGB_MENU_EDIT_RCONNECTION   RGB_PURPLE1
+
+// Color Select Menu Color
+#define RGB_MENU_COLOR_SELECT       RGB_GREEN1
+
+// Pattern Select Menu Color
+#define RGB_MENU_PATTERN_SELECT     RGB_BLUE1
+
+// Global Brightness Menu Color
+#define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW1
+
+// Factory Reset Menu Color
+#define RGB_MENU_FACTORY_RESET      RGB_RED1
+
+
 // ===================================================================
 //  Editor Verbs
 //
