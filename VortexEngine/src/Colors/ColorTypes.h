@@ -23,31 +23,79 @@
 #define HSV_BLANK   HSV_BIT | (uint32_t)0x000040    //   0   0  40
 #define HSV_OFF     HSV_BIT | (uint32_t)0x000000    //   0   0   0
 
-#define RGB_WHITE       (uint32_t)0xFFFFFF    // 170 170 170
-#define RGB_DIM_WHITE1  (uint32_t)0xaaaaaa    // 170 170 170
-#define RGB_DIM_WHITE2  (uint32_t)0x787878    // 120 120 120
-#define RGB_ORANGE      (uint32_t)0x832300
+// Pure colors
+#define RGB_WHITE       (uint32_t)0xFFFFFF    // 255 255 255
 #define RGB_BLUE        (uint32_t)0x0000FF    //   0   0 255
-#define RGB_YELLOW      (uint32_t)0xFFFF00    //
-#define RGB_RED         (uint32_t)0xFF0000    //   0 255 110
-#define RGB_DIM_RED     (uint32_t)0x700000    //   0 255 110
-#define RGB_DARK_RED    (uint32_t)0x110000    //   0 255 110
-#define RGB_DARK_ORANGE (uint32_t)0x100400    // 160   4   0
-#define RGB_GREEN       (uint32_t)0x00FF00    //  85 255 110
+#define RGB_YELLOW      (uint32_t)0xFFFF00    // 255 255   0
+#define RGB_RED         (uint32_t)0xFF0000    // 255   0   0
+#define RGB_GREEN       (uint32_t)0x00FF00    //   0 255   0
 #define RGB_CYAN        (uint32_t)0x00FFFF    //   0 255 255
-#define RGB_TEAL        (uint32_t)0x00FF80    //
-#define RGB_PURPLE      (uint32_t)0x9933FF    //
-#define RGB_BLANK       (uint32_t)0x101010    //  16  16  16
+#define RGB_PURPLE      (uint32_t)0x9933FF    // 153  51 255
+#define RGB_ORANGE      (uint32_t)0xFF8300    // 255 131   0
+#define RGB_TEAL        (uint32_t)0x008080    //   0 128 128
 #define RGB_OFF         (uint32_t)0x000000    //   0   0   0
 
-// very low versions of each color
-#define RGB_LOW_WHITE   (uint32_t)0x101010
-#define RGB_LOW_GREEN   (uint32_t)0x001000
-#define RGB_LOW_BLUE    (uint32_t)0x000010
-#define RGB_LOW_YELLOW  (uint32_t)0x101000
-#define RGB_LOW_RED     (uint32_t)0x100000
-#define RGB_LOW_TEAL    (uint32_t)0x001010
-#define RGB_LOW_PURPLE  (uint32_t)0x090310
+// Low versions of each color
+#define RGB_LOW1_WHITE  (uint32_t)0x333333    //  51  51  51
+#define RGB_LOW1_BLUE   (uint32_t)0x000033    //   0   0  51
+#define RGB_LOW1_YELLOW (uint32_t)0x333300    //  51  51   0
+#define RGB_LOW1_RED    (uint32_t)0x330000    //  51   0   0
+#define RGB_LOW1_GREEN  (uint32_t)0x003300    //   0  51   0
+#define RGB_LOW1_CYAN   (uint32_t)0x003333    //   0  51  51
+#define RGB_LOW1_PURPLE (uint32_t)0x330033    //  51  51  51
+#define RGB_LOW1_ORANGE (uint32_t)0x331900    //  51  25   0
+#define RGB_LOW1_TEAL   (uint32_t)0x001919    //   0  25  25
+
+#define RGB_LOW2_WHITE  (uint32_t)0x666666    // 102 102 102
+#define RGB_LOW2_BLUE   (uint32_t)0x000066    //   0   0 102
+#define RGB_LOW2_YELLOW (uint32_t)0x666600    // 102 102   0
+#define RGB_LOW2_RED    (uint32_t)0x660000    // 102   0   0
+#define RGB_LOW2_GREEN  (uint32_t)0x006600    //   0 102   0
+#define RGB_LOW2_CYAN   (uint32_t)0x006666    //   0 102 102
+#define RGB_LOW2_PURPLE (uint32_t)0x660066    // 102  51 102
+#define RGB_LOW2_ORANGE (uint32_t)0x663300    // 102  51   0
+#define RGB_LOW2_TEAL   (uint32_t)0x003333    //   0  51  51
+
+#define RGB_LOW3_WHITE  (uint32_t)0x999999    // 153 153 153
+#define RGB_LOW3_BLUE   (uint32_t)0x000099    //   0   0 153
+#define RGB_LOW3_YELLOW (uint32_t)0x999900    // 153 153   0
+#define RGB_LOW3_RED    (uint32_t)0x990000    // 153   0   0
+#define RGB_LOW3_GREEN  (uint32_t)0x009900    //   0 153   0
+#define RGB_LOW3_CYAN   (uint32_t)0x009999    //   0 153 153
+#define RGB_LOW3_PURPLE (uint32_t)0x990099    // 153  51 153
+#define RGB_LOW3_ORANGE (uint32_t)0x994C00    // 153  76   0
+#define RGB_LOW3_TEAL   (uint32_t)0x004C4C    //   0  76  76
+
+// Medium versions of each color
+#define RGB_MED1_WHITE  (uint32_t)0xB3B3B3    // 179 179 179
+#define RGB_MED1_BLUE   (uint32_t)0x0000B3    //   0   0 179
+#define RGB_MED1_YELLOW (uint32_t)0xB3B300    // 179 179   0
+#define RGB_MED1_RED    (uint32_t)0xB30000    // 179   0   0
+#define RGB_MED1_GREEN  (uint32_t)0x00B300    //   0 179   0
+#define RGB_MED1_CYAN   (uint32_t)0x00B3B3    //   0 179 179
+#define RGB_MED1_PURPLE (uint32_t)0xB300B3    // 179  51 179
+#define RGB_MED1_ORANGE (uint32_t)0xB36500    // 179 101   0
+#define RGB_MED1_TEAL   (uint32_t)0x006565    //   0 101 101
+
+#define RGB_MED2_WHITE  (uint32_t)0xCCCCCC    // 204 204 204
+#define RGB_MED2_BLUE   (uint32_t)0x0000CC    //   0   0 204
+#define RGB_MED2_YELLOW (uint32_t)0xCCCC00    // 204 204   0
+#define RGB_MED2_RED    (uint32_t)0xCC0000    // 204   0   0
+#define RGB_MED2_GREEN  (uint32_t)0x00CC00    //   0 204   0
+#define RGB_MED2_CYAN   (uint32_t)0x00CCCC    //   0 204 204
+#define RGB_MED2_PURPLE (uint32_t)0xCC00CC    // 204  51 204
+#define RGB_MED2_ORANGE (uint32_t)0xCC7E00    // 204 126   0
+#define RGB_MED2_TEAL   (uint32_t)0x007E7E    //   0 126 126
+
+#define RGB_MED3_WHITE  (uint32_t)0xE6E6E6    // 230 230 230
+#define RGB_MED3_BLUE   (uint32_t)0x0000E6    //   0   0 230
+#define RGB_MED3_YELLOW (uint32_t)0xE6E600    // 230 230   0
+#define RGB_MED3_RED    (uint32_t)0xE60000    // 230   0   0
+#define RGB_MED3_GREEN  (uint32_t)0x00E600    //   0 230   0
+#define RGB_MED3_CYAN   (uint32_t)0x00E6E6    //   0 230 230
+#define RGB_MED3_PURPLE (uint32_t)0xE600E6    // 230 102 230
+#define RGB_MED3_ORANGE (uint32_t)0xE69700    // 230 151   0
+#define RGB_MED3_TEAL   (uint32_t)0x009797    //   0 151 151
 
 // Some Pre-defined hue values
 // TODO: remove HSV_ underscore once FastLED is gone
