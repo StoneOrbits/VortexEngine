@@ -232,7 +232,7 @@ void ColorSelect::showSlotSelection()
   } else if (m_colorset.numColors() < MAX_COLOR_SLOTS) {
     if (m_curSelection == m_colorset.numColors()) {
       // blink both leds and blink faster to indicate 'add' new color
-      Leds::blinkAll(Time::getCurtime(), 100, 150, RGB_WHITE0);
+      Leds::blinkAll(Time::getCurtime(), 100, 150, RGB_WHITE2);
     }
     exitIndex = m_colorset.numColors() + 1;
   }
@@ -240,10 +240,10 @@ void ColorSelect::showSlotSelection()
   if (m_curSelection == exitIndex) {
     showFullSet(LED_0, Time::getCurtime(), 50, 100);
     // set LED_1 to green to indicate save and exit
-    Leds::setIndex(LED_1, 0x000500);
+    Leds::setIndex(LED_1, RGB_GREEN2);
     // if not on exitIndex or add new color set LED_1 based on button state
   } else if (m_curSelection != m_colorset.numColors()) {
-    Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_OFF : 0x050505);
+    Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_OFF : RGB_WHITE2);
   }
 }
 
