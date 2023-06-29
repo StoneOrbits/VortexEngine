@@ -65,6 +65,8 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
+  
+  Menus::openMenu(MENU_RANDOMIZER);
 
 #ifdef VORTEX_ARDUINO
   // set the state of the mosfet based on whether the chip is locked or not

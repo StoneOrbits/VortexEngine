@@ -21,10 +21,12 @@ public:
   void onShortClick() override;
   void onLongClick() override;
 
+  // re-roll a new randomization with a given context on an led
+  bool reRoll();
+
 private:
   // random context for each led and led multi (LED_COUNT + 1)
   Random m_singlesRandCtx[LED_COUNT];
-  Random m_multiRandCtx;
 
   // the time of the last randomization
   uint32_t m_lastRandomization;
@@ -57,12 +59,8 @@ private:
   void showRandomizationSelect();
 
   // generate a random colorset with a random context
+  bool rollPattern(Random &ctx, Mode *pMode, LedPos pos);
   Colorset rollColorset(Random &ctx);
-  PatternID rollPattern(Random &ctx);
-
-  // re-roll a new randomization with a given context on an led
-  bool reRoll(LedPos pos);
-  bool reRoll();
 };
 
 #endif

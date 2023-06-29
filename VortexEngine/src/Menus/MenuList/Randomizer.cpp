@@ -38,13 +38,6 @@ bool Randomizer::init()
     return false;
   }
 
-  // grab the multi ld pattern colorset crc if it's present
-  if (m_pCurMode->hasMultiLed()) {
-    ByteStream ledData;
-    m_pCurMode->getColorset(LED_MULTI).serialize(ledData);
-    m_multiRandCtx.seed(ledData.recalcCRC());
-  }
-
   // initialize the randomseed of each led with the
   // CRC of the colorset on the respective LED
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
@@ -199,61 +192,57 @@ Colorset Randomizer::rollColorset(Random &ctx)
   return randomSet;
 }
 
-PatternID Randomizer::rollPattern(Random &ctx)
+bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
 {
-  PatternID newPat;
-  // the random range begin/end
-  PatternID rbegin = PATTERN_SINGLE_FIRST;
-  PatternID rend = PATTERN_SINGLE_LAST;
-  // is the multi led present in the target led map
-  if (m_targetLeds & MAP_LED(LED_MULTI)) {
-    // if so enable that one
-    rend = PATTERN_MULTI_LAST;
-    if (m_targetLeds == MAP_LED(LED_MULTI)) {
-      rbegin = PATTERN_MULTI_FIRST;
-    }
+  uint8_t numCols = pMode->getColorset(pos).numColors();
+  PatternArgs args(
+    ctx.next8(1, 9) * 4, // on duration 4 -> 50
+    ctx.next8(0, 5) * 10, // off duration 0 -> 50
+    ctx.next8(0, 5) * 10, // gap duration 0 -> 50 (steps of 10)
+    ctx.next8(0, 5) * 10, // dash duration 0 -> 50
+    ctx.next8(0, numCols) // group size 0 -> numColors
+  );
+  PatternID newPat = PATTERN_BASIC;
+  // 1/5 chance for blend, 1/5 chance for solid, 3/5 chance for strobe
+  switch (ctx.next8() % 3) {
+  case 0:
+    newPat = PATTERN_BLEND;
+    args.arg7 = ctx.next8(); // hue offset? kinda pointless
+    args.arg8 = ctx.next8(0, 3); // num flips 0 to 3
+    break;
+  case 1:
+    newPat = PATTERN_SOLID;
+    args.arg7 = ctx.next8(0, numCols); // hue offset? kinda pointless
+    break;
+  default:
+    break;
   }
-  do {
-    // continuously re-randomize the pattern so we don't get undesirable patterns
-    newPat = (PatternID)ctx.next(rbegin, rend);
-  } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
-  return newPat;
-}
-
-bool Randomizer::reRoll(LedPos pos)
-{
-  // grab local reference to the target random context
-  Random &ctx = (pos < LED_COUNT) ? m_singlesRandCtx[pos] : m_multiRandCtx;
-  if (m_flags & RANDOMIZE_PATTERN) {
-    // roll a new pattern
-    if (!m_pCurMode->setPattern(rollPattern(ctx), pos)) {
-      ERROR_LOG("Failed to roll new pattern");
-      return false;
-    }
-  }
-  if (m_flags & RANDOMIZE_COLORSET) {
-    // roll a new colorset
-    if (!m_pCurMode->setColorset(rollColorset(ctx), pos)) {
-      ERROR_LOG("Failed to roll new colorset");
-      return false;
-    }
-  }
-  // initialize the mode with the new pattern and colorset
-  m_pCurMode->init();
-  DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
-    pos, randType, randomSet.numColors(), newPat);
-  return true;
+  return pMode->setPattern(newPat, pos, &args);
 }
 
 bool Randomizer::reRoll()
 {
-  if (m_targetLeds == MAP_LED(LED_MULTI)) {
-    return reRoll(LED_MULTI);
-  }
   MAP_FOREACH_LED(m_targetLeds) {
-    if (!reRoll(pos)) {
-      return false;
+    // grab local reference to the target random context
+    Random &ctx = m_singlesRandCtx[pos];
+    if (m_flags & RANDOMIZE_PATTERN) {
+      // roll a new pattern
+      if (!rollPattern(ctx, m_pCurMode, pos)) {
+        ERROR_LOG("Failed to roll new pattern");
+        return false;
+      }
     }
+    if (m_flags & RANDOMIZE_COLORSET) {
+      // roll a new colorset
+      if (!m_pCurMode->setColorset(rollColorset(ctx), pos)) {
+        ERROR_LOG("Failed to roll new colorset");
+        return false;
+      }
+    }
+    // initialize the mode with the new pattern and colorset
+    m_pCurMode->init();
+    DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
+      pos, randType, randomSet.numColors(), newPat);
   }
   return true;
 }
