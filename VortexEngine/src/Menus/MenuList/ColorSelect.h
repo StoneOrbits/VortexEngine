@@ -5,6 +5,8 @@
 
 #include "../../Colors/Colorset.h"
 
+class Pattern;
+
 class ColorSelect : public Menu
 {
 public:
@@ -65,6 +67,9 @@ private:
   uint8_t m_targetHue1;
   uint8_t m_targetHue2;
   uint8_t m_targetSat;
+
+  // adv
+  Pattern *m_pattern;
 };
 
 #endif

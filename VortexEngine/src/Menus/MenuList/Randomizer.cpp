@@ -212,12 +212,11 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
   switch (ctx.next8() % 3) {
   case 0:
     newPat = PATTERN_BLEND;
-    args.arg7 = ctx.next8(); // hue offset? kinda pointless
-    args.arg8 = ctx.next8(0, 3); // num flips 0 to 3
+    // num flips 0 to 2, this give a chance for complementary or triadic blend
+    args.arg7 = ctx.next8(0, 2);
     break;
   case 1:
     newPat = PATTERN_SOLID;
-    args.arg7 = ctx.next8(0, numCols); // solid index
     break;
   default:
     break;

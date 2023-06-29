@@ -1,6 +1,7 @@
 #include "ColorSelect.h"
 
 #include "../../Time/TimeControl.h"
+#include "../../Patterns/PatternBuilder.h"
 #include "../../Patterns/Pattern.h"
 #include "../../Colors/Colorset.h"
 #include "../../Buttons/Button.h"
@@ -46,6 +47,14 @@ bool ColorSelect::init()
     m_ledSelected = true;
   }
   m_state = STATE_INIT;
+  if (m_advanced) {
+    m_pattern = PatternBuilder::make(PATTERN_BLEND);
+    if (!m_pattern) {
+      return false;
+    }
+    m_pattern->setColorset(m_pCurMode->getColorset());
+    m_pattern->init();
+  }
   DEBUG_LOG("Entered color select");
   return true;
 }
@@ -55,6 +64,16 @@ Menu::MenuAction ColorSelect::run()
   MenuAction result = Menu::run();
   if (result != MENU_CONTINUE) {
     return result;
+  }
+
+  if (m_advanced && m_pattern) {
+    if (g_pButton->onPress()) {
+      m_pattern->setArg(6, m_pattern->getArg(6) + 1);
+    }
+    // just render the current pattern for active color picking
+    // iterate all patterns and plkay
+    m_pattern->play();
+    return MENU_CONTINUE;
   }
 
   // all states start with a blank slate
