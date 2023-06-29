@@ -142,6 +142,7 @@ void Randomizer::showRandomizationSelect()
     // if they are randomizing the pattern strobe on/off
     Leds::blinkAll(Time::getCurtime(), 8, 15);
   }
+  Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_GREEN5 : RGB_WHITE3);
   // render the click selection blink
   Menus::showSelection();
 }
@@ -201,7 +202,7 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
   PatternArgs args(
     ctx.next8(3, 20),  // on duration 3 -> 20
     ctx.next8(0, 50),  // off duration 0 -> 50
-    ctx.next8(0, 140) & 0xF8,  // gap duration 0 -> 100
+    ctx.next8(0, 15),  // gap duration 0 -> 100
     ctx.next8(0, 15),  // dash duration 0 -> 15
     ctx.next8(0, numCols >> 1) // group 0 -> numColors / 2
   );
