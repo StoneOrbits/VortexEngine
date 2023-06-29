@@ -202,35 +202,40 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
   uint8_t numCols = pMode->getColorset(pos).numColors();
   PatternArgs args(
     ctx.next8(3, 20),  // on duration 3 -> 20
-    ctx.next8(0, 50),  // off duration 0 -> 50
-    ctx.next8(0, 15),  // gap duration 0 -> 15
-    ctx.next8(0, 15),  // dash duration 0 -> 15
+    ctx.next8(0, 20),  // off duration 0 -> 50
+    ctx.next8(0, 40),  // gap duration 0 -> 100
+    ctx.next8(0, 20),  // dash duration 0 -> 15
     ctx.next8(0, numCols >> 1) // group 0 -> numColors / 2
   );
-  uint8_t val = ctx.next8();
-  if (val < 100) {
-    // 1
-  // this occationally sets gap to exactly 0
-    args.arg3 = 0;
-  } else if (val > 200) {
-    // 2
+  // any on
+  // small off small gap
+  // small off large gap
+  // large off small gap
+  // any off small gap any dash
+
   // this occationally sets off to 0-3
-    args.arg2 = ctx.next8(0, 3);
-  } else {
-    // 3
+  if (!ctx.next8(0, 4)) {
+    args.arg2 = ctx.next8(0, 6);
+  }
+  // this occationally sets gap to exactly 0
+  if (!ctx.next8(0, 6) && args.arg2) {
+    args.arg3 = 0;
+  }
   // this occationally sets dash to exactly 0
+  if (!ctx.next8(0, 5)) {
     args.arg4 = 0;
   }
   PatternID newPat = PATTERN_BASIC;
   // 1/5 chance for blend, 1/5 chance for solid, 3/5 chance for strobe
-  switch (ctx.next8() % 4) {
+  switch (ctx.next8() % 3) {
   case 0:
     newPat = PATTERN_BLEND;
-    // num flips 0 to 2, this give a chance for complementary or triadic blend
-    args.arg7 = ctx.next8(0, numCols);
+    args.arg7 = ctx.next8(); // hue offset? kinda pointless
+    args.arg8 = ctx.next8(0, 3); // num flips 0 to 3
     break;
   case 1:
     newPat = PATTERN_SOLID;
+    args.arg7 = ctx.next8(0, numCols); // solid index
     break;
   default:
     break;
