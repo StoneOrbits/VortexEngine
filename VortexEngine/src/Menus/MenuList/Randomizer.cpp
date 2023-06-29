@@ -142,7 +142,7 @@ void Randomizer::showRandomizationSelect()
     // if they are randomizing the pattern strobe on/off
     Leds::blinkAll(Time::getCurtime(), 8, 15);
   }
-  Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_GREEN5 : RGB_WHITE3);
+  Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_GREEN5 : RGB_WHITE1);
   // render the click selection blink
   Menus::showSelection();
 }
