@@ -227,18 +227,9 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
   }
   PatternID newPat = PATTERN_BASIC;
   // 1/5 chance for blend, 1/5 chance for solid, 3/5 chance for strobe
-  switch (ctx.next8() % 3) {
-  case 0:
+  if (!ctx.next8(0, 3)) {
     newPat = PATTERN_BLEND;
-    args.arg7 = ctx.next8(); // hue offset? kinda pointless
-    args.arg8 = ctx.next8(0, 3); // num flips 0 to 3
-    break;
-  case 1:
-    newPat = PATTERN_SOLID;
-    args.arg7 = ctx.next8(0, numCols); // solid index
-    break;
-  default:
-    break;
+    args.arg7 = ctx.next8(0, 3); // num flips 0 to 3
   }
   return pMode->setPattern(newPat, pos, &args);
 }
