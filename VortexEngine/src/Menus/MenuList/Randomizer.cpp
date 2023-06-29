@@ -20,7 +20,7 @@
 Randomizer::Randomizer(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_lastRandomization(0),
-  m_flags(RANDOMIZE_BOTH),
+  m_flags(advanced ? RANDOMIZE_COLORSET : RANDOMIZE_BOTH),
   m_displayHue(0),
   m_needToSelect(advanced),
   m_autoCycle(false)
@@ -112,7 +112,7 @@ void Randomizer::onShortClick()
 {
   if (m_needToSelect) {
     if (m_flags == RANDOMIZE_BOTH) {
-      m_flags = RANDOMIZE_PATTERN;
+      m_flags = RANDOMIZE_COLORSET;
     } else {
       m_flags = (RandomizeFlags)(m_flags + 1);
     }
@@ -142,7 +142,8 @@ void Randomizer::showRandomizationSelect()
     // if they are randomizing the pattern strobe on/off
     Leds::blinkAll(Time::getCurtime(), 8, 15);
   }
-  Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_GREEN5 : RGB_WHITE1);
+  // indicate on the 2nd led whether the button is pressed
+  Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_GREEN3 : RGB_WHITE1);
   // render the click selection blink
   Menus::showSelection();
 }

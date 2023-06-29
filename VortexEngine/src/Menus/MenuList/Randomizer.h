@@ -37,8 +37,8 @@ private:
     RANDOMIZE_NONE = 0,
 
     // the two main kinds of randomization
-    RANDOMIZE_PATTERN = (1 << 0),
-    RANDOMIZE_COLORSET = (1 << 1),
+    RANDOMIZE_COLORSET = (1 << 0),
+    RANDOMIZE_PATTERN = (1 << 1),
 
     // compound flags both colorset and pattern randomization
     RANDOMIZE_BOTH = (RANDOMIZE_COLORSET | RANDOMIZE_PATTERN)
