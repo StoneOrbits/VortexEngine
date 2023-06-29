@@ -143,7 +143,7 @@ void Randomizer::showRandomizationSelect()
     Leds::blinkAll(Time::getCurtime(), 8, 15);
   }
   // indicate on the 2nd led whether the button is pressed
-  Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_GREEN3 : RGB_WHITE1);
+  Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_OFF : RGB_WHITE1);
   // render the click selection blink
   Menus::showSelection();
 }
@@ -207,6 +207,18 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
     ctx.next8(0, 15),  // dash duration 0 -> 15
     ctx.next8(0, numCols >> 1) // group 0 -> numColors / 2
   );
+  // this occationally sets gap to exactly 0
+  if (!ctx.next8(0, 6)) {
+    args.arg3 = 0;
+  }
+  // this occationally sets off to 0-3
+  if (!ctx.next8(0, 5)) {
+    args.arg2 = ctx.next8(0, 3);
+  }
+  // this occationally sets dash to exactly 0
+  if (!ctx.next8(0, 6)) {
+    args.arg4 = 0;
+  }
   PatternID newPat = PATTERN_BASIC;
   // 1/5 chance for blend, 1/5 chance for solid, 3/5 chance for strobe
   switch (ctx.next8() % 3) {
