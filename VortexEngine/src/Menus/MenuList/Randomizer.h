@@ -60,6 +60,7 @@ private:
 
   // generate a random colorset with a random context
   bool rollPattern(Random &ctx, Mode *pMode, LedPos pos);
+  PatternID rollPatternID(Random &ctx);
   Colorset rollColorset(Random &ctx);
 };
 

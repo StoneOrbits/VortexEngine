@@ -14,6 +14,9 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
+// toggle this to 0 to disable smart pattern arg generation and just generate random pattern ids
+#define USE_SMART_PATTERNS 1
+
 Randomizer::Randomizer(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_lastRandomization(0),
@@ -196,11 +199,11 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
 {
   uint8_t numCols = pMode->getColorset(pos).numColors();
   PatternArgs args(
-    ctx.next8(1, 9) * 4, // on duration 4 -> 50
-    ctx.next8(0, 5) * 10, // off duration 0 -> 50
-    ctx.next8(0, 5) * 10, // gap duration 0 -> 50 (steps of 10)
-    ctx.next8(0, 5) * 10, // dash duration 0 -> 50
-    ctx.next8(0, numCols) // group size 0 -> numColors
+    ctx.next8(3, 20),  // on duration 3 -> 20
+    ctx.next8(0, 50),  // off duration 0 -> 50
+    ctx.next8(0, 140) & 0xF8,  // gap duration 0 -> 100
+    ctx.next8(0, 15),  // dash duration 0 -> 15
+    ctx.next8(0, numCols >> 1) // group 0 -> numColors / 2
   );
   PatternID newPat = PATTERN_BASIC;
   // 1/5 chance for blend, 1/5 chance for solid, 3/5 chance for strobe
@@ -212,12 +215,23 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
     break;
   case 1:
     newPat = PATTERN_SOLID;
-    args.arg7 = ctx.next8(0, numCols); // hue offset? kinda pointless
+    args.arg7 = ctx.next8(0, numCols); // solid index
     break;
   default:
     break;
   }
   return pMode->setPattern(newPat, pos, &args);
+}
+
+PatternID Randomizer::rollPatternID(Random &ctx)
+{
+  PatternID newPat;
+  // the random range begin/end
+  do {
+    // continuously re-randomize the pattern so we don't get undesirable patterns
+    newPat = (PatternID)ctx.next(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
+  } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
+  return newPat;
 }
 
 bool Randomizer::reRoll()
@@ -227,10 +241,17 @@ bool Randomizer::reRoll()
     Random &ctx = m_singlesRandCtx[pos];
     if (m_flags & RANDOMIZE_PATTERN) {
       // roll a new pattern
+#if USE_SMART_PATTERNS == 1
       if (!rollPattern(ctx, m_pCurMode, pos)) {
         ERROR_LOG("Failed to roll new pattern");
         return false;
       }
+#else
+      if (!m_pCurMode->setPattern(rollPatternID(ctx), pos)) {
+        ERROR_LOG("Failed to roll new pattern");
+        return false;
+      }
+#endif
     }
     if (m_flags & RANDOMIZE_COLORSET) {
       // roll a new colorset
