@@ -17,7 +17,7 @@
 Randomizer::Randomizer(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_lastRandomization(0),
-  m_autoMode(false)
+  m_flags(RANDOMIZE_BOTH)
 {
 }
 
@@ -50,6 +50,12 @@ bool Randomizer::init()
     m_singlesRandCtx[l].seed(ledData.recalcCRC());
   }
 
+  if (!m_advanced) {
+    // in advanced mode disable the randomization flags so that they can
+    // be manually chosen in order to control the randomizer
+    m_flags |= RANDOMIZE_SELECTION_COMPLETE;
+  }
+
   DEBUG_LOG("Entered randomizer");
   return true;
 }
@@ -60,6 +66,17 @@ Menu::MenuAction Randomizer::run()
   MenuAction result = Menu::run();
   if (result != MENU_CONTINUE) {
     return result;
+  }
+
+  // if the ranomization flags haven't been set yet just show a selection
+  if (!(m_flags & RANDOMIZE_SELECTION_COMPLETE)) {
+    if (g_pButton->onRelease()) {
+      // weird way to increment
+      m_flags = 1 + (((m_flags & RANDOMIZE_BOTH) + 1) % RANDOMIZE_BOTH);
+    }
+    // display the randomization selection menu
+    showRandomizationSelect();
+    return MENU_CONTINUE;
   }
 
   // if they are trying to randomize a multi-led pattern just convert
@@ -78,13 +95,14 @@ Menu::MenuAction Randomizer::run()
 
   // if the user fast-clicks 3 times then toggle automode
   if (g_pButton->onRelease() && g_pButton->consecutivePresses() == 3) {
-    m_autoMode = !m_autoMode;
+    // toggle the auto cycle flag
+    toggleAutoCycle();
     // display a quick flash of either green or red to indicate whether auto mode is on or not
-    Leds::holdIndex(LED_ALL, 250, (m_autoMode ? RGB_GREEN : RGB_RED));
+    Leds::holdIndex(LED_ALL, 250, (autoCycle() ? RGB_GREEN : RGB_RED));
     return MENU_CONTINUE;
   }
 
-  if (m_autoMode && (m_lastRandomization + AUTO_RANDOM_DELAY_TICKS < Time::getCurtime())) {
+  if (autoCycle() && (m_lastRandomization + AUTO_RANDOM_DELAY_TICKS < Time::getCurtime())) {
     m_lastRandomization = Time::getCurtime();
     reRoll();
   }
@@ -109,16 +127,53 @@ void Randomizer::onShortClick()
 
 void Randomizer::onLongClick()
 {
+  // if done the randomization selection part
+  if (!(m_flags & RANDOMIZE_SELECTION_COMPLETE)) {
+    // we are complete the randomization selection stage
+    m_flags |= RANDOMIZE_SELECTION_COMPLETE;
+    return;
+  }
   // then done here, save if the mode was different
   leaveMenu(true);
 }
 
-bool Randomizer::reRoll(LedPos pos)
+void Randomizer::showRandomizationSelect()
 {
-  // colorset that will be filled with random colors
+  uint32_t setCol = RGB_RED3;
+  uint32_t blinkCol = RGB_WHITE1;
+  uint8_t on = 30;
+  uint8_t off = 15;
+  switch (m_flags & RANDOMIZE_BOTH) {
+  case RANDOMIZE_COLORSET:
+    // blue + red slow blink
+    blinkCol = RGB_YELLOW3;
+    on = 150;
+    off = 150;
+    break;
+  case RANDOMIZE_PATTERN:
+    // white strobe
+    setCol = RGB_OFF;
+    break;
+  case RANDOMIZE_BOTH:
+    // red + blue strobe
+    if ((Time::getCurtime() % 20) > 10) {
+      blinkCol = RGB_OFF;
+      setCol = RGB_YELLOW3;
+    } else {
+      setCol = RGB_RED3;
+    }
+    break;
+  }
+  Leds::clearAll();
+  Leds::setMap(m_targetLeds, setCol);
+  Leds::blinkMap(m_targetLeds, Time::getCurtime(), off, on, blinkCol);
+  // render the click selection blink
+  Menus::showSelection();
+}
+
+Colorset Randomizer::rollColorset(Random &ctx)
+{
   Colorset randomSet;
-  // grab local reference to the target random context
-  Random &ctx = (pos < LED_COUNT) ? m_singlesRandCtx[pos] : m_multiRandCtx;
   // pick a random type of randomizer to use then use
   // the randomizer to generate a random colorset
   uint8_t randType = (uint8_t)ctx.next(0, 9);
@@ -162,30 +217,47 @@ bool Randomizer::reRoll(LedPos pos)
       randomSet.addColor(randomSet.get(startingNumColors - (i + 2)));
     }
   }
-  // the new pattern id to set
+  return randomSet;
+}
+
+PatternID Randomizer::rollPattern(Random &ctx)
+{
   PatternID newPat;
-  // if normal mode generate a random pattern id, advanced don't change the pat id
-  if (!m_advanced) {
-    // the random range begin/end
-    PatternID rbegin = PATTERN_SINGLE_FIRST;
-    PatternID rend = PATTERN_SINGLE_LAST;
-    // is the multi led present in the target led map
-    if (m_targetLeds & MAP_LED(LED_MULTI)) {
-      // if so enable that one
-      rend = PATTERN_MULTI_LAST;
-      if (m_targetLeds == MAP_LED(LED_MULTI)) {
-        rbegin = PATTERN_MULTI_FIRST;
-      }
+  // the random range begin/end
+  PatternID rbegin = PATTERN_SINGLE_FIRST;
+  PatternID rend = PATTERN_SINGLE_LAST;
+  // is the multi led present in the target led map
+  if (m_targetLeds & MAP_LED(LED_MULTI)) {
+    // if so enable that one
+    rend = PATTERN_MULTI_LAST;
+    if (m_targetLeds == MAP_LED(LED_MULTI)) {
+      rbegin = PATTERN_MULTI_FIRST;
     }
-    do {
-      // continuously re-randomize the pattern so we don't get undesirable patterns
-      newPat = (PatternID)ctx.next(rbegin, rend);
-    } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
-    // update the led with the new random
-    m_pCurMode->setPattern(newPat, pos, nullptr, &randomSet);
-  } else {
-    // update the led with just the colorset
-    m_pCurMode->setColorset(randomSet, pos);
+  }
+  do {
+    // continuously re-randomize the pattern so we don't get undesirable patterns
+    newPat = (PatternID)ctx.next(rbegin, rend);
+  } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
+  return newPat;
+}
+
+bool Randomizer::reRoll(LedPos pos)
+{
+  // grab local reference to the target random context
+  Random &ctx = (pos < LED_COUNT) ? m_singlesRandCtx[pos] : m_multiRandCtx;
+  if (m_flags & RANDOMIZE_PATTERN) {
+    // roll a new pattern
+    if (!m_pCurMode->setPattern(rollPattern(ctx), pos)) {
+      ERROR_LOG("Failed to roll new pattern");
+      return false;
+    }
+  }
+  if (m_flags & RANDOMIZE_COLORSET) {
+    // roll a new colorset
+    if (!m_pCurMode->setColorset(rollColorset(ctx), pos)) {
+      ERROR_LOG("Failed to roll new colorset");
+      return false;
+    }
   }
   // initialize the mode with the new pattern and colorset
   m_pCurMode->init();

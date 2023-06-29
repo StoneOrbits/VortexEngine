@@ -87,18 +87,6 @@ Menu::MenuAction ColorSelect::run()
     showSlotSelection();
     break;
   case STATE_PICK_HUE1:
-    // if in advanced mode just randomize the color and go back to slot selection
-    if (m_advanced) {
-      ByteStream ledData;
-      m_colorset.serialize(ledData);
-      Random ctx(ledData.recalcCRC());
-      m_newColor = RGBColor(ctx.next8(), ctx.next8(), ctx.next8());
-      m_colorset.set(m_targetSlot, m_newColor);
-      m_newColor.clear();
-      m_curSelection = m_targetSlot;
-      m_state = STATE_PICK_SLOT;
-      break;
-    }
   case STATE_PICK_HUE2:
   case STATE_PICK_SAT:
   case STATE_PICK_VAL:
