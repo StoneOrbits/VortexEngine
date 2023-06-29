@@ -17,7 +17,10 @@
 Randomizer::Randomizer(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_lastRandomization(0),
-  m_flags(RANDOMIZE_BOTH)
+  m_flags(RANDOMIZE_BOTH),
+  m_displayHue(0),
+  m_needToSelect(advanced),
+  m_autoCycle(false)
 {
 }
 
@@ -50,12 +53,6 @@ bool Randomizer::init()
     m_singlesRandCtx[l].seed(ledData.recalcCRC());
   }
 
-  if (!m_advanced) {
-    // in advanced mode disable the randomization flags so that they can
-    // be manually chosen in order to control the randomizer
-    m_flags |= RANDOMIZE_SELECTION_COMPLETE;
-  }
-
   DEBUG_LOG("Entered randomizer");
   return true;
 }
@@ -69,11 +66,7 @@ Menu::MenuAction Randomizer::run()
   }
 
   // if the ranomization flags haven't been set yet just show a selection
-  if (!(m_flags & RANDOMIZE_SELECTION_COMPLETE)) {
-    if (g_pButton->onRelease()) {
-      // weird way to increment
-      m_flags = 1 + (((m_flags & RANDOMIZE_BOTH) + 1) % RANDOMIZE_BOTH);
-    }
+  if (m_needToSelect) {
     // display the randomization selection menu
     showRandomizationSelect();
     return MENU_CONTINUE;
@@ -96,13 +89,13 @@ Menu::MenuAction Randomizer::run()
   // if the user fast-clicks 3 times then toggle automode
   if (g_pButton->onRelease() && g_pButton->consecutivePresses() == 3) {
     // toggle the auto cycle flag
-    toggleAutoCycle();
+    m_autoCycle = !m_autoCycle;
     // display a quick flash of either green or red to indicate whether auto mode is on or not
-    Leds::holdIndex(LED_ALL, 250, (autoCycle() ? RGB_GREEN : RGB_RED));
+    Leds::holdIndex(LED_ALL, 250, (m_autoCycle ? RGB_GREEN : RGB_RED));
     return MENU_CONTINUE;
   }
 
-  if (autoCycle() && (m_lastRandomization + AUTO_RANDOM_DELAY_TICKS < Time::getCurtime())) {
+  if (m_autoCycle && (m_lastRandomization + AUTO_RANDOM_DELAY_TICKS < Time::getCurtime())) {
     m_lastRandomization = Time::getCurtime();
     reRoll();
   }
@@ -121,6 +114,13 @@ Menu::MenuAction Randomizer::run()
 
 void Randomizer::onShortClick()
 {
+  if (m_needToSelect) {
+    if (m_flags == RANDOMIZE_BOTH) {
+      m_flags = RANDOMIZE_PATTERN;
+    } else {
+      m_flags = (RandomizeFlags)(m_flags + 1);
+    }
+  }
   // shortClick re-roll the randomization
   reRoll();
 }
@@ -128,9 +128,9 @@ void Randomizer::onShortClick()
 void Randomizer::onLongClick()
 {
   // if done the randomization selection part
-  if (!(m_flags & RANDOMIZE_SELECTION_COMPLETE)) {
+  if (m_needToSelect) {
     // we are complete the randomization selection stage
-    m_flags |= RANDOMIZE_SELECTION_COMPLETE;
+    m_needToSelect = false;
     return;
   }
   // then done here, save if the mode was different
@@ -139,34 +139,13 @@ void Randomizer::onLongClick()
 
 void Randomizer::showRandomizationSelect()
 {
-  uint32_t setCol = RGB_RED3;
-  uint32_t blinkCol = RGB_WHITE1;
-  uint8_t on = 30;
-  uint8_t off = 15;
-  switch (m_flags & RANDOMIZE_BOTH) {
-  case RANDOMIZE_COLORSET:
-    // blue + red slow blink
-    blinkCol = RGB_YELLOW3;
-    on = 150;
-    off = 150;
-    break;
-  case RANDOMIZE_PATTERN:
-    // white strobe
-    setCol = RGB_OFF;
-    break;
-  case RANDOMIZE_BOTH:
-    // red + blue strobe
-    if ((Time::getCurtime() % 20) > 10) {
-      blinkCol = RGB_OFF;
-      setCol = RGB_YELLOW3;
-    } else {
-      setCol = RGB_RED3;
-    }
-    break;
+  // show iterating rainbow if they are randomizing color, otherwise 0 sat if they
+  // are only randomizing the pattern
+  Leds::setAll(HSVColor(m_displayHue++, (m_flags & RANDOMIZE_COLORSET) * 255, 84));
+  if (m_flags & RANDOMIZE_PATTERN) {
+    // if they are randomizing the pattern strobe on/off
+    Leds::blinkAll(Time::getCurtime(), 8, 15);
   }
-  Leds::clearAll();
-  Leds::setMap(m_targetLeds, setCol);
-  Leds::blinkMap(m_targetLeds, Time::getCurtime(), off, on, blinkCol);
   // render the click selection blink
   Menus::showSelection();
 }
