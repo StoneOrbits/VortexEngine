@@ -21,7 +21,8 @@ ColorSelect::ColorSelect(const RGBColor &col, bool advanced) :
   m_targetSlot(0),
   m_targetHue1(0),
   m_targetHue2(0),
-  m_targetSat(0)
+  m_targetSat(0),
+  m_pattern(nullptr)
 {
   // NOTE! Specifically using hsv_to_rgb_rainbow instead of generic because
   // it will generate nicer looking colors and a nicer rainbow to select
@@ -67,9 +68,13 @@ Menu::MenuAction ColorSelect::run()
   }
 
   if (m_advanced && m_pattern) {
-    if (g_pButton->onPress()) {
-      m_pattern->setArg(6, m_pattern->getArg(6) + 1);
-    }
+    m_pattern->setArg(6, g_pButton->isPressed() ? 2 : 1);
+    //if (g_pButton->onRelease()) {
+    //  m_pattern->setArg(6, m_pattern->getArg(6) == 1 ? 2 : 1);
+    //}
+    //if (g_pButton->consecutivePresses() > 3) {
+    //  Leds::holdIndex(LED_ALL, 100, RGB_GREEN);
+    //}
     // just render the current pattern for active color picking
     // iterate all patterns and plkay
     m_pattern->play();

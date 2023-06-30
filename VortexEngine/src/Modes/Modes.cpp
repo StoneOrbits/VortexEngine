@@ -559,7 +559,7 @@ bool Modes::setOneClickMode(bool enable, bool save)
   } else {
     m_globalFlags &= ~MODES_FLAG_ONE_CLICK;
   }
-  DEBUG_LOGF("Toggled instant on/off to %s", m_instantOnOff ? "on" : "off");
+  DEBUG_LOGF("Toggled instant on/off to %s", enable ? "on" : "off");
   return !save || saveStorage();
 }
 
@@ -575,7 +575,7 @@ bool Modes::setLocked(bool locked, bool save)
   } else {
     m_globalFlags &= ~MODES_FLAG_LOCKED;
   }
-  DEBUG_LOGF("Toggled locked to %s", m_locked ? "on" : "off");
+  DEBUG_LOGF("Toggled locked to %s", locked ? "on" : "off");
   return !save || saveStorage();
 }
 
@@ -591,7 +591,7 @@ bool Modes::setEgg(bool active, bool save)
   } else {
     m_globalFlags &= ~MODES_FLAG_EGG;
   }
-  DEBUG_LOGF("Toggle egg mode to %s", m_egg ? "on" : "off");
+  DEBUG_LOGF("Toggle egg mode to %s", active ? "on" : "off");
   return !save || saveStorage();
 }
 
