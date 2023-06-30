@@ -4,7 +4,6 @@
 #include "../Menu.h"
 
 #include "../../Colors/Colorset.h"
-#include "../../Patterns/Patterns.h"
 #include "../../Modes/Mode.h"
 
 class PatternSelect : public Menu
@@ -21,6 +20,12 @@ public:
   void onLongClick() override;
 
 private:
+  // the original set
+  Colorset m_origSet;
+  // the current set being displayed
+  Colorset m_curSet;
+  // the advanced mode itself
+  Mode m_advMode;
 };
 
 #endif

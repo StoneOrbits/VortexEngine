@@ -60,6 +60,8 @@ void BasicPattern::init()
   // run base pattern init logic
   Pattern::init();
 
+  // the default state to begin with
+  m_state = STATE_BLINK_ON;
   // if a dash is present then always start with the dash because
   // it consumes the first color in the colorset
   if (m_dashDuration > 0) {

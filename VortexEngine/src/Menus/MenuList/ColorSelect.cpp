@@ -69,9 +69,6 @@ Menu::MenuAction ColorSelect::run()
 
   if (m_advanced && m_pattern) {
     m_pattern->setArg(6, g_pButton->isPressed() ? 2 : 1);
-    //if (g_pButton->onRelease()) {
-    //  m_pattern->setArg(6, m_pattern->getArg(6) == 1 ? 2 : 1);
-    //}
     if (g_pButton->consecutivePresses() > 5) {
       return MENU_QUIT;
     }

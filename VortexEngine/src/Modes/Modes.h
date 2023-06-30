@@ -72,7 +72,7 @@ public:
   static bool addModeFromBuffer(ByteStream &serializedMode);
 
   // update the current mode to match the given mode
-  static bool updateCurMode(PatternID id, const Colorset *set = nullptr);
+  static bool updateCurMode(PatternID id, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   static bool updateCurMode(const Mode *mode);
 
   // set the current active mode by index

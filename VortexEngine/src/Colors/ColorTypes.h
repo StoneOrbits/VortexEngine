@@ -78,7 +78,7 @@ public:
   bool empty() const;
   void clear();
 
-  void adjustBrightness(uint8_t fadeBy);
+  RGBColor adjustBrightness(uint8_t fadeBy);
   void serialize(ByteStream &buffer) const;
   void unserialize(ByteStream &buffer);
 

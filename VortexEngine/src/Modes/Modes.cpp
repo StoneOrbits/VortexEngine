@@ -398,7 +398,7 @@ bool Modes::addMode(const Mode *mode)
 
 // replace current mode with new one, destroying existing one
 // TODO: is this api necessary?
-bool Modes::updateCurMode(PatternID id, const Colorset *set)
+bool Modes::updateCurMode(PatternID id, const PatternArgs *args, const Colorset *set)
 {
   if (id > PATTERN_LAST) {
     ERROR_LOG("Invalid id or set");
@@ -406,14 +406,12 @@ bool Modes::updateCurMode(PatternID id, const Colorset *set)
   }
   Mode *pCur = curMode();
   if (!pCur) {
-    return addMode(id, nullptr, set);
+    return addMode(id, args, set);
   }
-  if (!pCur->setPattern(id)) {
+  if (!pCur->setPattern(id, LED_ANY, args, set)) {
     DEBUG_LOG("Failed to set pattern of current mode");
     // failed to set pattern?
-  }
-  if (set && !pCur->setColorset(*set)) {
-    DEBUG_LOG("Failed to set colorset of current mode");
+    return false;
   }
   // initialize the mode with new pattern and colorset
   pCur->init();
@@ -425,7 +423,9 @@ bool Modes::updateCurMode(PatternID id, const Colorset *set)
 bool Modes::updateCurMode(const Mode *mode)
 {
   Colorset set = mode->getColorset();
-  return updateCurMode(mode->getPatternID(), &set);
+  PatternArgs args;
+  mode->getPattern()->getArgs(args);
+  return updateCurMode(mode->getPatternID(), &args, &set);
 }
 
 // set the current active mode by index
