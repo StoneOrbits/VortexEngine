@@ -66,10 +66,6 @@ bool VortexEngine::init()
     return false;
   }
 
-  //Menus::openMenu(MENU_RANDOMIZER, true);
-  //Menus::openMenu(MENU_COLOR_SELECT, true);
-  Menus::openMenu(MENU_PATTERN_SELECT, true);
-
 #ifdef VORTEX_ARDUINO
   // set the state of the mosfet based on whether the chip is locked or not
   enableMOSFET(!Modes::locked());

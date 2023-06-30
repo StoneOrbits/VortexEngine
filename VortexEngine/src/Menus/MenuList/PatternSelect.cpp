@@ -14,7 +14,7 @@ PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_origSet(),
   m_curSet(),
-  m_advMode(PATTERN_DOPS, m_curSet)
+  m_advMode()
 {
 }
 
@@ -49,15 +49,13 @@ Menu::MenuAction PatternSelect::run()
     return result;
   }
   if (m_advanced) {
-    if ((Time::getCurtime() % 256) == 0 && m_curSet.numColors() != 0) {
+    if ((Time::getCurtime() % 64) == 0) {
       // check first color for expiry
       if (!m_curSet.get(0).raw()) {
         m_curSet.removeColor(0);
       }
       // scale down the brightness of each color in the set
-      for (uint8_t i = 0; i < m_curSet.numColors(); ++i) {
-        m_curSet[i].adjustBrightness(15);
-      }
+      m_curSet.adjustBrightness(16);
       m_advMode.setColorset(m_curSet);
       m_advMode.init();
     }
