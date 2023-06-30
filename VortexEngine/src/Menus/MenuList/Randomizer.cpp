@@ -20,6 +20,7 @@
 Randomizer::Randomizer(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_lastRandomization(0),
+  m_randomizedMode(),
   m_flags(advanced ? RANDOMIZE_COLORSET : RANDOMIZE_BOTH),
   m_displayHue(0),
   m_needToSelect(advanced),
@@ -41,11 +42,14 @@ bool Randomizer::init()
     return false;
   }
 
+  // copy the current mode to start with
+  m_randomizedMode = *m_pCurMode;
+
   // initialize the randomseed of each led with the
   // CRC of the colorset on the respective LED
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
     ByteStream ledData;
-    m_pCurMode->getColorset(l).serialize(ledData);
+    m_randomizedMode.getColorset(l).serialize(ledData);
     m_singlesRandCtx[l].seed(ledData.recalcCRC());
   }
 
@@ -70,16 +74,16 @@ Menu::MenuAction Randomizer::run()
 
   // if they are trying to randomize a multi-led pattern just convert
   // the pattern to all singles with the same colorset upon entry
-  if (m_pCurMode->isMultiLed() && m_targetLeds != MAP_LED(LED_MULTI)) {
+  if (m_randomizedMode.isMultiLed() && m_targetLeds != MAP_LED(LED_MULTI)) {
     // convert the pattern to a single led pattern, this will map
     // all multi led patterns to single led patterns using modulo
     // so no matter which multi-led pattern they have selected it
     // will convert to a single led pattern of some kind
-    PatternID newID = (PatternID)((m_pCurMode->getPatternID() - PATTERN_MULTI_FIRST) % PATTERN_SINGLE_COUNT);
+    PatternID newID = (PatternID)((m_randomizedMode.getPatternID() - PATTERN_MULTI_FIRST) % PATTERN_SINGLE_COUNT);
     // solid sucks
     if (newID == PATTERN_SOLID) ++newID;
-    m_pCurMode->setPattern(newID);
-    m_pCurMode->init();
+    m_randomizedMode.setPattern(newID);
+    m_randomizedMode.init();
   }
 
   // if the user fast-clicks 3 times then toggle automode
@@ -97,9 +101,7 @@ Menu::MenuAction Randomizer::run()
   }
 
   // display the randomized mode
-  if (m_pCurMode) {
-    m_pCurMode->play();
-  }
+  m_randomizedMode.play();
 
   // show the selection
   Menus::showSelection();
@@ -129,6 +131,8 @@ void Randomizer::onLongClick()
     m_needToSelect = false;
     return;
   }
+  // update the current mode with the new randomized mode
+  Modes::updateCurMode(&m_randomizedMode);
   // then done here, save if the mode was different
   leaveMenu(true);
 }
@@ -258,7 +262,7 @@ bool Randomizer::reRoll()
         return false;
       }
 #else
-      if (!m_pCurMode->setPattern(rollPatternID(ctx), pos)) {
+      if (!m_randomizedMode.setPattern(rollPatternID(ctx), pos)) {
         ERROR_LOG("Failed to roll new pattern");
         return false;
       }
@@ -266,13 +270,13 @@ bool Randomizer::reRoll()
     }
     if (m_flags & RANDOMIZE_COLORSET) {
       // roll a new colorset
-      if (!m_pCurMode->setColorset(rollColorset(ctx), pos)) {
+      if (!m_randomizedMode.setColorset(rollColorset(ctx), pos)) {
         ERROR_LOG("Failed to roll new colorset");
         return false;
       }
     }
     // initialize the mode with the new pattern and colorset
-    m_pCurMode->init();
+    m_randomizedMode.init();
     DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
       pos, randType, randomSet.numColors(), newPat);
   }
