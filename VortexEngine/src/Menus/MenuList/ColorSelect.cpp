@@ -72,9 +72,9 @@ Menu::MenuAction ColorSelect::run()
     //if (g_pButton->onRelease()) {
     //  m_pattern->setArg(6, m_pattern->getArg(6) == 1 ? 2 : 1);
     //}
-    //if (g_pButton->consecutivePresses() > 3) {
-    //  Leds::holdIndex(LED_ALL, 100, RGB_GREEN);
-    //}
+    if (g_pButton->consecutivePresses() > 5) {
+      return MENU_QUIT;
+    }
     // just render the current pattern for active color picking
     // iterate all patterns and plkay
     m_pattern->play();
@@ -143,6 +143,9 @@ void ColorSelect::onShortClick()
 
 void ColorSelect::onLongClick()
 {
+  if (m_advanced) {
+    return;
+  }
   bool needsSave = false;
   // if we're on 'exit' and we're on any menu past the slot selection
   if (m_curSelection == 4 && m_state > STATE_PICK_SLOT) {
