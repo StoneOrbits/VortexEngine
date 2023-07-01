@@ -289,11 +289,11 @@ void ColorSelect::showSelection(ColorSelectState mode)
     break;
   case STATE_PICK_SAT:
     sat = sats[m_curSelection];
-    Leds::breathIndexSat(LED_1, hue, (uint32_t)(Time::getCurtime() / 10), 50, 255, 150);
+    Leds::breathIndexSat(LED_1, hue, (uint32_t)(Time::getCurtime() / 3), 100, 150, 150);
     break;
   case STATE_PICK_VAL:
     val = vals[m_curSelection];
-    Leds::breathIndexVal(LED_1, hue, (uint32_t)(Time::getCurtime() / 10), 50, sat, 150);
+    Leds::breathIndexVal(LED_1, hue, (uint32_t)(Time::getCurtime() / 3), 100, sat, 150);
     break;
   }
   Leds::setMap(MAP_PAIR_EVENS, HSVColor(hue, sat, val));
