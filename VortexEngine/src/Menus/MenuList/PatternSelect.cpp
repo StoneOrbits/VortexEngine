@@ -6,15 +6,14 @@
 #include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Random/Random.h"
+#include "../../Modes/Modes.h"
 #include "../../Menus/Menus.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
-  m_origSet(),
-  m_curSet(),
-  m_advMode()
+  m_patternMode()
 {
 }
 
@@ -30,14 +29,15 @@ bool PatternSelect::init()
   if (!m_pCurMode) {
     return false;
   }
-  // reset current mode
-  m_pCurMode->init();
-  if (m_advanced) {
-    // copy out the colorset so we can walk it with colorset apis
-    m_origSet = m_pCurMode->getColorset();
-    // copy current mode but clear the colorset, keep pattern and params
-    m_advMode = *m_pCurMode;
-  }
+  m_patternMode = *m_pCurMode;
+  m_patternMode.setPattern(PATTERN_FIRST);
+  m_patternMode.init();
+  //if (m_advanced) {
+  //  // copy out the colorset so we can walk it with colorset apis
+  //  m_origSet = m_pCurMode->getColorset();
+  //  // copy current mode but clear the colorset, keep pattern and params
+  //  m_advMode = *m_pCurMode;
+  //}
   DEBUG_LOG("Entered pattern select");
   return true;
 }
@@ -48,22 +48,22 @@ Menu::MenuAction PatternSelect::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
-  if (m_advanced) {
-    if ((Time::getCurtime() % 64) == 0) {
-      // check first color for expiry
-      if (!m_curSet.get(0).raw()) {
-        m_curSet.removeColor(0);
-      }
-      // scale down the brightness of each color in the set
-      m_curSet.adjustBrightness(16);
-      m_advMode.setColorset(m_curSet);
-      m_advMode.init();
-    }
-    m_advMode.play();
-    return MENU_CONTINUE;
-  }
+  //if (m_advanced) {
+  //  if ((Time::getCurtime() % 64) == 0) {
+  //    // check first color for expiry
+  //    if (!m_curSet.get(0).raw()) {
+  //      m_curSet.removeColor(0);
+  //    }
+  //    // scale down the brightness of each color in the set
+  //    m_curSet.adjustBrightness(16);
+  //    m_advMode.setColorset(m_curSet);
+  //    m_advMode.init();
+  //  }
+  //  m_advMode.play();
+  //  return MENU_CONTINUE;
+  //}
   // run the current mode
-  m_pCurMode->play();
+  m_patternMode.play();
   // show selections
   Menus::showSelection();
   return MENU_CONTINUE;
@@ -71,17 +71,17 @@ Menu::MenuAction PatternSelect::run()
 
 void PatternSelect::onShortClick()
 {
-  if (m_advanced) {
-    m_curSet.addColor(m_origSet.getNext());
-    m_advMode.setColorset(m_curSet);
-    m_advMode.init();
-    return;
-  }
+  //if (m_advanced) {
+  //  m_curSet.addColor(m_origSet.getNext());
+  //  m_advMode.setColorset(m_curSet);
+  //  m_advMode.init();
+  //  return;
+  //}
   LedPos srcLed = LED_MULTI;
-  if (!m_pCurMode->isMultiLed()) {
+  if (!m_patternMode.isMultiLed()) {
     srcLed = mapGetFirstLed(m_targetLeds);
   }
-  PatternID newID = (PatternID)(m_pCurMode->getPatternID(srcLed) + 1);
+  PatternID newID = (PatternID)(m_patternMode.getPatternID(srcLed) + 1);
   PatternID endList = PATTERN_SINGLE_LAST;
   PatternID beginList = PATTERN_SINGLE_FIRST;
 #if VORTEX_SLIM == 0
@@ -97,16 +97,18 @@ void PatternSelect::onShortClick()
   }
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {
-    m_pCurMode->setPattern(newID);
+    m_patternMode.setPattern(newID);
   } else {
-    m_pCurMode->setPatternMap(m_targetLeds, newID);
+    m_patternMode.setPatternMap(m_targetLeds, newID);
   }
-  m_pCurMode->init();
+  m_patternMode.init();
   DEBUG_LOGF("Iterated to pattern id %d", newID);
 }
 
 void PatternSelect::onLongClick()
 {
-  // only save if it's not advanced
-  leaveMenu(!m_advanced);
+  // store the mode as current mode
+  Modes::updateCurMode(&m_patternMode);
+  // leave and save
+  leaveMenu(true);
 }

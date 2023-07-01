@@ -20,12 +20,8 @@ public:
   void onLongClick() override;
 
 private:
-  // the original set
-  Colorset m_origSet;
-  // the current set being displayed
-  Colorset m_curSet;
   // the advanced mode itself
-  Mode m_advMode;
+  Mode m_patternMode;
 };
 
 #endif

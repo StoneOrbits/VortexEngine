@@ -14,9 +14,6 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-// toggle this to 0 to disable smart pattern arg generation and just generate random pattern ids
-#define USE_SMART_PATTERNS 1
-
 Randomizer::Randomizer(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_lastRandomization(0),
@@ -256,17 +253,17 @@ bool Randomizer::reRoll()
     Random &ctx = m_singlesRandCtx[pos];
     if (m_flags & RANDOMIZE_PATTERN) {
       // roll a new pattern
-#if USE_SMART_PATTERNS == 1
-      if (!rollPattern(ctx, m_pCurMode, pos)) {
-        ERROR_LOG("Failed to roll new pattern");
-        return false;
+      if (m_advanced) {
+        if (!rollPattern(ctx, m_pCurMode, pos)) {
+          ERROR_LOG("Failed to roll new pattern");
+          return false;
+        }
+      } else {
+        if (!m_randomizedMode.setPattern(rollPatternID(ctx), pos)) {
+          ERROR_LOG("Failed to roll new pattern");
+          return false;
+        }
       }
-#else
-      if (!m_randomizedMode.setPattern(rollPatternID(ctx), pos)) {
-        ERROR_LOG("Failed to roll new pattern");
-        return false;
-      }
-#endif
     }
     if (m_flags & RANDOMIZE_COLORSET) {
       // roll a new colorset
