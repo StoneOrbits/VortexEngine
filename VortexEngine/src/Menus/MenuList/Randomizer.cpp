@@ -254,7 +254,7 @@ bool Randomizer::reRoll()
     if (m_flags & RANDOMIZE_PATTERN) {
       // roll a new pattern
       if (m_advanced) {
-        if (!rollPattern(ctx, m_pCurMode, pos)) {
+        if (!rollPattern(ctx, &m_randomizedMode, pos)) {
           ERROR_LOG("Failed to roll new pattern");
           return false;
         }
