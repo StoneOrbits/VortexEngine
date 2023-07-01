@@ -95,7 +95,7 @@
 #define BULB_SELECT_OFF_MS          50
 
 // Exit Menu blink speed
-#define EXIT_MENU_ON_MS             500
-#define EXIT_MENU_OFF_MS            250
+#define EXIT_MENU_ON_MS             300
+#define EXIT_MENU_OFF_MS            150
 
 #endif
