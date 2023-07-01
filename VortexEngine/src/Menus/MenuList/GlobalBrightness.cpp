@@ -155,7 +155,7 @@ void GlobalBrightness::setInovaState(inova_state newState)
     args.init(200);
     break;
   case INOVA_STATE_DOPS:
-    args.init(DOPS_ON_DURATION, DOPS_OFF_DURATION);
+    args.init(1, 10);
     break;
   case INOVA_STATE_SIGNAL:
     args.init(SIGNAL_ON_DURATION, SIGNAL_OFF_DURATION);
