@@ -396,38 +396,25 @@ bool Modes::addMode(const Mode *mode)
   return true;
 }
 
-// replace current mode with new one, destroying existing one
-// TODO: is this api necessary?
-bool Modes::updateCurMode(PatternID id, const PatternArgs *args, const Colorset *set)
-{
-  if (id > PATTERN_LAST) {
-    ERROR_LOG("Invalid id or set");
-    return false;
-  }
-  Mode *pCur = curMode();
-  if (!pCur) {
-    return addMode(id, args, set);
-  }
-  if (!pCur->setPattern(id, LED_ANY, args, set)) {
-    DEBUG_LOG("Failed to set pattern of current mode");
-    // failed to set pattern?
-    return false;
-  }
-  // initialize the mode with new pattern and colorset
-  pCur->init();
-  // save the current mode to the serialized modes storage
-  saveCurMode();
-  return true;
-}
-
 // Todo: this is slightly broken for pattern select and possibly randomizer
 // overwrites both bulbs with strobe when only top bulb is select
 bool Modes::updateCurMode(const Mode *mode)
 {
-  Colorset set = mode->getColorset();
-  PatternArgs args;
-  mode->getPattern()->getArgs(args);
-  return updateCurMode(mode->getPatternID(), &args, &set);
+  if (!mode) {
+    return false;
+  }
+  Mode *pCur = curMode();
+  if (!pCur) {
+    return false;
+  }
+  // utilize copy operator
+  *pCur = *mode;
+  // immediately save this mode to the internal mode storage
+  if (!saveCurMode()) {
+    return false;
+  }
+  // initialize the new mode
+  return initCurMode();
 }
 
 // set the current active mode by index
@@ -699,15 +686,15 @@ Mode *Modes::initCurMode(bool force)
   return m_pCurModeLink->instantiate();
 }
 
-void Modes::saveCurMode()
+bool Modes::saveCurMode()
 {
   if (!m_pCurModeLink) {
     // if there's no loaded mode currently then there's nothing
     // to save so there's no error
-    return;
+    return false;
   }
   // force the current mode to save back to serial to catch changes
-  m_pCurModeLink->save();
+  return m_pCurModeLink->save();
 }
 
 Modes::ModeLink::ModeLink(const Mode *src, bool inst) :
@@ -871,13 +858,13 @@ void Modes::ModeLink::uninstantiate()
   }
 }
 
-void Modes::ModeLink::save()
+bool Modes::ModeLink::save()
 {
   if (!m_pInstantiatedMode) {
-    return;
+    return false;
   }
   m_storedMode.clear();
-  m_pInstantiatedMode->saveToBuffer(m_storedMode);
+  return m_pInstantiatedMode->saveToBuffer(m_storedMode);
 }
 
 #if MODES_TEST == 1

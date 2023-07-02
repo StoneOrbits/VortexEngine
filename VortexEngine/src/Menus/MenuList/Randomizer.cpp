@@ -129,8 +129,7 @@ void Randomizer::onLongClick()
     return;
   }
   // update the current mode with the new randomized mode
-  // todo: fix updateCurMode
-  *m_pCurMode = m_randomizedMode;
+  Modes::updateCurMode(&m_randomizedMode);
   // then done here, save if the mode was different
   leaveMenu(true);
 }
@@ -209,12 +208,6 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
     ctx.next8(0, 20),  // dash duration 0 -> 20
     ctx.next8(0, numCols >> 1) // group 0 -> numColors / 2
   );
-  // any on
-  // small off small gap
-  // small off large gap
-  // large off small gap
-  // any off small gap any dash
-
   // this occationally sets off to 0-3
   if (!ctx.next8(0, 4)) {
     args.arg2 = ctx.next8(0, 6);
@@ -228,10 +221,12 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
     args.arg4 = 0;
   }
   PatternID newPat = PATTERN_BASIC;
-  // 1/5 chance for blend, 1/5 chance for solid, 3/5 chance for strobe
+  // 1/3 chance to roll a blend pattern instead which will animate between
+  // colors instead of blinking each color in the set
   if (!ctx.next8(0, 3)) {
     newPat = PATTERN_BLEND;
-    args.arg7 = ctx.next8(0, 3); // num flips 0 to 3
+    // this is the number of blinks to a complementary color
+    args.arg7 = ctx.next8(0, 3);
   }
   return pMode->setPattern(newPat, pos, &args);
 }
