@@ -56,35 +56,35 @@
 
 // Basic Strobe
 // TODO: Should this be 5/13?
-#define STROBE_ON_DURATION          8
-#define STROBE_OFF_DURATION         10
+#define STROBE_ON_DURATION          4
+#define STROBE_OFF_DURATION         4
 
 // Hyperstrobe
-#define HYPERSTROBE_ON_DURATION     32
-#define HYPERSTROBE_OFF_DURATION    28
+#define HYPERSTROBE_ON_DURATION     24
+#define HYPERSTROBE_OFF_DURATION    20
 
 // Dops
-#define DOPS_ON_DURATION            4
-#define DOPS_OFF_DURATION           16
+#define DOPS_ON_DURATION            3
+#define DOPS_OFF_DURATION           24
 
 // Dopish
-#define DOPISH_ON_DURATION          4
-#define DOPISH_OFF_DURATION         12
+#define DOPISH_ON_DURATION          3
+#define DOPISH_OFF_DURATION         8
 
 // Ultradops
 #define ULTRADOPS_ON_DURATION       2
-#define ULTRADOPS_OFF_DURATION      5
+#define ULTRADOPS_OFF_DURATION      3
 
 // Strobie
-#define STROBIE_ON_DURATION         3
-#define STROBIE_OFF_DURATION        28
+#define STROBIE_ON_DURATION         1
+#define STROBIE_OFF_DURATION        16
 
 // Signal
 #define SIGNAL_ON_DURATION          16
 #define SIGNAL_OFF_DURATION         120
 
 // Ribbon
-#define RIBBON_DURATION             20
+#define RIBBON_DURATION             4
 
 // Blink Timings
 //
