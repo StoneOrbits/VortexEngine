@@ -30,7 +30,7 @@ bool PatternSelect::init()
     return false;
   }
   m_patternMode = *m_pCurMode;
-  m_patternMode.setPattern(PATTERN_FIRST);
+  m_patternMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
   m_patternMode.init();
   //if (m_advanced) {
   //  // copy out the colorset so we can walk it with colorset apis
@@ -108,7 +108,8 @@ void PatternSelect::onShortClick()
 void PatternSelect::onLongClick()
 {
   // store the mode as current mode
-  Modes::updateCurMode(&m_patternMode);
+  // TODO: fix UpdateCurMode
+  *m_pCurMode = m_patternMode;
   // leave and save
   leaveMenu(true);
 }

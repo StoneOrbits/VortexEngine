@@ -129,7 +129,8 @@ void Randomizer::onLongClick()
     return;
   }
   // update the current mode with the new randomized mode
-  Modes::updateCurMode(&m_randomizedMode);
+  // todo: fix updateCurMode
+  *m_pCurMode = m_randomizedMode;
   // then done here, save if the mode was different
   leaveMenu(true);
 }

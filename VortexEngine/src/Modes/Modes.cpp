@@ -420,6 +420,8 @@ bool Modes::updateCurMode(PatternID id, const PatternArgs *args, const Colorset 
   return true;
 }
 
+// Todo: this is slightly broken for pattern select and possibly randomizer
+// overwrites both bulbs with strobe when only top bulb is select
 bool Modes::updateCurMode(const Mode *mode)
 {
   Colorset set = mode->getColorset();
