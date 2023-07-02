@@ -71,8 +71,7 @@ public:
   // add a new mode by loading from a save buffer
   static bool addModeFromBuffer(ByteStream &serializedMode);
 
-  // update the current mode to match the given mode
-  static bool updateCurMode(PatternID id, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
+  // update the current mode to match the given mode, optionally save
   static bool updateCurMode(const Mode *mode);
 
   // set the current active mode by index
@@ -155,7 +154,7 @@ private:
 
     // if the mode is instantiated and the instantiated version
     // has changed at all then save will re-save it to the buffer
-    void save();
+    bool save();
 
     // accessors
     ByteStream &buffer() { return m_storedMode; }
@@ -179,7 +178,7 @@ private:
   // initialize current mode from ByteStream, optionally force re-init which
   // will destroy the current instantiated mode and re-load it from serial
   static Mode *initCurMode(bool force = false);
-  static void saveCurMode();
+  static bool saveCurMode();
 
   // the current mode we're on
   static uint8_t m_curMode;
