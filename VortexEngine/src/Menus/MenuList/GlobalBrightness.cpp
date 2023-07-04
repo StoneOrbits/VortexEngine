@@ -1,5 +1,7 @@
 #include "GlobalBrightness.h"
 
+#include "../../VortexEngine.h"
+
 #include "../../Patterns/PatternArgs.h"
 #include "../../Patterns/Pattern.h"
 #include "../../Time/TimeControl.h"
@@ -16,7 +18,7 @@
 
 GlobalBrightness::GlobalBrightness(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
-  m_inovaState(INOVA_STATE_OFF),
+  m_keychain_modeState(KEYCHAIN_MODE_STATE_OFF),
   m_lastStateChange(0),
   m_colorIndex(0)
 {
@@ -40,6 +42,13 @@ bool GlobalBrightness::init()
       m_curSelection = i;
     }
   }
+  if (m_advanced) {
+    // start in the off position, this call is necessary to update the
+    // lastStateChange time to the current time of init
+    setKeychainModeState(KEYCHAIN_MODE_STATE_OFF);
+    // reset the color index to ensure it starts on first color
+    m_colorIndex = 0;
+  }
   DEBUG_LOG("Entered global brightness");
   return true;
 }
@@ -52,7 +61,7 @@ Menu::MenuAction GlobalBrightness::run()
   }
 
   if (m_advanced) {
-    return runInova();
+    return runKeychainMode();
   }
 
   // show the current brightness
@@ -101,30 +110,33 @@ void GlobalBrightness::showBrightnessSelection()
   Leds::setAll(HSVColor(38, 255, m_brightnessOptions[m_curSelection]));
 }
 
-// ==================== INOVA STUFF ====================
+// ==================== KEYCHAIN_MODE STUFF ====================
 
 // don't worry about this stuff
-#define INOVA_TIMER_MS      2100
-#define INOVA_TIMER_TICKS   Time::msToTicks(INOVA_TIMER_MS)
-#define INOVA_EXIT_CLICKS   8
+#define KEYCHAIN_MODE_TIMER_MS      2100
+#define KEYCHAIN_MODE_TIMER_TICKS   Time::msToTicks(KEYCHAIN_MODE_TIMER_MS)
+#define KEYCHAIN_MODE_EXIT_CLICKS   8
+#define KEYCHAIN_MODE_SLEEP_S       10
+#define KEYCHAIN_MODE_SLEEP_TICKS   Time::secToTicks(KEYCHAIN_MODE_SLEEP_S)
 
-// bonus simulate inova in this menu
-Menu::MenuAction GlobalBrightness::runInova()
+// bonus simulate keychain_mode in this menu
+Menu::MenuAction GlobalBrightness::runKeychainMode()
 {
   // check for exit
-  if (g_pButton->consecutivePresses() > INOVA_EXIT_CLICKS) {
+  if (g_pButton->consecutivePresses() > KEYCHAIN_MODE_EXIT_CLICKS) {
     return MENU_QUIT;
   }
+  uint32_t now = Time::getCurtime();
   // whether the button was pressed before the timer expired
   // when the button is first pressed after the window has expired switch off
-  if (g_pButton->onPress() && m_inovaState != INOVA_STATE_OFF && Time::getCurtime() > (m_lastStateChange + INOVA_TIMER_TICKS)) {
-    setInovaState(INOVA_STATE_OFF);
+  if (g_pButton->onPress() && m_keychain_modeState != KEYCHAIN_MODE_STATE_OFF && now > (m_lastStateChange + KEYCHAIN_MODE_TIMER_TICKS)) {
+    setKeychainModeState(KEYCHAIN_MODE_STATE_OFF);
     return MENU_CONTINUE;
   }
   // when the button is released, but only if they pressed it within this state
   if (g_pButton->onRelease() && g_pButton->pressTime() > m_lastStateChange) {
     // advance the state or turn off based on press time
-    setInovaState((inova_state)(m_inovaState + 1));
+    setKeychainModeState((keychain_mode_state)(m_keychain_modeState + 1));
     return MENU_CONTINUE;
   }
   // as long as the button is held down the leds clear
@@ -132,32 +144,37 @@ Menu::MenuAction GlobalBrightness::runInova()
     Leds::clearAll();
     return MENU_CONTINUE;
   }
-  // play the inova mode
-  m_inovaMode.play();
+  // check for sleep after 10 seconds
+  if (m_keychain_modeState == KEYCHAIN_MODE_STATE_OFF && now > (m_lastStateChange + KEYCHAIN_MODE_SLEEP_TICKS)) {
+    VortexEngine::enterSleep();
+    return MENU_QUIT;
+  }
+  // play the keychain_mode mode
+  m_keychain_modeMode.play();
   return MENU_CONTINUE;
 }
 
-void GlobalBrightness::setInovaState(inova_state newState)
+void GlobalBrightness::setKeychainModeState(keychain_mode_state newState)
 {
-  // update the inova state
-  m_inovaState = (inova_state)(newState % INOVA_STATE_COUNT);
+  // update the keychain_mode state
+  m_keychain_modeState = (keychain_mode_state)(newState % KEYCHAIN_MODE_STATE_COUNT);
   // record the time of this statechange
   m_lastStateChange = Time::getCurtime();
   // the args that will define the timing of the blink on the solid pattern
   PatternArgs args;
-  switch (m_inovaState) {
-  case INOVA_STATE_OFF:
+  switch (m_keychain_modeState) {
+  case KEYCHAIN_MODE_STATE_OFF:
   default:
     // iterate to next color
     m_colorIndex = (m_colorIndex + 1) % m_pCurMode->getColorset().numColors();
     break;
-  case INOVA_STATE_SOLID:
+  case KEYCHAIN_MODE_STATE_SOLID:
     args.init(200);
     break;
-  case INOVA_STATE_DOPS:
+  case KEYCHAIN_MODE_STATE_DOPS:
     args.init(1, 10);
     break;
-  case INOVA_STATE_SIGNAL:
+  case KEYCHAIN_MODE_STATE_SIGNAL:
     args.init(SIGNAL_ON_DURATION, SIGNAL_OFF_DURATION);
     break;
   }
@@ -165,7 +182,7 @@ void GlobalBrightness::setInovaState(inova_state newState)
   // because that will never iterate to the next color and allows us to force 
   // the color index via argument 6
   args.arg6 = m_colorIndex;
-  m_inovaMode.setPattern(PATTERN_SOLID, LED_ALL, &args);
-  m_inovaMode.setColorset(m_pCurMode->getColorset(), LED_ALL);
-  m_inovaMode.init();
+  m_keychain_modeMode.setPattern(PATTERN_SOLID, LED_ALL, &args);
+  m_keychain_modeMode.setColorset(m_pCurMode->getColorset(), LED_ALL);
+  m_keychain_modeMode.init();
 }

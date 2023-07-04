@@ -27,31 +27,31 @@ private:
 
 private:
   // don't worry about this stuff
-  enum inova_state : uint8_t
+  enum keychain_mode_state : uint8_t
   {
     // sleeping / fake off
-    INOVA_STATE_OFF = 0,
+    KEYCHAIN_MODE_STATE_OFF = 0,
 
     // solid/tracer
-    INOVA_STATE_SOLID,
+    KEYCHAIN_MODE_STATE_SOLID,
 
     // dops blink 4 / 16
-    INOVA_STATE_DOPS,
+    KEYCHAIN_MODE_STATE_DOPS,
 
     // signal blink 16 / 120
-    INOVA_STATE_SIGNAL,
+    KEYCHAIN_MODE_STATE_SIGNAL,
 
     // total states
-    INOVA_STATE_COUNT
+    KEYCHAIN_MODE_STATE_COUNT
   };
 
-  inova_state m_inovaState;
+  keychain_mode_state m_keychain_modeState;
   uint32_t m_lastStateChange;
   uint8_t m_colorIndex;
-  Mode m_inovaMode;
+  Mode m_keychain_modeMode;
 
-  void setInovaState(inova_state newState);
-  Menu::MenuAction runInova();
+  void setKeychainModeState(keychain_mode_state newState);
+  Menu::MenuAction runKeychainMode();
 };
 
 #endif
