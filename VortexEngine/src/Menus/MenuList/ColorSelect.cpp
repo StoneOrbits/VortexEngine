@@ -237,7 +237,8 @@ void ColorSelect::showSlotSelection()
 
   if (withinNumColors && holdDurationCheck && holdDurationModCheck) {
     // breath red for delete slot
-    Leds::breathIndex(LED_COUNT, 0, holdDur);
+    Leds::blinkIndex(LED_0, Time::getCurtime(), 50, 100, m_colorset[m_curSelection]);
+    Leds::breathIndex(LED_1, 0, holdDur);
   } else if (withinNumColors) {
     // blink the selected slot color
     Leds::blinkIndex(LED_COUNT, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
@@ -254,7 +255,7 @@ void ColorSelect::showSlotSelection()
     // set LED_1 to green to indicate save and exit
     Leds::setIndex(LED_1, RGB_GREEN2);
     // if not on exitIndex or add new color set LED_1 based on button state
-  } else if (m_curSelection != m_colorset.numColors()) {
+  } else if (m_curSelection != m_colorset.numColors() && !holdDurationCheck) {
     Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_OFF : RGB_WHITE2);
   }
 }
