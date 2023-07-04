@@ -55,7 +55,6 @@
 // are in milliseconds.
 
 // Basic Strobe
-// TODO: Should this be 5/13?
 #define STROBE_ON_DURATION          4
 #define STROBE_OFF_DURATION         4
 

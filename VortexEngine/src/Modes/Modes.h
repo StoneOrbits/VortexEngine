@@ -18,8 +18,8 @@ class Mode;
 #define MODES_FLAG_LOCKED     (1 << 0)
 // the device will turn on and off with a single click
 #define MODES_FLAG_ONE_CLICK  (1 << 1)
-// toggles the egg or something
-#define MODES_FLAG_EGG        (1 << 2)
+// toggles the advanced menus being accessible
+#define MODES_FLAG_ADV_MENUS  (1 << 2)
 // keychain light mode (behave like a keychain)
 #define MODES_FLAG_KEYCHAIN   (1 << 3)
 // WARNING!! The upper 4 bits of the flags are taken by the startup mode id,
@@ -121,10 +121,10 @@ public:
   }
   // toggle advanced menus
   static bool setAdvancedMenus(bool active, bool save = true) {
-    return setFlag(MODES_FLAG_EGG, active, save);
+    return setFlag(MODES_FLAG_ADV_MENUS, active, save);
   }
   static bool advancedMenusEnabled() {
-    return getFlag(MODES_FLAG_EGG);
+    return getFlag(MODES_FLAG_ADV_MENUS);
   }
   // toggle the keychain light mode
   static bool setKeychainMode(bool active, bool save = true) {

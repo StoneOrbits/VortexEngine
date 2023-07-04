@@ -9,6 +9,7 @@
 #include "../VortexConfig.h"
 
 #ifdef VORTEX_LIB
+#include <Arduino.h>
 #include "../../VortexLib/VortexLib.h"
 #endif
 

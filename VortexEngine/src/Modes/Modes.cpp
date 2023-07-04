@@ -397,8 +397,6 @@ bool Modes::addMode(const Mode *mode)
   return true;
 }
 
-// Todo: this is slightly broken for pattern select and possibly randomizer
-// overwrites both bulbs with strobe when only top bulb is select
 bool Modes::updateCurMode(const Mode *mode)
 {
   if (!mode) {

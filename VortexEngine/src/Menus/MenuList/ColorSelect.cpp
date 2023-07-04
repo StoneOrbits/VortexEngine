@@ -241,7 +241,7 @@ void ColorSelect::showSlotSelection()
     Leds::breathIndex(LED_1, 0, holdDur);
   } else if (withinNumColors) {
     // blink the selected slot color
-    Leds::blinkIndex(LED_COUNT, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
+    Leds::blinkIndex(LED_ALL, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
   } else if (m_colorset.numColors() < MAX_COLOR_SLOTS) {
     if (m_curSelection == m_colorset.numColors()) {
       // blink both leds and blink faster to indicate 'add' new color
@@ -311,7 +311,7 @@ void ColorSelect::showFullSet(LedPos target, uint32_t time, uint32_t offMs, uint
     if (!divisor) {
       divisor = 1;
     }
-    Leds::setIndex(LED_COUNT, m_colorset.get(((time / divisor)) % m_colorset.numColors()));
+    Leds::setIndex(LED_ALL, m_colorset.get(((time / divisor)) % m_colorset.numColors()));
   }
   Leds::setIndex(LED_1, 0x001000);
 }

@@ -2,7 +2,6 @@
 
 // menus
 #include "MenuList/GlobalBrightness.h"
-#include "MenuList/EditorConnection.h"
 #include "MenuList/FactoryReset.h"
 #include "MenuList/ModeSharing.h"
 #include "MenuList/ColorSelect.h"
@@ -51,6 +50,8 @@ Menu *initMenu(const RGBColor &col, bool advanced) { return new T(col, advanced)
 
 // The list of menus that are registered with colors to show in ring menu
 const MenuEntry menuList[] = {
+  // =========================
+  //  Default menu setup:
   ENTRY(Randomizer, RGB_MENU_RANDOMIZER),
   ENTRY(ModeSharing, RGB_MENU_MODE_SHARING),
   ENTRY(ColorSelect, RGB_MENU_COLOR_SELECT),

@@ -109,6 +109,5 @@ void PatternSelect::onLongClick()
 {
   // store the mode as current mode
   Modes::updateCurMode(&m_patternMode);
-  // leave and save
   leaveMenu(true);
 }
