@@ -90,7 +90,7 @@ Menu::MenuAction Menu::run()
 void Menu::showBulbSelection()
 {
   Leds::clearAll();
-  Leds::blinkMap(m_targetLeds, Time::getCurtime(), 250, 500, m_menuColor);
+  Leds::blinkMap(m_targetLeds, Time::getCurtime(), BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
   // blink when selecting
   Menus::showSelection();
 }
@@ -101,8 +101,8 @@ void Menu::showExit()
     Leds::setIndex(LED_1, RGB_RED);
   } else {
     Leds::clearIndex(LED_1);
-    Leds::blinkIndex(LED_0, Time::getCurtime(), 250, 500, RGB_WHITE0);
-    Leds::blinkIndex(LED_1, Time::getCurtime(), 250, 500, RGB_RED0);
+    Leds::blinkIndex(LED_0, Time::getCurtime(), EXIT_MENU_OFF_MS, EXIT_MENU_ON_MS, RGB_WHITE0);
+    Leds::blinkIndex(LED_1, Time::getCurtime(), EXIT_MENU_OFF_MS, EXIT_MENU_ON_MS, RGB_RED0);
   }
 }
 

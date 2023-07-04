@@ -258,21 +258,11 @@ void Time::initArduinoTime()
 
   // initialize main clock
 #if (F_CPU == 20000000)
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, 0x00); // No division on clock
-#elif (F_CPU == 16000000)
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, 0x00); // No division on clock
-#elif (F_CPU == 10000000) // 20MHz prescaled by 2
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_2X_gc)); // Clock DIV2
-#elif (F_CPU == 8000000) // 16MHz prescaled by 2
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_2X_gc)); // Clock DIV2
-#elif (F_CPU == 5000000) // 20MHz prescaled by 4
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_4X_gc)); // Clock DIV4
-#elif (F_CPU == 4000000) // 16MHz prescaled by 4
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_4X_gc)); // Clock DIV4
-#elif (F_CPU == 2000000) // 16MHz prescaled by 8
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_8X_gc)); // Clock DIV8
-#elif (F_CPU == 1000000) // 16MHz prescaled by 16
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_16X_gc)); // Clock DIV16
+  // No division on clock
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, 0x00);
+#elif (F_CPU == 10000000)
+  // 20MHz prescaled by 2, Clock DIV2
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_2X_gc));
 #else
   #error "F_CPU not supported"
 #endif

@@ -1,9 +1,11 @@
 #include "ColorSelect.h"
 
 #include "../../Time/TimeControl.h"
+#include "../../Patterns/PatternBuilder.h"
 #include "../../Patterns/Pattern.h"
 #include "../../Colors/Colorset.h"
 #include "../../Buttons/Button.h"
+#include "../../Random/Random.h"
 #include "../../Time/Timings.h"
 #include "../../Menus/Menus.h"
 #include "../../Modes/Modes.h"
@@ -19,7 +21,8 @@ ColorSelect::ColorSelect(const RGBColor &col, bool advanced) :
   m_targetSlot(0),
   m_targetHue1(0),
   m_targetHue2(0),
-  m_targetSat(0)
+  m_targetSat(0),
+  m_pattern(nullptr)
 {
   // NOTE! Specifically using hsv_to_rgb_rainbow instead of generic because
   // it will generate nicer looking colors and a nicer rainbow to select
@@ -45,6 +48,14 @@ bool ColorSelect::init()
     m_ledSelected = true;
   }
   m_state = STATE_INIT;
+  if (m_advanced) {
+    m_pattern = PatternBuilder::make(PATTERN_BLEND);
+    if (!m_pattern) {
+      return false;
+    }
+    m_pattern->setColorset(m_pCurMode->getColorset());
+    m_pattern->init();
+  }
   DEBUG_LOG("Entered color select");
   return true;
 }
@@ -54,6 +65,17 @@ Menu::MenuAction ColorSelect::run()
   MenuAction result = Menu::run();
   if (result != MENU_CONTINUE) {
     return result;
+  }
+
+  if (m_advanced && m_pattern) {
+    m_pattern->setArg(6, g_pButton->isPressed() ? 2 : 1);
+    if (g_pButton->consecutivePresses() > 5) {
+      return MENU_QUIT;
+    }
+    // just render the current pattern for active color picking
+    // iterate all patterns and plkay
+    m_pattern->play();
+    return MENU_CONTINUE;
   }
 
   // all states start with a blank slate
@@ -118,6 +140,9 @@ void ColorSelect::onShortClick()
 
 void ColorSelect::onLongClick()
 {
+  if (m_advanced) {
+    return;
+  }
   bool needsSave = false;
   // if we're on 'exit' and we're on any menu past the slot selection
   if (m_curSelection == 4 && m_state > STATE_PICK_SLOT) {
@@ -212,7 +237,8 @@ void ColorSelect::showSlotSelection()
 
   if (withinNumColors && holdDurationCheck && holdDurationModCheck) {
     // breath red for delete slot
-    Leds::breathIndex(LED_ALL, 0, holdDur);
+    Leds::blinkIndex(LED_0, Time::getCurtime(), 50, 100, m_colorset[m_curSelection]);
+    Leds::breathIndex(LED_1, 0, holdDur);
   } else if (withinNumColors) {
     // blink the selected slot color
     Leds::blinkIndex(LED_ALL, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
@@ -227,10 +253,10 @@ void ColorSelect::showSlotSelection()
   if (m_curSelection == exitIndex) {
     showFullSet(LED_0, Time::getCurtime(), 50, 100);
     // set LED_1 to green to indicate save and exit
-    Leds::setIndex(LED_1, 0x000500);
+    Leds::setIndex(LED_1, RGB_GREEN2);
     // if not on exitIndex or add new color set LED_1 based on button state
-  } else if (m_curSelection != m_colorset.numColors()) {
-    Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_OFF : 0x050505);
+  } else if (m_curSelection != m_colorset.numColors() && !holdDurationCheck) {
+    Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_OFF : RGB_WHITE2);
   }
 }
 
@@ -264,11 +290,11 @@ void ColorSelect::showSelection(ColorSelectState mode)
     break;
   case STATE_PICK_SAT:
     sat = sats[m_curSelection];
-    Leds::breathIndexSat(LED_1, hue, (uint32_t)(Time::getCurtime() / 10), 50, 255, 150);
+    Leds::breathIndexSat(LED_1, hue, (uint32_t)(Time::getCurtime() / 3), 100, 150, 150);
     break;
   case STATE_PICK_VAL:
     val = vals[m_curSelection];
-    Leds::breathIndexVal(LED_1, hue, (uint32_t)(Time::getCurtime() / 10), 50, sat, 150);
+    Leds::breathIndexVal(LED_1, hue, (uint32_t)(Time::getCurtime() / 3), 100, sat, 150);
     break;
   }
   Leds::setMap(MAP_PAIR_EVENS, HSVColor(hue, sat, val));

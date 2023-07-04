@@ -22,6 +22,9 @@
 bool VortexEngine::m_sleeping = false;
 #endif
 
+// auto cycling
+bool VortexEngine::m_autoCycle = false;
+
 bool VortexEngine::init()
 {
 #ifdef VORTEX_ARDUINO
@@ -155,7 +158,7 @@ void VortexEngine::runMainLogic()
       enterSleep();
     }
     // OPTIONAL: render a dim led during unlock window waiting for clicks?
-    //Leds::setIndex(LED_1, RGB_DIM_RED);
+    //Leds::setIndex(LED_1, RGB_RED4);
     // don't do anything else while locked, just return
     return;
   }
@@ -164,14 +167,17 @@ void VortexEngine::runMainLogic()
 
   // if the button hasn't been released since turning on then there is custom logic
   if (g_pButton->releaseCount() == 0) {
-    // if the button is held for 2 seconds from off, switch the brigness scale
+    // if the button is held for 2 seconds from off, switch to on click mode on 
+    // the last mode shown before sleep
     if (Time::getCurtime() == SHORT_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
-      // update brightness and save the changes
-      Leds::setBrightness(Leds::getBrightness() == DEFAULT_BRIGHTNESS ? DEFAULT_DIMNESS : DEFAULT_BRIGHTNESS);
-      Modes::saveStorage();
+      // toggle one click mode
+      Modes::setOneClickMode(!Modes::oneClickModeEnabled());
+      // switch to the one click startup mode
+      Modes::setCurMode(Modes::startupMode());
+      // flash either low white or dim white2 to indicate
+      // whether one-click mode has been turned on or off
+      Leds::holdIndex(LED_ALL, 200, (Modes::oneClickModeEnabled() ? RGB_WHITE0 : RGB_WHITE5));
     }
-    // do nothing till the user releases the button... No menus mothing
-    Modes::play();
     return;
   }
 
@@ -203,9 +209,6 @@ void VortexEngine::runMainLogic()
     // but as soon as they actually release put the device to sleep and also
     // toggle the instant on/off if they were at the main menu
     if (g_pButton->onRelease()) {
-      if (!Menus::checkInMenu()) {
-        Modes::setOneClickMode(!Modes::oneClickModeEnabled());
-      }
       enterSleep();
     }
     return;
@@ -246,6 +249,19 @@ void VortexEngine::runMainLogic()
     Modes::setLocked(true);
     enterSleep();
     return;
+  }
+
+  // toggle auto cycle mode with many clicks at main modes
+  if (g_pButton->consecutivePresses() > AUTO_CYCLE_MODES_CLICKS) {
+    m_autoCycle = !m_autoCycle;
+    g_pButton->resetConsecutivePresses();
+    Leds::holdIndex(LED_ALL, 500, (m_autoCycle ? RGB_PURPLE1 : RGB_CYAN1));
+  }
+
+  // if auto cycle is enabled and the last switch was more than the delay ago
+  if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < Time::getCurtime())) {
+    // then switch to the next mode automatically
+    Modes::nextMode();
   }
 
   // otherwise finally just play the modes like normal
@@ -293,6 +309,10 @@ uint32_t VortexEngine::savefileSize()
 void VortexEngine::enterSleep()
 {
   DEBUG_LOG("Sleeping");
+  // set it as the startup mode?
+  Modes::setStartupMode(Modes::curModeIndex());
+  // save anything that hasn't been saved
+  Modes::saveStorage();
   // clear all the leds
   Leds::clearAll();
   Leds::update();

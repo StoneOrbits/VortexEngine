@@ -46,7 +46,7 @@ bool Randomizer::init()
   // CRC of the colorset on the respective LED
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
     ByteStream ledData;
-    m_pCurMode->getColorset(l).serialize(ledData);
+    m_randomizedMode.getColorset(l).serialize(ledData);
     m_singlesRandCtx[l].seed(ledData.recalcCRC());
   }
 
