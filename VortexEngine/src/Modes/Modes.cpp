@@ -192,7 +192,6 @@ void Modes::serialize(ByteStream &modesBuffer)
       ERROR_OUT_OF_MEMORY();
       return;
     }
-    // if the mode is all same single, or a multi
     mode->serialize(modesBuffer);
     // if this isn't our current running mode, uninstantiate it
     if (ptr != m_pCurModeLink) {
