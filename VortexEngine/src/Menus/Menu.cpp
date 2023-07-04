@@ -34,7 +34,7 @@ bool Menu::init()
       // some kind of serious error
       return false;
     }
-    if (!Modes::addMode(PATTERN_BASIC, RGBColor(RGB_OFF))) {
+    if (!Modes::addMode(PATTERN_STROBE, RGBColor(RGB_OFF))) {
       // some kind of serious error
       return false;
     }

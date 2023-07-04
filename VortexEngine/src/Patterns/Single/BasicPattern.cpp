@@ -42,7 +42,7 @@ BasicPattern::BasicPattern(const PatternArgs &args) :
   m_state(STATE_BLINK_ON),
   m_blinkTimer()
 {
-  m_patternID = PATTERN_BASIC;
+  m_patternID = PATTERN_STROBE;
   REGISTER_ARG(m_onDuration);
   REGISTER_ARG(m_offDuration);
   REGISTER_ARG(m_gapDuration);
