@@ -40,11 +40,22 @@ void cleanup_arduino()
 {
 }
 
-void delay(uint16_t amt)
+void delay(uint16_t ms)
 {
-  for (uint16_t i = 0; i < amt; ++i) {
-    delayMicroseconds(1000);
+#ifdef _MSC_VER
+  HANDLE timer;
+  LARGE_INTEGER ft;
+  ft.QuadPart = -((__int64)ms * 1000);
+  timer = CreateWaitableTimer(NULL, TRUE, NULL);
+  if (!timer) {
+    return;
   }
+  SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0);
+  WaitForSingleObject(timer, INFINITE);
+  CloseHandle(timer);
+#else
+  Sleep(ms);
+#endif
 }
 
 void delayMicroseconds(uint32_t us)

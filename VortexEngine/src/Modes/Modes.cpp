@@ -24,6 +24,8 @@ Modes::ModeLink *Modes::m_pCurModeLink = nullptr;
 Modes::ModeLink *Modes::m_storedModes = nullptr;
 // global flags for all modes
 uint8_t Modes::m_globalFlags = 0;
+// the last switch time of the modes
+uint32_t Modes::m_lastSwitchTime = 0;
 
 bool Modes::init()
 {
@@ -125,9 +127,9 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   // startupMode is 1-based offset that encodes both the index to start at and
   // whether the system is enabled, hence why 0 cannot be used as an offset
   uint8_t startupMode = (m_globalFlags & 0xF0) >> 4;
-  if (startupMode > 0) {
+  if (oneClickModeEnabled() && startupMode > 0) {
     // set the current mode to the startup mode
-    setCurMode(startupMode - 1);
+    setCurMode(startupMode);
   }
   return true;
 }
@@ -352,7 +354,7 @@ bool Modes::addMode(PatternID id, const PatternArgs *args, const Colorset *set)
     return false;
   }
 #endif
-  if (id > PATTERN_LAST) {
+  if (id >= PATTERN_COUNT) {
     return false;
   }
   Mode tmpMode(id, args, set);
@@ -387,62 +389,67 @@ bool Modes::addMode(const Mode *mode)
   return true;
 }
 
-// replace current mode with new one, destroying existing one
-// TODO: is this api necessary?
-bool Modes::updateCurMode(PatternID id, const Colorset *set)
+bool Modes::updateCurMode(const Mode *mode)
 {
-  if (id > PATTERN_LAST) {
-    ERROR_LOG("Invalid id or set");
+  if (!mode) {
     return false;
   }
   Mode *pCur = curMode();
   if (!pCur) {
-    return addMode(id, nullptr, set);
+    return false;
   }
-  if (!pCur->setPattern(id)) {
-    DEBUG_LOG("Failed to set pattern of current mode");
-    // failed to set pattern?
+  // utilize copy operator
+  *pCur = *mode;
+  // immediately save this mode to the internal mode storage
+  if (!saveCurMode()) {
+    return false;
   }
-  if (set && !pCur->setColorset(*set)) {
-    DEBUG_LOG("Failed to set colorset of current mode");
-  }
-  // initialize the mode with new pattern and colorset
-  pCur->init();
-  // save the current mode to the serialized modes storage
-  saveCurMode();
-  return true;
-}
-
-bool Modes::updateCurMode(const Mode *mode)
-{
-  Colorset set = mode->getColorset();
-  return updateCurMode(mode->getPatternID(), &set);
+  // initialize the new mode
+  return initCurMode();
 }
 
 // set the current active mode by index
-Mode *Modes::setCurMode(uint32_t index)
+Mode *Modes::setCurMode(uint8_t index)
 {
   if (!m_numModes) {
     return nullptr;
   }
-  // update the current mode and ensure it's within range
-  m_curMode = (index) % m_numModes;
   // clear the LEDs when switching modes
   Leds::clearAll();
+  // if we have a current mode open, close it
   if (m_pCurModeLink) {
     m_pCurModeLink->uninstantiate();
   }
-  ModeLink *newCurLink = getModeLink(m_curMode);
-  if (!newCurLink) {
-    // what
-    return nullptr;
-  }
-  Mode *newCur = newCurLink->instantiate();
-  if (!newCur) {
-    ERROR_OUT_OF_MEMORY();
-    return nullptr;
-  }
+  ModeLink *newCurLink;
+  int8_t newModeIdx;
+  Mode *newCur;
+  // calc the new mode index with a do-while to check if the mode is empty
+  // and re-calculate the next mode after it if needed
+  do {
+    newModeIdx = index % m_numModes;
+    // lookup the new mode link
+    newCurLink = getModeLink(newModeIdx);
+    if (!newCurLink) {
+      // what
+      return nullptr;
+    }
+    // instantiate the new mode so it is ready, also so it can be checked for PATTERN_NONE
+    newCur = newCurLink->instantiate();
+    if (!newCur) {
+      ERROR_OUT_OF_MEMORY();
+      return nullptr;
+    }
+    // increment the target index for next loop
+    index++;
+    // check the mode to see if it's empty or only contain PATTERN_NONE
+    // if it's an empty mode then just keep going to the next one, but
+    // only do this for modes after the first one. Mode 0 cannot be removed.
+  } while (newCur->isEmpty() && newModeIdx != 0);
+  // update to the new mode
+  m_curMode = newModeIdx;
   m_pCurModeLink = newCurLink;
+  // record the current time as the last switch time
+  m_lastSwitchTime = Time::getCurtime();
   // log the change
   DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)",
     m_curMode, m_numModes - 1, newCur->getPatternID());
@@ -525,20 +532,36 @@ void Modes::clearModes()
   Leds::clearAll();
 }
 
-bool Modes::setLocked(bool locked, bool save)
+void Modes::setStartupMode(uint8_t index)
 {
-  if (locked) {
-    m_globalFlags |= MODES_FLAG_LOCKED;
+  // zero out the upper nibble to disable
+  m_globalFlags &= 0x0F;
+  // or in the index value shifted into the upper nibble
+  m_globalFlags |= (index << 4) & 0xF0;
+}
+
+uint8_t Modes::startupMode()
+{
+  // zero out the upper nibble to disable
+  return (m_globalFlags & 0xF0) >> 4;
+}
+
+bool Modes::setFlag(uint8_t flag, bool enable, bool save)
+{
+  // then actually if it's enabled ensure the upper nibble is set
+  if (enable) {
+    // set the cur mode index as the upper nibble
+    m_globalFlags |= flag;
   } else {
-    m_globalFlags &= ~MODES_FLAG_LOCKED;
+    m_globalFlags &= ~flag;
   }
-  DEBUG_LOGF("Toggled locked to %s", m_locked ? "on" : "off");
+  DEBUG_LOGF("Toggled instant on/off to %s", enable ? "on" : "off");
   return !save || saveStorage();
 }
 
-bool Modes::locked()
+bool Modes::getFlag(uint8_t flag)
 {
-  return (m_globalFlags & MODES_FLAG_LOCKED) != 0;
+  return ((m_globalFlags & flag) != 0);
 }
 
 #ifdef VORTEX_LIB
@@ -638,15 +661,15 @@ Mode *Modes::initCurMode(bool force)
   return m_pCurModeLink->instantiate();
 }
 
-void Modes::saveCurMode()
+bool Modes::saveCurMode()
 {
   if (!m_pCurModeLink) {
     // if there's no loaded mode currently then there's nothing
     // to save so there's no error
-    return;
+    return false;
   }
   // force the current mode to save back to serial to catch changes
-  m_pCurModeLink->save();
+  return m_pCurModeLink->save();
 }
 
 Modes::ModeLink::ModeLink(const Mode *src, bool inst) :
@@ -810,13 +833,13 @@ void Modes::ModeLink::uninstantiate()
   }
 }
 
-void Modes::ModeLink::save()
+bool Modes::ModeLink::save()
 {
   if (!m_pInstantiatedMode) {
-    return;
+    return false;
   }
   m_storedMode.clear();
-  m_pInstantiatedMode->saveToBuffer(m_storedMode);
+  return m_pInstantiatedMode->saveToBuffer(m_storedMode);
 }
 
 #if MODES_TEST == 1

@@ -3,6 +3,7 @@
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
 #include "../Buttons/Button.h"
+#include "../Menus/Menus.h"
 #include "../Modes/Modes.h"
 #include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
@@ -33,7 +34,7 @@ bool Menu::init()
       // some kind of serious error
       return false;
     }
-    if (!Modes::addMode(PATTERN_BASIC, RGBColor(RGB_OFF))) {
+    if (!Modes::addMode(PATTERN_STROBE, RGBColor(RGB_OFF))) {
       // some kind of serious error
       return false;
     }
@@ -93,21 +94,10 @@ void Menu::showBulbSelection()
     LedPos pos = (LedPos)((Time::getCurtime() / 30) % LED_COUNT);
     Leds::blinkIndex(pos, Time::getCurtime() + (pos * 10), 50, 500, m_menuColor);
   } else {
-    Leds::blinkMap(m_targetLeds, Time::getCurtime(), 250, 500, m_menuColor);
+    Leds::blinkMap(m_targetLeds, Time::getCurtime(), BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
   }
   // blink when selecting
-  showSelect();
-}
-
-void Menu::showSelect()
-{
-  // blink the tip led white for 150ms when the short
-  // click threshold has been surpassed
-  if (g_pButton->isPressed() &&
-    g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS &&
-    g_pButton->holdDuration() < (SHORT_CLICK_THRESHOLD_TICKS + Time::msToTicks(250))) {
-    Leds::setAll(RGB_DIM_WHITE2);
-  }
+  Menus::showSelection();
 }
 
 void Menu::showExit()
@@ -117,7 +107,8 @@ void Menu::showExit()
     return;
   }
   Leds::clearAll();
-  Leds::blinkAll(Time::getCurtime(), 250, 500, RGB_DARK_RED);
+  Leds::setAll(RGB_WHITE0);
+  Leds::blinkAll(Time::getCurtime(), EXIT_MENU_OFF_MS, EXIT_MENU_ON_MS, RGB_RED0);
 }
 
 void Menu::nextBulbSelection()
