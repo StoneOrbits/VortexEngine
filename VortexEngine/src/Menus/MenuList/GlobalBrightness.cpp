@@ -144,7 +144,7 @@ Menu::MenuAction GlobalBrightness::runKeychainMode()
     Leds::clearAll();
     return MENU_CONTINUE;
   }
-  // check for sleep after 10 seconds
+  // check for sleep after some seconds
   if (m_keychain_modeState == KEYCHAIN_MODE_STATE_OFF && now > (m_lastStateChange + KEYCHAIN_MODE_SLEEP_TICKS)) {
     VortexEngine::enterSleep();
     return MENU_QUIT;
