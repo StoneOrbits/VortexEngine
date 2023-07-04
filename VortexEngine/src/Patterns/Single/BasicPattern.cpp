@@ -42,7 +42,7 @@ BasicPattern::BasicPattern(const PatternArgs &args) :
   m_state(STATE_BLINK_ON),
   m_blinkTimer()
 {
-  m_patternID = PATTERN_BASIC;
+  m_patternID = PATTERN_STROBE;
   REGISTER_ARG(m_onDuration);
   REGISTER_ARG(m_offDuration);
   REGISTER_ARG(m_gapDuration);
@@ -60,6 +60,8 @@ void BasicPattern::init()
   // run base pattern init logic
   Pattern::init();
 
+  // the default state to begin with
+  m_state = STATE_BLINK_ON;
   // if a dash is present then always start with the dash because
   // it consumes the first color in the colorset
   if (m_dashDuration > 0) {
