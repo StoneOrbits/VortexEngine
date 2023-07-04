@@ -341,6 +341,13 @@ void Colorset::randomizeEvenlySpaced(Random &ctx, uint8_t spaces)
   }
 }
 
+void Colorset::adjustBrightness(uint8_t fadeby)
+{
+  for (uint8_t i = 0; i < m_numColors; ++i) {
+    m_palette[i].adjustBrightness(fadeby);
+  }
+}
+
 // get a color from the colorset
 RGBColor Colorset::get(uint8_t index) const
 {

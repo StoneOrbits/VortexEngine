@@ -1,6 +1,7 @@
 #include "GlobalBrightness.h"
 
 #include "../../Modes/Modes.h"
+#include "../../Menus/Menus.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
@@ -44,7 +45,7 @@ Menu::MenuAction GlobalBrightness::run()
   showBrightnessSelection();
 
   // show selections
-  showSelect();
+  Menus::showSelection();
 
   // continue
   return MENU_CONTINUE;
@@ -77,5 +78,5 @@ void GlobalBrightness::showBrightnessSelection()
     showExit();
     return;
   }
-  Leds::setAll(HSVColor(0, 0, m_brightnessOptions[m_curSelection]));
+  Leds::setAll(HSVColor(38, 255, m_brightnessOptions[m_curSelection]));
 }

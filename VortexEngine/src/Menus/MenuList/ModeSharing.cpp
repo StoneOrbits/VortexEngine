@@ -204,7 +204,7 @@ void ModeSharing::showReceiveMode()
     if (m_advanced && m_pCurMode) {
       m_pCurMode->play();
     } else {
-      Leds::setAll(RGB_BLANK);
+      Leds::setAll(RGB_WHITE0);
     }
   }
 }

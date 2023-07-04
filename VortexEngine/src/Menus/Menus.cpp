@@ -53,13 +53,13 @@ Menu *initMenu(const RGBColor &col, bool advanced) { return new T(col, advanced)
 const MenuEntry menuList[] = {
   // =========================
   //  Default menu setup:
-  ENTRY(Randomizer,         RGB_LOW_WHITE),  // 0 (dim white)
-  ENTRY(ModeSharing,        RGB_LOW_TEAL),   // 5 (dim teal)
-  ENTRY(EditorConnection,   RGB_LOW_PURPLE), // 6 (dim purple)
-  ENTRY(ColorSelect,        RGB_LOW_GREEN),  // 1 (dim green)
-  ENTRY(PatternSelect,      RGB_LOW_BLUE),   // 2 (dim blue)
-  ENTRY(GlobalBrightness,   RGB_LOW_YELLOW), // 3 (dim yellow)
-  ENTRY(FactoryReset,       RGB_LOW_RED),    // 4 (dim red)
+  ENTRY(Randomizer, RGB_MENU_RANDOMIZER),
+  ENTRY(ModeSharing, RGB_MENU_MODE_SHARING),
+  ENTRY(EditorConnection, RGB_MENU_EDITOR_CONNECTION),
+  ENTRY(ColorSelect, RGB_MENU_COLOR_SELECT),
+  ENTRY(PatternSelect, RGB_MENU_PATTERN_SELECT),
+  ENTRY(GlobalBrightness, RGB_MENU_BRIGHTNESS_SELECT),
+  ENTRY(FactoryReset, RGB_MENU_FACTORY_RESET),
 };
 
 // the number of menus in the above array
@@ -112,6 +112,9 @@ bool Menus::runMenuSelection()
   }
   // clear the leds so it always fills instead of replacing
   Leds::clearAll();
+  // timings for blink later
+  uint8_t offtime = 200;
+  uint8_t ontime = 200;
   // if the button was long pressed then select this menu, but we
   // need to check the presstime to ensure we don't catch the initial
   // release after opening the ringmenu
@@ -120,7 +123,7 @@ bool Menus::runMenuSelection()
       // ringmenu is open so select the menu
       DEBUG_LOGF("Selected ringmenu %s", menuList[m_selection].menuName);
       // open the menu we have selected
-      if (!openMenu(m_selection, g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS)) {
+      if (!openMenu(m_selection, (g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS) && Modes::advancedMenusEnabled())) {
         DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
         return false;
       }
@@ -128,20 +131,44 @@ bool Menus::runMenuSelection()
       return true;
     }
     // if holding down to select the menu option
-    if (g_pButton->isPressed() && g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS) {
-      Leds::setAll(RGB_DARK_ORANGE);
+    if (g_pButton->isPressed() && g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS && Modes::advancedMenusEnabled()) {
+      // make it strobe aw yiss
+      offtime = HYPERSTROBE_OFF_DURATION;
+      ontime = HYPERSTROBE_ON_DURATION;
     }
   }
   // blink every even/odd of every pair
   for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
     if (pairEven(p) < LED_COUNT) {
-      Leds::blinkIndex(pairEven(p), Time::getCurtime(), 200, 200, menuList[m_selection].color);
+      Leds::blinkIndex(pairEven(p), Time::getCurtime(), offtime, ontime, menuList[m_selection].color);
     }
     if (pairOdd(p) < LED_COUNT) {
       Leds::setIndex(pairOdd(p), menuList[m_selection].color);
-      Leds::blinkIndex(pairOdd(p), Time::getCurtime(), 200, 200, RGB_OFF);
+      Leds::blinkIndex(pairOdd(p), Time::getCurtime(), offtime, ontime, RGB_OFF);
     }
   }
+  // check if the advanced menus have been enabled
+  if (g_pButton->consecutivePresses() > ADVANCED_MENU_CLICKS) {
+    // toggle the advanced menu
+    Modes::setAdvancedMenus(!Modes::advancedMenusEnabled());
+    // reset the consecutive press counter
+    g_pButton->resetConsecutivePresses();
+    // display a fancy animation based on whether the menu was enabled
+    bool other = false;
+    uint8_t val = Modes::advancedMenusEnabled() ? 255 : 40;
+    for (int i = 0; i < 255; ++i) {
+      bool even = ((i % 2) == 0);
+      if (even) other = !other;
+      Leds::holdIndex(LED_ALL,
+        even ? other ? DOPS_ON_DURATION : 1 : DOPS_OFF_DURATION,
+        even ? HSVColor(i, other ? 255 : 0, val) : RGB_OFF);
+    }
+  }
+  // show when the user selects a menu option
+  showSelection(RGBColor(
+    menuList[m_selection].color.red << 3,
+    menuList[m_selection].color.green << 3,
+    menuList[m_selection].color.blue << 3));
   // continue in the menu
   return true;
 }
@@ -216,6 +243,17 @@ bool Menus::openMenu(uint32_t index, bool advanced)
   Leds::clearAll();
   m_menuState = MENU_STATE_IN_MENU;
   return true;
+}
+
+void Menus::showSelection(RGBColor colval)
+{
+  // blink the tip led white for 150ms when the short
+  // click threshold has been surpassed
+  if (g_pButton->isPressed() &&
+    g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS &&
+    g_pButton->holdDuration() < (SHORT_CLICK_THRESHOLD_TICKS + Time::msToTicks(250))) {
+    Leds::setAll(colval);
+  }
 }
 
 bool Menus::checkOpen()
