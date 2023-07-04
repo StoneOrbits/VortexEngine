@@ -24,7 +24,7 @@ const default_mode_entry default_modes[] = {
     }
   },
   {
-    PATTERN_DOPISH2, 6, {
+    PATTERN_DOPYGAP, 6, {
       RGB_OFF,
       0x56D400,
       0x5500AB,

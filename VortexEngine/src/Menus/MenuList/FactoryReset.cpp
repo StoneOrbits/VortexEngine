@@ -95,7 +95,7 @@ void FactoryReset::showReset()
   bool isPressed = g_pButton->isPressed();
   if (!isPressed) {
     Leds::clearAll();
-    Leds::blinkAll(curTime, 150, 150, RGB_RED4);
+    Leds::blinkAll(curTime, 50, 50, RGB_RED4);
     return;
   }
   // don't start the fill until the button has been held for a bit
@@ -109,8 +109,8 @@ void FactoryReset::showReset()
     Leds::setAll(RGB_WHITE);
     return;
   }
-  uint8_t offMs = 120;
-  uint8_t onMs = (progress > 60) ? 50 : 120;
+  uint8_t offMs = 100;
+  uint8_t onMs = (progress > 60) ? 30 : 100;
   uint8_t sat = (uint8_t)((progress * 5) >> 1); // Using bit shift for division by 2
   Leds::clearAll();
   Leds::blinkIndex(LED_0, curTime, offMs, onMs, HSVColor(0, 255 - sat, 180));
