@@ -20,8 +20,8 @@ class Mode;
 #define MODES_FLAG_ONE_CLICK  (1 << 1)
 // toggles the egg or something
 #define MODES_FLAG_EGG        (1 << 2)
-// unused flag, feel free to make use of it
-#define MODES_FLAG_UNUSED_2   (1 << 3)
+// keychain light mode (behave like a keychain)
+#define MODES_FLAG_KEYCHAIN   (1 << 3)
 // WARNING!! The upper 4 bits of the flags are taken by the startup mode id,
 //           you can only use 4 global flags!
 
@@ -101,17 +101,38 @@ public:
   static void setStartupMode(uint8_t index);
   static uint8_t startupMode();
 
-  // toggle the instant one-click on/off
-  static bool setOneClickMode(bool enable, bool save = true);
-  static bool oneClickMode();
+  // set or get flags
+  static bool setFlag(uint8_t flag, bool enable, bool save = true);
+  static bool getFlag(uint8_t flag);
 
+  // inline functions to toggle the various flags
+  static bool setOneClickMode(bool enable, bool save = true) {
+    return setFlag(MODES_FLAG_ONE_CLICK, enable, save);
+  }
+  static bool oneClickModeEnabled() {
+    return getFlag(MODES_FLAG_ONE_CLICK);
+  }
   // toggle the locked state
-  static bool setLocked(bool locked, bool save = true);
-  static bool locked();
-
-  // toggle the eggs
-  static bool setEgg(bool active, bool save = true);
-  static bool eggMode();
+  static bool setLocked(bool locked, bool save = true) {
+    return setFlag(MODES_FLAG_LOCKED, locked, save);
+  }
+  static bool locked() {
+    return getFlag(MODES_FLAG_LOCKED);
+  }
+  // toggle advanced menus
+  static bool setAdvancedMenus(bool active, bool save = true) {
+    return setFlag(MODES_FLAG_EGG, active, save);
+  }
+  static bool advancedMenusEnabled() {
+    return getFlag(MODES_FLAG_EGG);
+  }
+  // toggle the keychain light mode
+  static bool setKeychainMode(bool active, bool save = true) {
+    return setFlag(MODES_FLAG_KEYCHAIN, active, save);
+  }
+  static bool keychainModeEnabled() {
+    return getFlag(MODES_FLAG_KEYCHAIN);
+  }
 
 #if MODES_TEST == 1
   static void test();

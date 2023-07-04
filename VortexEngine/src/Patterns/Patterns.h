@@ -3,14 +3,12 @@
 
 #include <inttypes.h>
 
-// List of patterns that can be built, both single and multi-led
-// patterns are found in this list.
-// Within both single and multi LED pattern lists there are 'core'
-// patterns which are associated with a class, and there are 'shell'
-// patterns which are simply wrapperns around another pattern with
-// different parameters passed to the constructor.
-// There is no way to know which patterns are 'core' patterns.
-enum PatternID : uint8_t
+// List of patterns that can be built, both single and multi-led patterns are found in this list.
+// Within both single and multi LED pattern lists there are 'core' patterns which are associated
+// with a class, and there are 'shell' patterns which are simply wrapperns around another pattern
+// with different parameters passed to the constructor.  There is no way to know which patterns
+// are 'core' patterns, except by looking at PatternBuilder::generate to see which classes exist
+enum PatternID : int8_t
 {
   // no pattern at all, use this sparingly and default to
   // PATTERN_FIRST when possible

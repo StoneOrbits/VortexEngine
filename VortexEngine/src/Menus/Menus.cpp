@@ -120,7 +120,7 @@ bool Menus::runMenuSelection()
       // ringmenu is open so select the menu
       DEBUG_LOGF("Selected ringmenu %s", menuList[m_selection].menuName);
       // open the menu we have selected
-      if (!openMenu(m_selection, (g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS) && Modes::eggMode())) {
+      if (!openMenu(m_selection, (g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS) && Modes::advancedMenusEnabled())) {
         DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
         return false;
       }
@@ -128,7 +128,7 @@ bool Menus::runMenuSelection()
       return true;
     }
     // if holding down to select the menu option
-    if (g_pButton->isPressed() && g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS && Modes::eggMode()) {
+    if (g_pButton->isPressed() && g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS && Modes::advancedMenusEnabled()) {
       // make it strobe aw yiss
       offtime = HYPERSTROBE_OFF_DURATION;
       ontime = HYPERSTROBE_ON_DURATION;
@@ -144,12 +144,15 @@ bool Menus::runMenuSelection()
       Leds::blinkIndex(pairOdd(p), Time::getCurtime(), offtime, ontime, RGB_OFF);
     }
   }
-  // check on our eggs
-  if (g_pButton->consecutivePresses() > EGG_CLICKS) {
-    Modes::setEgg(!Modes::eggMode());
+  // check if the advanced menus have been enabled
+  if (g_pButton->consecutivePresses() > ADVANCED_MENU_CLICKS) {
+    // toggle the advanced menu
+    Modes::setAdvancedMenus(!Modes::advancedMenusEnabled());
+    // reset the consecutive press counter
     g_pButton->resetConsecutivePresses();
+    // display a fancy animation based on whether the menu was enabled
     bool other = false;
-    uint8_t val = Modes::eggMode() ? 255 : 40;
+    uint8_t val = Modes::advancedMenusEnabled() ? 255 : 40;
     for (int i = 0; i < 255; ++i) {
       bool even = ((i % 2) == 0);
       if (even) other = !other;

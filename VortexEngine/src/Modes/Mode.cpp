@@ -703,6 +703,18 @@ bool Mode::hasSparseSingleLed() const
   }
 }
 
+bool Mode::isEmpty() const
+{
+  for (LedPos i = LED_FIRST; i < MODE_LEDCOUNT; ++i) {
+    // if any patterns are non-null and not PATTERN_NONE
+    if (m_singlePats[i] && m_singlePats[i]->getPatternID() != PATTERN_NONE) {
+      // then this mode is not empty
+      return false;
+    }
+  }
+  return true;
+}
+
 LedMap Mode::getSingleLedMap() const
 {
   LedMap map = 0;

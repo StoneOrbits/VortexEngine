@@ -171,12 +171,12 @@ void VortexEngine::runMainLogic()
     // the last mode shown before sleep
     if (Time::getCurtime() == SHORT_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
       // toggle one click mode
-      Modes::setOneClickMode(!Modes::oneClickMode());
+      Modes::setOneClickMode(!Modes::oneClickModeEnabled());
       // switch to the one click startup mode
       Modes::setCurMode(Modes::startupMode());
       // flash either low white or dim white2 to indicate
       // whether one-click mode has been turned on or off
-      Leds::holdIndex(LED_ALL, 200, (Modes::oneClickMode() ? RGB_WHITE0 : RGB_WHITE5));
+      Leds::holdIndex(LED_ALL, 200, (Modes::oneClickModeEnabled() ? RGB_WHITE0 : RGB_WHITE5));
     }
     return;
   }
