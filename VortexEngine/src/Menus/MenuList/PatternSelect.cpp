@@ -66,7 +66,7 @@ void PatternSelect::showListSelection()
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // hue split into 4 quadrants of 90
     Leds::breathIndex(fingerTop(f), f * (255/4), (uint32_t)Time::getCurtime() / 3, 10, 255, 255);
-    Leds::setIndex(fingerTip(f), RGB_DIM_WHITE1);
+    Leds::setIndex(fingerTip(f), RGB_WHITE6);
   }
 }
 
@@ -74,7 +74,7 @@ void PatternSelect::showPatternSelection()
 {
   m_demoMode.play();
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
-    Leds::setAll(RGB_DIM_WHITE2);
+    Leds::setAll(RGB_WHITE4);
   }
 }
 

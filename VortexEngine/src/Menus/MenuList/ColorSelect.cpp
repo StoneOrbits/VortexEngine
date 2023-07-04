@@ -233,7 +233,7 @@ void ColorSelect::showSlotSelection()
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // set the current colorset slot color on the current finger
     // display the extra slots as solid blank
-    Leds::setFinger(f, (idx >= m_colorset.numColors()) ? RGB_BLANK : m_colorset[idx]);
+    Leds::setFinger(f, (idx >= m_colorset.numColors()) ? RGB_WHITE0 : m_colorset[idx]);
     idx++;
   }
 }
@@ -276,7 +276,7 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       // white or dim white to indicate we can add a color here
       Leds::clearPair(m_curSelection);
       Leds::blinkPair(m_curSelection, Time::getCurtime(), 150, 350,
-        g_pButton->isPressed() ? RGB_DIM_WHITE1 : RGB_DIM_WHITE2);
+        g_pButton->isPressed() ? RGB_WHITE6 : RGB_WHITE4);
       return;
     } else if (m_slot < m_colorset.numColors() &&
                g_pButton->isPressed() &&

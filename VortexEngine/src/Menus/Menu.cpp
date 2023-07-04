@@ -166,7 +166,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
   uint32_t blinkCol = RGB_OFF;
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     // blink green if long pressing on a selection
-    blinkCol = RGB_DIM_WHITE1;
+    blinkCol = RGB_WHITE6;
   }
   switch (m_curSelection) {
   case FINGER_THUMB:
@@ -177,7 +177,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
       Leds::setIndex(THUMB_TOP, RGB_RED);
     } else {
       Leds::clearIndex(THUMB_TOP);
-      Leds::blinkIndex(THUMB_TOP, Time::getCurtime(), 250, 500, RGB_BLANK);
+      Leds::blinkIndex(THUMB_TOP, Time::getCurtime(), 250, 500, RGB_WHITE0);
     }
     break;
   case FINGER_COUNT:
@@ -189,7 +189,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
     if (blinkCol == RGB_OFF && Leds::getLed(fingerTip(m_curSelection)).empty()) {
       // if the blink color is 'off' and the led is a blank then we
       // need to blink to a different color
-      blinkCol = RGB_BLANK;
+      blinkCol = RGB_WHITE0;
     }
     // blink the target finger to the target color
     Leds::blinkIndex(fingerTip(m_curSelection),

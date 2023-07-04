@@ -51,7 +51,7 @@ Menu::MenuAction ModeSharing::run()
     showSendMode();
     if (!IRSender::isSending()) {
       if (!m_lastActionTime || ((m_lastActionTime + MAX_WAIT_DURATION) < Time::getCurtime())) {
-        Leds::setAll(RGB_TEAL);
+        Leds::setAll(RGB_CYAN5);
         Leds::update();
         beginSending();
       }
@@ -156,9 +156,9 @@ void ModeSharing::showSendMode()
 {
   // if it is sending
   if (IRSender::isSending()) {
-    Leds::setAll(RGB_TEAL);
+    Leds::setAll(RGB_CYAN5);
   } else {
-    Leds::setAll(RGB_BLANK);
+    Leds::setAll(RGB_WHITE0);
     Leds::blinkAll(Time::getCurtime(), 250, 250);
   }
 }
