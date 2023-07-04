@@ -94,6 +94,9 @@ public:
   void randomizePentadic(Random &ctx) { randomizeEvenlySpaced(ctx, 5); }
   void randomizeRainbow(Random &ctx) { randomizeEvenlySpaced(ctx, 8); }
 
+  // fade all of the colors in the set
+  void adjustBrightness(uint8_t fadeby);
+
   // get a color from the colorset
   RGBColor get(uint8_t index = 0) const;
 

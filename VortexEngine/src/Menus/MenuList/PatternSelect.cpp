@@ -5,6 +5,8 @@
 #include "../../Time/TimeControl.h"
 #include "../../Time/Timings.h"
 #include "../../Buttons/Button.h"
+#include "../../Modes/Modes.h"
+#include "../../Menus/Menus.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
@@ -54,8 +56,10 @@ Menu::MenuAction PatternSelect::run()
     break;
   }
 
+  // run the current mode
+  m_patternMode.play();
   // show selections
-  showSelect();
+  Menus::showSelection();
   return MENU_CONTINUE;
 }
 
@@ -72,7 +76,7 @@ void PatternSelect::showPatternSelection()
 {
   m_demoMode.play();
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
-    Leds::setAll(RGB_DIM_WHITE2);
+    Leds::setAll(RGB_WHITE4);
   }
 }
 
@@ -109,31 +113,30 @@ void PatternSelect::onShortClick2()
 void PatternSelect::nextPattern()
 {
   LedPos srcLed = LED_MULTI;
-  if (!m_pCurMode->isMultiLed()) {
+  if (!m_patternMode.isMultiLed()) {
     srcLed = mapGetFirstLed(m_targetLeds);
   }
-  PatternID newID = (PatternID)(m_pCurMode->getPatternID(srcLed) + 1);
-  if (newID == PATTERN_SOLID) {
-    ++newID;
-  }
+  PatternID newID = (PatternID)(m_patternMode.getPatternID(srcLed) + 1);
   PatternID endList = PATTERN_SINGLE_LAST;
   PatternID beginList = PATTERN_SINGLE_FIRST;
+#if VORTEX_SLIM == 0
   if (m_targetLeds == MAP_LED_ALL || m_targetLeds == MAP_LED(LED_MULTI)) {
     endList = PATTERN_MULTI_LAST;
   }
   if (m_targetLeds == MAP_LED(LED_MULTI)) {
     beginList = PATTERN_MULTI_FIRST;
   }
+#endif
   if (newID > endList || newID < beginList) {
     newID = beginList;
   }
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {
-    m_pCurMode->setPattern(newID);
+    m_patternMode.setPattern(newID);
   } else {
-    m_pCurMode->setPatternMap(m_targetLeds, newID);
+    m_patternMode.setPatternMap(m_targetLeds, newID);
   }
-  m_pCurMode->init();
+  m_patternMode.init();
   DEBUG_LOGF("Iterated to pattern id %d", newID);
 }
 

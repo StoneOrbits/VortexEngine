@@ -218,6 +218,7 @@
   <ItemGroup>
     <ClInclude Include="src\Buttons\Button.h" />
     <ClInclude Include="src\Buttons\Buttons.h" />
+    <ClInclude Include="src\Colors\ColorConstants.h" />
     <ClInclude Include="src\Colors\Colorset.h" />
     <ClInclude Include="src\Colors\ColorTypes.h" />
     <ClInclude Include="src\Wireless\IRConfig.h" />

@@ -45,6 +45,9 @@ private:
 
   // the patternid of the current demo
   PatternID m_newPatternID;
+
+  // the preview mode itself
+  Mode m_patternMode;
 };
 
 #endif

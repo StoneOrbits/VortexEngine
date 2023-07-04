@@ -1,9 +1,10 @@
 #include "ColorSelect.h"
 
 #include "../../Time/TimeControl.h"
-#include "../../Time/Timings.h"
 #include "../../Colors/Colorset.h"
 #include "../../Buttons/Button.h"
+#include "../../Time/Timings.h"
+#include "../../Menus/Menus.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
@@ -327,7 +328,7 @@ void ColorSelect::showSlotSelection()
   for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_4; ++f) {
     // set the current colorset slot color on the current finger
     // display the extra slots as solid blank
-    Leds::setQuadrant(f, (idx >= m_colorset.numColors()) ? RGB_BLANK : m_colorset[idx]);
+    Leds::setQuadrant(f, (idx >= m_colorset.numColors()) ? RGB_WHITE0 : m_colorset[idx]);
     idx++;
   }
 }
@@ -377,7 +378,7 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       // white or dim white to indicate we can add a color here
       Leds::clearQuadrant(m_curSelection);
       Leds::blinkQuadrant(m_curSelection, Time::getCurtime(), 150, 350,
-        g_pButton->isPressed() ? RGB_DIM_WHITE1 : RGB_DIM_WHITE2);
+        g_pButton->isPressed() ? RGB_WHITE6 : RGB_WHITE4);
       return;
     } else if (m_slot < m_colorset.numColors() &&
       g_pButton->isPressed() &&

@@ -1,6 +1,7 @@
 #include "GlobalBrightness.h"
 
 #include "../../Modes/Modes.h"
+#include "../../Menus/Menus.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 

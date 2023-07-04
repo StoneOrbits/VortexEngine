@@ -3,6 +3,7 @@
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
 #include "../Buttons/Button.h"
+#include "../Menus/Menus.h"
 #include "../Modes/Modes.h"
 #include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
@@ -33,7 +34,7 @@ bool Menu::init()
       // some kind of serious error
       return false;
     }
-    if (!Modes::addMode(PATTERN_BASIC, RGBColor(RGB_OFF))) {
+    if (!Modes::addMode(PATTERN_STROBE, RGBColor(RGB_OFF))) {
       // some kind of serious error
       return false;
     }
@@ -98,21 +99,10 @@ void Menu::showBulbSelection()
     LedPos pos = (LedPos)((Time::getCurtime() / 30) % LED_COUNT);
     Leds::blinkIndex(pos, Time::getCurtime() + (pos * 10), 50, 500, m_menuColor);
   } else {
-    Leds::blinkMap(m_targetLeds, Time::getCurtime(), 250, 500, m_menuColor);
+    Leds::blinkMap(m_targetLeds, Time::getCurtime(), BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
   }
   // blink when selecting
-  showSelect();
-}
-
-void Menu::showSelect()
-{
-  // blink the tip led white for 150ms when the short
-  // click threshold has been surpassed
-  if (g_pButton->isPressed() &&
-    g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS &&
-    g_pButton->holdDuration() < (SHORT_CLICK_THRESHOLD_TICKS + Time::msToTicks(250))) {
-    Leds::setAll(RGB_DIM_WHITE2);
-  }
+  Menus::showSelection();
 }
 
 void Menu::showExit()
@@ -122,7 +112,7 @@ void Menu::showExit()
     return;
   }
   Leds::clearQuadrantFive();
-  Leds::blinkQuadrantFive(Time::getCurtime(), 250, 500, RGB_DARK_RED);
+  Leds::blinkQuadrantFive(Time::getCurtime(), 250, 500, RGB_RED0);
 }
 
 void Menu::nextBulbSelection()
@@ -227,7 +217,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
   uint32_t blinkCol = RGB_OFF;
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     // blink green if long pressing on a selection
-    blinkCol = RGB_DIM_WHITE1;
+    blinkCol = RGB_WHITE6;
   }
   switch (m_curSelection) {
   case QUADRANT_LAST:
@@ -238,7 +228,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
     } else {
       Leds::clearQuadrantFive();
       Leds::setQuadrantFive(RGB_RED);
-      Leds::blinkQuadrantFive(Time::getCurtime(), 250, 500, RGB_BLANK);
+      Leds::blinkQuadrantFive(Time::getCurtime(), 250, 500, RGB_WHITE0);
     }
     break;
   case QUADRANT_COUNT:
@@ -250,7 +240,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
     if (blinkCol == RGB_OFF && Leds::getLed(quadrantFirstLed(m_curSelection)).empty()) {
       // if the blink color is 'off' and the led is a blank then we
       // need to blink to a different color
-      blinkCol = RGB_BLANK;
+      blinkCol = RGB_WHITE0;
     }
     // blink the target finger to the target color
     Leds::blinkQuadrant(m_curSelection,
