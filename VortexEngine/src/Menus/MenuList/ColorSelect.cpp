@@ -5,6 +5,7 @@
 #include "../../Colors/Colorset.h"
 #include "../../Buttons/Button.h"
 #include "../../Time/Timings.h"
+#include "../../Menus/Menus.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
@@ -93,7 +94,7 @@ Menu::MenuAction ColorSelect::run()
   }
 
   // show selections
-  showSelect();
+  Menus::showSelection();
 
   return MENU_CONTINUE;
 }
@@ -211,14 +212,14 @@ void ColorSelect::showSlotSelection()
 
   if (withinNumColors && holdDurationCheck && holdDurationModCheck) {
     // breath red for delete slot
-    Leds::breathIndex(LED_COUNT, 0, holdDur);
+    Leds::breathIndex(LED_ALL, 0, holdDur);
   } else if (withinNumColors) {
     // blink the selected slot color
-    Leds::blinkIndex(LED_COUNT, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
+    Leds::blinkIndex(LED_ALL, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
   } else if (m_colorset.numColors() < MAX_COLOR_SLOTS) {
     if (m_curSelection == m_colorset.numColors()) {
       // blink both leds and blink faster to indicate 'add' new color
-      Leds::blinkAll(Time::getCurtime(), 100, 150, RGB_BLANK);
+      Leds::blinkAll(Time::getCurtime(), 100, 150, RGB_WHITE2);
     }
     exitIndex = m_colorset.numColors() + 1;
   }
@@ -257,7 +258,7 @@ void ColorSelect::showSelection(ColorSelectState mode)
     return;
   case STATE_PICK_HUE2:
     hue = m_targetHue1 * (255 / 4) + (m_curSelection * (255 / 16));
-    Leds::setIndex(LED_1, RGB_BLANK);
+    Leds::setIndex(LED_1, RGB_WHITE0);
     // force sat at hue level2
     sat = 255;
     break;
@@ -284,7 +285,7 @@ void ColorSelect::showFullSet(LedPos target, uint32_t time, uint32_t offMs, uint
     if (!divisor) {
       divisor = 1;
     }
-    Leds::setIndex(LED_COUNT, m_colorset.get(((time / divisor)) % m_colorset.numColors()));
+    Leds::setIndex(LED_ALL, m_colorset.get(((time / divisor)) % m_colorset.numColors()));
   }
   Leds::setIndex(LED_1, 0x001000);
 }

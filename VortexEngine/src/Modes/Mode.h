@@ -120,6 +120,9 @@ public:
   // whether this mode has sparse single-led patterns (missing some slots)
   bool hasSparseSingleLed() const;
 
+  // whether the mode contains no patterns, or all patterns are PATTERN_NONE
+  bool isEmpty() const;
+
   // get the led map of which singles are set
   LedMap getSingleLedMap() const;
 

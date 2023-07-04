@@ -204,7 +204,7 @@ void VortexEngine::runMainLogic()
     // toggle the instant on/off if they were at the main menu
     if (g_pButton->onRelease()) {
       if (!Menus::checkInMenu()) {
-        Modes::setInstantOnOff(!Modes::instantOnOffEnabled());
+        Modes::setOneClickMode(!Modes::oneClickModeEnabled());
       }
       enterSleep();
     }

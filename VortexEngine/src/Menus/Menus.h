@@ -3,6 +3,7 @@
 
 #include <inttypes.h>
 
+#include "../Colors/ColorTypes.h"
 #include "../Leds/LedTypes.h"
 
 enum MenuEntryID
@@ -43,6 +44,10 @@ public:
   // open a menu by index in the menu table, optionally specify to
   // open the advanced version of the menu (default basic version)
   static bool openMenu(uint32_t index, bool advanced = false);
+
+  // if you call this then a blink will be shown when the user has
+  // held the button for at least the long click duration
+  static void showSelection(RGBColor colval = RGB_WHITE5);
 
   // whether the menus are actually open (The user has let go after opening)
   static bool checkOpen();

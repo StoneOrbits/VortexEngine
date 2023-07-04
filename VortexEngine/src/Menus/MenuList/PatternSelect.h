@@ -21,6 +21,8 @@ public:
   void onLongClick() override;
 
 private:
+  // the advanced mode itself
+  Mode m_patternMode;
 };
 
 #endif

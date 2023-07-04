@@ -37,7 +37,6 @@ public:
 
 protected:
   void showBulbSelection();
-  void showSelect();
   void showExit();
 
   // iterate to next bulb selection
