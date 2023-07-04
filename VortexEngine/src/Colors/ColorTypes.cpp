@@ -190,11 +190,12 @@ void RGBColor::clear()
   blue = 0;
 }
 
-void RGBColor::adjustBrightness(uint8_t fadeBy)
+RGBColor RGBColor::adjustBrightness(uint8_t fadeBy)
 {
   red = (((int)red) * (int)(256 - fadeBy)) >> 8;
   green = (((int)green) * (int)(256 - fadeBy)) >> 8;
   blue = (((int)blue) * (int)(256 - fadeBy)) >> 8;
+  return *this;
 }
 
 void RGBColor::serialize(ByteStream &buffer) const
