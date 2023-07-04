@@ -92,6 +92,12 @@
 // has UNLOCK_WAKE_WINDOW time to press the button this many times to wake the device.
 #define DEVICE_LOCK_CLICKS    5
 
+// Advanced Menu Clicks
+//
+// The number of rapid clicks required in the menu section to enable or disable
+// the advanced menu access
+#define ADVANCED_MENU_CLICKS  15
+
 // Rapid Press Window (in milliseconds)
 //
 // How long the user has after releasing to short click the button
@@ -571,10 +577,5 @@
 #undef IGNORE_BUTTON_TIME
 #define IGNORE_BUTTON_TIME 0
 #endif
-
-// ===================================================================
-// This might be something interesting but it's probably nothing, continue
-// along and don't worry about it.
-#define EGG_CLICKS            15
 
 #endif // VORTEX_CONFIG_H

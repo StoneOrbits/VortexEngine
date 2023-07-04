@@ -66,7 +66,7 @@ void Modes::play()
   // shortclick either turns off the lights, cycles to the next mode
   // or possible locks the lights based on the situation
   if (g_pButton->onShortClick()) {
-    if (Modes::oneClickMode()) {
+    if (Modes::oneClickModeEnabled()) {
       // enter sleep doesn't return on arduino, but it does on vortexlib
       // so we need to return right after -- we can't just use an else
       VortexEngine::enterSleep();
@@ -134,7 +134,7 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   // startupMode is 1-based offset that encodes both the index to start at and
   // whether the system is enabled, hence why 0 cannot be used as an offset
   uint8_t startupMode = (m_globalFlags & 0xF0) >> 4;
-  if (oneClickMode() && startupMode > 0) {
+  if (oneClickModeEnabled() && startupMode > 0) {
     // set the current mode to the startup mode
     setCurMode(startupMode);
   }
@@ -192,6 +192,7 @@ void Modes::serialize(ByteStream &modesBuffer)
       ERROR_OUT_OF_MEMORY();
       return;
     }
+    // if the mode is all same single, or a multi
     mode->serialize(modesBuffer);
     // if this isn't our current running mode, uninstantiate it
     if (ptr != m_pCurModeLink) {
@@ -361,7 +362,7 @@ bool Modes::addMode(PatternID id, const PatternArgs *args, const Colorset *set)
     return false;
   }
 #endif
-  if (id > PATTERN_LAST) {
+  if (id >= PATTERN_COUNT) {
     return false;
   }
   Mode tmpMode(id, args, set);
@@ -423,23 +424,39 @@ Mode *Modes::setCurMode(uint8_t index)
   if (!m_numModes) {
     return nullptr;
   }
-  // update the current mode and ensure it's within range
-  m_curMode = (index) % m_numModes;
   // clear the LEDs when switching modes
   Leds::clearAll();
+  // if we have a current mode open, close it
   if (m_pCurModeLink) {
     m_pCurModeLink->uninstantiate();
   }
-  ModeLink *newCurLink = getModeLink(m_curMode);
-  if (!newCurLink) {
-    // what
-    return nullptr;
-  }
-  Mode *newCur = newCurLink->instantiate();
-  if (!newCur) {
-    ERROR_OUT_OF_MEMORY();
-    return nullptr;
-  }
+  ModeLink *newCurLink;
+  int8_t newModeIdx;
+  Mode *newCur;
+  // calc the new mode index with a do-while to check if the mode is empty
+  // and re-calculate the next mode after it if needed
+  do {
+    newModeIdx = index % m_numModes;
+    // lookup the new mode link
+    newCurLink = getModeLink(newModeIdx);
+    if (!newCurLink) {
+      // what
+      return nullptr;
+    }
+    // instantiate the new mode so it is ready, also so it can be checked for PATTERN_NONE
+    newCur = newCurLink->instantiate();
+    if (!newCur) {
+      ERROR_OUT_OF_MEMORY();
+      return nullptr;
+    }
+    // increment the target index for next loop
+    index++;
+    // check the mode to see if it's empty or only contain PATTERN_NONE
+    // if it's an empty mode then just keep going to the next one, but
+    // only do this for modes after the first one. Mode 0 cannot be removed.
+  } while (newCur->isEmpty() && newModeIdx != 0);
+  // update to the new mode
+  m_curMode = newModeIdx;
   m_pCurModeLink = newCurLink;
   // record the current time as the last switch time
   m_lastSwitchTime = Time::getCurtime();
@@ -539,54 +556,22 @@ uint8_t Modes::startupMode()
   return (m_globalFlags & 0xF0) >> 4;
 }
 
-bool Modes::setOneClickMode(bool enable, bool save)
+bool Modes::setFlag(uint8_t flag, bool enable, bool save)
 {
   // then actually if it's enabled ensure the upper nibble is set
   if (enable) {
     // set the cur mode index as the upper nibble
-    m_globalFlags |= MODES_FLAG_ONE_CLICK;
+    m_globalFlags |= flag;
   } else {
-    m_globalFlags &= ~MODES_FLAG_ONE_CLICK;
+    m_globalFlags &= ~flag;
   }
   DEBUG_LOGF("Toggled instant on/off to %s", enable ? "on" : "off");
   return !save || saveStorage();
 }
 
-bool Modes::oneClickMode()
+bool Modes::getFlag(uint8_t flag)
 {
-  return ((m_globalFlags & MODES_FLAG_ONE_CLICK) != 0);
-}
-
-bool Modes::setLocked(bool locked, bool save)
-{
-  if (locked) {
-    m_globalFlags |= MODES_FLAG_LOCKED;
-  } else {
-    m_globalFlags &= ~MODES_FLAG_LOCKED;
-  }
-  DEBUG_LOGF("Toggled locked to %s", locked ? "on" : "off");
-  return !save || saveStorage();
-}
-
-bool Modes::locked()
-{
-  return (m_globalFlags & MODES_FLAG_LOCKED) != 0;
-}
-
-bool Modes::setEgg(bool active, bool save)
-{
-  if (active) {
-    m_globalFlags |= MODES_FLAG_EGG;
-  } else {
-    m_globalFlags &= ~MODES_FLAG_EGG;
-  }
-  DEBUG_LOGF("Toggle egg mode to %s", active ? "on" : "off");
-  return !save || saveStorage();
-}
-
-bool Modes::eggMode()
-{
-  return (m_globalFlags & MODES_FLAG_EGG) != 0;
+  return ((m_globalFlags & flag) != 0);
 }
 
 #ifdef VORTEX_LIB
