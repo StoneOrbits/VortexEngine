@@ -9,6 +9,7 @@
 #include "../VortexConfig.h"
 
 #ifdef VORTEX_LIB
+#include <Arduino.h>
 #include "../../VortexLib/VortexLib.h"
 #endif
 
@@ -251,6 +252,13 @@ void Leds::breathIndexSat(LedPos target, uint32_t hue, uint32_t variance, uint32
 void Leds::breathIndexVal(LedPos target, uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
   setIndex(target, HSVColor(hue, sat, 255 - (uint8_t)(val + 128 + ((sin(variance * 0.0174533) + 1) * magnitude))));
+}
+
+void Leds::holdIndex(LedPos target, uint16_t ms, RGBColor col)
+{
+  setIndex(target, col);
+  update();
+  delay(ms);
 }
 
 void Leds::update()

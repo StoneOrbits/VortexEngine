@@ -718,14 +718,15 @@ string Vortex::patternToString(PatternID id)
   // I wish there was a way to do this automatically but it would be
   // quite messy and idk if it's worth it
   static const char *patternNames[] = {
-    "strobe", "hyperstrobe", "strobie", "strobie2", "dops", "dopish",
-    "ultradops", "strobe2", "hyperstrobe2", "dops2", "dopish2", "ultradops2",
-    "blinkie", "ghostcrush", "basic", "blend", "blendstrobe", "complementary_blend",
-    "complementary_blendstrobe", "dashdops", "dashcrush", "ribbon", "miniribbon",
+    "strobe", "hyperstrobe", "dops", "strobie", "dopy", "ultradops", "strobegap",
+    "hypergap", "dopgap", "strobiegap", "dopygap", "ultragap", "blinkie",
+    "ghostcrush", "doubledops", "chopper", "dashgap", "dashdops", "dashcrush",
+    "ultradash", "gapcycle", "dashcycle", "tracer", "ribbon", "miniribbon",
+    "blend", "blendstrobe", "complementary_blend", "complementary_blendstrobe",
     "solid", "hueshift", "theater_chase", "chaser", "zigzag", "zipfade", "drip",
-    "dripmorph", "crossdops", "doublestrobe", "meteor", "sparkletrace", "vortexwipe",
-    "warp", "warpworm", "snowball", "lighthouse", "pulsish", "fill", "bounce",
-    "splitstrobie", "backstrobe", "materia",
+    "dripmorph", "crossdops", "doublestrobe", "meteor", "sparkletrace",
+    "vortexwipe", "warp", "warpworm", "snowball", "lighthouse", "pulsish",
+    "fill", "bounce", "splitstrobie", "backstrobe", "materia",
   };
   if (sizeof(patternNames) / sizeof(patternNames[0]) != PATTERN_COUNT) {
     // if you see this it means the list of strings above is not equal to

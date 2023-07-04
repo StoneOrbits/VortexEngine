@@ -566,5 +566,8 @@
     <ClInclude Include="src\Wireless\VLSender.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="src\Colors\ColorConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>

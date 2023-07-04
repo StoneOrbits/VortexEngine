@@ -63,6 +63,12 @@
 // after sleep or immediately on startup
 #define IGNORE_BUTTON_TIME    150
 
+// Advanced Menu Clicks
+//
+// The number of rapid clicks required in the menu section to enable or disable
+// the advanced menu access
+#define ADVANCED_MENU_CLICKS  15
+
 // Rapid Press Window (in milliseconds)
 //
 // How long the user has after releasing to short click the button
@@ -81,6 +87,15 @@
 //
 // This will make the randomizer wait approximately 4 edm beats between switches
 #define AUTO_RANDOM_DELAY     1875
+
+// Auto Cycle Modes Clicks
+//
+// The number of consecutive clicks required to toggle the auto-cycle modes feature
+// on the main modes list. This will auto cycle to the next mode at the same time
+// as the auto random delay. This number is intentionally high because we really
+// don't want it activated automatically but it's there for demo purposes and as
+// a fun little easter egg to anybody that might come across it
+#define AUTO_CYCLE_MODES_CLICKS 16
 
 // Color delete threshold (in milliseconds)
 //
@@ -354,6 +369,39 @@
 // are all working as expected and behaving properly
 #define TIMER_TEST            0
 
+
+// ===================================================================
+//  Menu Colors
+//
+//  These are the colors for the respective menus, each color should
+//  be unique and distinct from the others. It should also be bright
+//  enough to be seen on the lowest brightness setting of the device
+//
+//  See the below header for all of the available color constants
+#include "Colors/ColorConstants.h"
+
+// Randomizer Menu Color
+#define RGB_MENU_RANDOMIZER         RGB_WHITE1
+
+// Mode Sharing Menu Color
+#define RGB_MENU_MODE_SHARING       RGB_CYAN1
+
+// Editor Connection Menu Color
+#define RGB_MENU_EDIT_RCONNECTION   RGB_PURPLE1
+
+// Color Select Menu Color
+#define RGB_MENU_COLOR_SELECT       RGB_GREEN1
+
+// Pattern Select Menu Color
+#define RGB_MENU_PATTERN_SELECT     RGB_BLUE1
+
+// Global Brightness Menu Color
+#define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW1
+
+// Factory Reset Menu Color
+#define RGB_MENU_FACTORY_RESET      RGB_RED1
+
+
 // ===================================================================
 //  Editor Verbs
 //
@@ -456,6 +504,22 @@
 #undef LOGGING_LEVEL
 #define LOGGING_LEVEL 3
 #endif
+
+// The test framework needs brighter menu colors can't really see them on the screen
+#undef RGB_MENU_RANDOMIZER
+#undef RGB_MENU_MODE_SHARING
+#undef RGB_MENU_EDIT_RCONNECTION
+#undef RGB_MENU_COLOR_SELECT
+#undef RGB_MENU_PATTERN_SELECT
+#undef RGB_MENU_BRIGHTNESS_SELECT
+#undef RGB_MENU_FACTORY_RESET
+#define RGB_MENU_RANDOMIZER         RGB_WHITE4
+#define RGB_MENU_MODE_SHARING       RGB_CYAN4
+#define RGB_MENU_EDITOR_CONNECTION  RGB_PURPLE4
+#define RGB_MENU_COLOR_SELECT       RGB_GREEN4
+#define RGB_MENU_PATTERN_SELECT     RGB_BLUE4
+#define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW4
+#define RGB_MENU_FACTORY_RESET      RGB_RED4
 
 #endif // VortexTestingFramework
 

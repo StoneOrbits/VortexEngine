@@ -1,6 +1,7 @@
 #include "GlobalBrightness.h"
 
 #include "../../Modes/Modes.h"
+#include "../../Menus/Menus.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
@@ -75,6 +76,6 @@ void GlobalBrightness::showBrightnessSelection()
 {
   // display brightnesses on each finger
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
-    Leds::setFinger(f, HSVColor(0, 0, m_brightnessOptions[f]));
+    Leds::setFinger(f, HSVColor(38, 255, m_brightnessOptions[f]));
   }
 }
