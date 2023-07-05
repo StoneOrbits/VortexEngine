@@ -34,8 +34,12 @@
 // interrupt handler to wakeup device on button press
 ISR(PORT_VECT)
 {
+  // grab value of intflags
+  uint8_t flag = BUTTON_PORT.INTFLAGS;
+  // reset inflags
+  BUTTON_PORT.INTFLAGS = flag;
   // make sure the interrupt fired from the button pin
-  if (!(BUTTON_PORT.INTFLAGS & BUTTON_PIN)) {
+  if (!(flags & BUTTON_PIN)) {
     return;
   }
   // mark the interrupt as handled
