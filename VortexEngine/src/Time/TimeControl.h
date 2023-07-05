@@ -46,6 +46,10 @@ public:
   // convert seconds to a tickcount based on tickrate
   static uint32_t secToTicks(uint32_t sec) { return msToTicks(sec * 1000); }
 
+  // current microseconds, note only use this for things like rapid data transfer timings!
+  // If you just need to perform regular time checks use getCurtime and measure in ticks!
+  static uint32_t micros();
+
 #ifdef VORTEX_LIB
   // Start a time simulation, while the simulation is active you can
   // increment the 'current time' with tickSimulation() and all calls
@@ -82,12 +86,6 @@ private:
   // global tick counter
   static uint32_t m_curTick;
 
-  // the last frame timestamp
-  static uint32_t m_prevTime;
-
-  // the first timestamp
-  static uint32_t m_firstTime;
-
 #if VARIABLE_TICKRATE == 1
   // the number of ticks per second
   static uint32_t m_tickrate;
@@ -112,6 +110,5 @@ private:
 //       need to provide them somehow
 void delayMicroseconds(uint16_t us);
 void delay(uint16_t ms);
-unsigned long micros();
 
 #endif

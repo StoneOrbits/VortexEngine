@@ -66,11 +66,6 @@ bool VortexEngine::init()
     return false;
   }
 
-#ifdef VORTEX_ARDUINO
-  // set the state of the mosfet based on whether the chip is locked or not
-  enableMOSFET(!Modes::locked());
-#endif
-
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif
@@ -81,6 +76,24 @@ bool VortexEngine::init()
 
 #if TIMER_TEST == 1
   timerTest();
+#endif
+
+#ifdef VORTEX_ARDUINO
+  // setup TCB0 to track micros() and run ticks
+  TCB0.CCMP = 10000;
+  TCB0.INTCTRL = TCB_CAPT_bm;
+  // Set clock source to CPU divided by 1, Keep running in sleep mode, Enable TCB
+  TCB0.CTRLA = TCB_CLKSEL_CLKDIV1_gc | TCB_RUNSTDBY_bm | TCB_ENABLE_bm;
+  // set the state of the mosfet based on whether the chip is locked or not
+  enableMOSFET(!Modes::locked());
+  // setup sleep mode for standby
+  set_sleep_mode(SLEEP_MODE_STANDBY);
+  // enable interrupts
+  sei();
+  // standby indefinitely while the ISR runs VortexEngine::tick
+  while (1) {
+    sleep_mode();
+  }
 #endif
 
   return true;
@@ -332,10 +345,8 @@ void VortexEngine::enterSleep()
   g_pButton->enableWake();
   // Set sleep mode to POWER DOWN mode
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-  // Enable sleep mode, but not going to sleep yet
-  sleep_enable();
   // enter sleep
-  sleep_cpu();
+  sleep_mode();
 #else
   m_sleeping = true;
 #endif
@@ -362,6 +373,16 @@ void VortexEngine::wakeup(bool reset)
 }
 
 #ifdef VORTEX_ARDUINO
+// main tick function
+ISR(TCB0_INT_vect)
+{
+  // Increment the overflow count when the counter reaches its maximum value
+  if (TCB0.INTFLAGS & TCB_CAPT_bm) {
+    TCB0.INTFLAGS = TCB_CAPT_bm;  // Clear interrupt flag
+    VortexEngine::tick();
+  }
+}
+
 void VortexEngine::clearOutputPins()
 {
   // Set all pins to input with pull-ups
