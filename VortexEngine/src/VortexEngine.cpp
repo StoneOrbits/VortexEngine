@@ -17,10 +17,8 @@
 #include <avr/sleep.h>
 #endif
 
-#ifdef VORTEX_LIB
 // bool in vortexlib to simulate sleeping
 bool VortexEngine::m_sleeping = false;
-#endif
 
 // auto cycling
 bool VortexEngine::m_autoCycle = false;
@@ -91,7 +89,7 @@ bool VortexEngine::init()
   // enable interrupts
   sei();
   // standby indefinitely while the ISR runs VortexEngine::tick
-  while (1) {
+  while (!m_sleeping) {
     sleep_mode();
   }
 #endif
@@ -336,14 +334,20 @@ void VortexEngine::enterSleep()
   enableMOSFET(false);
   // delay for a bit to let the mosfet close and leds turn off
   delayMicroseconds(250);
+  // this is an ISR that runs in the timecontrol system to handle
+  // micros, it will wake the device up periodically
+  TCB0.INTCTRL = 0;
+  TCB0.CTRLA = 0;
   // Enable wake on interrupt for the button
   g_pButton->enableWake();
   // Set sleep mode to POWER DOWN mode
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  // enable the sleep boo lright before we enter sleep, this will allow
+  // the main loop to break and return
+  m_sleeping = true;
   // enter sleep
   sleep_mode();
 #else
-  m_sleeping = true;
 #endif
 }
 
