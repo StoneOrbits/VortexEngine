@@ -93,7 +93,7 @@ public:
 
 private:
   // bool in vortexlib to simulate sleeping
-  static bool m_sleeping;
+  static volatile bool m_sleeping;
 
   // whether auto cycle modes is turned on
   static bool m_autoCycle;

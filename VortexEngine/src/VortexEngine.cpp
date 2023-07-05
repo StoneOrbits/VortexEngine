@@ -18,7 +18,7 @@
 #endif
 
 // bool in vortexlib to simulate sleeping
-bool VortexEngine::m_sleeping = false;
+volatile bool VortexEngine::m_sleeping = false;
 
 // auto cycling
 bool VortexEngine::m_autoCycle = false;
@@ -92,6 +92,8 @@ bool VortexEngine::init()
   while (!m_sleeping) {
     sleep_mode();
   }
+  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  sleep_mode();
 #endif
 
   return true;
@@ -341,12 +343,12 @@ void VortexEngine::enterSleep()
   // Enable wake on interrupt for the button
   g_pButton->enableWake();
   // Set sleep mode to POWER DOWN mode
-  set_sleep_mode(SLEEP_MODE_PWR_DOWN);
+  //set_sleep_mode(SLEEP_MODE_PWR_DOWN);
   // enable the sleep boo lright before we enter sleep, this will allow
   // the main loop to break and return
   m_sleeping = true;
   // enter sleep
-  sleep_mode();
+  //sleep_mode();
 #else
 #endif
 }
