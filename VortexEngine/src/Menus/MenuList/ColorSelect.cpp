@@ -306,8 +306,8 @@ void ColorSelect::showFullSet(LedPos target, uint32_t time, uint32_t offMs, uint
     // wat do?
     return;
   }
-  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
-    int divisor = Time::msToTicks(offMs + onMs);
+  if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+    int divisor = MS_TO_TICKS(offMs + onMs);
     if (!divisor) {
       divisor = 1;
     }

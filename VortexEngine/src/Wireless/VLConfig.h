@@ -1,6 +1,8 @@
 #ifndef VL_CONFIG_H
 #define VL_CONFIG_H
 
+#include "../VortexConfig.h"
+
 // Visible Light Enable
 //
 // Whether to enable the Visible Light system as a whole
@@ -10,7 +12,7 @@
 
 // the size of IR blocks in bits
 #define VL_DEFAULT_BLOCK_SIZE 256
-#define VL_DEFAULT_BLOCK_SPACING Time::msToTicks(5)
+#define VL_DEFAULT_BLOCK_SPACING MS_TO_TICKS(5)
 
 // the max number of DWORDs that will transfer
 #define VL_MAX_DWORDS_TRANSFER 128

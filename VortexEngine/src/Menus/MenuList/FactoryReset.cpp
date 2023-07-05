@@ -65,7 +65,7 @@ void FactoryReset::onLongClick()
     return;
   }
   // if the button hasn't been held long enough just return
-  if (g_pButton->holdDuration() <= (FACTORY_RESET_THRESHOLD_TICKS + Time::msToTicks(10))) {
+  if (g_pButton->holdDuration() <= (FACTORY_RESET_THRESHOLD_TICKS + MS_TO_TICKS(10))) {
     return;
   }
   // the button was held down long enough so actually perform the factory reset
@@ -100,7 +100,7 @@ void FactoryReset::showReset()
   }
   // don't start the fill until the button has been held for a bit
   uint32_t holdDur = g_pButton->holdDuration();
-  if (holdDur < Time::msToTicks(100)) {
+  if (holdDur < MS_TO_TICKS(100)) {
     return;
   }
   uint16_t progress = ((holdDur * 100) / FACTORY_RESET_THRESHOLD_TICKS);

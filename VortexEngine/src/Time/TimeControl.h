@@ -3,7 +3,16 @@
 
 #include <inttypes.h>
 
+#include "../VortexConfig.h"
 #include "../Leds/LedTypes.h"
+
+#if VARIABLE_TICKRATE == 1
+#define MS_TO_TICKS(ms) Time::_millisecondsToTicks(ms)
+#define SEC_TO_TICKS(ms) Time::_secondsToTicks(ms)
+#else
+#define MS_TO_TICKS(ms) (uint32_t)(((uint32_t)(ms) * DEFAULT_TICKRATE) / 1000)
+#define SEC_TO_TICKS(s) (uint32_t)((uint32_t)(s) * DEFAULT_TICKRATE)
+#endif
 
 class Time
 {
@@ -40,11 +49,13 @@ public:
   // The current tickrate
   static uint32_t getTickrate();
 
+  // these apis are only present if the tickrate can change
+#if VARIABLE_TICKRATE == 1
   // convert milliseconds to a tickcount based on tickrate
-  static uint32_t msToTicks(uint32_t ms);
-
+  static uint32_t _millisecondsToTicks(uint32_t ms);
   // convert seconds to a tickcount based on tickrate
-  static uint32_t secToTicks(uint32_t sec) { return msToTicks(sec * 1000); }
+  static uint32_t _secondsToTicks(uint32_t sec) { return _millisecondsToTicks(sec * 1000); }
+#endif
 
   // current microseconds, note only use this for things like rapid data transfer timings!
   // If you just need to perform regular time checks use getCurtime and measure in ticks!

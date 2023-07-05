@@ -197,21 +197,21 @@ void Leds::adjustBrightnessAll(uint8_t fadeBy)
 
 void Leds::blinkIndex(LedPos target, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
-  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+  if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setIndex(target, col);
   }
 }
 
 void Leds::blinkRange(LedPos first, LedPos last, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
-  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+  if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setRange(first, last, col);
   }
 }
 
 void Leds::blinkMap(LedMap targets, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
-  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+  if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
       if (checkLed(targets, pos)) {
         setIndex(pos, col);
@@ -222,21 +222,21 @@ void Leds::blinkMap(LedMap targets, uint32_t time, uint32_t offMs, uint32_t onMs
 
 void Leds::blinkAll(uint32_t time, int32_t offMs, uint32_t onMs, RGBColor col)
 {
-  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+  if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setRange(LED_FIRST, LED_LAST, col);
   }
 }
 
 void Leds::blinkPair(Pair pair, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
-  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+  if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setRange(pairEven(pair), pairOdd(pair), col);
   }
 }
 
 void Leds::blinkPairs(Pair first, Pair last, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
-  if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
+  if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setRange(pairEven(first), pairOdd(last), col);
   }
 }

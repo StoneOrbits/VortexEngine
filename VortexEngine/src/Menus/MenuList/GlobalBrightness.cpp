@@ -114,10 +114,10 @@ void GlobalBrightness::showBrightnessSelection()
 
 // don't worry about this stuff
 #define KEYCHAIN_MODE_TIMER_MS      2100
-#define KEYCHAIN_MODE_TIMER_TICKS   Time::msToTicks(KEYCHAIN_MODE_TIMER_MS)
+#define KEYCHAIN_MODE_TIMER_TICKS   MS_TO_TICKS(KEYCHAIN_MODE_TIMER_MS)
 #define KEYCHAIN_MODE_EXIT_CLICKS   8
 #define KEYCHAIN_MODE_SLEEP_S       10
-#define KEYCHAIN_MODE_SLEEP_TICKS   Time::secToTicks(KEYCHAIN_MODE_SLEEP_S)
+#define KEYCHAIN_MODE_SLEEP_TICKS   SEC_TO_TICKS(KEYCHAIN_MODE_SLEEP_S)
 
 // bonus simulate keychain_mode in this menu
 Menu::MenuAction GlobalBrightness::runKeychainMode()
