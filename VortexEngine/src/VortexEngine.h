@@ -92,10 +92,8 @@ public:
 #endif
 
 private:
-#ifdef VORTEX_LIB
   // bool in vortexlib to simulate sleeping
   static bool m_sleeping;
-#endif
 
   // whether auto cycle modes is turned on
   static bool m_autoCycle;
