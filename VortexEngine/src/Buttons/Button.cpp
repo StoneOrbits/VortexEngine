@@ -39,7 +39,7 @@ ISR(PORT_VECT)
   // reset inflags
   BUTTON_PORT.INTFLAGS = flag;
   // make sure the interrupt fired from the button pin
-  if (!(flags & BUTTON_PIN)) {
+  if (!(flag & BUTTON_PIN)) {
     return;
   }
   // mark the interrupt as handled
