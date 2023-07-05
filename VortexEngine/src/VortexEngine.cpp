@@ -336,11 +336,6 @@ void VortexEngine::enterSleep()
   enableMOSFET(false);
   // delay for a bit to let the mosfet close and leds turn off
   delayMicroseconds(250);
-  // this is an ISR that runs in the timecontrol system to handle
-  // millis and micros, it will wake the device up after some time
-  // if it isn't disabled
-  TCD0.INTCTRL = 0;
-  TCD0.CTRLA = 0;
   // Enable wake on interrupt for the button
   g_pButton->enableWake();
   // Set sleep mode to POWER DOWN mode
