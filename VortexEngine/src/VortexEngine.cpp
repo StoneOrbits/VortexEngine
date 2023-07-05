@@ -377,10 +377,8 @@ void VortexEngine::wakeup(bool reset)
 ISR(TCB0_INT_vect)
 {
   // Increment the overflow count when the counter reaches its maximum value
-  if (TCB0.INTFLAGS & TCB_CAPT_bm) {
-    TCB0.INTFLAGS = TCB_CAPT_bm;  // Clear interrupt flag
-    VortexEngine::tick();
-  }
+  TCB0.INTFLAGS = TCB_CAPT_bm;  // Clear interrupt flag
+  VortexEngine::tick();
 }
 
 void VortexEngine::clearOutputPins()
