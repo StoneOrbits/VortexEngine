@@ -153,7 +153,7 @@ uint32_t Time::micros()
   // Save current state and disable interrupts
   cli();
   // divide by 10
-  ticks = (m_curTick * TICKRATE) + (TCB0.CNT / 1000);
+  ticks = (m_curTick * DEFAULT_TICKRATE) + (TCB0.CNT / 1000);
   SREG = oldSREG; // Restore interrupt state
 
   return ticks;
