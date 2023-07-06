@@ -67,18 +67,6 @@
 // How long the user has to release the button to enter sleep
 #define SLEEP_WINDOW_TIME     350
 
-// Instant On Off Time (in milliseconds)
-//
-// How long past the menus opening the user must hold in order to toggle
-// the instant on-off feature for the current mode
-#define INSTANT_ON_OFF_TIME   2000
-
-// Lock Click Window (in milliseconds)
-//
-// How long the user has to press the button 5 times in order to enable
-// or disable the light lock
-#define LOCK_CLICK_WINDOW     1000
-
 // Force Sleep Time (in milliseconds)
 //
 // How long the user has to hold the button anywhere to force sleep
@@ -570,12 +558,6 @@
   #define MAX_MODES           0
   #undef LOGGING_LEVEL
   #define LOGGING_LEVEL         3
-#endif
-
-// no ignore button time when running vortex lib
-#ifdef VORTEX_LIB
-#undef IGNORE_BUTTON_TIME
-#define IGNORE_BUTTON_TIME 0
 #endif
 
 #endif // VORTEX_CONFIG_H
