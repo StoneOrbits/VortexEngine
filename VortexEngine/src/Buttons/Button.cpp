@@ -34,14 +34,6 @@
 // interrupt handler to wakeup device on button press
 ISR(PORT_VECT)
 {
-  // grab value of intflags
-  uint8_t flag = BUTTON_PORT.INTFLAGS;
-  // reset inflags
-  BUTTON_PORT.INTFLAGS = flag;
-  // make sure the interrupt fired from the button pin
-  if (!(flag & BUTTON_PIN)) {
-    return;
-  }
   // mark the interrupt as handled
   BUTTON_PORT.INTFLAGS = BUTTON_PIN;
   // turn off the interrupt
@@ -52,7 +44,7 @@ ISR(PORT_VECT)
 
 void Button::enableWake()
 {
-  // turn on the above interrupt for FALLING edge
+  // turn on the above interrupt for FALLING edge, maintain the pullup enabled
   BUTTON_PORT.PIN_CTRL = PORT_PULLUPEN_bm | PORT_ISC_FALLING_gc;
 }
 #endif
