@@ -139,7 +139,7 @@ bool VLReceiver::beginReceiving()
 #if (F_CPU == 20000000)
   ADC0.CTRLC = ADC_SAMPCAP_bm | ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV128_gc;
 #else
-  ADC0.CTRLC = ADC_SAMPCAP_bm | ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV64_gc;
+  ADC0.CTRLC = ADC_SAMPCAP_bm | ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV8_gc;
 #endif
   // no sampling delay and no delay variation
   ADC0.CTRLD = 0;

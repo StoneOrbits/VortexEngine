@@ -34,10 +34,6 @@
 // interrupt handler to wakeup device on button press
 ISR(PORT_VECT)
 {
-  // make sure the interrupt fired from the button pin
-  if (!(BUTTON_PORT.INTFLAGS & BUTTON_PIN)) {
-    return;
-  }
   // mark the interrupt as handled
   BUTTON_PORT.INTFLAGS = BUTTON_PIN;
   // turn off the interrupt
@@ -48,8 +44,8 @@ ISR(PORT_VECT)
 
 void Button::enableWake()
 {
-  // turn on the above interrupt for FALLING edge
-  BUTTON_PORT.PIN_CTRL = 0x3;
+  // turn on the above interrupt for FALLING edge, maintain the pullup enabled
+  BUTTON_PORT.PIN_CTRL = PORT_PULLUPEN_bm | PORT_ISC_FALLING_gc;
 }
 #endif
 
@@ -89,6 +85,9 @@ bool Button::init(uint8_t pin)
   m_buttonState = check();
   m_releaseCount = !check();
   m_isPressed = m_buttonState;
+#ifdef VORTEX_ARDUINO
+  BUTTON_PORT.PIN_CTRL = PORT_PULLUPEN_bm;
+#endif
   return true;
 }
 

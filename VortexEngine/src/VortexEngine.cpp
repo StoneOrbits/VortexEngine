@@ -17,10 +17,8 @@
 #include <avr/sleep.h>
 #endif
 
-#ifdef VORTEX_LIB
 // bool in vortexlib to simulate sleeping
-bool VortexEngine::m_sleeping = false;
-#endif
+volatile bool VortexEngine::m_sleeping = false;
 
 // auto cycling
 bool VortexEngine::m_autoCycle = false;
@@ -66,11 +64,6 @@ bool VortexEngine::init()
     return false;
   }
 
-#ifdef VORTEX_ARDUINO
-  // set the state of the mosfet based on whether the chip is locked or not
-  enableMOSFET(!Modes::locked());
-#endif
-
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif
@@ -81,6 +74,24 @@ bool VortexEngine::init()
 
 #if TIMER_TEST == 1
   timerTest();
+#endif
+
+#ifdef VORTEX_ARDUINO
+  // setup TCB0 to track micros() and run ticks
+  TCB0.CCMP = 10000;
+  TCB0.INTCTRL = TCB_CAPT_bm;
+  // Set clock source to CPU divided by 1, Keep running in sleep mode, Enable TCB
+  TCB0.CTRLA = TCB_CLKSEL_CLKDIV1_gc | TCB_RUNSTDBY_bm | TCB_ENABLE_bm;
+  // set the state of the mosfet based on whether the chip is locked or not
+  enableMOSFET(!Modes::locked());
+  // setup sleep mode for standby
+  set_sleep_mode(SLEEP_MODE_STANDBY);
+  // enable interrupts
+  sei();
+  // standby indefinitely while the ISR runs VortexEngine::tick
+  while (!m_sleeping) {
+    sleep_mode();
+  }
 #endif
 
   return true;
@@ -324,20 +335,19 @@ void VortexEngine::enterSleep()
   // delay for a bit to let the mosfet close and leds turn off
   delayMicroseconds(250);
   // this is an ISR that runs in the timecontrol system to handle
-  // millis and micros, it will wake the device up after some time
-  // if it isn't disabled
-  TCD0.INTCTRL = 0;
-  TCD0.CTRLA = 0;
+  // micros, it will wake the device up periodically
+  TCB0.INTCTRL = 0;
+  TCB0.CTRLA = 0;
   // Enable wake on interrupt for the button
   g_pButton->enableWake();
   // Set sleep mode to POWER DOWN mode
   set_sleep_mode(SLEEP_MODE_PWR_DOWN);
-  // Enable sleep mode, but not going to sleep yet
-  sleep_enable();
-  // enter sleep
-  sleep_cpu();
-#else
+  // enable the sleep boo lright before we enter sleep, this will allow
+  // the main loop to break and return
   m_sleeping = true;
+  // enter sleep
+  sleep_mode();
+#else
 #endif
 }
 
@@ -362,34 +372,42 @@ void VortexEngine::wakeup(bool reset)
 }
 
 #ifdef VORTEX_ARDUINO
+// main tick function
+ISR(TCB0_INT_vect)
+{
+  // Clear interrupt flag
+  TCB0.INTFLAGS = TCB_CAPT_bm;
+  VortexEngine::tick();
+}
+
 void VortexEngine::clearOutputPins()
 {
   // Set all pins to input with pull-ups
   PORTA.DIRCLR = 0xFF;
-  PORTA.PIN0CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN1CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN2CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN3CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN4CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN5CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN6CTRL = PORT_PULLUPEN_bm;
-  PORTA.PIN7CTRL = PORT_PULLUPEN_bm;
+  PORTA.PIN0CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTA.PIN1CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTA.PIN2CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTA.PIN3CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTA.PIN4CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTA.PIN5CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTA.PIN6CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTA.PIN7CTRL = PORT_ISC_INPUT_DISABLE_gc;
   PORTB.DIRCLR = 0xFF;
-  PORTB.PIN0CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN1CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN2CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN3CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN4CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN5CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN6CTRL = PORT_PULLUPEN_bm;
-  PORTB.PIN7CTRL = PORT_PULLUPEN_bm;
+  PORTB.PIN0CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTB.PIN1CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTB.PIN2CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTB.PIN3CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTB.PIN4CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTB.PIN5CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTB.PIN6CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTB.PIN7CTRL = PORT_ISC_INPUT_DISABLE_gc;
   PORTC.DIRCLR = 0xFF;
-  PORTC.PIN0CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN1CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN2CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN3CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN4CTRL = PORT_PULLUPEN_bm;
-  PORTC.PIN5CTRL = PORT_PULLUPEN_bm;
+  PORTC.PIN0CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTC.PIN1CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTC.PIN2CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTC.PIN3CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTC.PIN4CTRL = PORT_ISC_INPUT_DISABLE_gc;
+  PORTC.PIN5CTRL = PORT_ISC_INPUT_DISABLE_gc;
 }
 
 void VortexEngine::enableMOSFET(bool enabled)

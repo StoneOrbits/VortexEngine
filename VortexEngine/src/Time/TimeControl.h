@@ -82,7 +82,7 @@ public:
 
 private:
 #ifdef VORTEX_ARDUINO
-  static void initArduinoTime();
+  static void initMCUTime();
 #endif
 
 #if VARIABLE_TICKRATE == 1
@@ -93,13 +93,13 @@ private:
   // global tick counter
   static uint32_t m_curTick;
 
+#ifdef VORTEX_LIB
   // the last frame timestamp
   static uint32_t m_prevTime;
 
   // the first timestamp
   static uint32_t m_firstTime;
 
-#ifdef VORTEX_LIB
   // the current simulation offset, simulations are
   // used to fastforward patterns and colorsets by
   // simulating tick changes and running pattern logic
@@ -118,6 +118,5 @@ private:
 //       need to provide them somehow
 void delayMicroseconds(uint16_t us);
 void delay(uint16_t ms);
-unsigned long micros();
 
 #endif
