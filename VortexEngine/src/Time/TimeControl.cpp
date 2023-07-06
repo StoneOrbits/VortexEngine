@@ -75,6 +75,7 @@ void Time::cleanup()
 
 void Time::tickClock()
 {
+  // tick clock forward
   m_curTick++;
 
 #if DEBUG_ALLOCATIONS == 1
