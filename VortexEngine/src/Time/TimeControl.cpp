@@ -3,10 +3,6 @@
 #include <string.h> // memset
 #include <math.h>
 
-#ifdef _MSC_VER
-#include <Windows.h>
-#endif
-
 #include "../Memory/Memory.h"
 #include "../Log/Log.h"
 
@@ -17,23 +13,24 @@
 #ifdef VORTEX_ARDUINO
 #include <avr/sleep.h>
 #include <avr/interrupt.h>
-// This is how long it takes for the attiny to go to sleep and wakeup when
-// using the idle sleep state, so if trying to put the cpu to sleep for
-// some amount of time it must be at least this amount or more.
-//
-// The real value is something like 712 but we overestimate just in case.
-// This isn't in VortexConfig because it's not configurable, it's a hardware
-// constant that can't be avoided
-#define ATTINY_IDLE_SLEEP_MINIMUM 800
+#endif
+
+#if !defined(_MSC_VER) || defined(WASM)
+#include <unistd.h>
+uint64_t start = 0;
+#else
+#include <Windows.h>
+static LARGE_INTEGER tps;
+static LARGE_INTEGER start;
 #endif
 
 // static members
-uint32_t Time::m_curTick = 0;
-uint32_t Time::m_prevTime = 0;
-uint32_t Time::m_firstTime = 0;
 #if VARIABLE_TICKRATE == 1
 uint32_t Time::m_tickrate = DEFAULT_TICKRATE;
 #endif
+uint32_t Time::m_curTick = 0;
+uint32_t Time::m_prevTime = 0;
+uint32_t Time::m_firstTime = 0;
 #ifdef VORTEX_LIB
 uint32_t Time::m_simulationTick = 0;
 bool Time::m_isSimulation = false;
@@ -63,6 +60,12 @@ bool Time::init()
   m_isSimulation = false;
   m_instantTimestep = false;
 #endif
+#if !defined(_MSC_VER) || defined(WASM)
+  start = micros();
+#else
+  QueryPerformanceFrequency(&tps);
+  QueryPerformanceCounter(&start);
+#endif
   return true;
 }
 
@@ -75,15 +78,15 @@ void Time::tickClock()
   // tick clock forward
   m_curTick++;
 
-#ifdef VORTEX_LIB
-  if (m_instantTimestep) {
-    return;
-  }
-#endif
-
 #if DEBUG_ALLOCATIONS == 1
   if ((m_curTick % msToTicks(1000)) == 0) {
     DEBUG_LOGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
+  }
+#endif
+
+#ifdef VORTEX_LIB
+  if (m_instantTimestep) {
+    return;
   }
 #endif
 
@@ -132,7 +135,7 @@ void Time::tickClock()
 }
 
 // get the current time with optional led position time offset
-uint32_t Time::getCurtime(LedPos pos)
+uint32_t Time::getCurtime()
 {
   // the current tick, plus the time offset per LED, plus any
   // simulation offset
@@ -185,6 +188,33 @@ uint32_t Time::msToTicks(uint32_t ms)
     return 1;
   }
   return ticks;
+}
+
+uint32_t Time::micros()
+{
+#ifndef VORTEX_LIB // Embedded avr devices
+  uint32_t ticks;
+  uint8_t oldSREG = SREG;
+  // Save current state and disable interrupts
+  cli();
+  // divide by 10
+  ticks = (m_curTick * DEFAULT_TICKRATE) + (TCB0.CNT / 1000);
+  SREG = oldSREG; // Restore interrupt state
+  return ticks;
+#elif defined(_MSC_VER) // windows
+  LARGE_INTEGER now;
+  QueryPerformanceCounter(&now);
+  if (!tps.QuadPart) {
+    return 0;
+  }
+  // yes, this will overflow, that's how arduino micros() works *shrug*
+  return (unsigned long)((now.QuadPart - start.QuadPart) * 1000000 / tps.QuadPart);
+#else // linux/wasm/etc
+  struct timespec ts;
+  clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
+  uint64_t us = SEC_TO_US((uint64_t)ts.tv_sec) + NS_TO_US((uint64_t)ts.tv_nsec);
+  return (unsigned long)us;
+#endif
 }
 
 #ifdef VORTEX_LIB
