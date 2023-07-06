@@ -129,25 +129,6 @@ uint32_t Time::getCurtime(LedPos pos)
 #endif
 }
 
-uint32_t Time::micros()
-{
-#ifdef VORTEX_LIB
-  // just hit the fake arduino layer in vortex lib
-  return micros();
-#else
-  uint32_t ticks;
-  uint8_t oldSREG = SREG;
-
-  // Save current state and disable interrupts
-  cli();
-  // divide by 10
-  ticks = (m_curTick * DEFAULT_TICKRATE) + (TCB0.CNT / 1000);
-  SREG = oldSREG; // Restore interrupt state
-
-  return ticks;
-#endif
-}
-
 // the real current time, bypass simulations, used by timers
 uint32_t Time::getRealCurtime()
 {
