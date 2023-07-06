@@ -270,9 +270,6 @@ void Time::initMCUTime()
   // IVSEL = 1 means Interrupt vectors are placed at the start of the boot section of the Flash
   // as opposed to the application section of Flash. See 13.5.1
   _PROTECTED_WRITE(CPUINT_CTRLA, CPUINT_IVSEL_bm);
-
-  // enable interrupts
-  sei();
 }
 
 __attribute__ ((noinline)) void delayMicroseconds(uint16_t us)
