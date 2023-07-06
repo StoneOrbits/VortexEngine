@@ -178,7 +178,7 @@ void VortexEngine::runMainLogic()
 
   // if the button hasn't been released since turning on then there is custom logic
   if (g_pButton->releaseCount() == 0) {
-    // if the button is held for 2 seconds from off, switch to on click mode on 
+    // if the button is held for 2 seconds from off, switch to on click mode on
     // the last mode shown before sleep
     if (Time::getCurtime() == SHORT_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
       // toggle one click mode
