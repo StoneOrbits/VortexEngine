@@ -82,7 +82,7 @@
 // Force Sleep Time (in milliseconds)
 //
 // How long the user has to hold the button anywhere to force sleep
-#define FORCE_SLEEP_TIME      4200
+#define FORCE_SLEEP_TIME      8000
 
 // Device Lock Clicks
 //
