@@ -17,14 +17,6 @@
 #ifdef VORTEX_ARDUINO
 #include <avr/sleep.h>
 #include <avr/interrupt.h>
-// This is how long it takes for the attiny to go to sleep and wakeup when
-// using the idle sleep state, so if trying to put the cpu to sleep for
-// some amount of time it must be at least this amount or more.
-//
-// The real value is something like 712 but we overestimate just in case.
-// This isn't in VortexConfig because it's not configurable, it's a hardware
-// constant that can't be avoided
-#define ATTINY_IDLE_SLEEP_MINIMUM 800
 #endif
 
 // static members
@@ -33,6 +25,8 @@ uint32_t Time::m_curTick = 0;
 uint32_t Time::m_tickrate = DEFAULT_TICKRATE;
 #endif
 #ifdef VORTEX_LIB
+uint32_t Time::m_prevTime = 0;
+uint32_t Time::m_firstTime = 0;
 uint32_t Time::m_simulationTick = 0;
 bool Time::m_isSimulation = false;
 bool Time::m_instantTimestep = false;
@@ -49,13 +43,14 @@ bool Time::m_instantTimestep = false;
 bool Time::init()
 {
 #ifdef VORTEX_ARDUINO
-  initArduinoTime();
+  initMCUTime();
 #endif
   m_curTick = 0;
 #if VARIABLE_TICKRATE == 1
   m_tickrate = DEFAULT_TICKRATE;
 #endif
 #ifdef VORTEX_LIB
+  m_firstTime = m_prevTime = micros();
   m_simulationTick = 0;
   m_isSimulation = false;
   m_instantTimestep = false;
@@ -72,16 +67,53 @@ void Time::tickClock()
   // tick clock forward
   m_curTick++;
 
-#ifdef VORTEX_LIB
-  if (m_instantTimestep) {
-    return;
-  }
-#endif
-
 #if DEBUG_ALLOCATIONS == 1
   if ((m_curTick % msToTicks(1000)) == 0) {
     DEBUG_LOGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
   }
+#endif
+
+  // the rest of this only runs inside vortexlib because on the duo the tick runs in the
+  // tcb timer callback instead of in a busy loop constantly checking micros()
+#ifdef VORTEX_LIB
+  if (m_instantTimestep) {
+    return;
+  }
+
+  // perform timestep
+  uint32_t elapsed_us;
+  uint32_t us;
+  do {
+    us = micros();
+    // detect rollover of microsecond counter
+    if (us < m_prevTime) {
+      // calculate wrapped around difference
+      elapsed_us = (uint32_t)((UINT32_MAX - m_prevTime) + us);
+    } else {
+      // otherwise calculate regular difference
+      elapsed_us = (uint32_t)(us - m_prevTime);
+    }
+    // if building anywhere except visual studio then we can run alternate sleep code
+    // because in visual studio + windows it's better to just spin and check the high
+    // resolution clock instead of trying to sleep for microseconds.
+#if !defined(_MSC_VER)
+    uint32_t required = (1000000 / TICKRATE);
+    uint32_t sleepTime = 0;
+    if (required > elapsed_us) {
+      // in vortex lib on linux we can just sleep instead of spinning
+      // but on arduino we must spin and on windows it actually ends
+      // up being more accurate to poll QPF + QPC via micros()
+      sleepTime = required - elapsed_us;
+    }
+    delayMicroseconds(sleepTime);
+    break;
+#endif
+    // 1000us per ms, divided by tickrate gives
+    // the number of microseconds per tick
+  } while (elapsed_us < (1000000 / TICKRATE));
+
+  // store current time
+  m_prevTime = micros();
 #endif
 }
 
@@ -94,6 +126,25 @@ uint32_t Time::getCurtime(LedPos pos)
   return m_curTick + getSimulationTick();
 #else
   return m_curTick;
+#endif
+}
+
+uint32_t Time::micros()
+{
+#ifdef VORTEX_LIB
+  // just hit the fake arduino layer in vortex lib
+  return micros();
+#else
+  uint32_t ticks;
+  uint8_t oldSREG = SREG;
+
+  // Save current state and disable interrupts
+  cli();
+  // divide by 10
+  ticks = (m_curTick * DEFAULT_TICKRATE) + (TCB0.CNT / 1000);
+  SREG = oldSREG; // Restore interrupt state
+
+  return ticks;
 #endif
 }
 
@@ -203,7 +254,7 @@ uint32_t Time::endSimulation()
 
 #ifdef VORTEX_ARDUINO
 
-void Time::initArduinoTime()
+void Time::initMCUTime()
 {
   // initialize main clock
 #if (F_CPU == 20000000)
@@ -215,9 +266,13 @@ void Time::initArduinoTime()
 #else
   #error "F_CPU not supported"
 #endif
+
   // IVSEL = 1 means Interrupt vectors are placed at the start of the boot section of the Flash
   // as opposed to the application section of Flash. See 13.5.1
   _PROTECTED_WRITE(CPUINT_CTRLA, CPUINT_IVSEL_bm);
+
+  // enable interrupts
+  sei();
 }
 
 __attribute__ ((noinline)) void delayMicroseconds(uint16_t us)
