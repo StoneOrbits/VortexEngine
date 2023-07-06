@@ -29,7 +29,7 @@ public:
   static void tickClock();
 
   // get the current time with optional led position time offset
-  static uint32_t getCurtime(LedPos pos = LED_FIRST);
+  static uint32_t getCurtime();
 
   // this ignore simulation time, it's used by timers to make simulations work
   static uint32_t getRealCurtime();
@@ -59,6 +59,12 @@ public:
 
   // current microseconds, note only use this for things like rapid data transfer timings!
   // If you just need to perform regular time checks use getCurtime and measure in ticks!
+  static uint32_t micros();
+
+  // Current microseconds since startup, only use this for things like measuring rapid data transfer timings.
+  // If you just need to perform regular time checks for a pattern or some logic then use getCurtime() and measure 
+  // time in ticks, use the SEC_TO_TICKS() or MS_TO_TICKS() macros to convert timings to measures of ticks for
+  // purpose of comparing against getCurtime()
   static uint32_t micros();
 
 #ifdef VORTEX_LIB
@@ -91,18 +97,24 @@ public:
 
 private:
 #ifdef VORTEX_ARDUINO
-  static void initArduinoTime();
+  static void initMCUTime();
 #endif
-
-  // global tick counter
-  static uint32_t m_curTick;
 
 #if VARIABLE_TICKRATE == 1
   // the number of ticks per second
   static uint32_t m_tickrate;
 #endif
 
+  // global tick counter
+  static uint32_t m_curTick;
+
 #ifdef VORTEX_LIB
+  // the last frame timestamp
+  static uint32_t m_prevTime;
+
+  // the first timestamp
+  static uint32_t m_firstTime;
+
   // the current simulation offset, simulations are
   // used to fastforward patterns and colorsets by
   // simulating tick changes and running pattern logic
