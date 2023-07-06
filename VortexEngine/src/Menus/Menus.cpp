@@ -249,7 +249,7 @@ void Menus::showSelection(RGBColor colval)
   // click threshold has been surpassed
   if (g_pButton->isPressed() &&
     g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS &&
-    g_pButton->holdDuration() < (SHORT_CLICK_THRESHOLD_TICKS + Time::msToTicks(250))) {
+    g_pButton->holdDuration() < (SHORT_CLICK_THRESHOLD_TICKS + MS_TO_TICKS(250))) {
     Leds::setAll(colval);
   }
 }
