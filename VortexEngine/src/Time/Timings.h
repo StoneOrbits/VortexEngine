@@ -71,8 +71,8 @@
 #define DOPISH_OFF_DURATION         12
 
 // Ultradops
-#define ULTRADOPS_ON_DURATION       5
-#define ULTRADOPS_OFF_DURATION      3
+#define ULTRADOPS_ON_DURATION       2
+#define ULTRADOPS_OFF_DURATION      5
 
 // Strobie
 #define STROBIE_ON_DURATION         3
