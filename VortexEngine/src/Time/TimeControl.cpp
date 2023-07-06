@@ -96,7 +96,7 @@ void Time::tickClock()
     // if building anywhere except visual studio then we can run alternate sleep code
     // because in visual studio + windows it's better to just spin and check the high
     // resolution clock instead of trying to sleep for microseconds.
-#if !defined(_MSC_VER)
+#if !defined(_MSC_VER) && defined(VORTEX_LIB)
     uint32_t required = (1000000 / TICKRATE);
     uint32_t sleepTime = 0;
     if (required > elapsed_us) {
