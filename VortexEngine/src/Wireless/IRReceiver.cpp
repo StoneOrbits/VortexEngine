@@ -2,6 +2,7 @@
 
 #include "../Serial/ByteStream.h"
 #include "../Serial/BitStream.h"
+#include "../Time/TimeControl.h"
 #include "../Modes/Mode.h"
 #include "../Log/Log.h"
 
@@ -139,7 +140,7 @@ void IRReceiver::recvPCIHandler()
   // toggle the tracked pin state no matter what
   m_pinState = (uint8_t)!m_pinState;
   // grab current time
-  uint32_t now = micros();
+  uint32_t now = Time::micros();
   // check previous time for validity
   if (!m_prevTime || m_prevTime > now) {
     m_prevTime = now;
