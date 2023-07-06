@@ -57,10 +57,6 @@ public:
   static uint32_t _secondsToTicks(uint32_t sec) { return _millisecondsToTicks(sec * 1000); }
 #endif
 
-  // current microseconds, note only use this for things like rapid data transfer timings!
-  // If you just need to perform regular time checks use getCurtime and measure in ticks!
-  static uint32_t micros();
-
   // Current microseconds since startup, only use this for things like measuring rapid data transfer timings.
   // If you just need to perform regular time checks for a pattern or some logic then use getCurtime() and measure 
   // time in ticks, use the SEC_TO_TICKS() or MS_TO_TICKS() macros to convert timings to measures of ticks for
