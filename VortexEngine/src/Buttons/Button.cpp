@@ -53,7 +53,7 @@ ISR(PORT_VECT)
 void Button::enableWake()
 {
   // turn on the above interrupt for FALLING edge
-  BUTTON_PORT.PIN_CTRL = 0x3;
+  BUTTON_PORT.PIN_CTRL = PORT_ISC_FALLING_gc;
 }
 #endif
 
@@ -93,6 +93,9 @@ bool Button::init(uint8_t pin)
   m_buttonState = check();
   m_releaseCount = !check();
   m_isPressed = m_buttonState;
+#ifdef VORTEX_ARDUINO
+  BUTTON_PORT.PIN_CTRL = PORT_PULLUPEN_bm;
+#endif
   return true;
 }
 
