@@ -29,8 +29,6 @@ static LARGE_INTEGER start;
 uint32_t Time::m_tickrate = DEFAULT_TICKRATE;
 #endif
 uint32_t Time::m_curTick = 0;
-uint32_t Time::m_prevTime = 0;
-uint32_t Time::m_firstTime = 0;
 #ifdef VORTEX_LIB
 uint32_t Time::m_prevTime = 0;
 uint32_t Time::m_firstTime = 0;
