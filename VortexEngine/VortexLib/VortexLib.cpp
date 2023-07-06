@@ -403,7 +403,7 @@ void Vortex::openPatternSelect()
 
 void Vortex::openGlobalBrightness()
 {
-  // doesn't exist here
+  Menus::openMenu(MENU_GLOBAL_BRIGHTNESS);
 }
 
 void Vortex::openFactoryReset()

@@ -181,7 +181,7 @@ void GlobalBrightness::setKeychainModeState(keychain_mode_state newState)
     break;
   }
   // update the mode and ensure current colorset is always used, use PATTERN_SOLID
-  // because that will never iterate to the next color and allows us to force 
+  // because that will never iterate to the next color and allows us to force
   // the color index via argument 6
   args.arg6 = m_colorIndex;
   m_keychain_modeMode.setPattern(PATTERN_SOLID, LED_ALL, &args);
