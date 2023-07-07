@@ -265,7 +265,7 @@ void Leds::holdIndex(LedPos target, uint16_t ms, RGBColor col)
 
 void Leds::holdAll(uint16_t ms, RGBColor col)
 {
-  holdAll(ms, col);
+  holdIndex(LED_ALL, ms, col);
 }
 
 void Leds::update()

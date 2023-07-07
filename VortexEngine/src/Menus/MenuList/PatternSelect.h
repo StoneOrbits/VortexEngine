@@ -31,6 +31,11 @@ private:
 
   // used for adv pat select
   uint8_t m_argIndex;
+
+#ifdef VORTEX_LIB
+  // so that vortex can reach in and grab the demo mode
+  friend class Vortex;
+#endif
 };
 
 #endif

@@ -13,6 +13,7 @@
 #include "Time/Timings.h"
 #include "Menus/Menus.h"
 #include "Menus/MenuList/EditorConnection.h"
+#include "Menus/MenuList/PatternSelect.h"
 #include "Menus/MenuList/Randomizer.h"
 #include "Modes/Modes.h"
 #include "Modes/Mode.h"
@@ -348,6 +349,14 @@ void Vortex::releaseButton(uint32_t buttonIndex)
 
 Mode *Vortex::getMenuDemoMode()
 {
+  void *pMenu = Menus::curMenu();
+  if (pMenu) {
+    // note the cur menu ID is only valid if the menus are open
+    MenuEntryID id = Menus::curMenuID();
+    if (id == MENU_PATTERN_SELECT) {
+      return &((PatternSelect *)pMenu)->m_patternMode;
+    }
+  }
   // attiny just demos the cur mode in menus to save on space
   return Modes::curMode();
 }
