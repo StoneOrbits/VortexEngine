@@ -25,6 +25,12 @@ public:
 private:
   // the advanced mode itself
   Mode m_patternMode;
+
+  // helpful member
+  LedPos m_srcLed;
+
+  // used for adv pat select
+  uint8_t m_argIndex;
 };
 
 #endif

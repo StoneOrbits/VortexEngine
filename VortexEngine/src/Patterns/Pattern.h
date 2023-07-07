@@ -72,6 +72,8 @@ public:
   void setArg(uint8_t index, uint8_t value);
   uint8_t getArg(uint8_t index) const;
 
+  uint8_t &argRef(uint8_t index);
+
 #ifdef VORTEX_LIB
   // get the name of an arg
   const char *getArgName(uint8_t index) const { return index >= m_numArgs ? "" : m_argNameList[index]; }

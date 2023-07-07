@@ -263,6 +263,11 @@ void Leds::holdIndex(LedPos target, uint16_t ms, RGBColor col)
   delay(ms);
 }
 
+void Leds::holdAll(uint16_t ms, RGBColor col)
+{
+  holdAll(ms, col);
+}
+
 void Leds::update()
 {
 #ifdef VORTEX_EMBEDDED

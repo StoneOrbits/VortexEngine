@@ -188,7 +188,7 @@ void VortexEngine::runMainLogic()
       Modes::setCurMode(Modes::startupMode());
       // flash either low white or dim white2 to indicate
       // whether one-click mode has been turned on or off
-      Leds::holdIndex(LED_ALL, 200, (Modes::oneClickModeEnabled() ? RGB_WHITE0 : RGB_WHITE5));
+      Leds::holdAll(200, (Modes::oneClickModeEnabled() ? RGB_WHITE0 : RGB_WHITE5));
     }
     return;
   }
@@ -273,7 +273,7 @@ void VortexEngine::runMainLogic()
   if (g_pButton->consecutivePresses() > AUTO_CYCLE_MODES_CLICKS) {
     m_autoCycle = !m_autoCycle;
     g_pButton->resetConsecutivePresses();
-    Leds::holdIndex(LED_ALL, 500, (m_autoCycle ? RGB_PURPLE1 : RGB_CYAN1));
+    Leds::holdAll(500, (m_autoCycle ? RGB_PURPLE1 : RGB_CYAN1));
   }
 
   // if auto cycle is enabled and the last switch was more than the delay ago
