@@ -11,7 +11,7 @@
 #include <Arduino.h>
 #endif
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #endif
@@ -24,7 +24,7 @@ uint32_t VLReceiver::m_prevTime = 0;
 uint8_t VLReceiver::m_pinState = 0;
 uint32_t VLReceiver::m_previousBytes = 0;
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
 #define MIN_THRESHOLD   200
 #define BASE_OFFSET     100
 #define THRESHOLD_BEGIN (MIN_THRESHOLD + BASE_OFFSET)
@@ -55,7 +55,7 @@ ISR(ADC0_WCOMP_vect)
 
 bool VLReceiver::init()
 {
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // Disable digital input buffer on the pin to save power
   PORTB.PIN1CTRL &= ~PORT_ISC_gm;
   PORTB.PIN1CTRL |= PORT_ISC_INPUT_DISABLE_gc;
@@ -125,7 +125,7 @@ bool VLReceiver::receiveMode(Mode *pMode)
 
 bool VLReceiver::beginReceiving()
 {
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // Set up the ADC
   // sample campacitance, VDD reference, prescaler division
   // Options are:
@@ -177,7 +177,7 @@ bool VLReceiver::beginReceiving()
 
 bool VLReceiver::endReceiving()
 {
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // Stop conversions and disable the ADC
   ADC0.CTRLA &= ~(ADC_ENABLE_bm | ADC_FREERUN_bm);
   ADC0.INTCTRL = 0;
@@ -290,7 +290,7 @@ void VLReceiver::resetVLState()
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
   m_vlData.reset();
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // reset the threshold to a high value so that it can be pulled down again
   threshold = THRESHOLD_BEGIN;
 #endif
