@@ -166,7 +166,7 @@ void VLSender::sendSpace(uint16_t time)
 
 void VLSender::startPWM()
 {
-#if defined(VORTEX_ARDUINO)
+#if defined(VORTEX_EMBEDDED)
   // brightness backup
   uint8_t oldBrightness = Leds::getBrightness();
   // ensure max brightness
@@ -181,7 +181,7 @@ void VLSender::startPWM()
 
 void VLSender::stopPWM()
 {
-#if defined(VORTEX_ARDUINO)
+#if defined(VORTEX_EMBEDDED)
   Leds::clearAll();
   Leds::update();
 #endif

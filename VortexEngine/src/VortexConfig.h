@@ -463,7 +463,7 @@
 // entry for $(SolutionName) produces preprocessor definitions that
 // match the solution that is compiling the engine
 #if !defined(PROJECT_NAME_VortexTestingFramework) && !defined(PROJECT_NAME_VortexEditor) && !defined(VORTEX_LIB)
-#define VORTEX_ARDUINO 1
+#define VORTEX_EMBEDDED 1
 #endif
 
 // if building for editor or test framework then we're building vortex lib, it should
