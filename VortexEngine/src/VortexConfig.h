@@ -47,7 +47,7 @@
 //
 // How long the button must be held to trigger menu selection and
 // begin blinking the first menu color
-#define MENU_TRIGGER_TIME     300
+#define MENU_TRIGGER_TIME     500
 
 // Short Click Threshold (in milliseconds)
 //
@@ -90,7 +90,7 @@
 //
 // How long the user has after releasing to short click the button
 // again and be counted as a 'consecutive press'
-#define CONSECUTIVE_WINDOW    175
+#define CONSECUTIVE_WINDOW    250
 
 // Auto Randomization Delay (in milliseconds)
 //
