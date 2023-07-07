@@ -30,9 +30,6 @@ bool PatternSelect::init()
   }
   m_state = STATE_PICK_LIST;
   m_newPatternID = PATTERN_FIRST;
-  if (!m_pCurMode) {
-    return false;
-  }
   DEBUG_LOG("Entered pattern select");
   return true;
 }
