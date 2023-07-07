@@ -387,7 +387,7 @@
 #define RGB_MENU_MODE_SHARING       RGB_CYAN1
 
 // Editor Connection Menu Color
-#define RGB_MENU_EDIT_RCONNECTION   RGB_PURPLE1
+#define RGB_MENU_EDITOR_CONNECTION  RGB_PURPLE1
 
 // Color Select Menu Color
 #define RGB_MENU_COLOR_SELECT       RGB_GREEN1
