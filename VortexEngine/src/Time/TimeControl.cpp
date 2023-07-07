@@ -189,8 +189,14 @@ uint32_t Time::_millisecondsToTicks(uint32_t ms)
 uint32_t Time::microseconds()
 {
 #ifndef VORTEX_LIB // Embedded avr devices
-  // arduino micros, or whatever micro implementation you have chosen for the embedded device
-  return micros();
+  uint32_t ticks;
+  uint8_t oldSREG = SREG;
+  // Save current state and disable interrupts
+  cli();
+  // divide by 10
+  ticks = (m_curTick * DEFAULT_TICKRATE) + (TCB0.CNT / 1000);
+  SREG = oldSREG; // Restore interrupt state
+  return ticks;
 #elif defined(_MSC_VER) // windows
   LARGE_INTEGER now;
   QueryPerformanceCounter(&now);
