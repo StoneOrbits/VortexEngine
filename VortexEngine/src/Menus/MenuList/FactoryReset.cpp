@@ -86,16 +86,15 @@ void FactoryReset::onLongClick()
 
 void FactoryReset::showReset()
 {
-  uint32_t curTime = Time::getCurtime();
   if (m_curSelection == 0) {
     Leds::clearAll();
-    Leds::blinkAll(curTime, 350, 350, RGB_WHITE0);
+    Leds::blinkAll(350, 350, RGB_WHITE0);
     return;
   }
   bool isPressed = g_pButton->isPressed();
   if (!isPressed) {
     Leds::clearAll();
-    Leds::blinkAll(curTime, 50, 50, RGB_RED4);
+    Leds::blinkAll(50, 50, RGB_RED4);
     return;
   }
   // don't start the fill until the button has been held for a bit
@@ -113,7 +112,7 @@ void FactoryReset::showReset()
   uint8_t onMs = (progress > 60) ? 30 : 100;
   uint8_t sat = (uint8_t)((progress * 5) >> 1); // Using bit shift for division by 2
   Leds::clearAll();
-  Leds::blinkIndex(LED_0, curTime, offMs, onMs, HSVColor(0, 255 - sat, 180));
-  Leds::blinkIndex(LED_1, curTime, offMs, onMs, RGB_WHITE0);
+  Leds::blinkIndex(LED_0, offMs, onMs, HSVColor(0, 255 - sat, 180));
+  Leds::blinkIndex(LED_1, offMs, onMs, RGB_WHITE0);
 }
 

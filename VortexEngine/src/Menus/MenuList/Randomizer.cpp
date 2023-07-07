@@ -124,8 +124,8 @@ void Randomizer::showRandomizationSelect()
   // are only randomizing the pattern
   Leds::setAll(HSVColor(m_displayHue++, (m_flags & RANDOMIZE_COLORSET) * 255, 84));
   if (m_flags & RANDOMIZE_PATTERN) {
-    // if they are randomizing the pattern strobe on/off
-    Leds::blinkAll(Time::getCurtime(), 8, 15);
+    // this is blinking the light to off so the params are switched but still effectively correct
+    Leds::blinkAll(DOPS_ON_DURATION, DOPS_OFF_DURATION);
   }
   // indicate on the 2nd led whether the button is pressed
   Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_OFF : RGB_WHITE1);

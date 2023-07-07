@@ -237,15 +237,15 @@ void ColorSelect::showSlotSelection()
 
   if (withinNumColors && holdDurationCheck && holdDurationModCheck) {
     // breath red for delete slot
-    Leds::blinkIndex(LED_0, Time::getCurtime(), 50, 100, m_colorset[m_curSelection]);
+    Leds::blinkIndex(LED_0, 50, 100, m_colorset[m_curSelection]);
     Leds::breathIndex(LED_1, 0, holdDur);
   } else if (withinNumColors) {
     // blink the selected slot color
-    Leds::blinkIndex(LED_ALL, Time::getCurtime(), 150, 650, m_colorset[m_curSelection]);
+    Leds::blinkIndex(LED_ALL, 150, 650, m_colorset[m_curSelection]);
   } else if (m_colorset.numColors() < MAX_COLOR_SLOTS) {
     if (m_curSelection == m_colorset.numColors()) {
       // blink both leds and blink faster to indicate 'add' new color
-      Leds::blinkAll(Time::getCurtime(), 100, 150, RGB_WHITE2);
+      Leds::blinkAll(100, 150, RGB_WHITE2);
     }
     exitIndex = m_colorset.numColors() + 1;
   }

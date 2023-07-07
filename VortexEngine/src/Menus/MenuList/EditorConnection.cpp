@@ -194,7 +194,7 @@ void EditorConnection::showEditor()
   switch (m_state) {
   case STATE_DISCONNECTED:
     Leds::clearAll();
-    Leds::blinkAll(Time::getCurtime(), 250, 150, RGB_WHITE0);
+    Leds::blinkAll(250, 150, RGB_WHITE0);
     break;
   case STATE_IDLE:
     m_demoMode.play();
