@@ -61,7 +61,7 @@ bool Time::init()
   m_instantTimestep = false;
 #endif
 #if !defined(_MSC_VER) || defined(WASM)
-  start = micros();
+  start = microseconds();
 #else
   QueryPerformanceFrequency(&tps);
   QueryPerformanceCounter(&start);
@@ -95,7 +95,7 @@ void Time::tickClock()
   uint32_t elapsed_us;
   uint32_t us;
   do {
-    us = micros();
+    us = microseconds();
     // detect rollover of microsecond counter
     if (us < m_prevTime) {
       // calculate wrapped around difference
@@ -113,7 +113,7 @@ void Time::tickClock()
     if (required > elapsed_us) {
       // in vortex lib on linux we can just sleep instead of spinning
       // but on arduino we must spin and on windows it actually ends
-      // up being more accurate to poll QPF + QPC via micros()
+      // up being more accurate to poll QPF + QPC via microseconds()
       sleepTime = required - elapsed_us;
     }
     delayMicroseconds(sleepTime);
@@ -124,7 +124,7 @@ void Time::tickClock()
   } while (elapsed_us < (1000000 / TICKRATE));
 
   // store current time
-  m_prevTime = micros();
+  m_prevTime = microseconds();
 #endif
 }
 
@@ -186,24 +186,18 @@ uint32_t Time::_millisecondsToTicks(uint32_t ms)
 }
 #endif
 
-uint32_t Time::micros()
+uint32_t Time::microseconds()
 {
 #ifndef VORTEX_LIB // Embedded avr devices
-  uint32_t ticks;
-  uint8_t oldSREG = SREG;
-  // Save current state and disable interrupts
-  cli();
-  // divide by 10
-  ticks = (m_curTick * DEFAULT_TICKRATE) + (TCB0.CNT / 1000);
-  SREG = oldSREG; // Restore interrupt state
-  return ticks;
+  // arduino micros, or whatever micro implementation you have chosen for the embedded device
+  return micros();
 #elif defined(_MSC_VER) // windows
   LARGE_INTEGER now;
   QueryPerformanceCounter(&now);
   if (!tps.QuadPart) {
     return 0;
   }
-  // yes, this will overflow, that's how arduino micros() works *shrug*
+  // yes, this will overflow, that's how arduino microseconds() works *shrug*
   return (unsigned long)((now.QuadPart - start.QuadPart) * 1000000 / tps.QuadPart);
 #else // linux/wasm/etc
   struct timespec ts;

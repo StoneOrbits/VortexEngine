@@ -61,7 +61,7 @@ public:
   // If you just need to perform regular time checks for a pattern or some logic then use getCurtime() and measure 
   // time in ticks, use the SEC_TO_TICKS() or MS_TO_TICKS() macros to convert timings to measures of ticks for
   // purpose of comparing against getCurtime()
-  static uint32_t micros();
+  static uint32_t microseconds();
 
 #ifdef VORTEX_LIB
   // Start a time simulation, while the simulation is active you can
