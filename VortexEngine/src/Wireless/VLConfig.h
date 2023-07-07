@@ -25,7 +25,7 @@
 #define VL_THRES_UP   (1 + VL_THRESHOLD)
 #define VL_THRES_DOWN (1 - VL_THRESHOLD)
 
-#define VL_TIMING (uint32_t)2800
+#define VL_TIMING (uint32_t)2330
 #define VL_TIMING_MIN ((uint32_t)(VL_TIMING * VL_THRES_DOWN))
 
 #define VL_HEADER_MARK (uint32_t)(VL_TIMING * 16)
