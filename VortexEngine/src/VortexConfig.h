@@ -508,7 +508,7 @@
 // The test framework needs brighter menu colors can't really see them on the screen
 #undef RGB_MENU_RANDOMIZER
 #undef RGB_MENU_MODE_SHARING
-#undef RGB_MENU_EDIT_RCONNECTION
+#undef RGB_MENU_EDITOR_CONNECTION
 #undef RGB_MENU_COLOR_SELECT
 #undef RGB_MENU_PATTERN_SELECT
 #undef RGB_MENU_BRIGHTNESS_SELECT
