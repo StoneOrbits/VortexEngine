@@ -29,9 +29,6 @@ bool PatternSelect::init()
   if (!m_pCurMode) {
     return false;
   }
-  m_patternMode = *m_pCurMode;
-  m_patternMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
-  m_patternMode.init();
   //if (m_advanced) {
   //  // copy out the colorset so we can walk it with colorset apis
   //  m_origSet = m_pCurMode->getColorset();
@@ -67,6 +64,13 @@ Menu::MenuAction PatternSelect::run()
   // show selections
   Menus::showSelection();
   return MENU_CONTINUE;
+}
+
+void PatternSelect::onLedSelected()
+{
+  m_patternMode = *m_pCurMode;
+  m_patternMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
+  m_patternMode.init();
 }
 
 void PatternSelect::onShortClick()
