@@ -8,7 +8,7 @@
 
 #if VARIABLE_TICKRATE == 1
 #define MS_TO_TICKS(ms) Time::_millisecondsToTicks(ms)
-#define SEC_TO_TICKS(ms) Time::_secondsToTicks(ms)
+#define SEC_TO_TICKS(s) Time::_secondsToTicks(s)
 #else
 #define MS_TO_TICKS(ms) (uint32_t)(((uint32_t)(ms) * DEFAULT_TICKRATE) / 1000)
 #define SEC_TO_TICKS(s) (uint32_t)((uint32_t)(s) * DEFAULT_TICKRATE)

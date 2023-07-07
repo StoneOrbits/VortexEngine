@@ -170,6 +170,7 @@ void VortexEngine::runMainLogic()
     }
     // OPTIONAL: render a dim led during unlock window waiting for clicks?
     //Leds::setIndex(LED_1, RGB_RED4);
+    Leds::clearAll();
     // don't do anything else while locked, just return
     return;
   }
@@ -180,7 +181,7 @@ void VortexEngine::runMainLogic()
   if (g_pButton->releaseCount() == 0) {
     // if the button is held for 2 seconds from off, switch to on click mode on
     // the last mode shown before sleep
-    if (Time::getCurtime() == SHORT_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
+    if (!Modes::keychainModeEnabled() && Time::getCurtime() == SHORT_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
       // toggle one click mode
       Modes::setOneClickMode(!Modes::oneClickModeEnabled());
       // switch to the one click startup mode
@@ -208,10 +209,16 @@ void VortexEngine::runMainLogic()
   // finally the user has released the button after initially turning it on,
   // just run the regular main logic of the system
 
+  // re-enter inova mode if it was never disabled
+  if (Modes::keychainModeEnabled() && !Menus::checkInMenu()) {
+    // enter inova menu
+    Menus::openMenu(MENU_GLOBAL_BRIGHTNESS, true);
+  }
+
   // first look for the force-sleep and instant on/off toggle
   const uint32_t holdTime = g_pButton->holdDuration();
-  // force-sleep check takes precedence above all
-  if (holdTime >= FORCE_SLEEP_THRESHOLD_TICKS) {
+  // force-sleep check takes precedence above all, but it does not run when keychain mode is enabled
+  if (holdTime >= FORCE_SLEEP_THRESHOLD_TICKS && !Modes::keychainModeEnabled()) {
     // as long as they hold down past this threshold just turn off
     if (g_pButton->isPressed()) {
       Leds::clearAll();

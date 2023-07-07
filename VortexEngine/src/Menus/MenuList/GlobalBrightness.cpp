@@ -43,9 +43,11 @@ bool GlobalBrightness::init()
     }
   }
   if (m_advanced) {
+    // enable keychain mode so if the device sleeps it will wake into keychain mode
+    Modes::setKeychainMode(true);
     // start in the off position, this call is necessary to update the
     // lastStateChange time to the current time of init
-    setKeychainModeState(KEYCHAIN_MODE_STATE_OFF);
+    setKeychainModeState(KEYCHAIN_MODE_STATE_SOLID);
     // reset the color index to ensure it starts on first color
     m_colorIndex = 0;
   }
@@ -124,6 +126,8 @@ Menu::MenuAction GlobalBrightness::runKeychainMode()
 {
   // check for exit
   if (g_pButton->consecutivePresses() > KEYCHAIN_MODE_EXIT_CLICKS) {
+    // turn off keychain mode now
+    Modes::setKeychainMode(false);
     return MENU_QUIT;
   }
   uint32_t now = Time::getCurtime();
