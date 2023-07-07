@@ -65,12 +65,12 @@
 // Sleep Window Time (in milliseconds)
 //
 // How long the user has to release the button to enter sleep
-#define SLEEP_WINDOW_TIME     350
+#define SLEEP_WINDOW_TIME     500
 
 // Force Sleep Time (in milliseconds)
 //
 // How long the user has to hold the button anywhere to force sleep
-#define FORCE_SLEEP_TIME      8000
+#define FORCE_SLEEP_TIME      6000
 
 // Device Lock Clicks
 //
@@ -112,7 +112,7 @@
 // as the auto random delay. This number is intentionally high because we really
 // don't want it activated automatically but it's there for demo purposes and as
 // a fun little easter egg to anybody that might come across it
-#define AUTO_CYCLE_MODES_CLICKS 16
+#define AUTO_CYCLE_MODES_CLICKS 12
 
 // Color delete threshold (in milliseconds)
 //
