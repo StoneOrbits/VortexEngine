@@ -15,6 +15,10 @@
 #include <avr/interrupt.h>
 #endif
 
+#ifdef VORTEX_LIB
+#include <Arduino.h>
+#endif
+
 #if !defined(_MSC_VER) || defined(WASM)
 #include <unistd.h>
 uint64_t start = 0;
