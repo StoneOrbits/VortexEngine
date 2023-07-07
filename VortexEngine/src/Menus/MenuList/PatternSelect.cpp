@@ -26,9 +26,6 @@ bool PatternSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  if (!m_pCurMode) {
-    return false;
-  }
   //if (m_advanced) {
   //  // copy out the colorset so we can walk it with colorset apis
   //  m_origSet = m_pCurMode->getColorset();

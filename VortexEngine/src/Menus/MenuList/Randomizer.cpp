@@ -34,11 +34,6 @@ bool Randomizer::init()
   if (!Menu::init()) {
     return false;
   }
-
-  if (!m_pCurMode) {
-    return false;
-  }
-
   DEBUG_LOG("Entered randomizer");
   return true;
 }
