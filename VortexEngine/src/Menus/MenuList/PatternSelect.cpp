@@ -58,19 +58,37 @@ void PatternSelect::onLedSelected()
 void PatternSelect::onShortClick()
 {
   if (m_advanced) {
-    bool doReset = (g_pButton->consecutivePresses() >= 4);
-    if (doReset) {
+    // double click = skip 10
+    bool doSkip = (g_pButton->consecutivePresses() >= 2);
+    if (doSkip) {
       g_pButton->resetConsecutivePresses();
     }
     MAP_FOREACH_LED(m_targetLeds) {
-      if (doReset) {
-        m_patternMode.getPattern(pos)->argRef(m_argIndex) = 0;
+      uint8_t &arg = m_patternMode.getPattern(pos)->argRef(m_argIndex);
+      if (doSkip) {
+        arg += 10 - (arg % 10);
       } else {
-        m_patternMode.getPattern(pos)->argRef(m_argIndex) += 5;
+        arg++;
+      }
+      // limit to a max value based on the argument
+      if (m_argIndex < 4) {
+        // on/off/gap/dash duration max 100
+        arg %= 100;
+      } else if (m_argIndex == 4) {
+        // group size max 20
+        arg %= 20;
+      } else {
+        // blend = hue offset, and num flips
+        // solid = col index
+        // all cases just max it at 8
+        arg %= 8;
       }
     }
     m_patternMode.init();
-    Leds::holdAll(200 + (800 * doReset), doReset ? RGB_RED4 : RGB_WHITE1);
+    if (doSkip) {
+      // hold white for a moment to show they are skipping 25
+      Leds::holdAll(350, RGB_WHITE1);
+    }
     return;
   }
 
