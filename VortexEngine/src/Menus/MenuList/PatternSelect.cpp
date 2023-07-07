@@ -30,9 +30,9 @@ bool PatternSelect::init()
   }
   m_state = STATE_PICK_LIST;
   m_newPatternID = PATTERN_FIRST;
-  m_demoMode.setPattern(m_newPatternID, LED_ALL);
-  m_demoMode.setColorset(m_pCurMode->getColorset(), LED_ALL);
-  m_demoMode.init();
+  if (!m_pCurMode) {
+    return false;
+  }
   DEBUG_LOG("Entered pattern select");
   return true;
 }
@@ -78,6 +78,13 @@ void PatternSelect::showPatternSelection()
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     Leds::setAll(RGB_WHITE4);
   }
+}
+
+void PatternSelect::onLedSelected()
+{
+  m_demoMode = *m_pCurMode;
+  m_demoMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
+  m_demoMode.init();
 }
 
 void PatternSelect::onShortClick()

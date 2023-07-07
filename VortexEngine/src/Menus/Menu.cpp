@@ -81,6 +81,8 @@ Menu::MenuAction Menu::run()
   // on a long press of the button, lock in the target led
   if (g_pButton->onLongClick()) {
     m_ledSelected = true;
+    // call led selected callback
+    onLedSelected();
   }
 
   // render the bulb selection
@@ -185,6 +187,10 @@ void Menu::prevBulbSelection()
     m_targetLeds = MAP_LED((mapGetFirstLed(m_targetLeds) + (LED_COUNT)) % (LED_COUNT + 1));
     break;
   }
+}
+
+void Menu::onLedSelected()
+{
 }
 
 void Menu::onShortClick()

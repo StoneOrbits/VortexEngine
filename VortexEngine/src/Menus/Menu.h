@@ -28,6 +28,9 @@ public:
   };
   virtual MenuAction run();
 
+  // optional handler for initializing data after user selected led
+  virtual void onLedSelected();
+
   // optional handlers for clicks
   virtual void onShortClick();
   virtual void onShortClick2();
