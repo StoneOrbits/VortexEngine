@@ -42,10 +42,8 @@ Menu::MenuAction PatternSelect::run()
   }
   // run the current mode
   m_patternMode.play();
-  if (!m_advanced) {
-    // show selections
-    Menus::showSelection();
-  }
+  // show dimmer selections in advanced mode
+  Menus::showSelection(m_advanced ? RGB_WHITE0 : RGB_WHITE5);
   return MENU_CONTINUE;
 }
 
@@ -60,12 +58,19 @@ void PatternSelect::onLedSelected()
 void PatternSelect::onShortClick()
 {
   if (m_advanced) {
-    MAP_FOREACH_LED(m_targetLeds) {
-      //m_patternMode.getPattern(pos)->setArg(m_argIndex, m_patternMode.getPattern(pos)->getArg(pos) + 1);
-      m_patternMode.getPattern(pos)->argRef(m_argIndex)+=5;
-      m_patternMode.init();
-      Leds::holdAll(200, RGB_WHITE1);
+    bool doReset = (g_pButton->consecutivePresses() >= 4);
+    if (doReset) {
+      g_pButton->resetConsecutivePresses();
     }
+    MAP_FOREACH_LED(m_targetLeds) {
+      if (doReset) {
+        m_patternMode.getPattern(pos)->argRef(m_argIndex) = 0;
+      } else {
+        m_patternMode.getPattern(pos)->argRef(m_argIndex) += 5;
+      }
+    }
+    m_patternMode.init();
+    Leds::holdAll(200 + (800 * doReset), doReset ? RGB_RED4 : RGB_WHITE1);
     return;
   }
 
@@ -100,10 +105,11 @@ void PatternSelect::onLongClick()
   if (m_advanced) {
     m_argIndex++;
     if (m_argIndex < m_patternMode.getPattern(m_srcLed)->getNumArgs()) {
-      Leds::holdAll(200, HSVColor(m_argIndex * 28, 255, 60));
+      Leds::holdAll(200, RGB_GREEN3);
       // if we haven't reached number of args yet then just return and kee pgoing
       return;
     }
+    Leds::holdAll(200, m_menuColor);
   }
   // store the mode as current mode
   Modes::updateCurMode(&m_patternMode);
