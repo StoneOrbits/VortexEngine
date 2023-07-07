@@ -16,7 +16,7 @@
 #endif
 
 __attribute__((__aligned__(256)))
-#ifndef VORTEX_ARDUINO
+#ifndef VORTEX_EMBEDDED
 uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
 #else
 // only arduino needs const I guess?
