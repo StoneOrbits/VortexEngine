@@ -13,7 +13,7 @@
 #include "../../VortexLib/VortexLib.h"
 #endif
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
 #include <Arduino.h>
 #include <FastLED.h>
 
@@ -35,7 +35,7 @@ uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 
 bool Leds::init()
 {
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // setup leds on data pin 4
   FastLED.addLeds<DOTSTAR, LED_DATA_PIN, CLOCK_PIN, BGR>((CRGB *)m_ledColors, LED_COUNT);
   // get screwed fastled, don't throttle us!
@@ -265,7 +265,7 @@ void Leds::holdIndex(LedPos target, uint16_t ms, RGBColor col)
 
 void Leds::update()
 {
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   FastLED.show(m_brightness);
 #endif
 #ifdef VORTEX_LIB
