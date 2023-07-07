@@ -19,9 +19,6 @@ bool PatternSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  if (!m_pCurMode) {
-    return false;
-  }
   DEBUG_LOG("Entered pattern select");
   return true;
 }
