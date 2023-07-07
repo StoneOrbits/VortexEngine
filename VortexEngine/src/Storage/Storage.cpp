@@ -8,7 +8,7 @@
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
 #include <avr/io.h>
 #include <avr/pgmspace.h>
 #include <avr/interrupt.h>
@@ -21,7 +21,7 @@
 #include <unistd.h>
 #endif
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
 // The first half of the data goes into the eeprom and then the rest goes into
 // flash, the EEPROM is 256 and storage size is 512 so the flash storage is 256
 #define FLASH_STORAGE_SIZE (STORAGE_SIZE - EEPROM_SIZE)
@@ -79,7 +79,7 @@ void Storage::cleanup()
 // store a serial buffer to storage
 bool Storage::write(ByteStream &buffer)
 {
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // Check size
   uint16_t size = buffer.rawSize();
   if (!size || size > STORAGE_SIZE) {
@@ -123,7 +123,7 @@ bool Storage::write(ByteStream &buffer)
   }
   CloseHandle(hFile);
   return true;
-#endif // VORTEX_ARDUINO
+#endif // VORTEX_EMBEDDED
 }
 
 // read a serial buffer from storage
@@ -134,7 +134,7 @@ bool Storage::read(ByteStream &buffer)
     return false;
   }
   buffer.init(STORAGE_SIZE);
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // Read the data from EEPROM first
   uint8_t *pos = (uint8_t *)buffer.rawData();
   for (size_t i = 0; i < EEPROM_SIZE; ++i) {

@@ -12,7 +12,7 @@
 #include "Modes/Mode.h"
 #include "Leds/Leds.h"
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
 #endif
@@ -25,7 +25,7 @@ bool VortexEngine::m_autoCycle = false;
 
 bool VortexEngine::init()
 {
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // clear the output pins to initialize everything
   clearOutputPins();
 #endif
@@ -76,7 +76,7 @@ bool VortexEngine::init()
   timerTest();
 #endif
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // setup TCB0 to track micros() and run ticks
   TCB0.CCMP = 10000;
   TCB0.INTCTRL = TCB_CAPT_bm;
@@ -158,7 +158,7 @@ void VortexEngine::runMainLogic()
     if (g_pButton->consecutivePresses() >= (DEVICE_LOCK_CLICKS - 1)) {
       // turn off the lock flag and save it to disk
       Modes::setLocked(false);
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
       // then enable the mosfet
       enableMOSFET(true);
 #endif
@@ -193,7 +193,7 @@ void VortexEngine::runMainLogic()
     return;
   }
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // ESD PROTECTION!
   // Sometimes the chip can be turned on via ESD triggering the wakeup pin
   // if the engine makes it here in less than 2 ticks that means the device turned on
@@ -334,7 +334,7 @@ void VortexEngine::enterSleep()
   // clear all the leds
   Leds::clearAll();
   Leds::update();
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // init the output pins to prevent any floating pins
   clearOutputPins();
   // close the mosfet so that power cannot flow to the leds
@@ -361,7 +361,7 @@ void VortexEngine::enterSleep()
 void VortexEngine::wakeup(bool reset)
 {
   DEBUG_LOG("Waking up");
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // turn the LED mosfet back on
   enableMOSFET(true);
   if (reset) {
@@ -378,7 +378,7 @@ void VortexEngine::wakeup(bool reset)
 #endif
 }
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
 // main tick function
 ISR(TCB0_INT_vect)
 {

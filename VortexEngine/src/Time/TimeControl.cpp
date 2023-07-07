@@ -10,7 +10,7 @@
 
 #include "../Leds/Leds.h"
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
 #include <avr/sleep.h>
 #include <avr/interrupt.h>
 #endif
@@ -51,7 +51,7 @@ bool Time::m_instantTimestep = false;
 
 bool Time::init()
 {
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   initMCUTime();
 #endif
   m_curTick = 0;
@@ -258,7 +258,7 @@ uint32_t Time::endSimulation()
 
 #endif
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
 
 void Time::initMCUTime()
 {
@@ -318,7 +318,7 @@ __attribute__((noinline)) void delay(uint16_t ms)
     delayMicroseconds(1000);
   }
 }
-#endif // VORTEX_ARDUINO
+#endif // VORTEX_EMBEDDED
 
 #if TIMER_TEST == 1
 #include <assert.h>

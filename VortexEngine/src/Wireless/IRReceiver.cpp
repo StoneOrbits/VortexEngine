@@ -7,7 +7,7 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #endif
@@ -20,7 +20,7 @@ uint32_t IRReceiver::m_prevTime = 0;
 uint8_t IRReceiver::m_pinState = 0;
 uint32_t IRReceiver::m_previousBytes = 0;
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
 #define MIN_THRESHOLD   200
 #define BASE_OFFSET     100
 #define THRESHOLD_BEGIN (MIN_THRESHOLD + BASE_OFFSET)
@@ -51,7 +51,7 @@ ISR(ADC0_WCOMP_vect)
 
 bool IRReceiver::init()
 {
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // Disable digital input buffer on the pin to save power
   PORTB.PIN1CTRL &= ~PORT_ISC_gm;
   PORTB.PIN1CTRL |= PORT_ISC_INPUT_DISABLE_gc;
@@ -121,7 +121,7 @@ bool IRReceiver::receiveMode(Mode *pMode)
 
 bool IRReceiver::beginReceiving()
 {
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // Set up the ADC
   // sample campacitance, VDD reference, prescaler division
   //  0x0 DIV2 CLK_PER divided by 2
@@ -168,7 +168,7 @@ bool IRReceiver::beginReceiving()
 
 bool IRReceiver::endReceiving()
 {
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // Stop conversions and disable the ADC
   ADC0.CTRLA &= ~(ADC_ENABLE_bm | ADC_FREERUN_bm);
   ADC0.INTCTRL = 0;
@@ -281,7 +281,7 @@ void IRReceiver::resetIRState()
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
   m_irData.reset();
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // reset the threshold to a high value so that it can be pulled down again
   threshold = THRESHOLD_BEGIN;
 #endif

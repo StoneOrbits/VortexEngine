@@ -9,7 +9,7 @@
 #include "Arduino.h"
 #endif
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
 #include "../VortexEngine.h"
 #include <avr/interrupt.h>
 #include <avr/io.h>
@@ -85,7 +85,7 @@ bool Button::init(uint8_t pin)
   m_buttonState = check();
   m_releaseCount = !check();
   m_isPressed = m_buttonState;
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   BUTTON_PORT.PIN_CTRL = PORT_PULLUPEN_bm;
 #endif
   return true;

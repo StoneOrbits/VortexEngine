@@ -92,7 +92,7 @@ public:
 #endif
 
 private:
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   static void initMCUTime();
 #endif
 

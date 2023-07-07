@@ -84,7 +84,7 @@ public:
   static void enterSleep();
   static void wakeup(bool reset = true);
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // clear output pins
   static void clearOutputPins();
   // enable/disable the mosfet

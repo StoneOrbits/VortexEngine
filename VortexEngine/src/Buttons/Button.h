@@ -25,7 +25,7 @@ public:
   // poll the button pin and update the state of the button object
   void update();
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // enable the button-wake trigger to wake the device on press
   void enableWake();
 #endif

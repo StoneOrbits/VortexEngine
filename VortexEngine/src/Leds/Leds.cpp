@@ -13,7 +13,7 @@
 #include "../../VortexLib/VortexLib.h"
 #endif
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
 #include <avr/io.h>
 #include <string.h>
 #endif
@@ -35,7 +35,7 @@ uint8_t Leds::m_pinMask = 0;
 
 bool Leds::init()
 {
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // clear the onboard led so it displays nothing
   // tiny neo pixels
   PORTB.DIRSET |= PIN4_bm;
@@ -265,7 +265,7 @@ void Leds::holdIndex(LedPos target, uint16_t ms, RGBColor col)
 
 void Leds::update()
 {
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   RGBColor ledbackups[LED_COUNT];
   memcpy(ledbackups, m_ledColors, sizeof(m_ledColors));
   for (int c = 0; c < LED_COUNT; ++c) {
@@ -284,7 +284,7 @@ void Leds::update()
 #endif
 
   // Thanks to TinyNeoPixel for this code
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   __asm("cli");
   volatile uint16_t
     i = LED_COUNT * sizeof(RGBColor); // Loop counter
@@ -438,7 +438,7 @@ void Leds::update()
   __asm("sei");
 #endif
 
-#ifdef VORTEX_ARDUINO
+#ifdef VORTEX_EMBEDDED
   // swap red and green channels back so all algorithms continue working
   SWAP(m_ledColors[LED_1].red, m_ledColors[LED_1].green);
   // restore the led colors from the backup (brightness mod)
