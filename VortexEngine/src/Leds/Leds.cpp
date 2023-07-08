@@ -258,7 +258,7 @@ void Leds::breathIndexVal(LedPos target, uint32_t hue, uint32_t variance, uint32
 
 void Leds::holdAll(uint16_t ms, RGBColor col)
 {
-  setIndex(LED_ALL, col);
+  setAll(col);
   update();
   delay(ms);
 }
