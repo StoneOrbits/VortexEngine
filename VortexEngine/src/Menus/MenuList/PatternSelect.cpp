@@ -91,7 +91,7 @@ void PatternSelect::onShortClick()
     m_patternMode.init();
     if (doSkip) {
       // hold white for a moment to show they are skipping 25
-      Leds::holdAll(350, RGB_WHITE1);
+      Leds::holdAll(250, RGB_YELLOW1);
     }
     return;
   }
