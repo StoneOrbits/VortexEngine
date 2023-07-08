@@ -70,18 +70,22 @@ void PatternSelect::onShortClick()
       } else {
         arg++;
       }
+      // on/off/gap/dash duration max 100
+      uint8_t max = 100;
       // limit to a max value based on the argument
-      if (m_argIndex < 4) {
-        // on/off/gap/dash duration max 100
-        arg %= 100;
-      } else if (m_argIndex == 4) {
+      if (m_argIndex == 4) {
         // group size max 20
-        arg %= 20;
+        max = 20;
       } else {
         // blend = hue offset, and num flips
         // solid = col index
         // all cases just max it at 8
-        arg %= 8;
+        max = 8;
+      }
+      arg %= max;
+      // do not let argument0 be reset to 0
+      if (!m_argIndex && !arg) {
+        arg = 1;
       }
     }
     m_patternMode.init();
