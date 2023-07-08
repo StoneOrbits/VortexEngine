@@ -267,6 +267,8 @@ void ColorSelect::showSelection(ColorSelectState mode)
     return;
   }
 
+  uint8_t now = Time::getCurtime();
+
   uint8_t hue = m_newColor.hue;
   uint8_t sat = m_newColor.sat;
   uint8_t val = 255;
@@ -276,8 +278,8 @@ void ColorSelect::showSelection(ColorSelectState mode)
     return;
   case STATE_PICK_HUE1:
     hue = m_curSelection * (255 / 4);
-    Leds::breathIndex(LED_0, hue, (uint32_t)(Time::getCurtime() / 2), 22, 255, 180);
-    Leds::breathIndex(LED_1, hue, (uint32_t)(Time::getCurtime() / 2) + 125, 22, 255, 180);
+    Leds::breathIndex(LED_0, hue, (uint32_t)(now / 2), 22, 255, 180);
+    Leds::breathIndex(LED_1, hue, (uint32_t)(now / 2) + 125, 22, 255, 180);
     // force sat at hue level1
     sat = 255;
     // NOTE: return here
@@ -290,11 +292,11 @@ void ColorSelect::showSelection(ColorSelectState mode)
     break;
   case STATE_PICK_SAT:
     sat = sats[m_curSelection];
-    Leds::breathIndexSat(LED_1, hue, (uint32_t)(Time::getCurtime() / 3), 100, 150, 150);
+    Leds::breathIndexSat(LED_1, hue, (uint32_t)(now / 3), 100, 150, 150);
     break;
   case STATE_PICK_VAL:
     val = vals[m_curSelection];
-    Leds::breathIndexVal(LED_1, hue, (uint32_t)(Time::getCurtime() / 3), 100, sat, 150);
+    Leds::breathIndexVal(LED_1, hue, (uint32_t)(now / 3), 100, sat, 150);
     break;
   }
   Leds::setMap(MAP_PAIR_EVENS, HSVColor(hue, sat, val));
@@ -307,7 +309,7 @@ void ColorSelect::showFullSet(LedPos target, uint32_t time, uint32_t offMs, uint
     return;
   }
   if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
-    int divisor = MS_TO_TICKS(offMs + onMs);
+    uint16_t divisor = MS_TO_TICKS(offMs + onMs);
     if (!divisor) {
       divisor = 1;
     }
