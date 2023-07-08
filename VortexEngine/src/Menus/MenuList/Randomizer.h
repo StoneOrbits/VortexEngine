@@ -17,9 +17,6 @@ public:
   bool init() override;
   MenuAction run() override;
 
-  // callback after the user selects the target led
-  void onLedSelected() override;
-
   // handlers for clicks
   void onShortClick() override;
   void onLongClick() override;

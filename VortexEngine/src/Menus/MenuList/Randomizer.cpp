@@ -34,6 +34,15 @@ bool Randomizer::init()
   if (!Menu::init()) {
     return false;
   }
+  // copy the current mode to start with
+  m_randomizedMode = *m_pCurMode;
+  // initialize the randomseed of each led with the
+  // CRC of the colorset on the respective LED
+  for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
+    ByteStream ledData;
+    m_pCurMode->getColorset(l).serialize(ledData);
+    m_singlesRandCtx[l].seed(ledData.recalcCRC());
+  }
   DEBUG_LOG("Entered randomizer");
   return true;
 }
@@ -75,20 +84,6 @@ Menu::MenuAction Randomizer::run()
 
   // return true to continue staying in randomizer menu
   return MENU_CONTINUE;
-}
-
-void Randomizer::onLedSelected()
-{
-  // copy the current mode to start with
-  m_randomizedMode = *m_pCurMode;
-
-  // initialize the randomseed of each led with the
-  // CRC of the colorset on the respective LED
-  for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
-    ByteStream ledData;
-    m_pCurMode->getColorset(l).serialize(ledData);
-    m_singlesRandCtx[l].seed(ledData.recalcCRC());
-  }
 }
 
 void Randomizer::onShortClick()
