@@ -76,7 +76,7 @@ void PatternSelect::onShortClick()
       if (m_argIndex == 4) {
         // group size max 20
         max = 20;
-      } else {
+      } else if (m_argIndex > 4) {
         // blend = hue offset, and num flips
         // solid = col index
         // all cases just max it at 8
