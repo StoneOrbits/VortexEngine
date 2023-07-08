@@ -112,7 +112,7 @@ public:
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
 
   // hold an index at a color for a period of time (blocks with delay!)
-  static void holdIndex(LedPos target, uint16_t ms, RGBColor col);
+  static void holdAll(uint16_t ms, RGBColor col);
 
   // get the RGBColor of an Led index
   static RGBColor getLed(LedPos pos) { return led(pos); }

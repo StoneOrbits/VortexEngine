@@ -176,9 +176,8 @@ bool Menus::runMenuSelection()
     for (int i = 0; i < 255; ++i) {
       bool even = ((i % 2) == 0);
       if (even) other = !other;
-      Leds::holdIndex(LED_ALL,
-        even ? other ? DOPS_ON_DURATION : 1 : DOPS_OFF_DURATION,
-        even ? HSVColor(i, other ? 255 : 0, val) : RGB_OFF);
+      Leds::holdAll(even ? other ? DOPS_ON_DURATION : 1 : DOPS_OFF_DURATION,
+                    even ? HSVColor(i, other ? 255 : 0, val) : RGB_OFF);
     }
   }
   // show when the user selects a menu option

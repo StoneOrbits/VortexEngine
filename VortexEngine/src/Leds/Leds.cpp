@@ -321,9 +321,9 @@ void Leds::breathQuadrantFive(uint32_t hue, uint32_t variance, uint32_t magnitud
   }
 }
 
-void Leds::holdIndex(LedPos target, uint16_t ms, RGBColor col)
+void Leds::holdAll(uint16_t ms, RGBColor col)
 {
-  setIndex(target, col);
+  setAll(col);
   update();
   delay(ms);
 }

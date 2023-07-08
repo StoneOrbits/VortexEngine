@@ -30,6 +30,7 @@ bool PatternSelect::init()
   }
   m_state = STATE_PICK_LIST;
   m_newPatternID = PATTERN_FIRST;
+  m_demoMode = *m_pCurMode;
   DEBUG_LOG("Entered pattern select");
   return true;
 }
@@ -79,7 +80,6 @@ void PatternSelect::showPatternSelection()
 
 void PatternSelect::onLedSelected()
 {
-  m_demoMode = *m_pCurMode;
   m_demoMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
   m_demoMode.init();
 }
