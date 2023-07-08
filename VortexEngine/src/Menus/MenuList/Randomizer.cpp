@@ -36,6 +36,21 @@ bool Randomizer::init()
   if (!Menu::init()) {
     return false;
   }
+  // copy the current mode to start with
+  m_randomizedMode = *m_pCurMode;
+  // grab the multi ld pattern colorset crc if it's present
+  if (m_pCurMode->hasMultiLed()) {
+    ByteStream ledData;
+    m_pCurMode->getColorset(LED_MULTI).serialize(ledData);
+    m_multiRandCtx.seed(ledData.recalcCRC());
+  }
+  // initialize the randomseed of each led with the
+  // CRC of the colorset on the respective LED
+  for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
+    ByteStream ledData;
+    m_pCurMode->getColorset(l).serialize(ledData);
+    m_singlesRandCtx[l].seed(ledData.recalcCRC());
+  }
   DEBUG_LOG("Entered randomizer");
   return true;
 }
@@ -74,7 +89,7 @@ Menu::MenuAction Randomizer::run()
     // toggle the auto cycle flag
     m_autoCycle = !m_autoCycle;
     // display a quick flash of either green or red to indicate whether auto mode is on or not
-    Leds::holdIndex(LED_ALL, 250, (m_autoCycle ? RGB_GREEN : RGB_RED));
+    Leds::holdAll(250, (m_autoCycle ? RGB_GREEN : RGB_RED));
     return MENU_CONTINUE;
   }
 
@@ -91,27 +106,6 @@ Menu::MenuAction Randomizer::run()
 
   // return true to continue staying in randomizer menu
   return MENU_CONTINUE;
-}
-
-void Randomizer::onLedSelected()
-{
-  // copy the current mode to start with
-  m_randomizedMode = *m_pCurMode;
-
-  // grab the multi ld pattern colorset crc if it's present
-  if (m_pCurMode->hasMultiLed()) {
-    ByteStream ledData;
-    m_pCurMode->getColorset(LED_MULTI).serialize(ledData);
-    m_multiRandCtx.seed(ledData.recalcCRC());
-  }
-
-  // initialize the randomseed of each led with the
-  // CRC of the colorset on the respective LED
-  for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
-    ByteStream ledData;
-    m_pCurMode->getColorset(l).serialize(ledData);
-    m_singlesRandCtx[l].seed(ledData.recalcCRC());
-  }
 }
 
 void Randomizer::onShortClick()

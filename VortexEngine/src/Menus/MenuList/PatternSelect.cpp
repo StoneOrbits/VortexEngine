@@ -19,6 +19,7 @@ bool PatternSelect::init()
   if (!Menu::init()) {
     return false;
   }
+  m_patternMode = *m_pCurMode;
   DEBUG_LOG("Entered pattern select");
   return true;
 }
@@ -38,9 +39,12 @@ Menu::MenuAction PatternSelect::run()
 
 void PatternSelect::onLedSelected()
 {
-  m_patternMode = *m_pCurMode;
-  m_patternMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
-  m_patternMode.init();
+  if (!m_advanced) {
+    // if not in advanced then change the starting pattern, otherwise start
+    // on the pattern we already had
+    m_patternMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
+    m_patternMode.init();
+  }
 }
 
 void PatternSelect::onShortClick()
