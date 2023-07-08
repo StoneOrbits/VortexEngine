@@ -50,8 +50,12 @@ Menu::MenuAction PatternSelect::run()
 void PatternSelect::onLedSelected()
 {
   m_patternMode = *m_pCurMode;
-  m_patternMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
-  m_patternMode.init();
+  if (!m_advanced) {
+    // if not in advanced then change the starting pattern, otherwise start
+    // on the pattern we already had
+    m_patternMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
+    m_patternMode.init();
+  }
   m_srcLed = mapGetFirstLed(m_targetLeds);
 }
 
@@ -96,20 +100,9 @@ void PatternSelect::onShortClick()
     return;
   }
 
-  PatternID srcID = m_patternMode.getPatternID(m_srcLed);
-  PatternID newID = (PatternID)(srcID + 1);
-  PatternID endList = PATTERN_SINGLE_LAST;
-  PatternID beginList = PATTERN_SINGLE_FIRST;
-#if VORTEX_SLIM == 0
-  if (m_targetLeds == MAP_LED_ALL || m_targetLeds == MAP_LED(LED_MULTI)) {
-    endList = PATTERN_MULTI_LAST;
-  }
-  if (m_targetLeds == MAP_LED(LED_MULTI)) {
-    beginList = PATTERN_MULTI_FIRST;
-  }
-#endif
-  if (newID > endList || newID < beginList) {
-    newID = beginList;
+  PatternID newID = (PatternID)(m_patternMode.getPatternID(m_srcLed) + 1);
+  if (newID > PATTERN_SINGLE_LAST) {
+    newID = PATTERN_SINGLE_FIRST;
   }
 
   // set the new pattern id
