@@ -43,7 +43,7 @@ Menu::MenuAction PatternSelect::run()
   // run the current mode
   m_patternMode.play();
   // show dimmer selections in advanced mode
-  Menus::showSelection(m_advanced ? RGB_WHITE0 : RGB_WHITE5);
+  Menus::showSelection(m_advanced ? RGB_GREEN0 : RGB_WHITE5);
   return MENU_CONTINUE;
 }
 
@@ -120,7 +120,6 @@ void PatternSelect::onLongClick()
   if (m_advanced) {
     m_argIndex++;
     if (m_argIndex < m_patternMode.getPattern(m_srcLed)->getNumArgs()) {
-      Leds::holdAll(200, RGB_GREEN3);
       // if we haven't reached number of args yet then just return and kee pgoing
       return;
     }
