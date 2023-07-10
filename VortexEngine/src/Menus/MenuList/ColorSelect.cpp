@@ -19,7 +19,8 @@ ColorSelect::ColorSelect(const RGBColor &col, bool advanced) :
   m_newColor(),
   m_colorset(),
   m_targetSlot(0),
-  m_targetHue1(0)
+  m_targetHue1(0),
+  m_pattern(nullptr)
 {
   // NOTE! Specifically using hsv_to_rgb_rainbow instead of generic because
   // it will generate nicer looking colors and a nicer rainbow to select
@@ -128,7 +129,6 @@ void ColorSelect::onLongClick()
   if (m_advanced) {
     return;
   }
-  bool needsSave = false;
   // if we're on 'exit' and we're on any menu past the slot selection
   if (m_curSelection == 4 && m_state > STATE_PICK_SLOT) {
     // move back to the previous selection
@@ -159,9 +159,9 @@ void ColorSelect::onLongClick()
       return;
     }
     // handle if user releases during the delete option
-    if (m_curSelection < m_colorset.numColors() &&
+    if (m_curSelection < numColors &&
         holdDur >= DELETE_THRESHOLD_TICKS &&
-       (holdDur % (DELETE_CYCLE_TICKS * 2)) > (DELETE_CYCLE_TICKS)) {
+        (holdDur % (DELETE_CYCLE_TICKS * 2)) > (DELETE_CYCLE_TICKS)) {
       // delete current slot
       m_colorset.removeColor(m_curSelection);
       if (m_curSelection > numColors) {
@@ -217,6 +217,7 @@ void ColorSelect::showSlotSelection()
     exitIndex++;
   }
   if (m_curSelection == exitIndex) {
+    // display the full set
     showFullSet(50, 100);
     // set LED_1 to green to indicate save and exit
     Leds::setIndex(LED_1, RGB_GREEN2);
@@ -265,17 +266,16 @@ void ColorSelect::showSelection(ColorSelectState mode)
   Leds::setMap(MAP_PAIR_EVENS, HSVColor(hue, sat, val));
 }
 
-void ColorSelect::showFullSet(uint32_t offMs, uint32_t onMs)
+void ColorSelect::showFullSet(uint8_t offMs, uint8_t onMs)
 {
   uint8_t numCols = m_colorset.numColors();
   uint8_t offOnMs = MS_TO_TICKS(offMs + onMs);
   if (!numCols || !offOnMs) {
-    // wat do?
     return;
   }
   uint32_t now = Time::getCurtime();
   if ((now % offOnMs) < MS_TO_TICKS(onMs)) {
     Leds::setAll(m_colorset.get((now / offOnMs) % numCols));
   }
-  Leds::setIndex(LED_1, 0x001000);
+  Leds::setIndex(LED_1, RGB_GREEN0);
 }

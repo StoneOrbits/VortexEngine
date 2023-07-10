@@ -26,7 +26,6 @@ public:
 private:
   enum ColorSelectState
   {
-    // first run after the menu is entered
     STATE_INIT,
     STATE_PICK_SLOT,
     STATE_PICK_HUE1,
@@ -37,7 +36,7 @@ private:
 
   void showSlotSelection();
   void showSelection(ColorSelectState mode);
-  void showFullSet(uint32_t offMs, uint32_t onMs);
+  void showFullSet(uint8_t offMs, uint8_t onMs);
 
   // the options for saturations
   const uint8_t sats[4] = {
