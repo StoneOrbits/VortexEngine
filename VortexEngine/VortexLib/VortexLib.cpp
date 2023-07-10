@@ -437,6 +437,19 @@ bool Vortex::setModes(ByteStream &stream, bool save)
   return !save || doSave();
 }
 
+bool Vortex::checkLedCount()
+{
+  Mode *mode = Modes::curMode();
+  if (!mode) {
+    return false;
+  }
+  uint8_t numLeds = mode->getLedCount();
+  if (numLeds != LED_COUNT) {
+    Leds::setLedCount(numLeds);
+  }
+  return true;
+}
+
 bool Vortex::getCurMode(ByteStream &outStream)
 {
   Mode *pMode = Modes::curMode();

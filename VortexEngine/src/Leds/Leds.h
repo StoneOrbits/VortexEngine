@@ -3,6 +3,8 @@
 
 #include <inttypes.h>
 
+#include <vector>
+
 #include "../Colors/ColorTypes.h"
 
 // drop-in LedPos constant replacements
@@ -50,8 +52,6 @@ enum Pair : uint8_t
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
 // or off with a single integer
 typedef uint64_t LedMap;
-
-#define LED_COUNT Leds::ledCount()
 
 class LedStash;
 
@@ -154,7 +154,7 @@ public:
   // actually update the LEDs and show the changes
   static void update();
 
-  static void setLedCount(uint8_t leds) { m_ledCount = leds; }
+  static void setLedCount(uint8_t leds);
   static LedPos ledCount() { return (LedPos)m_ledCount; }
   static LedPos ledLast() { return (LedPos)(m_ledCount - 1); }
   static LedPos ledMulti() { return (LedPos)(m_ledCount + 1); }
@@ -178,7 +178,7 @@ private:
   static uint8_t m_ledCount;
 
   // array of led color values
-  static RGBColor *m_ledColors;
+  static std::vector<RGBColor> m_ledColors;
 };
 
 #endif

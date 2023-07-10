@@ -27,6 +27,9 @@ CompoundPattern::~CompoundPattern()
 void CompoundPattern::init()
 {
   MultiLedPattern::init();
+
+  // resize the pattern list to the number of leds
+  m_ledPatterns.resize(LED_COUNT);
 }
 
 // play the hybrid pattern (play all led patterns)

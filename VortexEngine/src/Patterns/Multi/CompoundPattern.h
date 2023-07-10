@@ -3,6 +3,8 @@
 
 #include "MultiLedPattern.h"
 
+#include <vector>
+
 class SingleLedPattern;
 
 // A hybrid pattern is a type of multi-led pattern that works by displaying
@@ -33,7 +35,7 @@ protected:
     const PatternArgs *tipArgs = nullptr, const PatternArgs *topArgs = nullptr);
 
   // array of single LED patterns, one for each LED
-  SingleLedPattern **m_ledPatterns;
+  std::vector<SingleLedPattern *> m_ledPatterns;
 };
 
 #endif

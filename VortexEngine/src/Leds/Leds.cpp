@@ -14,7 +14,7 @@
 #endif
 
 // array of led color values
-RGBColor *Leds::m_ledColors = nullptr;
+std::vector<RGBColor> Leds::m_ledColors;
 // global brightness
 uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 // led count
@@ -22,8 +22,9 @@ uint8_t Leds::m_ledCount = 10;
 
 bool Leds::init()
 {
+  m_ledColors.resize(LED_COUNT);
 #ifdef VORTEX_LIB
-  Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
+  Vortex::vcallbacks()->ledsInit(m_ledColors.data(), LED_COUNT);
 #endif
   return true;
 }
@@ -254,4 +255,10 @@ void Leds::update()
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsShow();
 #endif
+}
+
+void Leds::setLedCount(uint8_t leds)
+{
+  m_ledCount = leds;
+  m_ledColors.resize(m_ledCount);
 }

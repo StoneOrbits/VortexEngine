@@ -6,6 +6,8 @@
 #include "../../../Colors/Colorset.h"
 #include "../../../Time/Timer.h"
 
+#include <vector>
+
 class SequencedPattern;
 class SingleLedPattern;
 class ByteStream;
@@ -26,7 +28,7 @@ public:
   void unserialize(ByteStream &buffer);
 
   // public list of pattern IDs for each led
-  PatternID *m_patternMap;
+  std::vector<PatternID> m_patternMap;
 };
 
 // A map of leds to colorsets
@@ -45,7 +47,7 @@ public:
   void unserialize(ByteStream &buffer);
 
   // public list of pattern IDs for each led
-  Colorset *m_colorsetMap;
+  std::vector<Colorset> m_colorsetMap;
 };
 
 // A single step in a sequence

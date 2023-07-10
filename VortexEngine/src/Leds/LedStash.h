@@ -4,6 +4,8 @@
 #include "../Colors/ColorTypes.h"
 #include "LedTypes.h"
 
+#include <vector>
+
 class LedStash
 {
   friend class Leds;
@@ -19,7 +21,7 @@ public:
   RGBColor &operator[](int index);
 
 private:
-  RGBColor *m_ledColorsStash;
+  std::vector<RGBColor> m_ledColorsStash;
 };
 
 #endif
