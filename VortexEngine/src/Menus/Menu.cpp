@@ -94,9 +94,9 @@ void Menu::showBulbSelection()
   Leds::clearAll();
   if (m_targetLeds == MAP_LED(LED_MULTI)) {
     LedPos pos = (LedPos)((Time::getCurtime() / 30) % LED_COUNT);
-    Leds::blinkIndex(pos, Time::getCurtime() + (pos * 10), 50, 500, m_menuColor);
+    Leds::blinkIndexOffset(pos, pos * 10, 50, 500, m_menuColor);
   } else {
-    Leds::blinkMap(m_targetLeds, Time::getCurtime(), BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
+    Leds::blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
   }
   // blink when selecting
   Menus::showSelection();
@@ -110,7 +110,7 @@ void Menu::showExit()
   }
   Leds::clearAll();
   Leds::setAll(RGB_WHITE0);
-  Leds::blinkAll(Time::getCurtime(), EXIT_MENU_OFF_MS, EXIT_MENU_ON_MS, RGB_RED0);
+  Leds::blinkAll(EXIT_MENU_OFF_MS, EXIT_MENU_ON_MS, RGB_RED0);
 }
 
 void Menu::nextBulbSelection()

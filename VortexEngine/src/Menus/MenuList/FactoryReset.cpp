@@ -65,7 +65,7 @@ void FactoryReset::onLongClick()
     return;
   }
   // if the button hasn't been held long enough just return
-  if (g_pButton->holdDuration() <= (FACTORY_RESET_THRESHOLD_TICKS + Time::msToTicks(10))) {
+  if (g_pButton->holdDuration() <= (FACTORY_RESET_THRESHOLD_TICKS + MS_TO_TICKS(10))) {
     return;
   }
   // the button was held down long enough so actually perform the factory reset
@@ -86,21 +86,20 @@ void FactoryReset::onLongClick()
 
 void FactoryReset::showReset()
 {
-  uint32_t curTime = Time::getCurtime();
   if (m_curSelection == 0) {
     Leds::clearAll();
-    Leds::blinkAll(curTime, 350, 350, RGB_WHITE0);
+    Leds::blinkAll(350, 350, RGB_WHITE0);
     return;
   }
   bool isPressed = g_pButton->isPressed();
   if (!isPressed) {
     Leds::clearAll();
-    Leds::blinkAll(curTime, 50, 50, RGB_RED4);
+    Leds::blinkAll(50, 50, RGB_RED4);
     return;
   }
   // don't start the fill until the button has been held for a bit
   uint32_t holdDur = g_pButton->holdDuration();
-  if (holdDur < Time::msToTicks(100)) {
+  if (holdDur < MS_TO_TICKS(100)) {
     return;
   }
   uint16_t progress = ((holdDur * 100) / FACTORY_RESET_THRESHOLD_TICKS);
@@ -113,6 +112,6 @@ void FactoryReset::showReset()
   uint8_t onMs = (progress > 60) ? 30 : 100;
   uint8_t sat = (uint8_t)((progress * 5) >> 1); // Using bit shift for division by 2
   Leds::clearAll();
-  Leds::blinkAll(curTime, offMs, onMs, HSVColor(0, 255 - sat, 180));
+  Leds::blinkAll(offMs, onMs, HSVColor(0, 255 - sat, 180));
 }
 
