@@ -133,9 +133,9 @@ void ColorSelect::onLongClick()
       return;
     }
     // handle if user releases during the delete option
-    if (m_curSelection < m_colorset.numColors() &&
+    if (m_curSelection < numColors &&
         holdDur >= DELETE_THRESHOLD_TICKS &&
-       (holdDur % (DELETE_CYCLE_TICKS * 2)) > (DELETE_CYCLE_TICKS)) {
+        (holdDur % (DELETE_CYCLE_TICKS * 2)) > (DELETE_CYCLE_TICKS)) {
       // delete current slot
       m_colorset.removeColor(m_curSelection);
       if (m_curSelection > numColors) {
@@ -232,19 +232,14 @@ void ColorSelect::showSelection(ColorSelectState mode)
     val = vals[m_curSelection];
     break;
   }
-  Leds::setMap(MAP_PAIR_ODDS, HSVColor(hue, sat, val));
-  uint8_t satt = (mode == STATE_PICK_SAT) ? m_newColor.sat : 30;
-  MAP_FOREACH_LED(MAP_PAIR_EVENS) {
-    Leds::breathIndex(pos, hue, (now / 3), 100, satt, 30);
-  }
+  Leds::setMap(MAP_PAIR_EVENS, HSVColor(hue, sat, val));
 }
 
-void ColorSelect::showFullSet(uint32_t offMs, uint32_t onMs)
+void ColorSelect::showFullSet(uint8_t offMs, uint8_t onMs)
 {
   uint8_t numCols = m_colorset.numColors();
   uint8_t offOnMs = MS_TO_TICKS(offMs + onMs);
   if (!numCols || !offOnMs) {
-    // wat do?
     return;
   }
   uint32_t now = Time::getCurtime();

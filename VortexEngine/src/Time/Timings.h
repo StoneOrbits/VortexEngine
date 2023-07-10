@@ -54,8 +54,8 @@
 #define DOPS_OFF_DURATION           40
 
 // Dopish
-#define DOPISH_ON_DURATION          5
-#define DOPISH_OFF_DURATION         15
+#define DOPY_ON_DURATION            5
+#define DOPY_OFF_DURATION           15
 
 // Ultradops
 #define ULTRADOPS_ON_DURATION       3
