@@ -225,7 +225,7 @@ void ColorSelect::showSlotSelection()
   }
 
   if (m_curSelection == exitIndex) {
-    showFullSet(LED_ALL, Time::getCurtime(), 50, 100);
+    showFullSet(50, 100);
   }
 }
 
@@ -276,12 +276,13 @@ void ColorSelect::showSelection(ColorSelectState mode)
   }
 }
 
-void ColorSelect::showFullSet(LedPos target, uint32_t time, uint32_t offMs, uint32_t onMs)
+void ColorSelect::showFullSet(uint32_t time, uint32_t offMs, uint32_t onMs)
 {
   if (!m_colorset.numColors()) {
     // wat do?
     return;
   }
+  uint32_t time = Time::getCurtime();
   if ((time % Time::msToTicks(offMs + onMs)) < Time::msToTicks(onMs)) {
     int divisor = Time::msToTicks(offMs + onMs);
     if (!divisor) {

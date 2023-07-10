@@ -32,22 +32,22 @@ private:
 
   void showSlotSelection();
   void showSelection(ColorSelectState mode);
-  void showFullSet(LedPos target, uint32_t time, uint32_t offMs, uint32_t onMs);
+  void showFullSet(uint32_t time, uint32_t offMs, uint32_t onMs);
 
   // the options for saturations
   const uint8_t sats[4] = {
-    255,
-    170,
-    85,
-    0
+    SAT_OPTION_4,
+    SAT_OPTION_3,
+    SAT_OPTION_2,
+    SAT_OPTION_1
   };
 
   // the options for values
   const uint8_t vals[4] = {
-    255,
-    170,
-    85,
-    0
+    VAL_OPTION_4,
+    VAL_OPTION_3,
+    VAL_OPTION_2,
+    VAL_OPTION_1
   };
 
   // the state of the color select menu
