@@ -3,6 +3,7 @@
 LedStash::LedStash() :
   m_ledColorsStash()
 {
+  m_ledColorsStash.resize(LED_COUNT);
 }
 
 void LedStash::setIndex(LedPos pos, RGBColor col)
