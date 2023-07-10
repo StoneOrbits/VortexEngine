@@ -159,7 +159,7 @@ bool Menus::runMenuSelection()
     for (int i = 0; i < 255; ++i) {
       bool even = ((i % 2) == 0);
       if (even) other = !other;
-      Leds::holdAll(even ? other ? DOPS_ON_DURATION : 1 : DOPS_OFF_DURATION,
+      Leds::holdAll(even ? other ? DOPY_ON_DURATION : 1 : DOPY_OFF_DURATION,
                     even ? HSVColor(i, other ? 255 : 0, val) : RGB_OFF);
     }
   }
