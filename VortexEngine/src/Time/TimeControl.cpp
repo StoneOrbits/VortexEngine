@@ -71,7 +71,7 @@ void Time::tickClock()
   m_curTick++;
 
 #if DEBUG_ALLOCATIONS == 1
-  if ((m_curTick % msToTicks(1000)) == 0) {
+  if ((m_curTick % MS_TO_TICKS(1000)) == 0) {
     DEBUG_LOGF("Cur Memory: %u (%u)", cur_memory_usage(), cur_memory_usage_background());
   }
 #endif
@@ -158,6 +158,7 @@ void Time::setTickrate(uint32_t tickrate)
 #endif
 }
 
+#if VARIABLE_TICKRATE == 1
 uint32_t Time::millisecondsToTicks(uint32_t ms)
 {
   // 0ms = 0 ticks
@@ -173,6 +174,7 @@ uint32_t Time::millisecondsToTicks(uint32_t ms)
   }
   return ticks;
 }
+#endif
 
 uint32_t Time::microseconds()
 {
