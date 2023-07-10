@@ -1,13 +1,6 @@
 #include "Menus.h"
 
-// menus
-#include "MenuList/GlobalBrightness.h"
-#include "MenuList/EditorConnection.h"
-#include "MenuList/FactoryReset.h"
-#include "MenuList/ModeSharing.h"
-#include "MenuList/ColorSelect.h"
-#include "MenuList/PatternSelect.h"
-#include "MenuList/Randomizer.h"
+#include "Menu.h"
 
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
@@ -53,13 +46,7 @@ Menu *initMenu(const RGBColor &col, bool advanced) { return new T(col, advanced)
 const MenuEntry menuList[] = {
   // =========================
   //  Default menu setup:
-  ENTRY(Randomizer, RGB_MENU_RANDOMIZER),
-  ENTRY(ModeSharing, RGB_MENU_MODE_SHARING),
-  ENTRY(EditorConnection, RGB_MENU_EDITOR_CONNECTION),
-  ENTRY(ColorSelect, RGB_MENU_COLOR_SELECT),
-  ENTRY(PatternSelect, RGB_MENU_PATTERN_SELECT),
-  ENTRY(GlobalBrightness, RGB_MENU_BRIGHTNESS_SELECT),
-  ENTRY(FactoryReset, RGB_MENU_FACTORY_RESET),
+  { nullptr, 0 }
 };
 
 // the number of menus in the above array

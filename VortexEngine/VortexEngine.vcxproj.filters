@@ -162,27 +162,6 @@
     <ClCompile Include="src\Memory\Memory.cpp">
       <Filter>Source Files\Memory</Filter>
     </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\ColorSelect.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\EditorConnection.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\FactoryReset.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\GlobalBrightness.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\ModeSharing.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\PatternSelect.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
-    <ClCompile Include="src\Menus\MenuList\Randomizer.cpp">
-      <Filter>Source Files\Menus\MenuList</Filter>
-    </ClCompile>
     <ClCompile Include="src\Menus\Menu.cpp">
       <Filter>Source Files\Menus</Filter>
     </ClCompile>
@@ -379,27 +358,6 @@
     </ClInclude>
     <ClInclude Include="src\Memory\Memory.h">
       <Filter>Header Files\Memory</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\ColorSelect.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\EditorConnection.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\FactoryReset.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\GlobalBrightness.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\ModeSharing.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\PatternSelect.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
-    </ClInclude>
-    <ClInclude Include="src\Menus\MenuList\Randomizer.h">
-      <Filter>Header Files\Menus\MenuList</Filter>
     </ClInclude>
     <ClInclude Include="src\Menus\Menu.h">
       <Filter>Header Files\Menus</Filter>

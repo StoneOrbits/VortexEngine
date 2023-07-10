@@ -14,9 +14,11 @@
 #endif
 
 // array of led color values
-RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
+RGBColor *Leds::m_ledColors = nullptr;
 // global brightness
 uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
+// led count
+uint8_t Leds::m_ledCount = 10;
 
 bool Leds::init()
 {

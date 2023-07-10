@@ -26,7 +26,7 @@ public:
   void unserialize(ByteStream &buffer);
 
   // public list of pattern IDs for each led
-  PatternID m_patternMap[LED_COUNT];
+  PatternID *m_patternMap;
 };
 
 // A map of leds to colorsets
@@ -45,7 +45,7 @@ public:
   void unserialize(ByteStream &buffer);
 
   // public list of pattern IDs for each led
-  Colorset m_colorsetMap[LED_COUNT];
+  Colorset *m_colorsetMap;
 };
 
 // A single step in a sequence

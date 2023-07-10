@@ -4,79 +4,8 @@
 #include <inttypes.h>
 #include <stdarg.h>
 
+#include "../Leds/Leds.h"
 #include "../VortexConfig.h"
-
-// Defined the LED positions, their order, and index
-enum LedPos : uint8_t
-{
-  // this should always be first
-  LED_FIRST = 0,
-
-  // LED constants for each led
-  LED_0 = LED_FIRST,
-  LED_1,
-  LED_2,
-  LED_3,
-  LED_4,
-  LED_5,
-  LED_6,
-  LED_7,
-  LED_8,
-  LED_9,
-
-  // the number of entries above
-  LED_COUNT,
-
-  // the last LED index
-  LED_LAST = (LED_COUNT - 1),
-
-  // target all leds (multi and single)
-  // When fetching this the same as LED_ANY
-  // When setting this will set all of the leds
-  LED_ALL = LED_COUNT,
-
-  // target the multi led slot
-  //
-  // When fetching this will return the multi led slot
-  // When setting this will set the multi led slot
-  LED_MULTI = (LED_COUNT + 1),
-
-  // target all single led slots
-  //
-  // When fetching this will return the first single led slot
-  // When setting this will set all single led slots
-  LED_ALL_SINGLE = (LED_COUNT + 2),
-
-  // Target the 'effective' led slot (any slot)
-  //
-  // When fetching this will:
-  //    1. return the multi led slot if it exists
-  //    2. otherwise the first single led slot
-  // 
-  // When setting this will:
-  //    1. if setting single led pattern will set all
-  //    2. if setting multi led pattern will set multi
-  LED_ANY = (LED_COUNT + 3),
-
-  // other customs?
-  // LED_EVENS = (LED_COUNT + 2),
-  // LED_ODDS = (LED_COUNT + 3),
-};
-
-enum Pair : uint8_t
-{
-  PAIR_FIRST = 0,
-
-  // one pair for each pair of leds, adjust this to be 2x the LED_COUNT
-  PAIR_0 = PAIR_FIRST,
-  PAIR_1,
-  PAIR_2,
-  PAIR_3,
-  PAIR_4,
-
-  PAIR_COUNT,
-  PAIR_LAST = (PAIR_COUNT - 1),
-};
 
 // check if an led is even or odd
 #define isEven(pos) ((pos % 2) == 0)
@@ -88,10 +17,6 @@ enum Pair : uint8_t
 
 // convert an led position to a pair
 #define ledToPair(pos) (Pair)((uint32_t)pos / 2)
-
-// LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
-// or off with a single integer
-typedef uint64_t LedMap;
 
 // various macros for mapping leds to an LedMap
 #define MAP_LED(led) (LedMap)((uint64_t)1 << led)

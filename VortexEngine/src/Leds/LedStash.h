@@ -19,7 +19,7 @@ public:
   RGBColor &operator[](int index);
 
 private:
-  RGBColor m_ledColorsStash[LED_COUNT];
+  RGBColor *m_ledColorsStash;
 };
 
 #endif

@@ -12,10 +12,9 @@
 #include "Time/TimeControl.h"
 #include "Time/Timings.h"
 #include "Menus/Menus.h"
-#include "Menus/MenuList/EditorConnection.h"
-#include "Menus/MenuList/Randomizer.h"
 #include "Modes/Modes.h"
 #include "Modes/Mode.h"
+#include "Random/Random.h"
 
 #include "Arduino.h"
 
@@ -348,14 +347,6 @@ void Vortex::releaseButton(uint32_t buttonIndex)
 
 Mode *Vortex::getMenuDemoMode()
 {
-  void *pMenu = Menus::curMenu();
-  if (pMenu) {
-    // note the cur menu ID is only valid if the menus are open
-    MenuEntryID id = Menus::curMenuID();
-    if (id == MENU_EDITOR_CONNECTION) {
-      return &((EditorConnection *)pMenu)->m_demoMode;
-    }
-  }
   // attiny just demos the cur mode in menus to save on space
   return Modes::curMode();
 }
@@ -660,12 +651,10 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
     return false;
   }
   Pattern *pat = nullptr;
-  switch (pos) {
-  case LED_ANY:
-  case LED_ALL:
-    // fallthrough
+
+  // Equivalent to cases LED_ANY, LED_ALL and LED_MULTI
+  if (pos == LED_ANY || pos == LED_ALL || pos == LED_MULTI) {
 #if VORTEX_SLIM == 0
-  case LED_MULTI:
     pat = pMode->getPattern(LED_MULTI);
     if (pat) {
       pat->setArgs(args);
@@ -677,8 +666,22 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
       return !save || doSave();
     }
     // fall through if LED_ALL and change the single leds
+    else if (pos == LED_ANY || pos == LED_ALL) {
+      for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+        pat = pMode->getPattern(pos);
+        if (pat) {
+          pat->setArgs(args);
+        }
+      }
+      pMode->init();
+      // actually break here
+      return !save || doSave();
+    }
 #endif
-  case LED_ALL_SINGLE:
+  }
+
+  // equivalent to case LED_ALL_SINGLE
+  else if (pos == LED_ALL_SINGLE) {
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
       pat = pMode->getPattern(pos);
       if (pat) {
@@ -688,7 +691,10 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
     pMode->init();
     // actually break here
     return !save || doSave();
-  default:
+  }
+
+  // equivalent to default case (covers any other pos)
+  else {
     if (pos >= LED_COUNT) {
       return false;
     }
@@ -700,6 +706,7 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
     pMode->init();
     return !save || doSave();
   }
+
   return false;
 }
 
@@ -733,7 +740,7 @@ string Vortex::patternToString(PatternID id)
     // above to match the enum.
     return "fix patternToString()";
   }
-  if (id == PATTERN_NONE || id >= PATTERN_COUNT) {
+  if (id <= PATTERN_NONE || id >= PATTERN_COUNT) {
     return "pattern_none";
   }
   return patternNames[id];

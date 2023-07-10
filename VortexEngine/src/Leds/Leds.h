@@ -4,7 +4,54 @@
 #include <inttypes.h>
 
 #include "../Colors/ColorTypes.h"
-#include "LedTypes.h"
+
+// drop-in LedPos constant replacements
+#define LED_COUNT Leds::ledCount()
+#define LED_LAST Leds::ledLast()
+#define LED_ALL LED_COUNT
+#define LED_MULTI Leds::ledMulti()
+#define LED_ALL_SINGLE Leds::ledAllSingle()
+#define LED_ANY Leds::ledAny()
+
+// Defined the LED positions, their order, and index
+enum LedPos : uint8_t
+{
+  // this should always be first
+  LED_FIRST = 0,
+
+  // LED constants to supplement pattern code
+  LED_0 = LED_FIRST,
+  LED_1,
+  LED_2,
+  LED_3,
+  LED_4,
+  LED_5,
+  LED_6,
+  LED_7,
+  LED_8,
+  LED_9,
+};
+
+enum Pair : uint8_t
+{
+  PAIR_FIRST = 0,
+
+  // one pair for each pair of leds, adjust this to be 2x the LED_COUNT
+  PAIR_0 = PAIR_FIRST,
+  PAIR_1,
+  PAIR_2,
+  PAIR_3,
+  PAIR_4,
+
+  PAIR_COUNT,
+  PAIR_LAST = (PAIR_COUNT - 1),
+};
+
+// LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
+// or off with a single integer
+typedef uint64_t LedMap;
+
+#define LED_COUNT Leds::ledCount()
 
 class LedStash;
 
@@ -107,6 +154,13 @@ public:
   // actually update the LEDs and show the changes
   static void update();
 
+  static void setLedCount(uint8_t leds) { m_ledCount = leds; }
+  static LedPos ledCount() { return (LedPos)m_ledCount; }
+  static LedPos ledLast() { return (LedPos)(m_ledCount - 1); }
+  static LedPos ledMulti() { return (LedPos)(m_ledCount + 1); }
+  static LedPos ledAllSingle() { return (LedPos)(m_ledCount + 2); }
+  static LedPos ledAny() { return (LedPos)(m_ledCount + 3); }
+
 private:
   // accessor for led colors, use this for all access to allow for mapping
   static inline RGBColor &led(LedPos pos)
@@ -120,8 +174,11 @@ private:
   // the global brightness
   static uint8_t m_brightness;
 
+  // dynamic led count1
+  static uint8_t m_ledCount;
+
   // array of led color values
-  static RGBColor m_ledColors[LED_COUNT];
+  static RGBColor *m_ledColors;
 };
 
 #endif
