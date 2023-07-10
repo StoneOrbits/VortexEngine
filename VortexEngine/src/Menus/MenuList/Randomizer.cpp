@@ -62,14 +62,12 @@ Menu::MenuAction Randomizer::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
-
   // if the ranomization flags haven't been set yet just show a selection
   if (m_needToSelect) {
     // display the randomization selection menu
     showRandomizationSelect();
     return MENU_CONTINUE;
   }
-
   // if they are trying to randomize a multi-led pattern just convert
   // the pattern to all singles with the same colorset upon entry
   if (m_randomizedMode.isMultiLed() && m_targetLeds != MAP_LED(LED_MULTI)) {
@@ -83,27 +81,22 @@ Menu::MenuAction Randomizer::run()
     m_randomizedMode.setPattern(newID);
     m_randomizedMode.init();
   }
-
   // if the user fast-clicks 3 times then toggle automode
-  if (g_pButton->onRelease() && g_pButton->consecutivePresses() == 3) {
+  if (g_pButton->onRelease() && g_pButton->consecutivePresses() == AUTO_CYCLE_RANDOMIZER_CLICKS) {
     // toggle the auto cycle flag
     m_autoCycle = !m_autoCycle;
     // display a quick flash of either green or red to indicate whether auto mode is on or not
     Leds::holdAll(250, (m_autoCycle ? RGB_GREEN : RGB_RED));
     return MENU_CONTINUE;
   }
-
   if (m_autoCycle && (m_lastRandomization + AUTO_RANDOM_DELAY_TICKS < Time::getCurtime())) {
     m_lastRandomization = Time::getCurtime();
     reRoll();
   }
-
   // display the randomized mode
   m_randomizedMode.play();
-
   // show the selection
   Menus::showSelection();
-
   // return true to continue staying in randomizer menu
   return MENU_CONTINUE;
 }
@@ -142,7 +135,7 @@ void Randomizer::showRandomizationSelect()
   Leds::setAll(HSVColor(m_displayHue++, (m_flags & RANDOMIZE_COLORSET) * 255, 84));
   if (m_flags & RANDOMIZE_PATTERN) {
     // if they are randomizing the pattern strobe on/off
-    Leds::blinkAll(Time::getCurtime(), 8, 15);
+    Leds::blinkAll(8, 15);
   }
   // indicate on the 2nd led whether the button is pressed
   Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_OFF : RGB_WHITE1);
@@ -269,10 +262,10 @@ bool Randomizer::reRoll()
         return false;
       }
     }
-    // initialize the mode with the new pattern and colorset
-    m_randomizedMode.init();
-    DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
-      pos, randType, randomSet.numColors(), newPat);
   }
+  // initialize the mode with the new pattern and colorset
+  m_randomizedMode.init();
+  DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
+    pos, randType, randomSet.numColors(), newPat);
   return true;
 }

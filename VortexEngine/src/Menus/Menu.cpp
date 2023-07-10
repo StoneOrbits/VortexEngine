@@ -99,9 +99,9 @@ void Menu::showBulbSelection()
   Leds::clearAll();
   if (m_targetLeds == MAP_LED(LED_MULTI)) {
     LedPos pos = (LedPos)((Time::getCurtime() / 30) % LED_COUNT);
-    Leds::blinkIndex(pos, Time::getCurtime() + (pos * 10), 50, 500, m_menuColor);
+    Leds::blinkIndexOffset(pos, pos * 10, 50, 500, m_menuColor);
   } else {
-    Leds::blinkMap(m_targetLeds, Time::getCurtime(), BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
+    Leds::blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
   }
   // blink when selecting
   Menus::showSelection();
@@ -114,7 +114,7 @@ void Menu::showExit()
     return;
   }
   Leds::clearQuadrantFive();
-  Leds::blinkQuadrantFive(Time::getCurtime(), 250, 500, RGB_RED0);
+  Leds::blinkQuadrantFive(250, 500, RGB_RED0);
 }
 
 void Menu::nextBulbSelection()
@@ -234,7 +234,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
     } else {
       Leds::clearQuadrantFive();
       Leds::setQuadrantFive(RGB_RED);
-      Leds::blinkQuadrantFive(Time::getCurtime(), 250, 500, RGB_WHITE0);
+      Leds::blinkQuadrantFive(250, 500, RGB_WHITE0);
     }
     break;
   case QUADRANT_COUNT:
@@ -249,7 +249,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
       blinkCol = RGB_WHITE0;
     }
     // blink the target finger to the target color
-    Leds::blinkQuadrant(m_curSelection,
+    Leds::blinkQuadrantOffset(m_curSelection,
       g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime(),
       offMs, onMs, blinkCol);
     break;

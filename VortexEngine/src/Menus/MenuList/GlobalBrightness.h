@@ -21,9 +21,13 @@ public:
 private:
   void showBrightnessSelection();
 
-  // the list of brightness options, this can be
-  // any length really and the menu will adjust
-  const uint8_t m_brightnessOptions[4] = { 20, 65, 110, 155 };
+  // the list of brightness options
+  const uint8_t m_brightnessOptions[4] = {
+    BRIGHTNESS_OPTION_1,
+    BRIGHTNESS_OPTION_2,
+    BRIGHTNESS_OPTION_3,
+    BRIGHTNESS_OPTION_4
+  };
 };
 
 #endif

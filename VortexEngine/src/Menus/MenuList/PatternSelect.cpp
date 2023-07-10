@@ -67,7 +67,7 @@ void PatternSelect::showListSelection()
     // hue split into 4 quadrants of 90
     Leds::breathQuadrant(f, f * (255 / 4), (uint32_t)Time::getCurtime(), 10, 255, 255);
   }
-  Leds::blinkQuadrantFive((uint32_t)Time::getCurtime(), 10, 50, RGB_OFF);
+  Leds::blinkQuadrantFive(10, 50, RGB_OFF);
 }
 
 void PatternSelect::showPatternSelection()

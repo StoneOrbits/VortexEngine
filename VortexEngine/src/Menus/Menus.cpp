@@ -157,11 +157,11 @@ bool Menus::runMenuSelection()
   // blink every even/odd of every pair
   for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
     if (pairEven(p) < LED_COUNT) {
-      Leds::blinkIndex(pairEven(p), Time::getCurtime(), offtime, ontime, menuList[m_selection].color);
+      Leds::blinkIndex(pairEven(p), offtime, ontime, menuList[m_selection].color);
     }
     if (pairOdd(p) < LED_COUNT) {
       Leds::setIndex(pairOdd(p), menuList[m_selection].color);
-      Leds::blinkIndex(pairOdd(p), Time::getCurtime(), offtime, ontime, RGB_OFF);
+      Leds::blinkIndex(pairOdd(p), offtime, ontime, RGB_OFF);
     }
   }
   // check if the advanced menus have been enabled
@@ -273,7 +273,7 @@ void Menus::showSelection(RGBColor colval)
   // click threshold has been surpassed
   if (g_pButton->isPressed() &&
     g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS &&
-    g_pButton->holdDuration() < (SHORT_CLICK_THRESHOLD_TICKS + Time::msToTicks(250))) {
+    g_pButton->holdDuration() < (SHORT_CLICK_THRESHOLD_TICKS + MS_TO_TICKS(250))) {
     Leds::setAll(colval);
   }
 }
