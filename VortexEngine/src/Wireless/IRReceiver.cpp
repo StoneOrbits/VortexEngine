@@ -8,6 +8,10 @@
 
 #include "IRConfig.h"
 
+#ifdef VORTEX_LIB
+#include <Arduino.h>
+#endif
+
 #if IR_ENABLE_RECEIVER == 1
 
 BitStream IRReceiver::m_irData;
