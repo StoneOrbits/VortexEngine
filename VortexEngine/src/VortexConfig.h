@@ -310,7 +310,6 @@
 #define VAL_OPTION_2                85
 #define VAL_OPTION_3                170
 #define VAL_OPTION_4                255
->>>>>>> 63f9fb0cd8174acdf4b187ceb7ca385845e461f0
 
 // ===================================================================
 //  Boolean Configurations (0 or 1)

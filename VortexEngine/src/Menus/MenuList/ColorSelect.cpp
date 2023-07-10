@@ -217,7 +217,7 @@ void ColorSelect::showSlotSelection()
     exitIndex++;
   }
   if (m_curSelection == exitIndex) {
-    showFullSet(LED_0, Time::getCurtime(), 50, 100);
+    showFullSet(50, 100);
     // set LED_1 to green to indicate save and exit
     Leds::setIndex(LED_1, RGB_GREEN2);
     // if not on exitIndex or add new color set LED_1 based on button state
