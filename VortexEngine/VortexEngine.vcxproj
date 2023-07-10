@@ -157,13 +157,6 @@
     <ClCompile Include="src\Log\Log.cpp" />
     <ClCompile Include="src\Memory\Memory.cpp" />
     <ClCompile Include="src\Menus\Menu.cpp" />
-    <ClCompile Include="src\Menus\MenuList\ColorSelect.cpp" />
-    <ClCompile Include="src\Menus\MenuList\EditorConnection.cpp" />
-    <ClCompile Include="src\Menus\MenuList\FactoryReset.cpp" />
-    <ClCompile Include="src\Menus\MenuList\GlobalBrightness.cpp" />
-    <ClCompile Include="src\Menus\MenuList\ModeSharing.cpp" />
-    <ClCompile Include="src\Menus\MenuList\PatternSelect.cpp" />
-    <ClCompile Include="src\Menus\MenuList\Randomizer.cpp" />
     <ClCompile Include="src\Menus\Menus.cpp" />
     <ClCompile Include="src\Modes\DefaultModes.cpp" />
     <ClCompile Include="src\Modes\Mode.cpp" />
@@ -231,13 +224,6 @@
     <ClInclude Include="src\Log\Log.h" />
     <ClInclude Include="src\Memory\Memory.h" />
     <ClInclude Include="src\Menus\Menu.h" />
-    <ClInclude Include="src\Menus\MenuList\ColorSelect.h" />
-    <ClInclude Include="src\Menus\MenuList\EditorConnection.h" />
-    <ClInclude Include="src\Menus\MenuList\FactoryReset.h" />
-    <ClInclude Include="src\Menus\MenuList\GlobalBrightness.h" />
-    <ClInclude Include="src\Menus\MenuList\ModeSharing.h" />
-    <ClInclude Include="src\Menus\MenuList\PatternSelect.h" />
-    <ClInclude Include="src\Menus\MenuList\Randomizer.h" />
     <ClInclude Include="src\Menus\Menus.h" />
     <ClInclude Include="src\Modes\DefaultModes.h" />
     <ClInclude Include="src\Modes\Mode.h" />

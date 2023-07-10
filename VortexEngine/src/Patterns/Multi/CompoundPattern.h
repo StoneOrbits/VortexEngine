@@ -33,7 +33,7 @@ protected:
     const PatternArgs *tipArgs = nullptr, const PatternArgs *topArgs = nullptr);
 
   // array of single LED patterns, one for each LED
-  SingleLedPattern *m_ledPatterns[LED_COUNT];
+  SingleLedPattern **m_ledPatterns;
 };
 
 #endif
