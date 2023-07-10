@@ -76,7 +76,6 @@ public:
   // NOTE: You should start with an instance of the default args before you unserialize
   ArgMap unserialize(ByteStream &buffer);
 
-  // TODO: apis around arg access?
   // public access to args
   union {
     uint8_t args[8];

@@ -195,6 +195,14 @@ void Leds::adjustBrightnessAll(uint8_t fadeBy)
   adjustBrightnessRange(LED_FIRST, LED_LAST, fadeBy);
 }
 
+// blinkIndex with the additional optional time offset
+void Leds::blinkIndexOffset(LedPos target, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
+{
+  if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+    setIndex(target, col);
+  }
+}
+
 void Leds::blinkIndex(LedPos target, uint32_t offMs, uint32_t onMs, RGBColor col)
 {
   if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {

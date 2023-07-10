@@ -173,7 +173,7 @@ void Time::setTickrate(uint32_t tickrate)
 }
 
 #if VARIABLE_TICKRATE == 1
-uint32_t Time::_millisecondsToTicks(uint32_t ms)
+uint32_t Time::millisecondsToTicks(uint32_t ms)
 {
   // 0ms = 0 ticks
   if (!ms) {

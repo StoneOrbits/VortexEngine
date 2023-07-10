@@ -114,10 +114,16 @@
 // a fun little easter egg to anybody that might come across it
 #define AUTO_CYCLE_MODES_CLICKS 12
 
+// Randomizer Auto Cycle Modes Clicks
+//
+// The number of consecutive clicks required to toggle the auto-cycle modes feature
+// on the randomizer.
+#define AUTO_CYCLE_RANDOMIZER_CLICKS 3
+
 // Color delete threshold (in milliseconds)
 //
 // How long you must hold down on a color in the color select menu to
-// trigger the delete option to start flashing on the tip
+// trigger the delete option to start flashing
 #define COL_DELETE_THRESHOLD  500
 
 // Color delete cycle time (in milliseconds)
@@ -152,11 +158,6 @@
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
 #define DEFAULT_BRIGHTNESS    255
-
-// Default Global Dimness
-//
-// The starting default dim level when switching to low brightness mode
-#define DEFAULT_DIMNESS       64
 
 // Max Modes
 //
@@ -282,6 +283,33 @@
 // How long the user must long click on the menu item to enter the
 // 'advanced' version of the menu
 #define ADVANCED_MENU_ENTER_DURATION 1500
+
+// Brightness Options
+//
+// These are the four options available in the global brightness menu
+// There is only four options, be careful not to go too low
+#define BRIGHTNESS_OPTION_1         40
+#define BRIGHTNESS_OPTION_2         120
+#define BRIGHTNESS_OPTION_3         185
+#define BRIGHTNESS_OPTION_4         255
+
+// Saturation Options
+//
+// These are the four saturations available in the color selection menu
+// Any color can be picked with any of these 4 saturations
+#define SAT_OPTION_1                0
+#define SAT_OPTION_2                85
+#define SAT_OPTION_3                170
+#define SAT_OPTION_4                255
+
+// Value/Luminance Options
+//
+// These are the four values/luminance options in the color selection menu
+// Any color can be picked with any of these 4 values
+#define VAL_OPTION_1                0
+#define VAL_OPTION_2                85
+#define VAL_OPTION_3                170
+#define VAL_OPTION_4                255
 
 // ===================================================================
 //  Boolean Configurations (0 or 1)

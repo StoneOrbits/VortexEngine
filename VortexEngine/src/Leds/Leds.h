@@ -76,6 +76,7 @@ public:
   // However since these APIs modulate current time to check if within the 'on'
   // threshold that makes them unsuitable for internal pattern usage because it
   // is unpredictable whether they will blink on or off first
+  static void blinkIndexOffset(LedPos target, uint32_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkIndex(LedPos target, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkRange(LedPos first, LedPos last, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkMap(LedMap targets, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
