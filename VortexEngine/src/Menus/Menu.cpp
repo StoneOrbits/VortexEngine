@@ -183,7 +183,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
       Leds::setIndex(THUMB_TOP, RGB_RED);
     } else {
       Leds::clearIndex(THUMB_TOP);
-      Leds::blinkIndex(THUMB_TOP, Time::getCurtime(), 250, 500, RGB_WHITE0);
+      Leds::blinkIndex(THUMB_TOP, 250, 500, RGB_WHITE0);
     }
     break;
   case FINGER_COUNT:
@@ -198,7 +198,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
       blinkCol = RGB_WHITE0;
     }
     // blink the target finger to the target color
-    Leds::blinkIndex(fingerTip(m_curSelection),
+    Leds::blinkIndexOffset(fingerTip(m_curSelection),
                       g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime(),
                       offMs, onMs, blinkCol);
     break;

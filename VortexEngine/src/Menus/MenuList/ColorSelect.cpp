@@ -284,7 +284,7 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       // clear the finger so it turns off, then blink this slot to either
       // white or dim white to indicate we can add a color here
       Leds::clearPair(m_curSelection);
-      Leds::blinkPair(m_curSelection, Time::getCurtime(), 150, 350,
+      Leds::blinkPair(m_curSelection, 150, 350,
         g_pButton->isPressed() ? RGB_WHITE6 : RGB_WHITE4);
       return;
     } else if (m_slot < m_colorset.numColors() &&

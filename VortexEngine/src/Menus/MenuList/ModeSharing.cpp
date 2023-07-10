@@ -174,7 +174,7 @@ void ModeSharing::showReceiveMode()
     return;
   }
   // gradually empty from thumb to pinkie
-  LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / Time::msToTicks(200) % (LED_COUNT + 1)));
+  LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / MS_TO_TICKS(200) % (LED_COUNT + 1)));
   if (pos == LED_COUNT) return;
   Leds::setRange(LED_FIRST, pos, RGB_PURPLE);
 }

@@ -76,7 +76,7 @@ void FactoryReset::onLongClick()
     return;
   case FINGER_COUNT:
     // must wait till all empty + one white blink
-    if (g_pButton->holdDuration() > (FACTORY_RESET_THRESHOLD_TICKS + Time::msToTicks(700))) {
+    if (g_pButton->holdDuration() > (FACTORY_RESET_THRESHOLD_TICKS + MS_TO_TICKS(700))) {
       Modes::setDefaults();
       leaveMenu(true);
     }
@@ -113,7 +113,7 @@ void FactoryReset::showReset()
   if (!g_pButton->isPressed()) {
     // just idle blink from clear to blank
     Leds::clearRange(LED_FIRST, INDEX_TOP);
-    Leds::blinkRange(LED_FIRST, INDEX_TOP, Time::getCurtime(), 250, 150, RGB_WHITE0);
+    Leds::blinkRange(LED_FIRST, INDEX_TOP, 250, 150, RGB_WHITE0);
     return;
   }
 
@@ -127,7 +127,7 @@ void FactoryReset::showReset()
   // max the led progress at index top (don't include thumb)
   if (ledProgress > INDEX_TOP) {
     // when we reach the end of the progress bar just blink white
-    Leds::blinkRange(LED_FIRST, INDEX_TOP, Time::getCurtime(), 80, 60, RGB_WHITE6);
+    Leds::blinkRange(LED_FIRST, INDEX_TOP, 80, 60, RGB_WHITE6);
     return;
   }
 
@@ -143,8 +143,8 @@ void FactoryReset::showReset()
   // clear all the leds so that 'blinkRange' will blink from off to the designated color
   Leds::clearRange(LED_FIRST, INDEX_TOP);
   // blink to the calculated redish hue from pinky to the end led
-  Leds::blinkRange(LED_FIRST, endLed, Time::getCurtime(), offMs, onMs, HSVColor(hue, 255, 180));
+  Leds::blinkRange(LED_FIRST, endLed, offMs, onMs, HSVColor(hue, 255, 180));
   // and blink the background the regular blank color
-  Leds::blinkRange((LedPos)(endLed + 1), INDEX_TOP, Time::getCurtime(), offMs, onMs, RGB_WHITE0);
+  Leds::blinkRange((LedPos)(endLed + 1), INDEX_TOP, offMs, onMs, RGB_WHITE0);
 }
 
