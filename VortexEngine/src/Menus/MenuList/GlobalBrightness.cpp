@@ -5,6 +5,7 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
+// allow the number of brightness options to be adjusted dynamically
 #define NUM_BRIGHTNESS_OPTIONS (sizeof(m_brightnessOptions) / sizeof(m_brightnessOptions[0]))
 
 GlobalBrightness::GlobalBrightness(const RGBColor &col, bool advanced) :
@@ -40,7 +41,6 @@ Menu::MenuAction GlobalBrightness::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
-
   // show the current brightness
   showBrightnessSelection();
 

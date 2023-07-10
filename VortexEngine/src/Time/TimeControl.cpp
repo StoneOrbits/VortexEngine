@@ -158,7 +158,7 @@ void Time::setTickrate(uint32_t tickrate)
 #endif
 }
 
-uint32_t Time::msToTicks(uint32_t ms)
+uint32_t Time::millisecondsToTicks(uint32_t ms)
 {
   // 0ms = 0 ticks
   if (!ms) {

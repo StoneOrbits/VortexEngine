@@ -57,10 +57,8 @@ Menu::MenuAction ColorSelect::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
-
   // all states start with a blank slate
   Leds::clearAll();
-
   switch (m_state) {
   case STATE_INIT:
     // this is separate from the init function because the target led
@@ -95,6 +93,17 @@ Menu::MenuAction ColorSelect::run()
   blinkSelection();
 
   return MENU_CONTINUE;
+}
+
+// callback after the user selects the target led
+void ColorSelect::onLedSelected()
+{
+  // grab the colorset from our selected target led
+  if (m_targetLeds == MAP_LED_ALL) {
+    m_colorset = m_pCurMode->getColorset();
+  } else {
+    m_colorset = m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+  }
 }
 
 void ColorSelect::onShortClick()

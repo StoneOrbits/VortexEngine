@@ -83,7 +83,7 @@ void FactoryReset::onLongClick()
     break;
   }
   // if the button hasn't been held long enough just return
-  if (g_pButton->holdDuration() <= (FACTORY_RESET_THRESHOLD_TICKS + Time::msToTicks(10))) {
+  if (g_pButton->holdDuration() <= (FACTORY_RESET_THRESHOLD_TICKS + MS_TO_TICKS(10))) {
     return;
   }
   // the button was held down long enough so actually perform the factory reset
