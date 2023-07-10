@@ -101,7 +101,6 @@ void Mode::operator=(const Mode &other)
     if (!otherPat) {
       continue;
     }
-    // todo: dupeSingle?
     m_singlePats[i] = PatternBuilder::dupe(otherPat);
   }
 }

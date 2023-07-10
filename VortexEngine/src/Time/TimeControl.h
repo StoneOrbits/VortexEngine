@@ -7,8 +7,8 @@
 #include "../Leds/LedTypes.h"
 
 #if VARIABLE_TICKRATE == 1
-#define MS_TO_TICKS(ms) Time::_millisecondsToTicks(ms)
-#define SEC_TO_TICKS(s) Time::_secondsToTicks(s)
+#define MS_TO_TICKS(ms) Time::millisecondsToTicks(ms)
+#define SEC_TO_TICKS(s) Time::secondsToTicks(s)
 #else
 #define MS_TO_TICKS(ms) (uint32_t)(((uint32_t)(ms) * DEFAULT_TICKRATE) / 1000)
 #define SEC_TO_TICKS(s) (uint32_t)((uint32_t)(s) * DEFAULT_TICKRATE)
@@ -52,9 +52,10 @@ public:
   // these apis are only present if the tickrate can change
 #if VARIABLE_TICKRATE == 1
   // convert milliseconds to a tickcount based on tickrate
-  static uint32_t _millisecondsToTicks(uint32_t ms);
+  static uint32_t millisecondsToTicks(uint32_t ms);
+
   // convert seconds to a tickcount based on tickrate
-  static uint32_t _secondsToTicks(uint32_t sec) { return _millisecondsToTicks(sec * 1000); }
+  static uint32_t secondsToTicks(uint32_t sec) { return millisecondsToTicks(sec * 1000); }
 #endif
 
   // Current microseconds since startup, only use this for things like measuring rapid data transfer timings.
