@@ -88,14 +88,14 @@ void FactoryReset::onLongClick()
     return;
   case QUADRANT_COUNT:
     // must wait till all empty + one white blink
-    if (g_pButton->holdDuration() > (FACTORY_RESET_THRESHOLD_TICKS + Time::msToTicks(700))) {
+    if (g_pButton->holdDuration() > (FACTORY_RESET_THRESHOLD_TICKS + MS_TO_TICKS(700))) {
       Modes::setDefaults();
       leaveMenu(true);
     }
     break;
   }
   // if the button hasn't been held long enough just return
-  if (g_pButton->holdDuration() <= (FACTORY_RESET_THRESHOLD_TICKS + Time::msToTicks(10))) {
+  if (g_pButton->holdDuration() <= (FACTORY_RESET_THRESHOLD_TICKS + MS_TO_TICKS(10))) {
     return;
   }
   // the button was held down long enough so actually perform the factory reset
@@ -130,7 +130,7 @@ void FactoryReset::showReset()
   if (!g_pButton->isPressed()) {
     // just idle blink from clear to blank
     Leds::clearRange(LED_FIRST, LED_LAST);
-    Leds::blinkRange(LED_FIRST, LED_LAST, Time::getCurtime(), 250, 150, RGB_RED0);
+    Leds::blinkRange(LED_FIRST, LED_LAST, 250, 150, RGB_RED0);
     return;
   }
 
@@ -148,7 +148,7 @@ void FactoryReset::showReset()
   // max the led progress at index top (don't include thumb)
   if (ledProgress > LED_LAST) {
     // when we reach the end of the progress bar just blink white
-    Leds::blinkRange(LED_FIRST, LED_LAST, Time::getCurtime(), 80, 60, RGB_WHITE6);
+    Leds::blinkRange(LED_FIRST, LED_LAST, 80, 60, RGB_WHITE6);
     return;
   }
 
@@ -164,8 +164,8 @@ void FactoryReset::showReset()
   // clear all the leds so that 'blinkRange' will blink from off to the designated color
   Leds::clearRange(LED_FIRST, LED_LAST);
   // blink to the calculated redish hue from pinky to the end led
-  Leds::blinkRange(LED_FIRST, endLed, Time::getCurtime(), offMs, onMs, HSVColor(hue, 255, 180));
+  Leds::blinkRange(LED_FIRST, endLed, offMs, onMs, HSVColor(hue, 255, 180));
   // and blink the background the regular blank color
-  Leds::blinkRange((LedPos)(endLed + 1), LED_LAST, Time::getCurtime(), offMs, onMs, RGB_WHITE0);
+  Leds::blinkRange((LedPos)(endLed + 1), LED_LAST, offMs, onMs, RGB_WHITE0);
 }
 

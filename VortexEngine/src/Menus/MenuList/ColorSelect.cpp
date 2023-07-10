@@ -377,7 +377,7 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       // clear the finger so it turns off, then blink this slot to either
       // white or dim white to indicate we can add a color here
       Leds::clearQuadrant(m_curSelection);
-      Leds::blinkQuadrant(m_curSelection, Time::getCurtime(), 150, 350,
+      Leds::blinkQuadrant(m_curSelection, 150, 350,
         g_pButton->isPressed() ? RGB_WHITE6 : RGB_WHITE4);
       return;
     } else if (m_slot < m_colorset.numColors() &&
@@ -390,7 +390,7 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
         return;
       }
     } else if (m_slot == m_colorset.numColors() + 1) {
-      Leds::blinkQuadrantFive(Time::getCurtime(), 150, 350, RGB_WHITE);
+      Leds::blinkQuadrantFive(150, 350, RGB_WHITE);
     }
   }
   // otherwise run the default blink logic
