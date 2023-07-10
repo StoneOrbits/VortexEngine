@@ -128,15 +128,20 @@ bool VLReceiver::beginReceiving()
 #ifdef VORTEX_EMBEDDED
   // Set up the ADC
   // sample campacitance, VDD reference, prescaler division
-  //  0x0 DIV2 CLK_PER divided by 2
-  //  0x1 DIV4 CLK_PER divided by 4
-  //  0x2 DIV8 CLK_PER divided by 8
-  //  0x3 DIV16 CLK_PER divided by 16
+  // Options are:
+  //  0x0 DIV2 CLK_PER divided by 2 > works
+  //  0x1 DIV4 CLK_PER divided by 4 > works
+  //  0x2 DIV8 CLK_PER divided by 8 > works
+  //  0x3 DIV16 CLK_PER divided by 16 > works
   //  0x4 DIV32 CLK_PER divided by 32 > doesn't work
   //  0x5 DIV64 CLK_PER divided by 64 > doesn't work
-  //  0x6 DIV128 CLK_PER divided by 128 > works
-  //  0x7 DIV256 CLK_PER divided by 256 > works
-  ADC0.CTRLC = ADC_SAMPCAP_bm | ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV128_gc;
+  //  0x6 DIV128 CLK_PER divided by 128 > doesn't work
+  //  0x7 DIV256 CLK_PER divided by 256 > doesn't work
+#if (F_CPU == 20000000)
+  ADC0.CTRLC = ADC_SAMPCAP_bm | ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV2_gc;
+#else
+  ADC0.CTRLC = ADC_SAMPCAP_bm | ADC_REFSEL_VDDREF_gc | ADC_PRESC_DIV2_gc;
+#endif
   // no sampling delay and no delay variation
   ADC0.CTRLD = 0;
   // sample length

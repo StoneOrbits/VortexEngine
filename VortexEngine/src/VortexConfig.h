@@ -73,7 +73,7 @@
 //
 // How long the user has after releasing to short click the button
 // again and be counted as a 'consecutive press'
-#define CONSECUTIVE_WINDOW    175
+#define CONSECUTIVE_WINDOW    250
 
 // Auto Randomization Delay (in milliseconds)
 //
@@ -95,7 +95,7 @@
 // as the auto random delay. This number is intentionally high because we really
 // don't want it activated automatically but it's there for demo purposes and as
 // a fun little easter egg to anybody that might come across it
-#define AUTO_CYCLE_MODES_CLICKS 16
+#define AUTO_CYCLE_MODES_CLICKS 12
 
 // Randomizer Auto Cycle Modes Clicks
 //
@@ -107,7 +107,7 @@
 //
 // How long you must hold down on a color in the color select menu to
 // trigger the delete option to start flashing
-#define COL_DELETE_THRESHOLD  2000
+#define COL_DELETE_THRESHOLD  500
 
 // Color delete cycle time (in milliseconds)
 //
@@ -252,20 +252,20 @@
 // This is the amount of time in ms for the IR receiver to wait
 // before reseting itself in the case that communication gets
 // interrupted.
-#define IR_RECEIVER_TIMEOUT_DURATION 1000
+#define IR_RECEIVER_TIMEOUT_DURATION 2000
 
 // IR Sender Wait Duration (ms)
 //
 // This is the amount of time in ms for the IR sender to wait
 // between IR sends. This duration allows the user to give input
 // as it is not possible to give input during a send.
-#define IR_SENDER_WAIT_DURATION 1000
+#define IR_SENDER_WAIT_DURATION 2000
 
 // Enter Advanced Menus Click Duration (ms)
 //
 // How long the user must long click on the menu item to enter the
 // 'advanced' version of the menu
-#define ADVANCED_MENU_ENTER_DURATION 5000
+#define ADVANCED_MENU_ENTER_DURATION 1500
 
 // Brightness Options
 //
@@ -569,12 +569,6 @@
   #define MAX_MODES           0
   #undef LOGGING_LEVEL
   #define LOGGING_LEVEL         3
-#endif
-
-// no ignore button time when running vortex lib
-#ifdef VORTEX_LIB
-#undef IGNORE_BUTTON_TIME
-#define IGNORE_BUTTON_TIME 0
 #endif
 
 #endif // VORTEX_CONFIG_H

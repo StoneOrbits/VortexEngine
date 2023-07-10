@@ -14,6 +14,9 @@ public:
   bool init() override;
   MenuAction run() override;
 
+  // callback after the user selects the target led
+  void onLedSelected() override;
+
   // handlers for clicks
   void onShortClick() override;
   void onLongClick() override;
@@ -32,7 +35,7 @@ private:
 
   void showSlotSelection();
   void showSelection(ColorSelectState mode);
-  void showFullSet(uint32_t time, uint32_t offMs, uint32_t onMs);
+  void showFullSet(uint32_t offMs, uint32_t onMs);
 
   // the options for saturations
   const uint8_t sats[4] = {
@@ -63,8 +66,6 @@ private:
   // selected at the last level isn't stored because you can't go back after
   uint8_t m_targetSlot;
   uint8_t m_targetHue1;
-  uint8_t m_targetHue2;
-  uint8_t m_targetSat;
 };
 
 #endif
