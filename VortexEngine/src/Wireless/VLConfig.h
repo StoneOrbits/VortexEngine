@@ -1,6 +1,8 @@
 #ifndef VL_CONFIG_H
 #define VL_CONFIG_H
 
+#include "../VortexConfig.h"
+
 // Visible Light Enable
 //
 // Whether to enable the Visible Light system as a whole
