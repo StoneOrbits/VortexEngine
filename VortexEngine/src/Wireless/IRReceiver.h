@@ -40,13 +40,12 @@ public:
   // reset IR receiver buffer
   static void resetIRState();
 
-  static void recvPCIHandler();
-
 private:
 
   // reading functions
   // PCI handler for when IR receiver pin changes states
   static bool read(ByteStream &data);
+  static void recvPCIHandler();
   static void handleIRTiming(uint32_t diff);
 
   // ===================

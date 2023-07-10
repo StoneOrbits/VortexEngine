@@ -1,8 +1,6 @@
 #ifndef IR_CONFIG_H
 #define IR_CONFIG_H
 
-#include "../VortexConfig.h"
-
 // Infrared Enable
 //
 // Whether to enable the Infrared system as a whole
