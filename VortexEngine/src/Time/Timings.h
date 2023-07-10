@@ -53,7 +53,7 @@
 #define DOPS_ON_DURATION            6
 #define DOPS_OFF_DURATION           40
 
-// Dopish
+// Dopy
 #define DOPY_ON_DURATION            5
 #define DOPY_OFF_DURATION           15
 
