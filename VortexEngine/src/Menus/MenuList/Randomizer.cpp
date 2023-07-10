@@ -262,10 +262,10 @@ bool Randomizer::reRoll()
         return false;
       }
     }
-    // initialize the mode with the new pattern and colorset
-    m_randomizedMode.init();
-    DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
-      pos, randType, randomSet.numColors(), newPat);
   }
+  // initialize the mode with the new pattern and colorset
+  m_randomizedMode.init();
+  DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
+    pos, randType, randomSet.numColors(), newPat);
   return true;
 }
