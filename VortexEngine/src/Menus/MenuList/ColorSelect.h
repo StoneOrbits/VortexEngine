@@ -67,9 +67,6 @@ private:
   // selected at the last level isn't stored because you can't go back after
   uint8_t m_targetSlot;
   uint8_t m_targetHue1;
-
-  // adv
-  Pattern *m_pattern;
 };
 
 #endif
