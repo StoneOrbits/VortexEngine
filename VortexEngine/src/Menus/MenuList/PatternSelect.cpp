@@ -50,10 +50,10 @@ void PatternSelect::onLedSelected()
 void PatternSelect::onShortClick()
 {
   LedPos srcLed = LED_MULTI;
-  if (!m_patternMode.isMultiLed()) {
+  if (!m_previewMode.isMultiLed()) {
     srcLed = mapGetFirstLed(m_targetLeds);
   }
-  PatternID newID = (PatternID)(m_patternMode.getPatternID(srcLed) + 1);
+  PatternID newID = (PatternID)(m_previewMode.getPatternID(srcLed) + 1);
   PatternID endList = PATTERN_SINGLE_LAST;
   PatternID beginList = PATTERN_SINGLE_FIRST;
 #if VORTEX_SLIM == 0
