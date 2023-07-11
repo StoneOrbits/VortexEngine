@@ -73,7 +73,11 @@ void Modes::play()
       return;
     }
     // TODO: iterate till a non-empty mode?
-    nextMode();
+    do {
+      if (nextMode() && !curMode()->isEmpty()) {
+        break;
+      }
+    } while (m_curMode != 0);
   }
   // play the current mode
   m_pCurModeLink->play();
