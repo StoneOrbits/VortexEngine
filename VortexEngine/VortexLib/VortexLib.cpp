@@ -729,7 +729,7 @@ string Vortex::patternToString(PatternID id)
     return "fix patternToString()";
   }
   if (id == PATTERN_NONE || id >= PATTERN_COUNT) {
-    return "pattern_none";
+    return "none";
   }
   return patternNames[id];
 }
