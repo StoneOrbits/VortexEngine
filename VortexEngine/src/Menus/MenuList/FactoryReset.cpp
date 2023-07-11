@@ -49,6 +49,7 @@ Menu::MenuAction FactoryReset::run()
     return result;
   }
   showReset();
+  m_previewMode.play();
   return MENU_CONTINUE;
 }
 
