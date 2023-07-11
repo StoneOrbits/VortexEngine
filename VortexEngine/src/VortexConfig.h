@@ -525,6 +525,11 @@
 #define VORTEX_LIB
 #endif
 
+#ifdef VORTEX_LIB
+#undef VORTEX_SLIM
+#define VORTEX_SLIM 0
+#endif
+
 // This will be defined if the project is being built inside the test framework
 #ifdef PROJECT_NAME_VortexTestingFramework
 
