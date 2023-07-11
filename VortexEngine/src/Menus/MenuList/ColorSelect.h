@@ -5,8 +5,6 @@
 
 #include "../../Colors/Colorset.h"
 
-class Pattern;
-
 class ColorSelect : public Menu
 {
 public:
