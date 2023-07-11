@@ -152,14 +152,7 @@ bool Menus::runMenuSelection()
     // reset the consecutive press counter
     g_pButton->resetConsecutivePresses();
     // display a fancy animation based on whether the menu was enabled
-    bool other = false;
-    uint8_t val = Modes::advancedMenusEnabled() ? 255 : 40;
-    for (int i = 0; i < 255; ++i) {
-      bool even = ((i % 2) == 0);
-      if (even) other = !other;
-      Leds::holdAll(even ? other ? DOPY_ON_DURATION : 1 : DOPY_OFF_DURATION,
-                    even ? HSVColor(i, other ? 255 : 0, val) : RGB_OFF);
-    }
+    Leds::holdAll(Modes::advancedMenusEnabled() ? RGB_GREEN8 : RGB_RED8);
   }
   // show when the user selects a menu option
   showSelection(RGBColor(
