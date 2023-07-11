@@ -16,8 +16,7 @@
 
 EditorConnection::EditorConnection(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
-  m_state(STATE_DISCONNECTED),
-  m_demoMode()
+  m_state(STATE_DISCONNECTED)
 {
 }
 
@@ -63,8 +62,8 @@ void EditorConnection::clearDemo()
 {
   Colorset set(RGB_WHITE0);
   PatternArgs args(1, 0, 0);
-  m_demoMode.setPattern(PATTERN_STROBE, LED_ALL, &args, &set);
-  m_demoMode.init();
+  m_previewMode.setPattern(PATTERN_STROBE, LED_ALL, &args, &set);
+  m_previewMode.init();
 }
 
 Menu::MenuAction EditorConnection::run()
@@ -216,7 +215,7 @@ void EditorConnection::showEditor()
     Leds::blinkAll(250, 150, RGB_WHITE0);
     break;
   case STATE_IDLE:
-    m_demoMode.play();
+    m_previewMode.play();
     break;
   default:
     // do nothing!
@@ -295,7 +294,7 @@ bool EditorConnection::receiveDemoMode()
   // clear the receive buffer
   m_receiveBuffer.clear();
   // unserialize the mode into the demo mode
-  if (!m_demoMode.loadFromBuffer(buf)) {
+  if (!m_previewMode.loadFromBuffer(buf)) {
     // failure
   }
   return true;

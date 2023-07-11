@@ -5,6 +5,7 @@
 
 #include "../Colors/ColorTypes.h"
 #include "../Leds/LedTypes.h"
+#include "../Modes/Mode.h"
 
 enum MenuEntryID
 {

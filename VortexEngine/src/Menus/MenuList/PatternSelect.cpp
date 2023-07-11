@@ -30,7 +30,6 @@ bool PatternSelect::init()
   }
   m_state = STATE_PICK_LIST;
   m_newPatternID = PATTERN_FIRST;
-  m_demoMode = *m_pCurMode;
   DEBUG_LOG("Entered pattern select");
   return true;
 }
@@ -55,7 +54,7 @@ Menu::MenuAction PatternSelect::run()
   }
 
   // run the current mode
-  m_patternMode.play();
+  m_previewMode.play();
   // show selections
   Menus::showSelection();
   return MENU_CONTINUE;
@@ -136,11 +135,11 @@ void PatternSelect::nextPattern()
   }
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {
-    m_patternMode.setPattern(newID);
+    m_previewMode.setPattern(newID);
   } else {
-    m_patternMode.setPatternMap(m_targetLeds, newID);
+    m_previewMode.setPatternMap(m_targetLeds, newID);
   }
-  m_patternMode.init();
+  m_previewMode.init();
   DEBUG_LOGF("Iterated to pattern id %d", newID);
 }
 

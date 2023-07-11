@@ -19,7 +19,6 @@
 Randomizer::Randomizer(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_lastRandomization(0),
-  m_randomizedMode(),
   m_flags(advanced ? RANDOMIZE_COLORSET : RANDOMIZE_BOTH),
   m_displayHue(0),
   m_needToSelect(advanced),
@@ -36,8 +35,6 @@ bool Randomizer::init()
   if (!Menu::init()) {
     return false;
   }
-  // copy the current mode to start with
-  m_randomizedMode = *m_pCurMode;
   // grab the multi ld pattern colorset crc if it's present
   if (m_pCurMode->hasMultiLed()) {
     ByteStream ledData;
@@ -94,7 +91,7 @@ Menu::MenuAction Randomizer::run()
     reRoll();
   }
   // display the randomized mode
-  m_randomizedMode.play();
+  m_previewMode.play();
   // show the selection
   Menus::showSelection();
   // return true to continue staying in randomizer menu
@@ -123,7 +120,7 @@ void Randomizer::onLongClick()
     return;
   }
   // update the current mode with the new randomized mode
-  Modes::updateCurMode(&m_randomizedMode);
+  Modes::updateCurMode(&m_previewMode);
   // then done here, save if the mode was different
   leaveMenu(true);
 }
@@ -244,12 +241,12 @@ bool Randomizer::reRoll()
     if (m_flags & RANDOMIZE_PATTERN) {
       // roll a new pattern
       if (m_advanced) {
-        if (!rollPattern(ctx, &m_randomizedMode, pos)) {
+        if (!rollPattern(ctx, &m_previewMode, pos)) {
           ERROR_LOG("Failed to roll new pattern");
           return false;
         }
       } else {
-        if (!m_randomizedMode.setPattern(rollPatternID(ctx), pos)) {
+        if (!m_previewMode.setPattern(rollPatternID(ctx), pos)) {
           ERROR_LOG("Failed to roll new pattern");
           return false;
         }
@@ -257,14 +254,14 @@ bool Randomizer::reRoll()
     }
     if (m_flags & RANDOMIZE_COLORSET) {
       // roll a new colorset
-      if (!m_randomizedMode.setColorset(rollColorset(ctx), pos)) {
+      if (!m_previewMode.setColorset(rollColorset(ctx), pos)) {
         ERROR_LOG("Failed to roll new colorset");
         return false;
       }
     }
   }
   // initialize the mode with the new pattern and colorset
-  m_randomizedMode.init();
+  m_previewMode.init();
   DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
     pos, randType, randomSet.numColors(), newPat);
   return true;
