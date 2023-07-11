@@ -65,6 +65,7 @@ void Modes::play()
   }
   // shortclick cycles to the next mode
   if (g_pButton->onShortClick()) {
+    // TODO: iterate till a non-empty mode?
     nextMode();
   }
   // shortclick on button 2 cycles to the previous mode
@@ -413,7 +414,7 @@ bool Modes::updateCurMode(const Mode *mode)
 }
 
 // set the current active mode by index
-Mode *Modes::setCurMode(uint8_t index, bool skipEmpty)
+Mode *Modes::setCurMode(uint8_t index)
 {
   if (!m_numModes) {
     return nullptr;
@@ -424,31 +425,19 @@ Mode *Modes::setCurMode(uint8_t index, bool skipEmpty)
   if (m_pCurModeLink) {
     m_pCurModeLink->uninstantiate();
   }
-  ModeLink *newCurLink;
-  int8_t newModeIdx;
-  Mode *newCur;
-  // calc the new mode index with a do-while to check if the mode is empty
-  // and re-calculate the next mode after it if needed
-  do {
-    newModeIdx = index % m_numModes;
-    // lookup the new mode link
-    newCurLink = getModeLink(newModeIdx);
-    if (!newCurLink) {
-      // what
-      return nullptr;
-    }
-    // instantiate the new mode so it is ready, also so it can be checked for PATTERN_NONE
-    newCur = newCurLink->instantiate();
-    if (!newCur) {
-      ERROR_OUT_OF_MEMORY();
-      return nullptr;
-    }
-    // increment the target index for next loop
-    index++;
-    // check the mode to see if it's empty or only contain PATTERN_NONE
-    // if it's an empty mode then just keep going to the next one, but
-    // only do this for modes after the first one. Mode 0 cannot be removed.
-  } while (skipEmpty && newCur->isEmpty() && newModeIdx != 0);
+  int8_t newModeIdx = index % m_numModes;
+  // lookup the new mode link
+  ModeLink *newCurLink = getModeLink(newModeIdx);
+  if (!newCurLink) {
+    // what
+    return nullptr;
+  }
+  // instantiate the new mode so it is ready, also so it can be checked for PATTERN_NONE
+  Mode *newCur = newCurLink->instantiate();
+  if (!newCur) {
+    ERROR_OUT_OF_MEMORY();
+    return nullptr;
+  }
   // update to the new mode
   m_curMode = newModeIdx;
   m_pCurModeLink = newCurLink;
