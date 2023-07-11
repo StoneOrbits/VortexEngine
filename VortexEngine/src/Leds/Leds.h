@@ -113,8 +113,8 @@ public:
   static void breathQuadrantFive(uint32_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
 
-  // hold an index at a color for a period of time (blocks with delay!)
-  static void holdAll(uint16_t ms, RGBColor col);
+  // a very specialized api to hold all leds on a color for 250ms
+  static void holdAll(RGBColor col);
 
   // get the RGBColor of an Led index
   static RGBColor getLed(LedPos pos) { return led(pos); }

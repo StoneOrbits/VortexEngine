@@ -336,11 +336,11 @@ void Leds::breathQuadrantFive(uint32_t hue, uint32_t variance, uint32_t magnitud
   }
 }
 
-void Leds::holdAll(uint16_t ms, RGBColor col)
+void Leds::holdAll(RGBColor col)
 {
   setAll(col);
   update();
-  delay(ms);
+  delay(250);
 }
 
 void Leds::update()
