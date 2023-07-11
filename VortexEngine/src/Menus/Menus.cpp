@@ -113,15 +113,19 @@ bool Menus::runMenuSelection()
   // timings for blink later
   uint8_t offtime = 200;
   uint8_t ontime = 200;
+  // whether advanced menus are enabled
+  bool advMenus = Modes::advancedMenusEnabled();
   // if the button was long pressed then select this menu, but we
   // need to check the presstime to ensure we don't catch the initial
   // release after opening the ringmenu
   if (g_pButton->pressTime() >= m_openTime) {
+    // whether to open advanced menus or not
+    bool openAdv = (g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS) && advMenus;
     if (g_pButton->onLongClick()) {
       // ringmenu is open so select the menu
       DEBUG_LOGF("Selected ringmenu %s", menuList[m_selection].menuName);
       // open the menu we have selected
-      if (!openMenu(m_selection, (g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS) && Modes::advancedMenusEnabled())) {
+      if (!openMenu(m_selection, openAdv)) {
         DEBUG_LOGF("Failed to initialize %s menu", menuList[m_selection].menuName);
         return false;
       }
@@ -129,7 +133,7 @@ bool Menus::runMenuSelection()
       return true;
     }
     // if holding down to select the menu option
-    if (g_pButton->isPressed() && g_pButton->holdDuration() > ADV_MENU_DURATION_TICKS && Modes::advancedMenusEnabled()) {
+    if (g_pButton->isPressed() && openAdv) {
       // make it strobe aw yiss
       offtime = HYPERSTROBE_OFF_DURATION;
       ontime = HYPERSTROBE_ON_DURATION;
@@ -150,9 +154,9 @@ bool Menus::runMenuSelection()
     // reset consecutive press counter so they can't toggle it twice
     g_pButton->resetConsecutivePresses();
     // toggle the advanced menu
-    Modes::setAdvancedMenus(!Modes::advancedMenusEnabled());
+    Modes::setAdvancedMenus(!advMenus);
     // display a fancy animation based on whether the menu was enabled
-    Leds::holdAll(Modes::advancedMenusEnabled() ? RGB_GREEN : RGB_RED);
+    Leds::holdAll(advMenus ? RGB_RED : RGB_GREEN);
   }
   // show when the user selects a menu option
   showSelection(RGBColor(
