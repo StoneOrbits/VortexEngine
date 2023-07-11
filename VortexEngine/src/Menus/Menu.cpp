@@ -47,6 +47,8 @@ bool Menu::init()
   }
   // reset the current selection
   m_curSelection = FINGER_FIRST;
+  // copy the current mode into the demo mode
+  m_previewMode = *m_pCurMode;
   // just in case
   m_shouldClose = false;
   return true;

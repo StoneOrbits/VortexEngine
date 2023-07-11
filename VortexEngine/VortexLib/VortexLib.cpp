@@ -348,15 +348,9 @@ void Vortex::releaseButton(uint32_t buttonIndex)
 
 Mode *Vortex::getMenuDemoMode()
 {
-  void *pMenu = Menus::curMenu();
-  if (!pMenu) {
-    return nullptr;
-  }
-  MenuEntryID id = Menus::curMenuID();
-  if (id == MENU_RANDOMIZER) {
-    return Modes::curMode();
-  } else if (id == MENU_EDITOR_CONNECTION) {
-    return &((EditorConnection *)pMenu)->m_demoMode;
+  Menu *pMenu = Menus::curMenu();
+  if (pMenu) {
+    return &pMenu->m_previewMode;
   }
   return nullptr;
 }

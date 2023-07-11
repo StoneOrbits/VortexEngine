@@ -108,6 +108,10 @@ public:
   void clearColorset(LedPos pos = LED_ALL);
   void clearColorsetMap(LedMap map);
 
+  // set/get a single argument on various positions
+  void setArg(uint8_t index, uint8_t value, LedMap map = MAP_LED_ALL);
+  uint8_t getArg(uint8_t index, LedPos pos = LED_ANY);
+
   // get the flags associated with this mode
   ModeFlags getFlags() const;
 
