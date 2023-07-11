@@ -149,11 +149,16 @@ void Mode::play()
     // grab the entry for this led
     Pattern *entry = m_singlePats[pos];
     if (!entry) {
+#if VORTEX_SLIM == 0
       // incomplete pattern/set or empty slot
       if (!m_multiPat) {
         // only clear if the multi pattern isn't playing
         Leds::clearIndex(pos);
       }
+#else
+      // just clear the index if slim, don't check for multi
+      Leds::clearIndex(pos);
+#endif
       continue;
     }
     // play the current pattern with current color set on the current finger
