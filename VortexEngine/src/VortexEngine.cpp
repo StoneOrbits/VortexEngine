@@ -156,14 +156,14 @@ void VortexEngine::runMainLogic()
   if (Modes::locked()) {
     // several fast clicks will unlock the device
     if (g_pButton->consecutivePresses() >= (DEVICE_LOCK_CLICKS - 1)) {
+      // reset consecutive press counter so they can't toggle it twice
+      g_pButton->resetConsecutivePresses();
       // turn off the lock flag and save it to disk
       Modes::setLocked(false);
 #ifdef VORTEX_EMBEDDED
       // then enable the mosfet
       enableMOSFET(true);
 #endif
-      // reset the consecutive press counter so the device doesn't lock again
-      g_pButton->resetConsecutivePresses();
     } else if (Time::getCurtime() > (CONSECUTIVE_WINDOW_TICKS * DEVICE_LOCK_CLICKS)) {
       // go back to sleep if they don't unlock in time
       enterSleep();
@@ -188,7 +188,7 @@ void VortexEngine::runMainLogic()
       Modes::setCurMode(Modes::startupMode());
       // flash either low white or dim white2 to indicate
       // whether one-click mode has been turned on or off
-      Leds::holdAll(200, (Modes::oneClickModeEnabled() ? RGB_WHITE0 : RGB_WHITE5));
+      Leds::holdAll(Modes::oneClickModeEnabled() ? RGB_WHITE0 : RGB_WHITE5);
     }
     return;
   }
@@ -263,7 +263,7 @@ void VortexEngine::runMainLogic()
   // lastly check if we are locking the device, which can only happen if they click the
   // button 5 times quickly when the device was off, so 4 times in the first x ticks
   if (g_pButton->consecutivePresses() >= (DEVICE_LOCK_CLICKS - 1) && Time::getCurtime() < (CONSECUTIVE_WINDOW_TICKS * DEVICE_LOCK_CLICKS)) {
-    // lock and just go to sleep
+    // lock and just go to sleep, don't need to reset consecutive press counter here
     Modes::setLocked(true);
     enterSleep();
     return;
@@ -271,9 +271,10 @@ void VortexEngine::runMainLogic()
 
   // toggle auto cycle mode with many clicks at main modes
   if (g_pButton->consecutivePresses() > AUTO_CYCLE_MODES_CLICKS) {
-    m_autoCycle = !m_autoCycle;
+    // reset consecutive press counter so they can't toggle it twice
     g_pButton->resetConsecutivePresses();
-    Leds::holdAll(500, (m_autoCycle ? RGB_PURPLE1 : RGB_CYAN1));
+    m_autoCycle = !m_autoCycle;
+    Leds::holdAll(m_autoCycle ? RGB_PURPLE1 : RGB_CYAN1);
   }
 
   // if auto cycle is enabled and the last switch was more than the delay ago

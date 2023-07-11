@@ -59,6 +59,8 @@ Menu::MenuAction Randomizer::run()
   }
   // if the user fast-clicks 3 times then toggle automode
   if (g_pButton->onRelease() && g_pButton->consecutivePresses() == AUTO_CYCLE_RANDOMIZER_CLICKS) {
+    // reset consecutive press counter so they can't toggle it twice
+    g_pButton->resetConsecutivePresses();
     // toggle the auto cycle flag
     m_autoCycle = !m_autoCycle;
     // display a quick flash of either green or red to indicate whether auto mode is on or not

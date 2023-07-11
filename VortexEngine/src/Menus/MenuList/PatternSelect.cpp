@@ -62,9 +62,6 @@ void PatternSelect::onShortClick()
   if (m_advanced) {
     // double click = skip 10
     bool doSkip = (g_pButton->consecutivePresses() >= 2);
-    if (doSkip) {
-      g_pButton->resetConsecutivePresses();
-    }
     MAP_FOREACH_LED(m_targetLeds) {
       uint8_t &arg = m_previewMode.getPattern(pos)->argRef(m_argIndex);
       if (doSkip) {
@@ -93,7 +90,8 @@ void PatternSelect::onShortClick()
     m_previewMode.init();
     if (doSkip) {
       // hold white for a moment to show they are skipping 25
-      Leds::holdAll(250, RGB_YELLOW1);
+      Leds::holdAll(RGB_YELLOW1);
+      g_pButton->resetConsecutivePresses();
     }
     return;
   }
@@ -121,7 +119,7 @@ void PatternSelect::onLongClick()
       // if we haven't reached number of args yet then just return and kee pgoing
       return;
     }
-    Leds::holdAll(200, m_menuColor);
+    Leds::holdAll(m_menuColor);
   }
   // store the mode as current mode
   Modes::updateCurMode(&m_previewMode);
