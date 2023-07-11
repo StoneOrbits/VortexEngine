@@ -72,7 +72,6 @@ void Modes::play()
       VortexEngine::enterSleep();
       return;
     }
-    // TODO: iterate till a non-empty mode?
     do {
       if (nextMode() && !curMode()->isEmpty()) {
         break;
