@@ -416,7 +416,7 @@ bool Modes::updateCurMode(const Mode *mode)
 }
 
 // set the current active mode by index
-Mode *Modes::setCurMode(uint8_t index)
+Mode *Modes::setCurMode(uint8_t index, bool skipEmpty)
 {
   if (!m_numModes) {
     return nullptr;
@@ -451,7 +451,7 @@ Mode *Modes::setCurMode(uint8_t index)
     // check the mode to see if it's empty or only contain PATTERN_NONE
     // if it's an empty mode then just keep going to the next one, but
     // only do this for modes after the first one. Mode 0 cannot be removed.
-  } while (newCur->isEmpty() && newModeIdx != 0);
+  } while (skipEmpty && newCur->isEmpty() && newModeIdx != 0);
   // update to the new mode
   m_curMode = newModeIdx;
   m_pCurModeLink = newCurLink;
