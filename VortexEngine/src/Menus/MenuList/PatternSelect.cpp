@@ -66,7 +66,7 @@ void PatternSelect::onShortClick()
       g_pButton->resetConsecutivePresses();
     }
     MAP_FOREACH_LED(m_targetLeds) {
-      uint8_t &arg = m_patternMode.getPattern(pos)->argRef(m_argIndex);
+      uint8_t &arg = m_previewMode.getPattern(pos)->argRef(m_argIndex);
       if (doSkip) {
         arg += 10 - (arg % 10);
       } else {
@@ -90,7 +90,7 @@ void PatternSelect::onShortClick()
         arg = 1;
       }
     }
-    m_patternMode.init();
+    m_previewMode.init();
     if (doSkip) {
       // hold white for a moment to show they are skipping 25
       Leds::holdAll(250, RGB_YELLOW1);
@@ -98,7 +98,7 @@ void PatternSelect::onShortClick()
     return;
   }
 
-  PatternID newID = (PatternID)(m_patternMode.getPatternID(m_srcLed) + 1);
+  PatternID newID = (PatternID)(m_previewMode.getPatternID(m_srcLed) + 1);
   if (newID > PATTERN_SINGLE_LAST) {
     newID = PATTERN_SINGLE_FIRST;
   }
@@ -117,7 +117,7 @@ void PatternSelect::onLongClick()
 {
   if (m_advanced) {
     m_argIndex++;
-    if (m_argIndex < m_patternMode.getPattern(m_srcLed)->getNumArgs()) {
+    if (m_argIndex < m_previewMode.getPattern(m_srcLed)->getNumArgs()) {
       // if we haven't reached number of args yet then just return and kee pgoing
       return;
     }
