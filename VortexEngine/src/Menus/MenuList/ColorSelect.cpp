@@ -19,8 +19,7 @@ ColorSelect::ColorSelect(const RGBColor &col, bool advanced) :
   m_newColor(),
   m_colorset(),
   m_targetSlot(0),
-  m_targetHue1(0),
-  m_pattern(nullptr)
+  m_targetHue1(0)
 {
   // NOTE! Specifically using hsv_to_rgb_rainbow instead of generic because
   // it will generate nicer looking colors and a nicer rainbow to select
@@ -47,12 +46,8 @@ bool ColorSelect::init()
   }
   m_state = STATE_INIT;
   if (m_advanced) {
-    m_pattern = PatternBuilder::make(PATTERN_BLEND);
-    if (!m_pattern) {
-      return false;
-    }
-    m_pattern->setColorset(m_pCurMode->getColorset());
-    m_pattern->init();
+    m_previewMode.setPattern(PATTERN_BLEND);
+    m_previewMode.init();
   }
   DEBUG_LOG("Entered color select");
   return true;
@@ -65,14 +60,14 @@ Menu::MenuAction ColorSelect::run()
     return result;
   }
 
-  if (m_advanced && m_pattern) {
-    m_pattern->setArg(6, g_pButton->isPressed() ? 2 : 1);
+  if (m_advanced) {
+    m_previewMode.setArg(6, g_pButton->isPressed() ? 2 : 1);
     if (g_pButton->consecutivePresses() > 5) {
       return MENU_QUIT;
     }
     // just render the current pattern for active color picking
     // iterate all patterns and plkay
-    m_pattern->play();
+    m_previewMode.play();
     return MENU_CONTINUE;
   }
 
