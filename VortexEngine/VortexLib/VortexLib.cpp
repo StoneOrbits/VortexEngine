@@ -349,12 +349,10 @@ void Vortex::releaseButton(uint32_t buttonIndex)
 Mode *Vortex::getMenuDemoMode()
 {
   Menu *pMenu = Menus::curMenu();
-  if (pMenu) {
-    // note the cur menu ID is only valid if the menus are open
-    return &pMenu->m_previewMode;
+  if (!pMenu) {
+    return nullptr;
   }
-  // attiny just demos the cur mode in menus to save on space
-  return Modes::curMode();
+  return &pMenu->m_previewMode;
 }
 
 bool Vortex::isButtonPressed(uint32_t buttonIndex)
