@@ -67,16 +67,16 @@ Menu::MenuAction Randomizer::run()
   }
   // if they are trying to randomize a multi-led pattern just convert
   // the pattern to all singles with the same colorset upon entry
-  if (m_randomizedMode.isMultiLed() && m_targetLeds != MAP_LED(LED_MULTI)) {
+  if (m_previewMode.isMultiLed() && m_targetLeds != MAP_LED(LED_MULTI)) {
     // convert the pattern to a single led pattern, this will map
     // all multi led patterns to single led patterns using modulo
     // so no matter which multi-led pattern they have selected it
     // will convert to a single led pattern of some kind
-    PatternID newID = (PatternID)((m_randomizedMode.getPatternID() - PATTERN_MULTI_FIRST) % PATTERN_SINGLE_COUNT);
+    PatternID newID = (PatternID)((m_previewMode.getPatternID() - PATTERN_MULTI_FIRST) % PATTERN_SINGLE_COUNT);
     // solid sucks
     if (newID == PATTERN_SOLID) ++newID;
-    m_randomizedMode.setPattern(newID);
-    m_randomizedMode.init();
+    m_previewMode.setPattern(newID);
+    m_previewMode.init();
   }
   // if the user fast-clicks 3 times then toggle automode
   if (g_pButton->onRelease() && g_pButton->consecutivePresses() == AUTO_CYCLE_RANDOMIZER_CLICKS) {
