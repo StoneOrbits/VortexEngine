@@ -10,6 +10,7 @@
 #include "../Time/TimeControl.h"
 #include "../Colors/Colorset.h"
 #include "../Memory/Memory.h"
+#include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
 #if FIXED_LED_COUNT == 0
@@ -149,6 +150,10 @@ void Mode::play()
     Pattern *entry = m_singlePats[pos];
     if (!entry) {
       // incomplete pattern/set or empty slot
+      if (!m_multiPat) {
+        // only clear if the multi pattern isn't playing
+        Leds::clearIndex(pos);
+      }
       continue;
     }
     // play the current pattern with current color set on the current finger
