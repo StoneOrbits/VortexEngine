@@ -1,2 +1,11 @@
+*.a
 *.o
 *.d
+*.diff
+*.bin
+*.eep
+*.elf
+*.hex
+*.lss
+*.lst
+*.map
