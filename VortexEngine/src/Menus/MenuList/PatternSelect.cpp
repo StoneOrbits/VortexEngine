@@ -15,7 +15,6 @@
 
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
-  m_patternMode(),
   m_srcLed(LED_FIRST),
   m_argIndex(0)
 {
@@ -30,7 +29,7 @@ bool PatternSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  m_patternMode = *m_pCurMode;
+  m_previewMode = *m_pCurMode;
   DEBUG_LOG("Entered pattern select");
   return true;
 }
@@ -42,7 +41,7 @@ Menu::MenuAction PatternSelect::run()
     return result;
   }
   // run the current mode
-  m_patternMode.play();
+  m_previewMode.play();
   // show dimmer selections in advanced mode
   Menus::showSelection(m_advanced ? RGB_GREEN0 : RGB_WHITE5);
   return MENU_CONTINUE;
@@ -53,8 +52,8 @@ void PatternSelect::onLedSelected()
   if (!m_advanced) {
     // if not in advanced then change the starting pattern, otherwise start
     // on the pattern we already had
-    m_patternMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
-    m_patternMode.init();
+    m_previewMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
+    m_previewMode.init();
   }
   m_srcLed = mapGetFirstLed(m_targetLeds);
 }
@@ -107,11 +106,11 @@ void PatternSelect::onShortClick()
 
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {
-    m_patternMode.setPattern(newID);
+    m_previewMode.setPattern(newID);
   } else {
-    m_patternMode.setPatternMap(m_targetLeds, newID);
+    m_previewMode.setPatternMap(m_targetLeds, newID);
   }
-  m_patternMode.init();
+  m_previewMode.init();
   DEBUG_LOGF("Iterated to pattern id %d", newID);
 }
 
@@ -126,6 +125,6 @@ void PatternSelect::onLongClick()
     Leds::holdAll(200, m_menuColor);
   }
   // store the mode as current mode
-  Modes::updateCurMode(&m_patternMode);
+  Modes::updateCurMode(&m_previewMode);
   leaveMenu(true);
 }

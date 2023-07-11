@@ -31,9 +31,6 @@ private:
   // the time of the last randomization
   uint32_t m_lastRandomization;
 
-  // the randomized mode
-  Mode m_randomizedMode;
-
   enum RandomizeFlags : uint8_t {
     // this isn't a valid randomization state, if the flags are
     // on this state then the user will be prompted to pick

@@ -638,6 +638,26 @@ void Mode::clearColorsetMap(LedMap map)
   }
 }
 
+void Mode::setArg(uint8_t param, uint8_t value, LedMap map)
+{
+  MAP_FOREACH_LED(map) {
+    Pattern *pat = getPattern(pos);
+    if (!pat) {
+      continue;
+    }
+    pat->setArg(param, value);
+  }
+}
+
+uint8_t Mode::getArg(uint8_t index, LedPos pos)
+{
+  Pattern *pat = getPattern(pos);
+  if (!pat) {
+    return 0;
+  }
+  return pat->getArg(index);
+}
+
 ModeFlags Mode::getFlags() const
 {
   ModeFlags flags = 0;
