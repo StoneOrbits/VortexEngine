@@ -52,7 +52,6 @@ private:
   keychain_mode_state m_keychain_modeState;
   uint32_t m_lastStateChange;
   uint8_t m_colorIndex;
-  Mode m_keychain_modeMode;
 
   void setKeychainModeState(keychain_mode_state newState);
   Menu::MenuAction runKeychainMode();

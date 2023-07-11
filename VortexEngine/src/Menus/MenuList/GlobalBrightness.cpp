@@ -151,7 +151,7 @@ Menu::MenuAction GlobalBrightness::runKeychainMode()
     return MENU_QUIT;
   }
   // play the keychain_mode mode
-  m_keychain_modeMode.play();
+  m_previewMode.play();
   return MENU_CONTINUE;
 }
 
@@ -183,7 +183,6 @@ void GlobalBrightness::setKeychainModeState(keychain_mode_state newState)
   // because that will never iterate to the next color and allows us to force
   // the color index via argument 6
   args.arg6 = m_colorIndex;
-  m_keychain_modeMode.setPattern(PATTERN_SOLID, LED_ALL, &args);
-  m_keychain_modeMode.setColorset(m_pCurMode->getColorset(), LED_ALL);
-  m_keychain_modeMode.init();
+  m_previewMode.setPattern(PATTERN_SOLID, LED_ALL, &args);
+  m_previewMode.init();
 }
