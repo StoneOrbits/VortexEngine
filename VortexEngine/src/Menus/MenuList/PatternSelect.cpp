@@ -20,7 +20,6 @@ bool PatternSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  m_previewMode = *m_pCurMode;
   DEBUG_LOG("Entered pattern select");
   return true;
 }
