@@ -3,8 +3,6 @@
 
 #include "../Menu.h"
 
-#include "../../Modes/Mode.h"
-
 class GlobalBrightness : public Menu
 {
 public:
