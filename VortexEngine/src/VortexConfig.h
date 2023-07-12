@@ -520,9 +520,6 @@
 #undef DEFAULT_BRIGHTNESS
 #define DEFAULT_BRIGHTNESS 255
 
-#undef FIXED_LED_COUNT
-#define FIXED_LED_COUNT 0
-
 // test framework needs more time to click idk
 #undef CONSECUTIVE_WINDOW
 #define CONSECUTIVE_WINDOW 300
@@ -554,6 +551,7 @@
 // This will be defined if the project is being built inside the editor
 #ifdef PROJECT_NAME_VortexEditor
 
+// The editor needs an unfixed led count in order to load any mode
 #undef FIXED_LED_COUNT
 #define FIXED_LED_COUNT 0
 
