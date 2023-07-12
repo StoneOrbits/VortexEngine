@@ -67,8 +67,9 @@ Menu::MenuAction Randomizer::run()
     Leds::holdAll(m_autoCycle ? RGB_GREEN : RGB_RED);
     return MENU_CONTINUE;
   }
-  if (m_autoCycle && (m_lastRandomization + AUTO_RANDOM_DELAY_TICKS < Time::getCurtime())) {
-    m_lastRandomization = Time::getCurtime();
+  uint32_t now = Time::getCurtime();
+  if (m_autoCycle && (m_lastRandomization + AUTO_RANDOM_DELAY_TICKS < now)) {
+    m_lastRandomization = now;
     reRoll();
   }
   // display the randomized mode
