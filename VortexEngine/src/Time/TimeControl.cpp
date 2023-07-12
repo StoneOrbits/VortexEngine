@@ -132,18 +132,6 @@ void Time::tickClock()
 #endif
 }
 
-// get the current time with optional led position time offset
-uint32_t Time::getCurtime()
-{
-  // the current tick, plus the time offset per LED, plus any
-  // simulation offset
-#ifdef VORTEX_LIB
-  return m_curTick + getSimulationTick();
-#else
-  return m_curTick;
-#endif
-}
-
 // the real current time, bypass simulations, used by timers
 uint32_t Time::getRealCurtime()
 {
