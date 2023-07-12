@@ -108,6 +108,7 @@ void Randomizer::onShortClick()
     } else {
       m_flags = (RandomizeFlags)(m_flags + 1);
     }
+    return;
   }
   // shortClick re-roll the randomization
   reRoll();

@@ -43,6 +43,10 @@ bool Modes::init()
       return false;
     }
   }
+#ifdef VORTEX_LIB
+  // enable the adv menus by default in vortex lib
+  m_globalFlags |= MODES_FLAG_ADV_MENUS;
+#endif
   return true;
 }
 
