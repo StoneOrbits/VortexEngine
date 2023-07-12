@@ -196,7 +196,7 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
   uint8_t numCols = pMode->getColorset(pos).numColors();
   PatternArgs args(
     ctx.next8(3, 20),  // on duration 3 -> 20
-    ctx.next8(0, 20),  // off duration 0 -> 20
+    ctx.next8(0, 60),  // off duration 0 -> 20
     ctx.next8(0, 40),  // gap duration 0 -> 40
     ctx.next8(0, 20),  // dash duration 0 -> 20
     ctx.next8(0, numCols >> 1) // group 0 -> numColors / 2
@@ -210,7 +210,7 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
     args.arg3 = 0;
   }
   // this occationally sets dash to exactly 0
-  if (!ctx.next8(0, 5)) {
+  if (!ctx.next8(0, 2)) {
     args.arg4 = 0;
   }
   PatternID newPat = PATTERN_STROBE;
