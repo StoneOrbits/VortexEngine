@@ -43,6 +43,10 @@ bool ColorSelect::init()
   if (!Menu::init()) {
     return false;
   }
+  if (m_pCurMode->isEmpty()) {
+    // cannot work with an empty mode
+    return false;
+  }
   if (m_pCurMode->isMultiLed()) {
     m_ledSelected = true;
   }
