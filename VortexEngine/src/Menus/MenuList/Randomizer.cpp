@@ -137,8 +137,6 @@ void Randomizer::showRandomizationSelect()
     // if they are randomizing the pattern strobe on/off
     Leds::blinkAll(DOPS_ON_DURATION, DOPS_OFF_DURATION);
   }
-  // indicate on the 2nd led whether the button is pressed
-  Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_OFF : RGB_WHITE1);
   // render the click selection blink
   Menus::showSelection();
 }
