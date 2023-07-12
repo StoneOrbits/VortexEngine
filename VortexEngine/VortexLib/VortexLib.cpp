@@ -421,7 +421,7 @@ void Vortex::openModeSharing()
 
 void Vortex::openEditorConnection()
 {
-  // doesn't exist here
+  Menus::openMenu(MENU_EDITOR_CONNECTION);
 }
 
 bool Vortex::getModes(ByteStream &outStream)
