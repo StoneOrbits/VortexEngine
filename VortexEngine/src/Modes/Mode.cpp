@@ -10,6 +10,7 @@
 #include "../Time/TimeControl.h"
 #include "../Colors/Colorset.h"
 #include "../Memory/Memory.h"
+#include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
 #if FIXED_LED_COUNT == 0
@@ -148,7 +149,16 @@ void Mode::play()
     // grab the entry for this led
     Pattern *entry = m_singlePats[pos];
     if (!entry) {
+#if VORTEX_SLIM == 0
       // incomplete pattern/set or empty slot
+      if (!m_multiPat) {
+        // only clear if the multi pattern isn't playing
+        Leds::clearIndex(pos);
+      }
+#else
+      // just clear the index if slim, don't check for multi
+      Leds::clearIndex(pos);
+#endif
       continue;
     }
     // play the current pattern with current color set on the current finger
@@ -684,6 +694,26 @@ void Mode::clearColorsetMap(LedMap map)
   MAP_FOREACH_LED(map) {
     clearColorset(pos);
   }
+}
+
+void Mode::setArg(uint8_t param, uint8_t value, LedMap map)
+{
+  MAP_FOREACH_LED(map) {
+    Pattern *pat = getPattern(pos);
+    if (!pat) {
+      continue;
+    }
+    pat->setArg(param, value);
+  }
+}
+
+uint8_t Mode::getArg(uint8_t index, LedPos pos)
+{
+  Pattern *pat = getPattern(pos);
+  if (!pat) {
+    return 0;
+  }
+  return pat->getArg(index);
 }
 
 ModeFlags Mode::getFlags() const

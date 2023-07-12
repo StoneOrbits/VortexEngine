@@ -10,9 +10,11 @@
 #include "Patterns/Pattern.h"
 #include "Colors/Colorset.h"
 #include "Time/TimeControl.h"
+#include "Random/Random.h"
 #include "Time/Timings.h"
 #include "Menus/Menus.h"
 #include "Modes/Modes.h"
+#include "Menus/Menu.h"
 #include "Modes/Mode.h"
 #include "Random/Random.h"
 
@@ -347,8 +349,11 @@ void Vortex::releaseButton(uint32_t buttonIndex)
 
 Mode *Vortex::getMenuDemoMode()
 {
-  // attiny just demos the cur mode in menus to save on space
-  return Modes::curMode();
+  Menu *pMenu = Menus::curMenu();
+  if (!pMenu) {
+    return nullptr;
+  }
+  return &pMenu->m_previewMode;
 }
 
 bool Vortex::isButtonPressed(uint32_t buttonIndex)
@@ -754,7 +759,7 @@ string Vortex::patternToString(PatternID id)
     return "fix patternToString()";
   }
   if (id <= PATTERN_NONE || id >= PATTERN_COUNT) {
-    return "pattern_none";
+    return "none";
   }
   return patternNames[id];
 }

@@ -5,8 +5,7 @@
 
 #include "../Colors/ColorTypes.h"
 #include "../Leds/LedTypes.h"
-
-class Mode;
+#include "../Modes/Mode.h"
 
 class Menu
 {
@@ -47,6 +46,8 @@ protected:
 
   // the current mode that was selected
   Mode *m_pCurMode;
+  // the mode copied from the current mode used to preview changes
+  Mode m_previewMode;
   // the color of this menu
   RGBColor m_menuColor;
   // tracks the targetted leds for this menu
@@ -62,6 +63,10 @@ protected:
 private:
   // internal flag to close the menu
   bool m_shouldClose;
+
+#ifdef VORTEX_LIB
+  friend class Vortex;
+#endif
 };
 
 #endif

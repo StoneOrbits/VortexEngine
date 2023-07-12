@@ -75,7 +75,7 @@ public:
   static bool updateCurMode(const Mode *mode);
 
   // set the current active mode by index
-  static Mode *setCurMode(uint8_t index);
+  static Mode *setCurMode(uint8_t index, bool skipEmpty = false);
 
   // get the current mode
   static Mode *curMode();
