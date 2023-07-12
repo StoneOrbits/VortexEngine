@@ -779,9 +779,11 @@ bool Mode::hasSparseSingleLed() const
 
 bool Mode::isEmpty() const
 {
+#if VORTEX_SLIM == 0
   if (m_multiPat && m_multiPat->getPatternID() != PATTERN_NONE) {
     return false;
   }
+#endif
   for (LedPos i = LED_FIRST; i < MODE_LEDCOUNT; ++i) {
     // if any patterns are non-null and not PATTERN_NONE
     if (m_singlePats[i] && m_singlePats[i]->getPatternID() != PATTERN_NONE) {

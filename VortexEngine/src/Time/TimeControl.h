@@ -14,6 +14,12 @@
 #define SEC_TO_TICKS(s) (uint32_t)((uint32_t)(s) * DEFAULT_TICKRATE)
 #endif
 
+#ifdef VORTEX_LIB
+#define SIMULATION_TICK getSimulationTick()
+#else
+#define SIMULATION_TICK 0
+#endif
+
 class Time
 {
   // private unimplemented constructor
@@ -28,8 +34,10 @@ public:
   // tick the clock forward to millis()
   static void tickClock();
 
-  // get the current time with optional led position time offset
-  static uint32_t getCurtime();
+  // get the current tick, offset by any active simulation (simulation only exists in vortexlib)
+  // Exposing this in the header seems to save on space a non negligible amount, it is used a lot
+  // and exposing in the header probably allows the compiler to optimize away repititive calls
+  static uint32_t getCurtime() { return m_curTick + SIMULATION_TICK; }
 
   // this ignore simulation time, it's used by timers to make simulations work
   static uint32_t getRealCurtime();

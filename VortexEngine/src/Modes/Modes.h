@@ -84,6 +84,10 @@ public:
   // iterate to previous mode and return it
   static Mode *previousMode();
 
+  // iterate to the next mode but skip empty modes, will not skip mode 0
+  // to prevent possibly skipping all modes and ending in an infinite loop
+  static Mode *nextModeSkipEmpty();
+
   // the number of modes
   static uint8_t numModes() { return m_numModes; }
   static uint8_t curModeIndex() { return m_curMode; }

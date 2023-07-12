@@ -88,8 +88,9 @@ Menu::MenuAction Randomizer::run()
     Leds::holdAll(m_autoCycle ? RGB_GREEN : RGB_RED);
     return MENU_CONTINUE;
   }
-  if (m_autoCycle && (m_lastRandomization + AUTO_RANDOM_DELAY_TICKS < Time::getCurtime())) {
-    m_lastRandomization = Time::getCurtime();
+  uint32_t now = Time::getCurtime();
+  if (m_autoCycle && (m_lastRandomization + AUTO_RANDOM_DELAY_TICKS < now)) {
+    m_lastRandomization = now;
     reRoll();
   }
   // display the randomized mode
@@ -108,6 +109,7 @@ void Randomizer::onShortClick()
     } else {
       m_flags = (RandomizeFlags)(m_flags + 1);
     }
+    return;
   }
   // shortClick re-roll the randomization
   reRoll();
@@ -136,8 +138,6 @@ void Randomizer::showRandomizationSelect()
     // if they are randomizing the pattern strobe on/off
     Leds::blinkAll(DOPS_ON_DURATION, DOPS_OFF_DURATION);
   }
-  // indicate on the 2nd led whether the button is pressed
-  Leds::setIndex(LED_1, g_pButton->isPressed() ? RGB_OFF : RGB_WHITE1);
   // render the click selection blink
   Menus::showSelection();
 }
