@@ -72,11 +72,7 @@ void Modes::play()
       VortexEngine::enterSleep();
       return;
     }
-    do {
-      if (nextMode() && !curMode()->isEmpty()) {
-        break;
-      }
-    } while (m_curMode != 0);
+    nextModeSkipEmpty();
   }
   // play the current mode
   m_pCurModeLink->play();
@@ -494,6 +490,16 @@ Mode *Modes::previousMode()
     return setCurMode(numModes() - 1);
   }
   return setCurMode(m_curMode - 1);
+}
+
+Mode *Modes::nextModeSkipEmpty()
+{
+  do {
+    if (setCurMode(m_curMode + 1) && !curMode()->isEmpty()) {
+      break;
+    }
+  } while (m_curMode != 0);
+  return curMode();
 }
 
 void Modes::deleteCurMode()

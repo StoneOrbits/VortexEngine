@@ -280,7 +280,7 @@ void VortexEngine::runMainLogic()
   // if auto cycle is enabled and the last switch was more than the delay ago
   if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < Time::getCurtime())) {
     // then switch to the next mode automatically
-    Modes::nextMode();
+    Modes::nextModeSkipEmpty();
   }
 
   // otherwise finally just play the modes like normal
