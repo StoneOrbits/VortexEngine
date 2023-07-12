@@ -335,7 +335,7 @@ void Colorset::randomizeEvenlySpaced(Random &ctx, uint8_t spaces)
     uint8_t nextHue = (randomizedHue + (256 / spaces) * i) % 256;
     addColorWithValueStyle(ctx, nextHue, 255, valStyle, spaces, i);
     // double all colors or only first color
-    if (doubleStyle == 1 || (doubleStyle == 2 && !i)) {
+    if (doubleStyle == 2 || (doubleStyle == 1 && !i)) {
       addColorWithValueStyle(ctx, nextHue, 255, valStyle, spaces, i);
     }
   }
