@@ -45,8 +45,9 @@ bool Menu::init()
       return false;
     }
   }
-  // copy the current mode into the demo mode
+  // copy the current mode into the demo mode and initialize it
   m_previewMode = *m_pCurMode;
+  m_previewMode.init();
   // just in case
   m_shouldClose = false;
   return true;
