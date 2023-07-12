@@ -1,8 +1,8 @@
 #include "Menus.h"
 
 // menus
-#include "MenuList/EditorConnection.h"
 #include "MenuList/GlobalBrightness.h"
+#include "MenuList/EditorConnection.h"
 #include "MenuList/FactoryReset.h"
 #include "MenuList/ModeSharing.h"
 #include "MenuList/ColorSelect.h"
