@@ -65,7 +65,6 @@ void Modes::play()
   }
   // shortclick cycles to the next mode
   if (g_pButton->onShortClick()) {
-    // TODO: iterate till a non-empty mode?
     nextMode();
   }
   // shortclick on button 2 cycles to the previous mode
@@ -488,6 +487,16 @@ Mode *Modes::previousMode()
     return setCurMode(numModes() - 1);
   }
   return setCurMode(m_curMode - 1);
+}
+
+Mode *Modes::nextModeSkipEmpty()
+{
+  do {
+    if (setCurMode(m_curMode + 1) && !curMode()->isEmpty()) {
+      break;
+    }
+  } while (m_curMode != 0);
+  return curMode();
 }
 
 void Modes::deleteCurMode()
