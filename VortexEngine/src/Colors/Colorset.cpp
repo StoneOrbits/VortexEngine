@@ -255,7 +255,7 @@ void Colorset::randomizeColorTheory(Random &ctx, uint8_t numColors)
     uint8_t nextHue = (randomizedHue + (i * colorGap)) % 256;
     addColorWithValueStyle(ctx, nextHue, 255, valStyle, numColors, i);
     // double all colors or only first color
-    if (doubleStyle == 1 || (doubleStyle == 2 && !i)) {
+    if (doubleStyle == 2 || (doubleStyle == 1 && !i)) {
       addColorWithValueStyle(ctx, nextHue, 255, valStyle, numColors, i);
     }
   }
@@ -282,7 +282,7 @@ void Colorset::randomizeMonochromatic(Random &ctx, uint8_t numColors)
     uint8_t decrement = 255 - (i * (256 / numColors));
     addColorWithValueStyle(ctx, randomizedHue, decrement, valStyle, numColors, i);
     // double all colors or only first color
-    if (doubleStyle == 1 || (doubleStyle == 2 && !i)) {
+    if (doubleStyle == 2 || (doubleStyle == 1 && !i)) {
       addColorWithValueStyle(ctx, randomizedHue, decrement, valStyle, numColors, i);
     }
   }
