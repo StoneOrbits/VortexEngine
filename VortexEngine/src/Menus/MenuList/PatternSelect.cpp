@@ -14,7 +14,6 @@
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_state(STATE_PICK_LIST),
-  m_demoMode(),
   m_newPatternID(PATTERN_FIRST)
 {
 }
@@ -71,7 +70,7 @@ void PatternSelect::showListSelection()
 
 void PatternSelect::showPatternSelection()
 {
-  m_demoMode.play();
+  m_previewMode.play();
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     Leds::setAll(RGB_WHITE4);
   }
@@ -79,8 +78,8 @@ void PatternSelect::showPatternSelection()
 
 void PatternSelect::onLedSelected()
 {
-  m_demoMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
-  m_demoMode.init();
+  m_previewMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
+  m_previewMode.init();
 }
 
 void PatternSelect::onShortClick()
@@ -186,8 +185,8 @@ void PatternSelect::onLongClick()
     m_state = STATE_PICK_PATTERN;
     // start the new pattern ID selection based on the chosen list
     m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));
-    m_demoMode.setPattern(m_newPatternID);
-    m_demoMode.init();
+    m_previewMode.setPattern(m_newPatternID);
+    m_previewMode.init();
     DEBUG_LOGF("Started picking pattern at %u", m_newPatternID);
     break;
   case STATE_PICK_PATTERN:

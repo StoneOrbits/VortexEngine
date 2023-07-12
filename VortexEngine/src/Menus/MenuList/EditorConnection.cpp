@@ -186,7 +186,7 @@ void EditorConnection::onShortClick()
 
 void EditorConnection::onShortClick2()
 {
-  VLSender::loadMode(&m_demoMode);
+  VLSender::loadMode(&m_previewMode);
   VLSender::send();
   m_state = STATE_SEND_MODE_VL;
 }
