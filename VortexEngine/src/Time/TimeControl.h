@@ -17,7 +17,7 @@
 #ifdef VORTEX_LIB
 #define SIMULATION_TICK getSimulationTick()
 #else
-#define SIMULATION_TICK
+#define SIMULATION_TICK 0
 #endif
 
 class Time
