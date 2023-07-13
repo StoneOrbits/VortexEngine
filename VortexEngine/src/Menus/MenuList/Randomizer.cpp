@@ -180,19 +180,19 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
     ctx.next8(8, 60),  // off duration 0 -> 60
     ctx.next8(0, 40),  // gap duration 0 -> 40
     ctx.next8(0, 20),  // dash duration 0 -> 20
-    ctx.next8(0, numCols >> 1) // group 0 -> numColors / 2
+    ctx.next8(0, (numCols >> 1) - 1) // group 0 -> (numColors / 2) - 1
   );
-  // this occationally sets off to 0-8
-  if (!ctx.next8(0, 6)) {
-    args.arg2 = ctx.next8(0, 8);
-  }
-  // this occationally sets gap to exactly 0
+  // this occasionally sets gap to exactly 0
   if (!ctx.next8(0, 3) && args.arg2) {
     args.arg3 = 0;
   }
-  // this occationally sets dash to exactly 0
+  // this occasionally sets dash to exactly 0
   if (!ctx.next8(0, 2)) {
     args.arg4 = 0;
+  }
+  // often sets group size to 0
+  if (ctx.next8(0, 4)) {
+    args.arg5 = 0;
   }
   PatternID newPat = PATTERN_STROBE;
   // 1/3 chance to roll a blend pattern instead which will animate between
