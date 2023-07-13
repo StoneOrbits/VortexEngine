@@ -128,7 +128,7 @@ Colorset Randomizer::rollColorset(Random &ctx)
   Colorset randomSet;
   // pick a random type of randomizer to use then use
   // the randomizer to generate a random colorset
-  uint8_t randType = (uint8_t)ctx.next(0, 9);
+  uint8_t randType = ctx.next8(0, 9);
   switch (randType) {
   default:
   case 0:
@@ -174,26 +174,25 @@ Colorset Randomizer::rollColorset(Random &ctx)
 
 bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
 {
+  PatternArgs args;
+  // pick a random type of randomizer to use then use
+  // the randomizer to generate a random pattern
+  // if this is next8(0,3) it gets stuck with traditionalPattern and will not roll blends. wut..
+  uint8_t patternType = ctx.next8(0, 2);
+  switch (patternType) {
+  default:
+  case 0:
+    args = traditionalPattern(ctx);
+    break;
+  case 1:
+    args = gapPattern(ctx);
+    break;
+  case 2:
+    args = dashPattern(ctx);
+    break;
+  }
+
   uint8_t numCols = pMode->getColorset(pos).numColors();
-  PatternArgs args(
-    ctx.next8(1, 20),  // on duration 1 -> 20
-    ctx.next8(8, 60),  // off duration 8 -> 60
-    ctx.next8(0, 40),  // gap duration 0 -> 40
-    ctx.next8(0, 20),  // dash duration 0 -> 20
-    ctx.next8(0, (numCols >> 1) - 1) // group 0 -> (numColors / 2) - 1
-  );
-  // this occasionally sets gap to exactly 0
-  if (!ctx.next8(0, 3) && args.arg2) {
-    args.arg3 = 0;
-  }
-  // this occasionally sets dash to exactly 0
-  if (!ctx.next8(0, 2)) {
-    args.arg4 = 0;
-  }
-  // often sets group size to 0
-  if (ctx.next8(0, 4)) {
-    args.arg5 = 0;
-  }
   PatternID newPat = PATTERN_STROBE;
   // 1/3 chance to roll a blend pattern instead which will animate between
   // colors instead of blinking each color in the set
@@ -203,6 +202,33 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
     args.arg7 = ctx.next8(0, 3);
   }
   return pMode->setPattern(newPat, pos, &args);
+}
+
+PatternArgs Randomizer::traditionalPattern(Random &ctx) {
+  PatternArgs args(
+    ctx.next8(1, 20),  // on duration 1 -> 20
+    ctx.next8(8, 60)   // off duration 0 -> 60
+  );
+  return args;
+}
+
+PatternArgs Randomizer::gapPattern(Random &ctx) {
+  PatternArgs args(
+    ctx.next8(1, 10),  // on duration 1 -> 10
+    ctx.next8(0, 6),   // off duration 0 -> 6
+    ctx.next8(0,100)  // gap duration 0 -> 100
+  );
+  return args;
+}
+
+PatternArgs Randomizer::dashPattern(Random &ctx) {
+  PatternArgs args(
+    ctx.next8(1, 6),  // on duration 1 -> 10
+    ctx.next8(0, 6),   // off duration 0 -> 6
+    0,
+    ctx.next8(1, 100)  // gap duration 1 -> 100
+  );
+  return args;
 }
 
 PatternID Randomizer::rollPatternID(Random &ctx)

@@ -62,6 +62,11 @@ private:
   bool rollPattern(Random &ctx, Mode *pMode, LedPos pos);
   PatternID rollPatternID(Random &ctx);
   Colorset rollColorset(Random &ctx);
+
+  // random pattern generators
+  PatternArgs traditionalPattern(Random &ctx);
+  PatternArgs gapPattern(Random &ctx);
+  PatternArgs dashPattern(Random &ctx);
 };
 
 #endif
