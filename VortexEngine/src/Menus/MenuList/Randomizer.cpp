@@ -160,7 +160,7 @@ Colorset Randomizer::rollColorset(Random &ctx)
     break;
   }
 
-  // pull the brightness of the entire set down by 100, this will
+  // pull the brightness of the entire set down by 50, this will
   // produce dimmer colors all around but for whatever reason they
   // look a lot better this way
   randomSet.adjustBrightness(50);
