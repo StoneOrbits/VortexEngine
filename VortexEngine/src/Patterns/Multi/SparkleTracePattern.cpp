@@ -23,8 +23,8 @@ void SparkleTracePattern::blinkOn()
 
 void SparkleTracePattern::poststep()
 {
-  for (int dot = 0; dot < 4; ++dot) {
-    Leds::setPair((Pair)m_randCtx.next(PAIR_FIRST, PAIR_LAST + 1), m_colorset.cur());
+  for (uint8_t dot = 0; dot < 4; ++dot) {
+    Leds::setPair((Pair)m_randCtx.next8(PAIR_FIRST, PAIR_LAST), m_colorset.cur());
   }
   m_colorset.skip();
   if (m_colorset.curIndex() == 0) {

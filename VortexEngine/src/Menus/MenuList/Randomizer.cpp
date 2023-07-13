@@ -147,7 +147,7 @@ Colorset Randomizer::rollColorset(Random &ctx)
   Colorset randomSet;
   // pick a random type of randomizer to use then use
   // the randomizer to generate a random colorset
-  uint8_t randType = (uint8_t)ctx.next(0, 9);
+  uint8_t randType = ctx.next8(0, 8);
   switch (randType) {
   default:
   case 0:
@@ -230,7 +230,7 @@ PatternID Randomizer::rollPatternID(Random &ctx)
   // the random range begin/end
   do {
     // continuously re-randomize the pattern so we don't get undesirable patterns
-    newPat = (PatternID)ctx.next(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
+    newPat = (PatternID)ctx.next8(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
   } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
   return newPat;
 }
