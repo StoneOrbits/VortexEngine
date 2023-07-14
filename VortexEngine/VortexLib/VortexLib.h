@@ -221,6 +221,10 @@ public:
   static bool enableLockstep(bool enable) { return m_lockstepEnabled = enable; }
   static bool isLockstep() { return m_lockstepEnabled; }
 
+  // enable disable storage
+  static bool enableStorage(bool enable) { return m_storageEnabled = enable; }
+  static bool storageEnabled() { return m_storageEnabled; }
+
 private:
   // the last command to have been executed
   static char m_lastCommand;
@@ -305,4 +309,6 @@ private:
   static bool m_commandLogEnabled;
   // whether to run in lockstep mode (one input per step)
   static bool m_lockstepEnabled;
+  // whether storage is enabled
+  static bool m_storageEnabled;
 };
