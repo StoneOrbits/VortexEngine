@@ -508,6 +508,26 @@
 #define VORTEX_LIB
 #endif
 
+#ifdef VORTEX_LIB
+
+// The test framework needs brighter menu colors can't really see them on the screen
+#undef RGB_MENU_RANDOMIZER
+#undef RGB_MENU_MODE_SHARING
+#undef RGB_MENU_EDITOR_CONNECTION
+#undef RGB_MENU_COLOR_SELECT
+#undef RGB_MENU_PATTERN_SELECT
+#undef RGB_MENU_BRIGHTNESS_SELECT
+#undef RGB_MENU_FACTORY_RESET
+#define RGB_MENU_RANDOMIZER         RGB_WHITE4
+#define RGB_MENU_MODE_SHARING       RGB_CYAN4
+#define RGB_MENU_EDITOR_CONNECTION  RGB_PURPLE4
+#define RGB_MENU_COLOR_SELECT       RGB_GREEN4
+#define RGB_MENU_PATTERN_SELECT     RGB_BLUE4
+#define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW4
+#define RGB_MENU_FACTORY_RESET      RGB_RED4
+
+#endif // ifdef VORTEX_LIB
+
 // This will be defined if the project is being built inside the test framework
 #ifdef PROJECT_NAME_VortexTestingFramework
 
@@ -529,22 +549,6 @@
 #undef LOGGING_LEVEL
 #define LOGGING_LEVEL 3
 #endif
-
-// The test framework needs brighter menu colors can't really see them on the screen
-#undef RGB_MENU_RANDOMIZER
-#undef RGB_MENU_MODE_SHARING
-#undef RGB_MENU_EDITOR_CONNECTION
-#undef RGB_MENU_COLOR_SELECT
-#undef RGB_MENU_PATTERN_SELECT
-#undef RGB_MENU_BRIGHTNESS_SELECT
-#undef RGB_MENU_FACTORY_RESET
-#define RGB_MENU_RANDOMIZER         RGB_WHITE4
-#define RGB_MENU_MODE_SHARING       RGB_CYAN4
-#define RGB_MENU_EDITOR_CONNECTION  RGB_PURPLE4
-#define RGB_MENU_COLOR_SELECT       RGB_GREEN4
-#define RGB_MENU_PATTERN_SELECT     RGB_BLUE4
-#define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW4
-#define RGB_MENU_FACTORY_RESET      RGB_RED4
 
 #endif // VortexTestingFramework
 
