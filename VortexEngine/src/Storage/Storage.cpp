@@ -160,7 +160,9 @@ bool Storage::read(ByteStream &buffer)
   if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
     return false;
   }
-  buffer.init(STORAGE_SIZE);
+  if (!buffer.init(STORAGE_SIZE)) {
+    return false;
+  }
 #ifdef VORTEX_EMBEDDED
   // Read the data from EEPROM first
   uint8_t *pos = (uint8_t *)buffer.rawData();
