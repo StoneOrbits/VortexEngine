@@ -93,7 +93,7 @@ void Time::tickClock()
 #endif
 
   // the rest of this only runs inside vortexlib because on the duo the tick runs in the
-  // tcb timer callback instead of in a busy loop constantly checking micros()
+  // tcb timer callback instead of in a busy loop constantly checking microseconds()
 #ifdef VORTEX_LIB
   if (m_instantTimestep) {
     return;
