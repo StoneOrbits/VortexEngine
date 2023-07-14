@@ -55,7 +55,7 @@ const MenuEntry menuList[] = {
   //  Default menu setup:
   ENTRY(Randomizer, RGB_MENU_RANDOMIZER),
   ENTRY(ModeSharing, RGB_MENU_MODE_SHARING),
-#ifdef VORTEX_LIB
+#if ENABLE_EDITOR_CONNECTION == 1
   ENTRY(EditorConnection, RGB_MENU_EDITOR_CONNECTION),
 #endif
   ENTRY(ColorSelect, RGB_MENU_COLOR_SELECT),
