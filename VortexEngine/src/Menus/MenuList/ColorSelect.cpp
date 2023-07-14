@@ -241,6 +241,8 @@ void ColorSelect::onLongClick()
     }
   }
   switch (m_state) {
+  default:
+    break;
   case STATE_PICK_SLOT:
     if (m_slot < m_colorset.numColors() &&
       g_pButton->holdDuration() >= DELETE_THRESHOLD_TICKS &&
@@ -393,7 +395,7 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
         Leds::breathQuadrant(m_curSelection, 0, g_pButton->holdDuration());
         return;
       }
-    } else if (m_slot == m_colorset.numColors() + 1) {
+    } else if (m_slot == (uint32_t)(m_colorset.numColors() + 1)) {
       Leds::blinkQuadrantFive(150, 350, RGB_WHITE);
     }
   }
