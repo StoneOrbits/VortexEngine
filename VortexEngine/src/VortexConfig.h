@@ -65,7 +65,7 @@
 // Sleep Window Time (in milliseconds)
 //
 // How long the user has to release the button to enter sleep
-#define SLEEP_WINDOW_TIME     500
+#define SLEEP_WINDOW_TIME     750
 
 // Force Sleep Time (in milliseconds)
 //
