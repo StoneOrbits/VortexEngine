@@ -19,6 +19,7 @@
 #include <Windows.h>
 #else
 #include <unistd.h>
+#include <stdio.h>
 #endif
 
 #ifdef VORTEX_EMBEDDED
@@ -110,7 +111,7 @@ bool Storage::write(ByteStream &buffer)
   }
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
   return (NVMCTRL.STATUS & 4) == 0;
-#else
+#elif defined(_MSC_VER)
   HANDLE hFile = CreateFile("FlashStorage.flash", GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
   if (!hFile) {
     // error
@@ -122,6 +123,16 @@ bool Storage::write(ByteStream &buffer)
     return false;
   }
   CloseHandle(hFile);
+  return true;
+#else
+  FILE *f = fopen("FlashStorage.flash", "w");
+  if (!f) {
+    return false;
+  }
+  if (!fwrite(buffer.rawData(), sizeof(char), buffer.rawSize(), f)) {
+    return false;
+  }
+  fclose(f);
   return true;
 #endif // VORTEX_EMBEDDED
 }
@@ -149,7 +160,7 @@ bool Storage::read(ByteStream &buffer)
     // Read the rest of data from Flash
     memcpy(pos, FLASH_STORAGE_SPACE, size);
   }
-#else
+#elif defined(_MSC_VER)
   HANDLE hFile = CreateFile("FlashStorage.flash", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (!hFile) {
     // error
@@ -161,6 +172,15 @@ bool Storage::read(ByteStream &buffer)
     return false;
   }
   CloseHandle(hFile);
+#else
+  FILE *f = fopen("FlashStorage.flash", "r");
+  if (!f) {
+    return false;
+  }
+  if (!fread(buffer.rawData(), sizeof(char), size, f)) {
+    return false;
+  }
+  fclose(f);
 #endif
   // check crc immediately since we read into raw data copying the
   // array could be dangerous

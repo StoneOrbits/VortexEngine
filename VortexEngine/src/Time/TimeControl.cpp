@@ -21,7 +21,11 @@
 
 #if !defined(_MSC_VER) || defined(WASM)
 #include <unistd.h>
+#include <time.h>
 uint64_t start = 0;
+// convert seconds and nanoseconds to microseconds
+#define SEC_TO_US(sec) ((sec)*1000000)
+#define NS_TO_US(ns) ((ns)/1000)
 #else
 #include <Windows.h>
 static LARGE_INTEGER tps;
@@ -59,7 +63,7 @@ bool Time::init()
   m_tickrate = DEFAULT_TICKRATE;
 #endif
 #ifdef VORTEX_LIB
-  m_firstTime = m_prevTime = micros();
+  m_firstTime = m_prevTime = microseconds();
   m_simulationTick = 0;
   m_isSimulation = false;
   m_instantTimestep = false;
