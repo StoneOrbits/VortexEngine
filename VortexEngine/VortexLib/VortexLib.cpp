@@ -421,7 +421,9 @@ void Vortex::openModeSharing()
 
 void Vortex::openEditorConnection()
 {
+#if ENABLE_EDITOR_CONNECTION == 1
   Menus::openMenu(MENU_EDITOR_CONNECTION);
+#endif
 }
 
 bool Vortex::getModes(ByteStream &outStream)
