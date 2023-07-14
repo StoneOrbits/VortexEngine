@@ -27,14 +27,6 @@ void cleanup_arduino()
 {
 }
 
-void delay(uint16_t ms)
-{
-}
-
-void delayMicroseconds(uint32_t us)
-{
-}
-
 // used for seeding randomSeed()
 unsigned long analogRead(uint32_t pin)
 {
@@ -59,7 +51,7 @@ unsigned long millis()
 
 unsigned long micros()
 {
-    return 0;
+  return 0;
 }
 
 void pinMode(uint32_t pin, uint32_t mode)
