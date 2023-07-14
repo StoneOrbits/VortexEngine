@@ -16,9 +16,6 @@
 void init_arduino();
 void cleanup_arduino();
 
-void delay(uint16_t amt);
-void delayMicroseconds(uint32_t us);
-
 unsigned long analogRead(uint32_t pin);
 unsigned long digitalRead(uint32_t pin);
 void digitalWrite(uint32_t pin,  uint32_t val); 

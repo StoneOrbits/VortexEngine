@@ -244,7 +244,7 @@ void Leds::holdAll(RGBColor col)
 {
   setAll(col);
   update();
-  delay(250);
+  Time::delayMilliseconds(250);
 }
 
 void Leds::update()
