@@ -72,6 +72,10 @@ public:
   // purpose of comparing against getCurtime()
   static uint32_t microseconds();
 
+  // delay for some number of microseconds or milliseconds, these are bad
+  static void delayMicroseconds(uint32_t us);
+  static void delayMilliseconds(uint32_t ms);
+
 #ifdef VORTEX_LIB
   // Start a time simulation, while the simulation is active you can
   // increment the 'current time' with tickSimulation() and all calls

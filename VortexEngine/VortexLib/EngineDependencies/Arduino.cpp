@@ -19,61 +19,12 @@ using namespace std;
 
 SerialClass Serial;
 
-#if !defined(_MSC_VER) || defined(WASM)
-uint64_t start = 0;
-#else
-static LARGE_INTEGER start;
-static LARGE_INTEGER tps; //tps = ticks per second
-#endif
-
 void init_arduino()
 {
-#if !defined(_MSC_VER) || defined(WASM)
-  start = micros();
-#else
-  QueryPerformanceFrequency(&tps);
-  QueryPerformanceCounter(&start);
-#endif
 }
 
 void cleanup_arduino()
 {
-}
-
-void delay(uint16_t ms)
-{
-#ifdef _MSC_VER
-  HANDLE timer;
-  LARGE_INTEGER ft;
-  ft.QuadPart = -((__int64)ms * 1000);
-  timer = CreateWaitableTimer(NULL, TRUE, NULL);
-  if (!timer) {
-    return;
-  }
-  SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0);
-  WaitForSingleObject(timer, INFINITE);
-  CloseHandle(timer);
-#else
-  Sleep(ms);
-#endif
-}
-
-void delayMicroseconds(uint32_t us)
-{
-#ifdef _MSC_VER
-  HANDLE timer;
-  LARGE_INTEGER ft;
-  ft.QuadPart = -((__int64)us);
-  timer = CreateWaitableTimer(NULL, TRUE, NULL);
-  if (!timer) {
-    return;
-  }
-  SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0);
-  WaitForSingleObject(timer, INFINITE);
-  CloseHandle(timer);
-#else
-  usleep(us);
-#endif
 }
 
 // used for seeding randomSeed()
@@ -93,48 +44,14 @@ void digitalWrite(uint32_t pin,  uint32_t val)
 {
 }
 
-/// Convert seconds to milliseconds
-#define SEC_TO_MS(sec) ((sec)*1000)
-/// Convert seconds to microseconds
-#define SEC_TO_US(sec) ((sec)*1000000)
-/// Convert seconds to nanoseconds
-#define SEC_TO_NS(sec) ((sec)*1000000000)
-
-/// Convert nanoseconds to seconds
-#define NS_TO_SEC(ns)   ((ns)/1000000000)
-/// Convert nanoseconds to milliseconds
-#define NS_TO_MS(ns)    ((ns)/1000000)
-/// Convert nanoseconds to microseconds
-#define NS_TO_US(ns)    ((ns)/1000)
-
 unsigned long millis()
 {
-#ifndef _MSC_VER
-  struct timespec ts;
-  clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
-  uint64_t ms = SEC_TO_MS((uint64_t)ts.tv_sec) + NS_TO_MS((uint64_t)ts.tv_nsec);
-  return (unsigned long)ms;
-#else
-  return (unsigned long)GetTickCount();
-#endif
+  return 0;
 }
 
 unsigned long micros()
 {
-#ifndef _MSC_VER
-  struct timespec ts;
-  clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
-  uint64_t us = SEC_TO_US((uint64_t)ts.tv_sec) + NS_TO_US((uint64_t)ts.tv_nsec);
-  return (unsigned long)us;
-#else
-  LARGE_INTEGER now;
-  QueryPerformanceCounter(&now);
-  if (!tps.QuadPart) {
-    return 0;
-  }
-  // yes, this will overflow, that's how arduino micros() works *shrug*
-  return (unsigned long)((now.QuadPart - start.QuadPart) * 1000000 / tps.QuadPart);
-#endif
+  return 0;
 }
 
 void pinMode(uint32_t pin, uint32_t mode)
