@@ -169,7 +169,7 @@ void IRSender::sendSpace(uint16_t time)
   send_ir(false, time);
 #else
   stopPWM();
-  delayMicroseconds(time);
+  Time::delayMicroseconds(time);
 #endif
 }
 
