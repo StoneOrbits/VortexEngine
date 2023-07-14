@@ -160,11 +160,6 @@ Colorset Randomizer::rollColorset(Random &ctx)
     break;
   }
 
-  // pull the brightness of the entire set down by 50, this will
-  // produce dimmer colors all around but for whatever reason they
-  // look a lot better this way
-  randomSet.adjustBrightness(50);
-
   // take the randomized colorset and repeate colors to make an additional pattern
   if (randomSet.numColors() <= 4 && ctx.next8(0, 1) != 0) {
     // using uint8_t here actually costs more bytes than int16_t
