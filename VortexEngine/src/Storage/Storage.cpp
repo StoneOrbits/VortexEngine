@@ -15,6 +15,10 @@
 #include <util/delay.h>
 #endif
 
+#ifdef VORTEX_LIB
+#include "../VortexLib/VortexLib.h"
+#endif
+
 #ifdef _MSC_VER
 #include <Windows.h>
 #else
@@ -80,6 +84,12 @@ void Storage::cleanup()
 // store a serial buffer to storage
 bool Storage::write(ByteStream &buffer)
 {
+#ifdef VORTEX_LIB
+  if (!Vortex::storageEnabled()) {
+    // true? idk
+    return false;
+  }
+#endif
 #ifdef VORTEX_EMBEDDED
   // Check size
   uint16_t size = buffer.rawSize();
@@ -140,6 +150,12 @@ bool Storage::write(ByteStream &buffer)
 // read a serial buffer from storage
 bool Storage::read(ByteStream &buffer)
 {
+#ifdef VORTEX_LIB
+  if (!Vortex::storageEnabled()) {
+    // true? idk
+    return false;
+  }
+#endif
   uint32_t size = STORAGE_SIZE;
   if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
     return false;
