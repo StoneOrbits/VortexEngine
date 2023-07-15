@@ -15,6 +15,10 @@
 #include <util/delay.h>
 #endif
 
+#ifdef VORTEX_LIB
+#include "../VortexLib/VortexLib.h"
+#endif
+
 #ifdef _MSC_VER
 #include <Windows.h>
 #else
@@ -62,14 +66,6 @@ Storage::Storage()
 
 bool Storage::init()
 {
-#ifdef VORTEX_LIB
-#ifdef _MSC_VER
-  DeleteFile("FlashStorage.flash");
-#else
-  unlink("FlashStorage.flash");
-#endif
-#endif
-  DEBUG_LOGF("Total available space: %u", STORAGE_SIZE);
   return true;
 }
 
@@ -80,6 +76,12 @@ void Storage::cleanup()
 // store a serial buffer to storage
 bool Storage::write(ByteStream &buffer)
 {
+#ifdef VORTEX_LIB
+  if (!Vortex::storageEnabled()) {
+    // true? idk
+    return false;
+  }
+#endif
 #ifdef VORTEX_EMBEDDED
   // Check size
   uint16_t size = buffer.rawSize();
@@ -140,11 +142,19 @@ bool Storage::write(ByteStream &buffer)
 // read a serial buffer from storage
 bool Storage::read(ByteStream &buffer)
 {
+#ifdef VORTEX_LIB
+  if (!Vortex::storageEnabled()) {
+    // true? idk
+    return false;
+  }
+#endif
   uint32_t size = STORAGE_SIZE;
   if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
     return false;
   }
-  buffer.init(STORAGE_SIZE);
+  if (!buffer.init(STORAGE_SIZE)) {
+    return false;
+  }
 #ifdef VORTEX_EMBEDDED
   // Read the data from EEPROM first
   uint8_t *pos = (uint8_t *)buffer.rawData();
