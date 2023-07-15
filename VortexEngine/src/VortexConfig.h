@@ -72,6 +72,11 @@
 // How long the user has to hold the button anywhere to force sleep
 #define FORCE_SLEEP_TIME      6000
 
+// One-click mode threshold
+//
+// How long the user has to hold the button to trigger one-click mode
+#define ONE_CLICK_MODE_TRHESHOLD 500
+
 // Device Lock Clicks
 //
 // How many rapid clicks the user must perform to lock/unlock the device.
