@@ -154,14 +154,17 @@ private:
     // veryify the crc
     bool verify() const
     {
-      if (!crc32) {
-        return true;
+      // cannot verify crc if the buffer is empty
+      //if (!size) {
+      //  // in this case we can just say it's "valid" so that an empty storage
+      //  // is not considered an "invalid" buffer, it's still valid just empty
+      //  return true;
+      //}
+      if (hash() != crc32) {
+        DEBUG_LOGF("CRC mismatch: %x should be %x", hash(), crc32);
+        return false;
       }
-      uint32_t newcrc = hash();
-      if (newcrc != crc32) {
-        DEBUG_LOGF("CRC mismatch: %x should be %x", newcrc, crc32);
-      }
-      return crc32 == hash();
+      return true;
     }
     // re-calculate the crc
     void recalcCRC()

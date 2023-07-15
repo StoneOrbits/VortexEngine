@@ -44,7 +44,7 @@ FUSE6 = 0x04
 # fuse7 = APPEND
 FUSE7 = 0x00
 # fuse8 = BOOTEND
-FUSE8 = 0x7f
+FUSE8 = 0x7e
 
 CFLAGS = -g \
 	 -Os \
