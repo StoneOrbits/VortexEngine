@@ -158,7 +158,7 @@ void IRSender::sendMark(uint16_t time)
   send_ir(true, time);
 #else
   startPWM();
-  delayMicroseconds(time);
+  Time::delayMicroseconds(time);
 #endif
 }
 
