@@ -154,6 +154,10 @@ private:
     // veryify the crc
     bool verify() const
     {
+      // if the buffer is empty then 'verify' should just return true
+      if (!size) {
+        return true;
+      }
       if (hash() != crc32) {
         DEBUG_LOGF("CRC mismatch: %x should be %x", hash(), crc32);
         return false;
