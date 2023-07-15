@@ -209,9 +209,42 @@ uint32_t Time::microseconds()
 #endif
 }
 
+#ifdef VORTEX_EMBEDDED
+__attribute__ ((noinline))
+#endif
 void Time::delayMicroseconds(uint32_t us)
 {
-#ifdef _MSC_VER
+#ifdef VORTEX_EMBEDDED
+#if F_CPU >= 20000000L
+  // for a one-microsecond delay, burn 4 clocks and then return
+  __asm__ __volatile__ (
+    "rjmp .+0" "\n\t"     // 2 cycles
+    "nop" );              // 1 cycle
+                          // wait 3 cycles with 2 words
+  if (us <= 1) return; //  = 3 cycles, (4 when true)
+  // the loop takes a 1/2 of a microsecond (10 cycles) per iteration
+  // so execute it twice for each microsecond of delay requested.
+  us = us << 1; // x2 us, = 2 cycles
+  // we just burned 21 (23) cycles above, remove 2
+  // us is at least 4 so we can subtract 2.
+  us -= 2; // 2 cycles
+#elif F_CPU >= 10000000L
+  // for a 1 microsecond delay, simply return.  the overhead
+  // of the function call takes 14 (16) cycles, which is 1.5us
+  if (us <= 2) return; //  = 3 cycles, (4 when true)
+  // we just burned 20 (22) cycles above, remove 4, (5*4=20)
+  // us is at least 6 so we can subtract 4
+  us -= 4; // 2 cycles
+#endif
+  __asm__ __volatile__(
+    "1: sbiw %0, 1" "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "rjmp .+0"      "\n\t"            // 2 cycles
+    "brne 1b" : "=w" (us) : "0" (us)  // 2 cycles
+  );
+  // return = 4 cycles
+#elif defined(_MSC_VER)
   uint32_t newtime = microseconds() + us;
   while (microseconds() < newtime) {
     // busy loop
@@ -223,7 +256,12 @@ void Time::delayMicroseconds(uint32_t us)
 
 void Time::delayMilliseconds(uint32_t ms)
 {
-#ifdef _MSC_VER
+#ifdef VORTEX_EMBEDDED
+  // not very accurate
+  for (uint16_t i = 0; i < ms; ++i) {
+    delayMicroseconds(1000);
+  }
+#elif defined(_MSC_VER)
   HANDLE timer;
   LARGE_INTEGER ft;
   ft.QuadPart = -((__int64)ms * 1000);
@@ -281,7 +319,6 @@ uint32_t Time::endSimulation()
 #endif
 
 #ifdef VORTEX_EMBEDDED
-
 void Time::initMCUTime()
 {
   // initialize main clock
@@ -298,47 +335,6 @@ void Time::initMCUTime()
   // IVSEL = 1 means Interrupt vectors are placed at the start of the boot section of the Flash
   // as opposed to the application section of Flash. See 13.5.1
   _PROTECTED_WRITE(CPUINT_CTRLA, CPUINT_IVSEL_bm);
-}
-
-__attribute__ ((noinline)) void delayMicroseconds(uint16_t us)
-{
-#if F_CPU >= 20000000L
-  // for a one-microsecond delay, burn 4 clocks and then return
-  __asm__ __volatile__ (
-    "rjmp .+0" "\n\t"     // 2 cycles
-    "nop" );              // 1 cycle
-                          // wait 3 cycles with 2 words
-  if (us <= 1) return; //  = 3 cycles, (4 when true)
-  // the loop takes a 1/2 of a microsecond (10 cycles) per iteration
-  // so execute it twice for each microsecond of delay requested.
-  us = us << 1; // x2 us, = 2 cycles
-  // we just burned 21 (23) cycles above, remove 2
-  // us is at least 4 so we can subtract 2.
-  us -= 2; // 2 cycles
-#elif F_CPU >= 10000000L
-  // for a 1 microsecond delay, simply return.  the overhead
-  // of the function call takes 14 (16) cycles, which is 1.5us
-  if (us <= 2) return; //  = 3 cycles, (4 when true)
-  // we just burned 20 (22) cycles above, remove 4, (5*4=20)
-  // us is at least 6 so we can subtract 4
-  us -= 4; // 2 cycles
-#endif
-  __asm__ __volatile__(
-    "1: sbiw %0, 1" "\n\t"            // 2 cycles
-    "rjmp .+0"      "\n\t"            // 2 cycles
-    "rjmp .+0"      "\n\t"            // 2 cycles
-    "rjmp .+0"      "\n\t"            // 2 cycles
-    "brne 1b" : "=w" (us) : "0" (us)  // 2 cycles
-  );
-  // return = 4 cycles
-}
-
-// not very accurate
-__attribute__((noinline)) void delay(uint16_t ms)
-{
-  for (uint16_t i = 0; i < ms; ++i) {
-    delayMicroseconds(1000);
-  }
 }
 #endif // VORTEX_EMBEDDED
 

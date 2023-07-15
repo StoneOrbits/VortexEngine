@@ -387,6 +387,12 @@
 //       a mode will stretch it's list of patterns to match the number of leds
 #define FIXED_LED_COUNT       1
 
+// Enable Editor Connection
+//
+// Turn on the editor connection, this is not normally included on the duo but
+// it can be enabled here
+#define ENABLE_EDITOR_CONNECTION 0
+
 // Compression Test
 //
 // Run the built-in compression test that will find any faults

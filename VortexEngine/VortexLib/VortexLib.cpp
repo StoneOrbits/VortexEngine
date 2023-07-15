@@ -72,6 +72,7 @@ uint32_t Vortex::m_buttonsPressed = 0;
 std::string Vortex::m_commandLog;
 bool Vortex::m_commandLogEnabled = false;
 bool Vortex::m_lockstepEnabled = false;
+bool Vortex::m_storageEnabled = false;
 
 #ifdef _MSC_VER
 #include <Windows.h>
@@ -421,7 +422,9 @@ void Vortex::openModeSharing()
 
 void Vortex::openEditorConnection()
 {
+#if ENABLE_EDITOR_CONNECTION == 1
   Menus::openMenu(MENU_EDITOR_CONNECTION);
+#endif
 }
 
 bool Vortex::getModes(ByteStream &outStream)

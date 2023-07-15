@@ -341,7 +341,7 @@ void VortexEngine::enterSleep()
   // close the mosfet so that power cannot flow to the leds
   enableMOSFET(false);
   // delay for a bit to let the mosfet close and leds turn off
-  delayMicroseconds(250);
+  Time::delayMicroseconds(250);
   // this is an ISR that runs in the timecontrol system to handle
   // micros, it will wake the device up periodically
   TCB0.INTCTRL = 0;
