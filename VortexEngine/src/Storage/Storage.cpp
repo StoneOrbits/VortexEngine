@@ -9,6 +9,10 @@
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
 
+#ifdef VORTEX_LIB
+#include "../VortexLib/VortexLib.h"
+#endif
+
 #ifdef _MSC_VER
 #include <Windows.h>
 #else
