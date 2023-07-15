@@ -32,14 +32,6 @@ Storage::Storage()
 
 bool Storage::init()
 {
-#ifdef VORTEX_LIB
-#ifdef _MSC_VER
-  DeleteFile("FlashStorage.flash");
-#else
-  unlink("FlashStorage.flash");
-#endif
-#endif
-  DEBUG_LOGF("Total available space: %u", STORAGE_SIZE);
   return true;
 }
 
