@@ -165,8 +165,8 @@ void VortexEngine::runMainLogic()
       enableMOSFET(true);
 #endif
     } else if (Time::getCurtime() > (CONSECUTIVE_WINDOW_TICKS * DEVICE_LOCK_CLICKS)) {
-      // go back to sleep if they don't unlock in time
-      enterSleep();
+      // go back to sleep if they don't unlock in time, don't save
+      enterSleep(false);
     }
     // OPTIONAL: render a dim led during unlock window waiting for clicks?
     //Leds::setIndex(LED_1, RGB_RED4);
@@ -201,7 +201,8 @@ void VortexEngine::runMainLogic()
   if (Time::getCurtime() < 2) {
     // if that happens then just gracefully go back to sleep to prevent the chip
     // from turning on randomly in a plastic bag
-    enterSleep();
+    // do not save on ESD re-sleep
+    enterSleep(false);
     return;
   }
 #endif
@@ -227,7 +228,8 @@ void VortexEngine::runMainLogic()
     // but as soon as they actually release put the device to sleep and also
     // toggle the instant on/off if they were at the main menu
     if (g_pButton->onRelease()) {
-      enterSleep();
+      // do not save on force sleep
+      enterSleep(false);
     }
     return;
   }
@@ -325,23 +327,22 @@ uint32_t VortexEngine::savefileSize()
 }
 #endif
 
-void VortexEngine::enterSleep()
+void VortexEngine::enterSleep(bool save)
 {
   DEBUG_LOG("Sleeping");
-  // set it as the startup mode?
-  Modes::setStartupMode(Modes::curModeIndex());
-  // save anything that hasn't been saved
-  Modes::saveStorage();
-  // clear all the leds
-  Leds::clearAll();
-  Leds::update();
+  if (save) {
+    // set it as the startup mode?
+    Modes::setStartupMode(Modes::curModeIndex());
+    // save anything that hasn't been saved
+    Modes::saveStorage();
+  }
 #ifdef VORTEX_EMBEDDED
   // init the output pins to prevent any floating pins
   clearOutputPins();
   // close the mosfet so that power cannot flow to the leds
   enableMOSFET(false);
-  // delay for a bit to let the mosfet close and leds turn off
-  Time::delayMicroseconds(250);
+  // clear all the leds and delay for a bit to let them turn off
+  Leds::holdAll(RGB_OFF);
   // this is an ISR that runs in the timecontrol system to handle
   // micros, it will wake the device up periodically
   TCB0.INTCTRL = 0;

@@ -85,6 +85,9 @@ bool Storage::write(ByteStream &buffer)
 #ifdef VORTEX_EMBEDDED
   // Check size
   uint16_t size = buffer.rawSize();
+  if (size < STORAGE_SIZE) {
+    buffer.extend(STORAGE_SIZE - size);
+  }
   if (!size || size > STORAGE_SIZE) {
     ERROR_LOG("Buffer too big for storage space");
     return false;
@@ -106,8 +109,7 @@ bool Storage::write(ByteStream &buffer)
   for (uint16_t i = 0; i < pages; i++) {
     // don't read past the end of the input buffer
     uint16_t target = i * PROGMEM_PAGE_SIZE;
-    uint16_t s = ((target + PROGMEM_PAGE_SIZE) > size) ? (size % PROGMEM_PAGE_SIZE) : PROGMEM_PAGE_SIZE;
-    memcpy(FLASH_STORAGE_SPACE + target, buf + target, s);
+    memcpy(FLASH_STORAGE_SPACE + target, buf + target, PROGMEM_PAGE_SIZE);
     // Erase + write the flash page
     _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, 0x3);
   }
