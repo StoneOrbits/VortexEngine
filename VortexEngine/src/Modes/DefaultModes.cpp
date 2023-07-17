@@ -51,13 +51,13 @@ const default_mode_entry default_modes[] = {
       0x13000A
     }
   },
-  {
-    PATTERN_COMPLEMENTARY_BLEND, 3, {
-      RGB_RED,
-      RGB_GREEN,
-      RGB_BLUE
-    }
-  }
+  //{
+  //  PATTERN_COMPLEMENTARY_BLEND, 3, {
+  //    RGB_RED,
+  //    RGB_GREEN,
+  //    RGB_BLUE
+  //  }
+  //}
 };
 
 // exposed size of the default modes array

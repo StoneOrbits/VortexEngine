@@ -16,6 +16,9 @@ Pattern::Pattern() :
   m_ledPos(LED_FIRST),
   m_numArgs(0),
   m_argList()
+#ifdef VORTEX_LIB
+  , m_argNameList()
+#endif
 {
 }
 

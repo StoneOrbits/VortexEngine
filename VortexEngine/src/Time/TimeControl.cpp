@@ -56,7 +56,16 @@ bool Time::m_instantTimestep = false;
 bool Time::init()
 {
 #ifdef VORTEX_EMBEDDED
-  initMCUTime();
+  // initialize main clock
+#if (F_CPU == 20000000)
+  // No division on clock
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, 0x00);
+#elif (F_CPU == 10000000)
+  // 20MHz prescaled by 2, Clock DIV2
+  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_2X_gc));
+#else
+  #error "F_CPU not supported"
+#endif
 #endif
   m_curTick = 0;
 #if VARIABLE_TICKRATE == 1
@@ -317,26 +326,6 @@ uint32_t Time::endSimulation()
 }
 
 #endif
-
-#ifdef VORTEX_EMBEDDED
-void Time::initMCUTime()
-{
-  // initialize main clock
-#if (F_CPU == 20000000)
-  // No division on clock
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, 0x00);
-#elif (F_CPU == 10000000)
-  // 20MHz prescaled by 2, Clock DIV2
-  _PROTECTED_WRITE(CLKCTRL_MCLKCTRLB, (CLKCTRL_PEN_bm | CLKCTRL_PDIV_2X_gc));
-#else
-  #error "F_CPU not supported"
-#endif
-
-  // IVSEL = 1 means Interrupt vectors are placed at the start of the boot section of the Flash
-  // as opposed to the application section of Flash. See 13.5.1
-  _PROTECTED_WRITE(CPUINT_CTRLA, CPUINT_IVSEL_bm);
-}
-#endif // VORTEX_EMBEDDED
 
 #if TIMER_TEST == 1
 #include <assert.h>

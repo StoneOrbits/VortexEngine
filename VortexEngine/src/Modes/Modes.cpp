@@ -40,7 +40,6 @@ bool Modes::init()
       return false;
     }
     if (!saveStorage()) {
-      Leds::holdAll(RGB_RED);
       return false;
     }
   }
@@ -167,8 +166,11 @@ bool Modes::loadStorage()
 bool Modes::saveStorage()
 {
   DEBUG_LOG("Saving modes...");
-  // A ByteStream to hold all the serialized data
-  ByteStream modesBuffer;
+  // A ByteStream to hold all the serialized data, preallocate the full storage 
+  // size to make saving and loading easier, also to optimize the serialization
+  // process and prevent requiring buffer reallocation, this is important on avr
+  // with limited stack space where re-allocating the storage buffer won't work
+  ByteStream modesBuffer(STORAGE_SIZE);
   // save data to the buffer
   if (!saveToBuffer(modesBuffer)) {
     return false;
@@ -295,21 +297,21 @@ bool Modes::addSerializedMode(ByteStream &serializedMode)
   return addMode(&tmpMode);
 }
 
-bool Modes::addModeFromBuffer(ByteStream &serializedMode)
-{
-#if MAX_MODES != 0
-  if (m_numModes >= MAX_MODES) {
-    return false;
-  }
-#endif
-  if (!m_storedModes->append(serializedMode)) {
-    ERROR_OUT_OF_MEMORY();
-    return false;
-  }
-  // increment mode counter
-  m_numModes++;
-  return true;
-}
+//bool Modes::addModeFromBuffer(ByteStream &serializedMode)
+//{
+//#if MAX_MODES != 0
+//  if (m_numModes >= MAX_MODES) {
+//    return false;
+//  }
+//#endif
+//  if (!m_storedModes->append(serializedMode)) {
+//    ERROR_OUT_OF_MEMORY();
+//    return false;
+//  }
+//  // increment mode counter
+//  m_numModes++;
+//  return true;
+//}
 
 // shift the current mode to a different position relative to current position
 // negative values for up, positive values for down, 0 for no move
@@ -697,16 +699,16 @@ Modes::ModeLink::ModeLink(const Mode *src, bool inst) :
   }
 }
 
-Modes::ModeLink::ModeLink(const ByteStream &src, bool inst) :
-  m_pInstantiatedMode(nullptr),
-  m_storedMode(src),
-  m_next(nullptr),
-  m_prev(nullptr)
-{
-  if (src.size() && inst) {
-    instantiate();
-  }
-}
+//Modes::ModeLink::ModeLink(const ByteStream &src, bool inst) :
+//  m_pInstantiatedMode(nullptr),
+//  m_storedMode(src),
+//  m_next(nullptr),
+//  m_prev(nullptr)
+//{
+//  if (src.size() && inst) {
+//    instantiate();
+//  }
+//}
 
 Modes::ModeLink::~ModeLink()
 {
@@ -749,23 +751,23 @@ bool Modes::ModeLink::append(const Mode *next)
   return true;
 }
 
-bool Modes::ModeLink::append(const ByteStream &next)
-{
-  if (!next.size()) {
-    return false;
-  }
-  // if not end of chain, recurse on next link
-  if (m_next) {
-    return m_next->append(next);
-  }
-  m_next = new ModeLink(next);
-  if (!m_next) {
-    ERROR_OUT_OF_MEMORY();
-    return false;
-  }
-  m_next->m_prev = this;
-  return true;
-}
+//bool Modes::ModeLink::append(const ByteStream &next)
+//{
+//  if (!next.size()) {
+//    return false;
+//  }
+//  // if not end of chain, recurse on next link
+//  if (m_next) {
+//    return m_next->append(next);
+//  }
+//  m_next = new ModeLink(next);
+//  if (!m_next) {
+//    ERROR_OUT_OF_MEMORY();
+//    return false;
+//  }
+//  m_next->m_prev = this;
+//  return true;
+//}
 
 void Modes::ModeLink::play()
 {

@@ -3,6 +3,7 @@
 #include "../Serial/BitStream.h"
 #include "../Memory/Memory.h"
 #include "../Log/Log.h"
+#include "../Leds/Leds.h"
 
 #include <string.h>
 

@@ -7,6 +7,7 @@
 #include "../Memory/Memory.h"
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
+#include "../Leds/Leds.h"
 
 #ifdef VORTEX_EMBEDDED
 #include <avr/io.h>
@@ -103,9 +104,6 @@ bool Storage::write(ByteStream &buffer)
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }
-  if (size < STORAGE_SIZE && !buffer.extend(STORAGE_SIZE - size)) {
-    return false;
-  }
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   //// start writing to eeprom
   //for (uint16_t i = 0; i < EEPROM_SIZE; ++i) {
@@ -118,10 +116,10 @@ bool Storage::write(ByteStream &buffer)
   //    return true;
   //  }
   //}
-  //flash_writePage(buf, 0);
-  //flash_writePage(buf + PROGMEM_PAGE_SIZE, 1);
-  //flash_writePage(buf + PROGMEM_PAGE_SIZE, 2);
-  //flash_writePage(buf + PROGMEM_PAGE_SIZE, 3);
+  // write all pages (most likely 4, 512 / 128 = 4)
+  for (uint8_t i = 0; i < (STORAGE_SIZE / PROGMEM_PAGE_SIZE); ++ i) {
+    flash_writePage(buf + (PROGMEM_PAGE_SIZE * i), i);
+  }
   //uint16_t s = (size > PROGMEM_PAGE_SIZE) ? PROGMEM_PAGE_SIZE : size;
   //// write the rest to flash
   //memcpy(FLASH_STORAGE_SPACE, buf, s);
@@ -137,8 +135,8 @@ bool Storage::write(ByteStream &buffer)
   //  while (NVMCTRL.STATUS & (NVMCTRL_FBUSY_bm | NVMCTRL_EEBUSY_bm))
   //}
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
-  //return (NVMCTRL.STATUS & 4) == 0;
-  return true;
+  return (NVMCTRL.STATUS & 4) == 0;
+  //return true;
 #elif defined(_MSC_VER)
   HANDLE hFile = CreateFile("FlashStorage.flash", GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
   if (!hFile) {
@@ -174,14 +172,15 @@ bool Storage::read(ByteStream &buffer)
     return false;
   }
 #endif
-  //uint32_t size = STORAGE_SIZE;
-  //if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
-  //  return false;
-  //}
-  if (!buffer.init(STORAGE_SIZE)) {
+  uint32_t size = STORAGE_SIZE;
+  if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
     return false;
   }
 #ifdef VORTEX_EMBEDDED
+  if (!buffer.init(STORAGE_SIZE)) {
+    return false;
+  }
+  //return true;
   // Read the data from EEPROM first
   uint8_t *pos = (uint8_t *)buffer.rawData();
   //for (size_t i = 0; i < EEPROM_SIZE; ++i) {
@@ -194,7 +193,11 @@ bool Storage::read(ByteStream &buffer)
   //}
   //if (size) {
     // Read the rest of data from Flash
-    memcpy(pos, FLASH_STORAGE_SPACE, STORAGE_SIZE);
+  memcpy(pos, FLASH_STORAGE_SPACE, STORAGE_SIZE);
+  //for (uint16_t i = 0; i < STORAGE_SIZE; ++i) {
+  //  *pos = pgm_read_byte(FLASH_STORAGE_SPACE + i);
+  //  pos++;
+  //}
   //}
 #elif defined(_MSC_VER)
   HANDLE hFile = CreateFile("FlashStorage.flash", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);

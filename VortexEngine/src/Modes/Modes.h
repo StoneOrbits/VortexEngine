@@ -69,7 +69,7 @@ public:
   // add a new mode by unserializing raw
   static bool addSerializedMode(ByteStream &serializedMode);
   // add a new mode by loading from a save buffer
-  static bool addModeFromBuffer(ByteStream &serializedMode);
+  //static bool addModeFromBuffer(ByteStream &serializedMode);
 
   // update the current mode to match the given mode, optionally save
   static bool updateCurMode(const Mode *mode);
@@ -155,13 +155,13 @@ private:
   public:
     // construct a link and optionally instantiate the link
     ModeLink(const Mode *src = nullptr, bool inst = false);
-    ModeLink(const ByteStream &src, bool inst = false);
+    //ModeLink(const ByteStream &src, bool inst = false);
     ~ModeLink();
 
     // init the link and append another link
     bool init(const Mode *mode = nullptr);
     bool append(const Mode *next);
-    bool append(const ByteStream &next);
+    //bool append(const ByteStream &next);
 
     // play the instantiated mode inside
     void play();
@@ -188,7 +188,7 @@ private:
     ModeLink *prev() { return m_prev; }
 
     operator ByteStream &() { return m_storedMode; }
-    operator ByteStream() { return m_storedMode; }
+    //operator ByteStream() { return m_storedMode; }
     operator Mode *() { return m_pInstantiatedMode; }
   private:
     Mode *m_pInstantiatedMode;

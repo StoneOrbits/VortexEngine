@@ -105,10 +105,6 @@ public:
 #endif
 
 private:
-#ifdef VORTEX_EMBEDDED
-  static void initMCUTime();
-#endif
-
 #if VARIABLE_TICKRATE == 1
   // the number of ticks per second
   static uint32_t m_tickrate;

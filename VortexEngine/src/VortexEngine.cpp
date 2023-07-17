@@ -86,6 +86,9 @@ bool VortexEngine::init()
   enableMOSFET(!Modes::locked());
   // setup sleep mode for standby
   set_sleep_mode(SLEEP_MODE_STANDBY);
+  // IVSEL = 1 means Interrupt vectors are placed at the start of the boot section of the Flash
+  // as opposed to the application section of Flash. See 13.5.1
+  _PROTECTED_WRITE(CPUINT_CTRLA, CPUINT_IVSEL_bm);
   // enable interrupts
   sei();
   // standby indefinitely while the ISR runs VortexEngine::tick
@@ -330,7 +333,9 @@ void VortexEngine::enterSleep(bool save)
 {
   DEBUG_LOG("Sleeping");
   if (save) {
-    // set it as the startup mode?
+    // set it as the startup mode? might be a more efficient way to keep track of the
+    // startup mode like update it in setCurMode, but this works for now. This api allows
+    // any mode to be set as the startup mode, where as that approach wouldn't allow it
     Modes::setStartupMode(Modes::curModeIndex());
     // save anything that hasn't been saved
     Modes::saveStorage();
