@@ -343,7 +343,7 @@ void VortexEngine::enterSleep(bool save)
   // clear all the leds and delay for a bit to let them turn off
   Leds::clearAll();
   Leds::update();
-  Time::delayMilliseconds(10000);
+  Time::delayMilliseconds(250);
   // this is an ISR that runs in the timecontrol system to handle
   // micros, it will wake the device up periodically
   TCB0.INTCTRL = 0;
