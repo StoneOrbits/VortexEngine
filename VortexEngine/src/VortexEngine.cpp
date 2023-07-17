@@ -225,8 +225,7 @@ void VortexEngine::runMainLogic()
       Leds::clearAll();
       return;
     }
-    // but as soon as they actually release put the device to sleep and also
-    // toggle the instant on/off if they were at the main menu
+    // but as soon as they actually release put the device to sleep
     if (g_pButton->onRelease()) {
       // do not save on force sleep
       enterSleep(false);
@@ -342,7 +341,9 @@ void VortexEngine::enterSleep(bool save)
   // close the mosfet so that power cannot flow to the leds
   enableMOSFET(false);
   // clear all the leds and delay for a bit to let them turn off
-  Leds::holdAll(RGB_OFF);
+  Leds::clearAll();
+  Leds::update();
+  Time::delayMilliseconds(10000);
   // this is an ISR that runs in the timecontrol system to handle
   // micros, it will wake the device up periodically
   TCB0.INTCTRL = 0;
