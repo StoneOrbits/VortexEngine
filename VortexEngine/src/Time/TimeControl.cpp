@@ -203,19 +203,15 @@ void Time::delayMicroseconds(uint32_t us)
 
 void Time::delayMilliseconds(uint32_t ms)
 {
-#ifdef _MSC_VER
-  HANDLE timer;
-  LARGE_INTEGER ft;
-  ft.QuadPart = -((__int64)ms * 1000);
-  timer = CreateWaitableTimer(NULL, TRUE, NULL);
-  if (!timer) {
-    return;
+#ifdef VORTEX_EMBEDDED
+  // not very accurate
+  for (uint16_t i = 0; i < ms; ++i) {
+    delayMicroseconds(1000);
   }
-  SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0);
-  WaitForSingleObject(timer, INFINITE);
-  CloseHandle(timer);
+#elif defined(_MSC_VER)
+  Sleep(ms);
 #else
-  sleep(ms);
+  usleep(ms * 1000);
 #endif
 }
 
