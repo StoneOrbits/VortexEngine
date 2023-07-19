@@ -356,6 +356,8 @@ void VortexEngine::enterSleep()
   // enter sleep
   sleep_mode();
 #else
+  // enable the sleep bool
+  m_sleeping = true;
 #endif
 }
 
