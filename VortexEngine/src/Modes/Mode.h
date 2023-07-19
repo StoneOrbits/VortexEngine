@@ -3,12 +3,12 @@
 
 #include "../Leds/LedTypes.h"
 #include "../Patterns/Patterns.h"
+#include "../Serial/ByteStream.h"
 #include "../VortexConfig.h"
 
 class SingleLedPattern;
 class MultiLedPattern;
 class PatternArgs;
-class ByteStream;
 class Colorset;
 class Pattern;
 

@@ -58,16 +58,20 @@ void Storage::eepromWriteByte(uint16_t index, uint8_t in)
   //    : "r30", "r31", "r18");
 }
 
-void flash_writePage(const uint8_t *data, uint16_t page)
+bool flash_writePage(const uint8_t *data, uint16_t page)
 {
-  // Copy ram buffer to temporary flash buffer
-  memcpy(FLASH_STORAGE_SPACE + (PROGMEM_PAGE_SIZE * page), data, PROGMEM_PAGE_SIZE);
   uint8_t sreg_save = SREG;  // save old SREG value
   asm volatile("cli");  // disable interrupts
+  _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, NVMCTRL_CMD_PAGEBUFCLR_gc);
+  while (NVMCTRL.STATUS & (NVMCTRL_FBUSY_bm | NVMCTRL_EEBUSY_bm))
+  ; // wait for flash and EEPROM not busy, just in case.
+  // Copy ram buffer to temporary flash buffer
+  memcpy(FLASH_STORAGE_SPACE + (PROGMEM_PAGE_SIZE * page), data, PROGMEM_PAGE_SIZE);
   _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, NVMCTRL_CMD_PAGEERASEWRITE_gc);
   while (NVMCTRL.STATUS & (NVMCTRL_FBUSY_bm | NVMCTRL_EEBUSY_bm))
       ; // wait for flash and EEPROM not busy, just in case.
   SREG = sreg_save; // restore last interrupts state
+  return (NVMCTRL.STATUS & NVMCTRL_WRERROR_bm) == 0;
 }
 #endif
 
@@ -118,7 +122,10 @@ bool Storage::write(ByteStream &buffer)
   //}
   // write all pages (most likely 4, 512 / 128 = 4)
   for (uint8_t i = 0; i < (STORAGE_SIZE / PROGMEM_PAGE_SIZE); ++ i) {
-    flash_writePage(buf + (PROGMEM_PAGE_SIZE * i), i);
+    if (!flash_writePage(buf + (PROGMEM_PAGE_SIZE * i), i)) {
+      Leds::holdAll(RGB_RED);
+      return false;
+    }
   }
   //uint16_t s = (size > PROGMEM_PAGE_SIZE) ? PROGMEM_PAGE_SIZE : size;
   //// write the rest to flash

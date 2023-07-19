@@ -18,13 +18,12 @@ class ByteStream
 {
   friend class Storage;
 
-  // private copy and assignment operators because this is bad on the stack
-  ByteStream(const ByteStream &other);
-  void operator=(const ByteStream &other);
-
 public:
   ByteStream(uint32_t size = 0, const uint8_t *buf = nullptr);
   ~ByteStream();
+
+  ByteStream(const ByteStream &other);
+  void operator=(const ByteStream &other);
 
   // move operator since std::move not always available
   void move(ByteStream *target);

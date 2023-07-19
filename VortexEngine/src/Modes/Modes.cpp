@@ -35,14 +35,20 @@ bool Modes::init()
   return true;
 #endif
   // try to load the saved settings or set defaults
-  if (!loadStorage()) {
+  //if (!loadStorage()) {
     if (!setDefaults()) {
+      Leds::setAll(RGB_BLUE);
       return false;
     }
     if (!saveStorage()) {
+      Leds::setAll(RGB_GREEN);
       return false;
     }
-  }
+    if (!loadStorage()) {
+      Leds::setAll(RGB_YELLOW);
+      return false;
+    }
+  //}
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
   m_globalFlags |= MODES_FLAG_ADV_MENUS;
@@ -271,7 +277,11 @@ bool Modes::setDefaults()
   for (uint8_t i = 0; i < num_default_modes; ++i) {
     const default_mode_entry &def = default_modes[i];
     Colorset set(def.numColors, def.cols);
+    Colorset set2(RGB_RED, RGB_GREEN, RGB_BLUE, RGB_PURPLE, RGB_ORANGE, RGB_WHITE, RGB_RED0, RGB_WHITE0);
+    //PatternArgs args(64,64,64,64,64,64,64,64);
+    //PatternArgs args2(63,63,63,63,63,63,63,63);
     addMode(def.patternID, nullptr, &set);
+    curMode()->getPattern(LED_1)->setColorset(set2);
   }
 #endif
   return true;

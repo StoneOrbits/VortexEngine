@@ -499,9 +499,9 @@ bool Vortex::addNewMode(Random *pRandCtx, bool save)
 
 bool Vortex::addNewMode(ByteStream &stream, bool save)
 {
-  if (!Modes::addModeFromBuffer(stream)) {
-    return false;
-  }
+  //if (!Modes::addModeFromBuffer(stream)) {
+  //  return false;
+  //}
   return !save || doSave();
 }
 
