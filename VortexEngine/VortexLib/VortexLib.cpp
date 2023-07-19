@@ -1004,24 +1004,28 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // to something more than the menu trigger threshold that will make
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
+#ifdef SLEEP_ENTER_THRESHOLD_TICKS
     pButton->m_pressTime = Time::getCurtime();
     pButton->m_holdDuration = SLEEP_ENTER_THRESHOLD_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
     m_buttonEventQueue.push_front(VortexButtonEvent(0, EVENT_RESET_CLICK));
     DEBUG_LOG("Injecting sleep click");
+#endif
     break;
   case EVENT_FORCE_SLEEP_CLICK:
     // to do this we simply press the button and set the press time
     // to something more than the menu trigger threshold that will make
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
+#ifdef FORCE_SLEEP_THRESHOLD_TICKS
     pButton->m_pressTime = Time::getCurtime();
     pButton->m_holdDuration = FORCE_SLEEP_THRESHOLD_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
     m_buttonEventQueue.push_front(VortexButtonEvent(0, EVENT_RESET_CLICK));
     DEBUG_LOG("Injecting force sleep click");
+#endif
     break;
   case EVENT_WAIT:
     if (buttonEvent.target) {
