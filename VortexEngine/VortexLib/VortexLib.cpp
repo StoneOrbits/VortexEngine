@@ -994,7 +994,6 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_holdDuration = ADV_MENU_DURATION_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
-    m_buttonEventQueue.push_front(VortexButtonEvent(0, EVENT_RESET_CLICK));
     DEBUG_LOG("Injecting adv menu enter click");
     break;
   case EVENT_SLEEP_CLICK:
@@ -1007,7 +1006,6 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_holdDuration = SLEEP_ENTER_THRESHOLD_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
-    m_buttonEventQueue.push_front(VortexButtonEvent(0, EVENT_RESET_CLICK));
     DEBUG_LOG("Injecting sleep click");
 #endif
     break;
@@ -1021,7 +1019,6 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_holdDuration = FORCE_SLEEP_THRESHOLD_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
-    m_buttonEventQueue.push_front(VortexButtonEvent(0, EVENT_RESET_CLICK));
     DEBUG_LOG("Injecting force sleep click");
 #endif
     break;
