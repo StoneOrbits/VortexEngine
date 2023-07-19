@@ -115,6 +115,9 @@ public:
   static void shortClick(uint32_t buttonIndex = 0);
   static void longClick(uint32_t buttonIndex = 0);
   static void menuEnterClick(uint32_t buttonIndex = 0);
+  static void advMenuEnterClick(uint32_t buttonIndex = 0);
+  static void sleepClick(uint32_t buttonIndex = 0);
+  static void forceSleepClick(uint32_t buttonIndex = 0);
   static void pressButton(uint32_t buttonIndex = 0);
   static void releaseButton(uint32_t buttonIndex = 0);
   static bool isButtonPressed(uint32_t buttonIndex = 0);
@@ -122,6 +125,9 @@ public:
   // send a wait event, will let the engine run a tick if running in lockstep
   // for example when running the testing system
   static void sendWait(uint32_t amount = 0);
+
+  // deliver some number of rapid clicks (only availbe for button0... sorry)
+  static void rapidClick(uint32_t amount = 3);
 
   // get the current menu demo mode
   static Mode *getMenuDemoMode();
@@ -252,10 +258,18 @@ private:
     EVENT_LONG_CLICK,
     // a press that is just long enough to open the ring menu
     EVENT_MENU_ENTER_CLICK,
+    // a press that is just long enough to enter adv menus
+    EVENT_ADV_MENU_ENTER_CLICK,
+    // a press just long enough to put the device to sleep from main modes
+    EVENT_SLEEP_CLICK,
+    // a press very long so that the chip triggers it's force sleep
+    EVENT_FORCE_SLEEP_CLICK,
     // just wait around a tick (mainly used for testing)
     EVENT_WAIT,
     // toggle the button (press or unpress it)
     EVENT_TOGGLE_CLICK,
+    // rapid click the button x times
+    EVENT_RAPID_CLICK,
     // quit the engine (not really a 'click')
     EVENT_QUIT_CLICK,
 
