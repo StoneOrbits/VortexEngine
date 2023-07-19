@@ -35,14 +35,14 @@ bool Modes::init()
   return true;
 #endif
   // try to load the saved settings or set defaults
-  //if (!loadStorage()) {
+  if (!loadStorage()) {
     if (!setDefaults()) {
       return false;
     }
     if (!saveStorage()) {
       return false;
     }
-  //}
+  }
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
   m_globalFlags |= MODES_FLAG_ADV_MENUS;
