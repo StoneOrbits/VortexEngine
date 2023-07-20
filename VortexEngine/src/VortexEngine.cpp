@@ -17,6 +17,12 @@
 
 #include <Arduino.h>
 
+// bool in vortexlib to simulate sleeping
+volatile bool VortexEngine::m_sleeping = false;
+
+// auto cycling
+bool VortexEngine::m_autoCycle = false;
+
 bool VortexEngine::init()
 {
   // all of the global controllers
@@ -132,8 +138,45 @@ void VortexEngine::runMainLogic()
     Menus::openMenuSelection();
     return;
   }
+  // toggle auto cycle mode with many clicks at main modes
+  if (g_pButton->consecutivePresses() > AUTO_CYCLE_MODES_CLICKS) {
+    // reset consecutive press counter so they can't toggle it twice
+    g_pButton->resetConsecutivePresses();
+    m_autoCycle = !m_autoCycle;
+    Leds::holdAll(m_autoCycle ? RGB_PURPLE1 : RGB_CYAN1);
+  }
+  // if auto cycle is enabled and the last switch was more than the delay ago
+  if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < Time::getCurtime())) {
+    // then switch to the next mode automatically
+    Modes::nextModeSkipEmpty();
+  }
   // otherwise just play the modes
   Modes::play();
+}
+
+void VortexEngine::enterSleep()
+{
+  DEBUG_LOG("Sleeping");
+  // set it as the startup mode?
+  Modes::setStartupMode(Modes::curModeIndex());
+  // save anything that hasn't been saved
+  Modes::saveStorage();
+  // clear all the leds
+  Leds::clearAll();
+  Leds::update();
+  // enable the sleep bool
+  m_sleeping = true;
+}
+
+void VortexEngine::wakeup(bool reset)
+{
+  DEBUG_LOG("Waking up");
+  m_sleeping = false;
+  // need to fake the reset in vortexlib, lol this works I guess
+  if (reset) {
+    cleanup();
+    init();
+  }
 }
 
 void VortexEngine::serializeVersion(ByteStream &stream)

@@ -514,6 +514,8 @@
 #endif
 
 #ifdef VORTEX_LIB
+#undef VORTEX_SLIM
+#define VORTEX_SLIM 0
 
 // The test framework needs brighter menu colors can't really see them on the screen
 #undef RGB_MENU_RANDOMIZER
