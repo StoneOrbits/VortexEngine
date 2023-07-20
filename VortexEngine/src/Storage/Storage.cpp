@@ -100,7 +100,7 @@ bool Storage::read(ByteStream &buffer)
 #ifdef VORTEX_EMBEDDED
   // implement device storage here
 #elif defined(_MSC_VER)
-  HANDLE hFile = CreateFile("FlashStorage.flash", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+  HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (!hFile) {
     // error
     return false;
@@ -112,7 +112,7 @@ bool Storage::read(ByteStream &buffer)
   }
   CloseHandle(hFile);
 #else
-  FILE *f = fopen("FlashStorage.flash", "r");
+  FILE *f = fopen(STORAGE_FILENAME, "r");
   if (!f) {
     return false;
   }
