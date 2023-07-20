@@ -200,6 +200,17 @@ void Vortex::handleRepeat(char c)
   ungetc(newc, stdin);
   DEBUG_LOGF("Repeating last command (%c) x%u times", m_lastCommand, repeatAmount);
   m_commandLog += to_string(repeatAmount);
+  // check to see if we are repeating a 'rapid click' which is a special case
+  // because the rapid click command itself is composed or 'r' and a repeat count
+  // to designate how many rapid clicks to deliver
+  if (m_lastCommand == 'r') {
+    // the repeat amount is normally decremented to account for the first command
+    // so we add 1 to counter-act that logic above because the initial 'r' does nothing
+    // unlike most other commands that are repeated
+    Vortex::rapidClick(repeatAmount + 1);
+    // don't actually repeat the command just return
+    return;
+  }
   // repeat the last command that many times
   while (repeatAmount > 0) {
     doCommand(m_lastCommand);
@@ -236,6 +247,24 @@ void Vortex::doCommand(char c)
     }
     Vortex::menuEnterClick();
     break;
+  case 'a':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting adv menu enter click");
+    }
+    Vortex::advMenuEnterClick();
+    break;
+  case 's':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting sleep click");
+    }
+    Vortex::sleepClick();
+    break;
+  case 'f':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting force sleep click");
+    }
+    Vortex::forceSleepClick();
+    break;
   case 'q':
     //case '\n':
     if (m_lastCommand != c) {
@@ -255,6 +284,10 @@ void Vortex::doCommand(char c)
       }
       Vortex::pressButton();
     }
+    break;
+  case 'r':
+    // do nothing for the initial 'r', handleRepeat() will handle the numeric
+    // repeat count that follows this letter and issue the rapidClick(amt) call
     break;
   case 'w':
     if (m_lastCommand != c) {
@@ -331,10 +364,19 @@ void Vortex::menuEnterClick(uint32_t buttonIndex)
   m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_MENU_ENTER_CLICK));
 }
 
-void Vortex::sendWait(uint32_t amount)
+void Vortex::advMenuEnterClick(uint32_t buttonIndex)
 {
-  // reusing the button index as the wait amount
-  m_buttonEventQueue.push_back(VortexButtonEvent(amount, EVENT_WAIT));
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_ADV_MENU_ENTER_CLICK));
+}
+
+void Vortex::sleepClick(uint32_t buttonIndex)
+{
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_SLEEP_CLICK));
+}
+
+void Vortex::forceSleepClick(uint32_t buttonIndex)
+{
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_FORCE_SLEEP_CLICK));
 }
 
 void Vortex::pressButton(uint32_t buttonIndex)
@@ -347,6 +389,23 @@ void Vortex::releaseButton(uint32_t buttonIndex)
   m_buttonsPressed &= ~(1 << buttonIndex);
 }
 
+bool Vortex::isButtonPressed(uint32_t buttonIndex)
+{
+  return (m_buttonsPressed & (1 << buttonIndex)) != 0;
+}
+
+void Vortex::sendWait(uint32_t amount)
+{
+  // reusing the button index as the wait amount
+  m_buttonEventQueue.push_back(VortexButtonEvent(amount, EVENT_WAIT));
+}
+
+void Vortex::rapidClick(uint32_t amount)
+{
+  // reusing the button index as the consecutive press amount
+  m_buttonEventQueue.push_back(VortexButtonEvent(amount, EVENT_RAPID_CLICK));
+}
+
 Mode *Vortex::getMenuDemoMode()
 {
   Menu *pMenu = Menus::curMenu();
@@ -354,11 +413,6 @@ Mode *Vortex::getMenuDemoMode()
     return nullptr;
   }
   return &pMenu->m_previewMode;
-}
-
-bool Vortex::isButtonPressed(uint32_t buttonIndex)
-{
-  return (m_buttonsPressed & (1 << buttonIndex)) != 0;
 }
 
 void Vortex::quitClick()
@@ -888,9 +942,9 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   // pop the event from the front of the queue
   VortexButtonEvent buttonEvent = m_buttonEventQueue.front();
   m_buttonEventQueue.pop_front();
-  // the target button for this event (might be nullptr if event is just 'wait')
-  Button *pButton = nullptr;
-  if (buttonEvent.type != EVENT_WAIT) {
+  // the target button for this event (no target if event is just 'wait')
+  Button *pButton = buttons;
+  if (buttonEvent.type != EVENT_WAIT && buttonEvent.type != EVENT_RAPID_CLICK) {
     // make sure the button that is targeted is actually a valid index
     if (buttonEvent.target >= numButtons) {
       return;
@@ -907,7 +961,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_newRelease = true;
     pButton->m_shortClick = true;
     pButton->m_pressTime = Time::getCurtime();
-    pButton->m_holdDuration = 200;
+    pButton->m_holdDuration = SHORT_CLICK_THRESHOLD_TICKS - 1;
     DEBUG_LOG("Injecting short click");
     break;
   case EVENT_LONG_CLICK:
@@ -932,6 +986,43 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_isPressed = true;
     m_buttonEventQueue.push_front(VortexButtonEvent(0, EVENT_RESET_CLICK));
     DEBUG_LOG("Injecting menu enter click");
+    break;
+  case EVENT_ADV_MENU_ENTER_CLICK:
+    // to do this we simply press the button and set the press time
+    // to something more than the menu trigger threshold that will make
+    // us immediately enter the menus. But we need to unset the pressed
+    // button right after so we push a reset click event to reset the button
+    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_holdDuration = ADV_MENU_DURATION_TICKS + 1;
+    pButton->m_longClick = true;
+    pButton->m_newRelease = true;
+    DEBUG_LOG("Injecting adv menu enter click");
+    break;
+  case EVENT_SLEEP_CLICK:
+    // to do this we simply press the button and set the press time
+    // to something more than the menu trigger threshold that will make
+    // us immediately enter the menus. But we need to unset the pressed
+    // button right after so we push a reset click event to reset the button
+#ifdef SLEEP_ENTER_THRESHOLD_TICKS
+    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_holdDuration = SLEEP_ENTER_THRESHOLD_TICKS + 1;
+    pButton->m_longClick = true;
+    pButton->m_newRelease = true;
+    DEBUG_LOG("Injecting sleep click");
+#endif
+    break;
+  case EVENT_FORCE_SLEEP_CLICK:
+    // to do this we simply press the button and set the press time
+    // to something more than the menu trigger threshold that will make
+    // us immediately enter the menus. But we need to unset the pressed
+    // button right after so we push a reset click event to reset the button
+#ifdef FORCE_SLEEP_THRESHOLD_TICKS
+    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_holdDuration = FORCE_SLEEP_THRESHOLD_TICKS + 1;
+    pButton->m_longClick = true;
+    pButton->m_newRelease = true;
+    DEBUG_LOG("Injecting force sleep click");
+#endif
     break;
   case EVENT_WAIT:
     if (buttonEvent.target) {
@@ -967,6 +1058,14 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
       pButton->m_newPress = true;
       DEBUG_LOG("Injecting press");
     }
+    break;
+  case EVENT_RAPID_CLICK:
+    pButton->m_consecutivePresses = buttonEvent.target;
+    pButton->m_newRelease = true;
+    pButton->m_shortClick = true;
+    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_holdDuration = 1;
+    DEBUG_LOGF("Injecting %u x rapid click", buttonEvent.target);
     break;
   case EVENT_QUIT_CLICK:
     // just uninitialize so tick returns false

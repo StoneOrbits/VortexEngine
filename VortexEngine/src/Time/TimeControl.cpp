@@ -262,18 +262,9 @@ void Time::delayMilliseconds(uint32_t ms)
     delayMicroseconds(1000);
   }
 #elif defined(_MSC_VER)
-  HANDLE timer;
-  LARGE_INTEGER ft;
-  ft.QuadPart = -((__int64)ms * 1000);
-  timer = CreateWaitableTimer(NULL, TRUE, NULL);
-  if (!timer) {
-    return;
-  }
-  SetWaitableTimer(timer, &ft, 0, NULL, NULL, 0);
-  WaitForSingleObject(timer, INFINITE);
-  CloseHandle(timer);
+  Sleep(ms);
 #else
-  sleep(ms);
+  usleep(ms * 1000);
 #endif
 }
 
