@@ -103,10 +103,6 @@ bool Storage::write(ByteStream &buffer)
       eepromWriteByte(i, *buf);
     }
     buf++;
-    size--;
-    if (!size) {
-      return true;
-    }
   }
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
   return (NVMCTRL.STATUS & 4) == 0;
@@ -155,13 +151,9 @@ bool Storage::read(ByteStream &buffer)
 #ifdef VORTEX_EMBEDDED
   // Read the data from EEPROM first
   uint8_t *pos = (uint8_t *)buffer.rawData();
-  for (size_t i = 0; i < STORAGE_SIZE; ++i) {
+  for (uint16_t i = 0; i < STORAGE_SIZE; ++i) {
     *pos = *(uint8_t *)(MAPPED_EEPROM_START + i);
     pos++;
-    size--;
-    if (!size) {
-      break;
-    }
   }
 #elif defined(_MSC_VER)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
