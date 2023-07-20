@@ -283,7 +283,7 @@ void VortexEngine::runMainLogic()
     Modes::nextModeSkipEmpty();
   }
 
-  // otherwise finally just play the modes like normal
+  // otherwise just play the modes
   Modes::play();
 }
 

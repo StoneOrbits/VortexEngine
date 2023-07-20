@@ -26,6 +26,8 @@
 #include <stdio.h>
 #endif
 
+#define STORAGE_FILENAME "FlashStorage.flash"
+
 #ifdef VORTEX_EMBEDDED
 // The first half of the data goes into the eeprom and then the rest goes into
 // flash, the EEPROM is 256 and storage size is 512 so the flash storage is 256
@@ -82,13 +84,13 @@ bool Storage::write(ByteStream &buffer)
     return true;
   }
 #endif
-#ifdef VORTEX_EMBEDDED
   // Check size
   uint16_t size = buffer.rawSize();
   if (!size || size > STORAGE_SIZE) {
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }
+#ifdef VORTEX_EMBEDDED
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom
   for (uint16_t i = 0; i < EEPROM_SIZE; ++i) {
@@ -111,10 +113,12 @@ bool Storage::write(ByteStream &buffer)
     // Erase + write the flash page
     _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, 0x3);
   }
-  DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
-  return (NVMCTRL.STATUS & 4) == 0;
+  // check for nvmctrl error
+  if (NVMCTRL.STATUS & 4) {
+    return false;
+  }
 #elif defined(_MSC_VER)
-  HANDLE hFile = CreateFile("FlashStorage.flash", GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+  HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
   if (!hFile) {
     // error
     return false;
@@ -125,9 +129,8 @@ bool Storage::write(ByteStream &buffer)
     return false;
   }
   CloseHandle(hFile);
-  return true;
 #else
-  FILE *f = fopen("FlashStorage.flash", "w");
+  FILE *f = fopen(STORAGE_FILENAME, "w");
   if (!f) {
     return false;
   }
@@ -135,8 +138,8 @@ bool Storage::write(ByteStream &buffer)
     return false;
   }
   fclose(f);
-  return true;
 #endif // VORTEX_EMBEDDED
+  return true;
 }
 
 // read a serial buffer from storage
@@ -172,7 +175,7 @@ bool Storage::read(ByteStream &buffer)
     memcpy(pos, FLASH_STORAGE_SPACE, size);
   }
 #elif defined(_MSC_VER)
-  HANDLE hFile = CreateFile("FlashStorage.flash", GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+  HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (!hFile) {
     // error
     return false;
@@ -184,7 +187,7 @@ bool Storage::read(ByteStream &buffer)
   }
   CloseHandle(hFile);
 #else
-  FILE *f = fopen("FlashStorage.flash", "r");
+  FILE *f = fopen(STORAGE_FILENAME, "r");
   if (!f) {
     return false;
   }
