@@ -15,6 +15,8 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
+#include "../Patterns/PatternBuilder.h"
+
 // static members
 uint8_t Modes::m_curMode = 0;
 uint8_t Modes::m_numModes = 0;
@@ -38,13 +40,16 @@ bool Modes::init()
   //if (!loadStorage()) {
     if (!setDefaults()) {
       Leds::setAll(RGB_BLUE);
+      clearModes();
       return false;
     }
     if (!saveStorage()) {
       Leds::setAll(RGB_GREEN);
+      clearModes();
       return false;
     }
     if (!loadStorage()) {
+      clearModes();
       Leds::setAll(RGB_YELLOW);
       return false;
     }
@@ -274,14 +279,26 @@ bool Modes::setDefaults()
   DEBUG_LOGF("Added default patterns %u through %u", default_start, default_end);
 #else
   // add each default mode with each of the given colors
+  for (uint32_t j = 0; j < 2; ++j)
   for (uint8_t i = 0; i < num_default_modes; ++i) {
     const default_mode_entry &def = default_modes[i];
     Colorset set(def.numColors, def.cols);
     Colorset set2(RGB_RED, RGB_GREEN, RGB_BLUE, RGB_PURPLE, RGB_ORANGE, RGB_WHITE, RGB_RED0, RGB_WHITE0);
-    //PatternArgs args(64,64,64,64,64,64,64,64);
-    //PatternArgs args2(63,63,63,63,63,63,63,63);
-    addMode(def.patternID, nullptr, &set);
+    PatternArgs args = PatternBuilder::getDefaultArgs(PATTERN_STROBE);
+    PatternArgs args2 = PatternBuilder::getDefaultArgs(PATTERN_BLEND);
+    args.arg1++;
+    args.arg2++;
+    args.arg3++;
+    args.arg4++;
+    args2.arg1++;
+    args2.arg2++;
+    args2.arg3++;
+    args2.arg4++;
+    if (!addMode(def.patternID, &args, &set)) {
+      return false;
+    }
     curMode()->getPattern(LED_1)->setColorset(set2);
+    curMode()->getPattern(LED_1)->setArgs(args2);
   }
 #endif
   return true;

@@ -181,7 +181,7 @@
 // to be stored, however this is not recommended for production and
 // a specific maximum should be chosen for each device
 //
-#define MAX_MODES             6
+#define MAX_MODES             12
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
