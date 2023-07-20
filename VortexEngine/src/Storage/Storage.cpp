@@ -78,8 +78,8 @@ bool Storage::write(ByteStream &buffer)
 {
 #ifdef VORTEX_LIB
   if (!Vortex::storageEnabled()) {
-    // true? idk
-    return false;
+    // success so the system thinks it all worked
+    return true;
   }
 #endif
 #ifdef VORTEX_EMBEDDED
@@ -144,7 +144,8 @@ bool Storage::read(ByteStream &buffer)
 {
 #ifdef VORTEX_LIB
   if (!Vortex::storageEnabled()) {
-    // true? idk
+    // return false here, but true in write because we don't want to return
+    // an empty buffer after returning true
     return false;
   }
 #endif
