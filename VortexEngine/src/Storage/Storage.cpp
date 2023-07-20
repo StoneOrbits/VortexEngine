@@ -144,7 +144,9 @@ bool Storage::write(ByteStream &buffer)
   //  while (NVMCTRL.STATUS & (NVMCTRL_FBUSY_bm | NVMCTRL_EEBUSY_bm))
   //}
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
-  return (NVMCTRL.STATUS & 4) == 0;
+  if ((NVMCTRL.STATUS & 4) != 0) {
+    return false;
+}
   //return true;
 #elif defined(_MSC_VER)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
