@@ -19,6 +19,8 @@
 #include <unistd.h>
 #endif
 
+#define STORAGE_FILENAME "FlashStorage.flash"
+
 // only arduino needs const I guess?
 __attribute__((__aligned__(256)))
 #ifndef VORTEX_EMBEDDED
@@ -49,8 +51,8 @@ bool Storage::write(ByteStream &buffer)
 {
 #ifdef VORTEX_LIB
   if (!Vortex::storageEnabled()) {
-    // true? idk
-    return false;
+    // success so the system thinks it all worked
+    return true;
   }
 #endif
   // check size
@@ -58,12 +60,35 @@ bool Storage::write(ByteStream &buffer)
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }
+#ifdef VORTEX_EMBEDDED
   // clear existing storage, this is necessary even if it's empty
   storage.erase();
   // set the last save size
   m_lastSaveSize = buffer.size();
   // write out the buffer to storage
   storage.write(_storagedata, buffer.rawData(), buffer.rawSize());
+#elif defined(_MSC_VER)
+  HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
+  if (!hFile) {
+    // error
+    return false;
+  }
+  DWORD written = 0;
+  if (!WriteFile(hFile, buffer.rawData(), buffer.rawSize(), &written, NULL)) {
+    // error
+    return false;
+  }
+  CloseHandle(hFile);
+#else
+  FILE *f = fopen(STORAGE_FILENAME, "w");
+  if (!f) {
+    return false;
+  }
+  if (!fwrite(buffer.rawData(), sizeof(char), buffer.rawSize(), f)) {
+    return false;
+  }
+  fclose(f);
+#endif // VORTEX_EMBEDDED
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
   return true;
 }
@@ -73,24 +98,53 @@ bool Storage::read(ByteStream &buffer)
 {
 #ifdef VORTEX_LIB
   if (!Vortex::storageEnabled()) {
-    // true? idk
+    // return false here, but true in write because we don't want to return
+    // an empty buffer after returning true
     return false;
   }
 #endif
-  // init storage buffer with max storaeg size so we can read into it
-  if (!buffer.init(STORAGE_SIZE)) {
-    ERROR_LOGF("Could not initialize buffer with %u bytes", STORAGE_SIZE);
+  uint32_t size = STORAGE_SIZE;
+  if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
     return false;
   }
+  if (!buffer.init(size)) {
+    return false;
+  }
+#ifdef VORTEX_EMBEDDED
   // read directly into the rawdata of the byte array, this will
   // include the crc, size, flags and entire buffer of data
   storage.read(buffer.rawData());
-  m_lastSaveSize = buffer.size();
-  // immediately check the CRC
-  if (!buffer.checkCRC()) {
+#elif defined(_MSC_VER)
+  HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
+  if (!hFile) {
+    // error
     return false;
   }
-  DEBUG_LOGF("Loaded savedata (Size: %u)", m_lastSaveSize);
+  DWORD bytesRead = 0;
+  if (!ReadFile(hFile, buffer.rawData(), size, &bytesRead, NULL)) {
+    // error
+    return false;
+  }
+  CloseHandle(hFile);
+#else
+  FILE *f = fopen(STORAGE_FILENAME, "r");
+  if (!f) {
+    return false;
+  }
+  if (!fread(buffer.rawData(), sizeof(char), size, f)) {
+    return false;
+  }
+  fclose(f);
+#endif
+  // check crc immediately since we read into raw data copying the
+  // array could be dangerous
+  if (!buffer.checkCRC()) {
+    buffer.clear();
+    ERROR_LOG("Could not verify buffer");
+    return false;
+  }
+  m_lastSaveSize = size;
+  DEBUG_LOGF("Loaded savedata (Size: %u)", buffer.size());
   return true;
 }
 

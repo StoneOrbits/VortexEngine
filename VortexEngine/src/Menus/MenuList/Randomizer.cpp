@@ -135,7 +135,7 @@ void Randomizer::showRandomizationSelect()
   // are only randomizing the pattern
   Leds::setAll(HSVColor(m_displayHue++, (m_flags & RANDOMIZE_COLORSET) * 255, 84));
   if (m_flags & RANDOMIZE_PATTERN) {
-    // if they are randomizing the pattern strobe on/off
+    // this is blinking the light to off so the params are switched but still effectively correct
     Leds::blinkAll(DOPS_ON_DURATION, DOPS_OFF_DURATION);
   }
   // render the click selection blink
@@ -193,25 +193,24 @@ Colorset Randomizer::rollColorset(Random &ctx)
 
 bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
 {
-  uint8_t numCols = pMode->getColorset(pos).numColors();
-  PatternArgs args(
-    ctx.next8(1, 20),  // on duration 1 -> 20
-    ctx.next8(8, 60),  // off duration 8 -> 60
-    ctx.next8(0, 40),  // gap duration 0 -> 40
-    ctx.next8(0, 20),  // dash duration 0 -> 20
-    ctx.next8(0, (numCols >> 1) - 1) // group 0 -> (numColors / 2) - 1
-  );
-  // this occasionally sets gap to exactly 0
-  if (!ctx.next8(0, 3) && args.arg2) {
-    args.arg3 = 0;
-  }
-  // this occasionally sets dash to exactly 0
-  if (!ctx.next8(0, 2)) {
-    args.arg4 = 0;
-  }
-  // often sets group size to 0
-  if (ctx.next8(0, 4)) {
-    args.arg5 = 0;
+  PatternArgs args;
+  // pick a random type of randomizer to use then use
+  // the randomizer to generate a random pattern
+  uint8_t patternType = ctx.next8(0, 3);
+  switch (patternType) {
+  default:
+  case 0:
+    traditionalPattern(ctx, args);
+    break;
+  case 1:
+    gapPattern(ctx, args);
+    break;
+  case 2:
+    dashPattern(ctx, args);
+    break;
+  case 3:
+    crushPattern(ctx, args);
+    break;
   }
   PatternID newPat = PATTERN_STROBE;
   // 1/3 chance to roll a blend pattern instead which will animate between
@@ -222,6 +221,44 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
     args.arg7 = ctx.next8(0, 3);
   }
   return pMode->setPattern(newPat, pos, &args);
+}
+
+void Randomizer::traditionalPattern(Random &ctx, PatternArgs &outArgs)
+{
+  outArgs.init(
+    ctx.next8(1, 20),  // on duration 1 -> 20
+    ctx.next8(8, 60)   // off duration 0 -> 60
+  );
+}
+
+void Randomizer::gapPattern(Random &ctx, PatternArgs &outArgs)
+{
+  outArgs.init(
+    ctx.next8(1, 10),   // on duration 1 -> 10
+    ctx.next8(0, 6),    // off duration 0 -> 6
+    ctx.next8(40, 100)  // gap duration 40 -> 100
+  );
+}
+
+void Randomizer::dashPattern(Random &ctx, PatternArgs &outArgs)
+{
+  outArgs.init(
+    ctx.next8(1, 10),  // on duration 1 -> 10
+    ctx.next8(0, 10),  // off duration 0 -> 10
+    ctx.next8(20, 30), // need gap 20 -> 30
+    ctx.next8(20, 30)  // dash duration 20 -> 30
+  );
+}
+
+void Randomizer::crushPattern(Random &ctx, PatternArgs &outArgs)
+{
+  outArgs.init(
+    ctx.next8(1, 10),  // on duration 1 -> 10
+    ctx.next8(0, 10),  // off duration 0 -> 5
+    ctx.next8(20, 40), // need gap 20 -> 40
+    0,                 // dash 0
+    ctx.next8(0, 8)    // groupsize 0 to 8
+  );
 }
 
 PatternID Randomizer::rollPatternID(Random &ctx)
