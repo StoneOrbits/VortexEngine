@@ -100,6 +100,11 @@ uint8_t Pattern::getArg(uint8_t index) const
   return *((uint8_t *)this + m_argList[index]);
 }
 
+uint8_t &Pattern::argRef(uint8_t index)
+{
+  return *((uint8_t *)this + m_argList[index % m_numArgs]);
+}
+
 void Pattern::setArgs(const PatternArgs &args)
 {
   for (uint32_t i = 0; i < m_numArgs; ++i) {
