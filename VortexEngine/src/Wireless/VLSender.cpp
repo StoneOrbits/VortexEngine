@@ -149,7 +149,7 @@ void VLSender::sendMark(uint16_t time)
   send_ir(true, time);
 #else
   startPWM();
-  delayMicroseconds(time);
+  Time::delayMicroseconds(time);
 #endif
 }
 
@@ -160,7 +160,7 @@ void VLSender::sendSpace(uint16_t time)
   send_ir(false, time);
 #else
   stopPWM();
-  delayMicroseconds(time);
+  Time::delayMicroseconds(time);
 #endif
 }
 
