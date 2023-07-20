@@ -287,7 +287,7 @@ void VortexEngine::runMainLogic()
     Modes::nextModeSkipEmpty();
   }
 
-  // otherwise finally just play the modes like normal
+  // otherwise just play the modes
   Modes::play();
 }
 
@@ -363,6 +363,8 @@ void VortexEngine::enterSleep(bool save)
   // enter sleep
   sleep_mode();
 #else
+  // enable the sleep bool
+  m_sleeping = true;
 #endif
 }
 
