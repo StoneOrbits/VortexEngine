@@ -48,11 +48,11 @@ bool Modes::init()
       clearModes();
       return false;
     }
-    if (!loadStorage()) {
-      clearModes();
-      Leds::setAll(RGB_YELLOW);
-      return false;
-    }
+    //if (!loadStorage()) {
+      //clearModes();
+      //Leds::setAll(RGB_YELLOW);
+      //return false;
+    //}
   //}
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
@@ -171,17 +171,21 @@ bool Modes::loadStorage()
   }
   return loadFromBuffer(modesBuffer);
 }
+#include <string.h>
 
 // NOTE: Flash storage is limited to about 10,000 writes so
 //       use this function sparingly!
 bool Modes::saveStorage()
 {
   DEBUG_LOG("Saving modes...");
+  uint8_t buf[STORAGE_SIZE];
+  memset(buf, 0, sizeof(buf));
   // A ByteStream to hold all the serialized data, preallocate the full storage 
   // size to make saving and loading easier, also to optimize the serialization
   // process and prevent requiring buffer reallocation, this is important on avr
   // with limited stack space where re-allocating the storage buffer won't work
-  ByteStream modesBuffer(STORAGE_SIZE);
+  ByteStream modesBuffer;
+  modesBuffer.fixedInit(buf, STORAGE_SIZE);
   // save data to the buffer
   if (!saveToBuffer(modesBuffer)) {
     return false;

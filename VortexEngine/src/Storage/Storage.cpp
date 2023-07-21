@@ -64,21 +64,17 @@ bool flash_writePage(const uint8_t *data, uint16_t page)
 {
   uint8_t sreg_save = SREG;  // save old SREG value
   asm volatile("cli");  // disable interrupts
-  _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, NVMCTRL_CMD_PAGEBUFCLR_gc);
   while (NVMCTRL.STATUS & (NVMCTRL_FBUSY_bm | NVMCTRL_EEBUSY_bm))
   ; // wait for flash and EEPROM not busy, just in case.
   // Copy ram buffer to temporary flash buffer
-  memcpy(FLASH_STORAGE_SPACE + (PROGMEM_PAGE_SIZE * page), data, PROGMEM_PAGE_SIZE);
+  for (uint16_t i = 0; i < STORAGE_SIZE; ++i) {
+    *(uint8_t *)(FLASH_STORAGE_SPACE + (PROGMEM_PAGE_SIZE * page) + i) = data[i];
+  }
   _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, NVMCTRL_CMD_PAGEERASEWRITE_gc);
   while (NVMCTRL.STATUS & (NVMCTRL_FBUSY_bm | NVMCTRL_EEBUSY_bm))
       ; // wait for flash and EEPROM not busy, just in case.
-  _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, NVMCTRL_CMD_PAGEBUFCLR_gc);
-  while (NVMCTRL.STATUS & (NVMCTRL_FBUSY_bm | NVMCTRL_EEBUSY_bm))
   SREG = sreg_save; // restore last interrupts state
   if ((NVMCTRL.STATUS & NVMCTRL_WRERROR_bm) != 0) {
-    return false;
-  }
-  if (memcmp(FLASH_STORAGE_SPACE + (PROGMEM_PAGE_SIZE * page), data, PROGMEM_PAGE_SIZE) != 0) {
     return false;
   }
   return true;
@@ -131,12 +127,18 @@ bool Storage::write(ByteStream &buffer)
   //  }
   //}
   // write all pages (most likely 4, 512 / 128 = 4)
-  for (uint8_t i = 0; i < (STORAGE_SIZE / PROGMEM_PAGE_SIZE); ++ i) {
+  for (uint16_t i = 0; i < (STORAGE_SIZE / PROGMEM_PAGE_SIZE); ++ i) {
     if (!flash_writePage(buf + (PROGMEM_PAGE_SIZE * i), i)) {
       Leds::holdAll(RGB_RED);
       return false;
     }
   }
+  //for (uint16_t i = 0; i < STORAGE_SIZE; ++i) {
+    //if (((uint8_t *)FLASH_STORAGE_SPACE)[i] != buf[i]) {
+      //Leds::holdAll(RGB_PURPLE);
+      //return false;
+    //}    
+  //}
   //uint16_t s = (size > PROGMEM_PAGE_SIZE) ? PROGMEM_PAGE_SIZE : size;
   //// write the rest to flash
   //memcpy(FLASH_STORAGE_SPACE, buf, s);
@@ -154,7 +156,7 @@ bool Storage::write(ByteStream &buffer)
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
   if ((NVMCTRL.STATUS & 4) != 0) {
     return false;
-}
+  }
   //return true;
 #elif defined(_MSC_VER)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
@@ -212,7 +214,9 @@ bool Storage::read(ByteStream &buffer)
   //}
   //if (size) {
     // Read the rest of data from Flash
-  memcpy(pos, FLASH_STORAGE_SPACE, STORAGE_SIZE);
+  for (uint16_t i = 0; i < STORAGE_SIZE; ++i) {
+    pos[i] = ((uint8_t *)FLASH_STORAGE_SPACE)[i];   
+  }
   //for (uint16_t i = 0; i < STORAGE_SIZE; ++i) {
   //  *pos = pgm_read_byte(FLASH_STORAGE_SPACE + i);
   //  pos++;

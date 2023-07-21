@@ -84,7 +84,7 @@ bool ByteStream::init(uint32_t size, const uint8_t *buf)
   if (size) {
     // round up to nearest 4
     m_capacity = (size + 4) - (size % 4);
-    m_pData = (RawBuffer *)vcalloc(1, m_capacity + sizeof(RawBuffer));
+    m_pData = (RawBuffer *)malloc(m_capacity + sizeof(RawBuffer));
     if (!m_pData) {
       m_capacity = 0;
       ERROR_OUT_OF_MEMORY();
@@ -103,19 +103,28 @@ bool ByteStream::init(uint32_t size, const uint8_t *buf)
   return true;
 }
 
+void ByteStream::fixedInit(const uint8_t *fixedbuf, uint32_t size)
+{
+  clear();
+  m_pData = (ByteStream::RawBuffer *)fixedbuf;
+  m_capacity = 1 << 31 | size;
+}
+
 void ByteStream::clear()
 {
-  if (m_pData) {
+  // if top bit in capacity is set, this is a fixed buffer dont free it
+  if ((m_capacity & (1<< 31)) == 0 && m_pData) {
     vfree(m_pData);
     m_pData = nullptr;
   }
+  m_pData = nullptr;
   m_capacity = 0;
   m_position = 0;
 }
 
 bool ByteStream::shrink()
 {
-  if (!m_pData) {
+  if (!m_pData || (m_capacity & (1<<31)) != 0) {
     return false;
   }
   if (m_pData->size == m_capacity) {
@@ -171,7 +180,7 @@ void ByteStream::trim(uint32_t bytes)
 // extend the storage without changing the size of the data
 bool ByteStream::extend(uint32_t size)
 {
-  if (!size) {
+  if (!size || (m_capacity & (1<<31)) != 0) {
     // ???
     return true;
   }

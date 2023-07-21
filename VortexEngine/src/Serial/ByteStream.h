@@ -35,6 +35,9 @@ public:
   // reset the buffer to a specific capcity
   bool init(uint32_t capacity = 0, const uint8_t *buf = nullptr);
 
+  // a fixed size buffer
+  void fixedInit(const uint8_t *fixedbuf, uint32_t size);
+
   // clear the buffer
   void clear();
 
