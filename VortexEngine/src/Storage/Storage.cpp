@@ -151,7 +151,7 @@ bool Storage::read(ByteStream &buffer)
   uint16_t size = *(uint16_t *)MAPPED_EEPROM_START;
 #endif
   if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
-    return false;
+    size = STORAGE_SIZE;
   }
   if (!buffer.init(size)) {
     return false;
