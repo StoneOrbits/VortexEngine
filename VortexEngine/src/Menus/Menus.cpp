@@ -154,9 +154,7 @@ bool Menus::runMenuSelection()
     }
   }
   // check if the advanced menus have been enabled
-  if (g_pButton->consecutivePresses() > ADVANCED_MENU_CLICKS) {
-    // reset consecutive press counter so they can't toggle it twice
-    g_pButton->resetConsecutivePresses();
+  if (g_pButton->onConsecutivePresses(ADVANCED_MENU_CLICKS)) {
     // toggle the advanced menu
     Modes::setAdvancedMenus(!advMenus);
     // display a fancy animation based on whether the menu was enabled

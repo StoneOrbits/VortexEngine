@@ -125,6 +125,11 @@
 // on the randomizer.
 #define AUTO_CYCLE_RANDOMIZER_CLICKS 3
 
+// Leave Advanced Color Select Clicks
+//
+// The number of consecutive clicks required to exit the advanced color select menu
+#define LEAVE_ADV_COL_SELECT_CLICKS 5
+
 // Color delete threshold (in milliseconds)
 //
 // How long you must hold down on a color in the color select menu to

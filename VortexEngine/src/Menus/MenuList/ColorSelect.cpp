@@ -66,7 +66,7 @@ Menu::MenuAction ColorSelect::run()
 
   if (m_advanced) {
     m_previewMode.setArg(6, g_pButton->isPressed() ? 2 : 1);
-    if (g_pButton->consecutivePresses() > 5) {
+    if (g_pButton->onConsecutivePresses(LEAVE_ADV_COL_SELECT_CLICKS)) {
       return MENU_QUIT;
     }
     // just render the current pattern for active color picking

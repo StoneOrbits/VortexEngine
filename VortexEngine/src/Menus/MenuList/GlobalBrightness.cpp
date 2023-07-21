@@ -120,7 +120,7 @@ void GlobalBrightness::showBrightnessSelection()
 Menu::MenuAction GlobalBrightness::runKeychainMode()
 {
   // check for exit
-  if (g_pButton->consecutivePresses() > KEYCHAIN_MODE_EXIT_CLICKS) {
+  if (g_pButton->onConsecutivePresses(KEYCHAIN_MODE_EXIT_CLICKS)) {
     // turn off keychain mode now
     Modes::setKeychainMode(false);
     return MENU_QUIT;
