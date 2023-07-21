@@ -293,6 +293,7 @@ void Leds::update()
 
   // Thanks to TinyNeoPixel for this code
 #ifdef VORTEX_EMBEDDED
+  uint8_t oldSREG = SREG;
   __asm("cli");
   volatile uint16_t
     i = LED_COUNT * sizeof(RGBColor); // Loop counter
@@ -443,7 +444,7 @@ void Leds::update()
   #endif
   // END AVR ----------------------------------------------------------------
 
-  __asm("sei");
+  SREG = oldSREG; // Restore interrupt state
 #endif
 
 #ifdef VORTEX_EMBEDDED

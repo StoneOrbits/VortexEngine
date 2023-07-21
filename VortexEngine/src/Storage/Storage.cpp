@@ -37,34 +37,34 @@ void Storage::eepromWriteByte(uint16_t index, uint8_t in)
   // The first two pages of the data goes into the eeprom and then the last page goes
   // into the USERROW which is located at 0x1300
   if (index > 255) {
-    adr = USERROW + (index & 0xFF);
+    adr = 0x1300 + (index & 0xFF);
   } else {
     adr = MAPPED_EEPROM_START + index;
   }
   __asm__ __volatile__(
-      "ldi r30, 0x00"     "\n\t"
-      "ldi r31, 0x10"     "\n\t"
-      "in r0, 0x3f"       "\n\t"
-      "ldd r18, Z+2"      "\n\t"
-      "andi r18, 3"       "\n\t"
-      "brne .-6"          "\n\t"
-      "cli"               "\n\t"
-      "st X, %0"          "\n\t"
-      "ldi %0, 0x9D"      "\n\t"
-      "out 0x34, %0"      "\n\t"
-      "ldi %0, 0x03"      "\n\t"
-      "st Z, %0"          "\n\t"
-      "out 0x3f, r0"      "\n"
-      :"+d"(in)
-      : "x"(adr)
-      : "r30", "r31", "r18");
+    "ldi r30, 0x00"     "\n\t"
+    "ldi r31, 0x10"     "\n\t"
+    "in r0, 0x3f"       "\n\t"
+    "ldd r18, Z+2"      "\n\t"
+    "andi r18, 3"       "\n\t"
+    "brne .-6"          "\n\t"
+    "cli"               "\n\t"
+    "st X, %0"          "\n\t"
+    "ldi %0, 0x9D"      "\n\t"
+    "out 0x34, %0"      "\n\t"
+    "ldi %0, 0x03"      "\n\t"
+    "st Z, %0"          "\n\t"
+    "out 0x3f, r0"      "\n"
+    :"+d"(in)
+    : "x"(adr)
+    : "r30", "r31", "r18");
 }
 
 uint8_t Storage::eepromReadByte(uint16_t index)
 {
   if (index > 255) {
     // USERROW start
-    return *(uint8_t *)(USERROW + (index & 0xFF));
+    return *(uint8_t *)(0x1300 + (index & 0xFF));
   }
   return *(uint8_t *)(MAPPED_EEPROM_START + index);
 }
@@ -103,11 +103,10 @@ bool Storage::write(ByteStream &buffer)
 #ifdef VORTEX_EMBEDDED
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom
-  for (uint16_t i = 0; i < STORAGE_SIZE; ++i) {
-    if (*buf != eepromReadByte(i)) {
-      eepromWriteByte(i, *buf);
+  for (uint16_t i = 0; i < size; ++i) {
+    if (buf[i] != eepromReadByte(i)) {
+      eepromWriteByte(i, buf[i]);
     }
-    buf++;
   }
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
   if ((NVMCTRL.STATUS & 4) != 0) {
@@ -148,7 +147,7 @@ bool Storage::read(ByteStream &buffer)
     return false;
   }
 #endif
-  uint32_t size = STORAGE_SIZE;
+  uint16_t size = *(uint16_t *)MAPPED_EEPROM_START;
   if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
     return false;
   }
@@ -158,9 +157,9 @@ bool Storage::read(ByteStream &buffer)
 #ifdef VORTEX_EMBEDDED
   // Read the data from EEPROM first
   uint8_t *pos = (uint8_t *)buffer.rawData();
-  for (uint16_t i = 0; i < STORAGE_SIZE; ++i) {
-    *pos = eepromReadByte(i);
-    pos++;
+  uint16_t fullsize = buffer.rawSize() + size;
+  for (uint16_t i = 0; i < fullsize; ++i) {
+    pos[i] = eepromReadByte(i);
   }
 #elif defined(_MSC_VER)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);

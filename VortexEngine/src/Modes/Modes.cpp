@@ -166,7 +166,7 @@ bool Modes::saveStorage()
 {
   DEBUG_LOG("Saving modes...");
   // A ByteStream to hold all the serialized data
-  ByteStream modesBuffer;
+  ByteStream modesBuffer(STORAGE_SIZE / 2);
   // save data to the buffer
   if (!saveToBuffer(modesBuffer)) {
     return false;

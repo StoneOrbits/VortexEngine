@@ -188,7 +188,7 @@ uint32_t Time::microseconds()
   uint32_t ticks;
   uint8_t oldSREG = SREG;
   // Save current state and disable interrupts
-  cli();
+  __asm("cli");
   // divide by 10
   ticks = (m_curTick * DEFAULT_TICKRATE) + (TCB0.CNT / 1000);
   SREG = oldSREG; // Restore interrupt state
