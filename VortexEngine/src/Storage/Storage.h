@@ -25,6 +25,7 @@ public:
 private:
   // write out a single byte to the eeprom
   static void eepromWriteByte(uint16_t index, uint8_t in);
+  static uint8_t eepromReadByte(uint16_t index);
 
   // the size of the last save
   static uint32_t m_lastSaveSize;

@@ -30,17 +30,17 @@
 #define STORAGE_FILENAME "FlashStorage.flash"
 
 #ifdef VORTEX_EMBEDDED
-// The first half of the data goes into the eeprom and then the rest goes into
-// flash, the EEPROM is 256 and storage size is 512 so the flash storage is 256
-#define FLASH_STORAGE_SIZE (STORAGE_SIZE)
-// The position of the flash storage is right before the end of the flash, as long
-// as the program leaves 256 bytes of space at the end of flash then this will fit
-#define FLASH_STORAGE_SPACE ((uint8_t *)(0x10000 - FLASH_STORAGE_SIZE))
-
 // write out the eeprom byte
 void Storage::eepromWriteByte(uint16_t index, uint8_t in)
 {
-  uint16_t adr = (uint16_t)MAPPED_EEPROM_START + index;
+  uint16_t adr;
+  // The first two pages of the data goes into the eeprom and then the last page goes
+  // into the USERROW which is located at 0x1300
+  if (index > 255) {
+    adr = USERROW + (index & 0xFF);
+  } else {
+    adr = MAPPED_EEPROM_START + index;
+  }
   __asm__ __volatile__(
       "ldi r30, 0x00"     "\n\t"
       "ldi r31, 0x10"     "\n\t"
@@ -58,6 +58,15 @@ void Storage::eepromWriteByte(uint16_t index, uint8_t in)
       :"+d"(in)
       : "x"(adr)
       : "r30", "r31", "r18");
+}
+
+uint8_t Storage::eepromReadByte(uint16_t index)
+{
+  if (index > 255) {
+    // USERROW start
+    return *(uint8_t *)(USERROW + (index & 0xFF));
+  }
+  return *(uint8_t *)(MAPPED_EEPROM_START + index);
 }
 #endif
 
@@ -87,10 +96,6 @@ bool Storage::write(ByteStream &buffer)
 #endif
   // Check size
   uint16_t size = buffer.rawSize();
-  if (size < STORAGE_SIZE) {
-    buffer.extend(STORAGE_SIZE - size);
-  }
-  size = buffer.rawSize();
   if (!size || size > STORAGE_SIZE) {
     ERROR_LOG("Buffer too big for storage space");
     return false;
@@ -99,7 +104,7 @@ bool Storage::write(ByteStream &buffer)
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom
   for (uint16_t i = 0; i < STORAGE_SIZE; ++i) {
-    if (*buf != *(uint8_t *)(MAPPED_EEPROM_START + i)) {
+    if (*buf != eepromReadByte(i)) {
       eepromWriteByte(i, *buf);
     }
     buf++;
@@ -154,7 +159,7 @@ bool Storage::read(ByteStream &buffer)
   // Read the data from EEPROM first
   uint8_t *pos = (uint8_t *)buffer.rawData();
   for (uint16_t i = 0; i < STORAGE_SIZE; ++i) {
-    *pos = *(uint8_t *)(MAPPED_EEPROM_START + i);
+    *pos = eepromReadByte(i);
     pos++;
   }
 #elif defined(_MSC_VER)
