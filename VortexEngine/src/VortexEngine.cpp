@@ -151,20 +151,21 @@ void VortexEngine::tick()
 // warning this function is quite heavy at this point, it could probably be split
 void VortexEngine::runMainLogic()
 {
+  // the current tick
+  uint32_t now = Time::getCurtime();
+
   // if the device is locked then that takes priority over all, while locked the
   // device will only listen for clicks to wakeup momentarily then go back to sleep
   if (Modes::locked()) {
     // several fast clicks will unlock the device
-    if (g_pButton->consecutivePresses() >= (DEVICE_LOCK_CLICKS - 1)) {
-      // reset consecutive press counter so they can't toggle it twice
-      g_pButton->resetConsecutivePresses();
+    if (g_pButton->onConsecutivePresses(DEVICE_LOCK_CLICKS - 1)) {
       // turn off the lock flag and save it to disk
       Modes::setLocked(false);
 #ifdef VORTEX_EMBEDDED
       // then enable the mosfet
       enableMOSFET(true);
 #endif
-    } else if (Time::getCurtime() > (CONSECUTIVE_WINDOW_TICKS * DEVICE_LOCK_CLICKS)) {
+    } else if (now > (CONSECUTIVE_WINDOW_TICKS * DEVICE_LOCK_CLICKS)) {
       // go back to sleep if they don't unlock in time
       enterSleep();
     }
@@ -181,7 +182,7 @@ void VortexEngine::runMainLogic()
   if (g_pButton->releaseCount() == 0) {
     // if the button is held for 2 seconds from off, switch to on click mode on
     // the last mode shown before sleep
-    if (!Modes::keychainModeEnabled() && Time::getCurtime() == ONE_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
+    if (!Modes::keychainModeEnabled() && now == ONE_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
       // toggle one click mode
       Modes::setOneClickMode(!Modes::oneClickModeEnabled());
       // switch to the one click startup mode
@@ -198,7 +199,7 @@ void VortexEngine::runMainLogic()
   // Sometimes the chip can be turned on via ESD triggering the wakeup pin
   // if the engine makes it here in less than 2 ticks that means the device turned on
   // via ESD and not via a normal click which cannot possibly be done in less than 1 tick
-  if (Time::getCurtime() < 2) {
+  if (now < 2) {
     // if that happens then just gracefully go back to sleep to prevent the chip
     // from turning on randomly in a plastic bag
     enterSleep();
@@ -262,7 +263,7 @@ void VortexEngine::runMainLogic()
 
   // lastly check if we are locking the device, which can only happen if they click the
   // button 5 times quickly when the device was off, so 4 times in the first x ticks
-  if (g_pButton->consecutivePresses() >= (DEVICE_LOCK_CLICKS - 1) && Time::getCurtime() < (CONSECUTIVE_WINDOW_TICKS * DEVICE_LOCK_CLICKS)) {
+  if (now < (CONSECUTIVE_WINDOW_TICKS * DEVICE_LOCK_CLICKS) && g_pButton->onConsecutivePresses(DEVICE_LOCK_CLICKS - 1)) {
     // lock and just go to sleep, don't need to reset consecutive press counter here
     Modes::setLocked(true);
     enterSleep();
@@ -270,15 +271,13 @@ void VortexEngine::runMainLogic()
   }
 
   // toggle auto cycle mode with many clicks at main modes
-  if (g_pButton->consecutivePresses() > AUTO_CYCLE_MODES_CLICKS) {
-    // reset consecutive press counter so they can't toggle it twice
-    g_pButton->resetConsecutivePresses();
+  if (g_pButton->onConsecutivePresses(AUTO_CYCLE_MODES_CLICKS)) {
     m_autoCycle = !m_autoCycle;
     Leds::holdAll(m_autoCycle ? RGB_PURPLE1 : RGB_CYAN1);
   }
 
   // if auto cycle is enabled and the last switch was more than the delay ago
-  if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < Time::getCurtime())) {
+  if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < now)) {
     // then switch to the next mode automatically
     Modes::nextModeSkipEmpty();
   }
