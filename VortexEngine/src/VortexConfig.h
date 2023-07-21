@@ -181,7 +181,7 @@
 // to be stored, however this is not recommended for production and
 // a specific maximum should be chosen for each device
 //
-#define MAX_MODES             12
+#define MAX_MODES             7
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -537,8 +537,8 @@
 #endif
 
 #ifdef VORTEX_LIB
-#undef VORTEX_SLIM
-#define VORTEX_SLIM 0
+//#undef VORTEX_SLIM
+//#define VORTEX_SLIM 0
 
 // The test framework needs brighter menu colors can't really see them on the screen
 #undef RGB_MENU_RANDOMIZER

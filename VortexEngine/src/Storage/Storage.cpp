@@ -72,8 +72,16 @@ bool flash_writePage(const uint8_t *data, uint16_t page)
   _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, NVMCTRL_CMD_PAGEERASEWRITE_gc);
   while (NVMCTRL.STATUS & (NVMCTRL_FBUSY_bm | NVMCTRL_EEBUSY_bm))
       ; // wait for flash and EEPROM not busy, just in case.
+  _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, NVMCTRL_CMD_PAGEBUFCLR_gc);
+  while (NVMCTRL.STATUS & (NVMCTRL_FBUSY_bm | NVMCTRL_EEBUSY_bm))
   SREG = sreg_save; // restore last interrupts state
-  return (NVMCTRL.STATUS & NVMCTRL_WRERROR_bm) == 0;
+  if ((NVMCTRL.STATUS & NVMCTRL_WRERROR_bm) != 0) {
+    return false;
+  }
+  if (memcmp(FLASH_STORAGE_SPACE + (PROGMEM_PAGE_SIZE * page), data, PROGMEM_PAGE_SIZE) != 0) {
+    return false;
+  }
+  return true;
 }
 #endif
 

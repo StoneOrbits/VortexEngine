@@ -76,6 +76,18 @@ const default_mode_entry default_modes[] = {
       RGB_GREEN,
       RGB_BLUE,
     }
+  },
+  {
+    PATTERN_DASHCRUSH, 8, {
+      RGB_GREEN,
+      RGB_BLUE,
+      RGB_WHITE0,
+      RGB_OFF,
+      RGB_GREEN,
+      RGB_BLUE,
+      RGB_GREEN,
+      RGB_BLUE,
+    }
   }
 };
 
