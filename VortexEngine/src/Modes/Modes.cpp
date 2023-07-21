@@ -73,7 +73,8 @@ void Modes::play()
     if (Modes::oneClickModeEnabled()) {
       // enter sleep doesn't return on arduino, but it does on vortexlib
       // so we need to return right after -- we can't just use an else
-      VortexEngine::enterSleep();
+      // don't need to save when switching on/off in one click mode
+      VortexEngine::enterSleep(false);
       return;
     }
     nextModeSkipEmpty();

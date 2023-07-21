@@ -147,7 +147,8 @@ Menu::MenuAction GlobalBrightness::runKeychainMode()
   if (m_keychain_modeState == KEYCHAIN_MODE_STATE_OFF && now > (m_lastStateChange + KEYCHAIN_MODE_SLEEP_TICKS)) {
     // Optional: indicate when the keychain is turning off (useful mainly for debugging)
     //Leds::holdAll(200, RGB_PURPLE);
-    VortexEngine::enterSleep();
+    // don't need to save when going to sleep here
+    VortexEngine::enterSleep(false);
     return MENU_QUIT;
   }
   // play the keychain_mode mode

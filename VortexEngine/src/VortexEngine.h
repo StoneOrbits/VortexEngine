@@ -41,7 +41,7 @@ public:
 #endif
 
   // enter/leave sleep mode
-  static void enterSleep();
+  static void enterSleep(bool save = true);
   static void wakeup(bool reset = true);
 
 #ifdef VORTEX_EMBEDDED
