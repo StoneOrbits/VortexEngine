@@ -133,6 +133,7 @@ void VortexEngine::tick()
 
 void VortexEngine::runMainLogic()
 {
+  uint32_t now = Time::getCurtime();
   // if the menus are open and running then just return
   if (Menus::run()) {
     return;
