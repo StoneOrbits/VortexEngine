@@ -186,12 +186,8 @@ uint32_t Time::microseconds()
 {
 #ifndef VORTEX_LIB // Embedded avr devices
   uint32_t ticks;
-  uint8_t oldSREG = SREG;
-  // Save current state and disable interrupts
-  __asm("cli");
   // divide by 10
   ticks = (m_curTick * DEFAULT_TICKRATE) + (TCB0.CNT / 1000);
-  SREG = oldSREG; // Restore interrupt state
   return ticks;
 #elif defined(_MSC_VER) // windows
   LARGE_INTEGER now;

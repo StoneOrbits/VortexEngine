@@ -87,14 +87,22 @@ void Modes::play()
 bool Modes::saveToBuffer(ByteStream &modesBuffer)
 {
   // serialize the engine version into the modes buffer
-  VortexEngine::serializeVersion(modesBuffer);
+  if (!VortexEngine::serializeVersion(modesBuffer)) {
+    return false;
+  }
   // NOTE: instead of global brightness the duo uses this to store the
   //       startup mode ID. The duo doesn't offer a global brightness option
-  modesBuffer.serialize(m_globalFlags);
+  if (!modesBuffer.serialize(m_globalFlags)) {
+    return false;
+  }
   // serialize the global brightness
-  modesBuffer.serialize((uint8_t)Leds::getBrightness());
+  if (!modesBuffer.serialize((uint8_t)Leds::getBrightness())) {
+    return false;
+  }
   // serialize all modes data into the modesBuffer
-  serialize(modesBuffer);
+  if (!serialize(modesBuffer)) {
+    return false;
+  }
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
   if (!modesBuffer.compress()) {
     return false;
@@ -183,29 +191,39 @@ bool Modes::saveStorage()
 }
 
 // Save all of the modes to a serial buffer
-void Modes::serialize(ByteStream &modesBuffer)
+bool Modes::serialize(ByteStream &modesBuffer)
 {
   // serialize the number of modes
-  modesBuffer.serialize(m_numModes);
+  if (!modesBuffer.serialize(m_numModes)) {
+    return false;
+  }
   // make sure the current mode is saved in case it has changed somehow
   saveCurMode();
+  // uninstantiate cur mode so we have stack space to serialize
+  if (m_pCurModeLink) {
+    m_pCurModeLink->uninstantiate();
+  }
   ModeLink *ptr = m_storedModes;
   while (ptr) {
     // instantiate the mode temporarily
     Mode *mode = ptr->instantiate();
     if (!mode) {
       ERROR_OUT_OF_MEMORY();
-      return;
+      return false;
     }
+    // serialize it into the target modes buffer
     mode->serialize(modesBuffer);
-    // if this isn't our current running mode, uninstantiate it
-    if (ptr != m_pCurModeLink) {
-      ptr->uninstantiate();
-    }
+    // just uninstansiate the mode after serializing
+    ptr->uninstantiate();
     // next mode
     ptr = ptr->next();
   }
+  // reinstanstiate the current mode
+  if (m_pCurModeLink && !m_pCurModeLink->instantiate()) {
+    return false;
+  }
   DEBUG_LOGF("Serialized num modes: %u", m_numModes);
+  return true;
 }
 
 // load all modes from a serial buffer

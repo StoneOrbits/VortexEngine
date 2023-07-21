@@ -25,7 +25,7 @@ public:
   static void runMainLogic();
 
   // serialize the version number to a byte stream
-  static void serializeVersion(ByteStream &stream);
+  static bool serializeVersion(ByteStream &stream);
   static bool checkVersion(uint8_t major, uint8_t minor);
 
   // get the current mode

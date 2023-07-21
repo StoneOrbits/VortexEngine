@@ -44,17 +44,14 @@ void Storage::eepromWriteByte(uint16_t index, uint8_t in)
   __asm__ __volatile__(
     "ldi r30, 0x00"     "\n\t"
     "ldi r31, 0x10"     "\n\t"
-    "in r0, 0x3f"       "\n\t"
     "ldd r18, Z+2"      "\n\t"
     "andi r18, 3"       "\n\t"
     "brne .-6"          "\n\t"
-    "cli"               "\n\t"
     "st X, %0"          "\n\t"
     "ldi %0, 0x9D"      "\n\t"
     "out 0x34, %0"      "\n\t"
     "ldi %0, 0x03"      "\n\t"
     "st Z, %0"          "\n\t"
-    "out 0x3f, r0"      "\n"
     :"+d"(in)
     : "x"(adr)
     : "r30", "r31", "r18");
