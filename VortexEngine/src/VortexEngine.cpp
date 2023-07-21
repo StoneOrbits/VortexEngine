@@ -144,14 +144,12 @@ void VortexEngine::runMainLogic()
     return;
   }
   // toggle auto cycle mode with many clicks at main modes
-  if (g_pButton->consecutivePresses() > AUTO_CYCLE_MODES_CLICKS) {
-    // reset consecutive press counter so they can't toggle it twice
-    g_pButton->resetConsecutivePresses();
+  if (g_pButton->onConsecutivePresses(AUTO_CYCLE_MODES_CLICKS)) {
     m_autoCycle = !m_autoCycle;
     Leds::holdAll(m_autoCycle ? RGB_PURPLE1 : RGB_CYAN1);
   }
   // if auto cycle is enabled and the last switch was more than the delay ago
-  if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < Time::getCurtime())) {
+  if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < now)) {
     // then switch to the next mode automatically
     Modes::nextModeSkipEmpty();
   }
