@@ -117,3 +117,12 @@ void Button::update()
     DEBUG_LOG("Long click");
   }
 }
+
+bool Button::onConsecutivePresses(uint8_t numPresses)
+{
+  if (m_consecutivePresses >= numPresses) {
+    m_consecutivePresses = 0;
+    return true;
+  }
+  return false;
+}

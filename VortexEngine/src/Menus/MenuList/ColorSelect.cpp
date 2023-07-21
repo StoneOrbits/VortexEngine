@@ -61,6 +61,7 @@ Menu::MenuAction ColorSelect::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
+
   // all states start with a blank slate
   Leds::clearAll();
   switch (m_state) {
