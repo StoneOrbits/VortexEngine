@@ -16,11 +16,12 @@ public:
 protected:
   // only override the onBlinkOn so we can control the color it blinks
   virtual void onBlinkOn() override;
+  void transitionValue(uint8_t &current, const uint8_t next, bool hue);
   void doBlink();
   void doFlip();
 
   // offset of starting hue and number of flips
-  uint8_t m_hueOffset;
+  uint8_t m_blendSpeed;
   uint8_t m_numFlips;
 
   // current color and target blend color

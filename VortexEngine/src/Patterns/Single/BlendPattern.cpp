@@ -8,14 +8,14 @@
 
 BlendPattern::BlendPattern(const PatternArgs &args) :
   BasicPattern(args),
-  m_hueOffset(0),
+  m_blendSpeed(1),
   m_numFlips(1),
   m_cur(),
   m_next(),
   m_flip(0)
 {
   m_patternID = PATTERN_BLEND;
-  REGISTER_ARG(m_hueOffset);
+  REGISTER_ARG(m_blendSpeed);
   REGISTER_ARG(m_numFlips);
   setArgs(args);
 }
@@ -51,55 +51,45 @@ void BlendPattern::onBlinkOn()
   }
 }
 
+void BlendPattern::transitionValue(uint8_t &current, const uint8_t next, bool hue)
+{
+  if (next == current) {
+    return;
+  }
+  int diff;
+  if (hue) {
+    // this wild thing calculates closest circular direction on the hue circle
+    diff = (int)(((uint8_t)((next - current + 128 + 256) % 256)) - 128);
+  } else {
+    // otherwise we can just blend as normal in closest direction
+    diff = next - current;
+  }
+  int sign = (diff > 0) ? 1 : -1;
+  diff *= sign; // this will effectively perform abs(diff)
+  if (m_blendSpeed && (diff >= m_blendSpeed || -diff >= m_blendSpeed)) {
+    sign *= m_blendSpeed;
+  }
+  if (hue) {
+    // wrap around the hue automatically
+    current = (current + sign + 256) % 256;
+  } else {
+    // otherwise just add the value
+    current += sign;
+  }
+}
+
 void BlendPattern::doBlink()
 {
   // if the current hue has reached the next hue
-  if (m_cur.hue == m_next.hue && m_cur.sat == m_next.sat && m_cur.val == m_next.val) {
-    // copy over the sat/val
-    m_cur = m_next;
-    // get the next color and convert to hsv
+  if (m_cur == m_next) {
+    // get the next color
     m_next = m_colorset.getNext();
   }
-  // check which direction is closer for the next hue
-  if (m_next.hue != m_cur.hue) {
-    int diffH = (m_next.hue - m_cur.hue + 128) % 256 - 128;
-    int signH = (diffH > 0) ? 1 : -1;
-    // move hue in the direction of next hue at chosen speed
-    // NOTE: if the speed isn't a multiple of the hue values then
-    //       it will cause oscillation around the target hue
-    //       because it will never reach the target hue and
-    //       always over/under shoot
-    m_cur.hue = (m_cur.hue + signH + 256) % 256;
-  }
-  if (m_next.sat != m_cur.sat) {
-    int diffS = m_next.sat - m_cur.sat;
-    int signS = (diffS >= 0) ? 1 : -1;
-    // move sat in the direction of next sat at chosen speed
-    // NOTE: if the speed isn't a multiple of the sat values then
-    //       it will cause oscillation around the target sat
-    //       because it will never reach the target sat and
-    //       always over/under shoot
-    if (m_cur.sat + signS >= 0 && m_cur.sat + signS <= 255) {
-      m_cur.sat += signS;
-    }
-  }
-  if (m_next.val != m_cur.val) {
-    int diffV = m_next.val - m_cur.val;
-    int signV = (diffV >= 0) ? 1 : -1;
-    // move val in the direction of next val at chosen speed
-    // NOTE: if the speed isn't a multiple of the val values then
-    //       it will cause oscillation around the target val
-    //       because it will never reach the target val and
-    //       always over/under shoot
-    if (m_cur.val + signV >= 0 && m_cur.val + signV <= 255) {
-      m_cur.val += signV;
-    }
-  }
-  // apply the hue offset
-  m_cur.hue += m_hueOffset;
-  HSVColor showColor = m_cur;
+  transitionValue(m_cur.hue, m_next.hue, true);
+  transitionValue(m_cur.sat, m_next.sat, false);
+  transitionValue(m_cur.val, m_next.val, false);
   // set the target led with the current HSV color
-  Leds::setIndex(m_ledPos, hsv_to_rgb_generic(showColor));
+  Leds::setIndex(m_ledPos, hsv_to_rgb_generic(m_cur));
 }
 
 void BlendPattern::doFlip()
