@@ -67,6 +67,13 @@ Menu::MenuAction ColorSelect::run()
 
   if (m_advanced) {
     m_previewMode.setArg(6, g_pButton->isPressed() ? 2 : 1);
+    // usually you would need to call init again after changing arguments
+    // because you can't guarantee the pattern doesn't do any kind of logic
+    // in it's init function based on the params, however in this case we know
+    // that blend doesn't need to re-init after changing its flip count, we
+    // can just change it on the fly and it will flip accordingly -- so this
+    // is a bit of a hack and the proper approach would be to re-init the mode
+    // however if the mode is re-initialized then it would ruin the effect
     if (g_pButton->onConsecutivePresses(LEAVE_ADV_COL_SELECT_CLICKS)) {
       return MENU_QUIT;
     }
