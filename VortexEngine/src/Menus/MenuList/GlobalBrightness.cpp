@@ -168,7 +168,7 @@ void GlobalBrightness::setKeychainModeState(keychain_mode_state newState)
   case KEYCHAIN_MODE_STATE_OFF:
   default:
     // iterate to next color
-    m_colorIndex = (m_colorIndex + 1) % m_pCurMode->getColorset().numColors();
+    m_colorIndex = (m_colorIndex + 1) % Modes::curMode()->getColorset().numColors();
     break;
   case KEYCHAIN_MODE_STATE_SOLID:
     args.init(200);

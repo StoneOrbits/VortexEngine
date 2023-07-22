@@ -28,7 +28,11 @@ bool FactoryReset::init()
   }
   // bypass led selection for fac reset if a multi was set on
   // the current slot because it doesn't make sense to pick
-  if (m_pCurMode->isMultiLed()) {
+  Mode *cur = Modes::curMode();
+  if (!cur) {
+    return false;
+  }
+  if (cur->isMultiLed()) {
     m_ledSelected = true;
     m_targetLeds = MAP_LED(LED_MULTI);
   }
@@ -75,9 +79,10 @@ void FactoryReset::onLongClick()
     // reset the target mode slot on the target led
     const default_mode_entry &def = default_modes[curModeIndex];
     Colorset set(def.numColors, def.cols);
-    m_pCurMode->setPatternMap(m_targetLeds, def.patternID, nullptr, &set);
+    Mode *cur = Modes::curMode();
+    cur->setPatternMap(m_targetLeds, def.patternID, nullptr, &set);
     // re-initialize the current mode
-    m_pCurMode->init();
+    cur->init();
   } else {
     Modes::setDefaults();
   }

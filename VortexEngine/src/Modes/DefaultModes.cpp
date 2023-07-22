@@ -6,33 +6,19 @@
 // the gloveset upon factory reset
 const default_mode_entry default_modes[] = {
   {
-    PATTERN_STROBEGAP, 8, {
+    PATTERN_STROBE, 3, {
       RGB_RED,
       RGB_GREEN,
       RGB_BLUE,
-      
-      RGB_GREEN,
-      RGB_BLUE,
-      RGB_GREEN,
-      RGB_BLUE,
-      RGB_WHITE0,
-      
     }
   },
   {
-      PATTERN_BLEND, 8, {
-        RGB_RED,
-        RGB_GREEN,
-        RGB_BLUE,
-        
-        RGB_GREEN,
-        RGB_BLUE,
-        RGB_GREEN,
-        RGB_BLUE,
-        RGB_WHITE0,
-        
-      }
-    },
+    PATTERN_BLEND, 3, {
+      RGB_RED,
+      RGB_GREEN,
+      RGB_BLUE,
+    }
+  },
   {
     PATTERN_GHOSTCRUSH, 8, {
       RGB_WHITE,
@@ -57,7 +43,6 @@ const default_mode_entry default_modes[] = {
       0x700000
     }
   },
-#if 1
   {
     PATTERN_ULTRADOPS, 8, {
       0x1C0000,
@@ -70,31 +55,6 @@ const default_mode_entry default_modes[] = {
       0x00001C,
     }
   },
-  {
-    PATTERN_ULTRADOPS, 8, {
-      0x1C0000,
-      0x4B2600,
-      0xABAA00,
-      0x001C00,
-      0x00130A,
-      0x00001C,
-      0x26004B,
-      0x13000A
-    }
-  },
-  {
-    PATTERN_COMPLEMENTARY_BLEND, 8, {
-      RGB_RED,
-      RGB_GREEN,
-      RGB_BLUE,
-            RGB_RED,
-            RGB_GREEN,
-            RGB_BLUE,
-                  RGB_RED,
-                  RGB_GREEN
-    }
-  }
-#endif
 };
 
 // exposed size of the default modes array

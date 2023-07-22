@@ -41,11 +41,12 @@ bool ColorSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  if (m_pCurMode->isEmpty()) {
+  Mode *cur = Modes::curMode();
+  if (cur->isEmpty()) {
     // cannot work with an empty mode
     return false;
   }
-  if (m_pCurMode->isMultiLed()) {
+  if (cur->isMultiLed()) {
     m_ledSelected = true;
   }
   m_state = STATE_INIT;
@@ -104,11 +105,12 @@ Menu::MenuAction ColorSelect::run()
 // callback after the user selects the target led
 void ColorSelect::onLedSelected()
 {
+  Mode *cur = Modes::curMode();
   // grab the colorset from our selected target led
   if (m_targetLeds == MAP_LED_ALL) {
-    m_colorset = m_pCurMode->getColorset();
+    m_colorset = cur->getColorset();
   } else {
-    m_colorset = m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+    m_colorset = cur->getColorset(mapGetFirstLed(m_targetLeds));
   }
 }
 
@@ -152,8 +154,9 @@ void ColorSelect::onLongClick()
     // number of colors + 1. Example: with 4 cols, cols are on 0, 1, 2, 3,
     // add-color is 4, and exit is 5
     if (m_curSelection == numColors + (numColors < MAX_COLOR_SLOTS)) {
-      m_pCurMode->setColorsetMap(m_targetLeds, m_colorset);
-      m_pCurMode->init();
+      Mode *cur = Modes::curMode();
+      cur->setColorsetMap(m_targetLeds, m_colorset);
+      cur->init();
       leaveMenu(true);
       return;
     }
