@@ -4,12 +4,10 @@
 #include "../../Colors/Colorset.h"
 #include "../../Leds/Leds.h"
 
-#include <math.h>
-
 BlendPattern::BlendPattern(const PatternArgs &args) :
   BasicPattern(args),
-  m_blendSpeed(1),
-  m_numFlips(1),
+  m_blendSpeed(0),
+  m_numFlips(0),
   m_cur(),
   m_next(),
   m_flip(0)
@@ -37,12 +35,12 @@ void BlendPattern::init()
 
 void BlendPattern::onBlinkOn()
 {
-  if (!m_flip) {
+  if (m_flip) {
+    // do a flip as bender would say
+    doFlip();
+  } else {
     // if there is no flips then just do a normal blink
     doBlink();
-  } else {
-    // otherwise do a flip as bender would say
-    doFlip();
   }
   // now if there is a flip amount set
   if (m_numFlips > 0) {
@@ -53,10 +51,12 @@ void BlendPattern::onBlinkOn()
 
 void BlendPattern::transitionValue(uint8_t &current, const uint8_t next, bool hue)
 {
+  // if the values are equal then there's no work to do
   if (next == current) {
     return;
   }
-  int diff;
+  // otherwise we can just blend as normal in closest direction
+  int diff = next - current;
   if (hue) {
     // This will compute the difference such that it considers the wrapping
     // around from 255 to 0 and vice versa, taking the shortest path.
@@ -68,23 +68,26 @@ void BlendPattern::transitionValue(uint8_t &current, const uint8_t next, bool hu
     // positive value means that the shortest way from m_cur.hue to m_next.hue
     // is to increase m_cur.hue, while a negative value means that the shortest
     // way is to decrease m_cur.hue.
-    diff = (int)(((uint8_t)((next - current + 128 + 256) % 256)) - 128);
-  } else {
-    // otherwise we can just blend as normal in closest direction
-    diff = next - current;
+    diff = (int)(((uint8_t)((diff + 128 + 256) % 256)) - 128);
   }
-  int sign = (diff > 0) ? 1 : -1;
-  diff *= sign; // this will effectively perform abs(diff)
-  if (m_blendSpeed && (diff >= m_blendSpeed || -diff >= m_blendSpeed)) {
-    sign *= m_blendSpeed;
+  // calculate the step in the right direction, default step size is 1
+  int step = (diff > 0) ? 1 : -1;
+  // this will effectively perform abs(diff) so that we can check if the
+  // blendspeed is larger than the diff or not.
+  diff *= step;
+  // Only add the blendspeed if there is enough difference before the target 
+  // otherwise we may overshoot then oscillate around the target
+  if (diff > m_blendSpeed) {
+    // a blend speed of 0 will be standard speed
+    step += m_blendSpeed;
   }
+  // step the value forward
+  current += step;
+  // apply extra processing for circular hue translation
   if (hue) {
-    // wrap around the hue automatically, this handles for example if sign is -1
+    // wrap around the hue automatically, this handles for example if step is -1
     // and it subtracts past 0 to -1, then adding 256 will result in 255
-    current = (current + sign + 256) % 256;
-  } else {
-    // otherwise just add the value
-    current += sign;
+    current = (current + 256) % 256;
   }
 }
 
@@ -95,6 +98,8 @@ void BlendPattern::doBlink()
     // get the next color
     m_next = m_colorset.getNext();
   }
+  // transition each value of the current hsv to the next hsv, the 'hue' has a
+  // special handling where 255 is beside 0 (circular transition)
   transitionValue(m_cur.hue, m_next.hue, true);
   transitionValue(m_cur.sat, m_next.sat, false);
   transitionValue(m_cur.val, m_next.val, false);
