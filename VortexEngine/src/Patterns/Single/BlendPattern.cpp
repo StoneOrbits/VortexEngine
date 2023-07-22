@@ -58,7 +58,16 @@ void BlendPattern::transitionValue(uint8_t &current, const uint8_t next, bool hu
   }
   int diff;
   if (hue) {
-    // this wild thing calculates closest circular direction on the hue circle
+    // This will compute the difference such that it considers the wrapping
+    // around from 255 to 0 and vice versa, taking the shortest path.
+    // The extra + 256 before the modulus operator % 256 is to ensure that the
+    // value inside the parentheses is positive, because in C++ the % operator
+    // gives a remainder that has the same sign as the dividend, and you want
+    // to avoid getting a negative number there.
+    // This will result in a diff in the range -128 <= diff < 128, and a
+    // positive value means that the shortest way from m_cur.hue to m_next.hue
+    // is to increase m_cur.hue, while a negative value means that the shortest
+    // way is to decrease m_cur.hue.
     diff = (int)(((uint8_t)((next - current + 128 + 256) % 256)) - 128);
   } else {
     // otherwise we can just blend as normal in closest direction
@@ -70,7 +79,8 @@ void BlendPattern::transitionValue(uint8_t &current, const uint8_t next, bool hu
     sign *= m_blendSpeed;
   }
   if (hue) {
-    // wrap around the hue automatically
+    // wrap around the hue automatically, this handles for example if sign is -1
+    // and it subtracts past 0 to -1, then adding 256 will result in 255
     current = (current + sign + 256) % 256;
   } else {
     // otherwise just add the value
