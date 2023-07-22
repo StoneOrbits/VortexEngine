@@ -71,17 +71,18 @@ void PatternSelect::onShortClick()
       }
       // on/off/gap/dash duration max 100
       uint8_t max = 100;
-      // limit to a max value based on the argument
-      if (m_argIndex == 4) {
-        // group size max 20
+      if (m_argIndex == 6) {
+        // blend number of numflips
+        max = 4;
+      } else if (m_argIndex > 3) {
+        // group size, solid index, blendspeed
         max = 20;
-      } else if (m_argIndex > 4) {
-        // blend = hue offset, and num flips
-        // solid = col index
-        // all cases just max it at 8
-        max = 8;
       }
-      arg %= max;
+      if (arg > max) {
+        // red flash indicates reaching end
+        Leds::holdAll(RGB_RED);
+        arg %= (max + 1);
+      }
       // do not let argument0 be reset to 0
       if (!m_argIndex && !arg) {
         arg = 1;
