@@ -29,44 +29,6 @@
 
 #define STORAGE_FILENAME "FlashStorage.flash"
 
-#ifdef VORTEX_EMBEDDED
-// write out the eeprom byte
-void Storage::eepromWriteByte(uint16_t index, uint8_t in)
-{
-  uint16_t adr;
-  // The first two pages of the data goes into the eeprom and then the last page goes
-  // into the USERROW which is located at 0x1300
-  if (index > 255) {
-    adr = 0x1300 + (index & 0xFF);
-  } else {
-    adr = MAPPED_EEPROM_START + index;
-  }
-  __asm__ __volatile__(
-    "ldi r30, 0x00"     "\n\t"
-    "ldi r31, 0x10"     "\n\t"
-    "ldd r18, Z+2"      "\n\t"
-    "andi r18, 3"       "\n\t"
-    "brne .-6"          "\n\t"
-    "st X, %0"          "\n\t"
-    "ldi %0, 0x9D"      "\n\t"
-    "out 0x34, %0"      "\n\t"
-    "ldi %0, 0x03"      "\n\t"
-    "st Z, %0"          "\n\t"
-    :"+d"(in)
-    : "x"(adr)
-    : "r30", "r31", "r18");
-}
-
-uint8_t Storage::eepromReadByte(uint16_t index)
-{
-  if (index > 255) {
-    // USERROW start
-    return *(uint8_t *)(0x1300 + (index & 0xFF));
-  }
-  return *(uint8_t *)(MAPPED_EEPROM_START + index);
-}
-#endif
-
 uint32_t Storage::m_lastSaveSize = 0;
 
 Storage::Storage()
@@ -199,4 +161,40 @@ uint32_t Storage::lastSaveSize()
   return m_lastSaveSize;
 }
 
+#ifdef VORTEX_EMBEDDED
+// write out the eeprom byte
+void Storage::eepromWriteByte(uint16_t index, uint8_t in)
+{
+  uint16_t adr;
+  // The first two pages of the data goes into the eeprom and then the last page goes
+  // into the USERROW which is located at 0x1300
+  if (index > 255) {
+    adr = 0x1300 + (index & 0xFF);
+  } else {
+    adr = MAPPED_EEPROM_START + index;
+  }
+  __asm__ __volatile__(
+    "ldi r30, 0x00"     "\n\t"
+    "ldi r31, 0x10"     "\n\t"
+    "ldd r18, Z+2"      "\n\t"
+    "andi r18, 3"       "\n\t"
+    "brne .-6"          "\n\t"
+    "st X, %0"          "\n\t"
+    "ldi %0, 0x9D"      "\n\t"
+    "out 0x34, %0"      "\n\t"
+    "ldi %0, 0x03"      "\n\t"
+    "st Z, %0"          "\n\t"
+    :"+d"(in)
+    : "x"(adr)
+    : "r30", "r31", "r18");
+}
 
+uint8_t Storage::eepromReadByte(uint16_t index)
+{
+  if (index > 255) {
+    // USERROW start
+    return *(uint8_t *)(0x1300 + (index & 0xFF));
+  }
+  return *(uint8_t *)(MAPPED_EEPROM_START + index);
+}
+#endif
