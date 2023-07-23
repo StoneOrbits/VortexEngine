@@ -21,6 +21,10 @@
 #include "VortexLib.h"
 #endif
 
+#ifdef VORTEX_LIB
+#include "VortexLib.h"
+#endif
+
 // bool in vortexlib to simulate sleeping
 volatile bool VortexEngine::m_sleeping = false;
 
