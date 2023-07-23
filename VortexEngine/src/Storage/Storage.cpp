@@ -149,6 +149,9 @@ bool Storage::read(ByteStream &buffer)
   }
   fclose(f);
 #endif
+  // ensure the internal buffer is sane after reading it out, this
+  // prevents segfaults if the internal size reports larger than capacity
+  buffer.sanity();
   // check crc immediately since we read into raw data copying the
   // array could be dangerous
   if (!buffer.checkCRC()) {
