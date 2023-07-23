@@ -183,11 +183,11 @@ void VortexEngine::wakeup(bool reset)
   }
 }
 
-void VortexEngine::serializeVersion(ByteStream &stream)
+bool VortexEngine::serializeVersion(ByteStream &stream)
 {
   // serialize the vortex version
-  stream.serialize((uint8_t)VORTEX_VERSION_MAJOR);
-  stream.serialize((uint8_t)VORTEX_VERSION_MINOR);
+  return stream.serialize((uint8_t)VORTEX_VERSION_MAJOR) &&
+         stream.serialize((uint8_t)VORTEX_VERSION_MINOR);
 }
 
 bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)

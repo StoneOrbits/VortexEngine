@@ -48,7 +48,7 @@ public:
   static bool saveStorage();
 
   // saves all modes to a buffer
-  static void serialize(ByteStream &buffer);
+  static bool serialize(ByteStream &buffer);
   // load all modes from a buffer, optionally specify number of leds
   static bool unserialize(ByteStream &buffer);
 
