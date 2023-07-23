@@ -25,7 +25,7 @@ public:
   static void runMainLogic();
 
   // serialize the version number to a byte stream
-  static void serializeVersion(ByteStream &stream);
+  static bool serializeVersion(ByteStream &stream);
   static bool checkVersion(uint8_t major, uint8_t minor);
 
   // get the current mode
@@ -41,7 +41,7 @@ public:
 #endif
 
   // enter/leave sleep mode
-  static void enterSleep();
+  static void enterSleep(bool save = true);
   static void wakeup(bool reset = true);
 
 private:
