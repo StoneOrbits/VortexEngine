@@ -48,8 +48,6 @@ protected:
   // iterate to next bulb selection
   void nextBulbSelection();
 
-  // the current mode that was selected
-  Mode *m_pCurMode;
   // the mode copied from the current mode used to preview changes
   Mode m_previewMode;
   // the color of this menu

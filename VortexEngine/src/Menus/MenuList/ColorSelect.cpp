@@ -43,11 +43,12 @@ bool ColorSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  if (m_pCurMode->isEmpty()) {
+  Mode *cur = Modes::curMode();
+  if (cur->isEmpty()) {
     // cannot work with an empty mode
     return false;
   }
-  if (m_pCurMode->isMultiLed()) {
+  if (cur->isMultiLed()) {
     m_ledSelected = true;
   }
   m_state = STATE_INIT;
@@ -76,9 +77,9 @@ Menu::MenuAction ColorSelect::run()
     m_slot = 0;
     // grab the colorset from our selected target led
     if (m_targetLeds == MAP_LED_ALL) {
-      m_colorset = m_pCurMode->getColorset();
+      m_colorset = Modes::curMode()->getColorset();
     } else {
-      m_colorset = m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+      m_colorset = Modes::curMode()->getColorset(mapGetFirstLed(m_targetLeds));
     }
     // move on to picking slot
     m_state = STATE_PICK_SLOT;
@@ -103,11 +104,12 @@ Menu::MenuAction ColorSelect::run()
 // callback after the user selects the target led
 void ColorSelect::onLedSelected()
 {
+  Mode *cur = Modes::curMode();
   // grab the colorset from our selected target led
   if (m_targetLeds == MAP_LED_ALL) {
-    m_colorset = m_pCurMode->getColorset();
+    m_colorset = cur->getColorset();
   } else {
-    m_colorset = m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+    m_colorset = cur->getColorset(mapGetFirstLed(m_targetLeds));
   }
 }
 
@@ -154,18 +156,19 @@ void ColorSelect::onLongClick()
   bool needsSave = false;
   // if we're exiting a menu
   if (m_curSelection == FINGER_THUMB) {
+    Mode *cur = Modes::curMode();
     // leaving a menu, clear everything
     Leds::clearAll();
     switch (m_state) {
     case STATE_PICK_SLOT:
     default:
       // need to save if the colorset is not equal
-      needsSave = !m_colorset.equals(m_pCurMode->getColorset());
+      needsSave = !m_colorset.equals(cur->getColorset());
       // if we need to save, then actually update the colorset
       if (needsSave) {
         // save the colorset
-        m_pCurMode->setColorset(m_colorset);
-        m_pCurMode->init();
+        cur->setColorset(m_colorset);
+        cur->init();
       }
       // leave menu and save if we made changes
       leaveMenu(needsSave);
