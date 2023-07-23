@@ -18,7 +18,12 @@
 #include <unistd.h>
 #endif
 
+#ifdef VORTEX_LIB
+std::string Storage::m_storageFilename;
+#define STORAGE_FILENAME m_storageFilename.c_str()
+#else
 #define STORAGE_FILENAME "FlashStorage.flash"
+#endif
 
 // only arduino needs const I guess?
 static const uint8_t _storagedata[STORAGE_SIZE] = { };
