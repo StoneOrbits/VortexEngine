@@ -144,11 +144,12 @@ void PatternSelect::nextPattern()
 
 void PatternSelect::previousPattern()
 {
+  Mode *cur = Modes::curMode();
   LedPos srcLed = LED_MULTI;
-  if (!m_pCurMode->isMultiLed()) {
+  if (!cur->isMultiLed()) {
     srcLed = mapGetFirstLed(m_targetLeds);
   }
-  PatternID newID = (PatternID)(m_pCurMode->getPatternID(srcLed) - 1);
+  PatternID newID = (PatternID)(cur->getPatternID(srcLed) - 1);
   if (newID == PATTERN_SOLID) {
     newID = (PatternID)(newID - 1);
   }
@@ -165,16 +166,17 @@ void PatternSelect::previousPattern()
   }
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {
-    m_pCurMode->setPattern(newID);
+    cur->setPattern(newID);
   } else {
-    m_pCurMode->setPatternMap(m_targetLeds, newID);
+    cur->setPatternMap(m_targetLeds, newID);
   }
-  m_pCurMode->init();
+  cur->init();
   DEBUG_LOGF("Iterated to pattern id %d", newID);
 }
 
 void PatternSelect::onLongClick()
 {
+  Mode *cur = Modes::curMode();
   bool needsSave = false;
   switch (m_state) {
   case STATE_PICK_LIST:
@@ -191,10 +193,10 @@ void PatternSelect::onLongClick()
     break;
   case STATE_PICK_PATTERN:
     // need to save the new pattern if it's different from current
-    needsSave = (m_pCurMode->getPatternID() != m_newPatternID);
+    needsSave = (cur->getPatternID() != m_newPatternID);
     // store the new pattern in the mode
-    m_pCurMode->setPattern(m_newPatternID);
-    m_pCurMode->init();
+    cur->setPattern(m_newPatternID);
+    cur->init();
     DEBUG_LOGF("Saving pattern %u", m_newPatternID);
     // go back to beginning for next time
     m_state = STATE_PICK_LIST;

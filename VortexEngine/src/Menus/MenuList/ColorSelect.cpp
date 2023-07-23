@@ -43,11 +43,12 @@ bool ColorSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  if (m_pCurMode->isEmpty()) {
+  Mode *cur = Modes::curMode();
+  if (cur->isEmpty()) {
     // cannot work with an empty mode
     return false;
   }
-  if (m_pCurMode->isMultiLed()) {
+  if (cur->isMultiLed()) {
     m_ledSelected = true;
   }
   m_state = STATE_INIT;
@@ -78,9 +79,9 @@ Menu::MenuAction ColorSelect::run()
     m_quadrant = 0;
     // grab the colorset from our selected target led
     if (m_targetLeds == MAP_LED_ALL) {
-      m_colorset = m_pCurMode->getColorset();
+      m_colorset = Modes::curMode()->getColorset();
     } else {
-      m_colorset = m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+      m_colorset = Modes::curMode()->getColorset(mapGetFirstLed(m_targetLeds));
     }
     // move on to picking slot
     m_state = STATE_PICK_SLOT;
@@ -202,6 +203,7 @@ void ColorSelect::onLongClick()
   bool needsSave = false;
   // if we're exiting a menu
   if (m_curSelection == QUADRANT_LAST) {
+    Mode *cur = Modes::curMode();
     // leaving a menu, clear everything
     Leds::clearAll();
     switch (m_state) {
@@ -211,12 +213,12 @@ void ColorSelect::onLongClick()
       // checking if the colorset has changed because it's
       // not worth the effort
       needsSave = (!MAP_IS_ONE_LED(m_targetLeds) ||
-        !m_colorset.equals(m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds))));
+        !m_colorset.equals(cur->getColorset(mapGetFirstLed(m_targetLeds))));
       // if we need to save, then actually update the colorset
       if (needsSave) {
         // save the colorset
-        m_pCurMode->setColorsetMap(m_targetLeds, m_colorset);
-        m_pCurMode->init();
+        cur->setColorsetMap(m_targetLeds, m_colorset);
+        cur->init();
       }
       // leave menu and save if we made changes
       leaveMenu(needsSave);

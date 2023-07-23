@@ -101,7 +101,7 @@ void ModeSharing::onShortClick2()
 
 void ModeSharing::onLongClick()
 {
-  Modes::updateCurMode(m_pCurMode);
+  Modes::updateCurMode(&m_previewMode);
   leaveMenu(true);
 }
 
@@ -119,7 +119,7 @@ void ModeSharing::beginSendingVL()
   }
   m_sharingMode = ModeShareState::SHARE_SEND_VL;
   // initialize it with the current mode data
-  VLSender::loadMode(m_pCurMode);
+  VLSender::loadMode(Modes::curMode());
   // send the first chunk of data, leave if we're done
   if (!VLSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
@@ -136,7 +136,7 @@ void ModeSharing::beginSendingIR()
   }
   m_sharingMode = ModeShareState::SHARE_SEND_IR;
   // initialize it with the current mode data
-  IRSender::loadMode(m_pCurMode);
+  IRSender::loadMode(Modes::curMode());
   // send the first chunk of data, leave if we're done
   if (!IRSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
@@ -191,13 +191,14 @@ void ModeSharing::receiveModeIR()
     return;
   }
   DEBUG_LOG("Mode ready to receive! Receiving...");
-  // receive the VL mode into the current mode
-  if (!IRReceiver::receiveMode(m_pCurMode)) {
+  // receive the IR mode into the current mode
+  if (!IRReceiver::receiveMode(&m_previewMode)) {
     ERROR_LOG("Failed to receive mode");
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_pCurMode->getPatternID());
   if (!m_advanced) {
+    Modes::updateCurMode(&m_previewMode);
     // leave menu and save settings, even if the mode was the same whatever
     leaveMenu(true);
   }
@@ -221,8 +222,8 @@ void ModeSharing::showReceiveMode()
     // using uint32_t to avoid overflow, the result should be within 10 to 255
     Leds::setAll(RGBColor(0, IRReceiver::percentReceived(), 0));
   } else {
-    if (m_advanced && m_pCurMode) {
-      m_pCurMode->play();
+    if (m_advanced) {
+      m_previewMode.play();
     } else {
       Leds::setAll(RGB_WHITE0);
     }

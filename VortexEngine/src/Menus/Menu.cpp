@@ -10,7 +10,6 @@
 #include "../Log/Log.h"
 
 Menu::Menu(const RGBColor &col, bool advanced) :
-  m_pCurMode(nullptr),
   m_menuColor(col),
   m_targetLeds(MAP_LED_ALL),
   m_curSelection(QUADRANT_FIRST),
@@ -27,8 +26,7 @@ Menu::~Menu()
 bool Menu::init()
 {
   // menu is initialized before being run
-  m_pCurMode = Modes::curMode();
-  if (!m_pCurMode) {
+  if (!Modes::curMode()) {
     // if you enter a menu and there's no modes, it will add an empty one
     if (Modes::numModes() > 0) {
       // some kind of serious error
@@ -38,9 +36,7 @@ bool Menu::init()
       // some kind of serious error
       return false;
     }
-    // get the mode
-    m_pCurMode = Modes::curMode();
-    if (!m_pCurMode) {
+    if (!Modes::curMode()) {
       // serious error again
       return false;
     }
@@ -48,7 +44,7 @@ bool Menu::init()
   // reset the current selection
   m_curSelection = QUADRANT_FIRST;
   // copy the current mode into the demo mode and initialize it
-  m_previewMode = *m_pCurMode;
+  m_previewMode = *Modes::curMode();
   m_previewMode.init();
   // just in case
   m_shouldClose = false;
@@ -122,11 +118,12 @@ void Menu::showExit()
 
 void Menu::nextBulbSelection()
 {
+  Mode *cur = Modes::curMode();
   // The target led can be 0 through LED_COUNT to represent any led or all leds
   // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
   switch (m_targetLeds) {
   case MAP_LED_ALL:
-    if (m_pCurMode->isMultiLed()) {
+    if (cur->isMultiLed()) {
       // do not allow multi led to select anything else
       //break;
     }
@@ -146,7 +143,7 @@ void Menu::nextBulbSelection()
     break;
   default: // LED_FIRST through LED_LAST
     // do not allow multi led to select anything else
-    if (m_pCurMode->isMultiLed()) {
+    if (cur->isMultiLed()) {
       //m_targetLeds = MAP_LED_ALL;
       //break;
     }
@@ -158,11 +155,12 @@ void Menu::nextBulbSelection()
 
 void Menu::prevBulbSelection()
 {
+  Mode *cur = Modes::curMode();
   // The target led can be 0 through LED_COUNT to represent any led or all leds
   // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
   switch (m_targetLeds) {
   case MAP_LED_ALL:
-    if (m_pCurMode->isMultiLed()) {
+    if (cur->isMultiLed()) {
       // do not allow multi led to select anything else
       //break;
     }
@@ -182,7 +180,7 @@ void Menu::prevBulbSelection()
     break;
   default: // LED_FIRST through LED_LAST
     // do not allow multi led to select anything else
-    if (m_pCurMode->isMultiLed()) {
+    if (cur->isMultiLed()) {
       //m_targetLeds = MAP_LED_ALL;
       //break;
     }
