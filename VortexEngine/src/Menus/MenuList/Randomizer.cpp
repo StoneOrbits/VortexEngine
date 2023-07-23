@@ -33,11 +33,13 @@ bool Randomizer::init()
   if (!Menu::init()) {
     return false;
   }
+  // grab the multi ld pattern colorset crc if it's present
+  Mode *cur = Modes::curMode();
   // initialize the randomseed of each led with the
   // CRC of the colorset on the respective LED
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
     ByteStream ledData;
-    Pattern *pat = Modes::curMode()->getPattern(l);
+    Pattern *pat = cur->getPattern(l);
     if (pat) {
       pat->serialize(ledData);
     }
