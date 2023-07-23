@@ -191,7 +191,7 @@ uint32_t Time::microseconds()
 
 void Time::delayMicroseconds(uint32_t us)
 {
-#ifdef _MSC_VER
+#if defined(VORTEX_EMBEDDED) || defined(_MSC_VER)
   uint32_t newtime = microseconds() + us;
   while (microseconds() < newtime) {
     // busy loop
