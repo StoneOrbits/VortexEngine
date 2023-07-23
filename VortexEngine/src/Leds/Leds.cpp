@@ -293,7 +293,6 @@ void Leds::update()
 
   // Thanks to TinyNeoPixel for this code
 #ifdef VORTEX_EMBEDDED
-  __asm("cli");
   volatile uint16_t
     i = LED_COUNT * sizeof(RGBColor); // Loop counter
   volatile uint8_t
@@ -442,8 +441,6 @@ void Leds::update()
     #error "CPU SPEED NOT SUPPORTED"
   #endif
   // END AVR ----------------------------------------------------------------
-
-  __asm("sei");
 #endif
 
 #ifdef VORTEX_EMBEDDED
