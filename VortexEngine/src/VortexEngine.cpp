@@ -158,13 +158,15 @@ void VortexEngine::runMainLogic()
   Modes::play();
 }
 
-void VortexEngine::enterSleep()
+void VortexEngine::enterSleep(bool save)
 {
   DEBUG_LOG("Sleeping");
-  // set it as the startup mode?
-  Modes::setStartupMode(Modes::curModeIndex());
-  // save anything that hasn't been saved
-  Modes::saveStorage();
+  if (save) {
+    // set it as the startup mode?
+    Modes::setStartupMode(Modes::curModeIndex());
+    // save anything that hasn't been saved
+    Modes::saveStorage();
+  }
   // clear all the leds
   Leds::clearAll();
   Leds::update();

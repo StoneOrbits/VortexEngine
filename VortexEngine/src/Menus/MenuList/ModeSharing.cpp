@@ -86,7 +86,7 @@ void ModeSharing::onShortClick()
 
 void ModeSharing::onLongClick()
 {
-  Modes::updateCurMode(m_pCurMode);
+  Modes::updateCurMode(&m_previewMode);
   leaveMenu(true);
 }
 
@@ -116,7 +116,7 @@ void ModeSharing::beginSendingIR()
   }
   m_sharingMode = ModeShareState::SHARE_SEND_IR;
   // initialize it with the current mode data
-  IRSender::loadMode(m_pCurMode);
+  IRSender::loadMode(Modes::curMode());
   // send the first chunk of data, leave if we're done
   if (!IRSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
@@ -171,8 +171,8 @@ void ModeSharing::receiveModeIR()
     return;
   }
   DEBUG_LOG("Mode ready to receive! Receiving...");
-  // receive the VL mode into the current mode
-  if (!VLReceiver::receiveMode(&m_previewMode)) {
+  // receive the IR mode into the current mode
+  if (!IRReceiver::receiveMode(&m_previewMode)) {
     ERROR_LOG("Failed to receive mode");
     return;
   }

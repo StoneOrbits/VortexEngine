@@ -36,16 +36,20 @@ bool Randomizer::init()
     return false;
   }
   // grab the multi ld pattern colorset crc if it's present
-  if (m_pCurMode->hasMultiLed()) {
+  Mode *cur = Modes::curMode();
+  if (cur->hasMultiLed()) {
     ByteStream ledData;
-    m_pCurMode->getColorset(LED_MULTI).serialize(ledData);
+    Pattern *pat = cur->getPattern(LED_MULTI);
+    if (pat) {
+      pat->serialize(ledData);
+    }
     m_multiRandCtx.seed(ledData.recalcCRC());
   }
   // initialize the randomseed of each led with the
   // CRC of the colorset on the respective LED
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
     ByteStream ledData;
-    Pattern *pat = Modes::curMode()->getPattern(l);
+    Pattern *pat = cur->getPattern(l);
     if (pat) {
       pat->serialize(ledData);
     }
