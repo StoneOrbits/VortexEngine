@@ -143,6 +143,7 @@ public:
 
   // get total/used storage space
   static void getStorageStats(uint32_t *outTotal, uint32_t *outUsed);
+  static void loadStorage();
 
   // open various menus on the core (if they exist!)
   static void openRandomizer();
