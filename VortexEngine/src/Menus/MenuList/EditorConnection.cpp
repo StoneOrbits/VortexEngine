@@ -214,9 +214,12 @@ void EditorConnection::receiveData()
 
 void EditorConnection::sendModes()
 {
+  // saveToBuffer only exists in vortexlib on duo
+#ifdef VORTEX_LIB
   ByteStream modesBuffer;
   Modes::saveToBuffer(modesBuffer);
   SerialComs::write(modesBuffer);
+#endif
 }
 
 bool EditorConnection::receiveModes()
@@ -244,7 +247,10 @@ bool EditorConnection::receiveModes()
     m_receiveBuffer.size() - sizeof(size));
   // clear the receive buffer
   m_receiveBuffer.clear();
+  // loadFromBuffer only exists in vortexlib on duo
+#ifdef VORTEX_LIB
   Modes::loadFromBuffer(buf);
+#endif
   Modes::saveStorage();
   return true;
 }

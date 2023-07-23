@@ -45,7 +45,7 @@ void Storage::cleanup()
 }
 
 // store a serial buffer to storage
-bool Storage::write(ByteStream &buffer)
+bool Storage::write(ByteStream &buffer, uint16_t pos)
 {
 #ifdef VORTEX_LIB
   if (!Vortex::storageEnabled()) {
@@ -55,16 +55,18 @@ bool Storage::write(ByteStream &buffer)
 #endif
   // Check size
   uint16_t size = buffer.rawSize();
-  if (!size || size > STORAGE_SIZE) {
+  if (!size || size > STORAGE_SLICE_SIZE) {
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }
+  buffer.recalcCRC();
 #ifdef VORTEX_EMBEDDED
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom
   for (uint16_t i = 0; i < size; ++i) {
-    if (buf[i] != eepromReadByte(i)) {
-      eepromWriteByte(i, buf[i]);
+    uint16_t target = pos + i;
+    if (buf[i] != eepromReadByte(target)) {
+      eepromWriteByte(target, buf[i]);
     }
   }
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
@@ -97,7 +99,7 @@ bool Storage::write(ByteStream &buffer)
 }
 
 // read a serial buffer from storage
-bool Storage::read(ByteStream &buffer)
+bool Storage::read(ByteStream &buffer, uint16_t pos, uint16_t size)
 {
 #ifdef VORTEX_LIB
   if (!Vortex::storageEnabled()) {
@@ -105,22 +107,15 @@ bool Storage::read(ByteStream &buffer)
     // an empty buffer after returning true
     return false;
   }
-  uint16_t size = STORAGE_SIZE;
-#else
-  uint16_t size = *(uint16_t *)MAPPED_EEPROM_START;
 #endif
-  if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
-    size = STORAGE_SIZE;
-  }
-  if (!buffer.init(size)) {
+  if (size > STORAGE_SLICE_SIZE) {
     return false;
   }
 #ifdef VORTEX_EMBEDDED
   // Read the data from EEPROM first
-  uint8_t *pos = (uint8_t *)buffer.rawData();
-  uint16_t fullsize = buffer.rawSize() + size;
-  for (uint16_t i = 0; i < fullsize; ++i) {
-    pos[i] = eepromReadByte(i);
+  uint8_t *ptr = (uint8_t *)buffer.rawData();
+  for (uint16_t i = 0; i < size; ++i) {
+    ptr[i] = eepromReadByte(pos + i);
   }
 #elif defined(_MSC_VER)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);

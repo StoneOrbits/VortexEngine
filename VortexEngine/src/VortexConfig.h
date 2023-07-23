@@ -520,6 +520,12 @@
 // otherwise we will have trouble loading it into memory
 #define STORAGE_SIZE                  384
 
+// 72 * 5 = 360, with 384 that leaves 24 for header
+#define STORAGE_SLICE_SIZE            72
+
+// the header is basically whatever is left over, need at least 5 bytes
+#define STORAGE_HEADER_SIZE           (STORAGE_SIZE - (STORAGE_SLICE_SIZE * 5))
+
 // ===================================================================
 //  Test Framework configurations
 //

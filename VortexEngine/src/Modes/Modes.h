@@ -39,18 +39,20 @@ public:
   // play the current mode
   static void play();
 
-  // full save/load to/from buffer
-  static bool saveToBuffer(ByteStream &saveBuffer);
-  static bool loadFromBuffer(ByteStream &saveBuffer);
-
   // full save/load to/from storage
   static bool loadStorage();
   static bool saveStorage();
+
+#ifdef VORTEX_LIB
+  // full save/load to/from buffer
+  static bool saveToBuffer(ByteStream &saveBuffer);
+  static bool loadFromBuffer(ByteStream &saveBuffer);
 
   // saves all modes to a buffer
   static bool serialize(ByteStream &buffer);
   // load all modes from a buffer, optionally specify number of leds
   static bool unserialize(ByteStream &buffer);
+#endif
 
   // set default settings (must save after)
   static bool setDefaults();
@@ -150,6 +152,10 @@ public:
 #endif
 
 private:
+  // helper function for saveStorage
+  static bool loadStorageHeader(uint8_t &outNumModes);
+  static void writeSaveHeader();
+
   // linked list of internal mode storage
   class ModeLink {
   public:
