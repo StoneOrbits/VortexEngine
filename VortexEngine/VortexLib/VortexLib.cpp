@@ -74,6 +74,7 @@ string Vortex::m_commandLog;
 bool Vortex::m_commandLogEnabled = false;
 bool Vortex::m_lockstepEnabled = false;
 bool Vortex::m_storageEnabled = false;
+bool Vortex::m_sleepEnabled = true;
 
 #ifdef _MSC_VER
 #include <Windows.h>
@@ -302,6 +303,23 @@ void Vortex::doCommand(char c)
     return;
   }
   m_lastCommand = c;
+}
+
+// whether the engine has sleep enabled, if disabled it will always be awake
+void Vortex::setSleepEnabled(bool enable)
+{
+  m_sleepEnabled = enable;
+}
+
+bool Vortex::sleepEnabled()
+{
+  return m_sleepEnabled;
+}
+
+// whether the engine is sleeping, and/or to enter sleep
+void Vortex::enterSleep(bool save)
+{
+  VortexEngine::enterSleep(save);
 }
 
 bool Vortex::isSleeping()
