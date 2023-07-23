@@ -162,13 +162,18 @@ void GlobalBrightness::setKeychainModeState(keychain_mode_state newState)
   m_keychain_modeState = (keychain_mode_state)(newState % KEYCHAIN_MODE_STATE_COUNT);
   // record the time of this statechange
   m_lastStateChange = Time::getCurtime();
+  // this could
+  uint8_t numCols = Modes::curMode()->getColorset().numColors();
   // the args that will define the timing of the blink on the solid pattern
   PatternArgs args;
   switch (m_keychain_modeState) {
   case KEYCHAIN_MODE_STATE_OFF:
   default:
-    // iterate to next color
-    m_colorIndex = (m_colorIndex + 1) % Modes::curMode()->getColorset().numColors();
+    // iterate to next color and wrap to 0, don't use modulus because numCols could be 0
+    m_colorIndex++;
+    if (m_colorIndex >= numCols) {
+      m_colorIndex = 0;
+    }
     break;
   case KEYCHAIN_MODE_STATE_SOLID:
     args.init(200);
