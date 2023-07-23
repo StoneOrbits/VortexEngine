@@ -17,6 +17,10 @@
 #include <avr/sleep.h>
 #endif
 
+#ifdef VORTEX_LIB
+#include "VortexLib.h"
+#endif
+
 // bool in vortexlib to simulate sleeping
 volatile bool VortexEngine::m_sleeping = false;
 
@@ -119,7 +123,7 @@ void VortexEngine::tick()
 #ifdef VORTEX_LIB
   if (m_sleeping) {
     // directly poll the button to wakeup so that we do't need Buttons::update()
-    if (g_pButton->check()) {
+    if (g_pButton->check() || !Vortex::sleepEnabled()) {
       wakeup();
     }
     return;
