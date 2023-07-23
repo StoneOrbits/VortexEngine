@@ -231,6 +231,10 @@ public:
   static bool enableStorage(bool enable) { return m_storageEnabled = enable; }
   static bool storageEnabled() { return m_storageEnabled; }
 
+  // control the storage
+  static void setStorageFilename(const std::string &name);
+  static std::string getStorageFilename();
+
 private:
   // the last command to have been executed
   static char m_lastCommand;

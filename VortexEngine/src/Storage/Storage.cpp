@@ -19,7 +19,12 @@
 #include <unistd.h>
 #endif
 
+#ifdef VORTEX_LIB
+std::string Storage::m_storageFilename;
+#define STORAGE_FILENAME m_storageFilename.c_str()
+#else
 #define STORAGE_FILENAME "FlashStorage.flash"
+#endif
 
 __attribute__((__aligned__(256)))
 #ifndef VORTEX_EMBEDDED
