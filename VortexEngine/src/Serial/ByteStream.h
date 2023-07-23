@@ -67,6 +67,9 @@ public:
   // Will return the new CRC value.
   uint32_t recalcCRC(bool force = false);
 
+  // helper func to ensure the internal buffer is sane, use this
+  // after reading into the rawdata of the buffer
+  void sanity();
   // check the CRC without re-calculating, note, if the CRC is
   // dirty then this will simply return false
   bool checkCRC() const;
