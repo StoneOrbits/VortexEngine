@@ -463,6 +463,11 @@ void Vortex::getStorageStats(uint32_t *outTotal, uint32_t *outUsed)
   }
 }
 
+void Vortex::loadStorage()
+{
+  Modes::loadStorage();
+}
+
 void Vortex::openRandomizer()
 {
   Menus::openMenu(MENU_RANDOMIZER);
@@ -1127,7 +1132,6 @@ void Vortex::printlog(const char *file, const char *func, int line, const char *
 void Vortex::setStorageFilename(const string &name)
 {
   Storage::setStorageFilename(name);
-  Modes::loadStorage();
 }
 
 string Vortex::getStorageFilename()
