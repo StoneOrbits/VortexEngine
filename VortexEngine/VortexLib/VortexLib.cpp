@@ -7,9 +7,10 @@
 #include "Wireless/IRReceiver.h"
 #include "Wireless/VLReceiver.h"
 #include "Patterns/PatternBuilder.h"
+#include "Time/TimeControl.h"
 #include "Patterns/Pattern.h"
 #include "Colors/Colorset.h"
-#include "Time/TimeControl.h"
+#include "Storage/Storage.h"
 #include "Random/Random.h"
 #include "Time/Timings.h"
 #include "Menus/Menus.h"
@@ -69,7 +70,7 @@ FILE *Vortex::m_logHandle = nullptr;
 deque<Vortex::VortexButtonEvent> Vortex::m_buttonEventQueue;
 bool Vortex::m_initialized = false;
 uint32_t Vortex::m_buttonsPressed = 0;
-std::string Vortex::m_commandLog;
+string Vortex::m_commandLog;
 bool Vortex::m_commandLogEnabled = false;
 bool Vortex::m_lockstepEnabled = false;
 bool Vortex::m_storageEnabled = false;
@@ -140,7 +141,7 @@ bool Vortex::init(VortexCallbacks *callbacks)
     tm tm;
     localtime_s(&tm, &t);
     ostringstream oss;
-    oss << std::put_time(&tm, "%d-%m-%Y-%H-%M-%S");
+    oss << put_time(&tm, "%d-%m-%Y-%H-%M-%S");
     oss << "." << GetCurrentProcessId();
     string filename = VORTEX_LOG_NAME "." + oss.str() + ".txt";
     int err = fopen_s(&m_logHandle, filename.c_str(), "w");
@@ -1028,14 +1029,14 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     if (buttonEvent.target) {
       // backup the event queue and clear it
       deque<Vortex::VortexButtonEvent> backup;
-      std::swap(backup, m_buttonEventQueue);
+      swap(backup, m_buttonEventQueue);
       // ticks the engine forward some number of ticks, the event queue is empty
       // so the engine won't process any input events while doing this
       for (uint32_t i = 0; i < buttonEvent.target; ++i) {
         VortexEngine::tick();
       }
       // then restore the event queue so that events are processed like normal
-      std::swap(backup, m_buttonEventQueue);
+      swap(backup, m_buttonEventQueue);
     }
     break;
   case EVENT_TOGGLE_CLICK:
@@ -1103,4 +1104,15 @@ void Vortex::printlog(const char *file, const char *func, int line, const char *
 #if LOG_TO_FILE == 1
   vfprintf(Vortex::m_logHandle, strMsg.c_str(), list);
 #endif
+}
+
+void Vortex::setStorageFilename(const string &name)
+{
+  Storage::setStorageFilename(name);
+  Modes::loadStorage();
+}
+
+string Vortex::getStorageFilename()
+{
+  return Storage::getStorageFilename();
 }

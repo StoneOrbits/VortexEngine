@@ -27,7 +27,12 @@
 #include <stdio.h>
 #endif
 
+#ifdef VORTEX_LIB
+std::string Storage::m_storageFilename;
+#define STORAGE_FILENAME m_storageFilename.c_str()
+#else
 #define STORAGE_FILENAME "FlashStorage.flash"
+#endif
 
 uint32_t Storage::m_lastSaveSize = 0;
 
