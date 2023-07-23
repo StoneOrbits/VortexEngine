@@ -73,6 +73,8 @@ bool ByteStream::rawInit(const uint8_t *rawdata, uint32_t size)
   // copy in the actual data from the serial buffer, this will fill the
   // members: size, flags, and crc32 of m_pData as well as the buf
   memcpy(m_pData, rawdata, size);
+  // ensure the internal size doesn't exceed outer size
+  sanity();
   return true;
 }
 
@@ -249,6 +251,9 @@ bool ByteStream::compress()
 
 bool ByteStream::decompress()
 {
+  // ensure the internal buffer is sane after reading it out, this
+  // prevents segfaults if the internal size reports larger than capacity
+  sanity();
   // only decompress if we have valid data
   if (!m_pData || !m_pData->verify()) {
     DEBUG_LOG("Cannot verify crc, not decompressing");
@@ -309,6 +314,14 @@ uint32_t ByteStream::recalcCRC(bool force)
   m_pData->flags &= ~BUFFER_FLAG_DIRTY;
   // return the newly calculated crc
   return m_pData->crc32;
+}
+
+void ByteStream::sanity()
+{
+  // to ensure size never exceeds the buffer capacity
+  if (m_pData->size > m_capacity) {
+    m_pData->size = m_capacity;
+  }
 }
 
 bool ByteStream::checkCRC() const
