@@ -17,6 +17,10 @@
 
 #include <Arduino.h>
 
+#ifdef VORTEX_LIB
+#include "VortexLib.h"
+#endif
+
 // bool in vortexlib to simulate sleeping
 volatile bool VortexEngine::m_sleeping = false;
 
@@ -103,6 +107,15 @@ void VortexEngine::cleanup()
 
 void VortexEngine::tick()
 {
+#ifdef VORTEX_LIB
+  if (m_sleeping) {
+    // directly poll the button to wakeup so that we do't need Buttons::update()
+    if (g_pButton->check() || !Vortex::sleepEnabled()) {
+      wakeup();
+    }
+    return;
+  }
+#endif
   // handle any fatal errors that may have occurred
   // but only if the error blinker is enabled
 #if VORTEX_ERROR_BLINK == 1

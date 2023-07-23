@@ -215,7 +215,12 @@ public:
   // per tick so multiple commands will be queued up
   static void doCommand(char c);
 
-  // whether the engine is asleep
+  // whether the engine has sleep enabled, if disabled it will always be awake
+  static void setSleepEnabled(bool enable);
+  static bool sleepEnabled();
+
+  // whether the engine is sleeping, and/or to enter sleep
+  static void enterSleep(bool save);
   static bool isSleeping();
 
   // enable, fetch and clear the internal command log
@@ -329,4 +334,6 @@ private:
   static bool m_lockstepEnabled;
   // whether storage is enabled
   static bool m_storageEnabled;
+  // whether sleep is enabled
+  static bool m_sleepEnabled;
 };
