@@ -41,11 +41,12 @@ bool ColorSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  if (m_pCurMode->isEmpty()) {
+  Mode *cur = Modes::curMode();
+  if (cur->isEmpty()) {
     // cannot work with an empty mode
     return false;
   }
-  if (m_pCurMode->isMultiLed()) {
+  if (cur->isMultiLed()) {
     m_ledSelected = true;
   }
   m_state = STATE_INIT;
@@ -66,6 +67,13 @@ Menu::MenuAction ColorSelect::run()
 
   if (m_advanced) {
     m_previewMode.setArg(6, g_pButton->isPressed() ? 2 : 1);
+    // usually you would need to call init again after changing arguments
+    // because you can't guarantee the pattern doesn't do any kind of logic
+    // in it's init function based on the params, however in this case we know
+    // that blend doesn't need to re-init after changing its flip count, we
+    // can just change it on the fly and it will flip accordingly -- so this
+    // is a bit of a hack and the proper approach would be to re-init the mode
+    // however if the mode is re-initialized then it would ruin the effect
     if (g_pButton->onConsecutivePresses(LEAVE_ADV_COL_SELECT_CLICKS)) {
       return MENU_QUIT;
     }
@@ -104,11 +112,12 @@ Menu::MenuAction ColorSelect::run()
 // callback after the user selects the target led
 void ColorSelect::onLedSelected()
 {
+  Mode *cur = Modes::curMode();
   // grab the colorset from our selected target led
   if (m_targetLeds == MAP_LED_ALL) {
-    m_colorset = m_pCurMode->getColorset();
+    m_colorset = cur->getColorset();
   } else {
-    m_colorset = m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+    m_colorset = cur->getColorset(mapGetFirstLed(m_targetLeds));
   }
 }
 
@@ -152,8 +161,9 @@ void ColorSelect::onLongClick()
     // number of colors + 1. Example: with 4 cols, cols are on 0, 1, 2, 3,
     // add-color is 4, and exit is 5
     if (m_curSelection == numColors + (numColors < MAX_COLOR_SLOTS)) {
-      m_pCurMode->setColorsetMap(m_targetLeds, m_colorset);
-      m_pCurMode->init();
+      Mode *cur = Modes::curMode();
+      cur->setColorsetMap(m_targetLeds, m_colorset);
+      cur->init();
       leaveMenu(true);
       return;
     }

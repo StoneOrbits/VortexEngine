@@ -91,7 +91,7 @@ void ModeSharing::beginSending()
   }
   m_sharingMode = ModeShareState::SHARE_SEND;
   // initialize it with the current mode data
-  VLSender::loadMode(m_pCurMode);
+  VLSender::loadMode(Modes::curMode());
   // send the first chunk of data, leave if we're done
   if (!VLSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
@@ -135,12 +135,13 @@ void ModeSharing::receiveMode()
   }
   DEBUG_LOG("Mode ready to receive! Receiving...");
   // receive the VL mode into the current mode
-  if (!VLReceiver::receiveMode(m_pCurMode)) {
+  if (!VLReceiver::receiveMode(&m_previewMode)) {
     ERROR_LOG("Failed to receive mode");
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_pCurMode->getPatternID());
   if (!m_advanced) {
+    Modes::updateCurMode(&m_previewMode);
     // leave menu and save settings, even if the mode was the same whatever
     leaveMenu(true);
   }
@@ -161,8 +162,8 @@ void ModeSharing::showReceiveMode()
     Leds::setIndex(LED_0, RGBColor(0, VLReceiver::percentReceived(), 0));
     Leds::clearIndex(LED_1);
   } else {
-    if (m_advanced && m_pCurMode) {
-      m_pCurMode->play();
+    if (m_advanced) {
+      m_previewMode.play();
       // don't play on LED 1 so that it doesn't interfere
       Leds::clearIndex(LED_1);
     } else {
