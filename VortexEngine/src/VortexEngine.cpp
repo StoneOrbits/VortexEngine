@@ -126,8 +126,15 @@ void VortexEngine::tick()
 {
 #ifdef VORTEX_LIB
   if (m_sleeping) {
-    // directly poll the button to wakeup so that we do't need Buttons::update()
-    if (g_pButton->check() || !Vortex::sleepEnabled()) {
+    // update the buttons to check for wake
+    Buttons::update();
+    // several fast clicks will unlock the device
+    if (Modes::locked() && g_pButton->onConsecutivePresses(DEVICE_LOCK_CLICKS - 1)) {
+      // turn off the lock flag and save it to disk
+      Modes::setLocked(false);
+    }
+    // check for any kind of press to wakeup
+    if (g_pButton->onRelease() || !Vortex::sleepEnabled()) {
       wakeup();
     }
     return;
@@ -271,8 +278,14 @@ void VortexEngine::runMainLogic()
   }
 
   // lastly check if we are locking the device, which can only happen if they click the
-  // button 5 times quickly when the device was off, so 4 times in the first x ticks
+  // button 5 times quickly when the device was off, so 4 times in the first x ticks because
+  // the first click was used to wake the device and isn't counted in the consecutive clicks
   if (now < (CONSECUTIVE_WINDOW_TICKS * DEVICE_LOCK_CLICKS) && g_pButton->onConsecutivePresses(DEVICE_LOCK_CLICKS - 1)) {
+#ifdef VORTEX_LIB
+    if (!Vortex::lockEnabled()) {
+      return;
+    }
+#endif
     // lock and just go to sleep, don't need to reset consecutive press counter here
     Modes::setLocked(true);
     enterSleep();

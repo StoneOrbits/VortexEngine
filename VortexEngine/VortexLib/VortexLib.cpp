@@ -75,6 +75,7 @@ bool Vortex::m_commandLogEnabled = false;
 bool Vortex::m_lockstepEnabled = false;
 bool Vortex::m_storageEnabled = false;
 bool Vortex::m_sleepEnabled = true;
+bool Vortex::m_lockEnabled = true;
 
 #ifdef _MSC_VER
 #include <Windows.h>

@@ -241,6 +241,10 @@ public:
   static void setStorageFilename(const std::string &name);
   static std::string getStorageFilename();
 
+  // enable or disable the 'lock'
+  static void setLockEnabled(bool enable) { m_lockEnabled = enable; }
+  static bool lockEnabled() { return m_lockEnabled; }
+
 private:
   // the last command to have been executed
   static char m_lastCommand;
@@ -337,4 +341,6 @@ private:
   static bool m_storageEnabled;
   // whether sleep is enabled
   static bool m_sleepEnabled;
+  // whether lock is enabled
+  static bool m_lockEnabled;
 };
