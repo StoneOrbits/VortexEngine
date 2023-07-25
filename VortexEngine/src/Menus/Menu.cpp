@@ -103,7 +103,9 @@ void Menu::showBulbSelection()
     Leds::blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
   }
   // blink when selecting
-  Menus::showSelection(m_menuColor);
+  Menus::showSelection(RGBColor(m_menuColor.red << 3,
+                                m_menuColor.green << 3,
+                                m_menuColor.blue << 3));
 }
 
 void Menu::showExit()
