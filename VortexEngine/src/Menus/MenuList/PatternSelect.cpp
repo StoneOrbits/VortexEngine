@@ -14,7 +14,8 @@
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_state(STATE_PICK_LIST),
-  m_newPatternID(PATTERN_FIRST)
+  m_newPatternID(PATTERN_FIRST),
+  m_started(false)
 {
 }
 
@@ -131,6 +132,10 @@ void PatternSelect::nextPattern()
 #endif
   if (newID > endList || newID < beginList) {
     newID = beginList;
+  }
+  if (!m_started) {
+    m_started = true;
+    m_newPatternID = PATTERN_FIRST;
   }
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {

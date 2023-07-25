@@ -48,6 +48,10 @@ private:
 
   // the preview mode itself
   Mode m_patternMode;
+
+  // the pat select starts by showing the current pattern
+  // then the first click begin cycling the list of pats
+  bool m_started;
 };
 
 #endif
