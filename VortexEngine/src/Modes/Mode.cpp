@@ -257,13 +257,11 @@ bool Mode::unserialize(ByteStream &buffer)
   // unserialize the number of leds
   buffer.unserialize(&ledCount);
 #if FIXED_LED_COUNT == 0
-  // it's important that we only increase the led count if necessary
-  // otherwise we may end up reducing our led count and only rendering
-  // a few leds on the device
-  if (ledCount > m_numLeds) {
-    // adjust the internal LED count of the mode itself, this allows it to
-    // actually manage that many patterns at once
-    setLedCount(ledCount);
+  // adjust the internal led count of the mode if the incoming stream is different
+  // generally no embedded device would ever used an unfixed led count, this is purely
+  // for vortexlib to allow things like the editor to load modes of any size leds
+  if (ledCount != m_numLeds) {
+    //setLedCount(ledCount);
   }
 #endif // FIXED_LED_COUNT
   if (!ledCount) {

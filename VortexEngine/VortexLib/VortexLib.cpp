@@ -434,6 +434,7 @@ bool Vortex::getModes(ByteStream &outStream)
 
 bool Vortex::setModes(ByteStream &stream, bool save)
 {
+  Modes::clearModes();
   // now unserialize the stream of data that was read
   if (!Modes::loadFromBuffer(stream)) {
     //printf("Unserialize failed\n");
