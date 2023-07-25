@@ -56,12 +56,13 @@
 // it will be registered as a 'long click'
 #define CLICK_THRESHOLD       250
 
-// Startup Ignore Button Time (in milliseconds)
+// Device Lock Clicks
 //
-// The amount of time the engine will ignore button presses after
-// it has started up, this is to prevent accidental button presses
-// after sleep or immediately on startup
-#define IGNORE_BUTTON_TIME    150
+// How many rapid clicks the user must perform to lock/unlock the device.
+// From sleep, this many rapid clicks will locks the device.
+// From locked, the first click will turn it on into 'twilight mode' and then the user
+// has UNLOCK_WAKE_WINDOW time to press the button this many times to wake the device.
+#define DEVICE_LOCK_CLICKS    5
 
 // Advanced Menu Clicks
 //
