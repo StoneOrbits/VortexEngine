@@ -217,7 +217,6 @@ void ColorSelect::showSlotSelection()
   bool withinNumColors = m_curSelection < exitIndex;
   bool holdDurationCheck = g_pButton->isPressed() && holdDur >= DELETE_THRESHOLD_TICKS;
   bool holdDurationModCheck = (holdDur % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS;
-  // blink the selected slot color
   const RGBColor &col = m_colorset[m_curSelection];
   if (withinNumColors && holdDurationCheck && holdDurationModCheck) {
     // breath red for delete slot
