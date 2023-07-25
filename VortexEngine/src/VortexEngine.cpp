@@ -200,13 +200,17 @@ void VortexEngine::runMainLogic()
     // if the button is held for 2 seconds from off, switch to on click mode on
     // the last mode shown before sleep
     if (!Modes::keychainModeEnabled() && now == ONE_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
+      // whether oneclick mode is now enabled
+      bool isEnabledNow = !Modes::oneClickModeEnabled();
       // toggle one click mode
-      Modes::setOneClickMode(!Modes::oneClickModeEnabled());
-      // switch to the one click startup mode
-      Modes::switchToStartupMode();
+      Modes::setOneClickMode(isEnabledNow);
+      // if we turned it on then switch to that mode
+      if (isEnabledNow) {
+        Modes::switchToStartupMode();
+      }
       // flash either low white or dim white2 to indicate
       // whether one-click mode has been turned on or off
-      Leds::holdAll(Modes::oneClickModeEnabled() ? RGB_WHITE0 : RGB_WHITE5);
+      Leds::holdAll(isEnabledNow ? RGB_WHITE0 : RGB_WHITE5);
     }
     return;
   }
