@@ -151,8 +151,19 @@ Menu::MenuAction GlobalBrightness::runKeychainMode()
     VortexEngine::enterSleep(false);
     return MENU_QUIT;
   }
-  // play the keychain_mode mode
-  m_previewMode.play();
+  // render the signal mode in a different way
+  if (m_keychain_modeState == KEYCHAIN_MODE_STATE_SIGNAL) {
+    // use a custom blink because the SIGNAL_OFF duration is too large for uint8 params
+    Leds::clearAll();
+    Leds::blinkIndexOffset(LED_ALL,
+      Time::getCurtime() - m_lastStateChange,
+      SIGNAL_OFF_DURATION,
+      SIGNAL_ON_DURATION,
+      m_previewMode.getColorset().get(m_colorIndex));
+  } else {
+    // play the keychain_mode mode
+    m_previewMode.play();
+  }
   return MENU_CONTINUE;
 }
 
@@ -182,7 +193,9 @@ void GlobalBrightness::setKeychainModeState(keychain_mode_state newState)
     args.init(1, 10);
     break;
   case KEYCHAIN_MODE_STATE_SIGNAL:
-    args.init(SIGNAL_ON_DURATION, SIGNAL_OFF_DURATION);
+    // unfortunately the signal blink timing is too large to fit into the uint8 params
+    // so we just use a custom blink to render that one, but use the previewMode for
+    // the other two states
     break;
   }
   // update the mode and ensure current colorset is always used, use PATTERN_SOLID
