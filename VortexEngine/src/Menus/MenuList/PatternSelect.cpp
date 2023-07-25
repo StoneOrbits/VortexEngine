@@ -94,6 +94,7 @@ void PatternSelect::onShortClick()
   PatternID newID = (PatternID)(m_previewMode.getPatternID(m_srcLed) + 1);
   if (newID > PATTERN_SINGLE_LAST) {
     newID = PATTERN_SINGLE_FIRST;
+    Leds::holdAll(RGB_WHITE);
   }
   if (!m_started) {
     m_started = true;
