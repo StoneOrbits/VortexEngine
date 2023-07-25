@@ -14,7 +14,8 @@
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_state(STATE_PICK_LIST),
-  m_newPatternID(PATTERN_FIRST)
+  m_newPatternID(PATTERN_FIRST),
+  m_started(false)
 {
 }
 
@@ -97,6 +98,10 @@ void PatternSelect::nextPattern()
 {
   // increment to next pattern
   m_newPatternID = (PatternID)((m_newPatternID + 1) % PATTERN_COUNT);
+  if (!m_started) {
+    m_started = true;
+    m_newPatternID = PATTERN_FIRST;
+  }
   // change the pattern of demo mode
   m_previewMode.setPattern(m_newPatternID);
   m_previewMode.init();
