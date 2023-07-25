@@ -184,12 +184,16 @@ void ColorSelect::showSlotSelection()
   bool withinNumColors = m_curSelection < exitIndex;
   bool holdDurationCheck = g_pButton->isPressed() && holdDur >= DELETE_THRESHOLD_TICKS;
   bool holdDurationModCheck = (holdDur % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS;
+  const RGBColor &col = m_colorset[m_curSelection];
   if (withinNumColors && holdDurationCheck && holdDurationModCheck) {
     // breath red for delete slot
     Leds::breathIndex(LED_ALL, 0, holdDur);
   } else if (withinNumColors) {
+    if (col.empty()) {
+      Leds::setAll(RGB_WHITE0);
+    }
     // blink the selected slot color
-    Leds::blinkAll(150, 650, m_colorset[m_curSelection]);
+    Leds::blinkAll(150, 650, col);
   } else if (exitIndex < MAX_COLOR_SLOTS) {
     if (m_curSelection == exitIndex) {
       // blink both leds and blink faster to indicate 'add' new color
