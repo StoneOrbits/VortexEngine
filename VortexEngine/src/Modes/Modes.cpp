@@ -468,6 +468,9 @@ Mode *Modes::setCurMode(uint8_t index)
   m_pCurModeLink = newCurLink;
   // record the current time as the last switch time
   m_lastSwitchTime = Time::getCurtime();
+  // update the global startup mode to be this mode, if we turn off
+  // and turn back on into one click mode it will select this one
+  Modes::setStartupMode(newModeIdx);
   // log the change
   DEBUG_LOGF("Switch to Mode: %u / %u (pattern id: %u)",
     m_curMode, m_numModes - 1, newCur->getPatternID());

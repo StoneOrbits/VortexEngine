@@ -89,7 +89,7 @@
 //
 // The number of rapid clicks required in the menu section to enable or disable
 // the advanced menu access
-#define ADVANCED_MENU_CLICKS  15
+#define ADVANCED_MENU_CLICKS  (MENU_COUNT * 2)
 
 // Rapid Press Window (in milliseconds)
 //
