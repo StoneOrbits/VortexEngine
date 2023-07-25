@@ -44,7 +44,7 @@
 #define DOPY_OFF_DURATION           15
 
 // Ultradops
-#define ULTRADOPS_ON_DURATION       3
+#define ULTRADOPS_ON_DURATION       1
 #define ULTRADOPS_OFF_DURATION      5
 
 // Strobie
@@ -52,8 +52,8 @@
 #define STROBIE_OFF_DURATION        28
 
 // Signal
-#define SIGNAL_ON_DURATION          16
-#define SIGNAL_OFF_DURATION         120
+#define SIGNAL_ON_DURATION          10
+#define SIGNAL_OFF_DURATION         296
 
 // Ribbon
 #define RIBBON_DURATION             6
