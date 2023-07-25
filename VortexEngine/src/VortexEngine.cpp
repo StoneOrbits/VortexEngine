@@ -201,7 +201,7 @@ void VortexEngine::runMainLogic()
       // toggle one click mode
       Modes::setOneClickMode(!Modes::oneClickModeEnabled());
       // switch to the one click startup mode
-      Modes::setCurMode(Modes::startupMode());
+      Modes::switchToStartupMode();
       // flash either low white or dim white2 to indicate
       // whether one-click mode has been turned on or off
       Leds::holdAll(Modes::oneClickModeEnabled() ? RGB_WHITE0 : RGB_WHITE5);
@@ -228,6 +228,8 @@ void VortexEngine::runMainLogic()
 
   // re-enter inova mode if it was never disabled
   if (Modes::keychainModeEnabled() && !Menus::checkInMenu()) {
+    // switch to the last mode we were on
+    Modes::switchToStartupMode();
     // enter inova menu
     Menus::openMenu(MENU_GLOBAL_BRIGHTNESS, true);
   }

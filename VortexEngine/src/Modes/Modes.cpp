@@ -574,6 +574,11 @@ uint8_t Modes::startupMode()
   return (m_globalFlags & 0xF0) >> 4;
 }
 
+Mode *Modes::switchToStartupMode()
+{
+  return setCurMode(startupMode());
+}
+
 bool Modes::setFlag(uint8_t flag, bool enable, bool save)
 {
   // then actually if it's enabled ensure the upper nibble is set
