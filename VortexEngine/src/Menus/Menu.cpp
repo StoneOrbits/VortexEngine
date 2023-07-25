@@ -93,7 +93,7 @@ void Menu::showBulbSelection()
   Leds::clearAll();
   Leds::blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
   // blink when selecting
-  Menus::showSelection();
+  Menus::showSelection(m_menuColor);
 }
 
 void Menu::showExit()
