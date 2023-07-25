@@ -76,14 +76,14 @@ public:
   // However since these APIs modulate current time to check if within the 'on'
   // threshold that makes them unsuitable for internal pattern usage because it
   // is unpredictable whether they will blink on or off first
-  static void blinkIndexOffset(LedPos target, uint32_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkIndex(LedPos target, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkRange(LedPos first, LedPos last, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkMap(LedMap targets, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkAll(int32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkIndexOffset(LedPos target, uint32_t time, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkIndex(LedPos target, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkRange(LedPos first, LedPos last, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkMap(LedMap targets, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkAll(uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
   // Blink both LEDs on a pair
-  static void blinkPair(Pair pair, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkPairs(Pair first, Pair last, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkPair(Pair pair, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkPairs(Pair first, Pair last, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
 
   // breath the hue on an index
   // warning: these use hsv to rgb in realtime!
