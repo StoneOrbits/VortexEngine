@@ -6,7 +6,7 @@
 // the gloveset upon factory reset
 const default_mode_entry default_modes[] = {
   {
-    PATTERN_STROBE, 3, {
+    PATTERN_STROBEGAP, 3, {
       RGB_RED,
       RGB_GREEN,
       RGB_BLUE,
