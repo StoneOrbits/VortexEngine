@@ -1,5 +1,7 @@
 #include "ColorSelect.h"
 
+#include "../../VortexEngine.h"
+
 #include "../../Time/TimeControl.h"
 #include "../../Patterns/PatternBuilder.h"
 #include "../../Patterns/Pattern.h"
@@ -34,6 +36,8 @@ ColorSelect::~ColorSelect()
 {
   // revert the hsv to rgb algorithm to normal
   g_hsv_rgb_alg = HSV_TO_RGB_GENERIC;
+  // make sure force sleep is re-enabled when we leave
+  VortexEngine::toggleForceSleep(true);
 }
 
 bool ColorSelect::init()
@@ -51,6 +55,8 @@ bool ColorSelect::init()
   }
   m_state = STATE_INIT;
   if (m_advanced) {
+    // turn off force sleep while in this adv menu
+    VortexEngine::toggleForceSleep(false);
     m_previewMode.setPattern(PATTERN_BLEND);
     m_previewMode.init();
   }

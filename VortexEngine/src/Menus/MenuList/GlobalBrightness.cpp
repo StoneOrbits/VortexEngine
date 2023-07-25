@@ -27,6 +27,8 @@ GlobalBrightness::GlobalBrightness(const RGBColor &col, bool advanced) :
 
 GlobalBrightness::~GlobalBrightness()
 {
+  // ensure force sleep is turned back on when we leave
+  VortexEngine::toggleForceSleep(true);
 }
 
 bool GlobalBrightness::init()
@@ -44,6 +46,8 @@ bool GlobalBrightness::init()
     }
   }
   if (m_advanced) {
+    // turn off force sleep while running keychain mode
+    VortexEngine::toggleForceSleep(false);
     // enable keychain mode so if the device sleeps it will wake into keychain mode
     Modes::setKeychainMode(true);
     // start in the off position, this call is necessary to update the

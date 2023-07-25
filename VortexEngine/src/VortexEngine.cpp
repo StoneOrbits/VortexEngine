@@ -27,6 +27,8 @@
 
 // bool in vortexlib to simulate sleeping
 volatile bool VortexEngine::m_sleeping = false;
+// whether the 'force sleep' option is available (hold down for long time)
+bool VortexEngine::m_forceSleepEnabled = true;
 
 // auto cycling
 bool VortexEngine::m_autoCycle = false;
@@ -237,7 +239,7 @@ void VortexEngine::runMainLogic()
   // first look for the force-sleep and instant on/off toggle
   const uint32_t holdTime = g_pButton->holdDuration();
   // force-sleep check takes precedence above all, but it does not run when keychain mode is enabled
-  if (holdTime >= FORCE_SLEEP_THRESHOLD_TICKS && !Modes::keychainModeEnabled()) {
+  if (m_forceSleepEnabled && holdTime >= FORCE_SLEEP_THRESHOLD_TICKS) {
     // as long as they hold down past this threshold just turn off
     if (g_pButton->isPressed()) {
       Leds::clearAll();
