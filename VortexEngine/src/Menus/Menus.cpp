@@ -158,7 +158,8 @@ bool Menus::runMenuSelection()
     // toggle the advanced menu
     Modes::setAdvancedMenus(!advMenus);
     // display a fancy animation based on whether the menu was enabled
-    Leds::holdAll(advMenus ? RGB_RED : RGB_GREEN);
+    Leds::holdAll(advMenus ? RGB_RED : RGB_PINK);
+    Leds::holdAll(advMenus ? RGB_RED : RGB_PINK);
   }
   // show when the user selects a menu option
   showSelection(RGBColor(

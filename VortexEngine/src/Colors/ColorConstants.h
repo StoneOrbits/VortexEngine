@@ -42,6 +42,7 @@
 #define RGB_CYAN        (uint32_t)0x00FFFF    //   0 255 255
 #define RGB_PURPLE      (uint32_t)0x9933FF    // 153  51 255
 #define RGB_ORANGE      (uint32_t)0xFF8300    // 255 131   0
+#define RGB_PINK        (uint32_t)0xFF0099    // 255   0 153
 #define RGB_OFF         (uint32_t)0x000000    //   0   0   0
 
 // ===========================================================

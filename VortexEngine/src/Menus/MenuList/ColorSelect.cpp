@@ -223,6 +223,10 @@ void ColorSelect::showSlotSelection()
     Leds::breathIndex(LED_1, 0, holdDur);
   } else if (withinNumColors) {
     // blink the selected slot color
+    const RGBColor &col = m_colorset[m_curSelection];
+    if (col == RGB_OFF) {
+      Leds::setIndex(LED_0, RGB_WHITE0);
+    }
     Leds::blinkAll(150, 650, m_colorset[m_curSelection]);
   } else if (exitIndex < MAX_COLOR_SLOTS) {
     if (m_curSelection == exitIndex) {
