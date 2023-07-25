@@ -16,7 +16,8 @@
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_srcLed(LED_FIRST),
-  m_argIndex(0)
+  m_argIndex(0),
+  m_started(false)
 {
 }
 
@@ -48,12 +49,6 @@ Menu::MenuAction PatternSelect::run()
 
 void PatternSelect::onLedSelected()
 {
-  if (!m_advanced) {
-    // if not in advanced then change the starting pattern, otherwise start
-    // on the pattern we already had
-    m_previewMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
-    m_previewMode.init();
-  }
   m_srcLed = mapGetFirstLed(m_targetLeds);
 }
 
@@ -100,7 +95,10 @@ void PatternSelect::onShortClick()
   if (newID > PATTERN_SINGLE_LAST) {
     newID = PATTERN_SINGLE_FIRST;
   }
-
+  if (!m_started) {
+    m_started = true;
+    newID = PATTERN_FIRST;
+  }
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {
     m_previewMode.setPattern(newID);
