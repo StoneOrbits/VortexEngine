@@ -29,6 +29,10 @@ private:
 
   // used for adv pat select
   uint8_t m_argIndex;
+
+  // the pat select starts by showing the current pattern
+  // then the first click begin cycling the list of pats
+  bool m_started;
 };
 
 #endif
