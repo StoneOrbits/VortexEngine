@@ -194,28 +194,28 @@ void Leds::adjustBrightnessAll(uint8_t fadeBy)
 }
 
 // blinkIndex with the additional optional time offset
-void Leds::blinkIndexOffset(LedPos target, uint32_t time, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkIndexOffset(LedPos target, uint32_t time, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setIndex(target, col);
   }
 }
 
-void Leds::blinkIndex(LedPos target, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkIndex(LedPos target, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setIndex(target, col);
   }
 }
 
-void Leds::blinkRange(LedPos first, LedPos last, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkRange(LedPos first, LedPos last, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setRange(first, last, col);
   }
 }
 
-void Leds::blinkMap(LedMap targets, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkMap(LedMap targets, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
@@ -226,21 +226,21 @@ void Leds::blinkMap(LedMap targets, uint32_t offMs, uint32_t onMs, RGBColor col)
   }
 }
 
-void Leds::blinkAll(int32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkAll(uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setRange(LED_FIRST, LED_LAST, col);
   }
 }
 
-void Leds::blinkPair(Pair pair, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkPair(Pair pair, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setRange(pairEven(pair), pairOdd(pair), col);
   }
 }
 
-void Leds::blinkPairs(Pair first, Pair last, uint32_t offMs, uint32_t onMs, RGBColor col)
+void Leds::blinkPairs(Pair first, Pair last, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setRange(pairEven(first), pairOdd(last), col);
