@@ -4,6 +4,7 @@
 #include "../Leds/LedTypes.h"
 #include "../Patterns/Patterns.h"
 #include "../VortexConfig.h"
+#include "DefaultModes.h"
 
 class SingleLedPattern;
 class MultiLedPattern;
@@ -42,6 +43,7 @@ public:
 #endif
   Mode();
 
+  Mode(const default_mode_entry &entry);
   Mode(PatternID id, const Colorset &set);
   Mode(PatternID id, const PatternArgs &args, const Colorset &set);
   Mode(PatternID id, const PatternArgs *args, const Colorset *set);

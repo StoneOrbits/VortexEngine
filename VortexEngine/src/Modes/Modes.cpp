@@ -285,13 +285,8 @@ bool Modes::setDefaults()
 #else
   // add each default mode with each of the given colors
   for (uint8_t i = 0; i < num_default_modes; ++i) {
-    const default_mode_entry &def = default_modes[i];
-    Mode newMode;
-    Colorset set0(def.led0.numColors, def.led0.cols);
-    Colorset set1(def.led1.numColors, def.led1.cols);
-    newMode.setPattern(def.led0.patternID, LED_0, nullptr, &set0);
-    newMode.setPattern(def.led1.patternID, LED_1, nullptr, &set1);
-    if (!addMode(&newMode)) {
+    Mode defMode(default_modes[i]);
+    if (!addMode(&defMode)) {
       ERROR_LOG("Failed to add default mode %u", i);
       return false;
     }
