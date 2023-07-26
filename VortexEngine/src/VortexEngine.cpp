@@ -358,6 +358,8 @@ void VortexEngine::enterSleep(bool save)
 {
   DEBUG_LOG("Sleeping");
   if (save) {
+    // update the startup mode when going to sleep
+    Modes::setStartupMode(Modes::curModeIndex());
     // save anything that hasn't been saved
     Modes::saveStorage();
   }
