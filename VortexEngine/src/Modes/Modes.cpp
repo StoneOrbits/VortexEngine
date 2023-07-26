@@ -163,7 +163,7 @@ bool Modes::loadStorage()
   if (!loadFromBuffer(modesBuffer)) {
     return false;
   }
-  if (oneClickModeEnabled() && startupMode() > 0) {
+  if (oneClickModeEnabled()) {
     // set the current mode to the startup mode
     switchToStartupMode();
   }
