@@ -5,11 +5,17 @@
 #include "../VortexConfig.h"
 
 // structure of the entries in the default modes array
-struct default_mode_entry
+struct default_led_entry
 {
   PatternID patternID;
   uint8_t numColors;
   uint32_t cols[MAX_COLOR_SLOTS];
+};
+
+struct default_mode_entry
+{
+  default_led_entry led0;
+  default_led_entry led1;
 };
 
 // exposed global array of default modes

@@ -75,14 +75,14 @@ void FactoryReset::onLongClick()
   // the button was held down long enough so actually perform the factory reset
   // restore defaults and then leave menu and save
   if (m_advanced) {
-    uint8_t curModeIndex = Modes::curModeIndex();
-    // reset the target mode slot on the target led
-    const default_mode_entry &def = default_modes[curModeIndex];
-    Colorset set(def.numColors, def.cols);
-    Mode *cur = Modes::curMode();
-    cur->setPatternMap(m_targetLeds, def.patternID, nullptr, &set);
-    // re-initialize the current mode
-    cur->init();
+    //uint8_t curModeIndex = Modes::curModeIndex();
+    //// reset the target mode slot on the target led
+    //const default_mode_entry &def = default_modes[curModeIndex];
+    //Colorset set(def.numColors, def.cols);
+    //Mode *cur = Modes::curMode();
+    //cur->setPatternMap(m_targetLeds, def.patternID, nullptr, &set);
+    //// re-initialize the current mode
+    //cur->init();
   } else {
     Modes::setDefaults();
   }
