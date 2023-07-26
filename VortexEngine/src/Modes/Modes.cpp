@@ -287,7 +287,7 @@ bool Modes::setDefaults()
   for (uint8_t i = 0; i < num_default_modes; ++i) {
     Mode defMode(default_modes[i]);
     if (!addMode(&defMode)) {
-      ERROR_LOG("Failed to add default mode %u", i);
+      ERROR_LOGF("Failed to add default mode %u", i);
       return false;
     }
   }
