@@ -256,6 +256,12 @@ void Vortex::doCommand(char c)
     }
     Vortex::advMenuEnterClick();
     break;
+  case 'd':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting adv menu enter click");
+    }
+    Vortex::deleteColClick();
+    break;
   case 's':
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting sleep click");
@@ -387,6 +393,11 @@ void Vortex::menuEnterClick(uint32_t buttonIndex)
 void Vortex::advMenuEnterClick(uint32_t buttonIndex)
 {
   m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_ADV_MENU_ENTER_CLICK));
+}
+
+void Vortex::deleteColClick(uint32_t buttonIndex)
+{
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_DELETE_COL));
 }
 
 void Vortex::sleepClick(uint32_t buttonIndex)
@@ -1020,6 +1031,17 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
     DEBUG_LOG("Injecting adv menu enter click");
+    break;
+  case EVENT_DELETE_COL:
+    // to do this we simply press the button and set the press time
+    // to something more than the menu trigger threshold that will make
+    // us immediately enter the menus. But we need to unset the pressed
+    // button right after so we push a reset click event to reset the button
+    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_holdDuration = DELETE_THRESHOLD_TICKS + DELETE_CYCLE_TICKS + 1;
+    pButton->m_longClick = true;
+    pButton->m_newRelease = true;
+    DEBUG_LOG("Injecting delete color click");
     break;
   case EVENT_SLEEP_CLICK:
     // to do this we simply press the button and set the press time
