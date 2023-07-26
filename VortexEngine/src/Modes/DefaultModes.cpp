@@ -37,7 +37,6 @@ const default_mode_entry default_modes[] = {
       }
     }
   },
-
   {
     {
       PATTERN_GHOSTCRUSH, 8, {
