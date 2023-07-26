@@ -144,13 +144,6 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   if (!unserialize(modesBuffer)) {
     return false;
   }
-  // startupMode is 1-based offset that encodes both the index to start at and
-  // whether the system is enabled, hence why 0 cannot be used as an offset
-  uint8_t startupMode = (m_globalFlags & 0xF0) >> 4;
-  if (oneClickModeEnabled() && startupMode > 0) {
-    // set the current mode to the startup mode
-    setCurMode(startupMode);
-  }
   return true;
 }
 
@@ -166,7 +159,15 @@ bool Modes::loadStorage()
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
-  return loadFromBuffer(modesBuffer);
+  // try to load the modes buffer
+  if (!loadFromBuffer(modesBuffer)) {
+    return false;
+  }
+  if (oneClickModeEnabled() && startupMode() > 0) {
+    // set the current mode to the startup mode
+    switchToStartupMode();
+  }
+  return true;
 }
 
 // NOTE: Flash storage is limited to about 10,000 writes so
