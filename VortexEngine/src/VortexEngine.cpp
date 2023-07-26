@@ -136,7 +136,7 @@ void VortexEngine::tick()
       Modes::setLocked(false);
     }
     // check for any kind of press to wakeup
-    if (g_pButton->onRelease() || !Vortex::sleepEnabled()) {
+    if (g_pButton->check() || g_pButton->onRelease() || !Vortex::sleepEnabled()) {
       wakeup();
     }
     return;
