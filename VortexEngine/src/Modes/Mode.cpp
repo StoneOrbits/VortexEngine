@@ -13,6 +13,16 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
+
+Mode::Mode(const DefaultModeEntry &entry) :
+  Mode()
+{
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    Colorset set(entry.leds[pos].numColors, entry.leds[pos].cols);
+    setPattern(entry.leds[pos].patternID, pos, nullptr, &set);
+  }
+}
+
 #if FIXED_LED_COUNT == 0
 // for internal reference to the led count
 #define MODE_LEDCOUNT m_numLeds
