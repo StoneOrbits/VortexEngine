@@ -78,13 +78,9 @@ void FactoryReset::onLongClick()
     // reset the target mode slot on the target led
     const DefaultModeEntry &def = default_modes[Modes::curModeIndex()];
     Mode *cur = Modes::curMode();
-    if (m_targetLeds & MAP_LED(LED_0)) {
-      Colorset set0(def.leds[0].numColors, def.leds[0].cols);
-      cur->setPattern(def.leds[0].patternID, LED_0, nullptr, &set0);
-    }
-    if (m_targetLeds & MAP_LED(LED_1)) {
-      Colorset set1(def.leds[1].numColors, def.leds[1].cols);
-      cur->setPattern(def.leds[1].patternID, LED_1, nullptr, &set1);
+    MAP_FOREACH_LED(m_targetLeds) {
+      Colorset set(def.leds[pos].numColors, def.leds[pos].cols);
+      cur->setPattern(def.leds[pos].patternID, pos, nullptr, &set);
     }
     cur->init();
   } else {
