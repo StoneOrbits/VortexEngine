@@ -207,6 +207,8 @@ void VortexEngine::runMainLogic()
       // if we turned it on then switch to that mode
       if (isEnabledNow) {
         Modes::switchToStartupMode();
+      } else {
+        Modes::setCurMode(0);
       }
       // flash either low white or dim white2 to indicate
       // whether one-click mode has been turned on or off
