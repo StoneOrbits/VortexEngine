@@ -292,7 +292,7 @@ bool Modes::setDefaults()
     newMode.setPattern(def.led0.patternID, LED_0, nullptr, &set0);
     newMode.setPattern(def.led1.patternID, LED_1, nullptr, &set1);
     if (!addMode(&newMode)) {
-      ERROR_LOG("Failed to add default mode %u", i);
+      ERROR_LOGF("Failed to add default mode %u", i);
       return false;
     }
   }
