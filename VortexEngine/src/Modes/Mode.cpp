@@ -14,13 +14,13 @@
 #include "../Log/Log.h"
 
 
-Mode::Mode(const default_mode_entry &entry) :
+Mode::Mode(const DefaultModeEntry &entry) :
   Mode()
 {
-    Colorset set0(entry.led0.numColors, entry.led0.cols);
-    setPattern(entry.led0.patternID, LED_0, nullptr, &set0);
-    Colorset set1(entry.led1.numColors, entry.led1.cols);
-    setPattern(entry.led1.patternID, LED_1, nullptr, &set1);
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    Colorset set(entry.leds[pos].numColors, entry.leds[pos].cols);
+    setPattern(entry.leds[pos].patternID, pos, nullptr, &set);
+  }
 }
 
 #if FIXED_LED_COUNT == 0

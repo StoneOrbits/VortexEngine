@@ -43,7 +43,7 @@ public:
 #endif
   Mode();
 
-  Mode(const default_mode_entry &entry);
+  Mode(const DefaultModeEntry &entry);
   Mode(PatternID id, const Colorset &set);
   Mode(PatternID id, const PatternArgs &args, const Colorset &set);
   Mode(PatternID id, const PatternArgs *args, const Colorset *set);
