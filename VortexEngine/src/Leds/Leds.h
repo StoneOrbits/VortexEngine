@@ -87,11 +87,11 @@ public:
 
   // breath the hue on an index
   // warning: these use hsv to rgb in realtime!
-  static void breathIndex(LedPos target, uint32_t hue, uint32_t variance,
+  static void breathIndex(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  static void breathIndexSat(LedPos target, uint32_t hue, uint32_t variance,
+  static void breathIndexSat(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  static void breathIndexVal(LedPos target, uint32_t hue, uint32_t variance,
+  static void breathIndexVal(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
 
   // a very specialized api to hold all leds on a color for 250ms
