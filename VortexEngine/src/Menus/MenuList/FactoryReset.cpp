@@ -75,6 +75,7 @@ void FactoryReset::onLongClick()
   // the button was held down long enough so actually perform the factory reset
   // restore defaults and then leave menu and save
   if (m_advanced) {
+    // reset the target mode slot on the target led
     const default_mode_entry &def = default_modes[Modes::curModeIndex()];
     Mode *cur = Modes::curMode();
     if (m_targetLeds & MAP_LED(LED_0)) {
