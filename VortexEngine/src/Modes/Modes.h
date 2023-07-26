@@ -53,7 +53,6 @@ public:
   static bool unserialize(ByteStream &buffer);
 
   // set default settings (must save after)
-  //static bool setDefault(uint8_t modeIndex, LedPos led);
   static bool setDefaults();
 
   // shift the current mode to a different position relative to current position
