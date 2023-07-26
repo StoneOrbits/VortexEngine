@@ -116,6 +116,7 @@ public:
   static void longClick(uint32_t buttonIndex = 0);
   static void menuEnterClick(uint32_t buttonIndex = 0);
   static void advMenuEnterClick(uint32_t buttonIndex = 0);
+  static void deleteColClick(uint32_t buttonIndex = 0);
   static void sleepClick(uint32_t buttonIndex = 0);
   static void forceSleepClick(uint32_t buttonIndex = 0);
   static void pressButton(uint32_t buttonIndex = 0);
@@ -274,6 +275,8 @@ private:
     EVENT_MENU_ENTER_CLICK,
     // a press that is just long enough to enter adv menus
     EVENT_ADV_MENU_ENTER_CLICK,
+    // a press that is long enough to delete a color from col select
+    EVENT_DELETE_COL,
     // a press just long enough to put the device to sleep from main modes
     EVENT_SLEEP_CLICK,
     // a press very long so that the chip triggers it's force sleep

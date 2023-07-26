@@ -234,11 +234,11 @@ void VortexEngine::runMainLogic()
   // finally the user has released the button after initially turning it on,
   // just run the regular main logic of the system
 
-  // re-enter inova mode if it was never disabled
+  // re-enter keychain mode if it was never disabled
   if (Modes::keychainModeEnabled() && !Menus::checkInMenu()) {
     // switch to the last mode we were on
     Modes::switchToStartupMode();
-    // enter inova menu
+    // enter keychain mode menu
     Menus::openMenu(MENU_GLOBAL_BRIGHTNESS, true);
   }
 
