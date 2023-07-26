@@ -4,7 +4,7 @@
 
 // Here is the array of 'default modes' that are assigned to
 // the gloveset upon factory reset
-const DefaultModeEntry default_modes[] = {
+const DefaultModeEntry defaultModes[] = {
   {
     {
       {
@@ -112,6 +112,3 @@ const DefaultModeEntry default_modes[] = {
     }
   }
 };
-
-// exposed size of the default modes array
-const uint8_t num_default_modes = (sizeof(default_modes) / sizeof(default_modes[0]));
