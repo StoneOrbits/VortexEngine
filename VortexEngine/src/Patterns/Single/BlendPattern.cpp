@@ -35,17 +35,37 @@ void BlendPattern::init()
 
 void BlendPattern::onBlinkOn()
 {
-  if (m_flip) {
-    // do a flip as bender would say
-    doFlip();
-  } else {
-    // if there is no flips then just do a normal blink
-    doBlink();
+  // if the current hue has reached the next hue
+  if (m_cur == m_next) {
+    // get the next color
+    m_next = m_colorset.getNext();
   }
-  // now if there is a flip amount set
-  if (m_numFlips > 0) {
-    // then increase the flip counter and modulate it
-    m_flip = (m_flip + 1) % m_numFlips;
+  // only transition the blend once every 4 ticks, this will make sure the blend doesn't go
+  // to fast and it allows the blendspeed parameter to speed it up to preference
+  if ((Time::getCurtime() % 4) == 0) {
+    // transition each value of the current hsv to the next hsv, the 'hue' has a
+    // special handling where 255 is beside 0 (circular transition)
+    transitionValue(m_cur.hue, m_next.hue, true);
+    transitionValue(m_cur.sat, m_next.sat, false);
+    transitionValue(m_cur.val, m_next.val, false);
+  }
+  // make a copy of the current color being rendered so that it can be
+  // flipped to an inverse color if the flips are enabled
+  HSVColor hsvCol = m_cur;
+  // flip the hue if there is any flips
+  if (m_flip) {
+    // note: no division by zero because m_numFlips cannot be 0 if m_flip is non-zero
+    hsvCol.hue += (m_flip * (255 / m_numFlips));
+  }
+  // convert the HSV to RGB with the generic function because
+  // this will generate a different appearance from using the
+  // default hsv_to_rgb_rainbow()
+  Leds::setIndex(m_ledPos, hsv_to_rgb_generic(hsvCol));
+  // increase the flip counter and modulate it, this actually takes less space
+  // on avr than using a modulo of numflips, because you must check for nonzero
+  m_flip++;
+  if (m_flip >= m_numFlips) {
+    m_flip = 0;
   }
 }
 
@@ -87,33 +107,6 @@ void BlendPattern::transitionValue(uint8_t &current, const uint8_t next, bool hu
   if (hue) {
     // wrap around the hue automatically, this handles for example if step is -1
     // and it subtracts past 0 to -1, then adding 256 will result in 255
-    current = (current + 256) % 256;
+    current += 256;
   }
-}
-
-void BlendPattern::doBlink()
-{
-  // if the current hue has reached the next hue
-  if (m_cur == m_next) {
-    // get the next color
-    m_next = m_colorset.getNext();
-  }
-  // transition each value of the current hsv to the next hsv, the 'hue' has a
-  // special handling where 255 is beside 0 (circular transition)
-  transitionValue(m_cur.hue, m_next.hue, true);
-  transitionValue(m_cur.sat, m_next.sat, false);
-  transitionValue(m_cur.val, m_next.val, false);
-  // set the target led with the current HSV color
-  Leds::setIndex(m_ledPos, hsv_to_rgb_generic(m_cur));
-}
-
-void BlendPattern::doFlip()
-{
-  uint32_t hueOffset = m_flip * (255 / m_numFlips);
-  // generate an inverse hue based on the current hue position
-  HSVColor hsvCol((m_cur.hue + hueOffset) % 256, m_cur.sat, m_cur.val);
-  // convert the HSV to RGB with the generic function because
-  // this will generate a different appearance from using the
-  // default hsv_to_rgb_rainbow()
-  Leds::setIndex(m_ledPos, hsv_to_rgb_generic(hsvCol));
 }
