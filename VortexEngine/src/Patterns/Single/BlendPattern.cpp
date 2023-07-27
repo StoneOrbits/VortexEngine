@@ -53,15 +53,19 @@ void BlendPattern::onBlinkOn()
   // flipped to an inverse color if the flips are enabled
   HSVColor hsvCol = m_cur;
   // flip the hue if there is any flips
-  hsvCol.hue += (m_flip * (m_numFlips ? (255 / m_numFlips) : 0));
+  if (m_flip) {
+    // note: no division by zero because m_numFlips cannot be 0 if m_flip is non-zero
+    hsvCol.hue += (m_flip * (255 / m_numFlips));
+  }
   // convert the HSV to RGB with the generic function because
   // this will generate a different appearance from using the
   // default hsv_to_rgb_rainbow()
   Leds::setIndex(m_ledPos, hsv_to_rgb_generic(hsvCol));
-  // now if there is a flip amount set
-  if (m_numFlips > 0) {
-    // then increase the flip counter and modulate it
-    m_flip = (m_flip + 1) % m_numFlips;
+  // increase the flip counter and modulate it, this actually takes less space
+  // on avr than using a modulo of numflips, because you must check for nonzero
+  m_flip++;
+  if (m_flip >= m_numFlips) {
+    m_flip = 0;
   }
 }
 
