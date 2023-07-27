@@ -33,7 +33,7 @@ const DefaultModeEntry defaultModes[] = {
         }
       },
       {
-        PATTERN_BLEND, 3, {
+        PATTERN_COMPLEMENTARY_BLEND, 3, {
           RGB_RED,
           RGB_GREEN,
           RGB_BLUE,

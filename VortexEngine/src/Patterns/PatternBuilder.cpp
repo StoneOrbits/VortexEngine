@@ -153,7 +153,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_TRACER: return PatternArgs(ULTRADOPS_ON_DURATION, 0, 0, 20, 1);
     case PATTERN_RIBBON: return PatternArgs(RIBBON_DURATION);
     case PATTERN_MINIRIBBON: return PatternArgs(1);
-    case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0, 0, 0, 1);
+    case PATTERN_BLEND: return PatternArgs(2, 13, 0, 0, 0, 0, 1);
     case PATTERN_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 0, 0, 0, 0, 1);
     case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(2, 13, 0, 0, 0, 0, 2);
     case PATTERN_COMPLEMENTARY_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 0, 0, 0, 0, 2);
