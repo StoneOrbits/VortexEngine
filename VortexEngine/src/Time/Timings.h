@@ -55,6 +55,10 @@
 #define SIGNAL_ON_DURATION          10
 #define SIGNAL_OFF_DURATION         296
 
+// A blink speed good for blends
+#define BLEND_ON_DURATION           2
+#define BLEND_OFF_DURATION          13
+
 // Ribbon
 #define RIBBON_DURATION             6
 

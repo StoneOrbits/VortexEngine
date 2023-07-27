@@ -48,6 +48,7 @@ const default_mode_entry default_modes[] = {
       0x00001C
     }
   },
+
   {
     PATTERN_ZIGZAG, 6, {
       RGB_OFF,
