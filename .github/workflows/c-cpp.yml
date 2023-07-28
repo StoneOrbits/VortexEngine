@@ -1,0 +1,32 @@
+name: C/C++ CI
+
+on:
+  push:
+    branches: [ "duo" ]
+  pull_request:
+    branches: [ "duo" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout outer repository
+      uses: actions/checkout@v3
+      with:
+        repository: "StoneOrbits/VortexEmulator"
+        path: VortexEmulator
+
+    - name: Checkout current repository inside the outer repository
+      uses: actions/checkout@v3
+      with:
+        path: VortexEmulator/VortexTestingFramework/VortexEngine
+
+    - name: Build
+      run: make
+      working-directory: VortexEmulator/VortexTestingFramework
+
+    - name: Run tests
+      run: ./runtests.sh
+      working-directory:  VortexEmulator/VortexTestingFramework/tests
