@@ -399,8 +399,9 @@
 
 // Enable Editor Connection
 //
-// Turn on the editor connection, this is not normally included on the duo but
-// it can be enabled here
+// Turn on the editor connection, some devices are capable of connecting to
+// the pc-based editor, this controls whether the engine exposes the purple
+// editor connection menu or not
 #define ENABLE_EDITOR_CONNECTION 0
 
 // Compression Test
