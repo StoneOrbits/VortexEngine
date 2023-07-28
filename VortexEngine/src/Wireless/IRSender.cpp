@@ -6,10 +6,6 @@
 
 #include "IRConfig.h"
 
-#ifdef VORTEX_LIB
-#include <Arduino.h>
-#endif
-
 #if IR_ENABLE_SENDER == 1
 
 // the serial buffer for the data
