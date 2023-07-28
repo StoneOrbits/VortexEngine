@@ -8,10 +8,10 @@ Welcome to the Vortex Engine firmware repository! This open-source project is de
 
 This repository is organized into branches, with each branch corresponding to one of the four devices:
 
-- `master`: Firmware core that all branches derive from
-- `orbit`: Firmware for the Vortex Classic Orbit
-- `handle`: Firmware for the Vortex Omega Handles
-- `gloves`: Firmware for the Vortex Wired Gloveset
+- [![Core Build](https://github.com/StoneOrbits/VortexEngine/actions/workflows/core_build.yml/badge.svg?branch=master)](https://github.com/StoneOrbits/VortexEngine/actions/workflows/core_build.yml) `master`: Firmware core that all branches derive from
+- [![Orbit Build](https://github.com/StoneOrbits/VortexEngine/actions/workflows/orbit_build.yml/badge.svg?branch=orbit)](https://github.com/StoneOrbits/VortexEngine/actions/workflows/orbit_build.yml) `orbit`: Firmware for the Vortex Classic Orbit
+- [![Handle Build](https://github.com/StoneOrbits/VortexEngine/actions/workflows/handle.yml/badge.svg?branch=handle)](https://github.com/StoneOrbits/VortexEngine/actions/workflows/handle.yml) `handle`: Firmware for the Vortex Omega Handles
+- [![Gloves Build](https://github.com/StoneOrbits/VortexEngine/actions/workflows/gloves.yml/badge.svg?branch=gloves)](https://github.com/StoneOrbits/VortexEngine/actions/workflows/gloves.yml) `gloves`: Firmware for the Vortex Wired Gloveset
 - [![C/C++ CI](https://github.com/StoneOrbits/VortexEngine/actions/workflows/c-cpp.yml/badge.svg?branch=duo)](https://github.com/StoneOrbits/VortexEngine/actions/workflows/c-cpp.yml) `duo`: Firmware for the Vortex Duo Modular Chip
 
 To access the firmware for a specific device, switch to the corresponding branch.
