@@ -93,7 +93,7 @@ bool Button::init(uint8_t pin)
 bool Button::check()
 {
 #ifdef VORTEX_LIB
-  return (Vortex::vcallbacks()->checkPinHook(m_pinNum) == 0);
+  return (Vortex::vcallbacks()->checkPinHook(0) == 0);
 #else
   return ((BUTTON_VPORT.IN & BUTTON_PIN) == 0);
 #endif
