@@ -14,8 +14,6 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-#include <Arduino.h>
-
 Randomizer::Randomizer(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_lastRandomization(0),

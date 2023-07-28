@@ -1,7 +1,5 @@
 #include "Random.h"
 
-#include <Arduino.h>
-
 Random::Random() :
   m_seed(0)
 {
@@ -20,7 +18,7 @@ Random::~Random()
 void Random::seed(uint32_t newseed)
 {
   if (!newseed) {
-    m_seed = analogRead(0);
+    m_seed = 42;
   }
   m_seed = newseed;
 }
