@@ -1,6 +1,5 @@
 #include "TimeControl.h"
 
-#include <Arduino.h>
 #include <math.h>
 
 #include "../Memory/Memory.h"
