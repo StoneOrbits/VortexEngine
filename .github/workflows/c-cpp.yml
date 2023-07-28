@@ -32,5 +32,5 @@ jobs:
       working-directory:  VortexEmulator/VortexTestingFramework/tests
 
     - name: Run tests
-      run: ./runtests.sh --duo -v
+      run: ../vortex -x <<< w100q
       working-directory:  VortexEmulator/VortexTestingFramework/tests
