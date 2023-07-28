@@ -40,8 +40,6 @@ bool IRSender::init()
 {
   // initialize the IR device
   initPWM();
-  pinMode(IR_SEND_PWM_PIN, OUTPUT);
-  digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
   return true;
 }
 

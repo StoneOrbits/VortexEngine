@@ -1,6 +1,5 @@
 #include "TimeControl.h"
 
-#include <string.h> // memset
 #include <math.h>
 
 #include "../Memory/Memory.h"

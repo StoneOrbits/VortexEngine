@@ -7,7 +7,7 @@
 #include <string.h>
 #include <stdio.h>
 
-#ifndef VORTEX_EMBEDDED
+#ifdef VORTEX_LIB
 #include "VortexLib.h"
 #endif
 

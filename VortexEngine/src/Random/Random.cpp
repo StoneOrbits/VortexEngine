@@ -18,7 +18,7 @@ Random::~Random()
 void Random::seed(uint32_t newseed)
 {
   if (!newseed) {
-    m_seed = 69420;
+    m_seed = 42;
   }
   m_seed = newseed;
 }
