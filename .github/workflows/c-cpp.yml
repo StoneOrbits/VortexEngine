@@ -26,6 +26,9 @@ jobs:
     - name: Build
       run: make
       working-directory: VortexEmulator/VortexTestingFramework
+      
+    - name: Set execute permissions for test script
+      run: chmod +x ./run-tests.sh
 
     - name: Run tests
       run: ./runtests.sh
