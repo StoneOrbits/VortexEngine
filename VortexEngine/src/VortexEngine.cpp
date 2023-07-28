@@ -14,8 +14,6 @@
 #include "Leds/Leds.h"
 #include "Log/Log.h"
 
-#include <Arduino.h>
-
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
 #endif

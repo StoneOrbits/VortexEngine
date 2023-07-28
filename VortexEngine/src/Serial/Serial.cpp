@@ -7,9 +7,8 @@
 
 #include "../VortexEngine.h"
 
-#include <Arduino.h>
-
 #ifdef VORTEX_LIB
+#include "VortexLib.h"
 #include <stdio.h>
 #endif
 
@@ -48,6 +47,12 @@ bool SerialComs::checkSerial()
     return false;
   }
   m_lastCheck = now;
+#ifdef VORTEX_LIB
+  if (!Vortex::vcallbacks()->serialCheck()) {
+    return false;
+  }
+  Vortex::vcallbacks()->serialBegin(9600);
+#else
   // This will check if the serial communication is open
   if (!Serial) {
     // serial is not connected
@@ -55,6 +60,7 @@ bool SerialComs::checkSerial()
   }
   // Begin serial communications
   Serial.begin(9600);
+#endif
 #endif
   // serial is now connected
   m_serialConnected = true;
@@ -71,7 +77,11 @@ void SerialComs::write(const char *msg, ...)
   va_start(list, msg);
   uint8_t buf[2048] = {0};
   int len = vsnprintf((char *)buf, sizeof(buf), msg, list);
+#ifdef VORTEX_LIB
+  Vortex::vcallbacks()->serialWrite(buf, len);
+#else
   Serial.write(buf, len);
+#endif
   va_end(list);
 #endif
 }
@@ -84,8 +94,13 @@ void SerialComs::write(ByteStream &byteStream)
   }
   byteStream.recalcCRC();
   uint32_t size = byteStream.rawSize();
+#ifdef VORTEX_LIB
+  Vortex::vcallbacks()->serialWrite((const uint8_t *)&size, sizeof(size));
+  Vortex::vcallbacks()->serialWrite((const uint8_t *)byteStream.rawData(), byteStream.rawSize());
+#else
   Serial.write((const uint8_t *)&size, sizeof(size));
   Serial.write((const uint8_t *)byteStream.rawData(), byteStream.rawSize());
+#endif
 #endif
 }
 
@@ -95,12 +110,23 @@ void SerialComs::read(ByteStream &byteStream)
   if (!isConnected()) {
     return;
   }
+#ifdef VORTEX_LIB
+  uint32_t amt = Vortex::vcallbacks()->serialAvail();
+#else
   uint32_t amt = Serial.available();
+#endif
   if (!amt) {
     return;
   }
   do {
-    uint8_t byte = Serial.read();
+    uint8_t byte = 0;
+#ifdef VORTEX_LIB
+    if (!Vortex::vcallbacks()->serialRead((char *)&byte, 1)) {
+      return;
+    }
+#else
+    byte = Serial.read();
+#endif
     byteStream.serialize(byte);
   } while (--amt > 0);
 #endif
@@ -112,7 +138,11 @@ bool SerialComs::dataReady()
   if (!isConnected()) {
     return false;
   }
+#ifdef VORTEX_LIB
+  return (Vortex::vcallbacks()->serialAvail() > 0);
+#else
   return (Serial.available() > 0);
+#endif
 #else
   return false;
 #endif
