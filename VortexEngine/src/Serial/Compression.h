@@ -8,15 +8,11 @@
 #include <inttypes.h>
 #include <stddef.h>
 
-// super basic runtime length encoding compression because LZ4 overflows the stack on attiny
 #if VORTEX_SLIM == 1
 
-#define compress_size(srcSize) (2 * (srcSize))
-#define compress_buffer(src, dst, srcSize, dstCapacity) rle_compress(src, dst, srcSize, dstCapacity)
-#define decompress_buffer(src, dst, srcSize, dstCapacity) rle_decompress(src, dst, srcSize, dstCapacity)
-
-int rle_compress(const uint8_t *src, uint8_t *dst, int srcSize, int dstCapacity);
-int rle_decompress(const uint8_t *src, uint8_t *dst, int srcSize, int dstCapacity);
+#define compress_size(srcSize) 0
+#define compress_buffer(src, dst, srcSize, dstCapacity)
+#define decompress_buffer(src, dst, srcSize, dstCapacity)
 
 #else
 
