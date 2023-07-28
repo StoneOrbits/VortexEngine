@@ -35,5 +35,5 @@ jobs:
       working-directory:  VortexEmulator/VortexTestingFramework/tests
 
     - name: Run tests
-      run: ./runtests.sh --duo -f
+      run: ./runtests.sh --duo
       working-directory:  VortexEmulator/VortexTestingFramework/tests
