@@ -6,7 +6,6 @@
 
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
-#include "Arduino.h"
 #endif
 
 #ifdef VORTEX_EMBEDDED
@@ -94,7 +93,7 @@ bool Button::init(uint8_t pin)
 bool Button::check()
 {
 #ifdef VORTEX_LIB
-  return (digitalRead(9) == 0) ? true : false;
+  return Vortex::vcallbacks()->checkPinHook(9) ? false : true;
 #else
   return (BUTTON_VPORT.IN & BUTTON_PIN) ? false : true;
 #endif

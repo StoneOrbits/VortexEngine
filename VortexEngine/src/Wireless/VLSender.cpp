@@ -5,6 +5,10 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
+#ifdef VORTEX_LIB
+#include "VortexLib.h"
+#endif
+
 #if VL_ENABLE_SENDER == 1
 
 // the serial buffer for the data
@@ -144,7 +148,7 @@ void VLSender::sendMark(uint16_t time)
 {
 #ifdef VORTEX_LIB
   // send mark timing over socket
-  send_ir(true, time);
+  Vortex::vcallbacks()->infraredWrite(true, time);
 #else
   startPWM();
   Time::delayMicroseconds(time);
@@ -155,7 +159,7 @@ void VLSender::sendSpace(uint16_t time)
 {
 #ifdef VORTEX_LIB
   // send space timing over socket
-  send_ir(false, time);
+  Vortex::vcallbacks()->infraredWrite(false, time);
 #else
   stopPWM();
   Time::delayMicroseconds(time);

@@ -15,10 +15,6 @@
 #include <avr/interrupt.h>
 #endif
 
-#ifdef VORTEX_LIB
-#include <Arduino.h>
-#endif
-
 #if !defined(_MSC_VER) || defined(WASM)
 #include <unistd.h>
 #include <time.h>

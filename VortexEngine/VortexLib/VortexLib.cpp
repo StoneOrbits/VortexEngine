@@ -18,8 +18,6 @@
 #include "Menus/Menu.h"
 #include "Modes/Mode.h"
 
-#include "Arduino.h"
-
 #ifndef _MSC_VER
 #include <sys/ioctl.h>
 #include <unistd.h>
@@ -154,8 +152,6 @@ bool Vortex::init(VortexCallbacks *callbacks)
   }
 #endif
 
-  // init the arduino drop-in replacement
-  init_arduino();
   // init the engine
   VortexEngine::init();
   // clear the modes
