@@ -13,7 +13,7 @@
 // these apis do nothing in slim vortex
 #define compress_size(srcSize) 0
 #define compress_buffer(src, dst, srcSize, dstCapacity)
-#define decompress_buffer(src, dst, srcSize, dstCapacity) 
+#define decompress_buffer(src, dst, srcSize, dstCapacity)
 
 #else
 
