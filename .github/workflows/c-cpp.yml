@@ -28,8 +28,8 @@ jobs:
       working-directory: VortexEmulator/VortexTestingFramework
       
     - name: Set execute permissions for test script
-      run: chmod +x ./tests/runtests.sh
+      run: chmod +x ./runtests.sh
 
     - name: Run tests
-      run: ./tests/runtests.sh
+      run: ./runtests.sh
       working-directory:  VortexEmulator/VortexTestingFramework/tests
