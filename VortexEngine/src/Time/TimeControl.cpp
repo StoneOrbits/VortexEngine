@@ -9,6 +9,10 @@
 
 #include "../Leds/Leds.h"
 
+#ifdef VORTEX_EMBEDDED
+#include <Arduino.h>
+#endif
+
 #if !defined(_MSC_VER) || defined(WASM)
 #include <unistd.h>
 #include <time.h>

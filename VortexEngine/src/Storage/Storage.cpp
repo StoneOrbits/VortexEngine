@@ -2,7 +2,6 @@
 
 #include <string.h>
 #include <stdlib.h>
-#include <FlashStorage.h>
 
 #include "../VortexConfig.h"
 #include "../Memory/Memory.h"
@@ -10,7 +9,12 @@
 #include "../Log/Log.h"
 
 #ifdef VORTEX_LIB
-#include "../VortexLib/VortexLib.h"
+#include "VortexLib.h"
+#endif
+
+#ifdef VORTEX_EMBEDDED
+#include <FlashStorage.h>
+#include <Arduino.h>
 #endif
 
 #ifdef _MSC_VER
@@ -26,14 +30,12 @@ std::string Storage::m_storageFilename;
 #define STORAGE_FILENAME "FlashStorage.flash"
 #endif
 
+#ifdef VORTEX_EMBEDDED
 __attribute__((__aligned__(256)))
-#ifndef VORTEX_EMBEDDED
-uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
-#else
 // only arduino needs const I guess?
 const uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
-#endif
 FlashClass storage(_storagedata, STORAGE_SIZE);
+#endif
 
 uint32_t Storage::m_lastSaveSize = 0;
 

@@ -10,6 +10,10 @@
 #include "VortexLib.h"
 #endif
 
+#ifdef VORTEX_EMBEDDED
+#include <Arduino.h>
+#endif
+
 #if IR_ENABLE_SENDER == 1
 
 // the serial buffer for the data
