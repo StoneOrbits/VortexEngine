@@ -134,7 +134,7 @@
 //
 // How long you must hold down on a color in the color select menu to
 // trigger the delete option to start flashing
-#define COL_DELETE_THRESHOLD  500
+#define COL_DELETE_THRESHOLD  5000
 
 // Color delete cycle time (in milliseconds)
 //
