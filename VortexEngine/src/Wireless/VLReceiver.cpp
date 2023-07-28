@@ -7,8 +7,6 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-#include <Arduino.h>
-
 #ifdef VORTEX_EMBEDDED
 #include <avr/interrupt.h>
 #include <avr/io.h>

@@ -318,12 +318,6 @@
     <ClCompile Include="VortexLib\VortexLib.cpp">
       <Filter>Source Files\VortexLib</Filter>
     </ClCompile>
-    <ClCompile Include="VortexLib\EngineDependencies\Arduino.cpp">
-      <Filter>Source Files\VortexLib\EngineDependencies</Filter>
-    </ClCompile>
-    <ClCompile Include="VortexLib\EngineDependencies\FlashStorage.cpp">
-      <Filter>Source Files\VortexLib\EngineDependencies</Filter>
-    </ClCompile>
     <ClCompile Include="src\Random\Random.cpp">
       <Filter>Source Files\Random</Filter>
     </ClCompile>
@@ -541,15 +535,6 @@
     </ClInclude>
     <ClInclude Include="VortexLib\VortexLib.h">
       <Filter>Header Files\VortexLib</Filter>
-    </ClInclude>
-    <ClInclude Include="VortexLib\EngineDependencies\FlashStorage.h">
-      <Filter>Header Files\Storage</Filter>
-    </ClInclude>
-    <ClInclude Include="VortexLib\EngineDependencies\Adafruit_Dotstar.h">
-      <Filter>Header Files\VortexLib\EngineDependencies</Filter>
-    </ClInclude>
-    <ClInclude Include="VortexLib\EngineDependencies\Arduino.h">
-      <Filter>Header Files\VortexLib\EngineDependencies</Filter>
     </ClInclude>
     <ClInclude Include="src\Random\Random.h">
       <Filter>Header Files\Random</Filter>

@@ -211,8 +211,6 @@
     <ClCompile Include="src\VortexEngine.cpp" />
     <ClCompile Include="src\Wireless\VLReceiver.cpp" />
     <ClCompile Include="src\Wireless\VLSender.cpp" />
-    <ClCompile Include="VortexLib\EngineDependencies\Arduino.cpp" />
-    <ClCompile Include="VortexLib\EngineDependencies\FlashStorage.cpp" />
     <ClCompile Include="VortexLib\VortexLib.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -289,9 +287,6 @@
     <ClInclude Include="src\Wireless\VLConfig.h" />
     <ClInclude Include="src\Wireless\VLReceiver.h" />
     <ClInclude Include="src\Wireless\VLSender.h" />
-    <ClInclude Include="VortexLib\EngineDependencies\Adafruit_Dotstar.h" />
-    <ClInclude Include="VortexLib\EngineDependencies\Arduino.h" />
-    <ClInclude Include="VortexLib\EngineDependencies\FlashStorage.h" />
     <ClInclude Include="VortexLib\VortexLib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />

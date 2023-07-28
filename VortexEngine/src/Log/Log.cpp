@@ -8,10 +8,6 @@
 #include <stdio.h>
 
 #ifdef VORTEX_LIB
-#include <Arduino.h>
-#endif
-
-#ifndef VORTEX_EMBEDDED
 #include "VortexLib.h"
 #endif
 
