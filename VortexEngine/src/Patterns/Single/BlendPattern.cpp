@@ -103,10 +103,4 @@ void BlendPattern::transitionValue(uint8_t &current, const uint8_t next, bool hu
   }
   // step the value forward
   current += step;
-  // apply extra processing for circular hue translation
-  if (hue) {
-    // wrap around the hue automatically, this handles for example if step is -1
-    // and it subtracts past 0 to -1, then adding 256 will result in 255
-    current += 256;
-  }
 }
