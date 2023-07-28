@@ -8,15 +8,12 @@
 #include <inttypes.h>
 #include <stddef.h>
 
-// super basic runtime length encoding compression because LZ4 overflows the stack on attiny
 #if VORTEX_SLIM == 1
 
-#define compress_size(srcSize) (2 * (srcSize))
-#define compress_buffer(src, dst, srcSize, dstCapacity) mixed_RLE_compress(src, dst, srcSize, dstCapacity)
-#define decompress_buffer(src, dst, srcSize, dstCapacity) mixed_RLE_decompress(src, dst, srcSize, dstCapacity)
-
-int mixed_RLE_compress(const uint8_t *src, uint8_t *dst, int srcSize, int dstCapacity);
-int mixed_RLE_decompress(const uint8_t *src, uint8_t *dst, int srcSize, int dstCapacity);
+// these apis do nothing in slim vortex
+#define compress_size(srcSize) 0
+#define compress_buffer(src, dst, srcSize, dstCapacity)
+#define decompress_buffer(src, dst, srcSize, dstCapacity)
 
 #else
 
