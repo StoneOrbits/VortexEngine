@@ -157,7 +157,7 @@ bool Menus::runMenuSelection()
   if (g_pButton->onConsecutivePresses(ADVANCED_MENU_CLICKS)) {
     // toggle the advanced menu
     Modes::setAdvancedMenus(!advMenus);
-    // display a fancy animation based on whether the menu was enabled
+    // display a pink or red depending on whether the menu was enabled
     for (uint16_t i = 0; i < 2; ++i) {
       Leds::holdAll(advMenus ? RGB_RED : RGB_PINK);
     }
