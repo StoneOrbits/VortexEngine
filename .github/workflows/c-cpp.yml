@@ -23,6 +23,9 @@ jobs:
       with:
         path: VortexEmulator/VortexTestingFramework/VortexEngine
 
+    - name: Install Dependencies
+      run: sudo apt-get install valgrind g++ make
+
     - name: Build
       run: make
       working-directory: VortexEmulator/VortexTestingFramework
