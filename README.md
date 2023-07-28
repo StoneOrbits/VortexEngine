@@ -12,7 +12,7 @@ This repository is organized into branches, with each branch corresponding to on
 - `orbit`: Firmware for the Vortex Classic Orbit
 - `handle`: Firmware for the Vortex Omega Handles
 - `gloves`: Firmware for the Vortex Wired Gloveset
-- `duo`: Firmware for the Vortex Duo Modular Chip
+- [![C/C++ CI](https://github.com/StoneOrbits/VortexEngine/actions/workflows/c-cpp.yml/badge.svg?branch=duo)](https://github.com/StoneOrbits/VortexEngine/actions/workflows/c-cpp.yml) `duo`: Firmware for the Vortex Duo Modular Chip
 
 To access the firmware for a specific device, switch to the corresponding branch.
 
