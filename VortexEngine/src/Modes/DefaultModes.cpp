@@ -8,10 +8,11 @@ const DefaultModeEntry defaultModes[] = {
   {
     {
       {
-        PATTERN_STROBEGAP, 3, {
+        PATTERN_STROBEGAP, 4, {
           RGB_RED,
           RGB_GREEN,
           RGB_BLUE,
+          0x000000
         }
       },
       {
