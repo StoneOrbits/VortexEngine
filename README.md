@@ -4,16 +4,26 @@ Welcome to the Vortex Engine firmware repository! This open-source project is de
 
 ## Repository Structure
 
-This repository is organized into branches, with each branch corresponding to one of the four devices:
+The repository branches are each dedicated to a specific device's firmware. 
 
-&nbsp;&nbsp;[![Core](https://github.com/StoneOrbits/VortexEngine/actions/workflows/core_build.yml/badge.svg?branch=master)](https://github.com/StoneOrbits/VortexEngine/actions/workflows/core_build.yml) Firmware core that all branches derive from  
-&nbsp;&nbsp;[![Orbit](https://github.com/StoneOrbits/VortexEngine/actions/workflows/orbit_build.yml/badge.svg?branch=orbit)](https://github.com/StoneOrbits/VortexEngine/actions/workflows/orbit_build.yml) Firmware for the Vortex Classic Orbit  
-&nbsp;&nbsp;[![Handle](https://github.com/StoneOrbits/VortexEngine/actions/workflows/handle_build.yml/badge.svg?branch=handle)](https://github.com/StoneOrbits/VortexEngine/actions/workflows/handle_build.yml) Firmware for the Vortex Omega Handles  
-&nbsp;&nbsp;[![Gloves](https://github.com/StoneOrbits/VortexEngine/actions/workflows/gloves_build.yml/badge.svg?branch=gloves)](https://github.com/StoneOrbits/VortexEngine/actions/workflows/gloves_build.yml) Firmware for the Vortex Wired Gloveset  
-&nbsp;&nbsp;[![Duo](https://github.com/StoneOrbits/VortexEngine/actions/workflows/duo_build.yml/badge.svg?branch=duo)](https://github.com/StoneOrbits/VortexEngine/actions/workflows/duo_build.yml) Firmware for the Vortex Duo Modular Chip  
+### Core (Master Firmware)
+![Core](https://github.com/StoneOrbits/VortexEngine/actions/workflows/core_build.yml/badge.svg?branch=master)  
+This branch holds the master firmware that forms the foundation for all other branches.
 
-To access the firmware for a specific device, switch to the corresponding branch.
+### Orbit (Vortex Classic Orbit)
+![Orbit](https://github.com/StoneOrbits/VortexEngine/actions/workflows/orbit_build.yml/badge.svg?branch=orbit)  
+The firmware specifically designed for the Vortex Classic Orbit resides here.
 
-## Contributing
+### Handle (Vortex Omega Handles)
+![Handle](https://github.com/StoneOrbits/VortexEngine/actions/workflows/handle_build.yml/badge.svg?branch=handle)  
+This branch hosts the firmware designed for the Vortex Omega Handles.
 
-We welcome and encourage contributions from the community! If you would like to contribute to this project, please follow our [contribution guidelines](CONTRIBUTING.md).
+### Gloves (Vortex Wired Gloveset)
+![Gloves](https://github.com/StoneOrbits/VortexEngine/actions/workflows/gloves_build.yml/badge.svg?branch=gloves)  
+Here, you'll find the firmware for the Vortex Wired Gloveset.
+
+### Duo (Vortex Duo Modular Chip)
+![Duo](https://github.com/StoneOrbits/VortexEngine/actions/workflows/duo_build.yml/badge.svg?branch=duo)  
+This branch contains the firmware for the Vortex Duo Modular Chip.
+
+To access a device's firmware, simply switch to its corresponding branch.
