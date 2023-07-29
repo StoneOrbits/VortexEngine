@@ -15,8 +15,6 @@
 #ifdef VORTEX_EMBEDDED
 #include <SPI.h>
 #define POWER_LED_PIN 7
-#define LED_DATA_PIN  4
-#define CLOCK_PIN 3
 #endif
 
 // array of led color values
@@ -27,6 +25,7 @@ uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 bool Leds::init()
 {
 #ifdef VORTEX_EMBEDDED
+  // turn off the power led don't need it for anything
   pinMode(POWER_LED_PIN, INPUT_PULLUP);
 #endif
 #ifdef VORTEX_LIB
@@ -338,8 +337,9 @@ void Leds::update()
     SPI.transfer(0);
   }
   // LED frames
-  for (uint16_t i = 0; i < LED_COUNT; i++) {
-    SPI.transfer(0b11100000 | (m_brightness & 0b00011111)); // brightness
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
+    // brightness is only 5 bits so shift m_brightness down, divide by 8 so it's within 0-31
+    SPI.transfer(0b11100000 | ((m_brightness >> 3) & 0b00011111)); // brightness
     SPI.transfer(m_ledColors[i].blue);  // blue
     SPI.transfer(m_ledColors[i].green); // green
     SPI.transfer(m_ledColors[i].red);   // red
