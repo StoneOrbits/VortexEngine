@@ -106,12 +106,11 @@ CFLAGS = \
 	"-IC:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.5.14\\libraries\\Adafruit_ZeroDMA" 
 
 LDFLAGS = \
-	"-LC:\\Users\\danie\\AppData\\Local\\Temp\\arduino_build_55085"\
 	-Os\
 	-Wl,--gc-sections\
 	-save-temps\
 	"-TC:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.5.14\\variants\\trinket_m0/linker_scripts/gcc/flash_with_bootloader.ld"\
-	"-Wl,-Map,C:\\Users\\danie\\AppData\\Local\\Temp\\arduino_build_55085/VortexEngine.ino.map"\
+	"-Wl,-Map,VortexEngine.ino.map"\
 	--specs=nano.specs\
 	--specs=nosys.specs\
 	-mcpu=cortex-m0plus\
@@ -125,10 +124,7 @@ LDFLAGS = \
 	-Wl,--start-group\
 	"-LC:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\arduino\\tools\\CMSIS\\4.5.0/CMSIS/Lib/GCC/"\
 	-larm_cortexM0l_math\
-	"-LC:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.5.14\\variants\\trinket_m0"\
-	-lm\
-	"C:\\Users\\danie\\AppData\\Local\\Temp\\arduino_build_55085/..\\arduino_cache_803209\\core\\core_adafruit_samd_adafruit_trinket_m0_usbstack_arduino,debug_off_ef74cc950e40ac90eed106549b9d97c8.a"\
-	-Wl,--end-group
+	"-LC:\\Users\\danie\\AppData\\Local\\Arduino15\\packages\\adafruit\\hardware\\samd\\1.5.14\\variants\\trinket_m0"
 
 INCLUDES=\
 	-I $(INCLUDE_DIR) \
