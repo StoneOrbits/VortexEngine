@@ -180,7 +180,6 @@ void IRSender::initPWM()
   digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
   uint8_t port = g_APinDescription[IR_SEND_PWM_PIN].ulPort; // 0
   uint8_t pin = g_APinDescription[IR_SEND_PWM_PIN].ulPin;   // 8
-  uint8_t IR_mapIndex = (port * 32) + pin; // 8
   ETCChannel IR_TCC_Channel = TCC0_CH0;
   int8_t IR_PER_EorF = PORT_PMUX_PMUXE_E;
   //println();Serial.print("Port:"); Serial.print(port,DEC); Serial.print(" Pin:"); Serial.println(pin,DEC);
