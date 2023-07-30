@@ -12,11 +12,6 @@
 #include "VortexLib.h"
 #endif
 
-#ifdef VORTEX_EMBEDDED
-#include <FlashStorage.h>
-#include <Arduino.h>
-#endif
-
 #ifdef _MSC_VER
 #include <Windows.h>
 #else
@@ -31,10 +26,10 @@ std::string Storage::m_storageFilename;
 #endif
 
 #ifdef VORTEX_EMBEDDED
+#include <Arduino.h>
+#define PAGE_SIZE 64
 __attribute__((__aligned__(256)))
-// only arduino needs const I guess?
 const uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };
-FlashClass storage(_storagedata, STORAGE_SIZE);
 #endif
 
 uint32_t Storage::m_lastSaveSize = 0;
@@ -67,12 +62,42 @@ bool Storage::write(ByteStream &buffer)
     return false;
   }
 #ifdef VORTEX_EMBEDDED
-  // clear existing storage, this is necessary even if it's empty
-  storage.erase();
+  // clear existing storage
+  NVMCTRL->ADDR.reg = ((uint32_t)_storagedata) / 2;
+  NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_ER;
+  while (!NVMCTRL->INTFLAG.bit.READY) {}
+
   // set the last save size
   m_lastSaveSize = buffer.size();
+
   // write out the buffer to storage
-  storage.write(_storagedata, buffer.rawData(), buffer.rawSize());
+  // Calculate data boundaries
+  uint32_t size = (buffer.rawSize() + 3) / 4;
+  volatile uint32_t *dst_addr = (volatile uint32_t *)_storagedata;
+  const uint8_t *src_addr = (uint8_t *)buffer.rawData();
+
+  // Disable automatic page write
+  NVMCTRL->CTRLB.bit.MANW = 1;
+
+  // Do writes in pages
+  while (size) {
+    // Execute "PBC" Page Buffer Clear
+    NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_PBC;
+    while (NVMCTRL->INTFLAG.bit.READY == 0) {}
+
+    // Fill page buffer
+    uint32_t i;
+    for (i = 0; i < (PAGE_SIZE / 4) && size; i++) {
+      *dst_addr = *(uint32_t *)(src_addr);
+      src_addr += sizeof(uint32_t);
+      dst_addr++;
+      size--;
+    }
+
+    // Execute "WP" Write Page
+    NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_WP;
+    while (NVMCTRL->INTFLAG.bit.READY == 0) {}
+  }
 #elif defined(_MSC_VER)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
   if (!hFile) {
@@ -117,11 +142,8 @@ bool Storage::read(ByteStream &buffer)
     return false;
   }
 #ifdef VORTEX_EMBEDDED
-  // read directly into the rawdata of the byte array, this will
-  // include the crc, size, flags and entire buffer of data
-  storage.read(buffer.rawData());
-  m_lastSaveSize = buffer.size();
-  DEBUG_LOGF("Loaded savedata (Size: %u)", m_lastSaveSize);
+  // read directly into the raw data of the byte array
+  memcpy(buffer.rawData(), (const void *)_storagedata, size);
 #elif defined(_MSC_VER)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (!hFile) {
