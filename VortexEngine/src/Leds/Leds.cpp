@@ -340,9 +340,9 @@ void Leds::update()
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
     // brightness is only 5 bits so shift m_brightness down, divide by 8 so it's within 0-31
     SPI.transfer(0b11100000 | ((m_brightness >> 3) & 0b00011111)); // brightness
-    SPI.transfer(m_ledColors[i].blue);  // blue
-    SPI.transfer(m_ledColors[i].green); // green
-    SPI.transfer(m_ledColors[i].red);   // red
+    SPI.transfer(m_ledColors[pos].blue);  // blue
+    SPI.transfer(m_ledColors[pos].green); // green
+    SPI.transfer(m_ledColors[pos].red);   // red
   }
   // End frame
   for (uint8_t i = 0; i < 4; i++) {
