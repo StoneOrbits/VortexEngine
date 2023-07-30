@@ -13,18 +13,8 @@
 #endif
 
 #ifdef VORTEX_EMBEDDED
-#include <Arduino.h>
-#include <FastLED.h>
-
-#define LED_DATA_PIN  4
-#define CLOCK_PIN     3
-
-// TODO: remove this and just set the pins to INPUT
-// onboard LED on adafruit
-#include <Adafruit_DotStar.h>
+#include <SPI.h>
 #define POWER_LED_PIN 7
-#define POWER_LED_CLK 8
-Adafruit_DotStar onboardLED(1, POWER_LED_PIN, POWER_LED_CLK, DOTSTAR_BGR);
 #endif
 
 // array of led color values
@@ -35,13 +25,8 @@ uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 bool Leds::init()
 {
 #ifdef VORTEX_EMBEDDED
-  // setup leds on data pin 4
-  FastLED.addLeds<DOTSTAR, LED_DATA_PIN, CLOCK_PIN, BGR>((CRGB *)m_ledColors, LED_COUNT);
-  // get screwed fastled, don't throttle us!
-  FastLED.setMaxRefreshRate(0, false);
-  // clear the onboard led so it displays nothing
-  onboardLED.begin();
-  onboardLED.show();
+  // turn off the power led don't need it for anything
+  pinMode(POWER_LED_PIN, INPUT_PULLUP);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
@@ -273,7 +258,24 @@ void Leds::holdAll(RGBColor col)
 void Leds::update()
 {
 #ifdef VORTEX_EMBEDDED
-  FastLED.show(m_brightness);
+  SPI.begin();
+  // Start frame
+  for (uint8_t i = 0; i < 4; i++) {
+    SPI.transfer(0);
+  }
+  // LED frames
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
+    // brightness is only 5 bits so shift m_brightness down, divide by 8 so it's within 0-31
+    SPI.transfer(0b11100000 | ((m_brightness >> 3) & 0b00011111)); // brightness
+    SPI.transfer(m_ledColors[pos].blue);  // blue
+    SPI.transfer(m_ledColors[pos].green); // green
+    SPI.transfer(m_ledColors[pos].red);   // red
+  }
+  // End frame
+  for (uint8_t i = 0; i < 4; i++) {
+    SPI.transfer(0);
+  }
+  SPI.end();
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsShow();
