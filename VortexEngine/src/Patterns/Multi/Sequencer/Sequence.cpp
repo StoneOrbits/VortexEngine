@@ -13,6 +13,9 @@
 PatternMap::PatternMap() :
   m_patternMap()
 {
+#if FIXED_LED_COUNT == 0
+  m_patternMap.resize(LED_COUNT);
+#endif
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     m_patternMap[i] = PATTERN_NONE;
   }
@@ -50,7 +53,11 @@ void PatternMap::serialize(ByteStream &buffer) const
 void PatternMap::unserialize(ByteStream &buffer)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
+#if FIXED_LED_COUNT == 0
+    buffer.unserialize((uint8_t *)m_patternMap.data() + i);
+#else
     buffer.unserialize((uint8_t *)m_patternMap + i);
+#endif
   }
 }
 

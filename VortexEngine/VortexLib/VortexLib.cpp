@@ -17,6 +17,7 @@
 #include "Modes/Modes.h"
 #include "Menus/Menu.h"
 #include "Modes/Mode.h"
+#include "Random/Random.h"
 
 #ifndef _MSC_VER
 #include <sys/ioctl.h>
@@ -522,12 +523,59 @@ bool Vortex::getModes(ByteStream &outStream)
 
 bool Vortex::setModes(ByteStream &stream, bool save)
 {
+  Modes::clearModes();
   // now unserialize the stream of data that was read
   if (!Modes::loadFromBuffer(stream)) {
     //printf("Unserialize failed\n");
     return false;
   }
   return !save || doSave();
+}
+
+bool Vortex::matchLedCount(ByteStream &stream)
+{
+  if (!stream.decompress()) {
+    return false;
+  }
+  // reset the unserializer index before unserializing anything
+  stream.resetUnserializer();
+  uint8_t major = 0;
+  uint8_t minor = 0;
+  // unserialize the vortex version
+  stream.unserialize(&major);
+  stream.unserialize(&minor);
+  uint8_t flags;
+  stream.unserialize(&flags);
+  // unserialize the global brightness
+  uint8_t brightness = 0;
+  stream.unserialize(&brightness);
+  uint8_t numModes = 0;
+  stream.unserialize(&numModes);
+  uint8_t ledCount = 0;
+  stream.unserialize(&ledCount);
+  return setLedCount(ledCount);
+}
+
+bool Vortex::checkLedCount()
+{
+  Mode *mode = Modes::curMode();
+  if (!mode) {
+    return false;
+  }
+  uint8_t numLeds = mode->getLedCount();
+  if (numLeds != LED_COUNT) {
+    Leds::setLedCount(numLeds);
+  }
+  return true;
+}
+
+bool Vortex::setLedCount(uint8_t count)
+{
+  if (!Modes::curMode()->setLedCount(count)) {
+    return true;
+  }
+  Leds::setLedCount(count);
+  return true;
 }
 
 bool Vortex::getCurMode(ByteStream &outStream)
@@ -746,12 +794,10 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
     return false;
   }
   Pattern *pat = nullptr;
-  switch (pos) {
-  case LED_ANY:
-  case LED_ALL:
-    // fallthrough
+
+  // Equivalent to cases LED_ANY, LED_ALL and LED_MULTI
+  if (pos == LED_ANY || pos == LED_ALL || pos == LED_MULTI) {
 #if VORTEX_SLIM == 0
-  case LED_MULTI:
     pat = pMode->getPattern(LED_MULTI);
     if (pat) {
       pat->setArgs(args);
@@ -763,8 +809,22 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
       return !save || doSave();
     }
     // fall through if LED_ALL and change the single leds
+    else if (pos == LED_ANY || pos == LED_ALL) {
+      for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+        pat = pMode->getPattern(pos);
+        if (pat) {
+          pat->setArgs(args);
+        }
+      }
+      pMode->init();
+      // actually break here
+      return !save || doSave();
+    }
 #endif
-  case LED_ALL_SINGLE:
+  }
+
+  // equivalent to case LED_ALL_SINGLE
+  else if (pos == LED_ALL_SINGLE) {
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
       pat = pMode->getPattern(pos);
       if (pat) {
@@ -774,7 +834,10 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
     pMode->init();
     // actually break here
     return !save || doSave();
-  default:
+  }
+
+  // equivalent to default case (covers any other pos)
+  else {
     if (pos >= LED_COUNT) {
       return false;
     }
@@ -786,6 +849,7 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
     pMode->init();
     return !save || doSave();
   }
+
   return false;
 }
 
@@ -820,7 +884,7 @@ string Vortex::patternToString(PatternID id)
     // above to match the enum.
     return "fix patternToString()";
   }
-  if (id == PATTERN_NONE || id >= PATTERN_COUNT) {
+  if (id <= PATTERN_NONE || id >= PATTERN_COUNT) {
     return "none";
   }
   return patternNames[id];

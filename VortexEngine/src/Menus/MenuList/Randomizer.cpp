@@ -22,6 +22,9 @@ Randomizer::Randomizer(const RGBColor &col, bool advanced) :
   m_needToSelect(advanced),
   m_autoCycle(false)
 {
+#if FIXED_LED_COUNT == 0
+  m_singlesRandCtx.resize(LED_COUNT);
+#endif
 }
 
 Randomizer::~Randomizer()

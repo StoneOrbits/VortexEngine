@@ -6,6 +6,10 @@
 #include "../../../Colors/Colorset.h"
 #include "../../../Time/Timer.h"
 
+#if FIXED_LED_COUNT == 0
+#include <vector>
+#endif
+
 class SequencedPattern;
 class SingleLedPattern;
 class ByteStream;
@@ -25,8 +29,12 @@ public:
   void serialize(ByteStream &buffer) const;
   void unserialize(ByteStream &buffer);
 
+#if FIXED_LED_COUNT == 0
   // public list of pattern IDs for each led
+  std::vector<PatternID> m_patternMap;
+#else
   PatternID m_patternMap[LED_COUNT];
+#endif
 };
 
 // A map of leds to colorsets
@@ -44,8 +52,12 @@ public:
   void serialize(ByteStream &buffer) const;
   void unserialize(ByteStream &buffer);
 
+#if FIXED_LED_COUNT == 0
   // public list of pattern IDs for each led
+  std::vector<Colorset> m_colorsetMap;
+#else
   Colorset m_colorsetMap[LED_COUNT];
+#endif
 };
 
 // A single step in a sequence
