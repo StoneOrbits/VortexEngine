@@ -6,6 +6,8 @@
 #include "../../Time/Timings.h"
 #include "../../Wireless/IRReceiver.h"
 #include "../../Wireless/IRSender.h"
+#include "../../Wireless/VLReceiver.h"
+#include "../../Wireless/VLSender.h"
 #include "../../Buttons/Button.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
@@ -49,12 +51,13 @@ Menu::MenuAction ModeSharing::run()
   case ModeShareState::SHARE_SEND:
     // render the 'send mode' lights
     showSendMode();
-    if (!IRSender::isSending()) {
-      if (!m_lastActionTime || ((m_lastActionTime + MAX_WAIT_DURATION) < Time::getCurtime())) {
-        Leds::setAll(RGB_CYAN5);
-        Leds::update();
-        beginSending();
-      }
+    if (!VLSender::isSending()) {
+      //if (!m_lastActionTime || ((m_lastActionTime + MAX_WAIT_DURATION) < Time::getCurtime())) {
+      //  Leds::setAll(RGB_CYAN5);
+      //  Leds::update();
+      //  beginSending();
+      //}
+      break;
     }
     // continue sending any data as long as there is more to send
     continueSending();
@@ -75,8 +78,9 @@ void ModeSharing::onShortClick()
   switch (m_sharingMode) {
   case ModeShareState::SHARE_SEND:
     // click while on send -> start listening
-    IRReceiver::beginReceiving();
-    m_sharingMode = ModeShareState::SHARE_RECEIVE;
+    //IRReceiver::beginReceiving();
+      beginSending();
+    //m_sharingMode = ModeShareState::SHARE_RECEIVE;
     DEBUG_LOG("Switched to receive mode");
     break;
   case ModeShareState::SHARE_RECEIVE:
@@ -99,14 +103,14 @@ void ModeSharing::onLongClick()
 void ModeSharing::beginSending()
 {
   // if the sender is sending then cannot start again
-  if (IRSender::isSending()) {
+  if (VLSender::isSending()) {
     ERROR_LOG("Cannot begin sending, sender is busy");
     return;
   }
   // initialize it with the current mode data
-  IRSender::loadMode(Modes::curMode());
+  VLSender::loadMode(Modes::curMode());
   // send the first chunk of data, leave if we're done
-  if (!IRSender::send()) {
+  if (!VLSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
     m_lastActionTime = Time::getCurtime();
   }
@@ -115,8 +119,8 @@ void ModeSharing::beginSending()
 void ModeSharing::continueSending()
 {
   // if the sender isn't done then keep sending data
-  if (IRSender::isSending()) {
-    if (!IRSender::send()) {
+  if (VLSender::isSending()) {
+    if (!VLSender::send()) {
       // when send has completed, stores time that last action was completed to calculate interval between sends
       m_lastActionTime = Time::getCurtime();
     }
@@ -156,7 +160,7 @@ void ModeSharing::receiveMode()
 void ModeSharing::showSendMode()
 {
   // if it is sending
-  if (IRSender::isSending()) {
+  if (VLSender::isSending()) {
     Leds::setAll(RGB_CYAN5);
   } else {
     Leds::setAll(RGB_WHITE0);
