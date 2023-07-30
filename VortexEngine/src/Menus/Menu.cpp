@@ -120,7 +120,7 @@ void Menu::nextBulbSelection()
   // The target led can be 0 through LED_COUNT to represent any led or all leds
   // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
   if (m_targetLeds == MAP_LED_ALL) {
-    if (m_pCurMode->isMultiLed()) {
+    if (cur->isMultiLed()) {
       // do not allow multi led to select anything else
       //break;
     }
