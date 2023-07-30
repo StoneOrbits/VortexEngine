@@ -534,7 +534,7 @@ bool Vortex::setModes(ByteStream &stream, bool save)
 
 bool Vortex::matchLedCount(ByteStream &stream)
 {
-#if FIXED_LED_COUNT == 1
+#if FIXED_LED_COUNT == 0
   if (!stream.decompress()) {
     return false;
   }
