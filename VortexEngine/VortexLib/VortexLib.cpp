@@ -7,9 +7,10 @@
 #include "Wireless/IRReceiver.h"
 #include "Wireless/VLReceiver.h"
 #include "Patterns/PatternBuilder.h"
+#include "Time/TimeControl.h"
 #include "Patterns/Pattern.h"
 #include "Colors/Colorset.h"
-#include "Time/TimeControl.h"
+#include "Storage/Storage.h"
 #include "Random/Random.h"
 #include "Time/Timings.h"
 #include "Menus/Menus.h"
@@ -17,8 +18,6 @@
 #include "Menus/Menu.h"
 #include "Modes/Mode.h"
 #include "Random/Random.h"
-
-#include "Arduino.h"
 
 #ifndef _MSC_VER
 #include <sys/ioctl.h>
@@ -70,9 +69,12 @@ FILE *Vortex::m_logHandle = nullptr;
 deque<Vortex::VortexButtonEvent> Vortex::m_buttonEventQueue;
 bool Vortex::m_initialized = false;
 uint32_t Vortex::m_buttonsPressed = 0;
-std::string Vortex::m_commandLog;
+string Vortex::m_commandLog;
 bool Vortex::m_commandLogEnabled = false;
 bool Vortex::m_lockstepEnabled = false;
+bool Vortex::m_storageEnabled = false;
+bool Vortex::m_sleepEnabled = true;
+bool Vortex::m_lockEnabled = true;
 
 #ifdef _MSC_VER
 #include <Windows.h>
@@ -140,7 +142,7 @@ bool Vortex::init(VortexCallbacks *callbacks)
     tm tm;
     localtime_s(&tm, &t);
     ostringstream oss;
-    oss << std::put_time(&tm, "%d-%m-%Y-%H-%M-%S");
+    oss << put_time(&tm, "%d-%m-%Y-%H-%M-%S");
     oss << "." << GetCurrentProcessId();
     string filename = VORTEX_LOG_NAME "." + oss.str() + ".txt";
     int err = fopen_s(&m_logHandle, filename.c_str(), "w");
@@ -151,8 +153,6 @@ bool Vortex::init(VortexCallbacks *callbacks)
   }
 #endif
 
-  // init the arduino drop-in replacement
-  init_arduino();
   // init the engine
   VortexEngine::init();
   // clear the modes
@@ -200,6 +200,17 @@ void Vortex::handleRepeat(char c)
   ungetc(newc, stdin);
   DEBUG_LOGF("Repeating last command (%c) x%u times", m_lastCommand, repeatAmount);
   m_commandLog += to_string(repeatAmount);
+  // check to see if we are repeating a 'rapid click' which is a special case
+  // because the rapid click command itself is composed or 'r' and a repeat count
+  // to designate how many rapid clicks to deliver
+  if (m_lastCommand == 'r') {
+    // the repeat amount is normally decremented to account for the first command
+    // so we add 1 to counter-act that logic above because the initial 'r' does nothing
+    // unlike most other commands that are repeated
+    Vortex::rapidClick(repeatAmount + 1);
+    // don't actually repeat the command just return
+    return;
+  }
   // repeat the last command that many times
   while (repeatAmount > 0) {
     doCommand(m_lastCommand);
@@ -236,6 +247,30 @@ void Vortex::doCommand(char c)
     }
     Vortex::menuEnterClick();
     break;
+  case 'a':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting adv menu enter click");
+    }
+    Vortex::advMenuEnterClick();
+    break;
+  case 'd':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting adv menu enter click");
+    }
+    Vortex::deleteColClick();
+    break;
+  case 's':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting sleep click");
+    }
+    Vortex::sleepClick();
+    break;
+  case 'f':
+    if (m_lastCommand != c) {
+      DEBUG_LOG("Injecting force sleep click");
+    }
+    Vortex::forceSleepClick();
+    break;
   case 'q':
     //case '\n':
     if (m_lastCommand != c) {
@@ -256,6 +291,10 @@ void Vortex::doCommand(char c)
       Vortex::pressButton();
     }
     break;
+  case 'r':
+    // do nothing for the initial 'r', handleRepeat() will handle the numeric
+    // repeat count that follows this letter and issue the rapidClick(amt) call
+    break;
   case 'w':
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting wait");
@@ -268,6 +307,23 @@ void Vortex::doCommand(char c)
     return;
   }
   m_lastCommand = c;
+}
+
+// whether the engine has sleep enabled, if disabled it will always be awake
+void Vortex::setSleepEnabled(bool enable)
+{
+  m_sleepEnabled = enable;
+}
+
+bool Vortex::sleepEnabled()
+{
+  return m_sleepEnabled;
+}
+
+// whether the engine is sleeping, and/or to enter sleep
+void Vortex::enterSleep(bool save)
+{
+  VortexEngine::enterSleep(save);
 }
 
 bool Vortex::isSleeping()
@@ -331,10 +387,24 @@ void Vortex::menuEnterClick(uint32_t buttonIndex)
   m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_MENU_ENTER_CLICK));
 }
 
-void Vortex::sendWait(uint32_t amount)
+void Vortex::advMenuEnterClick(uint32_t buttonIndex)
 {
-  // reusing the button index as the wait amount
-  m_buttonEventQueue.push_back(VortexButtonEvent(amount, EVENT_WAIT));
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_ADV_MENU_ENTER_CLICK));
+}
+
+void Vortex::deleteColClick(uint32_t buttonIndex)
+{
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_DELETE_COL));
+}
+
+void Vortex::sleepClick(uint32_t buttonIndex)
+{
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_SLEEP_CLICK));
+}
+
+void Vortex::forceSleepClick(uint32_t buttonIndex)
+{
+  m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_FORCE_SLEEP_CLICK));
 }
 
 void Vortex::pressButton(uint32_t buttonIndex)
@@ -347,6 +417,23 @@ void Vortex::releaseButton(uint32_t buttonIndex)
   m_buttonsPressed &= ~(1 << buttonIndex);
 }
 
+bool Vortex::isButtonPressed(uint32_t buttonIndex)
+{
+  return (m_buttonsPressed & (1 << buttonIndex)) != 0;
+}
+
+void Vortex::sendWait(uint32_t amount)
+{
+  // reusing the button index as the wait amount
+  m_buttonEventQueue.push_back(VortexButtonEvent(amount, EVENT_WAIT));
+}
+
+void Vortex::rapidClick(uint32_t amount)
+{
+  // reusing the button index as the consecutive press amount
+  m_buttonEventQueue.push_back(VortexButtonEvent(amount, EVENT_RAPID_CLICK));
+}
+
 Mode *Vortex::getMenuDemoMode()
 {
   Menu *pMenu = Menus::curMenu();
@@ -354,11 +441,6 @@ Mode *Vortex::getMenuDemoMode()
     return nullptr;
   }
   return &pMenu->m_previewMode;
-}
-
-bool Vortex::isButtonPressed(uint32_t buttonIndex)
-{
-  return (m_buttonsPressed & (1 << buttonIndex)) != 0;
 }
 
 void Vortex::quitClick()
@@ -388,6 +470,11 @@ void Vortex::getStorageStats(uint32_t *outTotal, uint32_t *outUsed)
   if (outUsed) {
     *outUsed = VortexEngine::savefileSize();
   }
+}
+
+void Vortex::loadStorage()
+{
+  Modes::loadStorage();
 }
 
 void Vortex::openRandomizer()
@@ -422,7 +509,9 @@ void Vortex::openModeSharing()
 
 void Vortex::openEditorConnection()
 {
+#if ENABLE_EDITOR_CONNECTION == 1
   Menus::openMenu(MENU_EDITOR_CONNECTION);
+#endif
 }
 
 bool Vortex::getModes(ByteStream &outStream)
@@ -467,7 +556,7 @@ bool Vortex::getCurMode(ByteStream &outStream)
   if (!Modes::saveStorage()) {
     return false;
   }
-  return pMode->saveToBuffer(outStream);
+  return Modes::curMode()->saveToBuffer(outStream);
 }
 
 uint32_t Vortex::curModeIndex()
@@ -501,7 +590,7 @@ bool Vortex::addNewMode(Random *pRandCtx, bool save)
   PatternID randomPattern;
   do {
     // continuously re-randomize the pattern so we don't get solids
-    randomPattern = (PatternID)pRandCtx->next(PATTERN_FIRST, PATTERN_COUNT);
+    randomPattern = (PatternID)pRandCtx->next16(PATTERN_FIRST, PATTERN_COUNT);
   } while (randomPattern == PATTERN_SOLID);
   if (!Modes::addMode(randomPattern, nullptr, &set)) {
     return false;
@@ -522,7 +611,9 @@ bool Vortex::setCurMode(uint32_t index, bool save)
   if (index >= Modes::numModes()) {
     return true;
   }
-  Modes::setCurMode(index);
+  if (!Modes::setCurMode(index)) {
+    return false;
+  }
   return !save || doSave();
 }
 
@@ -747,8 +838,9 @@ string Vortex::patternToString(PatternID id)
     "hypergap", "dopgap", "strobiegap", "dopygap", "ultragap", "blinkie",
     "ghostcrush", "doubledops", "chopper", "dashgap", "dashdops", "dashcrush",
     "ultradash", "gapcycle", "dashcycle", "tracer", "ribbon", "miniribbon",
-    "blend", "blendstrobe", "complementary_blend", "complementary_blendstrobe",
-    "solid", "hueshift", "theater_chase", "chaser", "zigzag", "zipfade", "drip",
+    "blend", "blendstrobe", "blendstrobegap", "complementary_blend",
+    "complementary_blendstrobe", "complementary_blendstrobegap", "solid",
+    "hueshift", "theater_chase", "chaser", "zigzag", "zipfade", "drip",
     "dripmorph", "crossdops", "doublestrobe", "meteor", "sparkletrace",
     "vortexwipe", "warp", "warpworm", "snowball", "lighthouse", "pulsish",
     "fill", "bounce", "splitstrobie", "backstrobe", "materia",
@@ -916,9 +1008,9 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   // pop the event from the front of the queue
   VortexButtonEvent buttonEvent = m_buttonEventQueue.front();
   m_buttonEventQueue.pop_front();
-  // the target button for this event (might be nullptr if event is just 'wait')
-  Button *pButton = nullptr;
-  if (buttonEvent.type != EVENT_WAIT) {
+  // the target button for this event (no target if event is just 'wait')
+  Button *pButton = buttons;
+  if (buttonEvent.type != EVENT_WAIT && buttonEvent.type != EVENT_RAPID_CLICK) {
     // make sure the button that is targeted is actually a valid index
     if (buttonEvent.target >= numButtons) {
       return;
@@ -935,7 +1027,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_newRelease = true;
     pButton->m_shortClick = true;
     pButton->m_pressTime = Time::getCurtime();
-    pButton->m_holdDuration = 200;
+    pButton->m_holdDuration = SHORT_CLICK_THRESHOLD_TICKS - 1;
     DEBUG_LOG("Injecting short click");
     break;
   case EVENT_LONG_CLICK:
@@ -961,18 +1053,66 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     m_buttonEventQueue.push_front(VortexButtonEvent(0, EVENT_RESET_CLICK));
     DEBUG_LOG("Injecting menu enter click");
     break;
+  case EVENT_ADV_MENU_ENTER_CLICK:
+    // to do this we simply press the button and set the press time
+    // to something more than the menu trigger threshold that will make
+    // us immediately enter the menus. But we need to unset the pressed
+    // button right after so we push a reset click event to reset the button
+    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_holdDuration = ADV_MENU_DURATION_TICKS + 1;
+    pButton->m_longClick = true;
+    pButton->m_newRelease = true;
+    DEBUG_LOG("Injecting adv menu enter click");
+    break;
+  case EVENT_DELETE_COL:
+    // to do this we simply press the button and set the press time
+    // to something more than the menu trigger threshold that will make
+    // us immediately enter the menus. But we need to unset the pressed
+    // button right after so we push a reset click event to reset the button
+    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_holdDuration = DELETE_THRESHOLD_TICKS + DELETE_CYCLE_TICKS + 1;
+    pButton->m_longClick = true;
+    pButton->m_newRelease = true;
+    DEBUG_LOG("Injecting delete color click");
+    break;
+  case EVENT_SLEEP_CLICK:
+    // to do this we simply press the button and set the press time
+    // to something more than the menu trigger threshold that will make
+    // us immediately enter the menus. But we need to unset the pressed
+    // button right after so we push a reset click event to reset the button
+#ifdef SLEEP_ENTER_THRESHOLD_TICKS
+    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_holdDuration = SLEEP_ENTER_THRESHOLD_TICKS + 1;
+    pButton->m_longClick = true;
+    pButton->m_newRelease = true;
+    DEBUG_LOG("Injecting sleep click");
+#endif
+    break;
+  case EVENT_FORCE_SLEEP_CLICK:
+    // to do this we simply press the button and set the press time
+    // to something more than the menu trigger threshold that will make
+    // us immediately enter the menus. But we need to unset the pressed
+    // button right after so we push a reset click event to reset the button
+#ifdef FORCE_SLEEP_THRESHOLD_TICKS
+    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_holdDuration = FORCE_SLEEP_THRESHOLD_TICKS + 1;
+    pButton->m_longClick = true;
+    pButton->m_newRelease = true;
+    DEBUG_LOG("Injecting force sleep click");
+#endif
+    break;
   case EVENT_WAIT:
     if (buttonEvent.target) {
       // backup the event queue and clear it
       deque<Vortex::VortexButtonEvent> backup;
-      std::swap(backup, m_buttonEventQueue);
+      swap(backup, m_buttonEventQueue);
       // ticks the engine forward some number of ticks, the event queue is empty
       // so the engine won't process any input events while doing this
       for (uint32_t i = 0; i < buttonEvent.target; ++i) {
         VortexEngine::tick();
       }
       // then restore the event queue so that events are processed like normal
-      std::swap(backup, m_buttonEventQueue);
+      swap(backup, m_buttonEventQueue);
     }
     break;
   case EVENT_TOGGLE_CLICK:
@@ -995,6 +1135,14 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
       pButton->m_newPress = true;
       DEBUG_LOG("Injecting press");
     }
+    break;
+  case EVENT_RAPID_CLICK:
+    pButton->m_consecutivePresses = buttonEvent.target;
+    pButton->m_newRelease = true;
+    pButton->m_shortClick = true;
+    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_holdDuration = 1;
+    DEBUG_LOGF("Injecting %u x rapid click", buttonEvent.target);
     break;
   case EVENT_QUIT_CLICK:
     // just uninitialize so tick returns false
@@ -1032,4 +1180,14 @@ void Vortex::printlog(const char *file, const char *func, int line, const char *
 #if LOG_TO_FILE == 1
   vfprintf(Vortex::m_logHandle, strMsg.c_str(), list);
 #endif
+}
+
+void Vortex::setStorageFilename(const string &name)
+{
+  Storage::setStorageFilename(name);
+}
+
+string Vortex::getStorageFilename()
+{
+  return Storage::getStorageFilename();
 }

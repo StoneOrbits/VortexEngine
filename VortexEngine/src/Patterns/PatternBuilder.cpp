@@ -134,7 +134,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_STROBIE: return PatternArgs(STROBIE_ON_DURATION, STROBIE_OFF_DURATION);
     case PATTERN_DOPY: return PatternArgs(DOPY_ON_DURATION, DOPY_OFF_DURATION);
     case PATTERN_ULTRADOPS: return PatternArgs(ULTRADOPS_ON_DURATION, ULTRADOPS_OFF_DURATION);
-    case PATTERN_STROBEGAP: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 100);
+    case PATTERN_STROBEGAP: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 25);
     case PATTERN_HYPERGAP: return PatternArgs(HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 218);
     case PATTERN_DOPGAP: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 90);
     case PATTERN_STROBIEGAP: return PatternArgs(STROBIE_ON_DURATION, STROBIE_OFF_DURATION, 142);
@@ -153,10 +153,12 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_TRACER: return PatternArgs(ULTRADOPS_ON_DURATION, 0, 0, 20, 1);
     case PATTERN_RIBBON: return PatternArgs(RIBBON_DURATION);
     case PATTERN_MINIRIBBON: return PatternArgs(1);
-    case PATTERN_BLEND: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 0, 0, 0, 1);
+    case PATTERN_BLEND: return PatternArgs(BLEND_ON_DURATION, BLEND_OFF_DURATION, 0, 0, 0, 2, 1);
     case PATTERN_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 0, 0, 0, 0, 1);
-    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(2, 13, 0, 0, 0, 0, 2);
+    case PATTERN_BLENDSTROBEGAP: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 75, 0, 0, 9, 1);
+    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(BLEND_ON_DURATION, BLEND_OFF_DURATION, 0, 0, 0, 2, 2);
     case PATTERN_COMPLEMENTARY_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 0, 0, 0, 0, 2);
+    case PATTERN_COMPLEMENTARY_BLENDSTROBEGAP: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 75, 0, 0, 9, 2);
     case PATTERN_SOLID: return PatternArgs(250);
 
     // =====================
@@ -241,8 +243,10 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_MINIRIBBON: return new BasicPattern(args);
     case PATTERN_BLEND:
     case PATTERN_BLENDSTROBE:
+    case PATTERN_BLENDSTROBEGAP:
     case PATTERN_COMPLEMENTARY_BLEND:
-    case PATTERN_COMPLEMENTARY_BLENDSTROBE: return new BlendPattern(args);
+    case PATTERN_COMPLEMENTARY_BLENDSTROBE:
+    case PATTERN_COMPLEMENTARY_BLENDSTROBEGAP: return new BlendPattern(args);
     case PATTERN_SOLID: return new SolidPattern(args);
 
     // =====================

@@ -2,8 +2,8 @@
 
 #include "../VortexEngine.h"
 
-#include "../Patterns/single/SingleLedPattern.h"
-#include "../Patterns/multi/MultiLedPattern.h"
+#include "../Patterns/Single/SingleLedPattern.h"
+#include "../Patterns/Multi/MultiLedPattern.h"
 #include "../Patterns/PatternBuilder.h"
 #include "../Patterns/Pattern.h"
 #include "../Serial/ByteStream.h"

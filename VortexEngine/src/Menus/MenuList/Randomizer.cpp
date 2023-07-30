@@ -14,8 +14,6 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-#include <Arduino.h>
-
 Randomizer::Randomizer(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_lastRandomization(0),
@@ -36,16 +34,23 @@ bool Randomizer::init()
     return false;
   }
   // grab the multi ld pattern colorset crc if it's present
-  if (m_pCurMode->hasMultiLed()) {
+  Mode *cur = Modes::curMode();
+  if (cur->hasMultiLed()) {
     ByteStream ledData;
-    m_pCurMode->getColorset(LED_MULTI).serialize(ledData);
+    Pattern *pat = cur->getPattern(LED_MULTI);
+    if (pat) {
+      pat->serialize(ledData);
+    }
     m_multiRandCtx.seed(ledData.recalcCRC());
   }
   // initialize the randomseed of each led with the
   // CRC of the colorset on the respective LED
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
     ByteStream ledData;
-    m_pCurMode->getColorset(l).serialize(ledData);
+    Pattern *pat = cur->getPattern(l);
+    if (pat) {
+      pat->serialize(ledData);
+    }
     m_singlesRandCtx[l].seed(ledData.recalcCRC());
   }
   DEBUG_LOG("Entered randomizer");
@@ -79,9 +84,7 @@ Menu::MenuAction Randomizer::run()
     m_previewMode.init();
   }
   // if the user fast-clicks 3 times then toggle automode
-  if (g_pButton->onRelease() && g_pButton->consecutivePresses() == AUTO_CYCLE_RANDOMIZER_CLICKS) {
-    // reset consecutive press counter so they can't toggle it twice
-    g_pButton->resetConsecutivePresses();
+  if (g_pButton->onRelease() && g_pButton->onConsecutivePresses(AUTO_CYCLE_RANDOMIZER_CLICKS)) {
     // toggle the auto cycle flag
     m_autoCycle = !m_autoCycle;
     // display a quick flash of either green or red to indicate whether auto mode is on or not
@@ -135,7 +138,7 @@ void Randomizer::showRandomizationSelect()
   // are only randomizing the pattern
   Leds::setAll(HSVColor(m_displayHue++, (m_flags & RANDOMIZE_COLORSET) * 255, 84));
   if (m_flags & RANDOMIZE_PATTERN) {
-    // if they are randomizing the pattern strobe on/off
+    // this is blinking the light to off so the params are switched but still effectively correct
     Leds::blinkAll(DOPS_ON_DURATION, DOPS_OFF_DURATION);
   }
   // render the click selection blink
@@ -147,7 +150,7 @@ Colorset Randomizer::rollColorset(Random &ctx)
   Colorset randomSet;
   // pick a random type of randomizer to use then use
   // the randomizer to generate a random colorset
-  uint8_t randType = (uint8_t)ctx.next(0, 9);
+  uint8_t randType = ctx.next8(0, 8);
   switch (randType) {
   default:
   case 0:
@@ -193,25 +196,24 @@ Colorset Randomizer::rollColorset(Random &ctx)
 
 bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
 {
-  uint8_t numCols = pMode->getColorset(pos).numColors();
-  PatternArgs args(
-    ctx.next8(3, 20),  // on duration 3 -> 20
-    ctx.next8(0, 20),  // off duration 0 -> 20
-    ctx.next8(0, 40),  // gap duration 0 -> 40
-    ctx.next8(0, 20),  // dash duration 0 -> 20
-    ctx.next8(0, numCols >> 1) // group 0 -> numColors / 2
-  );
-  // this occationally sets off to 0-3
-  if (!ctx.next8(0, 4)) {
-    args.arg2 = ctx.next8(0, 6);
-  }
-  // this occationally sets gap to exactly 0
-  if (!ctx.next8(0, 6) && args.arg2) {
-    args.arg3 = 0;
-  }
-  // this occationally sets dash to exactly 0
-  if (!ctx.next8(0, 5)) {
-    args.arg4 = 0;
+  PatternArgs args;
+  // pick a random type of randomizer to use then use
+  // the randomizer to generate a random pattern
+  uint8_t patternType = ctx.next8(0, 3);
+  switch (patternType) {
+  default:
+  case 0:
+    traditionalPattern(ctx, args);
+    break;
+  case 1:
+    gapPattern(ctx, args);
+    break;
+  case 2:
+    dashPattern(ctx, args);
+    break;
+  case 3:
+    crushPattern(ctx, args);
+    break;
   }
   PatternID newPat = PATTERN_STROBE;
   // 1/3 chance to roll a blend pattern instead which will animate between
@@ -224,13 +226,51 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
   return pMode->setPattern(newPat, pos, &args);
 }
 
+void Randomizer::traditionalPattern(Random &ctx, PatternArgs &outArgs)
+{
+  outArgs.init(
+    ctx.next8(1, 20),  // on duration 1 -> 20
+    ctx.next8(8, 60)   // off duration 0 -> 60
+  );
+}
+
+void Randomizer::gapPattern(Random &ctx, PatternArgs &outArgs)
+{
+  outArgs.init(
+    ctx.next8(1, 10),   // on duration 1 -> 10
+    ctx.next8(0, 6),    // off duration 0 -> 6
+    ctx.next8(40, 100)  // gap duration 40 -> 100
+  );
+}
+
+void Randomizer::dashPattern(Random &ctx, PatternArgs &outArgs)
+{
+  outArgs.init(
+    ctx.next8(1, 10),  // on duration 1 -> 10
+    ctx.next8(0, 10),  // off duration 0 -> 10
+    ctx.next8(20, 30), // need gap 20 -> 30
+    ctx.next8(20, 30)  // dash duration 20 -> 30
+  );
+}
+
+void Randomizer::crushPattern(Random &ctx, PatternArgs &outArgs)
+{
+  outArgs.init(
+    ctx.next8(1, 10),  // on duration 1 -> 10
+    ctx.next8(0, 10),  // off duration 0 -> 5
+    ctx.next8(20, 40), // need gap 20 -> 40
+    0,                 // dash 0
+    ctx.next8(0, 8)    // groupsize 0 to 8
+  );
+}
+
 PatternID Randomizer::rollPatternID(Random &ctx)
 {
   PatternID newPat;
   // the random range begin/end
   do {
     // continuously re-randomize the pattern so we don't get undesirable patterns
-    newPat = (PatternID)ctx.next(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
+    newPat = (PatternID)ctx.next8(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
   } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
   return newPat;
 }

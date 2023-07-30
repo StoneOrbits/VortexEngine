@@ -6,7 +6,9 @@
 
 #include "IRConfig.h"
 
-#include <Arduino.h>
+#ifdef VORTEX_LIB
+#include "VortexLib.h"
+#endif
 
 #if IR_ENABLE_SENDER == 1
 
@@ -38,8 +40,6 @@ bool IRSender::init()
 {
   // initialize the IR device
   initPWM();
-  pinMode(IR_SEND_PWM_PIN, OUTPUT);
-  digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
   return true;
 }
 
@@ -153,10 +153,10 @@ void IRSender::sendMark(uint16_t time)
 {
 #ifdef VORTEX_LIB
   // send mark timing over socket
-  send_ir(true, time);
+  Vortex::vcallbacks()->infraredWrite(true, time);
 #else
   startPWM();
-  delayMicroseconds(time);
+  Time::delayMicroseconds(time);
 #endif
 }
 
@@ -164,10 +164,10 @@ void IRSender::sendSpace(uint16_t time)
 {
 #ifdef VORTEX_LIB
   // send space timing over socket
-  send_ir(false, time);
+  Vortex::vcallbacks()->infraredWrite(false, time);
 #else
   stopPWM();
-  delayMicroseconds(time);
+  Time::delayMicroseconds(time);
 #endif
 }
 
@@ -180,7 +180,6 @@ void IRSender::initPWM()
   digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
   uint8_t port = g_APinDescription[IR_SEND_PWM_PIN].ulPort; // 0
   uint8_t pin = g_APinDescription[IR_SEND_PWM_PIN].ulPin;   // 8
-  uint8_t IR_mapIndex = (port * 32) + pin; // 8
   ETCChannel IR_TCC_Channel = TCC0_CH0;
   int8_t IR_PER_EorF = PORT_PMUX_PMUXE_E;
   //println();Serial.print("Port:"); Serial.print(port,DEC); Serial.print(" Pin:"); Serial.println(pin,DEC);

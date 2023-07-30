@@ -115,6 +115,10 @@ public:
   static void shortClick(uint32_t buttonIndex = 0);
   static void longClick(uint32_t buttonIndex = 0);
   static void menuEnterClick(uint32_t buttonIndex = 0);
+  static void advMenuEnterClick(uint32_t buttonIndex = 0);
+  static void deleteColClick(uint32_t buttonIndex = 0);
+  static void sleepClick(uint32_t buttonIndex = 0);
+  static void forceSleepClick(uint32_t buttonIndex = 0);
   static void pressButton(uint32_t buttonIndex = 0);
   static void releaseButton(uint32_t buttonIndex = 0);
   static bool isButtonPressed(uint32_t buttonIndex = 0);
@@ -122,6 +126,9 @@ public:
   // send a wait event, will let the engine run a tick if running in lockstep
   // for example when running the testing system
   static void sendWait(uint32_t amount = 0);
+
+  // deliver some number of rapid clicks (only availbe for button0... sorry)
+  static void rapidClick(uint32_t amount = 3);
 
   // get the current menu demo mode
   static Mode *getMenuDemoMode();
@@ -137,6 +144,7 @@ public:
 
   // get total/used storage space
   static void getStorageStats(uint32_t *outTotal, uint32_t *outUsed);
+  static void loadStorage();
 
   // open various menus on the core (if they exist!)
   static void openRandomizer();
@@ -211,7 +219,12 @@ public:
   // per tick so multiple commands will be queued up
   static void doCommand(char c);
 
-  // whether the engine is asleep
+  // whether the engine has sleep enabled, if disabled it will always be awake
+  static void setSleepEnabled(bool enable);
+  static bool sleepEnabled();
+
+  // whether the engine is sleeping, and/or to enter sleep
+  static void enterSleep(bool save);
   static bool isSleeping();
 
   // enable, fetch and clear the internal command log
@@ -222,6 +235,18 @@ public:
   // enable/disable lockstep mode (one tick per input)
   static bool enableLockstep(bool enable) { return m_lockstepEnabled = enable; }
   static bool isLockstep() { return m_lockstepEnabled; }
+
+  // enable disable storage
+  static bool enableStorage(bool enable) { return m_storageEnabled = enable; }
+  static bool storageEnabled() { return m_storageEnabled; }
+
+  // control the storage
+  static void setStorageFilename(const std::string &name);
+  static std::string getStorageFilename();
+
+  // enable or disable the 'lock'
+  static void setLockEnabled(bool enable) { m_lockEnabled = enable; }
+  static bool lockEnabled() { return m_lockEnabled; }
 
 private:
   // the last command to have been executed
@@ -250,10 +275,20 @@ private:
     EVENT_LONG_CLICK,
     // a press that is just long enough to open the ring menu
     EVENT_MENU_ENTER_CLICK,
+    // a press that is just long enough to enter adv menus
+    EVENT_ADV_MENU_ENTER_CLICK,
+    // a press that is long enough to delete a color from col select
+    EVENT_DELETE_COL,
+    // a press just long enough to put the device to sleep from main modes
+    EVENT_SLEEP_CLICK,
+    // a press very long so that the chip triggers it's force sleep
+    EVENT_FORCE_SLEEP_CLICK,
     // just wait around a tick (mainly used for testing)
     EVENT_WAIT,
     // toggle the button (press or unpress it)
     EVENT_TOGGLE_CLICK,
+    // rapid click the button x times
+    EVENT_RAPID_CLICK,
     // quit the engine (not really a 'click')
     EVENT_QUIT_CLICK,
 
@@ -307,4 +342,10 @@ private:
   static bool m_commandLogEnabled;
   // whether to run in lockstep mode (one input per step)
   static bool m_lockstepEnabled;
+  // whether storage is enabled
+  static bool m_storageEnabled;
+  // whether sleep is enabled
+  static bool m_sleepEnabled;
+  // whether lock is enabled
+  static bool m_lockEnabled;
 };

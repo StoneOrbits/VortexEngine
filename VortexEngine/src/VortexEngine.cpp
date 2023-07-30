@@ -15,7 +15,15 @@
 #include "Leds/Leds.h"
 #include "Log/Log.h"
 
-#include <Arduino.h>
+#ifdef VORTEX_LIB
+#include "VortexLib.h"
+#endif
+
+// bool in vortexlib to simulate sleeping
+volatile bool VortexEngine::m_sleeping = false;
+
+// auto cycling
+bool VortexEngine::m_autoCycle = false;
 
 bool VortexEngine::init()
 {
@@ -102,6 +110,22 @@ void VortexEngine::cleanup()
 
 void VortexEngine::tick()
 {
+#ifdef VORTEX_LIB
+  if (m_sleeping) {
+    // update the buttons to check for wake
+    Buttons::update();
+    // several fast clicks will unlock the device
+    if (Modes::locked() && g_pButton->onConsecutivePresses(DEVICE_LOCK_CLICKS - 1)) {
+      // turn off the lock flag and save it to disk
+      Modes::setLocked(false);
+    }
+    // check for any kind of press to wakeup
+    if (g_pButton->check() || g_pButton->onRelease() || !Vortex::sleepEnabled()) {
+      wakeup();
+    }
+    return;
+  }
+#endif
   // handle any fatal errors that may have occurred
   // but only if the error blinker is enabled
 #if VORTEX_ERROR_BLINK == 1
@@ -127,25 +151,42 @@ void VortexEngine::tick()
 
 void VortexEngine::runMainLogic()
 {
+  // the current tick
+  uint32_t now = Time::getCurtime();
+
   // if the menus are open and running then just return
   if (Menus::run()) {
     return;
   }
+
   // check if we should enter the menu
   if (g_pButton->isPressed() && g_pButton->holdDuration() > MENU_TRIGGER_THRESHOLD_TICKS) {
     DEBUG_LOG("Entering Menu Selection...");
     Menus::openMenuSelection();
     return;
   }
+
+  // toggle auto cycle mode with many clicks at main modes
+  if (g_pButton->onConsecutivePresses(AUTO_CYCLE_MODES_CLICKS)) {
+    m_autoCycle = !m_autoCycle;
+    Leds::holdAll(m_autoCycle ? RGB_GREEN : RGB_RED);
+  }
+
+  // if auto cycle is enabled and the last switch was more than the delay ago
+  if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < now)) {
+    // then switch to the next mode automatically
+    Modes::nextModeSkipEmpty();
+  }
+
   // otherwise just play the modes
   Modes::play();
 }
 
-void VortexEngine::serializeVersion(ByteStream &stream)
+bool VortexEngine::serializeVersion(ByteStream &stream)
 {
   // serialize the vortex version
-  stream.serialize((uint8_t)VORTEX_VERSION_MAJOR);
-  stream.serialize((uint8_t)VORTEX_VERSION_MINOR);
+  return stream.serialize((uint8_t)VORTEX_VERSION_MAJOR) &&
+         stream.serialize((uint8_t)VORTEX_VERSION_MINOR);
 }
 
 bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
@@ -178,6 +219,33 @@ uint32_t VortexEngine::savefileSize()
   return Storage::lastSaveSize();
 }
 #endif
+
+void VortexEngine::enterSleep(bool save)
+{
+  DEBUG_LOG("Sleeping");
+  if (save) {
+    // update the startup mode when going to sleep
+    Modes::setStartupMode(Modes::curModeIndex());
+    // save anything that hasn't been saved
+    Modes::saveStorage();
+  }
+  // clear all the leds
+  Leds::clearAll();
+  Leds::update();
+  // enable the sleep bool
+  m_sleeping = true;
+}
+
+void VortexEngine::wakeup(bool reset)
+{
+  DEBUG_LOG("Waking up");
+  m_sleeping = false;
+  // need to fake the reset in vortexlib, lol this works I guess
+  if (reset) {
+    cleanup();
+    init();
+  }
+}
 
 #if COMPRESSION_TEST == 1
 #include <string.h>

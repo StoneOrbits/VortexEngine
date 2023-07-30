@@ -89,6 +89,33 @@ public:
       uint8_t arg7;
       uint8_t arg8;
     };
+    // arg access for basic pattern
+    struct {
+      uint8_t onDuration;
+      uint8_t offDuration;
+      uint8_t gapDuration;
+      uint8_t dashDuration;
+      uint8_t groupSize;
+    } basic;
+    // arg access for blend
+    struct {
+      uint8_t onDuration;
+      uint8_t offDuration;
+      uint8_t gapDuration;
+      uint8_t dashDuration;
+      uint8_t groupSize;
+      uint8_t blendSpeed;
+      uint8_t numFlips;
+    } blend;
+    // arg access for solid
+    struct {
+      uint8_t onDuration;
+      uint8_t offDuration;
+      uint8_t gapDuration;
+      uint8_t dashDuration;
+      uint8_t groupSize;
+      uint8_t colorIndex;
+    } solid;
   };
   // indicates how many of the above args are filled
   uint8_t numArgs;

@@ -39,11 +39,12 @@ bool ColorSelect::init()
   if (!Menu::init()) {
     return false;
   }
-  if (m_pCurMode->isEmpty()) {
+  Mode *cur = Modes::curMode();
+  if (cur->isEmpty()) {
     // cannot work with an empty mode
     return false;
   }
-  if (m_pCurMode->isMultiLed()) {
+  if (cur->isMultiLed()) {
     m_ledSelected = true;
   }
   m_state = STATE_INIT;
@@ -57,6 +58,7 @@ Menu::MenuAction ColorSelect::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
+
   // all states start with a blank slate
   Leds::clearAll();
   switch (m_state) {
@@ -86,11 +88,12 @@ Menu::MenuAction ColorSelect::run()
 // callback after the user selects the target led
 void ColorSelect::onLedSelected()
 {
+  Mode *cur = Modes::curMode();
   // grab the colorset from our selected target led
   if (m_targetLeds == MAP_LED_ALL) {
-    m_colorset = m_pCurMode->getColorset();
+    m_colorset = cur->getColorset();
   } else {
-    m_colorset = m_pCurMode->getColorset(mapGetFirstLed(m_targetLeds));
+    m_colorset = cur->getColorset(mapGetFirstLed(m_targetLeds));
   }
 }
 
@@ -131,8 +134,9 @@ void ColorSelect::onLongClick()
     // number of colors + 1. Example: with 4 cols, cols are on 0, 1, 2, 3,
     // add-color is 4, and exit is 5
     if (m_curSelection == numColors + (numColors < MAX_COLOR_SLOTS)) {
-      m_pCurMode->setColorsetMap(m_targetLeds, m_colorset);
-      m_pCurMode->init();
+      Mode *cur = Modes::curMode();
+      cur->setColorsetMap(m_targetLeds, m_colorset);
+      cur->init();
       leaveMenu(true);
       return;
     }
@@ -180,12 +184,16 @@ void ColorSelect::showSlotSelection()
   bool withinNumColors = m_curSelection < exitIndex;
   bool holdDurationCheck = g_pButton->isPressed() && holdDur >= DELETE_THRESHOLD_TICKS;
   bool holdDurationModCheck = (holdDur % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS;
+  const RGBColor &col = m_colorset[m_curSelection];
   if (withinNumColors && holdDurationCheck && holdDurationModCheck) {
     // breath red for delete slot
     Leds::breathIndex(LED_ALL, 0, holdDur);
   } else if (withinNumColors) {
+    if (col.empty()) {
+      Leds::setAll(RGB_WHITE0);
+    }
     // blink the selected slot color
-    Leds::blinkAll(150, 650, m_colorset[m_curSelection]);
+    Leds::blinkAll(150, 650, col);
   } else if (exitIndex < MAX_COLOR_SLOTS) {
     if (m_curSelection == exitIndex) {
       // blink both leds and blink faster to indicate 'add' new color

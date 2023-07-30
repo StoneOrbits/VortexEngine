@@ -1,6 +1,5 @@
 #include "TimeControl.h"
 
-#include <Arduino.h>
 #include <math.h>
 
 #include "../Memory/Memory.h"
@@ -12,7 +11,11 @@
 
 #if !defined(_MSC_VER) || defined(WASM)
 #include <unistd.h>
+#include <time.h>
 uint64_t start = 0;
+// convert seconds and nanoseconds to microseconds
+#define SEC_TO_US(sec) ((sec)*1000000)
+#define NS_TO_US(ns) ((ns)/1000)
 #else
 #include <Windows.h>
 static LARGE_INTEGER tps;
@@ -107,7 +110,7 @@ void Time::tickClock()
       // up being more accurate to poll QPF + QPC via microseconds()
       sleepTime = required - elapsed_us;
     }
-    delayMicroseconds(sleepTime);
+    Time::delayMicroseconds(sleepTime);
     break;
 #endif
     // 1000us per ms, divided by tickrate gives
@@ -182,6 +185,32 @@ uint32_t Time::microseconds()
   clock_gettime(CLOCK_MONOTONIC_RAW, &ts);
   uint64_t us = SEC_TO_US((uint64_t)ts.tv_sec) + NS_TO_US((uint64_t)ts.tv_nsec);
   return (unsigned long)us;
+#endif
+}
+
+void Time::delayMicroseconds(uint32_t us)
+{
+#ifdef _MSC_VER
+  uint32_t newtime = microseconds() + us;
+  while (microseconds() < newtime) {
+    // busy loop
+  }
+#else
+  usleep(us);
+#endif
+}
+
+void Time::delayMilliseconds(uint32_t ms)
+{
+#ifdef VORTEX_EMBEDDED
+  // not very accurate
+  for (uint16_t i = 0; i < ms; ++i) {
+    delayMicroseconds(1000);
+  }
+#elif defined(_MSC_VER)
+  Sleep(ms);
+#else
+  usleep(ms * 1000);
 #endif
 }
 

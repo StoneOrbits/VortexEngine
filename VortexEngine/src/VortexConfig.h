@@ -56,18 +56,19 @@
 // it will be registered as a 'long click'
 #define CLICK_THRESHOLD       250
 
-// Startup Ignore Button Time (in milliseconds)
+// Device Lock Clicks
 //
-// The amount of time the engine will ignore button presses after
-// it has started up, this is to prevent accidental button presses
-// after sleep or immediately on startup
-#define IGNORE_BUTTON_TIME    150
+// How many rapid clicks the user must perform to lock/unlock the device.
+// From sleep, this many rapid clicks will locks the device.
+// From locked, the first click will turn it on into 'twilight mode' and then the user
+// has UNLOCK_WAKE_WINDOW time to press the button this many times to wake the device.
+#define DEVICE_LOCK_CLICKS    5
 
 // Advanced Menu Clicks
 //
 // The number of rapid clicks required in the menu section to enable or disable
 // the advanced menu access
-#define ADVANCED_MENU_CLICKS  15
+#define ADVANCED_MENU_CLICKS  ((MENU_COUNT >= 5) ? (MENU_COUNT * 2) : 10)
 
 // Rapid Press Window (in milliseconds)
 //
@@ -95,13 +96,18 @@
 // as the auto random delay. This number is intentionally high because we really
 // don't want it activated automatically but it's there for demo purposes and as
 // a fun little easter egg to anybody that might come across it
-#define AUTO_CYCLE_MODES_CLICKS 12
+#define AUTO_CYCLE_MODES_CLICKS ((MAX_MODES > 2) ? (MAX_MODES * 2) : 4)
 
 // Randomizer Auto Cycle Modes Clicks
 //
 // The number of consecutive clicks required to toggle the auto-cycle modes feature
 // on the randomizer.
 #define AUTO_CYCLE_RANDOMIZER_CLICKS 3
+
+// Leave Advanced Color Select Clicks
+//
+// The number of consecutive clicks required to exit the advanced color select menu
+#define LEAVE_ADV_COL_SELECT_CLICKS 5
 
 // Color delete threshold (in milliseconds)
 //
@@ -370,6 +376,13 @@
 //       a mode will stretch it's list of patterns to match the number of leds
 #define FIXED_LED_COUNT       1
 
+// Enable Editor Connection
+//
+// Turn on the editor connection, some devices are capable of connecting to
+// the pc-based editor, this controls whether the engine exposes the purple
+// editor connection menu or not
+#define ENABLE_EDITOR_CONNECTION 1
+
 // Compression Test
 //
 // Run the built-in compression test that will find any faults
@@ -508,30 +521,9 @@
 #define VORTEX_LIB
 #endif
 
-// This will be defined if the project is being built inside the test framework
-#ifdef PROJECT_NAME_VortexTestingFramework
-
-// In the test framework variable tickrate must be enabled to allow
-// the tickrate slider to function, also the test framework never runs
-// at full tickrate, maximum is 500 tps
-#undef VARIABLE_TICKRATE
-#define VARIABLE_TICKRATE 1
-
-#undef DEFAULT_BRIGHTNESS
-#define DEFAULT_BRIGHTNESS 255
-
-#undef FIXED_LED_COUNT
-#define FIXED_LED_COUNT 0
-
-// test framework needs more time to click idk
-#undef CONSECUTIVE_WINDOW
-#define CONSECUTIVE_WINDOW 300
-
-// force logging to 3 on linux build
-#ifndef _MSC_VER
-#undef LOGGING_LEVEL
-#define LOGGING_LEVEL 3
-#endif
+#ifdef VORTEX_LIB
+#undef VORTEX_SLIM
+#define VORTEX_SLIM 0
 
 // The test framework needs brighter menu colors can't really see them on the screen
 #undef RGB_MENU_RANDOMIZER
@@ -549,11 +541,36 @@
 #define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW4
 #define RGB_MENU_FACTORY_RESET      RGB_RED4
 
+#endif // ifdef VORTEX_LIB
+
+// This will be defined if the project is being built inside the test framework
+#ifdef PROJECT_NAME_VortexTestingFramework
+
+// In the test framework variable tickrate must be enabled to allow
+// the tickrate slider to function, also the test framework never runs
+// at full tickrate, maximum is 500 tps
+#undef VARIABLE_TICKRATE
+#define VARIABLE_TICKRATE 1
+
+#undef DEFAULT_BRIGHTNESS
+#define DEFAULT_BRIGHTNESS 255
+
+// test framework needs more time to click idk
+#undef CONSECUTIVE_WINDOW
+#define CONSECUTIVE_WINDOW 300
+
+// force logging to 3 on linux build
+#ifndef _MSC_VER
+#undef LOGGING_LEVEL
+#define LOGGING_LEVEL 3
+#endif
+
 #endif // VortexTestingFramework
 
 // This will be defined if the project is being built inside the editor
 #ifdef PROJECT_NAME_VortexEditor
 
+// The editor needs an unfixed led count in order to load any mode
 #undef FIXED_LED_COUNT
 #define FIXED_LED_COUNT 0
 

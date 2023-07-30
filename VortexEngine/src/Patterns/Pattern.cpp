@@ -16,6 +16,9 @@ Pattern::Pattern() :
   m_ledPos(LED_FIRST),
   m_numArgs(0),
   m_argList()
+#ifdef VORTEX_LIB
+  ,m_argNameList()
+#endif
 {
 }
 
@@ -101,6 +104,11 @@ uint8_t Pattern::getArg(uint8_t index) const
     return 0;
   }
   return *((uint8_t *)this + m_argList[index]);
+}
+
+uint8_t &Pattern::argRef(uint8_t index)
+{
+  return *((uint8_t *)this + m_argList[index % m_numArgs]);
 }
 
 void Pattern::setArgs(const PatternArgs &args)

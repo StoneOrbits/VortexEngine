@@ -1,7 +1,5 @@
 #include "Button.h"
 
-#include <Arduino.h>
-
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
 #include "../Log/Log.h"
@@ -48,13 +46,12 @@ bool Button::init(uint8_t pin)
   m_longClick = false;
 
   m_pinNum = pin;
-  pinMode(m_pinNum, INPUT_PULLUP);
   return true;
 }
 
 bool Button::check()
 {
-  return (digitalRead(m_pinNum) == 0);
+  return (Vortex::vcallbacks()->checkPinHook(m_pinNum) == 0);
 }
 
 void Button::update()
@@ -116,4 +113,13 @@ void Button::update()
   if (m_longClick) {
     DEBUG_LOG("Long click");
   }
+}
+
+bool Button::onConsecutivePresses(uint8_t numPresses)
+{
+  if (m_consecutivePresses >= numPresses) {
+    m_consecutivePresses = 0;
+    return true;
+  }
+  return false;
 }

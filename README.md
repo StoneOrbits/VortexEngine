@@ -1,49 +1,29 @@
 # Vortex Engine
 
-Welcome to the Vortex Engine firmware repository! This open-source project is designed for use with our Arduino-based LED devices: Orbit, Gloves, Handle, and Duo chip. The firmware enables users to create mesmerizing light shows by completely unlocking their ability to program any flashing patterns, colorsets, or effects onto their devices.
-
-**Note**: While this firmware can be modified and re-flashed by experienced users, it is not intended for basic users to do so.
+Welcome to the Vortex Engine firmware repository! This open-source project is designed for use with the StoneOrbits LED devices: Orbit, Gloves, Handle, and Duo chip. The firmware enables users to create mesmerizing light shows by allowing any flashing patterns, colorsets, or effects to be programmed onto their devices.
 
 ## Repository Structure
 
-This repository is organized into branches, with each branch corresponding to one of the four devices:
+The repository branches are each dedicated to a specific device's firmware. 
 
-- `master`: Firmware core that all branches derive from
-- `orbit`: Firmware for the Vortex Classic Orbit
-- `handle`: Firmware for the Vortex Omega Handles
-- `gloves`: Firmware for the Vortex Wired Gloveset
-- `duo`: Firmware for the Vortex Duo Modular Chip
+### Core (Master Firmware)
+![Core](https://github.com/StoneOrbits/VortexEngine/actions/workflows/core_build.yml/badge.svg?branch=master)  
+This branch holds the master firmware that forms the foundation for all other branches.
 
-To access the firmware for a specific device, switch to the corresponding branch.
+### Orbit (Vortex Classic Orbit)
+![Orbit](https://github.com/StoneOrbits/VortexEngine/actions/workflows/orbit_build.yml/badge.svg?branch=orbit)  
+The firmware specifically designed for the Vortex Classic Orbit resides here.
 
-## Contributing
+### Handle (Vortex Omega Handles)
+![Handle](https://github.com/StoneOrbits/VortexEngine/actions/workflows/handle_build.yml/badge.svg?branch=handle)  
+This branch hosts the firmware designed for the Vortex Omega Handles.
 
-We welcome and encourage contributions from the community! If you would like to contribute to this project, please follow our [contribution guidelines](CONTRIBUTING.md).
+### Gloves (Vortex Wired Gloveset)
+![Gloves](https://github.com/StoneOrbits/VortexEngine/actions/workflows/gloves_build.yml/badge.svg?branch=gloves)  
+Here, you'll find the firmware for the Vortex Wired Gloveset.
 
-Note: While this firmware can be modified and re-flashed by experienced users, it is not intended for basic users to do so.
+### Duo (Vortex Duo Modular Chip)
+![Duo](https://github.com/StoneOrbits/VortexEngine/actions/workflows/duo_build.yml/badge.svg?branch=duo)  
+This branch contains the firmware for the Vortex Duo Modular Chip.
 
-### Installation
-In order to get started first you'll need to set up Arduino IDE
-Download the latest version of the program for your operating system here
-https://www.arduino.cc/en/software 
-
-### Setup 
-Next we'll need to configure Arduino to work with our hardware!
-
-#### Trinket Based Devices
-
-For the Orbit, Gloves and Handle you need to setup arduino for a trinket m0
-
-https://learn.adafruit.com/adafruit-trinket-m0-circuitpython-arduino/arduino-ide-setup
-
-You will need to select the following board to install, make sure to select the correct version
-
-#### ATTiny Based Devices
-
-For the attiny based devices (duo chip) you will need to get megaTinyCore installed and you will need an Arduino Uno to be used as a jtag2updi programmer.
-
-### Library Setup
-Lastly we need to copy the libraries folder to the directory C:\Users\YourPCName\Documents\Arduino
-This should give arduino everything it needs to work with the Vortex Gloves!
-
-Check out the Vortex Testing Framework to run the framework on your desktop
+To access a device's firmware, simply switch to its corresponding branch.

@@ -1,6 +1,6 @@
 #include "CompoundPattern.h"
 
-#include "../single/SingleLedPattern.h"
+#include "../Single/SingleLedPattern.h"
 #include "../../Colors/Colorset.h"
 #include "../PatternBuilder.h"
 

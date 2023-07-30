@@ -25,7 +25,7 @@ public:
   static void runMainLogic();
 
   // serialize the version number to a byte stream
-  static void serializeVersion(ByteStream &stream);
+  static bool serializeVersion(ByteStream &stream);
   static bool checkVersion(uint8_t major, uint8_t minor);
 
   // get the current mode
@@ -36,11 +36,21 @@ public:
   static uint32_t totalStorageSpace();
   // the size of the savefile
   static uint32_t savefileSize();
-  // whether sleeping or not, some versions support sleep
-  static bool isSleeping() { return false; }
+  // whether sleeping or not
+  static bool isSleeping() { return m_sleeping; }
 #endif
 
+  // enter/leave sleep mode
+  static void enterSleep(bool save = true);
+  static void wakeup(bool reset = true);
+
 private:
+  // bool in vortexlib to simulate sleeping
+  static volatile bool m_sleeping;
+
+  // whether auto cycle modes is turned on
+  static bool m_autoCycle;
+
 #if COMPRESSION_TEST == 1
   static void compressionTest();
 #endif

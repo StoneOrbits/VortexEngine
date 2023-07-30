@@ -3,6 +3,10 @@
 
 #include <inttypes.h>
 
+#ifdef VORTEX_LIB
+#include <string>
+#endif
+
 class ByteStream;
 
 class Storage
@@ -22,7 +26,16 @@ public:
   // the last save size (use STORAGE_SIZE For total space)
   static uint32_t lastSaveSize();
 
+#ifdef VORTEX_LIB
+  static void setStorageFilename(const std::string &name) { m_storageFilename = name; }
+  static std::string getStorageFilename() { return m_storageFilename; }
+#endif
+
 private:
+#ifdef VORTEX_LIB
+  static std::string m_storageFilename;
+#endif
+
   // the size of the last save
   static uint32_t m_lastSaveSize;
 };

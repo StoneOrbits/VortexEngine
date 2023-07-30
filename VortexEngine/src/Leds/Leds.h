@@ -123,22 +123,22 @@ public:
   // However since these APIs modulate current time to check if within the 'on'
   // threshold that makes them unsuitable for internal pattern usage because it
   // is unpredictable whether they will blink on or off first
-  static void blinkIndexOffset(LedPos target, uint32_t time, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkIndex(LedPos target, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkRange(LedPos first, LedPos last, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkMap(LedMap targets, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkAll(int32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkIndexOffset(LedPos target, uint32_t time, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkIndex(LedPos target, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkRange(LedPos first, LedPos last, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkMap(LedMap targets, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkAll(uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
   // Blink both LEDs on a pair
-  static void blinkPair(Pair pair, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkPairs(Pair first, Pair last, uint32_t offMs = 250, uint32_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkPair(Pair pair, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkPairs(Pair first, Pair last, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
 
   // breath the hue on an index
   // warning: these use hsv to rgb in realtime!
-  static void breathIndex(LedPos target, uint32_t hue, uint32_t variance,
+  static void breathIndex(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  static void breathIndexSat(LedPos target, uint32_t hue, uint32_t variance,
+  static void breathIndexSat(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  static void breathIndexVal(LedPos target, uint32_t hue, uint32_t variance,
+  static void breathIndexVal(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
 
   // a very specialized api to hold all leds on a color for 250ms

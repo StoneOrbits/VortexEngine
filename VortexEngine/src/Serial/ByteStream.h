@@ -67,6 +67,9 @@ public:
   // Will return the new CRC value.
   uint32_t recalcCRC(bool force = false);
 
+  // helper func to ensure the internal buffer is sane, use this
+  // after reading into the rawdata of the buffer
+  void sanity();
   // check the CRC without re-calculating, note, if the CRC is
   // dirty then this will simply return false
   bool checkCRC() const;
@@ -120,7 +123,7 @@ public:
   uint32_t size() const { return m_pData ? m_pData->size : 0; }
   uint32_t capacity() const { return m_capacity; }
   bool is_compressed() const;
-  const uint32_t CRC() const { return m_pData ? m_pData->crc32 : 0; }
+  uint32_t CRC() const { return m_pData ? m_pData->crc32 : 0; }
   
   uint8_t *frontUnserializer() const { return m_pData ? m_pData->buf + m_position : nullptr; }
 
@@ -154,14 +157,15 @@ private:
     // veryify the crc
     bool verify() const
     {
-      if (!crc32) {
+      // if the buffer is empty then 'verify' should just return true
+      if (!size) {
         return true;
       }
-      uint32_t newcrc = hash();
-      if (newcrc != crc32) {
-        DEBUG_LOGF("CRC mismatch: %x should be %x", newcrc, crc32);
+      if (hash() != crc32) {
+        DEBUG_LOGF("CRC mismatch: %x should be %x", hash(), crc32);
+        return false;
       }
-      return crc32 == hash();
+      return true;
     }
     // re-calculate the crc
     void recalcCRC()

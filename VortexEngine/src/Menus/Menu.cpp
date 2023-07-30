@@ -10,7 +10,6 @@
 #include "../Log/Log.h"
 
 Menu::Menu(const RGBColor &col, bool advanced) :
-  m_pCurMode(nullptr),
   m_menuColor(col),
   m_targetLeds(MAP_LED_ALL),
   m_curSelection(0),
@@ -27,8 +26,7 @@ Menu::~Menu()
 bool Menu::init()
 {
   // menu is initialized before being run
-  m_pCurMode = Modes::curMode();
-  if (!m_pCurMode) {
+  if (!Modes::curMode()) {
     // if you enter a menu and there's no modes, it will add an empty one
     if (Modes::numModes() > 0) {
       // some kind of serious error
@@ -38,15 +36,14 @@ bool Menu::init()
       // some kind of serious error
       return false;
     }
-    // get the mode
-    m_pCurMode = Modes::curMode();
-    if (!m_pCurMode) {
+    if (!Modes::curMode()) {
       // serious error again
       return false;
     }
   }
-  // copy the current mode into the demo mode
-  m_previewMode = *m_pCurMode;
+  // copy the current mode into the demo mode and initialize it
+  m_previewMode = *Modes::curMode();
+  m_previewMode.init();
   // just in case
   m_shouldClose = false;
   return true;
@@ -101,7 +98,9 @@ void Menu::showBulbSelection()
     Leds::blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
   }
   // blink when selecting
-  Menus::showSelection();
+  Menus::showSelection(RGBColor(m_menuColor.red << 3,
+                                m_menuColor.green << 3,
+                                m_menuColor.blue << 3));
 }
 
 void Menu::showExit()
@@ -117,6 +116,7 @@ void Menu::showExit()
 
 void Menu::nextBulbSelection()
 {
+  Mode *cur = Modes::curMode();
   // The target led can be 0 through LED_COUNT to represent any led or all leds
   // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
   if (m_targetLeds == MAP_LED_ALL) {
@@ -135,7 +135,7 @@ void Menu::nextBulbSelection()
     m_targetLeds = MAP_LED_ALL;
   } else {
     // do not allow multi led to select anything else
-    if (m_pCurMode->isMultiLed()) {
+    if (cur->isMultiLed()) {
       //m_targetLeds = MAP_LED_ALL;
       //break;
     }

@@ -5,7 +5,9 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-#include <Arduino.h>
+#ifdef VORTEX_LIB
+#include "VortexLib.h"
+#endif
 
 #if VL_ENABLE_SENDER == 1
 
@@ -146,10 +148,10 @@ void VLSender::sendMark(uint16_t time)
 {
 #ifdef VORTEX_LIB
   // send mark timing over socket
-  send_ir(true, time);
+  Vortex::vcallbacks()->infraredWrite(true, time);
 #else
   startPWM();
-  delayMicroseconds(time);
+  Time::delayMicroseconds(time);
 #endif
 }
 
@@ -157,10 +159,10 @@ void VLSender::sendSpace(uint16_t time)
 {
 #ifdef VORTEX_LIB
   // send space timing over socket
-  send_ir(false, time);
+  Vortex::vcallbacks()->infraredWrite(false, time);
 #else
   stopPWM();
-  delayMicroseconds(time);
+  Time::delayMicroseconds(time);
 #endif
 }
 
