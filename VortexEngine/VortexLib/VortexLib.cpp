@@ -541,7 +541,7 @@ bool Vortex::getCurMode(ByteStream &outStream)
   if (!Modes::saveStorage()) {
     return false;
   }
-  return pMode->saveToBuffer(outStream);
+  return Modes::curMode()->saveToBuffer(outStream);
 }
 
 uint32_t Vortex::curModeIndex()
@@ -596,7 +596,9 @@ bool Vortex::setCurMode(uint32_t index, bool save)
   if (index >= Modes::numModes()) {
     return true;
   }
-  Modes::setCurMode(index);
+  if (!Modes::setCurMode(index)) {
+    return false;
+  }
   return !save || doSave();
 }
 
