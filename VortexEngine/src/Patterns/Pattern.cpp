@@ -33,6 +33,9 @@ Pattern::~Pattern()
 
 void Pattern::bind(LedPos pos)
 {
+  if (pos > LED_COUNT) {
+    return;
+  }
   m_ledPos = pos;
 }
 

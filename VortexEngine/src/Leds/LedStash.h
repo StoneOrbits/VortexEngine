@@ -4,6 +4,10 @@
 #include "../Colors/ColorTypes.h"
 #include "LedTypes.h"
 
+#if FIXED_LED_COUNT == 0
+#include <vector>
+#endif
+
 class LedStash
 {
   friend class Leds;
@@ -19,7 +23,11 @@ public:
   RGBColor &operator[](int index);
 
 private:
+#if FIXED_LED_COUNT == 1
   RGBColor m_ledColorsStash[LED_COUNT];
+#else
+  std::vector<RGBColor> m_ledColorsStash;
+#endif
 };
 
 #endif

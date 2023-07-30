@@ -12,15 +12,26 @@
 #include "../../VortexLib/VortexLib.h"
 #endif
 
+#if FIXED_LED_COUNT == 0
+// led count
+uint8_t Leds::m_ledCount = 10;
 // array of led color values
+std::vector<RGBColor> Leds::m_ledColors;
+#else
 RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
+#endif
 // global brightness
 uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 
 bool Leds::init()
 {
+  m_ledColors.resize(LED_COUNT);
 #ifdef VORTEX_LIB
+#if FIXED_LED_COUNT == 0
+  Vortex::vcallbacks()->ledsInit(m_ledColors.data(), LED_COUNT);
+#else
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
+#endif
 #endif
   return true;
 }
@@ -252,3 +263,11 @@ void Leds::update()
   Vortex::vcallbacks()->ledsShow();
 #endif
 }
+
+#if FIXED_LED_COUNT == 0
+void Leds::setLedCount(uint8_t leds)
+{
+  m_ledCount = leds;
+  m_ledColors.resize(m_ledCount);
+}
+#endif
