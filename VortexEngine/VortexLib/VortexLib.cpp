@@ -532,6 +532,30 @@ bool Vortex::setModes(ByteStream &stream, bool save)
   return !save || doSave();
 }
 
+bool Vortex::matchLedCount(ByteStream &stream)
+{
+  if (!stream.decompress()) {
+    return false;
+  }
+  // reset the unserializer index before unserializing anything
+  stream.resetUnserializer();
+  uint8_t major = 0;
+  uint8_t minor = 0;
+  // unserialize the vortex version
+  stream.unserialize(&major);
+  stream.unserialize(&minor);
+  uint8_t flags;
+  stream.unserialize(&flags);
+  // unserialize the global brightness
+  uint8_t brightness = 0;
+  stream.unserialize(&brightness);
+  uint8_t numModes = 0;
+  stream.unserialize(&numModes);
+  uint8_t ledCount = 0;
+  stream.unserialize(&ledCount);
+  return setLedCount(ledCount);
+}
+
 bool Vortex::checkLedCount()
 {
   Mode *mode = Modes::curMode();
@@ -542,6 +566,15 @@ bool Vortex::checkLedCount()
   if (numLeds != LED_COUNT) {
     Leds::setLedCount(numLeds);
   }
+  return true;
+}
+
+bool Vortex::setLedCount(uint8_t count)
+{
+  if (!Modes::curMode()->setLedCount(count)) {
+    return true;
+  }
+  Leds::setLedCount(count);
   return true;
 }
 

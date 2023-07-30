@@ -160,7 +160,9 @@ public:
   static bool setModes(ByteStream &stream, bool save = true);
   static bool getCurMode(ByteStream &stream);
 
+  static bool matchLedCount(ByteStream &stream);
   static bool checkLedCount();
+  static bool setLedCount(uint8_t ledCount);
 
   // functions to operate on the current mode selection
   static uint32_t curModeIndex();
