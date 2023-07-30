@@ -25,7 +25,9 @@ uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 
 bool Leds::init()
 {
-  m_ledColors.resize(LED_COUNT);
+#if FIXED_LED_COUNT == 0
+  setLedCount(LED_COUNT);
+#endif
 #ifdef VORTEX_LIB
 #if FIXED_LED_COUNT == 0
   Vortex::vcallbacks()->ledsInit(m_ledColors.data(), LED_COUNT);
