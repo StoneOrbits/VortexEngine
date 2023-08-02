@@ -1,0 +1,31 @@
+name: Core Doxygen
+
+on:
+  push:
+    branches: [ "master" ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout code
+      uses: actions/checkout@v3
+
+    - name: Setup Doxygen
+      run: sudo apt-get install doxygen graphviz texlive make
+
+    - name: Checkout doxygen-awesome
+      run: |
+        git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
+
+    - name: Generate Documentation
+      run: doxygen Doxyfile
+
+    - name: Commit and Push Documentation
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add docs
+        git commit -m "Update Doxygen documentation"
+        git push origin HEAD:gh-pages
