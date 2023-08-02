@@ -24,7 +24,7 @@ jobs:
         path: VortexEmulator/VortexTestingFramework/VortexEngine
 
     - name: Install Dependencies
-      run: sudo apt-get install valgrind g++ make
+      run: sudo apt-get install valgrind g++ make doxygen graphviz texlive
 
     - name: Build
       run: make
@@ -37,3 +37,18 @@ jobs:
     - name: Run tests
       run: ./runtests.sh --gloves
       working-directory:  VortexEmulator/VortexTestingFramework/tests
+
+    - name: Checkout doxygen-awesome
+      run: |
+        git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
+
+    - name: Generate Documentation
+      run: doxygen Doxyfile
+
+    - name: Commit and Push Documentation
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add docs
+        git commit -m "Update Doxygen documentation"
+        git push -f origin HEAD:gloves-docs
