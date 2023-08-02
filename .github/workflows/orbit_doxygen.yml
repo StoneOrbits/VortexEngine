@@ -1,12 +1,15 @@
 name: Orbit Doxygen
 
 on:
-  push:
-    branches: [ "orbit" ]
+  workflow_run:
+    workflows: ["Orbit Build"]
+    types:
+      - completed
 
 jobs:
-  build:
+  generate-docs:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
     - name: Checkout code
