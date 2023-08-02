@@ -41,9 +41,11 @@ jobs:
     - name: Checkout doxygen-awesome
       run: |
         git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
+      working-directory:  VortexEmulator/VortexTestingFramework/VortexEngine
 
     - name: Generate Documentation
       run: doxygen Doxyfile
+      working-directory:  VortexEmulator/VortexTestingFramework/VortexEngine
 
     - name: Commit and Push Documentation
       run: |
@@ -52,3 +54,4 @@ jobs:
         git add docs
         git commit -m "Update Doxygen documentation"
         git push -f origin HEAD:core-docs
+      working-directory:  VortexEmulator/VortexTestingFramework/VortexEngine
