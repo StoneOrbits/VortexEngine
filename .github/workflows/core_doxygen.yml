@@ -17,8 +17,7 @@ jobs:
 
     - name: Checkout doxygen-awesome
       run: |
-        mkdir -p docs
-        git clone https://github.com/jothepro/doxygen-awesome-css.git docs/doxygen-awesome-css
+        git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
 
     - name: Generate Documentation
       run: doxygen Doxyfile
@@ -27,10 +26,6 @@ jobs:
       run: |
         git config --local user.email "action@github.com"
         git config --local user.name "GitHub Action"
-        mv docs/ docs_tmp/
-        git fetch
-        git checkout gh-pages
-        mv docs_tmp/* docs/
-        git add docs/
+        git add docs
         git commit -m "Update Doxygen documentation"
-        git push
+        git push origin HEAD:gh-pages
