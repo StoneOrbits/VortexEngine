@@ -27,7 +27,7 @@ jobs:
       run: sudo apt-get install valgrind g++ make doxygen graphviz texlive
 
     - name: Build
-      run: make
+      run: make -j
       working-directory: VortexEmulator/VortexTestingFramework
       
     - name: Set execute permissions for test script
