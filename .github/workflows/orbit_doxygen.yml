@@ -28,4 +28,4 @@ jobs:
         git config --local user.name "GitHub Action"
         git add docs
         git commit -m "Update Doxygen documentation"
-        git push origin HEAD:orbit-docs
+        git push -f origin HEAD:orbit-docs
