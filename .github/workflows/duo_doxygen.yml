@@ -1,12 +1,15 @@
 name: Duo Doxygen
 
 on:
-  push:
-    branches: [ "duo" ]
+  workflow_run:
+    workflows: ["Duo Build"]
+    types:
+      - completed
 
 jobs:
-  build:
+  generate-docs:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
     - name: Checkout code
