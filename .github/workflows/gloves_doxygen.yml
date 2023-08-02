@@ -1,8 +1,8 @@
-name: Core Doxygen
+name: Gloves Doxygen
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "gloves" ]
 
 jobs:
   build:
@@ -28,4 +28,4 @@ jobs:
         git config --local user.name "GitHub Action"
         git add docs
         git commit -m "Update Doxygen documentation"
-        git push origin HEAD:gh-pages
+        git push origin HEAD:gloves-docs
