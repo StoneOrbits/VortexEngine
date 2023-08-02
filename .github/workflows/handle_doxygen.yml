@@ -1,12 +1,15 @@
 name: Handle Doxygen
 
 on:
-  push:
-    branches: [ "handle" ]
+  workflow_run:
+    workflows: ["Handle Build"]
+    types:
+      - completed
 
 jobs:
-  build:
+  generate-docs:
     runs-on: ubuntu-latest
+    if: ${{ github.event.workflow_run.conclusion == 'success' }}
 
     steps:
     - name: Checkout code
