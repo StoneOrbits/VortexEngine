@@ -1,0 +1,470 @@
+\hypertarget{Timings_8h}{}\doxysection{Vortex\+Engine/src/\+Time/\+Timings.h File Reference}
+\label{Timings_8h}\index{VortexEngine/src/Time/Timings.h@{VortexEngine/src/Time/Timings.h}}
+{\ttfamily \#include \char`\"{}Time\+Control.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Vortex\+Config.\+h\char`\"{}}\newline
+Include dependency graph for Timings.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Timings_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Timings_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a155fc794adbdc762cfbc71f55a04bc22}{MENU\+\_\+\+TRIGGER\+\_\+\+THRESHOLD\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_adda1b08b81d68fa6a4a6109701f9dd57}{MENU\+\_\+\+TRIGGER\+\_\+\+TIME}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}{SHORT\+\_\+\+CLICK\+\_\+\+THRESHOLD\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a0e67a9d736bfe02f58872add97f72878}{CLICK\+\_\+\+THRESHOLD}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_ae76f1a92ba0f97abcfa5007efb8acb35}{CONSECUTIVE\+\_\+\+WINDOW\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_acdf9da2606d261d33dccb57d94d97b7d}{CONSECUTIVE\+\_\+\+WINDOW}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a0585a4691c93fe9ebff5ed2398dfc65a}{UNLOCK\+\_\+\+WAKE\+\_\+\+WINDOW\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(UNLOCK\+\_\+\+WAKE\+\_\+\+WINDOW)
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a61dac7f55a8663187084eadec1a8ecf3}{AUTO\+\_\+\+RANDOM\+\_\+\+DELAY\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_ae54a4f60fb47ad89ca3c3aafc3e77860}{AUTO\+\_\+\+RANDOM\+\_\+\+DELAY}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a8251f10e3a780d9a23fe43f5d25fac56}{SLEEP\+\_\+\+ENTER\+\_\+\+THRESHOLD\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a72bbefb86172e7968571ae9826d59ac6}{SLEEP\+\_\+\+TRIGGER\+\_\+\+TIME}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_acf7ff5e81eb3275c7011d0504c067e1d}{SLEEP\+\_\+\+WINDOW\+\_\+\+THRESHOLD\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a4a574455b52dc99cb4d97fb1b60f43a7}{SLEEP\+\_\+\+WINDOW\+\_\+\+TIME}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a73665265b394d9de459568f68f0bd8e2}{FORCE\+\_\+\+SLEEP\+\_\+\+THRESHOLD\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a353adfce4aef234c33460054d6338684}{FORCE\+\_\+\+SLEEP\+\_\+\+TIME}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a32ea38467ac4da30d730fee6cb4e88b2}{ONE\+\_\+\+CLICK\+\_\+\+THRESHOLD\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_abb4bd04b4fdd55b391227f28c94aa543}{ONE\+\_\+\+CLICK\+\_\+\+MODE\+\_\+\+TRHESHOLD}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a724ef82b8f1a5b8cd76673dfe480e7bb}{DELETE\+\_\+\+THRESHOLD\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a0f03f33479c772421539f8e6bdb8b343}{COL\+\_\+\+DELETE\+\_\+\+THRESHOLD}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a77fc08a3774a777798ebe8067423ce11}{DELETE\+\_\+\+CYCLE\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_afef2e9e83795e0e0c346d4a6af71b2eb}{COL\+\_\+\+DELETE\+\_\+\+CYCLE}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}{FACTORY\+\_\+\+RESET\+\_\+\+THRESHOLD\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a18f22a5b8ac9dfe404fd4b83e502eda2}{RESET\+\_\+\+HOLD\+\_\+\+TIME}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_aabf3a9ab42baac69e3195c785979615c}{MAX\+\_\+\+SERIAL\+\_\+\+CHECK\+\_\+\+INTERVAL}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_af63b8023c82a1ca9940b5cc570273796}{SERIAL\+\_\+\+CHECK\+\_\+\+TIME}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a5b19ad5a706226f4733b244e808ee463}{MAX\+\_\+\+TIMEOUT\+\_\+\+DURATION}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a38394da7cf4d8296750eaa92fb5dcf5e}{IR\+\_\+\+RECEIVER\+\_\+\+TIMEOUT\+\_\+\+DURATION}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_aa5129b97d905b734aa2f556a27e141be}{MAX\+\_\+\+WAIT\+\_\+\+DURATION}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a3435f144316596eb0cee4c3024e67899}{IR\+\_\+\+SENDER\+\_\+\+WAIT\+\_\+\+DURATION}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_af6000fabcf07a18fcd198c1ec0e4d048}{ADV\+\_\+\+MENU\+\_\+\+DURATION\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a3e78052777e9f8ec16223f50d89ed43e}{ADVANCED\+\_\+\+MENU\+\_\+\+ENTER\+\_\+\+DURATION}})
+\item 
+\#define \mbox{\hyperlink{Timings_8h_ac4993692ad012c1ac0ac24e44c062107}{STROBE\+\_\+\+ON\+\_\+\+DURATION}}~6
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a808eb7f6bf12de0663d3d1bdf3286f70}{STROBE\+\_\+\+OFF\+\_\+\+DURATION}}~6
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a398f70f20f31812fd6463db220ea6bd2}{HYPERSTROBE\+\_\+\+ON\+\_\+\+DURATION}}~36
+\item 
+\#define \mbox{\hyperlink{Timings_8h_ad8d72f4aad8397f6470d967b02fc9fce}{HYPERSTROBE\+\_\+\+OFF\+\_\+\+DURATION}}~26
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\+\_\+\+ON\+\_\+\+DURATION}}~6
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\+\_\+\+OFF\+\_\+\+DURATION}}~40
+\item 
+\#define \mbox{\hyperlink{Timings_8h_ad00793dffc3c10bae362e9ef7676d2b7}{DOPY\+\_\+\+ON\+\_\+\+DURATION}}~5
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a8e2f5b618b13cbaba4d51a64b49ec9b9}{DOPY\+\_\+\+OFF\+\_\+\+DURATION}}~15
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a36b3f7dd1688dd36323878e9800a44e7}{ULTRADOPS\+\_\+\+ON\+\_\+\+DURATION}}~1
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a287f054a4991d310ad77ee3159563365}{ULTRADOPS\+\_\+\+OFF\+\_\+\+DURATION}}~5
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a9ad3aa24ac30f6902c1206f793025d17}{STROBIE\+\_\+\+ON\+\_\+\+DURATION}}~2
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a39be29f9f4cddaa7eec227e370a51c2e}{STROBIE\+\_\+\+OFF\+\_\+\+DURATION}}~28
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a0a09155c60db67057f291a529cca4be9}{SIGNAL\+\_\+\+ON\+\_\+\+DURATION}}~10
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a2c2a49db365921e10711940093a4bb99}{SIGNAL\+\_\+\+OFF\+\_\+\+DURATION}}~296
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a0cdff4c82655ee8f32166d045532b2e5}{BLEND\+\_\+\+ON\+\_\+\+DURATION}}~2
+\item 
+\#define \mbox{\hyperlink{Timings_8h_ab2ff0008d13f28b053090cc46e016047}{BLEND\+\_\+\+OFF\+\_\+\+DURATION}}~13
+\item 
+\#define \mbox{\hyperlink{Timings_8h_ae55289f40f983caa41723281eee592a5}{RIBBON\+\_\+\+DURATION}}~6
+\item 
+\#define \mbox{\hyperlink{Timings_8h_acdad12177a6bfe2234b17ab9ca4bebd2}{BULB\+\_\+\+SELECT\+\_\+\+ON\+\_\+\+MS}}~150
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a0627d036077a564ed9f8915ff1b64ea8}{BULB\+\_\+\+SELECT\+\_\+\+OFF\+\_\+\+MS}}~50
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a51ff44bad98709f4d9c531f906080c96}{EXIT\+\_\+\+MENU\+\_\+\+ON\+\_\+\+MS}}~300
+\item 
+\#define \mbox{\hyperlink{Timings_8h_a0f785cd62010101e23dc80b1c6334ef6}{EXIT\+\_\+\+MENU\+\_\+\+OFF\+\_\+\+MS}}~150
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{Timings_8h_af6000fabcf07a18fcd198c1ec0e4d048}\label{Timings_8h_af6000fabcf07a18fcd198c1ec0e4d048}} 
+\index{Timings.h@{Timings.h}!ADV\_MENU\_DURATION\_TICKS@{ADV\_MENU\_DURATION\_TICKS}}
+\index{ADV\_MENU\_DURATION\_TICKS@{ADV\_MENU\_DURATION\_TICKS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{ADV\_MENU\_DURATION\_TICKS}{ADV\_MENU\_DURATION\_TICKS}}
+{\footnotesize\ttfamily \#define ADV\+\_\+\+MENU\+\_\+\+DURATION\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a3e78052777e9f8ec16223f50d89ed43e}{ADVANCED\+\_\+\+MENU\+\_\+\+ENTER\+\_\+\+DURATION}})}
+
+
+
+Definition at line 27 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a61dac7f55a8663187084eadec1a8ecf3}\label{Timings_8h_a61dac7f55a8663187084eadec1a8ecf3}} 
+\index{Timings.h@{Timings.h}!AUTO\_RANDOM\_DELAY\_TICKS@{AUTO\_RANDOM\_DELAY\_TICKS}}
+\index{AUTO\_RANDOM\_DELAY\_TICKS@{AUTO\_RANDOM\_DELAY\_TICKS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{AUTO\_RANDOM\_DELAY\_TICKS}{AUTO\_RANDOM\_DELAY\_TICKS}}
+{\footnotesize\ttfamily \#define AUTO\+\_\+\+RANDOM\+\_\+\+DELAY\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_ae54a4f60fb47ad89ca3c3aafc3e77860}{AUTO\+\_\+\+RANDOM\+\_\+\+DELAY}})}
+
+
+
+Definition at line 16 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_ab2ff0008d13f28b053090cc46e016047}\label{Timings_8h_ab2ff0008d13f28b053090cc46e016047}} 
+\index{Timings.h@{Timings.h}!BLEND\_OFF\_DURATION@{BLEND\_OFF\_DURATION}}
+\index{BLEND\_OFF\_DURATION@{BLEND\_OFF\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{BLEND\_OFF\_DURATION}{BLEND\_OFF\_DURATION}}
+{\footnotesize\ttfamily \#define BLEND\+\_\+\+OFF\+\_\+\+DURATION~13}
+
+
+
+Definition at line 65 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a0cdff4c82655ee8f32166d045532b2e5}\label{Timings_8h_a0cdff4c82655ee8f32166d045532b2e5}} 
+\index{Timings.h@{Timings.h}!BLEND\_ON\_DURATION@{BLEND\_ON\_DURATION}}
+\index{BLEND\_ON\_DURATION@{BLEND\_ON\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{BLEND\_ON\_DURATION}{BLEND\_ON\_DURATION}}
+{\footnotesize\ttfamily \#define BLEND\+\_\+\+ON\+\_\+\+DURATION~2}
+
+
+
+Definition at line 64 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a0627d036077a564ed9f8915ff1b64ea8}\label{Timings_8h_a0627d036077a564ed9f8915ff1b64ea8}} 
+\index{Timings.h@{Timings.h}!BULB\_SELECT\_OFF\_MS@{BULB\_SELECT\_OFF\_MS}}
+\index{BULB\_SELECT\_OFF\_MS@{BULB\_SELECT\_OFF\_MS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{BULB\_SELECT\_OFF\_MS}{BULB\_SELECT\_OFF\_MS}}
+{\footnotesize\ttfamily \#define BULB\+\_\+\+SELECT\+\_\+\+OFF\+\_\+\+MS~50}
+
+
+
+Definition at line 76 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_acdad12177a6bfe2234b17ab9ca4bebd2}\label{Timings_8h_acdad12177a6bfe2234b17ab9ca4bebd2}} 
+\index{Timings.h@{Timings.h}!BULB\_SELECT\_ON\_MS@{BULB\_SELECT\_ON\_MS}}
+\index{BULB\_SELECT\_ON\_MS@{BULB\_SELECT\_ON\_MS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{BULB\_SELECT\_ON\_MS}{BULB\_SELECT\_ON\_MS}}
+{\footnotesize\ttfamily \#define BULB\+\_\+\+SELECT\+\_\+\+ON\+\_\+\+MS~150}
+
+
+
+Definition at line 75 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_ae76f1a92ba0f97abcfa5007efb8acb35}\label{Timings_8h_ae76f1a92ba0f97abcfa5007efb8acb35}} 
+\index{Timings.h@{Timings.h}!CONSECUTIVE\_WINDOW\_TICKS@{CONSECUTIVE\_WINDOW\_TICKS}}
+\index{CONSECUTIVE\_WINDOW\_TICKS@{CONSECUTIVE\_WINDOW\_TICKS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{CONSECUTIVE\_WINDOW\_TICKS}{CONSECUTIVE\_WINDOW\_TICKS}}
+{\footnotesize\ttfamily \#define CONSECUTIVE\+\_\+\+WINDOW\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_acdf9da2606d261d33dccb57d94d97b7d}{CONSECUTIVE\+\_\+\+WINDOW}})}
+
+
+
+Definition at line 14 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a77fc08a3774a777798ebe8067423ce11}\label{Timings_8h_a77fc08a3774a777798ebe8067423ce11}} 
+\index{Timings.h@{Timings.h}!DELETE\_CYCLE\_TICKS@{DELETE\_CYCLE\_TICKS}}
+\index{DELETE\_CYCLE\_TICKS@{DELETE\_CYCLE\_TICKS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{DELETE\_CYCLE\_TICKS}{DELETE\_CYCLE\_TICKS}}
+{\footnotesize\ttfamily \#define DELETE\+\_\+\+CYCLE\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_afef2e9e83795e0e0c346d4a6af71b2eb}{COL\+\_\+\+DELETE\+\_\+\+CYCLE}})}
+
+
+
+Definition at line 22 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a724ef82b8f1a5b8cd76673dfe480e7bb}\label{Timings_8h_a724ef82b8f1a5b8cd76673dfe480e7bb}} 
+\index{Timings.h@{Timings.h}!DELETE\_THRESHOLD\_TICKS@{DELETE\_THRESHOLD\_TICKS}}
+\index{DELETE\_THRESHOLD\_TICKS@{DELETE\_THRESHOLD\_TICKS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{DELETE\_THRESHOLD\_TICKS}{DELETE\_THRESHOLD\_TICKS}}
+{\footnotesize\ttfamily \#define DELETE\+\_\+\+THRESHOLD\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a0f03f33479c772421539f8e6bdb8b343}{COL\+\_\+\+DELETE\+\_\+\+THRESHOLD}})}
+
+
+
+Definition at line 21 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}\label{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}} 
+\index{Timings.h@{Timings.h}!DOPS\_OFF\_DURATION@{DOPS\_OFF\_DURATION}}
+\index{DOPS\_OFF\_DURATION@{DOPS\_OFF\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{DOPS\_OFF\_DURATION}{DOPS\_OFF\_DURATION}}
+{\footnotesize\ttfamily \#define DOPS\+\_\+\+OFF\+\_\+\+DURATION~40}
+
+
+
+Definition at line 45 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a034d6fe9497c2240121003c72d74d147}\label{Timings_8h_a034d6fe9497c2240121003c72d74d147}} 
+\index{Timings.h@{Timings.h}!DOPS\_ON\_DURATION@{DOPS\_ON\_DURATION}}
+\index{DOPS\_ON\_DURATION@{DOPS\_ON\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{DOPS\_ON\_DURATION}{DOPS\_ON\_DURATION}}
+{\footnotesize\ttfamily \#define DOPS\+\_\+\+ON\+\_\+\+DURATION~6}
+
+
+
+Definition at line 44 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a8e2f5b618b13cbaba4d51a64b49ec9b9}\label{Timings_8h_a8e2f5b618b13cbaba4d51a64b49ec9b9}} 
+\index{Timings.h@{Timings.h}!DOPY\_OFF\_DURATION@{DOPY\_OFF\_DURATION}}
+\index{DOPY\_OFF\_DURATION@{DOPY\_OFF\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{DOPY\_OFF\_DURATION}{DOPY\_OFF\_DURATION}}
+{\footnotesize\ttfamily \#define DOPY\+\_\+\+OFF\+\_\+\+DURATION~15}
+
+
+
+Definition at line 49 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_ad00793dffc3c10bae362e9ef7676d2b7}\label{Timings_8h_ad00793dffc3c10bae362e9ef7676d2b7}} 
+\index{Timings.h@{Timings.h}!DOPY\_ON\_DURATION@{DOPY\_ON\_DURATION}}
+\index{DOPY\_ON\_DURATION@{DOPY\_ON\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{DOPY\_ON\_DURATION}{DOPY\_ON\_DURATION}}
+{\footnotesize\ttfamily \#define DOPY\+\_\+\+ON\+\_\+\+DURATION~5}
+
+
+
+Definition at line 48 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a0f785cd62010101e23dc80b1c6334ef6}\label{Timings_8h_a0f785cd62010101e23dc80b1c6334ef6}} 
+\index{Timings.h@{Timings.h}!EXIT\_MENU\_OFF\_MS@{EXIT\_MENU\_OFF\_MS}}
+\index{EXIT\_MENU\_OFF\_MS@{EXIT\_MENU\_OFF\_MS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{EXIT\_MENU\_OFF\_MS}{EXIT\_MENU\_OFF\_MS}}
+{\footnotesize\ttfamily \#define EXIT\+\_\+\+MENU\+\_\+\+OFF\+\_\+\+MS~150}
+
+
+
+Definition at line 80 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a51ff44bad98709f4d9c531f906080c96}\label{Timings_8h_a51ff44bad98709f4d9c531f906080c96}} 
+\index{Timings.h@{Timings.h}!EXIT\_MENU\_ON\_MS@{EXIT\_MENU\_ON\_MS}}
+\index{EXIT\_MENU\_ON\_MS@{EXIT\_MENU\_ON\_MS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{EXIT\_MENU\_ON\_MS}{EXIT\_MENU\_ON\_MS}}
+{\footnotesize\ttfamily \#define EXIT\+\_\+\+MENU\+\_\+\+ON\+\_\+\+MS~300}
+
+
+
+Definition at line 79 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}\label{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}} 
+\index{Timings.h@{Timings.h}!FACTORY\_RESET\_THRESHOLD\_TICKS@{FACTORY\_RESET\_THRESHOLD\_TICKS}}
+\index{FACTORY\_RESET\_THRESHOLD\_TICKS@{FACTORY\_RESET\_THRESHOLD\_TICKS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{FACTORY\_RESET\_THRESHOLD\_TICKS}{FACTORY\_RESET\_THRESHOLD\_TICKS}}
+{\footnotesize\ttfamily \#define FACTORY\+\_\+\+RESET\+\_\+\+THRESHOLD\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a18f22a5b8ac9dfe404fd4b83e502eda2}{RESET\+\_\+\+HOLD\+\_\+\+TIME}})}
+
+
+
+Definition at line 23 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a73665265b394d9de459568f68f0bd8e2}\label{Timings_8h_a73665265b394d9de459568f68f0bd8e2}} 
+\index{Timings.h@{Timings.h}!FORCE\_SLEEP\_THRESHOLD\_TICKS@{FORCE\_SLEEP\_THRESHOLD\_TICKS}}
+\index{FORCE\_SLEEP\_THRESHOLD\_TICKS@{FORCE\_SLEEP\_THRESHOLD\_TICKS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{FORCE\_SLEEP\_THRESHOLD\_TICKS}{FORCE\_SLEEP\_THRESHOLD\_TICKS}}
+{\footnotesize\ttfamily \#define FORCE\+\_\+\+SLEEP\+\_\+\+THRESHOLD\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a353adfce4aef234c33460054d6338684}{FORCE\+\_\+\+SLEEP\+\_\+\+TIME}})}
+
+
+
+Definition at line 19 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_ad8d72f4aad8397f6470d967b02fc9fce}\label{Timings_8h_ad8d72f4aad8397f6470d967b02fc9fce}} 
+\index{Timings.h@{Timings.h}!HYPERSTROBE\_OFF\_DURATION@{HYPERSTROBE\_OFF\_DURATION}}
+\index{HYPERSTROBE\_OFF\_DURATION@{HYPERSTROBE\_OFF\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{HYPERSTROBE\_OFF\_DURATION}{HYPERSTROBE\_OFF\_DURATION}}
+{\footnotesize\ttfamily \#define HYPERSTROBE\+\_\+\+OFF\+\_\+\+DURATION~26}
+
+
+
+Definition at line 41 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a398f70f20f31812fd6463db220ea6bd2}\label{Timings_8h_a398f70f20f31812fd6463db220ea6bd2}} 
+\index{Timings.h@{Timings.h}!HYPERSTROBE\_ON\_DURATION@{HYPERSTROBE\_ON\_DURATION}}
+\index{HYPERSTROBE\_ON\_DURATION@{HYPERSTROBE\_ON\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{HYPERSTROBE\_ON\_DURATION}{HYPERSTROBE\_ON\_DURATION}}
+{\footnotesize\ttfamily \#define HYPERSTROBE\+\_\+\+ON\+\_\+\+DURATION~36}
+
+
+
+Definition at line 40 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_aabf3a9ab42baac69e3195c785979615c}\label{Timings_8h_aabf3a9ab42baac69e3195c785979615c}} 
+\index{Timings.h@{Timings.h}!MAX\_SERIAL\_CHECK\_INTERVAL@{MAX\_SERIAL\_CHECK\_INTERVAL}}
+\index{MAX\_SERIAL\_CHECK\_INTERVAL@{MAX\_SERIAL\_CHECK\_INTERVAL}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_SERIAL\_CHECK\_INTERVAL}{MAX\_SERIAL\_CHECK\_INTERVAL}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+SERIAL\+\_\+\+CHECK\+\_\+\+INTERVAL~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_af63b8023c82a1ca9940b5cc570273796}{SERIAL\+\_\+\+CHECK\+\_\+\+TIME}})}
+
+
+
+Definition at line 24 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a5b19ad5a706226f4733b244e808ee463}\label{Timings_8h_a5b19ad5a706226f4733b244e808ee463}} 
+\index{Timings.h@{Timings.h}!MAX\_TIMEOUT\_DURATION@{MAX\_TIMEOUT\_DURATION}}
+\index{MAX\_TIMEOUT\_DURATION@{MAX\_TIMEOUT\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_TIMEOUT\_DURATION}{MAX\_TIMEOUT\_DURATION}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+TIMEOUT\+\_\+\+DURATION~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a38394da7cf4d8296750eaa92fb5dcf5e}{IR\+\_\+\+RECEIVER\+\_\+\+TIMEOUT\+\_\+\+DURATION}})}
+
+
+
+Definition at line 25 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_aa5129b97d905b734aa2f556a27e141be}\label{Timings_8h_aa5129b97d905b734aa2f556a27e141be}} 
+\index{Timings.h@{Timings.h}!MAX\_WAIT\_DURATION@{MAX\_WAIT\_DURATION}}
+\index{MAX\_WAIT\_DURATION@{MAX\_WAIT\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{MAX\_WAIT\_DURATION}{MAX\_WAIT\_DURATION}}
+{\footnotesize\ttfamily \#define MAX\+\_\+\+WAIT\+\_\+\+DURATION~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a3435f144316596eb0cee4c3024e67899}{IR\+\_\+\+SENDER\+\_\+\+WAIT\+\_\+\+DURATION}})}
+
+
+
+Definition at line 26 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a155fc794adbdc762cfbc71f55a04bc22}\label{Timings_8h_a155fc794adbdc762cfbc71f55a04bc22}} 
+\index{Timings.h@{Timings.h}!MENU\_TRIGGER\_THRESHOLD\_TICKS@{MENU\_TRIGGER\_THRESHOLD\_TICKS}}
+\index{MENU\_TRIGGER\_THRESHOLD\_TICKS@{MENU\_TRIGGER\_THRESHOLD\_TICKS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{MENU\_TRIGGER\_THRESHOLD\_TICKS}{MENU\_TRIGGER\_THRESHOLD\_TICKS}}
+{\footnotesize\ttfamily \#define MENU\+\_\+\+TRIGGER\+\_\+\+THRESHOLD\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_adda1b08b81d68fa6a4a6109701f9dd57}{MENU\+\_\+\+TRIGGER\+\_\+\+TIME}})}
+
+
+
+Definition at line 12 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a32ea38467ac4da30d730fee6cb4e88b2}\label{Timings_8h_a32ea38467ac4da30d730fee6cb4e88b2}} 
+\index{Timings.h@{Timings.h}!ONE\_CLICK\_THRESHOLD\_TICKS@{ONE\_CLICK\_THRESHOLD\_TICKS}}
+\index{ONE\_CLICK\_THRESHOLD\_TICKS@{ONE\_CLICK\_THRESHOLD\_TICKS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{ONE\_CLICK\_THRESHOLD\_TICKS}{ONE\_CLICK\_THRESHOLD\_TICKS}}
+{\footnotesize\ttfamily \#define ONE\+\_\+\+CLICK\+\_\+\+THRESHOLD\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_abb4bd04b4fdd55b391227f28c94aa543}{ONE\+\_\+\+CLICK\+\_\+\+MODE\+\_\+\+TRHESHOLD}})}
+
+
+
+Definition at line 20 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_ae55289f40f983caa41723281eee592a5}\label{Timings_8h_ae55289f40f983caa41723281eee592a5}} 
+\index{Timings.h@{Timings.h}!RIBBON\_DURATION@{RIBBON\_DURATION}}
+\index{RIBBON\_DURATION@{RIBBON\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{RIBBON\_DURATION}{RIBBON\_DURATION}}
+{\footnotesize\ttfamily \#define RIBBON\+\_\+\+DURATION~6}
+
+
+
+Definition at line 68 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}\label{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}} 
+\index{Timings.h@{Timings.h}!SHORT\_CLICK\_THRESHOLD\_TICKS@{SHORT\_CLICK\_THRESHOLD\_TICKS}}
+\index{SHORT\_CLICK\_THRESHOLD\_TICKS@{SHORT\_CLICK\_THRESHOLD\_TICKS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{SHORT\_CLICK\_THRESHOLD\_TICKS}{SHORT\_CLICK\_THRESHOLD\_TICKS}}
+{\footnotesize\ttfamily \#define SHORT\+\_\+\+CLICK\+\_\+\+THRESHOLD\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a0e67a9d736bfe02f58872add97f72878}{CLICK\+\_\+\+THRESHOLD}})}
+
+
+
+Definition at line 13 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a2c2a49db365921e10711940093a4bb99}\label{Timings_8h_a2c2a49db365921e10711940093a4bb99}} 
+\index{Timings.h@{Timings.h}!SIGNAL\_OFF\_DURATION@{SIGNAL\_OFF\_DURATION}}
+\index{SIGNAL\_OFF\_DURATION@{SIGNAL\_OFF\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{SIGNAL\_OFF\_DURATION}{SIGNAL\_OFF\_DURATION}}
+{\footnotesize\ttfamily \#define SIGNAL\+\_\+\+OFF\+\_\+\+DURATION~296}
+
+
+
+Definition at line 61 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a0a09155c60db67057f291a529cca4be9}\label{Timings_8h_a0a09155c60db67057f291a529cca4be9}} 
+\index{Timings.h@{Timings.h}!SIGNAL\_ON\_DURATION@{SIGNAL\_ON\_DURATION}}
+\index{SIGNAL\_ON\_DURATION@{SIGNAL\_ON\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{SIGNAL\_ON\_DURATION}{SIGNAL\_ON\_DURATION}}
+{\footnotesize\ttfamily \#define SIGNAL\+\_\+\+ON\+\_\+\+DURATION~10}
+
+
+
+Definition at line 60 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a8251f10e3a780d9a23fe43f5d25fac56}\label{Timings_8h_a8251f10e3a780d9a23fe43f5d25fac56}} 
+\index{Timings.h@{Timings.h}!SLEEP\_ENTER\_THRESHOLD\_TICKS@{SLEEP\_ENTER\_THRESHOLD\_TICKS}}
+\index{SLEEP\_ENTER\_THRESHOLD\_TICKS@{SLEEP\_ENTER\_THRESHOLD\_TICKS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{SLEEP\_ENTER\_THRESHOLD\_TICKS}{SLEEP\_ENTER\_THRESHOLD\_TICKS}}
+{\footnotesize\ttfamily \#define SLEEP\+\_\+\+ENTER\+\_\+\+THRESHOLD\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a72bbefb86172e7968571ae9826d59ac6}{SLEEP\+\_\+\+TRIGGER\+\_\+\+TIME}})}
+
+
+
+Definition at line 17 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_acf7ff5e81eb3275c7011d0504c067e1d}\label{Timings_8h_acf7ff5e81eb3275c7011d0504c067e1d}} 
+\index{Timings.h@{Timings.h}!SLEEP\_WINDOW\_THRESHOLD\_TICKS@{SLEEP\_WINDOW\_THRESHOLD\_TICKS}}
+\index{SLEEP\_WINDOW\_THRESHOLD\_TICKS@{SLEEP\_WINDOW\_THRESHOLD\_TICKS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{SLEEP\_WINDOW\_THRESHOLD\_TICKS}{SLEEP\_WINDOW\_THRESHOLD\_TICKS}}
+{\footnotesize\ttfamily \#define SLEEP\+\_\+\+WINDOW\+\_\+\+THRESHOLD\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{VortexConfig_8h_a4a574455b52dc99cb4d97fb1b60f43a7}{SLEEP\+\_\+\+WINDOW\+\_\+\+TIME}})}
+
+
+
+Definition at line 18 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a808eb7f6bf12de0663d3d1bdf3286f70}\label{Timings_8h_a808eb7f6bf12de0663d3d1bdf3286f70}} 
+\index{Timings.h@{Timings.h}!STROBE\_OFF\_DURATION@{STROBE\_OFF\_DURATION}}
+\index{STROBE\_OFF\_DURATION@{STROBE\_OFF\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{STROBE\_OFF\_DURATION}{STROBE\_OFF\_DURATION}}
+{\footnotesize\ttfamily \#define STROBE\+\_\+\+OFF\+\_\+\+DURATION~6}
+
+
+
+Definition at line 37 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_ac4993692ad012c1ac0ac24e44c062107}\label{Timings_8h_ac4993692ad012c1ac0ac24e44c062107}} 
+\index{Timings.h@{Timings.h}!STROBE\_ON\_DURATION@{STROBE\_ON\_DURATION}}
+\index{STROBE\_ON\_DURATION@{STROBE\_ON\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{STROBE\_ON\_DURATION}{STROBE\_ON\_DURATION}}
+{\footnotesize\ttfamily \#define STROBE\+\_\+\+ON\+\_\+\+DURATION~6}
+
+
+
+Definition at line 36 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a39be29f9f4cddaa7eec227e370a51c2e}\label{Timings_8h_a39be29f9f4cddaa7eec227e370a51c2e}} 
+\index{Timings.h@{Timings.h}!STROBIE\_OFF\_DURATION@{STROBIE\_OFF\_DURATION}}
+\index{STROBIE\_OFF\_DURATION@{STROBIE\_OFF\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{STROBIE\_OFF\_DURATION}{STROBIE\_OFF\_DURATION}}
+{\footnotesize\ttfamily \#define STROBIE\+\_\+\+OFF\+\_\+\+DURATION~28}
+
+
+
+Definition at line 57 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a9ad3aa24ac30f6902c1206f793025d17}\label{Timings_8h_a9ad3aa24ac30f6902c1206f793025d17}} 
+\index{Timings.h@{Timings.h}!STROBIE\_ON\_DURATION@{STROBIE\_ON\_DURATION}}
+\index{STROBIE\_ON\_DURATION@{STROBIE\_ON\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{STROBIE\_ON\_DURATION}{STROBIE\_ON\_DURATION}}
+{\footnotesize\ttfamily \#define STROBIE\+\_\+\+ON\+\_\+\+DURATION~2}
+
+
+
+Definition at line 56 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a287f054a4991d310ad77ee3159563365}\label{Timings_8h_a287f054a4991d310ad77ee3159563365}} 
+\index{Timings.h@{Timings.h}!ULTRADOPS\_OFF\_DURATION@{ULTRADOPS\_OFF\_DURATION}}
+\index{ULTRADOPS\_OFF\_DURATION@{ULTRADOPS\_OFF\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{ULTRADOPS\_OFF\_DURATION}{ULTRADOPS\_OFF\_DURATION}}
+{\footnotesize\ttfamily \#define ULTRADOPS\+\_\+\+OFF\+\_\+\+DURATION~5}
+
+
+
+Definition at line 53 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a36b3f7dd1688dd36323878e9800a44e7}\label{Timings_8h_a36b3f7dd1688dd36323878e9800a44e7}} 
+\index{Timings.h@{Timings.h}!ULTRADOPS\_ON\_DURATION@{ULTRADOPS\_ON\_DURATION}}
+\index{ULTRADOPS\_ON\_DURATION@{ULTRADOPS\_ON\_DURATION}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{ULTRADOPS\_ON\_DURATION}{ULTRADOPS\_ON\_DURATION}}
+{\footnotesize\ttfamily \#define ULTRADOPS\+\_\+\+ON\+\_\+\+DURATION~1}
+
+
+
+Definition at line 52 of file Timings.\+h.
+
+\mbox{\Hypertarget{Timings_8h_a0585a4691c93fe9ebff5ed2398dfc65a}\label{Timings_8h_a0585a4691c93fe9ebff5ed2398dfc65a}} 
+\index{Timings.h@{Timings.h}!UNLOCK\_WAKE\_WINDOW\_TICKS@{UNLOCK\_WAKE\_WINDOW\_TICKS}}
+\index{UNLOCK\_WAKE\_WINDOW\_TICKS@{UNLOCK\_WAKE\_WINDOW\_TICKS}!Timings.h@{Timings.h}}
+\doxysubsubsection{\texorpdfstring{UNLOCK\_WAKE\_WINDOW\_TICKS}{UNLOCK\_WAKE\_WINDOW\_TICKS}}
+{\footnotesize\ttfamily \#define UNLOCK\+\_\+\+WAKE\+\_\+\+WINDOW\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(UNLOCK\+\_\+\+WAKE\+\_\+\+WINDOW)}
+
+
+
+Definition at line 15 of file Timings.\+h.
+

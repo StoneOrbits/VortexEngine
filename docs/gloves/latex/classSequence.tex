@@ -1,0 +1,484 @@
+\hypertarget{classSequence}{}\doxysection{Sequence Class Reference}
+\label{classSequence}\index{Sequence@{Sequence}}
+
+
+{\ttfamily \#include $<$Sequence.\+h$>$}
+
+
+
+Collaboration diagram for Sequence\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=281pt]{classSequence__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSequence_a532b7e8df6ff6b2f990c14ae97859ca2}{Sequence}} ()
+\item 
+\mbox{\hyperlink{classSequence_aee09a7d70c3ab523fed85da94ea1366f}{$\sim$\+Sequence}} ()
+\item 
+\mbox{\hyperlink{classSequence_a8b38b0be5b5a62ec65b877c9a4e2faeb}{Sequence}} (const \mbox{\hyperlink{classSequence}{Sequence}} \&other)
+\item 
+\mbox{\hyperlink{classSequence_aa781b53e4bf6f7477e54b42dbad96e92}{Sequence}} (\mbox{\hyperlink{classSequence}{Sequence}} \&\&other) noexcept
+\item 
+void \mbox{\hyperlink{classSequence_a6b6545ae2b3a851b39f11aaf69182d68}{operator=}} (const \mbox{\hyperlink{classSequence}{Sequence}} \&other)
+\item 
+bool \mbox{\hyperlink{classSequence_aea07c7d1e503145816703407e0d61e6a}{operator==}} (const \mbox{\hyperlink{classSequence}{Sequence}} \&other) const
+\item 
+bool \mbox{\hyperlink{classSequence_acfdf637a0fbeb71e7dd8c7991fe55d1e}{operator!=}} (const \mbox{\hyperlink{classSequence}{Sequence}} \&other) const
+\item 
+void \mbox{\hyperlink{classSequence_ae5bff77ec049aca50ce82e822e8fec22}{init\+Steps}} (uint8\+\_\+t \mbox{\hyperlink{classSequence_a5ef464b4e753e922915d367215a52b74}{num\+Steps}})
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classSequence_a3b4808c79f7bba5858d8b55466df0243}{add\+Step}} (const \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} \&step)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classSequence_a0303d133f083f7a3a38317ad6d95e8e8}{add\+Step}} (uint16\+\_\+t duration, const \mbox{\hyperlink{classPatternMap}{Pattern\+Map}} \&pattern\+Map, const \mbox{\hyperlink{classColorsetMap}{Colorset\+Map}} \&colorset\+Map=\mbox{\hyperlink{classColorset}{Colorset}}())
+\item 
+void \mbox{\hyperlink{classSequence_a4891f86fec65088d1bc4846fc32035a5}{clear}} ()
+\item 
+void \mbox{\hyperlink{classSequence_a7f5f7fc8ecacf393035736029b39c9f4}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer) const
+\item 
+void \mbox{\hyperlink{classSequence_a5eddf4eb1916a2cb14e7824ba2daf24b}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classSequence_a5ef464b4e753e922915d367215a52b74}{num\+Steps}} () const
+\item 
+const \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} \& \mbox{\hyperlink{classSequence_a6057ac059ef30d4d06d5b3bb6c7ef16b}{operator\mbox{[}$\,$\mbox{]}}} (uint8\+\_\+t index) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} $\ast$ \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\+\_\+sequence\+Steps}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\+\_\+num\+Steps}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 70 of file Sequence.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSequence_a532b7e8df6ff6b2f990c14ae97859ca2}\label{classSequence_a532b7e8df6ff6b2f990c14ae97859ca2}} 
+\index{Sequence@{Sequence}!Sequence@{Sequence}}
+\index{Sequence@{Sequence}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{Sequence()}{Sequence()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Sequence\+::\+Sequence (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 124 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{124                    :}
+\DoxyCodeLine{125   \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}(\textcolor{keyword}{nullptr}),}
+\DoxyCodeLine{126   \mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}}(0)}
+\DoxyCodeLine{127 \{}
+\DoxyCodeLine{128 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSequence_aee09a7d70c3ab523fed85da94ea1366f}\label{classSequence_aee09a7d70c3ab523fed85da94ea1366f}} 
+\index{Sequence@{Sequence}!````~Sequence@{$\sim$Sequence}}
+\index{````~Sequence@{$\sim$Sequence}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{$\sim$Sequence()}{~Sequence()}}
+{\footnotesize\ttfamily Sequence\+::$\sim$\+Sequence (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 130 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{131 \{}
+\DoxyCodeLine{132   \mbox{\hyperlink{classSequence_a4891f86fec65088d1bc4846fc32035a5}{clear}}();}
+\DoxyCodeLine{133 \}}
+
+\end{DoxyCode}
+
+
+References clear().
+
+\mbox{\Hypertarget{classSequence_a8b38b0be5b5a62ec65b877c9a4e2faeb}\label{classSequence_a8b38b0be5b5a62ec65b877c9a4e2faeb}} 
+\index{Sequence@{Sequence}!Sequence@{Sequence}}
+\index{Sequence@{Sequence}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{Sequence()}{Sequence()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Sequence\+::\+Sequence (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classSequence}{Sequence}} \&}]{other }\end{DoxyParamCaption})}
+
+
+
+Definition at line 135 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{135                                         :}
+\DoxyCodeLine{136   \mbox{\hyperlink{classSequence_a532b7e8df6ff6b2f990c14ae97859ca2}{Sequence}}()}
+\DoxyCodeLine{137 \{}
+\DoxyCodeLine{138   \textcolor{comment}{// invoke = operator}}
+\DoxyCodeLine{139   *\textcolor{keyword}{this} = other;}
+\DoxyCodeLine{140 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSequence_aa781b53e4bf6f7477e54b42dbad96e92}\label{classSequence_aa781b53e4bf6f7477e54b42dbad96e92}} 
+\index{Sequence@{Sequence}!Sequence@{Sequence}}
+\index{Sequence@{Sequence}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{Sequence()}{Sequence()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Sequence\+::\+Sequence (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classSequence}{Sequence}} \&\&}]{other }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [noexcept]}}
+
+
+
+Definition at line 142 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{142                                             :}
+\DoxyCodeLine{143   \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}(other.\mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}),}
+\DoxyCodeLine{144   \mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}}(other.\mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}})}
+\DoxyCodeLine{145 \{}
+\DoxyCodeLine{146   other.\mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{147   other.\mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}} = 0;}
+\DoxyCodeLine{148 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classSequence_a3b4808c79f7bba5858d8b55466df0243}\label{classSequence_a3b4808c79f7bba5858d8b55466df0243}} 
+\index{Sequence@{Sequence}!addStep@{addStep}}
+\index{addStep@{addStep}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{addStep()}{addStep()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily uint8\+\_\+t Sequence\+::add\+Step (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} \&}]{step }\end{DoxyParamCaption})}
+
+
+
+Definition at line 184 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{185 \{}
+\DoxyCodeLine{186   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}} >= \mbox{\hyperlink{Sequence_8cpp_aa49589153cba7d8fa0a841f6aadc2e0a}{MAX\_SEQUENCE\_STEPS}}) \{}
+\DoxyCodeLine{187     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{188   \}}
+\DoxyCodeLine{189   \textcolor{comment}{// allocate a new palette one larger than before}}
+\DoxyCodeLine{190   \mbox{\hyperlink{classSequenceStep}{SequenceStep}} *temp = \textcolor{keyword}{new} \mbox{\hyperlink{classSequenceStep}{SequenceStep}}[\mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}} + 1];}
+\DoxyCodeLine{191   \textcolor{keywordflow}{if} (!temp) \{}
+\DoxyCodeLine{192     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{193   \}}
+\DoxyCodeLine{194   \textcolor{comment}{// if there is already some colors in the palette}}
+\DoxyCodeLine{195   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}} \&\& \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}) \{}
+\DoxyCodeLine{196     \textcolor{comment}{// copy over existing colors}}
+\DoxyCodeLine{197     \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}}; ++i) \{}
+\DoxyCodeLine{198       temp[i] = \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}[i];}
+\DoxyCodeLine{199     \}}
+\DoxyCodeLine{200     \textcolor{comment}{// and delete the existing palette}}
+\DoxyCodeLine{201     \textcolor{keyword}{delete}[] \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}};}
+\DoxyCodeLine{202   \}}
+\DoxyCodeLine{203   \textcolor{comment}{// reassign new palette}}
+\DoxyCodeLine{204   \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}} = temp;}
+\DoxyCodeLine{205   \textcolor{comment}{// insert new color and increment number of colors}}
+\DoxyCodeLine{206   \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}[\mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}}] = step;}
+\DoxyCodeLine{207   \mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}}++;}
+\DoxyCodeLine{208   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{209 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+num\+Steps, m\+\_\+sequence\+Steps, and MAX\+\_\+\+SEQUENCE\+\_\+\+STEPS.
+
+
+
+Referenced by add\+Step(), and Chaser\+Pattern\+::\+Chaser\+Pattern().
+
+\mbox{\Hypertarget{classSequence_a0303d133f083f7a3a38317ad6d95e8e8}\label{classSequence_a0303d133f083f7a3a38317ad6d95e8e8}} 
+\index{Sequence@{Sequence}!addStep@{addStep}}
+\index{addStep@{addStep}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{addStep()}{addStep()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily uint8\+\_\+t Sequence\+::add\+Step (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{duration,  }\item[{const \mbox{\hyperlink{classPatternMap}{Pattern\+Map}} \&}]{pattern\+Map,  }\item[{const \mbox{\hyperlink{classColorsetMap}{Colorset\+Map}} \&}]{colorset\+Map = {\ttfamily \mbox{\hyperlink{classColorset}{Colorset}}()} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 211 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{212 \{}
+\DoxyCodeLine{213   \textcolor{keywordflow}{return} \mbox{\hyperlink{classSequence_a3b4808c79f7bba5858d8b55466df0243}{addStep}}(\mbox{\hyperlink{classSequenceStep}{SequenceStep}}(duration, patternMap, colorsetMap));}
+\DoxyCodeLine{214 \}}
+
+\end{DoxyCode}
+
+
+References add\+Step().
+
+\mbox{\Hypertarget{classSequence_a4891f86fec65088d1bc4846fc32035a5}\label{classSequence_a4891f86fec65088d1bc4846fc32035a5}} 
+\index{Sequence@{Sequence}!clear@{clear}}
+\index{clear@{clear}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void Sequence\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 216 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{217 \{}
+\DoxyCodeLine{218   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}) \{}
+\DoxyCodeLine{219     \textcolor{keyword}{delete}[] \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}};}
+\DoxyCodeLine{220     \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{221   \}}
+\DoxyCodeLine{222   \mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}} = 0;}
+\DoxyCodeLine{223 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+num\+Steps, and m\+\_\+sequence\+Steps.
+
+
+
+Referenced by operator=(), and $\sim$\+Sequence().
+
+\mbox{\Hypertarget{classSequence_ae5bff77ec049aca50ce82e822e8fec22}\label{classSequence_ae5bff77ec049aca50ce82e822e8fec22}} 
+\index{Sequence@{Sequence}!initSteps@{initSteps}}
+\index{initSteps@{initSteps}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{initSteps()}{initSteps()}}
+{\footnotesize\ttfamily void Sequence\+::init\+Steps (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{num\+Steps }\end{DoxyParamCaption})}
+
+
+
+Definition at line 171 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{172 \{}
+\DoxyCodeLine{173   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}) \{}
+\DoxyCodeLine{174     \textcolor{keyword}{delete}[] \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}};}
+\DoxyCodeLine{175   \}}
+\DoxyCodeLine{176   \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}} = \textcolor{keyword}{new} \mbox{\hyperlink{classSequenceStep}{SequenceStep}}[\mbox{\hyperlink{classSequence_a5ef464b4e753e922915d367215a52b74}{numSteps}}];}
+\DoxyCodeLine{177   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}) \{}
+\DoxyCodeLine{178     \mbox{\hyperlink{Log_8h_a804825e040f1cce9e3d2bb53c4858710}{ERROR\_OUT\_OF\_MEMORY}}();}
+\DoxyCodeLine{179     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{180   \}}
+\DoxyCodeLine{181   \mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}} = \mbox{\hyperlink{classSequence_a5ef464b4e753e922915d367215a52b74}{numSteps}};}
+\DoxyCodeLine{182 \}}
+
+\end{DoxyCode}
+
+
+References ERROR\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY, m\+\_\+num\+Steps, m\+\_\+sequence\+Steps, and num\+Steps().
+
+
+
+Referenced by operator=().
+
+\mbox{\Hypertarget{classSequence_a5ef464b4e753e922915d367215a52b74}\label{classSequence_a5ef464b4e753e922915d367215a52b74}} 
+\index{Sequence@{Sequence}!numSteps@{numSteps}}
+\index{numSteps@{numSteps}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{numSteps()}{numSteps()}}
+{\footnotesize\ttfamily uint8\+\_\+t Sequence\+::num\+Steps (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 241 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{242 \{}
+\DoxyCodeLine{243   \textcolor{keywordflow}{return} \mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}};}
+\DoxyCodeLine{244 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+num\+Steps.
+
+
+
+Referenced by Sequenced\+Pattern\+::init(), init\+Steps(), and Sequenced\+Pattern\+::play().
+
+\mbox{\Hypertarget{classSequence_acfdf637a0fbeb71e7dd8c7991fe55d1e}\label{classSequence_acfdf637a0fbeb71e7dd8c7991fe55d1e}} 
+\index{Sequence@{Sequence}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool Sequence\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classSequence}{Sequence}} \&}]{other }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 166 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{167 \{}
+\DoxyCodeLine{168   \textcolor{keywordflow}{return} !\mbox{\hyperlink{classSequence_aea07c7d1e503145816703407e0d61e6a}{operator==}}(other);}
+\DoxyCodeLine{169 \}}
+
+\end{DoxyCode}
+
+
+References operator==().
+
+\mbox{\Hypertarget{classSequence_a6b6545ae2b3a851b39f11aaf69182d68}\label{classSequence_a6b6545ae2b3a851b39f11aaf69182d68}} 
+\index{Sequence@{Sequence}!operator=@{operator=}}
+\index{operator=@{operator=}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily void Sequence\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classSequence}{Sequence}} \&}]{other }\end{DoxyParamCaption})}
+
+
+
+Definition at line 150 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{151 \{}
+\DoxyCodeLine{152   \mbox{\hyperlink{classSequence_a4891f86fec65088d1bc4846fc32035a5}{clear}}();}
+\DoxyCodeLine{153   \mbox{\hyperlink{classSequence_ae5bff77ec049aca50ce82e822e8fec22}{initSteps}}(other.\mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}});}
+\DoxyCodeLine{154   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < other.\mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}}; ++i) \{}
+\DoxyCodeLine{155     \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}[i] = other.\mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}[i];}
+\DoxyCodeLine{156   \}}
+\DoxyCodeLine{157 \}}
+
+\end{DoxyCode}
+
+
+References clear(), init\+Steps(), m\+\_\+num\+Steps, and m\+\_\+sequence\+Steps.
+
+\mbox{\Hypertarget{classSequence_aea07c7d1e503145816703407e0d61e6a}\label{classSequence_aea07c7d1e503145816703407e0d61e6a}} 
+\index{Sequence@{Sequence}!operator==@{operator==}}
+\index{operator==@{operator==}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool Sequence\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classSequence}{Sequence}} \&}]{other }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 159 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{160 \{}
+\DoxyCodeLine{161   \textcolor{comment}{// only compare the palettes for equality}}
+\DoxyCodeLine{162   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}} == other.\mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}}) \&\&}
+\DoxyCodeLine{163     (memcmp(\mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}, other.\mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}, \mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}} * \textcolor{keyword}{sizeof}(\mbox{\hyperlink{classSequenceStep}{SequenceStep}})) == 0);}
+\DoxyCodeLine{164 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+num\+Steps, and m\+\_\+sequence\+Steps.
+
+
+
+Referenced by operator!=().
+
+\mbox{\Hypertarget{classSequence_a6057ac059ef30d4d06d5b3bb6c7ef16b}\label{classSequence_a6057ac059ef30d4d06d5b3bb6c7ef16b}} 
+\index{Sequence@{Sequence}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} \& Sequence\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{index }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 246 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{247 \{}
+\DoxyCodeLine{248   \textcolor{keywordflow}{return} \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}[index];}
+\DoxyCodeLine{249 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+sequence\+Steps.
+
+\mbox{\Hypertarget{classSequence_a7f5f7fc8ecacf393035736029b39c9f4}\label{classSequence_a7f5f7fc8ecacf393035736029b39c9f4}} 
+\index{Sequence@{Sequence}!serialize@{serialize}}
+\index{serialize@{serialize}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily void Sequence\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 225 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{226 \{}
+\DoxyCodeLine{227   buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}});}
+\DoxyCodeLine{228   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}}; ++i) \{}
+\DoxyCodeLine{229     \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}[i].\mbox{\hyperlink{classSequenceStep_a91691abcb78df2939a05dcaf88303c6b}{serialize}}(buffer);}
+\DoxyCodeLine{230   \}}
+\DoxyCodeLine{231 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+num\+Steps, m\+\_\+sequence\+Steps, Sequence\+Step\+::serialize(), and Byte\+Stream\+::serialize().
+
+\mbox{\Hypertarget{classSequence_a5eddf4eb1916a2cb14e7824ba2daf24b}\label{classSequence_a5eddf4eb1916a2cb14e7824ba2daf24b}} 
+\index{Sequence@{Sequence}!unserialize@{unserialize}}
+\index{unserialize@{unserialize}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{unserialize()}{unserialize()}}
+{\footnotesize\ttfamily void Sequence\+::unserialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Definition at line 233 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{234 \{}
+\DoxyCodeLine{235   buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}});}
+\DoxyCodeLine{236   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classSequence_a8f63826b625a77f1fedd22f671074310}{m\_numSteps}}; ++i) \{}
+\DoxyCodeLine{237     \mbox{\hyperlink{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}{m\_sequenceSteps}}[i].\mbox{\hyperlink{classSequenceStep_ac398acce774b1ea001fb9c5453a19cbc}{unserialize}}(buffer);}
+\DoxyCodeLine{238   \}}
+\DoxyCodeLine{239 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+num\+Steps, m\+\_\+sequence\+Steps, Sequence\+Step\+::unserialize(), and Byte\+Stream\+::unserialize().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classSequence_a8f63826b625a77f1fedd22f671074310}\label{classSequence_a8f63826b625a77f1fedd22f671074310}} 
+\index{Sequence@{Sequence}!m\_numSteps@{m\_numSteps}}
+\index{m\_numSteps@{m\_numSteps}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{m\_numSteps}{m\_numSteps}}
+{\footnotesize\ttfamily uint8\+\_\+t Sequence\+::m\+\_\+num\+Steps\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 97 of file Sequence.\+h.
+
+
+
+Referenced by add\+Step(), clear(), init\+Steps(), num\+Steps(), operator=(), operator==(), serialize(), and unserialize().
+
+\mbox{\Hypertarget{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}\label{classSequence_a9845f3ffa03d07a675ae84f11c110e3a}} 
+\index{Sequence@{Sequence}!m\_sequenceSteps@{m\_sequenceSteps}}
+\index{m\_sequenceSteps@{m\_sequenceSteps}!Sequence@{Sequence}}
+\doxysubsubsection{\texorpdfstring{m\_sequenceSteps}{m\_sequenceSteps}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}}$\ast$ Sequence\+::m\+\_\+sequence\+Steps\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 96 of file Sequence.\+h.
+
+
+
+Referenced by add\+Step(), clear(), init\+Steps(), operator=(), operator==(), operator\mbox{[}$\,$\mbox{]}(), serialize(), and unserialize().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\+Sequencer/\mbox{\hyperlink{Sequence_8h}{Sequence.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\+Sequencer/\mbox{\hyperlink{Sequence_8cpp}{Sequence.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,12 @@
+title: Vortex Engine
+description: Documentation for the Vortex Engine
+remote_theme: pmarsceill/just-the-docs
+color_scheme: dark
+search_enabled: true
+heading_anchors: true
+include:
+  - core/
+  - gloves/
+  - orbit/
+  - handle/
+  - duo/

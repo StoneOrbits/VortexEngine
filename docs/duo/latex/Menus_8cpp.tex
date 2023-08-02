@@ -1,0 +1,142 @@
+\hypertarget{Menus_8cpp}{}\doxysection{Vortex\+Engine/src/\+Menus/\+Menus.cpp File Reference}
+\label{Menus_8cpp}\index{VortexEngine/src/Menus/Menus.cpp@{VortexEngine/src/Menus/Menus.cpp}}
+{\ttfamily \#include \char`\"{}Menus.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Menu\+List/\+Global\+Brightness.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Menu\+List/\+Editor\+Connection.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Menu\+List/\+Factory\+Reset.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Menu\+List/\+Mode\+Sharing.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Menu\+List/\+Color\+Select.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Menu\+List/\+Pattern\+Select.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Menu\+List/\+Randomizer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Time/\+Time\+Control.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Time/\+Timings.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Vortex\+Engine.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Buttons/\+Button.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Serial/\+Serial.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Modes/\+Modes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Leds/\+Leds.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Log/\+Log.\+h\char`\"{}}\newline
+Include dependency graph for Menus.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Menus_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+struct \mbox{\hyperlink{structMenuEntry}{Menu\+Entry}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{Menus_8cpp_a1e0f80f2ae93a874ccbeb4a103229762}{ENTRY}}(classname,  color)~\{ \mbox{\hyperlink{Menus_8cpp_a1328b2531b689c2b9b796ddcf2c22200}{init\+Menu}}$<$classname$>$, color \}
+\item 
+\#define \mbox{\hyperlink{Menus_8cpp_a2cf39ca87ec50dbe56121dcd4d523c45}{NUM\+\_\+\+MENUS}}~(sizeof(\mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menu\+List}}) / sizeof(\mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menu\+List}}\mbox{[}0\mbox{]}))
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef \mbox{\hyperlink{classMenu}{Menu}} $\ast$($\ast$ \mbox{\hyperlink{Menus_8cpp_a6b8b298032aa46d6ddd890870a372069}{init\+Menu\+Fn\+\_\+t}}) (const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&col, bool advanced)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+{\footnotesize template$<$typename T $>$ }\\\mbox{\hyperlink{classMenu}{Menu}} $\ast$ \mbox{\hyperlink{Menus_8cpp_a1328b2531b689c2b9b796ddcf2c22200}{init\+Menu}} (const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&col, bool advanced)
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+const \mbox{\hyperlink{structMenuEntry}{Menu\+Entry}} \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menu\+List}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{Menus_8cpp_a1e0f80f2ae93a874ccbeb4a103229762}\label{Menus_8cpp_a1e0f80f2ae93a874ccbeb4a103229762}} 
+\index{Menus.cpp@{Menus.cpp}!ENTRY@{ENTRY}}
+\index{ENTRY@{ENTRY}!Menus.cpp@{Menus.cpp}}
+\doxysubsubsection{\texorpdfstring{ENTRY}{ENTRY}}
+{\footnotesize\ttfamily \#define ENTRY(\begin{DoxyParamCaption}\item[{}]{classname,  }\item[{}]{color }\end{DoxyParamCaption})~\{ \mbox{\hyperlink{Menus_8cpp_a1328b2531b689c2b9b796ddcf2c22200}{init\+Menu}}$<$classname$>$, color \}}
+
+
+
+Definition at line 49 of file Menus.\+cpp.
+
+\mbox{\Hypertarget{Menus_8cpp_a2cf39ca87ec50dbe56121dcd4d523c45}\label{Menus_8cpp_a2cf39ca87ec50dbe56121dcd4d523c45}} 
+\index{Menus.cpp@{Menus.cpp}!NUM\_MENUS@{NUM\_MENUS}}
+\index{NUM\_MENUS@{NUM\_MENUS}!Menus.cpp@{Menus.cpp}}
+\doxysubsubsection{\texorpdfstring{NUM\_MENUS}{NUM\_MENUS}}
+{\footnotesize\ttfamily \#define NUM\+\_\+\+MENUS~(sizeof(\mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menu\+List}}) / sizeof(\mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menu\+List}}\mbox{[}0\mbox{]}))}
+
+
+
+Definition at line 68 of file Menus.\+cpp.
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{Menus_8cpp_a6b8b298032aa46d6ddd890870a372069}\label{Menus_8cpp_a6b8b298032aa46d6ddd890870a372069}} 
+\index{Menus.cpp@{Menus.cpp}!initMenuFn\_t@{initMenuFn\_t}}
+\index{initMenuFn\_t@{initMenuFn\_t}!Menus.cpp@{Menus.cpp}}
+\doxysubsubsection{\texorpdfstring{initMenuFn\_t}{initMenuFn\_t}}
+{\footnotesize\ttfamily typedef \mbox{\hyperlink{classMenu}{Menu}}$\ast$($\ast$ init\+Menu\+Fn\+\_\+t) (const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&col, bool advanced)}
+
+
+
+Definition at line 28 of file Menus.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{Menus_8cpp_a1328b2531b689c2b9b796ddcf2c22200}\label{Menus_8cpp_a1328b2531b689c2b9b796ddcf2c22200}} 
+\index{Menus.cpp@{Menus.cpp}!initMenu@{initMenu}}
+\index{initMenu@{initMenu}!Menus.cpp@{Menus.cpp}}
+\doxysubsubsection{\texorpdfstring{initMenu()}{initMenu()}}
+{\footnotesize\ttfamily template$<$typename T $>$ \\
+\mbox{\hyperlink{classMenu}{Menu}}$\ast$ init\+Menu (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{col,  }\item[{bool}]{advanced }\end{DoxyParamCaption})}
+
+
+
+Definition at line 42 of file Menus.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42 \{ \textcolor{keywordflow}{return} \textcolor{keyword}{new} T(col, advanced); \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}\label{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}} 
+\index{Menus.cpp@{Menus.cpp}!menuList@{menuList}}
+\index{menuList@{menuList}!Menus.cpp@{Menus.cpp}}
+\doxysubsubsection{\texorpdfstring{menuList}{menuList}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{structMenuEntry}{Menu\+Entry}} menu\+List\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{  }
+\DoxyCodeLine{  }
+\DoxyCodeLine{  \mbox{\hyperlink{Menus_8cpp_a1e0f80f2ae93a874ccbeb4a103229762}{ENTRY}}(\mbox{\hyperlink{classRandomizer}{Randomizer}}, \mbox{\hyperlink{VortexConfig_8h_ad51a458e185436ff9d031f5647c7d46f}{RGB\_MENU\_RANDOMIZER}}),}
+\DoxyCodeLine{  \mbox{\hyperlink{Menus_8cpp_a1e0f80f2ae93a874ccbeb4a103229762}{ENTRY}}(\mbox{\hyperlink{classModeSharing}{ModeSharing}}, \mbox{\hyperlink{VortexConfig_8h_aa280da86a9832321810c48d600843b5c}{RGB\_MENU\_MODE\_SHARING}}),}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{}
+\DoxyCodeLine{  \mbox{\hyperlink{Menus_8cpp_a1e0f80f2ae93a874ccbeb4a103229762}{ENTRY}}(\mbox{\hyperlink{classColorSelect}{ColorSelect}}, \mbox{\hyperlink{VortexConfig_8h_a3b335e17dcc12be29e18e3373e5352cb}{RGB\_MENU\_COLOR\_SELECT}}),}
+\DoxyCodeLine{  \mbox{\hyperlink{Menus_8cpp_a1e0f80f2ae93a874ccbeb4a103229762}{ENTRY}}(\mbox{\hyperlink{classPatternSelect}{PatternSelect}}, \mbox{\hyperlink{VortexConfig_8h_ac96ef0f1f4dbc0bd0dace8c41578504f}{RGB\_MENU\_PATTERN\_SELECT}}),}
+\DoxyCodeLine{  \mbox{\hyperlink{Menus_8cpp_a1e0f80f2ae93a874ccbeb4a103229762}{ENTRY}}(\mbox{\hyperlink{classGlobalBrightness}{GlobalBrightness}}, \mbox{\hyperlink{VortexConfig_8h_a3fd5d16a2fea0175b3b34083c6dfb42f}{RGB\_MENU\_BRIGHTNESS\_SELECT}}),}
+\DoxyCodeLine{  \mbox{\hyperlink{Menus_8cpp_a1e0f80f2ae93a874ccbeb4a103229762}{ENTRY}}(\mbox{\hyperlink{classFactoryReset}{FactoryReset}}, \mbox{\hyperlink{VortexConfig_8h_a66e98b3b4dab7e50cdb47d4a3046f9c2}{RGB\_MENU\_FACTORY\_RESET}}),}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line 53 of file Menus.\+cpp.
+
+
+
+Referenced by Menus\+::open\+Menu(), and Menus\+::run\+Menu\+Selection().
+

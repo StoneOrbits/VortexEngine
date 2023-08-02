@@ -1,0 +1,370 @@
+\hypertarget{classStorage}{}\doxysection{Storage Class Reference}
+\label{classStorage}\index{Storage@{Storage}}
+
+
+{\ttfamily \#include $<$Storage.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classStorage_a065812a8dbd82d731291b5aa7ce3edf9}{init}} ()
+\item 
+static void \mbox{\hyperlink{classStorage_a2a1ce108c9a17f6175bfb9a9aba51703}{cleanup}} ()
+\item 
+static bool \mbox{\hyperlink{classStorage_a28703a07e21e576760f1b84202c55a01}{write}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
+\item 
+static bool \mbox{\hyperlink{classStorage_a5f7d41fcbfbc0840addbaa0345e1594d}{read}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
+\item 
+static uint32\+\_\+t \mbox{\hyperlink{classStorage_a79176e030af1f92f563c2b19316fe3dd}{last\+Save\+Size}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classStorage_a80ef6af5e4c9fd4424ae16e808d05291}{Storage}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classStorage_a9c873bd223652fa8339840a1b350b931}{eeprom\+Write\+Byte}} (uint16\+\_\+t index, uint8\+\_\+t in)
+\item 
+static uint8\+\_\+t \mbox{\hyperlink{classStorage_ad564f35a9671864cb0bed1ffa671c63d}{eeprom\+Read\+Byte}} (uint16\+\_\+t index)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static uint32\+\_\+t \mbox{\hyperlink{classStorage_ae85ca521ae89c408fb045d2890951458}{m\+\_\+last\+Save\+Size}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 12 of file Storage.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classStorage_a80ef6af5e4c9fd4424ae16e808d05291}\label{classStorage_a80ef6af5e4c9fd4424ae16e808d05291}} 
+\index{Storage@{Storage}!Storage@{Storage}}
+\index{Storage@{Storage}!Storage@{Storage}}
+\doxysubsubsection{\texorpdfstring{Storage()}{Storage()}}
+{\footnotesize\ttfamily Storage\+::\+Storage (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 39 of file Storage.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classStorage_a2a1ce108c9a17f6175bfb9a9aba51703}\label{classStorage_a2a1ce108c9a17f6175bfb9a9aba51703}} 
+\index{Storage@{Storage}!cleanup@{cleanup}}
+\index{cleanup@{cleanup}!Storage@{Storage}}
+\doxysubsubsection{\texorpdfstring{cleanup()}{cleanup()}}
+{\footnotesize\ttfamily void Storage\+::cleanup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 48 of file Storage.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Vortex\+Engine\+::cleanup().
+
+\mbox{\Hypertarget{classStorage_ad564f35a9671864cb0bed1ffa671c63d}\label{classStorage_ad564f35a9671864cb0bed1ffa671c63d}} 
+\index{Storage@{Storage}!eepromReadByte@{eepromReadByte}}
+\index{eepromReadByte@{eepromReadByte}!Storage@{Storage}}
+\doxysubsubsection{\texorpdfstring{eepromReadByte()}{eepromReadByte()}}
+{\footnotesize\ttfamily uint8\+\_\+t Storage\+::eeprom\+Read\+Byte (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{index }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 200 of file Storage.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{201 \{}
+\DoxyCodeLine{202   \textcolor{keywordflow}{if} (index > 255) \{}
+\DoxyCodeLine{203     \textcolor{comment}{// USERROW start}}
+\DoxyCodeLine{204     \textcolor{keywordflow}{return} *(uint8\_t *)(0x1300 + (index \& 0xFF));}
+\DoxyCodeLine{205   \}}
+\DoxyCodeLine{206   \textcolor{keywordflow}{return} *(uint8\_t *)(MAPPED\_EEPROM\_START + index);}
+\DoxyCodeLine{207 \}}
+
+\end{DoxyCode}
+
+
+Referenced by read(), and write().
+
+\mbox{\Hypertarget{classStorage_a9c873bd223652fa8339840a1b350b931}\label{classStorage_a9c873bd223652fa8339840a1b350b931}} 
+\index{Storage@{Storage}!eepromWriteByte@{eepromWriteByte}}
+\index{eepromWriteByte@{eepromWriteByte}!Storage@{Storage}}
+\doxysubsubsection{\texorpdfstring{eepromWriteByte()}{eepromWriteByte()}}
+{\footnotesize\ttfamily void Storage\+::eeprom\+Write\+Byte (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{index,  }\item[{uint8\+\_\+t}]{in }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 174 of file Storage.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{175 \{}
+\DoxyCodeLine{176   uint16\_t adr;}
+\DoxyCodeLine{177   \textcolor{comment}{// The first two pages of the data goes into the eeprom and then the last page goes}}
+\DoxyCodeLine{178   \textcolor{comment}{// into the USERROW which is located at 0x1300}}
+\DoxyCodeLine{179   \textcolor{keywordflow}{if} (index > 255) \{}
+\DoxyCodeLine{180     adr = 0x1300 + (index \& 0xFF);}
+\DoxyCodeLine{181   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{182     adr = MAPPED\_EEPROM\_START + index;}
+\DoxyCodeLine{183   \}}
+\DoxyCodeLine{184   \_\_asm\_\_ \_\_volatile\_\_(}
+\DoxyCodeLine{185     \textcolor{stringliteral}{"{}ldi r30, 0x00"{}}     \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}}
+\DoxyCodeLine{186     \textcolor{stringliteral}{"{}ldi r31, 0x10"{}}     \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}}
+\DoxyCodeLine{187     \textcolor{stringliteral}{"{}ldd r18, Z+2"{}}      \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}}
+\DoxyCodeLine{188     \textcolor{stringliteral}{"{}andi r18, 3"{}}       \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}}
+\DoxyCodeLine{189     \textcolor{stringliteral}{"{}brne .-\/6"{}}          \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}}
+\DoxyCodeLine{190     \textcolor{stringliteral}{"{}st X, \%0"{}}          \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}}
+\DoxyCodeLine{191     \textcolor{stringliteral}{"{}ldi \%0, 0x9D"{}}      \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}}
+\DoxyCodeLine{192     \textcolor{stringliteral}{"{}out 0x34, \%0"{}}      \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}}
+\DoxyCodeLine{193     \textcolor{stringliteral}{"{}ldi \%0, 0x03"{}}      \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}}
+\DoxyCodeLine{194     \textcolor{stringliteral}{"{}st Z, \%0"{}}          \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}}
+\DoxyCodeLine{195     :\textcolor{stringliteral}{"{}+d"{}}(in)}
+\DoxyCodeLine{196     : \textcolor{stringliteral}{"{}x"{}}(adr)}
+\DoxyCodeLine{197     : \textcolor{stringliteral}{"{}r30"{}}, \textcolor{stringliteral}{"{}r31"{}}, \textcolor{stringliteral}{"{}r18"{}});}
+\DoxyCodeLine{198 \}}
+
+\end{DoxyCode}
+
+
+Referenced by write().
+
+\mbox{\Hypertarget{classStorage_a065812a8dbd82d731291b5aa7ce3edf9}\label{classStorage_a065812a8dbd82d731291b5aa7ce3edf9}} 
+\index{Storage@{Storage}!init@{init}}
+\index{init@{init}!Storage@{Storage}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily bool Storage\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 43 of file Storage.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{46 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Vortex\+Engine\+::init().
+
+\mbox{\Hypertarget{classStorage_a79176e030af1f92f563c2b19316fe3dd}\label{classStorage_a79176e030af1f92f563c2b19316fe3dd}} 
+\index{Storage@{Storage}!lastSaveSize@{lastSaveSize}}
+\index{lastSaveSize@{lastSaveSize}!Storage@{Storage}}
+\doxysubsubsection{\texorpdfstring{lastSaveSize()}{lastSaveSize()}}
+{\footnotesize\ttfamily uint32\+\_\+t Storage\+::last\+Save\+Size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 167 of file Storage.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{168 \{}
+\DoxyCodeLine{169   \textcolor{keywordflow}{return} \mbox{\hyperlink{classStorage_ae85ca521ae89c408fb045d2890951458}{m\_lastSaveSize}};}
+\DoxyCodeLine{170 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+last\+Save\+Size.
+
+\mbox{\Hypertarget{classStorage_a5f7d41fcbfbc0840addbaa0345e1594d}\label{classStorage_a5f7d41fcbfbc0840addbaa0345e1594d}} 
+\index{Storage@{Storage}!read@{read}}
+\index{read@{read}!Storage@{Storage}}
+\doxysubsubsection{\texorpdfstring{read()}{read()}}
+{\footnotesize\ttfamily bool Storage\+::read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 105 of file Storage.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{106 \{}
+\DoxyCodeLine{107 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{108   \textcolor{keywordflow}{if} (!Vortex::storageEnabled()) \{}
+\DoxyCodeLine{109     \textcolor{comment}{// return false here, but true in write because we don't want to return}}
+\DoxyCodeLine{110     \textcolor{comment}{// an empty buffer after returning true}}
+\DoxyCodeLine{111     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{112   \}}
+\DoxyCodeLine{113   uint16\_t size = \mbox{\hyperlink{VortexConfig_8h_a8d6f782ffe53d87f0fd0327d4b09352c}{STORAGE\_SIZE}};}
+\DoxyCodeLine{114 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{115   uint16\_t size = *(uint16\_t *)MAPPED\_EEPROM\_START;}
+\DoxyCodeLine{116 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{117   \textcolor{keywordflow}{if} (size > \mbox{\hyperlink{VortexConfig_8h_a8d6f782ffe53d87f0fd0327d4b09352c}{STORAGE\_SIZE}} || size < \textcolor{keyword}{sizeof}(\mbox{\hyperlink{structByteStream_1_1RawBuffer}{ByteStream::RawBuffer}}) + 4) \{}
+\DoxyCodeLine{118     size = \mbox{\hyperlink{VortexConfig_8h_a8d6f782ffe53d87f0fd0327d4b09352c}{STORAGE\_SIZE}};}
+\DoxyCodeLine{119   \}}
+\DoxyCodeLine{120   \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_a0ad269c0275cb8856c44a9ea92c59a1a}{init}}(size)) \{}
+\DoxyCodeLine{121     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{122   \}}
+\DoxyCodeLine{123 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
+\DoxyCodeLine{124   \textcolor{comment}{// Read the data from EEPROM first}}
+\DoxyCodeLine{125   uint8\_t *pos = (uint8\_t *)buffer.\mbox{\hyperlink{classByteStream_a6993f9575592309a501156db31f82554}{rawData}}();}
+\DoxyCodeLine{126   uint16\_t fullsize = buffer.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}() + size;}
+\DoxyCodeLine{127   \textcolor{keywordflow}{for} (uint16\_t i = 0; i < fullsize; ++i) \{}
+\DoxyCodeLine{128     pos[i] = \mbox{\hyperlink{classStorage_ad564f35a9671864cb0bed1ffa671c63d}{eepromReadByte}}(i);}
+\DoxyCodeLine{129   \}}
+\DoxyCodeLine{130 \textcolor{preprocessor}{\#elif defined(\_MSC\_VER)}}
+\DoxyCodeLine{131   HANDLE hFile = CreateFile(\mbox{\hyperlink{Storage_8cpp_a4a8bec941d32acc2e0c33423a61e661f}{STORAGE\_FILENAME}}, GENERIC\_READ, 0, NULL, OPEN\_EXISTING, FILE\_ATTRIBUTE\_NORMAL, NULL);}
+\DoxyCodeLine{132   \textcolor{keywordflow}{if} (!hFile) \{}
+\DoxyCodeLine{133     \textcolor{comment}{// error}}
+\DoxyCodeLine{134     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{135   \}}
+\DoxyCodeLine{136   DWORD bytesRead = 0;}
+\DoxyCodeLine{137   \textcolor{keywordflow}{if} (!ReadFile(hFile, buffer.\mbox{\hyperlink{classByteStream_a6993f9575592309a501156db31f82554}{rawData}}(), size, \&bytesRead, NULL)) \{}
+\DoxyCodeLine{138     \textcolor{comment}{// error}}
+\DoxyCodeLine{139     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{140   \}}
+\DoxyCodeLine{141   CloseHandle(hFile);}
+\DoxyCodeLine{142 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{143   FILE *f = fopen(\mbox{\hyperlink{Storage_8cpp_a4a8bec941d32acc2e0c33423a61e661f}{STORAGE\_FILENAME}}, \textcolor{stringliteral}{"{}r"{}});}
+\DoxyCodeLine{144   \textcolor{keywordflow}{if} (!f) \{}
+\DoxyCodeLine{145     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{146   \}}
+\DoxyCodeLine{147   \textcolor{keywordflow}{if} (!fread(buffer.\mbox{\hyperlink{classByteStream_a6993f9575592309a501156db31f82554}{rawData}}(), \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}), size, f)) \{}
+\DoxyCodeLine{148     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{149   \}}
+\DoxyCodeLine{150   fclose(f);}
+\DoxyCodeLine{151 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{152   \textcolor{comment}{// ensure the internal buffer is sane after reading it out, this}}
+\DoxyCodeLine{153   \textcolor{comment}{// prevents segfaults if the internal size reports larger than capacity}}
+\DoxyCodeLine{154   buffer.\mbox{\hyperlink{classByteStream_ae65462bc14d268fcf0ffccf65f878762}{sanity}}();}
+\DoxyCodeLine{155   \textcolor{comment}{// check crc immediately since we read into raw data copying the}}
+\DoxyCodeLine{156   \textcolor{comment}{// array could be dangerous}}
+\DoxyCodeLine{157   \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_ae3412b7f08252fa2baab4b11cb8c2484}{checkCRC}}()) \{}
+\DoxyCodeLine{158     buffer.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{159     \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Could not verify buffer"{}});}
+\DoxyCodeLine{160     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{161   \}}
+\DoxyCodeLine{162   \mbox{\hyperlink{classStorage_ae85ca521ae89c408fb045d2890951458}{m\_lastSaveSize}} = size;}
+\DoxyCodeLine{163   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Loaded savedata (Size: \%u)"{}}, buffer.\mbox{\hyperlink{classByteStream_adf87e444e828287c0a43cab2958ca01b}{size}}());}
+\DoxyCodeLine{164   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{165 \}}
+
+\end{DoxyCode}
+
+
+References Byte\+Stream\+::check\+CRC(), Byte\+Stream\+::clear(), DEBUG\+\_\+\+LOGF, eeprom\+Read\+Byte(), ERROR\+\_\+\+LOG, Byte\+Stream\+::init(), m\+\_\+last\+Save\+Size, Byte\+Stream\+::raw\+Data(), Byte\+Stream\+::raw\+Size(), Byte\+Stream\+::sanity(), Byte\+Stream\+::size(), STORAGE\+\_\+\+FILENAME, and STORAGE\+\_\+\+SIZE.
+
+
+
+Referenced by Modes\+::load\+Storage().
+
+\mbox{\Hypertarget{classStorage_a28703a07e21e576760f1b84202c55a01}\label{classStorage_a28703a07e21e576760f1b84202c55a01}} 
+\index{Storage@{Storage}!write@{write}}
+\index{write@{write}!Storage@{Storage}}
+\doxysubsubsection{\texorpdfstring{write()}{write()}}
+{\footnotesize\ttfamily bool Storage\+::write (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 53 of file Storage.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54 \{}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{56   \textcolor{keywordflow}{if} (!Vortex::storageEnabled()) \{}
+\DoxyCodeLine{57     \textcolor{comment}{// success so the system thinks it all worked}}
+\DoxyCodeLine{58     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{59   \}}
+\DoxyCodeLine{60 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{61   \textcolor{comment}{// Check size}}
+\DoxyCodeLine{62   uint16\_t size = buffer.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}();}
+\DoxyCodeLine{63   \textcolor{keywordflow}{if} (!size || size > \mbox{\hyperlink{VortexConfig_8h_a8d6f782ffe53d87f0fd0327d4b09352c}{STORAGE\_SIZE}}) \{}
+\DoxyCodeLine{64     \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Buffer too big for storage space"{}});}
+\DoxyCodeLine{65     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{66   \}}
+\DoxyCodeLine{67 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
+\DoxyCodeLine{68   \textcolor{keyword}{const} uint8\_t *buf = (\textcolor{keyword}{const} uint8\_t *)buffer.\mbox{\hyperlink{classByteStream_a6993f9575592309a501156db31f82554}{rawData}}();}
+\DoxyCodeLine{69   \textcolor{comment}{// start writing to eeprom}}
+\DoxyCodeLine{70   \textcolor{keywordflow}{for} (uint16\_t i = 0; i < size; ++i) \{}
+\DoxyCodeLine{71     \textcolor{keywordflow}{if} (buf[i] != \mbox{\hyperlink{classStorage_ad564f35a9671864cb0bed1ffa671c63d}{eepromReadByte}}(i)) \{}
+\DoxyCodeLine{72       \mbox{\hyperlink{classStorage_a9c873bd223652fa8339840a1b350b931}{eepromWriteByte}}(i, buf[i]);}
+\DoxyCodeLine{73     \}}
+\DoxyCodeLine{74   \}}
+\DoxyCodeLine{75   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Wrote \%u bytes to storage (max: \%u)"{}}, \mbox{\hyperlink{classStorage_ae85ca521ae89c408fb045d2890951458}{m\_lastSaveSize}}, \mbox{\hyperlink{VortexConfig_8h_a8d6f782ffe53d87f0fd0327d4b09352c}{STORAGE\_SIZE}});}
+\DoxyCodeLine{76   \textcolor{keywordflow}{if} ((NVMCTRL.STATUS \& 4) != 0) \{}
+\DoxyCodeLine{77     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{78   \}}
+\DoxyCodeLine{79 \textcolor{preprocessor}{\#elif defined(\_MSC\_VER)}}
+\DoxyCodeLine{80   HANDLE hFile = CreateFile(\mbox{\hyperlink{Storage_8cpp_a4a8bec941d32acc2e0c33423a61e661f}{STORAGE\_FILENAME}}, GENERIC\_READ | GENERIC\_WRITE, 0, NULL, OPEN\_ALWAYS, FILE\_ATTRIBUTE\_NORMAL, NULL);}
+\DoxyCodeLine{81   \textcolor{keywordflow}{if} (!hFile) \{}
+\DoxyCodeLine{82     \textcolor{comment}{// error}}
+\DoxyCodeLine{83     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{84   \}}
+\DoxyCodeLine{85   DWORD written = 0;}
+\DoxyCodeLine{86   \textcolor{keywordflow}{if} (!WriteFile(hFile, buffer.\mbox{\hyperlink{classByteStream_a6993f9575592309a501156db31f82554}{rawData}}(), buffer.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}(), \&written, NULL)) \{}
+\DoxyCodeLine{87     \textcolor{comment}{// error}}
+\DoxyCodeLine{88     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{89   \}}
+\DoxyCodeLine{90   CloseHandle(hFile);}
+\DoxyCodeLine{91 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{92   FILE *f = fopen(\mbox{\hyperlink{Storage_8cpp_a4a8bec941d32acc2e0c33423a61e661f}{STORAGE\_FILENAME}}, \textcolor{stringliteral}{"{}w"{}});}
+\DoxyCodeLine{93   \textcolor{keywordflow}{if} (!f) \{}
+\DoxyCodeLine{94     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{95   \}}
+\DoxyCodeLine{96   \textcolor{keywordflow}{if} (!fwrite(buffer.\mbox{\hyperlink{classByteStream_a6993f9575592309a501156db31f82554}{rawData}}(), \textcolor{keyword}{sizeof}(\textcolor{keywordtype}{char}), buffer.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}(), f)) \{}
+\DoxyCodeLine{97     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{98   \}}
+\DoxyCodeLine{99   fclose(f);}
+\DoxyCodeLine{100 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// VORTEX\_EMBEDDED}}
+\DoxyCodeLine{101   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{102 \}}
+
+\end{DoxyCode}
+
+
+References DEBUG\+\_\+\+LOGF, eeprom\+Read\+Byte(), eeprom\+Write\+Byte(), ERROR\+\_\+\+LOG, m\+\_\+last\+Save\+Size, Byte\+Stream\+::raw\+Data(), Byte\+Stream\+::raw\+Size(), STORAGE\+\_\+\+FILENAME, and STORAGE\+\_\+\+SIZE.
+
+
+
+Referenced by Modes\+::save\+Storage().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classStorage_ae85ca521ae89c408fb045d2890951458}\label{classStorage_ae85ca521ae89c408fb045d2890951458}} 
+\index{Storage@{Storage}!m\_lastSaveSize@{m\_lastSaveSize}}
+\index{m\_lastSaveSize@{m\_lastSaveSize}!Storage@{Storage}}
+\doxysubsubsection{\texorpdfstring{m\_lastSaveSize}{m\_lastSaveSize}}
+{\footnotesize\ttfamily uint32\+\_\+t Storage\+::m\+\_\+last\+Save\+Size = 0\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 44 of file Storage.\+h.
+
+
+
+Referenced by last\+Save\+Size(), read(), and write().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Storage/\mbox{\hyperlink{Storage_8h}{Storage.\+h}}\item 
+Vortex\+Engine/src/\+Storage/\mbox{\hyperlink{Storage_8cpp}{Storage.\+cpp}}\end{DoxyCompactItemize}
