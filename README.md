@@ -2,6 +2,8 @@
 
 Welcome to the Vortex Engine firmware repository! This open-source project is designed for use with the StoneOrbits LED devices: Orbit, Gloves, Handle, and Duo chip. The firmware enables users to create mesmerizing light shows by allowing any flashing patterns, colorsets, or effects to be programmed onto their devices.
 
+You can read project documentation [here](https://stoneorbits.github.io/VortexEngine/)
+
 ## Repository Structure
 
 The repository branches are each dedicated to a specific device's firmware. 
