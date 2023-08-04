@@ -14,11 +14,11 @@ so that the user can input commands to the vortex device.
 
 Below you will find a brief description of each device along with some sections describing the capabilities.
 
-  - [Vortex Wired Gloveset](https://stoneorbits.com/products/the-vortex-gloves-1): you can read more [here](gloves_device.html)  
-  - [Copact 28 Led Orbit](https://stoneorbits.com/products/copy-of-the-vortex-with-customs): you can read more [here](orbit_device.html)  
-  - [3 Led Orbit Handle](https://stoneorbits.com/products/omega-handles): you can read more [here](handle_device.html)  
-  - [2 Led Modular Chip (Coming soon)](): you can read more [here](duo_device.html)  
-  - [Chromadeck Mode Storage (Coming soon)](): you can read more [here](chromadeck_device.html)  
+  - [Vortex 20 led Wired Gloveset](gloves_device.html)  
+  - [Vortex Orbit Copact 28 Led Orbit](orbit_device.html)  
+  - [Omega Handle 3 Led Orbit Handle](handle_device.html)  
+  - [Vortex Duo 2 Led Modular Chip](duo_device.html)  
+  - [Chromadeck Mode Storage](chromadeck_device.html)  
 
 ## Mode Sharing Capabilities
 
