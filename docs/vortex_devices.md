@@ -12,13 +12,13 @@ This page aims to cover the main differences and similaries of each Vortex Devic
 A Vortex Device must expose some amount of LEDs to display the patterns and colors that can be configured, a button is recommended
 so that the user can input commands to the vortex device.
 
-Below you will find a brief description of each device along with some sections describing the capabilities.
+The available Vortex Devices incldue:
 
-  - [Vortex 20 led Wired Gloveset](gloves_device.html)  
-  - [Vortex Orbit Copact 28 Led Orbit](orbit_device.html)  
-  - [Omega Handle 3 Led Orbit Handle](handle_device.html)  
-  - [Vortex Duo 2 Led Modular Chip](duo_device.html)  
-  - [Chromadeck Mode Storage](chromadeck_device.html)  
+  - [Vortex Gloves](gloves_device.html)  
+  - [Vortex Orbit](orbit_device.html)  
+  - [Omega Handle](handle_device.html)  
+  - [Vortex Duo](duo_device.html)  
+  - [Chromadeck](chromadeck_device.html)  
 
 ## Mode Sharing Capabilities
 
