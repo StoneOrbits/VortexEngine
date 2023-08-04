@@ -20,7 +20,7 @@ After selecting a slot, you can adjust the hue, saturation, and value (brightnes
 
 To use the Change Colorset menu, follow these steps:
 
-1. Enter the Change Colorset menu by performing a long press on the device button until the LED turns green.
+1. Enter the Color Select (green) menu from the mode you want to change
 2. Perform a short click to cycle through the color slots. The LED will display the color of the currently selected slot.
 3. To adjust the hue, saturation, or value of the selected color, perform a long click. The LED will display a rotating rainbow pattern to indicate that you are in the adjustment mode.
 4. In the adjustment mode, perform a short click to cycle through the adjustment options. The LED will display a different pattern for each option: a rotating rainbow pattern for hue, a pulsing pattern for saturation, and a blinking pattern for value.

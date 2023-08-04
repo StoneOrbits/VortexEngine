@@ -28,7 +28,7 @@ There is another action that will happen anytime you click on a mode in the edit
 
 To use the Editor Connection menu, follow these steps:
 
-1. Enter the Editor Connection menu by performing a long press on the device button until the LED turns purple.
+1. Enter the Editor Connection (purple) menu from any mode
 2. If the Vortex Editor is running and connected, it will send commands to the device. The device will respond to these commands as described above.
 3. To exit the Editor Connection menu, perform a long click. The device will send a goodbye message to the editor and return to the previous mode.
 

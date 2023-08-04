@@ -20,10 +20,8 @@ There are two types of patterns available: single LED patterns and multi LED pat
 
 To use the Pattern Select menu, follow these steps:
 
-1. Enter the Pattern Select menu by performing a long press on the device button until the LED turns blue.
-
+1. Enter the Pattern Select (dark blue) menu from the mode you want to change
 2. Perform short clicks to cycle through the available patterns. The device will preview each pattern as you cycle through them.
-
 3. When you find a pattern you like, perform a long click to save the pattern and exit the Pattern Select menu.
 
 Remember, the Pattern Select menu is all about customization. Don't be afraid to experiment with different patterns to create unique and interesting light shows!

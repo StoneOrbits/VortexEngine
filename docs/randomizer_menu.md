@@ -33,9 +33,7 @@ Even though the sequence of modes is predetermined by the seed, the modes themse
 To use the basic Randomizer menu, follow these steps:
 
 1. Enter the Randomizer menu by performing a long press on the device button until the LED turns white.
-
 2. To generate a new mode, perform a short click. The device will create a new mode by randomizing both the pattern and the colorset.
-
 3. To save the new mode, perform a long click. The device will save the mode and exit the Randomizer menu.
 
 ## Advanced Randomization
@@ -45,9 +43,7 @@ For more advanced users, the Randomizer menu offers additional control over the 
 To use the advanced randomizer just perform one extra step, upon entering the menu you will be able to choose from three options:
 
 1. The LED will play a rainbow ribbon for colorset randomization
-
 2. The LED will display a white strobe for pattern only randomization
-
 3. The LED will strobe with a rainbow for pattern and colorset randomization.
 
 Pick one of the options and then follow the same steps for using the randomizer as normal.
