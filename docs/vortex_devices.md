@@ -31,7 +31,7 @@ The capabilities of each device looks like this:
        orbit      x         x         x                    x  
       handle      x         x         x                    x  
          duo                          x         x             
-  chromadeck      x         x         x         x          x  
+        deck      x         x         x         x          x  
 
 This means that all devices except the duo can share with each other via Infrared. But if one of those devices
 wishes to share with a duo, they must send via Visible Light to the duo.
