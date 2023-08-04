@@ -591,6 +591,11 @@ bool Modes::getFlag(uint8_t flag)
   return ((m_globalFlags & flag) != 0);
 }
 
+void Modes::resetFlags()
+{
+  m_globalFlags = 0;
+}
+
 #ifdef VORTEX_LIB
 #include "Patterns/PatternBuilder.h"
 // get the maximum size a mode can occupy
