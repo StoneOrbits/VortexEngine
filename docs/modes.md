@@ -39,16 +39,6 @@ When you open the menus on any Vortex Device, the Mode that was selected and pla
 
 To continue reading about the Menus, go [here](menus.html).
 
-## Mode Stretching and Chopping
-
-When a mode is transferred from one device to another there is a step which must occur on the receiving device. After the mode has been received and while it is being loaded, the receiving device must make a decision based on the number of leds present in the mode savefile, and the number of leds the device currently exposes.
-
-If the led count is different between an incoming savefile and the actual device led count, then "stretching" or "chopping" rules are applied.
-
-The "stretching" rule will apply to a receiver which has more leds than then mode it received, it will repeat the smaller mode across the larger set of leds however many times necessary to fill the leds. For example an orbit receiving a duo mode would repeat that 2 led mode 14 times across it's leds.
-
-The "chopping" rule will apply when a receiver has less leds than the mode it has received, this will simply chop off the remaining leds and only use the ones which fit on the device.  For example an orbit mode (28 leds) sent to a wired gloveset (10 leds) would chop the remaining 18 leds off and only use the first 10.
-
 ## Empty Modes
 
 A lesser known feature of the Vortex Engine is it will automatically skip over empty modes, this means if your device has for example 5 mode slots and you clear out one of the modes so it is "empty" then your device will only have 4 modes and the 5th slot will be effectively gone.
