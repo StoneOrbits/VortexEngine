@@ -86,6 +86,7 @@ void FactoryReset::onLongClick()
     cur->init();
   } else {
     Modes::setDefaults();
+    Modes::resetFlags();
   }
   leaveMenu(true);
 }
