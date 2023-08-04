@@ -34,13 +34,13 @@ The Mode Sharing menu allows you to share your current mode with another Vortex 
 
 The Editor Connection menu is used to connect your Vortex Device to the Vortex Editor. This allows you to program your device using the editor's user-friendly interface. Please note that this menu is not available on the Duo.
 
-## <span class="green"></span> [Change Colorset](color_select_menu.html)
+## <span class="green"></span> [Color Select](color_select_menu.html)
 
-The Change Colorset menu allows you to change the colorset of the current mode. This is a quick and easy way to customize the appearance of your modes.
+The Color Select menu allows you to change the colorset of the current mode. This is a quick and easy way to customize the appearance of your modes.
 
-## <span class="blue"></span> [Change Pattern](pattern_select_menu.html)
+## <span class="blue"></span> [Pattern Select](pattern_select_menu.html)
 
-The Change Pattern menu allows you to change the pattern of the current mode. This allows you to customize the blinking speed or style of your modes.
+The Pattern Select menu allows you to change the pattern of the current mode. This allows you to customize the blinking speed or style of your modes.
 
 ## <span class="yellow"></span> [Global Brightness](global_brightness_menu.html)
 

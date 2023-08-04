@@ -16,6 +16,10 @@ When you enter the Pattern Select menu, the device will display the current mode
 
 There are two types of patterns available: single LED patterns and multi LED patterns. Single LED patterns only affect one LED at a time, while multi LED patterns can create effects that appear to 'travel' across multiple LEDs.
 
+The Vortex Duo unfortunately does not support multi-led patterns, so the pattern select menu on that device ends after the single led patterns.
+
+You can read more about single and multi led patterns [here](patterns.html)
+
 ## Using the Pattern Select Menu
 
 To use the Pattern Select menu, follow these steps:

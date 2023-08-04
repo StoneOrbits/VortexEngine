@@ -24,6 +24,10 @@ The Editor can be used to perform two main commands with the Vortex Device:
 
 There is another action that will happen anytime you click on a mode in the editor, that mode will be sent to the device to play as a demo.
 
+It is important to remember to push your changes after you have finished using the editor on a device, the editor only makes changes locally and sends the mode for demonstration.  Until you hit 'push' the connected device will remain unchanged and can be unplugged at any time.
+
+It is also a good idea to save your savefile to the PC and backup your modes anytime you use the editor.
+
 ## Using the Editor Connection Menu
 
 To use the Editor Connection menu, follow these steps:
