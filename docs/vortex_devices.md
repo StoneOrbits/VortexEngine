@@ -14,39 +14,11 @@ so that the user can input commands to the vortex device.
 
 Below you will find a brief description of each device along with some sections describing the capabilities.
 
-## Core
-
-The 'core' is not technically a Vortex Device but rather it is the core firmware from which all devices derive.
-
-Technically the vortex core firmware cannot run on a device as it lacks the integrations for that device hardware.
-
-As soon as the core is modified to run on a specific device it is technically no longer the 'core'.
-
-## Gloves
-
- [Store Page](https://stoneorbits.com/products/the-vortex-gloves-1)
-
- The gloves are a wired gloveset, you can read more [here](gloves_device.html)
-
-## Orbit
-
- [Store Page](https://stoneorbits.com/products/copy-of-the-vortex-with-customs)
-
- The orbit is a compact 28 led orbit, you can read more [here](orbit_device.html)
-
-## Handle
-
- [Store Page](https://stoneorbits.com/products/omega-handles)
-
- The handle is a weighted 3 led orbit handle, you can read more [here](handle_device.html)
-
-## Duo
-
- [Store Page (Coming soon)]()
-
- The duo is an unbeatable 2 led modular orbit chip, you can read more [here](duo_device.html)
-
-## Chromadeck
+ [Vortex Wired Gloveset](https://stoneorbits.com/products/the-vortex-gloves-1): you can read more [here](gloves_device.html)
+ [Copact 28 Led Orbit](https://stoneorbits.com/products/copy-of-the-vortex-with-customs): you can read more [here](orbit_device.html)
+ [3 Led Orbit Handle](https://stoneorbits.com/products/omega-handles): you can read more [here](handle_device.html)
+ [2 Led Modular Chip (Coming soon)](): you can read more [here](duo_device.html)
+ [Chromadeck Mode Storage (Coming soon)](): you can read more [here](chromadeck_device.html)
 
 ## Mode Sharing Capabilities
 
