@@ -1,4 +1,4 @@
-name: Embedded Build
+name: Orbit Embedded
 
 on:
   push:
