@@ -7,7 +7,16 @@ on:
     branches: [ "daniel/gloves/arduino_makefile" ]
 
 jobs:
-  prepare:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Install Dependencies
+        run: sudo apt-get install valgrind g++ make doxygen graphviz texlive
+      - name: Build
+        run: make -j
+
+  test:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout outer repository
@@ -15,32 +24,13 @@ jobs:
         with:
           repository: "StoneOrbits/VortexEmulator"
           path: VortexEmulator
-
       - name: Checkout current repository inside the outer repository
         uses: actions/checkout@v3
         with:
           path: VortexEmulator/VortexTestingFramework/VortexEngine
-
-  build:
-    needs: prepare
-    runs-on: ubuntu-latest
-    steps:
-      - name: Install Dependencies
-        run: sudo apt-get install valgrind g++ make doxygen graphviz texlive
-
-      - name: Build
-        run: make -j
-        working-directory: VortexEmulator/VortexTestingFramework
-
-
-  test:
-    needs: build
-    runs-on: ubuntu-latest
-    steps:
       - name: Set execute permissions for test script
         run: chmod +x ./runtests.sh
         working-directory:  VortexEmulator/VortexTestingFramework/tests
-
       - name: Run tests
         run: ./runtests.sh --gloves
         working-directory:  VortexEmulator/VortexTestingFramework/tests
@@ -49,14 +39,11 @@ jobs:
     needs: test
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
       - name: Checkout doxygen-awesome
         run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
-        working-directory:  VortexEmulator/VortexTestingFramework/VortexEngine
-
       - name: Generate Documentation
         run: doxygen Doxyfile
-        working-directory:  VortexEmulator/VortexTestingFramework/VortexEngine
-
       - name: Commit and Push Documentation
         run: |
           git config --local user.email "action@github.com"
@@ -64,48 +51,36 @@ jobs:
           git add docs
           git commit -m "Update Doxygen documentation"
           git push -f origin HEAD:gloves-docs
-        working-directory:  VortexEmulator/VortexTestingFramework/VortexEngine
-
 
   embedded:
     needs: docs
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
-        with:
-          path: VortexEmulator/VortexTestingFramework/VortexEngine
-
       - name: Set up Python
         uses: actions/setup-python@v2
         with:
           python-version: '3.x'
-
       - name: Install Dependencies
         run: make install
-        working-directory: VortexEmulator/VortexTestingFramework/VortexEngine
-
       - name: Download uf2conv script
         run: wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2conv.py
-        working-directory: VortexEmulator/VortexTestingFramework/VortexEngine
-
       - name: Download uf2families.json
         run: wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2families.json
-        working-directory: VortexEmulator/VortexTestingFramework/VortexEngine
-
       - name: Make scripts executable
         run: chmod +x uf2conv.py uf2families.json
-        working-directory: VortexEmulator/VortexTestingFramework/VortexEngine
-
       - name: Build Binary
         run: make build
-        working-directory: VortexEmulator/VortexTestingFramework/VortexEngine
-
       - name: Convert BIN to UF2
         run: python3 uf2conv.py -c -b 0x2000 build/VortexEngine.ino.bin -o build/VortexEngine.ino.uf2
-        working-directory: VortexEmulator/VortexTestingFramework/VortexEngine
-
       - name: Archive production artifacts
         uses: actions/upload-artifact@v2
         with:
           name: embedded firmware
-          path: VortexEmulator/VortexTestingFramework/VortexEngine/build/*
+          path: |
+            build/VortexEngine.ino.bin
+            build/VortexEngine.ino.elf
+            build/VortexEngine.ino.map
+            build/VortexEngine.ino.hex
+            build/VortexEngine.ino.uf2
+
