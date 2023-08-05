@@ -2,9 +2,9 @@ name: Gloves Build
 
 on:
   push:
-    branches: [ "gloves/arduino_makefile" ]
+    branches: [ "daniel/gloves/arduino_makefile" ]
   pull_request:
-    branches: [ "gloves/arduino_makefile" ]
+    branches: [ "daniel/gloves/arduino_makefile" ]
 
 jobs:
   build:
