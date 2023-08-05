@@ -1,0 +1,19 @@
+name: Embedded Build
+
+on:
+  push:
+    branches: [ "daniel/orbit/arduino_makefile" ]
+  pull_request:
+    branches: [ "daniel/orbit/arduino_makefile" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Depdendencies
+      run: make install
+    - name: Build Binary
+      run: make build
