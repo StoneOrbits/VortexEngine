@@ -12,51 +12,35 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-    - uses: actions/setup-python@v4
+    - uses: actions/checkout@v3
+    
+    - name: Set up Python
+      uses: actions/setup-python@v2
       with:
         python-version: '3.x'
-    - uses: actions/checkout@v3
-    - uses: actions/checkout@v3
-      with:
-         repository: adafruit/ci-arduino
-         path: ci
 
-    - name: pre-install
-      run: bash ci/actions_install.sh
+    - name: Install Dependencies
+      run: make install
+    
+    - name: Download uf2conv script
+      run: wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2conv.py
 
-    - name: test platforms
-      run: python3 ci/build_platform.py main_platforms
+    - name: Make script executable
+      run: chmod +x uf2conv.py
 
-    - name: clang
-      run: python3 ci/run-clang-format.py -e "ci/*" -e "bin/*" -r . 
+    - name: Build Binary
+      run: make build
 
-    - name: Upload build artifacts
+    - name: Convert BIN to UF2
+      run: python3 uf2conv.py -c -b 0x2000 build/VortexEngine.ino.bin -o build/VortexEngine.ino.uf2
+    
+    - name: Archive production artifacts
       uses: actions/upload-artifact@v2
       with:
-        name: ${{ github.event.repository.name }}.${{ github.sha }}
+        name: embedded firmware
         path: |
-            examples/*/build/*/*.hex
-            examples/*/build/*/*.bin
-            examples/*/build/*/*.uf2
-  
-  release-files:
-    name: Release Files
-    runs-on: ubuntu-latest
-    needs: [build]
-    steps:
-      - name: Download build artifacts from build-platform steps
-        uses: actions/download-artifact@v2
-        with:
-          name: ${{ github.event.repository.name }}.${{ github.sha }}
-      - name: Archive Release
-        uses: thedoctor0/zip-release@master
-        with:
-          type: 'zip'
-          filename: 'release.zip'
-      - name: List Files
-        run: ls
-      - name: Upload Assets to the GitHub Release
-        uses: softprops/action-gh-release@v1
-        if: startsWith(github.ref, 'refs/tags/')
-        with:
-          files: release.zip
+          build/VortexEngine.ino.bin
+          build/VortexEngine.ino.elf
+          build/VortexEngine.ino.map
+          build/VortexEngine.ino.hex
+          build/VortexEngine.ino.uf2
