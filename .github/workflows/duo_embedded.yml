@@ -1,0 +1,27 @@
+name: Duo Embedded
+
+on:
+  push:
+    branches: [ daniel/duo/embedded_makefile ]
+  pull_request:
+    branches: [ daniel/duo/embedded_makefile ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Install dependencies
+      run: |
+        sudo apt-get update
+        sudo apt-get install -y software-properties-common
+        sudo add-apt-repository ppa:team-gcc-arm-embedded/ppa
+        sudo apt-get update
+        sudo apt-get install -y gcc-avr binutils-avr avr-libc
+
+    - uses: actions/checkout@v2
+
+    - name: Build
+      run: make
+
