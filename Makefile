@@ -4,7 +4,7 @@ ARDUINO_CLI = ./bin/arduino-cli
 BOARD = adafruit:samd:adafruit_trinket_m0
 PORT = /dev/ttyACM0
 PROJECT_NAME = VortexEngine/VortexEngine.ino
-CONFIG_FILE = ~/.arduino15/arduino-cli.yaml
+CONFIG_FILE = $(HOME)/.arduino15/arduino-cli.yaml
 
 # Default target
 all: install build
@@ -15,6 +15,7 @@ update-index:
 install:
 	sudo apt-get update
 	sudo apt-get install -y build-essential
+	mkdir $(HOME)/.arduino15
 	if ! command -v $(ARDUINO_CLI) &> /dev/null ; then \
 		curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sudo sh ; \
 	fi
