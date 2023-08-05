@@ -1,0 +1,28 @@
+name: Handle Embedded
+
+on:
+  push:
+    branches: [ "daniel/handle/arduino_makefile" ]
+  pull_request:
+    branches: [ "daniel/handle/arduino_makefile" ]
+
+jobs:
+  build:
+
+    runs-on: ubuntu-latest
+
+    steps:
+    - uses: actions/checkout@v3
+    - name: Install Depdendencies
+      run: make install
+    - name: Build Binary
+      run: make build
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v3
+      with:
+        name: embedded firmware
+        path: |
+          build/VortexEngine.ino.bin
+          build/VortexEngine.ino.elf
+          build/VortexEngine.ino.map
+          build/VortexEngine.ino.hex
