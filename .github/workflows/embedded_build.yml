@@ -21,4 +21,8 @@ jobs:
       uses: actions/upload-artifact@v2
       with:
         name: embedded firmware
-        path: VortexEngine/VortexEngine.ino.adafruit_trinket_m0.bin
+        path: |
+          build/VortexEngine.ino.bin
+          build/VortexEngine.ino.elf
+          build/VortexEngine.ino.map
+          build/VortexEngine.ino.hex
