@@ -24,9 +24,12 @@ jobs:
     
     - name: Download uf2conv script
       run: wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2conv.py
+      
+    - name: Download uf2families.json
+      run: wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2families.json
 
-    - name: Make script executable
-      run: chmod +x uf2conv.py
+    - name: Make scripts executable
+      run: chmod +x uf2conv.py uf2families.json
 
     - name: Build Binary
       run: make build
