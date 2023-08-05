@@ -1,13 +1,16 @@
-# need to install megatinycore and it should work
-BINDIR="C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/"
-AVRDUDEDIR="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/DxCore/tools/avrdude/6.3.0-arduino17or18/bin"
-
-# tools for serial upload
-PYTHON="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/megaTinyCore/tools/python3/3.7.2-post1/python3"
-PYPROG="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.5/tools/prog.py"
-
-DEVICE_DIR="C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.10.348/gcc/dev/attiny3217"
-INCLUDE_DIR="C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.10.348/include/"
+ifeq ($(shell uname -o),Msys)  # for Windows
+    BINDIR="C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/"
+    AVRDUDEDIR="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/DxCore/tools/avrdude/6.3.0-arduino17or18/bin"
+    PYTHON="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/megaTinyCore/tools/python3/3.7.2-post1/python3"
+    PYPROG="$(shell echo "$$LOCALAPPDATA")/Arduino15/packages/megaTinyCore/hardware/megaavr/2.6.5/tools/prog.py"
+    DEVICE_DIR="C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.10.348/gcc/dev/attiny3217"
+    INCLUDE_DIR="C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.10.348/include/"
+else ifeq ($(shell uname),Linux)  # for Linux
+    BINDIR=/usr/local/bin/
+    AVRDUDEDIR=/usr/bin/
+    DEVICE_DIR=
+    INCLUDE_DIR=/usr/lib/avr/include
+endif
 
 CC = ${BINDIR}/avr-g++
 LD = ${BINDIR}/avr-g++
@@ -61,6 +64,7 @@ CFLAGS = -g \
 	 -ffunction-sections\
 	 -funsigned-bitfields \
 	 -fno-threadsafe-statics \
+	 -D__AVR_ATtiny3217__ \
 	 -mmcu=$(AVRDUDE_CHIP) \
 	 -DF_CPU=$(CPU_SPEED) \
 	 -B $(DEVICE_DIR)
@@ -83,9 +87,15 @@ INCLUDES=\
 CFLAGS+=$(INCLUDES)
 
 # Source files
+ifeq ($(shell uname -o),Msys)  # for Windows
 SRCS = \
        $(shell find ./VortexEngine/src/ -type f -name '\*.cpp') \
        ./VortexEngine/appmain.cpp
+else
+SRCS = \
+       $(shell find ./VortexEngine/src/ -type f -name \*.cpp) \
+       ./VortexEngine/appmain.cpp
+endif
 
 OBJS = $(SRCS:.cpp=.o)
 
@@ -119,6 +129,14 @@ upload: $(TARGET).hex
 # upload via SerialUPDI
 serial: $(TARGET).hex
 	$(PYTHON) -u $(PYPROG) -t uart -u $(SERIAL_PORT) -b 921600 -d $(AVRDUDE_CHIP) --fuses 0:$(FUSE0) 2:$(FUSE2) 5:$(FUSE5) 6:$(FUSE6) 7:$(FUSE7) 8:$(FUSE8) -f $< -a write -v
+
+UNAME_S := $(shell uname -s)
+ifeq ($(UNAME_S),Linux)
+install:
+	sudo apt-get update
+	sudo apt-get install -y gcc-avr binutils-avr gdb-avr avr-libc avrdude
+	echo "Installation complete. Please note that paths to include files might need to be updated in the Makefile."
+endif
 
 clean:
 	rm -f $(OBJS) $(TARGET).elf $(TARGET).hex $(DFILES)
