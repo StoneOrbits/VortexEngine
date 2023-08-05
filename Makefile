@@ -8,7 +8,7 @@ BUILD_PATH = build
 CONFIG_FILE = $(HOME)/.arduino15/arduino-cli.yaml
 
 # Default target
-all: install build
+all: build
 
 update-index:
 	$(ARDUINO_CLI) core update-index

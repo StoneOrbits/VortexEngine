@@ -2,9 +2,9 @@ name: Gloves Embedded
 
 on:
   push:
-    branches: [ "daniel/orbit/arduino_makefile" ]
+    branches: [ "daniel/gloves/arduino_makefile" ]
   pull_request:
-    branches: [ "daniel/orbit/arduino_makefile" ]
+    branches: [ "daniel/gloves/arduino_makefile" ]
 
 jobs:
   build:
