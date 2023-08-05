@@ -1,7 +1,17 @@
-.PHONY: install build upload all
+.PHONY: all install build upload clean
+
+ARDUINO_CLI = /usr/local/bin/arduino-cli
+BOARD = adafruit:samd:adafruit_trinket_m0
+PORT = /dev/ttyACM0
+BUILD_PATH = /tmp/arduino-build
+PROJECT_NAME = VortexEngine/VortexEngine.ino
+CONFIG_FILE = ~/.arduino15/arduino-cli.yaml
 
 # Default target
 all: install build
+
+update-index:
+	$(ARDUINO_CLI) core update-index
 
 install:
 	# Update package list
@@ -11,32 +21,29 @@ install:
 	sudo apt-get install -y build-essential
 
 	# Install Arduino CLI if it doesn't exist
-	if ! command -v arduino-cli &> /dev/null ; then \
+	if ! command -v $(ARDUINO_CLI) &> /dev/null ; then \
 		curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sudo sh ; \
 	fi
 
 	# Create a configuration file for Arduino CLI
-	echo 'board_manager: \n  additional_urls: \n    - https://adafruit.github.io/arduino-board-index/package_adafruit_index.json' | sudo tee ~/.arduino15/arduino-cli.yaml
+	echo 'board_manager: \n  additional_urls: \n    - https://adafruit.github.io/arduino-board-index/package_adafruit_index.json' | sudo tee $(CONFIG_FILE)
 
 	# Update core libraries
-	sudo arduino-cli core update-index --config-file ~/.arduino15/arduino-cli.yaml
+	$(ARDUINO_CLI) core update-index --config-file $(CONFIG_FILE)
 
 	# Install Adafruit's SAMD core if not already installed
-	if ! sudo arduino-cli core list --config-file ~/.arduino15/arduino-cli.yaml | grep -q 'adafruit:samd' ; then \
-		sudo arduino-cli core install adafruit:samd --config-file ~/.arduino15/arduino-cli.yaml ; \
+	if ! $(ARDUINO_CLI) core list --config-file $(CONFIG_FILE) | grep -q '$(BOARD)' ; then \
+		$(ARDUINO_CLI) core install adafruit:samd --config-file $(CONFIG_FILE) ; \
 	fi
 
 build:
-	# Compile the project
-	sudo arduino-cli compile \
-		--fqbn adafruit:samd:adafruit_trinket_m0 VortexEngine/VortexEngine.ino \
-		--config-file ~/.arduino15/arduino-cli.yaml
+	$(ARDUINO_CLI) compile --fqbn $(BOARD) $(PROJECT_NAME) --config-file $(CONFIG_FILE) --build-path $(BUILD_PATH)
 
 upload:
-	# Upload the compiled code to the Arduino board
-	# Replace /dev/ttyACM0 with your actual Arduino port
-	sudo arduino-cli upload \
-		-p /dev/ttyACM0 \
-		--fqbn adafruit:samd:adafruit_trinket_m0 VortexEngine/VortexEngine.ino \
-		--config-file ~/.arduino15/arduino-cli.yaml
+	$(ARDUINO_CLI) upload -p $(PORT) --fqbn $(BOARD) $(PROJECT_NAME) --config-file $(CONFIG_FILE)
 
+core-list:
+	$(ARDUINO_CLI) core list
+
+clean:
+	rm -rf $(BUILD_PATH)
