@@ -17,3 +17,8 @@ jobs:
       run: make install
     - name: Build Binary
       run: make build
+    - name: Archive production artifacts
+      uses: actions/upload-artifact@v2
+      with:
+        name: embedded firmware
+        path: build/VortexEngine.ino.adafruit_trinket_m0.bin
