@@ -41,28 +41,8 @@ jobs:
       run: ./runtests.sh --gloves
       working-directory:  VortexEmulator/VortexTestingFramework/tests
 
-  docs:
-    needs: test
-    runs-on: ubuntu-latest
-    steps:
-    - name: Checkout current repository inside the outer repository
-      uses: actions/checkout@v3
-    - name: Install Dependencies
-      run: sudo apt-get install valgrind g++ make doxygen graphviz texlive
-    - name: Checkout doxygen-awesome
-      run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
-    - name: Generate Documentation
-      run: doxygen Doxyfile
-    - name: Commit and Push Documentation
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add docs
-        git commit -m "Update Doxygen documentation"
-        git push -f origin HEAD:gloves-docs
-
   embedded:
-    needs: docs
+    needs: test
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v3
@@ -92,3 +72,23 @@ jobs:
             build/VortexEngine.ino.map
             build/VortexEngine.ino.hex
             build/VortexEngine.ino.uf2
+
+  docs:
+    needs: embedded
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout current repository inside the outer repository
+      uses: actions/checkout@v3
+    - name: Install Dependencies
+      run: sudo apt-get install valgrind g++ make doxygen graphviz texlive
+    - name: Checkout doxygen-awesome
+      run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
+    - name: Generate Documentation
+      run: doxygen Doxyfile
+    - name: Commit and Push Documentation
+      run: |
+        git config --local user.email "action@github.com"
+        git config --local user.name "GitHub Action"
+        git add docs
+        git commit -m "Update Doxygen documentation"
+        git push -f origin HEAD:gloves-docs
