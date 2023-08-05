@@ -62,8 +62,8 @@ var NAVTREEINDEX =
 "classButtons.html#ac5767a8af9ce64e39231833ad1b166ea",
 "classGlobalBrightness.html#a9d4c553bf95caecfcd8c881b46b68976",
 "classModes.html#a1ae90978222b457a941f0cbf7dd9b46b",
-"classRandomizer.html#abe42ee5d5bfff9aa8e933997c084579e",
-"dir_61b212e579fd471c490a116dc3a4c8cf.html"
+"classRandomizer.html#abc096623f4e5121366f9131b2abd411e",
+"dir_60d51ee7315d72413f26211ac43a217e.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

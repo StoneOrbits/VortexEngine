@@ -1,5 +1,6 @@
 var NAVTREEINDEX7 =
 {
+"classModes_1_1ModeLink.html#a9e99b5df562f09540db8d1429ed5886b":[0,0,40,0,6],
 "classModes_1_1ModeLink.html#a9f6c14f2e17ee304eb3cbfe228c4c61c":[0,0,40,0,12],
 "classModes_1_1ModeLink.html#aa5fbd874e03f975ed8723afcaebeb202":[0,0,40,0,8],
 "classModes_1_1ModeLink.html#aa92272ee4453ff8a3ea268b0e5f1d03c":[0,0,40,0,10],
@@ -248,6 +249,5 @@ var NAVTREEINDEX7 =
 "classSerialComs.html#a03bd0843bc99d2a9c13507b4e4c1e8a3":[0,0,55,2],
 "classSerialComs.html#a134c87080fce06fea5e1cd0bbf54d2da":[0,0,55,0],
 "classSerialComs.html#a37f271645e04061426c44a769e82a1fe":[0,0,55,9],
-"classSerialComs.html#a4da654c236a9ca2ce7b47bc775303adf":[0,0,55,1],
-"classSerialComs.html#a6403cc48e107d19f9f1bb7e69006d0bc":[0,0,55,3]
+"classSerialComs.html#a4da654c236a9ca2ce7b47bc775303adf":[0,0,55,1]
 };

@@ -1,9 +1,9 @@
 var searchData=
 [
-  ['dashduration_2308',['dashDuration',['../classPatternArgs.html#a52489576c1d8a82981256299119770fc',1,'PatternArgs']]],
-  ['dec64table_2309',['dec64table',['../Compression_8cpp.html#a541b3dda85be857eac8aabcf43ee83d8',1,'Compression.cpp']]],
-  ['default_5fmodes_2310',['default_modes',['../DefaultModes_8cpp.html#a45a26bbffb6073c152f32b3ec0404f15',1,'default_modes():&#160;DefaultModes.cpp'],['../DefaultModes_8h.html#a45a26bbffb6073c152f32b3ec0404f15',1,'default_modes():&#160;DefaultModes.cpp']]],
-  ['dictctx_2311',['dictCtx',['../structLZ4__stream__t__internal.html#a149d776fc4b59881d47aa61c487138c4',1,'LZ4_stream_t_internal']]],
-  ['dictionary_2312',['dictionary',['../structLZ4__stream__t__internal.html#ac49d2dcc57fb65fba2534f2bb231c8b9',1,'LZ4_stream_t_internal']]],
-  ['dictsize_2313',['dictSize',['../structLZ4__stream__t__internal.html#ae91b94da38c2a459926645c0bd28a814',1,'LZ4_stream_t_internal']]]
+  ['dashduration_2310',['dashDuration',['../classPatternArgs.html#a52489576c1d8a82981256299119770fc',1,'PatternArgs']]],
+  ['dec64table_2311',['dec64table',['../Compression_8cpp.html#a541b3dda85be857eac8aabcf43ee83d8',1,'Compression.cpp']]],
+  ['default_5fmodes_2312',['default_modes',['../DefaultModes_8cpp.html#a45a26bbffb6073c152f32b3ec0404f15',1,'default_modes():&#160;DefaultModes.cpp'],['../DefaultModes_8h.html#a45a26bbffb6073c152f32b3ec0404f15',1,'default_modes():&#160;DefaultModes.cpp']]],
+  ['dictctx_2313',['dictCtx',['../structLZ4__stream__t__internal.html#a149d776fc4b59881d47aa61c487138c4',1,'LZ4_stream_t_internal']]],
+  ['dictionary_2314',['dictionary',['../structLZ4__stream__t__internal.html#ac49d2dcc57fb65fba2534f2bb231c8b9',1,'LZ4_stream_t_internal']]],
+  ['dictsize_2315',['dictSize',['../structLZ4__stream__t__internal.html#ae91b94da38c2a459926645c0bd28a814',1,'LZ4_stream_t_internal']]]
 ];

@@ -62,9 +62,9 @@ var NAVTREEINDEX =
 "WarpWormPattern_8h_source.html",
 "classColorset.html#a3cfec1a04020fca46a63a7030300de26ae0a54247525d70f1be24aeff4fad8e7b",
 "classLeds.html#a3e8ac71e2187852d9c821ca5092dcaf1",
-"classModes_1_1ModeLink.html#a9f6c14f2e17ee304eb3cbfe228c4c61c",
-"classSerialComs.html#a713db35f7f3e79772a55a87979154b07",
-"functions_w.html"
+"classModes_1_1ModeLink.html#a9e99b5df562f09540db8d1429ed5886b",
+"classSerialComs.html#a6403cc48e107d19f9f1bb7e69006d0bc",
+"functions_vars_v.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

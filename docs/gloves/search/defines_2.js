@@ -1,13 +1,13 @@
 var searchData=
 [
-  ['checkfinger_2814',['checkFinger',['../LedTypes_8h.html#acb8c5fdde5d5b14db524b7d7ec6dbb25',1,'LedTypes.h']]],
-  ['click_5fthreshold_2815',['CLICK_THRESHOLD',['../VortexConfig_8h.html#a0e67a9d736bfe02f58872add97f72878',1,'VortexConfig.h']]],
-  ['col_5fdelete_5fcycle_2816',['COL_DELETE_CYCLE',['../VortexConfig_8h.html#afef2e9e83795e0e0c346d4a6af71b2eb',1,'VortexConfig.h']]],
-  ['col_5fdelete_5fthreshold_2817',['COL_DELETE_THRESHOLD',['../VortexConfig_8h.html#a0f03f33479c772421539f8e6bdb8b343',1,'VortexConfig.h']]],
-  ['compress_5fbuffer_2818',['compress_buffer',['../Compression_8h.html#a7bd1a03358e9713d4fad4aee56543de4',1,'Compression.h']]],
-  ['compress_5fsize_2819',['compress_size',['../Compression_8h.html#a447d16897de4a23473da7db80e10dd71',1,'Compression.h']]],
-  ['compression_5ftest_2820',['COMPRESSION_TEST',['../VortexConfig_8h.html#abf8afa25ee46cf5d3687cf2a22ba51e3',1,'VortexConfig.h']]],
-  ['consecutive_5fwindow_2821',['CONSECUTIVE_WINDOW',['../VortexConfig_8h.html#acdf9da2606d261d33dccb57d94d97b7d',1,'VortexConfig.h']]],
-  ['consecutive_5fwindow_5fticks_2822',['CONSECUTIVE_WINDOW_TICKS',['../Timings_8h.html#ae76f1a92ba0f97abcfa5007efb8acb35',1,'Timings.h']]],
-  ['cpu_5ffrequency_5fmhz_2823',['CPU_FREQUENCY_MHZ',['../Leds_8cpp.html#a34eaa201c82dae7ea43ef4cee2d71c9f',1,'Leds.cpp']]]
+  ['checkfinger_2816',['checkFinger',['../LedTypes_8h.html#acb8c5fdde5d5b14db524b7d7ec6dbb25',1,'LedTypes.h']]],
+  ['click_5fthreshold_2817',['CLICK_THRESHOLD',['../VortexConfig_8h.html#a0e67a9d736bfe02f58872add97f72878',1,'VortexConfig.h']]],
+  ['col_5fdelete_5fcycle_2818',['COL_DELETE_CYCLE',['../VortexConfig_8h.html#afef2e9e83795e0e0c346d4a6af71b2eb',1,'VortexConfig.h']]],
+  ['col_5fdelete_5fthreshold_2819',['COL_DELETE_THRESHOLD',['../VortexConfig_8h.html#a0f03f33479c772421539f8e6bdb8b343',1,'VortexConfig.h']]],
+  ['compress_5fbuffer_2820',['compress_buffer',['../Compression_8h.html#a7bd1a03358e9713d4fad4aee56543de4',1,'Compression.h']]],
+  ['compress_5fsize_2821',['compress_size',['../Compression_8h.html#a447d16897de4a23473da7db80e10dd71',1,'Compression.h']]],
+  ['compression_5ftest_2822',['COMPRESSION_TEST',['../VortexConfig_8h.html#abf8afa25ee46cf5d3687cf2a22ba51e3',1,'VortexConfig.h']]],
+  ['consecutive_5fwindow_2823',['CONSECUTIVE_WINDOW',['../VortexConfig_8h.html#acdf9da2606d261d33dccb57d94d97b7d',1,'VortexConfig.h']]],
+  ['consecutive_5fwindow_5fticks_2824',['CONSECUTIVE_WINDOW_TICKS',['../Timings_8h.html#ae76f1a92ba0f97abcfa5007efb8acb35',1,'Timings.h']]],
+  ['cpu_5ffrequency_5fmhz_2825',['CPU_FREQUENCY_MHZ',['../Leds_8cpp.html#a34eaa201c82dae7ea43ef4cee2d71c9f',1,'Leds.cpp']]]
 ];

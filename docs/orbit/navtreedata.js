@@ -63,8 +63,8 @@ var NAVTREEINDEX =
 "classColorSelect.html#a9199d6da07fbbeb3930e92d674c060eaa357afd4c0e747368fc58dd50e07761f1",
 "classIRSender.html#a517c58fc54ea58508e6571ad7d6ebd81",
 "classModes.html#a31830ee4f7ac55519bc385e4491a0513",
-"classRandomizer.html#a8ae11dd62df21789c634e4e6455dd01c",
-"functions_func_c.html"
+"classRandomizer.html#a7c1d633669ebce55d64bf94be69297a9",
+"functions_func_b.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

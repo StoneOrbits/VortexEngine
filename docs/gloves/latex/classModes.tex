@@ -84,6 +84,8 @@ static bool \mbox{\hyperlink{classModes_af6820eafbbb127aeec832813dd7685dc}{set\+
 \item 
 static bool \mbox{\hyperlink{classModes_a2e72728467bf8a8ffc771be4c49f7b37}{get\+Flag}} (uint8\+\_\+t flag)
 \item 
+static void \mbox{\hyperlink{classModes_a44f9cbf145f712a8ca50980a084809ca}{reset\+Flags}} ()
+\item 
 static bool \mbox{\hyperlink{classModes_a41cb92aa29129f0b4006315a2f37e7fa}{set\+One\+Click\+Mode}} (bool enable, bool save=true)
 \item 
 static bool \mbox{\hyperlink{classModes_a05f64b5430343cc94e77902b02fb8ce1}{one\+Click\+Mode\+Enabled}} ()
@@ -325,13 +327,13 @@ Referenced by unserialize().
 
 
 
-Definition at line 130 of file Modes.\+h.
+Definition at line 132 of file Modes.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{130                                      \{}
-\DoxyCodeLine{131     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_a2e72728467bf8a8ffc771be4c49f7b37}{getFlag}}(\mbox{\hyperlink{Modes_8h_acbee0408043778c71f933ce9b402bdfb}{MODES\_FLAG\_ADV\_MENUS}});}
-\DoxyCodeLine{132   \}}
+\DoxyCodeLine{132                                      \{}
+\DoxyCodeLine{133     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_a2e72728467bf8a8ffc771be4c49f7b37}{getFlag}}(\mbox{\hyperlink{Modes_8h_acbee0408043778c71f933ce9b402bdfb}{MODES\_FLAG\_ADV\_MENUS}});}
+\DoxyCodeLine{134   \}}
 
 \end{DoxyCode}
 
@@ -530,21 +532,21 @@ Referenced by advanced\+Menus\+Enabled(), keychain\+Mode\+Enabled(), locked(), a
 
 
 
-Definition at line 654 of file Modes.\+cpp.
+Definition at line 659 of file Modes.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{655 \{}
-\DoxyCodeLine{656   \textcolor{keywordflow}{if} (index >= \mbox{\hyperlink{classModes_add7e1e52edef93f8bee84b03e1916c21}{m\_numModes}}) \{}
-\DoxyCodeLine{657     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{658   \}}
-\DoxyCodeLine{659   ModeLink *ptr = \mbox{\hyperlink{classModes_a0088c01c69f568820de0c7b8e8ebc7aa}{m\_storedModes}};}
-\DoxyCodeLine{660   \textcolor{keywordflow}{while} (index > 0 \&\& ptr) \{}
-\DoxyCodeLine{661     ptr = ptr-\/>\mbox{\hyperlink{classModes_1_1ModeLink_a5f4e9c451032b7b7d3132da874653900}{next}}();}
-\DoxyCodeLine{662     index-\/-\/;}
+\DoxyCodeLine{660 \{}
+\DoxyCodeLine{661   \textcolor{keywordflow}{if} (index >= \mbox{\hyperlink{classModes_add7e1e52edef93f8bee84b03e1916c21}{m\_numModes}}) \{}
+\DoxyCodeLine{662     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
 \DoxyCodeLine{663   \}}
-\DoxyCodeLine{664   \textcolor{keywordflow}{return} ptr;}
-\DoxyCodeLine{665 \}}
+\DoxyCodeLine{664   ModeLink *ptr = \mbox{\hyperlink{classModes_a0088c01c69f568820de0c7b8e8ebc7aa}{m\_storedModes}};}
+\DoxyCodeLine{665   \textcolor{keywordflow}{while} (index > 0 \&\& ptr) \{}
+\DoxyCodeLine{666     ptr = ptr-\/>\mbox{\hyperlink{classModes_1_1ModeLink_a5f4e9c451032b7b7d3132da874653900}{next}}();}
+\DoxyCodeLine{667     index-\/-\/;}
+\DoxyCodeLine{668   \}}
+\DoxyCodeLine{669   \textcolor{keywordflow}{return} ptr;}
+\DoxyCodeLine{670 \}}
 
 \end{DoxyCode}
 
@@ -606,28 +608,28 @@ Referenced by Vortex\+Engine\+::init().
 
 
 
-Definition at line 667 of file Modes.\+cpp.
+Definition at line 672 of file Modes.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{668 \{}
-\DoxyCodeLine{669   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_add7e1e52edef93f8bee84b03e1916c21}{m\_numModes}}) \{}
-\DoxyCodeLine{670     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{671   \}}
-\DoxyCodeLine{672   \textcolor{comment}{// cleanup the current mode link}}
-\DoxyCodeLine{673   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}) \{}
-\DoxyCodeLine{674     \mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_ac9c4ff7755f2c268034843282baaee39}{uninstantiate}}();}
-\DoxyCodeLine{675   \}}
-\DoxyCodeLine{676   \textcolor{comment}{// update the current mode link based on the curmode index}}
-\DoxyCodeLine{677   \mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}} = \mbox{\hyperlink{classModes_a25f0e61bb0ff6ebc3d27b862b7b83838}{getModeLink}}(\mbox{\hyperlink{classModes_aee36ec773858cf347b90bd1538b0a2b8}{m\_curMode}});}
-\DoxyCodeLine{678   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}) \{}
-\DoxyCodeLine{679     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{673 \{}
+\DoxyCodeLine{674   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_add7e1e52edef93f8bee84b03e1916c21}{m\_numModes}}) \{}
+\DoxyCodeLine{675     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{676   \}}
+\DoxyCodeLine{677   \textcolor{comment}{// cleanup the current mode link}}
+\DoxyCodeLine{678   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}) \{}
+\DoxyCodeLine{679     \mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_ac9c4ff7755f2c268034843282baaee39}{uninstantiate}}();}
 \DoxyCodeLine{680   \}}
-\DoxyCodeLine{681   \textcolor{keywordflow}{if} (force) \{}
-\DoxyCodeLine{682     \mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_ac9c4ff7755f2c268034843282baaee39}{uninstantiate}}();}
-\DoxyCodeLine{683   \}}
-\DoxyCodeLine{684   \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_a284ba1b2ca41f96524480a96128fc113}{instantiate}}();}
-\DoxyCodeLine{685 \}}
+\DoxyCodeLine{681   \textcolor{comment}{// update the current mode link based on the curmode index}}
+\DoxyCodeLine{682   \mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}} = \mbox{\hyperlink{classModes_a25f0e61bb0ff6ebc3d27b862b7b83838}{getModeLink}}(\mbox{\hyperlink{classModes_aee36ec773858cf347b90bd1538b0a2b8}{m\_curMode}});}
+\DoxyCodeLine{683   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}) \{}
+\DoxyCodeLine{684     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{685   \}}
+\DoxyCodeLine{686   \textcolor{keywordflow}{if} (force) \{}
+\DoxyCodeLine{687     \mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_ac9c4ff7755f2c268034843282baaee39}{uninstantiate}}();}
+\DoxyCodeLine{688   \}}
+\DoxyCodeLine{689   \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_a284ba1b2ca41f96524480a96128fc113}{instantiate}}();}
+\DoxyCodeLine{690 \}}
 
 \end{DoxyCode}
 
@@ -646,13 +648,13 @@ Referenced by cur\+Mode(), play(), and update\+Cur\+Mode().
 
 
 
-Definition at line 137 of file Modes.\+h.
+Definition at line 139 of file Modes.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{137                                     \{}
-\DoxyCodeLine{138     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_a2e72728467bf8a8ffc771be4c49f7b37}{getFlag}}(\mbox{\hyperlink{Modes_8h_a57b484625e75f9334ddc6c8a64c31b13}{MODES\_FLAG\_KEYCHAIN}});}
-\DoxyCodeLine{139   \}}
+\DoxyCodeLine{139                                     \{}
+\DoxyCodeLine{140     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_a2e72728467bf8a8ffc771be4c49f7b37}{getFlag}}(\mbox{\hyperlink{Modes_8h_a57b484625e75f9334ddc6c8a64c31b13}{MODES\_FLAG\_KEYCHAIN}});}
+\DoxyCodeLine{141   \}}
 
 \end{DoxyCode}
 
@@ -788,13 +790,13 @@ Referenced by init().
 
 
 
-Definition at line 123 of file Modes.\+h.
+Definition at line 125 of file Modes.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{123                        \{}
-\DoxyCodeLine{124     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_a2e72728467bf8a8ffc771be4c49f7b37}{getFlag}}(\mbox{\hyperlink{Modes_8h_a2f796fdb7e7077c9d6e4a0e58866a512}{MODES\_FLAG\_LOCKED}});}
-\DoxyCodeLine{125   \}}
+\DoxyCodeLine{125                        \{}
+\DoxyCodeLine{126     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_a2e72728467bf8a8ffc771be4c49f7b37}{getFlag}}(\mbox{\hyperlink{Modes_8h_a2f796fdb7e7077c9d6e4a0e58866a512}{MODES\_FLAG\_LOCKED}});}
+\DoxyCodeLine{127   \}}
 
 \end{DoxyCode}
 
@@ -891,13 +893,13 @@ Referenced by Menu\+::init(), previous\+Mode(), and unserialize().
 
 
 
-Definition at line 116 of file Modes.\+h.
+Definition at line 118 of file Modes.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{116                                     \{}
-\DoxyCodeLine{117     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_a2e72728467bf8a8ffc771be4c49f7b37}{getFlag}}(\mbox{\hyperlink{Modes_8h_a6fc6ef6c1db20c133907e52576cb8364}{MODES\_FLAG\_ONE\_CLICK}});}
-\DoxyCodeLine{118   \}}
+\DoxyCodeLine{118                                     \{}
+\DoxyCodeLine{119     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_a2e72728467bf8a8ffc771be4c49f7b37}{getFlag}}(\mbox{\hyperlink{Modes_8h_a6fc6ef6c1db20c133907e52576cb8364}{MODES\_FLAG\_ONE\_CLICK}});}
+\DoxyCodeLine{120   \}}
 
 \end{DoxyCode}
 
@@ -976,6 +978,31 @@ Definition at line 501 of file Modes.\+cpp.
 
 References m\+\_\+cur\+Mode, m\+\_\+num\+Modes, num\+Modes(), and set\+Cur\+Mode().
 
+\mbox{\Hypertarget{classModes_a44f9cbf145f712a8ca50980a084809ca}\label{classModes_a44f9cbf145f712a8ca50980a084809ca}} 
+\index{Modes@{Modes}!resetFlags@{resetFlags}}
+\index{resetFlags@{resetFlags}!Modes@{Modes}}
+\doxysubsubsection{\texorpdfstring{resetFlags()}{resetFlags()}}
+{\footnotesize\ttfamily void Modes\+::reset\+Flags (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 590 of file Modes.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{591 \{}
+\DoxyCodeLine{592   \mbox{\hyperlink{classModes_a9929c8efa425648fa8a2e85028b1b303}{m\_globalFlags}} = 0;}
+\DoxyCodeLine{593 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+global\+Flags.
+
+
+
+Referenced by Factory\+Reset\+::on\+Long\+Click().
+
 \mbox{\Hypertarget{classModes_a1cb4d9f5f52072994532cf62585a2719}\label{classModes_a1cb4d9f5f52072994532cf62585a2719}} 
 \index{Modes@{Modes}!saveCurMode@{saveCurMode}}
 \index{saveCurMode@{saveCurMode}!Modes@{Modes}}
@@ -984,19 +1011,19 @@ References m\+\_\+cur\+Mode, m\+\_\+num\+Modes, num\+Modes(), and set\+Cur\+Mode
 
 
 
-Definition at line 687 of file Modes.\+cpp.
+Definition at line 692 of file Modes.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{688 \{}
-\DoxyCodeLine{689   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}) \{}
-\DoxyCodeLine{690     \textcolor{comment}{// if there's no loaded mode currently then there's nothing}}
-\DoxyCodeLine{691     \textcolor{comment}{// to save so there's no error}}
-\DoxyCodeLine{692     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{693   \}}
-\DoxyCodeLine{694   \textcolor{comment}{// force the current mode to save back to serial to catch changes}}
-\DoxyCodeLine{695   \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_ab36d327d9654b2a28c97bdb60fa47481}{save}}();}
-\DoxyCodeLine{696 \}}
+\DoxyCodeLine{693 \{}
+\DoxyCodeLine{694   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}) \{}
+\DoxyCodeLine{695     \textcolor{comment}{// if there's no loaded mode currently then there's nothing}}
+\DoxyCodeLine{696     \textcolor{comment}{// to save so there's no error}}
+\DoxyCodeLine{697     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{698   \}}
+\DoxyCodeLine{699   \textcolor{comment}{// force the current mode to save back to serial to catch changes}}
+\DoxyCodeLine{700   \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_ad7d6f6ed75802d20d99f408e983034f2}{m\_pCurModeLink}}-\/>\mbox{\hyperlink{classModes_1_1ModeLink_ab36d327d9654b2a28c97bdb60fa47481}{save}}();}
+\DoxyCodeLine{701 \}}
 
 \end{DoxyCode}
 
@@ -1155,13 +1182,13 @@ Referenced by save\+To\+Buffer().
 
 
 
-Definition at line 127 of file Modes.\+h.
+Definition at line 129 of file Modes.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{127                                                               \{}
-\DoxyCodeLine{128     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_af6820eafbbb127aeec832813dd7685dc}{setFlag}}(\mbox{\hyperlink{Modes_8h_acbee0408043778c71f933ce9b402bdfb}{MODES\_FLAG\_ADV\_MENUS}}, active, save);}
-\DoxyCodeLine{129   \}}
+\DoxyCodeLine{129                                                               \{}
+\DoxyCodeLine{130     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_af6820eafbbb127aeec832813dd7685dc}{setFlag}}(\mbox{\hyperlink{Modes_8h_acbee0408043778c71f933ce9b402bdfb}{MODES\_FLAG\_ADV\_MENUS}}, active, save);}
+\DoxyCodeLine{131   \}}
 
 \end{DoxyCode}
 
@@ -1327,13 +1354,13 @@ Referenced by set\+Advanced\+Menus(), set\+Keychain\+Mode(), set\+Locked(), and 
 
 
 
-Definition at line 134 of file Modes.\+h.
+Definition at line 136 of file Modes.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{134                                                              \{}
-\DoxyCodeLine{135     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_af6820eafbbb127aeec832813dd7685dc}{setFlag}}(\mbox{\hyperlink{Modes_8h_a57b484625e75f9334ddc6c8a64c31b13}{MODES\_FLAG\_KEYCHAIN}}, active, save);}
-\DoxyCodeLine{136   \}}
+\DoxyCodeLine{136                                                              \{}
+\DoxyCodeLine{137     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_af6820eafbbb127aeec832813dd7685dc}{setFlag}}(\mbox{\hyperlink{Modes_8h_a57b484625e75f9334ddc6c8a64c31b13}{MODES\_FLAG\_KEYCHAIN}}, active, save);}
+\DoxyCodeLine{138   \}}
 
 \end{DoxyCode}
 
@@ -1348,13 +1375,13 @@ References MODES\+\_\+\+FLAG\+\_\+\+KEYCHAIN, and set\+Flag().
 
 
 
-Definition at line 120 of file Modes.\+h.
+Definition at line 122 of file Modes.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{120                                                        \{}
-\DoxyCodeLine{121     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_af6820eafbbb127aeec832813dd7685dc}{setFlag}}(\mbox{\hyperlink{Modes_8h_a2f796fdb7e7077c9d6e4a0e58866a512}{MODES\_FLAG\_LOCKED}}, \mbox{\hyperlink{classModes_abe515fae0059b1213ba544b613051e97}{locked}}, save);}
-\DoxyCodeLine{122   \}}
+\DoxyCodeLine{122                                                        \{}
+\DoxyCodeLine{123     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_af6820eafbbb127aeec832813dd7685dc}{setFlag}}(\mbox{\hyperlink{Modes_8h_a2f796fdb7e7077c9d6e4a0e58866a512}{MODES\_FLAG\_LOCKED}}, \mbox{\hyperlink{classModes_abe515fae0059b1213ba544b613051e97}{locked}}, save);}
+\DoxyCodeLine{124   \}}
 
 \end{DoxyCode}
 
@@ -1373,13 +1400,13 @@ Referenced by Vortex\+Engine\+::tick().
 
 
 
-Definition at line 113 of file Modes.\+h.
+Definition at line 115 of file Modes.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{113                                                              \{}
-\DoxyCodeLine{114     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_af6820eafbbb127aeec832813dd7685dc}{setFlag}}(\mbox{\hyperlink{Modes_8h_a6fc6ef6c1db20c133907e52576cb8364}{MODES\_FLAG\_ONE\_CLICK}}, enable, save);}
-\DoxyCodeLine{115   \}}
+\DoxyCodeLine{115                                                              \{}
+\DoxyCodeLine{116     \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_af6820eafbbb127aeec832813dd7685dc}{setFlag}}(\mbox{\hyperlink{Modes_8h_a6fc6ef6c1db20c133907e52576cb8364}{MODES\_FLAG\_ONE\_CLICK}}, enable, save);}
+\DoxyCodeLine{117   \}}
 
 \end{DoxyCode}
 
@@ -1595,7 +1622,7 @@ Referenced by Mode\+Sharing\+::on\+Long\+Click(), Randomizer\+::on\+Long\+Click(
 
 
 
-Definition at line 209 of file Modes.\+h.
+Definition at line 211 of file Modes.\+h.
 
 
 
@@ -1609,11 +1636,11 @@ Referenced by cur\+Mode\+Index(), delete\+Cur\+Mode(), init\+Cur\+Mode(), next\+
 
 
 
-Definition at line 221 of file Modes.\+h.
+Definition at line 223 of file Modes.\+h.
 
 
 
-Referenced by get\+Flag(), init(), load\+From\+Buffer(), save\+To\+Buffer(), set\+Flag(), set\+Startup\+Mode(), and startup\+Mode().
+Referenced by get\+Flag(), init(), load\+From\+Buffer(), reset\+Flags(), save\+To\+Buffer(), set\+Flag(), set\+Startup\+Mode(), and startup\+Mode().
 
 \mbox{\Hypertarget{classModes_aa7443de0e5c4aa84bbef7c7691876c5c}\label{classModes_aa7443de0e5c4aa84bbef7c7691876c5c}} 
 \index{Modes@{Modes}!m\_lastSwitchTime@{m\_lastSwitchTime}}
@@ -1623,7 +1650,7 @@ Referenced by get\+Flag(), init(), load\+From\+Buffer(), save\+To\+Buffer(), set
 
 
 
-Definition at line 224 of file Modes.\+h.
+Definition at line 226 of file Modes.\+h.
 
 
 
@@ -1637,7 +1664,7 @@ Referenced by last\+Switch\+Time(), and set\+Cur\+Mode().
 
 
 
-Definition at line 212 of file Modes.\+h.
+Definition at line 214 of file Modes.\+h.
 
 
 
@@ -1651,7 +1678,7 @@ Referenced by add\+Mode(), add\+Mode\+From\+Buffer(), add\+Serialized\+Mode(), c
 
 
 
-Definition at line 215 of file Modes.\+h.
+Definition at line 217 of file Modes.\+h.
 
 
 
@@ -1665,7 +1692,7 @@ Referenced by clear\+Modes(), cur\+Mode(), delete\+Cur\+Mode(), init\+Cur\+Mode(
 
 
 
-Definition at line 218 of file Modes.\+h.
+Definition at line 220 of file Modes.\+h.
 
 
 

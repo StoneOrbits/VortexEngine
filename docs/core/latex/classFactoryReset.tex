@@ -176,14 +176,15 @@ Definition at line 64 of file Factory\+Reset.\+cpp.
 \DoxyCodeLine{85     cur-\/>\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
 \DoxyCodeLine{86   \} \textcolor{keywordflow}{else} \{}
 \DoxyCodeLine{87     \mbox{\hyperlink{classModes_a790f299aa425bdc73af7f584ee30472b}{Modes::setDefaults}}();}
-\DoxyCodeLine{88   \}}
-\DoxyCodeLine{89   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
-\DoxyCodeLine{90 \}}
+\DoxyCodeLine{88     \mbox{\hyperlink{classModes_a44f9cbf145f712a8ca50980a084809ca}{Modes::resetFlags}}();}
+\DoxyCodeLine{89   \}}
+\DoxyCodeLine{90   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{91 \}}
 
 \end{DoxyCode}
 
 
-References default\+\_\+mode\+\_\+entry\+::cols, Modes\+::cur\+Mode(), Modes\+::cur\+Mode\+Index(), default\+\_\+modes, FACTORY\+\_\+\+RESET\+\_\+\+THRESHOLD\+\_\+\+TICKS, g\+\_\+p\+Button, Button\+::hold\+Duration(), Mode\+::init(), Menu\+::leave\+Menu(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+cur\+Selection, Menu\+::m\+\_\+target\+Leds, MS\+\_\+\+TO\+\_\+\+TICKS, default\+\_\+mode\+\_\+entry\+::num\+Colors, default\+\_\+mode\+\_\+entry\+::pattern\+ID, Modes\+::set\+Defaults(), and Mode\+::set\+Pattern\+Map().
+References default\+\_\+mode\+\_\+entry\+::cols, Modes\+::cur\+Mode(), Modes\+::cur\+Mode\+Index(), default\+\_\+modes, FACTORY\+\_\+\+RESET\+\_\+\+THRESHOLD\+\_\+\+TICKS, g\+\_\+p\+Button, Button\+::hold\+Duration(), Mode\+::init(), Menu\+::leave\+Menu(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+cur\+Selection, Menu\+::m\+\_\+target\+Leds, MS\+\_\+\+TO\+\_\+\+TICKS, default\+\_\+mode\+\_\+entry\+::num\+Colors, default\+\_\+mode\+\_\+entry\+::pattern\+ID, Modes\+::reset\+Flags(), Modes\+::set\+Defaults(), and Mode\+::set\+Pattern\+Map().
 
 \mbox{\Hypertarget{classFactoryReset_ade67dba03cdbab9d7cb09b78357e299b}\label{classFactoryReset_ade67dba03cdbab9d7cb09b78357e299b}} 
 \index{FactoryReset@{FactoryReset}!onShortClick@{onShortClick}}
@@ -248,39 +249,39 @@ References Menu\+::\+MENU\+\_\+\+CONTINUE, Menu\+::run(), and show\+Reset().
 
 
 
-Definition at line 92 of file Factory\+Reset.\+cpp.
+Definition at line 93 of file Factory\+Reset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{93 \{}
-\DoxyCodeLine{94   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} == 0) \{}
-\DoxyCodeLine{95     \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{96     \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(350, 350, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
-\DoxyCodeLine{97     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{98   \}}
-\DoxyCodeLine{99   \textcolor{keywordtype}{bool} isPressed = \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}();}
-\DoxyCodeLine{100   \textcolor{keywordflow}{if} (!isPressed) \{}
-\DoxyCodeLine{101     \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{102     \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(50, 50, \mbox{\hyperlink{ColorConstants_8h_aadeb3eb9952324a7832c674c598f5121}{RGB\_RED4}});}
-\DoxyCodeLine{103     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{104   \}}
-\DoxyCodeLine{105   \textcolor{comment}{// don't start the fill until the button has been held for a bit}}
-\DoxyCodeLine{106   uint32\_t holdDur = \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}();}
-\DoxyCodeLine{107   \textcolor{keywordflow}{if} (holdDur < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(100)) \{}
-\DoxyCodeLine{108     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{109   \}}
-\DoxyCodeLine{110   uint16\_t progress = ((holdDur * 100) / \mbox{\hyperlink{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}{FACTORY\_RESET\_THRESHOLD\_TICKS}});}
-\DoxyCodeLine{111   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}progress: \%d"{}}, progress);}
-\DoxyCodeLine{112   \textcolor{keywordflow}{if} (progress >= 100) \{}
-\DoxyCodeLine{113     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{ColorConstants_8h_ac1771f95d9887118764bd8a074e537e1}{RGB\_WHITE}});}
-\DoxyCodeLine{114     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{115   \}}
-\DoxyCodeLine{116   uint8\_t offMs = 100;}
-\DoxyCodeLine{117   uint8\_t onMs = (progress > 60) ? 30 : 100;}
-\DoxyCodeLine{118   uint8\_t sat = (uint8\_t)((progress * 5) >> 1); \textcolor{comment}{// Using bit shift for division by 2}}
-\DoxyCodeLine{119   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{120   \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(offMs, onMs, \mbox{\hyperlink{classHSVColor}{HSVColor}}(0, 255 -\/ sat, 180));}
-\DoxyCodeLine{121 \}}
+\DoxyCodeLine{94 \{}
+\DoxyCodeLine{95   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} == 0) \{}
+\DoxyCodeLine{96     \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{97     \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(350, 350, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
+\DoxyCodeLine{98     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{99   \}}
+\DoxyCodeLine{100   \textcolor{keywordtype}{bool} isPressed = \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}();}
+\DoxyCodeLine{101   \textcolor{keywordflow}{if} (!isPressed) \{}
+\DoxyCodeLine{102     \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{103     \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(50, 50, \mbox{\hyperlink{ColorConstants_8h_aadeb3eb9952324a7832c674c598f5121}{RGB\_RED4}});}
+\DoxyCodeLine{104     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{105   \}}
+\DoxyCodeLine{106   \textcolor{comment}{// don't start the fill until the button has been held for a bit}}
+\DoxyCodeLine{107   uint32\_t holdDur = \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}();}
+\DoxyCodeLine{108   \textcolor{keywordflow}{if} (holdDur < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(100)) \{}
+\DoxyCodeLine{109     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{110   \}}
+\DoxyCodeLine{111   uint16\_t progress = ((holdDur * 100) / \mbox{\hyperlink{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}{FACTORY\_RESET\_THRESHOLD\_TICKS}});}
+\DoxyCodeLine{112   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}progress: \%d"{}}, progress);}
+\DoxyCodeLine{113   \textcolor{keywordflow}{if} (progress >= 100) \{}
+\DoxyCodeLine{114     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{ColorConstants_8h_ac1771f95d9887118764bd8a074e537e1}{RGB\_WHITE}});}
+\DoxyCodeLine{115     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{116   \}}
+\DoxyCodeLine{117   uint8\_t offMs = 100;}
+\DoxyCodeLine{118   uint8\_t onMs = (progress > 60) ? 30 : 100;}
+\DoxyCodeLine{119   uint8\_t sat = (uint8\_t)((progress * 5) >> 1); \textcolor{comment}{// Using bit shift for division by 2}}
+\DoxyCodeLine{120   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{121   \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(offMs, onMs, \mbox{\hyperlink{classHSVColor}{HSVColor}}(0, 255 -\/ sat, 180));}
+\DoxyCodeLine{122 \}}
 
 \end{DoxyCode}
 

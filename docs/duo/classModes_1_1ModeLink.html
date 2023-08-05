@@ -154,7 +154,7 @@ Private Attributes</h2></td></tr>
 </table>
 <a name="details" id="details"></a><h2 class="groupheader">Detailed Description</h2>
 <div class="textblock">
-<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00155">155</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00157">157</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
 </div><h2 class="groupheader">Constructor &amp; Destructor Documentation</h2>
 <a id="a49f55eb205afa4eaaef166c2cced7997"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a49f55eb205afa4eaaef166c2cced7997">&#9670;&nbsp;</a></span>ModeLink() <span class="overload">[1/2]</span></h2>
@@ -182,28 +182,28 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00714">714</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00714"></a><span class="lineno">  714</span>&#160;                                                  :</div>
-<div class="line"><a name="l00715"></a><span class="lineno">  715</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>(<span class="keyword">nullptr</span>),</div>
-<div class="line"><a name="l00716"></a><span class="lineno">  716</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>(),</div>
-<div class="line"><a name="l00717"></a><span class="lineno">  717</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>(<span class="keyword">nullptr</span>),</div>
-<div class="line"><a name="l00718"></a><span class="lineno">  718</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>(<span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;{</div>
-<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;  <span class="keywordflow">if</span> (src) {</div>
-<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#a9e99b5df562f09540db8d1429ed5886b">init</a>(src);</div>
-<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;  }</div>
-<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;  <span class="keywordflow">if</span> (src &amp;&amp; inst) {</div>
-<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#a284ba1b2ca41f96524480a96128fc113">instantiate</a>();</div>
-<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;  }</div>
-<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;}</div>
-<div class="ttc" id="aclassModes_1_1ModeLink_html_a1cd8412d3d0fa100e87ed00908d800de"><div class="ttname"><a href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">Modes::ModeLink::m_storedMode</a></div><div class="ttdeci">ByteStream m_storedMode</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00196">Modes.h:196</a></div></div>
-<div class="ttc" id="aclassModes_1_1ModeLink_html_a284ba1b2ca41f96524480a96128fc113"><div class="ttname"><a href="classModes_1_1ModeLink.html#a284ba1b2ca41f96524480a96128fc113">Modes::ModeLink::instantiate</a></div><div class="ttdeci">Mode * instantiate()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00849">Modes.cpp:849</a></div></div>
-<div class="ttc" id="aclassModes_1_1ModeLink_html_a8127680b802b99d2ae5eb808c8d3a960"><div class="ttname"><a href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">Modes::ModeLink::m_next</a></div><div class="ttdeci">ModeLink * m_next</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00197">Modes.h:197</a></div></div>
-<div class="ttc" id="aclassModes_1_1ModeLink_html_a9e99b5df562f09540db8d1429ed5886b"><div class="ttname"><a href="classModes_1_1ModeLink.html#a9e99b5df562f09540db8d1429ed5886b">Modes::ModeLink::init</a></div><div class="ttdeci">bool init(const Mode *mode=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00749">Modes.cpp:749</a></div></div>
-<div class="ttc" id="aclassModes_1_1ModeLink_html_ac3836ccfe9c9d93e2ee9eb693dbcfdff"><div class="ttname"><a href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">Modes::ModeLink::m_prev</a></div><div class="ttdeci">ModeLink * m_prev</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00198">Modes.h:198</a></div></div>
-<div class="ttc" id="aclassModes_1_1ModeLink_html_adac74872f97bf20d81a5115e4843cb12"><div class="ttname"><a href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">Modes::ModeLink::m_pInstantiatedMode</a></div><div class="ttdeci">Mode * m_pInstantiatedMode</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00195">Modes.h:195</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00719">719</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00719"></a><span class="lineno">  719</span>&#160;                                                  :</div>
+<div class="line"><a name="l00720"></a><span class="lineno">  720</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>(<span class="keyword">nullptr</span>),</div>
+<div class="line"><a name="l00721"></a><span class="lineno">  721</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>(),</div>
+<div class="line"><a name="l00722"></a><span class="lineno">  722</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>(<span class="keyword">nullptr</span>),</div>
+<div class="line"><a name="l00723"></a><span class="lineno">  723</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>(<span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00724"></a><span class="lineno">  724</span>&#160;{</div>
+<div class="line"><a name="l00725"></a><span class="lineno">  725</span>&#160;  <span class="keywordflow">if</span> (src) {</div>
+<div class="line"><a name="l00726"></a><span class="lineno">  726</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#a9e99b5df562f09540db8d1429ed5886b">init</a>(src);</div>
+<div class="line"><a name="l00727"></a><span class="lineno">  727</span>&#160;  }</div>
+<div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;  <span class="keywordflow">if</span> (src &amp;&amp; inst) {</div>
+<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#a284ba1b2ca41f96524480a96128fc113">instantiate</a>();</div>
+<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;  }</div>
+<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;}</div>
+<div class="ttc" id="aclassModes_1_1ModeLink_html_a1cd8412d3d0fa100e87ed00908d800de"><div class="ttname"><a href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">Modes::ModeLink::m_storedMode</a></div><div class="ttdeci">ByteStream m_storedMode</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00198">Modes.h:198</a></div></div>
+<div class="ttc" id="aclassModes_1_1ModeLink_html_a284ba1b2ca41f96524480a96128fc113"><div class="ttname"><a href="classModes_1_1ModeLink.html#a284ba1b2ca41f96524480a96128fc113">Modes::ModeLink::instantiate</a></div><div class="ttdeci">Mode * instantiate()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00854">Modes.cpp:854</a></div></div>
+<div class="ttc" id="aclassModes_1_1ModeLink_html_a8127680b802b99d2ae5eb808c8d3a960"><div class="ttname"><a href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">Modes::ModeLink::m_next</a></div><div class="ttdeci">ModeLink * m_next</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00199">Modes.h:199</a></div></div>
+<div class="ttc" id="aclassModes_1_1ModeLink_html_a9e99b5df562f09540db8d1429ed5886b"><div class="ttname"><a href="classModes_1_1ModeLink.html#a9e99b5df562f09540db8d1429ed5886b">Modes::ModeLink::init</a></div><div class="ttdeci">bool init(const Mode *mode=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00754">Modes.cpp:754</a></div></div>
+<div class="ttc" id="aclassModes_1_1ModeLink_html_ac3836ccfe9c9d93e2ee9eb693dbcfdff"><div class="ttname"><a href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">Modes::ModeLink::m_prev</a></div><div class="ttdeci">ModeLink * m_prev</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00200">Modes.h:200</a></div></div>
+<div class="ttc" id="aclassModes_1_1ModeLink_html_adac74872f97bf20d81a5115e4843cb12"><div class="ttname"><a href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">Modes::ModeLink::m_pInstantiatedMode</a></div><div class="ttdeci">Mode * m_pInstantiatedMode</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00197">Modes.h:197</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Modes_8cpp_source.html#l00749">init()</a>, and <a class="el" href="Modes_8cpp_source.html#l00849">instantiate()</a>.</p>
+<p class="reference">References <a class="el" href="Modes_8cpp_source.html#l00754">init()</a>, and <a class="el" href="Modes_8cpp_source.html#l00854">instantiate()</a>.</p>
 
 </div>
 </div>
@@ -233,20 +233,20 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00728">728</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00728"></a><span class="lineno">  728</span>&#160;                                                        :</div>
-<div class="line"><a name="l00729"></a><span class="lineno">  729</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>(<span class="keyword">nullptr</span>),</div>
-<div class="line"><a name="l00730"></a><span class="lineno">  730</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>(src),</div>
-<div class="line"><a name="l00731"></a><span class="lineno">  731</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>(<span class="keyword">nullptr</span>),</div>
-<div class="line"><a name="l00732"></a><span class="lineno">  732</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>(<span class="keyword">nullptr</span>)</div>
-<div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;{</div>
-<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;  <span class="keywordflow">if</span> (src.<a class="code" href="classByteStream.html#adf87e444e828287c0a43cab2958ca01b">size</a>() &amp;&amp; inst) {</div>
-<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#a284ba1b2ca41f96524480a96128fc113">instantiate</a>();</div>
-<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;  }</div>
-<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00733">733</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00733"></a><span class="lineno">  733</span>&#160;                                                        :</div>
+<div class="line"><a name="l00734"></a><span class="lineno">  734</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>(<span class="keyword">nullptr</span>),</div>
+<div class="line"><a name="l00735"></a><span class="lineno">  735</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>(src),</div>
+<div class="line"><a name="l00736"></a><span class="lineno">  736</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>(<span class="keyword">nullptr</span>),</div>
+<div class="line"><a name="l00737"></a><span class="lineno">  737</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>(<span class="keyword">nullptr</span>)</div>
+<div class="line"><a name="l00738"></a><span class="lineno">  738</span>&#160;{</div>
+<div class="line"><a name="l00739"></a><span class="lineno">  739</span>&#160;  <span class="keywordflow">if</span> (src.<a class="code" href="classByteStream.html#adf87e444e828287c0a43cab2958ca01b">size</a>() &amp;&amp; inst) {</div>
+<div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#a284ba1b2ca41f96524480a96128fc113">instantiate</a>();</div>
+<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;  }</div>
+<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;}</div>
 <div class="ttc" id="aclassByteStream_html_adf87e444e828287c0a43cab2958ca01b"><div class="ttname"><a href="classByteStream.html#adf87e444e828287c0a43cab2958ca01b">ByteStream::size</a></div><div class="ttdeci">uint32_t size() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00123">ByteStream.h:123</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Modes_8cpp_source.html#l00849">instantiate()</a>, and <a class="el" href="ByteStream_8h_source.html#l00123">ByteStream::size()</a>.</p>
+<p class="reference">References <a class="el" href="Modes_8cpp_source.html#l00854">instantiate()</a>, and <a class="el" href="ByteStream_8h_source.html#l00123">ByteStream::size()</a>.</p>
 
 </div>
 </div>
@@ -265,15 +265,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00739">739</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00740"></a><span class="lineno">  740</span>&#160;{</div>
-<div class="line"><a name="l00741"></a><span class="lineno">  741</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
-<div class="line"><a name="l00742"></a><span class="lineno">  742</span>&#160;    <span class="keyword">delete</span> <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>;</div>
-<div class="line"><a name="l00743"></a><span class="lineno">  743</span>&#160;  }</div>
-<div class="line"><a name="l00744"></a><span class="lineno">  744</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>) {</div>
-<div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;    <span class="keyword">delete</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>;</div>
-<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;  }</div>
-<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00744">744</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00745"></a><span class="lineno">  745</span>&#160;{</div>
+<div class="line"><a name="l00746"></a><span class="lineno">  746</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
+<div class="line"><a name="l00747"></a><span class="lineno">  747</span>&#160;    <span class="keyword">delete</span> <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>;</div>
+<div class="line"><a name="l00748"></a><span class="lineno">  748</span>&#160;  }</div>
+<div class="line"><a name="l00749"></a><span class="lineno">  749</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>) {</div>
+<div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;    <span class="keyword">delete</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>;</div>
+<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;  }</div>
+<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -294,27 +294,27 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00780">780</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;{</div>
-<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">next</a>.size()) {</div>
-<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00784"></a><span class="lineno">  784</span>&#160;  }</div>
-<div class="line"><a name="l00785"></a><span class="lineno">  785</span>&#160;  <span class="comment">// if not end of chain, recurse on next link</span></div>
-<div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
-<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#a08bc79fa1ef91ebb64762d546b3b62dc">append</a>(<a class="code" href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">next</a>);</div>
-<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;  }</div>
-<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = <span class="keyword">new</span> <a class="code" href="classModes_1_1ModeLink.html#a49f55eb205afa4eaaef166c2cced7997">ModeLink</a>(<a class="code" href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">next</a>);</div>
-<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
-<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;    <a class="code" href="Log_8h.html#a804825e040f1cce9e3d2bb53c4858710">ERROR_OUT_OF_MEMORY</a>();</div>
-<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00785">785</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00786"></a><span class="lineno">  786</span>&#160;{</div>
+<div class="line"><a name="l00787"></a><span class="lineno">  787</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">next</a>.size()) {</div>
+<div class="line"><a name="l00788"></a><span class="lineno">  788</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00789"></a><span class="lineno">  789</span>&#160;  }</div>
+<div class="line"><a name="l00790"></a><span class="lineno">  790</span>&#160;  <span class="comment">// if not end of chain, recurse on next link</span></div>
+<div class="line"><a name="l00791"></a><span class="lineno">  791</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
+<div class="line"><a name="l00792"></a><span class="lineno">  792</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#a08bc79fa1ef91ebb64762d546b3b62dc">append</a>(<a class="code" href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">next</a>);</div>
 <div class="line"><a name="l00793"></a><span class="lineno">  793</span>&#160;  }</div>
-<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = <span class="keyword">this</span>;</div>
-<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;}</div>
+<div class="line"><a name="l00794"></a><span class="lineno">  794</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = <span class="keyword">new</span> <a class="code" href="classModes_1_1ModeLink.html#a49f55eb205afa4eaaef166c2cced7997">ModeLink</a>(<a class="code" href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">next</a>);</div>
+<div class="line"><a name="l00795"></a><span class="lineno">  795</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
+<div class="line"><a name="l00796"></a><span class="lineno">  796</span>&#160;    <a class="code" href="Log_8h.html#a804825e040f1cce9e3d2bb53c4858710">ERROR_OUT_OF_MEMORY</a>();</div>
+<div class="line"><a name="l00797"></a><span class="lineno">  797</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00798"></a><span class="lineno">  798</span>&#160;  }</div>
+<div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = <span class="keyword">this</span>;</div>
+<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;}</div>
 <div class="ttc" id="aLog_8h_html_a804825e040f1cce9e3d2bb53c4858710"><div class="ttname"><a href="Log_8h.html#a804825e040f1cce9e3d2bb53c4858710">ERROR_OUT_OF_MEMORY</a></div><div class="ttdeci">#define ERROR_OUT_OF_MEMORY()</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00045">Log.h:45</a></div></div>
-<div class="ttc" id="aclassModes_1_1ModeLink_html_a08bc79fa1ef91ebb64762d546b3b62dc"><div class="ttname"><a href="classModes_1_1ModeLink.html#a08bc79fa1ef91ebb64762d546b3b62dc">Modes::ModeLink::append</a></div><div class="ttdeci">bool append(const Mode *next)</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00762">Modes.cpp:762</a></div></div>
-<div class="ttc" id="aclassModes_1_1ModeLink_html_a49f55eb205afa4eaaef166c2cced7997"><div class="ttname"><a href="classModes_1_1ModeLink.html#a49f55eb205afa4eaaef166c2cced7997">Modes::ModeLink::ModeLink</a></div><div class="ttdeci">ModeLink(const Mode *src=nullptr, bool inst=false)</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00714">Modes.cpp:714</a></div></div>
-<div class="ttc" id="aclassModes_1_1ModeLink_html_a5f4e9c451032b7b7d3132da874653900"><div class="ttname"><a href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">Modes::ModeLink::next</a></div><div class="ttdeci">ModeLink * next()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00188">Modes.h:188</a></div></div>
+<div class="ttc" id="aclassModes_1_1ModeLink_html_a08bc79fa1ef91ebb64762d546b3b62dc"><div class="ttname"><a href="classModes_1_1ModeLink.html#a08bc79fa1ef91ebb64762d546b3b62dc">Modes::ModeLink::append</a></div><div class="ttdeci">bool append(const Mode *next)</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00767">Modes.cpp:767</a></div></div>
+<div class="ttc" id="aclassModes_1_1ModeLink_html_a49f55eb205afa4eaaef166c2cced7997"><div class="ttname"><a href="classModes_1_1ModeLink.html#a49f55eb205afa4eaaef166c2cced7997">Modes::ModeLink::ModeLink</a></div><div class="ttdeci">ModeLink(const Mode *src=nullptr, bool inst=false)</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00719">Modes.cpp:719</a></div></div>
+<div class="ttc" id="aclassModes_1_1ModeLink_html_a5f4e9c451032b7b7d3132da874653900"><div class="ttname"><a href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">Modes::ModeLink::next</a></div><div class="ttdeci">ModeLink * next()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00190">Modes.h:190</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Log_8h_source.html#l00045">ERROR_OUT_OF_MEMORY</a>, and <a class="el" href="ByteStream_8h_source.html#l00123">ByteStream::size()</a>.</p>
 
@@ -336,23 +336,23 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00762">762</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;{</div>
-<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">next</a>) {</div>
-<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00766"></a><span class="lineno">  766</span>&#160;  }</div>
-<div class="line"><a name="l00767"></a><span class="lineno">  767</span>&#160;  <span class="comment">// if not end of chain, recurse on next link</span></div>
-<div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
-<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#a08bc79fa1ef91ebb64762d546b3b62dc">append</a>(<a class="code" href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">next</a>);</div>
-<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;  }</div>
-<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = <span class="keyword">new</span> <a class="code" href="classModes_1_1ModeLink.html#a49f55eb205afa4eaaef166c2cced7997">ModeLink</a>(<a class="code" href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">next</a>);</div>
-<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
-<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;    <a class="code" href="Log_8h.html#a804825e040f1cce9e3d2bb53c4858710">ERROR_OUT_OF_MEMORY</a>();</div>
-<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00767">767</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00768"></a><span class="lineno">  768</span>&#160;{</div>
+<div class="line"><a name="l00769"></a><span class="lineno">  769</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">next</a>) {</div>
+<div class="line"><a name="l00770"></a><span class="lineno">  770</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00771"></a><span class="lineno">  771</span>&#160;  }</div>
+<div class="line"><a name="l00772"></a><span class="lineno">  772</span>&#160;  <span class="comment">// if not end of chain, recurse on next link</span></div>
+<div class="line"><a name="l00773"></a><span class="lineno">  773</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
+<div class="line"><a name="l00774"></a><span class="lineno">  774</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#a08bc79fa1ef91ebb64762d546b3b62dc">append</a>(<a class="code" href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">next</a>);</div>
 <div class="line"><a name="l00775"></a><span class="lineno">  775</span>&#160;  }</div>
-<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = <span class="keyword">this</span>;</div>
-<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;}</div>
+<div class="line"><a name="l00776"></a><span class="lineno">  776</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = <span class="keyword">new</span> <a class="code" href="classModes_1_1ModeLink.html#a49f55eb205afa4eaaef166c2cced7997">ModeLink</a>(<a class="code" href="classModes_1_1ModeLink.html#a5f4e9c451032b7b7d3132da874653900">next</a>);</div>
+<div class="line"><a name="l00777"></a><span class="lineno">  777</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
+<div class="line"><a name="l00778"></a><span class="lineno">  778</span>&#160;    <a class="code" href="Log_8h.html#a804825e040f1cce9e3d2bb53c4858710">ERROR_OUT_OF_MEMORY</a>();</div>
+<div class="line"><a name="l00779"></a><span class="lineno">  779</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00780"></a><span class="lineno">  780</span>&#160;  }</div>
+<div class="line"><a name="l00781"></a><span class="lineno">  781</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = <span class="keyword">this</span>;</div>
+<div class="line"><a name="l00782"></a><span class="lineno">  782</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00783"></a><span class="lineno">  783</span>&#160;}</div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Log_8h_source.html#l00045">ERROR_OUT_OF_MEMORY</a>.</p>
 
@@ -383,10 +383,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00186">186</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00188">188</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>; }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Modes_8h_source.html#l00196">m_storedMode</a>.</p>
+<p class="reference">References <a class="el" href="Modes_8h_source.html#l00198">m_storedMode</a>.</p>
 
 </div>
 </div>
@@ -406,25 +406,25 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00749">749</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00750"></a><span class="lineno">  750</span>&#160;{</div>
-<div class="line"><a name="l00751"></a><span class="lineno">  751</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#aa92272ee4453ff8a3ea268b0e5f1d03c">mode</a>) {</div>
-<div class="line"><a name="l00752"></a><span class="lineno">  752</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00753"></a><span class="lineno">  753</span>&#160;  }</div>
-<div class="line"><a name="l00754"></a><span class="lineno">  754</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>.<a class="code" href="classByteStream.html#a854e5507f550826478fd7141074a4bb5">clear</a>();</div>
-<div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;  <span class="comment">// serialize the mode so it can be instantiated anytime</span></div>
-<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#aa92272ee4453ff8a3ea268b0e5f1d03c">mode</a>-&gt;<a class="code" href="classMode.html#a4bf861a9f38599ab515655ae52700534">saveToBuffer</a>(<a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>)) {</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00754">754</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00755"></a><span class="lineno">  755</span>&#160;{</div>
+<div class="line"><a name="l00756"></a><span class="lineno">  756</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#aa92272ee4453ff8a3ea268b0e5f1d03c">mode</a>) {</div>
 <div class="line"><a name="l00757"></a><span class="lineno">  757</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00758"></a><span class="lineno">  758</span>&#160;  }</div>
-<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;}</div>
+<div class="line"><a name="l00759"></a><span class="lineno">  759</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>.<a class="code" href="classByteStream.html#a854e5507f550826478fd7141074a4bb5">clear</a>();</div>
+<div class="line"><a name="l00760"></a><span class="lineno">  760</span>&#160;  <span class="comment">// serialize the mode so it can be instantiated anytime</span></div>
+<div class="line"><a name="l00761"></a><span class="lineno">  761</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#aa92272ee4453ff8a3ea268b0e5f1d03c">mode</a>-&gt;<a class="code" href="classMode.html#a4bf861a9f38599ab515655ae52700534">saveToBuffer</a>(<a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>)) {</div>
+<div class="line"><a name="l00762"></a><span class="lineno">  762</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00763"></a><span class="lineno">  763</span>&#160;  }</div>
+<div class="line"><a name="l00764"></a><span class="lineno">  764</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00765"></a><span class="lineno">  765</span>&#160;}</div>
 <div class="ttc" id="aclassByteStream_html_a854e5507f550826478fd7141074a4bb5"><div class="ttname"><a href="classByteStream.html#a854e5507f550826478fd7141074a4bb5">ByteStream::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00107">ByteStream.cpp:107</a></div></div>
 <div class="ttc" id="aclassMode_html_a4bf861a9f38599ab515655ae52700534"><div class="ttname"><a href="classMode.html#a4bf861a9f38599ab515655ae52700534">Mode::saveToBuffer</a></div><div class="ttdeci">virtual bool saveToBuffer(ByteStream &amp;saveBuffer, uint8_t numLeds=0) const</div><div class="ttdef"><b>Definition:</b> <a href="Mode_8cpp_source.html#l00179">Mode.cpp:179</a></div></div>
-<div class="ttc" id="aclassModes_1_1ModeLink_html_aa92272ee4453ff8a3ea268b0e5f1d03c"><div class="ttname"><a href="classModes_1_1ModeLink.html#aa92272ee4453ff8a3ea268b0e5f1d03c">Modes::ModeLink::mode</a></div><div class="ttdeci">Mode * mode()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00187">Modes.h:187</a></div></div>
+<div class="ttc" id="aclassModes_1_1ModeLink_html_aa92272ee4453ff8a3ea268b0e5f1d03c"><div class="ttname"><a href="classModes_1_1ModeLink.html#aa92272ee4453ff8a3ea268b0e5f1d03c">Modes::ModeLink::mode</a></div><div class="ttdeci">Mode * mode()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00189">Modes.h:189</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Mode_8cpp_source.html#l00179">Mode::saveToBuffer()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00714">ModeLink()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00719">ModeLink()</a>.</p>
 
 </div>
 </div>
@@ -443,30 +443,30 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00849">849</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;{</div>
-<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>) {</div>
-<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>;</div>
-<div class="line"><a name="l00853"></a><span class="lineno">  853</span>&#160;  }</div>
-<div class="line"><a name="l00854"></a><span class="lineno">  854</span>&#160;  <a class="code" href="classMode.html">Mode</a> *newMode = <span class="keyword">new</span> <a class="code" href="classMode.html">Mode</a>();</div>
-<div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;  <span class="keywordflow">if</span> (!newMode) {</div>
-<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;    <a class="code" href="Log_8h.html#a804825e040f1cce9e3d2bb53c4858710">ERROR_OUT_OF_MEMORY</a>();</div>
-<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00854">854</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00855"></a><span class="lineno">  855</span>&#160;{</div>
+<div class="line"><a name="l00856"></a><span class="lineno">  856</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>) {</div>
+<div class="line"><a name="l00857"></a><span class="lineno">  857</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>;</div>
 <div class="line"><a name="l00858"></a><span class="lineno">  858</span>&#160;  }</div>
-<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>.<a class="code" href="classByteStream.html#afb97666e6a0bea5ea98e273d4e6a4d35">resetUnserializer</a>();</div>
-<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;  <span class="keywordflow">if</span> (!newMode-&gt;<a class="code" href="classMode.html#a31ed6fbb39ca7876e415fc58bc18d630">loadFromBuffer</a>(<a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>)) {</div>
-<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;  }</div>
-<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a> = newMode;</div>
-<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>;</div>
-<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;}</div>
+<div class="line"><a name="l00859"></a><span class="lineno">  859</span>&#160;  <a class="code" href="classMode.html">Mode</a> *newMode = <span class="keyword">new</span> <a class="code" href="classMode.html">Mode</a>();</div>
+<div class="line"><a name="l00860"></a><span class="lineno">  860</span>&#160;  <span class="keywordflow">if</span> (!newMode) {</div>
+<div class="line"><a name="l00861"></a><span class="lineno">  861</span>&#160;    <a class="code" href="Log_8h.html#a804825e040f1cce9e3d2bb53c4858710">ERROR_OUT_OF_MEMORY</a>();</div>
+<div class="line"><a name="l00862"></a><span class="lineno">  862</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00863"></a><span class="lineno">  863</span>&#160;  }</div>
+<div class="line"><a name="l00864"></a><span class="lineno">  864</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>.<a class="code" href="classByteStream.html#afb97666e6a0bea5ea98e273d4e6a4d35">resetUnserializer</a>();</div>
+<div class="line"><a name="l00865"></a><span class="lineno">  865</span>&#160;  <span class="keywordflow">if</span> (!newMode-&gt;<a class="code" href="classMode.html#a31ed6fbb39ca7876e415fc58bc18d630">loadFromBuffer</a>(<a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>)) {</div>
+<div class="line"><a name="l00866"></a><span class="lineno">  866</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00867"></a><span class="lineno">  867</span>&#160;  }</div>
+<div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a> = newMode;</div>
+<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>;</div>
+<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;}</div>
 <div class="ttc" id="aclassByteStream_html_afb97666e6a0bea5ea98e273d4e6a4d35"><div class="ttname"><a href="classByteStream.html#afb97666e6a0bea5ea98e273d4e6a4d35">ByteStream::resetUnserializer</a></div><div class="ttdeci">void resetUnserializer()</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00391">ByteStream.cpp:391</a></div></div>
 <div class="ttc" id="aclassMode_html"><div class="ttname"><a href="classMode.html">Mode</a></div><div class="ttdef"><b>Definition:</b> <a href="Mode_8h_source.html#l00038">Mode.h:39</a></div></div>
 <div class="ttc" id="aclassMode_html_a31ed6fbb39ca7876e415fc58bc18d630"><div class="ttname"><a href="classMode.html#a31ed6fbb39ca7876e415fc58bc18d630">Mode::loadFromBuffer</a></div><div class="ttdeci">virtual bool loadFromBuffer(ByteStream &amp;saveBuffer)</div><div class="ttdef"><b>Definition:</b> <a href="Mode_8cpp_source.html#l00189">Mode.cpp:189</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Log_8h_source.html#l00045">ERROR_OUT_OF_MEMORY</a>, and <a class="el" href="Mode_8cpp_source.html#l00189">Mode::loadFromBuffer()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00485">Modes::curMode()</a>, <a class="el" href="Modes_8cpp_source.html#l00683">Modes::initCurMode()</a>, <a class="el" href="Modes_8cpp_source.html#l00714">ModeLink()</a>, <a class="el" href="Modes_8cpp_source.html#l00195">Modes::serialize()</a>, and <a class="el" href="Modes_8cpp_source.html#l00445">Modes::setCurMode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00485">Modes::curMode()</a>, <a class="el" href="Modes_8cpp_source.html#l00688">Modes::initCurMode()</a>, <a class="el" href="Modes_8cpp_source.html#l00719">ModeLink()</a>, <a class="el" href="Modes_8cpp_source.html#l00195">Modes::serialize()</a>, and <a class="el" href="Modes_8cpp_source.html#l00445">Modes::setCurMode()</a>.</p>
 
 </div>
 </div>
@@ -486,20 +486,20 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00823">823</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;{</div>
-<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;  <span class="keywordflow">if</span> (!link) {</div>
-<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00827"></a><span class="lineno">  827</span>&#160;  }</div>
-<div class="line"><a name="l00828"></a><span class="lineno">  828</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
-<div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = link;</div>
-<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;    link-&gt;<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>;</div>
-<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;  }</div>
-<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = link;</div>
-<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;  link-&gt;<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = <span class="keyword">this</span>;</div>
-<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00828">828</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00829"></a><span class="lineno">  829</span>&#160;{</div>
+<div class="line"><a name="l00830"></a><span class="lineno">  830</span>&#160;  <span class="keywordflow">if</span> (!link) {</div>
+<div class="line"><a name="l00831"></a><span class="lineno">  831</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00832"></a><span class="lineno">  832</span>&#160;  }</div>
+<div class="line"><a name="l00833"></a><span class="lineno">  833</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
+<div class="line"><a name="l00834"></a><span class="lineno">  834</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = link;</div>
+<div class="line"><a name="l00835"></a><span class="lineno">  835</span>&#160;    link-&gt;<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>;</div>
+<div class="line"><a name="l00836"></a><span class="lineno">  836</span>&#160;  }</div>
+<div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = link;</div>
+<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;  link-&gt;<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = <span class="keyword">this</span>;</div>
+<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Modes_8h_source.html#l00197">m_next</a>, and <a class="el" href="Modes_8h_source.html#l00198">m_prev</a>.</p>
+<p class="reference">References <a class="el" href="Modes_8h_source.html#l00199">m_next</a>, and <a class="el" href="Modes_8h_source.html#l00200">m_prev</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00336">Modes::shiftCurMode()</a>.</p>
 
@@ -521,20 +521,20 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00836">836</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00837"></a><span class="lineno">  837</span>&#160;{</div>
-<div class="line"><a name="l00838"></a><span class="lineno">  838</span>&#160;  <span class="keywordflow">if</span> (!link) {</div>
-<div class="line"><a name="l00839"></a><span class="lineno">  839</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00840"></a><span class="lineno">  840</span>&#160;  }</div>
-<div class="line"><a name="l00841"></a><span class="lineno">  841</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>) {</div>
-<div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = link;</div>
-<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;    link-&gt;<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>;</div>
-<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;  }</div>
-<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = link;</div>
-<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;  link-&gt;<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = <span class="keyword">this</span>;</div>
-<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00841">841</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00842"></a><span class="lineno">  842</span>&#160;{</div>
+<div class="line"><a name="l00843"></a><span class="lineno">  843</span>&#160;  <span class="keywordflow">if</span> (!link) {</div>
+<div class="line"><a name="l00844"></a><span class="lineno">  844</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00845"></a><span class="lineno">  845</span>&#160;  }</div>
+<div class="line"><a name="l00846"></a><span class="lineno">  846</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>) {</div>
+<div class="line"><a name="l00847"></a><span class="lineno">  847</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = link;</div>
+<div class="line"><a name="l00848"></a><span class="lineno">  848</span>&#160;    link-&gt;<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>;</div>
+<div class="line"><a name="l00849"></a><span class="lineno">  849</span>&#160;  }</div>
+<div class="line"><a name="l00850"></a><span class="lineno">  850</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = link;</div>
+<div class="line"><a name="l00851"></a><span class="lineno">  851</span>&#160;  link-&gt;<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = <span class="keyword">this</span>;</div>
+<div class="line"><a name="l00852"></a><span class="lineno">  852</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Modes_8h_source.html#l00197">m_next</a>, and <a class="el" href="Modes_8h_source.html#l00198">m_prev</a>.</p>
+<p class="reference">References <a class="el" href="Modes_8h_source.html#l00199">m_next</a>, and <a class="el" href="Modes_8h_source.html#l00200">m_prev</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00336">Modes::shiftCurMode()</a>.</p>
 
@@ -563,10 +563,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00187">187</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00189">189</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>; }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Modes_8h_source.html#l00195">m_pInstantiatedMode</a>.</p>
+<p class="reference">References <a class="el" href="Modes_8h_source.html#l00197">m_pInstantiatedMode</a>.</p>
 
 </div>
 </div>
@@ -593,12 +593,12 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00188">188</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00190">190</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>; }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Modes_8h_source.html#l00197">m_next</a>.</p>
+<p class="reference">References <a class="el" href="Modes_8h_source.html#l00199">m_next</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00670">Modes::getModeLink()</a>, <a class="el" href="Modes_8cpp_source.html#l00195">Modes::serialize()</a>, and <a class="el" href="Modes_8cpp_source.html#l00336">Modes::shiftCurMode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00675">Modes::getModeLink()</a>, <a class="el" href="Modes_8cpp_source.html#l00195">Modes::serialize()</a>, and <a class="el" href="Modes_8cpp_source.html#l00336">Modes::shiftCurMode()</a>.</p>
 
 </div>
 </div>
@@ -625,10 +625,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00192">192</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00194">194</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>; }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Modes_8h_source.html#l00196">m_storedMode</a>.</p>
+<p class="reference">References <a class="el" href="Modes_8h_source.html#l00198">m_storedMode</a>.</p>
 
 </div>
 </div>
@@ -655,10 +655,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00191">191</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00193">193</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>; }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Modes_8h_source.html#l00196">m_storedMode</a>.</p>
+<p class="reference">References <a class="el" href="Modes_8h_source.html#l00198">m_storedMode</a>.</p>
 
 </div>
 </div>
@@ -685,10 +685,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00193">193</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00195">195</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>; }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Modes_8h_source.html#l00195">m_pInstantiatedMode</a>.</p>
+<p class="reference">References <a class="el" href="Modes_8h_source.html#l00197">m_pInstantiatedMode</a>.</p>
 
 </div>
 </div>
@@ -707,13 +707,13 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00798">798</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00799"></a><span class="lineno">  799</span>&#160;{</div>
-<div class="line"><a name="l00800"></a><span class="lineno">  800</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>) {</div>
-<div class="line"><a name="l00801"></a><span class="lineno">  801</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00802"></a><span class="lineno">  802</span>&#160;  }</div>
-<div class="line"><a name="l00803"></a><span class="lineno">  803</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>-&gt;<a class="code" href="classMode.html#a21d1c7da7b97340ab1af39d242cc6f22">play</a>();</div>
-<div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00803">803</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00804"></a><span class="lineno">  804</span>&#160;{</div>
+<div class="line"><a name="l00805"></a><span class="lineno">  805</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>) {</div>
+<div class="line"><a name="l00806"></a><span class="lineno">  806</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;  }</div>
+<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>-&gt;<a class="code" href="classMode.html#a21d1c7da7b97340ab1af39d242cc6f22">play</a>();</div>
+<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;}</div>
 <div class="ttc" id="aclassMode_html_a21d1c7da7b97340ab1af39d242cc6f22"><div class="ttname"><a href="classMode.html#a21d1c7da7b97340ab1af39d242cc6f22">Mode::play</a></div><div class="ttdeci">virtual void play()</div><div class="ttdef"><b>Definition:</b> <a href="Mode_8cpp_source.html#l00149">Mode.cpp:149</a></div></div>
 </div><!-- fragment -->
 <p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00058">Modes::play()</a>.</p>
@@ -743,10 +743,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00189">189</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00191">191</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>; }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Modes_8h_source.html#l00198">m_prev</a>.</p>
+<p class="reference">References <a class="el" href="Modes_8h_source.html#l00200">m_prev</a>.</p>
 
 </div>
 </div>
@@ -765,16 +765,16 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00875">875</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;{</div>
-<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>) {</div>
-<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00879"></a><span class="lineno">  879</span>&#160;  }</div>
-<div class="line"><a name="l00880"></a><span class="lineno">  880</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>.<a class="code" href="classByteStream.html#a854e5507f550826478fd7141074a4bb5">clear</a>();</div>
-<div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>-&gt;<a class="code" href="classMode.html#a4bf861a9f38599ab515655ae52700534">saveToBuffer</a>(<a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>);</div>
-<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00880">880</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00881"></a><span class="lineno">  881</span>&#160;{</div>
+<div class="line"><a name="l00882"></a><span class="lineno">  882</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>) {</div>
+<div class="line"><a name="l00883"></a><span class="lineno">  883</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00884"></a><span class="lineno">  884</span>&#160;  }</div>
+<div class="line"><a name="l00885"></a><span class="lineno">  885</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>.<a class="code" href="classByteStream.html#a854e5507f550826478fd7141074a4bb5">clear</a>();</div>
+<div class="line"><a name="l00886"></a><span class="lineno">  886</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>-&gt;<a class="code" href="classMode.html#a4bf861a9f38599ab515655ae52700534">saveToBuffer</a>(<a class="code" href="classModes_1_1ModeLink.html#a1cd8412d3d0fa100e87ed00908d800de">m_storedMode</a>);</div>
+<div class="line"><a name="l00887"></a><span class="lineno">  887</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00703">Modes::saveCurMode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00708">Modes::saveCurMode()</a>.</p>
 
 </div>
 </div>
@@ -793,15 +793,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00867">867</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00868"></a><span class="lineno">  868</span>&#160;{</div>
-<div class="line"><a name="l00869"></a><span class="lineno">  869</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>) {</div>
-<div class="line"><a name="l00870"></a><span class="lineno">  870</span>&#160;    <span class="keyword">delete</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>;</div>
-<div class="line"><a name="l00871"></a><span class="lineno">  871</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a> = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00872"></a><span class="lineno">  872</span>&#160;  }</div>
-<div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00872">872</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00873"></a><span class="lineno">  873</span>&#160;{</div>
+<div class="line"><a name="l00874"></a><span class="lineno">  874</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>) {</div>
+<div class="line"><a name="l00875"></a><span class="lineno">  875</span>&#160;    <span class="keyword">delete</span> <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a>;</div>
+<div class="line"><a name="l00876"></a><span class="lineno">  876</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#adac74872f97bf20d81a5115e4843cb12">m_pInstantiatedMode</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00877"></a><span class="lineno">  877</span>&#160;  }</div>
+<div class="line"><a name="l00878"></a><span class="lineno">  878</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00683">Modes::initCurMode()</a>, <a class="el" href="Modes_8cpp_source.html#l00195">Modes::serialize()</a>, and <a class="el" href="Modes_8cpp_source.html#l00445">Modes::setCurMode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00688">Modes::initCurMode()</a>, <a class="el" href="Modes_8cpp_source.html#l00195">Modes::serialize()</a>, and <a class="el" href="Modes_8cpp_source.html#l00445">Modes::setCurMode()</a>.</p>
 
 </div>
 </div>
@@ -820,24 +820,24 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00806">806</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00807"></a><span class="lineno">  807</span>&#160;{</div>
-<div class="line"><a name="l00808"></a><span class="lineno">  808</span>&#160;  <span class="comment">// unlink this node from the chain</span></div>
-<div class="line"><a name="l00809"></a><span class="lineno">  809</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>) {</div>
-<div class="line"><a name="l00810"></a><span class="lineno">  810</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>;</div>
-<div class="line"><a name="l00811"></a><span class="lineno">  811</span>&#160;  }</div>
-<div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
-<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>;</div>
-<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;  }</div>
-<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;  <span class="comment">// grab the new link that will take this place</span></div>
-<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a49f55eb205afa4eaaef166c2cced7997">ModeLink</a> *newLink = <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> ? <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> : <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>;</div>
-<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;  <span class="comment">// clear the links of this node</span></div>
-<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;  <span class="keywordflow">return</span> newLink;</div>
-<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Modes_8cpp_source.html#l00811">811</a> of file <a class="el" href="Modes_8cpp_source.html">Modes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00812"></a><span class="lineno">  812</span>&#160;{</div>
+<div class="line"><a name="l00813"></a><span class="lineno">  813</span>&#160;  <span class="comment">// unlink this node from the chain</span></div>
+<div class="line"><a name="l00814"></a><span class="lineno">  814</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>) {</div>
+<div class="line"><a name="l00815"></a><span class="lineno">  815</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>;</div>
+<div class="line"><a name="l00816"></a><span class="lineno">  816</span>&#160;  }</div>
+<div class="line"><a name="l00817"></a><span class="lineno">  817</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>) {</div>
+<div class="line"><a name="l00818"></a><span class="lineno">  818</span>&#160;    <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>-&gt;<a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a>;</div>
+<div class="line"><a name="l00819"></a><span class="lineno">  819</span>&#160;  }</div>
+<div class="line"><a name="l00820"></a><span class="lineno">  820</span>&#160;  <span class="comment">// grab the new link that will take this place</span></div>
+<div class="line"><a name="l00821"></a><span class="lineno">  821</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a49f55eb205afa4eaaef166c2cced7997">ModeLink</a> *newLink = <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> ? <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> : <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a>;</div>
+<div class="line"><a name="l00822"></a><span class="lineno">  822</span>&#160;  <span class="comment">// clear the links of this node</span></div>
+<div class="line"><a name="l00823"></a><span class="lineno">  823</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#ac3836ccfe9c9d93e2ee9eb693dbcfdff">m_prev</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00824"></a><span class="lineno">  824</span>&#160;  <a class="code" href="classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960">m_next</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00825"></a><span class="lineno">  825</span>&#160;  <span class="keywordflow">return</span> newLink;</div>
+<div class="line"><a name="l00826"></a><span class="lineno">  826</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Modes_8h_source.html#l00197">m_next</a>, and <a class="el" href="Modes_8h_source.html#l00198">m_prev</a>.</p>
+<p class="reference">References <a class="el" href="Modes_8h_source.html#l00199">m_next</a>, and <a class="el" href="Modes_8h_source.html#l00200">m_prev</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00534">Modes::deleteCurMode()</a>, and <a class="el" href="Modes_8cpp_source.html#l00336">Modes::shiftCurMode()</a>.</p>
 
@@ -864,9 +864,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00197">197</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00199">199</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00823">linkAfter()</a>, <a class="el" href="Modes_8cpp_source.html#l00836">linkBefore()</a>, <a class="el" href="Modes_8h_source.html#l00188">next()</a>, and <a class="el" href="Modes_8cpp_source.html#l00806">unlinkSelf()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00828">linkAfter()</a>, <a class="el" href="Modes_8cpp_source.html#l00841">linkBefore()</a>, <a class="el" href="Modes_8h_source.html#l00190">next()</a>, and <a class="el" href="Modes_8cpp_source.html#l00811">unlinkSelf()</a>.</p>
 
 </div>
 </div>
@@ -890,9 +890,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00195">195</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00197">197</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Modes_8h_source.html#l00187">mode()</a>, and <a class="el" href="Modes_8h_source.html#l00193">operator Mode *()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Modes_8h_source.html#l00189">mode()</a>, and <a class="el" href="Modes_8h_source.html#l00195">operator Mode *()</a>.</p>
 
 </div>
 </div>
@@ -916,9 +916,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00198">198</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00200">200</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00823">linkAfter()</a>, <a class="el" href="Modes_8cpp_source.html#l00836">linkBefore()</a>, <a class="el" href="Modes_8h_source.html#l00189">prev()</a>, and <a class="el" href="Modes_8cpp_source.html#l00806">unlinkSelf()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00828">linkAfter()</a>, <a class="el" href="Modes_8cpp_source.html#l00841">linkBefore()</a>, <a class="el" href="Modes_8h_source.html#l00191">prev()</a>, and <a class="el" href="Modes_8cpp_source.html#l00811">unlinkSelf()</a>.</p>
 
 </div>
 </div>
@@ -942,9 +942,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00196">196</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Modes_8h_source.html#l00198">198</a> of file <a class="el" href="Modes_8h_source.html">Modes.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Modes_8h_source.html#l00186">buffer()</a>, <a class="el" href="Modes_8h_source.html#l00192">operator ByteStream()</a>, and <a class="el" href="Modes_8h_source.html#l00191">operator ByteStream &amp;()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Modes_8h_source.html#l00188">buffer()</a>, <a class="el" href="Modes_8h_source.html#l00194">operator ByteStream()</a>, and <a class="el" href="Modes_8h_source.html#l00193">operator ByteStream &amp;()</a>.</p>
 
 </div>
 </div>

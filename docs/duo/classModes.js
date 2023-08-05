@@ -28,6 +28,7 @@ var classModes =
     [ "oneClickModeEnabled", "classModes.html#a05f64b5430343cc94e77902b02fb8ce1", null ],
     [ "play", "classModes.html#a9e98b568fcd3d00b7c3f0705b5120925", null ],
     [ "previousMode", "classModes.html#afff6da06a409164e2d5241e825d88dd2", null ],
+    [ "resetFlags", "classModes.html#a44f9cbf145f712a8ca50980a084809ca", null ],
     [ "saveCurMode", "classModes.html#a1cb4d9f5f52072994532cf62585a2719", null ],
     [ "saveStorage", "classModes.html#a1756081ee85dbcf672ddad5a3dcb4690", null ],
     [ "saveToBuffer", "classModes.html#a9b64018ed3d72c3667f0eaef5fd6495f", null ],

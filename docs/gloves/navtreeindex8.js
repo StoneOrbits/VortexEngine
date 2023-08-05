@@ -1,5 +1,6 @@
 var NAVTREEINDEX8 =
 {
+"classSerialComs.html#a6403cc48e107d19f9f1bb7e69006d0bc":[0,0,55,3],
 "classSerialComs.html#a713db35f7f3e79772a55a87979154b07":[0,0,55,5],
 "classSerialComs.html#a8f0805c088fb29b00827b63ef1e8a6c3":[0,0,55,8],
 "classSerialComs.html#a9122c58c6da4240df7dcf3e9ef213245":[0,0,55,7],
@@ -231,8 +232,8 @@ var NAVTREEINDEX8 =
 "functions_t.html":[0,3,0,17],
 "functions_u.html":[0,3,0,18],
 "functions_v.html":[0,3,0,19],
-"functions_vars.html":[0,3,2],
 "functions_vars.html":[0,3,2,0],
+"functions_vars.html":[0,3,2],
 "functions_vars_b.html":[0,3,2,1],
 "functions_vars_c.html":[0,3,2,2],
 "functions_vars_d.html":[0,3,2,3],
@@ -248,6 +249,5 @@ var NAVTREEINDEX8 =
 "functions_vars_p.html":[0,3,2,13],
 "functions_vars_r.html":[0,3,2,14],
 "functions_vars_s.html":[0,3,2,15],
-"functions_vars_t.html":[0,3,2,16],
-"functions_vars_v.html":[0,3,2,17]
+"functions_vars_t.html":[0,3,2,16]
 };
