@@ -1,9 +1,10 @@
 .PHONY: all install build upload clean
 
-ARDUINO_CLI = ./bin/arduino-cli
+ARDUINO_CLI = ./bin/arduino-cli --verbose
 BOARD = adafruit:samd:adafruit_trinket_m0
 PORT = /dev/ttyACM0
 PROJECT_NAME = VortexEngine/VortexEngine.ino
+BUILD_PATH = build
 CONFIG_FILE = $(HOME)/.arduino15/arduino-cli.yaml
 
 # Default target
@@ -26,7 +27,7 @@ install:
 	fi
 
 build:
-	$(ARDUINO_CLI) compile --fqbn $(BOARD) $(PROJECT_NAME) --config-file $(CONFIG_FILE)
+	$(ARDUINO_CLI) compile --fqbn $(BOARD) $(PROJECT_NAME) --config-file $(CONFIG_FILE) --build-path $(BUILD_PATH)
 
 upload:
 	$(ARDUINO_CLI) upload -p $(PORT) --fqbn $(BOARD) $(PROJECT_NAME) --config-file $(CONFIG_FILE)
