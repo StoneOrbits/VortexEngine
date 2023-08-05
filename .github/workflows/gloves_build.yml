@@ -1,10 +1,10 @@
-name: Gloves Build
+name: Gloves Combined Build
 
 on:
   push:
-    branches: [ "daniel/gloves/arduino_makefile" ]
+    branches: [ "gloves/arduino_makefile" ]
   pull_request:
-    branches: [ "daniel/gloves/arduino_makefile" ]
+    branches: [ "gloves/arduino_makefile" ]
 
 jobs:
   build:
@@ -12,13 +12,19 @@ jobs:
     steps:
       - uses: actions/checkout@v3
       - name: Install Dependencies
-        run: sudo apt-get install valgrind g++ make doxygen graphviz texlive
+        run: make install
       - name: Build
-        run: make -j
+        run: make build
 
   test:
+    needs: build
     runs-on: ubuntu-latest
     steps:
+      - uses: actions/checkout@v3
+      - name: Download build artifacts
+        uses: actions/download-artifact@v2
+        with:
+          name: build-artifacts
       - name: Checkout outer repository
         uses: actions/checkout@v3
         with:
@@ -83,4 +89,3 @@ jobs:
             build/VortexEngine.ino.map
             build/VortexEngine.ino.hex
             build/VortexEngine.ino.uf2
-
