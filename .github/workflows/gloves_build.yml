@@ -1,4 +1,4 @@
-name: Gloves Combined Build
+name: Gloves Build
 
 on:
   push:
