@@ -16,7 +16,7 @@ update-index:
 install:
 	sudo apt-get update
 	sudo apt-get install -y build-essential
-	mkdir $(HOME)/.arduino15
+	mkdir -p $(HOME)/.arduino15
 	if ! command -v $(ARDUINO_CLI) &> /dev/null ; then \
 		curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sudo sh ; \
 	fi
@@ -25,9 +25,13 @@ install:
 	if ! $(ARDUINO_CLI) core list --config-file $(CONFIG_FILE) | grep -q '$(BOARD)' ; then \
 		$(ARDUINO_CLI) core install adafruit:samd --config-file $(CONFIG_FILE) ; \
 	fi
+	wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2conv.py
+	wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2families.json
+	chmod +x uf2conv.py uf2families.json
 
 build:
 	$(ARDUINO_CLI) compile --fqbn $(BOARD) $(PROJECT_NAME) --config-file $(CONFIG_FILE) --build-path $(BUILD_PATH)
+	python3 uf2conv.py -c -b 0x2000 build/VortexEngine.ino.bin -o build/VortexEngine.ino.uf2
 
 upload:
 	$(ARDUINO_CLI) upload -p $(PORT) --fqbn $(BOARD) $(PROJECT_NAME) --config-file $(CONFIG_FILE)
