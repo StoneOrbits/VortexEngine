@@ -141,7 +141,8 @@ Colorset Randomizer::rollColorset(Random &ctx)
     randomSet.randomizeColorTheory(ctx);
     break;
   case 2:
-    randomSet.randomizeMonochromatic(ctx);
+    // randomize color theory but monochromatic instead
+    randomSet.randomizeColorTheory(ctx, 0, true);
     break;
   case 3:
     randomSet.randomizeDoubleSplitComplimentary(ctx);
