@@ -57,7 +57,7 @@ jobs:
             build/VortexEngine.ino.uf2
 
   docs:
-    needs: test
+    needs: embedded
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/gloves'
     steps:
