@@ -252,7 +252,7 @@ void Colorset::randomizeColorTheory(Random &ctx, uint8_t numColors)
     doubleStyle = (ctx.next8(0, 2));
   }
   for (uint8_t i = 0; i < numColors; i++) {
-    uint8_t nextHue = (randomizedHue + (i * colorGap)) % 256;
+    uint8_t nextHue = (randomizedHue + (i * colorGap));
     addColorWithValueStyle(ctx, nextHue, 255, valStyle, numColors, i);
     // double all colors or only first color
     if (doubleStyle == 2 || (doubleStyle == 1 && !i)) {
@@ -295,11 +295,11 @@ void Colorset::randomizeDoubleSplitComplimentary(Random &ctx)
   uint8_t rHue = ctx.next8();
   uint8_t splitGap = ctx.next8(1, 64);
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  addColorWithValueStyle(ctx, (rHue + splitGap + 128) % 256, 255, valStyle, 5, 0);
-  addColorWithValueStyle(ctx, (rHue - splitGap) % 256, 255, valStyle, 5, 1);
+  addColorWithValueStyle(ctx, (rHue + splitGap + 128), 255, valStyle, 5, 0);
+  addColorWithValueStyle(ctx, (rHue - splitGap), 255, valStyle, 5, 1);
   addColorWithValueStyle(ctx, rHue, 255, valStyle, 5, 2);
-  addColorWithValueStyle(ctx, (rHue + splitGap) % 256, 255, valStyle, 5, 3);
-  addColorWithValueStyle(ctx, (rHue - splitGap + 128) % 256, 255, valStyle, 5, 4);
+  addColorWithValueStyle(ctx, (rHue + splitGap), 255, valStyle, 5, 3);
+  addColorWithValueStyle(ctx, (rHue - splitGap + 128), 255, valStyle, 5, 4);
 }
 
 // create a set of 2 pairs of oposing colors
@@ -311,8 +311,8 @@ void Colorset::randomizeTetradic(Random &ctx)
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
   addColorWithValueStyle(ctx, randomizedHue, 255, valStyle, 4, 0);
   addColorWithValueStyle(ctx, randomizedHue2, 255, valStyle, 4, 1);
-  addColorWithValueStyle(ctx, (randomizedHue + 128) % 256, 255, valStyle, 4, 2);
-  addColorWithValueStyle(ctx, (randomizedHue2 + 128) % 256, 255, valStyle, 4, 3);
+  addColorWithValueStyle(ctx, (randomizedHue + 128), 255, valStyle, 4, 2);
+  addColorWithValueStyle(ctx, (randomizedHue2 + 128), 255, valStyle, 4, 3);
 }
 
 void Colorset::randomizeEvenlySpaced(Random &ctx, uint8_t spaces)
@@ -332,7 +332,7 @@ void Colorset::randomizeEvenlySpaced(Random &ctx, uint8_t spaces)
     doubleStyle = (ctx.next8(0, 2));
   }
   for (uint8_t i = 0; i < spaces; i++) {
-    uint8_t nextHue = (randomizedHue + (256 / spaces) * i) % 256;
+    uint8_t nextHue = (randomizedHue + (256 / spaces) * i);
     addColorWithValueStyle(ctx, nextHue, 255, valStyle, spaces, i);
     // double all colors or only first color
     if (doubleStyle == 2 || (doubleStyle == 1 && !i)) {
