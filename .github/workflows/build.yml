@@ -2,9 +2,10 @@ name: Duo Build
 
 on:
   push:
-    branches: [ "daniel/duo/embedded_makefile" ]
+    branches: [ "duo" ]
   pull_request:
-    branches: [ "daniel/duo/embedded_makefile" ]
+    branches: [ "duo" ]
+  workflow_dispatch: # manual trigger
 
 jobs:
   test:
