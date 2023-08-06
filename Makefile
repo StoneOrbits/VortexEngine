@@ -106,6 +106,7 @@ TARGET = vortex
 all: $(TARGET).hex
 	$(OBJDUMP) --disassemble --source --line-numbers --demangle --section=.text $(TARGET).elf > $(TARGET).lst
 	$(NM) --numeric-sort --line-numbers --demangle --print-size --format=s $(TARGET).elf > $(TARGET).map
+	chmod +x avrsize.sh
 	./avrsize.sh $(TARGET).elf
 
 $(TARGET).hex: $(TARGET).elf
