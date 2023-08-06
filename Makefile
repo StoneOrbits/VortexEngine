@@ -132,7 +132,7 @@ serial: $(TARGET).hex
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
-build: $(TARGET).hex
+build: all
 INSTALL_DIR=~/atmel_setup
 # Name of the toolchain tarball
 TOOLCHAIN_TAR=avr8-gnu-toolchain-3.7.0.1796-linux.any.x86_64.tar.gz
