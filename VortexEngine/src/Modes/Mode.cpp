@@ -352,6 +352,7 @@ bool Mode::unserialize(ByteStream &buffer)
   for (LedPos pos = (LedPos)ledCount; pos < LED_COUNT; ++pos) {
     m_singlePats[pos] = PatternBuilder::dupe(m_singlePats[src]);
     m_singlePats[pos]->bind(pos);
+    // have to modulate the source by the source mode's led count
     src = (LedPos)((src + 1) % ledCount);
   }
   return true;
