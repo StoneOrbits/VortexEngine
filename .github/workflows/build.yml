@@ -2,9 +2,10 @@ name: Orbit Build
 
 on:
   push:
-    branches: [ "daniel/orbit/arduino_makefile" ]
+    branches: [ "orbit" ]
   pull_request:
-    branches: [ "daniel/orbit/arduino_makefile" ]
+    branches: [ "orbit" ]
+  workflow_dispatch: # manual trigger
 
 jobs:
   test:
