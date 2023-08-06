@@ -5,6 +5,7 @@ on:
     branches: [ "daniel/gloves/arduino_makefile" ]
   pull_request:
     branches: [ "daniel/gloves/arduino_makefile" ]
+  workflow_dispatch: # manual trigger
 
 jobs:
   test:
