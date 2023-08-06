@@ -6,10 +6,9 @@ ifeq ($(shell uname -o),Msys)  # for Windows
     DEVICE_DIR="C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.10.348/gcc/dev/attiny3217"
     INCLUDE_DIR="C:/Program Files (x86)/Atmel/Studio/7.0/Packs/atmel/ATtiny_DFP/1.10.348/include/"
 else ifeq ($(shell uname),Linux)  # for Linux
-    BINDIR=/usr/local/bin/
-    AVRDUDEDIR=/usr/bin/
-    DEVICE_DIR=
-    INCLUDE_DIR=/usr/lib/avr/include
+    BINDIR=~/atmel_setup/avr8-gnu-toolchain-linux_x86_64/bin/
+    DEVICE_DIR=~/atmel_setup/gcc/dev/attiny3217
+    INCLUDE_DIR=~/atmel_setup/include/
 endif
 
 CC = ${BINDIR}/avr-g++
@@ -132,10 +131,22 @@ serial: $(TARGET).hex
 
 UNAME_S := $(shell uname -s)
 ifeq ($(UNAME_S),Linux)
+INSTALL_DIR=~/atmel_setup
+# Name of the toolchain tarball
+TOOLCHAIN_TAR=avr8-gnu-toolchain-3.7.0.1796-linux.any.x86_64.tar.gz
+# Name of the ATtiny DFP zip
+ATTINY_ZIP=Atmel.ATtiny_DFP.2.0.368.atpack
 install:
-	sudo apt-get update
-	sudo apt-get install -y gcc-avr binutils-avr gdb-avr avr-libc avrdude
-	echo "Installation complete. Please note that paths to include files might need to be updated in the Makefile."
+	@echo "Setting up in directory $(INSTALL_DIR)"
+	@mkdir -p $(INSTALL_DIR)
+	@cd $(INSTALL_DIR) && \
+	echo "Downloading and installing AVR 8-bit Toolchain..." && \
+	wget -q https://ww1.microchip.com/downloads/aemDocuments/documents/DEV/ProductDocuments/SoftwareTools/$(TOOLCHAIN_TAR) && \
+	tar -xf $(TOOLCHAIN_TAR) && \
+	echo "Downloading and installing ATtiny DFP..." && \
+	wget -q http://packs.download.atmel.com/$(ATTINY_ZIP) && \
+	unzip $(ATTINY_ZIP)
+	@echo "Download and extraction complete. You'll find the toolchain and pack files in $(INSTALL_DIR)"
 endif
 
 clean:
