@@ -42,7 +42,7 @@ jobs:
           python-version: '3.x'
       - name: Install Dependencies
         run: make install
-     - name: Build Binary
+      - name: Build Binary
         run: make build
       - name: Archive production artifacts
         uses: actions/upload-artifact@v3
