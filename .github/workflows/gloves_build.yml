@@ -58,6 +58,7 @@ jobs:
   docs:
     needs: embedded
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/gloves'
     steps:
     - name: Checkout current repository inside the outer repository
       uses: actions/checkout@v3
@@ -73,4 +74,4 @@ jobs:
         git config --local user.name "GitHub Action"
         git add docs
         git commit -m "Update Doxygen documentation"
-        git push -f origin HEAD:${GITHUB_REF#refs/heads/}-docs
+        git push -f origin HEAD:gloves-docs
