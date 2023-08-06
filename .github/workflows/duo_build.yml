@@ -2,51 +2,70 @@ name: Duo Build
 
 on:
   push:
-    branches: [ "duo" ]
+    branches: [ "daniel/duo/embedded_makefile" ]
   pull_request:
-    branches: [ "duo" ]
+    branches: [ "daniel/duo/embedded_makefile" ]
 
 jobs:
-  build:
-
+  test:
     runs-on: ubuntu-latest
-
     steps:
     - name: Checkout outer repository
       uses: actions/checkout@v3
       with:
         repository: "StoneOrbits/VortexEmulator"
         path: VortexEmulator
-
     - name: Checkout current repository inside the outer repository
       uses: actions/checkout@v3
       with:
         path: VortexEmulator/VortexTestingFramework/VortexEngine
-
     - name: Install Dependencies
       run: sudo apt-get install valgrind g++ make doxygen graphviz texlive
-
     - name: Build
       run: make -j
       working-directory: VortexEmulator/VortexTestingFramework
-      
     - name: Set execute permissions for test script
       run: chmod +x ./runtests.sh
       working-directory:  VortexEmulator/VortexTestingFramework/tests
-
     - name: Run tests
       run: ./runtests.sh --duo
       working-directory:  VortexEmulator/VortexTestingFramework/tests
 
-    - name: Checkout doxygen-awesome
-      run: |
-        git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
-      working-directory:  VortexEmulator/VortexTestingFramework/VortexEngine
+  embedded:
+    needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+      - name: Install Dependencies
+        run: make install
+      - name: Build Binary
+        run: make build
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: embedded firmware
+          path: |
+            vortex.bin
+            vortex.elf
+            vortex.map
+            vortex.hex
 
+  docs:
+    needs: embedded
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout current repository inside the outer repository
+      uses: actions/checkout@v3
+    - name: Install Dependencies
+      run: sudo apt-get install valgrind g++ make doxygen graphviz texlive
+    - name: Checkout doxygen-awesome
+      run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
     - name: Generate Documentation
       run: doxygen Doxyfile
-      working-directory:  VortexEmulator/VortexTestingFramework/VortexEngine
-
     - name: Commit and Push Documentation
       run: |
         git config --local user.email "action@github.com"
@@ -54,4 +73,3 @@ jobs:
         git add docs
         git commit -m "Update Doxygen documentation"
         git push -f origin HEAD:duo-docs
-      working-directory:  VortexEmulator/VortexTestingFramework/VortexEngine
