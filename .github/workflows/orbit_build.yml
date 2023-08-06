@@ -20,7 +20,7 @@ jobs:
       with:
         path: VortexEmulator/VortexTestingFramework/VortexEngine
     - name: Install Dependencies
-      run: sudo apt-get install valgrind g++ make doxygen graphviz texlive
+      run: sudo apt-get install valgrind g++ make
     - name: Build
       run: make -j
       working-directory: VortexEmulator/VortexTestingFramework
@@ -62,7 +62,7 @@ jobs:
     - name: Checkout current repository inside the outer repository
       uses: actions/checkout@v3
     - name: Install Dependencies
-      run: sudo apt-get install valgrind g++ make doxygen graphviz texlive
+      run: sudo apt-get install doxygen graphviz texlive
     - name: Checkout doxygen-awesome
       run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
     - name: Generate Documentation
