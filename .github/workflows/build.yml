@@ -56,7 +56,7 @@ jobs:
             vortex.hex
 
   docs:
-    needs: embedded
+    needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/duo'
     steps:
