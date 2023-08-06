@@ -58,6 +58,7 @@ jobs:
   docs:
     needs: embedded
     runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/handle'
     steps:
     - name: Checkout current repository inside the outer repository
       uses: actions/checkout@v3
