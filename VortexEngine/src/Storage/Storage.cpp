@@ -25,9 +25,6 @@ std::string Storage::m_storageFilename;
 #define STORAGE_FILENAME "FlashStorage.flash"
 #endif
 
-// only arduino needs const I guess?
-static const uint8_t _storagedata[STORAGE_SIZE] = { };
-
 uint32_t Storage::m_lastSaveSize = 0;
 
 Storage::Storage()
