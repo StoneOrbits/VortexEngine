@@ -33,7 +33,7 @@ jobs:
       working-directory: VortexEmulator/VortexTestingFramework/tests
 
   docs:
-    needs: embedded
+    needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     steps:
