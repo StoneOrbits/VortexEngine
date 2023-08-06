@@ -57,7 +57,7 @@ jobs:
             build/VortexEngine.ino.uf2
 
   docs:
-    needs: embedded
+    needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/handle'
     steps:
