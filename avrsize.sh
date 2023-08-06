@@ -1,7 +1,12 @@
 #!/bin/bash
 
 # need megatinycore installed for this
-AVR_SIZE="C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/avr-size.exe"
+
+if [ "$(uname -o)" == "Msys" ]; then
+	AVR_SIZE="C:/Program Files (x86)/Atmel/Studio/7.0/toolchain/avr8/avr8-gnu-toolchain/bin/avr-size.exe"
+else
+	AVR_SIZE="${HOME}/atmel_setup/avr8-gnu-toolchain-linux_x86_64/bin/avr-size"
+fi
 
 # Replace this with the path to your .elf file
 ELF_FILE=$1
@@ -16,7 +21,11 @@ PROGRAM_STORAGE=32768
 DYNAMIC_MEMORY=2048
 
 # Run avr-size and parse the output
-OUTPUT=$("$AVR_SIZE" -A $ELF_FILE)
+if [ "$(uname -o)" == "Msys" ]; then
+	OUTPUT=$("$AVR_SIZE" -A $ELF_FILE)
+else
+	OUTPUT=$($AVR_SIZE -A $ELF_FILE)
+fi
 
 # Extract sizes of .text, .data, .rodata, and .bss sections
 TEXT_SIZE=$(echo "$OUTPUT" | grep -E '\.text' | awk '{print $2}')
