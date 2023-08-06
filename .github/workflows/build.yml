@@ -2,9 +2,10 @@ name: Handle Build
 
 on:
   push:
-    branches: [ "daniel/handle/arduino_makefile" ]
+    branches: [ "handle" ]
   pull_request:
-    branches: [ "daniel/handle/arduino_makefile" ]
+    branches: [ "handle" ]
+  workflow_dispatch: # manual trigger
 
 jobs:
   test:
