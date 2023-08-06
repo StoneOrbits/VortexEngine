@@ -73,4 +73,4 @@ jobs:
         git config --local user.name "GitHub Action"
         git add docs
         git commit -m "Update Doxygen documentation"
-        git push -f origin HEAD:gloves-docs
+        git push -f origin HEAD:${GITHUB_REF#refs/heads/}-docs
