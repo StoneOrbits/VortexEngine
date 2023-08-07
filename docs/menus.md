@@ -16,18 +16,25 @@ has_children: true
     margin-top: 0;
 }
 
-.white  { color: rgba(255, 255, 255, 0.6); }
-.cyan   { color: rgba(0, 255, 255, 0.6); }
-.purple { color: rgba(128, 0, 128, 0.6); }
-.green  { color: rgba(0, 128, 0, 0.6); }
-.blue   { color: rgba(0, 0, 255, 0.6); }
-.yellow { color: rgba(255, 255, 0, 0.6); }
-.red    { color: rgba(255, 0, 0, 0.6); }
+.white h2  { color: rgba(255, 255, 255, 0.6); }
+.cyan h2   { color: rgba(0, 255, 255, 0.6); }
+.purple h2 { color: rgba(128, 0, 128, 0.6); }
+.green h2  { color: rgba(0, 128, 0, 0.6); }
+.blue h2   { color: rgba(0, 0, 255, 0.6); }
+.yellow h2 { color: rgba(255, 255, 0, 0.6); }
+.red h2    { color: rgba(255, 0, 0, 0.6); }
 
 .content {
     padding: 10px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
 }
+.white .content  { background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent); }
+.cyan .content   { background: linear-gradient(to bottom, rgba(0, 255, 255, 0.3), transparent); }
+.purple .content { background: linear-gradient(to bottom, rgba(128, 0, 128, 0.3), transparent); }
+.green .content  { background: linear-gradient(to bottom, rgba(0, 128, 0, 0.3), transparent); }
+.blue .content   { background: linear-gradient(to bottom, rgba(0, 0, 255, 0.3), transparent); }
+.yellow .content { background: linear-gradient(to bottom, rgba(255, 255, 0, 0.3), transparent); }
+.red .content    { background: linear-gradient(to bottom, rgba(255, 0, 0, 0.3), transparent); }
 </style>
 
 # Menus
@@ -112,3 +119,4 @@ The Global Brightness menu allows you to adjust the overall brightness of your V
 The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This can be useful if you want to start fresh or if you're experiencing issues with your device.
 </div>
 </div>
+
