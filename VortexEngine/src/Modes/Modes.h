@@ -108,6 +108,8 @@ public:
   // set or get flags
   static bool setFlag(uint8_t flag, bool enable, bool save = true);
   static bool getFlag(uint8_t flag);
+  // reset flags to factory default (must save after)
+  static void resetFlags();
 
   // inline functions to toggle the various flags
   static bool setOneClickMode(bool enable, bool save = true) {
