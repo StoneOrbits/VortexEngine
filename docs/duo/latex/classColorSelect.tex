@@ -168,13 +168,15 @@ Definition at line 18 of file Color\+Select.\+cpp.
 \DoxyCodeLine{29   \textcolor{comment}{// function uses a different algorithm to generate the colors that results}}
 \DoxyCodeLine{30   \textcolor{comment}{// in a smaller color space with less bright colors. The tradeoff is you lose}}
 \DoxyCodeLine{31   \textcolor{comment}{// the bright colors but the rainbow looks a lot better}}
-\DoxyCodeLine{32   \mbox{\hyperlink{ColorTypes_8cpp_af11854a7974ef7d8d661f92e4f427101}{g\_hsv\_rgb\_alg}} = \mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9a836689bd91f2e2003496bd5176bca86c}{HSV\_TO\_RGB\_RAINBOW}};}
-\DoxyCodeLine{33 \}}
+\DoxyCodeLine{32   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{33     \mbox{\hyperlink{ColorTypes_8cpp_af11854a7974ef7d8d661f92e4f427101}{g\_hsv\_rgb\_alg}} = \mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9a836689bd91f2e2003496bd5176bca86c}{HSV\_TO\_RGB\_RAINBOW}};}
+\DoxyCodeLine{34   \}}
+\DoxyCodeLine{35 \}}
 
 \end{DoxyCode}
 
 
-References g\+\_\+hsv\+\_\+rgb\+\_\+alg, and HSV\+\_\+\+TO\+\_\+\+RGB\+\_\+\+RAINBOW.
+References g\+\_\+hsv\+\_\+rgb\+\_\+alg, HSV\+\_\+\+TO\+\_\+\+RGB\+\_\+\+RAINBOW, and Menu\+::m\+\_\+advanced.
 
 \mbox{\Hypertarget{classColorSelect_aa2f06c0775c53865ba75d650c452853c}\label{classColorSelect_aa2f06c0775c53865ba75d650c452853c}} 
 \index{ColorSelect@{ColorSelect}!````~ColorSelect@{$\sim$ColorSelect}}
@@ -184,16 +186,16 @@ References g\+\_\+hsv\+\_\+rgb\+\_\+alg, and HSV\+\_\+\+TO\+\_\+\+RGB\+\_\+\+RAI
 
 
 
-Definition at line 35 of file Color\+Select.\+cpp.
+Definition at line 37 of file Color\+Select.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{36 \{}
-\DoxyCodeLine{37   \textcolor{comment}{// revert the hsv to rgb algorithm to normal}}
-\DoxyCodeLine{38   \mbox{\hyperlink{ColorTypes_8cpp_af11854a7974ef7d8d661f92e4f427101}{g\_hsv\_rgb\_alg}} = \mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9a9b01229e01a8505c74f9540efd59a9a3}{HSV\_TO\_RGB\_GENERIC}};}
-\DoxyCodeLine{39   \textcolor{comment}{// make sure force sleep is re-\/enabled when we leave}}
-\DoxyCodeLine{40   \mbox{\hyperlink{classVortexEngine_af00c20421c2dc846493a17109c462bb4}{VortexEngine::toggleForceSleep}}(\textcolor{keyword}{true});}
-\DoxyCodeLine{41 \}}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39   \textcolor{comment}{// revert the hsv to rgb algorithm to normal}}
+\DoxyCodeLine{40   \mbox{\hyperlink{ColorTypes_8cpp_af11854a7974ef7d8d661f92e4f427101}{g\_hsv\_rgb\_alg}} = \mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9a9b01229e01a8505c74f9540efd59a9a3}{HSV\_TO\_RGB\_GENERIC}};}
+\DoxyCodeLine{41   \textcolor{comment}{// make sure force sleep is re-\/enabled when we leave}}
+\DoxyCodeLine{42   \mbox{\hyperlink{classVortexEngine_af00c20421c2dc846493a17109c462bb4}{VortexEngine::toggleForceSleep}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{43 \}}
 
 \end{DoxyCode}
 
@@ -215,37 +217,37 @@ Reimplemented from \mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}
 
 
 
-Definition at line 43 of file Color\+Select.\+cpp.
+Definition at line 45 of file Color\+Select.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{44 \{}
-\DoxyCodeLine{45   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{Menu::init}}()) \{}
-\DoxyCodeLine{46     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{47   \}}
-\DoxyCodeLine{48   \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
-\DoxyCodeLine{49   \textcolor{keywordflow}{if} (cur-\/>\mbox{\hyperlink{classMode_aca4af72a0131337a51c782b43d402f0f}{isEmpty}}()) \{}
-\DoxyCodeLine{50     \textcolor{comment}{// cannot work with an empty mode}}
-\DoxyCodeLine{51     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{52   \}}
-\DoxyCodeLine{53   \textcolor{keywordflow}{if} (cur-\/>\mbox{\hyperlink{classMode_a833075f22903e11fd4735b5f04e7f6ea}{isMultiLed}}()) \{}
-\DoxyCodeLine{54     \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{55   \}}
-\DoxyCodeLine{56   \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} = \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2eae11874bf43ee9371ade67deee4946710}{STATE\_INIT}};}
-\DoxyCodeLine{57   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
-\DoxyCodeLine{58     \textcolor{comment}{// turn off force sleep while in this adv menu}}
-\DoxyCodeLine{59     \mbox{\hyperlink{classVortexEngine_af00c20421c2dc846493a17109c462bb4}{VortexEngine::toggleForceSleep}}(\textcolor{keyword}{false});}
-\DoxyCodeLine{60     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_ac2888fc4f9079c397ce229292cbb460b}{setPattern}}(\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadf01802d35ece7b405582c6680f56d83}{PATTERN\_BLEND}});}
-\DoxyCodeLine{61     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
-\DoxyCodeLine{62   \}}
-\DoxyCodeLine{63   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entered color select"{}});}
-\DoxyCodeLine{64   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{65 \}}
+\DoxyCodeLine{46 \{}
+\DoxyCodeLine{47   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{Menu::init}}()) \{}
+\DoxyCodeLine{48     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{49   \}}
+\DoxyCodeLine{50   \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
+\DoxyCodeLine{51   \textcolor{keywordflow}{if} (cur-\/>\mbox{\hyperlink{classMode_aca4af72a0131337a51c782b43d402f0f}{isEmpty}}()) \{}
+\DoxyCodeLine{52     \textcolor{comment}{// cannot work with an empty mode}}
+\DoxyCodeLine{53     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{54   \}}
+\DoxyCodeLine{55   \textcolor{keywordflow}{if} (cur-\/>\mbox{\hyperlink{classMode_a833075f22903e11fd4735b5f04e7f6ea}{isMultiLed}}()) \{}
+\DoxyCodeLine{56     \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{57   \}}
+\DoxyCodeLine{58   \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} = \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2eae11874bf43ee9371ade67deee4946710}{STATE\_INIT}};}
+\DoxyCodeLine{59   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{60     \textcolor{comment}{// turn off force sleep while in this adv menu}}
+\DoxyCodeLine{61     \mbox{\hyperlink{classVortexEngine_af00c20421c2dc846493a17109c462bb4}{VortexEngine::toggleForceSleep}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{62     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_ad5eb39acbb11f0ce7c3342c53d83da71}{setColorset}}(\mbox{\hyperlink{classColorset}{Colorset}}(\mbox{\hyperlink{ColorConstants_8h_aa039288455af8a3812a35aa1e7b903e4}{RGB\_RED}}, \mbox{\hyperlink{ColorConstants_8h_aa039288455af8a3812a35aa1e7b903e4}{RGB\_RED}}));}
+\DoxyCodeLine{63     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
+\DoxyCodeLine{64   \}}
+\DoxyCodeLine{65   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entered color select"{}});}
+\DoxyCodeLine{66   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{67 \}}
 
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), DEBUG\+\_\+\+LOG, Menu\+::init(), Mode\+::init(), Mode\+::is\+Empty(), Mode\+::is\+Multi\+Led(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+led\+Selected, Menu\+::m\+\_\+preview\+Mode, m\+\_\+state, PATTERN\+\_\+\+BLEND, Mode\+::set\+Pattern(), STATE\+\_\+\+INIT, and Vortex\+Engine\+::toggle\+Force\+Sleep().
+References Modes\+::cur\+Mode(), DEBUG\+\_\+\+LOG, Menu\+::init(), Mode\+::init(), Mode\+::is\+Empty(), Mode\+::is\+Multi\+Led(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+led\+Selected, Menu\+::m\+\_\+preview\+Mode, m\+\_\+state, RGB\+\_\+\+RED, Mode\+::set\+Colorset(), STATE\+\_\+\+INIT, and Vortex\+Engine\+::toggle\+Force\+Sleep().
 
 \mbox{\Hypertarget{classColorSelect_a7df43ca34cf42c00047fe9373d98d458}\label{classColorSelect_a7df43ca34cf42c00047fe9373d98d458}} 
 \index{ColorSelect@{ColorSelect}!onLedSelected@{onLedSelected}}
@@ -259,19 +261,19 @@ Reimplemented from \mbox{\hyperlink{classMenu_af8614529ac11d563d9025c3905834b05}
 
 
 
-Definition at line 119 of file Color\+Select.\+cpp.
+Definition at line 114 of file Color\+Select.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{120 \{}
-\DoxyCodeLine{121   \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
-\DoxyCodeLine{122   \textcolor{comment}{// grab the colorset from our selected target led}}
-\DoxyCodeLine{123   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}}) \{}
-\DoxyCodeLine{124     \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}} = cur-\/>\mbox{\hyperlink{classMode_a1f063952effb576d5597fa83eccea96c}{getColorset}}();}
-\DoxyCodeLine{125   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{126     \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}} = cur-\/>\mbox{\hyperlink{classMode_a1f063952effb576d5597fa83eccea96c}{getColorset}}(\mbox{\hyperlink{LedTypes_8h_a8f394c70246f75bd9452c7cea69a4b19}{mapGetFirstLed}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}));}
-\DoxyCodeLine{127   \}}
-\DoxyCodeLine{128 \}}
+\DoxyCodeLine{115 \{}
+\DoxyCodeLine{116   \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
+\DoxyCodeLine{117   \textcolor{comment}{// grab the colorset from our selected target led}}
+\DoxyCodeLine{118   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}}) \{}
+\DoxyCodeLine{119     \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}} = cur-\/>\mbox{\hyperlink{classMode_a1f063952effb576d5597fa83eccea96c}{getColorset}}();}
+\DoxyCodeLine{120   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{121     \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}} = cur-\/>\mbox{\hyperlink{classMode_a1f063952effb576d5597fa83eccea96c}{getColorset}}(\mbox{\hyperlink{LedTypes_8h_a8f394c70246f75bd9452c7cea69a4b19}{mapGetFirstLed}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}));}
+\DoxyCodeLine{122   \}}
+\DoxyCodeLine{123 \}}
 
 \end{DoxyCode}
 
@@ -290,85 +292,88 @@ Reimplemented from \mbox{\hyperlink{classMenu_aa5e3a269c2dba3ee69b530c7d1b3c0ff}
 
 
 
-Definition at line 141 of file Color\+Select.\+cpp.
+Definition at line 148 of file Color\+Select.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{142 \{}
-\DoxyCodeLine{143   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
-\DoxyCodeLine{144     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{145   \}}
-\DoxyCodeLine{146   \textcolor{comment}{// if we're on 'exit' and we're on any menu past the slot selection}}
-\DoxyCodeLine{147   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} == 4 \&\& \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} > \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}}) \{}
-\DoxyCodeLine{148     \textcolor{comment}{// move back to the previous selection}}
-\DoxyCodeLine{149     \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} = (\mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2e}{ColorSelectState}})(\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} -\/ 1);}
-\DoxyCodeLine{150     \textcolor{comment}{// if we're back to the slot selection then set our position back to the}}
-\DoxyCodeLine{151     \textcolor{comment}{// slot we selected, otherwise it's more visually appealing to just return}}
-\DoxyCodeLine{152     \textcolor{comment}{// to the first selection on the previous menu}}
-\DoxyCodeLine{153     \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} = (\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} == \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}}) ? \mbox{\hyperlink{classColorSelect_a50c5d3816c3c3d343d1286f140097a88}{m\_targetSlot}} : 0;}
+\DoxyCodeLine{149 \{}
+\DoxyCodeLine{150   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{151     \mbox{\hyperlink{classColorset}{Colorset}} set = \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a1f063952effb576d5597fa83eccea96c}{getColorset}}();}
+\DoxyCodeLine{152     set.\mbox{\hyperlink{classColorset_acb6d033ff17129ab54b3afd5660e6219}{set}}(0, set.\mbox{\hyperlink{classColorset_a283bf54629fd4af75249492d49e14199}{get}}(1));}
+\DoxyCodeLine{153     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_ad5eb39acbb11f0ce7c3342c53d83da71}{setColorset}}(set);}
 \DoxyCodeLine{154     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{155   \}}
-\DoxyCodeLine{156   \textcolor{comment}{// reuse these variables lots}}
-\DoxyCodeLine{157   uint8\_t numColors = \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
-\DoxyCodeLine{158   uint32\_t holdDur = \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}();}
-\DoxyCodeLine{159   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}}) \{}
-\DoxyCodeLine{160   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2eae11874bf43ee9371ade67deee4946710}{STATE\_INIT}}:}
-\DoxyCodeLine{161     \textcolor{comment}{// nothing}}
-\DoxyCodeLine{162     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{163   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}}:}
-\DoxyCodeLine{164     \textcolor{comment}{// if the exit is selected then save and exit, this depends on the number}}
-\DoxyCodeLine{165     \textcolor{comment}{// of colors in the colorset. If the colorset is full then the exit is}}
-\DoxyCodeLine{166     \textcolor{comment}{// just the number of colors (8) but if it's not full then the exit is the}}
-\DoxyCodeLine{167     \textcolor{comment}{// number of colors + 1. Example: with 4 cols, cols are on 0, 1, 2, 3,}}
-\DoxyCodeLine{168     \textcolor{comment}{// add-\/color is 4, and exit is 5}}
-\DoxyCodeLine{169     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} == numColors + (numColors < \mbox{\hyperlink{VortexConfig_8h_a1a0b694e2871554a4066f8d61f577c4c}{MAX\_COLOR\_SLOTS}})) \{}
-\DoxyCodeLine{170       \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
-\DoxyCodeLine{171       cur-\/>\mbox{\hyperlink{classMode_afac24695014a247ce0efb77eaad28107}{setColorsetMap}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}, \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}});}
-\DoxyCodeLine{172       cur-\/>\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
-\DoxyCodeLine{173       \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
-\DoxyCodeLine{174       \textcolor{keywordflow}{return};}
-\DoxyCodeLine{175     \}}
-\DoxyCodeLine{176     \textcolor{comment}{// handle if user releases during the delete option}}
-\DoxyCodeLine{177     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} < numColors \&\&}
-\DoxyCodeLine{178         holdDur >= \mbox{\hyperlink{Timings_8h_a724ef82b8f1a5b8cd76673dfe480e7bb}{DELETE\_THRESHOLD\_TICKS}} \&\&}
-\DoxyCodeLine{179         (holdDur \% (\mbox{\hyperlink{Timings_8h_a77fc08a3774a777798ebe8067423ce11}{DELETE\_CYCLE\_TICKS}} * 2)) > (\mbox{\hyperlink{Timings_8h_a77fc08a3774a777798ebe8067423ce11}{DELETE\_CYCLE\_TICKS}})) \{}
-\DoxyCodeLine{180       \textcolor{comment}{// delete current slot}}
-\DoxyCodeLine{181       \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_a68b945689ee8cf511f93826c54bb63af}{removeColor}}(\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}});}
-\DoxyCodeLine{182       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} > numColors) \{}
-\DoxyCodeLine{183         \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}-\/-\/;}
-\DoxyCodeLine{184       \}}
-\DoxyCodeLine{185       \textcolor{keywordflow}{return};}
-\DoxyCodeLine{186     \}}
-\DoxyCodeLine{187     \textcolor{comment}{// otherwise store the target slot continue onto the hue selection}}
-\DoxyCodeLine{188     \mbox{\hyperlink{classColorSelect_a50c5d3816c3c3d343d1286f140097a88}{m\_targetSlot}} = \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}};}
-\DoxyCodeLine{189     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{190   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2eafb801216d02b43a41d768ca442722354}{STATE\_PICK\_HUE1}}:}
-\DoxyCodeLine{191     \mbox{\hyperlink{classColorSelect_a55474150c59c7e92ae945c5dcb290018}{m\_targetHue1}} = \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}};}
-\DoxyCodeLine{192     \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}}.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = \mbox{\hyperlink{classColorSelect_a55474150c59c7e92ae945c5dcb290018}{m\_targetHue1}} * (255 / 4);}
-\DoxyCodeLine{193     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{194   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea357afd4c0e747368fc58dd50e07761f1}{STATE\_PICK\_HUE2}}:}
-\DoxyCodeLine{195     \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}}.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = (\mbox{\hyperlink{classColorSelect_a55474150c59c7e92ae945c5dcb290018}{m\_targetHue1}} * (255 / 4)) + \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} * (255 / 16);}
-\DoxyCodeLine{196     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{197   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea72d99473ae0d6d8edb38d236a2a8d1a2}{STATE\_PICK\_SAT}}:}
-\DoxyCodeLine{198     \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}}.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}} = \mbox{\hyperlink{classColorSelect_abc28e49b78d77b471a198d8de57dde5a}{sats}}[\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}];}
+\DoxyCodeLine{156   \textcolor{comment}{// if we're on 'exit' and we're on any menu past the slot selection}}
+\DoxyCodeLine{157   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} == 4 \&\& \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} > \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}}) \{}
+\DoxyCodeLine{158     \textcolor{comment}{// move back to the previous selection}}
+\DoxyCodeLine{159     \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} = (\mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2e}{ColorSelectState}})(\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} -\/ 1);}
+\DoxyCodeLine{160     \textcolor{comment}{// if we're back to the slot selection then set our position back to the}}
+\DoxyCodeLine{161     \textcolor{comment}{// slot we selected, otherwise it's more visually appealing to just return}}
+\DoxyCodeLine{162     \textcolor{comment}{// to the first selection on the previous menu}}
+\DoxyCodeLine{163     \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} = (\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} == \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}}) ? \mbox{\hyperlink{classColorSelect_a50c5d3816c3c3d343d1286f140097a88}{m\_targetSlot}} : 0;}
+\DoxyCodeLine{164     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{165   \}}
+\DoxyCodeLine{166   \textcolor{comment}{// reuse these variables lots}}
+\DoxyCodeLine{167   uint8\_t numColors = \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
+\DoxyCodeLine{168   uint32\_t holdDur = \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}();}
+\DoxyCodeLine{169   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}}) \{}
+\DoxyCodeLine{170   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2eae11874bf43ee9371ade67deee4946710}{STATE\_INIT}}:}
+\DoxyCodeLine{171     \textcolor{comment}{// nothing}}
+\DoxyCodeLine{172     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{173   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}}:}
+\DoxyCodeLine{174     \textcolor{comment}{// if the exit is selected then save and exit, this depends on the number}}
+\DoxyCodeLine{175     \textcolor{comment}{// of colors in the colorset. If the colorset is full then the exit is}}
+\DoxyCodeLine{176     \textcolor{comment}{// just the number of colors (8) but if it's not full then the exit is the}}
+\DoxyCodeLine{177     \textcolor{comment}{// number of colors + 1. Example: with 4 cols, cols are on 0, 1, 2, 3,}}
+\DoxyCodeLine{178     \textcolor{comment}{// add-\/color is 4, and exit is 5}}
+\DoxyCodeLine{179     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} == numColors + (numColors < \mbox{\hyperlink{VortexConfig_8h_a1a0b694e2871554a4066f8d61f577c4c}{MAX\_COLOR\_SLOTS}})) \{}
+\DoxyCodeLine{180       \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
+\DoxyCodeLine{181       cur-\/>\mbox{\hyperlink{classMode_afac24695014a247ce0efb77eaad28107}{setColorsetMap}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}, \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}});}
+\DoxyCodeLine{182       cur-\/>\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
+\DoxyCodeLine{183       \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{184       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{185     \}}
+\DoxyCodeLine{186     \textcolor{comment}{// handle if user releases during the delete option}}
+\DoxyCodeLine{187     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} < numColors \&\&}
+\DoxyCodeLine{188         holdDur >= \mbox{\hyperlink{Timings_8h_a724ef82b8f1a5b8cd76673dfe480e7bb}{DELETE\_THRESHOLD\_TICKS}} \&\&}
+\DoxyCodeLine{189         (holdDur \% (\mbox{\hyperlink{Timings_8h_a77fc08a3774a777798ebe8067423ce11}{DELETE\_CYCLE\_TICKS}} * 2)) > (\mbox{\hyperlink{Timings_8h_a77fc08a3774a777798ebe8067423ce11}{DELETE\_CYCLE\_TICKS}})) \{}
+\DoxyCodeLine{190       \textcolor{comment}{// delete current slot}}
+\DoxyCodeLine{191       \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_a68b945689ee8cf511f93826c54bb63af}{removeColor}}(\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}});}
+\DoxyCodeLine{192       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} > numColors) \{}
+\DoxyCodeLine{193         \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}-\/-\/;}
+\DoxyCodeLine{194       \}}
+\DoxyCodeLine{195       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{196     \}}
+\DoxyCodeLine{197     \textcolor{comment}{// otherwise store the target slot continue onto the hue selection}}
+\DoxyCodeLine{198     \mbox{\hyperlink{classColorSelect_a50c5d3816c3c3d343d1286f140097a88}{m\_targetSlot}} = \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}};}
 \DoxyCodeLine{199     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{200   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea902dc373210b60836c9d9c801e6c711b}{STATE\_PICK\_VAL}}:}
-\DoxyCodeLine{201     \textcolor{comment}{// no m\_targetVal because you can't go back after this}}
-\DoxyCodeLine{202     \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}}.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}} = \mbox{\hyperlink{classColorSelect_a156d875177e2b57b15388ba0f6aa9299}{vals}}[\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}];}
-\DoxyCodeLine{203     \textcolor{comment}{// specifically using hsv to rgb rainbow to generate the color}}
-\DoxyCodeLine{204     \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_acb6d033ff17129ab54b3afd5660e6219}{set}}(\mbox{\hyperlink{classColorSelect_a50c5d3816c3c3d343d1286f140097a88}{m\_targetSlot}}, \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}});}
-\DoxyCodeLine{205     \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} = \mbox{\hyperlink{classColorSelect_a50c5d3816c3c3d343d1286f140097a88}{m\_targetSlot}};}
-\DoxyCodeLine{206     \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} = \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}};}
-\DoxyCodeLine{207     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{208   \}}
-\DoxyCodeLine{209   \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} = (\mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2e}{ColorSelectState}})(\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} + 1);}
-\DoxyCodeLine{210   \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} = 0;}
-\DoxyCodeLine{211 \}}
+\DoxyCodeLine{200   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2eafb801216d02b43a41d768ca442722354}{STATE\_PICK\_HUE1}}:}
+\DoxyCodeLine{201     \mbox{\hyperlink{classColorSelect_a55474150c59c7e92ae945c5dcb290018}{m\_targetHue1}} = \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}};}
+\DoxyCodeLine{202     \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}}.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = \mbox{\hyperlink{classColorSelect_a55474150c59c7e92ae945c5dcb290018}{m\_targetHue1}} * (255 / 4);}
+\DoxyCodeLine{203     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{204   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea357afd4c0e747368fc58dd50e07761f1}{STATE\_PICK\_HUE2}}:}
+\DoxyCodeLine{205     \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}}.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = (\mbox{\hyperlink{classColorSelect_a55474150c59c7e92ae945c5dcb290018}{m\_targetHue1}} * (255 / 4)) + \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} * (255 / 16);}
+\DoxyCodeLine{206     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{207   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea72d99473ae0d6d8edb38d236a2a8d1a2}{STATE\_PICK\_SAT}}:}
+\DoxyCodeLine{208     \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}}.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}} = \mbox{\hyperlink{classColorSelect_abc28e49b78d77b471a198d8de57dde5a}{sats}}[\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}];}
+\DoxyCodeLine{209     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{210   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea902dc373210b60836c9d9c801e6c711b}{STATE\_PICK\_VAL}}:}
+\DoxyCodeLine{211     \textcolor{comment}{// no m\_targetVal because you can't go back after this}}
+\DoxyCodeLine{212     \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}}.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}} = \mbox{\hyperlink{classColorSelect_a156d875177e2b57b15388ba0f6aa9299}{vals}}[\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}];}
+\DoxyCodeLine{213     \textcolor{comment}{// specifically using hsv to rgb rainbow to generate the color}}
+\DoxyCodeLine{214     \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_acb6d033ff17129ab54b3afd5660e6219}{set}}(\mbox{\hyperlink{classColorSelect_a50c5d3816c3c3d343d1286f140097a88}{m\_targetSlot}}, \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}});}
+\DoxyCodeLine{215     \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} = \mbox{\hyperlink{classColorSelect_a50c5d3816c3c3d343d1286f140097a88}{m\_targetSlot}};}
+\DoxyCodeLine{216     \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} = \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}};}
+\DoxyCodeLine{217     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{218   \}}
+\DoxyCodeLine{219   \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} = (\mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2e}{ColorSelectState}})(\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} + 1);}
+\DoxyCodeLine{220   \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} = 0;}
+\DoxyCodeLine{221 \}}
 
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), DELETE\+\_\+\+CYCLE\+\_\+\+TICKS, DELETE\+\_\+\+THRESHOLD\+\_\+\+TICKS, g\+\_\+p\+Button, Button\+::hold\+Duration(), HSVColor\+::hue, Mode\+::init(), Menu\+::leave\+Menu(), Menu\+::m\+\_\+advanced, m\+\_\+colorset, Menu\+::m\+\_\+cur\+Selection, m\+\_\+new\+Color, m\+\_\+state, m\+\_\+target\+Hue1, Menu\+::m\+\_\+target\+Leds, m\+\_\+target\+Slot, MAX\+\_\+\+COLOR\+\_\+\+SLOTS, Colorset\+::num\+Colors(), Colorset\+::remove\+Color(), HSVColor\+::sat, sats, Colorset\+::set(), Mode\+::set\+Colorset\+Map(), STATE\+\_\+\+INIT, STATE\+\_\+\+PICK\+\_\+\+HUE1, STATE\+\_\+\+PICK\+\_\+\+HUE2, STATE\+\_\+\+PICK\+\_\+\+SAT, STATE\+\_\+\+PICK\+\_\+\+SLOT, STATE\+\_\+\+PICK\+\_\+\+VAL, HSVColor\+::val, and vals.
+References Modes\+::cur\+Mode(), DELETE\+\_\+\+CYCLE\+\_\+\+TICKS, DELETE\+\_\+\+THRESHOLD\+\_\+\+TICKS, g\+\_\+p\+Button, Colorset\+::get(), Mode\+::get\+Colorset(), Button\+::hold\+Duration(), HSVColor\+::hue, Mode\+::init(), Menu\+::leave\+Menu(), Menu\+::m\+\_\+advanced, m\+\_\+colorset, Menu\+::m\+\_\+cur\+Selection, m\+\_\+new\+Color, Menu\+::m\+\_\+preview\+Mode, m\+\_\+state, m\+\_\+target\+Hue1, Menu\+::m\+\_\+target\+Leds, m\+\_\+target\+Slot, MAX\+\_\+\+COLOR\+\_\+\+SLOTS, Colorset\+::num\+Colors(), Colorset\+::remove\+Color(), HSVColor\+::sat, sats, Colorset\+::set(), Mode\+::set\+Colorset(), Mode\+::set\+Colorset\+Map(), STATE\+\_\+\+INIT, STATE\+\_\+\+PICK\+\_\+\+HUE1, STATE\+\_\+\+PICK\+\_\+\+HUE2, STATE\+\_\+\+PICK\+\_\+\+SAT, STATE\+\_\+\+PICK\+\_\+\+SLOT, STATE\+\_\+\+PICK\+\_\+\+VAL, HSVColor\+::val, and vals.
 
 \mbox{\Hypertarget{classColorSelect_a64e506c095e3dea194c3f570d52e5519}\label{classColorSelect_a64e506c095e3dea194c3f570d52e5519}} 
 \index{ColorSelect@{ColorSelect}!onShortClick@{onShortClick}}
@@ -382,24 +387,36 @@ Reimplemented from \mbox{\hyperlink{classMenu_a135b0de5e64efeb822e5323f4b8c8955}
 
 
 
-Definition at line 130 of file Color\+Select.\+cpp.
+Definition at line 125 of file Color\+Select.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{131 \{}
-\DoxyCodeLine{132   \textcolor{comment}{// increment selection}}
-\DoxyCodeLine{133   \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}++;}
-\DoxyCodeLine{134   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} == \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}}) \{}
-\DoxyCodeLine{135     \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} \%= (\mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}() + 1 + (\mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}() < \mbox{\hyperlink{VortexConfig_8h_a1a0b694e2871554a4066f8d61f577c4c}{MAX\_COLOR\_SLOTS}}));}
-\DoxyCodeLine{136   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{137     \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} \%= 5;}
+\DoxyCodeLine{126 \{}
+\DoxyCodeLine{127   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{128     \textcolor{comment}{// grab one of the colorsets of the targeted leds}}
+\DoxyCodeLine{129     \mbox{\hyperlink{classColorset}{Colorset}} set = \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a1f063952effb576d5597fa83eccea96c}{getColorset}}(\mbox{\hyperlink{LedTypes_8h_a8f394c70246f75bd9452c7cea69a4b19}{mapGetFirstLed}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}));}
+\DoxyCodeLine{130     \textcolor{comment}{// grab the first color convert it to hsv}}
+\DoxyCodeLine{131     \mbox{\hyperlink{classHSVColor}{HSVColor}} col = set.\mbox{\hyperlink{classColorset_a283bf54629fd4af75249492d49e14199}{get}}(1);}
+\DoxyCodeLine{132     col.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} += 15;}
+\DoxyCodeLine{133     \textcolor{comment}{// set the color again after adjusting}}
+\DoxyCodeLine{134     set.\mbox{\hyperlink{classColorset_acb6d033ff17129ab54b3afd5660e6219}{set}}(1, col);}
+\DoxyCodeLine{135     \textcolor{comment}{// update the colorset}}
+\DoxyCodeLine{136     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_afac24695014a247ce0efb77eaad28107}{setColorsetMap}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}, set);}
+\DoxyCodeLine{137     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{138   \}}
-\DoxyCodeLine{139 \}}
+\DoxyCodeLine{139   \textcolor{comment}{// increment selection}}
+\DoxyCodeLine{140   \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}++;}
+\DoxyCodeLine{141   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} == \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}}) \{}
+\DoxyCodeLine{142     \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} \%= (\mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}() + 1 + (\mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}() < \mbox{\hyperlink{VortexConfig_8h_a1a0b694e2871554a4066f8d61f577c4c}{MAX\_COLOR\_SLOTS}}));}
+\DoxyCodeLine{143   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{144     \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} \%= 5;}
+\DoxyCodeLine{145   \}}
+\DoxyCodeLine{146 \}}
 
 \end{DoxyCode}
 
 
-References m\+\_\+colorset, Menu\+::m\+\_\+cur\+Selection, m\+\_\+state, MAX\+\_\+\+COLOR\+\_\+\+SLOTS, Colorset\+::num\+Colors(), and STATE\+\_\+\+PICK\+\_\+\+SLOT.
+References Colorset\+::get(), Mode\+::get\+Colorset(), HSVColor\+::hue, Menu\+::m\+\_\+advanced, m\+\_\+colorset, Menu\+::m\+\_\+cur\+Selection, Menu\+::m\+\_\+preview\+Mode, m\+\_\+state, Menu\+::m\+\_\+target\+Leds, map\+Get\+First\+Led(), MAX\+\_\+\+COLOR\+\_\+\+SLOTS, Colorset\+::num\+Colors(), Colorset\+::set(), Mode\+::set\+Colorset\+Map(), and STATE\+\_\+\+PICK\+\_\+\+SLOT.
 
 \mbox{\Hypertarget{classColorSelect_abe72716659bd20493c6d81ad5c582d2f}\label{classColorSelect_abe72716659bd20493c6d81ad5c582d2f}} 
 \index{ColorSelect@{ColorSelect}!run@{run}}
@@ -413,64 +430,57 @@ Reimplemented from \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}
 
 
 
-Definition at line 67 of file Color\+Select.\+cpp.
+Definition at line 69 of file Color\+Select.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{68 \{}
-\DoxyCodeLine{69   \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{MenuAction}} result = \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{Menu::run}}();}
-\DoxyCodeLine{70   \textcolor{keywordflow}{if} (result != \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}}) \{}
-\DoxyCodeLine{71     \textcolor{keywordflow}{return} result;}
-\DoxyCodeLine{72   \}}
-\DoxyCodeLine{73 }
-\DoxyCodeLine{74   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
-\DoxyCodeLine{75     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aa4c7476d131da6a5fdedbbe5c3fcf136}{setArg}}(6, \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() ? 2 : 1);}
-\DoxyCodeLine{76     \textcolor{comment}{// usually you would need to call init again after changing arguments}}
-\DoxyCodeLine{77     \textcolor{comment}{// because you can't guarantee the pattern doesn't do any kind of logic}}
-\DoxyCodeLine{78     \textcolor{comment}{// in it's init function based on the params, however in this case we know}}
-\DoxyCodeLine{79     \textcolor{comment}{// that blend doesn't need to re-\/init after changing its flip count, we}}
-\DoxyCodeLine{80     \textcolor{comment}{// can just change it on the fly and it will flip accordingly -\/-\/ so this}}
-\DoxyCodeLine{81     \textcolor{comment}{// is a bit of a hack and the proper approach would be to re-\/init the mode}}
-\DoxyCodeLine{82     \textcolor{comment}{// however if the mode is re-\/initialized then it would ruin the effect}}
-\DoxyCodeLine{83     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_af08888134084d0640b6a891bdb755f14}{onConsecutivePresses}}(\mbox{\hyperlink{VortexConfig_8h_ab857f79f94ee6ddabccf0049e351f064}{LEAVE\_ADV\_COL\_SELECT\_CLICKS}})) \{}
-\DoxyCodeLine{84       \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffa3850044a30cc507f35adce781faf3693}{MENU\_QUIT}};}
-\DoxyCodeLine{85     \}}
-\DoxyCodeLine{86     \textcolor{comment}{// just render the current pattern for active color picking}}
-\DoxyCodeLine{87     \textcolor{comment}{// iterate all patterns and plkay}}
-\DoxyCodeLine{88     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a21d1c7da7b97340ab1af39d242cc6f22}{play}}();}
-\DoxyCodeLine{89     \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
-\DoxyCodeLine{90   \}}
-\DoxyCodeLine{91 }
-\DoxyCodeLine{92   \textcolor{comment}{// all states start with a blank slate}}
-\DoxyCodeLine{93   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{94   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}}) \{}
-\DoxyCodeLine{95   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2eae11874bf43ee9371ade67deee4946710}{STATE\_INIT}}:}
-\DoxyCodeLine{96     \textcolor{comment}{// reset all the selection members}}
-\DoxyCodeLine{97     \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}} = \mbox{\hyperlink{classHSVColor}{HSVColor}}(0, 255, 255);}
-\DoxyCodeLine{98     \mbox{\hyperlink{classColorSelect_a55474150c59c7e92ae945c5dcb290018}{m\_targetHue1}} = 0;}
-\DoxyCodeLine{99     \mbox{\hyperlink{classColorSelect_a50c5d3816c3c3d343d1286f140097a88}{m\_targetSlot}} = 0;}
-\DoxyCodeLine{100     \textcolor{comment}{// move on to picking slot}}
-\DoxyCodeLine{101     \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} = \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}};}
-\DoxyCodeLine{102     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{103   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}}:}
-\DoxyCodeLine{104     \mbox{\hyperlink{classColorSelect_a7a187e1351103279f073af4aeafcf3f7}{showSlotSelection}}();}
-\DoxyCodeLine{105     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{106   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2eafb801216d02b43a41d768ca442722354}{STATE\_PICK\_HUE1}}:}
-\DoxyCodeLine{107   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea357afd4c0e747368fc58dd50e07761f1}{STATE\_PICK\_HUE2}}:}
-\DoxyCodeLine{108   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea72d99473ae0d6d8edb38d236a2a8d1a2}{STATE\_PICK\_SAT}}:}
-\DoxyCodeLine{109   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea902dc373210b60836c9d9c801e6c711b}{STATE\_PICK\_VAL}}:}
-\DoxyCodeLine{110     \mbox{\hyperlink{classColorSelect_a621cb2f5c6d1a713c22ffccf0144784e}{showSelection}}(\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}});}
-\DoxyCodeLine{111     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{112   \}}
-\DoxyCodeLine{113   \textcolor{comment}{// show selections}}
-\DoxyCodeLine{114   \mbox{\hyperlink{classMenus_a24d75cee0c42b89ed2408e1358414804}{Menus::showSelection}}();}
-\DoxyCodeLine{115   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
-\DoxyCodeLine{116 \}}
+\DoxyCodeLine{70 \{}
+\DoxyCodeLine{71   \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{MenuAction}} result = \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{Menu::run}}();}
+\DoxyCodeLine{72   \textcolor{keywordflow}{if} (result != \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}}) \{}
+\DoxyCodeLine{73     \textcolor{keywordflow}{return} result;}
+\DoxyCodeLine{74   \}}
+\DoxyCodeLine{75 }
+\DoxyCodeLine{76   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{77     \textcolor{comment}{// leave after several clicks}}
+\DoxyCodeLine{78     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_af08888134084d0640b6a891bdb755f14}{onConsecutivePresses}}(\mbox{\hyperlink{VortexConfig_8h_ab857f79f94ee6ddabccf0049e351f064}{LEAVE\_ADV\_COL\_SELECT\_CLICKS}})) \{}
+\DoxyCodeLine{79       \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffa3850044a30cc507f35adce781faf3693}{MENU\_QUIT}};}
+\DoxyCodeLine{80     \}}
+\DoxyCodeLine{81     \textcolor{comment}{// just render the current pattern for active color picking}}
+\DoxyCodeLine{82     \textcolor{comment}{// iterate all patterns and plkay}}
+\DoxyCodeLine{83     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a21d1c7da7b97340ab1af39d242cc6f22}{play}}();}
+\DoxyCodeLine{84     \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
+\DoxyCodeLine{85   \}}
+\DoxyCodeLine{86 }
+\DoxyCodeLine{87   \textcolor{comment}{// all states start with a blank slate}}
+\DoxyCodeLine{88   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{89   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}}) \{}
+\DoxyCodeLine{90   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2eae11874bf43ee9371ade67deee4946710}{STATE\_INIT}}:}
+\DoxyCodeLine{91     \textcolor{comment}{// reset all the selection members}}
+\DoxyCodeLine{92     \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}} = \mbox{\hyperlink{classHSVColor}{HSVColor}}(0, 255, 255);}
+\DoxyCodeLine{93     \mbox{\hyperlink{classColorSelect_a55474150c59c7e92ae945c5dcb290018}{m\_targetHue1}} = 0;}
+\DoxyCodeLine{94     \mbox{\hyperlink{classColorSelect_a50c5d3816c3c3d343d1286f140097a88}{m\_targetSlot}} = 0;}
+\DoxyCodeLine{95     \textcolor{comment}{// move on to picking slot}}
+\DoxyCodeLine{96     \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} = \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}};}
+\DoxyCodeLine{97     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{98   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}}:}
+\DoxyCodeLine{99     \mbox{\hyperlink{classColorSelect_a7a187e1351103279f073af4aeafcf3f7}{showSlotSelection}}();}
+\DoxyCodeLine{100     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{101   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2eafb801216d02b43a41d768ca442722354}{STATE\_PICK\_HUE1}}:}
+\DoxyCodeLine{102   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea357afd4c0e747368fc58dd50e07761f1}{STATE\_PICK\_HUE2}}:}
+\DoxyCodeLine{103   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea72d99473ae0d6d8edb38d236a2a8d1a2}{STATE\_PICK\_SAT}}:}
+\DoxyCodeLine{104   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea902dc373210b60836c9d9c801e6c711b}{STATE\_PICK\_VAL}}:}
+\DoxyCodeLine{105     \mbox{\hyperlink{classColorSelect_a621cb2f5c6d1a713c22ffccf0144784e}{showSelection}}(\mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}});}
+\DoxyCodeLine{106     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{107   \}}
+\DoxyCodeLine{108   \textcolor{comment}{// show selections}}
+\DoxyCodeLine{109   \mbox{\hyperlink{classMenus_a24d75cee0c42b89ed2408e1358414804}{Menus::showSelection}}();}
+\DoxyCodeLine{110   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
+\DoxyCodeLine{111 \}}
 
 \end{DoxyCode}
 
 
-References Leds\+::clear\+All(), g\+\_\+p\+Button, Button\+::is\+Pressed(), LEAVE\+\_\+\+ADV\+\_\+\+COL\+\_\+\+SELECT\+\_\+\+CLICKS, Menu\+::m\+\_\+advanced, m\+\_\+new\+Color, Menu\+::m\+\_\+preview\+Mode, m\+\_\+state, m\+\_\+target\+Hue1, m\+\_\+target\+Slot, Menu\+::\+MENU\+\_\+\+CONTINUE, Menu\+::\+MENU\+\_\+\+QUIT, Button\+::on\+Consecutive\+Presses(), Mode\+::play(), Menu\+::run(), Mode\+::set\+Arg(), show\+Selection(), Menus\+::show\+Selection(), show\+Slot\+Selection(), STATE\+\_\+\+INIT, STATE\+\_\+\+PICK\+\_\+\+HUE1, STATE\+\_\+\+PICK\+\_\+\+HUE2, STATE\+\_\+\+PICK\+\_\+\+SAT, STATE\+\_\+\+PICK\+\_\+\+SLOT, and STATE\+\_\+\+PICK\+\_\+\+VAL.
+References Leds\+::clear\+All(), g\+\_\+p\+Button, LEAVE\+\_\+\+ADV\+\_\+\+COL\+\_\+\+SELECT\+\_\+\+CLICKS, Menu\+::m\+\_\+advanced, m\+\_\+new\+Color, Menu\+::m\+\_\+preview\+Mode, m\+\_\+state, m\+\_\+target\+Hue1, m\+\_\+target\+Slot, Menu\+::\+MENU\+\_\+\+CONTINUE, Menu\+::\+MENU\+\_\+\+QUIT, Button\+::on\+Consecutive\+Presses(), Mode\+::play(), Menu\+::run(), show\+Selection(), Menus\+::show\+Selection(), show\+Slot\+Selection(), STATE\+\_\+\+INIT, STATE\+\_\+\+PICK\+\_\+\+HUE1, STATE\+\_\+\+PICK\+\_\+\+HUE2, STATE\+\_\+\+PICK\+\_\+\+SAT, STATE\+\_\+\+PICK\+\_\+\+SLOT, and STATE\+\_\+\+PICK\+\_\+\+VAL.
 
 \mbox{\Hypertarget{classColorSelect_a361e51c42c6e6853f979ed58df1eff24}\label{classColorSelect_a361e51c42c6e6853f979ed58df1eff24}} 
 \index{ColorSelect@{ColorSelect}!showFullSet@{showFullSet}}
@@ -480,22 +490,22 @@ References Leds\+::clear\+All(), g\+\_\+p\+Button, Button\+::is\+Pressed(), LEAV
 
 
 
-Definition at line 287 of file Color\+Select.\+cpp.
+Definition at line 297 of file Color\+Select.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{288 \{}
-\DoxyCodeLine{289   uint8\_t numCols = \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
-\DoxyCodeLine{290   uint8\_t offOnMs = \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs);}
-\DoxyCodeLine{291   \textcolor{keywordflow}{if} (!numCols || !offOnMs) \{}
-\DoxyCodeLine{292     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{293   \}}
-\DoxyCodeLine{294   uint32\_t now = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
-\DoxyCodeLine{295   \textcolor{keywordflow}{if} ((now \% offOnMs) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
-\DoxyCodeLine{296     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_a283bf54629fd4af75249492d49e14199}{get}}((now / offOnMs) \% numCols));}
-\DoxyCodeLine{297   \}}
-\DoxyCodeLine{298   \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, \mbox{\hyperlink{ColorConstants_8h_af313249fb3373653faf24fcac41edd80}{RGB\_GREEN0}});}
-\DoxyCodeLine{299 \}}
+\DoxyCodeLine{298 \{}
+\DoxyCodeLine{299   uint8\_t numCols = \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
+\DoxyCodeLine{300   uint8\_t offOnMs = \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs);}
+\DoxyCodeLine{301   \textcolor{keywordflow}{if} (!numCols || !offOnMs) \{}
+\DoxyCodeLine{302     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{303   \}}
+\DoxyCodeLine{304   uint32\_t now = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
+\DoxyCodeLine{305   \textcolor{keywordflow}{if} ((now \% offOnMs) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
+\DoxyCodeLine{306     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_a283bf54629fd4af75249492d49e14199}{get}}((now / offOnMs) \% numCols));}
+\DoxyCodeLine{307   \}}
+\DoxyCodeLine{308   \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, \mbox{\hyperlink{ColorConstants_8h_af313249fb3373653faf24fcac41edd80}{RGB\_GREEN0}});}
+\DoxyCodeLine{309 \}}
 
 \end{DoxyCode}
 
@@ -514,47 +524,47 @@ Referenced by show\+Slot\+Selection().
 
 
 
-Definition at line 248 of file Color\+Select.\+cpp.
+Definition at line 258 of file Color\+Select.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{249 \{}
-\DoxyCodeLine{250   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} >= 4) \{}
-\DoxyCodeLine{251     \mbox{\hyperlink{classMenu_a6816cee1783bf1ae81ec8f69f544f3d3}{showExit}}();}
-\DoxyCodeLine{252     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{253   \}}
-\DoxyCodeLine{254   uint32\_t now = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
-\DoxyCodeLine{255   uint8\_t hue = \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}}.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}};}
-\DoxyCodeLine{256   uint8\_t sat = \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}}.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}};}
-\DoxyCodeLine{257   uint8\_t val = 255;}
-\DoxyCodeLine{258   \textcolor{keywordflow}{switch} (mode) \{}
-\DoxyCodeLine{259   \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{260     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{261   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2eafb801216d02b43a41d768ca442722354}{STATE\_PICK\_HUE1}}:}
-\DoxyCodeLine{262     hue = \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} * (255 / 4);}
-\DoxyCodeLine{263     \mbox{\hyperlink{classLeds_a4d41880d648446d4f9644a9b99290dff}{Leds::breathIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424}{LED\_0}}, hue, (now / 2), 22, 255, 180);}
-\DoxyCodeLine{264     \mbox{\hyperlink{classLeds_a4d41880d648446d4f9644a9b99290dff}{Leds::breathIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, hue, (now / 2) + 125, 22, 255, 180);}
-\DoxyCodeLine{265     \textcolor{comment}{// force sat at hue level1}}
-\DoxyCodeLine{266     sat = 255;}
-\DoxyCodeLine{267     \textcolor{comment}{// NOTE: return here}}
-\DoxyCodeLine{268     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{269   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea357afd4c0e747368fc58dd50e07761f1}{STATE\_PICK\_HUE2}}:}
-\DoxyCodeLine{270     hue = \mbox{\hyperlink{classColorSelect_a55474150c59c7e92ae945c5dcb290018}{m\_targetHue1}} * (255 / 4) + (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} * (255 / 16));}
-\DoxyCodeLine{271     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
-\DoxyCodeLine{272     \textcolor{comment}{// force sat at hue level2}}
-\DoxyCodeLine{273     sat = 255;}
-\DoxyCodeLine{274     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{275   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea72d99473ae0d6d8edb38d236a2a8d1a2}{STATE\_PICK\_SAT}}:}
-\DoxyCodeLine{276     sat = \mbox{\hyperlink{classColorSelect_abc28e49b78d77b471a198d8de57dde5a}{sats}}[\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}];}
-\DoxyCodeLine{277     \mbox{\hyperlink{classLeds_ac878a02a5d919d48877bac559b93beac}{Leds::breathIndexSat}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, hue, (now / 3), 100, 150, 150);}
-\DoxyCodeLine{278     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{279   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea902dc373210b60836c9d9c801e6c711b}{STATE\_PICK\_VAL}}:}
-\DoxyCodeLine{280     val = \mbox{\hyperlink{classColorSelect_a156d875177e2b57b15388ba0f6aa9299}{vals}}[\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}];}
-\DoxyCodeLine{281     \mbox{\hyperlink{classLeds_a2ce40e5169c4d1286c7707facb6f8d49}{Leds::breathIndexVal}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, hue, (now / 3), 100, sat, 150);}
-\DoxyCodeLine{282     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{283   \}}
-\DoxyCodeLine{284   \mbox{\hyperlink{classLeds_a1eb73ce70d21bcca85373ab86115c312}{Leds::setMap}}(\mbox{\hyperlink{LedTypes_8h_af0944397d861e0f312c92d14715b7870}{MAP\_PAIR\_EVENS}}, \mbox{\hyperlink{classHSVColor}{HSVColor}}(hue, sat, val));}
-\DoxyCodeLine{285 \}}
+\DoxyCodeLine{259 \{}
+\DoxyCodeLine{260   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} >= 4) \{}
+\DoxyCodeLine{261     \mbox{\hyperlink{classMenu_a6816cee1783bf1ae81ec8f69f544f3d3}{showExit}}();}
+\DoxyCodeLine{262     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{263   \}}
+\DoxyCodeLine{264   uint32\_t now = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
+\DoxyCodeLine{265   uint8\_t hue = \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}}.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}};}
+\DoxyCodeLine{266   uint8\_t sat = \mbox{\hyperlink{classColorSelect_a5028370fb1e99c5ed51f484e35c75784}{m\_newColor}}.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}};}
+\DoxyCodeLine{267   uint8\_t val = 255;}
+\DoxyCodeLine{268   \textcolor{keywordflow}{switch} (mode) \{}
+\DoxyCodeLine{269   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{270     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{271   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2eafb801216d02b43a41d768ca442722354}{STATE\_PICK\_HUE1}}:}
+\DoxyCodeLine{272     hue = \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} * (255 / 4);}
+\DoxyCodeLine{273     \mbox{\hyperlink{classLeds_a4d41880d648446d4f9644a9b99290dff}{Leds::breathIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424}{LED\_0}}, hue, (now / 2), 22, 255, 180);}
+\DoxyCodeLine{274     \mbox{\hyperlink{classLeds_a4d41880d648446d4f9644a9b99290dff}{Leds::breathIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, hue, (now / 2) + 125, 22, 255, 180);}
+\DoxyCodeLine{275     \textcolor{comment}{// force sat at hue level1}}
+\DoxyCodeLine{276     sat = 255;}
+\DoxyCodeLine{277     \textcolor{comment}{// NOTE: return here}}
+\DoxyCodeLine{278     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{279   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea357afd4c0e747368fc58dd50e07761f1}{STATE\_PICK\_HUE2}}:}
+\DoxyCodeLine{280     hue = \mbox{\hyperlink{classColorSelect_a55474150c59c7e92ae945c5dcb290018}{m\_targetHue1}} * (255 / 4) + (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} * (255 / 16));}
+\DoxyCodeLine{281     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
+\DoxyCodeLine{282     \textcolor{comment}{// force sat at hue level2}}
+\DoxyCodeLine{283     sat = 255;}
+\DoxyCodeLine{284     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{285   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea72d99473ae0d6d8edb38d236a2a8d1a2}{STATE\_PICK\_SAT}}:}
+\DoxyCodeLine{286     sat = \mbox{\hyperlink{classColorSelect_abc28e49b78d77b471a198d8de57dde5a}{sats}}[\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}];}
+\DoxyCodeLine{287     \mbox{\hyperlink{classLeds_ac878a02a5d919d48877bac559b93beac}{Leds::breathIndexSat}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, hue, (now / 3), 100, 150, 150);}
+\DoxyCodeLine{288     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{289   \textcolor{keywordflow}{case} \mbox{\hyperlink{classColorSelect_a9eb6a8c26e649eff65af32a21c03cf2ea902dc373210b60836c9d9c801e6c711b}{STATE\_PICK\_VAL}}:}
+\DoxyCodeLine{290     val = \mbox{\hyperlink{classColorSelect_a156d875177e2b57b15388ba0f6aa9299}{vals}}[\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}];}
+\DoxyCodeLine{291     \mbox{\hyperlink{classLeds_a2ce40e5169c4d1286c7707facb6f8d49}{Leds::breathIndexVal}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, hue, (now / 3), 100, sat, 150);}
+\DoxyCodeLine{292     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{293   \}}
+\DoxyCodeLine{294   \mbox{\hyperlink{classLeds_a1eb73ce70d21bcca85373ab86115c312}{Leds::setMap}}(\mbox{\hyperlink{LedTypes_8h_af0944397d861e0f312c92d14715b7870}{MAP\_PAIR\_EVENS}}, \mbox{\hyperlink{classHSVColor}{HSVColor}}(hue, sat, val));}
+\DoxyCodeLine{295 \}}
 
 \end{DoxyCode}
 
@@ -573,43 +583,43 @@ Referenced by run().
 
 
 
-Definition at line 213 of file Color\+Select.\+cpp.
+Definition at line 223 of file Color\+Select.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{214 \{}
-\DoxyCodeLine{215   uint8\_t exitIndex = \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
-\DoxyCodeLine{216   uint32\_t holdDur = \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}();}
-\DoxyCodeLine{217   \textcolor{keywordtype}{bool} withinNumColors = \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} < exitIndex;}
-\DoxyCodeLine{218   \textcolor{keywordtype}{bool} holdDurationCheck = \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() \&\& holdDur >= \mbox{\hyperlink{Timings_8h_a724ef82b8f1a5b8cd76673dfe480e7bb}{DELETE\_THRESHOLD\_TICKS}};}
-\DoxyCodeLine{219   \textcolor{keywordtype}{bool} holdDurationModCheck = (holdDur \% (\mbox{\hyperlink{Timings_8h_a77fc08a3774a777798ebe8067423ce11}{DELETE\_CYCLE\_TICKS}} * 2)) > \mbox{\hyperlink{Timings_8h_a77fc08a3774a777798ebe8067423ce11}{DELETE\_CYCLE\_TICKS}};}
-\DoxyCodeLine{220   \textcolor{keyword}{const} \mbox{\hyperlink{classRGBColor}{RGBColor}} \&col = \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}[\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}];}
-\DoxyCodeLine{221   \textcolor{keywordflow}{if} (withinNumColors \&\& holdDurationCheck \&\& holdDurationModCheck) \{}
-\DoxyCodeLine{222     \textcolor{comment}{// breath red for delete slot}}
-\DoxyCodeLine{223     \mbox{\hyperlink{classLeds_adf9a8fd9a96e51e32baf7d3743e8010e}{Leds::blinkIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424}{LED\_0}}, 50, 100, col);}
-\DoxyCodeLine{224     \mbox{\hyperlink{classLeds_a4d41880d648446d4f9644a9b99290dff}{Leds::breathIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, 0, holdDur);}
-\DoxyCodeLine{225   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (withinNumColors) \{}
-\DoxyCodeLine{226     \textcolor{keywordflow}{if} (col.\mbox{\hyperlink{classRGBColor_a98fd4b2760d0f3a4e5100a4fd2fa666a}{empty}}()) \{}
-\DoxyCodeLine{227       \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424}{LED\_0}}, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
-\DoxyCodeLine{228     \}}
-\DoxyCodeLine{229     \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(150, 650, col);}
-\DoxyCodeLine{230   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (exitIndex < \mbox{\hyperlink{VortexConfig_8h_a1a0b694e2871554a4066f8d61f577c4c}{MAX\_COLOR\_SLOTS}}) \{}
-\DoxyCodeLine{231     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} == exitIndex) \{}
-\DoxyCodeLine{232       \textcolor{comment}{// blink both leds and blink faster to indicate 'add' new color}}
-\DoxyCodeLine{233       \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(100, 150, \mbox{\hyperlink{ColorConstants_8h_a3f564e4434bb2d43792de3117f58a6d1}{RGB\_WHITE2}});}
-\DoxyCodeLine{234     \}}
-\DoxyCodeLine{235     exitIndex++;}
-\DoxyCodeLine{236   \}}
-\DoxyCodeLine{237   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} == exitIndex) \{}
-\DoxyCodeLine{238     \textcolor{comment}{// display the full set}}
-\DoxyCodeLine{239     \mbox{\hyperlink{classColorSelect_a361e51c42c6e6853f979ed58df1eff24}{showFullSet}}(50, 100);}
-\DoxyCodeLine{240     \textcolor{comment}{// set LED\_1 to green to indicate save and exit}}
-\DoxyCodeLine{241     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, \mbox{\hyperlink{ColorConstants_8h_a29e84bd05a72c6d268afb76c08dd0b4f}{RGB\_GREEN2}});}
-\DoxyCodeLine{242     \textcolor{comment}{// if not on exitIndex or add new color set LED\_1 based on button state}}
-\DoxyCodeLine{243   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} != \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}() \&\& !holdDurationCheck) \{}
-\DoxyCodeLine{244     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() ? \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}} : \mbox{\hyperlink{ColorConstants_8h_a3f564e4434bb2d43792de3117f58a6d1}{RGB\_WHITE2}});}
-\DoxyCodeLine{245   \}}
-\DoxyCodeLine{246 \}}
+\DoxyCodeLine{224 \{}
+\DoxyCodeLine{225   uint8\_t exitIndex = \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
+\DoxyCodeLine{226   uint32\_t holdDur = \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}();}
+\DoxyCodeLine{227   \textcolor{keywordtype}{bool} withinNumColors = \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} < exitIndex;}
+\DoxyCodeLine{228   \textcolor{keywordtype}{bool} holdDurationCheck = \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() \&\& holdDur >= \mbox{\hyperlink{Timings_8h_a724ef82b8f1a5b8cd76673dfe480e7bb}{DELETE\_THRESHOLD\_TICKS}};}
+\DoxyCodeLine{229   \textcolor{keywordtype}{bool} holdDurationModCheck = (holdDur \% (\mbox{\hyperlink{Timings_8h_a77fc08a3774a777798ebe8067423ce11}{DELETE\_CYCLE\_TICKS}} * 2)) > \mbox{\hyperlink{Timings_8h_a77fc08a3774a777798ebe8067423ce11}{DELETE\_CYCLE\_TICKS}};}
+\DoxyCodeLine{230   \textcolor{keyword}{const} \mbox{\hyperlink{classRGBColor}{RGBColor}} \&col = \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}[\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}}];}
+\DoxyCodeLine{231   \textcolor{keywordflow}{if} (withinNumColors \&\& holdDurationCheck \&\& holdDurationModCheck) \{}
+\DoxyCodeLine{232     \textcolor{comment}{// breath red for delete slot}}
+\DoxyCodeLine{233     \mbox{\hyperlink{classLeds_adf9a8fd9a96e51e32baf7d3743e8010e}{Leds::blinkIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424}{LED\_0}}, 50, 100, col);}
+\DoxyCodeLine{234     \mbox{\hyperlink{classLeds_a4d41880d648446d4f9644a9b99290dff}{Leds::breathIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, 0, holdDur);}
+\DoxyCodeLine{235   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (withinNumColors) \{}
+\DoxyCodeLine{236     \textcolor{keywordflow}{if} (col.\mbox{\hyperlink{classRGBColor_a98fd4b2760d0f3a4e5100a4fd2fa666a}{empty}}()) \{}
+\DoxyCodeLine{237       \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424}{LED\_0}}, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
+\DoxyCodeLine{238     \}}
+\DoxyCodeLine{239     \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(150, 650, col);}
+\DoxyCodeLine{240   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (exitIndex < \mbox{\hyperlink{VortexConfig_8h_a1a0b694e2871554a4066f8d61f577c4c}{MAX\_COLOR\_SLOTS}}) \{}
+\DoxyCodeLine{241     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} == exitIndex) \{}
+\DoxyCodeLine{242       \textcolor{comment}{// blink both leds and blink faster to indicate 'add' new color}}
+\DoxyCodeLine{243       \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(100, 150, \mbox{\hyperlink{ColorConstants_8h_a3f564e4434bb2d43792de3117f58a6d1}{RGB\_WHITE2}});}
+\DoxyCodeLine{244     \}}
+\DoxyCodeLine{245     exitIndex++;}
+\DoxyCodeLine{246   \}}
+\DoxyCodeLine{247   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} == exitIndex) \{}
+\DoxyCodeLine{248     \textcolor{comment}{// display the full set}}
+\DoxyCodeLine{249     \mbox{\hyperlink{classColorSelect_a361e51c42c6e6853f979ed58df1eff24}{showFullSet}}(50, 100);}
+\DoxyCodeLine{250     \textcolor{comment}{// set LED\_1 to green to indicate save and exit}}
+\DoxyCodeLine{251     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, \mbox{\hyperlink{ColorConstants_8h_a29e84bd05a72c6d268afb76c08dd0b4f}{RGB\_GREEN2}});}
+\DoxyCodeLine{252     \textcolor{comment}{// if not on exitIndex or add new color set LED\_1 based on button state}}
+\DoxyCodeLine{253   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} != \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}() \&\& !holdDurationCheck) \{}
+\DoxyCodeLine{254     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}, \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() ? \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}} : \mbox{\hyperlink{ColorConstants_8h_a3f564e4434bb2d43792de3117f58a6d1}{RGB\_WHITE2}});}
+\DoxyCodeLine{255   \}}
+\DoxyCodeLine{256 \}}
 
 \end{DoxyCode}
 
