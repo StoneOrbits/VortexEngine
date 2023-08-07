@@ -75,7 +75,7 @@ bool Colorset::operator==(const Colorset &other) const
 {
   // only compare the palettes for equality
   return (m_numColors == other.m_numColors) &&
-    (memcmp(m_palette, other.m_palette, m_numColors * sizeof(RGBColor)) == 0);
+         (memcmp(m_palette, other.m_palette, m_numColors * sizeof(RGBColor)) == 0);
 }
 
 bool Colorset::operator!=(const Colorset &other) const
@@ -219,7 +219,7 @@ void Colorset::removeColor(uint8_t index)
 }
 
 // create a set of truely random colors
-void Colorset::randomize(Random & ctx, uint8_t numColors)
+void Colorset::randomize(Random &ctx, uint8_t numColors)
 {
   clear();
   if (!numColors) {
