@@ -232,80 +232,40 @@ void Colorset::randomize(Random & ctx, uint8_t numColors)
   }
 }
 
-//void Colorset::randomizeColors(Random &ctx, uint8_t numColors, ColorMode mode)
-//{
-//  clear();
-//  if (!numColors) {
-//    numColors = ctx.next8(mode == MONOCHROMATIC ? 2 : 1, 9);
-//  }
-//  uint8_t randomizedHue = ctx.next8();
-//  uint8_t colorGap = 0;
-//  if (mode == THEORY && numColors > 1) {
-//    colorGap = ctx.next8(16, 256 / (numColors - 1));
-//  }
-//  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-//  // the doubleStyle decides if some colors are added to the set twice
-//  uint8_t doubleStyle = 0;
-//  if (numColors <= 7) {
-//    doubleStyle = (ctx.next8(0, 1));
-//  }
-//  if (numColors <= 4) {
-//    doubleStyle = (ctx.next8(0, 2));
-//  }
-//  for (uint8_t i = 0; i < numColors; i++) {
-//    uint8_t hueToUse;
-//    uint8_t valueToUse = 255;
-//    if (mode == THEORY) {
-//      hueToUse = (randomizedHue + (i * colorGap));
-//    } else if (mode == MONOCHROMATIC) {
-//      hueToUse = randomizedHue;
-//      valueToUse = 255 - (i * (256 / numColors));
-//    } else { // EVENLY_SPACED
-//      hueToUse = (randomizedHue + (256 / numColors) * i);
-//    }
-//    addColorWithValueStyle(ctx, hueToUse, valueToUse, valStyle, numColors, i);
-//    // double all colors or only first color
-//    if (doubleStyle == 2 || (doubleStyle == 1 && !i)) {
-//      addColorWithValueStyle(ctx, hueToUse, valueToUse, valStyle, numColors, i);
-//    }
-//  }
-//}
-
-void Colorset::randomizeColors(Random & ctx, uint8_t numColors, ColorMode mode)
+void Colorset::randomizeColors(Random &ctx, uint8_t numColors, ColorMode mode)
 {
   clear();
   if (!numColors) {
     numColors = ctx.next8(mode == MONOCHROMATIC ? 2 : 1, 9);
   }
   uint8_t randomizedHue = ctx.next8();
-  uint8_t colorGap = (mode == THEORY && numColors > 1) ? ctx.next8(16, 256 / (numColors - 1)) : 0;
-  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-
-  uint8_t doubleStyle = 0;
-  if (numColors <= 4) {
-    doubleStyle = ctx.next8(0, 2);
-  } else if (numColors <= 7) {
-    doubleStyle = ctx.next8(0, 1);
+  uint8_t colorGap = 0;
+  if (mode == THEORY && numColors > 1) {
+    colorGap = ctx.next8(16, 256 / (numColors - 1));
   }
-
+  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+  // the doubleStyle decides if some colors are added to the set twice
+  uint8_t doubleStyle = 0;
+  if (numColors <= 7) {
+    doubleStyle = (ctx.next8(0, 1));
+  }
+  if (numColors <= 4) {
+    doubleStyle = (ctx.next8(0, 2));
+  }
   for (uint8_t i = 0; i < numColors; i++) {
-    uint8_t hueToUse, valueToUse = 255;
+    uint8_t hueToUse;
+    uint8_t valueToUse = 255;
     if (mode == THEORY) {
-      hueToUse = randomizedHue + (i * colorGap);
+      hueToUse = (randomizedHue + (i * colorGap));
     } else if (mode == MONOCHROMATIC) {
       hueToUse = randomizedHue;
       valueToUse = 255 - (i * (256 / numColors));
     } else { // EVENLY_SPACED
-      hueToUse = randomizedHue + (256 / numColors) * i;
+      hueToUse = (randomizedHue + (256 / numColors) * i);
     }
-
-    // Determine the number of times to add the color
-    uint8_t repetitions = 1;
+    addColorWithValueStyle(ctx, hueToUse, valueToUse, valStyle, numColors, i);
+    // double all colors or only first color
     if (doubleStyle == 2 || (doubleStyle == 1 && !i)) {
-      repetitions = 2;
-    }
-
-    for (uint8_t j = 0; j < repetitions; j++) {
       addColorWithValueStyle(ctx, hueToUse, valueToUse, valStyle, numColors, i);
     }
   }
