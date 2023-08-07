@@ -1,5 +1,9 @@
 var NAVTREEINDEX9 =
 {
+"functions_vars_p.html":[0,3,2,13],
+"functions_vars_r.html":[0,3,2,14],
+"functions_vars_s.html":[0,3,2,15],
+"functions_vars_t.html":[0,3,2,16],
 "functions_vars_v.html":[0,3,2,17],
 "functions_w.html":[0,3,0,20],
 "functions_z.html":[0,3,0,21],

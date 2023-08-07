@@ -470,28 +470,28 @@ Definition at line 148 of file Randomizer.\+cpp.
 \DoxyCodeLine{157     randomSet.\mbox{\hyperlink{classColorset_a8ff0a3f968aec3986197acfcbd9b31df}{randomize}}(ctx);}
 \DoxyCodeLine{158     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{159   \textcolor{keywordflow}{case} 1:}
-\DoxyCodeLine{160     randomSet.\mbox{\hyperlink{classColorset_a674e561e5eca9310ca600a5c3411c1e1}{randomizeColorTheory}}(ctx);}
+\DoxyCodeLine{160     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 0, Colorset::ColorMode::THEORY);}
 \DoxyCodeLine{161     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{162   \textcolor{keywordflow}{case} 2:}
-\DoxyCodeLine{163     randomSet.\mbox{\hyperlink{classColorset_a18d731cd083e45ed8f473b248d3c8495}{randomizeMonochromatic}}(ctx);}
+\DoxyCodeLine{163     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 0, Colorset::ColorMode::MONOCHROMATIC);}
 \DoxyCodeLine{164     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{165   \textcolor{keywordflow}{case} 3:}
-\DoxyCodeLine{166     randomSet.\mbox{\hyperlink{classColorset_aa0c24d16d441f3951975edf2e2683213}{randomizeDoubleSplitComplimentary}}(ctx);}
+\DoxyCodeLine{166     randomSet.\mbox{\hyperlink{classColorset_acac6cc5795e5cb3f79159141da9deaba}{randomizeColors2}}(ctx, Colorset::ColorMode2::DOUBLE\_SPLIT\_COMPLIMENTARY);}
 \DoxyCodeLine{167     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{168   \textcolor{keywordflow}{case} 4:}
-\DoxyCodeLine{169     randomSet.\mbox{\hyperlink{classColorset_aaa5981565626e461101efc95bb06fa32}{randomizeTetradic}}(ctx);}
+\DoxyCodeLine{169     randomSet.\mbox{\hyperlink{classColorset_acac6cc5795e5cb3f79159141da9deaba}{randomizeColors2}}(ctx, Colorset::ColorMode2::TETRADIC);}
 \DoxyCodeLine{170     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{171   \textcolor{keywordflow}{case} 5:}
 \DoxyCodeLine{172     randomSet.\mbox{\hyperlink{classColorset_a8ff0a3f968aec3986197acfcbd9b31df}{randomize}}(ctx, 1);}
 \DoxyCodeLine{173     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{174   \textcolor{keywordflow}{case} 6:}
-\DoxyCodeLine{175     randomSet.\mbox{\hyperlink{classColorset_aa0b29c53661ff76020b477e699e184db}{randomizeEvenlySpaced}}(ctx);}
+\DoxyCodeLine{175     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 0, Colorset::ColorMode::EVENLY\_SPACED);}
 \DoxyCodeLine{176     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{177   \textcolor{keywordflow}{case} 7:}
-\DoxyCodeLine{178     randomSet.\mbox{\hyperlink{classColorset_aa0b29c53661ff76020b477e699e184db}{randomizeEvenlySpaced}}(ctx, 2);}
+\DoxyCodeLine{178     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 2, Colorset::ColorMode::EVENLY\_SPACED);}
 \DoxyCodeLine{179     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{180   \textcolor{keywordflow}{case} 8:}
-\DoxyCodeLine{181     randomSet.\mbox{\hyperlink{classColorset_aa0b29c53661ff76020b477e699e184db}{randomizeEvenlySpaced}}(ctx, 3);}
+\DoxyCodeLine{181     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 3, Colorset::ColorMode::EVENLY\_SPACED);}
 \DoxyCodeLine{182     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{183   \}}
 \DoxyCodeLine{184 }
@@ -510,7 +510,7 @@ Definition at line 148 of file Randomizer.\+cpp.
 \end{DoxyCode}
 
 
-References Colorset\+::add\+Color(), Colorset\+::get(), Random\+::next8(), Colorset\+::num\+Colors(), Colorset\+::randomize(), Colorset\+::randomize\+Color\+Theory(), Colorset\+::randomize\+Double\+Split\+Complimentary(), Colorset\+::randomize\+Evenly\+Spaced(), Colorset\+::randomize\+Monochromatic(), and Colorset\+::randomize\+Tetradic().
+References Colorset\+::add\+Color(), Colorset\+::get(), Random\+::next8(), Colorset\+::num\+Colors(), Colorset\+::randomize(), Colorset\+::randomize\+Colors(), and Colorset\+::randomize\+Colors2().
 
 
 

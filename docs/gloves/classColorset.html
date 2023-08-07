@@ -117,6 +117,15 @@ Public Types</h2></td></tr>
 <br />
  }</td></tr>
 <tr class="separator:a3cfec1a04020fca46a63a7030300de26"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0ad727054d88606053bbb67ae1fb11c"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11c">ColorMode</a> { <a class="el" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607">THEORY</a>
+, <a class="el" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959">MONOCHROMATIC</a>
+, <a class="el" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca3b1cacf6a92b603225f0dc6da91c50f0">EVENLY_SPACED</a>
+ }</td></tr>
+<tr class="separator:ad0ad727054d88606053bbb67ae1fb11c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abf504edde130e5e302c5a1c78ab725d8"><td class="memItemLeft" align="right" valign="top">enum &#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorset.html#abf504edde130e5e302c5a1c78ab725d8">ColorMode2</a> { <a class="el" href="classColorset.html#abf504edde130e5e302c5a1c78ab725d8ad847fcabcc8c69e0f740dfc0e4bfb5b0">DOUBLE_SPLIT_COMPLIMENTARY</a>
+, <a class="el" href="classColorset.html#abf504edde130e5e302c5a1c78ab725d8acd5395dcd4b6248a985c0e789c7d0ef1">TETRADIC</a>
+ }</td></tr>
+<tr class="separator:abf504edde130e5e302c5a1c78ab725d8"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-methods"></a>
 Public Member Functions</h2></td></tr>
@@ -158,16 +167,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a68b945689ee8cf511f93826c54bb63af"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a8ff0a3f968aec3986197acfcbd9b31df"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorset.html#a8ff0a3f968aec3986197acfcbd9b31df">randomize</a> (<a class="el" href="classRandom.html">Random</a> &amp;ctx, uint8_t <a class="el" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>=0)</td></tr>
 <tr class="separator:a8ff0a3f968aec3986197acfcbd9b31df"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a674e561e5eca9310ca600a5c3411c1e1"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorset.html#a674e561e5eca9310ca600a5c3411c1e1">randomizeColorTheory</a> (<a class="el" href="classRandom.html">Random</a> &amp;ctx, uint8_t <a class="el" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>=0)</td></tr>
-<tr class="separator:a674e561e5eca9310ca600a5c3411c1e1"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a18d731cd083e45ed8f473b248d3c8495"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorset.html#a18d731cd083e45ed8f473b248d3c8495">randomizeMonochromatic</a> (<a class="el" href="classRandom.html">Random</a> &amp;ctx, uint8_t <a class="el" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>=0)</td></tr>
-<tr class="separator:a18d731cd083e45ed8f473b248d3c8495"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0c24d16d441f3951975edf2e2683213"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorset.html#aa0c24d16d441f3951975edf2e2683213">randomizeDoubleSplitComplimentary</a> (<a class="el" href="classRandom.html">Random</a> &amp;ctx)</td></tr>
-<tr class="separator:aa0c24d16d441f3951975edf2e2683213"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aaa5981565626e461101efc95bb06fa32"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorset.html#aaa5981565626e461101efc95bb06fa32">randomizeTetradic</a> (<a class="el" href="classRandom.html">Random</a> &amp;ctx)</td></tr>
-<tr class="separator:aaa5981565626e461101efc95bb06fa32"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aa0b29c53661ff76020b477e699e184db"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorset.html#aa0b29c53661ff76020b477e699e184db">randomizeEvenlySpaced</a> (<a class="el" href="classRandom.html">Random</a> &amp;ctx, uint8_t spaces=0)</td></tr>
-<tr class="separator:aa0b29c53661ff76020b477e699e184db"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a85baad89365d8f47451ffee79e5aa69c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorset.html#a85baad89365d8f47451ffee79e5aa69c">randomizeColors</a> (<a class="el" href="classRandom.html">Random</a> &amp;ctx, uint8_t <a class="el" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>, <a class="el" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11c">ColorMode</a> mode)</td></tr>
+<tr class="separator:a85baad89365d8f47451ffee79e5aa69c"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acac6cc5795e5cb3f79159141da9deaba"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorset.html#acac6cc5795e5cb3f79159141da9deaba">randomizeColors2</a> (<a class="el" href="classRandom.html">Random</a> &amp;ctx, <a class="el" href="classColorset.html#abf504edde130e5e302c5a1c78ab725d8">ColorMode2</a> mode)</td></tr>
+<tr class="separator:acac6cc5795e5cb3f79159141da9deaba"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa43e338718aedfd50df11d64e65b75a7"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorset.html#aa43e338718aedfd50df11d64e65b75a7">randomizeSolid</a> (<a class="el" href="classRandom.html">Random</a> &amp;ctx)</td></tr>
 <tr class="separator:aa43e338718aedfd50df11d64e65b75a7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9a02dcdfec800bdd3a2f9b4d66ba66d"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classColorset.html#ac9a02dcdfec800bdd3a2f9b4d66ba66d">randomizeComplimentary</a> (<a class="el" href="classRandom.html">Random</a> &amp;ctx)</td></tr>
@@ -233,6 +236,61 @@ Private Attributes</h2></td></tr>
 <div class="textblock">
 <p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00011">11</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
 </div><h2 class="groupheader">Member Enumeration Documentation</h2>
+<a id="ad0ad727054d88606053bbb67ae1fb11c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0ad727054d88606053bbb67ae1fb11c">&#9670;&nbsp;</a></span>ColorMode</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11c">Colorset::ColorMode</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607"></a>THEORY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959"></a>MONOCHROMATIC&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="ad0ad727054d88606053bbb67ae1fb11ca3b1cacf6a92b603225f0dc6da91c50f0"></a>EVENLY_SPACED&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00081">81</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;                 {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607">THEORY</a>,</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <a class="code" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959">MONOCHROMATIC</a>,</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca3b1cacf6a92b603225f0dc6da91c50f0">EVENLY_SPACED</a></div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  };</div>
+<div class="ttc" id="aclassColorset_html_ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959"><div class="ttname"><a href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959">Colorset::MONOCHROMATIC</a></div><div class="ttdeci">@ MONOCHROMATIC</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00083">Colorset.h:83</a></div></div>
+<div class="ttc" id="aclassColorset_html_ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607"><div class="ttname"><a href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607">Colorset::THEORY</a></div><div class="ttdeci">@ THEORY</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00082">Colorset.h:82</a></div></div>
+<div class="ttc" id="aclassColorset_html_ad0ad727054d88606053bbb67ae1fb11ca3b1cacf6a92b603225f0dc6da91c50f0"><div class="ttname"><a href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca3b1cacf6a92b603225f0dc6da91c50f0">Colorset::EVENLY_SPACED</a></div><div class="ttdeci">@ EVENLY_SPACED</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00085">Colorset.h:84</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
+<a id="abf504edde130e5e302c5a1c78ab725d8"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abf504edde130e5e302c5a1c78ab725d8">&#9670;&nbsp;</a></span>ColorMode2</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">enum <a class="el" href="classColorset.html#abf504edde130e5e302c5a1c78ab725d8">Colorset::ColorMode2</a></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+<table class="fieldtable">
+<tr><th colspan="2">Enumerator</th></tr><tr><td class="fieldname"><a id="abf504edde130e5e302c5a1c78ab725d8ad847fcabcc8c69e0f740dfc0e4bfb5b0"></a>DOUBLE_SPLIT_COMPLIMENTARY&#160;</td><td class="fielddoc"></td></tr>
+<tr><td class="fieldname"><a id="abf504edde130e5e302c5a1c78ab725d8acd5395dcd4b6248a985c0e789c7d0ef1"></a>TETRADIC&#160;</td><td class="fielddoc"></td></tr>
+</table>
+
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00089">89</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;                  {</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;    <a class="code" href="classColorset.html#abf504edde130e5e302c5a1c78ab725d8ad847fcabcc8c69e0f740dfc0e4bfb5b0">DOUBLE_SPLIT_COMPLIMENTARY</a>,</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;    <a class="code" href="classColorset.html#abf504edde130e5e302c5a1c78ab725d8acd5395dcd4b6248a985c0e789c7d0ef1">TETRADIC</a></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  };</div>
+<div class="ttc" id="aclassColorset_html_abf504edde130e5e302c5a1c78ab725d8acd5395dcd4b6248a985c0e789c7d0ef1"><div class="ttname"><a href="classColorset.html#abf504edde130e5e302c5a1c78ab725d8acd5395dcd4b6248a985c0e789c7d0ef1">Colorset::TETRADIC</a></div><div class="ttdeci">@ TETRADIC</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00092">Colorset.h:91</a></div></div>
+<div class="ttc" id="aclassColorset_html_abf504edde130e5e302c5a1c78ab725d8ad847fcabcc8c69e0f740dfc0e4bfb5b0"><div class="ttname"><a href="classColorset.html#abf504edde130e5e302c5a1c78ab725d8ad847fcabcc8c69e0f740dfc0e4bfb5b0">Colorset::DOUBLE_SPLIT_COMPLIMENTARY</a></div><div class="ttdeci">@ DOUBLE_SPLIT_COMPLIMENTARY</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00090">Colorset.h:90</a></div></div>
+</div><!-- fragment -->
+</div>
+</div>
 <a id="a3cfec1a04020fca46a63a7030300de26"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a3cfec1a04020fca46a63a7030300de26">&#9670;&nbsp;</a></span>ValueStyle</h2>
 
@@ -310,10 +368,10 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;  <a class="code" href="classColorset.html#a37e46bdf9cb036b57afccc66892185d3">init</a>();</div>
 <div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;}</div>
 <div class="ttc" id="aColorset_8cpp_html_aa85abfa0d6dbd3e0aa4b30be25a77ed9"><div class="ttname"><a href="Colorset_8cpp.html#aa85abfa0d6dbd3e0aa4b30be25a77ed9">INDEX_NONE</a></div><div class="ttdeci">#define INDEX_NONE</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00014">Colorset.cpp:14</a></div></div>
-<div class="ttc" id="aclassColorset_html_a18b8a6c797b8b18c9d19edad8ef73ec4"><div class="ttname"><a href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">Colorset::m_palette</a></div><div class="ttdeci">RGBColor * m_palette</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00148">Colorset.h:148</a></div></div>
+<div class="ttc" id="aclassColorset_html_a18b8a6c797b8b18c9d19edad8ef73ec4"><div class="ttname"><a href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">Colorset::m_palette</a></div><div class="ttdeci">RGBColor * m_palette</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00154">Colorset.h:154</a></div></div>
 <div class="ttc" id="aclassColorset_html_a37e46bdf9cb036b57afccc66892185d3"><div class="ttname"><a href="classColorset.html#a37e46bdf9cb036b57afccc66892185d3">Colorset::init</a></div><div class="ttdeci">void init(RGBColor c1=RGB_OFF, RGBColor c2=RGB_OFF, RGBColor c3=RGB_OFF, RGBColor c4=RGB_OFF, RGBColor c5=RGB_OFF, RGBColor c6=RGB_OFF, RGBColor c7=RGB_OFF, RGBColor c8=RGB_OFF)</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00086">Colorset.cpp:86</a></div></div>
-<div class="ttc" id="aclassColorset_html_ab3a23dfcdcc4d7042bb41325c8503682"><div class="ttname"><a href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">Colorset::m_curIndex</a></div><div class="ttdeci">uint8_t m_curIndex</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00151">Colorset.h:151</a></div></div>
-<div class="ttc" id="aclassColorset_html_ad20826f06f775244af672fc704598db1"><div class="ttname"><a href="classColorset.html#ad20826f06f775244af672fc704598db1">Colorset::m_numColors</a></div><div class="ttdeci">uint8_t m_numColors</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00153">Colorset.h:153</a></div></div>
+<div class="ttc" id="aclassColorset_html_ab3a23dfcdcc4d7042bb41325c8503682"><div class="ttname"><a href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">Colorset::m_curIndex</a></div><div class="ttdeci">uint8_t m_curIndex</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00157">Colorset.h:157</a></div></div>
+<div class="ttc" id="aclassColorset_html_ad20826f06f775244af672fc704598db1"><div class="ttname"><a href="classColorset.html#ad20826f06f775244af672fc704598db1">Colorset::m_numColors</a></div><div class="ttdeci">uint8_t m_numColors</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00159">Colorset.h:159</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00086">init()</a>.</p>
 
@@ -572,9 +630,9 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>, and <a class="el" href="VortexConfig_8h_source.html#l00143">MAX_COLOR_SLOTS</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>, and <a class="el" href="VortexConfig_8h_source.html#l00143">MAX_COLOR_SLOTS</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00158">addColorHSV()</a>, <a class="el" href="Colorset_8cpp_source.html#l00031">Colorset()</a>, <a class="el" href="Colorset_8cpp_source.html#l00086">init()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00148">Randomizer::rollColorset()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00362">set()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00158">addColorHSV()</a>, <a class="el" href="Colorset_8cpp_source.html#l00031">Colorset()</a>, <a class="el" href="Colorset_8cpp_source.html#l00086">init()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00148">Randomizer::rollColorset()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00314">set()</a>.</p>
 
 </div>
 </div>
@@ -715,12 +773,12 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;  }</div>
 <div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;}</div>
 <div class="ttc" id="aclassColorset_html_ad039e0eb225f4f416a4b692ef37e35c2"><div class="ttname"><a href="classColorset.html#ad039e0eb225f4f416a4b692ef37e35c2">Colorset::addColorHSV</a></div><div class="ttdeci">bool addColorHSV(uint8_t hue, uint8_t sat, uint8_t val)</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00158">Colorset.cpp:158</a></div></div>
-<div class="ttc" id="aclassColorset_html_ae2a0882d7c34a3a2b5e228a3b517d54c"><div class="ttname"><a href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">Colorset::numColors</a></div><div class="ttdeci">uint8_t numColors() const</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00133">Colorset.h:133</a></div></div>
+<div class="ttc" id="aclassColorset_html_ae2a0882d7c34a3a2b5e228a3b517d54c"><div class="ttname"><a href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">Colorset::numColors</a></div><div class="ttdeci">uint8_t numColors() const</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00139">Colorset.h:139</a></div></div>
 <div class="ttc" id="aclassRandom_html_a8ddc31ea9ccd382afb1fff8e56e2702f"><div class="ttname"><a href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">Random::next8</a></div><div class="ttdeci">uint8_t next8(uint8_t minValue=0, uint8_t maxValue=0xFF)</div><div class="ttdef"><b>Definition:</b> <a href="Random_8cpp_source.html#l00041">Random.cpp:41</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00158">addColorHSV()</a>, <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, <a class="el" href="Random_8cpp_source.html#l00041">Random::next8()</a>, <a class="el" href="Colorset_8h_source.html#l00133">numColors()</a>, <a class="el" href="Colorset_8h_source.html#l00058">VAL_STYLE_ALTERNATING</a>, <a class="el" href="Colorset_8h_source.html#l00060">VAL_STYLE_ASCENDING</a>, <a class="el" href="Colorset_8h_source.html#l00064">VAL_STYLE_CONSTANT</a>, <a class="el" href="Colorset_8h_source.html#l00062">VAL_STYLE_DESCENDING</a>, <a class="el" href="Colorset_8h_source.html#l00056">VAL_STYLE_HIGH_FIRST_COLOR</a>, <a class="el" href="Colorset_8h_source.html#l00054">VAL_STYLE_LOW_FIRST_COLOR</a>, and <a class="el" href="Colorset_8h_source.html#l00052">VAL_STYLE_RANDOM</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00158">addColorHSV()</a>, <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, <a class="el" href="Random_8cpp_source.html#l00041">Random::next8()</a>, <a class="el" href="Colorset_8h_source.html#l00139">numColors()</a>, <a class="el" href="Colorset_8h_source.html#l00058">VAL_STYLE_ALTERNATING</a>, <a class="el" href="Colorset_8h_source.html#l00060">VAL_STYLE_ASCENDING</a>, <a class="el" href="Colorset_8h_source.html#l00064">VAL_STYLE_CONSTANT</a>, <a class="el" href="Colorset_8h_source.html#l00062">VAL_STYLE_DESCENDING</a>, <a class="el" href="Colorset_8h_source.html#l00056">VAL_STYLE_HIGH_FIRST_COLOR</a>, <a class="el" href="Colorset_8h_source.html#l00054">VAL_STYLE_LOW_FIRST_COLOR</a>, and <a class="el" href="Colorset_8h_source.html#l00052">VAL_STYLE_RANDOM</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00222">randomize()</a>, <a class="el" href="Colorset_8cpp_source.html#l00236">randomizeColorTheory()</a>, <a class="el" href="Colorset_8cpp_source.html#l00292">randomizeDoubleSplitComplimentary()</a>, <a class="el" href="Colorset_8cpp_source.html#l00318">randomizeEvenlySpaced()</a>, <a class="el" href="Colorset_8cpp_source.html#l00265">randomizeMonochromatic()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00306">randomizeTetradic()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00222">randomize()</a>, <a class="el" href="Colorset_8cpp_source.html#l00235">randomizeColors()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00274">randomizeColors2()</a>.</p>
 
 </div>
 </div>
@@ -740,15 +798,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00344">344</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;{</div>
-<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;    <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].<a class="code" href="classRGBColor.html#a10268d92a2aa1e2609866079298fef71">adjustBrightness</a>(fadeby);</div>
-<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;  }</div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00296">296</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;{</div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;    <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].<a class="code" href="classRGBColor.html#a10268d92a2aa1e2609866079298fef71">adjustBrightness</a>(fadeby);</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;  }</div>
+<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;}</div>
 <div class="ttc" id="aclassRGBColor_html_a10268d92a2aa1e2609866079298fef71"><div class="ttname"><a href="classRGBColor.html#a10268d92a2aa1e2609866079298fef71">RGBColor::adjustBrightness</a></div><div class="ttdeci">RGBColor adjustBrightness(uint8_t fadeBy)</div><div class="ttdef"><b>Definition:</b> <a href="ColorTypes_8cpp_source.html#l00193">ColorTypes.cpp:193</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ColorTypes_8cpp_source.html#l00193">RGBColor::adjustBrightness()</a>, <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>.</p>
+<p class="reference">References <a class="el" href="ColorTypes_8cpp_source.html#l00193">RGBColor::adjustBrightness()</a>, <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>.</p>
 
 </div>
 </div>
@@ -776,11 +834,11 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> = 0;</div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <a class="code" href="classColorset.html#a06b8e4ad7a496d4b3787e7fd73f4ac99">resetIndex</a>();</div>
 <div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;}</div>
-<div class="ttc" id="aclassColorset_html_a06b8e4ad7a496d4b3787e7fd73f4ac99"><div class="ttname"><a href="classColorset.html#a06b8e4ad7a496d4b3787e7fd73f4ac99">Colorset::resetIndex</a></div><div class="ttdeci">void resetIndex()</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00428">Colorset.cpp:428</a></div></div>
+<div class="ttc" id="aclassColorset_html_a06b8e4ad7a496d4b3787e7fd73f4ac99"><div class="ttname"><a href="classColorset.html#a06b8e4ad7a496d4b3787e7fd73f4ac99">Colorset::resetIndex</a></div><div class="ttdeci">void resetIndex()</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00380">Colorset.cpp:380</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>, and <a class="el" href="Colorset_8cpp_source.html#l00428">resetIndex()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>, and <a class="el" href="Colorset_8cpp_source.html#l00380">resetIndex()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Pattern_8cpp_source.html#l00158">Pattern::clearColorset()</a>, <a class="el" href="Colorset_8cpp_source.html#l00086">init()</a>, <a class="el" href="Colorset_8cpp_source.html#l00064">operator=()</a>, <a class="el" href="Colorset_8cpp_source.html#l00222">randomize()</a>, <a class="el" href="Colorset_8cpp_source.html#l00236">randomizeColorTheory()</a>, <a class="el" href="Colorset_8cpp_source.html#l00292">randomizeDoubleSplitComplimentary()</a>, <a class="el" href="Colorset_8cpp_source.html#l00318">randomizeEvenlySpaced()</a>, <a class="el" href="Colorset_8cpp_source.html#l00265">randomizeMonochromatic()</a>, <a class="el" href="Colorset_8cpp_source.html#l00306">randomizeTetradic()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00049">~Colorset()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Pattern_8cpp_source.html#l00161">Pattern::clearColorset()</a>, <a class="el" href="Colorset_8cpp_source.html#l00086">init()</a>, <a class="el" href="Colorset_8cpp_source.html#l00064">operator=()</a>, <a class="el" href="Colorset_8cpp_source.html#l00222">randomize()</a>, <a class="el" href="Colorset_8cpp_source.html#l00235">randomizeColors()</a>, <a class="el" href="Colorset_8cpp_source.html#l00274">randomizeColors2()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00049">~Colorset()</a>.</p>
 
 </div>
 </div>
@@ -799,18 +857,18 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00406">406</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;{</div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> &gt;= <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> || !<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRGBColor.html">RGBColor</a>(0, 0, 0);</div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;  }</div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> == <a class="code" href="Colorset_8cpp.html#aa85abfa0d6dbd3e0aa4b30be25a77ed9">INDEX_NONE</a>) {</div>
-<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[0];</div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;  }</div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a>];</div>
-<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00358">358</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;{</div>
+<div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> &gt;= <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> || !<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRGBColor.html">RGBColor</a>(0, 0, 0);</div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;  }</div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> == <a class="code" href="Colorset_8cpp.html#aa85abfa0d6dbd3e0aa4b30be25a77ed9">INDEX_NONE</a>) {</div>
+<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[0];</div>
+<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;  }</div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a>];</div>
+<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00014">INDEX_NONE</a>, <a class="el" href="Colorset_8h_source.html#l00151">m_curIndex</a>, <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00014">INDEX_NONE</a>, <a class="el" href="Colorset_8h_source.html#l00157">m_curIndex</a>, <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="DripMorphPattern_8cpp_source.html#l00058">DripMorphPattern::blinkOn()</a>, <a class="el" href="BouncePattern_8cpp_source.html#l00036">BouncePattern::blinkOn()</a>, <a class="el" href="CrossDopsPattern_8cpp_source.html#l00027">CrossDopsPattern::blinkOn()</a>, <a class="el" href="DoubleStrobePattern_8cpp_source.html#l00025">DoubleStrobePattern::blinkOn()</a>, <a class="el" href="DripPattern_8cpp_source.html#l00026">DripPattern::blinkOn()</a>, <a class="el" href="FillPattern_8cpp_source.html#l00029">FillPattern::blinkOn()</a>, <a class="el" href="LighthousePattern_8cpp_source.html#l00050">LighthousePattern::blinkOn()</a>, <a class="el" href="SnowballPattern_8cpp_source.html#l00028">SnowballPattern::blinkOn()</a>, <a class="el" href="VortexWipePattern_8cpp_source.html#l00044">VortexWipePattern::blinkOn()</a>, <a class="el" href="WarpPattern_8cpp_source.html#l00030">WarpPattern::blinkOn()</a>, <a class="el" href="WarpWormPattern_8cpp_source.html#l00030">WarpWormPattern::blinkOn()</a>, <a class="el" href="MateriaPattern_8cpp_source.html#l00068">MateriaPattern::play()</a>, <a class="el" href="PulsishPattern_8cpp_source.html#l00054">PulsishPattern::play()</a>, and <a class="el" href="SparkleTracePattern_8cpp_source.html#l00024">SparkleTracePattern::poststep()</a>.</p>
 
@@ -839,10 +897,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00118">118</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00124">124</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a>; }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00151">m_curIndex</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00157">m_curIndex</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="SnowballPattern_8cpp_source.html#l00028">SnowballPattern::blinkOn()</a>, <a class="el" href="WarpWormPattern_8cpp_source.html#l00030">WarpWormPattern::blinkOn()</a>, <a class="el" href="MateriaPattern_8cpp_source.html#l00068">MateriaPattern::play()</a>, <a class="el" href="PulsishPattern_8cpp_source.html#l00054">PulsishPattern::play()</a>, <a class="el" href="SnowballPattern_8cpp_source.html#l00044">SnowballPattern::poststep()</a>, <a class="el" href="SparkleTracePattern_8cpp_source.html#l00024">SparkleTracePattern::poststep()</a>, and <a class="el" href="WarpWormPattern_8cpp_source.html#l00047">WarpWormPattern::poststep()</a>.</p>
 
@@ -869,11 +927,11 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a0cc0a2cbb99f8046f7080984dc106037">operator==</a>(<a class="code" href="classColorset.html#acb6d033ff17129ab54b3afd5660e6219">set</a>);</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;}</div>
 <div class="ttc" id="aclassColorset_html_a0cc0a2cbb99f8046f7080984dc106037"><div class="ttname"><a href="classColorset.html#a0cc0a2cbb99f8046f7080984dc106037">Colorset::operator==</a></div><div class="ttdeci">bool operator==(const Colorset &amp;other) const</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00074">Colorset.cpp:74</a></div></div>
-<div class="ttc" id="aclassColorset_html_acb6d033ff17129ab54b3afd5660e6219"><div class="ttname"><a href="classColorset.html#acb6d033ff17129ab54b3afd5660e6219">Colorset::set</a></div><div class="ttdeci">void set(uint8_t index, RGBColor col)</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00362">Colorset.cpp:362</a></div></div>
+<div class="ttc" id="aclassColorset_html_acb6d033ff17129ab54b3afd5660e6219"><div class="ttname"><a href="classColorset.html#acb6d033ff17129ab54b3afd5660e6219">Colorset::set</a></div><div class="ttdeci">void set(uint8_t index, RGBColor col)</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00314">Colorset.cpp:314</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00074">operator==()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00362">set()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00074">operator==()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00314">set()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Pattern_8cpp_source.html#l00126">Pattern::equals()</a>, <a class="el" href="ColorSelect_8cpp_source.html#l00154">ColorSelect::onLongClick()</a>, and <a class="el" href="SequencedPattern_8cpp_source.html#l00054">SequencedPattern::play()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Pattern_8cpp_source.html#l00129">Pattern::equals()</a>, <a class="el" href="ColorSelect_8cpp_source.html#l00154">ColorSelect::onLongClick()</a>, and <a class="el" href="SequencedPattern_8cpp_source.html#l00054">SequencedPattern::play()</a>.</p>
 
 </div>
 </div>
@@ -901,7 +959,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a0cc0a2cbb99f8046f7080984dc106037">operator==</a>(*<a class="code" href="classColorset.html#acb6d033ff17129ab54b3afd5660e6219">set</a>);</div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00074">operator==()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00362">set()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00074">operator==()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00314">set()</a>.</p>
 
 </div>
 </div>
@@ -921,15 +979,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00352">352</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;{</div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;  <span class="keywordflow">if</span> (index &gt;= <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> || !<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRGBColor.html">RGBColor</a>(0, 0, 0);</div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;  }</div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[index];</div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00304">304</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;{</div>
+<div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;  <span class="keywordflow">if</span> (index &gt;= <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> || !<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classRGBColor.html">RGBColor</a>(0, 0, 0);</div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;  }</div>
+<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[index];</div>
+<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="SnowballPattern_8cpp_source.html#l00028">SnowballPattern::blinkOn()</a>, <a class="el" href="SparkleTracePattern_8cpp_source.html#l00019">SparkleTracePattern::blinkOn()</a>, <a class="el" href="WarpWormPattern_8cpp_source.html#l00030">WarpWormPattern::blinkOn()</a>, <a class="el" href="MateriaPattern_8cpp_source.html#l00033">MateriaPattern::init()</a>, <a class="el" href="Colorset_8cpp_source.html#l00125">operator[]()</a>, <a class="el" href="PulsishPattern_8cpp_source.html#l00054">PulsishPattern::play()</a>, and <a class="el" href="Randomizer_8cpp_source.html#l00148">Randomizer::rollColorset()</a>.</p>
 
@@ -950,21 +1008,21 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00448">448</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;{</div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> || !<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="ColorConstants_8h.html#a143edb2a30dcec26a3ec0a41d1082010">RGB_OFF</a>;</div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;  }</div>
-<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;  <span class="comment">// iterate current index, let it wrap at max uint8</span></div>
-<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;  <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a>++;</div>
-<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;  <span class="comment">// then modulate the result within max colors</span></div>
-<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;  <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> %= <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>();</div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;  <span class="comment">// return the color</span></div>
-<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a>];</div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00400">400</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;{</div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> || !<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="ColorConstants_8h.html#a143edb2a30dcec26a3ec0a41d1082010">RGB_OFF</a>;</div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;  }</div>
+<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;  <span class="comment">// iterate current index, let it wrap at max uint8</span></div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;  <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a>++;</div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;  <span class="comment">// then modulate the result within max colors</span></div>
+<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;  <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> %= <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>();</div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;  <span class="comment">// return the color</span></div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a>];</div>
+<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;}</div>
 <div class="ttc" id="aColorConstants_8h_html_a143edb2a30dcec26a3ec0a41d1082010"><div class="ttname"><a href="ColorConstants_8h.html#a143edb2a30dcec26a3ec0a41d1082010">RGB_OFF</a></div><div class="ttdeci">#define RGB_OFF</div><div class="ttdef"><b>Definition:</b> <a href="ColorConstants_8h_source.html#l00047">ColorConstants.h:47</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00151">m_curIndex</a>, <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>, <a class="el" href="Colorset_8h_source.html#l00133">numColors()</a>, and <a class="el" href="ColorConstants_8h_source.html#l00047">RGB_OFF</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00157">m_curIndex</a>, <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>, <a class="el" href="Colorset_8h_source.html#l00139">numColors()</a>, and <a class="el" href="ColorConstants_8h_source.html#l00047">RGB_OFF</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="BasicPattern_8cpp_source.html#l00187">BasicPattern::beginDash()</a>, <a class="el" href="DripMorphPattern_8cpp_source.html#l00058">DripMorphPattern::blinkOn()</a>, <a class="el" href="TheaterChasePattern_8cpp_source.html#l00028">TheaterChasePattern::blinkOn()</a>, <a class="el" href="DripMorphPattern_8cpp_source.html#l00027">DripMorphPattern::init()</a>, <a class="el" href="HueShiftPattern_8cpp_source.html#l00027">HueShiftPattern::init()</a>, <a class="el" href="BlendPattern_8cpp_source.html#l00025">BlendPattern::init()</a>, <a class="el" href="BasicPattern_8cpp_source.html#l00169">BasicPattern::onBlinkOn()</a>, <a class="el" href="BlendPattern_8cpp_source.html#l00036">BlendPattern::onBlinkOn()</a>, <a class="el" href="HueShiftPattern_8cpp_source.html#l00042">HueShiftPattern::play()</a>, <a class="el" href="MateriaPattern_8cpp_source.html#l00068">MateriaPattern::play()</a>, <a class="el" href="BlinkStepPattern_8cpp_source.html#l00085">BlinkStepPattern::poststep()</a>, <a class="el" href="BouncePattern_8cpp_source.html#l00046">BouncePattern::poststep()</a>, <a class="el" href="CrossDopsPattern_8cpp_source.html#l00033">CrossDopsPattern::poststep()</a>, <a class="el" href="DripPattern_8cpp_source.html#l00036">DripPattern::poststep()</a>, <a class="el" href="FillPattern_8cpp_source.html#l00035">FillPattern::poststep()</a>, <a class="el" href="LighthousePattern_8cpp_source.html#l00063">LighthousePattern::poststep()</a>, <a class="el" href="MeteorPattern_8cpp_source.html#l00035">MeteorPattern::poststep()</a>, <a class="el" href="VortexWipePattern_8cpp_source.html#l00054">VortexWipePattern::poststep()</a>, <a class="el" href="WarpPattern_8cpp_source.html#l00036">WarpPattern::poststep()</a>, <a class="el" href="WarpWormPattern_8cpp_source.html#l00047">WarpWormPattern::poststep()</a>, and <a class="el" href="ZigzagPattern_8cpp_source.html#l00123">ZigzagPattern::Snake::step()</a>.</p>
 
@@ -985,22 +1043,22 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00433">433</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;{</div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> || !<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="ColorConstants_8h.html#a143edb2a30dcec26a3ec0a41d1082010">RGB_OFF</a>;</div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;  }</div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;  <span class="comment">// handle wrapping at 0</span></div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> == 0 || <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> == <a class="code" href="Colorset_8cpp.html#aa85abfa0d6dbd3e0aa4b30be25a77ed9">INDEX_NONE</a>) {</div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;    <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> = <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>() - 1;</div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;    <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a>--;</div>
-<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;  }</div>
-<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;  <span class="comment">// return the color</span></div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a>];</div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00385">385</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;{</div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> || !<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="ColorConstants_8h.html#a143edb2a30dcec26a3ec0a41d1082010">RGB_OFF</a>;</div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;  }</div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;  <span class="comment">// handle wrapping at 0</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> == 0 || <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> == <a class="code" href="Colorset_8cpp.html#aa85abfa0d6dbd3e0aa4b30be25a77ed9">INDEX_NONE</a>) {</div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160;    <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> = <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>() - 1;</div>
+<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;    <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a>--;</div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;  }</div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;  <span class="comment">// return the color</span></div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a>];</div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00014">INDEX_NONE</a>, <a class="el" href="Colorset_8h_source.html#l00151">m_curIndex</a>, <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>, <a class="el" href="Colorset_8h_source.html#l00133">numColors()</a>, and <a class="el" href="ColorConstants_8h_source.html#l00047">RGB_OFF</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00014">INDEX_NONE</a>, <a class="el" href="Colorset_8h_source.html#l00157">m_curIndex</a>, <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>, <a class="el" href="Colorset_8h_source.html#l00139">numColors()</a>, and <a class="el" href="ColorConstants_8h_source.html#l00047">RGB_OFF</a>.</p>
 
 </div>
 </div>
@@ -1112,28 +1170,28 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00525">525</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;{</div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;    <span class="keyword">delete</span>[] <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>;</div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;    <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a> = <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;  }</div>
-<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>) {</div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;  }</div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;  <span class="comment">//m_palette = (RGBColor *)vcalloc(numColors, sizeof(RGBColor));</span></div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;  <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a> = <span class="keyword">new</span> <a class="code" href="classRGBColor.html">RGBColor</a>[<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>];</div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;    <a class="code" href="Log_8h.html#a804825e040f1cce9e3d2bb53c4858710">ERROR_OUT_OF_MEMORY</a>();</div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;  }</div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;  <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> = <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>;</div>
-<div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00477">477</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;{</div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;    <span class="keyword">delete</span>[] <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>;</div>
+<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;    <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a> = <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;  }</div>
+<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>) {</div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;  }</div>
+<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;  <span class="comment">//m_palette = (RGBColor *)vcalloc(numColors, sizeof(RGBColor));</span></div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;  <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a> = <span class="keyword">new</span> <a class="code" href="classRGBColor.html">RGBColor</a>[<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>];</div>
+<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;    <a class="code" href="Log_8h.html#a804825e040f1cce9e3d2bb53c4858710">ERROR_OUT_OF_MEMORY</a>();</div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;  }</div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;  <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> = <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>;</div>
+<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;}</div>
 <div class="ttc" id="aLog_8h_html_a804825e040f1cce9e3d2bb53c4858710"><div class="ttname"><a href="Log_8h.html#a804825e040f1cce9e3d2bb53c4858710">ERROR_OUT_OF_MEMORY</a></div><div class="ttdeci">#define ERROR_OUT_OF_MEMORY()</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00045">Log.h:45</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Log_8h_source.html#l00045">ERROR_OUT_OF_MEMORY</a>, <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>, and <a class="el" href="Colorset_8h_source.html#l00133">numColors()</a>.</p>
+<p class="reference">References <a class="el" href="Log_8h_source.html#l00045">ERROR_OUT_OF_MEMORY</a>, <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>, and <a class="el" href="Colorset_8h_source.html#l00139">numColors()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00064">operator=()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00510">unserialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00064">operator=()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00462">unserialize()</a>.</p>
 
 </div>
 </div>
@@ -1160,12 +1218,12 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00133">133</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; }</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00139">139</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00163">addColorWithValueStyle()</a>, <a class="el" href="SnowballPattern_8cpp_source.html#l00028">SnowballPattern::blinkOn()</a>, <a class="el" href="WarpWormPattern_8cpp_source.html#l00030">WarpWormPattern::blinkOn()</a>, <a class="el" href="ColorSelect_8cpp_source.html#l00286">ColorSelect::blinkSelection()</a>, <a class="el" href="Colorset_8cpp_source.html#l00448">getNext()</a>, <a class="el" href="Colorset_8cpp_source.html#l00433">getPrev()</a>, <a class="el" href="BasicPattern_8cpp_source.html#l00058">BasicPattern::init()</a>, <a class="el" href="Colorset_8cpp_source.html#l00525">initPalette()</a>, <a class="el" href="ColorSelect_8cpp_source.html#l00154">ColorSelect::onLongClick()</a>, <a class="el" href="ColorSelect_8cpp_source.html#l00116">ColorSelect::onShortClick()</a>, <a class="el" href="Colorset_8cpp_source.html#l00462">peek()</a>, <a class="el" href="MateriaPattern_8cpp_source.html#l00068">MateriaPattern::play()</a>, <a class="el" href="BasicPattern_8cpp_source.html#l00083">BasicPattern::play()</a>, <a class="el" href="Colorset_8cpp_source.html#l00222">randomize()</a>, <a class="el" href="Colorset_8cpp_source.html#l00236">randomizeColorTheory()</a>, <a class="el" href="Colorset_8cpp_source.html#l00265">randomizeMonochromatic()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00148">Randomizer::rollColorset()</a>, and <a class="el" href="ColorSelect_8cpp_source.html#l00245">ColorSelect::showSlotSelection()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00163">addColorWithValueStyle()</a>, <a class="el" href="SnowballPattern_8cpp_source.html#l00028">SnowballPattern::blinkOn()</a>, <a class="el" href="WarpWormPattern_8cpp_source.html#l00030">WarpWormPattern::blinkOn()</a>, <a class="el" href="ColorSelect_8cpp_source.html#l00286">ColorSelect::blinkSelection()</a>, <a class="el" href="Colorset_8cpp_source.html#l00400">getNext()</a>, <a class="el" href="Colorset_8cpp_source.html#l00385">getPrev()</a>, <a class="el" href="BasicPattern_8cpp_source.html#l00058">BasicPattern::init()</a>, <a class="el" href="Colorset_8cpp_source.html#l00477">initPalette()</a>, <a class="el" href="ColorSelect_8cpp_source.html#l00154">ColorSelect::onLongClick()</a>, <a class="el" href="ColorSelect_8cpp_source.html#l00116">ColorSelect::onShortClick()</a>, <a class="el" href="Colorset_8cpp_source.html#l00414">peek()</a>, <a class="el" href="MateriaPattern_8cpp_source.html#l00068">MateriaPattern::play()</a>, <a class="el" href="BasicPattern_8cpp_source.html#l00083">BasicPattern::play()</a>, <a class="el" href="Colorset_8cpp_source.html#l00222">randomize()</a>, <a class="el" href="Colorset_8cpp_source.html#l00235">randomizeColors()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00148">Randomizer::rollColorset()</a>, and <a class="el" href="ColorSelect_8cpp_source.html#l00245">ColorSelect::showSlotSelection()</a>.</p>
 
 </div>
 </div>
@@ -1184,15 +1242,15 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00486">486</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;{</div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>) {</div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;  }</div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> == <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> - 1);</div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00438">438</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;{</div>
+<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>) {</div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;  }</div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> == <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> - 1);</div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00151">m_curIndex</a>, and <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00157">m_curIndex</a>, and <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>.</p>
 
 </div>
 </div>
@@ -1211,12 +1269,12 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00481">481</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;{</div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> == 0);</div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00433">433</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;{</div>
+<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> == 0);</div>
+<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00151">m_curIndex</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00157">m_curIndex</a>.</p>
 
 </div>
 </div>
@@ -1270,9 +1328,9 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  }</div>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <a class="code" href="classColorset.html#a06b8e4ad7a496d4b3787e7fd73f4ac99">resetIndex</a>();</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
-<div class="ttc" id="aclassColorset_html_ae973ebe020c085e206fe75f39383a96a"><div class="ttname"><a href="classColorset.html#ae973ebe020c085e206fe75f39383a96a">Colorset::initPalette</a></div><div class="ttdeci">void initPalette(uint8_t numColors)</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00525">Colorset.cpp:525</a></div></div>
+<div class="ttc" id="aclassColorset_html_ae973ebe020c085e206fe75f39383a96a"><div class="ttname"><a href="classColorset.html#ae973ebe020c085e206fe75f39383a96a">Colorset::initPalette</a></div><div class="ttdeci">void initPalette(uint8_t numColors)</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00477">Colorset.cpp:477</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Colorset_8cpp_source.html#l00525">initPalette()</a>, <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>, and <a class="el" href="Colorset_8cpp_source.html#l00428">resetIndex()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Colorset_8cpp_source.html#l00477">initPalette()</a>, <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>, and <a class="el" href="Colorset_8cpp_source.html#l00380">resetIndex()</a>.</p>
 
 </div>
 </div>
@@ -1299,7 +1357,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;         (memcmp(<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>, other.<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>, <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> * <span class="keyword">sizeof</span>(<a class="code" href="classRGBColor.html">RGBColor</a>)) == 0);</div>
 <div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00112">equals()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00081">operator!=()</a>.</p>
 
@@ -1325,9 +1383,9 @@ Private Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;{</div>
 <div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a283bf54629fd4af75249492d49e14199">get</a>(index);</div>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;}</div>
-<div class="ttc" id="aclassColorset_html_a283bf54629fd4af75249492d49e14199"><div class="ttname"><a href="classColorset.html#a283bf54629fd4af75249492d49e14199">Colorset::get</a></div><div class="ttdeci">RGBColor get(uint8_t index=0) const</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00352">Colorset.cpp:352</a></div></div>
+<div class="ttc" id="aclassColorset_html_a283bf54629fd4af75249492d49e14199"><div class="ttname"><a href="classColorset.html#a283bf54629fd4af75249492d49e14199">Colorset::get</a></div><div class="ttdeci">RGBColor get(uint8_t index=0) const</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00304">Colorset.cpp:304</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00352">get()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00304">get()</a>.</p>
 
 </div>
 </div>
@@ -1347,28 +1405,28 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00462">462</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;{</div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> || !<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
-<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="ColorConstants_8h.html#a143edb2a30dcec26a3ec0a41d1082010">RGB_OFF</a>;</div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;  }</div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;  uint8_t nextIndex = 0;</div>
-<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;  <span class="comment">// get index of the next color</span></div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;  <span class="keywordflow">if</span> (offset &gt;= 0) {</div>
-<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;    nextIndex = (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> + offset) % <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>();</div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;    <span class="keywordflow">if</span> (offset &lt; -1 * (int32_t)(<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>())) {</div>
-<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="ColorConstants_8h.html#a143edb2a30dcec26a3ec0a41d1082010">RGB_OFF</a>;</div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;    }</div>
-<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;    nextIndex = ((<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> + <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>()) + (<span class="keywordtype">int</span>)offset) % <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>();</div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160;  }</div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;  <span class="comment">// return the color</span></div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[nextIndex];</div>
-<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00414">414</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160;{</div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> || !<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
+<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="ColorConstants_8h.html#a143edb2a30dcec26a3ec0a41d1082010">RGB_OFF</a>;</div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;  }</div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;  uint8_t nextIndex = 0;</div>
+<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;  <span class="comment">// get index of the next color</span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;  <span class="keywordflow">if</span> (offset &gt;= 0) {</div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;    nextIndex = (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> + offset) % <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>();</div>
+<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;    <span class="keywordflow">if</span> (offset &lt; -1 * (int32_t)(<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>())) {</div>
+<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;      <span class="keywordflow">return</span> <a class="code" href="ColorConstants_8h.html#a143edb2a30dcec26a3ec0a41d1082010">RGB_OFF</a>;</div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;    }</div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;    nextIndex = ((<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> + <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>()) + (<span class="keywordtype">int</span>)offset) % <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>();</div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;  }</div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;  <span class="comment">// return the color</span></div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[nextIndex];</div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00151">m_curIndex</a>, <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>, <a class="el" href="Colorset_8h_source.html#l00133">numColors()</a>, and <a class="el" href="ColorConstants_8h_source.html#l00047">RGB_OFF</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00157">m_curIndex</a>, <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>, <a class="el" href="Colorset_8h_source.html#l00139">numColors()</a>, and <a class="el" href="ColorConstants_8h_source.html#l00047">RGB_OFF</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="SnowballPattern_8cpp_source.html#l00028">SnowballPattern::blinkOn()</a>, <a class="el" href="WarpWormPattern_8cpp_source.html#l00030">WarpWormPattern::blinkOn()</a>, <a class="el" href="ZigzagPattern_8cpp_source.html#l00151">ZigzagPattern::Snake::drawSnake()</a>, <a class="el" href="Colorset_8h_source.html#l00130">peekNext()</a>, and <a class="el" href="MateriaPattern_8cpp_source.html#l00068">MateriaPattern::play()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="SnowballPattern_8cpp_source.html#l00028">SnowballPattern::blinkOn()</a>, <a class="el" href="WarpWormPattern_8cpp_source.html#l00030">WarpWormPattern::blinkOn()</a>, <a class="el" href="ZigzagPattern_8cpp_source.html#l00151">ZigzagPattern::Snake::drawSnake()</a>, <a class="el" href="Colorset_8h_source.html#l00136">peekNext()</a>, and <a class="el" href="MateriaPattern_8cpp_source.html#l00068">MateriaPattern::play()</a>.</p>
 
 </div>
 </div>
@@ -1395,11 +1453,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00130">130</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classColorset.html#ab9f04de5f2ebc1051cba5e4bfc3d8a11">peek</a>(1); }</div>
-<div class="ttc" id="aclassColorset_html_ab9f04de5f2ebc1051cba5e4bfc3d8a11"><div class="ttname"><a href="classColorset.html#ab9f04de5f2ebc1051cba5e4bfc3d8a11">Colorset::peek</a></div><div class="ttdeci">RGBColor peek(int32_t offset) const</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00462">Colorset.cpp:462</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00136">136</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classColorset.html#ab9f04de5f2ebc1051cba5e4bfc3d8a11">peek</a>(1); }</div>
+<div class="ttc" id="aclassColorset_html_ab9f04de5f2ebc1051cba5e4bfc3d8a11"><div class="ttname"><a href="classColorset.html#ab9f04de5f2ebc1051cba5e4bfc3d8a11">Colorset::peek</a></div><div class="ttdeci">RGBColor peek(int32_t offset) const</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00414">Colorset.cpp:414</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00462">peek()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00414">peek()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="BouncePattern_8cpp_source.html#l00036">BouncePattern::blinkOn()</a>, <a class="el" href="DoubleStrobePattern_8cpp_source.html#l00025">DoubleStrobePattern::blinkOn()</a>, <a class="el" href="DripPattern_8cpp_source.html#l00026">DripPattern::blinkOn()</a>, <a class="el" href="FillPattern_8cpp_source.html#l00029">FillPattern::blinkOn()</a>, <a class="el" href="SnowballPattern_8cpp_source.html#l00028">SnowballPattern::blinkOn()</a>, <a class="el" href="VortexWipePattern_8cpp_source.html#l00044">VortexWipePattern::blinkOn()</a>, <a class="el" href="WarpPattern_8cpp_source.html#l00030">WarpPattern::blinkOn()</a>, <a class="el" href="WarpWormPattern_8cpp_source.html#l00030">WarpWormPattern::blinkOn()</a>, and <a class="el" href="MateriaPattern_8cpp_source.html#l00068">MateriaPattern::play()</a>.</p>
 
@@ -1446,20 +1504,20 @@ Private Attributes</h2></td></tr>
 <div class="ttc" id="aclassColorset_html_a3cfec1a04020fca46a63a7030300de26"><div class="ttname"><a href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">Colorset::ValueStyle</a></div><div class="ttdeci">ValueStyle</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8h_source.html#l00049">Colorset.h:50</a></div></div>
 <div class="ttc" id="aclassColorset_html_ae82f167e840a5fd2df65816a34991f2d"><div class="ttname"><a href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">Colorset::addColorWithValueStyle</a></div><div class="ttdeci">void addColorWithValueStyle(Random &amp;ctx, uint8_t hue, uint8_t sat, ValueStyle valStyle, uint8_t numColors, uint8_t colorPos)</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00163">Colorset.cpp:163</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00163">addColorWithValueStyle()</a>, <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Random_8cpp_source.html#l00041">Random::next8()</a>, <a class="el" href="Colorset_8h_source.html#l00133">numColors()</a>, and <a class="el" href="Colorset_8h_source.html#l00066">VAL_STYLE_COUNT</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00163">addColorWithValueStyle()</a>, <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Random_8cpp_source.html#l00041">Random::next8()</a>, <a class="el" href="Colorset_8h_source.html#l00139">numColors()</a>, and <a class="el" href="Colorset_8h_source.html#l00066">VAL_STYLE_COUNT</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Randomizer_8cpp_source.html#l00148">Randomizer::rollColorset()</a>, and <a class="el" href="Modes_8cpp_source.html#l00252">Modes::setDefaults()</a>.</p>
 
 </div>
 </div>
-<a id="a674e561e5eca9310ca600a5c3411c1e1"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a674e561e5eca9310ca600a5c3411c1e1">&#9670;&nbsp;</a></span>randomizeColorTheory()</h2>
+<a id="a85baad89365d8f47451ffee79e5aa69c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a85baad89365d8f47451ffee79e5aa69c">&#9670;&nbsp;</a></span>randomizeColors()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void Colorset::randomizeColorTheory </td>
+          <td class="memname">void Colorset::randomizeColors </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classRandom.html">Random</a> &amp;&#160;</td>
           <td class="paramname"><em>ctx</em>, </td>
@@ -1468,7 +1526,13 @@ Private Attributes</h2></td></tr>
           <td class="paramkey"></td>
           <td></td>
           <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>numColors</em> = <code>0</code>&#160;</td>
+          <td class="paramname"><em>numColors</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11c">ColorMode</a>&#160;</td>
+          <td class="paramname"><em>mode</em>&#160;</td>
         </tr>
         <tr>
           <td></td>
@@ -1478,35 +1542,100 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00236">236</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;{</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;  <a class="code" href="classColorset.html#a9382ec317b384a1fcd563cd86141ee48">clear</a>();</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>) {</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a> = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(1, 9);</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;  }</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  uint8_t randomizedHue = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>();</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;  uint8_t colorGap = 0;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a> &gt; 1) colorGap = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(16, 256 / (<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a> - 1));</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;  <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a> valStyle = (<a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a>)ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a">VAL_STYLE_COUNT</a>);</div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;  <span class="comment">// the doubleStyle decides if some colors are added to the set twice</span></div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;  uint8_t doubleStyle = 0;</div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a> &lt;= 7) {</div>
-<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    doubleStyle = (ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, 1));</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;  }</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a> &lt;= 4) {</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;    doubleStyle = (ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, 2));</div>
-<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;  }</div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>; i++) {</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;    uint8_t nextHue = (randomizedHue + (i * colorGap)) % 256;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, nextHue, 255, valStyle, <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>, i);</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    <span class="comment">// double all colors or only first color</span></div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keywordflow">if</span> (doubleStyle == 2 || (doubleStyle == 1 &amp;&amp; !i)) {</div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;      <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, nextHue, 255, valStyle, <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>, i);</div>
-<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    }</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;  }</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00235">235</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;{</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  <a class="code" href="classColorset.html#a9382ec317b384a1fcd563cd86141ee48">clear</a>();</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>) {</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a> = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(mode == <a class="code" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959">MONOCHROMATIC</a> ? 2 : 1, 9);</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;  }</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;  uint8_t randomizedHue = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>();</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  uint8_t colorGap = 0;</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;  <span class="keywordflow">if</span> (mode == <a class="code" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607">THEORY</a> &amp;&amp; <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a> &gt; 1) {</div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;    colorGap = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(16, 256 / (<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a> - 1));</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;  }</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;  <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a> valStyle = (<a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a>)ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a">VAL_STYLE_COUNT</a>);</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;  <span class="comment">// the doubleStyle decides if some colors are added to the set twice</span></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;  uint8_t doubleStyle = 0;</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a> &lt;= 7) {</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    doubleStyle = (ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, 1));</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;  }</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a> &lt;= 4) {</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;    doubleStyle = (ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, 2));</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  }</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>; i++) {</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;    uint8_t hueToUse;</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;    uint8_t valueToUse = 255;</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;    <span class="keywordflow">if</span> (mode == <a class="code" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607">THEORY</a>) {</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;      hueToUse = (randomizedHue + (i * colorGap));</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (mode == <a class="code" href="classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959">MONOCHROMATIC</a>) {</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;      hueToUse = randomizedHue;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;      valueToUse = 255 - (i * (256 / <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>));</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    } <span class="keywordflow">else</span> { <span class="comment">// EVENLY_SPACED</span></div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;      hueToUse = (randomizedHue + (256 / <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>) * i);</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;    }</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;    <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, hueToUse, valueToUse, valStyle, <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>, i);</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;    <span class="comment">// double all colors or only first color</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="keywordflow">if</span> (doubleStyle == 2 || (doubleStyle == 1 &amp;&amp; !i)) {</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;      <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, hueToUse, valueToUse, valStyle, <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>, i);</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;    }</div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;  }</div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00163">addColorWithValueStyle()</a>, <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Random_8cpp_source.html#l00041">Random::next8()</a>, <a class="el" href="Colorset_8h_source.html#l00133">numColors()</a>, and <a class="el" href="Colorset_8h_source.html#l00066">VAL_STYLE_COUNT</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00163">addColorWithValueStyle()</a>, <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Colorset_8h_source.html#l00083">MONOCHROMATIC</a>, <a class="el" href="Random_8cpp_source.html#l00041">Random::next8()</a>, <a class="el" href="Colorset_8h_source.html#l00139">numColors()</a>, <a class="el" href="Colorset_8h_source.html#l00082">THEORY</a>, and <a class="el" href="Colorset_8h_source.html#l00066">VAL_STYLE_COUNT</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="Colorset_8h_source.html#l00097">randomizeComplimentary()</a>, <a class="el" href="Colorset_8h_source.html#l00100">randomizePentadic()</a>, <a class="el" href="Colorset_8h_source.html#l00101">randomizeRainbow()</a>, <a class="el" href="Colorset_8h_source.html#l00096">randomizeSolid()</a>, <a class="el" href="Colorset_8h_source.html#l00099">randomizeSquare()</a>, <a class="el" href="Colorset_8h_source.html#l00098">randomizeTriadic()</a>, and <a class="el" href="Randomizer_8cpp_source.html#l00148">Randomizer::rollColorset()</a>.</p>
+
+</div>
+</div>
+<a id="acac6cc5795e5cb3f79159141da9deaba"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acac6cc5795e5cb3f79159141da9deaba">&#9670;&nbsp;</a></span>randomizeColors2()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">void Colorset::randomizeColors2 </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="classRandom.html">Random</a> &amp;&#160;</td>
+          <td class="paramname"><em>ctx</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="classColorset.html#abf504edde130e5e302c5a1c78ab725d8">ColorMode2</a>&#160;</td>
+          <td class="paramname"><em>mode</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00274">274</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;{</div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  <a class="code" href="classColorset.html#a9382ec317b384a1fcd563cd86141ee48">clear</a>();</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;  uint8_t primaryHue = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>();</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;  <span class="keywordflow">if</span> (mode == <a class="code" href="classColorset.html#abf504edde130e5e302c5a1c78ab725d8ad847fcabcc8c69e0f740dfc0e4bfb5b0">DOUBLE_SPLIT_COMPLIMENTARY</a>) {</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    uint8_t splitGap = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(1, 64);</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a> valStyle = (<a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a>)ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a">VAL_STYLE_COUNT</a>);</div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, (primaryHue + splitGap + 128), 255, valStyle, 5, 0);</div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, (primaryHue - splitGap), 255, valStyle, 5, 1);</div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, primaryHue, 255, valStyle, 5, 2);</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, (primaryHue + splitGap), 255, valStyle, 5, 3);</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, (primaryHue - splitGap + 128), 255, valStyle, 5, 4);</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (mode == <a class="code" href="classColorset.html#abf504edde130e5e302c5a1c78ab725d8acd5395dcd4b6248a985c0e789c7d0ef1">TETRADIC</a>) {</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    uint8_t secondaryHue = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>();</div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;    <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a> valStyle = (<a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a>)ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a">VAL_STYLE_COUNT</a>);</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;    <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, primaryHue, 255, valStyle, 4, 0);</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;    <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, secondaryHue, 255, valStyle, 4, 1);</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;    <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, (primaryHue + 128), 255, valStyle, 4, 2);</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;    <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, (secondaryHue + 128), 255, valStyle, 4, 3);</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;  }</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00163">addColorWithValueStyle()</a>, <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Colorset_8h_source.html#l00090">DOUBLE_SPLIT_COMPLIMENTARY</a>, <a class="el" href="Random_8cpp_source.html#l00041">Random::next8()</a>, <a class="el" href="Colorset_8h_source.html#l00091">TETRADIC</a>, and <a class="el" href="Colorset_8h_source.html#l00066">VAL_STYLE_COUNT</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Randomizer_8cpp_source.html#l00148">Randomizer::rollColorset()</a>.</p>
 
@@ -1536,162 +1665,11 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00091">91</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;{ <a class="code" href="classColorset.html#aa0b29c53661ff76020b477e699e184db">randomizeEvenlySpaced</a>(ctx, 2); }</div>
-<div class="ttc" id="aclassColorset_html_aa0b29c53661ff76020b477e699e184db"><div class="ttname"><a href="classColorset.html#aa0b29c53661ff76020b477e699e184db">Colorset::randomizeEvenlySpaced</a></div><div class="ttdeci">void randomizeEvenlySpaced(Random &amp;ctx, uint8_t spaces=0)</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00318">Colorset.cpp:318</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00097">97</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;{ <a class="code" href="classColorset.html#a85baad89365d8f47451ffee79e5aa69c">randomizeColors</a>(ctx, 2, Colorset::ColorMode::EVENLY_SPACED); }</div>
+<div class="ttc" id="aclassColorset_html_a85baad89365d8f47451ffee79e5aa69c"><div class="ttname"><a href="classColorset.html#a85baad89365d8f47451ffee79e5aa69c">Colorset::randomizeColors</a></div><div class="ttdeci">void randomizeColors(Random &amp;ctx, uint8_t numColors, ColorMode mode)</div><div class="ttdef"><b>Definition:</b> <a href="Colorset_8cpp_source.html#l00235">Colorset.cpp:235</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00318">randomizeEvenlySpaced()</a>.</p>
-
-</div>
-</div>
-<a id="aa0c24d16d441f3951975edf2e2683213"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0c24d16d441f3951975edf2e2683213">&#9670;&nbsp;</a></span>randomizeDoubleSplitComplimentary()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Colorset::randomizeDoubleSplitComplimentary </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classRandom.html">Random</a> &amp;&#160;</td>
-          <td class="paramname"><em>ctx</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00292">292</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;{</div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;  <a class="code" href="classColorset.html#a9382ec317b384a1fcd563cd86141ee48">clear</a>();</div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;  uint8_t rHue = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>();</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;  uint8_t splitGap = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(1, 64);</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;  <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a> valStyle = (<a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a>)ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a">VAL_STYLE_COUNT</a>);</div>
-<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;  <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, (rHue + splitGap + 128) % 256, 255, valStyle, 5, 0);</div>
-<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;  <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, (rHue - splitGap) % 256, 255, valStyle, 5, 1);</div>
-<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;  <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, rHue, 255, valStyle, 5, 2);</div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160;  <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, (rHue + splitGap) % 256, 255, valStyle, 5, 3);</div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;  <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, (rHue - splitGap + 128) % 256, 255, valStyle, 5, 4);</div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;}</div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00163">addColorWithValueStyle()</a>, <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Random_8cpp_source.html#l00041">Random::next8()</a>, and <a class="el" href="Colorset_8h_source.html#l00066">VAL_STYLE_COUNT</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="Randomizer_8cpp_source.html#l00148">Randomizer::rollColorset()</a>.</p>
-
-</div>
-</div>
-<a id="aa0b29c53661ff76020b477e699e184db"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aa0b29c53661ff76020b477e699e184db">&#9670;&nbsp;</a></span>randomizeEvenlySpaced()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Colorset::randomizeEvenlySpaced </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classRandom.html">Random</a> &amp;&#160;</td>
-          <td class="paramname"><em>ctx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>spaces</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00318">318</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;{</div>
-<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;  <a class="code" href="classColorset.html#a9382ec317b384a1fcd563cd86141ee48">clear</a>();</div>
-<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;  <span class="keywordflow">if</span> (!spaces) {</div>
-<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    spaces = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(1, 9);</div>
-<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;  }</div>
-<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;  uint8_t randomizedHue = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>();</div>
-<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;  <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a> valStyle = (<a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a>)ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a">VAL_STYLE_COUNT</a>);</div>
-<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;  <span class="comment">// the doubleStyle decides if some colors are added to the set twice</span></div>
-<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;  uint8_t doubleStyle = 0;</div>
-<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;  <span class="keywordflow">if</span> (spaces &lt;= 7) {</div>
-<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    doubleStyle = (ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, 1));</div>
-<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;  }</div>
-<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;  <span class="keywordflow">if</span> (spaces &lt;= 4) {</div>
-<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;    doubleStyle = (ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, 2));</div>
-<div class="line"><a name="l00333"></a><span class="lineno">  333</span>&#160;  }</div>
-<div class="line"><a name="l00334"></a><span class="lineno">  334</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; spaces; i++) {</div>
-<div class="line"><a name="l00335"></a><span class="lineno">  335</span>&#160;    uint8_t nextHue = (randomizedHue + (256 / spaces) * i) % 256;</div>
-<div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;    <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, nextHue, 255, valStyle, spaces, i);</div>
-<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;    <span class="comment">// double all colors or only first color</span></div>
-<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <span class="keywordflow">if</span> (doubleStyle == 2 || (doubleStyle == 1 &amp;&amp; !i)) {</div>
-<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;      <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, nextHue, 255, valStyle, spaces, i);</div>
-<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;    }</div>
-<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;  }</div>
-<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;}</div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00163">addColorWithValueStyle()</a>, <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Random_8cpp_source.html#l00041">Random::next8()</a>, and <a class="el" href="Colorset_8h_source.html#l00066">VAL_STYLE_COUNT</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="Colorset_8h_source.html#l00091">randomizeComplimentary()</a>, <a class="el" href="Colorset_8h_source.html#l00094">randomizePentadic()</a>, <a class="el" href="Colorset_8h_source.html#l00095">randomizeRainbow()</a>, <a class="el" href="Colorset_8h_source.html#l00090">randomizeSolid()</a>, <a class="el" href="Colorset_8h_source.html#l00093">randomizeSquare()</a>, <a class="el" href="Colorset_8h_source.html#l00092">randomizeTriadic()</a>, and <a class="el" href="Randomizer_8cpp_source.html#l00148">Randomizer::rollColorset()</a>.</p>
-
-</div>
-</div>
-<a id="a18d731cd083e45ed8f473b248d3c8495"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a18d731cd083e45ed8f473b248d3c8495">&#9670;&nbsp;</a></span>randomizeMonochromatic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Colorset::randomizeMonochromatic </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classRandom.html">Random</a> &amp;&#160;</td>
-          <td class="paramname"><em>ctx</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">uint8_t&#160;</td>
-          <td class="paramname"><em>numColors</em> = <code>0</code>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00265">265</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;{</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;  <a class="code" href="classColorset.html#a9382ec317b384a1fcd563cd86141ee48">clear</a>();</div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>) {</div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;    <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a> = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(2, 9);</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;  }</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;  uint8_t randomizedHue = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>();</div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;  <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a> valStyle = (<a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a>)ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a">VAL_STYLE_COUNT</a>);</div>
-<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;  <span class="comment">// the doubleStyle decides if some colors are added to the set twice</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;  uint8_t doubleStyle = 0;</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a> &lt;= 7) {</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    doubleStyle = (ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, 1));</div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;  }</div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a> &lt;= 4) {</div>
-<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    doubleStyle = (ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, 2));</div>
-<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;  }</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>; i++) {</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    uint8_t decrement = 255 - (i * (256 / <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>));</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, randomizedHue, decrement, valStyle, <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>, i);</div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    <span class="comment">// double all colors or only first color</span></div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    <span class="keywordflow">if</span> (doubleStyle == 2 || (doubleStyle == 1 &amp;&amp; !i)) {</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;      <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, randomizedHue, decrement, valStyle, <a class="code" href="classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c">numColors</a>, i);</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;    }</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  }</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;}</div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00163">addColorWithValueStyle()</a>, <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Random_8cpp_source.html#l00041">Random::next8()</a>, <a class="el" href="Colorset_8h_source.html#l00133">numColors()</a>, and <a class="el" href="Colorset_8h_source.html#l00066">VAL_STYLE_COUNT</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="Randomizer_8cpp_source.html#l00148">Randomizer::rollColorset()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00235">randomizeColors()</a>.</p>
 
 </div>
 </div>
@@ -1719,10 +1697,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00094">94</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;{ <a class="code" href="classColorset.html#aa0b29c53661ff76020b477e699e184db">randomizeEvenlySpaced</a>(ctx, 5); }</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00100">100</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;{ <a class="code" href="classColorset.html#a85baad89365d8f47451ffee79e5aa69c">randomizeColors</a>(ctx, 5, Colorset::ColorMode::EVENLY_SPACED); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00318">randomizeEvenlySpaced()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00235">randomizeColors()</a>.</p>
 
 </div>
 </div>
@@ -1750,10 +1728,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00095">95</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;{ <a class="code" href="classColorset.html#aa0b29c53661ff76020b477e699e184db">randomizeEvenlySpaced</a>(ctx, 8); }</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00101">101</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;{ <a class="code" href="classColorset.html#a85baad89365d8f47451ffee79e5aa69c">randomizeColors</a>(ctx, 8, Colorset::ColorMode::EVENLY_SPACED); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00318">randomizeEvenlySpaced()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00235">randomizeColors()</a>.</p>
 
 </div>
 </div>
@@ -1781,10 +1759,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00090">90</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;{ <a class="code" href="classColorset.html#aa0b29c53661ff76020b477e699e184db">randomizeEvenlySpaced</a>(ctx, 1); }</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00096">96</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;{ <a class="code" href="classColorset.html#a85baad89365d8f47451ffee79e5aa69c">randomizeColors</a>(ctx, 1, Colorset::ColorMode::EVENLY_SPACED); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00318">randomizeEvenlySpaced()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00235">randomizeColors()</a>.</p>
 
 </div>
 </div>
@@ -1812,44 +1790,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00093">93</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;{ <a class="code" href="classColorset.html#aa0b29c53661ff76020b477e699e184db">randomizeEvenlySpaced</a>(ctx, 4); }</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00099">99</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;{ <a class="code" href="classColorset.html#a85baad89365d8f47451ffee79e5aa69c">randomizeColors</a>(ctx, 4, Colorset::ColorMode::EVENLY_SPACED); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00318">randomizeEvenlySpaced()</a>.</p>
-
-</div>
-</div>
-<a id="aaa5981565626e461101efc95bb06fa32"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aaa5981565626e461101efc95bb06fa32">&#9670;&nbsp;</a></span>randomizeTetradic()</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">void Colorset::randomizeTetradic </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="classRandom.html">Random</a> &amp;&#160;</td>
-          <td class="paramname"><em>ctx</em></td><td>)</td>
-          <td></td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00306">306</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;{</div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;  <a class="code" href="classColorset.html#a9382ec317b384a1fcd563cd86141ee48">clear</a>();</div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;  uint8_t randomizedHue = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>();</div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;  uint8_t randomizedHue2 = ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>();</div>
-<div class="line"><a name="l00311"></a><span class="lineno">  311</span>&#160;  <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a> valStyle = (<a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26">ValueStyle</a>)ctx.<a class="code" href="classRandom.html#a8ddc31ea9ccd382afb1fff8e56e2702f">next8</a>(0, <a class="code" href="classColorset.html#a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a">VAL_STYLE_COUNT</a>);</div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160;  <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, randomizedHue, 255, valStyle, 4, 0);</div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;  <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, randomizedHue2, 255, valStyle, 4, 1);</div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;  <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, (randomizedHue + 128) % 256, 255, valStyle, 4, 2);</div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;  <a class="code" href="classColorset.html#ae82f167e840a5fd2df65816a34991f2d">addColorWithValueStyle</a>(ctx, (randomizedHue2 + 128) % 256, 255, valStyle, 4, 3);</div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;}</div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00163">addColorWithValueStyle()</a>, <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Random_8cpp_source.html#l00041">Random::next8()</a>, and <a class="el" href="Colorset_8h_source.html#l00066">VAL_STYLE_COUNT</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="Randomizer_8cpp_source.html#l00148">Randomizer::rollColorset()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00235">randomizeColors()</a>.</p>
 
 </div>
 </div>
@@ -1877,10 +1821,10 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00092">92</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;{ <a class="code" href="classColorset.html#aa0b29c53661ff76020b477e699e184db">randomizeEvenlySpaced</a>(ctx, 3); }</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00098">98</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;{ <a class="code" href="classColorset.html#a85baad89365d8f47451ffee79e5aa69c">randomizeColors</a>(ctx, 3, Colorset::ColorMode::EVENLY_SPACED); }</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00318">randomizeEvenlySpaced()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00235">randomizeColors()</a>.</p>
 
 </div>
 </div>
@@ -1916,7 +1860,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;}</div>
 <div class="ttc" id="aclassRGBColor_html_a40523a2298929c35b06f4b3302708cf0"><div class="ttname"><a href="classRGBColor.html#a40523a2298929c35b06f4b3302708cf0">RGBColor::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition:</b> <a href="ColorTypes_8cpp_source.html#l00186">ColorTypes.cpp:186</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ColorTypes_8cpp_source.html#l00186">RGBColor::clear()</a>, <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>.</p>
+<p class="reference">References <a class="el" href="ColorTypes_8cpp_source.html#l00186">RGBColor::clear()</a>, <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ColorSelect_8cpp_source.html#l00154">ColorSelect::onLongClick()</a>.</p>
 
@@ -1937,12 +1881,12 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00428">428</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;{</div>
-<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;  <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> = <a class="code" href="Colorset_8cpp.html#aa85abfa0d6dbd3e0aa4b30be25a77ed9">INDEX_NONE</a>;</div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00380">380</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;{</div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;  <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> = <a class="code" href="Colorset_8cpp.html#aa85abfa0d6dbd3e0aa4b30be25a77ed9">INDEX_NONE</a>;</div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00014">INDEX_NONE</a>, and <a class="el" href="Colorset_8h_source.html#l00151">m_curIndex</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00014">INDEX_NONE</a>, and <a class="el" href="Colorset_8h_source.html#l00157">m_curIndex</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Pattern_8cpp_source.html#l00039">Pattern::init()</a>, <a class="el" href="SolidPattern_8cpp_source.html#l00013">SolidPattern::onBlinkOn()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00064">operator=()</a>.</p>
 
@@ -1964,24 +1908,24 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00494">494</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;{</div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;  buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>);</div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;  <span class="comment">// write all the reds/greens/blues together to maximize chance of</span></div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;  <span class="comment">// repeated values to improve RLE compression</span></div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;    buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].red);</div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;  }</div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;    buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].green);</div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;  }</div>
-<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;    buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].blue);</div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;  }</div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00446">446</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160;{</div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;  buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>);</div>
+<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;  <span class="comment">// write all the reds/greens/blues together to maximize chance of</span></div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;  <span class="comment">// repeated values to improve RLE compression</span></div>
+<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;    buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].red);</div>
+<div class="line"><a name="l00453"></a><span class="lineno">  453</span>&#160;  }</div>
+<div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
+<div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;    buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].green);</div>
+<div class="line"><a name="l00456"></a><span class="lineno">  456</span>&#160;  }</div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
+<div class="line"><a name="l00458"></a><span class="lineno">  458</span>&#160;    buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].blue);</div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;  }</div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;}</div>
 <div class="ttc" id="aclassByteStream_html_a16016f5dc73e0d8b639f6bdbea252d4b"><div class="ttname"><a href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">ByteStream::serialize</a></div><div class="ttdeci">bool serialize(uint8_t byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00341">ByteStream.cpp:341</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Sequence_8cpp_source.html#l00082">ColorsetMap::serialize()</a>, and <a class="el" href="Pattern_8cpp_source.html#l00057">Pattern::serialize()</a>.</p>
 
@@ -2013,28 +1957,28 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00362">362</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;{</div>
-<div class="line"><a name="l00364"></a><span class="lineno">  364</span>&#160;  <span class="comment">// special case for &#39;setting&#39; a color at the edge of the palette,</span></div>
-<div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160;  <span class="comment">// ie adding a new color when you set an index higher than the max</span></div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;  <span class="keywordflow">if</span> (index &gt;= <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>) {</div>
-<div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#abb46201f07d6f2072eac505d917a0f2e">addColor</a>(col)) {</div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;      <a class="code" href="Log_8h.html#aed976922ae10c35e5e5241d15f5a06af">ERROR_LOGF</a>(<span class="stringliteral">&quot;Failed to add new color at index %u&quot;</span>, index);</div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;    }</div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;  }</div>
-<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;    <span class="comment">// should be impossible because if the index is less than</span></div>
-<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;    <span class="comment">// the number of colors then there must be non-zero number</span></div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="comment">// of colors which means the palette should be initialized</span></div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;    <a class="code" href="Log_8h.html#aed976922ae10c35e5e5241d15f5a06af">ERROR_LOGF</a>(<span class="stringliteral">&quot;Programmer error setting color index %u with no palette&quot;</span>, index);</div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;  }</div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;  <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[index] = col;</div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00314">314</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;{</div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;  <span class="comment">// special case for &#39;setting&#39; a color at the edge of the palette,</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;  <span class="comment">// ie adding a new color when you set an index higher than the max</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;  <span class="keywordflow">if</span> (index &gt;= <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>) {</div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;    <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#abb46201f07d6f2072eac505d917a0f2e">addColor</a>(col)) {</div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;      <a class="code" href="Log_8h.html#aed976922ae10c35e5e5241d15f5a06af">ERROR_LOGF</a>(<span class="stringliteral">&quot;Failed to add new color at index %u&quot;</span>, index);</div>
+<div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160;    }</div>
+<div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;  }</div>
+<div class="line"><a name="l00324"></a><span class="lineno">  324</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
+<div class="line"><a name="l00325"></a><span class="lineno">  325</span>&#160;    <span class="comment">// should be impossible because if the index is less than</span></div>
+<div class="line"><a name="l00326"></a><span class="lineno">  326</span>&#160;    <span class="comment">// the number of colors then there must be non-zero number</span></div>
+<div class="line"><a name="l00327"></a><span class="lineno">  327</span>&#160;    <span class="comment">// of colors which means the palette should be initialized</span></div>
+<div class="line"><a name="l00328"></a><span class="lineno">  328</span>&#160;    <a class="code" href="Log_8h.html#aed976922ae10c35e5e5241d15f5a06af">ERROR_LOGF</a>(<span class="stringliteral">&quot;Programmer error setting color index %u with no palette&quot;</span>, index);</div>
+<div class="line"><a name="l00329"></a><span class="lineno">  329</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00330"></a><span class="lineno">  330</span>&#160;  }</div>
+<div class="line"><a name="l00331"></a><span class="lineno">  331</span>&#160;  <a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[index] = col;</div>
+<div class="line"><a name="l00332"></a><span class="lineno">  332</span>&#160;}</div>
 <div class="ttc" id="aLog_8h_html_aed976922ae10c35e5e5241d15f5a06af"><div class="ttname"><a href="Log_8h.html#aed976922ae10c35e5e5241d15f5a06af">ERROR_LOGF</a></div><div class="ttdeci">#define ERROR_LOGF(msg,...)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00030">Log.h:30</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00131">addColor()</a>, <a class="el" href="Log_8h_source.html#l00030">ERROR_LOGF</a>, <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00131">addColor()</a>, <a class="el" href="Log_8h_source.html#l00030">ERROR_LOGF</a>, <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00112">equals()</a>, and <a class="el" href="ColorSelect_8cpp_source.html#l00154">ColorSelect::onLongClick()</a>.</p>
 
@@ -2056,18 +2000,18 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00417">417</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160;{</div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>) {</div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;  }</div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;  <span class="keywordflow">if</span> (index &gt; (<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> - 1)) {</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;  }</div>
-<div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160;  <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> = index;</div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00369">369</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;{</div>
+<div class="line"><a name="l00371"></a><span class="lineno">  371</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>) {</div>
+<div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;  }</div>
+<div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;  <span class="keywordflow">if</span> (index &gt; (<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> - 1)) {</div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;  }</div>
+<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;  <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> = index;</div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00151">m_curIndex</a>, and <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8h_source.html#l00157">m_curIndex</a>, and <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="BouncePattern_8cpp_source.html#l00027">BouncePattern::init()</a>, <a class="el" href="CrossDopsPattern_8cpp_source.html#l00018">CrossDopsPattern::init()</a>, <a class="el" href="DoubleStrobePattern_8cpp_source.html#l00018">DoubleStrobePattern::init()</a>, <a class="el" href="DripPattern_8cpp_source.html#l00017">DripPattern::init()</a>, <a class="el" href="FillPattern_8cpp_source.html#l00020">FillPattern::init()</a>, <a class="el" href="LighthousePattern_8cpp_source.html#l00027">LighthousePattern::init()</a>, <a class="el" href="MateriaPattern_8cpp_source.html#l00033">MateriaPattern::init()</a>, <a class="el" href="SnowballPattern_8cpp_source.html#l00020">SnowballPattern::init()</a>, <a class="el" href="VortexWipePattern_8cpp_source.html#l00035">VortexWipePattern::init()</a>, <a class="el" href="WarpPattern_8cpp_source.html#l00021">WarpPattern::init()</a>, <a class="el" href="WarpWormPattern_8cpp_source.html#l00021">WarpWormPattern::init()</a>, <a class="el" href="ZigzagPattern_8cpp_source.html#l00101">ZigzagPattern::Snake::init()</a>, and <a class="el" href="SolidPattern_8cpp_source.html#l00013">SolidPattern::onBlinkOn()</a>.</p>
 
@@ -2089,30 +2033,30 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00383">383</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;{</div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> || !<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;  }</div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;  <span class="comment">// if the colorset hasn&#39;t started yet</span></div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> == <a class="code" href="Colorset_8cpp.html#aa85abfa0d6dbd3e0aa4b30be25a77ed9">INDEX_NONE</a>) {</div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;    <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> = 0;</div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;  }</div>
-<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
-<div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160;  <span class="comment">// first modulate the amount to skip to be within +/- the number of colors</span></div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;  amount %= (int32_t)<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>;</div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160; </div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;  <span class="comment">// max = 3</span></div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;  <span class="comment">// m_curIndex = 2</span></div>
-<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;  <span class="comment">// amount = -10</span></div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;  <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> = ((int32_t)<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> + (int32_t)amount) % (int32_t)<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>;</div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> &gt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>) { <span class="comment">// must have wrapped</span></div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;    <span class="comment">// simply wrap it back</span></div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;    <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> += <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>;</div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;  }</div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00335">335</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00336"></a><span class="lineno">  336</span>&#160;{</div>
+<div class="line"><a name="l00337"></a><span class="lineno">  337</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a> || !<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>) {</div>
+<div class="line"><a name="l00338"></a><span class="lineno">  338</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00339"></a><span class="lineno">  339</span>&#160;  }</div>
+<div class="line"><a name="l00340"></a><span class="lineno">  340</span>&#160;  <span class="comment">// if the colorset hasn&#39;t started yet</span></div>
+<div class="line"><a name="l00341"></a><span class="lineno">  341</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> == <a class="code" href="Colorset_8cpp.html#aa85abfa0d6dbd3e0aa4b30be25a77ed9">INDEX_NONE</a>) {</div>
+<div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;    <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> = 0;</div>
+<div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;  }</div>
+<div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160; </div>
+<div class="line"><a name="l00345"></a><span class="lineno">  345</span>&#160;  <span class="comment">// first modulate the amount to skip to be within +/- the number of colors</span></div>
+<div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160;  amount %= (int32_t)<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>;</div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160; </div>
+<div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;  <span class="comment">// max = 3</span></div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;  <span class="comment">// m_curIndex = 2</span></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;  <span class="comment">// amount = -10</span></div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;  <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> = ((int32_t)<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> + (int32_t)amount) % (int32_t)<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>;</div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> &gt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>) { <span class="comment">// must have wrapped</span></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;    <span class="comment">// simply wrap it back</span></div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;    <a class="code" href="classColorset.html#ab3a23dfcdcc4d7042bb41325c8503682">m_curIndex</a> += <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>;</div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;  }</div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00014">INDEX_NONE</a>, <a class="el" href="Colorset_8h_source.html#l00151">m_curIndex</a>, <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00014">INDEX_NONE</a>, <a class="el" href="Colorset_8h_source.html#l00157">m_curIndex</a>, <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, and <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="PulsishPattern_8cpp_source.html#l00054">PulsishPattern::play()</a>, <a class="el" href="SnowballPattern_8cpp_source.html#l00044">SnowballPattern::poststep()</a>, and <a class="el" href="SparkleTracePattern_8cpp_source.html#l00024">SparkleTracePattern::poststep()</a>.</p>
 
@@ -2134,23 +2078,23 @@ Private Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00510">510</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;{</div>
-<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;  buffer.<a class="code" href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">unserialize</a>(&amp;<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>);</div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;  <a class="code" href="classColorset.html#ae973ebe020c085e206fe75f39383a96a">initPalette</a>(<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>);</div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
-<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;    buffer.<a class="code" href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">unserialize</a>(&amp;<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].red);</div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;  }</div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;    buffer.<a class="code" href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">unserialize</a>(&amp;<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].green);</div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;  }</div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;    buffer.<a class="code" href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">unserialize</a>(&amp;<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].blue);</div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;  }</div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Colorset_8cpp_source.html#l00462">462</a> of file <a class="el" href="Colorset_8cpp_source.html">Colorset.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;{</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;  buffer.<a class="code" href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">unserialize</a>(&amp;<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>);</div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;  <a class="code" href="classColorset.html#ae973ebe020c085e206fe75f39383a96a">initPalette</a>(<a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>);</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;    buffer.<a class="code" href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">unserialize</a>(&amp;<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].red);</div>
+<div class="line"><a name="l00468"></a><span class="lineno">  468</span>&#160;  }</div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;    buffer.<a class="code" href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">unserialize</a>(&amp;<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].green);</div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;  }</div>
+<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classColorset.html#ad20826f06f775244af672fc704598db1">m_numColors</a>; ++i) {</div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160;    buffer.<a class="code" href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">unserialize</a>(&amp;<a class="code" href="classColorset.html#a18b8a6c797b8b18c9d19edad8ef73ec4">m_palette</a>[i].blue);</div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;  }</div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;}</div>
 <div class="ttc" id="aclassByteStream_html_a870efac1fe97b1855cb1edef3310002d"><div class="ttname"><a href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">ByteStream::unserialize</a></div><div class="ttdeci">bool unserialize(uint8_t *byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00417">ByteStream.cpp:417</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00525">initPalette()</a>, <a class="el" href="Colorset_8h_source.html#l00153">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00148">m_palette</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00417">ByteStream::unserialize()</a>.</p>
+<p class="reference">References <a class="el" href="Colorset_8cpp_source.html#l00477">initPalette()</a>, <a class="el" href="Colorset_8h_source.html#l00159">m_numColors</a>, <a class="el" href="Colorset_8h_source.html#l00154">m_palette</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00417">ByteStream::unserialize()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Sequence_8cpp_source.html#l00089">ColorsetMap::unserialize()</a>, and <a class="el" href="Pattern_8cpp_source.html#l00075">Pattern::unserialize()</a>.</p>
 
@@ -2177,9 +2121,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00151">151</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00157">157</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00406">cur()</a>, <a class="el" href="Colorset_8h_source.html#l00118">curIndex()</a>, <a class="el" href="Colorset_8cpp_source.html#l00448">getNext()</a>, <a class="el" href="Colorset_8cpp_source.html#l00433">getPrev()</a>, <a class="el" href="Colorset_8cpp_source.html#l00486">onEnd()</a>, <a class="el" href="Colorset_8cpp_source.html#l00481">onStart()</a>, <a class="el" href="Colorset_8cpp_source.html#l00462">peek()</a>, <a class="el" href="Colorset_8cpp_source.html#l00428">resetIndex()</a>, <a class="el" href="Colorset_8cpp_source.html#l00417">setCurIndex()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00383">skip()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00358">cur()</a>, <a class="el" href="Colorset_8h_source.html#l00124">curIndex()</a>, <a class="el" href="Colorset_8cpp_source.html#l00400">getNext()</a>, <a class="el" href="Colorset_8cpp_source.html#l00385">getPrev()</a>, <a class="el" href="Colorset_8cpp_source.html#l00438">onEnd()</a>, <a class="el" href="Colorset_8cpp_source.html#l00433">onStart()</a>, <a class="el" href="Colorset_8cpp_source.html#l00414">peek()</a>, <a class="el" href="Colorset_8cpp_source.html#l00380">resetIndex()</a>, <a class="el" href="Colorset_8cpp_source.html#l00369">setCurIndex()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00335">skip()</a>.</p>
 
 </div>
 </div>
@@ -2203,9 +2147,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00153">153</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00159">159</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00131">addColor()</a>, <a class="el" href="Colorset_8cpp_source.html#l00163">addColorWithValueStyle()</a>, <a class="el" href="Colorset_8cpp_source.html#l00344">adjustBrightness()</a>, <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Colorset_8cpp_source.html#l00406">cur()</a>, <a class="el" href="Colorset_8cpp_source.html#l00352">get()</a>, <a class="el" href="Colorset_8cpp_source.html#l00448">getNext()</a>, <a class="el" href="Colorset_8cpp_source.html#l00433">getPrev()</a>, <a class="el" href="Colorset_8cpp_source.html#l00525">initPalette()</a>, <a class="el" href="Colorset_8h_source.html#l00133">numColors()</a>, <a class="el" href="Colorset_8cpp_source.html#l00486">onEnd()</a>, <a class="el" href="Colorset_8cpp_source.html#l00064">operator=()</a>, <a class="el" href="Colorset_8cpp_source.html#l00074">operator==()</a>, <a class="el" href="Colorset_8cpp_source.html#l00462">peek()</a>, <a class="el" href="Colorset_8cpp_source.html#l00206">removeColor()</a>, <a class="el" href="Colorset_8cpp_source.html#l00494">serialize()</a>, <a class="el" href="Colorset_8cpp_source.html#l00362">set()</a>, <a class="el" href="Colorset_8cpp_source.html#l00417">setCurIndex()</a>, <a class="el" href="Colorset_8cpp_source.html#l00383">skip()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00510">unserialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00131">addColor()</a>, <a class="el" href="Colorset_8cpp_source.html#l00163">addColorWithValueStyle()</a>, <a class="el" href="Colorset_8cpp_source.html#l00296">adjustBrightness()</a>, <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Colorset_8cpp_source.html#l00358">cur()</a>, <a class="el" href="Colorset_8cpp_source.html#l00304">get()</a>, <a class="el" href="Colorset_8cpp_source.html#l00400">getNext()</a>, <a class="el" href="Colorset_8cpp_source.html#l00385">getPrev()</a>, <a class="el" href="Colorset_8cpp_source.html#l00477">initPalette()</a>, <a class="el" href="Colorset_8h_source.html#l00139">numColors()</a>, <a class="el" href="Colorset_8cpp_source.html#l00438">onEnd()</a>, <a class="el" href="Colorset_8cpp_source.html#l00064">operator=()</a>, <a class="el" href="Colorset_8cpp_source.html#l00074">operator==()</a>, <a class="el" href="Colorset_8cpp_source.html#l00414">peek()</a>, <a class="el" href="Colorset_8cpp_source.html#l00206">removeColor()</a>, <a class="el" href="Colorset_8cpp_source.html#l00446">serialize()</a>, <a class="el" href="Colorset_8cpp_source.html#l00314">set()</a>, <a class="el" href="Colorset_8cpp_source.html#l00369">setCurIndex()</a>, <a class="el" href="Colorset_8cpp_source.html#l00335">skip()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00462">unserialize()</a>.</p>
 
 </div>
 </div>
@@ -2229,9 +2173,9 @@ Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00148">148</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="Colorset_8h_source.html#l00154">154</a> of file <a class="el" href="Colorset_8h_source.html">Colorset.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00131">addColor()</a>, <a class="el" href="Colorset_8cpp_source.html#l00344">adjustBrightness()</a>, <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Colorset_8cpp_source.html#l00406">cur()</a>, <a class="el" href="Colorset_8cpp_source.html#l00352">get()</a>, <a class="el" href="Colorset_8cpp_source.html#l00448">getNext()</a>, <a class="el" href="Colorset_8cpp_source.html#l00433">getPrev()</a>, <a class="el" href="Colorset_8cpp_source.html#l00525">initPalette()</a>, <a class="el" href="Colorset_8cpp_source.html#l00064">operator=()</a>, <a class="el" href="Colorset_8cpp_source.html#l00074">operator==()</a>, <a class="el" href="Colorset_8cpp_source.html#l00462">peek()</a>, <a class="el" href="Colorset_8cpp_source.html#l00206">removeColor()</a>, <a class="el" href="Colorset_8cpp_source.html#l00494">serialize()</a>, <a class="el" href="Colorset_8cpp_source.html#l00362">set()</a>, <a class="el" href="Colorset_8cpp_source.html#l00383">skip()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00510">unserialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00131">addColor()</a>, <a class="el" href="Colorset_8cpp_source.html#l00296">adjustBrightness()</a>, <a class="el" href="Colorset_8cpp_source.html#l00102">clear()</a>, <a class="el" href="Colorset_8cpp_source.html#l00358">cur()</a>, <a class="el" href="Colorset_8cpp_source.html#l00304">get()</a>, <a class="el" href="Colorset_8cpp_source.html#l00400">getNext()</a>, <a class="el" href="Colorset_8cpp_source.html#l00385">getPrev()</a>, <a class="el" href="Colorset_8cpp_source.html#l00477">initPalette()</a>, <a class="el" href="Colorset_8cpp_source.html#l00064">operator=()</a>, <a class="el" href="Colorset_8cpp_source.html#l00074">operator==()</a>, <a class="el" href="Colorset_8cpp_source.html#l00414">peek()</a>, <a class="el" href="Colorset_8cpp_source.html#l00206">removeColor()</a>, <a class="el" href="Colorset_8cpp_source.html#l00446">serialize()</a>, <a class="el" href="Colorset_8cpp_source.html#l00314">set()</a>, <a class="el" href="Colorset_8cpp_source.html#l00335">skip()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00462">unserialize()</a>.</p>
 
 </div>
 </div>

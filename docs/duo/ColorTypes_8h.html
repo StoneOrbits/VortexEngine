@@ -203,7 +203,7 @@ Variables</h2></td></tr>
 <div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;  }</div>
 <div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160; </div>
 <div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;  region = rhs.<a class="code" href="classHSVColor.html#a95d2e23681a08326316331dcb71a2d4c">hue</a> / 43;</div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;  remainder = ((rhs.<a class="code" href="classHSVColor.html#a95d2e23681a08326316331dcb71a2d4c">hue</a> - (region * 43)) * 6) % 256;</div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;  remainder = ((rhs.<a class="code" href="classHSVColor.html#a95d2e23681a08326316331dcb71a2d4c">hue</a> - (region * 43)) * 6);</div>
 <div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160; </div>
 <div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;  <span class="comment">// extraneous casts to uint16_t are to prevent overflow</span></div>
 <div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;  p = (uint8_t)(((uint16_t)(rhs.<a class="code" href="classHSVColor.html#a12cc1f17d6a2f40749e62ab3b3992573">val</a>) * (255 - rhs.<a class="code" href="classHSVColor.html#a67cfcc3d0bd0881c089919df3289d7ca">sat</a>)) &gt;&gt; 8);</div>

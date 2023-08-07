@@ -60,11 +60,11 @@ var NAVTREEINDEX =
 "LighthousePattern_8cpp_source.html",
 "SparkleTracePattern_8h_source.html",
 "classBasicPattern.html#ab04a53496affe6e5bf4dccf86d91bc0e",
-"classColorsetMap.html#a42a0b5d31ea734b8711cb7f910ec90f9",
-"classMateriaPattern.html",
-"classPattern.html#ae984cbae58170420309cb1c9dc06fd24",
-"classTime.html#ac9ca1a16592b1653e33926064d3b99ad",
-"index.html"
+"classColorset.html#ae973ebe020c085e206fe75f39383a96a",
+"classLighthousePattern.html#abcb3a868bb6248a469e7f6b6dbb4cc33",
+"classPattern.html#ac2205bdc6277d183ba732fc0ead016ed",
+"classTime.html#aa90c5d6860ae306048c96d80da2ea1b0",
+"globals_v.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

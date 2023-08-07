@@ -1,5 +1,14 @@
 var classColorset =
 [
+    [ "ColorMode", "classColorset.html#ad0ad727054d88606053bbb67ae1fb11c", [
+      [ "THEORY", "classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607", null ],
+      [ "MONOCHROMATIC", "classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959", null ],
+      [ "EVENLY_SPACED", "classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca3b1cacf6a92b603225f0dc6da91c50f0", null ]
+    ] ],
+    [ "ColorMode2", "classColorset.html#abf504edde130e5e302c5a1c78ab725d8", [
+      [ "DOUBLE_SPLIT_COMPLIMENTARY", "classColorset.html#abf504edde130e5e302c5a1c78ab725d8ad847fcabcc8c69e0f740dfc0e4bfb5b0", null ],
+      [ "TETRADIC", "classColorset.html#abf504edde130e5e302c5a1c78ab725d8acd5395dcd4b6248a985c0e789c7d0ef1", null ]
+    ] ],
     [ "ValueStyle", "classColorset.html#a3cfec1a04020fca46a63a7030300de26", [
       [ "VAL_STYLE_RANDOM", "classColorset.html#a3cfec1a04020fca46a63a7030300de26a645c3cf49fa9a75522355e7d2a49e6ce", null ],
       [ "VAL_STYLE_LOW_FIRST_COLOR", "classColorset.html#a3cfec1a04020fca46a63a7030300de26aaf5b21846f5bde5fba7d5e098ae09932", null ],
@@ -40,16 +49,13 @@ var classColorset =
     [ "peek", "classColorset.html#ab9f04de5f2ebc1051cba5e4bfc3d8a11", null ],
     [ "peekNext", "classColorset.html#a4ec108cdd097cf54aecf2dc7bdbda67b", null ],
     [ "randomize", "classColorset.html#a8ff0a3f968aec3986197acfcbd9b31df", null ],
-    [ "randomizeColorTheory", "classColorset.html#a674e561e5eca9310ca600a5c3411c1e1", null ],
+    [ "randomizeColors", "classColorset.html#a85baad89365d8f47451ffee79e5aa69c", null ],
+    [ "randomizeColors2", "classColorset.html#acac6cc5795e5cb3f79159141da9deaba", null ],
     [ "randomizeComplimentary", "classColorset.html#ac9a02dcdfec800bdd3a2f9b4d66ba66d", null ],
-    [ "randomizeDoubleSplitComplimentary", "classColorset.html#aa0c24d16d441f3951975edf2e2683213", null ],
-    [ "randomizeEvenlySpaced", "classColorset.html#aa0b29c53661ff76020b477e699e184db", null ],
-    [ "randomizeMonochromatic", "classColorset.html#a18d731cd083e45ed8f473b248d3c8495", null ],
     [ "randomizePentadic", "classColorset.html#a6554aa43ab2160cffcfdc4481d2ccd0e", null ],
     [ "randomizeRainbow", "classColorset.html#ae66046cbba14e9bca2e155e8a5f63001", null ],
     [ "randomizeSolid", "classColorset.html#aa43e338718aedfd50df11d64e65b75a7", null ],
     [ "randomizeSquare", "classColorset.html#ac44b4a9e20d2d661351b6260dc2b9176", null ],
-    [ "randomizeTetradic", "classColorset.html#aaa5981565626e461101efc95bb06fa32", null ],
     [ "randomizeTriadic", "classColorset.html#a5eca1aa8fa5592851c421379efdb8310", null ],
     [ "removeColor", "classColorset.html#a68b945689ee8cf511f93826c54bb63af", null ],
     [ "resetIndex", "classColorset.html#a06b8e4ad7a496d4b3787e7fd73f4ac99", null ],

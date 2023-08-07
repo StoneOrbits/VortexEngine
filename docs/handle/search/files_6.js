@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['hueshiftpattern_2ecpp_1660',['HueShiftPattern.cpp',['../HueShiftPattern_8cpp.html',1,'']]],
-  ['hueshiftpattern_2eh_1661',['HueShiftPattern.h',['../HueShiftPattern_8h.html',1,'']]]
+  ['hueshiftpattern_2ecpp_1663',['HueShiftPattern.cpp',['../HueShiftPattern_8cpp.html',1,'']]],
+  ['hueshiftpattern_2eh_1664',['HueShiftPattern.h',['../HueShiftPattern_8h.html',1,'']]]
 ];

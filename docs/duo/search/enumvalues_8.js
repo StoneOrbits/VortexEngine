@@ -1,11 +1,9 @@
 var searchData=
 [
-  ['val_5fstyle_5falternating_2517',['VAL_STYLE_ALTERNATING',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26ae0a54247525d70f1be24aeff4fad8e7b',1,'Colorset']]],
-  ['val_5fstyle_5fascending_2518',['VAL_STYLE_ASCENDING',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26ab2113aa16ee5cf6b09007c9c264dbab2',1,'Colorset']]],
-  ['val_5fstyle_5fconstant_2519',['VAL_STYLE_CONSTANT',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26ab9b4bd5b990537c1001a8aca889ec512',1,'Colorset']]],
-  ['val_5fstyle_5fcount_2520',['VAL_STYLE_COUNT',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a',1,'Colorset']]],
-  ['val_5fstyle_5fdescending_2521',['VAL_STYLE_DESCENDING',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26ae20993010e2480fbf2183ebe3413fac2',1,'Colorset']]],
-  ['val_5fstyle_5fhigh_5ffirst_5fcolor_2522',['VAL_STYLE_HIGH_FIRST_COLOR',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26a95361874b3ecae79648b34565dcc648f',1,'Colorset']]],
-  ['val_5fstyle_5flow_5ffirst_5fcolor_2523',['VAL_STYLE_LOW_FIRST_COLOR',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26aaf5b21846f5bde5fba7d5e098ae09932',1,'Colorset']]],
-  ['val_5fstyle_5frandom_2524',['VAL_STYLE_RANDOM',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26a645c3cf49fa9a75522355e7d2a49e6ce',1,'Colorset']]]
+  ['randomize_5fboth_2485',['RANDOMIZE_BOTH',['../classRandomizer.html#a284ed130367e4cf0914f77fc3f7a155eab8df70cbcb518bbcbee073dc080d6dd2',1,'Randomizer']]],
+  ['randomize_5fcolorset_2486',['RANDOMIZE_COLORSET',['../classRandomizer.html#a284ed130367e4cf0914f77fc3f7a155eada798a9ab10cbdbf591fe865575add29',1,'Randomizer']]],
+  ['randomize_5fnone_2487',['RANDOMIZE_NONE',['../classRandomizer.html#a284ed130367e4cf0914f77fc3f7a155ea66875a6a6b78464cd75164ad62f95872',1,'Randomizer']]],
+  ['randomize_5fpattern_2488',['RANDOMIZE_PATTERN',['../classRandomizer.html#a284ed130367e4cf0914f77fc3f7a155ea597c86ce6a0203fd3e712bbad0240a3e',1,'Randomizer']]],
+  ['reading_5fdata_5fmark_2489',['READING_DATA_MARK',['../classVLReceiver.html#aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af',1,'VLReceiver']]],
+  ['reading_5fdata_5fspace_2490',['READING_DATA_SPACE',['../classVLReceiver.html#aa4e2da364b508e8f469d28e0eaf3a6f8a8b4cf7c43de19caaa96a6c9a81530370',1,'VLReceiver']]]
 ];

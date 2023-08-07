@@ -1,4 +1,6 @@
 var searchData=
 [
-  ['colorselectstate_2529',['ColorSelectState',['../classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2e',1,'ColorSelect']]]
+  ['colormode_2529',['ColorMode',['../classColorset.html#ad0ad727054d88606053bbb67ae1fb11c',1,'Colorset']]],
+  ['colormode2_2530',['ColorMode2',['../classColorset.html#abf504edde130e5e302c5a1c78ab725d8',1,'Colorset']]],
+  ['colorselectstate_2531',['ColorSelectState',['../classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2e',1,'ColorSelect']]]
 ];
