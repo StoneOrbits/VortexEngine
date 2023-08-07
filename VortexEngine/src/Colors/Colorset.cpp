@@ -271,33 +271,28 @@ void Colorset::randomizeColors(Random &ctx, uint8_t numColors, ColorMode mode)
   }
 }
 
-// create a set of 5 colors with 2 pairs of opposing colors with the same spacing from the central color
-void Colorset::randomizeDoubleSplitComplimentary(Random &ctx)
+void Colorset::randomizeColors2(Random &ctx, ColorMode2 mode)
 {
   clear();
-  uint8_t rHue = ctx.next8();
-  uint8_t splitGap = ctx.next8(1, 64);
-  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  addColorWithValueStyle(ctx, (rHue + splitGap + 128), 255, valStyle, 5, 0);
-  addColorWithValueStyle(ctx, (rHue - splitGap), 255, valStyle, 5, 1);
-  addColorWithValueStyle(ctx, rHue, 255, valStyle, 5, 2);
-  addColorWithValueStyle(ctx, (rHue + splitGap), 255, valStyle, 5, 3);
-  addColorWithValueStyle(ctx, (rHue - splitGap + 128), 255, valStyle, 5, 4);
-}
+  uint8_t primaryHue = ctx.next8();
 
-// create a set of 2 pairs of oposing colors
-void Colorset::randomizeTetradic(Random &ctx)
-{
-  clear();
-  uint8_t randomizedHue = ctx.next8();
-  uint8_t randomizedHue2 = ctx.next8();
-  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  addColorWithValueStyle(ctx, randomizedHue, 255, valStyle, 4, 0);
-  addColorWithValueStyle(ctx, randomizedHue2, 255, valStyle, 4, 1);
-  addColorWithValueStyle(ctx, (randomizedHue + 128), 255, valStyle, 4, 2);
-  addColorWithValueStyle(ctx, (randomizedHue2 + 128), 255, valStyle, 4, 3);
+  if (mode == DOUBLE_SPLIT_COMPLIMENTARY) {
+    uint8_t splitGap = ctx.next8(1, 64);
+    ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+    addColorWithValueStyle(ctx, (primaryHue + splitGap + 128), 255, valStyle, 5, 0);
+    addColorWithValueStyle(ctx, (primaryHue - splitGap), 255, valStyle, 5, 1);
+    addColorWithValueStyle(ctx, primaryHue, 255, valStyle, 5, 2);
+    addColorWithValueStyle(ctx, (primaryHue + splitGap), 255, valStyle, 5, 3);
+    addColorWithValueStyle(ctx, (primaryHue - splitGap + 128), 255, valStyle, 5, 4);
+  } else if (mode == TETRADIC) {
+    uint8_t secondaryHue = ctx.next8();
+    ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+    addColorWithValueStyle(ctx, primaryHue, 255, valStyle, 4, 0);
+    addColorWithValueStyle(ctx, secondaryHue, 255, valStyle, 4, 1);
+    addColorWithValueStyle(ctx, (primaryHue + 128), 255, valStyle, 4, 2);
+    addColorWithValueStyle(ctx, (secondaryHue + 128), 255, valStyle, 4, 3);
+  }
 }
-
 
 void Colorset::adjustBrightness(uint8_t fadeby)
 {

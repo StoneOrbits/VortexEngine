@@ -144,10 +144,10 @@ Colorset Randomizer::rollColorset(Random &ctx)
     randomSet.randomizeColors(ctx, 0, Colorset::ColorMode::MONOCHROMATIC);
     break;
   case 3:
-    randomSet.randomizeDoubleSplitComplimentary(ctx);
+    randomSet.randomizeColors2(ctx, Colorset::ColorMode2::DOUBLE_SPLIT_COMPLIMENTARY);
     break;
   case 4:
-    randomSet.randomizeTetradic(ctx);
+    randomSet.randomizeColors2(ctx, Colorset::ColorMode2::TETRADIC);
     break;
   case 5:
     randomSet.randomize(ctx, 1);

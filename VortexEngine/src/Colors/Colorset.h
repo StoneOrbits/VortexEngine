@@ -76,6 +76,8 @@ public:
   // randomize a colorset with a specific number of colors with
   // various different randomization techniques
   void randomize(Random &ctx, uint8_t numColors = 0);
+
+  // function to randomize the colors with various different modes of randomization
   enum ColorMode {
     THEORY,
     MONOCHROMATIC,
@@ -83,9 +85,12 @@ public:
   };
   void randomizeColors(Random &ctx, uint8_t numColors, ColorMode mode);
 
-  // these randomizers have a set amount of colors and don't take any arguments
-  void randomizeDoubleSplitComplimentary(Random &ctx);
-  void randomizeTetradic(Random &ctx);
+  // similar function but with some different modes
+  enum ColorMode2 {
+    DOUBLE_SPLIT_COMPLIMENTARY,
+    TETRADIC
+  };
+  void randomizeColors2(Random &ctx, ColorMode2 mode);
 
   // wrappers for various spacings
   void randomizeSolid(Random &ctx) { randomizeColors(ctx, 1, Colorset::ColorMode::EVENLY_SPACED); }
