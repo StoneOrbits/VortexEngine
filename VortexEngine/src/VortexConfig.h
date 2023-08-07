@@ -128,7 +128,7 @@
 // Leave Advanced Color Select Clicks
 //
 // The number of consecutive clicks required to exit the advanced color select menu
-#define LEAVE_ADV_COL_SELECT_CLICKS 5
+#define LEAVE_ADV_COL_SELECT_CLICKS 8
 
 // Color delete threshold (in milliseconds)
 //

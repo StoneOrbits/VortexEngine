@@ -29,7 +29,9 @@ ColorSelect::ColorSelect(const RGBColor &col, bool advanced) :
   // function uses a different algorithm to generate the colors that results
   // in a smaller color space with less bright colors. The tradeoff is you lose
   // the bright colors but the rainbow looks a lot better
-  g_hsv_rgb_alg = HSV_TO_RGB_RAINBOW;
+  if (!m_advanced) {
+    g_hsv_rgb_alg = HSV_TO_RGB_RAINBOW;
+  }
 }
 
 ColorSelect::~ColorSelect()
@@ -57,7 +59,7 @@ bool ColorSelect::init()
   if (m_advanced) {
     // turn off force sleep while in this adv menu
     VortexEngine::toggleForceSleep(false);
-    m_previewMode.setPattern(PATTERN_BLEND);
+    m_previewMode.setColorset(Colorset(RGB_RED, RGB_RED));
     m_previewMode.init();
   }
   DEBUG_LOG("Entered color select");
@@ -72,14 +74,7 @@ Menu::MenuAction ColorSelect::run()
   }
 
   if (m_advanced) {
-    m_previewMode.setArg(6, g_pButton->isPressed() ? 2 : 1);
-    // usually you would need to call init again after changing arguments
-    // because you can't guarantee the pattern doesn't do any kind of logic
-    // in it's init function based on the params, however in this case we know
-    // that blend doesn't need to re-init after changing its flip count, we
-    // can just change it on the fly and it will flip accordingly -- so this
-    // is a bit of a hack and the proper approach would be to re-init the mode
-    // however if the mode is re-initialized then it would ruin the effect
+    // leave after several clicks
     if (g_pButton->onConsecutivePresses(LEAVE_ADV_COL_SELECT_CLICKS)) {
       return MENU_QUIT;
     }
@@ -129,6 +124,18 @@ void ColorSelect::onLedSelected()
 
 void ColorSelect::onShortClick()
 {
+  if (m_advanced) {
+    // grab one of the colorsets of the targeted leds
+    Colorset set = m_previewMode.getColorset(mapGetFirstLed(m_targetLeds));
+    // grab the first color convert it to hsv
+    HSVColor col = set.get(1);
+    col.hue += 15;
+    // set the color again after adjusting
+    set.set(1, col);
+    // update the colorset
+    m_previewMode.setColorsetMap(m_targetLeds, set);
+    return;
+  }
   // increment selection
   m_curSelection++;
   if (m_state == STATE_PICK_SLOT) {
@@ -141,6 +148,9 @@ void ColorSelect::onShortClick()
 void ColorSelect::onLongClick()
 {
   if (m_advanced) {
+    Colorset set = m_previewMode.getColorset();
+    set.set(0, set.get(1));
+    m_previewMode.setColorset(set);
     return;
   }
   // if we're on 'exit' and we're on any menu past the slot selection
