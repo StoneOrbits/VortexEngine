@@ -7,22 +7,19 @@ has_children: true
 ---
 
 <style>
-.circle {
-    border-radius: 50%;
-    width: 20px;
-    height: 20px;
-    display: inline-block;
-    margin-right: 5px;
-    border: 1px solid #000000;
+.section {
+    padding: 10px 0;
+    margin: 10px 0;
+    border-radius: 5px;
 }
 
-.white  { background-color: #ffffff; }
-.cyan   { background-image: radial-gradient(circle, #e0ffff 0%, #00ffff 100%); }
-.purple { background-image: radial-gradient(circle, #e0e0ff 0%, #800080 100%); }
-.green  { background-image: radial-gradient(circle, #e0ffe0 0%, #008000 100%); }
-.blue   { background-image: radial-gradient(circle, #e0e0ff 0%, #0000ff 100%); }
-.yellow { background-image: radial-gradient(circle, #ffffe0 0%, #ffff00 100%); }
-.red    { background-image: radial-gradient(circle, #ffe0e0 0%, #ff0000 100%); }
+.white  { background: linear-gradient(to right, #ffffff, transparent); }
+.cyan   { background: linear-gradient(to right, #00ffff, transparent); }
+.purple { background: linear-gradient(to right, #800080, transparent); }
+.green  { background: linear-gradient(to right, #008000, transparent); }
+.blue   { background: linear-gradient(to right, #0000ff, transparent); }
+.yellow { background: linear-gradient(to right, #ffff00, transparent); }
+.red    { background: linear-gradient(to right, #ff0000, transparent); }
 </style>
 
 # Menus
@@ -31,31 +28,37 @@ Each of these menus serves a specific purpose and allows you to customize your V
 
 Here's a brief overview of what each menu does:
 
-## <span class="circle white"></span> [Randomizer](randomizer_menu.html)
+## <div class="section white"> [Randomizer](randomizer_menu.html)
 
 The Randomizer menu allows you to randomize the settings of your current mode. This can be a fun way to discover new combinations of patterns and colorsets.
+</div>
 
-## <span class="circle cyan"></span> [Mode Sharing](mode_sharing_menu.html)
+## <div class="section cyan"> [Mode Sharing](mode_sharing_menu.html)
 
 The Mode Sharing menu allows you to share your current mode with another Vortex Device. This is a great way to quickly and easily share your favorite modes with friends.
+</div>
 
-## <span class="circle purple"></span> [Editor Connection](editor_connection_menu.html)
+## <div class="section purple"> [Editor Connection](editor_connection_menu.html)
 
 The Editor Connection menu is used to connect your Vortex Device to the Vortex Editor. This allows you to program your device using the editor's user-friendly interface. Please note that this menu is not available on the Duo.
+</div>
 
-## <span class="circle green"></span> [Color Select](color_select_menu.html)
+## <div class="section green"> [Color Select](color_select_menu.html)
 
 The Color Select menu allows you to change the colorset of the current mode. This is a quick and easy way to customize the appearance of your modes.
+</div>
 
-## <span class="circle blue"></span> [Pattern Select](pattern_select_menu.html)
+## <div class="section blue"> [Pattern Select](pattern_select_menu.html)
 
 The Pattern Select menu allows you to change the pattern of the current mode. This allows you to customize the blinking speed or style of your modes.
+</div>
 
-## <span class="circle yellow"></span> [Global Brightness](global_brightness_menu.html)
+## <div class="section yellow"> [Global Brightness](global_brightness_menu.html)
 
 The Global Brightness menu allows you to adjust the overall brightness of your Vortex Device. This can be useful for saving battery life or adjusting the intensity of your light shows.
+</div>
 
-## <span class="circle red"></span> [Factory Reset](factory_reset_menu.html)
+## <div class="section red"> [Factory Reset](factory_reset_menu.html)
 
 The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This can be useful if you want to start fresh or if you're experiencing issues with your device.
-
+</div>
