@@ -74,13 +74,7 @@ Menu::MenuAction ColorSelect::run()
   }
 
   if (m_advanced) {
-    // usually you would need to call init again after changing arguments
-    // because you can't guarantee the pattern doesn't do any kind of logic
-    // in it's init function based on the params, however in this case we know
-    // that blend doesn't need to re-init after changing its flip count, we
-    // can just change it on the fly and it will flip accordingly -- so this
-    // is a bit of a hack and the proper approach would be to re-init the mode
-    // however if the mode is re-initialized then it would ruin the effect
+    // leave after several clicks
     if (g_pButton->onConsecutivePresses(LEAVE_ADV_COL_SELECT_CLICKS)) {
       return MENU_QUIT;
     }
@@ -131,13 +125,15 @@ void ColorSelect::onLedSelected()
 void ColorSelect::onShortClick()
 {
   if (m_advanced) {
-    Colorset set = m_previewMode.getColorset();
+    // grab one of the colorsets of the targeted leds
+    Colorset set = m_previewMode.getColorset(mapGetFirstLed(m_targetLeds));
+    // grab the first color convert it to hsv
     HSVColor col = set.get(1);
     col.hue += 15;
-    col.sat = 255;
-    col.val = 255;
+    // set the color again after adjusting
     set.set(1, col);
-    m_previewMode.setColorset(set);
+    // update the colorset
+    m_previewMode.setColorsetMap(m_targetLeds, set);
     return;
   }
   // increment selection
