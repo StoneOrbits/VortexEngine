@@ -29,7 +29,9 @@ ColorSelect::ColorSelect(const RGBColor &col, bool advanced) :
   // function uses a different algorithm to generate the colors that results
   // in a smaller color space with less bright colors. The tradeoff is you lose
   // the bright colors but the rainbow looks a lot better
-  g_hsv_rgb_alg = HSV_TO_RGB_RAINBOW;
+  if (!m_advanced) {
+    g_hsv_rgb_alg = HSV_TO_RGB_RAINBOW;
+  }
 }
 
 ColorSelect::~ColorSelect()
