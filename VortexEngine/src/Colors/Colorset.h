@@ -76,8 +76,11 @@ public:
   // randomize a colorset with a specific number of colors with
   // various different randomization techniques
   void randomize(Random &ctx, uint8_t numColors = 0);
-  void randomizeColorTheory(Random &ctx, uint8_t numColors = 0);
-  void randomizeMonochromatic(Random &ctx, uint8_t numColors = 0);
+  enum ColorMode {
+    THEORY,
+    MONOCHROMATIC
+  };
+  void randomizeColors(Random &ctx, uint8_t numColors, ColorMode mode);
 
   // these randomizers have a set amount of colors and don't take any arguments
   void randomizeDoubleSplitComplimentary(Random &ctx);

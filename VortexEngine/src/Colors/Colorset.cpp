@@ -232,16 +232,17 @@ void Colorset::randomize(Random &ctx, uint8_t numColors)
   }
 }
 
-// create a set according to the rules of color theory
-void Colorset::randomizeColorTheory(Random &ctx, uint8_t numColors)
+void Colorset::randomizeColors(Random &ctx, uint8_t numColors, ColorMode mode)
 {
   clear();
   if (!numColors) {
-    numColors = ctx.next8(1, 9);
+    numColors = ctx.next8(mode == MONOCHROMATIC ? 2 : 1, 9);
   }
   uint8_t randomizedHue = ctx.next8();
   uint8_t colorGap = 0;
-  if (numColors > 1) colorGap = ctx.next8(16, 256 / (numColors - 1));
+  if (mode == THEORY && numColors > 1) {
+    colorGap = ctx.next8(16, 256 / (numColors - 1));
+  }
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
   // the doubleStyle decides if some colors are added to the set twice
   uint8_t doubleStyle = 0;
@@ -252,38 +253,16 @@ void Colorset::randomizeColorTheory(Random &ctx, uint8_t numColors)
     doubleStyle = (ctx.next8(0, 2));
   }
   for (uint8_t i = 0; i < numColors; i++) {
-    uint8_t nextHue = (randomizedHue + (i * colorGap));
-    addColorWithValueStyle(ctx, nextHue, 255, valStyle, numColors, i);
-    // double all colors or only first color
-    if (doubleStyle == 2 || (doubleStyle == 1 && !i)) {
-      addColorWithValueStyle(ctx, nextHue, 255, valStyle, numColors, i);
+    uint8_t hueOrDecrement;
+    if (mode == THEORY) {
+      hueOrDecrement = (randomizedHue + (i * colorGap));
+    } else { // MONOCHROMATIC
+      hueOrDecrement = 255 - (i * (256 / numColors));
     }
-  }
-}
-
-// create a set of colors that share a single hue
-void Colorset::randomizeMonochromatic(Random &ctx, uint8_t numColors)
-{
-  clear();
-  if (!numColors) {
-    numColors = ctx.next8(2, 9);
-  }
-  uint8_t randomizedHue = ctx.next8();
-  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  // the doubleStyle decides if some colors are added to the set twice
-  uint8_t doubleStyle = 0;
-  if (numColors <= 7) {
-    doubleStyle = (ctx.next8(0, 1));
-  }
-  if (numColors <= 4) {
-    doubleStyle = (ctx.next8(0, 2));
-  }
-  for (uint8_t i = 0; i < numColors; i++) {
-    uint8_t decrement = 255 - (i * (256 / numColors));
-    addColorWithValueStyle(ctx, randomizedHue, decrement, valStyle, numColors, i);
+    addColorWithValueStyle(ctx, randomizedHue, hueOrDecrement, valStyle, numColors, i);
     // double all colors or only first color
     if (doubleStyle == 2 || (doubleStyle == 1 && !i)) {
-      addColorWithValueStyle(ctx, randomizedHue, decrement, valStyle, numColors, i);
+      addColorWithValueStyle(ctx, randomizedHue, hueOrDecrement, valStyle, numColors, i);
     }
   }
 }

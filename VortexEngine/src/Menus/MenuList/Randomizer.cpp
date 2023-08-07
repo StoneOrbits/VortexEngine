@@ -138,10 +138,10 @@ Colorset Randomizer::rollColorset(Random &ctx)
     randomSet.randomize(ctx);
     break;
   case 1:
-    randomSet.randomizeColorTheory(ctx);
+    randomSet.randomizeColors(ctx, 0, Colorset::ColorMode::THEORY);
     break;
   case 2:
-    randomSet.randomizeMonochromatic(ctx);
+    randomSet.randomizeColors(ctx, 0, Colorset::ColorMode::MONOCHROMATIC);
     break;
   case 3:
     randomSet.randomizeDoubleSplitComplimentary(ctx);
