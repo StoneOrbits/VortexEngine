@@ -57,7 +57,7 @@ bool ColorSelect::init()
   if (m_advanced) {
     // turn off force sleep while in this adv menu
     VortexEngine::toggleForceSleep(false);
-    m_previewMode.setPattern(PATTERN_BLEND);
+    m_previewMode.setColorset(Colorset(RGB_RED, RGB_RED));
     m_previewMode.init();
   }
   DEBUG_LOG("Entered color select");
@@ -72,7 +72,6 @@ Menu::MenuAction ColorSelect::run()
   }
 
   if (m_advanced) {
-    m_previewMode.setArg(6, g_pButton->isPressed() ? 2 : 1);
     // usually you would need to call init again after changing arguments
     // because you can't guarantee the pattern doesn't do any kind of logic
     // in it's init function based on the params, however in this case we know
@@ -129,6 +128,16 @@ void ColorSelect::onLedSelected()
 
 void ColorSelect::onShortClick()
 {
+  if (m_advanced) {
+    Colorset set = m_previewMode.getColorset();
+    HSVColor col = set.get(1);
+    col.hue += 15;
+    col.sat = 255;
+    col.val = 255;
+    set.set(1, col);
+    m_previewMode.setColorset(set);
+    return;
+  }
   // increment selection
   m_curSelection++;
   if (m_state == STATE_PICK_SLOT) {
@@ -141,6 +150,9 @@ void ColorSelect::onShortClick()
 void ColorSelect::onLongClick()
 {
   if (m_advanced) {
+    Colorset set = m_previewMode.getColorset();
+    set.set(0, set.get(1));
+    m_previewMode.setColorset(set);
     return;
   }
   // if we're on 'exit' and we're on any menu past the slot selection
