@@ -8,8 +8,8 @@ has_children: true
 
 <style>
 .section {
-    padding: 20px;
     margin: 20px 0;
+    border-top-right-radius: 15px;
 }
 
 .section h2 {
