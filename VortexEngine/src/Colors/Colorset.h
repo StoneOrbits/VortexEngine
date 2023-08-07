@@ -78,7 +78,8 @@ public:
   void randomize(Random &ctx, uint8_t numColors = 0);
   enum ColorMode {
     THEORY,
-    MONOCHROMATIC
+    MONOCHROMATIC,
+    EVENLY_SPACED
   };
   void randomizeColors(Random &ctx, uint8_t numColors, ColorMode mode);
 
@@ -86,16 +87,13 @@ public:
   void randomizeDoubleSplitComplimentary(Random &ctx);
   void randomizeTetradic(Random &ctx);
 
-  // randomize a colorset with N evenly spaced colors
-  void randomizeEvenlySpaced(Random &ctx, uint8_t spaces = 0);
-
   // wrappers for various spacings
-  void randomizeSolid(Random &ctx) { randomizeEvenlySpaced(ctx, 1); }
-  void randomizeComplimentary(Random &ctx) { randomizeEvenlySpaced(ctx, 2); }
-  void randomizeTriadic(Random &ctx) { randomizeEvenlySpaced(ctx, 3); }
-  void randomizeSquare(Random &ctx) { randomizeEvenlySpaced(ctx, 4); }
-  void randomizePentadic(Random &ctx) { randomizeEvenlySpaced(ctx, 5); }
-  void randomizeRainbow(Random &ctx) { randomizeEvenlySpaced(ctx, 8); }
+  void randomizeSolid(Random &ctx) { randomizeColors(ctx, 1, Colorset::ColorMode::EVENLY_SPACED); }
+  void randomizeComplimentary(Random &ctx) { randomizeColors(ctx, 2, Colorset::ColorMode::EVENLY_SPACED); }
+  void randomizeTriadic(Random &ctx) { randomizeColors(ctx, 3, Colorset::ColorMode::EVENLY_SPACED); }
+  void randomizeSquare(Random &ctx) { randomizeColors(ctx, 4, Colorset::ColorMode::EVENLY_SPACED); }
+  void randomizePentadic(Random &ctx) { randomizeColors(ctx, 5, Colorset::ColorMode::EVENLY_SPACED); }
+  void randomizeRainbow(Random &ctx) { randomizeColors(ctx, 8, Colorset::ColorMode::EVENLY_SPACED); }
 
   // fade all of the colors in the set
   void adjustBrightness(uint8_t fadeby);

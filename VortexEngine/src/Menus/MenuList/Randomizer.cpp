@@ -153,13 +153,13 @@ Colorset Randomizer::rollColorset(Random &ctx)
     randomSet.randomize(ctx, 1);
     break;
   case 6:
-    randomSet.randomizeEvenlySpaced(ctx);
+    randomSet.randomizeColors(ctx, 0, Colorset::ColorMode::EVENLY_SPACED);
     break;
   case 7:
-    randomSet.randomizeEvenlySpaced(ctx, 2);
+    randomSet.randomizeColors(ctx, 2, Colorset::ColorMode::EVENLY_SPACED);
     break;
   case 8:
-    randomSet.randomizeEvenlySpaced(ctx, 3);
+    randomSet.randomizeColors(ctx, 3, Colorset::ColorMode::EVENLY_SPACED);
     break;
   }
 
