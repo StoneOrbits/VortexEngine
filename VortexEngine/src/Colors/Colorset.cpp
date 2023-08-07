@@ -28,7 +28,7 @@ Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
   init(c1, c2, c3, c4, c5, c6, c7, c8);
 }
 
-Colorset::Colorset(uint8_t numCols, const uint32_t *cols) :
+Colorset::Colorset(uint8_t numCols, const uint32_t * cols) :
   Colorset()
 {
   if (numCols > MAX_COLOR_SLOTS) {
@@ -39,7 +39,7 @@ Colorset::Colorset(uint8_t numCols, const uint32_t *cols) :
   }
 }
 
-Colorset::Colorset(const Colorset &other) :
+Colorset::Colorset(const Colorset & other) :
   Colorset()
 {
   // invoke = operator
@@ -51,7 +51,7 @@ Colorset::~Colorset()
   clear();
 }
 
-Colorset::Colorset(Colorset &&other) noexcept :
+Colorset::Colorset(Colorset && other) noexcept :
   m_palette(other.m_palette),
   m_curIndex(INDEX_NONE),
   m_numColors(other.m_numColors)
@@ -61,7 +61,7 @@ Colorset::Colorset(Colorset &&other) noexcept :
   other.m_curIndex = INDEX_NONE;
 }
 
-void Colorset::operator=(const Colorset &other)
+void Colorset::operator=(const Colorset & other)
 {
   clear();
   initPalette(other.m_numColors);
@@ -71,14 +71,14 @@ void Colorset::operator=(const Colorset &other)
   resetIndex();
 }
 
-bool Colorset::operator==(const Colorset &other) const
+bool Colorset::operator==(const Colorset & other) const
 {
   // only compare the palettes for equality
   return (m_numColors == other.m_numColors) &&
-         (memcmp(m_palette, other.m_palette, m_numColors * sizeof(RGBColor)) == 0);
+    (memcmp(m_palette, other.m_palette, m_numColors * sizeof(RGBColor)) == 0);
 }
 
-bool Colorset::operator!=(const Colorset &other) const
+bool Colorset::operator!=(const Colorset & other) const
 {
   return !operator==(other);
 }
@@ -109,12 +109,12 @@ void Colorset::clear()
   resetIndex();
 }
 
-bool Colorset::equals(const Colorset &set) const
+bool Colorset::equals(const Colorset & set) const
 {
   return operator==(set);
 }
 
-bool Colorset::equals(const Colorset *set) const
+bool Colorset::equals(const Colorset * set) const
 {
   if (!set) {
     return false;
@@ -160,7 +160,7 @@ bool Colorset::addColorHSV(uint8_t hue, uint8_t sat, uint8_t val)
   return addColor(HSVColor(hue, sat, val));
 }
 
-void Colorset::addColorWithValueStyle(Random &ctx, uint8_t hue, uint8_t sat, ValueStyle valStyle, uint8_t numColors, uint8_t colorPos)
+void Colorset::addColorWithValueStyle(Random & ctx, uint8_t hue, uint8_t sat, ValueStyle valStyle, uint8_t numColors, uint8_t colorPos)
 {
   if (numColors == 1) {
     addColorHSV(hue, sat, ctx.next8(16, 255));
@@ -219,7 +219,7 @@ void Colorset::removeColor(uint8_t index)
 }
 
 // create a set of truely random colors
-void Colorset::randomize(Random &ctx, uint8_t numColors)
+void Colorset::randomize(Random & ctx, uint8_t numColors)
 {
   clear();
   if (!numColors) {
@@ -271,27 +271,42 @@ void Colorset::randomize(Random &ctx, uint8_t numColors)
 //  }
 //}
 
-void Colorset::randomizeColors(Random &ctx, uint8_t numColors, ColorMode mode)
+void Colorset::randomizeColors(Random & ctx, uint8_t numColors, ColorMode mode)
 {
   clear();
   if (!numColors) {
     numColors = ctx.next8(mode == MONOCHROMATIC ? 2 : 1, 9);
   }
   uint8_t randomizedHue = ctx.next8();
+  uint8_t colorGap = (mode == THEORY && numColors > 1) ? ctx.next8(16, 256 / (numColors - 1)) : 0;
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  uint8_t doubleStyle = (numColors <= 4) ? ctx.next8(0, 2) : (numColors <= 7) ? ctx.next8(0, 1) : 0;
+
+  uint8_t doubleStyle = 0;
+  if (numColors <= 4) {
+    doubleStyle = ctx.next8(0, 2);
+  } else if (numColors <= 7) {
+    doubleStyle = ctx.next8(0, 1);
+  }
 
   for (uint8_t i = 0; i < numColors; i++) {
-    uint8_t hueOrValue;
+    uint8_t hueToUse, valueToUse = 255;
     if (mode == THEORY) {
-      hueOrValue = randomizedHue + (i * (numColors > 1 ? ctx.next8(16, 256 / (numColors - 1)) : 0));
-      addColorWithValueStyle(ctx, hueOrValue, 255, valStyle, numColors, i);
-    } else {
-      hueOrValue = (mode == MONOCHROMATIC) ? 255 - (i * (256 / numColors)) : randomizedHue + (256 / numColors) * i;
-      addColorWithValueStyle(ctx, randomizedHue, hueOrValue, valStyle, numColors, i);
+      hueToUse = randomizedHue + (i * colorGap);
+    } else if (mode == MONOCHROMATIC) {
+      hueToUse = randomizedHue;
+      valueToUse = 255 - (i * (256 / numColors));
+    } else { // EVENLY_SPACED
+      hueToUse = randomizedHue + (256 / numColors) * i;
     }
+
+    // Determine the number of times to add the color
+    uint8_t repetitions = 1;
     if (doubleStyle == 2 || (doubleStyle == 1 && !i)) {
-      addColorWithValueStyle(ctx, randomizedHue, hueOrValue, valStyle, numColors, i);
+      repetitions = 2;
+    }
+
+    for (uint8_t j = 0; j < repetitions; j++) {
+      addColorWithValueStyle(ctx, hueToUse, valueToUse, valStyle, numColors, i);
     }
   }
 }
