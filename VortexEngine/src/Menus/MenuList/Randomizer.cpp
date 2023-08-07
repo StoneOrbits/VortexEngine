@@ -138,29 +138,28 @@ Colorset Randomizer::rollColorset(Random &ctx)
     randomSet.randomize(ctx);
     break;
   case 1:
-    randomSet.randomizeColorTheory(ctx);
+    randomSet.randomizeColors(ctx, 0, Colorset::ColorMode::THEORY);
     break;
   case 2:
-    // randomize color theory but monochromatic instead
-    randomSet.randomizeColorTheory(ctx, 0, true);
+    randomSet.randomizeColors(ctx, 0, Colorset::ColorMode::MONOCHROMATIC);
     break;
   case 3:
-    randomSet.randomizeDoubleSplitComplimentary(ctx);
+    randomSet.randomizeColors2(ctx, Colorset::ColorMode2::DOUBLE_SPLIT_COMPLIMENTARY);
     break;
   case 4:
-    randomSet.randomizeTetradic(ctx);
+    randomSet.randomizeColors2(ctx, Colorset::ColorMode2::TETRADIC);
     break;
   case 5:
     randomSet.randomize(ctx, 1);
     break;
   case 6:
-    randomSet.randomizeEvenlySpaced(ctx);
+    randomSet.randomizeColors(ctx, 0, Colorset::ColorMode::EVENLY_SPACED);
     break;
   case 7:
-    randomSet.randomizeEvenlySpaced(ctx, 2);
+    randomSet.randomizeColors(ctx, 2, Colorset::ColorMode::EVENLY_SPACED);
     break;
   case 8:
-    randomSet.randomizeEvenlySpaced(ctx, 3);
+    randomSet.randomizeColors(ctx, 3, Colorset::ColorMode::EVENLY_SPACED);
     break;
   }
 

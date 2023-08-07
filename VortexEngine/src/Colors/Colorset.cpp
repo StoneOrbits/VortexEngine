@@ -232,15 +232,15 @@ void Colorset::randomize(Random &ctx, uint8_t numColors)
   }
 }
 
-void Colorset::randomizeColorTheory(Random &ctx, uint8_t numColors, bool monochrome)
+void Colorset::randomizeColors(Random &ctx, uint8_t numColors, ColorMode mode)
 {
   clear();
   if (!numColors) {
-    numColors = ctx.next8(monochrome ? 2 : 1, 9);
+    numColors = ctx.next8(mode == MONOCHROMATIC ? 2 : 1, 9);
   }
   uint8_t randomizedHue = ctx.next8();
   uint8_t colorGap = 0;
-  if (!monochrome && numColors > 1) {
+  if (mode == THEORY && numColors > 1) {
     colorGap = ctx.next8(16, 256 / (numColors - 1));
   }
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
@@ -253,70 +253,43 @@ void Colorset::randomizeColorTheory(Random &ctx, uint8_t numColors, bool monochr
     doubleStyle = (ctx.next8(0, 2));
   }
   for (uint8_t i = 0; i < numColors; i++) {
-    uint8_t hueOrDecrement;
-    if (monochrome) {
-      hueOrDecrement = 255 - (i * (256 / numColors));
-    } else {
-      hueOrDecrement = (randomizedHue + (i * colorGap));
+    uint8_t hueToUse;
+    uint8_t valueToUse = 255;
+    if (mode == THEORY) {
+      hueToUse = (randomizedHue + (i * colorGap));
+    } else if (mode == MONOCHROMATIC) {
+      hueToUse = randomizedHue;
+      valueToUse = 255 - (i * (256 / numColors));
+    } else { // EVENLY_SPACED
+      hueToUse = (randomizedHue + (256 / numColors) * i);
     }
-    addColorWithValueStyle(ctx, randomizedHue, hueOrDecrement, valStyle, numColors, i);
+    addColorWithValueStyle(ctx, hueToUse, valueToUse, valStyle, numColors, i);
     // double all colors or only first color
     if (doubleStyle == 2 || (doubleStyle == 1 && !i)) {
-      addColorWithValueStyle(ctx, randomizedHue, hueOrDecrement, valStyle, numColors, i);
+      addColorWithValueStyle(ctx, hueToUse, valueToUse, valStyle, numColors, i);
     }
   }
 }
 
-// create a set of 5 colors with 2 pairs of opposing colors with the same spacing from the central color
-void Colorset::randomizeDoubleSplitComplimentary(Random &ctx)
+void Colorset::randomizeColors2(Random &ctx, ColorMode2 mode)
 {
   clear();
-  uint8_t rHue = ctx.next8();
-  uint8_t splitGap = ctx.next8(1, 64);
-  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  addColorWithValueStyle(ctx, (rHue + splitGap + 128), 255, valStyle, 5, 0);
-  addColorWithValueStyle(ctx, (rHue - splitGap), 255, valStyle, 5, 1);
-  addColorWithValueStyle(ctx, rHue, 255, valStyle, 5, 2);
-  addColorWithValueStyle(ctx, (rHue + splitGap), 255, valStyle, 5, 3);
-  addColorWithValueStyle(ctx, (rHue - splitGap + 128), 255, valStyle, 5, 4);
-}
-
-// create a set of 2 pairs of oposing colors
-void Colorset::randomizeTetradic(Random &ctx)
-{
-  clear();
-  uint8_t randomizedHue = ctx.next8();
-  uint8_t randomizedHue2 = ctx.next8();
-  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  addColorWithValueStyle(ctx, randomizedHue, 255, valStyle, 4, 0);
-  addColorWithValueStyle(ctx, randomizedHue2, 255, valStyle, 4, 1);
-  addColorWithValueStyle(ctx, (randomizedHue + 128), 255, valStyle, 4, 2);
-  addColorWithValueStyle(ctx, (randomizedHue2 + 128), 255, valStyle, 4, 3);
-}
-
-void Colorset::randomizeEvenlySpaced(Random &ctx, uint8_t spaces)
-{
-  clear();
-  if (!spaces) {
-    spaces = ctx.next8(1, 9);
-  }
-  uint8_t randomizedHue = ctx.next8();
-  ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
-  // the doubleStyle decides if some colors are added to the set twice
-  uint8_t doubleStyle = 0;
-  if (spaces <= 7) {
-    doubleStyle = (ctx.next8(0, 1));
-  }
-  if (spaces <= 4) {
-    doubleStyle = (ctx.next8(0, 2));
-  }
-  for (uint8_t i = 0; i < spaces; i++) {
-    uint8_t nextHue = (randomizedHue + (256 / spaces) * i);
-    addColorWithValueStyle(ctx, nextHue, 255, valStyle, spaces, i);
-    // double all colors or only first color
-    if (doubleStyle == 2 || (doubleStyle == 1 && !i)) {
-      addColorWithValueStyle(ctx, nextHue, 255, valStyle, spaces, i);
-    }
+  uint8_t primaryHue = ctx.next8();
+  if (mode == DOUBLE_SPLIT_COMPLIMENTARY) {
+    uint8_t splitGap = ctx.next8(1, 64);
+    ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+    addColorWithValueStyle(ctx, (primaryHue + splitGap + 128), 255, valStyle, 5, 0);
+    addColorWithValueStyle(ctx, (primaryHue - splitGap), 255, valStyle, 5, 1);
+    addColorWithValueStyle(ctx, primaryHue, 255, valStyle, 5, 2);
+    addColorWithValueStyle(ctx, (primaryHue + splitGap), 255, valStyle, 5, 3);
+    addColorWithValueStyle(ctx, (primaryHue - splitGap + 128), 255, valStyle, 5, 4);
+  } else if (mode == TETRADIC) {
+    uint8_t secondaryHue = ctx.next8();
+    ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
+    addColorWithValueStyle(ctx, primaryHue, 255, valStyle, 4, 0);
+    addColorWithValueStyle(ctx, secondaryHue, 255, valStyle, 4, 1);
+    addColorWithValueStyle(ctx, (primaryHue + 128), 255, valStyle, 4, 2);
+    addColorWithValueStyle(ctx, (secondaryHue + 128), 255, valStyle, 4, 3);
   }
 }
 
