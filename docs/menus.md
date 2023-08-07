@@ -11,13 +11,23 @@ has_children: true
     padding: 20px;
     margin: 20px 0;
 }
-.white  { background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent); }
-.cyan   { background: linear-gradient(to bottom, rgba(0, 255, 255, 0.3), transparent); }
-.purple { background: linear-gradient(to bottom, rgba(128, 0, 128, 0.3), transparent); }
-.green  { background: linear-gradient(to bottom, rgba(0, 128, 0, 0.3), transparent); }
-.blue   { background: linear-gradient(to bottom, rgba(0, 0, 255, 0.3), transparent); }
-.yellow { background: linear-gradient(to bottom, rgba(255, 255, 0, 0.3), transparent); }
-.red    { background: linear-gradient(to bottom, rgba(255, 0, 0, 0.3), transparent); }
+
+.section h2 {
+    margin-top: 0;
+}
+
+.white  { color: rgba(255, 255, 255, 0.6); }
+.cyan   { color: rgba(0, 255, 255, 0.6); }
+.purple { color: rgba(128, 0, 128, 0.6); }
+.green  { color: rgba(0, 128, 0, 0.6); }
+.blue   { color: rgba(0, 0, 255, 0.6); }
+.yellow { color: rgba(255, 255, 0, 0.6); }
+.red    { color: rgba(255, 0, 0, 0.6); }
+
+.content {
+    padding: 10px;
+    background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+}
 </style>
 
 # Menus
@@ -26,52 +36,79 @@ Each of these menus serves a specific purpose and allows you to customize your V
 
 Here's a brief overview of what each menu does:
 
+<div class="section white">
 {% capture section %}
 ## [Randomizer](randomizer_menu.html)
-The Randomizer menu allows you to randomize the settings of your current mode. This can be a fun way to discover new combinations of patterns and colorsets.
 {% endcapture %}
-{% assign content = section | markdownify %}
-<div class="section white">{{ content }}</div>
+{% assign title = section | markdownify %}
+{{ title }}
+<div class="content">
+The Randomizer menu allows you to randomize the settings of your current mode. This can be a fun way to discover new combinations of patterns and colorsets.
+</div>
+</div>
 
+<div class="section cyan">
 {% capture section %}
 ## [Mode Sharing](mode_sharing_menu.html)
-The Mode Sharing menu allows you to share your current mode with another Vortex Device. This is a great way to quickly and easily share your favorite modes with friends.
 {% endcapture %}
-{% assign content = section | markdownify %}
-<div class="section cyan">{{ content }}</div>
+{% assign title = section | markdownify %}
+{{ title }}
+<div class="content">
+The Mode Sharing menu allows you to share your current mode with another Vortex Device. This is a great way to quickly and easily share your favorite modes with friends.
+</div>
+</div>
 
+<div class="section purple">
 {% capture section %}
 ## [Editor Connection](editor_connection_menu.html)
-The Editor Connection menu is used to connect your Vortex Device to the Vortex Editor. This allows you to program your device using the editor's user-friendly interface. Please note that this menu is not available on the Duo.
 {% endcapture %}
-{% assign content = section | markdownify %}
-<div class="section purple">{{ content }}</div>
+{% assign title = section | markdownify %}
+{{ title }}
+<div class="content">
+The Editor Connection menu is used to connect your Vortex Device to the Vortex Editor. This allows you to program your device using the editor's user-friendly interface. Please note that this menu is not available on the Duo.
+</div>
+</div>
 
+<div class="section green">
 {% capture section %}
 ## [Color Select](color_select_menu.html)
-The Color Select menu allows you to change the colorset of the current mode. This is a quick and easy way to customize the appearance of your modes.
 {% endcapture %}
-{% assign content = section | markdownify %}
-<div class="section green">{{ content }}</div>
+{% assign title = section | markdownify %}
+{{ title }}
+<div class="content">
+The Color Select menu allows you to change the colorset of the current mode. This is a quick and easy way to customize the appearance of your modes.
+</div>
+</div>
 
+<div class="section blue">
 {% capture section %}
 ## [Pattern Select](pattern_select_menu.html)
-The Pattern Select menu allows you to change the pattern of the current mode. This allows you to customize the blinking speed or style of your modes.
 {% endcapture %}
-{% assign content = section | markdownify %}
-<div class="section blue">{{ content }}</div>
+{% assign title = section | markdownify %}
+{{ title }}
+<div class="content">
+The Pattern Select menu allows you to change the pattern of the current mode. This allows you to customize the blinking speed or style of your modes.
+</div>
+</div>
 
+<div class="section yellow">
 {% capture section %}
 ## [Global Brightness](global_brightness_menu.html)
-The Global Brightness menu allows you to adjust the overall brightness of your Vortex Device. This can be useful for saving battery life or adjusting the intensity of your light shows.
 {% endcapture %}
-{% assign content = section | markdownify %}
-<div class="section yellow">{{ content }}</div>
+{% assign title = section | markdownify %}
+{{ title }}
+<div class="content">
+The Global Brightness menu allows you to adjust the overall brightness of your Vortex Device. This can be useful for saving battery life or adjusting the intensity of your light shows.
+</div>
+</div>
 
+<div class="section red">
 {% capture section %}
 ## [Factory Reset](factory_reset_menu.html)
-The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This can be useful if you want to start fresh or if you're experiencing issues with your device.
 {% endcapture %}
-{% assign content = section | markdownify %}
-<div class="section red">{{ content }}</div>
-
+{% assign title = section | markdownify %}
+{{ title }}
+<div class="content">
+The Factory Reset menu allows you to reset your Vortex Device to its factory settings. This can be useful if you want to start fresh or if you're experiencing issues with your device.
+</div>
+</div>
