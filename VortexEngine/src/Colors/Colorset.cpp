@@ -28,7 +28,7 @@ Colorset::Colorset(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
   init(c1, c2, c3, c4, c5, c6, c7, c8);
 }
 
-Colorset::Colorset(uint8_t numCols, const uint32_t * cols) :
+Colorset::Colorset(uint8_t numCols, const uint32_t *cols) :
   Colorset()
 {
   if (numCols > MAX_COLOR_SLOTS) {
@@ -39,7 +39,7 @@ Colorset::Colorset(uint8_t numCols, const uint32_t * cols) :
   }
 }
 
-Colorset::Colorset(const Colorset & other) :
+Colorset::Colorset(const Colorset &other) :
   Colorset()
 {
   // invoke = operator
@@ -51,7 +51,7 @@ Colorset::~Colorset()
   clear();
 }
 
-Colorset::Colorset(Colorset && other) noexcept :
+Colorset::Colorset(Colorset &&other) noexcept :
   m_palette(other.m_palette),
   m_curIndex(INDEX_NONE),
   m_numColors(other.m_numColors)
@@ -61,7 +61,7 @@ Colorset::Colorset(Colorset && other) noexcept :
   other.m_curIndex = INDEX_NONE;
 }
 
-void Colorset::operator=(const Colorset & other)
+void Colorset::operator=(const Colorset &other)
 {
   clear();
   initPalette(other.m_numColors);
@@ -71,14 +71,14 @@ void Colorset::operator=(const Colorset & other)
   resetIndex();
 }
 
-bool Colorset::operator==(const Colorset & other) const
+bool Colorset::operator==(const Colorset &other) const
 {
   // only compare the palettes for equality
   return (m_numColors == other.m_numColors) &&
     (memcmp(m_palette, other.m_palette, m_numColors * sizeof(RGBColor)) == 0);
 }
 
-bool Colorset::operator!=(const Colorset & other) const
+bool Colorset::operator!=(const Colorset &other) const
 {
   return !operator==(other);
 }
@@ -109,12 +109,12 @@ void Colorset::clear()
   resetIndex();
 }
 
-bool Colorset::equals(const Colorset & set) const
+bool Colorset::equals(const Colorset &set) const
 {
   return operator==(set);
 }
 
-bool Colorset::equals(const Colorset * set) const
+bool Colorset::equals(const Colorset *set) const
 {
   if (!set) {
     return false;
@@ -160,7 +160,7 @@ bool Colorset::addColorHSV(uint8_t hue, uint8_t sat, uint8_t val)
   return addColor(HSVColor(hue, sat, val));
 }
 
-void Colorset::addColorWithValueStyle(Random & ctx, uint8_t hue, uint8_t sat, ValueStyle valStyle, uint8_t numColors, uint8_t colorPos)
+void Colorset::addColorWithValueStyle(Random &ctx, uint8_t hue, uint8_t sat, ValueStyle valStyle, uint8_t numColors, uint8_t colorPos)
 {
   if (numColors == 1) {
     addColorHSV(hue, sat, ctx.next8(16, 255));
