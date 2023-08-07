@@ -9,7 +9,6 @@ has_children: true
 <style>
 .section {
     margin: 20px 0;
-    border-top-right-radius: 15px;
 }
 
 .section h2 {
@@ -27,6 +26,7 @@ has_children: true
 .content {
     padding: 10px;
     background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent);
+    border-top-right-radius: 10px;
 }
 .white .content  { background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent); }
 .cyan .content   { background: linear-gradient(to bottom, rgba(0, 255, 255, 0.3), transparent); }
