@@ -10,16 +10,15 @@ has_children: true
 .section {
     padding: 10px 0;
     margin: 10px 0;
-    border-radius: 5px;
+    border-radius: 3px;
 }
-
-.white  { background: linear-gradient(to right, #0f0f0f, transparent); }
-.cyan   { background: linear-gradient(to right, #000f0f, transparent); }
-.purple { background: linear-gradient(to right, #080008, transparent); }
-.green  { background: linear-gradient(to right, #000800, transparent); }
-.blue   { background: linear-gradient(to right, #0000f0, transparent); }
-.yellow { background: linear-gradient(to right, #0f0f00, transparent); }
-.red    { background: linear-gradient(to right, #0f0000, transparent); }
+.white  { background: linear-gradient(to bottom, rgba(255, 255, 255, 0.3), transparent); }
+.cyan   { background: linear-gradient(to bottom, rgba(0, 255, 255, 0.3), transparent); }
+.purple { background: linear-gradient(to bottom, rgba(128, 0, 128, 0.3), transparent); }
+.green  { background: linear-gradient(to bottom, rgba(0, 128, 0, 0.3), transparent); }
+.blue   { background: linear-gradient(to bottom, rgba(0, 0, 255, 0.3), transparent); }
+.yellow { background: linear-gradient(to bottom, rgba(255, 255, 0, 0.3), transparent); }
+.red    { background: linear-gradient(to bottom, rgba(255, 0, 0, 0.3), transparent); }
 </style>
 
 # Menus
@@ -32,36 +31,30 @@ Here's a brief overview of what each menu does:
 ## [Randomizer](randomizer_menu.html)
 The Randomizer menu allows you to randomize the settings of your current mode. This can be a fun way to discover new combinations of patterns and colorsets.
 </div>
-
 <div class="section cyan"> 
 ## [Mode Sharing](mode_sharing_menu.html)
 The Mode Sharing menu allows you to share your current mode with another Vortex Device. This is a great way to quickly and easily share your favorite modes with friends.
 </div>
-
 <div class="section purple"> 
 ## [Editor Connection](editor_connection_menu.html)
 
 The Editor Connection menu is used to connect your Vortex Device to the Vortex Editor. This allows you to program your device using the editor's user-friendly interface. Please note that this menu is not available on the Duo.
 </div>
-
 <div class="section green"> 
 ## [Color Select](color_select_menu.html)
 
 The Color Select menu allows you to change the colorset of the current mode. This is a quick and easy way to customize the appearance of your modes.
 </div>
-
 <div class="section blue"> 
 ## [Pattern Select](pattern_select_menu.html)
 
 The Pattern Select menu allows you to change the pattern of the current mode. This allows you to customize the blinking speed or style of your modes.
 </div>
-
 <div class="section yellow"> 
 ## [Global Brightness](global_brightness_menu.html)
 
 The Global Brightness menu allows you to adjust the overall brightness of your Vortex Device. This can be useful for saving battery life or adjusting the intensity of your light shows.
 </div>
-
 <div class="section red"> 
 ## [Factory Reset](factory_reset_menu.html)
 
