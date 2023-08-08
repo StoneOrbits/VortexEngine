@@ -104,10 +104,11 @@ void FactoryReset::onLongClick()
     // re-initialize the current mode
     cur->init();
   } else {
-    Modes::setDefaults();
-    Modes::resetFlags();
     Leds::setBrightness(DEFAULT_BRIGHTNESS);
     VortexEngine::setAutoCycle(false);
+    Modes::setDefaults();
+    Modes::setCurMode(0);
+    Modes::resetFlags();
   }
   leaveMenu(true);
 }
