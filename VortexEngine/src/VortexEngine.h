@@ -46,6 +46,8 @@ public:
 
   // toggle force sleep from working
   static void toggleForceSleep(bool enabled) { m_forceSleepEnabled = enabled; }
+  // toggle auto cycle enabled
+  static void setAutoCycle(bool enabled) { m_autoCycle = enabled; }
 
 #ifdef VORTEX_EMBEDDED
   // clear output pins
