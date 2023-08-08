@@ -1,5 +1,7 @@
 #include "FactoryReset.h"
 
+#include "../../VortexEngine.h"
+#include "../../Modes/DefaultModes.h"
 #include "../../Time/TimeControl.h"
 #include "../../Time/Timings.h"
 #include "../../Colors/Colorset.h"
@@ -116,6 +118,8 @@ void FactoryReset::onLongClick()
   } else {
     Modes::setDefaults();
     Modes::resetFlags();
+    Leds::setBrightness(DEFAULT_BRIGHTNESS);
+    VortexEngine::setAutoCycle(false);
   }
   leaveMenu(true);
 }
