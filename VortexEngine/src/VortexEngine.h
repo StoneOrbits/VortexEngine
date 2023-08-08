@@ -44,6 +44,9 @@ public:
   static void enterSleep(bool save = true);
   static void wakeup(bool reset = true);
 
+  // toggle auto cycle enabled
+  static void setAutoCycle(bool enabled) { m_autoCycle = enabled; }
+
 private:
   // bool in vortexlib to simulate sleeping
   static volatile bool m_sleeping;
