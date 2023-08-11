@@ -16,6 +16,9 @@
 
 // allow the number of brightness options to be adjusted dynamically
 #define NUM_BRIGHTNESS_OPTIONS (sizeof(m_brightnessOptions) / sizeof(m_brightnessOptions[0]))
+#define NUM_SPEED_OPTIONS 4
+
+#define NUM_OPTIONS (NUM_BRIGHTNESS_OPTIONS + NUM_SPEED_OPTIONS)
 
 GlobalBrightness::GlobalBrightness(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
@@ -83,7 +86,7 @@ void GlobalBrightness::onShortClick()
     return;
   }
   // include one extra option for the exit slot
-  m_curSelection = (m_curSelection + 1) % (NUM_BRIGHTNESS_OPTIONS + 1);
+  m_curSelection = (m_curSelection + 1) % (NUM_OPTIONS + 1);
 }
 
 void GlobalBrightness::onLongClick()
@@ -91,24 +94,36 @@ void GlobalBrightness::onLongClick()
   if (m_advanced) {
     return;
   }
-  if (m_curSelection >= NUM_BRIGHTNESS_OPTIONS) {
+  if (m_curSelection >= NUM_OPTIONS) {
     // no save exit
     leaveMenu();
     return;
   }
-  // set the global brightness
-  Leds::setBrightness(m_brightnessOptions[m_curSelection]);
+  if (m_curSelection < NUM_BRIGHTNESS_OPTIONS) {
+    // set the global brightness
+    Leds::setBrightness(m_brightnessOptions[m_curSelection]);
+  } else {
+    VortexEngine::setAutoCycleMultiplier(m_curSelection - NUM_BRIGHTNESS_OPTIONS);
+  }
   // done here, save settings with new brightness
   leaveMenu(true);
 }
 
 void GlobalBrightness::showBrightnessSelection()
 {
-  if (m_curSelection >= NUM_BRIGHTNESS_OPTIONS) {
+  if (m_curSelection >= NUM_OPTIONS) {
     showExit();
     return;
   }
-  Leds::setAll(HSVColor(38, 255, m_brightnessOptions[m_curSelection]));
+  uint8_t col = 255;
+  if (m_curSelection < NUM_BRIGHTNESS_OPTIONS) {
+    col = m_brightnessOptions[m_curSelection];
+  }
+  Leds::setAll(HSVColor(38, 255, col));
+  if (m_curSelection >= NUM_BRIGHTNESS_OPTIONS) {
+    // this sucks
+    Leds::blinkAll(60, m_curSelection * 100);
+  }
 }
 
 // ==================== KEYCHAIN_MODE STUFF ====================

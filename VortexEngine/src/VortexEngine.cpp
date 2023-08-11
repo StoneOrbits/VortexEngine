@@ -32,6 +32,7 @@ bool VortexEngine::m_forceSleepEnabled = true;
 
 // auto cycling
 bool VortexEngine::m_autoCycle = false;
+uint8_t VortexEngine::m_autoCycleMult = 1;
 
 bool VortexEngine::init()
 {
@@ -309,7 +310,7 @@ void VortexEngine::runMainLogic()
   }
 
   // if auto cycle is enabled and the last switch was more than the delay ago
-  if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < now)) {
+  if (m_autoCycle && (Modes::lastSwitchTime() + (AUTO_RANDOM_DELAY * m_autoCycleMult) < now)) {
     // then switch to the next mode automatically
     Modes::nextModeSkipEmpty();
   }

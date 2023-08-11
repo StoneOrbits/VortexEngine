@@ -2,6 +2,7 @@
 
 #include "../../Memory/Memory.h"
 
+#include "../../VortexEngine.h"
 #include "../../Patterns/PatternBuilder.h"
 #include "../../Patterns/Pattern.h"
 #include "../../Colors/Colorset.h"
@@ -71,7 +72,7 @@ Menu::MenuAction Randomizer::run()
     return MENU_CONTINUE;
   }
   uint32_t now = Time::getCurtime();
-  if (m_autoCycle && (m_lastRandomization + AUTO_RANDOM_DELAY_TICKS < now)) {
+  if (m_autoCycle && (m_lastRandomization + (AUTO_RANDOM_DELAY_TICKS * VortexEngine::autoCycleMultiplier()) < now)) {
     m_lastRandomization = now;
     reRoll();
   }

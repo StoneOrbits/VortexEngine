@@ -49,6 +49,9 @@ public:
   // toggle auto cycle enabled
   static void setAutoCycle(bool enabled) { m_autoCycle = enabled; }
 
+  static uint8_t autoCycleMultiplier() { return m_autoCycleMult; }
+  static void setAutoCycleMultiplier(uint8_t multi) { m_autoCycleMult = multi; }
+
 #ifdef VORTEX_EMBEDDED
   // clear output pins
   static void clearOutputPins();
@@ -63,6 +66,7 @@ private:
 
   // whether auto cycle modes is turned on
   static bool m_autoCycle;
+  static uint8_t m_autoCycleMult;
 
 #if COMPRESSION_TEST == 1
   static void compressionTest();
