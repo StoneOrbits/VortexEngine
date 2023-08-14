@@ -25,6 +25,8 @@
 #include "VortexLib.h"
 #endif
 
+#include "Colors/Colorset.h"
+
 // bool in vortexlib to simulate sleeping
 volatile bool VortexEngine::m_sleeping = false;
 // whether the 'force sleep' option is available (hold down for long time)
@@ -73,6 +75,10 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
+
+  Colorset set(RGB_WHITE, RGB_RED, RGB_YELLOW);
+  Modes::curMode()->setPattern(PATTERN_BLEND);
+  Modes::curMode()->setColorset(set, LED_ALL);
 
 #if COMPRESSION_TEST == 1
   compressionTest();

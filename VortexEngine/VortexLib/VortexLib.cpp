@@ -520,6 +520,19 @@ bool Vortex::getModes(ByteStream &outStream)
   return true;
 }
 
+bool Vortex::getCurMode(ByteStream &outStream)
+{
+  if (!Modes::curMode()) {
+    return false;
+  }
+  // save to ensure we get the correct mode, not using doSave() because it causes
+  // an undo buffer entry to be added
+  if (!Modes::saveStorage()) {
+    return false;
+  }
+  return Modes::curMode()->saveToBuffer(outStream);
+}
+
 bool Vortex::setModes(ByteStream &stream, bool save)
 {
   // now unserialize the stream of data that was read
@@ -530,18 +543,16 @@ bool Vortex::setModes(ByteStream &stream, bool save)
   return !save || doSave();
 }
 
-bool Vortex::getCurMode(ByteStream &outStream)
+bool Vortex::setCurMode(ByteStream &stream, bool save)
 {
   Mode *pMode = Modes::curMode();
   if (!pMode) {
     return false;
   }
-  // save to ensure we get the correct mode, not using doSave() because it causes
-  // an undo buffer entry to be added
-  if (!Modes::saveStorage()) {
+  if (!Modes::curMode()->loadFromBuffer(stream)) {
     return false;
   }
-  return Modes::curMode()->saveToBuffer(outStream);
+  return !save || doSave();
 }
 
 uint32_t Vortex::curModeIndex()

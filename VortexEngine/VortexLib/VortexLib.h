@@ -155,10 +155,13 @@ public:
   static void openModeSharing();
   static void openEditorConnection();
 
-  // convert modes to/from a bytestream
+  // get modes from the engine
   static bool getModes(ByteStream &outStream);
-  static bool setModes(ByteStream &stream, bool save = true);
   static bool getCurMode(ByteStream &stream);
+
+  // set modes in the engine
+  static bool setModes(ByteStream &stream, bool save = true);
+  static bool setCurMode(ByteStream &stream, bool save = true);
 
   // functions to operate on the current mode selection
   static uint32_t curModeIndex();
