@@ -99,7 +99,7 @@ void BlendPattern::transitionValue(uint8_t &current, const uint8_t next, bool hu
   // otherwise we may overshoot then oscillate around the target
   if (diff > m_blendSpeed) {
     // a blend speed of 0 will be standard speed
-    step += m_blendSpeed;
+    step += (m_blendSpeed * step);
   }
   // step the value forward
   current += step;
