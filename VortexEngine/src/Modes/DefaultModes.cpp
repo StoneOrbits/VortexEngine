@@ -83,7 +83,7 @@ const DefaultModeEntry defaultModes[] = {
   {
     {
       {
-        PATTERN_DOUBLEDOPS, 8, {
+        PATTERN_PICOSTROBE, 8, {
           0xFFC600,
           0x235500,
           0x00FF66,
@@ -95,7 +95,7 @@ const DefaultModeEntry defaultModes[] = {
         }
       },
       {
-        PATTERN_DOUBLEDOPS, 8, {
+        PATTERN_PICOSTROBE, 8, {
           0xFFC600,
           0x235500,
           0x00FF66,
