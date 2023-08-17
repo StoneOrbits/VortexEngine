@@ -150,7 +150,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_ULTRADASH: return PatternArgs(ULTRADOPS_ON_DURATION, ULTRADOPS_OFF_DURATION, ULTRADOPS_OFF_DURATION, 14);
     case PATTERN_GAPCYCLE: return PatternArgs(STROBIE_ON_DURATION, STROBE_OFF_DURATION, 12, 25, 2);
     case PATTERN_DASHCYCLE: return PatternArgs(ULTRADOPS_ON_DURATION, ULTRADOPS_OFF_DURATION, ULTRADOPS_OFF_DURATION, 30, 2);
-    case PATTERN_TRACER: return PatternArgs(ULTRADOPS_ON_DURATION, 0, 0, 20, 1);
+    case PATTERN_TRACER: return PatternArgs(3, 0, 0, 20, 1);
     case PATTERN_RIBBON: return PatternArgs(RIBBON_DURATION);
     case PATTERN_MINIRIBBON: return PatternArgs(1);
     case PATTERN_BLEND: return PatternArgs(BLEND_ON_DURATION, BLEND_OFF_DURATION, 0, 0, 0, 2, 1);
