@@ -13,7 +13,7 @@ HueShiftPattern::HueShiftPattern(const PatternArgs &args) :
   m_cur(0),
   m_next(0)
 {
-  m_patternID = PATTERN_HUESHIFT;
+  m_patternID = PATTERN_HUE_SCROLL;
   REGISTER_ARG(m_blinkOnDuration);
   REGISTER_ARG(m_blinkOffDuration);
   setArgs(args);
