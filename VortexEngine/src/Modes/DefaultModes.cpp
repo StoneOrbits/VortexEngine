@@ -26,17 +26,17 @@ const DefaultModeEntry defaultModes[] = {
   {
     {
       {
-        PATTERN_COMPLEMENTARY_BLEND, 3, {
+        PATTERN_COMP_BLEND, 3, {
           RGB_RED,
-          RGB_GREEN,
-          RGB_BLUE,
+          RGB_YELLOW,
+          RGB_WHITE,
         }
       },
       {
         PATTERN_BLEND, 3, {
           RGB_RED,
-          RGB_GREEN,
-          RGB_BLUE,
+          RGB_YELLOW,
+          RGB_WHITE
         }
       }
     }
@@ -58,7 +58,7 @@ const DefaultModeEntry defaultModes[] = {
   {
     {
       {
-        PATTERN_COMPLEMENTARY_BLENDSTROBEGAP, 6, {
+        PATTERN_COMP_HSHIFT_STROBEGAP, 6, {
           RGB_RED5,
           RGB_YELLOW5,
           RGB_RED5,
@@ -68,7 +68,7 @@ const DefaultModeEntry defaultModes[] = {
         }
       },
       {
-        PATTERN_COMPLEMENTARY_BLENDSTROBEGAP, 6, {
+        PATTERN_COMP_HSHIFT_STROBEGAP, 6, {
           RGB_RED5,
           RGB_YELLOW5,
           RGB_RED5,

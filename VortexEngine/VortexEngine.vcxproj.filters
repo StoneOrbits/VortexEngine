@@ -231,7 +231,7 @@
     <ClCompile Include="src\Patterns\Multi\FillPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\HueShiftPattern.cpp">
+    <ClCompile Include="src\Patterns\Multi\HueScrollPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Multi\CompoundPattern.cpp">
@@ -276,7 +276,7 @@
     <ClCompile Include="src\Patterns\Single\BasicPattern.cpp">
       <Filter>Source Files\Patterns\Single</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Single\BlendPattern.cpp">
+    <ClCompile Include="src\Patterns\Single\HueShiftPattern.cpp">
       <Filter>Source Files\Patterns\Single</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Single\SingleLedPattern.cpp">
@@ -328,6 +328,9 @@
       <Filter>Source Files</Filter>
     </ClCompile>
     <ClCompile Include="src\Wireless\VLSender.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
+    <ClCompile Include="src\Patterns\Single\BlendPattern.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
@@ -443,7 +446,7 @@
     <ClInclude Include="src\Patterns\Multi\FillPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\HueShiftPattern.h">
+    <ClInclude Include="src\Patterns\Multi\HueScrollPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Multi\CompoundPattern.h">
@@ -488,7 +491,7 @@
     <ClInclude Include="src\Patterns\Single\BasicPattern.h">
       <Filter>Header Files\Patterns\Single</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Single\BlendPattern.h">
+    <ClInclude Include="src\Patterns\Single\HueShiftPattern.h">
       <Filter>Header Files\Patterns\Single</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Single\SingleLedPattern.h">
@@ -552,6 +555,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Colors\ColorConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\Patterns\Single\BlendPattern.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

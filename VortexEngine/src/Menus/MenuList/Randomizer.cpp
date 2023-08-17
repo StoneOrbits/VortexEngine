@@ -201,7 +201,7 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
   // 1/3 chance to roll a blend pattern instead which will animate between
   // colors instead of blinking each color in the set
   if (!ctx.next8(0, 3)) {
-    newPat = PATTERN_BLEND;
+    newPat = PATTERN_HUE_SHIFT;
     // this is the number of blinks to a complementary color
     args.arg7 = ctx.next8(0, 3);
   }

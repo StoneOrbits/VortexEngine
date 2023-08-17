@@ -149,6 +149,7 @@
     <ClCompile Include="src\Buttons\Buttons.cpp" />
     <ClCompile Include="src\Colors\Colorset.cpp" />
     <ClCompile Include="src\Colors\ColorTypes.cpp" />
+    <ClCompile Include="src\Patterns\Single\BlendPattern.cpp" />
     <ClCompile Include="src\Wireless\IRReceiver.cpp" />
     <ClCompile Include="src\Wireless\IRSender.cpp" />
     <ClCompile Include="src\Leds\Leds.cpp" />
@@ -176,7 +177,7 @@
     <ClCompile Include="src\Patterns\Multi\DripMorphPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\DripPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\FillPattern.cpp" />
-    <ClCompile Include="src\Patterns\Multi\HueShiftPattern.cpp" />
+    <ClCompile Include="src\Patterns\Multi\HueScrollPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\CompoundPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\LighthousePattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\MateriaPattern.cpp" />
@@ -197,7 +198,7 @@
     <ClCompile Include="src\Patterns\PatternArgs.cpp" />
     <ClCompile Include="src\Patterns\PatternBuilder.cpp" />
     <ClCompile Include="src\Patterns\Single\BasicPattern.cpp" />
-    <ClCompile Include="src\Patterns\Single\BlendPattern.cpp" />
+    <ClCompile Include="src\Patterns\Single\HueShiftPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\SingleLedPattern.cpp" />
     <ClCompile Include="src\Patterns\Single\SolidPattern.cpp" />
     <ClCompile Include="src\Random\Random.cpp" />
@@ -219,6 +220,7 @@
     <ClInclude Include="src\Colors\ColorConstants.h" />
     <ClInclude Include="src\Colors\Colorset.h" />
     <ClInclude Include="src\Colors\ColorTypes.h" />
+    <ClInclude Include="src\Patterns\Single\BlendPattern.h" />
     <ClInclude Include="src\Wireless\IRConfig.h" />
     <ClInclude Include="src\Wireless\IRReceiver.h" />
     <ClInclude Include="src\Wireless\IRSender.h" />
@@ -248,7 +250,7 @@
     <ClInclude Include="src\Patterns\Multi\DripMorphPattern.h" />
     <ClInclude Include="src\Patterns\Multi\DripPattern.h" />
     <ClInclude Include="src\Patterns\Multi\FillPattern.h" />
-    <ClInclude Include="src\Patterns\Multi\HueShiftPattern.h" />
+    <ClInclude Include="src\Patterns\Multi\HueScrollPattern.h" />
     <ClInclude Include="src\Patterns\Multi\CompoundPattern.h" />
     <ClInclude Include="src\Patterns\Multi\LighthousePattern.h" />
     <ClInclude Include="src\Patterns\Multi\MateriaPattern.h" />
@@ -270,7 +272,7 @@
     <ClInclude Include="src\Patterns\PatternBuilder.h" />
     <ClInclude Include="src\Patterns\Patterns.h" />
     <ClInclude Include="src\Patterns\Single\BasicPattern.h" />
-    <ClInclude Include="src\Patterns\Single\BlendPattern.h" />
+    <ClInclude Include="src\Patterns\Single\HueShiftPattern.h" />
     <ClInclude Include="src\Patterns\Single\SingleLedPattern.h" />
     <ClInclude Include="src\Patterns\Single\SolidPattern.h" />
     <ClInclude Include="src\Random\Random.h" />

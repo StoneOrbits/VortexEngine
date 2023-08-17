@@ -1,11 +1,11 @@
-#include "HueShiftPattern.h"
+#include "HueScrollPattern.h"
 
 #include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-HueShiftPattern::HueShiftPattern(const PatternArgs &args) :
+HueScrollPattern::HueScrollPattern(const PatternArgs &args) :
   MultiLedPattern(args),
   m_blinkOnDuration(0),
   m_blinkOffDuration(0),
@@ -13,18 +13,18 @@ HueShiftPattern::HueShiftPattern(const PatternArgs &args) :
   m_cur(0),
   m_next(0)
 {
-  m_patternID = PATTERN_HUESHIFT;
+  m_patternID = PATTERN_HUESCROLL;
   REGISTER_ARG(m_blinkOnDuration);
   REGISTER_ARG(m_blinkOffDuration);
   setArgs(args);
 }
 
-HueShiftPattern::~HueShiftPattern()
+HueScrollPattern::~HueScrollPattern()
 {
 }
 
 // init the pattern to initial state
-void HueShiftPattern::init()
+void HueScrollPattern::init()
 {
   MultiLedPattern::init();
   m_cur = m_colorset.getNext();
@@ -39,7 +39,7 @@ void HueShiftPattern::init()
 }
 
 // pure virtual must override the play function
-void HueShiftPattern::play()
+void HueScrollPattern::play()
 {
   switch (m_blinkTimer.alarm()) {
   case 0: // turn on the leds for given mapping

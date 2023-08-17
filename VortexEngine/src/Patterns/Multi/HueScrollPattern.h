@@ -1,16 +1,16 @@
-#ifndef HUE_SHIFT_PATTERN_H
-#define HUE_SHIFT_PATTERN_H
+#ifndef HUE_SCROLL_PATTERN_H
+#define HUE_SCROLL_PATTERN_H
 
 #include "MultiLedPattern.h"
 
 #include "../../Time/Timings.h"
 #include "../../Time/Timer.h"
 
-class HueShiftPattern : public MultiLedPattern
+class HueScrollPattern : public MultiLedPattern
 {
 public:
-  HueShiftPattern(const PatternArgs &args);
-  virtual ~HueShiftPattern();
+  HueScrollPattern(const PatternArgs &args);
+  virtual ~HueScrollPattern();
 
   // init the pattern to initial state
   virtual void init() override;

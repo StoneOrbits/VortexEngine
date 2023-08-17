@@ -629,7 +629,7 @@ uint32_t Modes::maxModeSize()
       col.blue = ++x;
       maxSet.addColor(col);
     }
-    maxMode.setPattern(PATTERN_BLEND, p, &maxArgs, &maxSet);
+    maxMode.setPattern(PATTERN_HUE_SHIFT, p, &maxArgs, &maxSet);
   }
   ByteStream stream;
   maxMode.saveToBuffer(stream);
@@ -656,7 +656,7 @@ uint32_t Modes::maxSaveSize()
         // different color in each slot
         maxSet.addColor(RGBColor((uint8_t)p + (i * 3), (uint8_t)p + (i * 3) + 1, (uint8_t)p + (i * 3) + 2));
       }
-      maxMode.setPattern(PATTERN_BLEND, p, &maxArgs, &maxSet);
+      maxMode.setPattern(PATTERN_HUE_SHIFT, p, &maxArgs, &maxSet);
     }
     addMode(&maxMode);
   }

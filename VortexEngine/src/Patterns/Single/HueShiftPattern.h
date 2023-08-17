@@ -1,35 +1,34 @@
-#ifndef BLEND_PATTERN_H
-#define BLEND_PATTERN_H
+#ifndef HUE_SHIFT_PATTERN_H
+#define HUE_SHIFT_PATTERN_H
 
 #include "BasicPattern.h"
 
 #include "../../Time/Timings.h"
 
-class BlendPattern : public BasicPattern
+class HueShiftPattern : public BasicPattern
 {
 public:
-  BlendPattern(const PatternArgs &args);
-  virtual ~BlendPattern();
+  HueShiftPattern(const PatternArgs &args);
+  virtual ~HueShiftPattern();
 
   virtual void init() override;
 
 protected:
   // only override the onBlinkOn so we can control the color it blinks
   virtual void onBlinkOn() override;
-  uint8_t interpolate(uint16_t current, uint16_t next);
+  void transitionValue(uint8_t &current, const uint8_t next, bool hue);
 
   // offset of starting hue and number of flips
-  uint8_t m_blendSpeed;
+  uint8_t m_shiftSpeed;
   uint8_t m_numFlips;
 
-  // current color and target blend color
-  RGBColor m_cur;
-  RGBColor m_next;
+  // current color and target shift color
+  HSVColor m_cur;
+  HSVColor m_next;
 
   // the current flip counter
   uint8_t m_flip;
 };
 
 #endif
-
 
