@@ -98,7 +98,10 @@ void Menu::showBulbSelection()
   Leds::clearAll();
   if (m_targetLeds == MAP_LED(LED_MULTI)) {
     LedPos pos = (LedPos)((Time::getCurtime() / 30) % LED_COUNT);
-    Leds::blinkIndexOffset(pos, pos * 10, 50, 500, m_menuColor);
+    for (int dots = 0; dots < 4; ++dots) {
+      LedPos dotPos = (LedPos)((pos + (dots * (LED_COUNT / 4))) % LED_COUNT);
+      Leds::blinkIndexOffset(dotPos, dotPos * 10, 50, 500, m_menuColor);
+    }
   } else {
     Leds::blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
   }
@@ -129,18 +132,58 @@ void Menu::nextBulbSelection()
       // do not allow multi led to select anything else
       //break;
     }
+    m_targetLeds = MAP_LED(LED_MULTI);
+    //m_targetLeds = MAP_LED(LED_FIRST);
+    break;
+  case MAP_LED(LED_MULTI):
+    m_targetLeds = MAP_RINGS_EVEN;
+    break;
+  case MAP_RINGS_EVEN:
+    m_targetLeds = MAP_RINGS_ODD;
+    break;
+  case MAP_RINGS_ODD:
+    m_targetLeds = MAP_RING_EDGE;
+    break;
+  case MAP_RING_EDGE:
+    m_targetLeds = MAP_RING_OUTER;
+    break;
+  case MAP_RING_OUTER:
+    m_targetLeds = MAP_RING_MIDDLE;
+    break;
+  case MAP_RING_MIDDLE:
+    m_targetLeds = MAP_RING_INNER;
+    break;
+  case MAP_RING_INNER:
+    m_targetLeds = MAP_ALL_FACE;
+    break;
+  case MAP_ALL_FACE:
+    m_targetLeds = MAP_ALL_TOP;
+    break;
+  case MAP_ALL_TOP:
+    m_targetLeds = MAP_ALL_BOT;
+    break;
+  case MAP_ALL_BOT:
+    m_targetLeds = MAP_LINE_1;
+    break;
+  case MAP_LINE_1:
+    m_targetLeds = MAP_LINE_2;
+    break;
+  case MAP_LINE_2:
+    m_targetLeds = MAP_QUADRANT_1;
+    break;
+  case MAP_QUADRANT_1:
+    m_targetLeds = MAP_QUADRANT_2;
+    break;
+  case MAP_QUADRANT_2:
+    m_targetLeds = MAP_QUADRANT_3;
+    break;
+  case MAP_QUADRANT_3:
+    m_targetLeds = MAP_QUADRANT_4;
+    break;
+  case MAP_QUADRANT_4:
     m_targetLeds = MAP_LED(LED_FIRST);
     break;
   case MAP_LED(LED_LAST):
-    m_targetLeds = MAP_PAIR_EVENS;
-    break;
-  case MAP_PAIR_EVENS:
-    m_targetLeds = MAP_PAIR_ODDS;
-    break;
-  case MAP_PAIR_ODDS:
-    m_targetLeds = MAP_LED(LED_MULTI);
-    break;
-  case MAP_LED(LED_MULTI):
     m_targetLeds = MAP_LED_ALL;
     break;
   default: // LED_FIRST through LED_LAST
@@ -166,19 +209,59 @@ void Menu::prevBulbSelection()
       // do not allow multi led to select anything else
       //break;
     }
-    m_targetLeds = MAP_LED(LED_MULTI);
-    break;
-  case MAP_LED(LED_FIRST):
-    m_targetLeds = MAP_LED_ALL;
-    break;
-  case MAP_PAIR_EVENS:
     m_targetLeds = MAP_LED(LED_LAST);
     break;
-  case MAP_PAIR_ODDS:
-    m_targetLeds = MAP_PAIR_EVENS;
-    break;
+
   case MAP_LED(LED_MULTI):
-    m_targetLeds = MAP_PAIR_ODDS;
+    m_targetLeds = MAP_LED_ALL;
+    break;
+  case MAP_RINGS_EVEN:
+    m_targetLeds = MAP_LED(LED_MULTI);
+    break;
+  case MAP_RINGS_ODD:
+    m_targetLeds = MAP_RINGS_EVEN;
+    break;
+  case MAP_RING_EDGE:
+    m_targetLeds = MAP_RINGS_ODD;
+    break;
+  case MAP_RING_OUTER:
+    m_targetLeds = MAP_RING_EDGE;
+    break;
+  case MAP_RING_MIDDLE:
+    m_targetLeds = MAP_RING_OUTER;
+    break;
+  case MAP_RING_INNER:
+    m_targetLeds = MAP_RING_MIDDLE;
+    break;
+  case MAP_ALL_FACE:
+    m_targetLeds = MAP_RING_INNER;
+    break;
+  case MAP_ALL_TOP:
+    m_targetLeds = MAP_ALL_FACE;
+    break;
+  case MAP_ALL_BOT:
+    m_targetLeds = MAP_ALL_TOP;
+    break;
+  case MAP_LINE_1:
+    m_targetLeds = MAP_ALL_BOT;
+    break;
+  case MAP_LINE_2:
+    m_targetLeds = MAP_LINE_1;
+    break;
+  case MAP_QUADRANT_1:
+    m_targetLeds = MAP_LINE_2;
+    break;
+  case MAP_QUADRANT_2:
+    m_targetLeds = MAP_QUADRANT_1;
+    break;
+  case MAP_QUADRANT_3:
+    m_targetLeds = MAP_QUADRANT_2;
+    break;
+  case MAP_QUADRANT_4:
+    m_targetLeds = MAP_QUADRANT_3;
+    break;
+  case MAP_LED(LED_FIRST):
+    m_targetLeds = MAP_QUADRANT_4;
     break;
   default: // LED_FIRST through LED_LAST
     // do not allow multi led to select anything else
