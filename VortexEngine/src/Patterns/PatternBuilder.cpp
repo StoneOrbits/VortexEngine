@@ -153,18 +153,18 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_TRACER: return PatternArgs(ULTRADOPS_ON_DURATION, 0, 0, 20, 1);
     case PATTERN_RIBBON: return PatternArgs(RIBBON_DURATION);
     case PATTERN_MINIRIBBON: return PatternArgs(1);
-    case PATTERN_BLEND: return PatternArgs(BLEND_ON_DURATION, BLEND_OFF_DURATION, 0, 0, 0, 2, 1);
-    case PATTERN_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 0, 0, 0, 0, 1);
-    case PATTERN_BLENDSTROBEGAP: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 75, 0, 0, 9, 1);
-    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(BLEND_ON_DURATION, BLEND_OFF_DURATION, 0, 0, 0, 2, 2);
-    case PATTERN_COMPLEMENTARY_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 0, 0, 0, 0, 2);
-    case PATTERN_COMPLEMENTARY_BLENDSTROBEGAP: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 75, 0, 0, 9, 2);
+    case PATTERN_BLEND: return PatternArgs(BLEND_ON_DURATION, BLEND_OFF_DURATION, 0, 0, 0, 5, 1);
+    case PATTERN_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 0, 0, 0, 10, 1);
+    case PATTERN_BLENDSTROBEGAP: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 75, 0, 0, 10, 1);
+    case PATTERN_COMPLEMENTARY_BLEND: return PatternArgs(BLEND_ON_DURATION, BLEND_OFF_DURATION, 0, 0, 0, 5, 2);
+    case PATTERN_COMPLEMENTARY_BLENDSTROBE: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 0, 0, 0, 10, 2);
+    case PATTERN_COMPLEMENTARY_BLENDSTROBEGAP: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 75, 0, 0, 10, 2);
     case PATTERN_SOLID: return PatternArgs(250);
 
     // =====================
     //  Multi Led Patterns:
 #if VORTEX_SLIM == 0
-    case PATTERN_HUESHIFT: return PatternArgs(1, 1);
+    case PATTERN_HUE_SCROLL: return PatternArgs(1, 1);
     case PATTERN_THEATER_CHASE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 28);
     case PATTERN_CHASER: return PatternArgs();
     case PATTERN_ZIGZAG: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 55, 1, 55);
@@ -252,7 +252,7 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     // =====================
     //  Multi Led Patterns:
 #if VORTEX_SLIM == 0
-    case PATTERN_HUESHIFT: return new HueShiftPattern(args);
+    case PATTERN_HUE_SCROLL: return new HueShiftPattern(args);
     case PATTERN_THEATER_CHASE: return new TheaterChasePattern(args);
     case PATTERN_CHASER: return new ChaserPattern(args);
     case PATTERN_ZIGZAG:
