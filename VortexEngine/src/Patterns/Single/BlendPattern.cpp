@@ -8,13 +8,17 @@ BlendPattern::BlendPattern(const PatternArgs &args) :
   BasicPattern(args),
   m_blendSpeed(0),
   m_numFlips(0),
-  m_cur(),
-  m_next(),
+  m_hueShift(0),
+  m_curHSV(),
+  m_nextHSV(),
+  m_curRGB(),
+  m_nextRGB(),
   m_flip(0)
 {
   m_patternID = PATTERN_BLEND;
   REGISTER_ARG(m_blendSpeed);
   REGISTER_ARG(m_numFlips);
+  REGISTER_ARG(m_hueShift);
   setArgs(args);
 }
 
@@ -27,80 +31,69 @@ void BlendPattern::init()
   // run basic pattern init logic
   BasicPattern::init();
   // convert current/next colors to HSV
-  m_cur = m_colorset.getNext();
-  m_next = m_colorset.getNext();
+  m_curHSV = m_curRGB = m_colorset.getNext();
+  m_nextHSV = m_nextRGB = m_colorset.getNext();
   // reset the flip count
   m_flip = 0;
 }
 
 void BlendPattern::onBlinkOn()
 {
-  // if the current hue has reached the next hue
-  if (m_cur == m_next) {
-    // get the next color
-    m_next = m_colorset.getNext();
+  bool timeToTick = ((Time::getCurtime() % 4) == 0);
+  if (timeToTick) {
+    if (m_hueShift) {
+      if (m_curHSV == m_nextHSV) {
+        m_nextHSV = m_colorset.getNext();
+      }
+      interpolate(m_curHSV.hue, m_nextHSV.hue, INTERP_WRAP);
+      interpolate(m_curHSV.sat, m_nextHSV.sat);
+      interpolate(m_curHSV.val, m_nextHSV.val);
+    } else {
+      if (m_curRGB == m_nextRGB) {
+        m_nextRGB = m_colorset.getNext();
+      }
+      interpolate(m_curRGB.red, m_nextRGB.red);
+      interpolate(m_curRGB.green, m_nextRGB.green);
+      interpolate(m_curRGB.blue, m_nextRGB.blue);
+    }
   }
-  // only transition the blend once every 4 ticks, this will make sure the blend doesn't go
-  // to fast and it allows the blendspeed parameter to speed it up to preference
-  if ((Time::getCurtime() % 4) == 0) {
-    // transition each value of the current hsv to the next hsv, the 'hue' has a
-    // special handling where 255 is beside 0 (circular transition)
-    transitionValue(m_cur.hue, m_next.hue, true);
-    transitionValue(m_cur.sat, m_next.sat, false);
-    transitionValue(m_cur.val, m_next.val, false);
-  }
-  // make a copy of the current color being rendered so that it can be
-  // flipped to an inverse color if the flips are enabled
-  HSVColor hsvCol = m_cur;
-  // flip the hue if there is any flips
-  if (m_flip) {
-    // note: no division by zero because m_numFlips cannot be 0 if m_flip is non-zero
+
+  if (!m_flip) {
+    Leds::setIndex(m_ledPos, (m_hueShift ? (RGBColor)m_curHSV : m_curRGB));
+  } else {
+    HSVColor hsvCol = (m_hueShift ? m_curHSV : rgb_to_hsv_generic(m_curRGB));
     hsvCol.hue += (m_flip * (255 / m_numFlips));
+    Leds::setIndex(m_ledPos, hsv_to_rgb_generic(hsvCol));
   }
-  // convert the HSV to RGB with the generic function because
-  // this will generate a different appearance from using the
-  // default hsv_to_rgb_rainbow()
-  Leds::setIndex(m_ledPos, hsv_to_rgb_generic(hsvCol));
-  // increase the flip counter and modulate it, this actually takes less space
-  // on avr than using a modulo of numflips, because you must check for nonzero
   m_flip++;
   if (m_flip >= m_numFlips) {
     m_flip = 0;
   }
 }
 
-void BlendPattern::transitionValue(uint8_t &current, const uint8_t next, bool hue)
+void BlendPattern::interpolate(uint8_t &current, const uint8_t next, InterpWrapType wrap)
 {
-  // if the values are equal then there's no work to do
   if (next == current) {
     return;
   }
-  // otherwise we can just blend as normal in closest direction
+  // calculate the difference between the current and next value, this will calculate
+  // either the circular difference if INTERP_WRAP is set, or just the plain integer
+  // difference if it's not set. The circular difference accounts for wrapping past
+  // 255 <-> 0 to get to the next value quicker than the other direction
   int diff = next - current;
-  if (hue) {
-    // This will compute the difference such that it considers the wrapping
-    // around from 255 to 0 and vice versa, taking the shortest path.
-    // The extra + 256 before the modulus operator % 256 is to ensure that the
-    // value inside the parentheses is positive, because in C++ the % operator
-    // gives a remainder that has the same sign as the dividend, and you want
-    // to avoid getting a negative number there.
-    // This will result in a diff in the range -128 <= diff < 128, and a
-    // positive value means that the shortest way from m_cur.hue to m_next.hue
-    // is to increase m_cur.hue, while a negative value means that the shortest
-    // way is to decrease m_cur.hue.
+  if (wrap == INTERP_WRAP) {
+    // wrap around from 256 to 0 and interpolate through 0 if it's a closer path
     diff = (int)(((uint8_t)((diff + 128 + 256) % 256)) - 128);
   }
-  // calculate the step in the right direction, default step size is 1
+  // the step will either be -1 or 1 based on the direction of the difference
   int step = (diff > 0) ? 1 : -1;
-  // this will effectively perform abs(diff) so that we can check if the
-  // blendspeed is larger than the diff or not.
+  // multiply the difference by the step, this effectively does diff = abs(diff)
   diff *= step;
-  // Only add the blendspeed if there is enough difference before the target 
-  // otherwise we may overshoot then oscillate around the target
+  // now that we know diff is absolute (positive) we can compare it to the blend speed
   if (diff > m_blendSpeed) {
-    // a blend speed of 0 will be standard speed
-    step += m_blendSpeed;
+    // if the diff is large enough to fit the blendspeed then include it in the step
+    step += (step * m_blendSpeed);
   }
-  // step the value forward
+  // add the step to the current value to move towards the next value
   current += step;
 }
