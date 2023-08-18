@@ -69,6 +69,8 @@ protected:
 private:
   // internal flag to close the menu
   bool m_shouldClose;
+  // add to the current selection of leds
+  void addSelectionMask();
 
 #ifdef VORTEX_LIB
   friend class Vortex;

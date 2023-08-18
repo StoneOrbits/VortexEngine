@@ -135,13 +135,16 @@ Menu::MenuAction Menu::run()
   }
   // on a long press of the button, lock in the target led
   if (g_pButton->onLongClick()) {
+    if (m_targetLeds == MAP_LED_NONE) {
+      addSelectionMask();
+    }
     m_ledSelected = true;
     // call led selected callback
     onLedSelected();
   }
   // on a long press of the 2nd button, add to selection
   if (g_pButton2->onLongClick()) {
-    m_targetLeds |= ledPermutations[m_ledSelection];
+    addSelectionMask();
   }
   // render the bulb selection
   showBulbSelection();
@@ -246,4 +249,9 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
       offMs, onMs, blinkCol);
     break;
   }
+}
+
+// this adds the currently targeted ledPermutation to the selected leds
+void Menu::addSelectionMask() {
+  m_targetLeds |= ledPermutations[m_ledSelection];
 }
