@@ -65,8 +65,10 @@ jobs:
     steps:
     - name: Checkout current repository inside the outer repository
       uses: actions/checkout@v3
+    - name: Update Package Lists
+      run: sudo apt-get update
     - name: Install Dependencies
-      run: sudo apt-get install doxygen graphviz texlive
+      run: sudo apt-get install doxygen graphviz texlive --fix-missing
     - name: Checkout doxygen-awesome
       run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
     - name: Generate Documentation
