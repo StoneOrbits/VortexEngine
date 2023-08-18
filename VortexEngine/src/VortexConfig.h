@@ -581,7 +581,7 @@
 #define CONSECUTIVE_WINDOW 300
 
 // force logging to 3 on linux build
-#ifndef _MSC_VER
+#ifndef _WIN32
 #undef LOGGING_LEVEL
 #define LOGGING_LEVEL 3
 #endif

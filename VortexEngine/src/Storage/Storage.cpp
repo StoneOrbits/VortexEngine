@@ -20,7 +20,7 @@
 #include "../VortexLib/VortexLib.h"
 #endif
 
-#ifdef _MSC_VER
+#ifdef _WIN32
 #include <Windows.h>
 #else
 #include <unistd.h>
@@ -83,7 +83,7 @@ bool Storage::write(ByteStream &buffer)
   if ((NVMCTRL.STATUS & 4) != 0) {
     return false;
   }
-#elif defined(_MSC_VER)
+#elif defined(_WIN32)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile == INVALID_HANDLE_VALUE) {
     // error
@@ -134,7 +134,7 @@ bool Storage::read(ByteStream &buffer)
   for (uint16_t i = 0; i < fullsize; ++i) {
     pos[i] = eepromReadByte(i);
   }
-#elif defined(_MSC_VER)
+#elif defined(_WIN32)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile == INVALID_HANDLE_VALUE) {
     // error

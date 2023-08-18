@@ -14,7 +14,7 @@
 #include <avr/interrupt.h>
 #endif
 
-#if !defined(_MSC_VER) || defined(WASM)
+#if !defined(_WIN32) || defined(WASM)
 #include <unistd.h>
 #include <time.h>
 uint64_t start = 0;
@@ -63,7 +63,7 @@ bool Time::init()
   m_isSimulation = false;
   m_instantTimestep = false;
 #endif
-#if !defined(_MSC_VER) || defined(WASM)
+#if !defined(_WIN32) || defined(WASM)
   start = microseconds();
 #else
   QueryPerformanceFrequency(&tps);
@@ -110,7 +110,7 @@ void Time::tickClock()
     // if building anywhere except visual studio then we can run alternate sleep code
     // because in visual studio + windows it's better to just spin and check the high
     // resolution clock instead of trying to sleep for microseconds.
-#if !defined(_MSC_VER) && defined(VORTEX_LIB)
+#if !defined(_WIN32) && defined(VORTEX_LIB)
     uint32_t required = (1000000 / TICKRATE);
     uint32_t sleepTime = 0;
     if (required > elapsed_us) {
@@ -184,7 +184,7 @@ uint32_t Time::microseconds()
   // divide by 10
   ticks = (m_curTick * DEFAULT_TICKRATE) + (TCB0.CNT / 1000);
   return ticks;
-#elif defined(_MSC_VER) // windows
+#elif defined(_WIN32) // windows
   LARGE_INTEGER now;
   QueryPerformanceCounter(&now);
   if (!tps.QuadPart) {
@@ -235,7 +235,7 @@ void Time::delayMicroseconds(uint32_t us)
     "brne 1b" : "=w" (us) : "0" (us)  // 2 cycles
   );
   // return = 4 cycles
-#elif defined(_MSC_VER)
+#elif defined(_WIN32)
   uint32_t newtime = microseconds() + us;
   while (microseconds() < newtime) {
     // busy loop
@@ -252,7 +252,7 @@ void Time::delayMilliseconds(uint32_t ms)
   for (uint16_t i = 0; i < ms; ++i) {
     delayMicroseconds(1000);
   }
-#elif defined(_MSC_VER)
+#elif defined(_WIN32)
   Sleep(ms);
 #else
   usleep(ms * 1000);
