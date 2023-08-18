@@ -11,7 +11,8 @@
 
 Menu::Menu(const RGBColor &col, bool advanced) :
   m_menuColor(col),
-  m_targetLeds(MAP_LED_ALL),
+  m_targetLeds(MAP_LED_NONE),
+  m_ledSelection(0),
   m_curSelection(QUADRANT_FIRST),
   m_ledSelected(false),
   m_advanced(advanced),
@@ -22,6 +23,56 @@ Menu::Menu(const RGBColor &col, bool advanced) :
 Menu::~Menu()
 {
 }
+
+LedMap ledPermutations[] = {
+  MAP_LED_ALL,
+  MAP_LED(LED_MULTI),
+  MAP_RINGS_EVEN,
+  MAP_RINGS_ODD,
+  MAP_RING_EDGE,
+  MAP_RING_OUTER,
+  MAP_RING_MIDDLE,
+  MAP_RING_INNER,
+  MAP_ALL_FACE,
+  MAP_ALL_TOP,
+  MAP_ALL_BOT,
+  MAP_LINE_1,
+  MAP_LINE_2,
+  MAP_QUADRANT_1,
+  MAP_QUADRANT_2,
+  MAP_QUADRANT_3,
+  MAP_QUADRANT_4,
+  MAP_LED(LED_0),
+  MAP_LED(LED_1),
+  MAP_LED(LED_2),
+  MAP_LED(LED_3),
+  MAP_LED(LED_4),
+  MAP_LED(LED_5),
+  MAP_LED(LED_6),
+  MAP_LED(LED_7),
+  MAP_LED(LED_8),
+  MAP_LED(LED_9),
+  MAP_LED(LED_10),
+  MAP_LED(LED_11),
+  MAP_LED(LED_12),
+  MAP_LED(LED_13),
+  MAP_LED(LED_14),
+  MAP_LED(LED_15),
+  MAP_LED(LED_16),
+  MAP_LED(LED_17),
+  MAP_LED(LED_18),
+  MAP_LED(LED_19),
+  MAP_LED(LED_20),
+  MAP_LED(LED_21),
+  MAP_LED(LED_22),
+  MAP_LED(LED_23),
+  MAP_LED(LED_24),
+  MAP_LED(LED_25),
+  MAP_LED(LED_26),
+  MAP_LED(LED_27)
+};
+
+#define NUM_PERMUTATIONS (sizeof(ledPermutations)/ sizeof(ledPermutations[0]))
 
 bool Menu::init()
 {
@@ -72,10 +123,16 @@ Menu::MenuAction Menu::run()
 
   // every time the button is clicked, change the target led
   if (g_pButton->onShortClick()) {
-    nextBulbSelection();
+    m_ledSelection = (m_ledSelection + 1) % NUM_PERMUTATIONS;
+    //nextBulbSelection();
   }
   if (g_pButton2->onShortClick()) {
-    prevBulbSelection();
+    if (m_ledSelection > 0) {
+      m_ledSelection--;
+    } else {
+      m_ledSelection = NUM_PERMUTATIONS - 1;
+    }
+    //prevBulbSelection();
   }
   // on a long press of the button, lock in the target led
   if (g_pButton->onLongClick()) {
@@ -83,7 +140,10 @@ Menu::MenuAction Menu::run()
     // call led selected callback
     onLedSelected();
   }
-
+  // on a long press of the 2nd button, add to selection
+  if (g_pButton2->onLongClick()) {
+    m_targetLeds |= ledPermutations[m_ledSelection];
+  }
   // render the bulb selection
   showBulbSelection();
 
@@ -96,14 +156,15 @@ Menu::MenuAction Menu::run()
 void Menu::showBulbSelection()
 {
   Leds::clearAll();
-  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+  if (ledPermutations[m_ledSelection] == MAP_LED(LED_MULTI)) {
     LedPos pos = (LedPos)((Time::getCurtime() / 30) % LED_COUNT);
     for (int dots = 0; dots < 4; ++dots) {
       LedPos dotPos = (LedPos)((pos + (dots * (LED_COUNT / 4))) % LED_COUNT);
       Leds::blinkIndexOffset(dotPos, dotPos * 10, 50, 500, m_menuColor);
     }
   } else {
-    Leds::blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
+    Leds::setMap(m_targetLeds, RGB_ORANGE);
+    Leds::blinkMap(ledPermutations[m_ledSelection], BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
   }
   // blink when selecting
   Menus::showSelection(RGBColor(m_menuColor.red << 3,
@@ -119,160 +180,6 @@ void Menu::showExit()
   }
   Leds::clearQuadrantFive();
   Leds::blinkQuadrantFive(250, 500, RGB_RED0);
-}
-
-void Menu::nextBulbSelection()
-{
-  Mode *cur = Modes::curMode();
-  // The target led can be 0 through LED_COUNT to represent any led or all leds
-  // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
-  switch (m_targetLeds) {
-  case MAP_LED_ALL:
-    if (cur->isMultiLed()) {
-      // do not allow multi led to select anything else
-      //break;
-    }
-    m_targetLeds = MAP_LED(LED_MULTI);
-    //m_targetLeds = MAP_LED(LED_FIRST);
-    break;
-  case MAP_LED(LED_MULTI):
-    m_targetLeds = MAP_RINGS_EVEN;
-    break;
-  case MAP_RINGS_EVEN:
-    m_targetLeds = MAP_RINGS_ODD;
-    break;
-  case MAP_RINGS_ODD:
-    m_targetLeds = MAP_RING_EDGE;
-    break;
-  case MAP_RING_EDGE:
-    m_targetLeds = MAP_RING_OUTER;
-    break;
-  case MAP_RING_OUTER:
-    m_targetLeds = MAP_RING_MIDDLE;
-    break;
-  case MAP_RING_MIDDLE:
-    m_targetLeds = MAP_RING_INNER;
-    break;
-  case MAP_RING_INNER:
-    m_targetLeds = MAP_ALL_FACE;
-    break;
-  case MAP_ALL_FACE:
-    m_targetLeds = MAP_ALL_TOP;
-    break;
-  case MAP_ALL_TOP:
-    m_targetLeds = MAP_ALL_BOT;
-    break;
-  case MAP_ALL_BOT:
-    m_targetLeds = MAP_LINE_1;
-    break;
-  case MAP_LINE_1:
-    m_targetLeds = MAP_LINE_2;
-    break;
-  case MAP_LINE_2:
-    m_targetLeds = MAP_QUADRANT_1;
-    break;
-  case MAP_QUADRANT_1:
-    m_targetLeds = MAP_QUADRANT_2;
-    break;
-  case MAP_QUADRANT_2:
-    m_targetLeds = MAP_QUADRANT_3;
-    break;
-  case MAP_QUADRANT_3:
-    m_targetLeds = MAP_QUADRANT_4;
-    break;
-  case MAP_QUADRANT_4:
-    m_targetLeds = MAP_LED(LED_FIRST);
-    break;
-  case MAP_LED(LED_LAST):
-    m_targetLeds = MAP_LED_ALL;
-    break;
-  default: // LED_FIRST through LED_LAST
-    // do not allow multi led to select anything else
-    if (cur->isMultiLed()) {
-      //m_targetLeds = MAP_LED_ALL;
-      //break;
-    }
-    // iterate as normal
-    m_targetLeds = MAP_LED(((mapGetFirstLed(m_targetLeds) + 1) % (LED_COUNT + 1)));
-    break;
-  }
-}
-
-void Menu::prevBulbSelection()
-{
-  Mode *cur = Modes::curMode();
-  // The target led can be 0 through LED_COUNT to represent any led or all leds
-  // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
-  switch (m_targetLeds) {
-  case MAP_LED_ALL:
-    if (cur->isMultiLed()) {
-      // do not allow multi led to select anything else
-      //break;
-    }
-    m_targetLeds = MAP_LED(LED_LAST);
-    break;
-
-  case MAP_LED(LED_MULTI):
-    m_targetLeds = MAP_LED_ALL;
-    break;
-  case MAP_RINGS_EVEN:
-    m_targetLeds = MAP_LED(LED_MULTI);
-    break;
-  case MAP_RINGS_ODD:
-    m_targetLeds = MAP_RINGS_EVEN;
-    break;
-  case MAP_RING_EDGE:
-    m_targetLeds = MAP_RINGS_ODD;
-    break;
-  case MAP_RING_OUTER:
-    m_targetLeds = MAP_RING_EDGE;
-    break;
-  case MAP_RING_MIDDLE:
-    m_targetLeds = MAP_RING_OUTER;
-    break;
-  case MAP_RING_INNER:
-    m_targetLeds = MAP_RING_MIDDLE;
-    break;
-  case MAP_ALL_FACE:
-    m_targetLeds = MAP_RING_INNER;
-    break;
-  case MAP_ALL_TOP:
-    m_targetLeds = MAP_ALL_FACE;
-    break;
-  case MAP_ALL_BOT:
-    m_targetLeds = MAP_ALL_TOP;
-    break;
-  case MAP_LINE_1:
-    m_targetLeds = MAP_ALL_BOT;
-    break;
-  case MAP_LINE_2:
-    m_targetLeds = MAP_LINE_1;
-    break;
-  case MAP_QUADRANT_1:
-    m_targetLeds = MAP_LINE_2;
-    break;
-  case MAP_QUADRANT_2:
-    m_targetLeds = MAP_QUADRANT_1;
-    break;
-  case MAP_QUADRANT_3:
-    m_targetLeds = MAP_QUADRANT_2;
-    break;
-  case MAP_QUADRANT_4:
-    m_targetLeds = MAP_QUADRANT_3;
-    break;
-  case MAP_LED(LED_FIRST):
-    m_targetLeds = MAP_QUADRANT_4;
-    break;
-  default: // LED_FIRST through LED_LAST
-    // do not allow multi led to select anything else
-    if (cur->isMultiLed()) {
-      //m_targetLeds = MAP_LED_ALL;
-      //break;
-    }
-    // iterate as normal
-    m_targetLeds = MAP_LED((mapGetFirstLed(m_targetLeds) + (LED_COUNT)) % (LED_COUNT + 1));
-    break;
-  }
 }
 
 void Menu::onLedSelected()

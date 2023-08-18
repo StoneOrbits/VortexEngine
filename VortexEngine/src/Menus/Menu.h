@@ -43,10 +43,6 @@ protected:
   void showBulbSelection();
   void showExit();
 
-  // iterate to next bulb selection
-  void nextBulbSelection();
-  void prevBulbSelection();
-
   // blink the selected finger
   virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
 
@@ -57,6 +53,8 @@ protected:
   // tracks the targetted leds for this menu
   // note this is an led map
   LedMap m_targetLeds;
+  // current index of led maps
+  int m_ledSelection;
   // all menus have a 'current selection which can point at any led
   Quadrant m_curSelection;
   // true once a an led is selected
