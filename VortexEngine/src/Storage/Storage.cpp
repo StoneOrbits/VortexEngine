@@ -18,11 +18,13 @@
 #include <unistd.h>
 #endif
 
+#define DEFAULT_STORAGE_FILENAME "FlashStorage.flash"
+
 #ifdef VORTEX_LIB
 std::string Storage::m_storageFilename;
 #define STORAGE_FILENAME m_storageFilename.c_str()
 #else
-#define STORAGE_FILENAME "FlashStorage.flash"
+#define STORAGE_FILENAME DEFAULT_STORAGE_FILENAME
 #endif
 
 #ifdef VORTEX_EMBEDDED
@@ -40,6 +42,11 @@ Storage::Storage()
 
 bool Storage::init()
 {
+#ifdef VORTEX_LIB
+  if (!m_storageFilename.length() && Vortex::storageEnabled()) {
+    m_storageFilename = DEFAULT_STORAGE_FILENAME;
+  }
+#endif
   return true;
 }
 
@@ -100,7 +107,7 @@ bool Storage::write(ByteStream &buffer)
   }
 #elif defined(_MSC_VER)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
-  if (!hFile) {
+  if (hFile == INVALID_HANDLE_VALUE) {
     // error
     return false;
   }
@@ -146,7 +153,7 @@ bool Storage::read(ByteStream &buffer)
   memcpy(buffer.rawData(), (const void *)_storagedata, size);
 #elif defined(_MSC_VER)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
-  if (!hFile) {
+  if (hFile == INVALID_HANDLE_VALUE) {
     // error
     return false;
   }
