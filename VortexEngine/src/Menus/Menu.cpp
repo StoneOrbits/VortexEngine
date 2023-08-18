@@ -9,22 +9,8 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-Menu::Menu(const RGBColor &col, bool advanced) :
-  m_menuColor(col),
-  m_targetLeds(MAP_LED_NONE),
-  m_ledSelection(0),
-  m_curSelection(QUADRANT_FIRST),
-  m_ledSelected(false),
-  m_advanced(advanced),
-  m_shouldClose(false)
-{
-}
-
-Menu::~Menu()
-{
-}
-
-LedMap ledPermutations[] = {
+// this is an array of possible LED maps for LED selection
+static LedMap ledPermutations[] = {
   MAP_LED_ALL,
   MAP_LED(LED_MULTI),
   MAP_RINGS_EVEN,
@@ -74,6 +60,21 @@ LedMap ledPermutations[] = {
 
 #define NUM_PERMUTATIONS (sizeof(ledPermutations)/ sizeof(ledPermutations[0]))
 
+Menu::Menu(const RGBColor &col, bool advanced) :
+  m_menuColor(col),
+  m_targetLeds(MAP_LED_NONE),
+  m_ledSelection(0),
+  m_curSelection(QUADRANT_FIRST),
+  m_ledSelected(false),
+  m_advanced(advanced),
+  m_shouldClose(false)
+{
+}
+
+Menu::~Menu()
+{
+}
+
 bool Menu::init()
 {
   // menu is initialized before being run
@@ -121,10 +122,9 @@ Menu::MenuAction Menu::run()
   // there is no guarantee the child class will call the parent
   // class's onShortClick and onLongClick functions so
 
-  // every time the button is clicked, change the target led
+  // every time a button is clicked, change the led selection
   if (g_pButton->onShortClick()) {
     m_ledSelection = (m_ledSelection + 1) % NUM_PERMUTATIONS;
-    //nextBulbSelection();
   }
   if (g_pButton2->onShortClick()) {
     if (m_ledSelection > 0) {
@@ -132,7 +132,6 @@ Menu::MenuAction Menu::run()
     } else {
       m_ledSelection = NUM_PERMUTATIONS - 1;
     }
-    //prevBulbSelection();
   }
   // on a long press of the button, lock in the target led
   if (g_pButton->onLongClick()) {
