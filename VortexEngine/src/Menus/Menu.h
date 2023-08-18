@@ -57,6 +57,8 @@ protected:
   // tracks the targetted leds for this menu
   // note this is an led map
   LedMap m_targetLeds;
+  // current index of led maps
+  uint16_t m_ledSelection;
   // all menus have a 'current selection which can point at any led
   Quadrant m_curSelection;
   // true once a an led is selected

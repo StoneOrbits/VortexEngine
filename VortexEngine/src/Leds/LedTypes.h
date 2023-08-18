@@ -330,6 +330,9 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 // bitmap of all pairs (basically LED_COUNT bits)
 #define MAP_LED_ALL ((2 << (LED_COUNT - 1)) - 1)
 
+// blank map
+#define MAP_LED_NONE 0
+
 #define MAP_INVERSE(map) ((~map) & MAP_LED_ALL)
 
 // macro for all evens and odds
@@ -352,6 +355,35 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 #define MAP_ALL_BOT (MAP_LED(LED_4) | MAP_LED(LED_5) | MAP_LED(LED_6) | MAP_LED(LED_7) | \
                      MAP_LED(LED_8) | MAP_LED(LED_9) | MAP_LED(LED_18) | MAP_LED(LED_19) | \
                      MAP_LED(LED_20) | MAP_LED(LED_21) | MAP_LED(LED_22) | MAP_LED(LED_23))
+
+// all face leds
+#define MAP_ALL_FACE (MAP_ALL_TOP | MAP_ALL_BOT)
+
+// led ring maps
+#define MAP_RING_INNER  (MAP_LED(LED_0) | MAP_LED(LED_6) | MAP_LED(LED_7) | MAP_LED(LED_13) | \
+                         MAP_LED(LED_14) | MAP_LED(LED_20) | MAP_LED(LED_21) | MAP_LED(LED_27))
+#define MAP_RING_MIDDLE (MAP_LED(LED_1) | MAP_LED(LED_5) | MAP_LED(LED_8) | MAP_LED(LED_12) | \
+                         MAP_LED(LED_15) | MAP_LED(LED_19) | MAP_LED(LED_22) | MAP_LED(LED_26))
+#define MAP_RING_OUTER  (MAP_LED(LED_2) | MAP_LED(LED_4) | MAP_LED(LED_9) | MAP_LED(LED_11) | \
+                         MAP_LED(LED_16) | MAP_LED(LED_18) | MAP_LED(LED_23) | MAP_LED(LED_25))
+#define MAP_RING_EDGE   (MAP_LED(LED_3) | MAP_LED(LED_10) | MAP_LED(LED_17) | MAP_LED(LED_24))
+
+#define MAP_RINGS_ODD   (MAP_RING_INNER | MAP_RING_OUTER)
+#define MAP_RINGS_EVEN  (MAP_RING_MIDDLE | MAP_RING_EDGE)
+
+// led quadrant maps
+#define MAP_QUADRANT_1  (MAP_LED(LED_0) | MAP_LED(LED_1) | MAP_LED(LED_2) | MAP_LED(LED_3) | \
+                         MAP_LED(LED_4) | MAP_LED(LED_5) | MAP_LED(LED_6))
+#define MAP_QUADRANT_2  (MAP_LED(LED_7) | MAP_LED(LED_8) | MAP_LED(LED_9) | MAP_LED(LED_10) | \
+                         MAP_LED(LED_11) | MAP_LED(LED_12) | MAP_LED(LED_13))
+#define MAP_QUADRANT_3  (MAP_LED(LED_14) | MAP_LED(LED_15) | MAP_LED(LED_16) | MAP_LED(LED_17) | \
+                         MAP_LED(LED_18) | MAP_LED(LED_19) | MAP_LED(LED_20))
+#define MAP_QUADRANT_4  (MAP_LED(LED_21) | MAP_LED(LED_22) | MAP_LED(LED_23) | MAP_LED(LED_24) | \
+                         MAP_LED(LED_25) | MAP_LED(LED_26) | MAP_LED(LED_27))
+#define MAP_LINE_1      (MAP_QUADRANT_1 | MAP_QUADRANT_3)
+#define MAP_LINE_2      (MAP_QUADRANT_2 | MAP_QUADRANT_4)
+
+
 
 // set a single led
 inline void setLed(LedMap &map, LedPos pos)
