@@ -18,10 +18,12 @@
 #include "Menus/Menu.h"
 #include "Modes/Mode.h"
 
-#ifndef _MSC_VER
+#ifndef _WIN32
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <stdio.h>
+#else
+#include <Windows.h>
 #endif
 
 #ifdef WASM
@@ -75,8 +77,7 @@ bool Vortex::m_storageEnabled = false;
 bool Vortex::m_sleepEnabled = true;
 bool Vortex::m_lockEnabled = true;
 
-#ifdef _MSC_VER
-#include <Windows.h>
+#ifdef _WIN32
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
   // Perform actions based on the reason for calling.
@@ -127,7 +128,7 @@ bool Vortex::init(VortexCallbacks *callbacks)
 
 #if LOG_TO_CONSOLE == 1
   if (!m_consoleHandle) {
-#ifdef _MSC_VER
+#ifdef _WIN32
     AllocConsole();
     freopen_s(&m_consoleHandle, "CONOUT$", "w", stdout);
 #else
@@ -337,7 +338,7 @@ bool Vortex::tick()
     return false;
   }
   // On linux we need to poll stdin for input to handle commands
-#if !defined(_MSC_VER) && !defined(WASM)
+#if !defined(_WIN32) && !defined(WASM)
   // use ioctl to determine how many characters are on stdin so that
   // we don't call getchar() too many times and accidentally block
   uint32_t numInputs = 0;
