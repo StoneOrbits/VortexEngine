@@ -21,8 +21,8 @@ all: $(TARGETS)
 tests: $(TESTS)
 
 vortex.a: 
-	$(MAKE) -C VortexLIB
-	cp -f VortexLIB/vortex.a .
+	$(MAKE) -C VortexLib
+	cp -f VortexLib/vortex.a .
 
 vortex: 
 	$(MAKE) -C VortexCLI
@@ -31,5 +31,5 @@ vortex:
 # generic clean target
 clean:
 	@$(RM) $(TARGETS) $(TESTS)
-	$(MAKE) -C VortexLIB clean
+	$(MAKE) -C VortexLib clean
 	$(MAKE) -C VortexCLI clean
