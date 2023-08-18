@@ -803,9 +803,9 @@ string Vortex::patternToString(PatternID id)
   // I wish there was a way to do this automatically but it would be
   // quite messy and idk if it's worth it
   static const char *patternNames[] = {
-    "strobe", "hyperstrobe", "dops", "strobie", "dopy", "ultradops", "strobegap",
-    "hypergap", "dopgap", "strobiegap", "dopygap", "ultragap", "blinkie",
-    "ghostcrush", "doubledops", "chopper", "dashgap", "dashdops", "dashcrush",
+    "strobe", "hyperstrobe", "picostrobe", "strobie", "dops", "ultradops", "strobegap",
+    "hypergap", "picogap", "strobiegap", "dopsgap", "ultragap", "blinkie",
+    "ghostcrush", "doubledops", "chopper", "dashgap", "dashdops", "dash-crush",
     "ultradash", "gapcycle", "dashcycle", "tracer", "ribbon", "miniribbon",
     "blend", "blendstrobe", "blendstrobegap", "complementary_blend",
     "complementary_blendstrobe", "complementary_blendstrobegap", "solid",

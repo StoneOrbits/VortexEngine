@@ -32,20 +32,20 @@
 #define STROBE_OFF_DURATION         6
 
 // Hyperstrobe
-#define HYPERSTROBE_ON_DURATION     36
-#define HYPERSTROBE_OFF_DURATION    26
+#define HYPERSTROBE_ON_DURATION     16
+#define HYPERSTROBE_OFF_DURATION    20
 
 // Dops
-#define DOPS_ON_DURATION            6
-#define DOPS_OFF_DURATION           40
+#define PICOSTROBE_ON_DURATION      6
+#define PICOSTROBE_OFF_DURATION     40
 
 // Dopy
-#define DOPY_ON_DURATION            5
-#define DOPY_OFF_DURATION           15
+#define DOPS_ON_DURATION            1
+#define DOPS_OFF_DURATION           10
 
 // Ultradops
 #define ULTRADOPS_ON_DURATION       1
-#define ULTRADOPS_OFF_DURATION      5
+#define ULTRADOPS_OFF_DURATION      3
 
 // Strobie
 #define STROBIE_ON_DURATION         2
