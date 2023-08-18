@@ -11,8 +11,7 @@ RANLIB=ranlib
 # target files
 TARGETS=\
     vortex \
-    vortex.a \
-	vortex_test \
+    vortex.a 
 
 # Default target for 'make' command
 all: $(TARGETS)
