@@ -260,6 +260,7 @@ private:
   // the input deque that is fed by the apis like shortClick() above and translate
   // those messages into actual button events by overwriting button data that tick
   static void handleInputQueue(Button *buttons, uint32_t numButtons);
+  static uint32_t getNumInputs();
 
   // The various different button events that can be injected into vortex
   enum VortexButtonEventType
