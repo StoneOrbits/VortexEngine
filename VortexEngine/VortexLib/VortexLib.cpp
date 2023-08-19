@@ -274,7 +274,7 @@ void Vortex::doCommand(char c)
   case 'q':
     //case '\n':
     if (m_lastCommand != c) {
-      DEBUG_LOG("Injecting quit click");
+      printf("Injecting quit click\n");
     }
     Vortex::quitClick();
     break;
@@ -337,12 +337,9 @@ bool Vortex::tick()
     cleanup();
     return false;
   }
-  // On linux we need to poll stdin for input to handle commands
-#if !defined(_WIN32) && !defined(WASM)
   // use ioctl to determine how many characters are on stdin so that
   // we don't call getchar() too many times and accidentally block
-  uint32_t numInputs = 0;
-  ioctl(STDIN_FILENO, FIONREAD, &numInputs);
+  uint32_t numInputs = getNumInputs();
   if (m_lockstepEnabled && !numInputs) {
     // don't tick till we have input
     return true;
@@ -354,7 +351,6 @@ bool Vortex::tick()
   for (uint32_t i = 0; i < numInputs; ++i) {
     doCommand(getchar());
   }
-#endif
   // tick the vortex engine forward
   VortexEngine::tick();
   return true;
@@ -1123,6 +1119,33 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_isPressed = false;
     break;
   }
+}
+
+uint32_t Vortex::getNumInputs()
+{
+  uint32_t numInputs = 0;
+  // On linux we need to poll stdin for input to handle commands
+#if !defined(_WIN32) && !defined(WASM)
+  ioctl(STDIN_FILENO, FIONREAD, &numInputs);
+#elif defined(_WIN32)
+  HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
+
+  if (GetFileType(hStdin) == FILE_TYPE_CHAR) {
+    // Handle console input
+    if (!GetNumberOfConsoleInputEvents(hStdin, (DWORD *)&numInputs)) {
+      // Handle error here
+    }
+  } else {
+    // Handle redirected input
+    DWORD availableBytes;
+    if (PeekNamedPipe(hStdin, NULL, 0, NULL, &availableBytes, NULL)) {
+      numInputs = availableBytes;
+    } else {
+      // Handle error here
+    }
+  }
+#endif
+  return numInputs;
 }
 
 void Vortex::printlog(const char *file, const char *func, int line, const char *msg, va_list list)
