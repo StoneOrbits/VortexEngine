@@ -274,7 +274,7 @@ void Vortex::doCommand(char c)
   case 'q':
     //case '\n':
     if (m_lastCommand != c) {
-      printf("Injecting quit click\n");
+      DEBUG_LOG("Injecting quit click\n");
     }
     Vortex::quitClick();
     break;
