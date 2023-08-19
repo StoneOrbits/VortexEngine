@@ -13,6 +13,8 @@ TARGETS=\
     vortex \
     vortex.a
 
+.PHONY: $(TARGETS)
+
 # Default target for 'make' command
 all: $(TARGETS)
 
