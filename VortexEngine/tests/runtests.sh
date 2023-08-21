@@ -76,29 +76,33 @@ function run_tests() {
 
   ALLSUCCES=1
 
-	# Initialize a counter
-	NUMFILES=0
-	FILES=
-	
-	# Iterate through the test files
-	for file in "$PROJECT"/*.test; do
-	  # Check if the file exists
-	  if [ -e "$file" ]; then
-	    NUMFILES=$((NUMFILES + 1))
-			FILES="${FILES} $file"	
-	  fi
-	done
+  # Initialize a counter
+  NUMFILES=0
+  FILES=
 
-	if [ $NUMFILES -eq 0 ]; then
-		echo -e "\e[31mNo tests found in $PROJECT folder\e[0m"
-		exit
-	fi
+  if [ "$TODO" != "" ]; then
+    FILES=$TODO
+  else
+    # Iterate through the test files
+    for file in "$PROJECT"/*.test; do
+      # Check if the file exists
+      if [ -e "$file" ]; then
+        NUMFILES=$((NUMFILES + 1))
+        FILES="${FILES} $file"
+      fi
+    done
+  fi
+
+  if [ $NUMFILES -eq 0 ]; then
+    echo -e "\e[31mNo tests found in $PROJECT folder\e[0m"
+    exit
+  fi
 
   echo -e "\e[33m== [\e[97mRUNNING $NUMFILES $PROJECT INTEGRATION TESTS\e[33m] ==\e[0m"
 
-	# clear tmp folder
-	rm -rf tmp/$PROJECT
-	mkdir -p tmp/$PROJECT
+  # clear tmp folder
+  rm -rf tmp/$PROJECT
+  mkdir -p tmp/$PROJECT
 
   for FILE in $FILES; do
     INPUT="$(grep "Input=" $FILE | cut -d= -f2)"
@@ -106,11 +110,6 @@ function run_tests() {
     ARGS="$(grep "Args=" $FILE | cut -d= -f2)"
     TESTNUM="$(echo $FILE | cut -d/ -f2 | cut -d_ -f1 | cut -d/ -f2)"
     TESTNUM=$((10#$TESTNUM))
-    if [ "$TODO" != "" ]; then
-      if [ $TODO -ne $TESTNUM ]; then
-        continue
-      fi
-    fi
     echo -e -n "\e[33mTesting $PROJECT $TESTNUM/$NUMFILES [\e[97m$BRIEF\e[33m] "
     if [ "$ARGS" != "" ]; then
       echo -e -n "[\e[97m$ARGS\e[33m] "
