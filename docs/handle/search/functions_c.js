@@ -11,13 +11,12 @@ var searchData=
   ['menus_2003',['Menus',['../classMenus.html#aca176c63a5d8aed17b64ec49ffe06f0a',1,'Menus']]],
   ['meteorpattern_2004',['MeteorPattern',['../classMeteorPattern.html#a339696e64c6c94796f6b226e6df1ac86',1,'MeteorPattern']]],
   ['microseconds_2005',['microseconds',['../classTime.html#ac44f4e49538456714372bb1aad3dd839',1,'Time']]],
-  ['mode_2006',['Mode',['../classMode.html#ae5b1249aa3005735acfe35d9769f27df',1,'Mode::Mode(PatternID id, const Colorset &amp;set)'],['../classMode.html#a327f4eaa5c1d880301ccf49c07b7cd30',1,'Mode::Mode(PatternID id, const PatternArgs &amp;args, const Colorset &amp;set)'],['../classMode.html#a24e28d146461c108325299106bb85877',1,'Mode::Mode(PatternID id, const PatternArgs *args, const Colorset *set)'],['../classMode.html#a6c2cb0c7fb5a1421c75449bf35a28b59',1,'Mode::Mode(const Mode *other)'],['../classMode.html#ae2f72f96196a709fd5872cac5fb8f617',1,'Mode::Mode(const Mode &amp;other)']]],
+  ['mode_2006',['Mode',['../classMode.html#a098246baedeee64fa0ed3b53547cf55f',1,'Mode::Mode()'],['../classMode.html#ae5b1249aa3005735acfe35d9769f27df',1,'Mode::Mode(PatternID id, const Colorset &amp;set)'],['../classMode.html#a327f4eaa5c1d880301ccf49c07b7cd30',1,'Mode::Mode(PatternID id, const PatternArgs &amp;args, const Colorset &amp;set)'],['../classMode.html#a24e28d146461c108325299106bb85877',1,'Mode::Mode(PatternID id, const PatternArgs *args, const Colorset *set)'],['../classMode.html#a6c2cb0c7fb5a1421c75449bf35a28b59',1,'Mode::Mode(const Mode *other)'],['../classMode.html#ae2f72f96196a709fd5872cac5fb8f617',1,'Mode::Mode(const Mode &amp;other)']]],
   ['mode_2007',['mode',['../classModes_1_1ModeLink.html#aa92272ee4453ff8a3ea268b0e5f1d03c',1,'Modes::ModeLink']]],
-  ['mode_2008',['Mode',['../classMode.html#a098246baedeee64fa0ed3b53547cf55f',1,'Mode']]],
-  ['modelink_2009',['ModeLink',['../classModes_1_1ModeLink.html#a49f55eb205afa4eaaef166c2cced7997',1,'Modes::ModeLink::ModeLink(const Mode *src=nullptr, bool inst=false)'],['../classModes_1_1ModeLink.html#a2cdbb21e1545553e90ea8f8fc97f1c0f',1,'Modes::ModeLink::ModeLink(const ByteStream &amp;src, bool inst=false)']]],
-  ['modes_2010',['Modes',['../classModes.html#a66167186033a91db8241569ca5796829',1,'Modes']]],
-  ['modesharing_2011',['ModeSharing',['../classModeSharing.html#ac368b76ecc406833a3f83f59c4a7f1c0',1,'ModeSharing']]],
-  ['move_2012',['move',['../classByteStream.html#a87790ee7b2ee44b4ff63d6268d600bdf',1,'ByteStream']]],
-  ['moveunserializer_2013',['moveUnserializer',['../classByteStream.html#a5ecd6ee430a4131e961bcdf422850685',1,'ByteStream']]],
-  ['multiledpattern_2014',['MultiLedPattern',['../classMultiLedPattern.html#afd56f557bce419b348ac721d84cfa5fa',1,'MultiLedPattern']]]
+  ['modelink_2008',['ModeLink',['../classModes_1_1ModeLink.html#a49f55eb205afa4eaaef166c2cced7997',1,'Modes::ModeLink::ModeLink(const Mode *src=nullptr, bool inst=false)'],['../classModes_1_1ModeLink.html#a2cdbb21e1545553e90ea8f8fc97f1c0f',1,'Modes::ModeLink::ModeLink(const ByteStream &amp;src, bool inst=false)']]],
+  ['modes_2009',['Modes',['../classModes.html#a66167186033a91db8241569ca5796829',1,'Modes']]],
+  ['modesharing_2010',['ModeSharing',['../classModeSharing.html#ac368b76ecc406833a3f83f59c4a7f1c0',1,'ModeSharing']]],
+  ['move_2011',['move',['../classByteStream.html#a87790ee7b2ee44b4ff63d6268d600bdf',1,'ByteStream']]],
+  ['moveunserializer_2012',['moveUnserializer',['../classByteStream.html#a5ecd6ee430a4131e961bcdf422850685',1,'ByteStream']]],
+  ['multiledpattern_2013',['MultiLedPattern',['../classMultiLedPattern.html#afd56f557bce419b348ac721d84cfa5fa',1,'MultiLedPattern']]]
 ];

@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"classBasicPattern.html#a8ecc5170fcae02fbf65490425105be1f":[0,0,1,1],
 "classBasicPattern.html#ab04a53496affe6e5bf4dccf86d91bc0e":[0,0,1,9],
 "classBasicPattern.html#ac858a6b55a2101bf46c962814858a283":[0,0,1,8],
 "classBasicPattern.html#ad361100016326dcdc8b8e72606389374":[0,0,1,3],
@@ -31,18 +32,16 @@ var NAVTREEINDEX4 =
 "classBitStream.html#af4c70ebe8150040903d65b3dac800138":[0,0,2,2],
 "classBitStream.html#aff40d73836e47617e30e56ff10ded126":[0,0,2,22],
 "classBlendPattern.html":[0,0,3],
-"classBlendPattern.html#a31fb8daa34213a09aef2261da46f2e2c":[0,0,3,2],
-"classBlendPattern.html#a6cf64630d97a5ede7af5923ed4413e63":[0,0,3,4],
+"classBlendPattern.html#a417e520657f10acd0357a5c9e185fdbf":[0,0,3,6],
+"classBlendPattern.html#a623ac046723f4f5cb23cd12f29074fa9":[0,0,3,3],
+"classBlendPattern.html#a6cf64630d97a5ede7af5923ed4413e63":[0,0,3,2],
 "classBlendPattern.html#a783477b4fdc8ec9f06cb0a24ba299ba2":[0,0,3,0],
 "classBlendPattern.html#a8418ad0548669c40bbef0cff4bdb6b48":[0,0,3,1],
-"classBlendPattern.html#a89e50f88624d3df91d988d7fb87c588e":[0,0,3,5],
-"classBlendPattern.html#a8cc3472bc6a85c6dd162163e8b429a1b":[0,0,3,9],
-"classBlendPattern.html#aa4ea7b854109b6d16fb18241ec31ad56":[0,0,3,6],
-"classBlendPattern.html#abeafe1f14b3cc59ab15e25dd534558e3":[0,0,3,10],
-"classBlendPattern.html#abf794bbbc4b16d87a33f665ecfd22fdb":[0,0,3,8],
-"classBlendPattern.html#ac064cc355072a04d18ef5b2e55013105":[0,0,3,11],
-"classBlendPattern.html#ad5bf093865849e1a8fed07de519344f7":[0,0,3,7],
-"classBlendPattern.html#adf92aff7f86d474a61d78d08de0706e1":[0,0,3,3],
+"classBlendPattern.html#a8987bd114ee92e07f97d4289a8eed86f":[0,0,3,8],
+"classBlendPattern.html#a89e50f88624d3df91d988d7fb87c588e":[0,0,3,4],
+"classBlendPattern.html#a8cc3472bc6a85c6dd162163e8b429a1b":[0,0,3,7],
+"classBlendPattern.html#ac064cc355072a04d18ef5b2e55013105":[0,0,3,9],
+"classBlendPattern.html#ad5bf093865849e1a8fed07de519344f7":[0,0,3,5],
 "classBlinkStepPattern.html":[0,0,4],
 "classBlinkStepPattern.html#a05ddb20fd795e65caf851174bb1fc293":[0,0,4,1],
 "classBlinkStepPattern.html#a0ba2d1972f6f44661aaf5da7d053772f":[0,0,4,10],
@@ -249,5 +248,6 @@ var NAVTREEINDEX4 =
 "classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c":[0,0,11,23],
 "classColorset.html#ae66046cbba14e9bca2e155e8a5f63001":[0,0,11,37],
 "classColorset.html#ae6e0a85c795f2e574bc842ea366d5eaa":[0,0,11,27],
-"classColorset.html#ae82f167e840a5fd2df65816a34991f2d":[0,0,11,11]
+"classColorset.html#ae82f167e840a5fd2df65816a34991f2d":[0,0,11,11],
+"classColorset.html#ae973ebe020c085e206fe75f39383a96a":[0,0,11,22]
 };

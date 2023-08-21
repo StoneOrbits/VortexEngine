@@ -10,6 +10,7 @@ var classVortexEngine =
     [ "init", "classVortexEngine.html#a7d0883a55ea519ac58a24637c0cc38d2", null ],
     [ "runMainLogic", "classVortexEngine.html#ad8500f86579f3e6d9f887698e181b4d2", null ],
     [ "serializeVersion", "classVortexEngine.html#a194a57be4545c9e7d0ceb0df6cf3d7e8", null ],
+    [ "setAutoCycle", "classVortexEngine.html#a82c5e580e41f61e12d52ba5baee97fdf", null ],
     [ "tick", "classVortexEngine.html#ad824edd37d12e0ba7efafd8cd844e1b7", null ],
     [ "toggleForceSleep", "classVortexEngine.html#af00c20421c2dc846493a17109c462bb4", null ],
     [ "wakeup", "classVortexEngine.html#a32e7878bb1f4e4c4d141e849ff7808fb", null ],

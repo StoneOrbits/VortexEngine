@@ -1,6 +1,5 @@
 var NAVTREEINDEX4 =
 {
-"classButtons.html#ac5767a8af9ce64e39231833ad1b166ea":[0,0,7,2],
 "classButtons.html#ada56f4493c6bfffd8a7908daa6abba2c":[0,0,7,0],
 "classByteStream.html":[0,0,8],
 "classByteStream.html#a0140aa25d5d0ed2b4a2b5fd929f52824":[0,0,8,26],
@@ -249,5 +248,6 @@ var NAVTREEINDEX4 =
 "classFillPattern.html#acf805f0f69ce390640df6d6f81cd129b":[0,0,22,4],
 "classGlobalBrightness.html":[0,0,23],
 "classGlobalBrightness.html#a18a6da61d37f5b23bb7aca2bc5aee390":[0,0,23,13],
-"classGlobalBrightness.html#a18fa4e37a22b9e6bc85f87e153ef429f":[0,0,23,11]
+"classGlobalBrightness.html#a18fa4e37a22b9e6bc85f87e153ef429f":[0,0,23,11],
+"classGlobalBrightness.html#a2e93c99e4f6ff092c0cff8c1fdcfe4ac":[0,0,23,8]
 };

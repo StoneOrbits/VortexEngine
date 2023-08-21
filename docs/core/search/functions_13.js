@@ -6,6 +6,5 @@ var searchData=
   ['time_2220',['Time',['../classTime.html#a4245e409c7347d1d671858962c2ca3b5',1,'Time']]],
   ['timer_2221',['Timer',['../classTimer.html#a5f16e8da27d2a5a5242dead46de05d97',1,'Timer']]],
   ['traditionalpattern_2222',['traditionalPattern',['../classRandomizer.html#ae80f7ed9fa8e13216277aa1d0b218651',1,'Randomizer']]],
-  ['transitionvalue_2223',['transitionValue',['../classBlendPattern.html#aa4ea7b854109b6d16fb18241ec31ad56',1,'BlendPattern']]],
-  ['trim_2224',['trim',['../classByteStream.html#a8dcea9f9d3dcd66b53cb3c1c766ac729',1,'ByteStream']]]
+  ['trim_2223',['trim',['../classByteStream.html#a8dcea9f9d3dcd66b53cb3c1c766ac729',1,'ByteStream']]]
 ];

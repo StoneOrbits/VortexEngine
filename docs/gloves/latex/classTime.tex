@@ -93,7 +93,7 @@ Definition at line 195 of file Time\+Control.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{196 \{}
-\DoxyCodeLine{197 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED) || defined(\_MSC\_VER)}}
+\DoxyCodeLine{197 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED) || defined(\_WIN32)}}
 \DoxyCodeLine{198   uint32\_t newtime = \mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{microseconds}}() + us;}
 \DoxyCodeLine{199   \textcolor{keywordflow}{while} (\mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{microseconds}}() < newtime) \{}
 \DoxyCodeLine{200     \textcolor{comment}{// busy loop}}
@@ -130,7 +130,7 @@ Definition at line 207 of file Time\+Control.\+cpp.
 \DoxyCodeLine{211   \textcolor{keywordflow}{for} (uint16\_t i = 0; i < ms; ++i) \{}
 \DoxyCodeLine{212     \mbox{\hyperlink{classTime_a1db7b0672f8b2d38994119ccc226f8ee}{delayMicroseconds}}(1000);}
 \DoxyCodeLine{213   \}}
-\DoxyCodeLine{214 \textcolor{preprocessor}{\#elif defined(\_MSC\_VER)}}
+\DoxyCodeLine{214 \textcolor{preprocessor}{\#elif defined(\_WIN32)}}
 \DoxyCodeLine{215   Sleep(ms);}
 \DoxyCodeLine{216 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{217   usleep(ms * 1000);}
@@ -167,7 +167,7 @@ References m\+\_\+cur\+Tick, and SIMULATION\+\_\+\+TICK.
 
 
 
-Referenced by Timer\+::alarm(), Mode\+Sharing\+::begin\+Sending(), Leds\+::blink\+All(), Leds\+::blink\+Index(), Leds\+::blink\+Map(), Leds\+::blink\+Pair(), Leds\+::blink\+Pairs(), Leds\+::blink\+Range(), Menu\+::blink\+Selection(), Serial\+Coms\+::check\+Serial(), Mode\+Sharing\+::continue\+Sending(), Mode\+Sharing\+::init(), Blend\+Pattern\+::on\+Blink\+On(), Timer\+::on\+End(), Timer\+::on\+Start(), Menus\+::open\+Menu\+Selection(), Mode\+Sharing\+::receive\+Mode(), Mode\+Sharing\+::run(), Randomizer\+::run(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), IRSender\+::send(), VLSender\+::send(), Modes\+::set\+Cur\+Mode(), Menu\+::show\+Bulb\+Selection(), Pattern\+Select\+::show\+List\+Selection(), Mode\+Sharing\+::show\+Receive\+Mode(), Mode\+Sharing\+::show\+Send\+Mode(), Timer\+::start(), and Button\+::update().
+Referenced by Timer\+::alarm(), Mode\+Sharing\+::begin\+Sending(), Leds\+::blink\+All(), Leds\+::blink\+Index(), Leds\+::blink\+Map(), Leds\+::blink\+Pair(), Leds\+::blink\+Pairs(), Leds\+::blink\+Range(), Menu\+::blink\+Selection(), Serial\+Coms\+::check\+Serial(), Mode\+Sharing\+::continue\+Sending(), Mode\+Sharing\+::init(), Timer\+::on\+End(), Timer\+::on\+Start(), Menus\+::open\+Menu\+Selection(), Mode\+Sharing\+::receive\+Mode(), Mode\+Sharing\+::run(), Randomizer\+::run(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), IRSender\+::send(), VLSender\+::send(), Modes\+::set\+Cur\+Mode(), Menu\+::show\+Bulb\+Selection(), Pattern\+Select\+::show\+List\+Selection(), Mode\+Sharing\+::show\+Receive\+Mode(), Mode\+Sharing\+::show\+Send\+Mode(), Timer\+::start(), and Button\+::update().
 
 \mbox{\Hypertarget{classTime_a719c88f4e11a83f7167f45a2a58f5d60}\label{classTime_a719c88f4e11a83f7167f45a2a58f5d60}} 
 \index{Time@{Time}!getRealCurtime@{getRealCurtime}}
@@ -234,7 +234,7 @@ Definition at line 50 of file Time\+Control.\+cpp.
 \DoxyCodeLine{59   m\_isSimulation = \textcolor{keyword}{false};}
 \DoxyCodeLine{60   m\_instantTimestep = \textcolor{keyword}{false};}
 \DoxyCodeLine{61 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{62 \textcolor{preprocessor}{\#if !defined(\_MSC\_VER) || defined(WASM)}}
+\DoxyCodeLine{62 \textcolor{preprocessor}{\#if !defined(\_WIN32) || defined(WASM)}}
 \DoxyCodeLine{63   \mbox{\hyperlink{TimeControl_8cpp_a6a51e9baeec9b06ae477cf6475efc71d}{start}} = \mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{microseconds}}();}
 \DoxyCodeLine{64 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{65   QueryPerformanceFrequency(\&tps);}
@@ -268,7 +268,7 @@ Definition at line 174 of file Time\+Control.\+cpp.
 \DoxyCodeLine{176 \textcolor{preprocessor}{\#ifndef VORTEX\_LIB }\textcolor{comment}{// Embedded avr devices}}
 \DoxyCodeLine{177   \textcolor{comment}{// arduino micros, or whatever micro implementation you have chosen for the embedded device}}
 \DoxyCodeLine{178   \textcolor{keywordflow}{return} micros();}
-\DoxyCodeLine{179 \textcolor{preprocessor}{\#elif defined(\_MSC\_VER) }\textcolor{comment}{// windows}}
+\DoxyCodeLine{179 \textcolor{preprocessor}{\#elif defined(\_WIN32) }\textcolor{comment}{// windows}}
 \DoxyCodeLine{180   LARGE\_INTEGER now;}
 \DoxyCodeLine{181   QueryPerformanceCounter(\&now);}
 \DoxyCodeLine{182   \textcolor{keywordflow}{if} (!tps.QuadPart) \{}
@@ -368,7 +368,7 @@ Definition at line 75 of file Time\+Control.\+cpp.
 \DoxyCodeLine{105     \textcolor{comment}{// if building anywhere except visual studio then we can run alternate sleep code}}
 \DoxyCodeLine{106     \textcolor{comment}{// because in visual studio + windows it's better to just spin and check the high}}
 \DoxyCodeLine{107     \textcolor{comment}{// resolution clock instead of trying to sleep for microseconds.}}
-\DoxyCodeLine{108 \textcolor{preprocessor}{\#if !defined(\_MSC\_VER) \&\& defined(VORTEX\_LIB)}}
+\DoxyCodeLine{108 \textcolor{preprocessor}{\#if !defined(\_WIN32) \&\& defined(VORTEX\_LIB)}}
 \DoxyCodeLine{109     uint32\_t required = (1000000 / \mbox{\hyperlink{TimeControl_8cpp_a7f21fe9fdb3605017d51d802b41910ac}{TICKRATE}});}
 \DoxyCodeLine{110     uint32\_t sleepTime = 0;}
 \DoxyCodeLine{111     \textcolor{keywordflow}{if} (required > elapsed\_us) \{}

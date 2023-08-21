@@ -98,7 +98,7 @@ $(document).ready(function(){initNavTree('TimeControl_8cpp_source.html',''); ini
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160; </div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;../Leds/Leds.h&quot;</span></div>
 <div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#if !defined(_MSC_VER) || defined(WASM)</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#if !defined(_WIN32) || defined(WASM)</span></div>
 <div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#include &lt;unistd.h&gt;</span></div>
 <div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#include &lt;time.h&gt;</span></div>
 <div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="TimeControl_8cpp.html#a6a51e9baeec9b06ae477cf6475efc71d">   15</a></span>&#160;uint64_t <a class="code" href="TimeControl_8cpp.html#a6a51e9baeec9b06ae477cf6475efc71d">start</a> = 0;</div>
@@ -144,7 +144,7 @@ $(document).ready(function(){initNavTree('TimeControl_8cpp_source.html',''); ini
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  m_isSimulation = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  m_instantTimestep = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#if !defined(_MSC_VER) || defined(WASM)</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#if !defined(_WIN32) || defined(WASM)</span></div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <a class="code" href="TimeControl_8cpp.html#a6a51e9baeec9b06ae477cf6475efc71d">start</a> = <a class="code" href="classTime.html#ac44f4e49538456714372bb1aad3dd839">microseconds</a>();</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  QueryPerformanceFrequency(&amp;tps);</div>
@@ -190,7 +190,7 @@ $(document).ready(function(){initNavTree('TimeControl_8cpp_source.html',''); ini
 <div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="comment">// if building anywhere except visual studio then we can run alternate sleep code</span></div>
 <div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="comment">// because in visual studio + windows it&#39;s better to just spin and check the high</span></div>
 <div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">// resolution clock instead of trying to sleep for microseconds.</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">#if !defined(_MSC_VER) &amp;&amp; defined(VORTEX_LIB)</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="preprocessor">#if !defined(_WIN32) &amp;&amp; defined(VORTEX_LIB)</span></div>
 <div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    uint32_t required = (1000000 / <a class="code" href="TimeControl_8cpp.html#a7f21fe9fdb3605017d51d802b41910ac">TICKRATE</a>);</div>
 <div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    uint32_t sleepTime = 0;</div>
 <div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">if</span> (required &gt; elapsed_us) {</div>
@@ -261,7 +261,7 @@ $(document).ready(function(){initNavTree('TimeControl_8cpp_source.html',''); ini
 <div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="preprocessor">#ifndef VORTEX_LIB </span><span class="comment">// Embedded avr devices</span></div>
 <div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  <span class="comment">// arduino micros, or whatever micro implementation you have chosen for the embedded device</span></div>
 <div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  <span class="keywordflow">return</span> micros();</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="preprocessor">#elif defined(_MSC_VER) </span><span class="comment">// windows</span></div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="preprocessor">#elif defined(_WIN32) </span><span class="comment">// windows</span></div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  LARGE_INTEGER now;</div>
 <div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  QueryPerformanceCounter(&amp;now);</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <span class="keywordflow">if</span> (!tps.QuadPart) {</div>
@@ -279,7 +279,7 @@ $(document).ready(function(){initNavTree('TimeControl_8cpp_source.html',''); ini
 <div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160; </div>
 <div class="line"><a name="l00191"></a><span class="lineno"><a class="line" href="classTime.html#a1db7b0672f8b2d38994119ccc226f8ee">  191</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classTime.html#a1db7b0672f8b2d38994119ccc226f8ee">Time::delayMicroseconds</a>(uint32_t us)</div>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;{</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="preprocessor">#ifdef _MSC_VER</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="preprocessor">#ifdef _WIN32</span></div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  uint32_t newtime = <a class="code" href="classTime.html#ac44f4e49538456714372bb1aad3dd839">microseconds</a>() + us;</div>
 <div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="classTime.html#ac44f4e49538456714372bb1aad3dd839">microseconds</a>() &lt; newtime) {</div>
 <div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="comment">// busy loop</span></div>
@@ -296,7 +296,7 @@ $(document).ready(function(){initNavTree('TimeControl_8cpp_source.html',''); ini
 <div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  <span class="keywordflow">for</span> (uint16_t i = 0; i &lt; ms; ++i) {</div>
 <div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    <a class="code" href="classTime.html#a1db7b0672f8b2d38994119ccc226f8ee">delayMicroseconds</a>(1000);</div>
 <div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;  }</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="preprocessor">#elif defined(_MSC_VER)</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="preprocessor">#elif defined(_WIN32)</span></div>
 <div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  Sleep(ms);</div>
 <div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  usleep(ms * 1000);</div>

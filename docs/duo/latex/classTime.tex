@@ -109,7 +109,7 @@ Definition at line 248 of file Time\+Control.\+cpp.
 \DoxyCodeLine{252   \textcolor{keywordflow}{for} (uint16\_t i = 0; i < ms; ++i) \{}
 \DoxyCodeLine{253     \mbox{\hyperlink{classTime_a9682da1974a20a9bcdbb678984cd0e9c}{delayMicroseconds}}(1000);}
 \DoxyCodeLine{254   \}}
-\DoxyCodeLine{255 \textcolor{preprocessor}{\#elif defined(\_MSC\_VER)}}
+\DoxyCodeLine{255 \textcolor{preprocessor}{\#elif defined(\_WIN32)}}
 \DoxyCodeLine{256   Sleep(ms);}
 \DoxyCodeLine{257 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{258   usleep(ms * 1000);}
@@ -146,7 +146,7 @@ References m\+\_\+cur\+Tick, and SIMULATION\+\_\+\+TICK.
 
 
 
-Referenced by Timer\+::alarm(), Leds\+::blink\+All(), Leds\+::blink\+Index(), Leds\+::blink\+Map(), Leds\+::blink\+Pair(), Leds\+::blink\+Pairs(), Leds\+::blink\+Range(), Serial\+Coms\+::check\+Serial(), Blend\+Pattern\+::on\+Blink\+On(), Timer\+::on\+End(), Timer\+::on\+Start(), Menus\+::open\+Menu\+Selection(), Mode\+Sharing\+::receive\+Mode(), Randomizer\+::run(), Global\+Brightness\+::run\+Keychain\+Mode(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), VLSender\+::send(), Modes\+::set\+Cur\+Mode(), Global\+Brightness\+::set\+Keychain\+Mode\+State(), Color\+Select\+::show\+Full\+Set(), Color\+Select\+::show\+Selection(), Timer\+::start(), and Button\+::update().
+Referenced by Timer\+::alarm(), Leds\+::blink\+All(), Leds\+::blink\+Index(), Leds\+::blink\+Map(), Leds\+::blink\+Pair(), Leds\+::blink\+Pairs(), Leds\+::blink\+Range(), Serial\+Coms\+::check\+Serial(), Timer\+::on\+End(), Timer\+::on\+Start(), Menus\+::open\+Menu\+Selection(), Mode\+Sharing\+::receive\+Mode(), Randomizer\+::run(), Global\+Brightness\+::run\+Keychain\+Mode(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), VLSender\+::send(), Modes\+::set\+Cur\+Mode(), Global\+Brightness\+::set\+Keychain\+Mode\+State(), Color\+Select\+::show\+Full\+Set(), Color\+Select\+::show\+Selection(), Timer\+::start(), and Button\+::update().
 
 \mbox{\Hypertarget{classTime_a719c88f4e11a83f7167f45a2a58f5d60}\label{classTime_a719c88f4e11a83f7167f45a2a58f5d60}} 
 \index{Time@{Time}!getRealCurtime@{getRealCurtime}}
@@ -216,7 +216,7 @@ Definition at line 51 of file Time\+Control.\+cpp.
 \DoxyCodeLine{63   m\_isSimulation = \textcolor{keyword}{false};}
 \DoxyCodeLine{64   m\_instantTimestep = \textcolor{keyword}{false};}
 \DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{66 \textcolor{preprocessor}{\#if !defined(\_MSC\_VER) || defined(WASM)}}
+\DoxyCodeLine{66 \textcolor{preprocessor}{\#if !defined(\_WIN32) || defined(WASM)}}
 \DoxyCodeLine{67   \mbox{\hyperlink{TimeControl_8cpp_a6a51e9baeec9b06ae477cf6475efc71d}{start}} = \mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{microseconds}}();}
 \DoxyCodeLine{68 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{69   QueryPerformanceFrequency(\&tps);}
@@ -286,7 +286,7 @@ Definition at line 180 of file Time\+Control.\+cpp.
 \DoxyCodeLine{184   \textcolor{comment}{// divide by 10}}
 \DoxyCodeLine{185   ticks = (\mbox{\hyperlink{classTime_ac3f1dc3ad6b2ba8787643e73b17a4f1c}{m\_curTick}} * \mbox{\hyperlink{VortexConfig_8h_a97f6a37590c60f131bba4007c88d16eb}{DEFAULT\_TICKRATE}}) + (TCB0.CNT / 1000);}
 \DoxyCodeLine{186   \textcolor{keywordflow}{return} ticks;}
-\DoxyCodeLine{187 \textcolor{preprocessor}{\#elif defined(\_MSC\_VER) }\textcolor{comment}{// windows}}
+\DoxyCodeLine{187 \textcolor{preprocessor}{\#elif defined(\_WIN32) }\textcolor{comment}{// windows}}
 \DoxyCodeLine{188   LARGE\_INTEGER now;}
 \DoxyCodeLine{189   QueryPerformanceCounter(\&now);}
 \DoxyCodeLine{190   \textcolor{keywordflow}{if} (!tps.QuadPart) \{}
@@ -387,7 +387,7 @@ Definition at line 79 of file Time\+Control.\+cpp.
 \DoxyCodeLine{110     \textcolor{comment}{// if building anywhere except visual studio then we can run alternate sleep code}}
 \DoxyCodeLine{111     \textcolor{comment}{// because in visual studio + windows it's better to just spin and check the high}}
 \DoxyCodeLine{112     \textcolor{comment}{// resolution clock instead of trying to sleep for microseconds.}}
-\DoxyCodeLine{113 \textcolor{preprocessor}{\#if !defined(\_MSC\_VER) \&\& defined(VORTEX\_LIB)}}
+\DoxyCodeLine{113 \textcolor{preprocessor}{\#if !defined(\_WIN32) \&\& defined(VORTEX\_LIB)}}
 \DoxyCodeLine{114     uint32\_t required = (1000000 / \mbox{\hyperlink{TimeControl_8cpp_a7f21fe9fdb3605017d51d802b41910ac}{TICKRATE}});}
 \DoxyCodeLine{115     uint32\_t sleepTime = 0;}
 \DoxyCodeLine{116     \textcolor{keywordflow}{if} (required > elapsed\_us) \{}

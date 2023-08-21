@@ -58,12 +58,12 @@ var NAVTREEINDEX =
 "BackStrobePattern_8cpp.html",
 "Compression_8cpp.html#a9d0df14b4296f06cf7c7b141f26d29b3a19c5cc5c8516ea67ef3b2ec2de6fc484",
 "Log_8cpp.html",
-"Storage_8cpp_source.html",
-"classBasicPattern.html#ab04a53496affe6e5bf4dccf86d91bc0e",
-"classColorset.html#ae973ebe020c085e206fe75f39383a96a",
-"classLighthousePattern.html#abcb3a868bb6248a469e7f6b6dbb4cc33",
-"classPattern.html#ac2205bdc6277d183ba732fc0ead016ed",
-"classTime.html#aa90c5d6860ae306048c96d80da2ea1b0",
+"Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f",
+"classBasicPattern.html#a8ecc5170fcae02fbf65490425105be1f",
+"classColorset.html#af65f18b0a815156608cdf3cdff93e7af",
+"classLighthousePattern.html#ad015f5592a25c5b10400e51c8db41cb0",
+"classPattern.html#ace101605a4fee4787d6ceb81c4682915",
+"classTime.html#aaf106aff340ea506f16a010b12f51769",
 "globals_defs_r.html"
 ];
 

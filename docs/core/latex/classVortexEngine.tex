@@ -24,6 +24,8 @@ static \mbox{\hyperlink{classMode}{Mode}} $\ast$ \mbox{\hyperlink{classVortexEng
 static void \mbox{\hyperlink{classVortexEngine_a4b2b59ca72d6cd1115ac6cd7c1672e44}{enter\+Sleep}} (bool save=true)
 \item 
 static void \mbox{\hyperlink{classVortexEngine_a32e7878bb1f4e4c4d141e849ff7808fb}{wakeup}} (bool reset=true)
+\item 
+static void \mbox{\hyperlink{classVortexEngine_a82c5e580e41f61e12d52ba5baee97fdf}{set\+Auto\+Cycle}} (bool enabled)
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
@@ -346,6 +348,29 @@ References Byte\+Stream\+::serialize(), VORTEX\+\_\+\+VERSION\+\_\+\+MAJOR, and 
 
 Referenced by Modes\+::save\+To\+Buffer(), and Mode\+::save\+To\+Buffer().
 
+\mbox{\Hypertarget{classVortexEngine_a82c5e580e41f61e12d52ba5baee97fdf}\label{classVortexEngine_a82c5e580e41f61e12d52ba5baee97fdf}} 
+\index{VortexEngine@{VortexEngine}!setAutoCycle@{setAutoCycle}}
+\index{setAutoCycle@{setAutoCycle}!VortexEngine@{VortexEngine}}
+\doxysubsubsection{\texorpdfstring{setAutoCycle()}{setAutoCycle()}}
+{\footnotesize\ttfamily static void Vortex\+Engine\+::set\+Auto\+Cycle (\begin{DoxyParamCaption}\item[{bool}]{enabled }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 48 of file Vortex\+Engine.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{48 \{ \mbox{\hyperlink{classVortexEngine_ae6812312d6c117bf487ea7d2754f8063}{m\_autoCycle}} = enabled; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+auto\+Cycle.
+
+
+
+Referenced by Factory\+Reset\+::on\+Long\+Click().
+
 \mbox{\Hypertarget{classVortexEngine_ad824edd37d12e0ba7efafd8cd844e1b7}\label{classVortexEngine_ad824edd37d12e0ba7efafd8cd844e1b7}} 
 \index{VortexEngine@{VortexEngine}!tick@{tick}}
 \index{tick@{tick}!VortexEngine@{VortexEngine}}
@@ -445,11 +470,11 @@ Referenced by tick().
 
 
 
-Definition at line 52 of file Vortex\+Engine.\+h.
+Definition at line 55 of file Vortex\+Engine.\+h.
 
 
 
-Referenced by run\+Main\+Logic().
+Referenced by run\+Main\+Logic(), and set\+Auto\+Cycle().
 
 \mbox{\Hypertarget{classVortexEngine_a68bdf824c4c7b2303a1b1a37da67f496}\label{classVortexEngine_a68bdf824c4c7b2303a1b1a37da67f496}} 
 \index{VortexEngine@{VortexEngine}!m\_sleeping@{m\_sleeping}}
@@ -459,7 +484,7 @@ Referenced by run\+Main\+Logic().
 
 
 
-Definition at line 49 of file Vortex\+Engine.\+h.
+Definition at line 52 of file Vortex\+Engine.\+h.
 
 
 

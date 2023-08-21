@@ -27,17 +27,17 @@ enum \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID
 , \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca320755b96ff07514ffbbea92471d9028}{PATTERN\+\_\+\+STROBE}} = PATTERN\+\_\+\+FIRST
 , \newline
 \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa5f4ef19576a5418b17815f4c406ba63}{PATTERN\+\_\+\+HYPERSTROBE}}
-, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4e822cef21b6083fdffcec08c596a96c}{PATTERN\+\_\+\+DOPS}}
+, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca83ea10c4e3b1d50592f5c9788f17ffd6}{PATTERN\+\_\+\+PICOSTROBE}}
 , \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca7db250f793478dac04e13a37d4a34ef5}{PATTERN\+\_\+\+STROBIE}}
-, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca39b2f53ce664d84086a86de867e61fb7}{PATTERN\+\_\+\+DOPY}}
+, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4e822cef21b6083fdffcec08c596a96c}{PATTERN\+\_\+\+DOPS}}
 , \newline
 \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacc012488e6da04809f4007e6586cff24}{PATTERN\+\_\+\+ULTRADOPS}}
 , \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca06c9c67d963a1590ef96f5de4a23f32e}{PATTERN\+\_\+\+STROBEGAP}}
 , \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca39f4867b6be5726e0c4931f82746a7be}{PATTERN\+\_\+\+HYPERGAP}}
-, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa7f26e7849ce7af3d75f93db4ce61aa8}{PATTERN\+\_\+\+DOPGAP}}
+, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca17dd5fb37e7e12b20753f5f870f45675}{PATTERN\+\_\+\+PICOGAP}}
 , \newline
 \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca280f9151afb0380f61a8fb4899891493}{PATTERN\+\_\+\+STROBIEGAP}}
-, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca03e05292b854ca4bbe44111eb6827736}{PATTERN\+\_\+\+DOPYGAP}}
+, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacf75c8f9dcdefea662d09280766acdbb}{PATTERN\+\_\+\+DOPSGAP}}
 , \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacbb64716a819d20cad5beaf5c8369232}{PATTERN\+\_\+\+ULTRAGAP}}
 , \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf97296c777eb512576ec97bfb1d6874e}{PATTERN\+\_\+\+BLINKIE}}
 , \newline
@@ -68,7 +68,7 @@ enum \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID
 , \newline
 \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca63a5c7f0287e61ea810c90b211903308}{PATTERN\+\_\+\+SINGLE\+\_\+\+LAST}} = (PATTERN\+\_\+\+MULTI\+\_\+\+FIRST -\/ 1)
 , \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca1ab18f6049f53be69b7ca4637d1570e6}{PATTERN\+\_\+\+SINGLE\+\_\+\+COUNT}} = (PATTERN\+\_\+\+SINGLE\+\_\+\+LAST -\/ PATTERN\+\_\+\+SINGLE\+\_\+\+FIRST) + 1
-, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca674a8554ca97e8df75a7a8442ea0dd28}{PATTERN\+\_\+\+HUESHIFT}} = PATTERN\+\_\+\+MULTI\+\_\+\+FIRST
+, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cac443649bb2a1d14c0b83d8f3432bf549}{PATTERN\+\_\+\+HUE\+\_\+\+SCROLL}} = PATTERN\+\_\+\+MULTI\+\_\+\+FIRST
 , \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa42dfe59c9c1c5c27d78dc6e0f91d651}{PATTERN\+\_\+\+THEATER\+\_\+\+CHASE}}
 , \newline
 \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacae31f0640b7e95cec1ce44b1e89a963}{PATTERN\+\_\+\+CHASER}}
@@ -149,16 +149,16 @@ PATTERN\+\_\+\+STROBE&\\
 PATTERN\+\_\+\+HYPERSTROBE&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_DOPS@{PATTERN\_DOPS}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_DOPS@{PATTERN\_DOPS}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4e822cef21b6083fdffcec08c596a96c}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4e822cef21b6083fdffcec08c596a96c}} 
-PATTERN\+\_\+\+DOPS&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_PICOSTROBE@{PATTERN\_PICOSTROBE}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_PICOSTROBE@{PATTERN\_PICOSTROBE}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca83ea10c4e3b1d50592f5c9788f17ffd6}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca83ea10c4e3b1d50592f5c9788f17ffd6}} 
+PATTERN\+\_\+\+PICOSTROBE&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_STROBIE@{PATTERN\_STROBIE}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_STROBIE@{PATTERN\_STROBIE}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca7db250f793478dac04e13a37d4a34ef5}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca7db250f793478dac04e13a37d4a34ef5}} 
 PATTERN\+\_\+\+STROBIE&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_DOPY@{PATTERN\_DOPY}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_DOPY@{PATTERN\_DOPY}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca39b2f53ce664d84086a86de867e61fb7}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca39b2f53ce664d84086a86de867e61fb7}} 
-PATTERN\+\_\+\+DOPY&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_DOPS@{PATTERN\_DOPS}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_DOPS@{PATTERN\_DOPS}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4e822cef21b6083fdffcec08c596a96c}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4e822cef21b6083fdffcec08c596a96c}} 
+PATTERN\+\_\+\+DOPS&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_ULTRADOPS@{PATTERN\_ULTRADOPS}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_ULTRADOPS@{PATTERN\_ULTRADOPS}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacc012488e6da04809f4007e6586cff24}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacc012488e6da04809f4007e6586cff24}} 
@@ -173,16 +173,16 @@ PATTERN\+\_\+\+STROBEGAP&\\
 PATTERN\+\_\+\+HYPERGAP&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_DOPGAP@{PATTERN\_DOPGAP}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_DOPGAP@{PATTERN\_DOPGAP}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa7f26e7849ce7af3d75f93db4ce61aa8}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa7f26e7849ce7af3d75f93db4ce61aa8}} 
-PATTERN\+\_\+\+DOPGAP&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_PICOGAP@{PATTERN\_PICOGAP}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_PICOGAP@{PATTERN\_PICOGAP}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca17dd5fb37e7e12b20753f5f870f45675}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca17dd5fb37e7e12b20753f5f870f45675}} 
+PATTERN\+\_\+\+PICOGAP&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_STROBIEGAP@{PATTERN\_STROBIEGAP}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_STROBIEGAP@{PATTERN\_STROBIEGAP}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca280f9151afb0380f61a8fb4899891493}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca280f9151afb0380f61a8fb4899891493}} 
 PATTERN\+\_\+\+STROBIEGAP&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_DOPYGAP@{PATTERN\_DOPYGAP}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_DOPYGAP@{PATTERN\_DOPYGAP}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca03e05292b854ca4bbe44111eb6827736}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca03e05292b854ca4bbe44111eb6827736}} 
-PATTERN\+\_\+\+DOPYGAP&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_DOPSGAP@{PATTERN\_DOPSGAP}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_DOPSGAP@{PATTERN\_DOPSGAP}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacf75c8f9dcdefea662d09280766acdbb}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacf75c8f9dcdefea662d09280766acdbb}} 
+PATTERN\+\_\+\+DOPSGAP&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_ULTRAGAP@{PATTERN\_ULTRAGAP}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_ULTRAGAP@{PATTERN\_ULTRAGAP}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacbb64716a819d20cad5beaf5c8369232}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacbb64716a819d20cad5beaf5c8369232}} 
@@ -281,8 +281,8 @@ PATTERN\+\_\+\+SINGLE\+\_\+\+LAST&\\
 PATTERN\+\_\+\+SINGLE\+\_\+\+COUNT&\\
 \hline
 
-\raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_HUESHIFT@{PATTERN\_HUESHIFT}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_HUESHIFT@{PATTERN\_HUESHIFT}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca674a8554ca97e8df75a7a8442ea0dd28}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca674a8554ca97e8df75a7a8442ea0dd28}} 
-PATTERN\+\_\+\+HUESHIFT&\\
+\raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_HUE\_SCROLL@{PATTERN\_HUE\_SCROLL}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_HUE\_SCROLL@{PATTERN\_HUE\_SCROLL}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cac443649bb2a1d14c0b83d8f3432bf549}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cac443649bb2a1d14c0b83d8f3432bf549}} 
+PATTERN\+\_\+\+HUE\+\_\+\+SCROLL&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{PATTERN\_THEATER\_CHASE@{PATTERN\_THEATER\_CHASE}!Patterns.h@{Patterns.h}}\index{Patterns.h@{Patterns.h}!PATTERN\_THEATER\_CHASE@{PATTERN\_THEATER\_CHASE}}}\mbox{\Hypertarget{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa42dfe59c9c1c5c27d78dc6e0f91d651}\label{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa42dfe59c9c1c5c27d78dc6e0f91d651}} 
@@ -411,15 +411,15 @@ Definition at line 11 of file Patterns.\+h.
 \DoxyCodeLine{24 }
 \DoxyCodeLine{25   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca320755b96ff07514ffbbea92471d9028}{PATTERN\_STROBE}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadf768ce40ed692705072e056d20335b1}{PATTERN\_FIRST}},}
 \DoxyCodeLine{26   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa5f4ef19576a5418b17815f4c406ba63}{PATTERN\_HYPERSTROBE}},}
-\DoxyCodeLine{27   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4e822cef21b6083fdffcec08c596a96c}{PATTERN\_DOPS}},}
+\DoxyCodeLine{27   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca83ea10c4e3b1d50592f5c9788f17ffd6}{PATTERN\_PICOSTROBE}},}
 \DoxyCodeLine{28   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca7db250f793478dac04e13a37d4a34ef5}{PATTERN\_STROBIE}},}
-\DoxyCodeLine{29   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca39b2f53ce664d84086a86de867e61fb7}{PATTERN\_DOPY}},}
+\DoxyCodeLine{29   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4e822cef21b6083fdffcec08c596a96c}{PATTERN\_DOPS}},}
 \DoxyCodeLine{30   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacc012488e6da04809f4007e6586cff24}{PATTERN\_ULTRADOPS}},}
 \DoxyCodeLine{31   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca06c9c67d963a1590ef96f5de4a23f32e}{PATTERN\_STROBEGAP}},}
 \DoxyCodeLine{32   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca39f4867b6be5726e0c4931f82746a7be}{PATTERN\_HYPERGAP}},}
-\DoxyCodeLine{33   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa7f26e7849ce7af3d75f93db4ce61aa8}{PATTERN\_DOPGAP}},}
+\DoxyCodeLine{33   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca17dd5fb37e7e12b20753f5f870f45675}{PATTERN\_PICOGAP}},}
 \DoxyCodeLine{34   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca280f9151afb0380f61a8fb4899891493}{PATTERN\_STROBIEGAP}},}
-\DoxyCodeLine{35   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca03e05292b854ca4bbe44111eb6827736}{PATTERN\_DOPYGAP}},}
+\DoxyCodeLine{35   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacf75c8f9dcdefea662d09280766acdbb}{PATTERN\_DOPSGAP}},}
 \DoxyCodeLine{36   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacbb64716a819d20cad5beaf5c8369232}{PATTERN\_ULTRAGAP}},}
 \DoxyCodeLine{37   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf97296c777eb512576ec97bfb1d6874e}{PATTERN\_BLINKIE}},}
 \DoxyCodeLine{38   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca96911dd864c433628dee4bbd426c2c57}{PATTERN\_GHOSTCRUSH}},}
@@ -455,7 +455,7 @@ Definition at line 11 of file Patterns.\+h.
 \DoxyCodeLine{68 }
 \DoxyCodeLine{69   \textcolor{comment}{// all 'multi led' patterns below}}
 \DoxyCodeLine{70 }
-\DoxyCodeLine{71   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca674a8554ca97e8df75a7a8442ea0dd28}{PATTERN\_HUESHIFT}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cafecfee87d2ade6034f160f02130d2916}{PATTERN\_MULTI\_FIRST}},}
+\DoxyCodeLine{71   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cac443649bb2a1d14c0b83d8f3432bf549}{PATTERN\_HUE\_SCROLL}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cafecfee87d2ade6034f160f02130d2916}{PATTERN\_MULTI\_FIRST}},}
 \DoxyCodeLine{72   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa42dfe59c9c1c5c27d78dc6e0f91d651}{PATTERN\_THEATER\_CHASE}},}
 \DoxyCodeLine{73   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacae31f0640b7e95cec1ce44b1e89a963}{PATTERN\_CHASER}},}
 \DoxyCodeLine{74   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca0b690948d8f6c2ed0a3b87e8575d7f9a}{PATTERN\_ZIGZAG}},}

@@ -59,11 +59,11 @@ var NAVTREEINDEX =
 "Compression_8cpp.html#a9a690f1f67712d1ace9c4442696a4b88",
 "LedTypes_8h.html#ab7e65bc3797cca255c8b007ee294653b",
 "Patterns_8h.html#a73f6309b79ddc1ce918a3778af1422b1",
-"WarpWormPattern_8h_source.html",
-"classColorset.html#a3cfec1a04020fca46a63a7030300de26ae20993010e2480fbf2183ebe3413fac2",
-"classLeds.html#a2ce40e5169c4d1286c7707facb6f8d49",
-"classModes_1_1ModeLink.html#a8127680b802b99d2ae5eb808c8d3a960",
-"classSerialComs.html#a03bd0843bc99d2a9c13507b4e4c1e8a3",
+"WarpWormPattern_8h.html",
+"classColorset.html#a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a",
+"classLeds.html#a2cffbdb5ebb0f4c5d07fca366c20c914",
+"classModes_1_1ModeLink.html#a9737ee0a1ce581f93159354d88e78701",
+"classSerialComs.html#a134c87080fce06fea5e1cd0bbf54d2da",
 "functions_vars_p.html"
 ];
 

@@ -116,7 +116,7 @@ Definition at line 204 of file Time\+Control.\+cpp.
 \DoxyCodeLine{235     \textcolor{stringliteral}{"{}brne 1b"{}} : \textcolor{stringliteral}{"{}=w"{}} (us) : \textcolor{stringliteral}{"{}0"{}} (us)  \textcolor{comment}{// 2 cycles}}
 \DoxyCodeLine{236   );}
 \DoxyCodeLine{237   \textcolor{comment}{// return = 4 cycles}}
-\DoxyCodeLine{238 \textcolor{preprocessor}{\#elif defined(\_MSC\_VER)}}
+\DoxyCodeLine{238 \textcolor{preprocessor}{\#elif defined(\_WIN32)}}
 \DoxyCodeLine{239   uint32\_t newtime = microseconds() + us;}
 \DoxyCodeLine{240   \textcolor{keywordflow}{while} (microseconds() < newtime) \{}
 \DoxyCodeLine{241     \textcolor{comment}{// busy loop}}

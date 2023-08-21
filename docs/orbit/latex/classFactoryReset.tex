@@ -67,14 +67,14 @@ Definition at line 6 of file Factory\+Reset.\+h.
 
 
 
-Definition at line 15 of file Factory\+Reset.\+cpp.
+Definition at line 17 of file Factory\+Reset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{15                                                              :}
-\DoxyCodeLine{16   \mbox{\hyperlink{classMenu_a7227170bc9fb45617828b755317156a3}{Menu}}(col, advanced)}
-\DoxyCodeLine{17 \{}
-\DoxyCodeLine{18 \}}
+\DoxyCodeLine{17                                                              :}
+\DoxyCodeLine{18   \mbox{\hyperlink{classMenu_a7227170bc9fb45617828b755317156a3}{Menu}}(col, advanced)}
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{20 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classFactoryReset_a8523c4243c40edb6fd146bbb6800e06f}\label{classFactoryReset_a8523c4243c40edb6fd146bbb6800e06f}} 
@@ -85,12 +85,12 @@ Definition at line 15 of file Factory\+Reset.\+cpp.
 
 
 
-Definition at line 20 of file Factory\+Reset.\+cpp.
+Definition at line 22 of file Factory\+Reset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{21 \{}
-\DoxyCodeLine{22 \}}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24 \}}
 
 \end{DoxyCode}
 
@@ -108,39 +108,39 @@ Reimplemented from \mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}
 
 
 
-Definition at line 24 of file Factory\+Reset.\+cpp.
+Definition at line 26 of file Factory\+Reset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{25 \{}
-\DoxyCodeLine{26   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{Menu::init}}()) \{}
-\DoxyCodeLine{27     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{28   \}}
-\DoxyCodeLine{29   \textcolor{comment}{// bypass led selection for fac reset if a multi was set on}}
-\DoxyCodeLine{30   \textcolor{comment}{// the current slot because it doesn't make sense to pick}}
-\DoxyCodeLine{31   \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
-\DoxyCodeLine{32   \textcolor{keywordflow}{if} (!cur) \{}
-\DoxyCodeLine{33     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{34   \}}
-\DoxyCodeLine{35   \textcolor{keywordflow}{if} (cur-\/>\mbox{\hyperlink{classMode_a833075f22903e11fd4735b5f04e7f6ea}{isMultiLed}}()) \{}
-\DoxyCodeLine{36     \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{37     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}});}
-\DoxyCodeLine{38   \}}
-\DoxyCodeLine{39   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
-\DoxyCodeLine{40     \textcolor{comment}{// skip led selection}}
-\DoxyCodeLine{41     \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{42   \}}
-\DoxyCodeLine{43   \textcolor{comment}{// start on exit by default}}
-\DoxyCodeLine{44   \mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}} = \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda6e7ff8ff64a5fe251b90ef39d30be65b}{QUADRANT\_LAST}};}
-\DoxyCodeLine{45   \textcolor{comment}{// bypass led selection for fac reset if a multi was set on}}
-\DoxyCodeLine{46   \textcolor{comment}{// the current slot because it doesn't make sense to pick}}
-\DoxyCodeLine{47   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}()-\/>isMultiLed()) \{}
-\DoxyCodeLine{48     \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{49     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}});}
-\DoxyCodeLine{50   \}}
-\DoxyCodeLine{51   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entered factory reset"{}});}
-\DoxyCodeLine{52   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{53 \}}
+\DoxyCodeLine{27 \{}
+\DoxyCodeLine{28   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{Menu::init}}()) \{}
+\DoxyCodeLine{29     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{30   \}}
+\DoxyCodeLine{31   \textcolor{comment}{// bypass led selection for fac reset if a multi was set on}}
+\DoxyCodeLine{32   \textcolor{comment}{// the current slot because it doesn't make sense to pick}}
+\DoxyCodeLine{33   \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
+\DoxyCodeLine{34   \textcolor{keywordflow}{if} (!cur) \{}
+\DoxyCodeLine{35     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{36   \}}
+\DoxyCodeLine{37   \textcolor{keywordflow}{if} (cur-\/>\mbox{\hyperlink{classMode_a833075f22903e11fd4735b5f04e7f6ea}{isMultiLed}}()) \{}
+\DoxyCodeLine{38     \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{39     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}});}
+\DoxyCodeLine{40   \}}
+\DoxyCodeLine{41   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{42     \textcolor{comment}{// skip led selection}}
+\DoxyCodeLine{43     \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{44   \}}
+\DoxyCodeLine{45   \textcolor{comment}{// start on exit by default}}
+\DoxyCodeLine{46   \mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}} = \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda6e7ff8ff64a5fe251b90ef39d30be65b}{QUADRANT\_LAST}};}
+\DoxyCodeLine{47   \textcolor{comment}{// bypass led selection for fac reset if a multi was set on}}
+\DoxyCodeLine{48   \textcolor{comment}{// the current slot because it doesn't make sense to pick}}
+\DoxyCodeLine{49   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}()-\/>isMultiLed()) \{}
+\DoxyCodeLine{50     \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{51     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}});}
+\DoxyCodeLine{52   \}}
+\DoxyCodeLine{53   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entered factory reset"{}});}
+\DoxyCodeLine{54   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{55 \}}
 
 \end{DoxyCode}
 
@@ -159,50 +159,53 @@ Reimplemented from \mbox{\hyperlink{classMenu_aa5e3a269c2dba3ee69b530c7d1b3c0ff}
 
 
 
-Definition at line 86 of file Factory\+Reset.\+cpp.
+Definition at line 88 of file Factory\+Reset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{87 \{}
-\DoxyCodeLine{88   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}}) \{}
-\DoxyCodeLine{89   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda6e7ff8ff64a5fe251b90ef39d30be65b}{QUADRANT\_LAST}}:}
-\DoxyCodeLine{90   \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{91     \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}();}
-\DoxyCodeLine{92     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{93   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda8ba2e539519ac3ed14f9a7782aac21b5}{QUADRANT\_COUNT}}:}
-\DoxyCodeLine{94     \textcolor{comment}{// must wait till all empty + one white blink}}
-\DoxyCodeLine{95     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() > (\mbox{\hyperlink{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}{FACTORY\_RESET\_THRESHOLD\_TICKS}} + \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(700))) \{}
-\DoxyCodeLine{96       \mbox{\hyperlink{classModes_a790f299aa425bdc73af7f584ee30472b}{Modes::setDefaults}}();}
-\DoxyCodeLine{97       \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
-\DoxyCodeLine{98     \}}
-\DoxyCodeLine{99     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{100   \}}
-\DoxyCodeLine{101   \textcolor{comment}{// if the button hasn't been held long enough just return}}
-\DoxyCodeLine{102   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() <= (\mbox{\hyperlink{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}{FACTORY\_RESET\_THRESHOLD\_TICKS}} + \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(10))) \{}
-\DoxyCodeLine{103     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{104   \}}
-\DoxyCodeLine{105   \textcolor{comment}{// the button was held down long enough so actually perform the factory reset}}
-\DoxyCodeLine{106   \textcolor{comment}{// restore defaults and then leave menu and save}}
-\DoxyCodeLine{107   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
-\DoxyCodeLine{108     uint8\_t curModeIndex = \mbox{\hyperlink{classModes_a7a1b8d5c48237ab106adbfc44ceb1055}{Modes::curModeIndex}}();}
-\DoxyCodeLine{109     \textcolor{comment}{// reset the target mode slot on the target led}}
-\DoxyCodeLine{110     \textcolor{keyword}{const} \mbox{\hyperlink{structdefault__mode__entry}{default\_mode\_entry}} \&def = \mbox{\hyperlink{DefaultModes_8cpp_a45a26bbffb6073c152f32b3ec0404f15}{default\_modes}}[curModeIndex];}
-\DoxyCodeLine{111     \mbox{\hyperlink{classColorset}{Colorset}} set(def.\mbox{\hyperlink{structdefault__mode__entry_af7d1e60c1f4c0d43a5ad2239e67fe65c}{numColors}}, def.\mbox{\hyperlink{structdefault__mode__entry_a0a868b6138ec894e5b7cb71aa7759192}{cols}});}
-\DoxyCodeLine{112     \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
-\DoxyCodeLine{113     cur-\/>\mbox{\hyperlink{classMode_a523af1ad207240eb672bf8ad0fccad7d}{setPatternMap}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}, def.\mbox{\hyperlink{structdefault__mode__entry_a95bf993636f486502b854fc91380cd5b}{patternID}}, \textcolor{keyword}{nullptr}, \&set);}
-\DoxyCodeLine{114     \textcolor{comment}{// re-\/initialize the current mode}}
-\DoxyCodeLine{115     cur-\/>\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
-\DoxyCodeLine{116   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{117     \mbox{\hyperlink{classModes_a790f299aa425bdc73af7f584ee30472b}{Modes::setDefaults}}();}
-\DoxyCodeLine{118     \mbox{\hyperlink{classModes_a44f9cbf145f712a8ca50980a084809ca}{Modes::resetFlags}}();}
-\DoxyCodeLine{119   \}}
-\DoxyCodeLine{120   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
-\DoxyCodeLine{121 \}}
+\DoxyCodeLine{89 \{}
+\DoxyCodeLine{90   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}}) \{}
+\DoxyCodeLine{91   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda6e7ff8ff64a5fe251b90ef39d30be65b}{QUADRANT\_LAST}}:}
+\DoxyCodeLine{92   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{93     \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}();}
+\DoxyCodeLine{94     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{95   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda8ba2e539519ac3ed14f9a7782aac21b5}{QUADRANT\_COUNT}}:}
+\DoxyCodeLine{96     \textcolor{comment}{// must wait till all empty + one white blink}}
+\DoxyCodeLine{97     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() > (\mbox{\hyperlink{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}{FACTORY\_RESET\_THRESHOLD\_TICKS}} + \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(700))) \{}
+\DoxyCodeLine{98       \mbox{\hyperlink{classModes_a790f299aa425bdc73af7f584ee30472b}{Modes::setDefaults}}();}
+\DoxyCodeLine{99       \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{100     \}}
+\DoxyCodeLine{101     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{102   \}}
+\DoxyCodeLine{103   \textcolor{comment}{// if the button hasn't been held long enough just return}}
+\DoxyCodeLine{104   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() <= (\mbox{\hyperlink{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}{FACTORY\_RESET\_THRESHOLD\_TICKS}} + \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(10))) \{}
+\DoxyCodeLine{105     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{106   \}}
+\DoxyCodeLine{107   \textcolor{comment}{// the button was held down long enough so actually perform the factory reset}}
+\DoxyCodeLine{108   \textcolor{comment}{// restore defaults and then leave menu and save}}
+\DoxyCodeLine{109   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{110     uint8\_t curModeIndex = \mbox{\hyperlink{classModes_a7a1b8d5c48237ab106adbfc44ceb1055}{Modes::curModeIndex}}();}
+\DoxyCodeLine{111     \textcolor{comment}{// reset the target mode slot on the target led}}
+\DoxyCodeLine{112     \textcolor{keyword}{const} \mbox{\hyperlink{structdefault__mode__entry}{default\_mode\_entry}} \&def = \mbox{\hyperlink{DefaultModes_8cpp_a45a26bbffb6073c152f32b3ec0404f15}{default\_modes}}[curModeIndex];}
+\DoxyCodeLine{113     \mbox{\hyperlink{classColorset}{Colorset}} set(def.\mbox{\hyperlink{structdefault__mode__entry_af7d1e60c1f4c0d43a5ad2239e67fe65c}{numColors}}, def.\mbox{\hyperlink{structdefault__mode__entry_a0a868b6138ec894e5b7cb71aa7759192}{cols}});}
+\DoxyCodeLine{114     \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
+\DoxyCodeLine{115     cur-\/>\mbox{\hyperlink{classMode_a523af1ad207240eb672bf8ad0fccad7d}{setPatternMap}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}, def.\mbox{\hyperlink{structdefault__mode__entry_a95bf993636f486502b854fc91380cd5b}{patternID}}, \textcolor{keyword}{nullptr}, \&set);}
+\DoxyCodeLine{116     \textcolor{comment}{// re-\/initialize the current mode}}
+\DoxyCodeLine{117     cur-\/>\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
+\DoxyCodeLine{118   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{119     \mbox{\hyperlink{classLeds_a71eae9e9f07864f4e0f5d64bffaf7eff}{Leds::setBrightness}}(\mbox{\hyperlink{VortexConfig_8h_ad27ad76d41bf29c6b9f95e8c41b86398}{DEFAULT\_BRIGHTNESS}});}
+\DoxyCodeLine{120     \mbox{\hyperlink{classVortexEngine_a82c5e580e41f61e12d52ba5baee97fdf}{VortexEngine::setAutoCycle}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{121     \mbox{\hyperlink{classModes_a790f299aa425bdc73af7f584ee30472b}{Modes::setDefaults}}();}
+\DoxyCodeLine{122     \mbox{\hyperlink{classModes_a65f088d9076706c4976f7282be323e50}{Modes::setCurMode}}(0);}
+\DoxyCodeLine{123     \mbox{\hyperlink{classModes_a44f9cbf145f712a8ca50980a084809ca}{Modes::resetFlags}}();}
+\DoxyCodeLine{124   \}}
+\DoxyCodeLine{125   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{126 \}}
 
 \end{DoxyCode}
 
 
-References default\+\_\+mode\+\_\+entry\+::cols, Modes\+::cur\+Mode(), Modes\+::cur\+Mode\+Index(), default\+\_\+modes, FACTORY\+\_\+\+RESET\+\_\+\+THRESHOLD\+\_\+\+TICKS, g\+\_\+p\+Button, Button\+::hold\+Duration(), Mode\+::init(), Menu\+::leave\+Menu(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+cur\+Selection, Menu\+::m\+\_\+target\+Leds, MS\+\_\+\+TO\+\_\+\+TICKS, default\+\_\+mode\+\_\+entry\+::num\+Colors, default\+\_\+mode\+\_\+entry\+::pattern\+ID, QUADRANT\+\_\+\+COUNT, QUADRANT\+\_\+\+LAST, Modes\+::reset\+Flags(), Modes\+::set\+Defaults(), and Mode\+::set\+Pattern\+Map().
+References default\+\_\+mode\+\_\+entry\+::cols, Modes\+::cur\+Mode(), Modes\+::cur\+Mode\+Index(), DEFAULT\+\_\+\+BRIGHTNESS, default\+\_\+modes, FACTORY\+\_\+\+RESET\+\_\+\+THRESHOLD\+\_\+\+TICKS, g\+\_\+p\+Button, Button\+::hold\+Duration(), Mode\+::init(), Menu\+::leave\+Menu(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+cur\+Selection, Menu\+::m\+\_\+target\+Leds, MS\+\_\+\+TO\+\_\+\+TICKS, default\+\_\+mode\+\_\+entry\+::num\+Colors, default\+\_\+mode\+\_\+entry\+::pattern\+ID, QUADRANT\+\_\+\+COUNT, QUADRANT\+\_\+\+LAST, Modes\+::reset\+Flags(), Vortex\+Engine\+::set\+Auto\+Cycle(), Leds\+::set\+Brightness(), Modes\+::set\+Cur\+Mode(), Modes\+::set\+Defaults(), and Mode\+::set\+Pattern\+Map().
 
 \mbox{\Hypertarget{classFactoryReset_a419f5fc7e67ea03a741ca6347933d34d}\label{classFactoryReset_a419f5fc7e67ea03a741ca6347933d34d}} 
 \index{FactoryReset@{FactoryReset}!onLongClick2@{onLongClick2}}
@@ -216,13 +219,13 @@ Reimplemented from \mbox{\hyperlink{classMenu_ad5caae69726edb6e2ed284c25eed79eb}
 
 
 
-Definition at line 123 of file Factory\+Reset.\+cpp.
+Definition at line 128 of file Factory\+Reset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{124 \{}
-\DoxyCodeLine{125   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}();}
-\DoxyCodeLine{126 \}}
+\DoxyCodeLine{129 \{}
+\DoxyCodeLine{130   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}();}
+\DoxyCodeLine{131 \}}
 
 \end{DoxyCode}
 
@@ -241,17 +244,17 @@ Reimplemented from \mbox{\hyperlink{classMenu_a135b0de5e64efeb822e5323f4b8c8955}
 
 
 
-Definition at line 72 of file Factory\+Reset.\+cpp.
+Definition at line 74 of file Factory\+Reset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{73 \{}
-\DoxyCodeLine{74   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}} == \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda6e7ff8ff64a5fe251b90ef39d30be65b}{QUADRANT\_LAST}}) \{}
-\DoxyCodeLine{75     \mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}} = \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda8ba2e539519ac3ed14f9a7782aac21b5}{QUADRANT\_COUNT}};}
-\DoxyCodeLine{76   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{77     \mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}} = \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda6e7ff8ff64a5fe251b90ef39d30be65b}{QUADRANT\_LAST}};}
-\DoxyCodeLine{78   \}}
-\DoxyCodeLine{79 \}}
+\DoxyCodeLine{75 \{}
+\DoxyCodeLine{76   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}} == \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda6e7ff8ff64a5fe251b90ef39d30be65b}{QUADRANT\_LAST}}) \{}
+\DoxyCodeLine{77     \mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}} = \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda8ba2e539519ac3ed14f9a7782aac21b5}{QUADRANT\_COUNT}};}
+\DoxyCodeLine{78   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{79     \mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}} = \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda6e7ff8ff64a5fe251b90ef39d30be65b}{QUADRANT\_LAST}};}
+\DoxyCodeLine{80   \}}
+\DoxyCodeLine{81 \}}
 
 \end{DoxyCode}
 
@@ -274,13 +277,13 @@ Reimplemented from \mbox{\hyperlink{classMenu_a0c60d92fc9fcf6d8499e419318a2b56e}
 
 
 
-Definition at line 81 of file Factory\+Reset.\+cpp.
+Definition at line 83 of file Factory\+Reset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{82 \{}
-\DoxyCodeLine{83   \mbox{\hyperlink{classFactoryReset_ade67dba03cdbab9d7cb09b78357e299b}{onShortClick}}();}
-\DoxyCodeLine{84 \}}
+\DoxyCodeLine{84 \{}
+\DoxyCodeLine{85   \mbox{\hyperlink{classFactoryReset_ade67dba03cdbab9d7cb09b78357e299b}{onShortClick}}();}
+\DoxyCodeLine{86 \}}
 
 \end{DoxyCode}
 
@@ -299,25 +302,25 @@ Reimplemented from \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}
 
 
 
-Definition at line 55 of file Factory\+Reset.\+cpp.
+Definition at line 57 of file Factory\+Reset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{56 \{}
-\DoxyCodeLine{57   \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{MenuAction}} result = \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{Menu::run}}();}
-\DoxyCodeLine{58   \textcolor{keywordflow}{if} (result != \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}}) \{}
-\DoxyCodeLine{59     \textcolor{keywordflow}{return} result;}
-\DoxyCodeLine{60   \}}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62   \textcolor{comment}{// show the reset menu}}
-\DoxyCodeLine{63   \mbox{\hyperlink{classFactoryReset_aef67b200c0630aba2f5c37d15c5d5a97}{showReset}}();}
-\DoxyCodeLine{64 }
-\DoxyCodeLine{65   \textcolor{comment}{// blink the selection}}
-\DoxyCodeLine{66   \mbox{\hyperlink{classMenu_ad6139265cfa29c387bb93c77bcba04d7}{blinkSelection}}();}
-\DoxyCodeLine{67 }
-\DoxyCodeLine{68   \textcolor{comment}{// continue}}
-\DoxyCodeLine{69   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
-\DoxyCodeLine{70 \}}
+\DoxyCodeLine{58 \{}
+\DoxyCodeLine{59   \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{MenuAction}} result = \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{Menu::run}}();}
+\DoxyCodeLine{60   \textcolor{keywordflow}{if} (result != \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}}) \{}
+\DoxyCodeLine{61     \textcolor{keywordflow}{return} result;}
+\DoxyCodeLine{62   \}}
+\DoxyCodeLine{63 }
+\DoxyCodeLine{64   \textcolor{comment}{// show the reset menu}}
+\DoxyCodeLine{65   \mbox{\hyperlink{classFactoryReset_aef67b200c0630aba2f5c37d15c5d5a97}{showReset}}();}
+\DoxyCodeLine{66 }
+\DoxyCodeLine{67   \textcolor{comment}{// blink the selection}}
+\DoxyCodeLine{68   \mbox{\hyperlink{classMenu_ad6139265cfa29c387bb93c77bcba04d7}{blinkSelection}}();}
+\DoxyCodeLine{69 }
+\DoxyCodeLine{70   \textcolor{comment}{// continue}}
+\DoxyCodeLine{71   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
+\DoxyCodeLine{72 \}}
 
 \end{DoxyCode}
 
@@ -332,58 +335,58 @@ References Menu\+::blink\+Selection(), Menu\+::\+MENU\+\_\+\+CONTINUE, Menu\+::r
 
 
 
-Definition at line 128 of file Factory\+Reset.\+cpp.
+Definition at line 133 of file Factory\+Reset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{129 \{}
-\DoxyCodeLine{130   \textcolor{comment}{// if we're on the thumb just set the rest to blank}}
-\DoxyCodeLine{131   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}} == \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda6e7ff8ff64a5fe251b90ef39d30be65b}{QUADRANT\_LAST}}) \{}
-\DoxyCodeLine{132     \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{Leds::setRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
-\DoxyCodeLine{133     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{134   \}}
-\DoxyCodeLine{135   \textcolor{comment}{// otherwise we're not on thumb, if the button isn't pressed}}
-\DoxyCodeLine{136   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}()) \{}
-\DoxyCodeLine{137     \textcolor{comment}{// just idle blink from clear to blank}}
-\DoxyCodeLine{138     \mbox{\hyperlink{classLeds_a6d7619d4ff244a774df66a4c5e72f6be}{Leds::clearRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}});}
-\DoxyCodeLine{139     \mbox{\hyperlink{classLeds_a572d1c48cc64421170373c6c7d218cfa}{Leds::blinkRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, 250, 150, \mbox{\hyperlink{ColorConstants_8h_a49a0f8d6d822af1b0a7e71612865ea1f}{RGB\_RED0}});}
-\DoxyCodeLine{140     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{141   \}}
-\DoxyCodeLine{142 }
-\DoxyCodeLine{143   \textcolor{comment}{// the button is pressed so show the reset countdown timer}}
-\DoxyCodeLine{144 }
-\DoxyCodeLine{145   \textcolor{comment}{// the progress is how long the hold duration has been held}}
-\DoxyCodeLine{146   \textcolor{comment}{// relative to the factory reset threshold time}}
-\DoxyCodeLine{147   \textcolor{keywordtype}{float} progress = (float)\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() / \mbox{\hyperlink{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}{FACTORY\_RESET\_THRESHOLD\_TICKS}};}
-\DoxyCodeLine{148   \textcolor{comment}{// prevents the countdown timer from showing unless button is held longer than 3\% of the reset Threshold (this is for short clicks)}}
-\DoxyCodeLine{149   \textcolor{keywordflow}{if} (progress < 0.03) \{}
-\DoxyCodeLine{150     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{151   \}}
-\DoxyCodeLine{152   \textcolor{comment}{// the ledProgress is just an LED from pinky tip to index top based on progress}}
-\DoxyCodeLine{153   \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} ledProgress = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})(progress * \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}});}
-\DoxyCodeLine{154   \textcolor{comment}{// max the led progress at index top (don't include thumb)}}
-\DoxyCodeLine{155   \textcolor{keywordflow}{if} (ledProgress > \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}) \{}
-\DoxyCodeLine{156     \textcolor{comment}{// when we reach the end of the progress bar just blink white}}
-\DoxyCodeLine{157     \mbox{\hyperlink{classLeds_a572d1c48cc64421170373c6c7d218cfa}{Leds::blinkRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, 80, 60, \mbox{\hyperlink{ColorConstants_8h_aceadfad4620b387bc55a8ca56d905769}{RGB\_WHITE6}});}
-\DoxyCodeLine{158     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{159   \}}
-\DoxyCodeLine{160 }
-\DoxyCodeLine{161   \textcolor{comment}{// the off/on ms blink faster based on the progress}}
-\DoxyCodeLine{162   uint32\_t offMs = 150 -\/ ((65 / \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) * ledProgress);}
-\DoxyCodeLine{163   uint32\_t onMs = 200 -\/ ((25 / \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) * ledProgress);}
-\DoxyCodeLine{164   \textcolor{comment}{// the hue gets more red starting at 20 going in steps of 4 to min 0}}
-\DoxyCodeLine{165   int8\_t hue = (ledProgress < 6) ? 20 -\/ (4 * ledProgress) : 0;}
-\DoxyCodeLine{166   \textcolor{comment}{// the 'endled' is the tip of the reset progress bar, since the progress}}
-\DoxyCodeLine{167   \textcolor{comment}{// bar starts full red and empties down to the pinky that means it is}}
-\DoxyCodeLine{168   \textcolor{comment}{// inverted from the 'ledProgress' which starts at 0 and grows}}
-\DoxyCodeLine{169   \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} endLed = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}} -\/ ledProgress);}
-\DoxyCodeLine{170   \textcolor{comment}{// clear all the leds so that 'blinkRange' will blink from off to the designated color}}
-\DoxyCodeLine{171   \mbox{\hyperlink{classLeds_a6d7619d4ff244a774df66a4c5e72f6be}{Leds::clearRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}});}
-\DoxyCodeLine{172   \textcolor{comment}{// blink to the calculated redish hue from pinky to the end led}}
-\DoxyCodeLine{173   \mbox{\hyperlink{classLeds_a572d1c48cc64421170373c6c7d218cfa}{Leds::blinkRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, endLed, offMs, onMs, \mbox{\hyperlink{classHSVColor}{HSVColor}}(hue, 255, 180));}
-\DoxyCodeLine{174   \textcolor{comment}{// and blink the background the regular blank color}}
-\DoxyCodeLine{175   \mbox{\hyperlink{classLeds_a572d1c48cc64421170373c6c7d218cfa}{Leds::blinkRange}}((\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})(endLed + 1), \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, offMs, onMs, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
-\DoxyCodeLine{176 \}}
+\DoxyCodeLine{134 \{}
+\DoxyCodeLine{135   \textcolor{comment}{// if we're on the thumb just set the rest to blank}}
+\DoxyCodeLine{136   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}} == \mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9eda6e7ff8ff64a5fe251b90ef39d30be65b}{QUADRANT\_LAST}}) \{}
+\DoxyCodeLine{137     \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{Leds::setRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
+\DoxyCodeLine{138     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{139   \}}
+\DoxyCodeLine{140   \textcolor{comment}{// otherwise we're not on thumb, if the button isn't pressed}}
+\DoxyCodeLine{141   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}()) \{}
+\DoxyCodeLine{142     \textcolor{comment}{// just idle blink from clear to blank}}
+\DoxyCodeLine{143     \mbox{\hyperlink{classLeds_a6d7619d4ff244a774df66a4c5e72f6be}{Leds::clearRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}});}
+\DoxyCodeLine{144     \mbox{\hyperlink{classLeds_a572d1c48cc64421170373c6c7d218cfa}{Leds::blinkRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, 250, 150, \mbox{\hyperlink{ColorConstants_8h_a49a0f8d6d822af1b0a7e71612865ea1f}{RGB\_RED0}});}
+\DoxyCodeLine{145     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{146   \}}
+\DoxyCodeLine{147 }
+\DoxyCodeLine{148   \textcolor{comment}{// the button is pressed so show the reset countdown timer}}
+\DoxyCodeLine{149 }
+\DoxyCodeLine{150   \textcolor{comment}{// the progress is how long the hold duration has been held}}
+\DoxyCodeLine{151   \textcolor{comment}{// relative to the factory reset threshold time}}
+\DoxyCodeLine{152   \textcolor{keywordtype}{float} progress = (float)\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() / \mbox{\hyperlink{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}{FACTORY\_RESET\_THRESHOLD\_TICKS}};}
+\DoxyCodeLine{153   \textcolor{comment}{// prevents the countdown timer from showing unless button is held longer than 3\% of the reset Threshold (this is for short clicks)}}
+\DoxyCodeLine{154   \textcolor{keywordflow}{if} (progress < 0.03) \{}
+\DoxyCodeLine{155     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{156   \}}
+\DoxyCodeLine{157   \textcolor{comment}{// the ledProgress is just an LED from pinky tip to index top based on progress}}
+\DoxyCodeLine{158   \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} ledProgress = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})(progress * \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}});}
+\DoxyCodeLine{159   \textcolor{comment}{// max the led progress at index top (don't include thumb)}}
+\DoxyCodeLine{160   \textcolor{keywordflow}{if} (ledProgress > \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}) \{}
+\DoxyCodeLine{161     \textcolor{comment}{// when we reach the end of the progress bar just blink white}}
+\DoxyCodeLine{162     \mbox{\hyperlink{classLeds_a572d1c48cc64421170373c6c7d218cfa}{Leds::blinkRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, 80, 60, \mbox{\hyperlink{ColorConstants_8h_aceadfad4620b387bc55a8ca56d905769}{RGB\_WHITE6}});}
+\DoxyCodeLine{163     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{164   \}}
+\DoxyCodeLine{165 }
+\DoxyCodeLine{166   \textcolor{comment}{// the off/on ms blink faster based on the progress}}
+\DoxyCodeLine{167   uint32\_t offMs = 150 -\/ ((65 / \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) * ledProgress);}
+\DoxyCodeLine{168   uint32\_t onMs = 200 -\/ ((25 / \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) * ledProgress);}
+\DoxyCodeLine{169   \textcolor{comment}{// the hue gets more red starting at 20 going in steps of 4 to min 0}}
+\DoxyCodeLine{170   int8\_t hue = (ledProgress < 6) ? 20 -\/ (4 * ledProgress) : 0;}
+\DoxyCodeLine{171   \textcolor{comment}{// the 'endled' is the tip of the reset progress bar, since the progress}}
+\DoxyCodeLine{172   \textcolor{comment}{// bar starts full red and empties down to the pinky that means it is}}
+\DoxyCodeLine{173   \textcolor{comment}{// inverted from the 'ledProgress' which starts at 0 and grows}}
+\DoxyCodeLine{174   \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} endLed = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}} -\/ ledProgress);}
+\DoxyCodeLine{175   \textcolor{comment}{// clear all the leds so that 'blinkRange' will blink from off to the designated color}}
+\DoxyCodeLine{176   \mbox{\hyperlink{classLeds_a6d7619d4ff244a774df66a4c5e72f6be}{Leds::clearRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}});}
+\DoxyCodeLine{177   \textcolor{comment}{// blink to the calculated redish hue from pinky to the end led}}
+\DoxyCodeLine{178   \mbox{\hyperlink{classLeds_a572d1c48cc64421170373c6c7d218cfa}{Leds::blinkRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, endLed, offMs, onMs, \mbox{\hyperlink{classHSVColor}{HSVColor}}(hue, 255, 180));}
+\DoxyCodeLine{179   \textcolor{comment}{// and blink the background the regular blank color}}
+\DoxyCodeLine{180   \mbox{\hyperlink{classLeds_a572d1c48cc64421170373c6c7d218cfa}{Leds::blinkRange}}((\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})(endLed + 1), \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, offMs, onMs, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
+\DoxyCodeLine{181 \}}
 
 \end{DoxyCode}
 
