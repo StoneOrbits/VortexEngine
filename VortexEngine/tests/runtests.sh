@@ -81,7 +81,12 @@ function run_tests() {
   FILES=
 
   if [ "$TODO" != "" ]; then
-    FILES=$TODO
+    FILES=$(find $PROJECT -name $(printf "%04d" $TODO)*.test)
+    if [ "$FILES" == "" ]; then
+      echo "Could not find test $TODO"
+      exit
+    fi
+    NUMFILES=1
   else
     # Iterate through the test files
     for file in "$PROJECT"/*.test; do
@@ -91,11 +96,10 @@ function run_tests() {
         FILES="${FILES} $file"
       fi
     done
-  fi
-
-  if [ $NUMFILES -eq 0 ]; then
-    echo -e "\e[31mNo tests found in $PROJECT folder\e[0m"
-    exit
+    if [ $NUMFILES -eq 0 ]; then
+      echo -e "\e[31mNo tests found in $PROJECT folder\e[0m"
+      exit
+    fi
   fi
 
   echo -e "\e[33m== [\e[97mRUNNING $NUMFILES $PROJECT INTEGRATION TESTS\e[33m] ==\e[0m"
@@ -104,13 +108,16 @@ function run_tests() {
   rm -rf tmp/$PROJECT
   mkdir -p tmp/$PROJECT
 
+  TESTCOUNT=0
+
   for FILE in $FILES; do
     INPUT="$(grep "Input=" $FILE | cut -d= -f2)"
     BRIEF="$(grep "Brief=" $FILE | cut -d= -f2)"
     ARGS="$(grep "Args=" $FILE | cut -d= -f2)"
     TESTNUM="$(echo $FILE | cut -d/ -f2 | cut -d_ -f1 | cut -d/ -f2)"
     TESTNUM=$((10#$TESTNUM))
-    echo -e -n "\e[33mTesting $PROJECT $TESTNUM/$NUMFILES [\e[97m$BRIEF\e[33m] "
+    TESTCOUNT=$((TESTCOUNT + 1))
+    echo -e -n "\e[33mTesting $PROJECT ($TESTCOUNT/$NUMFILES) [\e[97m$BRIEF\e[33m] "
     if [ "$ARGS" != "" ]; then
       echo -e -n "[\e[97m$ARGS\e[33m] "
     fi
