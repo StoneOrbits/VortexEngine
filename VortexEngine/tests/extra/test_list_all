@@ -1,0 +1,280 @@
+                                  | Turn On                                                         | Turn on
+                                  | Stay Asleep                                                     | The device stays asleep
+ sr5                              | Lock Device                                                     | Lock the device
+ stwxtctt                         | Activate One-Click                                              | Start One-Click mode
+ stwxtstwxt                       | Deactivate One-Click                                            | End One-Click mode
+                                  | All One-Click Modes                                             | Test each mode with one click mode
+                                  | Unlock device                                                   | Unlock device from locked
+                                  | Does not unlock                                                 | Device remains locked
+ c6                               | Cycle all modes                                                 | Cycle through all mode slots
+ s                                | Activate Sleep                                                  | Activate Sleep
+ m                                | Enter Menus                                                     | Hold button to enter menus
+ f                                | Force Sleep                                                     | Hold button to force sleep
+                                  | Start Auto-cycle                                                | begin the auto-cycle mode
+                                  | End Auto-cycle                                                  | end the auto-cycle mode
+ mc6                              | Cycle through Menu List                                         | cycle through menu list options
+                                  | Activate Adv Menus                                              | unlock advanced menus
+ ml                               | Enter Randomizer                                                | go to the randomizer menu
+ mcl                              | Enter Mode Share Menu                                           | go to the mode sharing menu
+ mc2l                             | Enter Color Select Menu                                         | go to the color select menu
+ mc3l                             | Enter Pattern Select Menu                                       | go to the pattern select menu
+ mc4l                             | Enter Brightness Menu                                           | go to the brightness menu
+ mc5l                             | Enter Factory Reset Menu                                        | go to the facory reset menu
+ ma                               | Enter Adv Randomizer                                            | go to the adv randomizer menu
+ mca                              | Enter Adv Mode Share                                            | go to the adv mode sharing menu
+ mc2a                             | Enter Adv Color Select                                          | go to the adv color select menu
+ mc3a                             | Enter Adv Pattern Select                                        | go to the adv pattern select menu
+ mc4a                             | Enter Adv Brightness                                            | go to the adv brightness menu
+ mc5a                             | Enter Adv Factory Reset                                         | go to the adv facory reset menu
+ mf                               | Force Sleep from Menus                                          | Force sleep from the menus
+ mlc3                             | Cycle bulbs in Randomizer                                       | cycle through the bulb options in randomizer
+ mllc                             | Randomize Both Bulbs                                            | enter randomizer select both bulbs randomize
+ mllcl                            | Save Randomization to Both Bulbs                                | enter randomizer select both bulbs randomize save
+                                  | Start Auto-randomizer Both Bulbs                                | enter randomizer select both bulbs start auto-randomizer
+                                  | Stop Auto-randomizer Both Bulbs                                 | enter randomizer select both bulbs stop auto-randomizer
+ mllf                             | Force Sleep from Both Bulb Randomizer                           | enter randomizer select both bulbs force sleep
+ mlclc                            | Randomize Front Bulb                                            | enter randomizer select front bulb randomize
+ mlclcl                           | Save Randomization to Front Bulb                                | enter randomizer select front bulb randomize save
+                                  | Start Auto-randomizer Front Bulb                                | enter randomizer select front bulb start auto-randomizer
+                                  | Stop Auto-randomizer Front Bulb                                 | enter randomizer select front bulb stop auto-randomizer
+ mlclf                            | Force Sleep from Front Bulb Randomizer                          | enter randomizer select front bulb force sleep
+ mlc2lc                           | Randomize Top Bulb                                              | enter randomizer select top bulb randomize
+ mlc2lcl                          | Save Randomization to Top Bulb                                  | enter randomizer select top bulb randomize save
+                                  | Start Auto-randomizer Top Bulb                                  | enter randomizer select top bulb start auto-randomizer
+                                  | Stop Auto-randomizer Top Bulb                                   | enter randomizer select top bulb stop auto-randomizer
+ mlc2lf                           | Force Sleep from Top Bulb Randomizer                            | enter randomizer select top bulb force sleep
+ mlf                              | Force Sleep from Randomizer Bulb Select                         | enter randomizer force sleep
+ mac3                             | Cycle bulbs in Adv Randomizer                                   | cycle through the bulb options in randomizer
+ malc3                            | Cycle Randomizer Types Both Bulbs                               | enter adv randomizer select both bulbs cycle randomizer types
+ mallc                            | Randomize Color Only Both Bulbs                                 | enter adv randomizer select both bulbs select color only randomize
+ mallcl                           | Save Color Only Randomization to Both Bulbs                     | enter adv randomizer select both bulbs select color only randomize save
+                                  | Start Color Only Auto-randomizer Both Bulbs                     | enter adv randomizer select both bulbs select color only start auto-randomizer
+                                  | Stop Color Only Auto-randomizer Both Bulbs                      | enter adv randomizer select both bulbs select color only stop auto-randomizer
+ mallf                            | Force Sleep from Adv Randomizer Color only Both Bulbs           | enter adv randomizer select both bulbs select color only force sleep
+ malclc                           | Randomize Pattern Only Both Bulbs                               | enter adv randomizer select both bulbs select pattern only randomize
+ malclcl                          | Save Pattern Only Randomization to Both Bulbs                   | enter adv randomizer select both bulbs select pattern only randomize save
+                                  | Start Pattern Only Auto-randomizer Both Bulbs                   | enter adv randomizer select both bulbs select pattern only start auto-randomizer
+                                  | Stop Pattern Only Auto-randomizer Both Bulbs                    | enter adv randomizer select both bulbs select pattern only stop auto-randomizer
+ malclf                           | Force Sleep from Adv Randomizer Pattern only Both Bulbs         | enter adv randomizer select both bulbs select pattern only force sleep
+ malc2lc                          | Randomize Color and Pattern Both Bulbs                          | enter adv randomizer select both bulbs select color and pattern randomize
+ malc2lcl                         | Save Color and Pattern Randomization to Both Bulbs              | enter adv randomizer select both bulbs select color and pattern randomize save
+                                  | Start Color and Pattern Auto-randomizer Both Bulbs              | enter adv randomizer select both bulbs select color and pattern start auto-randomizer
+                                  | Stop Color and Pattern Auto-randomizer Both Bulbs               | enter adv randomizer select both bulbs select color and pattern stop auto-randomizer
+ malc2lf                          | Force Sleep from Adv Randomizer Color and Pattern Both Bulbs    | enter adv randomizer select both bulbs select color and pattern force sleep
+ malf                             | Force Sleep from Adv Randomizer Both Bulbs                      | enter adv randomizer select both bulbs force sleep
+ maclc3                           | Cycle Randomizer Types Front Bulb                               | enter adv randomizer select front bulb cycle randomizer types
+ macllc                           | Randomize Color Only Front Bulb                                 | enter adv randomizer select front bulb select color only randomize
+ macllcl                          | Save Color Only Randomization to Front Bulb                     | enter adv randomizer select front bulb select color only randomize save
+                                  | Start Color Only Auto-randomizer Front Bulb                     | enter adv randomizer select front bulb select color only start auto-randomizer
+                                  | Stop Color Only Auto-randomizer Front Bulb                      | enter adv randomizer select front bulb select color only stop auto-randomizer
+ macllf                           | Force Sleep from Adv Randomizer Color only Front Bulb           | enter adv randomizer select front bulb select color only force sleep
+ maclclc                          | Randomize Pattern Only Front Bulb                               | enter adv randomizer select front bulb select pattern only randomize
+ maclclcl                         | Save Pattern Only Randomization to Front Bulb                   | enter adv randomizer select front bulb select pattern only randomize save
+                                  | Start Pattern Only Auto-randomizer Front Bulb                   | enter adv randomizer select front bulb select pattern only start auto-randomizer
+                                  | Stop Pattern Only Auto-randomizer Front Bulb                    | enter adv randomizer select front bulb select pattern only stop auto-randomizer
+ maclclf                          | Force Sleep from Adv Randomizer Pattern only Font Bulb          | enter adv randomizer select front bulb select pattern only force sleep
+ maclc2lc                         | Randomize Color and Pattern Front Bulb                          | enter adv randomizer select front bulb select color and pattern randomize
+ maclc2lcl                        | Save Color and Pattern Randomization to Front Bulb              | enter adv randomizer select front bulb select color and pattern randomize save
+                                  | Start Color and Pattern Auto-randomizer Front Bulb              | enter adv randomizer select front bulb select color and pattern start auto-randomizer
+                                  | Stop Color and Pattern Auto-randomizer Front Bulb               | enter adv randomizer select front bulb select color and pattern stop auto-randomizer
+ maclc2lf                         | Force Sleep from Adv Randomizer Color and Pattern Front Bulb    | enter adv randomizer select front bulbs select color and pattern force sleep
+ maclf                            | Force Sleep from Adv Randomizer Front Bulb                      | enter adv randomizer select front bulb force sleep
+ mac2lc3                          | Cycle Randomizer Types Top Bulb                                 | enter adv randomizer select top bulb cycle randomizer types
+ mac2llc                          | Randomize Color Only Top Bulb                                   | enter adv randomizer select top bulb select color only randomize'
+ mac2llcl                         | Save Color Only Randomization to Top Bulb                       | enter adv randomizer select top bulb select color only randomize save
+                                  | Start Color Only Auto-randomizer Top Bulb                       | enter adv randomizer select top bulb select color only start auto-randomizer
+                                  | Stop Color Only Auto-randomizer Top Bulb                        | enter adv randomizer select top bulb select color only stop auto-randomizer
+ mac2llf                          | Force Sleep from Adv Randomizer Color only Top Bulb             | enter adv randomizer select top bulb select color only force sleep
+ mac2lclc                         | Randomize Pattern Only Top Bulb                                 | enter adv randomizer select top bulb select pattern only randomize
+ mac2lclcl                        | Save Pattern Only Randomization to Top Bulb                     | enter adv randomizer select top bulb select pattern only randomize save
+                                  | Start Pattern Only Auto-randomizer Top Bulb                     | enter adv randomizer select top bulb select pattern only start auto-randomizer
+                                  | Stop Pattern Only Auto-randomizer Top Bulb                      | enter adv randomizer select top bulb select pattern only stop auto-randomizer
+ mac2lclf                         | Force Sleep from Adv Randomizer Pattern only Top Bulb           | enter adv randomizer select top bulb select pattern only force sleep
+ mac2lc2lc                        | Randomize Color and Pattern Top Bulb                            | enter adv randomizer select top bulb select color and pattern randomize
+ mac2lc2lcl                       | Save Color and Pattern Randomization to Top Bulb                | enter adv randomizer select top bulb select color and pattern randomize save
+                                  | Start Color and Pattern Auto-randomizer Top Bulb                | enter adv randomizer select top bulb select color and pattern start auto-randomizer
+                                  | Stop Color and Pattern Auto-randomizer Top Bulb                 | enter adv randomizer select top bulb select color and pattern stop auto-randomizer
+ mac2lc2lf                        | Force Sleep from Adv Randomizer Color and Pattern Top Bulb      | enter adv randomizer select top bulbs select color and pattern force sleep
+ mac2lf                           | Force Sleep from Adv Randomizer Top Bulb                        | enter adv randomizer select top bulb force sleep
+ maf                              | Force Sleep from Adv Randomizer                                 | enter adv randomizer force sleep
+ mcl                              | Receive a mode                                                  | enter mode sharing receive a mode
+ mclc                             | Send a mode                                                     | enter mode sharing send a mode
+ mcll                             | Exit mode sharing                                               | enter mode shring exit mode sharing
+ mca                              | Reveice a mode in adv mode sharing                              | enter adv mode sharing receive a mode
+ mcac                             | Send a mode in adv mode sharing                                 | enter adv mode sharing send a mode
+ mcal                             | Exit adv mode sharing                                           | enter adv mode shring exit adv mode sharing
+ mc2lc3                           | Cycle bulbs in Color Select                                     | cycle through the bulb options in color select
+ mc2l2c5                          | Cycle Color Slots in Color Select Both Bulbs                    | enter color select select both bulbs cycle through color slots
+ mc2l3c5                          | Cycle Rainbow Sections in Color Select Both Bulbs               | enter color select select both bulbs select first slot cycle through rainbow sections
+ mc2l4c5                          | Cycle Hue Selection in Color Select Both Bulbs                  | enter color select select both bulbs select first slot select first rainbow cycle hue selection
+ mc2l5c5                          | Cycle Sat Selection in Color Select Both Bulbs                  | enter color select select both bulbs select first slot select first rainbow select first hue cycle sat selection
+ mc2l6c5                          | Cycle Val Selection in Color Select Both Bulbs                  | enter color select select both bulbs select first slot select first rainbow select first hue select first sat cycle val selection
+ mc2l7                            | Select Color in Color Select Both Bulbs                         | enter color select select both bulbs select first slot select first rainbow select first hue select first sat select first val
+ mc2l6c3l                         | Select Blank in Color Select Both Bulbs                         | enter color select select both bulbs select first slot select first rainbow select first hue select first sat select last val
+ mc2l6c4l                         | Return to Sat Selection from Val Selection Both Bulbs           | enter color select select both bulbs select first slot select first rainbow select first hue select first sat select return to sat
+ mc2l6f                           | Force Sleep from Val Selection Both Bulbs                       | enter color select select both bulbs select first slot select first rainbow select first hue select first sat force sleep
+ mc2l5c3l                         | Select White in Color Select Both Bulbs                         | enter color select select both bulbs select first slot select first rainbow select first hue select last sat
+ mc2l5c4l                         | Return to Hue Selection from Sat Selection Both Bulbs           | enter color select select both bulbs select first slot select first rainbow select first hue select return to hue
+ mc2l5f                           | Force Sleep from Sat Selection Both Bulbs                       | enter color select select both bulbs select first slot select first rainbow select first hue force sleep
+ mc2l4c4l                         | Return to Rainbow Selection from Hue Selection Both Bulbs       | enter color select select both bulbs select first slot select first rainbow select return to rainbow
+ mc2l4f                           | Force Sleep from Hue Selection Both Bulbs                       | enter color select select both bulbs select first slot select first rainbow force sleep
+ mc2l3c4l                         | Return to Slot Selection from Rainbow Selection Both Bulbs      | enter color select select both bulbs select first slot select return to slots
+ mc2l3f                           | Force Sleep from Rainbow Selection Both Bulbs                   | enter color select select both bulbs select first slot force sleep
+ mc2l2c3l                         | Select Add Color in Color Select Both Bulbs                     | enter color select select both bulbs select add color
+ mc2l2c3l5                        | Add a New Color in Color Select Both Bulbs                      | enter color select select both bulbs select add color select first rainbot select first hue select first sat select first val
+ mc2l2c4l                         | Select Save and Exit in Color Select Both Bulbs                 | enter color select select both bulbs select save and exit
+ mc2l2d                           | Delete a Color in Color Select Both Bulbs                       | enter color select select both bulbs delete a color
+ mc2l2c3l5cl5cl5cl5cl5cl          | Save an 8 Color set in Color Select Both Bulbs                  | enter color select select both bulbs add 5 new colors save and exit
+ mc2l2d3cl                        | Delete All Colors in Color Select Both Bulbs                    | enter color select select both bulbs delete 3 colors save and exit
+ mc2l2f                           | Force Sleep from Slot Select Both Bulbs                         | enter color select select both bulbs force sleep
+ mc2lclc5                         | Cycle Color Slots in Color Select Front Bulb                    | enter color select select front bulb cycle through color slots
+ mc2lcl2c5                        | Cycle Rainbow Sections in Color Select Front Bulb               | enter color select select front bulb select first slot cycle through rainbow sections
+ mc2lcl3c5                        | Cycle Hue Selection in Color Select Front Bulb                  | enter color select select front bulb select first slot select first rainbow cycle hue selection
+ mc2lcl4c5                        | Cycle Sat Selection in Color Select Front Bulb                  | enter color select select front bulb select first slot select first rainbow select first hue cycle sat selection
+ mc2lcl5c5                        | Cycle Val Selection in Color Select Front Bulb                  | enter color select select front bulb select first slot select first rainbow select first hue select first sat cycle val selection
+ mc2lcl6                          | Select Color in Color Select Front Bulb                         | enter color select select front bulb select first slot select first rainbow select first hue select first sat select first val
+ mc2lcl5c3l                       | Select Blank in Color Select Front Bulb                         | enter color select select front bulb select first slot select first rainbow select first hue select first sat select last val
+ mc2lcl5c4l                       | Return to Sat Selection from Val Selection Front Bulb           | enter color select select front bulb select first slot select first rainbow select first hue select first sat select return to sat
+ mc2lcl5f                         | Force Sleep from Val Selection Front Bulb                       | enter color select select front bulb select first slot select first rainbow select first hue select first sat force sleep
+ mc2lcl4c3l                       | Select White in Color Select Front Bulb                         | enter color select select front bulb select first slot select first rainbow select first hue select last sat
+ mc2lcl4c4l                       | Return to Hue Selection from Sat Selection Front Bulb           | enter color select select front bulb select first slot select first rainbow select first hue select return to hue
+ mc2lcl4f                         | Force Sleep from Sat Selection Front Bulb                       | enter color select select front bulb select first slot select first rainbow select first hue force sleep
+ mc2lcl3c4l                       | Return to Rainbow Selection from Hue Selection Front Bulb       | enter color select select front bulb select first slot select first rainbow select return to rainbow
+ mc2lcl3f                         | Force Sleep from Hue Selection Front Bulb                       | enter color select select front bulb select first slot select first rainbow force sleep
+ mc2lcl2c4l                       | Return to Slot Selection from Rainbow Selection Front Bulb      | enter color select select front bulb select first slot select return to slots
+ mc2lcl2f                         | Force Sleep from Rainbow Selection Front Bulb                   | enter color select select front bulb select first slot force sleep
+ mc2lclc3l                        | Select Add Color in Color Select Front Bulb                     | enter color select select front bulb select add color
+ mc2lclc3l5                       | Add a New Color in Color Select Front Bulb                      | enter color select select front bulb select add color select first rainbot select first hue select first sat select first val
+ mc2lclc4l                        | Select Save and Exit in Color Select Front Bulb                 | enter color select select front bulb select save and exit
+ mc2lcld                          | Delete a Color in Color Select Front Bulb                       | enter color select select front bulb delete a color
+ mc2lclc3l5cl5cl5cl5cl5cl         | Save an 8 Color set in Color Select Front Bulb                  | enter color select select front bulb add 5 new colors save and exit
+ mc2lcld3cl                       | Delete All Colors in Color Select Front Bulb                    | enter color select select front bulb delete 3 colors save and exit
+ mc2lclf                          | Force Sleep from Slot Select Front Bulb                         | enter color select select front bulb force sleep
+ mc2lc2lc5                        | Cycle Color Slots in Color Select Top Bulb                      | enter color select select top bulb cycle through color slots
+ mc2lc2l2c5                       | Cycle Rainbow Sections in Color Select Top Bulb                 | enter color select select top bulb select first slot cycle through rainbow sections
+ mc2lc2l3c5                       | Cycle Hue Selection in Color Select Top Bulb                    | enter color select select top bulb select first slot select first rainbow cycle hue selection
+ mc2lc2l4c5                       | Cycle Sat Selection in Color Select Top Bulb                    | enter color select select top bulb select first slot select first rainbow select first hue cycle sat selection
+ mc2lc2l5c5                       | Cycle Val Selection in Color Select Top Bulb                    | enter color select select top bulb select first slot select first rainbow select first hue select first sat cycle val selection
+ mc2lc2l6                         | Select Color in Color Select Top Bulb                           | enter color select select top bulb select first slot select first rainbow select first hue select first sat select first val
+ mc2lc2l5c3l                      | Select Blank in Color Select Top Bulb                           | enter color select select top bulb select first slot select first rainbow select first hue select first sat select last val
+ mc2lc2l5c4l                      | Return to Sat Selection from Val Selection Top Bulb             | enter color select select top bulb select first slot select first rainbow select first hue select first sat select return to sat
+ mc2lc2l5f                        | Force Sleep from Val Selection Top Bulb                         | enter color select select top bulb select first slot select first rainbow select first hue select first sat force sleep
+ mc2lc2l4c3l                      | Select White in Color Select Top Bulb                           | enter color select select top bulb select first slot select first rainbow select first hue select last sat
+ mc2lc2l4c4l                      | Return to Hue Selection from Sat Selection Top Bulb             | enter color select select top bulb select first slot select first rainbow select first hue select return to hue
+ mc2lc2l4f                        | Force Sleep from Sat Selection Top Bulb                         | enter color select select top bulb select first slot select first rainbow select first hue force sleep
+ mc2lc2l3c4l                      | Return to Rainbow Selection from Hue Selection Top Bulb         | enter color select select top bulb select first slot select first rainbow select return to rainbow
+ mc2lc2l3f                        | Force Sleep from Hue Selection Top Bulb                         | enter color select select top bulb select first slot select first rainbow force sleep
+ mc2lc2l2c4l                      | Return to Slot Selection from Rainbow Selection Top Bulb        | enter color select select top bulb select first slot select return to slots
+ mc2lc2l2f                        | Force Sleep from Rainbow Selection Top Bulb                     | enter color select select top bulb select first slot force sleep
+ mc2lc2lc3l                       | Select Add Color in Color Select Top Bulb                       | enter color select select top bulb select add color
+ mc2lc2lc3l5                      | Add a New Color in Color Select Top Bulb                        | enter color select select top bulb select add color select first rainbot select first hue select first sat select first val
+ mc2lc2lc4l                       | Select Save and Exit in Color Select Top Bulb                   | enter color select select top bulb select save and exit
+ mc2lc2ld                         | Delete a Color in Color Select Top Bulb                         | enter color select select top bulb delete a color
+ mc2lc2lc3l5cl5cl5cl5cl5cl        | Save an 8 Color set in Color Select Top Bulb                    | enter color select select top bulb add 5 new colors save and exit
+ mc2lc2ld3cl                      | Delete All Colors in Color Select Top Bulb                      | enter color select select top bulb delete 3 colors save and exit
+ mc2lc2lf                         | Force Sleep from Slot Select Top Bulb                           | enter color select select top bulb force sleep
+ mc2lf                            | Force Sleep from Color Select Bulb Select                       | enter color select force sleep
+ mc2af                            | Force Sleep from Adv Color Select                               | enter adv color select force sleep
+ mc3lc3                           | Cycle bulbs in Pattern Select                                   | cycle through the bulb options in pattern select
+ mc3l2c9c9c9c3                    | Cycle Patterns in Pattern Select Both Bulbs                     | enter pattern select select both bulbs cycle through all patterns
+ mc3l3                            | Select Pattern in Pattern Select Both Bulbs                     | enter pattern select select both bulbs select first pattern
+ mc3l2f                           | Force Sleep From Pattern Select Both Bulbs                      | enter pattern select select both bulbs force sleep
+ mc3lclc9c9c9c3                   | Cycle Patterns in Pattern Select Top Bulb                       | enter pattern select select top bulb cycle through all patterns
+ mc3lcl2                          | Select Pattern in Pattern Select Top Bulb                       | enter pattern select select top bulb select first pattern
+ mc3lclf                          | Force Sleep From Pattern Select Top Bulb                        | enter pattern select select top bulb force sleep
+ mc3lc2lc9c9c9c3                  | Cycle Patterns in Pattern Select Front Bulb                     | enter pattern select select front bulb cycle through all patterns
+ mc3lc2l2                         | Select Pattern in Pattern Select Front Bulb                     | enter pattern select select front bulb select first pattern
+ mc3lc2lf                         | Force Sleep From Pattern Select Front Bulb                      | enter pattern select select front bulb force sleep
+ mc3lf                            | Force Sleep From Pattern Select                                 | enter pattern select force sleep
+ mc3ac3                           | Cycle bulbs in Adv Pattern Select                               | cycle through the bulb options in adv pattern select
+ mc3alc                           | Increase Param 1 in Adv Pattern Select Both Bulbs               | enter adv pattern select select both bulbs increase param 1
+ mc3alr2                          | Increase Param 1 to next 10 in Adv Pattern Select Both Bulbs    | enter adv pattern select select both bulbs increase param 1 to next 10
+ mc3al2c                          | Increase Param 2 in Adv Pattern Select Both Bulbs               | enter adv pattern select select both bulbs select param 1 increase param 2
+ mc3al2r2                         | Increase Param 2 to next 10 in Adv Pattern Select Both Bulbs    | enter adv pattern select select both bulbs select param 1 increase param 2 to next 10
+ mc3al3c                          | Increase Param 3 in Adv Pattern Select Both Bulbs               | enter adv pattern select select both bulbs select param 1 select param 2 increase param 3
+ mc3al3r2                         | Increase Param 3 to next 10 in Adv Pattern Select Both Bulbs    | enter adv pattern select select both bulbs select param 1 select param 2 increase param 3 to next 10
+ mc3al4c                          | Increase Param 4 in Adv Pattern Select Both Bulbs               | enter adv pattern select select both bulbs select param 1 select param 2 select param 3 increase param 4
+ mc3al4r2                         | Increase Param 4 to next 10 in Adv Pattern Select Both Bulbs    | enter adv pattern select select both bulbs select param 1 select param 2 select param 3 increase param 4 to next 10
+ mc3al5c                          | Increase Param 5 in Adv Pattern Select Both Bulbs               | enter adv pattern select select both bulbs select param 1 select param 2 select param 3 select param 4 increase param 5
+ mc3al5r2                         | Increase Param 5 to next 10 in Adv Pattern Select Both Bulbs    | enter adv pattern select select both bulbs select param 1 select param 2 select param 3 select param 4 increase param 5 to next 10
+ mc3al6                           | Save Custom Pattern in Adv Pattern Select Both Bulbs            | enter adv pattern select select both bulbs select param 1 select param 2 select param 3 select param 4 select param 5
+ mc3al5c9                         | Cycle Through Param 5 Options in Adv Pattern Select Both Bulbs  | enter adv pattern select select both bulbs select param 1 select param 2 select param 3 select param 4 cycle all options
+ mc3al5f                          | Force Sleep from Param 5 in Adv Pattern Select Both Bulbs       | enter adv pattern select select both bulbs select param 1 select param 2 select param 3 select param 4 force sleep
+ mc3al4r2r2r2r2r2r2r2r2r2r2       | Cycle Through Param 4 Options in Adv Pattern Select Both Bulbs  | enter adv pattern select select both bulbs select param 1 select param 2 select param 3 cycle all options
+ mc3al4f                          | Force Sleep from Param 4 in Adv Pattern Select Both Bulbs       | enter adv pattern select select both bulbs select param 1 select param 2 select param 3 force sleep
+ mc3al3r2r2r2r2r2r2r2r2r2r2       | Cycle Through Param 3 Options in Adv Pattern Select Both Bulbs  | enter adv pattern select select both bulbs select param 1 select param 2 cycle all options
+ mc3al3f                          | Force Sleep from Param 3 in Adv Pattern Select Both Bulbs       | enter adv pattern select select both bulbs select param 1 select param 2 force sleep
+ mc3al2r2r2r2r2r2r2r2r2r2r2       | Cycle Through Param 2 Options in Adv Pattern Select Both Bulbs  | enter adv pattern select select both bulbs select param 1 cycle all options
+ mc3al2f                          | Force Sleep from Param 2 in Adv Pattern Select Both Bulbs       | enter adv pattern select select both bulbs select param 1 force sleep
+ mc3alr2r2r2r2r2r2r2r2r2r2        | Cycle Through Param 1 Options in Adv Pattern Select Both Bulbs  | enter adv pattern select select both bulbs cycle all options
+ mc3alf                           | Force Sleep from Param 1 in Adv Pattern Select Both Bulbs       | enter adv pattern select select both bulbs force sleep
+ mc3aclc                          | Increase Param 1 in Adv Pattern Select Front Bulb               | enter adv pattern select select front bulb increase param 1
+ mc3aclr2                         | Increase Param 1 to next 10 in Adv Pattern Select Front Bulb    | enter adv pattern select select front bulb increase param 1 to next 10
+ mc3acl2c                         | Increase Param 2 in Adv Pattern Select Front Bulb               | enter adv pattern select select front bulb select param 1 increase param 2
+ mc3acl2r2                        | Increase Param 2 to next 10 in Adv Pattern Select Front Bulb    | enter adv pattern select select front bulb select param 1 increase param 2 to next 10
+ mc3acl3c                         | Increase Param 3 in Adv Pattern Select Front Bulb               | enter adv pattern select select front bulb select param 1 select param 2 increase param 3
+ mc3acl3r2                        | Increase Param 3 to next 10 in Adv Pattern Select Front Bulb    | enter adv pattern select select front bulb select param 1 select param 2 increase param 3 to next 10
+ mc3acl4c                         | Increase Param 4 in Adv Pattern Select Front Bulb               | enter adv pattern select select front bulb select param 1 select param 2 select param 3 increase param 4
+ mc3acl4r2                        | Increase Param 4 to next 10 in Adv Pattern Select Front Bulb    | enter adv pattern select select front bulb select param 1 select param 2 select param 3 increase param 4 to next 10
+ mc3acl5c                         | Increase Param 5 in Adv Pattern Select Front Bulb               | enter adv pattern select select front bulb select param 1 select param 2 select param 3 select param 4 increase param 5
+ mc3acl5r2                        | Increase Param 5 to next 10 in Adv Pattern Select Front Bulb    | enter adv pattern select select front bulb select param 1 select param 2 select param 3 select param 4 increase param 5 to next 10
+ mc3acl6                          | Save Custom Pattern in Adv Pattern Select Front Bulb            | enter adv pattern select select front bulb select param 1 select param 2 select param 3 select param 4 select param 5
+ mc3acl5c9                        | Cycle Through Param 5 Options in Adv Pattern Select Front Bulb  | enter adv pattern select select front bulb select param 1 select param 2 select param 3 select param 4 cycle all options
+ mc3acl5f                         | Force Sleep from Param 5 in Adv Pattern Select Front Bulb       | enter adv pattern select select front bulb select param 1 select param 2 select param 3 select param 4 force sleep
+ mc3acl4r2r2r2r2r2r2r2r2r2r2      | Cycle Through Param 4 Options in Adv Pattern Select Front Bulb  | enter adv pattern select select front bulb select param 1 select param 2 select param 3 cycle all options
+ mc3acl4f                         | Force Sleep from Param 4 in Adv Pattern Select Front Bulb       | enter adv pattern select select front bulb select param 1 select param 2 select param 3 force sleep
+ mc3acl3r2r2r2r2r2r2r2r2r2r2      | Cycle Through Param 3 Options in Adv Pattern Select Front Bulb  | enter adv pattern select select front bulb select param 1 select param 2 cycle all options
+ mc3acl3f                         | Force Sleep from Param 3 in Adv Pattern Select Front Bulb       | enter adv pattern select select front bulb select param 1 select param 2 force sleep
+ mc3acl2r2r2r2r2r2r2r2r2r2r2      | Cycle Through Param 2 Options in Adv Pattern Select Front Bulb  | enter adv pattern select select front bulb select param 1 cycle all options
+ mc3acl2f                         | Force Sleep from Param 2 in Adv Pattern Select Front Bulb       | enter adv pattern select select front bulb select param 1 force sleep
+ mc3aclr2r2r2r2r2r2r2r2r2r2       | Cycle Through Param 1 Options in Adv Pattern Select Front Bulb  | enter adv pattern select select front bulb cycle all options
+ mc3aclf                          | Force Sleep from Param 1 in Adv Pattern Select Front Bulb       | enter adv pattern select select front bulb force sleep
+ mc3ac2lc                         | Increase Param 1 in Adv Pattern Select Top Bulb                 | enter adv pattern select select top bulb increase param 1
+ mc3ac2lr2                        | Increase Param 1 to next 10 in Adv Pattern Select Top Bulb      | enter adv pattern select select top bulb increase param 1 to next 10
+ mc3ac2l2c                        | Increase Param 2 in Adv Pattern Select Top Bulb                 | enter adv pattern select select top bulb select param 1 increase param 2
+ mc3ac2l2r2                       | Increase Param 2 to next 10 in Adv Pattern Select Top Bulb      | enter adv pattern select select top bulb select param 1 increase param 2 to next 10
+ mc3ac2l3c                        | Increase Param 3 in Adv Pattern Select Top Bulb                 | enter adv pattern select select top bulb select param 1 select param 2 increase param 3
+ mc3ac2l3r2                       | Increase Param 3 to next 10 in Adv Pattern Select Top Bulb      | enter adv pattern select select top bulb select param 1 select param 2 increase param 3 to next 10
+ mc3ac2l4c                        | Increase Param 4 in Adv Pattern Select Top Bulb                 | enter adv pattern select select top bulb select param 1 select param 2 select param 3 increase param 4
+ mc3ac2l4r2                       | Increase Param 4 to next 10 in Adv Pattern Select Top Bulb      | enter adv pattern select select top bulb select param 1 select param 2 select param 3 increase param 4 to next 10
+ mc3ac2l5c                        | Increase Param 5 in Adv Pattern Select Top Bulb                 | enter adv pattern select select top bulb select param 1 select param 2 select param 3 select param 4 increase param 5
+ mc3ac2l5r2                       | Increase Param 5 to next 10 in Adv Pattern Select Top Bulb      | enter adv pattern select select top bulb select param 1 select param 2 select param 3 select param 4 increase param 5 to next 10
+ mc3ac2l6                         | Save Custom Pattern in Adv Pattern Select Top Bulb              | enter adv pattern select select top bulb select param 1 select param 2 select param 3 select param 4 select param 5
+ mc3ac2l5c9                       | Cycle Through Param 5 Options in Adv Pattern Select Top Bulb    | enter adv pattern select select top bulb select param 1 select param 2 select param 3 select param 4 cycle all options
+ mc3ac2l5f                        | Force Sleep from Param 5 in Adv Pattern Select Top Bulb         | enter adv pattern select select top bulb select param 1 select param 2 select param 3 select param 4 force sleep
+ mc3ac2l4r2r2r2r2r2r2r2r2r2r2     | Cycle Through Param 4 Options in Adv Pattern Select Top Bulb    | enter adv pattern select select top bulb select param 1 select param 2 select param 3 cycle all options
+ mc3ac2l4f                        | Force Sleep from Param 4 in Adv Pattern Select Top Bulb         | enter adv pattern select select top bulb select param 1 select param 2 select param 3 force sleep
+ mc3ac2l3r2r2r2r2r2r2r2r2r2r2     | Cycle Through Param 3 Options in Adv Pattern Select Top Bulb    | enter adv pattern select select top bulb select param 1 select param 2 cycle all options
+ mc3ac2l3f                        | Force Sleep from Param 3 in Adv Pattern Select Top Bulb         | enter adv pattern select select top bulb select param 1 select param 2 force sleep
+ mc3ac2l2r2r2r2r2r2r2r2r2r2r2     | Cycle Through Param 2 Options in Adv Pattern Select Top Bulb    | enter adv pattern select select top bulb select param 1 cycle all options
+ mc3ac2l2f                        | Force Sleep from Param 2 in Adv Pattern Select Top Bulb         | enter adv pattern select select top bulb select param 1 force sleep
+ mc3ac2lr2r2r2r2r2r2r2r2r2r2      | Cycle Through Param 1 Options in Adv Pattern Select Top Bulb    | enter adv pattern select select top bulb cycle all options
+ mc3ac2lf                         | Force Sleep from Param 1 in Adv Pattern Select Top Bulb         | enter adv pattern select select top bulb force sleep
+ mc3af                            | Force Sleep from Adv Pattern Select Bulb Select                 | enter adv pattern select force sleep
+ mc4lc5                           | Cycle Brightness Options in Brightness Menu                     | enter brightness menu cycle all options
+ mc4l2                            | Select Brightness in Brightness Menu                            | enter brightness menu select brightness
+ mc4lf                            | Force Sleep from Brightness menu                                | enter brightness menu force sleep
+ mc4a                             | Start Keychain Mode                                             | enter adv brightness menu
+ mc4ac                            | Show Keychain Mode First Pattern                                | enter adv brightness menu start pattern 1
+ mc4aw2000                        | Wait past Keychain Mode Timer                                   | enter adv brightness menu wait past keychain timer
+ mc4ac                            | Trigger before Keychain Mode Timer                              | enter adv brightness menu click before keychain timer
+ mc4ar9                           | Exit Keychain Mode                                              | enter adv brightness menu exit adv brightness menu
+ mc4ac3w100000                    | Wait for Sleep in Keychain mode                                 | enter adv brightness menu wait for sleep
+ mc5lc2                           | Cycle Options in Factory Reset Menu                             | enter factory reset menu cycle options
+ mc5l2                            | Exit Factory Reset Menu                                         | enter factory reset menu exit factory reset menu
+ mc5lch4000                       | Factory Reset                                                   | enter factory reset menu factory reset
+ mc5lf                            | Force Sleep from Factory Reset Menu                             | enter factory reset menu force sleep
+ mc5ac3                           | Cycle bulbs in Adv Factory Reset Menu                           | cycle through the bulb options in adv factory reset menu
+ mc5alc2                          | Cycle Options in Adv Factory Reset Menu Both Bulbs              | enter adv factory reset menu select both bulbs cycle options
+ mc5al2                           | Exit Adv Factory Reset Menu Both Bulbs                          | enter adv factory reset menu select both bulbs exit adv factory reset menu
+ mc5alch4000                      | Factory Reset Both Bulbs                                        | enter adv factory reset menu select both bulbs factory reset selected bulbs
+ mc5alf                           | Force Sleep from Factory Reset Menu Both Bulbs                  | enter adv factory reset menu select both bulbs force sleep
+ mc5aclc2                         | Cycle Options in Adv Factory Reset Menu Front Bulb              | enter adv factory reset menu select front bulb cycle options
+ mc5acl2                          | Exit Adv Factory Reset Menu Front Bulb                          | enter adv factory reset menu select front bulb exit adv factory reset menu
+ mc5aclch4000                     | Factory Reset Front Bulb                                        | enter adv factory reset menu select front bulb factory reset selected bulbs
+ mc5aclf                          | Force Sleep from Factory Reset Menu Front Bulb                  | enter adv factory reset menu select front bulb force sleep
+ mc5ac2lc2                        | Cycle Options in Adv Factory Reset Menu Top Bulb                | enter adv factory reset menu select top bulb cycle options
+ mc5ac2l2                         | Exit Adv Factory Reset Menu Top Bulb                            | enter adv factory reset menu select top bulb exit adv factory reset menu
+ mc5ac2lch4000                    | Factory Reset Top Bulb                                          | enter adv factory reset menu select top bulb factory reset selected bulbs
+ mc5ac2lf                         | Force Sleep from Factory Reset Menu Top Bulb                    | enter adv factory reset menu select top bulb force sleep
+ mc5af                            | Force Sleep from Adv Factory Reset Menu Bulb Select             | enter adv factory reset menu force sleep

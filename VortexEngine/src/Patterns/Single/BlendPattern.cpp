@@ -35,14 +35,12 @@ void BlendPattern::init()
 
 void BlendPattern::onBlinkOn()
 {
-  if ((Time::getCurtime() % 4) == 0) {
-      if (m_cur == m_next) {
-        m_next = m_colorset.getNext();
-      }
-      interpolate(m_cur.red, m_next.red);
-      interpolate(m_cur.green, m_next.green);
-      interpolate(m_cur.blue, m_next.blue);
+  if (m_cur == m_next) {
+    m_next = m_colorset.getNext();
   }
+  interpolate(m_cur.red, m_next.red);
+  interpolate(m_cur.green, m_next.green);
+  interpolate(m_cur.blue, m_next.blue);
   RGBColor col = m_cur;
   if (m_flip) {
     // convert to hsv
