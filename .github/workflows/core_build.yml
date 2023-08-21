@@ -19,12 +19,13 @@ jobs:
       run: sudo apt-get install valgrind g++ make --fix-missing
     - name: Build
       run: make -j
+      working-directory: VortexEngine
     - name: Set execute permissions for test script
       run: chmod +x ./runtests.sh
-      working-directory: tests
+      working-directory: VortexEngine/tests
     - name: Run general tests
       run: ./runtests.sh --general
-      working-directory: tests
+      working-directory: VortexEngine/tests
 
   docs:
     needs: test
