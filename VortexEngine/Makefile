@@ -11,7 +11,9 @@ RANLIB=ranlib
 # target files
 TARGETS=\
     vortex \
-    vortex.a 
+    vortex.a
+
+.PHONY: $(TARGETS)
 
 # Default target for 'make' command
 all: $(TARGETS)
@@ -29,6 +31,6 @@ vortex:
 
 # generic clean target
 clean:
-	@$(RM) $(TARGETS) $(TESTS)
+	@$(RM) $(TARGETS) $(TESTS) vortex.exe
 	$(MAKE) -C VortexLib clean
 	$(MAKE) -C VortexCLI clean
