@@ -11,35 +11,28 @@ jobs:
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout outer repository
+    - name: Checkout current repository
       uses: actions/checkout@v3
-      with:
-        repository: "StoneOrbits/VortexEmulator"
-        path: VortexEmulator
-    - name: Checkout current repository inside the outer repository
-      uses: actions/checkout@v3
-      with:
-        path: VortexEmulator/VortexTestingFramework/VortexEngine
     - name: Update Package Lists
       run: sudo apt-get update
     - name: Install Dependencies
       run: sudo apt-get install valgrind g++ make --fix-missing
     - name: Build
       run: make -j
-      working-directory: VortexEmulator/VortexTestingFramework
+      working-directory: VortexEngine
     - name: Set execute permissions for test script
       run: chmod +x ./runtests.sh
-      working-directory: VortexEmulator/VortexTestingFramework/tests
-    - name: Run tests
-      run: ./runtests.sh --core
-      working-directory: VortexEmulator/VortexTestingFramework/tests
+      working-directory: VortexEngine/tests
+    - name: Run general tests
+      run: ./runtests.sh --general
+      working-directory: VortexEngine/tests
 
   docs:
     needs: test
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     steps:
-    - name: Checkout current repository inside the outer repository
+    - name: Checkout current repository
       uses: actions/checkout@v3
     - name: Update Package Lists
       run: sudo apt-get update
