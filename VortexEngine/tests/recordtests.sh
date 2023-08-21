@@ -63,11 +63,6 @@ if [ -z "$TARGETREPO" ]; then
   TARGETREPO=$(select_repo)
 fi
 
-<<<<<<< HEAD
-=======
-mkdir -p $TARGETREPO
-
->>>>>>> master
 echo -e -n "\e[33mBuilding Vortex...\e[0m"
 make -C ../ &> /dev/null
 if [ $? -ne 0 ]; then
@@ -128,11 +123,8 @@ function record_tests() {
     echo "Args=${ARGS}" >> "$TEMP_FILE"
     echo "--------------------------------------------------------------------------------" >> "$TEMP_FILE"
     $VORTEX $ARGS --no-timestep --hex <<< $INPUT >> $TEMP_FILE
-<<<<<<< HEAD
     # strip any \r in case this was run on windows
     sed -i 's/\r//g' $TEMP_FILE
-=======
->>>>>>> master
     # Replace the original file with the modified temp file
     mv $TEMP_FILE $FILE
     echo -e "\e[96mOK\e[0m"
