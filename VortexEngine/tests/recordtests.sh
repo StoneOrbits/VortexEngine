@@ -63,8 +63,6 @@ if [ -z "$TARGETREPO" ]; then
   TARGETREPO=$(select_repo)
 fi
 
-mkdir -p $TARGETREPO
-
 echo -e -n "\e[33mBuilding Vortex...\e[0m"
 make -C ../ &> /dev/null
 if [ $? -ne 0 ]; then
@@ -80,26 +78,30 @@ echo -e "\e[32mSuccess\e[0m"
 function record_tests() {
   PROJECT="tests_${1// /_}"
 
-	FILES=
+  FILES=
 
   rm -rf tmp/$PROJECT
   mkdir -p tmp/$PROJECT
-	
-	# Iterate through the test files
-	for file in "$PROJECT"/*.test; do
-	  # Check if the file exists
-	  if [ -e "$file" ]; then
-	    NUMFILES=$((NUMFILES + 1))
-			FILES="${FILES} $file"	
-	  fi
-	done
+
+  if [ "$TODO" != "" ]; then
+    FILES=$TODO
+  else
+    # Iterate through the test files
+    for file in "$PROJECT"/*.test; do
+      # Check if the file exists
+      if [ -e "$file" ]; then
+        NUMFILES=$((NUMFILES + 1))
+        FILES="${FILES} $file"
+      fi
+    done
+  fi
 
   NUMFILES="$(echo $FILES | wc -w)"
 
-	if [ $NUMFILES -eq 0 ]; then
-		echo -e "\e[31mNo tests found in $PROJECT folder\e[0m"
-		exit
-	fi
+  if [ $NUMFILES -eq 0 ]; then
+    echo -e "\e[31mNo tests found in $PROJECT folder\e[0m"
+    exit
+  fi
 
   echo -e "\e[33m== [\e[31mRECORDING \e[97m$NUMFILES INTEGRATION TESTS\e[33m] ==\e[0m"
 
@@ -109,11 +111,6 @@ function record_tests() {
     ARGS="$(grep "Args=" $FILE | cut -d= -f2)"
     TESTNUM="$(echo $FILE | cut -d/ -f2 | cut -d_ -f1 | cut -d/ -f2)"
     TESTNUM=$((10#$TESTNUM))
-    if [ "$TODO" != "" ]; then
-      if [ $TODO -ne $TESTNUM ]; then
-        continue
-      fi
-    fi
     echo -e -n "\e[31mRecording \e[33m[\e[97m$BRIEF\e[33m] \e[33m[\e[97m$ARGS\e[33m]...\e[0m"
     TEMP_FILE="tmp/${FILE}.out"
     # Append the output of the $VORTEX command to the temp file
@@ -125,6 +122,8 @@ function record_tests() {
     echo "Args=${ARGS}" >> "$TEMP_FILE"
     echo "--------------------------------------------------------------------------------" >> "$TEMP_FILE"
     $VORTEX $ARGS --no-timestep --hex <<< $INPUT >> $TEMP_FILE
+    # strip any \r in case this was run on windows
+    sed -i 's/\r//g' $TEMP_FILE
     # Replace the original file with the modified temp file
     mv $TEMP_FILE $FILE
     echo -e "\e[96mOK\e[0m"
