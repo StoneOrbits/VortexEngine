@@ -84,7 +84,12 @@ function record_tests() {
   mkdir -p tmp/$PROJECT
 
   if [ "$TODO" != "" ]; then
-    FILES=$TODO
+    FILES=$(find $PROJECT -name $(printf "%04d" $TODO)*.test)
+    if [ "$FILES" == "" ]; then
+      echo "Could not find test $TODO"
+      exit
+    fi
+    NUMFILES=1
   else
     # Iterate through the test files
     for file in "$PROJECT"/*.test; do
@@ -94,16 +99,17 @@ function record_tests() {
         FILES="${FILES} $file"
       fi
     done
+    if [ $NUMFILES -eq 0 ]; then
+      echo -e "\e[31mNo tests found in $PROJECT folder\e[0m"
+      exit
+    fi
   fi
 
   NUMFILES="$(echo $FILES | wc -w)"
 
-  if [ $NUMFILES -eq 0 ]; then
-    echo -e "\e[31mNo tests found in $PROJECT folder\e[0m"
-    exit
-  fi
-
   echo -e "\e[33m== [\e[31mRECORDING \e[97m$NUMFILES INTEGRATION TESTS\e[33m] ==\e[0m"
+
+  TESTCOUNT=0
 
   for FILE in $FILES; do
     INPUT="$(grep "Input=" $FILE | cut -d= -f2)"
@@ -111,7 +117,8 @@ function record_tests() {
     ARGS="$(grep "Args=" $FILE | cut -d= -f2)"
     TESTNUM="$(echo $FILE | cut -d/ -f2 | cut -d_ -f1 | cut -d/ -f2)"
     TESTNUM=$((10#$TESTNUM))
-    echo -e -n "\e[31mRecording \e[33m[\e[97m$BRIEF\e[33m] \e[33m[\e[97m$ARGS\e[33m]...\e[0m"
+    TESTCOUNT=$((TESTCOUNT + 1))
+    echo -e -n "\e[31mRecording $PROJECT ($TESTCOUNT/$NUMFILES) \e[33m[\e[97m$BRIEF\e[33m] \e[33m[\e[97m$ARGS\e[33m]...\e[0m"
     TEMP_FILE="tmp/${FILE}.out"
     # Append the output of the $VORTEX command to the temp file
     # NOTE: When recording the tests we don't use valgrind because
