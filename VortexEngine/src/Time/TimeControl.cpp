@@ -9,7 +9,7 @@
 
 #include "../Leds/Leds.h"
 
-#if !defined(_MSC_VER) || defined(WASM)
+#if !defined(_WIN32) || defined(WASM)
 #include <unistd.h>
 #include <time.h>
 uint64_t start = 0;
@@ -55,7 +55,7 @@ bool Time::init()
   m_isSimulation = false;
   m_instantTimestep = false;
 #endif
-#if !defined(_MSC_VER) || defined(WASM)
+#if !defined(_WIN32) || defined(WASM)
   start = microseconds();
 #else
   QueryPerformanceFrequency(&tps);
@@ -101,7 +101,7 @@ void Time::tickClock()
     // if building anywhere except visual studio then we can run alternate sleep code
     // because in visual studio + windows it's better to just spin and check the high
     // resolution clock instead of trying to sleep for microseconds.
-#if !defined(_MSC_VER) && defined(VORTEX_LIB)
+#if !defined(_WIN32) && defined(VORTEX_LIB)
     uint32_t required = (1000000 / TICKRATE);
     uint32_t sleepTime = 0;
     if (required > elapsed_us) {
@@ -172,7 +172,7 @@ uint32_t Time::microseconds()
 #ifndef VORTEX_LIB // Embedded avr devices
   // arduino micros, or whatever micro implementation you have chosen for the embedded device
   return micros();
-#elif defined(_MSC_VER) // windows
+#elif defined(_WIN32) // windows
   LARGE_INTEGER now;
   QueryPerformanceCounter(&now);
   if (!tps.QuadPart) {
@@ -190,7 +190,7 @@ uint32_t Time::microseconds()
 
 void Time::delayMicroseconds(uint32_t us)
 {
-#ifdef _MSC_VER
+#ifdef _WIN32
   uint32_t newtime = microseconds() + us;
   while (microseconds() < newtime) {
     // busy loop
@@ -207,7 +207,7 @@ void Time::delayMilliseconds(uint32_t ms)
   for (uint16_t i = 0; i < ms; ++i) {
     delayMicroseconds(1000);
   }
-#elif defined(_MSC_VER)
+#elif defined(_WIN32)
   Sleep(ms);
 #else
   usleep(ms * 1000);

@@ -19,10 +19,12 @@
 #include "Modes/Mode.h"
 #include "Random/Random.h"
 
-#ifndef _MSC_VER
+#ifndef _WIN32
 #include <sys/ioctl.h>
 #include <unistd.h>
 #include <stdio.h>
+#else
+#include <Windows.h>
 #endif
 
 #ifdef WASM
@@ -76,8 +78,7 @@ bool Vortex::m_storageEnabled = false;
 bool Vortex::m_sleepEnabled = true;
 bool Vortex::m_lockEnabled = true;
 
-#ifdef _MSC_VER
-#include <Windows.h>
+#ifdef _WIN32
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
   // Perform actions based on the reason for calling.
@@ -128,7 +129,7 @@ bool Vortex::init(VortexCallbacks *callbacks)
 
 #if LOG_TO_CONSOLE == 1
   if (!m_consoleHandle) {
-#ifdef _MSC_VER
+#ifdef _WIN32
     AllocConsole();
     freopen_s(&m_consoleHandle, "CONOUT$", "w", stdout);
 #else
@@ -274,7 +275,7 @@ void Vortex::doCommand(char c)
   case 'q':
     //case '\n':
     if (m_lastCommand != c) {
-      DEBUG_LOG("Injecting quit click");
+      DEBUG_LOG("Injecting quit click\n");
     }
     Vortex::quitClick();
     break;
@@ -337,12 +338,9 @@ bool Vortex::tick()
     cleanup();
     return false;
   }
-  // On linux we need to poll stdin for input to handle commands
-#if !defined(_MSC_VER) && !defined(WASM)
   // use ioctl to determine how many characters are on stdin so that
   // we don't call getchar() too many times and accidentally block
-  uint32_t numInputs = 0;
-  ioctl(STDIN_FILENO, FIONREAD, &numInputs);
+  uint32_t numInputs = getNumInputs();
   if (m_lockstepEnabled && !numInputs) {
     // don't tick till we have input
     return true;
@@ -354,7 +352,6 @@ bool Vortex::tick()
   for (uint32_t i = 0; i < numInputs; ++i) {
     doCommand(getchar());
   }
-#endif
   // tick the vortex engine forward
   VortexEngine::tick();
   return true;
@@ -875,9 +872,9 @@ string Vortex::patternToString(PatternID id)
   // I wish there was a way to do this automatically but it would be
   // quite messy and idk if it's worth it
   static const char *patternNames[] = {
-    "strobe", "hyperstrobe", "dops", "strobie", "dopy", "ultradops", "strobegap",
-    "hypergap", "dopgap", "strobiegap", "dopygap", "ultragap", "blinkie",
-    "ghostcrush", "doubledops", "chopper", "dashgap", "dashdops", "dashcrush",
+    "strobe", "hyperstrobe", "picostrobe", "strobie", "dops", "ultradops", "strobegap",
+    "hypergap", "picogap", "strobiegap", "dopsgap", "ultragap", "blinkie",
+    "ghostcrush", "doubledops", "chopper", "dashgap", "dashdops", "dash-crush",
     "ultradash", "gapcycle", "dashcycle", "tracer", "ribbon", "miniribbon",
     "blend", "blendstrobe", "blendstrobegap", "complementary_blend",
     "complementary_blendstrobe", "complementary_blendstrobegap", "solid",
@@ -1194,6 +1191,33 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_isPressed = false;
     break;
   }
+}
+
+uint32_t Vortex::getNumInputs()
+{
+  uint32_t numInputs = 0;
+  // On linux we need to poll stdin for input to handle commands
+#if !defined(_WIN32) && !defined(WASM)
+  ioctl(STDIN_FILENO, FIONREAD, &numInputs);
+#elif defined(_WIN32)
+  HANDLE hStdin = GetStdHandle(STD_INPUT_HANDLE);
+
+  if (GetFileType(hStdin) == FILE_TYPE_CHAR) {
+    // Handle console input
+    if (!GetNumberOfConsoleInputEvents(hStdin, (DWORD *)&numInputs)) {
+      // Handle error here
+    }
+  } else {
+    // Handle redirected input
+    DWORD availableBytes;
+    if (PeekNamedPipe(hStdin, NULL, 0, NULL, &availableBytes, NULL)) {
+      numInputs = availableBytes;
+    } else {
+      // Handle error here
+    }
+  }
+#endif
+  return numInputs;
 }
 
 void Vortex::printlog(const char *file, const char *func, int line, const char *msg, va_list list)

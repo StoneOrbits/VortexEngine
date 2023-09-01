@@ -1,5 +1,6 @@
 #include "FactoryReset.h"
 
+#include "../../VortexEngine.h"
 #include "../../Modes/DefaultModes.h"
 #include "../../Time/TimeControl.h"
 #include "../../Patterns/Pattern.h"
@@ -84,7 +85,10 @@ void FactoryReset::onLongClick()
     // re-initialize the current mode
     cur->init();
   } else {
+    Leds::setBrightness(DEFAULT_BRIGHTNESS);
+    VortexEngine::setAutoCycle(false);
     Modes::setDefaults();
+    Modes::setCurMode(0);
     Modes::resetFlags();
   }
   leaveMenu(true);
