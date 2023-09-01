@@ -46,7 +46,7 @@ void BlendPattern::onBlinkOn()
     // convert to hsv
     HSVColor hsvCol = m_cur;
     // shift the hue by a flip size
-    hsvCol.hue += (m_flip * (255 / m_numFlips));
+    hsvCol.hue += (m_flip * (127 / m_numFlips));
     // convert the hsv color back to RGB
     col = hsvCol;
   }
@@ -56,7 +56,7 @@ void BlendPattern::onBlinkOn()
   m_flip++;
   // modulate the flip count DO NOT USE MODULO OPERATOR BECAUSE
   // THE FLIP COUNT COULD BE 0 THAT WILL DIVIDE BY ZERO
-  if (m_flip >= m_numFlips) {
+  if (m_flip > m_numFlips) {
     m_flip = 0;
   }
 }
