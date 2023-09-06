@@ -40,14 +40,6 @@ bool VortexEngine::init()
     DEBUG_LOG("Storage failed to initialize");
     return false;
   }
-  if (!IRReceiver::init()) {
-    DEBUG_LOG("IRReceiver failed to initialize");
-    return false;
-  }
-  if (!IRSender::init()) {
-    DEBUG_LOG("IRSender failed to initialize");
-    return false;
-  }
   if (!VLSender::init()) {
     DEBUG_LOG("VLSender failed to initialize");
     return false;
@@ -95,8 +87,6 @@ void VortexEngine::cleanup()
   Buttons::cleanup();
   Leds::cleanup();
   VLSender::cleanup();
-  IRSender::cleanup();
-  IRReceiver::cleanup();
   Storage::cleanup();
   Time::cleanup();
   SerialComs::cleanup();

@@ -7,12 +7,12 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
+#if VL_ENABLE_RECEIVER == 1
+
 #ifdef VORTEX_EMBEDDED
 #include <avr/interrupt.h>
 #include <avr/io.h>
 #endif
-
-#if VL_ENABLE_RECEIVER == 1
 
 BitStream VLReceiver::m_vlData;
 VLReceiver::RecvState VLReceiver::m_recvState = WAITING_HEADER_MARK;

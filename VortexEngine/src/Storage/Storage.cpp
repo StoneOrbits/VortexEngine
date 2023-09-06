@@ -69,42 +69,6 @@ bool Storage::write(ByteStream &buffer)
     return false;
   }
 #ifdef VORTEX_EMBEDDED
-  // clear existing storage
-  NVMCTRL->ADDR.reg = ((uint32_t)_storagedata) / 2;
-  NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_ER;
-  while (!NVMCTRL->INTFLAG.bit.READY) {}
-
-  // set the last save size
-  m_lastSaveSize = buffer.size();
-
-  // write out the buffer to storage
-  // Calculate data boundaries
-  uint32_t size = (buffer.rawSize() + 3) / 4;
-  volatile uint32_t *dst_addr = (volatile uint32_t *)_storagedata;
-  const uint8_t *src_addr = (uint8_t *)buffer.rawData();
-
-  // Disable automatic page write
-  NVMCTRL->CTRLB.bit.MANW = 1;
-
-  // Do writes in pages
-  while (size) {
-    // Execute "PBC" Page Buffer Clear
-    NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_PBC;
-    while (NVMCTRL->INTFLAG.bit.READY == 0) {}
-
-    // Fill page buffer
-    uint32_t i;
-    for (i = 0; i < (PAGE_SIZE / 4) && size; i++) {
-      *dst_addr = *(uint32_t *)(src_addr);
-      src_addr += sizeof(uint32_t);
-      dst_addr++;
-      size--;
-    }
-
-    // Execute "WP" Write Page
-    NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_WP;
-    while (NVMCTRL->INTFLAG.bit.READY == 0) {}
-  }
 #elif defined(_WIN32)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile == INVALID_HANDLE_VALUE) {
@@ -149,8 +113,6 @@ bool Storage::read(ByteStream &buffer)
     return false;
   }
 #ifdef VORTEX_EMBEDDED
-  // read directly into the raw data of the byte array
-  memcpy(buffer.rawData(), (const void *)_storagedata, size);
 #elif defined(_WIN32)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile == INVALID_HANDLE_VALUE) {
