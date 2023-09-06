@@ -20,11 +20,13 @@
 #include "../VortexLib/VortexLib.h"
 #endif
 
+#ifndef VORTEX_EMBEDDED
 #ifdef _WIN32
 #include <Windows.h>
 #else
 #include <unistd.h>
 #include <stdio.h>
+#endif
 #endif
 
 #define DEFAULT_STORAGE_FILENAME "FlashStorage.flash"
@@ -57,7 +59,7 @@ void Storage::cleanup()
 }
 
 // store a serial buffer to storage
-bool Storage::write(ByteStream &buffer)
+bool Storage::write(uint16_t slot, ByteStream &buffer)
 {
 #ifdef VORTEX_LIB
   if (!Vortex::storageEnabled()) {
@@ -65,16 +67,23 @@ bool Storage::write(ByteStream &buffer)
     return true;
   }
 #endif
+  bool first = (slot == 0);
   // Check size
-  uint16_t size = buffer.rawSize();
+  uint16_t size = first ? 4 : MAX_MODE_SIZE; 
   if (!size || size > STORAGE_SIZE) {
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }
+  if (slot >= NUM_MODE_SLOTS) {
+    return false;
+  }
+  // just in case
+  buffer.recalcCRC();
 #ifdef VORTEX_EMBEDDED
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom
-  for (uint16_t i = 0; i < size; ++i) {
+  uint16_t start = first ? 0 : (((slot - 1) * MAX_MODE_SIZE) + 4);
+  for (uint16_t i = start; i < size; ++i) {
     if (buf[i] != eepromReadByte(i)) {
       eepromWriteByte(i, buf[i]);
     }
@@ -90,7 +99,9 @@ bool Storage::write(ByteStream &buffer)
     return false;
   }
   DWORD written = 0;
-  if (!WriteFile(hFile, buffer.rawData(), buffer.rawSize(), &written, NULL)) {
+  DWORD offset = slot * MAX_MODE_SIZE;
+  SetFilePointer(hFile, offset, NULL, FILE_BEGIN);
+  if (!WriteFile(hFile, buffer.rawData(), MAX_MODE_SIZE, &written, NULL)) {
     // error
     return false;
   }
@@ -100,7 +111,9 @@ bool Storage::write(ByteStream &buffer)
   if (!f) {
     return false;
   }
-  if (!fwrite(buffer.rawData(), sizeof(char), buffer.rawSize(), f)) {
+  long offset = slot * MAX_MODE_SIZE;
+  fseek(f, offset, SEEK_SET);
+  if (!fwrite(buffer.rawData(), sizeof(char), MAX_MODE_SIZE, f)) {
     return false;
   }
   fclose(f);
@@ -109,7 +122,7 @@ bool Storage::write(ByteStream &buffer)
 }
 
 // read a serial buffer from storage
-bool Storage::read(ByteStream &buffer)
+bool Storage::read(uint16_t slot, ByteStream &buffer)
 {
 #ifdef VORTEX_LIB
   if (!Vortex::storageEnabled()) {
@@ -117,12 +130,11 @@ bool Storage::read(ByteStream &buffer)
     // an empty buffer after returning true
     return false;
   }
-  uint16_t size = STORAGE_SIZE;
-#else
-  uint16_t size = *(uint16_t *)MAPPED_EEPROM_START;
 #endif
-  if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
-    size = STORAGE_SIZE;
+  bool first = (slot == 0);
+  uint32_t size = first ? 4 : MAX_MODE_SIZE;
+  if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4 || slot >= NUM_MODE_SLOTS) {
+    return false;
   }
   if (!buffer.init(size)) {
     return false;
@@ -130,8 +142,8 @@ bool Storage::read(ByteStream &buffer)
 #ifdef VORTEX_EMBEDDED
   // Read the data from EEPROM first
   uint8_t *pos = (uint8_t *)buffer.rawData();
-  uint16_t fullsize = buffer.rawSize() + size;
-  for (uint16_t i = 0; i < fullsize; ++i) {
+  uint16_t start = first ? 0 : (((slot - 1) * MAX_MODE_SIZE) + 4);
+  for (uint16_t i = start; i < size; ++i) {
     pos[i] = eepromReadByte(i);
   }
 #elif defined(_WIN32)
@@ -141,7 +153,9 @@ bool Storage::read(ByteStream &buffer)
     return false;
   }
   DWORD bytesRead = 0;
-  if (!ReadFile(hFile, buffer.rawData(), size, &bytesRead, NULL)) {
+  DWORD offset = slot * MAX_MODE_SIZE;
+  SetFilePointer(hFile, offset, NULL, FILE_BEGIN);
+  if (!ReadFile(hFile, buffer.rawData(), MAX_MODE_SIZE, &bytesRead, NULL)) {
     // error
     return false;
   }
@@ -151,7 +165,9 @@ bool Storage::read(ByteStream &buffer)
   if (!f) {
     return false;
   }
-  if (!fread(buffer.rawData(), sizeof(char), size, f)) {
+  long offset = slot * MAX_MODE_SIZE;
+  fseek(f, offset, SEEK_SET);
+  if (!fread(buffer.rawData(), sizeof(char), MAX_MODE_SIZE, f)) {
     return false;
   }
   fclose(f);
@@ -161,11 +177,11 @@ bool Storage::read(ByteStream &buffer)
   buffer.sanity();
   // check crc immediately since we read into raw data copying the
   // array could be dangerous
-  if (!buffer.checkCRC()) {
+  /*if (!buffer.checkCRC()) {
     buffer.clear();
     ERROR_LOG("Could not verify buffer");
     return false;
-  }
+  }*/
   m_lastSaveSize = size;
   DEBUG_LOGF("Loaded savedata (Size: %u)", buffer.size());
   return true;
