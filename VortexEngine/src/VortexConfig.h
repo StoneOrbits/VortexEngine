@@ -165,7 +165,7 @@
 // to be stored, however this is not recommended for production and
 // a specific maximum should be chosen for each device
 //
-#define MAX_MODES             14
+#define MAX_MODES             15
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -502,7 +502,7 @@
 //  These are the various storage space constants of the vortex device
 
 // maximum size of a mode here
-#define MAX_MODE_SIZE 1024
+#define MAX_MODE_SIZE 512
 
 // the number of storage slots for modes, add 1 for the header
 #define NUM_MODE_SLOTS (MAX_MODES + 1)
