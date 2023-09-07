@@ -58,23 +58,20 @@ const DefaultModeEntry defaultModes[] = {
   {
     {
       {
-        PATTERN_COMPLEMENTARY_BLENDSTROBEGAP, 6, {
-          RGB_RED5,
-          RGB_YELLOW5,
-          RGB_RED5,
-          RGB_CYAN5,
-          RGB_BLUE5,
-          RGB_CYAN5,
+        PATTERN_STROBE, 6, {
+          0xC4003B,
+          0x700000,
+          0x000000,
+          0x0017E9,
+          0x22004E,
+          0x000000,
         }
       },
       {
-        PATTERN_COMPLEMENTARY_BLENDSTROBEGAP, 6, {
-          RGB_RED5,
-          RGB_YELLOW5,
-          RGB_RED5,
-          RGB_CYAN5,
-          RGB_BLUE5,
-          RGB_CYAN5,
+        PATTERN_STROBIE, 3, {
+          0xC4003B,
+          0x4D00B2,
+          0x0017E9,
         }
       }
     }
