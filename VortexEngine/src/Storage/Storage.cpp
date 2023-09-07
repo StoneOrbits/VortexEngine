@@ -76,10 +76,20 @@ bool Storage::write(uint16_t slot, ByteStream &buffer)
   // just in case
   buffer.recalcCRC();
 #ifdef VORTEX_EMBEDDED
-  // clear existing storage
-  NVMCTRL->ADDR.reg = ((uint32_t)_storagedata) / 2;
-  NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_ER;
-  while (!NVMCTRL->INTFLAG.bit.READY) {}
+  // the target slot to store in
+  uint32_t storage_slot = (uint32_t)_storagedata + (slot * MAX_MODE_SIZE);
+
+  // Number of rows to erase for one slot
+  uint16_t rows_to_erase = MAX_MODE_SIZE / (PAGE_SIZE * 4);
+  // Erase only the rows containing the slot
+  for (uint16_t i = 0; i < rows_to_erase; ++i) {
+    // Set the address for the row to erase
+    NVMCTRL->ADDR.reg = (uint32_t)(storage_slot + (i * PAGE_SIZE * 4)) / 2;
+    // Execute the erase command
+    NVMCTRL->CTRLA.reg = NVMCTRL_CTRLA_CMDEX_KEY | NVMCTRL_CTRLA_CMD_ER;
+    // Wait for the erase operation to complete
+    while (!NVMCTRL->INTFLAG.bit.READY) {}
+  }
 
   // set the last save size
   m_lastSaveSize = buffer.size();
@@ -87,7 +97,7 @@ bool Storage::write(uint16_t slot, ByteStream &buffer)
   // write out the buffer to storage
   // Calculate data boundaries
   uint32_t size = (buffer.rawSize() + 3) / 4;
-  volatile uint32_t *dst_addr = (volatile uint32_t *)_storagedata;
+  volatile uint32_t *dst_addr = (volatile uint32_t *)storage_slot;
   const uint8_t *src_addr = (uint8_t *)buffer.rawData();
 
   // Disable automatic page write
@@ -161,7 +171,7 @@ bool Storage::read(uint16_t slot, ByteStream &buffer)
   }
 #ifdef VORTEX_EMBEDDED
   // read directly into the raw data of the byte array
-  memcpy(buffer.rawData(), (const void *)_storagedata, size);
+  memcpy(buffer.rawData(), (const void *)(_storagedata + (slot * MAX_MODE_SIZE)), size);
 #elif defined(_WIN32)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile == INVALID_HANDLE_VALUE) {
