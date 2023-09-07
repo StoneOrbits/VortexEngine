@@ -1,8 +1,6 @@
 # Vortex Lib
 
-This folder contains the compatibility layer that allows vortex engine to run in a non arduino environment.
-
-For example, this contains drop-in files to replace some of the arduino headers with dummy implementations.
+This folder contains the compatibility layer that allows vortex engine to run in a non embedded environment.
 
 This also contains the main 'Vortex Lib' header which can be used as an interface point for controlling and running
 the vortex engine contained within.
