@@ -153,9 +153,6 @@ public:
 #endif
 
 private:
-  static bool serializeSaveHeader(ByteStream &saveBuffer);
-  static bool unserializeSaveHeader(ByteStream &saveBuffer);
-
   // linked list of internal mode storage
   class ModeLink {
   public:

@@ -19,9 +19,9 @@ public:
   static void cleanup();
 
   // store a serial buffer to storage
-  static bool write(uint16_t slot, ByteStream &buffer);
+  static bool write(ByteStream &buffer);
   // read a serial buffer from storage
-  static bool read(uint16_t slot, ByteStream &buffer);
+  static bool read(ByteStream &buffer);
 
   // the last save size (use STORAGE_SIZE For total space)
   static uint32_t lastSaveSize();
