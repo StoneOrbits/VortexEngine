@@ -161,11 +161,10 @@
 // two fold the issues with space because they are already limited
 // and the lack of compression makes their save files bigger
 //
-// This is set to 0 by default which allows for any number of modes
-// to be stored, however this is not recommended for production and
-// a specific maximum should be chosen for each device
+// This should not be set to 0, it should be a specific maximum for
+// each separate device
 //
-#define MAX_MODES             0
+#define MAX_MODES             5
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -496,9 +495,15 @@
 //
 //  These are the various storage space constants of the vortex device
 
+// maximum size of a mode here
+#define MAX_MODE_SIZE 512
+
+// the number of storage slots for modes, add 1 for the header
+#define NUM_MODE_SLOTS (MAX_MODES + 1)
+
 // the space available for storing modes, we can't make this too big
 // otherwise we will have trouble loading it into memory
-#define STORAGE_SIZE 4096
+#define STORAGE_SIZE (MAX_MODE_SIZE * NUM_MODE_SLOTS)
 
 // ===================================================================
 //  Test Framework configurations

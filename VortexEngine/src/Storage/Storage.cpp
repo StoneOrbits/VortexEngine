@@ -12,10 +12,12 @@
 #include "VortexLib.h"
 #endif
 
+#ifndef VORTEX_EMBEDDED
 #ifdef _WIN32
 #include <Windows.h>
 #else
 #include <unistd.h>
+#endif
 #endif
 
 #define DEFAULT_STORAGE_FILENAME "FlashStorage.flash"
@@ -55,7 +57,7 @@ void Storage::cleanup()
 }
 
 // store a serial buffer to storage
-bool Storage::write(ByteStream &buffer)
+bool Storage::write(uint16_t slot, ByteStream &buffer)
 {
 #ifdef VORTEX_LIB
   if (!Vortex::storageEnabled()) {
@@ -64,10 +66,15 @@ bool Storage::write(ByteStream &buffer)
   }
 #endif
   // check size
-  if (buffer.rawSize() > STORAGE_SIZE) {
+  if (buffer.rawSize() > MAX_MODE_SIZE) {
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }
+  if (slot >= NUM_MODE_SLOTS) {
+    return false;
+  }
+  // just in case
+  buffer.recalcCRC();
 #ifdef VORTEX_EMBEDDED
   // clear existing storage
   NVMCTRL->ADDR.reg = ((uint32_t)_storagedata) / 2;
@@ -112,7 +119,9 @@ bool Storage::write(ByteStream &buffer)
     return false;
   }
   DWORD written = 0;
-  if (!WriteFile(hFile, buffer.rawData(), buffer.rawSize(), &written, NULL)) {
+  DWORD offset = slot * MAX_MODE_SIZE;
+  SetFilePointer(hFile, offset, NULL, FILE_BEGIN);
+  if (!WriteFile(hFile, buffer.rawData(), MAX_MODE_SIZE, &written, NULL)) {
     // error
     return false;
   }
@@ -122,7 +131,9 @@ bool Storage::write(ByteStream &buffer)
   if (!f) {
     return false;
   }
-  if (!fwrite(buffer.rawData(), sizeof(char), buffer.rawSize(), f)) {
+  long offset = slot * MAX_MODE_SIZE;
+  fseek(f, offset, SEEK_SET);
+  if (!fwrite(buffer.rawData(), sizeof(char), MAX_MODE_SIZE, f)) {
     return false;
   }
   fclose(f);
@@ -132,7 +143,7 @@ bool Storage::write(ByteStream &buffer)
 }
 
 // read a serial buffer from storage
-bool Storage::read(ByteStream &buffer)
+bool Storage::read(uint16_t slot, ByteStream &buffer)
 {
 #ifdef VORTEX_LIB
   if (!Vortex::storageEnabled()) {
@@ -141,8 +152,8 @@ bool Storage::read(ByteStream &buffer)
     return false;
   }
 #endif
-  uint32_t size = STORAGE_SIZE;
-  if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
+  uint32_t size = MAX_MODE_SIZE;
+  if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4 || slot >= NUM_MODE_SLOTS) {
     return false;
   }
   if (!buffer.init(size)) {
@@ -158,7 +169,9 @@ bool Storage::read(ByteStream &buffer)
     return false;
   }
   DWORD bytesRead = 0;
-  if (!ReadFile(hFile, buffer.rawData(), size, &bytesRead, NULL)) {
+  DWORD offset = slot * MAX_MODE_SIZE;
+  SetFilePointer(hFile, offset, NULL, FILE_BEGIN);
+  if (!ReadFile(hFile, buffer.rawData(), MAX_MODE_SIZE, &bytesRead, NULL)) {
     // error
     return false;
   }
@@ -168,7 +181,9 @@ bool Storage::read(ByteStream &buffer)
   if (!f) {
     return false;
   }
-  if (!fread(buffer.rawData(), sizeof(char), size, f)) {
+  long offset = slot * MAX_MODE_SIZE;
+  fseek(f, offset, SEEK_SET);
+  if (!fread(buffer.rawData(), sizeof(char), MAX_MODE_SIZE, f)) {
     return false;
   }
   fclose(f);
