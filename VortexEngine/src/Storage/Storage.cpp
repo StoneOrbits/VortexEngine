@@ -7,7 +7,6 @@
 #include "../Memory/Memory.h"
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
-#include "../Leds/Leds.h"
 
 #ifdef VORTEX_EMBEDDED
 #include <avr/io.h>
