@@ -125,6 +125,7 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
 // full save/load to/from buffer
 bool Modes::saveToBuffer(ByteStream &modesBuffer)
 {
+  // first write out the header
   if (!serializeSaveHeader(modesBuffer)) {
     return false;
   }
@@ -146,6 +147,7 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
     // failed to decompress?
     return false;
   }
+  // read out the header first
   if (!unserializeSaveHeader(modesBuffer)) {
     return false;
   }
@@ -165,9 +167,6 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
 
 bool Modes::loadStorage()
 {
-  // this is good on memory, but it erases what they have stored
-  // before we know whether there is something actually saved
-  clearModes();
   ByteStream headerBuffer;
   // only read storage if the modebuffer isn't filled
   if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
@@ -175,12 +174,23 @@ bool Modes::loadStorage()
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
+  // this erases what is stored before we know whether there is data
+  // but it's the easiest way to just re-load new data from storage
+  clearModes();
   // read the header and load the data
   if (!unserializeSaveHeader(headerBuffer)) {
     return false;
   }
+  // unserialize the number of modes next
+  uint8_t numModes = 0;
+  headerBuffer.unserialize(&numModes);
+  if (!numModes) {
+    DEBUG_LOG("Did not find any modes");
+    // this kinda sucks whatever they had loaded is gone
+    return false;
+  }
   // iterate each mode and read it out of it's storage slot then add it
-  for (uint16_t i = 0; i < MAX_MODES; ++i) {
+  for (uint8_t i = 0; i < numModes; ++i) {
     ByteStream modeBuffer(MAX_MODE_SIZE);
     // read each mode from a storage slot and load it
     if (!Storage::read(i + 1, modeBuffer) || !addSerializedMode(modeBuffer)) {
@@ -197,6 +207,10 @@ bool Modes::saveStorage()
   DEBUG_LOG("Saving modes...");
   ByteStream headerBuffer(MAX_MODE_SIZE);
   if (!serializeSaveHeader(headerBuffer)) {
+    return false;
+  }
+  // serialize the number of modes
+  if (!headerBuffer.serialize(m_numModes)) {
     return false;
   }
   if (!Storage::write(0, headerBuffer)) {
