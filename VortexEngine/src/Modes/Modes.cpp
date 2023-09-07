@@ -91,10 +91,6 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
     return false;
   }
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
-  // compress the header? maybe not
-  //if (!saveBuffer.compress()) {
-  //  return false;
-  //}
   return true;
 }
 
