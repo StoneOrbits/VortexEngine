@@ -161,9 +161,8 @@
 // two fold the issues with space because they are already limited
 // and the lack of compression makes their save files bigger
 //
-// This is set to 0 by default which allows for any number of modes
-// to be stored, however this is not recommended for production and
-// a specific maximum should be chosen for each device
+// This should not be set to 0, it should be a specific maximum for
+// each separate device
 //
 #define MAX_MODES             14
 
