@@ -4,7 +4,6 @@
 #include "../Menu.h"
 
 #include "../../Colors/Colorset.h"
-#include "../../Patterns/Patterns.h"
 #include "../../Modes/Mode.h"
 
 class PatternSelect : public Menu
