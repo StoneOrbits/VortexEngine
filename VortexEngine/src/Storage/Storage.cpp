@@ -69,7 +69,7 @@ bool Storage::write(uint16_t slot, ByteStream &buffer)
 #endif
   bool first = (slot == 0);
   // Check size
-  uint16_t size = first ? 4 : MAX_MODE_SIZE; 
+  uint16_t size = first ? (sizeof(ByteStream::RawBuffer) + 5) : MAX_MODE_SIZE;
   if (!size || size > STORAGE_SIZE) {
     ERROR_LOG("Buffer too big for storage space");
     return false;
@@ -132,7 +132,7 @@ bool Storage::read(uint16_t slot, ByteStream &buffer)
   }
 #endif
   bool first = (slot == 0);
-  uint32_t size = first ? 4 : MAX_MODE_SIZE;
+  uint32_t size = first ? (sizeof(ByteStream::RawBuffer) + 5) : MAX_MODE_SIZE;
   if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4 || slot >= NUM_MODE_SLOTS) {
     return false;
   }
