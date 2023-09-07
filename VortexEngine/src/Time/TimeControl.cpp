@@ -110,7 +110,7 @@ void Time::tickClock()
     uint32_t sleepTime = 0;
     if (required > elapsed_us) {
       // in vortex lib on linux we can just sleep instead of spinning
-      // but on arduino we must spin and on windows it actually ends
+      // but on embedded we must spin and on windows it actually ends
       // up being more accurate to poll QPF + QPC via microseconds()
       sleepTime = required - elapsed_us;
     }
