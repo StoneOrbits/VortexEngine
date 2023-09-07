@@ -26,7 +26,7 @@
 
 // the engine flavour, this should change for each device/flavour
 // of the engine that branches off from the main indefinitely
-#define VORTEX_NAME "Igneous"
+#define VORTEX_NAME "Core"
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
@@ -96,7 +96,7 @@
 // as the auto random delay. This number is intentionally high because we really
 // don't want it activated automatically but it's there for demo purposes and as
 // a fun little easter egg to anybody that might come across it
-#define AUTO_CYCLE_MODES_CLICKS ((MAX_MODES > 2) ? (MAX_MODES * 2) : 4)
+#define AUTO_CYCLE_MODES_CLICKS 10
 
 // Randomizer Auto Cycle Modes Clicks
 //
