@@ -241,7 +241,7 @@ RGBColor hsv_to_rgb_rainbow(const HSVColor &rhs)
 
   // Gscale: what to scale green down by.
   // Depends GREATLY on your particular LEDs
-  const uint8_t Gscale = 0;
+  const uint8_t Gscale = 185;
 
 
   uint8_t hue = rhs.hue;
