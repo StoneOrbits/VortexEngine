@@ -196,7 +196,6 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
     crushPattern(ctx, args);
     break;
   }
-
   PatternID newPat = PATTERN_STROBE;
   // 1/3 chance to roll a blend pattern instead which will animate between
   // colors instead of blinking each color in the set
