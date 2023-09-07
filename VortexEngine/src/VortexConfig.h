@@ -366,7 +366,7 @@
 // Fixed LED Count
 //
 // Do not allow the Mode loader to dynamically load however many modes
-// are saved in the savefile. This should be enabled for arduino or vortex
+// are saved in the savefile. This should be enabled for embedded or vortex
 // device builds because they cannot change their number of LEDs. However
 // other tools like the editor or vortex emulator may be able to make use
 // of this to dynamically adjust the number of leds that a mode can handle
