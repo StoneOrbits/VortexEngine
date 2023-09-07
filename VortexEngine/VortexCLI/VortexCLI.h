@@ -20,7 +20,7 @@ public:
   void run();
   void cleanup();
 
-  // handlers for the arduino routines
+  // render the cli vortex tool
   void show();
 
   // whether the button is pressed
