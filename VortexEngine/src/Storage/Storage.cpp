@@ -203,11 +203,11 @@ bool Storage::read(uint16_t slot, ByteStream &buffer)
   buffer.sanity();
   // check crc immediately since we read into raw data copying the
   // array could be dangerous
-  /*if (!buffer.checkCRC()) {
+  if (!buffer.checkCRC()) {
     buffer.clear();
     ERROR_LOG("Could not verify buffer");
     return false;
-  }*/
+  }
   m_lastSaveSize = size;
   DEBUG_LOGF("Loaded savedata (Size: %u)", buffer.size());
   return true;
