@@ -68,7 +68,7 @@ void Modes::play()
     return;
   }
   // shortclick either turns off the lights, cycles to the next mode
-  // or possible locks the lights based on the situation
+  // or possibly locks the lights based on the situation
   if (g_pButton->onShortClick()) {
     if (Modes::oneClickModeEnabled()) {
       // enter sleep doesn't return on arduino, but it does on vortexlib
