@@ -3,7 +3,7 @@
 
 #include "Button.h"
 
-// the number of buttons, this isn't an arduino config because
+// the number of buttons, this isn't in VortexConfig.h because
 // changing it won't really work without updating other things
 // like which pins the buttons are attached to. So this is more
 // of a hardcoded constant than a configuration setting
