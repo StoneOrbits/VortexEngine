@@ -20,11 +20,13 @@
 #include "../VortexLib/VortexLib.h"
 #endif
 
+#ifndef VORTEX_EMBEDDED
 #ifdef _WIN32
 #include <Windows.h>
 #else
 #include <unistd.h>
 #include <stdio.h>
+#endif
 #endif
 
 #define DEFAULT_STORAGE_FILENAME "FlashStorage.flash"
@@ -71,6 +73,8 @@ bool Storage::write(ByteStream &buffer)
     ERROR_LOG("Buffer too big for storage space");
     return false;
   }
+  // just in case
+  buffer.recalcCRC();
 #ifdef VORTEX_EMBEDDED
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom

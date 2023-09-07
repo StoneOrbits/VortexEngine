@@ -4,7 +4,7 @@
 
 // Here is the array of 'default modes' that are assigned to
 // the gloveset upon factory reset
-const DefaultModeEntry defaultModes[] = {
+const DefaultModeEntry defaultModes[MAX_MODES] = {
   {
     {
       {
