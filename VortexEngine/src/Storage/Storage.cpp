@@ -78,8 +78,7 @@ bool Storage::write(ByteStream &buffer)
 #ifdef VORTEX_EMBEDDED
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom
-  uint16_t fullsize = buffer.rawSize() + size;
-  for (uint16_t i = 0; i < fullsize; ++i) {
+  for (uint16_t i = 0; i < size; ++i) {
     if (buf[i] != eepromReadByte(i)) {
       eepromWriteByte(i, buf[i]);
     }
@@ -135,7 +134,8 @@ bool Storage::read(ByteStream &buffer)
 #ifdef VORTEX_EMBEDDED
   // Read the data from EEPROM first
   uint8_t *pos = (uint8_t *)buffer.rawData();
-  for (uint16_t i = start; i < size; ++i) {
+  uint16_t fullsize = buffer.rawSize() + size;
+  for (uint16_t i = 0; i < fullsize; ++i) {
     pos[i] = eepromReadByte(i);
   }
 #elif defined(_WIN32)
