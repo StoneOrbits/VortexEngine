@@ -24,14 +24,23 @@ uint32_t VLReceiver::m_previousBytes = 0;
 #define MIN_THRESHOLD   200
 #define BASE_OFFSET     100
 #define THRESHOLD_BEGIN (MIN_THRESHOLD + BASE_OFFSET)
+// the sample count exponent, so 5 means 2^5 = 32 samples
+//   0 NONE No accumulation > doesn't work
+//   1 ACC2 2 results accumulated  > doesn't work
+//   2 ACC4 4 results accumulated  > works okay
+//   3 ACC8 8 results accumulated  > works decent
+//   4 ACC16 16 results accumulated > works very well
+//   5 ACC32 32 results accumulated > works best
+//   6 ACC64 64 results accumulated > doesn't work
+#define SAMPLE_COUNT    5
 // the threshold needs to start high then it will be automatically pulled down
 uint16_t threshold = THRESHOLD_BEGIN;
 ISR(ADC0_WCOMP_vect)
 {
   // this will store the last known state
   static bool wasAboveThreshold = false;
-  // grab the current analog value but divide it by 4 (the number of samples)
-  uint16_t val = (ADC0.RES >> 2);
+  // grab the current analog value but divide it by 8 (the number of samples)
+  uint16_t val = (ADC0.RES >> SAMPLE_COUNT);
   // calculate a threshold by using the baseline minimum value that is above 0
   // with a static offset, this ensures whatever the baseline light level and/or
   // hardware sensitivity is it will always pick a threshold just above the 'off'
@@ -155,11 +164,11 @@ bool VLReceiver::beginReceiving()
   //   0x0 NONE No accumulation > doesn't work
   //   0x1 ACC2 2 results accumulated  > doesn't work
   //   0x2 ACC4 4 results accumulated  > works okay
-  //   0x3 ACC8 8 results accumulated
-  //   0x4 ACC16 16 results accumulated
-  //   0x5 ACC32 32 results accumulated
-  //   0x6 ACC64 64 results accumulated
-  ADC0.CTRLB = ADC_SAMPNUM_ACC4_gc;
+  //   0x3 ACC8 8 results accumulated  > works decent
+  //   0x4 ACC16 16 results accumulated > works very well
+  //   0x5 ACC32 32 results accumulated > works best
+  //   0x6 ACC64 64 results accumulated > doesn't work
+  ADC0.CTRLB = SAMPLE_COUNT;
   // Enable Window Comparator interrupt
   ADC0.INTCTRL = ADC_WCMP_bm;
   // Enable the ADC and start continuous conversions
