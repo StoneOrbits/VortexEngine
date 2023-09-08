@@ -26,7 +26,7 @@
 
 // the engine flavour, this should change for each device/flavour
 // of the engine that branches off from the main indefinitely
-#define VORTEX_NAME "Igneous"
+#define VORTEX_NAME "Core"
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
@@ -96,7 +96,7 @@
 // as the auto random delay. This number is intentionally high because we really
 // don't want it activated automatically but it's there for demo purposes and as
 // a fun little easter egg to anybody that might come across it
-#define AUTO_CYCLE_MODES_CLICKS ((MAX_MODES > 2) ? (MAX_MODES * 2) : 4)
+#define AUTO_CYCLE_MODES_CLICKS 10
 
 // Randomizer Auto Cycle Modes Clicks
 //
@@ -161,11 +161,10 @@
 // two fold the issues with space because they are already limited
 // and the lack of compression makes their save files bigger
 //
-// This is set to 0 by default which allows for any number of modes
-// to be stored, however this is not recommended for production and
-// a specific maximum should be chosen for each device
+// This should not be set to 0, it should be a specific maximum for
+// each separate device
 //
-#define MAX_MODES             0
+#define MAX_MODES             13
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -367,7 +366,7 @@
 // Fixed LED Count
 //
 // Do not allow the Mode loader to dynamically load however many modes
-// are saved in the savefile. This should be enabled for arduino or vortex
+// are saved in the savefile. This should be enabled for embedded or vortex
 // device builds because they cannot change their number of LEDs. However
 // other tools like the editor or vortex emulator may be able to make use
 // of this to dynamically adjust the number of leds that a mode can handle
@@ -496,9 +495,15 @@
 //
 //  These are the various storage space constants of the vortex device
 
+// maximum size of a mode here
+#define MAX_MODE_SIZE 512
+
+// the number of storage slots for modes, add 1 for the header
+#define NUM_MODE_SLOTS (MAX_MODES + 1)
+
 // the space available for storing modes, we can't make this too big
 // otherwise we will have trouble loading it into memory
-#define STORAGE_SIZE 4096
+#define STORAGE_SIZE (MAX_MODE_SIZE * NUM_MODE_SLOTS)
 
 // ===================================================================
 //  Test Framework configurations

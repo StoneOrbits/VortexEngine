@@ -31,7 +31,7 @@ void ErrorMsg(const char *func, const char *msg, ...);
 #endif
 
 #if LOGGING_LEVEL > 2
-// arduino compiler won't allow for ellipsis macro that's passed no args...
+// some compilers won't allow for ellipsis macro that's passed no args...
 #define DEBUG_LOG(msg) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg)
 #define DEBUG_LOGF(msg, ...) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg, __VA_ARGS__)
 // debug messages are only in debug builds so they have full file + func + line info

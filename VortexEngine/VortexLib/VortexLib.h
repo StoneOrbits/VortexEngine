@@ -19,15 +19,10 @@
 //
 // This file is the interface for the Vortex Engine.
 //
-// In cases where the engine is not running with the true arduino framework it
-// will instead use the drop-in files in 'EngineDependencies' folder. These
-// files provide the main arduino and library APIs that are used by the engine
-// and instead provide hooks for a user to connect to them.
-//
-// The things you can hook into include:
+// The things in Vortex that you can hook into include:
 //
 //  - The serial input/output callbacks (editor connection)
-//  - The Infrared input/output callbacks (mode sharing)
+//  - The Wireless IR/VL input/output callbacks (mode sharing)
 //  - The digital pin read callbacks (buttons press)
 //  - The leds init, brightness, and display (render the lights)
 //

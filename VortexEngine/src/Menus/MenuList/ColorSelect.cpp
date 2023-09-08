@@ -122,7 +122,7 @@ void ColorSelect::onLongClick()
   }
   // reuse these variables lots
   uint8_t numColors = m_colorset.numColors();
-  uint8_t holdDur = g_pButton->holdDuration();
+  uint32_t holdDur = g_pButton->holdDuration();
   switch (m_state) {
   case STATE_INIT:
     // nothing
