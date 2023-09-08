@@ -15,7 +15,7 @@ var searchData=
   ['default_5ftickrate_220',['DEFAULT_TICKRATE',['../VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb',1,'VortexConfig.h']]],
   ['defaultledentry_221',['DefaultLedEntry',['../structDefaultLedEntry.html',1,'']]],
   ['defaultmodeentry_222',['DefaultModeEntry',['../structDefaultModeEntry.html',1,'']]],
-  ['defaultmodes_223',['defaultModes',['../DefaultModes_8cpp.html#a13a9f1a37ffa41f648818fde6cb92ae5',1,'defaultModes():&#160;DefaultModes.cpp'],['../DefaultModes_8h.html#a1d8e5b74eb83294274c8c102a7a1809b',1,'defaultModes():&#160;DefaultModes.cpp']]],
+  ['defaultmodes_223',['defaultModes',['../DefaultModes_8cpp.html#a1d8e5b74eb83294274c8c102a7a1809b',1,'defaultModes():&#160;DefaultModes.cpp'],['../DefaultModes_8h.html#a1d8e5b74eb83294274c8c102a7a1809b',1,'defaultModes():&#160;DefaultModes.cpp']]],
   ['defaultmodes_2ecpp_224',['DefaultModes.cpp',['../DefaultModes_8cpp.html',1,'']]],
   ['defaultmodes_2eh_225',['DefaultModes.h',['../DefaultModes_8h.html',1,'']]],
   ['delaymicroseconds_226',['delayMicroseconds',['../classTime.html#a9682da1974a20a9bcdbb678984cd0e9c',1,'Time']]],

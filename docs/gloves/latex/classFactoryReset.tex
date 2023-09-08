@@ -176,7 +176,7 @@ Definition at line 76 of file Factory\+Reset.\+cpp.
 \DoxyCodeLine{97   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
 \DoxyCodeLine{98     uint8\_t curModeIndex = \mbox{\hyperlink{classModes_a7a1b8d5c48237ab106adbfc44ceb1055}{Modes::curModeIndex}}();}
 \DoxyCodeLine{99     \textcolor{comment}{// reset the target mode slot on the target led}}
-\DoxyCodeLine{100     \textcolor{keyword}{const} \mbox{\hyperlink{structdefault__mode__entry}{default\_mode\_entry}} \&def = \mbox{\hyperlink{DefaultModes_8cpp_a45a26bbffb6073c152f32b3ec0404f15}{default\_modes}}[curModeIndex];}
+\DoxyCodeLine{100     \textcolor{keyword}{const} \mbox{\hyperlink{structdefault__mode__entry}{default\_mode\_entry}} \&def = \mbox{\hyperlink{DefaultModes_8cpp_a9682260204c0b547696ba31807cde860}{default\_modes}}[curModeIndex];}
 \DoxyCodeLine{101     \mbox{\hyperlink{classColorset}{Colorset}} set(def.\mbox{\hyperlink{structdefault__mode__entry_af7d1e60c1f4c0d43a5ad2239e67fe65c}{numColors}}, def.\mbox{\hyperlink{structdefault__mode__entry_a0a868b6138ec894e5b7cb71aa7759192}{cols}});}
 \DoxyCodeLine{102     \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
 \DoxyCodeLine{103     cur-\/>\mbox{\hyperlink{classMode_a523af1ad207240eb672bf8ad0fccad7d}{setPatternMap}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}, def.\mbox{\hyperlink{structdefault__mode__entry_a95bf993636f486502b854fc91380cd5b}{patternID}}, \textcolor{keyword}{nullptr}, \&set);}

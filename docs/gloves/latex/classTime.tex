@@ -373,7 +373,7 @@ Definition at line 75 of file Time\+Control.\+cpp.
 \DoxyCodeLine{110     uint32\_t sleepTime = 0;}
 \DoxyCodeLine{111     \textcolor{keywordflow}{if} (required > elapsed\_us) \{}
 \DoxyCodeLine{112       \textcolor{comment}{// in vortex lib on linux we can just sleep instead of spinning}}
-\DoxyCodeLine{113       \textcolor{comment}{// but on arduino we must spin and on windows it actually ends}}
+\DoxyCodeLine{113       \textcolor{comment}{// but on embedded we must spin and on windows it actually ends}}
 \DoxyCodeLine{114       \textcolor{comment}{// up being more accurate to poll QPF + QPC via microseconds()}}
 \DoxyCodeLine{115       sleepTime = required -\/ elapsed\_us;}
 \DoxyCodeLine{116     \}}

@@ -8,7 +8,7 @@ var classTime =
     [ "getRealCurtime", "classTime.html#a719c88f4e11a83f7167f45a2a58f5d60", null ],
     [ "getTickrate", "classTime.html#acb7cd2d49094647c3fb7112e15ad16d7", null ],
     [ "init", "classTime.html#a0058db559daacf8050e8a0b1d4b9fd8c", null ],
-    [ "initMCUTime", "classTime.html#a4006a9aa5cc0cf1276af05aade63bccc", null ],
+    [ "initMCUTime", "classTime.html#aee78cfad073e0fcdb09fbcda019e9929", null ],
     [ "microseconds", "classTime.html#ac44f4e49538456714372bb1aad3dd839", null ],
     [ "setTickrate", "classTime.html#aaf106aff340ea506f16a010b12f51769", null ],
     [ "tickClock", "classTime.html#a823b10e685d34b667e16e36fea96e150", null ],

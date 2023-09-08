@@ -85,7 +85,7 @@ References VORTEX\+\_\+\+VERSION\+\_\+\+MAJOR.
 
 
 
-Referenced by Mode\+::load\+From\+Buffer(), and Modes\+::load\+From\+Buffer().
+Referenced by Mode\+::load\+From\+Buffer(), and Modes\+::unserialize\+Save\+Header().
 
 \mbox{\Hypertarget{classVortexEngine_ae80679477cd0c0f726e610b26fc1a6db}\label{classVortexEngine_ae80679477cd0c0f726e610b26fc1a6db}} 
 \index{VortexEngine@{VortexEngine}!cleanup@{cleanup}}
@@ -101,7 +101,7 @@ Definition at line 91 of file Vortex\+Engine.\+cpp.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{92 \{}
 \DoxyCodeLine{93   \textcolor{comment}{// cleanup in reverse order}}
-\DoxyCodeLine{94   \textcolor{comment}{// NOTE: the arduino doesn't actually cleanup,}}
+\DoxyCodeLine{94   \textcolor{comment}{// NOTE: the embedded doesn't actually cleanup,}}
 \DoxyCodeLine{95   \textcolor{comment}{//       but the test frameworks do}}
 \DoxyCodeLine{96 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{97   \mbox{\hyperlink{classModes_aa16cf03f84bc5d911d220580ba3aeb7a}{Modes::cleanup}}();}
@@ -346,7 +346,7 @@ References Byte\+Stream\+::serialize(), VORTEX\+\_\+\+VERSION\+\_\+\+MAJOR, and 
 
 
 
-Referenced by Modes\+::save\+To\+Buffer(), and Mode\+::save\+To\+Buffer().
+Referenced by Mode\+::save\+To\+Buffer(), and Modes\+::serialize\+Save\+Header().
 
 \mbox{\Hypertarget{classVortexEngine_a82c5e580e41f61e12d52ba5baee97fdf}\label{classVortexEngine_a82c5e580e41f61e12d52ba5baee97fdf}} 
 \index{VortexEngine@{VortexEngine}!setAutoCycle@{setAutoCycle}}

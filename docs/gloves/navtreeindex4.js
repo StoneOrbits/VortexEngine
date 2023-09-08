@@ -1,5 +1,7 @@
 var NAVTREEINDEX4 =
 {
+"WarpWormPattern_8cpp.html":[1,0,0,0,7,0,41],
+"WarpWormPattern_8cpp_source.html":[1,0,0,0,7,0,41],
 "WarpWormPattern_8h.html":[1,0,0,0,7,0,42],
 "WarpWormPattern_8h_source.html":[1,0,0,0,7,0,42],
 "ZigzagPattern_8cpp.html":[1,0,0,0,7,0,43],
@@ -247,7 +249,5 @@ var NAVTREEINDEX4 =
 "classColorset.html#a3cfec1a04020fca46a63a7030300de26a95361874b3ecae79648b34565dcc648f":[0,0,11,2,2],
 "classColorset.html#a3cfec1a04020fca46a63a7030300de26aaf5b21846f5bde5fba7d5e098ae09932":[0,0,11,2,1],
 "classColorset.html#a3cfec1a04020fca46a63a7030300de26ab2113aa16ee5cf6b09007c9c264dbab2":[0,0,11,2,4],
-"classColorset.html#a3cfec1a04020fca46a63a7030300de26ab9b4bd5b990537c1001a8aca889ec512":[0,0,11,2,6],
-"classColorset.html#a3cfec1a04020fca46a63a7030300de26ae0a54247525d70f1be24aeff4fad8e7b":[0,0,11,2,3],
-"classColorset.html#a3cfec1a04020fca46a63a7030300de26ae20993010e2480fbf2183ebe3413fac2":[0,0,11,2,5]
+"classColorset.html#a3cfec1a04020fca46a63a7030300de26ab9b4bd5b990537c1001a8aca889ec512":[0,0,11,2,6]
 };

@@ -135,7 +135,7 @@ $(document).ready(function(){initNavTree('BlendPattern_8cpp_source.html',''); in
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="comment">// convert to hsv</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="classHSVColor.html">HSVColor</a> hsvCol = <a class="code" href="classBlendPattern.html#a417e520657f10acd0357a5c9e185fdbf">m_cur</a>;</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="comment">// shift the hue by a flip size</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    hsvCol.<a class="code" href="classHSVColor.html#a95d2e23681a08326316331dcb71a2d4c">hue</a> += (<a class="code" href="classBlendPattern.html#a8cc3472bc6a85c6dd162163e8b429a1b">m_flip</a> * (255 / <a class="code" href="classBlendPattern.html#ac064cc355072a04d18ef5b2e55013105">m_numFlips</a>));</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    hsvCol.<a class="code" href="classHSVColor.html#a95d2e23681a08326316331dcb71a2d4c">hue</a> += (<a class="code" href="classBlendPattern.html#a8cc3472bc6a85c6dd162163e8b429a1b">m_flip</a> * (127 / <a class="code" href="classBlendPattern.html#ac064cc355072a04d18ef5b2e55013105">m_numFlips</a>));</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <span class="comment">// convert the hsv color back to RGB</span></div>
 <div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;    col = hsvCol;</div>
 <div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  }</div>
@@ -145,7 +145,7 @@ $(document).ready(function(){initNavTree('BlendPattern_8cpp_source.html',''); in
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="classBlendPattern.html#a8cc3472bc6a85c6dd162163e8b429a1b">m_flip</a>++;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="comment">// modulate the flip count DO NOT USE MODULO OPERATOR BECAUSE</span></div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="comment">// THE FLIP COUNT COULD BE 0 THAT WILL DIVIDE BY ZERO</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classBlendPattern.html#a8cc3472bc6a85c6dd162163e8b429a1b">m_flip</a> &gt;= <a class="code" href="classBlendPattern.html#ac064cc355072a04d18ef5b2e55013105">m_numFlips</a>) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classBlendPattern.html#a8cc3472bc6a85c6dd162163e8b429a1b">m_flip</a> &gt; <a class="code" href="classBlendPattern.html#ac064cc355072a04d18ef5b2e55013105">m_numFlips</a>) {</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="classBlendPattern.html#a8cc3472bc6a85c6dd162163e8b429a1b">m_flip</a> = 0;</div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  }</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;}</div>

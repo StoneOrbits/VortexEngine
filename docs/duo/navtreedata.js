@@ -59,11 +59,11 @@ var NAVTREEINDEX =
 "ErrorBlinker_8h_source.html",
 "PatternArgs_8h.html#af8cf72c0c13d51c29d22271a13e5b305",
 "VortexConfig_8h.html#a0be17f7cbaf6e5a5e8d4f0405d16107e",
-"classButtons.html#ada56f4493c6bfffd8a7908daa6abba2c",
-"classGlobalBrightness.html#a383c77164792d56792f56a48b6db15e8",
-"classModes.html#a0d8e74c4fa7fff65fdf81336b3b808b9",
-"classRandomizer.html#a7c1d633669ebce55d64bf94be69297a9",
-"classes.html"
+"classButtons.html#a7344cfab9ec5faf9741216860d6f4390",
+"classGlobalBrightness.html#a18fa4e37a22b9e6bc85f87e153ef429f",
+"classModes.html#a0088c01c69f568820de0c7b8e8ebc7aa",
+"classRandomizer.html#a59b7ef6643cfec6259ef0be08ca678c6",
+"classZigzagPattern_1_1Snake.html#ade9581df647ce41eb75b4ee8b1e7fddd"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

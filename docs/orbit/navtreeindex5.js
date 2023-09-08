@@ -1,5 +1,7 @@
 var NAVTREEINDEX5 =
 {
+"classByteStream.html#afd46d5edd85bf5481c6abd3f559d769f":[0,0,8,14],
+"classChaserPattern.html":[0,0,9],
 "classChaserPattern.html#ac99c0c0ef180998c37f3d3e5162b186d":[0,0,9,0],
 "classColorSelect.html":[0,0,10],
 "classColorSelect.html#a12e1d06a0edbd2d2dfcd45e6c8a3b171":[0,0,10,3],
@@ -247,7 +249,5 @@ var NAVTREEINDEX5 =
 "classIRReceiver.html#a56148488dd4f2a403202a0467b4940b9a37b0cc5cf63cb62eb144be82420875f0":[0,0,25,0,3],
 "classIRReceiver.html#a56148488dd4f2a403202a0467b4940b9a5d217c890135a690847bf68a1db5bd9a":[0,0,25,0,1],
 "classIRReceiver.html#a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b":[0,0,25,0,2],
-"classIRReceiver.html#a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf":[0,0,25,0,0],
-"classIRReceiver.html#a588774ea28229309eb8e5feb6e44ffb0":[0,0,25,3],
-"classIRReceiver.html#a6aa9196cae405f10d68794a6b06f16f3":[0,0,25,15]
+"classIRReceiver.html#a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf":[0,0,25,0,0]
 };

@@ -941,7 +941,7 @@ Definition at line 58 of file Modes.\+cpp.
 \DoxyCodeLine{68     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{69   \}}
 \DoxyCodeLine{70   \textcolor{comment}{// shortclick either turns off the lights, cycles to the next mode}}
-\DoxyCodeLine{71   \textcolor{comment}{// or possible locks the lights based on the situation}}
+\DoxyCodeLine{71   \textcolor{comment}{// or possibly locks the lights based on the situation}}
 \DoxyCodeLine{72   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a4e2b10397cdad6546a8728a87b82fadb}{onShortClick}}()) \{}
 \DoxyCodeLine{73     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModes_a05f64b5430343cc94e77902b02fb8ce1}{Modes::oneClickModeEnabled}}()) \{}
 \DoxyCodeLine{74       \textcolor{comment}{// enter sleep doesn't return on arduino, but it does on vortexlib}}
@@ -1311,7 +1311,7 @@ Definition at line 261 of file Modes.\+cpp.
 \DoxyCodeLine{285 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{286   \textcolor{comment}{// add each default mode with each of the given colors}}
 \DoxyCodeLine{287   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{VortexConfig_8h_a95b270e9c99aea216b47fd1e95b2cf34}{MAX\_MODES}}; ++i) \{}
-\DoxyCodeLine{288     \mbox{\hyperlink{classMode}{Mode}} defMode(\mbox{\hyperlink{DefaultModes_8cpp_a13a9f1a37ffa41f648818fde6cb92ae5}{defaultModes}}[i]);}
+\DoxyCodeLine{288     \mbox{\hyperlink{classMode}{Mode}} defMode(\mbox{\hyperlink{DefaultModes_8cpp_a1d8e5b74eb83294274c8c102a7a1809b}{defaultModes}}[i]);}
 \DoxyCodeLine{289     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_a5437bef398769cbfc12e847c7e488bed}{addMode}}(\&defMode)) \{}
 \DoxyCodeLine{290       \mbox{\hyperlink{Log_8h_aed976922ae10c35e5e5241d15f5a06af}{ERROR\_LOGF}}(\textcolor{stringliteral}{"{}Failed to add default mode \%u"{}}, i);}
 \DoxyCodeLine{291       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}

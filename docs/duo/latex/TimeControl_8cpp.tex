@@ -81,50 +81,50 @@ Definition at line 48 of file Time\+Control.\+cpp.
 
 
 
-Definition at line 204 of file Time\+Control.\+cpp.
+Definition at line 216 of file Time\+Control.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{207 \{}
-\DoxyCodeLine{208 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
-\DoxyCodeLine{209 \textcolor{preprocessor}{\#if F\_CPU >= 20000000L}}
-\DoxyCodeLine{210   \textcolor{comment}{// for a one-\/microsecond delay, burn 4 clocks and then return}}
-\DoxyCodeLine{211   \_\_asm\_\_ \_\_volatile\_\_ (}
-\DoxyCodeLine{212     \textcolor{stringliteral}{"{}rjmp .+0"{}} \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}     \textcolor{comment}{// 2 cycles}}
-\DoxyCodeLine{213     \textcolor{stringliteral}{"{}nop"{}} );              \textcolor{comment}{// 1 cycle}}
-\DoxyCodeLine{214                           \textcolor{comment}{// wait 3 cycles with 2 words}}
-\DoxyCodeLine{215   \textcolor{keywordflow}{if} (us <= 1) \textcolor{keywordflow}{return}; \textcolor{comment}{//  = 3 cycles, (4 when true)}}
-\DoxyCodeLine{216   \textcolor{comment}{// the loop takes a 1/2 of a microsecond (10 cycles) per iteration}}
-\DoxyCodeLine{217   \textcolor{comment}{// so execute it twice for each microsecond of delay requested.}}
-\DoxyCodeLine{218   us = us << 1; \textcolor{comment}{// x2 us, = 2 cycles}}
-\DoxyCodeLine{219   \textcolor{comment}{// we just burned 21 (23) cycles above, remove 2}}
-\DoxyCodeLine{220   \textcolor{comment}{// us is at least 4 so we can subtract 2.}}
-\DoxyCodeLine{221   us -\/= 2; \textcolor{comment}{// 2 cycles}}
-\DoxyCodeLine{222 \textcolor{preprocessor}{\#elif F\_CPU >= 10000000L}}
-\DoxyCodeLine{223   \textcolor{comment}{// for a 1 microsecond delay, simply return.  the overhead}}
-\DoxyCodeLine{224   \textcolor{comment}{// of the function call takes 14 (16) cycles, which is 1.5us}}
-\DoxyCodeLine{225   \textcolor{keywordflow}{if} (us <= 2) \textcolor{keywordflow}{return}; \textcolor{comment}{//  = 3 cycles, (4 when true)}}
-\DoxyCodeLine{226   \textcolor{comment}{// we just burned 20 (22) cycles above, remove 4, (5*4=20)}}
-\DoxyCodeLine{227   \textcolor{comment}{// us is at least 6 so we can subtract 4}}
-\DoxyCodeLine{228   us -\/= 4; \textcolor{comment}{// 2 cycles}}
-\DoxyCodeLine{229 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{230   \_\_asm\_\_ \_\_volatile\_\_(}
-\DoxyCodeLine{231     \textcolor{stringliteral}{"{}1: sbiw \%0, 1"{}} \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}            \textcolor{comment}{// 2 cycles}}
-\DoxyCodeLine{232     \textcolor{stringliteral}{"{}rjmp .+0"{}}      \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}            \textcolor{comment}{// 2 cycles}}
-\DoxyCodeLine{233     \textcolor{stringliteral}{"{}rjmp .+0"{}}      \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}            \textcolor{comment}{// 2 cycles}}
-\DoxyCodeLine{234     \textcolor{stringliteral}{"{}rjmp .+0"{}}      \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}            \textcolor{comment}{// 2 cycles}}
-\DoxyCodeLine{235     \textcolor{stringliteral}{"{}brne 1b"{}} : \textcolor{stringliteral}{"{}=w"{}} (us) : \textcolor{stringliteral}{"{}0"{}} (us)  \textcolor{comment}{// 2 cycles}}
-\DoxyCodeLine{236   );}
-\DoxyCodeLine{237   \textcolor{comment}{// return = 4 cycles}}
-\DoxyCodeLine{238 \textcolor{preprocessor}{\#elif defined(\_WIN32)}}
-\DoxyCodeLine{239   uint32\_t newtime = microseconds() + us;}
-\DoxyCodeLine{240   \textcolor{keywordflow}{while} (microseconds() < newtime) \{}
-\DoxyCodeLine{241     \textcolor{comment}{// busy loop}}
-\DoxyCodeLine{242   \}}
-\DoxyCodeLine{243 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{244   usleep(us);}
-\DoxyCodeLine{245 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{246 \}}
+\DoxyCodeLine{219 \{}
+\DoxyCodeLine{220 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
+\DoxyCodeLine{221 \textcolor{preprocessor}{\#if F\_CPU >= 20000000L}}
+\DoxyCodeLine{222   \textcolor{comment}{// for a one-\/microsecond delay, burn 4 clocks and then return}}
+\DoxyCodeLine{223   \_\_asm\_\_ \_\_volatile\_\_ (}
+\DoxyCodeLine{224     \textcolor{stringliteral}{"{}rjmp .+0"{}} \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}     \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{225     \textcolor{stringliteral}{"{}nop"{}} );              \textcolor{comment}{// 1 cycle}}
+\DoxyCodeLine{226                           \textcolor{comment}{// wait 3 cycles with 2 words}}
+\DoxyCodeLine{227   \textcolor{keywordflow}{if} (us <= 1) \textcolor{keywordflow}{return}; \textcolor{comment}{//  = 3 cycles, (4 when true)}}
+\DoxyCodeLine{228   \textcolor{comment}{// the loop takes a 1/2 of a microsecond (10 cycles) per iteration}}
+\DoxyCodeLine{229   \textcolor{comment}{// so execute it twice for each microsecond of delay requested.}}
+\DoxyCodeLine{230   us = us << 1; \textcolor{comment}{// x2 us, = 2 cycles}}
+\DoxyCodeLine{231   \textcolor{comment}{// we just burned 21 (23) cycles above, remove 2}}
+\DoxyCodeLine{232   \textcolor{comment}{// us is at least 4 so we can subtract 2.}}
+\DoxyCodeLine{233   us -\/= 2; \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{234 \textcolor{preprocessor}{\#elif F\_CPU >= 10000000L}}
+\DoxyCodeLine{235   \textcolor{comment}{// for a 1 microsecond delay, simply return.  the overhead}}
+\DoxyCodeLine{236   \textcolor{comment}{// of the function call takes 14 (16) cycles, which is 1.5us}}
+\DoxyCodeLine{237   \textcolor{keywordflow}{if} (us <= 2) \textcolor{keywordflow}{return}; \textcolor{comment}{//  = 3 cycles, (4 when true)}}
+\DoxyCodeLine{238   \textcolor{comment}{// we just burned 20 (22) cycles above, remove 4, (5*4=20)}}
+\DoxyCodeLine{239   \textcolor{comment}{// us is at least 6 so we can subtract 4}}
+\DoxyCodeLine{240   us -\/= 4; \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{241 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{242   \_\_asm\_\_ \_\_volatile\_\_(}
+\DoxyCodeLine{243     \textcolor{stringliteral}{"{}1: sbiw \%0, 1"{}} \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}            \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{244     \textcolor{stringliteral}{"{}rjmp .+0"{}}      \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}            \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{245     \textcolor{stringliteral}{"{}rjmp .+0"{}}      \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}            \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{246     \textcolor{stringliteral}{"{}rjmp .+0"{}}      \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}            \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{247     \textcolor{stringliteral}{"{}brne 1b"{}} : \textcolor{stringliteral}{"{}=w"{}} (us) : \textcolor{stringliteral}{"{}0"{}} (us)  \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{248   );}
+\DoxyCodeLine{249   \textcolor{comment}{// return = 4 cycles}}
+\DoxyCodeLine{250 \textcolor{preprocessor}{\#elif defined(\_WIN32)}}
+\DoxyCodeLine{251   uint32\_t newtime = microseconds() + us;}
+\DoxyCodeLine{252   \textcolor{keywordflow}{while} (microseconds() < newtime) \{}
+\DoxyCodeLine{253     \textcolor{comment}{// busy loop}}
+\DoxyCodeLine{254   \}}
+\DoxyCodeLine{255 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{256   usleep(us);}
+\DoxyCodeLine{257 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{258 \}}
 
 \end{DoxyCode}
 

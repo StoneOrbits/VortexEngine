@@ -14,7 +14,7 @@ var searchData=
   ['decompress_5fbuffer_220',['decompress_buffer',['../Compression_8h.html#a1797dad25222e0b23dbdc5eef82421d9',1,'Compression.h']]],
   ['default_5fbrightness_221',['DEFAULT_BRIGHTNESS',['../VortexConfig_8h.html#ad27ad76d41bf29c6b9f95e8c41b86398',1,'VortexConfig.h']]],
   ['default_5fmode_5fentry_222',['default_mode_entry',['../structdefault__mode__entry.html',1,'']]],
-  ['default_5fmodes_223',['default_modes',['../DefaultModes_8cpp.html#a45a26bbffb6073c152f32b3ec0404f15',1,'default_modes():&#160;DefaultModes.cpp'],['../DefaultModes_8h.html#a45a26bbffb6073c152f32b3ec0404f15',1,'default_modes():&#160;DefaultModes.cpp']]],
+  ['default_5fmodes_223',['default_modes',['../DefaultModes_8cpp.html#a9682260204c0b547696ba31807cde860',1,'default_modes():&#160;DefaultModes.cpp'],['../DefaultModes_8h.html#a9682260204c0b547696ba31807cde860',1,'default_modes():&#160;DefaultModes.cpp']]],
   ['default_5fstorage_5ffilename_224',['DEFAULT_STORAGE_FILENAME',['../Storage_8cpp.html#a3afbe062209d42a72bc5b4a03a86206a',1,'Storage.cpp']]],
   ['default_5ftick_5foffset_225',['DEFAULT_TICK_OFFSET',['../VortexConfig_8h.html#aa6e581c2bacc5c0cd5edcfc758b2c783',1,'VortexConfig.h']]],
   ['default_5ftickrate_226',['DEFAULT_TICKRATE',['../VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb',1,'VortexConfig.h']]],

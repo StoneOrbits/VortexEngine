@@ -204,7 +204,7 @@ Definition at line 36 of file Blend\+Pattern.\+cpp.
 \DoxyCodeLine{46     \textcolor{comment}{// convert to hsv}}
 \DoxyCodeLine{47     \mbox{\hyperlink{classHSVColor}{HSVColor}} hsvCol = \mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}};}
 \DoxyCodeLine{48     \textcolor{comment}{// shift the hue by a flip size}}
-\DoxyCodeLine{49     hsvCol.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} += (\mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} * (255 / \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}}));}
+\DoxyCodeLine{49     hsvCol.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} += (\mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} * (127 / \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}}));}
 \DoxyCodeLine{50     \textcolor{comment}{// convert the hsv color back to RGB}}
 \DoxyCodeLine{51     col = hsvCol;}
 \DoxyCodeLine{52   \}}
@@ -214,7 +214,7 @@ Definition at line 36 of file Blend\+Pattern.\+cpp.
 \DoxyCodeLine{56   \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}}++;}
 \DoxyCodeLine{57   \textcolor{comment}{// modulate the flip count DO NOT USE MODULO OPERATOR BECAUSE}}
 \DoxyCodeLine{58   \textcolor{comment}{// THE FLIP COUNT COULD BE 0 THAT WILL DIVIDE BY ZERO}}
-\DoxyCodeLine{59   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} >= \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}}) \{}
+\DoxyCodeLine{59   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} > \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}}) \{}
 \DoxyCodeLine{60     \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} = 0;}
 \DoxyCodeLine{61   \}}
 \DoxyCodeLine{62 \}}

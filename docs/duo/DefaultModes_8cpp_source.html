@@ -93,7 +93,7 @@ $(document).ready(function(){initNavTree('DefaultModes_8cpp_source.html',''); in
 <div class="line"><a name="l00004"></a><span class="lineno">    4</span>&#160; </div>
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160;<span class="comment">// Here is the array of &#39;default modes&#39; that are assigned to</span></div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="comment">// the gloveset upon factory reset</span></div>
-<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="DefaultModes_8cpp.html#a13a9f1a37ffa41f648818fde6cb92ae5">    7</a></span>&#160;<span class="keyword">const</span> <a class="code" href="structDefaultModeEntry.html">DefaultModeEntry</a> <a class="code" href="DefaultModes_8cpp.html#a13a9f1a37ffa41f648818fde6cb92ae5">defaultModes</a>[] = {</div>
+<div class="line"><a name="l00007"></a><span class="lineno"><a class="line" href="DefaultModes_8cpp.html#a1d8e5b74eb83294274c8c102a7a1809b">    7</a></span>&#160;<span class="keyword">const</span> <a class="code" href="structDefaultModeEntry.html">DefaultModeEntry</a> <a class="code" href="DefaultModes_8cpp.html#a1d8e5b74eb83294274c8c102a7a1809b">defaultModes</a>[<a class="code" href="VortexConfig_8h.html#a95b270e9c99aea216b47fd1e95b2cf34">MAX_MODES</a>] = {</div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;  {</div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;    {</div>
 <div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;      {</div>
@@ -147,73 +147,67 @@ $(document).ready(function(){initNavTree('DefaultModes_8cpp_source.html',''); in
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  {</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    {</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;      {</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <a class="code" href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca5139aabc49b28e85b22d9696bc2d7fde">PATTERN_COMPLEMENTARY_BLENDSTROBEGAP</a>, 6, {</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;          <a class="code" href="ColorConstants_8h.html#a7413535d970859ac7e794029e6075a2d">RGB_RED5</a>,</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;          <a class="code" href="ColorConstants_8h.html#af0976431ba740a3698ba906e1e37ba1b">RGB_YELLOW5</a>,</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;          <a class="code" href="ColorConstants_8h.html#a7413535d970859ac7e794029e6075a2d">RGB_RED5</a>,</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;          <a class="code" href="ColorConstants_8h.html#a341f9179ff4e07223e2f42d594e699d5">RGB_CYAN5</a>,</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;          <a class="code" href="ColorConstants_8h.html#a5192f943ce60d2b2b63db6b2f546ebf5">RGB_BLUE5</a>,</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;          <a class="code" href="ColorConstants_8h.html#a341f9179ff4e07223e2f42d594e699d5">RGB_CYAN5</a>,</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;        <a class="code" href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca320755b96ff07514ffbbea92471d9028">PATTERN_STROBE</a>, 6, {</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;          0xC4003B,</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;          0x700000,</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;          0x000000,</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;          0x0017E9,</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;          0x22004E,</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;          0x000000,</div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;        }</div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;      },</div>
 <div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;      {</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <a class="code" href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca5139aabc49b28e85b22d9696bc2d7fde">PATTERN_COMPLEMENTARY_BLENDSTROBEGAP</a>, 6, {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;          <a class="code" href="ColorConstants_8h.html#a7413535d970859ac7e794029e6075a2d">RGB_RED5</a>,</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;          <a class="code" href="ColorConstants_8h.html#af0976431ba740a3698ba906e1e37ba1b">RGB_YELLOW5</a>,</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;          <a class="code" href="ColorConstants_8h.html#a7413535d970859ac7e794029e6075a2d">RGB_RED5</a>,</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;          <a class="code" href="ColorConstants_8h.html#a341f9179ff4e07223e2f42d594e699d5">RGB_CYAN5</a>,</div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;          <a class="code" href="ColorConstants_8h.html#a5192f943ce60d2b2b63db6b2f546ebf5">RGB_BLUE5</a>,</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;          <a class="code" href="ColorConstants_8h.html#a341f9179ff4e07223e2f42d594e699d5">RGB_CYAN5</a>,</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;        }</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;      }</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    }</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  },</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160; </div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    {</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;      {</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;        <a class="code" href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8cacd3b233fb9b14269205d3f6d3563aba0">PATTERN_DOUBLEDOPS</a>, 8, {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;          0xFFC600,</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;          0x235500,</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;          0x00FF66,</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;          0x004355,</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;          0x0600FF,</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;          0x480055,</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;          0xFF0057,</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;          0x552C00,</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        }</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;      },</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;      {</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;        <a class="code" href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8cacd3b233fb9b14269205d3f6d3563aba0">PATTERN_DOUBLEDOPS</a>, 8, {</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;          0xFFC600,</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;          0x235500,</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;          0x00FF66,</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;          0x004355,</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;          0x0600FF,</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;          0x480055,</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;          0xFF0057,</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;          0x552C00,</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;        }</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;      }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;    }</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  }</div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;};</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;        <a class="code" href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca7db250f793478dac04e13a37d4a34ef5">PATTERN_STROBIE</a>, 3, {</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;          0xC4003B,</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;          0x4D00B2,</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;          0x0017E9,</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;        }</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;      }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;    }</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  },</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      {</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;        <a class="code" href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8cacd3b233fb9b14269205d3f6d3563aba0">PATTERN_DOUBLEDOPS</a>, 8, {</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;          0xFFC600,</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;          0x235500,</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;          0x00FF66,</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;          0x004355,</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;          0x0600FF,</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;          0x480055,</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;          0xFF0057,</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;          0x552C00,</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;        }</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;      },</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;      {</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;        <a class="code" href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8cacd3b233fb9b14269205d3f6d3563aba0">PATTERN_DOUBLEDOPS</a>, 8, {</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;          0xFFC600,</div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;          0x235500,</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;          0x00FF66,</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;          0x004355,</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;          0x0600FF,</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;          0x480055,</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;          0xFF0057,</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;          0x552C00,</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;        }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;      }</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;    }</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  }</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;};</div>
 <div class="ttc" id="aColorConstants_8h_html_a0eff802f1ca228046476209dc01c76ad"><div class="ttname"><a href="ColorConstants_8h.html#a0eff802f1ca228046476209dc01c76ad">RGB_BLUE</a></div><div class="ttdeci">#define RGB_BLUE</div><div class="ttdef"><b>Definition:</b> <a href="ColorConstants_8h_source.html#l00038">ColorConstants.h:38</a></div></div>
-<div class="ttc" id="aColorConstants_8h_html_a341f9179ff4e07223e2f42d594e699d5"><div class="ttname"><a href="ColorConstants_8h.html#a341f9179ff4e07223e2f42d594e699d5">RGB_CYAN5</a></div><div class="ttdeci">#define RGB_CYAN5</div><div class="ttdef"><b>Definition:</b> <a href="ColorConstants_8h_source.html#l00114">ColorConstants.h:114</a></div></div>
-<div class="ttc" id="aColorConstants_8h_html_a5192f943ce60d2b2b63db6b2f546ebf5"><div class="ttname"><a href="ColorConstants_8h.html#a5192f943ce60d2b2b63db6b2f546ebf5">RGB_BLUE5</a></div><div class="ttdeci">#define RGB_BLUE5</div><div class="ttdef"><b>Definition:</b> <a href="ColorConstants_8h_source.html#l00070">ColorConstants.h:70</a></div></div>
-<div class="ttc" id="aColorConstants_8h_html_a7413535d970859ac7e794029e6075a2d"><div class="ttname"><a href="ColorConstants_8h.html#a7413535d970859ac7e794029e6075a2d">RGB_RED5</a></div><div class="ttdeci">#define RGB_RED5</div><div class="ttdef"><b>Definition:</b> <a href="ColorConstants_8h_source.html#l00092">ColorConstants.h:92</a></div></div>
 <div class="ttc" id="aColorConstants_8h_html_aa039288455af8a3812a35aa1e7b903e4"><div class="ttname"><a href="ColorConstants_8h.html#aa039288455af8a3812a35aa1e7b903e4">RGB_RED</a></div><div class="ttdeci">#define RGB_RED</div><div class="ttdef"><b>Definition:</b> <a href="ColorConstants_8h_source.html#l00040">ColorConstants.h:40</a></div></div>
 <div class="ttc" id="aColorConstants_8h_html_ab6c97468034c02fe204fd37036d9be15"><div class="ttname"><a href="ColorConstants_8h.html#ab6c97468034c02fe204fd37036d9be15">RGB_GREEN</a></div><div class="ttdeci">#define RGB_GREEN</div><div class="ttdef"><b>Definition:</b> <a href="ColorConstants_8h_source.html#l00041">ColorConstants.h:41</a></div></div>
-<div class="ttc" id="aColorConstants_8h_html_af0976431ba740a3698ba906e1e37ba1b"><div class="ttname"><a href="ColorConstants_8h.html#af0976431ba740a3698ba906e1e37ba1b">RGB_YELLOW5</a></div><div class="ttdeci">#define RGB_YELLOW5</div><div class="ttdef"><b>Definition:</b> <a href="ColorConstants_8h_source.html#l00081">ColorConstants.h:81</a></div></div>
-<div class="ttc" id="aDefaultModes_8cpp_html_a13a9f1a37ffa41f648818fde6cb92ae5"><div class="ttname"><a href="DefaultModes_8cpp.html#a13a9f1a37ffa41f648818fde6cb92ae5">defaultModes</a></div><div class="ttdeci">const DefaultModeEntry defaultModes[]</div><div class="ttdef"><b>Definition:</b> <a href="DefaultModes_8cpp_source.html#l00007">DefaultModes.cpp:7</a></div></div>
+<div class="ttc" id="aDefaultModes_8cpp_html_a1d8e5b74eb83294274c8c102a7a1809b"><div class="ttname"><a href="DefaultModes_8cpp.html#a1d8e5b74eb83294274c8c102a7a1809b">defaultModes</a></div><div class="ttdeci">const DefaultModeEntry defaultModes[MAX_MODES]</div><div class="ttdef"><b>Definition:</b> <a href="DefaultModes_8cpp_source.html#l00007">DefaultModes.cpp:7</a></div></div>
 <div class="ttc" id="aDefaultModes_8h_html"><div class="ttname"><a href="DefaultModes_8h.html">DefaultModes.h</a></div></div>
 <div class="ttc" id="aPatterns_8h_html_a40b65bd8b307c1134edfc6b99c16cd8ca06c9c67d963a1590ef96f5de4a23f32e"><div class="ttname"><a href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca06c9c67d963a1590ef96f5de4a23f32e">PATTERN_STROBEGAP</a></div><div class="ttdeci">@ PATTERN_STROBEGAP</div><div class="ttdef"><b>Definition:</b> <a href="Patterns_8h_source.html#l00031">Patterns.h:31</a></div></div>
 <div class="ttc" id="aPatterns_8h_html_a40b65bd8b307c1134edfc6b99c16cd8ca320755b96ff07514ffbbea92471d9028"><div class="ttname"><a href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca320755b96ff07514ffbbea92471d9028">PATTERN_STROBE</a></div><div class="ttdeci">@ PATTERN_STROBE</div><div class="ttdef"><b>Definition:</b> <a href="Patterns_8h_source.html#l00025">Patterns.h:25</a></div></div>
 <div class="ttc" id="aPatterns_8h_html_a40b65bd8b307c1134edfc6b99c16cd8ca39f4867b6be5726e0c4931f82746a7be"><div class="ttname"><a href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca39f4867b6be5726e0c4931f82746a7be">PATTERN_HYPERGAP</a></div><div class="ttdeci">@ PATTERN_HYPERGAP</div><div class="ttdef"><b>Definition:</b> <a href="Patterns_8h_source.html#l00032">Patterns.h:32</a></div></div>
-<div class="ttc" id="aPatterns_8h_html_a40b65bd8b307c1134edfc6b99c16cd8ca5139aabc49b28e85b22d9696bc2d7fde"><div class="ttname"><a href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca5139aabc49b28e85b22d9696bc2d7fde">PATTERN_COMPLEMENTARY_BLENDSTROBEGAP</a></div><div class="ttdeci">@ PATTERN_COMPLEMENTARY_BLENDSTROBEGAP</div><div class="ttdef"><b>Definition:</b> <a href="Patterns_8h_source.html#l00055">Patterns.h:55</a></div></div>
+<div class="ttc" id="aPatterns_8h_html_a40b65bd8b307c1134edfc6b99c16cd8ca7db250f793478dac04e13a37d4a34ef5"><div class="ttname"><a href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca7db250f793478dac04e13a37d4a34ef5">PATTERN_STROBIE</a></div><div class="ttdeci">@ PATTERN_STROBIE</div><div class="ttdef"><b>Definition:</b> <a href="Patterns_8h_source.html#l00028">Patterns.h:28</a></div></div>
 <div class="ttc" id="aPatterns_8h_html_a40b65bd8b307c1134edfc6b99c16cd8ca8a8d267d482366cfe7e15d509e23e523"><div class="ttname"><a href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca8a8d267d482366cfe7e15d509e23e523">PATTERN_COMPLEMENTARY_BLEND</a></div><div class="ttdeci">@ PATTERN_COMPLEMENTARY_BLEND</div><div class="ttdef"><b>Definition:</b> <a href="Patterns_8h_source.html#l00053">Patterns.h:53</a></div></div>
 <div class="ttc" id="aPatterns_8h_html_a40b65bd8b307c1134edfc6b99c16cd8cacd3b233fb9b14269205d3f6d3563aba0"><div class="ttname"><a href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8cacd3b233fb9b14269205d3f6d3563aba0">PATTERN_DOUBLEDOPS</a></div><div class="ttdeci">@ PATTERN_DOUBLEDOPS</div><div class="ttdef"><b>Definition:</b> <a href="Patterns_8h_source.html#l00039">Patterns.h:39</a></div></div>
 <div class="ttc" id="aPatterns_8h_html_a40b65bd8b307c1134edfc6b99c16cd8cadf01802d35ece7b405582c6680f56d83"><div class="ttname"><a href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8cadf01802d35ece7b405582c6680f56d83">PATTERN_BLEND</a></div><div class="ttdeci">@ PATTERN_BLEND</div><div class="ttdef"><b>Definition:</b> <a href="Patterns_8h_source.html#l00050">Patterns.h:50</a></div></div>
+<div class="ttc" id="aVortexConfig_8h_html_a95b270e9c99aea216b47fd1e95b2cf34"><div class="ttname"><a href="VortexConfig_8h.html#a95b270e9c99aea216b47fd1e95b2cf34">MAX_MODES</a></div><div class="ttdeci">#define MAX_MODES</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00188">VortexConfig.h:188</a></div></div>
 <div class="ttc" id="astructDefaultModeEntry_html"><div class="ttname"><a href="structDefaultModeEntry.html">DefaultModeEntry</a></div><div class="ttdef"><b>Definition:</b> <a href="DefaultModes_8h_source.html#l00016">DefaultModes.h:17</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
