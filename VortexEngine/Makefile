@@ -10,8 +10,7 @@ RANLIB=ranlib
 
 # target files
 TARGETS=\
-    vortex \
-    vortex.a
+    vortex
 
 .PHONY: $(TARGETS)
 
@@ -32,6 +31,9 @@ vortex.a:
 vortex: 
 	$(MAKE) -C VortexCLI
 	cp -f VortexCLI/vortex .
+
+# emptry rule forces stuff to re reun every time
+FORCE:
 
 # generic clean target
 clean:
