@@ -48,6 +48,8 @@ public:
 static void init_wasm()
 {
     Vortex::init<VortexWASMCallbacks>();
+    Vortex::openRandomizer();
+    Vortex::longClick();
 }
 
 static void cleanup_wasm()
