@@ -55,6 +55,21 @@ static void cleanup_wasm()
     Vortex::cleanup();
 }
 
+static void click_wasm()
+{
+    Vortex::shortClick();
+}
+
+static void press_wasm()
+{
+    Vortex::pressButton();
+}
+
+static void release_wasm()
+{
+    Vortex::releaseButton();
+}
+
 val tick_wasm() {
     Vortex::tick();
 
@@ -75,6 +90,9 @@ EMSCRIPTEN_BINDINGS(vortex_engine) {
     function("VortexInit", &init_wasm);
     function("VortexCleanup", &cleanup_wasm);
     function("VortexTick", &tick_wasm);
+    function("VortexClick", &click_wasm);
+    function("VortexPress", &click_wasm);
+    function("VortexRelease", &click_wasm);
 
     value_object<RGBColor>("RGBColor")  // Fixed typo here
         .field("red", &RGBColor::red)
