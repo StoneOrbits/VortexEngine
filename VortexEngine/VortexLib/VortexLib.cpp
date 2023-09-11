@@ -575,7 +575,8 @@ bool Vortex::checkLedCount()
 bool Vortex::setLedCount(uint8_t count)
 {
 #if FIXED_LED_COUNT == 0
-  if (!Modes::curMode()->setLedCount(count)) {
+  Mode *cur = Modes::curMode();
+  if (cur && !cur->setLedCount(count)) {
     return true;
   }
   Leds::setLedCount(count);

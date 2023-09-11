@@ -21,6 +21,10 @@ all: $(TARGETS)
 # unit test target
 tests: $(TESTS)
 
+# force sub-build of wasm
+wasm: FORCE
+	env WASM=1 $(MAKE)
+
 vortex.a: 
 	$(MAKE) -C VortexLib
 	cp -f VortexLib/vortex.a .
