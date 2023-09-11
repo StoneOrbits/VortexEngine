@@ -132,7 +132,7 @@ FORCE:
 
 # generic clean target
 clean:
-	@$(RM) $(DFILES) $(OBJS) $(TARGETS) $(TESTS)
+	@$(RM) $(DFILES) $(OBJS) $(TARGETS) $(TESTS) vortex.js vortex.wasm
 
 # Now include our target dependency files
 # the hyphen means ignore non-existent files
