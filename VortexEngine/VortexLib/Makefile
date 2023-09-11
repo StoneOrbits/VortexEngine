@@ -31,6 +31,7 @@ INCLUDES=\
 
 ifdef WASM
 DEFINES += -D WASM
+CFLAGS += -s DISABLE_EXCEPTION_CATCHING=0 --bind
 endif
 
 ifdef TESTFRAMEWORK
@@ -91,8 +92,12 @@ DEPS=\
 TESTS=\
 
 # target files
-TARGETS=\
-    vortex.a \
+ifdef WASM
+TARGETS=vortex.js \
+	vortex.a
+else
+TARGETS=vortex.a
+endif
 
 # Default target for 'make' command
 all: $(TARGETS)
@@ -107,6 +112,9 @@ wasm: FORCE
 # target for vortex lib
 vortex.a: $(DEPS)
 	$(AR) $@ $^
+
+vortex.js: $(DEPS)
+	$(CC) $(CFLAGS) $^ -o $@ $(LLIBS)
 
 # catch-all make target to generate .o and .d files
 %.o: %.cpp

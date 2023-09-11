@@ -33,26 +33,54 @@
 
 using namespace emscripten;
 
-#if 0
-EMSCRIPTEN_BINDINGS(vortex_engine)
+RGBColor *leds = nullptr;
+int led_count = 0;
+
+// Assuming VortexCallbacks and ColorInfo are correctly defined and included above this line
+class VortexWASMCallbacks : public VortexCallbacks {
+public:
+    void ledsInit(void *cl, int count) override {
+      leds = (RGBColor *)cl;
+      led_count = count;
+    }
+};
+
+static void init_wasm()
 {
-EMSCRIPTEN_BINDINGS(vortex_engine) {
-  value_object<ByteStream>("ByteStream")
-    .field("data"
-      .element(&Point2f::x)
-      .element(&Point2f::y)
-      ;
-  class_<ByteStream>("ByteStream")
-    .constructor<uint32_t, const uint8_t *>()
-    .function("data", &ByteStream::data)
-    ;
-  class_<Vortex>("Vortex")
-    .class_function("init", &Vortex::init)
-    .class_function("cleanup", &Vortex::cleanup)
-    //.class_function("getStorageStats", &Vortex::getStorageStats)
-    ;
+    Vortex::init<VortexWASMCallbacks>();
 }
-#endif
+
+static void cleanup_wasm()
+{
+    Vortex::cleanup();
+}
+
+val tick_wasm() {
+    Vortex::tick();
+
+    val ledArray = val::array();
+    for (int i = 0; i < led_count; ++i) {
+        val color = val::object();
+        color.set("red", leds[i].red);
+        color.set("green", leds[i].green);
+        color.set("blue", leds[i].blue);
+
+        ledArray.set(i, color);
+    }
+
+    return ledArray;
+}
+
+EMSCRIPTEN_BINDINGS(vortex_engine) {
+    function("VortexInit", &init_wasm);
+    function("VortexCleanup", &cleanup_wasm);
+    function("VortexTick", &tick_wasm);
+
+    value_object<RGBColor>("RGBColor")  // Fixed typo here
+        .field("red", &RGBColor::red)
+        .field("green", &RGBColor::green)
+        .field("blue", &RGBColor::blue);
+}
 #endif
 
 using namespace std;
