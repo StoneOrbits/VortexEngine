@@ -38,7 +38,7 @@ int led_count = 0;
 
 // Assuming VortexCallbacks and ColorInfo are correctly defined and included above this line
 class VortexWASMCallbacks : public VortexCallbacks {
-public:
+  public:
     void ledsInit(void *cl, int count) override {
       leds = (RGBColor *)cl;
       led_count = count;
@@ -47,45 +47,50 @@ public:
 
 static void init_wasm()
 {
-    Vortex::init<VortexWASMCallbacks>();
-    Vortex::openRandomizer();
-    Vortex::longClick();
+  Vortex::init<VortexWASMCallbacks>();
+  Vortex::openRandomizer();
+  Vortex::longClick();
 }
 
 static void cleanup_wasm()
 {
-    Vortex::cleanup();
+  Vortex::cleanup();
 }
 
 static void click_wasm()
 {
-    Vortex::shortClick();
+  Vortex::shortClick();
+}
+
+static void rapid_click_wasm()
+{
+  Vortex::rapidClick();
 }
 
 static void press_wasm()
 {
-    Vortex::pressButton();
+  Vortex::pressButton();
 }
 
 static void release_wasm()
 {
-    Vortex::releaseButton();
+  Vortex::releaseButton();
 }
 
 val tick_wasm() {
-    Vortex::tick();
+  Vortex::tick();
 
-    val ledArray = val::array();
-    for (int i = 0; i < led_count; ++i) {
-        val color = val::object();
-        color.set("red", leds[i].red);
-        color.set("green", leds[i].green);
-        color.set("blue", leds[i].blue);
+  val ledArray = val::array();
+  for (int i = 0; i < led_count; ++i) {
+    val color = val::object();
+    color.set("red", leds[i].red);
+    color.set("green", leds[i].green);
+    color.set("blue", leds[i].blue);
 
-        ledArray.set(i, color);
-    }
+    ledArray.set(i, color);
+  }
 
-    return ledArray;
+  return ledArray;
 }
 
 val demo_mode() {
@@ -118,18 +123,19 @@ val demo_mode() {
 }
 
 EMSCRIPTEN_BINDINGS(vortex_engine) {
-    function("VortexInit", &init_wasm);
-    function("VortexCleanup", &cleanup_wasm);
-    function("VortexTick", &tick_wasm);
-    function("VortexClick", &click_wasm);
-    function("VortexPress", &click_wasm);
-    function("VortexRelease", &click_wasm);
-    function("VortexDemoMode", &demo_mode);
+  function("VortexInit", &init_wasm);
+  function("VortexCleanup", &cleanup_wasm);
+  function("VortexTick", &tick_wasm);
+  function("VortexClick", &click_wasm);
+  function("VortexRapidClick", &rapid_click_wasm);
+  function("VortexPress", &click_wasm);
+  function("VortexRelease", &click_wasm);
+  function("VortexDemoMode", &demo_mode);
 
-    value_object<RGBColor>("RGBColor")  // Fixed typo here
-        .field("red", &RGBColor::red)
-        .field("green", &RGBColor::green)
-        .field("blue", &RGBColor::blue);
+  value_object<RGBColor>("RGBColor")  // Fixed typo here
+    .field("red", &RGBColor::red)
+    .field("green", &RGBColor::green)
+    .field("blue", &RGBColor::blue);
 }
 #endif
 
