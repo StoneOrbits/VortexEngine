@@ -88,6 +88,35 @@ val tick_wasm() {
     return ledArray;
 }
 
+val demo_mode() {
+  Mode *demoMode = Vortex::getMenuDemoMode();
+  if (!demoMode) {
+    return val::undefined();
+  }
+
+  val demo = val::object();
+  // Extract pattern and colorset from the first LED
+  PatternID patID = demoMode->getPatternID(LED_FIRST);
+  Colorset set = demoMode->getColorset(LED_FIRST);
+
+  // Convert pattern ID to its string name
+  std::string patternName = Vortex::patternToString(patID);
+  demo.set("pattern", val(patternName));
+
+  // Convert colorset to JS array
+  val colorset = val::array();
+  for (uint32_t i = 0; i < set.numColors(); ++i) {
+    val color = val::object();
+    color.set("red", set[i].red);  // Assuming a function like this exists
+    color.set("green", set[i].green);
+    color.set("blue", set[i].blue);
+    colorset.set(i, color);
+  }
+  demo.set("colorset", colorset);
+
+  return demo;
+}
+
 EMSCRIPTEN_BINDINGS(vortex_engine) {
     function("VortexInit", &init_wasm);
     function("VortexCleanup", &cleanup_wasm);
@@ -95,6 +124,7 @@ EMSCRIPTEN_BINDINGS(vortex_engine) {
     function("VortexClick", &click_wasm);
     function("VortexPress", &click_wasm);
     function("VortexRelease", &click_wasm);
+    function("VortexDemoMode", &demo_mode);
 
     value_object<RGBColor>("RGBColor")  // Fixed typo here
         .field("red", &RGBColor::red)
