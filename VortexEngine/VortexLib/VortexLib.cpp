@@ -334,6 +334,15 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("getFlags", &Pattern::getFlags)
     .function("hasFlags", &Pattern::hasFlags);
 
+  class_<PatternBuilder>("PatternBuilder")
+    .class_function("make", &PatternBuilder::make, allow_raw_pointers())
+    .class_function("dupe", &PatternBuilder::dupe, allow_raw_pointers())
+    .class_function("makeSingle", &PatternBuilder::makeSingle, allow_raw_pointers())
+    .class_function("makeMulti", &PatternBuilder::makeMulti, allow_raw_pointers())
+    //.class_function("unserialize", &PatternBuilder::unserialize)
+    .class_function("getDefaultArgs", &PatternBuilder::getDefaultArgs)
+    .class_function("numDefaultArgs", &PatternBuilder::numDefaultArgs);
+
   class_<Mode>("Mode")
     .constructor<>()
     // overloading only works with param count not typing
@@ -840,6 +849,9 @@ bool Vortex::setMenuDemoMode(const Mode *mode)
   }
   Menu *pMenu = Menus::curMenu();
   if (!pMenu) {
+    return false;
+  }
+  if (!mode->getLedCount() || pMenu->m_previewMode.equals(mode)) {
     return false;
   }
   pMenu->m_previewMode = *mode;
