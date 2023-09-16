@@ -74,10 +74,11 @@ class Mode;
 class Vortex
 {
   Vortex();
-  ~Vortex();
   // internal initializer
   static bool init(VortexCallbacks *callbacks);
 public:
+  // needs to be public for wasm build idk the binding doesn't work otherwise
+  ~Vortex();
 
   // public initializer, you must provide a derivation of the class VortexCallbacks
   template <typename T>
@@ -127,6 +128,7 @@ public:
 
   // get the current menu demo mode
   static Mode *getMenuDemoMode();
+  static bool setMenuDemoMode(const Mode *mode);
 
   // special 'click' that quits the engine
   static void quitClick();
