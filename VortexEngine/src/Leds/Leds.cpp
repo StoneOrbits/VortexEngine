@@ -15,6 +15,8 @@
 #ifdef VORTEX_EMBEDDED
 #include <SPI.h>
 #define POWER_LED_PIN 7
+#define DATA_PIN 4
+#define CLOCK_PIN 3
 #endif
 
 // array of led color values
@@ -27,6 +29,8 @@ bool Leds::init()
 #ifdef VORTEX_EMBEDDED
   // turn off the power led don't need it for anything
   pinMode(POWER_LED_PIN, INPUT_PULLUP);
+  pinMode(DATA_PIN, OUTPUT);
+  pinMode(CLOCK_PIN, OUTPUT);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
@@ -36,6 +40,9 @@ bool Leds::init()
 
 void Leds::cleanup()
 {
+#ifdef VORTEX_EMBEDDED
+  SPI.end();
+#endif
   for (uint8_t i = 0; i < LED_COUNT; ++i) {
     m_ledColors[i].clear();
   }
@@ -328,27 +335,44 @@ void Leds::holdAll(RGBColor col)
   Time::delayMilliseconds(250);
 }
 
+void sendBit(bool bitVal)
+{
+#ifdef VORTEX_EMBEDDED
+  digitalWrite(DATA_PIN, bitVal);
+  digitalWrite(CLOCK_PIN, HIGH);
+  digitalWrite(CLOCK_PIN, LOW);
+#endif
+}
+
+void sendByte(uint8_t byteVal)
+{
+  for (int i = 7; i >= 0; i--) {
+    sendBit(byteVal & (1 << i));
+  }
+}
+
 void Leds::update()
 {
 #ifdef VORTEX_EMBEDDED
-  SPI.begin();
-  // Start frame
-  for (uint8_t i = 0; i < 4; i++) {
-    SPI.transfer(0);
+  // Start frame: 4 bytes of 0
+  for (int i = 0; i < 4; i++) {
+    sendByte(0x00);
   }
+
   // LED frames
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
-    // brightness is only 5 bits so shift m_brightness down, divide by 8 so it's within 0-31
-    SPI.transfer(0b11100000 | ((m_brightness >> 3) & 0b00011111)); // brightness
-    SPI.transfer(m_ledColors[pos].blue);  // blue
-    SPI.transfer(m_ledColors[pos].green); // green
-    SPI.transfer(m_ledColors[pos].red);   // red
+    uint8_t brightnessVal = 0b11100000 | ((m_brightness >> 3) & 0b00011111);
+    sendByte(brightnessVal);          // Global brightness
+    sendByte(m_ledColors[pos].blue);   // Blue
+    sendByte(m_ledColors[pos].green);  // Green
+    sendByte(m_ledColors[pos].red);    // Red
   }
-  // End frame
-  for (uint8_t i = 0; i < 4; i++) {
-    SPI.transfer(0);
+
+  // End frame: at least (n/2) bytes of 0xFF, where n is the number of LEDs
+  int endFrameLength = (LED_COUNT + 15) / 16;
+  for (int i = 0; i < endFrameLength; i++) {
+    sendByte(0xFF);
   }
-  SPI.end();
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsShow();
