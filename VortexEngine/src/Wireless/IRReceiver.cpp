@@ -22,6 +22,9 @@ uint32_t IRReceiver::m_previousBytes = 0;
 
 bool IRReceiver::init()
 {
+#ifdef VORTEX_EMBEDDED
+  pinMode(IR_RECEIVER_PIN, INPUT_PULLUP);
+#endif
   m_irData.init(IR_RECV_BUF_SIZE);
   return true;
 }
@@ -88,12 +91,18 @@ bool IRReceiver::receiveMode(Mode *pMode)
 
 bool IRReceiver::beginReceiving()
 {
+#ifdef VORTEX_EMBEDDED
+  attachInterrupt(digitalPinToInterrupt(IR_RECEIVER_PIN), IRReceiver::recvPCIHandler, CHANGE);
+#endif
   resetIRState();
   return true;
 }
 
 bool IRReceiver::endReceiving()
 {
+#ifdef VORTEX_EMBEDDED
+  detachInterrupt(digitalPinToInterrupt(IR_RECEIVER_PIN));
+#endif
   resetIRState();
   return true;
 }

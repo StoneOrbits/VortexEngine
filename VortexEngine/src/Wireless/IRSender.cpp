@@ -224,6 +224,10 @@ void IRSender::initPWM()
   while (IR_TCCx->SYNCBUSY.bit.ENABLE);
   IR_TCCx->CTRLA.reg &= ~TCC_CTRLA_ENABLE;            //initially off will turn on later
   while (IR_TCCx->SYNCBUSY.bit.ENABLE);
+
+  // When not sending PWM, we want it low
+  pinMode(IR_SEND_PWM_PIN, OUTPUT);
+  digitalWrite(IR_SEND_PWM_PIN, LOW);
 #endif
 }
 
