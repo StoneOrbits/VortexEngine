@@ -14,8 +14,49 @@
 
 #ifdef VORTEX_EMBEDDED
 #include <Arduino.h>
+#include <SPI.h>
 #define LED_DATA_PIN  4
-#define POWER_LED_PIN 7
+#define ONBOARD_LED_SCK 8
+#define ONBOARD_LED_MOSI 7
+static void transfer(uint8_t byte)
+{
+  uint8_t startbit = 0x80;
+  bool lastmosi = !(byte & startbit);
+  for (uint8_t b = startbit; b != 0; b = b >> 1) {
+    delayMicroseconds(4);
+    bool towrite = byte & b;
+    if (lastmosi != towrite) {
+      digitalWrite(ONBOARD_LED_MOSI, towrite);
+      lastmosi = towrite;
+    }
+    digitalWrite(ONBOARD_LED_SCK, HIGH);
+    delayMicroseconds(4);
+    digitalWrite(ONBOARD_LED_SCK, LOW);
+  }
+}
+static void turnOffOnboardLED()
+{
+  // spi device begin
+  pinMode(ONBOARD_LED_SCK, OUTPUT);
+  digitalWrite(ONBOARD_LED_SCK, LOW);
+  pinMode(ONBOARD_LED_MOSI, OUTPUT);
+  digitalWrite(ONBOARD_LED_MOSI, HIGH);
+  SPI.begin();
+  // Begin transaction, setting SPI frequency
+  static const SPISettings mySPISettings(8000000, MSBFIRST, SPI_MODE0);
+  SPI.beginTransaction(mySPISettings);
+  for (uint8_t i = 0; i < 4; i++) {
+    transfer(0x00); // begin frame
+  }
+  transfer(0xFF); //  Pixel start
+  for (uint8_t i = 0; i < 3; i++) {
+    transfer(0x00); // R,G,B
+  }
+  transfer(0xFF); // end frame
+  SPI.endTransaction();
+
+  SPI.end();
+}
 #endif
 
 // array of led color values
@@ -26,8 +67,8 @@ uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 bool Leds::init()
 {
 #ifdef VORTEX_EMBEDDED
-  PORT->Group[g_APinDescription[LED_DATA_PIN].ulPort].DIRSET.reg = (1ul << g_APinDescription[LED_DATA_PIN].ulPin);
-  pinMode(POWER_LED_PIN, INPUT_PULLUP);
+  turnOffOnboardLED();
+  pinMode(LED_DATA_PIN, OUTPUT);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
