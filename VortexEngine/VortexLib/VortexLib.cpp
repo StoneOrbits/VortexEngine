@@ -73,6 +73,10 @@ val tick_wasm() {
 }
 
 EMSCRIPTEN_BINDINGS(Vortex) {
+  // vector<string>
+  register_vector<std::string>("VectorString");
+
+  // basic control functions
   function("Init", &init_wasm);
   function("Cleanup", &cleanup_wasm);
   function("Tick", &tick_wasm);
