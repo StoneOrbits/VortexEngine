@@ -1,5 +1,6 @@
 var NAVTREEINDEX5 =
 {
+"classGlobalBrightness.html#a18a6da61d37f5b23bb7aca2bc5aee390":[0,0,23,13],
 "classGlobalBrightness.html#a18fa4e37a22b9e6bc85f87e153ef429f":[0,0,23,11],
 "classGlobalBrightness.html#a2e93c99e4f6ff092c0cff8c1fdcfe4ac":[0,0,23,8],
 "classGlobalBrightness.html#a383c77164792d56792f56a48b6db15e8":[0,0,23,6],
@@ -248,6 +249,5 @@ var NAVTREEINDEX5 =
 "classModeSharing.html#ac368b76ecc406833a3f83f59c4a7f1c0":[0,0,36,1],
 "classModeSharing.html#adf4425210b3945561a2ca1a6b2b165a3":[0,0,36,10],
 "classModeSharing.html#ae442e6e009d96e0a618c130ca45b66b1":[0,0,36,7],
-"classModeSharing.html#af9de8e68dbc889f353da877ba14e0ff4":[0,0,36,11],
-"classModes.html":[0,0,35]
+"classModeSharing.html#af9de8e68dbc889f353da877ba14e0ff4":[0,0,36,11]
 };

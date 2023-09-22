@@ -1,5 +1,8 @@
 var NAVTREEINDEX2 =
 {
+"Leds_8h.html":[1,0,0,0,2,1],
+"Leds_8h_source.html":[1,0,0,0,2,1],
+"LighthousePattern_8cpp.html":[1,0,0,0,7,0,21],
 "LighthousePattern_8cpp_source.html":[1,0,0,0,7,0,21],
 "LighthousePattern_8h.html":[1,0,0,0,7,0,22],
 "LighthousePattern_8h_source.html":[1,0,0,0,7,0,22],
@@ -246,8 +249,5 @@ var NAVTREEINDEX2 =
 "SolidPattern_8cpp.html":[1,0,0,0,7,1,6],
 "SolidPattern_8cpp_source.html":[1,0,0,0,7,1,6],
 "SolidPattern_8h.html":[1,0,0,0,7,1,7],
-"SolidPattern_8h_source.html":[1,0,0,0,7,1,7],
-"SparkleTracePattern_8cpp.html":[1,0,0,0,7,0,33],
-"SparkleTracePattern_8cpp_source.html":[1,0,0,0,7,0,33],
-"SparkleTracePattern_8h.html":[1,0,0,0,7,0,34]
+"SolidPattern_8h_source.html":[1,0,0,0,7,1,7]
 };

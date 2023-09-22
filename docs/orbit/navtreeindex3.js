@@ -1,5 +1,8 @@
 var NAVTREEINDEX3 =
 {
+"Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca520e4d12fbe72de6b800bcbad988931a":[1,0,0,0,7,8,0,29],
+"Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca5794c381743b79041d223b7cf43ee515":[1,0,0,0,7,8,0,22],
+"Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca5e9d3b4e7c2aafd03b3fa9ed64ec94ce":[1,0,0,0,7,8,0,54],
 "Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca63a5c7f0287e61ea810c90b211903308":[1,0,0,0,7,8,0,36],
 "Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca6499951acc4c20207e17fc1f18440dc1":[1,0,0,0,7,8,0,57],
 "Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca69b83c24e6ede55b32c040f2a9f79bd9":[1,0,0,0,7,8,0,60],
@@ -246,8 +249,5 @@ var NAVTREEINDEX3 =
 "VortexConfig_8h.html#aa98a26ac37e321f0747f95198223e0db":[1,0,0,0,13,0],
 "VortexConfig_8h.html#aad0adf88f8c22c7eb2c55ce9d11df0f8":[1,0,0,0,13,4],
 "VortexConfig_8h.html#aafe3dba4d9910272e4c67d22cc03f9aa":[1,0,0,0,13,73],
-"VortexConfig_8h.html#aaff29f732338b733b8d1fee0e8df32ab":[1,0,0,0,13,46],
-"VortexConfig_8h.html#ab0c5cc9223512ec01c405592b6741898":[1,0,0,0,13,53],
-"VortexConfig_8h.html#ab8551eac78d43daf3bae9d0bd1489079":[1,0,0,0,13,26],
-"VortexConfig_8h.html#ab857f79f94ee6ddabccf0049e351f064":[1,0,0,0,13,43]
+"VortexConfig_8h.html#aaff29f732338b733b8d1fee0e8df32ab":[1,0,0,0,13,46]
 };

@@ -58,13 +58,13 @@ var NAVTREEINDEX =
 "BackStrobePattern_8cpp.html",
 "Compression_8cpp.html#a9a690f1f67712d1ace9c4442696a4b88",
 "LedTypes_8h.html#ab7e65bc3797cca255c8b007ee294653b",
-"Patterns_8h.html#a73f6309b79ddc1ce918a3778af1422b1",
-"WarpWormPattern_8cpp.html",
-"classColorset.html#a3cfec1a04020fca46a63a7030300de26ae0a54247525d70f1be24aeff4fad8e7b",
-"classLeds.html#a240103486293e11969e1260e96fd6801",
-"classModes_1_1ModeLink.html#a49f55eb205afa4eaaef166c2cced7997",
-"classSequencedPattern.html#af9fab556a43252c324c544584a780caf",
-"functions_vars_l.html"
+"Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8cafecfee87d2ade6034f160f02130d2916",
+"WarpPattern_8cpp_source.html",
+"classColorset.html#a3cfec1a04020fca46a63a7030300de26aaf5b21846f5bde5fba7d5e098ae09932",
+"classLeds.html#a1eb73ce70d21bcca85373ab86115c312",
+"classModes_1_1ModeLink.html#a2cdbb21e1545553e90ea8f8fc97f1c0f",
+"classSequencedPattern.html#ab48ffe5e91489ca51bed52bca83719be",
+"functions_vars_g.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

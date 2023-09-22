@@ -236,10 +236,11 @@ var NAVTREEINDEX2 =
 "VLConfig_8h.html#afa8ddadf99bd9a8115d267ac43fb3599":[1,0,0,0,12,5,1],
 "VLConfig_8h_source.html":[1,0,0,0,12,5],
 "VLReceiver_8cpp.html":[1,0,0,0,12,6],
-"VLReceiver_8cpp.html#a292a04597d61ff63dd48bea3ddb5a46c":[1,0,0,0,12,6,2],
+"VLReceiver_8cpp.html#a1682c770d91c5d167b621a782be940d4":[1,0,0,0,12,6,2],
+"VLReceiver_8cpp.html#a292a04597d61ff63dd48bea3ddb5a46c":[1,0,0,0,12,6,3],
 "VLReceiver_8cpp.html#aa3c9d5bc3f1c3dfec69046200aecb29a":[1,0,0,0,12,6,1],
-"VLReceiver_8cpp.html#aadad7545442eeeafbebdf120b040bffb":[1,0,0,0,12,6,3],
-"VLReceiver_8cpp.html#ab1306e35299d8bdd10ea0adfbf9827ad":[1,0,0,0,12,6,4],
+"VLReceiver_8cpp.html#aadad7545442eeeafbebdf120b040bffb":[1,0,0,0,12,6,4],
+"VLReceiver_8cpp.html#ab1306e35299d8bdd10ea0adfbf9827ad":[1,0,0,0,12,6,5],
 "VLReceiver_8cpp.html#ac97aa4e68f9c89b8c71d011b0956de1f":[1,0,0,0,12,6,0],
 "VLReceiver_8cpp_source.html":[1,0,0,0,12,6],
 "VLReceiver_8h.html":[1,0,0,0,12,7],
@@ -248,6 +249,5 @@ var NAVTREEINDEX2 =
 "VLSender_8cpp_source.html":[1,0,0,0,12,8],
 "VLSender_8h.html":[1,0,0,0,12,9],
 "VLSender_8h_source.html":[1,0,0,0,12,9],
-"VortexConfig_8h.html":[1,0,0,0,13],
-"VortexConfig_8h.html#a05fee2a32286f9f15d91bae6468dc241":[1,0,0,0,13,38]
+"VortexConfig_8h.html":[1,0,0,0,13]
 };

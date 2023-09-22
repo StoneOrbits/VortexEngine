@@ -1110,7 +1110,7 @@ Public Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="PatternArgs_8cpp_source.html#l00005">PatternArgs()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Randomizer_8cpp_source.html#l00237">Randomizer::crushPattern()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00227">Randomizer::dashPattern()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00218">Randomizer::gapPattern()</a>, <a class="el" href="Pattern_8cpp_source.html#l00121">Pattern::getArgs()</a>, <a class="el" href="GlobalBrightness_8cpp_source.html#l00173">GlobalBrightness::setKeychainModeState()</a>, and <a class="el" href="Randomizer_8cpp_source.html#l00210">Randomizer::traditionalPattern()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Randomizer_8cpp_source.html#l00239">Randomizer::crushPattern()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00229">Randomizer::dashPattern()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00220">Randomizer::gapPattern()</a>, <a class="el" href="Pattern_8cpp_source.html#l00121">Pattern::getArgs()</a>, <a class="el" href="GlobalBrightness_8cpp_source.html#l00173">GlobalBrightness::setKeychainModeState()</a>, and <a class="el" href="Randomizer_8cpp_source.html#l00212">Randomizer::traditionalPattern()</a>.</p>
 
 </div>
 </div>
@@ -1625,16 +1625,17 @@ Public Attributes</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="PatternArgs_8cpp_source.html#l00174">174</a> of file <a class="el" href="PatternArgs_8cpp_source.html">PatternArgs.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;{</div>
 <div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(argmap);</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="classPatternArgs.html#afd6df4d59722381c0146b839d1469171">numArgs</a>; ++i) {</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="PatternArgs_8h.html#a29b7451465deac204c5f7cb1f9c6e1fc">MAX_ARGS</a>; ++i) {</div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="PatternArgs_8h.html#a193611a0331d653aa2383695bd9350da">ARGMAP_ISSET</a>(argmap, i)) {</div>
 <div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;      buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(<a class="code" href="classPatternArgs.html#afde808c634704d423d82a9dea6814eea">args</a>[i]);</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;    }</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  }</div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;}</div>
 <div class="ttc" id="aPatternArgs_8h_html_a193611a0331d653aa2383695bd9350da"><div class="ttname"><a href="PatternArgs_8h.html#a193611a0331d653aa2383695bd9350da">ARGMAP_ISSET</a></div><div class="ttdeci">#define ARGMAP_ISSET(map, arg)</div><div class="ttdef"><b>Definition:</b> <a href="PatternArgs_8h_source.html#l00032">PatternArgs.h:32</a></div></div>
+<div class="ttc" id="aPatternArgs_8h_html_a29b7451465deac204c5f7cb1f9c6e1fc"><div class="ttname"><a href="PatternArgs_8h.html#a29b7451465deac204c5f7cb1f9c6e1fc">MAX_ARGS</a></div><div class="ttdeci">#define MAX_ARGS</div><div class="ttdef"><b>Definition:</b> <a href="PatternArgs_8h_source.html#l00008">PatternArgs.h:8</a></div></div>
 <div class="ttc" id="aclassByteStream_html_a16016f5dc73e0d8b639f6bdbea252d4b"><div class="ttname"><a href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">ByteStream::serialize</a></div><div class="ttdeci">bool serialize(uint8_t byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00341">ByteStream.cpp:341</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="PatternArgs_8h_source.html#l00032">ARGMAP_ISSET</a>, <a class="el" href="PatternArgs_8h_source.html#l00081">args</a>, <a class="el" href="PatternArgs_8h_source.html#l00121">numArgs</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize()</a>.</p>
+<p class="reference">References <a class="el" href="PatternArgs_8h_source.html#l00032">ARGMAP_ISSET</a>, <a class="el" href="PatternArgs_8h_source.html#l00081">args</a>, <a class="el" href="PatternArgs_8h_source.html#l00008">MAX_ARGS</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize()</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Pattern_8cpp_source.html#l00057">Pattern::serialize()</a>.</p>
 
@@ -1667,7 +1668,6 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  }</div>
 <div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  <span class="keywordflow">return</span> argmap;</div>
 <div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;}</div>
-<div class="ttc" id="aPatternArgs_8h_html_a29b7451465deac204c5f7cb1f9c6e1fc"><div class="ttname"><a href="PatternArgs_8h.html#a29b7451465deac204c5f7cb1f9c6e1fc">MAX_ARGS</a></div><div class="ttdeci">#define MAX_ARGS</div><div class="ttdef"><b>Definition:</b> <a href="PatternArgs_8h_source.html#l00008">PatternArgs.h:8</a></div></div>
 <div class="ttc" id="aPatternArgs_8h_html_a5b4ab91afec1ff35fd294e3ca007be49"><div class="ttname"><a href="PatternArgs_8h.html#a5b4ab91afec1ff35fd294e3ca007be49">ARG_NONE</a></div><div class="ttdeci">#define ARG_NONE</div><div class="ttdef"><b>Definition:</b> <a href="PatternArgs_8h_source.html#l00017">PatternArgs.h:17</a></div></div>
 <div class="ttc" id="aPatternArgs_8h_html_a8999dff68b1928d56731dd52dee3fcbd"><div class="ttname"><a href="PatternArgs_8h.html#a8999dff68b1928d56731dd52dee3fcbd">ArgMap</a></div><div class="ttdeci">uint8_t ArgMap</div><div class="ttdef"><b>Definition:</b> <a href="PatternArgs_8h_source.html#l00014">PatternArgs.h:10</a></div></div>
 <div class="ttc" id="aclassByteStream_html_a870efac1fe97b1855cb1edef3310002d"><div class="ttname"><a href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">ByteStream::unserialize</a></div><div class="ttdeci">bool unserialize(uint8_t *byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00417">ByteStream.cpp:417</a></div></div>
@@ -1971,7 +1971,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="PatternArgs_8h_source.html#l00121">121</a> of file <a class="el" href="PatternArgs_8h_source.html">PatternArgs.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="PatternArgs_8cpp_source.html#l00079">addArgs()</a>, <a class="el" href="PatternArgs_8cpp_source.html#l00151">operator==()</a>, <a class="el" href="Pattern_8cpp_source.html#l00057">Pattern::serialize()</a>, and <a class="el" href="PatternArgs_8cpp_source.html#l00174">serialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="PatternArgs_8cpp_source.html#l00079">addArgs()</a>, <a class="el" href="PatternArgs_8cpp_source.html#l00151">operator==()</a>, and <a class="el" href="Randomizer_8cpp_source.html#l00178">Randomizer::rollPattern()</a>.</p>
 
 </div>
 </div>

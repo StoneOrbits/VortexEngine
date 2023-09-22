@@ -268,73 +268,74 @@ $(document).ready(function(){initNavTree('IRSender_8cpp_source.html',''); initRe
 <div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="classIRSender.html#a1d400515125ae4581de285da37fc5870">  179</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classIRSender.html#a1d400515125ae4581de285da37fc5870">IRSender::initPWM</a>()</div>
 <div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;{</div>
 <div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor">#if defined(VORTEX_EMBEDDED)</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  <span class="comment">// just in case</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  <span class="comment">// initialize the output pin</span></div>
 <div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  pinMode(<a class="code" href="IRConfig_8h.html#adb7873801cd8375d8960498034492e93">IR_SEND_PWM_PIN</a>, OUTPUT);</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  digitalWrite(<a class="code" href="IRConfig_8h.html#adb7873801cd8375d8960498034492e93">IR_SEND_PWM_PIN</a>, LOW); <span class="comment">// When not sending PWM, we want it low</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  uint8_t port = g_APinDescription[<a class="code" href="IRConfig_8h.html#adb7873801cd8375d8960498034492e93">IR_SEND_PWM_PIN</a>].ulPort; <span class="comment">// 0</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  uint8_t pin = g_APinDescription[<a class="code" href="IRConfig_8h.html#adb7873801cd8375d8960498034492e93">IR_SEND_PWM_PIN</a>].ulPin;   <span class="comment">// 8</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  ETCChannel IR_TCC_Channel = TCC0_CH0;</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  int8_t IR_PER_EorF = PORT_PMUX_PMUXE_E;</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  <span class="comment">//println();Serial.print(&quot;Port:&quot;); Serial.print(port,DEC); Serial.print(&quot; Pin:&quot;); Serial.println(pin,DEC);</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  <span class="comment">// Enable the port multiplexer for the PWM channel on pin</span></div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  PORT-&gt;Group[port].PINCFG[pin].bit.PMUXEN = 1;</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160; </div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  <span class="comment">// Connect the TCC timer to the port outputs - port pins are paired odd PMUXO and even PMUXEII</span></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  <span class="comment">// F &amp; E peripherals specify the timers: TCC0, TCC1 and TCC2</span></div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  PORT-&gt;Group[port].PMUX[pin &gt;&gt; 1].reg |= IR_PER_EorF;</div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160; </div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment">//  pinPeripheral (IR_SEND_PWM_PIN,PIO_TIMER_ALT);</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;  <span class="comment">// Feed GCLK0 to TCC0 and TCC1</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  REG_GCLK_CLKCTRL = GCLK_CLKCTRL_CLKEN |       <span class="comment">// Enable GCLK0 to TCC0 and TCC1</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;                     GCLK_CLKCTRL_GEN_GCLK0 |   <span class="comment">// Select GCLK0</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                     GCLK_CLKCTRL_ID_TCC0_TCC1; <span class="comment">// Feed GCLK0 to TCC0 and TCC1</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  <span class="keywordflow">while</span> (GCLK-&gt;STATUS.bit.SYNCBUSY);            <span class="comment">// Wait for synchronization</span></div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160; </div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  <span class="comment">// Normal (single slope) PWM operation: timers countinuously count up to PER</span></div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  <span class="comment">// register value and then is reset to 0</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a> = (Tcc*) GetTC(IR_TCC_Channel);</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;WAVE.reg |= TCC_WAVE_WAVEGEN_NPWM;   <span class="comment">// Setup single slope PWM on TCCx</span></div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.bit.WAVE);           <span class="comment">// Wait for synchronization</span></div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160; </div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  <span class="comment">// Each timer counts up to a maximum or TOP value set by the PER register,</span></div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  <span class="comment">// this determines the frequency of the PWM operation.</span></div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  uint32_t cc = F_CPU/(38*1000) - 1;</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;PER.reg = cc;      <span class="comment">// Set the frequency of the PWM on IR_TCCx</span></div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  <span class="keywordflow">while</span>(<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.bit.PER);</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160; </div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  <span class="comment">// The CCx register value corresponds to the pulsewidth in microseconds (us)</span></div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;  <span class="comment">// Set the duty cycle of the PWM on TCC0 to 33%</span></div>
-<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;CC[GetTCChannelNumber(IR_TCC_Channel)].reg = cc/3;</div>
-<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.reg &amp; TCC_SYNCBUSY_MASK);</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  <span class="comment">//while(IR_TCCx-&gt;SYNCBUSY.bit.CC3);</span></div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160; </div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;  <span class="comment">// Enable IR_TCCx timer but do not turn on PWM yet. Will turn it on later.</span></div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;CTRLA.reg |= TCC_CTRLA_PRESCALER_DIV1;     <span class="comment">// Divide GCLK0 by 1</span></div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.bit.ENABLE);</div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;CTRLA.reg &amp;= ~TCC_CTRLA_ENABLE;            <span class="comment">//initially off will turn on later</span></div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.bit.ENABLE);</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;}</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160; </div>
-<div class="line"><a name="l00230"></a><span class="lineno"><a class="line" href="classIRSender.html#a1d44e1edc5eb96f000a933b1fac00127">  230</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classIRSender.html#a1d44e1edc5eb96f000a933b1fac00127">IRSender::startPWM</a>()</div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;{</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="preprocessor">#if defined(VORTEX_EMBEDDED)</span></div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;  <span class="comment">// start the PWM</span></div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;CTRLA.reg |= TCC_CTRLA_ENABLE;</div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.bit.ENABLE);</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;}</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160; </div>
-<div class="line"><a name="l00239"></a><span class="lineno"><a class="line" href="classIRSender.html#ab6a6c8f2a5aa4840ac7058438dc13c3f">  239</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classIRSender.html#ab6a6c8f2a5aa4840ac7058438dc13c3f">IRSender::stopPWM</a>()</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;{</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="preprocessor">#if defined(VORTEX_EMBEDDED)</span></div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  <span class="comment">// stop the PWM</span></div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;CTRLA.reg &amp;= ~TCC_CTRLA_ENABLE;</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.bit.ENABLE);</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;}</div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  digitalWrite(<a class="code" href="IRConfig_8h.html#adb7873801cd8375d8960498034492e93">IR_SEND_PWM_PIN</a>, LOW);</div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  <span class="comment">// setup the PWM</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  uint8_t port = g_APinDescription[<a class="code" href="IRConfig_8h.html#adb7873801cd8375d8960498034492e93">IR_SEND_PWM_PIN</a>].ulPort; <span class="comment">// 0</span></div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  uint8_t pin = g_APinDescription[<a class="code" href="IRConfig_8h.html#adb7873801cd8375d8960498034492e93">IR_SEND_PWM_PIN</a>].ulPin;   <span class="comment">// 8</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  ETCChannel IR_TCC_Channel = TCC0_CH0;</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  int8_t IR_PER_EorF = PORT_PMUX_PMUXE_E;</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  <span class="comment">//println();Serial.print(&quot;Port:&quot;); Serial.print(port,DEC); Serial.print(&quot; Pin:&quot;); Serial.println(pin,DEC);</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  <span class="comment">// Enable the port multiplexer for the PWM channel on pin</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  PORT-&gt;Group[port].PINCFG[pin].bit.PMUXEN = 1;</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160; </div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  <span class="comment">// Connect the TCC timer to the port outputs - port pins are paired odd PMUXO and even PMUXEII</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;  <span class="comment">// F &amp; E peripherals specify the timers: TCC0, TCC1 and TCC2</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  PORT-&gt;Group[port].PMUX[pin &gt;&gt; 1].reg |= IR_PER_EorF;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160; </div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="comment">//  pinPeripheral (IR_SEND_PWM_PIN,PIO_TIMER_ALT);</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  <span class="comment">// Feed GCLK0 to TCC0 and TCC1</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  REG_GCLK_CLKCTRL = GCLK_CLKCTRL_CLKEN |       <span class="comment">// Enable GCLK0 to TCC0 and TCC1</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;                     GCLK_CLKCTRL_GEN_GCLK0 |   <span class="comment">// Select GCLK0</span></div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;                     GCLK_CLKCTRL_ID_TCC0_TCC1; <span class="comment">// Feed GCLK0 to TCC0 and TCC1</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;  <span class="keywordflow">while</span> (GCLK-&gt;STATUS.bit.SYNCBUSY);            <span class="comment">// Wait for synchronization</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160; </div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  <span class="comment">// Normal (single slope) PWM operation: timers countinuously count up to PER</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  <span class="comment">// register value and then is reset to 0</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a> = (Tcc*) GetTC(IR_TCC_Channel);</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;WAVE.reg |= TCC_WAVE_WAVEGEN_NPWM;   <span class="comment">// Setup single slope PWM on TCCx</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.bit.WAVE);           <span class="comment">// Wait for synchronization</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160; </div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  <span class="comment">// Each timer counts up to a maximum or TOP value set by the PER register,</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  <span class="comment">// this determines the frequency of the PWM operation.</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  uint32_t cc = F_CPU/(38*1000) - 1;</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;PER.reg = cc;      <span class="comment">// Set the frequency of the PWM on IR_TCCx</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;  <span class="keywordflow">while</span>(<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.bit.PER);</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160; </div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;  <span class="comment">// The CCx register value corresponds to the pulsewidth in microseconds (us)</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  <span class="comment">// Set the duty cycle of the PWM on TCC0 to 33%</span></div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;CC[GetTCChannelNumber(IR_TCC_Channel)].reg = cc/3;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.reg &amp; TCC_SYNCBUSY_MASK);</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;  <span class="comment">//while(IR_TCCx-&gt;SYNCBUSY.bit.CC3);</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160; </div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;  <span class="comment">// Enable IR_TCCx timer but do not turn on PWM yet. Will turn it on later.</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;CTRLA.reg |= TCC_CTRLA_PRESCALER_DIV1;     <span class="comment">// Divide GCLK0 by 1</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.bit.ENABLE);</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;CTRLA.reg &amp;= ~TCC_CTRLA_ENABLE;            <span class="comment">//initially off will turn on later</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.bit.ENABLE);</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;}</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
+<div class="line"><a name="l00231"></a><span class="lineno"><a class="line" href="classIRSender.html#a1d44e1edc5eb96f000a933b1fac00127">  231</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classIRSender.html#a1d44e1edc5eb96f000a933b1fac00127">IRSender::startPWM</a>()</div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;{</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="preprocessor">#if defined(VORTEX_EMBEDDED)</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;  <span class="comment">// start the PWM</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;CTRLA.reg |= TCC_CTRLA_ENABLE;</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.bit.ENABLE);</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;}</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160; </div>
+<div class="line"><a name="l00240"></a><span class="lineno"><a class="line" href="classIRSender.html#ab6a6c8f2a5aa4840ac7058438dc13c3f">  240</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classIRSender.html#ab6a6c8f2a5aa4840ac7058438dc13c3f">IRSender::stopPWM</a>()</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;{</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="preprocessor">#if defined(VORTEX_EMBEDDED)</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;  <span class="comment">// stop the PWM</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;  <a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;CTRLA.reg &amp;= ~TCC_CTRLA_ENABLE;</div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;  <span class="keywordflow">while</span> (<a class="code" href="IRSender_8cpp.html#a8a24a33a0c1abd6d88ec49fe4f4e3090">IR_TCCx</a>-&gt;SYNCBUSY.bit.ENABLE);</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;}</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160; </div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="ttc" id="aIRConfig_8h_html"><div class="ttname"><a href="IRConfig_8h.html">IRConfig.h</a></div></div>
 <div class="ttc" id="aIRConfig_8h_html_a60b384b29858304f4e2e7239dfb1594b"><div class="ttname"><a href="IRConfig_8h.html#a60b384b29858304f4e2e7239dfb1594b">IR_DEFAULT_BLOCK_SPACING</a></div><div class="ttdeci">#define IR_DEFAULT_BLOCK_SPACING</div><div class="ttdef"><b>Definition:</b> <a href="IRConfig_8h_source.html#l00013">IRConfig.h:13</a></div></div>
 <div class="ttc" id="aIRConfig_8h_html_a7695385a5a888d20cadfe5bdbb361a93"><div class="ttname"><a href="IRConfig_8h.html#a7695385a5a888d20cadfe5bdbb361a93">IR_TIMING</a></div><div class="ttdeci">#define IR_TIMING</div><div class="ttdef"><b>Definition:</b> <a href="IRConfig_8h_source.html#l00026">IRConfig.h:26</a></div></div>
@@ -356,7 +357,7 @@ $(document).ready(function(){initNavTree('IRSender_8cpp_source.html',''); initRe
 <div class="ttc" id="aclassByteStream_html_a854e5507f550826478fd7141074a4bb5"><div class="ttname"><a href="classByteStream.html#a854e5507f550826478fd7141074a4bb5">ByteStream::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00107">ByteStream.cpp:107</a></div></div>
 <div class="ttc" id="aclassIRSender_html_a05d8220ef1737ab82ba67c9948b309c6"><div class="ttname"><a href="classIRSender.html#a05d8220ef1737ab82ba67c9948b309c6">IRSender::m_numBlocks</a></div><div class="ttdeci">static uint8_t m_numBlocks</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8h_source.html#l00053">IRSender.h:53</a></div></div>
 <div class="ttc" id="aclassIRSender_html_a1d400515125ae4581de285da37fc5870"><div class="ttname"><a href="classIRSender.html#a1d400515125ae4581de285da37fc5870">IRSender::initPWM</a></div><div class="ttdeci">static void initPWM()</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8cpp_source.html#l00179">IRSender.cpp:179</a></div></div>
-<div class="ttc" id="aclassIRSender_html_a1d44e1edc5eb96f000a933b1fac00127"><div class="ttname"><a href="classIRSender.html#a1d44e1edc5eb96f000a933b1fac00127">IRSender::startPWM</a></div><div class="ttdeci">static void startPWM()</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8cpp_source.html#l00230">IRSender.cpp:230</a></div></div>
+<div class="ttc" id="aclassIRSender_html_a1d44e1edc5eb96f000a933b1fac00127"><div class="ttname"><a href="classIRSender.html#a1d44e1edc5eb96f000a933b1fac00127">IRSender::startPWM</a></div><div class="ttdeci">static void startPWM()</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8cpp_source.html#l00231">IRSender.cpp:231</a></div></div>
 <div class="ttc" id="aclassIRSender_html_a1fd558b5ccadfc5abef126000784a7fe"><div class="ttname"><a href="classIRSender.html#a1fd558b5ccadfc5abef126000784a7fe">IRSender::m_lastSendTime</a></div><div class="ttdeci">static uint32_t m_lastSendTime</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8h_source.html#l00048">IRSender.h:48</a></div></div>
 <div class="ttc" id="aclassIRSender_html_a269bff02e0b318ee7a2eadfdf87a17b1"><div class="ttname"><a href="classIRSender.html#a269bff02e0b318ee7a2eadfdf87a17b1">IRSender::sendByte</a></div><div class="ttdeci">static void sendByte(uint8_t data)</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8cpp_source.html#l00142">IRSender.cpp:142</a></div></div>
 <div class="ttc" id="aclassIRSender_html_a3ea32d56e5465b46762858865e51acc8"><div class="ttname"><a href="classIRSender.html#a3ea32d56e5465b46762858865e51acc8">IRSender::m_remainder</a></div><div class="ttdeci">static uint8_t m_remainder</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8h_source.html#l00055">IRSender.h:55</a></div></div>
@@ -371,7 +372,7 @@ $(document).ready(function(){initNavTree('IRSender_8cpp_source.html',''); initRe
 <div class="ttc" id="aclassIRSender_html_a96194226ebcd9135885c2bdf1b9a0076"><div class="ttname"><a href="classIRSender.html#a96194226ebcd9135885c2bdf1b9a0076">IRSender::sendSpace</a></div><div class="ttdeci">static void sendSpace(uint16_t time)</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8cpp_source.html#l00167">IRSender.cpp:167</a></div></div>
 <div class="ttc" id="aclassIRSender_html_aa20356f0ea142cca712850d56b032028"><div class="ttname"><a href="classIRSender.html#aa20356f0ea142cca712850d56b032028">IRSender::m_size</a></div><div class="ttdeci">static uint32_t m_size</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8h_source.html#l00051">IRSender.h:51</a></div></div>
 <div class="ttc" id="aclassIRSender_html_ab388c3ec73cb02f2aeb538a4ad956ab8"><div class="ttname"><a href="classIRSender.html#ab388c3ec73cb02f2aeb538a4ad956ab8">IRSender::send</a></div><div class="ttdeci">static bool send()</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8cpp_source.html#l00083">IRSender.cpp:83</a></div></div>
-<div class="ttc" id="aclassIRSender_html_ab6a6c8f2a5aa4840ac7058438dc13c3f"><div class="ttname"><a href="classIRSender.html#ab6a6c8f2a5aa4840ac7058438dc13c3f">IRSender::stopPWM</a></div><div class="ttdeci">static void stopPWM()</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8cpp_source.html#l00239">IRSender.cpp:239</a></div></div>
+<div class="ttc" id="aclassIRSender_html_ab6a6c8f2a5aa4840ac7058438dc13c3f"><div class="ttname"><a href="classIRSender.html#ab6a6c8f2a5aa4840ac7058438dc13c3f">IRSender::stopPWM</a></div><div class="ttdeci">static void stopPWM()</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8cpp_source.html#l00240">IRSender.cpp:240</a></div></div>
 <div class="ttc" id="aclassIRSender_html_ac2f907015ca046b204189e519486c483"><div class="ttname"><a href="classIRSender.html#ac2f907015ca046b204189e519486c483">IRSender::m_serialBuf</a></div><div class="ttdeci">static ByteStream m_serialBuf</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8h_source.html#l00044">IRSender.h:44</a></div></div>
 <div class="ttc" id="aclassIRSender_html_afcdf3f0f7c226c706f905c33e784057a"><div class="ttname"><a href="classIRSender.html#afcdf3f0f7c226c706f905c33e784057a">IRSender::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8cpp_source.html#l00043">IRSender.cpp:43</a></div></div>
 <div class="ttc" id="aclassMode_html"><div class="ttname"><a href="classMode.html">Mode</a></div><div class="ttdef"><b>Definition:</b> <a href="Mode_8h_source.html#l00037">Mode.h:38</a></div></div>

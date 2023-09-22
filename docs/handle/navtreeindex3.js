@@ -1,5 +1,8 @@
 var NAVTREEINDEX3 =
 {
+"SparkleTracePattern_8cpp.html":[1,0,0,0,7,0,33],
+"SparkleTracePattern_8cpp_source.html":[1,0,0,0,7,0,33],
+"SparkleTracePattern_8h.html":[1,0,0,0,7,0,34],
 "SparkleTracePattern_8h_source.html":[1,0,0,0,7,0,34],
 "Storage_8cpp.html":[1,0,0,0,10,0],
 "Storage_8cpp.html#a3afbe062209d42a72bc5b4a03a86206a":[1,0,0,0,10,0,0],
@@ -246,8 +249,5 @@ var NAVTREEINDEX3 =
 "classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9ac5018a102470fae7181ffdfd985aa74f":[0,0,1,0,0],
 "classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9ad3745f6e2053a2cfa8d89226a1b78e52":[0,0,1,0,5],
 "classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9affbad6dfd04072ab78637aa8285e48e0":[0,0,1,0,6],
-"classBasicPattern.html#a5aca06fa1bf509109493be646dd6c49b":[0,0,1,12],
-"classBasicPattern.html#a5f15ecb545250ca6a193e6b88358a16e":[0,0,1,4],
-"classBasicPattern.html#a6870fbd387c2fb014fd54e9aa89e71ac":[0,0,1,2],
-"classBasicPattern.html#a6f4fd09d1a161c4577b324fff4a9a184":[0,0,1,6]
+"classBasicPattern.html#a5aca06fa1bf509109493be646dd6c49b":[0,0,1,12]
 };

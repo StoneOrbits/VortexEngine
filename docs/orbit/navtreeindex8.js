@@ -1,5 +1,10 @@
 var NAVTREEINDEX8 =
 {
+"classRGBColor.html#a90ed2b668e7c4075394d7b3b8c01c379":[0,0,51,12],
+"classRGBColor.html#a9383ce7b63b0a6ada5d4e54e16adf733":[0,0,51,0],
+"classRGBColor.html#a98fd4b2760d0f3a4e5100a4fd2fa666a":[0,0,51,7],
+"classRGBColor.html#aa641389effd78c707230ab389e176b65":[0,0,51,13],
+"classRGBColor.html#aad746f31285ec7394217d0e577a41b2f":[0,0,51,15],
 "classRGBColor.html#ab9559d07cb8bf9efcb05ce6698f41cca":[0,0,51,14],
 "classRGBColor.html#aca75024902a233f3449935b01387b687":[0,0,51,17],
 "classRandom.html":[0,0,49],
@@ -244,10 +249,5 @@ var NAVTREEINDEX8 =
 "classZigzagPattern_1_1Snake.html#adc2f2e3aee0f5610b837a53ba7f48aa7":[0,0,69,0,4],
 "classZigzagPattern_1_1Snake.html#ade9581df647ce41eb75b4ee8b1e7fddd":[0,0,69,0,9],
 "classZigzagPattern_1_1Snake.html#ae78497d0b6154b8cbe538e4ed6576151":[0,0,69,0,8],
-"classes.html":[0,1],
-"dir_1d79b4615f725ce6e1b38311d89b4d4f.html":[1,0,0,0,12],
-"dir_47fec278782816999705227d1066c7a6.html":[1,0,0,0,7,0],
-"dir_4d7f8bf987ecca6ad9438e8e8937cf95.html":[1,0,0,0,6],
-"dir_60d51ee7315d72413f26211ac43a217e.html":[1,0,0,0,2],
-"dir_61b212e579fd471c490a116dc3a4c8cf.html":[1,0,0,0,10]
+"classes.html":[0,1]
 };

@@ -20,6 +20,8 @@ var classModeSharing =
     [ "showReceiveMode", "classModeSharing.html#af9de8e68dbc889f353da877ba14e0ff4", null ],
     [ "showSendModeIR", "classModeSharing.html#a031448b1c46da5e0724bbacfa177a7dd", null ],
     [ "showSendModeVL", "classModeSharing.html#ab15ee747bc61856d04311594b4a74e17", null ],
+    [ "m_lastSendTime", "classModeSharing.html#a2cfdb5d73e6fd3a67e1c13bbaf827fc9", null ],
     [ "m_sharingMode", "classModeSharing.html#a4bfe5465a9a605a2f8a576408650b442", null ],
+    [ "m_shouldEndSend", "classModeSharing.html#a18a43581d3998c7861af87ac4d89d1e5", null ],
     [ "m_timeOutStartTime", "classModeSharing.html#a118440b66ff64341a596850cf7ef6a75", null ]
 ];

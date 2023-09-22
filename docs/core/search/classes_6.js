@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['hsvcolor_1570',['HSVColor',['../classHSVColor.html',1,'']]],
-  ['hueshiftpattern_1571',['HueShiftPattern',['../classHueShiftPattern.html',1,'']]]
+  ['hsvcolor_1571',['HSVColor',['../classHSVColor.html',1,'']]],
+  ['hueshiftpattern_1572',['HueShiftPattern',['../classHueShiftPattern.html',1,'']]]
 ];

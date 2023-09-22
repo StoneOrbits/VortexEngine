@@ -1,5 +1,6 @@
 var NAVTREEINDEX3 =
 {
+"VortexConfig_8h.html#a05fee2a32286f9f15d91bae6468dc241":[1,0,0,0,13,38],
 "VortexConfig_8h.html#a0be17f7cbaf6e5a5e8d4f0405d16107e":[1,0,0,0,13,34],
 "VortexConfig_8h.html#a0d801866c302fc22f8bfb9a4a25a0462":[1,0,0,0,13,88],
 "VortexConfig_8h.html#a0e67a9d736bfe02f58872add97f72878":[1,0,0,0,13,10],
@@ -248,6 +249,5 @@ var NAVTREEINDEX3 =
 "classButton.html#af08888134084d0640b6a891bdb755f14":[0,0,6,9],
 "classButton.html#afc1f76677aed5c89139aed6daa5f5d4a":[0,0,6,5],
 "classButtons.html":[0,0,7],
-"classButtons.html#a4bee1374d1782a6006faee6f9d9bb792":[0,0,7,1],
-"classButtons.html#a4e775beebe1f2c6dce04c82ed14741cb":[0,0,7,3]
+"classButtons.html#a4bee1374d1782a6006faee6f9d9bb792":[0,0,7,1]
 };

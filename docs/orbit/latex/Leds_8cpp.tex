@@ -18,18 +18,119 @@ Include dependency graph for Leds.\+cpp\+:
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{Leds_8cpp_a8cf19b18ebffbab3acfa2b66393b13bb}{POWER\+\_\+\+LED\+\_\+\+PIN}}~7
+\#define \mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\+\_\+\+LED\+\_\+\+SCK}}~8
+\item 
+\#define \mbox{\hyperlink{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}{ONBOARD\+\_\+\+LED\+\_\+\+MOSI}}~7
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}} (uint8\+\_\+t byte)
+\item 
+static void \mbox{\hyperlink{Leds_8cpp_ab8f63a85e405af3f93826b2f94f7e361}{turn\+Off\+Onboard\+LED}} ()
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{Leds_8cpp_a8cf19b18ebffbab3acfa2b66393b13bb}\label{Leds_8cpp_a8cf19b18ebffbab3acfa2b66393b13bb}} 
-\index{Leds.cpp@{Leds.cpp}!POWER\_LED\_PIN@{POWER\_LED\_PIN}}
-\index{POWER\_LED\_PIN@{POWER\_LED\_PIN}!Leds.cpp@{Leds.cpp}}
-\doxysubsubsection{\texorpdfstring{POWER\_LED\_PIN}{POWER\_LED\_PIN}}
-{\footnotesize\ttfamily \#define POWER\+\_\+\+LED\+\_\+\+PIN~7}
+\mbox{\Hypertarget{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}\label{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}} 
+\index{Leds.cpp@{Leds.cpp}!ONBOARD\_LED\_MOSI@{ONBOARD\_LED\_MOSI}}
+\index{ONBOARD\_LED\_MOSI@{ONBOARD\_LED\_MOSI}!Leds.cpp@{Leds.cpp}}
+\doxysubsubsection{\texorpdfstring{ONBOARD\_LED\_MOSI}{ONBOARD\_LED\_MOSI}}
+{\footnotesize\ttfamily \#define ONBOARD\+\_\+\+LED\+\_\+\+MOSI~7}
+
+
+
+Definition at line 18 of file Leds.\+cpp.
+
+\mbox{\Hypertarget{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}\label{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}} 
+\index{Leds.cpp@{Leds.cpp}!ONBOARD\_LED\_SCK@{ONBOARD\_LED\_SCK}}
+\index{ONBOARD\_LED\_SCK@{ONBOARD\_LED\_SCK}!Leds.cpp@{Leds.cpp}}
+\doxysubsubsection{\texorpdfstring{ONBOARD\_LED\_SCK}{ONBOARD\_LED\_SCK}}
+{\footnotesize\ttfamily \#define ONBOARD\+\_\+\+LED\+\_\+\+SCK~8}
 
 
 
 Definition at line 17 of file Leds.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}\label{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}} 
+\index{Leds.cpp@{Leds.cpp}!transfer@{transfer}}
+\index{transfer@{transfer}!Leds.cpp@{Leds.cpp}}
+\doxysubsubsection{\texorpdfstring{transfer()}{transfer()}}
+{\footnotesize\ttfamily static void transfer (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{byte }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 19 of file Leds.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21   uint8\_t startbit = 0x80;}
+\DoxyCodeLine{22   \textcolor{keywordtype}{bool} lastmosi = !(\textcolor{keywordtype}{byte} \& startbit);}
+\DoxyCodeLine{23   \textcolor{keywordflow}{for} (uint8\_t b = startbit; b != 0; b = b >> 1) \{}
+\DoxyCodeLine{24     delayMicroseconds(4);}
+\DoxyCodeLine{25     \textcolor{keywordtype}{bool} towrite = \textcolor{keywordtype}{byte} \& b;}
+\DoxyCodeLine{26     \textcolor{keywordflow}{if} (lastmosi != towrite) \{}
+\DoxyCodeLine{27       digitalWrite(\mbox{\hyperlink{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}{ONBOARD\_LED\_MOSI}}, towrite);}
+\DoxyCodeLine{28       lastmosi = towrite;}
+\DoxyCodeLine{29     \}}
+\DoxyCodeLine{30     digitalWrite(\mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\_LED\_SCK}}, HIGH);}
+\DoxyCodeLine{31     delayMicroseconds(4);}
+\DoxyCodeLine{32     digitalWrite(\mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\_LED\_SCK}}, LOW);}
+\DoxyCodeLine{33   \}}
+\DoxyCodeLine{34 \}}
+
+\end{DoxyCode}
+
+
+References ONBOARD\+\_\+\+LED\+\_\+\+MOSI, and ONBOARD\+\_\+\+LED\+\_\+\+SCK.
+
+
+
+Referenced by turn\+Off\+Onboard\+LED().
+
+\mbox{\Hypertarget{Leds_8cpp_ab8f63a85e405af3f93826b2f94f7e361}\label{Leds_8cpp_ab8f63a85e405af3f93826b2f94f7e361}} 
+\index{Leds.cpp@{Leds.cpp}!turnOffOnboardLED@{turnOffOnboardLED}}
+\index{turnOffOnboardLED@{turnOffOnboardLED}!Leds.cpp@{Leds.cpp}}
+\doxysubsubsection{\texorpdfstring{turnOffOnboardLED()}{turnOffOnboardLED()}}
+{\footnotesize\ttfamily static void turn\+Off\+Onboard\+LED (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 35 of file Leds.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{36 \{}
+\DoxyCodeLine{37   \textcolor{comment}{// spi device begin}}
+\DoxyCodeLine{38   pinMode(\mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\_LED\_SCK}}, OUTPUT);}
+\DoxyCodeLine{39   digitalWrite(\mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\_LED\_SCK}}, LOW);}
+\DoxyCodeLine{40   pinMode(\mbox{\hyperlink{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}{ONBOARD\_LED\_MOSI}}, OUTPUT);}
+\DoxyCodeLine{41   digitalWrite(\mbox{\hyperlink{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}{ONBOARD\_LED\_MOSI}}, HIGH);}
+\DoxyCodeLine{42 }
+\DoxyCodeLine{43   \textcolor{comment}{// Begin transaction, setting SPI frequency}}
+\DoxyCodeLine{44   \textcolor{keyword}{static} \textcolor{keyword}{const} SPISettings mySPISettings(8000000, MSBFIRST, SPI\_MODE0);}
+\DoxyCodeLine{45   SPI.beginTransaction(mySPISettings);}
+\DoxyCodeLine{46   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < 4; i++) \{}
+\DoxyCodeLine{47     \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}}(0x00); \textcolor{comment}{// begin frame}}
+\DoxyCodeLine{48   \}}
+\DoxyCodeLine{49   \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}}(0xFF); \textcolor{comment}{//  Pixel start}}
+\DoxyCodeLine{50   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < 3; i++) \{}
+\DoxyCodeLine{51     \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}}(0x00); \textcolor{comment}{// R,G,B}}
+\DoxyCodeLine{52   \}}
+\DoxyCodeLine{53   \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}}(0xFF); \textcolor{comment}{// end frame}}
+\DoxyCodeLine{54   SPI.endTransaction();}
+\DoxyCodeLine{55 \}}
+
+\end{DoxyCode}
+
+
+References ONBOARD\+\_\+\+LED\+\_\+\+MOSI, ONBOARD\+\_\+\+LED\+\_\+\+SCK, and transfer().
+
+
+
+Referenced by Leds\+::init().
 

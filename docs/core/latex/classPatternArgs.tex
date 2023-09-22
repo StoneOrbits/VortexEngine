@@ -773,7 +773,7 @@ Definition at line 174 of file Pattern\+Args.\+cpp.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{175 \{}
 \DoxyCodeLine{176   buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(argmap);}
-\DoxyCodeLine{177   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classPatternArgs_afd6df4d59722381c0146b839d1469171}{numArgs}}; ++i) \{}
+\DoxyCodeLine{177   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{PatternArgs_8h_a29b7451465deac204c5f7cb1f9c6e1fc}{MAX\_ARGS}}; ++i) \{}
 \DoxyCodeLine{178     \textcolor{keywordflow}{if} (\mbox{\hyperlink{PatternArgs_8h_a193611a0331d653aa2383695bd9350da}{ARGMAP\_ISSET}}(argmap, i)) \{}
 \DoxyCodeLine{179       buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classPatternArgs_afde808c634704d423d82a9dea6814eea}{args}}[i]);}
 \DoxyCodeLine{180     \}}
@@ -783,7 +783,7 @@ Definition at line 174 of file Pattern\+Args.\+cpp.
 \end{DoxyCode}
 
 
-References ARGMAP\+\_\+\+ISSET, args, num\+Args, and Byte\+Stream\+::serialize().
+References ARGMAP\+\_\+\+ISSET, args, MAX\+\_\+\+ARGS, and Byte\+Stream\+::serialize().
 
 
 
@@ -1012,7 +1012,7 @@ Definition at line 121 of file Pattern\+Args.\+h.
 
 
 
-Referenced by add\+Args(), operator==(), Pattern\+::serialize(), and serialize().
+Referenced by add\+Args(), operator==(), and Randomizer\+::roll\+Pattern().
 
 \mbox{\Hypertarget{classPatternArgs_a2b224f31bd34e923eb01ec3e4b1ac986}\label{classPatternArgs_a2b224f31bd34e923eb01ec3e4b1ac986}} 
 \index{PatternArgs@{PatternArgs}!numFlips@{numFlips}}

@@ -193,53 +193,54 @@ Definition at line 179 of file IRSender.\+cpp.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{180 \{}
 \DoxyCodeLine{181 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
-\DoxyCodeLine{182   \textcolor{comment}{// just in case}}
-\DoxyCodeLine{183   pinMode(\mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{IR\_SEND\_PWM\_PIN}}, OUTPUT);}
-\DoxyCodeLine{184   digitalWrite(\mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{IR\_SEND\_PWM\_PIN}}, LOW); \textcolor{comment}{// When not sending PWM, we want it low}}
-\DoxyCodeLine{185   uint8\_t port = g\_APinDescription[\mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{IR\_SEND\_PWM\_PIN}}].ulPort; \textcolor{comment}{// 0}}
-\DoxyCodeLine{186   uint8\_t pin = g\_APinDescription[\mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{IR\_SEND\_PWM\_PIN}}].ulPin;   \textcolor{comment}{// 8}}
-\DoxyCodeLine{187   ETCChannel IR\_TCC\_Channel = TCC0\_CH0;}
-\DoxyCodeLine{188   int8\_t IR\_PER\_EorF = PORT\_PMUX\_PMUXE\_E;}
-\DoxyCodeLine{189   \textcolor{comment}{//println();Serial.print("{}Port:"{}); Serial.print(port,DEC); Serial.print("{} Pin:"{}); Serial.println(pin,DEC);}}
-\DoxyCodeLine{190   \textcolor{comment}{// Enable the port multiplexer for the PWM channel on pin}}
-\DoxyCodeLine{191   PORT-\/>Group[port].PINCFG[pin].bit.PMUXEN = 1;}
-\DoxyCodeLine{192 }
-\DoxyCodeLine{193   \textcolor{comment}{// Connect the TCC timer to the port outputs -\/ port pins are paired odd PMUXO and even PMUXEII}}
-\DoxyCodeLine{194   \textcolor{comment}{// F \& E peripherals specify the timers: TCC0, TCC1 and TCC2}}
-\DoxyCodeLine{195   PORT-\/>Group[port].PMUX[pin >> 1].reg |= IR\_PER\_EorF;}
-\DoxyCodeLine{196 }
-\DoxyCodeLine{197 \textcolor{comment}{//  pinPeripheral (IR\_SEND\_PWM\_PIN,PIO\_TIMER\_ALT);}}
-\DoxyCodeLine{198   \textcolor{comment}{// Feed GCLK0 to TCC0 and TCC1}}
-\DoxyCodeLine{199   REG\_GCLK\_CLKCTRL = GCLK\_CLKCTRL\_CLKEN |       \textcolor{comment}{// Enable GCLK0 to TCC0 and TCC1}}
-\DoxyCodeLine{200                      GCLK\_CLKCTRL\_GEN\_GCLK0 |   \textcolor{comment}{// Select GCLK0}}
-\DoxyCodeLine{201                      GCLK\_CLKCTRL\_ID\_TCC0\_TCC1; \textcolor{comment}{// Feed GCLK0 to TCC0 and TCC1}}
-\DoxyCodeLine{202   \textcolor{keywordflow}{while} (GCLK-\/>STATUS.bit.SYNCBUSY);            \textcolor{comment}{// Wait for synchronization}}
-\DoxyCodeLine{203 }
-\DoxyCodeLine{204   \textcolor{comment}{// Normal (single slope) PWM operation: timers countinuously count up to PER}}
-\DoxyCodeLine{205   \textcolor{comment}{// register value and then is reset to 0}}
-\DoxyCodeLine{206   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}} = (Tcc*) GetTC(IR\_TCC\_Channel);}
-\DoxyCodeLine{207   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>WAVE.reg |= TCC\_WAVE\_WAVEGEN\_NPWM;   \textcolor{comment}{// Setup single slope PWM on TCCx}}
-\DoxyCodeLine{208   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.WAVE);           \textcolor{comment}{// Wait for synchronization}}
-\DoxyCodeLine{209 }
-\DoxyCodeLine{210   \textcolor{comment}{// Each timer counts up to a maximum or TOP value set by the PER register,}}
-\DoxyCodeLine{211   \textcolor{comment}{// this determines the frequency of the PWM operation.}}
-\DoxyCodeLine{212   uint32\_t cc = F\_CPU/(38*1000) -\/ 1;}
-\DoxyCodeLine{213   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>PER.reg = cc;      \textcolor{comment}{// Set the frequency of the PWM on IR\_TCCx}}
-\DoxyCodeLine{214   \textcolor{keywordflow}{while}(\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.PER);}
-\DoxyCodeLine{215 }
-\DoxyCodeLine{216   \textcolor{comment}{// The CCx register value corresponds to the pulsewidth in microseconds (us)}}
-\DoxyCodeLine{217   \textcolor{comment}{// Set the duty cycle of the PWM on TCC0 to 33\%}}
-\DoxyCodeLine{218   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CC[GetTCChannelNumber(IR\_TCC\_Channel)].reg = cc/3;}
-\DoxyCodeLine{219   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.reg \& TCC\_SYNCBUSY\_MASK);}
-\DoxyCodeLine{220   \textcolor{comment}{//while(IR\_TCCx-\/>SYNCBUSY.bit.CC3);}}
-\DoxyCodeLine{221 }
-\DoxyCodeLine{222   \textcolor{comment}{// Enable IR\_TCCx timer but do not turn on PWM yet. Will turn it on later.}}
-\DoxyCodeLine{223   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CTRLA.reg |= TCC\_CTRLA\_PRESCALER\_DIV1;     \textcolor{comment}{// Divide GCLK0 by 1}}
-\DoxyCodeLine{224   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.ENABLE);}
-\DoxyCodeLine{225   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CTRLA.reg \&= \string~TCC\_CTRLA\_ENABLE;            \textcolor{comment}{//initially off will turn on later}}
-\DoxyCodeLine{226   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.ENABLE);}
-\DoxyCodeLine{227 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{228 \}}
+\DoxyCodeLine{182   uint8\_t port = g\_APinDescription[\mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{IR\_SEND\_PWM\_PIN}}].ulPort; \textcolor{comment}{// 0}}
+\DoxyCodeLine{183   uint8\_t pin = g\_APinDescription[\mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{IR\_SEND\_PWM\_PIN}}].ulPin;   \textcolor{comment}{// 8}}
+\DoxyCodeLine{184   ETCChannel IR\_TCC\_Channel = TCC0\_CH0;}
+\DoxyCodeLine{185   int8\_t IR\_PER\_EorF = PORT\_PMUX\_PMUXE\_E;}
+\DoxyCodeLine{186   \textcolor{comment}{//println();Serial.print("{}Port:"{}); Serial.print(port,DEC); Serial.print("{} Pin:"{}); Serial.println(pin,DEC);}}
+\DoxyCodeLine{187   \textcolor{comment}{// Enable the port multiplexer for the PWM channel on pin}}
+\DoxyCodeLine{188   PORT-\/>Group[port].PINCFG[pin].bit.PMUXEN = 1;}
+\DoxyCodeLine{189 }
+\DoxyCodeLine{190   \textcolor{comment}{// Connect the TCC timer to the port outputs -\/ port pins are paired odd PMUXO and even PMUXEII}}
+\DoxyCodeLine{191   \textcolor{comment}{// F \& E peripherals specify the timers: TCC0, TCC1 and TCC2}}
+\DoxyCodeLine{192   PORT-\/>Group[port].PMUX[pin >> 1].reg |= IR\_PER\_EorF;}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194 \textcolor{comment}{//  pinPeripheral (IR\_SEND\_PWM\_PIN,PIO\_TIMER\_ALT);}}
+\DoxyCodeLine{195   \textcolor{comment}{// Feed GCLK0 to TCC0 and TCC1}}
+\DoxyCodeLine{196   REG\_GCLK\_CLKCTRL = GCLK\_CLKCTRL\_CLKEN |       \textcolor{comment}{// Enable GCLK0 to TCC0 and TCC1}}
+\DoxyCodeLine{197                      GCLK\_CLKCTRL\_GEN\_GCLK0 |   \textcolor{comment}{// Select GCLK0}}
+\DoxyCodeLine{198                      GCLK\_CLKCTRL\_ID\_TCC0\_TCC1; \textcolor{comment}{// Feed GCLK0 to TCC0 and TCC1}}
+\DoxyCodeLine{199   \textcolor{keywordflow}{while} (GCLK-\/>STATUS.bit.SYNCBUSY);            \textcolor{comment}{// Wait for synchronization}}
+\DoxyCodeLine{200 }
+\DoxyCodeLine{201   \textcolor{comment}{// Normal (single slope) PWM operation: timers countinuously count up to PER}}
+\DoxyCodeLine{202   \textcolor{comment}{// register value and then is reset to 0}}
+\DoxyCodeLine{203   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}} = (Tcc*) GetTC(IR\_TCC\_Channel);}
+\DoxyCodeLine{204   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>WAVE.reg |= TCC\_WAVE\_WAVEGEN\_NPWM;   \textcolor{comment}{// Setup single slope PWM on TCCx}}
+\DoxyCodeLine{205   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.WAVE);           \textcolor{comment}{// Wait for synchronization}}
+\DoxyCodeLine{206 }
+\DoxyCodeLine{207   \textcolor{comment}{// Each timer counts up to a maximum or TOP value set by the PER register,}}
+\DoxyCodeLine{208   \textcolor{comment}{// this determines the frequency of the PWM operation.}}
+\DoxyCodeLine{209   uint32\_t cc = F\_CPU/(38*1000) -\/ 1;}
+\DoxyCodeLine{210   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>PER.reg = cc;      \textcolor{comment}{// Set the frequency of the PWM on IR\_TCCx}}
+\DoxyCodeLine{211   \textcolor{keywordflow}{while}(\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.PER);}
+\DoxyCodeLine{212 }
+\DoxyCodeLine{213   \textcolor{comment}{// The CCx register value corresponds to the pulsewidth in microseconds (us)}}
+\DoxyCodeLine{214   \textcolor{comment}{// Set the duty cycle of the PWM on TCC0 to 33\%}}
+\DoxyCodeLine{215   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CC[GetTCChannelNumber(IR\_TCC\_Channel)].reg = cc/3;}
+\DoxyCodeLine{216   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.reg \& TCC\_SYNCBUSY\_MASK);}
+\DoxyCodeLine{217   \textcolor{comment}{//while(IR\_TCCx-\/>SYNCBUSY.bit.CC3);}}
+\DoxyCodeLine{218 }
+\DoxyCodeLine{219   \textcolor{comment}{// Enable IR\_TCCx timer but do not turn on PWM yet. Will turn it on later.}}
+\DoxyCodeLine{220   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CTRLA.reg |= TCC\_CTRLA\_PRESCALER\_DIV1;     \textcolor{comment}{// Divide GCLK0 by 1}}
+\DoxyCodeLine{221   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.ENABLE);}
+\DoxyCodeLine{222   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CTRLA.reg \&= \string~TCC\_CTRLA\_ENABLE;            \textcolor{comment}{//initially off will turn on later}}
+\DoxyCodeLine{223   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.ENABLE);}
+\DoxyCodeLine{224 }
+\DoxyCodeLine{225   \textcolor{comment}{// just in case}}
+\DoxyCodeLine{226   pinMode(\mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{IR\_SEND\_PWM\_PIN}}, OUTPUT);}
+\DoxyCodeLine{227   digitalWrite(\mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{IR\_SEND\_PWM\_PIN}}, LOW); \textcolor{comment}{// When not sending PWM, we want it low}}
+\DoxyCodeLine{228 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{229 \}}
 
 \end{DoxyCode}
 
@@ -503,17 +504,17 @@ Referenced by begin\+Send(), and send\+Byte().
 
 
 
-Definition at line 230 of file IRSender.\+cpp.
+Definition at line 231 of file IRSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{231 \{}
-\DoxyCodeLine{232 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
-\DoxyCodeLine{233   \textcolor{comment}{// start the PWM}}
-\DoxyCodeLine{234   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CTRLA.reg |= TCC\_CTRLA\_ENABLE;}
-\DoxyCodeLine{235   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.ENABLE);}
-\DoxyCodeLine{236 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{237 \}}
+\DoxyCodeLine{232 \{}
+\DoxyCodeLine{233 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
+\DoxyCodeLine{234   \textcolor{comment}{// start the PWM}}
+\DoxyCodeLine{235   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CTRLA.reg |= TCC\_CTRLA\_ENABLE;}
+\DoxyCodeLine{236   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.ENABLE);}
+\DoxyCodeLine{237 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{238 \}}
 
 \end{DoxyCode}
 
@@ -532,17 +533,17 @@ Referenced by send\+Mark().
 
 
 
-Definition at line 239 of file IRSender.\+cpp.
+Definition at line 240 of file IRSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{240 \{}
-\DoxyCodeLine{241 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
-\DoxyCodeLine{242   \textcolor{comment}{// stop the PWM}}
-\DoxyCodeLine{243   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CTRLA.reg \&= \string~TCC\_CTRLA\_ENABLE;}
-\DoxyCodeLine{244   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.ENABLE);}
-\DoxyCodeLine{245 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{246 \}}
+\DoxyCodeLine{241 \{}
+\DoxyCodeLine{242 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
+\DoxyCodeLine{243   \textcolor{comment}{// stop the PWM}}
+\DoxyCodeLine{244   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CTRLA.reg \&= \string~TCC\_CTRLA\_ENABLE;}
+\DoxyCodeLine{245   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.ENABLE);}
+\DoxyCodeLine{246 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{247 \}}
 
 \end{DoxyCode}
 

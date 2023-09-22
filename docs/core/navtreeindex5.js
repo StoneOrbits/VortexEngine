@@ -1,5 +1,6 @@
 var NAVTREEINDEX5 =
 {
+"classColorset.html#ae6e0a85c795f2e574bc842ea366d5eaa":[0,0,11,27],
 "classColorset.html#ae82f167e840a5fd2df65816a34991f2d":[0,0,11,11],
 "classColorset.html#ae973ebe020c085e206fe75f39383a96a":[0,0,11,22],
 "classColorset.html#af65f18b0a815156608cdf3cdff93e7af":[0,0,11,16],
@@ -248,6 +249,5 @@ var NAVTREEINDEX5 =
 "classLighthousePattern.html#a4cf95d565d7aa5586889a60e8625544a":[0,0,29,10],
 "classLighthousePattern.html#a70ccda94202ed002bea1f53464b7f078":[0,0,29,5],
 "classLighthousePattern.html#a73a69d9fff10bc48e8cfa09bf43319db":[0,0,29,1],
-"classLighthousePattern.html#a7db45061499ee13e5cbabf42dee0ab2c":[0,0,29,9],
-"classLighthousePattern.html#a9fdfe8d7e0bd645dcbd20bdab7f3ad60":[0,0,29,11]
+"classLighthousePattern.html#a7db45061499ee13e5cbabf42dee0ab2c":[0,0,29,9]
 };

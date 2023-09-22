@@ -1,5 +1,8 @@
 var NAVTREEINDEX3 =
 {
+"Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8cafecfee87d2ade6034f160f02130d2916":[1,0,0,0,7,8,0,35],
+"Patterns_8h.html#a49cb2436eabea580256eb4c578df4a10":[1,0,0,0,7,8,3],
+"Patterns_8h.html#a4cc0d6d85ab6f98369c2043707ee8a47":[1,0,0,0,7,8,2],
 "Patterns_8h.html#a73f6309b79ddc1ce918a3778af1422b1":[1,0,0,0,7,8,5],
 "Patterns_8h.html#aa0f438bac6b4088cfc8594bd1329475a":[1,0,0,0,7,8,6],
 "Patterns_8h.html#ad58c73f9c26d4937add3b71a58747c00":[1,0,0,0,7,8,1],
@@ -246,8 +249,5 @@ var NAVTREEINDEX3 =
 "VortexWipePattern_8cpp_source.html":[1,0,0,0,7,0,37],
 "VortexWipePattern_8h.html":[1,0,0,0,7,0,38],
 "VortexWipePattern_8h_source.html":[1,0,0,0,7,0,38],
-"WarpPattern_8cpp.html":[1,0,0,0,7,0,39],
-"WarpPattern_8cpp_source.html":[1,0,0,0,7,0,39],
-"WarpPattern_8h.html":[1,0,0,0,7,0,40],
-"WarpPattern_8h_source.html":[1,0,0,0,7,0,40]
+"WarpPattern_8cpp.html":[1,0,0,0,7,0,39]
 };
