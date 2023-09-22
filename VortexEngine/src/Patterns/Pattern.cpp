@@ -63,7 +63,7 @@ void Pattern::serialize(ByteStream &buffer) const
   PatternArgs defaults = PatternBuilder::getDefaultArgs(m_patternID);
   // generate a bitmap of which args are defaulted
   uint8_t argmap = ARG_NONE;
-  for (uint32_t i = 0; i < args.numArgs; ++i) {
+  for (uint32_t i = 0; i < MAX_ARGS; ++i) {
     if (args.args[i] != defaults.args[i]) {
       ARGMAP_SET(argmap, i);
     }
