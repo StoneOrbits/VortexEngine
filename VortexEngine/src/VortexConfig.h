@@ -14,7 +14,7 @@
 // a savefile produced by 1.1 should be loadable by an engine on 1.2
 // and vice versa. But an engine on 2.0 cannot share savefiles with
 // either of the engines on version 1.1 or 1.2
-#define VORTEX_VERSION_MINOR  0
+#define VORTEX_VERSION_MINOR  1
 
 // produces a number like 1.0
 #define VORTEX_VERSION_NUMBER VORTEX_VERSION_MAJOR.VORTEX_VERSION_MINOR
