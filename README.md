@@ -4,7 +4,7 @@ Welcome to the Vortex Engine firmware repository! This open-source project is de
 
 The firmware enables users to create mesmerizing light shows by allowing any flashing patterns, colorsets, or effects to be programmed onto their devices.  
 
-It uses a standardized format for savefiles and transferring data which allows all devices running vortex to share colorsets, patterns and modes.
+It uses a standardized format for savefiles and transferring data which allows all devices running vortex to share colorsets, patterns and modes.  Menus and user interface is standardized with color schemes so users only need to learn how to program one device and they will know how to program all devices running Vortex. 
 
 You can find here the core Vortex Engine codebase along with branches for all devices from StoneOrbits including: Orbit, Gloves, Handle, and Duo chip. 
 
