@@ -222,6 +222,7 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
     newPat = PATTERN_BLEND;
     // this is the number of blinks to a complementary color
     args.arg7 = ctx.next8(0, 3);
+    args.numArgs++;
   }
   return pMode->setPattern(newPat, pos, &args);
 }
