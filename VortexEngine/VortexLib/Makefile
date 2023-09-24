@@ -31,7 +31,7 @@ INCLUDES=\
 
 ifdef WASM
 DEFINES += -D WASM
-CFLAGS += -s DISABLE_EXCEPTION_CATCHING=0 --bind
+CFLAGS += --bind -s MODULARIZE=1 -s EXPORT_NAME='VortexLib'
 endif
 
 ifdef TESTFRAMEWORK
@@ -93,7 +93,7 @@ TESTS=\
 
 # target files
 ifdef WASM
-TARGETS=vortex.js \
+TARGETS=VortexLib.js \
 	vortex.a
 else
 TARGETS=vortex.a
@@ -113,7 +113,7 @@ wasm: FORCE
 vortex.a: $(DEPS)
 	$(AR) $@ $^
 
-vortex.js: $(DEPS)
+VortexLib.js: $(DEPS)
 	$(CC) $(CFLAGS) $^ -o $@ $(LLIBS)
 
 # catch-all make target to generate .o and .d files
@@ -132,7 +132,7 @@ FORCE:
 
 # generic clean target
 clean:
-	@$(RM) $(DFILES) $(OBJS) $(TARGETS) $(TESTS) vortex.js vortex.wasm
+	@$(RM) $(DFILES) $(OBJS) $(TARGETS) $(TESTS) VortexLib.js vortex.wasm
 
 # Now include our target dependency files
 # the hyphen means ignore non-existent files

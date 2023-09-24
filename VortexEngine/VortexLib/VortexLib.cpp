@@ -72,6 +72,34 @@ val tick_wasm() {
   return ledArray;
 }
 
+emscripten::val getDataArray(const ByteStream &byteStream)
+{
+  const uint8_t *dataPtr = byteStream.data();
+  uint32_t size = byteStream.size();
+
+  emscripten::val dataArray = emscripten::val::array();
+
+  for (uint32_t i = 0; i < size; ++i) {
+    dataArray.call<void>("push", dataPtr[i]);
+  }
+
+  return dataArray;
+}
+
+emscripten::val getRawDataArray(const ByteStream &byteStream)
+{
+  const uint8_t *rawDataPtr = reinterpret_cast<const uint8_t *>(byteStream.rawData());
+  uint32_t rawSize = byteStream.rawSize();
+
+  emscripten::val rawDataArray = emscripten::val::array();
+
+  for (uint32_t i = 0; i < rawSize; ++i) {
+    rawDataArray.call<void>("push", rawDataPtr[i]);
+  }
+
+  return rawDataArray;
+}
+
 EMSCRIPTEN_BINDINGS(Vortex) {
   // vector<string>
   register_vector<std::string>("VectorString");
@@ -143,7 +171,14 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("unserialize32", &ByteStream::unserialize32)
     .function("peek8", &ByteStream::peek8)
     .function("peek16", &ByteStream::peek16)
-    .function("peek32", &ByteStream::peek32);
+    .function("peek32", &ByteStream::peek32)
+    .function("data", &ByteStream::data, allow_raw_pointer<uint8_t>())
+    .function("rawData", &ByteStream::rawData, allow_raw_pointer<void>())
+    .function("rawSize", &ByteStream::rawSize)
+    .function("size", &ByteStream::size)
+    .function("capacity", &ByteStream::capacity)
+    .function("is_compressed", &ByteStream::is_compressed)
+    .function("CRC", &ByteStream::CRC);
 
   // Binding static enum values
   enum_<LedPos>("LedPos")
@@ -495,6 +530,11 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .class_function("getStorageFilename", &Vortex::getStorageFilename)
     .class_function("setLockEnabled", &Vortex::setLockEnabled)
     .class_function("lockEnabled", &Vortex::lockEnabled);
+
+  function("getDataArray", &getDataArray);
+  function("getRawDataArray", &getRawDataArray);
+
+
 }
 #endif
 
@@ -1037,7 +1077,7 @@ bool Vortex::setLedCount(uint8_t count)
 #if FIXED_LED_COUNT == 0
   Mode *cur = Modes::curMode();
   if (cur && !cur->setLedCount(count)) {
-    return true;
+    return false;
   }
   Leds::setLedCount(count);
 #endif
