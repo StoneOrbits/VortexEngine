@@ -31,7 +31,7 @@ INCLUDES=\
 
 ifdef WASM
 DEFINES += -D WASM
-CFLAGS += --bind -s MODULARIZE=1 -s EXPORT_NAME='VortexLib'
+CFLAGS += --bind -s MODULARIZE=1 -s EXPORT_ES6=1 -s EXPORT_NAME='VortexLib'
 endif
 
 ifdef TESTFRAMEWORK
