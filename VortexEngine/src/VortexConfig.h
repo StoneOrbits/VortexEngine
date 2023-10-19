@@ -38,7 +38,7 @@
 // This disabled multi-led patterns and compression because the
 // multi-led patterns take up too much space and the compression
 // uses too much stack space to run on smaller devices
-#define VORTEX_SLIM           0
+#define VORTEX_SLIM           1
 
 // ===================================================================
 //  Numeric Configurations
@@ -386,7 +386,7 @@
 // Turn on the editor connection, some devices are capable of connecting to
 // the pc-based editor, this controls whether the engine exposes the purple
 // editor connection menu or not
-#define ENABLE_EDITOR_CONNECTION 1
+#define ENABLE_EDITOR_CONNECTION 0
 
 // Compression Test
 //

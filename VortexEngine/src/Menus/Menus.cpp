@@ -54,14 +54,14 @@ const MenuEntry menuList[] = {
   // =========================
   //  Default menu setup:
   ENTRY(Randomizer, RGB_MENU_RANDOMIZER),
-  ENTRY(ModeSharing, RGB_MENU_MODE_SHARING),
+  //ENTRY(ModeSharing, RGB_MENU_MODE_SHARING),
 #if ENABLE_EDITOR_CONNECTION == 1
   ENTRY(EditorConnection, RGB_MENU_EDITOR_CONNECTION),
 #endif
-  ENTRY(ColorSelect, RGB_MENU_COLOR_SELECT),
-  ENTRY(PatternSelect, RGB_MENU_PATTERN_SELECT),
-  ENTRY(GlobalBrightness, RGB_MENU_BRIGHTNESS_SELECT),
-  ENTRY(FactoryReset, RGB_MENU_FACTORY_RESET),
+  //ENTRY(ColorSelect, RGB_MENU_COLOR_SELECT),
+  //ENTRY(PatternSelect, RGB_MENU_PATTERN_SELECT),
+  //ENTRY(GlobalBrightness, RGB_MENU_BRIGHTNESS_SELECT),
+  //ENTRY(FactoryReset, RGB_MENU_FACTORY_RESET),
 };
 
 // the number of menus in the above array
