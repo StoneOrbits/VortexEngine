@@ -253,5 +253,14 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
 
 // this adds the currently targeted ledPermutation to the selected leds
 void Menu::addSelectionMask() {
-  m_targetLeds |= ledPermutations[m_ledSelection];
+  // if selecting any of the individual leds then toggle
+  uint32_t mask = ledPermutations[m_ledSelection];
+  // checks if only 1 b it is set in the target mask
+  if ((mask & (mask - 1)) == 0) {
+    // if there's only one bit set then toggle that location
+    m_targetLeds ^= mask;
+  } else {
+    // otherwise just add the mask whatever it is
+    m_targetLeds |= mask;
+  }
 }
