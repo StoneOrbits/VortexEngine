@@ -7,7 +7,7 @@
 //
 // Whether to enable the Visible Light system as a whole
 //
-#define VL_ENABLE_SENDER          1
+#define VL_ENABLE_SENDER          0
 #define VL_ENABLE_RECEIVER        0
 
 // the size of IR blocks in bits
