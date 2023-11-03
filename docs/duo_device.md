@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Duo (Coming Soon)
+title: Duo
 nav_order: 4
 parent: Vortex Devices
 ---

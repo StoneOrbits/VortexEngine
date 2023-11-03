@@ -342,8 +342,17 @@ $(document).ready(function(){initNavTree('Menu_8cpp_source.html',''); initResiza
 <div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160; </div>
 <div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="comment">// this adds the currently targeted ledPermutation to the selected leds</span></div>
 <div class="line"><a name="l00255"></a><span class="lineno"><a class="line" href="classMenu.html#a65a8f37fa5da723bf29e206fa365a87a">  255</a></span>&#160;<span class="keywordtype">void</span> <a class="code" href="classMenu.html#a65a8f37fa5da723bf29e206fa365a87a">Menu::addSelectionMask</a>() {</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;  <a class="code" href="classMenu.html#ab2586ae2b8c777db240885bd000ea57d">m_targetLeds</a> |= <a class="code" href="Menu_8cpp.html#abf4c3ead615f4824f4bac59cff8c9104">ledPermutations</a>[<a class="code" href="classMenu.html#a62782746d394a81cc6aaf440b59f9ad3">m_ledSelection</a>];</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;}</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;  <span class="comment">// if selecting any of the individual leds then toggle</span></div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  uint32_t mask = <a class="code" href="Menu_8cpp.html#abf4c3ead615f4824f4bac59cff8c9104">ledPermutations</a>[<a class="code" href="classMenu.html#a62782746d394a81cc6aaf440b59f9ad3">m_ledSelection</a>];</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  <span class="comment">// checks if only 1 b it is set in the target mask</span></div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;  <span class="keywordflow">if</span> ((mask &amp; (mask - 1)) == 0) {</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <span class="comment">// if there&#39;s only one bit set then toggle that location</span></div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <a class="code" href="classMenu.html#ab2586ae2b8c777db240885bd000ea57d">m_targetLeds</a> ^= mask;</div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;    <span class="comment">// otherwise just add the mask whatever it is</span></div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;    <a class="code" href="classMenu.html#ab2586ae2b8c777db240885bd000ea57d">m_targetLeds</a> |= mask;</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;  }</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;}</div>
 <div class="ttc" id="aButton_8h_html_a0f2e1bfb2e10150496ad7fb75420713b"><div class="ttname"><a href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a></div><div class="ttdeci">Button * g_pButton</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00016">Buttons.cpp:16</a></div></div>
 <div class="ttc" id="aButton_8h_html_a1020d4e320743109f1bfdbf6d77b29c1"><div class="ttname"><a href="Button_8h.html#a1020d4e320743109f1bfdbf6d77b29c1">g_pButton2</a></div><div class="ttdeci">Button * g_pButton2</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00017">Buttons.cpp:17</a></div></div>
 <div class="ttc" id="aColorConstants_8h_html_a0a85d8d0da8edc5cce98f48701f903f7"><div class="ttname"><a href="ColorConstants_8h.html#a0a85d8d0da8edc5cce98f48701f903f7">RGB_ORANGE</a></div><div class="ttdeci">#define RGB_ORANGE</div><div class="ttdef"><b>Definition:</b> <a href="ColorConstants_8h_source.html#l00044">ColorConstants.h:44</a></div></div>

@@ -1,0 +1,303 @@
+\hypertarget{classFactoryReset}{}\doxysection{Factory\+Reset Class Reference}
+\label{classFactoryReset}\index{FactoryReset@{FactoryReset}}
+
+
+{\ttfamily \#include $<$Factory\+Reset.\+h$>$}
+
+
+
+Inheritance diagram for Factory\+Reset\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{classFactoryReset__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Factory\+Reset\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=264pt]{classFactoryReset__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classFactoryReset_afd6d021887f30208b64b8f84d3a789c0}{Factory\+Reset}} (const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&col, bool advanced)
+\item 
+\mbox{\hyperlink{classFactoryReset_a8523c4243c40edb6fd146bbb6800e06f}{$\sim$\+Factory\+Reset}} ()
+\item 
+bool \mbox{\hyperlink{classFactoryReset_a9c9194fecdf1553c3e26c2cb222a6ef8}{init}} () override
+\item 
+\mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{Menu\+Action}} \mbox{\hyperlink{classFactoryReset_a969d554fb5e11ee2cb5d3e43cfaef274}{run}} () override
+\item 
+void \mbox{\hyperlink{classFactoryReset_ade67dba03cdbab9d7cb09b78357e299b}{on\+Short\+Click}} () override
+\item 
+void \mbox{\hyperlink{classFactoryReset_a4444f4ac79061c07b9e6c14c44e7a65c}{on\+Long\+Click}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classFactoryReset_aef67b200c0630aba2f5c37d15c5d5a97}{show\+Reset}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 6 of file Factory\+Reset.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classFactoryReset_afd6d021887f30208b64b8f84d3a789c0}\label{classFactoryReset_afd6d021887f30208b64b8f84d3a789c0}} 
+\index{FactoryReset@{FactoryReset}!FactoryReset@{FactoryReset}}
+\index{FactoryReset@{FactoryReset}!FactoryReset@{FactoryReset}}
+\doxysubsubsection{\texorpdfstring{FactoryReset()}{FactoryReset()}}
+{\footnotesize\ttfamily Factory\+Reset\+::\+Factory\+Reset (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{col,  }\item[{bool}]{advanced }\end{DoxyParamCaption})}
+
+
+
+Definition at line 16 of file Factory\+Reset.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16                                                              :}
+\DoxyCodeLine{17   \mbox{\hyperlink{classMenu_a7227170bc9fb45617828b755317156a3}{Menu}}(col, advanced)}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classFactoryReset_a8523c4243c40edb6fd146bbb6800e06f}\label{classFactoryReset_a8523c4243c40edb6fd146bbb6800e06f}} 
+\index{FactoryReset@{FactoryReset}!````~FactoryReset@{$\sim$FactoryReset}}
+\index{````~FactoryReset@{$\sim$FactoryReset}!FactoryReset@{FactoryReset}}
+\doxysubsubsection{\texorpdfstring{$\sim$FactoryReset()}{~FactoryReset()}}
+{\footnotesize\ttfamily Factory\+Reset\+::$\sim$\+Factory\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 21 of file Factory\+Reset.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classFactoryReset_a9c9194fecdf1553c3e26c2cb222a6ef8}\label{classFactoryReset_a9c9194fecdf1553c3e26c2cb222a6ef8}} 
+\index{FactoryReset@{FactoryReset}!init@{init}}
+\index{init@{init}!FactoryReset@{FactoryReset}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily bool Factory\+Reset\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{Menu}}.
+
+
+
+Definition at line 25 of file Factory\+Reset.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{Menu::init}}()) \{}
+\DoxyCodeLine{28     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{29   \}}
+\DoxyCodeLine{30   \textcolor{comment}{// bypass led selection for fac reset if a multi was set on}}
+\DoxyCodeLine{31   \textcolor{comment}{// the current slot because it doesn't make sense to pick}}
+\DoxyCodeLine{32   \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
+\DoxyCodeLine{33   \textcolor{keywordflow}{if} (!cur) \{}
+\DoxyCodeLine{34     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{35   \}}
+\DoxyCodeLine{36   \textcolor{keywordflow}{if} (cur-\/>\mbox{\hyperlink{classMode_a833075f22903e11fd4735b5f04e7f6ea}{isMultiLed}}()) \{}
+\DoxyCodeLine{37     \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{38     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}});}
+\DoxyCodeLine{39   \}}
+\DoxyCodeLine{40   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{41     \textcolor{comment}{// skip led selection}}
+\DoxyCodeLine{42     \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{43   \}}
+\DoxyCodeLine{44   \textcolor{comment}{// Start on exit by default}}
+\DoxyCodeLine{45   \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{46   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entered factory reset"{}});}
+\DoxyCodeLine{47   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{48 \}}
+
+\end{DoxyCode}
+
+
+References Modes\+::cur\+Mode(), DEBUG\+\_\+\+LOG, Menu\+::init(), Mode\+::is\+Multi\+Led(), LED\+\_\+\+MULTI, Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+cur\+Selection, Menu\+::m\+\_\+led\+Selected, Menu\+::m\+\_\+target\+Leds, and MAP\+\_\+\+LED.
+
+\mbox{\Hypertarget{classFactoryReset_a4444f4ac79061c07b9e6c14c44e7a65c}\label{classFactoryReset_a4444f4ac79061c07b9e6c14c44e7a65c}} 
+\index{FactoryReset@{FactoryReset}!onLongClick@{onLongClick}}
+\index{onLongClick@{onLongClick}!FactoryReset@{FactoryReset}}
+\doxysubsubsection{\texorpdfstring{onLongClick()}{onLongClick()}}
+{\footnotesize\ttfamily void Factory\+Reset\+::on\+Long\+Click (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_aa5e3a269c2dba3ee69b530c7d1b3c0ff}{Menu}}.
+
+
+
+Definition at line 65 of file Factory\+Reset.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66 \{}
+\DoxyCodeLine{67   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} == 0) \{}
+\DoxyCodeLine{68     \textcolor{comment}{// if the selection isn't actually on factory reset then just leave}}
+\DoxyCodeLine{69     \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}();}
+\DoxyCodeLine{70     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{71   \}}
+\DoxyCodeLine{72   \textcolor{comment}{// if the button hasn't been held long enough just return}}
+\DoxyCodeLine{73   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() <= (\mbox{\hyperlink{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}{FACTORY\_RESET\_THRESHOLD\_TICKS}} + \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(10))) \{}
+\DoxyCodeLine{74     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{75   \}}
+\DoxyCodeLine{76   \textcolor{comment}{// the button was held down long enough so actually perform the factory reset}}
+\DoxyCodeLine{77   \textcolor{comment}{// restore defaults and then leave menu and save}}
+\DoxyCodeLine{78   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{79     uint8\_t curModeIndex = \mbox{\hyperlink{classModes_a7a1b8d5c48237ab106adbfc44ceb1055}{Modes::curModeIndex}}();}
+\DoxyCodeLine{80     \textcolor{comment}{// reset the target mode slot on the target led}}
+\DoxyCodeLine{81     \textcolor{keyword}{const} \mbox{\hyperlink{structdefault__mode__entry}{default\_mode\_entry}} \&def = \mbox{\hyperlink{DefaultModes_8cpp_a9682260204c0b547696ba31807cde860}{default\_modes}}[curModeIndex];}
+\DoxyCodeLine{82     \mbox{\hyperlink{classColorset}{Colorset}} set(def.\mbox{\hyperlink{structdefault__mode__entry_af7d1e60c1f4c0d43a5ad2239e67fe65c}{numColors}}, def.\mbox{\hyperlink{structdefault__mode__entry_a0a868b6138ec894e5b7cb71aa7759192}{cols}});}
+\DoxyCodeLine{83     \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
+\DoxyCodeLine{84     cur-\/>\mbox{\hyperlink{classMode_a523af1ad207240eb672bf8ad0fccad7d}{setPatternMap}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}, def.\mbox{\hyperlink{structdefault__mode__entry_a95bf993636f486502b854fc91380cd5b}{patternID}}, \textcolor{keyword}{nullptr}, \&set);}
+\DoxyCodeLine{85     \textcolor{comment}{// re-\/initialize the current mode}}
+\DoxyCodeLine{86     cur-\/>\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
+\DoxyCodeLine{87   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{88     \mbox{\hyperlink{classLeds_a71eae9e9f07864f4e0f5d64bffaf7eff}{Leds::setBrightness}}(\mbox{\hyperlink{VortexConfig_8h_ad27ad76d41bf29c6b9f95e8c41b86398}{DEFAULT\_BRIGHTNESS}});}
+\DoxyCodeLine{89     \mbox{\hyperlink{classVortexEngine_a82c5e580e41f61e12d52ba5baee97fdf}{VortexEngine::setAutoCycle}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{90     \mbox{\hyperlink{classModes_a790f299aa425bdc73af7f584ee30472b}{Modes::setDefaults}}();}
+\DoxyCodeLine{91     \mbox{\hyperlink{classModes_a65f088d9076706c4976f7282be323e50}{Modes::setCurMode}}(0);}
+\DoxyCodeLine{92     \mbox{\hyperlink{classModes_a44f9cbf145f712a8ca50980a084809ca}{Modes::resetFlags}}();}
+\DoxyCodeLine{93   \}}
+\DoxyCodeLine{94   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{95 \}}
+
+\end{DoxyCode}
+
+
+References default\+\_\+mode\+\_\+entry\+::cols, Modes\+::cur\+Mode(), Modes\+::cur\+Mode\+Index(), DEFAULT\+\_\+\+BRIGHTNESS, default\+\_\+modes, FACTORY\+\_\+\+RESET\+\_\+\+THRESHOLD\+\_\+\+TICKS, g\+\_\+p\+Button, Button\+::hold\+Duration(), Mode\+::init(), Menu\+::leave\+Menu(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+cur\+Selection, Menu\+::m\+\_\+target\+Leds, MS\+\_\+\+TO\+\_\+\+TICKS, default\+\_\+mode\+\_\+entry\+::num\+Colors, default\+\_\+mode\+\_\+entry\+::pattern\+ID, Modes\+::reset\+Flags(), Vortex\+Engine\+::set\+Auto\+Cycle(), Leds\+::set\+Brightness(), Modes\+::set\+Cur\+Mode(), Modes\+::set\+Defaults(), and Mode\+::set\+Pattern\+Map().
+
+\mbox{\Hypertarget{classFactoryReset_ade67dba03cdbab9d7cb09b78357e299b}\label{classFactoryReset_ade67dba03cdbab9d7cb09b78357e299b}} 
+\index{FactoryReset@{FactoryReset}!onShortClick@{onShortClick}}
+\index{onShortClick@{onShortClick}!FactoryReset@{FactoryReset}}
+\doxysubsubsection{\texorpdfstring{onShortClick()}{onShortClick()}}
+{\footnotesize\ttfamily void Factory\+Reset\+::on\+Short\+Click (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_a135b0de5e64efeb822e5323f4b8c8955}{Menu}}.
+
+
+
+Definition at line 60 of file Factory\+Reset.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{61 \{}
+\DoxyCodeLine{62   \mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} = (uint8\_t)!\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}};}
+\DoxyCodeLine{63 \}}
+
+\end{DoxyCode}
+
+
+References Menu\+::m\+\_\+cur\+Selection.
+
+\mbox{\Hypertarget{classFactoryReset_a969d554fb5e11ee2cb5d3e43cfaef274}\label{classFactoryReset_a969d554fb5e11ee2cb5d3e43cfaef274}} 
+\index{FactoryReset@{FactoryReset}!run@{run}}
+\index{run@{run}!FactoryReset@{FactoryReset}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{Menu\+::\+Menu\+Action}} Factory\+Reset\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{Menu}}.
+
+
+
+Definition at line 50 of file Factory\+Reset.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{51 \{}
+\DoxyCodeLine{52   \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{MenuAction}} result = \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{Menu::run}}();}
+\DoxyCodeLine{53   \textcolor{keywordflow}{if} (result != \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}}) \{}
+\DoxyCodeLine{54     \textcolor{keywordflow}{return} result;}
+\DoxyCodeLine{55   \}}
+\DoxyCodeLine{56   \mbox{\hyperlink{classFactoryReset_aef67b200c0630aba2f5c37d15c5d5a97}{showReset}}();}
+\DoxyCodeLine{57   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
+\DoxyCodeLine{58 \}}
+
+\end{DoxyCode}
+
+
+References Menu\+::\+MENU\+\_\+\+CONTINUE, Menu\+::run(), and show\+Reset().
+
+\mbox{\Hypertarget{classFactoryReset_aef67b200c0630aba2f5c37d15c5d5a97}\label{classFactoryReset_aef67b200c0630aba2f5c37d15c5d5a97}} 
+\index{FactoryReset@{FactoryReset}!showReset@{showReset}}
+\index{showReset@{showReset}!FactoryReset@{FactoryReset}}
+\doxysubsubsection{\texorpdfstring{showReset()}{showReset()}}
+{\footnotesize\ttfamily void Factory\+Reset\+::show\+Reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 97 of file Factory\+Reset.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{98 \{}
+\DoxyCodeLine{99   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_aeb313423fa52e4c1940785456b70cd7a}{m\_curSelection}} == 0) \{}
+\DoxyCodeLine{100     \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{101     \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(350, 350, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
+\DoxyCodeLine{102     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{103   \}}
+\DoxyCodeLine{104   \textcolor{keywordtype}{bool} isPressed = \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}();}
+\DoxyCodeLine{105   \textcolor{keywordflow}{if} (!isPressed) \{}
+\DoxyCodeLine{106     \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{107     \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(50, 50, \mbox{\hyperlink{ColorConstants_8h_aadeb3eb9952324a7832c674c598f5121}{RGB\_RED4}});}
+\DoxyCodeLine{108     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{109   \}}
+\DoxyCodeLine{110   \textcolor{comment}{// don't start the fill until the button has been held for a bit}}
+\DoxyCodeLine{111   uint32\_t holdDur = \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}();}
+\DoxyCodeLine{112   \textcolor{keywordflow}{if} (holdDur < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(100)) \{}
+\DoxyCodeLine{113     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{114   \}}
+\DoxyCodeLine{115   uint16\_t progress = ((holdDur * 100) / \mbox{\hyperlink{Timings_8h_a17f3a90cc9ef4f627d73c95f69ccbcbd}{FACTORY\_RESET\_THRESHOLD\_TICKS}});}
+\DoxyCodeLine{116   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}progress: \%d"{}}, progress);}
+\DoxyCodeLine{117   \textcolor{keywordflow}{if} (progress >= 100) \{}
+\DoxyCodeLine{118     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{ColorConstants_8h_ac1771f95d9887118764bd8a074e537e1}{RGB\_WHITE}});}
+\DoxyCodeLine{119     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{120   \}}
+\DoxyCodeLine{121   uint8\_t offMs = 100;}
+\DoxyCodeLine{122   uint8\_t onMs = (progress > 60) ? 30 : 100;}
+\DoxyCodeLine{123   uint8\_t sat = (uint8\_t)((progress * 5) >> 1); \textcolor{comment}{// Using bit shift for division by 2}}
+\DoxyCodeLine{124   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{125   \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(offMs, onMs, \mbox{\hyperlink{classHSVColor}{HSVColor}}(0, 255 -\/ sat, 180));}
+\DoxyCodeLine{126 \}}
+
+\end{DoxyCode}
+
+
+References Leds\+::blink\+All(), Leds\+::clear\+All(), DEBUG\+\_\+\+LOGF, FACTORY\+\_\+\+RESET\+\_\+\+THRESHOLD\+\_\+\+TICKS, g\+\_\+p\+Button, Button\+::hold\+Duration(), Button\+::is\+Pressed(), Menu\+::m\+\_\+cur\+Selection, MS\+\_\+\+TO\+\_\+\+TICKS, RGB\+\_\+\+RED4, RGB\+\_\+\+WHITE, RGB\+\_\+\+WHITE0, and Leds\+::set\+All().
+
+
+
+Referenced by run().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Menus/\+Menu\+List/\mbox{\hyperlink{FactoryReset_8h}{Factory\+Reset.\+h}}\item 
+Vortex\+Engine/src/\+Menus/\+Menu\+List/\mbox{\hyperlink{FactoryReset_8cpp}{Factory\+Reset.\+cpp}}\end{DoxyCompactItemize}

@@ -20,4 +20,5 @@ You can find generated Doxygen documentation for all devices and the core here
  - [Orbit](orbit)
  - [Handle](handle)
  - [Duo](duo)
+ - [Chromadeck](chromadeck)
 

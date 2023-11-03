@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Chromadeck (Coming Soon)
+title: Chromadeck
 nav_order: 5
 parent: Vortex Devices
 ---

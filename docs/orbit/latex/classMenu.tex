@@ -201,8 +201,17 @@ Definition at line 255 of file Menu.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{255                             \{}
-\DoxyCodeLine{256   \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} |= \mbox{\hyperlink{Menu_8cpp_abf4c3ead615f4824f4bac59cff8c9104}{ledPermutations}}[\mbox{\hyperlink{classMenu_a62782746d394a81cc6aaf440b59f9ad3}{m\_ledSelection}}];}
-\DoxyCodeLine{257 \}}
+\DoxyCodeLine{256   \textcolor{comment}{// if selecting any of the individual leds then toggle}}
+\DoxyCodeLine{257   uint32\_t mask = \mbox{\hyperlink{Menu_8cpp_abf4c3ead615f4824f4bac59cff8c9104}{ledPermutations}}[\mbox{\hyperlink{classMenu_a62782746d394a81cc6aaf440b59f9ad3}{m\_ledSelection}}];}
+\DoxyCodeLine{258   \textcolor{comment}{// checks if only 1 b it is set in the target mask}}
+\DoxyCodeLine{259   \textcolor{keywordflow}{if} ((mask \& (mask -\/ 1)) == 0) \{}
+\DoxyCodeLine{260     \textcolor{comment}{// if there's only one bit set then toggle that location}}
+\DoxyCodeLine{261     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} \string^= mask;}
+\DoxyCodeLine{262   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{263     \textcolor{comment}{// otherwise just add the mask whatever it is}}
+\DoxyCodeLine{264     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} |= mask;}
+\DoxyCodeLine{265   \}}
+\DoxyCodeLine{266 \}}
 
 \end{DoxyCode}
 
@@ -726,7 +735,7 @@ Definition at line 54 of file Menu.\+h.
 
 
 
-Referenced by Editor\+Connection\+::clear\+Demo(), init(), Pattern\+Select\+::next\+Pattern(), Pattern\+Select\+::on\+Led\+Selected(), Mode\+Sharing\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Randomizer\+::on\+Long\+Click(), Editor\+Connection\+::on\+Short\+Click2(), Editor\+Connection\+::receive\+Demo\+Mode(), Mode\+Sharing\+::receive\+Mode\+IR(), Randomizer\+::re\+Roll(), Pattern\+Select\+::run(), Randomizer\+::run(), Editor\+Connection\+::show\+Editor(), Pattern\+Select\+::show\+Pattern\+Selection(), and Mode\+Sharing\+::show\+Receive\+Mode().
+Referenced by Editor\+Connection\+::clear\+Demo(), init(), Pattern\+Select\+::next\+Pattern(), Pattern\+Select\+::on\+Led\+Selected(), Mode\+Sharing\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Randomizer\+::on\+Long\+Click(), Editor\+Connection\+::on\+Short\+Click2(), Editor\+Connection\+::receive\+Demo\+Mode(), Mode\+Sharing\+::receive\+Mode\+IR(), Randomizer\+::re\+Roll(), Randomizer\+::run(), Editor\+Connection\+::show\+Editor(), Pattern\+Select\+::show\+Pattern\+Selection(), and Mode\+Sharing\+::show\+Receive\+Mode().
 
 \mbox{\Hypertarget{classMenu_a145ce4672bd57b3a5123031a490ba224}\label{classMenu_a145ce4672bd57b3a5123031a490ba224}} 
 \index{Menu@{Menu}!m\_shouldClose@{m\_shouldClose}}

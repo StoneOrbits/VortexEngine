@@ -29,7 +29,7 @@ Collaboration diagram for Mode\+:
 \item 
 \mbox{\hyperlink{classMode_a6c2cb0c7fb5a1421c75449bf35a28b59}{Mode}} (const \mbox{\hyperlink{classMode}{Mode}} $\ast$other)
 \item 
-virtual \mbox{\hyperlink{classMode_a6b8809388084822aeac00adbcbe107f7}{$\sim$\+Mode}} ()
+\mbox{\hyperlink{classMode_a6b8809388084822aeac00adbcbe107f7}{$\sim$\+Mode}} ()
 \item 
 \mbox{\hyperlink{classMode_ae2f72f96196a709fd5872cac5fb8f617}{Mode}} (const \mbox{\hyperlink{classMode}{Mode}} \&other)
 \item 
@@ -39,17 +39,17 @@ bool \mbox{\hyperlink{classMode_ab4ed910af190415b97d75464ec9b9f25}{operator==}} 
 \item 
 bool \mbox{\hyperlink{classMode_a8cd47bf652f97bc1c9b203749359dfeb}{operator!=}} (const \mbox{\hyperlink{classMode}{Mode}} \&other) const
 \item 
-virtual void \mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}} ()
+void \mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}} ()
 \item 
-virtual void \mbox{\hyperlink{classMode_a21d1c7da7b97340ab1af39d242cc6f22}{play}} ()
+void \mbox{\hyperlink{classMode_a21d1c7da7b97340ab1af39d242cc6f22}{play}} ()
 \item 
-virtual bool \mbox{\hyperlink{classMode_a4bf861a9f38599ab515655ae52700534}{save\+To\+Buffer}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&save\+Buffer, uint8\+\_\+t num\+Leds=0) const
+bool \mbox{\hyperlink{classMode_a4bf861a9f38599ab515655ae52700534}{save\+To\+Buffer}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&save\+Buffer, uint8\+\_\+t num\+Leds=0) const
 \item 
-virtual bool \mbox{\hyperlink{classMode_a31ed6fbb39ca7876e415fc58bc18d630}{load\+From\+Buffer}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&save\+Buffer)
+bool \mbox{\hyperlink{classMode_a31ed6fbb39ca7876e415fc58bc18d630}{load\+From\+Buffer}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&save\+Buffer)
 \item 
-virtual void \mbox{\hyperlink{classMode_a5131802c3bf289b45b1847e8a65ea522}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer, uint8\+\_\+t num\+Leds=0) const
+void \mbox{\hyperlink{classMode_a5131802c3bf289b45b1847e8a65ea522}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer, uint8\+\_\+t num\+Leds=0) const
 \item 
-virtual bool \mbox{\hyperlink{classMode_afe827f93ec4916928a22202ebdf26ee7}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
+bool \mbox{\hyperlink{classMode_afe827f93ec4916928a22202ebdf26ee7}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
 \item 
 bool \mbox{\hyperlink{classMode_a5211b5677490a2012aca2188e401e409}{equals}} (const \mbox{\hyperlink{classMode}{Mode}} $\ast$other) const
 \item 
@@ -265,7 +265,7 @@ Definition at line 75 of file Mode.\+cpp.
 \index{Mode@{Mode}!````~Mode@{$\sim$Mode}}
 \index{````~Mode@{$\sim$Mode}!Mode@{Mode}}
 \doxysubsubsection{\texorpdfstring{$\sim$Mode()}{~Mode()}}
-{\footnotesize\ttfamily Mode\+::$\sim$\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily Mode\+::$\sim$\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -867,7 +867,7 @@ Referenced by get\+Flags().
 \index{Mode@{Mode}!init@{init}}
 \index{init@{init}!Mode@{Mode}}
 \doxysubsubsection{\texorpdfstring{init()}{init()}}
-{\footnotesize\ttfamily void Mode\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void Mode\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -972,7 +972,7 @@ Referenced by Color\+Select\+::init(), Factory\+Reset\+::init(), and Menu\+::nex
 \index{Mode@{Mode}!loadFromBuffer@{loadFromBuffer}}
 \index{loadFromBuffer@{loadFromBuffer}!Mode@{Mode}}
 \doxysubsubsection{\texorpdfstring{loadFromBuffer()}{loadFromBuffer()}}
-{\footnotesize\ttfamily bool Mode\+::load\+From\+Buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{save\+Buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily bool Mode\+::load\+From\+Buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{save\+Buffer }\end{DoxyParamCaption})}
 
 
 
@@ -1098,7 +1098,7 @@ References equals().
 \index{Mode@{Mode}!play@{play}}
 \index{play@{play}!Mode@{Mode}}
 \doxysubsubsection{\texorpdfstring{play()}{play()}}
-{\footnotesize\ttfamily void Mode\+::play (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void Mode\+::play (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
@@ -1148,7 +1148,7 @@ Referenced by Color\+Select\+::run(), Pattern\+Select\+::run(), Randomizer\+::ru
 \index{Mode@{Mode}!saveToBuffer@{saveToBuffer}}
 \index{saveToBuffer@{saveToBuffer}!Mode@{Mode}}
 \doxysubsubsection{\texorpdfstring{saveToBuffer()}{saveToBuffer()}}
-{\footnotesize\ttfamily bool Mode\+::save\+To\+Buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{save\+Buffer,  }\item[{uint8\+\_\+t}]{num\+Leds = {\ttfamily 0} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily bool Mode\+::save\+To\+Buffer (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{save\+Buffer,  }\item[{uint8\+\_\+t}]{num\+Leds = {\ttfamily 0} }\end{DoxyParamCaption}) const}
 
 
 
@@ -1178,7 +1178,7 @@ Referenced by Modes\+::\+Mode\+Link\+::init(), and VLSender\+::load\+Mode().
 \index{Mode@{Mode}!serialize@{serialize}}
 \index{serialize@{serialize}!Mode@{Mode}}
 \doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
-{\footnotesize\ttfamily void Mode\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer,  }\item[{uint8\+\_\+t}]{num\+Leds = {\ttfamily 0} }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily void Mode\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer,  }\item[{uint8\+\_\+t}]{num\+Leds = {\ttfamily 0} }\end{DoxyParamCaption}) const}
 
 
 
@@ -1484,7 +1484,7 @@ Referenced by Pattern\+Select\+::on\+Short\+Click().
 \index{Mode@{Mode}!unserialize@{unserialize}}
 \index{unserialize@{unserialize}!Mode@{Mode}}
 \doxysubsubsection{\texorpdfstring{unserialize()}{unserialize()}}
-{\footnotesize\ttfamily bool Mode\+::unserialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+{\footnotesize\ttfamily bool Mode\+::unserialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})}
 
 
 

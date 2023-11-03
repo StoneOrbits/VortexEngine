@@ -1,0 +1,305 @@
+\hypertarget{classBlendPattern}{}\doxysection{Blend\+Pattern Class Reference}
+\label{classBlendPattern}\index{BlendPattern@{BlendPattern}}
+
+
+{\ttfamily \#include $<$Blend\+Pattern.\+h$>$}
+
+
+
+Inheritance diagram for Blend\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classBlendPattern__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Blend\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=295pt]{classBlendPattern__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBlendPattern_a783477b4fdc8ec9f06cb0a24ba299ba2}{Blend\+Pattern}} (const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&args)
+\item 
+virtual \mbox{\hyperlink{classBlendPattern_a8418ad0548669c40bbef0cff4bdb6b48}{$\sim$\+Blend\+Pattern}} ()
+\item 
+virtual void \mbox{\hyperlink{classBlendPattern_a6cf64630d97a5ede7af5923ed4413e63}{init}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classBlendPattern_a89e50f88624d3df91d988d7fb87c588e}{on\+Blink\+On}} () override
+\item 
+void \mbox{\hyperlink{classBlendPattern_a623ac046723f4f5cb23cd12f29074fa9}{interpolate}} (uint8\+\_\+t \&current, const uint8\+\_\+t next)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\+\_\+blend\+Speed}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\+\_\+num\+Flips}}
+\item 
+\mbox{\hyperlink{classRGBColor}{RGBColor}} \mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\+\_\+cur}}
+\item 
+\mbox{\hyperlink{classRGBColor}{RGBColor}} \mbox{\hyperlink{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}{m\+\_\+next}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\+\_\+flip}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 8 of file Blend\+Pattern.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBlendPattern_a783477b4fdc8ec9f06cb0a24ba299ba2}\label{classBlendPattern_a783477b4fdc8ec9f06cb0a24ba299ba2}} 
+\index{BlendPattern@{BlendPattern}!BlendPattern@{BlendPattern}}
+\index{BlendPattern@{BlendPattern}!BlendPattern@{BlendPattern}}
+\doxysubsubsection{\texorpdfstring{BlendPattern()}{BlendPattern()}}
+{\footnotesize\ttfamily Blend\+Pattern\+::\+Blend\+Pattern (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&}]{args }\end{DoxyParamCaption})}
+
+
+
+Definition at line 7 of file Blend\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{7                                                   :}
+\DoxyCodeLine{8   \mbox{\hyperlink{classBasicPattern_a8ecc5170fcae02fbf65490425105be1f}{BasicPattern}}(args),}
+\DoxyCodeLine{9   \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}}(0),}
+\DoxyCodeLine{10   \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}}(0),}
+\DoxyCodeLine{11   \mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}}(),}
+\DoxyCodeLine{12   \mbox{\hyperlink{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}{m\_next}}(),}
+\DoxyCodeLine{13   \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}}(0)}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadf01802d35ece7b405582c6680f56d83}{PATTERN\_BLEND}};}
+\DoxyCodeLine{16   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}});}
+\DoxyCodeLine{17   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}});}
+\DoxyCodeLine{18   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
+\DoxyCodeLine{19 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+blend\+Speed, m\+\_\+num\+Flips, Pattern\+::m\+\_\+pattern\+ID, PATTERN\+\_\+\+BLEND, REGISTER\+\_\+\+ARG, and Pattern\+::set\+Args().
+
+\mbox{\Hypertarget{classBlendPattern_a8418ad0548669c40bbef0cff4bdb6b48}\label{classBlendPattern_a8418ad0548669c40bbef0cff4bdb6b48}} 
+\index{BlendPattern@{BlendPattern}!````~BlendPattern@{$\sim$BlendPattern}}
+\index{````~BlendPattern@{$\sim$BlendPattern}!BlendPattern@{BlendPattern}}
+\doxysubsubsection{\texorpdfstring{$\sim$BlendPattern()}{~BlendPattern()}}
+{\footnotesize\ttfamily Blend\+Pattern\+::$\sim$\+Blend\+Pattern (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 21 of file Blend\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBlendPattern_a6cf64630d97a5ede7af5923ed4413e63}\label{classBlendPattern_a6cf64630d97a5ede7af5923ed4413e63}} 
+\index{BlendPattern@{BlendPattern}!init@{init}}
+\index{init@{init}!BlendPattern@{BlendPattern}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Blend\+Pattern\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBasicPattern_a80f7fcfb5066478565a485e4c4061986}{Basic\+Pattern}}.
+
+
+
+Definition at line 25 of file Blend\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27   \textcolor{comment}{// run basic pattern init logic}}
+\DoxyCodeLine{28   \mbox{\hyperlink{classBasicPattern_a80f7fcfb5066478565a485e4c4061986}{BasicPattern::init}}();}
+\DoxyCodeLine{29   \textcolor{comment}{// convert current/next colors to HSV}}
+\DoxyCodeLine{30   \mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}} = \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{31   \mbox{\hyperlink{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}{m\_next}} = \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{32   \textcolor{comment}{// reset the flip count}}
+\DoxyCodeLine{33   \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} = 0;}
+\DoxyCodeLine{34 \}}
+
+\end{DoxyCode}
+
+
+References Colorset\+::get\+Next(), Basic\+Pattern\+::init(), Pattern\+::m\+\_\+colorset, m\+\_\+cur, m\+\_\+flip, and m\+\_\+next.
+
+\mbox{\Hypertarget{classBlendPattern_a623ac046723f4f5cb23cd12f29074fa9}\label{classBlendPattern_a623ac046723f4f5cb23cd12f29074fa9}} 
+\index{BlendPattern@{BlendPattern}!interpolate@{interpolate}}
+\index{interpolate@{interpolate}!BlendPattern@{BlendPattern}}
+\doxysubsubsection{\texorpdfstring{interpolate()}{interpolate()}}
+{\footnotesize\ttfamily void Blend\+Pattern\+::interpolate (\begin{DoxyParamCaption}\item[{uint8\+\_\+t \&}]{current,  }\item[{const uint8\+\_\+t}]{next }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 64 of file Blend\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{65 \{}
+\DoxyCodeLine{66   \textcolor{keywordflow}{if} (current < next) \{}
+\DoxyCodeLine{67     uint8\_t step = (next -\/ current) > \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}} ? \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}} : (next -\/ current);}
+\DoxyCodeLine{68     current += step;}
+\DoxyCodeLine{69   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (current > next) \{}
+\DoxyCodeLine{70     uint8\_t step = (current -\/ next) > \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}} ? \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}} : (current -\/ next);}
+\DoxyCodeLine{71     current -\/= step;}
+\DoxyCodeLine{72   \}}
+\DoxyCodeLine{73 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+blend\+Speed.
+
+
+
+Referenced by on\+Blink\+On().
+
+\mbox{\Hypertarget{classBlendPattern_a89e50f88624d3df91d988d7fb87c588e}\label{classBlendPattern_a89e50f88624d3df91d988d7fb87c588e}} 
+\index{BlendPattern@{BlendPattern}!onBlinkOn@{onBlinkOn}}
+\index{onBlinkOn@{onBlinkOn}!BlendPattern@{BlendPattern}}
+\doxysubsubsection{\texorpdfstring{onBlinkOn()}{onBlinkOn()}}
+{\footnotesize\ttfamily void Blend\+Pattern\+::on\+Blink\+On (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBasicPattern_ac858a6b55a2101bf46c962814858a283}{Basic\+Pattern}}.
+
+
+
+Definition at line 36 of file Blend\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}} == \mbox{\hyperlink{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}{m\_next}}) \{}
+\DoxyCodeLine{39     \mbox{\hyperlink{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}{m\_next}} = \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{40   \}}
+\DoxyCodeLine{41   \mbox{\hyperlink{classBlendPattern_a623ac046723f4f5cb23cd12f29074fa9}{interpolate}}(\mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}}.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}}, \mbox{\hyperlink{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}{m\_next}}.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}});}
+\DoxyCodeLine{42   \mbox{\hyperlink{classBlendPattern_a623ac046723f4f5cb23cd12f29074fa9}{interpolate}}(\mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}}.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}}, \mbox{\hyperlink{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}{m\_next}}.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}});}
+\DoxyCodeLine{43   \mbox{\hyperlink{classBlendPattern_a623ac046723f4f5cb23cd12f29074fa9}{interpolate}}(\mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}}.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}}, \mbox{\hyperlink{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}{m\_next}}.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}});}
+\DoxyCodeLine{44   \mbox{\hyperlink{classRGBColor}{RGBColor}} col = \mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}};}
+\DoxyCodeLine{45   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}}) \{}
+\DoxyCodeLine{46     \textcolor{comment}{// convert to hsv}}
+\DoxyCodeLine{47     \mbox{\hyperlink{classHSVColor}{HSVColor}} hsvCol = \mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}};}
+\DoxyCodeLine{48     \textcolor{comment}{// shift the hue by a flip size}}
+\DoxyCodeLine{49     hsvCol.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} += (\mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} * (127 / \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}}));}
+\DoxyCodeLine{50     \textcolor{comment}{// convert the hsv color back to RGB}}
+\DoxyCodeLine{51     col = hsvCol;}
+\DoxyCodeLine{52   \}}
+\DoxyCodeLine{53   \textcolor{comment}{// set the color}}
+\DoxyCodeLine{54   \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{classPattern_a060b7c087d8203c74eeb87ac32034a10}{m\_ledPos}}, col);}
+\DoxyCodeLine{55   \textcolor{comment}{// increment the flip count}}
+\DoxyCodeLine{56   \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}}++;}
+\DoxyCodeLine{57   \textcolor{comment}{// modulate the flip count DO NOT USE MODULO OPERATOR BECAUSE}}
+\DoxyCodeLine{58   \textcolor{comment}{// THE FLIP COUNT COULD BE 0 THAT WILL DIVIDE BY ZERO}}
+\DoxyCodeLine{59   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} > \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}}) \{}
+\DoxyCodeLine{60     \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} = 0;}
+\DoxyCodeLine{61   \}}
+\DoxyCodeLine{62 \}}
+
+\end{DoxyCode}
+
+
+References RGBColor\+::blue, Colorset\+::get\+Next(), RGBColor\+::green, HSVColor\+::hue, interpolate(), Pattern\+::m\+\_\+colorset, m\+\_\+cur, m\+\_\+flip, Pattern\+::m\+\_\+led\+Pos, m\+\_\+next, m\+\_\+num\+Flips, RGBColor\+::red, and Leds\+::set\+Index().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}\label{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}} 
+\index{BlendPattern@{BlendPattern}!m\_blendSpeed@{m\_blendSpeed}}
+\index{m\_blendSpeed@{m\_blendSpeed}!BlendPattern@{BlendPattern}}
+\doxysubsubsection{\texorpdfstring{m\_blendSpeed}{m\_blendSpeed}}
+{\footnotesize\ttfamily uint8\+\_\+t Blend\+Pattern\+::m\+\_\+blend\+Speed\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 22 of file Blend\+Pattern.\+h.
+
+
+
+Referenced by Blend\+Pattern(), and interpolate().
+
+\mbox{\Hypertarget{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}\label{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}} 
+\index{BlendPattern@{BlendPattern}!m\_cur@{m\_cur}}
+\index{m\_cur@{m\_cur}!BlendPattern@{BlendPattern}}
+\doxysubsubsection{\texorpdfstring{m\_cur}{m\_cur}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{RGBColor}} Blend\+Pattern\+::m\+\_\+cur\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 26 of file Blend\+Pattern.\+h.
+
+
+
+Referenced by init(), and on\+Blink\+On().
+
+\mbox{\Hypertarget{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}\label{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}} 
+\index{BlendPattern@{BlendPattern}!m\_flip@{m\_flip}}
+\index{m\_flip@{m\_flip}!BlendPattern@{BlendPattern}}
+\doxysubsubsection{\texorpdfstring{m\_flip}{m\_flip}}
+{\footnotesize\ttfamily uint8\+\_\+t Blend\+Pattern\+::m\+\_\+flip\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 30 of file Blend\+Pattern.\+h.
+
+
+
+Referenced by init(), and on\+Blink\+On().
+
+\mbox{\Hypertarget{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}\label{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}} 
+\index{BlendPattern@{BlendPattern}!m\_next@{m\_next}}
+\index{m\_next@{m\_next}!BlendPattern@{BlendPattern}}
+\doxysubsubsection{\texorpdfstring{m\_next}{m\_next}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{RGBColor}} Blend\+Pattern\+::m\+\_\+next\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 27 of file Blend\+Pattern.\+h.
+
+
+
+Referenced by init(), and on\+Blink\+On().
+
+\mbox{\Hypertarget{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}\label{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}} 
+\index{BlendPattern@{BlendPattern}!m\_numFlips@{m\_numFlips}}
+\index{m\_numFlips@{m\_numFlips}!BlendPattern@{BlendPattern}}
+\doxysubsubsection{\texorpdfstring{m\_numFlips}{m\_numFlips}}
+{\footnotesize\ttfamily uint8\+\_\+t Blend\+Pattern\+::m\+\_\+num\+Flips\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 23 of file Blend\+Pattern.\+h.
+
+
+
+Referenced by Blend\+Pattern(), and on\+Blink\+On().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\+Single/\mbox{\hyperlink{BlendPattern_8h}{Blend\+Pattern.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\+Single/\mbox{\hyperlink{BlendPattern_8cpp}{Blend\+Pattern.\+cpp}}\end{DoxyCompactItemize}

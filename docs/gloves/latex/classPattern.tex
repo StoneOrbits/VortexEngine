@@ -589,7 +589,7 @@ Definition at line 57 of file Pattern.\+cpp.
 \DoxyCodeLine{63   \mbox{\hyperlink{classPatternArgs}{PatternArgs}} defaults = \mbox{\hyperlink{classPatternBuilder_a1e2154e68210f25e29a03755e9184959}{PatternBuilder::getDefaultArgs}}(\mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}});}
 \DoxyCodeLine{64   \textcolor{comment}{// generate a bitmap of which args are defaulted}}
 \DoxyCodeLine{65   uint8\_t argmap = \mbox{\hyperlink{PatternArgs_8h_a5b4ab91afec1ff35fd294e3ca007be49}{ARG\_NONE}};}
-\DoxyCodeLine{66   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < args.\mbox{\hyperlink{classPatternArgs_afd6df4d59722381c0146b839d1469171}{numArgs}}; ++i) \{}
+\DoxyCodeLine{66   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < \mbox{\hyperlink{PatternArgs_8h_a29b7451465deac204c5f7cb1f9c6e1fc}{MAX\_ARGS}}; ++i) \{}
 \DoxyCodeLine{67     \textcolor{keywordflow}{if} (args.\mbox{\hyperlink{classPatternArgs_afde808c634704d423d82a9dea6814eea}{args}}[i] != defaults.\mbox{\hyperlink{classPatternArgs_afde808c634704d423d82a9dea6814eea}{args}}[i]) \{}
 \DoxyCodeLine{68       \mbox{\hyperlink{PatternArgs_8h_ad2e165fa5c6699ad2d64faac00625a36}{ARGMAP\_SET}}(argmap, i);}
 \DoxyCodeLine{69     \}}
@@ -600,7 +600,7 @@ Definition at line 57 of file Pattern.\+cpp.
 \end{DoxyCode}
 
 
-References ARG\+\_\+\+NONE, ARGMAP\+\_\+\+SET, Pattern\+Args\+::args, get\+Args(), Pattern\+Builder\+::get\+Default\+Args(), m\+\_\+colorset, m\+\_\+pattern\+ID, Pattern\+Args\+::num\+Args, Colorset\+::serialize(), Pattern\+Args\+::serialize(), and Byte\+Stream\+::serialize().
+References ARG\+\_\+\+NONE, ARGMAP\+\_\+\+SET, Pattern\+Args\+::args, get\+Args(), Pattern\+Builder\+::get\+Default\+Args(), m\+\_\+colorset, m\+\_\+pattern\+ID, MAX\+\_\+\+ARGS, Colorset\+::serialize(), Pattern\+Args\+::serialize(), and Byte\+Stream\+::serialize().
 
 
 
