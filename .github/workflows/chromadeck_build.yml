@@ -1,4 +1,4 @@
-name: Core Build
+name: Chromadeck Build
 
 on:
   push:
