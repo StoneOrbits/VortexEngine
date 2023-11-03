@@ -53,8 +53,6 @@ Menu::MenuAction PatternSelect::run()
     break;
   }
 
-  // run the current mode
-  m_previewMode.play();
   // show selections
   Menus::showSelection();
   return MENU_CONTINUE;
@@ -71,6 +69,7 @@ void PatternSelect::showListSelection()
 
 void PatternSelect::showPatternSelection()
 {
+  // run the current mode
   m_previewMode.play();
   if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     Leds::setAll(RGB_WHITE4);
