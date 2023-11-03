@@ -24,6 +24,18 @@ enum LedPos : uint8_t
   LED_8,
   LED_9,
 
+  // inner circle of leds
+  LED_10,
+  LED_11,
+  LED_12,
+  LED_13,
+  LED_14,
+  LED_15,
+  LED_16,
+  LED_17,
+  LED_18,
+  LED_19,
+
   // the number of entries above
   LED_COUNT,
 

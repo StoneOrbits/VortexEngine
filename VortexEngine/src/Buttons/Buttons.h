@@ -7,7 +7,7 @@
 // changing it won't really work without updating other things
 // like which pins the buttons are attached to. So this is more
 // of a hardcoded constant than a configuration setting
-#define NUM_BUTTONS 1
+#define NUM_BUTTONS 3
 
 class Buttons
 {
