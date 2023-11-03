@@ -1,16 +1,10 @@
 #include "VortexEngine.h"
 
-#include "Wireless/IRReceiver.h"
-#include "Wireless/IRSender.h"
-#include "Wireless/VLReceiver.h"
-#include "Wireless/VLSender.h"
+#include "Serial/ByteStream.h"
 #include "Storage/Storage.h"
 #include "Buttons/Buttons.h"
 #include "Time/TimeControl.h"
 #include "Time/Timings.h"
-#include "Serial/Serial.h"
-#include "Modes/Modes.h"
-#include "Menus/Menus.h"
 #include "Modes/Mode.h"
 #include "Leds/Leds.h"
 #include "Log/Log.h"
@@ -19,29 +13,17 @@
 #include "VortexLib.h"
 #endif
 
-// bool in vortexlib to simulate sleeping
-volatile bool VortexEngine::m_sleeping = false;
-
-// auto cycling
-bool VortexEngine::m_autoCycle = false;
+Mode g_curMode;
 
 bool VortexEngine::init()
 {
   // all of the global controllers
-  if (!SerialComs::init()) {
-    DEBUG_LOG("Serial failed to initialize");
-    return false;
-  }
   if (!Time::init()) {
     DEBUG_LOG("Time failed to initialize");
     return false;
   }
   if (!Storage::init()) {
     DEBUG_LOG("Storage failed to initialize");
-    return false;
-  }
-  if (!VLSender::init()) {
-    DEBUG_LOG("VLSender failed to initialize");
     return false;
   }
   if (!Leds::init()) {
@@ -52,75 +34,16 @@ bool VortexEngine::init()
     DEBUG_LOG("Buttons failed to initialize");
     return false;
   }
-  if (!Menus::init()) {
-    DEBUG_LOG("Menus failed to initialize");
-    return false;
-  }
-  if (!Modes::init()) {
-    DEBUG_LOG("Settings failed to initialize");
-    return false;
-  }
-
-#if COMPRESSION_TEST == 1
-  compressionTest();
-#endif
-
-#if SERIALIZATION_TEST == 1
-  serializationTest();
-#endif
-
-#if TIMER_TEST == 1
-  timerTest();
-#endif
 
   return true;
 }
 
 void VortexEngine::cleanup()
 {
-  // cleanup in reverse order
-  // NOTE: the arduino doesn't actually cleanup,
-  //       but the test frameworks do
-#ifdef VORTEX_LIB
-  Modes::cleanup();
-  Menus::cleanup();
-  Buttons::cleanup();
-  Leds::cleanup();
-  VLSender::cleanup();
-  Storage::cleanup();
-  Time::cleanup();
-  SerialComs::cleanup();
-#endif
 }
 
 void VortexEngine::tick()
 {
-#ifdef VORTEX_LIB
-  if (m_sleeping) {
-    // update the buttons to check for wake
-    Buttons::update();
-    // several fast clicks will unlock the device
-    if (Modes::locked() && g_pButton->onConsecutivePresses(DEVICE_LOCK_CLICKS - 1)) {
-      // turn off the lock flag and save it to disk
-      Modes::setLocked(false);
-    }
-    // check for any kind of press to wakeup
-    if (g_pButton->check() || g_pButton->onRelease() || !Vortex::sleepEnabled()) {
-      wakeup();
-    }
-    return;
-  }
-#endif
-  // handle any fatal errors that may have occurred
-  // but only if the error blinker is enabled
-#if VORTEX_ERROR_BLINK == 1
-  if (getError() != ERROR_NONE) {
-    // just blink the error and don't run anything
-    blinkError();
-    return;
-  }
-#endif
-
   // tick the current time counter forward
   Time::tickClock();
 
@@ -139,32 +62,7 @@ void VortexEngine::runMainLogic()
   // the current tick
   uint32_t now = Time::getCurtime();
 
-  // if the menus are open and running then just return
-  if (Menus::run()) {
-    return;
-  }
-
-  // check if we should enter the menu
-  if (g_pButton->isPressed() && g_pButton->holdDuration() > MENU_TRIGGER_THRESHOLD_TICKS) {
-    DEBUG_LOG("Entering Menu Selection...");
-    Menus::openMenuSelection();
-    return;
-  }
-
-  // toggle auto cycle mode with many clicks at main modes
-  if (g_pButton->onConsecutivePresses(AUTO_CYCLE_MODES_CLICKS)) {
-    m_autoCycle = !m_autoCycle;
-    Leds::holdAll(m_autoCycle ? RGB_GREEN : RGB_RED);
-  }
-
-  // if auto cycle is enabled and the last switch was more than the delay ago
-  if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < now)) {
-    // then switch to the next mode automatically
-    Modes::nextModeSkipEmpty();
-  }
-
-  // otherwise just play the modes
-  Modes::play();
+  g_curMode.play();
 }
 
 bool VortexEngine::serializeVersion(ByteStream &stream)
@@ -183,54 +81,6 @@ bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
   return true;
 }
 
-Mode *VortexEngine::curMode()
-{
-#ifdef VORTEX_LIB
-  return Modes::curMode();
-#else
-  // don't need this outside vortex lib
-  return nullptr;
-#endif
-}
-
-#ifdef VORTEX_LIB
-uint32_t VortexEngine::totalStorageSpace()
-{
-  return STORAGE_SIZE;
-}
-
-uint32_t VortexEngine::savefileSize()
-{
-  return Storage::lastSaveSize();
-}
-#endif
-
-void VortexEngine::enterSleep(bool save)
-{
-  DEBUG_LOG("Sleeping");
-  if (save) {
-    // update the startup mode when going to sleep
-    Modes::setStartupMode(Modes::curModeIndex());
-    // save anything that hasn't been saved
-    Modes::saveStorage();
-  }
-  // clear all the leds
-  Leds::clearAll();
-  Leds::update();
-  // enable the sleep bool
-  m_sleeping = true;
-}
-
-void VortexEngine::wakeup(bool reset)
-{
-  DEBUG_LOG("Waking up");
-  m_sleeping = false;
-  // need to fake the reset in vortexlib, lol this works I guess
-  if (reset) {
-    cleanup();
-    init();
-  }
-}
 
 #if COMPRESSION_TEST == 1
 #include <string.h>

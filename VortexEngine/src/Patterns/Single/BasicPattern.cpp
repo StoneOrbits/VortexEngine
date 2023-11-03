@@ -32,7 +32,7 @@ static void printState(PatternState state)
 #endif
 
 BasicPattern::BasicPattern(const PatternArgs &args) :
-  SingleLedPattern(args),
+  Pattern(args),
   m_onDuration(0),
   m_offDuration(0),
   m_gapDuration(0),
@@ -169,23 +169,23 @@ replay:
 void BasicPattern::onBlinkOn()
 {
   PRINT_STATE(STATE_ON);
-  Leds::setIndex(m_ledPos, m_colorset.getNext());
+  Leds::set(m_colorset.getNext());
 }
 
 void BasicPattern::onBlinkOff()
 {
   PRINT_STATE(STATE_OFF);
-  Leds::clearIndex(m_ledPos);
+  Leds::clear();
 }
 
 void BasicPattern::beginGap()
 {
   PRINT_STATE(STATE_IN_GAP);
-  Leds::clearIndex(m_ledPos);
+  Leds::clear();
 }
 
 void BasicPattern::beginDash()
 {
   PRINT_STATE(STATE_IN_DASH);
-  Leds::setIndex(m_ledPos, m_colorset.getNext());
+  Leds::set(m_colorset.getNext());
 }

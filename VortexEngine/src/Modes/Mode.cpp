@@ -2,8 +2,6 @@
 
 #include "../VortexEngine.h"
 
-#include "../Patterns/Single/SingleLedPattern.h"
-#include "../Patterns/Multi/MultiLedPattern.h"
 #include "../Patterns/PatternBuilder.h"
 #include "../Patterns/Pattern.h"
 #include "../Serial/ByteStream.h"
@@ -74,9 +72,6 @@ Mode::Mode(const Mode *other) :
 Mode::~Mode()
 {
   clearPattern(LED_ALL);
-#if FIXED_LED_COUNT == 0
-  free(m_singlePats);
-#endif
 }
 
 // copy and assignment operators
@@ -138,32 +133,15 @@ void Mode::init()
 
 void Mode::play()
 {
-#if VORTEX_SLIM == 0
-  // play multi pattern first so that the singles can override
-  if (m_multiPat) {
-    m_multiPat->play();
+  // grab the entry for this led
+  Pattern *entry = m_singlePats[LED_0];
+  if (!entry) {
+    // just clear the index if slim, don't check for multi
+    Leds::clear();
+    return;
   }
-#endif
-  // now iterate all singles and play
-  for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; ++pos) {
-    // grab the entry for this led
-    Pattern *entry = m_singlePats[pos];
-    if (!entry) {
-#if VORTEX_SLIM == 0
-      // incomplete pattern/set or empty slot
-      if (!m_multiPat) {
-        // only clear if the multi pattern isn't playing
-        Leds::clearIndex(pos);
-      }
-#else
-      // just clear the index if slim, don't check for multi
-      Leds::clearIndex(pos);
-#endif
-      continue;
-    }
-    // play the current pattern with current color set on the current finger
-    entry->play();
-  }
+  // play the current pattern with current color set on the current finger
+  entry->play();
 }
 
 bool Mode::saveToBuffer(ByteStream &modeBuffer, uint8_t numLeds) const
@@ -544,7 +522,7 @@ bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const 
     if (m_singlePats[pos]) {
       delete m_singlePats[pos];
     }
-    m_singlePats[pos] = PatternBuilder::makeSingle(pat, args);
+    m_singlePats[pos] = PatternBuilder::make(pat, args);
     // they could set PATTERN_NONE to clear
     if (m_singlePats[pos]) {
       m_singlePats[pos]->setColorset(newSet);

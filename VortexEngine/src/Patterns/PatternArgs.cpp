@@ -81,69 +81,6 @@ void PatternArgs::addArgs(uint8_t a1)
   args[numArgs++] = a1;
 }
 
-void PatternArgs::addArgs(uint8_t a1, uint8_t a2)
-{
-  args[numArgs++] = a1;
-  args[numArgs++] = a2;
-}
-
-void PatternArgs::addArgs(uint8_t a1, uint8_t a2, uint8_t a3)
-{
-  args[numArgs++] = a1;
-  args[numArgs++] = a2;
-  args[numArgs++] = a3;
-}
-
-void PatternArgs::addArgs(uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4)
-{
-  args[numArgs++] = a1;
-  args[numArgs++] = a2;
-  args[numArgs++] = a3;
-  args[numArgs++] = a4;
-}
-
-void PatternArgs::addArgs(uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4, uint8_t a5)
-{
-  args[numArgs++] = a1;
-  args[numArgs++] = a2;
-  args[numArgs++] = a3;
-  args[numArgs++] = a4;
-  args[numArgs++] = a5;
-}
-
-void PatternArgs::addArgs(uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4, uint8_t a5, uint8_t a6)
-{
-  args[numArgs++] = a1;
-  args[numArgs++] = a2;
-  args[numArgs++] = a3;
-  args[numArgs++] = a4;
-  args[numArgs++] = a5;
-  args[numArgs++] = a6;
-}
-
-void PatternArgs::addArgs(uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4, uint8_t a5, uint8_t a6, uint8_t a7)
-{
-  args[numArgs++] = a1;
-  args[numArgs++] = a2;
-  args[numArgs++] = a3;
-  args[numArgs++] = a4;
-  args[numArgs++] = a5;
-  args[numArgs++] = a6;
-  args[numArgs++] = a7;
-}
-
-void PatternArgs::addArgs(uint8_t a1, uint8_t a2, uint8_t a3, uint8_t a4, uint8_t a5, uint8_t a6, uint8_t a7, uint8_t a8)
-{
-  args[numArgs++] = a1;
-  args[numArgs++] = a2;
-  args[numArgs++] = a3;
-  args[numArgs++] = a4;
-  args[numArgs++] = a5;
-  args[numArgs++] = a6;
-  args[numArgs++] = a7;
-  args[numArgs++] = a7;
-}
-
 bool PatternArgs::operator!=(const PatternArgs &rhs)
 {
   return !(*this == rhs);

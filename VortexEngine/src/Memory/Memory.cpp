@@ -117,6 +117,27 @@ uint32_t cur_memory_usage_total()
 
 #endif // DEBUG_ALLOCATIONS == 1
 
+void *operator new  (size_t size) noexcept
+{
+  return malloc(size);
+}
+void *operator new[](size_t size) noexcept
+{
+  return malloc(size);
+}
+void  operator delete  (void *ptr) noexcept
+{
+  free(ptr);
+}
+void  operator delete[](void *ptr) noexcept
+{
+  free(ptr);
+}
+void  operator delete  (void *ptr, unsigned int al) noexcept
+{
+  free(ptr);
+}
+
 #ifndef VORTEX_LIB
 
 // for C++11 need the following:

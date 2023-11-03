@@ -6,8 +6,6 @@
 
 #include <string.h>
 
-#include "Compression.h"
-
 // flags for saving buffer to disk
 #define BUFFER_FLAG_COMRPESSED (1<<0) // buffer is compressed
 #define BUFFER_FLAG_DIRTY      (1<<1) // buffer crc is dirty

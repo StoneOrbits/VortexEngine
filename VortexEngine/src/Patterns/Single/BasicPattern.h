@@ -1,10 +1,10 @@
 #ifndef BASIC_PATTERN_H
 #define BASIC_PATTERN_H
 
-#include "SingleLedPattern.h"
+#include "../Pattern.h"
 #include "../../Time/Timer.h"
 
-class BasicPattern : public SingleLedPattern
+class BasicPattern : public Pattern
 {
 public:
   BasicPattern(const PatternArgs &args);

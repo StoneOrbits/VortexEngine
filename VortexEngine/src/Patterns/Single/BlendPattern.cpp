@@ -51,7 +51,7 @@ void BlendPattern::onBlinkOn()
     col = hsvCol;
   }
   // set the color
-  Leds::setIndex(m_ledPos, col);
+  Leds::set(col);
   // increment the flip count
   m_flip++;
   // modulate the flip count DO NOT USE MODULO OPERATOR BECAUSE

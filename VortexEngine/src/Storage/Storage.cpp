@@ -28,7 +28,6 @@ std::string Storage::m_storageFilename;
 #endif
 
 #ifdef VORTEX_EMBEDDED
-#include <Arduino.h>
 #define PAGE_SIZE 64
 __attribute__((__aligned__(256)))
 const uint8_t _storagedata[(STORAGE_SIZE+255)/256*256] = { };

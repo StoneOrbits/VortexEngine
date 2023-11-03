@@ -5,34 +5,8 @@
 #include "../Time/Timings.h"
 #include "../Log/Log.h"
 
-#include "Multi/Sequencer/SequencedPattern.h"
-#include "Multi/Sequencer/ChaserPattern.h"
-#include "Multi/Sequencer/Sequence.h"
-
-#include "Multi/TheaterChasePattern.h"
-#include "Multi/HueShiftPattern.h"
-#include "Multi/ZigzagPattern.h"
-#include "Multi/DripPattern.h"
-#include "Multi/DripMorphPattern.h"
-#include "Multi/CrossDopsPattern.h"
-#include "Multi/DoubleStrobePattern.h"
-#include "Multi/MeteorPattern.h"
-#include "Multi/SparkleTracePattern.h"
-#include "Multi/VortexWipePattern.h"
-#include "Multi/WarpPattern.h"
-#include "Multi/WarpWormPattern.h"
-#include "Multi/FillPattern.h"
-#include "Multi/SnowballPattern.h"
-#include "Multi/LighthousePattern.h"
-#include "Multi/PulsishPattern.h"
-#include "Multi/BouncePattern.h"
-#include "Multi/BackStrobePattern.h"
-#include "Multi/MateriaPattern.h"
-
-#include "Single/SingleLedPattern.h"
 #include "Single/BasicPattern.h"
 #include "Single/BlendPattern.h"
-#include "Single/SolidPattern.h"
 
 Pattern *PatternBuilder::make(PatternID id, const PatternArgs *args)
 {
@@ -44,10 +18,7 @@ Pattern *PatternBuilder::make(PatternID id, const PatternArgs *args)
     DEBUG_LOGF("Invalid pattern id: %u", id);
     id = PATTERN_FIRST;
   }
-  if (isMultiLedPatternID(id)) {
-    return makeMulti(id, args);
-  }
-  return makeSingle(id, args);
+  return makeInternal(id, args);
 }
 
 Pattern *PatternBuilder::dupe(const Pattern *pat)
@@ -64,33 +35,6 @@ Pattern *PatternBuilder::dupe(const Pattern *pat)
   newPat->setColorset(pat->getColorset());
   newPat->bind(pat->getLedPos());
   return newPat;
-}
-
-// generate a single LED pattern (nullptr if patternid is not single LED)
-SingleLedPattern *PatternBuilder::makeSingle(PatternID id, const PatternArgs *args)
-{
-  if (!isSingleLedPatternID(id)) {
-    return nullptr;
-  }
-  Pattern *pat = makeInternal(id, args);
-  if (!pat) {
-    return nullptr;
-  }
-  // don't set any flags on single pattersn
-  return (SingleLedPattern *)pat;
-}
-
-// generate a multi LED pattern (nullptr if patternid is not multi LED)
-MultiLedPattern *PatternBuilder::makeMulti(PatternID id, const PatternArgs *args)
-{
-  if (!isMultiLedPatternID(id)) {
-    return nullptr;
-  }
-  Pattern *pat = makeInternal(id, args);
-  if (!pat) {
-    return nullptr;
-  }
-  return (MultiLedPattern *)pat;
 }
 
 Pattern *PatternBuilder::unserialize(ByteStream &buffer)
@@ -212,74 +156,8 @@ uint8_t PatternBuilder::numDefaultArgs(PatternID id)
 Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
 {
   PatternArgs args = userArgs ? *userArgs : getDefaultArgs(id);
-  switch (id) {
-    // =====================
-    //  Single Led Patterns:
-    default:
-    case PATTERN_STROBE:
-    case PATTERN_HYPERSTROBE:
-    case PATTERN_PICOSTROBE:
-    case PATTERN_STROBIE:
-    case PATTERN_DOPS:
-    case PATTERN_ULTRADOPS:
-    case PATTERN_STROBEGAP:
-    case PATTERN_HYPERGAP:
-    case PATTERN_PICOGAP:
-    case PATTERN_STROBIEGAP:
-    case PATTERN_DOPSGAP:
-    case PATTERN_ULTRAGAP:
-    case PATTERN_BLINKIE:
-    case PATTERN_GHOSTCRUSH:
-    case PATTERN_DOUBLEDOPS:
-    case PATTERN_CHOPPER:
-    case PATTERN_DASHGAP:
-    case PATTERN_DASHDOPS:
-    case PATTERN_DASHCRUSH:
-    case PATTERN_ULTRADASH:
-    case PATTERN_GAPCYCLE:
-    case PATTERN_DASHCYCLE:
-    case PATTERN_TRACER:
-    case PATTERN_RIBBON:
-    case PATTERN_MINIRIBBON: return new BasicPattern(args);
-    case PATTERN_BLEND:
-    case PATTERN_BLENDSTROBE:
-    case PATTERN_BLENDSTROBEGAP:
-    case PATTERN_COMPLEMENTARY_BLEND:
-    case PATTERN_COMPLEMENTARY_BLENDSTROBE:
-    case PATTERN_COMPLEMENTARY_BLENDSTROBEGAP: return new BlendPattern(args);
-    case PATTERN_SOLID: return new SolidPattern(args);
-
-    // =====================
-    //  Multi Led Patterns:
-#if VORTEX_SLIM == 0
-    case PATTERN_HUE_SCROLL: return new HueShiftPattern(args);
-    case PATTERN_THEATER_CHASE: return new TheaterChasePattern(args);
-    case PATTERN_CHASER: return new ChaserPattern(args);
-    case PATTERN_ZIGZAG:
-    case PATTERN_ZIPFADE: return new ZigzagPattern(args);
-    case PATTERN_DRIP: return new DripPattern(args);
-    case PATTERN_DRIPMORPH: return new DripMorphPattern(args);
-    case PATTERN_CROSSDOPS: return new CrossDopsPattern(args);
-    case PATTERN_DOUBLESTROBE: return new DoubleStrobePattern(args);
-    case PATTERN_METEOR: return new MeteorPattern(args);
-    case PATTERN_SPARKLETRACE: return new SparkleTracePattern(args);
-    case PATTERN_VORTEXWIPE: return new VortexWipePattern(args);
-    case PATTERN_WARP: return new WarpPattern(args);
-    case PATTERN_WARPWORM: return new WarpWormPattern(args);
-    case PATTERN_SNOWBALL: return new SnowballPattern(args);
-    case PATTERN_LIGHTHOUSE: return new LighthousePattern(args);
-    case PATTERN_PULSISH: return new PulsishPattern(args);
-    case PATTERN_FILL: return new FillPattern(args);
-    case PATTERN_BOUNCE: return new BouncePattern(args);
-    case PATTERN_SPLITSTROBIE:
-    case PATTERN_BACKSTROBE: return new BackStrobePattern(args);
-    case PATTERN_MATERIA: return new MateriaPattern(args);
-    case PATTERN_NONE: return nullptr;
-#else
-    // in vortex slim just use basic pattern for all multi led
-    case PATTERN_NONE: return nullptr;
-#endif
+  if (id >= PATTERN_MINIRIBBON) {
+    return new BlendPattern(args);
   }
-  DEBUG_LOGF("Unknown pattern id: %u", id);
-  return nullptr;
+  return new BasicPattern(args);
 }

@@ -198,115 +198,10 @@
     <Compile Include="src\Memory\Memory.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\Menus\Menu.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\ColorSelect.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\EditorConnection.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\FactoryReset.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\GlobalBrightness.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\ModeSharing.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\PatternSelect.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\Randomizer.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\Menus.cpp">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\Modes\DefaultModes.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Modes\Mode.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Modes\Modes.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\BackStrobePattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\BlinkStepPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\BouncePattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\CrossDopsPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\DoubleStrobePattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\DripMorphPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\DripPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\FillPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\HueShiftPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\CompoundPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\LighthousePattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\MateriaPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\MeteorPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\MultiLedPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\PulsishPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\Sequencer\ChaserPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\Sequencer\Sequence.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\Sequencer\SequencedPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\SnowballPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\SparkleTracePattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\TheaterChasePattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\VortexWipePattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\WarpPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\WarpWormPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\ZigzagPattern.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Patterns\Pattern.cpp">
@@ -324,12 +219,6 @@
     <Compile Include="src\Patterns\Single\BlendPattern.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\Patterns\Single\SingleLedPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Single\SolidPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\Random\Random.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -339,16 +228,13 @@
     <Compile Include="src\Serial\ByteStream.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\Serial\Compression.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Serial\Serial.cpp">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\Storage\Storage.cpp">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Time\TimeControl.cpp">
+      <SubType>compile</SubType>
+    </Compile>
+    <Compile Include="src\Time\TimeControl.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Time\Timer.cpp">
@@ -387,115 +273,10 @@
     <Compile Include="src\Memory\Memory.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\Menus\Menu.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\ColorSelect.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\EditorConnection.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\FactoryReset.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\GlobalBrightness.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\ModeSharing.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\PatternSelect.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\MenuList\Randomizer.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Menus\Menus.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\Modes\DefaultModes.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Modes\Mode.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Modes\Modes.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\BackStrobePattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\BlinkStepPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\BouncePattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\CrossDopsPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\DoubleStrobePattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\DripMorphPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\DripPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\FillPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\HueShiftPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\CompoundPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\LighthousePattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\MateriaPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\MeteorPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\MultiLedPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\PulsishPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\Sequencer\ChaserPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\Sequencer\Sequence.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\Sequencer\SequencedPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\SnowballPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\SparkleTracePattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\TheaterChasePattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\VortexWipePattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\WarpPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\WarpWormPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\ZigzagPattern.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Patterns\Pattern.h">
@@ -516,12 +297,6 @@
     <Compile Include="src\Patterns\Single\BlendPattern.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\Patterns\Single\SingleLedPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Single\SolidPattern.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\Random\Random.h">
       <SubType>compile</SubType>
     </Compile>
@@ -531,52 +306,13 @@
     <Compile Include="src\Serial\ByteStream.h">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\Serial\Compression.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Serial\Serial.h">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\Storage\Storage.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Time\TimeControl.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Time\Timer.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Time\Timings.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Wireless\IRConfig.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Wireless\IRReceiver.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Wireless\IRReceiver.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Wireless\IRSender.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Wireless\IRSender.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Wireless\VLConfig.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Wireless\VLReceiver.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Wireless\VLReceiver.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Wireless\VLSender.cpp">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Wireless\VLSender.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\VortexConfig.h">
@@ -593,18 +329,13 @@
     <Folder Include="src\Leds\" />
     <Folder Include="src\Log\" />
     <Folder Include="src\Memory\" />
-    <Folder Include="src\Menus\" />
-    <Folder Include="src\Menus\MenuList\" />
     <Folder Include="src\Modes\" />
     <Folder Include="src\Patterns\" />
-    <Folder Include="src\Patterns\Multi\" />
-    <Folder Include="src\Patterns\Multi\Sequencer\" />
     <Folder Include="src\Patterns\Single\" />
     <Folder Include="src\Random\" />
     <Folder Include="src\Serial\" />
     <Folder Include="src\Storage\" />
     <Folder Include="src\Time\" />
-    <Folder Include="src\Wireless\" />
   </ItemGroup>
   <Import Project="$(AVRSTUDIO_EXE_PATH)\\Vs\\Compiler.targets" />
 </Project>

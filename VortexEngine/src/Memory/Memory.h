@@ -36,6 +36,12 @@ uint32_t cur_memory_usage_total();
 
 #endif
 
+void *operator new  (size_t size) noexcept;
+void *operator new[](size_t size) noexcept;
+void  operator delete  (void *ptr) noexcept;
+void  operator delete[](void *ptr) noexcept;
+void  operator delete  (void *ptr, unsigned int al) noexcept;
+
 #ifndef VORTEX_LIB
 //void *operator new  (size_t size) noexcept;
 //void *operator new[](size_t size) noexcept;
