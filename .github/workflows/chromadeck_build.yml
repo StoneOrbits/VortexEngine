@@ -2,9 +2,9 @@ name: Core Build
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "chromadeck" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "chromadeck" ]
   workflow_dispatch: # manual trigger
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
   docs:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/chromadeck'
     steps:
     - name: Checkout current repository
       uses: actions/checkout@v3
@@ -48,4 +48,4 @@ jobs:
         git config --local user.name "GitHub Action"
         git add docs
         git commit -m "Update Doxygen documentation"
-        git push -f origin HEAD:core-docs
+        git push -f origin HEAD:chromadeck-docs
