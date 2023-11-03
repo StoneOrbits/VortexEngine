@@ -34,4 +34,8 @@ Here, you'll find the firmware for the Vortex Wired Gloveset.
 ![Duo](https://github.com/StoneOrbits/VortexEngine/actions/workflows/duo_build.yml/badge.svg?branch=duo)  
 This branch contains the firmware for the Vortex Duo Modular Chip.
 
+### Chromadeck (Vortex Chromadeck Mode Bank)
+![Chromadeck](https://github.com/StoneOrbits/VortexEngine/actions/workflows/chromadeck_build.yml/badge.svg?branch=chromadeck)  
+This branch contains the firmware for the Vortex Chromadeck dynamic storage and transfer tool.
+
 To access a device's firmware, simply switch to its corresponding branch.
