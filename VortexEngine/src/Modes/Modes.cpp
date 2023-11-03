@@ -68,7 +68,7 @@ void Modes::play()
     return;
   }
   // shortclick cycles to the next mode
-  if (g_pButton->onShortClick()) {
+  if (g_pButtonM->onShortClick()) {
     nextModeSkipEmpty();
   }
   // play the current mode

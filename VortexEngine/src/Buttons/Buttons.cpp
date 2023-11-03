@@ -16,10 +16,8 @@
 
 // Button Left
 Button *g_pButtonL = nullptr;
-
 // Button Mid
 Button *g_pButtonM = nullptr;
-
 // Button Right
 Button *g_pButtonR = nullptr;
 
