@@ -46,7 +46,7 @@ public:
   Mode(PatternID id, const PatternArgs &args, const Colorset &set);
   Mode(PatternID id, const PatternArgs *args, const Colorset *set);
   Mode(const Mode *other);
-  virtual ~Mode();
+  ~Mode();
 
   // copy and assignment operators
   Mode(const Mode &other);
@@ -57,19 +57,19 @@ public:
   bool operator!=(const Mode &other) const;
 
   // initialize the mode to initial state
-  virtual void init();
+  void init();
 
   // Play the mode
-  virtual void play();
+  void play();
 
   // save/load from a buffer for individual mode sharing
-  virtual bool saveToBuffer(ByteStream &saveBuffer, uint8_t numLeds = 0) const;
-  virtual bool loadFromBuffer(ByteStream &saveBuffer);
+  bool saveToBuffer(ByteStream &saveBuffer, uint8_t numLeds = 0) const;
+  bool loadFromBuffer(ByteStream &saveBuffer);
 
   // save the mode to serial
-  virtual void serialize(ByteStream &buffer, uint8_t numLeds = 0) const;
+  void serialize(ByteStream &buffer, uint8_t numLeds = 0) const;
   // load the mode from serial (optional led count)
-  virtual bool unserialize(ByteStream &buffer);
+  bool unserialize(ByteStream &buffer);
 
   // mode comparison
   bool equals(const Mode *other) const;
