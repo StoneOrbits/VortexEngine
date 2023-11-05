@@ -334,7 +334,7 @@ bool Vortex::isSleeping()
 bool Vortex::tick()
 {
   if (!m_initialized) {
-    cleanup();
+    // do not cleanup prematurely here
     return false;
   }
   // use ioctl to determine how many characters are on stdin so that

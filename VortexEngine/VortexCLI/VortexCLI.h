@@ -3,6 +3,7 @@
 #include "VortexLib.h"
 
 #include "Patterns/Patterns.h"
+#include "Patterns/Pattern.h"
 #include "Colors/ColorTypes.h"
 #include "Colors/Colorset.h"
 #include "Leds/LedTypes.h"
@@ -31,6 +32,11 @@ public:
 
   // setup the array of leds
   void installLeds(void *leds, uint32_t count);
+
+  // dump out the json format of the current engine state
+  void dumpJSON();
+  void modeToJSON(const Mode &mode);
+  void patternToJSON(const Pattern &pat);
 
   static void printlog(const char *file, const char *func, int line, const char *msg, va_list list);
 
@@ -75,6 +81,7 @@ private:
   bool m_inPlace;
   bool m_record;
   bool m_storage;
+  bool m_json;
   bool m_sleepEnabled;
   bool m_lockEnabled;
   std::string m_storageFile;

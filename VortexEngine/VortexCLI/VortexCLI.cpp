@@ -155,6 +155,7 @@ VortexCLI::VortexCLI() :
   m_inPlace(false),
   m_record(false),
   m_storage(false),
+  m_json(false),
   m_sleepEnabled(true),
   m_lockEnabled(true),
   m_storageFile("FlashStorage.flash"),
@@ -181,6 +182,7 @@ static struct option long_options[] = {
   {"autowake", no_argument, nullptr, 'a'},
   {"nolock", no_argument, nullptr, 'n'},
   {"storage", optional_argument, nullptr, 's'},
+  {"json", no_argument, nullptr, 'j'},
   {"pattern", required_argument, nullptr, 'P'},
   {"colorset", required_argument, nullptr, 'C'},
   {"arguments", required_argument, nullptr, 'A'},
@@ -227,6 +229,7 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -a, --autowake           Automatically and instantly wake on sleep (disable sleep)\n");
   fprintf(stderr, "  -n, --nolock             Automatically unlock upon locking the chip (disable lock)\n");
   fprintf(stderr, "  -s, --storage [file]     Persistent storage to file (default file: FlashStorage.flash)\n");
+  fprintf(stderr, "  -j, --json               Output storage data in JSON format upon exit\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Initial Pattern Options (optional):\n");
   fprintf(stderr, "  -P, --pattern <id>       Preset the pattern ID on the first mode\n");
@@ -328,7 +331,7 @@ bool VortexCLI::init(int argc, char *argv[])
 
   int opt = -1;
   int option_index = 0;
-  while ((opt = getopt_long(argc, argv, "xctliransP:C:A:h", long_options, &option_index)) != -1) {
+  while ((opt = getopt_long(argc, argv, "xctliransjP:C:A:h", long_options, &option_index)) != -1) {
     switch (opt) {
     case 'x':
       // if the user wants pretty colors or hex codes
@@ -368,6 +371,10 @@ bool VortexCLI::init(int argc, char *argv[])
       if (optarg) {
         m_storageFile = optarg;
       }
+      break;
+    case 'j':
+      // enable storage dumped to json
+      m_json = true;
       break;
     case 'P':
       // preset the pattern ID on the first mode
@@ -499,6 +506,10 @@ void VortexCLI::cleanup()
     }
     printf("Wrote recorded input to " RECORD_FILE "\n");
   }
+  if (m_json) {
+    // dump the current save in json format
+    dumpJSON();
+  }
   m_keepGoing = false;
   m_isPaused = false;
   Vortex::cleanup();
@@ -588,6 +599,85 @@ void VortexCLI::installLeds(void *leds, uint32_t count)
 {
   m_ledList = (RGBColor *)leds;
   m_numLeds = count;
+}
+
+void VortexCLI::modeToJSON(const Mode &mode)
+{
+  printf("    {\n");
+  uint8_t ledCount = mode.getLedCount();
+  printf("      \"num_leds\":%u,\n", ledCount);
+  printf("      \"flags\":%u,\n", (uint8_t)mode.getFlags());
+  const Pattern *pat = mode.getPattern(LED_MULTI);
+  if (pat) {
+    printf("      \"multi_pat\":");
+    patternToJSON(*pat);
+    printf(",\n");
+  } else {
+    printf("      \"multi_pat\":null,\n");
+  }
+  printf("      \"single_pats\":[\n");
+  for (LedPos l = LED_FIRST; l < ledCount; ++l) {
+    pat = mode.getPattern(l);
+    if (pat) {
+      patternToJSON(*pat);
+    } else {
+      printf("        null");
+    }
+    printf("%s\n", ((l + 1) < ledCount) ? "," : "");
+  }
+  printf("      ]\n");
+  printf("    }");
+}
+
+void VortexCLI::patternToJSON(const Pattern &pat)
+{
+  printf("        {\n");
+  printf("          \"pattern_id\":%u,\n", pat.getPatternID());
+  printf("          \"flags\":%u,\n", pat.getFlags());
+  const Colorset &set = pat.getColorset();
+  printf("          \"numColors\":%u,\n", set.numColors());
+  printf("          \"colorset\":[\n");
+  uint8_t numCols = set.numColors();
+  for (uint8_t c = 0; c < numCols; ++c) {
+    const RGBColor &col = set.get(c);
+    printf("            0x%02x%02x%02x%s\n", col.red, col.green, col.blue, ((c + 1) < numCols) ? "," : "");
+  }
+  printf("          ],\n");
+  uint8_t numArgs = pat.getNumArgs();
+  printf("          \"numArgs\":%u,\n", numArgs);
+  printf("          \"args\":[\n");
+  for (uint8_t a = 0; a < numArgs; ++a) {
+    printf("            %u%s\n", pat.getArg(a), ((a + 1) < numArgs) ? "," : "");
+  }
+  printf("          ]\n");
+  printf("        }");
+}
+
+// this is kinda ghetto but it's faster than using a 3rd party lib
+void VortexCLI::dumpJSON()
+{
+  printf("{\n");
+  printf("  \"version_major\":%u,\n", (uint8_t)VORTEX_VERSION_MAJOR);
+  printf("  \"version_minor\":%u,\n", (uint8_t)VORTEX_VERSION_MINOR);
+  printf("  \"global_flags\":%u,\n", Modes::globalFlags());
+  printf("  \"brightness\":%u,\n", (uint8_t)Leds::getBrightness());
+  uint8_t numModes = Modes::numModes();
+  printf("  \"num_modes\":%u,\n", numModes);
+  printf("  \"modes\":[\n");
+  // iterate to mode index 0
+  Modes::setCurMode(0);
+  for (uint8_t i = 0; i < numModes; ++i) {
+    Mode *cur = Modes::curMode();
+    if (cur) {
+      modeToJSON(*cur);
+    } else {
+      printf("    null");
+    }
+    printf("%s\n", ((i + 1) < numModes) ? "," : "");
+    Modes::nextMode();
+  }
+  printf("  ]\n");
+  printf("}\n");
 }
 
 long VortexCLI::VortexCLICallbacks::checkPinHook(uint32_t pin)
