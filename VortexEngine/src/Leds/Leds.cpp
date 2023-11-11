@@ -12,6 +12,11 @@
 #include "../../VortexLib/VortexLib.h"
 #endif
 
+#ifdef VORTEX_EMBEDDED
+#include <Arduino.h>
+#define LED_DATA_PIN  8
+#endif
+
 // array of led color values
 RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 // global brightness
@@ -19,6 +24,11 @@ uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 
 bool Leds::init()
 {
+#ifdef VORTEX_EMBEDDED
+  //for (int i = 0; i < 32; ++i) {
+  //  pinMode(i, OUTPUT);
+  //}
+#endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
 #endif
@@ -246,8 +256,63 @@ void Leds::holdAll(RGBColor col)
   Time::delayMilliseconds(250);
 }
 
+#ifdef VORTEX_EMBEDDED
+
+// idk how correct this is but it works
+#define CPU_FREQUENCY_MHZ 240
+#define NS_TO_CYCLES(ns) (((ns) * CPU_FREQUENCY_MHZ) / 1000)
+
+// these timings were found through trial and error
+#define T0H 1
+#define T0L 50
+#define T1H 50
+#define T1L 1
+
+inline void delay_loop(uint32_t loop)
+{
+  while (loop--) {
+    __asm__ __volatile__("nop");
+  }
+}
+
+inline void sendBit(bool bitVal)
+{
+  uint32_t pinMask = (1ul << LED_DATA_PIN); // Assuming LED_DATA_PIN is the GPIO pin number
+  GPIO.out_w1ts = pinMask; // Set the output bit using GPIO.out_w1ts register
+  delay_loop(NS_TO_CYCLES(bitVal ? T1H : T0H)); // Delay for T1H or T0H
+
+  GPIO.out_w1tc = pinMask; // Clear the output bit using GPIO.out_w1tc register
+  delay_loop(NS_TO_CYCLES(bitVal ? T0L : T1L)); // Delay for T0L or T1L
+}
+
+inline void sendByte(unsigned char byte)
+{
+  for (unsigned char bit = 0; bit < 8; bit++) {
+    sendBit((byte & 0x80) != 0); // Neopixel wants bit in highest-to-lowest order
+    byte <<= 1;                   // Shift left so bit 6 moves into 7, 5 moves into 6, etc
+  }
+}
+#endif
+
 void Leds::update()
 {
+#ifdef VORTEX_EMBEDDED
+  //// Important: need to disable interrupts during the transmission
+  //noInterrupts();
+  //for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
+  //  const RGBColor &col = m_ledColors[pos];
+  //  sendByte((col.green * m_brightness) >> 8);
+  //  sendByte((col.red * m_brightness) >> 8);
+  //  sendByte((col.blue * m_brightness) >> 8);
+  //}
+  //// Re-enable interrupts
+  //interrupts();
+  //// Required to latch the LEDs
+  //delayMicroseconds(10);
+  //for (int i = 0; i < 32; ++i) {
+  //  digitalWrite(i, HIGH);
+  //}
+#endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsShow();
 #endif

@@ -86,6 +86,12 @@ enum Pair : uint8_t
   PAIR_3,
   PAIR_4,
 
+  PAIR_5,
+  PAIR_6,
+  PAIR_7,
+  PAIR_8,
+  PAIR_9,
+
   PAIR_COUNT,
   PAIR_LAST = (PAIR_COUNT - 1),
 };
@@ -154,6 +160,9 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 // macro for all evens and odds
 #define MAP_PAIR_EVENS (((1 << LED_COUNT) - 1) & 0x55555555)
 #define MAP_PAIR_ODDS (((1 << LED_COUNT) - 1) & 0xAAAAAAAA)
+
+#define MAP_OUTER_RING ((((1 << LED_COUNT) - 1) >> (LED_COUNT / 2)) << (LED_COUNT / 2))
+#define MAP_INNER_RING ((((1 << LED_COUNT) - 1) << (LED_COUNT / 2)) >> (LED_COUNT / 2))
 
 // Some preset bitmaps for pair groupings
 #define MAP_PAIR_ODD_EVENS (MAP_PAIR_EVEN(PAIR_0) | MAP_PAIR_EVEN(PAIR_2) | MAP_PAIR_EVEN(PAIR_4))

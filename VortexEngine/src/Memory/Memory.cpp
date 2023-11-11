@@ -120,14 +120,14 @@ uint32_t cur_memory_usage_total()
 #ifndef VORTEX_LIB
 
 // for C++11 need the following:
-void *operator new  (size_t size) { return vmalloc(size); }
-void *operator new[](size_t size) { return vmalloc(size); }
-void  operator delete  (void *ptr) { vfree(ptr); }
-void  operator delete[](void *ptr) { vfree(ptr); }
-void *operator new  (size_t size, void *ptr) noexcept { return ptr; }
-void *operator new[](size_t size, void *ptr) noexcept { return ptr; }
-void  operator delete  (void *ptr, size_t size) noexcept { vfree(ptr); }
-void  operator delete[](void *ptr, size_t size) noexcept { vfree(ptr); }
+//void *operator new  (size_t size) { return vmalloc(size); }
+//void *operator new[](size_t size) { return vmalloc(size); }
+//void  operator delete  (void *ptr) { vfree(ptr); }
+//void  operator delete[](void *ptr) { vfree(ptr); }
+//void *operator new  (size_t size, void *ptr) noexcept { return ptr; }
+//void *operator new[](size_t size, void *ptr) noexcept { return ptr; }
+//void  operator delete  (void *ptr, size_t size) noexcept { vfree(ptr); }
+//void  operator delete[](void *ptr, size_t size) noexcept { vfree(ptr); }
 //void *operator new  (size_t size, std::align_val_t al) { return vmalloc(size); }
 //void *operator new[](size_t size, std::align_val_t al) { return vmalloc(size); }
 //void  operator delete  (void *ptr, std::align_val_t al) noexcept { vfree(ptr); }
