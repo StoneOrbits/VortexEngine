@@ -136,7 +136,7 @@ uint32_t cur_memory_usage_total()
 //void  operator delete[](void *ptr, size_t size, std::align_val_t al) noexcept { vfree(ptr); }
 
 // needed for C++ virtual functions
-extern "C" void __cxa_pure_virtual(void) {}
-extern "C" void __cxa_deleted_virtual(void) {}
+//extern "C" void __cxa_pure_virtual(void) {}
+//extern "C" void __cxa_deleted_virtual(void) {}
 
 #endif

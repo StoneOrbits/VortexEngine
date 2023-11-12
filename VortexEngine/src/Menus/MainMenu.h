@@ -1,7 +1,7 @@
 #ifndef MAINMENU_H
 #define MAINMENU_H
 
-#include <inttypes.h>n
+#include <inttypes.h>
 
 class MainMenu
 {

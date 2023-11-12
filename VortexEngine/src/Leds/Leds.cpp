@@ -13,8 +13,17 @@
 #endif
 
 #ifdef VORTEX_EMBEDDED
-#include <Arduino.h>
-#define LED_DATA_PIN  8
+#pragma GCC diagnostic ignored "-Wclass-memaccess"
+#include <FastLED.h>
+
+#define DATA_PIN    13  // Replace with your actual pin number
+
+//#include <Freenove_WS2812_Lib_for_ESP32.h>
+//// 19 -> no
+//// 20 -> no
+//// 21
+//#define LED_DATA_PIN  25
+//Freenove_ESP32_WS2812 leds = Freenove_ESP32_WS2812(LED_COUNT, LED_DATA_PIN, 0, TYPE_GRB);
 #endif
 
 // array of led color values
@@ -25,9 +34,10 @@ uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 bool Leds::init()
 {
 #ifdef VORTEX_EMBEDDED
-  //for (int i = 0; i < 32; ++i) {
-  //  pinMode(i, OUTPUT);
-  //}
+  //pinMode(LED_DATA_PIN, OUTPUT);
+  FastLED.addLeds<WS2812B, DATA_PIN, GRB>((CRGB *)m_ledColors, LED_COUNT);
+  //leds.begin();
+  //leds.setBrightness(255);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
@@ -256,62 +266,14 @@ void Leds::holdAll(RGBColor col)
   Time::delayMilliseconds(250);
 }
 
-#ifdef VORTEX_EMBEDDED
-
-// idk how correct this is but it works
-#define CPU_FREQUENCY_MHZ 240
-#define NS_TO_CYCLES(ns) (((ns) * CPU_FREQUENCY_MHZ) / 1000)
-
-// these timings were found through trial and error
-#define T0H 1
-#define T0L 50
-#define T1H 50
-#define T1L 1
-
-inline void delay_loop(uint32_t loop)
-{
-  while (loop--) {
-    __asm__ __volatile__("nop");
-  }
-}
-
-inline void sendBit(bool bitVal)
-{
-  uint32_t pinMask = (1ul << LED_DATA_PIN); // Assuming LED_DATA_PIN is the GPIO pin number
-  GPIO.out_w1ts = pinMask; // Set the output bit using GPIO.out_w1ts register
-  delay_loop(NS_TO_CYCLES(bitVal ? T1H : T0H)); // Delay for T1H or T0H
-
-  GPIO.out_w1tc = pinMask; // Clear the output bit using GPIO.out_w1tc register
-  delay_loop(NS_TO_CYCLES(bitVal ? T0L : T1L)); // Delay for T0L or T1L
-}
-
-inline void sendByte(unsigned char byte)
-{
-  for (unsigned char bit = 0; bit < 8; bit++) {
-    sendBit((byte & 0x80) != 0); // Neopixel wants bit in highest-to-lowest order
-    byte <<= 1;                   // Shift left so bit 6 moves into 7, 5 moves into 6, etc
-  }
-}
-#endif
-
 void Leds::update()
 {
 #ifdef VORTEX_EMBEDDED
-  //// Important: need to disable interrupts during the transmission
-  //noInterrupts();
-  //for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
-  //  const RGBColor &col = m_ledColors[pos];
-  //  sendByte((col.green * m_brightness) >> 8);
-  //  sendByte((col.red * m_brightness) >> 8);
-  //  sendByte((col.blue * m_brightness) >> 8);
+  //for (LedPos i = LED_FIRST; i < LED_COUNT; i++) {
+  //  leds.set_pixel(i, );
   //}
-  //// Re-enable interrupts
-  //interrupts();
-  //// Required to latch the LEDs
-  //delayMicroseconds(10);
-  //for (int i = 0; i < 32; ++i) {
-  //  digitalWrite(i, HIGH);
-  //}
+  //leds.show();
+  FastLED.show();
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsShow();
