@@ -1,10 +1,10 @@
-name: Chromadeck Build
+name: Spark Build
 
 on:
   push:
-    branches: [ "chromadeck" ]
+    branches: [ "spark" ]
   pull_request:
-    branches: [ "chromadeck" ]
+    branches: [ "spark" ]
   workflow_dispatch: # manual trigger
 
 jobs:
@@ -30,7 +30,7 @@ jobs:
   docs:
     needs: test
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/chromadeck'
+    if: github.ref == 'refs/heads/spark'
     steps:
     - name: Checkout current repository
       uses: actions/checkout@v3
@@ -48,4 +48,4 @@ jobs:
         git config --local user.name "GitHub Action"
         git add docs
         git commit -m "Update Doxygen documentation"
-        git push -f origin HEAD:chromadeck-docs
+        git push -f origin HEAD:spark-docs
