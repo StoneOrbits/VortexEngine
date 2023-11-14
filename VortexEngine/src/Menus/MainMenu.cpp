@@ -78,4 +78,5 @@ void MainMenu::pressRight()
 
 void MainMenu::select()
 {
+  m_isOpen = false;
 }
