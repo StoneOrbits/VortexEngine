@@ -10,8 +10,8 @@
 #include "../Colors/Colorset.h"
 #include "../Storage/Storage.h"
 #include "../Buttons/Buttons.h"
-#include "../Menus/MainMenu.h"
 #include "../Time/Timings.h"
+#include "../Menus/Menus.h"
 #include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
@@ -74,7 +74,7 @@ void Modes::play()
   }
   // shortclick cycles to the next mode
   if (g_pButtonM->onShortClick()) {
-    MainMenu::open();
+    Menus::openMenuSelection();
   }
   // shortclick cycles to the next mode
   if (g_pButtonL->onShortClick()) {

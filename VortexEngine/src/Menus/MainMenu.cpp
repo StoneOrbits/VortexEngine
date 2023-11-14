@@ -1,11 +1,14 @@
 #include "MainMenu.h"
 
 #include "../Time/TimeControl.h"
+#include "../Storage/Storage.h"
 #include "../Buttons/Buttons.h"
 #include "../Leds/LedTypes.h"
+#include "../Modes/Modes.h"
 #include "../Leds/Leds.h"
+#include "../Log/Log.h"
 
-bool MainMenu::m_isOpen = false;
+bool MainMenu::m_isOpen = true;
 uint8_t MainMenu::m_curSelection = 0;
 
 #define NUM_SELECTIONS (LED_COUNT / 2)
@@ -89,4 +92,9 @@ void MainMenu::pressRight()
 void MainMenu::select()
 {
   m_isOpen = false;
+  Storage::setStoragePage(m_curSelection);
+  if (!Modes::loadStorage()) {
+    Modes::setDefaults();
+  }
+  DEBUG_LOGF("Selected storage page: %u", m_curSelection);
 }
