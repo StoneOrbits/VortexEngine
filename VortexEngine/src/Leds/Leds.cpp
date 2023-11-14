@@ -15,15 +15,7 @@
 #ifdef VORTEX_EMBEDDED
 #pragma GCC diagnostic ignored "-Wclass-memaccess"
 #include <FastLED.h>
-
-#define DATA_PIN    13  // Replace with your actual pin number
-
-//#include <Freenove_WS2812_Lib_for_ESP32.h>
-//// 19 -> no
-//// 20 -> no
-//// 21
-//#define LED_DATA_PIN  25
-//Freenove_ESP32_WS2812 leds = Freenove_ESP32_WS2812(LED_COUNT, LED_DATA_PIN, 0, TYPE_GRB);
+#define DATA_PIN    4
 #endif
 
 // array of led color values
@@ -34,10 +26,9 @@ uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 bool Leds::init()
 {
 #ifdef VORTEX_EMBEDDED
-  //pinMode(LED_DATA_PIN, OUTPUT);
   FastLED.addLeds<WS2812B, DATA_PIN, GRB>((CRGB *)m_ledColors, LED_COUNT);
-  //leds.begin();
-  //leds.setBrightness(255);
+  pinMode(18, OUTPUT);
+  digitalWrite(18, HIGH);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
@@ -269,10 +260,6 @@ void Leds::holdAll(RGBColor col)
 void Leds::update()
 {
 #ifdef VORTEX_EMBEDDED
-  //for (LedPos i = LED_FIRST; i < LED_COUNT; i++) {
-  //  leds.set_pixel(i, );
-  //}
-  //leds.show();
   FastLED.show();
 #endif
 #ifdef VORTEX_LIB
