@@ -62,6 +62,16 @@ void MainMenu::show()
   Leds::blinkIndex((LedPos)(m_curSelection + 10));
 }
 
+void MainMenu::open()
+{
+  m_isOpen = true;
+}
+
+bool MainMenu::isOpen()
+{
+  return m_isOpen;
+}
+
 void MainMenu::pressLeft()
 {
   m_curSelection = (m_curSelection + 1) % NUM_SELECTIONS;

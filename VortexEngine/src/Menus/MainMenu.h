@@ -9,6 +9,10 @@ public:
   static bool init();
   static bool run();
   static void show();
+
+  // open the main menu
+  static void open();
+  static bool isOpen();
 private:
   static void pressLeft();
   static void pressRight();

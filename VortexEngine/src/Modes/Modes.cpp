@@ -10,6 +10,7 @@
 #include "../Colors/Colorset.h"
 #include "../Storage/Storage.h"
 #include "../Buttons/Buttons.h"
+#include "../Menus/MainMenu.h"
 #include "../Time/Timings.h"
 #include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
@@ -68,8 +69,16 @@ void Modes::play()
     return;
   }
   // shortclick cycles to the next mode
-  if (g_pButtonM->onShortClick()) {
+  if (g_pButtonR->onShortClick()) {
     nextModeSkipEmpty();
+  }
+  // shortclick cycles to the next mode
+  if (g_pButtonM->onShortClick()) {
+    MainMenu::open();
+  }
+  // shortclick cycles to the next mode
+  if (g_pButtonL->onShortClick()) {
+    previousMode();
   }
   // play the current mode
   m_pCurModeLink->play();
