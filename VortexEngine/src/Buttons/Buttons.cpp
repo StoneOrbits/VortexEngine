@@ -7,6 +7,14 @@
 #include "../Time/Timings.h"
 #endif
 
+#ifdef SPARK_HANDLE
+// handle is on 47
+#define BUTTON_PIN 47
+#else
+// orbit is on 7
+#define BUTTON_PIN 7
+#endif
+
 // Since there is only one button I am just going to expose a global pointer to
 // access it, instead of making the Button class static in case a second button
 // is added. This makes it easier to access the button from other places while
@@ -23,7 +31,7 @@ Button Buttons::m_buttons[NUM_BUTTONS];
 bool Buttons::init()
 {
   // initialize the button on pins 9/10/11
-  if (!m_buttons[0].init(7)) {
+  if (!m_buttons[0].init(BUTTON_PIN)) {
     return false;
   }
   g_pButton = &m_buttons[0];

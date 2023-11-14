@@ -16,7 +16,11 @@
 #pragma GCC diagnostic ignored "-Wclass-memaccess"
 #include <FastLED.h>
 #define LED_PIN       16
+#ifdef SPARK_HANDLE
+#define MOSFET_PIN    48
+#else
 #define MOSFET_PIN    18
+#endif
 #endif
 
 // array of led color values
@@ -28,6 +32,7 @@ bool Leds::init()
 {
 #ifdef VORTEX_EMBEDDED
   FastLED.addLeds<WS2812B, LED_PIN, GRB>((CRGB *)m_ledColors, LED_COUNT);
+  FastLED.setMaxRefreshRate(0);
   pinMode(MOSFET_PIN, OUTPUT);
   digitalWrite(MOSFET_PIN, HIGH);
 #endif
