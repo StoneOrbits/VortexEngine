@@ -43,6 +43,10 @@ protected:
 
   // iterate to next bulb selection
   void nextBulbSelection();
+  void prevBulbSelection();
+
+  // blink the selected finger
+  virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
 
   // the mode copied from the current mode used to preview changes
   Mode m_previewMode;
@@ -51,6 +55,8 @@ protected:
   // tracks the targetted leds for this menu
   // note this is an led map
   LedMap m_targetLeds;
+  // current index of led maps
+  uint16_t m_ledSelection;
   // all menus have a 'current selection'
   uint8_t m_curSelection;
   // true once a an led is selected
@@ -61,6 +67,8 @@ protected:
 private:
   // internal flag to close the menu
   bool m_shouldClose;
+  // add to the current selection of leds
+  void addSelectionMask();
 
 #ifdef VORTEX_LIB
   friend class Vortex;
