@@ -4,12 +4,15 @@
 #include "Wireless/IRSender.h"
 #include "Wireless/VLReceiver.h"
 #include "Wireless/VLSender.h"
+#include "Wireless/IRConfig.h"
+#include "Wireless/VLConfig.h"
 #include "Storage/Storage.h"
 #include "Buttons/Buttons.h"
 #include "Time/TimeControl.h"
 #include "Time/Timings.h"
 #include "Serial/Serial.h"
 #include "Modes/Modes.h"
+#include "Menus/MainMenu.h"
 #include "Menus/Menus.h"
 #include "Modes/Mode.h"
 #include "Leds/Leds.h"
@@ -40,22 +43,30 @@ bool VortexEngine::init()
     DEBUG_LOG("Storage failed to initialize");
     return false;
   }
+#if IR_ENABLE_RECEIVER == 1
   if (!IRReceiver::init()) {
     DEBUG_LOG("IRReceiver failed to initialize");
     return false;
   }
+#endif
+#if IR_ENABLE_SENDER == 1
   if (!IRSender::init()) {
     DEBUG_LOG("IRSender failed to initialize");
     return false;
   }
+#endif
+#if VL_ENABLE_RECEIVER == 1
   if (!VLReceiver::init()) {
     DEBUG_LOG("VLReceiver failed to initialize");
     return false;
   }
+#endif
+#if VL_ENABLE_SENDER == 1
   if (!VLSender::init()) {
     DEBUG_LOG("VLSender failed to initialize");
     return false;
   }
+#endif
   if (!Leds::init()) {
     DEBUG_LOG("Leds failed to initialize");
     return false;
@@ -70,6 +81,10 @@ bool VortexEngine::init()
   }
   if (!Modes::init()) {
     DEBUG_LOG("Settings failed to initialize");
+    return false;
+  }
+  if (!MainMenu::init()) {
+    DEBUG_LOG("Main menu failed to initialize");
     return false;
   }
 
@@ -98,10 +113,18 @@ void VortexEngine::cleanup()
   Menus::cleanup();
   Buttons::cleanup();
   Leds::cleanup();
+#if VL_ENABLE_SENDER == 1
   VLSender::cleanup();
+#endif
+#if VL_ENABLE_RECEIVER == 1
   VLReceiver::cleanup();
+#endif
+#if IR_ENABLE_SENDER == 1
   IRSender::cleanup();
+#endif
+#if IR_ENABLE_RECEIVER == 1
   IRReceiver::cleanup();
+#endif
   Storage::cleanup();
   Time::cleanup();
   SerialComs::cleanup();
@@ -153,6 +176,11 @@ void VortexEngine::runMainLogic()
 {
   // the current tick
   uint32_t now = Time::getCurtime();
+
+  // if the main menu is open just run it and return
+  if (MainMenu::run()) {
+    return;
+  }
 
   // if the menus are open and running then just return
   if (Menus::run()) {
