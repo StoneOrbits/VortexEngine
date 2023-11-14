@@ -7,7 +7,7 @@
 // changing it won't really work without updating other things
 // like which pins the buttons are attached to. So this is more
 // of a hardcoded constant than a configuration setting
-#define NUM_BUTTONS 3
+#define NUM_BUTTONS 1
 
 class Buttons
 {
@@ -27,11 +27,7 @@ private:
   static Button m_buttons[NUM_BUTTONS];
 };
 
-// Button Left
-extern Button *g_pButtonL;
 // Button Mid
-extern Button *g_pButtonM;
-// Button Right
-extern Button *g_pButtonR;
+extern Button *g_pButton;
 
 #endif

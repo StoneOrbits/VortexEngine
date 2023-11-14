@@ -19,22 +19,6 @@ enum LedPos : uint8_t
   LED_3,
   LED_4,
   LED_5,
-  LED_6,
-  LED_7,
-  LED_8,
-  LED_9,
-
-  // inner circle of leds
-  LED_10,
-  LED_11,
-  LED_12,
-  LED_13,
-  LED_14,
-  LED_15,
-  LED_16,
-  LED_17,
-  LED_18,
-  LED_19,
 
   // the number of entries above
   LED_COUNT,
@@ -86,15 +70,15 @@ enum Pair : uint8_t
   PAIR_3,
   PAIR_4,
 
-  PAIR_5,
-  PAIR_6,
-  PAIR_7,
-  PAIR_8,
-  PAIR_9,
-
   PAIR_COUNT,
   PAIR_LAST = (PAIR_COUNT - 1),
 };
+
+// map other leds for multi compatibility
+#define LED_6 LED_0
+#define LED_7 LED_1
+#define LED_8 LED_2
+#define LED_9 LED_3
 
 // check if an led is even or odd
 #define isEven(pos) ((pos % 2) == 0)

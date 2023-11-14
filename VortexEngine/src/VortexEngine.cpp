@@ -12,7 +12,6 @@
 #include "Time/Timings.h"
 #include "Serial/Serial.h"
 #include "Modes/Modes.h"
-#include "Menus/MainMenu.h"
 #include "Menus/Menus.h"
 #include "Modes/Mode.h"
 #include "Leds/Leds.h"
@@ -83,10 +82,6 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
-  if (!MainMenu::init()) {
-    DEBUG_LOG("Main menu failed to initialize");
-    return false;
-  }
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -138,12 +133,12 @@ void VortexEngine::tick()
     // update the buttons to check for wake
     Buttons::update();
     // several fast clicks will unlock the device
-    if (Modes::locked() && g_pButtonM->onConsecutivePresses(DEVICE_LOCK_CLICKS - 1)) {
+    if (Modes::locked() && g_pButton->onConsecutivePresses(DEVICE_LOCK_CLICKS - 1)) {
       // turn off the lock flag and save it to disk
       Modes::setLocked(false);
     }
     // check for any kind of press to wakeup
-    if (g_pButtonM->check() || g_pButtonM->onRelease() || !Vortex::sleepEnabled()) {
+    if (g_pButton->check() || g_pButton->onRelease() || !Vortex::sleepEnabled()) {
       wakeup();
     }
     return;
@@ -177,25 +172,20 @@ void VortexEngine::runMainLogic()
   // the current tick
   uint32_t now = Time::getCurtime();
 
-  // if the main menu is open just run it and return
-  if (MainMenu::run()) {
-    return;
-  }
-
   // if the menus are open and running then just return
   if (Menus::run()) {
     return;
   }
 
   // check if we should enter the menu
-  if (g_pButtonM->isPressed() && g_pButtonM->holdDuration() > MENU_TRIGGER_THRESHOLD_TICKS) {
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > MENU_TRIGGER_THRESHOLD_TICKS) {
     DEBUG_LOG("Entering Menu Selection...");
     Menus::openMenuSelection();
     return;
   }
 
   // toggle auto cycle mode with many clicks at main modes
-  if (g_pButtonM->onConsecutivePresses(AUTO_CYCLE_MODES_CLICKS)) {
+  if (g_pButton->onConsecutivePresses(AUTO_CYCLE_MODES_CLICKS)) {
     m_autoCycle = !m_autoCycle;
     Leds::holdAll(m_autoCycle ? RGB_GREEN : RGB_RED);
   }

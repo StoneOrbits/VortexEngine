@@ -2,7 +2,7 @@
 
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
-#include "../Buttons/Button.h"
+#include "../Buttons/Buttons.h"
 #include "../Menus/Menus.h"
 #include "../Modes/Modes.h"
 #include "../Modes/Mode.h"
@@ -69,11 +69,11 @@ Menu::MenuAction Menu::run()
   // class's onShortClick and onLongClick functions so
 
   // every time the button is clicked, change the target led
-  if (g_pButtonM->onShortClick()) {
+  if (g_pButton->onShortClick()) {
     nextBulbSelection();
   }
   // on a long press of the button, lock in the target led
-  if (g_pButtonM->onLongClick()) {
+  if (g_pButton->onLongClick()) {
     m_ledSelected = true;
     // call led selected callback
     onLedSelected();
@@ -105,7 +105,7 @@ void Menu::showBulbSelection()
 
 void Menu::showExit()
 {
-  if (g_pButtonM->isPressed() && g_pButtonM->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
     Leds::setAll(RGB_RED);
     return;
   }

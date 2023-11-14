@@ -15,7 +15,8 @@
 #ifdef VORTEX_EMBEDDED
 #pragma GCC diagnostic ignored "-Wclass-memaccess"
 #include <FastLED.h>
-#define DATA_PIN    4
+#define LED_PIN       16
+#define MOSFET_PIN    18
 #endif
 
 // array of led color values
@@ -26,9 +27,9 @@ uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 bool Leds::init()
 {
 #ifdef VORTEX_EMBEDDED
-  FastLED.addLeds<WS2812B, DATA_PIN, GRB>((CRGB *)m_ledColors, LED_COUNT);
-  pinMode(18, OUTPUT);
-  digitalWrite(18, HIGH);
+  FastLED.addLeds<WS2812B, LED_PIN, GRB>((CRGB *)m_ledColors, LED_COUNT);
+  pinMode(MOSFET_PIN, OUTPUT);
+  digitalWrite(MOSFET_PIN, HIGH);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
@@ -260,7 +261,7 @@ void Leds::holdAll(RGBColor col)
 void Leds::update()
 {
 #ifdef VORTEX_EMBEDDED
-  FastLED.show();
+  FastLED.show(m_brightness);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsShow();

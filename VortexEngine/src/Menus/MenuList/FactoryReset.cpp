@@ -70,7 +70,7 @@ void FactoryReset::onLongClick()
     return;
   }
   // if the button hasn't been held long enough just return
-  if (g_pButtonM->holdDuration() <= (FACTORY_RESET_THRESHOLD_TICKS + MS_TO_TICKS(10))) {
+  if (g_pButton->holdDuration() <= (FACTORY_RESET_THRESHOLD_TICKS + MS_TO_TICKS(10))) {
     return;
   }
   // the button was held down long enough so actually perform the factory reset
@@ -101,14 +101,14 @@ void FactoryReset::showReset()
     Leds::blinkAll(350, 350, RGB_WHITE0);
     return;
   }
-  bool isPressed = g_pButtonM->isPressed();
+  bool isPressed = g_pButton->isPressed();
   if (!isPressed) {
     Leds::clearAll();
     Leds::blinkAll(50, 50, RGB_RED4);
     return;
   }
   // don't start the fill until the button has been held for a bit
-  uint32_t holdDur = g_pButtonM->holdDuration();
+  uint32_t holdDur = g_pButton->holdDuration();
   if (holdDur < MS_TO_TICKS(100)) {
     return;
   }

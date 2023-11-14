@@ -14,12 +14,8 @@
 // elegant way to make the button accessible but not global.
 // This will simply point at Buttons::m_button.
 
-// Button Left
-Button *g_pButtonL = nullptr;
-// Button Mid
-Button *g_pButtonM = nullptr;
-// Button Right
-Button *g_pButtonR = nullptr;
+// Button
+Button *g_pButton = nullptr;
 
 // static members
 Button Buttons::m_buttons[NUM_BUTTONS];
@@ -27,14 +23,10 @@ Button Buttons::m_buttons[NUM_BUTTONS];
 bool Buttons::init()
 {
   // initialize the button on pins 9/10/11
-  if (!m_buttons[0].init(4) ||
-      !m_buttons[1].init(5) ||
-      !m_buttons[2].init(6)) {
+  if (!m_buttons[0].init(7)) {
     return false;
   }
-  g_pButtonL = &m_buttons[0];
-  g_pButtonM = &m_buttons[1];
-  g_pButtonR = &m_buttons[2];
+  g_pButton = &m_buttons[0];
   return true;
 }
 

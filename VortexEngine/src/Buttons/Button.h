@@ -97,11 +97,7 @@ private:
 #endif
 };
 
-// Button Left
-extern Button *g_pButtonL;
-// Button Mid
-extern Button *g_pButtonM;
-// Button Right
-extern Button *g_pButtonR;
+// Button
+extern Button *g_pButton;
 
 #endif
