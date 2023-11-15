@@ -26,7 +26,7 @@
 
 // the engine flavour, this should change for each device/flavour
 // of the engine that branches off from the main indefinitely
-#define VORTEX_NAME "Chromadeck"
+#define VORTEX_NAME "Spark"
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
@@ -39,6 +39,9 @@
 // multi-led patterns take up too much space and the compression
 // uses too much stack space to run on smaller devices
 #define VORTEX_SLIM           0
+
+// Turn on this flag to change from Spark Orbit pins to Spark Handle pins 
+#define SPARK_HANDLE
 
 // ===================================================================
 //  Numeric Configurations

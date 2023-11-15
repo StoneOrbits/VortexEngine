@@ -12,4 +12,5 @@ void setup()
 void loop()
 {
   VortexEngine::tick();
+  Serial.println("test");
 }
