@@ -195,44 +195,6 @@ void Menu::leaveMenu(bool doSave)
   }
 }
 
-void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
-{
-  uint32_t blinkCol = RGB_OFF;
-  if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
-    // blink green if long pressing on a selection
-    blinkCol = RGB_WHITE6;
-  }
-  switch (m_curSelection) {
-  case QUADRANT_LAST:
-    // exit thumb breathes red on the tip and is either blank or red on the top
-    // depending on whether you've held for the short click threshold or not
-    if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
-      Leds::setQuadrantFive(RGB_WHITE);
-    } else {
-      Leds::clearQuadrantFive();
-      Leds::setQuadrantFive(RGB_RED);
-      Leds::blinkQuadrantFive(250, 500, RGB_WHITE0);
-    }
-    break;
-  case QUADRANT_COUNT:
-    // special selection clause 'select all' do nothing
-    break;
-  default:
-    // otherwise just blink the selected finger to off from whatever
-    // color or pattern it's currently displaying
-    if (blinkCol == RGB_OFF && Leds::getLed(quadrantFirstLed(m_curSelection)).empty()) {
-      // if the blink color is 'off' and the led is a blank then we
-      // need to blink to a different color
-      blinkCol = RGB_WHITE0;
-    }
-    // blink the target finger to the target color
-    Leds::blinkQuadrantOffset(m_curSelection,
-      g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime(),
-      offMs, onMs, blinkCol);
-    break;
-  }
-}
-
 // this adds the currently targeted ledPermutation to the selected leds
 void Menu::addSelectionMask() {
   // if selecting any of the individual leds then toggle

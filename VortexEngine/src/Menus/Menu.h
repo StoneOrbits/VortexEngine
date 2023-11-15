@@ -45,9 +45,6 @@ protected:
   void nextBulbSelection();
   void prevBulbSelection();
 
-  // blink the selected finger
-  virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
-
   // the mode copied from the current mode used to preview changes
   Mode m_previewMode;
   // the color of this menu
