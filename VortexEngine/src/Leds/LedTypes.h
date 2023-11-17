@@ -144,6 +144,9 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 // bitmap of all pairs (basically LED_COUNT bits)
 #define MAP_LED_ALL ((2 << (LED_COUNT - 1)) - 1)
 
+// blank map
+#define MAP_LED_NONE 0
+
 #define MAP_INVERSE(map) ((~map) & MAP_LED_ALL)
 
 // macro for all evens and odds
