@@ -38,4 +38,8 @@ This branch contains the firmware for the Vortex Duo Modular Chip.
 ![Chromadeck](https://github.com/StoneOrbits/VortexEngine/actions/workflows/chromadeck_build.yml/badge.svg?branch=chromadeck)  
 This branch contains the firmware for the Vortex Chromadeck dynamic storage and transfer tool.
 
+### Spark (Spark Orbit and Handle)
+![Spark](https://github.com/StoneOrbits/VortexEngine/actions/workflows/spark_build.yml/badge.svg?branch=spark)  
+This branch contains the firmware for the Vortex Spark firmware, this powers multiple devices: the Spark Orbit and Spark Handle.
+
 To access a device's firmware, simply switch to its corresponding branch.
