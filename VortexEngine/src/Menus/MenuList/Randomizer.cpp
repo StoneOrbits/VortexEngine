@@ -228,6 +228,25 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
   return pMode->setPattern(newPat, pos, &args);
 }
 
+bool Randomizer::rollMultiPattern(Random &ctx, Mode *pMode, LedPos pos)
+{
+  PatternArgs args;
+  // pick a random type of randomizer to use then use
+  // the randomizer to generate a random pattern
+  uint8_t patternType = ctx.next8(PATTERN_MULTI_FIRST, PATTERN_MULTI_LAST);
+  PatternID newPat = PATTERN_STROBE;
+  // 1/3 chance to roll a blend pattern instead which will animate between
+  // colors instead of blinking each color in the set
+  if (!ctx.next8(0, 3)) {
+    newPat = PATTERN_BLEND;
+    // this is the number of blinks to a complementary color
+    args.arg7 = ctx.next8(0, 3);
+    // up to arg7 is filled now
+    args.numArgs = 7;
+  }
+  return pMode->setPattern(newPat, pos, &args);
+}
+
 void Randomizer::traditionalPattern(Random &ctx, PatternArgs &outArgs)
 {
   outArgs.init(
@@ -277,6 +296,11 @@ PatternID Randomizer::rollPatternID(Random &ctx)
   return newPat;
 }
 
+PatternID Randomizer::rollMultiPatternID(Random &ctx)
+{
+  return (PatternID)ctx.next8(PATTERN_MULTI_FIRST, PATTERN_MULTI_LAST);
+}
+
 bool Randomizer::reRoll()
 {
   MAP_FOREACH_LED(m_targetLeds) {
@@ -299,6 +323,29 @@ bool Randomizer::reRoll()
     if (m_flags & RANDOMIZE_COLORSET) {
       // roll a new colorset
       if (!m_previewMode.setColorset(rollColorset(ctx), pos)) {
+        ERROR_LOG("Failed to roll new colorset");
+        return false;
+      }
+    }
+  }
+  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+    if (m_flags & RANDOMIZE_PATTERN) {
+      // roll a new pattern
+      if (m_advanced) {
+        if (!rollMultiPattern(m_multiRandCtx, &m_previewMode, LED_MULTI)) {
+          ERROR_LOG("Failed to roll new pattern");
+          return false;
+        }
+      } else {
+        if (!m_previewMode.setPattern(rollMultiPatternID(m_multiRandCtx), LED_MULTI)) {
+          ERROR_LOG("Failed to roll new pattern");
+          return false;
+        }
+      }
+    }
+    if (m_flags & RANDOMIZE_COLORSET) {
+      // roll a new colorset
+      if (!m_previewMode.setColorset(rollColorset(m_multiRandCtx), LED_MULTI)) {
         ERROR_LOG("Failed to roll new colorset");
         return false;
       }
