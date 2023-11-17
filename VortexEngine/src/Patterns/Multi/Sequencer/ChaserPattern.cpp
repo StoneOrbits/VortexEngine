@@ -13,7 +13,7 @@ ChaserPattern::ChaserPattern(const PatternArgs &args) :
   // a pattern map for each step. A colorset map can also be applied
   // to override certain colors for specific steps, but that's not
   // what is being done here
-  for (uint8_t i = 0; i < 8; ++i) {
+  for (uint8_t i = 0; i < LED_COUNT; ++i) {
     // Each step all fingers are dops except for one, so start with a
     // Pattern Map that has dops on all fingers. A Pattern Map will map
     // a Pattern ID to each LED on the device, then we will override a
@@ -35,7 +35,7 @@ ChaserPattern::ChaserPattern(const PatternArgs &args) :
     //     5         3             6, 7        00 11 00 00 00
     //     6         2             4, 5        00 00 11 00 00
     //     7         1             2, 3        00 00 00 11 00
-    LedMap overrideLeds = 0; //MAP_PAIR((Pair)((i < 5) ? i : (8 - i)));
+    LedMap overrideLeds = MAP_LED(i) | MAP_LED((i + LED_COUNT/4) % LED_COUNT) | MAP_LED((i + LED_COUNT / 2) % LED_COUNT) | MAP_LED((i + (3* LED_COUNT / 4)) % LED_COUNT); //MAP_PAIR((Pair)((i < 5) ? i : (8 - i)));
     // Then this API is used to override specific positions in the Pattern Map
     // with a different pattern ID, we use the Led Map generated above to tell
     // setPatternAt() which indices to override with Solid0
