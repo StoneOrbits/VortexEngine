@@ -14,7 +14,8 @@
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_state(STATE_PICK_LIST),
-  m_newPatternID(PATTERN_FIRST)
+  m_newPatternID(PATTERN_FIRST),
+  m_started(false)
 {
 }
 
