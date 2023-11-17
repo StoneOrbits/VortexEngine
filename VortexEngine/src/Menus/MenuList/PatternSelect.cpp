@@ -148,33 +148,35 @@ void PatternSelect::nextPattern()
 
 void PatternSelect::previousPattern()
 {
-  Mode *cur = Modes::curMode();
   LedPos srcLed = LED_MULTI;
-  if (!cur->isMultiLed()) {
+  if (!m_previewMode.isMultiLed()) {
     srcLed = mapGetFirstLed(m_targetLeds);
   }
-  PatternID newID = (PatternID)(cur->getPatternID(srcLed) - 1);
-  if (newID == PATTERN_SOLID) {
-    newID = (PatternID)(newID - 1);
-  }
+  PatternID newID = (PatternID)(m_previewMode.getPatternID(srcLed) - 1);
   PatternID endList = PATTERN_SINGLE_LAST;
   PatternID beginList = PATTERN_SINGLE_FIRST;
+#if VORTEX_SLIM == 0
   if (m_targetLeds == MAP_LED_ALL || m_targetLeds == MAP_LED(LED_MULTI)) {
     endList = PATTERN_MULTI_LAST;
   }
   if (m_targetLeds == MAP_LED(LED_MULTI)) {
     beginList = PATTERN_MULTI_FIRST;
   }
+#endif
   if (newID > endList || newID < beginList) {
     newID = endList;
   }
+  if (!m_started) {
+    m_started = true;
+    m_newPatternID = PATTERN_FIRST;
+  }
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {
-    cur->setPattern(newID);
+    m_previewMode.setPattern(newID);
   } else {
-    cur->setPatternMap(m_targetLeds, newID);
+    m_previewMode.setPatternMap(m_targetLeds, newID);
   }
-  cur->init();
+  m_previewMode.init();
   DEBUG_LOGF("Iterated to pattern id %d", newID);
 }
 
