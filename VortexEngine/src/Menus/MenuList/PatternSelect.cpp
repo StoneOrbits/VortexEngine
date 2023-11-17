@@ -14,8 +14,7 @@
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_state(STATE_PICK_LIST),
-  m_newPatternID(PATTERN_FIRST),
-  m_started(false)
+  m_newPatternID(PATTERN_FIRST)
 {
 }
 
@@ -132,15 +131,13 @@ void PatternSelect::nextPattern()
   if (newID > endList || newID < beginList) {
     newID = beginList;
   }
-  if (!m_started) {
-    m_started = true;
-    m_newPatternID = PATTERN_FIRST;
-  }
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {
     m_previewMode.setPattern(newID);
   } else {
+    // TODO: clear multi a better way
     m_previewMode.setPatternMap(m_targetLeds, newID);
+    m_previewMode.clearPattern(LED_MULTI);
   }
   m_previewMode.init();
   DEBUG_LOGF("Iterated to pattern id %d", newID);
@@ -166,15 +163,13 @@ void PatternSelect::previousPattern()
   if (newID > endList || newID < beginList) {
     newID = endList;
   }
-  if (!m_started) {
-    m_started = true;
-    m_newPatternID = PATTERN_FIRST;
-  }
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {
     m_previewMode.setPattern(newID);
   } else {
+    // TODO: clear multi a better way
     m_previewMode.setPatternMap(m_targetLeds, newID);
+    m_previewMode.clearPattern(LED_MULTI);
   }
   m_previewMode.init();
   DEBUG_LOGF("Iterated to pattern id %d", newID);
