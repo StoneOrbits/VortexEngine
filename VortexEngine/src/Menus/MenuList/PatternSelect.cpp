@@ -131,6 +131,10 @@ void PatternSelect::nextPattern()
   if (newID > endList || newID < beginList) {
     newID = beginList;
   }
+  if (!m_started) {
+    m_started = true;
+    m_newPatternID = PATTERN_FIRST;
+  }
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {
     m_previewMode.setPattern(newID);
@@ -162,6 +166,10 @@ void PatternSelect::previousPattern()
 #endif
   if (newID > endList || newID < beginList) {
     newID = endList;
+  }
+  if (!m_started) {
+    m_started = true;
+    m_newPatternID = PATTERN_FIRST;
   }
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {
