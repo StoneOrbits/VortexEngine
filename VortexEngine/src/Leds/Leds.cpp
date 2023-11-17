@@ -16,7 +16,7 @@
 #pragma GCC diagnostic ignored "-Wclass-memaccess"
 #include <FastLED.h>
 #define LED_PIN       16
-#ifdef SPARK_HANDLE
+#if SPARK_HANDLE == 1
 #define MOSFET_PIN    48
 #else
 #define MOSFET_PIN    18

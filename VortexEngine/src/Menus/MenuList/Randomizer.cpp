@@ -306,7 +306,7 @@ bool Randomizer::reRoll()
   }
   // initialize the mode with the new pattern and colorset
   m_previewMode.init();
-  DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
-    pos, randType, randomSet.numColors(), newPat);
+  //DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
+  //  pos, randType, randomSet.numColors(), newPat);
   return true;
 }

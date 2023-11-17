@@ -23,7 +23,7 @@ uint32_t SerialComs::m_lastCheck = 0;
 bool SerialComs::init()
 {
   // Try connecting serial ?
-  //checkSerial();
+  checkSerial();
   return true;
 }
 

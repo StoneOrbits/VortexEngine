@@ -7,7 +7,7 @@
 #include "../Time/Timings.h"
 #endif
 
-#ifdef SPARK_HANDLE
+#if SPARK_HANDLE == 1
 // handle is on 47
 #define BUTTON_PIN 47
 #else
