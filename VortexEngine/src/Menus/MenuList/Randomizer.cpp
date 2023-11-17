@@ -277,6 +277,11 @@ PatternID Randomizer::rollPatternID(Random &ctx)
   return newPat;
 }
 
+PatternID Randomizer::rollMultiPatternID(Random &ctx)
+{
+  return (PatternID)ctx.next8(PATTERN_MULTI_FIRST, PATTERN_MULTI_LAST);
+}
+
 bool Randomizer::reRoll()
 {
   MAP_FOREACH_LED(m_targetLeds) {
@@ -304,9 +309,25 @@ bool Randomizer::reRoll()
       }
     }
   }
+  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+    if (m_flags & RANDOMIZE_PATTERN) {
+      // TODO: Advanced multi led patterns?
+      if (!m_previewMode.setPattern(rollMultiPatternID(m_multiRandCtx), LED_MULTI)) {
+        ERROR_LOG("Failed to roll new pattern");
+        return false;
+      }
+    }
+    if (m_flags & RANDOMIZE_COLORSET) {
+      // roll a new colorset
+      if (!m_previewMode.setColorset(rollColorset(m_multiRandCtx), LED_MULTI)) {
+        ERROR_LOG("Failed to roll new colorset");
+        return false;
+      }
+    }
+  }
   // initialize the mode with the new pattern and colorset
   m_previewMode.init();
-  DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
-    pos, randType, randomSet.numColors(), newPat);
+  //DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
+  //  pos, randType, randomSet.numColors(), newPat);
   return true;
 }
