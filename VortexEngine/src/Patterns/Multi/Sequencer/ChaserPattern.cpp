@@ -1,7 +1,8 @@
 #include "ChaserPattern.h"
 
-// This controlls the ratio of chaser dots to LED_COUNT. Default 1 chaser per 7 LEDs.
+// This controlls the ratio of chaser dots to LED_COUNT. Default 1 chaser per 7 LEDs. Range: 1-LED_COUNT.
 #define CHASER_RATIO 7
+
 
 // This pattern aims to be a demonstration of the sequencer.
 // There are always many ways to implement a pattern, it's best
@@ -10,6 +11,12 @@ ChaserPattern::ChaserPattern(const PatternArgs &args) :
   SequencedPattern(args)
 {
   setArgs(args);
+  
+  // Makes sure there is at least 1 chaser
+  uint8_t numChasers = LED_COUNT / CHASER_RATIO;
+  if (!numChasers) {
+    numChasers = 1;
+  }
   // set the pattern ID
   //m_patternID = PATTERN_CHASER;
   // There are LED_COUNT steps in the chaser, so iterate LED_COUNT times and generate
@@ -26,9 +33,9 @@ ChaserPattern::ChaserPattern(const PatternArgs &args) :
     // which will use the 0th color from the colorset as the solid color.
     // An LedMap is a bitmap that indicates which leds are turned on or off
     // at any given time. This will generate an Led Map based on the current
-    LedMap overrideLeds = 0;  
+    LedMap overrideLeds = 0; 
     // This creates an led map with 1 chaser per CHASER_RATIO (default 7) leds in LED_COUNT
-    for (int chaserCount = 0; chaserCount < (LED_COUNT / CHASER_RATIO); ++chaserCount) {
+    for (int chaserCount = 0; chaserCount < numChasers; ++chaserCount) {
       overrideLeds |= MAP_LED((i + (chaserCount * CHASER_RATIO)) % LED_COUNT);
     }
     // Then this API is used to override specific positions in the Pattern Map
