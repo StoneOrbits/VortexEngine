@@ -1,15 +1,15 @@
-#ifndef MATERIA_PATTERN_H
-#define MATERIA_PATTERN_H
+#ifndef VORTEX_PATTERN_H
+#define VORTEX_PATTERN_H
 
 #include "BlinkStepPattern.h"
 
 #include "../../Time/Timings.h"
 
-class MateriaPattern : public BlinkStepPattern
+class VortexPattern : public BlinkStepPattern
 {
 public:
-  MateriaPattern(const PatternArgs& args);
-  virtual ~MateriaPattern();
+  VortexPattern(const PatternArgs& args);
+  virtual ~VortexPattern();
 
   // init the pattern to initial state
   virtual void init() override;

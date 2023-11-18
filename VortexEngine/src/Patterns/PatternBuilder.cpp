@@ -27,7 +27,7 @@
 #include "Multi/PulsishPattern.h"
 #include "Multi/BouncePattern.h"
 #include "Multi/BackStrobePattern.h"
-#include "Multi/MateriaPattern.h"
+#include "Multi/VortexPattern.h"
 
 #include "Single/SingleLedPattern.h"
 #include "Single/BasicPattern.h"
@@ -185,7 +185,7 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
     case PATTERN_BOUNCE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 200, 10);
     case PATTERN_SPLITSTROBIE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, 16, 3, 10, PATTERN_DOPS, PATTERN_STROBIE);
     case PATTERN_BACKSTROBE: return PatternArgs(DOPS_ON_DURATION, DOPS_OFF_DURATION, 0, HYPERSTROBE_ON_DURATION, HYPERSTROBE_OFF_DURATION, 10, PATTERN_DOPS, PATTERN_HYPERSTROBE);
-    case PATTERN_MATERIA: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 130);
+    case PATTERN_VORTEX: return PatternArgs(STROBE_ON_DURATION, STROBE_OFF_DURATION, 130);
     case PATTERN_NONE: break;
     default: break;
 #else
@@ -273,7 +273,7 @@ Pattern *PatternBuilder::generate(PatternID id, const PatternArgs *userArgs)
     case PATTERN_BOUNCE: return new BouncePattern(args);
     case PATTERN_SPLITSTROBIE:
     case PATTERN_BACKSTROBE: return new BackStrobePattern(args);
-    case PATTERN_MATERIA: return new MateriaPattern(args);
+    case PATTERN_VORTEX: return new VortexPattern(args);
     case PATTERN_NONE: return nullptr;
 #else
     // in vortex slim just use basic pattern for all multi led
