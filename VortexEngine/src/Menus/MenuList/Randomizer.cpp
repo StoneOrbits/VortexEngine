@@ -230,8 +230,7 @@ void Randomizer::gapPattern(Random &ctx, PatternArgs &outArgs)
   // but like this it is explicit
   uint8_t gap = ctx.next8(40, 100); // gap duration 40 -> 100
   uint8_t off = ctx.next8(0, 6);    // off duration 0 -> 6
-  uint8_t on = ctx.next8(1, 10);    // on duration 1 -> 10 
-  
+  uint8_t on = ctx.next8(1, 10);    // on duration 1 -> 10  
   outArgs.init(on, off, gap);
 }
 
