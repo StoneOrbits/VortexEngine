@@ -232,8 +232,8 @@ void Colorset::randomize(Random &ctx, uint8_t numColors)
     // the arguments of addColorWithValueStyle because the order they
     // are called is undefined so different compilers may produce
     // different results, but like this it is explicit
-    uint8_t hue = ctx.next8();
     uint8_t sat = ctx.next8();
+    uint8_t hue = ctx.next8();    
     addColorWithValueStyle(ctx, hue, sat, valStyle, numColors, i);
   }
 }
