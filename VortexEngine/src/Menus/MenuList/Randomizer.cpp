@@ -230,37 +230,56 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
 
 void Randomizer::traditionalPattern(Random &ctx, PatternArgs &outArgs)
 {
-  // must call next8 explicitly, do not call it inside parameters because
-  // the ordering for which order the functions are called is undefined
-  uint8_t arg1 = ctx.next8(1, 20); // on duration 1 -> 20
-  uint8_t arg2 = ctx.next8(8, 60); // off duration 0 -> 60
-  outArgs.init(arg1, arg2);
+  // call next8 explicitly in this order because the order they
+   // are called is undefined when called as parameters to another function.
+   // ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.
+   // So different compilers may produce different results, 
+   // but like this it is explicit
+  uint8_t off = ctx.next8(8, 60);   // off duration 0 -> 60
+  uint8_t on = ctx.next8(1, 20);    // on duration 1 -> 20 
+  outArgs.init(on, off);
 }
 
 void Randomizer::gapPattern(Random &ctx, PatternArgs &outArgs)
 {
-  uint8_t arg1 = ctx.next8(1, 10);   // on duration 1 -> 10
-  uint8_t arg2 = ctx.next8(0, 6);    // off duration 0 -> 6
-  uint8_t arg3 = ctx.next8(40, 100);  // gap duration 40 -> 100
-  outArgs.init(arg1, arg2, arg3);
+  // call next8 explicitly in this order because the order they
+  // are called is undefined when called as parameters to another function.
+  // ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.
+  // So different compilers may produce different results, 
+  // but like this it is explicit
+  uint8_t gap = ctx.next8(40, 100); // gap duration 40 -> 100
+  uint8_t off = ctx.next8(0, 6);    // off duration 0 -> 6
+  uint8_t on = ctx.next8(1, 10);    // on duration 1 -> 10  
+  outArgs.init(on, off, gap);
 }
 
 void Randomizer::dashPattern(Random &ctx, PatternArgs &outArgs)
 {
-  uint8_t arg1 = ctx.next8(1, 10);  // on duration 1 -> 10
-  uint8_t arg2 = ctx.next8(0, 10);  // off duration 0 -> 10
-  uint8_t arg3 = ctx.next8(20, 30); // need gap 20 -> 30
-  uint8_t arg4 = ctx.next8(20, 30);  // dash duration 20 -> 30
-  outArgs.init(arg1, arg2, arg3, arg4);
+  // call next8 explicitly in this order because the order they
+  // are called is undefined when called as parameters to another function.
+  // ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.
+  // So different compilers may produce different results, 
+  // but like this it is explicit
+  uint8_t dash = ctx.next8(20, 30); // dash duration 20 -> 30
+  uint8_t gap = ctx.next8(20, 30);  // need gap 20 -> 30
+  uint8_t off = ctx.next8(0, 10);   // off duration 0 -> 10 
+  uint8_t on = ctx.next8(1, 10);    // on duration 1 -> 10
+  outArgs.init(on, off, gap, dash);
 }
 
 void Randomizer::crushPattern(Random &ctx, PatternArgs &outArgs)
 {
-  uint8_t arg1 = ctx.next8(1, 10);  // on duration 1 -> 10
-  uint8_t arg2 = ctx.next8(0, 10);  // off duration 0 -> 5
-  uint8_t arg3 = ctx.next8(20, 40); // need gap 20 -> 40
-  uint8_t arg5 = ctx.next8(0, 8);    // groupsize 0 to 8
-  outArgs.init(arg1, arg2, arg3, 0, arg5);
+  // call next8 explicitly in this order because the order they
+   // are called is undefined when called as parameters to another function.
+   // ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.
+   // So different compilers may produce different results, 
+   // but like this it is explicit
+  uint8_t group = ctx.next8(0, 8);  // groupsize 0 to 8
+  uint8_t dash = 0;                 // dash 0 
+  uint8_t gap = ctx.next8(20, 40);  // need gap 20 -> 40
+  uint8_t off = ctx.next8(0, 10);   // off duration 0 -> 5
+  uint8_t on = ctx.next8(1, 10);    // on duration 1 -> 10
+  outArgs.init(on, off, gap, dash, group);
 }
 
 PatternID Randomizer::rollPatternID(Random &ctx)
