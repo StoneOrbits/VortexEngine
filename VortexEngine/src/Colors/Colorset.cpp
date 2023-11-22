@@ -228,7 +228,9 @@ void Colorset::randomize(Random &ctx, uint8_t numColors)
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
 
   for (uint8_t i = 0; i < numColors; ++i) {
-    addColorWithValueStyle(ctx, ctx.next8(), ctx.next8(), valStyle, numColors, i);
+    uint8_t hue = ctx.next8();
+    uint8_t sat = ctx.next8();
+    addColorWithValueStyle(ctx, hue, sat, valStyle, numColors, i);
   }
 }
 

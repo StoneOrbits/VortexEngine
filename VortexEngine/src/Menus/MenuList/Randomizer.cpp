@@ -230,40 +230,37 @@ bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
 
 void Randomizer::traditionalPattern(Random &ctx, PatternArgs &outArgs)
 {
-  outArgs.init(
-    ctx.next8(1, 20),  // on duration 1 -> 20
-    ctx.next8(8, 60)   // off duration 0 -> 60
-  );
+  // must call next8 explicitly, do not call it inside parameters because
+  // the ordering for which order the functions are called is undefined
+  uint8_t arg1 = ctx.next8(1, 20); // on duration 1 -> 20
+  uint8_t arg2 = ctx.next8(8, 60); // off duration 0 -> 60
+  outArgs.init(arg1, arg2);
 }
 
 void Randomizer::gapPattern(Random &ctx, PatternArgs &outArgs)
 {
-  outArgs.init(
-    ctx.next8(1, 10),   // on duration 1 -> 10
-    ctx.next8(0, 6),    // off duration 0 -> 6
-    ctx.next8(40, 100)  // gap duration 40 -> 100
-  );
+  uint8_t arg1 = ctx.next8(1, 10);   // on duration 1 -> 10
+  uint8_t arg2 = ctx.next8(0, 6);    // off duration 0 -> 6
+  uint8_t arg3 = ctx.next8(40, 100);  // gap duration 40 -> 100
+  outArgs.init(arg1, arg2, arg3);
 }
 
 void Randomizer::dashPattern(Random &ctx, PatternArgs &outArgs)
 {
-  outArgs.init(
-    ctx.next8(1, 10),  // on duration 1 -> 10
-    ctx.next8(0, 10),  // off duration 0 -> 10
-    ctx.next8(20, 30), // need gap 20 -> 30
-    ctx.next8(20, 30)  // dash duration 20 -> 30
-  );
+  uint8_t arg1 = ctx.next8(1, 10);  // on duration 1 -> 10
+  uint8_t arg2 = ctx.next8(0, 10);  // off duration 0 -> 10
+  uint8_t arg3 = ctx.next8(20, 30); // need gap 20 -> 30
+  uint8_t arg4 = ctx.next8(20, 30);  // dash duration 20 -> 30
+  outArgs.init(arg1, arg2, arg3, arg4);
 }
 
 void Randomizer::crushPattern(Random &ctx, PatternArgs &outArgs)
 {
-  outArgs.init(
-    ctx.next8(1, 10),  // on duration 1 -> 10
-    ctx.next8(0, 10),  // off duration 0 -> 5
-    ctx.next8(20, 40), // need gap 20 -> 40
-    0,                 // dash 0
-    ctx.next8(0, 8)    // groupsize 0 to 8
-  );
+  uint8_t arg1 = ctx.next8(1, 10);  // on duration 1 -> 10
+  uint8_t arg2 = ctx.next8(0, 10);  // off duration 0 -> 5
+  uint8_t arg3 = ctx.next8(20, 40); // need gap 20 -> 40
+  uint8_t arg5 = ctx.next8(0, 8);    // groupsize 0 to 8
+  outArgs.init(arg1, arg2, arg3, 0, arg5);
 }
 
 PatternID Randomizer::rollPatternID(Random &ctx)
