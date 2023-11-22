@@ -228,6 +228,10 @@ void Colorset::randomize(Random &ctx, uint8_t numColors)
   ValueStyle valStyle = (ValueStyle)ctx.next8(0, VAL_STYLE_COUNT);
 
   for (uint8_t i = 0; i < numColors; ++i) {
+    // call next8 explicitly in this order, do not call next8 in
+    // the arguments of addColorWithValueStyle because the order they
+    // are called is undefined and arduino compiler seems to call them
+    // in the opposite order of the desktop test framework
     uint8_t hue = ctx.next8();
     uint8_t sat = ctx.next8();
     addColorWithValueStyle(ctx, hue, sat, valStyle, numColors, i);
