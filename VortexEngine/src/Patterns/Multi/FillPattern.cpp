@@ -28,8 +28,9 @@ void FillPattern::init()
 
 void FillPattern::blinkOn()
 {
-  Leds::setRange(LED_FIRST, LedPos(m_progress * (LED_COUNT / 4)), m_colorset.peekNext());
-  Leds::setRange(LedPos(LED_COUNT / 4), LED_LAST, m_colorset.cur());
+  LedPos edgePos = (LedPos)(m_progress * (LED_COUNT / 4));
+  Leds::setRange(LED_FIRST, edgePos, m_colorset.peekNext());
+  Leds::setRange(edgePos, LED_LAST, m_colorset.cur());
 }
 
 void FillPattern::poststep()
