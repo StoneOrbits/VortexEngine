@@ -29,13 +29,15 @@ void VortexPattern::init()
 
 void VortexPattern::blinkOn()
 {
-  Leds::setRing((Ring)(RING_LAST - m_progress), m_colorset.peekNext());
+  // TODO:
+  //Leds::setRing((Ring)(RING_LAST - m_progress), m_colorset.peekNext());
 }
 
 void VortexPattern::poststep()
 {
-  m_progress = (m_progress + 1) % RING_COUNT;
-  if (RING_COUNT - m_progress == RING_LAST) {
-    m_colorset.getNext();
-  }
+  // TODO:
+  //m_progress = (m_progress + 1) % RING_COUNT;
+  //if (RING_COUNT - m_progress == RING_LAST) {
+  //  m_colorset.getNext();
+  //}
 }
