@@ -6,10 +6,12 @@
 // the gloveset upon factory reset
 const default_mode_entry default_modes[MAX_MODES] = {
   {
-    PATTERN_BOUNCE, 3, {
-      HSV(0, 255, 255),
-      HSV(96, 255, 255),
-      HSV(160, 255, 255)
+    PATTERN_VORTEX, 5, {
+      RGB_RED,
+      RGB_GREEN,
+      RGB_BLUE,
+      0xABAA00,
+      0x5500AB
     }
   },
 
@@ -89,16 +91,6 @@ const default_mode_entry default_modes[MAX_MODES] = {
       HSV(0, 0, 255),
       HSV(0, 0, 0),
       HSV(230, 255, 170),
-      HSV(0, 0, 0)
-    }
-  },
-
-  {
-    PATTERN_GHOSTCRUSH, 5, {
-      HSV(0, 0, 255),
-      HSV(0, 0, 255),
-      HSV(0, 0, 0),
-      HSV(0, 255, 170),
       HSV(0, 0, 0)
     }
   },
