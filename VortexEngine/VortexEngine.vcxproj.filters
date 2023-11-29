@@ -240,7 +240,7 @@
     <ClCompile Include="src\Patterns\Multi\LighthousePattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
-    <ClCompile Include="src\Patterns\Multi\MateriaPattern.cpp">
+    <ClCompile Include="src\Patterns\Multi\VortexPattern.cpp">
       <Filter>Source Files\Patterns\Multi</Filter>
     </ClCompile>
     <ClCompile Include="src\Patterns\Multi\MeteorPattern.cpp">
@@ -452,7 +452,7 @@
     <ClInclude Include="src\Patterns\Multi\LighthousePattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
-    <ClInclude Include="src\Patterns\Multi\MateriaPattern.h">
+    <ClInclude Include="src\Patterns\Multi\VortexPattern.h">
       <Filter>Header Files\Patterns\Multi</Filter>
     </ClInclude>
     <ClInclude Include="src\Patterns\Multi\MeteorPattern.h">
