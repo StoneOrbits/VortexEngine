@@ -128,7 +128,6 @@ const default_mode_entry default_modes[MAX_MODES] = {
       0x13000A
     }
   },
-
   {
     PATTERN_GHOSTCRUSH, 7, {
       0x26004B,

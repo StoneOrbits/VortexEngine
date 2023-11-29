@@ -174,7 +174,9 @@ void PatternSelect::previousPattern()
   if (isMultiLedPatternID(newID)) {
     m_previewMode.setPattern(newID);
   } else {
+    // TODO: clear multi a better way
     m_previewMode.setPatternMap(m_targetLeds, newID);
+    m_previewMode.clearPattern(LED_MULTI);
   }
   m_previewMode.init();
   DEBUG_LOGF("Iterated to pattern id %d", newID);
