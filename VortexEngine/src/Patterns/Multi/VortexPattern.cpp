@@ -35,7 +35,7 @@ void VortexPattern::blinkOn()
 void VortexPattern::poststep()
 {
   m_progress = (m_progress + 1) % RING_COUNT;
-  if (RING_COUNT - m_progress == RING_LAST) {
+  if (RING_COUNT - m_progress == RING_COUNT) {
     m_colorset.getNext();
   }
 }

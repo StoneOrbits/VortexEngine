@@ -9,6 +9,8 @@ HueShiftPattern::HueShiftPattern(const PatternArgs &args) :
   MultiLedPattern(args),
   m_blinkOnDuration(0),
   m_blinkOffDuration(0),
+  m_blendDelay(0),
+  m_blendRepeats(0),
   m_blinkTimer(),
   m_cur(0),
   m_next(0)
@@ -16,6 +18,7 @@ HueShiftPattern::HueShiftPattern(const PatternArgs &args) :
   m_patternID = PATTERN_HUE_SCROLL;
   REGISTER_ARG(m_blinkOnDuration);
   REGISTER_ARG(m_blinkOffDuration);
+  REGISTER_ARG(m_blendDelay);
   setArgs(args);
 }
 
@@ -65,7 +68,11 @@ void HueShiftPattern::play()
   //       it will cause oscillation around the target hue
   //       because it will never reach the target hue and
   //       always over/under shoot
-  m_cur.hue += sign;
+  // only increment every blendDelay times
+  if (!m_blendRepeats) {
+    m_cur.hue += sign;
+  }
+  m_blendRepeats = (m_blendRepeats +1) % (m_blendDelay + 1);
   HSVColor showColor = m_cur;
   // set the target led with the current HSV color
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {

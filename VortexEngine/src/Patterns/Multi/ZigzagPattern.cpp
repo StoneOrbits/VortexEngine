@@ -43,8 +43,8 @@ void ZigzagPattern::init()
   m_stepTimer.start();
 
   // initialize the snakes with dops timing
-  m_snake1.init(m_onDuration, m_offDuration, m_colorset, 0, 0, m_snakeSize, m_fadeAmount, 3);
-  m_snake2.init(m_onDuration, m_offDuration, m_colorset, 1, HALF_ZIGZAG_STEPS, m_snakeSize, m_fadeAmount, 8);
+  m_snake1.init(m_onDuration, m_offDuration, m_colorset, 0, 0, m_snakeSize, m_fadeAmount, 4);
+  m_snake2.init(m_onDuration, m_offDuration, m_colorset, 1, HALF_ZIGZAG_STEPS, m_snakeSize, m_fadeAmount, 7);
 }
 
 // pure virtual must override the play function
