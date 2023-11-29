@@ -6,7 +6,7 @@
 // the gloveset upon factory reset
 const default_mode_entry default_modes[MAX_MODES] = {
   {
-    PATTERN_VORTEX, 5, {
+    PATTERN_DOPS, 5, {
       RGB_RED,
       RGB_GREEN,
       RGB_BLUE,
