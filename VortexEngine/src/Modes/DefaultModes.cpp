@@ -91,7 +91,7 @@ const default_mode_entry default_modes[MAX_MODES] = {
     }
   },
   {
-    PATTERN_MATERIA, 4, {
+    PATTERN_VORTEX, 4, {
       0xAA0055,
       0x7070C5,
       0x0A0013,

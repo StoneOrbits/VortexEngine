@@ -809,7 +809,7 @@ string Vortex::patternToString(PatternID id)
     "hueshift", "theater_chase", "chaser", "zigzag", "zipfade", "drip",
     "dripmorph", "crossdops", "doublestrobe", "meteor", "sparkletrace",
     "vortexwipe", "warp", "warpworm", "snowball", "lighthouse", "pulsish",
-    "fill", "bounce", "splitstrobie", "backstrobe", "materia",
+    "fill", "bounce", "splitstrobie", "backstrobe", "vortex",
   };
   if (sizeof(patternNames) / sizeof(patternNames[0]) != PATTERN_COUNT) {
     // if you see this it means the list of strings above is not equal to
