@@ -6,6 +6,7 @@ FILE=$1
 VALIDATE=$2
 TESTCOUNT=$3
 NUMFILES=$4
+QUIET=$5
 
 if [ "$FILE" == "" ]; then
   echo "$0 <test file> <validate> <total tests>"
@@ -26,7 +27,7 @@ ARGS="$(grep "Args=" $FILE | cut -d= -f2)"
 TESTNUM="$(echo $FILE | cut -d/ -f2 | cut -d_ -f1 | cut -d/ -f2)"
 TESTNUM=$((10#$TESTNUM))
 
-echo -e -n "\e[31mRecording $PROJECT ($TESTCOUNT/$NUMFILES) \e[33m[\e[97m$BRIEF\e[33m] \e[33m[\e[97m$ARGS\e[33m]...\e[0m"
+$QUIET || echo -e -n "\e[31mRecording $PROJECT ($TESTCOUNT/$NUMFILES) \e[33m[\e[97m$BRIEF\e[33m] \e[33m[\e[97m$ARGS\e[33m]...\e[0m"
 TEMP_FILE="tmp/${FILE}.out"
 # Append the output of the $VORTEX command to the temp file
 # NOTE: When recording the tests we don't use valgrind because
@@ -43,7 +44,8 @@ $VORTEX $ARGS --no-timestep --hex <<< $INPUT >> $TEMP_FILE
 sed -i 's/\r//g' $TEMP_FILE
 # Replace the original file with the modified temp file
 mv $TEMP_FILE $FILE
-echo -e "\e[96mOK\e[0m"
+$QUIET || echo -e "\e[96mOK\e[0m"
+$QUIET && echo -e "."
 # print out colorful if in verbose
 if [ "$VALIDATE" -eq 1 ]; then
   $VORTEX $ARGS --no-timestep --color <<< $INPUT
