@@ -16,8 +16,7 @@ for folder in tests_*/; do
   REPOS+=("$folder_name")
 done
 
-for arg in "$@"
-do
+for arg in "$@"; do
   # -v for validate
   if [ "$arg" == "-v" ]; then
     VALIDATE=1
@@ -116,7 +115,12 @@ function record_tests() {
     TESTCOUNT=$((TESTCOUNT + 1))
   done
 
+  # Wait for all background jobs to finish
+  wait
+
+  echo "All tests recorded successfully!"
   #rm -rf tmp/$PROJECT
 }
 
 record_tests $TARGETREPO
+
