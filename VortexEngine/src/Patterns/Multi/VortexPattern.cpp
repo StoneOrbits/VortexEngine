@@ -5,6 +5,9 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
+// add 1 to prevent the middle point from being led 0
+#define MIDDLE_POINT ((LED_COUNT + 1) / 2)
+
 VortexPattern::VortexPattern(const PatternArgs& args) :
   BlinkStepPattern(args),
   m_progress(0)
@@ -36,7 +39,9 @@ void VortexPattern::blinkOn()
 
 void VortexPattern::poststep()
 {
-  m_progress = (m_progress + 1) % (LED_COUNT/2);
+  // step till the middle point
+  m_progress = (m_progress + 1) % MIDDLE_POINT;
+  // each cycle progress to the next color
   if (m_progress == 0) {
     m_colorset.getNext();
   }
