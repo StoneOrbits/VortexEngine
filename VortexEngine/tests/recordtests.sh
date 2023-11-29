@@ -123,7 +123,7 @@ function record_tests() {
   # Wait for all background jobs to finish
   wait
 
-  if [ "$QUIET" -eq 1]; then
+  if [ "$QUIET" -eq 1 ]; then
     echo ". Complete"
   fi
   echo "All tests recorded successfully!"

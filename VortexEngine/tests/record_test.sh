@@ -49,7 +49,7 @@ mv $TEMP_FILE $FILE
 if [ "$QUIET" -eq 0 ]; then 
   echo -e "\e[96mOK\e[0m"
 else
-  echo -e "."
+  echo -n "."
 fi
 if [ "$VALIDATE" -eq 1 ]; then
   $VORTEX $ARGS --no-timestep --color <<< $INPUT
