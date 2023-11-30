@@ -36,8 +36,8 @@ void SequencedPattern::init()
 {
   CompoundPattern::init();
 
-  // start the sequence at 0
-  m_curSequence = 0;
+  // start the sequence at -1 so it iterates to 0 on first step
+  m_curSequence = (uint8_t)-1;
   m_timer.reset();
 
   // create an alarm for each duration in the sequence
@@ -53,8 +53,12 @@ void SequencedPattern::init()
 // pure virtual must  the play function
 void SequencedPattern::play()
 {
-  if (m_timer.alarm() != -1 && !m_timer.onStart()) {
+  if (m_timer.alarm() != -1) {
     m_curSequence = (m_curSequence + 1) % m_sequence.numSteps();
+  }
+  // only index the sequence if the current sequence index is valid
+  if (m_curSequence >= m_sequence.numSteps()) {
+    return;
   }
   const SequenceStep &step = m_sequence[m_curSequence];
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
