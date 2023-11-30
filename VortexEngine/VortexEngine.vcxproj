@@ -180,7 +180,7 @@
     <ClCompile Include="src\Patterns\Multi\HueShiftPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\CompoundPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\LighthousePattern.cpp" />
-    <ClCompile Include="src\Patterns\Multi\MateriaPattern.cpp" />
+    <ClCompile Include="src\Patterns\Multi\VortexPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\MeteorPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\MultiLedPattern.cpp" />
     <ClCompile Include="src\Patterns\Multi\PulsishPattern.cpp" />
@@ -253,7 +253,7 @@
     <ClInclude Include="src\Patterns\Multi\HueShiftPattern.h" />
     <ClInclude Include="src\Patterns\Multi\CompoundPattern.h" />
     <ClInclude Include="src\Patterns\Multi\LighthousePattern.h" />
-    <ClInclude Include="src\Patterns\Multi\MateriaPattern.h" />
+    <ClInclude Include="src\Patterns\Multi\VortexPattern.h" />
     <ClInclude Include="src\Patterns\Multi\MeteorPattern.h" />
     <ClInclude Include="src\Patterns\Multi\MultiLedPattern.h" />
     <ClInclude Include="src\Patterns\Multi\PulsishPattern.h" />
