@@ -149,7 +149,7 @@ const default_mode_entry default_modes[MAX_MODES] = {
       RGB_GREEN,
       RGB_BLUE
     }
-  },
+  }
 };
 
 // exposed size of the default modes array
