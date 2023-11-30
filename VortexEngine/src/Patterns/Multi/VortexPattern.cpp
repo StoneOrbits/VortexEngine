@@ -5,12 +5,9 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-<<<<<<< HEAD
-=======
 // add 1 to prevent the middle point from being led 0
 #define MIDDLE_POINT ((LED_COUNT + 1) / 2)
 
->>>>>>> orbit
 VortexPattern::VortexPattern(const PatternArgs& args) :
   BlinkStepPattern(args),
   m_progress(0)
