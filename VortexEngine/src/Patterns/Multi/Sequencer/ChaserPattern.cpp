@@ -23,7 +23,7 @@ ChaserPattern::ChaserPattern(const PatternArgs &args) :
   // a pattern map for each step. A colorset map can also be applied
   // to override certain colors for specific steps, but that's not
   // what is being done here
-  for (uint8_t i = 0; i < LED_COUNT; ++i) {
+  for (uint8_t i = 0; i < (LED_COUNT / numChasers); ++i) {
     // Each step all LEDs are dops except for one, so start with a
     // Pattern Map that has dops on all LEDs. A Pattern Map will map
     // a Pattern ID to each LED on the device, then we will override a
@@ -36,12 +36,11 @@ ChaserPattern::ChaserPattern(const PatternArgs &args) :
     LedMap overrideLeds = MAP_LED_NONE; 
     // This creates an led map with 1 chaser per CHASER_RATIO (default 7) leds in LED_COUNT
     for (uint8_t chaserCount = 0; chaserCount < numChasers; ++chaserCount) {
-      overrideLeds |= MAP_LED((i + (chaserCount * CHASER_RATIO)) % LED_COUNT);
+      // Then this API is used to override specific positions in the Pattern Map
+      // with a different pattern ID, we use the Led Map generated above to tell
+      // setPatternAt() which indices to override with Solid0
+      patMap.setPatternAt(PATTERN_SOLID, MAP_LED((i + (chaserCount * CHASER_RATIO)) % LED_COUNT));
     }
-    // Then this API is used to override specific positions in the Pattern Map
-    // with a different pattern ID, we use the Led Map generated above to tell
-    // setPatternAt() which indices to override with Solid0
-    patMap.setPatternAt(PATTERN_SOLID, overrideLeds);
     // Then finally we add this pattern mapping to the sequence in a new step
     // that will last 300ms, this means all LED_COUNT steps will be 300ms each.
     // The last parameter of addStep() is omitted, that parameter could be used

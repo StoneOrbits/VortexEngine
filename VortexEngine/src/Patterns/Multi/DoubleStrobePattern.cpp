@@ -24,6 +24,6 @@ void DoubleStrobePattern::init()
 
 void DoubleStrobePattern::blinkOn()
 {
-  Leds::setAllOdds(m_colorset.cur());
-  Leds::setAllEvens(m_colorset.peekNext());
+  Leds::setMap(MAP_ODD_PAIRS, m_colorset.cur());
+  Leds::setMap(MAP_EVEN_PAIRS, m_colorset.peekNext());
 }
