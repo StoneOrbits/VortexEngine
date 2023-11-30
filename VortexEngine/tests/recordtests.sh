@@ -4,6 +4,7 @@ VALGRIND="valgrind --quiet --leak-check=full --show-leak-kinds=all"
 VORTEX="../vortex"
 
 VALIDATE=0
+QUIET=0
 TODO=
 
 declare -a REPOS
@@ -16,8 +17,11 @@ for folder in tests_*/; do
   REPOS+=("$folder_name")
 done
 
-for arg in "$@"
-do
+for arg in "$@"; do
+  # -q for quiet
+  if [ "$arg" == "-q" ]; then
+    QUIET=1
+  fi
   # -v for validate
   if [ "$arg" == "-v" ]; then
     VALIDATE=1
@@ -112,11 +116,19 @@ function record_tests() {
   TESTCOUNT=0
 
   for FILE in $FILES; do
-    ./record_test.sh $FILE $VALIDATE $TESTCOUNT $NUMFILES &
+    ./record_test.sh $FILE $VALIDATE $TESTCOUNT $NUMFILES $QUIET &
     TESTCOUNT=$((TESTCOUNT + 1))
   done
 
+  # Wait for all background jobs to finish
+  wait
+
+  if [ "$QUIET" -eq 1 ]; then
+    echo ". Complete"
+  fi
+  echo "All tests recorded successfully!"
   #rm -rf tmp/$PROJECT
 }
 
 record_tests $TARGETREPO
+
