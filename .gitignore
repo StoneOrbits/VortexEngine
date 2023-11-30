@@ -9,3 +9,11 @@
 *.lss
 *.lst
 *.map
+*.js
+*.exe
+*.wasm
+x64/
+Debug/
+Release/
+bin/
+.vs/
