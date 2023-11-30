@@ -68,7 +68,7 @@ if [ -z "$TARGETREPO" ]; then
 fi
 
 echo -e -n "\e[33mBuilding Vortex...\e[0m"
-make -C ../ &> /dev/null
+make -j -C ../ &> /dev/null
 if [ $? -ne 0 ]; then
   echo -e "\e[31mFailed to build Vortex!\e[0m"
   exit
