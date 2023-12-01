@@ -162,7 +162,7 @@ enum Pair : uint8_t
 #define isOdd(pos) ((pos % 2) != 0)
 
 // check if an led is orbit even
-#define isOrbitEven(pos) ((MAP_LED(pos) & MAP_EVEN_PAIRS) == MAP_LED(pos))
+#define isOrbitEven(pos) ((MAP_LED(pos) & MAP_RINGS_EVEN) == MAP_LED(pos))
 
 // convert a pair to even or odd led position
 #define pairEven(pair) (LedPos)((uint32_t)pair * 2)
@@ -342,15 +342,6 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 #define MAP_PAIR_EVENS (((1 << LED_COUNT) - 1) & 0x55555555)
 #define MAP_PAIR_ODDS (((1 << LED_COUNT) - 1) & 0xAAAAAAAA)
 
-// another macro for orbit even pairs and odd pairs
-#define MAP_EVEN_PAIRS (MAP_LED(0) | MAP_LED(2) | MAP_LED(4) | MAP_LED(6) | \
-                        MAP_LED(7) | MAP_LED(9) | MAP_LED(11) | MAP_LED(13) | \
-                        MAP_LED(14) | MAP_LED(16) | MAP_LED(18) | MAP_LED(20)| \
-                        MAP_LED(21) | MAP_LED(23) | MAP_LED(25) | MAP_LED(27))
-#define MAP_ODD_PAIRS (MAP_LED(1) | MAP_LED(3) | MAP_LED(5) | \
-                        MAP_LED(8) | MAP_LED(10) | MAP_LED(12) | \
-                        MAP_LED(15) | MAP_LED(17) | MAP_LED(19) | \
-                        MAP_LED(22) | MAP_LED(24) | MAP_LED(26))
 // Some preset bitmaps for pair groupings
 #define MAP_PAIR_ODD_EVENS (MAP_PAIR_EVEN(PAIR_0) | MAP_PAIR_EVEN(PAIR_2) | MAP_PAIR_EVEN(PAIR_4))
 #define MAP_PAIR_ODD_ODDS (MAP_PAIR_ODD(PAIR_0) | MAP_PAIR_ODD(PAIR_2) | MAP_PAIR_ODD(PAIR_4))
@@ -380,8 +371,8 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
                          MAP_LED(LED_16) | MAP_LED(LED_18) | MAP_LED(LED_23) | MAP_LED(LED_25))
 #define MAP_RING_EDGE   (MAP_LED(LED_3) | MAP_LED(LED_10) | MAP_LED(LED_17) | MAP_LED(LED_24))
 
-#define MAP_RINGS_ODD   (MAP_RING_INNER | MAP_RING_OUTER)
-#define MAP_RINGS_EVEN  (MAP_RING_MIDDLE | MAP_RING_EDGE)
+#define MAP_RINGS_EVEN  (MAP_RING_INNER | MAP_RING_OUTER)
+#define MAP_RINGS_ODD   (MAP_RING_MIDDLE | MAP_RING_EDGE)
 
 // led quadrant maps
 #define MAP_QUADRANT_1  (MAP_LED(LED_0) | MAP_LED(LED_1) | MAP_LED(LED_2) | MAP_LED(LED_3) | \

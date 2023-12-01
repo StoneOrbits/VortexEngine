@@ -26,8 +26,8 @@ void DripPattern::init()
 void DripPattern::blinkOn()
 {
   if (!m_sync) {
-    Leds::setMap(MAP_EVEN_PAIRS, m_colorset.cur());
-    Leds::setMap(MAP_ODD_PAIRS, m_colorset.peekNext());
+    Leds::setMap(MAP_RINGS_EVEN, m_colorset.cur());
+    Leds::setMap(MAP_RINGS_ODD, m_colorset.peekNext());
   } else {
     Leds::setAll(m_colorset.cur());
   }
