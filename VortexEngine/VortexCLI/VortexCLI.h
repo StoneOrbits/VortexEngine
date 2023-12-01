@@ -8,6 +8,8 @@
 #include "Colors/Colorset.h"
 #include "Leds/LedTypes.h"
 
+#include "VortexJson.h"
+
 class VortexCLI
 {
 public:
@@ -33,10 +35,20 @@ public:
   // setup the array of leds
   void installLeds(void *leds, uint32_t count);
 
-  // dump out the json format of the current engine state
-  void dumpJSON();
-  void modeToJSON(const Mode &mode);
-  void patternToJSON(const Pattern &pat);
+  // convert a mode to/from a json object
+  JsonObject *modeToJson(const Mode *mode) const;
+  Mode *modeFromJson(const JsonObject *modeJson) const;
+
+  // convert a pattern to/from a json object
+  JsonObject *patternToJson(const Pattern *pattern) const;
+  Pattern *patternFromJson(const JsonObject *patternJson) const;
+
+  // save/load the engine storage as json
+  JsonObject *saveJson() const;
+  bool loadJson(const JsonObject *json);
+
+  // dump the json to output
+  void dumpJson() const;
 
   static void printlog(const char *file, const char *func, int line, const char *msg, va_list list);
 

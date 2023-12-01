@@ -4,67 +4,73 @@
 #include <vector>
 #include <map>
 
-class JsonValue {
+class JsonValue
+{
 public:
-    virtual ~JsonValue() {}
+  virtual ~JsonValue() {}
 };
 
-class JsonNumber : public JsonValue {
+class JsonNumber : public JsonValue
+{
 public:
-    JsonNumber(double value);
-    double getValue() const;
+  JsonNumber(double value);
+  double getValue() const;
 
 private:
-    double value;
+  double value;
 };
 
-class JsonString : public JsonValue {
+class JsonString : public JsonValue
+{
 public:
-    JsonString(const std::string& value);
-    const std::string& getValue() const;
+  JsonString(const std::string &value);
+  const std::string &getValue() const;
 
 private:
-    std::string value;
+  std::string value;
 };
 
-class JsonObject : public JsonValue {
+class JsonObject : public JsonValue
+{
 public:
-    void addProperty(const std::string& key, JsonValue* value);
-    const std::map<std::string, JsonValue*>& getProperties() const;
+  void addProperty(const std::string &key, JsonValue *value);
+  const std::map<std::string, JsonValue *> &getProperties() const;
 
 private:
-    std::map<std::string, JsonValue*> properties;
+  std::map<std::string, JsonValue *> properties;
 };
 
-class JsonArray : public JsonValue {
+class JsonArray : public JsonValue
+{
 public:
-    void addElement(JsonValue* value);
-    const std::vector<JsonValue*>& getElements() const;
+  void addElement(JsonValue *value);
+  const std::vector<JsonValue *> &getElements() const;
 
 private:
-    std::vector<JsonValue*> elements;
+  std::vector<JsonValue *> elements;
 };
 
-class JsonParser {
+class JsonParser
+{
 public:
-    JsonValue* parse(const std::string& json);
+  JsonValue *parseJson(const std::string &json);
 
 private:
-    JsonValue* parseValue(const std::string& json, size_t& index);
-    JsonObject* parseObject(const std::string& json, size_t& index);
-    JsonArray* parseArray(const std::string& json, size_t& index);
-    JsonString* parseString(const std::string& json, size_t& index);
-    JsonNumber* parseNumber(const std::string& json, size_t& index);
+  JsonValue *parseValue(const std::string &json, size_t &index);
+  JsonObject *parseObject(const std::string &json, size_t &index);
+  JsonArray *parseArray(const std::string &json, size_t &index);
+  JsonString *parseString(const std::string &json, size_t &index);
+  JsonNumber *parseNumber(const std::string &json, size_t &index);
 };
 
-class JsonPrinter {
+class JsonPrinter
+{
 public:
-    void print(const JsonValue* jsonValue);
+  void printJson(const JsonValue *jsonValue, bool prettyPrint = false, int indentation = 0);
 
 private:
-    void printJsonObject(const JsonObject* jsonObject);
-    void printJsonArray(const JsonArray* jsonArray);
-    void printJsonString(const JsonString* jsonString);
-    void printJsonNumber(const JsonNumber* jsonNumber);
+  void printJsonObject(const JsonObject *jsonObject, bool prettyPrint, int indentation);
+  void printJsonArray(const JsonArray *jsonArray, bool prettyPrint, int indentation);
+  void printJsonString(const JsonString *jsonString);
+  void printJsonNumber(const JsonNumber *jsonNumber);
 };
-
