@@ -613,7 +613,7 @@ JsonObject *VortexCLI::modeToJson(const Mode *mode) const
   if (multiPattern) {
     modeJson->addProperty("multi_pat", patternToJson(multiPattern));
   } else {
-    modeJson->addProperty("multi_pat", new JsonValue()); // null
+    modeJson->addProperty("multi_pat", nullptr); // null
   }
 
   JsonArray *singlePatterns = new JsonArray();

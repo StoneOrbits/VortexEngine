@@ -124,6 +124,10 @@ JsonNumber *JsonParser::parseNumber(const string &json, size_t &index)
 
 void JsonPrinter::printJson(const JsonValue *jsonValue, bool prettyPrint, int indentation)
 {
+  if (jsonValue == nullptr) {
+    cout << "null";
+    return;
+  }
   if (const JsonObject *jsonObject = dynamic_cast<const JsonObject *>(jsonValue)) {
     printJsonObject(jsonObject, prettyPrint, indentation);
   } else if (const JsonArray *jsonArray = dynamic_cast<const JsonArray *>(jsonValue)) {
@@ -147,8 +151,15 @@ void JsonPrinter::printJsonObject(const JsonObject *jsonObject, bool prettyPrint
     if (prettyPrint) {
       cout << setw(indentation + 2) << " ";
     }
-    cout << '"' << it->first << "\": ";
-    printJson(it->second, prettyPrint, indentation + 2);
+    cout << '"' << it->first << "\":" << (prettyPrint ? " " : "");
+
+    // Check for null value
+    if (!it->second) {
+      cout << "null";
+    } else if (dynamic_cast<const JsonValue*>(it->second)) {
+      printJson(it->second, prettyPrint, indentation + 2);
+    }
+
     if (next(it) != properties.end()) {
       cout << ",";
     }
@@ -175,7 +186,14 @@ void JsonPrinter::printJsonArray(const JsonArray *jsonArray, bool prettyPrint, i
     if (prettyPrint) {
       cout << setw(indentation + 2) << " ";
     }
-    printJson(*it, prettyPrint, indentation + 2);
+
+    // Check for null value
+    if (*it == nullptr) {
+      cout << "null";
+    } else {
+      printJson(*it, prettyPrint, indentation + 2);
+    }
+
     if (next(it) != elements.end()) {
       cout << ",";
     }
