@@ -478,7 +478,7 @@ bool VortexCLI::init(int argc, char *argv[])
   if (m_patternIDStr.length() > 0) {
     // convert both numeric and string to see which one seems more correct
     PatternID id = (PatternID)strtoul(m_patternIDStr.c_str(), nullptr, 10);
-    PatternID strID = Vortex::stringToPattern(m_patternIDStr)
+    PatternID strID = Vortex::stringToPattern(m_patternIDStr);
     if (id == PATTERN_FIRST && strID != PATTERN_NONE) {
       // use the str ID if the numeric ID didn't convert and the string did
       id = strID;

@@ -9,6 +9,7 @@ class JsonValue
 {
 public:
   virtual ~JsonValue() {}
+  virtual JsonValue* getProperty(const std::string& key) const { return nullptr; }
 };
 
 class JsonNumber : public JsonValue
@@ -42,6 +43,10 @@ public:
   }
   void addProperty(const std::string &key, JsonValue *value) { properties[key] = value; }
   const std::map<std::string, JsonValue *> &getProperties() const { return properties; }
+  JsonValue* getProperty(const std::string& key) const override {
+    auto it = properties.find(key);
+    return it != properties.end() ? it->second : nullptr;
+  }
 
 private:
   std::map<std::string, JsonValue *> properties;

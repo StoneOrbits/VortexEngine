@@ -1254,7 +1254,8 @@ Mode *Vortex::modeFromJson(const JsonObject *modeJson)
   }
 #endif
 
-  // load flags?
+  // load flags? they are only useful for determining how to load the mode from disk so 
+  // they aren't really necessary to load here but we might use them later for validation
   //ModeFlags flags = 0;
   //auto flagsProperty = modeJson->getProperties().find("flags");
   //if (flagsProperty == modeJson->getProperties().end()) {
@@ -1347,15 +1348,20 @@ Pattern *Vortex::patternFromJson(const JsonObject *patternJson)
   // get pattern id
   PatternID id = PATTERN_NONE;
   auto idProperty = patternJson->getProperties().find("pattern_id");
-  if (idProperty == patternJson->getProperties().end()) {
-    return nullptr;
-  }
-  const JsonValue *idValue = idProperty->second;
-  // Check if it's a number before attempting to cast
-  if (const JsonNumber *idNumber = dynamic_cast<const JsonNumber *>(idValue)) {
-    id = (PatternID)idNumber->getValue();
+  if (idProperty != patternJson->getProperties().end()) {
+    const JsonValue *idValue = idProperty->second;
+    // Check if it's a number before attempting to cast
+    if (const JsonNumber *idNumber = dynamic_cast<const JsonNumber *>(idValue)) {
+      id = (PatternID)idNumber->getValue();
+    }
   }
 
+  // make sure it's a valid pattern, PATTERN_NONE won't be considered valid
+  if (id <= PATTERN_FIRST || id >= PATTERN_COUNT) {
+    return nullptr;
+  }
+
+  // parse out the args
   PatternArgs args;
   const JsonArray *argsArray = dynamic_cast<const JsonArray *>(patternJson->getProperties().at("args"));
   if (argsArray) {
@@ -1367,6 +1373,7 @@ Pattern *Vortex::patternFromJson(const JsonObject *patternJson)
     }
   }
 
+  // parse out the colorset
   Colorset set;
   const JsonArray *colsArray = dynamic_cast<const JsonArray *>(patternJson->getProperties().at("colorset"));
   if (colsArray) {
@@ -1383,23 +1390,14 @@ Pattern *Vortex::patternFromJson(const JsonObject *patternJson)
     }
   }
 
-  printf("Building pattern id %u with args: ", id);
-  for (uint32_t i = 0; i < args.numArgs; ++i) {
-    printf(" %u", args[i]);
-  }
-  printf("\n");
-  printf("And colorset: ");
-  for (uint32_t i = 0; i < args.numArgs; ++i) {
-    printf(" %02X%02x%02x", set.get(i).red, set.get(i).green, set.get(i).blue);
-  }
-  printf("\n");
-
+  // build the pattern with ID + args
   pattern = PatternBuilder::make(id, &args);
+  if (!pattern) {
+    return nullptr;
+  }
+  // apply colorset and init
   pattern->setColorset(set);
   pattern->init();
-
-  //pattern->setFlags(static_cast<uint8_t>(patternJson->getProperties().at("flags")->getValue()));
-
 
   return pattern;
 }
@@ -1433,34 +1431,60 @@ JsonObject *Vortex::saveJson()
 
 bool Vortex::loadJson(const JsonObject *json)
 {
-  // Implement the logic to load settings from the JsonObject
-  // and update the application state accordingly
-
-  // Example: Update brightness from the Json
-  //if (json.getProperties().find("brightness") != json.getProperties().end()) {
-  //  uint8_t brightness = static_cast<uint8_t>(json.getProperties().at("brightness")->getValue());
-  //  Leds::setBrightness(brightness);
-  //}
-
-  // Example: Load modes array from the Json
-  if (json->getProperties().find("modes") == json->getProperties().end()) {
+  if (!json) {
     return false;
   }
-  const JsonArray *modesArray = dynamic_cast<const JsonArray *>(json->getProperties().at("modes"));
-  if (!modesArray) {
+
+  // get the version
+  uint8_t major = 0;
+  uint8_t minor = 0;
+  if (const JsonValue *versionMajorValue = json->getProperty("version_major")) {
+    major = dynamic_cast<const JsonNumber *>(versionMajorValue)->getValue();
+  }
+  if (const JsonValue *versionMinorValue = json->getProperty("version_minor")) {
+    minor = dynamic_cast<const JsonNumber *>(versionMinorValue)->getValue();
+  }
+
+  // ensure version is compatible
+  if (!VortexEngine::checkVersion(major, minor)) {
+    // incompatible version!
     return false;
   }
-  Modes::clearModes(); // Clear existing modes
-  for (const JsonValue *modeValue : modesArray->getElements()) {
-    const JsonObject *modeJson = dynamic_cast<const JsonObject *>(modeValue);
-    if (!modeJson) {
-      continue;
+
+  // Update brightness
+  if (const JsonValue *brightnessValue = json->getProperty("brightness")) {
+    uint8_t brightness = dynamic_cast<const JsonNumber *>(brightnessValue)->getValue();
+    Leds::setBrightness(brightness);
+  }
+
+  // Update global flags
+  if (const JsonValue *globalFlagsValue = json->getProperty("global_flags")) {
+    uint8_t global_flags = dynamic_cast<const JsonNumber *>(globalFlagsValue)->getValue();
+    // true = add the flags, false = but don't save
+    Modes::setFlag(global_flags, true, false);
+  }
+
+  uint8_t num_modes = 0;
+  // grab indicated number of modes for validation
+  if (const JsonValue *numModesValue = json->getProperty("num_modes")) {
+    num_modes = dynamic_cast<const JsonNumber *>(numModesValue)->getValue();
+  }
+
+  // Load modes array from the Json
+  if (const JsonArray *modesArray = dynamic_cast<const JsonArray *>(json->getProperty("modes"))) {
+    Modes::clearModes(); // Clear existing modes
+    for (const JsonValue *modeValue : modesArray->getElements()) {
+      if (const JsonObject *modeJson = dynamic_cast<const JsonObject *>(modeValue)) {
+        Mode *mode = modeFromJson(modeJson);
+        if (mode) {
+          Modes::addMode(mode);
+        }
+      }
     }
-    Mode *mode = modeFromJson(modeJson);
-    if (!mode) {
-      continue;
-    }
-    Modes::addMode(mode);
+  }
+
+  if (Modes::numModes() != num_modes) {
+    // validation error! oh well
   }
 
   return true;
