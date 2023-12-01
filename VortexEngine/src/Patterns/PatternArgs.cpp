@@ -174,7 +174,7 @@ uint8_t PatternArgs::operator[](int index) const
 void PatternArgs::serialize(ByteStream &buffer, ArgMap argmap) const
 {
   buffer.serialize(argmap);
-  for (uint8_t i = 0; i < numArgs; ++i) {
+  for (uint8_t i = 0; i < MAX_ARGS; ++i) {
     if (ARGMAP_ISSET(argmap, i)) {
       buffer.serialize(args[i]);
     }

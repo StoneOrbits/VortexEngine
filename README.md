@@ -4,7 +4,7 @@ Welcome to the Vortex Engine firmware repository! This open-source project is de
 
 The firmware enables users to create mesmerizing light shows by allowing any flashing patterns, colorsets, or effects to be programmed onto their devices.  
 
-It uses a standardized format for savefiles and transferring data which allows all devices running vortex to share colorsets, patterns and modes.
+It uses a standardized format for savefiles and transferring data which allows all devices running vortex to share colorsets, patterns and modes.  Menus and user interface is standardized with color schemes so users only need to learn how to program one device and they will know how to program all devices running Vortex. 
 
 You can find here the core Vortex Engine codebase along with branches for all devices from StoneOrbits including: Orbit, Gloves, Handle, and Duo chip. 
 
@@ -33,5 +33,13 @@ Here, you'll find the firmware for the Vortex Wired Gloveset.
 ### Duo (Vortex Duo Modular Chip)
 ![Duo](https://github.com/StoneOrbits/VortexEngine/actions/workflows/duo_build.yml/badge.svg?branch=duo)  
 This branch contains the firmware for the Vortex Duo Modular Chip.
+
+### Chromadeck (Vortex Chromadeck Mode Bank)
+![Chromadeck](https://github.com/StoneOrbits/VortexEngine/actions/workflows/chromadeck_build.yml/badge.svg?branch=chromadeck)  
+This branch contains the firmware for the Vortex Chromadeck dynamic storage and transfer tool.
+
+### Spark (Spark Orbit and Handle)
+![Spark](https://github.com/StoneOrbits/VortexEngine/actions/workflows/spark_build.yml/badge.svg?branch=spark)  
+This branch contains the firmware for the Vortex Spark firmware, this powers multiple devices: the Spark Orbit and Spark Handle.
 
 To access a device's firmware, simply switch to its corresponding branch.
