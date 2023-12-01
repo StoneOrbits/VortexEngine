@@ -43,12 +43,14 @@ public:
   JsonObject *patternToJson(const Pattern *pattern) const;
   Pattern *patternFromJson(const JsonObject *patternJson) const;
 
-  // save/load the engine storage as json
+  // save/load the engine storage to/from raw json object
   JsonObject *saveJson() const;
   bool loadJson(const JsonObject *json);
 
-  // dump the json to output
-  void dumpJson() const;
+  // dump/parse the json to/from string
+  void dumpJson(const char *filename = nullptr) const;
+  bool parseJson(const std::string &json);
+  bool parseJsonFromFile(const std::string &filename);
 
   static void printlog(const char *file, const char *func, int line, const char *msg, va_list list);
 
@@ -88,15 +90,28 @@ private:
     OUTPUT_TYPE_COLOR,
   };
   OutputType m_outputType;
+  enum JsonMode : uint32_t {
+    JSON_MODE_NONE = 0,
+
+    // technically two these are mutually exclusive... but this is easier
+    JSON_MODE_READ_STDIN    = (1<<0),
+    JSON_MODE_READ_FILE     = (1<<1),
+
+    // also these too, mutually exclusive but this is easier
+    JSON_MODE_WRITE_STDOUT  = (1<<2),
+    JSON_MODE_WRITE_FILE    = (1<<3),
+  };
+  JsonMode m_jsonMode;
   bool m_noTimestep;
   bool m_lockstep;
   bool m_inPlace;
   bool m_record;
   bool m_storage;
-  bool m_json;
   bool m_sleepEnabled;
   bool m_lockEnabled;
   std::string m_storageFile;
+  std::string m_jsonInFile;
+  std::string m_jsonOutFile;
   std::string m_patternIDStr;
   std::string m_colorsetStr;
   std::string m_argumentsStr;

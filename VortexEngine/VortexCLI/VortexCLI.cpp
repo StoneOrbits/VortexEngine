@@ -151,12 +151,12 @@ VortexCLI::VortexCLI() :
   m_curPattern(PATTERN_FIRST),
   m_curColorset(),
   m_outputType(OUTPUT_TYPE_NONE),
+  m_jsonMode(JSON_MODE_NONE),
   m_noTimestep(false),
   m_lockstep(false),
   m_inPlace(false),
   m_record(false),
   m_storage(false),
-  m_json(false),
   m_sleepEnabled(true),
   m_lockEnabled(true),
   m_storageFile("FlashStorage.flash"),
@@ -182,8 +182,9 @@ static struct option long_options[] = {
   {"record", no_argument, nullptr, 'r'},
   {"autowake", no_argument, nullptr, 'a'},
   {"nolock", no_argument, nullptr, 'n'},
-  {"storage", optional_argument, nullptr, 's'},
-  {"json", no_argument, nullptr, 'j'},
+  {"storage", optional_argument, nullptr, 'S'},
+  {"json-in", optional_argument, nullptr, 'I'},
+  {"json-out", optional_argument, nullptr, 'O'},
   {"pattern", required_argument, nullptr, 'P'},
   {"colorset", required_argument, nullptr, 'C'},
   {"arguments", required_argument, nullptr, 'A'},
@@ -229,8 +230,11 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -r, --record             Record the inputs and dump to a file after (" RECORD_FILE ")\n");
   fprintf(stderr, "  -a, --autowake           Automatically and instantly wake on sleep (disable sleep)\n");
   fprintf(stderr, "  -n, --nolock             Automatically unlock upon locking the chip (disable lock)\n");
-  fprintf(stderr, "  -s, --storage [file]     Persistent storage to file (default file: FlashStorage.flash)\n");
-  fprintf(stderr, "  -j, --json               Output storage data in Json format upon exit\n");
+  fprintf(stderr, "\n");
+  fprintf(stderr, "Storage Options (optional):\n");
+  fprintf(stderr, "  -S, --storage [file]     Persistent storage to file (default file: FlashStorage.flash)\n");
+  fprintf(stderr, "  -I, --json-in [file]     Load json from file at init (if no file: read from stdin)\n");
+  fprintf(stderr, "  -O, --json-out [file]    Dump json to file at exit (if no file: write to stdout)\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Initial Pattern Options (optional):\n");
   fprintf(stderr, "  -P, --pattern <id>       Preset the pattern ID on the first mode\n");
@@ -332,7 +336,7 @@ bool VortexCLI::init(int argc, char *argv[])
 
   int opt = -1;
   int option_index = 0;
-  while ((opt = getopt_long(argc, argv, "xctliransjP:C:A:h", long_options, &option_index)) != -1) {
+  while ((opt = getopt_long(argc, argv, "xctliranS:I:O:P:C:A:h", long_options, &option_index)) != -1) {
     switch (opt) {
     case 'x':
       // if the user wants pretty colors or hex codes
@@ -366,16 +370,30 @@ bool VortexCLI::init(int argc, char *argv[])
       // disable the lock
       m_lockEnabled = false;
       break;
-    case 's':
+    case 'S':
       // enable persistent storage to file
       m_storage = true;
       if (optarg) {
         m_storageFile = optarg;
       }
       break;
-    case 'j':
-      // enable storage dumped to json
-      m_json = true;
+    case 'I':
+      // read json from stdin or file
+      if (optarg) {
+        m_jsonMode = (JsonMode)(m_jsonMode | JSON_MODE_READ_FILE);
+        m_jsonInFile = optarg;
+      } else {
+        m_jsonMode = (JsonMode)(m_jsonMode | JSON_MODE_READ_STDIN);
+      }
+      break;
+    case 'O':
+      // write json to output or file
+      if (optarg) {
+        m_jsonMode = (JsonMode)(m_jsonMode | JSON_MODE_WRITE_FILE);
+        m_jsonOutFile = optarg;
+      } else {
+        m_jsonMode = (JsonMode)(m_jsonMode | JSON_MODE_WRITE_STDOUT);
+      }
       break;
     case 'P':
       // preset the pattern ID on the first mode
@@ -429,6 +447,18 @@ bool VortexCLI::init(int argc, char *argv[])
   }
   Vortex::setSleepEnabled(m_sleepEnabled);
   Vortex::setLockEnabled(m_lockEnabled);
+
+  if (m_jsonMode & JSON_MODE_READ_STDIN) {
+    // todo: read js from stdin
+    printf("Reading json from stdin is not implemented yet, sorry\n");
+    exit(2);
+  }
+
+  if (m_jsonMode & JSON_MODE_READ_FILE) {
+    printf("Reading json from %s\n", m_jsonInFile.c_str());
+    // read from m_jsonInFile;
+    parseJsonFromFile(m_jsonInFile);
+  }
 
   if (m_patternIDStr.length() > 0) {
     PatternID id = (PatternID)strtoul(m_patternIDStr.c_str(), nullptr, 10);
@@ -507,9 +537,9 @@ void VortexCLI::cleanup()
     }
     printf("Wrote recorded input to " RECORD_FILE "\n");
   }
-  if (m_json) {
+  if (m_jsonMode & JSON_MODE_WRITE_STDOUT) {
     // dump the current save in json format
-    dumpJson();
+    dumpJson(nullptr);
   }
   m_keepGoing = false;
   m_isPaused = false;
@@ -734,7 +764,55 @@ Pattern *VortexCLI::patternFromJson(const JsonObject *patternJson) const
   // and return the constructed Pattern object
   Pattern *pattern = nullptr;
 
-  // You need to implement similar logic for setting properties in the Pattern object
+  // get pattern id
+  PatternID id = PATTERN_NONE;
+  auto idProperty = patternJson->getProperties().find("pattern_id");
+  if (idProperty == patternJson->getProperties().end()) {
+    return nullptr;
+  }
+  const JsonValue *idValue = idProperty->second;
+  // Check if it's a number before attempting to cast
+  if (const JsonNumber *idNumber = dynamic_cast<const JsonNumber *>(idValue)) {
+    id = (PatternID)idNumber->getValue();
+  }
+
+  PatternArgs args;
+  const JsonArray *argsArray = dynamic_cast<const JsonArray *>(patternJson->getProperties().at("args"));
+  if (argsArray) {
+    const auto &elements = argsArray->getElements();
+    for (const auto &element : elements) {
+      if (const JsonNumber *jsonNumber = dynamic_cast<const JsonNumber *>(element)) {
+        args.addArgs((uint8_t)jsonNumber->getValue());
+      }
+    }
+  }
+
+  Colorset set;
+  const JsonArray *colsArray = dynamic_cast<const JsonArray *>(patternJson->getProperties().at("colorset"));
+  if (colsArray) {
+    const auto &elements = colsArray->getElements();
+    for (const auto &element : elements) {
+      if (const JsonNumber *jsonNumber = dynamic_cast<const JsonNumber *>(element)) {
+        set.addColor(RGBColor((uint32_t)jsonNumber->getValue()));
+      }
+    }
+  }
+
+  printf("Building pattern id %u with args: ", id);
+  for (uint32_t i = 0; i < args.numArgs; ++i) {
+    printf(" %u", args[i]);
+  }
+  printf("\n");
+  printf("And colorset: ");
+  for (uint32_t i = 0; i < args.numArgs; ++i) {
+    printf(" %02X%02x%02x", set.get(i).red, set.get(i).green, set.get(i).blue);
+  }
+  printf("\n");
+
+  pattern = PatternBuilder::make(id, &args);
+
+  //pattern->setFlags(static_cast<uint8_t>(patternJson->getProperties().at("flags")->getValue()));
+
 
   return pattern;
 }
@@ -777,12 +855,32 @@ bool VortexCLI::loadJson(const JsonObject *json)
   //  Leds::setBrightness(brightness);
   //}
 
-  // You need to implement similar logic for other properties
+  // Example: Load modes array from the Json
+  if (json->getProperties().find("modes") == json->getProperties().end()) {
+    return false;
+  }
+  const JsonArray *modesArray = dynamic_cast<const JsonArray *>(json->getProperties().at("modes"));
+  if (!modesArray) {
+    return false;
+  }
+  Modes::clearModes(); // Clear existing modes
+  for (const JsonValue *modeValue : modesArray->getElements()) {
+    const JsonObject *modeJson = dynamic_cast<const JsonObject *>(modeValue);
+    if (!modeJson) {
+      continue;
+    }
+    Mode *mode = modeFromJson(modeJson);
+    if (!mode) {
+      continue;
+    }
+    Modes::addMode(mode);
+  }
+
   return true;
 }
 
 // dump the json to output
-void VortexCLI::dumpJson() const
+void VortexCLI::dumpJson(const char *filename) const
 {
   JsonObject *json = saveJson();
   if (!json) {
@@ -791,6 +889,38 @@ void VortexCLI::dumpJson() const
   JsonPrinter printer;
   printer.printJson(json);
   delete json;
+}
+
+bool VortexCLI::parseJson(const std::string &json)
+{
+  bool rv = false;
+  JsonParser parser;
+  JsonValue *js = parser.parseJson(json);
+  if (!js) {
+    return false;
+  }
+  const JsonObject *obj = dynamic_cast<const JsonObject *>(js);
+  if (obj) {
+    rv = loadJson(obj);
+  }
+  delete js;
+  return rv;
+}
+
+bool VortexCLI::parseJsonFromFile(const std::string &filename)
+{
+  bool rv = false;
+  JsonParser parser;
+  JsonValue *js = parser.parseJsonFromFile(filename);
+  if (!js) {
+    return false;
+  }
+  const JsonObject *obj = dynamic_cast<const JsonObject *>(js);
+  if (obj) {
+    rv = loadJson(obj);
+  }
+  delete js;
+  return rv;
 }
 
 long VortexCLI::VortexCLICallbacks::checkPinHook(uint32_t pin)

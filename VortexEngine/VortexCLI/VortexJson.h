@@ -1,5 +1,6 @@
 #pragma once
 
+#include <fstream>
 #include <string>
 #include <vector>
 #include <map>
@@ -56,8 +57,10 @@ class JsonParser
 {
 public:
   JsonValue *parseJson(const std::string &json);
+  JsonValue *parseJsonFromFile(const std::string &filename);
 
 private:
+  JsonValue *parseFromStream(std::istream &stream);
   JsonValue *parseValue(const std::string &json, size_t &index);
   JsonObject *parseObject(const std::string &json, size_t &index);
   JsonArray *parseArray(const std::string &json, size_t &index);
@@ -68,11 +71,16 @@ private:
 class JsonPrinter
 {
 public:
-  void printJson(const JsonValue *jsonValue, bool prettyPrint = false, int indentation = 0);
+  void printJson(const JsonValue *jsonValue, bool prettyPrint = false);
+  void writeJson(std::ofstream &file, const JsonValue *jsonValue, bool prettyPrint = false);
 
 private:
-  void printJsonObject(const JsonObject *jsonObject, bool prettyPrint, int indentation);
-  void printJsonArray(const JsonArray *jsonArray, bool prettyPrint, int indentation);
-  void printJsonString(const JsonString *jsonString);
-  void printJsonNumber(const JsonNumber *jsonNumber);
+  void printJsonInternal(const JsonValue *jsonValue, bool prettyPrint, int indentation);
+  void writeToStream(std::ostream &stream, const JsonValue *jsonValue, bool prettyPrint, int indentation);
+
+  // New sub-functions
+  void printJsonObject(std::ostream &stream, const JsonObject *jsonObject, bool prettyPrint, int indentation);
+  void printJsonArray(std::ostream &stream, const JsonArray *jsonArray, bool prettyPrint, int indentation);
+  void printJsonString(std::ostream &stream, const JsonString *jsonString);
+  void printJsonNumber(std::ostream &stream, const JsonNumber *jsonNumber);
 };
