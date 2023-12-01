@@ -5,58 +5,6 @@
 
 using namespace std;
 
-JsonNumber::JsonNumber(double value) : value(value) {}
-
-double JsonNumber::getValue() const
-{
-  return value;
-}
-
-JsonString::JsonString(const string &value) : value(value) {}
-
-const string &JsonString::getValue() const
-{
-  return value;
-}
-
-JsonObject::~JsonObject()
-{
-  // Cleanup properties
-  for (auto& pair : properties) {
-    delete pair.second; // Release memory occupied by JsonValue objects
-  }
-  properties.clear(); // Clear the map
-}
-
-void JsonObject::addProperty(const string &key, JsonValue *value)
-{
-  properties[key] = value;
-}
-
-const map<string, JsonValue *> &JsonObject::getProperties() const
-{
-  return properties;
-}
-
-JsonArray::~JsonArray()
-{
-  // Cleanup properties
-  for (auto& el : elements) {
-    delete el; // Release memory occupied by JsonValue objects
-  }
-  elements.clear(); // Clear the map
-}
-
-void JsonArray::addElement(JsonValue *value)
-{
-  elements.push_back(value);
-}
-
-const vector<JsonValue *> &JsonArray::getElements() const
-{
-  return elements;
-}
-
 JsonValue *JsonParser::parseJson(const std::string &json)
 {
   std::istringstream stream(json);

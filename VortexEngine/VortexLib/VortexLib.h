@@ -6,6 +6,7 @@
 
 #include "Patterns/Patterns.h"
 #include "Leds/LedTypes.h"
+#include "VortexJson.h"
 
 #include <inttypes.h>
 
@@ -65,6 +66,7 @@ public:
 class PatternArgs;
 class ByteStream;
 class Colorset;
+class Pattern;
 class Random;
 class Button;
 class Mode;
@@ -240,6 +242,23 @@ public:
   // enable or disable the 'lock'
   static void setLockEnabled(bool enable) { m_lockEnabled = enable; }
   static bool lockEnabled() { return m_lockEnabled; }
+
+  // convert a mode to/from a json object
+  static JsonObject *modeToJson(const Mode *mode);
+  static Mode *modeFromJson(const JsonObject *modeJson);
+
+  // convert a pattern to/from a json object
+  static JsonObject *patternToJson(const Pattern *pattern);
+  static Pattern *patternFromJson(const JsonObject *patternJson);
+
+  // save/load the engine storage to/from raw json object
+  static JsonObject *saveJson();
+  static bool loadJson(const JsonObject *json);
+
+  // dump/parse the json to/from string
+  static void dumpJson(const char *filename = nullptr);
+  static bool parseJson(const std::string &json);
+  static bool parseJsonFromFile(const std::string &filename);
 
 private:
   // the last command to have been executed

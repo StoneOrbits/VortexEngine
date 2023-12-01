@@ -67,9 +67,9 @@ LIBS=\
 # source files
 # local source files first, other sources after
 ifeq ($(OS),Windows_NT)
-    SRC = $(shell find ../src/ -type f -name \\*.cpp) VortexLib.cpp
+    SRC = $(shell find ../src/ -type f -name \\*.cpp) VortexLib.cpp VortexJson.cpp
 else
-    SRC = $(shell find ../src/ -type f -name '*.cpp') VortexLib.cpp
+    SRC = $(shell find ../src/ -type f -name '*.cpp') VortexLib.cpp VortexJson.cpp
 endif
 
 # object files are source files with .c replaced with .o

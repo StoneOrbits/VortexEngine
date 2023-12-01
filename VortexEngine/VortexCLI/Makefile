@@ -68,9 +68,9 @@ LIBS=\
 # source files
 # local source files first, other sources after
 ifeq ($(OS),Windows_NT)
-    SRC = VortexCLI.cpp VortexJson.cpp
+    SRC = VortexCLI.cpp
 else
-    SRC = VortexCLI.cpp VortexJson.cpp
+    SRC = VortexCLI.cpp
 endif
 
 # object files are source files with .c replaced with .o

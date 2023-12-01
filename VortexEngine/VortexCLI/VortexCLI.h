@@ -35,23 +35,6 @@ public:
   // setup the array of leds
   void installLeds(void *leds, uint32_t count);
 
-  // convert a mode to/from a json object
-  JsonObject *modeToJson(const Mode *mode) const;
-  Mode *modeFromJson(const JsonObject *modeJson) const;
-
-  // convert a pattern to/from a json object
-  JsonObject *patternToJson(const Pattern *pattern) const;
-  Pattern *patternFromJson(const JsonObject *patternJson) const;
-
-  // save/load the engine storage to/from raw json object
-  JsonObject *saveJson() const;
-  bool loadJson(const JsonObject *json);
-
-  // dump/parse the json to/from string
-  void dumpJson(const char *filename = nullptr) const;
-  bool parseJson(const std::string &json);
-  bool parseJsonFromFile(const std::string &filename);
-
   static void printlog(const char *file, const char *func, int line, const char *msg, va_list list);
 
   void setColoredOutput(bool output) { m_outputType = OUTPUT_TYPE_COLOR; }

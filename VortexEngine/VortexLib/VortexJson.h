@@ -14,8 +14,8 @@ public:
 class JsonNumber : public JsonValue
 {
 public:
-  JsonNumber(double value);
-  double getValue() const;
+  JsonNumber(double value) : value(value) {}
+  double getValue() const { return value; }
 
 private:
   double value;
@@ -24,8 +24,8 @@ private:
 class JsonString : public JsonValue
 {
 public:
-  JsonString(const std::string &value);
-  const std::string &getValue() const;
+  JsonString(const std::string &value) : value(value) {}
+  const std::string &getValue() const { return value; }
 
 private:
   std::string value;
@@ -34,9 +34,14 @@ private:
 class JsonObject : public JsonValue
 {
 public:
-  virtual ~JsonObject();
-  void addProperty(const std::string &key, JsonValue *value);
-  const std::map<std::string, JsonValue *> &getProperties() const;
+  virtual ~JsonObject() {
+    for (auto& pair : properties) {
+      delete pair.second;
+    }
+    properties.clear();
+  }
+  void addProperty(const std::string &key, JsonValue *value) { properties[key] = value; }
+  const std::map<std::string, JsonValue *> &getProperties() const { return properties; }
 
 private:
   std::map<std::string, JsonValue *> properties;
@@ -45,9 +50,14 @@ private:
 class JsonArray : public JsonValue
 {
 public:
-  virtual ~JsonArray();
-  void addElement(JsonValue *value);
-  const std::vector<JsonValue *> &getElements() const;
+  virtual ~JsonArray() {
+    for (auto& el : elements) {
+      delete el;
+    }
+    elements.clear();
+  }
+  void addElement(JsonValue *value) { elements.push_back(value); }
+  const std::vector<JsonValue *> &getElements() const { return elements; }
 
 private:
   std::vector<JsonValue *> elements;

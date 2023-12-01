@@ -1184,3 +1184,294 @@ string Vortex::getStorageFilename()
 {
   return Storage::getStorageFilename();
 }
+
+JsonObject *Vortex::modeToJson(const Mode *mode)
+{
+  JsonObject *modeJson = new JsonObject();
+
+  modeJson->addProperty("num_leds", new JsonNumber(mode->getLedCount()));
+  modeJson->addProperty("flags", new JsonNumber(static_cast<uint8_t>(mode->getFlags())));
+
+  const Pattern *multiPattern = mode->getPattern(LED_MULTI);
+  if (multiPattern) {
+    modeJson->addProperty("multi_pat", patternToJson(multiPattern));
+  } else {
+    modeJson->addProperty("multi_pat", nullptr); // null
+  }
+
+  JsonArray *singlePatterns = new JsonArray();
+  for (LedPos l = LED_FIRST; l < mode->getLedCount(); ++l) {
+    const Pattern *pattern = mode->getPattern(l);
+    if (pattern) {
+      singlePatterns->addElement(patternToJson(pattern));
+    } else {
+      singlePatterns->addElement(new JsonValue()); // null
+    }
+  }
+  modeJson->addProperty("single_pats", singlePatterns);
+
+  return modeJson;
+}
+
+Mode *Vortex::modeFromJson(const JsonObject *modeJson)
+{
+  if (!modeJson) {
+    return nullptr;
+  }
+
+  // Implement the logic to create a Mode object from the JsonObject
+  // and return the constructed Mode object
+  Mode *mode = new Mode();
+  if (!mode) {
+    return nullptr;
+  }
+
+#if FIXED_LED_COUNT == 0
+  // Example: Set some properties in the Mode object
+  if (modeJson->getProperties().find("num_leds") != modeJson->getProperties().end()) {
+    mode->setLedCount(static_cast<uint8_t>(modeJson->getProperties().at("num_leds")->getValue()));
+  }
+#endif
+
+  // load flags?
+  //ModeFlags flags = 0;
+  //auto flagsProperty = modeJson->getProperties().find("flags");
+  //if (flagsProperty == modeJson->getProperties().end()) {
+  //  return nullptr;
+  //}
+  //const JsonValue *flagsValue = flagsProperty->second;
+  //// Check if it's a number before attempting to cast
+  //if (const JsonNumber *flagsNumber = dynamic_cast<const JsonNumber *>(flagsValue)) {
+  //  flags = static_cast<ModeFlags>(static_cast<uint8_t>(flagsNumber->getValue()));
+  //}
+
+  // Extract and set multiPattern
+  if (modeJson->getProperties().find("multi_pat") != modeJson->getProperties().end()) {
+    const JsonValue *multiPatValue = modeJson->getProperties().at("multi_pat");
+    if (const JsonObject *multiPatObj = dynamic_cast<const JsonObject *>(multiPatValue)) {
+      // Assuming patternFromJson returns a Pattern object
+      const Pattern *multiPattern = patternFromJson(multiPatObj);
+      mode->setPattern(multiPattern->getPatternID(), LED_MULTI);
+    }
+  }
+
+  // Extract and set singlePatterns
+  if (modeJson->getProperties().find("single_pats") != modeJson->getProperties().end()) {
+    const JsonValue *singlePatsValue = modeJson->getProperties().at("single_pats");
+    if (const JsonArray *singlePatsArray = dynamic_cast<const JsonArray *>(singlePatsValue)) {
+      LedPos pos = LED_FIRST;
+      for (const JsonValue *patValue : singlePatsArray->getElements()) {
+        if (const JsonObject *patObj = dynamic_cast<const JsonObject *>(patValue)) {
+          // Assuming patternFromJson returns a Pattern object
+          const Pattern *pattern = patternFromJson(patObj);
+          // Add your logic to determine LedPos
+          mode->setPattern(pattern->getPatternID(), pos++);
+        }
+      }
+    }
+  }
+
+  return mode;
+}
+
+JsonObject *Vortex::patternToJson(const Pattern *pattern)
+{
+  if (!pattern) {
+    return nullptr;
+  }
+
+  JsonObject *patternJson = new JsonObject();
+  if (!patternJson) {
+    return nullptr;
+  }
+
+  patternJson->addProperty("pattern_id", new JsonNumber(pattern->getPatternID()));
+  patternJson->addProperty("flags", new JsonNumber(pattern->getFlags()));
+
+  const Colorset &colorset = pattern->getColorset();
+  patternJson->addProperty("numColors", new JsonNumber(colorset.numColors()));
+
+  JsonArray *colorsetArray = new JsonArray();
+  for (uint8_t c = 0; c < colorset.numColors(); ++c) {
+    const RGBColor &color = colorset.get(c);
+    char colorString[128] = {0};
+    snprintf(colorString , sizeof(colorString), "0x%02X%02X%02X", color.red, color.green, color.blue);
+    colorsetArray->addElement(new JsonString(colorString));
+  }
+  patternJson->addProperty("colorset", colorsetArray);
+
+  patternJson->addProperty("numArgs", new JsonNumber(pattern->getNumArgs()));
+
+  JsonArray *argsArray = new JsonArray();
+  for (uint8_t a = 0; a < pattern->getNumArgs(); ++a) {
+    argsArray->addElement(new JsonNumber(pattern->getArg(a)));
+  }
+  patternJson->addProperty("args", argsArray);
+
+  return patternJson;
+}
+
+Pattern *Vortex::patternFromJson(const JsonObject *patternJson)
+{
+  // Implement the logic to create a Pattern object from the JsonObject
+  // and return the constructed Pattern object
+  Pattern *pattern = nullptr;
+
+  // get pattern id
+  PatternID id = PATTERN_NONE;
+  auto idProperty = patternJson->getProperties().find("pattern_id");
+  if (idProperty == patternJson->getProperties().end()) {
+    return nullptr;
+  }
+  const JsonValue *idValue = idProperty->second;
+  // Check if it's a number before attempting to cast
+  if (const JsonNumber *idNumber = dynamic_cast<const JsonNumber *>(idValue)) {
+    id = (PatternID)idNumber->getValue();
+  }
+
+  PatternArgs args;
+  const JsonArray *argsArray = dynamic_cast<const JsonArray *>(patternJson->getProperties().at("args"));
+  if (argsArray) {
+    const auto &elements = argsArray->getElements();
+    for (const auto &element : elements) {
+      if (const JsonNumber *jsonNumber = dynamic_cast<const JsonNumber *>(element)) {
+        args.addArgs((uint8_t)jsonNumber->getValue());
+      }
+    }
+  }
+
+  Colorset set;
+  const JsonArray *colsArray = dynamic_cast<const JsonArray *>(patternJson->getProperties().at("colorset"));
+  if (colsArray) {
+    const auto &elements = colsArray->getElements();
+    for (const auto &element : elements) {
+      if (const JsonNumber *jsonNumber = dynamic_cast<const JsonNumber *>(element)) {
+        set.addColor(RGBColor((uint32_t)jsonNumber->getValue()));
+      }
+    }
+  }
+
+  printf("Building pattern id %u with args: ", id);
+  for (uint32_t i = 0; i < args.numArgs; ++i) {
+    printf(" %u", args[i]);
+  }
+  printf("\n");
+  printf("And colorset: ");
+  for (uint32_t i = 0; i < args.numArgs; ++i) {
+    printf(" %02X%02x%02x", set.get(i).red, set.get(i).green, set.get(i).blue);
+  }
+  printf("\n");
+
+  pattern = PatternBuilder::make(id, &args);
+
+  //pattern->setFlags(static_cast<uint8_t>(patternJson->getProperties().at("flags")->getValue()));
+
+
+  return pattern;
+}
+
+JsonObject *Vortex::saveJson()
+{
+  JsonObject *saveJson = new JsonObject();
+
+  saveJson->addProperty("version_major", new JsonNumber(static_cast<uint8_t>(VORTEX_VERSION_MAJOR)));
+  saveJson->addProperty("version_minor", new JsonNumber(static_cast<uint8_t>(VORTEX_VERSION_MINOR)));
+  saveJson->addProperty("global_flags", new JsonNumber(Modes::globalFlags()));
+  saveJson->addProperty("brightness", new JsonNumber(static_cast<uint8_t>(Leds::getBrightness())));
+
+  uint8_t numModes = Modes::numModes();
+  saveJson->addProperty("num_modes", new JsonNumber(numModes));
+
+  JsonArray *modesArray = new JsonArray();
+  Modes::setCurMode(0);
+  for (uint8_t i = 0; i < numModes; ++i) {
+    Mode *cur = Modes::curMode();
+    if (cur) {
+      modesArray->addElement(modeToJson(cur));
+    } else {
+      modesArray->addElement(new JsonValue()); // null
+    }
+  }
+  saveJson->addProperty("modes", modesArray);
+
+  return saveJson;
+}
+
+bool Vortex::loadJson(const JsonObject *json)
+{
+  // Implement the logic to load settings from the JsonObject
+  // and update the application state accordingly
+
+  // Example: Update brightness from the Json
+  //if (json.getProperties().find("brightness") != json.getProperties().end()) {
+  //  uint8_t brightness = static_cast<uint8_t>(json.getProperties().at("brightness")->getValue());
+  //  Leds::setBrightness(brightness);
+  //}
+
+  // Example: Load modes array from the Json
+  if (json->getProperties().find("modes") == json->getProperties().end()) {
+    return false;
+  }
+  const JsonArray *modesArray = dynamic_cast<const JsonArray *>(json->getProperties().at("modes"));
+  if (!modesArray) {
+    return false;
+  }
+  Modes::clearModes(); // Clear existing modes
+  for (const JsonValue *modeValue : modesArray->getElements()) {
+    const JsonObject *modeJson = dynamic_cast<const JsonObject *>(modeValue);
+    if (!modeJson) {
+      continue;
+    }
+    Mode *mode = modeFromJson(modeJson);
+    if (!mode) {
+      continue;
+    }
+    Modes::addMode(mode);
+  }
+
+  return true;
+}
+
+// dump the json to output
+void Vortex::dumpJson(const char *filename)
+{
+  JsonObject *json = saveJson();
+  if (!json) {
+    return;
+  }
+  JsonPrinter printer;
+  printer.printJson(json);
+  delete json;
+}
+
+bool Vortex::parseJson(const std::string &json)
+{
+  bool rv = false;
+  JsonParser parser;
+  JsonValue *js = parser.parseJson(json);
+  if (!js) {
+    return false;
+  }
+  const JsonObject *obj = dynamic_cast<const JsonObject *>(js);
+  if (obj) {
+    rv = loadJson(obj);
+  }
+  delete js;
+  return rv;
+}
+
+bool Vortex::parseJsonFromFile(const std::string &filename)
+{
+  bool rv = false;
+  JsonParser parser;
+  JsonValue *js = parser.parseJsonFromFile(filename);
+  if (!js) {
+    return false;
+  }
+  const JsonObject *obj = dynamic_cast<const JsonObject *>(js);
+  if (obj) {
+    rv = loadJson(obj);
+  }
+  delete js;
+  return rv;
+}
