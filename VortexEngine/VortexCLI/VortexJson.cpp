@@ -19,6 +19,15 @@ const string &JsonString::getValue() const
   return value;
 }
 
+JsonObject::~JsonObject()
+{
+  // Cleanup properties
+  for (auto& pair : properties) {
+    delete pair.second; // Release memory occupied by JsonValue objects
+  }
+  properties.clear(); // Clear the map
+}
+
 void JsonObject::addProperty(const string &key, JsonValue *value)
 {
   properties[key] = value;
@@ -27,6 +36,15 @@ void JsonObject::addProperty(const string &key, JsonValue *value)
 const map<string, JsonValue *> &JsonObject::getProperties() const
 {
   return properties;
+}
+
+JsonArray::~JsonArray()
+{
+  // Cleanup properties
+  for (auto& el : elements) {
+    delete el; // Release memory occupied by JsonValue objects
+  }
+  elements.clear(); // Clear the map
 }
 
 void JsonArray::addElement(JsonValue *value)

@@ -33,6 +33,7 @@ private:
 class JsonObject : public JsonValue
 {
 public:
+  virtual ~JsonObject();
   void addProperty(const std::string &key, JsonValue *value);
   const std::map<std::string, JsonValue *> &getProperties() const;
 
@@ -43,6 +44,7 @@ private:
 class JsonArray : public JsonValue
 {
 public:
+  virtual ~JsonArray();
   void addElement(JsonValue *value);
   const std::vector<JsonValue *> &getElements() const;
 

@@ -790,6 +790,7 @@ void VortexCLI::dumpJson() const
   }
   JsonPrinter printer;
   printer.printJson(json);
+  delete json;
 }
 
 long VortexCLI::VortexCLICallbacks::checkPinHook(uint32_t pin)
