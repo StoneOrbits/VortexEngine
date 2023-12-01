@@ -96,6 +96,16 @@ const default_mode_entry default_modes[MAX_MODES] = {
   },
 
   {
+    PATTERN_GHOSTCRUSH, 5, {
+      HSV(0, 0, 255),
+      HSV(0, 0, 255),
+      HSV(0, 0, 0),
+      HSV(0, 255, 170),
+      HSV(0, 0, 0)
+    }
+  },
+
+  {
     PATTERN_STROBE, 8, {
       0xD4002B,
       RGB_OFF,
@@ -120,6 +130,7 @@ const default_mode_entry default_modes[MAX_MODES] = {
       0x13000A
     }
   },
+
   {
     PATTERN_GHOSTCRUSH, 7, {
       0x26004B,
