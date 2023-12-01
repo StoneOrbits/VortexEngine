@@ -46,6 +46,6 @@ ChaserPattern::ChaserPattern(const PatternArgs &args) :
     // The last parameter of addStep() is omitted, that parameter could be used
     // to override the colorset for specific Leds on any given step. Since it
     // is omitted that means this pattern will use whichever colorset is chosen
-    m_sequence.addStep(300, patMap);
+    m_sequence.addStep(150, patMap);
   }
 }

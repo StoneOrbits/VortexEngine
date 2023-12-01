@@ -64,6 +64,7 @@ private:
   PatternID rollPatternID(Random &ctx);
   PatternID rollMultiPatternID(Random &ctx);
   Colorset rollColorset(Random &ctx);
+  bool rollCustomLedMap(Random& ctx, Mode *outMode);
 
   // random pattern generators
   void traditionalPattern(Random &ctx, PatternArgs &outArgs);

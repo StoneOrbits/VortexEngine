@@ -298,6 +298,30 @@ PatternID Randomizer::rollMultiPatternID(Random &ctx)
   return (PatternID)ctx.next8(PATTERN_MULTI_FIRST, PATTERN_MULTI_LAST);
 }
 
+LedMap maps[] = {
+  MAP_ALL_FACE,
+  MAP_ALL_BOT,
+  MAP_ALL_TOP,
+  MAP_LINE_1,
+  MAP_LINE_2,
+  MAP_QUADRANT_1,
+  MAP_QUADRANT_2,
+  MAP_QUADRANT_3,
+  MAP_QUADRANT_4,
+  MAP_RINGS_EVEN,
+  MAP_RINGS_ODD,
+  MAP_RING_INNER,
+  MAP_RING_MIDDLE,
+  MAP_RING_OUTER,
+  MAP_RING_EDGE,
+};
+
+bool Randomizer::rollCustomLedMap(Random& ctx, Mode* outMode)
+{
+// something happens here
+  return true;
+}
+
 bool Randomizer::reRoll()
 {
   MAP_FOREACH_LED(m_targetLeds) {
@@ -327,10 +351,41 @@ bool Randomizer::reRoll()
   }
   if (m_targetLeds == MAP_LED(LED_MULTI)) {
     if (m_flags & RANDOMIZE_PATTERN) {
-      // TODO: Advanced multi led patterns?
-      if (!m_previewMode.setPattern(rollMultiPatternID(m_multiRandCtx), LED_MULTI)) {
-        ERROR_LOG("Failed to roll new pattern");
-        return false;
+      if (m_multiRandCtx.next8() > 128) {
+        // roll a first pattern and a random led map
+        PatternID firstPattern = rollPatternID(m_multiRandCtx);
+        LedMap randomMap = maps[m_multiRandCtx.next8(0, sizeof(maps))];
+        // set each led in the map to the pattern
+        MAP_FOREACH_LED(randomMap) {
+          if (!m_previewMode.setPattern(firstPattern, pos)) {
+            ERROR_LOG("Failed to roll new pattern");
+            return false;
+          }
+        }
+        // roll a second pattern and reverse the led map
+        PatternID secondPattern = rollPatternID(m_multiRandCtx);
+        randomMap = MAP_INVERSE(randomMap);
+        // set the remaining leds to the 2nd pattern
+        MAP_FOREACH_LED(randomMap) {
+          if (!m_previewMode.setPattern(secondPattern, pos)) {
+            ERROR_LOG("Failed to roll new pattern");
+            return false;
+          }
+        }
+      } else {
+        if (m_advanced) {
+          // dynamically generate parameters for mutli led pattern ids
+          //if (!rollMultiPattern(m_multiRandCtx, &m_previewMode)) {
+          //  ERROR_LOG("Failed to roll new pattern");
+          //  return false;
+          //}
+        } else {
+          // randomly select a multi led pattern id
+          if (!m_previewMode.setPattern(rollMultiPatternID(m_multiRandCtx), LED_MULTI)) {
+            ERROR_LOG("Failed to roll new pattern");
+            return false;
+          }
+        }
       }
     }
     if (m_flags & RANDOMIZE_COLORSET) {
