@@ -92,6 +92,7 @@ private:
   bool m_storage;
   bool m_sleepEnabled;
   bool m_lockEnabled;
+  bool m_jsonPretty;
   std::string m_storageFile;
   std::string m_jsonInFile;
   std::string m_jsonOutFile;

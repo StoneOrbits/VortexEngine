@@ -187,6 +187,7 @@ public:
 
   // Helpers for converting pattern id and led id to string
   static std::string patternToString(PatternID id = PATTERN_NONE);
+  static PatternID stringToPattern(const std::string &pattern);
   static std::string ledToString(LedPos pos);
   static uint32_t numCustomParams(PatternID id);
   static std::vector<std::string> getCustomParams(PatternID id);
@@ -256,7 +257,7 @@ public:
   static bool loadJson(const JsonObject *json);
 
   // dump/parse the json to/from string
-  static void dumpJson(const char *filename = nullptr);
+  static void dumpJson(const char *filename = nullptr, bool pretty = false);
   static bool parseJson(const std::string &json);
   static bool parseJsonFromFile(const std::string &filename);
 

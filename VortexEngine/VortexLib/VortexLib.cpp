@@ -26,6 +26,8 @@
 #include <Windows.h>
 #endif
 
+#include <algorithm>
+
 #ifdef WASM
 #include <emscripten/bind.h>
 #include <emscripten/val.h>
@@ -55,6 +57,21 @@ EMSCRIPTEN_BINDINGS(vortex_engine) {
 #endif
 
 using namespace std;
+
+// I wish there was a way to do this automatically but it would be
+// quite messy and idk if it's worth it
+static const char *patternNames[PATTERN_COUNT] = {
+  "strobe", "hyperstrobe", "picostrobe", "strobie", "dops", "ultradops", "strobegap",
+  "hypergap", "picogap", "strobiegap", "dopsgap", "ultragap", "blinkie",
+  "ghostcrush", "doubledops", "chopper", "dashgap", "dashdops", "dash-crush",
+  "ultradash", "gapcycle", "dashcycle", "tracer", "ribbon", "miniribbon",
+  "blend", "blendstrobe", "blendstrobegap", "complementary_blend",
+  "complementary_blendstrobe", "complementary_blendstrobegap", "solid",
+  "hueshift", "theater_chase", "chaser", "zigzag", "zipfade", "drip",
+  "dripmorph", "crossdops", "doublestrobe", "meteor", "sparkletrace",
+  "vortexwipe", "warp", "warpworm", "snowball", "lighthouse", "pulsish",
+  "fill", "bounce", "splitstrobie", "backstrobe", "vortex",
+};
 
 // static vortex data
 char Vortex::m_lastCommand = 0;
@@ -797,30 +814,34 @@ bool Vortex::isCurModeMulti()
 
 string Vortex::patternToString(PatternID id)
 {
-  // I wish there was a way to do this automatically but it would be
-  // quite messy and idk if it's worth it
-  static const char *patternNames[] = {
-    "strobe", "hyperstrobe", "picostrobe", "strobie", "dops", "ultradops", "strobegap",
-    "hypergap", "picogap", "strobiegap", "dopsgap", "ultragap", "blinkie",
-    "ghostcrush", "doubledops", "chopper", "dashgap", "dashdops", "dash-crush",
-    "ultradash", "gapcycle", "dashcycle", "tracer", "ribbon", "miniribbon",
-    "blend", "blendstrobe", "blendstrobegap", "complementary_blend",
-    "complementary_blendstrobe", "complementary_blendstrobegap", "solid",
-    "hueshift", "theater_chase", "chaser", "zigzag", "zipfade", "drip",
-    "dripmorph", "crossdops", "doublestrobe", "meteor", "sparkletrace",
-    "vortexwipe", "warp", "warpworm", "snowball", "lighthouse", "pulsish",
-    "fill", "bounce", "splitstrobie", "backstrobe", "vortex",
-  };
+  // this shouldn't happen but just in case somebody messes with stuff
   if (sizeof(patternNames) / sizeof(patternNames[0]) != PATTERN_COUNT) {
     // if you see this it means the list of strings above is not equal to
     // the number of patterns in the enum, so you need to update the list
     // above to match the enum.
     return "fix patternToString()";
   }
-  if (id == PATTERN_NONE || id >= PATTERN_COUNT) {
+  if (id <= PATTERN_NONE || id >= PATTERN_COUNT) {
     return "none";
   }
   return patternNames[id];
+}
+
+PatternID Vortex::stringToPattern(const std::string &pattern)
+{
+  static map<string, PatternID> cachedNames;
+  if (cachedNames.empty()) {
+    for (PatternID i = PATTERN_FIRST; i < PATTERN_COUNT; ++i) {
+      cachedNames[patternNames[i]] = (PatternID)i;
+    }
+  }
+  // lowercase the name and look it up
+  string lowerPat = pattern;
+  transform(lowerPat.begin(), lowerPat.end(), lowerPat.begin(), [](unsigned char c) { return tolower(c); });
+  if (cachedNames.find(pattern) == cachedNames.end()) {
+    return PATTERN_NONE;
+  }
+  return cachedNames[pattern];
 }
 
 // this shouldn't change much so this is fine
@@ -1205,7 +1226,7 @@ JsonObject *Vortex::modeToJson(const Mode *mode)
     if (pattern) {
       singlePatterns->addElement(patternToJson(pattern));
     } else {
-      singlePatterns->addElement(new JsonValue()); // null
+      singlePatterns->addElement(nullptr); // null
     }
   }
   modeJson->addProperty("single_pats", singlePatterns);
@@ -1251,7 +1272,10 @@ Mode *Vortex::modeFromJson(const JsonObject *modeJson)
     if (const JsonObject *multiPatObj = dynamic_cast<const JsonObject *>(multiPatValue)) {
       // Assuming patternFromJson returns a Pattern object
       const Pattern *multiPattern = patternFromJson(multiPatObj);
-      mode->setPattern(multiPattern->getPatternID(), LED_MULTI);
+      PatternArgs args;
+      multiPattern->getArgs(args);
+      Colorset set = multiPattern->getColorset();
+      mode->setPattern(multiPattern->getPatternID(), LED_MULTI, &args, &set);
     }
   }
 
@@ -1265,7 +1289,10 @@ Mode *Vortex::modeFromJson(const JsonObject *modeJson)
           // Assuming patternFromJson returns a Pattern object
           const Pattern *pattern = patternFromJson(patObj);
           // Add your logic to determine LedPos
-          mode->setPattern(pattern->getPatternID(), pos++);
+          PatternArgs args;
+          pattern->getArgs(args);
+          Colorset set = pattern->getColorset();
+          mode->setPattern(pattern->getPatternID(), pos++, &args, &set);
         }
       }
     }
@@ -1345,8 +1372,13 @@ Pattern *Vortex::patternFromJson(const JsonObject *patternJson)
   if (colsArray) {
     const auto &elements = colsArray->getElements();
     for (const auto &element : elements) {
-      if (const JsonNumber *jsonNumber = dynamic_cast<const JsonNumber *>(element)) {
-        set.addColor(RGBColor((uint32_t)jsonNumber->getValue()));
+      if (const JsonString *jsonString = dynamic_cast<const JsonString *>(element)) {
+        string strVal = jsonString->getValue();
+        if (strVal[0] == '0' && strVal[1] == 'x') {
+          strVal = strVal.substr(2);
+        }
+        uint32_t dwCol = strtoul(strVal.c_str(), NULL, 16);
+        set.addColor(RGBColor(dwCol));
       }
     }
   }
@@ -1363,6 +1395,8 @@ Pattern *Vortex::patternFromJson(const JsonObject *patternJson)
   printf("\n");
 
   pattern = PatternBuilder::make(id, &args);
+  pattern->setColorset(set);
+  pattern->init();
 
   //pattern->setFlags(static_cast<uint8_t>(patternJson->getProperties().at("flags")->getValue()));
 
@@ -1433,14 +1467,19 @@ bool Vortex::loadJson(const JsonObject *json)
 }
 
 // dump the json to output
-void Vortex::dumpJson(const char *filename)
+void Vortex::dumpJson(const char *filename, bool pretty)
 {
   JsonObject *json = saveJson();
   if (!json) {
     return;
   }
   JsonPrinter printer;
-  printer.printJson(json);
+  if (filename) {
+    ofstream file(filename);
+    printer.writeJson(file, json, pretty);
+  } else {
+    printer.printJson(json, pretty);
+  }
   delete json;
 }
 

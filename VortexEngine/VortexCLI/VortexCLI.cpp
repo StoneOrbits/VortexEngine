@@ -158,6 +158,7 @@ VortexCLI::VortexCLI() :
   m_storage(false),
   m_sleepEnabled(true),
   m_lockEnabled(true),
+  m_jsonPretty(false),
   m_storageFile("FlashStorage.flash"),
   m_patternIDStr(),
   m_colorsetStr(),
@@ -184,6 +185,7 @@ static struct option long_options[] = {
   {"storage", optional_argument, nullptr, 'S'},
   {"json-in", optional_argument, nullptr, 'I'},
   {"json-out", optional_argument, nullptr, 'O'},
+  {"json-human-read", no_argument, nullptr, 'H'},
   {"pattern", required_argument, nullptr, 'P'},
   {"colorset", required_argument, nullptr, 'C'},
   {"arguments", required_argument, nullptr, 'A'},
@@ -234,9 +236,10 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -S, --storage [file]     Persistent storage to file (default file: FlashStorage.flash)\n");
   fprintf(stderr, "  -I, --json-in [file]     Load json from file at init (if no file: read from stdin)\n");
   fprintf(stderr, "  -O, --json-out [file]    Dump json to file at exit (if no file: write to stdout)\n");
+  fprintf(stderr, "  -H, --json-human-read    Dump human readable json, instead of condensed json\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Initial Pattern Options (optional):\n");
-  fprintf(stderr, "  -P, --pattern <id>       Preset the pattern ID on the first mode\n");
+  fprintf(stderr, "  -P, --pattern <id>       Preset the pattern ID on the first mode (numeric ID or pattern name ex: blend)\n");
   fprintf(stderr, "  -C, --colorset c1,c2...  Preset the colorset on the first mode (csv list of hex codes or color names)\n");
   fprintf(stderr, "  -A, --arguments a1,a2... Preset the arguments on the first mode (csv list of arguments)\n");
   fprintf(stderr, "\n");
@@ -335,7 +338,7 @@ bool VortexCLI::init(int argc, char *argv[])
 
   int opt = -1;
   int option_index = 0;
-  while ((opt = getopt_long(argc, argv, "xctliranS:I:O:P:C:A:h", long_options, &option_index)) != -1) {
+  while ((opt = getopt_long(argc, argv, "xctliranS::I::O::HP:C:A:h", long_options, &option_index)) != -1) {
     switch (opt) {
     case 'x':
       // if the user wants pretty colors or hex codes
@@ -372,12 +375,18 @@ bool VortexCLI::init(int argc, char *argv[])
     case 'S':
       // enable persistent storage to file
       m_storage = true;
+      if (optarg == NULL && optind < argc && argv[optind][0] != '-') {
+        optarg = argv[optind++];
+      }
       if (optarg) {
         m_storageFile = optarg;
       }
       break;
     case 'I':
       // read json from stdin or file
+      if (optarg == NULL && optind < argc && argv[optind][0] != '-') {
+        optarg = argv[optind++];
+      }
       if (optarg) {
         m_jsonMode = (JsonMode)(m_jsonMode | JSON_MODE_READ_FILE);
         m_jsonInFile = optarg;
@@ -387,12 +396,19 @@ bool VortexCLI::init(int argc, char *argv[])
       break;
     case 'O':
       // write json to output or file
+      if (optarg == NULL && optind < argc && argv[optind][0] != '-') {
+        optarg = argv[optind++];
+      }
       if (optarg) {
         m_jsonMode = (JsonMode)(m_jsonMode | JSON_MODE_WRITE_FILE);
         m_jsonOutFile = optarg;
       } else {
         m_jsonMode = (JsonMode)(m_jsonMode | JSON_MODE_WRITE_STDOUT);
       }
+      break;
+    case 'H':
+      // json human readable
+      m_jsonPretty = true;
       break;
     case 'P':
       // preset the pattern ID on the first mode
@@ -460,7 +476,13 @@ bool VortexCLI::init(int argc, char *argv[])
   }
 
   if (m_patternIDStr.length() > 0) {
+    // convert both numeric and string to see which one seems more correct
     PatternID id = (PatternID)strtoul(m_patternIDStr.c_str(), nullptr, 10);
+    PatternID strID = Vortex::stringToPattern(m_patternIDStr)
+    if (id == PATTERN_FIRST && strID != PATTERN_NONE) {
+      // use the str ID if the numeric ID didn't convert and the string did
+      id = strID;
+    }
     // TODO: add arg for the led position
     Vortex::setPatternAt(LED_ALL, id);
   }
@@ -538,7 +560,10 @@ void VortexCLI::cleanup()
   }
   if (m_jsonMode & JSON_MODE_WRITE_STDOUT) {
     // dump the current save in json format
-    Vortex::dumpJson(nullptr);
+    Vortex::dumpJson(nullptr, m_jsonPretty);
+  }
+  if (m_jsonMode & JSON_MODE_WRITE_FILE) {
+    Vortex::dumpJson(m_jsonOutFile.c_str(), m_jsonPretty);
   }
   m_keepGoing = false;
   m_isPaused = false;
