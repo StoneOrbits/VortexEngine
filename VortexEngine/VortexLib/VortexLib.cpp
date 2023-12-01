@@ -1051,6 +1051,8 @@ bool Vortex::matchLedCount(ByteStream &stream)
   stream.unserialize(&numModes);
   uint8_t ledCount = 0;
   stream.unserialize(&ledCount);
+  // put the unserializer back where it was for the next thing
+  stream.resetUnserializer();
   return setLedCount(ledCount);
 #else
   return false;
