@@ -298,6 +298,8 @@ PatternID Randomizer::rollMultiPatternID(Random &ctx)
   return (PatternID)ctx.next8(PATTERN_MULTI_FIRST, PATTERN_MULTI_LAST);
 }
 
+#define NUM_MAPS (sizeof(maps) / sizeof(maps[0]))
+
 LedMap maps[] = {
   MAP_ALL_FACE,
   MAP_ALL_BOT,
@@ -315,12 +317,6 @@ LedMap maps[] = {
   MAP_RING_OUTER,
   MAP_RING_EDGE,
 };
-
-bool Randomizer::rollCustomLedMap(Random& ctx, Mode* outMode)
-{
-// something happens here
-  return true;
-}
 
 bool Randomizer::reRoll()
 {
@@ -350,11 +346,20 @@ bool Randomizer::reRoll()
     }
   }
   if (m_targetLeds == MAP_LED(LED_MULTI)) {
+    // choose if the result is comprised of multiple single-led patterns
+    // or a single mutliled pattern
+    bool splitMultiRandomize = m_multiRandCtx.next8() > 128;
+    LedMap randomMap;
+    LedMap inverseMap;
+    if (splitMultiRandomize) {
+      // choose a random led map
+      randomMap = maps[m_multiRandCtx.next8(0, NUM_MAPS)];
+      inverseMap = MAP_INVERSE(randomMap);
+    }
     if (m_flags & RANDOMIZE_PATTERN) {
-      if (m_multiRandCtx.next8() > 128) {
-        // roll a first pattern and a random led map
+      if (splitMultiRandomize) {
+        // roll a first pattern
         PatternID firstPattern = rollPatternID(m_multiRandCtx);
-        LedMap randomMap = maps[m_multiRandCtx.next8(0, sizeof(maps))];
         // set each led in the map to the pattern
         MAP_FOREACH_LED(randomMap) {
           if (!m_previewMode.setPattern(firstPattern, pos)) {
@@ -364,9 +369,8 @@ bool Randomizer::reRoll()
         }
         // roll a second pattern and reverse the led map
         PatternID secondPattern = rollPatternID(m_multiRandCtx);
-        randomMap = MAP_INVERSE(randomMap);
         // set the remaining leds to the 2nd pattern
-        MAP_FOREACH_LED(randomMap) {
+        MAP_FOREACH_LED(inverseMap) {
           if (!m_previewMode.setPattern(secondPattern, pos)) {
             ERROR_LOG("Failed to roll new pattern");
             return false;
@@ -390,9 +394,26 @@ bool Randomizer::reRoll()
     }
     if (m_flags & RANDOMIZE_COLORSET) {
       // roll a new colorset
-      if (!m_previewMode.setColorset(rollColorset(m_multiRandCtx), LED_MULTI)) {
-        ERROR_LOG("Failed to roll new colorset");
-        return false;
+      if (splitMultiRandomize) {
+        Colorset firstSet = rollColorset(m_multiRandCtx);
+        Colorset secondSet = rollColorset(m_multiRandCtx);
+        MAP_FOREACH_LED(randomMap) {
+          if (!m_previewMode.setColorset(firstSet, pos)) {
+            ERROR_LOG("Failed to roll new colorset");
+            return false;
+          }
+        }
+        MAP_FOREACH_LED(inverseMap) {
+          if (!m_previewMode.setColorset(secondSet, pos)) {
+            ERROR_LOG("Failed to roll new colorset");
+            return false;
+          }
+        }
+      } else {
+        if (!m_previewMode.setColorset(rollColorset(m_multiRandCtx), LED_MULTI)) {
+          ERROR_LOG("Failed to roll new colorset");
+          return false;
+        }
       }
     }
   }
