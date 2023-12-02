@@ -257,9 +257,9 @@ static void print_usage(const char* program_name)
   }
   fprintf(stderr, "\n\n");
   fprintf(stderr, "Example Usage:\n");
-  fprintf(stderr, "   ./vortex -ci\n");
+  fprintf(stderr, "   ./vortex --color\n");
   fprintf(stderr, "   ./vortex -ci -P42 -Ccyan,purple\n");
-  fprintf(stderr, "   ./vortex -ct -P0 -Cred,green -A1,2 <<< w10q\n");
+  fprintf(stderr, "   ./vortex -ct -Pblend -Ccyan,yellow,magenta <<< w100q\n");
   fprintf(stderr, "   ./vortex -sq -S StorageData.dat -O output_storage_data.json\n");
   fprintf(stderr, "   ./vortex -sq -S StorageData.dat -I input_storage_data.json\n");
 }
