@@ -330,6 +330,9 @@
     <ClCompile Include="src\Wireless\VLSender.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="VortexLib\VortexJson.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\VortexConfig.h">
@@ -552,6 +555,9 @@
       <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\Colors\ColorConstants.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="VortexLib\VortexJson.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>

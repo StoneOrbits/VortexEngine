@@ -71,6 +71,7 @@ private:
     OUTPUT_TYPE_NONE,
     OUTPUT_TYPE_HEX,
     OUTPUT_TYPE_COLOR,
+    OUTPUT_TYPE_SILENT,
   };
   OutputType m_outputType;
   enum JsonMode : uint32_t {
@@ -93,6 +94,7 @@ private:
   bool m_sleepEnabled;
   bool m_lockEnabled;
   bool m_jsonPretty;
+  bool m_quickExit;
   std::string m_storageFile;
   std::string m_jsonInFile;
   std::string m_jsonOutFile;

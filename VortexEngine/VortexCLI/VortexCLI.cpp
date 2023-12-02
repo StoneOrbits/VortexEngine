@@ -159,6 +159,7 @@ VortexCLI::VortexCLI() :
   m_sleepEnabled(true),
   m_lockEnabled(true),
   m_jsonPretty(false),
+  m_quickExit(false),
   m_storageFile("FlashStorage.flash"),
   m_patternIDStr(),
   m_colorsetStr(),
@@ -176,12 +177,14 @@ VortexCLI::~VortexCLI()
 static struct option long_options[] = {
   {"hex", no_argument, nullptr, 'x'},
   {"color", no_argument, nullptr, 'c'},
+  {"silent", no_argument, nullptr, 's'},
   {"no-timestep", no_argument, nullptr, 't'},
   {"lockstep", no_argument, nullptr, 'l'},
   {"in-place", no_argument, nullptr, 'i'},
   {"record", no_argument, nullptr, 'r'},
   {"autowake", no_argument, nullptr, 'a'},
   {"nolock", no_argument, nullptr, 'n'},
+  {"quick", no_argument, nullptr, 'q'},
   {"storage", optional_argument, nullptr, 'S'},
   {"json-in", optional_argument, nullptr, 'I'},
   {"json-out", optional_argument, nullptr, 'O'},
@@ -223,6 +226,7 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "Output Selection (at least one required):\n");
   fprintf(stderr, "  -x, --hex                Use hex values to represent led colors\n");
   fprintf(stderr, "  -c, --color              Use console color codes to represent led colors\n");
+  fprintf(stderr, "  -s, --silent             Do not print any output while running\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Engine Control Flags (optional):\n");
   fprintf(stderr, "  -t, --no-timestep        Bypass the timestep and run as fast as possible\n");
@@ -231,6 +235,7 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -r, --record             Record the inputs and dump to a file after (" RECORD_FILE ")\n");
   fprintf(stderr, "  -a, --autowake           Automatically and instantly wake on sleep (disable sleep)\n");
   fprintf(stderr, "  -n, --nolock             Automatically unlock upon locking the chip (disable lock)\n");
+  fprintf(stderr, "  -q, --quick              Exit immediately after initialization (useful to convert data)\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Storage Options (optional):\n");
   fprintf(stderr, "  -S, --storage [file]     Persistent storage to file (default file: FlashStorage.flash)\n");
@@ -250,11 +255,13 @@ static void print_usage(const char* program_name)
   for (uint32_t i = 0; i < NUM_USAGE; ++i) {
     fprintf(stderr, "%s", input_usage[i]);
   }
-  fprintf(stderr, "\n");
+  fprintf(stderr, "\n\n");
   fprintf(stderr, "Example Usage:\n");
   fprintf(stderr, "   ./vortex -ci\n");
   fprintf(stderr, "   ./vortex -ci -P42 -Ccyan,purple\n");
   fprintf(stderr, "   ./vortex -ct -P0 -Cred,green -A1,2 <<< w10q\n");
+  fprintf(stderr, "   ./vortex -sq -S StorageData.dat -O output_storage_data.json\n");
+  fprintf(stderr, "   ./vortex -sq -S StorageData.dat -I input_storage_data.json\n");
 }
 
 #ifdef _WIN32
@@ -336,9 +343,14 @@ bool VortexCLI::init(int argc, char *argv[])
   }
   g_pVortexCLI = this;
 
+  if (argc == 1) {
+    print_usage(argv[0]);
+    exit(1);
+  }
+
   int opt = -1;
   int option_index = 0;
-  while ((opt = getopt_long(argc, argv, "xctliranS::I::O::HP:C:A:h", long_options, &option_index)) != -1) {
+  while ((opt = getopt_long(argc, argv, "xcstliranqS::I::O::HP:C:A:h", long_options, &option_index)) != -1) {
     switch (opt) {
     case 'x':
       // if the user wants pretty colors or hex codes
@@ -347,6 +359,10 @@ bool VortexCLI::init(int argc, char *argv[])
     case 'c':
       // if the user wants pretty colors
       m_outputType = OUTPUT_TYPE_COLOR;
+      break;
+    case 's':
+      // turn off output
+      m_outputType = OUTPUT_TYPE_SILENT;
       break;
     case 't':
       // if the user wants to bypass timestep
@@ -371,6 +387,10 @@ bool VortexCLI::init(int argc, char *argv[])
     case 'n':
       // disable the lock
       m_lockEnabled = false;
+      break;
+    case 'q':
+      // quick exit
+      m_quickExit = true;
       break;
     case 'S':
       // enable persistent storage to file
@@ -442,6 +462,8 @@ bool VortexCLI::init(int argc, char *argv[])
     break;
   case OUTPUT_TYPE_HEX:
     setHexOutput(true);
+    break;
+  case OUTPUT_TYPE_SILENT:
     break;
   }
 
@@ -536,7 +558,7 @@ void VortexCLI::run()
   if (!stillRunning()) {
     return;
   }
-  if (!Vortex::tick()) {
+  if (!Vortex::tick() || m_quickExit) {
     cleanup();
   }
 }
@@ -564,9 +586,13 @@ void VortexCLI::cleanup()
   }
   if (m_jsonMode & JSON_MODE_WRITE_FILE) {
     Vortex::dumpJson(m_jsonOutFile.c_str(), m_jsonPretty);
+    printf("Wrote JSON to file [%s]\n", m_jsonOutFile.c_str());
   }
   m_keepGoing = false;
   m_isPaused = false;
+  if (m_storage) {
+    Vortex::doSave();
+  }
   Vortex::cleanup();
 #ifdef WASM
   emscripten_force_exit(0);
@@ -577,6 +603,9 @@ void VortexCLI::cleanup()
 void VortexCLI::show()
 {
   if (!m_initialized) {
+    return;
+  }
+  if (m_outputType == OUTPUT_TYPE_SILENT) {
     return;
   }
   string out;
@@ -614,8 +643,6 @@ void VortexCLI::show()
       snprintf(buf, sizeof(buf), "%06X", m_ledList[i].raw());
       out += buf;
     }
-  } else { // OUTPUT_TYPE_NONE
-    // do nothing
   }
   if (!m_inPlace) {
     out += "\n";

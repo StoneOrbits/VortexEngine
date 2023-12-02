@@ -1156,6 +1156,16 @@ uint32_t Vortex::getNumInputs()
     if (!GetNumberOfConsoleInputEvents(hStdin, (DWORD *)&numInputs)) {
       // Handle error here
     }
+    INPUT_RECORD inputRecord;
+    DWORD eventsRead;
+    while (PeekConsoleInput(hStdin, &inputRecord, 1, &eventsRead) && eventsRead > 0) {
+      // Discard non-character events
+      if (inputRecord.EventType != KEY_EVENT || !inputRecord.Event.KeyEvent.bKeyDown) {
+        numInputs--;
+      }
+      // Remove the event from the input buffer
+      ReadConsoleInput(hStdin, &inputRecord, 1, &eventsRead);
+    }
   } else {
     // Handle redirected input
     DWORD availableBytes;

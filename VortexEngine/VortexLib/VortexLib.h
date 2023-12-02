@@ -261,6 +261,10 @@ public:
   static bool parseJson(const std::string &json);
   static bool parseJsonFromFile(const std::string &filename);
 
+  // save and add undo buffer
+  static bool doSave();
+  static bool applyUndo();
+
 private:
   // the last command to have been executed
   static char m_lastCommand;
@@ -323,10 +327,6 @@ private:
     // the event to trigger
     VortexButtonEventType type;
   };
-
-  // save and add undo buffer
-  static bool doSave();
-  static bool applyUndo();
 
   // undo buffer
   static std::deque<ByteStream> m_undoBuffer;
