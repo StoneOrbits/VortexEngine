@@ -53,6 +53,9 @@ JsonValue *JsonParser::parseValue(const string &json, size_t &index)
 JsonObject *JsonParser::parseObject(const string &json, size_t &index)
 {
   JsonObject *object = new JsonObject();
+  if (!object) {
+    return nullptr;
+  }
   index++;
 
   while (json[index] != '}') {
@@ -74,6 +77,9 @@ JsonObject *JsonParser::parseObject(const string &json, size_t &index)
 JsonArray *JsonParser::parseArray(const string &json, size_t &index)
 {
   JsonArray *array = new JsonArray();
+  if (!array) {
+    return nullptr;
+  }
   index++;
 
   while (json[index] != ']') {
@@ -126,26 +132,32 @@ void JsonPrinter::printJsonInternal(const JsonValue *jsonValue, bool prettyPrint
   writeToStream(std::cout, jsonValue, prettyPrint, indentation);
 }
 
-void JsonPrinter::writeToStream(std::ostream &stream, const JsonValue *jsonValue, bool prettyPrint, int indentation)
-{
+void JsonPrinter::writeToStream(std::ostream &stream, const JsonValue *jsonValue, bool prettyPrint, int indentation) {
   if (jsonValue == nullptr) {
     stream << "null";
     return;
   }
 
-  if (const JsonObject *jsonObject = dynamic_cast<const JsonObject *>(jsonValue)) {
-    printJsonObject(stream, jsonObject, prettyPrint, indentation);
-  } else if (const JsonArray *jsonArray = dynamic_cast<const JsonArray *>(jsonValue)) {
-    printJsonArray(stream, jsonArray, prettyPrint, indentation);
-  } else if (const JsonString *jsonString = dynamic_cast<const JsonString *>(jsonValue)) {
-    printJsonString(stream, jsonString);
-  } else if (const JsonNumber *jsonNumber = dynamic_cast<const JsonNumber *>(jsonValue)) {
-    printJsonNumber(stream, jsonNumber);
+  switch (jsonValue->getType()) {
+    case JsonValueType::Object:
+      printJsonObject(stream, (const JsonObject *)jsonValue, prettyPrint, indentation);
+      break;
+    case JsonValueType::Array:
+      printJsonArray(stream, (const JsonArray *)jsonValue, prettyPrint, indentation);
+      break;
+    case JsonValueType::String:
+      printJsonString(stream, (const JsonString *)jsonValue);
+      break;
+    case JsonValueType::Number:
+      printJsonNumber(stream, (const JsonNumber *)jsonValue);
+      break;
+    default:
+      stream << "null";
+      break;
   }
 }
 
-void JsonPrinter::printJsonObject(std::ostream &stream, const JsonObject *jsonObject, bool prettyPrint, int indentation)
-{
+void JsonPrinter::printJsonObject(std::ostream &stream, const JsonObject *jsonObject, bool prettyPrint, int indentation) {
   stream << "{";
   if (prettyPrint && !jsonObject->getProperties().empty()) {
     stream << std::endl;
@@ -158,14 +170,10 @@ void JsonPrinter::printJsonObject(std::ostream &stream, const JsonObject *jsonOb
     }
     stream << '"' << it->first << "\":" << (prettyPrint ? " " : "");
 
-    // Check for null value
-    if (!it->second) {
-      stream << "null";
-    } else if (dynamic_cast<const JsonValue *>(it->second)) {
-      writeToStream(stream, it->second, prettyPrint, indentation + 2);
-    }
+    // Directly write the property value to the stream
+    writeToStream(stream, it->second, prettyPrint, indentation + 2);
 
-    if (next(it) != properties.end()) {
+    if (std::next(it) != properties.end()) {
       stream << ",";
     }
     if (prettyPrint) {

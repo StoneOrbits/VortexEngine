@@ -5,37 +5,44 @@
 #include <vector>
 #include <map>
 
-class JsonValue
-{
+enum class JsonValueType {
+  Number,
+  String,
+  Object,
+  Array,
+  Null
+};
+
+class JsonValue {
 public:
   virtual ~JsonValue() {}
   virtual JsonValue* getProperty(const std::string& key) const { return nullptr; }
+  virtual JsonValueType getType() const = 0;
 };
 
-class JsonNumber : public JsonValue
-{
+class JsonNumber : public JsonValue {
 public:
   JsonNumber(double value) : value(value) {}
   double getValue() const { return value; }
+  JsonValueType getType() const override { return JsonValueType::Number; }
 
 private:
   double value;
 };
 
-class JsonString : public JsonValue
-{
+class JsonString : public JsonValue {
 public:
   JsonString(const std::string &value) : value(value) {}
   const std::string &getValue() const { return value; }
+  JsonValueType getType() const override { return JsonValueType::String; }
 
 private:
   std::string value;
 };
 
-class JsonObject : public JsonValue
-{
+class JsonObject : public JsonValue {
 public:
-  virtual ~JsonObject() {
+  ~JsonObject() override {
     for (auto& pair : properties) {
       delete pair.second;
     }
@@ -47,15 +54,15 @@ public:
     auto it = properties.find(key);
     return it != properties.end() ? it->second : nullptr;
   }
+  JsonValueType getType() const override { return JsonValueType::Object; }
 
 private:
   std::map<std::string, JsonValue *> properties;
 };
 
-class JsonArray : public JsonValue
-{
+class JsonArray : public JsonValue {
 public:
-  virtual ~JsonArray() {
+  ~JsonArray() override {
     for (auto& el : elements) {
       delete el;
     }
@@ -63,6 +70,7 @@ public:
   }
   void addElement(JsonValue *value) { elements.push_back(value); }
   const std::vector<JsonValue *> &getElements() const { return elements; }
+  JsonValueType getType() const override { return JsonValueType::Array; }
 
 private:
   std::vector<JsonValue *> elements;

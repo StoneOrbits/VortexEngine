@@ -1216,31 +1216,77 @@ string Vortex::getStorageFilename()
   return Storage::getStorageFilename();
 }
 
-JsonObject *Vortex::modeToJson(const Mode *mode)
-{
-  JsonObject *modeJson = new JsonObject();
+JsonObject *Vortex::modeToJson(const Mode *mode) {
+  if (!mode) {
+    return nullptr;
+  }
 
-  modeJson->addProperty("num_leds", new JsonNumber(mode->getLedCount()));
-  modeJson->addProperty("flags", new JsonNumber(static_cast<uint8_t>(mode->getFlags())));
+  auto *modeJson = new JsonObject();
+  if (!modeJson) {
+    return nullptr;
+  }
+
+  auto *numLeds = new JsonNumber(mode->getLedCount());
+  if (!numLeds) {
+    delete modeJson;
+    return nullptr;
+  }
+  modeJson->addProperty("num_leds", numLeds);
+
+  auto *flags = new JsonNumber(static_cast<uint8_t>(mode->getFlags()));
+  if (!flags) {
+    delete numLeds;
+    delete modeJson;
+    return nullptr;
+  }
+  modeJson->addProperty("flags", flags);
 
   const Pattern *multiPattern = mode->getPattern(LED_MULTI);
   if (multiPattern) {
-    modeJson->addProperty("multi_pat", patternToJson(multiPattern));
+    auto *multiPatJson = patternToJson(multiPattern);
+    if (!multiPatJson) {
+      delete flags;
+      delete numLeds;
+      delete modeJson;
+      return nullptr;
+    }
+    modeJson->addProperty("multi_pat", multiPatJson);
   } else {
     modeJson->addProperty("multi_pat", nullptr); // null
   }
 
-  JsonArray *singlePatterns = new JsonArray();
+  auto *singlePatterns = new JsonArray();
+  if (!singlePatterns) {
+    delete flags;
+    delete numLeds;
+    delete modeJson;
+    return nullptr;
+  }
+
+  bool errorOccurred = false;
   for (LedPos l = LED_FIRST; l < mode->getLedCount(); ++l) {
     const Pattern *pattern = mode->getPattern(l);
     if (pattern) {
-      singlePatterns->addElement(patternToJson(pattern));
+      auto *patJson = patternToJson(pattern);
+      if (!patJson) {
+        errorOccurred = true;
+        break;
+      }
+      singlePatterns->addElement(patJson);
     } else {
       singlePatterns->addElement(nullptr); // null
     }
   }
-  modeJson->addProperty("single_pats", singlePatterns);
 
+  if (errorOccurred) {
+    delete singlePatterns;
+    delete flags;
+    delete numLeds;
+    delete modeJson;
+    return nullptr;
+  }
+
+  modeJson->addProperty("single_pats", singlePatterns);
   return modeJson;
 }
 
@@ -1318,31 +1364,84 @@ JsonObject *Vortex::patternToJson(const Pattern *pattern)
     return nullptr;
   }
 
-  JsonObject *patternJson = new JsonObject();
+  auto *patternJson = new JsonObject();
   if (!patternJson) {
     return nullptr;
   }
 
-  patternJson->addProperty("pattern_id", new JsonNumber(pattern->getPatternID()));
-  patternJson->addProperty("flags", new JsonNumber(pattern->getFlags()));
+  auto *patternId = new JsonNumber(pattern->getPatternID());
+  if (!patternId) {
+    delete patternJson;
+    return nullptr;
+  }
+  patternJson->addProperty("pattern_id", patternId);
+
+  auto *flags = new JsonNumber(pattern->getFlags());
+  if (!flags) {
+    delete patternId;
+    delete patternJson;
+    return nullptr;
+  }
+  patternJson->addProperty("flags", flags);
 
   const Colorset &colorset = pattern->getColorset();
-  patternJson->addProperty("numColors", new JsonNumber(colorset.numColors()));
+  auto *numColors = new JsonNumber(colorset.numColors());
+  if (!numColors) {
+    delete flags;
+    delete patternId;
+    delete patternJson;
+    return nullptr;
+  }
+  patternJson->addProperty("numColors", numColors);
 
-  JsonArray *colorsetArray = new JsonArray();
+  auto *colorsetArray = new JsonArray();
+  if (!colorsetArray) {
+    delete numColors;
+    delete flags;
+    delete patternId;
+    delete patternJson;
+    return nullptr;
+  }
+
   for (uint8_t c = 0; c < colorset.numColors(); ++c) {
     const RGBColor &color = colorset.get(c);
     char colorString[128] = {0};
-    snprintf(colorString , sizeof(colorString), "0x%02X%02X%02X", color.red, color.green, color.blue);
-    colorsetArray->addElement(new JsonString(colorString));
+    snprintf(colorString, sizeof(colorString), "0x%02X%02X%02X", color.red, color.green, color.blue);
+    auto *colorJson = new JsonString(colorString);
+    if (!colorJson) {
+      delete colorsetArray; // Also deletes all previously added elements
+      delete numColors;
+      delete flags;
+      delete patternId;
+      delete patternJson;
+      return nullptr;
+    }
+    colorsetArray->addElement(colorJson);
   }
   patternJson->addProperty("colorset", colorsetArray);
 
-  patternJson->addProperty("numArgs", new JsonNumber(pattern->getNumArgs()));
+  auto *argsArray = new JsonArray();
+  if (!argsArray) {
+    delete colorsetArray; // Also deletes all previously added elements
+    delete numColors;
+    delete flags;
+    delete patternId;
+    delete patternJson;
+    return nullptr;
+  }
 
-  JsonArray *argsArray = new JsonArray();
   for (uint8_t a = 0; a < pattern->getNumArgs(); ++a) {
-    argsArray->addElement(new JsonNumber(pattern->getArg(a)));
+    auto *argJson = new JsonNumber(pattern->getArg(a));
+    if (!argJson) {
+      delete argsArray; // Also deletes all previously added elements
+      delete colorsetArray; // Also deletes all previously added elements
+      delete numColors;
+      delete flags;
+      delete patternId;
+      delete patternJson;
+      return nullptr;
+    }
+    argsArray->addElement(argJson);
   }
   patternJson->addProperty("args", argsArray);
 
@@ -1414,24 +1513,86 @@ Pattern *Vortex::patternFromJson(const JsonObject *patternJson)
 
 JsonObject *Vortex::saveJson()
 {
-  JsonObject *saveJson = new JsonObject();
+  auto *saveJson = new JsonObject();
+  if (!saveJson) {
+    return nullptr;
+  }
 
-  saveJson->addProperty("version_major", new JsonNumber(static_cast<uint8_t>(VORTEX_VERSION_MAJOR)));
-  saveJson->addProperty("version_minor", new JsonNumber(static_cast<uint8_t>(VORTEX_VERSION_MINOR)));
-  saveJson->addProperty("global_flags", new JsonNumber(Modes::globalFlags()));
-  saveJson->addProperty("brightness", new JsonNumber(static_cast<uint8_t>(Leds::getBrightness())));
+  auto *versionMajor = new JsonNumber(static_cast<uint8_t>(VORTEX_VERSION_MAJOR));
+  if (!versionMajor) {
+    delete saveJson;
+    return nullptr;
+  }
+  saveJson->addProperty("version_major", versionMajor);
+
+  auto *versionMinor = new JsonNumber(static_cast<uint8_t>(VORTEX_VERSION_MINOR));
+  if (!versionMinor) {
+    delete versionMajor;
+    delete saveJson;
+    return nullptr;
+  }
+  saveJson->addProperty("version_minor", versionMinor);
+
+  auto *globalFlags = new JsonNumber(Modes::globalFlags());
+  if (!globalFlags) {
+    delete versionMinor;
+    delete versionMajor;
+    delete saveJson;
+    return nullptr;
+  }
+  saveJson->addProperty("global_flags", globalFlags);
+
+  auto *brightness = new JsonNumber(static_cast<uint8_t>(Leds::getBrightness()));
+  if (!brightness) {
+    delete globalFlags;
+    delete versionMinor;
+    delete versionMajor;
+    delete saveJson;
+    return nullptr;
+  }
+  saveJson->addProperty("brightness", brightness);
 
   uint8_t numModes = Modes::numModes();
-  saveJson->addProperty("num_modes", new JsonNumber(numModes));
+  auto *numModesJson = new JsonNumber(numModes);
+  if (!numModesJson) {
+    delete brightness;
+    delete globalFlags;
+    delete versionMinor;
+    delete versionMajor;
+    delete saveJson;
+    return nullptr;
+  }
+  saveJson->addProperty("num_modes", numModesJson);
 
-  JsonArray *modesArray = new JsonArray();
+  auto *modesArray = new JsonArray();
+  if (!modesArray) {
+    delete numModesJson;
+    delete brightness;
+    delete globalFlags;
+    delete versionMinor;
+    delete versionMajor;
+    delete saveJson;
+    return nullptr;
+  }
+
   Modes::setCurMode(0);
   for (uint8_t i = 0; i < numModes; ++i) {
     Mode *cur = Modes::curMode();
     if (cur) {
-      modesArray->addElement(modeToJson(cur));
+      auto *modeJson = modeToJson(cur);
+      if (!modeJson) {
+        delete modesArray;
+        delete numModesJson;
+        delete brightness;
+        delete globalFlags;
+        delete versionMinor;
+        delete versionMajor;
+        delete saveJson;
+        return nullptr;
+      }
+      modesArray->addElement(modeJson);
     } else {
-      modesArray->addElement(new JsonValue()); // null
+      modesArray->addElement(nullptr); // null
     }
   }
   saveJson->addProperty("modes", modesArray);
@@ -1446,46 +1607,50 @@ bool Vortex::loadJson(const JsonObject *json)
   }
 
   // get the version
-  uint8_t major = 0;
-  uint8_t minor = 0;
-  if (const JsonValue *versionMajorValue = json->getProperty("version_major")) {
-    major = dynamic_cast<const JsonNumber *>(versionMajorValue)->getValue();
+  uint8_t major = 0, minor = 0;
+  const JsonValue *versionMajorValue = json->getProperty("version_major");
+  if (versionMajorValue && versionMajorValue->getType() == JsonValueType::Number) {
+    major = static_cast<const JsonNumber *>(versionMajorValue)->getValue();
   }
-  if (const JsonValue *versionMinorValue = json->getProperty("version_minor")) {
-    minor = dynamic_cast<const JsonNumber *>(versionMinorValue)->getValue();
+
+  const JsonValue *versionMinorValue = json->getProperty("version_minor");
+  if (versionMinorValue && versionMinorValue->getType() == JsonValueType::Number) {
+    minor = static_cast<const JsonNumber *>(versionMinorValue)->getValue();
   }
 
   // ensure version is compatible
   if (!VortexEngine::checkVersion(major, minor)) {
-    // incompatible version!
-    return false;
+    return false; // Incompatible version
   }
 
   // Update brightness
-  if (const JsonValue *brightnessValue = json->getProperty("brightness")) {
-    uint8_t brightness = dynamic_cast<const JsonNumber *>(brightnessValue)->getValue();
+  const JsonValue *brightnessValue = json->getProperty("brightness");
+  if (brightnessValue && brightnessValue->getType() == JsonValueType::Number) {
+    uint8_t brightness = static_cast<const JsonNumber *>(brightnessValue)->getValue();
     Leds::setBrightness(brightness);
   }
 
   // Update global flags
-  if (const JsonValue *globalFlagsValue = json->getProperty("global_flags")) {
-    uint8_t global_flags = dynamic_cast<const JsonNumber *>(globalFlagsValue)->getValue();
-    // true = add the flags, false = but don't save
+  const JsonValue *globalFlagsValue = json->getProperty("global_flags");
+  if (globalFlagsValue && globalFlagsValue->getType() == JsonValueType::Number) {
+    uint8_t global_flags = static_cast<const JsonNumber *>(globalFlagsValue)->getValue();
     Modes::setFlag(global_flags, true, false);
   }
 
   uint8_t num_modes = 0;
-  // grab indicated number of modes for validation
-  if (const JsonValue *numModesValue = json->getProperty("num_modes")) {
-    num_modes = dynamic_cast<const JsonNumber *>(numModesValue)->getValue();
+  const JsonValue *numModesValue = json->getProperty("num_modes");
+  if (numModesValue && numModesValue->getType() == JsonValueType::Number) {
+    num_modes = static_cast<const JsonNumber *>(numModesValue)->getValue();
   }
 
   // Load modes array from the Json
-  if (const JsonArray *modesArray = dynamic_cast<const JsonArray *>(json->getProperty("modes"))) {
+  const JsonValue *modesValue = json->getProperty("modes");
+  if (modesValue && modesValue->getType() == JsonValueType::Array) {
+    const JsonArray *modesArray = static_cast<const JsonArray *>(modesValue);
     Modes::clearModes(); // Clear existing modes
     for (const JsonValue *modeValue : modesArray->getElements()) {
-      if (const JsonObject *modeJson = dynamic_cast<const JsonObject *>(modeValue)) {
-        Mode *mode = modeFromJson(modeJson);
+      if (modeValue && modeValue->getType() == JsonValueType::Object) {
+        Mode *mode = modeFromJson(static_cast<const JsonObject *>(modeValue));
         if (mode) {
           Modes::addMode(mode);
         }
@@ -1493,11 +1658,7 @@ bool Vortex::loadJson(const JsonObject *json)
     }
   }
 
-  if (Modes::numModes() != num_modes) {
-    // validation error! oh well
-  }
-
-  return true;
+  return Modes::numModes() == num_modes;
 }
 
 // dump the json to output
@@ -1519,32 +1680,34 @@ void Vortex::dumpJson(const char *filename, bool pretty)
 
 bool Vortex::parseJson(const std::string &json)
 {
-  bool rv = false;
   JsonParser parser;
   JsonValue *js = parser.parseJson(json);
   if (!js) {
     return false;
   }
-  const JsonObject *obj = dynamic_cast<const JsonObject *>(js);
-  if (obj) {
-    rv = loadJson(obj);
+
+  bool rv = false;
+  if (js->getType() == JsonValueType::Object) {
+    rv = loadJson(static_cast<const JsonObject *>(js));
   }
+
   delete js;
   return rv;
 }
 
 bool Vortex::parseJsonFromFile(const std::string &filename)
 {
-  bool rv = false;
   JsonParser parser;
   JsonValue *js = parser.parseJsonFromFile(filename);
   if (!js) {
     return false;
   }
-  const JsonObject *obj = dynamic_cast<const JsonObject *>(js);
-  if (obj) {
-    rv = loadJson(obj);
+
+  bool rv = false;
+  if (js->getType() == JsonValueType::Object) {
+    rv = loadJson(static_cast<const JsonObject *>(js));
   }
+
   delete js;
   return rv;
 }
