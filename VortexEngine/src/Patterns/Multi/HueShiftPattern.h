@@ -22,6 +22,7 @@ private:
   uint8_t m_blinkOnDuration;
   uint8_t m_blinkOffDuration;
   uint8_t m_blendDelay;
+  uint8_t m_delayCounter;
 
   Timer m_blinkTimer;
 
