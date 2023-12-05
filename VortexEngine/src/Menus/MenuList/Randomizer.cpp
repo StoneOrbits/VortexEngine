@@ -315,7 +315,7 @@ LedMap maps[] = {
   MAP_RING_INNER,
   MAP_RING_MIDDLE,
   MAP_RING_OUTER,
-  MAP_RING_EDGE,
+  MAP_RING_EDGE
 };
 
 bool Randomizer::reRoll()
@@ -352,8 +352,9 @@ bool Randomizer::reRoll()
     LedMap randomMap;
     LedMap inverseMap;
     if (splitMultiRandomize) {
+      m_previewMode.clearPattern();
       // choose a random led map
-      randomMap = maps[m_multiRandCtx.next8(0, NUM_MAPS)];
+      randomMap = maps[m_multiRandCtx.next8(0, (NUM_MAPS - 1))];
       inverseMap = MAP_INVERSE(randomMap);
     }
     if (m_flags & RANDOMIZE_PATTERN) {
