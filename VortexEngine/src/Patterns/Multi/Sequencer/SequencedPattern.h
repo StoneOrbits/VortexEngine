@@ -32,6 +32,8 @@ public:
   void bindSequence(const Sequence &sequence);
 
 protected:
+  void playSequenceStep(const SequenceStep &step);
+
   // static data
   Sequence m_sequence;
 
