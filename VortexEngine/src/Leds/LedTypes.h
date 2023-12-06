@@ -301,6 +301,9 @@ typedef uint64_t LedMap;
 // convert a map to the first Led position in the map
 inline LedPos mapGetFirstLed(LedMap map)
 {
+  if (map == MAP_LED(LED_MULTI)) {
+    return LED_MULTI;
+  }
   LedPos pos = LED_FIRST;
   while (map && pos < LED_COUNT) {
     if (map & 1) {
