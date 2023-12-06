@@ -45,6 +45,7 @@ bool ColorSelect::init()
     return false;
   }
   if (cur->isMultiLed()) {
+    m_targetLeds = MAP_LED(LED_MULTI);
     m_ledSelected = true;
   }
   m_state = STATE_INIT;

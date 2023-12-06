@@ -47,16 +47,27 @@ void SequencedPattern::init()
 
   m_timer.start();
 
-  // TODO: Play first sequence step in init?
+  // Play first sequence step in init, if there is one
+  if (m_sequence.numSteps() > 0) {
+    playSequenceStep(m_sequence[0]);
+  }
 }
 
 // pure virtual must  the play function
 void SequencedPattern::play()
 {
-  if (m_timer.alarm() != -1 && !m_timer.onStart()) {
+  if (m_timer.alarm() != -1) {
     m_curSequence = (m_curSequence + 1) % m_sequence.numSteps();
   }
-  const SequenceStep &step = m_sequence[m_curSequence];
+  // only index the sequence if the current sequence index is valid
+  if (m_curSequence < m_sequence.numSteps()) {
+    // play the sequence step
+    playSequenceStep(m_sequence[m_curSequence]);
+  }
+}
+
+void SequencedPattern::playSequenceStep(const SequenceStep &step)
+{
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     // the current initialized pattern for this LED
     SingleLedPattern *curPat = m_ledPatterns[pos];
