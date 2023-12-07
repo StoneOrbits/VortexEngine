@@ -203,6 +203,7 @@ void Menu::onLongClick()
 
 void Menu::onLongClick2()
 {
+  leaveMenu(false);
 }
 
 void Menu::leaveMenu(bool doSave)
