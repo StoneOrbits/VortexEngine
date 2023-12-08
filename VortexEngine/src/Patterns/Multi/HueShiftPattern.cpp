@@ -69,16 +69,12 @@ void HueShiftPattern::play()
   //       because it will never reach the target hue and
   //       always over/under shoot
   // only increment every blendDelay times
-  int timetest = ((Time::getCurtime() - 1) % m_blendDelay);
   ++m_delayCounter;
   if (m_delayCounter >= m_blendDelay) {
     m_delayCounter = 0;
     m_cur.hue += sign;
   }
-  HSVColor showColor;
-  showColor.hue = m_cur.hue;
-  showColor.sat = 255;
-  showColor.val = 255;
+  HSVColor showColor = HSVColor(m_cur.hue, 255, 255);
   // set the target led with the current HSV color
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     Leds::setIndex(pos, hsv_to_rgb_generic(showColor));
