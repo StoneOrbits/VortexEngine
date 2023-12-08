@@ -11,7 +11,7 @@ ChaserPattern::ChaserPattern(const PatternArgs &args) :
   SequencedPattern(args)
 {
   setArgs(args);
-  
+
   // Makes sure there is at least 1 chaser
   uint32_t numChasers = LED_COUNT / CHASER_RATIO;
   if (!numChasers) {
@@ -33,7 +33,7 @@ ChaserPattern::ChaserPattern(const PatternArgs &args) :
     // which will use the 0th color from the colorset as the solid color.
     // An LedMap is a bitmap that indicates which leds are turned on or off
     // at any given time. This will generate an Led Map based on the current
-    LedMap overrideLeds = MAP_LED_NONE; 
+    LedMap overrideLeds = MAP_LED_NONE;
     // This creates an led map with 1 chaser per CHASER_RATIO (default 7) leds in LED_COUNT
     for (uint8_t chaserCount = 0; chaserCount < numChasers; ++chaserCount) {
       // Then this API is used to override specific positions in the Pattern Map
