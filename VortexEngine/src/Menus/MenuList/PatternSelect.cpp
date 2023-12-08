@@ -140,7 +140,9 @@ void PatternSelect::nextPattern()
   if (isMultiLedPatternID(newID)) {
     m_previewMode.setPattern(newID);
   } else {
+    // TODO: clear multi a better way
     m_previewMode.setPatternMap(m_targetLeds, newID);
+    m_previewMode.clearPattern(LED_MULTI);
   }
   m_previewMode.init();
   DEBUG_LOGF("Iterated to pattern id %d", newID);
@@ -201,14 +203,10 @@ void PatternSelect::onLongClick()
     break;
   case STATE_PICK_PATTERN:
     // need to save the new pattern if it's different from current
-    needsSave = (cur->getPatternID() != m_newPatternID);
-    // store the new pattern in the mode
-    cur->setPattern(m_newPatternID);
-    cur->init();
-    DEBUG_LOGF("Saving pattern %u", m_newPatternID);
-    // go back to beginning for next time
-    m_state = STATE_PICK_LIST;
-    // done in the pattern select menu
+    needsSave = (cur->getPatternID() != m_previewMode.getPatternID());
+    // update the current mode with the new pattern
+    Modes::updateCurMode(&m_previewMode);
+    // then done here, save if the mode was different
     leaveMenu(needsSave);
     break;
   }

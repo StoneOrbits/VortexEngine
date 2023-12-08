@@ -161,6 +161,9 @@ enum Pair : uint8_t
 #define isEven(pos) ((pos % 2) == 0)
 #define isOdd(pos) ((pos % 2) != 0)
 
+// check if an led is orbit even
+#define isOrbitEven(pos) ((MAP_LED(pos) & MAP_RINGS_EVEN) == MAP_LED(pos))
+
 // convert a pair to even or odd led position
 #define pairEven(pair) (LedPos)((uint32_t)pair * 2)
 #define pairOdd(pair) (LedPos)(((uint32_t)pair * 2) + 1)
@@ -371,8 +374,8 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
                          MAP_LED(LED_16) | MAP_LED(LED_18) | MAP_LED(LED_23) | MAP_LED(LED_25))
 #define MAP_RING_EDGE   (MAP_LED(LED_3) | MAP_LED(LED_10) | MAP_LED(LED_17) | MAP_LED(LED_24))
 
-#define MAP_RINGS_ODD   (MAP_RING_INNER | MAP_RING_OUTER)
-#define MAP_RINGS_EVEN  (MAP_RING_MIDDLE | MAP_RING_EDGE)
+#define MAP_RINGS_EVEN  (MAP_RING_INNER | MAP_RING_OUTER)
+#define MAP_RINGS_ODD   (MAP_RING_MIDDLE | MAP_RING_EDGE)
 
 // led quadrant maps
 #define MAP_QUADRANT_1  (MAP_LED(LED_0) | MAP_LED(LED_1) | MAP_LED(LED_2) | MAP_LED(LED_3) | \
