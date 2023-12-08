@@ -11,6 +11,10 @@
 #include "VortexLib.h"
 #endif
 
+#ifdef VORTEX_EMBEDDED
+#include <Arduino.h>
+#endif
+
 #if LOGGING_LEVEL > 0
 void InfoMsg(const char *msg, ...)
 {
