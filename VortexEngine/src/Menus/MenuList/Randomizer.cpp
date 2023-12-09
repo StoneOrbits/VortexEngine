@@ -235,19 +235,19 @@ bool Randomizer::splitMultiRandomize()
   // apply pattern1 and colorset1 to the bitmap
   PatternID pat1 = rollSingleLedPatternID(m_multiRandCtx);
   Colorset set1 = rollColorset(m_multiRandCtx);
-  if (!applyPatternAndColorsetToMap(m_multiRandCtx, randomMap, pat1, set1)) {
+  if (!applyPatternAndColorsetToMap(randomMap, pat1, set1)) {
     return false;
   }
   // apply pattern2 and colorset2 to the inverse bitmap
   PatternID pat2 = rollSingleLedPatternID(m_multiRandCtx);
   Colorset set2 = rollColorset(m_multiRandCtx);
-  if (!applyPatternAndColorsetToMap(m_multiRandCtx, MAP_INVERSE(randomMap), pat2, set2)) {
+  if (!applyPatternAndColorsetToMap(MAP_INVERSE(randomMap), pat2, set2)) {
     return false;
   }
   return true;
 }
 
-bool Randomizer::applyPatternAndColorsetToMap(Random &ctx, LedMap map, PatternID pattern, const Colorset &colorset)
+bool Randomizer::applyPatternAndColorsetToMap(LedMap map, PatternID pattern, const Colorset &colorset)
 {
   MAP_FOREACH_LED(map) {
     if (!m_previewMode.setPattern(pattern, pos) || !m_previewMode.setColorset(colorset, pos)) {

@@ -31,9 +31,7 @@ private:
   bool reRollSingles();
   bool reRollForContext(Random &ctx, LedPos pos);
   bool splitMultiRandomize();
-  bool rollPatternForPosition(Random &ctx, LedPos pos);
-  bool rollColorsetForPosition(Random &ctx, LedPos pos);
-  bool applyPatternAndColorsetToMap(Random &ctx, LedMap map, PatternID pattern, const Colorset &colorset);
+  bool applyPatternAndColorsetToMap(LedMap map, PatternID pattern, const Colorset &colorset);
   PatternID rollSingleLedPatternID(Random &ctx);
   PatternID rollMultiLedPatternID(Random &ctx);
   Colorset rollColorset(Random &ctx);
