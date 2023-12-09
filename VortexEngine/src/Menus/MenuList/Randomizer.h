@@ -27,14 +27,9 @@ public:
 private:
   // internal helper functions
   void showRandomizationSelect();
-#if VORTEX_SLIM == 0
-  bool reRollMulti();
-#endif
   bool reRollSingles();
   bool reRollForContext(Random &ctx, LedPos pos);
-  bool applyPatternAndColorsetToMap(LedMap map, PatternID pattern, const Colorset &colorset);
   PatternID rollSingleLedPatternID(Random &ctx);
-  PatternID rollMultiLedPatternID(Random &ctx);
   Colorset rollColorset(Random &ctx);
   bool rollCustomPattern(Random &ctx, Mode *pMode, LedPos pos);
   void traditionalPattern(Random &ctx, PatternArgs &outArgs);

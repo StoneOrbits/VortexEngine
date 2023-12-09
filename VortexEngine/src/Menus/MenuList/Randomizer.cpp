@@ -113,13 +113,6 @@ void Randomizer::onLongClick()
 
 bool Randomizer::reRoll()
 {
-#if VORTEX_SLIM == 0
-  if (m_targetLeds == MAP_LED(LED_MULTI)) {
-    if (!reRollMulti()) {
-      return false;
-    }
-  }
-#endif
   if (!reRollSingles()) {
     return false;
   }
@@ -143,14 +136,6 @@ void Randomizer::showRandomizationSelect()
   Menus::showSelection();
 }
 
-#if VORTEX_SLIM == 0
-bool Randomizer::reRollMulti()
-{
-  // just re-roll the multiled position with the multi random context
-  return reRollForContext(m_multiRandCtx, LED_MULTI);
-}
-#endif
-
 bool Randomizer::reRollSingles()
 {
   // re-roll each led position with it's respective random context
@@ -167,7 +152,7 @@ bool Randomizer::reRollForContext(Random &ctx, LedPos pos)
   if (m_flags & RANDOMIZE_PATTERN) {
     // in advanced mode, when not randomizing the multi position, use a
     // special function to randomize totally custom led pattern timings
-    if (m_advanced && pos != LED_MULTI) {
+    if (m_advanced) {
       if (!rollCustomPattern(ctx, &m_previewMode, pos)) {
         ERROR_LOG("Failed to roll custom pattern");
         return false;
@@ -178,18 +163,9 @@ bool Randomizer::reRollForContext(Random &ctx, LedPos pos)
       return false;
     }
   }
-  if (m_flags & RANDOMIZE_COLORSET && !m_previewMode.setColorset(rollColorset(ctx), pos)) {
-    ERROR_LOG("Failed to roll new colorset");
-    return false;
-  }
-  return true;
-}
-
-bool Randomizer::applyPatternAndColorsetToMap(LedMap map, PatternID pattern, const Colorset &colorset)
-{
-  MAP_FOREACH_LED(map) {
-    if (!m_previewMode.setPattern(pattern, pos) || !m_previewMode.setColorset(colorset, pos)) {
-      ERROR_LOG("Failed to apply pattern or colorset");
+  if (m_flags & RANDOMIZE_COLORSET) {
+    if (!m_previewMode.setColorset(rollColorset(ctx), pos)) {
+      ERROR_LOG("Failed to roll new colorset");
       return false;
     }
   }
@@ -205,11 +181,6 @@ PatternID Randomizer::rollSingleLedPatternID(Random &ctx)
     newPat = (PatternID)ctx.next8(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
   } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
   return newPat;
-}
-
-PatternID Randomizer::rollMultiLedPatternID(Random &ctx)
-{
-  return (PatternID)ctx.next8(PATTERN_MULTI_FIRST, PATTERN_MULTI_LAST);
 }
 
 Colorset Randomizer::rollColorset(Random &ctx)
