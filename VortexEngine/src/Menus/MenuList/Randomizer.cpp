@@ -113,14 +113,15 @@ void Randomizer::onLongClick()
 
 bool Randomizer::reRoll()
 {
+#if VORTEX_SLIM == 0
   if (m_targetLeds == MAP_LED(LED_MULTI)) {
     if (!reRollMulti()) {
       return false;
     }
-  } else {
-    if (!reRollSingles()) {
-      return false;
-    }
+  }
+#endif
+  if (!reRollSingles()) {
+    return false;
   }
   // initialize the mode with the new pattern and colorset
   m_previewMode.init();
@@ -142,13 +143,17 @@ void Randomizer::showRandomizationSelect()
   Menus::showSelection();
 }
 
+#if VORTEX_SLIM == 0
 bool Randomizer::reRollMulti()
 {
+  // just re-roll the multiled position with the multi random context
   return reRollForContext(m_multiRandCtx, LED_MULTI);
 }
+#endif
 
 bool Randomizer::reRollSingles()
 {
+  // re-roll each led position with it's respective random context
   MAP_FOREACH_LED(m_targetLeds) {
     if (!reRollForContext(m_singlesRandCtx[pos], pos)) {
       return false;
