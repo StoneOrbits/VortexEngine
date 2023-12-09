@@ -27,7 +27,9 @@ public:
 private:
   // internal helper functions
   void showRandomizationSelect();
+#if VORTEX_SLIM == 0
   bool reRollMulti();
+#endif
   bool reRollSingles();
   bool reRollForContext(Random &ctx, LedPos pos);
   bool splitMultiRandomize();
