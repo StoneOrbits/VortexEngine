@@ -209,6 +209,7 @@ bool Randomizer::reRollMulti()
       return false;
     }
   }
+  return true;
 }
 
 PatternID Randomizer::rollMultiLedPatternID(Random &ctx)
@@ -242,7 +243,7 @@ bool Randomizer::rollSinglesLedMap(Random &ctx, LedMap map)
   Colorset set = rollColorset(ctx);
   MAP_FOREACH_LED(map) {
     // apply the pattern and colorset
-    if (!m_previewMode.setPattern(pat, pos, null, &set)) {
+    if (!m_previewMode.setPattern(pat, pos, nullptr, &set)) {
       ERROR_LOG("Failed to apply pattern or colorset");
       return false;
     }

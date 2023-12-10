@@ -64,6 +64,7 @@ private:
   bool reRollMulti();
   PatternID rollMultiLedPatternID(Random &ctx);
   bool splitMultiRandomize();
+  bool rollSinglesLedMap(Random &ctx, LedMap map);
 #endif
   bool reRollSingles();
   PatternID rollSingleLedPatternID(Random &ctx);
