@@ -62,14 +62,16 @@ private:
   // main reRoll functions
 #if VORTEX_SLIM == 0
   bool reRollMulti();
+  PatternID rollMultiLedPatternID(Random &ctx);
 #endif
   bool reRollSingles();
-
-  // generate a random colorset with a random context
-  bool rollCustomPattern(Random &ctx, Mode *pMode, LedPos pos);
   PatternID rollSingleLedPatternID(Random &ctx);
-  PatternID rollMultiLedPatternID(Random &ctx);
+
+  // roll a random colorset
   Colorset rollColorset(Random &ctx);
+
+  // roll a custom pattern by generating random arguments
+  bool rollCustomPattern(Random &ctx, Mode *pMode, LedPos pos);
 
   // random pattern generators
   void traditionalPattern(Random &ctx, PatternArgs &outArgs);

@@ -186,6 +186,11 @@ bool Randomizer::reRollMulti()
   }
 
 }
+
+PatternID Randomizer::rollMultiLedPatternID(Random &ctx)
+{
+  return (PatternID)ctx.next8(PATTERN_MULTI_FIRST, PATTERN_MULTI_LAST);
+}
 #endif
 
 bool Randomizer::reRollSingles()
@@ -226,11 +231,6 @@ PatternID Randomizer::rollSingleLedPatternID(Random &ctx)
     newPat = (PatternID)ctx.next8(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
   } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
   return newPat;
-}
-
-PatternID Randomizer::rollMultiLedPatternID(Random &ctx)
-{
-  return (PatternID)ctx.next8(PATTERN_MULTI_FIRST, PATTERN_MULTI_LAST);
 }
 
 Colorset Randomizer::rollColorset(Random &ctx)
