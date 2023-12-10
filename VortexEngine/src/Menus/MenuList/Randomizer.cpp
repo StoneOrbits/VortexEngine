@@ -190,43 +190,30 @@ bool Randomizer::reRollMulti()
   if (m_multiRandCtx.next8() > 128) {
     return splitMultiRandomize();
   }
-  // just re-roll the multiled position with the multi random context
-  return reRollForContext(m_multiRandCtx, LED_MULTI);
-}
-#endif
-
-bool Randomizer::reRollSingles()
-{
-  // re-roll each led position with it's respective random context
-  MAP_FOREACH_LED(m_targetLeds) {
-    if (!reRollForContext(m_singlesRandCtx[pos], pos)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-bool Randomizer::reRollForContext(Random &ctx, LedPos pos)
-{
   if (m_flags & RANDOMIZE_PATTERN) {
-    // in advanced mode, when not randomizing the multi position, use a
-    // special function to randomize totally custom led pattern timings
-    if (m_advanced && pos != LED_MULTI) {
-      if (!rollCustomPattern(ctx, &m_previewMode, pos)) {
-        ERROR_LOG("Failed to roll custom pattern");
-        return false;
-      }
-    }
-    if (!m_previewMode.setPattern(rollSingleLedPatternID(ctx), pos)) {
+    // TODO: Roll custom multi pattern?
+    //if (m_advanced) {
+    //  if (!rollCustomPattern(ctx, &m_previewMode, pos)) {
+    //    ERROR_LOG("Failed to roll custom pattern");
+    //    return false;
+    //  }
+    //}
+    if (!m_previewMode.setPattern(rollMultiLedPatternID(m_multiRandCtx), LED_MULTI)) {
       ERROR_LOG("Failed to select pattern");
       return false;
     }
   }
-  if (m_flags & RANDOMIZE_COLORSET && !m_previewMode.setColorset(rollColorset(ctx), pos)) {
-    ERROR_LOG("Failed to roll new colorset");
-    return false;
+  if (m_flags & RANDOMIZE_COLORSET) {
+    if (!m_previewMode.setColorset(rollColorset(m_multiRandCtx), LED_MULTI)) {
+      ERROR_LOG("Failed to roll new colorset");
+      return false;
+    }
   }
-  return true;
+}
+
+PatternID Randomizer::rollMultiLedPatternID(Random &ctx)
+{
+  return (PatternID)ctx.next8(PATTERN_MULTI_FIRST, PATTERN_MULTI_LAST);
 }
 
 bool Randomizer::splitMultiRandomize()
@@ -249,13 +236,32 @@ bool Randomizer::splitMultiRandomize()
   }
   return true;
 }
+#endif
 
-bool Randomizer::applyPatternAndColorsetToMap(LedMap map, PatternID pattern, const Colorset &colorset)
+bool Randomizer::reRollSingles()
 {
-  MAP_FOREACH_LED(map) {
-    if (!m_previewMode.setPattern(pattern, pos) || !m_previewMode.setColorset(colorset, pos)) {
-      ERROR_LOG("Failed to apply pattern or colorset");
-      return false;
+  // re-roll each led position with it's respective random context
+  MAP_FOREACH_LED(m_targetLeds) {
+    Random &ctx = m_singlesRandCtx[pos];
+    if (m_flags & RANDOMIZE_PATTERN) {
+      // in advanced mode, when not randomizing the multi position, use a
+      // special function to randomize totally custom led pattern timings
+      if (m_advanced) {
+        if (!rollCustomPattern(ctx, &m_previewMode, pos)) {
+          ERROR_LOG("Failed to roll custom pattern");
+          return false;
+        }
+      }
+      if (!m_previewMode.setPattern(rollSingleLedPatternID(ctx), pos)) {
+        ERROR_LOG("Failed to select pattern");
+        return false;
+      }
+    }
+    if (m_flags & RANDOMIZE_COLORSET) {
+      if (!m_previewMode.setColorset(rollColorset(ctx), pos)) {
+        ERROR_LOG("Failed to roll new colorset");
+        return false;
+      }
     }
   }
   return true;
@@ -270,11 +276,6 @@ PatternID Randomizer::rollSingleLedPatternID(Random &ctx)
     newPat = (PatternID)ctx.next8(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
   } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
   return newPat;
-}
-
-PatternID Randomizer::rollMultiLedPatternID(Random &ctx)
-{
-  return (PatternID)ctx.next8(PATTERN_MULTI_FIRST, PATTERN_MULTI_LAST);
 }
 
 Colorset Randomizer::rollColorset(Random &ctx)

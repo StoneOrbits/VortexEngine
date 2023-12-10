@@ -25,24 +25,6 @@ public:
   bool reRoll();
 
 private:
-  // internal helper functions
-  void showRandomizationSelect();
-#if VORTEX_SLIM == 0
-  bool reRollMulti();
-#endif
-  bool reRollSingles();
-  bool reRollForContext(Random &ctx, LedPos pos);
-  bool splitMultiRandomize();
-  bool applyPatternAndColorsetToMap(LedMap map, PatternID pattern, const Colorset &colorset);
-  PatternID rollSingleLedPatternID(Random &ctx);
-  PatternID rollMultiLedPatternID(Random &ctx);
-  Colorset rollColorset(Random &ctx);
-  bool rollCustomPattern(Random &ctx, Mode *pMode, LedPos pos);
-  void traditionalPattern(Random &ctx, PatternArgs &outArgs);
-  void gapPattern(Random &ctx, PatternArgs &outArgs);
-  void dashPattern(Random &ctx, PatternArgs &outArgs);
-  void crushPattern(Random &ctx, PatternArgs &outArgs);
-
   // random context for each led and led multi (LED_COUNT + 1)
   Random m_singlesRandCtx[LED_COUNT];
   Random m_multiRandCtx;
@@ -73,6 +55,30 @@ private:
   bool m_needToSelect;
   // whether auto cycling
   bool m_autoCycle;
+
+  // show the randomization type selection
+  void showRandomizationSelect();
+
+  // main reRoll functions
+#if VORTEX_SLIM == 0
+  bool reRollMulti();
+  PatternID rollMultiLedPatternID(Random &ctx);
+  bool splitMultiRandomize();
+#endif
+  bool reRollSingles();
+  PatternID rollSingleLedPatternID(Random &ctx);
+
+  // roll a random colorset
+  Colorset rollColorset(Random &ctx);
+
+  // roll a custom pattern by generating random arguments
+  bool rollCustomPattern(Random &ctx, Mode *pMode, LedPos pos);
+
+  // random pattern generators
+  void traditionalPattern(Random &ctx, PatternArgs &outArgs);
+  void gapPattern(Random &ctx, PatternArgs &outArgs);
+  void dashPattern(Random &ctx, PatternArgs &outArgs);
+  void crushPattern(Random &ctx, PatternArgs &outArgs);
 };
 
 #endif
