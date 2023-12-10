@@ -222,17 +222,30 @@ bool Randomizer::splitMultiRandomize()
   m_previewMode.clearPattern();
   // generate random bitmap of which leds to set
   LedMap randomMap = maps[m_multiRandCtx.next8(0, (NUM_MAPS - 1))];
-  // apply pattern1 and colorset1 to the bitmap
-  PatternID pat1 = rollSingleLedPatternID(m_multiRandCtx);
-  Colorset set1 = rollColorset(m_multiRandCtx);
-  if (!applyPatternAndColorsetToMap(randomMap, pat1, set1)) {
+  // roll all of one side of the map one way
+  if (!rollSinglesLedMap(m_multiRandCtx, randomMap)) {
+    ERROR_LOG("Failed to roll first half of split multi map");
     return false;
   }
-  // apply pattern2 and colorset2 to the inverse bitmap
-  PatternID pat2 = rollSingleLedPatternID(m_multiRandCtx);
-  Colorset set2 = rollColorset(m_multiRandCtx);
-  if (!applyPatternAndColorsetToMap(MAP_INVERSE(randomMap), pat2, set2)) {
+  // roll the flipped map with new singles
+  if (!rollSinglesLedMap(m_multiRandCtx, MAP_INVERSE(randomMap))) {
+    ERROR_LOG("Failed to roll first half of split multi map");
     return false;
+  }
+  return true;
+}
+
+bool Randomizer::rollSinglesLedMap(Random &ctx, LedMap map)
+{
+  // apply pattern2 and colorset2 to the inverse bitmap
+  PatternID pat = rollSingleLedPatternID(ctx);
+  Colorset set = rollColorset(ctx);
+  MAP_FOREACH_LED(map) {
+    // apply the pattern and colorset
+    if (!m_previewMode.setPattern(pat, pos, null, &set)) {
+      ERROR_LOG("Failed to apply pattern or colorset");
+      return false;
+    }
   }
   return true;
 }
