@@ -64,7 +64,6 @@ private:
   bool reRollMulti();
 #endif
   bool reRollSingles();
-  bool reRollForContext(Random &ctx, LedPos pos);
 
   // generate a random colorset with a random context
   bool rollCustomPattern(Random &ctx, Mode *pMode, LedPos pos);
