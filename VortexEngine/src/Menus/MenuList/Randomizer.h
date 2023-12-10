@@ -66,7 +66,7 @@ private:
   bool reRollSingles();
   PatternID rollSingleLedPatternID(Random &ctx);
 
-  // roll a random colorset
+  // generate a random colorset with a random context
   Colorset rollColorset(Random &ctx);
 
   // roll a custom pattern by generating random arguments
