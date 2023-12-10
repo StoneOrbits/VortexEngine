@@ -25,9 +25,10 @@ public:
   bool reRoll();
 
 private:
-  // random context for each led and led multi (LED_COUNT + 1)
+  // random context for each single led
   Random m_singlesRandCtx[LED_COUNT];
 #if VORTEX_SLIM == 0
+  // random context for the multi led position
   Random m_multiRandCtx;
 #endif
 
