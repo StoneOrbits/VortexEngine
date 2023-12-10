@@ -68,13 +68,13 @@ private:
   bool reRollSingles();
   PatternID rollSingleLedPatternID(Random &ctx);
 
-  // roll a random colorset
+  // generate a random colorset with a random context
   Colorset rollColorset(Random &ctx);
 
   // roll a custom pattern by generating random arguments
   bool rollCustomPattern(Random &ctx, Mode *pMode, LedPos pos);
 
-  // random pattern generators
+  // more specific random pattern generators that just generate patternargs
   void traditionalPattern(Random &ctx, PatternArgs &outArgs);
   void gapPattern(Random &ctx, PatternArgs &outArgs);
   void dashPattern(Random &ctx, PatternArgs &outArgs);
