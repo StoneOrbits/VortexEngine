@@ -55,6 +55,7 @@ bool Randomizer::init()
   }
   // grab the multi ld pattern colorset crc if it's present
   Mode *cur = Modes::curMode();
+#if VORTEX_SLIM == 0
   if (cur->hasMultiLed()) {
     ByteStream ledData;
     Pattern *pat = cur->getPattern(LED_MULTI);
@@ -63,6 +64,7 @@ bool Randomizer::init()
     }
     m_multiRandCtx.seed(ledData.recalcCRC());
   }
+#endif
   // initialize the randomseed of each led with the
   // CRC of the colorset on the respective LED
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
@@ -90,6 +92,7 @@ Menu::MenuAction Randomizer::run()
     showRandomizationSelect();
     return MENU_CONTINUE;
   }
+#if VORTEX_SLIM == 0
   // if they are trying to randomize a multi-led pattern just convert
   // the pattern to all singles with the same colorset upon entry
   if (m_previewMode.isMultiLed() && m_targetLeds != MAP_LED(LED_MULTI)) {
@@ -103,6 +106,7 @@ Menu::MenuAction Randomizer::run()
     m_previewMode.setPattern(newID);
     m_previewMode.init();
   }
+#endif
   // if the user fast-clicks 3 times then toggle automode
   if (g_pButton->onRelease() && g_pButton->onConsecutivePresses(AUTO_CYCLE_RANDOMIZER_CLICKS)) {
     // toggle the auto cycle flag
