@@ -136,37 +136,56 @@ void Randomizer::showRandomizationSelect()
   Menus::showSelection();
 }
 
-bool Randomizer::reRollSingles()
-{
-  // re-roll each led position with it's respective random context
-  MAP_FOREACH_LED(m_targetLeds) {
-    if (!reRollForContext(m_singlesRandCtx[pos], pos)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-bool Randomizer::reRollForContext(Random &ctx, LedPos pos)
+#if VORTEX_SLIM == 0
+bool Randomizer::reRollMulti()
 {
   if (m_flags & RANDOMIZE_PATTERN) {
-    // in advanced mode, when not randomizing the multi position, use a
-    // special function to randomize totally custom led pattern timings
-    if (m_advanced) {
-      if (!rollCustomPattern(ctx, &m_previewMode, pos)) {
-        ERROR_LOG("Failed to roll custom pattern");
-        return false;
-      }
-    }
-    if (!m_previewMode.setPattern(rollSingleLedPatternID(ctx), pos)) {
+    // TODO: Roll custom multi pattern?
+    //if (m_advanced) {
+    //  if (!rollCustomPattern(ctx, &m_previewMode, pos)) {
+    //    ERROR_LOG("Failed to roll custom pattern");
+    //    return false;
+    //  }
+    //}
+    if (!m_previewMode.setPattern(rollMultiLedPatternID(m_multiRandCtx), LED_MULTI)) {
       ERROR_LOG("Failed to select pattern");
       return false;
     }
   }
   if (m_flags & RANDOMIZE_COLORSET) {
-    if (!m_previewMode.setColorset(rollColorset(ctx), pos)) {
+    if (!m_previewMode.setColorset(rollColorset(m_multiRandCtx), LED_MULTI)) {
       ERROR_LOG("Failed to roll new colorset");
       return false;
+    }
+  }
+  return true;
+}
+#endif
+
+bool Randomizer::reRollSingles()
+{
+  // re-roll each led position with it's respective random context
+  MAP_FOREACH_LED(m_targetLeds) {
+    Random &ctx = m_singlesRandCtx[pos];
+    if (m_flags & RANDOMIZE_PATTERN) {
+      // in advanced mode, when not randomizing the multi position, use a
+      // special function to randomize totally custom led pattern timings
+      if (m_advanced) {
+        if (!rollCustomPattern(ctx, &m_previewMode, pos)) {
+          ERROR_LOG("Failed to roll custom pattern");
+          return false;
+        }
+      }
+      if (!m_previewMode.setPattern(rollSingleLedPatternID(ctx), pos)) {
+        ERROR_LOG("Failed to select pattern");
+        return false;
+      }
+    }
+    if (m_flags & RANDOMIZE_COLORSET) {
+      if (!m_previewMode.setColorset(rollColorset(ctx), pos)) {
+        ERROR_LOG("Failed to roll new colorset");
+        return false;
+      }
     }
   }
   return true;
