@@ -184,7 +184,7 @@ bool Randomizer::reRollMulti()
       return false;
     }
   }
-
+  return true;
 }
 
 PatternID Randomizer::rollMultiLedPatternID(Random &ctx)
