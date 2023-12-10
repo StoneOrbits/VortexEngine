@@ -27,6 +27,9 @@ public:
 private:
   // random context for each led and led multi (LED_COUNT + 1)
   Random m_singlesRandCtx[LED_COUNT];
+#if VORTEX_SLIM == 0
+  Random m_multiRandCtx;
+#endif
 
   // the time of the last randomization
   uint32_t m_lastRandomization;
