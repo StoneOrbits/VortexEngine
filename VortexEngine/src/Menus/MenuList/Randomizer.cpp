@@ -197,18 +197,9 @@ bool Randomizer::reRollForContext(Random &ctx, LedPos pos)
       return false;
     }
   }
-  if (m_flags & RANDOMIZE_COLORSET && !m_previewMode.setColorset(rollColorset(ctx), pos)) {
-    ERROR_LOG("Failed to roll new colorset");
-    return false;
-  }
-  return true;
-}
-
-bool Randomizer::applyPatternAndColorsetToMap(LedMap map, PatternID pattern, const Colorset &colorset)
-{
-  MAP_FOREACH_LED(map) {
-    if (!m_previewMode.setPattern(pattern, pos) || !m_previewMode.setColorset(colorset, pos)) {
-      ERROR_LOG("Failed to apply pattern or colorset");
+  if (m_flags & RANDOMIZE_COLORSET) {
+    if (!m_previewMode.setColorset(rollColorset(ctx), pos)) {
+      ERROR_LOG("Failed to roll new colorset");
       return false;
     }
   }
