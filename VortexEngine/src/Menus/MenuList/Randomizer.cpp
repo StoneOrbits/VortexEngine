@@ -160,6 +160,11 @@ bool Randomizer::reRollMulti()
   }
   return true;
 }
+
+PatternID Randomizer::rollMultiLedPatternID(Random &ctx)
+{
+  return (PatternID)ctx.next8(PATTERN_MULTI_FIRST, PATTERN_MULTI_LAST);
+}
 #endif
 
 bool Randomizer::reRollSingles()
