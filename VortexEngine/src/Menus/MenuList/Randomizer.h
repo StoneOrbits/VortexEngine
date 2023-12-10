@@ -58,12 +58,15 @@ private:
   // show the randomization type selection
   void showRandomizationSelect();
 
+  PatternID rollSingleLedPatternID(Random &ctx);
+
   // generate a random colorset with a random context
-  bool rollPattern(Random &ctx, Mode *pMode, LedPos pos);
-  PatternID rollPatternID(Random &ctx);
   Colorset rollColorset(Random &ctx);
 
-  // random pattern generators
+  // roll a custom pattern by generating random arguments
+  bool rollCustomPattern(Random &ctx, Mode *pMode, LedPos pos);
+
+  // more specific random pattern generators that just generate patternargs
   void traditionalPattern(Random &ctx, PatternArgs &outArgs);
   void gapPattern(Random &ctx, PatternArgs &outArgs);
   void dashPattern(Random &ctx, PatternArgs &outArgs);
