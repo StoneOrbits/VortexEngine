@@ -6,7 +6,7 @@
 
 #include "Patterns/Patterns.h"
 #include "Leds/LedTypes.h"
-#include "VortexJson.h"
+#include "json.hpp"
 
 #include <inttypes.h>
 
@@ -70,6 +70,9 @@ class Pattern;
 class Random;
 class Button;
 class Mode;
+
+// json type is just nlohmann::json
+using json = nlohmann::json;
 
 // Vortex Engine wrapper class, use this to interface with
 // the vortex engine as much as possible
@@ -245,16 +248,16 @@ public:
   static bool lockEnabled() { return m_lockEnabled; }
 
   // convert a mode to/from a json object
-  static JsonObject *modeToJson(const Mode *mode);
-  static Mode *modeFromJson(const JsonObject *modeJson);
+  static json modeToJson(const Mode *mode);
+  static Mode *modeFromJson(const json& modeJson);
 
   // convert a pattern to/from a json object
-  static JsonObject *patternToJson(const Pattern *pattern);
-  static Pattern *patternFromJson(const JsonObject *patternJson);
+  static json patternToJson(const Pattern *pattern);
+  static Pattern *patternFromJson(const json& patternJson);
 
   // save/load the engine storage to/from raw json object
-  static JsonObject *saveJson();
-  static bool loadJson(const JsonObject *json);
+  static json saveJson();
+  static bool loadJson(const json& json);
 
   // dump/parse the json to/from string
   static void dumpJson(const char *filename = nullptr, bool pretty = false);

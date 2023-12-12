@@ -211,7 +211,6 @@
     <ClCompile Include="src\VortexEngine.cpp" />
     <ClCompile Include="src\Wireless\VLReceiver.cpp" />
     <ClCompile Include="src\Wireless\VLSender.cpp" />
-    <ClCompile Include="VortexLib\VortexJson.cpp" />
     <ClCompile Include="VortexLib\VortexLib.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -288,7 +287,7 @@
     <ClInclude Include="src\Wireless\VLConfig.h" />
     <ClInclude Include="src\Wireless\VLReceiver.h" />
     <ClInclude Include="src\Wireless\VLSender.h" />
-    <ClInclude Include="VortexLib\VortexJson.h" />
+    <ClInclude Include="VortexLib\json.hpp" />
     <ClInclude Include="VortexLib\VortexLib.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
