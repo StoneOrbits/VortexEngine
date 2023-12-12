@@ -94,7 +94,7 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
   if (!saveBuffer.serialize((uint8_t)Leds::getBrightness())) {
     return false;
   }
-  DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
+  DEBUG_LOGF("Serialized all modes, uncompressed size: %u", saveBuffer.size());
   return true;
 }
 
