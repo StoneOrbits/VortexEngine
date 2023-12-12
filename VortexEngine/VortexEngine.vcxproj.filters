@@ -554,5 +554,8 @@
     <ClInclude Include="src\Colors\ColorConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VortexLib\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
 </Project>
