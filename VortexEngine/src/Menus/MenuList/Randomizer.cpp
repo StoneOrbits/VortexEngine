@@ -366,10 +366,10 @@ void Randomizer::dashPattern(Random &ctx, PatternArgs &outArgs)
 void Randomizer::crushPattern(Random &ctx, PatternArgs &outArgs)
 {
   // call next8 explicitly in this order because the order they
-   // are called is undefined when called as parameters to another function.
-   // ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.
-   // So different compilers may produce different results,
-   // but like this it is explicit
+  // are called is undefined when called as parameters to another function.
+  // ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.
+  // So different compilers may produce different results,
+  // but like this it is explicit
   uint8_t group = ctx.next8(0, 8);  // groupsize 0 to 8
   uint8_t dash = 0;                 // dash 0
   uint8_t gap = ctx.next8(20, 40);  // need gap 20 -> 40
