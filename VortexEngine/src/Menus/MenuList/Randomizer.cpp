@@ -238,11 +238,6 @@ PatternID Randomizer::rollSingleLedPatternID(Random &ctx)
   return newPat;
 }
 
-PatternID Randomizer::rollMultiPatternID(Random &ctx)
-{
-  return (PatternID)ctx.next8(PATTERN_MULTI_FIRST, PATTERN_MULTI_LAST);
-}
-
 Colorset Randomizer::rollColorset(Random &ctx)
 {
   Colorset randomSet;

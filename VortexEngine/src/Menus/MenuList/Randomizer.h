@@ -69,7 +69,6 @@ private:
 #endif
   bool reRollSingles();
   PatternID rollSingleLedPatternID(Random &ctx);
-  PatternID rollMultiPatternID(Random &ctx);
 
   // generate a random colorset with a random context
   Colorset rollColorset(Random &ctx);
