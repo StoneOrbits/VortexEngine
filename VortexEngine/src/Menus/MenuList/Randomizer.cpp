@@ -35,6 +35,7 @@ bool Randomizer::init()
   }
   // grab the multi ld pattern colorset crc if it's present
   Mode *cur = Modes::curMode();
+#if VORTEX_SLIM == 0
   if (cur->hasMultiLed()) {
     ByteStream ledData;
     Pattern *pat = cur->getPattern(LED_MULTI);
@@ -43,6 +44,7 @@ bool Randomizer::init()
     }
     m_multiRandCtx.seed(ledData.recalcCRC());
   }
+#endif
   // initialize the randomseed of each led with the
   // CRC of the colorset on the respective LED
   for (LedPos l = LED_FIRST; l < LED_COUNT; ++l) {
@@ -70,6 +72,7 @@ Menu::MenuAction Randomizer::run()
     showRandomizationSelect();
     return MENU_CONTINUE;
   }
+#if VORTEX_SLIM == 0
   // if they are trying to randomize a multi-led pattern just convert
   // the pattern to all singles with the same colorset upon entry
   if (m_previewMode.isMultiLed() && m_targetLeds != MAP_LED(LED_MULTI)) {
@@ -83,6 +86,7 @@ Menu::MenuAction Randomizer::run()
     m_previewMode.setPattern(newID);
     m_previewMode.init();
   }
+#endif
   // if the user fast-clicks 3 times then toggle automode
   if (g_pButton->onRelease() && g_pButton->onConsecutivePresses(AUTO_CYCLE_RANDOMIZER_CLICKS)) {
     // toggle the auto cycle flag
@@ -132,6 +136,23 @@ void Randomizer::onLongClick()
   leaveMenu(true);
 }
 
+bool Randomizer::reRoll()
+{
+#if VORTEX_SLIM == 0
+  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+    if (!reRollMulti()) {
+      return false;
+    }
+  }
+#endif
+  if (!reRollSingles()) {
+    return false;
+  }
+  // initialize the mode with the new pattern and colorset
+  m_previewMode.init();
+  return true;
+}
+
 void Randomizer::showRandomizationSelect()
 {
   // show iterating rainbow if they are randomizing color, otherwise 0 sat if they
@@ -143,6 +164,78 @@ void Randomizer::showRandomizationSelect()
   }
   // render the click selection blink
   Menus::showSelection();
+}
+
+#if VORTEX_SLIM == 0
+bool Randomizer::reRollMulti()
+{
+  if (m_flags & RANDOMIZE_PATTERN) {
+    // TODO: Roll custom multi pattern?
+    //if (m_advanced) {
+    //  if (!rollCustomPattern(ctx, &m_previewMode, pos)) {
+    //    ERROR_LOG("Failed to roll custom pattern");
+    //    return false;
+    //  }
+    //}
+    if (!m_previewMode.setPattern(rollMultiLedPatternID(m_multiRandCtx), LED_MULTI)) {
+      ERROR_LOG("Failed to select pattern");
+      return false;
+    }
+  }
+  if (m_flags & RANDOMIZE_COLORSET) {
+    if (!m_previewMode.setColorset(rollColorset(m_multiRandCtx), LED_MULTI)) {
+      ERROR_LOG("Failed to roll new colorset");
+      return false;
+    }
+  }
+  return true;
+}
+
+PatternID Randomizer::rollMultiLedPatternID(Random &ctx)
+{
+  return (PatternID)ctx.next8(PATTERN_MULTI_FIRST, PATTERN_MULTI_LAST);
+}
+#endif
+
+bool Randomizer::reRollSingles()
+{
+  // re-roll each led position with it's respective random context
+  MAP_FOREACH_LED(m_targetLeds) {
+    Random &ctx = m_singlesRandCtx[pos];
+    if (m_flags & RANDOMIZE_PATTERN) {
+      // in advanced mode, when not randomizing the multi position, use a
+      // special function to randomize totally custom led pattern timings
+      if (m_advanced) {
+        if (!rollCustomPattern(ctx, &m_previewMode, pos)) {
+          ERROR_LOG("Failed to roll custom pattern");
+          return false;
+        }
+      } else {
+        if (!m_previewMode.setPattern(rollSingleLedPatternID(ctx), pos)) {
+          ERROR_LOG("Failed to select pattern");
+          return false;
+        }
+      }
+    }
+    if (m_flags & RANDOMIZE_COLORSET) {
+      if (!m_previewMode.setColorset(rollColorset(ctx), pos)) {
+        ERROR_LOG("Failed to roll new colorset");
+        return false;
+      }
+    }
+  }
+  return true;
+}
+
+PatternID Randomizer::rollSingleLedPatternID(Random &ctx)
+{
+  PatternID newPat;
+  // the random range begin/end
+  do {
+    // continuously re-randomize the pattern so we don't get undesirable patterns
+    newPat = (PatternID)ctx.next8(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
+  } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
+  return newPat;
 }
 
 Colorset Randomizer::rollColorset(Random &ctx)
@@ -194,7 +287,7 @@ Colorset Randomizer::rollColorset(Random &ctx)
   return randomSet;
 }
 
-bool Randomizer::rollPattern(Random &ctx, Mode *pMode, LedPos pos)
+bool Randomizer::rollCustomPattern(Random &ctx, Mode *pMode, LedPos pos)
 {
   PatternArgs args;
   // pick a random type of randomizer to use then use
@@ -233,10 +326,10 @@ void Randomizer::traditionalPattern(Random &ctx, PatternArgs &outArgs)
   // call next8 explicitly in this order because the order they
    // are called is undefined when called as parameters to another function.
    // ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.
-   // So different compilers may produce different results, 
+   // So different compilers may produce different results,
    // but like this it is explicit
   uint8_t off = ctx.next8(8, 60);   // off duration 0 -> 60
-  uint8_t on = ctx.next8(1, 20);    // on duration 1 -> 20 
+  uint8_t on = ctx.next8(1, 20);    // on duration 1 -> 20
   outArgs.init(on, off);
 }
 
@@ -245,11 +338,11 @@ void Randomizer::gapPattern(Random &ctx, PatternArgs &outArgs)
   // call next8 explicitly in this order because the order they
   // are called is undefined when called as parameters to another function.
   // ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.
-  // So different compilers may produce different results, 
+  // So different compilers may produce different results,
   // but like this it is explicit
   uint8_t gap = ctx.next8(40, 100); // gap duration 40 -> 100
   uint8_t off = ctx.next8(0, 6);    // off duration 0 -> 6
-  uint8_t on = ctx.next8(1, 10);    // on duration 1 -> 10  
+  uint8_t on = ctx.next8(1, 10);    // on duration 1 -> 10
   outArgs.init(on, off, gap);
 }
 
@@ -258,11 +351,11 @@ void Randomizer::dashPattern(Random &ctx, PatternArgs &outArgs)
   // call next8 explicitly in this order because the order they
   // are called is undefined when called as parameters to another function.
   // ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.
-  // So different compilers may produce different results, 
+  // So different compilers may produce different results,
   // but like this it is explicit
   uint8_t dash = ctx.next8(20, 30); // dash duration 20 -> 30
   uint8_t gap = ctx.next8(20, 30);  // need gap 20 -> 30
-  uint8_t off = ctx.next8(0, 10);   // off duration 0 -> 10 
+  uint8_t off = ctx.next8(0, 10);   // off duration 0 -> 10
   uint8_t on = ctx.next8(1, 10);    // on duration 1 -> 10
   outArgs.init(on, off, gap, dash);
 }
@@ -272,57 +365,12 @@ void Randomizer::crushPattern(Random &ctx, PatternArgs &outArgs)
   // call next8 explicitly in this order because the order they
    // are called is undefined when called as parameters to another function.
    // ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.
-   // So different compilers may produce different results, 
+   // So different compilers may produce different results,
    // but like this it is explicit
   uint8_t group = ctx.next8(0, 8);  // groupsize 0 to 8
-  uint8_t dash = 0;                 // dash 0 
+  uint8_t dash = 0;                 // dash 0
   uint8_t gap = ctx.next8(20, 40);  // need gap 20 -> 40
   uint8_t off = ctx.next8(0, 10);   // off duration 0 -> 5
   uint8_t on = ctx.next8(1, 10);    // on duration 1 -> 10
   outArgs.init(on, off, gap, dash, group);
-}
-
-PatternID Randomizer::rollPatternID(Random &ctx)
-{
-  PatternID newPat;
-  // the random range begin/end
-  do {
-    // continuously re-randomize the pattern so we don't get undesirable patterns
-    newPat = (PatternID)ctx.next8(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
-  } while (newPat == PATTERN_SOLID || newPat == PATTERN_RIBBON || newPat == PATTERN_MINIRIBBON);
-  return newPat;
-}
-
-bool Randomizer::reRoll()
-{
-  MAP_FOREACH_LED(m_targetLeds) {
-    // grab local reference to the target random context
-    Random &ctx = m_singlesRandCtx[pos];
-    if (m_flags & RANDOMIZE_PATTERN) {
-      // roll a new pattern
-      if (m_advanced) {
-        if (!rollPattern(ctx, &m_previewMode, pos)) {
-          ERROR_LOG("Failed to roll new pattern");
-          return false;
-        }
-      } else {
-        if (!m_previewMode.setPattern(rollPatternID(ctx), pos)) {
-          ERROR_LOG("Failed to roll new pattern");
-          return false;
-        }
-      }
-    }
-    if (m_flags & RANDOMIZE_COLORSET) {
-      // roll a new colorset
-      if (!m_previewMode.setColorset(rollColorset(ctx), pos)) {
-        ERROR_LOG("Failed to roll new colorset");
-        return false;
-      }
-    }
-  }
-  // initialize the mode with the new pattern and colorset
-  m_previewMode.init();
-  DEBUG_LOGF("Randomized Led %u set with randomization technique %u, %u colors, and Pattern number %u",
-    pos, randType, randomSet.numColors(), newPat);
-  return true;
 }
