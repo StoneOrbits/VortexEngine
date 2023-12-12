@@ -122,7 +122,7 @@ void IRSender::beginSend()
 {
   m_isSending = true;
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
-    microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
+    Time::microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
   // init sender before writing, is this necessary here? I think so
   initPWM();
   // wakeup the other receiver with a very quick mark/space

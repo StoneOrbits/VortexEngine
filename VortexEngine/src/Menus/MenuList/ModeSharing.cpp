@@ -145,7 +145,7 @@ void ModeSharing::receiveMode()
     ERROR_LOG("Failed to receive mode");
     return;
   }
-  DEBUG_LOGF("Success receiving mode: %u", Modes::curMode()->getPatternID());
+  DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
   if (!m_advanced) {
     Modes::updateCurMode(&m_previewMode);
     // leave menu and save settings, even if the mode was the same whatever
