@@ -127,6 +127,7 @@ FORCE:
 # generic clean target
 clean:
 	@$(RM) $(DFILES) $(OBJS) $(TARGETS) $(TESTS) vortex.wasm *.txt FlashStorage.flash
+	$(MAKE) -C ../VortexLib clean
 
 # Now include our target dependency files
 # the hyphen means ignore non-existent files
