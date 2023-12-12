@@ -41,6 +41,7 @@
 #define VORTEX_SLIM           0
 
 // Turn on this flag to change from Spark Orbit pins to Spark Handle pins 
+// TODO: remove this once the spark orbit and handle have matching hardware
 #define SPARK_HANDLE          0
 
 // ===================================================================
