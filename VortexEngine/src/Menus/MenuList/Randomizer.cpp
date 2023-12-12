@@ -210,10 +210,11 @@ bool Randomizer::reRollSingles()
           ERROR_LOG("Failed to roll custom pattern");
           return false;
         }
-      }
-      if (!m_previewMode.setPattern(rollSingleLedPatternID(ctx), pos)) {
-        ERROR_LOG("Failed to select pattern");
-        return false;
+      } else {
+        if (!m_previewMode.setPattern(rollSingleLedPatternID(ctx), pos)) {
+          ERROR_LOG("Failed to select pattern");
+          return false;
+        }
       }
     }
     if (m_flags & RANDOMIZE_COLORSET) {
