@@ -150,6 +150,7 @@ VortexCLI::VortexCLI() :
   m_curPattern(PATTERN_FIRST),
   m_curColorset(),
   m_outputType(OUTPUT_TYPE_NONE),
+  m_jsonMode(JSON_MODE_NONE),
   m_noTimestep(false),
   m_lockstep(false),
   m_inPlace(false),
@@ -157,6 +158,8 @@ VortexCLI::VortexCLI() :
   m_storage(false),
   m_sleepEnabled(true),
   m_lockEnabled(true),
+  m_jsonPretty(false),
+  m_quickExit(false),
   m_storageFile("FlashStorage.flash"),
   m_patternIDStr(),
   m_colorsetStr(),
@@ -174,13 +177,18 @@ VortexCLI::~VortexCLI()
 static struct option long_options[] = {
   {"hex", no_argument, nullptr, 'x'},
   {"color", no_argument, nullptr, 'c'},
+  {"silent", no_argument, nullptr, 's'},
   {"no-timestep", no_argument, nullptr, 't'},
   {"lockstep", no_argument, nullptr, 'l'},
   {"in-place", no_argument, nullptr, 'i'},
   {"record", no_argument, nullptr, 'r'},
   {"autowake", no_argument, nullptr, 'a'},
   {"nolock", no_argument, nullptr, 'n'},
-  {"storage", optional_argument, nullptr, 's'},
+  {"quick", no_argument, nullptr, 'q'},
+  {"storage", optional_argument, nullptr, 'S'},
+  {"json-in", optional_argument, nullptr, 'I'},
+  {"json-out", optional_argument, nullptr, 'O'},
+  {"json-human-read", no_argument, nullptr, 'H'},
   {"pattern", required_argument, nullptr, 'P'},
   {"colorset", required_argument, nullptr, 'C'},
   {"arguments", required_argument, nullptr, 'A'},
@@ -218,6 +226,7 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "Output Selection (at least one required):\n");
   fprintf(stderr, "  -x, --hex                Use hex values to represent led colors\n");
   fprintf(stderr, "  -c, --color              Use console color codes to represent led colors\n");
+  fprintf(stderr, "  -s, --silent             Do not print any output while running\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Engine Control Flags (optional):\n");
   fprintf(stderr, "  -t, --no-timestep        Bypass the timestep and run as fast as possible\n");
@@ -226,10 +235,16 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -r, --record             Record the inputs and dump to a file after (" RECORD_FILE ")\n");
   fprintf(stderr, "  -a, --autowake           Automatically and instantly wake on sleep (disable sleep)\n");
   fprintf(stderr, "  -n, --nolock             Automatically unlock upon locking the chip (disable lock)\n");
-  fprintf(stderr, "  -s, --storage [file]     Persistent storage to file (default file: FlashStorage.flash)\n");
+  fprintf(stderr, "  -q, --quick              Exit immediately after initialization (useful to convert data)\n");
+  fprintf(stderr, "\n");
+  fprintf(stderr, "Storage Options (optional):\n");
+  fprintf(stderr, "  -S, --storage [file]     Persistent storage to file (default file: FlashStorage.flash)\n");
+  fprintf(stderr, "  -I, --json-in [file]     Load json from file at init (if no file: read from stdin)\n");
+  fprintf(stderr, "  -O, --json-out [file]    Dump json to file at exit (if no file: write to stdout)\n");
+  fprintf(stderr, "  -H, --json-human-read    Dump human readable json, instead of condensed json\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Initial Pattern Options (optional):\n");
-  fprintf(stderr, "  -P, --pattern <id>       Preset the pattern ID on the first mode\n");
+  fprintf(stderr, "  -P, --pattern <id>       Preset the pattern ID on the first mode (numeric ID or pattern name ex: blend)\n");
   fprintf(stderr, "  -C, --colorset c1,c2...  Preset the colorset on the first mode (csv list of hex codes or color names)\n");
   fprintf(stderr, "  -A, --arguments a1,a2... Preset the arguments on the first mode (csv list of arguments)\n");
   fprintf(stderr, "\n");
@@ -240,11 +255,13 @@ static void print_usage(const char* program_name)
   for (uint32_t i = 0; i < NUM_USAGE; ++i) {
     fprintf(stderr, "%s", input_usage[i]);
   }
-  fprintf(stderr, "\n");
+  fprintf(stderr, "\n\n");
   fprintf(stderr, "Example Usage:\n");
-  fprintf(stderr, "   ./vortex -ci\n");
+  fprintf(stderr, "   ./vortex --color\n");
   fprintf(stderr, "   ./vortex -ci -P42 -Ccyan,purple\n");
-  fprintf(stderr, "   ./vortex -ct -P0 -Cred,green -A1,2 <<< w10q\n");
+  fprintf(stderr, "   ./vortex -ct -Pblend -Ccyan,yellow,magenta <<< w100q\n");
+  fprintf(stderr, "   ./vortex -sq -S StorageData.dat -O output_storage_data.json\n");
+  fprintf(stderr, "   ./vortex -sq -S StorageData.dat -I input_storage_data.json\n");
 }
 
 #ifdef _WIN32
@@ -326,9 +343,14 @@ bool VortexCLI::init(int argc, char *argv[])
   }
   g_pVortexCLI = this;
 
+  if (argc == 1) {
+    print_usage(argv[0]);
+    exit(1);
+  }
+
   int opt = -1;
   int option_index = 0;
-  while ((opt = getopt_long(argc, argv, "xctliransP:C:A:h", long_options, &option_index)) != -1) {
+  while ((opt = getopt_long(argc, argv, "xcstliranqS::I::O::HP:C:A:h", long_options, &option_index)) != -1) {
     switch (opt) {
     case 'x':
       // if the user wants pretty colors or hex codes
@@ -337,6 +359,10 @@ bool VortexCLI::init(int argc, char *argv[])
     case 'c':
       // if the user wants pretty colors
       m_outputType = OUTPUT_TYPE_COLOR;
+      break;
+    case 's':
+      // turn off output
+      m_outputType = OUTPUT_TYPE_SILENT;
       break;
     case 't':
       // if the user wants to bypass timestep
@@ -362,12 +388,47 @@ bool VortexCLI::init(int argc, char *argv[])
       // disable the lock
       m_lockEnabled = false;
       break;
-    case 's':
+    case 'q':
+      // quick exit
+      m_quickExit = true;
+      break;
+    case 'S':
       // enable persistent storage to file
       m_storage = true;
+      if (optarg == NULL && optind < argc && argv[optind][0] != '-') {
+        optarg = argv[optind++];
+      }
       if (optarg) {
         m_storageFile = optarg;
       }
+      break;
+    case 'I':
+      // read json from stdin or file
+      if (optarg == NULL && optind < argc && argv[optind][0] != '-') {
+        optarg = argv[optind++];
+      }
+      if (optarg) {
+        m_jsonMode = (JsonMode)(m_jsonMode | JSON_MODE_READ_FILE);
+        m_jsonInFile = optarg;
+      } else {
+        m_jsonMode = (JsonMode)(m_jsonMode | JSON_MODE_READ_STDIN);
+      }
+      break;
+    case 'O':
+      // write json to output or file
+      if (optarg == NULL && optind < argc && argv[optind][0] != '-') {
+        optarg = argv[optind++];
+      }
+      if (optarg) {
+        m_jsonMode = (JsonMode)(m_jsonMode | JSON_MODE_WRITE_FILE);
+        m_jsonOutFile = optarg;
+      } else {
+        m_jsonMode = (JsonMode)(m_jsonMode | JSON_MODE_WRITE_STDOUT);
+      }
+      break;
+    case 'H':
+      // json human readable
+      m_jsonPretty = true;
       break;
     case 'P':
       // preset the pattern ID on the first mode
@@ -402,6 +463,8 @@ bool VortexCLI::init(int argc, char *argv[])
   case OUTPUT_TYPE_HEX:
     setHexOutput(true);
     break;
+  case OUTPUT_TYPE_SILENT:
+    break;
   }
 
   // do the vortex init/setup
@@ -422,8 +485,26 @@ bool VortexCLI::init(int argc, char *argv[])
   Vortex::setSleepEnabled(m_sleepEnabled);
   Vortex::setLockEnabled(m_lockEnabled);
 
+  if (m_jsonMode & JSON_MODE_READ_STDIN) {
+    // todo: read js from stdin
+    printf("Reading json from stdin is not implemented yet, sorry\n");
+    exit(2);
+  }
+
+  if (m_jsonMode & JSON_MODE_READ_FILE) {
+    printf("Reading json from %s\n", m_jsonInFile.c_str());
+    // read from m_jsonInFile;
+    Vortex::parseJsonFromFile(m_jsonInFile);
+  }
+
   if (m_patternIDStr.length() > 0) {
+    // convert both numeric and string to see which one seems more correct
     PatternID id = (PatternID)strtoul(m_patternIDStr.c_str(), nullptr, 10);
+    PatternID strID = Vortex::stringToPattern(m_patternIDStr);
+    if (id == PATTERN_FIRST && strID != PATTERN_NONE) {
+      // use the str ID if the numeric ID didn't convert and the string did
+      id = strID;
+    }
     // TODO: add arg for the led position
     Vortex::setPatternAt(LED_ALL, id);
   }
@@ -477,7 +558,7 @@ void VortexCLI::run()
   if (!stillRunning()) {
     return;
   }
-  if (!Vortex::tick()) {
+  if (!Vortex::tick() || m_quickExit) {
     cleanup();
   }
 }
@@ -499,8 +580,19 @@ void VortexCLI::cleanup()
     }
     printf("Wrote recorded input to " RECORD_FILE "\n");
   }
+  if (m_jsonMode & JSON_MODE_WRITE_STDOUT) {
+    // dump the current save in json format
+    Vortex::dumpJson(nullptr, m_jsonPretty);
+  }
+  if (m_jsonMode & JSON_MODE_WRITE_FILE) {
+    Vortex::dumpJson(m_jsonOutFile.c_str(), m_jsonPretty);
+    printf("Wrote JSON to file [%s]\n", m_jsonOutFile.c_str());
+  }
   m_keepGoing = false;
   m_isPaused = false;
+  if (m_storage) {
+    Vortex::doSave();
+  }
   Vortex::cleanup();
 #ifdef WASM
   emscripten_force_exit(0);
@@ -511,6 +603,9 @@ void VortexCLI::cleanup()
 void VortexCLI::show()
 {
   if (!m_initialized) {
+    return;
+  }
+  if (m_outputType == OUTPUT_TYPE_SILENT) {
     return;
   }
   string out;
@@ -548,8 +643,6 @@ void VortexCLI::show()
       snprintf(buf, sizeof(buf), "%06X", m_ledList[i].raw());
       out += buf;
     }
-  } else { // OUTPUT_TYPE_NONE
-    // do nothing
   }
   if (!m_inPlace) {
     out += "\n";

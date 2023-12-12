@@ -6,6 +6,7 @@
 
 #include "Patterns/Patterns.h"
 #include "Leds/LedTypes.h"
+#include "json.hpp"
 
 #include <inttypes.h>
 
@@ -65,9 +66,13 @@ public:
 class PatternArgs;
 class ByteStream;
 class Colorset;
+class Pattern;
 class Random;
 class Button;
 class Mode;
+
+// json type is just nlohmann::json
+using json = nlohmann::json;
 
 // Vortex Engine wrapper class, use this to interface with
 // the vortex engine as much as possible
@@ -185,6 +190,7 @@ public:
 
   // Helpers for converting pattern id and led id to string
   static std::string patternToString(PatternID id = PATTERN_NONE);
+  static PatternID stringToPattern(const std::string &pattern);
   static std::string ledToString(LedPos pos);
   static uint32_t numCustomParams(PatternID id);
   static std::vector<std::string> getCustomParams(PatternID id);
@@ -240,6 +246,27 @@ public:
   // enable or disable the 'lock'
   static void setLockEnabled(bool enable) { m_lockEnabled = enable; }
   static bool lockEnabled() { return m_lockEnabled; }
+
+  // convert a mode to/from a json object
+  static json modeToJson(const Mode *mode);
+  static Mode *modeFromJson(const json& modeJson);
+
+  // convert a pattern to/from a json object
+  static json patternToJson(const Pattern *pattern);
+  static Pattern *patternFromJson(const json& patternJson);
+
+  // save/load the engine storage to/from raw json object
+  static json saveJson();
+  static bool loadJson(const json& json);
+
+  // dump/parse the json to/from string
+  static void dumpJson(const char *filename = nullptr, bool pretty = false);
+  static bool parseJson(const std::string &json);
+  static bool parseJsonFromFile(const std::string &filename);
+
+  // save and add undo buffer
+  static bool doSave();
+  static bool applyUndo();
 
 private:
   // the last command to have been executed
@@ -303,10 +330,6 @@ private:
     // the event to trigger
     VortexButtonEventType type;
   };
-
-  // save and add undo buffer
-  static bool doSave();
-  static bool applyUndo();
 
   // undo buffer
   static std::deque<ByteStream> m_undoBuffer;
