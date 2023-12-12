@@ -35,7 +35,10 @@ private:
 #else
   Random m_singlesRandCtx[LED_COUNT];
 #endif
+#if VORTEX_SLIM == 0
+  // random context for the multi led position
   Random m_multiRandCtx;
+#endif
 
   // the time of the last randomization
   uint32_t m_lastRandomization;
@@ -67,12 +70,21 @@ private:
   // show the randomization type selection
   void showRandomizationSelect();
 
+  // main reRoll functions
+#if VORTEX_SLIM == 0
+  bool reRollMulti();
+  PatternID rollMultiLedPatternID(Random &ctx);
+#endif
+  bool reRollSingles();
+  PatternID rollSingleLedPatternID(Random &ctx);
+
   // generate a random colorset with a random context
-  bool rollPattern(Random &ctx, Mode *pMode, LedPos pos);
-  PatternID rollPatternID(Random &ctx);
   Colorset rollColorset(Random &ctx);
 
-  // random pattern generators
+  // roll a custom pattern by generating random arguments
+  bool rollCustomPattern(Random &ctx, Mode *pMode, LedPos pos);
+
+  // more specific random pattern generators that just generate patternargs
   void traditionalPattern(Random &ctx, PatternArgs &outArgs);
   void gapPattern(Random &ctx, PatternArgs &outArgs);
   void dashPattern(Random &ctx, PatternArgs &outArgs);
