@@ -115,7 +115,7 @@ void VLSender::beginSend()
 {
   m_isSending = true;
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
-    microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
+    Time::microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
   // wakeup the other receiver with a very quick mark/space
   sendMark(50);
   sendSpace(100);
