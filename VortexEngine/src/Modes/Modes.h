@@ -150,6 +150,8 @@ public:
   static uint32_t maxModeSize();
   // get the maximum size a savefile can occupy
   static uint32_t maxSaveSize();
+  // global flags value
+  static uint8_t globalFlags();
 #endif
 
 private:
