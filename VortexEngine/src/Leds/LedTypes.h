@@ -110,6 +110,9 @@ typedef uint64_t LedMap;
 // convert a map to the first Led position in the map
 inline LedPos mapGetFirstLed(LedMap map)
 {
+  if (map == MAP_LED(LED_MULTI)) {
+    return LED_MULTI;
+  }
   LedPos pos = LED_FIRST;
   while (map && pos < LED_COUNT) {
     if (map & 1) {
@@ -138,6 +141,9 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 
 // bitmap of all pairs (basically LED_COUNT bits)
 #define MAP_LED_ALL ((2 << (LED_COUNT - 1)) - 1)
+
+// blank map
+#define MAP_LED_NONE 0
 
 #define MAP_INVERSE(map) ((~map) & MAP_LED_ALL)
 
