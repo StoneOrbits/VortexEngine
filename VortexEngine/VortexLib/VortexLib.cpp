@@ -26,6 +26,11 @@
 #include <Windows.h>
 #endif
 
+#include <algorithm>
+#include <iostream>
+#include <sstream>
+#include <fstream>
+
 #ifdef WASM
 #include <emscripten/bind.h>
 #include <emscripten/val.h>
@@ -55,6 +60,21 @@ EMSCRIPTEN_BINDINGS(vortex_engine) {
 #endif
 
 using namespace std;
+
+// I wish there was a way to do this automatically but it would be
+// quite messy and idk if it's worth it
+static const char *patternNames[PATTERN_COUNT] = {
+  "strobe", "hyperstrobe", "picostrobe", "strobie", "dops", "ultradops", "strobegap",
+  "hypergap", "picogap", "strobiegap", "dopsgap", "ultragap", "blinkie",
+  "ghostcrush", "doubledops", "chopper", "dashgap", "dashdops", "dash-crush",
+  "ultradash", "gapcycle", "dashcycle", "tracer", "ribbon", "miniribbon",
+  "blend", "blendstrobe", "blendstrobegap", "complementary_blend",
+  "complementary_blendstrobe", "complementary_blendstrobegap", "solid",
+  "hueshift", "theater_chase", "chaser", "zigzag", "zipfade", "drip",
+  "dripmorph", "crossdops", "doublestrobe", "meteor", "sparkletrace",
+  "vortexwipe", "warp", "warpworm", "snowball", "lighthouse", "pulsish",
+  "fill", "bounce", "splitstrobie", "backstrobe", "vortex",
+};
 
 // static vortex data
 char Vortex::m_lastCommand = 0;
@@ -334,7 +354,7 @@ bool Vortex::isSleeping()
 bool Vortex::tick()
 {
   if (!m_initialized) {
-    cleanup();
+    // do not cleanup prematurely here
     return false;
   }
   // use ioctl to determine how many characters are on stdin so that
@@ -797,30 +817,34 @@ bool Vortex::isCurModeMulti()
 
 string Vortex::patternToString(PatternID id)
 {
-  // I wish there was a way to do this automatically but it would be
-  // quite messy and idk if it's worth it
-  static const char *patternNames[] = {
-    "strobe", "hyperstrobe", "picostrobe", "strobie", "dops", "ultradops", "strobegap",
-    "hypergap", "picogap", "strobiegap", "dopsgap", "ultragap", "blinkie",
-    "ghostcrush", "doubledops", "chopper", "dashgap", "dashdops", "dash-crush",
-    "ultradash", "gapcycle", "dashcycle", "tracer", "ribbon", "miniribbon",
-    "blend", "blendstrobe", "blendstrobegap", "complementary_blend",
-    "complementary_blendstrobe", "complementary_blendstrobegap", "solid",
-    "hueshift", "theater_chase", "chaser", "zigzag", "zipfade", "drip",
-    "dripmorph", "crossdops", "doublestrobe", "meteor", "sparkletrace",
-    "vortexwipe", "warp", "warpworm", "snowball", "lighthouse", "pulsish",
-    "fill", "bounce", "splitstrobie", "backstrobe", "vortex",
-  };
+  // this shouldn't happen but just in case somebody messes with stuff
   if (sizeof(patternNames) / sizeof(patternNames[0]) != PATTERN_COUNT) {
     // if you see this it means the list of strings above is not equal to
     // the number of patterns in the enum, so you need to update the list
     // above to match the enum.
     return "fix patternToString()";
   }
-  if (id == PATTERN_NONE || id >= PATTERN_COUNT) {
+  if (id <= PATTERN_NONE || id >= PATTERN_COUNT) {
     return "none";
   }
   return patternNames[id];
+}
+
+PatternID Vortex::stringToPattern(const std::string &pattern)
+{
+  static map<string, PatternID> cachedNames;
+  if (cachedNames.empty()) {
+    for (PatternID i = PATTERN_FIRST; i < PATTERN_COUNT; ++i) {
+      cachedNames[patternNames[i]] = (PatternID)i;
+    }
+  }
+  // lowercase the name and look it up
+  string lowerPat = pattern;
+  transform(lowerPat.begin(), lowerPat.end(), lowerPat.begin(), [](unsigned char c) { return tolower(c); });
+  if (cachedNames.find(pattern) == cachedNames.end()) {
+    return PATTERN_NONE;
+  }
+  return cachedNames[pattern];
 }
 
 // this shouldn't change much so this is fine
@@ -1135,6 +1159,16 @@ uint32_t Vortex::getNumInputs()
     if (!GetNumberOfConsoleInputEvents(hStdin, (DWORD *)&numInputs)) {
       // Handle error here
     }
+    INPUT_RECORD inputRecord;
+    DWORD eventsRead;
+    while (PeekConsoleInput(hStdin, &inputRecord, 1, &eventsRead) && eventsRead > 0) {
+      // Discard non-character events
+      if (inputRecord.EventType != KEY_EVENT || !inputRecord.Event.KeyEvent.bKeyDown) {
+        numInputs--;
+      }
+      // Remove the event from the input buffer
+      ReadConsoleInput(hStdin, &inputRecord, 1, &eventsRead);
+    }
   } else {
     // Handle redirected input
     DWORD availableBytes;
@@ -1183,4 +1217,292 @@ void Vortex::setStorageFilename(const string &name)
 string Vortex::getStorageFilename()
 {
   return Storage::getStorageFilename();
+}
+
+json Vortex::modeToJson(const Mode *mode)
+{
+  if (!mode) {
+    return nullptr;
+  }
+
+  json modeJson;
+  modeJson["num_leds"] = mode->getLedCount();
+  modeJson["flags"] = (uint8_t)mode->getFlags();
+
+  const Pattern *multiPattern = mode->getPattern(LED_MULTI);
+  if (multiPattern) {
+    modeJson["multi_pat"] = patternToJson(multiPattern);
+  }
+
+  json singlePatterns = json::array();
+  for (LedPos l = LED_FIRST; l < mode->getLedCount(); ++l) {
+    const Pattern *pattern = mode->getPattern(l);
+    if (pattern) {
+      singlePatterns.push_back(patternToJson(pattern));
+    } else {
+      singlePatterns.push_back(nullptr);
+    }
+  }
+
+  modeJson["single_pats"] = singlePatterns;
+  return modeJson;
+}
+
+Mode *Vortex::modeFromJson(const json &modeJson)
+{
+  if (modeJson.is_null()) {
+    return nullptr;
+  }
+
+  Mode *mode = new Mode();
+  if (!mode) {
+    return nullptr;
+  }
+
+#if FIXED_LED_COUNT == 0
+  if (modeJson.contains("num_leds") && modeJson["num_leds"].is_number_unsigned()) {
+    mode->setLedCount(modeJson["num_leds"].get<uint8_t>());
+  }
+#endif
+
+  // Extract and set multiPattern
+  if (modeJson.contains("multi_pat") && modeJson["multi_pat"].is_object()) {
+    const json &multiPatJson = modeJson["multi_pat"];
+    Pattern *multiPattern = patternFromJson(multiPatJson);
+    if (multiPattern) {
+      PatternArgs args;
+      multiPattern->getArgs(args);
+      Colorset set = multiPattern->getColorset();
+      mode->setPattern(multiPattern->getPatternID(), LED_MULTI, &args, &set);
+    }
+  }
+
+  // Extract and set singlePatterns
+  if (modeJson.contains("single_pats") && modeJson["single_pats"].is_array()) {
+    LedPos pos = LED_FIRST;
+    for (const json &patJson : modeJson["single_pats"]) {
+      if (patJson.is_object()) {
+        Pattern *pattern = patternFromJson(patJson);
+        if (pattern) {
+          PatternArgs args;
+          pattern->getArgs(args);
+          Colorset set = pattern->getColorset();
+          mode->setPattern(pattern->getPatternID(), pos++, &args, &set);
+        }
+      }
+    }
+  }
+
+  return mode;
+}
+
+json Vortex::patternToJson(const Pattern *pattern)
+{
+  if (!pattern) {
+    return nullptr;
+  }
+
+  json patternJson;
+  patternJson["pattern_id"] = pattern->getPatternID();
+  patternJson["flags"] = pattern->getFlags();
+
+  const Colorset &colorset = pattern->getColorset();
+  patternJson["numColors"] = colorset.numColors();
+
+  json colorsetArray = json::array();
+  for (uint8_t c = 0; c < colorset.numColors(); ++c) {
+    const RGBColor &color = colorset.get(c);
+    std::stringstream colorString;
+    colorString << "0x"
+      << std::setfill('0') << std::setw(2) << std::hex << (int)color.red
+      << std::setfill('0') << std::setw(2) << std::hex << (int)color.green
+      << std::setfill('0') << std::setw(2) << std::hex << (int)color.blue;
+    colorsetArray.push_back(colorString.str());
+  }
+  patternJson["colorset"] = colorsetArray;
+
+  json argsArray = json::array();
+  for (uint8_t a = 0; a < pattern->getNumArgs(); ++a) {
+    argsArray.push_back(pattern->getArg(a));
+  }
+  patternJson["args"] = argsArray;
+
+  return patternJson;
+}
+
+Pattern *Vortex::patternFromJson(const json &patternJson)
+{
+  if (patternJson.is_null()) {
+    return nullptr;
+  }
+
+  // Get pattern ID
+  PatternID id = PATTERN_NONE;
+  if (patternJson.contains("pattern_id") && patternJson["pattern_id"].is_number_unsigned()) {
+    id = static_cast<PatternID>(patternJson["pattern_id"].get<uint8_t>());
+  }
+
+  // Validate the pattern ID
+  if (id <= PATTERN_FIRST || id >= PATTERN_COUNT) {
+    return nullptr;
+  }
+
+  // Parse out the args
+  PatternArgs args;
+  if (patternJson.contains("args") && patternJson["args"].is_array()) {
+    for (const auto &arg : patternJson["args"]) {
+      if (arg.is_number_unsigned()) {
+        args.addArgs(static_cast<uint8_t>(arg.get<uint8_t>()));
+      }
+    }
+  }
+
+  // Parse out the colorset
+  Colorset set;
+  if (patternJson.contains("colorset") && patternJson["colorset"].is_array()) {
+    for (const auto &colorElement : patternJson["colorset"]) {
+      if (colorElement.is_string()) {
+        string strVal = colorElement.get<string>();
+        if (strVal.find("0x") == 0) {
+          strVal = strVal.substr(2);
+        }
+        uint32_t dwCol = strtoul(strVal.c_str(), NULL, 16);
+        set.addColor(RGBColor(dwCol));
+      }
+    }
+  }
+
+  // Build the pattern with ID + args
+  Pattern *pattern = PatternBuilder::make(id, &args);
+  if (!pattern) {
+    return nullptr;
+  }
+
+  // Apply colorset and init
+  pattern->setColorset(set);
+  pattern->init();
+
+  return pattern;
+}
+
+json Vortex::saveJson()
+{
+  json saveJson;
+
+  saveJson["version_major"] = static_cast<uint8_t>(VORTEX_VERSION_MAJOR);
+  saveJson["version_minor"] = static_cast<uint8_t>(VORTEX_VERSION_MINOR);
+  saveJson["global_flags"] = Modes::globalFlags();
+  saveJson["brightness"] = static_cast<uint8_t>(Leds::getBrightness());
+
+  uint8_t numModes = Modes::numModes();
+  saveJson["num_modes"] = numModes;
+
+  json modesArray = json::array();
+  Modes::setCurMode(0);
+  for (uint8_t i = 0; i < numModes; ++i) {
+    Mode *cur = Modes::curMode();
+    if (cur) {
+      json modeJson = modeToJson(cur);
+      modesArray.push_back(modeJson);
+    } else {
+      modesArray.push_back(nullptr);
+    }
+    Modes::nextMode();
+  }
+  saveJson["modes"] = modesArray;
+
+  return saveJson;
+}
+
+bool Vortex::loadJson(const json& js)
+{
+  if (js.is_null()) {
+    return false;
+  }
+
+  uint8_t major = 0;
+  uint8_t minor = 0;
+  if (js.contains("version_major") && js["version_major"].is_number_unsigned()) {
+    major = js["version_major"].get<uint8_t>();
+  }
+
+  if (js.contains("version_minor") && js["version_minor"].is_number_unsigned()) {
+    minor = js["version_minor"].get<uint8_t>();
+  }
+
+  if (!VortexEngine::checkVersion(major, minor)) {
+    return false;
+  }
+
+  if (js.contains("brightness") && js["brightness"].is_number_unsigned()) {
+    uint8_t brightness = js["brightness"].get<uint8_t>();
+    Leds::setBrightness(brightness);
+  }
+
+  if (js.contains("global_flags") && js["global_flags"].is_number_unsigned()) {
+    uint8_t global_flags = js["global_flags"].get<uint8_t>();
+    Modes::setFlag(global_flags, true, false);
+  }
+
+  uint8_t num_modes = 0;
+  if (js.contains("num_modes") && js["num_modes"].is_number_unsigned()) {
+    num_modes = js["num_modes"].get<uint8_t>();
+  }
+
+  if (js.contains("modes") && js["modes"].is_array()) {
+    Modes::clearModes();
+    for (const auto &modeValue : js["modes"]) {
+      if (!modeValue.is_null() && modeValue.is_object()) {
+        Mode *mode = modeFromJson(modeValue);
+        if (mode) {
+          Modes::addMode(mode);
+        }
+      }
+    }
+  }
+
+  return Modes::numModes() == num_modes;
+}
+
+// dump the json to output
+void Vortex::dumpJson(const char *filename, bool pretty)
+{
+  json json = saveJson();
+  std::string jsonStr = pretty ? json.dump(4) : json.dump();
+
+  if (filename) {
+    std::ofstream file(filename);
+    if (file.is_open()) {
+      file << jsonStr;
+    }
+  } else {
+    std::cout << jsonStr << std::endl;
+  }
+}
+
+bool Vortex::parseJson(const std::string &jsonStr)
+{
+  try {
+    json jsonObj = json::parse(jsonStr);
+    return loadJson(jsonObj);
+  } catch (json::parse_error &e) {
+    std::cerr << "JSON Parse Error: " << e.what() << std::endl;
+    return false;
+  }
+}
+
+bool Vortex::parseJsonFromFile(const std::string &filename)
+{
+  std::ifstream file(filename);
+  if (!file.is_open()) {
+    return false;
+  }
+
+  try {
+    json jsonObj = json::parse(file);
+    return loadJson(jsonObj);
+  } catch (json::parse_error &e) {
+    std::cerr << "JSON Parse Error: " << e.what() << std::endl;
+    return false;
+  }
 }
