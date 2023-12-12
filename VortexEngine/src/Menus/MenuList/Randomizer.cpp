@@ -138,6 +138,13 @@ void Randomizer::onLongClick()
 
 bool Randomizer::reRoll()
 {
+#if VORTEX_SLIM == 0
+  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+    if (!reRollMulti()) {
+      return false;
+    }
+  }
+#endif
   if (!reRollSingles()) {
     return false;
   }
