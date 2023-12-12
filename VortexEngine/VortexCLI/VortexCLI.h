@@ -8,8 +8,6 @@
 #include "Colors/Colorset.h"
 #include "Leds/LedTypes.h"
 
-#include "VortexJson.h"
-
 class VortexCLI
 {
 public:

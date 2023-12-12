@@ -1402,11 +1402,12 @@ json Vortex::saveJson()
   for (uint8_t i = 0; i < numModes; ++i) {
     Mode *cur = Modes::curMode();
     if (cur) {
-      json modeJson = modeToJson(cur);  // Ensure that modeToJson returns a json object
+      json modeJson = modeToJson(cur);
       modesArray.push_back(modeJson);
     } else {
       modesArray.push_back(nullptr);
     }
+    Modes::nextMode();
   }
   saveJson["modes"] = modesArray;
 
