@@ -278,7 +278,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .value("PATTERN_BOUNCE", PatternID::PATTERN_BOUNCE)
     .value("PATTERN_SPLITSTROBIE", PatternID::PATTERN_SPLITSTROBIE)
     .value("PATTERN_BACKSTROBE", PatternID::PATTERN_BACKSTROBE)
-    .value("PATTERN_MATERIA", PatternID::PATTERN_MATERIA);
+    .value("PATTERN_VORTEX", PatternID::PATTERN_VORTEX);
 
   enum_<MenuEntryID>("MenuEntryID")
     .value("MENU_NONE", MenuEntryID::MENU_NONE)
@@ -485,8 +485,6 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .class_function("getModes", &Vortex::getModes)
     .class_function("setModes", &Vortex::setModes)
     .class_function("getCurMode", &Vortex::getCurMode)
-    .class_function("checkLedCount", &Vortex::checkLedCount)
-    .class_function("setLedCount", &Vortex::setLedCount)
     .class_function("curModeIndex", &Vortex::curModeIndex)
     .class_function("numModes", &Vortex::numModes)
     .class_function("numLedsInMode", &Vortex::numLedsInMode)
