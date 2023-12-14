@@ -41,6 +41,7 @@ jobs:
         cd emsdk
         ./emsdk install latest
         ./emsdk activate latest
+      working-directory: VortexEngine/VortexLib
     - name: Build Webassembly
       run: |
         source ./emsdk/emsdk_env.sh
