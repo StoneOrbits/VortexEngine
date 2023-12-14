@@ -137,7 +137,7 @@ static void wasm_init()
   emscripten_set_keyup_callback(EMSCRIPTEN_EVENT_TARGET_WINDOW, 0, 1, key_callback);
   emscripten_set_main_loop(do_run, 0, true);
   // turn colored output off in the wasm version
-  g_pVortexCLI->setColoredOuptut(false);
+  //g_pVortexCLI->setColoredOuptut(false);
 }
 #endif // ifdef WASM
 
