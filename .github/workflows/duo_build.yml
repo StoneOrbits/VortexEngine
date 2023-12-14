@@ -51,6 +51,7 @@ jobs:
             vortex.hex
 
   wasm:
+    needs: embedded
     runs-on: ubuntu-latest
     steps:
     - name: Checkout current repository
@@ -72,7 +73,7 @@ jobs:
       working-directory: VortexEngine/VortexLib
 
   docs:
-    needs: embedded
+    needs: wasm
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/duo'
     steps:
