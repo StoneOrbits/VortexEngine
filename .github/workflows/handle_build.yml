@@ -51,6 +51,27 @@ jobs:
             build/VortexEngine.ino.hex
             build/VortexEngine.ino.uf2
 
+  wasm:
+    runs-on: ubuntu-latest
+    steps:
+    - name: Checkout current repository
+      uses: actions/checkout@v3
+    - name: Update Package Lists
+      run: sudo apt-get update
+    - name: Install Emscripten
+      run: |
+        sudo apt install -y cmake python3
+        git clone https://github.com/emscripten-core/emsdk.git
+        cd emsdk
+        ./emsdk install latest
+        ./emsdk activate latest
+      working-directory: VortexEngine/VortexLib
+    - name: Build Webassembly
+      run: |
+        source ./emsdk/emsdk_env.sh
+        make -j wasm
+      working-directory: VortexEngine/VortexLib
+
   docs:
     needs: embedded
     runs-on: ubuntu-latest

@@ -17,6 +17,7 @@
 #include "Modes/Modes.h"
 #include "Menus/Menu.h"
 #include "Modes/Mode.h"
+#include "Random/Random.h"
 
 #ifndef _WIN32
 #include <sys/ioctl.h>
@@ -37,26 +38,506 @@
 
 using namespace emscripten;
 
-#if 0
-EMSCRIPTEN_BINDINGS(vortex_engine)
+RGBColor *leds = nullptr;
+int led_count = 0;
+
+// Assuming VortexCallbacks and ColorInfo are correctly defined and included above this line
+class VortexWASMCallbacks : public VortexCallbacks {
+  public:
+    void ledsInit(void *cl, int count) override {
+      leds = (RGBColor *)cl;
+      led_count = count;
+    }
+};
+
+static void init_wasm()
 {
-EMSCRIPTEN_BINDINGS(vortex_engine) {
-  value_object<ByteStream>("ByteStream")
-    .field("data"
-      .element(&Point2f::x)
-      .element(&Point2f::y)
-      ;
-  class_<ByteStream>("ByteStream")
-    .constructor<uint32_t, const uint8_t *>()
-    .function("data", &ByteStream::data)
-    ;
-  class_<Vortex>("Vortex")
-    .class_function("init", &Vortex::init)
-    .class_function("cleanup", &Vortex::cleanup)
-    //.class_function("getStorageStats", &Vortex::getStorageStats)
-    ;
+  Vortex::init<VortexWASMCallbacks>();
 }
+
+static void cleanup_wasm()
+{
+  Vortex::cleanup();
+}
+
+// This wraps Vortex::tick but returns an array of led colors for the tick
+val tick_wasm() {
+  Vortex::tick();
+
+  val ledArray = val::array();
+  for (int i = 0; i < led_count; ++i) {
+    val color = val::object();
+    color.set("red", leds[i].red);
+    color.set("green", leds[i].green);
+    color.set("blue", leds[i].blue);
+
+    ledArray.set(i, color);
+  }
+
+  return ledArray;
+}
+
+emscripten::val getDataArray(const ByteStream &byteStream)
+{
+  const uint8_t *dataPtr = byteStream.data();
+  uint32_t size = byteStream.size();
+
+  emscripten::val dataArray = emscripten::val::array();
+
+  for (uint32_t i = 0; i < size; ++i) {
+    dataArray.call<void>("push", dataPtr[i]);
+  }
+
+  return dataArray;
+}
+
+emscripten::val getRawDataArray(const ByteStream &byteStream)
+{
+  const uint8_t *rawDataPtr = reinterpret_cast<const uint8_t *>(byteStream.rawData());
+  uint32_t rawSize = byteStream.rawSize();
+
+  emscripten::val rawDataArray = emscripten::val::array();
+
+  for (uint32_t i = 0; i < rawSize; ++i) {
+    rawDataArray.call<void>("push", rawDataPtr[i]);
+  }
+
+  return rawDataArray;
+}
+
+EMSCRIPTEN_BINDINGS(Vortex) {
+  // vector<string>
+  register_vector<std::string>("VectorString");
+
+  // basic control functions
+  function("Init", &init_wasm);
+  function("Cleanup", &cleanup_wasm);
+  function("Tick", &tick_wasm);
+
+  // Bind the HSVColor class
+  class_<HSVColor>("HSVColor")
+    .constructor<>()
+    .constructor<uint8_t, uint8_t, uint8_t>()
+    .constructor<uint32_t>()
+    .function("empty", &HSVColor::empty)
+    .function("clear", &HSVColor::clear)
+    .function("raw", &HSVColor::raw)
+    .property("hue", &HSVColor::hue)
+    .property("sat", &HSVColor::sat)
+    .property("val", &HSVColor::val);
+
+  // Bind the RGBColor class
+  class_<RGBColor>("RGBColor")
+    .constructor<>()
+    .constructor<uint8_t, uint8_t, uint8_t>()
+    .constructor<uint32_t>()
+    .function("empty", &RGBColor::empty)
+    .function("clear", &RGBColor::clear)
+    .function("adjustBrightness", &RGBColor::adjustBrightness)
+    .function("serialize", &RGBColor::serialize)
+    .function("unserialize", &RGBColor::unserialize)
+    .function("raw", &RGBColor::raw)
+    .property("red", &RGBColor::red)
+    .property("green", &RGBColor::green)
+    .property("blue", &RGBColor::blue);
+
+  // Bind the utility conversion functions
+  function("hsv_to_rgb_rainbow", &hsv_to_rgb_rainbow);
+  function("hsv_to_rgb_raw_C", &hsv_to_rgb_raw_C);
+  function("hsv_to_rgb_generic", &hsv_to_rgb_generic);
+  function("rgb_to_hsv_approx", &rgb_to_hsv_approx);
+  function("rgb_to_hsv_generic", &rgb_to_hsv_generic);
+
+  class_<ByteStream>("ByteStream")
+    .constructor<>()
+    .constructor<uint32_t, const uint8_t *>()
+
+    // member functions
+    .function("init", &ByteStream::init, allow_raw_pointer<const unsigned char *>())
+    .function("clear", &ByteStream::clear)
+    .function("shrink", &ByteStream::shrink)
+    .function("append", &ByteStream::append)
+    .function("extend", &ByteStream::extend)
+    .function("trim", &ByteStream::trim)
+    .function("compress", &ByteStream::compress)
+    .function("decompress", &ByteStream::decompress)
+    .function("recalcCRC", &ByteStream::recalcCRC)
+    .function("sanity", &ByteStream::sanity)
+    .function("checkCRC", &ByteStream::checkCRC)
+    .function("isCRCDirty", &ByteStream::isCRCDirty)
+    .function("serialize", select_overload<bool(uint8_t)>(&ByteStream::serialize))
+    .function("serialize16", select_overload<bool(uint16_t)>(&ByteStream::serialize))
+    .function("serialize32", select_overload<bool(uint32_t)>(&ByteStream::serialize))
+    .function("resetUnserializer", &ByteStream::resetUnserializer)
+    .function("moveUnserializer", &ByteStream::moveUnserializer)
+    .function("unserializerAtEnd", &ByteStream::unserializerAtEnd)
+    .function("unserialize8", &ByteStream::unserialize8)
+    .function("unserialize16", &ByteStream::unserialize16)
+    .function("unserialize32", &ByteStream::unserialize32)
+    .function("peek8", &ByteStream::peek8)
+    .function("peek16", &ByteStream::peek16)
+    .function("peek32", &ByteStream::peek32)
+    .function("data", &ByteStream::data, allow_raw_pointer<uint8_t>())
+    .function("rawData", &ByteStream::rawData, allow_raw_pointer<void>())
+    .function("rawSize", &ByteStream::rawSize)
+    .function("size", &ByteStream::size)
+    .function("capacity", &ByteStream::capacity)
+    .function("is_compressed", &ByteStream::is_compressed)
+    .function("CRC", &ByteStream::CRC);
+
+  // Binding static enum values
+  enum_<LedPos>("LedPos")
+    .value("LED_FIRST", LedPos::LED_FIRST)
+    .value("LED_0", LedPos::LED_0)
+    .value("LED_1", LedPos::LED_1)
+    .value("LED_2", LedPos::LED_2)
+    .value("LED_3", LedPos::LED_3)
+    .value("LED_4", LedPos::LED_4)
+    .value("LED_5", LedPos::LED_5)
+    .value("LED_6", LedPos::LED_6)
+    .value("LED_7", LedPos::LED_7)
+    .value("LED_8", LedPos::LED_8)
+    .value("LED_9", LedPos::LED_9)
+#if FIXED_LED_COUNT == 1
+    .value("LED_COUNT", LedPos::LED_COUNT)
+    .value("LED_LAST", LedPos::LED_LAST)
+    .value("LED_ALL", LedPos::LED_ALL)
+    .value("LED_MULTI", LedPos::LED_MULTI)
+    .value("LED_ALL_SINGLE", LedPos::LED_ALL_SINGLE)
+    .value("LED_ANY", LedPos::LED_ANY);
+  // If you decide to uncomment and use LED_EVENS and LED_ODDS in the future
+  // .value("LED_EVENS", LedPos::LED_EVENS)
+  // .value("LED_ODDS", LedPos::LED_ODDS)
+#else
+    ; // terminate the previous one
+
+  // Binding dynamic values from Leds class
+  class_<Leds>("Leds")
+    .class_function("ledCount", &Leds::ledCount)
+    .class_function("ledLast", &Leds::ledLast)
+    .class_function("ledMulti", &Leds::ledMulti)
+    .class_function("ledAllSingle", &Leds::ledAllSingle)
+    .class_function("ledAny", &Leds::ledAny);
 #endif
+
+  enum_<PatternID>("PatternID")
+    // Meta Constants
+    .value("PATTERN_NONE", PatternID::PATTERN_NONE)
+    // single led patterns
+    .value("PATTERN_STROBE", PatternID::PATTERN_STROBE)
+    .value("PATTERN_HYPERSTROBE", PatternID::PATTERN_HYPERSTROBE)
+    .value("PATTERN_PICOSTROBE", PatternID::PATTERN_PICOSTROBE)
+    .value("PATTERN_STROBIE", PatternID::PATTERN_STROBIE)
+    .value("PATTERN_DOPS", PatternID::PATTERN_DOPS)
+    .value("PATTERN_ULTRADOPS", PatternID::PATTERN_ULTRADOPS)
+    .value("PATTERN_STROBEGAP", PatternID::PATTERN_STROBEGAP)
+    .value("PATTERN_HYPERGAP", PatternID::PATTERN_HYPERGAP)
+    .value("PATTERN_PICOGAP", PatternID::PATTERN_PICOGAP)
+    .value("PATTERN_STROBIEGAP", PatternID::PATTERN_STROBIEGAP)
+    .value("PATTERN_DOPSGAP", PatternID::PATTERN_DOPSGAP)
+    .value("PATTERN_ULTRAGAP", PatternID::PATTERN_ULTRAGAP)
+    .value("PATTERN_BLINKIE", PatternID::PATTERN_BLINKIE)
+    .value("PATTERN_GHOSTCRUSH", PatternID::PATTERN_GHOSTCRUSH)
+    .value("PATTERN_DOUBLEDOPS", PatternID::PATTERN_DOUBLEDOPS)
+    .value("PATTERN_CHOPPER", PatternID::PATTERN_CHOPPER)
+    .value("PATTERN_DASHGAP", PatternID::PATTERN_DASHGAP)
+    .value("PATTERN_DASHDOPS", PatternID::PATTERN_DASHDOPS)
+    .value("PATTERN_DASHCRUSH", PatternID::PATTERN_DASHCRUSH)
+    .value("PATTERN_ULTRADASH", PatternID::PATTERN_ULTRADASH)
+    .value("PATTERN_GAPCYCLE", PatternID::PATTERN_GAPCYCLE)
+    .value("PATTERN_DASHCYCLE", PatternID::PATTERN_DASHCYCLE)
+    .value("PATTERN_TRACER", PatternID::PATTERN_TRACER)
+    .value("PATTERN_RIBBON", PatternID::PATTERN_RIBBON)
+    .value("PATTERN_MINIRIBBON", PatternID::PATTERN_MINIRIBBON)
+    .value("PATTERN_BLEND", PatternID::PATTERN_BLEND)
+    .value("PATTERN_BLENDSTROBE", PatternID::PATTERN_BLENDSTROBE)
+    .value("PATTERN_BLENDSTROBEGAP", PatternID::PATTERN_BLENDSTROBEGAP)
+    .value("PATTERN_COMPLEMENTARY_BLEND", PatternID::PATTERN_COMPLEMENTARY_BLEND)
+    .value("PATTERN_COMPLEMENTARY_BLENDSTROBE", PatternID::PATTERN_COMPLEMENTARY_BLENDSTROBE)
+    .value("PATTERN_COMPLEMENTARY_BLENDSTROBEGAP", PatternID::PATTERN_COMPLEMENTARY_BLENDSTROBEGAP)
+    .value("PATTERN_SOLID", PatternID::PATTERN_SOLID)
+    // multi led patterns
+    .value("PATTERN_HUE_SCROLL", PatternID::PATTERN_HUE_SCROLL)
+    .value("PATTERN_THEATER_CHASE", PatternID::PATTERN_THEATER_CHASE)
+    .value("PATTERN_CHASER", PatternID::PATTERN_CHASER)
+    .value("PATTERN_ZIGZAG", PatternID::PATTERN_ZIGZAG)
+    .value("PATTERN_ZIPFADE", PatternID::PATTERN_ZIPFADE)
+    .value("PATTERN_DRIP", PatternID::PATTERN_DRIP)
+    .value("PATTERN_DRIPMORPH", PatternID::PATTERN_DRIPMORPH)
+    .value("PATTERN_CROSSDOPS", PatternID::PATTERN_CROSSDOPS)
+    .value("PATTERN_DOUBLESTROBE", PatternID::PATTERN_DOUBLESTROBE)
+    .value("PATTERN_METEOR", PatternID::PATTERN_METEOR)
+    .value("PATTERN_SPARKLETRACE", PatternID::PATTERN_SPARKLETRACE)
+    .value("PATTERN_VORTEXWIPE", PatternID::PATTERN_VORTEXWIPE)
+    .value("PATTERN_WARP", PatternID::PATTERN_WARP)
+    .value("PATTERN_WARPWORM", PatternID::PATTERN_WARPWORM)
+    .value("PATTERN_SNOWBALL", PatternID::PATTERN_SNOWBALL)
+    .value("PATTERN_LIGHTHOUSE", PatternID::PATTERN_LIGHTHOUSE)
+    .value("PATTERN_PULSISH", PatternID::PATTERN_PULSISH)
+    .value("PATTERN_FILL", PatternID::PATTERN_FILL)
+    .value("PATTERN_BOUNCE", PatternID::PATTERN_BOUNCE)
+    .value("PATTERN_SPLITSTROBIE", PatternID::PATTERN_SPLITSTROBIE)
+    .value("PATTERN_BACKSTROBE", PatternID::PATTERN_BACKSTROBE)
+    .value("PATTERN_VORTEX", PatternID::PATTERN_VORTEX);
+
+  enum_<MenuEntryID>("MenuEntryID")
+    .value("MENU_NONE", MenuEntryID::MENU_NONE)
+    .value("MENU_FIRST", MenuEntryID::MENU_FIRST)
+    .value("MENU_RANDOMIZER", MenuEntryID::MENU_RANDOMIZER)
+    .value("MENU_MODE_SHARING", MenuEntryID::MENU_MODE_SHARING)
+#if ENABLE_EDITOR_CONNECTION == 1
+    .value("MENU_EDITOR_CONNECTION", MenuEntryID::MENU_EDITOR_CONNECTION)
+#endif
+    .value("MENU_COLOR_SELECT", MenuEntryID::MENU_COLOR_SELECT)
+    .value("MENU_PATTERN_SELECT", MenuEntryID::MENU_PATTERN_SELECT)
+    .value("MENU_GLOBAL_BRIGHTNESS", MenuEntryID::MENU_GLOBAL_BRIGHTNESS)
+    .value("MENU_FACTORY_RESET", MenuEntryID::MENU_FACTORY_RESET);
+
+  class_<Colorset>("Colorset")
+    .constructor<>()
+    .constructor<RGBColor, RGBColor, RGBColor, RGBColor, RGBColor, RGBColor, RGBColor, RGBColor>()
+    .constructor<uint8_t, const uint32_t *>()
+    .function("init", &Colorset::init)
+    .function("clear", &Colorset::clear)
+    .function("equals", select_overload<bool(const Colorset & set) const>(&Colorset::equals))
+    .function("get", &Colorset::get)
+    .function("set", &Colorset::set)
+    .function("skip", &Colorset::skip)
+    .function("cur", &Colorset::cur)
+    .function("setCurIndex", &Colorset::setCurIndex)
+    .function("resetIndex", &Colorset::resetIndex)
+    .function("curIndex", &Colorset::curIndex)
+    .function("getPrev", &Colorset::getPrev)
+    .function("getNext", &Colorset::getNext)
+    .function("peek", &Colorset::peek)
+    .function("peekNext", &Colorset::peekNext)
+    .function("numColors", &Colorset::numColors)
+    .function("onStart", &Colorset::onStart)
+    .function("onEnd", &Colorset::onEnd)
+    .function("serialize", &Colorset::serialize)
+    .function("unserialize", &Colorset::unserialize)
+    .function("addColor", select_overload<bool(RGBColor)>(&Colorset::addColor))
+    .function("addColorHSV", &Colorset::addColorHSV)
+    .function("randomize", &Colorset::randomize)
+    .function("adjustBrightness", &Colorset::adjustBrightness)
+    .function("removeColor", &Colorset::removeColor)
+    .function("operator[]", &Colorset::operator[])
+    // If more specific or additional randomize functions are needed, they can be added here as well
+    .function("randomizeSolid", &Colorset::randomizeSolid)
+    .function("randomizeComplimentary", &Colorset::randomizeComplimentary)
+    .function("randomizeTriadic", &Colorset::randomizeTriadic)
+    .function("randomizeSquare", &Colorset::randomizeSquare)
+    .function("randomizePentadic", &Colorset::randomizePentadic)
+    .function("randomizeRainbow", &Colorset::randomizeRainbow);
+
+  class_<PatternArgs>("PatternArgs")
+    .constructor<>()
+    .constructor<uint8_t>()
+    .constructor<uint8_t, uint8_t>()
+    .constructor<uint8_t, uint8_t, uint8_t>()
+    .constructor<uint8_t, uint8_t, uint8_t, uint8_t>()
+    .constructor<uint8_t, uint8_t, uint8_t, uint8_t, uint8_t>()
+    .constructor<uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t>()
+    .constructor<uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t>()
+    .constructor<uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t>()
+    .function("init", select_overload<void()>(&PatternArgs::init))
+    .function("init", select_overload<void(uint8_t)>(&PatternArgs::init))
+    .function("init", select_overload<void(uint8_t, uint8_t)>(&PatternArgs::init))
+    .function("init", select_overload<void(uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
+    .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
+    .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
+    .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
+    .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
+    .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
+    .property("arg1", &PatternArgs::arg1)
+    .property("arg2", &PatternArgs::arg2)
+    .property("arg3", &PatternArgs::arg3)
+    .property("arg4", &PatternArgs::arg4)
+    .property("arg5", &PatternArgs::arg5)
+    .property("arg6", &PatternArgs::arg6)
+    .property("arg7", &PatternArgs::arg7)
+    .property("arg8", &PatternArgs::arg8);
+
+  class_<Pattern>("Pattern")
+    .function("bind", &Pattern::bind)
+    .function("init", &Pattern::init)
+    .function("serialize", &Pattern::serialize)
+    .function("unserialize", &Pattern::unserialize)
+    .function("setArg", &Pattern::setArg)
+    .function("getArg", &Pattern::getArg)
+    .function("setArgs", &Pattern::setArgs)
+    .function("getArgs", &Pattern::getArgs)
+    .function("getNumArgs", &Pattern::getNumArgs)
+    .function("equals", &Pattern::equals, allow_raw_pointer<const Pattern *>())
+    .function("getColorset", select_overload<const Colorset() const>(&Pattern::getColorset))
+    .function("setColorset", &Pattern::setColorset)
+    .function("clearColorset", &Pattern::clearColorset)
+    .function("setLedPos", &Pattern::setLedPos)
+    .function("getPatternID", &Pattern::getPatternID)
+    .function("getLedPos", &Pattern::getLedPos)
+    .function("getFlags", &Pattern::getFlags)
+    .function("hasFlags", &Pattern::hasFlags);
+
+  class_<PatternBuilder>("PatternBuilder")
+    .class_function("make", &PatternBuilder::make, allow_raw_pointers())
+    .class_function("dupe", &PatternBuilder::dupe, allow_raw_pointers())
+    .class_function("makeSingle", &PatternBuilder::makeSingle, allow_raw_pointers())
+    .class_function("makeMulti", &PatternBuilder::makeMulti, allow_raw_pointers())
+    //.class_function("unserialize", &PatternBuilder::unserialize)
+    .class_function("getDefaultArgs", &PatternBuilder::getDefaultArgs)
+    .class_function("numDefaultArgs", &PatternBuilder::numDefaultArgs);
+
+  class_<Mode>("Mode")
+    .constructor<>()
+    // overloading only works with param count not typing
+    //.constructor<PatternID, const Colorset &>()
+    //.constructor<PatternID, const PatternArgs &, const Colorset &>()
+    //.constructor<PatternID, const PatternArgs *, const Colorset *>()
+    .constructor<const Mode *>()
+    .function("copyFrom", select_overload<void(const Mode &)>(&Mode::operator=))
+    .function("equals", &Mode::operator==)
+    .function("notEquals", &Mode::operator!=)
+    .function("init", &Mode::init)
+    .function("play", &Mode::play)
+    .function("saveToBuffer", &Mode::saveToBuffer)
+    .function("loadFromBuffer", &Mode::loadFromBuffer)
+    .function("serialize", &Mode::serialize)
+    .function("unserialize", &Mode::unserialize)
+    .function("equalsMode", &Mode::equals, allow_raw_pointer<const Mode *>())
+    .function("getLedCount", &Mode::getLedCount)
+    .function("getColorset", select_overload<const Colorset(LedPos) const>(&Mode::getColorset))
+    .function("getPatternID", &Mode::getPatternID)
+    .function("getPattern", select_overload<Pattern * (LedPos)>(&Mode::getPattern), emscripten::allow_raw_pointers())
+    .function("getConstPattern", select_overload<const Pattern * (LedPos) const>(&Mode::getPattern), emscripten::allow_raw_pointers())
+    .function("setPattern", static_cast<bool(Mode:: *)(PatternID, LedPos, const PatternArgs *, const Colorset *)>(&Mode::setPattern), emscripten::allow_raw_pointers())
+    .function("setPattern2", &Mode::setPattern, allow_raw_pointers())
+    .function("setColorset", select_overload<bool(const Colorset &, LedPos)>(&Mode::setColorset))
+    .function("clearPattern", &Mode::clearPattern)
+    .function("clearColorset", &Mode::clearColorset)
+    .function("setArg", &Mode::setArg)
+    .function("getArg", &Mode::getArg);
+
+  class_<Modes>("Modes")
+    .class_function("init", &Modes::init)
+    .class_function("cleanup", &Modes::cleanup)
+    .class_function("play", &Modes::play)
+    .class_function("saveToBuffer", select_overload<bool(ByteStream&)>(&Modes::saveToBuffer))
+    .class_function("loadFromBuffer", select_overload<bool(ByteStream&)>(&Modes::loadFromBuffer))
+    .class_function("loadStorage", &Modes::loadStorage)
+    .class_function("saveStorage", &Modes::saveStorage)
+    .class_function("serialize", &Modes::serialize)
+    .class_function("unserialize", &Modes::unserialize)
+    .class_function("setDefaults", &Modes::setDefaults)
+    .class_function("shiftCurMode", &Modes::shiftCurMode)
+    .class_function("updateCurMode", &Modes::updateCurMode, allow_raw_pointers())
+    .class_function("setCurMode", &Modes::setCurMode, allow_raw_pointers())
+    .class_function("curMode", &Modes::curMode, allow_raw_pointers())
+    .class_function("nextMode", &Modes::nextMode, allow_raw_pointers())
+    .class_function("previousMode", &Modes::previousMode, allow_raw_pointers())
+    .class_function("nextModeSkipEmpty", &Modes::nextModeSkipEmpty, allow_raw_pointers())
+    .class_function("numModes", &Modes::numModes)
+    .class_function("curModeIndex", &Modes::curModeIndex)
+    .class_function("lastSwitchTime", &Modes::lastSwitchTime)
+    .class_function("deleteCurMode", &Modes::deleteCurMode)
+    .class_function("clearModes", &Modes::clearModes)
+    .class_function("setStartupMode", &Modes::setStartupMode)
+    .class_function("startupMode", &Modes::startupMode)
+    .class_function("setFlag", &Modes::setFlag)
+    .class_function("getFlag", &Modes::getFlag)
+    .class_function("resetFlags", &Modes::resetFlags)
+    .class_function("setOneClickMode", &Modes::setOneClickMode)
+    .class_function("oneClickModeEnabled", &Modes::oneClickModeEnabled)
+    .class_function("setLocked", &Modes::setLocked)
+    .class_function("locked", &Modes::locked)
+    .class_function("setAdvancedMenus", &Modes::setAdvancedMenus)
+    .class_function("advancedMenusEnabled", &Modes::advancedMenusEnabled)
+    .class_function("setKeychainMode", &Modes::setKeychainMode)
+    .class_function("keychainModeEnabled", &Modes::keychainModeEnabled);
+
+  class_<Vortex>("Vortex")
+    .class_function("setInstantTimestep", &Vortex::setInstantTimestep)
+    .class_function("shortClick", &Vortex::shortClick)
+    .class_function("longClick", &Vortex::longClick)
+    .class_function("menuEnterClick", &Vortex::menuEnterClick)
+    .class_function("advMenuEnterClick", &Vortex::advMenuEnterClick)
+    .class_function("deleteColClick", &Vortex::deleteColClick)
+    .class_function("sleepClick", &Vortex::sleepClick)
+    .class_function("forceSleepClick", &Vortex::forceSleepClick)
+    .class_function("pressButton", &Vortex::pressButton)
+    .class_function("releaseButton", &Vortex::releaseButton)
+    .class_function("isButtonPressed", &Vortex::isButtonPressed)
+    .class_function("sendWait", &Vortex::sendWait)
+    .class_function("rapidClick", &Vortex::rapidClick)
+    .class_function("getMenuDemoMode", &Vortex::getMenuDemoMode, allow_raw_pointer<arg<1>>())
+    .class_function("setMenuDemoMode", &Vortex::setMenuDemoMode, allow_raw_pointer<arg<1>>())
+    .class_function("quitClick", &Vortex::quitClick)
+    .class_function("IRDeliver", &Vortex::IRDeliver)
+    .class_function("VLDeliver", &Vortex::VLDeliver)
+    //.class_function("getStorageStats", &Vortex::getStorageStats)
+    .class_function("loadStorage", &Vortex::loadStorage)
+    .class_function("openRandomizer", &Vortex::openRandomizer)
+    .class_function("openColorSelect", &Vortex::openColorSelect)
+    .class_function("openPatternSelect", &Vortex::openPatternSelect)
+    .class_function("openGlobalBrightness", &Vortex::openGlobalBrightness)
+    .class_function("openFactoryReset", &Vortex::openFactoryReset)
+    .class_function("openModeSharing", &Vortex::openModeSharing)
+    .class_function("openEditorConnection", &Vortex::openEditorConnection)
+    .class_function("getModes", &Vortex::getModes)
+    .class_function("setModes", &Vortex::setModes)
+    .class_function("getCurMode", &Vortex::getCurMode)
+    .class_function("curModeIndex", &Vortex::curModeIndex)
+    .class_function("numModes", &Vortex::numModes)
+    .class_function("numLedsInMode", &Vortex::numLedsInMode)
+    //.class_function("addNewMode", select_overload<bool(Random*, bool)>(&Vortex::addNewMode))
+    .class_function("addNewMode", select_overload<bool(ByteStream &, bool)>(&Vortex::addNewMode))
+    .class_function("setCurMode", &Vortex::setCurMode)
+    .class_function("nextMode", &Vortex::nextMode)
+    .class_function("delCurMode", &Vortex::delCurMode)
+    .class_function("shiftCurMode", &Vortex::shiftCurMode)
+    //.class_function("setPattern", &Vortex::setPattern)
+    .class_function("getPatternID", &Vortex::getPatternID)
+    .class_function("getPatternName", &Vortex::getPatternName)
+    .class_function("getModeName", &Vortex::getModeName)
+    //.class_function("setPatternAt", &Vortex::setPatternAt)
+    .class_function("getColorset", &Vortex::getColorset)
+    .class_function("setColorset", &Vortex::setColorset)
+    .class_function("getPatternArgs", &Vortex::getPatternArgs)
+    .class_function("setPatternArgs", &Vortex::setPatternArgs)
+    .class_function("isCurModeMulti", &Vortex::isCurModeMulti)
+    .class_function("patternToString", &Vortex::patternToString)
+    .class_function("ledToString", &Vortex::ledToString)
+    .class_function("numCustomParams", &Vortex::numCustomParams)
+    .class_function("getCustomParams", &Vortex::getCustomParams)
+    .class_function("setUndoBufferLimit", &Vortex::setUndoBufferLimit)
+    .class_function("addUndoBuffer", &Vortex::addUndoBuffer)
+    .class_function("undo", &Vortex::undo)
+    .class_function("redo", &Vortex::redo)
+    .class_function("setTickrate", &Vortex::setTickrate)
+    .class_function("getTickrate", &Vortex::getTickrate)
+    .class_function("enableUndo", &Vortex::enableUndo)
+    //.class_function("vcallbacks", &Vortex::vcallbacks)
+    .class_function("doCommand", &Vortex::doCommand)
+    .class_function("setSleepEnabled", &Vortex::setSleepEnabled)
+    .class_function("sleepEnabled", &Vortex::sleepEnabled)
+    .class_function("enterSleep", &Vortex::enterSleep)
+    .class_function("isSleeping", &Vortex::isSleeping)
+    .class_function("enableCommandLog", &Vortex::enableCommandLog)
+    .class_function("getCommandLog", &Vortex::getCommandLog)
+    .class_function("clearCommandLog", &Vortex::clearCommandLog)
+    .class_function("enableLockstep", &Vortex::enableLockstep)
+    .class_function("isLockstep", &Vortex::isLockstep)
+    .class_function("enableStorage", &Vortex::enableStorage)
+    .class_function("storageEnabled", &Vortex::storageEnabled)
+    .class_function("setStorageFilename", &Vortex::setStorageFilename)
+    .class_function("getStorageFilename", &Vortex::getStorageFilename)
+    .class_function("setLockEnabled", &Vortex::setLockEnabled)
+    .class_function("lockEnabled", &Vortex::lockEnabled);
+
+  function("getDataArray", &getDataArray);
+  function("getRawDataArray", &getRawDataArray);
+
+
+}
 #endif
 
 using namespace std;
@@ -459,6 +940,23 @@ Mode *Vortex::getMenuDemoMode()
   return &pMenu->m_previewMode;
 }
 
+bool Vortex::setMenuDemoMode(const Mode *mode)
+{
+  if (!mode) {
+     return false;
+  }
+  Menu *pMenu = Menus::curMenu();
+  if (!pMenu) {
+    return false;
+  }
+  if (!mode->getLedCount() || pMenu->m_previewMode.equals(mode)) {
+    return false;
+  }
+  pMenu->m_previewMode = *mode;
+  pMenu->m_previewMode.init();
+  return true;
+}
+
 void Vortex::quitClick()
 {
   m_buttonEventQueue.push_back(VortexButtonEvent(0, EVENT_QUIT_CLICK));
@@ -539,6 +1037,7 @@ bool Vortex::getModes(ByteStream &outStream)
 
 bool Vortex::setModes(ByteStream &stream, bool save)
 {
+  Modes::clearModes();
   // now unserialize the stream of data that was read
   if (!Modes::loadFromBuffer(stream)) {
     //printf("Unserialize failed\n");
@@ -763,12 +1262,9 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
     return false;
   }
   Pattern *pat = nullptr;
-  switch (pos) {
-  case LED_ANY:
-  case LED_ALL:
-    // fallthrough
+  // Equivalent to cases LED_ANY, LED_ALL and LED_MULTI
+  if (pos == LED_ANY || pos == LED_ALL || pos == LED_MULTI) {
 #if VORTEX_SLIM == 0
-  case LED_MULTI:
     pat = pMode->getPattern(LED_MULTI);
     if (pat) {
       pat->setArgs(args);
@@ -780,8 +1276,22 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
       return !save || doSave();
     }
     // fall through if LED_ALL and change the single leds
+    else if (pos == LED_ANY || pos == LED_ALL) {
+      for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+        pat = pMode->getPattern(pos);
+        if (pat) {
+          pat->setArgs(args);
+        }
+      }
+      pMode->init();
+      // actually break here
+      return !save || doSave();
+    }
 #endif
-  case LED_ALL_SINGLE:
+  }
+
+  // equivalent to case LED_ALL_SINGLE
+  else if (pos == LED_ALL_SINGLE) {
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
       pat = pMode->getPattern(pos);
       if (pat) {
@@ -791,7 +1301,10 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
     pMode->init();
     // actually break here
     return !save || doSave();
-  default:
+  }
+
+  // equivalent to default case (covers any other pos)
+  else {
     if (pos >= LED_COUNT) {
       return false;
     }
@@ -803,6 +1316,7 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
     pMode->init();
     return !save || doSave();
   }
+
   return false;
 }
 
