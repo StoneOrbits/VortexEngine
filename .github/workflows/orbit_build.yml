@@ -52,7 +52,7 @@ jobs:
             build/VortexEngine.ino.uf2
 
   wasm:
-    needs: test
+    needs: embedded
     runs-on: ubuntu-latest
     steps:
     - name: Checkout current repository
