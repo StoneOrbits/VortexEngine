@@ -278,7 +278,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .value("PATTERN_BOUNCE", PatternID::PATTERN_BOUNCE)
     .value("PATTERN_SPLITSTROBIE", PatternID::PATTERN_SPLITSTROBIE)
     .value("PATTERN_BACKSTROBE", PatternID::PATTERN_BACKSTROBE)
-    .value("PATTERN_MATERIA", PatternID::PATTERN_MATERIA);
+    .value("PATTERN_VORTEX", PatternID::PATTERN_VORTEX);
 
   enum_<MenuEntryID>("MenuEntryID")
     .value("MENU_NONE", MenuEntryID::MENU_NONE)
@@ -1322,7 +1322,6 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
     return false;
   }
   Pattern *pat = nullptr;
-
   // Equivalent to cases LED_ANY, LED_ALL and LED_MULTI
   if (pos == LED_ANY || pos == LED_ALL || pos == LED_MULTI) {
 #if VORTEX_SLIM == 0
