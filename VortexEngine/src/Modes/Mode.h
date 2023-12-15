@@ -38,14 +38,14 @@ class Mode
 {
 public:
 #if FIXED_LED_COUNT == 0
-  Mode(uint8_t numLeds);
+  Mode(VortexEngine &engine, uint8_t numLeds);
 #endif
-  Mode();
+  Mode(VortexEngine &engine);
 
-  Mode(PatternID id, const Colorset &set);
-  Mode(PatternID id, const PatternArgs &args, const Colorset &set);
-  Mode(PatternID id, const PatternArgs *args, const Colorset *set);
-  Mode(const Mode *other);
+  Mode(VortexEngine &engine, PatternID id, const Colorset &set);
+  Mode(VortexEngine &engine, PatternID id, const PatternArgs &args, const Colorset &set);
+  Mode(VortexEngine &engine, PatternID id, const PatternArgs *args, const Colorset *set);
+  //Mode(const Mode *other);
   ~Mode();
 
   // copy and assignment operators
@@ -138,6 +138,9 @@ public:
 #endif
 
 private:
+  // reference to engine
+  VortexEngine &m_engine;
+
 #if VORTEX_SLIM == 0
   // the multi-led pattern slot is only present in non-slim builds
   Pattern *m_multiPat;

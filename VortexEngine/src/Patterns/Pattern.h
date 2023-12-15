@@ -34,6 +34,7 @@
 #define REGISTER_ARG(arg) registerArg((uint8_t)(((uintptr_t)&arg - (uintptr_t)this)));
 #endif
 
+class VortexEngine;
 class ByteStream;
 
 class Pattern
@@ -43,9 +44,8 @@ class Pattern
 
 protected:
   // Pattern is an abstract class
-  Pattern();
-
-  Pattern(const PatternArgs &args);
+  Pattern(VortexEngine &engine);
+  Pattern(VortexEngine &engine, const PatternArgs &args);
 
 public:
   virtual ~Pattern();
@@ -112,6 +112,8 @@ public:
   bool hasFlags(uint32_t flags) const { return (m_patternFlags & flags) != 0; }
 
 protected:
+  // reference to engine
+  VortexEngine &m_engine;
   // the ID of this pattern (set by pattern builder)
   PatternID m_patternID;
   // any flags the pattern has

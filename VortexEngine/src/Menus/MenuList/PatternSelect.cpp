@@ -1,5 +1,7 @@
 #include "PatternSelect.h"
 
+#include "../../VortexEngine.h"
+
 #include "../../Patterns/PatternBuilder.h"
 #include "../../Patterns/PatternArgs.h"
 #include "../../Patterns/Pattern.h"
@@ -13,8 +15,8 @@
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
-  Menu(col, advanced),
+PatternSelect::PatternSelect(VortexEngine &engine, const RGBColor &col, bool advanced) :
+  Menu(engine, col, advanced),
   m_srcLed(LED_FIRST),
   m_argIndex(0),
   m_started(false)
@@ -43,7 +45,7 @@ Menu::MenuAction PatternSelect::run()
   // run the current mode
   m_previewMode.play();
   // show dimmer selections in advanced mode
-  Menus::showSelection(m_advanced ? RGB_GREEN0 : RGB_WHITE5);
+  m_engine.menus().showSelection(m_advanced ? RGB_GREEN0 : RGB_WHITE5);
   return MENU_CONTINUE;
 }
 
@@ -56,7 +58,7 @@ void PatternSelect::onShortClick()
 {
   if (m_advanced) {
     // double click = skip 10
-    bool doSkip = g_pButton->onConsecutivePresses(2);
+    bool doSkip = m_engine.button().onConsecutivePresses(2);
     MAP_FOREACH_LED(m_targetLeds) {
       uint8_t &arg = m_previewMode.getPattern(pos)->argRef(m_argIndex);
       if (doSkip) {
@@ -75,7 +77,7 @@ void PatternSelect::onShortClick()
       }
       if (arg > max) {
         // red flash indicates reaching end
-        Leds::holdAll(RGB_RED);
+        m_engine.leds().holdAll(RGB_RED);
         arg %= (max + 1);
       }
       // do not let argument0 be reset to 0
@@ -86,7 +88,7 @@ void PatternSelect::onShortClick()
     m_previewMode.init();
     if (doSkip) {
       // hold white for a moment to show they are skipping 25
-      Leds::holdAll(RGB_YELLOW1);
+      m_engine.leds().holdAll(RGB_YELLOW1);
     }
     return;
   }
@@ -124,9 +126,9 @@ void PatternSelect::onLongClick()
       // if we haven't reached number of args yet then just return and kee pgoing
       return;
     }
-    Leds::holdAll(m_menuColor);
+    m_engine.leds().holdAll(m_menuColor);
   }
   // store the mode as current mode
-  Modes::updateCurMode(&m_previewMode);
+  m_engine.modes().updateCurMode(&m_previewMode);
   leaveMenu(true);
 }

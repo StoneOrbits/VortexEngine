@@ -213,11 +213,11 @@ EMSCRIPTEN_BINDINGS(Vortex) {
 
   // Binding dynamic values from Leds class
   class_<Leds>("Leds")
-    .class_function("ledCount", &Leds::ledCount)
-    .class_function("ledLast", &Leds::ledLast)
-    .class_function("ledMulti", &Leds::ledMulti)
-    .class_function("ledAllSingle", &Leds::ledAllSingle)
-    .class_function("ledAny", &Leds::ledAny);
+    .class_function("ledCount", &m_engine.leds().ledCount)
+    .class_function("ledLast", &m_engine.leds().ledLast)
+    .class_function("ledMulti", &m_engine.leds().ledMulti)
+    .class_function("ledAllSingle", &m_engine.leds().ledAllSingle)
+    .class_function("ledAny", &m_engine.leds().ledAny);
 #endif
 
   enum_<PatternID>("PatternID")
@@ -379,13 +379,13 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("hasFlags", &Pattern::hasFlags);
 
   class_<PatternBuilder>("PatternBuilder")
-    .class_function("make", &PatternBuilder::make, allow_raw_pointers())
-    .class_function("dupe", &PatternBuilder::dupe, allow_raw_pointers())
-    .class_function("makeSingle", &PatternBuilder::makeSingle, allow_raw_pointers())
-    .class_function("makeMulti", &PatternBuilder::makeMulti, allow_raw_pointers())
-    //.class_function("unserialize", &PatternBuilder::unserialize)
-    .class_function("getDefaultArgs", &PatternBuilder::getDefaultArgs)
-    .class_function("numDefaultArgs", &PatternBuilder::numDefaultArgs);
+    .class_function("make", &m_engine.patternBuilder().make, allow_raw_pointers())
+    .class_function("dupe", &m_engine.patternBuilder().dupe, allow_raw_pointers())
+    .class_function("makeSingle", &m_engine.patternBuilder().makeSingle, allow_raw_pointers())
+    .class_function("makeMulti", &m_engine.patternBuilder().makeMulti, allow_raw_pointers())
+    //.class_function("unserialize", &m_engine.patternBuilder().unserialize)
+    .class_function("getDefaultArgs", &m_engine.patternBuilder().getDefaultArgs)
+    .class_function("numDefaultArgs", &m_engine.patternBuilder().numDefaultArgs);
 
   class_<Mode>("Mode")
     .constructor<>()
@@ -418,41 +418,41 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("getArg", &Mode::getArg);
 
   class_<Modes>("Modes")
-    .class_function("init", &Modes::init)
-    .class_function("cleanup", &Modes::cleanup)
-    .class_function("play", &Modes::play)
-    .class_function("saveToBuffer", select_overload<bool(ByteStream&)>(&Modes::saveToBuffer))
-    .class_function("loadFromBuffer", select_overload<bool(ByteStream&)>(&Modes::loadFromBuffer))
-    .class_function("loadStorage", &Modes::loadStorage)
-    .class_function("saveStorage", &Modes::saveStorage)
-    .class_function("serialize", &Modes::serialize)
-    .class_function("unserialize", &Modes::unserialize)
-    .class_function("setDefaults", &Modes::setDefaults)
-    .class_function("shiftCurMode", &Modes::shiftCurMode)
-    .class_function("updateCurMode", &Modes::updateCurMode, allow_raw_pointers())
-    .class_function("setCurMode", &Modes::setCurMode, allow_raw_pointers())
-    .class_function("curMode", &Modes::curMode, allow_raw_pointers())
-    .class_function("nextMode", &Modes::nextMode, allow_raw_pointers())
-    .class_function("previousMode", &Modes::previousMode, allow_raw_pointers())
-    .class_function("nextModeSkipEmpty", &Modes::nextModeSkipEmpty, allow_raw_pointers())
-    .class_function("numModes", &Modes::numModes)
-    .class_function("curModeIndex", &Modes::curModeIndex)
-    .class_function("lastSwitchTime", &Modes::lastSwitchTime)
-    .class_function("deleteCurMode", &Modes::deleteCurMode)
-    .class_function("clearModes", &Modes::clearModes)
-    .class_function("setStartupMode", &Modes::setStartupMode)
-    .class_function("startupMode", &Modes::startupMode)
-    .class_function("setFlag", &Modes::setFlag)
-    .class_function("getFlag", &Modes::getFlag)
-    .class_function("resetFlags", &Modes::resetFlags)
-    .class_function("setOneClickMode", &Modes::setOneClickMode)
-    .class_function("oneClickModeEnabled", &Modes::oneClickModeEnabled)
-    .class_function("setLocked", &Modes::setLocked)
-    .class_function("locked", &Modes::locked)
-    .class_function("setAdvancedMenus", &Modes::setAdvancedMenus)
-    .class_function("advancedMenusEnabled", &Modes::advancedMenusEnabled)
-    .class_function("setKeychainMode", &Modes::setKeychainMode)
-    .class_function("keychainModeEnabled", &Modes::keychainModeEnabled);
+    .class_function("init", &m_engine.modes().init)
+    .class_function("cleanup", &m_engine.modes().cleanup)
+    .class_function("play", &m_engine.modes().play)
+    .class_function("saveToBuffer", select_overload<bool(ByteStream&)>(&m_engine.modes().saveToBuffer))
+    .class_function("loadFromBuffer", select_overload<bool(ByteStream&)>(&m_engine.modes().loadFromBuffer))
+    .class_function("loadStorage", &m_engine.modes().loadStorage)
+    .class_function("saveStorage", &m_engine.modes().saveStorage)
+    .class_function("serialize", &m_engine.modes().serialize)
+    .class_function("unserialize", &m_engine.modes().unserialize)
+    .class_function("setDefaults", &m_engine.modes().setDefaults)
+    .class_function("shiftCurMode", &m_engine.modes().shiftCurMode)
+    .class_function("updateCurMode", &m_engine.modes().updateCurMode, allow_raw_pointers())
+    .class_function("setCurMode", &m_engine.modes().setCurMode, allow_raw_pointers())
+    .class_function("curMode", &m_engine.modes().curMode, allow_raw_pointers())
+    .class_function("nextMode", &m_engine.modes().nextMode, allow_raw_pointers())
+    .class_function("previousMode", &m_engine.modes().previousMode, allow_raw_pointers())
+    .class_function("nextModeSkipEmpty", &m_engine.modes().nextModeSkipEmpty, allow_raw_pointers())
+    .class_function("numModes", &m_engine.modes().numModes)
+    .class_function("curModeIndex", &m_engine.modes().curModeIndex)
+    .class_function("lastSwitchTime", &m_engine.modes().lastSwitchTime)
+    .class_function("deleteCurMode", &m_engine.modes().deleteCurMode)
+    .class_function("clearModes", &m_engine.modes().clearModes)
+    .class_function("setStartupMode", &m_engine.modes().setStartupMode)
+    .class_function("startupMode", &m_engine.modes().startupMode)
+    .class_function("setFlag", &m_engine.modes().setFlag)
+    .class_function("getFlag", &m_engine.modes().getFlag)
+    .class_function("resetFlags", &m_engine.modes().resetFlags)
+    .class_function("setOneClickMode", &m_engine.modes().setOneClickMode)
+    .class_function("oneClickModeEnabled", &m_engine.modes().oneClickModeEnabled)
+    .class_function("setLocked", &m_engine.modes().setLocked)
+    .class_function("locked", &m_engine.modes().locked)
+    .class_function("setAdvancedMenus", &m_engine.modes().setAdvancedMenus)
+    .class_function("advancedMenusEnabled", &m_engine.modes().advancedMenusEnabled)
+    .class_function("setKeychainMode", &m_engine.modes().setKeychainMode)
+    .class_function("keychainModeEnabled", &m_engine.modes().keychainModeEnabled);
 
   class_<Vortex>("Vortex")
     .class_function("setInstantTimestep", &Vortex::setInstantTimestep)
@@ -560,27 +560,6 @@ static const char *patternNames[PATTERN_COUNT] = {
   "fill", "bounce", "splitstrobie", "backstrobe", "vortex",
 };
 
-// static vortex data
-char Vortex::m_lastCommand = 0;
-deque<ByteStream> Vortex::m_undoBuffer;
-uint32_t Vortex::m_undoLimit = 0;
-uint32_t Vortex::m_undoIndex = 0;
-bool Vortex::m_undoEnabled = true;
-VortexCallbacks *Vortex::m_storedCallbacks;
-FILE *Vortex::m_consoleHandle = nullptr;
-#if LOG_TO_FILE == 1
-FILE *Vortex::m_logHandle = nullptr;
-#endif
-deque<Vortex::VortexButtonEvent> Vortex::m_buttonEventQueue;
-bool Vortex::m_initialized = false;
-uint32_t Vortex::m_buttonsPressed = 0;
-string Vortex::m_commandLog;
-bool Vortex::m_commandLogEnabled = false;
-bool Vortex::m_lockstepEnabled = false;
-bool Vortex::m_storageEnabled = false;
-bool Vortex::m_sleepEnabled = true;
-bool Vortex::m_lockEnabled = true;
-
 #ifdef _WIN32
 BOOL WINAPI DllMain(HINSTANCE hinstDLL, DWORD fdwReason, LPVOID lpvReserved)
 {
@@ -607,11 +586,31 @@ long VortexCallbacks::checkPinHook(uint32_t pin)
   return 1; // HIGH
 }
 
-Vortex::Vortex()
+Vortex::Vortex() :
+  m_engine(*this),
+  m_lastCommand(0),
+  m_undoBuffer(),
+  m_undoLimit(0),
+  m_undoIndex(0),
+  m_undoEnabled(true),
+  m_storedCallbacks(nullptr),
+  m_consoleHandle(nullptr),
+#if LOG_TO_FILE == 1
+  m_logHandle(nullptr),
+#endif
+  m_buttonEventQueue(),
+  m_initialized(false),
+  m_buttonsPressed(0),
+  m_commandLog(),
+  m_commandLogEnabled(false),
+  m_lockstepEnabled(false),
+  m_storageEnabled(false),
+  m_sleepEnabled(true),
+  m_lockEnabled(true)
 {
   // default callbacks pointer that can be replaced with a derivative
   // of the VortexCallbacks class
-  m_storedCallbacks = new VortexCallbacks;
+  m_storedCallbacks = new VortexCallbacks(*this);
   if (!m_storedCallbacks) {
     // error! out of memory
   }
@@ -658,9 +657,9 @@ bool Vortex::init(VortexCallbacks *callbacks)
 #endif
 
   // init the engine
-  VortexEngine::init();
+  m_engine.init();
   // clear the modes
-  //Modes::clearModes();
+  //m_engine.modes().clearModes();
   // save and set undo buffer
   doSave();
 
@@ -671,7 +670,7 @@ bool Vortex::init(VortexCallbacks *callbacks)
 
 void Vortex::cleanup()
 {
-  VortexEngine::cleanup();
+  m_engine.cleanup();
   if (m_storedCallbacks) {
     delete m_storedCallbacks;
     m_storedCallbacks = nullptr;
@@ -827,12 +826,12 @@ bool Vortex::sleepEnabled()
 // whether the engine is sleeping, and/or to enter sleep
 void Vortex::enterSleep(bool save)
 {
-  VortexEngine::enterSleep(save);
+  m_engine.enterSleep(save);
 }
 
 bool Vortex::isSleeping()
 {
-  return VortexEngine::isSleeping();
+  return m_engine.isSleeping();
 }
 
 bool Vortex::tick()
@@ -856,7 +855,7 @@ bool Vortex::tick()
     doCommand(getchar());
   }
   // tick the vortex engine forward
-  VortexEngine::tick();
+  m_engine.tick();
   return true;
 }
 
@@ -868,7 +867,7 @@ void Vortex::installCallbacks(VortexCallbacks *callbacks)
 
 void Vortex::setInstantTimestep(bool timestep)
 {
-  Time::setInstantTimestep(timestep);
+  m_engine.time().setInstantTimestep(timestep);
 }
 
 // send various clicks
@@ -936,7 +935,7 @@ void Vortex::rapidClick(uint32_t amount)
 
 Mode *Vortex::getMenuDemoMode()
 {
-  Menu *pMenu = Menus::curMenu();
+  Menu *pMenu = m_engine.menus().curMenu();
   if (!pMenu) {
     return nullptr;
   }
@@ -948,7 +947,7 @@ bool Vortex::setMenuDemoMode(const Mode *mode)
   if (!mode) {
      return false;
   }
-  Menu *pMenu = Menus::curMenu();
+  Menu *pMenu = m_engine.menus().curMenu();
   if (!pMenu) {
     return false;
   }
@@ -968,81 +967,81 @@ void Vortex::quitClick()
 void Vortex::IRDeliver(uint32_t timing)
 {
 #if IR_ENABLE_RECEIVER == 1
-  IRReceiver::handleIRTiming(timing);
+  m_engine.irReceiver().handleIRTiming(timing);
 #endif
 }
 
 void Vortex::VLDeliver(uint32_t timing)
 {
 #if VL_ENABLE_RECEIVER == 1
-  VLReceiver::handleVLTiming(timing);
+  m_engine.vlReceiver().handleVLTiming(timing);
 #endif
 }
 
 void Vortex::getStorageStats(uint32_t *outTotal, uint32_t *outUsed)
 {
   if (outTotal) {
-    *outTotal = VortexEngine::totalStorageSpace();
+    *outTotal = m_engine.totalStorageSpace();
   }
   if (outUsed) {
-    *outUsed = VortexEngine::savefileSize();
+    *outUsed = m_engine.savefileSize();
   }
 }
 
 void Vortex::loadStorage()
 {
-  Modes::loadStorage();
+  m_engine.modes().loadStorage();
 }
 
 void Vortex::openRandomizer()
 {
-  Menus::openMenu(MENU_RANDOMIZER);
+  m_engine.menus().openMenu(MENU_RANDOMIZER);
 }
 
 void Vortex::openColorSelect()
 {
-  Menus::openMenu(MENU_COLOR_SELECT);
+  m_engine.menus().openMenu(MENU_COLOR_SELECT);
 }
 
 void Vortex::openPatternSelect()
 {
-  Menus::openMenu(MENU_PATTERN_SELECT);
+  m_engine.menus().openMenu(MENU_PATTERN_SELECT);
 }
 
 void Vortex::openGlobalBrightness()
 {
-  Menus::openMenu(MENU_GLOBAL_BRIGHTNESS);
+  m_engine.menus().openMenu(MENU_GLOBAL_BRIGHTNESS);
 }
 
 void Vortex::openFactoryReset()
 {
-  Menus::openMenu(MENU_FACTORY_RESET);
+  m_engine.menus().openMenu(MENU_FACTORY_RESET);
 }
 
 void Vortex::openModeSharing()
 {
-  Menus::openMenu(MENU_MODE_SHARING);
+  m_engine.menus().openMenu(MENU_MODE_SHARING);
 }
 
 void Vortex::openEditorConnection()
 {
 #if ENABLE_EDITOR_CONNECTION == 1
-  Menus::openMenu(MENU_EDITOR_CONNECTION);
+  m_engine.menus().openMenu(MENU_EDITOR_CONNECTION);
 #endif
 }
 
 bool Vortex::getModes(ByteStream &outStream)
 {
   // now serialize all the modes
-  Modes::saveToBuffer(outStream);
+  m_engine.modes().saveToBuffer(outStream);
   return true;
 }
 
 bool Vortex::setModes(ByteStream &stream, bool save)
 {
-  Modes::clearModes();
+  m_engine.modes().clearModes();
   // now unserialize the stream of data that was read
-  if (!Modes::loadFromBuffer(stream)) {
+  if (!m_engine.modes().loadFromBuffer(stream)) {
     //printf("Unserialize failed\n");
     return false;
   }
@@ -1082,13 +1081,13 @@ bool Vortex::matchLedCount(ByteStream &stream)
 bool Vortex::checkLedCount()
 {
 #if FIXED_LED_COUNT == 0
-  Mode *mode = Modes::curMode();
+  Mode *mode = m_engine.modes().curMode();
   if (!mode) {
     return false;
   }
   uint8_t numLeds = mode->getLedCount();
   if (numLeds != LED_COUNT) {
-    Leds::setLedCount(numLeds);
+    m_engine.leds().setLedCount(numLeds);
   }
 #endif
   return true;
@@ -1097,42 +1096,42 @@ bool Vortex::checkLedCount()
 bool Vortex::setLedCount(uint8_t count)
 {
 #if FIXED_LED_COUNT == 0
-  Mode *cur = Modes::curMode();
+  Mode *cur = m_engine.modes().curMode();
   if (cur && !cur->setLedCount(count)) {
     return false;
   }
-  Leds::setLedCount(count);
+  m_engine.leds().setLedCount(count);
 #endif
   return true;
 }
 
 bool Vortex::getCurMode(ByteStream &outStream)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = m_engine.modes().curMode();
   if (!pMode) {
     return false;
   }
   // save to ensure we get the correct mode, not using doSave() because it causes
   // an undo buffer entry to be added
-  if (!Modes::saveStorage()) {
+  if (!m_engine.modes().saveStorage()) {
     return false;
   }
-  return Modes::curMode()->saveToBuffer(outStream);
+  return m_engine.modes().curMode()->saveToBuffer(outStream);
 }
 
 uint32_t Vortex::curModeIndex()
 {
-  return Modes::curModeIndex();
+  return m_engine.modes().curModeIndex();
 }
 
 uint32_t Vortex::numModes()
 {
-  return Modes::numModes();
+  return m_engine.modes().numModes();
 }
 
 uint32_t Vortex::numLedsInMode()
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = m_engine.modes().curMode();
   if (!pMode) {
     return false;
   }
@@ -1153,7 +1152,7 @@ bool Vortex::addNewMode(Random *pRandCtx, bool save)
     // continuously re-randomize the pattern so we don't get solids
     randomPattern = (PatternID)pRandCtx->next16(PATTERN_FIRST, PATTERN_COUNT);
   } while (randomPattern == PATTERN_SOLID);
-  if (!Modes::addMode(randomPattern, nullptr, &set)) {
+  if (!m_engine.modes().addMode(randomPattern, nullptr, &set)) {
     return false;
   }
   return !save || doSave();
@@ -1161,7 +1160,7 @@ bool Vortex::addNewMode(Random *pRandCtx, bool save)
 
 bool Vortex::addNewMode(ByteStream &stream, bool save)
 {
-  if (!Modes::addModeFromBuffer(stream)) {
+  if (!m_engine.modes().addModeFromBuffer(stream)) {
     return false;
   }
   return !save || doSave();
@@ -1169,10 +1168,10 @@ bool Vortex::addNewMode(ByteStream &stream, bool save)
 
 bool Vortex::setCurMode(uint32_t index, bool save)
 {
-  if (index >= Modes::numModes()) {
+  if (index >= m_engine.modes().numModes()) {
     return true;
   }
-  if (!Modes::setCurMode(index)) {
+  if (!m_engine.modes().setCurMode(index)) {
     return false;
   }
   return !save || doSave();
@@ -1180,37 +1179,37 @@ bool Vortex::setCurMode(uint32_t index, bool save)
 
 bool Vortex::nextMode(bool save)
 {
-  if (!Modes::numModes()) {
+  if (!m_engine.modes().numModes()) {
     return true;
   }
-  Modes::nextMode();
+  m_engine.modes().nextMode();
   return !save || doSave();
 }
 
 bool Vortex::delCurMode(bool save)
 {
-  if (!Modes::numModes()) {
+  if (!m_engine.modes().numModes()) {
     return true;
   }
-  Modes::deleteCurMode();
+  m_engine.modes().deleteCurMode();
   return !save || doSave();
 }
 
 bool Vortex::shiftCurMode(int8_t offset, bool save)
 {
-  if (!Modes::numModes()) {
+  if (!m_engine.modes().numModes()) {
     return true;
   }
   if (offset == 0) {
     return true;
   }
-  Modes::shiftCurMode(offset);
+  m_engine.modes().shiftCurMode(offset);
   return !save || doSave();
 }
 
 bool Vortex::setPattern(PatternID id, const PatternArgs *args, const Colorset *set, bool save)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = m_engine.modes().curMode();
   if (!pMode) {
     return false;
   }
@@ -1223,7 +1222,7 @@ bool Vortex::setPattern(PatternID id, const PatternArgs *args, const Colorset *s
 
 PatternID Vortex::getPatternID(LedPos pos)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = m_engine.modes().curMode();
   if (!pMode) {
     return PATTERN_NONE;
   }
@@ -1237,7 +1236,7 @@ string Vortex::getPatternName(LedPos pos)
 
 string Vortex::getModeName()
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = m_engine.modes().curMode();
   if (!pMode) {
     return patternToString(PATTERN_NONE);
   }
@@ -1267,7 +1266,7 @@ string Vortex::getModeName()
 bool Vortex::setPatternAt(LedPos pos, PatternID id,
   const PatternArgs *args, const Colorset *set, bool save)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = m_engine.modes().curMode();
   if (!pMode) {
     return false;
   }
@@ -1280,7 +1279,7 @@ bool Vortex::setPatternAt(LedPos pos, PatternID id,
 
 bool Vortex::getColorset(LedPos pos, Colorset &set)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = m_engine.modes().curMode();
   if (!pMode) {
     return false;
   }
@@ -1290,7 +1289,7 @@ bool Vortex::getColorset(LedPos pos, Colorset &set)
 
 bool Vortex::setColorset(LedPos pos, const Colorset &set, bool save)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = m_engine.modes().curMode();
   if (!pMode) {
     return false;
   }
@@ -1303,7 +1302,7 @@ bool Vortex::setColorset(LedPos pos, const Colorset &set, bool save)
 
 bool Vortex::getPatternArgs(LedPos pos, PatternArgs &args)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = m_engine.modes().curMode();
   if (!pMode) {
     return false;
   }
@@ -1317,7 +1316,7 @@ bool Vortex::getPatternArgs(LedPos pos, PatternArgs &args)
 
 bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = m_engine.modes().curMode();
   if (!pMode) {
     return false;
   }
@@ -1382,7 +1381,7 @@ bool Vortex::setPatternArgs(LedPos pos, PatternArgs &args, bool save)
 
 bool Vortex::isCurModeMulti()
 {
-  Mode *pMode = Modes::curMode();
+  Mode *pMode = m_engine.modes().curMode();
   if (!pMode) {
     return false;
   }
@@ -1430,12 +1429,12 @@ string Vortex::ledToString(LedPos pos)
 // the number of custom parameters for any given pattern id
 uint32_t Vortex::numCustomParams(PatternID id)
 {
-  return PatternBuilder::numDefaultArgs(id);
+  return m_engine.patternBuilder().numDefaultArgs(id);
 }
 
 vector<string> Vortex::getCustomParams(PatternID id)
 {
-  Pattern *pat = PatternBuilder::make(id);
+  Pattern *pat = m_engine.patternBuilder().make(id);
   vector<string> params;
   if (!pat) {
     return params;
@@ -1550,17 +1549,17 @@ bool Vortex::redo()
 
 void Vortex::setTickrate(uint32_t tickrate)
 {
-  Time::setTickrate(tickrate);
+  m_engine.time().setTickrate(tickrate);
 }
 
 uint32_t Vortex::getTickrate()
 {
-  return Time::getTickrate();
+  return m_engine.time().getTickrate();
 }
 
 bool Vortex::doSave()
 {
-  return Modes::saveStorage() && addUndoBuffer();
+  return m_engine.modes().saveStorage() && addUndoBuffer();
 }
 
 void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
@@ -1590,14 +1589,14 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
   case EVENT_SHORT_CLICK:
     pButton->m_newRelease = true;
     pButton->m_shortClick = true;
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = m_engine.time().getCurtime();
     pButton->m_holdDuration = SHORT_CLICK_THRESHOLD_TICKS - 1;
     DEBUG_LOG("Injecting short click");
     break;
   case EVENT_LONG_CLICK:
     pButton->m_newRelease = true;
     pButton->m_longClick = true;
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = m_engine.time().getCurtime();
     pButton->m_holdDuration = SHORT_CLICK_THRESHOLD_TICKS + 1;
     DEBUG_LOG("Injecting long click");
     break;
@@ -1606,7 +1605,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // to something more than the menu trigger threshold that will make
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = m_engine.time().getCurtime();
 #ifdef SLEEP_ENTER_THRESHOLD_TICKS
     // microlight must hold longer (past sleep time)
     pButton->m_holdDuration = MENU_TRIGGER_THRESHOLD_TICKS + SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS + 1;
@@ -1622,7 +1621,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // to something more than the menu trigger threshold that will make
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = m_engine.time().getCurtime();
     pButton->m_holdDuration = ADV_MENU_DURATION_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
@@ -1633,7 +1632,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // to something more than the menu trigger threshold that will make
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = m_engine.time().getCurtime();
     pButton->m_holdDuration = DELETE_THRESHOLD_TICKS + DELETE_CYCLE_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
@@ -1645,7 +1644,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
 #ifdef SLEEP_ENTER_THRESHOLD_TICKS
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = m_engine.time().getCurtime();
     pButton->m_holdDuration = SLEEP_ENTER_THRESHOLD_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
@@ -1658,7 +1657,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
 #ifdef FORCE_SLEEP_THRESHOLD_TICKS
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = m_engine.time().getCurtime();
     pButton->m_holdDuration = FORCE_SLEEP_THRESHOLD_TICKS + 1;
     pButton->m_longClick = true;
     pButton->m_newRelease = true;
@@ -1673,7 +1672,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
       // ticks the engine forward some number of ticks, the event queue is empty
       // so the engine won't process any input events while doing this
       for (uint32_t i = 0; i < buttonEvent.target; ++i) {
-        VortexEngine::tick();
+        m_engine.tick();
       }
       // then restore the event queue so that events are processed like normal
       swap(backup, m_buttonEventQueue);
@@ -1685,8 +1684,8 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
       // I don't want to add the api there because it's useless besides for this
       pButton->m_buttonState = false;
       pButton->m_isPressed = false;
-      pButton->m_holdDuration = (uint32_t)(Time::getCurtime() - pButton->m_pressTime);
-      pButton->m_releaseTime = Time::getCurtime();
+      pButton->m_holdDuration = (uint32_t)(m_engine.time().getCurtime() - pButton->m_pressTime);
+      pButton->m_releaseTime = m_engine.time().getCurtime();
       pButton->m_newRelease = true;
       pButton->m_shortClick = (pButton->m_holdDuration <= SHORT_CLICK_THRESHOLD_TICKS);
       pButton->m_longClick = !pButton->m_shortClick;
@@ -1694,8 +1693,8 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     } else {
       pButton->m_buttonState = true;
       pButton->m_isPressed = true;
-      pButton->m_releaseDuration = (uint32_t)(Time::getCurtime() - pButton->m_releaseTime);
-      pButton->m_pressTime = Time::getCurtime();
+      pButton->m_releaseDuration = (uint32_t)(m_engine.time().getCurtime() - pButton->m_releaseTime);
+      pButton->m_pressTime = m_engine.time().getCurtime();
       pButton->m_newPress = true;
       DEBUG_LOG("Injecting press");
     }
@@ -1704,7 +1703,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     pButton->m_consecutivePresses = buttonEvent.target;
     pButton->m_newRelease = true;
     pButton->m_shortClick = true;
-    pButton->m_pressTime = Time::getCurtime();
+    pButton->m_pressTime = m_engine.time().getCurtime();
     pButton->m_holdDuration = 1;
     DEBUG_LOGF("Injecting %u x rapid click", buttonEvent.target);
     break;
@@ -1785,12 +1784,12 @@ void Vortex::printlog(const char *file, const char *func, int line, const char *
 
 void Vortex::setStorageFilename(const string &name)
 {
-  Storage::setStorageFilename(name);
+  m_engine.storage().setStorageFilename(name);
 }
 
 string Vortex::getStorageFilename()
 {
-  return Storage::getStorageFilename();
+  return m_engine.storage().getStorageFilename();
 }
 
 json Vortex::modeToJson(const Mode *mode)
@@ -1828,7 +1827,7 @@ Mode *Vortex::modeFromJson(const json &modeJson)
     return nullptr;
   }
 
-  Mode *mode = new Mode();
+  Mode *mode = new Mode(m_engine);
   if (!mode) {
     return nullptr;
   }
@@ -1947,7 +1946,7 @@ Pattern *Vortex::patternFromJson(const json &patternJson)
   }
 
   // Build the pattern with ID + args
-  Pattern *pattern = PatternBuilder::make(id, &args);
+  Pattern *pattern = m_engine.patternBuilder().make(id, &args);
   if (!pattern) {
     return nullptr;
   }
@@ -1965,23 +1964,23 @@ json Vortex::saveJson()
 
   saveJson["version_major"] = static_cast<uint8_t>(VORTEX_VERSION_MAJOR);
   saveJson["version_minor"] = static_cast<uint8_t>(VORTEX_VERSION_MINOR);
-  saveJson["global_flags"] = Modes::globalFlags();
-  saveJson["brightness"] = static_cast<uint8_t>(Leds::getBrightness());
+  saveJson["global_flags"] = m_engine.modes().globalFlags();
+  saveJson["brightness"] = static_cast<uint8_t>(m_engine.leds().getBrightness());
 
-  uint8_t numModes = Modes::numModes();
+  uint8_t numModes = m_engine.modes().numModes();
   saveJson["num_modes"] = numModes;
 
   json modesArray = json::array();
-  Modes::setCurMode(0);
+  m_engine.modes().setCurMode(0);
   for (uint8_t i = 0; i < numModes; ++i) {
-    Mode *cur = Modes::curMode();
+    Mode *cur = m_engine.modes().curMode();
     if (cur) {
       json modeJson = modeToJson(cur);
       modesArray.push_back(modeJson);
     } else {
       modesArray.push_back(nullptr);
     }
-    Modes::nextMode();
+    m_engine.modes().nextMode();
   }
   saveJson["modes"] = modesArray;
 
@@ -2004,18 +2003,18 @@ bool Vortex::loadJson(const json& js)
     minor = js["version_minor"].get<uint8_t>();
   }
 
-  if (!VortexEngine::checkVersion(major, minor)) {
+  if (!m_engine.checkVersion(major, minor)) {
     return false;
   }
 
   if (js.contains("brightness") && js["brightness"].is_number_unsigned()) {
     uint8_t brightness = js["brightness"].get<uint8_t>();
-    Leds::setBrightness(brightness);
+    m_engine.leds().setBrightness(brightness);
   }
 
   if (js.contains("global_flags") && js["global_flags"].is_number_unsigned()) {
     uint8_t global_flags = js["global_flags"].get<uint8_t>();
-    Modes::setFlag(global_flags, true, false);
+    m_engine.modes().setFlag(global_flags, true, false);
   }
 
   uint8_t num_modes = 0;
@@ -2024,18 +2023,18 @@ bool Vortex::loadJson(const json& js)
   }
 
   if (js.contains("modes") && js["modes"].is_array()) {
-    Modes::clearModes();
+    m_engine.modes().clearModes();
     for (const auto &modeValue : js["modes"]) {
       if (!modeValue.is_null() && modeValue.is_object()) {
         Mode *mode = modeFromJson(modeValue);
         if (mode) {
-          Modes::addMode(mode);
+          m_engine.modes().addMode(mode);
         }
       }
     }
   }
 
-  return Modes::numModes() == num_modes;
+  return m_engine.modes().numModes() == num_modes;
 }
 
 // dump the json to output

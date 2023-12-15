@@ -1,11 +1,13 @@
 #include "MeteorPattern.h"
 
+#include "../../VortexEngine.h"
+
 #include "../../Time/TimeControl.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
-MeteorPattern::MeteorPattern(const PatternArgs &args) :
-  BlinkStepPattern(args),
+MeteorPattern::MeteorPattern(VortexEngine &engine, const PatternArgs &args) :
+  BlinkStepPattern(engine, args),
   m_fadeAmount(0),
   m_randCtx(),
   m_stash()
@@ -24,12 +26,12 @@ void MeteorPattern::blinkOn()
   for (int i = 0; i < LED_COUNT; ++i) {
     m_stash[i].adjustBrightness(m_fadeAmount);
   }
-  Leds::restoreAll(m_stash);
+  m_engine.leds().restoreAll(m_stash);
 }
 
 void MeteorPattern::blinkOff()
 {
-  Leds::clearAll();
+  m_engine.leds().clearAll();
 }
 
 void MeteorPattern::poststep()

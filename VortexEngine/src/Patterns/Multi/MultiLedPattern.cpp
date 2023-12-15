@@ -1,7 +1,7 @@
 #include "MultiLedPattern.h"
 
-MultiLedPattern::MultiLedPattern(const PatternArgs &args) :
-  Pattern(args)
+MultiLedPattern::MultiLedPattern(VortexEngine &engine, const PatternArgs &args) :
+  Pattern(engine, args)
 {
   // this is a multi led pattern
   m_patternFlags |= PATTERN_FLAG_MULTI;

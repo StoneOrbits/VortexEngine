@@ -1,5 +1,7 @@
 #include "Menu.h"
 
+#include "../VortexEngine.h"
+
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
 #include "../Buttons/Button.h"
@@ -9,7 +11,9 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-Menu::Menu(const RGBColor &col, bool advanced) :
+Menu::Menu(VortexEngine &engine, const RGBColor &col, bool advanced) :
+  m_engine(engine),
+  m_previewMode(engine),
   m_menuColor(col),
   m_targetLeds(MAP_LED_ALL),
   m_curSelection(0),
@@ -26,23 +30,23 @@ Menu::~Menu()
 bool Menu::init()
 {
   // menu is initialized before being run
-  if (!Modes::curMode()) {
+  if (!m_engine.modes().curMode()) {
     // if you enter a menu and there's no modes, it will add an empty one
-    if (Modes::numModes() > 0) {
+    if (m_engine.modes().numModes() > 0) {
       // some kind of serious error
       return false;
     }
-    if (!Modes::addMode(PATTERN_STROBE, RGBColor(RGB_OFF))) {
+    if (!m_engine.modes().addMode(PATTERN_STROBE, RGBColor(RGB_OFF))) {
       // some kind of serious error
       return false;
     }
-    if (!Modes::curMode()) {
+    if (!m_engine.modes().curMode()) {
       // serious error again
       return false;
     }
   }
   // copy the current mode into the demo mode and initialize it
-  m_previewMode = *Modes::curMode();
+  m_previewMode = *m_engine.modes().curMode();
   m_previewMode.init();
   // just in case
   m_shouldClose = false;
@@ -69,11 +73,11 @@ Menu::MenuAction Menu::run()
   // class's onShortClick and onLongClick functions so
 
   // every time the button is clicked, change the target led
-  if (g_pButton->onShortClick()) {
+  if (m_engine.button().onShortClick()) {
     nextBulbSelection();
   }
   // on a long press of the button, lock in the target led
-  if (g_pButton->onLongClick()) {
+  if (m_engine.button().onLongClick()) {
     m_ledSelected = true;
     // call led selected callback
     onLedSelected();
@@ -90,33 +94,33 @@ Menu::MenuAction Menu::run()
 
 void Menu::showBulbSelection()
 {
-  Leds::clearAll();
+  m_engine.leds().clearAll();
   if (m_targetLeds == MAP_LED(LED_MULTI)) {
-    LedPos pos = (LedPos)((Time::getCurtime() / 30) % LED_COUNT);
-    Leds::blinkIndexOffset(pos, pos * 10, 50, 500, m_menuColor);
+    LedPos pos = (LedPos)((m_engine.time().getCurtime() / 30) % LED_COUNT);
+    m_engine.leds().blinkIndexOffset(pos, pos * 10, 50, 500, m_menuColor);
   } else {
-    Leds::blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
+    m_engine.leds().blinkMap(m_targetLeds, BULB_SELECT_OFF_MS, BULB_SELECT_ON_MS, m_menuColor);
   }
   // blink when selecting
-  Menus::showSelection(RGBColor(m_menuColor.red << 3,
-                                m_menuColor.green << 3,
-                                m_menuColor.blue << 3));
+  m_engine.menus().showSelection(RGBColor(m_menuColor.red << 3,
+                                          m_menuColor.green << 3,
+                                          m_menuColor.blue << 3));
 }
 
 void Menu::showExit()
 {
-  if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
-    Leds::setAll(RGB_RED);
+  if (m_engine.button().isPressed() && m_engine.button().holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
+    m_engine.leds().setAll(RGB_RED);
     return;
   }
-  Leds::clearAll();
-  Leds::setAll(RGB_WHITE0);
-  Leds::blinkAll(EXIT_MENU_OFF_MS, EXIT_MENU_ON_MS, RGB_RED0);
+  m_engine.leds().clearAll();
+  m_engine.leds().setAll(RGB_WHITE0);
+  m_engine.leds().blinkAll(EXIT_MENU_OFF_MS, EXIT_MENU_ON_MS, RGB_RED0);
 }
 
 void Menu::nextBulbSelection()
 {
-  Mode *cur = Modes::curMode();
+  Mode *cur = m_engine.modes().curMode();
   // The target led can be 0 through LED_COUNT to represent any led or all leds
   // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
   if (m_targetLeds == MAP_LED_ALL) {
@@ -161,6 +165,6 @@ void Menu::leaveMenu(bool doSave)
 {
   m_shouldClose = true;
   if (doSave) {
-    Modes::saveStorage();
+    m_engine.modes().saveStorage();
   }
 }

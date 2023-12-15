@@ -7,8 +7,8 @@
 // This pattern aims to be a demonstration of the sequencer.
 // There are always many ways to implement a pattern, it's best
 // to choose the method that is most suitable for the pattern.
-ChaserPattern::ChaserPattern(const PatternArgs &args) :
-  SequencedPattern(args)
+ChaserPattern::ChaserPattern(VortexEngine &engine, const PatternArgs &args) :
+  SequencedPattern(engine, args)
 {
   setArgs(args);
   uint32_t numChasers = LED_COUNT / CHASER_RATIO;

@@ -15,7 +15,7 @@ class CompoundPattern : public MultiLedPattern
 {
 protected:
   // CompoundPattern is an abstract class
-  CompoundPattern(const PatternArgs &args);
+  CompoundPattern(VortexEngine &engine, const PatternArgs &args);
 
 public:
   virtual ~CompoundPattern();

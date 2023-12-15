@@ -10,7 +10,7 @@
 class Menu
 {
 public:
-  Menu(const RGBColor &col, bool advanced);
+  Menu(VortexEngine &engine, const RGBColor &col, bool advanced);
   virtual ~Menu();
 
   virtual bool init();
@@ -43,6 +43,9 @@ protected:
 
   // iterate to next bulb selection
   void nextBulbSelection();
+
+  // reference to engine
+  VortexEngine &m_engine;
 
   // the mode copied from the current mode used to preview changes
   Mode m_previewMode;

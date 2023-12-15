@@ -15,7 +15,7 @@ class Mode;
 class Randomizer : public Menu
 {
 public:
-  Randomizer(const RGBColor &col, bool advanced);
+  Randomizer(VortexEngine &engine, const RGBColor &col, bool advanced);
   ~Randomizer();
 
   bool init() override;

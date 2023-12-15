@@ -12,16 +12,21 @@
 #include "../../VortexLib/VortexLib.h"
 #endif
 
+Leds::Leds(VortexEngine &engine) :
+  m_engine(engine),
 #if FIXED_LED_COUNT == 0
-// led count
-uint8_t Leds::m_ledCount = 10;
-// array of led color values
-std::vector<RGBColor> Leds::m_ledColors;
+  m_ledCount(10),
+  m_ledColors(),
 #else
-RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
+  m_ledColors{ RGB_OFF },
 #endif
-// global brightness
-uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
+  m_brightness(DEFAULT_BRIGHTNESS)
+{
+}
+
+Leds::~Leds()
+{
+}
 
 bool Leds::init()
 {
@@ -30,9 +35,9 @@ bool Leds::init()
 #endif
 #ifdef VORTEX_LIB
 #if FIXED_LED_COUNT == 0
-  Vortex::vcallbacks()->ledsInit(m_ledColors.data(), LED_COUNT);
+  m_engine.vortexLib().vcallbacks()->ledsInit(m_ledColors.data(), LED_COUNT);
 #else
-  Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
+  m_engine.vortexLib().vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
 #endif
 #endif
   return true;
@@ -193,21 +198,21 @@ void Leds::blinkIndexOffset(LedPos target, uint32_t time, uint16_t offMs, uint16
 
 void Leds::blinkIndex(LedPos target, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+  if ((m_engine.time().getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setIndex(target, col);
   }
 }
 
 void Leds::blinkRange(LedPos first, LedPos last, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+  if ((m_engine.time().getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setRange(first, last, col);
   }
 }
 
 void Leds::blinkMap(LedMap targets, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+  if ((m_engine.time().getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
       if (checkLed(targets, pos)) {
         setIndex(pos, col);
@@ -218,21 +223,21 @@ void Leds::blinkMap(LedMap targets, uint16_t offMs, uint16_t onMs, RGBColor col)
 
 void Leds::blinkAll(uint16_t offMs, uint16_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+  if ((m_engine.time().getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setRange(LED_FIRST, LED_LAST, col);
   }
 }
 
 void Leds::blinkPair(Pair pair, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+  if ((m_engine.time().getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setRange(pairEven(pair), pairOdd(pair), col);
   }
 }
 
 void Leds::blinkPairs(Pair first, Pair last, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
-  if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+  if ((m_engine.time().getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     setRange(pairEven(first), pairOdd(last), col);
   }
 }
@@ -256,13 +261,13 @@ void Leds::holdAll(RGBColor col)
 {
   setAll(col);
   update();
-  Time::delayMilliseconds(250);
+  m_engine.time().delayMilliseconds(250);
 }
 
 void Leds::update()
 {
 #ifdef VORTEX_LIB
-  Vortex::vcallbacks()->ledsShow();
+  m_engine.vortexLib().vcallbacks()->ledsShow();
 #endif
 }
 
