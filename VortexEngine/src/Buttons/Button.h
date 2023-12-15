@@ -11,8 +11,8 @@ class Button
 {
 private:
   // private unimplemented copy and assignment constructors to prevent copies
-  Button(Button const &);
-  void operator=(Button const &);
+  //Button(Button const &);
+  //void operator=(Button const &);
 
 public:
   Button(VortexEngine &engine);

@@ -118,9 +118,9 @@ static EM_BOOL key_callback(int eventType, const EmscriptenKeyboardEvent *e, voi
 {
   if (e->key[0] == ' ') {
     if (eventType == EMSCRIPTEN_EVENT_KEYDOWN) {
-      Vortex::pressButton();
+      m_vortex.pressButton();
     } else if (eventType == EMSCRIPTEN_EVENT_KEYUP) {
-      Vortex::releaseButton();
+      m_vortex.releaseButton();
     }
   }
   return 0;
@@ -468,22 +468,22 @@ bool VortexCLI::init(int argc, char *argv[])
   }
 
   // do the vortex init/setup
-  Vortex::init<VortexCLICallbacks>();
+  m_vortex.init<VortexCLICallbacks>();
 
   // configure the vortex engine as the parameters dictate
-  Vortex::setInstantTimestep(m_noTimestep);
-  Vortex::enableCommandLog(m_record);
-  Vortex::enableLockstep(m_lockstep);
-  Vortex::enableStorage(m_storage);
+  m_vortex.setInstantTimestep(m_noTimestep);
+  m_vortex.enableCommandLog(m_record);
+  m_vortex.enableLockstep(m_lockstep);
+  m_vortex.enableStorage(m_storage);
   if (m_storage) {
-    Vortex::setStorageFilename(m_storageFile);
+    m_vortex.setStorageFilename(m_storageFile);
     if (access(m_storageFile.c_str(), F_OK) == 0) {
       // load storage if the file exists
-      Vortex::loadStorage();
+      m_vortex.loadStorage();
     }
   }
-  Vortex::setSleepEnabled(m_sleepEnabled);
-  Vortex::setLockEnabled(m_lockEnabled);
+  m_vortex.setSleepEnabled(m_sleepEnabled);
+  m_vortex.setLockEnabled(m_lockEnabled);
 
   if (m_jsonMode & JSON_MODE_READ_STDIN) {
     // todo: read js from stdin
@@ -494,19 +494,19 @@ bool VortexCLI::init(int argc, char *argv[])
   if (m_jsonMode & JSON_MODE_READ_FILE) {
     printf("Reading json from %s\n", m_jsonInFile.c_str());
     // read from m_jsonInFile;
-    Vortex::parseJsonFromFile(m_jsonInFile);
+    m_vortex.parseJsonFromFile(m_jsonInFile);
   }
 
   if (m_patternIDStr.length() > 0) {
     // convert both numeric and string to see which one seems more correct
     PatternID id = (PatternID)strtoul(m_patternIDStr.c_str(), nullptr, 10);
-    PatternID strID = Vortex::stringToPattern(m_patternIDStr);
+    PatternID strID = m_vortex.stringToPattern(m_patternIDStr);
     if (id == PATTERN_FIRST && strID != PATTERN_NONE) {
       // use the str ID if the numeric ID didn't convert and the string did
       id = strID;
     }
     // TODO: add arg for the led position
-    Vortex::setPatternAt(LED_ALL, id);
+    m_vortex.setPatternAt(LED_ALL, id);
   }
   if (m_colorsetStr.length() > 0) {
     stringstream ss(m_colorsetStr);
@@ -522,7 +522,7 @@ bool VortexCLI::init(int argc, char *argv[])
       }
     }
     // TODO: add arg for the led position
-    Vortex::setColorset(LED_ALL, set);
+    m_vortex.setColorset(LED_ALL, set);
   }
   if (m_argumentsStr.length() > 0) {
     stringstream ss(m_argumentsStr);
@@ -532,7 +532,7 @@ bool VortexCLI::init(int argc, char *argv[])
       args.args[args.numArgs++] = strtoul(arg.c_str(), nullptr, 10);
     }
     // TODO: add arg for the led position
-    Vortex::setPatternArgs(LED_ALL, args);
+    m_vortex.setPatternArgs(LED_ALL, args);
   }
   if (m_inPlace && !system("clear")) {
     printf("Failed to clear\n");
@@ -558,7 +558,7 @@ void VortexCLI::run()
   if (!stillRunning()) {
     return;
   }
-  if (!Vortex::tick() || m_quickExit) {
+  if (!m_vortex.tick() || m_quickExit) {
     cleanup();
   }
 }
@@ -574,7 +574,7 @@ void VortexCLI::cleanup()
     FILE *outputFile = fopen(RECORD_FILE, "w");
     if (outputFile) {
       // Print the recorded input to the file
-      fprintf(outputFile, "%s", Vortex::getCommandLog().c_str());
+      fprintf(outputFile, "%s", m_vortex.getCommandLog().c_str());
       // Close the output file
       fclose(outputFile);
     }
@@ -582,18 +582,18 @@ void VortexCLI::cleanup()
   }
   if (m_jsonMode & JSON_MODE_WRITE_STDOUT) {
     // dump the current save in json format
-    Vortex::dumpJson(nullptr, m_jsonPretty);
+    m_vortex.dumpJson(nullptr, m_jsonPretty);
   }
   if (m_jsonMode & JSON_MODE_WRITE_FILE) {
-    Vortex::dumpJson(m_jsonOutFile.c_str(), m_jsonPretty);
+    m_vortex.dumpJson(m_jsonOutFile.c_str(), m_jsonPretty);
     printf("Wrote JSON to file [%s]\n", m_jsonOutFile.c_str());
   }
   m_keepGoing = false;
   m_isPaused = false;
   if (m_storage) {
-    Vortex::doSave();
+    m_vortex.doSave();
   }
-  Vortex::cleanup();
+  m_vortex.cleanup();
 #ifdef WASM
   emscripten_force_exit(0);
 #endif
@@ -667,9 +667,9 @@ void VortexCLI::show()
   fflush(stdout);
 }
 
-bool VortexCLI::isButtonPressed() const
+bool VortexCLI::isButtonPressed()
 {
-  return Vortex::isButtonPressed();
+  return m_vortex.isButtonPressed();
 }
 
 bool VortexCLI::stillRunning() const
@@ -687,9 +687,9 @@ long VortexCLI::VortexCLICallbacks::checkPinHook(uint32_t pin)
 {
   if (pin == 20) {
     // orbit button 2
-    return Vortex::isButtonPressed(1) ? 0 : 1;
+    return m_vortex.isButtonPressed(1) ? 0 : 1;
   }
-  return Vortex::isButtonPressed(0) ? 0 : 1;
+  return m_vortex.isButtonPressed(0) ? 0 : 1;
 }
 
 void VortexCLI::VortexCLICallbacks::ledsInit(void *cl, int count)

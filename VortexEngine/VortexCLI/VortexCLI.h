@@ -25,7 +25,7 @@ public:
   void show();
 
   // whether the button is pressed
-  bool isButtonPressed() const;
+  bool isButtonPressed();
 
   // whether the test framework is still running
   bool stillRunning() const;
@@ -44,7 +44,7 @@ private:
   class VortexCLICallbacks : public VortexCallbacks
   {
   public:
-    VortexCLICallbacks() {}
+    VortexCLICallbacks(Vortex &vortex) : VortexCallbacks(vortex) {}
     virtual ~VortexCLICallbacks() {}
     virtual long checkPinHook(uint32_t pin) override;
     virtual void ledsInit(void *cl, int count) override;
@@ -55,6 +55,9 @@ private:
 
   // internal helper for updating terminal size
   void get_terminal_size();
+
+  // vortex lib
+  Vortex m_vortex;
 
   // these are in no particular order
   RGBColor *m_ledList;

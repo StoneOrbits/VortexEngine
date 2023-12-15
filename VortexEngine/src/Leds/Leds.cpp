@@ -14,13 +14,13 @@
 
 Leds::Leds(VortexEngine &engine) :
   m_engine(engine),
+  m_brightness(DEFAULT_BRIGHTNESS),
 #if FIXED_LED_COUNT == 0
   m_ledCount(10),
-  m_ledColors(),
+  m_ledColors()
 #else
-  m_ledColors{ RGB_OFF },
+  m_ledColors{ RGB_OFF }
 #endif
-  m_brightness(DEFAULT_BRIGHTNESS)
 {
 }
 

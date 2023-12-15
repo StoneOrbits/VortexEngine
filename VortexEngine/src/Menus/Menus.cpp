@@ -64,8 +64,8 @@ const MenuEntry menuList[] = {
 Menus::Menus(VortexEngine &engine) :
   m_engine(engine),
   m_menuState(MENU_STATE_NOT_OPEN),
-  m_openTime(0),
   m_selection(0),
+  m_openTime(0),
   m_pCurMenu(nullptr)
 {
 }

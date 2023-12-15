@@ -588,7 +588,6 @@ long VortexCallbacks::checkPinHook(uint32_t pin)
 
 Vortex::Vortex() :
   m_engine(*this),
-  m_lastCommand(0),
   m_undoBuffer(),
   m_undoLimit(0),
   m_undoIndex(0),
@@ -606,7 +605,8 @@ Vortex::Vortex() :
   m_lockstepEnabled(false),
   m_storageEnabled(false),
   m_sleepEnabled(true),
-  m_lockEnabled(true)
+  m_lockEnabled(true),
+  m_lastCommand(0)
 {
   // default callbacks pointer that can be replaced with a derivative
   // of the VortexCallbacks class

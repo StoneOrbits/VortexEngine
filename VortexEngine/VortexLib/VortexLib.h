@@ -284,9 +284,6 @@ public:
   VortexEngine &engine() { return m_engine; }
 
 private:
-  // the last command to have been executed
-  char m_lastCommand;
-
   // internal function to handle repeating commands
   void handleRepeat(char c);
 
@@ -382,4 +379,6 @@ private:
   bool m_sleepEnabled;
   // whether lock is enabled
   bool m_lockEnabled;
+  // the last command to have been executed
+  char m_lastCommand;
 };
