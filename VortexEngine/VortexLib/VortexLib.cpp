@@ -38,31 +38,14 @@
 
 using namespace emscripten;
 
-RGBColor *leds = nullptr;
-int led_count = 0;
-
-// Assuming VortexCallbacks and ColorInfo are correctly defined and included above this line
-class VortexWASMCallbacks : public VortexCallbacks {
-  public:
-    VortexWASMCallbacks(Vortex &vortex) : VortexCallbacks(vortex) {}
-    void ledsInit(void *cl, int count) override {
-      leds = (RGBColor *)cl;
-      led_count = count;
-    }
-};
-
-Vortex InitVortex()
-{
-  Vortex vortex;
-  vortex.init<VortexWASMCallbacks>();
-  return vortex;
-}
-
 // This wraps Vortex::tick but returns an array of led colors for the tick
 val RunTick(Vortex &vortex) {
+  // first run a tick
   vortex.tick();
+  // then extract the color that was produced by the tick
+  RGBColor *leds = vortex.engine().leds().ledData();
   val ledArray = val::array();
-  for (int i = 0; i < led_count; ++i) {
+  for (uint32_t i = 0; i < LED_COUNT; ++i) {
     val color = val::object();
     color.set("red", leds[i].red);
     color.set("green", leds[i].green);
@@ -105,7 +88,6 @@ EMSCRIPTEN_BINDINGS(Vortex) {
   register_vector<std::string>("VectorString");
 
   // basic control functions
-  function("InitVortex", &InitVortex);
   function("RunTick", &RunTick);
 
   // Bind the HSVColor class
@@ -211,7 +193,8 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("ledLast", &Leds::.ledLast)
     .function("ledMulti", &Leds::.ledMulti)
     .function("ledAllSingle", &Leds::.ledAllSingle)
-    .function("ledAny", &Leds::.ledAny);
+    .function("ledAny", &Leds::.ledAny)
+    .function("ledData", &Leds::.ledData);
 #endif
 
   enum_<PatternID>("PatternID")
@@ -448,7 +431,25 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("setKeychainMode", &Modes::setKeychainMode)
     .function("keychainModeEnabled", &Modes::keychainModeEnabled);
 
+  class_<VortexEngine>("VortexEngine")
+    .function("init", &VortexEngine::init)
+    .function("serial", &VortexEngine::serial)
+    .function("time", &VortexEngine::time)
+    .function("storage", &VortexEngine::storage)
+    .function("irReceiver", &VortexEngine::irReceiver)
+    .function("irSender", &VortexEngine::irSender)
+    .function("vlReceiver", &VortexEngine::vlReceiver)
+    .function("vlSender", &VortexEngine::vlSender)
+    .function("leds", &VortexEngine::leds)
+    .function("buttons", &VortexEngine::buttons)
+    .function("button", &VortexEngine::button)
+    .function("menus", &VortexEngine::menus)
+    .function("modes", &VortexEngine::modes)
+    .function("patternBuilder", &VortexEngine::patternBuilder);
+
   class_<Vortex>("Vortex")
+    .constructor<>()
+    .function("init", select_overload<void()>(&Vortex::init))
     .function("setInstantTimestep", &Vortex::setInstantTimestep)
     .function("shortClick", &Vortex::shortClick)
     .function("longClick", &Vortex::longClick)
@@ -528,7 +529,8 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("setStorageFilename", &Vortex::setStorageFilename)
     .function("getStorageFilename", &Vortex::getStorageFilename)
     .function("setLockEnabled", &Vortex::setLockEnabled)
-    .function("lockEnabled", &Vortex::lockEnabled);
+    .function("lockEnabled", &Vortex::lockEnabled)
+    .function("engine", &Vortex::engine);
 
   function("getDataArray", &getDataArray);
   function("getRawDataArray", &getRawDataArray);
@@ -589,6 +591,11 @@ Vortex::Vortex() :
   m_consoleHandle(nullptr),
 #if LOG_TO_FILE == 1
   m_logHandle(nullptr),
+#endif
+#ifdef WASM
+  // pointer to the led array and led count in the engine
+  m_leds(nullptr),
+  m_led_count(0),
 #endif
   m_buttonEventQueue(),
   m_initialized(false),

@@ -91,9 +91,12 @@ public:
   Vortex();
   ~Vortex();
 
-  // public initializer, you must provide a derivation of the class VortexCallbacks
+  // simple initialization nothing special
+  void init() { initEx<VortexCallbacks>(); }
+
+  // extended initialization, provide a callbacks class to receive events
   template <typename T>
-  T *init()
+  T *initEx()
   {
     if (!std::is_base_of<VortexCallbacks, T>()) {
       return nullptr;
@@ -283,6 +286,14 @@ public:
   // reference to engine
   VortexEngine &engine() { return m_engine; }
 
+#ifdef WASM
+  // pointer to the led array and led count in the engine
+  RGBColor *leds() { return m_leds; }
+  int ledCount() { return m_led_count; }
+  // initialize
+  void initWasm(int led_count, RGBColor *leds) { m_led_count = led_count; m_leds = leds; }
+#endif
+
 private:
   // internal function to handle repeating commands
   void handleRepeat(char c);
@@ -359,6 +370,11 @@ private:
   FILE *m_consoleHandle;
 #if LOG_TO_FILE == 1
   FILE *m_logHandle;
+#endif
+#ifdef WASM
+  // pointer to the led array and led count in the engine
+  RGBColor *m_leds;
+  int m_led_count;
 #endif
   // queue of button events, deque so can push to front and back
   std::deque<VortexButtonEvent> m_buttonEventQueue;

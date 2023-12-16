@@ -204,6 +204,9 @@ public:
   LedPos ledMulti() { return (LedPos)(m_ledCount + 1); }
   LedPos ledAllSingle() { return (LedPos)(m_ledCount + 2); }
   LedPos ledAny() { return (LedPos)(m_ledCount + 3); }
+  RGBColor *ledData() { return m_ledColors.data(); }
+#else
+  RGBColor *ledData() { return m_ledColors; }
 #endif
 
 private:
