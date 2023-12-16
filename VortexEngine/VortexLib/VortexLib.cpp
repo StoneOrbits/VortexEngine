@@ -44,36 +44,31 @@ int led_count = 0;
 // Assuming VortexCallbacks and ColorInfo are correctly defined and included above this line
 class VortexWASMCallbacks : public VortexCallbacks {
   public:
+    VortexWASMCallbacks(Vortex &vortex) : VortexCallbacks(vortex) {}
     void ledsInit(void *cl, int count) override {
       leds = (RGBColor *)cl;
       led_count = count;
     }
 };
 
-static void init_wasm()
+Vortex InitVortex()
 {
-  Vortex::init<VortexWASMCallbacks>();
-}
-
-static void cleanup_wasm()
-{
-  Vortex::cleanup();
+  Vortex vortex;
+  vortex.init<VortexWASMCallbacks>();
+  return vortex;
 }
 
 // This wraps Vortex::tick but returns an array of led colors for the tick
-val tick_wasm() {
-  Vortex::tick();
-
+val RunTick(Vortex &vortex) {
+  vortex.tick();
   val ledArray = val::array();
   for (int i = 0; i < led_count; ++i) {
     val color = val::object();
     color.set("red", leds[i].red);
     color.set("green", leds[i].green);
     color.set("blue", leds[i].blue);
-
     ledArray.set(i, color);
   }
-
   return ledArray;
 }
 
@@ -110,9 +105,8 @@ EMSCRIPTEN_BINDINGS(Vortex) {
   register_vector<std::string>("VectorString");
 
   // basic control functions
-  function("Init", &init_wasm);
-  function("Cleanup", &cleanup_wasm);
-  function("Tick", &tick_wasm);
+  function("InitVortex", &InitVortex);
+  function("RunTick", &RunTick);
 
   // Bind the HSVColor class
   class_<HSVColor>("HSVColor")
@@ -213,11 +207,11 @@ EMSCRIPTEN_BINDINGS(Vortex) {
 
   // Binding dynamic values from Leds class
   class_<Leds>("Leds")
-    .class_function("ledCount", &m_engine.leds().ledCount)
-    .class_function("ledLast", &m_engine.leds().ledLast)
-    .class_function("ledMulti", &m_engine.leds().ledMulti)
-    .class_function("ledAllSingle", &m_engine.leds().ledAllSingle)
-    .class_function("ledAny", &m_engine.leds().ledAny);
+    .function("ledCount", &Leds::.ledCount)
+    .function("ledLast", &Leds::.ledLast)
+    .function("ledMulti", &Leds::.ledMulti)
+    .function("ledAllSingle", &Leds::.ledAllSingle)
+    .function("ledAny", &Leds::.ledAny);
 #endif
 
   enum_<PatternID>("PatternID")
@@ -379,21 +373,21 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("hasFlags", &Pattern::hasFlags);
 
   class_<PatternBuilder>("PatternBuilder")
-    .class_function("make", &m_engine.patternBuilder().make, allow_raw_pointers())
-    .class_function("dupe", &m_engine.patternBuilder().dupe, allow_raw_pointers())
-    .class_function("makeSingle", &m_engine.patternBuilder().makeSingle, allow_raw_pointers())
-    .class_function("makeMulti", &m_engine.patternBuilder().makeMulti, allow_raw_pointers())
-    //.class_function("unserialize", &m_engine.patternBuilder().unserialize)
-    .class_function("getDefaultArgs", &m_engine.patternBuilder().getDefaultArgs)
-    .class_function("numDefaultArgs", &m_engine.patternBuilder().numDefaultArgs);
+    .function("make", &PatternBuilder::make, allow_raw_pointers())
+    .function("dupe", &PatternBuilder::dupe, allow_raw_pointers())
+    .function("makeSingle", &PatternBuilder::makeSingle, allow_raw_pointers())
+    .function("makeMulti", &PatternBuilder::makeMulti, allow_raw_pointers())
+    //.function("unserialize", &PatternBuilder::unserialize)
+    .function("getDefaultArgs", &PatternBuilder::getDefaultArgs)
+    .function("numDefaultArgs", &PatternBuilder::numDefaultArgs);
 
   class_<Mode>("Mode")
-    .constructor<>()
+    //.constructor<>()
     // overloading only works with param count not typing
     //.constructor<PatternID, const Colorset &>()
     //.constructor<PatternID, const PatternArgs &, const Colorset &>()
     //.constructor<PatternID, const PatternArgs *, const Colorset *>()
-    .constructor<const Mode *>()
+    //.constructor<const Mode *>()
     .function("copyFrom", select_overload<void(const Mode &)>(&Mode::operator=))
     .function("equals", &Mode::operator==)
     .function("notEquals", &Mode::operator!=)
@@ -418,127 +412,126 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("getArg", &Mode::getArg);
 
   class_<Modes>("Modes")
-    .class_function("init", &m_engine.modes().init)
-    .class_function("cleanup", &m_engine.modes().cleanup)
-    .class_function("play", &m_engine.modes().play)
-    .class_function("saveToBuffer", select_overload<bool(ByteStream&)>(&m_engine.modes().saveToBuffer))
-    .class_function("loadFromBuffer", select_overload<bool(ByteStream&)>(&m_engine.modes().loadFromBuffer))
-    .class_function("loadStorage", &m_engine.modes().loadStorage)
-    .class_function("saveStorage", &m_engine.modes().saveStorage)
-    .class_function("serialize", &m_engine.modes().serialize)
-    .class_function("unserialize", &m_engine.modes().unserialize)
-    .class_function("setDefaults", &m_engine.modes().setDefaults)
-    .class_function("shiftCurMode", &m_engine.modes().shiftCurMode)
-    .class_function("updateCurMode", &m_engine.modes().updateCurMode, allow_raw_pointers())
-    .class_function("setCurMode", &m_engine.modes().setCurMode, allow_raw_pointers())
-    .class_function("curMode", &m_engine.modes().curMode, allow_raw_pointers())
-    .class_function("nextMode", &m_engine.modes().nextMode, allow_raw_pointers())
-    .class_function("previousMode", &m_engine.modes().previousMode, allow_raw_pointers())
-    .class_function("nextModeSkipEmpty", &m_engine.modes().nextModeSkipEmpty, allow_raw_pointers())
-    .class_function("numModes", &m_engine.modes().numModes)
-    .class_function("curModeIndex", &m_engine.modes().curModeIndex)
-    .class_function("lastSwitchTime", &m_engine.modes().lastSwitchTime)
-    .class_function("deleteCurMode", &m_engine.modes().deleteCurMode)
-    .class_function("clearModes", &m_engine.modes().clearModes)
-    .class_function("setStartupMode", &m_engine.modes().setStartupMode)
-    .class_function("startupMode", &m_engine.modes().startupMode)
-    .class_function("setFlag", &m_engine.modes().setFlag)
-    .class_function("getFlag", &m_engine.modes().getFlag)
-    .class_function("resetFlags", &m_engine.modes().resetFlags)
-    .class_function("setOneClickMode", &m_engine.modes().setOneClickMode)
-    .class_function("oneClickModeEnabled", &m_engine.modes().oneClickModeEnabled)
-    .class_function("setLocked", &m_engine.modes().setLocked)
-    .class_function("locked", &m_engine.modes().locked)
-    .class_function("setAdvancedMenus", &m_engine.modes().setAdvancedMenus)
-    .class_function("advancedMenusEnabled", &m_engine.modes().advancedMenusEnabled)
-    .class_function("setKeychainMode", &m_engine.modes().setKeychainMode)
-    .class_function("keychainModeEnabled", &m_engine.modes().keychainModeEnabled);
+    .function("init", &Modes::init)
+    .function("cleanup", &Modes::cleanup)
+    .function("play", &Modes::play)
+    .function("saveToBuffer", select_overload<bool(ByteStream&)>(&Modes::saveToBuffer))
+    .function("loadFromBuffer", select_overload<bool(ByteStream&)>(&Modes::loadFromBuffer))
+    .function("loadStorage", &Modes::loadStorage)
+    .function("saveStorage", &Modes::saveStorage)
+    .function("serialize", &Modes::serialize)
+    .function("unserialize", &Modes::unserialize)
+    .function("setDefaults", &Modes::setDefaults)
+    .function("shiftCurMode", &Modes::shiftCurMode)
+    .function("updateCurMode", &Modes::updateCurMode, allow_raw_pointers())
+    .function("setCurMode", &Modes::setCurMode, allow_raw_pointers())
+    .function("curMode", &Modes::curMode, allow_raw_pointers())
+    .function("nextMode", &Modes::nextMode, allow_raw_pointers())
+    .function("previousMode", &Modes::previousMode, allow_raw_pointers())
+    .function("nextModeSkipEmpty", &Modes::nextModeSkipEmpty, allow_raw_pointers())
+    .function("numModes", &Modes::numModes)
+    .function("curModeIndex", &Modes::curModeIndex)
+    .function("lastSwitchTime", &Modes::lastSwitchTime)
+    .function("deleteCurMode", &Modes::deleteCurMode)
+    .function("clearModes", &Modes::clearModes)
+    .function("setStartupMode", &Modes::setStartupMode)
+    .function("startupMode", &Modes::startupMode)
+    .function("setFlag", &Modes::setFlag)
+    .function("getFlag", &Modes::getFlag)
+    .function("resetFlags", &Modes::resetFlags)
+    .function("setOneClickMode", &Modes::setOneClickMode)
+    .function("oneClickModeEnabled", &Modes::oneClickModeEnabled)
+    .function("setLocked", &Modes::setLocked)
+    .function("locked", &Modes::locked)
+    .function("setAdvancedMenus", &Modes::setAdvancedMenus)
+    .function("advancedMenusEnabled", &Modes::advancedMenusEnabled)
+    .function("setKeychainMode", &Modes::setKeychainMode)
+    .function("keychainModeEnabled", &Modes::keychainModeEnabled);
 
   class_<Vortex>("Vortex")
-    .class_function("setInstantTimestep", &Vortex::setInstantTimestep)
-    .class_function("shortClick", &Vortex::shortClick)
-    .class_function("longClick", &Vortex::longClick)
-    .class_function("menuEnterClick", &Vortex::menuEnterClick)
-    .class_function("advMenuEnterClick", &Vortex::advMenuEnterClick)
-    .class_function("deleteColClick", &Vortex::deleteColClick)
-    .class_function("sleepClick", &Vortex::sleepClick)
-    .class_function("forceSleepClick", &Vortex::forceSleepClick)
-    .class_function("pressButton", &Vortex::pressButton)
-    .class_function("releaseButton", &Vortex::releaseButton)
-    .class_function("isButtonPressed", &Vortex::isButtonPressed)
-    .class_function("sendWait", &Vortex::sendWait)
-    .class_function("rapidClick", &Vortex::rapidClick)
-    .class_function("getMenuDemoMode", &Vortex::getMenuDemoMode, allow_raw_pointer<arg<1>>())
-    .class_function("setMenuDemoMode", &Vortex::setMenuDemoMode, allow_raw_pointer<arg<1>>())
-    .class_function("quitClick", &Vortex::quitClick)
-    .class_function("IRDeliver", &Vortex::IRDeliver)
-    .class_function("VLDeliver", &Vortex::VLDeliver)
-    //.class_function("getStorageStats", &Vortex::getStorageStats)
-    .class_function("loadStorage", &Vortex::loadStorage)
-    .class_function("openRandomizer", &Vortex::openRandomizer)
-    .class_function("openColorSelect", &Vortex::openColorSelect)
-    .class_function("openPatternSelect", &Vortex::openPatternSelect)
-    .class_function("openGlobalBrightness", &Vortex::openGlobalBrightness)
-    .class_function("openFactoryReset", &Vortex::openFactoryReset)
-    .class_function("openModeSharing", &Vortex::openModeSharing)
-    .class_function("openEditorConnection", &Vortex::openEditorConnection)
-    .class_function("getModes", &Vortex::getModes)
-    .class_function("setModes", &Vortex::setModes)
-    .class_function("getCurMode", &Vortex::getCurMode)
-    .class_function("matchLedCount", &Vortex::matchLedCount)
-    .class_function("checkLedCount", &Vortex::checkLedCount)
-    .class_function("setLedCount", &Vortex::setLedCount)
-    .class_function("curModeIndex", &Vortex::curModeIndex)
-    .class_function("numModes", &Vortex::numModes)
-    .class_function("numLedsInMode", &Vortex::numLedsInMode)
-    //.class_function("addNewMode", select_overload<bool(Random*, bool)>(&Vortex::addNewMode))
-    .class_function("addNewMode", select_overload<bool(ByteStream &, bool)>(&Vortex::addNewMode))
-    .class_function("setCurMode", &Vortex::setCurMode)
-    .class_function("nextMode", &Vortex::nextMode)
-    .class_function("delCurMode", &Vortex::delCurMode)
-    .class_function("shiftCurMode", &Vortex::shiftCurMode)
-    //.class_function("setPattern", &Vortex::setPattern)
-    .class_function("getPatternID", &Vortex::getPatternID)
-    .class_function("getPatternName", &Vortex::getPatternName)
-    .class_function("getModeName", &Vortex::getModeName)
-    //.class_function("setPatternAt", &Vortex::setPatternAt)
-    .class_function("getColorset", &Vortex::getColorset)
-    .class_function("setColorset", &Vortex::setColorset)
-    .class_function("getPatternArgs", &Vortex::getPatternArgs)
-    .class_function("setPatternArgs", &Vortex::setPatternArgs)
-    .class_function("isCurModeMulti", &Vortex::isCurModeMulti)
-    .class_function("patternToString", &Vortex::patternToString)
-    .class_function("ledToString", &Vortex::ledToString)
-    .class_function("numCustomParams", &Vortex::numCustomParams)
-    .class_function("getCustomParams", &Vortex::getCustomParams)
-    .class_function("setUndoBufferLimit", &Vortex::setUndoBufferLimit)
-    .class_function("addUndoBuffer", &Vortex::addUndoBuffer)
-    .class_function("undo", &Vortex::undo)
-    .class_function("redo", &Vortex::redo)
-    .class_function("setTickrate", &Vortex::setTickrate)
-    .class_function("getTickrate", &Vortex::getTickrate)
-    .class_function("enableUndo", &Vortex::enableUndo)
-    //.class_function("vcallbacks", &Vortex::vcallbacks)
-    .class_function("doCommand", &Vortex::doCommand)
-    .class_function("setSleepEnabled", &Vortex::setSleepEnabled)
-    .class_function("sleepEnabled", &Vortex::sleepEnabled)
-    .class_function("enterSleep", &Vortex::enterSleep)
-    .class_function("isSleeping", &Vortex::isSleeping)
-    .class_function("enableCommandLog", &Vortex::enableCommandLog)
-    .class_function("getCommandLog", &Vortex::getCommandLog)
-    .class_function("clearCommandLog", &Vortex::clearCommandLog)
-    .class_function("enableLockstep", &Vortex::enableLockstep)
-    .class_function("isLockstep", &Vortex::isLockstep)
-    .class_function("enableStorage", &Vortex::enableStorage)
-    .class_function("storageEnabled", &Vortex::storageEnabled)
-    .class_function("setStorageFilename", &Vortex::setStorageFilename)
-    .class_function("getStorageFilename", &Vortex::getStorageFilename)
-    .class_function("setLockEnabled", &Vortex::setLockEnabled)
-    .class_function("lockEnabled", &Vortex::lockEnabled);
+    .function("setInstantTimestep", &Vortex::setInstantTimestep)
+    .function("shortClick", &Vortex::shortClick)
+    .function("longClick", &Vortex::longClick)
+    .function("menuEnterClick", &Vortex::menuEnterClick)
+    .function("advMenuEnterClick", &Vortex::advMenuEnterClick)
+    .function("deleteColClick", &Vortex::deleteColClick)
+    .function("sleepClick", &Vortex::sleepClick)
+    .function("forceSleepClick", &Vortex::forceSleepClick)
+    .function("pressButton", &Vortex::pressButton)
+    .function("releaseButton", &Vortex::releaseButton)
+    .function("isButtonPressed", &Vortex::isButtonPressed)
+    .function("sendWait", &Vortex::sendWait)
+    .function("rapidClick", &Vortex::rapidClick)
+    .function("getMenuDemoMode", &Vortex::getMenuDemoMode, allow_raw_pointer<arg<1>>())
+    .function("setMenuDemoMode", &Vortex::setMenuDemoMode, allow_raw_pointer<arg<1>>())
+    .function("quitClick", &Vortex::quitClick)
+    .function("IRDeliver", &Vortex::IRDeliver)
+    .function("VLDeliver", &Vortex::VLDeliver)
+    //.function("getStorageStats", &Vortex::getStorageStats)
+    .function("loadStorage", &Vortex::loadStorage)
+    .function("openRandomizer", &Vortex::openRandomizer)
+    .function("openColorSelect", &Vortex::openColorSelect)
+    .function("openPatternSelect", &Vortex::openPatternSelect)
+    .function("openGlobalBrightness", &Vortex::openGlobalBrightness)
+    .function("openFactoryReset", &Vortex::openFactoryReset)
+    .function("openModeSharing", &Vortex::openModeSharing)
+    .function("openEditorConnection", &Vortex::openEditorConnection)
+    .function("getModes", &Vortex::getModes)
+    .function("setModes", &Vortex::setModes)
+    .function("getCurMode", &Vortex::getCurMode)
+    .function("matchLedCount", &Vortex::matchLedCount)
+    .function("checkLedCount", &Vortex::checkLedCount)
+    .function("setLedCount", &Vortex::setLedCount)
+    .function("curModeIndex", &Vortex::curModeIndex)
+    .function("numModes", &Vortex::numModes)
+    .function("numLedsInMode", &Vortex::numLedsInMode)
+    //.function("addNewMode", select_overload<bool(Random*, bool)>(&Vortex::addNewMode))
+    .function("addNewMode", select_overload<bool(ByteStream &, bool)>(&Vortex::addNewMode))
+    .function("setCurMode", &Vortex::setCurMode)
+    .function("nextMode", &Vortex::nextMode)
+    .function("delCurMode", &Vortex::delCurMode)
+    .function("shiftCurMode", &Vortex::shiftCurMode)
+    //.function("setPattern", &Vortex::setPattern)
+    .function("getPatternID", &Vortex::getPatternID)
+    .function("getPatternName", &Vortex::getPatternName)
+    .function("getModeName", &Vortex::getModeName)
+    //.function("setPatternAt", &Vortex::setPatternAt)
+    .function("getColorset", &Vortex::getColorset)
+    .function("setColorset", &Vortex::setColorset)
+    .function("getPatternArgs", &Vortex::getPatternArgs)
+    .function("setPatternArgs", &Vortex::setPatternArgs)
+    .function("isCurModeMulti", &Vortex::isCurModeMulti)
+    .function("patternToString", &Vortex::patternToString)
+    .function("ledToString", &Vortex::ledToString)
+    .function("numCustomParams", &Vortex::numCustomParams)
+    .function("getCustomParams", &Vortex::getCustomParams)
+    .function("setUndoBufferLimit", &Vortex::setUndoBufferLimit)
+    .function("addUndoBuffer", &Vortex::addUndoBuffer)
+    .function("undo", &Vortex::undo)
+    .function("redo", &Vortex::redo)
+    .function("setTickrate", &Vortex::setTickrate)
+    .function("getTickrate", &Vortex::getTickrate)
+    .function("enableUndo", &Vortex::enableUndo)
+    //.function("vcallbacks", &Vortex::vcallbacks)
+    .function("doCommand", &Vortex::doCommand)
+    .function("setSleepEnabled", &Vortex::setSleepEnabled)
+    .function("sleepEnabled", &Vortex::sleepEnabled)
+    .function("enterSleep", &Vortex::enterSleep)
+    .function("isSleeping", &Vortex::isSleeping)
+    .function("enableCommandLog", &Vortex::enableCommandLog)
+    .function("getCommandLog", &Vortex::getCommandLog)
+    .function("clearCommandLog", &Vortex::clearCommandLog)
+    .function("enableLockstep", &Vortex::enableLockstep)
+    .function("isLockstep", &Vortex::isLockstep)
+    .function("enableStorage", &Vortex::enableStorage)
+    .function("storageEnabled", &Vortex::storageEnabled)
+    .function("setStorageFilename", &Vortex::setStorageFilename)
+    .function("getStorageFilename", &Vortex::getStorageFilename)
+    .function("setLockEnabled", &Vortex::setLockEnabled)
+    .function("lockEnabled", &Vortex::lockEnabled);
 
   function("getDataArray", &getDataArray);
   function("getRawDataArray", &getRawDataArray);
-
 
 }
 #endif
