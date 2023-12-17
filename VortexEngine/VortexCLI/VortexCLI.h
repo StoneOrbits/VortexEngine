@@ -97,6 +97,9 @@ private:
   bool m_jsonPretty;
   bool m_quickExit;
   std::string m_storageFile;
+  std::string m_writeSaveFile;
+  std::string m_writeModeFile;
+  std::string m_loadSaveFile;
   std::string m_jsonInFile;
   std::string m_jsonOutFile;
   std::string m_patternIDStr;
