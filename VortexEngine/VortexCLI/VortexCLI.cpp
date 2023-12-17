@@ -468,7 +468,7 @@ bool VortexCLI::init(int argc, char *argv[])
   }
 
   // do the vortex init/setup
-  m_vortex.init<VortexCLICallbacks>();
+  m_vortex.initEx<VortexCLICallbacks>();
 
   // configure the vortex engine as the parameters dictate
   m_vortex.setInstantTimestep(m_noTimestep);
