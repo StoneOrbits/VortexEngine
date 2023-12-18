@@ -51,7 +51,7 @@ Menu::MenuAction PatternSelect::run()
 
 void PatternSelect::onLedSelected()
 {
-  m_srcLed = mapGetFirstLed(m_targetLeds);
+  m_srcLed = m_engine.leds().mapGetFirstLed(m_targetLeds);
 }
 
 void PatternSelect::onShortClick()
@@ -108,7 +108,7 @@ void PatternSelect::onShortClick()
   }
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {
-    m_previewMode.setPattern(newID);
+    m_previewMode.setPattern(newID, LED_ANY);
   } else {
     // TODO: clear multi a better way
     m_previewMode.setPatternMap(m_targetLeds, newID);

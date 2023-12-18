@@ -189,8 +189,8 @@ public:
   // functions to operate on the current Mode
   bool setPattern(PatternID id, const PatternArgs *args = nullptr,
     const Colorset *set = nullptr, bool save = true);
-  PatternID getPatternID(LedPos pos = LED_ANY);
-  std::string getPatternName(LedPos pos = LED_ANY);
+  PatternID getPatternID(LedPos pos);
+  std::string getPatternName(LedPos pos);
   std::string getModeName();
   bool setPatternAt(LedPos pos, PatternID id,
     const PatternArgs *args = nullptr, const Colorset *set = nullptr,

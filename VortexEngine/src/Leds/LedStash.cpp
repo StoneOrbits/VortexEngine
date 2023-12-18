@@ -1,6 +1,9 @@
 #include "LedStash.h"
 
-LedStash::LedStash() :
+#include "../VortexEngine.h"
+
+LedStash::LedStash(VortexEngine &engine) :
+  m_engine(engine),
   m_ledColorsStash()
 {
 #if FIXED_LED_COUNT == 0

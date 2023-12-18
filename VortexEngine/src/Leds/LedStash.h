@@ -12,7 +12,7 @@ class LedStash
 {
   friend class Leds;
 public:
-  LedStash();
+  LedStash(VortexEngine &engine);
   ~LedStash();
 
   void setIndex(LedPos pos, RGBColor col);
@@ -23,6 +23,8 @@ public:
   RGBColor &operator[](int index);
 
 private:
+  // reference to engine
+  VortexEngine &m_engine;
 #if FIXED_LED_COUNT == 1
   RGBColor m_ledColorsStash[LED_COUNT];
 #else

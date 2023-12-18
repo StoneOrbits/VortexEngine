@@ -27,7 +27,7 @@ Mode::Mode(VortexEngine &engine, uint8_t numLeds) :
   setLedCount(m_numLeds);
 }
 Mode::Mode(VortexEngine &engine) :
-  Mode(engine, LED_COUNT)
+  Mode(engine, engine.leds().ledCount())
 {
 }
 #else
@@ -799,7 +799,7 @@ LedMap Mode::getSingleLedMap() const
   LedMap map = 0;
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; pos++) {
     if (m_singlePats[pos]) {
-      setLed(map, pos);
+      m_engine.leds().mapSetLed(map, pos);
     }
   }
   return map;

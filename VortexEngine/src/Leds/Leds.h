@@ -9,12 +9,55 @@
 #if FIXED_LED_COUNT == 0
 #include <vector>
 // drop-in LedPos constant replacements
-#define LED_COUNT Leds::ledCount()
-#define LED_LAST Leds::ledLast()
+#define LED_COUNT m_engine.leds().ledCount()
+#define LED_LAST m_engine.leds().ledLast()
 #define LED_ALL LED_COUNT
-#define LED_MULTI Leds::ledMulti()
-#define LED_ALL_SINGLE Leds::ledAllSingle()
-#define LED_ANY Leds::ledAny()
+#define LED_MULTI m_engine.leds().ledMulti()
+#define LED_ALL_SINGLE m_engine.leds().ledAllSingle()
+#define LED_ANY m_engine.leds().ledAny()
+
+// check if an led is even or odd
+#define isEven(pos) ((pos % 2) == 0)
+#define isOdd(pos) ((pos % 2) != 0)
+
+// convert a pair to even or odd led position
+#define pairEven(pair) (LedPos)((uint32_t)pair * 2)
+#define pairOdd(pair) (LedPos)(((uint32_t)pair * 2) + 1)
+
+// convert an led position to a pair
+#define ledToPair(pos) (Pair)((uint32_t)pos / 2)
+
+// various macros for mapping leds to an LedMap
+#define MAP_LED(led) (LedMap)((uint64_t)1 << led)
+#define MAP_PAIR_EVEN(pair) MAP_LED(pairEven(pair))
+#define MAP_PAIR_ODD(pair) MAP_LED(pairOdd(pair))
+#define MAP_PAIR(pair) (MAP_PAIR_EVEN(pair) | MAP_PAIR_ODD(pair))
+
+// check if a map is purely just 1 led or not
+#define MAP_IS_ONE_LED(map) (map && !(map & (map-1)))
+
+// foreach led macro (only iterates singles)
+#define MAP_FOREACH_LED(map) for (LedPos pos = m_engine.leds().mapGetFirstLed(map); pos < LED_COUNT; pos = m_engine.leds().mapGetNextLed(map, pos))
+
+// bitmap of all pairs (basically LED_COUNT bits)
+#define MAP_LED_ALL (LedMap)((2 << (LED_COUNT - 1)) - 1)
+
+// blank map
+#define MAP_LED_NONE 0
+
+#define MAP_INVERSE(map) ((~map) & MAP_LED_ALL)
+
+// macro for all evens and odds
+#define MAP_PAIR_EVENS (((1 << LED_COUNT) - 1) & 0x55555555)
+#define MAP_PAIR_ODDS (((1 << LED_COUNT) - 1) & 0xAAAAAAAA)
+
+// Some preset bitmaps for pair groupings
+#define MAP_PAIR_ODD_EVENS (MAP_PAIR_EVEN(PAIR_0) | MAP_PAIR_EVEN(PAIR_2) | MAP_PAIR_EVEN(PAIR_4))
+#define MAP_PAIR_ODD_ODDS (MAP_PAIR_ODD(PAIR_0) | MAP_PAIR_ODD(PAIR_2) | MAP_PAIR_ODD(PAIR_4))
+
+#define MAP_PAIR_EVEN_EVENS (MAP_PAIR_EVEN(PAIR_3) | MAP_PAIR_EVEN(PAIR_1))
+#define MAP_PAIR_EVEN_ODDS (MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_1))
+
 #endif
 
 // Defined the LED positions, their order, and index
@@ -90,6 +133,58 @@ enum Pair : uint8_t
   PAIR_COUNT,
   PAIR_LAST = (PAIR_COUNT - 1),
 };
+
+// LedPos operators
+inline LedPos &operator++(LedPos &c)
+{
+  c = LedPos(((uint32_t)c) + 1);
+  return c;
+}
+inline LedPos operator++(LedPos &c, int)
+{
+  LedPos temp = c;
+  ++c;
+  return temp;
+}
+inline LedPos operator+(LedPos &c, int b)
+{
+  return (LedPos)((uint32_t)c + b);
+}
+inline LedPos &operator+=(LedPos &c, int b)
+{
+  c = LedPos(((uint32_t)c) + b);
+  return c;
+}
+inline LedPos operator-(LedPos &c, int b)
+{
+  return (LedPos)((uint32_t)c - b);
+}
+inline LedPos &operator-=(LedPos &c, int b)
+{
+  c = LedPos(((uint32_t)c) - b);
+  return c;
+}
+
+// pair operators
+inline Pair &operator++(Pair &c)
+{
+  c = Pair(((uint32_t)c) + 1);
+  return c;
+}
+inline Pair operator++(Pair &c, int)
+{
+  Pair temp = c;
+  ++c;
+  return temp;
+}
+inline Pair operator+(Pair &c, int b)
+{
+  return (Pair)((uint32_t)c + b);
+}
+inline Pair operator-(Pair &c, int b)
+{
+  return (Pair)((uint32_t)c - b);
+}
 
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
 // or off with a single integer
@@ -205,6 +300,61 @@ public:
   LedPos ledAllSingle() { return (LedPos)(m_ledCount + 2); }
   LedPos ledAny() { return (LedPos)(m_ledCount + 3); }
   RGBColor *ledData() { return m_ledColors.data(); }
+
+  // set a single led
+  inline void mapSetLed(LedMap &map, LedPos pos)
+  {
+    if (pos < ledCount()) map |= (1ull << pos);
+  }
+  // set a single pair
+  inline void mapSetPair(LedMap &map, Pair pair)
+  {
+    mapSetLed(map, pairEven(pair));
+    mapSetLed(map, pairOdd(pair));
+  }
+
+  // check if an led is set in the map
+  inline bool mapCheckLed(LedMap map, LedPos pos)
+  {
+    return ((map & (1ull << pos)) != 0);
+  }
+  // check if a pair is set in the map (both leds)
+  inline bool mapCheckPair(LedMap map, Pair pair)
+  {
+    return mapCheckLed(map, pairEven(pair)) && mapCheckLed(map, pairOdd(pair));
+  }
+
+  // convert a map to the first Led position in the map
+  inline LedPos mapGetFirstLed(LedMap map)
+  {
+    if (map == MAP_LED(ledMulti())) {
+      return ledMulti();
+    }
+    LedPos pos = LED_FIRST;
+    while (map && pos < ledCount()) {
+      if (map & 1) {
+        return pos;
+      }
+      map >>= 1;
+      pos = (LedPos)(pos + 1);
+    }
+    return ledCount();
+  }
+
+  // given an led map and a position, find the next position in the map
+  inline LedPos mapGetNextLed(LedMap map, LedPos pos)
+  {
+    pos = (LedPos)(pos + 1);
+    map >>= pos;
+    while (map && pos < ledCount()) {
+      if (map & 1) {
+        return pos;
+      }
+      map >>= 1;
+      pos = (LedPos)(pos + 1);
+    }
+    return ledCount();
+  }
 #else
   RGBColor *ledData() { return m_ledColors; }
 #endif
@@ -213,9 +363,15 @@ private:
   // accessor for led colors, use this for all access to allow for mapping
   inline RGBColor &led(LedPos pos)
   {
+#if FIXED_LED_COUNT == 0
+    if (pos >= m_ledColors.size()) {
+      pos = LED_0;
+    }
+#else
     if (pos > LED_LAST) {
       pos = LED_LAST;
     }
+#endif
     return m_ledColors[pos];
   }
 

@@ -142,7 +142,7 @@ void Leds::clearAllOdds()
 void Leds::setMap(LedMap map, RGBColor col)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (checkLed(map, pos)) {
+    if (mapCheckLed(map, pos)) {
       setIndex(pos, col);
     }
   }
@@ -151,7 +151,7 @@ void Leds::setMap(LedMap map, RGBColor col)
 void Leds::clearMap(LedMap map)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (checkLed(map, pos)) {
+    if (mapCheckLed(map, pos)) {
       clearIndex(pos);
     }
   }
@@ -214,7 +214,7 @@ void Leds::blinkMap(LedMap targets, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((m_engine.time().getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
-      if (checkLed(targets, pos)) {
+      if (mapCheckLed(targets, pos)) {
         setIndex(pos, col);
       }
     }

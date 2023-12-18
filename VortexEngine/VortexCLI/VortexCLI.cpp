@@ -142,6 +142,9 @@ static void wasm_init()
 #endif // ifdef WASM
 
 VortexCLI::VortexCLI() :
+  m_vortex(),
+  m_engine(m_vortex.engine()),
+  m_ledList(),
   m_numLeds(0),
   m_initialized(false),
   m_buttonPressed(false),
@@ -529,6 +532,8 @@ bool VortexCLI::init(int argc, char *argv[])
     fclose(inputFile);
     // clear existing modes
     m_vortex.engine().modes().clearModes();
+    // match the led count of the savefile
+    m_vortex.matchLedCount(stream);
     // check if the load from savefile was provided, this is kinda ugly but whatever
     if (m_loadSaveFile.size() >= 8 && m_loadSaveFile.rfind(".vtxmode") == m_loadSaveFile.size() - 8) {
       // ends with .vtxmode, load just a single mode

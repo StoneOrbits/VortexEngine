@@ -12,7 +12,7 @@ LighthousePattern::LighthousePattern(VortexEngine &engine, const PatternArgs &ar
   m_fadeAmount(0),
   m_fadeRate(0),
   m_fadeTimer(engine),
-  m_stash(),
+  m_stash(engine),
   m_progress(0)
 {
   m_patternID = PATTERN_LIGHTHOUSE;

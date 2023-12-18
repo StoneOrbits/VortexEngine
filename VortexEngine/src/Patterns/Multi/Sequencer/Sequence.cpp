@@ -1,5 +1,7 @@
 #include "Sequence.h"
 
+#include "../../../VortexEngine.h"
+
 #include "../../../Serial/ByteStream.h"
 #include "../../../Memory/Memory.h"
 #include "../../../Leds/Leds.h"
@@ -10,7 +12,8 @@
 // some arbitrary number
 #define MAX_SEQUENCE_STEPS 64
 
-PatternMap::PatternMap() :
+PatternMap::PatternMap(VortexEngine &engine) :
+  m_engine(engine),
   m_patternMap()
 {
 #if FIXED_LED_COUNT == 0
@@ -21,8 +24,8 @@ PatternMap::PatternMap() :
   }
 }
 
-PatternMap::PatternMap(PatternID pattern, LedMap positions) :
-  PatternMap()
+PatternMap::PatternMap(VortexEngine &engine, PatternID pattern, LedMap positions) :
+  PatternMap(engine)
 {
   setPatternAt(pattern, positions);
 }
@@ -31,7 +34,7 @@ PatternMap::PatternMap(PatternID pattern, LedMap positions) :
 void PatternMap::setPatternAt(PatternID pattern, LedMap positions)
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    if (checkLed(positions, pos)) {
+    if (m_engine.leds().mapCheckLed(positions, pos)) {
       m_patternMap[pos] = pattern;
     }
   }
@@ -61,13 +64,14 @@ void PatternMap::unserialize(ByteStream &buffer)
   }
 }
 
-ColorsetMap::ColorsetMap() :
+ColorsetMap::ColorsetMap(VortexEngine &engine) :
+  m_engine(engine),
   m_colorsetMap()
 {
 }
 
-ColorsetMap::ColorsetMap(const Colorset &colorset, LedMap positions) :
-  ColorsetMap()
+ColorsetMap::ColorsetMap(VortexEngine &engine, const Colorset &colorset, LedMap positions) :
+  ColorsetMap(engine)
 {
   setColorsetAt(colorset, positions);
 }
@@ -76,7 +80,7 @@ ColorsetMap::ColorsetMap(const Colorset &colorset, LedMap positions) :
 void ColorsetMap::setColorsetAt(const Colorset &colorset, LedMap positions)
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    if (checkLed(positions, pos)) {
+    if (m_engine.leds().mapCheckLed(positions, pos)) {
       m_colorsetMap[pos] = colorset;
     }
   }
@@ -101,16 +105,16 @@ void ColorsetMap::unserialize(ByteStream &buffer)
 }
 
 // Make an array of sequence steps to create a sequenced pattern
-SequenceStep::SequenceStep() :
-  m_duration(0), m_patternMap(), m_colorsetMap()
+SequenceStep::SequenceStep(VortexEngine &engine) :
+  m_engine(engine), m_duration(0), m_patternMap(engine), m_colorsetMap(engine)
 {
 }
-SequenceStep::SequenceStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap) :
-  m_duration(duration), m_patternMap(patternMap), m_colorsetMap(colorsetMap)
+SequenceStep::SequenceStep(VortexEngine &engine, uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap) :
+  m_engine(engine), m_duration(duration), m_patternMap(engine, patternMap, MAP_LED_ALL), m_colorsetMap(engine, colorsetMap, MAP_LED_ALL)
 {
 }
 SequenceStep::SequenceStep(const SequenceStep &other) :
-  SequenceStep(other.m_duration, other.m_patternMap, other.m_colorsetMap)
+  SequenceStep(other.m_engine, other.m_duration, other.m_patternMap, other.m_colorsetMap)
 {
 }
 
@@ -128,7 +132,8 @@ void SequenceStep::unserialize(ByteStream &buffer)
   m_colorsetMap.unserialize(buffer);
 }
 
-Sequence::Sequence() :
+Sequence::Sequence(VortexEngine &engine) :
+  m_engine(engine),
   m_sequenceSteps(nullptr),
   m_numSteps(0)
 {
@@ -140,13 +145,14 @@ Sequence::~Sequence()
 }
 
 Sequence::Sequence(const Sequence &other) :
-  Sequence()
+  Sequence(other.m_engine)
 {
   // invoke = operator
   *this = other;
 }
 
 Sequence::Sequence(Sequence &&other) noexcept :
+  m_engine(other.m_engine),
   m_sequenceSteps(other.m_sequenceSteps),
   m_numSteps(other.m_numSteps)
 {
@@ -180,7 +186,7 @@ void Sequence::initSteps(uint8_t numSteps)
   if (m_sequenceSteps) {
     delete[] m_sequenceSteps;
   }
-  m_sequenceSteps = new SequenceStep[numSteps];
+  m_sequenceSteps = new SequenceStep[numSteps] {m_engine};
   if (!m_sequenceSteps) {
     ERROR_OUT_OF_MEMORY();
     return;

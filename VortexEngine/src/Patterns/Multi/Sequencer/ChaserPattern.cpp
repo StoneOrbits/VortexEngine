@@ -1,5 +1,7 @@
 #include "ChaserPattern.h"
 
+#include "../../../VortexEngine.h"
+
 // This controls the ratio of chaser dots to LED_COUNT. Default 1 chaser per 7 LEDs. Range: 1-LED_COUNT.
 #define CHASER_RATIO 7
 

@@ -7,6 +7,8 @@
 #include "../Leds/Leds.h"
 #include "../VortexConfig.h"
 
+#if FIXED_LED_COUNT == 1
+
 // check if an led is even or odd
 #define isEven(pos) ((pos % 2) == 0)
 #define isOdd(pos) ((pos % 2) != 0)
@@ -156,4 +158,5 @@ inline Pair operator-(Pair &c, int b)
   return (Pair)((uint32_t)c - b);
 }
 
+#endif
 #endif

@@ -58,6 +58,8 @@ private:
 
   // vortex lib
   Vortex m_vortex;
+  // engine reference so that LED_ macros work
+  VortexEngine &m_engine;
 
   // these are in no particular order
   RGBColor *m_ledList;

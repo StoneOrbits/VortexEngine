@@ -18,8 +18,8 @@ class ByteStream;
 class PatternMap
 {
 public:
-  PatternMap();
-  PatternMap(PatternID pattern, LedMap positions = MAP_LED_ALL);
+  PatternMap(VortexEngine &engine);
+  PatternMap(VortexEngine &engine, PatternID pattern, LedMap positions);
 
   // set a pattern at each position in the LedMap
   void setPatternAt(PatternID pattern, LedMap positions);
@@ -28,6 +28,9 @@ public:
   // serialize and unserialize a pattern map
   void serialize(ByteStream &buffer) const;
   void unserialize(ByteStream &buffer);
+
+  // engine reference
+  VortexEngine &m_engine;
 
 #if FIXED_LED_COUNT == 0
   // public list of pattern IDs for each led
@@ -41,8 +44,8 @@ public:
 class ColorsetMap
 {
 public:
-  ColorsetMap();
-  ColorsetMap(const Colorset &colorset, LedMap positions = MAP_LED_ALL);
+  ColorsetMap(VortexEngine &engine);
+  ColorsetMap(VortexEngine &engine, const Colorset &colorset, LedMap positions);
 
   // set a pattern at each position in the LedMap
   void setColorsetAt(const Colorset &colorset, LedMap positions);
@@ -51,6 +54,9 @@ public:
   // serialize and unserialize a colorset map
   void serialize(ByteStream &buffer) const;
   void unserialize(ByteStream &buffer);
+
+  // engine reference
+  VortexEngine &m_engine;
 
 #if FIXED_LED_COUNT == 0
   // public list of pattern IDs for each led
@@ -64,13 +70,16 @@ public:
 class SequenceStep
 {
 public:
-  SequenceStep();
-  SequenceStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap = Colorset());
+  SequenceStep(VortexEngine &engine);
+  SequenceStep(VortexEngine &engine, uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap);
   SequenceStep(const SequenceStep &other);
 
   // serialize and unserialize a step in the sequencer
   void serialize(ByteStream &buffer) const;
   void unserialize(ByteStream &buffer);
+
+  // engine reference
+  VortexEngine &m_engine;
 
   // public members to allow for easy initialization of an array of SequenceSteps
   uint16_t m_duration;
@@ -82,7 +91,7 @@ public:
 class Sequence
 {
 public:
-  Sequence();
+  Sequence(VortexEngine &engine);
   ~Sequence();
 
   Sequence(const Sequence &other);
@@ -104,6 +113,9 @@ public:
   const SequenceStep &operator[](uint8_t index) const;
 
 private:
+  // engine reference
+  VortexEngine &m_engine;
+
   // static data
   SequenceStep *m_sequenceSteps;
   uint8_t m_numSteps;

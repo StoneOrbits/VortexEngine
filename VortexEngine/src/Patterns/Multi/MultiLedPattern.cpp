@@ -1,5 +1,7 @@
 #include "MultiLedPattern.h"
 
+#include "../../VortexEngine.h"
+
 MultiLedPattern::MultiLedPattern(VortexEngine &engine, const PatternArgs &args) :
   Pattern(engine, args)
 {

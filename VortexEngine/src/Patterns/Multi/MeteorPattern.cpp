@@ -10,7 +10,7 @@ MeteorPattern::MeteorPattern(VortexEngine &engine, const PatternArgs &args) :
   BlinkStepPattern(engine, args),
   m_fadeAmount(0),
   m_randCtx(),
-  m_stash()
+  m_stash(engine)
 {
   m_patternID = PATTERN_METEOR;
   REGISTER_ARG(m_fadeAmount);

@@ -94,9 +94,9 @@ void ColorSelect::onLedSelected()
   Mode *cur = m_engine.modes().curMode();
   // grab the colorset from our selected target led
   if (m_targetLeds == MAP_LED_ALL) {
-    m_colorset = cur->getColorset();
+    m_colorset = cur->getColorset(LED_ANY);
   } else {
-    m_colorset = cur->getColorset(mapGetFirstLed(m_targetLeds));
+    m_colorset = cur->getColorset(m_engine.leds().mapGetFirstLed(m_targetLeds));
   }
 }
 
