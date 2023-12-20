@@ -45,7 +45,7 @@ val RunTick(Vortex &vortex) {
   // then extract the color that was produced by the tick
   RGBColor *leds = vortex.engine().leds().ledData();
   val ledArray = val::array();
-  for (uint32_t i = 0; i < LED_COUNT; ++i) {
+  for (uint32_t i = 0; i < vortex.engine().leds().ledCount(); ++i) {
     val color = val::object();
     color.set("red", leds[i].red);
     color.set("green", leds[i].green);
@@ -177,12 +177,12 @@ EMSCRIPTEN_BINDINGS(Vortex) {
 
   // Binding dynamic values from Leds class
   class_<Leds>("Leds")
-    .function("ledCount", &Leds::.ledCount)
-    .function("ledLast", &Leds::.ledLast)
-    .function("ledMulti", &Leds::.ledMulti)
-    .function("ledAllSingle", &Leds::.ledAllSingle)
-    .function("ledAny", &Leds::.ledAny)
-    .function("ledData", &Leds::.ledData);
+    .function("ledCount", &Leds::ledCount)
+    .function("ledLast", &Leds::ledLast)
+    .function("ledMulti", &Leds::ledMulti)
+    .function("ledAllSingle", &Leds::ledAllSingle)
+    .function("ledAny", &Leds::ledAny)
+    .function("ledData", &Leds::ledData, allow_raw_pointer<const RGBColor *>());
 
   enum_<PatternID>("PatternID")
     // Meta Constants
@@ -313,6 +313,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
     .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
     .function("init", select_overload<void(uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t, uint8_t)>(&PatternArgs::init))
+    .function("addArgs", select_overload<void(uint8_t)>(&PatternArgs::addArgs))
     .property("arg1", &PatternArgs::arg1)
     .property("arg2", &PatternArgs::arg2)
     .property("arg3", &PatternArgs::arg3)
