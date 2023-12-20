@@ -134,6 +134,7 @@ enum Pair : uint8_t
   PAIR_LAST = (PAIR_COUNT - 1),
 };
 
+#if FIXED_LED_COUNT == 0
 // LedPos operators
 inline LedPos &operator++(LedPos &c)
 {
@@ -185,6 +186,7 @@ inline Pair operator-(Pair &c, int b)
 {
   return (Pair)((uint32_t)c - b);
 }
+#endif
 
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
 // or off with a single integer

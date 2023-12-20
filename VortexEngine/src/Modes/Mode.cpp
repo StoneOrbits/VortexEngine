@@ -799,7 +799,11 @@ LedMap Mode::getSingleLedMap() const
   LedMap map = 0;
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; pos++) {
     if (m_singlePats[pos]) {
+#if FIXED_LED_COUNT == 0
       m_engine.leds().mapSetLed(map, pos);
+#else
+      mapSetLed(map, pos);
+#endif
     }
   }
   return map;

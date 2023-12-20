@@ -84,26 +84,26 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 #define MAP_PAIR_EVEN_ODDS (MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_1))
 
 // set a single led
-inline void setLed(LedMap &map, LedPos pos)
+inline void mapSetLed(LedMap &map, LedPos pos)
 {
   if (pos < LED_COUNT) map |= (1ull << pos);
 }
 // set a single pair
-inline void setPair(LedMap &map, Pair pair)
+inline void mapSetPair(LedMap &map, Pair pair)
 {
-  setLed(map, pairEven(pair));
-  setLed(map, pairOdd(pair));
+  mapSetLed(map, pairEven(pair));
+  mapSetLed(map, pairOdd(pair));
 }
 
 // check if an led is set in the map
-inline bool checkLed(LedMap map, LedPos pos)
+inline bool mapCheckLed(LedMap map, LedPos pos)
 {
   return ((map & (1ull << pos)) != 0);
 }
 // check if a pair is set in the map (both leds)
-inline bool checkPair(LedMap map, Pair pair)
+inline bool mapCheckPair(LedMap map, Pair pair)
 {
-  return checkLed(map, pairEven(pair)) && checkLed(map, pairOdd(pair));
+  return mapCheckLed(map, pairEven(pair)) && mapCheckLed(map, pairOdd(pair));
 }
 
 // LedPos operators

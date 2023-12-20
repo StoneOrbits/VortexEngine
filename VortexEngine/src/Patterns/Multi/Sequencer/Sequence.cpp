@@ -70,7 +70,11 @@ bool PatternMap::operator!=(const PatternMap &other) const
 void PatternMap::setPatternAt(PatternID pattern, LedMap positions)
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+#if FIXED_LED_COUNT == 0
     if (m_engine.leds().mapCheckLed(positions, pos)) {
+#else
+    if (mapCheckLed(positions, pos)) {
+#endif
       m_patternMap[pos] = pattern;
     }
   }
@@ -152,7 +156,11 @@ bool ColorsetMap::operator!=(const ColorsetMap &other) const
 void ColorsetMap::setColorsetAt(const Colorset &colorset, LedMap positions)
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+#if FIXED_LED_COUNT == 0
     if (m_engine.leds().mapCheckLed(positions, pos)) {
+#else
+    if (mapCheckLed(positions, pos)) {
+#endif
       m_colorsetMap[pos] = colorset;
     }
   }
@@ -365,10 +373,15 @@ void Sequence::initSteps(uint8_t numSteps)
   if (m_sequenceSteps) {
     delete[] m_sequenceSteps;
   }
-  m_sequenceSteps = new SequenceStep[numSteps] {m_engine};
+  void *temp = new char[numSteps * sizeof(SequenceStep)];
+  m_sequenceSteps = reinterpret_cast<SequenceStep *>(temp);
   if (!m_sequenceSteps) {
     ERROR_OUT_OF_MEMORY();
     return;
+  }
+  // Construct objects in the allocated memory
+  for (uint32_t i = 0; i < numSteps; ++i) {
+    new (&m_sequenceSteps[i]) SequenceStep(m_engine);
   }
   m_numSteps = numSteps;
 }
@@ -379,7 +392,7 @@ uint8_t Sequence::addStep(const SequenceStep &step)
     return false;
   }
   // allocate a new palette one larger than before
-  SequenceStep *temp = new SequenceStep[m_numSteps + 1];
+  SequenceStep *temp = (SequenceStep *)new char[(m_numSteps + 1) * sizeof(SequenceStep)];
   if (!temp) {
     return false;
   }
@@ -387,6 +400,9 @@ uint8_t Sequence::addStep(const SequenceStep &step)
   if (m_numSteps && m_sequenceSteps) {
     // copy over existing colors
     for (uint8_t i = 0; i < m_numSteps; ++i) {
+      // initialize the new step with engine
+      new (&temp[i]) SequenceStep(m_engine);
+      // copy over the data
       temp[i] = m_sequenceSteps[i];
     }
     // and delete the existing palette
@@ -402,7 +418,7 @@ uint8_t Sequence::addStep(const SequenceStep &step)
 
 uint8_t Sequence::addStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap)
 {
-  return addStep(SequenceStep(duration, patternMap, colorsetMap));
+  return addStep(SequenceStep(m_engine, duration, patternMap, colorsetMap));
 }
 
 void Sequence::clear()

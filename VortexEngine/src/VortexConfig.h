@@ -373,7 +373,7 @@
 //
 // NOTE: This does not touch the 'leds' class itself it only adjusts whether
 //       a mode will stretch it's list of patterns to match the number of leds
-#define FIXED_LED_COUNT       0
+#define FIXED_LED_COUNT       1
 
 // Enable Editor Connection
 //
