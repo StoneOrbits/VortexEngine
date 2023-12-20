@@ -3,9 +3,7 @@
 
 #include "MultiLedPattern.h"
 
-#if FIXED_LED_COUNT == 0
 #include <vector>
-#endif
 
 class SingleLedPattern;
 
@@ -36,12 +34,8 @@ protected:
   void setEvensOdds(PatternID tipPattern, PatternID topPattern,
     const PatternArgs *tipArgs = nullptr, const PatternArgs *topArgs = nullptr);
 
-#if FIXED_LED_COUNT == 0
   // array of single LED patterns, one for each LED
   std::vector<SingleLedPattern *> m_ledPatterns;
-#else
-  SingleLedPattern *m_ledPatterns[LED_COUNT];
-#endif
 };
 
 #endif

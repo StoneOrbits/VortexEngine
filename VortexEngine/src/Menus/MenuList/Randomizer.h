@@ -6,9 +6,7 @@
 #include "../../Random/Random.h"
 #include "../../Modes/Mode.h"
 
-#if FIXED_LED_COUNT == 0
 #include <vector>
-#endif
 
 class Mode;
 
@@ -30,11 +28,7 @@ public:
 
 private:
   // random context for each led and led multi (LED_COUNT + 1)
-#if FIXED_LED_COUNT == 0
   std::vector<Random> m_singlesRandCtx;
-#else
-  Random m_singlesRandCtx[LED_COUNT];
-#endif
 #if VORTEX_SLIM == 0
   // random context for the multi led position
   Random m_multiRandCtx;

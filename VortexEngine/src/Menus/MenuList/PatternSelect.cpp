@@ -51,11 +51,7 @@ Menu::MenuAction PatternSelect::run()
 
 void PatternSelect::onLedSelected()
 {
-#if FIXED_LED_COUNT == 0
   m_srcLed = m_engine.leds().mapGetFirstLed(m_targetLeds);
-#else
-  m_srcLed = mapGetFirstLed(m_targetLeds);
-#endif
 }
 
 void PatternSelect::onShortClick()

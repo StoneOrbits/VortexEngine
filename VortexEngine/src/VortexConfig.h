@@ -363,18 +363,6 @@
 // See Log/ErrorBlinker.h for details on the error codes
 #define VORTEX_ERROR_BLINK    0
 
-// Fixed LED Count
-//
-// Do not allow the Mode loader to dynamically load however many modes
-// are saved in the savefile. This should be enabled for embedded or vortex
-// device builds because they cannot change their number of LEDs. However
-// other tools like the editor or vortex emulator may be able to make use
-// of this to dynamically adjust the number of leds that a mode can handle
-//
-// NOTE: This does not touch the 'leds' class itself it only adjusts whether
-//       a mode will stretch it's list of patterns to match the number of leds
-#define FIXED_LED_COUNT       1
-
 // Enable Editor Connection
 //
 // Turn on the editor connection, some devices are capable of connecting to
@@ -574,10 +562,6 @@
 
 // This will be defined if the project is being built inside the editor
 #ifdef PROJECT_NAME_VortexEditor
-
-// The editor needs an unfixed led count in order to load any mode
-#undef FIXED_LED_COUNT
-#define FIXED_LED_COUNT 0
 
 #endif // VortexEditor
 

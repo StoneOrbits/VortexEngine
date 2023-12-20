@@ -13,7 +13,6 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
-#if FIXED_LED_COUNT == 0
 // for internal reference to the led count
 #define MODE_LEDCOUNT m_numLeds
 Mode::Mode(VortexEngine &engine, uint8_t numLeds) :
@@ -30,21 +29,6 @@ Mode::Mode(VortexEngine &engine) :
   Mode(engine, engine.leds().ledCount())
 {
 }
-#else
-// for internal reference to the led count
-#define MODE_LEDCOUNT LED_COUNT
-Mode::Mode(VortexEngine &engine) :
-  m_engine(engine),
-#if VORTEX_SLIM == 0
-  m_multiPat(nullptr),
-#endif
-  m_singlePats()
-{
-  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    m_singlePats[i] = nullptr;
-  }
-}
-#endif
 
 Mode::Mode(VortexEngine &engine, PatternID id, const Colorset &set) :
   Mode(engine)
@@ -76,9 +60,7 @@ Mode::Mode(VortexEngine &engine, PatternID id, const PatternArgs *args, const Co
 Mode::~Mode()
 {
   clearPattern(LED_ALL);
-#if FIXED_LED_COUNT == 0
   free(m_singlePats);
-#endif
 }
 
 // copy and assignment operators
@@ -90,9 +72,7 @@ Mode::Mode(const Mode &other) :
 
 void Mode::operator=(const Mode &other)
 {
-#if FIXED_LED_COUNT == 0
   setLedCount(other.getLedCount());
-#endif
   clearPattern(LED_ALL);
 #if VORTEX_SLIM == 0
   if (other.m_multiPat) {
@@ -258,14 +238,12 @@ bool Mode::unserialize(ByteStream &buffer)
   uint8_t ledCount = LED_COUNT;
   // unserialize the number of leds
   buffer.unserialize(&ledCount);
-#if FIXED_LED_COUNT == 0
   // adjust the internal led count of the mode if the incoming stream is different
   // generally no embedded device would ever used an unfixed led count, this is purely
   // for vortexlib to allow things like the editor to load modes of any size leds
   if (ledCount != m_numLeds) {
     //setLedCount(ledCount);
   }
-#endif // FIXED_LED_COUNT
   if (!ledCount) {
     // empty mode?
     return true;
@@ -384,7 +362,6 @@ bool Mode::equals(const Mode *other) const
   return true;
 }
 
-#if FIXED_LED_COUNT == 0
 // change the internal pattern count in the mode object
 bool Mode::setLedCount(uint8_t numLeds)
 {
@@ -400,15 +377,10 @@ bool Mode::setLedCount(uint8_t numLeds)
   }
   return true;
 }
-#endif
 
 uint8_t Mode::getLedCount() const
 {
-#if FIXED_LED_COUNT == 0
   return m_numLeds;
-#else
-  return LED_COUNT;
-#endif
 }
 
 const Pattern *Mode::getPattern(LedPos pos) const
@@ -436,11 +408,9 @@ Pattern *Mode::getPattern(LedPos pos)
     }
     // For LED_ANY, try to fall through to LED_ALL_SINGLE
     else if (pos == LED_ANY) {
-#if FIXED_LED_COUNT == 0
       if (!m_singlePats) {
         return nullptr;
       }
-#endif
       for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
         if (m_singlePats[pos]) {
           return m_singlePats[pos];
@@ -451,11 +421,9 @@ Pattern *Mode::getPattern(LedPos pos)
 
   // equivalent to case LED_ALL_SINGLE
   else if (pos == LED_ALL_SINGLE) {
-#if FIXED_LED_COUNT == 0
     if (!m_singlePats) {
       return nullptr;
     }
-#endif
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
       if (m_singlePats[pos]) {
         return m_singlePats[pos];
@@ -465,11 +433,9 @@ Pattern *Mode::getPattern(LedPos pos)
 
   // equivalent to default case (covers any other pos)
   else {
-#if FIXED_LED_COUNT == 0
     if (!m_singlePats) {
       return nullptr;
     }
-#endif
     if (pos < LED_COUNT && m_singlePats[pos]) {
       return m_singlePats[pos];
     }
@@ -533,11 +499,9 @@ bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const 
     }
     // fall through if LED_ALL and delete the single leds
     else if (pos == LED_ANY || pos == LED_ALL) {
-#if FIXED_LED_COUNT == 0
       if (!m_singlePats) {
         return false;
       }
-#endif
       for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
         if (!setPattern(pat, pos, args, &newSet)) {
           return false;
@@ -550,11 +514,9 @@ bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const 
 
   // equivalent to case LED_ALL_SINGLE
   else if (pos == LED_ALL_SINGLE) {
-#if FIXED_LED_COUNT == 0
     if (!m_singlePats) {
       return false;
     }
-#endif
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
       if (!setPattern(pat, pos, args, &newSet)) {
         return false;
@@ -565,11 +527,9 @@ bool Mode::setPattern(PatternID pat, LedPos pos, const PatternArgs *args, const 
 
   // equivalent to default case (covers any other pos)
   else {
-#if FIXED_LED_COUNT == 0
     if (!m_singlePats) {
       return false;
     }
-#endif
     if (pos >= LED_COUNT) {
       return false;
     }
@@ -614,11 +574,9 @@ bool Mode::setColorset(const Colorset &set, LedPos pos)
     }
     // fall through if LED_ALL and delete the single leds
     else if (pos == LED_ANY || pos == LED_ALL) {
-#if FIXED_LED_COUNT == 0
       if (!m_singlePats) {
         return false;
       }
-#endif
       for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
         if (m_singlePats[pos]) {
           m_singlePats[pos]->setColorset(set);
@@ -631,11 +589,9 @@ bool Mode::setColorset(const Colorset &set, LedPos pos)
 
   // equivalent to case LED_ALL_SINGLE
   else if (pos == LED_ALL_SINGLE) {
-#if FIXED_LED_COUNT == 0
     if (!m_singlePats) {
       return false;
     }
-#endif
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
       if (m_singlePats[pos]) {
         m_singlePats[pos]->setColorset(set);
@@ -646,11 +602,9 @@ bool Mode::setColorset(const Colorset &set, LedPos pos)
 
   // equivalent to default case (covers any other pos)
   else {
-#if FIXED_LED_COUNT == 0
     if (!m_singlePats) {
       return false;
     }
-#endif
     if (pos < LED_COUNT && m_singlePats[pos]) {
       m_singlePats[pos]->setColorset(set);
       return true;
@@ -799,11 +753,7 @@ LedMap Mode::getSingleLedMap() const
   LedMap map = 0;
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; pos++) {
     if (m_singlePats[pos]) {
-#if FIXED_LED_COUNT == 0
       m_engine.leds().mapSetLed(map, pos);
-#else
-      mapSetLed(map, pos);
-#endif
     }
   }
   return map;

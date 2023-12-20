@@ -37,9 +37,7 @@ typedef uint8_t ModeFlags;
 class Mode
 {
 public:
-#if FIXED_LED_COUNT == 0
   Mode(VortexEngine &engine, uint8_t numLeds);
-#endif
   Mode(VortexEngine &engine);
 
   Mode(VortexEngine &engine, PatternID id, const Colorset &set);
@@ -74,10 +72,8 @@ public:
   // mode comparison
   bool equals(const Mode *other) const;
 
-#if FIXED_LED_COUNT == 0
   // change the internal pattern count in the mode object
   bool setLedCount(uint8_t numLeds);
-#endif
   uint8_t getLedCount() const;
 
   // get the pattern at a position
@@ -146,14 +142,10 @@ private:
   Pattern *m_multiPat;
 #endif
   // a list of slots for each single led pattern
-#if FIXED_LED_COUNT == 0
   // the number of leds the mode is targetting
   uint8_t m_numLeds;
   // list of pointers to Patterns, one for each led
   Pattern **m_singlePats;
-#else
-  Pattern *m_singlePats[LED_COUNT];
-#endif
 };
 
 #endif

@@ -143,13 +143,8 @@ void Menu::nextBulbSelection()
       //m_targetLeds = MAP_LED_ALL;
       //break;
     }
-#if FIXED_LED_COUNT == 0
     // iterate as normal
     m_targetLeds = MAP_LED(((m_engine.leds().mapGetFirstLed(m_targetLeds) + 1) % (LED_COUNT + 1)));
-#else
-    // iterate as normal
-    m_targetLeds = MAP_LED(((mapGetFirstLed(m_targetLeds) + 1) % (LED_COUNT + 1)));
-#endif
   }
 }
 

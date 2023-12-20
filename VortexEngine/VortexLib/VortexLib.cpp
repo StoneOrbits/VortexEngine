@@ -173,19 +173,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .value("LED_6", LedPos::LED_6)
     .value("LED_7", LedPos::LED_7)
     .value("LED_8", LedPos::LED_8)
-    .value("LED_9", LedPos::LED_9)
-#if FIXED_LED_COUNT == 1
-    .value("LED_COUNT", LedPos::LED_COUNT)
-    .value("LED_LAST", LedPos::LED_LAST)
-    .value("LED_ALL", LedPos::LED_ALL)
-    .value("LED_MULTI", LedPos::LED_MULTI)
-    .value("LED_ALL_SINGLE", LedPos::LED_ALL_SINGLE)
-    .value("LED_ANY", LedPos::LED_ANY);
-  // If you decide to uncomment and use LED_EVENS and LED_ODDS in the future
-  // .value("LED_EVENS", LedPos::LED_EVENS)
-  // .value("LED_ODDS", LedPos::LED_ODDS)
-#else
-    ; // terminate the previous one
+    .value("LED_9", LedPos::LED_9);
 
   // Binding dynamic values from Leds class
   class_<Leds>("Leds")
@@ -195,7 +183,6 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("ledAllSingle", &Leds::.ledAllSingle)
     .function("ledAny", &Leds::.ledAny)
     .function("ledData", &Leds::.ledData);
-#endif
 
   enum_<PatternID>("PatternID")
     // Meta Constants
@@ -1049,7 +1036,6 @@ bool Vortex::setModes(ByteStream &stream, bool save)
 
 bool Vortex::matchLedCount(ByteStream &stream, bool vtxMode)
 {
-#if FIXED_LED_COUNT == 0
   if (!stream.decompress()) {
     return false;
   }
@@ -1074,14 +1060,10 @@ bool Vortex::matchLedCount(ByteStream &stream, bool vtxMode)
   // put the unserializer back where it was for the next thing
   stream.resetUnserializer();
   return setLedCount(ledCount);
-#else
-  return false;
-#endif
 }
 
 bool Vortex::checkLedCount()
 {
-#if FIXED_LED_COUNT == 0
   Mode *mode = m_engine.modes().curMode();
   if (!mode) {
     return false;
@@ -1090,29 +1072,22 @@ bool Vortex::checkLedCount()
   if (numLeds != LED_COUNT) {
     m_engine.leds().setLedCount(numLeds);
   }
-#endif
   return true;
 }
 
 uint8_t Vortex::setLedCount(uint8_t count)
 {
-#if FIXED_LED_COUNT == 0
   Mode *cur = m_engine.modes().curMode();
   if (cur && !cur->setLedCount(count)) {
     return false;
   }
   m_engine.leds().setLedCount(count);
-#endif
   return true;
 }
 
 uint8_t Vortex::getLedCount()
 {
-#if FIXED_LED_COUNT == 0
   return m_engine.leds().ledCount();
-#else
-  return LED_COUNT;
-#endif
 }
 
 bool Vortex::getCurMode(ByteStream &outStream)
@@ -1842,11 +1817,9 @@ Mode *Vortex::modeFromJson(const json &modeJson)
     return nullptr;
   }
 
-#if FIXED_LED_COUNT == 0
   if (modeJson.contains("num_leds") && modeJson["num_leds"].is_number_unsigned()) {
     mode->setLedCount(modeJson["num_leds"].get<uint8_t>());
   }
-#endif
 
   // Extract and set multiPattern
   if (modeJson.contains("multi_pat") && modeJson["multi_pat"].is_object()) {

@@ -96,11 +96,7 @@ void ColorSelect::onLedSelected()
   if (m_targetLeds == MAP_LED_ALL) {
     m_colorset = cur->getColorset(LED_ANY);
   } else {
-#if FIXED_LED_COUNT == 0
     m_colorset = cur->getColorset(m_engine.leds().mapGetFirstLed(m_targetLeds));
-#else
-    m_colorset = cur->getColorset(mapGetFirstLed(m_targetLeds));
-#endif
   }
 }
 

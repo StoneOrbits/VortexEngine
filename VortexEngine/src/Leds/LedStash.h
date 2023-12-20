@@ -4,9 +4,7 @@
 #include "../Colors/ColorTypes.h"
 #include "LedTypes.h"
 
-#if FIXED_LED_COUNT == 0
 #include <vector>
-#endif
 
 class LedStash
 {
@@ -25,11 +23,7 @@ public:
 private:
   // reference to engine
   VortexEngine &m_engine;
-#if FIXED_LED_COUNT == 1
-  RGBColor m_ledColorsStash[LED_COUNT];
-#else
   std::vector<RGBColor> m_ledColorsStash;
-#endif
 };
 
 #endif

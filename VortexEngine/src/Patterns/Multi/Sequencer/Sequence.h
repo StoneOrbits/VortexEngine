@@ -6,9 +6,7 @@
 #include "../../../Colors/Colorset.h"
 #include "../../../Time/Timer.h"
 
-#if FIXED_LED_COUNT == 0
 #include <vector>
-#endif
 
 class SequencedPattern;
 class SingleLedPattern;
@@ -37,12 +35,8 @@ public:
   // engine reference
   VortexEngine &m_engine;
 
-#if FIXED_LED_COUNT == 0
   // public list of pattern IDs for each led
   std::vector<PatternID> m_patternMap;
-#else
-  PatternID m_patternMap[LED_COUNT];
-#endif
 };
 
 // A map of leds to colorsets
@@ -68,12 +62,8 @@ public:
   // engine reference
   VortexEngine &m_engine;
 
-#if FIXED_LED_COUNT == 0
   // public list of pattern IDs for each led
   std::vector<Colorset> m_colorsetMap;
-#else
-  Colorset m_colorsetMap[LED_COUNT];
-#endif
 };
 
 // A single step in a sequence
@@ -130,13 +120,7 @@ private:
   // engine reference
   VortexEngine &m_engine;
 
-#if FIXED_LED_COUNT == 0
   std::vector<SequenceStep> m_sequenceSteps;
-#else
-  // static data
-  SequenceStep *m_sequenceSteps;
-  uint8_t m_numSteps;
-#endif
 };
 
 #endif

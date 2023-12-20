@@ -6,8 +6,8 @@
 #include "../Colors/ColorTypes.h"
 #include "../VortexConfig.h"
 
-#if FIXED_LED_COUNT == 0
 #include <vector>
+
 // drop-in LedPos constant replacements
 #define LED_COUNT m_engine.leds().ledCount()
 #define LED_LAST m_engine.leds().ledLast()
@@ -58,8 +58,6 @@
 #define MAP_PAIR_EVEN_EVENS (MAP_PAIR_EVEN(PAIR_3) | MAP_PAIR_EVEN(PAIR_1))
 #define MAP_PAIR_EVEN_ODDS (MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_1))
 
-#endif
-
 // Defined the LED positions, their order, and index
 enum LedPos : uint8_t
 {
@@ -77,46 +75,6 @@ enum LedPos : uint8_t
   LED_7,
   LED_8,
   LED_9,
-
-#if FIXED_LED_COUNT == 1
-  // the number of entries above
-  LED_COUNT,
-
-  // the last LED index
-  LED_LAST = (LED_COUNT - 1),
-
-  // target all leds (multi and single)
-  // When fetching this the same as LED_ANY
-  // When setting this will set all of the leds
-  LED_ALL = LED_COUNT,
-
-  // target the multi led slot
-  //
-  // When fetching this will return the multi led slot
-  // When setting this will set the multi led slot
-  LED_MULTI = (LED_COUNT + 1),
-
-  // target all single led slots
-  //
-  // When fetching this will return the first single led slot
-  // When setting this will set all single led slots
-  LED_ALL_SINGLE = (LED_COUNT + 2),
-
-  // Target the 'effective' led slot (any slot)
-  //
-  // When fetching this will:
-  //    1. return the multi led slot if it exists
-  //    2. otherwise the first single led slot
-  // 
-  // When setting this will:
-  //    1. if setting single led pattern will set all
-  //    2. if setting multi led pattern will set multi
-  LED_ANY = (LED_COUNT + 3),
-
-  // other customs?
-  // LED_EVENS = (LED_COUNT + 2),
-  // LED_ODDS = (LED_COUNT + 3),
-#endif
 };
 
 enum Pair : uint8_t
@@ -134,7 +92,6 @@ enum Pair : uint8_t
   PAIR_LAST = (PAIR_COUNT - 1),
 };
 
-#if FIXED_LED_COUNT == 0
 // LedPos operators
 inline LedPos &operator++(LedPos &c)
 {
@@ -186,7 +143,6 @@ inline Pair operator-(Pair &c, int b)
 {
   return (Pair)((uint32_t)c - b);
 }
-#endif
 
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
 // or off with a single integer
@@ -294,7 +250,6 @@ public:
   // actually update the LEDs and show the changes
   void update();
 
-#if FIXED_LED_COUNT == 0
   void setLedCount(uint8_t leds);
   LedPos ledCount() { return (LedPos)m_ledCount; }
   LedPos ledLast() { return (LedPos)(m_ledCount - 1); }
@@ -357,23 +312,14 @@ public:
     }
     return ledCount();
   }
-#else
-  RGBColor *ledData() { return m_ledColors; }
-#endif
 
 private:
   // accessor for led colors, use this for all access to allow for mapping
   inline RGBColor &led(LedPos pos)
   {
-#if FIXED_LED_COUNT == 0
     if (pos >= m_ledColors.size()) {
       pos = LED_0;
     }
-#else
-    if (pos > LED_LAST) {
-      pos = LED_LAST;
-    }
-#endif
     return m_ledColors[pos];
   }
 
@@ -383,14 +329,10 @@ private:
   // the global brightness
   uint8_t m_brightness;
 
-#if FIXED_LED_COUNT == 0
   // dynamic led count
   uint8_t m_ledCount;
   // array of led color values
   std::vector<RGBColor> m_ledColors;
-#else
-  RGBColor m_ledColors[LED_COUNT];
-#endif
 };
 
 #endif

@@ -15,12 +15,8 @@
 Leds::Leds(VortexEngine &engine) :
   m_engine(engine),
   m_brightness(DEFAULT_BRIGHTNESS),
-#if FIXED_LED_COUNT == 0
   m_ledCount(10),
   m_ledColors()
-#else
-  m_ledColors{ RGB_OFF }
-#endif
 {
 }
 
@@ -30,15 +26,9 @@ Leds::~Leds()
 
 bool Leds::init()
 {
-#if FIXED_LED_COUNT == 0
   setLedCount(LED_COUNT);
-#endif
 #ifdef VORTEX_LIB
-#if FIXED_LED_COUNT == 0
   m_engine.vortexLib().vcallbacks()->ledsInit(m_ledColors.data(), LED_COUNT);
-#else
-  m_engine.vortexLib().vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
-#endif
 #endif
   return true;
 }
@@ -271,10 +261,8 @@ void Leds::update()
 #endif
 }
 
-#if FIXED_LED_COUNT == 0
 void Leds::setLedCount(uint8_t leds)
 {
   m_ledCount = leds;
   m_ledColors.resize(m_ledCount);
 }
-#endif
