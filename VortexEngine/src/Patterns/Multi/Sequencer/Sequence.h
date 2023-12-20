@@ -20,6 +20,11 @@ class PatternMap
 public:
   PatternMap(VortexEngine &engine);
   PatternMap(VortexEngine &engine, PatternID pattern, LedMap positions);
+  PatternMap(VortexEngine &engine, const PatternMap &other);
+
+  void operator=(const PatternMap &other);
+  bool operator==(const PatternMap &other) const;
+  bool operator!=(const PatternMap &other) const;
 
   // set a pattern at each position in the LedMap
   void setPatternAt(PatternID pattern, LedMap positions);
@@ -46,6 +51,11 @@ class ColorsetMap
 public:
   ColorsetMap(VortexEngine &engine);
   ColorsetMap(VortexEngine &engine, const Colorset &colorset, LedMap positions);
+  ColorsetMap(VortexEngine &engine, const ColorsetMap &other);
+
+  void operator=(const ColorsetMap &other);
+  bool operator==(const ColorsetMap &other) const;
+  bool operator!=(const ColorsetMap &other) const;
 
   // set a pattern at each position in the LedMap
   void setColorsetAt(const Colorset &colorset, LedMap positions);
@@ -72,7 +82,11 @@ class SequenceStep
 public:
   SequenceStep(VortexEngine &engine);
   SequenceStep(VortexEngine &engine, uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap);
-  SequenceStep(const SequenceStep &other);
+  SequenceStep(VortexEngine &engine, const SequenceStep &other);
+
+  void operator=(const SequenceStep &other);
+  bool operator==(const SequenceStep &other) const;
+  bool operator!=(const SequenceStep &other) const;
 
   // serialize and unserialize a step in the sequencer
   void serialize(ByteStream &buffer) const;
@@ -103,7 +117,7 @@ public:
 
   void initSteps(uint8_t numSteps);
   uint8_t addStep(const SequenceStep &step);
-  uint8_t addStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap = Colorset());
+  uint8_t addStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap);
   void clear();
 
   void serialize(ByteStream &buffer) const;
@@ -116,9 +130,13 @@ private:
   // engine reference
   VortexEngine &m_engine;
 
+#if FIXED_LED_COUNT == 0
+  std::vector<SequenceStep> m_sequenceSteps;
+#else
   // static data
   SequenceStep *m_sequenceSteps;
   uint8_t m_numSteps;
+#endif
 };
 
 #endif

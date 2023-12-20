@@ -269,8 +269,8 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "   ./vortex --color\n");
   fprintf(stderr, "   ./vortex -ci -P42 -Ccyan,purple\n");
   fprintf(stderr, "   ./vortex -ct -Pblend -Ccyan,yellow,magenta <<< w100q\n");
-  fprintf(stderr, "   ./vortex -sq -L mysave.vortex -O output_storage_data.json\n");
-  fprintf(stderr, "   ./vortex -sq -L mymode.vtxmode -I input_storage_data.json\n");
+  fprintf(stderr, "   ./vortex -sq -L mysave.vortex -O output_data.json\n");
+  fprintf(stderr, "   ./vortex -sq -L mymode.vtxmode -O output_data.json\n");
 }
 
 #ifdef _WIN32
@@ -532,17 +532,17 @@ bool VortexCLI::init(int argc, char *argv[])
     fclose(inputFile);
     // clear existing modes
     m_vortex.engine().modes().clearModes();
-    // match the led count of the savefile
-    m_vortex.matchLedCount(stream);
     // check if the load from savefile was provided, this is kinda ugly but whatever
     if (m_loadSaveFile.size() >= 8 && m_loadSaveFile.rfind(".vtxmode") == m_loadSaveFile.size() - 8) {
+      // match the led count of the savefile, a vtxmode
+      m_vortex.matchLedCount(stream, true);
       // ends with .vtxmode, load just a single mode
       m_vortex.addNewMode(stream);
-      // TODO: match the led count?
     } else if (m_loadSaveFile.size() >= 7 && m_loadSaveFile.rfind(".vortex") == m_loadSaveFile.size() - 7) {
+      // match the led count of the savefile, a vortex file
+      m_vortex.matchLedCount(stream, false);
       // ends with .vortex, load the entire save
       m_vortex.setModes(stream);
-      // TODO: match the led count?
     } else {
       // wasn't a valid savefile name
       printf("Savefile name must end in .vortex or .vtxmode: [%s]\n", m_loadSaveFile.c_str());

@@ -171,9 +171,13 @@ public:
   bool setModes(ByteStream &stream, bool save = true);
   bool getCurMode(ByteStream &stream);
 
-  bool matchLedCount(ByteStream &stream);
+  // match the ledcount of the savefile in the stream, vtxMode = true
+  // to indicate it is a .vtxmode file or not
+  bool matchLedCount(ByteStream &stream, bool vtxMode);
+  // TODO: do we need this?
   bool checkLedCount();
-  bool setLedCount(uint8_t ledCount);
+  uint8_t setLedCount(uint8_t ledCount);
+  uint8_t getLedCount();
 
   // functions to operate on the current mode selection
   uint32_t curModeIndex();

@@ -13,7 +13,7 @@
 
 SequencedPattern::SequencedPattern(VortexEngine &engine, const PatternArgs &args) :
   CompoundPattern(engine, args),
-  m_sequence(),
+  m_sequence(engine),
   m_curSequence(0),
   m_timer(engine)
 {

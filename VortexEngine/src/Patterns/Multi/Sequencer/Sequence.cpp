@@ -30,6 +30,42 @@ PatternMap::PatternMap(VortexEngine &engine, PatternID pattern, LedMap positions
   setPatternAt(pattern, positions);
 }
 
+PatternMap::PatternMap(VortexEngine &engine, const PatternMap &other) :
+  PatternMap(engine)
+{
+  *this = other;
+}
+
+void PatternMap::operator=(const PatternMap &other)
+{
+#if FIXED_LED_COUNT == 0
+  m_patternMap = other.m_patternMap;
+#else
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
+    m_patternMap[i] = other.m_patternMap[i];
+  }
+#endif
+}
+
+bool PatternMap::operator==(const PatternMap &other) const
+{
+#if FIXED_LED_COUNT == 0
+  return m_patternMap == other.m_patternMap;
+#else
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
+    if (m_patternMap[i] != other.m_patternMap[i]) {
+      return false;
+    }
+  }
+  return true;
+#endif
+}
+
+bool PatternMap::operator!=(const PatternMap &other) const
+{
+  return !(*this == other);
+}
+
 // set a pattern at each position in the LedMap
 void PatternMap::setPatternAt(PatternID pattern, LedMap positions)
 {
@@ -76,6 +112,42 @@ ColorsetMap::ColorsetMap(VortexEngine &engine, const Colorset &colorset, LedMap 
   setColorsetAt(colorset, positions);
 }
 
+ColorsetMap::ColorsetMap(VortexEngine &engine, const ColorsetMap &other) :
+  ColorsetMap(engine)
+{
+  *this = other;
+}
+
+void ColorsetMap::operator=(const ColorsetMap &other)
+{
+#if FIXED_LED_COUNT == 0
+  m_colorsetMap == other.m_colorsetMap;
+#else
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
+    m_colorsetMap[i] = other.m_colorsetMap[i];
+  }
+#endif
+}
+
+bool ColorsetMap::operator==(const ColorsetMap &other) const
+{
+#if FIXED_LED_COUNT == 0
+  return m_colorsetMap == other.m_colorsetMap;
+#else
+  for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
+    if (m_colorsetMap[i] != other.m_colorsetMap[i]) {
+      return false;
+    }
+  }
+  return true;
+#endif
+}
+
+bool ColorsetMap::operator!=(const ColorsetMap &other) const
+{
+  return !(*this == other);
+}
+
 // set a pattern at each position in the LedMap
 void ColorsetMap::setColorsetAt(const Colorset &colorset, LedMap positions)
 {
@@ -109,13 +181,35 @@ SequenceStep::SequenceStep(VortexEngine &engine) :
   m_engine(engine), m_duration(0), m_patternMap(engine), m_colorsetMap(engine)
 {
 }
+
 SequenceStep::SequenceStep(VortexEngine &engine, uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap) :
-  m_engine(engine), m_duration(duration), m_patternMap(engine, patternMap, MAP_LED_ALL), m_colorsetMap(engine, colorsetMap, MAP_LED_ALL)
+  m_engine(engine), m_duration(duration), m_patternMap(engine, patternMap), m_colorsetMap(engine, colorsetMap)
 {
 }
-SequenceStep::SequenceStep(const SequenceStep &other) :
-  SequenceStep(other.m_engine, other.m_duration, other.m_patternMap, other.m_colorsetMap)
+
+SequenceStep::SequenceStep(VortexEngine &engine, const SequenceStep &other) :
+  SequenceStep(engine)
 {
+  *this = other;
+}
+
+void SequenceStep::operator=(const SequenceStep &other)
+{
+  this->m_duration = other.m_duration;
+  this->m_patternMap = other.m_patternMap;
+  this->m_colorsetMap = other.m_colorsetMap;
+}
+
+bool SequenceStep::operator==(const SequenceStep &other) const
+{
+  return (this->m_duration == other.m_duration &&
+          this->m_patternMap == other.m_patternMap &&
+          this->m_colorsetMap == other.m_colorsetMap);
+}
+
+bool SequenceStep::operator!=(const SequenceStep &other) const
+{
+  return !(*this == other);
 }
 
 void SequenceStep::serialize(ByteStream &buffer) const
@@ -134,8 +228,12 @@ void SequenceStep::unserialize(ByteStream &buffer)
 
 Sequence::Sequence(VortexEngine &engine) :
   m_engine(engine),
+#if FIXED_LED_COUNT == 0
+  m_sequenceSteps()
+#else
   m_sequenceSteps(nullptr),
   m_numSteps(0)
+#endif
 {
 }
 
@@ -150,6 +248,87 @@ Sequence::Sequence(const Sequence &other) :
   // invoke = operator
   *this = other;
 }
+
+#if FIXED_LED_COUNT == 0
+
+Sequence::Sequence(Sequence &&other) noexcept :
+  m_engine(other.m_engine),
+  m_sequenceSteps(other.m_sequenceSteps)
+{
+  other.m_sequenceSteps.clear();
+}
+
+void Sequence::operator=(const Sequence &other)
+{
+  m_sequenceSteps = other.m_sequenceSteps;
+}
+
+bool Sequence::operator==(const Sequence &other) const
+{
+  return m_sequenceSteps == other.m_sequenceSteps;
+}
+
+bool Sequence::operator!=(const Sequence &other) const
+{
+  return !operator==(other);
+}
+
+void Sequence::initSteps(uint8_t numSteps)
+{
+  m_sequenceSteps.clear();
+  m_sequenceSteps.reserve(numSteps);
+}
+
+uint8_t Sequence::addStep(const SequenceStep &step)
+{
+  if (m_sequenceSteps.size() >= MAX_SEQUENCE_STEPS) {
+    return false;
+  }
+  m_sequenceSteps.push_back(step);
+  return true;
+}
+
+uint8_t Sequence::addStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap)
+{
+  return addStep(SequenceStep(m_engine, duration, patternMap, colorsetMap));
+}
+
+void Sequence::clear()
+{
+  m_sequenceSteps.clear();
+}
+
+void Sequence::serialize(ByteStream &buffer) const
+{
+  uint8_t numSteps = (uint8_t)m_sequenceSteps.size();
+  buffer.serialize(numSteps);
+  for (uint8_t i = 0; i < numSteps; ++i) {
+    m_sequenceSteps[i].serialize(buffer);
+  }
+}
+
+void Sequence::unserialize(ByteStream &buffer)
+{
+  uint8_t numSteps = 0;
+  buffer.unserialize(&numSteps);
+  m_sequenceSteps.clear();
+  m_sequenceSteps.reserve(numSteps);
+  for (uint8_t i = 0; i < m_sequenceSteps.size(); ++i) {
+    m_sequenceSteps[i].unserialize(buffer);
+  }
+}
+
+uint8_t Sequence::numSteps() const
+{
+  return m_sequenceSteps.size();
+}
+
+const SequenceStep &Sequence::operator[](uint8_t index) const
+{
+  return m_sequenceSteps[index];
+}
+
+#else
 
 Sequence::Sequence(Sequence &&other) noexcept :
   m_engine(other.m_engine),
@@ -260,3 +439,5 @@ const SequenceStep &Sequence::operator[](uint8_t index) const
 {
   return m_sequenceSteps[index];
 }
+
+#endif

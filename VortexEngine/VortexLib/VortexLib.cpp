@@ -1042,13 +1042,12 @@ bool Vortex::setModes(ByteStream &stream, bool save)
   m_engine.modes().clearModes();
   // now unserialize the stream of data that was read
   if (!m_engine.modes().loadFromBuffer(stream)) {
-    //printf("Unserialize failed\n");
     return false;
   }
   return !save || doSave();
 }
 
-bool Vortex::matchLedCount(ByteStream &stream)
+bool Vortex::matchLedCount(ByteStream &stream, bool vtxMode)
 {
 #if FIXED_LED_COUNT == 0
   if (!stream.decompress()) {
@@ -1061,13 +1060,15 @@ bool Vortex::matchLedCount(ByteStream &stream)
   // unserialize the vortex version
   stream.unserialize(&major);
   stream.unserialize(&minor);
-  uint8_t flags;
-  stream.unserialize(&flags);
   // unserialize the global brightness
-  uint8_t brightness = 0;
-  stream.unserialize(&brightness);
-  uint8_t numModes = 0;
-  stream.unserialize(&numModes);
+  if (!vtxMode) {
+    uint8_t flags;
+    stream.unserialize(&flags);
+    uint8_t brightness = 0;
+    stream.unserialize(&brightness);
+    uint8_t numModes = 0;
+    stream.unserialize(&numModes);
+  }
   uint8_t ledCount = 0;
   stream.unserialize(&ledCount);
   // put the unserializer back where it was for the next thing
@@ -1093,7 +1094,7 @@ bool Vortex::checkLedCount()
   return true;
 }
 
-bool Vortex::setLedCount(uint8_t count)
+uint8_t Vortex::setLedCount(uint8_t count)
 {
 #if FIXED_LED_COUNT == 0
   Mode *cur = m_engine.modes().curMode();
@@ -1103,6 +1104,15 @@ bool Vortex::setLedCount(uint8_t count)
   m_engine.leds().setLedCount(count);
 #endif
   return true;
+}
+
+uint8_t Vortex::getLedCount()
+{
+#if FIXED_LED_COUNT == 0
+  return m_engine.leds().ledCount();
+#else
+  return LED_COUNT;
+#endif
 }
 
 bool Vortex::getCurMode(ByteStream &outStream)
