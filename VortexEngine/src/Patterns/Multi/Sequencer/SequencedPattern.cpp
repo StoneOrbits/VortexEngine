@@ -12,7 +12,8 @@
 SequencedPattern::SequencedPattern(const PatternArgs &args) :
   CompoundPattern(args),
   m_sequence(),
-  m_curSequence(0)
+  m_curSequence(0),
+  m_timer()
 {
   // SequencedPattern is an abstract class it cannot be directly
   // instantiated so we do not need to assign a pattern id
@@ -21,7 +22,8 @@ SequencedPattern::SequencedPattern(const PatternArgs &args) :
 SequencedPattern::SequencedPattern(const PatternArgs &args, const Sequence &sequence) :
   CompoundPattern(args),
   m_sequence(sequence),
-  m_curSequence(0)
+  m_curSequence(0),
+  m_timer()
 {
   // SequencedPattern is an abstract class it cannot be directly
   // instantiated so we do not need to assign a pattern id
