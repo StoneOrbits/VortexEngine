@@ -58,91 +58,28 @@
 #define MAP_PAIR_EVEN_EVENS (MAP_PAIR_EVEN(PAIR_3) | MAP_PAIR_EVEN(PAIR_1))
 #define MAP_PAIR_EVEN_ODDS (MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_1))
 
-// Defined the LED positions, their order, and index
-enum LedPos : uint8_t
-{
-  // this should always be first
-  LED_FIRST = 0,
+typedef uint8_t LedPos;
+#define LED_FIRST (LedPos)0
+#define LED_0 (LedPos)(LED_FIRST + 0)
+#define LED_1 (LedPos)(LED_FIRST + 1)
+#define LED_2 (LedPos)(LED_FIRST + 2)
+#define LED_3 (LedPos)(LED_FIRST + 3)
+#define LED_4 (LedPos)(LED_FIRST + 4)
+#define LED_5 (LedPos)(LED_FIRST + 5)
+#define LED_6 (LedPos)(LED_FIRST + 6)
+#define LED_7 (LedPos)(LED_FIRST + 7)
+#define LED_8 (LedPos)(LED_FIRST + 8)
+#define LED_9 (LedPos)(LED_FIRST + 9)
 
-  // LED constants to supplement pattern code
-  LED_0 = LED_FIRST,
-  LED_1,
-  LED_2,
-  LED_3,
-  LED_4,
-  LED_5,
-  LED_6,
-  LED_7,
-  LED_8,
-  LED_9,
-};
-
-enum Pair : uint8_t
-{
-  PAIR_FIRST = 0,
-
-  // one pair for each pair of leds, adjust this to be 2x the LED_COUNT
-  PAIR_0 = PAIR_FIRST,
-  PAIR_1,
-  PAIR_2,
-  PAIR_3,
-  PAIR_4,
-
-  PAIR_COUNT,
-  PAIR_LAST = (PAIR_COUNT - 1),
-};
-
-// LedPos operators
-inline LedPos &operator++(LedPos &c)
-{
-  c = LedPos(((uint32_t)c) + 1);
-  return c;
-}
-inline LedPos operator++(LedPos &c, int)
-{
-  LedPos temp = c;
-  ++c;
-  return temp;
-}
-inline LedPos operator+(LedPos &c, int b)
-{
-  return (LedPos)((uint32_t)c + b);
-}
-inline LedPos &operator+=(LedPos &c, int b)
-{
-  c = LedPos(((uint32_t)c) + b);
-  return c;
-}
-inline LedPos operator-(LedPos &c, int b)
-{
-  return (LedPos)((uint32_t)c - b);
-}
-inline LedPos &operator-=(LedPos &c, int b)
-{
-  c = LedPos(((uint32_t)c) - b);
-  return c;
-}
-
-// pair operators
-inline Pair &operator++(Pair &c)
-{
-  c = Pair(((uint32_t)c) + 1);
-  return c;
-}
-inline Pair operator++(Pair &c, int)
-{
-  Pair temp = c;
-  ++c;
-  return temp;
-}
-inline Pair operator+(Pair &c, int b)
-{
-  return (Pair)((uint32_t)c + b);
-}
-inline Pair operator-(Pair &c, int b)
-{
-  return (Pair)((uint32_t)c - b);
-}
+typedef uint8_t Pair;
+#define PAIR_FIRST (Pair)0
+#define PAIR_0 (Pair)(PAIR_FIRST + 0)
+#define PAIR_1 (Pair)(PAIR_FIRST + 1)
+#define PAIR_2 (Pair)(PAIR_FIRST + 2)
+#define PAIR_3 (Pair)(PAIR_FIRST + 3)
+#define PAIR_4 (Pair)(PAIR_FIRST + 4)
+#define PAIR_LAST PAIR_4
+#define PAIR_COUNT (Pair)(PAIR_LAST + 1)
 
 // LedMap is a bitmap of leds, used for expressing whether to turn certain leds on
 // or off with a single integer

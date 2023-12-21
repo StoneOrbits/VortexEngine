@@ -161,20 +161,6 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("is_compressed", &ByteStream::is_compressed)
     .function("CRC", &ByteStream::CRC);
 
-  // Binding static enum values
-  enum_<LedPos>("LedPos")
-    .value("LED_FIRST", LedPos::LED_FIRST)
-    .value("LED_0", LedPos::LED_0)
-    .value("LED_1", LedPos::LED_1)
-    .value("LED_2", LedPos::LED_2)
-    .value("LED_3", LedPos::LED_3)
-    .value("LED_4", LedPos::LED_4)
-    .value("LED_5", LedPos::LED_5)
-    .value("LED_6", LedPos::LED_6)
-    .value("LED_7", LedPos::LED_7)
-    .value("LED_8", LedPos::LED_8)
-    .value("LED_9", LedPos::LED_9);
-
   // Binding dynamic values from Leds class
   class_<Leds>("Leds")
     .function("ledCount", &Leds::ledCount)
