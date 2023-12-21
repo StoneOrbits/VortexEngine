@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['kb_2961',['KB',['../Compression_8cpp.html#a1841fd1a462d245d8c73dce55e2f45da',1,'Compression.cpp']]]
+  ['kb_2973',['KB',['../Compression_8cpp.html#a1841fd1a462d245d8c73dce55e2f45da',1,'Compression.cpp']]]
 ];

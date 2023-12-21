@@ -1,5 +1,8 @@
 var NAVTREEINDEX4 =
 {
+"VortexWipePattern_8h.html":[1,0,0,0,7,0,38],
+"VortexWipePattern_8h_source.html":[1,0,0,0,7,0,38],
+"WarpPattern_8cpp.html":[1,0,0,0,7,0,39],
 "WarpPattern_8cpp_source.html":[1,0,0,0,7,0,39],
 "WarpPattern_8h.html":[1,0,0,0,7,0,40],
 "WarpPattern_8h_source.html":[1,0,0,0,7,0,40],
@@ -246,8 +249,5 @@ var NAVTREEINDEX4 =
 "classColorset.html#a18bd20648c4208531c6b14574c8cab41":[0,0,11,29],
 "classColorset.html#a21c773d0a59440d94a411114135f146a":[0,0,11,47],
 "classColorset.html#a283bf54629fd4af75249492d49e14199":[0,0,11,18],
-"classColorset.html#a37e46bdf9cb036b57afccc66892185d3":[0,0,11,21],
-"classColorset.html#a3cfec1a04020fca46a63a7030300de26":[0,0,11,2],
-"classColorset.html#a3cfec1a04020fca46a63a7030300de26a645c3cf49fa9a75522355e7d2a49e6ce":[0,0,11,2,0],
-"classColorset.html#a3cfec1a04020fca46a63a7030300de26a95361874b3ecae79648b34565dcc648f":[0,0,11,2,2]
+"classColorset.html#a37e46bdf9cb036b57afccc66892185d3":[0,0,11,21]
 };

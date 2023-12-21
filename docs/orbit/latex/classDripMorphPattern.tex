@@ -175,14 +175,14 @@ Definition at line 58 of file Drip\+Morph\+Pattern.\+cpp.
 \DoxyCodeLine{74   \textcolor{comment}{//       always over/under shoot}}
 \DoxyCodeLine{75   \mbox{\hyperlink{classDripMorphPattern_a51f9b0b9d77a74c93f4af17b16916d92}{m\_cur}}.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} += \mbox{\hyperlink{classDripMorphPattern_ad942656a015234139581487b119de654}{m\_speed}} * sign;}
 \DoxyCodeLine{76   \textcolor{comment}{// set the target led with the current HSV color}}
-\DoxyCodeLine{77   \mbox{\hyperlink{classLeds_a86e1e44a371e581f9d7d3a7f2b190250}{Leds::setAllEvens}}(\mbox{\hyperlink{classDripMorphPattern_a51f9b0b9d77a74c93f4af17b16916d92}{m\_cur}});}
-\DoxyCodeLine{78   \mbox{\hyperlink{classLeds_adb650141cfe42027332fa56e8de9e1a0}{Leds::setAllOdds}}(\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_abef3c86e5519d8befb515d2e927885f5}{cur}}());}
+\DoxyCodeLine{77   \mbox{\hyperlink{classLeds_a1eb73ce70d21bcca85373ab86115c312}{Leds::setMap}}(\mbox{\hyperlink{LedTypes_8h_a3d5cbb96dd94ea08aa452c4d99c100f5}{MAP\_RINGS\_EVEN}}, \mbox{\hyperlink{classDripMorphPattern_a51f9b0b9d77a74c93f4af17b16916d92}{m\_cur}});}
+\DoxyCodeLine{78   \mbox{\hyperlink{classLeds_a1eb73ce70d21bcca85373ab86115c312}{Leds::setMap}}(\mbox{\hyperlink{LedTypes_8h_a3d081c8fb55064cfb0564fb7fd598850}{MAP\_RINGS\_ODD}}, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_abef3c86e5519d8befb515d2e927885f5}{cur}}());}
 \DoxyCodeLine{79 \}}
 
 \end{DoxyCode}
 
 
-References Colorset\+::cur(), Colorset\+::get\+Next(), HSVColor\+::hue, Pattern\+::m\+\_\+colorset, m\+\_\+cur, m\+\_\+next, m\+\_\+speed, Leds\+::set\+All\+Evens(), and Leds\+::set\+All\+Odds().
+References Colorset\+::cur(), Colorset\+::get\+Next(), HSVColor\+::hue, Pattern\+::m\+\_\+colorset, m\+\_\+cur, m\+\_\+next, m\+\_\+speed, MAP\+\_\+\+RINGS\+\_\+\+EVEN, MAP\+\_\+\+RINGS\+\_\+\+ODD, and Leds\+::set\+Map().
 
 
 

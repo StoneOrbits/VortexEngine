@@ -1,14 +1,12 @@
 var NAVTREEINDEX3 =
 {
-"Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f":[1,0,0,0,10,0,1],
-"Storage_8cpp_source.html":[1,0,0,0,10,0],
 "Storage_8h.html":[1,0,0,0,10,1],
 "Storage_8h_source.html":[1,0,0,0,10,1],
-"TheaterChasePattern_8cpp.html":[1,0,0,0,7,0,35],
-"TheaterChasePattern_8cpp.html#ad8380baaee024c749901e849abfbfe46":[1,0,0,0,7,0,35,0],
-"TheaterChasePattern_8cpp_source.html":[1,0,0,0,7,0,35],
-"TheaterChasePattern_8h.html":[1,0,0,0,7,0,36],
-"TheaterChasePattern_8h_source.html":[1,0,0,0,7,0,36],
+"TheaterChasePattern_8cpp.html":[1,0,0,0,7,0,33],
+"TheaterChasePattern_8cpp.html#ad8380baaee024c749901e849abfbfe46":[1,0,0,0,7,0,33,0],
+"TheaterChasePattern_8cpp_source.html":[1,0,0,0,7,0,33],
+"TheaterChasePattern_8h.html":[1,0,0,0,7,0,34],
+"TheaterChasePattern_8h_source.html":[1,0,0,0,7,0,34],
 "TimeControl_8cpp.html":[1,0,0,0,11,0],
 "TimeControl_8cpp.html#a6a51e9baeec9b06ae477cf6475efc71d":[1,0,0,0,11,0,3],
 "TimeControl_8cpp.html#a7f21fe9fdb3605017d51d802b41910ac":[1,0,0,0,11,0,2],
@@ -197,6 +195,11 @@ var NAVTREEINDEX3 =
 "VortexEngine_8cpp_source.html":[1,0,0,0,14],
 "VortexEngine_8h.html":[1,0,0,0,15],
 "VortexEngine_8h_source.html":[1,0,0,0,15],
+"VortexPattern_8cpp.html":[1,0,0,0,7,0,35],
+"VortexPattern_8cpp.html#a619748942db2525ecc79316db7a411f7":[1,0,0,0,7,0,35,0],
+"VortexPattern_8cpp_source.html":[1,0,0,0,7,0,35],
+"VortexPattern_8h.html":[1,0,0,0,7,0,36],
+"VortexPattern_8h_source.html":[1,0,0,0,7,0,36],
 "VortexWipePattern_8cpp.html":[1,0,0,0,7,0,37],
 "VortexWipePattern_8cpp_source.html":[1,0,0,0,7,0,37],
 "VortexWipePattern_8h.html":[1,0,0,0,7,0,38],
@@ -246,8 +249,5 @@ var NAVTREEINDEX3 =
 "classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9a9d8a474945ff29aebf9119b45bb26d20":[0,0,1,0,4],
 "classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9ac5018a102470fae7181ffdfd985aa74f":[0,0,1,0,0],
 "classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9ad3745f6e2053a2cfa8d89226a1b78e52":[0,0,1,0,5],
-"classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9affbad6dfd04072ab78637aa8285e48e0":[0,0,1,0,6],
-"classBasicPattern.html#a5aca06fa1bf509109493be646dd6c49b":[0,0,1,12],
-"classBasicPattern.html#a5f15ecb545250ca6a193e6b88358a16e":[0,0,1,4],
-"classBasicPattern.html#a6870fbd387c2fb014fd54e9aa89e71ac":[0,0,1,2]
+"classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9affbad6dfd04072ab78637aa8285e48e0":[0,0,1,0,6]
 };

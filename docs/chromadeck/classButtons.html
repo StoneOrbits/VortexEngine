@@ -173,11 +173,11 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Buttons_8cpp_source.html#l00031">31</a> of file <a class="el" href="Buttons_8cpp_source.html">Buttons.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;{</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Buttons_8cpp_source.html#l00041">41</a> of file <a class="el" href="Buttons_8cpp_source.html">Buttons.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;{</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00091">VortexEngine::cleanup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00106">VortexEngine::cleanup()</a>.</p>
 
 </div>
 </div>
@@ -204,22 +204,28 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Buttons_8cpp_source.html#l00021">21</a> of file <a class="el" href="Buttons_8cpp_source.html">Buttons.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;{</div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;  <span class="comment">// initialize the button on pin 1</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>[0].<a class="code" href="classButtons.html#ac5767a8af9ce64e39231833ad1b166ea">init</a>(1)) {</div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;  }</div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;  <a class="code" href="Buttons_8cpp.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a> = &amp;<a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>[0];</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;}</div>
-<div class="ttc" id="aButtons_8cpp_html_a0f2e1bfb2e10150496ad7fb75420713b"><div class="ttname"><a href="Buttons_8cpp.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a></div><div class="ttdeci">Button * g_pButton</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00016">Buttons.cpp:16</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Buttons_8cpp_source.html#l00027">27</a> of file <a class="el" href="Buttons_8cpp_source.html">Buttons.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;{</div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;  <span class="comment">// initialize the button on pins 9/10/11</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>[0].<a class="code" href="classButtons.html#ac5767a8af9ce64e39231833ad1b166ea">init</a>(9) ||</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;      !<a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>[1].<a class="code" href="classButtons.html#ac5767a8af9ce64e39231833ad1b166ea">init</a>(10) ||</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      !<a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>[2].<a class="code" href="classButtons.html#ac5767a8af9ce64e39231833ad1b166ea">init</a>(11)) {</div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  }</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <a class="code" href="Buttons_8cpp.html#ac2fb778cda72cbf314239e9693900b28">g_pButtonL</a> = &amp;<a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>[0];</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <a class="code" href="Buttons_8cpp.html#a9b512a1dc88811f5373b278581262eb8">g_pButtonM</a> = &amp;<a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>[1];</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="Buttons_8cpp.html#ab0bad4698b8ace3b61f0cd4398d6c47b">g_pButtonR</a> = &amp;<a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>[2];</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;}</div>
+<div class="ttc" id="aButtons_8cpp_html_a9b512a1dc88811f5373b278581262eb8"><div class="ttname"><a href="Buttons_8cpp.html#a9b512a1dc88811f5373b278581262eb8">g_pButtonM</a></div><div class="ttdeci">Button * g_pButtonM</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00020">Buttons.cpp:20</a></div></div>
+<div class="ttc" id="aButtons_8cpp_html_ab0bad4698b8ace3b61f0cd4398d6c47b"><div class="ttname"><a href="Buttons_8cpp.html#ab0bad4698b8ace3b61f0cd4398d6c47b">g_pButtonR</a></div><div class="ttdeci">Button * g_pButtonR</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00022">Buttons.cpp:22</a></div></div>
+<div class="ttc" id="aButtons_8cpp_html_ac2fb778cda72cbf314239e9693900b28"><div class="ttname"><a href="Buttons_8cpp.html#ac2fb778cda72cbf314239e9693900b28">g_pButtonL</a></div><div class="ttdeci">Button * g_pButtonL</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00018">Buttons.cpp:18</a></div></div>
 <div class="ttc" id="aclassButtons_html_a7344cfab9ec5faf9741216860d6f4390"><div class="ttname"><a href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">Buttons::m_buttons</a></div><div class="ttdeci">static Button m_buttons[NUM_BUTTONS]</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8h_source.html#l00027">Buttons.h:27</a></div></div>
-<div class="ttc" id="aclassButtons_html_ac5767a8af9ce64e39231833ad1b166ea"><div class="ttname"><a href="classButtons.html#ac5767a8af9ce64e39231833ad1b166ea">Buttons::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00021">Buttons.cpp:21</a></div></div>
+<div class="ttc" id="aclassButtons_html_ac5767a8af9ce64e39231833ad1b166ea"><div class="ttname"><a href="classButtons.html#ac5767a8af9ce64e39231833ad1b166ea">Buttons::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00027">Buttons.cpp:27</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Buttons_8cpp_source.html#l00016">g_pButton</a>, and <a class="el" href="Buttons_8h_source.html#l00027">m_buttons</a>.</p>
+<p class="reference">References <a class="el" href="Buttons_8cpp_source.html#l00018">g_pButtonL</a>, <a class="el" href="Buttons_8cpp_source.html#l00020">g_pButtonM</a>, <a class="el" href="Buttons_8cpp_source.html#l00022">g_pButtonR</a>, and <a class="el" href="Buttons_8h_source.html#l00027">m_buttons</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00028">VortexEngine::init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00031">VortexEngine::init()</a>.</p>
 
 </div>
 </div>
@@ -246,24 +252,24 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Buttons_8cpp_source.html#l00035">35</a> of file <a class="el" href="Buttons_8cpp_source.html">Buttons.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;{</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="comment">// would iterate all buttons and check them here</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <span class="comment">// but there&#39;s only one button so</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="Buttons_8h.html#a45add6b39f5b0c0137de978b90e26b5d">NUM_BUTTONS</a>; ++i) {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>[i].<a class="code" href="classButton.html#ad8e030c1c8846d43f3126047d4a3667f">update</a>();</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  }</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="comment">// read input from the vortex lib interface, for example Vortex::shortClick()</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  Vortex::handleInputQueue(<a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>, <a class="code" href="Buttons_8h.html#a45add6b39f5b0c0137de978b90e26b5d">NUM_BUTTONS</a>);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Buttons_8cpp_source.html#l00045">45</a> of file <a class="el" href="Buttons_8cpp_source.html">Buttons.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;{</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="comment">// would iterate all buttons and check them here</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="comment">// but there&#39;s only one button so</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="Buttons_8h.html#a45add6b39f5b0c0137de978b90e26b5d">NUM_BUTTONS</a>; ++i) {</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    <a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>[i].<a class="code" href="classButton.html#ad8e030c1c8846d43f3126047d4a3667f">update</a>();</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  }</div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="comment">// read input from the vortex lib interface, for example Vortex::shortClick()</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  Vortex::handleInputQueue(<a class="code" href="classButtons.html#a7344cfab9ec5faf9741216860d6f4390">m_buttons</a>, <a class="code" href="Buttons_8h.html#a45add6b39f5b0c0137de978b90e26b5d">NUM_BUTTONS</a>);</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;}</div>
 <div class="ttc" id="aButtons_8h_html_a45add6b39f5b0c0137de978b90e26b5d"><div class="ttname"><a href="Buttons_8h.html#a45add6b39f5b0c0137de978b90e26b5d">NUM_BUTTONS</a></div><div class="ttdeci">#define NUM_BUTTONS</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8h_source.html#l00010">Buttons.h:10</a></div></div>
-<div class="ttc" id="aclassButton_html_ad8e030c1c8846d43f3126047d4a3667f"><div class="ttname"><a href="classButton.html#ad8e030c1c8846d43f3126047d4a3667f">Button::update</a></div><div class="ttdeci">void update()</div><div class="ttdef"><b>Definition:</b> <a href="Button_8cpp_source.html#l00057">Button.cpp:57</a></div></div>
+<div class="ttc" id="aclassButton_html_ad8e030c1c8846d43f3126047d4a3667f"><div class="ttname"><a href="classButton.html#ad8e030c1c8846d43f3126047d4a3667f">Button::update</a></div><div class="ttdeci">void update()</div><div class="ttdef"><b>Definition:</b> <a href="Button_8cpp_source.html#l00068">Button.cpp:68</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Buttons_8h_source.html#l00027">m_buttons</a>, <a class="el" href="Buttons_8h_source.html#l00010">NUM_BUTTONS</a>, and <a class="el" href="Button_8cpp_source.html#l00057">Button::update()</a>.</p>
+<p class="reference">References <a class="el" href="Buttons_8h_source.html#l00027">m_buttons</a>, <a class="el" href="Buttons_8h_source.html#l00010">NUM_BUTTONS</a>, and <a class="el" href="Button_8cpp_source.html#l00068">Button::update()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00111">VortexEngine::tick()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00134">VortexEngine::tick()</a>.</p>
 
 </div>
 </div>
@@ -290,7 +296,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Buttons_8h_source.html#l00027">27</a> of file <a class="el" href="Buttons_8h_source.html">Buttons.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Buttons_8cpp_source.html#l00021">init()</a>, and <a class="el" href="Buttons_8cpp_source.html#l00035">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Buttons_8cpp_source.html#l00027">init()</a>, and <a class="el" href="Buttons_8cpp_source.html#l00045">update()</a>.</p>
 
 </div>
 </div>

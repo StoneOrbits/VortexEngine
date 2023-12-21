@@ -167,23 +167,23 @@ Reimplemented from \mbox{\hyperlink{classMenu_aa5e3a269c2dba3ee69b530c7d1b3c0ff}
 
 
 
-Definition at line 117 of file Pattern\+Select.\+cpp.
+Definition at line 123 of file Pattern\+Select.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{118 \{}
-\DoxyCodeLine{119   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
-\DoxyCodeLine{120     \mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}}++;}
-\DoxyCodeLine{121     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}} < \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(\mbox{\hyperlink{classPatternSelect_a46a2cec7b6d788b0492c1143252e2bf0}{m\_srcLed}})-\/>\mbox{\hyperlink{classPattern_a869de9ef11e75b9b6fb9bc4435065add}{getNumArgs}}()) \{}
-\DoxyCodeLine{122       \textcolor{comment}{// if we haven't reached number of args yet then just return and kee pgoing}}
-\DoxyCodeLine{123       \textcolor{keywordflow}{return};}
-\DoxyCodeLine{124     \}}
-\DoxyCodeLine{125     \mbox{\hyperlink{classLeds_a5a3e2c090aa782f4ee7c71c01e8d8a69}{Leds::holdAll}}(\mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\_menuColor}});}
-\DoxyCodeLine{126   \}}
-\DoxyCodeLine{127   \textcolor{comment}{// store the mode as current mode}}
-\DoxyCodeLine{128   \mbox{\hyperlink{classModes_a263cf02fb83d954b91c85d2d1e5411ee}{Modes::updateCurMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}});}
-\DoxyCodeLine{129   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
-\DoxyCodeLine{130 \}}
+\DoxyCodeLine{124 \{}
+\DoxyCodeLine{125   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{126     \mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}}++;}
+\DoxyCodeLine{127     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}} < \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(\mbox{\hyperlink{classPatternSelect_a46a2cec7b6d788b0492c1143252e2bf0}{m\_srcLed}})-\/>\mbox{\hyperlink{classPattern_a869de9ef11e75b9b6fb9bc4435065add}{getNumArgs}}()) \{}
+\DoxyCodeLine{128       \textcolor{comment}{// if we haven't reached number of args yet then just return and kee pgoing}}
+\DoxyCodeLine{129       \textcolor{keywordflow}{return};}
+\DoxyCodeLine{130     \}}
+\DoxyCodeLine{131     \mbox{\hyperlink{classLeds_a5a3e2c090aa782f4ee7c71c01e8d8a69}{Leds::holdAll}}(\mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\_menuColor}});}
+\DoxyCodeLine{132   \}}
+\DoxyCodeLine{133   \textcolor{comment}{// store the mode as current mode}}
+\DoxyCodeLine{134   \mbox{\hyperlink{classModes_a263cf02fb83d954b91c85d2d1e5411ee}{Modes::updateCurMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}});}
+\DoxyCodeLine{135   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{136 \}}
 
 \end{DoxyCode}
 
@@ -211,66 +211,72 @@ Definition at line 55 of file Pattern\+Select.\+cpp.
 \DoxyCodeLine{58     \textcolor{comment}{// double click = skip 10}}
 \DoxyCodeLine{59     \textcolor{keywordtype}{bool} doSkip = \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_af08888134084d0640b6a891bdb755f14}{onConsecutivePresses}}(2);}
 \DoxyCodeLine{60     \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}) \{}
-\DoxyCodeLine{61       uint8\_t \&arg = \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(pos)-\/>\mbox{\hyperlink{classPattern_a1d34263f4c3574675c2acdab6782b482}{argRef}}(\mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}});}
-\DoxyCodeLine{62       \textcolor{keywordflow}{if} (doSkip) \{}
-\DoxyCodeLine{63         arg += 10 -\/ (arg \% 10);}
-\DoxyCodeLine{64       \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{65         arg++;}
-\DoxyCodeLine{66       \}}
-\DoxyCodeLine{67       \textcolor{comment}{// on/off/gap/dash duration max 100}}
-\DoxyCodeLine{68       uint8\_t max = 100;}
-\DoxyCodeLine{69       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}} == 6) \{}
-\DoxyCodeLine{70         \textcolor{comment}{// blend number of numflips}}
-\DoxyCodeLine{71         max = 4;}
-\DoxyCodeLine{72       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}} > 3) \{}
-\DoxyCodeLine{73         \textcolor{comment}{// group size, solid index, blendspeed}}
-\DoxyCodeLine{74         max = 20;}
-\DoxyCodeLine{75       \}}
-\DoxyCodeLine{76       \textcolor{keywordflow}{if} (arg > max) \{}
-\DoxyCodeLine{77         \textcolor{comment}{// red flash indicates reaching end}}
-\DoxyCodeLine{78         \mbox{\hyperlink{classLeds_a5a3e2c090aa782f4ee7c71c01e8d8a69}{Leds::holdAll}}(\mbox{\hyperlink{ColorConstants_8h_aa039288455af8a3812a35aa1e7b903e4}{RGB\_RED}});}
-\DoxyCodeLine{79         arg \%= (max + 1);}
-\DoxyCodeLine{80       \}}
-\DoxyCodeLine{81       \textcolor{comment}{// do not let argument0 be reset to 0}}
-\DoxyCodeLine{82       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}} \&\& !arg) \{}
-\DoxyCodeLine{83         arg = 1;}
+\DoxyCodeLine{61       \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(pos);}
+\DoxyCodeLine{62       \textcolor{keywordflow}{if} (pat-\/>\mbox{\hyperlink{classPattern_a869de9ef11e75b9b6fb9bc4435065add}{getNumArgs}}() <= \mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}}) \{}
+\DoxyCodeLine{63         \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{64       \}}
+\DoxyCodeLine{65       uint8\_t \&arg = pat-\/>\mbox{\hyperlink{classPattern_a1d34263f4c3574675c2acdab6782b482}{argRef}}(\mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}});}
+\DoxyCodeLine{66       \textcolor{keywordflow}{if} (doSkip) \{}
+\DoxyCodeLine{67         arg += 10 -\/ (arg \% 10);}
+\DoxyCodeLine{68       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{69         arg++;}
+\DoxyCodeLine{70       \}}
+\DoxyCodeLine{71       \textcolor{comment}{// on/off/gap/dash duration max 100}}
+\DoxyCodeLine{72       uint8\_t max = 100;}
+\DoxyCodeLine{73       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}} == 6) \{}
+\DoxyCodeLine{74         \textcolor{comment}{// blend number of numflips}}
+\DoxyCodeLine{75         max = 4;}
+\DoxyCodeLine{76       \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}} > 3) \{}
+\DoxyCodeLine{77         \textcolor{comment}{// group size, solid index, blendspeed}}
+\DoxyCodeLine{78         max = 20;}
+\DoxyCodeLine{79       \}}
+\DoxyCodeLine{80       \textcolor{keywordflow}{if} (arg > max) \{}
+\DoxyCodeLine{81         \textcolor{comment}{// red flash indicates reaching end}}
+\DoxyCodeLine{82         \mbox{\hyperlink{classLeds_a5a3e2c090aa782f4ee7c71c01e8d8a69}{Leds::holdAll}}(\mbox{\hyperlink{ColorConstants_8h_aa039288455af8a3812a35aa1e7b903e4}{RGB\_RED}});}
+\DoxyCodeLine{83         arg \%= (max + 1);}
 \DoxyCodeLine{84       \}}
-\DoxyCodeLine{85     \}}
-\DoxyCodeLine{86     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
-\DoxyCodeLine{87     \textcolor{keywordflow}{if} (doSkip) \{}
-\DoxyCodeLine{88       \textcolor{comment}{// hold white for a moment to show they are skipping 25}}
-\DoxyCodeLine{89       \mbox{\hyperlink{classLeds_a5a3e2c090aa782f4ee7c71c01e8d8a69}{Leds::holdAll}}(\mbox{\hyperlink{ColorConstants_8h_abca0ec9b9a7cef6871339d91068d73fa}{RGB\_YELLOW1}});}
-\DoxyCodeLine{90     \}}
-\DoxyCodeLine{91     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{92   \}}
-\DoxyCodeLine{93   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} newID = (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}})(\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a0c012c6a748a1a1a9502b552bfa2ba66}{getPatternID}}(\mbox{\hyperlink{classPatternSelect_a46a2cec7b6d788b0492c1143252e2bf0}{m\_srcLed}}) + 1);}
-\DoxyCodeLine{94   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} maxID = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca63a5c7f0287e61ea810c90b211903308}{PATTERN\_SINGLE\_LAST}};}
-\DoxyCodeLine{95 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
-\DoxyCodeLine{96   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}} || \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}})) \{}
-\DoxyCodeLine{97     maxID = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4a47e790a421b744f6b060610e6a0099}{PATTERN\_MULTI\_LAST}};}
-\DoxyCodeLine{98   \}}
-\DoxyCodeLine{99 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{100   \textcolor{keywordflow}{if} (newID > maxID) \{}
-\DoxyCodeLine{101     newID = maxID;}
+\DoxyCodeLine{85       \textcolor{comment}{// do not let argument0 be reset to 0}}
+\DoxyCodeLine{86       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classPatternSelect_a80246d4447d98ba20b0ef3c963ef02a4}{m\_argIndex}} \&\& !arg) \{}
+\DoxyCodeLine{87         arg = 1;}
+\DoxyCodeLine{88       \}}
+\DoxyCodeLine{89     \}}
+\DoxyCodeLine{90     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
+\DoxyCodeLine{91     \textcolor{keywordflow}{if} (doSkip) \{}
+\DoxyCodeLine{92       \textcolor{comment}{// hold white for a moment to show they are skipping 25}}
+\DoxyCodeLine{93       \mbox{\hyperlink{classLeds_a5a3e2c090aa782f4ee7c71c01e8d8a69}{Leds::holdAll}}(\mbox{\hyperlink{ColorConstants_8h_abca0ec9b9a7cef6871339d91068d73fa}{RGB\_YELLOW1}});}
+\DoxyCodeLine{94     \}}
+\DoxyCodeLine{95     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{96   \}}
+\DoxyCodeLine{97   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} newID = (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}})(\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a0c012c6a748a1a1a9502b552bfa2ba66}{getPatternID}}(\mbox{\hyperlink{classPatternSelect_a46a2cec7b6d788b0492c1143252e2bf0}{m\_srcLed}}) + 1);}
+\DoxyCodeLine{98   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} maxID = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca63a5c7f0287e61ea810c90b211903308}{PATTERN\_SINGLE\_LAST}};}
+\DoxyCodeLine{99 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{100   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}} || \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}})) \{}
+\DoxyCodeLine{101     maxID = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4a47e790a421b744f6b060610e6a0099}{PATTERN\_MULTI\_LAST}};}
 \DoxyCodeLine{102   \}}
-\DoxyCodeLine{103   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classPatternSelect_a28fd6b65e9d5af4644451e571273c20a}{m\_started}}) \{}
-\DoxyCodeLine{104     \mbox{\hyperlink{classPatternSelect_a28fd6b65e9d5af4644451e571273c20a}{m\_started}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{105     newID = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadf768ce40ed692705072e056d20335b1}{PATTERN\_FIRST}};}
+\DoxyCodeLine{103 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{104   \textcolor{keywordflow}{if} (newID > maxID) \{}
+\DoxyCodeLine{105     newID = maxID;}
 \DoxyCodeLine{106   \}}
-\DoxyCodeLine{107   \textcolor{comment}{// set the new pattern id}}
-\DoxyCodeLine{108   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Patterns_8h_ad58c73f9c26d4937add3b71a58747c00}{isMultiLedPatternID}}(newID)) \{}
-\DoxyCodeLine{109     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_ac2888fc4f9079c397ce229292cbb460b}{setPattern}}(newID);}
-\DoxyCodeLine{110   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{111     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a523af1ad207240eb672bf8ad0fccad7d}{setPatternMap}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}, newID);}
-\DoxyCodeLine{112   \}}
-\DoxyCodeLine{113   \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
-\DoxyCodeLine{114   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Iterated to pattern id \%d"{}}, newID);}
-\DoxyCodeLine{115 \}}
+\DoxyCodeLine{107   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classPatternSelect_a28fd6b65e9d5af4644451e571273c20a}{m\_started}}) \{}
+\DoxyCodeLine{108     \mbox{\hyperlink{classPatternSelect_a28fd6b65e9d5af4644451e571273c20a}{m\_started}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{109     newID = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadf768ce40ed692705072e056d20335b1}{PATTERN\_FIRST}};}
+\DoxyCodeLine{110   \}}
+\DoxyCodeLine{111   \textcolor{comment}{// set the new pattern id}}
+\DoxyCodeLine{112   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Patterns_8h_ad58c73f9c26d4937add3b71a58747c00}{isMultiLedPatternID}}(newID)) \{}
+\DoxyCodeLine{113     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_ac2888fc4f9079c397ce229292cbb460b}{setPattern}}(newID);}
+\DoxyCodeLine{114   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{115     \textcolor{comment}{// TODO: clear multi a better way}}
+\DoxyCodeLine{116     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a523af1ad207240eb672bf8ad0fccad7d}{setPatternMap}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}, newID);}
+\DoxyCodeLine{117     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a9c8613304eb587717ff7f1945f6a6c12}{clearPattern}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}});}
+\DoxyCodeLine{118   \}}
+\DoxyCodeLine{119   \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
+\DoxyCodeLine{120   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Iterated to pattern id \%d"{}}, newID);}
+\DoxyCodeLine{121 \}}
 
 \end{DoxyCode}
 
 
-References Pattern\+::arg\+Ref(), DEBUG\+\_\+\+LOGF, g\+\_\+p\+Button, Mode\+::get\+Pattern(), Mode\+::get\+Pattern\+ID(), Leds\+::hold\+All(), Mode\+::init(), is\+Multi\+Led\+Pattern\+ID(), LED\+\_\+\+MULTI, Menu\+::m\+\_\+advanced, m\+\_\+arg\+Index, Menu\+::m\+\_\+preview\+Mode, m\+\_\+src\+Led, m\+\_\+started, Menu\+::m\+\_\+target\+Leds, MAP\+\_\+\+FOREACH\+\_\+\+LED, MAP\+\_\+\+LED, MAP\+\_\+\+LED\+\_\+\+ALL, Button\+::on\+Consecutive\+Presses(), PATTERN\+\_\+\+FIRST, PATTERN\+\_\+\+MULTI\+\_\+\+LAST, PATTERN\+\_\+\+SINGLE\+\_\+\+LAST, RGB\+\_\+\+RED, RGB\+\_\+\+YELLOW1, Mode\+::set\+Pattern(), and Mode\+::set\+Pattern\+Map().
+References Pattern\+::arg\+Ref(), Mode\+::clear\+Pattern(), DEBUG\+\_\+\+LOGF, g\+\_\+p\+Button, Pattern\+::get\+Num\+Args(), Mode\+::get\+Pattern(), Mode\+::get\+Pattern\+ID(), Leds\+::hold\+All(), Mode\+::init(), is\+Multi\+Led\+Pattern\+ID(), LED\+\_\+\+MULTI, Menu\+::m\+\_\+advanced, m\+\_\+arg\+Index, Menu\+::m\+\_\+preview\+Mode, m\+\_\+src\+Led, m\+\_\+started, Menu\+::m\+\_\+target\+Leds, MAP\+\_\+\+FOREACH\+\_\+\+LED, MAP\+\_\+\+LED, MAP\+\_\+\+LED\+\_\+\+ALL, Button\+::on\+Consecutive\+Presses(), PATTERN\+\_\+\+FIRST, PATTERN\+\_\+\+MULTI\+\_\+\+LAST, PATTERN\+\_\+\+SINGLE\+\_\+\+LAST, RGB\+\_\+\+RED, RGB\+\_\+\+YELLOW1, Mode\+::set\+Pattern(), and Mode\+::set\+Pattern\+Map().
 
 \mbox{\Hypertarget{classPatternSelect_a83e663abcad2ca3049dcd407108b4258}\label{classPatternSelect_a83e663abcad2ca3049dcd407108b4258}} 
 \index{PatternSelect@{PatternSelect}!run@{run}}

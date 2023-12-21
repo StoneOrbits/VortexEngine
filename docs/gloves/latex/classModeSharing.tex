@@ -353,7 +353,7 @@ Definition at line 126 of file Mode\+Sharing.\+cpp.
 \DoxyCodeLine{145     \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to receive mode"{}});}
 \DoxyCodeLine{146     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{147   \}}
-\DoxyCodeLine{148   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Success receiving mode: \%u"{}}, \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}()-\/>getPatternID());}
+\DoxyCodeLine{148   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Success receiving mode: \%u"{}}, \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a0c012c6a748a1a1a9502b552bfa2ba66}{getPatternID}}());}
 \DoxyCodeLine{149   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
 \DoxyCodeLine{150     \mbox{\hyperlink{classModes_a263cf02fb83d954b91c85d2d1e5411ee}{Modes::updateCurMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}});}
 \DoxyCodeLine{151     \textcolor{comment}{// leave menu and save settings, even if the mode was the same whatever}}
@@ -364,7 +364,7 @@ Definition at line 126 of file Mode\+Sharing.\+cpp.
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), IRReceiver\+::data\+Ready(), DEBUG\+\_\+\+LOG, DEBUG\+\_\+\+LOGF, ERROR\+\_\+\+LOG, Time\+::get\+Curtime(), Menu\+::leave\+Menu(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+preview\+Mode, m\+\_\+time\+Out\+Start\+Time, MAX\+\_\+\+TIMEOUT\+\_\+\+DURATION, IRReceiver\+::on\+New\+Data(), IRReceiver\+::receive\+Mode(), IRReceiver\+::reset\+IRState(), and Modes\+::update\+Cur\+Mode().
+References IRReceiver\+::data\+Ready(), DEBUG\+\_\+\+LOG, DEBUG\+\_\+\+LOGF, ERROR\+\_\+\+LOG, Time\+::get\+Curtime(), Mode\+::get\+Pattern\+ID(), Menu\+::leave\+Menu(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+preview\+Mode, m\+\_\+time\+Out\+Start\+Time, MAX\+\_\+\+TIMEOUT\+\_\+\+DURATION, IRReceiver\+::on\+New\+Data(), IRReceiver\+::receive\+Mode(), IRReceiver\+::reset\+IRState(), and Modes\+::update\+Cur\+Mode().
 
 
 

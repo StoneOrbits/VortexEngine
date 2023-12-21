@@ -228,7 +228,7 @@ References m\+\_\+led\+Pos.
 
 
 
-Referenced by Multi\+Led\+Pattern\+::bind(), Pattern\+Builder\+::dupe(), Sequenced\+Pattern\+::play(), Mode\+::set\+Pattern(), Compound\+Pattern\+::set\+Pattern\+At(), and Mode\+::unserialize().
+Referenced by Multi\+Led\+Pattern\+::bind(), Pattern\+Builder\+::dupe(), Sequenced\+Pattern\+::play\+Sequence\+Step(), Mode\+::set\+Pattern(), Compound\+Pattern\+::set\+Pattern\+At(), and Mode\+::unserialize().
 
 \mbox{\Hypertarget{classPattern_ab2dc64be09dc76e1325b0eeccaebf13a}\label{classPattern_ab2dc64be09dc76e1325b0eeccaebf13a}} 
 \index{Pattern@{Pattern}!clearColorset@{clearColorset}}
@@ -393,7 +393,7 @@ References m\+\_\+colorset.
 
 
 
-Referenced by Pattern\+Builder\+::dupe(), Mode\+::get\+Colorset(), and Sequenced\+Pattern\+::play().
+Referenced by Pattern\+Builder\+::dupe(), Mode\+::get\+Colorset(), and Sequenced\+Pattern\+::play\+Sequence\+Step().
 
 \mbox{\Hypertarget{classPattern_aa3e343dd51fb2ee2a0dbef0c8ba535d8}\label{classPattern_aa3e343dd51fb2ee2a0dbef0c8ba535d8}} 
 \index{Pattern@{Pattern}!getFlags@{getFlags}}
@@ -458,7 +458,7 @@ References m\+\_\+num\+Args.
 
 
 
-Referenced by Pattern\+Builder\+::num\+Default\+Args(), and Pattern\+Select\+::on\+Long\+Click().
+Referenced by Pattern\+Builder\+::num\+Default\+Args(), Pattern\+Select\+::on\+Long\+Click(), and Pattern\+Select\+::on\+Short\+Click().
 
 \mbox{\Hypertarget{classPattern_a9ffb45ae9cbb7188038bf1009ce842b0}\label{classPattern_a9ffb45ae9cbb7188038bf1009ce842b0}} 
 \index{Pattern@{Pattern}!getPatternID@{getPatternID}}
@@ -481,7 +481,7 @@ References m\+\_\+pattern\+ID.
 
 
 
-Referenced by Pattern\+Builder\+::dupe(), Mode\+::get\+Pattern\+ID(), Mode\+::is\+Empty(), and Sequenced\+Pattern\+::play().
+Referenced by Pattern\+Builder\+::dupe(), Mode\+::get\+Pattern\+ID(), Mode\+::is\+Empty(), and Sequenced\+Pattern\+::play\+Sequence\+Step().
 
 \mbox{\Hypertarget{classPattern_a05d7b3fbec00bd9e4be2b62c5241484a}\label{classPattern_a05d7b3fbec00bd9e4be2b62c5241484a}} 
 \index{Pattern@{Pattern}!hasFlags@{hasFlags}}
@@ -510,7 +510,7 @@ References m\+\_\+pattern\+Flags.
 
 
 
-Reimplemented in \mbox{\hyperlink{classSingleLedPattern_ae3713818ccd424142be290f14974e5ff}{Single\+Led\+Pattern}}, \mbox{\hyperlink{classBlendPattern_a6cf64630d97a5ede7af5923ed4413e63}{Blend\+Pattern}}, \mbox{\hyperlink{classBasicPattern_a80f7fcfb5066478565a485e4c4061986}{Basic\+Pattern}}, \mbox{\hyperlink{classZigzagPattern_a85c07d3e164b403ebc8baaf0be0a15b6}{Zigzag\+Pattern}}, \mbox{\hyperlink{classWarpWormPattern_aec02a27696a2766aa3ebd12aaa5b4d34}{Warp\+Worm\+Pattern}}, \mbox{\hyperlink{classWarpPattern_a66f32724208a0497f7f4c4b91585f6d4}{Warp\+Pattern}}, \mbox{\hyperlink{classVortexWipePattern_a3ae2c41c080ec616391c649da30f1978}{Vortex\+Wipe\+Pattern}}, \mbox{\hyperlink{classTheaterChasePattern_a3412251626ea06df702e02628dd11bcc}{Theater\+Chase\+Pattern}}, \mbox{\hyperlink{classSnowballPattern_ae04357ae7248f8e1b02f3c8617e1df5d}{Snowball\+Pattern}}, \mbox{\hyperlink{classSequencedPattern_ab972b3f7756799c8e2fecc72697ab7ba}{Sequenced\+Pattern}}, \mbox{\hyperlink{classPulsishPattern_ab2be535844735506337845fd5a05a5fd}{Pulsish\+Pattern}}, \mbox{\hyperlink{classMultiLedPattern_a2541223ee8c1d57463e88682e1405c42}{Multi\+Led\+Pattern}}, \mbox{\hyperlink{classMateriaPattern_af85ebf97d7378261fa6daa0a1b118dab}{Materia\+Pattern}}, \mbox{\hyperlink{classLighthousePattern_a70ccda94202ed002bea1f53464b7f078}{Lighthouse\+Pattern}}, \mbox{\hyperlink{classHueShiftPattern_abec242391b3d4ae557f8acd26f4f0d89}{Hue\+Shift\+Pattern}}, \mbox{\hyperlink{classFillPattern_a1b30ede093847932598796d060cfd36e}{Fill\+Pattern}}, \mbox{\hyperlink{classDripPattern_a2abd87f0c7d76f63d19d36940e956c84}{Drip\+Pattern}}, \mbox{\hyperlink{classDripMorphPattern_a3d0766fa9bd8ecbf588d57dca741bb30}{Drip\+Morph\+Pattern}}, \mbox{\hyperlink{classDoubleStrobePattern_ad40503b66bb035fc91f7d973e951f1eb}{Double\+Strobe\+Pattern}}, \mbox{\hyperlink{classCrossDopsPattern_a8c1631f32c28c734cde29771247643e0}{Cross\+Dops\+Pattern}}, \mbox{\hyperlink{classCompoundPattern_a543d47cc3f7f4bf29fc7ed667362edf6}{Compound\+Pattern}}, \mbox{\hyperlink{classBouncePattern_a31279d03f6ef939f2c1fb715873c175c}{Bounce\+Pattern}}, \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{Blink\+Step\+Pattern}}, and \mbox{\hyperlink{classBackStrobePattern_a2f857aa8081d6e713b9fe95e17387e56}{Back\+Strobe\+Pattern}}.
+Reimplemented in \mbox{\hyperlink{classSingleLedPattern_ae3713818ccd424142be290f14974e5ff}{Single\+Led\+Pattern}}, \mbox{\hyperlink{classBlendPattern_a6cf64630d97a5ede7af5923ed4413e63}{Blend\+Pattern}}, \mbox{\hyperlink{classBasicPattern_a80f7fcfb5066478565a485e4c4061986}{Basic\+Pattern}}, \mbox{\hyperlink{classZigzagPattern_a85c07d3e164b403ebc8baaf0be0a15b6}{Zigzag\+Pattern}}, \mbox{\hyperlink{classWarpWormPattern_aec02a27696a2766aa3ebd12aaa5b4d34}{Warp\+Worm\+Pattern}}, \mbox{\hyperlink{classWarpPattern_a66f32724208a0497f7f4c4b91585f6d4}{Warp\+Pattern}}, \mbox{\hyperlink{classVortexWipePattern_a3ae2c41c080ec616391c649da30f1978}{Vortex\+Wipe\+Pattern}}, \mbox{\hyperlink{classVortexPattern_a5bd6a20ea8eef7c2bda0f99d2cb96c16}{Vortex\+Pattern}}, \mbox{\hyperlink{classTheaterChasePattern_a3412251626ea06df702e02628dd11bcc}{Theater\+Chase\+Pattern}}, \mbox{\hyperlink{classSnowballPattern_ae04357ae7248f8e1b02f3c8617e1df5d}{Snowball\+Pattern}}, \mbox{\hyperlink{classSequencedPattern_ab972b3f7756799c8e2fecc72697ab7ba}{Sequenced\+Pattern}}, \mbox{\hyperlink{classPulsishPattern_ab2be535844735506337845fd5a05a5fd}{Pulsish\+Pattern}}, \mbox{\hyperlink{classMultiLedPattern_a2541223ee8c1d57463e88682e1405c42}{Multi\+Led\+Pattern}}, \mbox{\hyperlink{classLighthousePattern_a70ccda94202ed002bea1f53464b7f078}{Lighthouse\+Pattern}}, \mbox{\hyperlink{classHueShiftPattern_abec242391b3d4ae557f8acd26f4f0d89}{Hue\+Shift\+Pattern}}, \mbox{\hyperlink{classFillPattern_a1b30ede093847932598796d060cfd36e}{Fill\+Pattern}}, \mbox{\hyperlink{classDripPattern_a2abd87f0c7d76f63d19d36940e956c84}{Drip\+Pattern}}, \mbox{\hyperlink{classDripMorphPattern_a3d0766fa9bd8ecbf588d57dca741bb30}{Drip\+Morph\+Pattern}}, \mbox{\hyperlink{classDoubleStrobePattern_ad40503b66bb035fc91f7d973e951f1eb}{Double\+Strobe\+Pattern}}, \mbox{\hyperlink{classCrossDopsPattern_a8c1631f32c28c734cde29771247643e0}{Cross\+Dops\+Pattern}}, \mbox{\hyperlink{classCompoundPattern_a543d47cc3f7f4bf29fc7ed667362edf6}{Compound\+Pattern}}, \mbox{\hyperlink{classBouncePattern_a31279d03f6ef939f2c1fb715873c175c}{Bounce\+Pattern}}, \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{Blink\+Step\+Pattern}}, and \mbox{\hyperlink{classBackStrobePattern_a2f857aa8081d6e713b9fe95e17387e56}{Back\+Strobe\+Pattern}}.
 
 
 
@@ -539,11 +539,11 @@ Referenced by Mode\+::init(), Multi\+Led\+Pattern\+::init(), Basic\+Pattern\+::i
 
 
 
-Implemented in \mbox{\hyperlink{classBasicPattern_ab04a53496affe6e5bf4dccf86d91bc0e}{Basic\+Pattern}}, \mbox{\hyperlink{classZigzagPattern_a4ab7df902285979a647844d3d53bd146}{Zigzag\+Pattern}}, \mbox{\hyperlink{classSequencedPattern_ab48ffe5e91489ca51bed52bca83719be}{Sequenced\+Pattern}}, \mbox{\hyperlink{classPulsishPattern_ae4de7cba33111d8812f2e7d9f91d451f}{Pulsish\+Pattern}}, \mbox{\hyperlink{classMateriaPattern_aa1affc027799062b1ae794aae640a686}{Materia\+Pattern}}, \mbox{\hyperlink{classLighthousePattern_ad015f5592a25c5b10400e51c8db41cb0}{Lighthouse\+Pattern}}, \mbox{\hyperlink{classHueShiftPattern_a40cc40c961872675a5871303c2be9783}{Hue\+Shift\+Pattern}}, \mbox{\hyperlink{classDripMorphPattern_a6dc384cc69dfd81319359ac65fccede0}{Drip\+Morph\+Pattern}}, \mbox{\hyperlink{classCompoundPattern_acee370d7e9924623f9d402fce196a90a}{Compound\+Pattern}}, \mbox{\hyperlink{classBlinkStepPattern_a5f514eea576c838dda23fda088dde729}{Blink\+Step\+Pattern}}, and \mbox{\hyperlink{classBackStrobePattern_ab36bbceb686bed38d056300ca6da99f6}{Back\+Strobe\+Pattern}}.
+Implemented in \mbox{\hyperlink{classBasicPattern_ab04a53496affe6e5bf4dccf86d91bc0e}{Basic\+Pattern}}, \mbox{\hyperlink{classZigzagPattern_a4ab7df902285979a647844d3d53bd146}{Zigzag\+Pattern}}, \mbox{\hyperlink{classSequencedPattern_ab48ffe5e91489ca51bed52bca83719be}{Sequenced\+Pattern}}, \mbox{\hyperlink{classPulsishPattern_ae4de7cba33111d8812f2e7d9f91d451f}{Pulsish\+Pattern}}, \mbox{\hyperlink{classLighthousePattern_ad015f5592a25c5b10400e51c8db41cb0}{Lighthouse\+Pattern}}, \mbox{\hyperlink{classHueShiftPattern_a40cc40c961872675a5871303c2be9783}{Hue\+Shift\+Pattern}}, \mbox{\hyperlink{classDripMorphPattern_a6dc384cc69dfd81319359ac65fccede0}{Drip\+Morph\+Pattern}}, \mbox{\hyperlink{classCompoundPattern_acee370d7e9924623f9d402fce196a90a}{Compound\+Pattern}}, \mbox{\hyperlink{classBlinkStepPattern_a5f514eea576c838dda23fda088dde729}{Blink\+Step\+Pattern}}, and \mbox{\hyperlink{classBackStrobePattern_ab36bbceb686bed38d056300ca6da99f6}{Back\+Strobe\+Pattern}}.
 
 
 
-Referenced by Mode\+::play(), Compound\+Pattern\+::play(), and Sequenced\+Pattern\+::play().
+Referenced by Mode\+::play(), Compound\+Pattern\+::play(), and Sequenced\+Pattern\+::play\+Sequence\+Step().
 
 \mbox{\Hypertarget{classPattern_a86d8921ea6fb24198c412b553c84b077}\label{classPattern_a86d8921ea6fb24198c412b553c84b077}} 
 \index{Pattern@{Pattern}!registerArg@{registerArg}}
@@ -663,7 +663,7 @@ References Pattern\+Args\+::args, m\+\_\+arg\+List, and m\+\_\+num\+Args.
 
 
 
-Referenced by Back\+Strobe\+Pattern\+::\+Back\+Strobe\+Pattern(), Basic\+Pattern\+::\+Basic\+Pattern(), Blend\+Pattern\+::\+Blend\+Pattern(), Bounce\+Pattern\+::\+Bounce\+Pattern(), Chaser\+Pattern\+::\+Chaser\+Pattern(), Cross\+Dops\+Pattern\+::\+Cross\+Dops\+Pattern(), Double\+Strobe\+Pattern\+::\+Double\+Strobe\+Pattern(), Drip\+Morph\+Pattern\+::\+Drip\+Morph\+Pattern(), Drip\+Pattern\+::\+Drip\+Pattern(), Fill\+Pattern\+::\+Fill\+Pattern(), Hue\+Shift\+Pattern\+::\+Hue\+Shift\+Pattern(), Lighthouse\+Pattern\+::\+Lighthouse\+Pattern(), Materia\+Pattern\+::\+Materia\+Pattern(), Meteor\+Pattern\+::\+Meteor\+Pattern(), Pulsish\+Pattern\+::\+Pulsish\+Pattern(), Snowball\+Pattern\+::\+Snowball\+Pattern(), Solid\+Pattern\+::\+Solid\+Pattern(), Sparkle\+Trace\+Pattern\+::\+Sparkle\+Trace\+Pattern(), Theater\+Chase\+Pattern\+::\+Theater\+Chase\+Pattern(), unserialize(), Vortex\+Wipe\+Pattern\+::\+Vortex\+Wipe\+Pattern(), Warp\+Pattern\+::\+Warp\+Pattern(), Warp\+Worm\+Pattern\+::\+Warp\+Worm\+Pattern(), and Zigzag\+Pattern\+::\+Zigzag\+Pattern().
+Referenced by Back\+Strobe\+Pattern\+::\+Back\+Strobe\+Pattern(), Basic\+Pattern\+::\+Basic\+Pattern(), Blend\+Pattern\+::\+Blend\+Pattern(), Bounce\+Pattern\+::\+Bounce\+Pattern(), Chaser\+Pattern\+::\+Chaser\+Pattern(), Cross\+Dops\+Pattern\+::\+Cross\+Dops\+Pattern(), Double\+Strobe\+Pattern\+::\+Double\+Strobe\+Pattern(), Drip\+Morph\+Pattern\+::\+Drip\+Morph\+Pattern(), Drip\+Pattern\+::\+Drip\+Pattern(), Fill\+Pattern\+::\+Fill\+Pattern(), Hue\+Shift\+Pattern\+::\+Hue\+Shift\+Pattern(), Lighthouse\+Pattern\+::\+Lighthouse\+Pattern(), Meteor\+Pattern\+::\+Meteor\+Pattern(), Pulsish\+Pattern\+::\+Pulsish\+Pattern(), Snowball\+Pattern\+::\+Snowball\+Pattern(), Solid\+Pattern\+::\+Solid\+Pattern(), Sparkle\+Trace\+Pattern\+::\+Sparkle\+Trace\+Pattern(), Theater\+Chase\+Pattern\+::\+Theater\+Chase\+Pattern(), unserialize(), Vortex\+Pattern\+::\+Vortex\+Pattern(), Vortex\+Wipe\+Pattern\+::\+Vortex\+Wipe\+Pattern(), Warp\+Pattern\+::\+Warp\+Pattern(), Warp\+Worm\+Pattern\+::\+Warp\+Worm\+Pattern(), and Zigzag\+Pattern\+::\+Zigzag\+Pattern().
 
 \mbox{\Hypertarget{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}\label{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}} 
 \index{Pattern@{Pattern}!setColorset@{setColorset}}
@@ -688,7 +688,7 @@ References m\+\_\+colorset.
 
 
 
-Referenced by Pattern\+Builder\+::dupe(), Sequenced\+Pattern\+::play(), Mode\+::set\+Colorset(), Mode\+::set\+Pattern(), and Compound\+Pattern\+::set\+Pattern\+At().
+Referenced by Pattern\+Builder\+::dupe(), Sequenced\+Pattern\+::play\+Sequence\+Step(), Mode\+::set\+Colorset(), Mode\+::set\+Pattern(), and Compound\+Pattern\+::set\+Pattern\+At().
 
 \mbox{\Hypertarget{classPattern_a7cf6f075d5a664ded16f8bee13c91a6e}\label{classPattern_a7cf6f075d5a664ded16f8bee13c91a6e}} 
 \index{Pattern@{Pattern}!setLedPos@{setLedPos}}
@@ -786,7 +786,7 @@ Definition at line 120 of file Pattern.\+h.
 
 
 
-Referenced by Basic\+Pattern\+::begin\+Dash(), Drip\+Morph\+Pattern\+::blink\+On(), Bounce\+Pattern\+::blink\+On(), Cross\+Dops\+Pattern\+::blink\+On(), Double\+Strobe\+Pattern\+::blink\+On(), Drip\+Pattern\+::blink\+On(), Fill\+Pattern\+::blink\+On(), Lighthouse\+Pattern\+::blink\+On(), Snowball\+Pattern\+::blink\+On(), Sparkle\+Trace\+Pattern\+::blink\+On(), Theater\+Chase\+Pattern\+::blink\+On(), Vortex\+Wipe\+Pattern\+::blink\+On(), Warp\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), clear\+Colorset(), Zigzag\+Pattern\+::\+Snake\+::draw\+Snake(), equals(), get\+Colorset(), init(), Bounce\+Pattern\+::init(), Cross\+Dops\+Pattern\+::init(), Double\+Strobe\+Pattern\+::init(), Drip\+Morph\+Pattern\+::init(), Drip\+Pattern\+::init(), Fill\+Pattern\+::init(), Hue\+Shift\+Pattern\+::init(), Lighthouse\+Pattern\+::init(), Materia\+Pattern\+::init(), Snowball\+Pattern\+::init(), Vortex\+Wipe\+Pattern\+::init(), Warp\+Pattern\+::init(), Warp\+Worm\+Pattern\+::init(), Zigzag\+Pattern\+::init(), Basic\+Pattern\+::init(), Blend\+Pattern\+::init(), Zigzag\+Pattern\+::\+Snake\+::init(), Basic\+Pattern\+::on\+Blink\+On(), Blend\+Pattern\+::on\+Blink\+On(), Solid\+Pattern\+::on\+Blink\+On(), Hue\+Shift\+Pattern\+::play(), Materia\+Pattern\+::play(), Pulsish\+Pattern\+::play(), Sequenced\+Pattern\+::play(), Basic\+Pattern\+::play(), Blink\+Step\+Pattern\+::poststep(), Bounce\+Pattern\+::poststep(), Cross\+Dops\+Pattern\+::poststep(), Drip\+Pattern\+::poststep(), Fill\+Pattern\+::poststep(), Lighthouse\+Pattern\+::poststep(), Meteor\+Pattern\+::poststep(), Snowball\+Pattern\+::poststep(), Sparkle\+Trace\+Pattern\+::poststep(), Vortex\+Wipe\+Pattern\+::poststep(), Warp\+Pattern\+::poststep(), Warp\+Worm\+Pattern\+::poststep(), serialize(), set\+Colorset(), Compound\+Pattern\+::set\+Pattern\+At(), Zigzag\+Pattern\+::\+Snake\+::step(), and unserialize().
+Referenced by Basic\+Pattern\+::begin\+Dash(), Drip\+Morph\+Pattern\+::blink\+On(), Bounce\+Pattern\+::blink\+On(), Cross\+Dops\+Pattern\+::blink\+On(), Double\+Strobe\+Pattern\+::blink\+On(), Drip\+Pattern\+::blink\+On(), Fill\+Pattern\+::blink\+On(), Lighthouse\+Pattern\+::blink\+On(), Snowball\+Pattern\+::blink\+On(), Sparkle\+Trace\+Pattern\+::blink\+On(), Theater\+Chase\+Pattern\+::blink\+On(), Vortex\+Pattern\+::blink\+On(), Vortex\+Wipe\+Pattern\+::blink\+On(), Warp\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), clear\+Colorset(), Zigzag\+Pattern\+::\+Snake\+::draw\+Snake(), equals(), get\+Colorset(), init(), Bounce\+Pattern\+::init(), Cross\+Dops\+Pattern\+::init(), Double\+Strobe\+Pattern\+::init(), Drip\+Morph\+Pattern\+::init(), Drip\+Pattern\+::init(), Fill\+Pattern\+::init(), Hue\+Shift\+Pattern\+::init(), Lighthouse\+Pattern\+::init(), Snowball\+Pattern\+::init(), Vortex\+Pattern\+::init(), Vortex\+Wipe\+Pattern\+::init(), Warp\+Pattern\+::init(), Warp\+Worm\+Pattern\+::init(), Zigzag\+Pattern\+::init(), Basic\+Pattern\+::init(), Blend\+Pattern\+::init(), Zigzag\+Pattern\+::\+Snake\+::init(), Basic\+Pattern\+::on\+Blink\+On(), Blend\+Pattern\+::on\+Blink\+On(), Solid\+Pattern\+::on\+Blink\+On(), Hue\+Shift\+Pattern\+::play(), Pulsish\+Pattern\+::play(), Basic\+Pattern\+::play(), Sequenced\+Pattern\+::play\+Sequence\+Step(), Blink\+Step\+Pattern\+::poststep(), Bounce\+Pattern\+::poststep(), Cross\+Dops\+Pattern\+::poststep(), Drip\+Pattern\+::poststep(), Fill\+Pattern\+::poststep(), Lighthouse\+Pattern\+::poststep(), Meteor\+Pattern\+::poststep(), Snowball\+Pattern\+::poststep(), Sparkle\+Trace\+Pattern\+::poststep(), Vortex\+Pattern\+::poststep(), Vortex\+Wipe\+Pattern\+::poststep(), Warp\+Pattern\+::poststep(), Warp\+Worm\+Pattern\+::poststep(), serialize(), set\+Colorset(), Compound\+Pattern\+::set\+Pattern\+At(), Zigzag\+Pattern\+::\+Snake\+::step(), and unserialize().
 
 \mbox{\Hypertarget{classPattern_a060b7c087d8203c74eeb87ac32034a10}\label{classPattern_a060b7c087d8203c74eeb87ac32034a10}} 
 \index{Pattern@{Pattern}!m\_ledPos@{m\_ledPos}}
@@ -842,7 +842,7 @@ Definition at line 116 of file Pattern.\+h.
 
 
 
-Referenced by Back\+Strobe\+Pattern\+::\+Back\+Strobe\+Pattern(), Basic\+Pattern\+::\+Basic\+Pattern(), Blend\+Pattern\+::\+Blend\+Pattern(), Bounce\+Pattern\+::\+Bounce\+Pattern(), Cross\+Dops\+Pattern\+::\+Cross\+Dops\+Pattern(), Double\+Strobe\+Pattern\+::\+Double\+Strobe\+Pattern(), Drip\+Morph\+Pattern\+::\+Drip\+Morph\+Pattern(), Drip\+Pattern\+::\+Drip\+Pattern(), equals(), Fill\+Pattern\+::\+Fill\+Pattern(), get\+Pattern\+ID(), Hue\+Shift\+Pattern\+::\+Hue\+Shift\+Pattern(), Lighthouse\+Pattern\+::\+Lighthouse\+Pattern(), Pattern\+Builder\+::make\+Internal(), Materia\+Pattern\+::\+Materia\+Pattern(), Meteor\+Pattern\+::\+Meteor\+Pattern(), Pulsish\+Pattern\+::\+Pulsish\+Pattern(), serialize(), Snowball\+Pattern\+::\+Snowball\+Pattern(), Solid\+Pattern\+::\+Solid\+Pattern(), Sparkle\+Trace\+Pattern\+::\+Sparkle\+Trace\+Pattern(), Theater\+Chase\+Pattern\+::\+Theater\+Chase\+Pattern(), unserialize(), Vortex\+Wipe\+Pattern\+::\+Vortex\+Wipe\+Pattern(), Warp\+Pattern\+::\+Warp\+Pattern(), Warp\+Worm\+Pattern\+::\+Warp\+Worm\+Pattern(), and Zigzag\+Pattern\+::\+Zigzag\+Pattern().
+Referenced by Back\+Strobe\+Pattern\+::\+Back\+Strobe\+Pattern(), Basic\+Pattern\+::\+Basic\+Pattern(), Blend\+Pattern\+::\+Blend\+Pattern(), Bounce\+Pattern\+::\+Bounce\+Pattern(), Cross\+Dops\+Pattern\+::\+Cross\+Dops\+Pattern(), Double\+Strobe\+Pattern\+::\+Double\+Strobe\+Pattern(), Drip\+Morph\+Pattern\+::\+Drip\+Morph\+Pattern(), Drip\+Pattern\+::\+Drip\+Pattern(), equals(), Fill\+Pattern\+::\+Fill\+Pattern(), get\+Pattern\+ID(), Hue\+Shift\+Pattern\+::\+Hue\+Shift\+Pattern(), Lighthouse\+Pattern\+::\+Lighthouse\+Pattern(), Pattern\+Builder\+::make\+Internal(), Meteor\+Pattern\+::\+Meteor\+Pattern(), Pulsish\+Pattern\+::\+Pulsish\+Pattern(), serialize(), Snowball\+Pattern\+::\+Snowball\+Pattern(), Solid\+Pattern\+::\+Solid\+Pattern(), Sparkle\+Trace\+Pattern\+::\+Sparkle\+Trace\+Pattern(), Theater\+Chase\+Pattern\+::\+Theater\+Chase\+Pattern(), unserialize(), Vortex\+Pattern\+::\+Vortex\+Pattern(), Vortex\+Wipe\+Pattern\+::\+Vortex\+Wipe\+Pattern(), Warp\+Pattern\+::\+Warp\+Pattern(), Warp\+Worm\+Pattern\+::\+Warp\+Worm\+Pattern(), and Zigzag\+Pattern\+::\+Zigzag\+Pattern().
 
 
 

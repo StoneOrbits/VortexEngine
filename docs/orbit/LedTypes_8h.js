@@ -2,6 +2,7 @@ var LedTypes_8h =
 [
     [ "isEven", "LedTypes_8h.html#a57fca593725687711397bdae844376dc", null ],
     [ "isOdd", "LedTypes_8h.html#a2f07a4239fa9d919ab4213ec0caa9309", null ],
+    [ "isOrbitEven", "LedTypes_8h.html#ade21de4d5f98bedcebc30a79222415d6", null ],
     [ "MAP_ALL_BOT", "LedTypes_8h.html#a8f52a671c9dd65ec3f6100b3e5c59ef4", null ],
     [ "MAP_ALL_FACE", "LedTypes_8h.html#a554b4268c45e761511f180c2d9904a88", null ],
     [ "MAP_ALL_TOP", "LedTypes_8h.html#a99f9bf25d0b9a27d707b35b438e2ea4b", null ],

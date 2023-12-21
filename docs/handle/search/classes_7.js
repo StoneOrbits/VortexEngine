@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['irreceiver_1572',['IRReceiver',['../classIRReceiver.html',1,'']]],
-  ['irsender_1573',['IRSender',['../classIRSender.html',1,'']]]
+  ['irreceiver_1580',['IRReceiver',['../classIRReceiver.html',1,'']]],
+  ['irsender_1581',['IRSender',['../classIRSender.html',1,'']]]
 ];

@@ -56,15 +56,15 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "BackStrobePattern_8cpp.html",
-"Compression_8cpp.html#a9d0df14b4296f06cf7c7b141f26d29b3a19c5cc5c8516ea67ef3b2ec2de6fc484",
-"Log_8cpp.html",
-"Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f",
-"classBasicPattern.html#a6f4fd09d1a161c4577b324fff4a9a184",
-"classColorset.html#ae6e0a85c795f2e574bc842ea366d5eaa",
-"classLighthousePattern.html#a9fdfe8d7e0bd645dcbd20bdab7f3ad60",
-"classPattern.html#aa3e343dd51fb2ee2a0dbef0c8ba535d8",
-"classTime.html#a719c88f4e11a83f7167f45a2a58f5d60",
-"globals_defs_k.html"
+"Compression_8cpp.html#a7d26a1c40d6107cf2f19558492591e67",
+"LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2caf5ffd2a4ded5f1bed89341e000e979e9",
+"SolidPattern_8cpp_source.html",
+"classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9a8e134084c473204294c863017a921f12",
+"classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607",
+"classLeds.html#af8c5be7e02a6d0a4e5be7f1ef1fb69a0",
+"classPattern.html#a86d8921ea6fb24198c412b553c84b077",
+"classTheaterChasePattern.html#a9c8e96b672805122b6935afb9d7dbe64",
+"globals_enum.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -1,6 +1,5 @@
 var NAVTREEINDEX8 =
 {
-"classZigzagPattern_1_1Snake.html#adc2f2e3aee0f5610b837a53ba7f48aa7":[0,0,65,0,4],
 "classZigzagPattern_1_1Snake.html#ade9581df647ce41eb75b4ee8b1e7fddd":[0,0,65,0,9],
 "classZigzagPattern_1_1Snake.html#ae78497d0b6154b8cbe538e4ed6576151":[0,0,65,0,8],
 "classes.html":[0,1],
@@ -72,8 +71,8 @@ var NAVTREEINDEX8 =
 "functions_t.html":[0,3,0,17],
 "functions_u.html":[0,3,0,18],
 "functions_v.html":[0,3,0,19],
-"functions_vars.html":[0,3,2],
 "functions_vars.html":[0,3,2,0],
+"functions_vars.html":[0,3,2],
 "functions_vars_b.html":[0,3,2,1],
 "functions_vars_c.html":[0,3,2,2],
 "functions_vars_d.html":[0,3,2,3],
@@ -92,8 +91,8 @@ var NAVTREEINDEX8 =
 "functions_w.html":[0,3,0,20],
 "functions_z.html":[0,3,0,21],
 "functions_~.html":[0,3,0,22],
-"globals.html":[1,1,0],
 "globals.html":[1,1,0,0],
+"globals.html":[1,1,0],
 "globals_a.html":[1,1,0,1],
 "globals_b.html":[1,1,0,2],
 "globals_c.html":[1,1,0,3],
@@ -161,7 +160,7 @@ var NAVTREEINDEX8 =
 "structDefaultLedEntry.html#aef45c0cd26e11748684f28d25e041495":[0,0,15,0],
 "structDefaultModeEntry.html":[0,0,16],
 "structDefaultModeEntry.html#a5fc606af937f9ca35511dcc2cf8c90dc":[0,0,16,0],
-"structMenuEntry.html":[0,0,31],
-"structMenuEntry.html#a615b37dcd41d8eb35eedee103a302f0b":[0,0,31,1],
-"structMenuEntry.html#a6e87ceea68e0314b66bd024dea04e244":[0,0,31,0]
+"structMenuEntry.html":[0,0,30],
+"structMenuEntry.html#a615b37dcd41d8eb35eedee103a302f0b":[0,0,30,1],
+"structMenuEntry.html#a6e87ceea68e0314b66bd024dea04e244":[0,0,30,0]
 };

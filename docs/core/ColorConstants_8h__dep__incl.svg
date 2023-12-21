@@ -737,9 +737,9 @@ var sectionId = 'dynsection-0';
 <path fill="none" stroke="midnightblue" d="M1295.7,-211.43C1243.32,-208.5 1170.85,-204.47 1107.12,-201 807.14,-184.67 731.05,-195.02 432.12,-165 427.59,-164.54 422.94,-164.03 418.26,-163.47"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1295.72,-214.94 1305.9,-212 1296.11,-207.95 1295.72,-214.94"/>
 </g>
-<!-- Node58 -->
+<!-- Node60 -->
 <g id="node32" class="node">
-<title>Node58</title>
+<title>Node60</title>
 <g id="a_node32"><a xlink:href="DripMorphPattern_8cpp.html" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="2039.62,-67.5 2039.62,-97.5 2192.62,-97.5 2192.62,-67.5 2039.62,-67.5"/>
 <text text-anchor="start" x="2047.62" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
@@ -747,9 +747,9 @@ var sectionId = 'dynsection-0';
 </a>
 </g>
 </g>
-<!-- Node77&#45;&gt;Node58 -->
+<!-- Node77&#45;&gt;Node60 -->
 <g id="edge58" class="edge">
-<title>Node77&#45;&gt;Node58</title>
+<title>Node77&#45;&gt;Node60</title>
 <path fill="none" stroke="midnightblue" d="M1410.43,-197.53C1457.35,-178.42 1535.73,-148.95 1606.12,-134 1782.89,-96.46 1831.57,-118.37 2011.12,-98 2020.36,-96.95 2030.04,-95.75 2039.62,-94.51"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="1408.83,-194.4 1400.91,-201.44 1411.49,-200.87 1408.83,-194.4"/>
 </g>
@@ -1476,9 +1476,9 @@ var sectionId = 'dynsection-0';
 <path fill="none" stroke="midnightblue" d="M3277.29,-131.71C3315.21,-121.14 3363.61,-107.63 3399.54,-97.61"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="3276.09,-128.42 3267.4,-134.48 3277.97,-135.16 3276.09,-128.42"/>
 </g>
-<!-- Node112&#45;&gt;Node58 -->
+<!-- Node112&#45;&gt;Node60 -->
 <g id="edge140" class="edge">
-<title>Node112&#45;&gt;Node58</title>
+<title>Node112&#45;&gt;Node60</title>
 <path fill="none" stroke="midnightblue" d="M3147.08,-142.55C3113.01,-139.76 3071.44,-136.5 3034.12,-134 2722.18,-113.06 2350.17,-94.6 2192.63,-87.08"/>
 <polygon fill="midnightblue" stroke="midnightblue" points="3147.14,-146.07 3157.4,-143.4 3147.72,-139.09 3147.14,-146.07"/>
 </g>

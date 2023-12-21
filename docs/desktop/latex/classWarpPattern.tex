@@ -1,0 +1,208 @@
+\hypertarget{classWarpPattern}{}\doxysection{Warp\+Pattern Class Reference}
+\label{classWarpPattern}\index{WarpPattern@{WarpPattern}}
+
+
+{\ttfamily \#include $<$Warp\+Pattern.\+h$>$}
+
+
+
+Inheritance diagram for Warp\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classWarpPattern__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Warp\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classWarpPattern__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classWarpPattern_a74f3e5e576c681a01fb2ab60e8df31fc}{Warp\+Pattern}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&args)
+\item 
+virtual \mbox{\hyperlink{classWarpPattern_aa623f099adfb1dc38fbefad494b4cd36}{$\sim$\+Warp\+Pattern}} ()
+\item 
+virtual void \mbox{\hyperlink{classWarpPattern_a66f32724208a0497f7f4c4b91585f6d4}{init}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classWarpPattern_adce78b4f43928862fe4737d90ce4fcb3}{blink\+On}} () override
+\item 
+virtual void \mbox{\hyperlink{classWarpPattern_a27fb52d362c1b23649377ec00b498a3f}{poststep}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classWarpPattern_a69c23966e6fc108956ec6c3f2c37e558}{m\+\_\+progress}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 5 of file Warp\+Pattern.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classWarpPattern_a74f3e5e576c681a01fb2ab60e8df31fc}\label{classWarpPattern_a74f3e5e576c681a01fb2ab60e8df31fc}} 
+\index{WarpPattern@{WarpPattern}!WarpPattern@{WarpPattern}}
+\index{WarpPattern@{WarpPattern}!WarpPattern@{WarpPattern}}
+\doxysubsubsection{\texorpdfstring{WarpPattern()}{WarpPattern()}}
+{\footnotesize\ttfamily Warp\+Pattern\+::\+Warp\+Pattern (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&}]{args }\end{DoxyParamCaption})}
+
+
+
+Definition at line 10 of file Warp\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10                                                                       :}
+\DoxyCodeLine{11   \mbox{\hyperlink{classBlinkStepPattern_a312cba342c4f367b3e725d8bb7513569}{BlinkStepPattern}}(engine, args),}
+\DoxyCodeLine{12   \mbox{\hyperlink{classWarpPattern_a69c23966e6fc108956ec6c3f2c37e558}{m\_progress}}(0)}
+\DoxyCodeLine{13 \{}
+\DoxyCodeLine{14   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caaa5b1ff1b81120431769cb245aa065cb}{PATTERN\_WARP}};}
+\DoxyCodeLine{15   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
+\DoxyCodeLine{16 \}}
+
+\end{DoxyCode}
+
+
+References Pattern\+::m\+\_\+pattern\+ID, PATTERN\+\_\+\+WARP, and Pattern\+::set\+Args().
+
+\mbox{\Hypertarget{classWarpPattern_aa623f099adfb1dc38fbefad494b4cd36}\label{classWarpPattern_aa623f099adfb1dc38fbefad494b4cd36}} 
+\index{WarpPattern@{WarpPattern}!````~WarpPattern@{$\sim$WarpPattern}}
+\index{````~WarpPattern@{$\sim$WarpPattern}!WarpPattern@{WarpPattern}}
+\doxysubsubsection{\texorpdfstring{$\sim$WarpPattern()}{~WarpPattern()}}
+{\footnotesize\ttfamily Warp\+Pattern\+::$\sim$\+Warp\+Pattern (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 18 of file Warp\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{20 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classWarpPattern_adce78b4f43928862fe4737d90ce4fcb3}\label{classWarpPattern_adce78b4f43928862fe4737d90ce4fcb3}} 
+\index{WarpPattern@{WarpPattern}!blinkOn@{blinkOn}}
+\index{blinkOn@{blinkOn}!WarpPattern@{WarpPattern}}
+\doxysubsubsection{\texorpdfstring{blinkOn()}{blinkOn()}}
+{\footnotesize\ttfamily void Warp\+Pattern\+::blink\+On (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a792005962eff211334d732ee09020b90}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 32 of file Warp\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34   \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{setAll}}(\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_abef3c86e5519d8befb515d2e927885f5}{cur}}());}
+\DoxyCodeLine{35   \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a388ba18e176cbf465446d41ed8f796c1}{setPair}}((\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})\mbox{\hyperlink{classWarpPattern_a69c23966e6fc108956ec6c3f2c37e558}{m\_progress}}, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}{peekNext}}());}
+\DoxyCodeLine{36 \}}
+
+\end{DoxyCode}
+
+
+References Colorset\+::cur(), Vortex\+Engine\+::leds(), Pattern\+::m\+\_\+colorset, Pattern\+::m\+\_\+engine, m\+\_\+progress, Colorset\+::peek\+Next(), Leds\+::set\+All(), and Leds\+::set\+Pair().
+
+\mbox{\Hypertarget{classWarpPattern_a66f32724208a0497f7f4c4b91585f6d4}\label{classWarpPattern_a66f32724208a0497f7f4c4b91585f6d4}} 
+\index{WarpPattern@{WarpPattern}!init@{init}}
+\index{init@{init}!WarpPattern@{WarpPattern}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Warp\+Pattern\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 23 of file Warp\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24 \{}
+\DoxyCodeLine{25   \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{BlinkStepPattern::init}}();}
+\DoxyCodeLine{26   \textcolor{comment}{// reset progress}}
+\DoxyCodeLine{27   \mbox{\hyperlink{classWarpPattern_a69c23966e6fc108956ec6c3f2c37e558}{m\_progress}} = 0;}
+\DoxyCodeLine{28   \textcolor{comment}{// start colorset at index 0 so cur() works}}
+\DoxyCodeLine{29   \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4959095438adcd6c02f5b0e4a17c9b8d}{setCurIndex}}(0);}
+\DoxyCodeLine{30 \}}
+
+\end{DoxyCode}
+
+
+References Blink\+Step\+Pattern\+::init(), Pattern\+::m\+\_\+colorset, m\+\_\+progress, and Colorset\+::set\+Cur\+Index().
+
+\mbox{\Hypertarget{classWarpPattern_a27fb52d362c1b23649377ec00b498a3f}\label{classWarpPattern_a27fb52d362c1b23649377ec00b498a3f}} 
+\index{WarpPattern@{WarpPattern}!poststep@{poststep}}
+\index{poststep@{poststep}!WarpPattern@{WarpPattern}}
+\doxysubsubsection{\texorpdfstring{poststep()}{poststep()}}
+{\footnotesize\ttfamily void Warp\+Pattern\+::poststep (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a31d244f697913cbdf624386f8a46663c}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 38 of file Warp\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40   \mbox{\hyperlink{classWarpPattern_a69c23966e6fc108956ec6c3f2c37e558}{m\_progress}} = (\mbox{\hyperlink{classWarpPattern_a69c23966e6fc108956ec6c3f2c37e558}{m\_progress}} + 1) \% \mbox{\hyperlink{Leds_8h_a2fdba1e4cf202c4f9e8c2dc79b9667bd}{PAIR\_COUNT}};}
+\DoxyCodeLine{41   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classWarpPattern_a69c23966e6fc108956ec6c3f2c37e558}{m\_progress}} == 0) \{}
+\DoxyCodeLine{42     \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{43   \}}
+\DoxyCodeLine{44 \}}
+
+\end{DoxyCode}
+
+
+References Colorset\+::get\+Next(), Pattern\+::m\+\_\+colorset, m\+\_\+progress, and PAIR\+\_\+\+COUNT.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classWarpPattern_a69c23966e6fc108956ec6c3f2c37e558}\label{classWarpPattern_a69c23966e6fc108956ec6c3f2c37e558}} 
+\index{WarpPattern@{WarpPattern}!m\_progress@{m\_progress}}
+\index{m\_progress@{m\_progress}!WarpPattern@{WarpPattern}}
+\doxysubsubsection{\texorpdfstring{m\_progress}{m\_progress}}
+{\footnotesize\ttfamily uint8\+\_\+t Warp\+Pattern\+::m\+\_\+progress\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 20 of file Warp\+Pattern.\+h.
+
+
+
+Referenced by blink\+On(), init(), and poststep().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{WarpPattern_8h}{Warp\+Pattern.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{WarpPattern_8cpp}{Warp\+Pattern.\+cpp}}\end{DoxyCompactItemize}

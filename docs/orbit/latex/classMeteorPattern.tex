@@ -177,16 +177,18 @@ Definition at line 35 of file Meteor\+Pattern.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{36 \{}
-\DoxyCodeLine{37   \textcolor{comment}{// when a new meteor is created it is incerted into the stash so the blinking pattern is not interrupted}}
-\DoxyCodeLine{38   \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} target = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})\mbox{\hyperlink{classMeteorPattern_ae0706044bda91d4ecddc1ac0768f9177}{m\_randCtx}}.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}});}
-\DoxyCodeLine{39   \mbox{\hyperlink{classRGBColor}{RGBColor}} col = \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
-\DoxyCodeLine{40   \mbox{\hyperlink{classMeteorPattern_a1bc09ef4e91e4821c284b516b57a5aff}{m\_stash}}.\mbox{\hyperlink{classLedStash_a521c963cdf873fb0a6a6697193fcd921}{setIndex}}(target, col);}
-\DoxyCodeLine{41 \}}
+\DoxyCodeLine{37   \textcolor{keywordflow}{for} (uint8\_t meteorCount = 0; meteorCount < (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}} / 2); ++meteorCount) \{}
+\DoxyCodeLine{38     \textcolor{comment}{// when a new meteor is created it is incerted into the stash so the blinking pattern is not interrupted}}
+\DoxyCodeLine{39     \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} target = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})\mbox{\hyperlink{classMeteorPattern_ae0706044bda91d4ecddc1ac0768f9177}{m\_randCtx}}.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}});}
+\DoxyCodeLine{40     \mbox{\hyperlink{classRGBColor}{RGBColor}} col = \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{41     \mbox{\hyperlink{classMeteorPattern_a1bc09ef4e91e4821c284b516b57a5aff}{m\_stash}}.\mbox{\hyperlink{classLedStash_a521c963cdf873fb0a6a6697193fcd921}{setIndex}}(target, col);}
+\DoxyCodeLine{42   \}}
+\DoxyCodeLine{43 \}}
 
 \end{DoxyCode}
 
 
-References Colorset\+::get\+Next(), LED\+\_\+\+FIRST, LED\+\_\+\+LAST, Pattern\+::m\+\_\+colorset, m\+\_\+rand\+Ctx, m\+\_\+stash, Random\+::next8(), and Led\+Stash\+::set\+Index().
+References Colorset\+::get\+Next(), LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, LED\+\_\+\+LAST, Pattern\+::m\+\_\+colorset, m\+\_\+rand\+Ctx, m\+\_\+stash, Random\+::next8(), and Led\+Stash\+::set\+Index().
 
 
 

@@ -207,7 +207,7 @@ $(document).ready(function(){initNavTree('IRSender_8cpp_source.html',''); initRe
 <div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;{</div>
 <div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  m_isSending = <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)&quot;</span>,</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);</div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <a class="code" href="classTime.html#ac44f4e49538456714372bb1aad3dd839">Time::microseconds</a>(), m_size, m_numBlocks, m_remainder, m_blockSize);</div>
 <div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="comment">// init sender before writing, is this necessary here? I think so</span></div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  initPWM();</div>
 <div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="comment">// wakeup the other receiver with a very quick mark/space</span></div>
@@ -348,6 +348,7 @@ $(document).ready(function(){initNavTree('IRSender_8cpp_source.html',''); initRe
 <div class="ttc" id="aclassMode_html_a4bf861a9f38599ab515655ae52700534"><div class="ttname"><a href="classMode.html#a4bf861a9f38599ab515655ae52700534">Mode::saveToBuffer</a></div><div class="ttdeci">bool saveToBuffer(ByteStream &amp;saveBuffer, uint8_t numLeds=0) const</div><div class="ttdef"><b>Definition:</b> <a href="Mode_8cpp_source.html#l00179">Mode.cpp:179</a></div></div>
 <div class="ttc" id="aclassTime_html_a7c7a8e067bdbd5aaf119521539d30940"><div class="ttname"><a href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a></div><div class="ttdeci">static uint32_t getCurtime()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00040">TimeControl.h:40</a></div></div>
 <div class="ttc" id="aclassTime_html_a9682da1974a20a9bcdbb678984cd0e9c"><div class="ttname"><a href="classTime.html#a9682da1974a20a9bcdbb678984cd0e9c">Time::delayMicroseconds</a></div><div class="ttdeci">static void delayMicroseconds(uint32_t us)</div></div>
+<div class="ttc" id="aclassTime_html_ac44f4e49538456714372bb1aad3dd839"><div class="ttname"><a href="classTime.html#ac44f4e49538456714372bb1aad3dd839">Time::microseconds</a></div><div class="ttdeci">static uint32_t microseconds()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8cpp_source.html#l00192">TimeControl.cpp:192</a></div></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

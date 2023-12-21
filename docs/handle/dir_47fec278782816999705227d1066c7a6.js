@@ -45,10 +45,6 @@ var dir_47fec278782816999705227d1066c7a6 =
     [ "LighthousePattern.h", "LighthousePattern_8h.html", [
       [ "LighthousePattern", "classLighthousePattern.html", "classLighthousePattern" ]
     ] ],
-    [ "MateriaPattern.cpp", "MateriaPattern_8cpp.html", null ],
-    [ "MateriaPattern.h", "MateriaPattern_8h.html", [
-      [ "MateriaPattern", "classMateriaPattern.html", "classMateriaPattern" ]
-    ] ],
     [ "MeteorPattern.cpp", "MeteorPattern_8cpp.html", null ],
     [ "MeteorPattern.h", "MeteorPattern_8h.html", [
       [ "MeteorPattern", "classMeteorPattern.html", "classMeteorPattern" ]
@@ -72,6 +68,10 @@ var dir_47fec278782816999705227d1066c7a6 =
     [ "TheaterChasePattern.cpp", "TheaterChasePattern_8cpp.html", "TheaterChasePattern_8cpp" ],
     [ "TheaterChasePattern.h", "TheaterChasePattern_8h.html", [
       [ "TheaterChasePattern", "classTheaterChasePattern.html", "classTheaterChasePattern" ]
+    ] ],
+    [ "VortexPattern.cpp", "VortexPattern_8cpp.html", "VortexPattern_8cpp" ],
+    [ "VortexPattern.h", "VortexPattern_8h.html", [
+      [ "VortexPattern", "classVortexPattern.html", "classVortexPattern" ]
     ] ],
     [ "VortexWipePattern.cpp", "VortexWipePattern_8cpp.html", null ],
     [ "VortexWipePattern.h", "VortexWipePattern_8h.html", [

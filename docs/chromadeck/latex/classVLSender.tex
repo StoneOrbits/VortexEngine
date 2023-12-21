@@ -99,32 +99,32 @@ Definition at line 13 of file VLSender.\+h.
 
 
 
-Definition at line 114 of file VLSender.\+cpp.
+Definition at line 115 of file VLSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{115 \{}
-\DoxyCodeLine{116   \mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{117   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}[\%zu] Beginning send size \%u (blocks: \%u remainder: \%u blocksize: \%u)"{}},}
-\DoxyCodeLine{118     microseconds(), \mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}}, \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}}, \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}}, \mbox{\hyperlink{classVLSender_aba1429142e7e2f5477626781e52b8605}{m\_blockSize}});}
-\DoxyCodeLine{119   \textcolor{comment}{// wakeup the other receiver with a very quick mark/space}}
-\DoxyCodeLine{120   \mbox{\hyperlink{classVLSender_a18aa277b332d02a22a2a26d7e5a563f6}{sendMark}}(50);}
-\DoxyCodeLine{121   \mbox{\hyperlink{classVLSender_a43b51392934fbbadbafe0dda5dca6cf5}{sendSpace}}(100);}
-\DoxyCodeLine{122   \textcolor{comment}{// now send the header}}
-\DoxyCodeLine{123   \mbox{\hyperlink{classVLSender_a18aa277b332d02a22a2a26d7e5a563f6}{sendMark}}(\mbox{\hyperlink{VLConfig_8h_aeb563708effd881b6724e4abffd2d206}{VL\_HEADER\_MARK}});}
-\DoxyCodeLine{124   \mbox{\hyperlink{classVLSender_a43b51392934fbbadbafe0dda5dca6cf5}{sendSpace}}(\mbox{\hyperlink{VLConfig_8h_aa6b94f98cc8192fd019a96a9d8a61293}{VL\_HEADER\_SPACE}});}
-\DoxyCodeLine{125   \textcolor{comment}{// reset writeCounter}}
-\DoxyCodeLine{126   \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}} = 0;}
-\DoxyCodeLine{127   \textcolor{comment}{// write the number of blocks being sent, most likely just 1}}
-\DoxyCodeLine{128   \mbox{\hyperlink{classVLSender_a020e91ee92122906e0bb407f3a6b34d2}{sendByte}}(\mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}});}
-\DoxyCodeLine{129   \textcolor{comment}{// now write the number of bytes in the last block}}
-\DoxyCodeLine{130   \mbox{\hyperlink{classVLSender_a020e91ee92122906e0bb407f3a6b34d2}{sendByte}}(\mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}});}
-\DoxyCodeLine{131 \}}
+\DoxyCodeLine{116 \{}
+\DoxyCodeLine{117   \mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{118   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}[\%zu] Beginning send size \%u (blocks: \%u remainder: \%u blocksize: \%u)"{}},}
+\DoxyCodeLine{119     \mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{Time::microseconds}}(), \mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}}, \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}}, \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}}, \mbox{\hyperlink{classVLSender_aba1429142e7e2f5477626781e52b8605}{m\_blockSize}});}
+\DoxyCodeLine{120   \textcolor{comment}{// wakeup the other receiver with a very quick mark/space}}
+\DoxyCodeLine{121   \mbox{\hyperlink{classVLSender_a18aa277b332d02a22a2a26d7e5a563f6}{sendMark}}(50);}
+\DoxyCodeLine{122   \mbox{\hyperlink{classVLSender_a43b51392934fbbadbafe0dda5dca6cf5}{sendSpace}}(100);}
+\DoxyCodeLine{123   \textcolor{comment}{// now send the header}}
+\DoxyCodeLine{124   \mbox{\hyperlink{classVLSender_a18aa277b332d02a22a2a26d7e5a563f6}{sendMark}}(\mbox{\hyperlink{VLConfig_8h_aeb563708effd881b6724e4abffd2d206}{VL\_HEADER\_MARK}});}
+\DoxyCodeLine{125   \mbox{\hyperlink{classVLSender_a43b51392934fbbadbafe0dda5dca6cf5}{sendSpace}}(\mbox{\hyperlink{VLConfig_8h_aa6b94f98cc8192fd019a96a9d8a61293}{VL\_HEADER\_SPACE}});}
+\DoxyCodeLine{126   \textcolor{comment}{// reset writeCounter}}
+\DoxyCodeLine{127   \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}} = 0;}
+\DoxyCodeLine{128   \textcolor{comment}{// write the number of blocks being sent, most likely just 1}}
+\DoxyCodeLine{129   \mbox{\hyperlink{classVLSender_a020e91ee92122906e0bb407f3a6b34d2}{sendByte}}(\mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}});}
+\DoxyCodeLine{130   \textcolor{comment}{// now write the number of bytes in the last block}}
+\DoxyCodeLine{131   \mbox{\hyperlink{classVLSender_a020e91ee92122906e0bb407f3a6b34d2}{sendByte}}(\mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}});}
+\DoxyCodeLine{132 \}}
 
 \end{DoxyCode}
 
 
-References DEBUG\+\_\+\+LOGF, m\+\_\+block\+Size, m\+\_\+is\+Sending, m\+\_\+num\+Blocks, m\+\_\+remainder, m\+\_\+size, m\+\_\+write\+Counter, send\+Byte(), send\+Mark(), send\+Space(), VL\+\_\+\+HEADER\+\_\+\+MARK, and VL\+\_\+\+HEADER\+\_\+\+SPACE.
+References DEBUG\+\_\+\+LOGF, m\+\_\+block\+Size, m\+\_\+is\+Sending, m\+\_\+num\+Blocks, m\+\_\+remainder, m\+\_\+size, m\+\_\+write\+Counter, Time\+::microseconds(), send\+Byte(), send\+Mark(), send\+Space(), VL\+\_\+\+HEADER\+\_\+\+MARK, and VL\+\_\+\+HEADER\+\_\+\+SPACE.
 
 
 
@@ -138,12 +138,12 @@ Referenced by send().
 
 
 
-Definition at line 38 of file VLSender.\+cpp.
+Definition at line 39 of file VLSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{39 \{}
-\DoxyCodeLine{40 \}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41 \}}
 
 \end{DoxyCode}
 
@@ -158,13 +158,13 @@ Referenced by Vortex\+Engine\+::cleanup().
 
 
 
-Definition at line 33 of file VLSender.\+cpp.
+Definition at line 34 of file VLSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{34 \{}
-\DoxyCodeLine{35   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{36 \}}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{37 \}}
 
 \end{DoxyCode}
 
@@ -208,42 +208,42 @@ Referenced by Mode\+Sharing\+::begin\+Sending\+VL(), and Mode\+Sharing\+::contin
 
 
 
-Definition at line 42 of file VLSender.\+cpp.
+Definition at line 43 of file VLSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{43 \{}
-\DoxyCodeLine{44   \mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
-\DoxyCodeLine{45   \textcolor{comment}{// save the target mode to it's savefile buffer format}}
-\DoxyCodeLine{46   \textcolor{keywordflow}{if} (!targetMode-\/>\mbox{\hyperlink{classMode_a4bf861a9f38599ab515655ae52700534}{saveToBuffer}}(\mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}, 2)) \{}
-\DoxyCodeLine{47     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to save mode to buffer"{}});}
-\DoxyCodeLine{48     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{49   \}}
-\DoxyCodeLine{50   \textcolor{comment}{// decompress the mode on lifi, no compression here}}
-\DoxyCodeLine{51   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_adc9ecdea7fa35c193b0c3f5b607477e9}{decompress}}()) \{}
-\DoxyCodeLine{52     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to decompress VL buf for sending"{}});}
-\DoxyCodeLine{53     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{54   \}}
-\DoxyCodeLine{55   \textcolor{comment}{// ensure the data isn't too big}}
-\DoxyCodeLine{56   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}() > \mbox{\hyperlink{VLConfig_8h_a5531f46c73b52342bc76a5423252c745}{VL\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{57     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Cannot transfer that much data: \%u bytes"{}}, \mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
-\DoxyCodeLine{58     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{59   \}}
-\DoxyCodeLine{60   \textcolor{comment}{// point the bitstream at the serial buffer}}
-\DoxyCodeLine{61   \mbox{\hyperlink{classVLSender_a7f17a11e21662f7fa1022703e32e24fd}{m\_bitStream}}.\mbox{\hyperlink{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}{init}}((uint8\_t *)\mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a6993f9575592309a501156db31f82554}{rawData}}(), \mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
-\DoxyCodeLine{62   \textcolor{comment}{// the size of the packet}}
-\DoxyCodeLine{63   \mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}} = \mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}();}
-\DoxyCodeLine{64   \textcolor{comment}{// the number of blocks that will be sent (possibly just 1 with less than 32 bytes)}}
-\DoxyCodeLine{65   \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}} = (\mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}} + (\mbox{\hyperlink{VLConfig_8h_ad989f13d1c369d1323dd82c196201614}{VL\_DEFAULT\_BLOCK\_SIZE}} -\/ 1)) / \mbox{\hyperlink{VLConfig_8h_ad989f13d1c369d1323dd82c196201614}{VL\_DEFAULT\_BLOCK\_SIZE}};}
-\DoxyCodeLine{66   \textcolor{comment}{// the amount in the final block (possibly the only block)}}
-\DoxyCodeLine{67   \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}} = \mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}} \% (\mbox{\hyperlink{VLConfig_8h_ad989f13d1c369d1323dd82c196201614}{VL\_DEFAULT\_BLOCK\_SIZE}} + 0);}
-\DoxyCodeLine{68   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Num blocks: \%u"{}}, \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}});}
-\DoxyCodeLine{69   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Remainder: \%u"{}}, \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}});}
-\DoxyCodeLine{70   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Size: \%u"{}}, \mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}});}
-\DoxyCodeLine{71   \textcolor{comment}{// reset write counter}}
-\DoxyCodeLine{72   \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}} = 0;}
-\DoxyCodeLine{73   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{74 \}}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45   \mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{46   \textcolor{comment}{// save the target mode to it's savefile buffer format}}
+\DoxyCodeLine{47   \textcolor{keywordflow}{if} (!targetMode-\/>\mbox{\hyperlink{classMode_a4bf861a9f38599ab515655ae52700534}{saveToBuffer}}(\mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}, 2)) \{}
+\DoxyCodeLine{48     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to save mode to buffer"{}});}
+\DoxyCodeLine{49     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{50   \}}
+\DoxyCodeLine{51   \textcolor{comment}{// decompress the mode on lifi, no compression here}}
+\DoxyCodeLine{52   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_adc9ecdea7fa35c193b0c3f5b607477e9}{decompress}}()) \{}
+\DoxyCodeLine{53     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to decompress VL buf for sending"{}});}
+\DoxyCodeLine{54     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{55   \}}
+\DoxyCodeLine{56   \textcolor{comment}{// ensure the data isn't too big}}
+\DoxyCodeLine{57   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}() > \mbox{\hyperlink{VLConfig_8h_a5531f46c73b52342bc76a5423252c745}{VL\_MAX\_DATA\_TRANSFER}}) \{}
+\DoxyCodeLine{58     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Cannot transfer that much data: \%u bytes"{}}, \mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
+\DoxyCodeLine{59     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{60   \}}
+\DoxyCodeLine{61   \textcolor{comment}{// point the bitstream at the serial buffer}}
+\DoxyCodeLine{62   \mbox{\hyperlink{classVLSender_a7f17a11e21662f7fa1022703e32e24fd}{m\_bitStream}}.\mbox{\hyperlink{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}{init}}((uint8\_t *)\mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a6993f9575592309a501156db31f82554}{rawData}}(), \mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
+\DoxyCodeLine{63   \textcolor{comment}{// the size of the packet}}
+\DoxyCodeLine{64   \mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}} = \mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}();}
+\DoxyCodeLine{65   \textcolor{comment}{// the number of blocks that will be sent (possibly just 1 with less than 32 bytes)}}
+\DoxyCodeLine{66   \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}} = (\mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}} + (\mbox{\hyperlink{VLConfig_8h_ad989f13d1c369d1323dd82c196201614}{VL\_DEFAULT\_BLOCK\_SIZE}} -\/ 1)) / \mbox{\hyperlink{VLConfig_8h_ad989f13d1c369d1323dd82c196201614}{VL\_DEFAULT\_BLOCK\_SIZE}};}
+\DoxyCodeLine{67   \textcolor{comment}{// the amount in the final block (possibly the only block)}}
+\DoxyCodeLine{68   \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}} = \mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}} \% (\mbox{\hyperlink{VLConfig_8h_ad989f13d1c369d1323dd82c196201614}{VL\_DEFAULT\_BLOCK\_SIZE}} + 0);}
+\DoxyCodeLine{69   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Num blocks: \%u"{}}, \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}});}
+\DoxyCodeLine{70   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Remainder: \%u"{}}, \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}});}
+\DoxyCodeLine{71   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Size: \%u"{}}, \mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}});}
+\DoxyCodeLine{72   \textcolor{comment}{// reset write counter}}
+\DoxyCodeLine{73   \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}} = 0;}
+\DoxyCodeLine{74   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{75 \}}
 
 \end{DoxyCode}
 
@@ -281,46 +281,46 @@ References m\+\_\+size, and m\+\_\+write\+Counter.
 
 
 
-Definition at line 76 of file VLSender.\+cpp.
+Definition at line 77 of file VLSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{77 \{}
-\DoxyCodeLine{78   \textcolor{comment}{// must have at least one block to send}}
-\DoxyCodeLine{79   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}} < 1) \{}
-\DoxyCodeLine{80     \mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{81     \textcolor{keywordflow}{return} \mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}};}
-\DoxyCodeLine{82   \}}
-\DoxyCodeLine{83   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}}) \{}
-\DoxyCodeLine{84     \mbox{\hyperlink{classVLSender_ac2e5bb810ad3f849b8ca286d98dc0f1d}{beginSend}}();}
-\DoxyCodeLine{85   \}}
-\DoxyCodeLine{86   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLSender_a3637f37d0c1d0b048235ae2168cf713b}{m\_lastSendTime}} > 0 \&\& \mbox{\hyperlink{classVLSender_a3637f37d0c1d0b048235ae2168cf713b}{m\_lastSendTime}} + \mbox{\hyperlink{VLConfig_8h_afa8ddadf99bd9a8115d267ac43fb3599}{VL\_DEFAULT\_BLOCK\_SPACING}} > \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}()) \{}
-\DoxyCodeLine{87     \textcolor{comment}{// don't send yet}}
-\DoxyCodeLine{88     \textcolor{keywordflow}{return} \mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}};}
-\DoxyCodeLine{89   \}}
-\DoxyCodeLine{90   \textcolor{comment}{// blocksize is default unless it's the last block, then it's the remainder}}
-\DoxyCodeLine{91   uint32\_t blocksize = (\mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}} == 1) ? \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}} : \mbox{\hyperlink{VLConfig_8h_ad989f13d1c369d1323dd82c196201614}{VL\_DEFAULT\_BLOCK\_SIZE}};}
-\DoxyCodeLine{92   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}VLSender Sending block \#\%u"{}}, \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}});}
-\DoxyCodeLine{93   \textcolor{comment}{// pointer to the data at the correct location}}
-\DoxyCodeLine{94   \textcolor{keyword}{const} uint8\_t *buf\_ptr = \mbox{\hyperlink{classVLSender_a7f17a11e21662f7fa1022703e32e24fd}{m\_bitStream}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}() + \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}};}
-\DoxyCodeLine{95   \textcolor{comment}{// iterate each byte in the block and write it}}
-\DoxyCodeLine{96   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < blocksize; ++i) \{}
-\DoxyCodeLine{97     \textcolor{comment}{// write the byte}}
-\DoxyCodeLine{98     \mbox{\hyperlink{classVLSender_a020e91ee92122906e0bb407f3a6b34d2}{sendByte}}(*buf\_ptr);}
-\DoxyCodeLine{99     \textcolor{comment}{// increment to next byte in buffer}}
-\DoxyCodeLine{100     buf\_ptr++;}
-\DoxyCodeLine{101     \textcolor{comment}{// record the written byte}}
-\DoxyCodeLine{102     \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}}++;}
-\DoxyCodeLine{103   \}}
-\DoxyCodeLine{104   \textcolor{comment}{// wrote one block}}
-\DoxyCodeLine{105   \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}}-\/-\/;}
-\DoxyCodeLine{106   \textcolor{comment}{// still sending if we have more blocks}}
-\DoxyCodeLine{107   \mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}} = (\mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}} > 0);}
-\DoxyCodeLine{108   \textcolor{comment}{// the curtime}}
-\DoxyCodeLine{109   \mbox{\hyperlink{classVLSender_a3637f37d0c1d0b048235ae2168cf713b}{m\_lastSendTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
-\DoxyCodeLine{110   \textcolor{comment}{// return whether still sending}}
-\DoxyCodeLine{111   \textcolor{keywordflow}{return} \mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}};}
-\DoxyCodeLine{112 \}}
+\DoxyCodeLine{78 \{}
+\DoxyCodeLine{79   \textcolor{comment}{// must have at least one block to send}}
+\DoxyCodeLine{80   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}} < 1) \{}
+\DoxyCodeLine{81     \mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{82     \textcolor{keywordflow}{return} \mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}};}
+\DoxyCodeLine{83   \}}
+\DoxyCodeLine{84   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}}) \{}
+\DoxyCodeLine{85     \mbox{\hyperlink{classVLSender_ac2e5bb810ad3f849b8ca286d98dc0f1d}{beginSend}}();}
+\DoxyCodeLine{86   \}}
+\DoxyCodeLine{87   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLSender_a3637f37d0c1d0b048235ae2168cf713b}{m\_lastSendTime}} > 0 \&\& \mbox{\hyperlink{classVLSender_a3637f37d0c1d0b048235ae2168cf713b}{m\_lastSendTime}} + \mbox{\hyperlink{VLConfig_8h_afa8ddadf99bd9a8115d267ac43fb3599}{VL\_DEFAULT\_BLOCK\_SPACING}} > \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}()) \{}
+\DoxyCodeLine{88     \textcolor{comment}{// don't send yet}}
+\DoxyCodeLine{89     \textcolor{keywordflow}{return} \mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}};}
+\DoxyCodeLine{90   \}}
+\DoxyCodeLine{91   \textcolor{comment}{// blocksize is default unless it's the last block, then it's the remainder}}
+\DoxyCodeLine{92   uint32\_t blocksize = (\mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}} == 1) ? \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}} : \mbox{\hyperlink{VLConfig_8h_ad989f13d1c369d1323dd82c196201614}{VL\_DEFAULT\_BLOCK\_SIZE}};}
+\DoxyCodeLine{93   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}VLSender Sending block \#\%u"{}}, \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}});}
+\DoxyCodeLine{94   \textcolor{comment}{// pointer to the data at the correct location}}
+\DoxyCodeLine{95   \textcolor{keyword}{const} uint8\_t *buf\_ptr = \mbox{\hyperlink{classVLSender_a7f17a11e21662f7fa1022703e32e24fd}{m\_bitStream}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}() + \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}};}
+\DoxyCodeLine{96   \textcolor{comment}{// iterate each byte in the block and write it}}
+\DoxyCodeLine{97   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < blocksize; ++i) \{}
+\DoxyCodeLine{98     \textcolor{comment}{// write the byte}}
+\DoxyCodeLine{99     \mbox{\hyperlink{classVLSender_a020e91ee92122906e0bb407f3a6b34d2}{sendByte}}(*buf\_ptr);}
+\DoxyCodeLine{100     \textcolor{comment}{// increment to next byte in buffer}}
+\DoxyCodeLine{101     buf\_ptr++;}
+\DoxyCodeLine{102     \textcolor{comment}{// record the written byte}}
+\DoxyCodeLine{103     \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}}++;}
+\DoxyCodeLine{104   \}}
+\DoxyCodeLine{105   \textcolor{comment}{// wrote one block}}
+\DoxyCodeLine{106   \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}}-\/-\/;}
+\DoxyCodeLine{107   \textcolor{comment}{// still sending if we have more blocks}}
+\DoxyCodeLine{108   \mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}} = (\mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}} > 0);}
+\DoxyCodeLine{109   \textcolor{comment}{// the curtime}}
+\DoxyCodeLine{110   \mbox{\hyperlink{classVLSender_a3637f37d0c1d0b048235ae2168cf713b}{m\_lastSendTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
+\DoxyCodeLine{111   \textcolor{comment}{// return whether still sending}}
+\DoxyCodeLine{112   \textcolor{keywordflow}{return} \mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}};}
+\DoxyCodeLine{113 \}}
 
 \end{DoxyCode}
 
@@ -339,22 +339,22 @@ Referenced by Mode\+Sharing\+::begin\+Sending\+VL(), and Mode\+Sharing\+::contin
 
 
 
-Definition at line 133 of file VLSender.\+cpp.
+Definition at line 134 of file VLSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{134 \{}
-\DoxyCodeLine{135   \textcolor{comment}{// Sends from left to right, MSB first}}
-\DoxyCodeLine{136   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} b = 0; b < 8; b++) \{}
-\DoxyCodeLine{137     \textcolor{comment}{// grab the bit of data at the indexspace}}
-\DoxyCodeLine{138     uint32\_t bit = (data >> (7 -\/ b)) \& 1;}
-\DoxyCodeLine{139     \textcolor{comment}{// send 3x timing size for 1s and 1x timing for 0}}
-\DoxyCodeLine{140     \mbox{\hyperlink{classVLSender_a18aa277b332d02a22a2a26d7e5a563f6}{sendMark}}(\mbox{\hyperlink{VLConfig_8h_a0ec0a4d9a48be677d4d923eadcefe6ce}{VL\_TIMING}} + (\mbox{\hyperlink{VLConfig_8h_a0ec0a4d9a48be677d4d923eadcefe6ce}{VL\_TIMING}} * (2 * bit)));}
-\DoxyCodeLine{141     \textcolor{comment}{// send 1x timing size for space}}
-\DoxyCodeLine{142     \mbox{\hyperlink{classVLSender_a43b51392934fbbadbafe0dda5dca6cf5}{sendSpace}}(\mbox{\hyperlink{VLConfig_8h_a0ec0a4d9a48be677d4d923eadcefe6ce}{VL\_TIMING}});}
-\DoxyCodeLine{143   \}}
-\DoxyCodeLine{144   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Sent byte[\%u]: 0x\%x"{}}, \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}}, data);}
-\DoxyCodeLine{145  \}}
+\DoxyCodeLine{135 \{}
+\DoxyCodeLine{136   \textcolor{comment}{// Sends from left to right, MSB first}}
+\DoxyCodeLine{137   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} b = 0; b < 8; b++) \{}
+\DoxyCodeLine{138     \textcolor{comment}{// grab the bit of data at the indexspace}}
+\DoxyCodeLine{139     uint32\_t bit = (data >> (7 -\/ b)) \& 1;}
+\DoxyCodeLine{140     \textcolor{comment}{// send 3x timing size for 1s and 1x timing for 0}}
+\DoxyCodeLine{141     \mbox{\hyperlink{classVLSender_a18aa277b332d02a22a2a26d7e5a563f6}{sendMark}}(\mbox{\hyperlink{VLConfig_8h_a0ec0a4d9a48be677d4d923eadcefe6ce}{VL\_TIMING}} + (\mbox{\hyperlink{VLConfig_8h_a0ec0a4d9a48be677d4d923eadcefe6ce}{VL\_TIMING}} * (2 * bit)));}
+\DoxyCodeLine{142     \textcolor{comment}{// send 1x timing size for space}}
+\DoxyCodeLine{143     \mbox{\hyperlink{classVLSender_a43b51392934fbbadbafe0dda5dca6cf5}{sendSpace}}(\mbox{\hyperlink{VLConfig_8h_a0ec0a4d9a48be677d4d923eadcefe6ce}{VL\_TIMING}});}
+\DoxyCodeLine{144   \}}
+\DoxyCodeLine{145   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Sent byte[\%u]: 0x\%x"{}}, \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}}, data);}
+\DoxyCodeLine{146  \}}
 
 \end{DoxyCode}
 
@@ -373,19 +373,19 @@ Referenced by begin\+Send(), and send().
 
 
 
-Definition at line 147 of file VLSender.\+cpp.
+Definition at line 148 of file VLSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{148 \{}
-\DoxyCodeLine{149 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{150   \textcolor{comment}{// send mark timing over socket}}
-\DoxyCodeLine{151   Vortex::vcallbacks()-\/>infraredWrite(\textcolor{keyword}{true}, time);}
-\DoxyCodeLine{152 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{153   \mbox{\hyperlink{classVLSender_a563dfda5e2adea98cbf98ef98c66787c}{startPWM}}();}
-\DoxyCodeLine{154   \mbox{\hyperlink{classTime_a1db7b0672f8b2d38994119ccc226f8ee}{Time::delayMicroseconds}}(time);}
-\DoxyCodeLine{155 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{156 \}}
+\DoxyCodeLine{149 \{}
+\DoxyCodeLine{150 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{151   \textcolor{comment}{// send mark timing over socket}}
+\DoxyCodeLine{152   Vortex::vcallbacks()-\/>infraredWrite(\textcolor{keyword}{true}, time);}
+\DoxyCodeLine{153 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{154   \mbox{\hyperlink{classVLSender_a563dfda5e2adea98cbf98ef98c66787c}{startPWM}}();}
+\DoxyCodeLine{155   \mbox{\hyperlink{classTime_a1db7b0672f8b2d38994119ccc226f8ee}{Time::delayMicroseconds}}(time);}
+\DoxyCodeLine{156 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{157 \}}
 
 \end{DoxyCode}
 
@@ -404,19 +404,19 @@ Referenced by begin\+Send(), and send\+Byte().
 
 
 
-Definition at line 158 of file VLSender.\+cpp.
+Definition at line 159 of file VLSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{159 \{}
-\DoxyCodeLine{160 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{161   \textcolor{comment}{// send space timing over socket}}
-\DoxyCodeLine{162   Vortex::vcallbacks()-\/>infraredWrite(\textcolor{keyword}{false}, time);}
-\DoxyCodeLine{163 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{164   \mbox{\hyperlink{classVLSender_a6fadfb59019cde5bbcf9d2f2e33a50f6}{stopPWM}}();}
-\DoxyCodeLine{165   \mbox{\hyperlink{classTime_a1db7b0672f8b2d38994119ccc226f8ee}{Time::delayMicroseconds}}(time);}
-\DoxyCodeLine{166 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{167 \}}
+\DoxyCodeLine{160 \{}
+\DoxyCodeLine{161 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{162   \textcolor{comment}{// send space timing over socket}}
+\DoxyCodeLine{163   Vortex::vcallbacks()-\/>infraredWrite(\textcolor{keyword}{false}, time);}
+\DoxyCodeLine{164 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{165   \mbox{\hyperlink{classVLSender_a6fadfb59019cde5bbcf9d2f2e33a50f6}{stopPWM}}();}
+\DoxyCodeLine{166   \mbox{\hyperlink{classTime_a1db7b0672f8b2d38994119ccc226f8ee}{Time::delayMicroseconds}}(time);}
+\DoxyCodeLine{167 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{168 \}}
 
 \end{DoxyCode}
 
@@ -435,23 +435,23 @@ Referenced by begin\+Send(), and send\+Byte().
 
 
 
-Definition at line 169 of file VLSender.\+cpp.
+Definition at line 170 of file VLSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{170 \{}
-\DoxyCodeLine{171 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
-\DoxyCodeLine{172   \textcolor{comment}{// brightness backup}}
-\DoxyCodeLine{173   uint8\_t oldBrightness = \mbox{\hyperlink{classLeds_acdeb76107e3193ba4cf1e87361335cbb}{Leds::getBrightness}}();}
-\DoxyCodeLine{174   \textcolor{comment}{// ensure max brightness}}
-\DoxyCodeLine{175   \mbox{\hyperlink{classLeds_a71eae9e9f07864f4e0f5d64bffaf7eff}{Leds::setBrightness}}(255);}
-\DoxyCodeLine{176   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{177   \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424}{LED\_0}}, \mbox{\hyperlink{ColorConstants_8h_ac1771f95d9887118764bd8a074e537e1}{RGB\_WHITE}});}
-\DoxyCodeLine{178   \mbox{\hyperlink{classLeds_a7b552b40079b1179fd47f7aeea88878d}{Leds::update}}();}
-\DoxyCodeLine{179   \textcolor{comment}{// restore brightness}}
-\DoxyCodeLine{180   \mbox{\hyperlink{classLeds_a71eae9e9f07864f4e0f5d64bffaf7eff}{Leds::setBrightness}}(oldBrightness);}
-\DoxyCodeLine{181 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{182 \}}
+\DoxyCodeLine{171 \{}
+\DoxyCodeLine{172 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
+\DoxyCodeLine{173   \textcolor{comment}{// brightness backup}}
+\DoxyCodeLine{174   uint8\_t oldBrightness = \mbox{\hyperlink{classLeds_acdeb76107e3193ba4cf1e87361335cbb}{Leds::getBrightness}}();}
+\DoxyCodeLine{175   \textcolor{comment}{// ensure max brightness}}
+\DoxyCodeLine{176   \mbox{\hyperlink{classLeds_a71eae9e9f07864f4e0f5d64bffaf7eff}{Leds::setBrightness}}(255);}
+\DoxyCodeLine{177   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{178   \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424}{LED\_0}}, \mbox{\hyperlink{ColorConstants_8h_ac1771f95d9887118764bd8a074e537e1}{RGB\_WHITE}});}
+\DoxyCodeLine{179   \mbox{\hyperlink{classLeds_a7b552b40079b1179fd47f7aeea88878d}{Leds::update}}();}
+\DoxyCodeLine{180   \textcolor{comment}{// restore brightness}}
+\DoxyCodeLine{181   \mbox{\hyperlink{classLeds_a71eae9e9f07864f4e0f5d64bffaf7eff}{Leds::setBrightness}}(oldBrightness);}
+\DoxyCodeLine{182 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{183 \}}
 
 \end{DoxyCode}
 
@@ -470,16 +470,16 @@ Referenced by send\+Mark().
 
 
 
-Definition at line 184 of file VLSender.\+cpp.
+Definition at line 185 of file VLSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{185 \{}
-\DoxyCodeLine{186 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
-\DoxyCodeLine{187   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{188   \mbox{\hyperlink{classLeds_a7b552b40079b1179fd47f7aeea88878d}{Leds::update}}();}
-\DoxyCodeLine{189 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{190 \}}
+\DoxyCodeLine{186 \{}
+\DoxyCodeLine{187 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
+\DoxyCodeLine{188   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{189   \mbox{\hyperlink{classLeds_a7b552b40079b1179fd47f7aeea88878d}{Leds::update}}();}
+\DoxyCodeLine{190 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{191 \}}
 
 \end{DoxyCode}
 

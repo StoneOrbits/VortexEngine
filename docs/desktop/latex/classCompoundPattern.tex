@@ -1,0 +1,330 @@
+\hypertarget{classCompoundPattern}{}\doxysection{Compound\+Pattern Class Reference}
+\label{classCompoundPattern}\index{CompoundPattern@{CompoundPattern}}
+
+
+{\ttfamily \#include $<$Compound\+Pattern.\+h$>$}
+
+
+
+Inheritance diagram for Compound\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=310pt]{classCompoundPattern__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Compound\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classCompoundPattern__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classCompoundPattern_a0793970443bcdab8adce9acc7da499ce}{$\sim$\+Compound\+Pattern}} ()
+\item 
+virtual void \mbox{\hyperlink{classCompoundPattern_a543d47cc3f7f4bf29fc7ed667362edf6}{init}} () override
+\item 
+virtual void \mbox{\hyperlink{classCompoundPattern_acee370d7e9924623f9d402fce196a90a}{play}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classCompoundPattern_aaff607599f9fb14187e9d256c2ba6a22}{Compound\+Pattern}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&args)
+\item 
+void \mbox{\hyperlink{classCompoundPattern_af6309f0ba65191342a39481b67cfcd5e}{set\+Pattern\+At}} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}} pos, \mbox{\hyperlink{classSingleLedPattern}{Single\+Led\+Pattern}} $\ast$pat, const \mbox{\hyperlink{classColorset}{Colorset}} $\ast$set=nullptr)
+\item 
+void \mbox{\hyperlink{classCompoundPattern_a1cb74f3378b094abc08773ff5cc17b8a}{set\+Pattern\+At}} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}} pos, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} id, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$args=nullptr, const \mbox{\hyperlink{classColorset}{Colorset}} $\ast$set=nullptr)
+\item 
+void \mbox{\hyperlink{classCompoundPattern_a3b89f178c5d0e104fa40e2687628d5b5}{clear\+Patterns}} ()
+\item 
+void \mbox{\hyperlink{classCompoundPattern_a6d751063402c58baefb5364397270637}{set\+Evens\+Odds}} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} tip\+Pattern, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} top\+Pattern, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$tip\+Args=nullptr, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$top\+Args=nullptr)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+std\+::vector$<$ \mbox{\hyperlink{classSingleLedPattern}{Single\+Led\+Pattern}} $\ast$ $>$ \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\+\_\+led\+Patterns}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 12 of file Compound\+Pattern.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classCompoundPattern_aaff607599f9fb14187e9d256c2ba6a22}\label{classCompoundPattern_aaff607599f9fb14187e9d256c2ba6a22}} 
+\index{CompoundPattern@{CompoundPattern}!CompoundPattern@{CompoundPattern}}
+\index{CompoundPattern@{CompoundPattern}!CompoundPattern@{CompoundPattern}}
+\doxysubsubsection{\texorpdfstring{CompoundPattern()}{CompoundPattern()}}
+{\footnotesize\ttfamily Compound\+Pattern\+::\+Compound\+Pattern (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 9 of file Compound\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{9                                                                               :}
+\DoxyCodeLine{10   \mbox{\hyperlink{classMultiLedPattern_ae3130dbbdc974177a3765d690ef4422c}{MultiLedPattern}}(engine, args),}
+\DoxyCodeLine{11   \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}()}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13   \textcolor{comment}{// Hybrid is an abstract class it cannot be directly}}
+\DoxyCodeLine{14   \textcolor{comment}{// instantiated so we do not need to assign a pattern id}}
+\DoxyCodeLine{15 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classCompoundPattern_a0793970443bcdab8adce9acc7da499ce}\label{classCompoundPattern_a0793970443bcdab8adce9acc7da499ce}} 
+\index{CompoundPattern@{CompoundPattern}!````~CompoundPattern@{$\sim$CompoundPattern}}
+\index{````~CompoundPattern@{$\sim$CompoundPattern}!CompoundPattern@{CompoundPattern}}
+\doxysubsubsection{\texorpdfstring{$\sim$CompoundPattern()}{~CompoundPattern()}}
+{\footnotesize\ttfamily Compound\+Pattern\+::$\sim$\+Compound\+Pattern (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 17 of file Compound\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   \textcolor{comment}{// clean up all the sub patterns}}
+\DoxyCodeLine{20   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} pos = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; pos <= \mbox{\hyperlink{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}{LED\_LAST}}; pos++) \{}
+\DoxyCodeLine{21     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos]) \{}
+\DoxyCodeLine{22       \textcolor{keyword}{delete} \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos];}
+\DoxyCodeLine{23       \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos] = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{24     \}}
+\DoxyCodeLine{25   \}}
+\DoxyCodeLine{26 \}}
+
+\end{DoxyCode}
+
+
+References LED\+\_\+\+FIRST, LED\+\_\+\+LAST, and m\+\_\+led\+Patterns.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classCompoundPattern_a3b89f178c5d0e104fa40e2687628d5b5}\label{classCompoundPattern_a3b89f178c5d0e104fa40e2687628d5b5}} 
+\index{CompoundPattern@{CompoundPattern}!clearPatterns@{clearPatterns}}
+\index{clearPatterns@{clearPatterns}!CompoundPattern@{CompoundPattern}}
+\doxysubsubsection{\texorpdfstring{clearPatterns()}{clearPatterns()}}
+{\footnotesize\ttfamily void Compound\+Pattern\+::clear\+Patterns (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 50 of file Compound\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{51 \{}
+\DoxyCodeLine{52   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} pos = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; pos <= \mbox{\hyperlink{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}{LED\_LAST}}; pos++) \{}
+\DoxyCodeLine{53     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos]) \{}
+\DoxyCodeLine{54       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{55     \}}
+\DoxyCodeLine{56     \textcolor{keyword}{delete} \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos];}
+\DoxyCodeLine{57     \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos] = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{58   \}}
+\DoxyCodeLine{59 \}}
+
+\end{DoxyCode}
+
+
+References LED\+\_\+\+FIRST, LED\+\_\+\+LAST, and m\+\_\+led\+Patterns.
+
+\mbox{\Hypertarget{classCompoundPattern_a543d47cc3f7f4bf29fc7ed667362edf6}\label{classCompoundPattern_a543d47cc3f7f4bf29fc7ed667362edf6}} 
+\index{CompoundPattern@{CompoundPattern}!init@{init}}
+\index{init@{init}!CompoundPattern@{CompoundPattern}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Compound\+Pattern\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMultiLedPattern_a2541223ee8c1d57463e88682e1405c42}{Multi\+Led\+Pattern}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classSequencedPattern_ab972b3f7756799c8e2fecc72697ab7ba}{Sequenced\+Pattern}}, and \mbox{\hyperlink{classBackStrobePattern_a2f857aa8081d6e713b9fe95e17387e56}{Back\+Strobe\+Pattern}}.
+
+
+
+Definition at line 29 of file Compound\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{31   \mbox{\hyperlink{classMultiLedPattern_a2541223ee8c1d57463e88682e1405c42}{MultiLedPattern::init}}();}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33   \textcolor{comment}{// resize the pattern list to the number of leds}}
+\DoxyCodeLine{34   \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}.resize(\mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}});}
+\DoxyCodeLine{35 \}}
+
+\end{DoxyCode}
+
+
+References Multi\+Led\+Pattern\+::init(), LED\+\_\+\+COUNT, and m\+\_\+led\+Patterns.
+
+
+
+Referenced by Back\+Strobe\+Pattern\+::init(), and Sequenced\+Pattern\+::init().
+
+\mbox{\Hypertarget{classCompoundPattern_acee370d7e9924623f9d402fce196a90a}\label{classCompoundPattern_acee370d7e9924623f9d402fce196a90a}} 
+\index{CompoundPattern@{CompoundPattern}!play@{play}}
+\index{play@{play}!CompoundPattern@{CompoundPattern}}
+\doxysubsubsection{\texorpdfstring{play()}{play()}}
+{\footnotesize\ttfamily void Compound\+Pattern\+::play (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classPattern_a351206aa151c8e49f175b8b3d41f6e9c}{Pattern}}.
+
+
+
+Reimplemented in \mbox{\hyperlink{classSequencedPattern_ab48ffe5e91489ca51bed52bca83719be}{Sequenced\+Pattern}}, and \mbox{\hyperlink{classBackStrobePattern_ab36bbceb686bed38d056300ca6da99f6}{Back\+Strobe\+Pattern}}.
+
+
+
+Definition at line 38 of file Compound\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} pos = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; pos <= \mbox{\hyperlink{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}{LED\_LAST}}; pos++) \{}
+\DoxyCodeLine{41     \mbox{\hyperlink{classSingleLedPattern}{SingleLedPattern}} *pat = \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos];}
+\DoxyCodeLine{42     \textcolor{keywordflow}{if} (!pat) \{}
+\DoxyCodeLine{43       \textcolor{comment}{// should never happen, but just in case}}
+\DoxyCodeLine{44       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{45     \}}
+\DoxyCodeLine{46     pat-\/>\mbox{\hyperlink{classPattern_a351206aa151c8e49f175b8b3d41f6e9c}{play}}();}
+\DoxyCodeLine{47   \}}
+\DoxyCodeLine{48 \}}
+
+\end{DoxyCode}
+
+
+References LED\+\_\+\+FIRST, LED\+\_\+\+LAST, m\+\_\+led\+Patterns, and Pattern\+::play().
+
+
+
+Referenced by Back\+Strobe\+Pattern\+::play().
+
+\mbox{\Hypertarget{classCompoundPattern_a6d751063402c58baefb5364397270637}\label{classCompoundPattern_a6d751063402c58baefb5364397270637}} 
+\index{CompoundPattern@{CompoundPattern}!setEvensOdds@{setEvensOdds}}
+\index{setEvensOdds@{setEvensOdds}!CompoundPattern@{CompoundPattern}}
+\doxysubsubsection{\texorpdfstring{setEvensOdds()}{setEvensOdds()}}
+{\footnotesize\ttfamily void Compound\+Pattern\+::set\+Evens\+Odds (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{tip\+Pattern,  }\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{top\+Pattern,  }\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$}]{tip\+Args = {\ttfamily nullptr},  }\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$}]{top\+Args = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 87 of file Compound\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{89 \{}
+\DoxyCodeLine{90   \textcolor{comment}{// Set the evenPattern on all evens and oddPattern on all odds}}
+\DoxyCodeLine{91   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} p = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; p <= \mbox{\hyperlink{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}{LED\_LAST}}; p++) \{}
+\DoxyCodeLine{92     \textcolor{keyword}{const} \mbox{\hyperlink{classPatternArgs}{PatternArgs}} *args = \mbox{\hyperlink{Leds_8h_a57fca593725687711397bdae844376dc}{isEven}}(p) ? evenArgs : oddArgs;}
+\DoxyCodeLine{93     \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} \textcolor{keywordtype}{id} = \mbox{\hyperlink{Leds_8h_a57fca593725687711397bdae844376dc}{isEven}}(p) ? evenPattern : oddPattern;}
+\DoxyCodeLine{94     \mbox{\hyperlink{classCompoundPattern_af6309f0ba65191342a39481b67cfcd5e}{setPatternAt}}(p, \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a0898c499130adb075ef02614aee5daad}{patternBuilder}}().\mbox{\hyperlink{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}{makeSingle}}(\textcolor{keywordtype}{id}, args));}
+\DoxyCodeLine{95   \}}
+\DoxyCodeLine{96 \}}
+
+\end{DoxyCode}
+
+
+References is\+Even, LED\+\_\+\+FIRST, LED\+\_\+\+LAST, Pattern\+::m\+\_\+engine, Pattern\+Builder\+::make\+Single(), Vortex\+Engine\+::pattern\+Builder(), and set\+Pattern\+At().
+
+
+
+Referenced by Back\+Strobe\+Pattern\+::init(), and Back\+Strobe\+Pattern\+::play().
+
+\mbox{\Hypertarget{classCompoundPattern_a1cb74f3378b094abc08773ff5cc17b8a}\label{classCompoundPattern_a1cb74f3378b094abc08773ff5cc17b8a}} 
+\index{CompoundPattern@{CompoundPattern}!setPatternAt@{setPatternAt}}
+\index{setPatternAt@{setPatternAt}!CompoundPattern@{CompoundPattern}}
+\doxysubsubsection{\texorpdfstring{setPatternAt()}{setPatternAt()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily void Compound\+Pattern\+::set\+Pattern\+At (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}}}]{pos,  }\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{id,  }\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$}]{args = {\ttfamily nullptr},  }\item[{const \mbox{\hyperlink{classColorset}{Colorset}} $\ast$}]{set = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 78 of file Compound\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{80 \{}
+\DoxyCodeLine{81   \textcolor{keywordflow}{if} (pos >= \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}) \{}
+\DoxyCodeLine{82     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{83   \}}
+\DoxyCodeLine{84   \mbox{\hyperlink{classCompoundPattern_af6309f0ba65191342a39481b67cfcd5e}{setPatternAt}}(pos, \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a0898c499130adb075ef02614aee5daad}{patternBuilder}}().\mbox{\hyperlink{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}{makeSingle}}(\textcolor{keywordtype}{id}, args), set);}
+\DoxyCodeLine{85 \}}
+
+\end{DoxyCode}
+
+
+References LED\+\_\+\+COUNT, Pattern\+::m\+\_\+engine, Pattern\+Builder\+::make\+Single(), Vortex\+Engine\+::pattern\+Builder(), and set\+Pattern\+At().
+
+\mbox{\Hypertarget{classCompoundPattern_af6309f0ba65191342a39481b67cfcd5e}\label{classCompoundPattern_af6309f0ba65191342a39481b67cfcd5e}} 
+\index{CompoundPattern@{CompoundPattern}!setPatternAt@{setPatternAt}}
+\index{setPatternAt@{setPatternAt}!CompoundPattern@{CompoundPattern}}
+\doxysubsubsection{\texorpdfstring{setPatternAt()}{setPatternAt()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily void Compound\+Pattern\+::set\+Pattern\+At (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}}}]{pos,  }\item[{\mbox{\hyperlink{classSingleLedPattern}{Single\+Led\+Pattern}} $\ast$}]{pat,  }\item[{const \mbox{\hyperlink{classColorset}{Colorset}} $\ast$}]{set = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 61 of file Compound\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{63 \{}
+\DoxyCodeLine{64   \textcolor{keywordflow}{if} (!pat || pos >= \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}) \{}
+\DoxyCodeLine{65     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{66   \}}
+\DoxyCodeLine{67   pat-\/>\mbox{\hyperlink{classPattern_a7a940e0a37cf3d6d0e4dae99baa49455}{bind}}(pos);}
+\DoxyCodeLine{68   pat-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(set ? *set : \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}});}
+\DoxyCodeLine{69   pat-\/>\mbox{\hyperlink{classSingleLedPattern_ae3713818ccd424142be290f14974e5ff}{init}}();}
+\DoxyCodeLine{70   \textcolor{comment}{// handle re-\/initialization and prevent leaks}}
+\DoxyCodeLine{71   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos]) \{}
+\DoxyCodeLine{72     \textcolor{keyword}{delete} \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos];}
+\DoxyCodeLine{73   \}}
+\DoxyCodeLine{74   \textcolor{comment}{// store the pattern for the given led}}
+\DoxyCodeLine{75   \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos] = pat;}
+\DoxyCodeLine{76 \}}
+
+\end{DoxyCode}
+
+
+References Pattern\+::bind(), Single\+Led\+Pattern\+::init(), LED\+\_\+\+COUNT, Pattern\+::m\+\_\+colorset, m\+\_\+led\+Patterns, and Pattern\+::set\+Colorset().
+
+
+
+Referenced by set\+Evens\+Odds(), and set\+Pattern\+At().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}\label{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}} 
+\index{CompoundPattern@{CompoundPattern}!m\_ledPatterns@{m\_ledPatterns}}
+\index{m\_ledPatterns@{m\_ledPatterns}!CompoundPattern@{CompoundPattern}}
+\doxysubsubsection{\texorpdfstring{m\_ledPatterns}{m\_ledPatterns}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classSingleLedPattern}{Single\+Led\+Pattern}} $\ast$$>$ Compound\+Pattern\+::m\+\_\+led\+Patterns\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 38 of file Compound\+Pattern.\+h.
+
+
+
+Referenced by clear\+Patterns(), init(), play(), Sequenced\+Pattern\+::play\+Sequence\+Step(), set\+Pattern\+At(), and $\sim$\+Compound\+Pattern().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{CompoundPattern_8h}{Compound\+Pattern.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{CompoundPattern_8cpp}{Compound\+Pattern.\+cpp}}\end{DoxyCompactItemize}

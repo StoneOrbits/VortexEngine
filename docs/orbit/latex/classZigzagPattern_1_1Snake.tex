@@ -59,19 +59,19 @@ Definition at line 23 of file Zigzag\+Pattern.\+h.
 
 
 
-Definition at line 83 of file Zigzag\+Pattern.\+cpp.
+Definition at line 66 of file Zigzag\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{83                           :}
-\DoxyCodeLine{84   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ad0627d603e84ef6d9b0d07edb259d5d2}{m\_blinkTimer}}(),}
-\DoxyCodeLine{85   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac952be44096dc7ae7c1f749c0f34b1f4}{m\_colorset}}(),}
-\DoxyCodeLine{86   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}}(0),}
-\DoxyCodeLine{87   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ade9581df647ce41eb75b4ee8b1e7fddd}{m\_snakeSize}}(1),}
-\DoxyCodeLine{88   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ae78497d0b6154b8cbe538e4ed6576151}{m\_fadeAmount}}(55),}
-\DoxyCodeLine{89   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ab3b548d02791e35d13742ac825de58f6}{m\_changeBoundary}}(3)}
-\DoxyCodeLine{90 \{}
-\DoxyCodeLine{91 \}}
+\DoxyCodeLine{66                           :}
+\DoxyCodeLine{67   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ad0627d603e84ef6d9b0d07edb259d5d2}{m\_blinkTimer}}(),}
+\DoxyCodeLine{68   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac952be44096dc7ae7c1f749c0f34b1f4}{m\_colorset}}(),}
+\DoxyCodeLine{69   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}}(0),}
+\DoxyCodeLine{70   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ade9581df647ce41eb75b4ee8b1e7fddd}{m\_snakeSize}}(1),}
+\DoxyCodeLine{71   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ae78497d0b6154b8cbe538e4ed6576151}{m\_fadeAmount}}(55),}
+\DoxyCodeLine{72   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ab3b548d02791e35d13742ac825de58f6}{m\_changeBoundary}}(3)}
+\DoxyCodeLine{73 \{}
+\DoxyCodeLine{74 \}}
 
 \end{DoxyCode}
 
@@ -85,26 +85,26 @@ Definition at line 83 of file Zigzag\+Pattern.\+cpp.
 
 
 
-Definition at line 125 of file Zigzag\+Pattern.\+cpp.
+Definition at line 108 of file Zigzag\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{126 \{}
-\DoxyCodeLine{127   \textcolor{comment}{// when the blinkTimer triggers}}
-\DoxyCodeLine{128   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classZigzagPattern_1_1Snake_ad0627d603e84ef6d9b0d07edb259d5d2}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_a8a6d962c92c8e2e641254ea28e1f0443}{alarm}}()) \{}
-\DoxyCodeLine{129   \textcolor{keywordflow}{case} 0: \textcolor{comment}{// blinking on}}
-\DoxyCodeLine{130     \textcolor{comment}{// draw two snakes, one on the current step, one on the opposite side}}
-\DoxyCodeLine{131     \mbox{\hyperlink{classZigzagPattern_1_1Snake_ab1fe0cb12fa1a75157f3f088338fdecb}{drawSnake}}();}
-\DoxyCodeLine{132     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{133   \textcolor{keywordflow}{case} 1: \textcolor{comment}{// blinking off}}
-\DoxyCodeLine{134     \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{135     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{136   \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{137   \textcolor{keywordflow}{case} -\/1:}
-\DoxyCodeLine{138     \textcolor{comment}{// nothing}}
-\DoxyCodeLine{139     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{140   \}}
-\DoxyCodeLine{141 \}}
+\DoxyCodeLine{109 \{}
+\DoxyCodeLine{110   \textcolor{comment}{// when the blinkTimer triggers}}
+\DoxyCodeLine{111   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classZigzagPattern_1_1Snake_ad0627d603e84ef6d9b0d07edb259d5d2}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_a8a6d962c92c8e2e641254ea28e1f0443}{alarm}}()) \{}
+\DoxyCodeLine{112   \textcolor{keywordflow}{case} 0: \textcolor{comment}{// blinking on}}
+\DoxyCodeLine{113     \textcolor{comment}{// draw two snakes, one on the current step, one on the opposite side}}
+\DoxyCodeLine{114     \mbox{\hyperlink{classZigzagPattern_1_1Snake_ab1fe0cb12fa1a75157f3f088338fdecb}{drawSnake}}();}
+\DoxyCodeLine{115     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{116   \textcolor{keywordflow}{case} 1: \textcolor{comment}{// blinking off}}
+\DoxyCodeLine{117     \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{118     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{119   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{120   \textcolor{keywordflow}{case} -\/1:}
+\DoxyCodeLine{121     \textcolor{comment}{// nothing}}
+\DoxyCodeLine{122     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{123   \}}
+\DoxyCodeLine{124 \}}
 
 \end{DoxyCode}
 
@@ -123,42 +123,42 @@ Referenced by Zigzag\+Pattern\+::play().
 
 
 
-Definition at line 143 of file Zigzag\+Pattern.\+cpp.
+Definition at line 126 of file Zigzag\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{144 \{}
-\DoxyCodeLine{145   uint8\_t segment\_position;}
-\DoxyCodeLine{146   int32\_t colIndex = 0;}
-\DoxyCodeLine{147   \textcolor{keywordflow}{for} (uint8\_t segment = 0; segment < \mbox{\hyperlink{classZigzagPattern_1_1Snake_ade9581df647ce41eb75b4ee8b1e7fddd}{m\_snakeSize}}; ++segment) \{}
-\DoxyCodeLine{148     \textcolor{comment}{// calculate the position of this segment, if the segment being rendered is}}
-\DoxyCodeLine{149     \textcolor{comment}{// greater than the head position it means the snake head is at an index that}}
-\DoxyCodeLine{150     \textcolor{comment}{// won't support it's entire tail without wrapping below 0}}
-\DoxyCodeLine{151     \textcolor{keywordflow}{if} (segment > \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}}) \{}
-\DoxyCodeLine{152       segment\_position = \mbox{\hyperlink{ZigzagPattern_8cpp_ad55b695befc036fbc8637cba342704cc}{NUM\_ZIGZAG\_STEPS}} -\/ (segment -\/ \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}});}
-\DoxyCodeLine{153     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{154       segment\_position = \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}} -\/ segment;}
-\DoxyCodeLine{155     \}}
-\DoxyCodeLine{156     \textcolor{comment}{// adjust the brightness of the color before setting}}
-\DoxyCodeLine{157     \mbox{\hyperlink{classRGBColor}{RGBColor}} col = \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac952be44096dc7ae7c1f749c0f34b1f4}{m\_colorset}}.\mbox{\hyperlink{classColorset_ab9f04de5f2ebc1051cba5e4bfc3d8a11}{peek}}(colIndex);}
-\DoxyCodeLine{158     \textcolor{keywordflow}{if} (segment < \mbox{\hyperlink{classZigzagPattern_1_1Snake_ade9581df647ce41eb75b4ee8b1e7fddd}{m\_snakeSize}}) \{}
-\DoxyCodeLine{159       col.\mbox{\hyperlink{classRGBColor_a10268d92a2aa1e2609866079298fef71}{adjustBrightness}}(\mbox{\hyperlink{classZigzagPattern_1_1Snake_ae78497d0b6154b8cbe538e4ed6576151}{m\_fadeAmount}} * segment);}
-\DoxyCodeLine{160     \}}
-\DoxyCodeLine{161     \textcolor{comment}{// lookup the target in the step positions array and turn it on with given color/brightness}}
-\DoxyCodeLine{162     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{classZigzagPattern_a78570112d59d201d0d984d899f7653ae}{ledStepPositions}}[segment\_position], col);}
-\DoxyCodeLine{163     \textcolor{comment}{// if this segment is on the step where the color changes}}
-\DoxyCodeLine{164     \textcolor{keywordflow}{if} (segment\_position == \mbox{\hyperlink{classZigzagPattern_1_1Snake_ab3b548d02791e35d13742ac825de58f6}{m\_changeBoundary}}) \{}
-\DoxyCodeLine{165       \textcolor{comment}{// then decrement the color index for the rest of the snake so that the}}
-\DoxyCodeLine{166       \textcolor{comment}{// tail of the snake has the old color till it reaches the change point}}
-\DoxyCodeLine{167       colIndex-\/-\/;}
-\DoxyCodeLine{168     \}}
-\DoxyCodeLine{169   \}}
-\DoxyCodeLine{170 \}}
+\DoxyCodeLine{127 \{}
+\DoxyCodeLine{128   uint8\_t segment\_position;}
+\DoxyCodeLine{129   int32\_t colIndex = 0;}
+\DoxyCodeLine{130   \textcolor{keywordflow}{for} (uint8\_t segment = 0; segment < \mbox{\hyperlink{classZigzagPattern_1_1Snake_ade9581df647ce41eb75b4ee8b1e7fddd}{m\_snakeSize}}; ++segment) \{}
+\DoxyCodeLine{131     \textcolor{comment}{// calculate the position of this segment, if the segment being rendered is}}
+\DoxyCodeLine{132     \textcolor{comment}{// greater than the head position it means the snake head is at an index that}}
+\DoxyCodeLine{133     \textcolor{comment}{// won't support it's entire tail without wrapping below 0}}
+\DoxyCodeLine{134     \textcolor{keywordflow}{if} (segment > \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}}) \{}
+\DoxyCodeLine{135       segment\_position = \mbox{\hyperlink{ZigzagPattern_8cpp_ad55b695befc036fbc8637cba342704cc}{NUM\_ZIGZAG\_STEPS}} -\/ (segment -\/ \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}});}
+\DoxyCodeLine{136     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{137       segment\_position = \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}} -\/ segment;}
+\DoxyCodeLine{138     \}}
+\DoxyCodeLine{139     \textcolor{comment}{// adjust the brightness of the color before setting}}
+\DoxyCodeLine{140     \mbox{\hyperlink{classRGBColor}{RGBColor}} col = \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac952be44096dc7ae7c1f749c0f34b1f4}{m\_colorset}}.\mbox{\hyperlink{classColorset_ab9f04de5f2ebc1051cba5e4bfc3d8a11}{peek}}(colIndex);}
+\DoxyCodeLine{141     \textcolor{keywordflow}{if} (segment < \mbox{\hyperlink{classZigzagPattern_1_1Snake_ade9581df647ce41eb75b4ee8b1e7fddd}{m\_snakeSize}}) \{}
+\DoxyCodeLine{142       col.\mbox{\hyperlink{classRGBColor_a10268d92a2aa1e2609866079298fef71}{adjustBrightness}}(\mbox{\hyperlink{classZigzagPattern_1_1Snake_ae78497d0b6154b8cbe538e4ed6576151}{m\_fadeAmount}} * segment);}
+\DoxyCodeLine{143     \}}
+\DoxyCodeLine{144     \textcolor{comment}{// lookup the target in the step positions array and turn it on with given color/brightness}}
+\DoxyCodeLine{145     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}((\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})segment\_position, col);}
+\DoxyCodeLine{146     \textcolor{comment}{// if this segment is on the step where the color changes}}
+\DoxyCodeLine{147     \textcolor{keywordflow}{if} (segment\_position == \mbox{\hyperlink{classZigzagPattern_1_1Snake_ab3b548d02791e35d13742ac825de58f6}{m\_changeBoundary}}) \{}
+\DoxyCodeLine{148       \textcolor{comment}{// then decrement the color index for the rest of the snake so that the}}
+\DoxyCodeLine{149       \textcolor{comment}{// tail of the snake has the old color till it reaches the change point}}
+\DoxyCodeLine{150       colIndex-\/-\/;}
+\DoxyCodeLine{151     \}}
+\DoxyCodeLine{152   \}}
+\DoxyCodeLine{153 \}}
 
 \end{DoxyCode}
 
 
-References RGBColor\+::adjust\+Brightness(), Zigzag\+Pattern\+::led\+Step\+Positions, Pattern\+::m\+\_\+colorset, Zigzag\+Pattern\+::m\+\_\+fade\+Amount, Zigzag\+Pattern\+::m\+\_\+snake\+Size, NUM\+\_\+\+ZIGZAG\+\_\+\+STEPS, Colorset\+::peek(), and Leds\+::set\+Index().
+References RGBColor\+::adjust\+Brightness(), Pattern\+::m\+\_\+colorset, Zigzag\+Pattern\+::m\+\_\+fade\+Amount, Zigzag\+Pattern\+::m\+\_\+snake\+Size, NUM\+\_\+\+ZIGZAG\+\_\+\+STEPS, Colorset\+::peek(), and Leds\+::set\+Index().
 
 \mbox{\Hypertarget{classZigzagPattern_1_1Snake_acc1934098fe9bba611f4691e5274e1ec}\label{classZigzagPattern_1_1Snake_acc1934098fe9bba611f4691e5274e1ec}} 
 \index{ZigzagPattern::Snake@{ZigzagPattern::Snake}!init@{init}}
@@ -168,29 +168,29 @@ References RGBColor\+::adjust\+Brightness(), Zigzag\+Pattern\+::led\+Step\+Posit
 
 
 
-Definition at line 93 of file Zigzag\+Pattern.\+cpp.
+Definition at line 76 of file Zigzag\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{95 \{}
-\DoxyCodeLine{96   \textcolor{comment}{// reset the blink timer entirely}}
-\DoxyCodeLine{97   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ad0627d603e84ef6d9b0d07edb259d5d2}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_a9020542d73357a4eef512eefaf57524b}{reset}}();}
-\DoxyCodeLine{98   \textcolor{comment}{// dops timing}}
-\DoxyCodeLine{99   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ad0627d603e84ef6d9b0d07edb259d5d2}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_aecfcc5cd99115c67b5f5f7a485bd7a81}{addAlarm}}(onDuration);}
-\DoxyCodeLine{100   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ad0627d603e84ef6d9b0d07edb259d5d2}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_aecfcc5cd99115c67b5f5f7a485bd7a81}{addAlarm}}(offDuration);}
-\DoxyCodeLine{101   \textcolor{comment}{// start the blink timer from the next frame}}
-\DoxyCodeLine{102   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ad0627d603e84ef6d9b0d07edb259d5d2}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_a4f816271e1661c4eb03afc87e2f78c6a}{start}}();}
-\DoxyCodeLine{103   \textcolor{comment}{// start on the first color so that cur() works immediately}}
-\DoxyCodeLine{104   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac952be44096dc7ae7c1f749c0f34b1f4}{m\_colorset}} = colorset;}
-\DoxyCodeLine{105   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac952be44096dc7ae7c1f749c0f34b1f4}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4959095438adcd6c02f5b0e4a17c9b8d}{setCurIndex}}(colorOffset);}
-\DoxyCodeLine{106   \textcolor{comment}{// set the starting step}}
-\DoxyCodeLine{107   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}} = \mbox{\hyperlink{classZigzagPattern_1_1Snake_adc2f2e3aee0f5610b837a53ba7f48aa7}{step}};}
-\DoxyCodeLine{108   \textcolor{comment}{// set the snake size}}
-\DoxyCodeLine{109   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ade9581df647ce41eb75b4ee8b1e7fddd}{m\_snakeSize}} = snakeSize;}
-\DoxyCodeLine{110   \textcolor{comment}{// set fade amount and change boundary}}
-\DoxyCodeLine{111   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ae78497d0b6154b8cbe538e4ed6576151}{m\_fadeAmount}} = fadeAmount;}
-\DoxyCodeLine{112   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ab3b548d02791e35d13742ac825de58f6}{m\_changeBoundary}} = changeBoundary;}
-\DoxyCodeLine{113 \}}
+\DoxyCodeLine{78 \{}
+\DoxyCodeLine{79   \textcolor{comment}{// reset the blink timer entirely}}
+\DoxyCodeLine{80   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ad0627d603e84ef6d9b0d07edb259d5d2}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_a9020542d73357a4eef512eefaf57524b}{reset}}();}
+\DoxyCodeLine{81   \textcolor{comment}{// dops timing}}
+\DoxyCodeLine{82   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ad0627d603e84ef6d9b0d07edb259d5d2}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_aecfcc5cd99115c67b5f5f7a485bd7a81}{addAlarm}}(onDuration);}
+\DoxyCodeLine{83   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ad0627d603e84ef6d9b0d07edb259d5d2}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_aecfcc5cd99115c67b5f5f7a485bd7a81}{addAlarm}}(offDuration);}
+\DoxyCodeLine{84   \textcolor{comment}{// start the blink timer from the next frame}}
+\DoxyCodeLine{85   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ad0627d603e84ef6d9b0d07edb259d5d2}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_a4f816271e1661c4eb03afc87e2f78c6a}{start}}();}
+\DoxyCodeLine{86   \textcolor{comment}{// start on the first color so that cur() works immediately}}
+\DoxyCodeLine{87   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac952be44096dc7ae7c1f749c0f34b1f4}{m\_colorset}} = colorset;}
+\DoxyCodeLine{88   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac952be44096dc7ae7c1f749c0f34b1f4}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4959095438adcd6c02f5b0e4a17c9b8d}{setCurIndex}}(colorOffset);}
+\DoxyCodeLine{89   \textcolor{comment}{// set the starting step}}
+\DoxyCodeLine{90   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}} = \mbox{\hyperlink{classZigzagPattern_1_1Snake_adc2f2e3aee0f5610b837a53ba7f48aa7}{step}};}
+\DoxyCodeLine{91   \textcolor{comment}{// set the snake size}}
+\DoxyCodeLine{92   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ade9581df647ce41eb75b4ee8b1e7fddd}{m\_snakeSize}} = snakeSize;}
+\DoxyCodeLine{93   \textcolor{comment}{// set fade amount and change boundary}}
+\DoxyCodeLine{94   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ae78497d0b6154b8cbe538e4ed6576151}{m\_fadeAmount}} = fadeAmount;}
+\DoxyCodeLine{95   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ab3b548d02791e35d13742ac825de58f6}{m\_changeBoundary}} = changeBoundary;}
+\DoxyCodeLine{96 \}}
 
 \end{DoxyCode}
 
@@ -209,18 +209,18 @@ Referenced by Zigzag\+Pattern\+::init().
 
 
 
-Definition at line 115 of file Zigzag\+Pattern.\+cpp.
+Definition at line 98 of file Zigzag\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{116 \{}
-\DoxyCodeLine{117   \textcolor{comment}{// increment to the next step}}
-\DoxyCodeLine{118   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}} = (\mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}} + 1) \% \mbox{\hyperlink{ZigzagPattern_8cpp_ad55b695befc036fbc8637cba342704cc}{NUM\_ZIGZAG\_STEPS}};}
-\DoxyCodeLine{119   \textcolor{comment}{// if the step is on a change boundary then increment the snake color}}
-\DoxyCodeLine{120   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}} == \mbox{\hyperlink{classZigzagPattern_1_1Snake_ab3b548d02791e35d13742ac825de58f6}{m\_changeBoundary}}) \{}
-\DoxyCodeLine{121     \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac952be44096dc7ae7c1f749c0f34b1f4}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
-\DoxyCodeLine{122   \}}
-\DoxyCodeLine{123 \}}
+\DoxyCodeLine{99 \{}
+\DoxyCodeLine{100   \textcolor{comment}{// increment to the next step}}
+\DoxyCodeLine{101   \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}} = (\mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}} + 1) \% \mbox{\hyperlink{ZigzagPattern_8cpp_ad55b695befc036fbc8637cba342704cc}{NUM\_ZIGZAG\_STEPS}};}
+\DoxyCodeLine{102   \textcolor{comment}{// if the step is on a change boundary then increment the snake color}}
+\DoxyCodeLine{103   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classZigzagPattern_1_1Snake_ac6605784ccef177906150443bd878d9f}{m\_step}} == \mbox{\hyperlink{classZigzagPattern_1_1Snake_ab3b548d02791e35d13742ac825de58f6}{m\_changeBoundary}}) \{}
+\DoxyCodeLine{104     \mbox{\hyperlink{classZigzagPattern_1_1Snake_ac952be44096dc7ae7c1f749c0f34b1f4}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{105   \}}
+\DoxyCodeLine{106 \}}
 
 \end{DoxyCode}
 

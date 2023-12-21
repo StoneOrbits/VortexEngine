@@ -45,11 +45,6 @@ virtual void \mbox{\hyperlink{classVortexWipePattern_adfcd67907bb980b68aa831e304
 \item 
 uint8\+\_\+t \mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\+\_\+progress}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Private Attributes}
-\begin{DoxyCompactItemize}
-\item 
-static const \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} \mbox{\hyperlink{classVortexWipePattern_aefe2dcfa7fc4c0aef98d510a64e90cd7}{led\+Step\+Positions}} \mbox{[}$\,$\mbox{]}
-\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
@@ -69,17 +64,17 @@ Definition at line 8 of file Vortex\+Wipe\+Pattern.\+h.
 
 
 
-Definition at line 22 of file Vortex\+Wipe\+Pattern.\+cpp.
+Definition at line 8 of file Vortex\+Wipe\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{22                                                             :}
-\DoxyCodeLine{23   \mbox{\hyperlink{classBlinkStepPattern_a649cc172c8da3b9a9c6dcf7223aa788c}{BlinkStepPattern}}(args),}
-\DoxyCodeLine{24   \mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}}(0)}
-\DoxyCodeLine{25 \{}
-\DoxyCodeLine{26   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca3c1c636de62fd96bcafaa3774d15c66b}{PATTERN\_VORTEXWIPE}};}
-\DoxyCodeLine{27   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
-\DoxyCodeLine{28 \}}
+\DoxyCodeLine{8                                                             :}
+\DoxyCodeLine{9   \mbox{\hyperlink{classBlinkStepPattern_a649cc172c8da3b9a9c6dcf7223aa788c}{BlinkStepPattern}}(args),}
+\DoxyCodeLine{10   \mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}}(0)}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca3c1c636de62fd96bcafaa3774d15c66b}{PATTERN\_VORTEXWIPE}};}
+\DoxyCodeLine{13   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
+\DoxyCodeLine{14 \}}
 
 \end{DoxyCode}
 
@@ -94,12 +89,12 @@ References Pattern\+::m\+\_\+pattern\+ID, PATTERN\+\_\+\+VORTEXWIPE, and Pattern
 
 
 
-Definition at line 30 of file Vortex\+Wipe\+Pattern.\+cpp.
+Definition at line 16 of file Vortex\+Wipe\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{31 \{}
-\DoxyCodeLine{32 \}}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18 \}}
 
 \end{DoxyCode}
 
@@ -117,23 +112,23 @@ Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a792005962eff211334d73
 
 
 
-Definition at line 44 of file Vortex\+Wipe\+Pattern.\+cpp.
+Definition at line 30 of file Vortex\+Wipe\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{45 \{}
-\DoxyCodeLine{46   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} index = 0; index < \mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}}; ++index) \{}
-\DoxyCodeLine{47     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{classVortexWipePattern_aefe2dcfa7fc4c0aef98d510a64e90cd7}{ledStepPositions}}[index], \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}{peekNext}}());}
-\DoxyCodeLine{48   \}}
-\DoxyCodeLine{49   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} index = \mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}}; index < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++index) \{}
-\DoxyCodeLine{50     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{classVortexWipePattern_aefe2dcfa7fc4c0aef98d510a64e90cd7}{ledStepPositions}}[index], \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_abef3c86e5519d8befb515d2e927885f5}{cur}}());}
-\DoxyCodeLine{51   \}}
-\DoxyCodeLine{52 \}}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} index = 0; index < \mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}}; ++index) \{}
+\DoxyCodeLine{33     \mbox{\hyperlink{classLeds_afe1bad74b1520a6b4dd6bf359cbd063d}{Leds::setRing}}((\mbox{\hyperlink{LedTypes_8h_a24c6950661e5126485873539625be1b3}{Ring}})index, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}{peekNext}}());}
+\DoxyCodeLine{34   \}}
+\DoxyCodeLine{35   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} index = \mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}}; index < \mbox{\hyperlink{LedTypes_8h_a24c6950661e5126485873539625be1b3ac3774c43a898a445b1da757c79b878ac}{RING\_COUNT}}; ++index) \{}
+\DoxyCodeLine{36     \mbox{\hyperlink{classLeds_afe1bad74b1520a6b4dd6bf359cbd063d}{Leds::setRing}}((\mbox{\hyperlink{LedTypes_8h_a24c6950661e5126485873539625be1b3}{Ring}})index, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_abef3c86e5519d8befb515d2e927885f5}{cur}}());}
+\DoxyCodeLine{37   \}}
+\DoxyCodeLine{38 \}}
 
 \end{DoxyCode}
 
 
-References Colorset\+::cur(), LED\+\_\+\+COUNT, led\+Step\+Positions, Pattern\+::m\+\_\+colorset, m\+\_\+progress, Colorset\+::peek\+Next(), and Leds\+::set\+Index().
+References Colorset\+::cur(), Pattern\+::m\+\_\+colorset, m\+\_\+progress, Colorset\+::peek\+Next(), RING\+\_\+\+COUNT, and Leds\+::set\+Ring().
 
 \mbox{\Hypertarget{classVortexWipePattern_a3ae2c41c080ec616391c649da30f1978}\label{classVortexWipePattern_a3ae2c41c080ec616391c649da30f1978}} 
 \index{VortexWipePattern@{VortexWipePattern}!init@{init}}
@@ -147,17 +142,17 @@ Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e8
 
 
 
-Definition at line 35 of file Vortex\+Wipe\+Pattern.\+cpp.
+Definition at line 21 of file Vortex\+Wipe\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{36 \{}
-\DoxyCodeLine{37   \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{BlinkStepPattern::init}}();}
-\DoxyCodeLine{38   \textcolor{comment}{// reset progress}}
-\DoxyCodeLine{39   \mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}} = 0;}
-\DoxyCodeLine{40   \textcolor{comment}{// start colorset at index 0 so cur() works}}
-\DoxyCodeLine{41   \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4959095438adcd6c02f5b0e4a17c9b8d}{setCurIndex}}(0);}
-\DoxyCodeLine{42 \}}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23   \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{BlinkStepPattern::init}}();}
+\DoxyCodeLine{24   \textcolor{comment}{// reset progress}}
+\DoxyCodeLine{25   \mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}} = 0;}
+\DoxyCodeLine{26   \textcolor{comment}{// start colorset at index 0 so cur() works}}
+\DoxyCodeLine{27   \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4959095438adcd6c02f5b0e4a17c9b8d}{setCurIndex}}(0);}
+\DoxyCodeLine{28 \}}
 
 \end{DoxyCode}
 
@@ -176,56 +171,25 @@ Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a31d244f697913cbdf6243
 
 
 
-Definition at line 54 of file Vortex\+Wipe\+Pattern.\+cpp.
+Definition at line 40 of file Vortex\+Wipe\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{55 \{}
-\DoxyCodeLine{56   \mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}} = (\mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}} + 1) \% \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}};}
-\DoxyCodeLine{57   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}} == 0) \{}
-\DoxyCodeLine{58     \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
-\DoxyCodeLine{59   \}}
-\DoxyCodeLine{60 \}}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42   \mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}} = (\mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}} + 1) \% \mbox{\hyperlink{LedTypes_8h_a24c6950661e5126485873539625be1b3ac3774c43a898a445b1da757c79b878ac}{RING\_COUNT}};}
+\DoxyCodeLine{43   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}{m\_progress}} == 0) \{}
+\DoxyCodeLine{44     \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{45   \}}
+\DoxyCodeLine{46 \}}
 
 \end{DoxyCode}
 
 
-References Colorset\+::get\+Next(), LED\+\_\+\+COUNT, Pattern\+::m\+\_\+colorset, and m\+\_\+progress.
+References Colorset\+::get\+Next(), Pattern\+::m\+\_\+colorset, m\+\_\+progress, and RING\+\_\+\+COUNT.
 
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{classVortexWipePattern_aefe2dcfa7fc4c0aef98d510a64e90cd7}\label{classVortexWipePattern_aefe2dcfa7fc4c0aef98d510a64e90cd7}} 
-\index{VortexWipePattern@{VortexWipePattern}!ledStepPositions@{ledStepPositions}}
-\index{ledStepPositions@{ledStepPositions}!VortexWipePattern@{VortexWipePattern}}
-\doxysubsubsection{\texorpdfstring{ledStepPositions}{ledStepPositions}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} Vortex\+Wipe\+Pattern\+::led\+Step\+Positions\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{= \{}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caa30a5efbc3083c821a59dfa468b88d4c}{LED\_9}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cac498d3ff2225ba31b7b42e17b1676ba8}{LED\_7}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cab269092e5bd05f7b80e5970b81458289}{LED\_5}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca3e1b1af0f74f675e4eb7bd18229adfd3}{LED\_3}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}},}
-\DoxyCodeLine{}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424}{LED\_0}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca00af6b2437d9982f1f125d2cc2537c41}{LED\_2}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cada6e5fa936f81b6b94078ecc353a7f5f}{LED\_4}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caf99fc5674be734f3f51639902c341834}{LED\_6}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2979343296d3de46c77082147e0cfe1b}{LED\_8}}}
-\DoxyCodeLine{\}}
-
-\end{DoxyCode}
-
-
-Definition at line 23 of file Vortex\+Wipe\+Pattern.\+h.
-
-
-
-Referenced by blink\+On().
-
 \mbox{\Hypertarget{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}\label{classVortexWipePattern_a6f1ecb2416a22e928a4413ce4a22d8d8}} 
 \index{VortexWipePattern@{VortexWipePattern}!m\_progress@{m\_progress}}
 \index{m\_progress@{m\_progress}!VortexWipePattern@{VortexWipePattern}}
@@ -234,7 +198,7 @@ Referenced by blink\+On().
 
 
 
-Definition at line 26 of file Vortex\+Wipe\+Pattern.\+h.
+Definition at line 23 of file Vortex\+Wipe\+Pattern.\+h.
 
 
 

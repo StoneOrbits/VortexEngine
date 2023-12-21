@@ -5,7 +5,6 @@ var classZigzagPattern =
     [ "~ZigzagPattern", "classZigzagPattern.html#a84857993faf8683c4621d802fdeab3df", null ],
     [ "init", "classZigzagPattern.html#a85c07d3e164b403ebc8baaf0be0a15b6", null ],
     [ "play", "classZigzagPattern.html#a4ab7df902285979a647844d3d53bd146", null ],
-    [ "ledStepPositions", "classZigzagPattern.html#a78570112d59d201d0d984d899f7653ae", null ],
     [ "m_fadeAmount", "classZigzagPattern.html#a88e885ea0cf4b6ef8657fb854c431fcf", null ],
     [ "m_offDuration", "classZigzagPattern.html#a3c1896d404543c82185caeb2f9a4c484", null ],
     [ "m_onDuration", "classZigzagPattern.html#aeb2c6fbb06329a74da599e4117d0bb60", null ],

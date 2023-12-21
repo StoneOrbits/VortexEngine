@@ -43,6 +43,7 @@ var hierarchy =
           [ "SnowballPattern", "classSnowballPattern.html", null ],
           [ "SparkleTracePattern", "classSparkleTracePattern.html", null ],
           [ "TheaterChasePattern", "classTheaterChasePattern.html", null ],
+          [ "VortexPattern", "classVortexPattern.html", null ],
           [ "VortexWipePattern", "classVortexWipePattern.html", null ],
           [ "WarpPattern", "classWarpPattern.html", null ],
           [ "WarpWormPattern", "classWarpWormPattern.html", null ]
@@ -55,7 +56,6 @@ var hierarchy =
         ] ],
         [ "DripMorphPattern", "classDripMorphPattern.html", null ],
         [ "HueShiftPattern", "classHueShiftPattern.html", null ],
-        [ "MateriaPattern", "classMateriaPattern.html", null ],
         [ "PulsishPattern", "classPulsishPattern.html", null ],
         [ "ZigzagPattern", "classZigzagPattern.html", null ]
       ] ],

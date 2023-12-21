@@ -16,6 +16,7 @@ var hierarchy =
     [ "LZ4_stream_u", "unionLZ4__stream__u.html", null ],
     [ "LZ4_streamDecode_t_internal", "structLZ4__streamDecode__t__internal.html", null ],
     [ "LZ4_streamDecode_u", "unionLZ4__streamDecode__u.html", null ],
+    [ "MainMenu", "classMainMenu.html", null ],
     [ "Menu", "classMenu.html", [
       [ "ColorSelect", "classColorSelect.html", null ],
       [ "EditorConnection", "classEditorConnection.html", null ],
@@ -43,6 +44,7 @@ var hierarchy =
           [ "SnowballPattern", "classSnowballPattern.html", null ],
           [ "SparkleTracePattern", "classSparkleTracePattern.html", null ],
           [ "TheaterChasePattern", "classTheaterChasePattern.html", null ],
+          [ "VortexPattern", "classVortexPattern.html", null ],
           [ "VortexWipePattern", "classVortexWipePattern.html", null ],
           [ "WarpPattern", "classWarpPattern.html", null ],
           [ "WarpWormPattern", "classWarpWormPattern.html", null ]
@@ -55,7 +57,6 @@ var hierarchy =
         ] ],
         [ "DripMorphPattern", "classDripMorphPattern.html", null ],
         [ "HueShiftPattern", "classHueShiftPattern.html", null ],
-        [ "MateriaPattern", "classMateriaPattern.html", null ],
         [ "PulsishPattern", "classPulsishPattern.html", null ],
         [ "ZigzagPattern", "classZigzagPattern.html", null ]
       ] ],
@@ -79,7 +80,6 @@ var hierarchy =
     [ "Storage", "classStorage.html", null ],
     [ "Time", "classTime.html", null ],
     [ "Timer", "classTimer.html", null ],
-    [ "VLReceiver", "classVLReceiver.html", null ],
     [ "VLSender", "classVLSender.html", null ],
     [ "VortexEngine", "classVortexEngine.html", null ]
 ];

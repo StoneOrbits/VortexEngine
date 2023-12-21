@@ -1,18 +1,10 @@
 var searchData=
 [
-  ['dashpattern_1865',['dashPattern',['../classRandomizer.html#a7b480f578a4a86ea96b44b5ba1aa956e',1,'Randomizer']]],
-  ['data_1866',['data',['../classBitStream.html#a4be1b1c1cb2684d2997b1c8a6f0cd34d',1,'BitStream::data()'],['../classByteStream.html#a038ab1de765890b845daba30948972ce',1,'ByteStream::data()']]],
-  ['dataready_1867',['dataReady',['../classSerialComs.html#a03bd0843bc99d2a9c13507b4e4c1e8a3',1,'SerialComs::dataReady()'],['../classIRReceiver.html#a180ea554d40c10a00750aa02c6301c16',1,'IRReceiver::dataReady()'],['../classVLReceiver.html#aece2971f1778af65459a3db1cb9eda0d',1,'VLReceiver::dataReady()']]],
-  ['decompress_1868',['decompress',['../classByteStream.html#adc9ecdea7fa35c193b0c3f5b607477e9',1,'ByteStream']]],
-  ['delaymicroseconds_1869',['delayMicroseconds',['../classTime.html#a1db7b0672f8b2d38994119ccc226f8ee',1,'Time']]],
-  ['delaymilliseconds_1870',['delayMilliseconds',['../classTime.html#aa90c5d6860ae306048c96d80da2ea1b0',1,'Time']]],
-  ['deletecurmode_1871',['deleteCurMode',['../classModes.html#a0d8e74c4fa7fff65fdf81336b3b808b9',1,'Modes']]],
-  ['doublestrobepattern_1872',['DoubleStrobePattern',['../classDoubleStrobePattern.html#ae6532714cc5be91bc83a976c01991e08',1,'DoubleStrobePattern']]],
-  ['draw_1873',['draw',['../classZigzagPattern_1_1Snake.html#aad8951fc644cc0739d6a4908b5c77307',1,'ZigzagPattern::Snake']]],
-  ['drawsnake_1874',['drawSnake',['../classZigzagPattern_1_1Snake.html#ab1fe0cb12fa1a75157f3f088338fdecb',1,'ZigzagPattern::Snake']]],
-  ['dripmorphpattern_1875',['DripMorphPattern',['../classDripMorphPattern.html#a7701231e1f39eada7657abd4a8f2225d',1,'DripMorphPattern']]],
-  ['drippattern_1876',['DripPattern',['../classDripPattern.html#a7c527bdd80e70d3544b718135401518a',1,'DripPattern']]],
-  ['dupe_1877',['dupe',['../classPatternBuilder.html#a9d217a0484355b347a59e50aea7750d4',1,'PatternBuilder']]],
-  ['dwdata_1878',['dwData',['../classBitStream.html#a0972c0f6e9f9896c27dec10d4b0dbfde',1,'BitStream']]],
-  ['dwordpos_1879',['dwordpos',['../classBitStream.html#aa2ba69c7333ee8f64ec98bee42d5be1e',1,'BitStream']]]
+  ['editorconnection_1902',['EditorConnection',['../classEditorConnection.html#ae8dafb9ef41ade904a95d6b8962c0726',1,'EditorConnection']]],
+  ['empty_1903',['empty',['../classHSVColor.html#a88122bae47c6092e0b9a0746a6208d54',1,'HSVColor::empty()'],['../classRGBColor.html#a98fd4b2760d0f3a4e5100a4fd2fa666a',1,'RGBColor::empty()']]],
+  ['endreceiving_1904',['endReceiving',['../classIRReceiver.html#aa9d8177899465973e15d78c2795a8b01',1,'IRReceiver']]],
+  ['entersleep_1905',['enterSleep',['../classVortexEngine.html#a4b2b59ca72d6cd1115ac6cd7c1672e44',1,'VortexEngine']]],
+  ['eof_1906',['eof',['../classBitStream.html#a2cb7af3f3b41a1f7063d5d239f4171d6',1,'BitStream']]],
+  ['equals_1907',['equals',['../classColorset.html#af65f18b0a815156608cdf3cdff93e7af',1,'Colorset::equals(const Colorset &amp;set) const'],['../classColorset.html#a672b02c1db4e63418fa58c7ea8b83ef4',1,'Colorset::equals(const Colorset *set) const'],['../classMode.html#a5211b5677490a2012aca2188e401e409',1,'Mode::equals()'],['../classPattern.html#ae84385d575489b24636259dfab27218d',1,'Pattern::equals()']]],
+  ['extend_1908',['extend',['../classByteStream.html#a42f3b7c49aca53a4d78305645e1faf3a',1,'ByteStream']]]
 ];

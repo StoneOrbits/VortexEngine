@@ -1,5 +1,6 @@
 var NAVTREEINDEX4 =
 {
+"VortexConfig_8h.html#aaff29f732338b733b8d1fee0e8df32ab":[1,0,0,0,13,46],
 "VortexConfig_8h.html#ab0c5cc9223512ec01c405592b6741898":[1,0,0,0,13,53],
 "VortexConfig_8h.html#ab8551eac78d43daf3bae9d0bd1489079":[1,0,0,0,13,26],
 "VortexConfig_8h.html#ab857f79f94ee6ddabccf0049e351f064":[1,0,0,0,13,43],
@@ -39,6 +40,11 @@ var NAVTREEINDEX4 =
 "VortexEngine_8cpp_source.html":[1,0,0,0,14],
 "VortexEngine_8h.html":[1,0,0,0,15],
 "VortexEngine_8h_source.html":[1,0,0,0,15],
+"VortexPattern_8cpp.html":[1,0,0,0,7,0,35],
+"VortexPattern_8cpp.html#a619748942db2525ecc79316db7a411f7":[1,0,0,0,7,0,35,0],
+"VortexPattern_8cpp_source.html":[1,0,0,0,7,0,35],
+"VortexPattern_8h.html":[1,0,0,0,7,0,36],
+"VortexPattern_8h_source.html":[1,0,0,0,7,0,36],
 "VortexWipePattern_8cpp.html":[1,0,0,0,7,0,37],
 "VortexWipePattern_8cpp_source.html":[1,0,0,0,7,0,37],
 "VortexWipePattern_8h.html":[1,0,0,0,7,0,38],
@@ -243,11 +249,5 @@ var NAVTREEINDEX4 =
 "classByteStream.html#ac5923401dadff9aef4efd11d5c10d069":[0,0,8,53],
 "classByteStream.html#acc61f87bb3522fc450e88cb580fc33fd":[0,0,8,2],
 "classByteStream.html#adc9ecdea7fa35c193b0c3f5b607477e9":[0,0,8,11],
-"classByteStream.html#adf87e444e828287c0a43cab2958ca01b":[0,0,8,43],
-"classByteStream.html#ae3412b7f08252fa2baab4b11cb8c2484":[0,0,8,6],
-"classByteStream.html#ae65462bc14d268fcf0ffccf65f878762":[0,0,8,38],
-"classByteStream.html#aec62ad63304e89c9ae41faf3a48d6dd9":[0,0,8,48],
-"classByteStream.html#aede3fe7fe4726026ccad5d950edf6abd":[0,0,8,19],
-"classByteStream.html#af38ef088c7d0aa2fbc02172f54b599c7":[0,0,8,31],
-"classByteStream.html#af812e5b785b7fed575d954f28cd5f090":[0,0,8,22]
+"classByteStream.html#adf87e444e828287c0a43cab2958ca01b":[0,0,8,43]
 };

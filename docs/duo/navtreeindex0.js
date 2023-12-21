@@ -58,6 +58,7 @@ var NAVTREEINDEX0 =
 "ByteStream_8h.html":[1,0,0,0,9,3],
 "ByteStream_8h_source.html":[1,0,0,0,9,3],
 "ChaserPattern_8cpp.html":[1,0,0,0,7,0,0,0],
+"ChaserPattern_8cpp.html#ac794e99d75adaba173019dd94030c4fc":[1,0,0,0,7,0,0,0,0],
 "ChaserPattern_8cpp_source.html":[1,0,0,0,7,0,0,0],
 "ChaserPattern_8h.html":[1,0,0,0,7,0,0,1],
 "ChaserPattern_8h_source.html":[1,0,0,0,7,0,0,1],
@@ -248,6 +249,5 @@ var NAVTREEINDEX0 =
 "ErrorBlinker_8h.html":[1,0,0,0,3,1],
 "ErrorBlinker_8h.html#a480f3a8ffe29cac0048273260716b193":[1,0,0,0,3,1,0],
 "ErrorBlinker_8h.html#aa4a9e141dba30a67de062837a53649b8":[1,0,0,0,3,1,3],
-"ErrorBlinker_8h.html#abe670cc5ceed3fad3be682fc0c1bb62e":[1,0,0,0,3,1,2],
-"ErrorBlinker_8h.html#af8877956f07c5c9cd7bacd0b82ab0f11":[1,0,0,0,3,1,1]
+"ErrorBlinker_8h.html#abe670cc5ceed3fad3be682fc0c1bb62e":[1,0,0,0,3,1,2]
 };

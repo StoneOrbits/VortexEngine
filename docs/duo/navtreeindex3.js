@@ -1,7 +1,5 @@
 var NAVTREEINDEX3 =
 {
-"VortexConfig_8h.html#a05fee2a32286f9f15d91bae6468dc241":[1,0,0,0,13,38],
-"VortexConfig_8h.html#a0be17f7cbaf6e5a5e8d4f0405d16107e":[1,0,0,0,13,34],
 "VortexConfig_8h.html#a0d801866c302fc22f8bfb9a4a25a0462":[1,0,0,0,13,88],
 "VortexConfig_8h.html#a0e67a9d736bfe02f58872add97f72878":[1,0,0,0,13,10],
 "VortexConfig_8h.html#a0efe647434a0e0ab74083af0fcd47c09":[1,0,0,0,13,39],
@@ -95,6 +93,11 @@ var NAVTREEINDEX3 =
 "VortexEngine_8cpp_source.html":[1,0,0,0,14],
 "VortexEngine_8h.html":[1,0,0,0,15],
 "VortexEngine_8h_source.html":[1,0,0,0,15],
+"VortexPattern_8cpp.html":[1,0,0,0,7,0,35],
+"VortexPattern_8cpp.html#a619748942db2525ecc79316db7a411f7":[1,0,0,0,7,0,35,0],
+"VortexPattern_8cpp_source.html":[1,0,0,0,7,0,35],
+"VortexPattern_8h.html":[1,0,0,0,7,0,36],
+"VortexPattern_8h_source.html":[1,0,0,0,7,0,36],
 "VortexWipePattern_8cpp.html":[1,0,0,0,7,0,37],
 "VortexWipePattern_8cpp_source.html":[1,0,0,0,7,0,37],
 "VortexWipePattern_8h.html":[1,0,0,0,7,0,38],
@@ -246,8 +249,5 @@ var NAVTREEINDEX3 =
 "classButton.html#adcca2b1a5010dc5d9b2d49c997f36433":[0,0,6,4],
 "classButton.html#ade505477e7bc927e8c051689a6b85215":[0,0,6,11],
 "classButton.html#ae5c3b0f7031de49ebd62a5b4fb03f90d":[0,0,6,20],
-"classButton.html#af08888134084d0640b6a891bdb755f14":[0,0,6,9],
-"classButton.html#afc1f76677aed5c89139aed6daa5f5d4a":[0,0,6,5],
-"classButtons.html":[0,0,7],
-"classButtons.html#a4bee1374d1782a6006faee6f9d9bb792":[0,0,7,1]
+"classButton.html#af08888134084d0640b6a891bdb755f14":[0,0,6,9]
 };

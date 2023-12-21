@@ -24,7 +24,7 @@ var dir_64b4510cba155c652ac883383ddf0b92 =
     [ "PatternSelect.h", "PatternSelect_8h.html", [
       [ "PatternSelect", "classPatternSelect.html", "classPatternSelect" ]
     ] ],
-    [ "Randomizer.cpp", "Randomizer_8cpp.html", null ],
+    [ "Randomizer.cpp", "Randomizer_8cpp.html", "Randomizer_8cpp" ],
     [ "Randomizer.h", "Randomizer_8h.html", [
       [ "Randomizer", "classRandomizer.html", "classRandomizer" ]
     ] ]

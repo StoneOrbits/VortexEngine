@@ -33,6 +33,7 @@ var LedTypes_8h =
     [ "MAP_IS_ONE_LED", "LedTypes_8h.html#a7942bcfeb3920e179590b97a56ccfede", null ],
     [ "MAP_LED", "LedTypes_8h.html#ae3e48bdbee97fcc922ac8a9f4c8cf8fa", null ],
     [ "MAP_LED_ALL", "LedTypes_8h.html#ac9a910b2dc4fabac704e56a0fcb3b97e", null ],
+    [ "MAP_LED_NONE", "LedTypes_8h.html#a94213d8b137bd7967cf16080b83b8ad3", null ],
     [ "MAP_PAIR", "LedTypes_8h.html#a85801b3eb052b3e157c16a162e01974b", null ],
     [ "MAP_PAIR_EVEN", "LedTypes_8h.html#adb7d91f99bcd8ff0919328192ba2b88e", null ],
     [ "MAP_PAIR_EVEN_EVENS", "LedTypes_8h.html#a3d0075abab09cdd6469009802d38a44f", null ],

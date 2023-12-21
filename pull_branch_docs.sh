@@ -1,7 +1,7 @@
 #!/bin/bash
 
 # List of branches
-branches=("core" "gloves" "orbit" "handle" "duo" "chromadeck")
+branches=("core" "gloves" "orbit" "handle" "duo" "chromadeck" "spark" "desktop")
 
 # fetch any new changes
 git fetch

@@ -118,8 +118,8 @@ Definition at line 26 of file Drip\+Pattern.\+cpp.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{27 \{}
 \DoxyCodeLine{28   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classDripPattern_ad6688107f20b56b397d0f2c7ddb174d3}{m\_sync}}) \{}
-\DoxyCodeLine{29     \mbox{\hyperlink{classLeds_a86e1e44a371e581f9d7d3a7f2b190250}{Leds::setAllEvens}}(\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_abef3c86e5519d8befb515d2e927885f5}{cur}}());}
-\DoxyCodeLine{30     \mbox{\hyperlink{classLeds_adb650141cfe42027332fa56e8de9e1a0}{Leds::setAllOdds}}(\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}{peekNext}}());}
+\DoxyCodeLine{29     \mbox{\hyperlink{classLeds_a1eb73ce70d21bcca85373ab86115c312}{Leds::setMap}}(\mbox{\hyperlink{LedTypes_8h_a3d5cbb96dd94ea08aa452c4d99c100f5}{MAP\_RINGS\_EVEN}}, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_abef3c86e5519d8befb515d2e927885f5}{cur}}());}
+\DoxyCodeLine{30     \mbox{\hyperlink{classLeds_a1eb73ce70d21bcca85373ab86115c312}{Leds::setMap}}(\mbox{\hyperlink{LedTypes_8h_a3d081c8fb55064cfb0564fb7fd598850}{MAP\_RINGS\_ODD}}, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}{peekNext}}());}
 \DoxyCodeLine{31   \} \textcolor{keywordflow}{else} \{}
 \DoxyCodeLine{32     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_abef3c86e5519d8befb515d2e927885f5}{cur}}());}
 \DoxyCodeLine{33   \}}
@@ -128,7 +128,7 @@ Definition at line 26 of file Drip\+Pattern.\+cpp.
 \end{DoxyCode}
 
 
-References Colorset\+::cur(), Pattern\+::m\+\_\+colorset, m\+\_\+sync, Colorset\+::peek\+Next(), Leds\+::set\+All(), Leds\+::set\+All\+Evens(), and Leds\+::set\+All\+Odds().
+References Colorset\+::cur(), Pattern\+::m\+\_\+colorset, m\+\_\+sync, MAP\+\_\+\+RINGS\+\_\+\+EVEN, MAP\+\_\+\+RINGS\+\_\+\+ODD, Colorset\+::peek\+Next(), Leds\+::set\+All(), and Leds\+::set\+Map().
 
 \mbox{\Hypertarget{classDripPattern_a2abd87f0c7d76f63d19d36940e956c84}\label{classDripPattern_a2abd87f0c7d76f63d19d36940e956c84}} 
 \index{DripPattern@{DripPattern}!init@{init}}

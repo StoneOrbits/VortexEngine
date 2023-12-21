@@ -227,8 +227,8 @@ Definition at line 82 of file Compound\+Pattern.\+cpp.
 \DoxyCodeLine{84 \{}
 \DoxyCodeLine{85   \textcolor{comment}{// Set the evenPattern on all evens and oddPattern on all odds}}
 \DoxyCodeLine{86   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} p = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; p <= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}; p++) \{}
-\DoxyCodeLine{87     \textcolor{keyword}{const} \mbox{\hyperlink{classPatternArgs}{PatternArgs}} *args = \mbox{\hyperlink{LedTypes_8h_a57fca593725687711397bdae844376dc}{isEven}}(p) ? evenArgs : oddArgs;}
-\DoxyCodeLine{88     \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} \textcolor{keywordtype}{id} = \mbox{\hyperlink{LedTypes_8h_a57fca593725687711397bdae844376dc}{isEven}}(p) ? evenPattern : oddPattern;}
+\DoxyCodeLine{87     \textcolor{keyword}{const} \mbox{\hyperlink{classPatternArgs}{PatternArgs}} *args = \mbox{\hyperlink{LedTypes_8h_ade21de4d5f98bedcebc30a79222415d6}{isOrbitEven}}(p) ? evenArgs : oddArgs;}
+\DoxyCodeLine{88     \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} \textcolor{keywordtype}{id} = \mbox{\hyperlink{LedTypes_8h_ade21de4d5f98bedcebc30a79222415d6}{isOrbitEven}}(p) ? evenPattern : oddPattern;}
 \DoxyCodeLine{89     \mbox{\hyperlink{classCompoundPattern_af6309f0ba65191342a39481b67cfcd5e}{setPatternAt}}(p, \mbox{\hyperlink{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}{PatternBuilder::makeSingle}}(\textcolor{keywordtype}{id}, args));}
 \DoxyCodeLine{90   \}}
 \DoxyCodeLine{91 \}}
@@ -236,7 +236,7 @@ Definition at line 82 of file Compound\+Pattern.\+cpp.
 \end{DoxyCode}
 
 
-References is\+Even, LED\+\_\+\+FIRST, LED\+\_\+\+LAST, Pattern\+Builder\+::make\+Single(), and set\+Pattern\+At().
+References is\+Orbit\+Even, LED\+\_\+\+FIRST, LED\+\_\+\+LAST, Pattern\+Builder\+::make\+Single(), and set\+Pattern\+At().
 
 
 
@@ -317,7 +317,7 @@ Definition at line 36 of file Compound\+Pattern.\+h.
 
 
 
-Referenced by clear\+Patterns(), play(), Sequenced\+Pattern\+::play(), set\+Pattern\+At(), and $\sim$\+Compound\+Pattern().
+Referenced by clear\+Patterns(), play(), Sequenced\+Pattern\+::play\+Sequence\+Step(), set\+Pattern\+At(), and $\sim$\+Compound\+Pattern().
 
 
 

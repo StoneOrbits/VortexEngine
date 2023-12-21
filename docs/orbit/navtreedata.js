@@ -56,15 +56,15 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "BackStrobePattern_8cpp.html",
-"Compression_8cpp.html#a8728fe9e99fe783be28c0f38bb0d0761",
-"LedTypes_8h.html#a8f52a671c9dd65ec3f6100b3e5c59ef4",
+"Compression_8cpp.html#a7d75fe9e5e79ce7eaecfb3e3bdc92432",
+"LedTypes_8h.html#a8f394c70246f75bd9452c7cea69a4b19",
 "Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca520e4d12fbe72de6b800bcbad988931a",
-"VortexConfig_8h.html#ab0c5cc9223512ec01c405592b6741898",
-"classByteStream.html#af8511d24ffc1566bab31a890456e1bef",
-"classIRReceiver.html#a56148488dd4f2a403202a0467b4940b9a5d217c890135a690847bf68a1db5bd9a",
-"classModeSharing.html#a5ca6cdd326d6e9ffc64b480c149df830",
-"classRGBColor.html#a90ed2b668e7c4075394d7b3b8c01c379",
-"dir_1d79b4615f725ce6e1b38311d89b4d4f.html"
+"VortexConfig_8h.html#aaff29f732338b733b8d1fee0e8df32ab",
+"classByteStream.html#ae3412b7f08252fa2baab4b11cb8c2484",
+"classIRReceiver.html#a2f61a4167e2ea4d2d10cd81b18b9f3a1",
+"classModeSharing.html#aa5ff26439d03402077b06a3af55f68c9",
+"classRandom.html",
+"classZigzagPattern_1_1Snake.html#adc2f2e3aee0f5610b837a53ba7f48aa7"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

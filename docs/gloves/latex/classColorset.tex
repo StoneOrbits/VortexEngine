@@ -573,15 +573,15 @@ Referenced by randomize(), randomize\+Colors(), and randomize\+Colors2().
 
 
 
-Definition at line 296 of file Colorset.\+cpp.
+Definition at line 303 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{297 \{}
-\DoxyCodeLine{298   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
-\DoxyCodeLine{299     \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].\mbox{\hyperlink{classRGBColor_a10268d92a2aa1e2609866079298fef71}{adjustBrightness}}(fadeby);}
-\DoxyCodeLine{300   \}}
-\DoxyCodeLine{301 \}}
+\DoxyCodeLine{304 \{}
+\DoxyCodeLine{305   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
+\DoxyCodeLine{306     \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].\mbox{\hyperlink{classRGBColor_a10268d92a2aa1e2609866079298fef71}{adjustBrightness}}(fadeby);}
+\DoxyCodeLine{307   \}}
+\DoxyCodeLine{308 \}}
 
 \end{DoxyCode}
 
@@ -626,19 +626,19 @@ Referenced by Pattern\+::clear\+Colorset(), init(), operator=(), randomize(), ra
 
 
 
-Definition at line 358 of file Colorset.\+cpp.
+Definition at line 365 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{359 \{}
-\DoxyCodeLine{360   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} >= \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} || !\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
-\DoxyCodeLine{361     \textcolor{keywordflow}{return} \mbox{\hyperlink{classRGBColor}{RGBColor}}(0, 0, 0);}
-\DoxyCodeLine{362   \}}
-\DoxyCodeLine{363   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} == \mbox{\hyperlink{Colorset_8cpp_aa85abfa0d6dbd3e0aa4b30be25a77ed9}{INDEX\_NONE}}) \{}
-\DoxyCodeLine{364     \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[0];}
-\DoxyCodeLine{365   \}}
-\DoxyCodeLine{366   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}}];}
-\DoxyCodeLine{367 \}}
+\DoxyCodeLine{366 \{}
+\DoxyCodeLine{367   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} >= \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} || !\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
+\DoxyCodeLine{368     \textcolor{keywordflow}{return} \mbox{\hyperlink{classRGBColor}{RGBColor}}(0, 0, 0);}
+\DoxyCodeLine{369   \}}
+\DoxyCodeLine{370   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} == \mbox{\hyperlink{Colorset_8cpp_aa85abfa0d6dbd3e0aa4b30be25a77ed9}{INDEX\_NONE}}) \{}
+\DoxyCodeLine{371     \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[0];}
+\DoxyCodeLine{372   \}}
+\DoxyCodeLine{373   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}}];}
+\DoxyCodeLine{374 \}}
 
 \end{DoxyCode}
 
@@ -647,7 +647,7 @@ References INDEX\+\_\+\+NONE, m\+\_\+cur\+Index, m\+\_\+num\+Colors, and m\+\_\+
 
 
 
-Referenced by Drip\+Morph\+Pattern\+::blink\+On(), Bounce\+Pattern\+::blink\+On(), Cross\+Dops\+Pattern\+::blink\+On(), Double\+Strobe\+Pattern\+::blink\+On(), Drip\+Pattern\+::blink\+On(), Fill\+Pattern\+::blink\+On(), Lighthouse\+Pattern\+::blink\+On(), Snowball\+Pattern\+::blink\+On(), Vortex\+Wipe\+Pattern\+::blink\+On(), Warp\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), Materia\+Pattern\+::play(), Pulsish\+Pattern\+::play(), and Sparkle\+Trace\+Pattern\+::poststep().
+Referenced by Drip\+Morph\+Pattern\+::blink\+On(), Bounce\+Pattern\+::blink\+On(), Cross\+Dops\+Pattern\+::blink\+On(), Double\+Strobe\+Pattern\+::blink\+On(), Drip\+Pattern\+::blink\+On(), Fill\+Pattern\+::blink\+On(), Lighthouse\+Pattern\+::blink\+On(), Snowball\+Pattern\+::blink\+On(), Vortex\+Wipe\+Pattern\+::blink\+On(), Warp\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), Pulsish\+Pattern\+::play(), and Sparkle\+Trace\+Pattern\+::poststep().
 
 \mbox{\Hypertarget{classColorset_ad995a98578951a11d37feec7752476b2}\label{classColorset_ad995a98578951a11d37feec7752476b2}} 
 \index{Colorset@{Colorset}!curIndex@{curIndex}}
@@ -670,7 +670,7 @@ References m\+\_\+cur\+Index.
 
 
 
-Referenced by Snowball\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), Materia\+Pattern\+::play(), Pulsish\+Pattern\+::play(), Snowball\+Pattern\+::poststep(), Sparkle\+Trace\+Pattern\+::poststep(), and Warp\+Worm\+Pattern\+::poststep().
+Referenced by Snowball\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), Pulsish\+Pattern\+::play(), Snowball\+Pattern\+::poststep(), Sparkle\+Trace\+Pattern\+::poststep(), and Warp\+Worm\+Pattern\+::poststep().
 
 \mbox{\Hypertarget{classColorset_af65f18b0a815156608cdf3cdff93e7af}\label{classColorset_af65f18b0a815156608cdf3cdff93e7af}} 
 \index{Colorset@{Colorset}!equals@{equals}}
@@ -695,7 +695,7 @@ References operator==(), and set().
 
 
 
-Referenced by Pattern\+::equals(), Color\+Select\+::on\+Long\+Click(), and Sequenced\+Pattern\+::play().
+Referenced by Pattern\+::equals(), Color\+Select\+::on\+Long\+Click(), and Sequenced\+Pattern\+::play\+Sequence\+Step().
 
 \mbox{\Hypertarget{classColorset_a672b02c1db4e63418fa58c7ea8b83ef4}\label{classColorset_a672b02c1db4e63418fa58c7ea8b83ef4}} 
 \index{Colorset@{Colorset}!equals@{equals}}
@@ -729,16 +729,16 @@ References operator==(), and set().
 
 
 
-Definition at line 304 of file Colorset.\+cpp.
+Definition at line 311 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{305 \{}
-\DoxyCodeLine{306   \textcolor{keywordflow}{if} (index >= \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} || !\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
-\DoxyCodeLine{307     \textcolor{keywordflow}{return} \mbox{\hyperlink{classRGBColor}{RGBColor}}(0, 0, 0);}
-\DoxyCodeLine{308   \}}
-\DoxyCodeLine{309   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[index];}
-\DoxyCodeLine{310 \}}
+\DoxyCodeLine{312 \{}
+\DoxyCodeLine{313   \textcolor{keywordflow}{if} (index >= \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} || !\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
+\DoxyCodeLine{314     \textcolor{keywordflow}{return} \mbox{\hyperlink{classRGBColor}{RGBColor}}(0, 0, 0);}
+\DoxyCodeLine{315   \}}
+\DoxyCodeLine{316   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[index];}
+\DoxyCodeLine{317 \}}
 
 \end{DoxyCode}
 
@@ -747,7 +747,7 @@ References m\+\_\+num\+Colors, and m\+\_\+palette.
 
 
 
-Referenced by Snowball\+Pattern\+::blink\+On(), Sparkle\+Trace\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), Materia\+Pattern\+::init(), operator\mbox{[}$\,$\mbox{]}(), Pulsish\+Pattern\+::play(), and Randomizer\+::roll\+Colorset().
+Referenced by Snowball\+Pattern\+::blink\+On(), Sparkle\+Trace\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), operator\mbox{[}$\,$\mbox{]}(), Pulsish\+Pattern\+::play(), and Randomizer\+::roll\+Colorset().
 
 \mbox{\Hypertarget{classColorset_a7057737533c8ee9127e28ba0fef493ec}\label{classColorset_a7057737533c8ee9127e28ba0fef493ec}} 
 \index{Colorset@{Colorset}!getNext@{getNext}}
@@ -757,21 +757,21 @@ Referenced by Snowball\+Pattern\+::blink\+On(), Sparkle\+Trace\+Pattern\+::blink
 
 
 
-Definition at line 400 of file Colorset.\+cpp.
+Definition at line 407 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{401 \{}
-\DoxyCodeLine{402   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} || !\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
-\DoxyCodeLine{403     \textcolor{keywordflow}{return} \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}};}
-\DoxyCodeLine{404   \}}
-\DoxyCodeLine{405   \textcolor{comment}{// iterate current index, let it wrap at max uint8}}
-\DoxyCodeLine{406   \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}}++;}
-\DoxyCodeLine{407   \textcolor{comment}{// then modulate the result within max colors}}
-\DoxyCodeLine{408   \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} \%= \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
-\DoxyCodeLine{409   \textcolor{comment}{// return the color}}
-\DoxyCodeLine{410   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}}];}
-\DoxyCodeLine{411 \}}
+\DoxyCodeLine{408 \{}
+\DoxyCodeLine{409   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} || !\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
+\DoxyCodeLine{410     \textcolor{keywordflow}{return} \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}};}
+\DoxyCodeLine{411   \}}
+\DoxyCodeLine{412   \textcolor{comment}{// iterate current index, let it wrap at max uint8}}
+\DoxyCodeLine{413   \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}}++;}
+\DoxyCodeLine{414   \textcolor{comment}{// then modulate the result within max colors}}
+\DoxyCodeLine{415   \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} \%= \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
+\DoxyCodeLine{416   \textcolor{comment}{// return the color}}
+\DoxyCodeLine{417   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}}];}
+\DoxyCodeLine{418 \}}
 
 \end{DoxyCode}
 
@@ -780,7 +780,7 @@ References m\+\_\+cur\+Index, m\+\_\+num\+Colors, m\+\_\+palette, num\+Colors(),
 
 
 
-Referenced by Basic\+Pattern\+::begin\+Dash(), Drip\+Morph\+Pattern\+::blink\+On(), Theater\+Chase\+Pattern\+::blink\+On(), Drip\+Morph\+Pattern\+::init(), Hue\+Shift\+Pattern\+::init(), Blend\+Pattern\+::init(), Basic\+Pattern\+::on\+Blink\+On(), Blend\+Pattern\+::on\+Blink\+On(), Hue\+Shift\+Pattern\+::play(), Materia\+Pattern\+::play(), Blink\+Step\+Pattern\+::poststep(), Bounce\+Pattern\+::poststep(), Cross\+Dops\+Pattern\+::poststep(), Drip\+Pattern\+::poststep(), Fill\+Pattern\+::poststep(), Lighthouse\+Pattern\+::poststep(), Meteor\+Pattern\+::poststep(), Vortex\+Wipe\+Pattern\+::poststep(), Warp\+Pattern\+::poststep(), Warp\+Worm\+Pattern\+::poststep(), and Zigzag\+Pattern\+::\+Snake\+::step().
+Referenced by Basic\+Pattern\+::begin\+Dash(), Drip\+Morph\+Pattern\+::blink\+On(), Theater\+Chase\+Pattern\+::blink\+On(), Drip\+Morph\+Pattern\+::init(), Hue\+Shift\+Pattern\+::init(), Blend\+Pattern\+::init(), Basic\+Pattern\+::on\+Blink\+On(), Blend\+Pattern\+::on\+Blink\+On(), Hue\+Shift\+Pattern\+::play(), Blink\+Step\+Pattern\+::poststep(), Bounce\+Pattern\+::poststep(), Cross\+Dops\+Pattern\+::poststep(), Drip\+Pattern\+::poststep(), Fill\+Pattern\+::poststep(), Lighthouse\+Pattern\+::poststep(), Meteor\+Pattern\+::poststep(), Vortex\+Pattern\+::poststep(), Vortex\+Wipe\+Pattern\+::poststep(), Warp\+Pattern\+::poststep(), Warp\+Worm\+Pattern\+::poststep(), and Zigzag\+Pattern\+::\+Snake\+::step().
 
 \mbox{\Hypertarget{classColorset_a8646de86362a2cc97540340345aa0096}\label{classColorset_a8646de86362a2cc97540340345aa0096}} 
 \index{Colorset@{Colorset}!getPrev@{getPrev}}
@@ -790,23 +790,23 @@ Referenced by Basic\+Pattern\+::begin\+Dash(), Drip\+Morph\+Pattern\+::blink\+On
 
 
 
-Definition at line 385 of file Colorset.\+cpp.
+Definition at line 392 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{386 \{}
-\DoxyCodeLine{387   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} || !\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
-\DoxyCodeLine{388     \textcolor{keywordflow}{return} \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}};}
-\DoxyCodeLine{389   \}}
-\DoxyCodeLine{390   \textcolor{comment}{// handle wrapping at 0}}
-\DoxyCodeLine{391   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} == 0 || \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} == \mbox{\hyperlink{Colorset_8cpp_aa85abfa0d6dbd3e0aa4b30be25a77ed9}{INDEX\_NONE}}) \{}
-\DoxyCodeLine{392     \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} = \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}() -\/ 1;}
-\DoxyCodeLine{393   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{394     \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}}-\/-\/;}
-\DoxyCodeLine{395   \}}
-\DoxyCodeLine{396   \textcolor{comment}{// return the color}}
-\DoxyCodeLine{397   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}}];}
-\DoxyCodeLine{398 \}}
+\DoxyCodeLine{393 \{}
+\DoxyCodeLine{394   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} || !\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
+\DoxyCodeLine{395     \textcolor{keywordflow}{return} \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}};}
+\DoxyCodeLine{396   \}}
+\DoxyCodeLine{397   \textcolor{comment}{// handle wrapping at 0}}
+\DoxyCodeLine{398   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} == 0 || \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} == \mbox{\hyperlink{Colorset_8cpp_aa85abfa0d6dbd3e0aa4b30be25a77ed9}{INDEX\_NONE}}) \{}
+\DoxyCodeLine{399     \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} = \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}() -\/ 1;}
+\DoxyCodeLine{400   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{401     \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}}-\/-\/;}
+\DoxyCodeLine{402   \}}
+\DoxyCodeLine{403   \textcolor{comment}{// return the color}}
+\DoxyCodeLine{404   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}}];}
+\DoxyCodeLine{405 \}}
 
 \end{DoxyCode}
 
@@ -856,26 +856,26 @@ Referenced by Colorset().
 
 
 
-Definition at line 477 of file Colorset.\+cpp.
+Definition at line 484 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{478 \{}
-\DoxyCodeLine{479   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
-\DoxyCodeLine{480     \textcolor{keyword}{delete}[] \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}};}
-\DoxyCodeLine{481     \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}} = \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{482   \}}
-\DoxyCodeLine{483   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}) \{}
-\DoxyCodeLine{484     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{485   \}}
-\DoxyCodeLine{486   \textcolor{comment}{//m\_palette = (RGBColor *)vcalloc(numColors, sizeof(RGBColor));}}
-\DoxyCodeLine{487   \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}} = \textcolor{keyword}{new} \mbox{\hyperlink{classRGBColor}{RGBColor}}[\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}];}
-\DoxyCodeLine{488   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
-\DoxyCodeLine{489     \mbox{\hyperlink{Log_8h_a804825e040f1cce9e3d2bb53c4858710}{ERROR\_OUT\_OF\_MEMORY}}();}
-\DoxyCodeLine{490     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{491   \}}
-\DoxyCodeLine{492   \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} = \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}};}
-\DoxyCodeLine{493 \}}
+\DoxyCodeLine{485 \{}
+\DoxyCodeLine{486   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
+\DoxyCodeLine{487     \textcolor{keyword}{delete}[] \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}};}
+\DoxyCodeLine{488     \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{489   \}}
+\DoxyCodeLine{490   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}) \{}
+\DoxyCodeLine{491     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{492   \}}
+\DoxyCodeLine{493   \textcolor{comment}{//m\_palette = (RGBColor *)vcalloc(numColors, sizeof(RGBColor));}}
+\DoxyCodeLine{494   \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}} = \textcolor{keyword}{new} \mbox{\hyperlink{classRGBColor}{RGBColor}}[\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}];}
+\DoxyCodeLine{495   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
+\DoxyCodeLine{496     \mbox{\hyperlink{Log_8h_a804825e040f1cce9e3d2bb53c4858710}{ERROR\_OUT\_OF\_MEMORY}}();}
+\DoxyCodeLine{497     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{498   \}}
+\DoxyCodeLine{499   \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} = \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}};}
+\DoxyCodeLine{500 \}}
 
 \end{DoxyCode}
 
@@ -907,7 +907,7 @@ References m\+\_\+num\+Colors.
 
 
 
-Referenced by add\+Color\+With\+Value\+Style(), Snowball\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), Color\+Select\+::blink\+Selection(), get\+Next(), get\+Prev(), Basic\+Pattern\+::init(), init\+Palette(), Color\+Select\+::on\+Long\+Click(), Color\+Select\+::on\+Short\+Click(), peek(), Materia\+Pattern\+::play(), Basic\+Pattern\+::play(), randomize(), randomize\+Colors(), Randomizer\+::roll\+Colorset(), and Color\+Select\+::show\+Slot\+Selection().
+Referenced by add\+Color\+With\+Value\+Style(), Snowball\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), Color\+Select\+::blink\+Selection(), get\+Next(), get\+Prev(), Basic\+Pattern\+::init(), init\+Palette(), Color\+Select\+::on\+Long\+Click(), Color\+Select\+::on\+Short\+Click(), peek(), Basic\+Pattern\+::play(), randomize(), randomize\+Colors(), Randomizer\+::roll\+Colorset(), and Color\+Select\+::show\+Slot\+Selection().
 
 \mbox{\Hypertarget{classColorset_a4c4b272308b39a62be13816d5d923493}\label{classColorset_a4c4b272308b39a62be13816d5d923493}} 
 \index{Colorset@{Colorset}!onEnd@{onEnd}}
@@ -917,16 +917,16 @@ Referenced by add\+Color\+With\+Value\+Style(), Snowball\+Pattern\+::blink\+On()
 
 
 
-Definition at line 438 of file Colorset.\+cpp.
+Definition at line 445 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{439 \{}
-\DoxyCodeLine{440   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}) \{}
-\DoxyCodeLine{441     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{442   \}}
-\DoxyCodeLine{443   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} == \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} -\/ 1);}
-\DoxyCodeLine{444 \}}
+\DoxyCodeLine{446 \{}
+\DoxyCodeLine{447   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}) \{}
+\DoxyCodeLine{448     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{449   \}}
+\DoxyCodeLine{450   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} == \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} -\/ 1);}
+\DoxyCodeLine{451 \}}
 
 \end{DoxyCode}
 
@@ -941,13 +941,13 @@ References m\+\_\+cur\+Index, and m\+\_\+num\+Colors.
 
 
 
-Definition at line 433 of file Colorset.\+cpp.
+Definition at line 440 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{434 \{}
-\DoxyCodeLine{435   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} == 0);}
-\DoxyCodeLine{436 \}}
+\DoxyCodeLine{441 \{}
+\DoxyCodeLine{442   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} == 0);}
+\DoxyCodeLine{443 \}}
 
 \end{DoxyCode}
 
@@ -1057,27 +1057,27 @@ References get().
 
 
 
-Definition at line 414 of file Colorset.\+cpp.
+Definition at line 421 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{415 \{}
-\DoxyCodeLine{416   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} || !\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
-\DoxyCodeLine{417     \textcolor{keywordflow}{return} \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}};}
-\DoxyCodeLine{418   \}}
-\DoxyCodeLine{419   uint8\_t nextIndex = 0;}
-\DoxyCodeLine{420   \textcolor{comment}{// get index of the next color}}
-\DoxyCodeLine{421   \textcolor{keywordflow}{if} (offset >= 0) \{}
-\DoxyCodeLine{422     nextIndex = (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} + offset) \% \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
-\DoxyCodeLine{423   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{424     \textcolor{keywordflow}{if} (offset < -\/1 * (int32\_t)(\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}())) \{}
-\DoxyCodeLine{425       \textcolor{keywordflow}{return} \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}};}
-\DoxyCodeLine{426     \}}
-\DoxyCodeLine{427     nextIndex = ((\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} + \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}()) + (\textcolor{keywordtype}{int})offset) \% \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
-\DoxyCodeLine{428   \}}
-\DoxyCodeLine{429   \textcolor{comment}{// return the color}}
-\DoxyCodeLine{430   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[nextIndex];}
-\DoxyCodeLine{431 \}}
+\DoxyCodeLine{422 \{}
+\DoxyCodeLine{423   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} || !\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
+\DoxyCodeLine{424     \textcolor{keywordflow}{return} \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}};}
+\DoxyCodeLine{425   \}}
+\DoxyCodeLine{426   uint8\_t nextIndex = 0;}
+\DoxyCodeLine{427   \textcolor{comment}{// get index of the next color}}
+\DoxyCodeLine{428   \textcolor{keywordflow}{if} (offset >= 0) \{}
+\DoxyCodeLine{429     nextIndex = (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} + offset) \% \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
+\DoxyCodeLine{430   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{431     \textcolor{keywordflow}{if} (offset < -\/1 * (int32\_t)(\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}())) \{}
+\DoxyCodeLine{432       \textcolor{keywordflow}{return} \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}};}
+\DoxyCodeLine{433     \}}
+\DoxyCodeLine{434     nextIndex = ((\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} + \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}()) + (\textcolor{keywordtype}{int})offset) \% \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
+\DoxyCodeLine{435   \}}
+\DoxyCodeLine{436   \textcolor{comment}{// return the color}}
+\DoxyCodeLine{437   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[nextIndex];}
+\DoxyCodeLine{438 \}}
 
 \end{DoxyCode}
 
@@ -1086,7 +1086,7 @@ References m\+\_\+cur\+Index, m\+\_\+num\+Colors, m\+\_\+palette, num\+Colors(),
 
 
 
-Referenced by Snowball\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), Zigzag\+Pattern\+::\+Snake\+::draw\+Snake(), peek\+Next(), and Materia\+Pattern\+::play().
+Referenced by Snowball\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), Zigzag\+Pattern\+::\+Snake\+::draw\+Snake(), and peek\+Next().
 
 \mbox{\Hypertarget{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}\label{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}} 
 \index{Colorset@{Colorset}!peekNext@{peekNext}}
@@ -1109,7 +1109,7 @@ References peek().
 
 
 
-Referenced by Bounce\+Pattern\+::blink\+On(), Double\+Strobe\+Pattern\+::blink\+On(), Drip\+Pattern\+::blink\+On(), Fill\+Pattern\+::blink\+On(), Snowball\+Pattern\+::blink\+On(), Vortex\+Wipe\+Pattern\+::blink\+On(), Warp\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), and Materia\+Pattern\+::play().
+Referenced by Bounce\+Pattern\+::blink\+On(), Double\+Strobe\+Pattern\+::blink\+On(), Drip\+Pattern\+::blink\+On(), Fill\+Pattern\+::blink\+On(), Snowball\+Pattern\+::blink\+On(), Vortex\+Pattern\+::blink\+On(), Vortex\+Wipe\+Pattern\+::blink\+On(), Warp\+Pattern\+::blink\+On(), and Warp\+Worm\+Pattern\+::blink\+On().
 
 \mbox{\Hypertarget{classColorset_a8ff0a3f968aec3986197acfcbd9b31df}\label{classColorset_a8ff0a3f968aec3986197acfcbd9b31df}} 
 \index{Colorset@{Colorset}!randomize@{randomize}}
@@ -1131,9 +1131,16 @@ Definition at line 222 of file Colorset.\+cpp.
 \DoxyCodeLine{228   \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}} valStyle = (\mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}})ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a}{VAL\_STYLE\_COUNT}});}
 \DoxyCodeLine{229 }
 \DoxyCodeLine{230   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}; ++i) \{}
-\DoxyCodeLine{231     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(), ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(), valStyle, \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}, i);}
-\DoxyCodeLine{232   \}}
-\DoxyCodeLine{233 \}}
+\DoxyCodeLine{231     \textcolor{comment}{// call next8 explicitly in this order because the order they}}
+\DoxyCodeLine{232     \textcolor{comment}{// are called is undefined when called as parameters to another function.}}
+\DoxyCodeLine{233     \textcolor{comment}{// ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.}}
+\DoxyCodeLine{234     \textcolor{comment}{// So different compilers may produce different results, }}
+\DoxyCodeLine{235     \textcolor{comment}{// but like this it is explicit}}
+\DoxyCodeLine{236     uint8\_t sat = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}();}
+\DoxyCodeLine{237     uint8\_t hue = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}();}
+\DoxyCodeLine{238     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, hue, sat, valStyle, \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}, i);}
+\DoxyCodeLine{239   \}}
+\DoxyCodeLine{240 \}}
 
 \end{DoxyCode}
 
@@ -1152,47 +1159,47 @@ Referenced by Randomizer\+::roll\+Colorset(), and Modes\+::set\+Defaults().
 
 
 
-Definition at line 235 of file Colorset.\+cpp.
+Definition at line 242 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{236 \{}
-\DoxyCodeLine{237   \mbox{\hyperlink{classColorset_a9382ec317b384a1fcd563cd86141ee48}{clear}}();}
-\DoxyCodeLine{238   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}) \{}
-\DoxyCodeLine{239     \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}} = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(mode == \mbox{\hyperlink{classColorset_ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959}{MONOCHROMATIC}} ? 2 : 1, 9);}
-\DoxyCodeLine{240   \}}
-\DoxyCodeLine{241   uint8\_t randomizedHue = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}();}
-\DoxyCodeLine{242   uint8\_t colorGap = 0;}
-\DoxyCodeLine{243   \textcolor{keywordflow}{if} (mode == \mbox{\hyperlink{classColorset_ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607}{THEORY}} \&\& \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}} > 1) \{}
-\DoxyCodeLine{244     colorGap = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(16, 256 / (\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}} -\/ 1));}
-\DoxyCodeLine{245   \}}
-\DoxyCodeLine{246   \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}} valStyle = (\mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}})ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a}{VAL\_STYLE\_COUNT}});}
-\DoxyCodeLine{247   \textcolor{comment}{// the doubleStyle decides if some colors are added to the set twice}}
-\DoxyCodeLine{248   uint8\_t doubleStyle = 0;}
-\DoxyCodeLine{249   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}} <= 7) \{}
-\DoxyCodeLine{250     doubleStyle = (ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 1));}
-\DoxyCodeLine{251   \}}
-\DoxyCodeLine{252   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}} <= 4) \{}
-\DoxyCodeLine{253     doubleStyle = (ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 2));}
-\DoxyCodeLine{254   \}}
-\DoxyCodeLine{255   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}; i++) \{}
-\DoxyCodeLine{256     uint8\_t hueToUse;}
-\DoxyCodeLine{257     uint8\_t valueToUse = 255;}
-\DoxyCodeLine{258     \textcolor{keywordflow}{if} (mode == \mbox{\hyperlink{classColorset_ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607}{THEORY}}) \{}
-\DoxyCodeLine{259       hueToUse = (randomizedHue + (i * colorGap));}
-\DoxyCodeLine{260     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (mode == \mbox{\hyperlink{classColorset_ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959}{MONOCHROMATIC}}) \{}
-\DoxyCodeLine{261       hueToUse = randomizedHue;}
-\DoxyCodeLine{262       valueToUse = 255 -\/ (i * (256 / \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}));}
-\DoxyCodeLine{263     \} \textcolor{keywordflow}{else} \{ \textcolor{comment}{// EVENLY\_SPACED}}
-\DoxyCodeLine{264       hueToUse = (randomizedHue + (256 / \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}) * i);}
-\DoxyCodeLine{265     \}}
-\DoxyCodeLine{266     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, hueToUse, valueToUse, valStyle, \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}, i);}
-\DoxyCodeLine{267     \textcolor{comment}{// double all colors or only first color}}
-\DoxyCodeLine{268     \textcolor{keywordflow}{if} (doubleStyle == 2 || (doubleStyle == 1 \&\& !i)) \{}
-\DoxyCodeLine{269       \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, hueToUse, valueToUse, valStyle, \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}, i);}
-\DoxyCodeLine{270     \}}
-\DoxyCodeLine{271   \}}
-\DoxyCodeLine{272 \}}
+\DoxyCodeLine{243 \{}
+\DoxyCodeLine{244   \mbox{\hyperlink{classColorset_a9382ec317b384a1fcd563cd86141ee48}{clear}}();}
+\DoxyCodeLine{245   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}) \{}
+\DoxyCodeLine{246     \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}} = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(mode == \mbox{\hyperlink{classColorset_ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959}{MONOCHROMATIC}} ? 2 : 1, 9);}
+\DoxyCodeLine{247   \}}
+\DoxyCodeLine{248   uint8\_t randomizedHue = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}();}
+\DoxyCodeLine{249   uint8\_t colorGap = 0;}
+\DoxyCodeLine{250   \textcolor{keywordflow}{if} (mode == \mbox{\hyperlink{classColorset_ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607}{THEORY}} \&\& \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}} > 1) \{}
+\DoxyCodeLine{251     colorGap = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(16, 256 / (\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}} -\/ 1));}
+\DoxyCodeLine{252   \}}
+\DoxyCodeLine{253   \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}} valStyle = (\mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}})ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a}{VAL\_STYLE\_COUNT}});}
+\DoxyCodeLine{254   \textcolor{comment}{// the doubleStyle decides if some colors are added to the set twice}}
+\DoxyCodeLine{255   uint8\_t doubleStyle = 0;}
+\DoxyCodeLine{256   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}} <= 7) \{}
+\DoxyCodeLine{257     doubleStyle = (ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 1));}
+\DoxyCodeLine{258   \}}
+\DoxyCodeLine{259   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}} <= 4) \{}
+\DoxyCodeLine{260     doubleStyle = (ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 2));}
+\DoxyCodeLine{261   \}}
+\DoxyCodeLine{262   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}; i++) \{}
+\DoxyCodeLine{263     uint8\_t hueToUse;}
+\DoxyCodeLine{264     uint8\_t valueToUse = 255;}
+\DoxyCodeLine{265     \textcolor{keywordflow}{if} (mode == \mbox{\hyperlink{classColorset_ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607}{THEORY}}) \{}
+\DoxyCodeLine{266       hueToUse = (randomizedHue + (i * colorGap));}
+\DoxyCodeLine{267     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (mode == \mbox{\hyperlink{classColorset_ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959}{MONOCHROMATIC}}) \{}
+\DoxyCodeLine{268       hueToUse = randomizedHue;}
+\DoxyCodeLine{269       valueToUse = 255 -\/ (i * (256 / \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}));}
+\DoxyCodeLine{270     \} \textcolor{keywordflow}{else} \{ \textcolor{comment}{// EVENLY\_SPACED}}
+\DoxyCodeLine{271       hueToUse = (randomizedHue + (256 / \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}) * i);}
+\DoxyCodeLine{272     \}}
+\DoxyCodeLine{273     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, hueToUse, valueToUse, valStyle, \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}, i);}
+\DoxyCodeLine{274     \textcolor{comment}{// double all colors or only first color}}
+\DoxyCodeLine{275     \textcolor{keywordflow}{if} (doubleStyle == 2 || (doubleStyle == 1 \&\& !i)) \{}
+\DoxyCodeLine{276       \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, hueToUse, valueToUse, valStyle, \mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}, i);}
+\DoxyCodeLine{277     \}}
+\DoxyCodeLine{278   \}}
+\DoxyCodeLine{279 \}}
 
 \end{DoxyCode}
 
@@ -1211,30 +1218,30 @@ Referenced by randomize\+Complimentary(), randomize\+Pentadic(), randomize\+Rain
 
 
 
-Definition at line 274 of file Colorset.\+cpp.
+Definition at line 281 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{275 \{}
-\DoxyCodeLine{276   \mbox{\hyperlink{classColorset_a9382ec317b384a1fcd563cd86141ee48}{clear}}();}
-\DoxyCodeLine{277   uint8\_t primaryHue = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}();}
-\DoxyCodeLine{278   \textcolor{keywordflow}{if} (mode == \mbox{\hyperlink{classColorset_abf504edde130e5e302c5a1c78ab725d8ad847fcabcc8c69e0f740dfc0e4bfb5b0}{DOUBLE\_SPLIT\_COMPLIMENTARY}}) \{}
-\DoxyCodeLine{279     uint8\_t splitGap = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(1, 64);}
-\DoxyCodeLine{280     \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}} valStyle = (\mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}})ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a}{VAL\_STYLE\_COUNT}});}
-\DoxyCodeLine{281     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, (primaryHue + splitGap + 128), 255, valStyle, 5, 0);}
-\DoxyCodeLine{282     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, (primaryHue -\/ splitGap), 255, valStyle, 5, 1);}
-\DoxyCodeLine{283     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, primaryHue, 255, valStyle, 5, 2);}
-\DoxyCodeLine{284     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, (primaryHue + splitGap), 255, valStyle, 5, 3);}
-\DoxyCodeLine{285     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, (primaryHue -\/ splitGap + 128), 255, valStyle, 5, 4);}
-\DoxyCodeLine{286   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (mode == \mbox{\hyperlink{classColorset_abf504edde130e5e302c5a1c78ab725d8acd5395dcd4b6248a985c0e789c7d0ef1}{TETRADIC}}) \{}
-\DoxyCodeLine{287     uint8\_t secondaryHue = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}();}
-\DoxyCodeLine{288     \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}} valStyle = (\mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}})ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a}{VAL\_STYLE\_COUNT}});}
-\DoxyCodeLine{289     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, primaryHue, 255, valStyle, 4, 0);}
-\DoxyCodeLine{290     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, secondaryHue, 255, valStyle, 4, 1);}
-\DoxyCodeLine{291     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, (primaryHue + 128), 255, valStyle, 4, 2);}
-\DoxyCodeLine{292     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, (secondaryHue + 128), 255, valStyle, 4, 3);}
-\DoxyCodeLine{293   \}}
-\DoxyCodeLine{294 \}}
+\DoxyCodeLine{282 \{}
+\DoxyCodeLine{283   \mbox{\hyperlink{classColorset_a9382ec317b384a1fcd563cd86141ee48}{clear}}();}
+\DoxyCodeLine{284   uint8\_t primaryHue = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}();}
+\DoxyCodeLine{285   \textcolor{keywordflow}{if} (mode == \mbox{\hyperlink{classColorset_abf504edde130e5e302c5a1c78ab725d8ad847fcabcc8c69e0f740dfc0e4bfb5b0}{DOUBLE\_SPLIT\_COMPLIMENTARY}}) \{}
+\DoxyCodeLine{286     uint8\_t splitGap = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(1, 64);}
+\DoxyCodeLine{287     \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}} valStyle = (\mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}})ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a}{VAL\_STYLE\_COUNT}});}
+\DoxyCodeLine{288     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, (primaryHue + splitGap + 128), 255, valStyle, 5, 0);}
+\DoxyCodeLine{289     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, (primaryHue -\/ splitGap), 255, valStyle, 5, 1);}
+\DoxyCodeLine{290     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, primaryHue, 255, valStyle, 5, 2);}
+\DoxyCodeLine{291     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, (primaryHue + splitGap), 255, valStyle, 5, 3);}
+\DoxyCodeLine{292     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, (primaryHue -\/ splitGap + 128), 255, valStyle, 5, 4);}
+\DoxyCodeLine{293   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (mode == \mbox{\hyperlink{classColorset_abf504edde130e5e302c5a1c78ab725d8acd5395dcd4b6248a985c0e789c7d0ef1}{TETRADIC}}) \{}
+\DoxyCodeLine{294     uint8\_t secondaryHue = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}();}
+\DoxyCodeLine{295     \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}} valStyle = (\mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26}{ValueStyle}})ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, \mbox{\hyperlink{classColorset_a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a}{VAL\_STYLE\_COUNT}});}
+\DoxyCodeLine{296     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, primaryHue, 255, valStyle, 4, 0);}
+\DoxyCodeLine{297     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, secondaryHue, 255, valStyle, 4, 1);}
+\DoxyCodeLine{298     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, (primaryHue + 128), 255, valStyle, 4, 2);}
+\DoxyCodeLine{299     \mbox{\hyperlink{classColorset_ae82f167e840a5fd2df65816a34991f2d}{addColorWithValueStyle}}(ctx, (secondaryHue + 128), 255, valStyle, 4, 3);}
+\DoxyCodeLine{300   \}}
+\DoxyCodeLine{301 \}}
 
 \end{DoxyCode}
 
@@ -1402,13 +1409,13 @@ Referenced by Color\+Select\+::on\+Long\+Click().
 
 
 
-Definition at line 380 of file Colorset.\+cpp.
+Definition at line 387 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{381 \{}
-\DoxyCodeLine{382   \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} = \mbox{\hyperlink{Colorset_8cpp_aa85abfa0d6dbd3e0aa4b30be25a77ed9}{INDEX\_NONE}};}
-\DoxyCodeLine{383 \}}
+\DoxyCodeLine{388 \{}
+\DoxyCodeLine{389   \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} = \mbox{\hyperlink{Colorset_8cpp_aa85abfa0d6dbd3e0aa4b30be25a77ed9}{INDEX\_NONE}};}
+\DoxyCodeLine{390 \}}
 
 \end{DoxyCode}
 
@@ -1427,24 +1434,24 @@ Referenced by clear(), Pattern\+::init(), Solid\+Pattern\+::on\+Blink\+On(), and
 
 
 
-Definition at line 446 of file Colorset.\+cpp.
+Definition at line 453 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{447 \{}
-\DoxyCodeLine{448   buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}});}
-\DoxyCodeLine{449   \textcolor{comment}{// write all the reds/greens/blues together to maximize chance of}}
-\DoxyCodeLine{450   \textcolor{comment}{// repeated values to improve RLE compression}}
-\DoxyCodeLine{451   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
-\DoxyCodeLine{452     buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].red);}
-\DoxyCodeLine{453   \}}
-\DoxyCodeLine{454   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
-\DoxyCodeLine{455     buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].green);}
-\DoxyCodeLine{456   \}}
-\DoxyCodeLine{457   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
-\DoxyCodeLine{458     buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].blue);}
-\DoxyCodeLine{459   \}}
-\DoxyCodeLine{460 \}}
+\DoxyCodeLine{454 \{}
+\DoxyCodeLine{455   buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}});}
+\DoxyCodeLine{456   \textcolor{comment}{// write all the reds/greens/blues together to maximize chance of}}
+\DoxyCodeLine{457   \textcolor{comment}{// repeated values to improve RLE compression}}
+\DoxyCodeLine{458   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
+\DoxyCodeLine{459     buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].red);}
+\DoxyCodeLine{460   \}}
+\DoxyCodeLine{461   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
+\DoxyCodeLine{462     buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].green);}
+\DoxyCodeLine{463   \}}
+\DoxyCodeLine{464   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
+\DoxyCodeLine{465     buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].blue);}
+\DoxyCodeLine{466   \}}
+\DoxyCodeLine{467 \}}
 
 \end{DoxyCode}
 
@@ -1463,28 +1470,28 @@ Referenced by Colorset\+Map\+::serialize(), and Pattern\+::serialize().
 
 
 
-Definition at line 314 of file Colorset.\+cpp.
+Definition at line 321 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{315 \{}
-\DoxyCodeLine{316   \textcolor{comment}{// special case for 'setting' a color at the edge of the palette,}}
-\DoxyCodeLine{317   \textcolor{comment}{// ie adding a new color when you set an index higher than the max}}
-\DoxyCodeLine{318   \textcolor{keywordflow}{if} (index >= \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}) \{}
-\DoxyCodeLine{319     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_abb46201f07d6f2072eac505d917a0f2e}{addColor}}(col)) \{}
-\DoxyCodeLine{320       \mbox{\hyperlink{Log_8h_aed976922ae10c35e5e5241d15f5a06af}{ERROR\_LOGF}}(\textcolor{stringliteral}{"{}Failed to add new color at index \%u"{}}, index);}
-\DoxyCodeLine{321     \}}
-\DoxyCodeLine{322     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{323   \}}
-\DoxyCodeLine{324   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
-\DoxyCodeLine{325     \textcolor{comment}{// should be impossible because if the index is less than}}
-\DoxyCodeLine{326     \textcolor{comment}{// the number of colors then there must be non-\/zero number}}
-\DoxyCodeLine{327     \textcolor{comment}{// of colors which means the palette should be initialized}}
-\DoxyCodeLine{328     \mbox{\hyperlink{Log_8h_aed976922ae10c35e5e5241d15f5a06af}{ERROR\_LOGF}}(\textcolor{stringliteral}{"{}Programmer error setting color index \%u with no palette"{}}, index);}
+\DoxyCodeLine{322 \{}
+\DoxyCodeLine{323   \textcolor{comment}{// special case for 'setting' a color at the edge of the palette,}}
+\DoxyCodeLine{324   \textcolor{comment}{// ie adding a new color when you set an index higher than the max}}
+\DoxyCodeLine{325   \textcolor{keywordflow}{if} (index >= \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}) \{}
+\DoxyCodeLine{326     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_abb46201f07d6f2072eac505d917a0f2e}{addColor}}(col)) \{}
+\DoxyCodeLine{327       \mbox{\hyperlink{Log_8h_aed976922ae10c35e5e5241d15f5a06af}{ERROR\_LOGF}}(\textcolor{stringliteral}{"{}Failed to add new color at index \%u"{}}, index);}
+\DoxyCodeLine{328     \}}
 \DoxyCodeLine{329     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{330   \}}
-\DoxyCodeLine{331   \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[index] = col;}
-\DoxyCodeLine{332 \}}
+\DoxyCodeLine{331   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
+\DoxyCodeLine{332     \textcolor{comment}{// should be impossible because if the index is less than}}
+\DoxyCodeLine{333     \textcolor{comment}{// the number of colors then there must be non-\/zero number}}
+\DoxyCodeLine{334     \textcolor{comment}{// of colors which means the palette should be initialized}}
+\DoxyCodeLine{335     \mbox{\hyperlink{Log_8h_aed976922ae10c35e5e5241d15f5a06af}{ERROR\_LOGF}}(\textcolor{stringliteral}{"{}Programmer error setting color index \%u with no palette"{}}, index);}
+\DoxyCodeLine{336     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{337   \}}
+\DoxyCodeLine{338   \mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[index] = col;}
+\DoxyCodeLine{339 \}}
 
 \end{DoxyCode}
 
@@ -1503,19 +1510,19 @@ Referenced by equals(), and Color\+Select\+::on\+Long\+Click().
 
 
 
-Definition at line 369 of file Colorset.\+cpp.
+Definition at line 376 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{370 \{}
-\DoxyCodeLine{371   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}) \{}
-\DoxyCodeLine{372     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{373   \}}
-\DoxyCodeLine{374   \textcolor{keywordflow}{if} (index > (\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} -\/ 1)) \{}
-\DoxyCodeLine{375     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{376   \}}
-\DoxyCodeLine{377   \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} = index;}
-\DoxyCodeLine{378 \}}
+\DoxyCodeLine{377 \{}
+\DoxyCodeLine{378   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}) \{}
+\DoxyCodeLine{379     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{380   \}}
+\DoxyCodeLine{381   \textcolor{keywordflow}{if} (index > (\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} -\/ 1)) \{}
+\DoxyCodeLine{382     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{383   \}}
+\DoxyCodeLine{384   \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} = index;}
+\DoxyCodeLine{385 \}}
 
 \end{DoxyCode}
 
@@ -1524,7 +1531,7 @@ References m\+\_\+cur\+Index, and m\+\_\+num\+Colors.
 
 
 
-Referenced by Bounce\+Pattern\+::init(), Cross\+Dops\+Pattern\+::init(), Double\+Strobe\+Pattern\+::init(), Drip\+Pattern\+::init(), Fill\+Pattern\+::init(), Lighthouse\+Pattern\+::init(), Materia\+Pattern\+::init(), Snowball\+Pattern\+::init(), Vortex\+Wipe\+Pattern\+::init(), Warp\+Pattern\+::init(), Warp\+Worm\+Pattern\+::init(), Zigzag\+Pattern\+::\+Snake\+::init(), and Solid\+Pattern\+::on\+Blink\+On().
+Referenced by Bounce\+Pattern\+::init(), Cross\+Dops\+Pattern\+::init(), Double\+Strobe\+Pattern\+::init(), Drip\+Pattern\+::init(), Fill\+Pattern\+::init(), Lighthouse\+Pattern\+::init(), Snowball\+Pattern\+::init(), Vortex\+Pattern\+::init(), Vortex\+Wipe\+Pattern\+::init(), Warp\+Pattern\+::init(), Warp\+Worm\+Pattern\+::init(), Zigzag\+Pattern\+::\+Snake\+::init(), and Solid\+Pattern\+::on\+Blink\+On().
 
 \mbox{\Hypertarget{classColorset_aaaca6ce1c8974d4e11a5af92b0e2fdec}\label{classColorset_aaaca6ce1c8974d4e11a5af92b0e2fdec}} 
 \index{Colorset@{Colorset}!skip@{skip}}
@@ -1534,31 +1541,31 @@ Referenced by Bounce\+Pattern\+::init(), Cross\+Dops\+Pattern\+::init(), Double\
 
 
 
-Definition at line 335 of file Colorset.\+cpp.
+Definition at line 342 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{336 \{}
-\DoxyCodeLine{337   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} || !\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
-\DoxyCodeLine{338     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{339   \}}
-\DoxyCodeLine{340   \textcolor{comment}{// if the colorset hasn't started yet}}
-\DoxyCodeLine{341   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} == \mbox{\hyperlink{Colorset_8cpp_aa85abfa0d6dbd3e0aa4b30be25a77ed9}{INDEX\_NONE}}) \{}
-\DoxyCodeLine{342     \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} = 0;}
-\DoxyCodeLine{343   \}}
-\DoxyCodeLine{344 }
-\DoxyCodeLine{345   \textcolor{comment}{// first modulate the amount to skip to be within +/-\/ the number of colors}}
-\DoxyCodeLine{346   amount \%= (int32\_t)\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}};}
-\DoxyCodeLine{347 }
-\DoxyCodeLine{348   \textcolor{comment}{// max = 3}}
-\DoxyCodeLine{349   \textcolor{comment}{// m\_curIndex = 2}}
-\DoxyCodeLine{350   \textcolor{comment}{// amount = -\/10}}
-\DoxyCodeLine{351   \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} = ((int32\_t)\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} + (int32\_t)amount) \% (int32\_t)\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}};}
-\DoxyCodeLine{352   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} > \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}) \{ \textcolor{comment}{// must have wrapped}}
-\DoxyCodeLine{353     \textcolor{comment}{// simply wrap it back}}
-\DoxyCodeLine{354     \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} += \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}};}
-\DoxyCodeLine{355   \}}
-\DoxyCodeLine{356 \}}
+\DoxyCodeLine{343 \{}
+\DoxyCodeLine{344   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}} || !\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}) \{}
+\DoxyCodeLine{345     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{346   \}}
+\DoxyCodeLine{347   \textcolor{comment}{// if the colorset hasn't started yet}}
+\DoxyCodeLine{348   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} == \mbox{\hyperlink{Colorset_8cpp_aa85abfa0d6dbd3e0aa4b30be25a77ed9}{INDEX\_NONE}}) \{}
+\DoxyCodeLine{349     \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} = 0;}
+\DoxyCodeLine{350   \}}
+\DoxyCodeLine{351 }
+\DoxyCodeLine{352   \textcolor{comment}{// first modulate the amount to skip to be within +/-\/ the number of colors}}
+\DoxyCodeLine{353   amount \%= (int32\_t)\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}};}
+\DoxyCodeLine{354 }
+\DoxyCodeLine{355   \textcolor{comment}{// max = 3}}
+\DoxyCodeLine{356   \textcolor{comment}{// m\_curIndex = 2}}
+\DoxyCodeLine{357   \textcolor{comment}{// amount = -\/10}}
+\DoxyCodeLine{358   \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} = ((int32\_t)\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} + (int32\_t)amount) \% (int32\_t)\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}};}
+\DoxyCodeLine{359   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} > \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}) \{ \textcolor{comment}{// must have wrapped}}
+\DoxyCodeLine{360     \textcolor{comment}{// simply wrap it back}}
+\DoxyCodeLine{361     \mbox{\hyperlink{classColorset_ab3a23dfcdcc4d7042bb41325c8503682}{m\_curIndex}} += \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}};}
+\DoxyCodeLine{362   \}}
+\DoxyCodeLine{363 \}}
 
 \end{DoxyCode}
 
@@ -1577,23 +1584,23 @@ Referenced by Pulsish\+Pattern\+::play(), Snowball\+Pattern\+::poststep(), and S
 
 
 
-Definition at line 462 of file Colorset.\+cpp.
+Definition at line 469 of file Colorset.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{463 \{}
-\DoxyCodeLine{464   buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}});}
-\DoxyCodeLine{465   \mbox{\hyperlink{classColorset_ae973ebe020c085e206fe75f39383a96a}{initPalette}}(\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}});}
-\DoxyCodeLine{466   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
-\DoxyCodeLine{467     buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].red);}
-\DoxyCodeLine{468   \}}
-\DoxyCodeLine{469   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
-\DoxyCodeLine{470     buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].green);}
-\DoxyCodeLine{471   \}}
-\DoxyCodeLine{472   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
-\DoxyCodeLine{473     buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].blue);}
-\DoxyCodeLine{474   \}}
-\DoxyCodeLine{475 \}}
+\DoxyCodeLine{470 \{}
+\DoxyCodeLine{471   buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}});}
+\DoxyCodeLine{472   \mbox{\hyperlink{classColorset_ae973ebe020c085e206fe75f39383a96a}{initPalette}}(\mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}});}
+\DoxyCodeLine{473   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
+\DoxyCodeLine{474     buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].red);}
+\DoxyCodeLine{475   \}}
+\DoxyCodeLine{476   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
+\DoxyCodeLine{477     buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].green);}
+\DoxyCodeLine{478   \}}
+\DoxyCodeLine{479   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classColorset_ad20826f06f775244af672fc704598db1}{m\_numColors}}; ++i) \{}
+\DoxyCodeLine{480     buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classColorset_a18b8a6c797b8b18c9d19edad8ef73ec4}{m\_palette}}[i].blue);}
+\DoxyCodeLine{481   \}}
+\DoxyCodeLine{482 \}}
 
 \end{DoxyCode}
 

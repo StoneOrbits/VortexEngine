@@ -60,7 +60,7 @@ var Patterns_8h =
       [ "PATTERN_BOUNCE", "Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8caf82f552d51b4e07ee01b0686d1a2a3e4", null ],
       [ "PATTERN_SPLITSTROBIE", "Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca6499951acc4c20207e17fc1f18440dc1", null ],
       [ "PATTERN_BACKSTROBE", "Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8caaa6e2e9a992e6f1af14a71b4f8420569", null ],
-      [ "PATTERN_MATERIA", "Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8caa379277dd20c3ddd955fd7fbe8015253", null ],
+      [ "PATTERN_VORTEX", "Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca1220d8bf8d4b92f8f501523fce29588e", null ],
       [ "INTERNAL_PATTERNS_END", "Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca69b83c24e6ede55b32c040f2a9f79bd9", null ],
       [ "PATTERN_MULTI_LAST", "Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca4a47e790a421b744f6b060610e6a0099", null ],
       [ "PATTERN_MULTI_COUNT", "Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8ca5159829219276595e05bd941f8b14016", null ],

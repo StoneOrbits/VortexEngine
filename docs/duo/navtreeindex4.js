@@ -1,5 +1,8 @@
 var NAVTREEINDEX4 =
 {
+"classButton.html#afc1f76677aed5c89139aed6daa5f5d4a":[0,0,6,5],
+"classButtons.html":[0,0,7],
+"classButtons.html#a4bee1374d1782a6006faee6f9d9bb792":[0,0,7,1],
 "classButtons.html#a4e775beebe1f2c6dce04c82ed14741cb":[0,0,7,3],
 "classButtons.html#a7344cfab9ec5faf9741216860d6f4390":[0,0,7,4],
 "classButtons.html#ac5767a8af9ce64e39231833ad1b166ea":[0,0,7,2],
@@ -246,8 +249,5 @@ var NAVTREEINDEX4 =
 "classFillPattern.html#a1b30ede093847932598796d060cfd36e":[0,0,22,3],
 "classFillPattern.html#a547f3636838270a67a6a24446978382c":[0,0,22,1],
 "classFillPattern.html#a6e0ea780efcc3389b794c16f2dd40fd5":[0,0,22,5],
-"classFillPattern.html#a7b10d6afe4c338a0e89ef8c6eb1ecb27":[0,0,22,2],
-"classFillPattern.html#abff2f44427dd0a5b77051fbddc665fd8":[0,0,22,0],
-"classFillPattern.html#acf805f0f69ce390640df6d6f81cd129b":[0,0,22,4],
-"classGlobalBrightness.html":[0,0,23]
+"classFillPattern.html#a7b10d6afe4c338a0e89ef8c6eb1ecb27":[0,0,22,2]
 };

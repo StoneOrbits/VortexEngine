@@ -60,12 +60,12 @@ Definition at line 12 of file Buttons.\+h.
 
 
 
-Definition at line 31 of file Buttons.\+cpp.
+Definition at line 41 of file Buttons.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{32 \{}
-\DoxyCodeLine{33 \}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43 \}}
 
 \end{DoxyCode}
 
@@ -80,23 +80,27 @@ Referenced by Vortex\+Engine\+::cleanup().
 
 
 
-Definition at line 21 of file Buttons.\+cpp.
+Definition at line 27 of file Buttons.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{22 \{}
-\DoxyCodeLine{23   \textcolor{comment}{// initialize the button on pin 1}}
-\DoxyCodeLine{24   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[0].\mbox{\hyperlink{classButtons_ac5767a8af9ce64e39231833ad1b166ea}{init}}(1)) \{}
-\DoxyCodeLine{25     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{26   \}}
-\DoxyCodeLine{27   \mbox{\hyperlink{Buttons_8cpp_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}} = \&\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[0];}
-\DoxyCodeLine{28   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{29 \}}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29   \textcolor{comment}{// initialize the button on pins 9/10/11}}
+\DoxyCodeLine{30   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[0].\mbox{\hyperlink{classButtons_ac5767a8af9ce64e39231833ad1b166ea}{init}}(9) ||}
+\DoxyCodeLine{31       !\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[1].\mbox{\hyperlink{classButtons_ac5767a8af9ce64e39231833ad1b166ea}{init}}(10) ||}
+\DoxyCodeLine{32       !\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[2].\mbox{\hyperlink{classButtons_ac5767a8af9ce64e39231833ad1b166ea}{init}}(11)) \{}
+\DoxyCodeLine{33     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{34   \}}
+\DoxyCodeLine{35   \mbox{\hyperlink{Buttons_8cpp_ac2fb778cda72cbf314239e9693900b28}{g\_pButtonL}} = \&\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[0];}
+\DoxyCodeLine{36   \mbox{\hyperlink{Buttons_8cpp_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}} = \&\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[1];}
+\DoxyCodeLine{37   \mbox{\hyperlink{Buttons_8cpp_ab0bad4698b8ace3b61f0cd4398d6c47b}{g\_pButtonR}} = \&\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[2];}
+\DoxyCodeLine{38   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{39 \}}
 
 \end{DoxyCode}
 
 
-References g\+\_\+p\+Button, and m\+\_\+buttons.
+References g\+\_\+p\+ButtonL, g\+\_\+p\+ButtonM, g\+\_\+p\+ButtonR, and m\+\_\+buttons.
 
 
 
@@ -110,21 +114,21 @@ Referenced by Vortex\+Engine\+::init().
 
 
 
-Definition at line 35 of file Buttons.\+cpp.
+Definition at line 45 of file Buttons.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{36 \{}
-\DoxyCodeLine{37   \textcolor{comment}{// would iterate all buttons and check them here}}
-\DoxyCodeLine{38   \textcolor{comment}{// but there's only one button so}}
-\DoxyCodeLine{39   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\_BUTTONS}}; ++i) \{}
-\DoxyCodeLine{40     \mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[i].\mbox{\hyperlink{classButton_ad8e030c1c8846d43f3126047d4a3667f}{update}}();}
-\DoxyCodeLine{41   \}}
-\DoxyCodeLine{42 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{43   \textcolor{comment}{// read input from the vortex lib interface, for example Vortex::shortClick()}}
-\DoxyCodeLine{44   Vortex::handleInputQueue(\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}, \mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\_BUTTONS}});}
-\DoxyCodeLine{45 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{46 \}}
+\DoxyCodeLine{46 \{}
+\DoxyCodeLine{47   \textcolor{comment}{// would iterate all buttons and check them here}}
+\DoxyCodeLine{48   \textcolor{comment}{// but there's only one button so}}
+\DoxyCodeLine{49   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\_BUTTONS}}; ++i) \{}
+\DoxyCodeLine{50     \mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[i].\mbox{\hyperlink{classButton_ad8e030c1c8846d43f3126047d4a3667f}{update}}();}
+\DoxyCodeLine{51   \}}
+\DoxyCodeLine{52 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{53   \textcolor{comment}{// read input from the vortex lib interface, for example Vortex::shortClick()}}
+\DoxyCodeLine{54   Vortex::handleInputQueue(\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}, \mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\_BUTTONS}});}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{56 \}}
 
 \end{DoxyCode}
 

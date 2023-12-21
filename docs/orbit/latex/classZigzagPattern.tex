@@ -59,11 +59,6 @@ uint8\+\_\+t \mbox{\hyperlink{classZigzagPattern_a88e885ea0cf4b6ef8657fb854c431f
 \item 
 \mbox{\hyperlink{classZigzagPattern_1_1Snake}{Snake}} \mbox{\hyperlink{classZigzagPattern_a0c4d092c89c5503be4e88e51a8eced97}{m\+\_\+snake2}}
 \end{DoxyCompactItemize}
-\doxysubsection*{Static Private Attributes}
-\begin{DoxyCompactItemize}
-\item 
-static const \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} \mbox{\hyperlink{classZigzagPattern_a78570112d59d201d0d984d899f7653ae}{led\+Step\+Positions}} \mbox{[}$\,$\mbox{]}
-\end{DoxyCompactItemize}
 \doxysubsection*{Additional Inherited Members}
 
 
@@ -83,29 +78,29 @@ Definition at line 9 of file Zigzag\+Pattern.\+h.
 
 
 
-Definition at line 28 of file Zigzag\+Pattern.\+cpp.
+Definition at line 11 of file Zigzag\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{28                                                     :}
-\DoxyCodeLine{29   \mbox{\hyperlink{classMultiLedPattern_afd56f557bce419b348ac721d84cfa5fa}{MultiLedPattern}}(args),}
-\DoxyCodeLine{30   \mbox{\hyperlink{classZigzagPattern_aeb2c6fbb06329a74da599e4117d0bb60}{m\_onDuration}}(0),}
-\DoxyCodeLine{31   \mbox{\hyperlink{classZigzagPattern_a3c1896d404543c82185caeb2f9a4c484}{m\_offDuration}}(0),}
-\DoxyCodeLine{32   \mbox{\hyperlink{classZigzagPattern_a709fe186d15a24d3db0d28a491eeae1b}{m\_stepDuration}}(0),}
-\DoxyCodeLine{33   \mbox{\hyperlink{classZigzagPattern_a7068d68fa36b81b8fac8bd962b5eb2e1}{m\_snakeSize}}(0),}
-\DoxyCodeLine{34   \mbox{\hyperlink{classZigzagPattern_a88e885ea0cf4b6ef8657fb854c431fcf}{m\_fadeAmount}}(0),}
-\DoxyCodeLine{35   \mbox{\hyperlink{classZigzagPattern_ad1266b2a3ee2de2002cff441e994bb37}{m\_stepTimer}}(),}
-\DoxyCodeLine{36   \mbox{\hyperlink{classZigzagPattern_a8669daa461044cfca0ae0c9786dee145}{m\_snake1}}(),}
-\DoxyCodeLine{37   \mbox{\hyperlink{classZigzagPattern_a0c4d092c89c5503be4e88e51a8eced97}{m\_snake2}}()}
-\DoxyCodeLine{38 \{}
-\DoxyCodeLine{39   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca0b690948d8f6c2ed0a3b87e8575d7f9a}{PATTERN\_ZIGZAG}};}
-\DoxyCodeLine{40   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classZigzagPattern_aeb2c6fbb06329a74da599e4117d0bb60}{m\_onDuration}});}
-\DoxyCodeLine{41   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classZigzagPattern_a3c1896d404543c82185caeb2f9a4c484}{m\_offDuration}});}
-\DoxyCodeLine{42   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classZigzagPattern_a709fe186d15a24d3db0d28a491eeae1b}{m\_stepDuration}});}
-\DoxyCodeLine{43   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classZigzagPattern_a7068d68fa36b81b8fac8bd962b5eb2e1}{m\_snakeSize}});}
-\DoxyCodeLine{44   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classZigzagPattern_a88e885ea0cf4b6ef8657fb854c431fcf}{m\_fadeAmount}});}
-\DoxyCodeLine{45   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
-\DoxyCodeLine{46 \}}
+\DoxyCodeLine{11                                                     :}
+\DoxyCodeLine{12   \mbox{\hyperlink{classMultiLedPattern_afd56f557bce419b348ac721d84cfa5fa}{MultiLedPattern}}(args),}
+\DoxyCodeLine{13   \mbox{\hyperlink{classZigzagPattern_aeb2c6fbb06329a74da599e4117d0bb60}{m\_onDuration}}(0),}
+\DoxyCodeLine{14   \mbox{\hyperlink{classZigzagPattern_a3c1896d404543c82185caeb2f9a4c484}{m\_offDuration}}(0),}
+\DoxyCodeLine{15   \mbox{\hyperlink{classZigzagPattern_a709fe186d15a24d3db0d28a491eeae1b}{m\_stepDuration}}(0),}
+\DoxyCodeLine{16   \mbox{\hyperlink{classZigzagPattern_a7068d68fa36b81b8fac8bd962b5eb2e1}{m\_snakeSize}}(0),}
+\DoxyCodeLine{17   \mbox{\hyperlink{classZigzagPattern_a88e885ea0cf4b6ef8657fb854c431fcf}{m\_fadeAmount}}(0),}
+\DoxyCodeLine{18   \mbox{\hyperlink{classZigzagPattern_ad1266b2a3ee2de2002cff441e994bb37}{m\_stepTimer}}(),}
+\DoxyCodeLine{19   \mbox{\hyperlink{classZigzagPattern_a8669daa461044cfca0ae0c9786dee145}{m\_snake1}}(),}
+\DoxyCodeLine{20   \mbox{\hyperlink{classZigzagPattern_a0c4d092c89c5503be4e88e51a8eced97}{m\_snake2}}()}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca0b690948d8f6c2ed0a3b87e8575d7f9a}{PATTERN\_ZIGZAG}};}
+\DoxyCodeLine{23   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classZigzagPattern_aeb2c6fbb06329a74da599e4117d0bb60}{m\_onDuration}});}
+\DoxyCodeLine{24   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classZigzagPattern_a3c1896d404543c82185caeb2f9a4c484}{m\_offDuration}});}
+\DoxyCodeLine{25   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classZigzagPattern_a709fe186d15a24d3db0d28a491eeae1b}{m\_stepDuration}});}
+\DoxyCodeLine{26   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classZigzagPattern_a7068d68fa36b81b8fac8bd962b5eb2e1}{m\_snakeSize}});}
+\DoxyCodeLine{27   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classZigzagPattern_a88e885ea0cf4b6ef8657fb854c431fcf}{m\_fadeAmount}});}
+\DoxyCodeLine{28   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
+\DoxyCodeLine{29 \}}
 
 \end{DoxyCode}
 
@@ -120,12 +115,12 @@ References m\+\_\+fade\+Amount, m\+\_\+off\+Duration, m\+\_\+on\+Duration, Patte
 
 
 
-Definition at line 48 of file Zigzag\+Pattern.\+cpp.
+Definition at line 31 of file Zigzag\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{49 \{}
-\DoxyCodeLine{50 \}}
+\DoxyCodeLine{32 \{}
+\DoxyCodeLine{33 \}}
 
 \end{DoxyCode}
 
@@ -143,22 +138,22 @@ Reimplemented from \mbox{\hyperlink{classMultiLedPattern_a2541223ee8c1d57463e886
 
 
 
-Definition at line 53 of file Zigzag\+Pattern.\+cpp.
+Definition at line 36 of file Zigzag\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{54 \{}
-\DoxyCodeLine{55   \mbox{\hyperlink{classMultiLedPattern_a2541223ee8c1d57463e88682e1405c42}{MultiLedPattern::init}}();}
-\DoxyCodeLine{56 }
-\DoxyCodeLine{57   \textcolor{comment}{// reset and add alarm}}
-\DoxyCodeLine{58   \mbox{\hyperlink{classZigzagPattern_ad1266b2a3ee2de2002cff441e994bb37}{m\_stepTimer}}.\mbox{\hyperlink{classTimer_a9020542d73357a4eef512eefaf57524b}{reset}}();}
-\DoxyCodeLine{59   \mbox{\hyperlink{classZigzagPattern_ad1266b2a3ee2de2002cff441e994bb37}{m\_stepTimer}}.\mbox{\hyperlink{classTimer_aecfcc5cd99115c67b5f5f7a485bd7a81}{addAlarm}}(\mbox{\hyperlink{classZigzagPattern_a709fe186d15a24d3db0d28a491eeae1b}{m\_stepDuration}});}
-\DoxyCodeLine{60   \mbox{\hyperlink{classZigzagPattern_ad1266b2a3ee2de2002cff441e994bb37}{m\_stepTimer}}.\mbox{\hyperlink{classTimer_a4f816271e1661c4eb03afc87e2f78c6a}{start}}();}
-\DoxyCodeLine{61 }
-\DoxyCodeLine{62   \textcolor{comment}{// initialize the snakes with dops timing}}
-\DoxyCodeLine{63   \mbox{\hyperlink{classZigzagPattern_a8669daa461044cfca0ae0c9786dee145}{m\_snake1}}.\mbox{\hyperlink{classZigzagPattern_1_1Snake_acc1934098fe9bba611f4691e5274e1ec}{init}}(\mbox{\hyperlink{classZigzagPattern_aeb2c6fbb06329a74da599e4117d0bb60}{m\_onDuration}}, \mbox{\hyperlink{classZigzagPattern_a3c1896d404543c82185caeb2f9a4c484}{m\_offDuration}}, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}, 0, 0, \mbox{\hyperlink{classZigzagPattern_a7068d68fa36b81b8fac8bd962b5eb2e1}{m\_snakeSize}}, \mbox{\hyperlink{classZigzagPattern_a88e885ea0cf4b6ef8657fb854c431fcf}{m\_fadeAmount}}, 3);}
-\DoxyCodeLine{64   \mbox{\hyperlink{classZigzagPattern_a0c4d092c89c5503be4e88e51a8eced97}{m\_snake2}}.\mbox{\hyperlink{classZigzagPattern_1_1Snake_acc1934098fe9bba611f4691e5274e1ec}{init}}(\mbox{\hyperlink{classZigzagPattern_aeb2c6fbb06329a74da599e4117d0bb60}{m\_onDuration}}, \mbox{\hyperlink{classZigzagPattern_a3c1896d404543c82185caeb2f9a4c484}{m\_offDuration}}, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}, 1, \mbox{\hyperlink{ZigzagPattern_8cpp_a68e619ed91092bf1cba32e5c709334c4}{HALF\_ZIGZAG\_STEPS}}, \mbox{\hyperlink{classZigzagPattern_a7068d68fa36b81b8fac8bd962b5eb2e1}{m\_snakeSize}}, \mbox{\hyperlink{classZigzagPattern_a88e885ea0cf4b6ef8657fb854c431fcf}{m\_fadeAmount}}, 8);}
-\DoxyCodeLine{65 \}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38   \mbox{\hyperlink{classMultiLedPattern_a2541223ee8c1d57463e88682e1405c42}{MultiLedPattern::init}}();}
+\DoxyCodeLine{39 }
+\DoxyCodeLine{40   \textcolor{comment}{// reset and add alarm}}
+\DoxyCodeLine{41   \mbox{\hyperlink{classZigzagPattern_ad1266b2a3ee2de2002cff441e994bb37}{m\_stepTimer}}.\mbox{\hyperlink{classTimer_a9020542d73357a4eef512eefaf57524b}{reset}}();}
+\DoxyCodeLine{42   \mbox{\hyperlink{classZigzagPattern_ad1266b2a3ee2de2002cff441e994bb37}{m\_stepTimer}}.\mbox{\hyperlink{classTimer_aecfcc5cd99115c67b5f5f7a485bd7a81}{addAlarm}}(\mbox{\hyperlink{classZigzagPattern_a709fe186d15a24d3db0d28a491eeae1b}{m\_stepDuration}});}
+\DoxyCodeLine{43   \mbox{\hyperlink{classZigzagPattern_ad1266b2a3ee2de2002cff441e994bb37}{m\_stepTimer}}.\mbox{\hyperlink{classTimer_a4f816271e1661c4eb03afc87e2f78c6a}{start}}();}
+\DoxyCodeLine{44 }
+\DoxyCodeLine{45   \textcolor{comment}{// initialize the snakes with dops timing}}
+\DoxyCodeLine{46   \mbox{\hyperlink{classZigzagPattern_a8669daa461044cfca0ae0c9786dee145}{m\_snake1}}.\mbox{\hyperlink{classZigzagPattern_1_1Snake_acc1934098fe9bba611f4691e5274e1ec}{init}}(\mbox{\hyperlink{classZigzagPattern_aeb2c6fbb06329a74da599e4117d0bb60}{m\_onDuration}}, \mbox{\hyperlink{classZigzagPattern_a3c1896d404543c82185caeb2f9a4c484}{m\_offDuration}}, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}, 0, 0, \mbox{\hyperlink{classZigzagPattern_a7068d68fa36b81b8fac8bd962b5eb2e1}{m\_snakeSize}}, \mbox{\hyperlink{classZigzagPattern_a88e885ea0cf4b6ef8657fb854c431fcf}{m\_fadeAmount}}, 4);}
+\DoxyCodeLine{47   \mbox{\hyperlink{classZigzagPattern_a0c4d092c89c5503be4e88e51a8eced97}{m\_snake2}}.\mbox{\hyperlink{classZigzagPattern_1_1Snake_acc1934098fe9bba611f4691e5274e1ec}{init}}(\mbox{\hyperlink{classZigzagPattern_aeb2c6fbb06329a74da599e4117d0bb60}{m\_onDuration}}, \mbox{\hyperlink{classZigzagPattern_a3c1896d404543c82185caeb2f9a4c484}{m\_offDuration}}, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}, 1, \mbox{\hyperlink{ZigzagPattern_8cpp_a68e619ed91092bf1cba32e5c709334c4}{HALF\_ZIGZAG\_STEPS}}, \mbox{\hyperlink{classZigzagPattern_a7068d68fa36b81b8fac8bd962b5eb2e1}{m\_snakeSize}}, \mbox{\hyperlink{classZigzagPattern_a88e885ea0cf4b6ef8657fb854c431fcf}{m\_fadeAmount}}, 7);}
+\DoxyCodeLine{48 \}}
 
 \end{DoxyCode}
 
@@ -177,20 +172,20 @@ Implements \mbox{\hyperlink{classPattern_a351206aa151c8e49f175b8b3d41f6e9c}{Patt
 
 
 
-Definition at line 68 of file Zigzag\+Pattern.\+cpp.
+Definition at line 51 of file Zigzag\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{69 \{}
-\DoxyCodeLine{70   \textcolor{comment}{// when the step timer triggers}}
-\DoxyCodeLine{71   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classZigzagPattern_ad1266b2a3ee2de2002cff441e994bb37}{m\_stepTimer}}.\mbox{\hyperlink{classTimer_a8a6d962c92c8e2e641254ea28e1f0443}{alarm}}() == 0) \{}
-\DoxyCodeLine{72     \mbox{\hyperlink{classZigzagPattern_a8669daa461044cfca0ae0c9786dee145}{m\_snake1}}.\mbox{\hyperlink{classZigzagPattern_1_1Snake_adc2f2e3aee0f5610b837a53ba7f48aa7}{step}}();}
-\DoxyCodeLine{73     \mbox{\hyperlink{classZigzagPattern_a0c4d092c89c5503be4e88e51a8eced97}{m\_snake2}}.\mbox{\hyperlink{classZigzagPattern_1_1Snake_adc2f2e3aee0f5610b837a53ba7f48aa7}{step}}();}
-\DoxyCodeLine{74   \}}
-\DoxyCodeLine{75 }
-\DoxyCodeLine{76   \mbox{\hyperlink{classZigzagPattern_a8669daa461044cfca0ae0c9786dee145}{m\_snake1}}.\mbox{\hyperlink{classZigzagPattern_1_1Snake_aad8951fc644cc0739d6a4908b5c77307}{draw}}();}
-\DoxyCodeLine{77   \mbox{\hyperlink{classZigzagPattern_a0c4d092c89c5503be4e88e51a8eced97}{m\_snake2}}.\mbox{\hyperlink{classZigzagPattern_1_1Snake_aad8951fc644cc0739d6a4908b5c77307}{draw}}();}
-\DoxyCodeLine{78 \}}
+\DoxyCodeLine{52 \{}
+\DoxyCodeLine{53   \textcolor{comment}{// when the step timer triggers}}
+\DoxyCodeLine{54   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classZigzagPattern_ad1266b2a3ee2de2002cff441e994bb37}{m\_stepTimer}}.\mbox{\hyperlink{classTimer_a8a6d962c92c8e2e641254ea28e1f0443}{alarm}}() == 0) \{}
+\DoxyCodeLine{55     \mbox{\hyperlink{classZigzagPattern_a8669daa461044cfca0ae0c9786dee145}{m\_snake1}}.\mbox{\hyperlink{classZigzagPattern_1_1Snake_adc2f2e3aee0f5610b837a53ba7f48aa7}{step}}();}
+\DoxyCodeLine{56     \mbox{\hyperlink{classZigzagPattern_a0c4d092c89c5503be4e88e51a8eced97}{m\_snake2}}.\mbox{\hyperlink{classZigzagPattern_1_1Snake_adc2f2e3aee0f5610b837a53ba7f48aa7}{step}}();}
+\DoxyCodeLine{57   \}}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59   \mbox{\hyperlink{classZigzagPattern_a8669daa461044cfca0ae0c9786dee145}{m\_snake1}}.\mbox{\hyperlink{classZigzagPattern_1_1Snake_aad8951fc644cc0739d6a4908b5c77307}{draw}}();}
+\DoxyCodeLine{60   \mbox{\hyperlink{classZigzagPattern_a0c4d092c89c5503be4e88e51a8eced97}{m\_snake2}}.\mbox{\hyperlink{classZigzagPattern_1_1Snake_aad8951fc644cc0739d6a4908b5c77307}{draw}}();}
+\DoxyCodeLine{61 \}}
 
 \end{DoxyCode}
 
@@ -200,37 +195,6 @@ References Timer\+::alarm(), Zigzag\+Pattern\+::\+Snake\+::draw(), m\+\_\+snake1
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{classZigzagPattern_a78570112d59d201d0d984d899f7653ae}\label{classZigzagPattern_a78570112d59d201d0d984d899f7653ae}} 
-\index{ZigzagPattern@{ZigzagPattern}!ledStepPositions@{ledStepPositions}}
-\index{ledStepPositions@{ledStepPositions}!ZigzagPattern@{ZigzagPattern}}
-\doxysubsubsection{\texorpdfstring{ledStepPositions}{ledStepPositions}}
-{\footnotesize\ttfamily const \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} Zigzag\+Pattern\+::led\+Step\+Positions\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
-
-{\bfseries Initial value\+:}
-\begin{DoxyCode}{0}
-\DoxyCodeLine{= \{}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca3e1b1af0f74f675e4eb7bd18229adfd3}{LED\_3}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cab269092e5bd05f7b80e5970b81458289}{LED\_5}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cac498d3ff2225ba31b7b42e17b1676ba8}{LED\_7}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caa30a5efbc3083c821a59dfa468b88d4c}{LED\_9}},}
-\DoxyCodeLine{}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2979343296d3de46c77082147e0cfe1b}{LED\_8}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caf99fc5674be734f3f51639902c341834}{LED\_6}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cada6e5fa936f81b6b94078ecc353a7f5f}{LED\_4}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca00af6b2437d9982f1f125d2cc2537c41}{LED\_2}},}
-\DoxyCodeLine{  \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424}{LED\_0}},}
-\DoxyCodeLine{\}}
-
-\end{DoxyCode}
-
-
-Definition at line 44 of file Zigzag\+Pattern.\+h.
-
-
-
-Referenced by Zigzag\+Pattern\+::\+Snake\+::draw\+Snake().
-
 \mbox{\Hypertarget{classZigzagPattern_a88e885ea0cf4b6ef8657fb854c431fcf}\label{classZigzagPattern_a88e885ea0cf4b6ef8657fb854c431fcf}} 
 \index{ZigzagPattern@{ZigzagPattern}!m\_fadeAmount@{m\_fadeAmount}}
 \index{m\_fadeAmount@{m\_fadeAmount}!ZigzagPattern@{ZigzagPattern}}
@@ -239,7 +203,7 @@ Referenced by Zigzag\+Pattern\+::\+Snake\+::draw\+Snake().
 
 
 
-Definition at line 55 of file Zigzag\+Pattern.\+h.
+Definition at line 51 of file Zigzag\+Pattern.\+h.
 
 
 
@@ -253,7 +217,7 @@ Referenced by Zigzag\+Pattern\+::\+Snake\+::draw\+Snake(), init(), Zigzag\+Patte
 
 
 
-Definition at line 49 of file Zigzag\+Pattern.\+h.
+Definition at line 45 of file Zigzag\+Pattern.\+h.
 
 
 
@@ -267,7 +231,7 @@ Referenced by init(), and Zigzag\+Pattern().
 
 
 
-Definition at line 47 of file Zigzag\+Pattern.\+h.
+Definition at line 43 of file Zigzag\+Pattern.\+h.
 
 
 
@@ -281,7 +245,7 @@ Referenced by init(), and Zigzag\+Pattern().
 
 
 
-Definition at line 61 of file Zigzag\+Pattern.\+h.
+Definition at line 57 of file Zigzag\+Pattern.\+h.
 
 
 
@@ -295,7 +259,7 @@ Referenced by init(), and play().
 
 
 
-Definition at line 62 of file Zigzag\+Pattern.\+h.
+Definition at line 58 of file Zigzag\+Pattern.\+h.
 
 
 
@@ -309,7 +273,7 @@ Referenced by init(), and play().
 
 
 
-Definition at line 53 of file Zigzag\+Pattern.\+h.
+Definition at line 49 of file Zigzag\+Pattern.\+h.
 
 
 
@@ -323,7 +287,7 @@ Referenced by Zigzag\+Pattern\+::\+Snake\+::draw\+Snake(), init(), Zigzag\+Patte
 
 
 
-Definition at line 51 of file Zigzag\+Pattern.\+h.
+Definition at line 47 of file Zigzag\+Pattern.\+h.
 
 
 
@@ -337,7 +301,7 @@ Referenced by init(), and Zigzag\+Pattern().
 
 
 
-Definition at line 58 of file Zigzag\+Pattern.\+h.
+Definition at line 54 of file Zigzag\+Pattern.\+h.
 
 
 

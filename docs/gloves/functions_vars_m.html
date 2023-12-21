@@ -109,6 +109,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 : <a class="el" href="classIRSender.html#a621632ba226b379e9882a109e33378ae">IRSender</a>
 , <a class="el" href="classVLSender.html#a7f17a11e21662f7fa1022703e32e24fd">VLSender</a>
 </li>
+<li>m_blendDelay
+: <a class="el" href="classHueShiftPattern.html#af4a1355d106435a4df664ccd6dd63945">HueShiftPattern</a>
+</li>
 <li>m_blendSpeed
 : <a class="el" href="classBlendPattern.html#ad5bf093865849e1a8fed07de519344f7">BlendPattern</a>
 </li>
@@ -132,12 +135,6 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 , <a class="el" href="classHueShiftPattern.html#a88a8bf706ac164229863bf726d185d14">HueShiftPattern</a>
 , <a class="el" href="classPulsishPattern.html#a4c60d462b762331b4d5e3642fe017c22">PulsishPattern</a>
 , <a class="el" href="classZigzagPattern_1_1Snake.html#ad0627d603e84ef6d9b0d07edb259d5d2">ZigzagPattern::Snake</a>
-</li>
-<li>m_blinkTimer1
-: <a class="el" href="classMateriaPattern.html#a16a876ac792fc72c78446d5954f15802">MateriaPattern</a>
-</li>
-<li>m_blinkTimer2
-: <a class="el" href="classMateriaPattern.html#a48af64ee5d46a313d76717e90fb3d8f0">MateriaPattern</a>
 </li>
 <li>m_blockSize
 : <a class="el" href="classIRSender.html#a517c58fc54ea58508e6571ad7d6ebd81">IRSender</a>
@@ -213,6 +210,9 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 </li>
 <li>m_dashDuration
 : <a class="el" href="classBasicPattern.html#af2a36b50c675a329ab1898c3b6c86430">BasicPattern</a>
+</li>
+<li>m_delayCounter
+: <a class="el" href="classHueShiftPattern.html#a063ff45291aac56b53f3fc947a28eedb">HueShiftPattern</a>
 </li>
 <li>m_demoMode
 : <a class="el" href="classPatternSelect.html#aefa1c12e319e9e1c083ec8253c8e7b98">PatternSelect</a>
@@ -303,7 +303,6 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 </li>
 <li>m_ledMap
 : <a class="el" href="classCrossDopsPattern.html#a16cdf603f681848e283b5588d5aaf1c9">CrossDopsPattern</a>
-, <a class="el" href="classMateriaPattern.html#a911b2cd27d20871f4ecd96aa84a57e23">MateriaPattern</a>
 </li>
 <li>m_ledPatterns
 : <a class="el" href="classCompoundPattern.html#a450fcd9f7db7705bd04143c094ded162">CompoundPattern</a>
@@ -380,24 +379,20 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 , <a class="el" href="classZigzagPattern.html#a3c1896d404543c82185caeb2f9a4c484">ZigzagPattern</a>
 </li>
 <li>m_offDuration1
-: <a class="el" href="classMateriaPattern.html#aaf34aaedb6a9c2750f13eb623d98af95">MateriaPattern</a>
-, <a class="el" href="classPulsishPattern.html#a7bd4965f6cdfbcf6df212e7753d89528">PulsishPattern</a>
+: <a class="el" href="classPulsishPattern.html#a7bd4965f6cdfbcf6df212e7753d89528">PulsishPattern</a>
 </li>
 <li>m_offDuration2
-: <a class="el" href="classMateriaPattern.html#ae08ab6c382c0dd7047c55edbf5873022">MateriaPattern</a>
-, <a class="el" href="classPulsishPattern.html#ad315c1e4a7bd038d75e8ffec7e9969d1">PulsishPattern</a>
+: <a class="el" href="classPulsishPattern.html#ad315c1e4a7bd038d75e8ffec7e9969d1">PulsishPattern</a>
 </li>
 <li>m_onDuration
 : <a class="el" href="classBasicPattern.html#a15ddec4a133389d660e06aa1cfcfe52c">BasicPattern</a>
 , <a class="el" href="classZigzagPattern.html#aeb2c6fbb06329a74da599e4117d0bb60">ZigzagPattern</a>
 </li>
 <li>m_onDuration1
-: <a class="el" href="classMateriaPattern.html#a7964b8d08f9ac514513fb1a77390c91e">MateriaPattern</a>
-, <a class="el" href="classPulsishPattern.html#aa767baaef3dc4241ee075314dd3625e7">PulsishPattern</a>
+: <a class="el" href="classPulsishPattern.html#aa767baaef3dc4241ee075314dd3625e7">PulsishPattern</a>
 </li>
 <li>m_onDuration2
-: <a class="el" href="classMateriaPattern.html#a5ca32d04388279e89975be42ef4fb7a7">MateriaPattern</a>
-, <a class="el" href="classPulsishPattern.html#a061f3769cdab7b32a9dca8fa7add5747">PulsishPattern</a>
+: <a class="el" href="classPulsishPattern.html#a061f3769cdab7b32a9dca8fa7add5747">PulsishPattern</a>
 </li>
 <li>m_openTime
 : <a class="el" href="classMenus.html#ae06251ca75599de4ade814aa6891952a">Menus</a>
@@ -458,6 +453,7 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 , <a class="el" href="classLighthousePattern.html#a9fdfe8d7e0bd645dcbd20bdab7f3ad60">LighthousePattern</a>
 , <a class="el" href="classPulsishPattern.html#abdf9f613f5ddf74d2e98e5912465f548">PulsishPattern</a>
 , <a class="el" href="classSnowballPattern.html#ae5ab81ddd19d0a025b1ee365924ec792">SnowballPattern</a>
+, <a class="el" href="classVortexPattern.html#acac4771979548e79cf6d1a46603515fe">VortexPattern</a>
 , <a class="el" href="classVortexWipePattern.html#a6f1ecb2416a22e928a4413ce4a22d8d8">VortexWipePattern</a>
 , <a class="el" href="classWarpPattern.html#a69c23966e6fc108956ec6c3f2c37e558">WarpPattern</a>
 , <a class="el" href="classWarpWormPattern.html#ac5973c45214c77b6c4926986fd9f9f68">WarpWormPattern</a>
@@ -580,12 +576,10 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 </li>
 <li>m_stepSpeed
 : <a class="el" href="classBackStrobePattern.html#a2caf5f37910e1f6024cf255c9e5bbaf0">BackStrobePattern</a>
-, <a class="el" href="classMateriaPattern.html#a617bbf77144f0ffdf27421950e701d9f">MateriaPattern</a>
 </li>
 <li>m_stepTimer
 : <a class="el" href="classBackStrobePattern.html#ae749d7309548db0c59ae59864fa225d2">BackStrobePattern</a>
 , <a class="el" href="classBlinkStepPattern.html#a97ea31210348c5cb89988fc64f0d17fa">BlinkStepPattern</a>
-, <a class="el" href="classMateriaPattern.html#a79d4991873af19b536e0daec5c2b5dcb">MateriaPattern</a>
 , <a class="el" href="classPulsishPattern.html#aee7703ea8f95f98d6a53fe45bb873f7f">PulsishPattern</a>
 , <a class="el" href="classZigzagPattern.html#ad1266b2a3ee2de2002cff441e994bb37">ZigzagPattern</a>
 </li>
@@ -597,7 +591,6 @@ $(document).ready(function(){initNavTree('functions_vars_m.html',''); initResiza
 </li>
 <li>m_switch
 : <a class="el" href="classBackStrobePattern.html#a6a2c88cbc8b040747339e75917f3d4b6">BackStrobePattern</a>
-, <a class="el" href="classMateriaPattern.html#a46336758976df79aa499829080dcf960">MateriaPattern</a>
 </li>
 <li>m_sync
 : <a class="el" href="classDripPattern.html#ad6688107f20b56b397d0f2c7ddb174d3">DripPattern</a>

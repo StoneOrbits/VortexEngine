@@ -146,14 +146,14 @@ Definition at line 20 of file Theater\+Chase\+Pattern.\+cpp.
 \DoxyCodeLine{21 \{}
 \DoxyCodeLine{22   \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{BlinkStepPattern::init}}();}
 \DoxyCodeLine{23   \textcolor{comment}{// starts on odd evens}}
-\DoxyCodeLine{24   \mbox{\hyperlink{classTheaterChasePattern_ae9e94c2338d3d458a92c387c0efb42ba}{m\_ledPositions}} = \mbox{\hyperlink{LedTypes_8h_abc4f1bf166ac82c78c6be1ccaca92d00}{MAP\_PAIR\_ODD\_EVENS}};}
+\DoxyCodeLine{24   \mbox{\hyperlink{classTheaterChasePattern_ae9e94c2338d3d458a92c387c0efb42ba}{m\_ledPositions}} = \mbox{\hyperlink{LedTypes_8h_af0944397d861e0f312c92d14715b7870}{MAP\_PAIR\_EVENS}};}
 \DoxyCodeLine{25   \mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} = 0;}
 \DoxyCodeLine{26 \}}
 
 \end{DoxyCode}
 
 
-References Blink\+Step\+Pattern\+::init(), m\+\_\+led\+Positions, m\+\_\+step\+Counter, and MAP\+\_\+\+PAIR\+\_\+\+ODD\+\_\+\+EVENS.
+References Blink\+Step\+Pattern\+::init(), m\+\_\+led\+Positions, m\+\_\+step\+Counter, and MAP\+\_\+\+PAIR\+\_\+\+EVENS.
 
 \mbox{\Hypertarget{classTheaterChasePattern_a9c8e96b672805122b6935afb9d7dbe64}\label{classTheaterChasePattern_a9c8e96b672805122b6935afb9d7dbe64}} 
 \index{TheaterChasePattern@{TheaterChasePattern}!poststep@{poststep}}
@@ -172,21 +172,16 @@ Definition at line 33 of file Theater\+Chase\+Pattern.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{34 \{}
-\DoxyCodeLine{35   \textcolor{comment}{// the first 5 steps are odd evens/odds alternating each step}}
-\DoxyCodeLine{36   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} < 5) \{}
-\DoxyCodeLine{37     \mbox{\hyperlink{classTheaterChasePattern_ae9e94c2338d3d458a92c387c0efb42ba}{m\_ledPositions}} = (\mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} \% 2) ? \mbox{\hyperlink{LedTypes_8h_aeedfd1e5cf97bb760b233ba0b0067973}{MAP\_PAIR\_ODD\_ODDS}} : \mbox{\hyperlink{LedTypes_8h_abc4f1bf166ac82c78c6be1ccaca92d00}{MAP\_PAIR\_ODD\_EVENS}};}
-\DoxyCodeLine{38   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{39     \textcolor{comment}{// the end 5 steps are even evens/odds alternating each step}}
-\DoxyCodeLine{40     \mbox{\hyperlink{classTheaterChasePattern_ae9e94c2338d3d458a92c387c0efb42ba}{m\_ledPositions}} = (\mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} \% 2) ? \mbox{\hyperlink{LedTypes_8h_a6f488a9c3091d9eb33070d9e10571c34}{MAP\_PAIR\_EVEN\_ODDS}} : \mbox{\hyperlink{LedTypes_8h_a3d0075abab09cdd6469009802d38a44f}{MAP\_PAIR\_EVEN\_EVENS}};}
-\DoxyCodeLine{41   \}}
-\DoxyCodeLine{42   \textcolor{comment}{// increment step counter}}
-\DoxyCodeLine{43   \mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} = (\mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} + 1) \% \mbox{\hyperlink{TheaterChasePattern_8cpp_ad8380baaee024c749901e849abfbfe46}{THEATER\_CHASE\_STEPS}};}
-\DoxyCodeLine{44 \}}
+\DoxyCodeLine{35   \textcolor{comment}{// the steps are odd evens/odds alternating each step}}
+\DoxyCodeLine{36   \mbox{\hyperlink{classTheaterChasePattern_ae9e94c2338d3d458a92c387c0efb42ba}{m\_ledPositions}} = (\mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} \% 2) ? \mbox{\hyperlink{LedTypes_8h_ab7e65bc3797cca255c8b007ee294653b}{MAP\_PAIR\_ODDS}} : \mbox{\hyperlink{LedTypes_8h_af0944397d861e0f312c92d14715b7870}{MAP\_PAIR\_EVENS}};}
+\DoxyCodeLine{37   \textcolor{comment}{// increment step counter}}
+\DoxyCodeLine{38   \mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} = (\mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} + 1) \% \mbox{\hyperlink{TheaterChasePattern_8cpp_ad8380baaee024c749901e849abfbfe46}{THEATER\_CHASE\_STEPS}};}
+\DoxyCodeLine{39 \}}
 
 \end{DoxyCode}
 
 
-References m\+\_\+led\+Positions, m\+\_\+step\+Counter, MAP\+\_\+\+PAIR\+\_\+\+EVEN\+\_\+\+EVENS, MAP\+\_\+\+PAIR\+\_\+\+EVEN\+\_\+\+ODDS, MAP\+\_\+\+PAIR\+\_\+\+ODD\+\_\+\+EVENS, MAP\+\_\+\+PAIR\+\_\+\+ODD\+\_\+\+ODDS, and THEATER\+\_\+\+CHASE\+\_\+\+STEPS.
+References m\+\_\+led\+Positions, m\+\_\+step\+Counter, MAP\+\_\+\+PAIR\+\_\+\+EVENS, MAP\+\_\+\+PAIR\+\_\+\+ODDS, and THEATER\+\_\+\+CHASE\+\_\+\+STEPS.
 
 
 

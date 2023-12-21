@@ -1,5 +1,13 @@
 var NAVTREEINDEX4 =
 {
+"classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9a8e134084c473204294c863017a921f12":[0,0,1,0,9],
+"classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9a9d8a474945ff29aebf9119b45bb26d20":[0,0,1,0,4],
+"classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9ac5018a102470fae7181ffdfd985aa74f":[0,0,1,0,0],
+"classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9ad3745f6e2053a2cfa8d89226a1b78e52":[0,0,1,0,5],
+"classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9affbad6dfd04072ab78637aa8285e48e0":[0,0,1,0,6],
+"classBasicPattern.html#a5aca06fa1bf509109493be646dd6c49b":[0,0,1,12],
+"classBasicPattern.html#a5f15ecb545250ca6a193e6b88358a16e":[0,0,1,4],
+"classBasicPattern.html#a6870fbd387c2fb014fd54e9aa89e71ac":[0,0,1,2],
 "classBasicPattern.html#a6f4fd09d1a161c4577b324fff4a9a184":[0,0,1,6],
 "classBasicPattern.html#a80f7fcfb5066478565a485e4c4061986":[0,0,1,5],
 "classBasicPattern.html#a8afd6f9f755a1e65f8f630a4a1511c95":[0,0,1,7],
@@ -241,13 +249,5 @@ var NAVTREEINDEX4 =
 "classColorset.html#acb6d033ff17129ab54b3afd5660e6219":[0,0,11,44],
 "classColorset.html#ad039e0eb225f4f416a4b692ef37e35c2":[0,0,11,10],
 "classColorset.html#ad0ad727054d88606053bbb67ae1fb11c":[0,0,11,0],
-"classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959":[0,0,11,0,1],
-"classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607":[0,0,11,0,0],
-"classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca3b1cacf6a92b603225f0dc6da91c50f0":[0,0,11,0,2],
-"classColorset.html#ad20826f06f775244af672fc704598db1":[0,0,11,49],
-"classColorset.html#ad2b3fe7cec6587c8daef55d1d16ec688":[0,0,11,26],
-"classColorset.html#ad995a98578951a11d37feec7752476b2":[0,0,11,15],
-"classColorset.html#adcfa900c0ffe3a6321977f1c93072ad0":[0,0,11,25],
-"classColorset.html#ae2a0882d7c34a3a2b5e228a3b517d54c":[0,0,11,23],
-"classColorset.html#ae66046cbba14e9bca2e155e8a5f63001":[0,0,11,37]
+"classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca018df2e767f10d773e26fc9377a4b959":[0,0,11,0,1]
 };

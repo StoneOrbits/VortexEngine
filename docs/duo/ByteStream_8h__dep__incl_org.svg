@@ -292,50 +292,50 @@
 <!-- Node26 -->
 <g id="node26" class="node">
 <title>Node26</title>
-<g id="a_node26"><a xlink:href="MateriaPattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="2146.5,-67.5 2146.5,-97.5 2287.5,-97.5 2287.5,-67.5 2146.5,-67.5"/>
+<g id="a_node26"><a xlink:href="Sequence_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="2146.5,-67.5 2146.5,-97.5 2315.5,-97.5 2315.5,-67.5 2146.5,-67.5"/>
 <text text-anchor="start" x="2154.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="2217" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/MateriaPattern.cpp</text>
+<text text-anchor="middle" x="2231" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/Sequencer/Sequence.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node26 -->
 <g id="edge31" class="edge">
 <title>Node1&#45;&gt;Node26</title>
-<path fill="none" stroke="midnightblue" d="M2096.51,-130.68C2123.13,-120.26 2156.27,-107.28 2181.05,-97.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2095.05,-127.49 2087.02,-134.4 2097.61,-134.01 2095.05,-127.49"/>
+<path fill="none" stroke="midnightblue" d="M2099.59,-130.96C2128.58,-120.48 2164.91,-107.37 2192.02,-97.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2098.27,-127.71 2090.06,-134.4 2100.65,-134.29 2098.27,-127.71"/>
 </g>
 <!-- Node27 -->
 <g id="node27" class="node">
 <title>Node27</title>
-<g id="a_node27"><a xlink:href="Sequence_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="2305.5,-67.5 2305.5,-97.5 2474.5,-97.5 2474.5,-67.5 2305.5,-67.5"/>
-<text text-anchor="start" x="2313.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="2390" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/Sequencer/Sequence.cpp</text>
+<g id="a_node27"><a xlink:href="SequencedPattern_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="2333.5,-67.5 2333.5,-97.5 2542.5,-97.5 2542.5,-67.5 2333.5,-67.5"/>
+<text text-anchor="start" x="2341.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="2438" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/Sequencer/SequencedPattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node27 -->
 <g id="edge32" class="edge">
 <title>Node1&#45;&gt;Node27</title>
-<path fill="none" stroke="midnightblue" d="M2125.57,-134.2C2182.43,-123.3 2260.34,-108.36 2316.85,-97.53"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2124.72,-130.8 2115.56,-136.12 2126.04,-137.68 2124.72,-130.8"/>
+<path fill="none" stroke="midnightblue" d="M2126.03,-135.9C2191.53,-124.9 2286.49,-108.95 2354.41,-97.54"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2125.06,-132.51 2115.78,-137.62 2126.22,-139.42 2125.06,-132.51"/>
 </g>
 <!-- Node28 -->
 <g id="node28" class="node">
 <title>Node28</title>
-<g id="a_node28"><a xlink:href="SequencedPattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="2492.5,-67.5 2492.5,-97.5 2701.5,-97.5 2701.5,-67.5 2492.5,-67.5"/>
-<text text-anchor="start" x="2500.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="2597" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/Sequencer/SequencedPattern.cpp</text>
+<g id="a_node28"><a xlink:href="VortexPattern_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="2560.5,-67.5 2560.5,-97.5 2701.5,-97.5 2701.5,-67.5 2560.5,-67.5"/>
+<text text-anchor="start" x="2568.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="2631" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/VortexPattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node28 -->
 <g id="edge33" class="edge">
 <title>Node1&#45;&gt;Node28</title>
-<path fill="none" stroke="midnightblue" d="M2125.74,-140C2211.89,-130.14 2357.73,-113.29 2483,-98 2486.07,-97.63 2489.19,-97.24 2492.33,-96.86"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.33,-136.52 2115.8,-141.13 2126.13,-143.47 2125.33,-136.52"/>
+<path fill="none" stroke="midnightblue" d="M2125.62,-142.81C2223.53,-134.92 2400.6,-119.19 2551,-98 2554.07,-97.57 2557.21,-97.1 2560.38,-96.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2125.21,-139.33 2115.52,-143.62 2125.77,-146.31 2125.21,-139.33"/>
 </g>
 <!-- Node29 -->
 <g id="node29" class="node">

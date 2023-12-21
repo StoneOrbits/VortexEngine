@@ -1,5 +1,6 @@
 var NAVTREEINDEX9 =
 {
+"globals_l.html":[1,1,0,11],
 "globals_m.html":[1,1,0,12],
 "globals_n.html":[1,1,0,13],
 "globals_o.html":[1,1,0,14],
@@ -38,9 +39,9 @@ var NAVTREEINDEX9 =
 "structLZ4__stream__t__internal.html#ac49d2dcc57fb65fba2534f2bb231c8b9":[0,0,30,2],
 "structLZ4__stream__t__internal.html#ae91b94da38c2a459926645c0bd28a814":[0,0,30,3],
 "structLZ4__stream__t__internal.html#afb3b54934c388fea25aa5bdc2afa0e32":[0,0,30,4],
-"structMenuEntry.html":[0,0,36],
-"structMenuEntry.html#a615b37dcd41d8eb35eedee103a302f0b":[0,0,36,1],
-"structMenuEntry.html#a6e87ceea68e0314b66bd024dea04e244":[0,0,36,0],
+"structMenuEntry.html":[0,0,35],
+"structMenuEntry.html#a615b37dcd41d8eb35eedee103a302f0b":[0,0,35,1],
+"structMenuEntry.html#a6e87ceea68e0314b66bd024dea04e244":[0,0,35,0],
 "structdefault__mode__entry.html":[0,0,15],
 "structdefault__mode__entry.html#a0a868b6138ec894e5b7cb71aa7759192":[0,0,15,0],
 "structdefault__mode__entry.html#a95bf993636f486502b854fc91380cd5b":[0,0,15,2],
