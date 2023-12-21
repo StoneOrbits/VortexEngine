@@ -61,6 +61,7 @@ static LedMap ledPermutations[] = {
 #define NUM_PERMUTATIONS (sizeof(ledPermutations)/ sizeof(ledPermutations[0]))
 
 Menu::Menu(const RGBColor &col, bool advanced) :
+  m_previewMode(),
   m_menuColor(col),
   m_targetLeds(MAP_LED_NONE),
   m_ledSelection(0),
