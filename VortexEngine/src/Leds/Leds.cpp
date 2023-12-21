@@ -265,4 +265,8 @@ void Leds::setLedCount(uint8_t leds)
 {
   m_ledCount = leds;
   m_ledColors.resize(m_ledCount);
+  clearAll();
+#ifdef VORTEX_LIB
+  m_engine.vortexLib().vcallbacks()->ledsInit(m_ledColors.data(), LED_COUNT);
+#endif
 }

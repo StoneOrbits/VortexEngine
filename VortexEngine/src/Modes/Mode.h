@@ -43,7 +43,6 @@ public:
   Mode(VortexEngine &engine, PatternID id, const Colorset &set);
   Mode(VortexEngine &engine, PatternID id, const PatternArgs &args, const Colorset &set);
   Mode(VortexEngine &engine, PatternID id, const PatternArgs *args, const Colorset *set);
-  //Mode(const Mode *other);
   ~Mode();
 
   // copy and assignment operators
@@ -141,11 +140,8 @@ private:
   // the multi-led pattern slot is only present in non-slim builds
   Pattern *m_multiPat;
 #endif
-  // a list of slots for each single led pattern
-  // the number of leds the mode is targetting
-  uint8_t m_numLeds;
   // list of pointers to Patterns, one for each led
-  Pattern **m_singlePats;
+  std::vector<Pattern *> m_singlePats;
 };
 
 #endif

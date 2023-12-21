@@ -1071,11 +1071,12 @@ bool Vortex::checkLedCount()
 
 uint8_t Vortex::setLedCount(uint8_t count)
 {
+  // must change the 'leds' led count before changing a mode
+  m_engine.leds().setLedCount(count);
   Mode *cur = m_engine.modes().curMode();
   if (cur && !cur->setLedCount(count)) {
     return false;
   }
-  m_engine.leds().setLedCount(count);
   return true;
 }
 
