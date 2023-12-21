@@ -20,7 +20,7 @@ This branch holds the master firmware that forms the foundation for all other br
 
 ### Desktop (Dynamic Desktop Library)
 ![Desktop](https://github.com/StoneOrbits/VortexEngine/actions/workflows/desktop_build.yml/badge.svg?branch=desktop)  
-This is a sophisticated enhancement of the core Engine to turn Vortex into a powerful desktop library that can be used to design powerful software like the Vortex Editor.
+This is a sophisticated enhancement of the core to turn Vortex into a powerful desktop library that can be used to design various desktop applications like the Vortex Editor.
 
 ### Orbit (Vortex Classic Orbit)
 ![Orbit](https://github.com/StoneOrbits/VortexEngine/actions/workflows/orbit_build.yml/badge.svg?branch=orbit)  
