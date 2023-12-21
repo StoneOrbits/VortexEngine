@@ -83,6 +83,12 @@ emscripten::val getRawDataArray(const ByteStream &byteStream)
   return rawDataArray;
 }
 
+// js is dumb and has issues doing this conversion I guess
+PatternID intToPatternID(int val)
+{
+  return (PatternID)val;
+}
+
 EMSCRIPTEN_BINDINGS(Vortex) {
   // vector<string>
   register_vector<std::string>("VectorString");
@@ -169,6 +175,8 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("ledAllSingle", &Leds::ledAllSingle)
     .function("ledAny", &Leds::ledAny)
     .function("ledData", &Leds::ledData, allow_raw_pointer<const RGBColor *>());
+
+  function("intToPatternID", &intToPatternID);
 
   enum_<PatternID>("PatternID")
     // Meta Constants
