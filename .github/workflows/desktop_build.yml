@@ -1,10 +1,10 @@
-name: Core Build
+name: Desktop Build
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "desktop" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "desktop" ]
   workflow_dispatch: # manual trigger
 
 jobs:
@@ -52,7 +52,7 @@ jobs:
   docs:
     needs: wasm
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/desktop'
     steps:
     - name: Checkout current repository
       uses: actions/checkout@v3
@@ -70,4 +70,4 @@ jobs:
         git config --local user.name "GitHub Action"
         git add docs
         git commit -m "Update Doxygen documentation"
-        git push -f origin HEAD:core-docs
+        git push -f origin HEAD:desktop-docs
