@@ -31,6 +31,7 @@ INCLUDES=\
 
 ifdef WASM
 DEFINES += -D WASM
+CFLAGS += -s DISABLE_EXCEPTION_CATCHING=0 --bind
 endif
 
 ifdef TESTFRAMEWORK
@@ -125,7 +126,8 @@ FORCE:
 
 # generic clean target
 clean:
-	@$(RM) $(DFILES) $(OBJS) $(TARGETS) $(TESTS) *.txt FlashStorage.flash
+	@$(RM) $(DFILES) $(OBJS) $(TARGETS) $(TESTS) vortex.wasm *.txt FlashStorage.flash
+	$(MAKE) -C ../VortexLib clean
 
 # Now include our target dependency files
 # the hyphen means ignore non-existent files

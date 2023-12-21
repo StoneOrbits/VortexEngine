@@ -10,8 +10,7 @@ RANLIB=ranlib
 
 # target files
 TARGETS=\
-    vortex \
-    vortex.a
+    vortex
 
 .PHONY: $(TARGETS)
 
@@ -21,6 +20,10 @@ all: $(TARGETS)
 # unit test target
 tests: $(TESTS)
 
+# force sub-build of wasm
+wasm: FORCE
+	env WASM=1 $(MAKE)
+
 vortex.a: 
 	$(MAKE) -C VortexLib
 	cp -f VortexLib/vortex.a .
@@ -28,6 +31,9 @@ vortex.a:
 vortex: 
 	$(MAKE) -C VortexCLI
 	cp -f VortexCLI/vortex .
+
+# emptry rule forces stuff to re reun every time
+FORCE:
 
 # generic clean target
 clean:

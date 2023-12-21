@@ -3,6 +3,7 @@
 #include "VortexLib.h"
 
 #include "Patterns/Patterns.h"
+#include "Patterns/Pattern.h"
 #include "Colors/ColorTypes.h"
 #include "Colors/Colorset.h"
 #include "Leds/LedTypes.h"
@@ -68,8 +69,21 @@ private:
     OUTPUT_TYPE_NONE,
     OUTPUT_TYPE_HEX,
     OUTPUT_TYPE_COLOR,
+    OUTPUT_TYPE_SILENT,
   };
   OutputType m_outputType;
+  enum JsonMode : uint32_t {
+    JSON_MODE_NONE = 0,
+
+    // technically two these are mutually exclusive... but this is easier
+    JSON_MODE_READ_STDIN    = (1<<0),
+    JSON_MODE_READ_FILE     = (1<<1),
+
+    // also these too, mutually exclusive but this is easier
+    JSON_MODE_WRITE_STDOUT  = (1<<2),
+    JSON_MODE_WRITE_FILE    = (1<<3),
+  };
+  JsonMode m_jsonMode;
   bool m_noTimestep;
   bool m_lockstep;
   bool m_inPlace;
@@ -77,7 +91,11 @@ private:
   bool m_storage;
   bool m_sleepEnabled;
   bool m_lockEnabled;
+  bool m_jsonPretty;
+  bool m_quickExit;
   std::string m_storageFile;
+  std::string m_jsonInFile;
+  std::string m_jsonOutFile;
   std::string m_patternIDStr;
   std::string m_colorsetStr;
   std::string m_argumentsStr;

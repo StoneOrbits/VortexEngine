@@ -731,6 +731,11 @@ uint32_t Modes::maxSaveSize()
   return size;
 #endif
 }
+
+uint8_t Modes::globalFlags()
+{
+  return m_globalFlags;
+}
 #endif
 
 // fetch a link from the chain by index

@@ -557,6 +557,9 @@
     <ClInclude Include="src\Colors\ColorConstants.h">
       <Filter>Header Files</Filter>
     </ClInclude>
+    <ClInclude Include="VortexLib\json.hpp">
+      <Filter>Header Files</Filter>
+    </ClInclude>
     <ClInclude Include="src\Menus\MainMenu.h">
       <Filter>Header Files</Filter>
     </ClInclude>
