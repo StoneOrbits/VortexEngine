@@ -58,7 +58,11 @@ void PatternSelect::onShortClick()
     // double click = skip 10
     bool doSkip = g_pButton->onConsecutivePresses(2);
     MAP_FOREACH_LED(m_targetLeds) {
-      uint8_t &arg = m_previewMode.getPattern(pos)->argRef(m_argIndex);
+      Pattern *pat = m_previewMode.getPattern(pos);
+      if (pat->getNumArgs() <= m_argIndex) {
+        continue;
+      }
+      uint8_t &arg = pat->argRef(m_argIndex);
       if (doSkip) {
         arg += 10 - (arg % 10);
       } else {
