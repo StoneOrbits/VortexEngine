@@ -83,7 +83,7 @@ Menu::MenuAction Randomizer::run()
     // all multi led patterns to single led patterns using modulo
     // so no matter which multi-led pattern they have selected it
     // will convert to a single led pattern of some kind
-    PatternID newID = (PatternID)((m_previewMode.getPatternID(LED_ANY) - PATTERN_MULTI_FIRST) % PATTERN_SINGLE_COUNT);
+    PatternID newID = (PatternID)((m_previewMode.getPatternID(LED_MULTI) - PATTERN_MULTI_FIRST) % PATTERN_SINGLE_COUNT);
     // solid sucks
     if (newID == PATTERN_SOLID) ++newID;
     m_previewMode.setPattern(newID, LED_ANY);
