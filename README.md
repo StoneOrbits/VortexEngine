@@ -14,9 +14,13 @@ You can read more detailed project documentation [here](https://stoneorbits.gith
 
 The repository branches are each dedicated to a specific device's firmware. 
 
-### Core (Master Firmware)
+### Core (Master Engine)
 ![Core](https://github.com/StoneOrbits/VortexEngine/actions/workflows/core_build.yml/badge.svg?branch=master)  
 This branch holds the master firmware that forms the foundation for all other branches.
+
+### Desktop (Dynamic Desktop Library)
+![Desktop](https://github.com/StoneOrbits/VortexEngine/actions/workflows/desktop_build.yml/badge.svg?branch=desktop)  
+This is a sophisticated enhancement of the core Engine to turn Vortex into a powerful desktop library that can be used to design powerful software like the Vortex Editor.
 
 ### Orbit (Vortex Classic Orbit)
 ![Orbit](https://github.com/StoneOrbits/VortexEngine/actions/workflows/orbit_build.yml/badge.svg?branch=orbit)  
