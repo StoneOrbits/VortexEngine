@@ -84,7 +84,7 @@ Menu::MenuAction Randomizer::run()
     PatternID newID = (PatternID)((m_previewMode.getPatternID(LED_MULTI) - PATTERN_MULTI_FIRST) % PATTERN_SINGLE_COUNT);
     // solid sucks
     if (newID == PATTERN_SOLID) ++newID;
-    m_previewMode.setPattern(newID, LED_ALL_SINGLE);
+    m_previewMode.setPattern(newID, LED_ANY);
     m_previewMode.init();
   }
 #endif
