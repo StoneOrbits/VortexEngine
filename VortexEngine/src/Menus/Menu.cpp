@@ -10,6 +10,7 @@
 #include "../Log/Log.h"
 
 Menu::Menu(const RGBColor &col, bool advanced) :
+  m_previewMode(),
   m_menuColor(col),
   m_targetLeds(MAP_LED_ALL),
   m_curSelection(FINGER_FIRST),
