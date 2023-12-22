@@ -3,6 +3,7 @@
 // VortexEngine includes
 #include "VortexEngine.h"
 #include "Buttons/Button.h"
+#include "Buttons/Buttons.h"
 #include "Serial/ByteStream.h"
 #include "Wireless/IRReceiver.h"
 #include "Wireless/VLReceiver.h"
@@ -589,6 +590,7 @@ Vortex::Vortex() :
   m_buttonEventQueue(),
   m_initialized(false),
   m_buttonsPressed(0),
+  m_selectedButton(0),
   m_commandLog(),
   m_commandLogEnabled(false),
   m_lockstepEnabled(false),
@@ -667,12 +669,12 @@ void Vortex::cleanup()
   m_initialized = false;
 }
 
-void Vortex::handleRepeat(char c)
+void Vortex::handleNumber(char c)
 {
   if (!isdigit(c) || !m_lastCommand) {
     return;
   }
-  int repeatAmount = c - '0';
+  int number = c - '0';
   char newc = 0;
   // read the digits into the repeatAmount
   while (1) {
@@ -682,31 +684,35 @@ void Vortex::handleRepeat(char c)
       break;
     }
     // accumulate the digits into the repeat amount
-    repeatAmount = (repeatAmount * 10) + (newc - '0');
-  }
-  if (repeatAmount > 0) {
-    // offset repeat amount by exactly 1 because it's already done
-    repeatAmount--;
+    number = (number * 10) + (newc - '0');
   }
   // shove the last non-digit back into the stream
   ungetc(newc, stdin);
-  DEBUG_LOGF("Repeating last command (%c) x%u times", m_lastCommand, repeatAmount);
-  m_commandLog += to_string(repeatAmount);
+  DEBUG_LOGF("Repeating last command (%c) x%u times", m_lastCommand, number);
+  m_commandLog += to_string(number);
   // check to see if we are repeating a 'rapid click' which is a special case
   // because the rapid click command itself is composed or 'r' and a repeat count
   // to designate how many rapid clicks to deliver
-  if (m_lastCommand == 'r') {
-    // the repeat amount is normally decremented to account for the first command
-    // so we add 1 to counter-act that logic above because the initial 'r' does nothing
-    // unlike most other commands that are repeated
-    Vortex::rapidClick(repeatAmount + 1);
-    // don't actually repeat the command just return
-    return;
-  }
-  // repeat the last command that many times
-  while (repeatAmount > 0) {
-    doCommand(m_lastCommand);
-    repeatAmount--;
+  switch (m_lastCommand) {
+  case 'r':
+    // perform a rapid click number times
+    rapidClick(number);
+    break;
+  case 'b':
+    // select button index to target for click events
+    selectButton(number);
+    break;
+  default: // any other command
+    if (number > 0) {
+      // offset repeat amount by exactly 1 because it's already done
+      number--;
+    }
+    // repeat the last command that many times
+    while (number > 0) {
+      doCommand(m_lastCommand);
+      number--;
+    }
+    break;
   }
 }
 
@@ -725,76 +731,81 @@ void Vortex::doCommand(char c)
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting short click");
     }
-    Vortex::shortClick();
+    shortClick();
     break;
   case 'l':
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting long click");
     }
-    Vortex::longClick();
+    longClick();
     break;
   case 'm':
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting menu enter click");
     }
-    Vortex::menuEnterClick();
+    menuEnterClick();
     break;
   case 'a':
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting adv menu enter click");
     }
-    Vortex::advMenuEnterClick();
+    advMenuEnterClick();
     break;
   case 'd':
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting adv menu enter click");
     }
-    Vortex::deleteColClick();
+    deleteColClick();
     break;
   case 's':
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting sleep click");
     }
-    Vortex::sleepClick();
+    sleepClick();
     break;
   case 'f':
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting force sleep click");
     }
-    Vortex::forceSleepClick();
+    forceSleepClick();
     break;
   case 'q':
     //case '\n':
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting quit click\n");
     }
-    Vortex::quitClick();
+    quitClick();
     break;
   case 't':
-    if (Vortex::isButtonPressed()) {
+    if (isButtonPressed()) {
       if (m_lastCommand != c) {
         DEBUG_LOG("Injecting release");
       }
-      Vortex::releaseButton();
+      releaseButton();
     } else {
       if (m_lastCommand != c) {
         DEBUG_LOG("Injecting press");
       }
-      Vortex::pressButton();
+      pressButton();
     }
     break;
   case 'r':
-    // do nothing for the initial 'r', handleRepeat() will handle the numeric
+    // do nothing for the initial 'r', handleNumber() will handle the numeric
     // repeat count that follows this letter and issue the rapidClick(amt) call
+    break;
+  case 'b':
+    // button selector, same as rapid click, it's a little weird because the number
+    // it not a repeat amount but actually the button index to select -- but none
+    // the less it works the same as rapid click so it will be handled inside handleNumber()
     break;
   case 'w':
     if (m_lastCommand != c) {
       DEBUG_LOG("Injecting wait");
     }
-    Vortex::sendWait();
+    sendWait();
     break;
   default:
-    handleRepeat(c);
+    handleNumber(c);
     // return instead of break because this isn't a command
     return;
   }
@@ -859,54 +870,93 @@ void Vortex::setInstantTimestep(bool timestep)
   m_engine.time().setInstantTimestep(timestep);
 }
 
-// send various clicks
-void Vortex::shortClick(uint32_t buttonIndex)
+// select the button to send clicks to (0 = first button)
+void Vortex::selectButton(uint8_t buttonIndex)
 {
+  if (buttonIndex >= Buttons::numButtons()) {
+    return;
+  }
+  m_selectedButton = buttonIndex;
+}
+
+// send various clicks
+void Vortex::shortClick(uint8_t buttonIndex)
+{
+  if (!buttonIndex) {
+    buttonIndex = m_selectedButton;
+  }
   m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_SHORT_CLICK));
 }
 
-void Vortex::longClick(uint32_t buttonIndex)
+void Vortex::longClick(uint8_t buttonIndex)
 {
+  if (!buttonIndex) {
+    buttonIndex = m_selectedButton;
+  }
   m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_LONG_CLICK));
 }
 
-void Vortex::menuEnterClick(uint32_t buttonIndex)
+void Vortex::menuEnterClick(uint8_t buttonIndex)
 {
+  if (!buttonIndex) {
+    buttonIndex = m_selectedButton;
+  }
   m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_MENU_ENTER_CLICK));
 }
 
-void Vortex::advMenuEnterClick(uint32_t buttonIndex)
+void Vortex::advMenuEnterClick(uint8_t buttonIndex)
 {
+  if (!buttonIndex) {
+    buttonIndex = m_selectedButton;
+  }
   m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_ADV_MENU_ENTER_CLICK));
 }
 
-void Vortex::deleteColClick(uint32_t buttonIndex)
+void Vortex::deleteColClick(uint8_t buttonIndex)
 {
+  if (!buttonIndex) {
+    buttonIndex = m_selectedButton;
+  }
   m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_DELETE_COL));
 }
 
-void Vortex::sleepClick(uint32_t buttonIndex)
+void Vortex::sleepClick(uint8_t buttonIndex)
 {
+  if (!buttonIndex) {
+    buttonIndex = m_selectedButton;
+  }
   m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_SLEEP_CLICK));
 }
 
-void Vortex::forceSleepClick(uint32_t buttonIndex)
+void Vortex::forceSleepClick(uint8_t buttonIndex)
 {
+  if (!buttonIndex) {
+    buttonIndex = m_selectedButton;
+  }
   m_buttonEventQueue.push_back(VortexButtonEvent(buttonIndex, EVENT_FORCE_SLEEP_CLICK));
 }
 
-void Vortex::pressButton(uint32_t buttonIndex)
+void Vortex::pressButton(uint8_t buttonIndex)
 {
+  if (!buttonIndex) {
+    buttonIndex = m_selectedButton;
+  }
   m_buttonsPressed |= (1 << buttonIndex);
 }
 
-void Vortex::releaseButton(uint32_t buttonIndex)
+void Vortex::releaseButton(uint8_t buttonIndex)
 {
+  if (!buttonIndex) {
+    buttonIndex = m_selectedButton;
+  }
   m_buttonsPressed &= ~(1 << buttonIndex);
 }
 
-bool Vortex::isButtonPressed(uint32_t buttonIndex)
+bool Vortex::isButtonPressed(uint8_t buttonIndex)
 {
+  if (!buttonIndex) {
+    buttonIndex = m_selectedButton;
+  }
   return (m_buttonsPressed & (1 << buttonIndex)) != 0;
 }
 
