@@ -22,6 +22,8 @@ public:
   // poll the buttons
   static void update();
 
+  static uint8_t numButtons() { return NUM_BUTTONS; }
+
 private:
   // feel free to add more I guess
   static Button m_buttons[NUM_BUTTONS];
