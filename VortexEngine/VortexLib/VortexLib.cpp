@@ -873,16 +873,7 @@ void Vortex::setInstantTimestep(bool timestep)
 // select the button to send clicks to (0 = first button)
 void Vortex::selectButton(uint8_t buttonIndex)
 {
-  if (buttonIndex >= Buttons::numButtons()) {
-    return;
-  }
-  m_selectedButton = buttonIndex;
-}
-
-// select the button to send clicks to (0 = first button)
-void Vortex::selectButton(uint8_t buttonIndex)
-{
-  if (buttonIndex >= Buttons::numButtons()) {
+  if (buttonIndex >= m_engine.buttons().numButtons()) {
     return;
   }
   m_selectedButton = buttonIndex;
