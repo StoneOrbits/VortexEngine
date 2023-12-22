@@ -121,17 +121,24 @@ public:
   // control whether the engine will tick instantly or not
   void setInstantTimestep(bool timestep);
 
-  // send various clicks
-  void shortClick(uint32_t buttonIndex = 0);
-  void longClick(uint32_t buttonIndex = 0);
-  void menuEnterClick(uint32_t buttonIndex = 0);
-  void advMenuEnterClick(uint32_t buttonIndex = 0);
-  void deleteColClick(uint32_t buttonIndex = 0);
-  void sleepClick(uint32_t buttonIndex = 0);
-  void forceSleepClick(uint32_t buttonIndex = 0);
-  void pressButton(uint32_t buttonIndex = 0);
-  void releaseButton(uint32_t buttonIndex = 0);
-  bool isButtonPressed(uint32_t buttonIndex = 0);
+  // select the button to send clicks to by default (0 = first button, 1 = 2nd, etc)
+  void selectButton(uint8_t buttonIndex);
+
+  // send various clicks to the selected button, unless the button
+  // index is provided as an argument then whichever button is selected
+  // will receive the event. So if selectButton(1) is called then all of
+  // these will by default target the 2nd button, unless they are given a
+  // non-zero button index to target then they will target that one instead
+  void shortClick(uint8_t buttonIndex = 0);
+  void longClick(uint8_t buttonIndex = 0);
+  void menuEnterClick(uint8_t buttonIndex = 0);
+  void advMenuEnterClick(uint8_t buttonIndex = 0);
+  void deleteColClick(uint8_t buttonIndex = 0);
+  void sleepClick(uint8_t buttonIndex = 0);
+  void forceSleepClick(uint8_t buttonIndex = 0);
+  void pressButton(uint8_t buttonIndex = 0);
+  void releaseButton(uint8_t buttonIndex = 0);
+  bool isButtonPressed(uint8_t buttonIndex = 0);
 
   // send a wait event, will let the engine run a tick if running in lockstep
   // for example when running the testing system
@@ -299,8 +306,8 @@ public:
 #endif
 
 private:
-  // internal function to handle repeating commands
-  void handleRepeat(char c);
+  // internal function to handle numeric values in commands
+  void handleNumber(char c);
 
   // so that the buttons class can call handleInputQueue
   friend class Buttons;
@@ -387,6 +394,8 @@ private:
   // whether each button is pressed (bitflags) so technically this only
   // supports 32 buttons but idc whoever adds 33 buttons can fix this
   uint32_t m_buttonsPressed;
+  // the selected button to target for input events
+  uint8_t m_selectedButton;
   // keeps a log of all the commands issued
   std::string m_commandLog;
   // whether to record commands

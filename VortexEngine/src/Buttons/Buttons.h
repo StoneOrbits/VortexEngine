@@ -27,6 +27,8 @@ public:
   // get a button
   Button &button(uint8_t index = 0) { return m_buttons[index]; }
 
+  static uint8_t numButtons() { return NUM_BUTTONS; }
+
 private:
   // reference to engine
   VortexEngine &m_engine;
