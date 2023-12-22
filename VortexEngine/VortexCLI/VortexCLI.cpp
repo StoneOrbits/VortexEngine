@@ -59,6 +59,7 @@ const char *input_usage[] = {
   "\n   r         rapid button click (ex: r15)",
   "\n   w         wait 1 tick",
   "\n   <digits>  repeat command n times (only single digits in -i mode)",
+  "\n   b<index>  select button index (ex: b0 for first button or b1 for second button)",
   "\n   q         quit",
 };
 
@@ -77,6 +78,7 @@ const char *input_usage_brief[NUM_USAGE] = {
   "\n   r         rapid",
   "\n   w         wait",
   "\n   <digits>  repeat",
+  "\n   b<index>  button idx",
   "\n   q         quit",
 };
 
