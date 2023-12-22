@@ -129,16 +129,16 @@ public:
   // will receive the event. So if selectButton(1) is called then all of
   // these will by default target the 2nd button, unless they are given a
   // non-zero button index to target then they will target that one instead
-  void shortClick(uint32_t buttonIndex = 0);
-  void longClick(uint32_t buttonIndex = 0);
-  void menuEnterClick(uint32_t buttonIndex = 0);
-  void advMenuEnterClick(uint32_t buttonIndex = 0);
-  void deleteColClick(uint32_t buttonIndex = 0);
-  void sleepClick(uint32_t buttonIndex = 0);
-  void forceSleepClick(uint32_t buttonIndex = 0);
-  void pressButton(uint32_t buttonIndex = 0);
-  void releaseButton(uint32_t buttonIndex = 0);
-  bool isButtonPressed(uint32_t buttonIndex = 0);
+  void shortClick(uint8_t buttonIndex = 0);
+  void longClick(uint8_t buttonIndex = 0);
+  void menuEnterClick(uint8_t buttonIndex = 0);
+  void advMenuEnterClick(uint8_t buttonIndex = 0);
+  void deleteColClick(uint8_t buttonIndex = 0);
+  void sleepClick(uint8_t buttonIndex = 0);
+  void forceSleepClick(uint8_t buttonIndex = 0);
+  void pressButton(uint8_t buttonIndex = 0);
+  void releaseButton(uint8_t buttonIndex = 0);
+  bool isButtonPressed(uint8_t buttonIndex = 0);
 
   // send a wait event, will let the engine run a tick if running in lockstep
   // for example when running the testing system
