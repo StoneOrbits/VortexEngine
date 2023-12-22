@@ -112,17 +112,24 @@ public:
   // control whether the engine will tick instantly or not
   static void setInstantTimestep(bool timestep);
 
-  // send various clicks
-  static void shortClick(uint32_t buttonIndex = 0);
-  static void longClick(uint32_t buttonIndex = 0);
-  static void menuEnterClick(uint32_t buttonIndex = 0);
-  static void advMenuEnterClick(uint32_t buttonIndex = 0);
-  static void deleteColClick(uint32_t buttonIndex = 0);
-  static void sleepClick(uint32_t buttonIndex = 0);
-  static void forceSleepClick(uint32_t buttonIndex = 0);
-  static void pressButton(uint32_t buttonIndex = 0);
-  static void releaseButton(uint32_t buttonIndex = 0);
-  static bool isButtonPressed(uint32_t buttonIndex = 0);
+  // select the button to send clicks to by default (0 = first button, 1 = 2nd, etc)
+  static void selectButton(uint8_t buttonIndex);
+
+  // send various clicks to the selected button, unless the button
+  // index is provided as an argument then whichever button is selected
+  // will receive the event. So if selectButton(1) is called then all of
+  // these will by default target the 2nd button, unless they are given a
+  // non-zero button index to target then they will target that one instead
+  static void shortClick(uint8_t buttonIndex = 0);
+  static void longClick(uint8_t buttonIndex = 0);
+  static void menuEnterClick(uint8_t buttonIndex = 0);
+  static void advMenuEnterClick(uint8_t buttonIndex = 0);
+  static void deleteColClick(uint8_t buttonIndex = 0);
+  static void sleepClick(uint8_t buttonIndex = 0);
+  static void forceSleepClick(uint8_t buttonIndex = 0);
+  static void pressButton(uint8_t buttonIndex = 0);
+  static void releaseButton(uint8_t buttonIndex = 0);
+  static bool isButtonPressed(uint8_t buttonIndex = 0);
 
   // send a wait event, will let the engine run a tick if running in lockstep
   // for example when running the testing system
@@ -274,8 +281,8 @@ private:
   // the last command to have been executed
   static char m_lastCommand;
 
-  // internal function to handle repeating commands
-  static void handleRepeat(char c);
+  // internal function to handle numeric values in commands
+  static void handleNumber(char c);
 
   // so that the buttons class can call handleInputQueue
   friend class Buttons;
@@ -355,6 +362,8 @@ private:
   // whether each button is pressed (bitflags) so technically this only
   // supports 32 buttons but idc whoever adds 33 buttons can fix this
   static uint32_t m_buttonsPressed;
+  // the selected button to target for input events
+  static uint8_t m_selectedButton;
   // keeps a log of all the commands issued
   static std::string m_commandLog;
   // whether to record commands
