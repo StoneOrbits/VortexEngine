@@ -879,6 +879,15 @@ void Vortex::selectButton(uint8_t buttonIndex)
   m_selectedButton = buttonIndex;
 }
 
+// select the button to send clicks to (0 = first button)
+void Vortex::selectButton(uint8_t buttonIndex)
+{
+  if (buttonIndex >= Buttons::numButtons()) {
+    return;
+  }
+  m_selectedButton = buttonIndex;
+}
+
 // send various clicks
 void Vortex::shortClick(uint8_t buttonIndex)
 {
