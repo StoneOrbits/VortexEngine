@@ -22,10 +22,10 @@
 
 #define LED_DATA_PIN  7
 
-// array of led color values
-RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 // global brightness
 uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
+// array of led color values
+RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 
 // Output PORT register
 volatile uint8_t *Leds::m_port = nullptr;
