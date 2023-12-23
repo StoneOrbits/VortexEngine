@@ -18,6 +18,7 @@ RM=rm -rf
 RANLIB=ranlib
 
 CFLAGS=-O2 -Wall
+LDFLAGS=$(CFLAGS)
 
 # add -g flag for debug symbols if we're not using wasm
 ifndef WASM
@@ -37,7 +38,7 @@ INCLUDES=\
 ifdef WASM
 DEFINES += -D WASM
 # this was used before but I think only the above is necessary
-#CFLAGS += --bind -s MODULARIZE=1 -s EXPORT_ES6=1 -s EXPORT_NAME='VortexLib'
+LDFLAGS += --bind -s EXPORT_NAME='VortexLib'
 endif
 
 ifdef TESTFRAMEWORK
@@ -120,7 +121,7 @@ vortex.a: $(DEPS)
 	$(AR) $@ $^
 
 VortexLib.js: $(DEPS)
-	$(CC) $(CFLAGS) --bind $^ -o $@ $(LLIBS)
+	$(CC) $(LDFLAGS) $^ -o $@ $(LLIBS)
 
 # catch-all make target to generate .o and .d files
 %.o: %.cpp
