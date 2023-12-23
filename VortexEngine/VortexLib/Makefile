@@ -38,6 +38,7 @@ INCLUDES=\
 ifdef WASM
 DEFINES += -D WASM
 # this was used before but I think only the above is necessary
+CFLAGS += -s EXPORT_ES6=1
 LDFLAGS += --bind -s EXPORT_NAME='VortexLib'
 endif
 
