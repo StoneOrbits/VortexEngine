@@ -36,7 +36,7 @@ public:
   VortexEngine &m_engine;
 
   // public list of pattern IDs for each led
-  std::vector<PatternID> m_patternMap;
+  std::vector<PatternID> m_patterns;
 };
 
 // A map of leds to colorsets
@@ -63,7 +63,7 @@ public:
   VortexEngine &m_engine;
 
   // public list of pattern IDs for each led
-  std::vector<Colorset> m_colorsetMap;
+  std::vector<Colorset> m_colorsets;
 };
 
 // A single step in a sequence

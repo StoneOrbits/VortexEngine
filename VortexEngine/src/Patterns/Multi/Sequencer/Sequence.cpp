@@ -14,11 +14,11 @@
 
 PatternMap::PatternMap(VortexEngine &engine) :
   m_engine(engine),
-  m_patternMap()
+  m_patterns()
 {
-  m_patternMap.resize(LED_COUNT);
+  m_patterns.resize(LED_COUNT);
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    m_patternMap[i] = PATTERN_NONE;
+    m_patterns[i] = PATTERN_NONE;
   }
 }
 
@@ -36,12 +36,12 @@ PatternMap::PatternMap(VortexEngine &engine, const PatternMap &other) :
 
 void PatternMap::operator=(const PatternMap &other)
 {
-  m_patternMap = other.m_patternMap;
+  m_patterns = other.m_patterns;
 }
 
 bool PatternMap::operator==(const PatternMap &other) const
 {
-  return m_patternMap == other.m_patternMap;
+  return m_patterns == other.m_patterns;
 }
 
 bool PatternMap::operator!=(const PatternMap &other) const
@@ -54,34 +54,34 @@ void PatternMap::setPatternAt(PatternID pattern, LedMap positions)
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     if (m_engine.leds().mapCheckLed(positions, pos)) {
-      m_patternMap[pos] = pattern;
+      m_patterns[pos] = pattern;
     }
   }
 }
 
 PatternID PatternMap::operator[](LedPos index) const
 {
-  return m_patternMap[index];
+  return m_patterns[index];
 }
 
 void PatternMap::serialize(ByteStream &buffer) const
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     // ensure the PatternID is interpreted as uint8_t
-    buffer.serialize((uint8_t)m_patternMap[i]);
+    buffer.serialize((uint8_t)m_patterns[i]);
   }
 }
 
 void PatternMap::unserialize(ByteStream &buffer)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    buffer.unserialize((uint8_t *)m_patternMap.data() + i);
+    buffer.unserialize((uint8_t *)m_patterns.data() + i);
   }
 }
 
 ColorsetMap::ColorsetMap(VortexEngine &engine) :
   m_engine(engine),
-  m_colorsetMap()
+  m_colorsets()
 {
 }
 
@@ -99,12 +99,12 @@ ColorsetMap::ColorsetMap(VortexEngine &engine, const ColorsetMap &other) :
 
 void ColorsetMap::operator=(const ColorsetMap &other)
 {
-  m_colorsetMap = other.m_colorsetMap;
+  m_colorsets = other.m_colorsets;
 }
 
 bool ColorsetMap::operator==(const ColorsetMap &other) const
 {
-  return m_colorsetMap == other.m_colorsetMap;
+  return m_colorsets == other.m_colorsets;
 }
 
 bool ColorsetMap::operator!=(const ColorsetMap &other) const
@@ -117,26 +117,26 @@ void ColorsetMap::setColorsetAt(const Colorset &colorset, LedMap positions)
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     if (m_engine.leds().mapCheckLed(positions, pos)) {
-      m_colorsetMap[pos] = colorset;
+      m_colorsets[pos] = colorset;
     }
   }
 }
 const Colorset &ColorsetMap::operator[](LedPos index) const
 {
-  return m_colorsetMap[index];
+  return m_colorsets[index];
 }
 
 void ColorsetMap::serialize(ByteStream &buffer) const
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    m_colorsetMap[i].serialize(buffer);
+    m_colorsets[i].serialize(buffer);
   }
 }
 
 void ColorsetMap::unserialize(ByteStream &buffer)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    m_colorsetMap[i].unserialize(buffer);
+    m_colorsets[i].unserialize(buffer);
   }
 }
 

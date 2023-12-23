@@ -79,7 +79,7 @@ void SequencedPattern::playSequenceStep(const SequenceStep &step)
     PatternID stepPattern = step.m_patternMap[pos];
     // the actual colorset being used might be the pattern's colorset
     const Colorset *curSet = &m_colorset;
-    if (step.m_colorsetMap[pos].numColors() > 0) {
+    if (step.m_colorsetMap.m_colorsets.size() > pos && step.m_colorsetMap[pos].numColors() > 0) {
       // or it might be the steps' colorset if it's not empty
       curSet = &step.m_colorsetMap[pos];
     }
