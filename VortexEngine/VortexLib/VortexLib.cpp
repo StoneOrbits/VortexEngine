@@ -518,11 +518,10 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("storageEnabled", &Vortex::storageEnabled)
     .function("setStorageFilename", &Vortex::setStorageFilename)
     .function("getStorageFilename", &Vortex::getStorageFilename)
-    // TODO: maybe allow converting these to/from json?
-    //.function("modeToJson", &wasm_modeToJson)
-    //.function("modeFromJson", &wasm_modeFromJson)
-    //.function("patternToJson", &wasm_patternToJson)
-    //.function("patternFromJson", &wasm_patternFromJson)
+    .function("printModeJson", &Vortex::printModeJson)
+    .function("parseModeJson", &Vortex::parseModeJson)
+    .function("printPatternJson", &Vortex::printPatternJson)
+    .function("parsePatternJson", &Vortex::parsePatternJson)
     .function("printJson", &Vortex::printJson)
     .function("parseJson", &Vortex::parseJson)
     .function("setLockEnabled", &Vortex::setLockEnabled)
@@ -1959,7 +1958,7 @@ Pattern *Vortex::patternFromJson(const json &patternJson)
   }
 
   // Validate the pattern ID
-  if (id <= PATTERN_FIRST || id >= PATTERN_COUNT) {
+  if (id >= PATTERN_COUNT) {
     return nullptr;
   }
 
@@ -2078,6 +2077,79 @@ bool Vortex::loadFromJson(const json& js)
   }
 
   return m_engine.modes().numModes() == num_modes;
+}
+
+// print/parse the current mode json
+std::string Vortex::printModeJson(bool pretty)
+{
+  std::string jsonStr = "{}";
+  Mode *cur = m_engine.modes().curMode();
+  if (!cur) {
+    return jsonStr;
+  }
+  json modeJs = modeToJson(cur);
+  return pretty ? modeJs.dump(4) : modeJs.dump();
+}
+
+bool Vortex::parseModeJson(const std::string &jsonStr)
+{
+  json jsonObj;
+  try {
+    jsonObj = json::parse(jsonStr);
+  } catch (json::parse_error &e) {
+    std::cerr << "JSON Parse Error: " << e.what() << std::endl;
+    return false;
+  }
+  Mode *tempMode = modeFromJson(jsonObj);
+  if (!tempMode) {
+    return false;
+  }
+  // update the current mode with the parsed json mode
+  bool result = m_engine.modes().updateCurMode(tempMode);
+  delete tempMode;
+  return result;
+}
+
+// print/parse a pattern of the current mode json
+std::string Vortex::printPatternJson(LedPos pos, bool pretty)
+{
+  std::string jsonStr = "{}";
+  Mode *cur = m_engine.modes().curMode();
+  if (!cur) {
+    return jsonStr;
+  }
+  Pattern *pat = cur->getPattern(pos);
+  if (!pat) {
+    return jsonStr;
+  }
+  json patternJs = patternToJson(pat);
+  return pretty ? patternJs.dump(4) : patternJs.dump();
+}
+
+bool Vortex::parsePatternJson(LedPos pos, const std::string &jsonStr)
+{
+  Mode *cur = m_engine.modes().curMode();
+  if (!cur) {
+    return false;
+  }
+  json jsonObj;
+  try {
+    jsonObj = json::parse(jsonStr);
+  } catch (json::parse_error &e) {
+    std::cerr << "JSON Parse Error: " << e.what() << std::endl;
+    return false;
+  }
+  Pattern *tempPat = patternFromJson(jsonObj);
+  if (!tempPat) {
+    return false;
+  }
+  // update the current mode with the parsed json mode
+  PatternID patID = tempPat->getPatternID();
+  PatternArgs args;
+  tempPat->getArgs(args);
+  Colorset set = tempPat->getColorset();
+  delete tempPat;
+  return cur->setPattern(patID, pos, &args, &set);
 }
 
 // dump the json to output

@@ -283,6 +283,12 @@ public:
   json saveToJson();
   bool loadFromJson(const json& json);
 
+  // print/parse the current mode json
+  std::string printModeJson(bool pretty = false);
+  bool parseModeJson(const std::string &json);
+  // print/parse a pattern of the current mode json
+  std::string printPatternJson(LedPos pos, bool pretty = false);
+  bool parsePatternJson(LedPos pos, const std::string &json);
   // print/parse the json from a string
   std::string printJson(bool pretty = false);
   bool parseJson(const std::string &json);
