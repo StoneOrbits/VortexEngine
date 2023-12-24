@@ -639,10 +639,10 @@ void VortexCLI::cleanup()
   }
   if (m_jsonMode & JSON_MODE_WRITE_STDOUT) {
     // dump the current save in json format
-    m_vortex.dumpJson(nullptr, m_jsonPretty);
+    std::cout << m_vortex.printJson(m_jsonPretty);
   }
   if (m_jsonMode & JSON_MODE_WRITE_FILE) {
-    m_vortex.dumpJson(m_jsonOutFile.c_str(), m_jsonPretty);
+    m_vortex.printJsonToFile(m_jsonOutFile.c_str(), m_jsonPretty);
     printf("Wrote JSON to file [%s]\n", m_jsonOutFile.c_str());
   }
   if (m_writeSaveFile.length() > 0) {

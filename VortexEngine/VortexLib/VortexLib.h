@@ -276,18 +276,18 @@ public:
   // convert a mode to/from a json object
   json modeToJson(const Mode *mode);
   Mode *modeFromJson(const json& modeJson);
-
   // convert a pattern to/from a json object
   json patternToJson(const Pattern *pattern);
   Pattern *patternFromJson(const json& patternJson);
-
   // save/load the engine storage to/from raw json object
-  json saveJson();
-  bool loadJson(const json& json);
+  json saveToJson();
+  bool loadFromJson(const json& json);
 
-  // dump/parse the json to/from string
-  void dumpJson(const char *filename = nullptr, bool pretty = false);
+  // print/parse the json from a string
+  std::string printJson(bool pretty = false);
   bool parseJson(const std::string &json);
+  // print/parse the json from a string in a file
+  bool printJsonToFile(const std::string &filename, bool pretty = false);
   bool parseJsonFromFile(const std::string &filename);
 
   // save and add undo buffer

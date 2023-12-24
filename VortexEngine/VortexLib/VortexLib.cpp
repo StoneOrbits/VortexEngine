@@ -518,6 +518,13 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("storageEnabled", &Vortex::storageEnabled)
     .function("setStorageFilename", &Vortex::setStorageFilename)
     .function("getStorageFilename", &Vortex::getStorageFilename)
+    // TODO: maybe allow converting these to/from json?
+    //.function("modeToJson", &wasm_modeToJson)
+    //.function("modeFromJson", &wasm_modeFromJson)
+    //.function("patternToJson", &wasm_patternToJson)
+    //.function("patternFromJson", &wasm_patternFromJson)
+    .function("printJson", &Vortex::printJson)
+    .function("parseJson", &Vortex::parseJson)
     .function("setLockEnabled", &Vortex::setLockEnabled)
     .function("lockEnabled", &Vortex::lockEnabled)
     .function("engine", &Vortex::engine);
@@ -1994,7 +2001,7 @@ Pattern *Vortex::patternFromJson(const json &patternJson)
   return pattern;
 }
 
-json Vortex::saveJson()
+json Vortex::saveToJson()
 {
   json saveJson;
 
@@ -2023,7 +2030,7 @@ json Vortex::saveJson()
   return saveJson;
 }
 
-bool Vortex::loadJson(const json& js)
+bool Vortex::loadFromJson(const json& js)
 {
   if (js.is_null()) {
     return false;
@@ -2074,30 +2081,36 @@ bool Vortex::loadJson(const json& js)
 }
 
 // dump the json to output
-void Vortex::dumpJson(const char *filename, bool pretty)
+std::string Vortex::printJson(bool pretty)
 {
-  json json = saveJson();
-  std::string jsonStr = pretty ? json.dump(4) : json.dump();
-
-  if (filename) {
-    std::ofstream file(filename);
-    if (file.is_open()) {
-      file << jsonStr;
-    }
-  } else {
-    std::cout << jsonStr << std::endl;
-  }
+  json json = saveToJson();
+  return pretty ? json.dump(4) : json.dump();
 }
 
 bool Vortex::parseJson(const std::string &jsonStr)
 {
   try {
     json jsonObj = json::parse(jsonStr);
-    return loadJson(jsonObj);
+    return loadFromJson(jsonObj);
   } catch (json::parse_error &e) {
     std::cerr << "JSON Parse Error: " << e.what() << std::endl;
     return false;
   }
+}
+
+bool Vortex::printJsonToFile(const std::string &filename, bool pretty)
+{
+  std::ofstream file(filename);
+  if (!file.is_open()) {
+    return false;
+  }
+  std::string jsonStr = printJson(pretty);
+  if (!jsonStr.length()) {
+    return false;
+  }
+  file << jsonStr;
+  file.close();
+  return true;
 }
 
 bool Vortex::parseJsonFromFile(const std::string &filename)
@@ -2106,10 +2119,9 @@ bool Vortex::parseJsonFromFile(const std::string &filename)
   if (!file.is_open()) {
     return false;
   }
-
   try {
     json jsonObj = json::parse(file);
-    return loadJson(jsonObj);
+    return loadFromJson(jsonObj);
   } catch (json::parse_error &e) {
     std::cerr << "JSON Parse Error: " << e.what() << std::endl;
     return false;
