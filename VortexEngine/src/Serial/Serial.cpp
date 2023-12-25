@@ -55,15 +55,15 @@ bool SerialComs::checkSerial()
   if (!Vortex::vcallbacks()->serialCheck()) {
     return false;
   }
-  Vortex::vcallbacks()->serialBegin(9600);
+  Vortex::vcallbacks()->serialBegin(115200);
 #else
   // This will check if the serial communication is open
-  if (!Serial) {
+  if (!Serial.available()) {
     // serial is not connected
     return false;
   }
   // Begin serial communications
-  Serial.begin(9600);
+  Serial.begin(115200);
 #endif
 #endif
   // serial is now connected
