@@ -1,5 +1,6 @@
 #include "IRReceiver.h"
 #include "IRConfig.h"
+#include "../Serial/Serial.h"
 
 #if IR_ENABLE_RECEIVER == 1
 
@@ -9,6 +10,10 @@
 #include "../Modes/Mode.h"
 #include "../Log/Log.h"
 
+#ifdef VORTEX_EMBEDDED
+#include <Arduino.h>
+#endif
+
 BitStream IRReceiver::m_irData;
 IRReceiver::RecvState IRReceiver::m_recvState = WAITING_HEADER_MARK;
 uint32_t IRReceiver::m_prevTime = 0;
@@ -17,6 +22,9 @@ uint32_t IRReceiver::m_previousBytes = 0;
 
 bool IRReceiver::init()
 {
+#ifdef VORTEX_EMBEDDED
+  pinMode(IR_RECEIVER_PIN, INPUT_PULLUP);
+#endif
   m_irData.init(IR_RECV_BUF_SIZE);
   return true;
 }
@@ -83,12 +91,18 @@ bool IRReceiver::receiveMode(Mode *pMode)
 
 bool IRReceiver::beginReceiving()
 {
+#ifdef VORTEX_EMBEDDED
+  attachInterrupt(digitalPinToInterrupt(IR_RECEIVER_PIN), IRReceiver::recvPCIHandler, CHANGE);
+#endif
   resetIRState();
   return true;
 }
 
 bool IRReceiver::endReceiving()
 {
+#ifdef VORTEX_EMBEDDED
+  detachInterrupt(digitalPinToInterrupt(IR_RECEIVER_PIN));
+#endif
   resetIRState();
   return true;
 }
@@ -167,6 +181,7 @@ void IRReceiver::handleIRTiming(uint32_t diff)
       DEBUG_LOGF("Bad header mark %u, resetting...", diff);
       resetIRState();
     }
+    SerialComs::write("header mark\n");
     break;
   case WAITING_HEADER_SPACE:
     if (diff >= IR_HEADER_SPACE_MIN && diff <= IR_HEADER_SPACE_MAX) {
@@ -175,15 +190,18 @@ void IRReceiver::handleIRTiming(uint32_t diff)
       DEBUG_LOGF("Bad header space %u, resetting...", diff);
       resetIRState();
     }
+    SerialComs::write("header space\n");
     break;
   case READING_DATA_MARK:
     // classify mark/space based on the timing and write into buffer
     m_irData.write1Bit((diff > (IR_TIMING * 2)) ? 1 : 0);
     m_recvState = READING_DATA_SPACE;
+    SerialComs::write("data mark\n");
     break;
   case READING_DATA_SPACE:
     // the space could be just a regular space, or a gap in between blocks
     m_recvState = READING_DATA_MARK;
+    SerialComs::write("data space\n");
     break;
   default: // ??
     DEBUG_LOGF("Bad receive state: %u", m_recvState);
