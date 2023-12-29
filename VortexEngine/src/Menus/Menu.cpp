@@ -71,7 +71,9 @@ Menu::MenuAction Menu::run()
 
   // every time the button is clicked, change the target led
   if (g_pButton->onShortClick()) {
-    nextBulbSelection();
+    do {
+      nextBulbSelection();
+    } while (!isValidLedSelection(m_targetLeds));
   }
   // on a long press of the button, lock in the target led
   if (g_pButton->onLongClick()) {

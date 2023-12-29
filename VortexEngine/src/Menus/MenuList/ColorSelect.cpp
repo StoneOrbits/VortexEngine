@@ -308,3 +308,11 @@ void ColorSelect::showFullSet(uint8_t offMs, uint8_t onMs)
   }
   Leds::setIndex(LED_1, RGB_GREEN0);
 }
+
+bool ColorSelect::isValidLedSelection(LedMap selection) const
+{
+  // if we have a multi-led pattern then we can only select LED_MULTI otherwise
+  // if we don't have a multi-led pattern then we can't select multi
+  bool selectedMulti =  (selection == MAP_LED(LED_MULTI));
+  return selectedMulti == m_previewMode.isMultiLed();
+}
