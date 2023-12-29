@@ -22,7 +22,8 @@ public:
   void onLongClick() override;
 
 private:
-  enum ColorSelectState
+  // private enumeration for internal state of color selection
+  enum ColorSelectState : uint8_t
   {
     STATE_INIT,
     STATE_PICK_SLOT,

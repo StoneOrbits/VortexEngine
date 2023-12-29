@@ -16,7 +16,7 @@ public:
   virtual bool init();
 
   // the action for the menu to execute
-  enum MenuAction :uint8_t {
+  enum MenuAction : uint8_t {
     // quit the menus
     MENU_QUIT,
     // continue running the menu
