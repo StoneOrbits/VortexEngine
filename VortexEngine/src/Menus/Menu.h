@@ -44,6 +44,10 @@ protected:
   // iterate to next bulb selection
   void nextBulbSelection();
 
+  // an overridable api that allows derived menus to decide which led selections
+  // should be available before they have actually opened
+  virtual bool isValidLedSelection(LedMap selection) const { return true; }
+
   // reference to engine
   VortexEngine &m_engine;
 
