@@ -112,7 +112,6 @@ void Menu::showExit()
 
 void Menu::nextBulbSelection()
 {
-  Mode *cur = Modes::curMode();
   // The target led can be 0 through LED_COUNT to represent any led or all leds
   // modulo by LED_COUNT + 1 to include LED_COUNT (all) as a target
   switch (m_targetLeds) {
