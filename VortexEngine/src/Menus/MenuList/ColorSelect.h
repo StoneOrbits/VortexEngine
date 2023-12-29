@@ -25,6 +25,9 @@ private:
   // overridden blink logic for the colorselect menu (Controls how m_curSelection blinks)
   void blinkSelection(uint32_t offMs = 350, uint32_t onMs = 500) override;
 
+  // override the led selection api to choose which led maps can be selected
+  bool isValidLedSelection(LedMap selection) const override;
+
   // private enumeration for internal state of color selection
   enum ColorSelectState : uint32_t
   {

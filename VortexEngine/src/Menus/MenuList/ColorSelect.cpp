@@ -310,3 +310,11 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
   // otherwise run the default blink logic
   Menu::blinkSelection(offMs, onMs);
 }
+
+bool ColorSelect::isValidLedSelection(LedMap selection) const
+{
+  // if we have a multi-led pattern then we can only select LED_MULTI otherwise
+  // if we don't have a multi-led pattern then we can't select multi
+  bool selectedMulti =  (selection == MAP_LED(LED_MULTI));
+  return selectedMulti == m_previewMode.isMultiLed();
+}
