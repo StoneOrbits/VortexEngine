@@ -1597,7 +1597,7 @@ void Vortex::handleInputQueue(Button *buttons, uint32_t numButtons)
     // us immediately enter the menus. But we need to unset the pressed
     // button right after so we push a reset click event to reset the button
     pButton->m_pressTime = Time::getCurtime();
-#if defined(SLEEP_ENTER_THRESHOLD_TICKS) && defined(SLEEP_ENTER_THRESHOLD_TICKS) && defined(SLEEP_WINDOW_THRESHOLD_TICKS)
+#if defined(SLEEP_ENTER_THRESHOLD_TICKS) && defined(SLEEP_WINDOW_THRESHOLD_TICKS)
     // microlight must hold longer (past sleep time)
     pButton->m_holdDuration = MENU_TRIGGER_THRESHOLD_TICKS + SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS + 1;
 #else
