@@ -44,6 +44,10 @@ protected:
   // iterate to next bulb selection
   void nextBulbSelection();
 
+  // an overridable api that allows derived menus to decide which led selections
+  // should be available before they have actually opened
+  virtual bool isValidLedSelection(LedMap selection) const { return true; }
+
   // the mode copied from the current mode used to preview changes
   Mode m_previewMode;
   // the color of this menu
