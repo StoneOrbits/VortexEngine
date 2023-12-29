@@ -26,7 +26,7 @@ private:
   bool isValidLedSelection(LedMap selection) const override;
 
   // private enumeration for internal state of color selection
-  enum ColorSelectState : uint32_t
+  enum ColorSelectState : uint8_t
   {
     STATE_INIT,
     STATE_PICK_SLOT,
