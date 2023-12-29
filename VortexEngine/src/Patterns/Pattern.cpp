@@ -170,9 +170,9 @@ void Pattern::clearColorset()
 }
 
 #ifdef VORTEX_LIB
-void Pattern::registerArg(const char *name, uint8_t argOffset)
+void Pattern::registerArg(const char *name, arg_offset_t argOffset)
 #else
-void Pattern::registerArg(uint8_t argOffset)
+void Pattern::registerArg(arg_offset_t argOffset)
 #endif
 {
   if (m_numArgs >= MAX_PATTERN_ARGS) {
