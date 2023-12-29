@@ -125,14 +125,14 @@ Menu::MenuAction Menu::run()
 
   // every time a button is clicked, change the led selection
   if (g_pButton->onShortClick()) {
-    m_ledSelection = (m_ledSelection + 1) % NUM_PERMUTATIONS;
+    do {
+      m_ledSelection = (m_ledSelection + 1) % NUM_PERMUTATIONS;
+    } while (!isValidLedSelection(ledPermutations[m_ledSelection]));
   }
   if (g_pButton2->onShortClick()) {
-    if (m_ledSelection > 0) {
-      m_ledSelection--;
-    } else {
-      m_ledSelection = NUM_PERMUTATIONS - 1;
-    }
+    do {
+      m_ledSelection = (m_ledSelection > 0) ? (m_ledSelection - 1) : (NUM_PERMUTATIONS - 1);
+    } while (!isValidLedSelection(ledPermutations[m_ledSelection]));
   }
   // on a long press of the button, lock in the target led
   if (g_pButton->onLongClick()) {
