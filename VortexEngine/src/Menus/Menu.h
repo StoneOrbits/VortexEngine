@@ -43,9 +43,9 @@ protected:
   void showBulbSelection();
   void showExit();
 
-  // iterate to next bulb selection
-  void nextBulbSelection();
-  void prevBulbSelection();
+  // an overridable api that allows derived menus to decide which led selections
+  // should be available before they have actually opened
+  virtual bool isValidLedSelection(LedMap selection) const { return true; }
 
   // blink the selected finger
   virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
