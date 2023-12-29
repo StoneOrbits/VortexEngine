@@ -27,11 +27,22 @@
 // the pattern is a multi-pattern
 #define PATTERN_FLAG_MULTI  (1<<0)
 
+// and arg_offset_t is the distance from the base of the object
+// to the desired argument, in slim vortex we only need a single byte
+// but in multi-led patterns they can be a bit further in
+#if VORTEX_SLIM == 1
+typedef uint8_t arg_offset_t;
+#else
+typedef uint16_t arg_offset_t;
+#endif
+
 // macro to register args of a pattern
 #ifdef VORTEX_LIB
-#define REGISTER_ARG(arg) registerArg(#arg, (uint8_t)(((uintptr_t)&arg - (uintptr_t)this)));
+#define REGISTER_ARG(arg) \
+  registerArg(#arg, (arg_offset_t)(((uintptr_t)&arg - (uintptr_t)this)));
 #else
-#define REGISTER_ARG(arg) registerArg((uint8_t)(((uintptr_t)&arg - (uintptr_t)this)));
+#define REGISTER_ARG(arg) \
+  registerArg((arg_offset_t)(((uintptr_t)&arg - (uintptr_t)this)));
 #endif
 
 class ByteStream;
@@ -122,13 +133,13 @@ protected:
   LedPos m_ledPos;
 
   uint8_t m_numArgs;
-  uint8_t m_argList[MAX_PATTERN_ARGS];
+  arg_offset_t m_argList[MAX_PATTERN_ARGS];
 
 #ifdef VORTEX_LIB
-  void registerArg(const char *name, uint8_t argOffset);
+  void registerArg(const char *name, arg_offset_t argOffset);
   const char *m_argNameList[MAX_PATTERN_ARGS];
 #else
-  void registerArg(uint8_t argOffset);
+  void registerArg(arg_offset_t argOffset);
 #endif
 };
 
