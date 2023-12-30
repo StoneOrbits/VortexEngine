@@ -12,6 +12,10 @@
 #include <stdio.h>
 #endif
 
+#ifdef VORTEX_EMBEDDED
+#include <Arduino.h>
+#endif
+
 bool SerialComs::m_serialConnected = false;
 uint32_t SerialComs::m_lastCheck = 0;
 
@@ -51,15 +55,15 @@ bool SerialComs::checkSerial()
   if (!Vortex::vcallbacks()->serialCheck()) {
     return false;
   }
-  Vortex::vcallbacks()->serialBegin(9600);
+  Vortex::vcallbacks()->serialBegin(SERIAL_BAUD_RATE);
 #else
   // This will check if the serial communication is open
-  if (!Serial) {
+  if (!Serial.available()) {
     // serial is not connected
     return false;
   }
   // Begin serial communications
-  Serial.begin(9600);
+  Serial.begin(SERIAL_BAUD_RATE);
 #endif
 #endif
   // serial is now connected
