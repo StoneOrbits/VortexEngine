@@ -63,7 +63,7 @@ bool SerialComs::checkSerial()
   if (!m_engine.vortexLib().vcallbacks()->serialCheck()) {
     return false;
   }
-  m_engine.vortexlib().vcallbacks()->serialBegin(SERIAL_BAUD_RATE);
+  m_engine.vortexLib().vcallbacks()->serialBegin(SERIAL_BAUD_RATE);
 #else
   // This will check if the serial communication is open
   if (!Serial.available()) {
