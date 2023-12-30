@@ -320,6 +320,11 @@
 #define VAL_OPTION_3                170
 #define VAL_OPTION_4                255
 
+// Serial Baud Rate
+//
+// The serial connection baud rate for the editor and anything else serial
+#define SERIAL_BAUD_RATE            9600
+
 // ===================================================================
 //  Boolean Configurations (0 or 1)
 
