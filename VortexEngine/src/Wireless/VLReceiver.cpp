@@ -1,4 +1,7 @@
 #include "VLReceiver.h"
+#include "IRConfig.h"
+
+#if VL_ENABLE_RECEIVER == 1
 
 #include "../VortexEngine.h"
 
@@ -8,8 +11,6 @@
 #include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
-
-#if VL_ENABLE_RECEIVER == 1
 
 VLReceiver::VLReceiver(VortexEngine &engine) :
   m_engine(engine),

@@ -1,16 +1,15 @@
 #include "IRSender.h"
+#include "IRConfig.h"
+
+#if IR_ENABLE_SENDER == 1
 
 #include "../Time/TimeControl.h"
 #include "../Modes/Mode.h"
 #include "../Log/Log.h"
 
-#include "IRConfig.h"
-
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
 #endif
-
-#if IR_ENABLE_SENDER == 1
 
 IRSender::IRSender(VortexEngine &engine) :
   m_engine(engine),

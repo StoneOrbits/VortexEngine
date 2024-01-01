@@ -44,22 +44,30 @@ bool VortexEngine::init()
     DEBUG_LOG("Storage failed to initialize");
     return false;
   }
+#if IR_ENABLE_RECEIVER == 1
   if (!m_irReceiver.init()) {
     DEBUG_LOG("IRReceiver failed to initialize");
     return false;
   }
+#endif
+#if IR_ENABLE_SENDER == 1
   if (!m_irSender.init()) {
     DEBUG_LOG("IRSender failed to initialize");
     return false;
   }
+#endif
+#if VL_ENABLE_RECEIVER == 1
   if (!m_vlReceiver.init()) {
     DEBUG_LOG("VLReceiver failed to initialize");
     return false;
   }
+#endif
+#if VL_ENABLE_SENDER == 1
   if (!m_vlSender.init()) {
     DEBUG_LOG("VLSender failed to initialize");
     return false;
   }
+#endif
   if (!m_leds.init()) {
     DEBUG_LOG("Leds failed to initialize");
     return false;
@@ -107,10 +115,18 @@ void VortexEngine::cleanup()
   m_menus.cleanup();
   m_buttons.cleanup();
   m_leds.cleanup();
+#if VL_ENABLE_SENDER == 1
   m_vlSender.cleanup();
+#endif
+#if VL_ENABLE_RECEIVER == 1
   m_vlReceiver.cleanup();
+#if IR_ENABLE_SENDER == 1
   m_irSender.cleanup();
+#endif
+#endif
+#if IR_ENABLE_RECEIVER == 1
   m_irReceiver.cleanup();
+#endif
   m_storage.cleanup();
   m_time.cleanup();
   m_serial.cleanup();

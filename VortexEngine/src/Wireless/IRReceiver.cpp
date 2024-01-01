@@ -1,4 +1,7 @@
 #include "IRReceiver.h"
+#include "IRConfig.h"
+
+#if IR_ENABLE_RECEIVER == 1
 
 #include "../VortexEngine.h"
 
@@ -7,10 +10,6 @@
 #include "../Time/TimeControl.h"
 #include "../Modes/Mode.h"
 #include "../Log/Log.h"
-
-#include "IRConfig.h"
-
-#if IR_ENABLE_RECEIVER == 1
 
 IRReceiver::IRReceiver(VortexEngine &engine) :
   m_engine(engine),
