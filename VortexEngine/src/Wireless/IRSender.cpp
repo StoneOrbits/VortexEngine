@@ -32,8 +32,6 @@ uint32_t IRSender::m_writeCounter = 0;
 
 bool IRSender::init()
 {
-  // initialize the IR device
-  initPWM();
   return true;
 }
 
@@ -113,8 +111,6 @@ void IRSender::beginSend()
   m_isSending = true;
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
     Time::microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
-  // init sender before writing, is this necessary here? I think so
-  initPWM();
   // wakeup the other receiver with a very quick mark/space
   sendMark(50);
   sendSpace(100);
@@ -148,9 +144,6 @@ void IRSender::sendMark(uint16_t time)
 #ifdef VORTEX_LIB
   // send mark timing over socket
   Vortex::vcallbacks()->infraredWrite(true, time);
-#else
-  startPWM();
-  Time::delayMicroseconds(time);
 #endif
 }
 
@@ -159,23 +152,7 @@ void IRSender::sendSpace(uint16_t time)
 #ifdef VORTEX_LIB
   // send space timing over socket
   Vortex::vcallbacks()->infraredWrite(false, time);
-#else
-  stopPWM();
-  Time::delayMicroseconds(time);
 #endif
-}
-
-// shamelessly stolen from IRLib2, thanks
-void IRSender::initPWM()
-{
-}
-
-void IRSender::startPWM()
-{
-}
-
-void IRSender::stopPWM()
-{
 }
 
 #endif
