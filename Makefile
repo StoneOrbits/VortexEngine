@@ -16,7 +16,7 @@ update-index:
 install:
 	sudo apt-get update
 	sudo apt-get install -y build-essential
-	sudo pip install pyserial
+	pip install pyserial
 	mkdir -p $(HOME)/.arduino15
 	if ! command -v $(ARDUINO_CLI) &> /dev/null ; then \
 		curl -fsSL https://raw.githubusercontent.com/arduino/arduino-cli/master/install.sh | sudo sh ; \
