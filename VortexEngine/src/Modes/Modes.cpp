@@ -381,7 +381,7 @@ bool Modes::addModeFromBuffer(ByteStream &serializedMode)
   }
 #endif
   if (!m_storedModes) {
-    m_storedModes = new ModeLink(m_engine, serializedMode);
+    m_storedModes = new ModeLink(serializedMode);
     if (!m_storedModes) {
       ERROR_OUT_OF_MEMORY();
       return false;

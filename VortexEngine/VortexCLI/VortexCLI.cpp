@@ -533,13 +533,9 @@ bool VortexCLI::init(int argc, char *argv[])
     Modes::clearModes();
     // check if the load from savefile was provided, this is kinda ugly but whatever
     if (m_loadSaveFile.size() >= 8 && m_loadSaveFile.rfind(".vtxmode") == m_loadSaveFile.size() - 8) {
-      // match the led count of the savefile, a vtxmode
-      Vortex::matchLedCount(stream, true);
       // ends with .vtxmode, load just a single mode
       Vortex::addNewMode(stream);
     } else if (m_loadSaveFile.size() >= 7 && m_loadSaveFile.rfind(".vortex") == m_loadSaveFile.size() - 7) {
-      // match the led count of the savefile, a vortex file
-      Vortex::matchLedCount(stream, false);
       // ends with .vortex, load the entire save
       Vortex::setModes(stream);
     } else {
@@ -721,7 +717,7 @@ void VortexCLI::show()
   fflush(stdout);
 }
 
-bool VortexCLI::isButtonPressed() const
+bool VortexCLI::isButtonPressed()
 {
   return Vortex::isButtonPressed();
 }
