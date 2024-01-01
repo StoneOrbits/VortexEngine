@@ -2,6 +2,7 @@
 
 #include "Wireless/IRReceiver.h"
 #include "Wireless/IRSender.h"
+#include "Wireless/VLReceiver.h"
 #include "Wireless/VLSender.h"
 #include "Wireless/IRConfig.h"
 #include "Wireless/VLConfig.h"
