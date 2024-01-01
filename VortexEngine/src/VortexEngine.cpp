@@ -16,6 +16,8 @@
 #include "Modes/Mode.h"
 #include "Leds/Leds.h"
 
+#include "Colors/Colorset.h"
+
 #ifdef VORTEX_EMBEDDED
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
@@ -93,6 +95,9 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
+
+  Modes::curMode()->setPattern(PATTERN_CHASER);
+  Modes::curMode()->setColorset(Colorset(RGB_RED, RGB_GREEN, RGB_BLUE));
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -270,7 +275,7 @@ void VortexEngine::runMainLogic()
     // switch to the last mode we were on
     Modes::switchToStartupMode();
     // enter keychain mode menu
-    Menus::openMenu(MENU_GLOBAL_BRIGHTNESS, true);
+    //Menus::openMenu(MENU_GLOBAL_BRIGHTNESS, true);
   }
 
   // first look for the force-sleep and instant on/off toggle
@@ -291,10 +296,10 @@ void VortexEngine::runMainLogic()
   }
 
   // run the menus to see if they are open and need to do anything
-  if (Menus::run()) {
-    // if they return true that means the menus are open and rendering so just return
-    return;
-  }
+  //if (Menus::run()) {
+  //  // if they return true that means the menus are open and rendering so just return
+  //  return;
+  //}
 
   // if the user releases the button after the sleep threshold and
   // we're still in menu state not open, then we can go to sleep
@@ -309,11 +314,11 @@ void VortexEngine::runMainLogic()
     // clear all the leds for a short moment
     Leds::clearAll();
     // then oncethe user holds past the sleep window threshold open up the menus
-    if (holdTime >= (SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS)) {
-      // open the menu selection area
-      DEBUG_LOG("Entering ring fill...");
-      Menus::openMenuSelection();
-    }
+    //if (holdTime >= (SLEEP_ENTER_THRESHOLD_TICKS + SLEEP_WINDOW_THRESHOLD_TICKS)) {
+    //  // open the menu selection area
+    //  DEBUG_LOG("Entering ring fill...");
+    //  Menus::openMenuSelection();
+    //}
     // don't play the modes because the user is going into menus
     return;
   }

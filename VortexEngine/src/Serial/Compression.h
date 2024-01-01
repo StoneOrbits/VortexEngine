@@ -8,7 +8,7 @@
 #include <inttypes.h>
 #include <stddef.h>
 
-#if VORTEX_SLIM == 1
+#if VORTEX_SLIM == 1 || ENABLE_COMPRESSION == 0
 
 // these apis do nothing in slim vortex
 #define compress_size(srcSize) 0

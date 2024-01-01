@@ -49,23 +49,21 @@ Menu *initMenu(const RGBColor &col, bool advanced) { return new T(col, advanced)
 #define ENTRY(classname, color) { initMenu<classname>, color }
 #endif
 
+
+const MenuEntry *menuList = nullptr;
+
 // The list of menus that are registered with colors to show in ring menu
-const MenuEntry menuList[] = {
-  // =========================
-  //  Default menu setup:
-  ENTRY(Randomizer, RGB_MENU_RANDOMIZER),
-  ENTRY(ModeSharing, RGB_MENU_MODE_SHARING),
-#if ENABLE_EDITOR_CONNECTION == 1
-  ENTRY(EditorConnection, RGB_MENU_EDITOR_CONNECTION),
-#endif
-  ENTRY(ColorSelect, RGB_MENU_COLOR_SELECT),
-  ENTRY(PatternSelect, RGB_MENU_PATTERN_SELECT),
-  ENTRY(GlobalBrightness, RGB_MENU_BRIGHTNESS_SELECT),
-  ENTRY(FactoryReset, RGB_MENU_FACTORY_RESET),
-};
+//const MenuEntry menuList[] = {
+//  // =========================
+//  //  Default menu setup:
+//  //ENTRY(Randomizer, RGB_MENU_RANDOMIZER),
+//#if ENABLE_EDITOR_CONNECTION == 1
+//  ENTRY(EditorConnection, RGB_MENU_EDITOR_CONNECTION),
+//#endif
+//};
 
 // the number of menus in the above array
-#define NUM_MENUS (sizeof(menuList) / sizeof(menuList[0]))
+#define NUM_MENUS 0 // (sizeof(menuList) / sizeof(menuList[0]))
 
 bool Menus::init()
 {
@@ -104,7 +102,7 @@ bool Menus::runMenuSelection()
 {
   if (g_pButton->onShortClick()) {
     // otherwise increment selection and wrap around at num menus
-    m_selection = (m_selection + 1) % NUM_MENUS;
+    //m_selection = (m_selection + 1) % NUM_MENUS;
     DEBUG_LOGF("Cyling to ring menu %u", m_selection);
     // reset the open time so that it starts again
     m_openTime = Time::getCurtime();

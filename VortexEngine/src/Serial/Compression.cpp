@@ -13,7 +13,7 @@
 #include <stddef.h>
 #include <limits.h>
 
-#if VORTEX_SLIM == 0
+#if VORTEX_SLIM == 0 && ENABLE_COMPRESSION == 1
 
 #if (defined(__GNUC__) && (__GNUC__ >= 3)) || (defined(__INTEL_COMPILER) && (__INTEL_COMPILER >= 800)) || defined(__clang__)
 #  define expect(expr,value)    (__builtin_expect ((expr),(value)) )

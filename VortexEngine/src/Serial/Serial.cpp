@@ -35,7 +35,7 @@ bool SerialComs::isConnected()
 // check for any serial connection or messages
 bool SerialComs::checkSerial()
 {
-#if VORTEX_SLIM == 0
+#if VORTEX_SLIM == 0 && ENABLE_SERIAL == 1
   if (isConnected()) {
     // already connected
     return true;
@@ -69,7 +69,8 @@ bool SerialComs::checkSerial()
 
 void SerialComs::write(const char *msg, ...)
 {
-#if VORTEX_SLIM == 0
+#if VORTEX_SLIM == 0 && ENABLE_SERIAL == 1
+
   if (!isConnected()) {
     return;
   }
@@ -88,7 +89,7 @@ void SerialComs::write(const char *msg, ...)
 
 void SerialComs::write(ByteStream &byteStream)
 {
-#if VORTEX_SLIM == 0
+#if VORTEX_SLIM == 0 && ENABLE_SERIAL == 1
   if (!isConnected()) {
     return;
   }
@@ -106,7 +107,7 @@ void SerialComs::write(ByteStream &byteStream)
 
 void SerialComs::read(ByteStream &byteStream)
 {
-#if VORTEX_SLIM == 0
+#if VORTEX_SLIM == 0 && ENABLE_SERIAL == 1
   if (!isConnected()) {
     return;
   }
@@ -134,7 +135,7 @@ void SerialComs::read(ByteStream &byteStream)
 
 bool SerialComs::dataReady()
 {
-#if VORTEX_SLIM == 0
+#if VORTEX_SLIM == 0 && ENABLE_SERIAL == 1
   if (!isConnected()) {
     return false;
   }

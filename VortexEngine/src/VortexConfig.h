@@ -38,7 +38,10 @@
 // This disabled multi-led patterns and compression because the
 // multi-led patterns take up too much space and the compression
 // uses too much stack space to run on smaller devices
-#define VORTEX_SLIM           1
+#define VORTEX_SLIM           0
+
+#define ENABLE_COMPRESSION    0
+#define ENABLE_SERIAL         0
 
 // ===================================================================
 //  Numeric Configurations
