@@ -10,6 +10,10 @@
 #include "VortexLib.h"
 #endif
 
+#ifdef VORTEX_EMBEDDED
+#include <Arduino.h>
+#endif
+
 #if IR_ENABLE_SENDER == 1
 
 // the serial buffer for the data
@@ -175,7 +179,7 @@ void IRSender::sendSpace(uint16_t time)
 void IRSender::initPWM()
 {
 #if defined(VORTEX_EMBEDDED)
-  // just in case
+  // initialize the output pin
   pinMode(IR_SEND_PWM_PIN, OUTPUT);
   digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
   uint8_t port = g_APinDescription[IR_SEND_PWM_PIN].ulPort; // 0
