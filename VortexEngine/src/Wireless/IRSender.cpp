@@ -10,10 +10,6 @@
 #include "VortexLib.h"
 #endif
 
-#ifdef VORTEX_EMBEDDED
-#include <Arduino.h>
-#endif
-
 #if IR_ENABLE_SENDER == 1
 
 // the serial buffer for the data
@@ -35,8 +31,15 @@ uint32_t IRSender::m_blockSize = 0;
 // write total
 uint32_t IRSender::m_writeCounter = 0;
 
+#if defined(VORTEX_EMBEDDED)
+// Timer used for PWM, is initialized in initpwm()
+Tcc *IR_TCCx;
+#endif
+
 bool IRSender::init()
 {
+  // initialize the IR device
+  initPWM();
   return true;
 }
 
@@ -116,6 +119,8 @@ void IRSender::beginSend()
   m_isSending = true;
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
     Time::microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
+  // init sender before writing, is this necessary here? I think so
+  initPWM();
   // wakeup the other receiver with a very quick mark/space
   sendMark(50);
   sendSpace(100);
@@ -149,6 +154,9 @@ void IRSender::sendMark(uint16_t time)
 #ifdef VORTEX_LIB
   // send mark timing over socket
   Vortex::vcallbacks()->infraredWrite(true, time);
+#else
+  startPWM();
+  Time::delayMicroseconds(time);
 #endif
 }
 
@@ -167,10 +175,9 @@ void IRSender::sendSpace(uint16_t time)
 void IRSender::initPWM()
 {
 #if defined(VORTEX_EMBEDDED)
-  // initialize the output pin
+  // just in case
   pinMode(IR_SEND_PWM_PIN, OUTPUT);
-  digitalWrite(IR_SEND_PWM_PIN, LOW);
-  // setup the PWM
+  digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
   uint8_t port = g_APinDescription[IR_SEND_PWM_PIN].ulPort; // 0
   uint8_t pin = g_APinDescription[IR_SEND_PWM_PIN].ulPin;   // 8
   ETCChannel IR_TCC_Channel = TCC0_CH0;
