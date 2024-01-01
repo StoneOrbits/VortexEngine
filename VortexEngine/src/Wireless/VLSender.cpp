@@ -1,4 +1,7 @@
 #include "VLSender.h"
+#include "IRConfig.h"
+
+#if VL_ENABLE_SENDER == 1
 
 #include "../Time/TimeControl.h"
 #include "../Modes/Mode.h"
@@ -8,8 +11,6 @@
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
 #endif
-
-#if VL_ENABLE_SENDER == 1
 
 // the serial buffer for the data
 ByteStream VLSender::m_serialBuf;
