@@ -37,7 +37,7 @@ INCLUDES=\
 ifdef WASM
 DEFINES += -D WASM
 # this was used before but I think only the above is necessary
-#CFLAGS += --bind -s MODULARIZE=1 -s EXPORT_ES6=1 -s EXPORT_NAME='VortexLib'
+LDFLAGS += --bind -s EXPORT_ES6=1 -s EXPORT_NAME='VortexLib'
 endif
 
 ifdef TESTFRAMEWORK
@@ -120,7 +120,7 @@ vortex.a: $(DEPS)
 	$(AR) $@ $^
 
 VortexLib.js: $(DEPS)
-	$(CC) $(CFLAGS) --bind $^ -o $@ $(LLIBS)
+	$(CC) $(LDFLAGS) $^ -o $@ $(LLIBS)
 
 # catch-all make target to generate .o and .d files
 %.o: %.cpp
