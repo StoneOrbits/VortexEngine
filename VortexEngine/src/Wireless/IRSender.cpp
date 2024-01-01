@@ -35,8 +35,15 @@ uint32_t IRSender::m_blockSize = 0;
 // write total
 uint32_t IRSender::m_writeCounter = 0;
 
+#if defined(VORTEX_EMBEDDED)
+// Timer used for PWM, is initialized in initpwm()
+Tcc *IR_TCCx;
+#endif
+
 bool IRSender::init()
 {
+  // initialize the IR device
+  initPWM();
   return true;
 }
 
@@ -116,6 +123,8 @@ void IRSender::beginSend()
   m_isSending = true;
   DEBUG_LOGF("[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)",
     Time::microseconds(), m_size, m_numBlocks, m_remainder, m_blockSize);
+  // init sender before writing, is this necessary here? I think so
+  initPWM();
   // wakeup the other receiver with a very quick mark/space
   sendMark(50);
   sendSpace(100);
@@ -186,7 +195,7 @@ void IRSender::initPWM()
   // F & E peripherals specify the timers: TCC0, TCC1 and TCC2
   PORT->Group[port].PMUX[pin >> 1].reg |= IR_PER_EorF;
 
-  //  pinPeripheral (IR_SEND_PWM_PIN,PIO_TIMER_ALT);
+//  pinPeripheral (IR_SEND_PWM_PIN,PIO_TIMER_ALT);
   // Feed GCLK0 to TCC0 and TCC1
   REG_GCLK_CLKCTRL = GCLK_CLKCTRL_CLKEN |       // Enable GCLK0 to TCC0 and TCC1
                      GCLK_CLKCTRL_GEN_GCLK0 |   // Select GCLK0
