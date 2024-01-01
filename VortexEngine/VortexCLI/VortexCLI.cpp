@@ -376,15 +376,6 @@ bool VortexCLI::init(int argc, char *argv[])
       // if the user wants to bypass timestep
       m_noTimestep = true;
       break;
-    case 'W':
-      m_writeSaveFile = optarg;
-      break;
-    case 'M':
-      m_writeModeFile = optarg;
-      break;
-    case 'L':
-      m_loadSaveFile = optarg;
-      break;
     case 'l':
       // if the user wants to step in lockstep with the engine
       m_lockstep = true;
@@ -418,6 +409,15 @@ bool VortexCLI::init(int argc, char *argv[])
       if (optarg) {
         m_storageFile = optarg;
       }
+      break;
+    case 'W':
+      m_writeSaveFile = optarg;
+      break;
+    case 'M':
+      m_writeModeFile = optarg;
+      break;
+    case 'L':
+      m_loadSaveFile = optarg;
       break;
     case 'I':
       // read json from stdin or file
