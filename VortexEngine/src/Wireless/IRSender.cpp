@@ -1,10 +1,11 @@
 #include "IRSender.h"
+#include "IRConfig.h"
+
+#if IR_ENABLE_SENDER == 1
 
 #include "../Time/TimeControl.h"
 #include "../Modes/Mode.h"
 #include "../Log/Log.h"
-
-#include "IRConfig.h"
 
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
@@ -13,8 +14,6 @@
 #ifdef VORTEX_EMBEDDED
 #include <Arduino.h>
 #endif
-
-#if IR_ENABLE_SENDER == 1
 
 // the serial buffer for the data
 ByteStream IRSender::m_serialBuf;
