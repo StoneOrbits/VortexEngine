@@ -16,8 +16,46 @@ uint32_t VLReceiver::m_prevTime = 0;
 uint8_t VLReceiver::m_pinState = 0;
 uint32_t VLReceiver::m_previousBytes = 0;
 
+#ifdef VORTEX_EMBEDDED
+#include "../Serial/Serial.h"
+
+// Timer variables
+hw_timer_t *VLReceiver::m_timer = nullptr;
+constexpr auto TIMER_INTERVAL_MICROSECONDS = 1000; // Timer interval in microseconds
+
+#define MIN_THRESHOLD   200
+#define BASE_OFFSET     100
+#define THRESHOLD_BEGIN (MIN_THRESHOLD + BASE_OFFSET)
+// the sample count exponent, so 5 means 2^5 = 32 samples
+//   0 NONE No accumulation > doesn't work
+//   1 ACC2 2 results accumulated  > doesn't work
+//   2 ACC4 4 results accumulated  > works okay
+//   3 ACC8 8 results accumulated  > works decent
+//   4 ACC16 16 results accumulated > works very well
+//   5 ACC32 32 results accumulated > works best
+//   6 ACC64 64 results accumulated > doesn't work
+#define SAMPLE_COUNT    5
+// the threshold needs to start high then it will be automatically pulled down
+uint16_t threshold = THRESHOLD_BEGIN;
+void IRAM_ATTR onTimer() {
+  static bool wasAboveThreshold = false;
+  uint16_t val = analogRead(VL_RECEIVER_PIN);
+  if (val > MIN_THRESHOLD && val < (threshold + BASE_OFFSET)) {
+    threshold = val + BASE_OFFSET;
+  }
+  bool isAboveThreshold = (val > threshold);
+  if (wasAboveThreshold != isAboveThreshold) {
+    wasAboveThreshold = isAboveThreshold;
+    VLReceiver::recvPCIHandler();
+  }
+}
+#endif
+
 bool VLReceiver::init()
 {
+#ifdef VORTEX_EMBEDDED
+  pinMode(VL_RECEIVER_PIN, INPUT_PULLUP);
+#endif
   return m_vlData.init(VL_RECV_BUF_SIZE);
 }
 
@@ -83,12 +121,26 @@ bool VLReceiver::receiveMode(Mode *pMode)
 
 bool VLReceiver::beginReceiving()
 {
+#ifdef VORTEX_EMBEDDED
+  m_timer = timerBegin(0, 80, true);
+  timerAttachInterrupt(m_timer, &onTimer, true);
+  timerAlarmWrite(m_timer, TIMER_INTERVAL_MICROSECONDS, true);
+  timerAlarmEnable(m_timer); // Enable the timer alarm
+  SerialComs::checkSerial();
+#endif
   resetVLState();
   return true;
 }
 
 bool VLReceiver::endReceiving()
 {
+#ifdef VORTEX_EMBEDDED
+  //detachInterrupt(digitalPinToInterrupt(VL_RECEIVER_PIN));
+  timerAlarmDisable(m_timer); // Disable the timer alarm
+  timerDetachInterrupt(m_timer); // Detach the interrupt service routine
+  timerEnd(m_timer); // Free the timer
+  m_timer = NULL; // Reset the timer pointer
+#endif
   resetVLState();
   return true;
 }
@@ -142,6 +194,7 @@ void VLReceiver::recvPCIHandler()
     resetVLState();
     return;
   }
+  DEBUG_LOGF("Received: %u", m_pinState);
   // calc time difference between previous change and now
   uint32_t diff = (uint32_t)(now - m_prevTime);
   // and update the previous changetime for next loop

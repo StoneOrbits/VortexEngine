@@ -8,7 +8,7 @@
 // Whether to enable the Visible Light system as a whole
 //
 #define VL_ENABLE_SENDER          1
-#define VL_ENABLE_RECEIVER        0
+#define VL_ENABLE_RECEIVER        1
 
 // the size of IR blocks in bits
 #define VL_DEFAULT_BLOCK_SIZE 256
@@ -42,6 +42,6 @@
 #define VL_DIVIDER_SPACE_MAX VL_HEADER_MARK_MAX
 
 #define VL_SEND_PWM_PIN 0
-#define VL_RECEIVER_PIN 0
+#define VL_RECEIVER_PIN 5
 
 #endif
