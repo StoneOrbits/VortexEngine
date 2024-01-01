@@ -638,6 +638,34 @@ void VortexCLI::cleanup()
     Vortex::dumpJson(m_jsonOutFile.c_str(), m_jsonPretty);
     printf("Wrote JSON to file [%s]\n", m_jsonOutFile.c_str());
   }
+  if (m_writeSaveFile.length() > 0) {
+    ByteStream stream;
+    Vortex::getModes(stream);
+    FILE *outputFile = fopen(m_writeSaveFile.c_str(), "w");
+    if (!outputFile) {
+      printf("Failed to open: [%s] (%s)", m_writeSaveFile.c_str(), strerror(errno));
+      exit(2);
+    }
+    // Print the recorded input to the file
+    fwrite(stream.rawData(), 1, stream.rawSize(), outputFile);
+    // Close the output file
+    fclose(outputFile);
+    printf("Wrote vortex save to [%s]\n", m_writeSaveFile.c_str());
+  }
+  if (m_writeModeFile.length() > 0) {
+    ByteStream stream;
+    Vortex::getCurMode(stream);
+    FILE *outputFile = fopen(m_writeModeFile.c_str(), "w");
+    if (!outputFile) {
+      printf("Failed to open: [%s] (%s)", m_writeModeFile.c_str(), strerror(errno));
+      exit(2);
+    }
+    // Print the recorded input to the file
+    fwrite(stream.rawData(), 1, stream.rawSize(), outputFile);
+    // Close the output file
+    fclose(outputFile);
+    printf("Wrote vtxmode save to [%s]\n", m_writeModeFile.c_str());
+  }
   m_keepGoing = false;
   m_isPaused = false;
   if (m_storage) {
