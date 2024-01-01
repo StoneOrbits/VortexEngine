@@ -97,7 +97,7 @@ private:
 #endif
 };
 
-// Button
+// See Button.cpp for info about this
 extern Button *g_pButton;
 
 #endif
