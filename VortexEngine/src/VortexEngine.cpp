@@ -149,6 +149,7 @@ void VortexEngine::cleanup()
 #endif
   Storage::cleanup();
   Time::cleanup();
+  SerialComs::cleanup();
 #endif
 }
 
