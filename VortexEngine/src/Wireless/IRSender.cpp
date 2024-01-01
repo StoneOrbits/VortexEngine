@@ -181,7 +181,8 @@ void IRSender::initPWM()
 #if defined(VORTEX_EMBEDDED)
   // initialize the output pin
   pinMode(IR_SEND_PWM_PIN, OUTPUT);
-  digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
+  digitalWrite(IR_SEND_PWM_PIN, LOW);
+  // setup the PWM
   uint8_t port = g_APinDescription[IR_SEND_PWM_PIN].ulPort; // 0
   uint8_t pin = g_APinDescription[IR_SEND_PWM_PIN].ulPin;   // 8
   ETCChannel IR_TCC_Channel = TCC0_CH0;
