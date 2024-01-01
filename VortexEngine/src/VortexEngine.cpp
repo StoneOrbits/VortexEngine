@@ -8,7 +8,7 @@
 #include "Buttons/Buttons.h"
 #include "Time/TimeControl.h"
 #include "Time/Timings.h"
-#include "Serial/ByteStream.h"
+#include "Serial/Serial.h"
 #include "Modes/Modes.h"
 #include "Menus/Menus.h"
 #include "Modes/Mode.h"
@@ -17,10 +17,6 @@
 #ifdef VORTEX_EMBEDDED
 #include <avr/interrupt.h>
 #include <avr/sleep.h>
-#endif
-
-#ifdef VORTEX_LIB
-#include "VortexLib.h"
 #endif
 
 #ifdef VORTEX_LIB
@@ -43,6 +39,10 @@ bool VortexEngine::init()
 #endif
 
   // all of the global controllers
+  if (!SerialComs::init()) {
+    DEBUG_LOG("Serial failed to initialize");
+    return false;
+  }
   if (!Time::init()) {
     DEBUG_LOG("Time failed to initialize");
     return false;
