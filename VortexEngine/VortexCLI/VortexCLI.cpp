@@ -379,6 +379,15 @@ bool VortexCLI::init(int argc, char *argv[])
       // if the user wants to bypass timestep
       m_noTimestep = true;
       break;
+    case 'W':
+      m_writeSaveFile = optarg;
+      break;
+    case 'M':
+      m_writeModeFile = optarg;
+      break;
+    case 'L':
+      m_loadSaveFile = optarg;
+      break;
     case 'l':
       // if the user wants to step in lockstep with the engine
       m_lockstep = true;
@@ -545,6 +554,37 @@ bool VortexCLI::init(int argc, char *argv[])
       m_vortex.matchLedCount(stream, false);
       // ends with .vortex, load the entire save
       m_vortex.setModes(stream);
+    } else {
+      // wasn't a valid savefile name
+      printf("Savefile name must end in .vortex or .vtxmode: [%s]\n", m_loadSaveFile.c_str());
+      exit(2);
+    }
+  }
+
+  // load a .vortex or .vtxmode savefile
+  if (m_loadSaveFile.size() > 0) {
+    ByteStream stream(4096);
+    // Open the file in read mode
+    FILE *inputFile = fopen(m_loadSaveFile.c_str(), "r");
+    if (!inputFile) {
+      printf("Failed to open: [%s] (%s)\n", m_loadSaveFile.c_str(), strerror(errno));
+      exit(2);
+    }
+    if (!fread((void *)stream.rawData(), 1, stream.capacity(), inputFile)) {
+      // error
+      printf("Failed to read [%s]\n", m_loadSaveFile.c_str());
+      exit(2);
+    }
+    fclose(inputFile);
+    // clear existing modes
+    Modes::clearModes();
+    // check if the load from savefile was provided, this is kinda ugly but whatever
+    if (m_loadSaveFile.size() >= 8 && m_loadSaveFile.rfind(".vtxmode") == m_loadSaveFile.size() - 8) {
+      // ends with .vtxmode, load just a single mode
+      Vortex::addNewMode(stream);
+    } else if (m_loadSaveFile.size() >= 7 && m_loadSaveFile.rfind(".vortex") == m_loadSaveFile.size() - 7) {
+      // ends with .vortex, load the entire save
+      Vortex::setModes(stream);
     } else {
       // wasn't a valid savefile name
       printf("Savefile name must end in .vortex or .vtxmode: [%s]\n", m_loadSaveFile.c_str());
