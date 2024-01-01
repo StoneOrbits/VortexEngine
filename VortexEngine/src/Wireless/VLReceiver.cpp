@@ -1,4 +1,7 @@
 #include "VLReceiver.h"
+#include "IRConfig.h"
+
+#if VL_ENABLE_RECEIVER == 1
 
 #include "../Serial/ByteStream.h"
 #include "../Serial/BitStream.h"
@@ -6,8 +9,6 @@
 #include "../Modes/Mode.h"
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
-
-#if VL_ENABLE_RECEIVER == 1
 
 BitStream VLReceiver::m_vlData;
 VLReceiver::RecvState VLReceiver::m_recvState = WAITING_HEADER_MARK;
