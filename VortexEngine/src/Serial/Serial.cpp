@@ -12,10 +12,6 @@
 #include <stdio.h>
 #endif
 
-#ifdef VORTEX_EMBEDDED
-#include <Arduino.h>
-#endif
-
 SerialComs::SerialComs(VortexEngine &engine) :
   m_engine(engine),
   m_serialConnected(false),

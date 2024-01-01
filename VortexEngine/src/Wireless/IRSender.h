@@ -36,11 +36,6 @@ private:
   // send a mark/space by turning PWM on/off
   void sendMark(uint16_t time);
   void sendSpace(uint16_t time);
-  // Pulse-Width Modulator (IR Transmitter)
-  void initPWM();
-  // turn the IR transmitter on/off in realtime
-  void startPWM();
-  void stopPWM();
 
   // reference to engine
   VortexEngine &m_engine;
