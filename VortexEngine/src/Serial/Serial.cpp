@@ -12,10 +12,6 @@
 #include <stdio.h>
 #endif
 
-#ifdef VORTEX_EMBEDDED
-#include <Arduino.h>
-#endif
-
 bool SerialComs::m_serialConnected = false;
 uint32_t SerialComs::m_lastCheck = 0;
 
