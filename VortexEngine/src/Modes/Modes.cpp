@@ -389,9 +389,17 @@ bool Modes::addModeFromBuffer(ByteStream &serializedMode)
     return false;
   }
 #endif
-  if (!m_storedModes->append(serializedMode)) {
-    ERROR_OUT_OF_MEMORY();
-    return false;
+  if (!m_storedModes) {
+    m_storedModes = new ModeLink(serializedMode);
+    if (!m_storedModes) {
+      ERROR_OUT_OF_MEMORY();
+      return false;
+    }
+  } else {
+    if (!m_storedModes->append(serializedMode)) {
+      ERROR_OUT_OF_MEMORY();
+      return false;
+    }
   }
   // increment mode counter
   m_numModes++;

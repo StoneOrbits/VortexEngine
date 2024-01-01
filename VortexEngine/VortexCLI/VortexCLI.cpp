@@ -188,6 +188,9 @@ static struct option long_options[] = {
   {"nolock", no_argument, nullptr, 'n'},
   {"quick", no_argument, nullptr, 'q'},
   {"storage", optional_argument, nullptr, 'S'},
+  {"write-save", required_argument, nullptr, 'W'},
+  {"write-mode", required_argument, nullptr, 'M'},
+  {"load-save", required_argument, nullptr, 'L'},
   {"json-in", optional_argument, nullptr, 'I'},
   {"json-out", optional_argument, nullptr, 'O'},
   {"json-human-read", no_argument, nullptr, 'H'},
@@ -239,8 +242,11 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -n, --nolock             Automatically unlock upon locking the chip (disable lock)\n");
   fprintf(stderr, "  -q, --quick              Exit immediately after initialization (useful to convert data)\n");
   fprintf(stderr, "\n");
-  fprintf(stderr, "Storage Options (optional):\n");
+  fprintf(stderr, "Storage and Data Conversion (optional):\n");
   fprintf(stderr, "  -S, --storage [file]     Persistent storage to file (default file: FlashStorage.flash)\n");
+  fprintf(stderr, "  -W, --write-save <file>  Write a full .vortex savefile at exit\n");
+  fprintf(stderr, "  -M, --write-mode <file>  At exit write the current mode to a .vtxmode file\n");
+  fprintf(stderr, "  -L, --load-save <file>   Load a vortex savefile (either .vortex or .vtxmode)\n");
   fprintf(stderr, "  -I, --json-in [file]     Load json from file at init (if no file: read from stdin)\n");
   fprintf(stderr, "  -O, --json-out [file]    Dump json to file at exit (if no file: write to stdout)\n");
   fprintf(stderr, "  -H, --json-human-read    Dump human readable json, instead of condensed json\n");
@@ -262,8 +268,8 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "   ./vortex --color\n");
   fprintf(stderr, "   ./vortex -ci -P42 -Ccyan,purple\n");
   fprintf(stderr, "   ./vortex -ct -Pblend -Ccyan,yellow,magenta <<< w100q\n");
-  fprintf(stderr, "   ./vortex -sq -S StorageData.dat -O output_storage_data.json\n");
-  fprintf(stderr, "   ./vortex -sq -S StorageData.dat -I input_storage_data.json\n");
+  fprintf(stderr, "   ./vortex -sq -L mysave.vortex -O output_data.json\n");
+  fprintf(stderr, "   ./vortex -sq -L mymode.vtxmode -O output_data.json\n");
 }
 
 #ifdef _WIN32
@@ -352,7 +358,7 @@ bool VortexCLI::init(int argc, char *argv[])
 
   int opt = -1;
   int option_index = 0;
-  while ((opt = getopt_long(argc, argv, "xcstliranqS::I::O::HP:C:A:h", long_options, &option_index)) != -1) {
+  while ((opt = getopt_long(argc, argv, "xcstliranqS::W:M:L:I::O::HP:C:A:h", long_options, &option_index)) != -1) {
     switch (opt) {
     case 'x':
       // if the user wants pretty colors or hex codes
@@ -403,6 +409,15 @@ bool VortexCLI::init(int argc, char *argv[])
       if (optarg) {
         m_storageFile = optarg;
       }
+      break;
+    case 'W':
+      m_writeSaveFile = optarg;
+      break;
+    case 'M':
+      m_writeModeFile = optarg;
+      break;
+    case 'L':
+      m_loadSaveFile = optarg;
       break;
     case 'I':
       // read json from stdin or file
@@ -499,6 +514,37 @@ bool VortexCLI::init(int argc, char *argv[])
     Vortex::parseJsonFromFile(m_jsonInFile);
   }
 
+  // load a .vortex or .vtxmode savefile
+  if (m_loadSaveFile.size() > 0) {
+    ByteStream stream(4096);
+    // Open the file in read mode
+    FILE *inputFile = fopen(m_loadSaveFile.c_str(), "r");
+    if (!inputFile) {
+      printf("Failed to open: [%s] (%s)\n", m_loadSaveFile.c_str(), strerror(errno));
+      exit(2);
+    }
+    if (!fread((void *)stream.rawData(), 1, stream.capacity(), inputFile)) {
+      // error
+      printf("Failed to read [%s]\n", m_loadSaveFile.c_str());
+      exit(2);
+    }
+    fclose(inputFile);
+    // clear existing modes
+    Modes::clearModes();
+    // check if the load from savefile was provided, this is kinda ugly but whatever
+    if (m_loadSaveFile.size() >= 8 && m_loadSaveFile.rfind(".vtxmode") == m_loadSaveFile.size() - 8) {
+      // ends with .vtxmode, load just a single mode
+      Vortex::addNewMode(stream);
+    } else if (m_loadSaveFile.size() >= 7 && m_loadSaveFile.rfind(".vortex") == m_loadSaveFile.size() - 7) {
+      // ends with .vortex, load the entire save
+      Vortex::setModes(stream);
+    } else {
+      // wasn't a valid savefile name
+      printf("Savefile name must end in .vortex or .vtxmode: [%s]\n", m_loadSaveFile.c_str());
+      exit(2);
+    }
+  }
+
   if (m_patternIDStr.length() > 0) {
     // convert both numeric and string to see which one seems more correct
     PatternID id = (PatternID)strtoul(m_patternIDStr.c_str(), nullptr, 10);
@@ -574,12 +620,14 @@ void VortexCLI::cleanup()
   if (m_record) {
     // Open the file in write mode
     FILE *outputFile = fopen(RECORD_FILE, "w");
-    if (outputFile) {
-      // Print the recorded input to the file
-      fprintf(outputFile, "%s", Vortex::getCommandLog().c_str());
-      // Close the output file
-      fclose(outputFile);
+    if (!outputFile) {
+      printf("Failed to open: [%s] (%s)", RECORD_FILE, strerror(errno));
+      exit(2);
     }
+    // Print the recorded input to the file
+    fprintf(outputFile, "%s", Vortex::getCommandLog().c_str());
+    // Close the output file
+    fclose(outputFile);
     printf("Wrote recorded input to " RECORD_FILE "\n");
   }
   if (m_jsonMode & JSON_MODE_WRITE_STDOUT) {
@@ -589,6 +637,34 @@ void VortexCLI::cleanup()
   if (m_jsonMode & JSON_MODE_WRITE_FILE) {
     Vortex::dumpJson(m_jsonOutFile.c_str(), m_jsonPretty);
     printf("Wrote JSON to file [%s]\n", m_jsonOutFile.c_str());
+  }
+  if (m_writeSaveFile.length() > 0) {
+    ByteStream stream;
+    Vortex::getModes(stream);
+    FILE *outputFile = fopen(m_writeSaveFile.c_str(), "w");
+    if (!outputFile) {
+      printf("Failed to open: [%s] (%s)", m_writeSaveFile.c_str(), strerror(errno));
+      exit(2);
+    }
+    // Print the recorded input to the file
+    fwrite(stream.rawData(), 1, stream.rawSize(), outputFile);
+    // Close the output file
+    fclose(outputFile);
+    printf("Wrote vortex save to [%s]\n", m_writeSaveFile.c_str());
+  }
+  if (m_writeModeFile.length() > 0) {
+    ByteStream stream;
+    Vortex::getCurMode(stream);
+    FILE *outputFile = fopen(m_writeModeFile.c_str(), "w");
+    if (!outputFile) {
+      printf("Failed to open: [%s] (%s)", m_writeModeFile.c_str(), strerror(errno));
+      exit(2);
+    }
+    // Print the recorded input to the file
+    fwrite(stream.rawData(), 1, stream.rawSize(), outputFile);
+    // Close the output file
+    fclose(outputFile);
+    printf("Wrote vtxmode save to [%s]\n", m_writeModeFile.c_str());
   }
   m_keepGoing = false;
   m_isPaused = false;
@@ -669,7 +745,7 @@ void VortexCLI::show()
   fflush(stdout);
 }
 
-bool VortexCLI::isButtonPressed() const
+bool VortexCLI::isButtonPressed()
 {
   return Vortex::isButtonPressed();
 }
