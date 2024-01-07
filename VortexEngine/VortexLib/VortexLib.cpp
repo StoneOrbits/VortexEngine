@@ -409,6 +409,8 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("clearModes", &Modes::clearModes)
     .function("setStartupMode", &Modes::setStartupMode)
     .function("startupMode", &Modes::startupMode)
+    .function("initCurMode", &Modes::initCurMode, allow_raw_pointers())
+    .function("saveCurMode", &Modes::saveCurMode)
     .function("setFlag", &Modes::setFlag)
     .function("getFlag", &Modes::getFlag)
     .function("resetFlags", &Modes::resetFlags)
@@ -476,7 +478,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("curModeIndex", &Vortex::curModeIndex)
     .function("numModes", &Vortex::numModes)
     .function("numLedsInMode", &Vortex::numLedsInMode)
-    //.function("addNewMode", select_overload<bool(Random*, bool)>(&Vortex::addNewMode))
+    .function("addNewMode", select_overload<bool(bool)>(&Vortex::addNewMode))
     .function("addNewMode", select_overload<bool(ByteStream &, bool)>(&Vortex::addNewMode))
     .function("setCurMode", &Vortex::setCurMode)
     .function("nextMode", &Vortex::nextMode)
@@ -1182,19 +1184,16 @@ uint32_t Vortex::numLedsInMode()
   return pMode->getLedCount();
 }
 
-bool Vortex::addNewMode(Random *pRandCtx, bool save)
+bool Vortex::addNewMode(bool save)
 {
   Colorset set;
   Random ctx;
-  if (!pRandCtx) {
-    pRandCtx = &ctx;
-  }
-  set.randomize(*pRandCtx);
+  set.randomize(ctx);
   // create a random pattern ID from all patterns
   PatternID randomPattern;
   do {
     // continuously re-randomize the pattern so we don't get solids
-    randomPattern = (PatternID)pRandCtx->next16(PATTERN_FIRST, PATTERN_COUNT);
+    randomPattern = (PatternID)ctx.next16(PATTERN_FIRST, PATTERN_COUNT);
   } while (randomPattern == PATTERN_SOLID);
   if (!m_engine.modes().addMode(randomPattern, nullptr, &set)) {
     return false;

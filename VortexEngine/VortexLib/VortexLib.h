@@ -190,7 +190,7 @@ public:
   uint32_t curModeIndex();
   uint32_t numModes();
   uint32_t numLedsInMode();
-  bool addNewMode(Random *pRandCtx = nullptr, bool save = true);
+  bool addNewMode(bool save = true);
   bool addNewMode(ByteStream &stream, bool save = true);
   bool setCurMode(uint32_t index, bool save = true);
   bool nextMode(bool save = true);

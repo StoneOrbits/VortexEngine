@@ -106,6 +106,11 @@ public:
   void setStartupMode(uint8_t index);
   uint8_t startupMode();
 
+  // initialize current mode from ByteStream, optionally force re-init which
+  // will destroy the current instantiated mode and re-load it from serial
+  Mode *initCurMode(bool force = false);
+  bool saveCurMode();
+
   // set or get flags
   bool setFlag(uint8_t flag, bool enable, bool save = true);
   bool getFlag(uint8_t flag);
@@ -211,11 +216,6 @@ private:
 
   // fetch a link from the chain by index
   ModeLink *getModeLink(uint32_t index);
-
-  // initialize current mode from ByteStream, optionally force re-init which
-  // will destroy the current instantiated mode and re-load it from serial
-  Mode *initCurMode(bool force = false);
-  bool saveCurMode();
 
   // the current mode we're on
   uint8_t m_curMode;
