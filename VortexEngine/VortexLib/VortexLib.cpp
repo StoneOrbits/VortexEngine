@@ -84,6 +84,19 @@ emscripten::val getRawDataArray(const ByteStream &byteStream)
   return rawDataArray;
 }
 
+bool createByteStreamFromData(val bytesArray, ByteStream &stream)
+{
+  // Convert val to std::vector<uint8_t>
+  std::vector<uint8_t> data = vecFromJSArray<uint8_t>(bytesArray);
+
+  // Assuming size is part of the data or passed separately
+  size_t size = data.size();
+  if (!stream.rawInit(data.data(), size)) {
+    return true;
+  }
+  return false;
+}
+
 // js is dumb and has issues doing this conversion I guess
 PatternID intToPatternID(int val)
 {
@@ -136,6 +149,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .constructor<uint32_t, const uint8_t *>()
 
     // member functions
+    .function("rawInit", &ByteStream::rawInit, allow_raw_pointer<const uint8_t *>())
     .function("init", &ByteStream::init, allow_raw_pointer<const unsigned char *>())
     .function("clear", &ByteStream::clear)
     .function("shrink", &ByteStream::shrink)
@@ -178,10 +192,13 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("ledData", &Leds::ledData, allow_raw_pointer<const RGBColor *>());
 
   function("intToPatternID", &intToPatternID);
+  function("isMultiLedPatternID", &isMultiLedPatternID);
+  function("isSingleLedPatternID", &isSingleLedPatternID);
 
   enum_<PatternID>("PatternID")
     // Meta Constants
     .value("PATTERN_NONE", PatternID::PATTERN_NONE)
+
     // single led patterns
     .value("PATTERN_STROBE", PatternID::PATTERN_STROBE)
     .value("PATTERN_HYPERSTROBE", PatternID::PATTERN_HYPERSTROBE)
@@ -237,7 +254,20 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .value("PATTERN_BOUNCE", PatternID::PATTERN_BOUNCE)
     .value("PATTERN_SPLITSTROBIE", PatternID::PATTERN_SPLITSTROBIE)
     .value("PATTERN_BACKSTROBE", PatternID::PATTERN_BACKSTROBE)
-    .value("PATTERN_VORTEX", PatternID::PATTERN_VORTEX);
+    .value("PATTERN_VORTEX", PatternID::PATTERN_VORTEX)
+
+    // meta constants
+    //.value("PATTERN_FIRST", PatternID::PATTERN_FIRST)
+    //.value("PATTERN_SINGLE_FIRST", PatternID::PATTERN_SINGLE_FIRST)
+    //.value("PATTERN_MULTI_FIRST", PatternID::PATTERN_MULTI_FIRST)
+    //.value("PATTERN_SINGLE_LAST", PatternID::PATTERN_SINGLE_LAST)
+    //.value("PATTERN_SINGLE_COUNT", PatternID::PATTERN_SINGLE_COUNT)
+    //.value("PATTERN_MULTI_LAST", PatternID::PATTERN_MULTI_LAST)
+    //.value("PATTERN_MULTI_COUNT", PatternID::PATTERN_MULTI_COUNT)
+    //.value("PATTERN_LAST", PatternID::PATTERN_LAST)
+    .value("PATTERN_COUNT", PatternID::PATTERN_COUNT);
+
+
 
   enum_<MenuEntryID>("MenuEntryID")
     .value("MENU_NONE", MenuEntryID::MENU_NONE)
@@ -371,6 +401,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("serialize", &Mode::serialize)
     .function("unserialize", &Mode::unserialize)
     .function("equalsMode", &Mode::equals, allow_raw_pointer<const Mode *>())
+    .function("setLedCount", &Mode::setLedCount)
     .function("getLedCount", &Mode::getLedCount)
     .function("getColorset", select_overload<const Colorset(LedPos) const>(&Mode::getColorset))
     .function("getPatternID", &Mode::getPatternID)
@@ -382,7 +413,14 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("clearPattern", &Mode::clearPattern)
     .function("clearColorset", &Mode::clearColorset)
     .function("setArg", &Mode::setArg)
-    .function("getArg", &Mode::getArg);
+    .function("getArg", &Mode::getArg)
+    .function("hasMultiLed", &Mode::hasMultiLed)
+    .function("hasSingleLed", &Mode::hasSingleLed)
+    .function("hasSameSingleLed", &Mode::hasSameSingleLed)
+    .function("hasSparseSingleLed", &Mode::hasSparseSingleLed)
+    .function("isEmpty", &Mode::isEmpty)
+    //.function("getSingleLedMap", &Mode::getSingleLedMap)
+    .function("isMultiLed", &Mode::isMultiLed);
 
   class_<Modes>("Modes")
     .function("init", &Modes::init)
@@ -532,6 +570,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
 
   function("getDataArray", &getDataArray);
   function("getRawDataArray", &getRawDataArray);
+  function("createByteStreamFromData", &createByteStreamFromData);
 
 }
 #endif
@@ -605,7 +644,8 @@ Vortex::Vortex() :
   m_storageEnabled(false),
   m_sleepEnabled(true),
   m_lockEnabled(true),
-  m_lastCommand(0)
+  m_lastCommand(0),
+  m_randCtx(0)
 {
   // default callbacks pointer that can be replaced with a derivative
   // of the VortexCallbacks class
@@ -613,6 +653,16 @@ Vortex::Vortex() :
   if (!m_storedCallbacks) {
     // error! out of memory
   }
+#ifdef _WIN32
+  m_randCtx.seed((uint32_t)(time(NULL) ^ GetTickCount64()));
+#else
+  struct timespec ts;
+  unsigned long theTick = 0U;
+  clock_gettime(CLOCK_MONOTONIC, &ts);
+  theTick = ts.tv_nsec / 1000000;
+  theTick += ts.tv_sec * 1000;
+  m_randCtx.seed(time(NULL) ^ theTick);
+#endif
 }
 
 Vortex::~Vortex()
@@ -1187,13 +1237,12 @@ uint32_t Vortex::numLedsInMode()
 bool Vortex::addNewMode(bool save)
 {
   Colorset set;
-  Random ctx;
-  set.randomize(ctx);
+  set.randomize(m_randCtx);
   // create a random pattern ID from all patterns
   PatternID randomPattern;
   do {
     // continuously re-randomize the pattern so we don't get solids
-    randomPattern = (PatternID)ctx.next16(PATTERN_FIRST, PATTERN_COUNT);
+    randomPattern = (PatternID)m_randCtx.next16(PATTERN_FIRST, PATTERN_SINGLE_LAST);
   } while (randomPattern == PATTERN_SOLID);
   if (!m_engine.modes().addMode(randomPattern, nullptr, &set)) {
     return false;

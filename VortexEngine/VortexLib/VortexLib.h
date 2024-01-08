@@ -6,6 +6,7 @@
 
 #include "VortexEngine.h"
 #include "Patterns/Patterns.h"
+#include "Random/Random.h"
 #include "Leds/LedTypes.h"
 #include "json.hpp"
 
@@ -73,7 +74,6 @@ class PatternArgs;
 class ByteStream;
 class Colorset;
 class Pattern;
-class Random;
 class Button;
 class Mode;
 
@@ -416,4 +416,6 @@ private:
   bool m_lockEnabled;
   // the last command to have been executed
   char m_lastCommand;
+  // internal random ctx for stuff
+  Random m_randCtx;
 };
