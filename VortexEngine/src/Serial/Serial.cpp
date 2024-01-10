@@ -58,7 +58,7 @@ bool SerialComs::checkSerial()
   Vortex::vcallbacks()->serialBegin(SERIAL_BAUD_RATE);
 #else
   // This will check if the serial communication is open
-  if (!Serial.available()) {
+  if (!Serial) {
     // serial is not connected
     return false;
   }
