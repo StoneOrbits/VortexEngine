@@ -165,13 +165,13 @@ public:
   void loadStorage();
 
   // open various menus on the core (if they exist!)
-  void openRandomizer();
-  void openColorSelect();
-  void openPatternSelect();
-  void openGlobalBrightness();
-  void openFactoryReset();
-  void openModeSharing();
-  void openEditorConnection();
+  void openRandomizer(bool advanced = false);
+  void openColorSelect(bool advanced = false);
+  void openPatternSelect(bool advanced = false);
+  void openGlobalBrightness(bool advanced = false);
+  void openFactoryReset(bool advanced = false);
+  void openModeSharing(bool advanced = false);
+  void openEditorConnection(bool advanced = false);
 
   // convert modes to/from a bytestream
   bool getModes(ByteStream &outStream);

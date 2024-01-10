@@ -1090,40 +1090,40 @@ void Vortex::loadStorage()
   m_engine.modes().loadStorage();
 }
 
-void Vortex::openRandomizer()
+void Vortex::openRandomizer(bool advanced)
 {
-  m_engine.menus().openMenu(MENU_RANDOMIZER);
+  m_engine.menus().openMenu(MENU_RANDOMIZER, advanced);
 }
 
-void Vortex::openColorSelect()
+void Vortex::openColorSelect(bool advanced)
 {
-  m_engine.menus().openMenu(MENU_COLOR_SELECT);
+  m_engine.menus().openMenu(MENU_COLOR_SELECT, advanced);
 }
 
-void Vortex::openPatternSelect()
+void Vortex::openPatternSelect(bool advanced)
 {
-  m_engine.menus().openMenu(MENU_PATTERN_SELECT);
+  m_engine.menus().openMenu(MENU_PATTERN_SELECT, advanced);
 }
 
-void Vortex::openGlobalBrightness()
+void Vortex::openGlobalBrightness(bool advanced)
 {
-  m_engine.menus().openMenu(MENU_GLOBAL_BRIGHTNESS);
+  m_engine.menus().openMenu(MENU_GLOBAL_BRIGHTNESS, advanced);
 }
 
-void Vortex::openFactoryReset()
+void Vortex::openFactoryReset(bool advanced)
 {
-  m_engine.menus().openMenu(MENU_FACTORY_RESET);
+  m_engine.menus().openMenu(MENU_FACTORY_RESET, advanced);
 }
 
-void Vortex::openModeSharing()
+void Vortex::openModeSharing(bool advanced)
 {
-  m_engine.menus().openMenu(MENU_MODE_SHARING);
+  m_engine.menus().openMenu(MENU_MODE_SHARING, advanced);
 }
 
-void Vortex::openEditorConnection()
+void Vortex::openEditorConnection(bool advanced)
 {
 #if ENABLE_EDITOR_CONNECTION == 1
-  m_engine.menus().openMenu(MENU_EDITOR_CONNECTION);
+  m_engine.menus().openMenu(MENU_EDITOR_CONNECTION, advanced);
 #endif
 }
 
