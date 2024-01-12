@@ -197,7 +197,7 @@ void PatternSelect::onLongClick()
     m_state = STATE_PICK_PATTERN;
     // start the new pattern ID selection based on the chosen list
     m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));
-    m_previewMode.setPattern(m_newPatternID);
+    m_previewMode.setPatternMap(m_targetLeds, m_newPatternID);
     m_previewMode.init();
     DEBUG_LOGF("Started picking pattern at %u", m_newPatternID);
     break;
