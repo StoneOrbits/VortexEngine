@@ -255,7 +255,7 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .value("PATTERN_SPLITSTROBIE", PatternID::PATTERN_SPLITSTROBIE)
     .value("PATTERN_BACKSTROBE", PatternID::PATTERN_BACKSTROBE)
     .value("PATTERN_VORTEX", PatternID::PATTERN_VORTEX)
-
+    .value("PATTERN_COUNT", PatternID::PATTERN_COUNT);
     // meta constants
     //.value("PATTERN_FIRST", PatternID::PATTERN_FIRST)
     //.value("PATTERN_SINGLE_FIRST", PatternID::PATTERN_SINGLE_FIRST)
@@ -265,9 +265,6 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     //.value("PATTERN_MULTI_LAST", PatternID::PATTERN_MULTI_LAST)
     //.value("PATTERN_MULTI_COUNT", PatternID::PATTERN_MULTI_COUNT)
     //.value("PATTERN_LAST", PatternID::PATTERN_LAST)
-    .value("PATTERN_COUNT", PatternID::PATTERN_COUNT);
-
-
 
   enum_<MenuEntryID>("MenuEntryID")
     .value("MENU_NONE", MenuEntryID::MENU_NONE)
@@ -422,6 +419,27 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     //.function("getSingleLedMap", &Mode::getSingleLedMap)
     .function("isMultiLed", &Mode::isMultiLed);
 
+  class_<Menus>("Menus")
+    .function("init", &Menus::init)
+    .function("cleanup", &Menus::cleanup)
+    .function("run", &Menus::run)
+    .function("openMenuSelection", &Menus::openMenuSelection)
+    .function("openMenu", &Menus::openMenu)
+    .function("showSelection", &Menus::showSelection)
+    .function("checkOpen", &Menus::checkOpen)
+    .function("checkInMenu", &Menus::checkInMenu)
+    .function("curMenu", &Menus::curMenu, allow_raw_pointers())
+    .function("curMenuID", &Menus::curMenuID);
+
+  class_<Menu>("Menu")
+    .function("init", &Menu::init)
+    .function("run", &Menu::run)
+    .function("onLedSelected", &Menu::onLedSelected)
+    .function("onShortClick", &Menu::onShortClick)
+    .function("onLongClick", &Menu::onLongClick)
+    .function("leaveMenu", &Menu::leaveMenu)
+    .function("setTargetLeds", &Menu::setTargetLeds);
+
   class_<Modes>("Modes")
     .function("init", &Modes::init)
     .function("cleanup", &Modes::cleanup)
@@ -507,6 +525,9 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("openFactoryReset", &Vortex::openFactoryReset)
     .function("openModeSharing", &Vortex::openModeSharing)
     .function("openEditorConnection", &Vortex::openEditorConnection)
+    .function("clearMenuTargetLeds", &Vortex::clearMenuTargetLeds)
+    .function("setMenuTargetLeds", &Vortex::setMenuTargetLeds)
+    .function("addMenuTargetLeds", &Vortex::addMenuTargetLeds)
     .function("getModes", &Vortex::getModes)
     .function("setModes", &Vortex::setModes)
     .function("getCurMode", &Vortex::getCurMode)
@@ -1125,6 +1146,34 @@ void Vortex::openEditorConnection(bool advanced)
 #if ENABLE_EDITOR_CONNECTION == 1
   m_engine.menus().openMenu(MENU_EDITOR_CONNECTION, advanced);
 #endif
+}
+
+void Vortex::clearMenuTargetLeds()
+{
+  Menu *cur = m_engine.menus().curMenu();
+  if (!cur) {
+    return;
+  }
+  cur->setTargetLeds(MAP_LED_NONE);
+}
+
+void Vortex::setMenuTargetLeds(LedMap targetLeds)
+{
+  Menu *cur = m_engine.menus().curMenu();
+  if (!cur) {
+    return;
+  }
+  cur->setTargetLeds(targetLeds);
+}
+
+void Vortex::addMenuTargetLeds(LedPos pos)
+{
+  Menu *cur = m_engine.menus().curMenu();
+  if (!cur) {
+    return;
+  }
+  LedMap curMap = cur->getTargetLeds();
+  cur->setTargetLeds((LedMap)(curMap | MAP_LED(pos)));
 }
 
 bool Vortex::getModes(ByteStream &outStream)

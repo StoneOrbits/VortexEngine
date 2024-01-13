@@ -37,6 +37,15 @@ public:
   // close the current menu
   virtual void leaveMenu(bool doSave = false);
 
+  // forcibly overwrite the targetleds of the menu, also bypass led selection
+  void setTargetLeds(LedMap targetLeds) {
+    m_targetLeds = targetLeds;
+    m_ledSelected = true;
+  }
+  LedMap getTargetLeds() const {
+    return m_targetLeds;
+  }
+
 protected:
   void showBulbSelection();
   void showExit();

@@ -173,6 +173,11 @@ public:
   void openModeSharing(bool advanced = false);
   void openEditorConnection(bool advanced = false);
 
+  // set the target leds for the open menu
+  void clearMenuTargetLeds();
+  void setMenuTargetLeds(LedMap targetLeds);
+  void addMenuTargetLeds(LedPos pos);
+
   // convert modes to/from a bytestream
   bool getModes(ByteStream &outStream);
   bool setModes(ByteStream &stream, bool save = true);
