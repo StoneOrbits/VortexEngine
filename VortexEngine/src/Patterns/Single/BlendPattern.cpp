@@ -42,7 +42,10 @@ void BlendPattern::onBlinkOn()
   interpolate(m_cur.green, m_next.green);
   interpolate(m_cur.blue, m_next.blue);
   RGBColor col = m_cur;
-  if (m_flip) {
+  // it should be impossible for m_numFlips to be 0 and m_flip to be 1
+  // unless the pattern arg is changed mid-play which could happen with
+  // and editor or something, so check both for 0
+  if (m_flip && m_numFlips) {
     // convert to hsv
     HSVColor hsvCol = m_cur;
     // shift the hue by a flip size
