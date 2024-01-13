@@ -314,8 +314,13 @@ bool Randomizer::rollCustomPattern(Random &ctx, Mode *pMode, LedPos pos)
   // colors instead of blinking each color in the set
   if (!ctx.next8(0, 3)) {
     newPat = PATTERN_BLEND;
-    // this is the number of blinks to a complementary color
-    args.arg7 = ctx.next8(0, 3);
+    // set the blend speed
+    args.arg6 = ctx.next8(1, 10);
+    // 1/2 chance to make the blend a flipping blend of some kind
+    if (!ctx.next8(0, 2)) {
+      // this is the number of blinks to a complementary color
+      args.arg7 = ctx.next8(0, 3);
+    }
     // up to arg7 is filled now
     args.numArgs = 7;
   }
