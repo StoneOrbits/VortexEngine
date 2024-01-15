@@ -23,7 +23,7 @@ install:
 	echo 'board_manager: \n  additional_urls: \n    - https://adafruit.github.io/arduino-board-index/package_adafruit_index.json' | sudo tee $(CONFIG_FILE)
 	$(ARDUINO_CLI) core update-index --config-file $(CONFIG_FILE)
 	if ! $(ARDUINO_CLI) core list --config-file $(CONFIG_FILE) | grep -q '$(BOARD)' ; then \
-		$(ARDUINO_CLI) core install adafruit:samd --config-file $(CONFIG_FILE) ; \
+		$(ARDUINO_CLI) core install adafruit:samd:1.5.14 --config-file $(CONFIG_FILE) ; \
 	fi
 	wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2conv.py
 	wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2families.json
