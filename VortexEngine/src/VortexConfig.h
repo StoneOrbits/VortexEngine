@@ -500,6 +500,12 @@
 // that it's no longer listening
 #define EDITOR_VERB_GOODBYE           "l"
 
+// when the computer wants to send a mode to the duo it tells the device
+// to transmit over VL and send the current preview mode to the duo
+#define EDITOR_VERB_TRANSMIT_VL       "m"
+// the response from the device when it's done transmitting the mode
+#define EDITOR_VERB_TRANSMIT_VL_ACK   "n"
+
 // ===================================================================
 //  Manually Configured Sizes
 //
