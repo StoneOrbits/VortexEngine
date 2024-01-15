@@ -168,7 +168,7 @@ Menu::MenuAction EditorConnection::run()
     m_state = STATE_IDLE;
     break;
   case STATE_TRANSMIT_MODE_VL:
-#if ENABLE_VL_SENDER == 1
+#if VL_ENABLE_SENDER == 1
     // if still sending and the send command indicated more data
     if (m_engine.vlSender().isSending() && m_engine.vlSender().send()) {
       // then continue sending
@@ -190,7 +190,7 @@ Menu::MenuAction EditorConnection::run()
 
 void EditorConnection::sendCurModeVL()
 {
-#if ENABLE_VL_SENDER == 1
+#if VL_ENABLE_SENDER == 1
   // immediately load the mode and send it now
   m_engine.vlSender().loadMode(&m_previewMode);
   m_engine.vlSender().send();
