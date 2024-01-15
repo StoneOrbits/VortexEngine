@@ -15,6 +15,9 @@ public:
   bool init() override;
   MenuAction run() override;
 
+  // broadcast the current preview mode over VL
+  void sendCurModeVL();
+
   // handlers for clicks
   void onShortClick() override;
   void onShortClick2() override;
@@ -62,8 +65,9 @@ private:
     // engine tells gloves to clear the demo preview, gloves acknowledge
     STATE_CLEAR_DEMO,
 
-    // send the mode over visible light
-    STATE_SEND_MODE_VL,
+    // transmit the mode over visible light
+    STATE_TRANSMIT_MODE_VL,
+    STATE_TRANSMIT_MODE_VL_DONE,
   };
 
   // state of the editor
