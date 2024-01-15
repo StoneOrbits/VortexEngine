@@ -170,7 +170,7 @@ Menu::MenuAction EditorConnection::run()
   case STATE_TRANSMIT_MODE_VL:
 #if ENABLE_VL_SENDER == 1
     // if still sending and the send command indicated more data
-    if (VLSender::isSending() && VLSender::send()) {
+    if (m_engine.vlSender().isSending() && m_engine.vlSender().send()) {
       // then continue sending
       break;
     }
@@ -181,7 +181,7 @@ Menu::MenuAction EditorConnection::run()
   case STATE_TRANSMIT_MODE_VL_DONE:
     // done transmitting
     m_receiveBuffer.clear();
-    SerialComs::write(EDITOR_VERB_TRANSMIT_VL_ACK);
+    m_engine.serial().write(EDITOR_VERB_TRANSMIT_VL_ACK);
     m_state = STATE_IDLE;
     break;
   }
@@ -192,8 +192,8 @@ void EditorConnection::sendCurModeVL()
 {
 #if ENABLE_VL_SENDER == 1
   // immediately load the mode and send it now
-  VLSender::loadMode(&m_previewMode);
-  VLSender::send();
+  m_engine.vlSender().loadMode(&m_previewMode);
+  m_engine.vlSender().send();
 #endif
   m_state = STATE_TRANSMIT_MODE_VL;
 }
