@@ -76,12 +76,6 @@ void PatternSelect::showPatternSelection()
   }
 }
 
-void PatternSelect::onLedSelected()
-{
-  m_previewMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
-  m_previewMode.init();
-}
-
 void PatternSelect::onShortClick()
 {
   switch (m_state) {
@@ -197,7 +191,16 @@ void PatternSelect::onLongClick()
     m_state = STATE_PICK_PATTERN;
     // start the new pattern ID selection based on the chosen list
     m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));
-    m_previewMode.setPattern(m_newPatternID);
+    // need to ready up the preview mode for picking patterns, this can look different based on
+    // which pattern was already on this mode, and which leds they decided to pick
+    // for example if they had a multi-led pattern and they are targetting some grouping of singles now
+    // then we need to convert the multi into singles, maybe in the future we can allow singles to overlay
+    if (m_previewMode.isMultiLed() && m_targetLeds != MAP_LED_ALL && m_targetLeds != MAP_LED(LED_MULTI)) {
+      Colorset curSet = m_previewMode.getColorset();
+      m_previewMode.clearPattern(LED_MULTI);
+      m_previewMode.setPattern(PATTERN_FIRST, LED_ALL_SINGLE, nullptr, &curSet);
+    }
+    m_previewMode.setPatternMap(m_targetLeds, m_newPatternID);
     m_previewMode.init();
     DEBUG_LOGF("Started picking pattern at %u", m_newPatternID);
     break;
