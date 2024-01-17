@@ -165,14 +165,35 @@ Menu::MenuAction EditorConnection::run()
     SerialComs::write(EDITOR_VERB_CLEAR_DEMO_ACK);
     m_state = STATE_IDLE;
     break;
-  case STATE_SEND_MODE_VL:
-    if (!VLSender::isSending() || !VLSender::send()) {
-      m_state = STATE_IDLE;
+  case STATE_TRANSMIT_MODE_VL:
+#if VL_ENABLE_SENDER == 1
+    // if still sending and the send command indicated more data
+    if (VLSender::isSending() && VLSender::send()) {
+      // then continue sending
+      break;
     }
-    // continue sending
+#endif
+    // othewrise, done, switch to the transmit done state
+    m_state = STATE_TRANSMIT_MODE_VL_DONE;
+    break;
+  case STATE_TRANSMIT_MODE_VL_DONE:
+    // done transmitting
+    m_receiveBuffer.clear();
+    SerialComs::write(EDITOR_VERB_TRANSMIT_VL_ACK);
+    m_state = STATE_IDLE;
     break;
   }
   return MENU_CONTINUE;
+}
+
+void EditorConnection::sendCurModeVL()
+{
+#if VL_ENABLE_SENDER == 1
+  // immediately load the mode and send it now
+  VLSender::loadMode(&m_previewMode);
+  VLSender::send();
+#endif
+  m_state = STATE_TRANSMIT_MODE_VL;
 }
 
 // handlers for clicks
@@ -186,9 +207,7 @@ void EditorConnection::onShortClick()
 
 void EditorConnection::onShortClick2()
 {
-  VLSender::loadMode(&m_previewMode);
-  VLSender::send();
-  m_state = STATE_SEND_MODE_VL;
+  sendCurModeVL();
 }
 
 void EditorConnection::onLongClick()
@@ -310,5 +329,7 @@ void EditorConnection::handleCommand()
     m_state = STATE_DEMO_MODE;
   } else if (receiveMessage(EDITOR_VERB_CLEAR_DEMO)) {
     m_state = STATE_CLEAR_DEMO;
+  } else if (receiveMessage(EDITOR_VERB_TRANSMIT_VL)) {
+    sendCurModeVL();
   }
 }
