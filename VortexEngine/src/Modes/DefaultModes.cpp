@@ -79,48 +79,52 @@ const default_mode_entry default_modes[MAX_MODES] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, MAP_LED_ALL, 5, {
-      HSV(0, 0, 255),
-      HSV(0, 0, 255),
-      HSV(0, 0, 0),
-      HSV(110, 255, 170),
-      HSV(0, 0, 0)
+    PATTERN_BLENDSTROBE, MAP_RINGS_EVEN, 6, {
+      0x554A00,
+      0x554A00,
+      0x00AA90,
+      0x00AA90,
+      0xD200FF,
+      0xD200FF
     },
-    PATTERN_GHOSTCRUSH, MAP_LED_NONE, 5, {
-      HSV(0, 0, 255),
-      HSV(0, 0, 255),
-      HSV(0, 0, 0),
-      HSV(110, 255, 170),
-      HSV(0, 0, 0)
+    PATTERN_DOUBLEDOPS, MAP_RINGS_ODD, 8, {
+      0xFF0033,
+      0xFF0033,
+      0xDB2F00,
+      0xB76B00,
+      0x938D00,
+      0x4A6F00,
+      0x164B00,
+      0x002702
     }
   },
 
   {
-    PATTERN_GHOSTCRUSH, MAP_LED_ALL, 5, {
+    PATTERN_CHASER, MAP_LED_ALL, 5, {
+      0x9FFF00,
+      0x00FF66,
+      0x009FFF,
+      0x5A00FF,
+      0xFF009F
+    },
+    PATTERN_CHASER, MAP_LED_NONE, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
       HSV(140, 255, 170),
       HSV(0, 0, 0)
-    },
-    PATTERN_GHOSTCRUSH, MAP_LED_NONE, 5, {
-      HSV(0, 0, 255),
-      HSV(0, 0, 255),
-      HSV(0, 0, 0),
-      HSV(140, 255, 170),
-      HSV(0, 0, 0)
     }
   },
 
   {
-    PATTERN_GHOSTCRUSH, MAP_LED_ALL, 5, {
-      HSV(0, 0, 255),
-      HSV(0, 0, 255),
-      HSV(0, 0, 0),
-      HSV(170, 255, 170),
-      HSV(0, 0, 0)
+    PATTERN_METEOR, MAP_LED_ALL, 5, {
+      0x00AA90,
+      0x00B1FF,
+      0x300055,
+      0xFF002D,
+      0x541B00
     },
-    PATTERN_GHOSTCRUSH, MAP_LED_NONE, 5, {
+    PATTERN_METEOR, MAP_LED_NONE, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
@@ -130,14 +134,14 @@ const default_mode_entry default_modes[MAX_MODES] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, MAP_LED_ALL, 5, {
-      HSV(0, 0, 255),
-      HSV(0, 0, 255),
-      HSV(0, 0, 0),
-      HSV(200, 255, 170),
-      HSV(0, 0, 0)
+    PATTERN_DRIP, MAP_LED_ALL, 5, {
+      0x0000FF,
+      0x400055,
+      0x54000B,
+      0x525400,
+      0x26AA00
     },
-    PATTERN_GHOSTCRUSH, MAP_LED_NONE, 5, {
+    PATTERN_DRIP, MAP_LED_NONE, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
@@ -147,14 +151,11 @@ const default_mode_entry default_modes[MAX_MODES] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, MAP_LED_ALL, 5, {
-      HSV(0, 0, 255),
-      HSV(0, 0, 255),
-      HSV(0, 0, 0),
-      HSV(230, 255, 170),
-      HSV(0, 0, 0)
+    PATTERN_HYPERSTROBE, MAP_LED_ALL, 2, {
+      0xFFF600,
+      0x000880
     },
-    PATTERN_GHOSTCRUSH, MAP_LED_NONE, 5, {
+    PATTERN_HYPERSTROBE, MAP_LED_NONE, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
@@ -164,14 +165,15 @@ const default_mode_entry default_modes[MAX_MODES] = {
   },
 
   {
-    PATTERN_GHOSTCRUSH, MAP_LED_ALL, 5, {
-      HSV(0, 0, 255),
-      HSV(0, 0, 255),
-      HSV(0, 0, 0),
-      HSV(0, 255, 170),
-      HSV(0, 0, 0)
+    PATTERN_SPARKLETRACE, MAP_LED_ALL, 6, {
+      0x003755,
+      0x003755,
+      0xAA0072,
+      0xAA0072,
+      0xA5FF00,
+      0xA5FF00
     },
-    PATTERN_GHOSTCRUSH, MAP_LED_NONE, 5, {
+    PATTERN_SPARKLETRACE, MAP_LED_NONE, 5, {
       HSV(0, 0, 255),
       HSV(0, 0, 255),
       HSV(0, 0, 0),
@@ -181,17 +183,14 @@ const default_mode_entry default_modes[MAX_MODES] = {
   },
 
   {
-    PATTERN_STROBE, MAP_LED_ALL, 8, {
-      0xD4002B,
-      RGB_OFF,
-      0x0056AA,
-      RGB_OFF,
-      0x8E711C,
-      RGB_OFF,
-      0x0056AA,
-      RGB_OFF
+    PATTERN_DASHDOPS, MAP_LED_ALL, 5, {
+      0xE2E7FF,
+      0x010015,
+      0x13090E,
+      0x010015,
+      0xE2E7FF
     },
-    PATTERN_STROBE, MAP_LED_NONE, 8, {
+    PATTERN_DASHDOPS, MAP_LED_NONE, 8, {
       0xD4002B,
       RGB_OFF,
       0x0056AA,
