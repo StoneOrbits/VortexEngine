@@ -83,50 +83,50 @@ bool Storage::write(uint16_t slot, ByteStream &buffer)
   uint8_t name[3] = { (uint8_t)('a' + m_storagePage), (uint8_t)('a' + (uint8_t)slot), 0 };
   esp_err_t err = nvs_open((char *)name, NVS_READWRITE, &nvs);
   if (err != ESP_OK) {
-    Leds::holdAll(RGB_WHITE0);
-    Leds::holdAll(RGB_WHITE0);
-    Leds::holdAll(RGB_WHITE0);
-    switch (err) {
-    case ESP_OK:
-      break;
-    case ESP_FAIL:
-      Leds::holdAll(RGB_RED);
-      break;
-    case ESP_ERR_NVS_NOT_INITIALIZED:
-      Leds::holdAll(RGB_PURPLE);
-      break;
-    case ESP_ERR_NVS_PART_NOT_FOUND:
-      Leds::holdAll(RGB_CYAN);
-      break;
-    case ESP_ERR_NVS_NOT_FOUND:
-      Leds::holdAll(RGB_YELLOW);
-      break;
-    case ESP_ERR_NVS_INVALID_NAME:
-      Leds::holdAll(RGB_ORANGE);
-      break;
-    case ESP_ERR_NO_MEM:
-      Leds::holdAll(RGB_BLUE);
-      break;
-    case ESP_ERR_NVS_NOT_ENOUGH_SPACE:
-      Leds::holdAll(RGB_GREEN);
-      break;
-      //case ESP_ERR_NOT_ALLOWED:
-      //  Leds::holdAll(RGB_WHITE);
-      //  break;
-    case ESP_ERR_INVALID_ARG:
-      Leds::holdAll(RGB_MAGENTA);
-      break;
-    }
+    //Leds::holdAll(RGB_WHITE0);
+    //Leds::holdAll(RGB_WHITE0);
+    //Leds::holdAll(RGB_WHITE0);
+    //switch (err) {
+    //case ESP_OK:
+    //  break;
+    //case ESP_FAIL:
+    //  Leds::holdAll(RGB_RED);
+    //  break;
+    //case ESP_ERR_NVS_NOT_INITIALIZED:
+    //  Leds::holdAll(RGB_PURPLE);
+    //  break;
+    //case ESP_ERR_NVS_PART_NOT_FOUND:
+    //  Leds::holdAll(RGB_CYAN);
+    //  break;
+    //case ESP_ERR_NVS_NOT_FOUND:
+    //  Leds::holdAll(RGB_YELLOW);
+    //  break;
+    //case ESP_ERR_NVS_INVALID_NAME:
+    //  Leds::holdAll(RGB_ORANGE);
+    //  break;
+    //case ESP_ERR_NO_MEM:
+    //  Leds::holdAll(RGB_BLUE);
+    //  break;
+    //case ESP_ERR_NVS_NOT_ENOUGH_SPACE:
+    //  Leds::holdAll(RGB_GREEN);
+    //  break;
+    //  //case ESP_ERR_NOT_ALLOWED:
+    //  //  Leds::holdAll(RGB_WHITE);
+    //  //  break;
+    //case ESP_ERR_INVALID_ARG:
+    //  Leds::holdAll(RGB_MAGENTA);
+    //  break;
+    //}
   }
   if (err != ESP_OK) {
     nvs_close(nvs);
-    Leds::holdAll(RGB_GREEN);
+    //Leds::holdAll(RGB_GREEN);
     return false;
   }
   err = nvs_set_blob(nvs, (char *)name, buffer.rawData(), buffer.rawSize());
   if (err != ESP_OK) {
     nvs_close(nvs);
-    Leds::holdAll(RGB_BLUE);
+    //Leds::holdAll(RGB_BLUE);
     return false;
   }
   nvs_close(nvs);
@@ -184,7 +184,7 @@ bool Storage::read(uint16_t slot, ByteStream &buffer)
   esp_err_t err = nvs_open((char *)name, NVS_READWRITE, &nvs);
   if (err != ESP_OK) {
     nvs_close(nvs);
-    Leds::holdAll(RGB_YELLOW);
+    //Leds::holdAll(RGB_YELLOW);
     return false;
   }
   size_t read_size = size;
@@ -192,7 +192,7 @@ bool Storage::read(uint16_t slot, ByteStream &buffer)
   err = nvs_get_blob(nvs, (char *)name, buffer.rawData(), &read_size);
   if (err != ESP_OK) {
     nvs_close(nvs);
-    Leds::holdAll(RGB_PURPLE);
+    //Leds::holdAll(RGB_PURPLE);
     return false;
   }
   nvs_close(nvs);
