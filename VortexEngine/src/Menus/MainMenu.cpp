@@ -33,7 +33,7 @@ bool MainMenu::run()
     pressLeft();
   }
   // press o
-  if (g_pButtonM->onLongClick()) {
+  if (g_pButtonM->onShortClick()) {
     select();
   }
   // press >
