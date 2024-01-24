@@ -146,6 +146,9 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 // bitmap of all pairs (basically LED_COUNT bits)
 #define MAP_LED_ALL ((2 << (LED_COUNT - 1)) - 1)
 
+// bitmap of the side leds
+// theres a way to do this with bitmath but idk
+#define MAP_SIDES (5)
 // blank map
 #define MAP_LED_NONE 0
 
