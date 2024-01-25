@@ -1,11 +1,14 @@
 #include "MainMenu.h"
 
 #include "../Time/TimeControl.h"
+#include "../Storage/Storage.h"
 #include "../Buttons/Buttons.h"
 #include "../Leds/LedTypes.h"
+#include "../Modes/Modes.h"
 #include "../Leds/Leds.h"
+#include "../Log/Log.h"
 
-bool MainMenu::m_isOpen = false;
+bool MainMenu::m_isOpen = true;
 uint8_t MainMenu::m_curSelection = 0;
 
 #define NUM_SELECTIONS (LED_COUNT / 2)
@@ -51,23 +54,28 @@ void MainMenu::show()
   uint32_t now = Time::getCurtime();
   MAP_FOREACH_LED(MAP_OUTER_RING) {
     Leds::breathIndex(pos, hue, (now / 2), 8, 255, 180);
-    hue -= (255 / (LED_COUNT / 2));
+    hue += (255 / (LED_COUNT / 2));
   }
   hue = 0;
   MAP_FOREACH_LED(MAP_INNER_RING) {
     Leds::breathIndex(pos, hue, (now / 2), 8, 255, 180);
-    hue -= (255 / (LED_COUNT / 2));
+    hue += (255 / (LED_COUNT / 2));
   }
   Leds::blinkIndex((LedPos)m_curSelection);
   Leds::blinkIndex((LedPos)(m_curSelection + 10));
 }
 
-void MainMenu::pressLeft()
+void MainMenu::open()
 {
-  m_curSelection = (m_curSelection + 1) % NUM_SELECTIONS;
+  m_isOpen = true;
 }
 
-void MainMenu::pressRight()
+bool MainMenu::isOpen()
+{
+  return m_isOpen;
+}
+
+void MainMenu::pressLeft()
 {
   if (!m_curSelection) {
     m_curSelection = NUM_SELECTIONS - 1;
@@ -76,7 +84,17 @@ void MainMenu::pressRight()
   }
 }
 
+void MainMenu::pressRight()
+{
+  m_curSelection = (m_curSelection + 1) % NUM_SELECTIONS;
+}
+
 void MainMenu::select()
 {
   m_isOpen = false;
+  Storage::setStoragePage(m_curSelection);
+  if (!Modes::loadStorage()) {
+    Modes::setDefaults();
+  }
+  DEBUG_LOGF("Selected storage page: %u", m_curSelection);
 }

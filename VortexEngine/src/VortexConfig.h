@@ -146,7 +146,7 @@
 //
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    255
+#define DEFAULT_BRIGHTNESS    15
 
 // Max Modes
 //
@@ -164,7 +164,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             13
+#define MAX_MODES             16
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -494,6 +494,12 @@
 // when the gloveset is leaving the menu and needs to tell the editor
 // that it's no longer listening
 #define EDITOR_VERB_GOODBYE           "l"
+
+// when the computer wants to send a mode to the duo it tells the device
+// to transmit over VL and send the current preview mode to the duo
+#define EDITOR_VERB_TRANSMIT_VL       "m"
+// the response from the device when it's done transmitting the mode
+#define EDITOR_VERB_TRANSMIT_VL_ACK   "n"
 
 // ===================================================================
 //  Manually Configured Sizes
