@@ -1,10 +1,10 @@
-name: Core Build
+name: Duo Build
 
 on:
   push:
-    branches: [ "master" ]
+    branches: [ "duo" ]
   pull_request:
-    branches: [ "master" ]
+    branches: [ "duo" ]
   workflow_dispatch: # manual trigger
 
 jobs:
@@ -27,8 +27,31 @@ jobs:
       run: ./runtests.sh --general
       working-directory: VortexEngine/tests
 
-  wasm:
+  embedded:
     needs: test
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v3
+      - name: Set up Python
+        uses: actions/setup-python@v3
+        with:
+          python-version: '3.x'
+      - name: Install Dependencies
+        run: make install
+      - name: Build Binary
+        run: make build
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v3
+        with:
+          name: embedded firmware
+          path: |
+            vortex.bin
+            vortex.elf
+            vortex.map
+            vortex.hex
+
+  wasm:
+    needs: embedded
     runs-on: ubuntu-latest
     steps:
     - name: Checkout current repository
@@ -52,7 +75,7 @@ jobs:
   docs:
     needs: wasm
     runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/master'
+    if: github.ref == 'refs/heads/duo'
     steps:
     - name: Checkout current repository
       uses: actions/checkout@v3
@@ -70,4 +93,4 @@ jobs:
         git config --local user.name "GitHub Action"
         git add docs
         git commit -m "Update Doxygen documentation"
-        git push -f origin HEAD:core-docs
+        git push -f origin HEAD:duo-docs

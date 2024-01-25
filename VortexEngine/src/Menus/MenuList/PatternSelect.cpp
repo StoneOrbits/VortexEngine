@@ -94,15 +94,11 @@ void PatternSelect::onShortClick()
     }
     return;
   }
+
   PatternID newID = (PatternID)(m_previewMode.getPatternID(m_srcLed) + 1);
-  PatternID maxID = PATTERN_SINGLE_LAST;
-#if VORTEX_SLIM == 0
-  if (m_targetLeds == MAP_LED_ALL || m_targetLeds == MAP_LED(LED_MULTI)) {
-    maxID = PATTERN_MULTI_LAST;
-  }
-#endif
-  if (newID > maxID) {
-    newID = maxID;
+  if (newID > PATTERN_SINGLE_LAST) {
+    newID = PATTERN_SINGLE_FIRST;
+    Leds::holdAll(RGB_WHITE);
   }
   if (!m_started) {
     m_started = true;
@@ -112,9 +108,7 @@ void PatternSelect::onShortClick()
   if (isMultiLedPatternID(newID)) {
     m_previewMode.setPattern(newID);
   } else {
-    // TODO: clear multi a better way
     m_previewMode.setPatternMap(m_targetLeds, newID);
-    m_previewMode.clearPattern(LED_MULTI);
   }
   m_previewMode.init();
   DEBUG_LOGF("Iterated to pattern id %d", newID);

@@ -26,7 +26,7 @@
 
 // the engine flavour, this should change for each device/flavour
 // of the engine that branches off from the main indefinitely
-#define VORTEX_NAME "Core"
+#define VORTEX_NAME "Duo"
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
@@ -38,7 +38,7 @@
 // This disabled multi-led patterns and compression because the
 // multi-led patterns take up too much space and the compression
 // uses too much stack space to run on smaller devices
-#define VORTEX_SLIM           0
+#define VORTEX_SLIM           1
 
 // ===================================================================
 //  Numeric Configurations
@@ -47,7 +47,7 @@
 //
 // How long the button must be held to trigger menu selection and
 // begin blinking the first menu color
-#define MENU_TRIGGER_TIME     1000
+#define MENU_TRIGGER_TIME     500
 
 // Short Click Threshold (in milliseconds)
 //
@@ -55,6 +55,27 @@
 // as a 'short click' otherwise if held longer than this threshold
 // it will be registered as a 'long click'
 #define CLICK_THRESHOLD       250
+
+// Sleep Enter Threshold (in milliseconds)
+//
+// How long the button has to be held at the main mode area to enter
+// sleep mode
+#define SLEEP_TRIGGER_TIME    500
+
+// Sleep Window Time (in milliseconds)
+//
+// How long the user has to release the button to enter sleep
+#define SLEEP_WINDOW_TIME     750
+
+// Force Sleep Time (in milliseconds)
+//
+// How long the user has to hold the button anywhere to force sleep
+#define FORCE_SLEEP_TIME      6000
+
+// One-click mode threshold
+//
+// How long the user has to hold the button to trigger one-click mode
+#define ONE_CLICK_MODE_TRHESHOLD 500
 
 // Device Lock Clicks
 //
@@ -107,7 +128,7 @@
 // Leave Advanced Color Select Clicks
 //
 // The number of consecutive clicks required to exit the advanced color select menu
-#define LEAVE_ADV_COL_SELECT_CLICKS 5
+#define LEAVE_ADV_COL_SELECT_CLICKS 8
 
 // Color delete threshold (in milliseconds)
 //
@@ -146,7 +167,7 @@
 //
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    185
+#define DEFAULT_BRIGHTNESS    255
 
 // Max Modes
 //
@@ -164,7 +185,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             13
+#define MAX_MODES             5
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -385,7 +406,7 @@
 // Turn on the editor connection, some devices are capable of connecting to
 // the pc-based editor, this controls whether the engine exposes the purple
 // editor connection menu or not
-#define ENABLE_EDITOR_CONNECTION 1
+#define ENABLE_EDITOR_CONNECTION 0
 
 // Compression Test
 //
@@ -507,14 +528,14 @@
 //  These are the various storage space constants of the vortex device
 
 // maximum size of a mode here
-#define MAX_MODE_SIZE 512
+#define MAX_MODE_SIZE 76
 
 // the number of storage slots for modes, add 1 for the header
 #define NUM_MODE_SLOTS (MAX_MODES + 1)
 
 // the space available for storing modes, we can't make this too big
 // otherwise we will have trouble loading it into memory
-#define STORAGE_SIZE (MAX_MODE_SIZE * NUM_MODE_SLOTS)
+#define STORAGE_SIZE 384
 
 // ===================================================================
 //  Test Framework configurations

@@ -4,9 +4,8 @@
 #include "../../Serial/Serial.h"
 #include "../../Time/TimeControl.h"
 #include "../../Time/Timings.h"
-#include "../../Wireless/IRReceiver.h"
+#include "../../Wireless/VLReceiver.h"
 #include "../../Wireless/VLSender.h"
-#include "../../Wireless/IRSender.h"
 #include "../../Buttons/Button.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
@@ -34,7 +33,7 @@ bool ModeSharing::init()
   // start on receive because it's the more responsive of the two
   // the odds of opening receive and then accidentally receiving
   // a mode that is being broadcast nearby is completely unlikely
-  beginReceivingIR();
+  beginReceiving();
   DEBUG_LOG("Entering Mode Sharing");
   return true;
 }
@@ -46,23 +45,17 @@ Menu::MenuAction ModeSharing::run()
     return result;
   }
   switch (m_sharingMode) {
-  case ModeShareState::SHARE_SEND_IR:
+  case ModeShareState::SHARE_SEND:
     // render the 'send mode' lights
-    showSendModeIR();
+    showSendMode();
     // continue sending any data as long as there is more to send
-    continueSendingIR();
-    break;
-  case ModeShareState::SHARE_SEND_VL:
-    // render the 'send mode' lights
-    showSendModeVL();
-    // continue sending any data as long as there is more to send
-    continueSendingVL();
+    continueSending();
     break;
   case ModeShareState::SHARE_RECEIVE:
     // render the 'receive mode' lights
     showReceiveMode();
     // load any modes that are received
-    receiveModeIR();
+    receiveMode();
     break;
   }
   return MENU_CONTINUE;
@@ -74,8 +67,8 @@ void ModeSharing::onShortClick()
   switch (m_sharingMode) {
   case ModeShareState::SHARE_RECEIVE:
     // click while on receive -> end receive, start sending
-    IRReceiver::endReceiving();
-    beginSendingIR();
+    VLReceiver::endReceiving();
+    beginSending();
     DEBUG_LOG("Switched to send mode");
     break;
   default:
@@ -90,41 +83,24 @@ void ModeSharing::onLongClick()
   leaveMenu(true);
 }
 
-void ModeSharing::beginSendingVL()
+void ModeSharing::beginSending()
 {
   // if the sender is sending then cannot start again
   if (VLSender::isSending()) {
     ERROR_LOG("Cannot begin sending, sender is busy");
     return;
   }
-  m_sharingMode = ModeShareState::SHARE_SEND_VL;
+  m_sharingMode = ModeShareState::SHARE_SEND;
   // initialize it with the current mode data
   VLSender::loadMode(Modes::curMode());
   // send the first chunk of data, leave if we're done
   if (!VLSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceivingIR();
+    beginReceiving();
   }
 }
 
-void ModeSharing::beginSendingIR()
-{
-  // if the sender is sending then cannot start again
-  if (IRSender::isSending()) {
-    ERROR_LOG("Cannot begin sending, sender is busy");
-    return;
-  }
-  m_sharingMode = ModeShareState::SHARE_SEND_IR;
-  // initialize it with the current mode data
-  IRSender::loadMode(Modes::curMode());
-  // send the first chunk of data, leave if we're done
-  if (!IRSender::send()) {
-    // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceivingIR();
-  }
-}
-
-void ModeSharing::continueSendingVL()
+void ModeSharing::continueSending()
 {
   // if the sender isn't sending then nothing to do
   if (!VLSender::isSending()) {
@@ -132,47 +108,35 @@ void ModeSharing::continueSendingVL()
   }
   if (!VLSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceivingIR();
+    beginReceiving();
   }
 }
 
-void ModeSharing::continueSendingIR()
-{
-  // if the sender isn't sending then nothing to do
-  if (!IRSender::isSending()) {
-    return;
-  }
-  if (!IRSender::send()) {
-    // when send has completed, stores time that last action was completed to calculate interval between sends
-    beginReceivingIR();
-  }
-}
-
-void ModeSharing::beginReceivingIR()
+void ModeSharing::beginReceiving()
 {
   m_sharingMode = ModeShareState::SHARE_RECEIVE;
-  IRReceiver::beginReceiving();
+  VLReceiver::beginReceiving();
 }
 
-void ModeSharing::receiveModeIR()
+void ModeSharing::receiveMode()
 {
   // if reveiving new data set our last data time
-  if (IRReceiver::onNewData()) {
+  if (VLReceiver::onNewData()) {
     m_timeOutStartTime = Time::getCurtime();
     // if our last data was more than time out duration reset the recveiver
   } else if (m_timeOutStartTime > 0 && (m_timeOutStartTime + MAX_TIMEOUT_DURATION) < Time::getCurtime()) {
-    IRReceiver::resetIRState();
+    VLReceiver::resetVLState();
     m_timeOutStartTime = 0;
     return;
   }
-  // check if the IRReceiver has a full packet available
-  if (!IRReceiver::dataReady()) {
+  // check if the VLReceiver has a full packet available
+  if (!VLReceiver::dataReady()) {
     // nothing available yet
     return;
   }
   DEBUG_LOG("Mode ready to receive! Receiving...");
-  // receive the IR mode into the current mode
-  if (!IRReceiver::receiveMode(&m_previewMode)) {
+  // receive the VL mode into the current mode
+  if (!VLReceiver::receiveMode(&m_previewMode)) {
     ERROR_LOG("Failed to receive mode");
     return;
   }
@@ -184,26 +148,25 @@ void ModeSharing::receiveModeIR()
   }
 }
 
-void ModeSharing::showSendModeVL()
+void ModeSharing::showSendMode()
 {
   // show a dim color when not sending
-  Leds::clearAll();
-}
-
-void ModeSharing::showSendModeIR()
-{
-  // show a dim color when not sending
-  Leds::clearAll();
+  if (!VLSender::isSending()) {
+    Leds::setAll(RGBColor(0, 20, 20));
+  }
 }
 
 void ModeSharing::showReceiveMode()
 {
-  if (IRReceiver::isReceiving()) {
+  if (VLReceiver::isReceiving()) {
     // using uint32_t to avoid overflow, the result should be within 10 to 255
-    Leds::setAll(RGBColor(0, IRReceiver::percentReceived(), 0));
+    Leds::setIndex(LED_0, RGBColor(0, VLReceiver::percentReceived(), 0));
+    Leds::clearIndex(LED_1);
   } else {
     if (m_advanced) {
       m_previewMode.play();
+      // don't play on LED 1 so that it doesn't interfere
+      Leds::clearIndex(LED_1);
     } else {
       Leds::setAll(RGB_WHITE0);
     }

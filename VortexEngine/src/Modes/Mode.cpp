@@ -13,6 +13,16 @@
 #include "../Leds/Leds.h"
 #include "../Log/Log.h"
 
+
+Mode::Mode(const DefaultModeEntry &entry) :
+  Mode()
+{
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    Colorset set(entry.leds[pos].numColors, entry.leds[pos].cols);
+    setPattern(entry.leds[pos].patternID, pos, nullptr, &set);
+  }
+}
+
 #if FIXED_LED_COUNT == 0
 // for internal reference to the led count
 #define MODE_LEDCOUNT m_numLeds
@@ -342,6 +352,7 @@ bool Mode::unserialize(ByteStream &buffer)
   for (LedPos pos = (LedPos)ledCount; pos < LED_COUNT; ++pos) {
     m_singlePats[pos] = PatternBuilder::dupe(m_singlePats[src]);
     m_singlePats[pos]->bind(pos);
+    // have to modulate the source by the source mode's led count
     src = (LedPos)((src + 1) % ledCount);
   }
   return true;
@@ -852,6 +863,48 @@ void Mode::test()
   }
   INFO_LOG("Test setPatternAt passed.\n");
 
+  // Test setPattern with multi-led pattern
+  Mode modeMultiLedTest;
+  PatternID multiPatternID = PATTERN_MULTI_FIRST;
+  PatternArgs multiPatternArgs = { 200, 200, 200, 5 };
+  Colorset multiColorset(255, 0, 0);
+
+  modeMultiLedTest.setPattern(multiPatternID, &multiPatternArgs, &multiColorset);
+
+  // Check if the multi-led pattern and colorset were set correctly
+  assert(modeMultiLedTest.getPatternID() == multiPatternID);
+  assert(modeMultiLedTest.getColorset()->equals(&multiColorset));
+  INFO_LOG("Test setPattern with multi-led pattern passed.\n");
+
+  // Test setPattern with single-led pattern and multi-led pattern simultaneously
+  Mode modeBothTest;
+  PatternID singlePatternID = PATTERN_SOLID;
+  PatternArgs singlePatternArgs = { 100, 255, 0, 10 };
+  Colorset singleColorset(0, 0, 255);
+
+  modeBothTest.setPattern(singlePatternID, &singlePatternArgs, &singleColorset);
+  modeBothTest.setPattern(multiPatternID, &multiPatternArgs, &multiColorset);
+
+  // Check if the single-led and multi-led patterns coexist
+  assert(modeBothTest.hasMultiLed() && modeBothTest.hasSingleLed());
+  INFO_LOG("Test setPattern with single-led and multi-led patterns simultaneously passed.\n");
+
+  // Test setPatternAt
+  Mode modeSetPatternAtTest;
+  LedPos setPatternAtPosition = LED_5;
+  modeSetPatternAtTest.setPatternAt(setPatternAtPosition, testPatternID, &testPatternArgs, &testColorset);
+
+  // Check if the pattern and colorset were set correctly at the specified position
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    if (pos == setPatternAtPosition) {
+      assert(modeSetPatternAtTest.getPatternIDAt(pos) == testPatternID);
+      assert(modeSetPatternAtTest.getColorsetAt(pos)->equals(&testColorset));
+    } else {
+      assert(modeSetPatternAtTest.getPatternIDAt(pos) == PATTERN_NONE);
+    }
+  }
+  INFO_LOG("Test setPatternAt passed.\n");
+
   // Test setColorsetAt
   Colorset newColorset(RGB_YELLOW, RGB_ORANGE, RGB_GREEN);
   LedPos setColorsetPosition = LED_3;
@@ -899,6 +952,18 @@ void Mode::test()
   modeClearColorsetTest.setPattern(testPatternID, &testPatternArgs, &testColorset);
   modeClearColorsetTest.clearColorsets();
 
+  // Test clearPattern with multi-led pattern
+  Mode modeClearMultiLedTest;
+  modeClearMultiLedTest.setPattern(multiPatternID, &multiPatternArgs, &multiColorset);
+  modeClearMultiLedTest.clearPatterns();
+
+  assert(modeClearMultiLedTest.getPatternID() == PATTERN_NONE);
+  INFO_LOG("Test clearPattern with multi-led pattern passed.\n");
+
+  // Test clearPattern with both single-led and multi-led patterns
+  modeBothTest.clearPatterns();
+
+  assert(modeBothTest.getPatternID() == PATTERN_NONE);
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
     assert(modeClearColorsetTest.getColorsetAt(pos)->numColors() == 0);
   }

@@ -8,6 +8,13 @@
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
 
+#ifdef VORTEX_EMBEDDED
+#include <avr/io.h>
+#include <avr/pgmspace.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
+#endif
+
 #ifdef VORTEX_LIB
 #include "../VortexLib/VortexLib.h"
 #endif
@@ -17,6 +24,7 @@
 #include <Windows.h>
 #else
 #include <unistd.h>
+#include <stdio.h>
 #endif
 #endif
 
@@ -50,7 +58,7 @@ void Storage::cleanup()
 }
 
 // store a serial buffer to storage
-bool Storage::write(uint16_t slot, ByteStream &buffer)
+bool Storage::write(ByteStream &buffer)
 {
 #ifdef VORTEX_LIB
   if (!Vortex::storageEnabled()) {
@@ -58,18 +66,26 @@ bool Storage::write(uint16_t slot, ByteStream &buffer)
     return true;
   }
 #endif
-  // check size
-  if (buffer.rawSize() > MAX_MODE_SIZE) {
+  // Check size
+  uint16_t size = buffer.rawSize();
+  if (!size || size > STORAGE_SIZE) {
     ERROR_LOG("Buffer too big for storage space");
-    return false;
-  }
-  if (slot >= NUM_MODE_SLOTS) {
     return false;
   }
   // just in case
   buffer.recalcCRC();
 #ifdef VORTEX_EMBEDDED
-  // implement device storage here
+  const uint8_t *buf = (const uint8_t *)buffer.rawData();
+  // start writing to eeprom
+  for (uint16_t i = 0; i < size; ++i) {
+    if (buf[i] != eepromReadByte(i)) {
+      eepromWriteByte(i, buf[i]);
+    }
+  }
+  DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
+  if ((NVMCTRL.STATUS & 4) != 0) {
+    return false;
+  }
 #elif defined(_WIN32)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile == INVALID_HANDLE_VALUE) {
@@ -77,9 +93,7 @@ bool Storage::write(uint16_t slot, ByteStream &buffer)
     return false;
   }
   DWORD written = 0;
-  DWORD offset = slot * MAX_MODE_SIZE;
-  SetFilePointer(hFile, offset, NULL, FILE_BEGIN);
-  if (!WriteFile(hFile, buffer.rawData(), MAX_MODE_SIZE, &written, NULL)) {
+  if (!WriteFile(hFile, buffer.rawData(), buffer.rawSize(), &written, NULL)) {
     // error
     return false;
   }
@@ -89,19 +103,16 @@ bool Storage::write(uint16_t slot, ByteStream &buffer)
   if (!f) {
     return false;
   }
-  long offset = slot * MAX_MODE_SIZE;
-  fseek(f, offset, SEEK_SET);
-  if (!fwrite(buffer.rawData(), sizeof(char), MAX_MODE_SIZE, f)) {
+  if (!fwrite(buffer.rawData(), sizeof(char), buffer.rawSize(), f)) {
     return false;
   }
   fclose(f);
 #endif // VORTEX_EMBEDDED
-  DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
   return true;
 }
 
 // read a serial buffer from storage
-bool Storage::read(uint16_t slot, ByteStream &buffer)
+bool Storage::read(ByteStream &buffer)
 {
 #ifdef VORTEX_LIB
   if (!Vortex::storageEnabled()) {
@@ -109,16 +120,23 @@ bool Storage::read(uint16_t slot, ByteStream &buffer)
     // an empty buffer after returning true
     return false;
   }
+  uint16_t size = STORAGE_SIZE;
+#else
+  uint16_t size = *(uint16_t *)MAPPED_EEPROM_START;
 #endif
-  uint32_t size = MAX_MODE_SIZE;
-  if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4 || slot >= NUM_MODE_SLOTS) {
-    return false;
+  if (size > STORAGE_SIZE || size < sizeof(ByteStream::RawBuffer) + 4) {
+    size = STORAGE_SIZE;
   }
   if (!buffer.init(size)) {
     return false;
   }
 #ifdef VORTEX_EMBEDDED
-  // implement device storage here
+  // Read the data from EEPROM first
+  uint8_t *pos = (uint8_t *)buffer.rawData();
+  uint16_t fullsize = buffer.rawSize() + size;
+  for (uint16_t i = 0; i < fullsize; ++i) {
+    pos[i] = eepromReadByte(i);
+  }
 #elif defined(_WIN32)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile == INVALID_HANDLE_VALUE) {
@@ -126,9 +144,7 @@ bool Storage::read(uint16_t slot, ByteStream &buffer)
     return false;
   }
   DWORD bytesRead = 0;
-  DWORD offset = slot * MAX_MODE_SIZE;
-  SetFilePointer(hFile, offset, NULL, FILE_BEGIN);
-  if (!ReadFile(hFile, buffer.rawData(), MAX_MODE_SIZE, &bytesRead, NULL)) {
+  if (!ReadFile(hFile, buffer.rawData(), size, &bytesRead, NULL)) {
     // error
     return false;
   }
@@ -138,9 +154,7 @@ bool Storage::read(uint16_t slot, ByteStream &buffer)
   if (!f) {
     return false;
   }
-  long offset = slot * MAX_MODE_SIZE;
-  fseek(f, offset, SEEK_SET);
-  if (!fread(buffer.rawData(), sizeof(char), MAX_MODE_SIZE, f)) {
+  if (!fread(buffer.rawData(), sizeof(char), size, f)) {
     return false;
   }
   fclose(f);
@@ -164,3 +178,41 @@ uint32_t Storage::lastSaveSize()
 {
   return m_lastSaveSize;
 }
+
+#ifdef VORTEX_EMBEDDED
+// write out the eeprom byte
+void Storage::eepromWriteByte(uint16_t index, uint8_t in)
+{
+  uint16_t adr;
+  // The first two pages of the data goes into the eeprom and then the last page goes
+  // into the USERROW which is located at 0x1300
+  if (index > 255) {
+    adr = 0x1300 + (index & 0xFF);
+  } else {
+    adr = MAPPED_EEPROM_START + index;
+  }
+  __asm__ __volatile__(
+    "ldi r30, 0x00"     "\n\t"
+    "ldi r31, 0x10"     "\n\t"
+    "ldd r18, Z+2"      "\n\t"
+    "andi r18, 3"       "\n\t"
+    "brne .-6"          "\n\t"
+    "st X, %0"          "\n\t"
+    "ldi %0, 0x9D"      "\n\t"
+    "out 0x34, %0"      "\n\t"
+    "ldi %0, 0x03"      "\n\t"
+    "st Z, %0"          "\n\t"
+    :"+d"(in)
+    : "x"(adr)
+    : "r30", "r31", "r18");
+}
+
+uint8_t Storage::eepromReadByte(uint16_t index)
+{
+  if (index > 255) {
+    // USERROW start
+    return *(uint8_t *)(0x1300 + (index & 0xFF));
+  }
+  return *(uint8_t *)(MAPPED_EEPROM_START + index);
+}
+#endif

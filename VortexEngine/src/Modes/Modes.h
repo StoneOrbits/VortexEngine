@@ -104,6 +104,7 @@ public:
   // set the startup mode index (which mode will be displayed on startup)
   static void setStartupMode(uint8_t index);
   static uint8_t startupMode();
+  static Mode *switchToStartupMode();
 
   // set or get flags
   static bool setFlag(uint8_t flag, bool enable, bool save = true);
@@ -154,9 +155,6 @@ public:
 #endif
 
 private:
-  static bool serializeSaveHeader(ByteStream &saveBuffer);
-  static bool unserializeSaveHeader(ByteStream &saveBuffer);
-
   // linked list of internal mode storage
   class ModeLink {
   public:
