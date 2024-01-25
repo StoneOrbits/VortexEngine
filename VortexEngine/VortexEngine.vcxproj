@@ -154,7 +154,6 @@
     <ClCompile Include="src\Wireless\IRSender.cpp" />
     <ClCompile Include="src\Leds\Leds.cpp" />
     <ClCompile Include="src\Leds\LedStash.cpp" />
-    <ClCompile Include="src\Log\ErrorBlinker.cpp" />
     <ClCompile Include="src\Log\Log.cpp" />
     <ClCompile Include="src\Memory\Memory.cpp" />
     <ClCompile Include="src\Menus\Menu.cpp" />
@@ -227,7 +226,6 @@
     <ClInclude Include="src\Leds\Leds.h" />
     <ClInclude Include="src\Leds\LedStash.h" />
     <ClInclude Include="src\Leds\LedTypes.h" />
-    <ClInclude Include="src\Log\ErrorBlinker.h" />
     <ClInclude Include="src\Log\Log.h" />
     <ClInclude Include="src\Memory\Memory.h" />
     <ClInclude Include="src\Menus\Menu.h" />
