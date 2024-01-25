@@ -45,9 +45,6 @@ protected:
   // blink the selected finger
   virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);
 
-  // iterate to next bulb selection
-  void nextBulbSelection();
-
   // an overridable api that allows derived menus to decide which led selections
   // should be available before they have actually opened
   virtual bool isValidLedSelection(LedMap selection) const { return true; }
@@ -59,6 +56,8 @@ protected:
   // tracks the targetted leds for this menu
   // note this is an led map
   LedMap m_targetLeds;
+  // current index of led maps
+  uint16_t m_ledSelection;
   // all menus have a 'current selection' which can point at any finger
   Finger m_curSelection;
   // true once a an led is selected
