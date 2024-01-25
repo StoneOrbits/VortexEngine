@@ -1,0 +1,489 @@
+\hypertarget{classRGBColor}{}\doxysection{RGBColor Class Reference}
+\label{classRGBColor}\index{RGBColor@{RGBColor}}
+
+
+{\ttfamily \#include $<$Color\+Types.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classRGBColor_a9383ce7b63b0a6ada5d4e54e16adf733}{RGBColor}} ()
+\item 
+\mbox{\hyperlink{classRGBColor_a2c3b4b74945dccdde88bfd478116a5c5}{RGBColor}} (uint8\+\_\+t \mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}}, uint8\+\_\+t \mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}}, uint8\+\_\+t \mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}})
+\item 
+\mbox{\hyperlink{classRGBColor_a85daa03ed508483b0dc190bf0ed5191a}{RGBColor}} (uint32\+\_\+t dw\+Val)
+\item 
+\mbox{\hyperlink{classRGBColor}{RGBColor}} \& \mbox{\hyperlink{classRGBColor_a4f19a04d71d66e7db25243a2efdccfda}{operator=}} (const uint32\+\_\+t \&rhs)
+\item 
+\mbox{\hyperlink{classRGBColor_a3e18031e952444e34551e12bee95e668}{RGBColor}} (const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&rhs)
+\item 
+\mbox{\hyperlink{classRGBColor}{RGBColor}} \& \mbox{\hyperlink{classRGBColor_a112829b280c8ed7ee978b5e99b3bccf3}{operator=}} (const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&rhs)
+\item 
+\mbox{\hyperlink{classRGBColor_a655f4eaa9443585858c6fec731964559}{RGBColor}} (const \mbox{\hyperlink{classHSVColor}{HSVColor}} \&rhs)
+\item 
+\mbox{\hyperlink{classRGBColor}{RGBColor}} \& \mbox{\hyperlink{classRGBColor_a5571614d8a15fe989342b5f4d50b6ee8}{operator=}} (const \mbox{\hyperlink{classHSVColor}{HSVColor}} \&rhs)
+\item 
+bool \mbox{\hyperlink{classRGBColor_a90ed2b668e7c4075394d7b3b8c01c379}{operator==}} (const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&other) const
+\item 
+bool \mbox{\hyperlink{classRGBColor_a658fab90dd6990155bc4eba81e8cb5de}{operator!=}} (const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&other) const
+\item 
+bool \mbox{\hyperlink{classRGBColor_a98fd4b2760d0f3a4e5100a4fd2fa666a}{empty}} () const
+\item 
+void \mbox{\hyperlink{classRGBColor_a40523a2298929c35b06f4b3302708cf0}{clear}} ()
+\item 
+\mbox{\hyperlink{classRGBColor}{RGBColor}} \mbox{\hyperlink{classRGBColor_a10268d92a2aa1e2609866079298fef71}{adjust\+Brightness}} (uint8\+\_\+t fade\+By)
+\item 
+void \mbox{\hyperlink{classRGBColor_ab9559d07cb8bf9efcb05ce6698f41cca}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer) const
+\item 
+void \mbox{\hyperlink{classRGBColor_aad746f31285ec7394217d0e577a41b2f}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classRGBColor_aa641389effd78c707230ab389e176b65}{raw}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 56 of file Color\+Types.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classRGBColor_a9383ce7b63b0a6ada5d4e54e16adf733}\label{classRGBColor_a9383ce7b63b0a6ada5d4e54e16adf733}} 
+\index{RGBColor@{RGBColor}!RGBColor@{RGBColor}}
+\index{RGBColor@{RGBColor}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{RGBColor()}{RGBColor()}\hspace{0.1cm}{\footnotesize\ttfamily [1/5]}}
+{\footnotesize\ttfamily RGBColor\+::\+RGBColor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 99 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{99                    :}
+\DoxyCodeLine{100   \mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}}(0),}
+\DoxyCodeLine{101   \mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}}(0),}
+\DoxyCodeLine{102   \mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}}(0)}
+\DoxyCodeLine{103 \{}
+\DoxyCodeLine{104 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classRGBColor_a2c3b4b74945dccdde88bfd478116a5c5}\label{classRGBColor_a2c3b4b74945dccdde88bfd478116a5c5}} 
+\index{RGBColor@{RGBColor}!RGBColor@{RGBColor}}
+\index{RGBColor@{RGBColor}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{RGBColor()}{RGBColor()}\hspace{0.1cm}{\footnotesize\ttfamily [2/5]}}
+{\footnotesize\ttfamily RGBColor\+::\+RGBColor (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{red,  }\item[{uint8\+\_\+t}]{green,  }\item[{uint8\+\_\+t}]{blue }\end{DoxyParamCaption})}
+
+
+
+Definition at line 106 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{106                                                            :}
+\DoxyCodeLine{107   \mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}}(\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}}), \mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}}(\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}}), \mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}}(\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}})}
+\DoxyCodeLine{108 \{}
+\DoxyCodeLine{109 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classRGBColor_a85daa03ed508483b0dc190bf0ed5191a}\label{classRGBColor_a85daa03ed508483b0dc190bf0ed5191a}} 
+\index{RGBColor@{RGBColor}!RGBColor@{RGBColor}}
+\index{RGBColor@{RGBColor}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{RGBColor()}{RGBColor()}\hspace{0.1cm}{\footnotesize\ttfamily [3/5]}}
+{\footnotesize\ttfamily RGBColor\+::\+RGBColor (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{dw\+Val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 111 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{111                                  :}
+\DoxyCodeLine{112   \mbox{\hyperlink{classRGBColor_a9383ce7b63b0a6ada5d4e54e16adf733}{RGBColor}}()}
+\DoxyCodeLine{113 \{}
+\DoxyCodeLine{114   *\textcolor{keyword}{this} = dwVal;}
+\DoxyCodeLine{115 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classRGBColor_a3e18031e952444e34551e12bee95e668}\label{classRGBColor_a3e18031e952444e34551e12bee95e668}} 
+\index{RGBColor@{RGBColor}!RGBColor@{RGBColor}}
+\index{RGBColor@{RGBColor}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{RGBColor()}{RGBColor()}\hspace{0.1cm}{\footnotesize\ttfamily [4/5]}}
+{\footnotesize\ttfamily RGBColor\+::\+RGBColor (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{rhs }\end{DoxyParamCaption})}
+
+
+
+Definition at line 134 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{135 \{}
+\DoxyCodeLine{136   \mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}};}
+\DoxyCodeLine{137   \mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}};}
+\DoxyCodeLine{138   \mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}};}
+\DoxyCodeLine{139 \}}
+
+\end{DoxyCode}
+
+
+References blue, green, and red.
+
+\mbox{\Hypertarget{classRGBColor_a655f4eaa9443585858c6fec731964559}\label{classRGBColor_a655f4eaa9443585858c6fec731964559}} 
+\index{RGBColor@{RGBColor}!RGBColor@{RGBColor}}
+\index{RGBColor@{RGBColor}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{RGBColor()}{RGBColor()}\hspace{0.1cm}{\footnotesize\ttfamily [5/5]}}
+{\footnotesize\ttfamily RGBColor\+::\+RGBColor (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classHSVColor}{HSVColor}} \&}]{rhs }\end{DoxyParamCaption})}
+
+
+
+Definition at line 150 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{151 \{}
+\DoxyCodeLine{152   *\textcolor{keyword}{this} = rhs;}
+\DoxyCodeLine{153 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classRGBColor_a10268d92a2aa1e2609866079298fef71}\label{classRGBColor_a10268d92a2aa1e2609866079298fef71}} 
+\index{RGBColor@{RGBColor}!adjustBrightness@{adjustBrightness}}
+\index{adjustBrightness@{adjustBrightness}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{adjustBrightness()}{adjustBrightness()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{RGBColor}} RGBColor\+::adjust\+Brightness (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{fade\+By }\end{DoxyParamCaption})}
+
+
+
+Definition at line 193 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{194 \{}
+\DoxyCodeLine{195   \mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = (((int)\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}}) * (int)(256 -\/ fadeBy)) >> 8;}
+\DoxyCodeLine{196   \mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = (((int)\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}}) * (int)(256 -\/ fadeBy)) >> 8;}
+\DoxyCodeLine{197   \mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = (((int)\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}}) * (int)(256 -\/ fadeBy)) >> 8;}
+\DoxyCodeLine{198   \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{199 \}}
+
+\end{DoxyCode}
+
+
+References blue, green, and red.
+
+
+
+Referenced by Colorset\+::adjust\+Brightness(), Leds\+::adjust\+Brightness\+Index(), and Zigzag\+Pattern\+::\+Snake\+::draw\+Snake().
+
+\mbox{\Hypertarget{classRGBColor_a40523a2298929c35b06f4b3302708cf0}\label{classRGBColor_a40523a2298929c35b06f4b3302708cf0}} 
+\index{RGBColor@{RGBColor}!clear@{clear}}
+\index{clear@{clear}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{clear()}{clear()}}
+{\footnotesize\ttfamily void RGBColor\+::clear (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 186 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{187 \{}
+\DoxyCodeLine{188   \mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = 0;}
+\DoxyCodeLine{189   \mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = 0;}
+\DoxyCodeLine{190   \mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = 0;}
+\DoxyCodeLine{191 \}}
+
+\end{DoxyCode}
+
+
+References blue, green, and red.
+
+
+
+Referenced by Leds\+::cleanup(), Led\+Stash\+::clear(), and Colorset\+::remove\+Color().
+
+\mbox{\Hypertarget{classRGBColor_a98fd4b2760d0f3a4e5100a4fd2fa666a}\label{classRGBColor_a98fd4b2760d0f3a4e5100a4fd2fa666a}} 
+\index{RGBColor@{RGBColor}!empty@{empty}}
+\index{empty@{empty}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{empty()}{empty()}}
+{\footnotesize\ttfamily bool RGBColor\+::empty (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 181 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{182 \{}
+\DoxyCodeLine{183   \textcolor{keywordflow}{return} !\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} \&\& !\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} \&\& !\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}};}
+\DoxyCodeLine{184 \}}
+
+\end{DoxyCode}
+
+
+References blue, green, and red.
+
+
+
+Referenced by Colorset\+::init(), and Color\+Select\+::show\+Slot\+Selection().
+
+\mbox{\Hypertarget{classRGBColor_a658fab90dd6990155bc4eba81e8cb5de}\label{classRGBColor_a658fab90dd6990155bc4eba81e8cb5de}} 
+\index{RGBColor@{RGBColor}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool RGBColor\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{other }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 176 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{177 \{}
+\DoxyCodeLine{178   \textcolor{keywordflow}{return} (other.\mbox{\hyperlink{classRGBColor_aa641389effd78c707230ab389e176b65}{raw}}() != \mbox{\hyperlink{classRGBColor_aa641389effd78c707230ab389e176b65}{raw}}());}
+\DoxyCodeLine{179 \}}
+
+\end{DoxyCode}
+
+
+References raw().
+
+\mbox{\Hypertarget{classRGBColor_a5571614d8a15fe989342b5f4d50b6ee8}\label{classRGBColor_a5571614d8a15fe989342b5f4d50b6ee8}} 
+\index{RGBColor@{RGBColor}!operator=@{operator=}}
+\index{operator=@{operator=}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{RGBColor}} \& RGBColor\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classHSVColor}{HSVColor}} \&}]{rhs }\end{DoxyParamCaption})}
+
+
+
+Definition at line 155 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{156 \{}
+\DoxyCodeLine{157   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{ColorTypes_8cpp_af11854a7974ef7d8d661f92e4f427101}{g\_hsv\_rgb\_alg}}) \{}
+\DoxyCodeLine{158   \textcolor{keywordflow}{case} \mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9a836689bd91f2e2003496bd5176bca86c}{HSV\_TO\_RGB\_RAINBOW}}:}
+\DoxyCodeLine{159     *\textcolor{keyword}{this} = \mbox{\hyperlink{ColorTypes_8cpp_af3ef0c7054bb571933dab90c229a08b1}{hsv\_to\_rgb\_rainbow}}(rhs);}
+\DoxyCodeLine{160     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{161   \textcolor{keywordflow}{case} \mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9a07f7fbd4cf06af195fb021f370569c84}{HSV\_TO\_RGB\_RAW}}:}
+\DoxyCodeLine{162     *\textcolor{keyword}{this} = \mbox{\hyperlink{ColorTypes_8cpp_af1c266177041c51d991945aefc4eb70b}{hsv\_to\_rgb\_raw\_C}}(rhs);}
+\DoxyCodeLine{163     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{164   \textcolor{keywordflow}{case} \mbox{\hyperlink{ColorTypes_8h_a209b55463737311429f83ebdcb6ac9e9a9b01229e01a8505c74f9540efd59a9a3}{HSV\_TO\_RGB\_GENERIC}}:}
+\DoxyCodeLine{165     *\textcolor{keyword}{this} = \mbox{\hyperlink{ColorTypes_8cpp_ae8e00bbaf03e9373f296022748a546c3}{hsv\_to\_rgb\_generic}}(rhs);}
+\DoxyCodeLine{166     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{167   \}}
+\DoxyCodeLine{168   \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{169 \}}
+
+\end{DoxyCode}
+
+
+References g\+\_\+hsv\+\_\+rgb\+\_\+alg, hsv\+\_\+to\+\_\+rgb\+\_\+generic(), HSV\+\_\+\+TO\+\_\+\+RGB\+\_\+\+GENERIC, hsv\+\_\+to\+\_\+rgb\+\_\+rainbow(), HSV\+\_\+\+TO\+\_\+\+RGB\+\_\+\+RAINBOW, HSV\+\_\+\+TO\+\_\+\+RGB\+\_\+\+RAW, and hsv\+\_\+to\+\_\+rgb\+\_\+raw\+\_\+\+C().
+
+\mbox{\Hypertarget{classRGBColor_a112829b280c8ed7ee978b5e99b3bccf3}\label{classRGBColor_a112829b280c8ed7ee978b5e99b3bccf3}} 
+\index{RGBColor@{RGBColor}!operator=@{operator=}}
+\index{operator=@{operator=}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{RGBColor}} \& RGBColor\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{rhs }\end{DoxyParamCaption})}
+
+
+
+Definition at line 142 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{143 \{}
+\DoxyCodeLine{144   \mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}};}
+\DoxyCodeLine{145   \mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}};}
+\DoxyCodeLine{146   \mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}};}
+\DoxyCodeLine{147   \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{148 \}}
+
+\end{DoxyCode}
+
+
+References blue, green, and red.
+
+\mbox{\Hypertarget{classRGBColor_a4f19a04d71d66e7db25243a2efdccfda}\label{classRGBColor_a4f19a04d71d66e7db25243a2efdccfda}} 
+\index{RGBColor@{RGBColor}!operator=@{operator=}}
+\index{operator=@{operator=}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{RGBColor}} \& RGBColor\+::operator= (\begin{DoxyParamCaption}\item[{const uint32\+\_\+t \&}]{rhs }\end{DoxyParamCaption})}
+
+
+
+Definition at line 118 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{119 \{}
+\DoxyCodeLine{120   \textcolor{comment}{// check for the HSV bit!}}
+\DoxyCodeLine{121   \textcolor{keywordflow}{if} ((rhs \& \mbox{\hyperlink{ColorConstants_8h_a547c099dc4dfaea1665adc9c3f6af267}{HSV\_BIT}}) != 0) \{}
+\DoxyCodeLine{122     \textcolor{comment}{// IT'S NOT AN RGB DWORD!!}}
+\DoxyCodeLine{123     *\textcolor{keyword}{this} = \mbox{\hyperlink{classHSVColor}{HSVColor}}(rhs);}
+\DoxyCodeLine{124     \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{125   \}}
+\DoxyCodeLine{126 }
+\DoxyCodeLine{127   \mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = ((rhs >> 16) \& 0xFF);}
+\DoxyCodeLine{128   \mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = ((rhs >> 8) \& 0xFF);}
+\DoxyCodeLine{129   \mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = (rhs \& 0xFF);}
+\DoxyCodeLine{130   \textcolor{keywordflow}{return} *\textcolor{keyword}{this};}
+\DoxyCodeLine{131 \}}
+
+\end{DoxyCode}
+
+
+References blue, green, HSV\+\_\+\+BIT, and red.
+
+\mbox{\Hypertarget{classRGBColor_a90ed2b668e7c4075394d7b3b8c01c379}\label{classRGBColor_a90ed2b668e7c4075394d7b3b8c01c379}} 
+\index{RGBColor@{RGBColor}!operator==@{operator==}}
+\index{operator==@{operator==}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool RGBColor\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{other }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 171 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{172 \{}
+\DoxyCodeLine{173   \textcolor{keywordflow}{return} (other.\mbox{\hyperlink{classRGBColor_aa641389effd78c707230ab389e176b65}{raw}}() == \mbox{\hyperlink{classRGBColor_aa641389effd78c707230ab389e176b65}{raw}}());}
+\DoxyCodeLine{174 \}}
+
+\end{DoxyCode}
+
+
+References raw().
+
+\mbox{\Hypertarget{classRGBColor_aa641389effd78c707230ab389e176b65}\label{classRGBColor_aa641389effd78c707230ab389e176b65}} 
+\index{RGBColor@{RGBColor}!raw@{raw}}
+\index{raw@{raw}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{raw()}{raw()}}
+{\footnotesize\ttfamily uint32\+\_\+t RGBColor\+::raw (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 85 of file Color\+Types.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{85 \{ \textcolor{keywordflow}{return} ((uint32\_t)\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} << 16) | ((uint32\_t)\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} << 8) | (uint32\_t)\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}}; \}}
+
+\end{DoxyCode}
+
+
+References blue, green, and red.
+
+
+
+Referenced by operator!=(), and operator==().
+
+\mbox{\Hypertarget{classRGBColor_ab9559d07cb8bf9efcb05ce6698f41cca}\label{classRGBColor_ab9559d07cb8bf9efcb05ce6698f41cca}} 
+\index{RGBColor@{RGBColor}!serialize@{serialize}}
+\index{serialize@{serialize}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily void RGBColor\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 201 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{202 \{}
+\DoxyCodeLine{203   buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}});}
+\DoxyCodeLine{204   buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}});}
+\DoxyCodeLine{205   buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}});}
+\DoxyCodeLine{206 \}}
+
+\end{DoxyCode}
+
+
+References blue, green, red, and Byte\+Stream\+::serialize().
+
+\mbox{\Hypertarget{classRGBColor_aad746f31285ec7394217d0e577a41b2f}\label{classRGBColor_aad746f31285ec7394217d0e577a41b2f}} 
+\index{RGBColor@{RGBColor}!unserialize@{unserialize}}
+\index{unserialize@{unserialize}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{unserialize()}{unserialize()}}
+{\footnotesize\ttfamily void RGBColor\+::unserialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Definition at line 208 of file Color\+Types.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{209 \{}
+\DoxyCodeLine{210   buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}});}
+\DoxyCodeLine{211   buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}});}
+\DoxyCodeLine{212   buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}});}
+\DoxyCodeLine{213 \}}
+
+\end{DoxyCode}
+
+
+References blue, green, red, and Byte\+Stream\+::unserialize().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}\label{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}} 
+\index{RGBColor@{RGBColor}!blue@{blue}}
+\index{blue@{blue}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{blue}{blue}}
+{\footnotesize\ttfamily uint8\+\_\+t RGBColor\+::blue}
+
+
+
+Definition at line 90 of file Color\+Types.\+h.
+
+
+
+Referenced by adjust\+Brightness(), clear(), empty(), hsv\+\_\+to\+\_\+rgb\+\_\+generic(), hsv\+\_\+to\+\_\+rgb\+\_\+rainbow(), hsv\+\_\+to\+\_\+rgb\+\_\+raw\+\_\+\+C(), Blend\+Pattern\+::on\+Blink\+On(), operator=(), raw(), rgb\+\_\+to\+\_\+hsv\+\_\+approx(), rgb\+\_\+to\+\_\+hsv\+\_\+generic(), RGBColor(), Menus\+::run\+Menu\+Selection(), serialize(), Menu\+::show\+Bulb\+Selection(), and unserialize().
+
+\mbox{\Hypertarget{classRGBColor_aca75024902a233f3449935b01387b687}\label{classRGBColor_aca75024902a233f3449935b01387b687}} 
+\index{RGBColor@{RGBColor}!green@{green}}
+\index{green@{green}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{green}{green}}
+{\footnotesize\ttfamily uint8\+\_\+t RGBColor\+::green}
+
+
+
+Definition at line 89 of file Color\+Types.\+h.
+
+
+
+Referenced by adjust\+Brightness(), clear(), empty(), hsv\+\_\+to\+\_\+rgb\+\_\+generic(), hsv\+\_\+to\+\_\+rgb\+\_\+rainbow(), hsv\+\_\+to\+\_\+rgb\+\_\+raw\+\_\+\+C(), Blend\+Pattern\+::on\+Blink\+On(), operator=(), raw(), rgb\+\_\+to\+\_\+hsv\+\_\+approx(), rgb\+\_\+to\+\_\+hsv\+\_\+generic(), RGBColor(), Menus\+::run\+Menu\+Selection(), serialize(), Menu\+::show\+Bulb\+Selection(), and unserialize().
+
+\mbox{\Hypertarget{classRGBColor_a5fed452f370de463fca724be4947bb54}\label{classRGBColor_a5fed452f370de463fca724be4947bb54}} 
+\index{RGBColor@{RGBColor}!red@{red}}
+\index{red@{red}!RGBColor@{RGBColor}}
+\doxysubsubsection{\texorpdfstring{red}{red}}
+{\footnotesize\ttfamily uint8\+\_\+t RGBColor\+::red}
+
+
+
+Definition at line 88 of file Color\+Types.\+h.
+
+
+
+Referenced by adjust\+Brightness(), clear(), empty(), hsv\+\_\+to\+\_\+rgb\+\_\+generic(), hsv\+\_\+to\+\_\+rgb\+\_\+rainbow(), hsv\+\_\+to\+\_\+rgb\+\_\+raw\+\_\+\+C(), Blend\+Pattern\+::on\+Blink\+On(), operator=(), raw(), rgb\+\_\+to\+\_\+hsv\+\_\+approx(), rgb\+\_\+to\+\_\+hsv\+\_\+generic(), RGBColor(), serialize(), Menu\+::show\+Bulb\+Selection(), and unserialize().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Colors/\mbox{\hyperlink{ColorTypes_8h}{Color\+Types.\+h}}\item 
+Vortex\+Engine/src/\+Colors/\mbox{\hyperlink{ColorTypes_8cpp}{Color\+Types.\+cpp}}\end{DoxyCompactItemize}

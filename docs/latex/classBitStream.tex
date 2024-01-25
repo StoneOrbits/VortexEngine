@@ -1,0 +1,656 @@
+\hypertarget{classBitStream}{}\doxysection{Bit\+Stream Class Reference}
+\label{classBitStream}\index{BitStream@{BitStream}}
+
+
+{\ttfamily \#include $<$Bit\+Stream.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBitStream_af1db2867532d571330d4676cf7a34093}{Bit\+Stream}} ()
+\item 
+\mbox{\hyperlink{classBitStream_a811fabc76526c21d8b6184d2b5c3e848}{Bit\+Stream}} (uint32\+\_\+t \mbox{\hyperlink{classBitStream_a150d54e2999c2e8af75d419d9b757e91}{size}})
+\item 
+\mbox{\hyperlink{classBitStream_af4c70ebe8150040903d65b3dac800138}{Bit\+Stream}} (uint8\+\_\+t $\ast$buf, uint32\+\_\+t \mbox{\hyperlink{classBitStream_a150d54e2999c2e8af75d419d9b757e91}{size}})
+\item 
+\mbox{\hyperlink{classBitStream_a63cf0f27c7519417a7984c476a32c9c9}{$\sim$\+Bit\+Stream}} ()
+\item 
+bool \mbox{\hyperlink{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}{init}} (uint8\+\_\+t $\ast$buf, uint32\+\_\+t \mbox{\hyperlink{classBitStream_a150d54e2999c2e8af75d419d9b757e91}{size}})
+\item 
+bool \mbox{\hyperlink{classBitStream_ab408d45b326b3b331edf4f4ecf1212c7}{init}} (uint32\+\_\+t \mbox{\hyperlink{classBitStream_a150d54e2999c2e8af75d419d9b757e91}{size}})
+\item 
+void \mbox{\hyperlink{classBitStream_acbce456dc347c721637941fe47f5a43b}{reset}} ()
+\item 
+void \mbox{\hyperlink{classBitStream_acdd7cdba5151c2890ea01c2894906d23}{reset\+Pos}} ()
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classBitStream_a0f8ce989ed47b8768adadf536d6e1bd2}{read1\+Bit}} ()
+\item 
+void \mbox{\hyperlink{classBitStream_a61fad4017cd117aad8c90d91057d2ba3}{write1\+Bit}} (uint8\+\_\+t bit)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classBitStream_a126df47b51dae9323396a360a7f94662}{read\+Bits}} (uint32\+\_\+t num\+Bits)
+\item 
+void \mbox{\hyperlink{classBitStream_ace54cf587779ae21e2928f1325a177b8}{write\+Bits}} (uint32\+\_\+t num\+Bits, uint32\+\_\+t val)
+\item 
+bool \mbox{\hyperlink{classBitStream_a2cb7af3f3b41a1f7063d5d239f4171d6}{eof}} () const
+\item 
+bool \mbox{\hyperlink{classBitStream_a7a300d1ddcf4bb15a79265153213a4ed}{allocated}} () const
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classBitStream_a150d54e2999c2e8af75d419d9b757e91}{size}} () const
+\item 
+const uint8\+\_\+t $\ast$ \mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}} () const
+\item 
+const uint32\+\_\+t $\ast$ \mbox{\hyperlink{classBitStream_a0972c0f6e9f9896c27dec10d4b0dbfde}{dw\+Data}} () const
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classBitStream_aa2ba69c7333ee8f64ec98bee42d5be1e}{dwordpos}} () const
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}} () const
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classBitStream_a3ce9c5f4f5d442b71c8262bf78a065dd}{bitpos}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t $\ast$ \mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\+\_\+buf}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classBitStream_ade32a7378ca13f84288c5a2f190416a2}{m\+\_\+buf\+\_\+size}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\+\_\+bit\+\_\+pos}}
+\item 
+bool \mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\+\_\+buf\+\_\+eof}}
+\item 
+bool \mbox{\hyperlink{classBitStream_a870639ae2729394a55bf7b0e6a217aca}{m\+\_\+allocated}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 7 of file Bit\+Stream.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBitStream_af1db2867532d571330d4676cf7a34093}\label{classBitStream_af1db2867532d571330d4676cf7a34093}} 
+\index{BitStream@{BitStream}!BitStream@{BitStream}}
+\index{BitStream@{BitStream}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{BitStream()}{BitStream()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Bit\+Stream\+::\+Bit\+Stream (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 8 of file Bit\+Stream.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{8                      :}
+\DoxyCodeLine{9   \mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}}(\textcolor{keyword}{nullptr}), \mbox{\hyperlink{classBitStream_ade32a7378ca13f84288c5a2f190416a2}{m\_buf\_size}}(0),}
+\DoxyCodeLine{10   \mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}}(0), \mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\_buf\_eof}}(\textcolor{keyword}{false}),}
+\DoxyCodeLine{11   \mbox{\hyperlink{classBitStream_a870639ae2729394a55bf7b0e6a217aca}{m\_allocated}}(\textcolor{keyword}{false})}
+\DoxyCodeLine{12 \{}
+\DoxyCodeLine{13 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classBitStream_a811fabc76526c21d8b6184d2b5c3e848}\label{classBitStream_a811fabc76526c21d8b6184d2b5c3e848}} 
+\index{BitStream@{BitStream}!BitStream@{BitStream}}
+\index{BitStream@{BitStream}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{BitStream()}{BitStream()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Bit\+Stream\+::\+Bit\+Stream (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 21 of file Bit\+Stream.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21                                   :}
+\DoxyCodeLine{22   \mbox{\hyperlink{classBitStream_af1db2867532d571330d4676cf7a34093}{BitStream}}()}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24   \mbox{\hyperlink{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}{init}}(\mbox{\hyperlink{classBitStream_a150d54e2999c2e8af75d419d9b757e91}{size}});}
+\DoxyCodeLine{25 \}}
+
+\end{DoxyCode}
+
+
+References init(), and size().
+
+\mbox{\Hypertarget{classBitStream_af4c70ebe8150040903d65b3dac800138}\label{classBitStream_af4c70ebe8150040903d65b3dac800138}} 
+\index{BitStream@{BitStream}!BitStream@{BitStream}}
+\index{BitStream@{BitStream}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{BitStream()}{BitStream()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Bit\+Stream\+::\+Bit\+Stream (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{buf,  }\item[{uint32\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 15 of file Bit\+Stream.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15                                                 :}
+\DoxyCodeLine{16   \mbox{\hyperlink{classBitStream_af1db2867532d571330d4676cf7a34093}{BitStream}}()}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \mbox{\hyperlink{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}{init}}(buf, \mbox{\hyperlink{classBitStream_a150d54e2999c2e8af75d419d9b757e91}{size}});}
+\DoxyCodeLine{19 \}}
+
+\end{DoxyCode}
+
+
+References init(), and size().
+
+\mbox{\Hypertarget{classBitStream_a63cf0f27c7519417a7984c476a32c9c9}\label{classBitStream_a63cf0f27c7519417a7984c476a32c9c9}} 
+\index{BitStream@{BitStream}!````~BitStream@{$\sim$BitStream}}
+\index{````~BitStream@{$\sim$BitStream}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{$\sim$BitStream()}{~BitStream()}}
+{\footnotesize\ttfamily Bit\+Stream\+::$\sim$\+Bit\+Stream (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 27 of file Bit\+Stream.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBitStream_a870639ae2729394a55bf7b0e6a217aca}{m\_allocated}}) \{}
+\DoxyCodeLine{30     \mbox{\hyperlink{Memory_8h_a126ac2e4edac2f4fb68713991db133d5}{vfree}}(\mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}});}
+\DoxyCodeLine{31   \}}
+\DoxyCodeLine{32 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+allocated, m\+\_\+buf, and vfree.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBitStream_a7a300d1ddcf4bb15a79265153213a4ed}\label{classBitStream_a7a300d1ddcf4bb15a79265153213a4ed}} 
+\index{BitStream@{BitStream}!allocated@{allocated}}
+\index{allocated@{allocated}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{allocated()}{allocated()}}
+{\footnotesize\ttfamily bool Bit\+Stream\+::allocated (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 34 of file Bit\+Stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classBitStream_a870639ae2729394a55bf7b0e6a217aca}{m\_allocated}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+allocated.
+
+\mbox{\Hypertarget{classBitStream_a3ce9c5f4f5d442b71c8262bf78a065dd}\label{classBitStream_a3ce9c5f4f5d442b71c8262bf78a065dd}} 
+\index{BitStream@{BitStream}!bitpos@{bitpos}}
+\index{bitpos@{bitpos}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{bitpos()}{bitpos()}}
+{\footnotesize\ttfamily uint16\+\_\+t Bit\+Stream\+::bitpos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 40 of file Bit\+Stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+bit\+\_\+pos.
+
+\mbox{\Hypertarget{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}\label{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}} 
+\index{BitStream@{BitStream}!bytepos@{bytepos}}
+\index{bytepos@{bytepos}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{bytepos()}{bytepos()}}
+{\footnotesize\ttfamily uint16\+\_\+t Bit\+Stream\+::bytepos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 39 of file Bit\+Stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}} / 8; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+bit\+\_\+pos.
+
+
+
+Referenced by IRReceiver\+::bytes\+Received(), VLReceiver\+::bytes\+Received(), IRReceiver\+::data\+Ready(), VLReceiver\+::data\+Ready(), IRReceiver\+::is\+Receiving(), VLReceiver\+::is\+Receiving(), IRReceiver\+::percent\+Received(), VLReceiver\+::percent\+Received(), IRReceiver\+::read(), and VLReceiver\+::read().
+
+\mbox{\Hypertarget{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}\label{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}} 
+\index{BitStream@{BitStream}!data@{data}}
+\index{data@{data}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{data()}{data()}}
+{\footnotesize\ttfamily const uint8\+\_\+t$\ast$ Bit\+Stream\+::data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 36 of file Bit\+Stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{36 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+buf.
+
+
+
+Referenced by IRReceiver\+::data\+Ready(), VLReceiver\+::data\+Ready(), IRReceiver\+::percent\+Received(), VLReceiver\+::percent\+Received(), IRReceiver\+::read(), VLReceiver\+::read(), IRSender\+::send(), and VLSender\+::send().
+
+\mbox{\Hypertarget{classBitStream_a0972c0f6e9f9896c27dec10d4b0dbfde}\label{classBitStream_a0972c0f6e9f9896c27dec10d4b0dbfde}} 
+\index{BitStream@{BitStream}!dwData@{dwData}}
+\index{dwData@{dwData}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{dwData()}{dwData()}}
+{\footnotesize\ttfamily const uint32\+\_\+t$\ast$ Bit\+Stream\+::dw\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 37 of file Bit\+Stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37 \{ \textcolor{keywordflow}{return} (uint32\_t *)\mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+buf.
+
+\mbox{\Hypertarget{classBitStream_aa2ba69c7333ee8f64ec98bee42d5be1e}\label{classBitStream_aa2ba69c7333ee8f64ec98bee42d5be1e}} 
+\index{BitStream@{BitStream}!dwordpos@{dwordpos}}
+\index{dwordpos@{dwordpos}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{dwordpos()}{dwordpos()}}
+{\footnotesize\ttfamily uint16\+\_\+t Bit\+Stream\+::dwordpos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 38 of file Bit\+Stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{38 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}} / 32; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+bit\+\_\+pos.
+
+\mbox{\Hypertarget{classBitStream_a2cb7af3f3b41a1f7063d5d239f4171d6}\label{classBitStream_a2cb7af3f3b41a1f7063d5d239f4171d6}} 
+\index{BitStream@{BitStream}!eof@{eof}}
+\index{eof@{eof}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{eof()}{eof()}}
+{\footnotesize\ttfamily bool Bit\+Stream\+::eof (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 33 of file Bit\+Stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{33 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\_buf\_eof}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+buf\+\_\+eof.
+
+\mbox{\Hypertarget{classBitStream_ab408d45b326b3b331edf4f4ecf1212c7}\label{classBitStream_ab408d45b326b3b331edf4f4ecf1212c7}} 
+\index{BitStream@{BitStream}!init@{init}}
+\index{init@{init}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily bool Bit\+Stream\+::init (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 42 of file Bit\+Stream.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}}) \{}
+\DoxyCodeLine{45     \mbox{\hyperlink{Memory_8h_a126ac2e4edac2f4fb68713991db133d5}{vfree}}(\mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}});}
+\DoxyCodeLine{46   \}}
+\DoxyCodeLine{47   \mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}} = (uint8\_t *)\mbox{\hyperlink{Memory_8h_a8e162b223114b42086eac4ad67fa93d9}{vcalloc}}(1, \mbox{\hyperlink{classBitStream_a150d54e2999c2e8af75d419d9b757e91}{size}});}
+\DoxyCodeLine{48   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}}) \{}
+\DoxyCodeLine{49     \mbox{\hyperlink{Log_8h_a804825e040f1cce9e3d2bb53c4858710}{ERROR\_OUT\_OF\_MEMORY}}();}
+\DoxyCodeLine{50     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{51   \}}
+\DoxyCodeLine{52   \mbox{\hyperlink{classBitStream_ade32a7378ca13f84288c5a2f190416a2}{m\_buf\_size}} = \mbox{\hyperlink{classBitStream_a150d54e2999c2e8af75d419d9b757e91}{size}};}
+\DoxyCodeLine{53   \mbox{\hyperlink{classBitStream_a870639ae2729394a55bf7b0e6a217aca}{m\_allocated}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{54   \mbox{\hyperlink{classBitStream_acdd7cdba5151c2890ea01c2894906d23}{resetPos}}();}
+\DoxyCodeLine{55   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{56 \}}
+
+\end{DoxyCode}
+
+
+References ERROR\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY, m\+\_\+allocated, m\+\_\+buf, m\+\_\+buf\+\_\+size, reset\+Pos(), size(), vcalloc, and vfree.
+
+\mbox{\Hypertarget{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}\label{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}} 
+\index{BitStream@{BitStream}!init@{init}}
+\index{init@{init}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily bool Bit\+Stream\+::init (\begin{DoxyParamCaption}\item[{uint8\+\_\+t $\ast$}]{buf,  }\item[{uint32\+\_\+t}]{size }\end{DoxyParamCaption})}
+
+
+
+Definition at line 34 of file Bit\+Stream.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36   \mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}} = buf;}
+\DoxyCodeLine{37   \mbox{\hyperlink{classBitStream_ade32a7378ca13f84288c5a2f190416a2}{m\_buf\_size}} = \mbox{\hyperlink{classBitStream_a150d54e2999c2e8af75d419d9b757e91}{size}};}
+\DoxyCodeLine{38   \mbox{\hyperlink{classBitStream_acdd7cdba5151c2890ea01c2894906d23}{resetPos}}();}
+\DoxyCodeLine{39   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{40 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+buf, m\+\_\+buf\+\_\+size, reset\+Pos(), and size().
+
+
+
+Referenced by Bit\+Stream(), IRReceiver\+::init(), VLReceiver\+::init(), IRSender\+::load\+Mode(), and VLSender\+::load\+Mode().
+
+\mbox{\Hypertarget{classBitStream_a0f8ce989ed47b8768adadf536d6e1bd2}\label{classBitStream_a0f8ce989ed47b8768adadf536d6e1bd2}} 
+\index{BitStream@{BitStream}!read1Bit@{read1Bit}}
+\index{read1Bit@{read1Bit}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{read1Bit()}{read1Bit()}}
+{\footnotesize\ttfamily uint8\+\_\+t Bit\+Stream\+::read1\+Bit (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 72 of file Bit\+Stream.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{73 \{}
+\DoxyCodeLine{74   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\_buf\_eof}}) \{}
+\DoxyCodeLine{75     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{76   \}}
+\DoxyCodeLine{77   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}} >= (\mbox{\hyperlink{classBitStream_ade32a7378ca13f84288c5a2f190416a2}{m\_buf\_size}} * 8)) \{}
+\DoxyCodeLine{78     \mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\_buf\_eof}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{79     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{80   \}}
+\DoxyCodeLine{81   uint32\_t rv = (\mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}}[\mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}} / 8] >> (7 -\/ (\mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}} \% 8))) \& 1;}
+\DoxyCodeLine{82   \mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}}++;}
+\DoxyCodeLine{83   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}} >= (\mbox{\hyperlink{classBitStream_ade32a7378ca13f84288c5a2f190416a2}{m\_buf\_size}} * 8)) \{}
+\DoxyCodeLine{84     \mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\_buf\_eof}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{85   \}}
+\DoxyCodeLine{86   \textcolor{keywordflow}{return} rv;}
+\DoxyCodeLine{87 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+bit\+\_\+pos, m\+\_\+buf, m\+\_\+buf\+\_\+eof, and m\+\_\+buf\+\_\+size.
+
+
+
+Referenced by read\+Bits().
+
+\mbox{\Hypertarget{classBitStream_a126df47b51dae9323396a360a7f94662}\label{classBitStream_a126df47b51dae9323396a360a7f94662}} 
+\index{BitStream@{BitStream}!readBits@{readBits}}
+\index{readBits@{readBits}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{readBits()}{readBits()}}
+{\footnotesize\ttfamily uint8\+\_\+t Bit\+Stream\+::read\+Bits (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{num\+Bits }\end{DoxyParamCaption})}
+
+
+
+Definition at line 105 of file Bit\+Stream.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{106 \{}
+\DoxyCodeLine{107   uint32\_t val = 0;}
+\DoxyCodeLine{108   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\_buf\_eof}}) \{}
+\DoxyCodeLine{109     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{110   \}}
+\DoxyCodeLine{111   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < numBits; ++i) \{}
+\DoxyCodeLine{112     val = (val << 1) | \mbox{\hyperlink{classBitStream_a0f8ce989ed47b8768adadf536d6e1bd2}{read1Bit}}();}
+\DoxyCodeLine{113     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\_buf\_eof}}) \{}
+\DoxyCodeLine{114       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{115     \}}
+\DoxyCodeLine{116   \}}
+\DoxyCodeLine{117   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}} >= (\mbox{\hyperlink{classBitStream_ade32a7378ca13f84288c5a2f190416a2}{m\_buf\_size}} * 8)) \{}
+\DoxyCodeLine{118     \mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\_buf\_eof}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{119   \}}
+\DoxyCodeLine{120   \textcolor{keywordflow}{return} val;}
+\DoxyCodeLine{121 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+bit\+\_\+pos, m\+\_\+buf\+\_\+eof, m\+\_\+buf\+\_\+size, and read1\+Bit().
+
+\mbox{\Hypertarget{classBitStream_acbce456dc347c721637941fe47f5a43b}\label{classBitStream_acbce456dc347c721637941fe47f5a43b}} 
+\index{BitStream@{BitStream}!reset@{reset}}
+\index{reset@{reset}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{reset()}{reset()}}
+{\footnotesize\ttfamily void Bit\+Stream\+::reset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 58 of file Bit\+Stream.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{59 \{}
+\DoxyCodeLine{60   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}}) \{}
+\DoxyCodeLine{61     memset(\mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}}, 0, \mbox{\hyperlink{classBitStream_ade32a7378ca13f84288c5a2f190416a2}{m\_buf\_size}});}
+\DoxyCodeLine{62   \}}
+\DoxyCodeLine{63   \mbox{\hyperlink{classBitStream_acdd7cdba5151c2890ea01c2894906d23}{resetPos}}();}
+\DoxyCodeLine{64 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+buf, m\+\_\+buf\+\_\+size, and reset\+Pos().
+
+
+
+Referenced by IRReceiver\+::reset\+IRState(), and VLReceiver\+::reset\+VLState().
+
+\mbox{\Hypertarget{classBitStream_acdd7cdba5151c2890ea01c2894906d23}\label{classBitStream_acdd7cdba5151c2890ea01c2894906d23}} 
+\index{BitStream@{BitStream}!resetPos@{resetPos}}
+\index{resetPos@{resetPos}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{resetPos()}{resetPos()}}
+{\footnotesize\ttfamily void Bit\+Stream\+::reset\+Pos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 66 of file Bit\+Stream.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{67 \{}
+\DoxyCodeLine{68   \mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}} = 0;}
+\DoxyCodeLine{69   \mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\_buf\_eof}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{70 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+bit\+\_\+pos, and m\+\_\+buf\+\_\+eof.
+
+
+
+Referenced by init(), and reset().
+
+\mbox{\Hypertarget{classBitStream_a150d54e2999c2e8af75d419d9b757e91}\label{classBitStream_a150d54e2999c2e8af75d419d9b757e91}} 
+\index{BitStream@{BitStream}!size@{size}}
+\index{size@{size}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{size()}{size()}}
+{\footnotesize\ttfamily uint16\+\_\+t Bit\+Stream\+::size (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 35 of file Bit\+Stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{35 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classBitStream_ade32a7378ca13f84288c5a2f190416a2}{m\_buf\_size}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+buf\+\_\+size.
+
+
+
+Referenced by Bit\+Stream(), and init().
+
+\mbox{\Hypertarget{classBitStream_a61fad4017cd117aad8c90d91057d2ba3}\label{classBitStream_a61fad4017cd117aad8c90d91057d2ba3}} 
+\index{BitStream@{BitStream}!write1Bit@{write1Bit}}
+\index{write1Bit@{write1Bit}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{write1Bit()}{write1Bit()}}
+{\footnotesize\ttfamily void Bit\+Stream\+::write1\+Bit (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{bit }\end{DoxyParamCaption})}
+
+
+
+Definition at line 89 of file Bit\+Stream.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{90 \{}
+\DoxyCodeLine{91   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\_buf\_eof}}) \{}
+\DoxyCodeLine{92     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{93   \}}
+\DoxyCodeLine{94   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}} >= (\mbox{\hyperlink{classBitStream_ade32a7378ca13f84288c5a2f190416a2}{m\_buf\_size}} * 8)) \{}
+\DoxyCodeLine{95     \mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\_buf\_eof}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{96     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{97   \}}
+\DoxyCodeLine{98   \mbox{\hyperlink{classBitStream_aff40d73836e47617e30e56ff10ded126}{m\_buf}}[\mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}} / 8] |= (bit \& 1) << (7 -\/ (\mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}} \% 8));}
+\DoxyCodeLine{99   \mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}}++;}
+\DoxyCodeLine{100   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBitStream_a5400cbd344ad6486555968380d275dee}{m\_bit\_pos}} >= (\mbox{\hyperlink{classBitStream_ade32a7378ca13f84288c5a2f190416a2}{m\_buf\_size}} * 8)) \{}
+\DoxyCodeLine{101     \mbox{\hyperlink{classBitStream_ad9acfbab742707975bdd0d54446d6986}{m\_buf\_eof}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{102   \}}
+\DoxyCodeLine{103 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+bit\+\_\+pos, m\+\_\+buf, m\+\_\+buf\+\_\+eof, and m\+\_\+buf\+\_\+size.
+
+
+
+Referenced by IRReceiver\+::handle\+IRTiming(), VLReceiver\+::handle\+VLTiming(), and write\+Bits().
+
+\mbox{\Hypertarget{classBitStream_ace54cf587779ae21e2928f1325a177b8}\label{classBitStream_ace54cf587779ae21e2928f1325a177b8}} 
+\index{BitStream@{BitStream}!writeBits@{writeBits}}
+\index{writeBits@{writeBits}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{writeBits()}{writeBits()}}
+{\footnotesize\ttfamily void Bit\+Stream\+::write\+Bits (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{num\+Bits,  }\item[{uint32\+\_\+t}]{val }\end{DoxyParamCaption})}
+
+
+
+Definition at line 124 of file Bit\+Stream.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{125 \{}
+\DoxyCodeLine{126   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < numBits; ++i) \{}
+\DoxyCodeLine{127     \textcolor{comment}{// write each bit in order, for ex if numBits is 4:}}
+\DoxyCodeLine{128     \textcolor{comment}{//}}
+\DoxyCodeLine{129     \textcolor{comment}{//  00000000 01010101}}
+\DoxyCodeLine{130     \textcolor{comment}{//               \string^\string^\string^\string^}}
+\DoxyCodeLine{131     \textcolor{comment}{//            write these four bits from left to right}}
+\DoxyCodeLine{132     \mbox{\hyperlink{classBitStream_a61fad4017cd117aad8c90d91057d2ba3}{write1Bit}}((val >> ((numBits -\/ 1) -\/ i)) \& 1);}
+\DoxyCodeLine{133   \}}
+\DoxyCodeLine{134 \}}
+
+\end{DoxyCode}
+
+
+References write1\+Bit().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBitStream_a870639ae2729394a55bf7b0e6a217aca}\label{classBitStream_a870639ae2729394a55bf7b0e6a217aca}} 
+\index{BitStream@{BitStream}!m\_allocated@{m\_allocated}}
+\index{m\_allocated@{m\_allocated}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{m\_allocated}{m\_allocated}}
+{\footnotesize\ttfamily bool Bit\+Stream\+::m\+\_\+allocated\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 47 of file Bit\+Stream.\+h.
+
+
+
+Referenced by allocated(), init(), and $\sim$\+Bit\+Stream().
+
+\mbox{\Hypertarget{classBitStream_a5400cbd344ad6486555968380d275dee}\label{classBitStream_a5400cbd344ad6486555968380d275dee}} 
+\index{BitStream@{BitStream}!m\_bit\_pos@{m\_bit\_pos}}
+\index{m\_bit\_pos@{m\_bit\_pos}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{m\_bit\_pos}{m\_bit\_pos}}
+{\footnotesize\ttfamily uint16\+\_\+t Bit\+Stream\+::m\+\_\+bit\+\_\+pos\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 45 of file Bit\+Stream.\+h.
+
+
+
+Referenced by bitpos(), bytepos(), dwordpos(), read1\+Bit(), read\+Bits(), reset\+Pos(), and write1\+Bit().
+
+\mbox{\Hypertarget{classBitStream_aff40d73836e47617e30e56ff10ded126}\label{classBitStream_aff40d73836e47617e30e56ff10ded126}} 
+\index{BitStream@{BitStream}!m\_buf@{m\_buf}}
+\index{m\_buf@{m\_buf}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{m\_buf}{m\_buf}}
+{\footnotesize\ttfamily uint8\+\_\+t$\ast$ Bit\+Stream\+::m\+\_\+buf\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 43 of file Bit\+Stream.\+h.
+
+
+
+Referenced by data(), dw\+Data(), init(), read1\+Bit(), reset(), write1\+Bit(), and $\sim$\+Bit\+Stream().
+
+\mbox{\Hypertarget{classBitStream_ad9acfbab742707975bdd0d54446d6986}\label{classBitStream_ad9acfbab742707975bdd0d54446d6986}} 
+\index{BitStream@{BitStream}!m\_buf\_eof@{m\_buf\_eof}}
+\index{m\_buf\_eof@{m\_buf\_eof}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{m\_buf\_eof}{m\_buf\_eof}}
+{\footnotesize\ttfamily bool Bit\+Stream\+::m\+\_\+buf\+\_\+eof\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 46 of file Bit\+Stream.\+h.
+
+
+
+Referenced by eof(), read1\+Bit(), read\+Bits(), reset\+Pos(), and write1\+Bit().
+
+\mbox{\Hypertarget{classBitStream_ade32a7378ca13f84288c5a2f190416a2}\label{classBitStream_ade32a7378ca13f84288c5a2f190416a2}} 
+\index{BitStream@{BitStream}!m\_buf\_size@{m\_buf\_size}}
+\index{m\_buf\_size@{m\_buf\_size}!BitStream@{BitStream}}
+\doxysubsubsection{\texorpdfstring{m\_buf\_size}{m\_buf\_size}}
+{\footnotesize\ttfamily uint16\+\_\+t Bit\+Stream\+::m\+\_\+buf\+\_\+size\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 44 of file Bit\+Stream.\+h.
+
+
+
+Referenced by init(), read1\+Bit(), read\+Bits(), reset(), size(), and write1\+Bit().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Serial/\mbox{\hyperlink{BitStream_8h}{Bit\+Stream.\+h}}\item 
+Vortex\+Engine/src/\+Serial/\mbox{\hyperlink{BitStream_8cpp}{Bit\+Stream.\+cpp}}\end{DoxyCompactItemize}
