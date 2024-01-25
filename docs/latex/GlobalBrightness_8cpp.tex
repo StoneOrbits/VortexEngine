@@ -1,0 +1,101 @@
+\hypertarget{GlobalBrightness_8cpp}{}\doxysection{Vortex\+Engine/src/\+Menus/\+Menu\+List/\+Global\+Brightness.cpp File Reference}
+\label{GlobalBrightness_8cpp}\index{VortexEngine/src/Menus/MenuList/GlobalBrightness.cpp@{VortexEngine/src/Menus/MenuList/GlobalBrightness.cpp}}
+{\ttfamily \#include \char`\"{}Global\+Brightness.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../\+Vortex\+Engine.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../\+Patterns/\+Pattern\+Args.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../\+Patterns/\+Pattern.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../\+Time/\+Time\+Control.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../\+Colors/\+Colorset.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../\+Buttons/\+Button.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../\+Time/\+Timings.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../\+Menus/\+Menus.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../\+Modes/\+Modes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../\+Time/\+Timer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../\+Leds/\+Leds.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../../\+Log/\+Log.\+h\char`\"{}}\newline
+Include dependency graph for Global\+Brightness.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{GlobalBrightness_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{GlobalBrightness_8cpp_a95b27530e090be9f798fc1a49c990cb7}{NUM\+\_\+\+BRIGHTNESS\+\_\+\+OPTIONS}}~(sizeof(m\+\_\+brightness\+Options) / sizeof(m\+\_\+brightness\+Options\mbox{[}0\mbox{]}))
+\item 
+\#define \mbox{\hyperlink{GlobalBrightness_8cpp_ab7e50fee3f4c33fdc2e72e6e6520bb33}{KEYCHAIN\+\_\+\+MODE\+\_\+\+TIMER\+\_\+\+MS}}~2100
+\item 
+\#define \mbox{\hyperlink{GlobalBrightness_8cpp_a51e7b66b86b02f34db5d3751ca0662ea}{KEYCHAIN\+\_\+\+MODE\+\_\+\+TIMER\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{GlobalBrightness_8cpp_ab7e50fee3f4c33fdc2e72e6e6520bb33}{KEYCHAIN\+\_\+\+MODE\+\_\+\+TIMER\+\_\+\+MS}})
+\item 
+\#define \mbox{\hyperlink{GlobalBrightness_8cpp_a44c5cddf7574f57d5fa652def16b486a}{KEYCHAIN\+\_\+\+MODE\+\_\+\+EXIT\+\_\+\+CLICKS}}~8
+\item 
+\#define \mbox{\hyperlink{GlobalBrightness_8cpp_a66b49922d971581770ce8db424b2afee}{KEYCHAIN\+\_\+\+MODE\+\_\+\+SLEEP\+\_\+S}}~10
+\item 
+\#define \mbox{\hyperlink{GlobalBrightness_8cpp_a8a651ae5129f5e37ecda2248b977c679}{KEYCHAIN\+\_\+\+MODE\+\_\+\+SLEEP\+\_\+\+TICKS}}~\mbox{\hyperlink{TimeControl_8h_afde527e7252926d3d3cbe19d31f271e7}{SEC\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{GlobalBrightness_8cpp_a66b49922d971581770ce8db424b2afee}{KEYCHAIN\+\_\+\+MODE\+\_\+\+SLEEP\+\_\+S}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{GlobalBrightness_8cpp_a44c5cddf7574f57d5fa652def16b486a}\label{GlobalBrightness_8cpp_a44c5cddf7574f57d5fa652def16b486a}} 
+\index{GlobalBrightness.cpp@{GlobalBrightness.cpp}!KEYCHAIN\_MODE\_EXIT\_CLICKS@{KEYCHAIN\_MODE\_EXIT\_CLICKS}}
+\index{KEYCHAIN\_MODE\_EXIT\_CLICKS@{KEYCHAIN\_MODE\_EXIT\_CLICKS}!GlobalBrightness.cpp@{GlobalBrightness.cpp}}
+\doxysubsubsection{\texorpdfstring{KEYCHAIN\_MODE\_EXIT\_CLICKS}{KEYCHAIN\_MODE\_EXIT\_CLICKS}}
+{\footnotesize\ttfamily \#define KEYCHAIN\+\_\+\+MODE\+\_\+\+EXIT\+\_\+\+CLICKS~8}
+
+
+
+Definition at line 119 of file Global\+Brightness.\+cpp.
+
+\mbox{\Hypertarget{GlobalBrightness_8cpp_a66b49922d971581770ce8db424b2afee}\label{GlobalBrightness_8cpp_a66b49922d971581770ce8db424b2afee}} 
+\index{GlobalBrightness.cpp@{GlobalBrightness.cpp}!KEYCHAIN\_MODE\_SLEEP\_S@{KEYCHAIN\_MODE\_SLEEP\_S}}
+\index{KEYCHAIN\_MODE\_SLEEP\_S@{KEYCHAIN\_MODE\_SLEEP\_S}!GlobalBrightness.cpp@{GlobalBrightness.cpp}}
+\doxysubsubsection{\texorpdfstring{KEYCHAIN\_MODE\_SLEEP\_S}{KEYCHAIN\_MODE\_SLEEP\_S}}
+{\footnotesize\ttfamily \#define KEYCHAIN\+\_\+\+MODE\+\_\+\+SLEEP\+\_\+S~10}
+
+
+
+Definition at line 120 of file Global\+Brightness.\+cpp.
+
+\mbox{\Hypertarget{GlobalBrightness_8cpp_a8a651ae5129f5e37ecda2248b977c679}\label{GlobalBrightness_8cpp_a8a651ae5129f5e37ecda2248b977c679}} 
+\index{GlobalBrightness.cpp@{GlobalBrightness.cpp}!KEYCHAIN\_MODE\_SLEEP\_TICKS@{KEYCHAIN\_MODE\_SLEEP\_TICKS}}
+\index{KEYCHAIN\_MODE\_SLEEP\_TICKS@{KEYCHAIN\_MODE\_SLEEP\_TICKS}!GlobalBrightness.cpp@{GlobalBrightness.cpp}}
+\doxysubsubsection{\texorpdfstring{KEYCHAIN\_MODE\_SLEEP\_TICKS}{KEYCHAIN\_MODE\_SLEEP\_TICKS}}
+{\footnotesize\ttfamily \#define KEYCHAIN\+\_\+\+MODE\+\_\+\+SLEEP\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_afde527e7252926d3d3cbe19d31f271e7}{SEC\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{GlobalBrightness_8cpp_a66b49922d971581770ce8db424b2afee}{KEYCHAIN\+\_\+\+MODE\+\_\+\+SLEEP\+\_\+S}})}
+
+
+
+Definition at line 121 of file Global\+Brightness.\+cpp.
+
+\mbox{\Hypertarget{GlobalBrightness_8cpp_ab7e50fee3f4c33fdc2e72e6e6520bb33}\label{GlobalBrightness_8cpp_ab7e50fee3f4c33fdc2e72e6e6520bb33}} 
+\index{GlobalBrightness.cpp@{GlobalBrightness.cpp}!KEYCHAIN\_MODE\_TIMER\_MS@{KEYCHAIN\_MODE\_TIMER\_MS}}
+\index{KEYCHAIN\_MODE\_TIMER\_MS@{KEYCHAIN\_MODE\_TIMER\_MS}!GlobalBrightness.cpp@{GlobalBrightness.cpp}}
+\doxysubsubsection{\texorpdfstring{KEYCHAIN\_MODE\_TIMER\_MS}{KEYCHAIN\_MODE\_TIMER\_MS}}
+{\footnotesize\ttfamily \#define KEYCHAIN\+\_\+\+MODE\+\_\+\+TIMER\+\_\+\+MS~2100}
+
+
+
+Definition at line 117 of file Global\+Brightness.\+cpp.
+
+\mbox{\Hypertarget{GlobalBrightness_8cpp_a51e7b66b86b02f34db5d3751ca0662ea}\label{GlobalBrightness_8cpp_a51e7b66b86b02f34db5d3751ca0662ea}} 
+\index{GlobalBrightness.cpp@{GlobalBrightness.cpp}!KEYCHAIN\_MODE\_TIMER\_TICKS@{KEYCHAIN\_MODE\_TIMER\_TICKS}}
+\index{KEYCHAIN\_MODE\_TIMER\_TICKS@{KEYCHAIN\_MODE\_TIMER\_TICKS}!GlobalBrightness.cpp@{GlobalBrightness.cpp}}
+\doxysubsubsection{\texorpdfstring{KEYCHAIN\_MODE\_TIMER\_TICKS}{KEYCHAIN\_MODE\_TIMER\_TICKS}}
+{\footnotesize\ttfamily \#define KEYCHAIN\+\_\+\+MODE\+\_\+\+TIMER\+\_\+\+TICKS~\mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\+\_\+\+TO\+\_\+\+TICKS}}(\mbox{\hyperlink{GlobalBrightness_8cpp_ab7e50fee3f4c33fdc2e72e6e6520bb33}{KEYCHAIN\+\_\+\+MODE\+\_\+\+TIMER\+\_\+\+MS}})}
+
+
+
+Definition at line 118 of file Global\+Brightness.\+cpp.
+
+\mbox{\Hypertarget{GlobalBrightness_8cpp_a95b27530e090be9f798fc1a49c990cb7}\label{GlobalBrightness_8cpp_a95b27530e090be9f798fc1a49c990cb7}} 
+\index{GlobalBrightness.cpp@{GlobalBrightness.cpp}!NUM\_BRIGHTNESS\_OPTIONS@{NUM\_BRIGHTNESS\_OPTIONS}}
+\index{NUM\_BRIGHTNESS\_OPTIONS@{NUM\_BRIGHTNESS\_OPTIONS}!GlobalBrightness.cpp@{GlobalBrightness.cpp}}
+\doxysubsubsection{\texorpdfstring{NUM\_BRIGHTNESS\_OPTIONS}{NUM\_BRIGHTNESS\_OPTIONS}}
+{\footnotesize\ttfamily \#define NUM\+\_\+\+BRIGHTNESS\+\_\+\+OPTIONS~(sizeof(m\+\_\+brightness\+Options) / sizeof(m\+\_\+brightness\+Options\mbox{[}0\mbox{]}))}
+
+
+
+Definition at line 18 of file Global\+Brightness.\+cpp.
+
