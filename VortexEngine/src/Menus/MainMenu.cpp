@@ -54,12 +54,12 @@ void MainMenu::show()
   uint32_t now = Time::getCurtime();
   MAP_FOREACH_LED(MAP_OUTER_RING) {
     Leds::breathIndex(pos, hue, (now / 2), 8, 255, 180);
-    hue -= (255 / (LED_COUNT / 2));
+    hue += (255 / (LED_COUNT / 2));
   }
   hue = 0;
   MAP_FOREACH_LED(MAP_INNER_RING) {
     Leds::breathIndex(pos, hue, (now / 2), 8, 255, 180);
-    hue -= (255 / (LED_COUNT / 2));
+    hue += (255 / (LED_COUNT / 2));
   }
   Leds::blinkIndex((LedPos)m_curSelection);
   Leds::blinkIndex((LedPos)(m_curSelection + 10));
@@ -77,16 +77,16 @@ bool MainMenu::isOpen()
 
 void MainMenu::pressLeft()
 {
-  m_curSelection = (m_curSelection + 1) % NUM_SELECTIONS;
-}
-
-void MainMenu::pressRight()
-{
   if (!m_curSelection) {
     m_curSelection = NUM_SELECTIONS - 1;
   } else {
     m_curSelection--;
   }
+}
+
+void MainMenu::pressRight()
+{
+  m_curSelection = (m_curSelection + 1) % NUM_SELECTIONS;
 }
 
 void MainMenu::select()
