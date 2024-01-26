@@ -17,11 +17,20 @@ uint8_t VLReceiver::m_pinState = 0;
 uint32_t VLReceiver::m_previousBytes = 0;
 
 #ifdef VORTEX_EMBEDDED
+#include "freertos/FreeRTOS.h"
+#include "freertos/task.h"
+#include "driver/adc.h"
+#include "esp_log.h"
+#include "esp_timer.h"
+
 #include "../Serial/Serial.h"
 
-// Timer variables
-hw_timer_t *VLReceiver::m_timer = nullptr;
-constexpr auto TIMER_INTERVAL_MICROSECONDS = 1000; // Timer interval in microseconds
+// ADC and timer configuration
+#define ADC_CHANNEL ADC1_CHANNEL_0 // Update this based on the actual ADC channel used
+#define TIMER_INTERVAL_MICRO_SEC 10000 // Check every 10ms, adjust as needed for your application
+
+// Timer handle as a global variable for control in beginReceiving and endReceiving
+esp_timer_handle_t periodic_timer = nullptr;
 
 #define MIN_THRESHOLD   200
 #define BASE_OFFSET     100
@@ -36,10 +45,11 @@ constexpr auto TIMER_INTERVAL_MICROSECONDS = 1000; // Timer interval in microsec
 //   6 ACC64 64 results accumulated > doesn't work
 #define SAMPLE_COUNT    5
 // the threshold needs to start high then it will be automatically pulled down
-uint16_t threshold = THRESHOLD_BEGIN;
-void IRAM_ATTR onTimer() {
+uint32_t threshold = THRESHOLD_BEGIN;
+void VLReceiver::adcCheckTimerCallback(void *arg)
+{
   static bool wasAboveThreshold = false;
-  uint16_t val = analogRead(VL_RECEIVER_PIN);
+  uint32_t val = adc1_get_raw(ADC_CHANNEL);
   if (val > MIN_THRESHOLD && val < (threshold + BASE_OFFSET)) {
     threshold = val + BASE_OFFSET;
   }
@@ -54,7 +64,9 @@ void IRAM_ATTR onTimer() {
 bool VLReceiver::init()
 {
 #ifdef VORTEX_EMBEDDED
-  pinMode(VL_RECEIVER_PIN, INPUT_PULLUP);
+  // Initialize ADC for GPIO1 (or appropriate pin connected to your light sensor)
+  adc1_config_width(ADC_WIDTH_BIT_12);
+  adc1_config_channel_atten(ADC_CHANNEL, ADC_ATTEN_DB_0);
 #endif
   return m_vlData.init(VL_RECV_BUF_SIZE);
 }
@@ -122,11 +134,18 @@ bool VLReceiver::receiveMode(Mode *pMode)
 bool VLReceiver::beginReceiving()
 {
 #ifdef VORTEX_EMBEDDED
-  m_timer = timerBegin(0, 80, true);
-  timerAttachInterrupt(m_timer, &onTimer, true);
-  timerAlarmWrite(m_timer, TIMER_INTERVAL_MICROSECONDS, true);
-  timerAlarmEnable(m_timer); // Enable the timer alarm
-  SerialComs::checkSerial();
+  if (periodic_timer != nullptr) {
+    DEBUG_LOG("VL Reception already running.");
+    return false; // Timer is already running
+  }
+  // Initialize timer for periodic ADC checks
+  const esp_timer_create_args_t periodic_timer_args = {
+      .callback = (void (*)(void*))&VLReceiver::adcCheckTimerCallback,
+      .name = "adc_check_timer"
+  };
+  esp_timer_handle_t periodic_timer;
+  ESP_ERROR_CHECK(esp_timer_create(&periodic_timer_args, &periodic_timer));
+  ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, TIMER_INTERVAL_MICRO_SEC));
 #endif
   resetVLState();
   return true;
@@ -135,11 +154,15 @@ bool VLReceiver::beginReceiving()
 bool VLReceiver::endReceiving()
 {
 #ifdef VORTEX_EMBEDDED
-  //detachInterrupt(digitalPinToInterrupt(VL_RECEIVER_PIN));
-  timerAlarmDisable(m_timer); // Disable the timer alarm
-  timerDetachInterrupt(m_timer); // Detach the interrupt service routine
-  timerEnd(m_timer); // Free the timer
-  m_timer = NULL; // Reset the timer pointer
+  if (periodic_timer == nullptr) {
+    DEBUG_LOG("VL Reception was not running.");
+    return false; // Timer was not running
+  }
+  // Stop and delete the timer
+  ESP_ERROR_CHECK(esp_timer_stop(periodic_timer));
+  ESP_ERROR_CHECK(esp_timer_delete(periodic_timer));
+  periodic_timer = nullptr;
+  DEBUG_LOG("VL Reception stopped.");
 #endif
   resetVLState();
   return true;
