@@ -62,6 +62,7 @@ bool VLReceiver::init()
   // Initialize ADC for GPIO1 (or appropriate pin connected to your light sensor)
   adc1_config_width(ADC_WIDTH_BIT_12);
   adc1_config_channel_atten(ADC_CHANNEL, ADC_ATTEN_DB_0);
+  memset(&adc_chars, 0, sizeof(adc_chars));
   esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_0, ADC_WIDTH_BIT_12, 0, &adc_chars);
 #endif
   return m_vlData.init(VL_RECV_BUF_SIZE);
