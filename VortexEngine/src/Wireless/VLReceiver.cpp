@@ -26,7 +26,7 @@ uint32_t VLReceiver::m_previousBytes = 0;
 #include "../Serial/Serial.h"
 
 // ADC and timer configuration
-#define ADC_CHANNEL ADC1_CHANNEL_0 // Update this based on the actual ADC channel used
+#define ADC_CHANNEL ADC1_CHANNEL_1 // Update this based on the actual ADC channel used
 #define TIMER_INTERVAL_MICRO_SEC 10000 // Check every 10ms, adjust as needed for your application
 
 // Timer handle as a global variable for control in beginReceiving and endReceiving
