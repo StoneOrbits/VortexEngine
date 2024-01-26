@@ -223,7 +223,7 @@ void VLReceiver::recvPCIHandler()
   // and update the previous changetime for next loop
   m_prevTime = now;
   // handle the bliank duration and process it
-  handleVLTiming(diff);
+  //handleVLTiming(diff);
 }
 
 // state machine that can be fed VL timings to parse them and interpret the intervals
