@@ -27,9 +27,9 @@ Button Buttons::m_buttons[NUM_BUTTONS];
 bool Buttons::init()
 {
   // initialize the button on pins 9/10/11
-  if (!m_buttons[0].init(5) ||
-      !m_buttons[1].init(6) ||
-      !m_buttons[2].init(7)) {
+  if (!m_buttons[0].init(9) ||
+      !m_buttons[1].init(10) ||
+      !m_buttons[2].init(11)) {
     return false;
   }
   g_pButtonL = &m_buttons[0];

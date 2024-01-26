@@ -20,36 +20,31 @@ uint32_t VLReceiver::m_previousBytes = 0;
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
 #include "driver/adc.h"
+#include "esp_adc_cal.h"
 #include "esp_log.h"
 #include "esp_timer.h"
 
 #include "../Serial/Serial.h"
 
 // ADC and timer configuration
-#define ADC_CHANNEL ADC1_CHANNEL_1 // Update this based on the actual ADC channel used
-#define TIMER_INTERVAL_MICRO_SEC 10000 // Check every 10ms, adjust as needed for your application
+#define ADC_CHANNEL ADC1_CHANNEL_4 // Update this based on the actual ADC channel used
+#define TIMER_INTERVAL_MICRO_SEC 100 // Check every 10ms, adjust as needed for your application
 
 // Timer handle as a global variable for control in beginReceiving and endReceiving
 esp_timer_handle_t periodic_timer = nullptr;
+esp_adc_cal_characteristics_t adc_chars;
 
 #define MIN_THRESHOLD   200
 #define BASE_OFFSET     100
 #define THRESHOLD_BEGIN (MIN_THRESHOLD + BASE_OFFSET)
-// the sample count exponent, so 5 means 2^5 = 32 samples
-//   0 NONE No accumulation > doesn't work
-//   1 ACC2 2 results accumulated  > doesn't work
-//   2 ACC4 4 results accumulated  > works okay
-//   3 ACC8 8 results accumulated  > works decent
-//   4 ACC16 16 results accumulated > works very well
-//   5 ACC32 32 results accumulated > works best
-//   6 ACC64 64 results accumulated > doesn't work
-#define SAMPLE_COUNT    5
 // the threshold needs to start high then it will be automatically pulled down
 uint32_t threshold = THRESHOLD_BEGIN;
 void VLReceiver::adcCheckTimerCallback(void *arg)
 {
   static bool wasAboveThreshold = false;
-  uint32_t val = adc1_get_raw(ADC_CHANNEL);
+  uint32_t raw = adc1_get_raw(ADC_CHANNEL);
+  uint32_t val = esp_adc_cal_raw_to_voltage(raw, &adc_chars);
+
   if (val > MIN_THRESHOLD && val < (threshold + BASE_OFFSET)) {
     threshold = val + BASE_OFFSET;
   }
@@ -67,6 +62,7 @@ bool VLReceiver::init()
   // Initialize ADC for GPIO1 (or appropriate pin connected to your light sensor)
   adc1_config_width(ADC_WIDTH_BIT_12);
   adc1_config_channel_atten(ADC_CHANNEL, ADC_ATTEN_DB_0);
+  esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_0, ADC_WIDTH_BIT_12, 0, &adc_chars);
 #endif
   return m_vlData.init(VL_RECV_BUF_SIZE);
 }
@@ -134,16 +130,15 @@ bool VLReceiver::receiveMode(Mode *pMode)
 bool VLReceiver::beginReceiving()
 {
 #ifdef VORTEX_EMBEDDED
-  if (periodic_timer != nullptr) {
+  if (periodic_timer) {
     DEBUG_LOG("VL Reception already running.");
     return false; // Timer is already running
   }
   // Initialize timer for periodic ADC checks
   const esp_timer_create_args_t periodic_timer_args = {
-      .callback = (void (*)(void*))&VLReceiver::adcCheckTimerCallback,
-      .name = "adc_check_timer"
+      .callback = &VLReceiver::adcCheckTimerCallback,
+      .name = "adc_check_timer",
   };
-  esp_timer_handle_t periodic_timer;
   ESP_ERROR_CHECK(esp_timer_create(&periodic_timer_args, &periodic_timer));
   ESP_ERROR_CHECK(esp_timer_start_periodic(periodic_timer, TIMER_INTERVAL_MICRO_SEC));
 #endif
@@ -213,17 +208,17 @@ void VLReceiver::recvPCIHandler()
   // check previous time for validity
   if (!m_prevTime || m_prevTime > now) {
     m_prevTime = now;
-    DEBUG_LOG("Bad first time diff, resetting...");
+    //DEBUG_LOG("Bad first time diff, resetting...");
     resetVLState();
     return;
   }
-  DEBUG_LOGF("Received: %u", m_pinState);
+  //DEBUG_LOGF("Received: %u", m_pinState);
   // calc time difference between previous change and now
   uint32_t diff = (uint32_t)(now - m_prevTime);
   // and update the previous changetime for next loop
   m_prevTime = now;
   // handle the bliank duration and process it
-  //handleVLTiming(diff);
+  handleVLTiming(diff);
 }
 
 // state machine that can be fed VL timings to parse them and interpret the intervals
@@ -231,7 +226,7 @@ void VLReceiver::handleVLTiming(uint32_t diff)
 {
   // if the diff is too long or too short then it's not useful
   if ((diff > VL_HEADER_MARK_MAX && m_recvState < READING_DATA_MARK) || diff < VL_TIMING_MIN) {
-    DEBUG_LOGF("bad delay: %u, resetting...", diff);
+    //DEBUG_LOGF("bad delay: %u, resetting...", diff);
     resetVLState();
     return;
   }
@@ -240,7 +235,7 @@ void VLReceiver::handleVLTiming(uint32_t diff)
     if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
       m_recvState = WAITING_HEADER_SPACE;
     } else {
-      DEBUG_LOGF("Bad header mark %u, resetting...", diff);
+      //DEBUG_LOGF("Bad header mark %u, resetting...", diff);
       resetVLState();
     }
     break;
@@ -248,7 +243,7 @@ void VLReceiver::handleVLTiming(uint32_t diff)
     if (diff >= VL_HEADER_SPACE_MIN && diff <= VL_HEADER_MARK_MAX) {
       m_recvState = READING_DATA_MARK;
     } else {
-      DEBUG_LOGF("Bad header space %u, resetting...", diff);
+      //DEBUG_LOGF("Bad header space %u, resetting...", diff);
       resetVLState();
     }
     break;
@@ -262,7 +257,7 @@ void VLReceiver::handleVLTiming(uint32_t diff)
     m_recvState = READING_DATA_MARK;
     break;
   default: // ??
-    DEBUG_LOGF("Bad receive state: %u", m_recvState);
+    //DEBUG_LOGF("Bad receive state: %u", m_recvState);
     break;
   }
 }
@@ -273,7 +268,7 @@ void VLReceiver::resetVLState()
   m_recvState = WAITING_HEADER_MARK;
   // zero out the receive buffer and reset bit receiver position
   m_vlData.reset();
-  DEBUG_LOG("VL State Reset");
+  //DEBUG_LOG("VL State Reset");
 }
 
 #endif

@@ -88,6 +88,9 @@ bool VortexEngine::init()
     return false;
   }
 
+  MainMenu::close();
+  Menus::openMenu(MENU_MODE_SHARING);
+
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif
