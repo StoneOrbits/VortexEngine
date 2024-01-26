@@ -102,10 +102,20 @@ bool Menus::run()
 
 bool Menus::runMenuSelection()
 {
-  if (g_pButtonM->onShortClick()) {
+  if (g_pButtonR->onShortClick()) {
     // otherwise increment selection and wrap around at num menus
     m_selection = (m_selection + 1) % NUM_MENUS;
     DEBUG_LOGF("Cyling to ring menu %u", m_selection);
+    // reset the open time so that it starts again
+    m_openTime = Time::getCurtime();
+    // clear the leds
+    Leds::clearAll();
+    return true;
+  }
+  if (g_pButtonL->onShortClick()) {
+    // decrement selection and wrap around at num menus
+    m_selection = m_selection ? m_selection - 1 : NUM_MENUS - 1;
+    DEBUG_LOGF("Cyling backwards to ring menu %u", m_selection);
     // reset the open time so that it starts again
     m_openTime = Time::getCurtime();
     // clear the leds
@@ -125,7 +135,7 @@ bool Menus::runMenuSelection()
   if (g_pButtonM->pressTime() >= m_openTime) {
     // whether to open advanced menus or not
     bool openAdv = (g_pButtonM->holdDuration() > ADV_MENU_DURATION_TICKS) && advMenus;
-    if (g_pButtonM->onLongClick()) {
+    if (g_pButtonM->onShortClick()) {
       // ringmenu is open so select the menu
       DEBUG_LOGF("Selected ringmenu %s", menuList[m_selection].menuName);
       // open the menu we have selected
@@ -154,7 +164,7 @@ bool Menus::runMenuSelection()
     }
   }
   // check if the advanced menus have been enabled
-  if (g_pButtonM->onConsecutivePresses(ADVANCED_MENU_CLICKS)) {
+  if (g_pButtonR->onConsecutivePresses(ADVANCED_MENU_CLICKS)) {
     // toggle the advanced menu
     Modes::setAdvancedMenus(!advMenus);
     // display a pink or red depending on whether the menu was enabled

@@ -177,6 +177,24 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 #define MAP_PAIR_EVEN_EVENS (MAP_PAIR_EVEN(PAIR_3) | MAP_PAIR_EVEN(PAIR_1))
 #define MAP_PAIR_EVEN_ODDS (MAP_PAIR_ODD(PAIR_3) | MAP_PAIR_ODD(PAIR_1))
 
+#define MAP_RING_INNER  (MAP_LED(LED_0) | MAP_LED(LED_1) | MAP_LED(LED_2) | MAP_LED(LED_3) | \
+                         MAP_LED(LED_4) | MAP_LED(LED_5) | MAP_LED(LED_6) | MAP_LED(LED_7) | \
+                         MAP_LED(LED_8) | MAP_LED(LED_9))
+#define MAP_RING_OUTER  (MAP_LED(LED_10) | MAP_LED(LED_11) | MAP_LED(LED_12) | MAP_LED(LED_13) | \
+                         MAP_LED(LED_14) | MAP_LED(LED_15) | MAP_LED(LED_16) | MAP_LED(LED_17) | \
+                         MAP_LED(LED_18) | MAP_LED(LED_19))
+
+#define MAP_RING_INNER_EVEN  (MAP_RING_INNER & 0xAAAAAAAA)
+#define MAP_RING_INNER_ODD   (MAP_RING_INNER & 0x55555555)
+#define MAP_RING_OUTER_EVEN  (MAP_RING_OUTER & 0xAAAAAAAA)
+#define MAP_RING_OUTER_ODD   (MAP_RING_OUTER & 0x55555555)
+
+#define MAP_LINE_1      (MAP_LED(LED_0) | MAP_LED(LED_10) | MAP_LED(LED_15) | MAP_LED(LED_5))
+#define MAP_LINE_2      (MAP_LED(LED_1) | MAP_LED(LED_11) | MAP_LED(LED_16) | MAP_LED(LED_6))
+#define MAP_LINE_3      (MAP_LED(LED_2) | MAP_LED(LED_12) | MAP_LED(LED_17) | MAP_LED(LED_7))
+#define MAP_LINE_4      (MAP_LED(LED_3) | MAP_LED(LED_13) | MAP_LED(LED_18) | MAP_LED(LED_8))
+#define MAP_LINE_5      (MAP_LED(LED_4) | MAP_LED(LED_14) | MAP_LED(LED_19) | MAP_LED(LED_9))
+
 // set a single led
 inline void setLed(LedMap &map, LedPos pos)
 {

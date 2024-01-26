@@ -146,7 +146,7 @@
 //
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    255
+#define DEFAULT_BRIGHTNESS    15
 
 // Max Modes
 //
@@ -164,7 +164,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             13
+#define MAX_MODES             16
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
