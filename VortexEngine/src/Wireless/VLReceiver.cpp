@@ -27,8 +27,10 @@ uint32_t VLReceiver::m_previousBytes = 0;
 #include "../Serial/Serial.h"
 
 // ADC and timer configuration
-#define ADC_CHANNEL ADC1_CHANNEL_4 // Update this based on the actual ADC channel used
-#define TIMER_INTERVAL_MICRO_SEC 100 // Check every 10ms, adjust as needed for your application
+#define ADC_CHANNEL ADC1_CHANNEL_1 // Update this based on the actual ADC channel used
+#define ADC_ATTEN ADC_ATTEN_DB_0
+#define ADC_WIDTH ADC_WIDTH_BIT_12
+#define TIMER_INTERVAL_MICRO_SEC 1000 // Check every 10ms, adjust as needed for your application
 
 // Timer handle as a global variable for control in beginReceiving and endReceiving
 esp_timer_handle_t periodic_timer = nullptr;
@@ -60,10 +62,10 @@ bool VLReceiver::init()
 {
 #ifdef VORTEX_EMBEDDED
   // Initialize ADC for GPIO1 (or appropriate pin connected to your light sensor)
-  adc1_config_width(ADC_WIDTH_BIT_12);
-  adc1_config_channel_atten(ADC_CHANNEL, ADC_ATTEN_DB_0);
+  adc1_config_width(ADC_WIDTH);
+  adc1_config_channel_atten(ADC_CHANNEL, ADC_ATTEN);
   memset(&adc_chars, 0, sizeof(adc_chars));
-  esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN_DB_0, ADC_WIDTH_BIT_12, 0, &adc_chars);
+  esp_adc_cal_characterize(ADC_UNIT_1, ADC_ATTEN, ADC_WIDTH, 0, &adc_chars);
 #endif
   return m_vlData.init(VL_RECV_BUF_SIZE);
 }
