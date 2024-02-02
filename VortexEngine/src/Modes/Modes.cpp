@@ -73,9 +73,9 @@ void Modes::play()
     nextModeSkipEmpty();
   }
   // shortclick cycles to the next mode
-  if (g_pButtonM->onShortClick()) {
-    Menus::openMenuSelection();
-  }
+  //if (g_pButtonM->onShortClick()) {
+  //  Menus::openMenuSelection();
+  //}
   // shortclick cycles to the next mode
   if (g_pButtonL->onShortClick()) {
     previousMode();

@@ -501,6 +501,11 @@
 // the response from the device when it's done transmitting the mode
 #define EDITOR_VERB_TRANSMIT_VL_ACK   "n"
 
+// when the pc wants the chromadeck to listen for a mode from the duos
+#define EDITOR_VERB_LISTEN_VL        "o"
+// and the response for when it's done fetching a duo mode
+#define EDITOR_VERB_LISTEN_VL_ACK    "p"
+
 // ===================================================================
 //  Manually Configured Sizes
 //
