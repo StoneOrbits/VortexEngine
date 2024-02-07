@@ -22,6 +22,8 @@
 #include "VortexLib.h"
 #endif
 
+#include "UPDI/UPDIFlasher.h"
+
 // bool in vortexlib to simulate sleeping
 volatile bool VortexEngine::m_sleeping = false;
 
@@ -31,12 +33,12 @@ bool VortexEngine::m_autoCycle = false;
 bool VortexEngine::init()
 {
   // all of the global controllers
-  if (!SerialComs::init()) {
-    DEBUG_LOG("Serial failed to initialize");
+  if (!Time::init()) {
+    //DEBUG_LOG("Time failed to initialize");
     return false;
   }
-  if (!Time::init()) {
-    DEBUG_LOG("Time failed to initialize");
+  if (!SerialComs::init()) {
+    DEBUG_LOG("Serial failed to initialize");
     return false;
   }
   if (!Storage::init()) {
@@ -87,6 +89,8 @@ bool VortexEngine::init()
     DEBUG_LOG("Main menu failed to initialize");
     return false;
   }
+
+  UPDIFlasher::init();
 
 #if COMPRESSION_TEST == 1
   compressionTest();
