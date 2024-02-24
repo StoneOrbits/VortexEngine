@@ -23,7 +23,10 @@ uint32_t SerialComs::m_lastCheck = 0;
 bool SerialComs::init()
 {
   // Try connecting serial ?
-  //checkSerial();
+  while (!checkSerial()) {
+    Time::delayMilliseconds(100);
+  }
+  INFO_LOG("Success! Connected!");
   return true;
 }
 

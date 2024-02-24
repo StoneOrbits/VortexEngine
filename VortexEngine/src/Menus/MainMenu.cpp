@@ -70,6 +70,11 @@ void MainMenu::open()
   m_isOpen = true;
 }
 
+void MainMenu::close()
+{
+  m_isOpen = false;
+}
+
 bool MainMenu::isOpen()
 {
   return m_isOpen;

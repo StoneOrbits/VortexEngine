@@ -17,6 +17,7 @@ public:
 
   // broadcast the current preview mode over VL
   void sendCurModeVL();
+  void listenModeVL();
 
   // handlers for clicks
   void onShortClick() override;
@@ -34,6 +35,8 @@ private:
   void handleCommand();
   bool receiveMessage(const char *message);
   void clearDemo();
+  void receiveModeVL();
+  void showReceiveModeVL();
 
   enum EditorConnectionState {
     // the editor is not connec
@@ -66,12 +69,17 @@ private:
     // transmit the mode over visible light
     STATE_TRANSMIT_MODE_VL,
     STATE_TRANSMIT_MODE_VL_DONE,
+
+    STATE_LISTEN_MODE_VL,
+    STATE_LISTEN_MODE_VL_DONE,
   };
 
   // state of the editor
   EditorConnectionState m_state;
   // the data that is received
   ByteStream m_receiveBuffer;
+  // receiver timeout
+  uint32_t m_timeOutStartTime;
 };
 
 #endif

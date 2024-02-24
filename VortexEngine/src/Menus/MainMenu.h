@@ -12,6 +12,7 @@ public:
 
   // open the main menu
   static void open();
+  static void close();
   static bool isOpen();
 private:
   static void pressLeft();

@@ -215,7 +215,7 @@
 //  2     Errors  Info and error logs are present
 //  3     Debug   All logs are present, info, error, and debug
 //
-#define LOGGING_LEVEL         0
+#define LOGGING_LEVEL         3
 
 // Log to Console
 //
@@ -500,6 +500,11 @@
 #define EDITOR_VERB_TRANSMIT_VL       "m"
 // the response from the device when it's done transmitting the mode
 #define EDITOR_VERB_TRANSMIT_VL_ACK   "n"
+
+// when the pc wants the chromadeck to listen for a mode from the duos
+#define EDITOR_VERB_LISTEN_VL        "o"
+// and the response for when it's done fetching a duo mode
+#define EDITOR_VERB_LISTEN_VL_ACK    "p"
 
 // ===================================================================
 //  Manually Configured Sizes
