@@ -1,0 +1,110 @@
+\hypertarget{Mode_8h}{}\doxysection{Vortex\+Engine/src/\+Modes/\+Mode.h File Reference}
+\label{Mode_8h}\index{VortexEngine/src/Modes/Mode.h@{VortexEngine/src/Modes/Mode.h}}
+{\ttfamily \#include \char`\"{}../\+Leds/\+Led\+Types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Patterns/\+Patterns.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Vortex\+Config.\+h\char`\"{}}\newline
+Include dependency graph for Mode.\+h\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Mode_8h__incl}
+\end{center}
+\end{figure}
+This graph shows which files directly or indirectly include this file\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Mode_8h__dep__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Classes}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classMode}{Mode}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{Mode_8h_ae2cd2fbf2d730e01edf755fb5ebba84d}{MODE\+\_\+\+FLAG\+\_\+\+NONE}}~0
+\item 
+\#define \mbox{\hyperlink{Mode_8h_ae687e91ae43b993577e2c2768f1c20a7}{MODE\+\_\+\+FLAG\+\_\+\+MULTI\+\_\+\+LED}}~(1 $<$$<$ 0)
+\item 
+\#define \mbox{\hyperlink{Mode_8h_a11ae854450224ab7c31f50b5712dcf16}{MODE\+\_\+\+FLAG\+\_\+\+SINGLE\+\_\+\+LED}}~(1 $<$$<$ 1)
+\item 
+\#define \mbox{\hyperlink{Mode_8h_af4c9f3425fc7f270c4ca7e32842501b3}{MODE\+\_\+\+FLAG\+\_\+\+ALL\+\_\+\+SAME\+\_\+\+SINGLE}}~(1 $<$$<$ 2)
+\item 
+\#define \mbox{\hyperlink{Mode_8h_a2387bf71317551625f515e5f6d685b5f}{MODE\+\_\+\+FLAG\+\_\+\+SPARSE\+\_\+\+SINGLES}}~(1 $<$$<$ 3)
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef uint8\+\_\+t \mbox{\hyperlink{Mode_8h_a33c2e4593a371b6344b716f0769d0802}{Mode\+Flags}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{Mode_8h_af4c9f3425fc7f270c4ca7e32842501b3}\label{Mode_8h_af4c9f3425fc7f270c4ca7e32842501b3}} 
+\index{Mode.h@{Mode.h}!MODE\_FLAG\_ALL\_SAME\_SINGLE@{MODE\_FLAG\_ALL\_SAME\_SINGLE}}
+\index{MODE\_FLAG\_ALL\_SAME\_SINGLE@{MODE\_FLAG\_ALL\_SAME\_SINGLE}!Mode.h@{Mode.h}}
+\doxysubsubsection{\texorpdfstring{MODE\_FLAG\_ALL\_SAME\_SINGLE}{MODE\_FLAG\_ALL\_SAME\_SINGLE}}
+{\footnotesize\ttfamily \#define MODE\+\_\+\+FLAG\+\_\+\+ALL\+\_\+\+SAME\+\_\+\+SINGLE~(1 $<$$<$ 2)}
+
+
+
+Definition at line 25 of file Mode.\+h.
+
+\mbox{\Hypertarget{Mode_8h_ae687e91ae43b993577e2c2768f1c20a7}\label{Mode_8h_ae687e91ae43b993577e2c2768f1c20a7}} 
+\index{Mode.h@{Mode.h}!MODE\_FLAG\_MULTI\_LED@{MODE\_FLAG\_MULTI\_LED}}
+\index{MODE\_FLAG\_MULTI\_LED@{MODE\_FLAG\_MULTI\_LED}!Mode.h@{Mode.h}}
+\doxysubsubsection{\texorpdfstring{MODE\_FLAG\_MULTI\_LED}{MODE\_FLAG\_MULTI\_LED}}
+{\footnotesize\ttfamily \#define MODE\+\_\+\+FLAG\+\_\+\+MULTI\+\_\+\+LED~(1 $<$$<$ 0)}
+
+
+
+Definition at line 20 of file Mode.\+h.
+
+\mbox{\Hypertarget{Mode_8h_ae2cd2fbf2d730e01edf755fb5ebba84d}\label{Mode_8h_ae2cd2fbf2d730e01edf755fb5ebba84d}} 
+\index{Mode.h@{Mode.h}!MODE\_FLAG\_NONE@{MODE\_FLAG\_NONE}}
+\index{MODE\_FLAG\_NONE@{MODE\_FLAG\_NONE}!Mode.h@{Mode.h}}
+\doxysubsubsection{\texorpdfstring{MODE\_FLAG\_NONE}{MODE\_FLAG\_NONE}}
+{\footnotesize\ttfamily \#define MODE\+\_\+\+FLAG\+\_\+\+NONE~0}
+
+
+
+Definition at line 18 of file Mode.\+h.
+
+\mbox{\Hypertarget{Mode_8h_a11ae854450224ab7c31f50b5712dcf16}\label{Mode_8h_a11ae854450224ab7c31f50b5712dcf16}} 
+\index{Mode.h@{Mode.h}!MODE\_FLAG\_SINGLE\_LED@{MODE\_FLAG\_SINGLE\_LED}}
+\index{MODE\_FLAG\_SINGLE\_LED@{MODE\_FLAG\_SINGLE\_LED}!Mode.h@{Mode.h}}
+\doxysubsubsection{\texorpdfstring{MODE\_FLAG\_SINGLE\_LED}{MODE\_FLAG\_SINGLE\_LED}}
+{\footnotesize\ttfamily \#define MODE\+\_\+\+FLAG\+\_\+\+SINGLE\+\_\+\+LED~(1 $<$$<$ 1)}
+
+
+
+Definition at line 22 of file Mode.\+h.
+
+\mbox{\Hypertarget{Mode_8h_a2387bf71317551625f515e5f6d685b5f}\label{Mode_8h_a2387bf71317551625f515e5f6d685b5f}} 
+\index{Mode.h@{Mode.h}!MODE\_FLAG\_SPARSE\_SINGLES@{MODE\_FLAG\_SPARSE\_SINGLES}}
+\index{MODE\_FLAG\_SPARSE\_SINGLES@{MODE\_FLAG\_SPARSE\_SINGLES}!Mode.h@{Mode.h}}
+\doxysubsubsection{\texorpdfstring{MODE\_FLAG\_SPARSE\_SINGLES}{MODE\_FLAG\_SPARSE\_SINGLES}}
+{\footnotesize\ttfamily \#define MODE\+\_\+\+FLAG\+\_\+\+SPARSE\+\_\+\+SINGLES~(1 $<$$<$ 3)}
+
+
+
+Definition at line 28 of file Mode.\+h.
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{Mode_8h_a33c2e4593a371b6344b716f0769d0802}\label{Mode_8h_a33c2e4593a371b6344b716f0769d0802}} 
+\index{Mode.h@{Mode.h}!ModeFlags@{ModeFlags}}
+\index{ModeFlags@{ModeFlags}!Mode.h@{Mode.h}}
+\doxysubsubsection{\texorpdfstring{ModeFlags}{ModeFlags}}
+{\footnotesize\ttfamily typedef uint8\+\_\+t \mbox{\hyperlink{Mode_8h_a33c2e4593a371b6344b716f0769d0802}{Mode\+Flags}}}
+
+
+
+Definition at line 15 of file Mode.\+h.
+
