@@ -1,0 +1,227 @@
+\hypertarget{classTheaterChasePattern}{}\doxysection{Theater\+Chase\+Pattern Class Reference}
+\label{classTheaterChasePattern}\index{TheaterChasePattern@{TheaterChasePattern}}
+
+
+{\ttfamily \#include $<$Theater\+Chase\+Pattern.\+h$>$}
+
+
+
+Inheritance diagram for Theater\+Chase\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=199pt]{classTheaterChasePattern__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Theater\+Chase\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{classTheaterChasePattern__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classTheaterChasePattern_a2b3c41cd22d66a18f7f8aa591e125a38}{Theater\+Chase\+Pattern}} (const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&args)
+\item 
+virtual \mbox{\hyperlink{classTheaterChasePattern_ac4bb2a8cbcf6bcde057497eceb25c8eb}{$\sim$\+Theater\+Chase\+Pattern}} ()
+\item 
+virtual void \mbox{\hyperlink{classTheaterChasePattern_a3412251626ea06df702e02628dd11bcc}{init}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classTheaterChasePattern_a6d5ae14aabfddf182de3b8d1e44cf5e8}{blink\+On}} () override
+\item 
+virtual void \mbox{\hyperlink{classTheaterChasePattern_a9c8e96b672805122b6935afb9d7dbe64}{poststep}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} \mbox{\hyperlink{classTheaterChasePattern_ae9e94c2338d3d458a92c387c0efb42ba}{m\+\_\+led\+Positions}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\+\_\+step\+Counter}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 8 of file Theater\+Chase\+Pattern.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classTheaterChasePattern_a2b3c41cd22d66a18f7f8aa591e125a38}\label{classTheaterChasePattern_a2b3c41cd22d66a18f7f8aa591e125a38}} 
+\index{TheaterChasePattern@{TheaterChasePattern}!TheaterChasePattern@{TheaterChasePattern}}
+\index{TheaterChasePattern@{TheaterChasePattern}!TheaterChasePattern@{TheaterChasePattern}}
+\doxysubsubsection{\texorpdfstring{TheaterChasePattern()}{TheaterChasePattern()}}
+{\footnotesize\ttfamily Theater\+Chase\+Pattern\+::\+Theater\+Chase\+Pattern (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&}]{args }\end{DoxyParamCaption})}
+
+
+
+Definition at line 7 of file Theater\+Chase\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{7                                                                 :}
+\DoxyCodeLine{8   \mbox{\hyperlink{classBlinkStepPattern_a649cc172c8da3b9a9c6dcf7223aa788c}{BlinkStepPattern}}(args),}
+\DoxyCodeLine{9   \mbox{\hyperlink{classTheaterChasePattern_ae9e94c2338d3d458a92c387c0efb42ba}{m\_ledPositions}}(0),}
+\DoxyCodeLine{10   \mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}}(0)}
+\DoxyCodeLine{11 \{}
+\DoxyCodeLine{12   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa42dfe59c9c1c5c27d78dc6e0f91d651}{PATTERN\_THEATER\_CHASE}};}
+\DoxyCodeLine{13   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
+\DoxyCodeLine{14 \}}
+
+\end{DoxyCode}
+
+
+References Pattern\+::m\+\_\+pattern\+ID, PATTERN\+\_\+\+THEATER\+\_\+\+CHASE, and Pattern\+::set\+Args().
+
+\mbox{\Hypertarget{classTheaterChasePattern_ac4bb2a8cbcf6bcde057497eceb25c8eb}\label{classTheaterChasePattern_ac4bb2a8cbcf6bcde057497eceb25c8eb}} 
+\index{TheaterChasePattern@{TheaterChasePattern}!````~TheaterChasePattern@{$\sim$TheaterChasePattern}}
+\index{````~TheaterChasePattern@{$\sim$TheaterChasePattern}!TheaterChasePattern@{TheaterChasePattern}}
+\doxysubsubsection{\texorpdfstring{$\sim$TheaterChasePattern()}{~TheaterChasePattern()}}
+{\footnotesize\ttfamily Theater\+Chase\+Pattern\+::$\sim$\+Theater\+Chase\+Pattern (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 16 of file Theater\+Chase\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classTheaterChasePattern_a6d5ae14aabfddf182de3b8d1e44cf5e8}\label{classTheaterChasePattern_a6d5ae14aabfddf182de3b8d1e44cf5e8}} 
+\index{TheaterChasePattern@{TheaterChasePattern}!blinkOn@{blinkOn}}
+\index{blinkOn@{blinkOn}!TheaterChasePattern@{TheaterChasePattern}}
+\doxysubsubsection{\texorpdfstring{blinkOn()}{blinkOn()}}
+{\footnotesize\ttfamily void Theater\+Chase\+Pattern\+::blink\+On (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a792005962eff211334d732ee09020b90}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 28 of file Theater\+Chase\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30   \mbox{\hyperlink{classLeds_a1eb73ce70d21bcca85373ab86115c312}{Leds::setMap}}(\mbox{\hyperlink{classTheaterChasePattern_ae9e94c2338d3d458a92c387c0efb42ba}{m\_ledPositions}}, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}());}
+\DoxyCodeLine{31 \}}
+
+\end{DoxyCode}
+
+
+References Colorset\+::get\+Next(), Pattern\+::m\+\_\+colorset, m\+\_\+led\+Positions, and Leds\+::set\+Map().
+
+\mbox{\Hypertarget{classTheaterChasePattern_a3412251626ea06df702e02628dd11bcc}\label{classTheaterChasePattern_a3412251626ea06df702e02628dd11bcc}} 
+\index{TheaterChasePattern@{TheaterChasePattern}!init@{init}}
+\index{init@{init}!TheaterChasePattern@{TheaterChasePattern}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Theater\+Chase\+Pattern\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 20 of file Theater\+Chase\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21 \{}
+\DoxyCodeLine{22   \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{BlinkStepPattern::init}}();}
+\DoxyCodeLine{23   \textcolor{comment}{// starts on odd evens}}
+\DoxyCodeLine{24   \mbox{\hyperlink{classTheaterChasePattern_ae9e94c2338d3d458a92c387c0efb42ba}{m\_ledPositions}} = \mbox{\hyperlink{LedTypes_8h_abc4f1bf166ac82c78c6be1ccaca92d00}{MAP\_PAIR\_ODD\_EVENS}};}
+\DoxyCodeLine{25   \mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} = 0;}
+\DoxyCodeLine{26 \}}
+
+\end{DoxyCode}
+
+
+References Blink\+Step\+Pattern\+::init(), m\+\_\+led\+Positions, m\+\_\+step\+Counter, and MAP\+\_\+\+PAIR\+\_\+\+ODD\+\_\+\+EVENS.
+
+\mbox{\Hypertarget{classTheaterChasePattern_a9c8e96b672805122b6935afb9d7dbe64}\label{classTheaterChasePattern_a9c8e96b672805122b6935afb9d7dbe64}} 
+\index{TheaterChasePattern@{TheaterChasePattern}!poststep@{poststep}}
+\index{poststep@{poststep}!TheaterChasePattern@{TheaterChasePattern}}
+\doxysubsubsection{\texorpdfstring{poststep()}{poststep()}}
+{\footnotesize\ttfamily void Theater\+Chase\+Pattern\+::poststep (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a31d244f697913cbdf624386f8a46663c}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 33 of file Theater\+Chase\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34 \{}
+\DoxyCodeLine{35   \textcolor{comment}{// the first 5 steps are odd evens/odds alternating each step}}
+\DoxyCodeLine{36   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} < 5) \{}
+\DoxyCodeLine{37     \mbox{\hyperlink{classTheaterChasePattern_ae9e94c2338d3d458a92c387c0efb42ba}{m\_ledPositions}} = (\mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} \% 2) ? \mbox{\hyperlink{LedTypes_8h_aeedfd1e5cf97bb760b233ba0b0067973}{MAP\_PAIR\_ODD\_ODDS}} : \mbox{\hyperlink{LedTypes_8h_abc4f1bf166ac82c78c6be1ccaca92d00}{MAP\_PAIR\_ODD\_EVENS}};}
+\DoxyCodeLine{38   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{39     \textcolor{comment}{// the end 5 steps are even evens/odds alternating each step}}
+\DoxyCodeLine{40     \mbox{\hyperlink{classTheaterChasePattern_ae9e94c2338d3d458a92c387c0efb42ba}{m\_ledPositions}} = (\mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} \% 2) ? \mbox{\hyperlink{LedTypes_8h_a6f488a9c3091d9eb33070d9e10571c34}{MAP\_PAIR\_EVEN\_ODDS}} : \mbox{\hyperlink{LedTypes_8h_a3d0075abab09cdd6469009802d38a44f}{MAP\_PAIR\_EVEN\_EVENS}};}
+\DoxyCodeLine{41   \}}
+\DoxyCodeLine{42   \textcolor{comment}{// increment step counter}}
+\DoxyCodeLine{43   \mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} = (\mbox{\hyperlink{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}{m\_stepCounter}} + 1) \% \mbox{\hyperlink{TheaterChasePattern_8cpp_ad8380baaee024c749901e849abfbfe46}{THEATER\_CHASE\_STEPS}};}
+\DoxyCodeLine{44 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+led\+Positions, m\+\_\+step\+Counter, MAP\+\_\+\+PAIR\+\_\+\+EVEN\+\_\+\+EVENS, MAP\+\_\+\+PAIR\+\_\+\+EVEN\+\_\+\+ODDS, MAP\+\_\+\+PAIR\+\_\+\+ODD\+\_\+\+EVENS, MAP\+\_\+\+PAIR\+\_\+\+ODD\+\_\+\+ODDS, and THEATER\+\_\+\+CHASE\+\_\+\+STEPS.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classTheaterChasePattern_ae9e94c2338d3d458a92c387c0efb42ba}\label{classTheaterChasePattern_ae9e94c2338d3d458a92c387c0efb42ba}} 
+\index{TheaterChasePattern@{TheaterChasePattern}!m\_ledPositions@{m\_ledPositions}}
+\index{m\_ledPositions@{m\_ledPositions}!TheaterChasePattern@{TheaterChasePattern}}
+\doxysubsubsection{\texorpdfstring{m\_ledPositions}{m\_ledPositions}}
+{\footnotesize\ttfamily \mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} Theater\+Chase\+Pattern\+::m\+\_\+led\+Positions\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 20 of file Theater\+Chase\+Pattern.\+h.
+
+
+
+Referenced by blink\+On(), init(), and poststep().
+
+\mbox{\Hypertarget{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}\label{classTheaterChasePattern_ab4c6f40b323e39a05d89152a3a8615ff}} 
+\index{TheaterChasePattern@{TheaterChasePattern}!m\_stepCounter@{m\_stepCounter}}
+\index{m\_stepCounter@{m\_stepCounter}!TheaterChasePattern@{TheaterChasePattern}}
+\doxysubsubsection{\texorpdfstring{m\_stepCounter}{m\_stepCounter}}
+{\footnotesize\ttfamily uint8\+\_\+t Theater\+Chase\+Pattern\+::m\+\_\+step\+Counter\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 21 of file Theater\+Chase\+Pattern.\+h.
+
+
+
+Referenced by init(), and poststep().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{TheaterChasePattern_8h}{Theater\+Chase\+Pattern.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{TheaterChasePattern_8cpp}{Theater\+Chase\+Pattern.\+cpp}}\end{DoxyCompactItemize}
