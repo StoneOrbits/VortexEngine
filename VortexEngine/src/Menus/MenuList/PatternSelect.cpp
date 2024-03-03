@@ -1,22 +1,20 @@
 #include "PatternSelect.h"
 
 #include "../../Patterns/PatternBuilder.h"
-#include "../../Patterns/PatternArgs.h"
 #include "../../Patterns/Pattern.h"
-#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
-#include "../../Buttons/Button.h"
-#include "../../Random/Random.h"
 #include "../../Time/Timings.h"
-#include "../../Modes/Modes.h"
+#include "../../Buttons/Button.h"
 #include "../../Menus/Menus.h"
+#include "../../Modes/Modes.h"
+#include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
-  m_srcLed(LED_FIRST),
-  m_argIndex(0),
+  m_state(STATE_PICK_LIST),
+  m_newPatternID(PATTERN_FIRST),
   m_started(false)
 {
 }
@@ -30,6 +28,8 @@ bool PatternSelect::init()
   if (!Menu::init()) {
     return false;
   }
+  m_state = STATE_PICK_LIST;
+  m_newPatternID = PATTERN_FIRST;
   DEBUG_LOG("Entered pattern select");
   return true;
 }
@@ -40,97 +40,113 @@ Menu::MenuAction PatternSelect::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
-  // run the current mode
-  m_previewMode.play();
-  // show dimmer selections in advanced mode
-  Menus::showSelection(m_advanced ? RGB_GREEN0 : RGB_WHITE5);
+
+  switch (m_state) {
+  case STATE_PICK_LIST:
+    // display lists
+    showListSelection();
+    blinkSelection();
+    break;
+  case STATE_PICK_PATTERN:
+    // display patterns
+    showPatternSelection();
+    break;
+  }
+
+  // show selections
+  Menus::showSelection();
   return MENU_CONTINUE;
+}
+
+void PatternSelect::showListSelection()
+{
+  for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
+    // hue split into 4 quadrants of 90
+    Leds::breathIndex(fingerTop(f), f * (255/4), (uint32_t)Time::getCurtime() / 3, 10, 255, 255);
+    Leds::setIndex(fingerTip(f), RGB_WHITE6);
+  }
+}
+
+void PatternSelect::showPatternSelection()
+{
+  m_previewMode.play();
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
+    Leds::setAll(RGB_WHITE4);
+  }
 }
 
 void PatternSelect::onLedSelected()
 {
-  m_srcLed = mapGetFirstLed(m_targetLeds);
+  m_previewMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
+  m_previewMode.init();
 }
 
 void PatternSelect::onShortClick()
 {
-  if (m_advanced) {
-    // double click = skip 10
-    bool doSkip = g_pButton->onConsecutivePresses(2);
-    MAP_FOREACH_LED(m_targetLeds) {
-      Pattern *pat = m_previewMode.getPattern(pos);
-      if (pat->getNumArgs() <= m_argIndex) {
-        continue;
-      }
-      uint8_t &arg = pat->argRef(m_argIndex);
-      if (doSkip) {
-        arg += 10 - (arg % 10);
-      } else {
-        arg++;
-      }
-      // on/off/gap/dash duration max 100
-      uint8_t max = 100;
-      if (m_argIndex == 6) {
-        // blend number of numflips
-        max = 4;
-      } else if (m_argIndex > 3) {
-        // group size, solid index, blendspeed
-        max = 20;
-      }
-      if (arg > max) {
-        // red flash indicates reaching end
-        Leds::holdAll(RGB_RED);
-        arg %= (max + 1);
-      }
-      // do not let argument0 be reset to 0
-      if (!m_argIndex && !arg) {
-        arg = 1;
-      }
-    }
-    m_previewMode.init();
-    if (doSkip) {
-      // hold white for a moment to show they are skipping 25
-      Leds::holdAll(RGB_YELLOW1);
-    }
-    return;
+  switch (m_state) {
+  case STATE_PICK_LIST:
+    // wrap at the index back to pinkie
+    m_curSelection = (Finger)((m_curSelection + 1) % (FINGER_THUMB + 1));
+    break;
+  case STATE_PICK_PATTERN:
+    nextPattern();
+    break;
   }
-  PatternID newID = (PatternID)(m_previewMode.getPatternID(m_srcLed) + 1);
-  PatternID maxID = PATTERN_SINGLE_LAST;
-#if VORTEX_SLIM == 0
-  if (m_targetLeds == MAP_LED_ALL || m_targetLeds == MAP_LED(LED_MULTI)) {
-    maxID = PATTERN_MULTI_LAST;
-  }
-#endif
-  if (newID > maxID) {
-    newID = maxID;
-  }
+}
+
+void PatternSelect::nextPattern()
+{
+  // increment to next pattern
+  m_newPatternID = (PatternID)((m_newPatternID + 1) % PATTERN_COUNT);
   if (!m_started) {
     m_started = true;
-    newID = PATTERN_FIRST;
+    m_newPatternID = PATTERN_FIRST;
   }
-  // set the new pattern id
-  if (isMultiLedPatternID(newID)) {
-    m_previewMode.setPattern(newID);
-  } else {
-    // TODO: clear multi a better way
-    m_previewMode.setPatternMap(m_targetLeds, newID);
-    m_previewMode.clearPattern(LED_MULTI);
-  }
+  // change the pattern of demo mode
+  m_previewMode.setPattern(m_newPatternID);
   m_previewMode.init();
-  DEBUG_LOGF("Iterated to pattern id %d", newID);
+  DEBUG_LOGF("Demoing Pattern %u", m_newPatternID);
 }
 
 void PatternSelect::onLongClick()
 {
-  if (m_advanced) {
-    m_argIndex++;
-    if (m_argIndex < m_previewMode.getPattern(m_srcLed)->getNumArgs()) {
-      // if we haven't reached number of args yet then just return and kee pgoing
+  bool needsSave = false;
+  Mode *cur = Modes::curMode();
+  switch (m_state) {
+  case STATE_PICK_LIST:
+    if (m_curSelection == FINGER_THUMB) {
+      leaveMenu();
       return;
     }
-    Leds::holdAll(m_menuColor);
+    m_state = STATE_PICK_PATTERN;
+    // start the new pattern ID selection based on the chosen list
+    m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));
+    m_previewMode.setPattern(m_newPatternID);
+    m_previewMode.init();
+    DEBUG_LOGF("Started picking pattern at %u", m_newPatternID);
+    break;
+  case STATE_PICK_PATTERN:
+    // need to save the new pattern if it's different from current
+    needsSave = (cur->getPatternID() != m_newPatternID);
+    // store the new pattern in the mode
+    cur->setPattern(m_newPatternID);
+    cur->init();
+    DEBUG_LOGF("Saving pattern %u", m_newPatternID);
+    // go back to beginning for next time
+    m_state = STATE_PICK_LIST;
+    // done in the pattern select menu
+    leaveMenu(needsSave);
+    break;
   }
-  // store the mode as current mode
-  Modes::updateCurMode(&m_previewMode);
-  leaveMenu(true);
+  // reset selection after choosing anything
+  m_curSelection = FINGER_FIRST;
+}
+
+void PatternSelect::showExit()
+{
+  // don't show the exit when picking pattern
+  if (m_state == STATE_PICK_PATTERN) {
+    return;
+  }
+  Menu::showExit();
 }

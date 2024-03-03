@@ -26,7 +26,7 @@
 
 // the engine flavour, this should change for each device/flavour
 // of the engine that branches off from the main indefinitely
-#define VORTEX_NAME "Core"
+#define VORTEX_NAME "Gloves"
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
@@ -164,7 +164,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             13
+#define MAX_MODES             15
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -314,6 +314,11 @@
 //
 // The logic is cleaner for fill from pinkie but fill from thumb is preferred
 #define FILL_FROM_THUMB       1
+
+// Use Palm Lights
+//
+// Adjust the engine to account for palm lights
+#define USE_PALM_LIGHTS       0
 
 // Demo All Patterns
 //
