@@ -22,7 +22,7 @@ jobs:
           VERSION_NUMBER=$(echo $LATEST_TAG | sed "s/${BRANCH_SUFFIX}//g")
           BUILD_NUMBER=$(git rev-list --count $LATEST_TAG..HEAD)
           FULL_VERSION="$VERSION_NUMBER.$BUILD_NUMBER"
-          echo "FULL_VERSION=$FULL_VERSION" >> $GITHUB_ENV
+          echo "version=$FULL_VERSION" >> $GITHUB_OUTPUT
 
   test:
     runs-on: ubuntu-latest
