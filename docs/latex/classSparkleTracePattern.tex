@@ -1,0 +1,178 @@
+\hypertarget{classSparkleTracePattern}{}\doxysection{Sparkle\+Trace\+Pattern Class Reference}
+\label{classSparkleTracePattern}\index{SparkleTracePattern@{SparkleTracePattern}}
+
+
+{\ttfamily \#include $<$Sparkle\+Trace\+Pattern.\+h$>$}
+
+
+
+Inheritance diagram for Sparkle\+Trace\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=193pt]{classSparkleTracePattern__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Sparkle\+Trace\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=301pt]{classSparkleTracePattern__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSparkleTracePattern_a764543f9ae9c2533b4c72eb1f253fb1d}{Sparkle\+Trace\+Pattern}} (const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&args)
+\item 
+virtual \mbox{\hyperlink{classSparkleTracePattern_a4a328fd8e479b1ffed9642d47957f2ac}{$\sim$\+Sparkle\+Trace\+Pattern}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classSparkleTracePattern_a6b5f69a5b52e1c5e40d50ac159d21d41}{blink\+On}} () override
+\item 
+virtual void \mbox{\hyperlink{classSparkleTracePattern_a0a25ff32e00176614c72badcd478a387}{poststep}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classRandom}{Random}} \mbox{\hyperlink{classSparkleTracePattern_a54448991d289043a6206b82f031a4a2c}{m\+\_\+rand\+Ctx}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 8 of file Sparkle\+Trace\+Pattern.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSparkleTracePattern_a764543f9ae9c2533b4c72eb1f253fb1d}\label{classSparkleTracePattern_a764543f9ae9c2533b4c72eb1f253fb1d}} 
+\index{SparkleTracePattern@{SparkleTracePattern}!SparkleTracePattern@{SparkleTracePattern}}
+\index{SparkleTracePattern@{SparkleTracePattern}!SparkleTracePattern@{SparkleTracePattern}}
+\doxysubsubsection{\texorpdfstring{SparkleTracePattern()}{SparkleTracePattern()}}
+{\footnotesize\ttfamily Sparkle\+Trace\+Pattern\+::\+Sparkle\+Trace\+Pattern (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&}]{args }\end{DoxyParamCaption})}
+
+
+
+Definition at line 7 of file Sparkle\+Trace\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{7                                                                 :}
+\DoxyCodeLine{8   \mbox{\hyperlink{classBlinkStepPattern_a649cc172c8da3b9a9c6dcf7223aa788c}{BlinkStepPattern}}(args),}
+\DoxyCodeLine{9   \mbox{\hyperlink{classSparkleTracePattern_a54448991d289043a6206b82f031a4a2c}{m\_randCtx}}()}
+\DoxyCodeLine{10 \{}
+\DoxyCodeLine{11   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca0b71e2a64fab35a60ee3f0bb66e4c6d1}{PATTERN\_SPARKLETRACE}};}
+\DoxyCodeLine{12   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
+\DoxyCodeLine{13 \}}
+
+\end{DoxyCode}
+
+
+References Pattern\+::m\+\_\+pattern\+ID, PATTERN\+\_\+\+SPARKLETRACE, and Pattern\+::set\+Args().
+
+\mbox{\Hypertarget{classSparkleTracePattern_a4a328fd8e479b1ffed9642d47957f2ac}\label{classSparkleTracePattern_a4a328fd8e479b1ffed9642d47957f2ac}} 
+\index{SparkleTracePattern@{SparkleTracePattern}!````~SparkleTracePattern@{$\sim$SparkleTracePattern}}
+\index{````~SparkleTracePattern@{$\sim$SparkleTracePattern}!SparkleTracePattern@{SparkleTracePattern}}
+\doxysubsubsection{\texorpdfstring{$\sim$SparkleTracePattern()}{~SparkleTracePattern()}}
+{\footnotesize\ttfamily Sparkle\+Trace\+Pattern\+::$\sim$\+Sparkle\+Trace\+Pattern (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 15 of file Sparkle\+Trace\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{16 \{}
+\DoxyCodeLine{17 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classSparkleTracePattern_a6b5f69a5b52e1c5e40d50ac159d21d41}\label{classSparkleTracePattern_a6b5f69a5b52e1c5e40d50ac159d21d41}} 
+\index{SparkleTracePattern@{SparkleTracePattern}!blinkOn@{blinkOn}}
+\index{blinkOn@{blinkOn}!SparkleTracePattern@{SparkleTracePattern}}
+\doxysubsubsection{\texorpdfstring{blinkOn()}{blinkOn()}}
+{\footnotesize\ttfamily void Sparkle\+Trace\+Pattern\+::blink\+On (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a792005962eff211334d732ee09020b90}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 19 of file Sparkle\+Trace\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21   \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a283bf54629fd4af75249492d49e14199}{get}}(0));}
+\DoxyCodeLine{22 \}}
+
+\end{DoxyCode}
+
+
+References Colorset\+::get(), Pattern\+::m\+\_\+colorset, and Leds\+::set\+All().
+
+\mbox{\Hypertarget{classSparkleTracePattern_a0a25ff32e00176614c72badcd478a387}\label{classSparkleTracePattern_a0a25ff32e00176614c72badcd478a387}} 
+\index{SparkleTracePattern@{SparkleTracePattern}!poststep@{poststep}}
+\index{poststep@{poststep}!SparkleTracePattern@{SparkleTracePattern}}
+\doxysubsubsection{\texorpdfstring{poststep()}{poststep()}}
+{\footnotesize\ttfamily void Sparkle\+Trace\+Pattern\+::poststep (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a31d244f697913cbdf624386f8a46663c}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 24 of file Sparkle\+Trace\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26   \textcolor{keywordflow}{for} (uint8\_t dot = 0; dot < 4; ++dot) \{}
+\DoxyCodeLine{27     \mbox{\hyperlink{classLeds_a388ba18e176cbf465446d41ed8f796c1}{Leds::setPair}}((\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}})\mbox{\hyperlink{classSparkleTracePattern_a54448991d289043a6206b82f031a4a2c}{m\_randCtx}}.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4ac5e6b4941a54ffee05c62f32966c9d68}{PAIR\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4abdc898f1cd37b37e12eaa09550890334}{PAIR\_LAST}}), \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_abef3c86e5519d8befb515d2e927885f5}{cur}}());}
+\DoxyCodeLine{28   \}}
+\DoxyCodeLine{29   \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_aaaca6ce1c8974d4e11a5af92b0e2fdec}{skip}}();}
+\DoxyCodeLine{30   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_ad995a98578951a11d37feec7752476b2}{curIndex}}() == 0) \{}
+\DoxyCodeLine{31     \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_aaaca6ce1c8974d4e11a5af92b0e2fdec}{skip}}();}
+\DoxyCodeLine{32   \}}
+\DoxyCodeLine{33 \}}
+
+\end{DoxyCode}
+
+
+References Colorset\+::cur(), Colorset\+::cur\+Index(), Pattern\+::m\+\_\+colorset, m\+\_\+rand\+Ctx, Random\+::next8(), PAIR\+\_\+\+FIRST, PAIR\+\_\+\+LAST, Leds\+::set\+Pair(), and Colorset\+::skip().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classSparkleTracePattern_a54448991d289043a6206b82f031a4a2c}\label{classSparkleTracePattern_a54448991d289043a6206b82f031a4a2c}} 
+\index{SparkleTracePattern@{SparkleTracePattern}!m\_randCtx@{m\_randCtx}}
+\index{m\_randCtx@{m\_randCtx}!SparkleTracePattern@{SparkleTracePattern}}
+\doxysubsubsection{\texorpdfstring{m\_randCtx}{m\_randCtx}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRandom}{Random}} Sparkle\+Trace\+Pattern\+::m\+\_\+rand\+Ctx\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 18 of file Sparkle\+Trace\+Pattern.\+h.
+
+
+
+Referenced by poststep().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{SparkleTracePattern_8h}{Sparkle\+Trace\+Pattern.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{SparkleTracePattern_8cpp}{Sparkle\+Trace\+Pattern.\+cpp}}\end{DoxyCompactItemize}
