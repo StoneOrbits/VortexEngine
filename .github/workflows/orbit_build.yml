@@ -11,7 +11,7 @@ jobs:
   setup:
     runs-on: ubuntu-latest
     outputs:
-      version: ${{ steps.set_version.outputs.full_version }}
+      version: ${{ steps.set_version.outputs.version }}
     steps:
       - uses: actions/checkout@v4
       - name: Determine Version and Build Number
