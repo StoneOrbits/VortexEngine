@@ -22,7 +22,7 @@ jobs:
           VERSION_NUMBER=$(echo $LATEST_TAG | sed "s/${BRANCH_SUFFIX}//g")
           BUILD_NUMBER=$(git rev-list --count $LATEST_TAG..HEAD)
           FULL_VERSION="$VERSION_NUMBER.$BUILD_NUMBER"
-          echo "::set-output name=full_version::$FULL_VERSION"
+          echo "FULL_VERSION=$FULL_VERSION" >> $GITHUB_ENV
 
   test:
     runs-on: ubuntu-latest
@@ -129,12 +129,14 @@ jobs:
           path: build
       - name: Rename and Deploy Firmware
         run: |
-          VERSIONED_FILENAME="VortexEngine_${{ needs.setup.outputs.version }}.uf2"
+          DEVICE_TYPE="orbit"
+          VERSIONED_FILENAME="VortexEngine-${DEVICE_TYPE}-${{ needs.setup.outputs.version }}.uf2"
           mv build/VortexEngine.ino.uf2 build/$VERSIONED_FILENAME
           curl -X POST \
             -F "file=@build/$VERSIONED_FILENAME" \
-            -F "device=orbit" \
+            -F "device=$DEVICE_TYPE" \
             -F "version=${{ needs.setup.outputs.version }}" \
             -F "category=firmware" \
             -F "clientApiKey=${{ secrets.VORTEX_COMMUNITY_API_KEY }}" \
             https://vortex.community/firmware/upload
+
