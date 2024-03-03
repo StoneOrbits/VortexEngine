@@ -1,0 +1,756 @@
+\hypertarget{classButton}{}\doxysection{Button Class Reference}
+\label{classButton}\index{Button@{Button}}
+
+
+{\ttfamily \#include $<$Button.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classButton_a3b36df1ae23c58aedb9e15a713159459}{Button}} ()
+\item 
+\mbox{\hyperlink{classButton_a2a001eb9c3cc8ae54768a850dd345002}{$\sim$\+Button}} ()
+\item 
+bool \mbox{\hyperlink{classButton_aa4741ee4f3899e86430d90bc28b8bc75}{init}} (uint8\+\_\+t pin)
+\item 
+bool \mbox{\hyperlink{classButton_a0a4fbfb56d10cb2c6e69a35eb62b7292}{check}} ()
+\item 
+void \mbox{\hyperlink{classButton_ad8e030c1c8846d43f3126047d4a3667f}{update}} ()
+\item 
+bool \mbox{\hyperlink{classButton_ade505477e7bc927e8c051689a6b85215}{on\+Press}} () const
+\item 
+bool \mbox{\hyperlink{classButton_a277f0bc922ec0cb3a20b6aaf43e9b94e}{on\+Release}} () const
+\item 
+bool \mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{is\+Pressed}} () const
+\item 
+bool \mbox{\hyperlink{classButton_a4e2b10397cdad6546a8728a87b82fadb}{on\+Short\+Click}} () const
+\item 
+bool \mbox{\hyperlink{classButton_a81c3b1a14aee3e487e836ac517e6b232}{on\+Long\+Click}} () const
+\item 
+bool \mbox{\hyperlink{classButton_af08888134084d0640b6a891bdb755f14}{on\+Consecutive\+Presses}} (uint8\+\_\+t num\+Presses)
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classButton_a34bd02946cbcdfcf31232f357629503e}{press\+Time}} () const
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classButton_abe35bacd24749761498f9089ba14f266}{release\+Time}} () const
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{hold\+Duration}} () const
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classButton_a3834d323ef3e455874f8757a0d512bee}{release\+Duration}} () const
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classButton_adcca2b1a5010dc5d9b2d49c997f36433}{consecutive\+Presses}} () const
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classButton_ac0aa91f0b81ee39d29e298c522989a3d}{release\+Count}} () const
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classButton_ac8e7116d499a28eee375154a88f349e2}{Button}} (\mbox{\hyperlink{classButton}{Button}} const \&)
+\item 
+void \mbox{\hyperlink{classButton_a2b5b0e107c163f8cdf4b90846fd67690}{operator=}} (\mbox{\hyperlink{classButton}{Button}} const \&)
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classButton_ae9d49614896753764d5ec7b813bb112c}{m\+\_\+pin\+Num}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\+\_\+press\+Time}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classButton_a5aa9ed7408a225103ea9c64f4a5a2d2a}{m\+\_\+release\+Time}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\+\_\+hold\+Duration}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classButton_a6482ef479511871ba18ad69213e75501}{m\+\_\+release\+Duration}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classButton_a863f12d3c09791a1735645df271ddf58}{m\+\_\+consecutive\+Presses}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classButton_a4630ca3b5a9e85d7bcefb6a6373ff15b}{m\+\_\+release\+Count}}
+\item 
+bool \mbox{\hyperlink{classButton_ae5c3b0f7031de49ebd62a5b4fb03f90d}{m\+\_\+button\+State}}
+\item 
+bool \mbox{\hyperlink{classButton_acf8feb2430f68f24f633772725d14b7e}{m\+\_\+new\+Press}}
+\item 
+bool \mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\+\_\+new\+Release}}
+\item 
+bool \mbox{\hyperlink{classButton_ab61668778546acefd5c8e5f1c082ab61}{m\+\_\+is\+Pressed}}
+\item 
+bool \mbox{\hyperlink{classButton_a0e80fad6d54058eb7138109581ac4f85}{m\+\_\+short\+Click}}
+\item 
+bool \mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\+\_\+long\+Click}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 8 of file Button.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classButton_ac8e7116d499a28eee375154a88f349e2}\label{classButton_ac8e7116d499a28eee375154a88f349e2}} 
+\index{Button@{Button}!Button@{Button}}
+\index{Button@{Button}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{Button()}{Button()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Button\+::\+Button (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classButton}{Button}} const \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classButton_a3b36df1ae23c58aedb9e15a713159459}\label{classButton_a3b36df1ae23c58aedb9e15a713159459}} 
+\index{Button@{Button}!Button@{Button}}
+\index{Button@{Button}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{Button()}{Button()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Button\+::\+Button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 15 of file Button.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{15                :}
+\DoxyCodeLine{16   \mbox{\hyperlink{classButton_ae9d49614896753764d5ec7b813bb112c}{m\_pinNum}}(0),}
+\DoxyCodeLine{17   \mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\_pressTime}}(0),}
+\DoxyCodeLine{18   \mbox{\hyperlink{classButton_a5aa9ed7408a225103ea9c64f4a5a2d2a}{m\_releaseTime}}(0),}
+\DoxyCodeLine{19   \mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}}(0),}
+\DoxyCodeLine{20   \mbox{\hyperlink{classButton_a6482ef479511871ba18ad69213e75501}{m\_releaseDuration}}(0),}
+\DoxyCodeLine{21   \mbox{\hyperlink{classButton_a863f12d3c09791a1735645df271ddf58}{m\_consecutivePresses}}(0),}
+\DoxyCodeLine{22   \mbox{\hyperlink{classButton_a4630ca3b5a9e85d7bcefb6a6373ff15b}{m\_releaseCount}}(0),}
+\DoxyCodeLine{23   \mbox{\hyperlink{classButton_ae5c3b0f7031de49ebd62a5b4fb03f90d}{m\_buttonState}}(\textcolor{keyword}{false}),}
+\DoxyCodeLine{24   \mbox{\hyperlink{classButton_acf8feb2430f68f24f633772725d14b7e}{m\_newPress}}(\textcolor{keyword}{false}),}
+\DoxyCodeLine{25   \mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}}(\textcolor{keyword}{false}),}
+\DoxyCodeLine{26   \mbox{\hyperlink{classButton_ab61668778546acefd5c8e5f1c082ab61}{m\_isPressed}}(\textcolor{keyword}{false}),}
+\DoxyCodeLine{27   \mbox{\hyperlink{classButton_a0e80fad6d54058eb7138109581ac4f85}{m\_shortClick}}(\textcolor{keyword}{false}),}
+\DoxyCodeLine{28   \mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}}(\textcolor{keyword}{false})}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classButton_a2a001eb9c3cc8ae54768a850dd345002}\label{classButton_a2a001eb9c3cc8ae54768a850dd345002}} 
+\index{Button@{Button}!````~Button@{$\sim$Button}}
+\index{````~Button@{$\sim$Button}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{$\sim$Button()}{~Button()}}
+{\footnotesize\ttfamily Button\+::$\sim$\+Button (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 32 of file Button.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classButton_a0a4fbfb56d10cb2c6e69a35eb62b7292}\label{classButton_a0a4fbfb56d10cb2c6e69a35eb62b7292}} 
+\index{Button@{Button}!check@{check}}
+\index{check@{check}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{check()}{check()}}
+{\footnotesize\ttfamily bool Button\+::check (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 59 of file Button.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60 \{}
+\DoxyCodeLine{61 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
+\DoxyCodeLine{62   \textcolor{keywordflow}{return} (digitalRead(\mbox{\hyperlink{classButton_ae9d49614896753764d5ec7b813bb112c}{m\_pinNum}}) == 0);}
+\DoxyCodeLine{63 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{64   \textcolor{keywordflow}{return} (Vortex::vcallbacks()-\/>checkPinHook(\mbox{\hyperlink{classButton_ae9d49614896753764d5ec7b813bb112c}{m\_pinNum}}) == 0);}
+\DoxyCodeLine{65 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{66 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+pin\+Num.
+
+
+
+Referenced by init(), Vortex\+Engine\+::tick(), and update().
+
+\mbox{\Hypertarget{classButton_adcca2b1a5010dc5d9b2d49c997f36433}\label{classButton_adcca2b1a5010dc5d9b2d49c997f36433}} 
+\index{Button@{Button}!consecutivePresses@{consecutivePresses}}
+\index{consecutivePresses@{consecutivePresses}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{consecutivePresses()}{consecutivePresses()}}
+{\footnotesize\ttfamily uint8\+\_\+t Button\+::consecutive\+Presses (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 52 of file Button.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{52 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classButton_a863f12d3c09791a1735645df271ddf58}{m\_consecutivePresses}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+consecutive\+Presses.
+
+\mbox{\Hypertarget{classButton_a2e0dae337117cd85f69c8346d369504a}\label{classButton_a2e0dae337117cd85f69c8346d369504a}} 
+\index{Button@{Button}!holdDuration@{holdDuration}}
+\index{holdDuration@{holdDuration}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{holdDuration()}{holdDuration()}}
+{\footnotesize\ttfamily uint32\+\_\+t Button\+::hold\+Duration (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 47 of file Button.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{47 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+hold\+Duration.
+
+
+
+Referenced by Menu\+::blink\+Selection(), Color\+Select\+::blink\+Selection(), Color\+Select\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), Pattern\+Select\+::show\+Pattern\+Selection(), Factory\+Reset\+::show\+Reset(), and Menus\+::show\+Selection().
+
+\mbox{\Hypertarget{classButton_aa4741ee4f3899e86430d90bc28b8bc75}\label{classButton_aa4741ee4f3899e86430d90bc28b8bc75}} 
+\index{Button@{Button}!init@{init}}
+\index{init@{init}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily bool Button\+::init (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{pin }\end{DoxyParamCaption})}
+
+
+
+Definition at line 36 of file Button.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38   \mbox{\hyperlink{classButton_ae9d49614896753764d5ec7b813bb112c}{m\_pinNum}} = 0;}
+\DoxyCodeLine{39   \mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\_pressTime}} = 0;}
+\DoxyCodeLine{40   \mbox{\hyperlink{classButton_a5aa9ed7408a225103ea9c64f4a5a2d2a}{m\_releaseTime}} = 0;}
+\DoxyCodeLine{41   \mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} = 0;}
+\DoxyCodeLine{42   \mbox{\hyperlink{classButton_a6482ef479511871ba18ad69213e75501}{m\_releaseDuration}} = 0;}
+\DoxyCodeLine{43   \mbox{\hyperlink{classButton_a863f12d3c09791a1735645df271ddf58}{m\_consecutivePresses}} = 0;}
+\DoxyCodeLine{44   \mbox{\hyperlink{classButton_a4630ca3b5a9e85d7bcefb6a6373ff15b}{m\_releaseCount}} = 0;}
+\DoxyCodeLine{45   \mbox{\hyperlink{classButton_ae5c3b0f7031de49ebd62a5b4fb03f90d}{m\_buttonState}} = \mbox{\hyperlink{classButton_a0a4fbfb56d10cb2c6e69a35eb62b7292}{check}}();}
+\DoxyCodeLine{46   \mbox{\hyperlink{classButton_acf8feb2430f68f24f633772725d14b7e}{m\_newPress}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{47   \mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{48   \mbox{\hyperlink{classButton_ab61668778546acefd5c8e5f1c082ab61}{m\_isPressed}} = \mbox{\hyperlink{classButton_ae5c3b0f7031de49ebd62a5b4fb03f90d}{m\_buttonState}};}
+\DoxyCodeLine{49   \mbox{\hyperlink{classButton_a0e80fad6d54058eb7138109581ac4f85}{m\_shortClick}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{50   \mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{51 }
+\DoxyCodeLine{52   \mbox{\hyperlink{classButton_ae9d49614896753764d5ec7b813bb112c}{m\_pinNum}} = pin;}
+\DoxyCodeLine{53 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
+\DoxyCodeLine{54   pinMode(\mbox{\hyperlink{classButton_ae9d49614896753764d5ec7b813bb112c}{m\_pinNum}}, INPUT\_PULLUP);}
+\DoxyCodeLine{55 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{56   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{57 \}}
+
+\end{DoxyCode}
+
+
+References check(), m\+\_\+button\+State, m\+\_\+consecutive\+Presses, m\+\_\+hold\+Duration, m\+\_\+is\+Pressed, m\+\_\+long\+Click, m\+\_\+new\+Press, m\+\_\+new\+Release, m\+\_\+pin\+Num, m\+\_\+press\+Time, m\+\_\+release\+Count, m\+\_\+release\+Duration, m\+\_\+release\+Time, and m\+\_\+short\+Click.
+
+\mbox{\Hypertarget{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}\label{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}} 
+\index{Button@{Button}!isPressed@{isPressed}}
+\index{isPressed@{isPressed}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{isPressed()}{isPressed()}}
+{\footnotesize\ttfamily bool Button\+::is\+Pressed (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 31 of file Button.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classButton_ab61668778546acefd5c8e5f1c082ab61}{m\_isPressed}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+is\+Pressed.
+
+
+
+Referenced by Menu\+::blink\+Selection(), Color\+Select\+::blink\+Selection(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), Pattern\+Select\+::show\+Pattern\+Selection(), Factory\+Reset\+::show\+Reset(), and Menus\+::show\+Selection().
+
+\mbox{\Hypertarget{classButton_af08888134084d0640b6a891bdb755f14}\label{classButton_af08888134084d0640b6a891bdb755f14}} 
+\index{Button@{Button}!onConsecutivePresses@{onConsecutivePresses}}
+\index{onConsecutivePresses@{onConsecutivePresses}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{onConsecutivePresses()}{onConsecutivePresses()}}
+{\footnotesize\ttfamily bool Button\+::on\+Consecutive\+Presses (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{num\+Presses }\end{DoxyParamCaption})}
+
+
+
+Definition at line 129 of file Button.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{130 \{}
+\DoxyCodeLine{131   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classButton_a863f12d3c09791a1735645df271ddf58}{m\_consecutivePresses}} >= numPresses) \{}
+\DoxyCodeLine{132     \mbox{\hyperlink{classButton_a863f12d3c09791a1735645df271ddf58}{m\_consecutivePresses}} = 0;}
+\DoxyCodeLine{133     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{134   \}}
+\DoxyCodeLine{135   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{136 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+consecutive\+Presses.
+
+
+
+Referenced by Randomizer\+::run(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), and Vortex\+Engine\+::tick().
+
+\mbox{\Hypertarget{classButton_a81c3b1a14aee3e487e836ac517e6b232}\label{classButton_a81c3b1a14aee3e487e836ac517e6b232}} 
+\index{Button@{Button}!onLongClick@{onLongClick}}
+\index{onLongClick@{onLongClick}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{onLongClick()}{onLongClick()}}
+{\footnotesize\ttfamily bool Button\+::on\+Long\+Click (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 36 of file Button.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{36 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+long\+Click.
+
+
+
+Referenced by Menu\+::run(), Menus\+::run\+Cur\+Menu(), and Menus\+::run\+Menu\+Selection().
+
+\mbox{\Hypertarget{classButton_ade505477e7bc927e8c051689a6b85215}\label{classButton_ade505477e7bc927e8c051689a6b85215}} 
+\index{Button@{Button}!onPress@{onPress}}
+\index{onPress@{onPress}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{onPress()}{onPress()}}
+{\footnotesize\ttfamily bool Button\+::on\+Press (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 27 of file Button.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{27 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classButton_acf8feb2430f68f24f633772725d14b7e}{m\_newPress}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+new\+Press.
+
+\mbox{\Hypertarget{classButton_a277f0bc922ec0cb3a20b6aaf43e9b94e}\label{classButton_a277f0bc922ec0cb3a20b6aaf43e9b94e}} 
+\index{Button@{Button}!onRelease@{onRelease}}
+\index{onRelease@{onRelease}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{onRelease()}{onRelease()}}
+{\footnotesize\ttfamily bool Button\+::on\+Release (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 29 of file Button.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{29 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+new\+Release.
+
+
+
+Referenced by Randomizer\+::run(), and Vortex\+Engine\+::tick().
+
+\mbox{\Hypertarget{classButton_a4e2b10397cdad6546a8728a87b82fadb}\label{classButton_a4e2b10397cdad6546a8728a87b82fadb}} 
+\index{Button@{Button}!onShortClick@{onShortClick}}
+\index{onShortClick@{onShortClick}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{onShortClick()}{onShortClick()}}
+{\footnotesize\ttfamily bool Button\+::on\+Short\+Click (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 34 of file Button.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classButton_a0e80fad6d54058eb7138109581ac4f85}{m\_shortClick}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+short\+Click.
+
+
+
+Referenced by Modes\+::play(), Menu\+::run(), Menus\+::run\+Cur\+Menu(), and Menus\+::run\+Menu\+Selection().
+
+\mbox{\Hypertarget{classButton_a2b5b0e107c163f8cdf4b90846fd67690}\label{classButton_a2b5b0e107c163f8cdf4b90846fd67690}} 
+\index{Button@{Button}!operator=@{operator=}}
+\index{operator=@{operator=}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily void Button\+::operator= (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classButton}{Button}} const \&}]{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+\mbox{\Hypertarget{classButton_a34bd02946cbcdfcf31232f357629503e}\label{classButton_a34bd02946cbcdfcf31232f357629503e}} 
+\index{Button@{Button}!pressTime@{pressTime}}
+\index{pressTime@{pressTime}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{pressTime()}{pressTime()}}
+{\footnotesize\ttfamily uint32\+\_\+t Button\+::press\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 42 of file Button.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{42 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\_pressTime}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+press\+Time.
+
+
+
+Referenced by Menus\+::run\+Menu\+Selection().
+
+\mbox{\Hypertarget{classButton_ac0aa91f0b81ee39d29e298c522989a3d}\label{classButton_ac0aa91f0b81ee39d29e298c522989a3d}} 
+\index{Button@{Button}!releaseCount@{releaseCount}}
+\index{releaseCount@{releaseCount}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{releaseCount()}{releaseCount()}}
+{\footnotesize\ttfamily uint8\+\_\+t Button\+::release\+Count (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 54 of file Button.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classButton_a4630ca3b5a9e85d7bcefb6a6373ff15b}{m\_releaseCount}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+release\+Count.
+
+\mbox{\Hypertarget{classButton_a3834d323ef3e455874f8757a0d512bee}\label{classButton_a3834d323ef3e455874f8757a0d512bee}} 
+\index{Button@{Button}!releaseDuration@{releaseDuration}}
+\index{releaseDuration@{releaseDuration}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{releaseDuration()}{releaseDuration()}}
+{\footnotesize\ttfamily uint32\+\_\+t Button\+::release\+Duration (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 49 of file Button.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classButton_a6482ef479511871ba18ad69213e75501}{m\_releaseDuration}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+release\+Duration.
+
+\mbox{\Hypertarget{classButton_abe35bacd24749761498f9089ba14f266}\label{classButton_abe35bacd24749761498f9089ba14f266}} 
+\index{Button@{Button}!releaseTime@{releaseTime}}
+\index{releaseTime@{releaseTime}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{releaseTime()}{releaseTime()}}
+{\footnotesize\ttfamily uint32\+\_\+t Button\+::release\+Time (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 44 of file Button.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{44 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classButton_a5aa9ed7408a225103ea9c64f4a5a2d2a}{m\_releaseTime}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+release\+Time.
+
+
+
+Referenced by Menus\+::check\+Open().
+
+\mbox{\Hypertarget{classButton_ad8e030c1c8846d43f3126047d4a3667f}\label{classButton_ad8e030c1c8846d43f3126047d4a3667f}} 
+\index{Button@{Button}!update@{update}}
+\index{update@{update}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{update()}{update()}}
+{\footnotesize\ttfamily void Button\+::update (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 68 of file Button.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{69 \{}
+\DoxyCodeLine{70   \textcolor{comment}{// reset the new press/release members this tick}}
+\DoxyCodeLine{71   \mbox{\hyperlink{classButton_acf8feb2430f68f24f633772725d14b7e}{m\_newPress}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{72   \mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{73 }
+\DoxyCodeLine{74   \textcolor{comment}{// read the new button state}}
+\DoxyCodeLine{75   \textcolor{keywordtype}{bool} newButtonState = \mbox{\hyperlink{classButton_a0a4fbfb56d10cb2c6e69a35eb62b7292}{check}}();}
+\DoxyCodeLine{76 }
+\DoxyCodeLine{77   \textcolor{comment}{// did the button change (press/release occurred)}}
+\DoxyCodeLine{78   \textcolor{keywordflow}{if} (newButtonState != \mbox{\hyperlink{classButton_ae5c3b0f7031de49ebd62a5b4fb03f90d}{m\_buttonState}}) \{}
+\DoxyCodeLine{79     \textcolor{comment}{// set the new state}}
+\DoxyCodeLine{80     \mbox{\hyperlink{classButton_ae5c3b0f7031de49ebd62a5b4fb03f90d}{m\_buttonState}} = newButtonState;}
+\DoxyCodeLine{81     \textcolor{comment}{// update the currently pressed member}}
+\DoxyCodeLine{82     \mbox{\hyperlink{classButton_ab61668778546acefd5c8e5f1c082ab61}{m\_isPressed}} = \mbox{\hyperlink{classButton_ae5c3b0f7031de49ebd62a5b4fb03f90d}{m\_buttonState}};}
+\DoxyCodeLine{83 }
+\DoxyCodeLine{84     \textcolor{comment}{// update the press/release times and newpress/newrelease members}}
+\DoxyCodeLine{85     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classButton_ab61668778546acefd5c8e5f1c082ab61}{m\_isPressed}}) \{}
+\DoxyCodeLine{86       \textcolor{comment}{// the button was just pressed}}
+\DoxyCodeLine{87       \mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\_pressTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
+\DoxyCodeLine{88       \mbox{\hyperlink{classButton_acf8feb2430f68f24f633772725d14b7e}{m\_newPress}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{89     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{90       \textcolor{comment}{// the button was just released}}
+\DoxyCodeLine{91       \mbox{\hyperlink{classButton_a5aa9ed7408a225103ea9c64f4a5a2d2a}{m\_releaseTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
+\DoxyCodeLine{92       \mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{93     \}}
+\DoxyCodeLine{94   \}}
+\DoxyCodeLine{95 }
+\DoxyCodeLine{96   \textcolor{comment}{// calculate new hold/release durations if currently held/released}}
+\DoxyCodeLine{97   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classButton_ab61668778546acefd5c8e5f1c082ab61}{m\_isPressed}}) \{}
+\DoxyCodeLine{98     \textcolor{comment}{// update the hold duration as long as the button is pressed}}
+\DoxyCodeLine{99     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() >= \mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\_pressTime}}) \{}
+\DoxyCodeLine{100       \mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} = (uint32\_t)(\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() -\/ \mbox{\hyperlink{classButton_a4a906c7f15856b933701b78b3e0351c1}{m\_pressTime}});}
+\DoxyCodeLine{101     \}}
+\DoxyCodeLine{102   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{103     \textcolor{comment}{// update the release duration as long as the button is released}}
+\DoxyCodeLine{104     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() >= \mbox{\hyperlink{classButton_a5aa9ed7408a225103ea9c64f4a5a2d2a}{m\_releaseTime}}) \{}
+\DoxyCodeLine{105       \mbox{\hyperlink{classButton_a6482ef479511871ba18ad69213e75501}{m\_releaseDuration}} = (uint32\_t)(\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() -\/ \mbox{\hyperlink{classButton_a5aa9ed7408a225103ea9c64f4a5a2d2a}{m\_releaseTime}});}
+\DoxyCodeLine{106       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classButton_a6482ef479511871ba18ad69213e75501}{m\_releaseDuration}} > \mbox{\hyperlink{Timings_8h_ae76f1a92ba0f97abcfa5007efb8acb35}{CONSECUTIVE\_WINDOW\_TICKS}}) \{}
+\DoxyCodeLine{107         \textcolor{comment}{// if the release duration is greater than the threshold, reset the consecutive presses}}
+\DoxyCodeLine{108         \mbox{\hyperlink{classButton_a863f12d3c09791a1735645df271ddf58}{m\_consecutivePresses}} = 0;}
+\DoxyCodeLine{109       \}}
+\DoxyCodeLine{110     \}}
+\DoxyCodeLine{111   \}}
+\DoxyCodeLine{112 }
+\DoxyCodeLine{113   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}}) \{}
+\DoxyCodeLine{114     \mbox{\hyperlink{classButton_a863f12d3c09791a1735645df271ddf58}{m\_consecutivePresses}}++;}
+\DoxyCodeLine{115   \}}
+\DoxyCodeLine{116 }
+\DoxyCodeLine{117   \textcolor{comment}{// whether a shortclick or long click just occurred}}
+\DoxyCodeLine{118   \mbox{\hyperlink{classButton_a0e80fad6d54058eb7138109581ac4f85}{m\_shortClick}} = (\mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}} \&\& (\mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} <= \mbox{\hyperlink{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}{SHORT\_CLICK\_THRESHOLD\_TICKS}}));}
+\DoxyCodeLine{119   \mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}} = (\mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}} \&\& (\mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} > \mbox{\hyperlink{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}{SHORT\_CLICK\_THRESHOLD\_TICKS}}));}
+\DoxyCodeLine{120 }
+\DoxyCodeLine{121   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classButton_a0e80fad6d54058eb7138109581ac4f85}{m\_shortClick}}) \{}
+\DoxyCodeLine{122     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Short click"{}});}
+\DoxyCodeLine{123   \}}
+\DoxyCodeLine{124   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}}) \{}
+\DoxyCodeLine{125     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Long click"{}});}
+\DoxyCodeLine{126   \}}
+\DoxyCodeLine{127 \}}
+
+\end{DoxyCode}
+
+
+References check(), CONSECUTIVE\+\_\+\+WINDOW\+\_\+\+TICKS, DEBUG\+\_\+\+LOG, Time\+::get\+Curtime(), m\+\_\+button\+State, m\+\_\+consecutive\+Presses, m\+\_\+hold\+Duration, m\+\_\+is\+Pressed, m\+\_\+long\+Click, m\+\_\+new\+Press, m\+\_\+new\+Release, m\+\_\+press\+Time, m\+\_\+release\+Duration, m\+\_\+release\+Time, m\+\_\+short\+Click, and SHORT\+\_\+\+CLICK\+\_\+\+THRESHOLD\+\_\+\+TICKS.
+
+
+
+Referenced by Buttons\+::update().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classButton_ae5c3b0f7031de49ebd62a5b4fb03f90d}\label{classButton_ae5c3b0f7031de49ebd62a5b4fb03f90d}} 
+\index{Button@{Button}!m\_buttonState@{m\_buttonState}}
+\index{m\_buttonState@{m\_buttonState}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{m\_buttonState}{m\_buttonState}}
+{\footnotesize\ttfamily bool Button\+::m\+\_\+button\+State\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 79 of file Button.\+h.
+
+
+
+Referenced by init(), and update().
+
+\mbox{\Hypertarget{classButton_a863f12d3c09791a1735645df271ddf58}\label{classButton_a863f12d3c09791a1735645df271ddf58}} 
+\index{Button@{Button}!m\_consecutivePresses@{m\_consecutivePresses}}
+\index{m\_consecutivePresses@{m\_consecutivePresses}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{m\_consecutivePresses}{m\_consecutivePresses}}
+{\footnotesize\ttfamily uint8\+\_\+t Button\+::m\+\_\+consecutive\+Presses\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 74 of file Button.\+h.
+
+
+
+Referenced by consecutive\+Presses(), init(), on\+Consecutive\+Presses(), and update().
+
+\mbox{\Hypertarget{classButton_a711d3a33c86019298fe490b7441f8ead}\label{classButton_a711d3a33c86019298fe490b7441f8ead}} 
+\index{Button@{Button}!m\_holdDuration@{m\_holdDuration}}
+\index{m\_holdDuration@{m\_holdDuration}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{m\_holdDuration}{m\_holdDuration}}
+{\footnotesize\ttfamily uint32\+\_\+t Button\+::m\+\_\+hold\+Duration\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 69 of file Button.\+h.
+
+
+
+Referenced by hold\+Duration(), init(), and update().
+
+\mbox{\Hypertarget{classButton_ab61668778546acefd5c8e5f1c082ab61}\label{classButton_ab61668778546acefd5c8e5f1c082ab61}} 
+\index{Button@{Button}!m\_isPressed@{m\_isPressed}}
+\index{m\_isPressed@{m\_isPressed}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{m\_isPressed}{m\_isPressed}}
+{\footnotesize\ttfamily bool Button\+::m\+\_\+is\+Pressed\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 86 of file Button.\+h.
+
+
+
+Referenced by init(), is\+Pressed(), and update().
+
+\mbox{\Hypertarget{classButton_a0be422900425e08305de1d4667b9fb8e}\label{classButton_a0be422900425e08305de1d4667b9fb8e}} 
+\index{Button@{Button}!m\_longClick@{m\_longClick}}
+\index{m\_longClick@{m\_longClick}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{m\_longClick}{m\_longClick}}
+{\footnotesize\ttfamily bool Button\+::m\+\_\+long\+Click\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 90 of file Button.\+h.
+
+
+
+Referenced by init(), on\+Long\+Click(), and update().
+
+\mbox{\Hypertarget{classButton_acf8feb2430f68f24f633772725d14b7e}\label{classButton_acf8feb2430f68f24f633772725d14b7e}} 
+\index{Button@{Button}!m\_newPress@{m\_newPress}}
+\index{m\_newPress@{m\_newPress}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{m\_newPress}{m\_newPress}}
+{\footnotesize\ttfamily bool Button\+::m\+\_\+new\+Press\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 82 of file Button.\+h.
+
+
+
+Referenced by init(), on\+Press(), and update().
+
+\mbox{\Hypertarget{classButton_a0dfe411510dfde7feaa94478b52142cc}\label{classButton_a0dfe411510dfde7feaa94478b52142cc}} 
+\index{Button@{Button}!m\_newRelease@{m\_newRelease}}
+\index{m\_newRelease@{m\_newRelease}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{m\_newRelease}{m\_newRelease}}
+{\footnotesize\ttfamily bool Button\+::m\+\_\+new\+Release\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 84 of file Button.\+h.
+
+
+
+Referenced by init(), on\+Release(), and update().
+
+\mbox{\Hypertarget{classButton_ae9d49614896753764d5ec7b813bb112c}\label{classButton_ae9d49614896753764d5ec7b813bb112c}} 
+\index{Button@{Button}!m\_pinNum@{m\_pinNum}}
+\index{m\_pinNum@{m\_pinNum}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{m\_pinNum}{m\_pinNum}}
+{\footnotesize\ttfamily uint8\+\_\+t Button\+::m\+\_\+pin\+Num\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 58 of file Button.\+h.
+
+
+
+Referenced by check(), and init().
+
+\mbox{\Hypertarget{classButton_a4a906c7f15856b933701b78b3e0351c1}\label{classButton_a4a906c7f15856b933701b78b3e0351c1}} 
+\index{Button@{Button}!m\_pressTime@{m\_pressTime}}
+\index{m\_pressTime@{m\_pressTime}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{m\_pressTime}{m\_pressTime}}
+{\footnotesize\ttfamily uint32\+\_\+t Button\+::m\+\_\+press\+Time\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 64 of file Button.\+h.
+
+
+
+Referenced by init(), press\+Time(), and update().
+
+\mbox{\Hypertarget{classButton_a4630ca3b5a9e85d7bcefb6a6373ff15b}\label{classButton_a4630ca3b5a9e85d7bcefb6a6373ff15b}} 
+\index{Button@{Button}!m\_releaseCount@{m\_releaseCount}}
+\index{m\_releaseCount@{m\_releaseCount}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{m\_releaseCount}{m\_releaseCount}}
+{\footnotesize\ttfamily uint8\+\_\+t Button\+::m\+\_\+release\+Count\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 76 of file Button.\+h.
+
+
+
+Referenced by init(), and release\+Count().
+
+\mbox{\Hypertarget{classButton_a6482ef479511871ba18ad69213e75501}\label{classButton_a6482ef479511871ba18ad69213e75501}} 
+\index{Button@{Button}!m\_releaseDuration@{m\_releaseDuration}}
+\index{m\_releaseDuration@{m\_releaseDuration}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{m\_releaseDuration}{m\_releaseDuration}}
+{\footnotesize\ttfamily uint32\+\_\+t Button\+::m\+\_\+release\+Duration\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 71 of file Button.\+h.
+
+
+
+Referenced by init(), release\+Duration(), and update().
+
+\mbox{\Hypertarget{classButton_a5aa9ed7408a225103ea9c64f4a5a2d2a}\label{classButton_a5aa9ed7408a225103ea9c64f4a5a2d2a}} 
+\index{Button@{Button}!m\_releaseTime@{m\_releaseTime}}
+\index{m\_releaseTime@{m\_releaseTime}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{m\_releaseTime}{m\_releaseTime}}
+{\footnotesize\ttfamily uint32\+\_\+t Button\+::m\+\_\+release\+Time\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 66 of file Button.\+h.
+
+
+
+Referenced by init(), release\+Time(), and update().
+
+\mbox{\Hypertarget{classButton_a0e80fad6d54058eb7138109581ac4f85}\label{classButton_a0e80fad6d54058eb7138109581ac4f85}} 
+\index{Button@{Button}!m\_shortClick@{m\_shortClick}}
+\index{m\_shortClick@{m\_shortClick}!Button@{Button}}
+\doxysubsubsection{\texorpdfstring{m\_shortClick}{m\_shortClick}}
+{\footnotesize\ttfamily bool Button\+::m\+\_\+short\+Click\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 88 of file Button.\+h.
+
+
+
+Referenced by init(), on\+Short\+Click(), and update().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Buttons/\mbox{\hyperlink{Button_8h}{Button.\+h}}\item 
+Vortex\+Engine/src/\+Buttons/\mbox{\hyperlink{Button_8cpp}{Button.\+cpp}}\end{DoxyCompactItemize}
