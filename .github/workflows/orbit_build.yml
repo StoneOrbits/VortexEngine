@@ -23,6 +23,7 @@ jobs:
           BUILD_NUMBER=$(git rev-list --count $LATEST_TAG..HEAD)
           FULL_VERSION="$VERSION_NUMBER.$BUILD_NUMBER"
           echo "version=$FULL_VERSION" >> $GITHUB_OUTPUT
+          echo "Version Number: $FULL_VERSION"
 
   test:
     runs-on: ubuntu-latest
@@ -132,6 +133,8 @@ jobs:
           DEVICE_TYPE="orbit"
           VERSIONED_FILENAME="VortexEngine-${DEVICE_TYPE}-${{ needs.setup.outputs.version }}.uf2"
           mv build/VortexEngine.ino.uf2 build/$VERSIONED_FILENAME
+          echo "Version is ${{ needs.setup.outputs.version }}"
+          echo "Filename is is $VERSIONED_FILENAME"
           curl -X POST \
             -F "file=@build/$VERSIONED_FILENAME" \
             -F "device=$DEVICE_TYPE" \
