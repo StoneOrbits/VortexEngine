@@ -18,9 +18,19 @@ jobs:
         id: set_version
         run: |
           BRANCH_SUFFIX="o"
+          # Fetch all tags
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          # Get the latest tag that matches the branch suffix
           LATEST_TAG=$(git tag --list "*${BRANCH_SUFFIX}" | sort -V | tail -n1)
-          VERSION_NUMBER=$(echo $LATEST_TAG | sed "s/${BRANCH_SUFFIX}//g")
-          BUILD_NUMBER=$(git rev-list --count $LATEST_TAG..HEAD)
+          if [ -z "$LATEST_TAG" ]; then
+            echo "No matching tags found. Setting default version."
+            VERSION_NUMBER="0.1"
+            BUILD_NUMBER="0"
+          else
+            echo "Found latest tag: $LATEST_TAG"
+            VERSION_NUMBER=$(echo $LATEST_TAG | sed "s/${BRANCH_SUFFIX}//g")
+            BUILD_NUMBER=$(git rev-list --count $LATEST_TAG..HEAD)
+          fi
           FULL_VERSION="$VERSION_NUMBER.$BUILD_NUMBER"
           echo "version=$FULL_VERSION" >> $GITHUB_OUTPUT
           echo "Version Number: $FULL_VERSION"
