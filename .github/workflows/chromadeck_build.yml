@@ -8,89 +8,149 @@ on:
   workflow_dispatch: # manual trigger
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.set_version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches all history for all branches and tags
+      - name: Determine Version and Build Number
+        id: set_version
+        run: |
+          BRANCH_SUFFIX="c"
+          # Fetch all tags
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          # Get the latest tag that matches the branch suffix
+          LATEST_TAG=$(git tag --list "*${BRANCH_SUFFIX}" | sort -V | tail -n1)
+          if [ -z "$LATEST_TAG" ]; then
+            echo "No matching tags found. Setting default version."
+            VERSION_NUMBER="0.1"
+            BUILD_NUMBER="0"
+          else
+            echo "Found latest tag: $LATEST_TAG"
+            VERSION_NUMBER=$(echo $LATEST_TAG | sed "s/${BRANCH_SUFFIX}//g")
+            BUILD_NUMBER=$(git rev-list --count $LATEST_TAG..HEAD)
+          fi
+          FULL_VERSION="$VERSION_NUMBER.$BUILD_NUMBER"
+          echo "version=$FULL_VERSION" >> $GITHUB_OUTPUT
+          echo "Version Number: $FULL_VERSION"
+
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout current repository
-      uses: actions/checkout@v3
-    - name: Update Package Lists
-      run: sudo apt-get update
-    - name: Install Dependencies
-      run: sudo apt-get install valgrind g++ make --fix-missing
-    - name: Build
-      run: make -j
-      working-directory: VortexEngine
-    - name: Set execute permissions for test script
-      run: chmod +x ./runtests.sh
-      working-directory: VortexEngine/tests
-    - name: Run general tests
-      run: ./runtests.sh --general
-      working-directory: VortexEngine/tests
+      - name: Checkout current repository
+        uses: actions/checkout@v4
+      - name: Update Package Lists
+        run: sudo apt-get update
+      - name: Install Dependencies
+        run: sudo apt-get install valgrind g++ make --fix-missing
+      - name: Build
+        run: make -j
+        working-directory: VortexEngine
+      - name: Set execute permissions for test script
+        run: chmod +x ./runtests.sh
+        working-directory: VortexEngine/tests
+      - name: Run general tests
+        run: ./runtests.sh --general
+        working-directory: VortexEngine/tests
 
   embedded:
     needs: test
     runs-on: ubuntu-latest
     steps:
-    - uses: actions/checkout@v3
-    - name: Set up Python
-      uses: actions/setup-python@v3
-      with:
-        python-version: '3.x'
-    - name: Install Dependencies
-      run: make install
-    - name: Build Binary
-      run: make build
-    - name: Archive production artifacts
-      uses: actions/upload-artifact@v3
-      with:
-        name: embedded firmware
-        path: |
-          build/VortexEngine.ino.bin
-          build/VortexEngine.ino.elf
-          build/VortexEngine.ino.map
-          build/VortexEngine.ino.hex
-          build/VortexEngine.ino.uf2
+      - uses: actions/checkout@v4
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.x'
+      - name: Install Dependencies
+        run: make install
+      - name: Build Binary
+        run: make build
+      - name: Archive production artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: embedded firmware
+          path: |
+            build/VortexEngine.ino.bin
+            build/VortexEngine.ino.elf
+            build/VortexEngine.ino.map
+            build/VortexEngine.ino.hex
+            build/VortexEngine.ino.uf2
+      - name: Archive production artifacts for deployment
+        uses: actions/upload-artifact@v4
+        with:
+          name: firmware-artifact
+          path: build/VortexEngine.ino.uf2
+
   wasm:
     needs: embedded
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout current repository
-      uses: actions/checkout@v3
-    - name: Update Package Lists
-      run: sudo apt-get update
-    - name: Install Emscripten
-      run: |
-        sudo apt install -y cmake python3
-        git clone https://github.com/emscripten-core/emsdk.git
-        cd emsdk
-        ./emsdk install latest
-        ./emsdk activate latest
-      working-directory: VortexEngine/VortexLib
-    - name: Build Webassembly
-      run: |
-        source ./emsdk/emsdk_env.sh
-        make -j wasm
-      working-directory: VortexEngine/VortexLib
+      - name: Checkout current repository
+        uses: actions/checkout@v4
+      - name: Update Package Lists
+        run: sudo apt-get update
+      - name: Install Emscripten
+        run: |
+          sudo apt install -y cmake python3
+          git clone https://github.com/emscripten-core/emsdk.git
+          cd emsdk
+          ./emsdk install latest
+          ./emsdk activate latest
+        working-directory: VortexEngine/VortexLib
+      - name: Build Webassembly
+        run: |
+          source ./emsdk/emsdk_env.sh
+          make -j wasm
+        working-directory: VortexEngine/VortexLib
 
   docs:
     needs: wasm
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/chromadeck'
     steps:
-    - name: Checkout current repository
-      uses: actions/checkout@v3
-    - name: Update Package Lists
-      run: sudo apt-get update
-    - name: Install Dependencies
-      run: sudo apt-get install doxygen graphviz texlive --fix-missing
-    - name: Checkout doxygen-awesome
-      run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
-    - name: Generate Documentation
-      run: doxygen Doxyfile
-    - name: Commit and Push Documentation
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add docs
-        git commit -m "Update Doxygen documentation"
-        git push -f origin HEAD:chromadeck-docs
+      - name: Checkout current repository
+        uses: actions/checkout@v4
+      - name: Update Package Lists
+        run: sudo apt-get update
+      - name: Install Dependencies
+        run: sudo apt-get install doxygen graphviz texlive --fix-missing
+      - name: Checkout doxygen-awesome
+        run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
+      - name: Generate Documentation
+        run: doxygen Doxyfile
+      - name: Commit and Push Documentation
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs
+          git commit -m "Update Doxygen documentation"
+          git push -f origin HEAD:chromadeck-docs
+
+  deploy:
+    needs: [embedded, setup]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/chromadeck'
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/download-artifact@v4
+        with:
+          name: firmware-artifact
+          path: build
+      - name: Rename and Deploy Firmware
+        run: |
+          DEVICE_TYPE="chromadeck"
+          VERSIONED_FILENAME="VortexEngine-${DEVICE_TYPE}-${{ needs.setup.outputs.version }}.uf2"
+          mv build/VortexEngine.ino.uf2 build/$VERSIONED_FILENAME
+          echo "Version is ${{ needs.setup.outputs.version }}"
+          echo "Filename is is $VERSIONED_FILENAME"
+          curl -X POST \
+            -F "file=@build/$VERSIONED_FILENAME" \
+            -F "device=$DEVICE_TYPE" \
+            -F "version=${{ needs.setup.outputs.version }}" \
+            -F "category=firmware" \
+            -F "clientApiKey=${{ secrets.VORTEX_COMMUNITY_API_KEY }}" \
+            https://vortex.community/firmware/upload
