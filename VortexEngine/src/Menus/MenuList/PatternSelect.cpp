@@ -1,22 +1,20 @@
 #include "PatternSelect.h"
 
 #include "../../Patterns/PatternBuilder.h"
-#include "../../Patterns/PatternArgs.h"
 #include "../../Patterns/Pattern.h"
-#include "../../Serial/ByteStream.h"
 #include "../../Time/TimeControl.h"
-#include "../../Buttons/Button.h"
-#include "../../Random/Random.h"
 #include "../../Time/Timings.h"
+#include "../../Buttons/Button.h"
 #include "../../Modes/Modes.h"
 #include "../../Menus/Menus.h"
+#include "../../Modes/Mode.h"
 #include "../../Leds/Leds.h"
 #include "../../Log/Log.h"
 
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
-  m_srcLed(LED_FIRST),
-  m_argIndex(0),
+  m_state(STATE_PICK_LIST),
+  m_newPatternID(PATTERN_FIRST),
   m_started(false)
 {
 }
@@ -30,6 +28,8 @@ bool PatternSelect::init()
   if (!Menu::init()) {
     return false;
   }
+  m_state = STATE_PICK_LIST;
+  m_newPatternID = PATTERN_FIRST;
   DEBUG_LOG("Entered pattern select");
   return true;
 }
@@ -40,73 +40,131 @@ Menu::MenuAction PatternSelect::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
-  // run the current mode
-  m_previewMode.play();
-  // show dimmer selections in advanced mode
-  Menus::showSelection(m_advanced ? RGB_GREEN0 : RGB_WHITE5);
+
+  switch (m_state) {
+  case STATE_PICK_LIST:
+    // display lists
+    showListSelection();
+    blinkSelection();
+    break;
+  case STATE_PICK_PATTERN:
+    // display patterns
+    showPatternSelection();
+    break;
+  }
+
+  // show selections
+  Menus::showSelection();
   return MENU_CONTINUE;
 }
 
-void PatternSelect::onLedSelected()
+void PatternSelect::showListSelection()
 {
-  m_srcLed = mapGetFirstLed(m_targetLeds);
+  for (Quadrant f = QUADRANT_FIRST; f <= QUADRANT_4; ++f) {
+    // hue split into 4 quadrants of 90
+    Leds::breathQuadrant(f, f * (255 / 4), (uint32_t)Time::getCurtime(), 10, 255, 255);
+  }
+  Leds::blinkQuadrantFive(10, 50, RGB_OFF);
+}
+
+void PatternSelect::showPatternSelection()
+{
+  // run the current mode
+  m_previewMode.play();
+  if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
+    Leds::setAll(RGB_WHITE4);
+  }
 }
 
 void PatternSelect::onShortClick()
 {
-  if (m_advanced) {
-    // double click = skip 10
-    bool doSkip = g_pButton->onConsecutivePresses(2);
-    MAP_FOREACH_LED(m_targetLeds) {
-      Pattern *pat = m_previewMode.getPattern(pos);
-      if (pat->getNumArgs() <= m_argIndex) {
-        continue;
-      }
-      uint8_t &arg = pat->argRef(m_argIndex);
-      if (doSkip) {
-        arg += 10 - (arg % 10);
-      } else {
-        arg++;
-      }
-      // on/off/gap/dash duration max 100
-      uint8_t max = 100;
-      if (m_argIndex == 6) {
-        // blend number of numflips
-        max = 4;
-      } else if (m_argIndex > 3) {
-        // group size, solid index, blendspeed
-        max = 20;
-      }
-      if (arg > max) {
-        // red flash indicates reaching end
-        Leds::holdAll(RGB_RED);
-        arg %= (max + 1);
-      }
-      // do not let argument0 be reset to 0
-      if (!m_argIndex && !arg) {
-        arg = 1;
-      }
-    }
-    m_previewMode.init();
-    if (doSkip) {
-      // hold white for a moment to show they are skipping 25
-      Leds::holdAll(RGB_YELLOW1);
-    }
-    return;
+  switch (m_state) {
+  case STATE_PICK_LIST:
+    // wrap at the index back to pinkie
+    m_curSelection = (Quadrant)((m_curSelection + 1) % (QUADRANT_COUNT));
+    break;
+  case STATE_PICK_PATTERN:
+    nextPattern();
+    break;
   }
-  PatternID newID = (PatternID)(m_previewMode.getPatternID(m_srcLed) + 1);
-  PatternID maxID = PATTERN_SINGLE_LAST;
+}
+
+void PatternSelect::onShortClick2()
+{
+  switch (m_state) {
+  case STATE_PICK_LIST:
+    // wrap at the index back to pinkie
+    if (!m_curSelection) {
+      m_curSelection = QUADRANT_LAST;
+    } else {
+      m_curSelection = m_curSelection - 1;
+    }
+    break;
+  case STATE_PICK_PATTERN:
+    previousPattern();
+    break;
+  }
+}
+
+void PatternSelect::nextPattern()
+{
+  LedPos srcLed = LED_MULTI;
+  if (!m_previewMode.isMultiLed()) {
+    srcLed = mapGetFirstLed(m_targetLeds);
+  }
+  PatternID newID = (PatternID)(m_previewMode.getPatternID(srcLed) + 1);
+  PatternID endList = PATTERN_SINGLE_LAST;
+  PatternID beginList = PATTERN_SINGLE_FIRST;
 #if VORTEX_SLIM == 0
   if (m_targetLeds == MAP_LED_ALL || m_targetLeds == MAP_LED(LED_MULTI)) {
-    maxID = PATTERN_MULTI_LAST;
+    endList = PATTERN_MULTI_LAST;
+  }
+  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+    beginList = PATTERN_MULTI_FIRST;
   }
 #endif
-  if (newID > maxID) {
-    newID = maxID;
+  if (newID > endList || newID < beginList) {
+    newID = beginList;
   }
   if (!m_started) {
     m_started = true;
-    newID = PATTERN_FIRST;
+    m_newPatternID = PATTERN_FIRST;
+  }
+  // set the new pattern id
+  if (isMultiLedPatternID(newID)) {
+    m_previewMode.setPattern(newID);
+  } else {
+    // TODO: clear multi a better way
+    m_previewMode.setPatternMap(m_targetLeds, newID);
+    m_previewMode.clearPattern(LED_MULTI);
+  }
+  m_previewMode.init();
+  DEBUG_LOGF("Iterated to pattern id %d", newID);
+}
+
+void PatternSelect::previousPattern()
+{
+  LedPos srcLed = LED_MULTI;
+  if (!m_previewMode.isMultiLed()) {
+    srcLed = mapGetFirstLed(m_targetLeds);
+  }
+  PatternID newID = (PatternID)(m_previewMode.getPatternID(srcLed) - 1);
+  PatternID endList = PATTERN_SINGLE_LAST;
+  PatternID beginList = PATTERN_SINGLE_FIRST;
+#if VORTEX_SLIM == 0
+  if (m_targetLeds == MAP_LED_ALL || m_targetLeds == MAP_LED(LED_MULTI)) {
+    endList = PATTERN_MULTI_LAST;
+  }
+  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+    beginList = PATTERN_MULTI_FIRST;
+  }
+#endif
+  if (newID > endList || newID < beginList) {
+    newID = endList;
+  }
+  if (!m_started) {
+    m_started = true;
+    m_newPatternID = PATTERN_FIRST;
   }
   // set the new pattern id
   if (isMultiLedPatternID(newID)) {
@@ -122,15 +180,44 @@ void PatternSelect::onShortClick()
 
 void PatternSelect::onLongClick()
 {
-  if (m_advanced) {
-    m_argIndex++;
-    if (m_argIndex < m_previewMode.getPattern(m_srcLed)->getNumArgs()) {
-      // if we haven't reached number of args yet then just return and kee pgoing
+  Mode *cur = Modes::curMode();
+  bool needsSave = false;
+  switch (m_state) {
+  case STATE_PICK_LIST:
+    if (m_curSelection == QUADRANT_LAST) {
+      leaveMenu();
       return;
     }
-    Leds::holdAll(m_menuColor);
+    m_state = STATE_PICK_PATTERN;
+    // start the new pattern ID selection based on the chosen list
+    m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));
+    // need to ready up the preview mode for picking patterns, this can look different based on
+    // which pattern was already on this mode, and which leds they decided to pick
+    // for example if they had a multi-led pattern and they are targetting some grouping of singles now
+    // then we need to convert the multi into singles, maybe in the future we can allow singles to overlay
+    if (m_previewMode.isMultiLed() && m_targetLeds != MAP_LED_ALL && m_targetLeds != MAP_LED(LED_MULTI)) {
+      Colorset curSet = m_previewMode.getColorset();
+      m_previewMode.clearPattern(LED_MULTI);
+      m_previewMode.setPattern(PATTERN_FIRST, LED_ALL_SINGLE, nullptr, &curSet);
+    }
+    m_previewMode.setPatternMap(m_targetLeds, m_newPatternID);
+    m_previewMode.init();
+    DEBUG_LOGF("Started picking pattern at %u", m_newPatternID);
+    break;
+  case STATE_PICK_PATTERN:
+    // need to save the new pattern if it's different from current
+    needsSave = (cur->getPatternID() != m_previewMode.getPatternID());
+    // update the current mode with the new pattern
+    Modes::updateCurMode(&m_previewMode);
+    // then done here, save if the mode was different
+    leaveMenu(needsSave);
+    break;
   }
-  // store the mode as current mode
-  Modes::updateCurMode(&m_previewMode);
-  leaveMenu(true);
+  // reset selection after choosing anything
+  m_curSelection = QUADRANT_FIRST;
+}
+
+void PatternSelect::onLongClick2()
+{
+  leaveMenu();
 }

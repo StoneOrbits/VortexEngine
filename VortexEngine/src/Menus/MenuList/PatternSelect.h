@@ -15,19 +15,35 @@ public:
   bool init() override;
   MenuAction run() override;
 
-  // callback after the user selects the target led
-  void onLedSelected() override;
-
   // handlers for clicks
   void onShortClick() override;
+  void onShortClick2() override;
   void onLongClick() override;
+  void onLongClick2() override;
 
 private:
-  // helpful member
-  LedPos m_srcLed;
+  void showListSelection();
+  void showPatternSelection();
+  void nextPattern();
+  void previousPattern();
 
-  // used for adv pat select
-  uint8_t m_argIndex;
+  // private enumeration for internal state of pattern selection
+  enum PatternSelectState : uint32_t
+  {
+    // currently picking the list of patterns
+    STATE_PICK_LIST,
+    // currently picking a pattern in the list
+    STATE_PICK_PATTERN
+  };
+
+  // the current state of the pattern selection menu
+  PatternSelectState m_state;
+
+  // the patternid of the current demo
+  PatternID m_newPatternID;
+
+  // the preview mode itself
+  Mode m_patternMode;
 
   // the pat select starts by showing the current pattern
   // then the first click begin cycling the list of pats

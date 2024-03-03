@@ -26,7 +26,7 @@
 
 // the engine flavour, this should change for each device/flavour
 // of the engine that branches off from the main indefinitely
-#define VORTEX_NAME "Core"
+#define VORTEX_NAME "Orbit"
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
@@ -146,7 +146,7 @@
 //
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    185
+#define DEFAULT_BRIGHTNESS    20
 
 // Max Modes
 //
@@ -164,7 +164,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             13
+#define MAX_MODES             14
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -313,7 +313,7 @@
 // it will fill from the pinkie.
 //
 // The logic is cleaner for fill from pinkie but fill from thumb is preferred
-#define FILL_FROM_THUMB       1
+#define FILL_FROM_THUMB       0
 
 // Demo All Patterns
 //
@@ -507,7 +507,7 @@
 //  These are the various storage space constants of the vortex device
 
 // maximum size of a mode here
-#define MAX_MODE_SIZE 512
+#define MAX_MODE_SIZE 1024
 
 // the number of storage slots for modes, add 1 for the header
 #define NUM_MODE_SLOTS (MAX_MODES + 1)
