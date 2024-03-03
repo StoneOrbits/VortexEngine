@@ -19,7 +19,7 @@ jobs:
       - name: Determine Version and Build Number
         id: set_version
         run: |
-          BRANCH_SUFFIX="o"
+          BRANCH_SUFFIX="g"
           # Fetch all tags
           git fetch --depth=1 origin +refs/tags/*:refs/tags/*
           # Get the latest tag that matches the branch suffix
