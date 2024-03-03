@@ -129,28 +129,3 @@ jobs:
           git add docs
           git commit -m "Update Doxygen documentation"
           git push -f origin HEAD:chromadeck-docs
-
-  deploy:
-    needs: [embedded, setup]
-    runs-on: ubuntu-latest
-    if: github.ref == 'refs/heads/chromadeck'
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/download-artifact@v4
-        with:
-          name: firmware-artifact
-          path: build
-      - name: Rename and Deploy Firmware
-        run: |
-          DEVICE_TYPE="chromadeck"
-          VERSIONED_FILENAME="VortexEngine-${DEVICE_TYPE}-${{ needs.setup.outputs.version }}.uf2"
-          mv build/VortexEngine.ino.uf2 build/$VERSIONED_FILENAME
-          echo "Version is ${{ needs.setup.outputs.version }}"
-          echo "Filename is is $VERSIONED_FILENAME"
-          curl -X POST \
-            -F "file=@build/$VERSIONED_FILENAME" \
-            -F "device=$DEVICE_TYPE" \
-            -F "version=${{ needs.setup.outputs.version }}" \
-            -F "category=firmware" \
-            -F "clientApiKey=${{ secrets.VORTEX_COMMUNITY_API_KEY }}" \
-            https://vortex.community/firmware/upload
