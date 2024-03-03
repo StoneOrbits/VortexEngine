@@ -26,7 +26,7 @@
 
 // the engine flavour, this should change for each device/flavour
 // of the engine that branches off from the main indefinitely
-#define VORTEX_NAME "Core"
+#define VORTEX_NAME "Chromadeck"
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
@@ -146,7 +146,7 @@
 //
 // The starting default global brightness if there is no savefile
 // present The maximum value is 255
-#define DEFAULT_BRIGHTNESS    185
+#define DEFAULT_BRIGHTNESS    15
 
 // Max Modes
 //
@@ -164,7 +164,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             13
+#define MAX_MODES             16
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -302,7 +302,7 @@
 // Serial Baud Rate
 //
 // The serial connection baud rate for the editor and anything else serial
-#define SERIAL_BAUD_RATE            9600
+#define SERIAL_BAUD_RATE            115200
 
 // ===================================================================
 //  Boolean Configurations (0 or 1)
