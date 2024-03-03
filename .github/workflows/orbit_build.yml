@@ -8,24 +8,40 @@ on:
   workflow_dispatch: # manual trigger
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.set_version.outputs.full_version }}
+    steps:
+      - uses: actions/checkout@v3
+      - name: Determine Version and Build Number
+        id: set_version
+        run: |
+          BRANCH_SUFFIX="o"
+          LATEST_TAG=$(git tag --list "*${BRANCH_SUFFIX}" | sort -V | tail -n1)
+          VERSION_NUMBER=$(echo $LATEST_TAG | sed "s/${BRANCH_SUFFIX}//g")
+          BUILD_NUMBER=$(git rev-list --count $LATEST_TAG..HEAD)
+          FULL_VERSION="$VERSION_NUMBER.$BUILD_NUMBER"
+          echo "::set-output name=full_version::$FULL_VERSION"
+
   test:
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout current repository
-      uses: actions/checkout@v3
-    - name: Update Package Lists
-      run: sudo apt-get update
-    - name: Install Dependencies
-      run: sudo apt-get install valgrind g++ make --fix-missing
-    - name: Build
-      run: make -j
-      working-directory: VortexEngine
-    - name: Set execute permissions for test script
-      run: chmod +x ./runtests.sh
-      working-directory: VortexEngine/tests
-    - name: Run general tests
-      run: ./runtests.sh --general
-      working-directory: VortexEngine/tests
+      - name: Checkout current repository
+        uses: actions/checkout@v3
+      - name: Update Package Lists
+        run: sudo apt-get update
+      - name: Install Dependencies
+        run: sudo apt-get install valgrind g++ make --fix-missing
+      - name: Build
+        run: make -j
+        working-directory: VortexEngine
+      - name: Set execute permissions for test script
+        run: chmod +x ./runtests.sh
+        working-directory: VortexEngine/tests
+      - name: Run general tests
+        run: ./runtests.sh --general
+        working-directory: VortexEngine/tests
 
   embedded:
     needs: test
@@ -50,48 +66,75 @@ jobs:
             build/VortexEngine.ino.map
             build/VortexEngine.ino.hex
             build/VortexEngine.ino.uf2
+      - name: Archive production artifacts for deployment
+        uses: actions/upload-artifact@v3
+        with:
+          name: firmware-artifact
+          path: build/VortexEngine.ino.uf2
 
   wasm:
     needs: embedded
     runs-on: ubuntu-latest
     steps:
-    - name: Checkout current repository
-      uses: actions/checkout@v3
-    - name: Update Package Lists
-      run: sudo apt-get update
-    - name: Install Emscripten
-      run: |
-        sudo apt install -y cmake python3
-        git clone https://github.com/emscripten-core/emsdk.git
-        cd emsdk
-        ./emsdk install latest
-        ./emsdk activate latest
-      working-directory: VortexEngine/VortexLib
-    - name: Build Webassembly
-      run: |
-        source ./emsdk/emsdk_env.sh
-        make -j wasm
-      working-directory: VortexEngine/VortexLib
+      - name: Checkout current repository
+        uses: actions/checkout@v3
+      - name: Update Package Lists
+        run: sudo apt-get update
+      - name: Install Emscripten
+        run: |
+          sudo apt install -y cmake python3
+          git clone https://github.com/emscripten-core/emsdk.git
+          cd emsdk
+          ./emsdk install latest
+          ./emsdk activate latest
+        working-directory: VortexEngine/VortexLib
+      - name: Build Webassembly
+        run: |
+          source ./emsdk/emsdk_env.sh
+          make -j wasm
+        working-directory: VortexEngine/VortexLib
 
   docs:
     needs: wasm
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/orbit'
     steps:
-    - name: Checkout current repository
-      uses: actions/checkout@v3
-    - name: Update Package Lists
-      run: sudo apt-get update
-    - name: Install Dependencies
-      run: sudo apt-get install doxygen graphviz texlive --fix-missing
-    - name: Checkout doxygen-awesome
-      run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
-    - name: Generate Documentation
-      run: doxygen Doxyfile
-    - name: Commit and Push Documentation
-      run: |
-        git config --local user.email "action@github.com"
-        git config --local user.name "GitHub Action"
-        git add docs
-        git commit -m "Update Doxygen documentation"
-        git push -f origin HEAD:orbit-docs
+      - name: Checkout current repository
+        uses: actions/checkout@v3
+      - name: Update Package Lists
+        run: sudo apt-get update
+      - name: Install Dependencies
+        run: sudo apt-get install doxygen graphviz texlive --fix-missing
+      - name: Checkout doxygen-awesome
+        run: git clone https://github.com/jothepro/doxygen-awesome-css.git doxygen-awesome-css
+      - name: Generate Documentation
+        run: doxygen Doxyfile
+      - name: Commit and Push Documentation
+        run: |
+          git config --local user.email "action@github.com"
+          git config --local user.name "GitHub Action"
+          git add docs
+          git commit -m "Update Doxygen documentation"
+          git push -f origin HEAD:orbit-docs
+
+  deploy:
+    needs: [embedded, setup]
+    runs-on: ubuntu-latest
+    if: github.ref == 'refs/heads/orbit'
+    steps:
+      - uses: actions/checkout@v3
+      - uses: actions/download-artifact@v3
+        with:
+          name: firmware-artifact
+          path: build
+      - name: Rename and Deploy Firmware
+        run: |
+          VERSIONED_FILENAME="VortexEngine_${{ needs.setup.outputs.version }}.uf2"
+          mv build/VortexEngine.ino.uf2 build/$VERSIONED_FILENAME
+          curl -X POST \
+            -F "file=@build/$VERSIONED_FILENAME" \
+            -F "device=orbit" \
+            -F "version=${{ needs.setup.outputs.version }}" \
+            -F "category=firmware" \
+            -F "clientApiKey=${{ secrets.VORTEX_COMMUNITY_API_KEY }}" \
+            https://vortex.community/firmware/upload
