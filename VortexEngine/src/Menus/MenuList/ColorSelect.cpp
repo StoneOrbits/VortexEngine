@@ -259,6 +259,7 @@ void ColorSelect::showFullSet(uint8_t offMs, uint8_t onMs)
   if ((now % offOnMs) < MS_TO_TICKS(onMs)) {
     Leds::setAll(m_colorset.get((now / offOnMs) % numCols));
   }
+  Leds::setIndex(LED_1, 0x001000);
 }
 
 bool ColorSelect::isValidLedSelection(LedMap selection) const
