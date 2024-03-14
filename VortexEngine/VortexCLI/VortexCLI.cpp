@@ -148,6 +148,7 @@ VortexCLI::VortexCLI() :
   m_engine(m_vortex.engine()),
   m_ledList(),
   m_numLeds(0),
+  m_ledCount(0),
   m_initialized(false),
   m_buttonPressed(false),
   m_keepGoing(true),
@@ -190,6 +191,7 @@ static struct option long_options[] = {
   {"autowake", no_argument, nullptr, 'a'},
   {"nolock", no_argument, nullptr, 'n'},
   {"quick", no_argument, nullptr, 'q'},
+  {"led-count", required_argument, nullptr, 'u'},
   {"storage", optional_argument, nullptr, 'S'},
   {"write-save", required_argument, nullptr, 'W'},
   {"write-mode", required_argument, nullptr, 'M'},
@@ -244,6 +246,7 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -a, --autowake           Automatically and instantly wake on sleep (disable sleep)\n");
   fprintf(stderr, "  -n, --nolock             Automatically unlock upon locking the chip (disable lock)\n");
   fprintf(stderr, "  -q, --quick              Exit immediately after initialization (useful to convert data)\n");
+  fprintf(stderr, "  -u, --led-count          Set the initial led count of the engine (default 10)\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Storage and Data Conversion (optional):\n");
   fprintf(stderr, "  -S, --storage [file]     Persistent storage to file (default file: FlashStorage.flash)\n");
@@ -361,7 +364,7 @@ bool VortexCLI::init(int argc, char *argv[])
 
   int opt = -1;
   int option_index = 0;
-  while ((opt = getopt_long(argc, argv, "xcstliranqS::W:M:L:I::O::HP:C:A:h", long_options, &option_index)) != -1) {
+  while ((opt = getopt_long(argc, argv, "xcstliranquS::W:M:L:I::O::HP:C:A:h", long_options, &option_index)) != -1) {
     switch (opt) {
     case 'x':
       // if the user wants pretty colors or hex codes
@@ -402,6 +405,14 @@ bool VortexCLI::init(int argc, char *argv[])
     case 'q':
       // quick exit
       m_quickExit = true;
+      break;
+    case 'u':
+      if (optarg == NULL && optind < argc && argv[optind][0] != '-') {
+        optarg = argv[optind++];
+      }
+      if (optarg) {
+        m_ledCount = (uint8_t)strtoul(optarg, NULL, 10);
+      }
       break;
     case 'S':
       // enable persistent storage to file
@@ -495,6 +506,9 @@ bool VortexCLI::init(int argc, char *argv[])
   m_vortex.enableCommandLog(m_record);
   m_vortex.enableLockstep(m_lockstep);
   m_vortex.enableStorage(m_storage);
+  if (m_ledCount > 0 && m_ledCount < 256) {
+    m_vortex.setLedCount(m_ledCount);
+  }
   if (m_storage) {
     m_vortex.setStorageFilename(m_storageFile);
     if (access(m_storageFile.c_str(), F_OK) == 0) {

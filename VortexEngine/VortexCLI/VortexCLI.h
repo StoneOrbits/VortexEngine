@@ -63,7 +63,9 @@ private:
 
   // these are in no particular order
   RGBColor *m_ledList;
-  uint32_t m_numLeds;
+  uint32_t m_numLeds; // filled by callback from engine
+
+  uint8_t m_ledCount; // CLI controls this
   bool m_initialized;
   bool m_buttonPressed;
   bool m_keepGoing;
