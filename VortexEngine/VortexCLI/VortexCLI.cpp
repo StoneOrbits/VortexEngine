@@ -120,9 +120,9 @@ static EM_BOOL key_callback(int eventType, const EmscriptenKeyboardEvent *e, voi
 {
   if (e->key[0] == ' ') {
     if (eventType == EMSCRIPTEN_EVENT_KEYDOWN) {
-      Vortex::pressButton();
+      m_vortex.pressButton();
     } else if (eventType == EMSCRIPTEN_EVENT_KEYUP) {
-      Vortex::releaseButton();
+      m_vortex.releaseButton();
     }
   }
   return 0;
@@ -144,7 +144,11 @@ static void wasm_init()
 #endif // ifdef WASM
 
 VortexCLI::VortexCLI() :
+  m_vortex(),
+  m_engine(m_vortex.engine()),
+  m_ledList(),
   m_numLeds(0),
+  m_ledCount(0),
   m_initialized(false),
   m_buttonPressed(false),
   m_keepGoing(true),
@@ -187,6 +191,7 @@ static struct option long_options[] = {
   {"autowake", no_argument, nullptr, 'a'},
   {"nolock", no_argument, nullptr, 'n'},
   {"quick", no_argument, nullptr, 'q'},
+  {"led-count", required_argument, nullptr, 'u'},
   {"storage", optional_argument, nullptr, 'S'},
   {"write-save", required_argument, nullptr, 'W'},
   {"write-mode", required_argument, nullptr, 'M'},
@@ -241,6 +246,7 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -a, --autowake           Automatically and instantly wake on sleep (disable sleep)\n");
   fprintf(stderr, "  -n, --nolock             Automatically unlock upon locking the chip (disable lock)\n");
   fprintf(stderr, "  -q, --quick              Exit immediately after initialization (useful to convert data)\n");
+  fprintf(stderr, "  -u, --led-count          Set the initial led count of the engine (default 10)\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Storage and Data Conversion (optional):\n");
   fprintf(stderr, "  -S, --storage [file]     Persistent storage to file (default file: FlashStorage.flash)\n");
@@ -358,7 +364,7 @@ bool VortexCLI::init(int argc, char *argv[])
 
   int opt = -1;
   int option_index = 0;
-  while ((opt = getopt_long(argc, argv, "xcstliranqS::W:M:L:I::O::HP:C:A:h", long_options, &option_index)) != -1) {
+  while ((opt = getopt_long(argc, argv, "xcstliranquS::W:M:L:I::O::HP:C:A:h", long_options, &option_index)) != -1) {
     switch (opt) {
     case 'x':
       // if the user wants pretty colors or hex codes
@@ -399,6 +405,14 @@ bool VortexCLI::init(int argc, char *argv[])
     case 'q':
       // quick exit
       m_quickExit = true;
+      break;
+    case 'u':
+      if (optarg == NULL && optind < argc && argv[optind][0] != '-') {
+        optarg = argv[optind++];
+      }
+      if (optarg) {
+        m_ledCount = (uint8_t)strtoul(optarg, NULL, 10);
+      }
       break;
     case 'S':
       // enable persistent storage to file
@@ -485,33 +499,41 @@ bool VortexCLI::init(int argc, char *argv[])
   }
 
   // do the vortex init/setup
-  Vortex::init<VortexCLICallbacks>();
+  m_vortex.initEx<VortexCLICallbacks>();
 
   // configure the vortex engine as the parameters dictate
-  Vortex::setInstantTimestep(m_noTimestep);
-  Vortex::enableCommandLog(m_record);
-  Vortex::enableLockstep(m_lockstep);
-  Vortex::enableStorage(m_storage);
+  m_vortex.setInstantTimestep(m_noTimestep);
+  m_vortex.enableCommandLog(m_record);
+  m_vortex.enableLockstep(m_lockstep);
+  m_vortex.enableStorage(m_storage);
+  if (m_ledCount > 0 && m_ledCount < 256) {
+    m_vortex.setLedCount(m_ledCount);
+  }
   if (m_storage) {
-    Vortex::setStorageFilename(m_storageFile);
+    m_vortex.setStorageFilename(m_storageFile);
     if (access(m_storageFile.c_str(), F_OK) == 0) {
       // load storage if the file exists
-      Vortex::loadStorage();
+      m_vortex.loadStorage();
     }
   }
-  Vortex::setSleepEnabled(m_sleepEnabled);
-  Vortex::setLockEnabled(m_lockEnabled);
+  m_vortex.setSleepEnabled(m_sleepEnabled);
+  m_vortex.setLockEnabled(m_lockEnabled);
 
   if (m_jsonMode & JSON_MODE_READ_STDIN) {
     // todo: read js from stdin
-    printf("Reading json from stdin is not implemented yet, sorry\n");
-    exit(2);
+    printf("Reading json from stdin\n");
+    std::string inputString;
+    // Read from stdin until EOF
+    inputString.assign((std::istreambuf_iterator<char>(std::cin)),
+                        std::istreambuf_iterator<char>());
+    // read from m_jsonInFile;
+    m_vortex.parseJson(inputString);
   }
 
   if (m_jsonMode & JSON_MODE_READ_FILE) {
     printf("Reading json from %s\n", m_jsonInFile.c_str());
     // read from m_jsonInFile;
-    Vortex::parseJsonFromFile(m_jsonInFile);
+    m_vortex.parseJsonFromFile(m_jsonInFile);
   }
 
   // load a .vortex or .vtxmode savefile
@@ -530,14 +552,18 @@ bool VortexCLI::init(int argc, char *argv[])
     }
     fclose(inputFile);
     // clear existing modes
-    Modes::clearModes();
+    m_vortex.engine().modes().clearModes();
     // check if the load from savefile was provided, this is kinda ugly but whatever
     if (m_loadSaveFile.size() >= 8 && m_loadSaveFile.rfind(".vtxmode") == m_loadSaveFile.size() - 8) {
+      // match the led count of the savefile, a vtxmode
+      m_vortex.matchLedCount(stream, true);
       // ends with .vtxmode, load just a single mode
-      Vortex::addNewMode(stream);
+      m_vortex.addNewMode(stream);
     } else if (m_loadSaveFile.size() >= 7 && m_loadSaveFile.rfind(".vortex") == m_loadSaveFile.size() - 7) {
+      // match the led count of the savefile, a vortex file
+      m_vortex.matchLedCount(stream, false);
       // ends with .vortex, load the entire save
-      Vortex::setModes(stream);
+      m_vortex.setModes(stream);
     } else {
       // wasn't a valid savefile name
       printf("Savefile name must end in .vortex or .vtxmode: [%s]\n", m_loadSaveFile.c_str());
@@ -548,13 +574,13 @@ bool VortexCLI::init(int argc, char *argv[])
   if (m_patternIDStr.length() > 0) {
     // convert both numeric and string to see which one seems more correct
     PatternID id = (PatternID)strtoul(m_patternIDStr.c_str(), nullptr, 10);
-    PatternID strID = Vortex::stringToPattern(m_patternIDStr);
+    PatternID strID = m_vortex.stringToPattern(m_patternIDStr);
     if (id == PATTERN_FIRST && strID != PATTERN_NONE) {
       // use the str ID if the numeric ID didn't convert and the string did
       id = strID;
     }
     // TODO: add arg for the led position
-    Vortex::setPatternAt(LED_ALL, id);
+    m_vortex.setPatternAt(LED_ALL, id);
   }
   if (m_colorsetStr.length() > 0) {
     stringstream ss(m_colorsetStr);
@@ -570,7 +596,7 @@ bool VortexCLI::init(int argc, char *argv[])
       }
     }
     // TODO: add arg for the led position
-    Vortex::setColorset(LED_ALL, set);
+    m_vortex.setColorset(LED_ALL, set);
   }
   if (m_argumentsStr.length() > 0) {
     stringstream ss(m_argumentsStr);
@@ -580,7 +606,7 @@ bool VortexCLI::init(int argc, char *argv[])
       args.args[args.numArgs++] = strtoul(arg.c_str(), nullptr, 10);
     }
     // TODO: add arg for the led position
-    Vortex::setPatternArgs(LED_ALL, args);
+    m_vortex.setPatternArgs(LED_ALL, args);
   }
   if (m_inPlace && !system("clear")) {
     printf("Failed to clear\n");
@@ -606,7 +632,7 @@ void VortexCLI::run()
   if (!stillRunning()) {
     return;
   }
-  if (!Vortex::tick() || m_quickExit) {
+  if (!m_vortex.tick() || m_quickExit) {
     cleanup();
   }
 }
@@ -625,22 +651,22 @@ void VortexCLI::cleanup()
       exit(2);
     }
     // Print the recorded input to the file
-    fprintf(outputFile, "%s", Vortex::getCommandLog().c_str());
+    fprintf(outputFile, "%s", m_vortex.getCommandLog().c_str());
     // Close the output file
     fclose(outputFile);
     printf("Wrote recorded input to " RECORD_FILE "\n");
   }
   if (m_jsonMode & JSON_MODE_WRITE_STDOUT) {
     // dump the current save in json format
-    Vortex::dumpJson(nullptr, m_jsonPretty);
+    std::cout << m_vortex.printJson(m_jsonPretty);
   }
   if (m_jsonMode & JSON_MODE_WRITE_FILE) {
-    Vortex::dumpJson(m_jsonOutFile.c_str(), m_jsonPretty);
+    m_vortex.printJsonToFile(m_jsonOutFile.c_str(), m_jsonPretty);
     printf("Wrote JSON to file [%s]\n", m_jsonOutFile.c_str());
   }
   if (m_writeSaveFile.length() > 0) {
     ByteStream stream;
-    Vortex::getModes(stream);
+    m_vortex.getModes(stream);
     FILE *outputFile = fopen(m_writeSaveFile.c_str(), "w");
     if (!outputFile) {
       printf("Failed to open: [%s] (%s)", m_writeSaveFile.c_str(), strerror(errno));
@@ -654,7 +680,7 @@ void VortexCLI::cleanup()
   }
   if (m_writeModeFile.length() > 0) {
     ByteStream stream;
-    Vortex::getCurMode(stream);
+    m_vortex.getCurMode(stream);
     FILE *outputFile = fopen(m_writeModeFile.c_str(), "w");
     if (!outputFile) {
       printf("Failed to open: [%s] (%s)", m_writeModeFile.c_str(), strerror(errno));
@@ -669,9 +695,9 @@ void VortexCLI::cleanup()
   m_keepGoing = false;
   m_isPaused = false;
   if (m_storage) {
-    Vortex::doSave();
+    m_vortex.doSave();
   }
-  Vortex::cleanup();
+  m_vortex.cleanup();
 #ifdef WASM
   emscripten_force_exit(0);
 #endif
@@ -747,7 +773,7 @@ void VortexCLI::show()
 
 bool VortexCLI::isButtonPressed()
 {
-  return Vortex::isButtonPressed();
+  return m_vortex.isButtonPressed();
 }
 
 bool VortexCLI::stillRunning() const
@@ -765,9 +791,9 @@ long VortexCLI::VortexCLICallbacks::checkPinHook(uint32_t pin)
 {
   if (pin == 20) {
     // orbit button 2
-    return Vortex::isButtonPressed(1) ? 0 : 1;
+    return m_vortex.isButtonPressed(1) ? 0 : 1;
   }
-  return Vortex::isButtonPressed(0) ? 0 : 1;
+  return m_vortex.isButtonPressed(0) ? 0 : 1;
 }
 
 void VortexCLI::VortexCLICallbacks::ledsInit(void *cl, int count)

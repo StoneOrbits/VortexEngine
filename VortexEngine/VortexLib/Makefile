@@ -18,6 +18,7 @@ RM=rm -rf
 RANLIB=ranlib
 
 CFLAGS=-O2 -Wall
+LDFLAGS=$(CFLAGS)
 
 # add -g flag for debug symbols if we're not using wasm
 ifndef WASM
