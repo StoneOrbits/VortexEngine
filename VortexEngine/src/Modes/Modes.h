@@ -85,6 +85,11 @@ public:
   // iterate to previous mode and return it
   Mode *previousMode();
 
+  // whether the current mode has been loaded out of storage this is
+  // more for internal use, it was added to help vortexlib detect
+  // whether a mode has been loaded or not when led count changes
+  bool curModeInstantiated() { return (m_pCurModeLink && m_pCurModeLink->mode() != nullptr); }
+
   // iterate to the next mode but skip empty modes, will not skip mode 0
   // to prevent possibly skipping all modes and ending in an infinite loop
   Mode *nextModeSkipEmpty();

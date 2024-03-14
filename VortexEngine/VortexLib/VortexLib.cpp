@@ -1238,9 +1238,12 @@ uint8_t Vortex::setLedCount(uint8_t count)
 {
   // must change the 'leds' led count before changing a mode
   m_engine.leds().setLedCount(count);
-  Mode *cur = m_engine.modes().curMode();
-  if (cur && !cur->setLedCount(count)) {
-    return false;
+  // if the current mdoe is instantiated then need to update it too
+  if (m_engine.modes().curModeInstantiated()) {
+    Mode *cur = m_engine.modes().curMode();
+    if (cur && !cur->setLedCount(count)) {
+      return false;
+    }
   }
   return true;
 }
@@ -1986,6 +1989,7 @@ Mode *Vortex::modeFromJson(const json &modeJson)
       multiPattern->getArgs(args);
       Colorset set = multiPattern->getColorset();
       mode->setPattern(multiPattern->getPatternID(), LED_MULTI, &args, &set);
+      delete multiPattern;
     }
   }
 
@@ -2000,6 +2004,7 @@ Mode *Vortex::modeFromJson(const json &modeJson)
           pattern->getArgs(args);
           Colorset set = pattern->getColorset();
           mode->setPattern(pattern->getPatternID(), pos++, &args, &set);
+          delete pattern;
         }
       }
     }
@@ -2168,6 +2173,7 @@ bool Vortex::loadFromJson(const json& js)
         Mode *mode = modeFromJson(modeValue);
         if (mode) {
           m_engine.modes().addMode(mode);
+          delete mode;
         }
       }
     }

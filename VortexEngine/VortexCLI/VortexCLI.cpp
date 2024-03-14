@@ -521,8 +521,13 @@ bool VortexCLI::init(int argc, char *argv[])
 
   if (m_jsonMode & JSON_MODE_READ_STDIN) {
     // todo: read js from stdin
-    printf("Reading json from stdin is not implemented yet, sorry\n");
-    exit(2);
+    printf("Reading json from stdin\n");
+    std::string inputString;
+    // Read from stdin until EOF
+    inputString.assign((std::istreambuf_iterator<char>(std::cin)),
+                        std::istreambuf_iterator<char>());
+    // read from m_jsonInFile;
+    m_vortex.parseJson(inputString);
   }
 
   if (m_jsonMode & JSON_MODE_READ_FILE) {
