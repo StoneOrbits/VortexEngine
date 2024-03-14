@@ -1,0 +1,284 @@
+\hypertarget{classSequenceStep}{}\doxysection{Sequence\+Step Class Reference}
+\label{classSequenceStep}\index{SequenceStep@{SequenceStep}}
+
+
+{\ttfamily \#include $<$Sequence.\+h$>$}
+
+
+
+Collaboration diagram for Sequence\+Step\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classSequenceStep__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classSequenceStep_a4781928f80d5074ba7d36c98c98b3dae}{Sequence\+Step}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine)
+\item 
+\mbox{\hyperlink{classSequenceStep_aef1df8a60912d1b337b6a3e9ea631a04}{Sequence\+Step}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, uint16\+\_\+t duration, const \mbox{\hyperlink{classPatternMap}{Pattern\+Map}} \&pattern\+Map, const \mbox{\hyperlink{classColorsetMap}{Colorset\+Map}} \&colorset\+Map)
+\item 
+\mbox{\hyperlink{classSequenceStep_aaa1db7efc4011ec022b3718ae77d6d1b}{Sequence\+Step}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, const \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} \&other)
+\item 
+void \mbox{\hyperlink{classSequenceStep_a9238f49ec8d8bc69088078ce0ec995a4}{operator=}} (const \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} \&other)
+\item 
+bool \mbox{\hyperlink{classSequenceStep_aacdcbfe4523819c96f620d496b7c6977}{operator==}} (const \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} \&other) const
+\item 
+bool \mbox{\hyperlink{classSequenceStep_a0bc385c6eda323713c0fc21a7098a832}{operator!=}} (const \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} \&other) const
+\item 
+void \mbox{\hyperlink{classSequenceStep_a91691abcb78df2939a05dcaf88303c6b}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer) const
+\item 
+void \mbox{\hyperlink{classSequenceStep_ac398acce774b1ea001fb9c5453a19cbc}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \& \mbox{\hyperlink{classSequenceStep_a84cbe00da9cb9f91d664a73f9db22261}{m\+\_\+engine}}
+\item 
+uint16\+\_\+t \mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\+\_\+duration}}
+\item 
+\mbox{\hyperlink{classPatternMap}{Pattern\+Map}} \mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\+\_\+pattern\+Map}}
+\item 
+\mbox{\hyperlink{classColorsetMap}{Colorset\+Map}} \mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\+\_\+colorset\+Map}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 70 of file Sequence.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classSequenceStep_a4781928f80d5074ba7d36c98c98b3dae}\label{classSequenceStep_a4781928f80d5074ba7d36c98c98b3dae}} 
+\index{SequenceStep@{SequenceStep}!SequenceStep@{SequenceStep}}
+\index{SequenceStep@{SequenceStep}!SequenceStep@{SequenceStep}}
+\doxysubsubsection{\texorpdfstring{SequenceStep()}{SequenceStep()}\hspace{0.1cm}{\footnotesize\ttfamily [1/3]}}
+{\footnotesize\ttfamily Sequence\+Step\+::\+Sequence\+Step (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine }\end{DoxyParamCaption})}
+
+
+
+Definition at line 144 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{144                                                :}
+\DoxyCodeLine{145   \mbox{\hyperlink{classSequenceStep_a84cbe00da9cb9f91d664a73f9db22261}{m\_engine}}(engine), \mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}}(0), \mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}}(engine), \mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}(engine)}
+\DoxyCodeLine{146 \{}
+\DoxyCodeLine{147 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSequenceStep_aef1df8a60912d1b337b6a3e9ea631a04}\label{classSequenceStep_aef1df8a60912d1b337b6a3e9ea631a04}} 
+\index{SequenceStep@{SequenceStep}!SequenceStep@{SequenceStep}}
+\index{SequenceStep@{SequenceStep}!SequenceStep@{SequenceStep}}
+\doxysubsubsection{\texorpdfstring{SequenceStep()}{SequenceStep()}\hspace{0.1cm}{\footnotesize\ttfamily [2/3]}}
+{\footnotesize\ttfamily Sequence\+Step\+::\+Sequence\+Step (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{uint16\+\_\+t}]{duration,  }\item[{const \mbox{\hyperlink{classPatternMap}{Pattern\+Map}} \&}]{pattern\+Map,  }\item[{const \mbox{\hyperlink{classColorsetMap}{Colorset\+Map}} \&}]{colorset\+Map }\end{DoxyParamCaption})}
+
+
+
+Definition at line 149 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{149                                                                                                                                 :}
+\DoxyCodeLine{150   \mbox{\hyperlink{classSequenceStep_a84cbe00da9cb9f91d664a73f9db22261}{m\_engine}}(engine), \mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}}(duration), \mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}}(engine, patternMap), \mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}(engine, colorsetMap)}
+\DoxyCodeLine{151 \{}
+\DoxyCodeLine{152 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSequenceStep_aaa1db7efc4011ec022b3718ae77d6d1b}\label{classSequenceStep_aaa1db7efc4011ec022b3718ae77d6d1b}} 
+\index{SequenceStep@{SequenceStep}!SequenceStep@{SequenceStep}}
+\index{SequenceStep@{SequenceStep}!SequenceStep@{SequenceStep}}
+\doxysubsubsection{\texorpdfstring{SequenceStep()}{SequenceStep()}\hspace{0.1cm}{\footnotesize\ttfamily [3/3]}}
+{\footnotesize\ttfamily Sequence\+Step\+::\+Sequence\+Step (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{const \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} \&}]{other }\end{DoxyParamCaption})}
+
+
+
+Definition at line 154 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{154                                                                           :}
+\DoxyCodeLine{155   \mbox{\hyperlink{classSequenceStep_a4781928f80d5074ba7d36c98c98b3dae}{SequenceStep}}(engine)}
+\DoxyCodeLine{156 \{}
+\DoxyCodeLine{157   *\textcolor{keyword}{this} = other;}
+\DoxyCodeLine{158 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classSequenceStep_a0bc385c6eda323713c0fc21a7098a832}\label{classSequenceStep_a0bc385c6eda323713c0fc21a7098a832}} 
+\index{SequenceStep@{SequenceStep}!operator"!=@{operator"!=}}
+\index{operator"!=@{operator"!=}!SequenceStep@{SequenceStep}}
+\doxysubsubsection{\texorpdfstring{operator"!=()}{operator!=()}}
+{\footnotesize\ttfamily bool Sequence\+Step\+::operator!= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} \&}]{other }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 174 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{175 \{}
+\DoxyCodeLine{176   \textcolor{keywordflow}{return} !(*\textcolor{keyword}{this} == other);}
+\DoxyCodeLine{177 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classSequenceStep_a9238f49ec8d8bc69088078ce0ec995a4}\label{classSequenceStep_a9238f49ec8d8bc69088078ce0ec995a4}} 
+\index{SequenceStep@{SequenceStep}!operator=@{operator=}}
+\index{operator=@{operator=}!SequenceStep@{SequenceStep}}
+\doxysubsubsection{\texorpdfstring{operator=()}{operator=()}}
+{\footnotesize\ttfamily void Sequence\+Step\+::operator= (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} \&}]{other }\end{DoxyParamCaption})}
+
+
+
+Definition at line 160 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{161 \{}
+\DoxyCodeLine{162   this-\/>\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}} = other.\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}};}
+\DoxyCodeLine{163   this-\/>\mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}} = other.\mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}};}
+\DoxyCodeLine{164   this-\/>\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}} = other.\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}};}
+\DoxyCodeLine{165 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+colorset\+Map, m\+\_\+duration, and m\+\_\+pattern\+Map.
+
+\mbox{\Hypertarget{classSequenceStep_aacdcbfe4523819c96f620d496b7c6977}\label{classSequenceStep_aacdcbfe4523819c96f620d496b7c6977}} 
+\index{SequenceStep@{SequenceStep}!operator==@{operator==}}
+\index{operator==@{operator==}!SequenceStep@{SequenceStep}}
+\doxysubsubsection{\texorpdfstring{operator==()}{operator==()}}
+{\footnotesize\ttfamily bool Sequence\+Step\+::operator== (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} \&}]{other }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 167 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{168 \{}
+\DoxyCodeLine{169   \textcolor{keywordflow}{return} (this-\/>\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}} == other.\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}} \&\&}
+\DoxyCodeLine{170           this-\/>m\_patternMap == other.\mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}} \&\&}
+\DoxyCodeLine{171           this-\/>m\_colorsetMap == other.\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}});}
+\DoxyCodeLine{172 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+colorset\+Map, m\+\_\+duration, and m\+\_\+pattern\+Map.
+
+\mbox{\Hypertarget{classSequenceStep_a91691abcb78df2939a05dcaf88303c6b}\label{classSequenceStep_a91691abcb78df2939a05dcaf88303c6b}} 
+\index{SequenceStep@{SequenceStep}!serialize@{serialize}}
+\index{serialize@{serialize}!SequenceStep@{SequenceStep}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily void Sequence\+Step\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 179 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{180 \{}
+\DoxyCodeLine{181   buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}});}
+\DoxyCodeLine{182   \mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}}.\mbox{\hyperlink{classPatternMap_a438f831e3e16c6347e6fb32d5357fda9}{serialize}}(buffer);}
+\DoxyCodeLine{183   \mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}.\mbox{\hyperlink{classColorsetMap_ae4cf6ba495cfe692e1b8d4a48fc003f5}{serialize}}(buffer);}
+\DoxyCodeLine{184 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+colorset\+Map, m\+\_\+duration, m\+\_\+pattern\+Map, Pattern\+Map\+::serialize(), Colorset\+Map\+::serialize(), and Byte\+Stream\+::serialize().
+
+\mbox{\Hypertarget{classSequenceStep_ac398acce774b1ea001fb9c5453a19cbc}\label{classSequenceStep_ac398acce774b1ea001fb9c5453a19cbc}} 
+\index{SequenceStep@{SequenceStep}!unserialize@{unserialize}}
+\index{unserialize@{unserialize}!SequenceStep@{SequenceStep}}
+\doxysubsubsection{\texorpdfstring{unserialize()}{unserialize()}}
+{\footnotesize\ttfamily void Sequence\+Step\+::unserialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Definition at line 186 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{187 \{}
+\DoxyCodeLine{188   buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}});}
+\DoxyCodeLine{189   \mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}}.\mbox{\hyperlink{classPatternMap_a0269b72cda20594f9c3b90da4a24d040}{unserialize}}(buffer);}
+\DoxyCodeLine{190   \mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}.\mbox{\hyperlink{classColorsetMap_a13341424b365b209d2e93700f953317c}{unserialize}}(buffer);}
+\DoxyCodeLine{191 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+colorset\+Map, m\+\_\+duration, m\+\_\+pattern\+Map, Pattern\+Map\+::unserialize(), Colorset\+Map\+::unserialize(), and Byte\+Stream\+::unserialize().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}\label{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}} 
+\index{SequenceStep@{SequenceStep}!m\_colorsetMap@{m\_colorsetMap}}
+\index{m\_colorsetMap@{m\_colorsetMap}!SequenceStep@{SequenceStep}}
+\doxysubsubsection{\texorpdfstring{m\_colorsetMap}{m\_colorsetMap}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classColorsetMap}{Colorset\+Map}} Sequence\+Step\+::m\+\_\+colorset\+Map}
+
+
+
+Definition at line 91 of file Sequence.\+h.
+
+
+
+Referenced by operator=(), operator==(), Sequenced\+Pattern\+::play\+Sequence\+Step(), serialize(), and unserialize().
+
+\mbox{\Hypertarget{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}\label{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}} 
+\index{SequenceStep@{SequenceStep}!m\_duration@{m\_duration}}
+\index{m\_duration@{m\_duration}!SequenceStep@{SequenceStep}}
+\doxysubsubsection{\texorpdfstring{m\_duration}{m\_duration}}
+{\footnotesize\ttfamily uint16\+\_\+t Sequence\+Step\+::m\+\_\+duration}
+
+
+
+Definition at line 89 of file Sequence.\+h.
+
+
+
+Referenced by operator=(), operator==(), serialize(), and unserialize().
+
+\mbox{\Hypertarget{classSequenceStep_a84cbe00da9cb9f91d664a73f9db22261}\label{classSequenceStep_a84cbe00da9cb9f91d664a73f9db22261}} 
+\index{SequenceStep@{SequenceStep}!m\_engine@{m\_engine}}
+\index{m\_engine@{m\_engine}!SequenceStep@{SequenceStep}}
+\doxysubsubsection{\texorpdfstring{m\_engine}{m\_engine}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}}\& Sequence\+Step\+::m\+\_\+engine}
+
+
+
+Definition at line 86 of file Sequence.\+h.
+
+\mbox{\Hypertarget{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}\label{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}} 
+\index{SequenceStep@{SequenceStep}!m\_patternMap@{m\_patternMap}}
+\index{m\_patternMap@{m\_patternMap}!SequenceStep@{SequenceStep}}
+\doxysubsubsection{\texorpdfstring{m\_patternMap}{m\_patternMap}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPatternMap}{Pattern\+Map}} Sequence\+Step\+::m\+\_\+pattern\+Map}
+
+
+
+Definition at line 90 of file Sequence.\+h.
+
+
+
+Referenced by operator=(), operator==(), Sequenced\+Pattern\+::play\+Sequence\+Step(), serialize(), and unserialize().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\+Sequencer/\mbox{\hyperlink{Sequence_8h}{Sequence.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\+Sequencer/\mbox{\hyperlink{Sequence_8cpp}{Sequence.\+cpp}}\end{DoxyCompactItemize}

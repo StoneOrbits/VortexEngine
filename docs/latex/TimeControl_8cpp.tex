@@ -1,0 +1,60 @@
+\hypertarget{TimeControl_8cpp}{}\doxysection{Vortex\+Engine/src/\+Time/\+Time\+Control.cpp File Reference}
+\label{TimeControl_8cpp}\index{VortexEngine/src/Time/TimeControl.cpp@{VortexEngine/src/Time/TimeControl.cpp}}
+{\ttfamily \#include \char`\"{}Time\+Control.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../\+Memory/\+Memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Log/\+Log.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Timings.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Leds/\+Leds.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+Include dependency graph for Time\+Control.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TimeControl_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{TimeControl_8cpp_ad4fb94c1ab9cbc945f797df08da3fcf1}{SEC\+\_\+\+TO\+\_\+\+US}}(sec)~((sec)$\ast$1000000)
+\item 
+\#define \mbox{\hyperlink{TimeControl_8cpp_aba379c651cac0789cf71828509fec881}{NS\+\_\+\+TO\+\_\+\+US}}(ns)~((ns)/1000)
+\item 
+\#define \mbox{\hyperlink{TimeControl_8cpp_a7f21fe9fdb3605017d51d802b41910ac}{TICKRATE}}~\mbox{\hyperlink{VortexConfig_8h_a97f6a37590c60f131bba4007c88d16eb}{DEFAULT\+\_\+\+TICKRATE}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{TimeControl_8cpp_aba379c651cac0789cf71828509fec881}\label{TimeControl_8cpp_aba379c651cac0789cf71828509fec881}} 
+\index{TimeControl.cpp@{TimeControl.cpp}!NS\_TO\_US@{NS\_TO\_US}}
+\index{NS\_TO\_US@{NS\_TO\_US}!TimeControl.cpp@{TimeControl.cpp}}
+\doxysubsubsection{\texorpdfstring{NS\_TO\_US}{NS\_TO\_US}}
+{\footnotesize\ttfamily \#define NS\+\_\+\+TO\+\_\+\+US(\begin{DoxyParamCaption}\item[{}]{ns }\end{DoxyParamCaption})~((ns)/1000)}
+
+
+
+Definition at line 17 of file Time\+Control.\+cpp.
+
+\mbox{\Hypertarget{TimeControl_8cpp_ad4fb94c1ab9cbc945f797df08da3fcf1}\label{TimeControl_8cpp_ad4fb94c1ab9cbc945f797df08da3fcf1}} 
+\index{TimeControl.cpp@{TimeControl.cpp}!SEC\_TO\_US@{SEC\_TO\_US}}
+\index{SEC\_TO\_US@{SEC\_TO\_US}!TimeControl.cpp@{TimeControl.cpp}}
+\doxysubsubsection{\texorpdfstring{SEC\_TO\_US}{SEC\_TO\_US}}
+{\footnotesize\ttfamily \#define SEC\+\_\+\+TO\+\_\+\+US(\begin{DoxyParamCaption}\item[{}]{sec }\end{DoxyParamCaption})~((sec)$\ast$1000000)}
+
+
+
+Definition at line 16 of file Time\+Control.\+cpp.
+
+\mbox{\Hypertarget{TimeControl_8cpp_a7f21fe9fdb3605017d51d802b41910ac}\label{TimeControl_8cpp_a7f21fe9fdb3605017d51d802b41910ac}} 
+\index{TimeControl.cpp@{TimeControl.cpp}!TICKRATE@{TICKRATE}}
+\index{TICKRATE@{TICKRATE}!TimeControl.cpp@{TimeControl.cpp}}
+\doxysubsubsection{\texorpdfstring{TICKRATE}{TICKRATE}}
+{\footnotesize\ttfamily \#define TICKRATE~\mbox{\hyperlink{VortexConfig_8h_a97f6a37590c60f131bba4007c88d16eb}{DEFAULT\+\_\+\+TICKRATE}}}
+
+
+
+Definition at line 25 of file Time\+Control.\+cpp.
+

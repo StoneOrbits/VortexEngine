@@ -1,0 +1,83 @@
+\hypertarget{classChaserPattern}{}\doxysection{Chaser\+Pattern Class Reference}
+\label{classChaserPattern}\index{ChaserPattern@{ChaserPattern}}
+
+
+{\ttfamily \#include $<$Chaser\+Pattern.\+h$>$}
+
+
+
+Inheritance diagram for Chaser\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{classChaserPattern__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Chaser\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classChaserPattern__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classChaserPattern_ae36a5461b90ee87ecc753d0bad366ce5}{Chaser\+Pattern}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&args)
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 6 of file Chaser\+Pattern.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classChaserPattern_ae36a5461b90ee87ecc753d0bad366ce5}\label{classChaserPattern_ae36a5461b90ee87ecc753d0bad366ce5}} 
+\index{ChaserPattern@{ChaserPattern}!ChaserPattern@{ChaserPattern}}
+\index{ChaserPattern@{ChaserPattern}!ChaserPattern@{ChaserPattern}}
+\doxysubsubsection{\texorpdfstring{ChaserPattern()}{ChaserPattern()}}
+{\footnotesize\ttfamily Chaser\+Pattern\+::\+Chaser\+Pattern (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&}]{args }\end{DoxyParamCaption})}
+
+
+
+Definition at line 12 of file Chaser\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{12                                                                           :}
+\DoxyCodeLine{13   \mbox{\hyperlink{classSequencedPattern_a245bef495a3d14fda81c55bd3d213ee8}{SequencedPattern}}(engine, args)}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
+\DoxyCodeLine{16   uint32\_t numChasers = \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}} / \mbox{\hyperlink{ChaserPattern_8cpp_ac794e99d75adaba173019dd94030c4fc}{CHASER\_RATIO}};}
+\DoxyCodeLine{17   \textcolor{keywordflow}{if} (!numChasers) \{}
+\DoxyCodeLine{18     numChasers = 1;}
+\DoxyCodeLine{19   \}}
+\DoxyCodeLine{20   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < (\mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}} / numChasers); ++i) \{}
+\DoxyCodeLine{21     \mbox{\hyperlink{classPatternMap}{PatternMap}} patMap(engine, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4e822cef21b6083fdffcec08c596a96c}{PATTERN\_DOPS}}, \mbox{\hyperlink{Leds_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}});}
+\DoxyCodeLine{22     \textcolor{keywordflow}{for} (uint8\_t chaserCount = 0; chaserCount < numChasers; ++chaserCount) \{}
+\DoxyCodeLine{23       patMap.setPatternAt(\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca942e76cc0f29e00de2d3967c4738333b}{PATTERN\_SOLID}}, \mbox{\hyperlink{Leds_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}((i + (chaserCount * \mbox{\hyperlink{ChaserPattern_8cpp_ac794e99d75adaba173019dd94030c4fc}{CHASER\_RATIO}})) \% \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}));}
+\DoxyCodeLine{24     \}}
+\DoxyCodeLine{25     \mbox{\hyperlink{classColorsetMap}{ColorsetMap}} emptyMap(engine);}
+\DoxyCodeLine{26     \mbox{\hyperlink{classSequencedPattern_a9b23b3178a54b51450acd211feb54657}{m\_sequence}}.\mbox{\hyperlink{classSequence_a3b4808c79f7bba5858d8b55466df0243}{addStep}}(150, patMap, emptyMap);}
+\DoxyCodeLine{27   \}}
+\DoxyCodeLine{28 \}}
+
+\end{DoxyCode}
+
+
+References Sequence\+::add\+Step(), CHASER\+\_\+\+RATIO, LED\+\_\+\+COUNT, Sequenced\+Pattern\+::m\+\_\+sequence, MAP\+\_\+\+LED, MAP\+\_\+\+LED\+\_\+\+ALL, PATTERN\+\_\+\+DOPS, PATTERN\+\_\+\+SOLID, Pattern\+::set\+Args(), and Pattern\+Map\+::set\+Pattern\+At().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\+Sequencer/\mbox{\hyperlink{ChaserPattern_8h}{Chaser\+Pattern.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\+Sequencer/\mbox{\hyperlink{ChaserPattern_8cpp}{Chaser\+Pattern.\+cpp}}\end{DoxyCompactItemize}
