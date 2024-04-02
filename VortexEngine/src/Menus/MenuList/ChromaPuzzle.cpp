@@ -11,11 +11,11 @@
 
 // binary bitmasks that describe the swapping pattern for each level
 static const uint16_t swapPatterns[NUM_LEVELS] = {
-  0b0010010010,
   0b0000000001,
   0b1000000011,
   0b0100000010,
   0b1100000110,
+  0b0010010010,
 };
 
 ChromaPuzzle::ChromaPuzzle(const RGBColor &col, bool advanced) :
@@ -104,7 +104,7 @@ void ChromaPuzzle::select()
   swapLEDs();
   toggleRingSelection();
   if (checkWinCondition()) {
-    if (m_currentLevel == NUM_LEVELS) { // Ensure we don't exceed our pattern array bounds
+    if (m_currentLevel == (NUM_LEVELS - 1)) { // Ensure we don't exceed our pattern array bounds
       // completed all levels
       win();
       return;
@@ -181,11 +181,11 @@ void ChromaPuzzle::swapLEDs()
 
 void ChromaPuzzle::scramble()
 {
-  uint32_t scrambleMoves = 25 + (m_currentLevel * 5);
+  uint32_t scrambleMoves = 25 + (m_currentLevel * 10);
 
   for (uint32_t i = 0; i < scrambleMoves; ++i) {
     if (m_rand.next8(0, 1)) {
-      rotateSwapPattern(m_rand.next8(0, 1));
+      rotateSwapPattern(true);
     } else {
       swapLEDs();
     }
