@@ -8,6 +8,7 @@
 #include "MenuList/ColorSelect.h"
 #include "MenuList/PatternSelect.h"
 #include "MenuList/Randomizer.h"
+#include "MenuList/ChromaPuzzle.h"
 
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
@@ -62,6 +63,7 @@ const MenuEntry menuList[] = {
   ENTRY(PatternSelect, RGB_MENU_PATTERN_SELECT),
   ENTRY(GlobalBrightness, RGB_MENU_BRIGHTNESS_SELECT),
   ENTRY(FactoryReset, RGB_MENU_FACTORY_RESET),
+  ENTRY(ChromaPuzzle, RGB_MENU_CHROMA_PUZZLE),
 };
 
 // the number of menus in the above array
@@ -153,13 +155,18 @@ bool Menus::runMenuSelection()
       ontime = HYPERSTROBE_ON_DURATION;
     }
   }
+  RGBColor col = menuList[m_selection].color;
+  // special case, the chroma puzzle has a fancy color scheme
+  if (m_selection == MENU_CHROMA_PUZZLE) {
+    col = HSVColor(Time::getCurtime() / 10, 255, 255);
+  }
   // blink every even/odd of every pair
   for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
     if (pairEven(p) < LED_COUNT) {
-      Leds::blinkIndex(pairEven(p), offtime, ontime, menuList[m_selection].color);
+      Leds::blinkIndex(pairEven(p), offtime, ontime, col);
     }
     if (pairOdd(p) < LED_COUNT) {
-      Leds::setIndex(pairOdd(p), menuList[m_selection].color);
+      Leds::setIndex(pairOdd(p), col);
       Leds::blinkIndex(pairOdd(p), offtime, ontime, RGB_OFF);
     }
   }
@@ -174,9 +181,9 @@ bool Menus::runMenuSelection()
   }
   // show when the user selects a menu option
   showSelection(RGBColor(
-    menuList[m_selection].color.red << 3,
-    menuList[m_selection].color.green << 3,
-    menuList[m_selection].color.blue << 3));
+    col.red << 3,
+    col.green << 3,
+    col.blue << 3));
   // continue in the menu
   return true;
 }

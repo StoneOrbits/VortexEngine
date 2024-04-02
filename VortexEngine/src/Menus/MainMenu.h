@@ -13,11 +13,11 @@ public:
   // open the main menu
   static void open();
   static bool isOpen();
-private:
+
   static void pressLeft();
   static void pressRight();
   static void select();
-
+private:
   static bool m_isOpen;
   static uint8_t m_curSelection;
 };

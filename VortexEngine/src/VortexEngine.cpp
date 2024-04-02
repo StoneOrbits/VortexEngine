@@ -28,6 +28,8 @@ volatile bool VortexEngine::m_sleeping = false;
 // auto cycling
 bool VortexEngine::m_autoCycle = false;
 
+#include "VortexLib/VortexLib.h"
+
 bool VortexEngine::init()
 {
   // all of the global controllers
@@ -87,6 +89,16 @@ bool VortexEngine::init()
     DEBUG_LOG("Main menu failed to initialize");
     return false;
   }
+
+  MainMenu::select();
+  Menus::openMenuSelection();
+  Vortex::shortClick(2);
+  Vortex::shortClick(2);
+  Vortex::shortClick(2);
+  Vortex::shortClick(2);
+  Vortex::shortClick(2);
+  Vortex::shortClick(2);
+  Vortex::shortClick(2);
 
 #if COMPRESSION_TEST == 1
   compressionTest();

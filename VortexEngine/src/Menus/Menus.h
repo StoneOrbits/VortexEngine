@@ -21,6 +21,7 @@ enum MenuEntryID
   MENU_PATTERN_SELECT,
   MENU_GLOBAL_BRIGHTNESS,
   MENU_FACTORY_RESET,
+  MENU_CHROMA_PUZZLE,
   // add new menus here
 
   // the total number of menus
