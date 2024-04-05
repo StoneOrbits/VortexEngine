@@ -133,7 +133,7 @@ void UPDI::sendKey(KeyType keyType) {
     default:
       return; // Invalid key type
   }
-  //sendKeyInstruction(key);
+  sendKeyInstruction(&key);
 }
 
 uint8_t UPDI::sendLdsInstruction(uint32_t address, uint8_t addressSize) {
