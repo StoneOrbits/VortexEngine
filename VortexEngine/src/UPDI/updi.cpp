@@ -250,8 +250,7 @@ void UPDI::bufferByte(uint8_t value, bool includeParity) {
 void UPDI::bufferBit(bool bitValue) {
   // Example method, assuming we directly map bits to HIGH/LOW states in m_buffer for simplicity
   // In a real implementation, you'd handle timing and synchronization more precisely
-  if (m_bufferIndex < sizeof(m_buffer) * 8) { // Assuming 8 bits per buffered command byte
-                                                            // Simplified: Just directly add the bit as a byte for demonstration
+  if (m_bufferIndex < sizeof(m_buffer)) { // Assuming 8 bits per buffered command byte
     m_buffer[m_bufferIndex++] = bitValue ? 1 : 0;
   }
 }
