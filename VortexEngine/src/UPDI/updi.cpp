@@ -119,21 +119,21 @@ void UPDI::writeFirmwareToProgramFlash(const uint8_t* firmware, uint32_t size) {
 }
 
 void UPDI::sendKey(KeyType keyType) {
-  uint64_t key;
-  switch (keyType) {
-    case CHIP_ERASE:
-      key = 0x4E564D4572617365ULL;
-      break;
-    case NVMPROG:
-      key = 0x4E564D50726F6720ULL;
-      break;
-    case USERROW_WRITE:
-      key = 0x4E564D5573267465ULL;
-      break;
-    default:
-      return; // Invalid key type
-  }
-  sendKeyInstruction(&key);
+  //uint64_t key;
+  //switch (keyType) {
+  //  case CHIP_ERASE:
+  //    key = 0x4E564D4572617365ULL;
+  //    break;
+  //  case NVMPROG:
+  //    key = 0x4E564D50726F6720ULL;
+  //    break;
+  //  case USERROW_WRITE:
+  //    key = 0x4E564D5573267465ULL;
+  //    break;
+  //  default:
+  //    return; // Invalid key type
+  //}
+  //sendKeyInstruction(&key);
 }
 
 uint8_t UPDI::sendLdsInstruction(uint32_t address, uint8_t addressSize) {
