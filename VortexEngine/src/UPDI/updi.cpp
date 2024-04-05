@@ -1,5 +1,7 @@
 #include "UPDI.h"
 
+#include "../VortexConfig.h"
+
 #ifdef VORTEX_EMBEDDED
 #include <Arduino.h>
 #else
@@ -7,7 +9,15 @@
 #define LOW 0x0
 #endif
 
+#define UPDI_ASI_RESET_REQ 0x08
+#define UPDI_RESET_REQ_VALUE 0x59
+#define UPDI_ASI_SYS_STATUS 0x0B
+#define UPDI_ASI_SYS_STATUS_NVMPROG 3
+
 #include <string.h>
+
+#include "../Time/TimeControl.h"
+#include "../Log/Log.h"
 
 UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_bufferIndex(0) {
 #ifdef VORTEX_EMBEDDED
@@ -18,9 +28,46 @@ UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_buf
   memset(m_buffer, 0, sizeof(m_buffer));
 }
 
+void UPDI::reset(bool apply_reset)
+{
+  if (apply_reset) {
+    // Apply reset
+    sendStcsInstruction(UPDI_ASI_RESET_REQ, UPDI_RESET_REQ_VALUE);
+  } else {
+    // Release reset
+    sendStcsInstruction(UPDI_ASI_RESET_REQ, 0x00);
+  }
+}
+
+bool UPDI::inProgMode(void)
+{
+  //Checks whether the NVM PROG flag is up
+  if (sendLdcsInstruction(UPDI_ASI_SYS_STATUS) & (1 << UPDI_ASI_SYS_STATUS_NVMPROG)) {
+    return true;
+  }
+  return false;
+}
+
+// Example function added to the UPDI class to enter programming mode and perform initial operations
+void UPDI::enterProgrammingMode()
+{
+  // 0x00 is a placeholder for the correct Control/Status register, 0x59 to enable UPDI
+  // Enable programming mode
+  //sendStcsInstruction(0x00, 0x59);
+
+  // Send the NVM Programming key
+  // This example uses a fixed key for demonstration; replace with actual key for your target
+  uint64_t programmingKey = 0x4E564D50726F6720ULL; // Example key for NVM programming
+  sendKeyInstruction(programmingKey);
+
+  reset(true);
+  reset(false);
+
+  Time::delayMilliseconds(80);
+}
+
 void UPDI::initializeUPDICommunication() {
-  sendBreakFrame();
-  sendSynchCharacter();
+
 }
 
 void UPDI::readEEPROMAndUserRow() {
@@ -30,20 +77,15 @@ void UPDI::readEEPROMAndUserRow() {
   uint16_t eepromSize = 256; // Example size
   uint32_t eepromStartAddress = 0x1400;
 
-  // Read USERROW
-  for (uint16_t i = 0; i < userRowSize; i++) {
-    sendLdsInstruction(userRowStartAddress + i, 1);
-    // Immediately read back the data
-    receiveByte();
-    // Process or store `dataByte` as needed
-  }
-
   // Read EEPROM
   for (uint16_t i = 0; i < eepromSize; i++) {
-    sendLdsInstruction(eepromStartAddress + i, 1);
-    // Immediately read back the data
-    receiveByte();
-    // Process or store `dataByte` as needed
+    uint8_t byte = sendLdsInstruction(eepromStartAddress + i, 1);
+    INFO_LOGF("eeprom byte [%u]: %x", i, byte);
+  }
+  // Read USERROW
+  for (uint16_t i = 0; i < userRowSize; i++) {
+    uint8_t byte = sendLdsInstruction(userRowStartAddress + i, 1);
+    INFO_LOGF("userrow byte [%u]: %x", i, byte);
   }
 }
 
@@ -87,11 +129,12 @@ void UPDI::sendKey(KeyType keyType) {
   sendKeyInstruction(key);
 }
 
-void UPDI::sendLdsInstruction(uint32_t address, uint8_t addressSize) {
+uint8_t UPDI::sendLdsInstruction(uint32_t address, uint8_t addressSize) {
   // Reset command buffer
   m_bufferIndex = 0;
 
   // Buffer the LDS instruction, address size, and the address itself
+  bufferByte(0x55); // synch character
   bufferByte(0x00); // LDS opcode placeholder
   bufferByte(addressSize);
   for (int i = 0; i < addressSize; i++) {
@@ -99,11 +142,15 @@ void UPDI::sendLdsInstruction(uint32_t address, uint8_t addressSize) {
   }
 
   executeInstruction();
+
+  // Immediately read back the data
+  return receiveByte();
 }
 
 void UPDI::sendStsInstruction(uint32_t address, uint8_t addressSize, uint8_t data) {
   m_bufferIndex = 0;
 
+  bufferByte(0x55); // synch character
   bufferByte(0x40); // STS opcode placeholder
   bufferByte(addressSize);
   for (int i = 0; i < addressSize; i++) {
@@ -114,13 +161,16 @@ void UPDI::sendStsInstruction(uint32_t address, uint8_t addressSize, uint8_t dat
   executeInstruction();
 }
 
-void UPDI::sendLdcsInstruction(uint8_t csAddress) {
+uint8_t UPDI::sendLdcsInstruction(uint8_t csAddress) {
   m_bufferIndex = 0;
 
+  bufferByte(0x55); // synch character
   bufferByte(0x04); // LDCS opcode placeholder
   bufferByte(csAddress);
 
   executeInstruction();
+  // Immediately read back the data
+  return receiveByte();
 }
 
 void UPDI::sendStcsInstruction(uint8_t csAddress, uint8_t data) {
@@ -137,6 +187,7 @@ void UPDI::sendKeyInstruction(uint64_t key) {
   // KEY instruction is prefixed with 0xE0 followed by the 8-byte key
   m_bufferIndex = 0; // Reset the buffer before building the command
 
+  bufferByte(0x55); // synch character
   bufferByte(0xE0); // Key command opcode (example, adjust as needed)
   for (int i = 0; i < 8; i++) {
     // Sending LSB first

@@ -8,6 +8,8 @@ class UPDI {
     UPDI(uint8_t txPin, uint8_t rxPin);
     void initializeUPDICommunication();
 
+    void enterProgrammingMode();
+
     // Reading and Writing High-Level APIs
     void readEEPROMAndUserRow();
     void writeEEPROMAndUserRow(const uint8_t* data, uint16_t size);
@@ -25,15 +27,19 @@ class UPDI {
     void sendBreakFrame();
     void sendSynchCharacter();
 
+    bool inProgMode();
+    void reset(bool apply_reset);
+
     // Instruction-specific methods
-    void sendLdsInstruction(uint32_t address, uint8_t addressSize);
+    uint8_t sendLdsInstruction(uint32_t address, uint8_t addressSize);
+    uint8_t sendLdcsInstruction(uint8_t csAddress);
     void sendStsInstruction(uint32_t address, uint8_t addressSize, uint8_t data);
-    void sendLdcsInstruction(uint8_t csAddress);
     void sendStcsInstruction(uint8_t csAddress, uint8_t data);
     void sendKeyInstruction(uint64_t key);
 
     void executeInstruction();
     uint8_t receiveByte();
+
     void bufferByte(uint8_t value, bool includeParity = true);
     void bufferBit(bool bitValue);
 

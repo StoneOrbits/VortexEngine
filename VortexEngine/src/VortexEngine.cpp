@@ -22,7 +22,11 @@
 #include "VortexLib.h"
 #endif
 
-#include "UPDI/UPDIFlasher.h"
+#include "UPDI/updi.h"
+
+// tx = 2 
+// rx = 8
+UPDI updi(2, 8); 
 
 // bool in vortexlib to simulate sleeping
 volatile bool VortexEngine::m_sleeping = false;
@@ -90,8 +94,6 @@ bool VortexEngine::init()
     return false;
   }
 
-  UPDIFlasher::init();
-
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif
@@ -135,6 +137,8 @@ void VortexEngine::cleanup()
 #endif
 }
 
+bool updi_done = false;
+
 void VortexEngine::tick()
 {
 #ifdef VORTEX_LIB
@@ -171,6 +175,16 @@ void VortexEngine::tick()
 
   // run the main logic for the engine
   runMainLogic();
+
+  if (g_pButtonM->onShortClick()) {
+    if (SerialComs::checkSerial()) {
+      INFO_LOG("Successfully connected to serial...");
+    }
+    INFO_LOG("Entering programming mode...");
+    updi.enterProgrammingMode();
+    INFO_LOG("Reading eeprom and userrow...");
+    updi.readEEPROMAndUserRow();
+  }
 
   // update the leds
   Leds::update();
