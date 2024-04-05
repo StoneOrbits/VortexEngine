@@ -48,6 +48,9 @@ bool UPDI::inProgMode(void)
   return false;
 }
 
+#define UPDI_KEY_NVM        "NVMProg "
+#define KEY_LEN             8
+
 // Example function added to the UPDI class to enter programming mode and perform initial operations
 void UPDI::enterProgrammingMode()
 {
@@ -55,10 +58,14 @@ void UPDI::enterProgrammingMode()
   // Enable programming mode
   //sendStcsInstruction(0x00, 0x59);
 
+  uint8_t key_reversed[KEY_LEN];
+  for (uint8_t i = 0; i < KEY_LEN; i++) {
+    key_reversed[i] = UPDI_KEY_NVM[KEY_LEN - 1 - i];
+  }
+
   // Send the NVM Programming key
   // This example uses a fixed key for demonstration; replace with actual key for your target
-  uint64_t programmingKey = 0x4E564D50726F6720ULL; // Example key for NVM programming
-  sendKeyInstruction(programmingKey);
+  sendKeyInstruction(key_reversed);
 
   reset(true);
   reset(false);
@@ -126,7 +133,7 @@ void UPDI::sendKey(KeyType keyType) {
     default:
       return; // Invalid key type
   }
-  sendKeyInstruction(key);
+  //sendKeyInstruction(key);
 }
 
 uint8_t UPDI::sendLdsInstruction(uint32_t address, uint8_t addressSize) {
@@ -183,15 +190,14 @@ void UPDI::sendStcsInstruction(uint8_t csAddress, uint8_t data) {
   executeInstruction();
 }
 
-void UPDI::sendKeyInstruction(uint64_t key) {
+void UPDI::sendKeyInstruction(const uint8_t *key) {
   // KEY instruction is prefixed with 0xE0 followed by the 8-byte key
   m_bufferIndex = 0; // Reset the buffer before building the command
 
   bufferByte(0x55); // synch character
   bufferByte(0xE0); // Key command opcode (example, adjust as needed)
   for (int i = 0; i < 8; i++) {
-    // Sending LSB first
-    bufferByte((key >> (8 * i)) & 0xFF);
+    bufferByte(key[i] & 0xFF);
   }
 
   executeInstruction(); // Send the buffered command

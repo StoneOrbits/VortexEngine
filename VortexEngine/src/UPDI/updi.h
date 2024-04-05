@@ -35,7 +35,7 @@ class UPDI {
     uint8_t sendLdcsInstruction(uint8_t csAddress);
     void sendStsInstruction(uint32_t address, uint8_t addressSize, uint8_t data);
     void sendStcsInstruction(uint8_t csAddress, uint8_t data);
-    void sendKeyInstruction(uint64_t key);
+    void sendKeyInstruction(const uint8_t *key);
 
     void executeInstruction();
     uint8_t receiveByte();
