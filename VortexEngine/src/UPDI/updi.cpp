@@ -34,7 +34,7 @@ void UPDI::readEEPROMAndUserRow() {
   for (uint16_t i = 0; i < userRowSize; i++) {
     sendLdsInstruction(userRowStartAddress + i, 1);
     // Immediately read back the data
-    uint8_t dataByte = receiveByte();
+    receiveByte();
     // Process or store `dataByte` as needed
   }
 
@@ -42,7 +42,7 @@ void UPDI::readEEPROMAndUserRow() {
   for (uint16_t i = 0; i < eepromSize; i++) {
     sendLdsInstruction(eepromStartAddress + i, 1);
     // Immediately read back the data
-    uint8_t dataByte = receiveByte();
+    receiveByte();
     // Process or store `dataByte` as needed
   }
 }
