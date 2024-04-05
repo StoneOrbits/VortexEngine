@@ -342,6 +342,9 @@
     <ClCompile Include="src\UPDI\FastGPIO.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="src\UPDI\updi.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\VortexConfig.h">
@@ -573,6 +576,9 @@
       <Filter>Header Files\UPDI</Filter>
     </ClInclude>
     <ClInclude Include="src\UPDI\FastGPIO.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+    <ClInclude Include="src\UPDI\updi.h">
       <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
