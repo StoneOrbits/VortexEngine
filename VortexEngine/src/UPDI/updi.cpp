@@ -58,6 +58,11 @@ void UPDI::enterProgrammingMode()
   // Enable programming mode
   //sendStcsInstruction(0x00, 0x59);
 
+#ifdef VORTEX_EMBEDDED
+  pinMode(m_txPin, OUTPUT);
+  pinMode(m_rxPin, INPUT);
+#endif
+
   uint8_t key_reversed[KEY_LEN];
   for (uint8_t i = 0; i < KEY_LEN; i++) {
     key_reversed[i] = UPDI_KEY_NVM[KEY_LEN - 1 - i];
@@ -207,7 +212,7 @@ void UPDI::executeInstruction() {
   for (uint16_t i = 0; i < m_bufferIndex; i++) {
 #ifdef VORTEX_EMBEDDED
     digitalWrite(m_txPin, m_buffer[i] ? HIGH : LOW);
-    delayMicroseconds(444); // Adjust based on the actual baud rate
+    //delayMicroseconds(444); // Adjust based on the actual baud rate
 #endif
   }
   m_bufferIndex = 0;
