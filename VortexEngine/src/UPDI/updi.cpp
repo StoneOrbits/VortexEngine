@@ -76,13 +76,15 @@ void UPDI::enterProgrammingMode()
 #ifdef VORTEX_EMBEDDED
   pinMode(m_txPin, OUTPUT);
   pinMode(m_rxPin, OUTPUT);
-  digitalWrite(m_txPin, LOW);
-  digitalWrite(m_rxPin, LOW);
-  Time::delayMicroseconds(500);
+  digitalWrite(m_txPin, HIGH);
+  digitalWrite(m_rxPin, HIGH);
+  Time::delayMilliseconds(1);
   pinMode(m_rxPin, INPUT);
 #endif
 
   //m_updiSerial.begin(115200); // Initialize SoftwareSerial with UPDI baud rate
+  Serial1.setRxBufferSize(512 + 16);
+  Serial1.setTimeout(50);
   Serial1.begin(115200, SERIAL_8E2, m_rxPin, m_txPin);
 
   uint8_t key_reversed[KEY_LEN];
