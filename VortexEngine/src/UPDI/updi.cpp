@@ -29,6 +29,62 @@ UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_buf
   memset(m_buffer, 0, sizeof(m_buffer));
 }
 
+uint8_t UPDI::updiReadWait()
+{
+  uint8_t b = 255;
+  uint8_t counter = 0;
+
+  // try to wait for data
+  while (++counter) {
+    b = m_updiSerial.read();
+    if (b >= 0) {
+      break;
+    }
+    Time::delayMilliseconds(1);
+  }
+  return b;
+}
+
+bool UPDI::updiSend(const uint8_t *buf, uint16_t size)
+{
+  /*
+    NOTE: since the TX and RX pins are tied together,
+    everything we send gets echo'd and needs to be
+    discarded QUICKLY.
+  */
+  bool good_echo = true;
+  uint16_t count = 0;
+  uint8_t data = 0;
+
+  m_updiSerial.flush();
+
+  // write all data in one shot and then
+  // read back the echo
+  // this method requires a serial RX buffer as large as the largest possible TX block of data
+  // it is possible to check the process but the larger the block, the faster
+
+  count = m_updiSerial.write(buf, size);
+  if (count != size) {
+    INFO_LOGF("UpdiSerial send count error %d != %d\n", count, size);
+  }
+  Time::delayMilliseconds(2);
+  count = 0;
+  for (uint16_t i = 0; i < size; i++) {
+    data = updiReadWait();
+    if (data != buf[i]) {
+      good_echo = false;
+      INFO_LOGF("send[%d] %02x != %02x\n", i, buf[i], data);
+    } else {
+    }
+    count++;
+  }
+  if (count != size) {
+    INFO_LOGF("UPDISERIAL echo count error %d != %d\n", count, size);
+    return false;
+  }
+  return good_echo;
+}
+
 void UPDI::sendByte(uint8_t b)
 {
   m_updiSerial.write(b);
@@ -81,17 +137,28 @@ void UPDI::enterProgrammingMode()
 #ifdef VORTEX_EMBEDDED
   pinMode(m_txPin, OUTPUT);
   pinMode(m_rxPin, OUTPUT);
-  digitalWrite(m_txPin, LOW);
-  digitalWrite(m_rxPin, LOW);
-  Time::delayMicroseconds(100);
-  pinMode(m_rxPin, INPUT);
+  digitalWrite(m_txPin, HIGH);
+  digitalWrite(m_rxPin, HIGH);
+  delay(1);
+  //pinMode(m_rxPin, INPUT);
 #endif
 
   m_updiSerial.setRxBufferSize(512 + 16);
-  m_updiSerial.begin(115200, SERIAL_8E2, m_rxPin, m_txPin, false, 50); // Initialize SoftwareSerial with UPDI baud rate
+  m_updiSerial.setTimeout(50);
+  m_updiSerial.begin(115200, SERIAL_8E2, m_rxPin, m_txPin); // Initialize SoftwareSerial with UPDI baud rate
+
+  while (!m_updiSerial);
   //Serial1.setRxBufferSize(512 + 16);
   //Serial1.setTimeout(50);
   //Serial1.begin(115200, SERIAL_8E2, m_rxPin, m_txPin);
+
+  sendBreakFrame();
+
+  #define UPDI_CS_CTRLB             0x03
+  #define UPDI_CTRLB_CCDETDIS_BIT 3
+  #define UPDI_CTRLB_UPDIDIS_BIT    2
+  sendStcsInstruction(UPDI_CS_CTRLB, 1 << UPDI_CTRLB_CCDETDIS_BIT);
+  sendStcsInstruction(UPDI_CS_CTRLB, (1 << UPDI_CTRLB_UPDIDIS_BIT) | (1 << UPDI_CTRLB_CCDETDIS_BIT));
 
   uint8_t key_reversed[KEY_LEN];
   for (uint8_t i = 0; i < KEY_LEN; i++) {
@@ -103,6 +170,7 @@ void UPDI::enterProgrammingMode()
   sendKeyInstruction(key_reversed);
 
   reset(true);
+  Time::delayMilliseconds(5);
   reset(false);
 
   Time::delayMilliseconds(80);
@@ -228,4 +296,8 @@ void UPDI::sendKeyInstruction(const uint8_t *key) {
   for (int i = 0; i < 8; i++) {
     sendByte(key[i] & 0xFF);
   }
+}
+
+void UPDI::sendBreakFrame() {
+  sendByte(0x00);
 }
