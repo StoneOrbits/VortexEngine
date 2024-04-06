@@ -31,15 +31,16 @@ UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_buf
 
 void UPDI::sendByte(uint8_t b)
 {
-  m_updiSerial.write(b);
+  //m_updiSerial.write(b);
+  Serial1.write(b);
 }
 
 uint8_t UPDI::receiveByte()
 {
-  while (!m_updiSerial.available()) {
+  while (!Serial1.available()) {
     // Optionally include a timeout to prevent infinite waiting
   }
-  return m_updiSerial.read();
+  return Serial1.read();
 }
 
 void UPDI::reset(bool apply_reset)
@@ -81,7 +82,8 @@ void UPDI::enterProgrammingMode()
   pinMode(m_rxPin, INPUT);
 #endif
 
-  m_updiSerial.begin(115200); // Initialize SoftwareSerial with UPDI baud rate
+  //m_updiSerial.begin(115200); // Initialize SoftwareSerial with UPDI baud rate
+  Serial1.begin(115200, SERIAL_8E2, m_rxPin, m_txPin);
 
   uint8_t key_reversed[KEY_LEN];
   for (uint8_t i = 0; i < KEY_LEN; i++) {
