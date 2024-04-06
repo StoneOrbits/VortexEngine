@@ -33,6 +33,11 @@ void UPDI::sendByte(uint8_t b)
 {
   //m_updiSerial.write(b);
   Serial1.write(b);
+  while (!Serial1.available()) {
+    // Wait for echo to be available
+  }
+  Serial1.read(); // Read and discard echo
+  delayMicroseconds(100); // Adjust based on device and baud rate
 }
 
 uint8_t UPDI::receiveByte()
@@ -175,8 +180,6 @@ uint8_t UPDI::sendLdsInstruction(uint32_t address, uint8_t addressSize) {
     sendByte((address >> (8 * i)) & 0xFF);
   }
 
-  //executeInstruction();
-
   // Immediately read back the data
   return receiveByte();
 }
@@ -191,8 +194,6 @@ void UPDI::sendStsInstruction(uint32_t address, uint8_t addressSize, uint8_t dat
     sendByte((address >> (8 * i)) & 0xFF);
   }
   sendByte(data);
-
-  //executeInstruction();
 }
 
 uint8_t UPDI::sendLdcsInstruction(uint8_t csAddress) {
@@ -202,7 +203,6 @@ uint8_t UPDI::sendLdcsInstruction(uint8_t csAddress) {
   sendByte(0x04); // LDCS opcode placeholder
   sendByte(csAddress);
 
-  //executeInstruction();
   // Immediately read back the data
   return receiveByte();
 }
@@ -213,8 +213,6 @@ void UPDI::sendStcsInstruction(uint8_t csAddress, uint8_t data) {
   sendByte(0xC0); // STCS opcode placeholder
   sendByte(csAddress);
   sendByte(data);
-
-  //executeInstruction();
 }
 
 void UPDI::sendKeyInstruction(const uint8_t *key) {
@@ -225,59 +223,5 @@ void UPDI::sendKeyInstruction(const uint8_t *key) {
   sendByte(0xE0); // Key command opcode (example, adjust as needed)
   for (int i = 0; i < 8; i++) {
     sendByte(key[i] & 0xFF);
-  }
-
-  //executeInstruction(); // Send the buffered command
-}
-
-void UPDI::executeInstruction() {
-  for (uint16_t i = 0; i < m_bufferIndex; i++) {
-#ifdef VORTEX_EMBEDDED
-    digitalWrite(m_txPin, m_buffer[i] ? HIGH : LOW);
-    //delayMicroseconds(444); // Adjust based on the actual baud rate
-#endif
-  }
-  m_bufferIndex = 0;
-}
-
-//uint8_t UPDI::receiveByte() {
-//  uint8_t data = 0;
-//#ifdef VORTEX_EMBEDDED
-//  for (int i = 0; i < 8; ++i) {
-//    while (digitalRead(m_rxPin) == HIGH); // Wait for the start bit
-//
-//    delayMicroseconds(222); // Wait for the middle of the bit
-//    data |= (digitalRead(m_rxPin) << i);
-//    delayMicroseconds(222); // Finish the bit period
-//  }
-//#endif
-//  // Skipping parity and stop bits for simplicity
-//  return data;
-//}
-
-void UPDI::bufferByte(uint8_t value, bool includeParity) {
-  // Start bit
-  bufferBit(LOW);
-  bool parity = 0;
-  // Buffer each bit of the byte
-  for (int i = 0; i < 8; ++i) {
-    bool bit = value & (1 << i);
-    bufferBit(bit);
-    parity ^= bit;
-  }
-  // Optionally include the parity bit
-  if (includeParity) {
-    bufferBit(parity);
-  }
-  // Stop bits
-  bufferBit(HIGH);
-  bufferBit(HIGH);
-}
-
-void UPDI::bufferBit(bool bitValue) {
-  // Example method, assuming we directly map bits to HIGH/LOW states in m_buffer for simplicity
-  // In a real implementation, you'd handle timing and synchronization more precisely
-  if (m_bufferIndex < sizeof(m_buffer)) { // Assuming 8 bits per buffered command byte
-    m_buffer[m_bufferIndex++] = bitValue ? 1 : 0;
   }
 }

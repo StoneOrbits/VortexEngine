@@ -39,11 +39,6 @@ class UPDI {
     void sendStcsInstruction(uint8_t csAddress, uint8_t data);
     void sendKeyInstruction(const uint8_t *key);
 
-    void executeInstruction();
-
-    void bufferByte(uint8_t value, bool includeParity = true);
-    void bufferBit(bool bitValue);
-
     void sendByte(uint8_t b);
     uint8_t receiveByte();
 
