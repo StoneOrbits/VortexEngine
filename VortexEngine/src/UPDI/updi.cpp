@@ -210,6 +210,7 @@ uint8_t UPDI::sendLdcsInstruction(uint8_t csAddress) {
 void UPDI::sendStcsInstruction(uint8_t csAddress, uint8_t data) {
   m_bufferIndex = 0;
 
+  sendByte(0x55); // synch character
   sendByte(0xC0); // STCS opcode placeholder
   sendByte(csAddress);
   sendByte(data);
