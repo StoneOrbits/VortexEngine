@@ -33,11 +33,6 @@ void UPDI::sendByte(uint8_t b)
 {
   //m_updiSerial.write(b);
   Serial1.write(b);
-  while (!Serial1.available()) {
-    // Wait for echo to be available
-  }
-  Serial1.read(); // Read and discard echo
-  delayMicroseconds(100); // Adjust based on device and baud rate
 }
 
 uint8_t UPDI::receiveByte()
