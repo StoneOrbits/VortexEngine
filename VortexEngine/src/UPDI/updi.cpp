@@ -143,22 +143,32 @@ void UPDI::enterProgrammingMode()
   //pinMode(m_rxPin, INPUT);
 #endif
 
+  INFO_LOG("Held line high");
+
   m_updiSerial.setRxBufferSize(512 + 16);
   m_updiSerial.setTimeout(50);
   m_updiSerial.begin(115200, SERIAL_8E2, m_rxPin, m_txPin); // Initialize SoftwareSerial with UPDI baud rate
+  
+  INFO_LOG("Began serial");
 
   while (!m_updiSerial);
   //Serial1.setRxBufferSize(512 + 16);
   //Serial1.setTimeout(50);
   //Serial1.begin(115200, SERIAL_8E2, m_rxPin, m_txPin);
 
+  INFO_LOG("Sending break");
+
   sendBreakFrame();
+
+  INFO_LOG("Sent break");
 
   #define UPDI_CS_CTRLB             0x03
   #define UPDI_CTRLB_CCDETDIS_BIT 3
   #define UPDI_CTRLB_UPDIDIS_BIT    2
   sendStcsInstruction(UPDI_CS_CTRLB, 1 << UPDI_CTRLB_CCDETDIS_BIT);
   sendStcsInstruction(UPDI_CS_CTRLB, (1 << UPDI_CTRLB_UPDIDIS_BIT) | (1 << UPDI_CTRLB_CCDETDIS_BIT));
+
+  INFO_LOG("Sent stcs instruction");
 
   uint8_t key_reversed[KEY_LEN];
   for (uint8_t i = 0; i < KEY_LEN; i++) {
@@ -169,11 +179,15 @@ void UPDI::enterProgrammingMode()
   // This example uses a fixed key for demonstration; replace with actual key for your target
   sendKeyInstruction(key_reversed);
 
+  INFO_LOG("Sent key instruction");
+
   reset(true);
   Time::delayMilliseconds(5);
   reset(false);
 
-  Time::delayMilliseconds(80);
+  INFO_LOG("Reset");
+
+  //Time::delayMilliseconds(80);
 }
 
 void UPDI::initializeUPDICommunication() {
