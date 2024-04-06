@@ -151,7 +151,6 @@ void UPDI::enterProgrammingMode()
   
   INFO_LOG("Began serial");
 
-  while (!m_updiSerial);
   //Serial1.setRxBufferSize(512 + 16);
   //Serial1.setTimeout(50);
   //Serial1.begin(115200, SERIAL_8E2, m_rxPin, m_txPin);
