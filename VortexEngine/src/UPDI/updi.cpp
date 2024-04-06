@@ -19,7 +19,7 @@
 #include "../Time/TimeControl.h"
 #include "../Log/Log.h"
 
-UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_bufferIndex(0), m_updiSerial(2){
+UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_bufferIndex(0), m_updiSerial(1){
 #ifdef VORTEX_EMBEDDED
   //pinMode(m_txPin, OUTPUT);
   //pinMode(m_rxPin, INPUT);
