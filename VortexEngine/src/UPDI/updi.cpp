@@ -19,13 +19,27 @@
 #include "../Time/TimeControl.h"
 #include "../Log/Log.h"
 
-UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_bufferIndex(0) {
+UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_bufferIndex(0), m_updiSerial(txPin, rxPin){
 #ifdef VORTEX_EMBEDDED
-  pinMode(m_txPin, OUTPUT);
-  pinMode(m_rxPin, INPUT);
+  //pinMode(m_txPin, OUTPUT);
+  //pinMode(m_rxPin, INPUT);
 #endif
+
   // Initialize the buffer array
   memset(m_buffer, 0, sizeof(m_buffer));
+}
+
+void UPDI::sendByte(uint8_t b)
+{
+  m_updiSerial.write(b);
+}
+
+uint8_t UPDI::receiveByte()
+{
+  while (!m_updiSerial.available()) {
+    // Optionally include a timeout to prevent infinite waiting
+  }
+  return m_updiSerial.read();
 }
 
 void UPDI::reset(bool apply_reset)
@@ -66,6 +80,8 @@ void UPDI::enterProgrammingMode()
   Time::delayMicroseconds(500);
   pinMode(m_rxPin, INPUT);
 #endif
+
+  m_updiSerial.begin(115200); // Initialize SoftwareSerial with UPDI baud rate
 
   uint8_t key_reversed[KEY_LEN];
   for (uint8_t i = 0; i < KEY_LEN; i++) {
@@ -150,14 +166,14 @@ uint8_t UPDI::sendLdsInstruction(uint32_t address, uint8_t addressSize) {
   m_bufferIndex = 0;
 
   // Buffer the LDS instruction, address size, and the address itself
-  bufferByte(0x55); // synch character
-  bufferByte(0x00); // LDS opcode placeholder
-  bufferByte(addressSize);
+  sendByte(0x55); // synch character
+  sendByte(0x00); // LDS opcode placeholder
+  sendByte(addressSize);
   for (int i = 0; i < addressSize; i++) {
-    bufferByte((address >> (8 * i)) & 0xFF);
+    sendByte((address >> (8 * i)) & 0xFF);
   }
 
-  executeInstruction();
+  //executeInstruction();
 
   // Immediately read back the data
   return receiveByte();
@@ -166,25 +182,25 @@ uint8_t UPDI::sendLdsInstruction(uint32_t address, uint8_t addressSize) {
 void UPDI::sendStsInstruction(uint32_t address, uint8_t addressSize, uint8_t data) {
   m_bufferIndex = 0;
 
-  bufferByte(0x55); // synch character
-  bufferByte(0x40); // STS opcode placeholder
-  bufferByte(addressSize);
+  sendByte(0x55); // synch character
+  sendByte(0x40); // STS opcode placeholder
+  sendByte(addressSize);
   for (int i = 0; i < addressSize; i++) {
-    bufferByte((address >> (8 * i)) & 0xFF);
+    sendByte((address >> (8 * i)) & 0xFF);
   }
-  bufferByte(data);
+  sendByte(data);
 
-  executeInstruction();
+  //executeInstruction();
 }
 
 uint8_t UPDI::sendLdcsInstruction(uint8_t csAddress) {
   m_bufferIndex = 0;
 
-  bufferByte(0x55); // synch character
-  bufferByte(0x04); // LDCS opcode placeholder
-  bufferByte(csAddress);
+  sendByte(0x55); // synch character
+  sendByte(0x04); // LDCS opcode placeholder
+  sendByte(csAddress);
 
-  executeInstruction();
+  //executeInstruction();
   // Immediately read back the data
   return receiveByte();
 }
@@ -192,24 +208,24 @@ uint8_t UPDI::sendLdcsInstruction(uint8_t csAddress) {
 void UPDI::sendStcsInstruction(uint8_t csAddress, uint8_t data) {
   m_bufferIndex = 0;
 
-  bufferByte(0xC0); // STCS opcode placeholder
-  bufferByte(csAddress);
-  bufferByte(data);
+  sendByte(0xC0); // STCS opcode placeholder
+  sendByte(csAddress);
+  sendByte(data);
 
-  executeInstruction();
+  //executeInstruction();
 }
 
 void UPDI::sendKeyInstruction(const uint8_t *key) {
   // KEY instruction is prefixed with 0xE0 followed by the 8-byte key
   m_bufferIndex = 0; // Reset the buffer before building the command
 
-  bufferByte(0x55); // synch character
-  bufferByte(0xE0); // Key command opcode (example, adjust as needed)
+  sendByte(0x55); // synch character
+  sendByte(0xE0); // Key command opcode (example, adjust as needed)
   for (int i = 0; i < 8; i++) {
-    bufferByte(key[i] & 0xFF);
+    sendByte(key[i] & 0xFF);
   }
 
-  executeInstruction(); // Send the buffered command
+  //executeInstruction(); // Send the buffered command
 }
 
 void UPDI::executeInstruction() {
@@ -222,20 +238,20 @@ void UPDI::executeInstruction() {
   m_bufferIndex = 0;
 }
 
-uint8_t UPDI::receiveByte() {
-  uint8_t data = 0;
-#ifdef VORTEX_EMBEDDED
-  for (int i = 0; i < 8; ++i) {
-    while (digitalRead(m_rxPin) == HIGH); // Wait for the start bit
-
-    delayMicroseconds(222); // Wait for the middle of the bit
-    data |= (digitalRead(m_rxPin) << i);
-    delayMicroseconds(222); // Finish the bit period
-  }
-#endif
-  // Skipping parity and stop bits for simplicity
-  return data;
-}
+//uint8_t UPDI::receiveByte() {
+//  uint8_t data = 0;
+//#ifdef VORTEX_EMBEDDED
+//  for (int i = 0; i < 8; ++i) {
+//    while (digitalRead(m_rxPin) == HIGH); // Wait for the start bit
+//
+//    delayMicroseconds(222); // Wait for the middle of the bit
+//    data |= (digitalRead(m_rxPin) << i);
+//    delayMicroseconds(222); // Finish the bit period
+//  }
+//#endif
+//  // Skipping parity and stop bits for simplicity
+//  return data;
+//}
 
 void UPDI::bufferByte(uint8_t value, bool includeParity) {
   // Start bit

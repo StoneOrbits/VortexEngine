@@ -3,6 +3,8 @@
 
 #include <inttypes.h>
 
+#include <SoftwareSerial.h>
+
 class UPDI {
   public:
     UPDI(uint8_t txPin, uint8_t rxPin);
@@ -38,16 +40,20 @@ class UPDI {
     void sendKeyInstruction(const uint8_t *key);
 
     void executeInstruction();
-    uint8_t receiveByte();
 
     void bufferByte(uint8_t value, bool includeParity = true);
     void bufferBit(bool bitValue);
+
+    void sendByte(uint8_t b);
+    uint8_t receiveByte();
 
     static const int UPDI_BUFFER_SIZE = 1024;
     uint8_t m_txPin;
     uint8_t m_rxPin;
     uint8_t m_buffer[UPDI_BUFFER_SIZE];
     uint16_t m_bufferIndex;
+
+    SoftwareSerial m_updiSerial;
 };
 
 #endif // UPDI_H
