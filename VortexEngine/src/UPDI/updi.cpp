@@ -264,6 +264,14 @@ uint8_t UPDI::sendLdsInstruction(uint32_t address, uint8_t addressSize) {
     sendByte((address >> (8 * i)) & 0xFF);
   }
 
+  Time::delayMilliseconds(2);
+  receiveByte();
+  receiveByte();
+  receiveByte();
+  for (int i = 0; i < addressSize; i++) {
+    receiveByte();
+  }
+
   // Immediately read back the data
   return receiveByte();
 }
@@ -278,6 +286,15 @@ void UPDI::sendStsInstruction(uint32_t address, uint8_t addressSize, uint8_t dat
     sendByte((address >> (8 * i)) & 0xFF);
   }
   sendByte(data);
+
+  Time::delayMilliseconds(2);
+  receiveByte();
+  receiveByte();
+  receiveByte();
+  for (int i = 0; i < addressSize; i++) {
+    receiveByte();
+  }
+  receiveByte();
 }
 
 uint8_t UPDI::sendLdcsInstruction(uint8_t csAddress) {
@@ -286,6 +303,11 @@ uint8_t UPDI::sendLdcsInstruction(uint8_t csAddress) {
   sendByte(0x55); // synch character
   sendByte(0x04); // LDCS opcode placeholder
   sendByte(csAddress);
+
+  Time::delayMilliseconds(2);
+  receiveByte();
+  receiveByte();
+  receiveByte();
 
   // Immediately read back the data
   return receiveByte();
@@ -298,6 +320,12 @@ void UPDI::sendStcsInstruction(uint8_t csAddress, uint8_t data) {
   sendByte(0xC0); // STCS opcode placeholder
   sendByte(csAddress);
   sendByte(data);
+
+  Time::delayMilliseconds(2);
+  receiveByte();
+  receiveByte();
+  receiveByte();
+  receiveByte();
 }
 
 void UPDI::sendKeyInstruction(const uint8_t *key) {
@@ -309,8 +337,17 @@ void UPDI::sendKeyInstruction(const uint8_t *key) {
   for (int i = 0; i < 8; i++) {
     sendByte(key[i] & 0xFF);
   }
+
+  Time::delayMilliseconds(2);
+  receiveByte();
+  receiveByte();
+  for (int i = 0; i < 8; i++) {
+    receiveByte();
+  }
 }
 
 void UPDI::sendBreakFrame() {
   sendByte(0x00);
+  Time::delayMilliseconds(2);
+  receiveByte();
 }
