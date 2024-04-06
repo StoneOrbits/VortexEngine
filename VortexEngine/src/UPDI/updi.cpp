@@ -19,7 +19,7 @@
 #include "../Time/TimeControl.h"
 #include "../Log/Log.h"
 
-UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_bufferIndex(0), m_updiSerial(txPin, rxPin){
+UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_bufferIndex(0), m_updiSerial(2){
 #ifdef VORTEX_EMBEDDED
   //pinMode(m_txPin, OUTPUT);
   //pinMode(m_rxPin, INPUT);
@@ -31,16 +31,21 @@ UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_buf
 
 void UPDI::sendByte(uint8_t b)
 {
-  //m_updiSerial.write(b);
-  Serial1.write(b);
+  m_updiSerial.write(b);
+  //Serial1.write(b);
 }
 
 uint8_t UPDI::receiveByte()
 {
-  while (!Serial1.available()) {
+  while (!m_updiSerial.available()) {
     // Optionally include a timeout to prevent infinite waiting
   }
-  return Serial1.read();
+  return m_updiSerial.read();
+
+  //while (!Serial1.available()) {
+  //  // Optionally include a timeout to prevent infinite waiting
+  //}
+  //return Serial1.read();
 }
 
 void UPDI::reset(bool apply_reset)
@@ -76,16 +81,17 @@ void UPDI::enterProgrammingMode()
 #ifdef VORTEX_EMBEDDED
   pinMode(m_txPin, OUTPUT);
   pinMode(m_rxPin, OUTPUT);
-  digitalWrite(m_txPin, HIGH);
-  digitalWrite(m_rxPin, HIGH);
-  Time::delayMilliseconds(1);
+  digitalWrite(m_txPin, LOW);
+  digitalWrite(m_rxPin, LOW);
+  Time::delayMicroseconds(100);
   pinMode(m_rxPin, INPUT);
 #endif
 
-  //m_updiSerial.begin(115200); // Initialize SoftwareSerial with UPDI baud rate
-  Serial1.setRxBufferSize(512 + 16);
-  Serial1.setTimeout(50);
-  Serial1.begin(115200, SERIAL_8E2, m_rxPin, m_txPin);
+  m_updiSerial.setRxBufferSize(512 + 16);
+  m_updiSerial.begin(115200, SERIAL_8E2, m_rxPin, m_txPin, false, 50); // Initialize SoftwareSerial with UPDI baud rate
+  //Serial1.setRxBufferSize(512 + 16);
+  //Serial1.setTimeout(50);
+  //Serial1.begin(115200, SERIAL_8E2, m_rxPin, m_txPin);
 
   uint8_t key_reversed[KEY_LEN];
   for (uint8_t i = 0; i < KEY_LEN; i++) {

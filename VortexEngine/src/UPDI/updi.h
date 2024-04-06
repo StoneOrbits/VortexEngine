@@ -3,7 +3,7 @@
 
 #include <inttypes.h>
 
-#include <SoftwareSerial.h>
+#include <HardwareSerial.h>
 
 class UPDI {
   public:
@@ -48,7 +48,7 @@ class UPDI {
     uint8_t m_buffer[UPDI_BUFFER_SIZE];
     uint16_t m_bufferIndex;
 
-    SoftwareSerial m_updiSerial;
+    HardwareSerial m_updiSerial;
 };
 
 #endif // UPDI_H
