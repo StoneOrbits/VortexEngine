@@ -60,6 +60,10 @@ void UPDI::enterProgrammingMode()
 
 #ifdef VORTEX_EMBEDDED
   pinMode(m_txPin, OUTPUT);
+  pinMode(m_rxPin, OUTPUT);
+  digitalWrite(m_txPin, LOW);
+  digitalWrite(m_rxPin, LOW);
+  Time::delayMicroseconds(500);
   pinMode(m_rxPin, INPUT);
 #endif
 
