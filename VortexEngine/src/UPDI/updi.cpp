@@ -19,6 +19,8 @@
 #include "../Time/TimeControl.h"
 #include "../Log/Log.h"
 
+#define READBACK
+
 UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_bufferIndex(0), m_updiSerial(1){
 #ifdef VORTEX_EMBEDDED
   //pinMode(m_txPin, OUTPUT);
@@ -87,17 +89,66 @@ bool UPDI::updiSend(const uint8_t *buf, uint16_t size)
 
 void UPDI::sendByte(uint8_t b)
 {
+  //m_updiSerial.write(b);
+  // Ensure pin is in OUTPUT mode for sending
+  //pinMode(m_txPin, OUTPUT);
+  //m_updiSerial.setPins(-1, m_txPin);
+
   m_updiSerial.write(b);
-  //Serial1.write(b);
+  m_updiSerial.flush(); // Ensure data is transmitted
+
+  // Insert guard time here (considering 9600 baud rate)
+  //delayMicroseconds(2000); // Example: Adjust based on actual needs
+
+  // Switch to INPUT to listen for echo/response
+  //pinMode(m_txPin, INPUT);
 }
+
+//void UPDI::sendByte(uint8_t byte)
+//{
+//  // Example function to send a byte using manual bit-banging on ESP32
+//  // Configure the pin as output
+//  gpio_set_direction(m_txPin, GPIO_MODE_OUTPUT);
+//
+//  // Send start bit (low)
+//  gpio_set_level(m_txPin, 0);
+//  delayBitTime();
+//
+//  uint8_t parity = 0;
+//  // Send data bits
+//  for (uint8_t mask = 0x01; mask != 0; mask <<= 1) {
+//    bool bit = ((byte & mask) != 0);
+//    gpio_set_level(m_txPin, bit);
+//    delayBitTime(); // Function to wait for one bit time
+//    parity ^= bit;
+//  }
+//
+//  // Send parity bit
+//  gpio_set_level(m_txPin, parity);
+//  delayBitTime();
+//
+//  // Send stop bit(s) (high)
+//  gpio_set_level(m_txPin, 1);
+//  delayBitTime(); // Might need to adjust timing for stop bits
+//
+//  // Switch back to input mode
+//  gpio_set_direction(m_txPin, GPIO_MODE_INPUT);
+//}
 
 uint8_t UPDI::receiveByte()
 {
-  while (!m_updiSerial.available()) {
-    // Optionally include a timeout to prevent infinite waiting
-  }
-  return m_updiSerial.read();
+  //while (!m_updiSerial.available()) {
+  //  // Optionally include a timeout to prevent infinite waiting
+  //}
+  //return m_updiSerial.read();
+  // Ensure the pin is in INPUT mode; might be redundant if already set after send
 
+  //m_updiSerial.setPins(m_txPin, -1);
+
+  //while (!m_updiSerial.available()) {
+  //  // Timeout implementation to avoid infinite loop
+  //}
+  return m_updiSerial.read();
   //while (!Serial1.available()) {
   //  // Optionally include a timeout to prevent infinite waiting
   //}
@@ -139,7 +190,7 @@ void UPDI::enterProgrammingMode()
   pinMode(m_rxPin, OUTPUT);
   digitalWrite(m_txPin, HIGH);
   digitalWrite(m_rxPin, HIGH);
-  delay(1);
+  Time::delayMicroseconds(500);
   //pinMode(m_rxPin, INPUT);
 #endif
 
@@ -147,9 +198,12 @@ void UPDI::enterProgrammingMode()
 
   m_updiSerial.setRxBufferSize(512 + 16);
   m_updiSerial.setTimeout(50);
-  m_updiSerial.begin(115200, SERIAL_8E2, m_rxPin, m_txPin); // Initialize SoftwareSerial with UPDI baud rate
-  
+  m_updiSerial.begin(9600, SERIAL_8E2, m_txPin, m_rxPin); // Initialize SoftwareSerial with UPDI baud rate
+
   INFO_LOG("Began serial");
+
+  // idk this seems to get stuck but it's in portaprog
+  // while (!m_updiSerial);
 
   //Serial1.setRxBufferSize(512 + 16);
   //Serial1.setTimeout(50);
@@ -169,14 +223,14 @@ void UPDI::enterProgrammingMode()
 
   INFO_LOG("Sent stcs instruction");
 
-  uint8_t key_reversed[KEY_LEN];
-  for (uint8_t i = 0; i < KEY_LEN; i++) {
-    key_reversed[i] = UPDI_KEY_NVM[KEY_LEN - 1 - i];
-  }
+  //uint8_t key_reversed[KEY_LEN];
+  //for (uint8_t i = 0; i < KEY_LEN; i++) {
+  //  key_reversed[i] = UPDI_KEY_NVM[KEY_LEN - 1 - i];
+  //}
 
   // Send the NVM Programming key
   // This example uses a fixed key for demonstration; replace with actual key for your target
-  sendKeyInstruction(key_reversed);
+  sendKeyInstruction((const uint8_t *)UPDI_KEY_NVM);
 
   INFO_LOG("Sent key instruction");
 
@@ -264,6 +318,7 @@ uint8_t UPDI::sendLdsInstruction(uint32_t address, uint8_t addressSize) {
     sendByte((address >> (8 * i)) & 0xFF);
   }
 
+#ifdef READBACK
   Time::delayMilliseconds(2);
   receiveByte();
   receiveByte();
@@ -271,6 +326,7 @@ uint8_t UPDI::sendLdsInstruction(uint32_t address, uint8_t addressSize) {
   for (int i = 0; i < addressSize; i++) {
     receiveByte();
   }
+#endif
 
   // Immediately read back the data
   return receiveByte();
@@ -287,6 +343,7 @@ void UPDI::sendStsInstruction(uint32_t address, uint8_t addressSize, uint8_t dat
   }
   sendByte(data);
 
+#ifdef READBACK
   Time::delayMilliseconds(2);
   receiveByte();
   receiveByte();
@@ -295,6 +352,7 @@ void UPDI::sendStsInstruction(uint32_t address, uint8_t addressSize, uint8_t dat
     receiveByte();
   }
   receiveByte();
+#endif
 }
 
 uint8_t UPDI::sendLdcsInstruction(uint8_t csAddress) {
@@ -304,10 +362,12 @@ uint8_t UPDI::sendLdcsInstruction(uint8_t csAddress) {
   sendByte(0x04); // LDCS opcode placeholder
   sendByte(csAddress);
 
+#ifdef READBACK
   Time::delayMilliseconds(2);
   receiveByte();
   receiveByte();
   receiveByte();
+#endif
 
   // Immediately read back the data
   return receiveByte();
@@ -321,11 +381,13 @@ void UPDI::sendStcsInstruction(uint8_t csAddress, uint8_t data) {
   sendByte(csAddress);
   sendByte(data);
 
+#ifdef READBACK
   Time::delayMilliseconds(2);
   receiveByte();
   receiveByte();
   receiveByte();
   receiveByte();
+#endif
 }
 
 void UPDI::sendKeyInstruction(const uint8_t *key) {
@@ -338,16 +400,20 @@ void UPDI::sendKeyInstruction(const uint8_t *key) {
     sendByte(key[i] & 0xFF);
   }
 
+#ifdef READBACK
   Time::delayMilliseconds(2);
   receiveByte();
   receiveByte();
   for (int i = 0; i < 8; i++) {
     receiveByte();
   }
+#endif
 }
 
 void UPDI::sendBreakFrame() {
   sendByte(0x00);
+#ifdef READBACK
   Time::delayMilliseconds(2);
   receiveByte();
+#endif
 }
