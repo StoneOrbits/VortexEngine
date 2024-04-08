@@ -5,6 +5,8 @@
 #include "../Memory/Memory.h"
 #include "../Log/Log.h"
 
+#include "../VortexConfig.h"
+
 #include "Timings.h"
 
 #include "../Leds/Leds.h"
@@ -22,7 +24,7 @@ static LARGE_INTEGER tps;
 static LARGE_INTEGER start;
 #endif
 
-#ifdef VORTEX_EMBEDDED
+#if VORTEX_EMBEDDED == 1
 #include <Arduino.h>
 #endif
 
@@ -194,7 +196,7 @@ uint32_t Time::microseconds()
 
 void Time::delayMicroseconds(uint32_t us)
 {
-#ifdef VORTEX_EMBEDDED
+#if VORTEX_EMBEDDED == 1
   delayMicroseconds(us);
 #elif defined(_WIN32)
   uint32_t newtime = microseconds() + us;
@@ -208,7 +210,7 @@ void Time::delayMicroseconds(uint32_t us)
 
 void Time::delayMilliseconds(uint32_t ms)
 {
-#ifdef VORTEX_EMBEDDED
+#if VORTEX_EMBEDDED == 1
   delay(ms);
   //// not very accurate
   //for (uint16_t i = 0; i < ms; ++i) {
