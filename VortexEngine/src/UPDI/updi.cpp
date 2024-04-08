@@ -186,10 +186,15 @@ void UPDI::enterProgrammingMode()
   //sendStcsInstruction(0x00, 0x59);
 
 #ifdef VORTEX_EMBEDDED
+  INFO_LOG("pinmode tx");
   pinMode(m_txPin, OUTPUT);
+  INFO_LOG("pinmode rx");
   pinMode(m_rxPin, OUTPUT);
+  INFO_LOG("tx high");
   digitalWrite(m_txPin, HIGH);
+  INFO_LOG("rx high");
   digitalWrite(m_rxPin, HIGH);
+  INFO_LOG("delay");
   Time::delayMicroseconds(500);
   //pinMode(m_rxPin, INPUT);
 #endif
