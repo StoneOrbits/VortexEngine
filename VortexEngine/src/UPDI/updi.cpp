@@ -223,14 +223,9 @@ void UPDI::enterProgrammingMode()
 
   INFO_LOG("Sent stcs instruction");
 
-  //uint8_t key_reversed[KEY_LEN];
-  //for (uint8_t i = 0; i < KEY_LEN; i++) {
-  //  key_reversed[i] = UPDI_KEY_NVM[KEY_LEN - 1 - i];
-  //}
-
   // Send the NVM Programming key
   // This example uses a fixed key for demonstration; replace with actual key for your target
-  sendKeyInstruction((const uint8_t *)UPDI_KEY_NVM);
+  sendKey(NVMPROG);
 
   INFO_LOG("Sent key instruction");
 
@@ -288,22 +283,27 @@ void UPDI::writeFirmwareToProgramFlash(const uint8_t* firmware, uint32_t size) {
   // but with considerations for flash page sizes, erase cycles, and possibly using NVM commands.
 }
 
+const uint8_t key_chip_erase[] = {0x65, 0x73, 0x61, 0x72, 0x45, 0x4D, 0x56, 0x4E};
+const uint8_t key_nvm_prog[] = {0x20, 0x67, 0x6F, 0x72, 0x50, 0x4D, 0x56, 0x4E};
+const uint8_t key_write_userrow[] = {0x65, 0x74, 0x26, 0x73, 0x55, 0x4D, 0x56, 0x4E};
+
 void UPDI::sendKey(KeyType keyType) {
-  //uint64_t key;
-  //switch (keyType) {
-  //  case CHIP_ERASE:
-  //    key = 0x4E564D4572617365ULL;
-  //    break;
-  //  case NVMPROG:
-  //    key = 0x4E564D50726F6720ULL;
-  //    break;
-  //  case USERROW_WRITE:
-  //    key = 0x4E564D5573267465ULL;
-  //    break;
-  //  default:
-  //    return; // Invalid key type
-  //}
-  //sendKeyInstruction(&key);
+  const uint8_t *key = nullptr;
+  switch (keyType) {
+  case CHIP_ERASE:
+    key = key_chip_erase;
+    break;
+  case NVMPROG:
+    key = key_nvm_prog;
+    break;
+  case USERROW_WRITE:
+    key = key_write_userrow;
+    break;
+  default:
+    ERROR_LOGF("Unknown key: %u", (uint8_t)keyType);
+    return; // Invalid key type
+  }
+  sendKeyInstruction(key);
 }
 
 uint8_t UPDI::sendLdsInstruction(uint32_t address, uint8_t addressSize) {
