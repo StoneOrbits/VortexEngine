@@ -2,10 +2,10 @@
 
 #include <math.h>
 
+#include "../VortexConfig.h"
+
 #include "../Memory/Memory.h"
 #include "../Log/Log.h"
-
-#include "../VortexConfig.h"
 
 #include "Timings.h"
 
@@ -211,11 +211,10 @@ void Time::delayMicroseconds(uint32_t us)
 void Time::delayMilliseconds(uint32_t ms)
 {
 #if VORTEX_EMBEDDED == 1
-  delay(ms);
-  //// not very accurate
-  //for (uint16_t i = 0; i < ms; ++i) {
-  //  delayMicroseconds(1000);
-  //}
+  // not very accurate
+  for (uint16_t i = 0; i < ms; ++i) {
+    delayMicroseconds(1000);
+  }
 #elif defined(_WIN32)
   Sleep(ms);
 #else
