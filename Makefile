@@ -130,6 +130,22 @@ upload: $(TARGET).hex
 serial: $(TARGET).hex
 	$(PYTHON) -u $(PYPROG) -t uart -u $(SERIAL_PORT) -b 921600 -d $(AVRDUDE_CHIP) --fuses 0:$(FUSE0) 2:$(FUSE2) 5:$(FUSE5) 6:$(FUSE6) 7:$(FUSE7) 8:$(FUSE8) -f $< -a write -v
 
+readstorage:
+	$(AVRDUDE) $(AVRDUDE_FLAGS) -Ueeprom:r:eeprom.hex:h -Uuserrow:r:userrow.hex:h
+	@if [ "$(OS)" = "Windows_NT" ]; then \
+		type eeprom.hex & type userrow.hex; \
+	else \
+		cat eeprom.hex & cat userrow.hex; \
+	fi
+
+readflash:
+	$(PYTHON) -u $(PYPROG) -t uart -u $(SERIAL_PORT) -b 921600 -d $(AVRDUDE_CHIP) --action read -f flash_dump.hex
+	@if [ "$(OS)" = "Windows_NT" ]; then \
+		type flash_dump.hex; \
+	else \
+		cat flash_dump.hex; \
+	fi
+
 ifneq ($(OS),Windows_NT) # Linux
 build: all
 INSTALL_DIR=~/atmel_setup
