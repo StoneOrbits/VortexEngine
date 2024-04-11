@@ -36,6 +36,7 @@ public:
   static bool init();
   static void cleanup();
 
+  // load modes so they are ready to play
   static bool load();
 
   // play the current mode
@@ -44,6 +45,8 @@ public:
   // full save/load to/from buffer
   static bool saveToBuffer(ByteStream &saveBuffer);
   static bool loadFromBuffer(ByteStream &saveBuffer);
+
+  static bool loadHeader(ByteStream &modesBuffer);
 
   // full save/load to/from storage
   static bool loadStorage();
@@ -213,6 +216,9 @@ private:
   // will destroy the current instantiated mode and re-load it from serial
   static Mode *initCurMode(bool force = false);
   static bool saveCurMode();
+
+  // whether modes have been loaded
+  static bool m_loaded;
 
   // the current mode we're on
   static uint8_t m_curMode;

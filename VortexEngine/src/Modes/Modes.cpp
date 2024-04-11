@@ -16,6 +16,7 @@
 #include "../Log/Log.h"
 
 // static members
+bool Modes::m_loaded = false;
 uint8_t Modes::m_curMode = 0;
 uint8_t Modes::m_numModes = 0;
 // the current instantiated mode and it's respective link
@@ -36,6 +37,10 @@ bool Modes::init()
   test();
   return true;
 #endif
+  ByteStream headerBuffer;
+  // only read storage if the modebuffer isn't filled
+  Storage::read(headerBuffer);
+  loadHeader(headerBuffer);
   m_loaded = false;
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
@@ -123,7 +128,7 @@ bool Modes::saveToBuffer(ByteStream &modesBuffer)
 }
 
 // load modes from a save buffer
-bool Modes::loadFromBuffer(ByteStream &modesBuffer)
+bool Modes::loadHeader(ByteStream &modesBuffer)
 {
   if (!modesBuffer.decompress()) {
     // failed to decompress?
@@ -151,6 +156,15 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   modesBuffer.unserialize(&brightness);
   if (brightness) {
     Leds::setBrightness(brightness);
+  }
+  return true;
+}
+
+// load modes from a save buffer
+bool Modes::loadFromBuffer(ByteStream &modesBuffer)
+{
+  if (!loadHeader(modesBuffer)) {
+    return false;
   }
   // now just unserialize the list of modes
   if (!unserialize(modesBuffer)) {
