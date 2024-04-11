@@ -466,36 +466,48 @@ void Colorset::serialize(ByteStream &buffer) const
   }
 }
 
-void Colorset::unserialize(ByteStream &buffer)
+bool Colorset::unserialize(ByteStream &buffer)
 {
-  buffer.unserialize(&m_numColors);
-  initPalette(m_numColors);
-  for (uint8_t i = 0; i < m_numColors; ++i) {
-    buffer.unserialize(&m_palette[i].red);
+  if (!buffer.unserialize(&m_numColors)) {
+    return false;
+  }
+  if (!initPalette(m_numColors)) {
+    return false;
   }
   for (uint8_t i = 0; i < m_numColors; ++i) {
-    buffer.unserialize(&m_palette[i].green);
+    if (!buffer.unserialize(&m_palette[i].red)) {
+      return false;
+    }
   }
   for (uint8_t i = 0; i < m_numColors; ++i) {
-    buffer.unserialize(&m_palette[i].blue);
+    if (!buffer.unserialize(&m_palette[i].green)) {
+      return false;
+    }
   }
+  for (uint8_t i = 0; i < m_numColors; ++i) {
+    if (!buffer.unserialize(&m_palette[i].blue)) {
+      return false;
+    }
+  }
+  return true;
 }
 
-void Colorset::initPalette(uint8_t numColors)
+bool Colorset::initPalette(uint8_t numColors)
 {
   if (m_palette) {
     delete[] m_palette;
     m_palette = nullptr;
   }
   if (!numColors) {
-    return;
+    return true;
   }
   //m_palette = (RGBColor *)vcalloc(numColors, sizeof(RGBColor));
   m_palette = new RGBColor[numColors];
   if (!m_palette) {
     ERROR_OUT_OF_MEMORY();
-    return;
+    return false;
   }
   m_numColors = numColors;
+  return true;
 }
 

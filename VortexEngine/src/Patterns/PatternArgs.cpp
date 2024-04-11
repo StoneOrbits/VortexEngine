@@ -187,7 +187,7 @@ ArgMap PatternArgs::unserialize(ByteStream &buffer)
   buffer.unserialize(&argmap);
   for (uint8_t i = 0; i < MAX_ARGS; ++i) {
     if (ARGMAP_ISSET(argmap, i)) {
-      buffer.unserialize(args + i);
+      buffer.unserialize(&(args[i]));
     }
   }
   return argmap;

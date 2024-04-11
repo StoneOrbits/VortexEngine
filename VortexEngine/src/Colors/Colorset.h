@@ -144,11 +144,11 @@ public:
 
   // serialize the colorset to save/load
   void serialize(ByteStream &buffer) const;
-  void unserialize(ByteStream &buffer);
+  bool unserialize(ByteStream &buffer);
 
 private:
   // pre-allocate the palette
-  void initPalette(uint8_t numColors);
+  bool initPalette(uint8_t numColors);
 
   // palette of colors
   RGBColor *m_palette;

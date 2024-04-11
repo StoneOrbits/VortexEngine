@@ -27,6 +27,8 @@ uint8_t Modes::m_globalFlags = 0;
 // the last switch time of the modes
 uint32_t Modes::m_lastSwitchTime = 0;
 
+bool Modes::m_loaded = false;
+
 bool Modes::init()
 {
 #if MODES_TEST == 1
@@ -34,15 +36,7 @@ bool Modes::init()
   test();
   return true;
 #endif
-  // try to load the saved settings or set defaults
-  if (!loadStorage()) {
-    if (!setDefaults()) {
-      return false;
-    }
-    if (!saveStorage()) {
-      return false;
-    }
-  }
+  m_loaded = false;
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
   m_globalFlags |= MODES_FLAG_ADV_MENUS;
@@ -53,6 +47,24 @@ bool Modes::init()
 void Modes::cleanup()
 {
   clearModes();
+}
+
+bool Modes::load()
+{
+  if (m_loaded) {
+    return true;
+  }
+  // try to load the saved settings or set defaults
+  if (!loadStorage()) {
+    if (!setDefaults()) {
+      return false;
+    }
+    if (!saveStorage()) {
+      return false;
+    }
+  }
+  m_loaded = true;
+  return true;
 }
 
 void Modes::play()
@@ -285,7 +297,7 @@ bool Modes::setDefaults()
 #else
   // add each default mode with each of the given colors
   for (uint8_t i = 0; i < MAX_MODES; ++i) {
-    Mode defMode(defaultModes[i]);
+    Mode defMode(defaultModes[0]);
     if (!addMode(&defMode)) {
       ERROR_LOGF("Failed to add default mode %u", i);
       return false;

@@ -287,17 +287,18 @@ bool Mode::unserialize(ByteStream &buffer)
   // if there is a multi led pattern then unserialize it
   if (flags & MODE_FLAG_MULTI_LED) {
 #if VORTEX_SLIM == 1
-    // unserialize the multi pattern
-    Pattern *multiPat = PatternBuilder::unserialize(buffer);
-    // if there are no single leds then discard the firstpat
-    if ((flags & MODE_FLAG_SINGLE_LED) != 0 && multiPat) {
-      // discard the multi pattern
-      delete multiPat;
-    } else {
-      // otherwise turn on the all same single flag to use the multi as a single
-      flags = MODE_FLAG_SINGLE_LED | MODE_FLAG_ALL_SAME_SINGLE;
-      firstPat = multiPat;
-    }
+    return false;
+    //// unserialize the multi pattern
+    //Pattern *multiPat = PatternBuilder::unserialize(buffer);
+    //// if there are no single leds then discard the firstpat
+    //if ((flags & MODE_FLAG_SINGLE_LED) != 0 && multiPat) {
+    //  // discard the multi pattern
+    //  delete multiPat;
+    //} else {
+    //  // otherwise turn on the all same single flag to use the multi as a single
+    //  flags = MODE_FLAG_SINGLE_LED | MODE_FLAG_ALL_SAME_SINGLE;
+    //  firstPat = multiPat;
+    //}
 #else
     // otherwise in normal build actually unserialize it
     m_multiPat = PatternBuilder::unserialize(buffer);
@@ -309,28 +310,33 @@ bool Mode::unserialize(ByteStream &buffer)
     return true;
   }
   // is there an led map to unserialize? if not default to all
-  LedMap map = (1 << ledCount) - 1;
+  //LedMap map = (1 << ledCount) - 1;
   if (flags & MODE_FLAG_SPARSE_SINGLES) {
-    buffer.unserialize((uint32_t *)&map);
+    //buffer.unserialize((uint32_t *)&map);
+    return false;
   }
   // unserialize all singleled patterns into their positions
-  MAP_FOREACH_LED(map) {
-    if (pos >= LED_COUNT) {
-      // in case the map encodes led positions this device doesn't support
-      break;
-    }
-    if (!firstPat) {
-      // save the first pattern so that it can be duped if this is 'all same'
+  //MAP_FOREACH_LED(map) {
+  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
+    //if (pos >= LED_COUNT) {
+    //  // in case the map encodes led positions this device doesn't support
+    //  continue;
+    //}
+    //if (!firstPat) {
+    // save the first pattern so that it can be duped if this is 'all same'
+    if (pos == LED_FIRST || (flags & MODE_FLAG_ALL_SAME_SINGLE) == 0) {
       m_singlePats[pos] = firstPat = PatternBuilder::unserialize(buffer);
-    } else if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
-      // if all same then just dupe first
-      m_singlePats[pos] = PatternBuilder::dupe(firstPat);
     } else {
-      // otherwise unserialize the pattern like normal
-      m_singlePats[pos] = PatternBuilder::unserialize(buffer);
+      // if all same then just dupe first
+      m_singlePats[pos] = PatternBuilder::dupe(m_singlePats[LED_FIRST]);
+    }
+    if (!m_singlePats[pos]) {
+      clearPattern(LED_ALL);
+      return false;
     }
     m_singlePats[pos]->bind(pos);
   }
+
   // there is a few different possibilities here:
   //    1. The provided ledCount is less than our current LED_COUNT
   //      -> if this happens we need to repeat the first ledCount leds
@@ -343,18 +349,18 @@ bool Mode::unserialize(ByteStream &buffer)
     // in this case we either chopped some off or have the exact amount
     return true;
   }
-  // in this case we have to repeat them so we loop LED_COUNT - ledCount
-  // times and walk the first ledCount that are already set and copy them
-  LedPos src = LED_FIRST;
-  // start from ledCount (the first index we didn't load) and loop till
-  // LED_COUNT and dupe the pattern in the src position, but wrap the src
-  // around at ledCount so that we repeat the first ledCount over again
-  for (LedPos pos = (LedPos)ledCount; pos < LED_COUNT; ++pos) {
-    m_singlePats[pos] = PatternBuilder::dupe(m_singlePats[src]);
-    m_singlePats[pos]->bind(pos);
-    // have to modulate the source by the source mode's led count
-    src = (LedPos)((src + 1) % ledCount);
-  }
+  //// in this case we have to repeat them so we loop LED_COUNT - ledCount
+  //// times and walk the first ledCount that are already set and copy them
+  //LedPos src = LED_FIRST;
+  //// start from ledCount (the first index we didn't load) and loop till
+  //// LED_COUNT and dupe the pattern in the src position, but wrap the src
+  //// around at ledCount so that we repeat the first ledCount over again
+  //for (LedPos pos = (LedPos)ledCount; pos < LED_COUNT; ++pos) {
+  //  m_singlePats[pos] = PatternBuilder::dupe(m_singlePats[src]);
+  //  m_singlePats[pos]->bind(pos);
+  //  // have to modulate the source by the source mode's led count
+  //  src = (LedPos)((src + 1) % ledCount);
+  //}
   return true;
 }
 

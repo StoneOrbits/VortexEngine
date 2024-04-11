@@ -142,9 +142,8 @@ void ModeSharing::receiveMode()
   }
   DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
   if (!m_advanced) {
-    Modes::updateCurMode(&m_previewMode);
-    // leave menu and save settings, even if the mode was the same whatever
-    leaveMenu(true);
+    // leave menu and save only if the current mode was properly updated
+    leaveMenu(Modes::updateCurMode(&m_previewMode));
   }
 }
 

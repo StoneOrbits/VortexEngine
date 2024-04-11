@@ -19,6 +19,6 @@ struct DefaultModeEntry
 };
 
 // exposed global array of default modes
-extern const DefaultModeEntry defaultModes[MAX_MODES];
+extern const DefaultModeEntry defaultModes[1];
 
 #endif

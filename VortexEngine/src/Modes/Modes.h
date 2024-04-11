@@ -36,6 +36,8 @@ public:
   static bool init();
   static void cleanup();
 
+  static bool load();
+
   // play the current mode
   static void play();
 
@@ -155,6 +157,8 @@ public:
 #endif
 
 private:
+  static bool m_loaded;
+
   // linked list of internal mode storage
   class ModeLink {
   public:

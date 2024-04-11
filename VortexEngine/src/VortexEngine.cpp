@@ -94,6 +94,7 @@ bool VortexEngine::init()
     return false;
   }
 
+
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif
@@ -254,6 +255,7 @@ void VortexEngine::runMainLogic()
   // if the engine makes it here in less than 2 ticks that means the device turned on
   // via ESD and not via a normal click which cannot possibly be done in less than 1 tick
   if (now < 2) {
+    Leds::holdAll(RGB_RED);
     // if that happens then just gracefully go back to sleep to prevent the chip
     // from turning on randomly in a plastic bag
     // do not save on ESD re-sleep
@@ -261,6 +263,8 @@ void VortexEngine::runMainLogic()
     return;
   }
 #endif
+
+  Modes::load();
 
   // finally the user has released the button after initially turning it on,
   // just run the regular main logic of the system
