@@ -45,7 +45,6 @@ void Button::enableWake()
 {
   // turn on the above interrupt for FALLING edge, maintain the pullup enabled
   BUTTON_PORT.PIN_CTRL = PORT_PULLUPEN_bm | PORT_ISC_FALLING_gc;
-  m_releaseCount = 0;
 }
 #endif
 
