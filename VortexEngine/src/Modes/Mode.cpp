@@ -197,8 +197,8 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
-  modeBuffer.unserialize(&major);
-  modeBuffer.unserialize(&minor);
+  modeBuffer.unserialize8(&major);
+  modeBuffer.unserialize8(&minor);
   // check the version for incompatibility
   if (!VortexEngine::checkVersion(major, minor)) {
     // incompatible version
@@ -265,7 +265,7 @@ bool Mode::unserialize(ByteStream &buffer)
   clearPattern(LED_ALL);
   uint8_t ledCount = LED_COUNT;
   // unserialize the number of leds
-  buffer.unserialize(&ledCount);
+  buffer.unserialize8(&ledCount);
 #if FIXED_LED_COUNT == 0
   // it's important that we only increase the led count if necessary
   // otherwise we may end up reducing our led count and only rendering
@@ -282,7 +282,7 @@ bool Mode::unserialize(ByteStream &buffer)
   }
   // unserialize the flags value
   ModeFlags flags = 0;
-  buffer.unserialize(&flags);
+  buffer.unserialize8(&flags);
   Pattern *firstPat = nullptr;
   // if there is a multi led pattern then unserialize it
   if (flags & MODE_FLAG_MULTI_LED) {
@@ -326,19 +326,13 @@ bool Mode::unserialize(ByteStream &buffer)
     // save the first pattern so that it can be duped if this is 'all same'
     if (pos == LED_FIRST || (flags & MODE_FLAG_ALL_SAME_SINGLE) == 0) {
       m_singlePats[pos] = firstPat = PatternBuilder::unserialize(buffer);
-      if (!m_singlePats[pos]) {
-        clearPattern(LED_ALL);
-        //Leds::holdAll(RGB_ORANGE);
-        return false;
-      }
     } else {
       // if all same then just dupe first
       m_singlePats[pos] = PatternBuilder::dupe(m_singlePats[LED_FIRST]);
-      if (!m_singlePats[pos]) {
-        clearPattern(LED_ALL);
-        //Leds::holdAll(RGB_PINK);
-        return false;
-      }
+    }
+    if (!m_singlePats[pos]) {
+      clearPattern(LED_ALL);
+      return false;
     }
     m_singlePats[pos]->bind(pos);
   }

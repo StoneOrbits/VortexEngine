@@ -50,7 +50,7 @@ void PatternMap::serialize(ByteStream &buffer) const
 void PatternMap::unserialize(ByteStream &buffer)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    buffer.unserialize((uint8_t *)m_patternMap + i);
+    buffer.unserialize8((uint8_t *)m_patternMap + i);
   }
 }
 
@@ -116,7 +116,7 @@ void SequenceStep::serialize(ByteStream &buffer) const
 
 void SequenceStep::unserialize(ByteStream &buffer)
 {
-  buffer.unserialize(&m_duration);
+  buffer.unserialize16(&m_duration);
   m_patternMap.unserialize(buffer);
   m_colorsetMap.unserialize(buffer);
 }
@@ -232,7 +232,7 @@ void Sequence::serialize(ByteStream &buffer) const
 
 void Sequence::unserialize(ByteStream &buffer)
 {
-  buffer.unserialize(&m_numSteps);
+  buffer.unserialize8(&m_numSteps);
   for (uint8_t i = 0; i < m_numSteps; ++i) {
     m_sequenceSteps[i].unserialize(buffer);
   }

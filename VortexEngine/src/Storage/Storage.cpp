@@ -82,6 +82,7 @@ bool Storage::write(ByteStream &buffer)
       eepromWriteByte(i, buf[i]);
     }
   }
+  while (NVMCTRL.STATUS & 0x1);
   DEBUG_LOGF("Wrote %u bytes to storage (max: %u)", m_lastSaveSize, STORAGE_SIZE);
   if ((NVMCTRL.STATUS & 4) != 0) {
     return false;
@@ -137,6 +138,7 @@ bool Storage::read(ByteStream &buffer)
   for (uint16_t i = 0; i < fullsize; ++i) {
     pos[i] = eepromReadByte(i);
   }
+  while (NVMCTRL.STATUS & 0x1);
 #elif defined(_WIN32)
   HANDLE hFile = CreateFile(STORAGE_FILENAME, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);
   if (hFile == INVALID_HANDLE_VALUE) {
@@ -187,7 +189,7 @@ void Storage::eepromWriteByte(uint16_t index, uint8_t in)
   // The first two pages of the data goes into the eeprom and then the last page goes
   // into the USERROW which is located at 0x1300
   if (index > 255) {
-    adr = 0x1300 + (index & 0xFF);
+    adr = 0x1300 + ((index >> 8) & 0xFF);
   } else {
     adr = MAPPED_EEPROM_START + index;
   }
@@ -211,7 +213,7 @@ uint8_t Storage::eepromReadByte(uint16_t index)
 {
   if (index > 255) {
     // USERROW start
-    return *(uint8_t *)(0x1300 + (index & 0xFF));
+    return *(uint8_t *)(0x1300 + ((index >> 8) & 0xFF));
   }
   return *(uint8_t *)(MAPPED_EEPROM_START + index);
 }

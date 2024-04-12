@@ -416,7 +416,7 @@ bool ByteStream::unserializerAtEnd() const
 #include "../Leds/Leds.h"
 
 // unserialize data and walk the buffer that many bytes
-bool ByteStream::unserialize(uint8_t *byte)
+bool ByteStream::unserialize8(uint8_t *byte)
 {
   if (!m_pData) {
     //Leds::holdAll(RGB_GREEN);
@@ -427,7 +427,6 @@ bool ByteStream::unserialize(uint8_t *byte)
     return false;
   }
   if ((m_pData->size - m_position) < sizeof(uint8_t)) {
-    //Leds::holdAll(RGB_RED);
     return false;
   }
   memcpy(byte, m_pData->buf + m_position, sizeof(uint8_t));
@@ -436,7 +435,7 @@ bool ByteStream::unserialize(uint8_t *byte)
   return true;
 }
 
-bool ByteStream::unserialize(uint16_t *bytes)
+bool ByteStream::unserialize16(uint16_t *bytes)
 {
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint16_t)) {
     return false;
@@ -447,7 +446,7 @@ bool ByteStream::unserialize(uint16_t *bytes)
   return true;
 }
 
-bool ByteStream::unserialize(uint32_t *bytes)
+bool ByteStream::unserialize32(uint32_t *bytes)
 {
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
     return false;
@@ -461,21 +460,21 @@ bool ByteStream::unserialize(uint32_t *bytes)
 uint8_t ByteStream::unserialize8()
 {
   uint8_t byte = 0;
-  unserialize(&byte);
+  unserialize8(&byte);
   return byte;
 }
 
 uint16_t ByteStream::unserialize16()
 {
   uint16_t bytes = 0;
-  unserialize(&bytes);
+  unserialize16(&bytes);
   return bytes;
 }
 
 uint32_t ByteStream::unserialize32()
 {
   uint32_t bytes = 0;
-  unserialize(&bytes);
+  unserialize32(&bytes);
   return bytes;
 }
 

@@ -90,9 +90,9 @@ public:
   bool unserializerAtEnd() const;
 
   // serialize a byte into the buffer
-  bool unserialize(uint8_t *byte);
-  bool unserialize(uint16_t *bytes);
-  bool unserialize(uint32_t *bytes);
+  bool unserialize8(uint8_t *byte);
+  bool unserialize16(uint16_t *bytes);
+  bool unserialize32(uint32_t *bytes);
 
   // same thing but via return value
   uint8_t unserialize8();
@@ -159,7 +159,7 @@ private:
     {
       // if the buffer is empty then 'verify' should just return true
       if (!size) {
-        return true;
+        return false;
       }
       if (hash() != crc32) {
         DEBUG_LOGF("CRC mismatch: %x should be %x", hash(), crc32);
