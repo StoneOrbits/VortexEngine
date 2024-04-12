@@ -33,7 +33,11 @@ typedef uint8_t ArgMap;
 
 // a structured method for passing arguments to patterns, there's definitely more dynamic
 // ways to approach this but I'm aiming for simple and lightweight here
-class PatternArgs
+class 
+#ifdef VORTEX_EMBEDDED
+  __attribute__((packed))
+#endif
+  PatternArgs
 {
 public:
   // constructor for each number of arguments, automatically fills the 'numArgs' field accordingly

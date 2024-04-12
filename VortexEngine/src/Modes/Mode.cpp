@@ -326,13 +326,19 @@ bool Mode::unserialize(ByteStream &buffer)
     // save the first pattern so that it can be duped if this is 'all same'
     if (pos == LED_FIRST || (flags & MODE_FLAG_ALL_SAME_SINGLE) == 0) {
       m_singlePats[pos] = firstPat = PatternBuilder::unserialize(buffer);
+      if (!m_singlePats[pos]) {
+        clearPattern(LED_ALL);
+        //Leds::holdAll(RGB_ORANGE);
+        return false;
+      }
     } else {
       // if all same then just dupe first
       m_singlePats[pos] = PatternBuilder::dupe(m_singlePats[LED_FIRST]);
-    }
-    if (!m_singlePats[pos]) {
-      clearPattern(LED_ALL);
-      return false;
+      if (!m_singlePats[pos]) {
+        clearPattern(LED_ALL);
+        //Leds::holdAll(RGB_PINK);
+        return false;
+      }
     }
     m_singlePats[pos]->bind(pos);
   }

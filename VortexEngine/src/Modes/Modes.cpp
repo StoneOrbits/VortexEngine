@@ -28,8 +28,6 @@ uint8_t Modes::m_globalFlags = 0;
 // the last switch time of the modes
 uint32_t Modes::m_lastSwitchTime = 0;
 
-bool Modes::m_loaded = false;
-
 bool Modes::init()
 {
 #if MODES_TEST == 1
@@ -61,6 +59,7 @@ bool Modes::load()
   }
   // try to load the saved settings or set defaults
   if (!loadStorage()) {
+    Leds::holdAll(RGB_RED);
     if (!setDefaults()) {
       return false;
     }
@@ -164,10 +163,12 @@ bool Modes::loadHeader(ByteStream &modesBuffer)
 bool Modes::loadFromBuffer(ByteStream &modesBuffer)
 {
   if (!loadHeader(modesBuffer)) {
+    //Leds::holdAll(RGB_GREEN);
     return false;
   }
   // now just unserialize the list of modes
   if (!unserialize(modesBuffer)) {
+    //Leds::holdAll(RGB_PURPLE);
     return false;
   }
   return true;
@@ -182,11 +183,14 @@ bool Modes::loadStorage()
   // only read storage if the modebuffer isn't filled
   if (!Storage::read(modesBuffer) || !modesBuffer.size()) {
     DEBUG_LOG("Empty buffer read from storage");
+    //Leds::holdAll(RGB_BLUE);
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
+  modesBuffer.resetUnserializer();
   // try to load the modes buffer
   if (!loadFromBuffer(modesBuffer)) {
+    //Leds::holdAll(RGB_YELLOW);
     return false;
   }
   if (oneClickModeEnabled()) {
@@ -275,6 +279,9 @@ bool Modes::unserialize(ByteStream &modesBuffer)
     // then we unpack them when we instantiate the mode
     if (!addSerializedMode(modesBuffer)) {
       DEBUG_LOGF("Failed to add mode %u after unserialization", i);
+      //if (i == 4) {
+      //Leds::holdAll(RGB_GREEN);
+      //}
       // clear work so far?
       clearModes();
       return false;
@@ -333,6 +340,7 @@ bool Modes::addSerializedMode(ByteStream &serializedMode)
   // so we cannot just append the input arg to m_storedModes
   Mode tmpMode;
   if (!tmpMode.unserialize(serializedMode)) {
+    //Leds::holdAll(RGB_BLUE);
     return false;
   }
   // initialize the mode because a pattern could theoretically serialize

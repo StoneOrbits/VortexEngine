@@ -160,8 +160,6 @@ public:
 #endif
 
 private:
-  static bool m_loaded;
-
   // linked list of internal mode storage
   class ModeLink {
   public:
