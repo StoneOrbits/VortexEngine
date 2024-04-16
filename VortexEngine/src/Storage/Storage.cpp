@@ -77,9 +77,10 @@ bool Storage::write(ByteStream &buffer)
 #ifdef VORTEX_EMBEDDED
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   // start writing to eeprom
-  for (uint16_t i = 0; i < size; ++i) {
-    if (buf[i] != eepromReadByte(i)) {
-      eepromWriteByte(i, buf[i]);
+  for (uint16_t i = 0; i < STORAGE_SIZE; ++i) {
+    uint8_t b = (i < size) ? buf[i] : 0; 
+    if (b != eepromReadByte(i)) {
+      eepromWriteByte(i, b);
     }
   }
   while (NVMCTRL.STATUS & 0x1);
@@ -188,10 +189,10 @@ void Storage::eepromWriteByte(uint16_t index, uint8_t in)
   uint16_t adr;
   // The first two pages of the data goes into the eeprom and then the last page goes
   // into the USERROW which is located at 0x1300
-  if (index > 255) {
-    adr = 0x1300 + ((index >> 8) & 0xFF);
+  if (index < 256) {
+    adr = MAPPED_EEPROM_START + (index);
   } else {
-    adr = MAPPED_EEPROM_START + index;
+    adr = 0x1300 + (index - 256);
   }
   __asm__ __volatile__(
     "ldi r30, 0x00"     "\n\t"
@@ -207,14 +208,18 @@ void Storage::eepromWriteByte(uint16_t index, uint8_t in)
     :"+d"(in)
     : "x"(adr)
     : "r30", "r31", "r18");
+
+  while (!(NVMCTRL.STATUS & NVMCTRL_EEBUSY_bm));
 }
 
 uint8_t Storage::eepromReadByte(uint16_t index)
 {
-  if (index > 255) {
-    // USERROW start
-    return *(uint8_t *)(0x1300 + ((index >> 8) & 0xFF));
+  uint16_t adr;
+  if (index < 256) {
+    adr = MAPPED_EEPROM_START + (index);
+  } else {
+    adr = 0x1300 + (index - 256);
   }
-  return *(uint8_t *)(MAPPED_EEPROM_START + index);
+  return *(volatile uint8_t *)adr;
 }
 #endif

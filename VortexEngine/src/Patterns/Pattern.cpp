@@ -71,6 +71,8 @@ void Pattern::serialize(ByteStream &buffer) const
   args.serialize(buffer, argmap);
 }
 
+#include "../Leds/Leds.h"
+
 // must override unserialize to load patterns
 bool Pattern::unserialize(ByteStream &buffer)
 {
@@ -78,6 +80,7 @@ bool Pattern::unserialize(ByteStream &buffer)
   // unserialized by the pattern builder to decide which pattern
   // to instantiate, instead only unserialize the colorset
   if (!m_colorset.unserialize(buffer)) {
+      Leds::holdAll(RGB_PINK);
     return false;
   }
   // start with the default args for this pattern

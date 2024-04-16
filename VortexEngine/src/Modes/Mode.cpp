@@ -310,18 +310,17 @@ bool Mode::unserialize(ByteStream &buffer)
     return true;
   }
   // is there an led map to unserialize? if not default to all
-  //LedMap map = (1 << ledCount) - 1;
+  LedMap map = (1 << ledCount) - 1;
   if (flags & MODE_FLAG_SPARSE_SINGLES) {
     //buffer.unserialize((uint32_t *)&map);
     return false;
   }
   // unserialize all singleled patterns into their positions
-  //MAP_FOREACH_LED(map) {
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    //if (pos >= LED_COUNT) {
-    //  // in case the map encodes led positions this device doesn't support
-    //  continue;
-    //}
+  MAP_FOREACH_LED(map) {
+    if (pos >= LED_COUNT) {
+      // in case the map encodes led positions this device doesn't support
+      continue;
+    }
     //if (!firstPat) {
     // save the first pattern so that it can be duped if this is 'all same'
     if (pos == LED_FIRST || (flags & MODE_FLAG_ALL_SAME_SINGLE) == 0) {
@@ -357,6 +356,9 @@ bool Mode::unserialize(ByteStream &buffer)
   //// around at ledCount so that we repeat the first ledCount over again
   //for (LedPos pos = (LedPos)ledCount; pos < LED_COUNT; ++pos) {
   //  m_singlePats[pos] = PatternBuilder::dupe(m_singlePats[src]);
+  //  if (!m_singlePats[pos]) {
+  //    return false;
+  //  }
   //  m_singlePats[pos]->bind(pos);
   //  // have to modulate the source by the source mode's led count
   //  src = (LedPos)((src + 1) % ledCount);

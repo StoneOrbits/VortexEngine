@@ -58,15 +58,21 @@ bool Modes::load()
     return true;
   }
   // try to load the saved settings or set defaults
-  if (!loadStorage()) {
-    if (!setDefaults()) {
-      return false;
+  if (!loadStorage()) { 
+    Leds::holdAll(RGB_RED);
+//    if (!loadStorage()) {
+//      Leds::holdAll(RGB_PURPLE);
+      if (!setDefaults()) {
+        return false;
+      }
+      if (!saveStorage()) {
+        Leds::holdAll(RGB_WHITE);
+        Leds::holdAll(RGB_WHITE);
+        return false;
+      }
     }
-    if (!saveStorage()) {
-      return false;
-    }
-  }
-  Leds::holdAll(RGB_CYAN);
+//  }
+  //Leds::holdAll(RGB_CYAN);
   m_loaded = true;
   return true;
 }
@@ -188,9 +194,11 @@ bool Modes::loadStorage()
     return false;
   }
   modesBuffer.resetUnserializer();
+  //if (!modesBuffer.checkCRC() || modesBuffer.size() != 285) {
+  //  //Leds::holdAll(RGB_YELLOW);
+  //}
   // try to load the modes buffer
   if (!loadFromBuffer(modesBuffer)) {
-    //Leds::holdAll(RGB_YELLOW);
     return false;
   }
   if (oneClickModeEnabled()) {
@@ -211,12 +219,33 @@ bool Modes::saveStorage()
   if (!saveToBuffer(modesBuffer)) {
     return false;
   }
+  uint32_t crc = modesBuffer.recalcCRC(true);
+  uint32_t size = modesBuffer.size();
   // write the serial buffer to flash storage, this
   // will compress the buffer and include crc/flags
   if (!Storage::write(modesBuffer)) {
     DEBUG_LOG("Failed to write storage");
     return false;
   }
+  Time::delayMilliseconds(100);
+  if (!Storage::read(modesBuffer) || !modesBuffer.size()) {
+    Leds::holdAll(RGB_RED);
+    return false;
+  }
+  modesBuffer.sanity();
+  if (!modesBuffer.checkCRC()) {
+    Leds::holdAll(RGB_RED);
+    return false;
+  }
+  if (size != modesBuffer.size()) {
+    Leds::holdAll(RGB_RED);
+    return false;
+  }
+  if (crc != modesBuffer.recalcCRC(true)) {
+    Leds::holdAll(RGB_ORANGE);
+    return false;
+  }
+  Leds::holdAll(RGB_GREEN);
   DEBUG_LOG("Success saving modes to storage");
   return true;
 }
@@ -340,7 +369,6 @@ bool Modes::addSerializedMode(ByteStream &serializedMode)
   // so we cannot just append the input arg to m_storedModes
   Mode tmpMode;
   if (!tmpMode.unserialize(serializedMode)) {
-    //Leds::holdAll(RGB_BLUE);
     return false;
   }
   // initialize the mode because a pattern could theoretically serialize
