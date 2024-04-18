@@ -107,6 +107,7 @@ Menu::MenuAction Menu::run()
   }
   // on a long press of the button, lock in the target led
   if (g_pButton->onLongClick()) {
+    m_targetLeds = ledPermutations[m_ledSelection];
     m_ledSelected = true;
     // call led selected callback
     onLedSelected();

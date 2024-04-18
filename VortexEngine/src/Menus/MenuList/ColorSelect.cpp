@@ -168,7 +168,7 @@ void ColorSelect::onLongClick()
       // if we need to save, then actually update the colorset
       if (needsSave) {
         // save the colorset
-        cur->setColorset(m_colorset);
+        cur->setColorsetMap(m_targetLeds, m_colorset);
         cur->init();
       }
       // leave menu and save if we made changes
