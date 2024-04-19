@@ -528,6 +528,13 @@
 //  These are the various storage space constants of the vortex device
 
 // maximum size of a mode here
+//  - atleast 48 for colors (2 leds x (3 channel x 8 colors))
+//  - 2 bytes for pat ids (2 leds)
+//  - 2 bytes for argmaps (2 leds)
+//  - 1 byte for mode flags
+//  - 1 byte for num leds
+//    = 54
+//    = 10 bytes leftover = 6 params each
 #define MAX_MODE_SIZE 76
 
 // the number of storage slots for modes, add 1 for the header
