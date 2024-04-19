@@ -203,7 +203,6 @@ void ColorSelect::onLongClick()
       m_curPage = m_slot / PAGE_SIZE;
       return;
     }
-    m_state = STATE_PICK_HUE1;
     // the page is only used for slot selection so reset current page
     // for next time they use the color select
     m_curPage = 0;
