@@ -229,6 +229,13 @@ void Leds::blinkIndexOffset(LedPos target, uint32_t time, uint16_t offMs, uint16
   }
 }
 
+void Leds::blinkRangeOffset(LedPos first, LedPos last, uint32_t time, uint16_t offMs, uint16_t onMs, RGBColor col)
+{
+  if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+    setRange(first, last, col);
+  }
+}
+
 void Leds::blinkIndex(LedPos target, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {

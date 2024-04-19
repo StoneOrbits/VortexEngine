@@ -195,9 +195,9 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
       blinkCol = RGB_WHITE0;
     }
     // blink the target finger to the target color
-    Leds::blinkIndexOffset(fingerTip(m_curSelection),
+    Leds::blinkRangeOffset(fingerTip(m_curSelection), fingerTop(m_curSelection),
                       g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime(),
-                      offMs, onMs, blinkCol);
+                      offMs, onMs, blinkCol);   
     break;
   }
 }
