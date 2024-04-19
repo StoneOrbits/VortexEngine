@@ -12,6 +12,8 @@
 #pragma warning(disable : 4200)
 #endif
 
+#include "../Leds/Leds.h"
+
 class FlashClass;
 
 class ByteStream
@@ -185,9 +187,9 @@ private:
   // The raw buffer of data along with size and flags
   RawBuffer *m_pData;
   // the index in the raw buffer for unserialization
-  uint32_t m_position;
+  uint16_t m_position;
   // the actual size of the buffer raw buffer
-  uint32_t m_capacity;
+  uint16_t m_capacity;
 };
 
 #endif

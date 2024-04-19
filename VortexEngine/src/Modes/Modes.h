@@ -50,7 +50,9 @@ public:
 
   // full save/load to/from storage
   static bool loadStorage();
-  static bool saveStorage();
+  static bool saveStorage(uint32_t *crc = nullptr, uint32_t *size = nullptr);
+
+  static bool verifyStorage(uint32_t crc, uint32_t size);
 
   // saves all modes to a buffer
   static bool serialize(ByteStream &buffer);

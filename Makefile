@@ -38,7 +38,9 @@ CPU_SPEED = 10000000L
 # the port for serial upload
 SERIAL_PORT = COM11
 
+# whether eeprom is erased on flash (must write this fuse first to take effect)
 SAVE_EEPROM = 1
+
 # WDTCFG { PERIOD=OFF, WINDOW=OFF }
 WDTCFG = 0b00000000
 # BODCFG { SLEEP=DIS, ACTIVE=DIS, SAMPFREQ=1KHZ, LVL=BODLEVEL0 }

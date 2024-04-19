@@ -236,8 +236,9 @@ void VortexEngine::runMainLogic()
       bool isEnabledNow = !Modes::oneClickModeEnabled();
       // toggle one click mode
       Modes::setOneClickMode(isEnabledNow);
+      Time::delayMilliseconds(1000);
       // load the modes
-      Modes::load();
+      Modes::loadStorage();
       // if we turned it on then switch to that mode
       if (isEnabledNow) {
         Modes::switchToStartupMode();

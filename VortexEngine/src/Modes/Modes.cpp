@@ -59,17 +59,20 @@ bool Modes::load()
   }
   // try to load the saved settings or set defaults
   if (!loadStorage()) { 
-    Leds::holdAll(RGB_RED);
-//    if (!loadStorage()) {
-//      Leds::holdAll(RGB_PURPLE);
       if (!setDefaults()) {
         return false;
       }
-      if (!saveStorage()) {
-        Leds::holdAll(RGB_WHITE);
+      uint32_t crc32 = 0;
+      uint32_t size = 0;
+      if (!saveStorage(&crc32, &size)) {
         Leds::holdAll(RGB_WHITE);
         return false;
       }
+      //Time::delayMilliseconds(1000);
+      //if (!verifyStorage(crc, size)) {
+      //  Leds::holdAll(RGB_ORANGE);
+      //  return false;
+      //}
     }
 //  }
   //Leds::holdAll(RGB_CYAN);
@@ -136,6 +139,10 @@ bool Modes::saveToBuffer(ByteStream &modesBuffer)
 bool Modes::loadHeader(ByteStream &modesBuffer)
 {
   if (!modesBuffer.decompress()) {
+    static int i = 0;
+    if (i++ > 0 ) {
+    Leds::holdAll(RGB_PURPLE);
+    }
     // failed to decompress?
     return false;
   }
@@ -169,7 +176,6 @@ bool Modes::loadHeader(ByteStream &modesBuffer)
 bool Modes::loadFromBuffer(ByteStream &modesBuffer)
 {
   if (!loadHeader(modesBuffer)) {
-    //Leds::holdAll(RGB_GREEN);
     return false;
   }
   // now just unserialize the list of modes
@@ -189,7 +195,6 @@ bool Modes::loadStorage()
   // only read storage if the modebuffer isn't filled
   if (!Storage::read(modesBuffer) || !modesBuffer.size()) {
     DEBUG_LOG("Empty buffer read from storage");
-    //Leds::holdAll(RGB_BLUE);
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
@@ -210,7 +215,7 @@ bool Modes::loadStorage()
 
 // NOTE: Flash storage is limited to about 10,000 writes so
 //       use this function sparingly!
-bool Modes::saveStorage()
+bool Modes::saveStorage(uint32_t *crc, uint32_t *size)
 {
   DEBUG_LOG("Saving modes...");
   // A ByteStream to hold all the serialized data
@@ -219,34 +224,39 @@ bool Modes::saveStorage()
   if (!saveToBuffer(modesBuffer)) {
     return false;
   }
-  uint32_t crc = modesBuffer.recalcCRC(true);
-  uint32_t size = modesBuffer.size();
+  if (crc) *crc = modesBuffer.recalcCRC(true);
+  if (size) *size = modesBuffer.size();
   // write the serial buffer to flash storage, this
   // will compress the buffer and include crc/flags
   if (!Storage::write(modesBuffer)) {
     DEBUG_LOG("Failed to write storage");
     return false;
   }
-  Time::delayMilliseconds(100);
+  DEBUG_LOG("Success saving modes to storage");
+  return true;
+}
+
+bool Modes::verifyStorage(uint32_t crc, uint32_t size)
+{
+  ByteStream modesBuffer;
   if (!Storage::read(modesBuffer) || !modesBuffer.size()) {
-    Leds::holdAll(RGB_RED);
+    Leds::holdAll(RGB_BLUE);
     return false;
   }
   modesBuffer.sanity();
-  if (!modesBuffer.checkCRC()) {
-    Leds::holdAll(RGB_RED);
-    return false;
-  }
+  //if (!modesBuffer.checkCRC()) {
+  //  Leds::holdAll(RGB_YELLOW);
+  //  return false;
+  //}
   if (size != modesBuffer.size()) {
-    Leds::holdAll(RGB_RED);
+    Leds::holdAll(RGB_CYAN);
     return false;
   }
-  if (crc != modesBuffer.recalcCRC(true)) {
-    Leds::holdAll(RGB_ORANGE);
-    return false;
-  }
+  //if (crc != modesBuffer.recalcCRC(true)) {
+  //  Leds::holdAll(RGB_ORANGE);
+  //  return false;
+  //}
   Leds::holdAll(RGB_GREEN);
-  DEBUG_LOG("Success saving modes to storage");
   return true;
 }
 
@@ -299,6 +309,7 @@ bool Modes::unserialize(ByteStream &modesBuffer)
   if (!numModes) {
     DEBUG_LOG("Did not find any modes");
     // this kinda sucks whatever they had loaded is gone
+      Leds::holdAll(RGB_GREEN);
     return false;
   }
   // foreach expected mode
@@ -308,15 +319,15 @@ bool Modes::unserialize(ByteStream &modesBuffer)
     // then we unpack them when we instantiate the mode
     if (!addSerializedMode(modesBuffer)) {
       DEBUG_LOGF("Failed to add mode %u after unserialization", i);
-      //if (i == 4) {
-      //Leds::holdAll(RGB_GREEN);
-      //}
       // clear work so far?
+      Leds::holdAll(RGB_BLUE);
       clearModes();
       return false;
     }
   }
   DEBUG_LOGF("Loaded %u modes from storage (%u bytes)", numModes, modesBuffer.size());
+  if (m_numModes != numModes)
+      Leds::holdAll(RGB_CYAN);
   return (m_numModes == numModes);
 }
 
