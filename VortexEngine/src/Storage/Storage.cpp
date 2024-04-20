@@ -8,11 +8,11 @@
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
 
-#ifdef VORTEX_EMBEDDED	
-#include <avr/io.h>	
-#include <avr/pgmspace.h>	
-#include <avr/interrupt.h>	
-#include <util/delay.h>	
+#ifdef VORTEX_EMBEDDED
+#include <avr/io.h>
+#include <avr/pgmspace.h>
+#include <avr/interrupt.h>
+#include <util/delay.h>
 #endif
 
 #ifdef VORTEX_LIB
