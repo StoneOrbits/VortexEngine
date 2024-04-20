@@ -87,8 +87,8 @@ bool Storage::write(uint8_t slot, ByteStream &buffer)
 #ifdef VORTEX_EMBEDDED
   const uint8_t *buf = (const uint8_t *)buffer.rawData();
   if (slot > 5) {
-    uint8_t eepSlot = 128 * (slot - 6);
-    for (uint8_t i = 0; i < 128; ++i) {
+    uint8_t eepSlot = MAX_MODE_SIZE * (slot - 6);
+    for (uint8_t i = 0; i < MAX_MODE_SIZE; ++i) {
       uint8_t b = (i < size) ? buf[i] : 0x00;
       if (eepromReadByte(i + eepSlot) != b) {
         eepromWriteByte(i + eepSlot, b);
@@ -158,7 +158,7 @@ bool Storage::read(uint8_t slot, ByteStream &buffer)
   uint8_t *buf = (uint8_t *)buffer.rawData();
   volatile uint8_t *src;
   if (slot > 5) {
-    src = (volatile uint8_t *)(MAPPED_EEPROM_START + (128 * (slot - 6)));
+    src = (volatile uint8_t *)(MAPPED_EEPROM_START + (MAX_MODE_SIZE * (slot - 6)));
   } else {
     src = (volatile uint8_t *)FLASH_STORAGE_SPACE + (128 * slot);
   }

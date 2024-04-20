@@ -150,5 +150,23 @@ const DefaultModeEntry defaultModes[MAX_MODES] = {
         }
       }
     }
-  }
+  },
+  {
+    {
+      {
+        PATTERN_BLEND, 2, {
+          RGB_RED0,
+          RGB_CYAN,
+        }
+      },
+      {
+        PATTERN_BLEND, 3, {
+          RGB_RED,
+          RGB_GREEN,
+          RGB_BLUE,
+        }
+      }
+    }
+  },
+
 };
