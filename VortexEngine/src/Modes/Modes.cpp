@@ -108,20 +108,58 @@ void Modes::play()
   m_pCurModeLink->play();
 }
 
-// full save/load to/from buffer
-bool Modes::saveToBuffer(ByteStream &modesBuffer)
+bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
 {
   // serialize the engine version into the modes buffer
-  if (!VortexEngine::serializeVersion(modesBuffer)) {
+  if (!VortexEngine::serializeVersion(saveBuffer)) {
     return false;
   }
   // NOTE: instead of global brightness the duo uses this to store the
   //       startup mode ID. The duo doesn't offer a global brightness option
-  if (!modesBuffer.serialize(m_globalFlags)) {
+  if (!saveBuffer.serialize(m_globalFlags)) {
     return false;
   }
   // serialize the global brightness
-  if (!modesBuffer.serialize((uint8_t)Leds::getBrightness())) {
+  if (!saveBuffer.serialize((uint8_t)Leds::getBrightness())) {
+    return false;
+  }
+  DEBUG_LOGF("Serialized all modes, uncompressed size: %u", saveBuffer.size());
+  return true;
+}
+
+bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
+{
+  // reset the unserializer index before unserializing anything
+  saveHeader.resetUnserializer();
+  uint8_t major = 0;
+  uint8_t minor = 0;
+  // unserialize the vortex version
+  saveHeader.unserialize(&major);
+  saveHeader.unserialize(&minor);
+  // check the version for incompatibility
+  if (!VortexEngine::checkVersion(major, minor)) {
+    // incompatible version
+    ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
+    return false;
+  }
+  // NOTE: instead of global brightness the duo uses this to store the
+  //       startup mode ID. The duo doesn't offer a global brightness option
+  // unserialize the global brightness
+  saveHeader.unserialize(&m_globalFlags);
+  // unserialize the global brightness
+  uint8_t brightness = 0;
+  saveHeader.unserialize(&brightness);
+  if (brightness) {
+    Leds::setBrightness(brightness);
+  }
+  return true;
+}
+
+// full save/load to/from buffer
+bool Modes::saveToBuffer(ByteStream &modesBuffer)
+{
+  // first write out the header
+  if (!serializeSaveHeader(modesBuffer)) {
     return false;
   }
   // serialize all modes data into the modesBuffer
@@ -193,7 +231,7 @@ bool Modes::loadStorage()
   clearModes();
   ByteStream modesBuffer;
   // only read storage if the modebuffer isn't filled
-  if (!Storage::read(modesBuffer) || !modesBuffer.size()) {
+  if (!Storage::read(0, modesBuffer) || !modesBuffer.size()) {
     DEBUG_LOG("Empty buffer read from storage");
     // this kinda sucks whatever they had loaded is gone
     return false;
@@ -215,24 +253,83 @@ bool Modes::loadStorage()
 
 // NOTE: Flash storage is limited to about 10,000 writes so
 //       use this function sparingly!
-bool Modes::saveStorage(uint32_t *crc, uint32_t *size)
+//bool Modes::saveStorage()
+//{
+//  DEBUG_LOG("Saving modes...");
+//  ByteStream headerBuffer(MAX_MODE_SIZE);
+//  if (!serializeSaveHeader(headerBuffer)) {
+//    return false;
+//  }
+//  // serialize the number of modes
+//  if (!headerBuffer.serialize(m_numModes)) {
+//    return false;
+//  }
+//  if (!Storage::write(0, headerBuffer)) {
+//    return false;
+//  }
+//
+//  // A ByteStream to hold all the serialized data
+//  ByteStream modesBuffer(STORAGE_SIZE / 2);
+//  // save data to the buffer
+//  if (!saveToBuffer(modesBuffer)) {
+//    return false;
+//  }
+//  // write the serial buffer to flash storage, this
+//  // will compress the buffer and include crc/flags
+//  if (!Storage::write(0, modesBuffer)) {
+//    DEBUG_LOG("Failed to write storage");
+//    return false;
+//  }
+//  DEBUG_LOG("Success saving modes to storage");
+//  return true;
+//}
+
+bool Modes::saveStorage()
 {
   DEBUG_LOG("Saving modes...");
-  // A ByteStream to hold all the serialized data
-  ByteStream modesBuffer(STORAGE_SIZE / 2);
-  // save data to the buffer
-  if (!saveToBuffer(modesBuffer)) {
+  ByteStream headerBuffer(MAX_MODE_SIZE);
+  if (!serializeSaveHeader(headerBuffer)) {
     return false;
   }
-  if (crc) *crc = modesBuffer.recalcCRC(true);
-  if (size) *size = modesBuffer.size();
-  // write the serial buffer to flash storage, this
-  // will compress the buffer and include crc/flags
-  if (!Storage::write(modesBuffer)) {
-    DEBUG_LOG("Failed to write storage");
+  // serialize the number of modes
+  if (!headerBuffer.serialize(m_numModes)) {
     return false;
   }
-  DEBUG_LOG("Success saving modes to storage");
+  if (!Storage::write(0, headerBuffer)) {
+    return false;
+  }
+  // make sure the current mode is saved in case it has changed somehow
+  saveCurMode();
+  // uninstantiate cur mode so we have stack space to serialize
+  if (m_pCurModeLink) {
+    m_pCurModeLink->uninstantiate();
+  }
+  uint8_t i = 0;
+  ModeLink *ptr = m_storedModes;
+  while (ptr && i < MAX_MODES) {
+    ByteStream modeBuffer(MAX_MODE_SIZE);
+    // instantiate the mode temporarily
+    Mode *mode = ptr->instantiate();
+    if (!mode) {
+      ERROR_OUT_OF_MEMORY();
+      return false;
+    }
+    // serialize it into the target modes buffer
+    mode->serialize(modeBuffer);
+    // just uninstansiate the mode after serializing
+    ptr->uninstantiate();
+    // next mode
+    ptr = ptr->next();
+    // now write this mode into a storage slot (skip first slot, that's header)
+    if (!Storage::write(++i, modeBuffer)) {
+      return false;
+    }
+  }
+  // reinstanstiate the current mode
+  if (m_pCurModeLink && !m_pCurModeLink->instantiate()) {
+    return false;
+  }
+  DEBUG_LOGF("Serialized num modes: %u", m_numModes);
   return true;
 }
 
