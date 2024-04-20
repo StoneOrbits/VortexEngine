@@ -35,10 +35,9 @@ bool Modes::init()
   test();
   return true;
 #endif
-  //ByteStream headerBuffer;
-  // only read storage if the modebuffer isn't filled
-  //Storage::read(0, headerBuffer);
-  //loadHeader(headerBuffer);
+  ByteStream headerBuffer;
+  Storage::read(0, headerBuffer);
+  unserializeSaveHeader(headerBuffer);
   m_loaded = false;
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
