@@ -116,7 +116,11 @@ bool Storage::write(uint8_t slot, ByteStream &buffer)
   DWORD written = 0;
   DWORD offset = slot * MAX_MODE_SIZE;
   SetFilePointer(hFile, offset, NULL, FILE_BEGIN);
-  if (!WriteFile(hFile, buffer.rawData(), MAX_MODE_SIZE, &written, NULL)) {
+  uint8_t modeBuffer[MAX_MODE_SIZE] = {0};
+  // copy the mode data into a temp buffer
+  memcpy(modeBuffer, buffer.rawData(), size);
+  // then copy the full size of the temp buffer in
+  if (!WriteFile(hFile, modeBuffer, MAX_MODE_SIZE, &written, NULL)) {
     // error
     return false;
   }
