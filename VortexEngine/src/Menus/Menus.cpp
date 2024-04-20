@@ -59,7 +59,7 @@ const MenuEntry menuList[] = {
   ENTRY(EditorConnection, RGB_MENU_EDITOR_CONNECTION),
 #endif
   ENTRY(ColorSelect, RGB_MENU_COLOR_SELECT),
-  ENTRY(PatternSelect, RGB_MENU_PATTERN_SELECT),
+  //ENTRY(PatternSelect, RGB_MENU_PATTERN_SELECT),
   ENTRY(GlobalBrightness, RGB_MENU_BRIGHTNESS_SELECT),
   ENTRY(FactoryReset, RGB_MENU_FACTORY_RESET),
 };

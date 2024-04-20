@@ -202,6 +202,10 @@ private:
     ModeLink *m_prev;
   };
 
+  // save load the savefile header from storage
+  static bool serializeSaveHeader(ByteStream &saveBuffer);
+  static bool unserializeSaveHeader(ByteStream &saveBuffer);
+
   // fetch a link from the chain by index
   static ModeLink *getModeLink(uint32_t index);
 

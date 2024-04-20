@@ -535,7 +535,7 @@
 
 // the space available for storing modes, we can't make this too big
 // otherwise we will have trouble loading it into memory
-#define STORAGE_SIZE 384
+#define STORAGE_SIZE 512
 
 // ===================================================================
 //  Test Framework configurations
