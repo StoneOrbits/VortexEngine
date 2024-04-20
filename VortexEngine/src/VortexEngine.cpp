@@ -94,7 +94,6 @@ bool VortexEngine::init()
     return false;
   }
 
-
 #if COMPRESSION_TEST == 1
   compressionTest();
 #endif
@@ -229,6 +228,7 @@ void VortexEngine::runMainLogic()
 
   // if the button hasn't been released since turning on then there is custom logic
   if (g_pButton->releaseCount() == 0) {
+    Modes::load();
     // if the button is held for 2 seconds from off, switch to on click mode on
     // the last mode shown before sleep
     if (!Modes::keychainModeEnabled() && now == ONE_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
@@ -236,9 +236,6 @@ void VortexEngine::runMainLogic()
       bool isEnabledNow = !Modes::oneClickModeEnabled();
       // toggle one click mode
       Modes::setOneClickMode(isEnabledNow);
-      Time::delayMilliseconds(1000);
-      // load the modes
-      Modes::loadStorage();
       // if we turned it on then switch to that mode
       if (isEnabledNow) {
         Modes::switchToStartupMode();
@@ -258,7 +255,6 @@ void VortexEngine::runMainLogic()
   // if the engine makes it here in less than 2 ticks that means the device turned on
   // via ESD and not via a normal click which cannot possibly be done in less than 1 tick
   if (now < 2) {
-    //Leds::holdAll(RGB_RED);
     // if that happens then just gracefully go back to sleep to prevent the chip
     // from turning on randomly in a plastic bag
     // do not save on ESD re-sleep
@@ -267,7 +263,6 @@ void VortexEngine::runMainLogic()
   }
 #endif
 
-  // now try to load the modes if they haven't been loaded
   Modes::load();
 
   // finally the user has released the button after initially turning it on,

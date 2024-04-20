@@ -35,10 +35,10 @@ bool Modes::init()
   test();
   return true;
 #endif
-  ByteStream headerBuffer;
+  //ByteStream headerBuffer;
   // only read storage if the modebuffer isn't filled
-  Storage::read(headerBuffer);
-  loadHeader(headerBuffer);
+  //Storage::read(0, headerBuffer);
+  //loadHeader(headerBuffer);
   m_loaded = false;
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
@@ -58,24 +58,14 @@ bool Modes::load()
     return true;
   }
   // try to load the saved settings or set defaults
-  if (!loadStorage()) { 
-      if (!setDefaults()) {
-        return false;
-      }
-      uint32_t crc32 = 0;
-      uint32_t size = 0;
-      if (!saveStorage(&crc32, &size)) {
-        Leds::holdAll(RGB_WHITE);
-        return false;
-      }
-      //Time::delayMilliseconds(1000);
-      //if (!verifyStorage(crc, size)) {
-      //  Leds::holdAll(RGB_ORANGE);
-      //  return false;
-      //}
+  if (!loadStorage()) {
+    if (!setDefaults()) {
+      return false;
     }
-//  }
-  //Leds::holdAll(RGB_CYAN);
+    if (!saveStorage()) {
+      return false;
+    }
+  }
   m_loaded = true;
   return true;
 }
@@ -129,13 +119,17 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
 
 bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
 {
+  if (!saveHeader.decompress()) {
+    // failed to decompress?
+    return false;
+  }
   // reset the unserializer index before unserializing anything
   saveHeader.resetUnserializer();
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
-  saveHeader.unserialize(&major);
-  saveHeader.unserialize(&minor);
+  saveHeader.unserialize8(&major);
+  saveHeader.unserialize8(&minor);
   // check the version for incompatibility
   if (!VortexEngine::checkVersion(major, minor)) {
     // incompatible version
@@ -145,10 +139,10 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   // NOTE: instead of global brightness the duo uses this to store the
   //       startup mode ID. The duo doesn't offer a global brightness option
   // unserialize the global brightness
-  saveHeader.unserialize(&m_globalFlags);
+  saveHeader.unserialize8(&m_globalFlags);
   // unserialize the global brightness
   uint8_t brightness = 0;
-  saveHeader.unserialize(&brightness);
+  saveHeader.unserialize8(&brightness);
   if (brightness) {
     Leds::setBrightness(brightness);
   }
@@ -174,51 +168,13 @@ bool Modes::saveToBuffer(ByteStream &modesBuffer)
 }
 
 // load modes from a save buffer
-bool Modes::loadHeader(ByteStream &modesBuffer)
-{
-  if (!modesBuffer.decompress()) {
-    static int i = 0;
-    if (i++ > 0 ) {
-    Leds::holdAll(RGB_PURPLE);
-    }
-    // failed to decompress?
-    return false;
-  }
-  // reset the unserializer index before unserializing anything
-  modesBuffer.resetUnserializer();
-  uint8_t major = 0;
-  uint8_t minor = 0;
-  // unserialize the vortex version
-  modesBuffer.unserialize8(&major);
-  modesBuffer.unserialize8(&minor);
-  // check the version for incompatibility
-  if (!VortexEngine::checkVersion(major, minor)) {
-    // incompatible version
-    ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
-    return false;
-  }
-  // NOTE: instead of global brightness the duo uses this to store the
-  //       startup mode ID. The duo doesn't offer a global brightness option
-  // unserialize the global brightness
-  modesBuffer.unserialize8(&m_globalFlags);
-  // unserialize the global brightness
-  uint8_t brightness = 0;
-  modesBuffer.unserialize8(&brightness);
-  if (brightness) {
-    Leds::setBrightness(brightness);
-  }
-  return true;
-}
-
-// load modes from a save buffer
 bool Modes::loadFromBuffer(ByteStream &modesBuffer)
 {
-  if (!loadHeader(modesBuffer)) {
+  if (!unserializeSaveHeader(modesBuffer)) {
     return false;
   }
   // now just unserialize the list of modes
   if (!unserialize(modesBuffer)) {
-    //Leds::holdAll(RGB_PURPLE);
     return false;
   }
   return true;
@@ -226,23 +182,35 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
 
 bool Modes::loadStorage()
 {
-  // this is good on memory, but it erases what they have stored
-  // before we know whether there is something actually saved
-  clearModes();
-  ByteStream modesBuffer;
+  ByteStream headerBuffer;
   // only read storage if the modebuffer isn't filled
-  if (!Storage::read(0, modesBuffer) || !modesBuffer.size()) {
+  if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
     DEBUG_LOG("Empty buffer read from storage");
     // this kinda sucks whatever they had loaded is gone
     return false;
   }
-  modesBuffer.resetUnserializer();
-  //if (!modesBuffer.checkCRC() || modesBuffer.size() != 285) {
-  //  //Leds::holdAll(RGB_YELLOW);
-  //}
-  // try to load the modes buffer
-  if (!loadFromBuffer(modesBuffer)) {
+  // this erases what is stored before we know whether there is data
+  // but it's the easiest way to just re-load new data from storage
+  clearModes();
+  // read the header and load the data
+  if (!unserializeSaveHeader(headerBuffer)) {
     return false;
+  }
+  // unserialize the number of modes next
+  uint8_t numModes = 0;
+  headerBuffer.unserialize8(&numModes);
+  if (!numModes) {
+    DEBUG_LOG("Did not find any modes");
+    // this kinda sucks whatever they had loaded is gone
+    return false;
+  }
+  // iterate each mode and read it out of it's storage slot then add it
+  for (uint8_t i = 0; i < numModes; ++i) {
+    ByteStream modeBuffer(MAX_MODE_SIZE);
+    // read each mode from a storage slot and load it
+    if (!Storage::read(i + 1, modeBuffer) || !addSerializedMode(modeBuffer)) {
+      return false;
+    }
   }
   if (oneClickModeEnabled()) {
     // set the current mode to the startup mode
@@ -250,39 +218,6 @@ bool Modes::loadStorage()
   }
   return true;
 }
-
-// NOTE: Flash storage is limited to about 10,000 writes so
-//       use this function sparingly!
-//bool Modes::saveStorage()
-//{
-//  DEBUG_LOG("Saving modes...");
-//  ByteStream headerBuffer(MAX_MODE_SIZE);
-//  if (!serializeSaveHeader(headerBuffer)) {
-//    return false;
-//  }
-//  // serialize the number of modes
-//  if (!headerBuffer.serialize(m_numModes)) {
-//    return false;
-//  }
-//  if (!Storage::write(0, headerBuffer)) {
-//    return false;
-//  }
-//
-//  // A ByteStream to hold all the serialized data
-//  ByteStream modesBuffer(STORAGE_SIZE / 2);
-//  // save data to the buffer
-//  if (!saveToBuffer(modesBuffer)) {
-//    return false;
-//  }
-//  // write the serial buffer to flash storage, this
-//  // will compress the buffer and include crc/flags
-//  if (!Storage::write(0, modesBuffer)) {
-//    DEBUG_LOG("Failed to write storage");
-//    return false;
-//  }
-//  DEBUG_LOG("Success saving modes to storage");
-//  return true;
-//}
 
 bool Modes::saveStorage()
 {
@@ -330,30 +265,6 @@ bool Modes::saveStorage()
     return false;
   }
   DEBUG_LOGF("Serialized num modes: %u", m_numModes);
-  return true;
-}
-
-bool Modes::verifyStorage(uint32_t crc, uint32_t size)
-{
-  ByteStream modesBuffer;
-  if (!Storage::read(modesBuffer) || !modesBuffer.size()) {
-    Leds::holdAll(RGB_BLUE);
-    return false;
-  }
-  modesBuffer.sanity();
-  //if (!modesBuffer.checkCRC()) {
-  //  Leds::holdAll(RGB_YELLOW);
-  //  return false;
-  //}
-  if (size != modesBuffer.size()) {
-    Leds::holdAll(RGB_CYAN);
-    return false;
-  }
-  //if (crc != modesBuffer.recalcCRC(true)) {
-  //  Leds::holdAll(RGB_ORANGE);
-  //  return false;
-  //}
-  Leds::holdAll(RGB_GREEN);
   return true;
 }
 
@@ -406,7 +317,6 @@ bool Modes::unserialize(ByteStream &modesBuffer)
   if (!numModes) {
     DEBUG_LOG("Did not find any modes");
     // this kinda sucks whatever they had loaded is gone
-      Leds::holdAll(RGB_GREEN);
     return false;
   }
   // foreach expected mode
@@ -417,14 +327,11 @@ bool Modes::unserialize(ByteStream &modesBuffer)
     if (!addSerializedMode(modesBuffer)) {
       DEBUG_LOGF("Failed to add mode %u after unserialization", i);
       // clear work so far?
-      Leds::holdAll(RGB_BLUE);
       clearModes();
       return false;
     }
   }
   DEBUG_LOGF("Loaded %u modes from storage (%u bytes)", numModes, modesBuffer.size());
-  if (m_numModes != numModes)
-      Leds::holdAll(RGB_CYAN);
   return (m_numModes == numModes);
 }
 

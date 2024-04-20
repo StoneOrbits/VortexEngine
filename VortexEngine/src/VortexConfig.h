@@ -185,7 +185,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             5
+#define MAX_MODES             7
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -542,7 +542,7 @@
 
 // the space available for storing modes, we can't make this too big
 // otherwise we will have trouble loading it into memory
-#define STORAGE_SIZE 512
+#define STORAGE_SIZE 0x300
 
 // ===================================================================
 //  Test Framework configurations

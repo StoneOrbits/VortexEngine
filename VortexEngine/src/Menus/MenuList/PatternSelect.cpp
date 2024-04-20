@@ -43,7 +43,7 @@ Menu::MenuAction PatternSelect::run()
   // run the current mode
   m_previewMode.play();
   // show dimmer selections in advanced mode
-  Menus::showSelection(m_advanced ? RGB_GREEN0 : RGB_WHITE5);
+  Menus::showSelection(RGB_WHITE5);
   return MENU_CONTINUE;
 }
 
@@ -54,47 +54,6 @@ void PatternSelect::onLedSelected()
 
 void PatternSelect::onShortClick()
 {
-  if (m_advanced) {
-    // double click = skip 10
-    bool doSkip = g_pButton->onConsecutivePresses(2);
-    MAP_FOREACH_LED(m_targetLeds) {
-      Pattern *pat = m_previewMode.getPattern(pos);
-      if (pat->getNumArgs() <= m_argIndex) {
-        continue;
-      }
-      uint8_t &arg = pat->argRef(m_argIndex);
-      if (doSkip) {
-        arg += 10 - (arg % 10);
-      } else {
-        arg++;
-      }
-      // on/off/gap/dash duration max 100
-      uint8_t max = 100;
-      if (m_argIndex == 6) {
-        // blend number of numflips
-        max = 4;
-      } else if (m_argIndex > 3) {
-        // group size, solid index, blendspeed
-        max = 20;
-      }
-      if (arg > max) {
-        // red flash indicates reaching end
-        Leds::holdAll(RGB_RED);
-        arg %= (max + 1);
-      }
-      // do not let argument0 be reset to 0
-      if (!m_argIndex && !arg) {
-        arg = 1;
-      }
-    }
-    m_previewMode.init();
-    if (doSkip) {
-      // hold white for a moment to show they are skipping 25
-      Leds::holdAll(RGB_YELLOW1);
-    }
-    return;
-  }
-
   PatternID newID = (PatternID)(m_previewMode.getPatternID(m_srcLed) + 1);
   if (newID > PATTERN_SINGLE_LAST) {
     newID = PATTERN_SINGLE_FIRST;
@@ -116,14 +75,6 @@ void PatternSelect::onShortClick()
 
 void PatternSelect::onLongClick()
 {
-  if (m_advanced) {
-    m_argIndex++;
-    if (m_argIndex < m_previewMode.getPattern(m_srcLed)->getNumArgs()) {
-      // if we haven't reached number of args yet then just return and kee pgoing
-      return;
-    }
-    Leds::holdAll(m_menuColor);
-  }
   // store the mode as current mode
   Modes::updateCurMode(&m_previewMode);
   leaveMenu(true);

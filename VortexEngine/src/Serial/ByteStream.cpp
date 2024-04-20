@@ -413,17 +413,13 @@ bool ByteStream::unserializerAtEnd() const
   return m_pData && m_position == m_pData->size;
 }
 
-#include "../Leds/Leds.h"
-
 // unserialize data and walk the buffer that many bytes
 bool ByteStream::unserialize8(uint8_t *byte)
 {
   if (!m_pData) {
-    //Leds::holdAll(RGB_GREEN);
     return false;
   }
   if (m_position >= m_pData->size) {
-    Leds::holdAll(RGB_BLUE);
     return false;
   }
   if ((m_pData->size - m_position) < sizeof(uint8_t)) {

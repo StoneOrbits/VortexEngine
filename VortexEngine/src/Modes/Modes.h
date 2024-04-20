@@ -46,13 +46,9 @@ public:
   static bool saveToBuffer(ByteStream &saveBuffer);
   static bool loadFromBuffer(ByteStream &saveBuffer);
 
-  static bool loadHeader(ByteStream &modesBuffer);
-
   // full save/load to/from storage
   static bool loadStorage();
-  static bool saveStorage(uint32_t *crc = nullptr, uint32_t *size = nullptr);
-
-  static bool verifyStorage(uint32_t crc, uint32_t size);
+  static bool saveStorage();
 
   // saves all modes to a buffer
   static bool serialize(ByteStream &buffer);
