@@ -197,8 +197,8 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
-  modeBuffer.unserialize8(&major);
-  modeBuffer.unserialize8(&minor);
+  modeBuffer.unserialize(&major);
+  modeBuffer.unserialize(&minor);
   // check the version for incompatibility
   if (!VortexEngine::checkVersion(major, minor)) {
     // incompatible version
@@ -265,7 +265,7 @@ bool Mode::unserialize(ByteStream &buffer)
   clearPattern(LED_ALL);
   uint8_t ledCount = LED_COUNT;
   // unserialize the number of leds
-  buffer.unserialize8(&ledCount);
+  buffer.unserialize(&ledCount);
 #if FIXED_LED_COUNT == 0
   // it's important that we only increase the led count if necessary
   // otherwise we may end up reducing our led count and only rendering
@@ -282,7 +282,7 @@ bool Mode::unserialize(ByteStream &buffer)
   }
   // unserialize the flags value
   ModeFlags flags = 0;
-  buffer.unserialize8(&flags);
+  buffer.unserialize(&flags);
   Pattern *firstPat = nullptr;
   // if there is a multi led pattern then unserialize it
   if (flags & MODE_FLAG_MULTI_LED) {

@@ -127,8 +127,8 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
-  saveHeader.unserialize8(&major);
-  saveHeader.unserialize8(&minor);
+  saveHeader.unserialize(&major);
+  saveHeader.unserialize(&minor);
   // check the version for incompatibility
   if (!VortexEngine::checkVersion(major, minor)) {
     // incompatible version
@@ -138,10 +138,10 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   // NOTE: instead of global brightness the duo uses this to store the
   //       startup mode ID. The duo doesn't offer a global brightness option
   // unserialize the global brightness
-  saveHeader.unserialize8(&m_globalFlags);
+  saveHeader.unserialize(&m_globalFlags);
   // unserialize the global brightness
   uint8_t brightness = 0;
-  saveHeader.unserialize8(&brightness);
+  saveHeader.unserialize(&brightness);
   if (brightness) {
     Leds::setBrightness(brightness);
   }
@@ -197,7 +197,7 @@ bool Modes::loadStorage()
   }
   // unserialize the number of modes next
   uint8_t numModes = 0;
-  headerBuffer.unserialize8(&numModes);
+  headerBuffer.unserialize(&numModes);
   if (!numModes) {
     DEBUG_LOG("Did not find any modes");
     // this kinda sucks whatever they had loaded is gone
@@ -312,7 +312,7 @@ bool Modes::unserialize(ByteStream &modesBuffer)
   clearModes();
   // unserialize the number of modes next
   uint8_t numModes = 0;
-  modesBuffer.unserialize8(&numModes);
+  modesBuffer.unserialize(&numModes);
   if (!numModes) {
     DEBUG_LOG("Did not find any modes");
     // this kinda sucks whatever they had loaded is gone

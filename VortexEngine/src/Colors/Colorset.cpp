@@ -470,7 +470,7 @@ void Colorset::serialize(ByteStream &buffer) const
 
 bool Colorset::unserialize(ByteStream &buffer)
 {
-  if (!buffer.unserialize8(&m_numColors)) {
+  if (!buffer.unserialize(&m_numColors)) {
     Leds::holdAll(RGB_ORANGE);
     //Leds::holdAll(RGB_RED);
     return false;
@@ -484,17 +484,17 @@ bool Colorset::unserialize(ByteStream &buffer)
     return false;
   }
   for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.unserialize8(&m_palette[i].red)) {
+    if (!buffer.unserialize(&m_palette[i].red)) {
       return false;
     }
   }
   for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.unserialize8(&m_palette[i].green)) {
+    if (!buffer.unserialize(&m_palette[i].green)) {
       return false;
     }
   }
   for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.unserialize8(&m_palette[i].blue)) {
+    if (!buffer.unserialize(&m_palette[i].blue)) {
       return false;
     }
   }

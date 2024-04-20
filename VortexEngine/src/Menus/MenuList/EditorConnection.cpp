@@ -49,7 +49,7 @@ bool EditorConnection::receiveMessage(const char *message)
     return false;
   }
   for (size_t i = 0; i < len; ++i) {
-    m_receiveBuffer.unserialize8(&byte);
+    m_receiveBuffer.unserialize(&byte);
   }
   // if everything was read out, reset
   if (m_receiveBuffer.unserializerAtEnd()) {
@@ -263,7 +263,7 @@ bool EditorConnection::receiveModes()
     return false;
   }
   // okay unserialize now, first unserialize the size
-  m_receiveBuffer.unserialize32(&size);
+  m_receiveBuffer.unserialize(&size);
   // create a new ByteStream that will hold the full buffer of data
   ByteStream buf(m_receiveBuffer.rawSize());
   // then copy everything from the receive buffer into the rawdata
@@ -293,7 +293,7 @@ bool EditorConnection::receiveDemoMode()
     return false;
   }
   // okay unserialize now, first unserialize the size
-  m_receiveBuffer.unserialize32(&size);
+  m_receiveBuffer.unserialize(&size);
   // create a new ByteStream that will hold the full buffer of data
   ByteStream buf(m_receiveBuffer.rawSize());
   // then copy everything from the receive buffer into the rawdata

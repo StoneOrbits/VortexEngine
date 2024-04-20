@@ -184,12 +184,12 @@ void PatternArgs::serialize(ByteStream &buffer, ArgMap argmap) const
 ArgMap PatternArgs::unserialize(ByteStream &buffer)
 {
   ArgMap argmap = ARG_NONE;
-  if (!buffer.unserialize8(&argmap)) {
+  if (!buffer.unserialize(&argmap)) {
     return ARG_NONE;
   }
   for (uint8_t i = 0; i < MAX_ARGS; ++i) {
     if (ARGMAP_ISSET(argmap, i)) {
-      if (!buffer.unserialize8(&(args[i]))) {
+      if (!buffer.unserialize(&(args[i]))) {
         break;
       }
     }

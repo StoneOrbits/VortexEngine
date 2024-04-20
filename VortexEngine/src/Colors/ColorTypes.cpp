@@ -207,9 +207,9 @@ void RGBColor::serialize(ByteStream &buffer) const
 
 void RGBColor::unserialize(ByteStream &buffer)
 {
-  buffer.unserialize8(&red);
-  buffer.unserialize8(&green);
-  buffer.unserialize8(&blue);
+  buffer.unserialize(&red);
+  buffer.unserialize(&green);
+  buffer.unserialize(&blue);
 }
 
 // ========================================================

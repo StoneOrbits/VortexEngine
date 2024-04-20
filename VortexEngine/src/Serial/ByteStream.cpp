@@ -414,7 +414,7 @@ bool ByteStream::unserializerAtEnd() const
 }
 
 // unserialize data and walk the buffer that many bytes
-bool ByteStream::unserialize8(uint8_t *byte)
+bool ByteStream::unserialize(uint8_t *byte)
 {
   if (!m_pData) {
     return false;
@@ -431,7 +431,7 @@ bool ByteStream::unserialize8(uint8_t *byte)
   return true;
 }
 
-bool ByteStream::unserialize16(uint16_t *bytes)
+bool ByteStream::unserialize(uint16_t *bytes)
 {
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint16_t)) {
     return false;
@@ -442,7 +442,7 @@ bool ByteStream::unserialize16(uint16_t *bytes)
   return true;
 }
 
-bool ByteStream::unserialize32(uint32_t *bytes)
+bool ByteStream::unserialize(uint32_t *bytes)
 {
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
     return false;
@@ -456,21 +456,21 @@ bool ByteStream::unserialize32(uint32_t *bytes)
 uint8_t ByteStream::unserialize8()
 {
   uint8_t byte = 0;
-  unserialize8(&byte);
+  unserialize(&byte);
   return byte;
 }
 
 uint16_t ByteStream::unserialize16()
 {
   uint16_t bytes = 0;
-  unserialize16(&bytes);
+  unserialize(&bytes);
   return bytes;
 }
 
 uint32_t ByteStream::unserialize32()
 {
   uint32_t bytes = 0;
-  unserialize32(&bytes);
+  unserialize(&bytes);
   return bytes;
 }
 
