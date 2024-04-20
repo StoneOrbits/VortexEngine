@@ -16,7 +16,6 @@
 PatternSelect::PatternSelect(const RGBColor &col, bool advanced) :
   Menu(col, advanced),
   m_srcLed(LED_FIRST),
-  m_argIndex(0),
   m_started(false)
 {
 }
