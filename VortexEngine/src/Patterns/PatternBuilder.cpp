@@ -95,17 +95,13 @@ MultiLedPattern *PatternBuilder::makeMulti(PatternID id, const PatternArgs *args
   return (MultiLedPattern *)pat;
 }
 
-#include "../Leds/Leds.h"
-
 Pattern *PatternBuilder::unserialize(ByteStream &buffer)
 {
   Pattern *pat = make((PatternID)buffer.unserialize8());
   if (!pat) {
-    //Leds::holdAll(RGB_GREEN);
     return nullptr;
   }
   if (!pat->unserialize(buffer)) {
-    //Leds::holdAll(RGB_WHITE);
     delete pat;
     return nullptr;
   }
