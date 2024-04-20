@@ -362,7 +362,7 @@ bool Modes::setDefaults()
 #else
   // add each default mode with each of the given colors
   for (uint8_t i = 0; i < MAX_MODES; ++i) {
-    Mode defMode(defaultModes[0]);
+    Mode defMode(defaultModes[i]);
     if (!addMode(&defMode)) {
       ERROR_LOGF("Failed to add default mode %u", i);
       return false;

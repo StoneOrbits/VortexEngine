@@ -93,6 +93,7 @@ bool VortexEngine::init()
     DEBUG_LOG("Settings failed to initialize");
     return false;
   }
+  Modes::load();
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -228,7 +229,7 @@ void VortexEngine::runMainLogic()
 
   // if the button hasn't been released since turning on then there is custom logic
   if (g_pButton->releaseCount() == 0) {
-    Modes::load();
+    //Modes::load();
     // if the button is held for 2 seconds from off, switch to on click mode on
     // the last mode shown before sleep
     if (!Modes::keychainModeEnabled() && now == ONE_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
@@ -263,7 +264,7 @@ void VortexEngine::runMainLogic()
   }
 #endif
 
-  Modes::load();
+  //Modes::load();
 
   // finally the user has released the button after initially turning it on,
   // just run the regular main logic of the system
