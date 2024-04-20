@@ -132,7 +132,10 @@ bool Storage::write(uint8_t slot, ByteStream &buffer)
   }
   long offset = slot * MAX_MODE_SIZE;
   fseek(f, offset, SEEK_SET);
-  if (!fwrite(buffer.rawData(), sizeof(char), MAX_MODE_SIZE, f)) {
+  uint8_t modeBuffer[MAX_MODE_SIZE] = {0};
+  // copy the mode data into a temp buffer
+  memcpy(modeBuffer, buffer.rawData(), size);
+  if (!fwrite(modeBuffer, sizeof(char), MAX_MODE_SIZE, f)) {
     return false;
   }
   fclose(f);
