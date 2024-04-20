@@ -466,21 +466,15 @@ void Colorset::serialize(ByteStream &buffer) const
   }
 }
 
-#include "../Leds/Leds.h"
-
 bool Colorset::unserialize(ByteStream &buffer)
 {
   if (!buffer.unserialize(&m_numColors)) {
-    Leds::holdAll(RGB_ORANGE);
-    //Leds::holdAll(RGB_RED);
     return false;
   }
   if (m_numColors > MAX_COLOR_SLOTS) {
-    Leds::holdAll(RGB_YELLOW);
     return false;
   }
   if (!initPalette(m_numColors)) {
-    Leds::holdAll(RGB_GREEN);
     return false;
   }
   for (uint8_t i = 0; i < m_numColors; ++i) {
