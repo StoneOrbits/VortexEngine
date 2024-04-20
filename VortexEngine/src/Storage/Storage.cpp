@@ -8,6 +8,13 @@
 #include "../Serial/ByteStream.h"
 #include "../Log/Log.h"
 
+#ifdef VORTEX_EMBEDDED	
+#include <avr/io.h>	
+#include <avr/pgmspace.h>	
+#include <avr/interrupt.h>	
+#include <util/delay.h>	
+#endif
+
 #ifdef VORTEX_LIB
 #include "../VortexLib/VortexLib.h"
 #endif
@@ -18,8 +25,6 @@
 #else
 #include <unistd.h>
 #endif
-#else
-#include <avr/io.h>
 #endif
 
 #define DEFAULT_STORAGE_FILENAME "FlashStorage.flash"

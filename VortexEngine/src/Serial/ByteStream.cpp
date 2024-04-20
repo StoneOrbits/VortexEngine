@@ -211,7 +211,7 @@ bool ByteStream::compress()
   }
   // recalculate the CRC even if we don't compress, this ensures the
   // CRC is always up to date as long as compress() is called
-  recalcCRC(true);
+  recalcCRC();
   // don't actually perform any compression if VORTEX SLIM is enabled
 #if VORTEX_SLIM == 0
   // check to see if the buffer is already compressed
