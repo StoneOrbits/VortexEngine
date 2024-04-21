@@ -608,7 +608,7 @@ Mode *Modes::previousMode()
 Mode *Modes::nextModeSkipEmpty()
 {
   do {
-    if (setCurMode(m_curMode + 1) && !curMode()->isEmpty()) {
+    if (setCurMode(m_curMode + 1) && !curMode()->isEmpty() && !isBlocked()) {
       break;
     }
   } while (m_curMode != 0);
@@ -680,16 +680,6 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
   }
   DEBUG_LOGF("Toggled instant on/off to %s", enable ? "on" : "off");
   return !save || saveStorage();
-}
-
-bool Modes::getFlag(uint8_t flag)
-{
-  return ((m_globalFlags & flag) != 0);
-}
-
-void Modes::resetFlags()
-{
-  m_globalFlags = 0;
 }
 
 #ifdef VORTEX_LIB

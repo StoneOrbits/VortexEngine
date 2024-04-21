@@ -111,9 +111,10 @@ public:
 
   // set or get flags
   static bool setFlag(uint8_t flag, bool enable, bool save = true);
-  static bool getFlag(uint8_t flag);
+  static bool getFlag(uint8_t flag) { return ((m_globalFlags & flag) != 0); }
+
   // reset flags to factory default (must save after)
-  static void resetFlags();
+  static void resetFlags() { m_globalFlags = 0; }
 
   // inline functions to toggle the various flags
   static bool setOneClickMode(bool enable, bool save = true) {
@@ -143,6 +144,12 @@ public:
   static bool keychainModeEnabled() {
     return getFlag(MODES_FLAG_KEYCHAIN);
   }
+
+  // certain modes are blocked for various reasons :)
+  static bool isBlocked() {
+    return (m_curMode == (MAX_MODES - 1) && !advancedMenusEnabled());
+  }
+
 
 #if MODES_TEST == 1
   static void test();

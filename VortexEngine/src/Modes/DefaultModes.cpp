@@ -168,5 +168,27 @@ const DefaultModeEntry defaultModes[MAX_MODES] = {
       }
     }
   },
+  {
+    {
+      {
+        PATTERN_ULTRAGAP, 7, {
+          RGB_RED0,
+          RGB_RED0,
+          RGB_CYAN5,
+          RGB_RED0,
+          RGB_RED0,
+          RGB_RED0,
+          RGB_CYAN5,
+        }
+      },
+      {
+        PATTERN_DOPS, 2, {
+          RGB_CYAN1,
+          RGB_PURPLE3,
+        }
+      }
+    }
+  },
+
 
 };
