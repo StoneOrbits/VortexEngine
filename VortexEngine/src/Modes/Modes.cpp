@@ -218,9 +218,8 @@ bool Modes::loadStorage()
   return true;
 }
 
-bool Modes::saveStorage()
+bool Modes::saveHeader()
 {
-  DEBUG_LOG("Saving modes...");
   ByteStream headerBuffer(MAX_MODE_SIZE);
   if (!serializeSaveHeader(headerBuffer)) {
     return false;
@@ -232,6 +231,13 @@ bool Modes::saveStorage()
   if (!Storage::write(0, headerBuffer)) {
     return false;
   }
+  return true;
+}
+
+bool Modes::saveStorage()
+{
+  DEBUG_LOG("Saving modes...");
+  saveHeader();
   // make sure the current mode is saved in case it has changed somehow
   saveCurMode();
   // uninstantiate cur mode so we have stack space to serialize
@@ -679,7 +685,7 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
     m_globalFlags &= ~flag;
   }
   DEBUG_LOGF("Toggled instant on/off to %s", enable ? "on" : "off");
-  return !save || saveStorage();
+  return !save || saveHeader();
 }
 
 #ifdef VORTEX_LIB

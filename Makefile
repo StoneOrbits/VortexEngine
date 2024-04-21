@@ -56,9 +56,13 @@ SYSCFG0 = 0b1100010$(SAVE_EEPROM)
 # SYSCFG1 { SUT=64ms }
 SYSCFG1 = 0x07
 # fuse7 = APPEND
-APPEND = 0x7d
+APPEND = 0x00
 # fuse8 = BOOTEND
-BOOTEND = 0x7d
+#  This controls the amount of storage for modes at the end of the flash memory,
+#  it is the boundary for the segment that can be rewritten by the program, 0x7e
+#  means 0x7e00/0x8000 bytes are program and 0x200 bytes are reserved for flash
+#  storage of modes, this does not include the eeprom.
+BOOTEND = 0x7e
 
 CFLAGS = -g \
 	 -Os \
@@ -119,7 +123,7 @@ all: $(TARGET).hex
 	$(OBJDUMP) --disassemble --source --line-numbers --demangle --section=.text $(TARGET).elf > $(TARGET).lst
 	$(NM) --numeric-sort --line-numbers --demangle --print-size --format=s $(TARGET).elf > $(TARGET).map
 	chmod +x avrsize.sh
-	./avrsize.sh $(TARGET).elf
+	./avrsize.sh $(TARGET).elf $(BOOTEND)00
 
 $(TARGET).hex: $(TARGET).elf
 	$(OBJCOPY) -O binary -R .eeprom $(TARGET).elf $(TARGET).bin

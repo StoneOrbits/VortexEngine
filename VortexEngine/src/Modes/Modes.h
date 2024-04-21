@@ -46,6 +46,9 @@ public:
   static bool saveToBuffer(ByteStream &saveBuffer);
   static bool loadFromBuffer(ByteStream &saveBuffer);
 
+  // save the header to storage
+  static bool saveHeader();
+
   // full save/load to/from storage
   static bool loadStorage();
   static bool saveStorage();
