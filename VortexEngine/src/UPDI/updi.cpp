@@ -195,7 +195,7 @@ void UPDI::enterProgrammingMode()
   INFO_LOG("rx high");
   digitalWrite(m_rxPin, HIGH);
   INFO_LOG("delay");
-  Time::delayMicroseconds(500);
+  Time::delayMilliseconds(1);
   //pinMode(m_rxPin, INPUT);
 #endif
 
@@ -203,7 +203,9 @@ void UPDI::enterProgrammingMode()
 
   m_updiSerial.setRxBufferSize(512 + 16);
   m_updiSerial.setTimeout(50);
-  m_updiSerial.begin(9600, SERIAL_8E2, m_txPin, m_rxPin); // Initialize SoftwareSerial with UPDI baud rate
+  m_updiSerial.begin(115200, SERIAL_8E2, m_rxPin, m_txPin); // Initialize SoftwareSerial with UPDI baud rate
+
+  while (!m_updiSerial); // wait for serial attach
 
   INFO_LOG("Began serial");
 
