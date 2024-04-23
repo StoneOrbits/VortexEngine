@@ -26,7 +26,7 @@
 
 // tx = 2
 // rx = 8
-UPDI updi(2, 8);
+UPDI updi(31, 30);
 
 // bool in vortexlib to simulate sleeping
 volatile bool VortexEngine::m_sleeping = false;
