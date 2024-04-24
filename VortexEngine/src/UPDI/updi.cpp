@@ -21,7 +21,7 @@
 
 #define READBACK
 
-UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_bufferIndex(0), m_updiSerial(1){
+UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_bufferIndex(0), m_updiSerial(2){
 #ifdef VORTEX_EMBEDDED
   //pinMode(m_txPin, OUTPUT);
   //pinMode(m_rxPin, INPUT);
@@ -95,7 +95,7 @@ void UPDI::sendByte(uint8_t b)
   //m_updiSerial.setPins(-1, m_txPin);
 
   m_updiSerial.write(b);
-  m_updiSerial.flush(); // Ensure data is transmitted
+  //m_updiSerial.flush(); // Ensure data is transmitted
 
   // Insert guard time here (considering 9600 baud rate)
   //delayMicroseconds(2000); // Example: Adjust based on actual needs
@@ -145,9 +145,9 @@ uint8_t UPDI::receiveByte()
 
   //m_updiSerial.setPins(m_txPin, -1);
 
-  //while (!m_updiSerial.available()) {
-  //  // Timeout implementation to avoid infinite loop
-  //}
+  while (!m_updiSerial.available()) {
+    // Timeout implementation to avoid infinite loop
+  }
   return m_updiSerial.read();
   //while (!Serial1.available()) {
   //  // Optionally include a timeout to prevent infinite waiting
@@ -208,13 +208,6 @@ void UPDI::enterProgrammingMode()
   while (!m_updiSerial); // wait for serial attach
 
   INFO_LOG("Began serial");
-
-  // idk this seems to get stuck but it's in portaprog
-  // while (!m_updiSerial);
-
-  //Serial1.setRxBufferSize(512 + 16);
-  //Serial1.setTimeout(50);
-  //Serial1.begin(115200, SERIAL_8E2, m_rxPin, m_txPin);
 
   INFO_LOG("Sending break");
 
