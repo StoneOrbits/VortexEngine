@@ -21,7 +21,7 @@
 
 #define READBACK
 
-UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_bufferIndex(0), m_updiSerial(2){
+UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(txPin), m_rxPin(rxPin), m_bufferIndex(0) {
 #ifdef VORTEX_EMBEDDED
   //pinMode(m_txPin, OUTPUT);
   //pinMode(m_rxPin, INPUT);
@@ -38,7 +38,7 @@ uint8_t UPDI::updiReadWait()
 
   // try to wait for data
   while (++counter) {
-    b = m_updiSerial.read();
+    b = Serial1.read();
     if (b >= 0) {
       break;
     }
@@ -58,14 +58,14 @@ bool UPDI::updiSend(const uint8_t *buf, uint16_t size)
   uint16_t count = 0;
   uint8_t data = 0;
 
-  m_updiSerial.flush();
+  Serial1.flush();
 
   // write all data in one shot and then
   // read back the echo
   // this method requires a serial RX buffer as large as the largest possible TX block of data
   // it is possible to check the process but the larger the block, the faster
 
-  count = m_updiSerial.write(buf, size);
+  count = Serial1.write(buf, size);
   if (count != size) {
     INFO_LOGF("UpdiSerial send count error %d != %d\n", count, size);
   }
@@ -89,13 +89,13 @@ bool UPDI::updiSend(const uint8_t *buf, uint16_t size)
 
 void UPDI::sendByte(uint8_t b)
 {
-  //m_updiSerial.write(b);
+  //Serial1.write(b);
   // Ensure pin is in OUTPUT mode for sending
   //pinMode(m_txPin, OUTPUT);
-  //m_updiSerial.setPins(-1, m_txPin);
+  //Serial1.setPins(-1, m_txPin);
 
-  m_updiSerial.write(b);
-  //m_updiSerial.flush(); // Ensure data is transmitted
+  Serial1.write(b);
+  //Serial1.flush(); // Ensure data is transmitted
 
   // Insert guard time here (considering 9600 baud rate)
   //delayMicroseconds(2000); // Example: Adjust based on actual needs
@@ -137,18 +137,18 @@ void UPDI::sendByte(uint8_t b)
 
 uint8_t UPDI::receiveByte()
 {
-  //while (!m_updiSerial.available()) {
+  //while (!Serial1.available()) {
   //  // Optionally include a timeout to prevent infinite waiting
   //}
-  //return m_updiSerial.read();
+  //return Serial1.read();
   // Ensure the pin is in INPUT mode; might be redundant if already set after send
 
-  //m_updiSerial.setPins(m_txPin, -1);
+  //Serial1.setPins(m_txPin, -1);
 
-  while (!m_updiSerial.available()) {
+  while (!Serial1.available()) {
     // Timeout implementation to avoid infinite loop
   }
-  return m_updiSerial.read();
+  return Serial1.read();
   //while (!Serial1.available()) {
   //  // Optionally include a timeout to prevent infinite waiting
   //}
@@ -187,28 +187,24 @@ void UPDI::enterProgrammingMode()
 
 #ifdef VORTEX_EMBEDDED
   INFO_LOG("pinmode tx");
-  pinMode(m_txPin, OUTPUT);
-  INFO_LOG("pinmode rx");
   pinMode(m_rxPin, OUTPUT);
-  INFO_LOG("tx high");
-  digitalWrite(m_txPin, HIGH);
-  INFO_LOG("rx high");
+  pinMode(m_txPin, OUTPUT);
   digitalWrite(m_rxPin, HIGH);
-  INFO_LOG("delay");
+  digitalWrite(m_txPin, HIGH);
   Time::delayMilliseconds(1);
   //pinMode(m_rxPin, INPUT);
 #endif
 
   INFO_LOG("Held line high");
 
-  m_updiSerial.setRxBufferSize(512 + 16);
-  m_updiSerial.setTimeout(50);
-  m_updiSerial.begin(115200, SERIAL_8E2, m_rxPin, m_txPin); // Initialize SoftwareSerial with UPDI baud rate
+  Serial1.setRxBufferSize(512 + 16);
+  Serial1.setTimeout(50);
+  Serial1.begin(115200, SERIAL_8E2, m_rxPin, m_txPin); // Initialize SoftwareSerial with UPDI baud rate
 
-  while (!m_updiSerial); // wait for serial attach
+  while (!Serial1); // wait for serial attach
 
   INFO_LOG("Began serial");
-
+  
   INFO_LOG("Sending break");
 
   sendBreakFrame();
