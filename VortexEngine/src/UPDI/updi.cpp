@@ -216,19 +216,24 @@ void UPDI::enterProgrammingMode()
   //Serial1.setTimeout(50);
   //Serial1.begin(115200, SERIAL_8E2, m_rxPin, m_txPin);
 
-  //INFO_LOG("Sending break");
+  INFO_LOG("Sending break");
 
-  //sendBreakFrame();
+  sendBreakFrame();
 
-  //INFO_LOG("Sent break");
+  INFO_LOG("Sent break");
 
-  //#define UPDI_CS_CTRLB 0x03
-  //#define UPDI_CTRLB_CCDETDIS_BIT 3
-  //#define UPDI_CTRLB_UPDIDIS_BIT    2
-  //sendStcsInstruction(UPDI_CS_CTRLB, 1 << UPDI_CTRLB_CCDETDIS_BIT);
+  #define UPDI_CS_CTRLA 0x02
+  #define UPDI_CS_CTRLB 0x03
+  #define UPDI_CTRLB_CCDETDIS_BIT 3
+  #define UPDI_CTRLB_UPDIDIS_BIT 2
+  #define UPDI_CTRLA_IBDLY_BIT 7
+  sendStcsInstruction(UPDI_CS_CTRLB, 1 << UPDI_CTRLB_CCDETDIS_BIT);
   //sendStcsInstruction(UPDI_CS_CTRLB, (1 << UPDI_CTRLB_UPDIDIS_BIT) | (1 << UPDI_CTRLB_CCDETDIS_BIT));
+  sendStcsInstruction(UPDI_CS_CTRLA, 1 << UPDI_CTRLA_IBDLY_BIT);
 
-  //INFO_LOG("Sent stcs instruction");
+  INFO_LOG("Sent stcs instruction");
+
+  Time::delayMilliseconds(1);
 
   // Send the NVM Programming key
   // This example uses a fixed key for demonstration; replace with actual key for your target
@@ -242,7 +247,7 @@ void UPDI::enterProgrammingMode()
 
   INFO_LOG("Reset");
 
-  Time::delayMilliseconds(50);
+  Time::delayMilliseconds(5);
 }
 
 void UPDI::initializeUPDICommunication() {
