@@ -172,6 +172,9 @@ void VortexEngine::runMainLogic()
   // the current tick
   uint32_t now = Time::getCurtime();
 
+  // check if the device has been plugged in
+  SerialComs::checkSerial();
+
   // if the menus are open and running then just return
   if (Menus::run()) {
     return;
