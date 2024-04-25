@@ -134,7 +134,6 @@ void PatternSelect::nextPattern()
 void PatternSelect::onLongClick()
 {
   bool needsSave = false;
-  Mode *cur = Modes::curMode();
   switch (m_state) {
   case STATE_PICK_LIST:
     if (m_curSelection == FINGER_THUMB) {
@@ -159,11 +158,9 @@ void PatternSelect::onLongClick()
     break;
   case STATE_PICK_PATTERN:
     // need to save the new pattern if it's different from current
-    needsSave = (cur->getPatternID() != m_previewMode.getPatternID());
+    needsSave = (Modes::curMode()->getPatternID() != m_previewMode.getPatternID());
     // update the current mode with the new pattern
     Modes::updateCurMode(&m_previewMode);
-    // then done here, save if the mode was different
-    leaveMenu(needsSave);
     DEBUG_LOGF("Saving pattern %u", m_newPatternID);
     // go back to beginning for next time
     m_state = STATE_PICK_LIST;
