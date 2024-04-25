@@ -126,8 +126,8 @@ typedef Pair Finger;
 
 #define ledToFinger(led) ledToPair(led)
 
-#define setFinger(map, finger) setPair(map, finger)
-#define checkFinger(map, finger) checkPair(map, finger)
+#define mapSetFinger(map, finger) ledmapSetPair(map, finger)
+#define mapCheckFinger(map, finger) ledmapCheckPair(map, finger)
 
 // check if an led is even or odd
 #define isEven(pos) ((pos % 2) == 0)
@@ -225,26 +225,26 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 #define MAP_EVEN_FINGERS (MAP_FINGER_EVEN_TIPS | MAP_FINGER_EVEN_TOPS)
 
 // set a single led
-inline void setLed(LedMap &map, LedPos pos)
+inline void ledmapSetLed(LedMap &map, LedPos pos)
 {
   if (pos < LED_COUNT) map |= (1ull << pos);
 }
 // set a single pair
-inline void setPair(LedMap &map, Pair pair)
+inline void ledmapSetPair(LedMap &map, Pair pair)
 {
-  setLed(map, pairEven(pair));
-  setLed(map, pairOdd(pair));
+  ledmapSetLed(map, pairEven(pair));
+  ledmapSetLed(map, pairOdd(pair));
 }
 
 // check if an led is set in the map
-inline bool checkLed(LedMap map, LedPos pos)
+inline bool ledmapCheckLed(LedMap map, LedPos pos)
 {
   return ((map & (1ull << pos)) != 0);
 }
 // check if a pair is set in the map (both leds)
-inline bool checkPair(LedMap map, Pair pair)
+inline bool ledmapCheckPair(LedMap map, Pair pair)
 {
-  return checkLed(map, pairEven(pair)) && checkLed(map, pairOdd(pair));
+  return ledmapCheckLed(map, pairEven(pair)) && ledmapCheckLed(map, pairOdd(pair));
 }
 
 // LedPos operators

@@ -25,17 +25,23 @@ public:
   static void setAll(RGBColor col);
 
   // Turn off individual LEDs, these are appropriate to use in internal pattern logic
-  static void clearIndex(LedPos target) { setIndex(target, HSV_OFF); }
-  static void clearRange(LedPos first, LedPos last) { setRange(first, last, HSV_OFF); }
-  static void clearAll() { setAll(HSV_OFF); }
+  static void clearIndex(LedPos target) { setIndex(target, RGB_OFF); }
+  static void clearRange(LedPos first, LedPos last) { setRange(first, last, RGB_OFF); }
+  static void clearAll() { setAll(RGB_OFF); }
 
   // control two LEDs on a pair, these are appropriate for use in internal pattern logic
   static void setPair(Pair pair, RGBColor col);
   static void setPairs(Pair first, Pair last, RGBColor col);
 
+  // set a single finger to a color
+  static void setFinger(Finger finger, RGBColor col);
+
   // Turn off both LEDs on a pair, these are appropriate for use in internal pattern logic
-  static void clearPair(Pair pair) { setPair(pair, HSV_OFF); }
-  static void clearPairs(Pair first, Pair last) { setPairs(first, last, HSV_OFF); }
+  static void clearPair(Pair pair) { setPair(pair, RGB_OFF); }
+  static void clearPairs(Pair first, Pair last) { setPairs(first, last, RGB_OFF); }
+
+  // clear the led on a single finger
+  static void clearFinger(Finger finger) { setFinger(finger, RGB_OFF); }
 
   // Controll pair evens
   static void setRangeEvens(Pair first, Pair last, RGBColor);

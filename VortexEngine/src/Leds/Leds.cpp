@@ -116,6 +116,11 @@ void Leds::setPairs(Pair first, Pair last, RGBColor col)
   setRange(pairEven(first), pairOdd(last), col);
 }
 
+void Leds::setFinger(Finger finger, RGBColor col)
+{
+  setRange(fingerTip(finger), fingerTop(finger), col);
+}
+
 void Leds::setRangeEvens(Pair first, Pair last, RGBColor col)
 {
   for (Pair pos = first; pos <= last; pos++) {
@@ -175,7 +180,7 @@ void Leds::clearAllOdds()
 void Leds::setMap(LedMap map, RGBColor col)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (checkLed(map, pos)) {
+    if (ledmapCheckLed(map, pos)) {
       setIndex(pos, col);
     }
   }
@@ -184,7 +189,7 @@ void Leds::setMap(LedMap map, RGBColor col)
 void Leds::clearMap(LedMap map)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (checkLed(map, pos)) {
+    if (ledmapCheckLed(map, pos)) {
       clearIndex(pos);
     }
   }
@@ -259,7 +264,7 @@ void Leds::blinkMap(LedMap targets, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
-      if (checkLed(targets, pos)) {
+      if (ledmapCheckLed(targets, pos)) {
         setIndex(pos, col);
       }
     }
