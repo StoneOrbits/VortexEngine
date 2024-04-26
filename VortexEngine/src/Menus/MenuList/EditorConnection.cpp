@@ -51,7 +51,9 @@ bool EditorConnection::receiveMessage(const char *message)
     return false;
   }
   for (size_t i = 0; i < len; ++i) {
-    m_receiveBuffer.unserialize(&byte);
+    if (!m_receiveBuffer.unserialize8(&byte)) {
+      return false;
+    }
   }
   // if everything was read out, reset
   if (m_receiveBuffer.unserializerAtEnd()) {
@@ -74,6 +76,7 @@ Menu::MenuAction EditorConnection::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
+  // TODO: auto leave the editor menu when unplugged
   // show the editor
   showEditor();
   // receive any data from serial into the receive buffer
@@ -265,7 +268,9 @@ bool EditorConnection::receiveModes()
     return false;
   }
   // okay unserialize now, first unserialize the size
-  m_receiveBuffer.unserialize(&size);
+  if (!m_receiveBuffer.unserialize32(&size)) {
+    return false;
+  }
   // create a new ByteStream that will hold the full buffer of data
   ByteStream buf(m_receiveBuffer.rawSize());
   // then copy everything from the receive buffer into the rawdata
@@ -295,7 +300,9 @@ bool EditorConnection::receiveDemoMode()
     return false;
   }
   // okay unserialize now, first unserialize the size
-  m_receiveBuffer.unserialize(&size);
+  if (!m_receiveBuffer.unserialize32(&size)) {
+    return false;
+  }
   // create a new ByteStream that will hold the full buffer of data
   ByteStream buf(m_receiveBuffer.rawSize());
   // then copy everything from the receive buffer into the rawdata

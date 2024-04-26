@@ -41,7 +41,9 @@ bool Randomizer::init()
     ByteStream ledData;
     Pattern *pat = cur->getPattern(LED_MULTI);
     if (pat) {
-      pat->serialize(ledData);
+      if (!pat->serialize(ledData)) {
+        return false;
+      }
     }
     m_multiRandCtx.seed(ledData.recalcCRC());
   }
@@ -52,7 +54,9 @@ bool Randomizer::init()
     ByteStream ledData;
     Pattern *pat = cur->getPattern(l);
     if (pat) {
-      pat->serialize(ledData);
+      if (!pat->serialize(ledData)) {
+        return false;
+      }
     }
     m_singlesRandCtx[l].seed(ledData.recalcCRC());
   }
@@ -88,14 +92,6 @@ Menu::MenuAction Randomizer::run()
     m_previewMode.init();
   }
 #endif
-  // if the user fast-clicks 3 times then toggle automode
-  if (m_engine.button().onRelease() && m_engine.button().onConsecutivePresses(AUTO_CYCLE_RANDOMIZER_CLICKS)) {
-    // toggle the auto cycle flag
-    m_autoCycle = !m_autoCycle;
-    // display a quick flash of either green or red to indicate whether auto mode is on or not
-    m_engine.leds().holdAll(m_autoCycle ? RGB_GREEN : RGB_RED);
-    return MENU_CONTINUE;
-  }
   uint32_t now = m_engine.time().getCurtime();
   if (m_autoCycle && (m_lastRandomization + AUTO_RANDOM_DELAY_TICKS < now)) {
     m_lastRandomization = now;
@@ -117,6 +113,14 @@ void Randomizer::onShortClick()
     } else {
       m_flags = (RandomizeFlags)(m_flags + 1);
     }
+    return;
+  }
+  // if the user fast-clicks 3 times then toggle automode
+  if (m_autoCycle || m_engine.button().onConsecutivePresses(AUTO_CYCLE_RANDOMIZER_CLICKS)) {
+    // toggle the auto cycle flag
+    m_autoCycle = !m_autoCycle;
+    // display a quick flash of either green or red to indicate whether auto mode is on or not
+    m_engine.leds().holdAll(m_autoCycle ? RGB_GREEN : RGB_RED);
     return;
   }
   // shortClick re-roll the randomization

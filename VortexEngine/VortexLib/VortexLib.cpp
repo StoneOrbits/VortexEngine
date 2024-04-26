@@ -162,15 +162,16 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("sanity", &ByteStream::sanity)
     .function("checkCRC", &ByteStream::checkCRC)
     .function("isCRCDirty", &ByteStream::isCRCDirty)
-    .function("serialize", select_overload<bool(uint8_t)>(&ByteStream::serialize))
-    .function("serialize16", select_overload<bool(uint16_t)>(&ByteStream::serialize))
-    .function("serialize32", select_overload<bool(uint32_t)>(&ByteStream::serialize))
+    .function("serialize8", &ByteStream::serialize8)
+    .function("serialize16", &ByteStream::serialize16)
+    .function("serialize32", &ByteStream::serialize32)
     .function("resetUnserializer", &ByteStream::resetUnserializer)
     .function("moveUnserializer", &ByteStream::moveUnserializer)
     .function("unserializerAtEnd", &ByteStream::unserializerAtEnd)
-    .function("unserialize8", &ByteStream::unserialize8)
-    .function("unserialize16", &ByteStream::unserialize16)
-    .function("unserialize32", &ByteStream::unserialize32)
+    // TODO: provide better apis here
+    //.function("unserialize8", &ByteStream::unserialize8)
+    //.function("unserialize16", &ByteStream::unserialize16)
+    //.function("unserialize32", &ByteStream::unserialize32)
     .function("peek8", &ByteStream::peek8)
     .function("peek16", &ByteStream::peek16)
     .function("peek32", &ByteStream::peek32)
@@ -1203,19 +1204,19 @@ bool Vortex::matchLedCount(ByteStream &stream, bool vtxMode)
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
-  stream.unserialize(&major);
-  stream.unserialize(&minor);
+  stream.unserialize8(&major);
+  stream.unserialize8(&minor);
   // unserialize the global brightness
   if (!vtxMode) {
     uint8_t flags;
-    stream.unserialize(&flags);
+    stream.unserialize8(&flags);
     uint8_t brightness = 0;
-    stream.unserialize(&brightness);
+    stream.unserialize8(&brightness);
     uint8_t numModes = 0;
-    stream.unserialize(&numModes);
+    stream.unserialize8(&numModes);
   }
   uint8_t ledCount = 0;
-  stream.unserialize(&ledCount);
+  stream.unserialize8(&ledCount);
   // put the unserializer back where it was for the next thing
   stream.resetUnserializer();
   return setLedCount(ledCount);

@@ -37,7 +37,7 @@
 #define MAP_IS_ONE_LED(map) (map && !(map & (map-1)))
 
 // foreach led macro (only iterates singles)
-#define MAP_FOREACH_LED(map) for (LedPos pos = m_engine.leds().mapGetFirstLed(map); pos < LED_COUNT; pos = m_engine.leds().mapGetNextLed(map, pos))
+#define MAP_FOREACH_LED(map) for (LedPos pos = m_engine.leds().ledmapGetFirstLed(map); pos < LED_COUNT; pos = m_engine.leds().ledmapGetNextLed(map, pos))
 
 // bitmap of all pairs (basically LED_COUNT bits)
 #define MAP_LED_ALL (LedMap)((2 << (LED_COUNT - 1)) - 1)
@@ -157,6 +157,7 @@ public:
   // threshold that makes them unsuitable for internal pattern usage because it
   // is unpredictable whether they will blink on or off first
   void blinkIndexOffset(LedPos target, uint32_t time, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
+  void blinkRangeOffset(LedPos first, LedPos last, uint32_t time, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
   void blinkIndex(LedPos target, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
   void blinkRange(LedPos first, LedPos last, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
   void blinkMap(LedMap targets, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
@@ -167,11 +168,13 @@ public:
 
   // breath the hue on an index
   // warning: these use hsv to rgb in realtime!
-  void breathIndex(LedPos target, uint8_t hue, uint32_t variance,
+  void breatheIndex(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  void breathIndexSat(LedPos target, uint8_t hue, uint32_t variance,
+  void breatheRange(LedPos first, LedPos last, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  void breathIndexVal(LedPos target, uint8_t hue, uint32_t variance,
+  void breatheIndexSat(LedPos target, uint8_t hue, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
+  void breatheIndexVal(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
 
   // a very specialized api to hold all leds on a color for 250ms
@@ -196,30 +199,30 @@ public:
   RGBColor *ledData() { return m_ledColors.data(); }
 
   // set a single led
-  inline void mapSetLed(LedMap &map, LedPos pos)
+  inline void ledmapSetLed(LedMap &map, LedPos pos)
   {
     if (pos < ledCount()) map |= (1ull << pos);
   }
   // set a single pair
-  inline void mapSetPair(LedMap &map, Pair pair)
+  inline void ledmapSetPair(LedMap &map, Pair pair)
   {
-    mapSetLed(map, pairEven(pair));
-    mapSetLed(map, pairOdd(pair));
+    ledmapSetLed(map, pairEven(pair));
+    ledmapSetLed(map, pairOdd(pair));
   }
 
   // check if an led is set in the map
-  inline bool mapCheckLed(LedMap map, LedPos pos)
+  inline bool ledmapCheckLed(LedMap map, LedPos pos)
   {
     return ((map & (1ull << pos)) != 0);
   }
   // check if a pair is set in the map (both leds)
-  inline bool mapCheckPair(LedMap map, Pair pair)
+  inline bool ledmapCheckPair(LedMap map, Pair pair)
   {
-    return mapCheckLed(map, pairEven(pair)) && mapCheckLed(map, pairOdd(pair));
+    return ledmapCheckLed(map, pairEven(pair)) && ledmapCheckLed(map, pairOdd(pair));
   }
 
   // convert a map to the first Led position in the map
-  inline LedPos mapGetFirstLed(LedMap map)
+  inline LedPos ledmapGetFirstLed(LedMap map)
   {
     if (map == MAP_LED(ledMulti())) {
       return ledMulti();
@@ -236,7 +239,7 @@ public:
   }
 
   // given an led map and a position, find the next position in the map
-  inline LedPos mapGetNextLed(LedMap map, LedPos pos)
+  inline LedPos ledmapGetNextLed(LedMap map, LedPos pos)
   {
     pos = (LedPos)(pos + 1);
     map >>= pos;
