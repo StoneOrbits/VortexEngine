@@ -67,7 +67,7 @@ public:
   bool loadFromBuffer(ByteStream &saveBuffer);
 
   // save the mode to serial
-  void serialize(ByteStream &buffer, uint8_t numLeds = 0) const;
+  bool serialize(ByteStream &buffer, uint8_t numLeds = 0) const;
   // load the mode from serial (optional led count)
   bool unserialize(ByteStream &buffer);
 
