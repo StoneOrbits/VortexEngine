@@ -142,80 +142,80 @@ mclw300q                             | Receive a mode                           
 mcllw300q                            | Exit mode sharing                                               | enter mode shring exit mode sharing
 mcaw300q                             | Reveice a mode in adv mode sharing                              | enter adv mode sharing receive a mode
 mcalw300q                            | Exit adv mode sharing                                           | enter adv mode shring exit adv mode sharing
-mc2lcw300cw300cw300q                 | Cycle bulbs in Color Select                                     | cycle through the bulb options in color select
-mc2l2cw300cw300cw300cw300cw300q      | Cycle Color Slots in Color Select All Bulbs                     | enter color select select all bulbs cycle through color slots
-mc2l3cw300cw300cw300cw300cw300q      | Cycle Rainbow Sections in Color Select All Bulbs                | enter color select select all bulbs select first slot cycle through rainbow sections
-mc2l4cw300cw300cw300cw300cw300q      | Cycle Hue Selection in Color Select All Bulbs                   | enter color select select all bulbs select first slot select first rainbow cycle hue selection
-mc2l5cw300cw300cw300cw300cw300q      | Cycle Sat Selection in Color Select All Bulbs                   | enter color select select all bulbs select first slot select first rainbow select first hue cycle sat selection
-mc2l6cw300cw300cw300cw300cw300q      | Cycle Val Selection in Color Select All Bulbs                   | enter color select select all bulbs select first slot select first rainbow select first hue select first sat cycle val selection
-mc2lw30lw30lw30lw30lw30lw30lw30w300q | Select Color in Color Select All Bulbs                          | enter color select select all bulbs select first slot select first rainbow select first hue select first sat select first val
-mc2l6c3lw300q                        | Select Blank in Color Select All Bulbs                          | enter color select select all bulbs select first slot select first rainbow select first hue select first sat select last val
-mc2l6c4lw300q                        | Return to Sat Selection from Val Selection All Bulbs            | enter color select select all bulbs select first slot select first rainbow select first hue select first sat select return to sat
-mc2l5c3lw300q                        | Select White in Color Select All Bulbs                          | enter color select select all bulbs select first slot select first rainbow select first hue select last sat
-mc2l5c4lw300q                        | Return to Hue Selection from Sat Selection All Bulbs            | enter color select select all bulbs select first slot select first rainbow select first hue select return to hue
-mc2l4c4lw300q                        | Return to Rainbow Selection from Hue Selection All Bulbs        | enter color select select all bulbs select first slot select first rainbow select return to rainbow
-mc2l3c4lw300q                        | Return to Slot Selection from Rainbow Selection All Bulbs       | enter color select select all bulbs select first slot select return to slots
-mc2l2c3lw300q                        | Select Add Color in Color Select All Bulbs                      | enter color select select all bulbs select add color
-mc2l2c3l5w300q                       | Add a New Color in Color Select All Bulbs                       | enter color select select all bulbs select add color select first rainbot select first hue select first sat select first val
-mc2l2c4lw300q                        | Select Save and Exit in Color Select All Bulbs                  | enter color select select all bulbs select save and exit
-mc2l2dw300q                          | Delete a Color in Color Select All Bulbs                        | enter color select select all bulbs delete a color
-mc2l2c3l5cl5cl5cl5cl5clw300q         | Save an 8 Color set in Color Select All Bulbs                   | enter color select select all bulbs add 5 new colors save and exit
-mc2l2d3clw300q                       | Delete All Colors in Color Select All Bulbs                     | enter color select select all bulbs delete 3 colors save and exit
-mc2lclc5w300q                        | Cycle Color Slots in Color Select Multi Led                     | enter color select select multi led cycle through color slots
-mc2lcl2c5w300q                       | Cycle Rainbow Sections in Color Select Multi Led                | enter color select select multi led select first slot cycle through rainbow sections
-mc2lcl3c5w300q                       | Cycle Hue Selection in Color Select Multi Led                   | enter color select select multi led select first slot select first rainbow cycle hue selection
-mc2lcl4c5w300q                       | Cycle Sat Selection in Color Select Multi Led                   | enter color select select multi led select first slot select first rainbow select first hue cycle sat selection
-mc2lcl5c5w300q                       | Cycle Val Selection in Color Select Multi Led                   | enter color select select multi led select first slot select first rainbow select first hue select first sat cycle val selection
-mc2lcl6w300q                         | Select Color in Color Select Multi Led                          | enter color select select multi led select first slot select first rainbow select first hue select first sat select first val
-mc2lcl5c3lw300q                      | Select Blank in Color Select Multi Led                          | enter color select select multi led select first slot select first rainbow select first hue select first sat select last val
-mc2lcl5c4lw300q                      | Return to Sat Selection from Val Selection Multi Led            | enter color select select multi led select first slot select first rainbow select first hue select first sat select return to sat
-mc2lcl4c3lw300q                      | Select White in Color Select Multi Led                          | enter color select select multi led select first slot select first rainbow select first hue select last sat
-mc2lcl4c4lw300q                      | Return to Hue Selection from Sat Selection Multi Led            | enter color select select multi led select first slot select first rainbow select first hue select return to hue
-mc2lcl3c4lw300q                      | Return to Rainbow Selection from Hue Selection Multi Led        | enter color select select multi led select first slot select first rainbow select return to rainbow
-mc2lcl2c4lw300q                      | Return to Slot Selection from Rainbow Selection Multi Led       | enter color select select multi led select first slot select return to slots
-mc2lclc3lw300q                       | Select Add Color in Color Select Multi Led                      | enter color select select multi led select add color
-mc2lclc3l5w300q                      | Add a New Color in Color Select Multi Led                       | enter color select select multi led select add color select first rainbot select first hue select first sat select first val
-mc2lclc4lw300q                       | Select Save and Exit in Color Select Multi Led                  | enter color select select multi led select save and exit
-mc2lcldw300q                         | Delete a Color in Color Select Multi Led                        | enter color select select multi led delete a color
-mc2lclc3l5cl5cl5cl5cl5clw300q        | Save an 8 Color set in Color Select Multi Led                   | enter color select select multi led add 5 new colors save and exit
-mc2lcld3clw300q                      | Delete All Colors in Color Select Multi Led                     | enter color select select multi led delete 3 colors save and exit
-mc2lc2lc5w300q                       | Cycle Color Slots in Color Select All Tips                      | enter color select select all tips cycle through color slots
-mc2lc2l2c5w300q                      | Cycle Rainbow Sections in Color Select All Tips                 | enter color select select all tips select first slot cycle through rainbow sections
-mc2lc2l3c5w300q                      | Cycle Hue Selection in Color Select All Tips                    | enter color select select all tips select first slot select first rainbow cycle hue selection
-mc2lc2l4c5w300q                      | Cycle Sat Selection in Color Select All Tips                    | enter color select select all tips select first slot select first rainbow select first hue cycle sat selection
-mc2lc2l5c5w300q                      | Cycle Val Selection in Color Select All Tips                    | enter color select select all tips select first slot select first rainbow select first hue select first sat cycle val selection
-mc2lc2l6w300q                        | Select Color in Color Select All Tips                           | enter color select select all tips select first slot select first rainbow select first hue select first sat select first val
-mc2lc2l5c3lw300q                     | Select Blank in Color Select All Tips                           | enter color select select all tips select first slot select first rainbow select first hue select first sat select last val
-mc2lc2l5c4lw300q                     | Return to Sat Selection from Val Selection All Tips             | enter color select select all tips select first slot select first rainbow select first hue select first sat select return to sat
-mc2lc2l4c3lw300q                     | Select White in Color Select All Tips                           | enter color select select all tips select first slot select first rainbow select first hue select last sat
-mc2lc2l4c4lw300q                     | Return to Hue Selection from Sat Selection All Tips             | enter color select select all tips select first slot select first rainbow select first hue select return to hue
-mc2lc2l3c4lw300q                     | Return to Rainbow Selection from Hue Selection All Tips         | enter color select select all tips select first slot select first rainbow select return to rainbow
-mc2lc2l2c4lw300q                     | Return to Slot Selection from Rainbow Selection All Tips        | enter color select select all tips select first slot select return to slots
-mc2lc2lc3lw300q                      | Select Add Color in Color Select All Tips                       | enter color select select all tips select add color
-mc2lc2lc3l5w300q                     | Add a New Color in Color Select All Tips                        | enter color select select all tips select add color select first rainbot select first hue select first sat select first val
-mc2lc2lc4lw300q                      | Select Save and Exit in Color Select All Tips                   | enter color select select all tips select save and exit
-mc2lc2ldw300q                        | Delete a Color in Color Select All Tips                         | enter color select select all tips delete a color
-mc2lc2lc3l5cl5cl5cl5cl5clw300q       | Save an 8 Color set in Color Select All Tips                    | enter color select select all tips add 5 new colors save and exit
-mc2lc2ld3clw300q                     | Delete All Colors in Color Select All Tips                      | enter color select select all tips delete 3 colors save and exit
-mc3lc3w300q                          | Cycle bulbs in Pattern Select                                   | cycle through the bulb options in pattern select
-mc3l2c9c9c9c3w300q                   | Cycle Patterns in Pattern Select All Bulbs                      | enter pattern select select all bulbs cycle through all patterns
-mc3l3w300q                           | Select Pattern in Pattern Select All Bulbs                      | enter pattern select select all bulbs select first pattern
-mc3lclc9c9c9c3w300q                  | Cycle Patterns in Pattern Select All Tips                       | enter pattern select select all tips cycle through all patterns
-mc3lcl2w300q                         | Select Pattern in Pattern Select All Tips                       | enter pattern select select all tips select first pattern
-mc3lc2lc9c9c9c3w300q                 | Cycle Patterns in Pattern Select Multi Led                      | enter pattern select select multi led cycle through all patterns
-mc3lc2l2w300q                        | Select Pattern in Pattern Select Multi Led                      | enter pattern select select multi led select first pattern
-mc4lc5w300q                          | Cycle Brightness Options in Brightness Menu                     | enter brightness menu cycle all options
-mc4l2w300q                           | Select Brightness in Brightness Menu                            | enter brightness menu select brightness
-mc5lc2w300q                          | Cycle Options in Factory Reset Menu                             | enter factory reset menu cycle options
-mc5l2w300q                           | Exit Factory Reset Menu                                         | enter factory reset menu exit factory reset menu
-mc5lch4000w300q                      | Factory Reset                                                   | enter factory reset menu factory reset
-mc5ac3w300q                          | Cycle bulbs in Adv Factory Reset Menu                           | cycle through the bulb options in adv factory reset menu
-mc5alc2w300q                         | Cycle Options in Adv Factory Reset Menu All Bulbs               | enter adv factory reset menu select all bulbs cycle options
-mc5al2w300q                          | Exit Adv Factory Reset Menu All Bulbs                           | enter adv factory reset menu select all bulbs exit adv factory reset menu
-mc5alch4000w300q                     | Factory Reset All Bulbs                                         | enter adv factory reset menu select all bulbs factory reset selected bulbs
-mc5aclc2w300q                        | Cycle Options in Adv Factory Reset Menu Multi Led               | enter adv factory reset menu select multi led cycle options
-mc5acl2w300q                         | Exit Adv Factory Reset Menu Multi Led                           | enter adv factory reset menu select multi led exit adv factory reset menu
-mc5aclch4000w300q                    | Factory Reset Multi Led                                         | enter adv factory reset menu select multi led factory reset selected bulbs
-mc5ac2lc2w300q                       | Cycle Options in Adv Factory Reset Menu All Tips                | enter adv factory reset menu select all tips cycle options
-mc5ac2l2w300q                        | Exit Adv Factory Reset Menu All Tips                            | enter adv factory reset menu select all tips exit adv factory reset menu
-mc5ac2lch4000w300q                   | Factory Reset All Tips                                          | enter adv factory reset menu select all tips factory reset selected bulbs
+mc3lcw300cw300cw300q                 | Cycle bulbs in Color Select                                     | cycle through the bulb options in color select
+mc3l2cw300cw300cw300cw300cw300q      | Cycle Color Slots in Color Select All Bulbs                     | enter color select select all bulbs cycle through color slots
+mc3l3cw300cw300cw300cw300cw300q      | Cycle Rainbow Sections in Color Select All Bulbs                | enter color select select all bulbs select first slot cycle through rainbow sections
+mc3l4cw300cw300cw300cw300cw300q      | Cycle Hue Selection in Color Select All Bulbs                   | enter color select select all bulbs select first slot select first rainbow cycle hue selection
+mc3l5cw300cw300cw300cw300cw300q      | Cycle Sat Selection in Color Select All Bulbs                   | enter color select select all bulbs select first slot select first rainbow select first hue cycle sat selection
+mc3l6cw300cw300cw300cw300cw300q      | Cycle Val Selection in Color Select All Bulbs                   | enter color select select all bulbs select first slot select first rainbow select first hue select first sat cycle val selection
+mc3lw30lw30lw30lw30lw30lw30lw30w300q | Select Color in Color Select All Bulbs                          | enter color select select all bulbs select first slot select first rainbow select first hue select first sat select first val
+mc3l6c3lw300q                        | Select Blank in Color Select All Bulbs                          | enter color select select all bulbs select first slot select first rainbow select first hue select first sat select last val
+mc3l6c4lw300q                        | Return to Sat Selection from Val Selection All Bulbs            | enter color select select all bulbs select first slot select first rainbow select first hue select first sat select return to sat
+mc3l5c3lw300q                        | Select White in Color Select All Bulbs                          | enter color select select all bulbs select first slot select first rainbow select first hue select last sat
+mc3l5c4lw300q                        | Return to Hue Selection from Sat Selection All Bulbs            | enter color select select all bulbs select first slot select first rainbow select first hue select return to hue
+mc3l4c4lw300q                        | Return to Rainbow Selection from Hue Selection All Bulbs        | enter color select select all bulbs select first slot select first rainbow select return to rainbow
+mc3l3c4lw300q                        | Return to Slot Selection from Rainbow Selection All Bulbs       | enter color select select all bulbs select first slot select return to slots
+mc3l2c3lw300q                        | Select Add Color in Color Select All Bulbs                      | enter color select select all bulbs select add color
+mc3l2c3l5w300q                       | Add a New Color in Color Select All Bulbs                       | enter color select select all bulbs select add color select first rainbot select first hue select first sat select first val
+mc3l2c4lw300q                        | Select Save and Exit in Color Select All Bulbs                  | enter color select select all bulbs select save and exit
+mc3l2dw300q                          | Delete a Color in Color Select All Bulbs                        | enter color select select all bulbs delete a color
+mc3l2c3l5cl5cl5cl5cl5clw300q         | Save an 8 Color set in Color Select All Bulbs                   | enter color select select all bulbs add 5 new colors save and exit
+mc3l2d3clw300q                       | Delete All Colors in Color Select All Bulbs                     | enter color select select all bulbs delete 3 colors save and exit
+mc3lclc5w300q                        | Cycle Color Slots in Color Select Multi Led                     | enter color select select multi led cycle through color slots
+mc3lcl2c5w300q                       | Cycle Rainbow Sections in Color Select Multi Led                | enter color select select multi led select first slot cycle through rainbow sections
+mc3lcl3c5w300q                       | Cycle Hue Selection in Color Select Multi Led                   | enter color select select multi led select first slot select first rainbow cycle hue selection
+mc3lcl4c5w300q                       | Cycle Sat Selection in Color Select Multi Led                   | enter color select select multi led select first slot select first rainbow select first hue cycle sat selection
+mc3lcl5c5w300q                       | Cycle Val Selection in Color Select Multi Led                   | enter color select select multi led select first slot select first rainbow select first hue select first sat cycle val selection
+mc3lcl6w300q                         | Select Color in Color Select Multi Led                          | enter color select select multi led select first slot select first rainbow select first hue select first sat select first val
+mc3lcl5c3lw300q                      | Select Blank in Color Select Multi Led                          | enter color select select multi led select first slot select first rainbow select first hue select first sat select last val
+mc3lcl5c4lw300q                      | Return to Sat Selection from Val Selection Multi Led            | enter color select select multi led select first slot select first rainbow select first hue select first sat select return to sat
+mc3lcl4c3lw300q                      | Select White in Color Select Multi Led                          | enter color select select multi led select first slot select first rainbow select first hue select last sat
+mc3lcl4c4lw300q                      | Return to Hue Selection from Sat Selection Multi Led            | enter color select select multi led select first slot select first rainbow select first hue select return to hue
+mc3lcl3c4lw300q                      | Return to Rainbow Selection from Hue Selection Multi Led        | enter color select select multi led select first slot select first rainbow select return to rainbow
+mc3lcl2c4lw300q                      | Return to Slot Selection from Rainbow Selection Multi Led       | enter color select select multi led select first slot select return to slots
+mc3lclc3lw300q                       | Select Add Color in Color Select Multi Led                      | enter color select select multi led select add color
+mc3lclc3l5w300q                      | Add a New Color in Color Select Multi Led                       | enter color select select multi led select add color select first rainbot select first hue select first sat select first val
+mc3lclc4lw300q                       | Select Save and Exit in Color Select Multi Led                  | enter color select select multi led select save and exit
+mc3lcldw300q                         | Delete a Color in Color Select Multi Led                        | enter color select select multi led delete a color
+mc3lclc3l5cl5cl5cl5cl5clw300q        | Save an 8 Color set in Color Select Multi Led                   | enter color select select multi led add 5 new colors save and exit
+mc3lcld3clw300q                      | Delete All Colors in Color Select Multi Led                     | enter color select select multi led delete 3 colors save and exit
+mc3lc2lc5w300q                       | Cycle Color Slots in Color Select All Tips                      | enter color select select all tips cycle through color slots
+mc3lc2l2c5w300q                      | Cycle Rainbow Sections in Color Select All Tips                 | enter color select select all tips select first slot cycle through rainbow sections
+mc3lc2l3c5w300q                      | Cycle Hue Selection in Color Select All Tips                    | enter color select select all tips select first slot select first rainbow cycle hue selection
+mc3lc2l4c5w300q                      | Cycle Sat Selection in Color Select All Tips                    | enter color select select all tips select first slot select first rainbow select first hue cycle sat selection
+mc3lc2l5c5w300q                      | Cycle Val Selection in Color Select All Tips                    | enter color select select all tips select first slot select first rainbow select first hue select first sat cycle val selection
+mc3lc2l6w300q                        | Select Color in Color Select All Tips                           | enter color select select all tips select first slot select first rainbow select first hue select first sat select first val
+mc3lc2l5c3lw300q                     | Select Blank in Color Select All Tips                           | enter color select select all tips select first slot select first rainbow select first hue select first sat select last val
+mc3lc2l5c4lw300q                     | Return to Sat Selection from Val Selection All Tips             | enter color select select all tips select first slot select first rainbow select first hue select first sat select return to sat
+mc3lc2l4c3lw300q                     | Select White in Color Select All Tips                           | enter color select select all tips select first slot select first rainbow select first hue select last sat
+mc3lc2l4c4lw300q                     | Return to Hue Selection from Sat Selection All Tips             | enter color select select all tips select first slot select first rainbow select first hue select return to hue
+mc3lc2l3c4lw300q                     | Return to Rainbow Selection from Hue Selection All Tips         | enter color select select all tips select first slot select first rainbow select return to rainbow
+mc3lc2l2c4lw300q                     | Return to Slot Selection from Rainbow Selection All Tips        | enter color select select all tips select first slot select return to slots
+mc3lc2lc3lw300q                      | Select Add Color in Color Select All Tips                       | enter color select select all tips select add color
+mc3lc2lc3l5w300q                     | Add a New Color in Color Select All Tips                        | enter color select select all tips select add color select first rainbot select first hue select first sat select first val
+mc3lc2lc4lw300q                      | Select Save and Exit in Color Select All Tips                   | enter color select select all tips select save and exit
+mc3lc2ldw300q                        | Delete a Color in Color Select All Tips                         | enter color select select all tips delete a color
+mc3lc2lc3l5cl5cl5cl5cl5clw300q       | Save an 8 Color set in Color Select All Tips                    | enter color select select all tips add 5 new colors save and exit
+mc3lc2ld3clw300q                     | Delete All Colors in Color Select All Tips                      | enter color select select all tips delete 3 colors save and exit
+mc4lc3w300q                          | Cycle bulbs in Pattern Select                                   | cycle through the bulb options in pattern select
+mc4l2c9c9c9c3w300q                   | Cycle Patterns in Pattern Select All Bulbs                      | enter pattern select select all bulbs cycle through all patterns
+mc4l3w300q                           | Select Pattern in Pattern Select All Bulbs                      | enter pattern select select all bulbs select first pattern
+mc4lclc9c9c9c3w300q                  | Cycle Patterns in Pattern Select All Tips                       | enter pattern select select all tips cycle through all patterns
+mc4lcl2w300q                         | Select Pattern in Pattern Select All Tips                       | enter pattern select select all tips select first pattern
+mc4lc2lc9c9c9c3w300q                 | Cycle Patterns in Pattern Select Multi Led                      | enter pattern select select multi led cycle through all patterns
+mc4lc2l2w300q                        | Select Pattern in Pattern Select Multi Led                      | enter pattern select select multi led select first pattern
+mc5lc5w300q                          | Cycle Brightness Options in Brightness Menu                     | enter brightness menu cycle all options
+mc5l2w300q                           | Select Brightness in Brightness Menu                            | enter brightness menu select brightness
+mc6lc2w300q                          | Cycle Options in Factory Reset Menu                             | enter factory reset menu cycle options
+mc6l2w300q                           | Exit Factory Reset Menu                                         | enter factory reset menu exit factory reset menu
+mc6lch4000w300q                      | Factory Reset                                                   | enter factory reset menu factory reset
+mc6ac3w300q                          | Cycle bulbs in Adv Factory Reset Menu                           | cycle through the bulb options in adv factory reset menu
+mc6alc2w300q                         | Cycle Options in Adv Factory Reset Menu All Bulbs               | enter adv factory reset menu select all bulbs cycle options
+mc6al2w300q                          | Exit Adv Factory Reset Menu All Bulbs                           | enter adv factory reset menu select all bulbs exit adv factory reset menu
+mc6alch4000w300q                     | Factory Reset All Bulbs                                         | enter adv factory reset menu select all bulbs factory reset selected bulbs
+mc6aclc2w300q                        | Cycle Options in Adv Factory Reset Menu Multi Led               | enter adv factory reset menu select multi led cycle options
+mc6acl2w300q                         | Exit Adv Factory Reset Menu Multi Led                           | enter adv factory reset menu select multi led exit adv factory reset menu
+mc6aclch4000w300q                    | Factory Reset Multi Led                                         | enter adv factory reset menu select multi led factory reset selected bulbs
+mc6ac2lc2w300q                       | Cycle Options in Adv Factory Reset Menu All Tips                | enter adv factory reset menu select all tips cycle options
+mc6ac2l2w300q                        | Exit Adv Factory Reset Menu All Tips                            | enter adv factory reset menu select all tips exit adv factory reset menu
+mc6ac2lch4000w300q                   | Factory Reset All Tips                                          | enter adv factory reset menu select all tips factory reset selected bulbs

@@ -18,4 +18,4 @@ do
 	# Create the test
 	echo -e "\n${input}\n${name}\n${desc}\n"  | $create_test_script_path
 	echo "Successfully created test ${name}"
-done < test_list
+done < extra/test_list
