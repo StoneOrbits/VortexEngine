@@ -452,23 +452,23 @@ bool Colorset::onEnd() const
 
 bool Colorset::serialize(ByteStream &buffer) const
 {
-  if (!buffer.serialize(m_numColors)) {
+  if (!buffer.serialize8(m_numColors)) {
     return false;
   }
   // write all the reds/greens/blues together to maximize chance of
   // repeated values to improve RLE compression
   for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.serialize(m_palette[i].red)) {
+    if (!buffer.serialize8(m_palette[i].red)) {
       return false;
     }
   }
   for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.serialize(m_palette[i].green)) {
+    if (!buffer.serialize8(m_palette[i].green)) {
       return false;
     }
   }
   for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.serialize(m_palette[i].blue)) {
+    if (!buffer.serialize8(m_palette[i].blue)) {
       return false;
     }
   }

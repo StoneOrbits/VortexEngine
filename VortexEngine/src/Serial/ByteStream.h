@@ -78,9 +78,9 @@ public:
   bool isCRCDirty() const;
 
   // serialize a byte into the buffer
-  bool serialize(uint8_t byte);
-  bool serialize(uint16_t bytes);
-  bool serialize(uint32_t bytes);
+  bool serialize8(uint8_t byte);
+  bool serialize16(uint16_t bytes);
+  bool serialize32(uint32_t bytes);
 
   // reset the unserializer index
   void resetUnserializer();
@@ -97,13 +97,6 @@ public:
   uint8_t peek8() const;
   uint16_t peek16() const;
   uint32_t peek32() const;
-
-  // overload += for appending buffer
-  ByteStream &operator+=(const ByteStream &rhs);
-  // also overload += for appending bytes
-  ByteStream &operator+=(const uint8_t &rhs);
-  ByteStream &operator+=(const uint16_t &rhs);
-  ByteStream &operator+=(const uint32_t &rhs);
 
   // overload [] for array access (no bounds check lol)
   uint8_t &operator[](uint32_t index) { return m_pData->buf[index]; }

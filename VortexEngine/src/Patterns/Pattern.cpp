@@ -56,7 +56,7 @@ void Pattern::skip(uint32_t ticks)
 // must override the serialize routine to save the pattern
 bool Pattern::serialize(ByteStream &buffer) const
 {
-  if (!buffer.serialize((uint8_t)m_patternID)) {
+  if (!buffer.serialize8((uint8_t)m_patternID)) {
     return false;
   }
   if (!m_colorset.serialize(buffer)) {

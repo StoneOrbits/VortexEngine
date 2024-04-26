@@ -43,7 +43,7 @@ bool PatternMap::serialize(ByteStream &buffer) const
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     // ensure the PatternID is interpreted as uint8_t
-    if (!buffer.serialize((uint8_t)m_patternMap[i])) {
+    if (!buffer.serialize8((uint8_t)m_patternMap[i])) {
       return false;
     }
   }
@@ -121,7 +121,7 @@ SequenceStep::SequenceStep(const SequenceStep &other) :
 
 bool SequenceStep::serialize(ByteStream &buffer) const
 {
-  if (!buffer.serialize(m_duration)) {
+  if (!buffer.serialize16(m_duration)) {
     return false;
   }
   if (!m_patternMap.serialize(buffer)) {
@@ -250,7 +250,7 @@ void Sequence::clear()
 
 bool Sequence::serialize(ByteStream &buffer) const
 {
-  if (!buffer.serialize(m_numSteps)) {
+  if (!buffer.serialize8(m_numSteps)) {
     return false;
   }
   for (uint8_t i = 0; i < m_numSteps; ++i) {

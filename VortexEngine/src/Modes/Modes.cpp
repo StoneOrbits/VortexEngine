@@ -83,11 +83,11 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
   }
   // NOTE: instead of global brightness the duo uses this to store the
   //       startup mode ID. The duo doesn't offer a global brightness option
-  if (!saveBuffer.serialize(m_globalFlags)) {
+  if (!saveBuffer.serialize8(m_globalFlags)) {
     return false;
   }
   // serialize the global brightness
-  if (!saveBuffer.serialize((uint8_t)Leds::getBrightness())) {
+  if (!saveBuffer.serialize8((uint8_t)Leds::getBrightness())) {
     return false;
   }
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", saveBuffer.size());
@@ -220,7 +220,7 @@ bool Modes::saveStorage()
     return false;
   }
   // serialize the number of modes
-  if (!headerBuffer.serialize(m_numModes)) {
+  if (!headerBuffer.serialize8(m_numModes)) {
     return false;
   }
   if (!Storage::write(0, headerBuffer)) {
@@ -267,7 +267,7 @@ bool Modes::saveStorage()
 bool Modes::serialize(ByteStream &modesBuffer)
 {
   // serialize the number of modes
-  if (!modesBuffer.serialize(m_numModes)) {
+  if (!modesBuffer.serialize8(m_numModes)) {
     return false;
   }
   // make sure the current mode is saved in case it has changed somehow

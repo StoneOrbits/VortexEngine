@@ -214,7 +214,7 @@ bool Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
     numLeds = MODE_LEDCOUNT;
   }
   // serialize the number of leds
-  if (!buffer.serialize(numLeds)) {
+  if (!buffer.serialize8(numLeds)) {
     return false;
   }
   // empty mode?
@@ -223,7 +223,7 @@ bool Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
   }
   // serialize the flags
   ModeFlags flags = getFlags();
-  if (!buffer.serialize(flags)) {
+  if (!buffer.serialize8(flags)) {
     return false;
   }
 #if VORTEX_SLIM == 0
@@ -242,7 +242,7 @@ bool Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
   // if there are any sparse singles (spaces) then we need to
   // serialize an led map of which singles are set
   if (flags & MODE_FLAG_SPARSE_SINGLES) {
-    if (!buffer.serialize((uint32_t)getSingleLedMap())) {
+    if (!buffer.serialize32((uint32_t)getSingleLedMap())) {
       return false;
     }
   }
