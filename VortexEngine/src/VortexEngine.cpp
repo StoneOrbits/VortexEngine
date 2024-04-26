@@ -206,8 +206,13 @@ void VortexEngine::runMainLogic()
 bool VortexEngine::serializeVersion(ByteStream &stream)
 {
   // serialize the vortex version
-  return stream.serialize((uint8_t)VORTEX_VERSION_MAJOR) &&
-         stream.serialize((uint8_t)VORTEX_VERSION_MINOR);
+  if (!stream.serialize8((uint8_t)VORTEX_VERSION_MAJOR)) {
+    return false;
+  }
+  if (!stream.serialize8((uint8_t)VORTEX_VERSION_MINOR)) {
+    return false;
+  }
+  return true;
 }
 
 bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
