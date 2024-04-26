@@ -197,8 +197,12 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
-  modeBuffer.unserialize(&major);
-  modeBuffer.unserialize(&minor);
+  if (!modeBuffer.unserialize8(&major)) {
+    return false;
+  }
+  if (!modeBuffer.unserialize8(&minor)) {
+    return false;
+  }
   // check the version for incompatibility
   if (!VortexEngine::checkVersion(major, minor)) {
     // incompatible version
@@ -220,14 +224,18 @@ bool Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
     numLeds = MODE_LEDCOUNT;
   }
   // serialize the number of leds
-  buffer.serialize(numLeds);
+  if (!buffer.serialize(numLeds)) {
+    return false;
+  }
   // empty mode?
   if (!numLeds) {
     return true;
   }
   // serialize the flags
   ModeFlags flags = getFlags();
-  buffer.serialize(flags);
+  if (!buffer.serialize(flags)) {
+    return false;
+  }
 #if VORTEX_SLIM == 0
   // serialiaze the multi led?
   if ((flags & MODE_FLAG_MULTI_LED) && m_multiPat) {
@@ -272,7 +280,9 @@ bool Mode::unserialize(ByteStream &buffer)
   clearPattern(LED_ALL);
   uint8_t ledCount = LED_COUNT;
   // unserialize the number of leds
-  buffer.unserialize(&ledCount);
+  if (!buffer.unserialize8(&ledCount)) {
+    return false;
+  }
 #if FIXED_LED_COUNT == 0
   // it's important that we only increase the led count if necessary
   // otherwise we may end up reducing our led count and only rendering
@@ -289,7 +299,9 @@ bool Mode::unserialize(ByteStream &buffer)
   }
   // unserialize the flags value
   ModeFlags flags = 0;
-  buffer.unserialize(&flags);
+  if (!buffer.unserialize8(&flags)) {
+    return false;
+  }
   Pattern *firstPat = nullptr;
   // if there is a multi led pattern then unserialize it
   if (flags & MODE_FLAG_MULTI_LED) {
@@ -298,6 +310,9 @@ bool Mode::unserialize(ByteStream &buffer)
 #else
     // otherwise in normal build actually unserialize it
     m_multiPat = PatternBuilder::unserialize(buffer);
+    if (!m_multiPat) {
+      return false;
+    }
     m_multiPat->init();
 #endif
   }

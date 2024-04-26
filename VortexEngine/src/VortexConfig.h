@@ -535,7 +535,7 @@
 
 // the space available for storing modes, this is a bit inaccurate on the duo
 // because the eeprom is also used but that isn't reflected here
-#define STORAGE_SIZE 0x200
+#define STORAGE_SIZE (6 * MAX_MODE_SIZE)
 
 // ===================================================================
 //  Test Framework configurations

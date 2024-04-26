@@ -477,7 +477,7 @@ bool Colorset::serialize(ByteStream &buffer) const
 
 bool Colorset::unserialize(ByteStream &buffer)
 {
-  if (!buffer.unserialize(&m_numColors)) {
+  if (!buffer.unserialize8(&m_numColors)) {
     return false;
   }
   if (m_numColors > MAX_COLOR_SLOTS) {
@@ -487,17 +487,17 @@ bool Colorset::unserialize(ByteStream &buffer)
     return false;
   }
   for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.unserialize(&m_palette[i].red)) {
+    if (!buffer.unserialize8(&m_palette[i].red)) {
       return false;
     }
   }
   for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.unserialize(&m_palette[i].green)) {
+    if (!buffer.unserialize8(&m_palette[i].green)) {
       return false;
     }
   }
   for (uint8_t i = 0; i < m_numColors; ++i) {
-    if (!buffer.unserialize(&m_palette[i].blue)) {
+    if (!buffer.unserialize8(&m_palette[i].blue)) {
       return false;
     }
   }

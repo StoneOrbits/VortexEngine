@@ -91,7 +91,7 @@ void Modes::play()
       VortexEngine::enterSleep(false);
       return;
     }
-    nextModeSkipEmpty();
+    nextMode();
   }
   // play the current mode
   m_pCurModeLink->play();
@@ -127,8 +127,12 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
-  saveHeader.unserialize(&major);
-  saveHeader.unserialize(&minor);
+  if (!saveHeader.unserialize8(&major)) {
+    return false;
+  }
+  if (!saveHeader.unserialize8(&minor)) {
+    return false;
+  }
   // check the version for incompatibility
   if (!VortexEngine::checkVersion(major, minor)) {
     // incompatible version
@@ -138,10 +142,14 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   // NOTE: instead of global brightness the duo uses this to store the
   //       startup mode ID. The duo doesn't offer a global brightness option
   // unserialize the global brightness
-  saveHeader.unserialize(&m_globalFlags);
+  if (!saveHeader.unserialize8(&m_globalFlags)) {
+    return false;
+  }
   // unserialize the global brightness
   uint8_t brightness = 0;
-  saveHeader.unserialize(&brightness);
+  if (!saveHeader.unserialize8(&brightness)) {
+    return false;
+  }
   if (brightness) {
     Leds::setBrightness(brightness);
   }
@@ -197,7 +205,9 @@ bool Modes::loadStorage()
   }
   // unserialize the number of modes next
   uint8_t numModes = 0;
-  headerBuffer.unserialize(&numModes);
+  if (!headerBuffer.unserialize8(&numModes)) {
+    return false;
+  }
   if (!numModes) {
     DEBUG_LOG("Did not find any modes");
     // this kinda sucks whatever they had loaded is gone
@@ -255,7 +265,9 @@ bool Modes::saveStorage()
       return false;
     }
     // serialize it into the target modes buffer
-    mode->serialize(modeBuffer);
+    if (!mode->serialize(modeBuffer)) {
+      return false;
+    }
     // just uninstansiate the mode after serializing
     ptr->uninstantiate();
     // next mode
@@ -295,7 +307,9 @@ bool Modes::serialize(ByteStream &modesBuffer)
       return false;
     }
     // serialize it into the target modes buffer
-    mode->serialize(modesBuffer);
+    if (!mode->serialize(modesBuffer)) {
+      return false;
+    }
     // just uninstansiate the mode after serializing
     ptr->uninstantiate();
     // next mode
@@ -318,7 +332,9 @@ bool Modes::unserialize(ByteStream &modesBuffer)
   clearModes();
   // unserialize the number of modes next
   uint8_t numModes = 0;
-  modesBuffer.unserialize(&numModes);
+  if (!modesBuffer.unserialize8(&numModes)) {
+    return false;
+  }
   if (!numModes) {
     DEBUG_LOG("Did not find any modes");
     // this kinda sucks whatever they had loaded is gone

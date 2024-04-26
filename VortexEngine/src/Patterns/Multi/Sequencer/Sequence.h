@@ -22,8 +22,8 @@ public:
   PatternID operator[](LedPos index) const;
 
   // serialize and unserialize a pattern map
-  void serialize(ByteStream &buffer) const;
-  void unserialize(ByteStream &buffer);
+  bool serialize(ByteStream &buffer) const;
+  bool unserialize(ByteStream &buffer);
 
   // public list of pattern IDs for each led
   PatternID m_patternMap[LED_COUNT];
@@ -57,8 +57,8 @@ public:
   SequenceStep(const SequenceStep &other);
 
   // serialize and unserialize a step in the sequencer
-  void serialize(ByteStream &buffer) const;
-  void unserialize(ByteStream &buffer);
+  bool serialize(ByteStream &buffer) const;
+  bool unserialize(ByteStream &buffer);
 
   // public members to allow for easy initialization of an array of SequenceSteps
   uint16_t m_duration;
@@ -85,8 +85,8 @@ public:
   uint8_t addStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap = Colorset());
   void clear();
 
-  void serialize(ByteStream &buffer) const;
-  void unserialize(ByteStream &buffer);
+  bool serialize(ByteStream &buffer) const;
+  bool unserialize(ByteStream &buffer);
 
   uint8_t numSteps() const;
   const SequenceStep &operator[](uint8_t index) const;
