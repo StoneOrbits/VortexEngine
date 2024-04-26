@@ -71,7 +71,7 @@ public:
   uint8_t operator[](int index) const;
 
   // serialize the pattern args with a specific mapping of which args to store
-  void serialize(ByteStream &buffer, ArgMap argmap = ARG_ALL) const;
+  bool serialize(ByteStream &buffer, ArgMap argmap = ARG_ALL) const;
   // unserialize the pattern args and return the argmap of which args were loaded
   // NOTE: You should start with an instance of the default args before you unserialize
   ArgMap unserialize(ByteStream &buffer);

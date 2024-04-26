@@ -79,18 +79,24 @@ const Colorset &ColorsetMap::operator[](LedPos index) const
   return m_colorsetMap[index];
 }
 
-void ColorsetMap::serialize(ByteStream &buffer) const
+bool ColorsetMap::serialize(ByteStream &buffer) const
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    m_colorsetMap[i].serialize(buffer);
+    if (!m_colorsetMap[i].serialize(buffer)) {
+      return false;
+    }
   }
+  return true;
 }
 
-void ColorsetMap::unserialize(ByteStream &buffer)
+bool ColorsetMap::unserialize(ByteStream &buffer)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    m_colorsetMap[i].unserialize(buffer);
+    if (!m_colorsetMap[i].unserialize(buffer)) {
+      return false;
+    }
   }
+  return true;
 }
 
 // Make an array of sequence steps to create a sequenced pattern

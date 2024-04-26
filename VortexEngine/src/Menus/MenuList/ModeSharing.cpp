@@ -141,10 +141,6 @@ void ModeSharing::receiveMode()
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
-  if (!m_advanced) {
-    // leave menu and save only if the current mode was properly updated
-    leaveMenu(Modes::updateCurMode(&m_previewMode));
-  }
 }
 
 void ModeSharing::showSendMode()
@@ -162,12 +158,6 @@ void ModeSharing::showReceiveMode()
     Leds::setIndex(LED_0, RGBColor(0, VLReceiver::percentReceived(), 0));
     Leds::clearIndex(LED_1);
   } else {
-    if (m_advanced) {
-      m_previewMode.play();
-      // don't play on LED 1 so that it doesn't interfere
-      Leds::clearIndex(LED_1);
-    } else {
-      Leds::setAll(RGB_WHITE0);
-    }
+    Leds::setAll(RGB_WHITE0);
   }
 }
