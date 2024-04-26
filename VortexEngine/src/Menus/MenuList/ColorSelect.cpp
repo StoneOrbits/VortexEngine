@@ -94,7 +94,7 @@ void ColorSelect::onLedSelected()
   if (m_targetLeds == MAP_LED_ALL) {
     m_colorset = cur->getColorset();
   } else {
-    m_colorset = cur->getColorset(mapGetFirstLed(m_targetLeds));
+    m_colorset = cur->getColorset(ledmapGetFirstLed(m_targetLeds));
   }
 }
 
@@ -188,7 +188,7 @@ void ColorSelect::showSlotSelection()
   const RGBColor &col = m_colorset[m_curSelection];
   if (withinNumColors && holdDurationCheck && holdDurationModCheck) {
     // breath red for delete slot
-    Leds::breathIndex(LED_ALL, 0, holdDur);
+    Leds::breatheIndex(LED_ALL, 0, holdDur);
   } else if (withinNumColors) {
     if (col.empty()) {
       Leds::setAll(RGB_WHITE0);
@@ -223,10 +223,10 @@ void ColorSelect::showSelection(ColorSelectState mode)
   case STATE_PICK_HUE1:
     hue = m_curSelection * (255 / 4);
     MAP_FOREACH_LED(MAP_PAIR_EVENS) {
-      Leds::breathIndex(pos, hue, (now / 2), 22, 255, 180);
+      Leds::breatheIndex(pos, hue, (now / 2), 22, 255, 180);
     }
     MAP_FOREACH_LED(MAP_PAIR_ODDS) {
-      Leds::breathIndex(pos, hue, (now / 2) + 125, 22, 255, 180);
+      Leds::breatheIndex(pos, hue, (now / 2) + 125, 22, 255, 180);
     }
     // force sat at hue level1
     sat = 255;
