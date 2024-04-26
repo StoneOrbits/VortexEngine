@@ -41,7 +41,9 @@ bool Randomizer::init()
     ByteStream ledData;
     Pattern *pat = cur->getPattern(LED_MULTI);
     if (pat) {
-      pat->serialize(ledData);
+      if (!pat->serialize(ledData)) {
+        return false;
+      }
     }
     m_multiRandCtx.seed(ledData.recalcCRC());
   }
@@ -52,7 +54,9 @@ bool Randomizer::init()
     ByteStream ledData;
     Pattern *pat = cur->getPattern(l);
     if (pat) {
-      pat->serialize(ledData);
+      if (!pat->serialize(ledData)) {
+        return false;
+      }
     }
     m_singlesRandCtx[l].seed(ledData.recalcCRC());
   }

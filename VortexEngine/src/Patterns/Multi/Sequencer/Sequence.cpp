@@ -64,19 +64,25 @@ PatternID PatternMap::operator[](LedPos index) const
   return m_patterns[index];
 }
 
-void PatternMap::serialize(ByteStream &buffer) const
+bool PatternMap::serialize(ByteStream &buffer) const
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
     // ensure the PatternID is interpreted as uint8_t
-    buffer.serialize((uint8_t)m_patterns[i]);
+    if (!buffer.serialize8((uint8_t)m_patterns[i])) {
+      return false;
+    }
   }
+  return true;
 }
 
-void PatternMap::unserialize(ByteStream &buffer)
+bool PatternMap::unserialize(ByteStream &buffer)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    buffer.unserialize((uint8_t *)m_patterns.data() + i);
+    if (!buffer.unserialize8((uint8_t *)m_patterns.data() + i)) {
+      return false;
+    }
   }
+  return true;
 }
 
 ColorsetMap::ColorsetMap(VortexEngine &engine) :
@@ -126,18 +132,24 @@ const Colorset &ColorsetMap::operator[](LedPos index) const
   return m_colorsets[index];
 }
 
-void ColorsetMap::serialize(ByteStream &buffer) const
+bool ColorsetMap::serialize(ByteStream &buffer) const
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    m_colorsets[i].serialize(buffer);
+    if (!m_colorsets[i].serialize(buffer)) {
+      return false;
+    }
   }
+  return true;
 }
 
-void ColorsetMap::unserialize(ByteStream &buffer)
+bool ColorsetMap::unserialize(ByteStream &buffer)
 {
   for (LedPos i = LED_FIRST; i < LED_COUNT; ++i) {
-    m_colorsets[i].unserialize(buffer);
+    if (!m_colorsets[i].unserialize(buffer)) {
+      return false;
+    }
   }
+  return true;
 }
 
 // Make an array of sequence steps to create a sequenced pattern
@@ -176,18 +188,32 @@ bool SequenceStep::operator!=(const SequenceStep &other) const
   return !(*this == other);
 }
 
-void SequenceStep::serialize(ByteStream &buffer) const
+bool SequenceStep::serialize(ByteStream &buffer) const
 {
-  buffer.serialize(m_duration);
-  m_patternMap.serialize(buffer);
-  m_colorsetMap.serialize(buffer);
+  if (!buffer.serialize16(m_duration)) {
+    return false;
+  }
+  if (!m_patternMap.serialize(buffer)) {
+    return false;
+  }
+  if (!m_colorsetMap.serialize(buffer)) {
+    return false;
+  }
+  return true;
 }
 
-void SequenceStep::unserialize(ByteStream &buffer)
+bool SequenceStep::unserialize(ByteStream &buffer)
 {
-  buffer.unserialize(&m_duration);
-  m_patternMap.unserialize(buffer);
-  m_colorsetMap.unserialize(buffer);
+  if (!buffer.unserialize16(&m_duration)) {
+    return false;
+  }
+  if (!m_patternMap.unserialize(buffer)) {
+    return false;
+  }
+  if (!m_colorsetMap.unserialize(buffer)) {
+    return false;
+  }
+  return true;
 }
 
 Sequence::Sequence(VortexEngine &engine) :
@@ -255,24 +281,34 @@ void Sequence::clear()
   m_sequenceSteps.clear();
 }
 
-void Sequence::serialize(ByteStream &buffer) const
+bool Sequence::serialize(ByteStream &buffer) const
 {
   uint8_t numSteps = (uint8_t)m_sequenceSteps.size();
-  buffer.serialize(numSteps);
-  for (uint8_t i = 0; i < numSteps; ++i) {
-    m_sequenceSteps[i].serialize(buffer);
+  if (!buffer.serialize8(numSteps)) {
+    return false;
   }
+  for (uint8_t i = 0; i < numSteps; ++i) {
+    if (!m_sequenceSteps[i].serialize(buffer)) {
+      return false;
+    }
+  }
+  return true;
 }
 
-void Sequence::unserialize(ByteStream &buffer)
+bool Sequence::unserialize(ByteStream &buffer)
 {
   uint8_t numSteps = 0;
-  buffer.unserialize(&numSteps);
+  if (!buffer.unserialize8(&numSteps)) {
+    return false;
+  }
   m_sequenceSteps.clear();
   m_sequenceSteps.reserve(numSteps);
   for (uint8_t i = 0; i < m_sequenceSteps.size(); ++i) {
-    m_sequenceSteps[i].unserialize(buffer);
+    if (!m_sequenceSteps[i].unserialize(buffer)) {
+      return false;
+    }
   }
+  return true;
 }
 
 uint8_t Sequence::numSteps() const

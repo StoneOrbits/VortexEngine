@@ -341,7 +341,7 @@ bool ByteStream::isCRCDirty() const
   return (m_pData && (m_pData->flags & BUFFER_FLAG_DIRTY) != 0);
 }
 
-bool ByteStream::serialize(uint8_t byte)
+bool ByteStream::serialize8(uint8_t byte)
 {
   //DEBUG_LOGF("Serialize8(): %u", byte);
   if (!m_pData || (m_pData->size + sizeof(uint8_t)) > m_capacity) {
@@ -357,7 +357,7 @@ bool ByteStream::serialize(uint8_t byte)
   return true;
 }
 
-bool ByteStream::serialize(uint16_t bytes)
+bool ByteStream::serialize16(uint16_t bytes)
 {
   //DEBUG_LOGF("Serialize16(): %u", bytes);
   if (!m_pData || (m_pData->size + sizeof(uint16_t)) > m_capacity) {
@@ -373,7 +373,7 @@ bool ByteStream::serialize(uint16_t bytes)
   return true;
 }
 
-bool ByteStream::serialize(uint32_t bytes)
+bool ByteStream::serialize32(uint32_t bytes)
 {
   //DEBUG_LOGF("Serialize32(): %u", bytes);
   if (!m_pData || (m_pData->size + sizeof(uint32_t)) > m_capacity) {
@@ -417,7 +417,7 @@ bool ByteStream::unserializerAtEnd() const
 }
 
 // unserialize data and walk the buffer that many bytes
-bool ByteStream::unserialize(uint8_t *byte)
+bool ByteStream::unserialize8(uint8_t *byte)
 {
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint8_t)) {
     return false;
@@ -428,7 +428,7 @@ bool ByteStream::unserialize(uint8_t *byte)
   return true;
 }
 
-bool ByteStream::unserialize(uint16_t *bytes)
+bool ByteStream::unserialize16(uint16_t *bytes)
 {
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint16_t)) {
     return false;
@@ -439,7 +439,7 @@ bool ByteStream::unserialize(uint16_t *bytes)
   return true;
 }
 
-bool ByteStream::unserialize(uint32_t *bytes)
+bool ByteStream::unserialize32(uint32_t *bytes)
 {
   if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint32_t)) {
     return false;
@@ -448,27 +448,6 @@ bool ByteStream::unserialize(uint32_t *bytes)
   //DEBUG_LOGF("Unserialize32(): %u", *bytes);
   m_position += sizeof(uint32_t);
   return true;
-}
-
-uint8_t ByteStream::unserialize8()
-{
-  uint8_t byte = 0;
-  unserialize(&byte);
-  return byte;
-}
-
-uint16_t ByteStream::unserialize16()
-{
-  uint16_t bytes = 0;
-  unserialize(&bytes);
-  return bytes;
-}
-
-uint32_t ByteStream::unserialize32()
-{
-  uint32_t bytes = 0;
-  unserialize(&bytes);
-  return bytes;
 }
 
 uint8_t ByteStream::peek8() const
@@ -493,33 +472,6 @@ uint32_t ByteStream::peek32() const
     return 0;
   }
   return *(uint32_t *)frontUnserializer();
-}
-
-// read the data from a flash storage
-// overload += for appending buffer
-ByteStream &ByteStream::operator+=(const ByteStream &rhs)
-{
-  append(rhs);
-  return *this;
-}
-
-// also overload += for appending bytes
-ByteStream &ByteStream::operator+=(const uint8_t &rhs)
-{
-  serialize(rhs);
-  return *this;
-}
-
-ByteStream &ByteStream::operator+=(const uint16_t &rhs)
-{
-  serialize(rhs);
-  return *this;
-}
-
-ByteStream &ByteStream::operator+=(const uint32_t &rhs)
-{
-  serialize(rhs);
-  return *this;
 }
 
 bool ByteStream::is_compressed() const
