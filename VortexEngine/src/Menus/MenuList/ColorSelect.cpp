@@ -80,7 +80,7 @@ Menu::MenuAction ColorSelect::run()
     if (m_targetLeds == MAP_LED_ALL) {
       m_colorset = Modes::curMode()->getColorset();
     } else {
-      m_colorset = Modes::curMode()->getColorset(mapGetFirstLed(m_targetLeds));
+      m_colorset = Modes::curMode()->getColorset(ledmapGetFirstLed(m_targetLeds));
     }
     // move on to picking slot
     m_state = STATE_PICK_SLOT;
@@ -110,7 +110,7 @@ void ColorSelect::onLedSelected()
   if (m_targetLeds == MAP_LED_ALL) {
     m_colorset = cur->getColorset();
   } else {
-    m_colorset = cur->getColorset(mapGetFirstLed(m_targetLeds));
+    m_colorset = cur->getColorset(ledmapGetFirstLed(m_targetLeds));
   }
 }
 
@@ -302,7 +302,7 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       // if we're pressing down on a slot then glow the tip white/red
       if ((g_pButton->holdDuration() % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS) {
         // breath red instead of white blink
-        Leds::breathIndex(fingerTip(m_curSelection), 0, g_pButton->holdDuration());
+        Leds::breatheIndex(fingerTip(m_curSelection), 0, g_pButton->holdDuration());
         return;
       }
     }

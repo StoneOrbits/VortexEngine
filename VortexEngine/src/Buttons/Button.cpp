@@ -42,7 +42,7 @@ bool Button::init(uint8_t pin)
   m_releaseDuration = 0;
   m_consecutivePresses = 0;
   m_releaseCount = 0;
-  m_buttonState = check();
+  m_buttonState = false;
   m_newPress = false;
   m_newRelease = false;
   m_isPressed = m_buttonState;
