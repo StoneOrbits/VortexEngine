@@ -28,7 +28,7 @@ PatternMap::PatternMap(PatternID pattern, LedMap positions) :
 void PatternMap::setPatternAt(PatternID pattern, LedMap positions)
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    if (checkLed(positions, pos)) {
+    if (ledmapCheckLed(positions, pos)) {
       m_patternMap[pos] = pattern;
     }
   }
@@ -69,7 +69,7 @@ ColorsetMap::ColorsetMap(const Colorset &colorset, LedMap positions) :
 void ColorsetMap::setColorsetAt(const Colorset &colorset, LedMap positions)
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    if (checkLed(positions, pos)) {
+    if (ledmapCheckLed(positions, pos)) {
       m_colorsetMap[pos] = colorset;
     }
   }

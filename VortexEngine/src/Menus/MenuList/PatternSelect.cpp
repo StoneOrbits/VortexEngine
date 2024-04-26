@@ -110,7 +110,7 @@ void PatternSelect::nextPattern()
 {
   LedPos srcLed = LED_MULTI;
   if (!m_previewMode.isMultiLed()) {
-    srcLed = mapGetFirstLed(m_targetLeds);
+    srcLed = ledmapGetFirstLed(m_targetLeds);
   }
   PatternID newID = (PatternID)(m_previewMode.getPatternID(srcLed) + 1);
   PatternID endList = PATTERN_SINGLE_LAST;
@@ -146,7 +146,7 @@ void PatternSelect::previousPattern()
 {
   LedPos srcLed = LED_MULTI;
   if (!m_previewMode.isMultiLed()) {
-    srcLed = mapGetFirstLed(m_targetLeds);
+    srcLed = ledmapGetFirstLed(m_targetLeds);
   }
   PatternID newID = (PatternID)(m_previewMode.getPatternID(srcLed) - 1);
   PatternID endList = PATTERN_SINGLE_LAST;

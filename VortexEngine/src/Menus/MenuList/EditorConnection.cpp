@@ -72,6 +72,7 @@ Menu::MenuAction EditorConnection::run()
   if (result != MENU_CONTINUE) {
     return result;
   }
+  // TODO: auto leave the editor menu when unplugged
   // show the editor
   showEditor();
   // receive any data from serial into the receive buffer

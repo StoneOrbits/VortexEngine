@@ -82,7 +82,7 @@ Menu::MenuAction ColorSelect::run()
     if (m_targetLeds == MAP_LED_ALL) {
       m_colorset = Modes::curMode()->getColorset();
     } else {
-      m_colorset = Modes::curMode()->getColorset(mapGetFirstLed(m_targetLeds));
+      m_colorset = Modes::curMode()->getColorset(ledmapGetFirstLed(m_targetLeds));
     }
     // move on to picking slot
     m_state = STATE_PICK_SLOT;
@@ -214,7 +214,7 @@ void ColorSelect::onLongClick()
       // checking if the colorset has changed because it's
       // not worth the effort
       needsSave = (!MAP_IS_ONE_LED(m_targetLeds) ||
-        !m_colorset.equals(cur->getColorset(mapGetFirstLed(m_targetLeds))));
+        !m_colorset.equals(cur->getColorset(ledmapGetFirstLed(m_targetLeds))));
       // if we need to save, then actually update the colorset
       if (needsSave) {
         // save the colorset

@@ -25,17 +25,17 @@ public:
   static void setAll(RGBColor col);
 
   // Turn off individual LEDs, these are appropriate to use in internal pattern logic
-  static void clearIndex(LedPos target) { setIndex(target, HSV_OFF); }
-  static void clearRange(LedPos first, LedPos last) { setRange(first, last, HSV_OFF); }
-  static void clearAll() { setAll(HSV_OFF); }
+  static void clearIndex(LedPos target) { setIndex(target, RGB_OFF); }
+  static void clearRange(LedPos first, LedPos last) { setRange(first, last, RGB_OFF); }
+  static void clearAll() { setAll(RGB_OFF); }
 
   // control two LEDs on a pair, these are appropriate for use in internal pattern logic
   static void setPair(Pair pair, RGBColor col);
   static void setPairs(Pair first, Pair last, RGBColor col);
 
   // Turn off both LEDs on a pair, these are appropriate for use in internal pattern logic
-  static void clearPair(Pair pair) { setPair(pair, HSV_OFF); }
-  static void clearPairs(Pair first, Pair last) { setPairs(first, last, HSV_OFF); }
+  static void clearPair(Pair pair) { setPair(pair, RGB_OFF); }
+  static void clearPairs(Pair first, Pair last) { setPairs(first, last, RGB_OFF); }
 
   // control all evens/odds
   static void setAllEvens(RGBColor col);
@@ -89,6 +89,7 @@ public:
   // threshold that makes them unsuitable for internal pattern usage because it
   // is unpredictable whether they will blink on or off first
   static void blinkIndexOffset(LedPos target, uint32_t time, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
+  static void blinkRangeOffset(LedPos first, LedPos last, uint32_t time, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkIndex(LedPos target, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkRange(LedPos first, LedPos last, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkQuadrantOffset(Quadrant target, uint32_t time, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
@@ -102,11 +103,13 @@ public:
 
   // breath the hue on an index
   // warning: these use hsv to rgb in realtime!
-  static void breathIndex(LedPos target, uint8_t hue, uint32_t variance,
+  static void breatheIndex(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  static void breathIndexSat(LedPos target, uint8_t hue, uint32_t variance,
+  static void breatheRange(LedPos first, LedPos last, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  static void breathIndexVal(LedPos target, uint8_t hue, uint32_t variance,
+  static void breatheIndexSat(LedPos target, uint8_t hue, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
+  static void breatheIndexVal(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
   static void breathQuadrant(Quadrant target, uint32_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
