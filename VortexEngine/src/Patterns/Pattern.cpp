@@ -54,7 +54,7 @@ void Pattern::skip(uint32_t ticks)
 #endif
 
 // must override the serialize routine to save the pattern
-void Pattern::serialize(ByteStream &buffer) const
+bool Pattern::serialize(ByteStream &buffer) const
 {
   if (!buffer.serialize8((uint8_t)m_patternID)) {
     return false;
@@ -72,7 +72,10 @@ void Pattern::serialize(ByteStream &buffer) const
       ARGMAP_SET(argmap, i);
     }
   }
-  args.serialize(buffer, argmap);
+  if (!args.serialize(buffer, argmap)) {
+    return false;
+  }
+  return true;
 }
 
 // must override unserialize to load patterns

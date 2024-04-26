@@ -171,7 +171,7 @@ uint8_t PatternArgs::operator[](int index) const
   return args[index];
 }
 
-void PatternArgs::serialize(ByteStream &buffer, ArgMap argmap) const
+bool PatternArgs::serialize(ByteStream &buffer, ArgMap argmap) const
 {
   if (!buffer.serialize8(argmap)) {
     return false;
@@ -183,6 +183,7 @@ void PatternArgs::serialize(ByteStream &buffer, ArgMap argmap) const
       }
     }
   }
+  return true;
 }
 
 ArgMap PatternArgs::unserialize(ByteStream &buffer)

@@ -218,7 +218,7 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
   return true;
 }
 
-void Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
+bool Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
 {
   if (!numLeds) {
     numLeds = MODE_LEDCOUNT;
@@ -229,7 +229,7 @@ void Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
   }
   // empty mode?
   if (!numLeds) {
-    return;
+    return true;
   }
   // serialize the flags
   ModeFlags flags = getFlags();
@@ -245,7 +245,7 @@ void Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
 #endif
   // if no single leds then just stop here
   if (!(flags & MODE_FLAG_SINGLE_LED)) {
-    return;
+    return true;
   }
   // if there are any sparse singles (spaces) then we need to
   // serialize an led map of which singles are set
@@ -261,12 +261,15 @@ void Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
       continue;
     }
     // just serialize the pattern then colorset
-    entry->serialize(buffer);
+    if (!entry->serialize(buffer)) {
+      return false;
+    }
     // if they are all same single then only serialize one
     if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
       break;
     }
   }
+  return true;
 }
 
 // this is a hairy function, but a bit of a necessary complexity
