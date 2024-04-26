@@ -185,7 +185,7 @@ void VortexEngine::runMainLogic()
   }
 
   // toggle auto cycle mode with many clicks at main modes
-  if (g_pButton->onConsecutivePresses(AUTO_CYCLE_MODES_CLICKS)) {
+  if ((g_pButton->onRelease() && m_autoCycle) || g_pButton->onConsecutivePresses(AUTO_CYCLE_MODES_CLICKS)) {
     m_autoCycle = !m_autoCycle;
     Leds::holdAll(m_autoCycle ? RGB_GREEN : RGB_RED);
   }
