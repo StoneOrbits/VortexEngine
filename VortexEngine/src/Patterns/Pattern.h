@@ -76,8 +76,8 @@ public:
 #endif
 
   // serialize and unserialize a pattern to a bytestream
-  void serialize(ByteStream &buffer) const;
-  void unserialize(ByteStream &buffer);
+  bool serialize(ByteStream &buffer) const;
+  bool unserialize(ByteStream &buffer);
 
   // get or set a single arg
   void setArg(uint8_t index, uint8_t value);

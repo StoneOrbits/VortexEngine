@@ -135,7 +135,7 @@ void SerialComs::read(ByteStream &byteStream)
 #else
     byte = Serial.read();
 #endif
-    byteStream.serialize(byte);
+    byteStream.serialize8(byte);
   } while (--amt > 0);
 #endif
 }

@@ -85,11 +85,11 @@ bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
   }
   // NOTE: instead of global brightness the duo uses this to store the
   //       startup mode ID. The duo doesn't offer a global brightness option
-  if (!saveBuffer.serialize(m_globalFlags)) {
+  if (!saveBuffer.serialize8(m_globalFlags)) {
     return false;
   }
   // serialize the global brightness
-  if (!saveBuffer.serialize((uint8_t)m_engine.leds().getBrightness())) {
+  if (!saveBuffer.serialize8((uint8_t)m_engine.leds().getBrightness())) {
     return false;
   }
   DEBUG_LOGF("Serialized all modes, uncompressed size: %u", saveBuffer.size());
@@ -103,8 +103,12 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
-  saveHeader.unserialize(&major);
-  saveHeader.unserialize(&minor);
+  if (!saveHeader.unserialize8(&major)) {
+    return false;
+  }
+  if (!saveHeader.unserialize8(&minor)) {
+    return false;
+  }
   // check the version for incompatibility
   if (!m_engine.checkVersion(major, minor)) {
     // incompatible version
@@ -114,10 +118,14 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   // NOTE: instead of global brightness the duo uses this to store the
   //       startup mode ID. The duo doesn't offer a global brightness option
   // unserialize the global brightness
-  saveHeader.unserialize(&m_globalFlags);
+  if (!saveHeader.unserialize8(&m_globalFlags)) {
+    return false;
+  }
   // unserialize the global brightness
   uint8_t brightness = 0;
-  saveHeader.unserialize(&brightness);
+  if (!saveHeader.unserialize8(&brightness)) {
+    return false;
+  }
   if (brightness) {
     m_engine.leds().setBrightness(brightness);
   }
@@ -185,7 +193,9 @@ bool Modes::loadStorage()
   }
   // unserialize the number of modes next
   uint8_t numModes = 0;
-  headerBuffer.unserialize(&numModes);
+  if (!headerBuffer.unserialize8(&numModes)) {
+    return false;
+  }
   if (!numModes) {
     DEBUG_LOG("Did not find any modes");
     // this kinda sucks whatever they had loaded is gone
@@ -212,7 +222,7 @@ bool Modes::saveStorage()
     return false;
   }
   // serialize the number of modes
-  if (!headerBuffer.serialize(m_numModes)) {
+  if (!headerBuffer.serialize8(m_numModes)) {
     return false;
   }
   if (!m_engine.storage().write(0, headerBuffer)) {
@@ -235,7 +245,9 @@ bool Modes::saveStorage()
       return false;
     }
     // serialize it into the target modes buffer
-    mode->serialize(modeBuffer);
+    if (!mode->serialize(modeBuffer)) {
+      return false;
+    }
     // just uninstansiate the mode after serializing
     ptr->uninstantiate();
     // next mode
@@ -257,7 +269,7 @@ bool Modes::saveStorage()
 bool Modes::serialize(ByteStream &modesBuffer)
 {
   // serialize the number of modes
-  if (!modesBuffer.serialize(m_numModes)) {
+  if (!modesBuffer.serialize8(m_numModes)) {
     return false;
   }
   // make sure the current mode is saved in case it has changed somehow
@@ -275,7 +287,9 @@ bool Modes::serialize(ByteStream &modesBuffer)
       return false;
     }
     // serialize it into the target modes buffer
-    mode->serialize(modesBuffer);
+    if (!mode->serialize(modesBuffer)) {
+      return false;
+    }
     // just uninstansiate the mode after serializing
     ptr->uninstantiate();
     // next mode
@@ -298,7 +312,9 @@ bool Modes::unserialize(ByteStream &modesBuffer)
   clearModes();
   // unserialize the number of modes next
   uint8_t numModes = 0;
-  modesBuffer.unserialize(&numModes);
+  if (!modesBuffer.unserialize8(&numModes)) {
+    return false;
+  }
   if (!numModes) {
     DEBUG_LOG("Did not find any modes");
     // this kinda sucks whatever they had loaded is gone

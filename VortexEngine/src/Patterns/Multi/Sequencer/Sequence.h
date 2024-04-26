@@ -29,8 +29,8 @@ public:
   PatternID operator[](LedPos index) const;
 
   // serialize and unserialize a pattern map
-  void serialize(ByteStream &buffer) const;
-  void unserialize(ByteStream &buffer);
+  bool serialize(ByteStream &buffer) const;
+  bool unserialize(ByteStream &buffer);
 
   // engine reference
   VortexEngine &m_engine;
@@ -56,8 +56,8 @@ public:
   const Colorset &operator[](LedPos index) const;
 
   // serialize and unserialize a colorset map
-  void serialize(ByteStream &buffer) const;
-  void unserialize(ByteStream &buffer);
+  bool serialize(ByteStream &buffer) const;
+  bool unserialize(ByteStream &buffer);
 
   // engine reference
   VortexEngine &m_engine;
@@ -79,8 +79,8 @@ public:
   bool operator!=(const SequenceStep &other) const;
 
   // serialize and unserialize a step in the sequencer
-  void serialize(ByteStream &buffer) const;
-  void unserialize(ByteStream &buffer);
+  bool serialize(ByteStream &buffer) const;
+  bool unserialize(ByteStream &buffer);
 
   // engine reference
   VortexEngine &m_engine;
@@ -110,8 +110,8 @@ public:
   uint8_t addStep(uint16_t duration, const PatternMap &patternMap, const ColorsetMap &colorsetMap);
   void clear();
 
-  void serialize(ByteStream &buffer) const;
-  void unserialize(ByteStream &buffer);
+  bool serialize(ByteStream &buffer) const;
+  bool unserialize(ByteStream &buffer);
 
   uint8_t numSteps() const;
   const SequenceStep &operator[](uint8_t index) const;
