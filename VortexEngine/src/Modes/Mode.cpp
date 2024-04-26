@@ -178,10 +178,10 @@ void Mode::play()
 
 bool Mode::saveToBuffer(ByteStream &modeBuffer, uint8_t numLeds) const
 {
-  // serialize the engine version and mode data into the modeBuffer
-  if (!VortexEngine::serializeVersion(modeBuffer) || !serialize(modeBuffer, numLeds)) {
-    return false;
-  }
+  // serialize the engine version into the modes buffer
+  VortexEngine::serializeVersion(modeBuffer);
+  // serialize all mode data into the modeBuffer
+  serialize(modeBuffer, numLeds);
   DEBUG_LOGF("Serialized mode, uncompressed size: %u", modeBuffer.size());
   return modeBuffer.compress();
 }
@@ -218,7 +218,7 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
   return true;
 }
 
-bool Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
+void Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
 {
   if (!numLeds) {
     numLeds = MODE_LEDCOUNT;
@@ -229,7 +229,7 @@ bool Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
   }
   // empty mode?
   if (!numLeds) {
-    return true;
+    return;
   }
   // serialize the flags
   ModeFlags flags = getFlags();
@@ -240,14 +240,12 @@ bool Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
   // serialiaze the multi led?
   if ((flags & MODE_FLAG_MULTI_LED) && m_multiPat) {
     // serialize the multi led
-    if (!m_multiPat->serialize(buffer)) {
-      return false;
-    }
+    m_multiPat->serialize(buffer);
   }
 #endif
   // if no single leds then just stop here
   if (!(flags & MODE_FLAG_SINGLE_LED)) {
-    return true;
+    return;
   }
   // if there are any sparse singles (spaces) then we need to
   // serialize an led map of which singles are set
@@ -263,15 +261,12 @@ bool Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
       continue;
     }
     // just serialize the pattern then colorset
-    if (!entry->serialize(buffer)) {
-      return false;
-    }
+    entry->serialize(buffer);
     // if they are all same single then only serialize one
     if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
       break;
     }
   }
-  return true;
 }
 
 // this is a hairy function, but a bit of a necessary complexity

@@ -450,7 +450,7 @@ bool Colorset::onEnd() const
   return (m_curIndex == m_numColors - 1);
 }
 
-bool Colorset::serialize(ByteStream &buffer) const
+void Colorset::serialize(ByteStream &buffer) const
 {
   if (!buffer.serialize8(m_numColors)) {
     return false;
@@ -472,7 +472,6 @@ bool Colorset::serialize(ByteStream &buffer) const
       return false;
     }
   }
-  return true;
 }
 
 bool Colorset::unserialize(ByteStream &buffer)

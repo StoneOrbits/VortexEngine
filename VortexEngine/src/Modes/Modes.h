@@ -148,6 +148,12 @@ public:
     return getFlag(MODES_FLAG_KEYCHAIN);
   }
 
+  // certain modes are blocked for various reasons :)
+  static bool isBlocked() {
+    return (m_curMode == (MAX_MODES - 1) && !advancedMenusEnabled());
+  }
+
+
 #if MODES_TEST == 1
   static void test();
 #endif
