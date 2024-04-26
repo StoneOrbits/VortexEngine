@@ -17,127 +17,127 @@ mwlcw300cw300cw300q                  | Cycle bulbs in Randomizer                
 mwllcw300q                           | Randomize All Bulbs                                             | enter randomizer select all bulbs randomize
 mwllcw100lw300q                      | Save Randomization to All Bulbs                                 | enter randomizer select all bulbs randomize save
 mwllr3w3000q                         | Start Auto-randomizer All Bulbs                                 | enter randomizer select all bulbs start auto-randomizer
-mwllr3w3000r3w3000q                  | Stop Auto-randomizer All Bulbs                                  | enter randomizer select all bulbs stop auto-randomizer
+mwllr3w3000cw3000q                   | Stop Auto-randomizer All Bulbs                                  | enter randomizer select all bulbs stop auto-randomizer
 mwlclcw300q                          | Randomize Multi Led                                             | enter randomizer select multi led randomize
 mlclw100cw100lw300q                  | Save Randomization to Multi Led                                 | enter randomizer select multi led randomize save
 mlclr3w5000q                         | Start Auto-randomizer Multi Led                                 | enter randomizer select multi led start auto-randomizer
-mlclr3w3000r3w3000q                  | Stop Auto-randomizer Multi Led                                  | enter randomizer select multi led stop auto-randomizer
+mlclr3w3000cw3000q                   | Stop Auto-randomizer Multi Led                                  | enter randomizer select multi led stop auto-randomizer
 mlc2lcw300q                          | Randomize All Tips                                              | enter randomizer select all tips randomize
 mlc2lw100cw100lw300q                 | Save Randomization to All Tips                                  | enter randomizer select all tips randomize save
 mlc2lr3w5000q                        | Start Auto-randomizer All Tips                                  | enter randomizer select all tips start auto-randomizer
-mlc2lr3w3000r3w3000q                 | Stop Auto-randomizer All Tips                                   | enter randomizer select all tips stop auto-randomizer
+mlc2lr3w3000cw3000q                  | Stop Auto-randomizer All Tips                                   | enter randomizer select all tips stop auto-randomizer
 mlc3lcw300q                          | Randomize All Tops                                              | enter randomizer select all tops randomize
 mlc3lw100cw100lw300q                 | Save Randomization to All Tops                                  | enter randomizer select all tops randomize save
 mlc3lr3w5000q                        | Start Auto-randomizer All Tops                                  | enter randomizer select all tops start auto-randomizer
-mlc3lr3w3000r3w3000q                 | Stop Auto-randomizer All Tops                                   | enter randomizer select all tops stop auto-randomizer
+mlc3lr3w3000cw3000q                  | Stop Auto-randomizer All Tops                                   | enter randomizer select all tops stop auto-randomizer
 mlc4lcw300q                          | Randomize All Odd Fingers                                       | enter randomizer select odd fingers randomize
 mlc4lw100cw100lw300q                 | Save Randomization to All Odd Fingers                           | enter randomizer select odd fingers randomize save
 mlc4lr3w5000q                        | Start Auto-randomizer All Odd Fingers                           | enter randomizer select odd fingers start auto-randomizer
-mlc4lr3w3000r3w3000q                 | Stop Auto-randomizer All Odd Fingers                            | enter randomizer select odd fingers stop auto-randomizer
+mlc4lr3w3000cw3000q                  | Stop Auto-randomizer All Odd Fingers                            | enter randomizer select odd fingers stop auto-randomizer
 mlc5lcw300q                          | Randomize All Even Fingers                                      | enter randomizer select even fingers randomize
 mlc5lw100cw100lw300q                 | Save Randomization to All Even Fingers                          | enter randomizer select even fingers randomize save
 mlc5lr3w5000q                        | Start Auto-randomizer All Even Fingers                          | enter randomizer select even fingers start auto-randomizer
-mlc5lr3w3000r3w3000q                 | Stop Auto-randomizer All Even Fingers                           | enter randomizer select even fingers stop auto-randomizer
+mlc5lr3w3000cw3000q                  | Stop Auto-randomizer All Even Fingers                           | enter randomizer select even fingers stop auto-randomizer
 mlc6lcw300q                          | Randomize Thumb                                                 | enter randomizer select thumb randomize
 mlc6lw100cw100lw300q                 | Save Randomization to Thumb                                     | enter randomizer select thumb randomize save
 mlc6lr3w5000q                        | Start Auto-randomizer Thumb                                     | enter randomizer select thumb start auto-randomizer
-mlc6lr3w3000r3w3000q                 | Stop Auto-randomizer Thumb                                      | enter randomizer select thumb stop auto-randomizer
+mlc6lr3w3000cw3000q                  | Stop Auto-randomizer Thumb                                      | enter randomizer select thumb stop auto-randomizer
 mlc7lcw300q                          | Randomize Index                                                 | enter randomizer select index randomize
 mlc7lw100cw100lw300q                 | Save Randomization to Index                                     | enter randomizer select index randomize save
 mlc7lr3w5000q                        | Start Auto-randomizer Index                                     | enter randomizer select index start auto-randomizer
-mlc7lr3w3000r3w3000q                 | Stop Auto-randomizer Index                                      | enter randomizer select index stop auto-randomizer
+mlc7lr3w3000cw3000q                  | Stop Auto-randomizer Index                                      | enter randomizer select index stop auto-randomizer
 mlc8lcw300q                          | Randomize Middle                                                | enter randomizer select middle randomize
 mlc8lw100cw100lw300q                 | Save Randomization to Middle                                    | enter randomizer select middle randomize save
 mlc8lr3w5000q                        | Start Auto-randomizer Middle                                    | enter randomizer select middle start auto-randomizer
-mlc8lr3w3000r3w3000q                 | Stop Auto-randomizer Middle                                     | enter randomizer select middle stop auto-randomizer
+mlc8lr3w3000cw3000q                  | Stop Auto-randomizer Middle                                     | enter randomizer select middle stop auto-randomizer
 mlc9lcw300q                          | Randomize Ring                                                  | enter randomizer select ring randomize
 mlc9lw100cw100lw300q                 | Save Randomization to Ring                                      | enter randomizer select ring randomize save
 mlc9lr3w5000q                        | Start Auto-randomizer Ring                                      | enter randomizer select ring start auto-randomizer
-mlc9lr3w3000r3w3000q                 | Stop Auto-randomizer Ring                                       | enter randomizer select ring stop auto-randomizer
+mlc9lr3w3000cw3000q                  | Stop Auto-randomizer Ring                                       | enter randomizer select ring stop auto-randomizer
 mlc10lcw300q                         | Randomize Pinky                                                 | enter randomizer select pinky randomize
 mlc10lw100cw100lw300q                | Save Randomization to Pinky                                     | enter randomizer select pinky randomize save
 mlc10lr3w5000q                       | Start Auto-randomizer Pinky                                     | enter randomizer select pinky start auto-randomizer
-mlc10lr3w3000r3w3000q                | Stop Auto-randomizer Pinky                                      | enter randomizer select pinky stop auto-randomizer
+mlc10lr3w3000cw3000q                 | Stop Auto-randomizer Pinky                                      | enter randomizer select pinky stop auto-randomizer
 mlc11lcw300q                         | Randomize Led 9                                                 | enter randomizer select led 9 randomize
 mlc11lw100cw100lw300q                | Save Randomization to Led 9                                     | enter randomizer select led 9 randomize save
 mlc11lr3w5000q                       | Start Auto-randomizer Led 9                                     | enter randomizer select led 9 start auto-randomizer
-mlc11lr3w3000r3w3000q                | Stop Auto-randomizer Led 9                                      | enter randomizer select led 9 stop auto-randomizer
+mlc11lr3w3000cw3000q                 | Stop Auto-randomizer Led 9                                      | enter randomizer select led 9 stop auto-randomizer
 mlc12lcw300q                         | Randomize Led 8                                                 | enter randomizer select led 8 randomize
 mlc12lw100cw100lw300q                | Save Randomization to Led 8                                     | enter randomizer select led 8 randomize save
 mlc12lr3w5000q                       | Start Auto-randomizer Led 8                                     | enter randomizer select led 8 start auto-randomizer
-mlc12lr3w3000r3w3000q                | Stop Auto-randomizer Led 8                                      | enter randomizer select led 8 stop auto-randomizer
+mlc12lr3w3000cw3000q                 | Stop Auto-randomizer Led 8                                      | enter randomizer select led 8 stop auto-randomizer
 mlc13lcw300q                         | Randomize Led 7                                                 | enter randomizer select led 7 randomize
 mlc13lw100cw100lw300q                | Save Randomization to Led 7                                     | enter randomizer select led 7 randomize save
 mlc13lr3w5000q                       | Start Auto-randomizer Led 7                                     | enter randomizer select led 7 start auto-randomizer
-mlc13lr3w3000r3w3000q                | Stop Auto-randomizer Led 7                                      | enter randomizer select led 7 stop auto-randomizer
+mlc13lr3w3000cw3000q                 | Stop Auto-randomizer Led 7                                      | enter randomizer select led 7 stop auto-randomizer
 mlc14lcw300q                         | Randomize Led 6                                                 | enter randomizer select led 6 randomize
 mlc14lw100cw100lw300q                | Save Randomization to Led 6                                     | enter randomizer select led 6 randomize save
 mlc14lr3w5000q                       | Start Auto-randomizer Led 6                                     | enter randomizer select led 6 start auto-randomizer
-mlc14lr3w3000r3w3000q                | Stop Auto-randomizer Led 6                                      | enter randomizer select led 6 stop auto-randomizer
+mlc14lr3w3000cw3000q                 | Stop Auto-randomizer Led 6                                      | enter randomizer select led 6 stop auto-randomizer
 mlc15lcw300q                         | Randomize Led 5                                                 | enter randomizer select led 5 randomize
 mlc15lw100cw100lw300q                | Save Randomization to Led 5                                     | enter randomizer select led 5 randomize save
 mlc15lr3w5000q                       | Start Auto-randomizer Led 5                                     | enter randomizer select led 5 start auto-randomizer
-mlc15lr3w3000r3w3000q                | Stop Auto-randomizer Led 5                                      | enter randomizer select led 5 stop auto-randomizer
+mlc15lr3w3000cw3000q                 | Stop Auto-randomizer Led 5                                      | enter randomizer select led 5 stop auto-randomizer
 mlc16lcw300q                         | Randomize Led 4                                                 | enter randomizer select led 4 randomize
 mlc16lw100cw100lw300q                | Save Randomization to Led 4                                     | enter randomizer select led 4 randomize save
 mlc16lr3w5000q                       | Start Auto-randomizer Led 4                                     | enter randomizer select led 4 start auto-randomizer
-mlc16lr3w3000r3w3000q                | Stop Auto-randomizer Led 4                                      | enter randomizer select led 4 stop auto-randomizer
+mlc16lr3w3000cw3000q                 | Stop Auto-randomizer Led 4                                      | enter randomizer select led 4 stop auto-randomizer
 mlc17lcw300q                         | Randomize Led 3                                                 | enter randomizer select led 3 randomize
 mlc17lw100cw100lw300q                | Save Randomization to Led 3                                     | enter randomizer select led 3 randomize save
 mlc17lr3w5000q                       | Start Auto-randomizer Led 3                                     | enter randomizer select led 3 start auto-randomizer
-mlc17lr3w3000r3w3000q                | Stop Auto-randomizer Led 3                                      | enter randomizer select led 3 stop auto-randomizer
+mlc17lr3w3000cw3000q                 | Stop Auto-randomizer Led 3                                      | enter randomizer select led 3 stop auto-randomizer
 mlc18lcw300q                         | Randomize Led 2                                                 | enter randomizer select led 2 randomize
 mlc18lw100cw100lw300q                | Save Randomization to Led 2                                     | enter randomizer select led 2 randomize save
 mlc18lr3w5000q                       | Start Auto-randomizer Led 2                                     | enter randomizer select led 2 start auto-randomizer
-mlc18lr3w3000r3w3000q                | Stop Auto-randomizer Led 2                                      | enter randomizer select led 2 stop auto-randomizer
+mlc18lr3w3000cw3000q                 | Stop Auto-randomizer Led 2                                      | enter randomizer select led 2 stop auto-randomizer
 mlc19lcw300q                         | Randomize Led 1                                                 | enter randomizer select led 1 randomize
 mlc19lw100cw100lw300q                | Save Randomization to Led 1                                     | enter randomizer select led 1 randomize save
 mlc19lr3w5000q                       | Start Auto-randomizer Led 1                                     | enter randomizer select led 1 start auto-randomizer
-mlc19lr3w3000r3w3000q                | Stop Auto-randomizer Led 1                                      | enter randomizer select led 1 stop auto-randomizer
+mlc19lr3w3000cw3000q                 | Stop Auto-randomizer Led 1                                      | enter randomizer select led 1 stop auto-randomizer
 mlc20lcw300q                         | Randomize Led 0                                                 | enter randomizer select led 0 randomize
 mlc20lw100cw100lw300q                | Save Randomization to Led 0                                     | enter randomizer select led 0 randomize save
 mlc20lr3w5000q                       | Start Auto-randomizer Led 0                                     | enter randomizer select led 0 start auto-randomizer
-mlc20lr3w3000r3w3000q                | Stop Auto-randomizer Led 0                                      | enter randomizer select led 0 stop auto-randomizer
+mlc20lr3w3000cw3000q                 | Stop Auto-randomizer Led 0                                      | enter randomizer select led 0 stop auto-randomizer
 maw300c300c300c300q                  | Cycle bulbs in Adv Randomizer                                   | cycle through the bulb options in randomizer
 maw30lcw300cw300cw300q               | Cycle Randomizer Types All Bulbs                                | enter adv randomizer select all bulbs cycle randomizer types
 maw30lw30lcw300cw300q                | Randomize Color Only All Bulbs                                  | enter adv randomizer select all bulbs select color only randomize
 mallclw300q                          | Save Color Only Randomization to All Bulbs                      | enter adv randomizer select all bulbs select color only randomize save
 mallr3w5000q                         | Start Color Only Auto-randomizer All Bulbs                      | enter adv randomizer select all bulbs select color only start auto-randomizer
-mallr3w3000r3w3000q                  | Stop Color Only Auto-randomizer All Bulbs                       | enter adv randomizer select all bulbs select color only stop auto-randomizer
+mallr3w3000cw3000q                   | Stop Color Only Auto-randomizer All Bulbs                       | enter adv randomizer select all bulbs select color only stop auto-randomizer
 malclcw300cw300cw300q                | Randomize Pattern Only All Bulbs                                | enter adv randomizer select all bulbs select pattern only randomize
 malclclw300q                         | Save Pattern Only Randomization to All Bulbs                    | enter adv randomizer select all bulbs select pattern only randomize save
 malclr3w5000q                        | Start Pattern Only Auto-randomizer All Bulbs                    | enter adv randomizer select all bulbs select pattern only start auto-randomizer
-malclr3w3000r3w3000q                 | Stop Pattern Only Auto-randomizer All Bulbs                     | enter adv randomizer select all bulbs select pattern only stop auto-randomizer
+malclr3w3000cw3000q                  | Stop Pattern Only Auto-randomizer All Bulbs                     | enter adv randomizer select all bulbs select pattern only stop auto-randomizer
 malc2lcw300cw300cw300q               | Randomize Color and Pattern All Bulbs                           | enter adv randomizer select all bulbs select color and pattern randomize
 malc2lclw300q                        | Save Color and Pattern Randomization to All Bulbs               | enter adv randomizer select all bulbs select color and pattern randomize save
 malc2lr3w5000q                       | Start Color and Pattern Auto-randomizer All Bulbs               | enter adv randomizer select all bulbs select color and pattern start auto-randomizer
-malc2lr3w3000r3w3000q                | Stop Color and Pattern Auto-randomizer All Bulbs                | enter adv randomizer select all bulbs select color and pattern stop auto-randomizer
+malc2lr3w3000cw3000q                 | Stop Color and Pattern Auto-randomizer All Bulbs                | enter adv randomizer select all bulbs select color and pattern stop auto-randomizer
 maclcw300cw300cw300q                 | Cycle Randomizer Types Multi Led                                | enter adv randomizer select multi led cycle randomizer types
 macllcw300cw300cw300q                | Randomize Color Only Multi Led                                  | enter adv randomizer select multi led select color only randomize
 macllclw300q                         | Save Color Only Randomization to Multi Led                      | enter adv randomizer select multi led select color only randomize save
 macllcr3w5000q                       | Start Color Only Auto-randomizer Multi Led                      | enter adv randomizer select multi led select color only start auto-randomizer
-macllcr3w3000r3w3000q                | Stop Color Only Auto-randomizer Multi Led                       | enter adv randomizer select multi led select color only stop auto-randomizer
+macllcr3w3000cw3000q                 | Stop Color Only Auto-randomizer Multi Led                       | enter adv randomizer select multi led select color only stop auto-randomizer
 maclclcw300cw300cw300q               | Randomize Pattern Only Multi Led                                | enter adv randomizer select multi led select pattern only randomize
 maclclclw300q                        | Save Pattern Only Randomization to Multi Led                    | enter adv randomizer select multi led select pattern only randomize save
 maclclr3w5000q                       | Start Pattern Only Auto-randomizer Multi Led                    | enter adv randomizer select multi led select pattern only start auto-randomizer
-maclclr3w3000r3w3000q                | Stop Pattern Only Auto-randomizer Multi Led                     | enter adv randomizer select multi led select pattern only stop auto-randomizer
+maclclr3w3000cw3000q                 | Stop Pattern Only Auto-randomizer Multi Led                     | enter adv randomizer select multi led select pattern only stop auto-randomizer
 maclc2lcw300cw300cw300q              | Randomize Color and Pattern Multi Led                           | enter adv randomizer select multi led select color and pattern randomize
 maclc2lclw300q                       | Save Color and Pattern Randomization to Multi Led               | enter adv randomizer select multi led select color and pattern randomize save
 maclc2lr3w5000q                      | Start Color and Pattern Auto-randomizer Multi Led               | enter adv randomizer select multi led select color and pattern start auto-randomizer
-maclc2lr3w3000r3w3000q               | Stop Color and Pattern Auto-randomizer Multi Led                | enter adv randomizer select multi led select color and pattern stop auto-randomizer
+maclc2lr3w3000cw3000q                | Stop Color and Pattern Auto-randomizer Multi Led                | enter adv randomizer select multi led select color and pattern stop auto-randomizer
 mac2lcw300cw300cw300q                | Cycle Randomizer Types All Tips                                 | enter adv randomizer select all tips cycle randomizer types
 mac2llcw300cw300cw300q               | Randomize Color Only All Tips                                   | enter adv randomizer select all tips select color only randomize'
 mac2llclw300q                        | Save Color Only Randomization to All Tips                       | enter adv randomizer select all tips select color only randomize save
 mac2llr3w5000q                       | Start Color Only Auto-randomizer All Tips                       | enter adv randomizer select all tips select color only start auto-randomizer
-mac2llr3w3000r3w3000q                | Stop Color Only Auto-randomizer All Tips                        | enter adv randomizer select all tips select color only stop auto-randomizer
+mac2llr3w3000cw3000q                 | Stop Color Only Auto-randomizer All Tips                        | enter adv randomizer select all tips select color only stop auto-randomizer
 mac2lclcw300q                        | Randomize Pattern Only All Tips                                 | enter adv randomizer select all tips select pattern only randomize
 mac2lclclw300q                       | Save Pattern Only Randomization to All Tips                     | enter adv randomizer select all tips select pattern only randomize save
 mac2lclr3w5000q                      | Start Pattern Only Auto-randomizer All Tips                     | enter adv randomizer select all tips select pattern only start auto-randomizer
-mac2lclr3w3000r3w3000q               | Stop Pattern Only Auto-randomizer All Tips                      | enter adv randomizer select all tips select pattern only stop auto-randomizer
+mac2lclr3w3000cw3000q                | Stop Pattern Only Auto-randomizer All Tips                      | enter adv randomizer select all tips select pattern only stop auto-randomizer
 mac2lc2lcw300cw300cw300q             | Randomize Color and Pattern All Tips                            | enter adv randomizer select all tips select color and pattern randomize
 mac2lc2lclw300q                      | Save Color and Pattern Randomization to All Tips                | enter adv randomizer select all tips select color and pattern randomize save
 mac2lc2lr3w5000q                     | Start Color and Pattern Auto-randomizer All Tips                | enter adv randomizer select all tips select color and pattern start auto-randomizer
-mac2lc2lr3w3000r3w3000q              | Stop Color and Pattern Auto-randomizer All Tips                 | enter adv randomizer select all tips select color and pattern stop auto-randomizer
+mac2lc2lr3w3000cw3000q               | Stop Color and Pattern Auto-randomizer All Tips                 | enter adv randomizer select all tips select color and pattern stop auto-randomizer
 mclw300q                             | Receive a mode                                                  | enter mode sharing receive a mode
 mcllw300q                            | Exit mode sharing                                               | enter mode shring exit mode sharing
 mcaw300q                             | Reveice a mode in adv mode sharing                              | enter adv mode sharing receive a mode
