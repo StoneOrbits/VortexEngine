@@ -78,6 +78,11 @@ Menu::MenuAction Menu::run()
     m_ledSelected = true;
     // call led selected callback
     onLedSelected();
+    // log about the selection
+    DEBUG_LOGF("Led Selected: 0x%x (%s)", m_targetLeds,
+      (m_targetLeds == MAP_LED(LED_MULTI)) ? "multi"
+        : (m_targetLeds == MAP_LED_ALL) ? "all"
+          : "some singles");
   }
 
   // render the bulb selection
@@ -123,7 +128,7 @@ void Menu::nextBulbSelection()
     break;
   default: // LED_FIRST through LED_LAST
     // iterate as normal
-    m_targetLeds = MAP_LED(((mapGetFirstLed(m_targetLeds) + 1) % (LED_COUNT + 1)));
+    m_targetLeds = MAP_LED(((ledmapGetFirstLed(m_targetLeds) + 1) % (LED_COUNT + 1)));
     break;
   }
 }
