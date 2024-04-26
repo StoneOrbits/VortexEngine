@@ -124,7 +124,7 @@ void FactoryReset::showReset()
   if (!g_pButton->isPressed()) {
     // just idle blink from clear to blank
     Leds::clearRange(LED_FIRST, INDEX_TOP);
-    Leds::blinkRange(LED_FIRST, INDEX_TOP, 250, 150, RGB_WHITE0);
+    Leds::blinkRange(LED_FIRST, INDEX_TOP, 250, 150, RGB_RED0);
     return;
   }
 
@@ -145,8 +145,6 @@ void FactoryReset::showReset()
   // the off/on ms blink faster based on the progress
   uint32_t offMs = 150 - (12 * ledProgress);
   uint32_t onMs = 200 - (10 * ledProgress);
-  // the hue gets more red starting at 20 going in steps of 4 to min 0
-  int8_t hue = (ledProgress < 6) ? 20 - (4 * ledProgress) : 0;
   // the 'endled' is the tip of the reset progress bar, since the progress
   // bar starts full red and empties down to the pinky that means it is
   // inverted from the 'ledProgress' which starts at 0 and grows
@@ -154,7 +152,7 @@ void FactoryReset::showReset()
   // clear all the leds so that 'blinkRange' will blink from off to the designated color
   Leds::clearRange(LED_FIRST, INDEX_TOP);
   // blink to the calculated redish hue from pinky to the end led
-  Leds::blinkRange(LED_FIRST, endLed, offMs, onMs, HSVColor(hue, 255, 180));
+  Leds::blinkRange(LED_FIRST, endLed, offMs, onMs, HSVColor(0, 255 - (progress * 170), 180));
   // and blink the background the regular blank color
   Leds::blinkRange((LedPos)(endLed + 1), INDEX_TOP, offMs, onMs, RGB_WHITE0);
 }

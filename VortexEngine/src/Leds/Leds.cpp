@@ -297,6 +297,16 @@ void Leds::breatheIndex(LedPos target, uint8_t hue, uint32_t variance, uint32_t 
   setIndex(target, HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
 }
 
+void Leds::breatheRange(LedPos first, LedPos last, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+{
+  setRange(first, last, HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
+}
+
+void Leds::breatheFinger(Finger finger, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+{
+  breatheRange(fingerTip(finger), fingerTop(finger), hue, variance, magnitude, sat, val);
+}
+
 void Leds::breatheIndexSat(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
   setIndex(target, HSVColor(hue, 255 - (uint8_t)(sat + 128 + ((sin(variance * 0.0174533) + 1) * magnitude)), val));

@@ -97,6 +97,10 @@ public:
   // warning: these use hsv to rgb in realtime!
   static void breatheIndex(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
+  static void breatheRange(LedPos first, LedPos last, uint8_t hue, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
+  static void breatheFinger(Finger finger, uint8_t hue, uint32_t variance,
+    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
   static void breatheIndexSat(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
   static void breatheIndexVal(LedPos target, uint8_t hue, uint32_t variance,
