@@ -172,9 +172,10 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("resetUnserializer", &ByteStream::resetUnserializer)
     .function("moveUnserializer", &ByteStream::moveUnserializer)
     .function("unserializerAtEnd", &ByteStream::unserializerAtEnd)
-    .function("unserialize8", &ByteStream::unserialize8)
-    .function("unserialize16", &ByteStream::unserialize16)
-    .function("unserialize32", &ByteStream::unserialize32)
+    // TODO: provide better apis here
+    //.function("unserialize8", &ByteStream::unserialize8)
+    //.function("unserialize16", &ByteStream::unserialize16)
+    //.function("unserialize32", &ByteStream::unserialize32)
     .function("peek8", &ByteStream::peek8)
     .function("peek16", &ByteStream::peek16)
     .function("peek32", &ByteStream::peek32)
