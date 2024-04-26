@@ -338,7 +338,7 @@ bool ByteStream::isCRCDirty() const
   return (m_pData && (m_pData->flags & BUFFER_FLAG_DIRTY) != 0);
 }
 
-bool ByteStream::serialize(uint8_t byte)
+bool ByteStream::serialize8(uint8_t byte)
 {
   //DEBUG_LOGF("Serialize8(): %u", byte);
   if (!m_pData || (m_pData->size + sizeof(uint8_t)) > m_capacity) {
@@ -354,7 +354,7 @@ bool ByteStream::serialize(uint8_t byte)
   return true;
 }
 
-bool ByteStream::serialize(uint16_t bytes)
+bool ByteStream::serialize16(uint16_t bytes)
 {
   //DEBUG_LOGF("Serialize16(): %u", bytes);
   if (!m_pData || (m_pData->size + sizeof(uint16_t)) > m_capacity) {
@@ -370,7 +370,7 @@ bool ByteStream::serialize(uint16_t bytes)
   return true;
 }
 
-bool ByteStream::serialize(uint32_t bytes)
+bool ByteStream::serialize32(uint32_t bytes)
 {
   //DEBUG_LOGF("Serialize32(): %u", bytes);
   if (!m_pData || (m_pData->size + sizeof(uint32_t)) > m_capacity) {
@@ -475,33 +475,6 @@ uint32_t ByteStream::peek32() const
     return 0;
   }
   return *(uint32_t *)frontUnserializer();
-}
-
-// read the data from a flash storage
-// overload += for appending buffer
-ByteStream &ByteStream::operator+=(const ByteStream &rhs)
-{
-  append(rhs);
-  return *this;
-}
-
-// also overload += for appending bytes
-ByteStream &ByteStream::operator+=(const uint8_t &rhs)
-{
-  serialize(rhs);
-  return *this;
-}
-
-ByteStream &ByteStream::operator+=(const uint16_t &rhs)
-{
-  serialize(rhs);
-  return *this;
-}
-
-ByteStream &ByteStream::operator+=(const uint32_t &rhs)
-{
-  serialize(rhs);
-  return *this;
 }
 
 bool ByteStream::is_compressed() const

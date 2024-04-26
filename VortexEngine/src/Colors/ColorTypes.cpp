@@ -200,13 +200,13 @@ RGBColor RGBColor::adjustBrightness(uint8_t fadeBy)
 
 bool RGBColor::serialize(ByteStream &buffer) const
 {
-  if (!buffer.serialize(red)) {
+  if (!buffer.serialize8(red)) {
     return false;
   }
-  if (!buffer.serialize(green)) {
+  if (!buffer.serialize8(green)) {
     return false;
   }
-  if (!buffer.serialize(blue)) {
+  if (!buffer.serialize8(blue)) {
     return false;
   }
   return true;

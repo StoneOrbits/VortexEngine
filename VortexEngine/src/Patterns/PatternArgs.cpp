@@ -173,12 +173,12 @@ uint8_t PatternArgs::operator[](int index) const
 
 bool PatternArgs::serialize(ByteStream &buffer, ArgMap argmap) const
 {
-  if (!buffer.serialize(argmap)) {
+  if (!buffer.serialize8(argmap)) {
     return false;
   }
   for (uint8_t i = 0; i < MAX_ARGS; ++i) {
     if (ARGMAP_ISSET(argmap, i)) {
-      if (!buffer.serialize(args[i])) {
+      if (!buffer.serialize8(args[i])) {
         return false;
       }
     }
