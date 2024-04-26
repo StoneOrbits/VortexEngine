@@ -99,7 +99,10 @@ Pattern *PatternBuilder::unserialize(ByteStream &buffer)
   if (!pat) {
     return nullptr;
   }
-  pat->unserialize(buffer);
+  if (!pat->unserialize(buffer)) {
+    delete pat;
+    return nullptr;
+  }
   return pat;
 }
 

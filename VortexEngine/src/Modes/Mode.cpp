@@ -204,35 +204,43 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
   return true;
 }
 
-void Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
+bool Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
 {
   if (!numLeds) {
     numLeds = MODE_LEDCOUNT;
   }
   // serialize the number of leds
-  buffer.serialize(numLeds);
+  if (!buffer.serialize(numLeds)) {
+    return false;
+  }
   // empty mode?
   if (!numLeds) {
-    return;
+    return true;
   }
   // serialize the flags
   ModeFlags flags = getFlags();
-  buffer.serialize(flags);
+  if (!buffer.serialize(flags)) {
+    return false;
+  }
 #if VORTEX_SLIM == 0
   // serialiaze the multi led?
   if ((flags & MODE_FLAG_MULTI_LED) && m_multiPat) {
     // serialize the multi led
-    m_multiPat->serialize(buffer);
+    if (!m_multiPat->serialize(buffer)) {
+      return false;
+    }
   }
 #endif
   // if no single leds then just stop here
   if (!(flags & MODE_FLAG_SINGLE_LED)) {
-    return;
+    return true;
   }
   // if there are any sparse singles (spaces) then we need to
   // serialize an led map of which singles are set
   if (flags & MODE_FLAG_SPARSE_SINGLES) {
-    buffer.serialize((uint32_t)getSingleLedMap());
+    if (!buffer.serialize((uint32_t)getSingleLedMap())) {
+      return false;
+    }
   }
   // then iterate each single led and serialize it
   for (LedPos pos = LED_FIRST; pos < numLeds; ++pos) {
@@ -241,12 +249,15 @@ void Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
       continue;
     }
     // just serialize the pattern then colorset
-    entry->serialize(buffer);
+    if (!entry->serialize(buffer)) {
+      return false;
+    }
     // if they are all same single then only serialize one
     if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
       break;
     }
   }
+  return true;
 }
 
 // this is a hairy function, but a bit of a necessary complexity
@@ -318,6 +329,10 @@ bool Mode::unserialize(ByteStream &buffer)
     } else {
       // otherwise unserialize the pattern like normal
       m_singlePats[pos] = PatternBuilder::unserialize(buffer);
+    }
+    if (!m_singlePats[pos]) {
+      clearPattern(LED_ALL);
+      return false;
     }
     m_singlePats[pos]->bind(pos);
   }

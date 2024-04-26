@@ -273,7 +273,9 @@ bool Modes::serialize(ByteStream &modesBuffer)
       return false;
     }
     // serialize it into the target modes buffer
-    mode->serialize(modesBuffer);
+    if (!mode->serialize(modesBuffer)) {
+      return false;
+    }
     // just uninstansiate the mode after serializing
     ptr->uninstantiate();
     // next mode
