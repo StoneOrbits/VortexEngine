@@ -31,7 +31,7 @@ install:
 	chmod +x rewrite_trinket_source.sh
 	./rewrite_trinket_source.sh
 
-build: mod_trinket_source
+build:
 	$(ARDUINO_CLI) compile --fqbn $(BOARD) $(PROJECT_NAME) --config-file $(CONFIG_FILE) --build-path $(BUILD_PATH)
 	python3 uf2conv.py -c -b 0x2000 build/VortexEngine.ino.bin -o build/VortexEngine.ino.uf2
 
