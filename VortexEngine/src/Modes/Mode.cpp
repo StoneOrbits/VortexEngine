@@ -744,7 +744,7 @@ LedMap Mode::getSingleLedMap() const
   LedMap map = 0;
   for (LedPos pos = LED_FIRST; pos < getLedCount(); pos++) {
     if (m_singlePats[pos]) {
-      m_engine.leds().mapSetLed(map, pos);
+      m_engine.leds().ledmapSetLed(map, pos);
     }
   }
   return map;

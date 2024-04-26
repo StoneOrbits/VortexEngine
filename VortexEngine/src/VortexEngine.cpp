@@ -192,7 +192,7 @@ void VortexEngine::runMainLogic()
   }
 
   // toggle auto cycle mode with many clicks at main modes
-  if (m_engine.button().onConsecutivePresses(AUTO_CYCLE_MODES_CLICKS)) {
+  if ((m_engine.button().onRelease() && m_autoCycle) || m_engine.button().onConsecutivePresses(AUTO_CYCLE_MODES_CLICKS)) {
     m_autoCycle = !m_autoCycle;
     m_leds.holdAll(m_autoCycle ? RGB_GREEN : RGB_RED);
   }

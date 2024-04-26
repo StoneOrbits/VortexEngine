@@ -132,7 +132,7 @@ void Leds::clearAllOdds()
 void Leds::setMap(LedMap map, RGBColor col)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (mapCheckLed(map, pos)) {
+    if (ledmapCheckLed(map, pos)) {
       setIndex(pos, col);
     }
   }
@@ -141,7 +141,7 @@ void Leds::setMap(LedMap map, RGBColor col)
 void Leds::clearMap(LedMap map)
 {
   for (LedPos pos = LED_FIRST; pos <= LED_LAST; pos++) {
-    if (mapCheckLed(map, pos)) {
+    if (ledmapCheckLed(map, pos)) {
       clearIndex(pos);
     }
   }
@@ -186,6 +186,13 @@ void Leds::blinkIndexOffset(LedPos target, uint32_t time, uint16_t offMs, uint16
   }
 }
 
+void Leds::blinkRangeOffset(LedPos first, LedPos last, uint32_t time, uint16_t offMs, uint16_t onMs, RGBColor col)
+{
+  if ((time % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
+    setRange(first, last, col);
+  }
+}
+
 void Leds::blinkIndex(LedPos target, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((m_engine.time().getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
@@ -204,7 +211,7 @@ void Leds::blinkMap(LedMap targets, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((m_engine.time().getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
     for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
-      if (mapCheckLed(targets, pos)) {
+      if (ledmapCheckLed(targets, pos)) {
         setIndex(pos, col);
       }
     }
@@ -232,17 +239,22 @@ void Leds::blinkPairs(Pair first, Pair last, uint16_t offMs, uint16_t onMs, RGBC
   }
 }
 
-void Leds::breathIndex(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+void Leds::breatheIndex(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
   setIndex(target, HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
 }
 
-void Leds::breathIndexSat(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+void Leds::breatheRange(LedPos first, LedPos last, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+{
+  setRange(first, last, HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
+}
+
+void Leds::breatheIndexSat(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
   setIndex(target, HSVColor(hue, 255 - (uint8_t)(sat + 128 + ((sin(variance * 0.0174533) + 1) * magnitude)), val));
 }
 
-void Leds::breathIndexVal(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+void Leds::breatheIndexVal(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
   setIndex(target, HSVColor(hue, sat, 255 - (uint8_t)(val + 128 + ((sin(variance * 0.0174533) + 1) * magnitude))));
 }

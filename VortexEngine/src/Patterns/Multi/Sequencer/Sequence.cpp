@@ -53,7 +53,7 @@ bool PatternMap::operator!=(const PatternMap &other) const
 void PatternMap::setPatternAt(PatternID pattern, LedMap positions)
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    if (m_engine.leds().mapCheckLed(positions, pos)) {
+    if (m_engine.leds().ledmapCheckLed(positions, pos)) {
       m_patterns[pos] = pattern;
     }
   }
@@ -116,7 +116,7 @@ bool ColorsetMap::operator!=(const ColorsetMap &other) const
 void ColorsetMap::setColorsetAt(const Colorset &colorset, LedMap positions)
 {
   for (LedPos pos = LED_FIRST; pos < LED_COUNT; ++pos) {
-    if (m_engine.leds().mapCheckLed(positions, pos)) {
+    if (m_engine.leds().ledmapCheckLed(positions, pos)) {
       m_colorsets[pos] = colorset;
     }
   }
