@@ -50,6 +50,9 @@ private:
   // the pat select starts by showing the current pattern
   // then the first click begin cycling the list of pats
   bool m_started;
+
+  bool m_targetMulti;
+  bool m_targetAll;
 };
 
 #endif

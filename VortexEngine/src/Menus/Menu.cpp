@@ -111,6 +111,11 @@ Menu::MenuAction Menu::run()
     m_ledSelected = true;
     // call led selected callback
     onLedSelected();
+
+    DEBUG_LOGF("Led Selected: 0x%x (%s)", m_targetLeds,
+      (m_targetLeds == MAP_LED(LED_MULTI)) ? "multi" 
+        : (m_targetLeds == MAP_LED_ALL) ? "all" 
+          : "some singles");
   }
 
   // render the bulb selection
@@ -175,7 +180,7 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
   case FINGER_THUMB:
     // exit thumb breathes red on the tip and is either blank or red on the top
     // depending on whether you've held for the short click threshold or not
-    Leds::breathIndex(THUMB_TIP, 250, (uint32_t)(Time::getCurtime() / 2), 10, 255, 180);
+    Leds::breatheIndex(THUMB_TIP, 250, (uint32_t)(Time::getCurtime() / 2), 10, 255, 180);
     if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
       Leds::setIndex(THUMB_TOP, RGB_RED);
     } else {

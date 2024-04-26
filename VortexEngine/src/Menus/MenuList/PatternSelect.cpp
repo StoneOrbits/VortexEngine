@@ -29,7 +29,6 @@ bool PatternSelect::init()
     return false;
   }
   m_state = STATE_PICK_LIST;
-  m_newPatternID = PATTERN_FIRST;
   DEBUG_LOG("Entered pattern select");
   return true;
 }
@@ -62,7 +61,7 @@ void PatternSelect::showListSelection()
 {
   for (Finger f = FINGER_PINKIE; f <= FINGER_INDEX; ++f) {
     // hue split into 4 quadrants of 90
-    Leds::breathIndex(fingerTop(f), f * (255/4), (uint32_t)Time::getCurtime() / 3, 10, 255, 255);
+    Leds::breatheIndex(fingerTop(f), f * (255/4), (uint32_t)Time::getCurtime() / 3, 10, 255, 255);
     Leds::setIndex(fingerTip(f), RGB_WHITE6);
   }
 }
@@ -77,8 +76,22 @@ void PatternSelect::showPatternSelection()
 
 void PatternSelect::onLedSelected()
 {
-  m_previewMode.setPatternMap(m_targetLeds, PATTERN_FIRST);
-  m_previewMode.init();
+  // whether targeting all or multi, otherwise just targeting some mapping of singles
+  m_targetMulti = m_targetLeds == MAP_LED(LED_MULTI);
+  m_targetAll = m_targetLeds == MAP_LED_ALL;
+
+  // need to ready up the preview mode for picking patterns, this can look different based on
+  // which pattern was already on this mode, and which leds they decided to pick
+  // for example if they had a multi-led pattern and they are targetting some grouping of singles now
+  // then we need to convert the multi into singles, maybe in the future we can allow singles to overlay
+  if (m_previewMode.isMultiLed() && !m_targetAll && !m_targetMulti) {
+    Colorset curSet = m_previewMode.getColorset();
+    m_previewMode.setPattern(PATTERN_FIRST, LED_ALL_SINGLE, nullptr, &curSet);
+    // todo: clear multi a better way, automatically when setting singles?
+    m_previewMode.clearPattern(LED_MULTI);
+    m_previewMode.init();
+    DEBUG_LOG("Converted existing multi-led pattern to singles for given led selection");
+  }
 }
 
 void PatternSelect::onShortClick()
@@ -97,38 +110,38 @@ void PatternSelect::onShortClick()
 void PatternSelect::nextPattern()
 {
   // increment to next pattern
-  LedPos srcLed = LED_MULTI;
-  if (!m_previewMode.isMultiLed()) {
-    srcLed = mapGetFirstLed(m_targetLeds);
-  }
-  PatternID newID = (PatternID)(m_previewMode.getPatternID(srcLed) + 1);
   PatternID endList = PATTERN_SINGLE_LAST;
   PatternID beginList = PATTERN_SINGLE_FIRST;
 #if VORTEX_SLIM == 0
-  if (m_targetLeds == MAP_LED_ALL || m_targetLeds == MAP_LED(LED_MULTI)) {
+  // if targeted multi led or all singles, iterate through multis
+  if (m_targetAll || m_targetMulti) {
     endList = PATTERN_MULTI_LAST;
   }
-  if (m_targetLeds == MAP_LED(LED_MULTI)) {
+  // if targeted multi then start at multis and only iterate multis
+  if (m_targetMulti) {
     beginList = PATTERN_MULTI_FIRST;
   }
 #endif
-  if (newID > endList || newID < beginList) {
-    newID = beginList;
+  m_newPatternID = (PatternID)((m_newPatternID + 1) % endList);
+  if (m_newPatternID > endList || m_newPatternID < beginList) {
+    m_newPatternID = beginList;
   }
   if (!m_started) {
     m_started = true;
-    m_newPatternID = PATTERN_FIRST;
+    m_newPatternID = beginList;
   }
   // set the new pattern id
-  if (isMultiLedPatternID(newID)) {
-    m_previewMode.setPattern(newID);
+  if (isMultiLedPatternID(m_newPatternID)) {
+    m_previewMode.setPattern(m_newPatternID);
   } else {
+    // if the user selected multi then singles just map to all
+    LedMap setLeds = m_targetMulti ? LED_ALL : m_targetLeds;
+    m_previewMode.setPatternMap(setLeds, m_newPatternID);
     // TODO: clear multi a better way
-    m_previewMode.setPatternMap(m_targetLeds, newID);
     m_previewMode.clearPattern(LED_MULTI);
   }
   m_previewMode.init();
-  DEBUG_LOGF("Iterated to pattern id %d", newID);
+  DEBUG_LOGF("Iterated to pattern id %d", m_newPatternID);
 }
 
 void PatternSelect::onLongClick()
@@ -141,20 +154,6 @@ void PatternSelect::onLongClick()
       return;
     }
     m_state = STATE_PICK_PATTERN;
-    // start the new pattern ID selection based on the chosen list
-    m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));
-    // need to ready up the preview mode for picking patterns, this can look different based on
-    // which pattern was already on this mode, and which leds they decided to pick
-    // for example if they had a multi-led pattern and they are targetting some grouping of singles now
-    // then we need to convert the multi into singles, maybe in the future we can allow singles to overlay
-    if (m_previewMode.isMultiLed() && m_targetLeds != MAP_LED_ALL && m_targetLeds != MAP_LED(LED_MULTI)) {
-      Colorset curSet = m_previewMode.getColorset();
-      m_previewMode.clearPattern(LED_MULTI);
-      m_previewMode.setPattern(PATTERN_FIRST, LED_ALL_SINGLE, nullptr, &curSet);
-    }
-    m_previewMode.setPatternMap(m_targetLeds, m_newPatternID);
-    m_previewMode.init();
-    DEBUG_LOGF("Started picking pattern at %u", m_newPatternID);
     break;
   case STATE_PICK_PATTERN:
     // need to save the new pattern if it's different from current
