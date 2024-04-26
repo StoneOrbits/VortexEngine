@@ -76,7 +76,7 @@ public:
 #endif
 
   // serialize and unserialize a pattern to a bytestream
-  bool serialize(ByteStream &buffer) const;
+  void serialize(ByteStream &buffer) const;
   bool unserialize(ByteStream &buffer);
 
   // get or set a single arg

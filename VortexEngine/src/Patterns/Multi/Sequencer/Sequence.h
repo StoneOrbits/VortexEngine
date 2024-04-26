@@ -41,8 +41,8 @@ public:
   const Colorset &operator[](LedPos index) const;
 
   // serialize and unserialize a colorset map
-  bool serialize(ByteStream &buffer) const;
-  bool unserialize(ByteStream &buffer);
+  void serialize(ByteStream &buffer) const;
+  void unserialize(ByteStream &buffer);
 
   // public list of pattern IDs for each led
   Colorset m_colorsetMap[LED_COUNT];

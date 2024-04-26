@@ -143,7 +143,7 @@ public:
   bool onEnd() const;
 
   // serialize the colorset to save/load
-  bool serialize(ByteStream &buffer) const;
+  void serialize(ByteStream &buffer) const;
   bool unserialize(ByteStream &buffer);
 
 private:

@@ -54,14 +54,10 @@ void Pattern::skip(uint32_t ticks)
 #endif
 
 // must override the serialize routine to save the pattern
-bool Pattern::serialize(ByteStream &buffer) const
+void Pattern::serialize(ByteStream &buffer) const
 {
-  if (!buffer.serialize((uint8_t)m_patternID)) {
-    return false;
-  }
-  if (!m_colorset.serialize(buffer)) {
-    return false;
-  }
+  buffer.serialize((uint8_t)m_patternID);
+  m_colorset.serialize(buffer);
   PatternArgs args;
   getArgs(args);
   PatternArgs defaults = PatternBuilder::getDefaultArgs(m_patternID);
@@ -72,10 +68,7 @@ bool Pattern::serialize(ByteStream &buffer) const
       ARGMAP_SET(argmap, i);
     }
   }
-  if (!args.serialize(buffer, argmap)) {
-    return false;
-  }
-  return true;
+  args.serialize(buffer, argmap);
 }
 
 // must override unserialize to load patterns

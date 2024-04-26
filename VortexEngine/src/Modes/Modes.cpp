@@ -614,7 +614,7 @@ Mode *Modes::previousMode()
 Mode *Modes::nextModeSkipEmpty()
 {
   do {
-    if (setCurMode(m_curMode + 1) && !curMode()->isEmpty()) {
+    if (setCurMode(m_curMode + 1) && !curMode()->isEmpty() && !isBlocked()) {
       break;
     }
   } while (m_curMode != 0);

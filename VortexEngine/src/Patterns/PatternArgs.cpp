@@ -171,19 +171,14 @@ uint8_t PatternArgs::operator[](int index) const
   return args[index];
 }
 
-bool PatternArgs::serialize(ByteStream &buffer, ArgMap argmap) const
+void PatternArgs::serialize(ByteStream &buffer, ArgMap argmap) const
 {
-  if (!buffer.serialize(argmap)) {
-    return false;
-  }
+  buffer.serialize(argmap);
   for (uint8_t i = 0; i < MAX_ARGS; ++i) {
     if (ARGMAP_ISSET(argmap, i)) {
-      if (!buffer.serialize(args[i])) {
-        return false;
-      }
+      buffer.serialize(args[i]);
     }
   }
-  return true;
 }
 
 ArgMap PatternArgs::unserialize(ByteStream &buffer)
