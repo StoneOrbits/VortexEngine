@@ -90,14 +90,9 @@ public:
   bool unserializerAtEnd() const;
 
   // serialize a byte into the buffer
-  bool unserialize(uint8_t *byte);
-  bool unserialize(uint16_t *bytes);
-  bool unserialize(uint32_t *bytes);
-
-  // same thing but via return value
-  uint8_t unserialize8();
-  uint16_t unserialize16();
-  uint32_t unserialize32();
+  bool unserialize8(uint8_t *byte);
+  bool unserialize16(uint16_t *bytes);
+  bool unserialize32(uint32_t *bytes);
 
   uint8_t peek8() const;
   uint16_t peek16() const;

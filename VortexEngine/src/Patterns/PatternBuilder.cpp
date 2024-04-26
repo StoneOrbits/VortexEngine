@@ -95,7 +95,11 @@ MultiLedPattern *PatternBuilder::makeMulti(PatternID id, const PatternArgs *args
 
 Pattern *PatternBuilder::unserialize(ByteStream &buffer)
 {
-  Pattern *pat = make((PatternID)buffer.unserialize8());
+  PatternID id = PATTERN_NONE;
+  if (!buffer.unserialize8((uint8_t *)&id)) {
+    return nullptr;
+  }
+  Pattern *pat = make(id);
   if (!pat) {
     return nullptr;
   }

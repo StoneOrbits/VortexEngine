@@ -198,18 +198,32 @@ RGBColor RGBColor::adjustBrightness(uint8_t fadeBy)
   return *this;
 }
 
-void RGBColor::serialize(ByteStream &buffer) const
+bool RGBColor::serialize(ByteStream &buffer) const
 {
-  buffer.serialize(red);
-  buffer.serialize(green);
-  buffer.serialize(blue);
+  if (!buffer.serialize(red)) {
+    return false;
+  }
+  if (!buffer.serialize(green)) {
+    return false;
+  }
+  if (!buffer.serialize(blue)) {
+    return false;
+  }
+  return true;
 }
 
-void RGBColor::unserialize(ByteStream &buffer)
+bool RGBColor::unserialize(ByteStream &buffer)
 {
-  buffer.unserialize(&red);
-  buffer.unserialize(&green);
-  buffer.unserialize(&blue);
+  if (!buffer.unserialize8(&red)) {
+    return false;
+  }
+  if (!buffer.unserialize8(&green)) {
+    return false;
+  }
+  if (!buffer.unserialize8(&blue)) {
+    return false;
+  }
+  return true;
 }
 
 // ========================================================
