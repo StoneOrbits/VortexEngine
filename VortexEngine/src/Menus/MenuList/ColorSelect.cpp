@@ -79,7 +79,7 @@ Menu::MenuAction ColorSelect::run()
     if (m_targetLeds == MAP_LED_ALL) {
       m_colorset = Modes::curMode()->getColorset();
     } else {
-      m_colorset = Modes::curMode()->getColorset(mapGetFirstLed(m_targetLeds));
+      m_colorset = Modes::curMode()->getColorset(ledmapGetFirstLed(m_targetLeds));
     }
     // move on to picking slot
     m_state = STATE_PICK_SLOT;
@@ -109,7 +109,7 @@ void ColorSelect::onLedSelected()
   if (m_targetLeds == MAP_LED_ALL) {
     m_colorset = cur->getColorset();
   } else {
-    m_colorset = cur->getColorset(mapGetFirstLed(m_targetLeds));
+    m_colorset = cur->getColorset(ledmapGetFirstLed(m_targetLeds));
   }
 }
 
