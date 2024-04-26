@@ -48,7 +48,7 @@ Menu::MenuAction PatternSelect::run()
 
 void PatternSelect::onLedSelected()
 {
-  m_srcLed = mapGetFirstLed(m_targetLeds);
+  m_srcLed = ledmapGetFirstLed(m_targetLeds);
 }
 
 void PatternSelect::onShortClick()

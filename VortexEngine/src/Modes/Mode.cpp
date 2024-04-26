@@ -761,7 +761,7 @@ LedMap Mode::getSingleLedMap() const
   LedMap map = 0;
   for (LedPos pos = LED_FIRST; pos < MODE_LEDCOUNT; pos++) {
     if (m_singlePats[pos]) {
-      setLed(map, pos);
+      ledmapSetLed(map, pos);
     }
   }
   return map;

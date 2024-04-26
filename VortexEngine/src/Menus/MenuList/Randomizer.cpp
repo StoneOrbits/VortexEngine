@@ -110,6 +110,7 @@ void Randomizer::onShortClick()
     }
     return;
   }
+  // if the user fast-clicks 3 times then toggle automode
   if (m_autoCycle || g_pButton->onConsecutivePresses(AUTO_CYCLE_RANDOMIZER_CLICKS)) {
     // toggle the auto cycle flag
     m_autoCycle = !m_autoCycle;
