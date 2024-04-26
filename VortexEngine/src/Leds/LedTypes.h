@@ -109,10 +109,10 @@ typedef uint64_t LedMap;
 #define MAP_IS_ONE_LED(map) (map && !(map & (map-1)))
 
 // foreach led macro (only iterates singles)
-#define MAP_FOREACH_LED(map) for (LedPos pos = mapGetFirstLed(map); pos < LED_COUNT; pos = mapGetNextLed(map, pos))
+#define MAP_FOREACH_LED(map) for (LedPos pos = ledmapGetFirstLed(map); pos < LED_COUNT; pos = ledmapGetNextLed(map, pos))
 
 // convert a map to the first Led position in the map
-inline LedPos mapGetFirstLed(LedMap map)
+inline LedPos ledmapGetFirstLed(LedMap map)
 {
   if (map == MAP_LED(LED_MULTI)) {
     return LED_MULTI;
@@ -129,7 +129,7 @@ inline LedPos mapGetFirstLed(LedMap map)
 }
 
 // given an led map and a position, find the next position in the map
-inline LedPos mapGetNextLed(LedMap map, LedPos pos)
+inline LedPos ledmapGetNextLed(LedMap map, LedPos pos)
 {
   pos = (LedPos)(pos + 1);
   map >>= pos;
@@ -166,26 +166,26 @@ inline LedPos mapGetNextLed(LedMap map, LedPos pos)
 #define MAP_SIDES (MAP_LED(LED_0) | MAP_LED(LED_2))
 
 // set a single led
-inline void setLed(LedMap &map, LedPos pos)
+inline void ledmapSetLed(LedMap &map, LedPos pos)
 {
   if (pos < LED_COUNT) map |= (1ull << pos);
 }
 // set a single pair
-inline void setPair(LedMap &map, Pair pair)
+inline void ledmapSetPair(LedMap &map, Pair pair)
 {
-  setLed(map, pairEven(pair));
-  setLed(map, pairOdd(pair));
+  ledmapSetLed(map, pairEven(pair));
+  ledmapSetLed(map, pairOdd(pair));
 }
 
 // check if an led is set in the map
-inline bool checkLed(LedMap map, LedPos pos)
+inline bool ledmapCheckLed(LedMap map, LedPos pos)
 {
   return ((map & (1ull << pos)) != 0);
 }
 // check if a pair is set in the map (both leds)
-inline bool checkPair(LedMap map, Pair pair)
+inline bool ledmapCheckPair(LedMap map, Pair pair)
 {
-  return checkLed(map, pairEven(pair)) && checkLed(map, pairOdd(pair));
+  return ledmapCheckLed(map, pairEven(pair)) && ledmapCheckLed(map, pairOdd(pair));
 }
 
 // LedPos operators
