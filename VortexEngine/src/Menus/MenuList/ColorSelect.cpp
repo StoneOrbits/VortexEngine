@@ -301,7 +301,7 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       // if we're pressing down on a slot then glow the tip white/red
       if ((g_pButton->holdDuration() % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS) {
         // breath red instead of white blink
-        Leds::breathFinger(m_curSelection, 0, g_pButton->holdDuration());
+        Leds::breatheFinger(m_curSelection, 0, g_pButton->holdDuration());
         return;
       }
     }
