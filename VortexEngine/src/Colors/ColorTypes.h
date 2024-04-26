@@ -79,8 +79,8 @@ public:
   void clear();
 
   RGBColor adjustBrightness(uint8_t fadeBy);
-  void serialize(ByteStream &buffer) const;
-  void unserialize(ByteStream &buffer);
+  bool serialize(ByteStream &buffer) const;
+  bool unserialize(ByteStream &buffer);
 
   uint32_t raw() const { return ((uint32_t)red << 16) | ((uint32_t)green << 8) | (uint32_t)blue; }
 
