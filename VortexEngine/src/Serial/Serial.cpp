@@ -3,6 +3,7 @@
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
+#include "../Menus/Menus.h"
 #include "../Log/Log.h"
 
 #include "../VortexEngine.h"
@@ -23,7 +24,7 @@ uint32_t SerialComs::m_lastCheck = 0;
 bool SerialComs::init()
 {
   // Try connecting serial ?
-  //checkSerial();
+  checkSerial();
   return true;
 }
 
@@ -33,6 +34,12 @@ void SerialComs::cleanup()
 
 bool SerialComs::isConnected()
 {
+#ifdef VORTEX_EMBEDDED
+  if (!Serial) {
+    m_serialConnected = false;
+    return false;
+  }
+#endif
   return m_serialConnected;
 }
 
@@ -62,8 +69,10 @@ bool SerialComs::checkSerial()
     // serial is not connected
     return false;
   }
-  // Begin serial communications
+  // Begin serial communications (turns out this is actually a NO-OP in trinket source)
   Serial.begin(SERIAL_BAUD_RATE);
+  // directly open the editor connection menu because we are connected to USB serial
+  Menus::openMenu(MENU_EDITOR_CONNECTION);
 #endif
 #endif
   // serial is now connected
