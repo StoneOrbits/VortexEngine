@@ -28,10 +28,12 @@ install:
 	wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2conv.py
 	wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2families.json
 	chmod +x uf2conv.py uf2families.json
+
+mod_trinket_source:
 	chmod +x rewrite_trinket_source.sh
 	./rewrite_trinket_source.sh
 
-build:
+build: mod_trinket_source
 	$(ARDUINO_CLI) compile --fqbn $(BOARD) $(PROJECT_NAME) --config-file $(CONFIG_FILE) --build-path $(BUILD_PATH)
 	python3 uf2conv.py -c -b 0x2000 build/VortexEngine.ino.bin -o build/VortexEngine.ino.uf2
 
