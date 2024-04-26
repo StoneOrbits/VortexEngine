@@ -77,15 +77,11 @@ void PatternSelect::showPatternSelection()
 
 void PatternSelect::onLedSelected()
 {
-  // whether targeting all or multi, otherwise just targeting some mapping of singles
-  m_targetMulti = m_targetLeds == MAP_LED(LED_MULTI);
-  m_targetAll = m_targetLeds == MAP_LED_ALL;
-
   // need to ready up the preview mode for picking patterns, this can look different based on
   // which pattern was already on this mode, and which leds they decided to pick
   // for example if they had a multi-led pattern and they are targetting some grouping of singles now
   // then we need to convert the multi into singles, maybe in the future we can allow singles to overlay
-  if (m_previewMode.isMultiLed() && !m_targetAll && !m_targetMulti) {
+  if (m_previewMode.isMultiLed() && m_targetLeds != MAP_LED_ALL && m_targetLeds != MAP_LED(LED_MULTI)) {
     Colorset curSet = m_previewMode.getColorset();
     m_previewMode.setPattern(PATTERN_FIRST, LED_ALL_SINGLE, nullptr, &curSet);
     // todo: clear multi a better way, automatically when setting singles?
@@ -115,11 +111,11 @@ void PatternSelect::nextPattern()
   PatternID beginList = PATTERN_SINGLE_FIRST;
 #if VORTEX_SLIM == 0
   // if targeted multi led or all singles, iterate through multis
-  if (m_targetAll || m_targetMulti) {
+  if ((m_targetLeds == MAP_LED_ALL) || (m_targetLeds == MAP_LED(LED_MULTI))) {
     endList = PATTERN_MULTI_LAST;
   }
   // if targeted multi then start at multis and only iterate multis
-  if (m_targetMulti) {
+  if ((m_targetLeds == MAP_LED(LED_MULTI))) {
     beginList = PATTERN_MULTI_FIRST;
   }
 #endif
@@ -135,8 +131,8 @@ void PatternSelect::nextPattern()
   if (isMultiLedPatternID(m_newPatternID)) {
     m_previewMode.setPattern(m_newPatternID);
   } else {
-    // if the user selected multi then singles just map to all
-    LedMap setLeds = m_targetMulti ? LED_ALL : m_targetLeds;
+    // if the user selected multi then just put singles on all leds
+    LedMap setLeds = (m_targetLeds == MAP_LED(LED_MULTI)) ? LED_ALL : m_targetLeds;
     m_previewMode.setPatternMap(setLeds, m_newPatternID);
     // TODO: clear multi a better way
     m_previewMode.clearPattern(LED_MULTI);
