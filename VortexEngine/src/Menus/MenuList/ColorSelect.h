@@ -81,9 +81,6 @@ private:
   // the target color slot to change
   uint32_t m_slot;
 
-  // the chosen quadrant
-  uint32_t m_quadrant;
-
   // the new color to set
   HSVColor m_newColor;
 };
