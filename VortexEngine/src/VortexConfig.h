@@ -164,7 +164,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             15
+#define MAX_MODES             0
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -347,7 +347,7 @@
 //
 // However there may be some clever uses for variable tickrate in
 // the final build? I'm not sure.
-#define VARIABLE_TICKRATE     0
+#define VARIABLE_TICKRATE     1
 
 // Error Blinker System
 //
@@ -488,6 +488,11 @@
 #define EDITOR_VERB_TRANSMIT_VL       "m"
 // the response from the device when it's done transmitting the mode
 #define EDITOR_VERB_TRANSMIT_VL_ACK   "n"
+
+// when the pc wants the chromadeck to listen for a mode from the duos
+#define EDITOR_VERB_LISTEN_VL        "o"
+// and the response for when it's done fetching a duo mode
+#define EDITOR_VERB_LISTEN_VL_ACK    "p"
 
 // ===================================================================
 //  Manually Configured Sizes

@@ -105,17 +105,17 @@ public:
   void setAll(RGBColor col);
 
   // Turn off individual LEDs, these are appropriate to use in internal pattern logic
-  void clearIndex(LedPos target) { setIndex(target, HSV_OFF); }
-  void clearRange(LedPos first, LedPos last) { setRange(first, last, HSV_OFF); }
-  void clearAll() { setAll(HSV_OFF); }
+  void clearIndex(LedPos target) { setIndex(target, RGB_OFF); }
+  void clearRange(LedPos first, LedPos last) { setRange(first, last, RGB_OFF); }
+  void clearAll() { setAll(RGB_OFF); }
 
   // control two LEDs on a pair, these are appropriate for use in internal pattern logic
   void setPair(Pair pair, RGBColor col);
   void setPairs(Pair first, Pair last, RGBColor col);
 
   // Turn off both LEDs on a pair, these are appropriate for use in internal pattern logic
-  void clearPair(Pair pair) { setPair(pair, HSV_OFF); }
-  void clearPairs(Pair first, Pair last) { setPairs(first, last, HSV_OFF); }
+  void clearPair(Pair pair) { setPair(pair, RGB_OFF); }
+  void clearPairs(Pair first, Pair last) { setPairs(first, last, RGB_OFF); }
 
   // Controll pair evens
   void setRangeEvens(Pair first, Pair last, RGBColor);

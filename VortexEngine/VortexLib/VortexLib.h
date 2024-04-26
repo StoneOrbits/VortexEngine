@@ -195,6 +195,7 @@ public:
   uint32_t curModeIndex();
   uint32_t numModes();
   uint32_t numLedsInMode();
+  bool addMode(const Mode *mode, bool save = true);
   bool addNewMode(bool save = true);
   bool addNewMode(ByteStream &stream, bool save = true);
   bool setCurMode(uint32_t index, bool save = true);
@@ -280,13 +281,16 @@ public:
 
   // convert a mode to/from a json object
   json modeToJson(const Mode *mode);
-  Mode *modeFromJson(const json& modeJson);
+  Mode *modeFromJson(const json &modeJson);
   // convert a pattern to/from a json object
   json patternToJson(const Pattern *pattern);
-  Pattern *patternFromJson(const json& patternJson);
+  Pattern *patternFromJson(const json &patternJson);
+  // save current mode to json or load a mode by json
+  json saveModeToJson();
+  bool loadModeFromJson(const json &modeJson);
   // save/load the engine storage to/from raw json object
   json saveToJson();
-  bool loadFromJson(const json& json);
+  bool loadFromJson(const json &json);
 
   // print/parse the current mode json
   std::string printModeJson(bool pretty = false);

@@ -1286,6 +1286,14 @@ uint32_t Vortex::numLedsInMode()
   return pMode->getLedCount();
 }
 
+bool Vortex::addMode(const Mode *mode, bool save)
+{
+  if (!m_engine.modes().addMode(mode)) {
+    return false;
+  }
+  return !save || doSave();
+}
+
 bool Vortex::addNewMode(bool save)
 {
   Colorset set;
@@ -2010,6 +2018,19 @@ Mode *Vortex::modeFromJson(const json &modeJson)
     }
   }
 
+  // fallback to load 1-led pattern data as the mode if multi_pat and single_pats are missing
+  if (!modeJson.contains("multi_pat") && !modeJson.contains("single_pats")) {
+    Pattern *pattern = patternFromJson(modeJson);
+    if (!pattern) {
+      return mode;
+    }
+    PatternArgs args;
+    pattern->getArgs(args);
+    Colorset set = pattern->getColorset();
+    mode->setPattern(pattern->getPatternID(), LED_FIRST, &args, &set);
+    delete pattern;
+  }
+
   return mode;
 }
 
@@ -2102,6 +2123,46 @@ Pattern *Vortex::patternFromJson(const json &patternJson)
   return pattern;
 }
 
+json Vortex::saveModeToJson()
+{
+  json saveJson;
+  Mode *cur = m_engine.modes().curMode();
+  if (!cur) {
+    return nullptr;
+  }
+  return modeToJson(cur);
+}
+
+bool Vortex::loadModeFromJson(const json &js)
+{
+  if (js.is_null()) {
+    return false;
+  }
+
+  // TODO: reintroduce version to vtxmode format
+  //uint8_t major = 0;
+  //uint8_t minor = 0;
+  //if (js.contains("version_major") && js["version_major"].is_number_unsigned()) {
+  //  major = js["version_major"].get<uint8_t>();
+  //}
+
+  //if (js.contains("version_minor") && js["version_minor"].is_number_unsigned()) {
+  //  minor = js["version_minor"].get<uint8_t>();
+  //}
+
+  //if (!m_engine.checkVersion(major, minor)) {
+  //  return false;
+  //}
+
+  Mode *mode = modeFromJson(js);
+  if (!mode) {
+    return false;
+  }
+  bool rv = m_engine.modes().addMode(mode);
+  delete mode;
+  return rv;
+}
+
 json Vortex::saveToJson()
 {
   json saveJson;
@@ -2117,13 +2178,7 @@ json Vortex::saveToJson()
   json modesArray = json::array();
   m_engine.modes().setCurMode(0);
   for (uint8_t i = 0; i < numModes; ++i) {
-    Mode *cur = m_engine.modes().curMode();
-    if (cur) {
-      json modeJson = modeToJson(cur);
-      modesArray.push_back(modeJson);
-    } else {
-      modesArray.push_back(nullptr);
-    }
+    modesArray.push_back(saveModeToJson());
     m_engine.modes().nextMode();
   }
   saveJson["modes"] = modesArray;
@@ -2166,16 +2221,18 @@ bool Vortex::loadFromJson(const json& js)
     num_modes = js["num_modes"].get<uint8_t>();
   }
 
-  if (js.contains("modes") && js["modes"].is_array()) {
-    m_engine.modes().clearModes();
-    for (const auto &modeValue : js["modes"]) {
-      if (!modeValue.is_null() && modeValue.is_object()) {
-        Mode *mode = modeFromJson(modeValue);
-        if (mode) {
-          m_engine.modes().addMode(mode);
-          delete mode;
-        }
-      }
+  if (!js.contains("modes") || !js["modes"].is_array()) {
+    return false;
+  }
+
+  m_engine.modes().clearModes();
+  for (const auto &modeValue : js["modes"]) {
+    if (modeValue.is_null() || !modeValue.is_object()) {
+      continue;
+    }
+    if (!loadModeFromJson(modeValue)) {
+      // error?
+      return false;
     }
   }
 

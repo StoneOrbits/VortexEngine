@@ -15,7 +15,7 @@
 Leds::Leds(VortexEngine &engine) :
   m_engine(engine),
   m_brightness(DEFAULT_BRIGHTNESS),
-  m_ledCount(10),
+  m_ledCount(1),
   m_ledColors()
 {
 }
@@ -264,6 +264,9 @@ void Leds::update()
 void Leds::setLedCount(uint8_t leds)
 {
   m_ledCount = leds;
+  if (!m_ledCount) {
+    m_ledCount = 1;
+  }
   m_ledColors.resize(m_ledCount);
   clearAll();
 #ifdef VORTEX_LIB
