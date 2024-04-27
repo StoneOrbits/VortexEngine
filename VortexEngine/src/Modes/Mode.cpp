@@ -240,7 +240,9 @@ bool Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
   // serialiaze the multi led?
   if ((flags & MODE_FLAG_MULTI_LED) && m_multiPat) {
     // serialize the multi led
-    m_multiPat->serialize(buffer);
+    if (!m_multiPat->serialize(buffer)) {
+      return false;
+    }
   }
 #endif
   // if no single leds then just stop here
@@ -336,6 +338,10 @@ bool Mode::unserialize(ByteStream &buffer)
     } else {
       // if all same then just dupe first
       m_singlePats[pos] = PatternBuilder::dupe(m_singlePats[LED_FIRST]);
+    }
+    if (!m_singlePats[pos]) {
+      clearPattern(LED_ALL);
+      return false;
     }
     if (!m_singlePats[pos]) {
       clearPattern(LED_ALL);

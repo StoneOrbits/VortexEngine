@@ -659,8 +659,9 @@ bool Vortex::init(VortexCallbacks *callbacks)
 
   // init the engine
   VortexEngine::init();
-  // clear the modes
-  //Modes::clearModes();
+  // load the modes
+  // TODO: don't load modes here? separate api?
+  Modes::load();
   // save and set undo buffer
   doSave();
 

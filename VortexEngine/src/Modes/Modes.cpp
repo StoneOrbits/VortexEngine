@@ -244,6 +244,8 @@ bool Modes::saveHeader()
   return true;
 }
 
+// NOTE: Flash storage is limited to about 10,000 writes so
+//       use this function sparingly!
 bool Modes::saveStorage()
 {
   DEBUG_LOG("Saving modes...");
