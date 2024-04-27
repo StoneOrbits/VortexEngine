@@ -38,7 +38,7 @@ public:
   void cleanup();
 
   // load modes so they are ready to play
-  static bool load();
+  bool load();
 
   // play the current mode
   void play();
@@ -48,7 +48,7 @@ public:
   bool loadFromBuffer(ByteStream &saveBuffer);
 
   // save the header to storage
-  static bool saveHeader();
+  bool saveHeader();
 
   // full save/load to/from storage
   bool loadStorage();
@@ -124,7 +124,7 @@ public:
 
   // set or get flags
   bool setFlag(uint8_t flag, bool enable, bool save = true);
-  bool getFlag(uint8_t flag);
+  bool getFlag(uint8_t flag) { return ((m_globalFlags & flag) != 0); }
   // reset flags to factory default (must save after)
   void resetFlags() { m_globalFlags = 0; }
 
@@ -230,7 +230,7 @@ private:
   ModeLink *getModeLink(uint32_t index);
 
   // whether modes have been loaded
-  static bool m_loaded;
+  bool m_loaded;
 
   // the current mode we're on
   uint8_t m_curMode;

@@ -180,7 +180,7 @@ void VortexEngine::runMainLogic()
   uint32_t now = m_time.getCurtime();
 
   // load modes if necessary
-  if (!Modes::load()) {
+  if (!m_engine.modes().load()) {
     // don't do anything if modes couldn't load
     return;
   }

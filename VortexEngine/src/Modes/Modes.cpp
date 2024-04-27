@@ -37,7 +37,7 @@ bool Modes::init()
   return true;
 #endif
   ByteStream headerBuffer;
-  Storage::read(0, headerBuffer);
+  m_engine.storage().read(0, headerBuffer);
   unserializeSaveHeader(headerBuffer);
   m_loaded = false;
 #ifdef VORTEX_LIB
@@ -235,7 +235,7 @@ bool Modes::saveHeader()
   if (!headerBuffer.serialize8(m_numModes)) {
     return false;
   }
-  if (!Storage::write(0, headerBuffer)) {
+  if (!m_engine.storage().write(0, headerBuffer)) {
     return false;
   }
   return true;
