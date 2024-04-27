@@ -472,6 +472,7 @@ bool Colorset::serialize(ByteStream &buffer) const
       return false;
     }
   }
+  return true;
 }
 
 bool Colorset::unserialize(ByteStream &buffer)
