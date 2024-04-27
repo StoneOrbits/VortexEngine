@@ -16,6 +16,7 @@
 #include "../Log/Log.h"
 
 // static members
+bool Modes::m_loaded = false;
 uint8_t Modes::m_curMode = 0;
 uint8_t Modes::m_numModes = 0;
 // the current instantiated mode and it's respective link
@@ -34,15 +35,10 @@ bool Modes::init()
   test();
   return true;
 #endif
-  // try to load the saved settings or set defaults
-  if (!loadStorage()) {
-    if (!setDefaults()) {
-      return false;
-    }
-    if (!saveStorage()) {
-      return false;
-    }
-  }
+  ByteStream headerBuffer;
+  Storage::read(0, headerBuffer);
+  unserializeSaveHeader(headerBuffer);
+  m_loaded = false;
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
   m_globalFlags |= MODES_FLAG_ADV_MENUS;
@@ -53,6 +49,24 @@ bool Modes::init()
 void Modes::cleanup()
 {
   clearModes();
+}
+
+bool Modes::load()
+{
+  if (m_loaded) {
+    return true;
+  }
+  // try to load the saved settings or set defaults
+  if (!loadStorage()) {
+    if (!setDefaults()) {
+      return false;
+    }
+    if (!saveStorage()) {
+      return false;
+    }
+  }
+  m_loaded = true;
+  return true;
 }
 
 void Modes::play()
@@ -206,6 +220,22 @@ bool Modes::loadStorage()
     if (!Storage::read(i + 1, modeBuffer) || !addSerializedMode(modeBuffer)) {
       return false;
     }
+  }
+  return true;
+}
+
+bool Modes::saveHeader()
+{
+  ByteStream headerBuffer(MAX_MODE_SIZE);
+  if (!serializeSaveHeader(headerBuffer)) {
+    return false;
+  }
+  // serialize the number of modes
+  if (!headerBuffer.serialize8(m_numModes)) {
+    return false;
+  }
+  if (!Storage::write(0, headerBuffer)) {
+    return false;
   }
   return true;
 }
@@ -672,17 +702,7 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
     m_globalFlags &= ~flag;
   }
   DEBUG_LOGF("Toggled instant on/off to %s", enable ? "on" : "off");
-  return !save || saveStorage();
-}
-
-bool Modes::getFlag(uint8_t flag)
-{
-  return ((m_globalFlags & flag) != 0);
-}
-
-void Modes::resetFlags()
-{
-  m_globalFlags = 0;
+  return !save || saveHeader();
 }
 
 #ifdef VORTEX_LIB
