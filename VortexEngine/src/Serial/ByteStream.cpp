@@ -322,7 +322,7 @@ uint32_t ByteStream::recalcCRC(bool force)
 void ByteStream::sanity()
 {
   // to ensure size never exceeds the buffer capacity
-  if (m_pData->size > m_capacity) {
+  if (m_pData && m_pData->size > m_capacity) {
     m_pData->size = m_capacity;
   }
 }

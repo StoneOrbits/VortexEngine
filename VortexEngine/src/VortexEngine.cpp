@@ -179,6 +179,12 @@ void VortexEngine::runMainLogic()
   // the current tick
   uint32_t now = m_time.getCurtime();
 
+  // load modes if necessary
+  if (!Modes::load()) {
+    // don't do anything if modes couldn't load
+    return;
+  }
+
   // if the menus are open and running then just return
   if (m_menus.run()) {
     return;

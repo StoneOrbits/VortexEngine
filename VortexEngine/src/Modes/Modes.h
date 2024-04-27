@@ -37,12 +37,18 @@ public:
   bool init();
   void cleanup();
 
+  // load modes so they are ready to play
+  static bool load();
+
   // play the current mode
   void play();
 
   // full save/load to/from buffer
   bool saveToBuffer(ByteStream &saveBuffer);
   bool loadFromBuffer(ByteStream &saveBuffer);
+
+  // save the header to storage
+  static bool saveHeader();
 
   // full save/load to/from storage
   bool loadStorage();
@@ -120,7 +126,7 @@ public:
   bool setFlag(uint8_t flag, bool enable, bool save = true);
   bool getFlag(uint8_t flag);
   // reset flags to factory default (must save after)
-  void resetFlags();
+  void resetFlags() { m_globalFlags = 0; }
 
   // inline functions to toggle the various flags
   bool setOneClickMode(bool enable, bool save = true) {
@@ -165,9 +171,6 @@ public:
 #endif
 
 private:
-  bool serializeSaveHeader(ByteStream &saveBuffer);
-  bool unserializeSaveHeader(ByteStream &saveBuffer);
-
   // linked list of internal mode storage
   class ModeLink {
   public:
@@ -216,11 +219,18 @@ private:
     ModeLink *m_prev;
   };
 
+  // save load the savefile header from storage
+  bool serializeSaveHeader(ByteStream &saveBuffer);
+  bool unserializeSaveHeader(ByteStream &saveBuffer);
+
   // reference to engine
   VortexEngine &m_engine;
 
   // fetch a link from the chain by index
   ModeLink *getModeLink(uint32_t index);
+
+  // whether modes have been loaded
+  static bool m_loaded;
 
   // the current mode we're on
   uint8_t m_curMode;
