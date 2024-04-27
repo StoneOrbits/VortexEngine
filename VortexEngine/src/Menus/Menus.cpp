@@ -146,19 +146,19 @@ bool Menus::runMenuSelection()
       // display the newly opened menu
       return true;
     }
-    // if you long click the 2nd button exit the menu list
-    if (g_pButton2->onLongClick()) {
-      // close the current menu when run returns false
-      closeCurMenu();
-      // return false to let the modes play
-      return false;
-    }
     // if holding down to select the menu option
     if (g_pButton->isPressed() && openAdv) {
       // make it strobe aw yiss
       offtime = HYPERSTROBE_OFF_DURATION;
       ontime = HYPERSTROBE_ON_DURATION;
     }
+  }
+  // if you long click the 2nd button exit the menu list
+  if (g_pButton2->onLongClick()) {
+    // close the current menu when run returns false
+    closeCurMenu();
+    // return false to let the modes play
+    return false;
   }
   // blink every even/odd of every pair
   for (Pair p = PAIR_FIRST; p < PAIR_COUNT; ++p) {
