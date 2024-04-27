@@ -131,6 +131,11 @@ Menu::MenuAction Menu::run()
     m_ledSelected = true;
     // call led selected callback
     onLedSelected();
+    // log about the selection
+    DEBUG_LOGF("Led Selected: 0x%x (%s)", m_targetLeds,
+      (m_targetLeds == MAP_LED(LED_MULTI)) ? "multi"
+        : (m_targetLeds == MAP_LED_ALL) ? "all"
+          : "some singles");
   }
   // on a long press of the 2nd button, add to selection
   if (g_pButtonR->onLongClick()) {

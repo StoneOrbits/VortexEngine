@@ -213,7 +213,7 @@ void VortexEngine::runMainLogic()
   }
 
   // toggle auto cycle mode with many clicks at main modes
-  if (g_pButtonM->onConsecutivePresses(AUTO_CYCLE_MODES_CLICKS)) {
+  if ((g_pButtonM->onRelease() && m_autoCycle) || g_pButtonM->onConsecutivePresses(AUTO_CYCLE_MODES_CLICKS)) {
     m_autoCycle = !m_autoCycle;
     Leds::holdAll(m_autoCycle ? RGB_GREEN : RGB_RED);
   }
@@ -231,8 +231,13 @@ void VortexEngine::runMainLogic()
 bool VortexEngine::serializeVersion(ByteStream &stream)
 {
   // serialize the vortex version
-  return stream.serialize((uint8_t)VORTEX_VERSION_MAJOR) &&
-         stream.serialize((uint8_t)VORTEX_VERSION_MINOR);
+  if (!stream.serialize8((uint8_t)VORTEX_VERSION_MAJOR)) {
+    return false;
+  }
+  if (!stream.serialize8((uint8_t)VORTEX_VERSION_MINOR)) {
+    return false;
+  }
+  return true;
 }
 
 bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)
