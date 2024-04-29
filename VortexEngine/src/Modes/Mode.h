@@ -97,6 +97,12 @@ public:
   bool setPattern(PatternID pat, LedPos pos = LED_ANY, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   bool setPatternMap(LedMap pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
 
+  // copy a pattern from another mode ledpos into this mode
+  void copyPatternFrom(const Mode *other, LedPos to, LedPos from);
+
+  // swap two patterns
+  void swapPatterns(LedPos a, LedPos b);
+
   // set colorset at a specific position
   bool setColorset(const Colorset &set, LedPos pos = LED_ANY);
   // set colorset at each position in a map

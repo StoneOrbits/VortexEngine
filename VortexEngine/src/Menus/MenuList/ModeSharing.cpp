@@ -6,6 +6,7 @@
 #include "../../Time/Timings.h"
 #include "../../Wireless/VLReceiver.h"
 #include "../../Wireless/VLSender.h"
+#include "../../Patterns/Pattern.h"
 #include "../../Buttons/Button.h"
 #include "../../Modes/Modes.h"
 #include "../../Modes/Mode.h"
@@ -28,8 +29,10 @@ bool ModeSharing::init()
   if (!Menu::init()) {
     return false;
   }
-  // skip led selection
-  m_ledSelected = true;
+  if (!m_advanced) {
+    // skip led selection
+    m_ledSelected = true;
+  }
   // start on receive because it's the more responsive of the two
   // the odds of opening receive and then accidentally receiving
   // a mode that is being broadcast nearby is completely unlikely
@@ -61,6 +64,14 @@ Menu::MenuAction ModeSharing::run()
   return MENU_CONTINUE;
 }
 
+void ModeSharing::onLedSelected()
+{
+  // if we selected leds that implies advanced mode
+  if (m_targetLeds == MAP_LED(LED_1)) {
+    m_previewMode.swapPatterns(LED_0, LED_1);
+  }
+}
+
 // handlers for clicks
 void ModeSharing::onShortClick()
 {
@@ -79,8 +90,7 @@ void ModeSharing::onShortClick()
 
 void ModeSharing::onLongClick()
 {
-  Modes::updateCurMode(&m_previewMode);
-  leaveMenu(true);
+  leaveMenu();
 }
 
 void ModeSharing::beginSending()
@@ -92,7 +102,7 @@ void ModeSharing::beginSending()
   }
   m_sharingMode = ModeShareState::SHARE_SEND;
   // initialize it with the current mode data
-  VLSender::loadMode(Modes::curMode());
+  VLSender::loadMode(&m_previewMode);
   // send the first chunk of data, leave if we're done
   if (!VLSender::send()) {
     // when send has completed, stores time that last action was completed to calculate interval between sends
@@ -141,11 +151,20 @@ void ModeSharing::receiveMode()
     return;
   }
   DEBUG_LOGF("Success receiving mode: %u", m_previewMode.getPatternID());
-  if (!m_advanced) {
-    Modes::updateCurMode(&m_previewMode);
-    // leave menu and save settings, even if the mode was the same whatever
-    leaveMenu(true);
+  if (m_advanced && m_targetLeds != MAP_LED_ALL) {
+    LedPos target = ledmapGetFirstLed(m_targetLeds);
+    LedPos other = LED_1;
+    // if the user picked the top led to copy into then swap the patterns
+    // in the incoming mode so the 0th pattern is on the top led
+    if (target == LED_1) {
+      other = LED_0;
+      m_previewMode.swapPatterns(LED_0, LED_1);
+    }
+    m_previewMode.copyPatternFrom(Modes::curMode(), other, other);
   }
+  Modes::updateCurMode(&m_previewMode);
+  // leave menu and save settings, even if the mode was the same whatever
+  leaveMenu(true);
 }
 
 void ModeSharing::showSendMode()
@@ -163,12 +182,6 @@ void ModeSharing::showReceiveMode()
     Leds::setIndex(LED_0, RGBColor(0, VLReceiver::percentReceived(), 0));
     Leds::clearIndex(LED_1);
   } else {
-    if (m_advanced) {
-      m_previewMode.play();
-      // don't play on LED 1 so that it doesn't interfere
-      Leds::clearIndex(LED_1);
-    } else {
-      Leds::setAll(RGB_WHITE0);
-    }
+    Leds::setAll(RGB_WHITE0);
   }
 }

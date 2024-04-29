@@ -594,6 +594,26 @@ bool Mode::setPatternMap(LedMap map, PatternID pat, const PatternArgs *args, con
   return true;
 }
 
+void Mode::copyPatternFrom(const Mode *other, LedPos to, LedPos from)
+{
+  if (to >= LED_COUNT || from >= LED_COUNT) {
+    return;
+  }
+  delete m_singlePats[to];
+  m_singlePats[to] = PatternBuilder::dupe(other->m_singlePats[from]);
+}
+
+
+void Mode::swapPatterns(LedPos a, LedPos b)
+{
+  if (a >= LED_COUNT || b >= LED_COUNT) {
+    return;
+  }
+  Pattern *temp = m_singlePats[a];
+  m_singlePats[a] = m_singlePats[b];
+  m_singlePats[b] = temp;
+}
+
 // set colorset at a specific position
 bool Mode::setColorset(const Colorset &set, LedPos pos)
 {
