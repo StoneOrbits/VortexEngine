@@ -56,8 +56,8 @@ Colorset::Colorset(Colorset &&other) noexcept :
   m_curIndex(INDEX_NONE),
   m_numColors(other.m_numColors)
 {
-  memcpy(m_palette, other.m_palette, sizeof(m_palette));
-  memset(other.m_palette, 0, sizeof(m_palette));
+  memcpy((void *)m_palette, (void *)other.m_palette, sizeof(m_palette));
+  memset((void *)other.m_palette, 0, sizeof(m_palette));
   other.m_numColors = 0;
   other.m_curIndex = INDEX_NONE;
 }
@@ -101,7 +101,7 @@ void Colorset::init(RGBColor c1, RGBColor c2, RGBColor c3, RGBColor c4,
 
 void Colorset::clear()
 {
-  memset(m_palette, 0, sizeof(m_palette));
+  memset((void *)m_palette, 0, sizeof(m_palette));
   m_numColors = 0;
   resetIndex();
 }
