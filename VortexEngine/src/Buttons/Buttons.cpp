@@ -27,6 +27,7 @@ bool Buttons::init()
 
 void Buttons::cleanup()
 {
+  delete g_pButton;
 }
 
 void Buttons::update()
