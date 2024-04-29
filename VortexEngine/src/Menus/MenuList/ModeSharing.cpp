@@ -68,6 +68,9 @@ void ModeSharing::onLedSelected()
 {
   // if we selected leds that implies advanced mode
   if (m_targetLeds == MAP_LED(LED_1)) {
+    // if we selected the top led then simply swap the two patterns
+    // so that the top led is sent first -- if the receiver is receiving
+    // into one slot then it will only use the first pattern to do so
     m_previewMode.swapPatterns(LED_0, LED_1);
   }
 }
