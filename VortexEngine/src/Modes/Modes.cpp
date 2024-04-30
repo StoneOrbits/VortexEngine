@@ -170,6 +170,49 @@ bool Modes::loadHeader()
   return true;
 }
 
+// NOTE: Flash storage is limited to about 10,000 writes so
+//       use this function sparingly!
+bool Modes::saveStorage()
+{
+  DEBUG_LOG("Saving modes...");
+  saveHeader();
+  // make sure the current mode is saved in case it has changed somehow
+  saveCurMode();
+  // uninstantiate cur mode so we have stack space to serialize
+  if (m_pCurModeLink) {
+    m_pCurModeLink->uninstantiate();
+  }
+  uint8_t i = 0;
+  ModeLink *ptr = m_storedModes;
+  while (ptr && i < MAX_MODES) {
+    ByteStream modeBuffer(MAX_MODE_SIZE);
+    // instantiate the mode temporarily
+    Mode *mode = ptr->instantiate();
+    if (!mode) {
+      ERROR_OUT_OF_MEMORY();
+      return false;
+    }
+    // serialize it into the target modes buffer
+    if (!mode->serialize(modeBuffer)) {
+      return false;
+    }
+    // just uninstansiate the mode after serializing
+    ptr->uninstantiate();
+    // next mode
+    ptr = ptr->next();
+    // now write this mode into a storage slot (skip first slot, that's header)
+    if (!Storage::write(++i, modeBuffer)) {
+      return false;
+    }
+  }
+  // reinstanstiate the current mode
+  if (m_pCurModeLink && !m_pCurModeLink->instantiate()) {
+    return false;
+  }
+  DEBUG_LOGF("Serialized num modes: %u", m_numModes);
+  return true;
+}
+
 bool Modes::loadStorage()
 {
   // NOTE: We could call loadHeader here but then we wouldn't have the headerBuffer
@@ -212,49 +255,6 @@ bool Modes::loadStorage()
     // set the current mode to the startup mode
     switchToStartupMode();
   }
-  return true;
-}
-
-// NOTE: Flash storage is limited to about 10,000 writes so
-//       use this function sparingly!
-bool Modes::saveStorage()
-{
-  DEBUG_LOG("Saving modes...");
-  saveHeader();
-  // make sure the current mode is saved in case it has changed somehow
-  saveCurMode();
-  // uninstantiate cur mode so we have stack space to serialize
-  if (m_pCurModeLink) {
-    m_pCurModeLink->uninstantiate();
-  }
-  uint8_t i = 0;
-  ModeLink *ptr = m_storedModes;
-  while (ptr && i < MAX_MODES) {
-    ByteStream modeBuffer(MAX_MODE_SIZE);
-    // instantiate the mode temporarily
-    Mode *mode = ptr->instantiate();
-    if (!mode) {
-      ERROR_OUT_OF_MEMORY();
-      return false;
-    }
-    // serialize it into the target modes buffer
-    if (!mode->serialize(modeBuffer)) {
-      return false;
-    }
-    // just uninstansiate the mode after serializing
-    ptr->uninstantiate();
-    // next mode
-    ptr = ptr->next();
-    // now write this mode into a storage slot (skip first slot, that's header)
-    if (!Storage::write(++i, modeBuffer)) {
-      return false;
-    }
-  }
-  // reinstanstiate the current mode
-  if (m_pCurModeLink && !m_pCurModeLink->instantiate()) {
-    return false;
-  }
-  DEBUG_LOGF("Serialized num modes: %u", m_numModes);
   return true;
 }
 
