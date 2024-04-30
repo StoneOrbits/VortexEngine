@@ -155,30 +155,22 @@ void Leds::clearAllOdds()
 
 void Leds::setQuadrant(Quadrant quadrant, RGBColor col)
 {
+  if (quadrant == QUADRANT_5) {
+    led(LED_3) = col;
+    led(LED_10) = col;
+    led(LED_17) = col;
+    led(LED_24) = col;
+    return;
+  }
   // start from tip and go to top
   setRange(quadrantFirstLed(quadrant), quadrantLastLed(quadrant), col);
 }
 
 void Leds::setQuadrants(Quadrant first, Quadrant last, RGBColor col)
 {
-  // start from tip and go to top
-  setRange(quadrantFirstLed(first), quadrantLastLed(last), col);
-}
-
-void Leds::setQuadrantFive(RGBColor col)
-{
-  led(LED_3) = col;
-  led(LED_10) = col;
-  led(LED_17) = col;
-  led(LED_24) = col;
-}
-
-void Leds::clearQuadrantFive()
-{
-  led(LED_3) = RGB_OFF;
-  led(LED_10) = RGB_OFF;
-  led(LED_17) = RGB_OFF;
-  led(LED_24) = RGB_OFF;
+  for (Quadrant quad = first; quad <= last; ++quad) {
+    setQuadrant(quad, col);
+  }
 }
 
 void Leds::setRing(Ring ring, RGBColor col)
@@ -301,13 +293,6 @@ void Leds::blinkQuadrant(Quadrant target, uint16_t offMs, uint16_t onMs, RGBColo
   }
 }
 
-void Leds::blinkQuadrantFive(uint16_t offMs, uint16_t onMs, RGBColor col)
-{
-  if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
-    setQuadrantFive(col);
-  }
-}
-
 void Leds::blinkMap(LedMap targets, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
@@ -360,17 +345,10 @@ void Leds::breatheIndexVal(LedPos target, uint8_t hue, uint32_t variance, uint32
   setIndex(target, HSVColor(hue, sat, 255 - (uint8_t)(val + 128 + ((sin(variance * 0.0174533) + 1) * magnitude))));
 }
 
-void Leds::breathQuadrant(Quadrant target, uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+void Leds::breatheQuadrant(Quadrant target, uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
   for (uint8_t pos = 0; pos < 7; ++pos) {
-    setIndex((LedPos)((target * 7) + pos), HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
-  }
-}
-
-void Leds::breathQuadrantFive(uint32_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
-{
-  for (int target = 0; target < 4; ++target) {
-    setIndex((LedPos)((target * 7) + 3), HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
+    setQuadrant(target, HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
   }
 }
 

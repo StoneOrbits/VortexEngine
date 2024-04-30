@@ -395,11 +395,11 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       // if we're pressing down on a slot then glow the tip white/red
       if ((g_pButton->holdDuration() % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS) {
         // breath red instead of white blink
-        Leds::breathQuadrant(m_curSelection, 0, g_pButton->holdDuration());
+        Leds::breatheQuadrant(m_curSelection, 0, g_pButton->holdDuration());
         return;
       }
     } else if (m_slot == (uint32_t)(m_colorset.numColors() + 1)) {
-      Leds::blinkQuadrantFive(150, 350, RGB_WHITE);
+      Leds::blinkQuadrant(QUADRANT_5, 150, 350, RGB_WHITE);
     }
   }
   // otherwise run the default blink logic

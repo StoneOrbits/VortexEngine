@@ -41,7 +41,7 @@ public:
 
 protected:
   void showBulbSelection();
-  void showExit();
+  virtual void showExit();
 
   // blink the selected finger
   virtual void blinkSelection(uint32_t offMs = 250, uint32_t onMs = 500);

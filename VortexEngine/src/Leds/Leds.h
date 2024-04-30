@@ -48,12 +48,10 @@ public:
   // Control full quadrants of Leds
   static void setQuadrant(Quadrant quadrant, RGBColor col);
   static void setQuadrants(Quadrant first, Quadrant last, RGBColor col);
-  static void setQuadrantFive(RGBColor col);
 
   // Turn off full quadrants
-  static void clearQuadrant(Quadrant quadrant) { setRange(quadrantFirstLed(quadrant), quadrantLastLed(quadrant), HSV_OFF); }
-  static void clearQuadrants(Quadrant first, Quadrant last) { setRange(quadrantFirstLed(first), quadrantLastLed(last), HSV_OFF); }
-  static void clearQuadrantFive();
+  static void clearQuadrant(Quadrant quadrant) { setQuadrant(quadrant, RGB_OFF); }
+  static void clearQuadrants(Quadrant first, Quadrant last) { setQuadrants(first, last, RGB_OFF); }
 
   // set a ring of leds
   static void setRing(Ring ring, RGBColor col);
@@ -94,7 +92,6 @@ public:
   static void blinkRange(LedPos first, LedPos last, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkQuadrantOffset(Quadrant target, uint32_t time, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkQuadrant(Quadrant target, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
-  static void blinkQuadrantFive(uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkMap(LedMap targets, uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
   static void blinkAll(uint16_t offMs = 250, uint16_t onMs = 500, RGBColor col = RGB_OFF);
   // Blink both LEDs on a pair
@@ -111,9 +108,7 @@ public:
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
   static void breatheIndexVal(LedPos target, uint8_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  static void breathQuadrant(Quadrant target, uint32_t hue, uint32_t variance,
-    uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
-  static void breathQuadrantFive(uint32_t hue, uint32_t variance,
+  static void breatheQuadrant(Quadrant target, uint32_t hue, uint32_t variance,
     uint32_t magnitude = 15, uint8_t sat = 255, uint8_t val = 210);
 
   // a very specialized api to hold all leds on a color for 250ms
