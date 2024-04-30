@@ -25,6 +25,7 @@ public:
 private:
   void showListSelection();
   void showPatternSelection();
+  void nextPatternID();
   void nextPattern();
 
   void showExit() override;

@@ -104,7 +104,7 @@ void PatternSelect::onShortClick()
   }
 }
 
-void PatternSelect::nextPattern()
+void PatternSelect::nextPatternID()
 {
   // increment to next pattern
   PatternID endList = PATTERN_SINGLE_LAST;
@@ -123,9 +123,16 @@ void PatternSelect::nextPattern()
   if (m_newPatternID > endList || m_newPatternID < beginList) {
     m_newPatternID = beginList;
   }
-  if (!m_started) {
+}
+
+void PatternSelect::nextPattern()
+{
+  if (m_started) {
+    nextPatternID();
+  } else {
     m_started = true;
-    m_newPatternID = beginList;
+    // Do not modify m_newPatternID Here! It has been set in the long click handler
+    // to be the start of the list we want to iterate
   }
   // set the new pattern id
   if (isMultiLedPatternID(m_newPatternID)) {
@@ -150,13 +157,26 @@ void PatternSelect::onLongClick()
       leaveMenu();
       return;
     }
+    // if targeted multi then start at multis and only iterate multis
+    if ((m_targetLeds == MAP_LED(LED_MULTI))) {
+      // the selected multi only iterate multis
+      m_newPatternID = (PatternID)(PATTERN_MULTI_FIRST + (m_curSelection * (PATTERN_MULTI_COUNT / 4)));
+    } else if ((m_targetLeds != MAP_LED_ALL)) {
+      // they selected some singles, only iterate single led patterns
+      m_newPatternID = (PatternID)(PATTERN_SINGLE_FIRST + (m_curSelection * (PATTERN_SINGLE_COUNT / 4)));
+    } else {
+      // otherwise they selected all divide the entire list
+      m_newPatternID = (PatternID)(PATTERN_FIRST + (m_curSelection * (PATTERN_COUNT / 4)));
+    }
     m_state = STATE_PICK_PATTERN;
     break;
   case STATE_PICK_PATTERN:
     // need to save the new pattern if it's different from current
-    needsSave = (Modes::curMode()->getPatternID() != m_previewMode.getPatternID());
-    // update the current mode with the new pattern
-    Modes::updateCurMode(&m_previewMode);
+    needsSave = !Modes::curMode()->equals(&m_previewMode);
+    if (needsSave) {
+      // update the current mode with the new pattern
+      Modes::updateCurMode(&m_previewMode);
+    }
     DEBUG_LOGF("Saving pattern %u", m_newPatternID);
     // go back to beginning for next time
     m_state = STATE_PICK_LIST;
