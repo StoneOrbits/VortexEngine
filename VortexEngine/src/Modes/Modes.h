@@ -46,12 +46,17 @@ public:
   static bool saveToBuffer(ByteStream &saveBuffer);
   static bool loadFromBuffer(ByteStream &saveBuffer);
 
-  // save the header to storage
+  // save/load the global settings to/from storage
   static bool saveHeader();
+  static bool loadHeader();
 
   // full save/load to/from storage
-  static bool loadStorage();
   static bool saveStorage();
+  static bool loadStorage();
+
+  // save load the savefile header from storage
+  static bool serializeSaveHeader(ByteStream &saveBuffer);
+  static bool unserializeSaveHeader(ByteStream &saveBuffer);
 
   // saves all modes to a buffer
   static bool serialize(ByteStream &buffer);
@@ -208,10 +213,6 @@ private:
     ModeLink *m_next;
     ModeLink *m_prev;
   };
-
-  // save load the savefile header from storage
-  static bool serializeSaveHeader(ByteStream &saveBuffer);
-  static bool unserializeSaveHeader(ByteStream &saveBuffer);
 
   // fetch a link from the chain by index
   static ModeLink *getModeLink(uint32_t index);
