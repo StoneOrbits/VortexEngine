@@ -343,6 +343,10 @@ bool Mode::unserialize(ByteStream &buffer)
       clearPattern(LED_ALL);
       return false;
     }
+    if (!m_singlePats[pos]) {
+      clearPattern(LED_ALL);
+      return false;
+    }
     m_singlePats[pos]->bind(pos);
   }
 

@@ -244,6 +244,22 @@ bool Modes::saveHeader()
   return true;
 }
 
+bool Modes::saveHeader()
+{
+  ByteStream headerBuffer(MAX_MODE_SIZE);
+  if (!serializeSaveHeader(headerBuffer)) {
+    return false;
+  }
+  // serialize the number of modes
+  if (!headerBuffer.serialize8(m_numModes)) {
+    return false;
+  }
+  if (!Storage::write(0, headerBuffer)) {
+    return false;
+  }
+  return true;
+}
+
 // NOTE: Flash storage is limited to about 10,000 writes so
 //       use this function sparingly!
 bool Modes::saveStorage()
