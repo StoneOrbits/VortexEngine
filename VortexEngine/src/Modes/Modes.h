@@ -49,10 +49,15 @@ public:
 
   // save the header to storage
   bool saveHeader();
+  bool loadHeader();
 
   // full save/load to/from storage
-  bool loadStorage();
   bool saveStorage();
+  bool loadStorage();
+
+  // save load the savefile header from storage
+  bool serializeSaveHeader(ByteStream &saveBuffer);
+  bool unserializeSaveHeader(ByteStream &saveBuffer);
 
   // saves all modes to a buffer
   bool serialize(ByteStream &buffer);
@@ -116,6 +121,7 @@ public:
   // set the startup mode index (which mode will be displayed on startup)
   void setStartupMode(uint8_t index);
   uint8_t startupMode();
+  Mode *switchToStartupMode();
 
   // initialize current mode from ByteStream, optionally force re-init which
   // will destroy the current instantiated mode and re-load it from serial
@@ -218,10 +224,6 @@ private:
     ModeLink *m_next;
     ModeLink *m_prev;
   };
-
-  // save load the savefile header from storage
-  bool serializeSaveHeader(ByteStream &saveBuffer);
-  bool unserializeSaveHeader(ByteStream &saveBuffer);
 
   // reference to engine
   VortexEngine &m_engine;

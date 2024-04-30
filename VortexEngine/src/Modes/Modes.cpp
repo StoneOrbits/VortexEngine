@@ -84,10 +84,175 @@ void Modes::play()
   }
   // shortclick cycles to the next mode
   if (m_engine.button().onShortClick()) {
-    nextModeSkipEmpty();
+    nextMode();
   }
   // play the current mode
   m_pCurModeLink->play();
+}
+
+// full save/load to/from buffer
+bool Modes::saveToBuffer(ByteStream &modesBuffer)
+{
+  // first write out the header
+  if (!serializeSaveHeader(modesBuffer)) {
+    return false;
+  }
+  // serialize all modes data into the modesBuffer
+  if (!serialize(modesBuffer)) {
+    return false;
+  }
+  DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
+  if (!modesBuffer.compress()) {
+    return false;
+  }
+  return true;
+}
+
+// load modes from a save buffer
+bool Modes::loadFromBuffer(ByteStream &modesBuffer)
+{
+  if (!modesBuffer.decompress()) {
+    // failed to decompress?
+    return false;
+  }
+  // read out the header first
+  if (!unserializeSaveHeader(modesBuffer)) {
+    return false;
+  }
+  // now just unserialize the list of modes
+  if (!unserialize(modesBuffer)) {
+    return false;
+  }
+  if (oneClickModeEnabled()) {
+    // set the current mode to the startup mode
+    switchToStartupMode();
+  }
+  return true;
+}
+
+bool Modes::saveHeader()
+{
+  ByteStream headerBuffer(MAX_MODE_SIZE);
+  if (!serializeSaveHeader(headerBuffer)) {
+    return false;
+  }
+  // serialize the number of modes
+  if (!headerBuffer.serialize8(m_numModes)) {
+    return false;
+  }
+  if (!m_engine.storage().write(0, headerBuffer)) {
+    return false;
+  }
+  return true;
+}
+
+bool Modes::loadHeader()
+{
+  ByteStream headerBuffer;
+  // only read storage if the modebuffer isn't filled
+  if (!m_engine.storage().read(0, headerBuffer) || !headerBuffer.size()) {
+    DEBUG_LOG("Empty buffer read from storage");
+    // this kinda sucks whatever they had loaded is gone
+    return false;
+  }
+  // this erases what is stored before we know whether there is data
+  // but it's the easiest way to just re-load new data from storage
+  clearModes();
+  // read the header and load the data
+  if (!unserializeSaveHeader(headerBuffer)) {
+    return false;
+  }
+  // NOTE: We do not bother loading the number of modes because
+  //       we can't really do anything with it anyway
+  return true;
+}
+
+bool Modes::loadStorage()
+{
+  // NOTE: We could call loadHeader here but then we wouldn't have the headerBuffer
+  //       and in turn wouldn't be able to unserialize the number of modes. The number
+  //       of modes is a weird case, it's technically part of the mode list not the
+  //       header but it is stored in the same storage slot as the header
+  ByteStream headerBuffer;
+  // only read storage if the modebuffer isn't filled
+  if (!m_engine.storage().read(0, headerBuffer) || !headerBuffer.size()) {
+    DEBUG_LOG("Empty buffer read from storage");
+    // this kinda sucks whatever they had loaded is gone
+    return false;
+  }
+  // this erases what is stored before we know whether there is data
+  // but it's the easiest way to just re-load new data from storage
+  clearModes();
+  // read the header and load the data
+  if (!unserializeSaveHeader(headerBuffer)) {
+    return false;
+  }
+  // unserialize the number of modes next
+  uint8_t numModes = 0;
+  if (!headerBuffer.unserialize8(&numModes)) {
+    return false;
+  }
+  if (!numModes) {
+    DEBUG_LOG("Did not find any modes");
+    // this kinda sucks whatever they had loaded is gone
+    return false;
+  }
+  // iterate each mode and read it out of it's storage slot then add it
+  for (uint8_t i = 0; i < numModes; ++i) {
+    ByteStream modeBuffer(MAX_MODE_SIZE);
+    // read each mode from a storage slot and load it
+    if (!m_engine.storage().read(i + 1, modeBuffer) || !addSerializedMode(modeBuffer)) {
+      return false;
+    }
+  }
+  if (oneClickModeEnabled()) {
+    // set the current mode to the startup mode
+    switchToStartupMode();
+  }
+  return true;
+}
+
+// NOTE: Flash storage is limited to about 10,000 writes so
+//       use this function sparingly!
+bool Modes::saveStorage()
+{
+  DEBUG_LOG("Saving modes...");
+  saveHeader();
+  // make sure the current mode is saved in case it has changed somehow
+  saveCurMode();
+  // uninstantiate cur mode so we have stack space to serialize
+  if (m_pCurModeLink) {
+    m_pCurModeLink->uninstantiate();
+  }
+  uint8_t i = 0;
+  ModeLink *ptr = m_storedModes;
+  while (ptr && i < MAX_MODES) {
+    ByteStream modeBuffer(MAX_MODE_SIZE);
+    // instantiate the mode temporarily
+    Mode *mode = ptr->instantiate();
+    if (!mode) {
+      ERROR_OUT_OF_MEMORY();
+      return false;
+    }
+    // serialize it into the target modes buffer
+    if (!mode->serialize(modeBuffer)) {
+      return false;
+    }
+    // just uninstansiate the mode after serializing
+    ptr->uninstantiate();
+    // next mode
+    ptr = ptr->next();
+    // now write this mode into a storage slot (skip first slot, that's header)
+    if (!m_engine.storage().write(++i, modeBuffer)) {
+      return false;
+    }
+  }
+  // reinstanstiate the current mode
+  if (m_pCurModeLink && !m_pCurModeLink->instantiate()) {
+    return false;
+  }
+  DEBUG_LOGF("Serialized num modes: %u", m_numModes);
+  return true;
 }
 
 bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
@@ -142,155 +307,6 @@ bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
   if (brightness) {
     m_engine.leds().setBrightness(brightness);
   }
-  return true;
-}
-
-// full save/load to/from buffer
-bool Modes::saveToBuffer(ByteStream &modesBuffer)
-{
-  // first write out the header
-  if (!serializeSaveHeader(modesBuffer)) {
-    return false;
-  }
-  // serialize all modes data into the modesBuffer
-  if (!serialize(modesBuffer)) {
-    return false;
-  }
-  DEBUG_LOGF("Serialized all modes, uncompressed size: %u", modesBuffer.size());
-  if (!modesBuffer.compress()) {
-    return false;
-  }
-  return true;
-}
-
-// load modes from a save buffer
-bool Modes::loadFromBuffer(ByteStream &modesBuffer)
-{
-  if (!modesBuffer.decompress()) {
-    // failed to decompress?
-    return false;
-  }
-  // read out the header first
-  if (!unserializeSaveHeader(modesBuffer)) {
-    return false;
-  }
-  // now just unserialize the list of modes
-  if (!unserialize(modesBuffer)) {
-    return false;
-  }
-  // startupMode is 1-based offset that encodes both the index to start at and
-  // whether the system is enabled, hence why 0 cannot be used as an offset
-  uint8_t startupMode = (m_globalFlags & 0xF0) >> 4;
-  if (oneClickModeEnabled() && startupMode > 0) {
-    // set the current mode to the startup mode
-    setCurMode(startupMode);
-  }
-  return true;
-}
-
-bool Modes::loadStorage()
-{
-  ByteStream headerBuffer;
-  // only read storage if the modebuffer isn't filled
-  if (!m_engine.storage().read(0, headerBuffer) || !headerBuffer.size()) {
-    DEBUG_LOG("Empty buffer read from storage");
-    // this kinda sucks whatever they had loaded is gone
-    return false;
-  }
-  // this erases what is stored before we know whether there is data
-  // but it's the easiest way to just re-load new data from storage
-  clearModes();
-  // read the header and load the data
-  if (!unserializeSaveHeader(headerBuffer)) {
-    return false;
-  }
-  // unserialize the number of modes next
-  uint8_t numModes = 0;
-  if (!headerBuffer.unserialize8(&numModes)) {
-    return false;
-  }
-  if (!numModes) {
-    DEBUG_LOG("Did not find any modes");
-    // this kinda sucks whatever they had loaded is gone
-    return false;
-  }
-  // iterate each mode and read it out of it's storage slot then add it
-  for (uint8_t i = 0; i < numModes; ++i) {
-    ByteStream modeBuffer(MAX_MODE_SIZE);
-    // read each mode from a storage slot and load it
-    if (!m_engine.storage().read(i + 1, modeBuffer) || !addSerializedMode(modeBuffer)) {
-      return false;
-    }
-  }
-  return true;
-}
-
-bool Modes::saveHeader()
-{
-  ByteStream headerBuffer(MAX_MODE_SIZE);
-  if (!serializeSaveHeader(headerBuffer)) {
-    return false;
-  }
-  // serialize the number of modes
-  if (!headerBuffer.serialize8(m_numModes)) {
-    return false;
-  }
-  if (!m_engine.storage().write(0, headerBuffer)) {
-    return false;
-  }
-  return true;
-}
-
-// NOTE: Flash storage is limited to about 10,000 writes so
-//       use this function sparingly!
-bool Modes::saveStorage()
-{
-  DEBUG_LOG("Saving modes...");
-  ByteStream headerBuffer(MAX_MODE_SIZE);
-  if (!serializeSaveHeader(headerBuffer)) {
-    return false;
-  }
-  // serialize the number of modes
-  if (!headerBuffer.serialize8(m_numModes)) {
-    return false;
-  }
-  if (!m_engine.storage().write(0, headerBuffer)) {
-    return false;
-  }
-  // make sure the current mode is saved in case it has changed somehow
-  saveCurMode();
-  // uninstantiate cur mode so we have stack space to serialize
-  if (m_pCurModeLink) {
-    m_pCurModeLink->uninstantiate();
-  }
-  uint16_t i = 0;
-  ModeLink *ptr = m_storedModes;
-  while (ptr && i < MAX_MODES) {
-    ByteStream modeBuffer(MAX_MODE_SIZE);
-    // instantiate the mode temporarily
-    Mode *mode = ptr->instantiate();
-    if (!mode) {
-      ERROR_OUT_OF_MEMORY();
-      return false;
-    }
-    // serialize it into the target modes buffer
-    if (!mode->serialize(modeBuffer)) {
-      return false;
-    }
-    // just uninstansiate the mode after serializing
-    ptr->uninstantiate();
-    // next mode
-    ptr = ptr->next();
-    // now write this mode into a storage slot (skip first slot, that's header)
-    if (!m_engine.storage().write(++i, modeBuffer)) {
-      return false;
-    }
-  }
-  // reinstanstiate the current mode
-  if (m_pCurModeLink && !m_pCurModeLink->instantiate()) {
-    return false;
-  }
-  DEBUG_LOGF("Serialized num modes: %u", m_numModes);
   return true;
 }
 
@@ -691,6 +707,11 @@ uint8_t Modes::startupMode()
 {
   // zero out the upper nibble to disable
   return (m_globalFlags & 0xF0) >> 4;
+}
+
+Mode *Modes::switchToStartupMode()
+{
+  return setCurMode(startupMode());
 }
 
 bool Modes::setFlag(uint8_t flag, bool enable, bool save)
