@@ -166,15 +166,16 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("sanity", &ByteStream::sanity)
     .function("checkCRC", &ByteStream::checkCRC)
     .function("isCRCDirty", &ByteStream::isCRCDirty)
-    .function("serialize", select_overload<bool(uint8_t)>(&ByteStream::serialize))
-    .function("serialize16", select_overload<bool(uint16_t)>(&ByteStream::serialize))
-    .function("serialize32", select_overload<bool(uint32_t)>(&ByteStream::serialize))
+    .function("serialize8", &ByteStream::serialize8)
+    .function("serialize16", &ByteStream::serialize16)
+    .function("serialize32", &ByteStream::serialize32)
     .function("resetUnserializer", &ByteStream::resetUnserializer)
     .function("moveUnserializer", &ByteStream::moveUnserializer)
     .function("unserializerAtEnd", &ByteStream::unserializerAtEnd)
-    .function("unserialize8", &ByteStream::unserialize8)
-    .function("unserialize16", &ByteStream::unserialize16)
-    .function("unserialize32", &ByteStream::unserialize32)
+    // TODO: provide better apis here
+    //.function("unserialize8", &ByteStream::unserialize8)
+    //.function("unserialize16", &ByteStream::unserialize16)
+    //.function("unserialize32", &ByteStream::unserialize32)
     .function("peek8", &ByteStream::peek8)
     .function("peek16", &ByteStream::peek16)
     .function("peek32", &ByteStream::peek32)
@@ -658,8 +659,9 @@ bool Vortex::init(VortexCallbacks *callbacks)
 
   // init the engine
   VortexEngine::init();
-  // clear the modes
-  //Modes::clearModes();
+  // load the modes
+  // TODO: don't load modes here? separate api?
+  Modes::load();
   // save and set undo buffer
   doSave();
 

@@ -185,7 +185,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             5
+#define MAX_MODES             9
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -533,9 +533,9 @@
 // the number of storage slots for modes, add 1 for the header
 #define NUM_MODE_SLOTS (MAX_MODES + 1)
 
-// the space available for storing modes, we can't make this too big
-// otherwise we will have trouble loading it into memory
-#define STORAGE_SIZE 384
+// the space available for storing modes, this is a bit inaccurate on the duo
+// because the eeprom is also used but that isn't reflected here
+#define STORAGE_SIZE 0x200
 
 // ===================================================================
 //  Test Framework configurations

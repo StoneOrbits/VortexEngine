@@ -29,7 +29,7 @@ typedef uint8_t ArgMap;
 // some helpers to set/clear/check
 #define ARGMAP_SET(map, arg)    (map |= ARG(arg))
 #define ARGMAP_CLEAR(map, arg)  (map &= ~ARG(arg))
-#define ARGMAP_ISSET(map, arg)  (map & ARG(arg))
+#define ARGMAP_ISSET(map, arg)  ((map & ARG(arg)) != 0)
 
 // a structured method for passing arguments to patterns, there's definitely more dynamic
 // ways to approach this but I'm aiming for simple and lightweight here
@@ -71,7 +71,7 @@ public:
   uint8_t operator[](int index) const;
 
   // serialize the pattern args with a specific mapping of which args to store
-  void serialize(ByteStream &buffer, ArgMap argmap = ARG_ALL) const;
+  bool serialize(ByteStream &buffer, ArgMap argmap = ARG_ALL) const;
   // unserialize the pattern args and return the argmap of which args were loaded
   // NOTE: You should start with an instance of the default args before you unserialize
   ArgMap unserialize(ByteStream &buffer);

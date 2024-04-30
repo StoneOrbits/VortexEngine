@@ -36,12 +36,18 @@ public:
   static bool init();
   static void cleanup();
 
+  // load modes so they are ready to play
+  static bool load();
+
   // play the current mode
   static void play();
 
   // full save/load to/from buffer
   static bool saveToBuffer(ByteStream &saveBuffer);
   static bool loadFromBuffer(ByteStream &saveBuffer);
+
+  // save the header to storage
+  static bool saveHeader();
 
   // full save/load to/from storage
   static bool loadStorage();
@@ -108,9 +114,10 @@ public:
 
   // set or get flags
   static bool setFlag(uint8_t flag, bool enable, bool save = true);
-  static bool getFlag(uint8_t flag);
+  static bool getFlag(uint8_t flag) { return ((m_globalFlags & flag) != 0); }
+
   // reset flags to factory default (must save after)
-  static void resetFlags();
+  static void resetFlags() { m_globalFlags = 0; }
 
   // inline functions to toggle the various flags
   static bool setOneClickMode(bool enable, bool save = true) {
@@ -202,6 +209,10 @@ private:
     ModeLink *m_prev;
   };
 
+  // save load the savefile header from storage
+  static bool serializeSaveHeader(ByteStream &saveBuffer);
+  static bool unserializeSaveHeader(ByteStream &saveBuffer);
+
   // fetch a link from the chain by index
   static ModeLink *getModeLink(uint32_t index);
 
@@ -209,6 +220,9 @@ private:
   // will destroy the current instantiated mode and re-load it from serial
   static Mode *initCurMode(bool force = false);
   static bool saveCurMode();
+
+  // whether modes have been loaded
+  static bool m_loaded;
 
   // the current mode we're on
   static uint8_t m_curMode;

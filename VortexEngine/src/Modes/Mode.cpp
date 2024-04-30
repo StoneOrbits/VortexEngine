@@ -197,8 +197,12 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
   uint8_t major = 0;
   uint8_t minor = 0;
   // unserialize the vortex version
-  modeBuffer.unserialize(&major);
-  modeBuffer.unserialize(&minor);
+  if (!modeBuffer.unserialize8(&major)) {
+    return false;
+  }
+  if (!modeBuffer.unserialize8(&minor)) {
+    return false;
+  }
   // check the version for incompatibility
   if (!VortexEngine::checkVersion(major, minor)) {
     // incompatible version
@@ -214,35 +218,43 @@ bool Mode::loadFromBuffer(ByteStream &modeBuffer)
   return true;
 }
 
-void Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
+bool Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
 {
   if (!numLeds) {
     numLeds = MODE_LEDCOUNT;
   }
   // serialize the number of leds
-  buffer.serialize(numLeds);
+  if (!buffer.serialize8(numLeds)) {
+    return false;
+  }
   // empty mode?
   if (!numLeds) {
-    return;
+    return true;
   }
   // serialize the flags
   ModeFlags flags = getFlags();
-  buffer.serialize(flags);
+  if (!buffer.serialize8(flags)) {
+    return false;
+  }
 #if VORTEX_SLIM == 0
   // serialiaze the multi led?
   if ((flags & MODE_FLAG_MULTI_LED) && m_multiPat) {
     // serialize the multi led
-    m_multiPat->serialize(buffer);
+    if (!m_multiPat->serialize(buffer)) {
+      return false;
+    }
   }
 #endif
   // if no single leds then just stop here
   if (!(flags & MODE_FLAG_SINGLE_LED)) {
-    return;
+    return true;
   }
   // if there are any sparse singles (spaces) then we need to
   // serialize an led map of which singles are set
   if (flags & MODE_FLAG_SPARSE_SINGLES) {
-    buffer.serialize((uint32_t)getSingleLedMap());
+    if (!buffer.serialize32((uint32_t)getSingleLedMap())) {
+      return false;
+    }
   }
   // then iterate each single led and serialize it
   for (LedPos pos = LED_FIRST; pos < numLeds; ++pos) {
@@ -251,12 +263,15 @@ void Mode::serialize(ByteStream &buffer, uint8_t numLeds) const
       continue;
     }
     // just serialize the pattern then colorset
-    entry->serialize(buffer);
+    if (!entry->serialize(buffer)) {
+      return false;
+    }
     // if they are all same single then only serialize one
     if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
       break;
     }
   }
+  return true;
 }
 
 // this is a hairy function, but a bit of a necessary complexity
@@ -265,7 +280,9 @@ bool Mode::unserialize(ByteStream &buffer)
   clearPattern(LED_ALL);
   uint8_t ledCount = LED_COUNT;
   // unserialize the number of leds
-  buffer.unserialize(&ledCount);
+  if (!buffer.unserialize8(&ledCount)) {
+    return false;
+  }
 #if FIXED_LED_COUNT == 0
   // it's important that we only increase the led count if necessary
   // otherwise we may end up reducing our led count and only rendering
@@ -282,25 +299,20 @@ bool Mode::unserialize(ByteStream &buffer)
   }
   // unserialize the flags value
   ModeFlags flags = 0;
-  buffer.unserialize(&flags);
+  if (!buffer.unserialize8(&flags)) {
+    return false;
+  }
   Pattern *firstPat = nullptr;
   // if there is a multi led pattern then unserialize it
   if (flags & MODE_FLAG_MULTI_LED) {
 #if VORTEX_SLIM == 1
-    // unserialize the multi pattern
-    Pattern *multiPat = PatternBuilder::unserialize(buffer);
-    // if there are no single leds then discard the firstpat
-    if ((flags & MODE_FLAG_SINGLE_LED) != 0 && multiPat) {
-      // discard the multi pattern
-      delete multiPat;
-    } else {
-      // otherwise turn on the all same single flag to use the multi as a single
-      flags = MODE_FLAG_SINGLE_LED | MODE_FLAG_ALL_SAME_SINGLE;
-      firstPat = multiPat;
-    }
+    return false;
 #else
     // otherwise in normal build actually unserialize it
     m_multiPat = PatternBuilder::unserialize(buffer);
+    if (!m_multiPat) {
+      return false;
+    }
     m_multiPat->init();
 #endif
   }
@@ -311,26 +323,29 @@ bool Mode::unserialize(ByteStream &buffer)
   // is there an led map to unserialize? if not default to all
   LedMap map = (1 << ledCount) - 1;
   if (flags & MODE_FLAG_SPARSE_SINGLES) {
-    buffer.unserialize((uint32_t *)&map);
+    return false;
   }
   // unserialize all singleled patterns into their positions
   MAP_FOREACH_LED(map) {
     if (pos >= LED_COUNT) {
       // in case the map encodes led positions this device doesn't support
-      break;
+      continue;
     }
-    if (!firstPat) {
-      // save the first pattern so that it can be duped if this is 'all same'
+    //if (!firstPat) {
+    // save the first pattern so that it can be duped if this is 'all same'
+    if (pos == LED_FIRST || (flags & MODE_FLAG_ALL_SAME_SINGLE) == 0) {
       m_singlePats[pos] = firstPat = PatternBuilder::unserialize(buffer);
-    } else if (flags & MODE_FLAG_ALL_SAME_SINGLE) {
-      // if all same then just dupe first
-      m_singlePats[pos] = PatternBuilder::dupe(firstPat);
     } else {
-      // otherwise unserialize the pattern like normal
-      m_singlePats[pos] = PatternBuilder::unserialize(buffer);
+      // if all same then just dupe first
+      m_singlePats[pos] = PatternBuilder::dupe(m_singlePats[LED_FIRST]);
+    }
+    if (!m_singlePats[pos]) {
+      clearPattern(LED_ALL);
+      return false;
     }
     m_singlePats[pos]->bind(pos);
   }
+
   // there is a few different possibilities here:
   //    1. The provided ledCount is less than our current LED_COUNT
   //      -> if this happens we need to repeat the first ledCount leds
@@ -351,6 +366,9 @@ bool Mode::unserialize(ByteStream &buffer)
   // around at ledCount so that we repeat the first ledCount over again
   for (LedPos pos = (LedPos)ledCount; pos < LED_COUNT; ++pos) {
     m_singlePats[pos] = PatternBuilder::dupe(m_singlePats[src]);
+    if (!m_singlePats[pos]) {
+      return false;
+    }
     m_singlePats[pos]->bind(pos);
     // have to modulate the source by the source mode's led count
     src = (LedPos)((src + 1) % ledCount);
@@ -574,6 +592,26 @@ bool Mode::setPatternMap(LedMap map, PatternID pat, const PatternArgs *args, con
     }
   }
   return true;
+}
+
+void Mode::copyPatternFrom(const Mode *other, LedPos to, LedPos from)
+{
+  if (to >= LED_COUNT || from >= LED_COUNT) {
+    return;
+  }
+  delete m_singlePats[to];
+  m_singlePats[to] = PatternBuilder::dupe(other->m_singlePats[from]);
+}
+
+
+void Mode::swapPatterns(LedPos a, LedPos b)
+{
+  if (a >= LED_COUNT || b >= LED_COUNT) {
+    return;
+  }
+  Pattern *temp = m_singlePats[a];
+  m_singlePats[a] = m_singlePats[b];
+  m_singlePats[b] = temp;
 }
 
 // set colorset at a specific position

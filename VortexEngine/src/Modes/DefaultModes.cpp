@@ -104,5 +104,91 @@ const DefaultModeEntry defaultModes[MAX_MODES] = {
         }
       }
     }
-  }
+  },
+  {
+    {
+      {
+       PATTERN_RIBBON, 8, {
+         0x6a0000,
+         0xf3ff00,
+         0x6c00ff,
+         0x00fe89,
+         0x003fff,
+         0xff00bd,
+         0x00ff3c,
+         0x5057ff,
+        }
+      },
+      {
+       PATTERN_HYPERSTROBE, 8, {
+         0x6a0000,
+         0xf3ff00,
+         0x6c00ff,
+         0x00fe89,
+         0x003fff,
+         0xff00bd,
+         0x00ff3c,
+         0x5057ff,
+        }
+      }
+    }
+  },
+  {
+    {
+      {
+       PATTERN_STROBE, 4, {
+         0x6c00ff,
+         0x00fe89,
+         0xff00bd,
+         0x00ff3c,
+        }
+      },
+      {
+       PATTERN_HYPERSTROBE, 2, {
+         0x6a0000,
+         0xf3ff00,
+        }
+      }
+    }
+  },
+  {
+    {
+      {
+        PATTERN_BLEND, 2, {
+          RGB_RED0,
+          RGB_CYAN,
+        }
+      },
+      {
+        PATTERN_BLEND, 3, {
+          RGB_RED,
+          RGB_GREEN,
+          RGB_BLUE,
+        }
+      }
+    }
+  },
+  {
+    {
+      {
+        PATTERN_ULTRAGAP, 7, {
+          RGB_RED0,
+          RGB_RED0,
+          RGB_CYAN5,
+          RGB_RED0,
+          RGB_RED0,
+          RGB_RED0,
+          RGB_CYAN5,
+        }
+      },
+      {
+        PATTERN_DOPS, 2, {
+          RGB_CYAN1,
+          RGB_PURPLE3,
+        }
+      }
+    }
+  },
+
+
 };

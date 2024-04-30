@@ -69,7 +69,7 @@ public:
   bool loadFromBuffer(ByteStream &saveBuffer);
 
   // save the mode to serial
-  void serialize(ByteStream &buffer, uint8_t numLeds = 0) const;
+  bool serialize(ByteStream &buffer, uint8_t numLeds = 0) const;
   // load the mode from serial (optional led count)
   bool unserialize(ByteStream &buffer);
 
@@ -96,6 +96,12 @@ public:
   // change the pattern on a mode (NOTE: you may need to call init() after!)
   bool setPattern(PatternID pat, LedPos pos = LED_ANY, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
   bool setPatternMap(LedMap pos, PatternID pat, const PatternArgs *args = nullptr, const Colorset *set = nullptr);
+
+  // copy a pattern from another mode ledpos into this mode
+  void copyPatternFrom(const Mode *other, LedPos to, LedPos from);
+
+  // swap two patterns
+  void swapPatterns(LedPos a, LedPos b);
 
   // set colorset at a specific position
   bool setColorset(const Colorset &set, LedPos pos = LED_ANY);

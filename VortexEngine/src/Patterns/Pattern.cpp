@@ -54,10 +54,14 @@ void Pattern::skip(uint32_t ticks)
 #endif
 
 // must override the serialize routine to save the pattern
-void Pattern::serialize(ByteStream &buffer) const
+bool Pattern::serialize(ByteStream &buffer) const
 {
-  buffer.serialize((uint8_t)m_patternID);
-  m_colorset.serialize(buffer);
+  if (!buffer.serialize8((uint8_t)m_patternID)) {
+    return false;
+  }
+  if (!m_colorset.serialize(buffer)) {
+    return false;
+  }
   PatternArgs args;
   getArgs(args);
   PatternArgs defaults = PatternBuilder::getDefaultArgs(m_patternID);
@@ -68,23 +72,27 @@ void Pattern::serialize(ByteStream &buffer) const
       ARGMAP_SET(argmap, i);
     }
   }
-  args.serialize(buffer, argmap);
+  if (!args.serialize(buffer, argmap)) {
+    return false;
+  }
+  return true;
 }
 
 // must override unserialize to load patterns
-void Pattern::unserialize(ByteStream &buffer)
+bool Pattern::unserialize(ByteStream &buffer)
 {
   // don't unserialize the pattern ID because it is already
   // unserialized by the pattern builder to decide which pattern
   // to instantiate, instead only unserialize the colorset
-  m_colorset.unserialize(buffer);
+  if (!m_colorset.unserialize(buffer)) {
+    return false;
+  }
   // start with the default args for this pattern
   PatternArgs args = PatternBuilder::getDefaultArgs(m_patternID);
   // then unserialize any different args overtop of the defaults
-  if (args.unserialize(buffer) != ARG_NONE) {
-    // if any args were unserialized, set them
-    setArgs(args);
-  }
+  args.unserialize(buffer);
+  setArgs(args);
+  return true;
 }
 
 void Pattern::setArg(uint8_t index, uint8_t value)

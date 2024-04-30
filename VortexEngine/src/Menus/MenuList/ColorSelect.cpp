@@ -29,9 +29,7 @@ ColorSelect::ColorSelect(const RGBColor &col, bool advanced) :
   // function uses a different algorithm to generate the colors that results
   // in a smaller color space with less bright colors. The tradeoff is you lose
   // the bright colors but the rainbow looks a lot better
-  if (!m_advanced) {
-    g_hsv_rgb_alg = HSV_TO_RGB_RAINBOW;
-  }
+  g_hsv_rgb_alg = HSV_TO_RGB_RAINBOW;
 }
 
 ColorSelect::~ColorSelect()
@@ -57,12 +55,6 @@ bool ColorSelect::init()
     m_ledSelected = true;
   }
   m_state = STATE_INIT;
-  if (m_advanced) {
-    // turn off force sleep while in this adv menu
-    VortexEngine::toggleForceSleep(false);
-    m_previewMode.setColorset(Colorset(RGB_RED, RGB_RED));
-    m_previewMode.init();
-  }
   DEBUG_LOG("Entered color select");
   return true;
 }
@@ -72,17 +64,6 @@ Menu::MenuAction ColorSelect::run()
   MenuAction result = Menu::run();
   if (result != MENU_CONTINUE) {
     return result;
-  }
-
-  if (m_advanced) {
-    // leave after several clicks
-    if (g_pButton->onConsecutivePresses(LEAVE_ADV_COL_SELECT_CLICKS)) {
-      return MENU_QUIT;
-    }
-    // just render the current pattern for active color picking
-    // iterate all patterns and plkay
-    m_previewMode.play();
-    return MENU_CONTINUE;
   }
 
   // all states start with a blank slate
@@ -125,18 +106,6 @@ void ColorSelect::onLedSelected()
 
 void ColorSelect::onShortClick()
 {
-  if (m_advanced) {
-    // grab one of the colorsets of the targeted leds
-    Colorset set = m_previewMode.getColorset(ledmapGetFirstLed(m_targetLeds));
-    // grab the first color convert it to hsv
-    HSVColor col = set.get(1);
-    col.hue += 15;
-    // set the color again after adjusting
-    set.set(1, col);
-    // update the colorset
-    m_previewMode.setColorsetMap(m_targetLeds, set);
-    return;
-  }
   // increment selection
   m_curSelection++;
   if (m_state == STATE_PICK_SLOT) {
@@ -148,12 +117,6 @@ void ColorSelect::onShortClick()
 
 void ColorSelect::onLongClick()
 {
-  if (m_advanced) {
-    Colorset set = m_previewMode.getColorset();
-    set.set(0, set.get(1));
-    m_previewMode.setColorset(set);
-    return;
-  }
   // if we're on 'exit' and we're on any menu past the slot selection
   if (m_curSelection == 4 && m_state > STATE_PICK_SLOT) {
     // move back to the previous selection

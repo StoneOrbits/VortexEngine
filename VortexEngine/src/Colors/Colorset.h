@@ -143,15 +143,15 @@ public:
   bool onEnd() const;
 
   // serialize the colorset to save/load
-  void serialize(ByteStream &buffer) const;
-  void unserialize(ByteStream &buffer);
+  bool serialize(ByteStream &buffer) const;
+  bool unserialize(ByteStream &buffer);
 
 private:
   // pre-allocate the palette
-  void initPalette(uint8_t numColors);
+  bool initPalette(uint8_t numColors);
 
   // palette of colors
-  RGBColor *m_palette;
+  RGBColor m_palette[MAX_COLOR_SLOTS];
   // the current index, starts at UINT8_MAX so that
   // the very first call to getNext will iterate to 0
   uint8_t m_curIndex;

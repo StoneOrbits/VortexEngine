@@ -266,9 +266,6 @@
     <Compile Include="src\Patterns\Multi\LighthousePattern.cpp">
       <SubType>compile</SubType>
     </Compile>
-    <Compile Include="src\Patterns\Multi\MateriaPattern.cpp">
-      <SubType>compile</SubType>
-    </Compile>
     <Compile Include="src\Patterns\Multi\MeteorPattern.cpp">
       <SubType>compile</SubType>
     </Compile>
@@ -453,9 +450,6 @@
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Patterns\Multi\LighthousePattern.h">
-      <SubType>compile</SubType>
-    </Compile>
-    <Compile Include="src\Patterns\Multi\MateriaPattern.h">
       <SubType>compile</SubType>
     </Compile>
     <Compile Include="src\Patterns\Multi\MeteorPattern.h">

@@ -228,6 +228,9 @@ void VortexEngine::runMainLogic()
 
   // if the button hasn't been released since turning on then there is custom logic
   if (g_pButton->releaseCount() == 0) {
+    if (!Modes::load()) {
+      return;
+    }
     // if the button is held for 2 seconds from off, switch to on click mode on
     // the last mode shown before sleep
     if (!Modes::keychainModeEnabled() && now == ONE_CLICK_THRESHOLD_TICKS && g_pButton->isPressed()) {
@@ -261,6 +264,10 @@ void VortexEngine::runMainLogic()
     return;
   }
 #endif
+
+  if (!Modes::load()) {
+    return;
+  }
 
   // finally the user has released the button after initially turning it on,
   // just run the regular main logic of the system
@@ -342,7 +349,7 @@ void VortexEngine::runMainLogic()
   // if auto cycle is enabled and the last switch was more than the delay ago
   if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < now)) {
     // then switch to the next mode automatically
-    Modes::nextModeSkipEmpty();
+    Modes::nextMode();
   }
 
   // otherwise just play the modes
@@ -352,8 +359,13 @@ void VortexEngine::runMainLogic()
 bool VortexEngine::serializeVersion(ByteStream &stream)
 {
   // serialize the vortex version
-  return stream.serialize((uint8_t)VORTEX_VERSION_MAJOR) &&
-         stream.serialize((uint8_t)VORTEX_VERSION_MINOR);
+  if (!stream.serialize8((uint8_t)VORTEX_VERSION_MAJOR)) {
+    return false;
+  }
+  if (!stream.serialize8((uint8_t)VORTEX_VERSION_MINOR)) {
+    return false;
+  }
+  return true;
 }
 
 bool VortexEngine::checkVersion(uint8_t major, uint8_t minor)

@@ -38,15 +38,31 @@ CPU_SPEED = 10000000L
 # the port for serial upload
 SERIAL_PORT = COM11
 
+# whether eeprom is erased on flash (must write this fuse first to take effect)
 SAVE_EEPROM = 1
-FUSE0 = 0b00000000
-FUSE2 = 0x02
-FUSE5 = 0b1100010$(SAVE_EEPROM)
-FUSE6 = 0x04
+
+# WDTCFG { PERIOD=OFF, WINDOW=OFF }
+WDTCFG = 0b00000000
+# BODCFG { SLEEP=DIS, ACTIVE=DIS, SAMPFREQ=1KHZ, LVL=BODLEVEL0 }
+BODCFG = 0x00
+# OSCCFG { FREQSEL=20mhz, OSCLOCK=CLEAR }
+OSCCFG = 0x02
+# RESERVED
+#FUSE3 = 0x00
+# TCD0CFG { CMPA=CLEAR, CMPB=CLEAR, CMPC=CLEAR, CMPD=CLEAR, CMPAEN=CLEAR, CPMCEN=CLEAR, CMPDEN=CLEAR }
+TCD0CFG = 0x00
+# SYSCFG0
+SYSCFG0 = 0b1100010$(SAVE_EEPROM)
+# SYSCFG1 { SUT=64ms }
+SYSCFG1 = 0x07
 # fuse7 = APPEND
-FUSE7 = 0x00
+APPEND = 0x00
 # fuse8 = BOOTEND
-FUSE8 = 0x7e
+#  This controls the amount of storage for modes at the end of the flash memory,
+#  it is the boundary for the segment that can be rewritten by the program, 0x7e
+#  means 0x7e00/0x8000 bytes are program and 0x200 bytes are reserved for flash
+#  storage of modes, this does not include the eeprom.
+BOOTEND = 0x7e
 
 CFLAGS = -g \
 	 -Os \
@@ -107,7 +123,7 @@ all: $(TARGET).hex
 	$(OBJDUMP) --disassemble --source --line-numbers --demangle --section=.text $(TARGET).elf > $(TARGET).lst
 	$(NM) --numeric-sort --line-numbers --demangle --print-size --format=s $(TARGET).elf > $(TARGET).map
 	chmod +x avrsize.sh
-	./avrsize.sh $(TARGET).elf
+	./avrsize.sh $(TARGET).elf $(BOOTEND)00
 
 $(TARGET).hex: $(TARGET).elf
 	$(OBJCOPY) -O binary -R .eeprom $(TARGET).elf $(TARGET).bin
@@ -124,11 +140,21 @@ $(TARGET).elf: $(OBJS)
 	$(CC) $(CFLAGS) -c $< -o $@
 
 upload: $(TARGET).hex
-	$(AVRDUDE) $(AVRDUDE_FLAGS) -Ufuse0:w:$(FUSE0):m -Ufuse2:w:$(FUSE2):m -Ufuse5:w:$(FUSE5):m -Ufuse6:w:$(FUSE6):m -Ufuse7:w:$(FUSE7):m -Ufuse8:w:$(FUSE8):m -Uflash:w:$(TARGET).hex:i
+	$(AVRDUDE) $(AVRDUDE_FLAGS) \
+		-Ufuse0:w:$(WDTCFG):m \
+		-Ufuse1:w:$(BODCFG):m \
+		-Ufuse2:w:$(OSCCFG):m \
+		-Ufuse4:w:$(TCD0CFG):m \
+		-Ufuse5:w:$(SYSCFG0):m \
+		-Ufuse6:w:$(SYSCFG1):m \
+		-Ufuse7:w:$(APPEND):m \
+		-Ufuse8:w:$(BOOTEND):m \
+		-Uflash:w:$(TARGET).hex:i
 
 # upload via SerialUPDI
 serial: $(TARGET).hex
-	$(PYTHON) -u $(PYPROG) -t uart -u $(SERIAL_PORT) -b 921600 -d $(AVRDUDE_CHIP) --fuses 0:$(FUSE0) 2:$(FUSE2) 5:$(FUSE5) 6:$(FUSE6) 7:$(FUSE7) 8:$(FUSE8) -f $< -a write -v
+	$(PYTHON) -u $(PYPROG) -t uart -u $(SERIAL_PORT) -b 921600 -d $(AVRDUDE_CHIP) \
+		--fuses 0:$(WDTCFG) 1:$(BODCFG) 2:$(OSCCFG) 4:$(TCD0CFG) 5:$(SYSCFG0) 6:$(SYSCFG1) 7:$(APPEND) 8:$(BOOTEND) -f $< -a write -v
 
 ifneq ($(OS),Windows_NT) # Linux
 build: all
