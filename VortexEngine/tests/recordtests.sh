@@ -49,6 +49,11 @@ select_repo() {
   local original_PS3=$PS3
   local repo
 
+  if [ "${#REPOS[@]}" -eq 1 ]; then
+    echo ${REPOS[0]}
+    return
+  fi
+
   PS3='Please choose a repository: '
 
   select repo in "${REPOS[@]}"; do
