@@ -9,10 +9,10 @@ TODO=
 
 declare -a REPOS
 # Iterate through all the folders that start with "test_" in the current directory
-for folder in tests_*/; do
-  # Remove the "./tests_" prefix and the final slash
+for folder in tests_*.tar.gz; do
+  # Remove the "./tests_" prefix and the extension
   folder_name=${folder#tests_}
-  folder_name=${folder_name%/}
+  folder_name=${folder_name%.tar.gz}
   # Add the folder name to the array
   REPOS+=("$folder_name")
 done
@@ -84,11 +84,21 @@ function record_tests() {
 
   FILES=
 
-  rm -rf tmp/$PROJECT
-  mkdir -p tmp/$PROJECT
+  # clear tmp folder
+  rm -rf tmp/
+  mkdir -p tmp/
+
+  cp $PROJECT.tar.gz tmp/
+
+  # unzip the tests
+  (cd tmp && tar -xvf $PROJECT.tar.gz &> /dev/null)
+  if [ $? -ne 0 ]; then
+    echo "Failed to unzip $PROJECT.tar.gz: $!"
+    exit 1
+  fi
 
   if [ "$TODO" != "" ]; then
-    FILES=$(find $PROJECT -name $(printf "%04d" $TODO)*.test)
+    FILES=$(find tmp/$PROJECT -name $(printf "%04d" $TODO)*.test)
     if [ "$FILES" == "" ]; then
       echo "Could not find test $TODO"
       exit
@@ -96,7 +106,7 @@ function record_tests() {
     NUMFILES=1
   else
     # Iterate through the test files
-    for file in "$PROJECT"/*.test; do
+    for file in tmp/$PROJECT/*.test; do
       # Check if the file exists
       if [ -e "$file" ]; then
         NUMFILES=$((NUMFILES + 1))
@@ -126,6 +136,11 @@ function record_tests() {
   if [ "$QUIET" -eq 1 ]; then
     echo ". Complete"
   fi
+
+  # rezip the package
+  (cd tmp && tar -zcvf $PROJECT.tar.gz $PROJECT)
+  mv tmp/$PROJECT.tar.gz $PROJECT.tar.gz
+
   echo "All tests recorded successfully!"
   #rm -rf tmp/$PROJECT
 }
