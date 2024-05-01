@@ -16,6 +16,7 @@
 #include "../Log/Log.h"
 
 // static members
+bool Modes::m_loaded = false;
 uint8_t Modes::m_curMode = 0;
 uint8_t Modes::m_numModes = 0;
 // the current instantiated mode and it's respective link
@@ -34,15 +35,10 @@ bool Modes::init()
   test();
   return true;
 #endif
-  // try to load the saved settings or set defaults
-  if (!loadStorage()) {
-    if (!setDefaults()) {
-      return false;
-    }
-    if (!saveStorage()) {
-      return false;
-    }
-  }
+  ByteStream headerBuffer;
+  Storage::read(0, headerBuffer);
+  unserializeSaveHeader(headerBuffer);
+  m_loaded = false;
 #ifdef VORTEX_LIB
   // enable the adv menus by default in vortex lib
   m_globalFlags |= MODES_FLAG_ADV_MENUS;
@@ -53,6 +49,24 @@ bool Modes::init()
 void Modes::cleanup()
 {
   clearModes();
+}
+
+bool Modes::load()
+{
+  if (m_loaded) {
+    return true;
+  }
+  // try to load the saved settings or set defaults
+  if (!loadStorage()) {
+    if (!setDefaults()) {
+      return false;
+    }
+    if (!saveStorage()) {
+      return false;
+    }
+  }
+  m_loaded = true;
+  return true;
 }
 
 void Modes::play()
@@ -69,7 +83,7 @@ void Modes::play()
   }
   // shortclick cycles to the next mode
   if (g_pButton->onShortClick()) {
-    nextModeSkipEmpty();
+    nextMode();
   }
   // shortclick on button 2 cycles to the previous mode
   if (g_pButton2->onShortClick()) {
@@ -77,61 +91,6 @@ void Modes::play()
   }
   // play the current mode
   m_pCurModeLink->play();
-}
-
-bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
-{
-  // serialize the engine version into the modes buffer
-  if (!VortexEngine::serializeVersion(saveBuffer)) {
-    return false;
-  }
-  // NOTE: instead of global brightness the duo uses this to store the
-  //       startup mode ID. The duo doesn't offer a global brightness option
-  if (!saveBuffer.serialize8(m_globalFlags)) {
-    return false;
-  }
-  // serialize the global brightness
-  if (!saveBuffer.serialize8((uint8_t)Leds::getBrightness())) {
-    return false;
-  }
-  DEBUG_LOGF("Serialized all modes, uncompressed size: %u", saveBuffer.size());
-  return true;
-}
-
-bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
-{
-  // reset the unserializer index before unserializing anything
-  saveHeader.resetUnserializer();
-  uint8_t major = 0;
-  uint8_t minor = 0;
-  // unserialize the vortex version
-  if (!saveHeader.unserialize8(&major)) {
-    return false;
-  }
-  if (!saveHeader.unserialize8(&minor)) {
-    return false;
-  }
-  // check the version for incompatibility
-  if (!VortexEngine::checkVersion(major, minor)) {
-    // incompatible version
-    ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
-    return false;
-  }
-  // NOTE: instead of global brightness the duo uses this to store the
-  //       startup mode ID. The duo doesn't offer a global brightness option
-  // unserialize the global brightness
-  if (!saveHeader.unserialize8(&m_globalFlags)) {
-    return false;
-  }
-  // unserialize the global brightness
-  uint8_t brightness = 0;
-  if (!saveHeader.unserialize8(&brightness)) {
-    return false;
-  }
-  if (brightness) {
-    Leds::setBrightness(brightness);
-  }
-  return true;
 }
 
 // full save/load to/from buffer
@@ -167,18 +126,99 @@ bool Modes::loadFromBuffer(ByteStream &modesBuffer)
   if (!unserialize(modesBuffer)) {
     return false;
   }
-  // startupMode is 1-based offset that encodes both the index to start at and
-  // whether the system is enabled, hence why 0 cannot be used as an offset
-  uint8_t startupMode = (m_globalFlags & 0xF0) >> 4;
-  if (oneClickModeEnabled() && startupMode > 0) {
+  if (oneClickModeEnabled()) {
     // set the current mode to the startup mode
-    setCurMode(startupMode);
+    switchToStartupMode();
   }
+  return true;
+}
+
+bool Modes::saveHeader()
+{
+  ByteStream headerBuffer(MAX_MODE_SIZE);
+  if (!serializeSaveHeader(headerBuffer)) {
+    return false;
+  }
+  // serialize the number of modes
+  if (!headerBuffer.serialize8(m_numModes)) {
+    return false;
+  }
+  if (!Storage::write(0, headerBuffer)) {
+    return false;
+  }
+  return true;
+}
+
+bool Modes::loadHeader()
+{
+  ByteStream headerBuffer;
+  // only read storage if the modebuffer isn't filled
+  if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
+    DEBUG_LOG("Empty buffer read from storage");
+    // this kinda sucks whatever they had loaded is gone
+    return false;
+  }
+  // this erases what is stored before we know whether there is data
+  // but it's the easiest way to just re-load new data from storage
+  clearModes();
+  // read the header and load the data
+  if (!unserializeSaveHeader(headerBuffer)) {
+    return false;
+  }
+  // NOTE: We do not bother loading the number of modes because
+  //       we can't really do anything with it anyway
+  return true;
+}
+
+// NOTE: Flash storage is limited to about 10,000 writes so
+//       use this function sparingly!
+bool Modes::saveStorage()
+{
+  DEBUG_LOG("Saving modes...");
+  saveHeader();
+  // make sure the current mode is saved in case it has changed somehow
+  saveCurMode();
+  // uninstantiate cur mode so we have stack space to serialize
+  if (m_pCurModeLink) {
+    m_pCurModeLink->uninstantiate();
+  }
+  uint8_t i = 0;
+  ModeLink *ptr = m_storedModes;
+  while (ptr && i < MAX_MODES) {
+    ByteStream modeBuffer(MAX_MODE_SIZE);
+    // instantiate the mode temporarily
+    Mode *mode = ptr->instantiate();
+    if (!mode) {
+      ERROR_OUT_OF_MEMORY();
+      return false;
+    }
+    // serialize it into the target modes buffer
+    if (!mode->serialize(modeBuffer)) {
+      return false;
+    }
+    // just uninstansiate the mode after serializing
+    ptr->uninstantiate();
+    // next mode
+    ptr = ptr->next();
+    // now write this mode into a storage slot (skip first slot, that's header)
+    if (!Storage::write(++i, modeBuffer)) {
+      return false;
+    }
+  }
+  // reinstanstiate the current mode
+  if (m_pCurModeLink && !m_pCurModeLink->instantiate()) {
+    return false;
+  }
+  DEBUG_LOGF("Serialized num modes: %u", m_numModes);
   return true;
 }
 
 bool Modes::loadStorage()
 {
+  // NOTE: We could call loadHeader here but then we wouldn't have the headerBuffer
+  //       and in turn wouldn't be able to unserialize the number of modes. The number
+  //       of modes is a weird case, it's technically part of the mode list not the
+  //       header but it is stored in the same storage slot as the header
   ByteStream headerBuffer;
   // only read storage if the modebuffer isn't filled
   if (!Storage::read(0, headerBuffer) || !headerBuffer.size()) {
@@ -211,59 +251,69 @@ bool Modes::loadStorage()
       return false;
     }
   }
+  if (oneClickModeEnabled()) {
+    // set the current mode to the startup mode
+    switchToStartupMode();
+  }
   return true;
 }
 
-// NOTE: Flash storage is limited to about 10,000 writes so
-//       use this function sparingly!
-bool Modes::saveStorage()
+bool Modes::serializeSaveHeader(ByteStream &saveBuffer)
 {
-  DEBUG_LOG("Saving modes...");
-  ByteStream headerBuffer(MAX_MODE_SIZE);
-  if (!serializeSaveHeader(headerBuffer)) {
+  // serialize the engine version into the modes buffer
+  if (!VortexEngine::serializeVersion(saveBuffer)) {
     return false;
   }
-  // serialize the number of modes
-  if (!headerBuffer.serialize8(m_numModes)) {
+  // NOTE: instead of global brightness the duo uses this to store the
+  //       startup mode ID. The duo doesn't offer a global brightness option
+  if (!saveBuffer.serialize8(m_globalFlags)) {
     return false;
   }
-  if (!Storage::write(0, headerBuffer)) {
+  // serialize the global brightness
+  if (!saveBuffer.serialize8((uint8_t)Leds::getBrightness())) {
     return false;
   }
-  // make sure the current mode is saved in case it has changed somehow
-  saveCurMode();
-  // uninstantiate cur mode so we have stack space to serialize
-  if (m_pCurModeLink) {
-    m_pCurModeLink->uninstantiate();
-  }
-  uint16_t i = 0;
-  ModeLink *ptr = m_storedModes;
-  while (ptr && i < MAX_MODES) {
-    ByteStream modeBuffer(MAX_MODE_SIZE);
-    // instantiate the mode temporarily
-    Mode *mode = ptr->instantiate();
-    if (!mode) {
-      ERROR_OUT_OF_MEMORY();
-      return false;
-    }
-    // serialize it into the target modes buffer
-    if (!mode->serialize(modeBuffer)) {
-      return false;
-    }
-    // just uninstansiate the mode after serializing
-    ptr->uninstantiate();
-    // next mode
-    ptr = ptr->next();
-    // now write this mode into a storage slot (skip first slot, that's header)
-    if (!Storage::write(++i, modeBuffer)) {
-      return false;
-    }
-  }
-  // reinstanstiate the current mode
-  if (m_pCurModeLink && !m_pCurModeLink->instantiate()) {
+  DEBUG_LOGF("Serialized all modes, uncompressed size: %u", saveBuffer.size());
+  return true;
+}
+
+bool Modes::unserializeSaveHeader(ByteStream &saveHeader)
+{
+  if (!saveHeader.decompress()) {
+    // failed to decompress?
     return false;
   }
-  DEBUG_LOGF("Serialized num modes: %u", m_numModes);
+  // reset the unserializer index before unserializing anything
+  saveHeader.resetUnserializer();
+  uint8_t major = 0;
+  uint8_t minor = 0;
+  // unserialize the vortex version
+  if (!saveHeader.unserialize8(&major)) {
+    return false;
+  }
+  if (!saveHeader.unserialize8(&minor)) {
+    return false;
+  }
+  // check the version for incompatibility
+  if (!VortexEngine::checkVersion(major, minor)) {
+    // incompatible version
+    ERROR_LOGF("Incompatible savefile version: %u.%u", major, minor);
+    return false;
+  }
+  // NOTE: instead of global brightness the duo uses this to store the
+  //       startup mode ID. The duo doesn't offer a global brightness option
+  // unserialize the global brightness
+  if (!saveHeader.unserialize8(&m_globalFlags)) {
+    return false;
+  }
+  // unserialize the global brightness
+  uint8_t brightness = 0;
+  if (!saveHeader.unserialize8(&brightness)) {
+    return false;
+  }
+  if (brightness) {
+    Leds::setBrightness(brightness);
+  }
   return true;
 }
 
@@ -674,6 +724,11 @@ uint8_t Modes::startupMode()
   return (m_globalFlags & 0xF0) >> 4;
 }
 
+Mode *Modes::switchToStartupMode()
+{
+  return setCurMode(startupMode());
+}
+
 bool Modes::setFlag(uint8_t flag, bool enable, bool save)
 {
   // then actually if it's enabled ensure the upper nibble is set
@@ -684,17 +739,7 @@ bool Modes::setFlag(uint8_t flag, bool enable, bool save)
     m_globalFlags &= ~flag;
   }
   DEBUG_LOGF("Toggled instant on/off to %s", enable ? "on" : "off");
-  return !save || saveStorage();
-}
-
-bool Modes::getFlag(uint8_t flag)
-{
-  return ((m_globalFlags & flag) != 0);
-}
-
-void Modes::resetFlags()
-{
-  m_globalFlags = 0;
+  return !save || saveHeader();
 }
 
 #ifdef VORTEX_LIB

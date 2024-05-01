@@ -36,6 +36,9 @@ public:
   static bool init();
   static void cleanup();
 
+  // load modes so they are ready to play
+  static bool load();
+
   // play the current mode
   static void play();
 
@@ -43,9 +46,17 @@ public:
   static bool saveToBuffer(ByteStream &saveBuffer);
   static bool loadFromBuffer(ByteStream &saveBuffer);
 
+  // save/load the global settings to/from storage
+  static bool saveHeader();
+  static bool loadHeader();
+
   // full save/load to/from storage
-  static bool loadStorage();
   static bool saveStorage();
+  static bool loadStorage();
+
+  // save load the savefile header from storage
+  static bool serializeSaveHeader(ByteStream &saveBuffer);
+  static bool unserializeSaveHeader(ByteStream &saveBuffer);
 
   // saves all modes to a buffer
   static bool serialize(ByteStream &buffer);
@@ -104,12 +115,14 @@ public:
   // set the startup mode index (which mode will be displayed on startup)
   static void setStartupMode(uint8_t index);
   static uint8_t startupMode();
+  static Mode *switchToStartupMode();
 
   // set or get flags
   static bool setFlag(uint8_t flag, bool enable, bool save = true);
-  static bool getFlag(uint8_t flag);
+  static bool getFlag(uint8_t flag) { return ((m_globalFlags & flag) != 0); }
+
   // reset flags to factory default (must save after)
-  static void resetFlags();
+  static void resetFlags() { m_globalFlags = 0; }
 
   // inline functions to toggle the various flags
   static bool setOneClickMode(bool enable, bool save = true) {
@@ -154,9 +167,6 @@ public:
 #endif
 
 private:
-  static bool serializeSaveHeader(ByteStream &saveBuffer);
-  static bool unserializeSaveHeader(ByteStream &saveBuffer);
-
   // linked list of internal mode storage
   class ModeLink {
   public:
@@ -211,6 +221,9 @@ private:
   // will destroy the current instantiated mode and re-load it from serial
   static Mode *initCurMode(bool force = false);
   static bool saveCurMode();
+
+  // whether modes have been loaded
+  static bool m_loaded;
 
   // the current mode we're on
   static uint8_t m_curMode;

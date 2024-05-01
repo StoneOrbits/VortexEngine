@@ -172,6 +172,12 @@ void VortexEngine::runMainLogic()
   // the current tick
   uint32_t now = Time::getCurtime();
 
+  // load modes if necessary
+  if (!Modes::load()) {
+    // don't do anything if modes couldn't load
+    return;
+  }
+
   // check if the device has been plugged in
   SerialComs::checkSerial();
 
@@ -196,7 +202,7 @@ void VortexEngine::runMainLogic()
   // if auto cycle is enabled and the last switch was more than the delay ago
   if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < now)) {
     // then switch to the next mode automatically
-    Modes::nextModeSkipEmpty();
+    Modes::nextMode();
   }
 
   // otherwise just play the modes
