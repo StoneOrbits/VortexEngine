@@ -186,8 +186,8 @@ void Menu::showExit()
     Leds::setAll(RGB_RED);
     return;
   }
-  Leds::clearQuadrantFive();
-  Leds::blinkQuadrantFive(250, 500, RGB_RED0);
+  Leds::clearQuadrant(QUADRANT_5);
+  Leds::blinkQuadrant(QUADRANT_5, 250, 500, RGB_RED0);
 }
 
 void Menu::onLedSelected()
@@ -232,11 +232,10 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
     // exit thumb breathes red on the tip and is either blank or red on the top
     // depending on whether you've held for the short click threshold or not
     if (g_pButton->isPressed() && g_pButton->holdDuration() > SHORT_CLICK_THRESHOLD_TICKS) {
-      Leds::setQuadrantFive(RGB_WHITE);
+      Leds::setQuadrant(QUADRANT_5, RGB_WHITE);
     } else {
-      Leds::clearQuadrantFive();
-      Leds::setQuadrantFive(RGB_RED);
-      Leds::blinkQuadrantFive(250, 500, RGB_WHITE0);
+      Leds::setQuadrant(QUADRANT_5, RGB_RED);
+      Leds::blinkQuadrant(QUADRANT_5, 250, 500, RGB_WHITE0);
     }
     break;
   case QUADRANT_COUNT:
