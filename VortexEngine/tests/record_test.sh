@@ -24,13 +24,13 @@ fi
 INPUT="$(grep "Input=" $FILE | cut -d= -f2)"
 BRIEF="$(grep "Brief=" $FILE | cut -d= -f2)"
 ARGS="$(grep "Args=" $FILE | cut -d= -f2)"
-TESTNUM="$(echo $FILE | cut -d/ -f2 | cut -d_ -f1 | cut -d/ -f2)"
+TESTNUM="$(echo $FILE | cut -d/ -f3 | cut -d_ -f1 | cut -d/ -f2)"
 TESTNUM=$((10#$TESTNUM))
 
 if [ "$QUIET" -eq 0 ]; then 
-  echo -e -n "\e[31mRecording $PROJECT ($TESTCOUNT/$NUMFILES) \e[33m[\e[97m$BRIEF\e[33m] \e[33m[\e[97m$ARGS\e[33m]...\e[0m"
+  echo -e -n "\e[31mRecording $FILE ($TESTCOUNT/$NUMFILES) \e[33m[\e[97m$BRIEF\e[33m] \e[33m[\e[97m$ARGS\e[33m]...\e[0m"
 fi
-TEMP_FILE="tmp/${FILE}.out"
+TEMP_FILE="${FILE}.out"
 # Append the output of the $VORTEX command to the temp file
 # NOTE: When recording the tests we don't use valgrind because
 #       the valgrind output should be clean anyway. But when running
