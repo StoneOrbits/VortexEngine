@@ -213,7 +213,7 @@ while true; do
   cd -
 
   # re-zip
-  tar -zcvf tmp_tests_$TARGETREPO.tar.gz tests_$TARGETREPO
+  tar -zcvf tmp_tests_$TARGETREPO.tar.gz tests_$TARGETREPO &> /dev/null
   mv tmp_tests_$TARGETREPO.tar.gz tests_$TARGETREPO.tar.gz
   rm -rf tests_$TARGETREPO
 
