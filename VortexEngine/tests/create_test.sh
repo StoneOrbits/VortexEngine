@@ -15,10 +15,10 @@ TODO=
 
 declare -a REPOS
 # Iterate through all the folders that start with "test_" in the current directory
-for folder in tests_*/; do
-  # Remove the "./tests_" prefix and the final slash
+for folder in tests_*.tar.gz; do
+  # Remove the "./tests_" prefix and the extension
   folder_name=${folder#tests_}
-  folder_name=${folder_name%/}
+  folder_name=${folder_name%.tar.gz}
   # Add the folder name to the array
   REPOS+=("$folder_name")
 done
@@ -53,6 +53,11 @@ colored() {
 select_repo() {
   local original_PS3=$PS3
   local repo
+
+  if [ "${#REPOS[@]}" -eq 1 ]; then
+    echo ${REPOS[0]}
+    return
+  fi
 
   PS3='Please choose a repository: '
 
@@ -99,9 +104,10 @@ if [ -z "$TARGETREPO" ]; then
   TARGETREPO=$(select_repo)
 fi
 
-TESTDIR=tests_$TARGETREPO
+# unzip the tests
+tar -xvf tests_$TARGETREPO.tar.gz &> /dev/null
 
-mkdir -p $TESTDIR
+TESTDIR=tests_$TARGETREPO
 
 if [ $NOMAKE -eq 0 ]; then
   echo -e -n "\e[33mBuilding Vortex...\e[0m"
@@ -205,6 +211,11 @@ while true; do
 
   # cd back
   cd -
+
+  # re-zip
+  tar -zcvf tmp_tests_$TARGETREPO.tar.gz tests_$TARGETREPO
+  mv tmp_tests_$TARGETREPO.tar.gz tests_$TARGETREPO.tar.gz
+  rm -rf tests_$TARGETREPO
 
   # done
   echo "Test file created: ${TEST_FILE}"

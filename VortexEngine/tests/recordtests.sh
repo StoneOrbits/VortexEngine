@@ -143,7 +143,7 @@ function record_tests() {
   fi
 
   # rezip the package
-  (cd tmp && tar -zcvf $PROJECT.tar.gz $PROJECT)
+  (cd tmp && tar -zcvf $PROJECT.tar.gz $PROJECT &> /dev/null)
   mv tmp/$PROJECT.tar.gz $PROJECT.tar.gz
 
   echo "All tests recorded successfully!"
