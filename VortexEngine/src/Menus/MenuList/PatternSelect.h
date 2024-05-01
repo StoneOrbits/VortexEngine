@@ -25,6 +25,7 @@ public:
 private:
   void showListSelection();
   void showPatternSelection();
+  void nextPatternID();
   void nextPattern();
 
   void showExit() override;
@@ -40,9 +41,6 @@ private:
 
   // the current state of the pattern selection menu
   PatternSelectState m_state;
-
-  // an internal mode used for demoing patterns
-  Mode m_demoMode;
 
   // the patternid of the current demo
   PatternID m_newPatternID;

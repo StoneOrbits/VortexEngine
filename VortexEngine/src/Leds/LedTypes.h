@@ -126,8 +126,8 @@ typedef Pair Finger;
 
 #define ledToFinger(led) ledToPair(led)
 
-#define setFinger(map, finger) setPair(map, finger)
-#define checkFinger(map, finger) checkPair(map, finger)
+#define ledmapSetFinger(map, finger) ledmapSetPair(map, finger)
+#define ledmapCheckFinger(map, finger) ledmapCheckPair(map, finger)
 
 // check if an led is even or odd
 #define isEven(pos) ((pos % 2) == 0)

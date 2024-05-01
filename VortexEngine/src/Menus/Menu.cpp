@@ -107,6 +107,7 @@ Menu::MenuAction Menu::run()
   }
   // on a long press of the button, lock in the target led
   if (g_pButton->onLongClick()) {
+    m_targetLeds = ledPermutations[m_ledSelection];
     m_ledSelected = true;
     // call led selected callback
     onLedSelected();
@@ -199,9 +200,8 @@ void Menu::blinkSelection(uint32_t offMs, uint32_t onMs)
       blinkCol = RGB_WHITE0;
     }
     // blink the target finger to the target color
-    Leds::blinkIndexOffset(fingerTip(m_curSelection),
-                      g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime(),
-                      offMs, onMs, blinkCol);
+    uint32_t blinkDur = g_pButton->isPressed() ? g_pButton->holdDuration() : Time::getCurtime();
+    Leds::blinkFingerOffset(m_curSelection, blinkDur, offMs, onMs, blinkCol);
     break;
   }
 }

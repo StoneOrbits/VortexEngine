@@ -116,6 +116,11 @@ void Leds::setPairs(Pair first, Pair last, RGBColor col)
   setRange(pairEven(first), pairOdd(last), col);
 }
 
+void Leds::setFinger(Finger finger, RGBColor col)
+{
+  setRange(fingerTip(finger), fingerTop(finger), col);
+}
+
 void Leds::setRangeEvens(Pair first, Pair last, RGBColor col)
 {
   for (Pair pos = first; pos <= last; pos++) {
@@ -236,6 +241,11 @@ void Leds::blinkRangeOffset(LedPos first, LedPos last, uint32_t time, uint16_t o
   }
 }
 
+void Leds::blinkFingerOffset(Finger target, uint32_t time, uint16_t offMs, uint16_t onMs, RGBColor col)
+{
+  blinkRangeOffset(fingerTip(target), fingerTop(target), time, offMs, onMs, col);
+}
+
 void Leds::blinkIndex(LedPos target, uint16_t offMs, uint16_t onMs, RGBColor col)
 {
   if ((Time::getCurtime() % MS_TO_TICKS(offMs + onMs)) < MS_TO_TICKS(onMs)) {
@@ -290,6 +300,11 @@ void Leds::breatheIndex(LedPos target, uint8_t hue, uint32_t variance, uint32_t 
 void Leds::breatheRange(LedPos first, LedPos last, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
 {
   setRange(first, last, HSVColor((uint8_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));
+}
+
+void Leds::breatheFinger(Finger finger, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)
+{
+  breatheRange(fingerTip(finger), fingerTop(finger), hue, variance, magnitude, sat, val);
 }
 
 void Leds::breatheIndexSat(LedPos target, uint8_t hue, uint32_t variance, uint32_t magnitude, uint8_t sat, uint8_t val)

@@ -20,7 +20,6 @@ ColorSelect::ColorSelect(const RGBColor &col, bool advanced) :
   m_state(STATE_PICK_SLOT),
   m_curPage(0),
   m_slot(0),
-  m_quadrant(0),
   m_newColor()
 {
   // NOTE! Specifically using hsv_to_rgb_rainbow instead of generic because
@@ -168,7 +167,7 @@ void ColorSelect::onLongClick()
       // if we need to save, then actually update the colorset
       if (needsSave) {
         // save the colorset
-        cur->setColorset(m_colorset);
+        cur->setColorsetMap(m_targetLeds, m_colorset);
         cur->init();
       }
       // leave menu and save if we made changes
@@ -203,7 +202,6 @@ void ColorSelect::onLongClick()
       m_curPage = m_slot / PAGE_SIZE;
       return;
     }
-    m_state = STATE_PICK_HUE1;
     // the page is only used for slot selection so reset current page
     // for next time they use the color select
     m_curPage = 0;
@@ -302,7 +300,7 @@ void ColorSelect::blinkSelection(uint32_t offMs, uint32_t onMs)
       // if we're pressing down on a slot then glow the tip white/red
       if ((g_pButton->holdDuration() % (DELETE_CYCLE_TICKS * 2)) > DELETE_CYCLE_TICKS) {
         // breath red instead of white blink
-        Leds::breatheIndex(fingerTip(m_curSelection), 0, g_pButton->holdDuration());
+        Leds::breatheFinger(m_curSelection, 0, g_pButton->holdDuration());
         return;
       }
     }
