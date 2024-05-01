@@ -13,10 +13,10 @@ TODO=
 
 declare -a REPOS
 # Iterate through all the folders that start with "test_" in the current directory
-for folder in tests_*/; do
-  # Remove the "./tests_" prefix and the final slash
+for folder in tests_*.tar.gz; do
+  # Remove the "./tests_" prefix and the extension
   folder_name=${folder#tests_}
-  folder_name=${folder_name%/}
+  folder_name=${folder_name%.tar.gz}
   # Add the folder name to the array
   REPOS+=("$folder_name")
 done
@@ -54,6 +54,11 @@ select_repo() {
   local original_PS3=$PS3
   local repo
 
+  if [ "${#REPOS[@]}" -eq 1 ]; then
+    echo ${REPOS[0]}
+    return
+  fi
+
   PS3='Please choose a repository: '
 
   select repo in "${REPOS[@]}"; do
@@ -80,8 +85,21 @@ function run_tests() {
   NUMFILES=0
   FILES=
 
+  # clear tmp folder
+  rm -rf tmp/
+  mkdir -p tmp/
+
+  cp $PROJECT.tar.gz tmp/
+
+  # unzip the tests
+  (cd tmp && tar -xvf $PROJECT.tar.gz &> /dev/null)
+  if [ $? -ne 0 ]; then
+    echo "Failed to unzip $PROJECT.tar.gz: $!"
+    exit 1
+  fi
+
   if [ "$TODO" != "" ]; then
-    FILES=$(find $PROJECT -name $(printf "%04d" $TODO)*.test)
+    FILES=$(find tmp/$PROJECT -name $(printf "%04d" $TODO)*.test)
     if [ "$FILES" == "" ]; then
       echo "Could not find test $TODO"
       exit
@@ -89,7 +107,7 @@ function run_tests() {
     NUMFILES=1
   else
     # Iterate through the test files
-    for file in "$PROJECT"/*.test; do
+    for file in tmp/$PROJECT/*.test; do
       # Check if the file exists
       if [ -e "$file" ]; then
         NUMFILES=$((NUMFILES + 1))
@@ -104,17 +122,13 @@ function run_tests() {
 
   echo -e "\e[33m== [\e[97mRUNNING $NUMFILES $PROJECT INTEGRATION TESTS\e[33m] ==\e[0m"
 
-  # clear tmp folder
-  rm -rf tmp/$PROJECT
-  mkdir -p tmp/$PROJECT
-
   TESTCOUNT=0
 
   for FILE in $FILES; do
     INPUT="$(grep "Input=" $FILE | cut -d= -f2)"
     BRIEF="$(grep "Brief=" $FILE | cut -d= -f2)"
     ARGS="$(grep "Args=" $FILE | cut -d= -f2)"
-    TESTNUM="$(echo $FILE | cut -d/ -f2 | cut -d_ -f1 | cut -d/ -f2)"
+    TESTNUM="$(echo $FILE | cut -d/ -f3 | cut -d_ -f1 | cut -d/ -f2)"
     TESTNUM=$((10#$TESTNUM))
     TESTCOUNT=$((TESTCOUNT + 1))
     echo -e -n "\e[33mTesting $PROJECT ($TESTCOUNT/$NUMFILES) [\e[97m$BRIEF\e[33m] "
@@ -123,9 +137,9 @@ function run_tests() {
     fi
     echo -e -n "... \e[0m"
     DIVIDER=$(grep -n -- "--------------------------------------------------------------------------------" $FILE | cut -f1 -d:)
-    EXPECTED="tmp/${FILE}.expected"
-    OUTPUT="tmp/${FILE}.output"
-    DIFFOUT="tmp/${FILE}.diff"
+    EXPECTED="${FILE}.expected"
+    OUTPUT="${FILE}.output"
+    DIFFOUT="${FILE}.diff"
     tail -n +$(($DIVIDER + 1)) "$FILE" &> $EXPECTED
     # run again?
     if [ $AUDIT -eq 1 ]; then
@@ -163,7 +177,7 @@ function run_tests() {
   if [ $ALLSUCCES -eq 1 ]; then
     echo -e "\e[33m== [\e[32mSUCCESS ALL TESTS PASSED\e[33m] ==\e[0m"
     # if so clear the tmp folder
-    rm -rf tmp/$PROJECT
+    rm -rf tmp/
   else
     if [ "$VERBOSE" -eq 1 ]; then
       # otherwise cat the last diff
