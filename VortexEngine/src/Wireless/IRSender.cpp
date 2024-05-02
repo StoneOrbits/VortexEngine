@@ -178,6 +178,10 @@ void IRSender::sendSpace(uint16_t time)
 void IRSender::initPWM()
 {
 #if defined(VORTEX_EMBEDDED)
+  // initialize the output pin
+  pinMode(IR_SEND_PWM_PIN, OUTPUT);
+  digitalWrite(IR_SEND_PWM_PIN, LOW);
+  // setup the PWM
   uint8_t port = g_APinDescription[IR_SEND_PWM_PIN].ulPort; // 0
   uint8_t pin = g_APinDescription[IR_SEND_PWM_PIN].ulPin;   // 8
   ETCChannel IR_TCC_Channel = TCC0_CH0;
@@ -220,10 +224,6 @@ void IRSender::initPWM()
   while (IR_TCCx->SYNCBUSY.bit.ENABLE);
   IR_TCCx->CTRLA.reg &= ~TCC_CTRLA_ENABLE;            //initially off will turn on later
   while (IR_TCCx->SYNCBUSY.bit.ENABLE);
-
-  // just in case
-  pinMode(IR_SEND_PWM_PIN, OUTPUT);
-  digitalWrite(IR_SEND_PWM_PIN, LOW); // When not sending PWM, we want it low
 #endif
 }
 
