@@ -14,6 +14,7 @@
 
 #ifdef VORTEX_EMBEDDED
 #include <Arduino.h>
+#include <FastLED.h>
 #include <SPI.h>
 #define LED_DATA_PIN  4
 #define ONBOARD_LED_SCK 8
@@ -67,6 +68,10 @@ RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 bool Leds::init()
 {
 #ifdef VORTEX_EMBEDDED
+  // setup leds on data pin 4
+  FastLED.addLeds<NEOPIXEL, LED_DATA_PIN>((CRGB *)m_ledColors, LED_COUNT);
+  // get screwed fastled, don't throttle us!
+  FastLED.setMaxRefreshRate(0, false);
   turnOffOnboardLED();
   pinMode(LED_DATA_PIN, OUTPUT);
 #endif
@@ -324,68 +329,10 @@ void Leds::holdAll(RGBColor col)
   Time::delayMilliseconds(250);
 }
 
-#ifdef VORTEX_EMBEDDED
-
-// idk how correct this is but it works
-#define CPU_FREQUENCY_MHZ 48
-#define NS_TO_CYCLES(ns) (((ns) * CPU_FREQUENCY_MHZ) / 1000)
-
-// these timings were found through trial and error
-#define T0H 1
-#define T0L 50
-#define T1H 50
-#define T1L 1
-
-inline void delay_loop(uint32_t loop)
-{
-  while (loop--) {
-    __asm__ __volatile__("nop");
-  }
-}
-
-inline void sendBit(bool bitVal)
-{
-  uint32_t pinMask = (1ul << g_APinDescription[LED_DATA_PIN].ulPin);
-  volatile uint32_t *outSet = &(PORT->Group[g_APinDescription[LED_DATA_PIN].ulPort].OUTSET.reg);
-  volatile uint32_t *outClr = &(PORT->Group[g_APinDescription[LED_DATA_PIN].ulPort].OUTCLR.reg);
-  if (bitVal) { // Send 1 bit
-    *outSet = pinMask; // Set the output bit
-    delay_loop(NS_TO_CYCLES(T1H)); // Delay for T1H
-    *outClr = pinMask; // Clear the output bit
-    delay_loop(NS_TO_CYCLES(T0L)); // Delay for T0L (since T1L can lead to early latch)
-  } else { // Send 0 bit
-    *outSet = pinMask; // Set the output bit
-    delay_loop(NS_TO_CYCLES(T0H)); // Delay for T0H
-    *outClr = pinMask; // Clear the output bit
-    delay_loop(NS_TO_CYCLES(T1L)); // Delay for T1L
-  }
-}
-
-inline void sendByte(unsigned char byte)
-{
-  for (unsigned char bit = 0; bit < 8; bit++) {
-    sendBit(bitRead(byte, 7));                // Neopixel wants bit in highest-to-lowest order
-    // so send highest bit (bit #7 in an 8-bit byte since they start at 0)
-    byte <<= 1;                                    // and then shift left so bit 6 moves into 7, 5 moves into 6, etc
-  }
-}
-#endif
-
 void Leds::update()
 {
 #ifdef VORTEX_EMBEDDED
-  // Important: need to disable interrupts during the transmission
-  noInterrupts();
-  for (LedPos pos = LED_FIRST; pos < LED_COUNT; pos++) {
-    const RGBColor &col = m_ledColors[pos];
-    sendByte((col.green * m_brightness) >> 8);
-    sendByte((col.red * m_brightness) >> 8);
-    sendByte((col.blue * m_brightness) >> 8);
-  }
-  // Re-enable interrupts
-  interrupts();
-  // Required to latch the LEDs
-  delayMicroseconds(10);
+  FastLED.show(m_brightness);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsShow();
