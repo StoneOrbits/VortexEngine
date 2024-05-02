@@ -64,11 +64,44 @@ uint8_t Leds::m_brightness = DEFAULT_BRIGHTNESS;
 // array of led color values
 RGBColor Leds::m_ledColors[LED_COUNT] = { RGB_OFF };
 
+
+void setupTimer() {
+  // Configure TC3 for a suitable frequency (e.g., 400 Hz for LED update)
+  GCLK->CLKCTRL.reg = GCLK_CLKCTRL_CLKEN | GCLK_CLKCTRL_GEN_GCLK0 | GCLK_CLKCTRL_ID_TCC2_TC3;
+  while (GCLK->STATUS.bit.SYNCBUSY);
+
+  TC3->COUNT16.CTRLA.reg = TC_CTRLA_MODE_COUNT16;  // Set the counter to 16-bit mode
+  while (TC3->COUNT16.STATUS.bit.SYNCBUSY);
+
+  TC3->COUNT16.CTRLA.reg |= TC_CTRLA_WAVEGEN_MFRQ;  // Set the wave generation to match frequency
+  while (TC3->COUNT16.STATUS.bit.SYNCBUSY);
+
+  TC3->COUNT16.CC[0].reg = 46875;  // Set the compare match value for a 400 Hz frequency
+  while (TC3->COUNT16.STATUS.bit.SYNCBUSY);
+
+  TC3->COUNT16.CTRLA.reg |= TC_CTRLA_ENABLE;  // Enable TC3
+  while (TC3->COUNT16.STATUS.bit.SYNCBUSY);
+
+  TC3->COUNT16.INTENSET.bit.MC0 = 1;  // Enable the compare match interrupt
+  NVIC_EnableIRQ(TC3_IRQn);  // Enable TC3 interrupts in the Nested Vector Interrupt Controller
+}
+
+void TC3_Handler() {
+  // Interrupt service routine for TC3
+  if (TC3->COUNT16.INTFLAG.bit.MC0) {
+    Leds::update();  // Call your function to update LEDs
+    TC3->COUNT16.INTFLAG.bit.MC0 = 1;  // Clear the interrupt flag
+  }
+}
+
+
+
 bool Leds::init()
 {
 #ifdef VORTEX_EMBEDDED
   turnOffOnboardLED();
   pinMode(LED_DATA_PIN, OUTPUT);
+  setupTimer();
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsInit(m_ledColors, LED_COUNT);
@@ -385,7 +418,7 @@ void Leds::update()
   // Re-enable interrupts
   interrupts();
   // Required to latch the LEDs
-  delayMicroseconds(10);
+  //delayMicroseconds(10);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsShow();
