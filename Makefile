@@ -25,6 +25,7 @@ install:
 	if ! $(ARDUINO_CLI) core list --config-file $(CONFIG_FILE) | grep -q '$(BOARD)' ; then \
 		$(ARDUINO_CLI) core install adafruit:samd --config-file $(CONFIG_FILE) ; \
 	fi
+	$(ARDUINO_CLI) lib install "FastLED"
 	wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2conv.py
 	wget https://raw.githubusercontent.com/microsoft/uf2/master/utils/uf2families.json
 	chmod +x uf2conv.py uf2families.json
