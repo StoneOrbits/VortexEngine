@@ -8,7 +8,44 @@ on:
   workflow_dispatch: # manual trigger
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      vortex_version_major: ${{ steps.set_version.outputs.vortex_version_major }}
+      vortex_version_minor: ${{ steps.set_version.outputs.vortex_version_minor }}
+      vortex_build_number: ${{ steps.set_version.outputs.vortex_build_number }}
+      vortex_version_number: ${{ steps.set_version.outputs.vortex_version_number }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches all history for all branches and tags
+      - name: Determine Version and Build Number
+        id: set_version
+        run: |
+          # Fetch all tags
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          # Get the latest tag that matches the branch suffix
+          LATEST_TAG=$(git tag --list | grep -E "^[[:digit:]]+\.[[:digit:]]+\$" | sort -V | tail -n1)
+          if [ -z "$LATEST_TAG" ]; then
+            echo "No matching tags found. Setting default version."
+            VERSION_MAJOR="0"
+            VERSION_MINOR="1"
+            BUILD_NUMBER="0"
+          else
+            echo "Found latest tag: $LATEST_TAG"
+            VERSION_MAJOR=$(echo $LATEST_TAG | cut -d. -f1)
+            VERSION_MINOR=$(echo $LATEST_TAG | cut -d. -f2)
+            BUILD_NUMBER=$(git rev-list --count $LATEST_TAG..HEAD)
+          fi
+          FULL_VERSION="$VERSION_MAJOR.$VERSION_MINOR.$BUILD_NUMBER"
+          echo "vortex_version_major=$VERSION_MAJOR" >> $GITHUB_OUTPUT
+          echo "vortex_version_minor=$VERSION_MINOR" >> $GITHUB_OUTPUT
+          echo "vortex_build_number=$BUILD_NUMBER" >> $GITHUB_OUTPUT
+          echo "vortex_version_number=$FULL_VERSION" >> $GITHUB_OUTPUT
+          echo "Version Number: $FULL_VERSION"
+
   test:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
     - name: Checkout current repository
@@ -18,7 +55,12 @@ jobs:
     - name: Install Dependencies
       run: sudo apt-get install valgrind g++ make --fix-missing
     - name: Build
-      run: make -j
+      run: |
+        export VORTEX_VERSION_MAJOR=${{ needs.setup.outputs.vortex_version_major }}
+        export VORTEX_VERSION_MINOR=${{ needs.setup.outputs.vortex_version_minor }}
+        export VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.vortex_build_number }}
+        export VORTEX_VERSION_NUMBER=${{ needs.setup.outputs.vortex_version_number }}
+        make -j
       working-directory: VortexEngine
     - name: Set execute permissions for test script
       run: chmod +x ./runtests.sh
@@ -28,7 +70,7 @@ jobs:
       working-directory: VortexEngine/tests
 
   wasm:
-    needs: test
+    needs: [setup, test]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout current repository
@@ -46,11 +88,15 @@ jobs:
     - name: Build Webassembly
       run: |
         source ./emsdk/emsdk_env.sh
+        export VORTEX_VERSION_MAJOR=${{ needs.setup.outputs.vortex_version_major }}
+        export VORTEX_VERSION_MINOR=${{ needs.setup.outputs.vortex_version_minor }}
+        export VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.vortex_build_number }}
+        export VORTEX_VERSION_NUMBER=${{ needs.setup.outputs.vortex_version_number }}
         make -j wasm
       working-directory: VortexEngine/VortexLib
 
   docs:
-    needs: wasm
+    needs: [setup, test, wasm]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     steps:
