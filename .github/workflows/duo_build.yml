@@ -167,11 +167,11 @@ jobs:
         run: |
           DEVICE_TYPE="duo"
           VERSIONED_FILENAME="VortexEngine-${DEVICE_TYPE}-${{ needs.setup.outputs.vortex_version_number }}.hex"
-          mv vortex.hex $VERSIONED_FILENAME
+          mv build/vortex.hex build/$VERSIONED_FILENAME
           echo "Version is ${{ needs.setup.outputs.vortex_version_number }}"
           echo "Filename is is $VERSIONED_FILENAME"
           curl -X POST \
-            -F "file=@$VERSIONED_FILENAME" \
+            -F "file=@build/$VERSIONED_FILENAME" \
             -F "device=$DEVICE_TYPE" \
             -F "version=${{ needs.setup.outputs.vortex_version_number }}" \
             -F "category=firmware" \
