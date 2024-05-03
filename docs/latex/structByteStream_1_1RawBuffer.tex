@@ -1,0 +1,226 @@
+\hypertarget{structByteStream_1_1RawBuffer}{}\doxysection{Byte\+Stream\+::Raw\+Buffer Struct Reference}
+\label{structByteStream_1_1RawBuffer}\index{ByteStream::RawBuffer@{ByteStream::RawBuffer}}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{structByteStream_1_1RawBuffer_a58e71f46cf391284543679ce7a0a77ff}{Raw\+Buffer}} ()
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}{hash}} () const
+\item 
+void \mbox{\hyperlink{structByteStream_1_1RawBuffer_a457d59ad915787d36510d62e244dacba}{accumulate}} (uint32\+\_\+t val)
+\item 
+bool \mbox{\hyperlink{structByteStream_1_1RawBuffer_a3f2cc1da9c49af77e280f5dc5ff6bf8c}{verify}} () const
+\item 
+void \mbox{\hyperlink{structByteStream_1_1RawBuffer_a65ef642bfbde192c34df73748e563df8}{recalc\+CRC}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structByteStream_1_1RawBuffer_a72e23c30f63c379bfccbc659cebf8447}{size}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structByteStream_1_1RawBuffer_a633ecee8dcf25195aa577f3cdfb6ea0f}{flags}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{structByteStream_1_1RawBuffer_a0c8a34981f47848f11b1bfdde0a08731}{crc32}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{structByteStream_1_1RawBuffer_acff5672e20597661801f99a91e2f4b0a}{buf}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 128 of file Byte\+Stream.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{structByteStream_1_1RawBuffer_a58e71f46cf391284543679ce7a0a77ff}\label{structByteStream_1_1RawBuffer_a58e71f46cf391284543679ce7a0a77ff}} 
+\index{ByteStream::RawBuffer@{ByteStream::RawBuffer}!RawBuffer@{RawBuffer}}
+\index{RawBuffer@{RawBuffer}!ByteStream::RawBuffer@{ByteStream::RawBuffer}}
+\doxysubsubsection{\texorpdfstring{RawBuffer()}{RawBuffer()}}
+{\footnotesize\ttfamily Byte\+Stream\+::\+Raw\+Buffer\+::\+Raw\+Buffer (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 130 of file Byte\+Stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{130 : \mbox{\hyperlink{structByteStream_1_1RawBuffer_a72e23c30f63c379bfccbc659cebf8447}{size}}(0), \mbox{\hyperlink{structByteStream_1_1RawBuffer_a633ecee8dcf25195aa577f3cdfb6ea0f}{flags}}(0), \mbox{\hyperlink{structByteStream_1_1RawBuffer_a0c8a34981f47848f11b1bfdde0a08731}{crc32}}(5381) \{\}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{structByteStream_1_1RawBuffer_a457d59ad915787d36510d62e244dacba}\label{structByteStream_1_1RawBuffer_a457d59ad915787d36510d62e244dacba}} 
+\index{ByteStream::RawBuffer@{ByteStream::RawBuffer}!accumulate@{accumulate}}
+\index{accumulate@{accumulate}!ByteStream::RawBuffer@{ByteStream::RawBuffer}}
+\doxysubsubsection{\texorpdfstring{accumulate()}{accumulate()}}
+{\footnotesize\ttfamily void Byte\+Stream\+::\+Raw\+Buffer\+::accumulate (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 141 of file Byte\+Stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{142     \{}
+\DoxyCodeLine{143       \mbox{\hyperlink{structByteStream_1_1RawBuffer_a0c8a34981f47848f11b1bfdde0a08731}{crc32}} = ((\mbox{\hyperlink{structByteStream_1_1RawBuffer_a0c8a34981f47848f11b1bfdde0a08731}{crc32}} << 5) + \mbox{\hyperlink{structByteStream_1_1RawBuffer_a0c8a34981f47848f11b1bfdde0a08731}{crc32}}) + val;}
+\DoxyCodeLine{144     \}}
+
+\end{DoxyCode}
+
+
+References crc32.
+
+\mbox{\Hypertarget{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}\label{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}} 
+\index{ByteStream::RawBuffer@{ByteStream::RawBuffer}!hash@{hash}}
+\index{hash@{hash}!ByteStream::RawBuffer@{ByteStream::RawBuffer}}
+\doxysubsubsection{\texorpdfstring{hash()}{hash()}}
+{\footnotesize\ttfamily uint32\+\_\+t Byte\+Stream\+::\+Raw\+Buffer\+::hash (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 132 of file Byte\+Stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{133     \{}
+\DoxyCodeLine{134       uint32\_t \mbox{\hyperlink{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}{hash}} = 5381;}
+\DoxyCodeLine{135       \textcolor{keywordflow}{for} (uint32\_t i = 0; i < \mbox{\hyperlink{structByteStream_1_1RawBuffer_a72e23c30f63c379bfccbc659cebf8447}{size}}; ++i) \{}
+\DoxyCodeLine{136         \mbox{\hyperlink{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}{hash}} = ((\mbox{\hyperlink{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}{hash}} << 5) + \mbox{\hyperlink{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}{hash}}) + \mbox{\hyperlink{structByteStream_1_1RawBuffer_acff5672e20597661801f99a91e2f4b0a}{buf}}[i];}
+\DoxyCodeLine{137       \}}
+\DoxyCodeLine{138       \textcolor{keywordflow}{return} \mbox{\hyperlink{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}{hash}};}
+\DoxyCodeLine{139     \}}
+
+\end{DoxyCode}
+
+
+References buf, and size.
+
+
+
+Referenced by recalc\+CRC(), and verify().
+
+\mbox{\Hypertarget{structByteStream_1_1RawBuffer_a65ef642bfbde192c34df73748e563df8}\label{structByteStream_1_1RawBuffer_a65ef642bfbde192c34df73748e563df8}} 
+\index{ByteStream::RawBuffer@{ByteStream::RawBuffer}!recalcCRC@{recalcCRC}}
+\index{recalcCRC@{recalcCRC}!ByteStream::RawBuffer@{ByteStream::RawBuffer}}
+\doxysubsubsection{\texorpdfstring{recalcCRC()}{recalcCRC()}}
+{\footnotesize\ttfamily void Byte\+Stream\+::\+Raw\+Buffer\+::recalc\+CRC (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 159 of file Byte\+Stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{160     \{}
+\DoxyCodeLine{161       \mbox{\hyperlink{structByteStream_1_1RawBuffer_a0c8a34981f47848f11b1bfdde0a08731}{crc32}} = \mbox{\hyperlink{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}{hash}}();}
+\DoxyCodeLine{162     \}}
+
+\end{DoxyCode}
+
+
+References crc32, and hash().
+
+
+
+Referenced by Byte\+Stream\+::compress(), Byte\+Stream\+::decompress(), Byte\+Stream\+::init(), and Byte\+Stream\+::recalc\+CRC().
+
+\mbox{\Hypertarget{structByteStream_1_1RawBuffer_a3f2cc1da9c49af77e280f5dc5ff6bf8c}\label{structByteStream_1_1RawBuffer_a3f2cc1da9c49af77e280f5dc5ff6bf8c}} 
+\index{ByteStream::RawBuffer@{ByteStream::RawBuffer}!verify@{verify}}
+\index{verify@{verify}!ByteStream::RawBuffer@{ByteStream::RawBuffer}}
+\doxysubsubsection{\texorpdfstring{verify()}{verify()}}
+{\footnotesize\ttfamily bool Byte\+Stream\+::\+Raw\+Buffer\+::verify (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 146 of file Byte\+Stream.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{147     \{}
+\DoxyCodeLine{148       \textcolor{comment}{// if the buffer is empty then 'verify' should just return true}}
+\DoxyCodeLine{149       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{structByteStream_1_1RawBuffer_a72e23c30f63c379bfccbc659cebf8447}{size}}) \{}
+\DoxyCodeLine{150         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{151       \}}
+\DoxyCodeLine{152       \textcolor{keywordflow}{if} (\mbox{\hyperlink{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}{hash}}() != \mbox{\hyperlink{structByteStream_1_1RawBuffer_a0c8a34981f47848f11b1bfdde0a08731}{crc32}}) \{}
+\DoxyCodeLine{153         \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}CRC mismatch: \%x should be \%x"{}}, \mbox{\hyperlink{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}{hash}}(), \mbox{\hyperlink{structByteStream_1_1RawBuffer_a0c8a34981f47848f11b1bfdde0a08731}{crc32}});}
+\DoxyCodeLine{154         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{155       \}}
+\DoxyCodeLine{156       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{157     \}}
+
+\end{DoxyCode}
+
+
+References crc32, DEBUG\+\_\+\+LOGF, hash(), and size.
+
+
+
+Referenced by Byte\+Stream\+::check\+CRC(), and Byte\+Stream\+::decompress().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{structByteStream_1_1RawBuffer_acff5672e20597661801f99a91e2f4b0a}\label{structByteStream_1_1RawBuffer_acff5672e20597661801f99a91e2f4b0a}} 
+\index{ByteStream::RawBuffer@{ByteStream::RawBuffer}!buf@{buf}}
+\index{buf@{buf}!ByteStream::RawBuffer@{ByteStream::RawBuffer}}
+\doxysubsubsection{\texorpdfstring{buf}{buf}}
+{\footnotesize\ttfamily uint8\+\_\+t Byte\+Stream\+::\+Raw\+Buffer\+::buf\mbox{[}$\,$\mbox{]}}
+
+
+
+Definition at line 170 of file Byte\+Stream.\+h.
+
+
+
+Referenced by Byte\+Stream\+::compress(), Byte\+Stream\+::data(), Byte\+Stream\+::decompress(), Byte\+Stream\+::front\+Serializer(), Byte\+Stream\+::front\+Unserializer(), hash(), Byte\+Stream\+::init(), Byte\+Stream\+::operator const uint8\+\_\+t $\ast$(), Byte\+Stream\+::operator uint8\+\_\+t $\ast$(), Byte\+Stream\+::operator\mbox{[}$\,$\mbox{]}(), Byte\+Stream\+::serialize16(), Byte\+Stream\+::serialize32(), Byte\+Stream\+::serialize8(), Byte\+Stream\+::unserialize16(), Byte\+Stream\+::unserialize32(), and Byte\+Stream\+::unserialize8().
+
+\mbox{\Hypertarget{structByteStream_1_1RawBuffer_a0c8a34981f47848f11b1bfdde0a08731}\label{structByteStream_1_1RawBuffer_a0c8a34981f47848f11b1bfdde0a08731}} 
+\index{ByteStream::RawBuffer@{ByteStream::RawBuffer}!crc32@{crc32}}
+\index{crc32@{crc32}!ByteStream::RawBuffer@{ByteStream::RawBuffer}}
+\doxysubsubsection{\texorpdfstring{crc32}{crc32}}
+{\footnotesize\ttfamily uint32\+\_\+t Byte\+Stream\+::\+Raw\+Buffer\+::crc32}
+
+
+
+Definition at line 168 of file Byte\+Stream.\+h.
+
+
+
+Referenced by accumulate(), Byte\+Stream\+::\+Byte\+Stream(), Byte\+Stream\+::\+CRC(), Byte\+Stream\+::init(), Byte\+Stream\+::operator=(), recalc\+CRC(), Byte\+Stream\+::recalc\+CRC(), and verify().
+
+\mbox{\Hypertarget{structByteStream_1_1RawBuffer_a633ecee8dcf25195aa577f3cdfb6ea0f}\label{structByteStream_1_1RawBuffer_a633ecee8dcf25195aa577f3cdfb6ea0f}} 
+\index{ByteStream::RawBuffer@{ByteStream::RawBuffer}!flags@{flags}}
+\index{flags@{flags}!ByteStream::RawBuffer@{ByteStream::RawBuffer}}
+\doxysubsubsection{\texorpdfstring{flags}{flags}}
+{\footnotesize\ttfamily uint32\+\_\+t Byte\+Stream\+::\+Raw\+Buffer\+::flags}
+
+
+
+Definition at line 166 of file Byte\+Stream.\+h.
+
+
+
+Referenced by Byte\+Stream\+::\+Byte\+Stream(), Byte\+Stream\+::compress(), Byte\+Stream\+::decompress(), Byte\+Stream\+::init(), Byte\+Stream\+::is\+\_\+compressed(), Byte\+Stream\+::is\+CRCDirty(), Byte\+Stream\+::operator=(), Byte\+Stream\+::recalc\+CRC(), Byte\+Stream\+::serialize16(), Byte\+Stream\+::serialize32(), and Byte\+Stream\+::serialize8().
+
+\mbox{\Hypertarget{structByteStream_1_1RawBuffer_a72e23c30f63c379bfccbc659cebf8447}\label{structByteStream_1_1RawBuffer_a72e23c30f63c379bfccbc659cebf8447}} 
+\index{ByteStream::RawBuffer@{ByteStream::RawBuffer}!size@{size}}
+\index{size@{size}!ByteStream::RawBuffer@{ByteStream::RawBuffer}}
+\doxysubsubsection{\texorpdfstring{size}{size}}
+{\footnotesize\ttfamily uint32\+\_\+t Byte\+Stream\+::\+Raw\+Buffer\+::size}
+
+
+
+Definition at line 164 of file Byte\+Stream.\+h.
+
+
+
+Referenced by Byte\+Stream\+::append(), Byte\+Stream\+::\+Byte\+Stream(), Byte\+Stream\+::compress(), Byte\+Stream\+::decompress(), Byte\+Stream\+::front\+Serializer(), hash(), Byte\+Stream\+::init(), Byte\+Stream\+::large\+Enough(), Byte\+Stream\+::move\+Unserializer(), Byte\+Stream\+::operator=(), Byte\+Stream\+::raw\+Size(), Byte\+Stream\+::recalc\+CRC(), Byte\+Stream\+::sanity(), Byte\+Stream\+::serialize16(), Byte\+Stream\+::serialize32(), Byte\+Stream\+::serialize8(), Byte\+Stream\+::shrink(), Byte\+Stream\+::size(), Byte\+Stream\+::trim(), Byte\+Stream\+::unserialize16(), Byte\+Stream\+::unserialize32(), Byte\+Stream\+::unserialize8(), Byte\+Stream\+::unserializer\+At\+End(), and verify().
+
+
+
+The documentation for this struct was generated from the following file\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Serial/\mbox{\hyperlink{ByteStream_8h}{Byte\+Stream.\+h}}\end{DoxyCompactItemize}

@@ -1,0 +1,150 @@
+\hypertarget{TimeControl_8cpp}{}\doxysection{Vortex\+Engine/src/\+Time/\+Time\+Control.cpp File Reference}
+\label{TimeControl_8cpp}\index{VortexEngine/src/Time/TimeControl.cpp@{VortexEngine/src/Time/TimeControl.cpp}}
+{\ttfamily \#include \char`\"{}Time\+Control.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$math.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}../\+Memory/\+Memory.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Log/\+Log.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Timings.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Leds/\+Leds.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$avr/sleep.\+h$>$}\newline
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$time.\+h$>$}\newline
+Include dependency graph for Time\+Control.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{TimeControl_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{TimeControl_8cpp_ad4fb94c1ab9cbc945f797df08da3fcf1}{SEC\+\_\+\+TO\+\_\+\+US}}(sec)~((sec)$\ast$1000000)
+\item 
+\#define \mbox{\hyperlink{TimeControl_8cpp_aba379c651cac0789cf71828509fec881}{NS\+\_\+\+TO\+\_\+\+US}}(ns)~((ns)/1000)
+\item 
+\#define \mbox{\hyperlink{TimeControl_8cpp_a7f21fe9fdb3605017d51d802b41910ac}{TICKRATE}}~\mbox{\hyperlink{VortexConfig_8h_a97f6a37590c60f131bba4007c88d16eb}{DEFAULT\+\_\+\+TICKRATE}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{TimeControl_8cpp_a72835977ea9ab7a30df41f52cbbdb0f2}{\+\_\+\+\_\+attribute\+\_\+\+\_\+}} ((noinline)) void \mbox{\hyperlink{classTime}{Time}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+uint64\+\_\+t \mbox{\hyperlink{TimeControl_8cpp_a6a51e9baeec9b06ae477cf6475efc71d}{start}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{TimeControl_8cpp_aba379c651cac0789cf71828509fec881}\label{TimeControl_8cpp_aba379c651cac0789cf71828509fec881}} 
+\index{TimeControl.cpp@{TimeControl.cpp}!NS\_TO\_US@{NS\_TO\_US}}
+\index{NS\_TO\_US@{NS\_TO\_US}!TimeControl.cpp@{TimeControl.cpp}}
+\doxysubsubsection{\texorpdfstring{NS\_TO\_US}{NS\_TO\_US}}
+{\footnotesize\ttfamily \#define NS\+\_\+\+TO\+\_\+\+US(\begin{DoxyParamCaption}\item[{}]{ns }\end{DoxyParamCaption})~((ns)/1000)}
+
+
+
+Definition at line 23 of file Time\+Control.\+cpp.
+
+\mbox{\Hypertarget{TimeControl_8cpp_ad4fb94c1ab9cbc945f797df08da3fcf1}\label{TimeControl_8cpp_ad4fb94c1ab9cbc945f797df08da3fcf1}} 
+\index{TimeControl.cpp@{TimeControl.cpp}!SEC\_TO\_US@{SEC\_TO\_US}}
+\index{SEC\_TO\_US@{SEC\_TO\_US}!TimeControl.cpp@{TimeControl.cpp}}
+\doxysubsubsection{\texorpdfstring{SEC\_TO\_US}{SEC\_TO\_US}}
+{\footnotesize\ttfamily \#define SEC\+\_\+\+TO\+\_\+\+US(\begin{DoxyParamCaption}\item[{}]{sec }\end{DoxyParamCaption})~((sec)$\ast$1000000)}
+
+
+
+Definition at line 22 of file Time\+Control.\+cpp.
+
+\mbox{\Hypertarget{TimeControl_8cpp_a7f21fe9fdb3605017d51d802b41910ac}\label{TimeControl_8cpp_a7f21fe9fdb3605017d51d802b41910ac}} 
+\index{TimeControl.cpp@{TimeControl.cpp}!TICKRATE@{TICKRATE}}
+\index{TICKRATE@{TICKRATE}!TimeControl.cpp@{TimeControl.cpp}}
+\doxysubsubsection{\texorpdfstring{TICKRATE}{TICKRATE}}
+{\footnotesize\ttfamily \#define TICKRATE~\mbox{\hyperlink{VortexConfig_8h_a97f6a37590c60f131bba4007c88d16eb}{DEFAULT\+\_\+\+TICKRATE}}}
+
+
+
+Definition at line 48 of file Time\+Control.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{TimeControl_8cpp_a72835977ea9ab7a30df41f52cbbdb0f2}\label{TimeControl_8cpp_a72835977ea9ab7a30df41f52cbbdb0f2}} 
+\index{TimeControl.cpp@{TimeControl.cpp}!\_\_attribute\_\_@{\_\_attribute\_\_}}
+\index{\_\_attribute\_\_@{\_\_attribute\_\_}!TimeControl.cpp@{TimeControl.cpp}}
+\doxysubsubsection{\texorpdfstring{\_\_attribute\_\_()}{\_\_attribute\_\_()}}
+{\footnotesize\ttfamily \+\_\+\+\_\+attribute\+\_\+\+\_\+ (\begin{DoxyParamCaption}\item[{(noinline)}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 216 of file Time\+Control.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{219 \{}
+\DoxyCodeLine{220 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
+\DoxyCodeLine{221 \textcolor{preprocessor}{\#if F\_CPU >= 20000000L}}
+\DoxyCodeLine{222   \textcolor{comment}{// for a one-\/microsecond delay, burn 4 clocks and then return}}
+\DoxyCodeLine{223   \_\_asm\_\_ \_\_volatile\_\_ (}
+\DoxyCodeLine{224     \textcolor{stringliteral}{"{}rjmp .+0"{}} \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}     \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{225     \textcolor{stringliteral}{"{}nop"{}} );              \textcolor{comment}{// 1 cycle}}
+\DoxyCodeLine{226                           \textcolor{comment}{// wait 3 cycles with 2 words}}
+\DoxyCodeLine{227   \textcolor{keywordflow}{if} (us <= 1) \textcolor{keywordflow}{return}; \textcolor{comment}{//  = 3 cycles, (4 when true)}}
+\DoxyCodeLine{228   \textcolor{comment}{// the loop takes a 1/2 of a microsecond (10 cycles) per iteration}}
+\DoxyCodeLine{229   \textcolor{comment}{// so execute it twice for each microsecond of delay requested.}}
+\DoxyCodeLine{230   us = us << 1; \textcolor{comment}{// x2 us, = 2 cycles}}
+\DoxyCodeLine{231   \textcolor{comment}{// we just burned 21 (23) cycles above, remove 2}}
+\DoxyCodeLine{232   \textcolor{comment}{// us is at least 4 so we can subtract 2.}}
+\DoxyCodeLine{233   us -\/= 2; \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{234 \textcolor{preprocessor}{\#elif F\_CPU >= 10000000L}}
+\DoxyCodeLine{235   \textcolor{comment}{// for a 1 microsecond delay, simply return.  the overhead}}
+\DoxyCodeLine{236   \textcolor{comment}{// of the function call takes 14 (16) cycles, which is 1.5us}}
+\DoxyCodeLine{237   \textcolor{keywordflow}{if} (us <= 2) \textcolor{keywordflow}{return}; \textcolor{comment}{//  = 3 cycles, (4 when true)}}
+\DoxyCodeLine{238   \textcolor{comment}{// we just burned 20 (22) cycles above, remove 4, (5*4=20)}}
+\DoxyCodeLine{239   \textcolor{comment}{// us is at least 6 so we can subtract 4}}
+\DoxyCodeLine{240   us -\/= 4; \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{241 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{242   \_\_asm\_\_ \_\_volatile\_\_(}
+\DoxyCodeLine{243     \textcolor{stringliteral}{"{}1: sbiw \%0, 1"{}} \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}            \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{244     \textcolor{stringliteral}{"{}rjmp .+0"{}}      \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}            \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{245     \textcolor{stringliteral}{"{}rjmp .+0"{}}      \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}            \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{246     \textcolor{stringliteral}{"{}rjmp .+0"{}}      \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)t"{}}            \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{247     \textcolor{stringliteral}{"{}brne 1b"{}} : \textcolor{stringliteral}{"{}=w"{}} (us) : \textcolor{stringliteral}{"{}0"{}} (us)  \textcolor{comment}{// 2 cycles}}
+\DoxyCodeLine{248   );}
+\DoxyCodeLine{249   \textcolor{comment}{// return = 4 cycles}}
+\DoxyCodeLine{250 \textcolor{preprocessor}{\#elif defined(\_WIN32)}}
+\DoxyCodeLine{251   uint32\_t newtime = microseconds() + us;}
+\DoxyCodeLine{252   \textcolor{keywordflow}{while} (microseconds() < newtime) \{}
+\DoxyCodeLine{253     \textcolor{comment}{// busy loop}}
+\DoxyCodeLine{254   \}}
+\DoxyCodeLine{255 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{256   usleep(us);}
+\DoxyCodeLine{257 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{258 \}}
+
+\end{DoxyCode}
+
+
+References Time\+::microseconds().
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{TimeControl_8cpp_a6a51e9baeec9b06ae477cf6475efc71d}\label{TimeControl_8cpp_a6a51e9baeec9b06ae477cf6475efc71d}} 
+\index{TimeControl.cpp@{TimeControl.cpp}!start@{start}}
+\index{start@{start}!TimeControl.cpp@{TimeControl.cpp}}
+\doxysubsubsection{\texorpdfstring{start}{start}}
+{\footnotesize\ttfamily uint64\+\_\+t start = 0}
+
+
+
+Definition at line 20 of file Time\+Control.\+cpp.
+
+
+
+Referenced by Time\+::init(), and Time\+::microseconds().
+
