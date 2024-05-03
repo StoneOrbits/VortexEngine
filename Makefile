@@ -64,6 +64,22 @@ APPEND = 0x00
 #  storage of modes, this does not include the eeprom.
 BOOTEND = 0x7e
 
+# The branch/tag suffix for this device
+BRANCH_SUFFIX=d
+
+# Fetch tags, determine version numbers based on the latest tag, and slice off the branch suffix
+VORTEX_VERSION_MAJOR ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/.$(BRANCH_SUFFIX)$$//' | cut -d. -f1)
+VORTEX_VERSION_MINOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/.$(BRANCH_SUFFIX)$$//' | cut -d. -f2)
+VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count HEAD)
+
+# If no tags are found, default to 0.1.0
+VORTEX_VERSION_MAJOR := $(if $(VORTEX_VERSION_MAJOR),$(VORTEX_VERSION_MAJOR),0)
+VORTEX_VERSION_MINOR := $(if $(VORTEX_VERSION_MINOR),$(VORTEX_VERSION_MINOR),1)
+VORTEX_BUILD_NUMBER := $(if $(VORTEX_BUILD_NUMBER),$(VORTEX_BUILD_NUMBER),0)
+
+# Combine into a full version number
+VORTEX_VERSION_NUMBER := $(VORTEX_VERSION_MAJOR).$(VORTEX_VERSION_MINOR).$(VORTEX_BUILD_NUMBER)
+
 # compiler defines
 DEFINES=\
 	-DVORTEX_VERSION_MAJOR=$(VORTEX_VERSION_MAJOR) \
@@ -136,6 +152,7 @@ all: $(TARGET).hex
 	$(NM) --numeric-sort --line-numbers --demangle --print-size --format=s $(TARGET).elf > $(TARGET).map
 	chmod +x avrsize.sh
 	./avrsize.sh $(TARGET).elf $(BOOTEND)00
+	@echo "== Success building Duo v$(VORTEX_VERSION_NUMBER) =="
 
 $(TARGET).hex: $(TARGET).elf
 	$(OBJCOPY) -O binary -R .eeprom $(TARGET).elf $(TARGET).bin

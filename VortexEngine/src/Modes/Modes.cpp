@@ -118,6 +118,10 @@ bool Modes::saveToBuffer(ByteStream &modesBuffer)
 // load modes from a save buffer
 bool Modes::loadFromBuffer(ByteStream &modesBuffer)
 {
+  if (!modesBuffer.decompress()) {
+    // failed to decompress?
+    return false;
+  }
   if (!unserializeSaveHeader(modesBuffer)) {
     return false;
   }
