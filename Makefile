@@ -8,7 +8,7 @@ BUILD_PATH = build
 CONFIG_FILE = $(HOME)/.arduino15/arduino-cli.yaml
 
 # The branch/tag suffix for this device
-BRANCH_SUFFIX=o
+BRANCH_SUFFIX=c
 
 # Fetch tags, determine version numbers based on the latest tag, and slice off the branch suffix
 VORTEX_VERSION_MAJOR ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/.$(BRANCH_SUFFIX)$$//' | cut -d. -f1)
