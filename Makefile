@@ -64,6 +64,15 @@ APPEND = 0x00
 #  storage of modes, this does not include the eeprom.
 BOOTEND = 0x7e
 
+# compiler defines
+DEFINES=\
+	-DVORTEX_VERSION_MAJOR=$(VORTEX_VERSION_MAJOR) \
+	-DVORTEX_VERSION_MINOR=$(VORTEX_VERSION_MINOR) \
+	-DVORTEX_BUILD_NUMBER=$(VORTEX_BUILD_NUMBER) \
+	-DVORTEX_VERSION_NUMBER=$(VORTEX_VERSION_NUMBER) \
+	-D__AVR_ATtiny3217__ \
+	-DF_CPU=$(CPU_SPEED) \
+
 CFLAGS = -g \
 	 -Os \
 	 -MMD \
@@ -79,9 +88,7 @@ CFLAGS = -g \
 	 -ffunction-sections\
 	 -funsigned-bitfields \
 	 -fno-threadsafe-statics \
-	 -D__AVR_ATtiny3217__ \
 	 -mmcu=$(AVRDUDE_CHIP) \
-	 -DF_CPU=$(CPU_SPEED) \
 	 -B $(DEVICE_DIR)
 
 LDFLAGS = -g \
@@ -99,7 +106,12 @@ INCLUDES=\
 	-I $(INCLUDE_DIR) \
 	-I ./VortexEngine/src/
 
-CFLAGS+=$(INCLUDES)
+ifneq ($(DEFINES),)
+    CFLAGS+=$(DEFINES)
+endif
+ifneq ($(INCLUDES),)
+    CFLAGS+=$(INCLUDES)
+endif
 
 # Source files
 ifeq ($(OS),Windows_NT) # Windows
