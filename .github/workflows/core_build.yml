@@ -37,6 +37,7 @@ jobs:
           echo "Version Number: $FULL_VERSION"
 
   test:
+    needs: setup
     runs-on: ubuntu-latest
     steps:
     - name: Checkout current repository
@@ -58,7 +59,7 @@ jobs:
       working-directory: VortexEngine/tests
 
   wasm:
-    needs: test
+    needs: [setup, test]
     runs-on: ubuntu-latest
     steps:
     - name: Checkout current repository
@@ -81,7 +82,7 @@ jobs:
       working-directory: VortexEngine/VortexLib
 
   docs:
-    needs: wasm
+    needs: [setup, test, wasm]
     runs-on: ubuntu-latest
     if: github.ref == 'refs/heads/master'
     steps:
