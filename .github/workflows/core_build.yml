@@ -8,6 +8,34 @@ on:
   workflow_dispatch: # manual trigger
 
 jobs:
+  setup:
+    runs-on: ubuntu-latest
+    outputs:
+      version: ${{ steps.set_version.outputs.version }}
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # Fetches all history for all branches and tags
+      - name: Determine Version and Build Number
+        id: set_version
+        run: |
+          # Fetch all tags
+          git fetch --depth=1 origin +refs/tags/*:refs/tags/*
+          # Get the latest tag that matches the branch suffix
+          LATEST_TAG=$(git tag --list | grep -E "^[[:digit:]]+\.[[:digit:]]+\$" | sort -V | tail -n1)
+          if [ -z "$LATEST_TAG" ]; then
+            echo "No matching tags found. Setting default version."
+            VERSION_NUMBER="0.1"
+            BUILD_NUMBER="0"
+          else
+            echo "Found latest tag: $LATEST_TAG"
+            VERSION_NUMBER=$LATEST_TAG
+            BUILD_NUMBER=$(git rev-list --count $LATEST_TAG..HEAD)
+          fi
+          FULL_VERSION="$VERSION_NUMBER.$BUILD_NUMBER"
+          echo "version=$FULL_VERSION" >> $GITHUB_OUTPUT
+          echo "Version Number: $FULL_VERSION"
+
   test:
     runs-on: ubuntu-latest
     steps:
@@ -18,7 +46,9 @@ jobs:
     - name: Install Dependencies
       run: sudo apt-get install valgrind g++ make --fix-missing
     - name: Build
-      run: make -j
+      run: |
+        VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.version }}
+        make -j
       working-directory: VortexEngine
     - name: Set execute permissions for test script
       run: chmod +x ./runtests.sh
@@ -46,6 +76,7 @@ jobs:
     - name: Build Webassembly
       run: |
         source ./emsdk/emsdk_env.sh
+        VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.version }}
         make -j wasm
       working-directory: VortexEngine/VortexLib
 
