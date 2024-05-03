@@ -7,6 +7,22 @@ PROJECT_NAME = VortexEngine/VortexEngine.ino
 BUILD_PATH = build
 CONFIG_FILE = $(HOME)/.arduino15/arduino-cli.yaml
 
+# The branch/tag suffix for this device
+BRANCH_SUFFIX=g
+
+# Fetch tags, determine version numbers based on the latest tag, and slice off the branch suffix
+VORTEX_VERSION_MAJOR ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/.$(BRANCH_SUFFIX)$$//' | cut -d. -f1)
+VORTEX_VERSION_MINOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/.$(BRANCH_SUFFIX)$$//' | cut -d. -f2)
+VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count HEAD)
+
+# If no tags are found, default to 0.1.0
+VORTEX_VERSION_MAJOR := $(if $(VORTEX_VERSION_MAJOR),$(VORTEX_VERSION_MAJOR),0)
+VORTEX_VERSION_MINOR := $(if $(VORTEX_VERSION_MINOR),$(VORTEX_VERSION_MINOR),1)
+VORTEX_BUILD_NUMBER := $(if $(VORTEX_BUILD_NUMBER),$(VORTEX_BUILD_NUMBER),0)
+
+# Combine into a full version number
+VORTEX_VERSION_NUMBER := $(VORTEX_VERSION_MAJOR).$(VORTEX_VERSION_MINOR).$(VORTEX_BUILD_NUMBER)
+
 DEFINES=\
 	-D VORTEX_VERSION_MAJOR=$(VORTEX_VERSION_MAJOR) \
 	-D VORTEX_VERSION_MINOR=$(VORTEX_VERSION_MINOR) \
@@ -45,6 +61,7 @@ build:
 		--build-property compiler.cpp.extra_flags="$(DEFINES)" \
 		--build-property compiler.c.extra_flags="$(DEFINES)"
 	python3 uf2conv.py -c -b 0x2000 build/VortexEngine.ino.bin -o build/VortexEngine.ino.uf2
+	@echo "== Success building Gloves v$(VORTEX_VERSION_NUMBER) =="
 
 upload:
 	$(ARDUINO_CLI) upload -p $(PORT) --fqbn $(BOARD) $(PROJECT_NAME) --config-file $(CONFIG_FILE)
