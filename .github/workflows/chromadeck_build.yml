@@ -97,13 +97,11 @@ jobs:
             build/VortexEngine.ino.bin
             build/VortexEngine.ino.elf
             build/VortexEngine.ino.map
-            build/VortexEngine.ino.hex
-            build/VortexEngine.ino.uf2
       - name: Archive production artifacts for deployment
         uses: actions/upload-artifact@v4
         with:
           name: firmware-artifact
-          path: build/VortexEngine.ino.uf2
+          path: build/VortexEngine.ino.bin
 
   wasm:
     needs: [setup, test, embedded]
@@ -167,8 +165,8 @@ jobs:
       - name: Rename and Deploy Firmware
         run: |
           DEVICE_TYPE="chromadeck"
-          VERSIONED_FILENAME="VortexEngine-${DEVICE_TYPE}-${{ needs.setup.outputs.vortex_version_number }}.uf2"
-          mv build/VortexEngine.ino.uf2 build/$VERSIONED_FILENAME
+          VERSIONED_FILENAME="VortexEngine-${DEVICE_TYPE}-${{ needs.setup.outputs.vortex_version_number }}.bin"
+          mv build/VortexEngine.ino.bin build/$VERSIONED_FILENAME
           echo "Version is ${{ needs.setup.outputs.vortex_version_number }}"
           echo "Filename is is $VERSIONED_FILENAME"
           curl -X POST \
