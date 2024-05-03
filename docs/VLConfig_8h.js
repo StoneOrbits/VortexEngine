@@ -1,0 +1,26 @@
+var VLConfig_8h =
+[
+    [ "VL_DEFAULT_BLOCK_SIZE", "VLConfig_8h.html#ad989f13d1c369d1323dd82c196201614", null ],
+    [ "VL_DEFAULT_BLOCK_SPACING", "VLConfig_8h.html#afa8ddadf99bd9a8115d267ac43fb3599", null ],
+    [ "VL_DIVIDER_SPACE", "VLConfig_8h.html#a0479bd1b73cc4134476fbb34c8e6f37a", null ],
+    [ "VL_DIVIDER_SPACE_MAX", "VLConfig_8h.html#af72b83eb9a89a5e1ef4a7b3998816490", null ],
+    [ "VL_DIVIDER_SPACE_MIN", "VLConfig_8h.html#ab68e5a32836564fc493aef8e8e25648e", null ],
+    [ "VL_ENABLE_RECEIVER", "VLConfig_8h.html#ac8c3f4b5142fd8c1f9f3172809cf0165", null ],
+    [ "VL_ENABLE_SENDER", "VLConfig_8h.html#a5c43072ae7910ff2e868239c18af9799", null ],
+    [ "VL_HEADER_MARK", "VLConfig_8h.html#aeb563708effd881b6724e4abffd2d206", null ],
+    [ "VL_HEADER_MARK_MAX", "VLConfig_8h.html#a69a47bf818637f670f5e0297b0a14494", null ],
+    [ "VL_HEADER_MARK_MIN", "VLConfig_8h.html#aa356108757d3b331ebc81b3446af8ddf", null ],
+    [ "VL_HEADER_SPACE", "VLConfig_8h.html#aa6b94f98cc8192fd019a96a9d8a61293", null ],
+    [ "VL_HEADER_SPACE_MAX", "VLConfig_8h.html#a8dd25298b18cfdacfa8a88cc1870e2d0", null ],
+    [ "VL_HEADER_SPACE_MIN", "VLConfig_8h.html#a1b3bcb9ee4d252ec51e0158a25bcc447", null ],
+    [ "VL_MAX_DATA_TRANSFER", "VLConfig_8h.html#a5531f46c73b52342bc76a5423252c745", null ],
+    [ "VL_MAX_DWORDS_TRANSFER", "VLConfig_8h.html#a92000942ff175ac1d557d40608e8aa79", null ],
+    [ "VL_RECEIVER_PIN", "VLConfig_8h.html#aac36bd002395aeeb56a6cc13e79e95e1", null ],
+    [ "VL_RECV_BUF_SIZE", "VLConfig_8h.html#a3d88d00f25aa3f045093b65ddf9f234d", null ],
+    [ "VL_SEND_PWM_PIN", "VLConfig_8h.html#adcaceb9887a43db1bba7c8b207f626d1", null ],
+    [ "VL_THRES_DOWN", "VLConfig_8h.html#ac55c5a3a47070f7fa9ff8c18d2268bb1", null ],
+    [ "VL_THRES_UP", "VLConfig_8h.html#ae9d04f0774cdcc5a539c2d9c4f84a99a", null ],
+    [ "VL_THRESHOLD", "VLConfig_8h.html#adf3c49a70537c188f22c81318a10af27", null ],
+    [ "VL_TIMING", "VLConfig_8h.html#a0ec0a4d9a48be677d4d923eadcefe6ce", null ],
+    [ "VL_TIMING_MIN", "VLConfig_8h.html#a4da43561aa22e37bd47c2cbc0f91b3b6", null ]
+];
