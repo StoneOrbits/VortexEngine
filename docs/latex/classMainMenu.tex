@@ -1,0 +1,320 @@
+\hypertarget{classMainMenu}{}\doxysection{Main\+Menu Class Reference}
+\label{classMainMenu}\index{MainMenu@{MainMenu}}
+
+
+{\ttfamily \#include $<$Main\+Menu.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classMainMenu_a1880150bad692c9a26531fbe771eceb7}{init}} ()
+\item 
+static bool \mbox{\hyperlink{classMainMenu_afbf3058eec9a60321c5632707077a625}{run}} ()
+\item 
+static void \mbox{\hyperlink{classMainMenu_a93e8540dbcd1c621bbe3229203d30e55}{show}} ()
+\item 
+static void \mbox{\hyperlink{classMainMenu_a75445f7e3dc35db5029cc6527c42b3f9}{open}} ()
+\item 
+static bool \mbox{\hyperlink{classMainMenu_af30eadda199da09754955f1bd22fe6a6}{is\+Open}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{classMainMenu_abf3e15882977982a8f3bacf9cfc7c1a1}{press\+Left}} ()
+\item 
+static void \mbox{\hyperlink{classMainMenu_a7ac1f3fb20536c7dba2f8fd0b119fb69}{press\+Right}} ()
+\item 
+static void \mbox{\hyperlink{classMainMenu_ac63ef07f7ac3a1665cf8295f0f3f700b}{select}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+static bool \mbox{\hyperlink{classMainMenu_afe5a4e78333a1f156e1a158c6faf0cbb}{m\+\_\+is\+Open}} = true
+\item 
+static uint8\+\_\+t \mbox{\hyperlink{classMainMenu_aa863a1f41573b309326b20ed860c91aa}{m\+\_\+cur\+Selection}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 6 of file Main\+Menu.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classMainMenu_a1880150bad692c9a26531fbe771eceb7}\label{classMainMenu_a1880150bad692c9a26531fbe771eceb7}} 
+\index{MainMenu@{MainMenu}!init@{init}}
+\index{init@{init}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily bool Main\+Menu\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 16 of file Main\+Menu.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \textcolor{comment}{// main menus start open}}
+\DoxyCodeLine{19   \mbox{\hyperlink{classMainMenu_afe5a4e78333a1f156e1a158c6faf0cbb}{m\_isOpen}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{20   \mbox{\hyperlink{classMainMenu_aa863a1f41573b309326b20ed860c91aa}{m\_curSelection}} = 0;}
+\DoxyCodeLine{21   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{22 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+cur\+Selection, and m\+\_\+is\+Open.
+
+
+
+Referenced by Vortex\+Engine\+::init().
+
+\mbox{\Hypertarget{classMainMenu_af30eadda199da09754955f1bd22fe6a6}\label{classMainMenu_af30eadda199da09754955f1bd22fe6a6}} 
+\index{MainMenu@{MainMenu}!isOpen@{isOpen}}
+\index{isOpen@{isOpen}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{isOpen()}{isOpen()}}
+{\footnotesize\ttfamily bool Main\+Menu\+::is\+Open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 73 of file Main\+Menu.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{74 \{}
+\DoxyCodeLine{75   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMainMenu_afe5a4e78333a1f156e1a158c6faf0cbb}{m\_isOpen}};}
+\DoxyCodeLine{76 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+is\+Open.
+
+\mbox{\Hypertarget{classMainMenu_a75445f7e3dc35db5029cc6527c42b3f9}\label{classMainMenu_a75445f7e3dc35db5029cc6527c42b3f9}} 
+\index{MainMenu@{MainMenu}!open@{open}}
+\index{open@{open}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{open()}{open()}}
+{\footnotesize\ttfamily void Main\+Menu\+::open (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 68 of file Main\+Menu.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{69 \{}
+\DoxyCodeLine{70   \mbox{\hyperlink{classMainMenu_afe5a4e78333a1f156e1a158c6faf0cbb}{m\_isOpen}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{71 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+is\+Open.
+
+\mbox{\Hypertarget{classMainMenu_abf3e15882977982a8f3bacf9cfc7c1a1}\label{classMainMenu_abf3e15882977982a8f3bacf9cfc7c1a1}} 
+\index{MainMenu@{MainMenu}!pressLeft@{pressLeft}}
+\index{pressLeft@{pressLeft}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{pressLeft()}{pressLeft()}}
+{\footnotesize\ttfamily void Main\+Menu\+::press\+Left (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 78 of file Main\+Menu.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{79 \{}
+\DoxyCodeLine{80   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMainMenu_aa863a1f41573b309326b20ed860c91aa}{m\_curSelection}}) \{}
+\DoxyCodeLine{81     \mbox{\hyperlink{classMainMenu_aa863a1f41573b309326b20ed860c91aa}{m\_curSelection}} = \mbox{\hyperlink{MainMenu_8cpp_ae4f9e216c897b611aabd027fdbc66a11}{NUM\_SELECTIONS}} -\/ 1;}
+\DoxyCodeLine{82   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{83     \mbox{\hyperlink{classMainMenu_aa863a1f41573b309326b20ed860c91aa}{m\_curSelection}}-\/-\/;}
+\DoxyCodeLine{84   \}}
+\DoxyCodeLine{85 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+cur\+Selection, and NUM\+\_\+\+SELECTIONS.
+
+
+
+Referenced by run().
+
+\mbox{\Hypertarget{classMainMenu_a7ac1f3fb20536c7dba2f8fd0b119fb69}\label{classMainMenu_a7ac1f3fb20536c7dba2f8fd0b119fb69}} 
+\index{MainMenu@{MainMenu}!pressRight@{pressRight}}
+\index{pressRight@{pressRight}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{pressRight()}{pressRight()}}
+{\footnotesize\ttfamily void Main\+Menu\+::press\+Right (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 87 of file Main\+Menu.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{88 \{}
+\DoxyCodeLine{89   \mbox{\hyperlink{classMainMenu_aa863a1f41573b309326b20ed860c91aa}{m\_curSelection}} = (\mbox{\hyperlink{classMainMenu_aa863a1f41573b309326b20ed860c91aa}{m\_curSelection}} + 1) \% \mbox{\hyperlink{MainMenu_8cpp_ae4f9e216c897b611aabd027fdbc66a11}{NUM\_SELECTIONS}};}
+\DoxyCodeLine{90 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+cur\+Selection, and NUM\+\_\+\+SELECTIONS.
+
+
+
+Referenced by run().
+
+\mbox{\Hypertarget{classMainMenu_afbf3058eec9a60321c5632707077a625}\label{classMainMenu_afbf3058eec9a60321c5632707077a625}} 
+\index{MainMenu@{MainMenu}!run@{run}}
+\index{run@{run}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily bool Main\+Menu\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 24 of file Main\+Menu.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26   \textcolor{comment}{// if the main menus aren't open then nothing to do here}}
+\DoxyCodeLine{27   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMainMenu_afe5a4e78333a1f156e1a158c6faf0cbb}{m\_isOpen}}) \{}
+\DoxyCodeLine{28     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{29   \}}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31   \textcolor{comment}{// press <}}
+\DoxyCodeLine{32   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_ac2fb778cda72cbf314239e9693900b28}{g\_pButtonL}}-\/>\mbox{\hyperlink{classButton_a4e2b10397cdad6546a8728a87b82fadb}{onShortClick}}()) \{}
+\DoxyCodeLine{33     \mbox{\hyperlink{classMainMenu_abf3e15882977982a8f3bacf9cfc7c1a1}{pressLeft}}();}
+\DoxyCodeLine{34   \}}
+\DoxyCodeLine{35   \textcolor{comment}{// press o}}
+\DoxyCodeLine{36   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a4e2b10397cdad6546a8728a87b82fadb}{onShortClick}}()) \{}
+\DoxyCodeLine{37     \mbox{\hyperlink{classMainMenu_ac63ef07f7ac3a1665cf8295f0f3f700b}{select}}();}
+\DoxyCodeLine{38   \}}
+\DoxyCodeLine{39   \textcolor{comment}{// press >}}
+\DoxyCodeLine{40   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_ab0bad4698b8ace3b61f0cd4398d6c47b}{g\_pButtonR}}-\/>\mbox{\hyperlink{classButton_a4e2b10397cdad6546a8728a87b82fadb}{onShortClick}}()) \{}
+\DoxyCodeLine{41     \mbox{\hyperlink{classMainMenu_a7ac1f3fb20536c7dba2f8fd0b119fb69}{pressRight}}();}
+\DoxyCodeLine{42   \}}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44   \textcolor{comment}{// render}}
+\DoxyCodeLine{45   \mbox{\hyperlink{classMainMenu_a93e8540dbcd1c621bbe3229203d30e55}{show}}();}
+\DoxyCodeLine{46   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{47 \}}
+
+\end{DoxyCode}
+
+
+References g\+\_\+p\+ButtonL, g\+\_\+p\+ButtonM, g\+\_\+p\+ButtonR, m\+\_\+is\+Open, Button\+::on\+Short\+Click(), press\+Left(), press\+Right(), select(), and show().
+
+
+
+Referenced by Vortex\+Engine\+::run\+Main\+Logic().
+
+\mbox{\Hypertarget{classMainMenu_ac63ef07f7ac3a1665cf8295f0f3f700b}\label{classMainMenu_ac63ef07f7ac3a1665cf8295f0f3f700b}} 
+\index{MainMenu@{MainMenu}!select@{select}}
+\index{select@{select}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{select()}{select()}}
+{\footnotesize\ttfamily void Main\+Menu\+::select (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 92 of file Main\+Menu.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{93 \{}
+\DoxyCodeLine{94   \mbox{\hyperlink{classMainMenu_afe5a4e78333a1f156e1a158c6faf0cbb}{m\_isOpen}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{95   \mbox{\hyperlink{classStorage_a562b28dd8e11e5cac484178a92a90479}{Storage::setStoragePage}}(\mbox{\hyperlink{classMainMenu_aa863a1f41573b309326b20ed860c91aa}{m\_curSelection}});}
+\DoxyCodeLine{96   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_ae086d04e395dc7e37a456fd095c42ad9}{Modes::loadStorage}}()) \{}
+\DoxyCodeLine{97     \mbox{\hyperlink{classModes_a790f299aa425bdc73af7f584ee30472b}{Modes::setDefaults}}();}
+\DoxyCodeLine{98   \}}
+\DoxyCodeLine{99   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Selected storage page: \%u"{}}, \mbox{\hyperlink{classMainMenu_aa863a1f41573b309326b20ed860c91aa}{m\_curSelection}});}
+\DoxyCodeLine{100 \}}
+
+\end{DoxyCode}
+
+
+References DEBUG\+\_\+\+LOGF, Modes\+::load\+Storage(), m\+\_\+cur\+Selection, m\+\_\+is\+Open, Modes\+::set\+Defaults(), and Storage\+::set\+Storage\+Page().
+
+
+
+Referenced by run().
+
+\mbox{\Hypertarget{classMainMenu_a93e8540dbcd1c621bbe3229203d30e55}\label{classMainMenu_a93e8540dbcd1c621bbe3229203d30e55}} 
+\index{MainMenu@{MainMenu}!show@{show}}
+\index{show@{show}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{show()}{show()}}
+{\footnotesize\ttfamily void Main\+Menu\+::show (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 49 of file Main\+Menu.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{50 \{}
+\DoxyCodeLine{51   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{52   \textcolor{comment}{// render the main menu}}
+\DoxyCodeLine{53   uint8\_t hue = 0;}
+\DoxyCodeLine{54   uint32\_t now = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
+\DoxyCodeLine{55   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9340a6a1e38ed1267e5189204d81c45c}{MAP\_OUTER\_RING}}) \{}
+\DoxyCodeLine{56     \mbox{\hyperlink{classLeds_ac158d1f309d7016aeb58161b32788b55}{Leds::breatheIndex}}(pos, hue, (now / 2), 8, 255, 180);}
+\DoxyCodeLine{57     hue += (255 / (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}} / 2));}
+\DoxyCodeLine{58   \}}
+\DoxyCodeLine{59   hue = 0;}
+\DoxyCodeLine{60   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(\mbox{\hyperlink{LedTypes_8h_a35efb2875df499020d0bd765e4abd65c}{MAP\_INNER\_RING}}) \{}
+\DoxyCodeLine{61     \mbox{\hyperlink{classLeds_ac158d1f309d7016aeb58161b32788b55}{Leds::breatheIndex}}(pos, hue, (now / 2), 8, 255, 180);}
+\DoxyCodeLine{62     hue += (255 / (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}} / 2));}
+\DoxyCodeLine{63   \}}
+\DoxyCodeLine{64   \mbox{\hyperlink{classLeds_adf9a8fd9a96e51e32baf7d3743e8010e}{Leds::blinkIndex}}((\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})\mbox{\hyperlink{classMainMenu_aa863a1f41573b309326b20ed860c91aa}{m\_curSelection}});}
+\DoxyCodeLine{65   \mbox{\hyperlink{classLeds_adf9a8fd9a96e51e32baf7d3743e8010e}{Leds::blinkIndex}}((\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})(\mbox{\hyperlink{classMainMenu_aa863a1f41573b309326b20ed860c91aa}{m\_curSelection}} + 10));}
+\DoxyCodeLine{66 \}}
+
+\end{DoxyCode}
+
+
+References Leds\+::blink\+Index(), Leds\+::breathe\+Index(), Leds\+::clear\+All(), Time\+::get\+Curtime(), LED\+\_\+\+COUNT, m\+\_\+cur\+Selection, MAP\+\_\+\+FOREACH\+\_\+\+LED, MAP\+\_\+\+INNER\+\_\+\+RING, and MAP\+\_\+\+OUTER\+\_\+\+RING.
+
+
+
+Referenced by run().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classMainMenu_aa863a1f41573b309326b20ed860c91aa}\label{classMainMenu_aa863a1f41573b309326b20ed860c91aa}} 
+\index{MainMenu@{MainMenu}!m\_curSelection@{m\_curSelection}}
+\index{m\_curSelection@{m\_curSelection}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{m\_curSelection}{m\_curSelection}}
+{\footnotesize\ttfamily uint8\+\_\+t Main\+Menu\+::m\+\_\+cur\+Selection = 0\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 22 of file Main\+Menu.\+h.
+
+
+
+Referenced by init(), press\+Left(), press\+Right(), select(), and show().
+
+\mbox{\Hypertarget{classMainMenu_afe5a4e78333a1f156e1a158c6faf0cbb}\label{classMainMenu_afe5a4e78333a1f156e1a158c6faf0cbb}} 
+\index{MainMenu@{MainMenu}!m\_isOpen@{m\_isOpen}}
+\index{m\_isOpen@{m\_isOpen}!MainMenu@{MainMenu}}
+\doxysubsubsection{\texorpdfstring{m\_isOpen}{m\_isOpen}}
+{\footnotesize\ttfamily bool Main\+Menu\+::m\+\_\+is\+Open = true\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 21 of file Main\+Menu.\+h.
+
+
+
+Referenced by init(), is\+Open(), open(), run(), and select().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Menus/\mbox{\hyperlink{MainMenu_8h}{Main\+Menu.\+h}}\item 
+Vortex\+Engine/src/\+Menus/\mbox{\hyperlink{MainMenu_8cpp}{Main\+Menu.\+cpp}}\end{DoxyCompactItemize}

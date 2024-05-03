@@ -1,0 +1,140 @@
+\hypertarget{VLReceiver_8cpp}{}\doxysection{Vortex\+Engine/src/\+Wireless/\+VLReceiver.cpp File Reference}
+\label{VLReceiver_8cpp}\index{VortexEngine/src/Wireless/VLReceiver.cpp@{VortexEngine/src/Wireless/VLReceiver.cpp}}
+{\ttfamily \#include \char`\"{}VLReceiver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}IRConfig.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Serial/\+Byte\+Stream.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Serial/\+Bit\+Stream.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Time/\+Time\+Control.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Modes/\+Mode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Leds/\+Leds.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Log/\+Log.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}freertos/\+Free\+RTOS.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}freertos/task.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}driver/adc.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}esp\+\_\+log.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}esp\+\_\+timer.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Serial/\+Serial.\+h\char`\"{}}\newline
+Include dependency graph for VLReceiver.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{VLReceiver_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{VLReceiver_8cpp_a7fb9fde533f9b9bc8e4ae31524c9ea51}{ADC\+\_\+\+CHANNEL}}~ADC1\+\_\+\+CHANNEL\+\_\+1
+\item 
+\#define \mbox{\hyperlink{VLReceiver_8cpp_aef840d83bcb6c342657b135c42095391}{TIMER\+\_\+\+INTERVAL\+\_\+\+MICRO\+\_\+\+SEC}}~10000
+\item 
+\#define \mbox{\hyperlink{VLReceiver_8cpp_aa3c9d5bc3f1c3dfec69046200aecb29a}{MIN\+\_\+\+THRESHOLD}}~200
+\item 
+\#define \mbox{\hyperlink{VLReceiver_8cpp_ac97aa4e68f9c89b8c71d011b0956de1f}{BASE\+\_\+\+OFFSET}}~100
+\item 
+\#define \mbox{\hyperlink{VLReceiver_8cpp_a292a04597d61ff63dd48bea3ddb5a46c}{THRESHOLD\+\_\+\+BEGIN}}~(\mbox{\hyperlink{VLReceiver_8cpp_aa3c9d5bc3f1c3dfec69046200aecb29a}{MIN\+\_\+\+THRESHOLD}} + \mbox{\hyperlink{VLReceiver_8cpp_ac97aa4e68f9c89b8c71d011b0956de1f}{BASE\+\_\+\+OFFSET}})
+\item 
+\#define \mbox{\hyperlink{VLReceiver_8cpp_a1682c770d91c5d167b621a782be940d4}{SAMPLE\+\_\+\+COUNT}}~5
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+esp\+\_\+timer\+\_\+handle\+\_\+t \mbox{\hyperlink{VLReceiver_8cpp_a5297ef2d8c460fc39919e9bdd8f65395}{periodic\+\_\+timer}} = nullptr
+\item 
+uint32\+\_\+t \mbox{\hyperlink{VLReceiver_8cpp_aa63db45b7c328128e07cd4d0f86f59df}{threshold}} = \mbox{\hyperlink{VLReceiver_8cpp_a292a04597d61ff63dd48bea3ddb5a46c}{THRESHOLD\+\_\+\+BEGIN}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{VLReceiver_8cpp_a7fb9fde533f9b9bc8e4ae31524c9ea51}\label{VLReceiver_8cpp_a7fb9fde533f9b9bc8e4ae31524c9ea51}} 
+\index{VLReceiver.cpp@{VLReceiver.cpp}!ADC\_CHANNEL@{ADC\_CHANNEL}}
+\index{ADC\_CHANNEL@{ADC\_CHANNEL}!VLReceiver.cpp@{VLReceiver.cpp}}
+\doxysubsubsection{\texorpdfstring{ADC\_CHANNEL}{ADC\_CHANNEL}}
+{\footnotesize\ttfamily \#define ADC\+\_\+\+CHANNEL~ADC1\+\_\+\+CHANNEL\+\_\+1}
+
+
+
+Definition at line 29 of file VLReceiver.\+cpp.
+
+\mbox{\Hypertarget{VLReceiver_8cpp_ac97aa4e68f9c89b8c71d011b0956de1f}\label{VLReceiver_8cpp_ac97aa4e68f9c89b8c71d011b0956de1f}} 
+\index{VLReceiver.cpp@{VLReceiver.cpp}!BASE\_OFFSET@{BASE\_OFFSET}}
+\index{BASE\_OFFSET@{BASE\_OFFSET}!VLReceiver.cpp@{VLReceiver.cpp}}
+\doxysubsubsection{\texorpdfstring{BASE\_OFFSET}{BASE\_OFFSET}}
+{\footnotesize\ttfamily \#define BASE\+\_\+\+OFFSET~100}
+
+
+
+Definition at line 36 of file VLReceiver.\+cpp.
+
+\mbox{\Hypertarget{VLReceiver_8cpp_aa3c9d5bc3f1c3dfec69046200aecb29a}\label{VLReceiver_8cpp_aa3c9d5bc3f1c3dfec69046200aecb29a}} 
+\index{VLReceiver.cpp@{VLReceiver.cpp}!MIN\_THRESHOLD@{MIN\_THRESHOLD}}
+\index{MIN\_THRESHOLD@{MIN\_THRESHOLD}!VLReceiver.cpp@{VLReceiver.cpp}}
+\doxysubsubsection{\texorpdfstring{MIN\_THRESHOLD}{MIN\_THRESHOLD}}
+{\footnotesize\ttfamily \#define MIN\+\_\+\+THRESHOLD~200}
+
+
+
+Definition at line 35 of file VLReceiver.\+cpp.
+
+\mbox{\Hypertarget{VLReceiver_8cpp_a1682c770d91c5d167b621a782be940d4}\label{VLReceiver_8cpp_a1682c770d91c5d167b621a782be940d4}} 
+\index{VLReceiver.cpp@{VLReceiver.cpp}!SAMPLE\_COUNT@{SAMPLE\_COUNT}}
+\index{SAMPLE\_COUNT@{SAMPLE\_COUNT}!VLReceiver.cpp@{VLReceiver.cpp}}
+\doxysubsubsection{\texorpdfstring{SAMPLE\_COUNT}{SAMPLE\_COUNT}}
+{\footnotesize\ttfamily \#define SAMPLE\+\_\+\+COUNT~5}
+
+
+
+Definition at line 46 of file VLReceiver.\+cpp.
+
+\mbox{\Hypertarget{VLReceiver_8cpp_a292a04597d61ff63dd48bea3ddb5a46c}\label{VLReceiver_8cpp_a292a04597d61ff63dd48bea3ddb5a46c}} 
+\index{VLReceiver.cpp@{VLReceiver.cpp}!THRESHOLD\_BEGIN@{THRESHOLD\_BEGIN}}
+\index{THRESHOLD\_BEGIN@{THRESHOLD\_BEGIN}!VLReceiver.cpp@{VLReceiver.cpp}}
+\doxysubsubsection{\texorpdfstring{THRESHOLD\_BEGIN}{THRESHOLD\_BEGIN}}
+{\footnotesize\ttfamily \#define THRESHOLD\+\_\+\+BEGIN~(\mbox{\hyperlink{VLReceiver_8cpp_aa3c9d5bc3f1c3dfec69046200aecb29a}{MIN\+\_\+\+THRESHOLD}} + \mbox{\hyperlink{VLReceiver_8cpp_ac97aa4e68f9c89b8c71d011b0956de1f}{BASE\+\_\+\+OFFSET}})}
+
+
+
+Definition at line 37 of file VLReceiver.\+cpp.
+
+\mbox{\Hypertarget{VLReceiver_8cpp_aef840d83bcb6c342657b135c42095391}\label{VLReceiver_8cpp_aef840d83bcb6c342657b135c42095391}} 
+\index{VLReceiver.cpp@{VLReceiver.cpp}!TIMER\_INTERVAL\_MICRO\_SEC@{TIMER\_INTERVAL\_MICRO\_SEC}}
+\index{TIMER\_INTERVAL\_MICRO\_SEC@{TIMER\_INTERVAL\_MICRO\_SEC}!VLReceiver.cpp@{VLReceiver.cpp}}
+\doxysubsubsection{\texorpdfstring{TIMER\_INTERVAL\_MICRO\_SEC}{TIMER\_INTERVAL\_MICRO\_SEC}}
+{\footnotesize\ttfamily \#define TIMER\+\_\+\+INTERVAL\+\_\+\+MICRO\+\_\+\+SEC~10000}
+
+
+
+Definition at line 30 of file VLReceiver.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{VLReceiver_8cpp_a5297ef2d8c460fc39919e9bdd8f65395}\label{VLReceiver_8cpp_a5297ef2d8c460fc39919e9bdd8f65395}} 
+\index{VLReceiver.cpp@{VLReceiver.cpp}!periodic\_timer@{periodic\_timer}}
+\index{periodic\_timer@{periodic\_timer}!VLReceiver.cpp@{VLReceiver.cpp}}
+\doxysubsubsection{\texorpdfstring{periodic\_timer}{periodic\_timer}}
+{\footnotesize\ttfamily esp\+\_\+timer\+\_\+handle\+\_\+t periodic\+\_\+timer = nullptr}
+
+
+
+Definition at line 33 of file VLReceiver.\+cpp.
+
+
+
+Referenced by VLReceiver\+::begin\+Receiving(), and VLReceiver\+::end\+Receiving().
+
+\mbox{\Hypertarget{VLReceiver_8cpp_aa63db45b7c328128e07cd4d0f86f59df}\label{VLReceiver_8cpp_aa63db45b7c328128e07cd4d0f86f59df}} 
+\index{VLReceiver.cpp@{VLReceiver.cpp}!threshold@{threshold}}
+\index{threshold@{threshold}!VLReceiver.cpp@{VLReceiver.cpp}}
+\doxysubsubsection{\texorpdfstring{threshold}{threshold}}
+{\footnotesize\ttfamily uint32\+\_\+t threshold = \mbox{\hyperlink{VLReceiver_8cpp_a292a04597d61ff63dd48bea3ddb5a46c}{THRESHOLD\+\_\+\+BEGIN}}}
+
+
+
+Definition at line 48 of file VLReceiver.\+cpp.
+
+
+
+Referenced by VLReceiver\+::adc\+Check\+Timer\+Callback().
+

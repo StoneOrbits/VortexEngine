@@ -1,0 +1,860 @@
+\hypertarget{classPattern}{}\doxysection{Pattern Class Reference}
+\label{classPattern}\index{Pattern@{Pattern}}
+
+
+{\ttfamily \#include $<$Pattern.\+h$>$}
+
+
+
+Inheritance diagram for Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classPattern__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=170pt]{classPattern__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual \mbox{\hyperlink{classPattern_a6e8b9388bbd39934e9f9534b974d7498}{$\sim$\+Pattern}} ()
+\item 
+virtual void \mbox{\hyperlink{classPattern_a7a940e0a37cf3d6d0e4dae99baa49455}{bind}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos)
+\item 
+virtual void \mbox{\hyperlink{classPattern_a467f265a46473b9e2b9b0b04fdc07e1b}{init}} ()
+\item 
+virtual void \mbox{\hyperlink{classPattern_a351206aa151c8e49f175b8b3d41f6e9c}{play}} ()=0
+\item 
+bool \mbox{\hyperlink{classPattern_a762365f86054e20394c6ff55d6ae205f}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer) const
+\item 
+bool \mbox{\hyperlink{classPattern_a4b70dac874bab3d3d59c4dd4baee3b6e}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
+\item 
+void \mbox{\hyperlink{classPattern_ade63dfbbf1893fba67668dc1801e8a98}{set\+Arg}} (uint8\+\_\+t index, uint8\+\_\+t value)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classPattern_a1aa3f7649795c67ce50a04d1503546b9}{get\+Arg}} (uint8\+\_\+t index) const
+\item 
+uint8\+\_\+t \& \mbox{\hyperlink{classPattern_a1d34263f4c3574675c2acdab6782b482}{arg\+Ref}} (uint8\+\_\+t index)
+\item 
+void \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{set\+Args}} (const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&args)
+\item 
+void \mbox{\hyperlink{classPattern_a2761837d9ea948e92487a8cd55c58f09}{get\+Args}} (\mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&args) const
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classPattern_a869de9ef11e75b9b6fb9bc4435065add}{get\+Num\+Args}} () const
+\item 
+bool \mbox{\hyperlink{classPattern_ae84385d575489b24636259dfab27218d}{equals}} (const \mbox{\hyperlink{classPattern}{Pattern}} $\ast$other)
+\item 
+const \mbox{\hyperlink{classColorset}{Colorset}} \mbox{\hyperlink{classPattern_a74bdb41c74915065e3c983427a6973d3}{get\+Colorset}} () const
+\item 
+\mbox{\hyperlink{classColorset}{Colorset}} \mbox{\hyperlink{classPattern_ae984cbae58170420309cb1c9dc06fd24}{get\+Colorset}} ()
+\item 
+void \mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{set\+Colorset}} (const \mbox{\hyperlink{classColorset}{Colorset}} \&set)
+\item 
+void \mbox{\hyperlink{classPattern_ab2dc64be09dc76e1325b0eeccaebf13a}{clear\+Colorset}} ()
+\item 
+void \mbox{\hyperlink{classPattern_a7cf6f075d5a664ded16f8bee13c91a6e}{set\+Led\+Pos}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos)
+\item 
+\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} \mbox{\hyperlink{classPattern_a9ffb45ae9cbb7188038bf1009ce842b0}{get\+Pattern\+ID}} () const
+\item 
+\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} \mbox{\hyperlink{classPattern_ac2205bdc6277d183ba732fc0ead016ed}{get\+Led\+Pos}} () const
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classPattern_aa3e343dd51fb2ee2a0dbef0c8ba535d8}{get\+Flags}} () const
+\item 
+bool \mbox{\hyperlink{classPattern_a05d7b3fbec00bd9e4be2b62c5241484a}{has\+Flags}} (uint32\+\_\+t flags) const
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPattern_a95f42b0f1717d9e6c2d831e87d27f83c}{Pattern}} ()
+\item 
+\mbox{\hyperlink{classPattern_ace101605a4fee4787d6ceb81c4682915}{Pattern}} (const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&args)
+\item 
+void \mbox{\hyperlink{classPattern_ae2e055f10083bec3460d74cc8d889860}{register\+Arg}} (\mbox{\hyperlink{Pattern_8h_a6f2649d82c7262bbc83beb4b8648b4d2}{arg\+\_\+offset\+\_\+t}} arg\+Offset)
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\+\_\+pattern\+ID}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classPattern_a6a5d22c2b2c6c7800dbf406d7de5dc43}{m\+\_\+pattern\+Flags}}
+\item 
+\mbox{\hyperlink{classColorset}{Colorset}} \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\+\_\+colorset}}
+\item 
+\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} \mbox{\hyperlink{classPattern_a060b7c087d8203c74eeb87ac32034a10}{m\+\_\+led\+Pos}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\+\_\+num\+Args}}
+\item 
+\mbox{\hyperlink{Pattern_8h_a6f2649d82c7262bbc83beb4b8648b4d2}{arg\+\_\+offset\+\_\+t}} \mbox{\hyperlink{classPattern_a03522ab5c3a649c868b287cb21c4cf39}{m\+\_\+arg\+List}} \mbox{[}\mbox{\hyperlink{Pattern_8h_a3a27ba7544d79c050aaa2a02a4906726}{MAX\+\_\+\+PATTERN\+\_\+\+ARGS}}\mbox{]}
+\end{DoxyCompactItemize}
+\doxysubsection*{Friends}
+\begin{DoxyCompactItemize}
+\item 
+class \mbox{\hyperlink{classPattern_a4738b85e1f20f848805911304fd4e4ed}{Pattern\+Builder}}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 50 of file Pattern.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPattern_a95f42b0f1717d9e6c2d831e87d27f83c}\label{classPattern_a95f42b0f1717d9e6c2d831e87d27f83c}} 
+\index{Pattern@{Pattern}!Pattern@{Pattern}}
+\index{Pattern@{Pattern}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{Pattern()}{Pattern()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Pattern\+::\+Pattern (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 12 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{12                  :}
+\DoxyCodeLine{13   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}}(\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadf768ce40ed692705072e056d20335b1}{PATTERN\_FIRST}}),}
+\DoxyCodeLine{14   \mbox{\hyperlink{classPattern_a6a5d22c2b2c6c7800dbf406d7de5dc43}{m\_patternFlags}}(0),}
+\DoxyCodeLine{15   \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}(),}
+\DoxyCodeLine{16   \mbox{\hyperlink{classPattern_a060b7c087d8203c74eeb87ac32034a10}{m\_ledPos}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}),}
+\DoxyCodeLine{17   \mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\_numArgs}}(0),}
+\DoxyCodeLine{18   \mbox{\hyperlink{classPattern_a03522ab5c3a649c868b287cb21c4cf39}{m\_argList}}()}
+\DoxyCodeLine{19 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{20   ,m\_argNameList()}
+\DoxyCodeLine{21 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classPattern_ace101605a4fee4787d6ceb81c4682915}\label{classPattern_ace101605a4fee4787d6ceb81c4682915}} 
+\index{Pattern@{Pattern}!Pattern@{Pattern}}
+\index{Pattern@{Pattern}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{Pattern()}{Pattern()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Pattern\+::\+Pattern (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&}]{args }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 25 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{25                                         :}
+\DoxyCodeLine{26   \mbox{\hyperlink{classPattern_a95f42b0f1717d9e6c2d831e87d27f83c}{Pattern}}()}
+\DoxyCodeLine{27 \{}
+\DoxyCodeLine{28 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classPattern_a6e8b9388bbd39934e9f9534b974d7498}\label{classPattern_a6e8b9388bbd39934e9f9534b974d7498}} 
+\index{Pattern@{Pattern}!````~Pattern@{$\sim$Pattern}}
+\index{````~Pattern@{$\sim$Pattern}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{$\sim$Pattern()}{~Pattern()}}
+{\footnotesize\ttfamily Pattern\+::$\sim$\+Pattern (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 30 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPattern_a1d34263f4c3574675c2acdab6782b482}\label{classPattern_a1d34263f4c3574675c2acdab6782b482}} 
+\index{Pattern@{Pattern}!argRef@{argRef}}
+\index{argRef@{argRef}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{argRef()}{argRef()}}
+{\footnotesize\ttfamily uint8\+\_\+t \& Pattern\+::arg\+Ref (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{index }\end{DoxyParamCaption})}
+
+
+
+Definition at line 114 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{115 \{}
+\DoxyCodeLine{116   \textcolor{keywordflow}{if} (index >= \mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\_numArgs}}) \{}
+\DoxyCodeLine{117     index = 0;}
+\DoxyCodeLine{118   \}}
+\DoxyCodeLine{119   \textcolor{keywordflow}{return} *((uint8\_t *)\textcolor{keyword}{this} + \mbox{\hyperlink{classPattern_a03522ab5c3a649c868b287cb21c4cf39}{m\_argList}}[index]);}
+\DoxyCodeLine{120 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+arg\+List, and m\+\_\+num\+Args.
+
+
+
+Referenced by Pattern\+Select\+::on\+Short\+Click().
+
+\mbox{\Hypertarget{classPattern_a7a940e0a37cf3d6d0e4dae99baa49455}\label{classPattern_a7a940e0a37cf3d6d0e4dae99baa49455}} 
+\index{Pattern@{Pattern}!bind@{bind}}
+\index{bind@{bind}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{bind()}{bind()}}
+{\footnotesize\ttfamily void Pattern\+::bind (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classMultiLedPattern_a2e2531ff4efd0c8a4aae552cd794ad02}{Multi\+Led\+Pattern}}.
+
+
+
+Definition at line 34 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36   \mbox{\hyperlink{classPattern_a060b7c087d8203c74eeb87ac32034a10}{m\_ledPos}} = pos;}
+\DoxyCodeLine{37 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+led\+Pos.
+
+
+
+Referenced by Multi\+Led\+Pattern\+::bind(), Pattern\+Builder\+::dupe(), Sequenced\+Pattern\+::play\+Sequence\+Step(), Mode\+::set\+Pattern(), Compound\+Pattern\+::set\+Pattern\+At(), and Mode\+::unserialize().
+
+\mbox{\Hypertarget{classPattern_ab2dc64be09dc76e1325b0eeccaebf13a}\label{classPattern_ab2dc64be09dc76e1325b0eeccaebf13a}} 
+\index{Pattern@{Pattern}!clearColorset@{clearColorset}}
+\index{clearColorset@{clearColorset}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{clearColorset()}{clearColorset()}}
+{\footnotesize\ttfamily void Pattern\+::clear\+Colorset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 169 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{170 \{}
+\DoxyCodeLine{171   \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a9382ec317b384a1fcd563cd86141ee48}{clear}}();}
+\DoxyCodeLine{172 \}}
+
+\end{DoxyCode}
+
+
+References Colorset\+::clear(), and m\+\_\+colorset.
+
+\mbox{\Hypertarget{classPattern_ae84385d575489b24636259dfab27218d}\label{classPattern_ae84385d575489b24636259dfab27218d}} 
+\index{Pattern@{Pattern}!equals@{equals}}
+\index{equals@{equals}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{equals()}{equals()}}
+{\footnotesize\ttfamily bool Pattern\+::equals (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classPattern}{Pattern}} $\ast$}]{other }\end{DoxyParamCaption})}
+
+
+
+Definition at line 137 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{138 \{}
+\DoxyCodeLine{139   \textcolor{keywordflow}{if} (!other) \{}
+\DoxyCodeLine{140     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{141   \}}
+\DoxyCodeLine{142   \textcolor{comment}{// compare pattern id}}
+\DoxyCodeLine{143   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} != other-\/>\mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}}) \{}
+\DoxyCodeLine{144     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{145   \}}
+\DoxyCodeLine{146   \textcolor{comment}{// then colorset}}
+\DoxyCodeLine{147   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_af65f18b0a815156608cdf3cdff93e7af}{equals}}(\&other-\/>\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}})) \{}
+\DoxyCodeLine{148     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{149   \}}
+\DoxyCodeLine{150   \textcolor{comment}{// number of args}}
+\DoxyCodeLine{151   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\_numArgs}} != other-\/>\mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\_numArgs}}) \{}
+\DoxyCodeLine{152     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{153   \}}
+\DoxyCodeLine{154   \textcolor{comment}{// compare each arg}}
+\DoxyCodeLine{155   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\_numArgs}}; ++i) \{}
+\DoxyCodeLine{156     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classPattern_a1aa3f7649795c67ce50a04d1503546b9}{getArg}}(i) != other-\/>\mbox{\hyperlink{classPattern_a1aa3f7649795c67ce50a04d1503546b9}{getArg}}(i)) \{}
+\DoxyCodeLine{157       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{158     \}}
+\DoxyCodeLine{159   \}}
+\DoxyCodeLine{160   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{161 \}}
+
+\end{DoxyCode}
+
+
+References Colorset\+::equals(), get\+Arg(), m\+\_\+colorset, m\+\_\+num\+Args, and m\+\_\+pattern\+ID.
+
+
+
+Referenced by Mode\+::equals(), and Mode\+::has\+Same\+Single\+Led().
+
+\mbox{\Hypertarget{classPattern_a1aa3f7649795c67ce50a04d1503546b9}\label{classPattern_a1aa3f7649795c67ce50a04d1503546b9}} 
+\index{Pattern@{Pattern}!getArg@{getArg}}
+\index{getArg@{getArg}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{getArg()}{getArg()}}
+{\footnotesize\ttfamily uint8\+\_\+t Pattern\+::get\+Arg (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{index }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 106 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{107 \{}
+\DoxyCodeLine{108   \textcolor{keywordflow}{if} (index >= \mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\_numArgs}}) \{}
+\DoxyCodeLine{109     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{110   \}}
+\DoxyCodeLine{111   \textcolor{keywordflow}{return} *((uint8\_t *)\textcolor{keyword}{this} + \mbox{\hyperlink{classPattern_a03522ab5c3a649c868b287cb21c4cf39}{m\_argList}}[index]);}
+\DoxyCodeLine{112 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+arg\+List, and m\+\_\+num\+Args.
+
+
+
+Referenced by equals(), and Mode\+::get\+Arg().
+
+\mbox{\Hypertarget{classPattern_a2761837d9ea948e92487a8cd55c58f09}\label{classPattern_a2761837d9ea948e92487a8cd55c58f09}} 
+\index{Pattern@{Pattern}!getArgs@{getArgs}}
+\index{getArgs@{getArgs}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{getArgs()}{getArgs()}}
+{\footnotesize\ttfamily void Pattern\+::get\+Args (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&}]{args }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 129 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{130 \{}
+\DoxyCodeLine{131   args.\mbox{\hyperlink{classPatternArgs_a0ca09874dde2073a346a077c9414b221}{init}}();}
+\DoxyCodeLine{132   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < \mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\_numArgs}}; ++i) \{}
+\DoxyCodeLine{133     args.\mbox{\hyperlink{classPatternArgs_a465f64cec09c325cdc26a9492e19879f}{addArgs}}(*((uint8\_t *)\textcolor{keyword}{this} + \mbox{\hyperlink{classPattern_a03522ab5c3a649c868b287cb21c4cf39}{m\_argList}}[i]));}
+\DoxyCodeLine{134   \}}
+\DoxyCodeLine{135 \}}
+
+\end{DoxyCode}
+
+
+References Pattern\+Args\+::add\+Args(), Pattern\+Args\+::init(), m\+\_\+arg\+List, and m\+\_\+num\+Args.
+
+
+
+Referenced by Pattern\+Builder\+::dupe(), and serialize().
+
+\mbox{\Hypertarget{classPattern_ae984cbae58170420309cb1c9dc06fd24}\label{classPattern_ae984cbae58170420309cb1c9dc06fd24}} 
+\index{Pattern@{Pattern}!getColorset@{getColorset}}
+\index{getColorset@{getColorset}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{getColorset()}{getColorset()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classColorset}{Colorset}} Pattern\+::get\+Colorset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 108 of file Pattern.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{108 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+colorset.
+
+\mbox{\Hypertarget{classPattern_a74bdb41c74915065e3c983427a6973d3}\label{classPattern_a74bdb41c74915065e3c983427a6973d3}} 
+\index{Pattern@{Pattern}!getColorset@{getColorset}}
+\index{getColorset@{getColorset}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{getColorset()}{getColorset()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily const \mbox{\hyperlink{classColorset}{Colorset}} Pattern\+::get\+Colorset (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 107 of file Pattern.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{107 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+colorset.
+
+
+
+Referenced by Pattern\+Builder\+::dupe(), Mode\+::get\+Colorset(), and Sequenced\+Pattern\+::play\+Sequence\+Step().
+
+\mbox{\Hypertarget{classPattern_aa3e343dd51fb2ee2a0dbef0c8ba535d8}\label{classPattern_aa3e343dd51fb2ee2a0dbef0c8ba535d8}} 
+\index{Pattern@{Pattern}!getFlags@{getFlags}}
+\index{getFlags@{getFlags}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{getFlags()}{getFlags()}}
+{\footnotesize\ttfamily uint32\+\_\+t Pattern\+::get\+Flags (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 122 of file Pattern.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{122 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classPattern_a6a5d22c2b2c6c7800dbf406d7de5dc43}{m\_patternFlags}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+pattern\+Flags.
+
+\mbox{\Hypertarget{classPattern_ac2205bdc6277d183ba732fc0ead016ed}\label{classPattern_ac2205bdc6277d183ba732fc0ead016ed}} 
+\index{Pattern@{Pattern}!getLedPos@{getLedPos}}
+\index{getLedPos@{getLedPos}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{getLedPos()}{getLedPos()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} Pattern\+::get\+Led\+Pos (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 119 of file Pattern.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{119 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classPattern_a060b7c087d8203c74eeb87ac32034a10}{m\_ledPos}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+led\+Pos.
+
+
+
+Referenced by Pattern\+Builder\+::dupe().
+
+\mbox{\Hypertarget{classPattern_a869de9ef11e75b9b6fb9bc4435065add}\label{classPattern_a869de9ef11e75b9b6fb9bc4435065add}} 
+\index{Pattern@{Pattern}!getNumArgs@{getNumArgs}}
+\index{getNumArgs@{getNumArgs}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{getNumArgs()}{getNumArgs()}}
+{\footnotesize\ttfamily uint8\+\_\+t Pattern\+::get\+Num\+Args (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 98 of file Pattern.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{98 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\_numArgs}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+num\+Args.
+
+
+
+Referenced by Pattern\+Builder\+::num\+Default\+Args(), Pattern\+Select\+::on\+Long\+Click(), and Pattern\+Select\+::on\+Short\+Click().
+
+\mbox{\Hypertarget{classPattern_a9ffb45ae9cbb7188038bf1009ce842b0}\label{classPattern_a9ffb45ae9cbb7188038bf1009ce842b0}} 
+\index{Pattern@{Pattern}!getPatternID@{getPatternID}}
+\index{getPatternID@{getPatternID}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{getPatternID()}{getPatternID()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} Pattern\+::get\+Pattern\+ID (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 116 of file Pattern.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{116 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}}; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+pattern\+ID.
+
+
+
+Referenced by Pattern\+Builder\+::dupe(), Mode\+::get\+Pattern\+ID(), Mode\+::is\+Empty(), and Sequenced\+Pattern\+::play\+Sequence\+Step().
+
+\mbox{\Hypertarget{classPattern_a05d7b3fbec00bd9e4be2b62c5241484a}\label{classPattern_a05d7b3fbec00bd9e4be2b62c5241484a}} 
+\index{Pattern@{Pattern}!hasFlags@{hasFlags}}
+\index{hasFlags@{hasFlags}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{hasFlags()}{hasFlags()}}
+{\footnotesize\ttfamily bool Pattern\+::has\+Flags (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{flags }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 123 of file Pattern.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{123 \{ \textcolor{keywordflow}{return} (\mbox{\hyperlink{classPattern_a6a5d22c2b2c6c7800dbf406d7de5dc43}{m\_patternFlags}} \& flags) != 0; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+pattern\+Flags.
+
+\mbox{\Hypertarget{classPattern_a467f265a46473b9e2b9b0b04fdc07e1b}\label{classPattern_a467f265a46473b9e2b9b0b04fdc07e1b}} 
+\index{Pattern@{Pattern}!init@{init}}
+\index{init@{init}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Pattern\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classSingleLedPattern_ae3713818ccd424142be290f14974e5ff}{Single\+Led\+Pattern}}, \mbox{\hyperlink{classBlendPattern_a6cf64630d97a5ede7af5923ed4413e63}{Blend\+Pattern}}, \mbox{\hyperlink{classBasicPattern_a80f7fcfb5066478565a485e4c4061986}{Basic\+Pattern}}, \mbox{\hyperlink{classZigzagPattern_a85c07d3e164b403ebc8baaf0be0a15b6}{Zigzag\+Pattern}}, \mbox{\hyperlink{classWarpWormPattern_aec02a27696a2766aa3ebd12aaa5b4d34}{Warp\+Worm\+Pattern}}, \mbox{\hyperlink{classWarpPattern_a66f32724208a0497f7f4c4b91585f6d4}{Warp\+Pattern}}, \mbox{\hyperlink{classVortexWipePattern_a3ae2c41c080ec616391c649da30f1978}{Vortex\+Wipe\+Pattern}}, \mbox{\hyperlink{classVortexPattern_a5bd6a20ea8eef7c2bda0f99d2cb96c16}{Vortex\+Pattern}}, \mbox{\hyperlink{classTheaterChasePattern_a3412251626ea06df702e02628dd11bcc}{Theater\+Chase\+Pattern}}, \mbox{\hyperlink{classSnowballPattern_ae04357ae7248f8e1b02f3c8617e1df5d}{Snowball\+Pattern}}, \mbox{\hyperlink{classSequencedPattern_ab972b3f7756799c8e2fecc72697ab7ba}{Sequenced\+Pattern}}, \mbox{\hyperlink{classPulsishPattern_ab2be535844735506337845fd5a05a5fd}{Pulsish\+Pattern}}, \mbox{\hyperlink{classMultiLedPattern_a2541223ee8c1d57463e88682e1405c42}{Multi\+Led\+Pattern}}, \mbox{\hyperlink{classLighthousePattern_a70ccda94202ed002bea1f53464b7f078}{Lighthouse\+Pattern}}, \mbox{\hyperlink{classHueShiftPattern_abec242391b3d4ae557f8acd26f4f0d89}{Hue\+Shift\+Pattern}}, \mbox{\hyperlink{classFillPattern_a1b30ede093847932598796d060cfd36e}{Fill\+Pattern}}, \mbox{\hyperlink{classDripPattern_a2abd87f0c7d76f63d19d36940e956c84}{Drip\+Pattern}}, \mbox{\hyperlink{classDripMorphPattern_a3d0766fa9bd8ecbf588d57dca741bb30}{Drip\+Morph\+Pattern}}, \mbox{\hyperlink{classDoubleStrobePattern_ad40503b66bb035fc91f7d973e951f1eb}{Double\+Strobe\+Pattern}}, \mbox{\hyperlink{classCrossDopsPattern_a8c1631f32c28c734cde29771247643e0}{Cross\+Dops\+Pattern}}, \mbox{\hyperlink{classCompoundPattern_a543d47cc3f7f4bf29fc7ed667362edf6}{Compound\+Pattern}}, \mbox{\hyperlink{classBouncePattern_a31279d03f6ef939f2c1fb715873c175c}{Bounce\+Pattern}}, \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{Blink\+Step\+Pattern}}, and \mbox{\hyperlink{classBackStrobePattern_a2f857aa8081d6e713b9fe95e17387e56}{Back\+Strobe\+Pattern}}.
+
+
+
+Definition at line 39 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41   \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a06b8e4ad7a496d4b3787e7fd73f4ac99}{resetIndex}}();}
+\DoxyCodeLine{42 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+colorset, and Colorset\+::reset\+Index().
+
+
+
+Referenced by Mode\+::init(), Multi\+Led\+Pattern\+::init(), Basic\+Pattern\+::init(), Single\+Led\+Pattern\+::init(), and Mode\+::unserialize().
+
+\mbox{\Hypertarget{classPattern_a351206aa151c8e49f175b8b3d41f6e9c}\label{classPattern_a351206aa151c8e49f175b8b3d41f6e9c}} 
+\index{Pattern@{Pattern}!play@{play}}
+\index{play@{play}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{play()}{play()}}
+{\footnotesize\ttfamily virtual void Pattern\+::play (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [pure virtual]}}
+
+
+
+Implemented in \mbox{\hyperlink{classBasicPattern_ab04a53496affe6e5bf4dccf86d91bc0e}{Basic\+Pattern}}, \mbox{\hyperlink{classZigzagPattern_a4ab7df902285979a647844d3d53bd146}{Zigzag\+Pattern}}, \mbox{\hyperlink{classSequencedPattern_ab48ffe5e91489ca51bed52bca83719be}{Sequenced\+Pattern}}, \mbox{\hyperlink{classPulsishPattern_ae4de7cba33111d8812f2e7d9f91d451f}{Pulsish\+Pattern}}, \mbox{\hyperlink{classLighthousePattern_ad015f5592a25c5b10400e51c8db41cb0}{Lighthouse\+Pattern}}, \mbox{\hyperlink{classHueShiftPattern_a40cc40c961872675a5871303c2be9783}{Hue\+Shift\+Pattern}}, \mbox{\hyperlink{classDripMorphPattern_a6dc384cc69dfd81319359ac65fccede0}{Drip\+Morph\+Pattern}}, \mbox{\hyperlink{classCompoundPattern_acee370d7e9924623f9d402fce196a90a}{Compound\+Pattern}}, \mbox{\hyperlink{classBlinkStepPattern_a5f514eea576c838dda23fda088dde729}{Blink\+Step\+Pattern}}, and \mbox{\hyperlink{classBackStrobePattern_ab36bbceb686bed38d056300ca6da99f6}{Back\+Strobe\+Pattern}}.
+
+
+
+Referenced by Mode\+::play(), Compound\+Pattern\+::play(), and Sequenced\+Pattern\+::play\+Sequence\+Step().
+
+\mbox{\Hypertarget{classPattern_ae2e055f10083bec3460d74cc8d889860}\label{classPattern_ae2e055f10083bec3460d74cc8d889860}} 
+\index{Pattern@{Pattern}!registerArg@{registerArg}}
+\index{registerArg@{registerArg}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{registerArg()}{registerArg()}}
+{\footnotesize\ttfamily void Pattern\+::register\+Arg (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Pattern_8h_a6f2649d82c7262bbc83beb4b8648b4d2}{arg\+\_\+offset\+\_\+t}}}]{arg\+Offset }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 177 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{179 \{}
+\DoxyCodeLine{180   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\_numArgs}} >= \mbox{\hyperlink{Pattern_8h_a3a27ba7544d79c050aaa2a02a4906726}{MAX\_PATTERN\_ARGS}}) \{}
+\DoxyCodeLine{181     \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}too many args"{}});}
+\DoxyCodeLine{182     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{183   \}}
+\DoxyCodeLine{184 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{185   m\_argNameList[\mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\_numArgs}}] = name;}
+\DoxyCodeLine{186 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{187   \mbox{\hyperlink{classPattern_a03522ab5c3a649c868b287cb21c4cf39}{m\_argList}}[\mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\_numArgs}}++] = argOffset;}
+\DoxyCodeLine{188 \}}
+
+\end{DoxyCode}
+
+
+References ERROR\+\_\+\+LOG, and MAX\+\_\+\+PATTERN\+\_\+\+ARGS.
+
+\mbox{\Hypertarget{classPattern_a762365f86054e20394c6ff55d6ae205f}\label{classPattern_a762365f86054e20394c6ff55d6ae205f}} 
+\index{Pattern@{Pattern}!serialize@{serialize}}
+\index{serialize@{serialize}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily bool Pattern\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 57 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{58 \{}
+\DoxyCodeLine{59   \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_ad3b413f399f22d30548a61a5e01ef3a7}{serialize8}}((uint8\_t)\mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}})) \{}
+\DoxyCodeLine{60     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{61   \}}
+\DoxyCodeLine{62   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_ad550724ed5031606e60c21a9d05e6feb}{serialize}}(buffer)) \{}
+\DoxyCodeLine{63     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{64   \}}
+\DoxyCodeLine{65   \mbox{\hyperlink{classPatternArgs}{PatternArgs}} args;}
+\DoxyCodeLine{66   \mbox{\hyperlink{classPattern_a2761837d9ea948e92487a8cd55c58f09}{getArgs}}(args);}
+\DoxyCodeLine{67   \mbox{\hyperlink{classPatternArgs}{PatternArgs}} defaults = \mbox{\hyperlink{classPatternBuilder_a1e2154e68210f25e29a03755e9184959}{PatternBuilder::getDefaultArgs}}(\mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}});}
+\DoxyCodeLine{68   \textcolor{comment}{// generate a bitmap of which args are defaulted}}
+\DoxyCodeLine{69   uint8\_t argmap = \mbox{\hyperlink{PatternArgs_8h_a5b4ab91afec1ff35fd294e3ca007be49}{ARG\_NONE}};}
+\DoxyCodeLine{70   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < \mbox{\hyperlink{PatternArgs_8h_a29b7451465deac204c5f7cb1f9c6e1fc}{MAX\_ARGS}}; ++i) \{}
+\DoxyCodeLine{71     \textcolor{keywordflow}{if} (args.\mbox{\hyperlink{classPatternArgs_afde808c634704d423d82a9dea6814eea}{args}}[i] != defaults.\mbox{\hyperlink{classPatternArgs_afde808c634704d423d82a9dea6814eea}{args}}[i]) \{}
+\DoxyCodeLine{72       \mbox{\hyperlink{PatternArgs_8h_ad2e165fa5c6699ad2d64faac00625a36}{ARGMAP\_SET}}(argmap, i);}
+\DoxyCodeLine{73     \}}
+\DoxyCodeLine{74   \}}
+\DoxyCodeLine{75   \textcolor{keywordflow}{if} (!args.\mbox{\hyperlink{classPatternArgs_a46d632a81a5821e440fcc8e30fe12297}{serialize}}(buffer, argmap)) \{}
+\DoxyCodeLine{76     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{77   \}}
+\DoxyCodeLine{78   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{79 \}}
+
+\end{DoxyCode}
+
+
+References ARG\+\_\+\+NONE, ARGMAP\+\_\+\+SET, Pattern\+Args\+::args, get\+Args(), Pattern\+Builder\+::get\+Default\+Args(), m\+\_\+colorset, m\+\_\+pattern\+ID, MAX\+\_\+\+ARGS, Colorset\+::serialize(), Pattern\+Args\+::serialize(), and Byte\+Stream\+::serialize8().
+
+
+
+Referenced by Randomizer\+::init(), and Mode\+::serialize().
+
+\mbox{\Hypertarget{classPattern_ade63dfbbf1893fba67668dc1801e8a98}\label{classPattern_ade63dfbbf1893fba67668dc1801e8a98}} 
+\index{Pattern@{Pattern}!setArg@{setArg}}
+\index{setArg@{setArg}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{setArg()}{setArg()}}
+{\footnotesize\ttfamily void Pattern\+::set\+Arg (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{index,  }\item[{uint8\+\_\+t}]{value }\end{DoxyParamCaption})}
+
+
+
+Definition at line 98 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{99 \{}
+\DoxyCodeLine{100   \textcolor{keywordflow}{if} (index >= \mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\_numArgs}}) \{}
+\DoxyCodeLine{101     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{102   \}}
+\DoxyCodeLine{103   *((uint8\_t *)\textcolor{keyword}{this} + \mbox{\hyperlink{classPattern_a03522ab5c3a649c868b287cb21c4cf39}{m\_argList}}[index]) = value;}
+\DoxyCodeLine{104 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+arg\+List, and m\+\_\+num\+Args.
+
+
+
+Referenced by Mode\+::set\+Arg().
+
+\mbox{\Hypertarget{classPattern_a13963393f1bf765de2b33950e79607f1}\label{classPattern_a13963393f1bf765de2b33950e79607f1}} 
+\index{Pattern@{Pattern}!setArgs@{setArgs}}
+\index{setArgs@{setArgs}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{setArgs()}{setArgs()}}
+{\footnotesize\ttfamily void Pattern\+::set\+Args (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&}]{args }\end{DoxyParamCaption})}
+
+
+
+Definition at line 122 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{123 \{}
+\DoxyCodeLine{124   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < \mbox{\hyperlink{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}{m\_numArgs}}; ++i) \{}
+\DoxyCodeLine{125     *((uint8\_t *)\textcolor{keyword}{this} + \mbox{\hyperlink{classPattern_a03522ab5c3a649c868b287cb21c4cf39}{m\_argList}}[i]) = args.\mbox{\hyperlink{classPatternArgs_afde808c634704d423d82a9dea6814eea}{args}}[i];}
+\DoxyCodeLine{126   \}}
+\DoxyCodeLine{127 \}}
+
+\end{DoxyCode}
+
+
+References Pattern\+Args\+::args, m\+\_\+arg\+List, and m\+\_\+num\+Args.
+
+
+
+Referenced by Back\+Strobe\+Pattern\+::\+Back\+Strobe\+Pattern(), Basic\+Pattern\+::\+Basic\+Pattern(), Blend\+Pattern\+::\+Blend\+Pattern(), Bounce\+Pattern\+::\+Bounce\+Pattern(), Chaser\+Pattern\+::\+Chaser\+Pattern(), Cross\+Dops\+Pattern\+::\+Cross\+Dops\+Pattern(), Double\+Strobe\+Pattern\+::\+Double\+Strobe\+Pattern(), Drip\+Morph\+Pattern\+::\+Drip\+Morph\+Pattern(), Drip\+Pattern\+::\+Drip\+Pattern(), Fill\+Pattern\+::\+Fill\+Pattern(), Hue\+Shift\+Pattern\+::\+Hue\+Shift\+Pattern(), Lighthouse\+Pattern\+::\+Lighthouse\+Pattern(), Meteor\+Pattern\+::\+Meteor\+Pattern(), Pulsish\+Pattern\+::\+Pulsish\+Pattern(), Snowball\+Pattern\+::\+Snowball\+Pattern(), Solid\+Pattern\+::\+Solid\+Pattern(), Sparkle\+Trace\+Pattern\+::\+Sparkle\+Trace\+Pattern(), Theater\+Chase\+Pattern\+::\+Theater\+Chase\+Pattern(), unserialize(), Vortex\+Pattern\+::\+Vortex\+Pattern(), Vortex\+Wipe\+Pattern\+::\+Vortex\+Wipe\+Pattern(), Warp\+Pattern\+::\+Warp\+Pattern(), Warp\+Worm\+Pattern\+::\+Warp\+Worm\+Pattern(), and Zigzag\+Pattern\+::\+Zigzag\+Pattern().
+
+\mbox{\Hypertarget{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}\label{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}} 
+\index{Pattern@{Pattern}!setColorset@{setColorset}}
+\index{setColorset@{setColorset}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{setColorset()}{setColorset()}}
+{\footnotesize\ttfamily void Pattern\+::set\+Colorset (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classColorset}{Colorset}} \&}]{set }\end{DoxyParamCaption})}
+
+
+
+Definition at line 164 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{165 \{}
+\DoxyCodeLine{166   \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}} = set;}
+\DoxyCodeLine{167 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+colorset.
+
+
+
+Referenced by Pattern\+Builder\+::dupe(), Sequenced\+Pattern\+::play\+Sequence\+Step(), Mode\+::set\+Colorset(), Mode\+::set\+Pattern(), and Compound\+Pattern\+::set\+Pattern\+At().
+
+\mbox{\Hypertarget{classPattern_a7cf6f075d5a664ded16f8bee13c91a6e}\label{classPattern_a7cf6f075d5a664ded16f8bee13c91a6e}} 
+\index{Pattern@{Pattern}!setLedPos@{setLedPos}}
+\index{setLedPos@{setLedPos}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{setLedPos()}{setLedPos()}}
+{\footnotesize\ttfamily void Pattern\+::set\+Led\+Pos (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 113 of file Pattern.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{113 \{ \mbox{\hyperlink{classPattern_a060b7c087d8203c74eeb87ac32034a10}{m\_ledPos}} = pos; \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+led\+Pos.
+
+\mbox{\Hypertarget{classPattern_a4b70dac874bab3d3d59c4dd4baee3b6e}\label{classPattern_a4b70dac874bab3d3d59c4dd4baee3b6e}} 
+\index{Pattern@{Pattern}!unserialize@{unserialize}}
+\index{unserialize@{unserialize}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{unserialize()}{unserialize()}}
+{\footnotesize\ttfamily bool Pattern\+::unserialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Definition at line 82 of file Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{83 \{}
+\DoxyCodeLine{84   \textcolor{comment}{// don't unserialize the pattern ID because it is already}}
+\DoxyCodeLine{85   \textcolor{comment}{// unserialized by the pattern builder to decide which pattern}}
+\DoxyCodeLine{86   \textcolor{comment}{// to instantiate, instead only unserialize the colorset}}
+\DoxyCodeLine{87   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_abdb775cb7e1def40b8da4c7ffc4f5df8}{unserialize}}(buffer)) \{}
+\DoxyCodeLine{88     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{89   \}}
+\DoxyCodeLine{90   \textcolor{comment}{// start with the default args for this pattern}}
+\DoxyCodeLine{91   \mbox{\hyperlink{classPatternArgs}{PatternArgs}} args = \mbox{\hyperlink{classPatternBuilder_a1e2154e68210f25e29a03755e9184959}{PatternBuilder::getDefaultArgs}}(\mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}});}
+\DoxyCodeLine{92   \textcolor{comment}{// then unserialize any different args overtop of the defaults}}
+\DoxyCodeLine{93   args.\mbox{\hyperlink{classPatternArgs_ab2e7a56a4f86c1d5b73b3e7f6a4e0aeb}{unserialize}}(buffer);}
+\DoxyCodeLine{94   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
+\DoxyCodeLine{95   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{96 \}}
+
+\end{DoxyCode}
+
+
+References Pattern\+Builder\+::get\+Default\+Args(), m\+\_\+colorset, m\+\_\+pattern\+ID, set\+Args(), Colorset\+::unserialize(), and Pattern\+Args\+::unserialize().
+
+
+
+Referenced by Pattern\+Builder\+::unserialize().
+
+
+
+\doxysubsection{Friends And Related Function Documentation}
+\mbox{\Hypertarget{classPattern_a4738b85e1f20f848805911304fd4e4ed}\label{classPattern_a4738b85e1f20f848805911304fd4e4ed}} 
+\index{Pattern@{Pattern}!PatternBuilder@{PatternBuilder}}
+\index{PatternBuilder@{PatternBuilder}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{PatternBuilder}{PatternBuilder}}
+{\footnotesize\ttfamily friend class \mbox{\hyperlink{classPatternBuilder}{Pattern\+Builder}}\hspace{0.3cm}{\ttfamily [friend]}}
+
+
+
+Definition at line 53 of file Pattern.\+h.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classPattern_a03522ab5c3a649c868b287cb21c4cf39}\label{classPattern_a03522ab5c3a649c868b287cb21c4cf39}} 
+\index{Pattern@{Pattern}!m\_argList@{m\_argList}}
+\index{m\_argList@{m\_argList}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{m\_argList}{m\_argList}}
+{\footnotesize\ttfamily \mbox{\hyperlink{Pattern_8h_a6f2649d82c7262bbc83beb4b8648b4d2}{arg\+\_\+offset\+\_\+t}} Pattern\+::m\+\_\+arg\+List\mbox{[}\mbox{\hyperlink{Pattern_8h_a3a27ba7544d79c050aaa2a02a4906726}{MAX\+\_\+\+PATTERN\+\_\+\+ARGS}}\mbox{]}\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 136 of file Pattern.\+h.
+
+
+
+Referenced by arg\+Ref(), get\+Arg(), get\+Args(), set\+Arg(), and set\+Args().
+
+\mbox{\Hypertarget{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}\label{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}} 
+\index{Pattern@{Pattern}!m\_colorset@{m\_colorset}}
+\index{m\_colorset@{m\_colorset}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{m\_colorset}{m\_colorset}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classColorset}{Colorset}} Pattern\+::m\+\_\+colorset\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 131 of file Pattern.\+h.
+
+
+
+Referenced by Basic\+Pattern\+::begin\+Dash(), Drip\+Morph\+Pattern\+::blink\+On(), Bounce\+Pattern\+::blink\+On(), Cross\+Dops\+Pattern\+::blink\+On(), Double\+Strobe\+Pattern\+::blink\+On(), Drip\+Pattern\+::blink\+On(), Fill\+Pattern\+::blink\+On(), Lighthouse\+Pattern\+::blink\+On(), Snowball\+Pattern\+::blink\+On(), Sparkle\+Trace\+Pattern\+::blink\+On(), Theater\+Chase\+Pattern\+::blink\+On(), Vortex\+Pattern\+::blink\+On(), Vortex\+Wipe\+Pattern\+::blink\+On(), Warp\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), clear\+Colorset(), Zigzag\+Pattern\+::\+Snake\+::draw\+Snake(), equals(), get\+Colorset(), init(), Bounce\+Pattern\+::init(), Cross\+Dops\+Pattern\+::init(), Double\+Strobe\+Pattern\+::init(), Drip\+Morph\+Pattern\+::init(), Drip\+Pattern\+::init(), Fill\+Pattern\+::init(), Hue\+Shift\+Pattern\+::init(), Lighthouse\+Pattern\+::init(), Snowball\+Pattern\+::init(), Vortex\+Pattern\+::init(), Vortex\+Wipe\+Pattern\+::init(), Warp\+Pattern\+::init(), Warp\+Worm\+Pattern\+::init(), Zigzag\+Pattern\+::init(), Basic\+Pattern\+::init(), Blend\+Pattern\+::init(), Zigzag\+Pattern\+::\+Snake\+::init(), Basic\+Pattern\+::on\+Blink\+On(), Blend\+Pattern\+::on\+Blink\+On(), Solid\+Pattern\+::on\+Blink\+On(), Hue\+Shift\+Pattern\+::play(), Pulsish\+Pattern\+::play(), Basic\+Pattern\+::play(), Sequenced\+Pattern\+::play\+Sequence\+Step(), Blink\+Step\+Pattern\+::poststep(), Bounce\+Pattern\+::poststep(), Cross\+Dops\+Pattern\+::poststep(), Drip\+Pattern\+::poststep(), Fill\+Pattern\+::poststep(), Lighthouse\+Pattern\+::poststep(), Meteor\+Pattern\+::poststep(), Snowball\+Pattern\+::poststep(), Sparkle\+Trace\+Pattern\+::poststep(), Vortex\+Pattern\+::poststep(), Vortex\+Wipe\+Pattern\+::poststep(), Warp\+Pattern\+::poststep(), Warp\+Worm\+Pattern\+::poststep(), serialize(), set\+Colorset(), Compound\+Pattern\+::set\+Pattern\+At(), Zigzag\+Pattern\+::\+Snake\+::step(), and unserialize().
+
+\mbox{\Hypertarget{classPattern_a060b7c087d8203c74eeb87ac32034a10}\label{classPattern_a060b7c087d8203c74eeb87ac32034a10}} 
+\index{Pattern@{Pattern}!m\_ledPos@{m\_ledPos}}
+\index{m\_ledPos@{m\_ledPos}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{m\_ledPos}{m\_ledPos}}
+{\footnotesize\ttfamily \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} Pattern\+::m\+\_\+led\+Pos\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 133 of file Pattern.\+h.
+
+
+
+Referenced by Basic\+Pattern\+::begin\+Dash(), Basic\+Pattern\+::begin\+Gap(), bind(), get\+Led\+Pos(), Basic\+Pattern\+::on\+Blink\+Off(), Basic\+Pattern\+::on\+Blink\+On(), Blend\+Pattern\+::on\+Blink\+On(), and set\+Led\+Pos().
+
+\mbox{\Hypertarget{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}\label{classPattern_a9802c62fe7e5e0d76ee378a1e614e19e}} 
+\index{Pattern@{Pattern}!m\_numArgs@{m\_numArgs}}
+\index{m\_numArgs@{m\_numArgs}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{m\_numArgs}{m\_numArgs}}
+{\footnotesize\ttfamily uint8\+\_\+t Pattern\+::m\+\_\+num\+Args\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 135 of file Pattern.\+h.
+
+
+
+Referenced by arg\+Ref(), equals(), get\+Arg(), get\+Args(), get\+Num\+Args(), set\+Arg(), and set\+Args().
+
+\mbox{\Hypertarget{classPattern_a6a5d22c2b2c6c7800dbf406d7de5dc43}\label{classPattern_a6a5d22c2b2c6c7800dbf406d7de5dc43}} 
+\index{Pattern@{Pattern}!m\_patternFlags@{m\_patternFlags}}
+\index{m\_patternFlags@{m\_patternFlags}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{m\_patternFlags}{m\_patternFlags}}
+{\footnotesize\ttfamily uint8\+\_\+t Pattern\+::m\+\_\+pattern\+Flags\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 129 of file Pattern.\+h.
+
+
+
+Referenced by get\+Flags(), has\+Flags(), and Multi\+Led\+Pattern\+::\+Multi\+Led\+Pattern().
+
+\mbox{\Hypertarget{classPattern_a128fdee39e6ce1b74006385fb28eabe6}\label{classPattern_a128fdee39e6ce1b74006385fb28eabe6}} 
+\index{Pattern@{Pattern}!m\_patternID@{m\_patternID}}
+\index{m\_patternID@{m\_patternID}!Pattern@{Pattern}}
+\doxysubsubsection{\texorpdfstring{m\_patternID}{m\_patternID}}
+{\footnotesize\ttfamily \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} Pattern\+::m\+\_\+pattern\+ID\hspace{0.3cm}{\ttfamily [protected]}}
+
+
+
+Definition at line 127 of file Pattern.\+h.
+
+
+
+Referenced by Back\+Strobe\+Pattern\+::\+Back\+Strobe\+Pattern(), Basic\+Pattern\+::\+Basic\+Pattern(), Blend\+Pattern\+::\+Blend\+Pattern(), Bounce\+Pattern\+::\+Bounce\+Pattern(), Cross\+Dops\+Pattern\+::\+Cross\+Dops\+Pattern(), Double\+Strobe\+Pattern\+::\+Double\+Strobe\+Pattern(), Drip\+Morph\+Pattern\+::\+Drip\+Morph\+Pattern(), Drip\+Pattern\+::\+Drip\+Pattern(), equals(), Fill\+Pattern\+::\+Fill\+Pattern(), get\+Pattern\+ID(), Hue\+Shift\+Pattern\+::\+Hue\+Shift\+Pattern(), Lighthouse\+Pattern\+::\+Lighthouse\+Pattern(), Pattern\+Builder\+::make\+Internal(), Meteor\+Pattern\+::\+Meteor\+Pattern(), Pulsish\+Pattern\+::\+Pulsish\+Pattern(), serialize(), Snowball\+Pattern\+::\+Snowball\+Pattern(), Solid\+Pattern\+::\+Solid\+Pattern(), Sparkle\+Trace\+Pattern\+::\+Sparkle\+Trace\+Pattern(), Theater\+Chase\+Pattern\+::\+Theater\+Chase\+Pattern(), unserialize(), Vortex\+Pattern\+::\+Vortex\+Pattern(), Vortex\+Wipe\+Pattern\+::\+Vortex\+Wipe\+Pattern(), Warp\+Pattern\+::\+Warp\+Pattern(), Warp\+Worm\+Pattern\+::\+Warp\+Worm\+Pattern(), and Zigzag\+Pattern\+::\+Zigzag\+Pattern().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\mbox{\hyperlink{Pattern_8h}{Pattern.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\mbox{\hyperlink{Pattern_8cpp}{Pattern.\+cpp}}\end{DoxyCompactItemize}
