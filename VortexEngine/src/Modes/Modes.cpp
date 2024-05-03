@@ -384,35 +384,12 @@ bool Modes::unserialize(ByteStream &modesBuffer)
 bool Modes::setDefaults()
 {
   clearModes();
-#if DEMO_ALL_PATTERNS == 1
-  // RGB_RED, RGB_YELLOW, RGB_GREEN, RGB_CYAN, RGB_BLUE, RGB_PURPLE
-  PatternID default_start = PATTERN_FIRST;
-  PatternID default_end = PATTERN_LAST;
-  // add 65 randomized modes
-  for (int i = 0; i < 65; ++i) {
-    Mode tmpMode;
-    for (LedPos led = LED_FIRST; led < LED_COUNT; ++led) {
-      // create a random pattern ID from all patterns
-      PatternID randomPattern = (PatternID)random(PATTERN_SINGLE_FIRST, PATTERN_SINGLE_LAST);
-      Colorset randSet;
-      randSet.randomize(8);
-      tmpMode.setPatternAt(led, randomPattern, nullptr, &randSet);
-    }
-    // add another mode with the given pattern and colorset
-    if (!addMode(&tmpMode)) {
-      ERROR_LOG("Failed to add mode");
-      // return false?
-    }
-  }
-  DEBUG_LOGF("Added default patterns %u through %u", default_start, default_end);
-#else
   // add each default mode with each of the given colors
   for (uint8_t i = 0; i < num_default_modes; ++i) {
     const default_mode_entry &def = default_modes[i];
     Colorset set(def.numColors, def.cols);
     addMode(def.patternID, nullptr, &set);
   }
-#endif
   return true;
 }
 
