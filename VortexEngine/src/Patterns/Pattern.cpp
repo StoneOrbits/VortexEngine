@@ -90,10 +90,8 @@ bool Pattern::unserialize(ByteStream &buffer)
   // start with the default args for this pattern
   PatternArgs args = PatternBuilder::getDefaultArgs(m_patternID);
   // then unserialize any different args overtop of the defaults
-  if (args.unserialize(buffer) != ARG_NONE) {
-    // if any args were unserialized, set them
-    setArgs(args);
-  }
+  args.unserialize(buffer);
+  setArgs(args);
   return true;
 }
 
