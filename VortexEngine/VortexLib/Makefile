@@ -26,7 +26,8 @@ endif
 
 # compiler defines
 DEFINES=\
-	-D VORTEX_LIB
+	-D VORTEX_LIB \
+	-D VORTEX_BUILD_NUMBER=$(VORTEX_BUILD_NUMBER)
 
 # compiler include paths
 INCLUDES=\

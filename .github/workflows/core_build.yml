@@ -48,7 +48,7 @@ jobs:
       run: sudo apt-get install valgrind g++ make --fix-missing
     - name: Build
       run: |
-        VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.version }}
+        export VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.version }}
         make -j
       working-directory: VortexEngine
     - name: Set execute permissions for test script
@@ -77,7 +77,7 @@ jobs:
     - name: Build Webassembly
       run: |
         source ./emsdk/emsdk_env.sh
-        VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.version }}
+        export VORTEX_BUILD_NUMBER=${{ needs.setup.outputs.version }}
         make -j wasm
       working-directory: VortexEngine/VortexLib
 
