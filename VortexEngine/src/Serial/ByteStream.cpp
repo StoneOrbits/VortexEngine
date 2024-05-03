@@ -416,13 +416,7 @@ bool ByteStream::unserializerAtEnd() const
 // unserialize data and walk the buffer that many bytes
 bool ByteStream::unserialize8(uint8_t *byte)
 {
-  if (!m_pData) {
-    return false;
-  }
-  if (m_position >= m_pData->size) {
-    return false;
-  }
-  if ((m_pData->size - m_position) < sizeof(uint8_t)) {
+  if (!m_pData || m_position >= m_pData->size || (m_pData->size - m_position) < sizeof(uint8_t)) {
     return false;
   }
   memcpy(byte, m_pData->buf + m_position, sizeof(uint8_t));
