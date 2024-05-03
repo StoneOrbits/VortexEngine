@@ -29,7 +29,7 @@ typedef uint8_t ArgMap;
 // some helpers to set/clear/check
 #define ARGMAP_SET(map, arg)    (map |= ARG(arg))
 #define ARGMAP_CLEAR(map, arg)  (map &= ~ARG(arg))
-#define ARGMAP_ISSET(map, arg)  (map & ARG(arg))
+#define ARGMAP_ISSET(map, arg)  ((map & ARG(arg)) != 0)
 
 // a structured method for passing arguments to patterns, there's definitely more dynamic
 // ways to approach this but I'm aiming for simple and lightweight here
