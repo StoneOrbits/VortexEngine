@@ -11,8 +11,8 @@ CONFIG_FILE = $(HOME)/.arduino15/arduino-cli.yaml
 BRANCH_SUFFIX=c
 
 # Fetch tags, determine version numbers based on the latest tag, and slice off the branch suffix
-VORTEX_VERSION_MAJOR ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/.$(BRANCH_SUFFIX)$$//' | cut -d. -f1)
-VORTEX_VERSION_MINOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/.$(BRANCH_SUFFIX)$$//' | cut -d. -f2)
+VORTEX_VERSION_MAJOR ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | cut -d. -f1)
+VORTEX_VERSION_MINOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/$(BRANCH_SUFFIX)$$//' | cut -d. -f2)
 VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count HEAD)
 
 # If no tags are found, default to 0.1.0
