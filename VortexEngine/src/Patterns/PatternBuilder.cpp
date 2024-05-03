@@ -44,9 +44,11 @@ Pattern *PatternBuilder::make(PatternID id, const PatternArgs *args)
     DEBUG_LOGF("Invalid pattern id: %u", id);
     id = PATTERN_FIRST;
   }
+#if VORTEX_SLIM == 0
   if (isMultiLedPatternID(id)) {
     return makeMulti(id, args);
   }
+#endif
   return makeSingle(id, args);
 }
 
