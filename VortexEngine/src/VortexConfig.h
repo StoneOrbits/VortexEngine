@@ -7,19 +7,31 @@
 // The engine major version indicates the state of the save file,
 // if any changes to the save format occur then the major version
 // must increment so that the savefiles will not be loaded
+#ifndef VORTEX_VERSION_MAJOR
 #define VORTEX_VERSION_MAJOR  1
+#endif
 
 // A minor version simply indicates a bugfix or minor change that
 // will not effect the save files produces by the engine. This means
 // a savefile produced by 1.1 should be loadable by an engine on 1.2
 // and vice versa. But an engine on 2.0 cannot share savefiles with
 // either of the engines on version 1.1 or 1.2
+#ifndef VORTEX_VERSION_MINOR
 #define VORTEX_VERSION_MINOR  1
+#endif
+
+// The build or patch number based on the major.minor version, this is
+// set by the build system using the number of commits since last version
+#ifndef VORTEX_BUILD_NUMBER
+#define VORTEX_BUILD_NUMBER 0
+#endif
 
 // produces a number like 1.0
-#define VORTEX_VERSION_NUMBER VORTEX_VERSION_MAJOR.VORTEX_VERSION_MINOR
+#ifndef VORTEX_VERSION_NUMBER
+#define VORTEX_VERSION_NUMBER VORTEX_VERSION_MAJOR.VORTEX_VERSION_MINOR.VORTEX_BUILD_NUMBER
+#endif
 
-// produces a string like "1.0"
+// produces a string like "1.1.0"
 #define ADD_QUOTES(str) #str
 #define EXPAND_AND_QUOTE(str) ADD_QUOTES(str)
 #define VORTEX_VERSION EXPAND_AND_QUOTE(VORTEX_VERSION_NUMBER)
@@ -30,7 +42,7 @@
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
-#define VORTEX_FULL_NAME "Vortex Engine v" VORTEX_VERSION " '" VORTEX_NAME "' ( built " __TIMESTAMP__ ")"
+#define VORTEX_FULL_NAME "Vortex Engine v" VORTEX_VERSION " '" VORTEX_NAME "' (built " __TIMESTAMP__ ")"
 
 // Vortex Slim
 //
@@ -307,28 +319,6 @@
 // ===================================================================
 //  Boolean Configurations (0 or 1)
 
-// Fill From Thumb
-//
-// The ring menu will fill from the thumb if this is present, otherwise
-// it will fill from the pinkie.
-//
-// The logic is cleaner for fill from pinkie but fill from thumb is preferred
-#define FILL_FROM_THUMB       1
-
-// Use Palm Lights
-//
-// Adjust the engine to account for palm lights
-#define USE_PALM_LIGHTS       0
-
-// Demo All Patterns
-//
-// The default modes that are set on the gloveset will be dynamically
-// generated with one mode per pattern in the patterns list
-//
-// This can be used to quickly demo all possible patterns, mostly useful
-// for testing and development
-#define DEMO_ALL_PATTERNS     0
-
 // Debug Allocations
 //
 // Tracks all memory allocations and logs them, useful for finding leaks
@@ -353,25 +343,6 @@
 // However there may be some clever uses for variable tickrate in
 // the final build? I'm not sure.
 #define VARIABLE_TICKRATE     0
-
-// Error Blinker System
-//
-// This toggles the vortex error blinker system, this system reports
-// fatal errors as a series of blinks. If an error is encountered the
-// chip will only blink out the error code from there forward.
-//
-// Note that enabling this system takes a non-negligible amount
-// of space for all of the code, it really should only be used
-// for debug settings or given tiers like logging level.
-//
-// This is mainly useful for tracking down issues on devices that don't
-// have a serial connection like the attiny. Use FATAL_ERROR(code) to
-// set the error code and then the device will blink out the error
-//
-// for ex: red red green blue blue blue is code 213
-//
-// See Log/ErrorBlinker.h for details on the error codes
-#define VORTEX_ERROR_BLINK    0
 
 // Fixed LED Count
 //
@@ -597,11 +568,8 @@
 
 #endif // VortexEditor
 
-// When running in the test framework with demo all patterns enabled
-// we should change the max patterns to the total pattern count because
-// the test framework can handle the memory usage and we can't demo
-// all the patterns without the increased limit
-#if DEMO_ALL_PATTERNS == 1 || SERIALIZATION_TEST == 1 || COMPRESSION_TEST == 1
+// When running various tests lift the max mode limit and enable logging
+#if SERIALIZATION_TEST == 1 || COMPRESSION_TEST == 1
   #undef MAX_MODES
   #include "Patterns/Patterns.h"
   #define MAX_MODES           0

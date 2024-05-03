@@ -7,6 +7,12 @@ PROJECT_NAME = VortexEngine/VortexEngine.ino
 BUILD_PATH = build
 CONFIG_FILE = $(HOME)/.arduino15/arduino-cli.yaml
 
+DEFINES=\
+	-D VORTEX_VERSION_MAJOR=$(VORTEX_VERSION_MAJOR) \
+	-D VORTEX_VERSION_MINOR=$(VORTEX_VERSION_MINOR) \
+	-D VORTEX_BUILD_NUMBER=$(VORTEX_BUILD_NUMBER) \
+	-D VORTEX_VERSION_NUIMBER=$(VORTEX_VERSION_NUIMBER)
+
 # Default target
 all: build
 
@@ -33,7 +39,11 @@ install:
 	./rewrite_trinket_source.sh
 
 build:
-	$(ARDUINO_CLI) compile --fqbn $(BOARD) $(PROJECT_NAME) --config-file $(CONFIG_FILE) --build-path $(BUILD_PATH)
+	$(ARDUINO_CLI) compile --fqbn $(BOARD) $(PROJECT_NAME) \
+		--config-file $(CONFIG_FILE) \
+		--build-path $(BUILD_PATH) \
+		--build-property compiler.cpp.extra_flags="$(DEFINES)" \
+		--build-property compiler.c.extra_flags="$(DEFINES)"
 	python3 uf2conv.py -c -b 0x2000 build/VortexEngine.ino.bin -o build/VortexEngine.ino.uf2
 
 upload:
