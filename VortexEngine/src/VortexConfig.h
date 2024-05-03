@@ -26,7 +26,7 @@
 #define VORTEX_BUILD_NUMBER 0
 #endif
 
-// produces a number like 1.0
+// produces a number like 1.0.0
 #ifndef VORTEX_VERSION_NUMBER
 #define VORTEX_VERSION_NUMBER VORTEX_VERSION_MAJOR.VORTEX_VERSION_MINOR.VORTEX_BUILD_NUMBER
 #endif
