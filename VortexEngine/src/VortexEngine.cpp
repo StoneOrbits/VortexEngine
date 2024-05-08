@@ -200,6 +200,15 @@ void VortexEngine::runMainLogic()
     return;
   }
 
+  // load modes if necessary
+  if (!Modes::load()) {
+    // don't do anything if modes couldn't load
+    return;
+  }
+
+  // check if the device has been plugged in
+  SerialComs::checkSerial();
+
   // if the menus are open and running then just return
   if (Menus::run()) {
     return;
@@ -221,7 +230,7 @@ void VortexEngine::runMainLogic()
   // if auto cycle is enabled and the last switch was more than the delay ago
   if (m_autoCycle && (Modes::lastSwitchTime() + AUTO_RANDOM_DELAY < now)) {
     // then switch to the next mode automatically
-    Modes::nextModeSkipEmpty();
+    Modes::nextMode();
   }
 
   // otherwise just play the modes
