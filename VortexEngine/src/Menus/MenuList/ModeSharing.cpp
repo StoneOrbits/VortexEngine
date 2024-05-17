@@ -51,8 +51,6 @@ Menu::MenuAction ModeSharing::run()
     showSendMode();
     if (!IRSender::isSending()) {
       if (!m_lastActionTime || ((m_lastActionTime + MAX_WAIT_DURATION) < Time::getCurtime())) {
-        Leds::setAll(RGB_CYAN5);
-        Leds::update();
         beginSending();
       }
     }
@@ -155,13 +153,8 @@ void ModeSharing::receiveMode()
 
 void ModeSharing::showSendMode()
 {
-  // if it is sending
-  if (IRSender::isSending()) {
-    Leds::setAll(RGB_CYAN5);
-  } else {
-    Leds::setAll(RGB_WHITE0);
-    Leds::blinkAll(Time::getCurtime(), 250, 250);
-  }
+  Leds::setAll(RGB_WHITE0);
+  Leds::blinkAll(10, 25, RGB_CYAN3);
 }
 
 void ModeSharing::showReceiveMode()
@@ -175,9 +168,7 @@ void ModeSharing::showReceiveMode()
     return;
   }
   // gradually empty from thumb to pinkie
-  LedPos pos = (LedPos)(LED_COUNT - (Time::getCurtime() / MS_TO_TICKS(200) % (LED_COUNT + 1)));
-  if (pos == LED_COUNT) return;
-  Leds::setRange(LED_FIRST, pos, RGB_PURPLE);
+  Leds::setAll(RGB_WHITE0);
 }
 
 // override showExit so it isn't displayed on thumb
