@@ -233,8 +233,7 @@ void ModeSharing::showSendModeVL()
 void ModeSharing::showSendModeIR()
 {
   // show a dim color when not sending
-  Leds::setMap(MAP_ALL_BOT, RGB_CYAN1);
-  Leds::setMap(MAP_RING_EDGE, RGB_CYAN1);
+  Leds::setAll(RGB_CYAN1);
 }
 
 void ModeSharing::showReceiveMode()
@@ -246,9 +245,7 @@ void ModeSharing::showReceiveMode()
     if (m_advanced) {
       m_previewMode.play();
     } else {
-      Leds::setMap(MAP_ALL_BOT, RGB_CYAN1);
-      Leds::setMap(MAP_RING_EDGE, RGB_CYAN1);
-      Leds::setMap(MAP_ALL_TOP, RGB_WHITE0);
+      Leds::setAll(RGB_WHITE0);
     }
   }
 }
