@@ -1,0 +1,221 @@
+\hypertarget{classPatternMap}{}\doxysection{Pattern\+Map Class Reference}
+\label{classPatternMap}\index{PatternMap@{PatternMap}}
+
+
+{\ttfamily \#include $<$Sequence.\+h$>$}
+
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classPatternMap_af813eea0d92b6f02d1b1f8ac61a7d405}{Pattern\+Map}} ()
+\item 
+\mbox{\hyperlink{classPatternMap_aec46b32507b94dfa80abd5bb4ec8a60e}{Pattern\+Map}} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} pattern, \mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} positions=\mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\+\_\+\+LED\+\_\+\+ALL}})
+\item 
+void \mbox{\hyperlink{classPatternMap_ab27a12b50999c1bd3f5ec4305cbc2ec0}{set\+Pattern\+At}} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} pattern, \mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} positions)
+\item 
+\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} \mbox{\hyperlink{classPatternMap_af7a193d38335cd800085302382c0cf27}{operator\mbox{[}$\,$\mbox{]}}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} index) const
+\item 
+bool \mbox{\hyperlink{classPatternMap_a42d061837424e43b9a91e6d6b45cfdbc}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer) const
+\item 
+bool \mbox{\hyperlink{classPatternMap_abe8dc1ee0979376a8000068e273ecb4d}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
+\end{DoxyCompactItemize}
+\doxysubsection*{Public Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} \mbox{\hyperlink{classPatternMap_a1b516e0ab97c3cd79e0cec56ff3b1945}{m\+\_\+pattern\+Map}} \mbox{[}\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\+\_\+\+COUNT}}\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 14 of file Sequence.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classPatternMap_af813eea0d92b6f02d1b1f8ac61a7d405}\label{classPatternMap_af813eea0d92b6f02d1b1f8ac61a7d405}} 
+\index{PatternMap@{PatternMap}!PatternMap@{PatternMap}}
+\index{PatternMap@{PatternMap}!PatternMap@{PatternMap}}
+\doxysubsubsection{\texorpdfstring{PatternMap()}{PatternMap()}\hspace{0.1cm}{\footnotesize\ttfamily [1/2]}}
+{\footnotesize\ttfamily Pattern\+Map\+::\+Pattern\+Map (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 13 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{13                        :}
+\DoxyCodeLine{14   \mbox{\hyperlink{classPatternMap_a1b516e0ab97c3cd79e0cec56ff3b1945}{m\_patternMap}}()}
+\DoxyCodeLine{15 \{}
+\DoxyCodeLine{16   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} i = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; i < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++i) \{}
+\DoxyCodeLine{17     \mbox{\hyperlink{classPatternMap_a1b516e0ab97c3cd79e0cec56ff3b1945}{m\_patternMap}}[i] = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}};}
+\DoxyCodeLine{18   \}}
+\DoxyCodeLine{19 \}}
+
+\end{DoxyCode}
+
+
+References LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, m\+\_\+pattern\+Map, and PATTERN\+\_\+\+NONE.
+
+\mbox{\Hypertarget{classPatternMap_aec46b32507b94dfa80abd5bb4ec8a60e}\label{classPatternMap_aec46b32507b94dfa80abd5bb4ec8a60e}} 
+\index{PatternMap@{PatternMap}!PatternMap@{PatternMap}}
+\index{PatternMap@{PatternMap}!PatternMap@{PatternMap}}
+\doxysubsubsection{\texorpdfstring{PatternMap()}{PatternMap()}\hspace{0.1cm}{\footnotesize\ttfamily [2/2]}}
+{\footnotesize\ttfamily Pattern\+Map\+::\+Pattern\+Map (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{pattern,  }\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}}]{positions = {\ttfamily \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\+\_\+\+LED\+\_\+\+ALL}}} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 21 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{21                                                           :}
+\DoxyCodeLine{22   \mbox{\hyperlink{classPatternMap_af813eea0d92b6f02d1b1f8ac61a7d405}{PatternMap}}()}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24   \mbox{\hyperlink{classPatternMap_ab27a12b50999c1bd3f5ec4305cbc2ec0}{setPatternAt}}(pattern, positions);}
+\DoxyCodeLine{25 \}}
+
+\end{DoxyCode}
+
+
+References set\+Pattern\+At().
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPatternMap_af7a193d38335cd800085302382c0cf27}\label{classPatternMap_af7a193d38335cd800085302382c0cf27}} 
+\index{PatternMap@{PatternMap}!operator\mbox{[}\mbox{]}@{operator[]}}
+\index{operator\mbox{[}\mbox{]}@{operator[]}!PatternMap@{PatternMap}}
+\doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} Pattern\+Map\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{index }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 37 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39   \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternMap_a1b516e0ab97c3cd79e0cec56ff3b1945}{m\_patternMap}}[index];}
+\DoxyCodeLine{40 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+pattern\+Map.
+
+\mbox{\Hypertarget{classPatternMap_a42d061837424e43b9a91e6d6b45cfdbc}\label{classPatternMap_a42d061837424e43b9a91e6d6b45cfdbc}} 
+\index{PatternMap@{PatternMap}!serialize@{serialize}}
+\index{serialize@{serialize}!PatternMap@{PatternMap}}
+\doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
+{\footnotesize\ttfamily bool Pattern\+Map\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption}) const}
+
+
+
+Definition at line 42 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{43 \{}
+\DoxyCodeLine{44   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} i = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; i < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++i) \{}
+\DoxyCodeLine{45     \textcolor{comment}{// ensure the PatternID is interpreted as uint8\_t}}
+\DoxyCodeLine{46     \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_ad3b413f399f22d30548a61a5e01ef3a7}{serialize8}}((uint8\_t)\mbox{\hyperlink{classPatternMap_a1b516e0ab97c3cd79e0cec56ff3b1945}{m\_patternMap}}[i])) \{}
+\DoxyCodeLine{47       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{48     \}}
+\DoxyCodeLine{49   \}}
+\DoxyCodeLine{50   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{51 \}}
+
+\end{DoxyCode}
+
+
+References LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, m\+\_\+pattern\+Map, and Byte\+Stream\+::serialize8().
+
+
+
+Referenced by Sequence\+Step\+::serialize().
+
+\mbox{\Hypertarget{classPatternMap_ab27a12b50999c1bd3f5ec4305cbc2ec0}\label{classPatternMap_ab27a12b50999c1bd3f5ec4305cbc2ec0}} 
+\index{PatternMap@{PatternMap}!setPatternAt@{setPatternAt}}
+\index{setPatternAt@{setPatternAt}!PatternMap@{PatternMap}}
+\doxysubsubsection{\texorpdfstring{setPatternAt()}{setPatternAt()}}
+{\footnotesize\ttfamily void Pattern\+Map\+::set\+Pattern\+At (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{pattern,  }\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}}]{positions }\end{DoxyParamCaption})}
+
+
+
+Definition at line 28 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++pos) \{}
+\DoxyCodeLine{31     \textcolor{keywordflow}{if} (\mbox{\hyperlink{LedTypes_8h_aea87ba7c1e127ef509da9d0e9d238aac}{ledmapCheckLed}}(positions, pos)) \{}
+\DoxyCodeLine{32       \mbox{\hyperlink{classPatternMap_a1b516e0ab97c3cd79e0cec56ff3b1945}{m\_patternMap}}[pos] = pattern;}
+\DoxyCodeLine{33     \}}
+\DoxyCodeLine{34   \}}
+\DoxyCodeLine{35 \}}
+
+\end{DoxyCode}
+
+
+References LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, ledmap\+Check\+Led(), and m\+\_\+pattern\+Map.
+
+
+
+Referenced by Chaser\+Pattern\+::\+Chaser\+Pattern(), and Pattern\+Map().
+
+\mbox{\Hypertarget{classPatternMap_abe8dc1ee0979376a8000068e273ecb4d}\label{classPatternMap_abe8dc1ee0979376a8000068e273ecb4d}} 
+\index{PatternMap@{PatternMap}!unserialize@{unserialize}}
+\index{unserialize@{unserialize}!PatternMap@{PatternMap}}
+\doxysubsubsection{\texorpdfstring{unserialize()}{unserialize()}}
+{\footnotesize\ttfamily bool Pattern\+Map\+::unserialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})}
+
+
+
+Definition at line 53 of file Sequence.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{54 \{}
+\DoxyCodeLine{55   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} i = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; i < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++i) \{}
+\DoxyCodeLine{56     \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_a4451478eea4d9efba71cdc043bda4db2}{unserialize8}}((uint8\_t *)\mbox{\hyperlink{classPatternMap_a1b516e0ab97c3cd79e0cec56ff3b1945}{m\_patternMap}} + i)) \{}
+\DoxyCodeLine{57       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{58     \}}
+\DoxyCodeLine{59   \}}
+\DoxyCodeLine{60   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{61 \}}
+
+\end{DoxyCode}
+
+
+References LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, m\+\_\+pattern\+Map, and Byte\+Stream\+::unserialize8().
+
+
+
+Referenced by Sequence\+Step\+::unserialize().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classPatternMap_a1b516e0ab97c3cd79e0cec56ff3b1945}\label{classPatternMap_a1b516e0ab97c3cd79e0cec56ff3b1945}} 
+\index{PatternMap@{PatternMap}!m\_patternMap@{m\_patternMap}}
+\index{m\_patternMap@{m\_patternMap}!PatternMap@{PatternMap}}
+\doxysubsubsection{\texorpdfstring{m\_patternMap}{m\_patternMap}}
+{\footnotesize\ttfamily \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} Pattern\+Map\+::m\+\_\+pattern\+Map\mbox{[}\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\+\_\+\+COUNT}}\mbox{]}}
+
+
+
+Definition at line 29 of file Sequence.\+h.
+
+
+
+Referenced by operator\mbox{[}$\,$\mbox{]}(), Pattern\+Map(), serialize(), set\+Pattern\+At(), and unserialize().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\+Sequencer/\mbox{\hyperlink{Sequence_8h}{Sequence.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\+Sequencer/\mbox{\hyperlink{Sequence_8cpp}{Sequence.\+cpp}}\end{DoxyCompactItemize}

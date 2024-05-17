@@ -1,0 +1,59 @@
+\hypertarget{Menu_8cpp}{}\doxysection{Vortex\+Engine/src/\+Menus/\+Menu.cpp File Reference}
+\label{Menu_8cpp}\index{VortexEngine/src/Menus/Menu.cpp@{VortexEngine/src/Menus/Menu.cpp}}
+{\ttfamily \#include \char`\"{}Menu.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Time/\+Time\+Control.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Time/\+Timings.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Buttons/\+Button.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Menus/\+Menus.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Modes/\+Modes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Modes/\+Mode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Leds/\+Leds.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Log/\+Log.\+h\char`\"{}}\newline
+Include dependency graph for Menu.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Menu_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{Menu_8cpp_acc6e49cf764bf2c622ab9ae38e590b15}{NUM\+\_\+\+PERMUTATIONS}}~(sizeof(\mbox{\hyperlink{Menu_8cpp_abf4c3ead615f4824f4bac59cff8c9104}{led\+Permutations}})/ sizeof(\mbox{\hyperlink{Menu_8cpp_abf4c3ead615f4824f4bac59cff8c9104}{led\+Permutations}}\mbox{[}0\mbox{]}))
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} \mbox{\hyperlink{Menu_8cpp_abf4c3ead615f4824f4bac59cff8c9104}{led\+Permutations}} \mbox{[}$\,$\mbox{]}
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{Menu_8cpp_acc6e49cf764bf2c622ab9ae38e590b15}\label{Menu_8cpp_acc6e49cf764bf2c622ab9ae38e590b15}} 
+\index{Menu.cpp@{Menu.cpp}!NUM\_PERMUTATIONS@{NUM\_PERMUTATIONS}}
+\index{NUM\_PERMUTATIONS@{NUM\_PERMUTATIONS}!Menu.cpp@{Menu.cpp}}
+\doxysubsubsection{\texorpdfstring{NUM\_PERMUTATIONS}{NUM\_PERMUTATIONS}}
+{\footnotesize\ttfamily \#define NUM\+\_\+\+PERMUTATIONS~(sizeof(\mbox{\hyperlink{Menu_8cpp_abf4c3ead615f4824f4bac59cff8c9104}{led\+Permutations}})/ sizeof(\mbox{\hyperlink{Menu_8cpp_abf4c3ead615f4824f4bac59cff8c9104}{led\+Permutations}}\mbox{[}0\mbox{]}))}
+
+
+
+Definition at line 61 of file Menu.\+cpp.
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{Menu_8cpp_abf4c3ead615f4824f4bac59cff8c9104}\label{Menu_8cpp_abf4c3ead615f4824f4bac59cff8c9104}} 
+\index{Menu.cpp@{Menu.cpp}!ledPermutations@{ledPermutations}}
+\index{ledPermutations@{ledPermutations}!Menu.cpp@{Menu.cpp}}
+\doxysubsubsection{\texorpdfstring{ledPermutations}{ledPermutations}}
+{\footnotesize\ttfamily \mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} led\+Permutations\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 13 of file Menu.\+cpp.
+
+
+
+Referenced by Menu\+::add\+Selection\+Mask(), Menu\+::run(), and Menu\+::show\+Bulb\+Selection().
+

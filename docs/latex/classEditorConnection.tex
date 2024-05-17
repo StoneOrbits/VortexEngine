@@ -1,0 +1,940 @@
+\hypertarget{classEditorConnection}{}\doxysection{Editor\+Connection Class Reference}
+\label{classEditorConnection}\index{EditorConnection@{EditorConnection}}
+
+
+{\ttfamily \#include $<$Editor\+Connection.\+h$>$}
+
+
+
+Inheritance diagram for Editor\+Connection\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=180pt]{classEditorConnection__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Editor\+Connection\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classEditorConnection__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classEditorConnection_ae8dafb9ef41ade904a95d6b8962c0726}{Editor\+Connection}} (const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&col, bool advanced)
+\item 
+\mbox{\hyperlink{classEditorConnection_a8685e672646fa651c2274032f8d8d258}{$\sim$\+Editor\+Connection}} ()
+\item 
+bool \mbox{\hyperlink{classEditorConnection_aa2536edad0ed3953d4b994a353cd0320}{init}} () override
+\item 
+\mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{Menu\+Action}} \mbox{\hyperlink{classEditorConnection_af634ec7181239c80d02e5f7d7f2ad308}{run}} () override
+\item 
+void \mbox{\hyperlink{classEditorConnection_af1890d36b57157e3c945f5b788762373}{send\+Cur\+Mode\+VL}} ()
+\item 
+void \mbox{\hyperlink{classEditorConnection_a4cab09fcac77a0326fb54d65d18b963e}{on\+Short\+Click}} () override
+\item 
+void \mbox{\hyperlink{classEditorConnection_a31521fb3b6a7ac1e5e3f51832c9002f1}{on\+Short\+Click2}} () override
+\item 
+void \mbox{\hyperlink{classEditorConnection_ae2abe22c58ab557a1c4ada9c9ec6e58f}{on\+Long\+Click}} () override
+\item 
+void \mbox{\hyperlink{classEditorConnection_a94603cec3cc30ed70df22242ebb1cc76}{on\+Long\+Click2}} () override
+\item 
+void \mbox{\hyperlink{classEditorConnection_a244b1221a041532730e18fbcc4cd11e5}{leave\+Menu}} (bool do\+Save=false) override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+enum \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72}{Editor\+Connection\+State}} \{ \newline
+\mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72abf18d5ddc8d178e2d6077fb0cf935e86}{STATE\+\_\+\+DISCONNECTED}}
+, \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a4e49f8e9019e9ed3f5064858c2183c1e}{STATE\+\_\+\+GREETING}}
+, \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a5e894ea4e4c252e39b66dd132cb308f1}{STATE\+\_\+\+IDLE}}
+, \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a85a6573a233a7360a3500b967819c3a3}{STATE\+\_\+\+PULL\+\_\+\+MODES}}
+, \newline
+\mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a8d57857c6215212c869d39b739bdc73b}{STATE\+\_\+\+PULL\+\_\+\+MODES\+\_\+\+SEND}}
+, \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a2f2b632b1ddcc6e9dfd9aa06d0151d3e}{STATE\+\_\+\+PULL\+\_\+\+MODES\+\_\+\+DONE}}
+, \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72af152074118a039ecb48e3c03b23ff204}{STATE\+\_\+\+PUSH\+\_\+\+MODES}}
+, \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a1b883360e6768b085d216bad0f78df3d}{STATE\+\_\+\+PUSH\+\_\+\+MODES\+\_\+\+RECEIVE}}
+, \newline
+\mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a1e6a0aba862a0bb4b33f37f10e321796}{STATE\+\_\+\+PUSH\+\_\+\+MODES\+\_\+\+DONE}}
+, \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a8a0f7276f898d8d34b24c1bd39bf44cc}{STATE\+\_\+\+DEMO\+\_\+\+MODE}}
+, \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a4f62d254b8a96cae6ba3fc848ad08a59}{STATE\+\_\+\+DEMO\+\_\+\+MODE\+\_\+\+RECEIVE}}
+, \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72ad875f82180099eb4ac6f4137d7e31a21}{STATE\+\_\+\+DEMO\+\_\+\+MODE\+\_\+\+DONE}}
+, \newline
+\mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72aa2410da1c9c8c73d16ef57fa2549701d}{STATE\+\_\+\+CLEAR\+\_\+\+DEMO}}
+, \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a3d089ba7666fa68cceef0bb895a377c4}{STATE\+\_\+\+TRANSMIT\+\_\+\+MODE\+\_\+\+VL}}
+, \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72ac1f27c31c0d1a2c7d9864bad88dbbe89}{STATE\+\_\+\+TRANSMIT\+\_\+\+MODE\+\_\+\+VL\+\_\+\+DONE}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classEditorConnection_acbc145167462de6647054a4f2799db1f}{show\+Editor}} ()
+\item 
+void \mbox{\hyperlink{classEditorConnection_a98e37fd70333d6d3a04745653b6c2c6b}{receive\+Data}} ()
+\item 
+void \mbox{\hyperlink{classEditorConnection_a3e9e8c800831799dcec3aa530e96e231}{send\+Modes}} ()
+\item 
+bool \mbox{\hyperlink{classEditorConnection_a2296e42204cdbe192bb446c343b1985a}{receive\+Modes}} ()
+\item 
+bool \mbox{\hyperlink{classEditorConnection_aa80d957cc61da77c92b8c8bb16031029}{receive\+Demo\+Mode}} ()
+\item 
+void \mbox{\hyperlink{classEditorConnection_a85b7cab1e9fc9af10af3f342268a7b9a}{handle\+Command}} ()
+\item 
+bool \mbox{\hyperlink{classEditorConnection_ac5190c24d2532a1be8059fbc04a5dcd4}{receive\+Message}} (const char $\ast$message)
+\item 
+void \mbox{\hyperlink{classEditorConnection_a34c38f6c5bb39ac0d30e54abf6924284}{clear\+Demo}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72}{Editor\+Connection\+State}} \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\+\_\+state}}
+\item 
+\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\+\_\+receive\+Buffer}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 9 of file Editor\+Connection.\+h.
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72}} 
+\index{EditorConnection@{EditorConnection}!EditorConnectionState@{EditorConnectionState}}
+\index{EditorConnectionState@{EditorConnectionState}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{EditorConnectionState}{EditorConnectionState}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72}{Editor\+Connection\+::\+Editor\+Connection\+State}}\hspace{0.3cm}{\ttfamily [private]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_DISCONNECTED@{STATE\_DISCONNECTED}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_DISCONNECTED@{STATE\_DISCONNECTED}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72abf18d5ddc8d178e2d6077fb0cf935e86}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72abf18d5ddc8d178e2d6077fb0cf935e86}} 
+STATE\+\_\+\+DISCONNECTED&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_GREETING@{STATE\_GREETING}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_GREETING@{STATE\_GREETING}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a4e49f8e9019e9ed3f5064858c2183c1e}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a4e49f8e9019e9ed3f5064858c2183c1e}} 
+STATE\+\_\+\+GREETING&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_IDLE@{STATE\_IDLE}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_IDLE@{STATE\_IDLE}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a5e894ea4e4c252e39b66dd132cb308f1}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a5e894ea4e4c252e39b66dd132cb308f1}} 
+STATE\+\_\+\+IDLE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_PULL\_MODES@{STATE\_PULL\_MODES}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_PULL\_MODES@{STATE\_PULL\_MODES}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a85a6573a233a7360a3500b967819c3a3}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a85a6573a233a7360a3500b967819c3a3}} 
+STATE\+\_\+\+PULL\+\_\+\+MODES&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_PULL\_MODES\_SEND@{STATE\_PULL\_MODES\_SEND}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_PULL\_MODES\_SEND@{STATE\_PULL\_MODES\_SEND}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a8d57857c6215212c869d39b739bdc73b}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a8d57857c6215212c869d39b739bdc73b}} 
+STATE\+\_\+\+PULL\+\_\+\+MODES\+\_\+\+SEND&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_PULL\_MODES\_DONE@{STATE\_PULL\_MODES\_DONE}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_PULL\_MODES\_DONE@{STATE\_PULL\_MODES\_DONE}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a2f2b632b1ddcc6e9dfd9aa06d0151d3e}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a2f2b632b1ddcc6e9dfd9aa06d0151d3e}} 
+STATE\+\_\+\+PULL\+\_\+\+MODES\+\_\+\+DONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_PUSH\_MODES@{STATE\_PUSH\_MODES}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_PUSH\_MODES@{STATE\_PUSH\_MODES}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72af152074118a039ecb48e3c03b23ff204}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72af152074118a039ecb48e3c03b23ff204}} 
+STATE\+\_\+\+PUSH\+\_\+\+MODES&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_PUSH\_MODES\_RECEIVE@{STATE\_PUSH\_MODES\_RECEIVE}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_PUSH\_MODES\_RECEIVE@{STATE\_PUSH\_MODES\_RECEIVE}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a1b883360e6768b085d216bad0f78df3d}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a1b883360e6768b085d216bad0f78df3d}} 
+STATE\+\_\+\+PUSH\+\_\+\+MODES\+\_\+\+RECEIVE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_PUSH\_MODES\_DONE@{STATE\_PUSH\_MODES\_DONE}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_PUSH\_MODES\_DONE@{STATE\_PUSH\_MODES\_DONE}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a1e6a0aba862a0bb4b33f37f10e321796}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a1e6a0aba862a0bb4b33f37f10e321796}} 
+STATE\+\_\+\+PUSH\+\_\+\+MODES\+\_\+\+DONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_DEMO\_MODE@{STATE\_DEMO\_MODE}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_DEMO\_MODE@{STATE\_DEMO\_MODE}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a8a0f7276f898d8d34b24c1bd39bf44cc}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a8a0f7276f898d8d34b24c1bd39bf44cc}} 
+STATE\+\_\+\+DEMO\+\_\+\+MODE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_DEMO\_MODE\_RECEIVE@{STATE\_DEMO\_MODE\_RECEIVE}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_DEMO\_MODE\_RECEIVE@{STATE\_DEMO\_MODE\_RECEIVE}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a4f62d254b8a96cae6ba3fc848ad08a59}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a4f62d254b8a96cae6ba3fc848ad08a59}} 
+STATE\+\_\+\+DEMO\+\_\+\+MODE\+\_\+\+RECEIVE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_DEMO\_MODE\_DONE@{STATE\_DEMO\_MODE\_DONE}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_DEMO\_MODE\_DONE@{STATE\_DEMO\_MODE\_DONE}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72ad875f82180099eb4ac6f4137d7e31a21}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72ad875f82180099eb4ac6f4137d7e31a21}} 
+STATE\+\_\+\+DEMO\+\_\+\+MODE\+\_\+\+DONE&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_CLEAR\_DEMO@{STATE\_CLEAR\_DEMO}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_CLEAR\_DEMO@{STATE\_CLEAR\_DEMO}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72aa2410da1c9c8c73d16ef57fa2549701d}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72aa2410da1c9c8c73d16ef57fa2549701d}} 
+STATE\+\_\+\+CLEAR\+\_\+\+DEMO&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_TRANSMIT\_MODE\_VL@{STATE\_TRANSMIT\_MODE\_VL}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_TRANSMIT\_MODE\_VL@{STATE\_TRANSMIT\_MODE\_VL}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a3d089ba7666fa68cceef0bb895a377c4}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a3d089ba7666fa68cceef0bb895a377c4}} 
+STATE\+\_\+\+TRANSMIT\+\_\+\+MODE\+\_\+\+VL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{STATE\_TRANSMIT\_MODE\_VL\_DONE@{STATE\_TRANSMIT\_MODE\_VL\_DONE}!EditorConnection@{EditorConnection}}\index{EditorConnection@{EditorConnection}!STATE\_TRANSMIT\_MODE\_VL\_DONE@{STATE\_TRANSMIT\_MODE\_VL\_DONE}}}\mbox{\Hypertarget{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72ac1f27c31c0d1a2c7d9864bad88dbbe89}\label{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72ac1f27c31c0d1a2c7d9864bad88dbbe89}} 
+STATE\+\_\+\+TRANSMIT\+\_\+\+MODE\+\_\+\+VL\+\_\+\+DONE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 40 of file Editor\+Connection.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{40                              \{}
+\DoxyCodeLine{41     \textcolor{comment}{// the editor is not connec}}
+\DoxyCodeLine{42     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72abf18d5ddc8d178e2d6077fb0cf935e86}{STATE\_DISCONNECTED}},}
+\DoxyCodeLine{43 }
+\DoxyCodeLine{44     \textcolor{comment}{// Sending the greeting message}}
+\DoxyCodeLine{45     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a4e49f8e9019e9ed3f5064858c2183c1e}{STATE\_GREETING}},}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{comment}{// entirely idle, waiting for commands}}
+\DoxyCodeLine{48     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a5e894ea4e4c252e39b66dd132cb308f1}{STATE\_IDLE}},}
+\DoxyCodeLine{49 }
+\DoxyCodeLine{50     \textcolor{comment}{// engine pulls the modes from gloves, then wait for the sent modes ack}}
+\DoxyCodeLine{51     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a85a6573a233a7360a3500b967819c3a3}{STATE\_PULL\_MODES}},}
+\DoxyCodeLine{52     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a8d57857c6215212c869d39b739bdc73b}{STATE\_PULL\_MODES\_SEND}},}
+\DoxyCodeLine{53     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a2f2b632b1ddcc6e9dfd9aa06d0151d3e}{STATE\_PULL\_MODES\_DONE}},}
+\DoxyCodeLine{54 }
+\DoxyCodeLine{55     \textcolor{comment}{// engine pushes modes to gloves, then waits for done}}
+\DoxyCodeLine{56     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72af152074118a039ecb48e3c03b23ff204}{STATE\_PUSH\_MODES}},}
+\DoxyCodeLine{57     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a1b883360e6768b085d216bad0f78df3d}{STATE\_PUSH\_MODES\_RECEIVE}},}
+\DoxyCodeLine{58     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a1e6a0aba862a0bb4b33f37f10e321796}{STATE\_PUSH\_MODES\_DONE}},}
+\DoxyCodeLine{59 }
+\DoxyCodeLine{60     \textcolor{comment}{// engine pushes mode to gloves for demo while idle}}
+\DoxyCodeLine{61     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a8a0f7276f898d8d34b24c1bd39bf44cc}{STATE\_DEMO\_MODE}},}
+\DoxyCodeLine{62     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a4f62d254b8a96cae6ba3fc848ad08a59}{STATE\_DEMO\_MODE\_RECEIVE}},}
+\DoxyCodeLine{63     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72ad875f82180099eb4ac6f4137d7e31a21}{STATE\_DEMO\_MODE\_DONE}},}
+\DoxyCodeLine{64 }
+\DoxyCodeLine{65     \textcolor{comment}{// engine tells gloves to clear the demo preview, gloves acknowledge}}
+\DoxyCodeLine{66     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72aa2410da1c9c8c73d16ef57fa2549701d}{STATE\_CLEAR\_DEMO}},}
+\DoxyCodeLine{67 }
+\DoxyCodeLine{68     \textcolor{comment}{// transmit the mode over visible light}}
+\DoxyCodeLine{69     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a3d089ba7666fa68cceef0bb895a377c4}{STATE\_TRANSMIT\_MODE\_VL}},}
+\DoxyCodeLine{70     \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72ac1f27c31c0d1a2c7d9864bad88dbbe89}{STATE\_TRANSMIT\_MODE\_VL\_DONE}},}
+\DoxyCodeLine{71   \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classEditorConnection_ae8dafb9ef41ade904a95d6b8962c0726}\label{classEditorConnection_ae8dafb9ef41ade904a95d6b8962c0726}} 
+\index{EditorConnection@{EditorConnection}!EditorConnection@{EditorConnection}}
+\index{EditorConnection@{EditorConnection}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{EditorConnection()}{EditorConnection()}}
+{\footnotesize\ttfamily Editor\+Connection\+::\+Editor\+Connection (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{col,  }\item[{bool}]{advanced }\end{DoxyParamCaption})}
+
+
+
+Definition at line 17 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{17                                                                      :}
+\DoxyCodeLine{18   \mbox{\hyperlink{classMenu_a7227170bc9fb45617828b755317156a3}{Menu}}(col, advanced),}
+\DoxyCodeLine{19   \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}}(\mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72abf18d5ddc8d178e2d6077fb0cf935e86}{STATE\_DISCONNECTED}})}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classEditorConnection_a8685e672646fa651c2274032f8d8d258}\label{classEditorConnection_a8685e672646fa651c2274032f8d8d258}} 
+\index{EditorConnection@{EditorConnection}!````~EditorConnection@{$\sim$EditorConnection}}
+\index{````~EditorConnection@{$\sim$EditorConnection}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{$\sim$EditorConnection()}{~EditorConnection()}}
+{\footnotesize\ttfamily Editor\+Connection\+::$\sim$\+Editor\+Connection (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 23 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{24 \{}
+\DoxyCodeLine{25   \mbox{\hyperlink{classEditorConnection_a34c38f6c5bb39ac0d30e54abf6924284}{clearDemo}}();}
+\DoxyCodeLine{26 \}}
+
+\end{DoxyCode}
+
+
+References clear\+Demo().
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classEditorConnection_a34c38f6c5bb39ac0d30e54abf6924284}\label{classEditorConnection_a34c38f6c5bb39ac0d30e54abf6924284}} 
+\index{EditorConnection@{EditorConnection}!clearDemo@{clearDemo}}
+\index{clearDemo@{clearDemo}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{clearDemo()}{clearDemo()}}
+{\footnotesize\ttfamily void Editor\+Connection\+::clear\+Demo (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 63 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{64 \{}
+\DoxyCodeLine{65   \mbox{\hyperlink{classColorset}{Colorset}} set(\mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
+\DoxyCodeLine{66   \mbox{\hyperlink{classPatternArgs}{PatternArgs}} args(1, 0, 0);}
+\DoxyCodeLine{67   \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_ac2888fc4f9079c397ce229292cbb460b}{setPattern}}(\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca320755b96ff07514ffbbea92471d9028}{PATTERN\_STROBE}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cae4fd580189cac85429ebfa5cb71cd772}{LED\_ALL}}, \&args, \&set);}
+\DoxyCodeLine{68   \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
+\DoxyCodeLine{69 \}}
+
+\end{DoxyCode}
+
+
+References Mode\+::init(), LED\+\_\+\+ALL, Menu\+::m\+\_\+preview\+Mode, PATTERN\+\_\+\+STROBE, RGB\+\_\+\+WHITE0, and Mode\+::set\+Pattern().
+
+
+
+Referenced by init(), on\+Short\+Click(), run(), and $\sim$\+Editor\+Connection().
+
+\mbox{\Hypertarget{classEditorConnection_a85b7cab1e9fc9af10af3f342268a7b9a}\label{classEditorConnection_a85b7cab1e9fc9af10af3f342268a7b9a}} 
+\index{EditorConnection@{EditorConnection}!handleCommand@{handleCommand}}
+\index{handleCommand@{handleCommand}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{handleCommand()}{handleCommand()}}
+{\footnotesize\ttfamily void Editor\+Connection\+::handle\+Command (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 329 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{330 \{}
+\DoxyCodeLine{331   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_ac5190c24d2532a1be8059fbc04a5dcd4}{receiveMessage}}(\mbox{\hyperlink{VortexConfig_8h_a7c3946aa61a487843a0604d3d76d9a8d}{EDITOR\_VERB\_PULL\_MODES}})) \{}
+\DoxyCodeLine{332     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a85a6573a233a7360a3500b967819c3a3}{STATE\_PULL\_MODES}};}
+\DoxyCodeLine{333   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_ac5190c24d2532a1be8059fbc04a5dcd4}{receiveMessage}}(\mbox{\hyperlink{VortexConfig_8h_acf8b045d8ae40ec763a3853506c5318c}{EDITOR\_VERB\_PUSH\_MODES}})) \{}
+\DoxyCodeLine{334     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72af152074118a039ecb48e3c03b23ff204}{STATE\_PUSH\_MODES}};}
+\DoxyCodeLine{335   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_ac5190c24d2532a1be8059fbc04a5dcd4}{receiveMessage}}(\mbox{\hyperlink{VortexConfig_8h_ad26ec31c94c49d8ef44f5e8bf9c76a0f}{EDITOR\_VERB\_DEMO\_MODE}})) \{}
+\DoxyCodeLine{336     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a8a0f7276f898d8d34b24c1bd39bf44cc}{STATE\_DEMO\_MODE}};}
+\DoxyCodeLine{337   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_ac5190c24d2532a1be8059fbc04a5dcd4}{receiveMessage}}(\mbox{\hyperlink{VortexConfig_8h_ac5aa8d24e62c31d10b6d3b56e6c01d74}{EDITOR\_VERB\_CLEAR\_DEMO}})) \{}
+\DoxyCodeLine{338     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72aa2410da1c9c8c73d16ef57fa2549701d}{STATE\_CLEAR\_DEMO}};}
+\DoxyCodeLine{339   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_ac5190c24d2532a1be8059fbc04a5dcd4}{receiveMessage}}(\mbox{\hyperlink{VortexConfig_8h_a47b7653f70cd3eaaa89a9868848ea883}{EDITOR\_VERB\_TRANSMIT\_VL}})) \{}
+\DoxyCodeLine{340     \mbox{\hyperlink{classEditorConnection_af1890d36b57157e3c945f5b788762373}{sendCurModeVL}}();}
+\DoxyCodeLine{341   \}}
+\DoxyCodeLine{342 \}}
+
+\end{DoxyCode}
+
+
+References EDITOR\+\_\+\+VERB\+\_\+\+CLEAR\+\_\+\+DEMO, EDITOR\+\_\+\+VERB\+\_\+\+DEMO\+\_\+\+MODE, EDITOR\+\_\+\+VERB\+\_\+\+PULL\+\_\+\+MODES, EDITOR\+\_\+\+VERB\+\_\+\+PUSH\+\_\+\+MODES, EDITOR\+\_\+\+VERB\+\_\+\+TRANSMIT\+\_\+\+VL, m\+\_\+state, receive\+Message(), send\+Cur\+Mode\+VL(), STATE\+\_\+\+CLEAR\+\_\+\+DEMO, STATE\+\_\+\+DEMO\+\_\+\+MODE, STATE\+\_\+\+PULL\+\_\+\+MODES, and STATE\+\_\+\+PUSH\+\_\+\+MODES.
+
+
+
+Referenced by run().
+
+\mbox{\Hypertarget{classEditorConnection_aa2536edad0ed3953d4b994a353cd0320}\label{classEditorConnection_aa2536edad0ed3953d4b994a353cd0320}} 
+\index{EditorConnection@{EditorConnection}!init@{init}}
+\index{init@{init}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily bool Editor\+Connection\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{Menu}}.
+
+
+
+Definition at line 28 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{Menu::init}}()) \{}
+\DoxyCodeLine{31     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{32   \}}
+\DoxyCodeLine{33   \textcolor{comment}{// skip led selection}}
+\DoxyCodeLine{34   \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{35   \mbox{\hyperlink{classEditorConnection_a34c38f6c5bb39ac0d30e54abf6924284}{clearDemo}}();}
+\DoxyCodeLine{36   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entering Editor Connection"{}});}
+\DoxyCodeLine{37   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{38 \}}
+
+\end{DoxyCode}
+
+
+References clear\+Demo(), DEBUG\+\_\+\+LOG, Menu\+::init(), and Menu\+::m\+\_\+led\+Selected.
+
+\mbox{\Hypertarget{classEditorConnection_a244b1221a041532730e18fbcc4cd11e5}\label{classEditorConnection_a244b1221a041532730e18fbcc4cd11e5}} 
+\index{EditorConnection@{EditorConnection}!leaveMenu@{leaveMenu}}
+\index{leaveMenu@{leaveMenu}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{leaveMenu()}{leaveMenu()}}
+{\footnotesize\ttfamily void Editor\+Connection\+::leave\+Menu (\begin{DoxyParamCaption}\item[{bool}]{do\+Save = {\ttfamily false} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{Menu}}.
+
+
+
+Definition at line 226 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{227 \{}
+\DoxyCodeLine{228   \mbox{\hyperlink{classSerialComs_a9122c58c6da4240df7dcf3e9ef213245}{SerialComs::write}}(\mbox{\hyperlink{VortexConfig_8h_a8e0fa92ffe5b3fdc1a3b19649451d55e}{EDITOR\_VERB\_GOODBYE}});}
+\DoxyCodeLine{229   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{Menu::leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{230 \}}
+
+\end{DoxyCode}
+
+
+References EDITOR\+\_\+\+VERB\+\_\+\+GOODBYE, Menu\+::leave\+Menu(), and Serial\+Coms\+::write().
+
+
+
+Referenced by on\+Long\+Click(), and on\+Long\+Click2().
+
+\mbox{\Hypertarget{classEditorConnection_ae2abe22c58ab557a1c4ada9c9ec6e58f}\label{classEditorConnection_ae2abe22c58ab557a1c4ada9c9ec6e58f}} 
+\index{EditorConnection@{EditorConnection}!onLongClick@{onLongClick}}
+\index{onLongClick@{onLongClick}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{onLongClick()}{onLongClick()}}
+{\footnotesize\ttfamily void Editor\+Connection\+::on\+Long\+Click (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_aa5e3a269c2dba3ee69b530c7d1b3c0ff}{Menu}}.
+
+
+
+Definition at line 216 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{217 \{}
+\DoxyCodeLine{218   \mbox{\hyperlink{classEditorConnection_a244b1221a041532730e18fbcc4cd11e5}{leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{219 \}}
+
+\end{DoxyCode}
+
+
+References leave\+Menu().
+
+\mbox{\Hypertarget{classEditorConnection_a94603cec3cc30ed70df22242ebb1cc76}\label{classEditorConnection_a94603cec3cc30ed70df22242ebb1cc76}} 
+\index{EditorConnection@{EditorConnection}!onLongClick2@{onLongClick2}}
+\index{onLongClick2@{onLongClick2}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{onLongClick2()}{onLongClick2()}}
+{\footnotesize\ttfamily void Editor\+Connection\+::on\+Long\+Click2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_ad5caae69726edb6e2ed284c25eed79eb}{Menu}}.
+
+
+
+Definition at line 221 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{222 \{}
+\DoxyCodeLine{223   \mbox{\hyperlink{classEditorConnection_a244b1221a041532730e18fbcc4cd11e5}{leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{224 \}}
+
+\end{DoxyCode}
+
+
+References leave\+Menu().
+
+\mbox{\Hypertarget{classEditorConnection_a4cab09fcac77a0326fb54d65d18b963e}\label{classEditorConnection_a4cab09fcac77a0326fb54d65d18b963e}} 
+\index{EditorConnection@{EditorConnection}!onShortClick@{onShortClick}}
+\index{onShortClick@{onShortClick}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{onShortClick()}{onShortClick()}}
+{\footnotesize\ttfamily void Editor\+Connection\+::on\+Short\+Click (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_a135b0de5e64efeb822e5323f4b8c8955}{Menu}}.
+
+
+
+Definition at line 203 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{204 \{}
+\DoxyCodeLine{205   \textcolor{comment}{// reset, this won't actually disconnect the com port}}
+\DoxyCodeLine{206   \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72abf18d5ddc8d178e2d6077fb0cf935e86}{STATE\_DISCONNECTED}};}
+\DoxyCodeLine{207   \textcolor{comment}{// clear the demo}}
+\DoxyCodeLine{208   \mbox{\hyperlink{classEditorConnection_a34c38f6c5bb39ac0d30e54abf6924284}{clearDemo}}();}
+\DoxyCodeLine{209 \}}
+
+\end{DoxyCode}
+
+
+References clear\+Demo(), m\+\_\+state, and STATE\+\_\+\+DISCONNECTED.
+
+\mbox{\Hypertarget{classEditorConnection_a31521fb3b6a7ac1e5e3f51832c9002f1}\label{classEditorConnection_a31521fb3b6a7ac1e5e3f51832c9002f1}} 
+\index{EditorConnection@{EditorConnection}!onShortClick2@{onShortClick2}}
+\index{onShortClick2@{onShortClick2}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{onShortClick2()}{onShortClick2()}}
+{\footnotesize\ttfamily void Editor\+Connection\+::on\+Short\+Click2 (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_a0c60d92fc9fcf6d8499e419318a2b56e}{Menu}}.
+
+
+
+Definition at line 211 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{212 \{}
+\DoxyCodeLine{213   \mbox{\hyperlink{classEditorConnection_af1890d36b57157e3c945f5b788762373}{sendCurModeVL}}();}
+\DoxyCodeLine{214 \}}
+
+\end{DoxyCode}
+
+
+References send\+Cur\+Mode\+VL().
+
+\mbox{\Hypertarget{classEditorConnection_a98e37fd70333d6d3a04745653b6c2c6b}\label{classEditorConnection_a98e37fd70333d6d3a04745653b6c2c6b}} 
+\index{EditorConnection@{EditorConnection}!receiveData@{receiveData}}
+\index{receiveData@{receiveData}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{receiveData()}{receiveData()}}
+{\footnotesize\ttfamily void Editor\+Connection\+::receive\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 250 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{251 \{}
+\DoxyCodeLine{252   \textcolor{comment}{// read more data into the receive buffer}}
+\DoxyCodeLine{253   \mbox{\hyperlink{classSerialComs_a713db35f7f3e79772a55a87979154b07}{SerialComs::read}}(\mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}});}
+\DoxyCodeLine{254 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+receive\+Buffer, and Serial\+Coms\+::read().
+
+
+
+Referenced by run().
+
+\mbox{\Hypertarget{classEditorConnection_aa80d957cc61da77c92b8c8bb16031029}\label{classEditorConnection_aa80d957cc61da77c92b8c8bb16031029}} 
+\index{EditorConnection@{EditorConnection}!receiveDemoMode@{receiveDemoMode}}
+\index{receiveDemoMode@{receiveDemoMode}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{receiveDemoMode()}{receiveDemoMode()}}
+{\footnotesize\ttfamily bool Editor\+Connection\+::receive\+Demo\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 295 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{296 \{}
+\DoxyCodeLine{297   \textcolor{comment}{// need at least the buffer size first}}
+\DoxyCodeLine{298   uint32\_t size = 0;}
+\DoxyCodeLine{299   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_adf87e444e828287c0a43cab2958ca01b}{size}}() < \textcolor{keyword}{sizeof}(size)) \{}
+\DoxyCodeLine{300     \textcolor{comment}{// wait, not enough data available yet}}
+\DoxyCodeLine{301     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{302   \}}
+\DoxyCodeLine{303   \textcolor{comment}{// grab the size out of the start}}
+\DoxyCodeLine{304   \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_afb97666e6a0bea5ea98e273d4e6a4d35}{resetUnserializer}}();}
+\DoxyCodeLine{305   size = \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_af38ef088c7d0aa2fbc02172f54b599c7}{peek32}}();}
+\DoxyCodeLine{306   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_adf87e444e828287c0a43cab2958ca01b}{size}}() < (size + \textcolor{keyword}{sizeof}(size))) \{}
+\DoxyCodeLine{307     \textcolor{comment}{// don't unserialize yet, not ready}}
+\DoxyCodeLine{308     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{309   \}}
+\DoxyCodeLine{310   \textcolor{comment}{// okay unserialize now, first unserialize the size}}
+\DoxyCodeLine{311   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_ae7b547c012dde17ca5cc5df7dc2ec77b}{unserialize32}}(\&size)) \{}
+\DoxyCodeLine{312     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{313   \}}
+\DoxyCodeLine{314   \textcolor{comment}{// create a new ByteStream that will hold the full buffer of data}}
+\DoxyCodeLine{315   \mbox{\hyperlink{classByteStream}{ByteStream}} buf(\mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
+\DoxyCodeLine{316   \textcolor{comment}{// then copy everything from the receive buffer into the rawdata}}
+\DoxyCodeLine{317   \textcolor{comment}{// which is going to overwrite the crc/size/flags of the ByteStream}}
+\DoxyCodeLine{318   memcpy(buf.rawData(), \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a038ab1de765890b845daba30948972ce}{data}}() + \textcolor{keyword}{sizeof}(size),}
+\DoxyCodeLine{319     \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_adf87e444e828287c0a43cab2958ca01b}{size}}() -\/ \textcolor{keyword}{sizeof}(size));}
+\DoxyCodeLine{320   \textcolor{comment}{// clear the receive buffer}}
+\DoxyCodeLine{321   \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{322   \textcolor{comment}{// unserialize the mode into the demo mode}}
+\DoxyCodeLine{323   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a31ed6fbb39ca7876e415fc58bc18d630}{loadFromBuffer}}(buf)) \{}
+\DoxyCodeLine{324     \textcolor{comment}{// failure}}
+\DoxyCodeLine{325   \}}
+\DoxyCodeLine{326   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{327 \}}
+
+\end{DoxyCode}
+
+
+References Byte\+Stream\+::clear(), Byte\+Stream\+::data(), Mode\+::load\+From\+Buffer(), Menu\+::m\+\_\+preview\+Mode, m\+\_\+receive\+Buffer, Byte\+Stream\+::peek32(), Byte\+Stream\+::raw\+Data(), Byte\+Stream\+::raw\+Size(), Byte\+Stream\+::reset\+Unserializer(), Byte\+Stream\+::size(), and Byte\+Stream\+::unserialize32().
+
+
+
+Referenced by run().
+
+\mbox{\Hypertarget{classEditorConnection_ac5190c24d2532a1be8059fbc04a5dcd4}\label{classEditorConnection_ac5190c24d2532a1be8059fbc04a5dcd4}} 
+\index{EditorConnection@{EditorConnection}!receiveMessage@{receiveMessage}}
+\index{receiveMessage@{receiveMessage}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{receiveMessage()}{receiveMessage()}}
+{\footnotesize\ttfamily bool Editor\+Connection\+::receive\+Message (\begin{DoxyParamCaption}\item[{const char $\ast$}]{message }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 40 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{41 \{}
+\DoxyCodeLine{42   \textcolor{keywordtype}{size\_t} len = strlen(message);}
+\DoxyCodeLine{43   uint8\_t \textcolor{keywordtype}{byte} = 0;}
+\DoxyCodeLine{44   \textcolor{comment}{// wait for the editor to ack the idle}}
+\DoxyCodeLine{45   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_adf87e444e828287c0a43cab2958ca01b}{size}}() < len) \{}
+\DoxyCodeLine{46     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{47   \}}
+\DoxyCodeLine{48   \textcolor{keywordflow}{if} (memcmp(\mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_afd46d5edd85bf5481c6abd3f559d769f}{frontUnserializer}}(), message, len) != 0) \{}
+\DoxyCodeLine{49     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{50   \}}
+\DoxyCodeLine{51   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{size\_t} i = 0; i < len; ++i) \{}
+\DoxyCodeLine{52     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a4451478eea4d9efba71cdc043bda4db2}{unserialize8}}(\&\textcolor{keywordtype}{byte})) \{}
+\DoxyCodeLine{53       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{54     \}}
+\DoxyCodeLine{55   \}}
+\DoxyCodeLine{56   \textcolor{comment}{// if everything was read out, reset}}
+\DoxyCodeLine{57   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_ac12ccb4c9afc385acb1e4dd2fd81f756}{unserializerAtEnd}}()) \{}
+\DoxyCodeLine{58     \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{59   \}}
+\DoxyCodeLine{60   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{61 \}}
+
+\end{DoxyCode}
+
+
+References Byte\+Stream\+::clear(), Byte\+Stream\+::front\+Unserializer(), m\+\_\+receive\+Buffer, Byte\+Stream\+::size(), Byte\+Stream\+::unserialize8(), and Byte\+Stream\+::unserializer\+At\+End().
+
+
+
+Referenced by handle\+Command(), and run().
+
+\mbox{\Hypertarget{classEditorConnection_a2296e42204cdbe192bb446c343b1985a}\label{classEditorConnection_a2296e42204cdbe192bb446c343b1985a}} 
+\index{EditorConnection@{EditorConnection}!receiveModes@{receiveModes}}
+\index{receiveModes@{receiveModes}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{receiveModes()}{receiveModes()}}
+{\footnotesize\ttfamily bool Editor\+Connection\+::receive\+Modes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 263 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{264 \{}
+\DoxyCodeLine{265   \textcolor{comment}{// need at least the buffer size first}}
+\DoxyCodeLine{266   uint32\_t size = 0;}
+\DoxyCodeLine{267   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_adf87e444e828287c0a43cab2958ca01b}{size}}() < \textcolor{keyword}{sizeof}(size)) \{}
+\DoxyCodeLine{268     \textcolor{comment}{// wait, not enough data available yet}}
+\DoxyCodeLine{269     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{270   \}}
+\DoxyCodeLine{271   \textcolor{comment}{// grab the size out of the start}}
+\DoxyCodeLine{272   \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_afb97666e6a0bea5ea98e273d4e6a4d35}{resetUnserializer}}();}
+\DoxyCodeLine{273   size = \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_af38ef088c7d0aa2fbc02172f54b599c7}{peek32}}();}
+\DoxyCodeLine{274   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_adf87e444e828287c0a43cab2958ca01b}{size}}() < (size + \textcolor{keyword}{sizeof}(size))) \{}
+\DoxyCodeLine{275     \textcolor{comment}{// don't unserialize yet, not ready}}
+\DoxyCodeLine{276     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{277   \}}
+\DoxyCodeLine{278   \textcolor{comment}{// okay unserialize now, first unserialize the size}}
+\DoxyCodeLine{279   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_ae7b547c012dde17ca5cc5df7dc2ec77b}{unserialize32}}(\&size)) \{}
+\DoxyCodeLine{280     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{281   \}}
+\DoxyCodeLine{282   \textcolor{comment}{// create a new ByteStream that will hold the full buffer of data}}
+\DoxyCodeLine{283   \mbox{\hyperlink{classByteStream}{ByteStream}} buf(\mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
+\DoxyCodeLine{284   \textcolor{comment}{// then copy everything from the receive buffer into the rawdata}}
+\DoxyCodeLine{285   \textcolor{comment}{// which is going to overwrite the crc/size/flags of the ByteStream}}
+\DoxyCodeLine{286   memcpy(buf.rawData(), \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a038ab1de765890b845daba30948972ce}{data}}() + \textcolor{keyword}{sizeof}(size),}
+\DoxyCodeLine{287     \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_adf87e444e828287c0a43cab2958ca01b}{size}}() -\/ \textcolor{keyword}{sizeof}(size));}
+\DoxyCodeLine{288   \textcolor{comment}{// clear the receive buffer}}
+\DoxyCodeLine{289   \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{290   \mbox{\hyperlink{classModes_a7a8e136c877b6cb04ac31a37020b89e6}{Modes::loadFromBuffer}}(buf);}
+\DoxyCodeLine{291   \mbox{\hyperlink{classModes_a1756081ee85dbcf672ddad5a3dcb4690}{Modes::saveStorage}}();}
+\DoxyCodeLine{292   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{293 \}}
+
+\end{DoxyCode}
+
+
+References Byte\+Stream\+::clear(), Byte\+Stream\+::data(), Modes\+::load\+From\+Buffer(), m\+\_\+receive\+Buffer, Byte\+Stream\+::peek32(), Byte\+Stream\+::raw\+Data(), Byte\+Stream\+::raw\+Size(), Byte\+Stream\+::reset\+Unserializer(), Modes\+::save\+Storage(), Byte\+Stream\+::size(), and Byte\+Stream\+::unserialize32().
+
+
+
+Referenced by run().
+
+\mbox{\Hypertarget{classEditorConnection_af634ec7181239c80d02e5f7d7f2ad308}\label{classEditorConnection_af634ec7181239c80d02e5f7d7f2ad308}} 
+\index{EditorConnection@{EditorConnection}!run@{run}}
+\index{run@{run}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{Menu\+::\+Menu\+Action}} Editor\+Connection\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{Menu}}.
+
+
+
+Definition at line 71 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72 \{}
+\DoxyCodeLine{73   \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{MenuAction}} result = \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{Menu::run}}();}
+\DoxyCodeLine{74   \textcolor{keywordflow}{if} (result != \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}}) \{}
+\DoxyCodeLine{75     \textcolor{keywordflow}{return} result;}
+\DoxyCodeLine{76   \}}
+\DoxyCodeLine{77   \textcolor{comment}{// TODO: auto leave the editor menu when unplugged}}
+\DoxyCodeLine{78   \textcolor{comment}{// show the editor}}
+\DoxyCodeLine{79   \mbox{\hyperlink{classEditorConnection_acbc145167462de6647054a4f2799db1f}{showEditor}}();}
+\DoxyCodeLine{80   \textcolor{comment}{// receive any data from serial into the receive buffer}}
+\DoxyCodeLine{81   \mbox{\hyperlink{classEditorConnection_a98e37fd70333d6d3a04745653b6c2c6b}{receiveData}}();}
+\DoxyCodeLine{82   \textcolor{comment}{// operate on the state of the editor connection}}
+\DoxyCodeLine{83   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}}) \{}
+\DoxyCodeLine{84   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72abf18d5ddc8d178e2d6077fb0cf935e86}{STATE\_DISCONNECTED}}:}
+\DoxyCodeLine{85     \textcolor{comment}{// not connected yet so check for connections}}
+\DoxyCodeLine{86     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classSerialComs_ac6a8cc107fd0997dcd0f87a2b81ecd82}{SerialComs::isConnected}}()) \{}
+\DoxyCodeLine{87       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classSerialComs_a134c87080fce06fea5e1cd0bbf54d2da}{SerialComs::checkSerial}}()) \{}
+\DoxyCodeLine{88         \textcolor{comment}{// no connection found just continue waiting}}
+\DoxyCodeLine{89         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{90       \}}
+\DoxyCodeLine{91     \}}
+\DoxyCodeLine{92     \textcolor{comment}{// a connection was found, say hello}}
+\DoxyCodeLine{93     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a4e49f8e9019e9ed3f5064858c2183c1e}{STATE\_GREETING}};}
+\DoxyCodeLine{94     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{95   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a4e49f8e9019e9ed3f5064858c2183c1e}{STATE\_GREETING}}:}
+\DoxyCodeLine{96     \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{97     \textcolor{comment}{// send the hello greeting with our version number and build time}}
+\DoxyCodeLine{98     \mbox{\hyperlink{classSerialComs_a9122c58c6da4240df7dcf3e9ef213245}{SerialComs::write}}(\mbox{\hyperlink{VortexConfig_8h_ab8551eac78d43daf3bae9d0bd1489079}{EDITOR\_VERB\_GREETING}});}
+\DoxyCodeLine{99     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a5e894ea4e4c252e39b66dd132cb308f1}{STATE\_IDLE}};}
+\DoxyCodeLine{100     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{101   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a5e894ea4e4c252e39b66dd132cb308f1}{STATE\_IDLE}}:}
+\DoxyCodeLine{102     \textcolor{comment}{// parse the receive buffer for any commands from the editor}}
+\DoxyCodeLine{103     \mbox{\hyperlink{classEditorConnection_a85b7cab1e9fc9af10af3f342268a7b9a}{handleCommand}}();}
+\DoxyCodeLine{104     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{105   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a85a6573a233a7360a3500b967819c3a3}{STATE\_PULL\_MODES}}:}
+\DoxyCodeLine{106     \textcolor{comment}{// editor requested pull modes, send the modes}}
+\DoxyCodeLine{107     \mbox{\hyperlink{classEditorConnection_a3e9e8c800831799dcec3aa530e96e231}{sendModes}}();}
+\DoxyCodeLine{108     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a8d57857c6215212c869d39b739bdc73b}{STATE\_PULL\_MODES\_SEND}};}
+\DoxyCodeLine{109     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{110   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a8d57857c6215212c869d39b739bdc73b}{STATE\_PULL\_MODES\_SEND}}:}
+\DoxyCodeLine{111     \textcolor{comment}{// recive the send modes ack from the editor}}
+\DoxyCodeLine{112     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_ac5190c24d2532a1be8059fbc04a5dcd4}{receiveMessage}}(\mbox{\hyperlink{VortexConfig_8h_abff1a19cf965ee7956ccbe597593d4d9}{EDITOR\_VERB\_PULL\_MODES\_DONE}})) \{}
+\DoxyCodeLine{113       \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a2f2b632b1ddcc6e9dfd9aa06d0151d3e}{STATE\_PULL\_MODES\_DONE}};}
+\DoxyCodeLine{114     \}}
+\DoxyCodeLine{115     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{116   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a2f2b632b1ddcc6e9dfd9aa06d0151d3e}{STATE\_PULL\_MODES\_DONE}}:}
+\DoxyCodeLine{117     \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{118     \textcolor{comment}{// send our acknowledgement that the modes were sent}}
+\DoxyCodeLine{119     \mbox{\hyperlink{classSerialComs_a9122c58c6da4240df7dcf3e9ef213245}{SerialComs::write}}(\mbox{\hyperlink{VortexConfig_8h_af58d2cc1f42277129c11a9181d7d5870}{EDITOR\_VERB\_PULL\_MODES\_ACK}});}
+\DoxyCodeLine{120     \textcolor{comment}{// go idle}}
+\DoxyCodeLine{121     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a5e894ea4e4c252e39b66dd132cb308f1}{STATE\_IDLE}};}
+\DoxyCodeLine{122     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{123   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72af152074118a039ecb48e3c03b23ff204}{STATE\_PUSH\_MODES}}:}
+\DoxyCodeLine{124     \textcolor{comment}{// editor requested to push modes, clear first and reset first}}
+\DoxyCodeLine{125     \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{126     \textcolor{comment}{// now say we are ready}}
+\DoxyCodeLine{127     \mbox{\hyperlink{classSerialComs_a9122c58c6da4240df7dcf3e9ef213245}{SerialComs::write}}(\mbox{\hyperlink{VortexConfig_8h_a44368eb56afaaaaa68494b18cc9e033e}{EDITOR\_VERB\_READY}});}
+\DoxyCodeLine{128     \textcolor{comment}{// move to receiving}}
+\DoxyCodeLine{129     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a1b883360e6768b085d216bad0f78df3d}{STATE\_PUSH\_MODES\_RECEIVE}};}
+\DoxyCodeLine{130     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{131   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a1b883360e6768b085d216bad0f78df3d}{STATE\_PUSH\_MODES\_RECEIVE}}:}
+\DoxyCodeLine{132     \textcolor{comment}{// receive the modes into the receive buffer}}
+\DoxyCodeLine{133     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_a2296e42204cdbe192bb446c343b1985a}{receiveModes}}()) \{}
+\DoxyCodeLine{134       \textcolor{comment}{// success modes were received send the done}}
+\DoxyCodeLine{135       \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a1e6a0aba862a0bb4b33f37f10e321796}{STATE\_PUSH\_MODES\_DONE}};}
+\DoxyCodeLine{136     \}}
+\DoxyCodeLine{137     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{138   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a1e6a0aba862a0bb4b33f37f10e321796}{STATE\_PUSH\_MODES\_DONE}}:}
+\DoxyCodeLine{139     \textcolor{comment}{// say we are done}}
+\DoxyCodeLine{140     \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{141     \mbox{\hyperlink{classSerialComs_a9122c58c6da4240df7dcf3e9ef213245}{SerialComs::write}}(\mbox{\hyperlink{VortexConfig_8h_a0be17f7cbaf6e5a5e8d4f0405d16107e}{EDITOR\_VERB\_PUSH\_MODES\_ACK}});}
+\DoxyCodeLine{142     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a5e894ea4e4c252e39b66dd132cb308f1}{STATE\_IDLE}};}
+\DoxyCodeLine{143     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{144   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a8a0f7276f898d8d34b24c1bd39bf44cc}{STATE\_DEMO\_MODE}}:}
+\DoxyCodeLine{145     \textcolor{comment}{// editor requested to push modes, clear first and reset first}}
+\DoxyCodeLine{146     \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{147     \textcolor{comment}{// now say we are ready}}
+\DoxyCodeLine{148     \mbox{\hyperlink{classSerialComs_a9122c58c6da4240df7dcf3e9ef213245}{SerialComs::write}}(\mbox{\hyperlink{VortexConfig_8h_a44368eb56afaaaaa68494b18cc9e033e}{EDITOR\_VERB\_READY}});}
+\DoxyCodeLine{149     \textcolor{comment}{// move to receiving}}
+\DoxyCodeLine{150     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a4f62d254b8a96cae6ba3fc848ad08a59}{STATE\_DEMO\_MODE\_RECEIVE}};}
+\DoxyCodeLine{151     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{152   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a4f62d254b8a96cae6ba3fc848ad08a59}{STATE\_DEMO\_MODE\_RECEIVE}}:}
+\DoxyCodeLine{153     \textcolor{comment}{// receive the modes into the receive buffer}}
+\DoxyCodeLine{154     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classEditorConnection_aa80d957cc61da77c92b8c8bb16031029}{receiveDemoMode}}()) \{}
+\DoxyCodeLine{155       \textcolor{comment}{// success modes were received send the done}}
+\DoxyCodeLine{156       \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72ad875f82180099eb4ac6f4137d7e31a21}{STATE\_DEMO\_MODE\_DONE}};}
+\DoxyCodeLine{157     \}}
+\DoxyCodeLine{158     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{159   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72ad875f82180099eb4ac6f4137d7e31a21}{STATE\_DEMO\_MODE\_DONE}}:}
+\DoxyCodeLine{160     \textcolor{comment}{// say we are done}}
+\DoxyCodeLine{161     \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{162     \mbox{\hyperlink{classSerialComs_a9122c58c6da4240df7dcf3e9ef213245}{SerialComs::write}}(\mbox{\hyperlink{VortexConfig_8h_ae724cf64152fa5aeaa588b60bb6c921a}{EDITOR\_VERB\_DEMO\_MODE\_ACK}});}
+\DoxyCodeLine{163     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a5e894ea4e4c252e39b66dd132cb308f1}{STATE\_IDLE}};}
+\DoxyCodeLine{164     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{165   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72aa2410da1c9c8c73d16ef57fa2549701d}{STATE\_CLEAR\_DEMO}}:}
+\DoxyCodeLine{166     \mbox{\hyperlink{classEditorConnection_a34c38f6c5bb39ac0d30e54abf6924284}{clearDemo}}();}
+\DoxyCodeLine{167     \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{168     \mbox{\hyperlink{classSerialComs_a9122c58c6da4240df7dcf3e9ef213245}{SerialComs::write}}(\mbox{\hyperlink{VortexConfig_8h_ad7818b2f91199a1d2f18dec307b5295a}{EDITOR\_VERB\_CLEAR\_DEMO\_ACK}});}
+\DoxyCodeLine{169     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a5e894ea4e4c252e39b66dd132cb308f1}{STATE\_IDLE}};}
+\DoxyCodeLine{170     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{171   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a3d089ba7666fa68cceef0bb895a377c4}{STATE\_TRANSMIT\_MODE\_VL}}:}
+\DoxyCodeLine{172 \textcolor{preprocessor}{\#if VL\_ENABLE\_SENDER == 1}}
+\DoxyCodeLine{173     \textcolor{comment}{// if still sending and the send command indicated more data}}
+\DoxyCodeLine{174     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLSender_ad15998a8177227dc12dfecbfdc0119fb}{VLSender::isSending}}() \&\& \mbox{\hyperlink{classVLSender_a8673ff200bc495f60c006c488738af75}{VLSender::send}}()) \{}
+\DoxyCodeLine{175       \textcolor{comment}{// then continue sending}}
+\DoxyCodeLine{176       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{177     \}}
+\DoxyCodeLine{178 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{179     \textcolor{comment}{// othewrise, done, switch to the transmit done state}}
+\DoxyCodeLine{180     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72ac1f27c31c0d1a2c7d9864bad88dbbe89}{STATE\_TRANSMIT\_MODE\_VL\_DONE}};}
+\DoxyCodeLine{181     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{182   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72ac1f27c31c0d1a2c7d9864bad88dbbe89}{STATE\_TRANSMIT\_MODE\_VL\_DONE}}:}
+\DoxyCodeLine{183     \textcolor{comment}{// done transmitting}}
+\DoxyCodeLine{184     \mbox{\hyperlink{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}{m\_receiveBuffer}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{185     \mbox{\hyperlink{classSerialComs_a9122c58c6da4240df7dcf3e9ef213245}{SerialComs::write}}(\mbox{\hyperlink{VortexConfig_8h_a454b92f5be223e39485cbc86fcc99f3f}{EDITOR\_VERB\_TRANSMIT\_VL\_ACK}});}
+\DoxyCodeLine{186     \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a5e894ea4e4c252e39b66dd132cb308f1}{STATE\_IDLE}};}
+\DoxyCodeLine{187     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{188   \}}
+\DoxyCodeLine{189   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
+\DoxyCodeLine{190 \}}
+
+\end{DoxyCode}
+
+
+References Serial\+Coms\+::check\+Serial(), Byte\+Stream\+::clear(), clear\+Demo(), EDITOR\+\_\+\+VERB\+\_\+\+CLEAR\+\_\+\+DEMO\+\_\+\+ACK, EDITOR\+\_\+\+VERB\+\_\+\+DEMO\+\_\+\+MODE\+\_\+\+ACK, EDITOR\+\_\+\+VERB\+\_\+\+GREETING, EDITOR\+\_\+\+VERB\+\_\+\+PULL\+\_\+\+MODES\+\_\+\+ACK, EDITOR\+\_\+\+VERB\+\_\+\+PULL\+\_\+\+MODES\+\_\+\+DONE, EDITOR\+\_\+\+VERB\+\_\+\+PUSH\+\_\+\+MODES\+\_\+\+ACK, EDITOR\+\_\+\+VERB\+\_\+\+READY, EDITOR\+\_\+\+VERB\+\_\+\+TRANSMIT\+\_\+\+VL\+\_\+\+ACK, handle\+Command(), Serial\+Coms\+::is\+Connected(), VLSender\+::is\+Sending(), m\+\_\+receive\+Buffer, m\+\_\+state, Menu\+::\+MENU\+\_\+\+CONTINUE, receive\+Data(), receive\+Demo\+Mode(), receive\+Message(), receive\+Modes(), Menu\+::run(), VLSender\+::send(), send\+Modes(), show\+Editor(), STATE\+\_\+\+CLEAR\+\_\+\+DEMO, STATE\+\_\+\+DEMO\+\_\+\+MODE, STATE\+\_\+\+DEMO\+\_\+\+MODE\+\_\+\+DONE, STATE\+\_\+\+DEMO\+\_\+\+MODE\+\_\+\+RECEIVE, STATE\+\_\+\+DISCONNECTED, STATE\+\_\+\+GREETING, STATE\+\_\+\+IDLE, STATE\+\_\+\+PULL\+\_\+\+MODES, STATE\+\_\+\+PULL\+\_\+\+MODES\+\_\+\+DONE, STATE\+\_\+\+PULL\+\_\+\+MODES\+\_\+\+SEND, STATE\+\_\+\+PUSH\+\_\+\+MODES, STATE\+\_\+\+PUSH\+\_\+\+MODES\+\_\+\+DONE, STATE\+\_\+\+PUSH\+\_\+\+MODES\+\_\+\+RECEIVE, STATE\+\_\+\+TRANSMIT\+\_\+\+MODE\+\_\+\+VL, STATE\+\_\+\+TRANSMIT\+\_\+\+MODE\+\_\+\+VL\+\_\+\+DONE, and Serial\+Coms\+::write().
+
+\mbox{\Hypertarget{classEditorConnection_af1890d36b57157e3c945f5b788762373}\label{classEditorConnection_af1890d36b57157e3c945f5b788762373}} 
+\index{EditorConnection@{EditorConnection}!sendCurModeVL@{sendCurModeVL}}
+\index{sendCurModeVL@{sendCurModeVL}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{sendCurModeVL()}{sendCurModeVL()}}
+{\footnotesize\ttfamily void Editor\+Connection\+::send\+Cur\+Mode\+VL (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 192 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{193 \{}
+\DoxyCodeLine{194 \textcolor{preprocessor}{\#if VL\_ENABLE\_SENDER == 1}}
+\DoxyCodeLine{195   \textcolor{comment}{// immediately load the mode and send it now}}
+\DoxyCodeLine{196   \mbox{\hyperlink{classVLSender_a4166c98c11640955d4cdf94bf3be5601}{VLSender::loadMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}});}
+\DoxyCodeLine{197   \mbox{\hyperlink{classVLSender_a8673ff200bc495f60c006c488738af75}{VLSender::send}}();}
+\DoxyCodeLine{198 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{199   \mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}} = \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a3d089ba7666fa68cceef0bb895a377c4}{STATE\_TRANSMIT\_MODE\_VL}};}
+\DoxyCodeLine{200 \}}
+
+\end{DoxyCode}
+
+
+References VLSender\+::load\+Mode(), Menu\+::m\+\_\+preview\+Mode, m\+\_\+state, VLSender\+::send(), and STATE\+\_\+\+TRANSMIT\+\_\+\+MODE\+\_\+\+VL.
+
+
+
+Referenced by handle\+Command(), and on\+Short\+Click2().
+
+\mbox{\Hypertarget{classEditorConnection_a3e9e8c800831799dcec3aa530e96e231}\label{classEditorConnection_a3e9e8c800831799dcec3aa530e96e231}} 
+\index{EditorConnection@{EditorConnection}!sendModes@{sendModes}}
+\index{sendModes@{sendModes}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{sendModes()}{sendModes()}}
+{\footnotesize\ttfamily void Editor\+Connection\+::send\+Modes (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 256 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{257 \{}
+\DoxyCodeLine{258   \mbox{\hyperlink{classByteStream}{ByteStream}} modesBuffer;}
+\DoxyCodeLine{259   \mbox{\hyperlink{classModes_a9b64018ed3d72c3667f0eaef5fd6495f}{Modes::saveToBuffer}}(modesBuffer);}
+\DoxyCodeLine{260   \mbox{\hyperlink{classSerialComs_a9122c58c6da4240df7dcf3e9ef213245}{SerialComs::write}}(modesBuffer);}
+\DoxyCodeLine{261 \}}
+
+\end{DoxyCode}
+
+
+References Modes\+::save\+To\+Buffer(), and Serial\+Coms\+::write().
+
+
+
+Referenced by run().
+
+\mbox{\Hypertarget{classEditorConnection_acbc145167462de6647054a4f2799db1f}\label{classEditorConnection_acbc145167462de6647054a4f2799db1f}} 
+\index{EditorConnection@{EditorConnection}!showEditor@{showEditor}}
+\index{showEditor@{showEditor}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{showEditor()}{showEditor()}}
+{\footnotesize\ttfamily void Editor\+Connection\+::show\+Editor (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 232 of file Editor\+Connection.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{233 \{}
+\DoxyCodeLine{234   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}{m\_state}}) \{}
+\DoxyCodeLine{235   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72abf18d5ddc8d178e2d6077fb0cf935e86}{STATE\_DISCONNECTED}}:}
+\DoxyCodeLine{236     \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{237     \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(250, 150, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
+\DoxyCodeLine{238     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{239   \textcolor{keywordflow}{case} \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72a5e894ea4e4c252e39b66dd132cb308f1}{STATE\_IDLE}}:}
+\DoxyCodeLine{240     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a21d1c7da7b97340ab1af39d242cc6f22}{play}}();}
+\DoxyCodeLine{241     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{242   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{243     \textcolor{comment}{// do nothing!}}
+\DoxyCodeLine{244     \textcolor{comment}{// Note if you clear the leds while selecting color}}
+\DoxyCodeLine{245     \textcolor{comment}{// it may make the color selection choppy}}
+\DoxyCodeLine{246     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{247   \}}
+\DoxyCodeLine{248 \}}
+
+\end{DoxyCode}
+
+
+References Leds\+::blink\+All(), Leds\+::clear\+All(), Menu\+::m\+\_\+preview\+Mode, m\+\_\+state, Mode\+::play(), RGB\+\_\+\+WHITE0, STATE\+\_\+\+DISCONNECTED, and STATE\+\_\+\+IDLE.
+
+
+
+Referenced by run().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}\label{classEditorConnection_a0c149d4ab4c9e09285e8dfca348aced1}} 
+\index{EditorConnection@{EditorConnection}!m\_receiveBuffer@{m\_receiveBuffer}}
+\index{m\_receiveBuffer@{m\_receiveBuffer}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{m\_receiveBuffer}{m\_receiveBuffer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classByteStream}{Byte\+Stream}} Editor\+Connection\+::m\+\_\+receive\+Buffer\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 76 of file Editor\+Connection.\+h.
+
+
+
+Referenced by receive\+Data(), receive\+Demo\+Mode(), receive\+Message(), receive\+Modes(), and run().
+
+\mbox{\Hypertarget{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}\label{classEditorConnection_a3292fcb58ad0e41cb62e6c6167aa56a3}} 
+\index{EditorConnection@{EditorConnection}!m\_state@{m\_state}}
+\index{m\_state@{m\_state}!EditorConnection@{EditorConnection}}
+\doxysubsubsection{\texorpdfstring{m\_state}{m\_state}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classEditorConnection_aba2f5b971c7c0707f695f1f6f1a94c72}{Editor\+Connection\+State}} Editor\+Connection\+::m\+\_\+state\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 74 of file Editor\+Connection.\+h.
+
+
+
+Referenced by handle\+Command(), on\+Short\+Click(), run(), send\+Cur\+Mode\+VL(), and show\+Editor().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Menus/\+Menu\+List/\mbox{\hyperlink{EditorConnection_8h}{Editor\+Connection.\+h}}\item 
+Vortex\+Engine/src/\+Menus/\+Menu\+List/\mbox{\hyperlink{EditorConnection_8cpp}{Editor\+Connection.\+cpp}}\end{DoxyCompactItemize}

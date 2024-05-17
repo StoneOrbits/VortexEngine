@@ -1,0 +1,207 @@
+\hypertarget{classVortexPattern}{}\doxysection{Vortex\+Pattern Class Reference}
+\label{classVortexPattern}\index{VortexPattern@{VortexPattern}}
+
+
+{\ttfamily \#include $<$Vortex\+Pattern.\+h$>$}
+
+
+
+Inheritance diagram for Vortex\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classVortexPattern__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Vortex\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=276pt]{classVortexPattern__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classVortexPattern_a8d6da2f596fbcd2d2a1923d0d7f57af1}{Vortex\+Pattern}} (const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&args)
+\item 
+virtual \mbox{\hyperlink{classVortexPattern_a255c56beadeac2274e769f4bc00812ec}{$\sim$\+Vortex\+Pattern}} ()
+\item 
+virtual void \mbox{\hyperlink{classVortexPattern_a5bd6a20ea8eef7c2bda0f99d2cb96c16}{init}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classVortexPattern_af1251b7224b508000b83f2dd75c931b7}{blink\+On}} () override
+\item 
+virtual void \mbox{\hyperlink{classVortexPattern_a411fce6c43022e4268afe2a5b7d9865f}{poststep}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classVortexPattern_acac4771979548e79cf6d1a46603515fe}{m\+\_\+progress}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 8 of file Vortex\+Pattern.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classVortexPattern_a8d6da2f596fbcd2d2a1923d0d7f57af1}\label{classVortexPattern_a8d6da2f596fbcd2d2a1923d0d7f57af1}} 
+\index{VortexPattern@{VortexPattern}!VortexPattern@{VortexPattern}}
+\index{VortexPattern@{VortexPattern}!VortexPattern@{VortexPattern}}
+\doxysubsubsection{\texorpdfstring{VortexPattern()}{VortexPattern()}}
+{\footnotesize\ttfamily Vortex\+Pattern\+::\+Vortex\+Pattern (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&}]{args }\end{DoxyParamCaption})}
+
+
+
+Definition at line 11 of file Vortex\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{11                                                     :}
+\DoxyCodeLine{12   \mbox{\hyperlink{classBlinkStepPattern_a649cc172c8da3b9a9c6dcf7223aa788c}{BlinkStepPattern}}(args),}
+\DoxyCodeLine{13   \mbox{\hyperlink{classVortexPattern_acac4771979548e79cf6d1a46603515fe}{m\_progress}}(0)}
+\DoxyCodeLine{14 \{}
+\DoxyCodeLine{15   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca3c1c636de62fd96bcafaa3774d15c66b}{PATTERN\_VORTEXWIPE}};}
+\DoxyCodeLine{16   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
+\DoxyCodeLine{17 \}}
+
+\end{DoxyCode}
+
+
+References Pattern\+::m\+\_\+pattern\+ID, PATTERN\+\_\+\+VORTEXWIPE, and Pattern\+::set\+Args().
+
+\mbox{\Hypertarget{classVortexPattern_a255c56beadeac2274e769f4bc00812ec}\label{classVortexPattern_a255c56beadeac2274e769f4bc00812ec}} 
+\index{VortexPattern@{VortexPattern}!````~VortexPattern@{$\sim$VortexPattern}}
+\index{````~VortexPattern@{$\sim$VortexPattern}!VortexPattern@{VortexPattern}}
+\doxysubsubsection{\texorpdfstring{$\sim$VortexPattern()}{~VortexPattern()}}
+{\footnotesize\ttfamily Vortex\+Pattern\+::$\sim$\+Vortex\+Pattern (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 19 of file Vortex\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{20 \{}
+\DoxyCodeLine{21 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classVortexPattern_af1251b7224b508000b83f2dd75c931b7}\label{classVortexPattern_af1251b7224b508000b83f2dd75c931b7}} 
+\index{VortexPattern@{VortexPattern}!blinkOn@{blinkOn}}
+\index{blinkOn@{blinkOn}!VortexPattern@{VortexPattern}}
+\doxysubsubsection{\texorpdfstring{blinkOn()}{blinkOn()}}
+{\footnotesize\ttfamily void Vortex\+Pattern\+::blink\+On (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a792005962eff211334d732ee09020b90}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 33 of file Vortex\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{34 \{}
+\DoxyCodeLine{35   \mbox{\hyperlink{classLeds_afe1bad74b1520a6b4dd6bf359cbd063d}{Leds::setRing}}((\mbox{\hyperlink{LedTypes_8h_a24c6950661e5126485873539625be1b3}{Ring}})(\mbox{\hyperlink{LedTypes_8h_a24c6950661e5126485873539625be1b3ab17fcf52612cf3d1f0cacdcee1aecec8}{RING\_LAST}} -\/ \mbox{\hyperlink{classVortexPattern_acac4771979548e79cf6d1a46603515fe}{m\_progress}}), \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}{peekNext}}());}
+\DoxyCodeLine{36 \}}
+
+\end{DoxyCode}
+
+
+References Pattern\+::m\+\_\+colorset, m\+\_\+progress, Colorset\+::peek\+Next(), RING\+\_\+\+LAST, and Leds\+::set\+Ring().
+
+\mbox{\Hypertarget{classVortexPattern_a5bd6a20ea8eef7c2bda0f99d2cb96c16}\label{classVortexPattern_a5bd6a20ea8eef7c2bda0f99d2cb96c16}} 
+\index{VortexPattern@{VortexPattern}!init@{init}}
+\index{init@{init}!VortexPattern@{VortexPattern}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Vortex\+Pattern\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 24 of file Vortex\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26   \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{BlinkStepPattern::init}}();}
+\DoxyCodeLine{27   \textcolor{comment}{// reset progress}}
+\DoxyCodeLine{28   \mbox{\hyperlink{classVortexPattern_acac4771979548e79cf6d1a46603515fe}{m\_progress}} = 0;}
+\DoxyCodeLine{29   \textcolor{comment}{// start colorset at index 0 so cur() works}}
+\DoxyCodeLine{30   \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4959095438adcd6c02f5b0e4a17c9b8d}{setCurIndex}}(0);}
+\DoxyCodeLine{31 \}}
+
+\end{DoxyCode}
+
+
+References Blink\+Step\+Pattern\+::init(), Pattern\+::m\+\_\+colorset, m\+\_\+progress, and Colorset\+::set\+Cur\+Index().
+
+\mbox{\Hypertarget{classVortexPattern_a411fce6c43022e4268afe2a5b7d9865f}\label{classVortexPattern_a411fce6c43022e4268afe2a5b7d9865f}} 
+\index{VortexPattern@{VortexPattern}!poststep@{poststep}}
+\index{poststep@{poststep}!VortexPattern@{VortexPattern}}
+\doxysubsubsection{\texorpdfstring{poststep()}{poststep()}}
+{\footnotesize\ttfamily void Vortex\+Pattern\+::poststep (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a31d244f697913cbdf624386f8a46663c}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 38 of file Vortex\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40   \mbox{\hyperlink{classVortexPattern_acac4771979548e79cf6d1a46603515fe}{m\_progress}} = (\mbox{\hyperlink{classVortexPattern_acac4771979548e79cf6d1a46603515fe}{m\_progress}} + 1) \% \mbox{\hyperlink{LedTypes_8h_a24c6950661e5126485873539625be1b3ac3774c43a898a445b1da757c79b878ac}{RING\_COUNT}};}
+\DoxyCodeLine{41   \textcolor{keywordflow}{if} (\mbox{\hyperlink{LedTypes_8h_a24c6950661e5126485873539625be1b3ac3774c43a898a445b1da757c79b878ac}{RING\_COUNT}} -\/ \mbox{\hyperlink{classVortexPattern_acac4771979548e79cf6d1a46603515fe}{m\_progress}} == \mbox{\hyperlink{LedTypes_8h_a24c6950661e5126485873539625be1b3ac3774c43a898a445b1da757c79b878ac}{RING\_COUNT}}) \{}
+\DoxyCodeLine{42     \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{43   \}}
+\DoxyCodeLine{44 \}}
+
+\end{DoxyCode}
+
+
+References Colorset\+::get\+Next(), Pattern\+::m\+\_\+colorset, m\+\_\+progress, and RING\+\_\+\+COUNT.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classVortexPattern_acac4771979548e79cf6d1a46603515fe}\label{classVortexPattern_acac4771979548e79cf6d1a46603515fe}} 
+\index{VortexPattern@{VortexPattern}!m\_progress@{m\_progress}}
+\index{m\_progress@{m\_progress}!VortexPattern@{VortexPattern}}
+\doxysubsubsection{\texorpdfstring{m\_progress}{m\_progress}}
+{\footnotesize\ttfamily uint8\+\_\+t Vortex\+Pattern\+::m\+\_\+progress\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 23 of file Vortex\+Pattern.\+h.
+
+
+
+Referenced by blink\+On(), init(), and poststep().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{VortexPattern_8h}{Vortex\+Pattern.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{VortexPattern_8cpp}{Vortex\+Pattern.\+cpp}}\end{DoxyCompactItemize}
