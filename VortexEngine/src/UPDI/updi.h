@@ -11,85 +11,6 @@ enum cs_reg : uint8_t
   ASI_CRC_Status, Reg_13, Reg_14, Reg_15
 };
 
-
-#if 0
-#include <HardwareSerial.h>
-
-
-class UPDI
-{
-public:
-  UPDI(uint8_t txPin, uint8_t rxPin);
-  void initializeUPDICommunication();
-
-  void enterProgrammingMode();
-
-  // Reading and Writing High-Level APIs
-  void readEEPROMAndUserRow();
-  void writeEEPROMAndUserRow(const uint8_t *data, uint16_t size);
-  void writeFirmwareToProgramFlash(const uint8_t *firmware, uint32_t size);
-
-  // Key Types for sendKey method
-  enum KeyType
-  {
-    CHIP_ERASE = 0,
-    NVMPROG = 1,
-    USERROW_WRITE = 2
-  };
-  bool sendKey(KeyType keyType);
-
-//private:
-  void sendBreakFrame();
-
-  bool inProgMode();
-  void reset(bool apply_reset);
-  bool check(void);
-
-  // Instruction-specific methods
-  bool sendLdsInstruction(uint32_t address, uint8_t addressSize, uint8_t &outVal);
-  bool sendLdcsInstruction(uint8_t csAddress, uint8_t &outVal);
-  bool sendStsInstruction(uint32_t address, uint8_t addressSize, uint8_t data);
-  bool sendStcsInstruction(uint8_t csAddress, uint8_t data);
-  bool sendKeyInstruction(const uint8_t *key);
-
-  bool checkCsRegisterSet(uint8_t csAddress, uint8_t val);
-  bool checkCsRegisterUnset(uint8_t csAddress, uint8_t val);
-
-  void sendBreak();
-  void sendDoubleBreak();
-
-  void updi_serial_init();
-  void updi_serial_term();
-
-  void updi_serial_setTX();
-  void updi_serial_setRX();
-
-  int updiReadWait();
-  size_t updiSendReceive(uint8_t *data, uint16_t size, uint8_t *buff, uint32_t len);
-  bool updiSend(const uint8_t *data, uint16_t size);
-  void sendByte(uint8_t b);
-  uint8_t receiveByte();
-
-  template <uint8_t mask = 0xFF>
-  uint8_t cpu_mode()
-  {
-    uint8_t mode = 0;
-    if (!sendLdcsInstruction(ASI_System_Status, mode)) {
-      return 0;
-    }
-    return mode & mask;
-  }
-
-  static const int UPDI_BUFFER_SIZE = 1024;
-  uint8_t m_txPin;
-  uint8_t m_rxPin;
-  uint8_t m_buffer[UPDI_BUFFER_SIZE];
-  uint16_t m_bufferIndex;
-
-  HardwareSerial m_updiSerial;
-};
-#else
-
 class UPDI
 {
 public:
@@ -152,7 +73,4 @@ private:
   uint8_t m_rxPin;
 };
 
-#endif
-
 #endif // UPDI_H
-
