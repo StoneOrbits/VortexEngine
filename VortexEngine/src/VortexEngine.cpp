@@ -26,7 +26,9 @@
 
 // tx = 2
 // rx = 8
-UPDI updi(21, 20);
+#define tx 8
+#define rx 2
+UPDI updi(tx, rx);
 
 // bool in vortexlib to simulate sleeping
 volatile bool VortexEngine::m_sleeping = false;
@@ -175,15 +177,22 @@ void VortexEngine::tick()
 
   // run the main logic for the engine
   runMainLogic();
+  //static bool bd = false;
+  //if (!bd) {
+  //  bd = true;
+  //  updi.updi_serial_init();
+  //}
 
   if (g_pButtonM->onShortClick()) {
     if (SerialComs::checkSerial()) {
       INFO_LOG("Successfully connected to serial...");
     }
-    INFO_LOG("Entering programming mode...");
+    updi.sendDoubleBreak();
     updi.enterProgrammingMode();
-    INFO_LOG("Reading eeprom and userrow...");
-    updi.readEEPROMAndUserRow();
+    updi.enterProgrammingMode();
+    //updi.eraseMemory();
+    updi.readMemory();
+    //updi.readEEPROMAndUserRow();
   }
 
   // update the leds
