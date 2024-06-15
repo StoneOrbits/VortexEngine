@@ -7,6 +7,8 @@
 #include "../Time/TimeControl.h"
 #include "../Log/Log.h"
 
+#include "../Serial/ByteStream.h"
+
 #include "driver/uart.h"
 #include "freertos/FreeRTOS.h"
 #include "freertos/task.h"
@@ -325,13 +327,13 @@ bool UPDI::updiSend(const uint8_t *buf, uint16_t size)
 
   gpio_set_direction(UPDI_TX_PIN, GPIO_MODE_INPUT);
   //gpio_set_direction(UPDI_RX_PIN, GPIO_MODE_INPUT);
-  esp_rom_gpio_connect_in_signal(UPDI_TX_PIN, UART_PERIPH_SIGNAL(UPDI_UART_NUM, SOC_UART_RX_PIN_IDX), false);    
+  esp_rom_gpio_connect_in_signal(UPDI_TX_PIN, UART_PERIPH_SIGNAL(UPDI_UART_NUM, SOC_UART_RX_PIN_IDX), false);
 
   return true;
 
   //updi_serial_setRX();
   // pretty sure I never send anything bigger than 32, lol
-  uint8_t wasteBuf[32] = {0};
+  uint8_t wasteBuf[32] = { 0 };
   // Clear the UART buffer
   int len = uart_read_bytes(UPDI_UART_NUM, wasteBuf, size, 50 / portTICK_PERIOD_MS); // Timeout in ticks
   if (len != count) {
@@ -636,7 +638,7 @@ void UPDI::updi_serial_setRX()
   gpio_config(&pin_cfg);
 
   // and attach the listeners for uart
-  esp_rom_gpio_connect_in_signal(UPDI_TX_PIN, UART_PERIPH_SIGNAL(UPDI_UART_NUM, SOC_UART_RX_PIN_IDX), false);    
+  esp_rom_gpio_connect_in_signal(UPDI_TX_PIN, UART_PERIPH_SIGNAL(UPDI_UART_NUM, SOC_UART_RX_PIN_IDX), false);
 }
 
 // Example function added to the UPDI class to enter programming mode and perform initial operations
@@ -844,19 +846,19 @@ void UPDI::enterProgrammingMode()
 
   //while (2 + 2 != 5) {
 
-    uint8_t b = cpu_mode<0xFF>();
+  uint8_t b = cpu_mode<0xFF>();
 
-    if (b != 0) {
-      us = micros();
-      ms = millis();
-      INFO_LOGF("%u.%u (+%u.%u): Cpu Mode: 0x%02x", ms, us, ms - lastms, us - lastus, b);
-      lastms = ms;
-      lastus = us;
-    }
-    if (b == 0x8) {
-      INFO_LOG("Success cpu mode 0x8");
-    }
-    return;
+  if (b != 0) {
+    us = micros();
+    ms = millis();
+    INFO_LOGF("%u.%u (+%u.%u): Cpu Mode: 0x%02x", ms, us, ms - lastms, us - lastus, b);
+    lastms = ms;
+    lastus = us;
+  }
+  if (b == 0x8) {
+    INFO_LOG("Success cpu mode 0x8");
+  }
+  return;
 
 
   //// Write pin to LOW
@@ -1214,33 +1216,39 @@ void UPDI::sendBreakFrame()
 #define RMT_RX_CHANNEL RMT_CHANNEL_1
 
 // Set GPIO to output
-void gpio_set_output(uint8_t pin) {
-    gpio_set_direction((gpio_num_t)pin, GPIO_MODE_OUTPUT);
+void gpio_set_output(uint8_t pin)
+{
+  gpio_set_direction((gpio_num_t)pin, GPIO_MODE_OUTPUT);
 }
 
 // Set GPIO to input
-void gpio_set_input(uint8_t pin) {
-    gpio_set_direction((gpio_num_t)pin, GPIO_MODE_INPUT);
+void gpio_set_input(uint8_t pin)
+{
+  gpio_set_direction((gpio_num_t)pin, GPIO_MODE_INPUT);
 }
 
 // Set GPIO pin high
-void gpio_set_high(uint8_t pin) {
-    gpio_set_level((gpio_num_t)pin, 1);
+void gpio_set_high(uint8_t pin)
+{
+  gpio_set_level((gpio_num_t)pin, 1);
 }
 
 // Set GPIO pin low
-void gpio_set_low(uint8_t pin) {
-    gpio_set_level((gpio_num_t)pin, 0);
+void gpio_set_low(uint8_t pin)
+{
+  gpio_set_level((gpio_num_t)pin, 0);
 }
 
 // Read GPIO pin level
-uint8_t gpio_read(uint8_t pin) {
-    return gpio_get_level((gpio_num_t)pin);
+uint8_t gpio_read(uint8_t pin)
+{
+  return gpio_get_level((gpio_num_t)pin);
 }
 
 // Delay for a bit period (adjust based on your baud rate)
-void bit_delay() {
-    ets_delay_us(100);  // Example delay, adjust for your bit rate
+void bit_delay()
+{
+  ets_delay_us(100);  // Example delay, adjust for your bit rate
 }
 
 // Send a break signal
@@ -1255,27 +1263,28 @@ void UPDI::sendBreak()
   updiSend(&buf, 1);
 }
 
-void UPDI::updi_serial_term() {
+void UPDI::updi_serial_term()
+{
   m_updiSerial.flush();
-	delay(10);
-	delay(10);
+  delay(10);
+  delay(10);
   m_updiSerial.end();
-	// now we manually drive both pins low (timing is relative to chip clock speed (Mhz):
-	//20MHz = 6ms, 8Mhz = 13, 4Mhz = 25 : and since we do not know the clock, we assume its slow
-	// must force the pins back to being MUXed for I/O
-	gpio_matrix_out(m_txPin, SIG_GPIO_OUT_IDX, false, false);
-	gpio_matrix_out(m_rxPin, SIG_GPIO_OUT_IDX, false, false);
-	//delay(1);
-	// switch pins to input so we are not feeding power back over the UPDI pin
-	pinMode(m_rxPin, INPUT_PULLUP);
-	pinMode(m_txPin, INPUT_PULLUP);
-	//return;
-	pinMode(m_rxPin, OUTPUT);
-	pinMode(m_txPin, OUTPUT);
-	//delay(1);
-	digitalWrite(m_rxPin, HIGH);
-	digitalWrite(m_txPin, HIGH);
-	//delay(1);
+  // now we manually drive both pins low (timing is relative to chip clock speed (Mhz):
+  //20MHz = 6ms, 8Mhz = 13, 4Mhz = 25 : and since we do not know the clock, we assume its slow
+  // must force the pins back to being MUXed for I/O
+  gpio_matrix_out(m_txPin, SIG_GPIO_OUT_IDX, false, false);
+  gpio_matrix_out(m_rxPin, SIG_GPIO_OUT_IDX, false, false);
+  //delay(1);
+  // switch pins to input so we are not feeding power back over the UPDI pin
+  pinMode(m_rxPin, INPUT_PULLUP);
+  pinMode(m_txPin, INPUT_PULLUP);
+  //return;
+  pinMode(m_rxPin, OUTPUT);
+  pinMode(m_txPin, OUTPUT);
+  //delay(1);
+  digitalWrite(m_rxPin, HIGH);
+  digitalWrite(m_txPin, HIGH);
+  //delay(1);
 }
 
 void UPDI::sendDoubleBreak()
@@ -1304,7 +1313,7 @@ void UPDI::sendDoubleBreak()
 #else 
   // Clear the UART buffer
   size_t buffered_size;
-  uint8_t wasteBuf[16] = {0};
+  uint8_t wasteBuf[16] = { 0 };
   uint8_t breakChar = 0x00;
   uart_read_bytes(UPDI_UART_NUM, wasteBuf, 1, 50 / portTICK_PERIOD_MS);
 
@@ -1586,7 +1595,7 @@ void UPDI::sendDoubleBreak()
 #define UPDI_PIN GPIO_NUM_8
 
 #define UPDI_BAUD 9600
-#define BIT_TIME_US 200 // (1e6 / UPDI_BAUD) // Bit time in microseconds
+#define BIT_TIME_US 100 // (1e6 / UPDI_BAUD) // Bit time in microseconds
 
 // Timing macros (adjust as needed for your specific setup)
 #define UPDI_BIT_DELAY_US      2000  // Bit period delay
@@ -1618,60 +1627,60 @@ void hw_timer_delay_us(uint32_t delay_us)
 
 UPDI::UPDI(uint8_t txPin, uint8_t rxPin) : m_txPin(UPDI_PIN), m_rxPin(UPDI_PIN)
 {
-    GPIO_SET_OUTPUT(UPDI_PIN);
-    GPIO_SET_HIGH(UPDI_PIN);
+  GPIO_SET_OUTPUT(UPDI_PIN);
+  GPIO_SET_HIGH(UPDI_PIN);
 
-    // Configure hardware timer
-    timer_config_t config = {
-        .alarm_en = TIMER_ALARM_DIS,
-        .counter_en = TIMER_PAUSE,
-        .intr_type = TIMER_INTR_LEVEL,
-        .counter_dir = TIMER_COUNT_UP,
-        .auto_reload = TIMER_AUTORELOAD_DIS,
-        .divider = 2,   // Prescaler for 40 MHz (25 ns per tick)
-        .clk_src = TIMER_SRC_CLK_APB
-    };
-    if (timer_init(TIMER_GROUP_0, TIMER_0, &config) != ESP_OK) {
-        INFO_LOG("Timer init failed");
-    }
-    if (timer_set_counter_value(TIMER_GROUP_0, TIMER_0, 0) != ESP_OK) {
-        INFO_LOG("Timer set counter value failed");
-    }
-    const gpio_config_t pin_cfg = {
-      .pin_bit_mask = (1ul << UPDI_PIN),
-      .mode = GPIO_MODE_INPUT_OUTPUT, // Input and Output w/ open-drain!
-      .pull_up_en = GPIO_PULLUP_ENABLE, // Open-drain requires a pull-up.
-      .pull_down_en = GPIO_PULLDOWN_DISABLE,
-      .intr_type = GPIO_INTR_DISABLE
-    };
-    // now configure the gpios
-    gpio_config(&pin_cfg);
+  // Configure hardware timer
+  timer_config_t config = {
+      .alarm_en = TIMER_ALARM_DIS,
+      .counter_en = TIMER_PAUSE,
+      .intr_type = TIMER_INTR_LEVEL,
+      .counter_dir = TIMER_COUNT_UP,
+      .auto_reload = TIMER_AUTORELOAD_DIS,
+      .divider = 2,   // Prescaler for 40 MHz (25 ns per tick)
+      .clk_src = TIMER_SRC_CLK_APB
+  };
+  if (timer_init(TIMER_GROUP_0, TIMER_0, &config) != ESP_OK) {
+    INFO_LOG("Timer init failed");
+  }
+  if (timer_set_counter_value(TIMER_GROUP_0, TIMER_0, 0) != ESP_OK) {
+    INFO_LOG("Timer set counter value failed");
+  }
+  const gpio_config_t pin_cfg = {
+    .pin_bit_mask = (1ul << UPDI_PIN),
+    .mode = GPIO_MODE_INPUT_OUTPUT, // Input and Output w/ open-drain!
+    .pull_up_en = GPIO_PULLUP_ENABLE, // Open-drain requires a pull-up.
+    .pull_down_en = GPIO_PULLDOWN_DISABLE,
+    .intr_type = GPIO_INTR_DISABLE
+  };
+  // now configure the gpios
+  gpio_config(&pin_cfg);
 }
 
 void UPDI::sendBreak()
 {
-    GPIO_SET_OUTPUT(UPDI_PIN);
-    GPIO_SET_LOW(UPDI_PIN);
-    hw_timer_delay_us(UPDI_BREAK_DELAY_US); // Convert microseconds to ticks
-    GPIO_SET_HIGH(UPDI_PIN);
-    hw_timer_delay_us(UPDI_BREAK_DELAY_US); // Convert microseconds to ticks
+  GPIO_SET_OUTPUT(UPDI_PIN);
+  GPIO_SET_LOW(UPDI_PIN);
+  hw_timer_delay_us(UPDI_BREAK_DELAY_US); // Convert microseconds to ticks
+  GPIO_SET_HIGH(UPDI_PIN);
+  hw_timer_delay_us(UPDI_BREAK_DELAY_US); // Convert microseconds to ticks
 }
 
 void UPDI::sendDoubleBreak()
 {
-    GPIO_SET_OUTPUT(UPDI_PIN);
+  GPIO_SET_OUTPUT(UPDI_PIN);
 
-    // First break signal
-    GPIO_SET_LOW(UPDI_PIN);
-    hw_timer_delay_us(UPDI_BREAK_DELAY_US); // Convert microseconds to ticks
-    GPIO_SET_HIGH(UPDI_PIN);
-    hw_timer_delay_us(UPDI_BIT_DELAY_US); // Convert microseconds to ticks
+  // First break signal
+  GPIO_SET_LOW(UPDI_PIN);
+  hw_timer_delay_us(UPDI_BREAK_DELAY_US); // Convert microseconds to ticks
+  GPIO_SET_HIGH(UPDI_PIN);
+  hw_timer_delay_us(UPDI_BIT_DELAY_US); // Convert microseconds to ticks
 
-    // Second break signal
-    GPIO_SET_LOW(UPDI_PIN);
-    hw_timer_delay_us(UPDI_BREAK_DELAY_US); // Convert microseconds to ticks
-    GPIO_SET_HIGH(UPDI_PIN);
-    hw_timer_delay_us(UPDI_BREAK_DELAY_US); // Convert microseconds to ticks
+  // Second break signal
+  GPIO_SET_LOW(UPDI_PIN);
+  hw_timer_delay_us(UPDI_BREAK_DELAY_US); // Convert microseconds to ticks
+  GPIO_SET_HIGH(UPDI_PIN);
+  hw_timer_delay_us(UPDI_BREAK_DELAY_US); // Convert microseconds to ticks
 }
 
 void UPDI::resetOn()
@@ -1683,7 +1692,8 @@ bool UPDI::resetOff()
 {
   stcs(ASI_Reset_Request, 0x0);
   uint8_t timeout = 0;
-  while (cpu_mode<0x0E>() == 0 && timeout < 100000) {
+  while (cpu_mode<0x0E>() == 0 && timeout < 10) {
+    hw_timer_delay_us(100);
     timeout++;
   }
   return timeout < 2;
@@ -1695,85 +1705,86 @@ bool UPDI::reset()
   return resetOff();
 }
 
-void wait_for_bit() {
+void wait_for_bit()
+{
 
 }
 
 void UPDI::sendByte(uint8_t byte)
 {
-    uint8_t parity = __builtin_parity(byte);
-    GPIO_SET_OUTPUT(UPDI_PIN);
+  uint8_t parity = __builtin_parity(byte);
+  GPIO_SET_OUTPUT(UPDI_PIN);
 
-    // Send start bit (low)
-    GPIO_SET_LOW(UPDI_PIN);
-    hw_timer_delay_us(BIT_TIME_US);
+  // Send start bit (low)
+  GPIO_SET_LOW(UPDI_PIN);
+  hw_timer_delay_us(BIT_TIME_US);
 
-    // Send data bits (LSB first)
-    for (uint8_t i = 0; i < 8; i++) {
-        if (byte & 0x01) {
-            GPIO_SET_HIGH(UPDI_PIN);
-        } else {
-            GPIO_SET_LOW(UPDI_PIN);
-        }
-        hw_timer_delay_us(BIT_TIME_US);
-        byte >>= 1;
-    }
-
-    // Send parity bit (even parity)
-    if (parity) {
-        GPIO_SET_HIGH(UPDI_PIN);
+  // Send data bits (LSB first)
+  for (uint8_t i = 0; i < 8; i++) {
+    if (byte & 0x01) {
+      GPIO_SET_HIGH(UPDI_PIN);
     } else {
-        GPIO_SET_LOW(UPDI_PIN);
+      GPIO_SET_LOW(UPDI_PIN);
     }
     hw_timer_delay_us(BIT_TIME_US);
+    byte >>= 1;
+  }
 
-    // Send stop bit (high)
+  // Send parity bit (even parity)
+  if (parity) {
     GPIO_SET_HIGH(UPDI_PIN);
-    hw_timer_delay_us(BIT_TIME_US * 2);
+  } else {
+    GPIO_SET_LOW(UPDI_PIN);
+  }
+  hw_timer_delay_us(BIT_TIME_US);
 
-    GPIO_SET_INPUT(UPDI_PIN);
+  // Send stop bit (high)
+  GPIO_SET_HIGH(UPDI_PIN);
+  hw_timer_delay_us(BIT_TIME_US * 2);
+
+  GPIO_SET_INPUT(UPDI_PIN);
 }
 
 uint8_t UPDI::receiveByte()
 {
-    uint8_t byte = 0;
+  uint8_t byte = 0;
 
-    //GPIO_SET_INPUT(UPDI_PIN);
+  //GPIO_SET_INPUT(UPDI_PIN);
 
-    // Wait for start bit (low)
-    //while (GPIO_READ(UPDI_PIN) == 1);
+  // Wait for start bit (low)
+  //while (GPIO_READ(UPDI_PIN) == 1);
 
-    uint32_t counter = 0;
+  uint32_t counter = 0;
 #define TIMEOUT_TT 40000000
-    while (GPIO_READ(UPDI_PIN) == 1 && counter++ < TIMEOUT_TT);
-    if (counter >= TIMEOUT_TT) {
-      INFO_LOG("Timed out waiting for start bit");
-      return 0;
-    }
+  while (GPIO_READ(UPDI_PIN) == 1 && counter++ < TIMEOUT_TT);
+  if (counter >= TIMEOUT_TT) {
+    INFO_LOG("Timed out waiting for start bit");
+    return 0;
+  }
 
-    hw_timer_delay_us(BIT_TIME_US / 2); // Half bit time for sampling
+  hw_timer_delay_us(BIT_TIME_US / 2); // Half bit time for sampling
 
-    // Read data bits (LSB first)
-    for (uint8_t i = 0; i < 8; i++) {
-        hw_timer_delay_us(BIT_TIME_US);
-        byte >>= 1;
-        if (GPIO_READ(UPDI_PIN)) {
-            byte |= 0x80;
-        }
-    }
-
-    // Read and discard parity bit
+  // Read data bits (LSB first)
+  for (uint8_t i = 0; i < 8; i++) {
     hw_timer_delay_us(BIT_TIME_US);
-
-    // Read stop bit
-    hw_timer_delay_us(BIT_TIME_US);
-    if (GPIO_READ(UPDI_PIN) == 0) {
-        //INFO_LOG("Stop bit error");
+    byte >>= 1;
+    if (GPIO_READ(UPDI_PIN)) {
+      byte |= 0x80;
     }
+  }
 
-    hw_timer_delay_us(BIT_TIME_US * 2); // Convert microseconds to ticks
+  // Read and discard parity bit
+  hw_timer_delay_us(BIT_TIME_US);
 
-    return byte;
+  // Read stop bit
+  hw_timer_delay_us(BIT_TIME_US);
+  if (GPIO_READ(UPDI_PIN) == 0) {
+    //INFO_LOG("Stop bit error");
+  }
+
+  hw_timer_delay_us(BIT_TIME_US * 2); // Convert microseconds to ticks
+
+  return byte;
 }
 
 uint8_t UPDI::ldcs(cs_reg reg)
@@ -1806,7 +1817,8 @@ void UPDI::sendKey(const uint8_t *key)
   sendByte(key[7]);
 }
 
-void UPDI::stptr_p(const uint8_t* addr_p, uint8_t n) {
+void UPDI::stptr_p(const uint8_t *addr_p, uint8_t n)
+{
   sendByte(0x55);
   sendByte(0x68 + --n);
   sendByte(*(addr_p++));
@@ -1966,16 +1978,16 @@ void UPDI::enterProgrammingMode()
   stcs(Control_A, 0x6);
   uint8_t mode = 0;
   //while (1) {
-    mode = cpu_mode<0xEF>();
-    if (mode != 0x82) {
-      INFO_LOGF("Bad Cpu Mode 0x%02x...", mode);
-      sendDoubleBreak();
-      uint8_t val = ldcs(Status_B);
-      INFO_LOGF("status B: 0x%02x", val);
-      return;
-    }
-    INFO_LOGF("Cpu Mode 0x%02x...", mode);
+  mode = cpu_mode<0xEF>();
+  if (mode != 0x82) {
+    INFO_LOGF("Bad Cpu Mode 0x%02x...", mode);
+    sendDoubleBreak();
+    uint8_t val = ldcs(Status_B);
+    INFO_LOGF("status B: 0x%02x", val);
     return;
+  }
+  //INFO_LOGF("Cpu Mode 0x%02x...", mode);
+  return;
   //}
     //uint8_t mode2 = cpu_mode<0xEF>();
     //INFO_LOGF("Cpu Mode 0x%02x...", mode);
@@ -1985,142 +1997,158 @@ void UPDI::enterProgrammingMode()
     //  mode = cpu_mode<0xEF>();
     //}
   switch (mode) {
-    case 0x21:
-    case 0xa2:
-    case 0x82:
-      //  return;
-      ////uint8_t val_ASI_CRC_Status = ldcs(ASI_CRC_Status);
-      ////uint8_t val_Reg_13 = ldcs(Reg_13);
-      ////uint8_t val_Reg_14 = ldcs(Reg_14);
-      ////uint8_t val_Reg_15 = ldcs(Reg_15);
+  case 0x21:
+  case 0xa2:
+  case 0x82:
+    //  return;
+    ////uint8_t val_ASI_CRC_Status = ldcs(ASI_CRC_Status);
+    ////uint8_t val_Reg_13 = ldcs(Reg_13);
+    ////uint8_t val_Reg_14 = ldcs(Reg_14);
+    ////uint8_t val_Reg_15 = ldcs(Reg_15);
 
-      //if (!reset()) {
-      //  INFO_LOG("Failed to reset 1");
-      //  return;
-      //}
+    //if (!reset()) {
+    //  INFO_LOG("Failed to reset 1");
+    //  return;
+    //}
 
-      //if (cpu_mode<0x01>()) {
-      //  INFO_LOG("still locked");
-      //  return;
-      //}
+    //if (cpu_mode<0x01>()) {
+    //  INFO_LOG("still locked");
+    //  return;
+    //}
 
-      sendProgKey();
-      if (!reset()) {
-        INFO_LOG("Failed to reset 1");
-        return;
-      }
-      INFO_LOG("Sent key...");
-
-      // fallthrough
-    case 0x08:
-      sts_b(NVM_base | Control_A, NVM_CMD_PBC);
-      break;
-    default:
-      INFO_LOGF("Unknown cpu mode: 0x%02x", mode);
+    sendProgKey();
+    if (!reset()) {
+      INFO_LOG("Failed to reset 1");
       return;
     }
+    INFO_LOG("Sent key...");
+
+    // fallthrough
+  case 0x08:
+    sts_b(NVM_base | Control_A, NVM_CMD_PBC);
+    break;
+  default:
+    INFO_LOGF("Unknown cpu mode: 0x%02x", mode);
+    return;
+  }
 
   return;
 
-    //sendEraseKey();
-    //stcs(ASI_Reset_Request, 0x59);
-    //stcs(ASI_Reset_Request, 0x00);
-    //tt = 0;
-    //while (cpu_mode<0x0E>() == 0 && tt++ < 2) {
-    //  hw_timer_delay_us(1000);
-    //}
+  //sendEraseKey();
+  //stcs(ASI_Reset_Request, 0x59);
+  //stcs(ASI_Reset_Request, 0x00);
+  //tt = 0;
+  //while (cpu_mode<0x0E>() == 0 && tt++ < 2) {
+  //  hw_timer_delay_us(1000);
+  //}
 
-    //mode = cpu_mode<0xEF>();
-    //if (mode != 0x82) {
-    //  INFO_LOGF("Bad CPU Mode: 0x%02x", mode);
-    //  return;
-    //}
-    //INFO_LOGF("Good Cpu Mode 0x%02x...", mode);
+  //mode = cpu_mode<0xEF>();
+  //if (mode != 0x82) {
+  //  INFO_LOGF("Bad CPU Mode: 0x%02x", mode);
+  //  return;
+  //}
+  //INFO_LOGF("Good Cpu Mode 0x%02x...", mode);
 
-    //int8_t key_status = ldcs(ASI_Key_Status);
-    //INFO_LOGF("Key Status: 0x%02x", key_status);
+  //int8_t key_status = ldcs(ASI_Key_Status);
+  //INFO_LOGF("Key Status: 0x%02x", key_status);
 
-    // perform a reset
-    stcs(ASI_Reset_Request, 0x59);
-    stcs(ASI_Reset_Request, 0x00);
-    if (cpu_mode<0x01>()) {
-      INFO_LOG("Chip is locked");
-    } else {
-      INFO_LOG("Chip unlocked");
-    }
+  // perform a reset
+  stcs(ASI_Reset_Request, 0x59);
+  stcs(ASI_Reset_Request, 0x00);
+  if (cpu_mode<0x01>()) {
+    INFO_LOG("Chip is locked");
+  } else {
+    INFO_LOG("Chip unlocked");
+  }
 
-    //// Wait for the reset process to end.
-    //// Either NVMPROG, UROWPROG or BOOTDONE bit will be set in the ASI_SYS_STATUS UPDI register.
-    //// This indicates reset is complete.
-    ////while (cpu_mode<0x0E>() == 0);
+  //// Wait for the reset process to end.
+  //// Either NVMPROG, UROWPROG or BOOTDONE bit will be set in the ASI_SYS_STATUS UPDI register.
+  //// This indicates reset is complete.
+  ////while (cpu_mode<0x0E>() == 0);
 
-    ////uint8_t val_ASI_System_Status = ldcs(ASI_System_Status);
-
-
-    ////INFO_LOGF("ASI System Status: 0x%02x", b);
-    //sendKey();
-
-    //enum reg
-    //{
-    //  CTRLA,
-    //  CTRLB,
-    //  STATUS,
-    //  INTCTRL,
-    //  INTFLAGS,
-    //  Reg_5,
-    //  DATA_lo,
-    //  DATA_hi,
-    //  ADDR_lo,
-    //  ADDR_hi,
-    //  ADDR_ext
-    //};
-    //enum cmnd
-    //{
-    //  NVM_CMD_NOP,      /* Does nothing */
-    //  NVM_CMD_WP,       /* Write page buffer to memory */
-    //  NVM_CMD_ER,       /* Erase page */
-    //  NVM_CMD_ERWP,     /* Erase and write page */
-    //  NVM_CMD_PBC,      /* Page buffer clear */
-    //  NVM_CMD_CHER,     /* Chip erase: erase Flash and EEPROM */
-    //  NVM_CMD_EEER,     /* EEPROM Erase */
-    //  NVM_CMD_WFU       /* Write fuse */
-    //};
-    //sts_b(NVM_base | CTRLA, NVM_CMD_PBC);
-
-    //mode = cpu_mode<0x0E>();
-    //INFO_LOGF("std_b complete, CPU Mode: 0x%02x", mode);
+  ////uint8_t val_ASI_System_Status = ldcs(ASI_System_Status);
 
 
+  ////INFO_LOGF("ASI System Status: 0x%02x", b);
+  //sendKey();
 
-    ////for (uint16_t i = 0; i < numBytes; i++) {
-    ////  INFO_LOGF("Received [%u]: 0x%02x", i, buf[i]);
-    ////}
+  //enum reg
+  //{
+  //  CTRLA,
+  //  CTRLB,
+  //  STATUS,
+  //  INTCTRL,
+  //  INTFLAGS,
+  //  Reg_5,
+  //  DATA_lo,
+  //  DATA_hi,
+  //  ADDR_lo,
+  //  ADDR_hi,
+  //  ADDR_ext
+  //};
+  //enum cmnd
+  //{
+  //  NVM_CMD_NOP,      /* Does nothing */
+  //  NVM_CMD_WP,       /* Write page buffer to memory */
+  //  NVM_CMD_ER,       /* Erase page */
+  //  NVM_CMD_ERWP,     /* Erase and write page */
+  //  NVM_CMD_PBC,      /* Page buffer clear */
+  //  NVM_CMD_CHER,     /* Chip erase: erase Flash and EEPROM */
+  //  NVM_CMD_EEER,     /* EEPROM Erase */
+  //  NVM_CMD_WFU       /* Write fuse */
+  //};
+  //sts_b(NVM_base | CTRLA, NVM_CMD_PBC);
 
-    ////INFO_LOGF("val_Status_A: 0x%02x", val_Status_A);
-    ////INFO_LOGF("val_Status_B: 0x%02x", val_Status_B);
-    ////INFO_LOGF("val_Control_A: 0x%02x", val_Control_A);
-    ////INFO_LOGF("val_Control_B: 0x%02x", val_Control_B);
-    ////INFO_LOGF("val_Reg_4: 0x%02x", val_Reg_4);
-    ////INFO_LOGF("val_Reg_5: 0x%02x", val_Reg_5);
-    ////INFO_LOGF("val_Reg_6: 0x%02x", val_Reg_6);
-    ////INFO_LOGF("val_ASI_Key_Status: 0x%02x", val_ASI_Key_Status);
-    ////INFO_LOGF("val_ASI_Reset_Request: 0x%02x", val_ASI_Reset_Request);
-    ////INFO_LOGF("val_ASI_Control_A: 0x%02x", val_ASI_Control_A);
-    ////INFO_LOGF("val_ASI_System_Control_A: 0x%02x", val_ASI_System_Control_A);
-    ////INFO_LOGF("val_ASI_System_Status: 0x%02x", val_ASI_System_Status);
-    ////INFO_LOGF("val_ASI_CRC_Status: 0x%02x", val_ASI_CRC_Status);
-    ////INFO_LOGF("val_Reg_13: 0x%02x", val_Reg_13);
-    ////INFO_LOGF("val_Reg_14: 0x%02x", val_Reg_14);
-    ////INFO_LOGF("val_Reg_15: 0x%02x", val_Reg_15);
+  //mode = cpu_mode<0x0E>();
+  //INFO_LOGF("std_b complete, CPU Mode: 0x%02x", mode);
 
-    ////uint8_t response = ldcs(Status_B);
-    ////INFO_LOGF("LDCS Response: 0x%02X", response);
-    //while (1) {
-    //  uint8_t b = receiveByte();
-    //  if (b && b != 0xff) {
-    //    INFO_LOGF("Received: 0x%02x", b);
-    //  }
-    //}
+
+
+  ////for (uint16_t i = 0; i < numBytes; i++) {
+  ////  INFO_LOGF("Received [%u]: 0x%02x", i, buf[i]);
+  ////}
+
+  ////INFO_LOGF("val_Status_A: 0x%02x", val_Status_A);
+  ////INFO_LOGF("val_Status_B: 0x%02x", val_Status_B);
+  ////INFO_LOGF("val_Control_A: 0x%02x", val_Control_A);
+  ////INFO_LOGF("val_Control_B: 0x%02x", val_Control_B);
+  ////INFO_LOGF("val_Reg_4: 0x%02x", val_Reg_4);
+  ////INFO_LOGF("val_Reg_5: 0x%02x", val_Reg_5);
+  ////INFO_LOGF("val_Reg_6: 0x%02x", val_Reg_6);
+  ////INFO_LOGF("val_ASI_Key_Status: 0x%02x", val_ASI_Key_Status);
+  ////INFO_LOGF("val_ASI_Reset_Request: 0x%02x", val_ASI_Reset_Request);
+  ////INFO_LOGF("val_ASI_Control_A: 0x%02x", val_ASI_Control_A);
+  ////INFO_LOGF("val_ASI_System_Control_A: 0x%02x", val_ASI_System_Control_A);
+  ////INFO_LOGF("val_ASI_System_Status: 0x%02x", val_ASI_System_Status);
+  ////INFO_LOGF("val_ASI_CRC_Status: 0x%02x", val_ASI_CRC_Status);
+  ////INFO_LOGF("val_Reg_13: 0x%02x", val_Reg_13);
+  ////INFO_LOGF("val_Reg_14: 0x%02x", val_Reg_14);
+  ////INFO_LOGF("val_Reg_15: 0x%02x", val_Reg_15);
+
+  ////uint8_t response = ldcs(Status_B);
+  ////INFO_LOGF("LDCS Response: 0x%02X", response);
+  //while (1) {
+  //  uint8_t b = receiveByte();
+  //  if (b && b != 0xff) {
+  //    INFO_LOGF("Received: 0x%02x", b);
+  //  }
+  //}
+}
+
+uint8_t UPDI::lds_b(uint16_t address)
+{
+  sendByte(0x55);
+  sendByte(0x04);
+  sendByte(address & 0xFF);
+  sendByte(address >> 8);
+  return receiveByte();
+}
+
+uint8_t UPDI::ld_b()
+{
+  sendByte(0x55);
+  sendByte(0x20);
+  return receiveByte();
 }
 
 void UPDI::eraseMemory()
@@ -2150,23 +2178,38 @@ void UPDI::readMemory()
     status = cpu_mode();
   }
 
-  uint8_t buf[16] = {0};
+  uint16_t chunksize = 4;
+  ByteStream header(5);
+  uint8_t *ptr = (uint8_t *)header.rawData();
+  for (uint16_t i = 0; i < header.rawSize(); ++i) {
+    uint16_t addr = 0x1400 + i;
+    stptr_p((const uint8_t *)&addr, 2);
+    ptr[i] = ld_b();
+  }
+  if (!header.checkCRC()) {
+    INFO_LOG("ERROR Header CRC Invalid!");
+    reset();
+    return;
+  }
+  INFO_LOG("Header CRC Verified");
+  struct HeaderData {
+    uint8_t version_major;
+    uint8_t version_minor;
+    uint8_t global_flags;
+    uint8_t brightness;
+    uint8_t num_modes;
+  };
+  HeaderData *headerData = (HeaderData *)header.data();
 
-  // Calculate size of address
-  uint8_t addr_size = 2;
-  uint16_t address = 0x8000 - 0x200;
-  // Set UPDI pointer to address
-  stptr_p((const uint8_t *)&address, addr_size);
-  // Read block
-  uint8_t numBytes = sizeof(buf);
-  rep(numBytes - 1);
-  buf[0] = ldinc_b();
-  for (uint16_t i = 1; i < numBytes; i++) {
-    buf[i] = receiveByte();
-  }
-  for (uint16_t i = 0; i < numBytes; i++) {
-    INFO_LOGF("Byte [%u]: 0x%02x", i, buf[i]);
-  }
+  INFO_LOG("Header:");
+  INFO_LOGF(" Version: %u.%u", headerData->version_major, headerData->version_minor);
+  INFO_LOGF(" Flags: 0x%08x", headerData->global_flags);
+  INFO_LOGF(" Brightness: %u", headerData->brightness);
+  INFO_LOGF(" Num Modes: %u", headerData->num_modes);
+
+  //for (uint16_t i = 0; i < sizeof(buf); i++) {
+  //  INFO_LOGF("Byte [%u]: 0x%02x", i, buf[i]);
+  //}
   reset();
 }
 

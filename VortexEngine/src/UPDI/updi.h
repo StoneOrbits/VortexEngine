@@ -120,6 +120,8 @@ private:
   void stptr_p(const uint8_t *addr_p, uint8_t n);
   void rep(uint8_t repeats);
   uint8_t ldinc_b();
+  uint8_t lds_b(uint16_t address);
+  uint8_t ld_b();
 
   // keys for programming
   const uint8_t nvmProgKey[8] = { 0x20, 0x67, 0x6F, 0x72, 0x50, 0x4D, 0x56, 0x4E };
