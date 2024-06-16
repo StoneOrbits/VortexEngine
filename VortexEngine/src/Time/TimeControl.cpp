@@ -196,9 +196,7 @@ uint32_t Time::microseconds()
 
 void Time::delayMicroseconds(uint32_t us)
 {
-#if VORTEX_EMBEDDED == 1
-  delayMicroseconds(us);
-#elif defined(_WIN32)
+#if VORTEX_EMBEDDED == 1 || defined(_WIN32)
   uint32_t newtime = microseconds() + us;
   while (microseconds() < newtime) {
     // busy loop

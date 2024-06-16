@@ -16,19 +16,12 @@
 #include "Menus/Menus.h"
 #include "Modes/Mode.h"
 #include "Leds/Leds.h"
+#include "UPDI/updi.h"
 #include "Log/Log.h"
 
 #ifdef VORTEX_LIB
 #include "VortexLib.h"
 #endif
-
-#include "UPDI/updi.h"
-
-// tx = 2
-// rx = 8
-#define tx 8
-#define rx 2
-UPDI updi(tx, rx);
 
 // bool in vortexlib to simulate sleeping
 volatile bool VortexEngine::m_sleeping = false;
@@ -95,6 +88,10 @@ bool VortexEngine::init()
     DEBUG_LOG("Main menu failed to initialize");
     return false;
   }
+  if (!UPDI::init()) {
+    DEBUG_LOG("UPDI failed to initialize");
+    return false;
+  }
 
 #if COMPRESSION_TEST == 1
   compressionTest();
@@ -139,8 +136,6 @@ void VortexEngine::cleanup()
 #endif
 }
 
-bool updi_done = false;
-
 void VortexEngine::tick()
 {
 #ifdef VORTEX_LIB
@@ -177,22 +172,12 @@ void VortexEngine::tick()
 
   // run the main logic for the engine
   runMainLogic();
-  //static bool bd = false;
-  //if (!bd) {
-  //  bd = true;
-  //  updi.updi_serial_init();
-  //}
 
   if (g_pButtonM->onShortClick()) {
     if (SerialComs::checkSerial()) {
       INFO_LOG("Successfully connected to serial...");
     }
-    updi.sendDoubleBreak();
-    updi.enterProgrammingMode();
-    updi.enterProgrammingMode();
-    //updi.eraseMemory();
-    updi.readMemory();
-    //updi.readEEPROMAndUserRow();
+    UPDI::readMemory();
   }
 
   // update the leds
