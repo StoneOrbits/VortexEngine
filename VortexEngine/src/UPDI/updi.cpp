@@ -2,6 +2,7 @@
 #include "../VortexConfig.h"
 #include "../Time/TimeControl.h"
 #include "../Log/Log.h"
+#include "../Leds/Leds.h"
 #include "../Serial/ByteStream.h"
 #include "../Patterns/Pattern.h"
 #include "../Modes/Mode.h"
@@ -55,23 +56,32 @@ void UPDI::cleanup()
 {
 }
 
-void UPDI::readHeader(ByteStream &header)
+bool UPDI::readHeader(ByteStream &header)
 {
   if (!header.init(5)) {
-    return;
+    return false;
   }
   sendDoubleBreak();
-  enterProgrammingMode();
-  sendProgKey();
-  uint8_t status = ldcs(ASI_Key_Status);
-  if (status != 0x10) {
-    ERROR_LOGF("Bad prog key status: 0x%02x", status);
-    return;
+  stcs(Control_A, 0x6);
+  uint8_t mode = cpu_mode<0xEF>();
+  if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
+    sendDoubleBreak();
+    uint8_t status = ldcs(Status_B);
+    ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
+    return false;
   }
-  reset();
-  status = cpu_mode();
-  while (status != 0x8) {
-    status = cpu_mode();
+  if (mode != 0x08) {
+    sendProgKey();
+    uint8_t status = ldcs(ASI_Key_Status);
+    if (status != 0x10) {
+      ERROR_LOGF("Bad prog key status: 0x%02x", status);
+      return false;
+    }
+    reset();
+  }
+  mode = cpu_mode();
+  while (mode != 0x8) {
+    mode = cpu_mode();
   }
   uint8_t *ptr = (uint8_t *)header.rawData();
   for (uint16_t i = 0; i < header.rawSize(); ++i) {
@@ -79,32 +89,46 @@ void UPDI::readHeader(ByteStream &header)
     stptr_p((const uint8_t *)&addr, 2);
     ptr[i] = ld_b();
   }
+  header.sanity();
   if (!header.checkCRC()) {
     header.clear();
     ERROR_LOG("ERROR Header CRC Invalid!");
     reset();
-    return;
+    return false;
   }
+  return true;
 }
 
-void UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
+bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
 {
   // initialize mode buffer
   if (!modeBuffer.init(76)) {
-    return;
+    Leds::holdAll(RGB_RED);
+    return false;
   }
   sendDoubleBreak();
-  enterProgrammingMode();
-  sendProgKey();
-  uint8_t status = ldcs(ASI_Key_Status);
-  if (status != 0x10) {
-    ERROR_LOGF("Bad prog key status: 0x%02x", status);
-    return;
+  stcs(Control_A, 0x6);
+  uint8_t mode = cpu_mode<0xEF>();
+  if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
+    sendDoubleBreak();
+    uint8_t status = ldcs(Status_B);
+    ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
+    Leds::holdAll(RGB_BLUE);
+    return false;
   }
-  reset();
-  status = cpu_mode();
-  while (status != 0x8) {
-    status = cpu_mode();
+  if (mode != 0x08) {
+    sendProgKey();
+    uint8_t status = ldcs(ASI_Key_Status);
+    if (status != 0x10) {
+      ERROR_LOGF("Bad prog key status: 0x%02x", status);
+    Leds::holdAll(RGB_YELLOW);
+      return false;
+    }
+    reset();
+  }
+  mode = cpu_mode();
+  while (mode != 0x8) {
+    mode = cpu_mode();
   }
   // 76 is the max duo mode size (the slot size)
   uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
@@ -125,27 +149,33 @@ void UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
     stptr_p((const uint8_t *)&addr, 2);
     ptr[i] = ld_b();
   }
+  modeBuffer.sanity();
   if (!modeBuffer.checkCRC()) {
     ERROR_LOG("ERROR Header CRC Invalid!");
+    Leds::holdAll(RGB_ORANGE);
     reset();
-    return;
+    return false;
   }
   reset();
+  return true;
 }
 
-void UPDI::eraseMemory()
+bool UPDI::eraseMemory()
 {
   sendDoubleBreak();
-  enterProgrammingMode();
+  if (!enterProgrammingMode()) {
+    return false;
+  }
   sendEraseKey();
   uint8_t status = ldcs(ASI_Key_Status);
   if (status != 0x8) {
     ERROR_LOGF("Erasing mem, bad key status: 0x%02x...", status);
   }
   reset();
+  return status == 0x8;
 }
 
-void UPDI::readMemory()
+bool UPDI::readMemory()
 {
 #if 0
   ByteStream *modes = new ByteStream[headerData->numModes];
@@ -221,13 +251,15 @@ void UPDI::readMemory()
   }
   reset();
 #endif
+  return true;
 }
 
-void UPDI::writeMemory()
+bool UPDI::writeMemory()
 {
+  return true;
 }
 
-void UPDI::enterProgrammingMode()
+bool UPDI::enterProgrammingMode()
 {
   ERROR_LOG("Entering programming mode");
   uint8_t buf[256] = { 0 };
@@ -236,14 +268,7 @@ void UPDI::enterProgrammingMode()
   //  This selects the guard time value that will be used by the UPDI when the
   //  transmission direction switches from RX to TX.
   //  0x6 = UPDI guard time: 2 cycles
-  stcs(Control_A, 0x6);
-  uint8_t mode = 0;
-  mode = cpu_mode<0xEF>();
-  if (mode != 0x82 && mode != 0x21 && mode != 0xA2) {
-    sendDoubleBreak();
-    uint8_t status = ldcs(Status_B);
-    ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
-  }
+  return true;
 }
 
 void UPDI::resetOn()

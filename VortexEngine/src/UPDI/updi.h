@@ -11,12 +11,12 @@ public:
   static void cleanup();
 
   // read the duo save header over updi
-  static void readHeader(ByteStream &headerBuffer);
-  static void readMode(uint8_t idx, ByteStream &modeBuffer);
+  static bool readHeader(ByteStream &headerBuffer);
+  static bool readMode(uint8_t idx, ByteStream &modeBuffer);
 
-  static void eraseMemory();
-  static void readMemory();
-  static void writeMemory();
+  static bool eraseMemory();
+  static bool readMemory();
+  static bool writeMemory();
 
 private:
   enum cmnd
@@ -39,7 +39,7 @@ private:
     ASI_CRC_Status, Reg_13, Reg_14, Reg_15
   };
 
-  static void enterProgrammingMode();
+  static bool enterProgrammingMode();
   static void resetOn();
   static bool resetOff();
   static bool reset();

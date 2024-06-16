@@ -92,6 +92,7 @@ private:
 
     // pull a mode from the chromalinked duo
     STATE_PULL_MODE_CHROMALINK,
+    STATE_PULL_MODE_CHROMALINK_IDX,
     STATE_PULL_MODE_CHROMALINK_SEND,
     STATE_PULL_MODE_CHROMALINK_DONE,
     

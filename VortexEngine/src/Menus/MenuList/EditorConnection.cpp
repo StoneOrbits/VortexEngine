@@ -210,13 +210,22 @@ Menu::MenuAction EditorConnection::run()
     }
     break;
   case STATE_PULL_HEADER_CHROMALINK_DONE:
+    m_receiveBuffer.clear();
     // send our acknowledgement that the header was sent
     SerialComs::write(EDITOR_VERB_PULL_CHROMA_HDR_ACK);
     // go idle
     m_state = STATE_IDLE;
     break;
   case STATE_PULL_MODE_CHROMALINK:
-    pullModeChromalink();
+    // now say we are ready
+    SerialComs::write(EDITOR_VERB_READY);
+    m_state = STATE_PULL_MODE_CHROMALINK_IDX;
+    break;
+  case STATE_PULL_MODE_CHROMALINK_IDX:
+    // send the stuff
+    if (!pullModeChromalink()) {
+      break;
+    }
     m_state = STATE_PULL_MODE_CHROMALINK_SEND;
     break;
   case STATE_PULL_MODE_CHROMALINK_SEND:
@@ -224,9 +233,9 @@ Menu::MenuAction EditorConnection::run()
     if (receiveMessage(EDITOR_VERB_PULL_MODES_DONE)) {
       m_state = STATE_PULL_MODE_CHROMALINK_DONE;
     }
-    m_receiveBuffer.clear();
     break;
   case STATE_PULL_MODE_CHROMALINK_DONE:
+    m_receiveBuffer.clear();
     // send our acknowledgement that the header was sent
     SerialComs::write(EDITOR_VERB_PULL_CHROMA_MODE_ACK);
     // go idle
@@ -259,8 +268,11 @@ bool EditorConnection::pullHeaderChromalink()
 {
   // first read the duo save header
   ByteStream saveHeader;
-  UPDI::readHeader(saveHeader);
+  if (!UPDI::readHeader(saveHeader)) {
+    return false;
+  }
   SerialComs::write(saveHeader);
+  return true;
 }
 
 bool EditorConnection::pushHeaderChromalink()
@@ -270,15 +282,16 @@ bool EditorConnection::pushHeaderChromalink()
 // pull/push through the chromalink
 bool EditorConnection::pullModeChromalink()
 {
-  // now say we are ready
-  SerialComs::write(EDITOR_VERB_READY);
   // try to receive the mode index
   uint8_t modeIdx = 0;
-  if (!receiveModeIdx(modeIdx)) {
+  // only 9 modes on duo, maybe this should be a macro or something
+  if (!receiveModeIdx(modeIdx) || modeIdx >= 9) {
     return false;
   }
   ByteStream modeBuffer;
-  UPDI::readMode(modeIdx, modeBuffer);
+  if (!UPDI::readMode(modeIdx, modeBuffer)) {
+    return false;
+  }
   SerialComs::write(modeBuffer);
   return true;
 }
@@ -336,12 +349,7 @@ bool EditorConnection::receiveModeIdx(uint8_t &idx)
     // wait, not enough data available yet
     return false;
   }
-  // grab the size out of the start
   m_receiveBuffer.resetUnserializer();
-  if (m_receiveBuffer.size() != 1) {
-    // don't unserialize yet, not ready
-    return false;
-  }
   // okay unserialize now, first unserialize the size
   if (!m_receiveBuffer.unserialize8(&idx)) {
     return false;
