@@ -3,10 +3,16 @@
 
 #include <inttypes.h>
 
+class ByteStream;
+
 class UPDI {
 public:
   static bool init();
   static void cleanup();
+
+  // read the duo save header over updi
+  static void readHeader(ByteStream &headerBuffer);
+  static void readMode(uint8_t idx, ByteStream &modeBuffer);
 
   static void eraseMemory();
   static void readMemory();

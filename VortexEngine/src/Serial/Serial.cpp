@@ -69,6 +69,7 @@ bool SerialComs::checkSerial()
   Serial.begin(SERIAL_BAUD_RATE);
 #endif
 #endif
+  Menus::openMenu(MENU_EDITOR_CONNECTION);
   // serial is now connected
   m_serialConnected = true;
   return true;

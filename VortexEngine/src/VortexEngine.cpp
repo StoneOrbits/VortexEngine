@@ -173,13 +173,6 @@ void VortexEngine::tick()
   // run the main logic for the engine
   runMainLogic();
 
-  if (g_pButtonM->onShortClick()) {
-    if (SerialComs::checkSerial()) {
-      INFO_LOG("Successfully connected to serial...");
-    }
-    UPDI::readMemory();
-  }
-
   // update the leds
   Leds::update();
 }

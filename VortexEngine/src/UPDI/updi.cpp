@@ -55,26 +55,17 @@ void UPDI::cleanup()
 {
 }
 
-void UPDI::eraseMemory()
+void UPDI::readHeader(ByteStream &header)
 {
-  sendDoubleBreak();
-  enterProgrammingMode();
-  sendEraseKey();
-  uint8_t status = ldcs(ASI_Key_Status);
-  if (status != 0x8) {
-    INFO_LOGF("Erasing mem, bad key status: 0x%02x...", status);
+  if (!header.init(5)) {
+    return;
   }
-  reset();
-}
-
-void UPDI::readMemory()
-{
   sendDoubleBreak();
   enterProgrammingMode();
   sendProgKey();
   uint8_t status = ldcs(ASI_Key_Status);
   if (status != 0x10) {
-    INFO_LOGF("Bad prog key status: 0x%02x", status);
+    ERROR_LOGF("Bad prog key status: 0x%02x", status);
     return;
   }
   reset();
@@ -82,8 +73,6 @@ void UPDI::readMemory()
   while (status != 0x8) {
     status = cpu_mode();
   }
-
-  ByteStream header(5);
   uint8_t *ptr = (uint8_t *)header.rawData();
   for (uint16_t i = 0; i < header.rawSize(); ++i) {
     uint16_t addr = 0x1400 + i;
@@ -91,53 +80,80 @@ void UPDI::readMemory()
     ptr[i] = ld_b();
   }
   if (!header.checkCRC()) {
-    INFO_LOG("ERROR Header CRC Invalid!");
+    header.clear();
+    ERROR_LOG("ERROR Header CRC Invalid!");
     reset();
     return;
   }
-  struct HeaderData
-  {
-    uint8_t vMajor;
-    uint8_t vMinor;
-    uint8_t globalFlags;
-    uint8_t brightness;
-    uint8_t numModes;
-  };
-  HeaderData *headerData = (HeaderData *)header.data();
+}
 
-  INFO_LOG("Header:");
-  INFO_LOGF(" Version: %u.%u", headerData->vMajor, headerData->vMinor);
-  INFO_LOGF(" Flags: 0x%08x", headerData->globalFlags);
-  INFO_LOGF(" Brightness: %u", headerData->brightness);
-  INFO_LOGF(" Num Modes: %u", headerData->numModes);
+void UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
+{
+  // initialize mode buffer
+  if (!modeBuffer.init(76)) {
+    return;
+  }
+  sendDoubleBreak();
+  enterProgrammingMode();
+  sendProgKey();
+  uint8_t status = ldcs(ASI_Key_Status);
+  if (status != 0x10) {
+    ERROR_LOGF("Bad prog key status: 0x%02x", status);
+    return;
+  }
+  reset();
+  status = cpu_mode();
+  while (status != 0x8) {
+    status = cpu_mode();
+  }
+  // 76 is the max duo mode size (the slot size)
+  uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
+  uint16_t base;
+  // there are 3 modes in the eeprom after the header
+  if (idx < 3) {
+    // 0x1400 is eeprom base
+    // 17 is size of duo header
+    // 76 is size of each duo mode
+    base = 0x1400 + 17 + (idx * 76);
+  } else {
+    // 0xFe00 is the end of flash, 0x200 before
+    base = 0xFe00 + ((idx - 3) * 76);
+  }
+  for (uint16_t i = 0; i < modeBuffer.rawSize(); ++i) {
+    uint16_t addr = base + i;
+    // base of eeprom + size of header + mode slot
+    stptr_p((const uint8_t *)&addr, 2);
+    ptr[i] = ld_b();
+  }
+  if (!modeBuffer.checkCRC()) {
+    ERROR_LOG("ERROR Header CRC Invalid!");
+    reset();
+    return;
+  }
+  reset();
+}
 
+void UPDI::eraseMemory()
+{
+  sendDoubleBreak();
+  enterProgrammingMode();
+  sendEraseKey();
+  uint8_t status = ldcs(ASI_Key_Status);
+  if (status != 0x8) {
+    ERROR_LOGF("Erasing mem, bad key status: 0x%02x...", status);
+  }
+  reset();
+}
+
+void UPDI::readMemory()
+{
+#if 0
   ByteStream *modes = new ByteStream[headerData->numModes];
   if (!modes) {
     ERROR_LOG("Failed to initialize modes list");
     return;
   }
   for (uint8_t m = 0; m < headerData->numModes; ++m) {
-    ByteStream &mode = modes[m];
-    mode.init(76);
-    // 76 is the max duo mode size (the slot size)
-    uint8_t *ptr = (uint8_t *)mode.rawData();
-    uint16_t base;
-    // there are 3 modes in the eeprom after the header
-    if (m < 3) {
-      // 0x1400 is eeprom base
-      // 17 is size of duo header
-      // 76 is size of each duo mode
-      base = 0x1400 + 17 + (m * 76);
-    } else {
-      // 0xFe00 is the end of flash, 0x200 before
-      base = 0xFe00 + ((m - 3) * 76);
-    }
-    for (uint16_t i = 0; i < mode.rawSize(); ++i) {
-      uint16_t addr = base + i;
-      // base of eeprom + size of header + mode slot
-      stptr_p((const uint8_t *)&addr, 2);
-      ptr[i] = ld_b();
-    }
   }
   for (uint8_t m = 0; m < headerData->numModes; ++m) {
     ByteStream &mode = modes[m];
@@ -145,65 +161,66 @@ void UPDI::readMemory()
     mode.sanity();
     // now check it's crc
     if (!mode.checkCRC()) {
-      INFO_LOGF("ERROR Mode %u CRC Invalid!", m);
+      ERROR_LOGF("ERROR Mode %u CRC Invalid!", m);
       continue;
     }
     // NOTE: this is a bit of a hack, this Mode object has 20 leds because it's for
     //       a chromadeck, but we will just use the first 2 and disregard the mode->ledCount
     Mode newMode;
     newMode.unserialize(mode);
-    INFO_LOGF("Mode %u:", m);
-    INFO_LOGF(" Flags: 0x%08x", newMode.getFlags());
-    INFO_LOG(" Patterns:");
+    ERROR_LOGF("Mode %u:", m);
+    ERROR_LOGF(" Flags: 0x%08x", newMode.getFlags());
+    ERROR_LOG(" Patterns:");
     for (uint8_t p = 0; p < 2; ++p) {
       Pattern *pat = newMode.getPattern((LedPos)p);
-      INFO_LOGF("  Pattern %u:", p);
-      INFO_LOGF("   Pattern ID: %u", pat->getPatternID());
+      ERROR_LOGF("  Pattern %u:", p);
+      ERROR_LOGF("   Pattern ID: %u", pat->getPatternID());
       PatternArgs args;
       pat->getArgs(args);
       // should only be 5 or 7 args on duo
       if (pat->getNumArgs() == 5) {
-        INFO_LOGF("   Params: %u %u %u %u %u", args.arg1, args.arg2, args.arg3, args.arg4, args.arg5);
+        ERROR_LOGF("   Params: %u %u %u %u %u", args.arg1, args.arg2, args.arg3, args.arg4, args.arg5);
       } else if (pat->getNumArgs() == 7) {
-        INFO_LOGF("   Params: %u %u %u %u %u %u %u", args.arg1, args.arg2, args.arg3, args.arg4, args.arg5, args.arg6, args.arg7);
+        ERROR_LOGF("   Params: %u %u %u %u %u %u %u", args.arg1, args.arg2, args.arg3, args.arg4, args.arg5, args.arg6, args.arg7);
       } else {
         // otherwise just log all 8
-        INFO_LOGF("   Params: %u %u %u %u %u %u %u %u", args.arg1, args.arg2, args.arg3, args.arg4, args.arg5, args.arg6, args.arg7, args.arg8);
+        ERROR_LOGF("   Params: %u %u %u %u %u %u %u %u", args.arg1, args.arg2, args.arg3, args.arg4, args.arg5, args.arg6, args.arg7, args.arg8);
       }
       Colorset set = pat->getColorset();
       switch (set.numColors()) {
       case 0:
-        INFO_LOG("   Colors: none");
+        ERROR_LOG("   Colors: none");
         break;
       case 1:
-        INFO_LOGF("   Colors: %06X", set.get(0).raw());
+        ERROR_LOGF("   Colors: %06X", set.get(0).raw());
         break;
       case 2:
-        INFO_LOGF("   Colors: %06X, %06X", set.get(0).raw(), set.get(1).raw());
+        ERROR_LOGF("   Colors: %06X, %06X", set.get(0).raw(), set.get(1).raw());
         break;
       case 3:
-        INFO_LOGF("   Colors: %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw());
+        ERROR_LOGF("   Colors: %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw());
         break;
       case 4:
-        INFO_LOGF("   Colors: %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw());
+        ERROR_LOGF("   Colors: %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw());
         break;
       case 5:
-        INFO_LOGF("   Colors: %06X, %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw(), set.get(4).raw());
+        ERROR_LOGF("   Colors: %06X, %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw(), set.get(4).raw());
         break;
       case 6:
-        INFO_LOGF("   Colors: %06X, %06X, %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw(), set.get(4).raw(), set.get(5).raw());
+        ERROR_LOGF("   Colors: %06X, %06X, %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw(), set.get(4).raw(), set.get(5).raw());
         break;
       case 7:
-        INFO_LOGF("   Colors: %06X, %06X, %06X, %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw(), set.get(4).raw(), set.get(5).raw(), set.get(6).raw());
+        ERROR_LOGF("   Colors: %06X, %06X, %06X, %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw(), set.get(4).raw(), set.get(5).raw(), set.get(6).raw());
         break;
       case 8:
       default:
-        INFO_LOGF("   Colors: %06X, %06X, %06X, %06X, %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw(), set.get(4).raw(), set.get(5).raw(), set.get(6).raw(), set.get(7).raw());
+        ERROR_LOGF("   Colors: %06X, %06X, %06X, %06X, %06X, %06X, %06X, %06X", set.get(0).raw(), set.get(1).raw(), set.get(2).raw(), set.get(3).raw(), set.get(4).raw(), set.get(5).raw(), set.get(6).raw(), set.get(7).raw());
         break;
       }
     }
   }
   reset();
+#endif
 }
 
 void UPDI::writeMemory()
@@ -212,7 +229,7 @@ void UPDI::writeMemory()
 
 void UPDI::enterProgrammingMode()
 {
-  INFO_LOG("Entering programming mode");
+  ERROR_LOG("Entering programming mode");
   uint8_t buf[256] = { 0 };
   memset(buf, 0, sizeof(buf));
   // As per datasheet:
@@ -225,7 +242,7 @@ void UPDI::enterProgrammingMode()
   if (mode != 0x82 && mode != 0x21 && mode != 0xA2) {
     sendDoubleBreak();
     uint8_t status = ldcs(Status_B);
-    INFO_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
+    ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
   }
 }
 
@@ -288,7 +305,7 @@ uint8_t UPDI::receiveByte()
 #define TIMEOUT_TT 40000000
   while (GPIO_READ(UPDI_PIN) == 1 && counter++ < TIMEOUT_TT);
   if (counter >= TIMEOUT_TT) {
-    INFO_LOG("Timed out waiting for start bit");
+    ERROR_LOG("Timed out waiting for start bit");
     return 0;
   }
   Time::delayMicroseconds(BIT_TIME_US / 2); // Half bit time for sampling
@@ -305,7 +322,7 @@ uint8_t UPDI::receiveByte()
   // Read stop bit
   Time::delayMicroseconds(BIT_TIME_US);
   if (GPIO_READ(UPDI_PIN) == 0) {
-    //INFO_LOG("Stop bit error");
+    //ERROR_LOG("Stop bit error");
   }
   Time::delayMicroseconds(BIT_TIME_US * 2);
   return byte;

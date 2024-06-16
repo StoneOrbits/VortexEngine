@@ -19,6 +19,12 @@ public:
   void sendCurModeVL();
   void listenModeVL();
 
+  // pull/push through the chromalink
+  bool pullHeaderChromalink();
+  bool pushHeaderChromalink();
+  bool pullModeChromalink();
+  bool pushModeChromalink();
+
   // handlers for clicks
   void onShortClick() override;
   void onLongClick() override;
@@ -37,6 +43,7 @@ private:
   void clearDemo();
   void receiveModeVL();
   void showReceiveModeVL();
+  bool receiveModeIdx(uint8_t &idx);
 
   enum EditorConnectionState {
     // the editor is not connec
@@ -70,8 +77,27 @@ private:
     STATE_TRANSMIT_MODE_VL,
     STATE_TRANSMIT_MODE_VL_DONE,
 
+    // receive a mode over VL
     STATE_LISTEN_MODE_VL,
     STATE_LISTEN_MODE_VL_DONE,
+
+    // pull the header from the chromalinked duo
+    STATE_PULL_HEADER_CHROMALINK,
+    STATE_PULL_HEADER_CHROMALINK_SEND,
+    STATE_PULL_HEADER_CHROMALINK_DONE,
+
+    // push the header to the chromalinked duo
+    STATE_PUSH_HEADER_CHROMALINK,
+    STATE_PUSH_HEADER_CHROMALINK_DONE,
+
+    // pull a mode from the chromalinked duo
+    STATE_PULL_MODE_CHROMALINK,
+    STATE_PULL_MODE_CHROMALINK_SEND,
+    STATE_PULL_MODE_CHROMALINK_DONE,
+    
+    // push a mode to the chromalinked duo
+    STATE_PUSH_MODE_CHROMALINK,
+    STATE_PUSH_MODE_CHROMALINK_DONE,
   };
 
   // state of the editor
