@@ -336,9 +336,6 @@
     <ClCompile Include="src\Menus\MainMenu.cpp">
       <Filter>Source Files\Menus</Filter>
     </ClCompile>
-    <ClCompile Include="src\UPDI\FastGPIO.cpp">
-      <Filter>Source Files</Filter>
-    </ClCompile>
     <ClCompile Include="src\UPDI\updi.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
@@ -568,9 +565,6 @@
     </ClInclude>
     <ClInclude Include="src\Menus\MainMenu.h">
       <Filter>Header Files\Menus</Filter>
-    </ClInclude>
-    <ClInclude Include="src\UPDI\FastGPIO.h">
-      <Filter>Header Files</Filter>
     </ClInclude>
     <ClInclude Include="src\UPDI\updi.h">
       <Filter>Header Files</Filter>
