@@ -33,17 +33,20 @@ public:
   void leaveMenu(bool doSave = false) override;
 
 private:
+  void handleCommand();
   void showEditor();
   void receiveData();
   void sendModes();
+  bool receiveBuffer(ByteStream &buffer);
   bool receiveModes();
   bool receiveDemoMode();
-  void handleCommand();
   bool receiveMessage(const char *message);
   void clearDemo();
   void receiveModeVL();
   void showReceiveModeVL();
   bool receiveModeIdx(uint8_t &idx);
+  bool receiveChromaHdr();
+  bool receiveChromaMode();
 
   enum EditorConnectionState {
     // the editor is not connec
@@ -86,18 +89,21 @@ private:
     STATE_PULL_HEADER_CHROMALINK_SEND,
     STATE_PULL_HEADER_CHROMALINK_DONE,
 
-    // push the header to the chromalinked duo
-    STATE_PUSH_HEADER_CHROMALINK,
-    STATE_PUSH_HEADER_CHROMALINK_DONE,
-
     // pull a mode from the chromalinked duo
     STATE_PULL_MODE_CHROMALINK,
     STATE_PULL_MODE_CHROMALINK_IDX,
     STATE_PULL_MODE_CHROMALINK_SEND,
     STATE_PULL_MODE_CHROMALINK_DONE,
+
+    // push the header to the chromalinked duo
+    STATE_PUSH_HEADER_CHROMALINK,
+    STATE_PUSH_HEADER_CHROMALINK_RECEIVE,
+    STATE_PUSH_HEADER_CHROMALINK_DONE,
     
     // push a mode to the chromalinked duo
     STATE_PUSH_MODE_CHROMALINK,
+    STATE_PUSH_MODE_CHROMALINK_RECEIVE_IDX,
+    STATE_PUSH_MODE_CHROMALINK_RECEIVE,
     STATE_PUSH_MODE_CHROMALINK_DONE,
   };
 
@@ -107,6 +113,8 @@ private:
   ByteStream m_receiveBuffer;
   // receiver timeout
   uint32_t m_timeOutStartTime;
+  // target chroma mode index for read/write
+  uint8_t m_chromaModeIdx;
 };
 
 #endif

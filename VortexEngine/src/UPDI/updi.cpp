@@ -2,7 +2,6 @@
 #include "../VortexConfig.h"
 #include "../Time/TimeControl.h"
 #include "../Log/Log.h"
-#include "../Leds/Leds.h"
 #include "../Serial/ByteStream.h"
 #include "../Patterns/Pattern.h"
 #include "../Modes/Mode.h"
@@ -26,6 +25,8 @@
 #define HIGH 0x1
 #define LOW 0x0
 #endif
+
+#define FLASH_PAGE_SIZE 128
 
 // Define GPIO pin for UPDI communication
 #define UPDI_PIN GPIO_NUM_10
@@ -103,7 +104,6 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
 {
   // initialize mode buffer
   if (!modeBuffer.init(76)) {
-    Leds::holdAll(RGB_RED);
     return false;
   }
   sendDoubleBreak();
@@ -113,7 +113,6 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
     sendDoubleBreak();
     uint8_t status = ldcs(Status_B);
     ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
-    Leds::holdAll(RGB_BLUE);
     return false;
   }
   if (mode != 0x08) {
@@ -121,7 +120,6 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
     uint8_t status = ldcs(ASI_Key_Status);
     if (status != 0x10) {
       ERROR_LOGF("Bad prog key status: 0x%02x", status);
-    Leds::holdAll(RGB_YELLOW);
       return false;
     }
     reset();
@@ -149,13 +147,141 @@ bool UPDI::readMode(uint8_t idx, ByteStream &modeBuffer)
     stptr_p((const uint8_t *)&addr, 2);
     ptr[i] = ld_b();
   }
-  modeBuffer.sanity();
-  if (!modeBuffer.checkCRC()) {
+  reset();
+  return true;
+}
+
+bool UPDI::writeHeader(ByteStream &headerBuffer)
+{
+  headerBuffer.sanity();
+  if (!headerBuffer.checkCRC()) {
     ERROR_LOG("ERROR Header CRC Invalid!");
-    Leds::holdAll(RGB_ORANGE);
     reset();
     return false;
   }
+  sendDoubleBreak();
+  stcs(Control_A, 0x6);
+  uint8_t mode = cpu_mode<0xEF>();
+  if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
+    sendDoubleBreak();
+    uint8_t status = ldcs(Status_B);
+    ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
+    return false;
+  }
+  if (mode != 0x08) {
+    sendProgKey();
+    uint8_t status = ldcs(ASI_Key_Status);
+    if (status != 0x10) {
+      ERROR_LOGF("Bad prog key status: 0x%02x", status);
+      return false;
+    }
+    reset();
+  }
+  mode = cpu_mode();
+  while (mode != 0x8) {
+    mode = cpu_mode();
+  }
+  uint8_t *ptr = (uint8_t *)headerBuffer.rawData();
+  for (uint16_t i = 0; i < headerBuffer.rawSize(); ++i) {
+    uint16_t addr = 0x1400 + i;
+    stptr_p((const uint8_t *)&addr, 2);
+    ptr[i] = ld_b();
+  }
+  headerBuffer.sanity();
+  if (!headerBuffer.checkCRC()) {
+    headerBuffer.clear();
+    ERROR_LOG("ERROR Header CRC Invalid!");
+    reset();
+    return false;
+  }
+  return true;
+}
+
+bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
+{
+  modeBuffer.sanity();
+  if (!modeBuffer.checkCRC()) {
+    ERROR_LOG("ERROR Header CRC Invalid!");
+    reset();
+    return false;
+  }
+  sendDoubleBreak();
+  stcs(Control_A, 0x6);
+  uint8_t mode = cpu_mode<0xEF>();
+  if (mode != 0x82 && mode != 0x21 && mode != 0xA2 && mode != 0x08) {
+    sendDoubleBreak();
+    uint8_t status = ldcs(Status_B);
+    ERROR_LOGF("Bad CPU Mode 0x%02x... error: 0x%02x", mode, status);
+    return false;
+  }
+  if (mode != 0x08) {
+    sendProgKey();
+    uint8_t status = ldcs(ASI_Key_Status);
+    if (status != 0x10) {
+      ERROR_LOGF("Bad prog key status: 0x%02x", status);
+      return false;
+    }
+    reset();
+  }
+  mode = cpu_mode();
+  while (mode != 0x8) {
+    mode = cpu_mode();
+  }
+  // 76 is the max duo mode size (the slot size)
+  uint8_t *ptr = (uint8_t *)modeBuffer.rawData();
+  uint16_t base;
+  // there are 3 modes in the eeprom after the header
+  if (idx < 3) {
+    // 0x1400 is eeprom base
+    // 17 is size of duo header
+    // 76 is size of each duo mode
+    base = 0x1400 + 17 + (idx * 76);
+    //for (uint16_t i = 0; i < modeBuffer.rawSize(); ++i) {
+    //  sts_b(base + i, ptr[i]);
+    //}
+  } else {
+    // 0xFe00 is the end of flash, 0x200 before
+    uint16_t base = 0xFe00 + ((idx - 3) * 76);
+  }
+    uint16_t size = modeBuffer.rawSize();
+    // The storage slot may lay across a page boundary which means potentially writing
+    // two pages instead of just one. In order to update only part of a page, the page
+    // buffer must be filled with both the previous content along with the new data.
+    // For example, imagine 2 pages of data: |xxxxxxSSSS|SSSxxxxxxx| the x's are other
+    // data that must be preserved, and the S's denote the storage slot being written.
+    // This would take place over two iterations of the loop, each writing out one page
+    // by read-then-writing-back the x's and writing out the new S's. This is necessary
+    // because the page buffer must be filled to perform a page write, at least I think
+    while (size > 0) {
+      uint16_t pageStart = base & ~(FLASH_PAGE_SIZE - 1);
+      uint16_t offset = base % FLASH_PAGE_SIZE;
+      uint16_t space = FLASH_PAGE_SIZE - offset;
+      uint16_t writeSize = (size < space) ? size : space;
+
+      for (uint8_t i = 0; i < FLASH_PAGE_SIZE; ++i) {
+        uint8_t value;
+        if (i >= offset && i < offset + writeSize) {
+          // if this is within the slot then write out the new data
+          value = ptr[i - offset];
+        } else {
+          // otherwise just write-back the same value to fill the pagebuffer
+          uint16_t addr = pageStart + i;
+          stptr_p((const uint8_t *)&addr, 2);
+          value = ld_b();
+        }
+        sts_b(pageStart + i, value);
+      }
+
+      nvmCmd(NVM_ERWP);
+      nvmWait();
+
+      // continue to the next page
+      base += writeSize;
+      ptr += writeSize;
+      size -= writeSize;
+    }
+  //}
+
   reset();
   return true;
 }

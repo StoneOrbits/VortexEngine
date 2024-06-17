@@ -14,11 +14,24 @@ public:
   static bool readHeader(ByteStream &headerBuffer);
   static bool readMode(uint8_t idx, ByteStream &modeBuffer);
 
+  static bool writeHeader(ByteStream &headerBuffer);
+  static bool writeMode(uint8_t idx, ByteStream &modeBuffer);
+
   static bool eraseMemory();
   static bool readMemory();
   static bool writeMemory();
 
 private:
+  // *** Base Addresses ***
+  enum base
+  {
+    NVM_base = 0x1000,       /* Base address of the NVM controller */
+    Sig_base = 0x1100,       /* Base address of the signature */
+    Fuse_base = 0x1280,       /* Base address of the fuses */
+    User_base = 0x1300,       /* Base address of the User Row EEPROM */
+    EEPROM_base = 0x1400        /* Base address of the main EEPROM */
+  };
+
   enum cmnd
   {
     NVM_CMD_NOP,      // Does nothing
@@ -37,6 +50,34 @@ private:
     Reg_4, Reg_5, Reg_6, ASI_Key_Status,
     ASI_Reset_Request, ASI_Control_A, ASI_System_Control_A, ASI_System_Status,
     ASI_CRC_Status, Reg_13, Reg_14, Reg_15
+  };
+
+  // *** NVM Registers (offsets from NVN_base are enum default values) ***
+  enum nvm_reg
+  {
+    NVM_CTRLA,
+    NVM_CTRLB,
+    NVM_STATUS,
+    NVM_INTCTRL,
+    NVM_INTFLAGS,
+    NVM_Reg_5,
+    NVM_DATA_lo,
+    NVM_DATA_hi,
+    NVM_ADDR_lo,
+    NVM_ADDR_hi
+  };
+
+  // *** NVM Commands (write to CTRLA to execute) ***
+  enum nvm_cmd
+  {
+    NVM_NOP,      /* Does nothing */
+    NVM_WP,       /* Write page buffer to memory */
+    NVM_ER,       /* Erase page */
+    NVM_ERWP,     /* Erase and write page */
+    NVM_PBC,      /* Page buffer clear */
+    NVM_CHER,     /* Chip erase: erase Flash and EEPROM */
+    NVM_EEER,     /* EEPROM Erase */
+    NVM_WFU       /* Write fuse */
   };
 
   static bool enterProgrammingMode();
@@ -58,6 +99,9 @@ private:
   static uint8_t lds_b(uint16_t address);
   static uint8_t ld_b();
   static void sts_b(uint16_t address, uint8_t data);
+
+  static void nvmCmd(nvm_cmd cmd) { UPDI::sts_b(NVM_base + NVM_CTRLA, cmd); }
+  static void nvmWait() { while (UPDI::lds_b(NVM_base + NVM_STATUS) & 0x03); }
 
   template <uint8_t mask = 0xFF>
   static uint8_t cpu_mode()
