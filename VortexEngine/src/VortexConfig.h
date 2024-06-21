@@ -59,7 +59,7 @@
 //
 // How long the button must be held to trigger ring menu and begin
 // filling the first menu color
-#define MENU_TRIGGER_TIME     300
+#define MENU_TRIGGER_TIME     1000
 
 // Short Click Threshold (in milliseconds)
 //
