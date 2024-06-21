@@ -27,6 +27,7 @@
 #endif
 
 #define FLASH_PAGE_SIZE 128
+#define EEPROM_PAGE_SIZE 64
 
 // Define GPIO pin for UPDI communication
 #define UPDI_PIN GPIO_NUM_10
@@ -239,10 +240,48 @@ bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
     //for (uint16_t i = 0; i < modeBuffer.rawSize(); ++i) {
     //  sts_b(base + i, ptr[i]);
     //}
+    // 0xFe00 is the end of flash, 0x200 before
+    uint16_t size = modeBuffer.rawSize();
+    // The storage slot may lay across a page boundary which means potentially writing
+    // two pages instead of just one. In order to update only part of a page, the page
+    // buffer must be filled with both the previous content along with the new data.
+    // For example, imagine 2 pages of data: |xxxxxxSSSS|SSSxxxxxxx| the x's are other
+    // data that must be preserved, and the S's denote the storage slot being written.
+    // This would take place over two iterations of the loop, each writing out one page
+    // by read-then-writing-back the x's and writing out the new S's. This is necessary
+    // because the page buffer must be filled to perform a page write, at least I think
+    while (size > 0) {
+      uint16_t pageStart = base & ~(EEPROM_PAGE_SIZE - 1);
+      uint16_t offset = base % EEPROM_PAGE_SIZE;
+      uint16_t space = EEPROM_PAGE_SIZE - offset;
+      uint16_t writeSize = (size < space) ? size : space;
+
+      for (uint8_t i = 0; i < EEPROM_PAGE_SIZE; ++i) {
+        uint8_t value;
+        if (i >= offset && i < offset + writeSize) {
+          // if this is within the slot then write out the new data
+          value = ptr[i - offset];
+        } else {
+          // otherwise just write-back the same value to fill the pagebuffer
+          uint16_t addr = pageStart + i;
+          stptr_p((const uint8_t *)&addr, 2);
+          value = ld_b();
+        }
+        sts_b(pageStart + i, value);
+      }
+
+      nvmCmd(NVM_ERWP);
+      nvmWait();
+
+      // continue to the next page
+      base += writeSize;
+      ptr += writeSize;
+      size -= writeSize;
+    }
+
   } else {
     // 0xFe00 is the end of flash, 0x200 before
     uint16_t base = 0xFe00 + ((idx - 3) * 76);
-  }
     uint16_t size = modeBuffer.rawSize();
     // The storage slot may lay across a page boundary which means potentially writing
     // two pages instead of just one. In order to update only part of a page, the page
@@ -280,7 +319,7 @@ bool UPDI::writeMode(uint8_t idx, ByteStream &modeBuffer)
       ptr += writeSize;
       size -= writeSize;
     }
-  //}
+  }
 
   reset();
   return true;
