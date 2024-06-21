@@ -16,6 +16,7 @@
 #include "Menus/Menus.h"
 #include "Modes/Mode.h"
 #include "Leds/Leds.h"
+#include "UPDI/updi.h"
 #include "Log/Log.h"
 
 #ifdef VORTEX_LIB
@@ -31,12 +32,12 @@ bool VortexEngine::m_autoCycle = false;
 bool VortexEngine::init()
 {
   // all of the global controllers
-  if (!SerialComs::init()) {
-    DEBUG_LOG("Serial failed to initialize");
+  if (!Time::init()) {
+    //DEBUG_LOG("Time failed to initialize");
     return false;
   }
-  if (!Time::init()) {
-    DEBUG_LOG("Time failed to initialize");
+  if (!SerialComs::init()) {
+    DEBUG_LOG("Serial failed to initialize");
     return false;
   }
   if (!Storage::init()) {
@@ -85,6 +86,10 @@ bool VortexEngine::init()
   }
   if (!MainMenu::init()) {
     DEBUG_LOG("Main menu failed to initialize");
+    return false;
+  }
+  if (!UPDI::init()) {
+    DEBUG_LOG("UPDI failed to initialize");
     return false;
   }
 

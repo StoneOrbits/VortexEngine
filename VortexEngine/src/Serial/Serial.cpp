@@ -3,6 +3,7 @@
 #include "../Serial/ByteStream.h"
 #include "../Time/TimeControl.h"
 #include "../Time/Timings.h"
+#include "../Menus/Menus.h"
 #include "../Log/Log.h"
 
 #include "../VortexEngine.h"
@@ -23,7 +24,10 @@ uint32_t SerialComs::m_lastCheck = 0;
 bool SerialComs::init()
 {
   // Try connecting serial ?
-  //checkSerial();
+  while (!checkSerial()) {
+    Time::delayMilliseconds(100);
+  }
+  INFO_LOG("Success! Connected!");
   return true;
 }
 
@@ -64,6 +68,8 @@ bool SerialComs::checkSerial()
   }
   // Begin serial communications
   Serial.begin(SERIAL_BAUD_RATE);
+  // directly open the editor connection menu because we are connected to USB serial
+  Menus::openMenu(MENU_EDITOR_CONNECTION);
 #endif
 #endif
   // serial is now connected

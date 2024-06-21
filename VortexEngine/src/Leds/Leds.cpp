@@ -271,7 +271,8 @@ void Leds::holdAll(RGBColor col)
 void Leds::update()
 {
 #ifdef VORTEX_EMBEDDED
-  FastLED.show(m_brightness);
+  // TODO: fixme
+  FastLED.show(5);
 #endif
 #ifdef VORTEX_LIB
   Vortex::vcallbacks()->ledsShow();

@@ -85,10 +85,6 @@ bool Storage::write(uint16_t slot, ByteStream &buffer)
   if (err != ESP_OK) {
     return false;
   }
-  if (err != ESP_OK) {
-    nvs_close(nvs);
-    return false;
-  }
   err = nvs_set_blob(nvs, (char *)name, buffer.rawData(), buffer.rawSize());
   if (err != ESP_OK) {
     nvs_close(nvs);
