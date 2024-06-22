@@ -34,11 +34,14 @@ public:
   // unserialize a buffer into a pattern
   Pattern *unserialize(ByteStream &buffer);
 
-  // This is just the default arguments for any given pattern id
-  // it will *not* indicate the true amount of arguments a pattern has
+  // This is just the arguments used to construct any given pattern id
+  // the numArgs will be incorrect, do not use this to compare!
   PatternArgs getDefaultArgs(PatternID id);
   // this will give you actual amount of default args
   uint8_t numDefaultArgs(PatternID id);
+
+  // fast way to check if some pattern args match the default for an ID
+  bool isDefaultArgs(PatternID id, const PatternArgs &args);
 
 private:
   // helper routines

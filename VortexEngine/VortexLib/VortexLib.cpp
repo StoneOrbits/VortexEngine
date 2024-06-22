@@ -380,7 +380,8 @@ EMSCRIPTEN_BINDINGS(Vortex) {
     .function("makeMulti", &PatternBuilder::makeMulti, allow_raw_pointers())
     //.function("unserialize", &PatternBuilder::unserialize)
     .function("getDefaultArgs", &PatternBuilder::getDefaultArgs)
-    .function("numDefaultArgs", &PatternBuilder::numDefaultArgs);
+    .function("numDefaultArgs", &PatternBuilder::numDefaultArgs)
+    .function("isDefaultArgs", &PatternBuilder::isDefaultArgs);
 
   class_<Mode>("Mode")
     //.constructor<>()
@@ -1387,7 +1388,12 @@ PatternID Vortex::getPatternID(LedPos pos)
 
 string Vortex::getPatternName(LedPos pos)
 {
-  return patternToString(getPatternID(pos));
+  PatternID id = getPatternID(pos);
+  PatternArgs args;
+  if (getPatternArgs(pos, args) && !m_engine.patternBuilder().isDefaultArgs(id, args)) {
+    return "custom";
+  }
+  return patternToString(id);
 }
 
 string Vortex::getModeName()
@@ -1397,25 +1403,11 @@ string Vortex::getModeName()
     return patternToString(PATTERN_NONE);
   }
   if (pMode->isMultiLed()) {
-    return patternToString(pMode->getPatternID(LED_MULTI));
+    return getPatternName(LED_MULTI);
   }
-  // can't use isSampleSingleLed because that will compare the entire
-  // pattern for differences in any single led pattern, we only care
-  // about the pattern id being different
-  bool all_same_id = true;
-  PatternID first = pMode->getPatternID(LED_FIRST);
-  for (uint32_t i = LED_FIRST + 1; i < numLedsInMode(); ++i) {
-    // if any don't match 0 then no good
-    if (pMode->getPatternID((LedPos)i) != first) {
-      all_same_id = false;
-      break;
-    }
+  if (pMode->hasSameSingleLed()) {
+    return getPatternName(LED_FIRST);
   }
-  // if they're all the same we can return just the first led pattern name
-  if (all_same_id) {
-    return patternToString(getPatternID(LED_FIRST));
-  }
-  // mixed single led pattern with different pattern names
   return "custom";
 }
 

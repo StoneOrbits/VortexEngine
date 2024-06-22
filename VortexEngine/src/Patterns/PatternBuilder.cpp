@@ -147,10 +147,6 @@ Pattern *PatternBuilder::makeInternal(PatternID id, const PatternArgs *args)
   return pat;
 }
 
-// This is just the default arguments for any given pattern id
-// it will *not* indicate the true amount of arguments a pattern has
-// Some pattern ids are purely defined by their unique arguments
-// to a class, so calling them 'default' might be misleading
 PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
 {
   switch (id) {
@@ -223,6 +219,16 @@ PatternArgs PatternBuilder::getDefaultArgs(PatternID id)
 #endif
   }
   return PatternArgs();
+}
+
+bool PatternBuilder::isDefaultArgs(PatternID id, const PatternArgs &args)
+{
+  PatternArgs defaultArgs = getDefaultArgs(id);
+  // force the number of args to match, the defaults returned from the above
+  // API will have the wrong number of args
+  defaultArgs.numArgs = args.numArgs;
+  // now compare them
+  return (args == defaultArgs);
 }
 
 uint8_t PatternBuilder::numDefaultArgs(PatternID id)
