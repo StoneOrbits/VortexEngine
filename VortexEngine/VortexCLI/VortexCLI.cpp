@@ -166,6 +166,8 @@ VortexCLI::VortexCLI() :
   m_lockEnabled(true),
   m_jsonPretty(false),
   m_quickExit(false),
+  m_displayVersion(false),
+  m_verbosity(0),
   m_storageFile("FlashStorage.flash"),
   m_patternIDStr(),
   m_colorsetStr(),
