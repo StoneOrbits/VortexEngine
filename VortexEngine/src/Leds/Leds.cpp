@@ -42,8 +42,12 @@ void Leds::cleanup()
 
 void Leds::setIndex(LedPos target, RGBColor col)
 {
+  // setIndex has to be the end of the line, do not recurse on any
+  // higher level apis like setRange or setAll here
   if (target >= LED_COUNT) {
-    setAll(col);
+    for (uint8_t i = 0; i < LED_COUNT; ++i) {
+      led(i) = col;
+    }
     return;
   }
   led(target) = col;

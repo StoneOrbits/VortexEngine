@@ -643,6 +643,13 @@ void VortexCLI::cleanup()
   if (m_inPlace) {
     printf("\n");
   }
+  // if they requested a specific led count, and they loaded a mode with a different led count
+  // then we need to enforce that led count before we output any information back to them
+  // TODO: provide a way to lock the led count so that it controls how loading modes is effected
+  //       then it's not necessary to re-apply the led count like this
+  if (m_ledCount > 0 && m_ledCount < 256) {
+    m_vortex.setLedCount(m_ledCount);
+  }
   if (m_record) {
     // Open the file in write mode
     FILE *outputFile = fopen(RECORD_FILE, "w");
