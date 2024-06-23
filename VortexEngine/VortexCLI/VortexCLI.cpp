@@ -202,6 +202,8 @@ static struct option long_options[] = {
   {"pattern", required_argument, nullptr, 'P'},
   {"colorset", required_argument, nullptr, 'C'},
   {"arguments", required_argument, nullptr, 'A'},
+  {"version", no_argument, nullptr, 'V'},
+  {"verbose", no_argument, nullptr, 'v'},
   {"help", no_argument, nullptr, 'h'},
   {nullptr, 0, nullptr, 0}
 };
@@ -246,7 +248,7 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -a, --autowake           Automatically and instantly wake on sleep (disable sleep)\n");
   fprintf(stderr, "  -n, --nolock             Automatically unlock upon locking the chip (disable lock)\n");
   fprintf(stderr, "  -q, --quick              Exit immediately after initialization (useful to convert data)\n");
-  fprintf(stderr, "  -u, --led-count          Set the initial led count of the engine (default 10)\n");
+  fprintf(stderr, "  -u, --led-count          Set the initial led count of the engine (default 1)\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Storage and Data Conversion (optional):\n");
   fprintf(stderr, "  -S, --storage [file]     Persistent storage to file (default file: FlashStorage.flash)\n");
@@ -263,6 +265,8 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "  -A, --arguments a1,a2... Preset the arguments on the first mode (csv list of arguments)\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Other Options:\n");
+  fprintf(stderr, "  -V, --version            Display the engine version number\n");
+  fprintf(stderr, "  -v, --verbose            Make this utility more noisy\n");
   fprintf(stderr, "  -h, --help               Display this help message\n");
   fprintf(stderr, "\n");
   fprintf(stderr, "Input Commands (pass to stdin):");
@@ -364,7 +368,7 @@ bool VortexCLI::init(int argc, char *argv[])
 
   int opt = -1;
   int option_index = 0;
-  while ((opt = getopt_long(argc, argv, "xcstliranquS::W:M:L:I::O::HP:C:A:h", long_options, &option_index)) != -1) {
+  while ((opt = getopt_long(argc, argv, "xcstliranquS::W:M:L:I::O::HP:C:A:Vvh", long_options, &option_index)) != -1) {
     switch (opt) {
     case 'x':
       // if the user wants pretty colors or hex codes
@@ -473,6 +477,13 @@ bool VortexCLI::init(int argc, char *argv[])
       // preset the arguments on the first mode
       m_argumentsStr = optarg;
       break;
+    case 'V':
+      m_displayVersion = true;
+      break;
+    case 'v':
+      // TODO: make this do something
+      m_verbosity++;
+      break;
     case 'h':
       // print usage and exit
       print_usage(argv[0]);
@@ -481,6 +492,11 @@ bool VortexCLI::init(int argc, char *argv[])
       printf("Unknown arg: -%c\n", opt);
       exit(EXIT_FAILURE);
     }
+  }
+
+  if (m_displayVersion) {
+    printf(VORTEX_FULL_NAME);
+    exit(0);
   }
 
   switch (m_outputType) {
@@ -642,13 +658,6 @@ void VortexCLI::cleanup()
   DEBUG_LOG("Quitting...");
   if (m_inPlace) {
     printf("\n");
-  }
-  // if they requested a specific led count, and they loaded a mode with a different led count
-  // then we need to enforce that led count before we output any information back to them
-  // TODO: provide a way to lock the led count so that it controls how loading modes is effected
-  //       then it's not necessary to re-apply the led count like this
-  if (m_ledCount > 0 && m_ledCount < 256) {
-    m_vortex.setLedCount(m_ledCount);
   }
   if (m_record) {
     // Open the file in write mode

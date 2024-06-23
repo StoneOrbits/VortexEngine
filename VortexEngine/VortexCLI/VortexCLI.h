@@ -100,6 +100,8 @@ private:
   bool m_lockEnabled;
   bool m_jsonPretty;
   bool m_quickExit;
+  bool m_displayVersion;
+  int m_verbosity;
   std::string m_storageFile;
   std::string m_writeSaveFile;
   std::string m_writeModeFile;
