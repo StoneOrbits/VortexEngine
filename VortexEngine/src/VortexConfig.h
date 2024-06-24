@@ -38,7 +38,7 @@
 
 // the engine flavour, this should change for each device/flavour
 // of the engine that branches off from the main indefinitely
-#define VORTEX_NAME "Core"
+#define VORTEX_NAME "Desktop"
 
 // the full name of this build for ex:
 //    Vortex Engine v1.0 'Igneous' (built Tue Jan 31 19:03:55 2023)
@@ -176,7 +176,7 @@
 // This should not be set to 0, it should be a specific maximum for
 // each separate device
 //
-#define MAX_MODES             13
+#define MAX_MODES             0
 
 // Default Tickrate in Ticks Per Second (TPS)
 //
@@ -342,7 +342,7 @@
 //
 // However there may be some clever uses for variable tickrate in
 // the final build? I'm not sure.
-#define VARIABLE_TICKRATE     0
+#define VARIABLE_TICKRATE     1
 
 // Fixed LED Count
 //
@@ -477,6 +477,41 @@
 // the response from the device when it's done transmitting the mode
 #define EDITOR_VERB_TRANSMIT_VL_ACK   "n"
 
+// when the pc wants the chromadeck to listen for a mode from the duos
+#define EDITOR_VERB_LISTEN_VL         "o"
+// and the response for when it's done fetching a duo mode
+#define EDITOR_VERB_LISTEN_VL_ACK     "p"
+
+// pull the duo saveheader via the chromalink
+#define EDITOR_VERB_PULL_CHROMA_HDR        "q"
+// and the response for when it's done fetching the modes
+#define EDITOR_VERB_PULL_CHROMA_HDR_ACK    "r"
+
+// push the duo save header via the chromalink
+#define EDITOR_VERB_PUSH_CHROMA_HDR        "s"
+// and the response for when it's done pushing the modes
+#define EDITOR_VERB_PUSH_CHROMA_HDR_ACK    "t"
+
+// pull a duo mode via the chromalink
+#define EDITOR_VERB_PULL_CHROMA_MODE       "u"
+// and the response for when it's done fetching the modes
+#define EDITOR_VERB_PULL_CHROMA_MODE_ACK   "v"
+
+// push a duo mode via the chromalink
+#define EDITOR_VERB_PUSH_CHROMA_MODE       "w"
+// and the response for when it's done pushing the modes
+#define EDITOR_VERB_PUSH_CHROMA_MODE_ACK   "x"
+
+// pull a single mode
+#define EDITOR_VERB_PULL_SINGLE_MODE       "y"
+// and the response for when it's done
+#define EDITOR_VERB_PULL_SINGLE_MODE_ACK   "z"
+
+// push a single mode
+#define EDITOR_VERB_PUSH_SINGLE_MODE       "A"
+// and the response for when it's done
+#define EDITOR_VERB_PUSH_SINGLE_MODE_ACK   "B"
+
 // ===================================================================
 //  Manually Configured Sizes
 //
@@ -561,10 +596,6 @@
 
 // This will be defined if the project is being built inside the editor
 #ifdef PROJECT_NAME_VortexEditor
-
-// The editor needs an unfixed led count in order to load any mode
-#undef FIXED_LED_COUNT
-#define FIXED_LED_COUNT 0
 
 #endif // VortexEditor
 

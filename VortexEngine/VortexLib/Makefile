@@ -2,7 +2,7 @@
 .SUFFIXES:
 
 # List all make targets which are not filenames
-.PHONY: all tests clean wasm
+.PHONY: all tests clean wasm fetch-tags
 
 # compiler tool definitions
 ifdef WASM
@@ -18,16 +18,21 @@ RM=rm -rf
 RANLIB=ranlib
 
 CFLAGS=-O2 -Wall
+LDFLAGS=$(CFLAGS)
 
 # add -g flag for debug symbols if we're not using wasm
 ifndef WASM
 CFLAGS += -g
 endif
 
+# The branch/tag suffix for this device (Cli is usually desktop)
+BRANCH_SUFFIX=l
+
 # Determine the current version based on Git tags
-VORTEX_VERSION_MAJOR ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list | grep -E "^[[:digit:]]+\.[[:digit:]]+\$$" | sort -V | tail -n1 | cut -d. -f1)
-VORTEX_VERSION_MINOR ?= $(shell git tag --list | grep -E "^[[:digit:]]+\.[[:digit:]]+\$$" | sort -V | tail -n1 | cut -d. -f2)
-VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count HEAD)
+# NOTE: Make sure to get fetch --tags first!
+VORTEX_VERSION_MAJOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | cut -d. -f1)
+VORTEX_VERSION_MINOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/$(BRANCH_SUFFIX)$$//' | cut -d. -f2)
+VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1)..HEAD)
 
 # If no tags are found, default to 0.1.0
 VORTEX_VERSION_MAJOR := $(if $(VORTEX_VERSION_MAJOR),$(VORTEX_VERSION_MAJOR),0)
