@@ -1,0 +1,369 @@
+\hypertarget{classLighthousePattern}{}\doxysection{Lighthouse\+Pattern Class Reference}
+\label{classLighthousePattern}\index{LighthousePattern@{LighthousePattern}}
+
+
+{\ttfamily \#include $<$Lighthouse\+Pattern.\+h$>$}
+
+
+
+Inheritance diagram for Lighthouse\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=184pt]{classLighthousePattern__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Lighthouse\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classLighthousePattern__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classLighthousePattern_a564a144c4d8488ef7a11a33e65b1ba48}{Lighthouse\+Pattern}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&args)
+\item 
+virtual \mbox{\hyperlink{classLighthousePattern_a73a69d9fff10bc48e8cfa09bf43319db}{$\sim$\+Lighthouse\+Pattern}} ()
+\item 
+virtual void \mbox{\hyperlink{classLighthousePattern_a70ccda94202ed002bea1f53464b7f078}{init}} () override
+\item 
+virtual void \mbox{\hyperlink{classLighthousePattern_ad015f5592a25c5b10400e51c8db41cb0}{play}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classLighthousePattern_afeb8fbeac8c8854fb6cf11a52410bca9}{blink\+On}} () override
+\item 
+virtual void \mbox{\hyperlink{classLighthousePattern_a1a668693d9b16e14bfd247ef14adff30}{blink\+Off}} () override
+\item 
+virtual void \mbox{\hyperlink{classLighthousePattern_abcb3a868bb6248a469e7f6b6dbb4cc33}{poststep}} () override
+\item 
+virtual void \mbox{\hyperlink{classLighthousePattern_a135d90d2d6ebf8b6b64a903178634c7f}{fade}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classLighthousePattern_aa3fec76413a15cc58c6e1125f5ce7f57}{m\+\_\+fade\+Amount}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classLighthousePattern_a7db45061499ee13e5cbabf42dee0ab2c}{m\+\_\+fade\+Rate}}
+\item 
+\mbox{\hyperlink{classTimer}{Timer}} \mbox{\hyperlink{classLighthousePattern_a4cf95d565d7aa5586889a60e8625544a}{m\+\_\+fade\+Timer}}
+\item 
+\mbox{\hyperlink{classLedStash}{Led\+Stash}} \mbox{\hyperlink{classLighthousePattern_a1582dc0ab9d3d8d7bb84586c6a1db870}{m\+\_\+stash}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classLighthousePattern_a9fdfe8d7e0bd645dcbd20bdab7f3ad60}{m\+\_\+progress}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 7 of file Lighthouse\+Pattern.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classLighthousePattern_a564a144c4d8488ef7a11a33e65b1ba48}\label{classLighthousePattern_a564a144c4d8488ef7a11a33e65b1ba48}} 
+\index{LighthousePattern@{LighthousePattern}!LighthousePattern@{LighthousePattern}}
+\index{LighthousePattern@{LighthousePattern}!LighthousePattern@{LighthousePattern}}
+\doxysubsubsection{\texorpdfstring{LighthousePattern()}{LighthousePattern()}}
+{\footnotesize\ttfamily Lighthouse\+Pattern\+::\+Lighthouse\+Pattern (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&}]{args }\end{DoxyParamCaption})}
+
+
+
+Definition at line 10 of file Lighthouse\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{10                                                                                   :}
+\DoxyCodeLine{11   \mbox{\hyperlink{classBlinkStepPattern_a312cba342c4f367b3e725d8bb7513569}{BlinkStepPattern}}(engine, args),}
+\DoxyCodeLine{12   \mbox{\hyperlink{classLighthousePattern_aa3fec76413a15cc58c6e1125f5ce7f57}{m\_fadeAmount}}(0),}
+\DoxyCodeLine{13   \mbox{\hyperlink{classLighthousePattern_a7db45061499ee13e5cbabf42dee0ab2c}{m\_fadeRate}}(0),}
+\DoxyCodeLine{14   \mbox{\hyperlink{classLighthousePattern_a4cf95d565d7aa5586889a60e8625544a}{m\_fadeTimer}}(engine),}
+\DoxyCodeLine{15   \mbox{\hyperlink{classLighthousePattern_a1582dc0ab9d3d8d7bb84586c6a1db870}{m\_stash}}(engine),}
+\DoxyCodeLine{16   \mbox{\hyperlink{classLighthousePattern_a9fdfe8d7e0bd645dcbd20bdab7f3ad60}{m\_progress}}(0)}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca969dd9a06c6675cacab1ef864361ec9b}{PATTERN\_LIGHTHOUSE}};}
+\DoxyCodeLine{19   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classLighthousePattern_aa3fec76413a15cc58c6e1125f5ce7f57}{m\_fadeAmount}});}
+\DoxyCodeLine{20   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classLighthousePattern_a7db45061499ee13e5cbabf42dee0ab2c}{m\_fadeRate}});}
+\DoxyCodeLine{21   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
+\DoxyCodeLine{22 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+fade\+Amount, m\+\_\+fade\+Rate, Pattern\+::m\+\_\+pattern\+ID, PATTERN\+\_\+\+LIGHTHOUSE, REGISTER\+\_\+\+ARG, and Pattern\+::set\+Args().
+
+\mbox{\Hypertarget{classLighthousePattern_a73a69d9fff10bc48e8cfa09bf43319db}\label{classLighthousePattern_a73a69d9fff10bc48e8cfa09bf43319db}} 
+\index{LighthousePattern@{LighthousePattern}!````~LighthousePattern@{$\sim$LighthousePattern}}
+\index{````~LighthousePattern@{$\sim$LighthousePattern}!LighthousePattern@{LighthousePattern}}
+\doxysubsubsection{\texorpdfstring{$\sim$LighthousePattern()}{~LighthousePattern()}}
+{\footnotesize\ttfamily Lighthouse\+Pattern\+::$\sim$\+Lighthouse\+Pattern (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 24 of file Lighthouse\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classLighthousePattern_a1a668693d9b16e14bfd247ef14adff30}\label{classLighthousePattern_a1a668693d9b16e14bfd247ef14adff30}} 
+\index{LighthousePattern@{LighthousePattern}!blinkOff@{blinkOff}}
+\index{blinkOff@{blinkOff}!LighthousePattern@{LighthousePattern}}
+\doxysubsubsection{\texorpdfstring{blinkOff()}{blinkOff()}}
+{\footnotesize\ttfamily void Lighthouse\+Pattern\+::blink\+Off (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_ad9e5387af35ac4568efdb3d0393815c9}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 59 of file Lighthouse\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{60 \{}
+\DoxyCodeLine{61   \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a12857a86927659a1871a2ad8c57b6fae}{stashAll}}(\mbox{\hyperlink{classLighthousePattern_a1582dc0ab9d3d8d7bb84586c6a1db870}{m\_stash}});}
+\DoxyCodeLine{62   \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_ab61ea9a22bd6618c7b7aa6cb34d27c1d}{clearAll}}();}
+\DoxyCodeLine{63 \}}
+
+\end{DoxyCode}
+
+
+References Leds\+::clear\+All(), Vortex\+Engine\+::leds(), Pattern\+::m\+\_\+engine, m\+\_\+stash, and Leds\+::stash\+All().
+
+\mbox{\Hypertarget{classLighthousePattern_afeb8fbeac8c8854fb6cf11a52410bca9}\label{classLighthousePattern_afeb8fbeac8c8854fb6cf11a52410bca9}} 
+\index{LighthousePattern@{LighthousePattern}!blinkOn@{blinkOn}}
+\index{blinkOn@{blinkOn}!LighthousePattern@{LighthousePattern}}
+\doxysubsubsection{\texorpdfstring{blinkOn()}{blinkOn()}}
+{\footnotesize\ttfamily void Lighthouse\+Pattern\+::blink\+On (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a792005962eff211334d732ee09020b90}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 52 of file Lighthouse\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{53 \{}
+\DoxyCodeLine{54   \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a6f6a7151efe61319c6089c606f2f82ca}{restoreAll}}(\mbox{\hyperlink{classLighthousePattern_a1582dc0ab9d3d8d7bb84586c6a1db870}{m\_stash}});}
+\DoxyCodeLine{55   \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}((\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}})\mbox{\hyperlink{classLighthousePattern_a9fdfe8d7e0bd645dcbd20bdab7f3ad60}{m\_progress}}, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_abef3c86e5519d8befb515d2e927885f5}{cur}}());}
+\DoxyCodeLine{56   \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a12857a86927659a1871a2ad8c57b6fae}{stashAll}}(\mbox{\hyperlink{classLighthousePattern_a1582dc0ab9d3d8d7bb84586c6a1db870}{m\_stash}});}
+\DoxyCodeLine{57 \}}
+
+\end{DoxyCode}
+
+
+References Colorset\+::cur(), Vortex\+Engine\+::leds(), Pattern\+::m\+\_\+colorset, Pattern\+::m\+\_\+engine, m\+\_\+progress, m\+\_\+stash, Leds\+::restore\+All(), Leds\+::set\+Index(), and Leds\+::stash\+All().
+
+\mbox{\Hypertarget{classLighthousePattern_a135d90d2d6ebf8b6b64a903178634c7f}\label{classLighthousePattern_a135d90d2d6ebf8b6b64a903178634c7f}} 
+\index{LighthousePattern@{LighthousePattern}!fade@{fade}}
+\index{fade@{fade}!LighthousePattern@{LighthousePattern}}
+\doxysubsubsection{\texorpdfstring{fade()}{fade()}}
+{\footnotesize\ttfamily void Lighthouse\+Pattern\+::fade (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Definition at line 71 of file Lighthouse\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{72 \{}
+\DoxyCodeLine{73   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} i = 0; i < \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}; ++i) \{}
+\DoxyCodeLine{74     \mbox{\hyperlink{classLighthousePattern_a1582dc0ab9d3d8d7bb84586c6a1db870}{m\_stash}}[i].adjustBrightness(\mbox{\hyperlink{classLighthousePattern_aa3fec76413a15cc58c6e1125f5ce7f57}{m\_fadeAmount}});}
+\DoxyCodeLine{75   \}}
+\DoxyCodeLine{76 \}}
+
+\end{DoxyCode}
+
+
+References LED\+\_\+\+COUNT, m\+\_\+fade\+Amount, and m\+\_\+stash.
+
+
+
+Referenced by play().
+
+\mbox{\Hypertarget{classLighthousePattern_a70ccda94202ed002bea1f53464b7f078}\label{classLighthousePattern_a70ccda94202ed002bea1f53464b7f078}} 
+\index{LighthousePattern@{LighthousePattern}!init@{init}}
+\index{init@{init}!LighthousePattern@{LighthousePattern}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Lighthouse\+Pattern\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 29 of file Lighthouse\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{31   \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{BlinkStepPattern::init}}();}
+\DoxyCodeLine{32 }
+\DoxyCodeLine{33   \textcolor{comment}{// fade timer setup}}
+\DoxyCodeLine{34   \mbox{\hyperlink{classLighthousePattern_a4cf95d565d7aa5586889a60e8625544a}{m\_fadeTimer}}.\mbox{\hyperlink{classTimer_a9020542d73357a4eef512eefaf57524b}{reset}}();}
+\DoxyCodeLine{35   \mbox{\hyperlink{classLighthousePattern_a4cf95d565d7aa5586889a60e8625544a}{m\_fadeTimer}}.\mbox{\hyperlink{classTimer_aecfcc5cd99115c67b5f5f7a485bd7a81}{addAlarm}}(\mbox{\hyperlink{classLighthousePattern_a7db45061499ee13e5cbabf42dee0ab2c}{m\_fadeRate}});}
+\DoxyCodeLine{36   \mbox{\hyperlink{classLighthousePattern_a4cf95d565d7aa5586889a60e8625544a}{m\_fadeTimer}}.\mbox{\hyperlink{classTimer_a4f816271e1661c4eb03afc87e2f78c6a}{start}}();}
+\DoxyCodeLine{37 }
+\DoxyCodeLine{38   \textcolor{comment}{// start colorset at index 0 so cur() works}}
+\DoxyCodeLine{39   \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4959095438adcd6c02f5b0e4a17c9b8d}{setCurIndex}}(0);}
+\DoxyCodeLine{40 \}}
+
+\end{DoxyCode}
+
+
+References Timer\+::add\+Alarm(), Blink\+Step\+Pattern\+::init(), Pattern\+::m\+\_\+colorset, m\+\_\+fade\+Rate, m\+\_\+fade\+Timer, Timer\+::reset(), Colorset\+::set\+Cur\+Index(), and Timer\+::start().
+
+\mbox{\Hypertarget{classLighthousePattern_ad015f5592a25c5b10400e51c8db41cb0}\label{classLighthousePattern_ad015f5592a25c5b10400e51c8db41cb0}} 
+\index{LighthousePattern@{LighthousePattern}!play@{play}}
+\index{play@{play}!LighthousePattern@{LighthousePattern}}
+\doxysubsubsection{\texorpdfstring{play()}{play()}}
+{\footnotesize\ttfamily void Lighthouse\+Pattern\+::play (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a5f514eea576c838dda23fda088dde729}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 43 of file Lighthouse\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{44 \{}
+\DoxyCodeLine{45   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classLighthousePattern_a4cf95d565d7aa5586889a60e8625544a}{m\_fadeTimer}}.\mbox{\hyperlink{classTimer_a8a6d962c92c8e2e641254ea28e1f0443}{alarm}}() == 0) \{}
+\DoxyCodeLine{46     \mbox{\hyperlink{classLighthousePattern_a135d90d2d6ebf8b6b64a903178634c7f}{fade}}();}
+\DoxyCodeLine{47   \}}
+\DoxyCodeLine{48 }
+\DoxyCodeLine{49   \mbox{\hyperlink{classBlinkStepPattern_a5f514eea576c838dda23fda088dde729}{BlinkStepPattern::play}}();}
+\DoxyCodeLine{50 \}}
+
+\end{DoxyCode}
+
+
+References Timer\+::alarm(), fade(), m\+\_\+fade\+Timer, and Blink\+Step\+Pattern\+::play().
+
+\mbox{\Hypertarget{classLighthousePattern_abcb3a868bb6248a469e7f6b6dbb4cc33}\label{classLighthousePattern_abcb3a868bb6248a469e7f6b6dbb4cc33}} 
+\index{LighthousePattern@{LighthousePattern}!poststep@{poststep}}
+\index{poststep@{poststep}!LighthousePattern@{LighthousePattern}}
+\doxysubsubsection{\texorpdfstring{poststep()}{poststep()}}
+{\footnotesize\ttfamily void Lighthouse\+Pattern\+::poststep (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a31d244f697913cbdf624386f8a46663c}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 65 of file Lighthouse\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{66 \{}
+\DoxyCodeLine{67   \mbox{\hyperlink{classLighthousePattern_a9fdfe8d7e0bd645dcbd20bdab7f3ad60}{m\_progress}} = (\mbox{\hyperlink{classLighthousePattern_a9fdfe8d7e0bd645dcbd20bdab7f3ad60}{m\_progress}} + 1) \% \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}};}
+\DoxyCodeLine{68   \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{69 \}}
+
+\end{DoxyCode}
+
+
+References Colorset\+::get\+Next(), LED\+\_\+\+COUNT, Pattern\+::m\+\_\+colorset, and m\+\_\+progress.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classLighthousePattern_aa3fec76413a15cc58c6e1125f5ce7f57}\label{classLighthousePattern_aa3fec76413a15cc58c6e1125f5ce7f57}} 
+\index{LighthousePattern@{LighthousePattern}!m\_fadeAmount@{m\_fadeAmount}}
+\index{m\_fadeAmount@{m\_fadeAmount}!LighthousePattern@{LighthousePattern}}
+\doxysubsubsection{\texorpdfstring{m\_fadeAmount}{m\_fadeAmount}}
+{\footnotesize\ttfamily uint8\+\_\+t Lighthouse\+Pattern\+::m\+\_\+fade\+Amount\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 30 of file Lighthouse\+Pattern.\+h.
+
+
+
+Referenced by fade(), and Lighthouse\+Pattern().
+
+\mbox{\Hypertarget{classLighthousePattern_a7db45061499ee13e5cbabf42dee0ab2c}\label{classLighthousePattern_a7db45061499ee13e5cbabf42dee0ab2c}} 
+\index{LighthousePattern@{LighthousePattern}!m\_fadeRate@{m\_fadeRate}}
+\index{m\_fadeRate@{m\_fadeRate}!LighthousePattern@{LighthousePattern}}
+\doxysubsubsection{\texorpdfstring{m\_fadeRate}{m\_fadeRate}}
+{\footnotesize\ttfamily uint8\+\_\+t Lighthouse\+Pattern\+::m\+\_\+fade\+Rate\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 32 of file Lighthouse\+Pattern.\+h.
+
+
+
+Referenced by init(), and Lighthouse\+Pattern().
+
+\mbox{\Hypertarget{classLighthousePattern_a4cf95d565d7aa5586889a60e8625544a}\label{classLighthousePattern_a4cf95d565d7aa5586889a60e8625544a}} 
+\index{LighthousePattern@{LighthousePattern}!m\_fadeTimer@{m\_fadeTimer}}
+\index{m\_fadeTimer@{m\_fadeTimer}!LighthousePattern@{LighthousePattern}}
+\doxysubsubsection{\texorpdfstring{m\_fadeTimer}{m\_fadeTimer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTimer}{Timer}} Lighthouse\+Pattern\+::m\+\_\+fade\+Timer\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 34 of file Lighthouse\+Pattern.\+h.
+
+
+
+Referenced by init(), and play().
+
+\mbox{\Hypertarget{classLighthousePattern_a9fdfe8d7e0bd645dcbd20bdab7f3ad60}\label{classLighthousePattern_a9fdfe8d7e0bd645dcbd20bdab7f3ad60}} 
+\index{LighthousePattern@{LighthousePattern}!m\_progress@{m\_progress}}
+\index{m\_progress@{m\_progress}!LighthousePattern@{LighthousePattern}}
+\doxysubsubsection{\texorpdfstring{m\_progress}{m\_progress}}
+{\footnotesize\ttfamily uint8\+\_\+t Lighthouse\+Pattern\+::m\+\_\+progress\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 38 of file Lighthouse\+Pattern.\+h.
+
+
+
+Referenced by blink\+On(), and poststep().
+
+\mbox{\Hypertarget{classLighthousePattern_a1582dc0ab9d3d8d7bb84586c6a1db870}\label{classLighthousePattern_a1582dc0ab9d3d8d7bb84586c6a1db870}} 
+\index{LighthousePattern@{LighthousePattern}!m\_stash@{m\_stash}}
+\index{m\_stash@{m\_stash}!LighthousePattern@{LighthousePattern}}
+\doxysubsubsection{\texorpdfstring{m\_stash}{m\_stash}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classLedStash}{Led\+Stash}} Lighthouse\+Pattern\+::m\+\_\+stash\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 36 of file Lighthouse\+Pattern.\+h.
+
+
+
+Referenced by blink\+Off(), blink\+On(), and fade().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{LighthousePattern_8h}{Lighthouse\+Pattern.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{LighthousePattern_8cpp}{Lighthouse\+Pattern.\+cpp}}\end{DoxyCompactItemize}

@@ -1,0 +1,641 @@
+\hypertarget{classModeSharing}{}\doxysection{Mode\+Sharing Class Reference}
+\label{classModeSharing}\index{ModeSharing@{ModeSharing}}
+
+
+{\ttfamily \#include $<$Mode\+Sharing.\+h$>$}
+
+
+
+Inheritance diagram for Mode\+Sharing\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=160pt]{classModeSharing__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Mode\+Sharing\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classModeSharing__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classModeSharing_a11bb80d6206f30633ecab2de4420fcb3}{Mode\+Sharing}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&col, bool advanced)
+\item 
+\mbox{\hyperlink{classModeSharing_a0aec0f78ee31d37e06799dd0f0f01b91}{$\sim$\+Mode\+Sharing}} ()
+\item 
+bool \mbox{\hyperlink{classModeSharing_a9f1473717a62b4ede1a3fe782b8a260d}{init}} () override
+\item 
+\mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{Menu\+Action}} \mbox{\hyperlink{classModeSharing_adf4425210b3945561a2ca1a6b2b165a3}{run}} () override
+\item 
+void \mbox{\hyperlink{classModeSharing_aa5ff26439d03402077b06a3af55f68c9}{on\+Short\+Click}} () override
+\item 
+void \mbox{\hyperlink{classModeSharing_ae442e6e009d96e0a618c130ca45b66b1}{on\+Long\+Click}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Types}
+\begin{DoxyCompactItemize}
+\item 
+enum class \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127}{Mode\+Share\+State}} \{ \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127abb09596baa7af2a3e4714a63eb1e01f0}{SHARE\+\_\+\+SEND\+\_\+\+IR}}
+, \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127adc5e4cdbf9c5e23bd9acab0a312efad4}{SHARE\+\_\+\+SEND\+\_\+\+VL}}
+, \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}{SHARE\+\_\+\+RECEIVE}}
+ \}
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+void \mbox{\hyperlink{classModeSharing_a5ca6cdd326d6e9ffc64b480c149df830}{begin\+Sending\+VL}} ()
+\item 
+void \mbox{\hyperlink{classModeSharing_ae42cb7b2c4a1c0d8fa03690c248bdf71}{begin\+Sending\+IR}} ()
+\item 
+void \mbox{\hyperlink{classModeSharing_a3d7ec3745e195d3d42b53743abcb4622}{continue\+Sending\+VL}} ()
+\item 
+void \mbox{\hyperlink{classModeSharing_a4d4dd87df5e39e4eda2a3779dc7191d0}{continue\+Sending\+IR}} ()
+\item 
+void \mbox{\hyperlink{classModeSharing_a569728b8694e75ee465bc624d597b565}{begin\+Receiving\+IR}} ()
+\item 
+void \mbox{\hyperlink{classModeSharing_aac8e553329a62aa804beded83fe18597}{receive\+Mode\+IR}} ()
+\item 
+void \mbox{\hyperlink{classModeSharing_ab15ee747bc61856d04311594b4a74e17}{show\+Send\+Mode\+VL}} ()
+\item 
+void \mbox{\hyperlink{classModeSharing_a031448b1c46da5e0724bbacfa177a7dd}{show\+Send\+Mode\+IR}} ()
+\item 
+void \mbox{\hyperlink{classModeSharing_af9de8e68dbc889f353da877ba14e0ff4}{show\+Receive\+Mode}} ()
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127}{Mode\+Share\+State}} \mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\+\_\+sharing\+Mode}}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\+\_\+time\+Out\+Start\+Time}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 6 of file Mode\+Sharing.\+h.
+
+
+
+\doxysubsection{Member Enumeration Documentation}
+\mbox{\Hypertarget{classModeSharing_a7602b4bf351c007963ee2185eb0d4127}\label{classModeSharing_a7602b4bf351c007963ee2185eb0d4127}} 
+\index{ModeSharing@{ModeSharing}!ModeShareState@{ModeShareState}}
+\index{ModeShareState@{ModeShareState}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{ModeShareState}{ModeShareState}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127}{Mode\+Sharing\+::\+Mode\+Share\+State}}\hspace{0.3cm}{\ttfamily [strong]}, {\ttfamily [private]}}
+
+\begin{DoxyEnumFields}{Enumerator}
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SHARE\_SEND\_IR@{SHARE\_SEND\_IR}!ModeSharing@{ModeSharing}}\index{ModeSharing@{ModeSharing}!SHARE\_SEND\_IR@{SHARE\_SEND\_IR}}}\mbox{\Hypertarget{classModeSharing_a7602b4bf351c007963ee2185eb0d4127abb09596baa7af2a3e4714a63eb1e01f0}\label{classModeSharing_a7602b4bf351c007963ee2185eb0d4127abb09596baa7af2a3e4714a63eb1e01f0}} 
+SHARE\+\_\+\+SEND\+\_\+\+IR&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SHARE\_SEND\_VL@{SHARE\_SEND\_VL}!ModeSharing@{ModeSharing}}\index{ModeSharing@{ModeSharing}!SHARE\_SEND\_VL@{SHARE\_SEND\_VL}}}\mbox{\Hypertarget{classModeSharing_a7602b4bf351c007963ee2185eb0d4127adc5e4cdbf9c5e23bd9acab0a312efad4}\label{classModeSharing_a7602b4bf351c007963ee2185eb0d4127adc5e4cdbf9c5e23bd9acab0a312efad4}} 
+SHARE\+\_\+\+SEND\+\_\+\+VL&\\
+\hline
+
+\raisebox{\heightof{T}}[0pt][0pt]{\index{SHARE\_RECEIVE@{SHARE\_RECEIVE}!ModeSharing@{ModeSharing}}\index{ModeSharing@{ModeSharing}!SHARE\_RECEIVE@{SHARE\_RECEIVE}}}\mbox{\Hypertarget{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}\label{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}} 
+SHARE\+\_\+\+RECEIVE&\\
+\hline
+
+\end{DoxyEnumFields}
+
+
+Definition at line 31 of file Mode\+Sharing.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31                             \{}
+\DoxyCodeLine{32     SHARE\_SEND\_IR,  \textcolor{comment}{// send mode over ir}}
+\DoxyCodeLine{33     SHARE\_SEND\_VL,  \textcolor{comment}{// send mode over vl}}
+\DoxyCodeLine{34     SHARE\_RECEIVE,  \textcolor{comment}{// receive mode}}
+\DoxyCodeLine{35   \};}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classModeSharing_a11bb80d6206f30633ecab2de4420fcb3}\label{classModeSharing_a11bb80d6206f30633ecab2de4420fcb3}} 
+\index{ModeSharing@{ModeSharing}!ModeSharing@{ModeSharing}}
+\index{ModeSharing@{ModeSharing}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{ModeSharing()}{ModeSharing()}}
+{\footnotesize\ttfamily Mode\+Sharing\+::\+Mode\+Sharing (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{const \mbox{\hyperlink{classRGBColor}{RGBColor}} \&}]{col,  }\item[{bool}]{advanced }\end{DoxyParamCaption})}
+
+
+
+Definition at line 18 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{18                                                                                  :}
+\DoxyCodeLine{19   \mbox{\hyperlink{classMenu_a015cc9ee4e9800ad776e8e8097ca49fe}{Menu}}(engine, col, advanced),}
+\DoxyCodeLine{20   \mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}}(\mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}{ModeShareState::SHARE\_RECEIVE}}),}
+\DoxyCodeLine{21   \mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\_timeOutStartTime}}(0)}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \}}
+
+\end{DoxyCode}
+\mbox{\Hypertarget{classModeSharing_a0aec0f78ee31d37e06799dd0f0f01b91}\label{classModeSharing_a0aec0f78ee31d37e06799dd0f0f01b91}} 
+\index{ModeSharing@{ModeSharing}!````~ModeSharing@{$\sim$ModeSharing}}
+\index{````~ModeSharing@{$\sim$ModeSharing}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{$\sim$ModeSharing()}{~ModeSharing()}}
+{\footnotesize\ttfamily Mode\+Sharing\+::$\sim$\+Mode\+Sharing (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 25 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classModeSharing_a569728b8694e75ee465bc624d597b565}\label{classModeSharing_a569728b8694e75ee465bc624d597b565}} 
+\index{ModeSharing@{ModeSharing}!beginReceivingIR@{beginReceivingIR}}
+\index{beginReceivingIR@{beginReceivingIR}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{beginReceivingIR()}{beginReceivingIR()}}
+{\footnotesize\ttfamily void Mode\+Sharing\+::begin\+Receiving\+IR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 153 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{154 \{}
+\DoxyCodeLine{155   \mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}} = \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}{ModeShareState::SHARE\_RECEIVE}};}
+\DoxyCodeLine{156   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a35eb211f1a70211b94a6c68747bf5157}{irReceiver}}().\mbox{\hyperlink{classIRReceiver_a007b3616b460b97e210c136f429291f4}{beginReceiving}}();}
+\DoxyCodeLine{157 \}}
+
+\end{DoxyCode}
+
+
+References IRReceiver\+::begin\+Receiving(), Vortex\+Engine\+::ir\+Receiver(), Menu\+::m\+\_\+engine, m\+\_\+sharing\+Mode, and SHARE\+\_\+\+RECEIVE.
+
+
+
+Referenced by begin\+Sending\+IR(), begin\+Sending\+VL(), continue\+Sending\+IR(), continue\+Sending\+VL(), and init().
+
+\mbox{\Hypertarget{classModeSharing_ae42cb7b2c4a1c0d8fa03690c248bdf71}\label{classModeSharing_ae42cb7b2c4a1c0d8fa03690c248bdf71}} 
+\index{ModeSharing@{ModeSharing}!beginSendingIR@{beginSendingIR}}
+\index{beginSendingIR@{beginSendingIR}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{beginSendingIR()}{beginSendingIR()}}
+{\footnotesize\ttfamily void Mode\+Sharing\+::begin\+Sending\+IR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 112 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{113 \{}
+\DoxyCodeLine{114   \textcolor{comment}{// if the sender is sending then cannot start again}}
+\DoxyCodeLine{115   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a7c455b376183699c9e0b7d23578028dc}{irSender}}().\mbox{\hyperlink{classIRSender_a7e1354f2cc4afad3cfd3bf1565d15b62}{isSending}}()) \{}
+\DoxyCodeLine{116     \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Cannot begin sending, sender is busy"{}});}
+\DoxyCodeLine{117     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{118   \}}
+\DoxyCodeLine{119   \mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}} = \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127abb09596baa7af2a3e4714a63eb1e01f0}{ModeShareState::SHARE\_SEND\_IR}};}
+\DoxyCodeLine{120   \textcolor{comment}{// initialize it with the current mode data}}
+\DoxyCodeLine{121   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a7c455b376183699c9e0b7d23578028dc}{irSender}}().\mbox{\hyperlink{classIRSender_a94d09e09009bb2919a52a2a9bea50173}{loadMode}}(\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_ae2f6242adc5499cd5de7256e2bebb8a9}{modes}}().\mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{curMode}}());}
+\DoxyCodeLine{122   \textcolor{comment}{// send the first chunk of data, leave if we're done}}
+\DoxyCodeLine{123   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a7c455b376183699c9e0b7d23578028dc}{irSender}}().\mbox{\hyperlink{classIRSender_ab388c3ec73cb02f2aeb538a4ad956ab8}{send}}()) \{}
+\DoxyCodeLine{124     \textcolor{comment}{// when send has completed, stores time that last action was completed to calculate interval between sends}}
+\DoxyCodeLine{125     \mbox{\hyperlink{classModeSharing_a569728b8694e75ee465bc624d597b565}{beginReceivingIR}}();}
+\DoxyCodeLine{126   \}}
+\DoxyCodeLine{127 \}}
+
+\end{DoxyCode}
+
+
+References begin\+Receiving\+IR(), Modes\+::cur\+Mode(), ERROR\+\_\+\+LOG, Vortex\+Engine\+::ir\+Sender(), IRSender\+::is\+Sending(), IRSender\+::load\+Mode(), Menu\+::m\+\_\+engine, m\+\_\+sharing\+Mode, Vortex\+Engine\+::modes(), IRSender\+::send(), and SHARE\+\_\+\+SEND\+\_\+\+IR.
+
+
+
+Referenced by on\+Short\+Click().
+
+\mbox{\Hypertarget{classModeSharing_a5ca6cdd326d6e9ffc64b480c149df830}\label{classModeSharing_a5ca6cdd326d6e9ffc64b480c149df830}} 
+\index{ModeSharing@{ModeSharing}!beginSendingVL@{beginSendingVL}}
+\index{beginSendingVL@{beginSendingVL}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{beginSendingVL()}{beginSendingVL()}}
+{\footnotesize\ttfamily void Mode\+Sharing\+::begin\+Sending\+VL (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 95 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{96 \{}
+\DoxyCodeLine{97   \textcolor{comment}{// if the sender is sending then cannot start again}}
+\DoxyCodeLine{98   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_adb440ed90584458a9d4287beb4ddeb5b}{vlSender}}().\mbox{\hyperlink{classVLSender_ac9d3aafaad1b74d7a9cf401b259ae779}{isSending}}()) \{}
+\DoxyCodeLine{99     \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Cannot begin sending, sender is busy"{}});}
+\DoxyCodeLine{100     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{101   \}}
+\DoxyCodeLine{102   \mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}} = \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127adc5e4cdbf9c5e23bd9acab0a312efad4}{ModeShareState::SHARE\_SEND\_VL}};}
+\DoxyCodeLine{103   \textcolor{comment}{// initialize it with the current mode data}}
+\DoxyCodeLine{104   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_adb440ed90584458a9d4287beb4ddeb5b}{vlSender}}().\mbox{\hyperlink{classVLSender_a4166c98c11640955d4cdf94bf3be5601}{loadMode}}(\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_ae2f6242adc5499cd5de7256e2bebb8a9}{modes}}().\mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{curMode}}());}
+\DoxyCodeLine{105   \textcolor{comment}{// send the first chunk of data, leave if we're done}}
+\DoxyCodeLine{106   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_adb440ed90584458a9d4287beb4ddeb5b}{vlSender}}().\mbox{\hyperlink{classVLSender_a8673ff200bc495f60c006c488738af75}{send}}()) \{}
+\DoxyCodeLine{107     \textcolor{comment}{// when send has completed, stores time that last action was completed to calculate interval between sends}}
+\DoxyCodeLine{108     \mbox{\hyperlink{classModeSharing_a569728b8694e75ee465bc624d597b565}{beginReceivingIR}}();}
+\DoxyCodeLine{109   \}}
+\DoxyCodeLine{110 \}}
+
+\end{DoxyCode}
+
+
+References begin\+Receiving\+IR(), Modes\+::cur\+Mode(), ERROR\+\_\+\+LOG, VLSender\+::is\+Sending(), VLSender\+::load\+Mode(), Menu\+::m\+\_\+engine, m\+\_\+sharing\+Mode, Vortex\+Engine\+::modes(), VLSender\+::send(), SHARE\+\_\+\+SEND\+\_\+\+VL, and Vortex\+Engine\+::vl\+Sender().
+
+\mbox{\Hypertarget{classModeSharing_a4d4dd87df5e39e4eda2a3779dc7191d0}\label{classModeSharing_a4d4dd87df5e39e4eda2a3779dc7191d0}} 
+\index{ModeSharing@{ModeSharing}!continueSendingIR@{continueSendingIR}}
+\index{continueSendingIR@{continueSendingIR}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{continueSendingIR()}{continueSendingIR()}}
+{\footnotesize\ttfamily void Mode\+Sharing\+::continue\+Sending\+IR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 141 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{142 \{}
+\DoxyCodeLine{143   \textcolor{comment}{// if the sender isn't sending then nothing to do}}
+\DoxyCodeLine{144   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a7c455b376183699c9e0b7d23578028dc}{irSender}}().\mbox{\hyperlink{classIRSender_a7e1354f2cc4afad3cfd3bf1565d15b62}{isSending}}()) \{}
+\DoxyCodeLine{145     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{146   \}}
+\DoxyCodeLine{147   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a7c455b376183699c9e0b7d23578028dc}{irSender}}().\mbox{\hyperlink{classIRSender_ab388c3ec73cb02f2aeb538a4ad956ab8}{send}}()) \{}
+\DoxyCodeLine{148     \textcolor{comment}{// when send has completed, stores time that last action was completed to calculate interval between sends}}
+\DoxyCodeLine{149     \mbox{\hyperlink{classModeSharing_a569728b8694e75ee465bc624d597b565}{beginReceivingIR}}();}
+\DoxyCodeLine{150   \}}
+\DoxyCodeLine{151 \}}
+
+\end{DoxyCode}
+
+
+References begin\+Receiving\+IR(), Vortex\+Engine\+::ir\+Sender(), IRSender\+::is\+Sending(), Menu\+::m\+\_\+engine, and IRSender\+::send().
+
+
+
+Referenced by run().
+
+\mbox{\Hypertarget{classModeSharing_a3d7ec3745e195d3d42b53743abcb4622}\label{classModeSharing_a3d7ec3745e195d3d42b53743abcb4622}} 
+\index{ModeSharing@{ModeSharing}!continueSendingVL@{continueSendingVL}}
+\index{continueSendingVL@{continueSendingVL}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{continueSendingVL()}{continueSendingVL()}}
+{\footnotesize\ttfamily void Mode\+Sharing\+::continue\+Sending\+VL (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 129 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{130 \{}
+\DoxyCodeLine{131   \textcolor{comment}{// if the sender isn't sending then nothing to do}}
+\DoxyCodeLine{132   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_adb440ed90584458a9d4287beb4ddeb5b}{vlSender}}().\mbox{\hyperlink{classVLSender_ac9d3aafaad1b74d7a9cf401b259ae779}{isSending}}()) \{}
+\DoxyCodeLine{133     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{134   \}}
+\DoxyCodeLine{135   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_adb440ed90584458a9d4287beb4ddeb5b}{vlSender}}().\mbox{\hyperlink{classVLSender_a8673ff200bc495f60c006c488738af75}{send}}()) \{}
+\DoxyCodeLine{136     \textcolor{comment}{// when send has completed, stores time that last action was completed to calculate interval between sends}}
+\DoxyCodeLine{137     \mbox{\hyperlink{classModeSharing_a569728b8694e75ee465bc624d597b565}{beginReceivingIR}}();}
+\DoxyCodeLine{138   \}}
+\DoxyCodeLine{139 \}}
+
+\end{DoxyCode}
+
+
+References begin\+Receiving\+IR(), VLSender\+::is\+Sending(), Menu\+::m\+\_\+engine, VLSender\+::send(), and Vortex\+Engine\+::vl\+Sender().
+
+
+
+Referenced by run().
+
+\mbox{\Hypertarget{classModeSharing_a9f1473717a62b4ede1a3fe782b8a260d}\label{classModeSharing_a9f1473717a62b4ede1a3fe782b8a260d}} 
+\index{ModeSharing@{ModeSharing}!init@{init}}
+\index{init@{init}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily bool Mode\+Sharing\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{Menu}}.
+
+
+
+Definition at line 29 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{31   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{Menu::init}}()) \{}
+\DoxyCodeLine{32     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{33   \}}
+\DoxyCodeLine{34   \textcolor{comment}{// skip led selection}}
+\DoxyCodeLine{35   \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{36   \textcolor{comment}{// start on receive because it's the more responsive of the two}}
+\DoxyCodeLine{37   \textcolor{comment}{// the odds of opening receive and then accidentally receiving}}
+\DoxyCodeLine{38   \textcolor{comment}{// a mode that is being broadcast nearby is completely unlikely}}
+\DoxyCodeLine{39   \mbox{\hyperlink{classModeSharing_a569728b8694e75ee465bc624d597b565}{beginReceivingIR}}();}
+\DoxyCodeLine{40   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entering Mode Sharing"{}});}
+\DoxyCodeLine{41   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{42 \}}
+
+\end{DoxyCode}
+
+
+References begin\+Receiving\+IR(), DEBUG\+\_\+\+LOG, Menu\+::init(), and Menu\+::m\+\_\+led\+Selected.
+
+\mbox{\Hypertarget{classModeSharing_ae442e6e009d96e0a618c130ca45b66b1}\label{classModeSharing_ae442e6e009d96e0a618c130ca45b66b1}} 
+\index{ModeSharing@{ModeSharing}!onLongClick@{onLongClick}}
+\index{onLongClick@{onLongClick}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{onLongClick()}{onLongClick()}}
+{\footnotesize\ttfamily void Mode\+Sharing\+::on\+Long\+Click (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_aa5e3a269c2dba3ee69b530c7d1b3c0ff}{Menu}}.
+
+
+
+Definition at line 89 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{90 \{}
+\DoxyCodeLine{91   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_ae2f6242adc5499cd5de7256e2bebb8a9}{modes}}().\mbox{\hyperlink{classModes_a263cf02fb83d954b91c85d2d1e5411ee}{updateCurMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}});}
+\DoxyCodeLine{92   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{93 \}}
+
+\end{DoxyCode}
+
+
+References Menu\+::leave\+Menu(), Menu\+::m\+\_\+engine, Menu\+::m\+\_\+preview\+Mode, Vortex\+Engine\+::modes(), and Modes\+::update\+Cur\+Mode().
+
+\mbox{\Hypertarget{classModeSharing_aa5ff26439d03402077b06a3af55f68c9}\label{classModeSharing_aa5ff26439d03402077b06a3af55f68c9}} 
+\index{ModeSharing@{ModeSharing}!onShortClick@{onShortClick}}
+\index{onShortClick@{onShortClick}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{onShortClick()}{onShortClick()}}
+{\footnotesize\ttfamily void Mode\+Sharing\+::on\+Short\+Click (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_a135b0de5e64efeb822e5323f4b8c8955}{Menu}}.
+
+
+
+Definition at line 74 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{75 \{}
+\DoxyCodeLine{76   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}}) \{}
+\DoxyCodeLine{77   \textcolor{keywordflow}{case} \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}{ModeShareState::SHARE\_RECEIVE}}:}
+\DoxyCodeLine{78     \textcolor{comment}{// click while on receive -\/> end receive, start sending}}
+\DoxyCodeLine{79     \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a35eb211f1a70211b94a6c68747bf5157}{irReceiver}}().\mbox{\hyperlink{classIRReceiver_aa9d8177899465973e15d78c2795a8b01}{endReceiving}}();}
+\DoxyCodeLine{80     \mbox{\hyperlink{classModeSharing_ae42cb7b2c4a1c0d8fa03690c248bdf71}{beginSendingIR}}();}
+\DoxyCodeLine{81     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Switched to send mode"{}});}
+\DoxyCodeLine{82     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{83   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{84     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{85   \}}
+\DoxyCodeLine{86   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_ab61ea9a22bd6618c7b7aa6cb34d27c1d}{clearAll}}();}
+\DoxyCodeLine{87 \}}
+
+\end{DoxyCode}
+
+
+References begin\+Sending\+IR(), Leds\+::clear\+All(), DEBUG\+\_\+\+LOG, IRReceiver\+::end\+Receiving(), Vortex\+Engine\+::ir\+Receiver(), Vortex\+Engine\+::leds(), Menu\+::m\+\_\+engine, m\+\_\+sharing\+Mode, and SHARE\+\_\+\+RECEIVE.
+
+\mbox{\Hypertarget{classModeSharing_aac8e553329a62aa804beded83fe18597}\label{classModeSharing_aac8e553329a62aa804beded83fe18597}} 
+\index{ModeSharing@{ModeSharing}!receiveModeIR@{receiveModeIR}}
+\index{receiveModeIR@{receiveModeIR}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{receiveModeIR()}{receiveModeIR()}}
+{\footnotesize\ttfamily void Mode\+Sharing\+::receive\+Mode\+IR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 159 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{160 \{}
+\DoxyCodeLine{161   \textcolor{comment}{// if reveiving new data set our last data time}}
+\DoxyCodeLine{162   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a35eb211f1a70211b94a6c68747bf5157}{irReceiver}}().\mbox{\hyperlink{classIRReceiver_a285e559d21c2a414a9e7169caa9319c3}{onNewData}}()) \{}
+\DoxyCodeLine{163     \mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\_timeOutStartTime}} = \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a4928281e63a820cd8f0b00b53c6e4587}{getCurtime}}();}
+\DoxyCodeLine{164     \textcolor{comment}{// if our last data was more than time out duration reset the recveiver}}
+\DoxyCodeLine{165   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\_timeOutStartTime}} > 0 \&\& (\mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\_timeOutStartTime}} + \mbox{\hyperlink{Timings_8h_a5b19ad5a706226f4733b244e808ee463}{MAX\_TIMEOUT\_DURATION}}) < \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a4928281e63a820cd8f0b00b53c6e4587}{getCurtime}}()) \{}
+\DoxyCodeLine{166     \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a35eb211f1a70211b94a6c68747bf5157}{irReceiver}}().\mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
+\DoxyCodeLine{167     \mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\_timeOutStartTime}} = 0;}
+\DoxyCodeLine{168     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{169   \}}
+\DoxyCodeLine{170   \textcolor{comment}{// check if the IRReceiver has a full packet available}}
+\DoxyCodeLine{171   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a35eb211f1a70211b94a6c68747bf5157}{irReceiver}}().\mbox{\hyperlink{classIRReceiver_a180ea554d40c10a00750aa02c6301c16}{dataReady}}()) \{}
+\DoxyCodeLine{172     \textcolor{comment}{// nothing available yet}}
+\DoxyCodeLine{173     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{174   \}}
+\DoxyCodeLine{175   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Mode ready to receive! Receiving..."{}});}
+\DoxyCodeLine{176   \textcolor{comment}{// receive the IR mode into the current mode}}
+\DoxyCodeLine{177   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a35eb211f1a70211b94a6c68747bf5157}{irReceiver}}().\mbox{\hyperlink{classIRReceiver_a2f61a4167e2ea4d2d10cd81b18b9f3a1}{receiveMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}})) \{}
+\DoxyCodeLine{178     \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to receive mode"{}});}
+\DoxyCodeLine{179     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{180   \}}
+\DoxyCodeLine{181   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Success receiving mode: \%u"{}}, \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a37b660257352663dcab903649b7aebc7}{getPatternID}}());}
+\DoxyCodeLine{182   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{183     \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_ae2f6242adc5499cd5de7256e2bebb8a9}{modes}}().\mbox{\hyperlink{classModes_a263cf02fb83d954b91c85d2d1e5411ee}{updateCurMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}});}
+\DoxyCodeLine{184     \textcolor{comment}{// leave menu and save settings, even if the mode was the same whatever}}
+\DoxyCodeLine{185     \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{186   \}}
+\DoxyCodeLine{187 \}}
+
+\end{DoxyCode}
+
+
+References IRReceiver\+::data\+Ready(), DEBUG\+\_\+\+LOG, DEBUG\+\_\+\+LOGF, ERROR\+\_\+\+LOG, Time\+::get\+Curtime(), Mode\+::get\+Pattern\+ID(), Vortex\+Engine\+::ir\+Receiver(), Menu\+::leave\+Menu(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+engine, Menu\+::m\+\_\+preview\+Mode, m\+\_\+time\+Out\+Start\+Time, MAX\+\_\+\+TIMEOUT\+\_\+\+DURATION, Vortex\+Engine\+::modes(), IRReceiver\+::on\+New\+Data(), IRReceiver\+::receive\+Mode(), IRReceiver\+::reset\+IRState(), Vortex\+Engine\+::time(), and Modes\+::update\+Cur\+Mode().
+
+
+
+Referenced by run().
+
+\mbox{\Hypertarget{classModeSharing_adf4425210b3945561a2ca1a6b2b165a3}\label{classModeSharing_adf4425210b3945561a2ca1a6b2b165a3}} 
+\index{ModeSharing@{ModeSharing}!run@{run}}
+\index{run@{run}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{run()}{run()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{Menu\+::\+Menu\+Action}} Mode\+Sharing\+::run (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{Menu}}.
+
+
+
+Definition at line 44 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{45 \{}
+\DoxyCodeLine{46   \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{MenuAction}} result = \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{Menu::run}}();}
+\DoxyCodeLine{47   \textcolor{keywordflow}{if} (result != \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}}) \{}
+\DoxyCodeLine{48     \textcolor{keywordflow}{return} result;}
+\DoxyCodeLine{49   \}}
+\DoxyCodeLine{50   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}}) \{}
+\DoxyCodeLine{51   \textcolor{keywordflow}{case} \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127abb09596baa7af2a3e4714a63eb1e01f0}{ModeShareState::SHARE\_SEND\_IR}}:}
+\DoxyCodeLine{52     \textcolor{comment}{// render the 'send mode' lights}}
+\DoxyCodeLine{53     \mbox{\hyperlink{classModeSharing_a031448b1c46da5e0724bbacfa177a7dd}{showSendModeIR}}();}
+\DoxyCodeLine{54     \textcolor{comment}{// continue sending any data as long as there is more to send}}
+\DoxyCodeLine{55     \mbox{\hyperlink{classModeSharing_a4d4dd87df5e39e4eda2a3779dc7191d0}{continueSendingIR}}();}
+\DoxyCodeLine{56     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{57   \textcolor{keywordflow}{case} \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127adc5e4cdbf9c5e23bd9acab0a312efad4}{ModeShareState::SHARE\_SEND\_VL}}:}
+\DoxyCodeLine{58     \textcolor{comment}{// render the 'send mode' lights}}
+\DoxyCodeLine{59     \mbox{\hyperlink{classModeSharing_ab15ee747bc61856d04311594b4a74e17}{showSendModeVL}}();}
+\DoxyCodeLine{60     \textcolor{comment}{// continue sending any data as long as there is more to send}}
+\DoxyCodeLine{61     \mbox{\hyperlink{classModeSharing_a3d7ec3745e195d3d42b53743abcb4622}{continueSendingVL}}();}
+\DoxyCodeLine{62     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{63   \textcolor{keywordflow}{case} \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}{ModeShareState::SHARE\_RECEIVE}}:}
+\DoxyCodeLine{64     \textcolor{comment}{// render the 'receive mode' lights}}
+\DoxyCodeLine{65     \mbox{\hyperlink{classModeSharing_af9de8e68dbc889f353da877ba14e0ff4}{showReceiveMode}}();}
+\DoxyCodeLine{66     \textcolor{comment}{// load any modes that are received}}
+\DoxyCodeLine{67     \mbox{\hyperlink{classModeSharing_aac8e553329a62aa804beded83fe18597}{receiveModeIR}}();}
+\DoxyCodeLine{68     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{69   \}}
+\DoxyCodeLine{70   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
+\DoxyCodeLine{71 \}}
+
+\end{DoxyCode}
+
+
+References continue\+Sending\+IR(), continue\+Sending\+VL(), m\+\_\+sharing\+Mode, Menu\+::\+MENU\+\_\+\+CONTINUE, receive\+Mode\+IR(), Menu\+::run(), SHARE\+\_\+\+RECEIVE, SHARE\+\_\+\+SEND\+\_\+\+IR, SHARE\+\_\+\+SEND\+\_\+\+VL, show\+Receive\+Mode(), show\+Send\+Mode\+IR(), and show\+Send\+Mode\+VL().
+
+\mbox{\Hypertarget{classModeSharing_af9de8e68dbc889f353da877ba14e0ff4}\label{classModeSharing_af9de8e68dbc889f353da877ba14e0ff4}} 
+\index{ModeSharing@{ModeSharing}!showReceiveMode@{showReceiveMode}}
+\index{showReceiveMode@{showReceiveMode}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{showReceiveMode()}{showReceiveMode()}}
+{\footnotesize\ttfamily void Mode\+Sharing\+::show\+Receive\+Mode (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 201 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{202 \{}
+\DoxyCodeLine{203   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a35eb211f1a70211b94a6c68747bf5157}{irReceiver}}().\mbox{\hyperlink{classIRReceiver_aa8c42ac4fffc8e534fafd808e4f5b39e}{isReceiving}}()) \{}
+\DoxyCodeLine{204     \textcolor{comment}{// using uint32\_t to avoid overflow, the result should be within 10 to 255}}
+\DoxyCodeLine{205     \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{setAll}}(\mbox{\hyperlink{classRGBColor}{RGBColor}}(0, \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a35eb211f1a70211b94a6c68747bf5157}{irReceiver}}().\mbox{\hyperlink{classIRReceiver_ae7f5628b174caf0f8db9be7adc53f287}{percentReceived}}(), 0));}
+\DoxyCodeLine{206   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{207     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{208       \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a21d1c7da7b97340ab1af39d242cc6f22}{play}}();}
+\DoxyCodeLine{209     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{210       \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{setAll}}(\mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
+\DoxyCodeLine{211     \}}
+\DoxyCodeLine{212   \}}
+\DoxyCodeLine{213 \}}
+
+\end{DoxyCode}
+
+
+References Vortex\+Engine\+::ir\+Receiver(), IRReceiver\+::is\+Receiving(), Vortex\+Engine\+::leds(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+engine, Menu\+::m\+\_\+preview\+Mode, IRReceiver\+::percent\+Received(), Mode\+::play(), RGB\+\_\+\+WHITE0, and Leds\+::set\+All().
+
+
+
+Referenced by run().
+
+\mbox{\Hypertarget{classModeSharing_a031448b1c46da5e0724bbacfa177a7dd}\label{classModeSharing_a031448b1c46da5e0724bbacfa177a7dd}} 
+\index{ModeSharing@{ModeSharing}!showSendModeIR@{showSendModeIR}}
+\index{showSendModeIR@{showSendModeIR}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{showSendModeIR()}{showSendModeIR()}}
+{\footnotesize\ttfamily void Mode\+Sharing\+::show\+Send\+Mode\+IR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 195 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{196 \{}
+\DoxyCodeLine{197   \textcolor{comment}{// show a dim color when not sending}}
+\DoxyCodeLine{198   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_ab61ea9a22bd6618c7b7aa6cb34d27c1d}{clearAll}}();}
+\DoxyCodeLine{199 \}}
+
+\end{DoxyCode}
+
+
+References Leds\+::clear\+All(), Vortex\+Engine\+::leds(), and Menu\+::m\+\_\+engine.
+
+
+
+Referenced by run().
+
+\mbox{\Hypertarget{classModeSharing_ab15ee747bc61856d04311594b4a74e17}\label{classModeSharing_ab15ee747bc61856d04311594b4a74e17}} 
+\index{ModeSharing@{ModeSharing}!showSendModeVL@{showSendModeVL}}
+\index{showSendModeVL@{showSendModeVL}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{showSendModeVL()}{showSendModeVL()}}
+{\footnotesize\ttfamily void Mode\+Sharing\+::show\+Send\+Mode\+VL (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 189 of file Mode\+Sharing.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{190 \{}
+\DoxyCodeLine{191   \textcolor{comment}{// show a dim color when not sending}}
+\DoxyCodeLine{192   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_ab61ea9a22bd6618c7b7aa6cb34d27c1d}{clearAll}}();}
+\DoxyCodeLine{193 \}}
+
+\end{DoxyCode}
+
+
+References Leds\+::clear\+All(), Vortex\+Engine\+::leds(), and Menu\+::m\+\_\+engine.
+
+
+
+Referenced by run().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}\label{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}} 
+\index{ModeSharing@{ModeSharing}!m\_sharingMode@{m\_sharingMode}}
+\index{m\_sharingMode@{m\_sharingMode}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{m\_sharingMode}{m\_sharingMode}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127}{Mode\+Share\+State}} Mode\+Sharing\+::m\+\_\+sharing\+Mode\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 37 of file Mode\+Sharing.\+h.
+
+
+
+Referenced by begin\+Receiving\+IR(), begin\+Sending\+IR(), begin\+Sending\+VL(), on\+Short\+Click(), and run().
+
+\mbox{\Hypertarget{classModeSharing_a118440b66ff64341a596850cf7ef6a75}\label{classModeSharing_a118440b66ff64341a596850cf7ef6a75}} 
+\index{ModeSharing@{ModeSharing}!m\_timeOutStartTime@{m\_timeOutStartTime}}
+\index{m\_timeOutStartTime@{m\_timeOutStartTime}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{m\_timeOutStartTime}{m\_timeOutStartTime}}
+{\footnotesize\ttfamily uint32\+\_\+t Mode\+Sharing\+::m\+\_\+time\+Out\+Start\+Time\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 40 of file Mode\+Sharing.\+h.
+
+
+
+Referenced by receive\+Mode\+IR().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Menus/\+Menu\+List/\mbox{\hyperlink{ModeSharing_8h}{Mode\+Sharing.\+h}}\item 
+Vortex\+Engine/src/\+Menus/\+Menu\+List/\mbox{\hyperlink{ModeSharing_8cpp}{Mode\+Sharing.\+cpp}}\end{DoxyCompactItemize}

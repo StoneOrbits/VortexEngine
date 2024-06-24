@@ -1,0 +1,230 @@
+\hypertarget{classBouncePattern}{}\doxysection{Bounce\+Pattern Class Reference}
+\label{classBouncePattern}\index{BouncePattern@{BouncePattern}}
+
+
+{\ttfamily \#include $<$Bounce\+Pattern.\+h$>$}
+
+
+
+Inheritance diagram for Bounce\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=178pt]{classBouncePattern__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Bounce\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classBouncePattern__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classBouncePattern_a6ea8571e6118c7fa21c6cff42fe59a9c}{Bounce\+Pattern}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&args)
+\item 
+virtual \mbox{\hyperlink{classBouncePattern_a28d1b8bd9476c3ad621a8b4fd096b444}{$\sim$\+Bounce\+Pattern}} ()
+\item 
+virtual void \mbox{\hyperlink{classBouncePattern_a31279d03f6ef939f2c1fb715873c175c}{init}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Protected Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+virtual void \mbox{\hyperlink{classBouncePattern_ab7e91aae7385ef8a2d4e969cd55c5d74}{blink\+On}} () override
+\item 
+virtual void \mbox{\hyperlink{classBouncePattern_ae30e19cc22660b53f9be0259bcc222cb}{poststep}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\+\_\+progress}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classBouncePattern_a3af0fcfcbfa6f6bef3ea0a680462dcb5}{m\+\_\+fade\+Amount}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 5 of file Bounce\+Pattern.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classBouncePattern_a6ea8571e6118c7fa21c6cff42fe59a9c}\label{classBouncePattern_a6ea8571e6118c7fa21c6cff42fe59a9c}} 
+\index{BouncePattern@{BouncePattern}!BouncePattern@{BouncePattern}}
+\index{BouncePattern@{BouncePattern}!BouncePattern@{BouncePattern}}
+\doxysubsubsection{\texorpdfstring{BouncePattern()}{BouncePattern()}}
+{\footnotesize\ttfamily Bounce\+Pattern\+::\+Bounce\+Pattern (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine,  }\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&}]{args }\end{DoxyParamCaption})}
+
+
+
+Definition at line 14 of file Bounce\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{14                                                                           :}
+\DoxyCodeLine{15   \mbox{\hyperlink{classBlinkStepPattern_a312cba342c4f367b3e725d8bb7513569}{BlinkStepPattern}}(engine, args),}
+\DoxyCodeLine{16   \mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}}(0),}
+\DoxyCodeLine{17   \mbox{\hyperlink{classBouncePattern_a3af0fcfcbfa6f6bef3ea0a680462dcb5}{m\_fadeAmount}}(0)}
+\DoxyCodeLine{18 \{}
+\DoxyCodeLine{19   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf82f552d51b4e07ee01b0686d1a2a3e4}{PATTERN\_BOUNCE}};}
+\DoxyCodeLine{20   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classBouncePattern_a3af0fcfcbfa6f6bef3ea0a680462dcb5}{m\_fadeAmount}});}
+\DoxyCodeLine{21   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
+\DoxyCodeLine{22 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+fade\+Amount, Pattern\+::m\+\_\+pattern\+ID, PATTERN\+\_\+\+BOUNCE, REGISTER\+\_\+\+ARG, and Pattern\+::set\+Args().
+
+\mbox{\Hypertarget{classBouncePattern_a28d1b8bd9476c3ad621a8b4fd096b444}\label{classBouncePattern_a28d1b8bd9476c3ad621a8b4fd096b444}} 
+\index{BouncePattern@{BouncePattern}!````~BouncePattern@{$\sim$BouncePattern}}
+\index{````~BouncePattern@{$\sim$BouncePattern}!BouncePattern@{BouncePattern}}
+\doxysubsubsection{\texorpdfstring{$\sim$BouncePattern()}{~BouncePattern()}}
+{\footnotesize\ttfamily Bounce\+Pattern\+::$\sim$\+Bounce\+Pattern (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 24 of file Bounce\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classBouncePattern_ab7e91aae7385ef8a2d4e969cd55c5d74}\label{classBouncePattern_ab7e91aae7385ef8a2d4e969cd55c5d74}} 
+\index{BouncePattern@{BouncePattern}!blinkOn@{blinkOn}}
+\index{blinkOn@{blinkOn}!BouncePattern@{BouncePattern}}
+\doxysubsubsection{\texorpdfstring{blinkOn()}{blinkOn()}}
+{\footnotesize\ttfamily void Bounce\+Pattern\+::blink\+On (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a792005962eff211334d732ee09020b90}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 38 of file Bounce\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40   \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{setAll}}(\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_abef3c86e5519d8befb515d2e927885f5}{cur}}());}
+\DoxyCodeLine{41   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} < \mbox{\hyperlink{Leds_8h_a2fdba1e4cf202c4f9e8c2dc79b9667bd}{PAIR\_COUNT}}) \{}
+\DoxyCodeLine{42     \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a388ba18e176cbf465446d41ed8f796c1}{setPair}}((\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}}, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}{peekNext}}());}
+\DoxyCodeLine{43   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{44     \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a388ba18e176cbf465446d41ed8f796c1}{setPair}}((\mbox{\hyperlink{Leds_8h_a10ceba7a64c043889e3e47563c3f0a34}{Pair}})(\mbox{\hyperlink{BouncePattern_8cpp_a7fd2a4ce9263f91b3c3fb6bf485a7299}{TOTAL\_STEPS}} -\/ \mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}}), \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}{peekNext}}());}
+\DoxyCodeLine{45   \}}
+\DoxyCodeLine{46 \}}
+
+\end{DoxyCode}
+
+
+References Colorset\+::cur(), Vortex\+Engine\+::leds(), Pattern\+::m\+\_\+colorset, Pattern\+::m\+\_\+engine, m\+\_\+progress, PAIR\+\_\+\+COUNT, Colorset\+::peek\+Next(), Leds\+::set\+All(), Leds\+::set\+Pair(), and TOTAL\+\_\+\+STEPS.
+
+\mbox{\Hypertarget{classBouncePattern_a31279d03f6ef939f2c1fb715873c175c}\label{classBouncePattern_a31279d03f6ef939f2c1fb715873c175c}} 
+\index{BouncePattern@{BouncePattern}!init@{init}}
+\index{init@{init}!BouncePattern@{BouncePattern}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Bounce\+Pattern\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 29 of file Bounce\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{31   \mbox{\hyperlink{classBlinkStepPattern_a7725b0607ba6a2c5c00e864a575ed050}{BlinkStepPattern::init}}();}
+\DoxyCodeLine{32   \textcolor{comment}{// reset progress}}
+\DoxyCodeLine{33   \mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} = 0;}
+\DoxyCodeLine{34   \textcolor{comment}{// start colorset at index 0 so cur() works}}
+\DoxyCodeLine{35   \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4959095438adcd6c02f5b0e4a17c9b8d}{setCurIndex}}(0);}
+\DoxyCodeLine{36 \}}
+
+\end{DoxyCode}
+
+
+References Blink\+Step\+Pattern\+::init(), Pattern\+::m\+\_\+colorset, m\+\_\+progress, and Colorset\+::set\+Cur\+Index().
+
+\mbox{\Hypertarget{classBouncePattern_ae30e19cc22660b53f9be0259bcc222cb}\label{classBouncePattern_ae30e19cc22660b53f9be0259bcc222cb}} 
+\index{BouncePattern@{BouncePattern}!poststep@{poststep}}
+\index{poststep@{poststep}!BouncePattern@{BouncePattern}}
+\doxysubsubsection{\texorpdfstring{poststep()}{poststep()}}
+{\footnotesize\ttfamily void Bounce\+Pattern\+::poststep (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a31d244f697913cbdf624386f8a46663c}{Blink\+Step\+Pattern}}.
+
+
+
+Definition at line 48 of file Bounce\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50   \mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} = (\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} + 1) \% \mbox{\hyperlink{BouncePattern_8cpp_a7fd2a4ce9263f91b3c3fb6bf485a7299}{TOTAL\_STEPS}};}
+\DoxyCodeLine{51   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} == 0 || \mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} == \mbox{\hyperlink{BouncePattern_8cpp_af606afd0c1672048bb2ccb6e708296b0}{HALF\_STEPS}}) \{}
+\DoxyCodeLine{52     \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{53   \}}
+\DoxyCodeLine{54 \}}
+
+\end{DoxyCode}
+
+
+References Colorset\+::get\+Next(), HALF\+\_\+\+STEPS, Pattern\+::m\+\_\+colorset, m\+\_\+progress, and TOTAL\+\_\+\+STEPS.
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classBouncePattern_a3af0fcfcbfa6f6bef3ea0a680462dcb5}\label{classBouncePattern_a3af0fcfcbfa6f6bef3ea0a680462dcb5}} 
+\index{BouncePattern@{BouncePattern}!m\_fadeAmount@{m\_fadeAmount}}
+\index{m\_fadeAmount@{m\_fadeAmount}!BouncePattern@{BouncePattern}}
+\doxysubsubsection{\texorpdfstring{m\_fadeAmount}{m\_fadeAmount}}
+{\footnotesize\ttfamily uint8\+\_\+t Bounce\+Pattern\+::m\+\_\+fade\+Amount\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 22 of file Bounce\+Pattern.\+h.
+
+
+
+Referenced by Bounce\+Pattern().
+
+\mbox{\Hypertarget{classBouncePattern_a546b23c88c308c6e66897739785df239}\label{classBouncePattern_a546b23c88c308c6e66897739785df239}} 
+\index{BouncePattern@{BouncePattern}!m\_progress@{m\_progress}}
+\index{m\_progress@{m\_progress}!BouncePattern@{BouncePattern}}
+\doxysubsubsection{\texorpdfstring{m\_progress}{m\_progress}}
+{\footnotesize\ttfamily uint8\+\_\+t Bounce\+Pattern\+::m\+\_\+progress\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 20 of file Bounce\+Pattern.\+h.
+
+
+
+Referenced by blink\+On(), init(), and poststep().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{BouncePattern_8h}{Bounce\+Pattern.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{BouncePattern_8cpp}{Bounce\+Pattern.\+cpp}}\end{DoxyCompactItemize}
