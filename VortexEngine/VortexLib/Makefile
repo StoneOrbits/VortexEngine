@@ -2,7 +2,7 @@
 .SUFFIXES:
 
 # List all make targets which are not filenames
-.PHONY: all tests clean wasm
+.PHONY: all tests clean wasm fetch-tags
 
 # compiler tool definitions
 ifdef WASM
@@ -29,7 +29,8 @@ endif
 BRANCH_SUFFIX=l
 
 # Determine the current version based on Git tags
-VORTEX_VERSION_MAJOR ?= $(shell git fetch --depth=1 origin +refs/tags/*:refs/tags/* &> /dev/null && git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | cut -d. -f1)
+# NOTE: Make sure to get fetch --tags first!
+VORTEX_VERSION_MAJOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | cut -d. -f1)
 VORTEX_VERSION_MINOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/$(BRANCH_SUFFIX)$$//' | cut -d. -f2)
 VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count HEAD)
 

@@ -19,9 +19,29 @@ RANLIB=ranlib
 
 CFLAGS=-O2 -g -Wall
 
+# The branch/tag suffix for this device (Cli is usually desktop)
+BRANCH_SUFFIX=l
+
+# Determine the current version based on Git tags
+# NOTE: Make sure to get fetch --tags first!
+VORTEX_VERSION_MAJOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | cut -d. -f1)
+VORTEX_VERSION_MINOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/$(BRANCH_SUFFIX)$$//' | cut -d. -f2)
+VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count HEAD)
+
+# If no tags are found, default to 0.1.0
+VORTEX_VERSION_MAJOR := $(if $(VORTEX_VERSION_MAJOR),$(VORTEX_VERSION_MAJOR),0)
+VORTEX_VERSION_MINOR := $(if $(VORTEX_VERSION_MINOR),$(VORTEX_VERSION_MINOR),1)
+VORTEX_BUILD_NUMBER := $(if $(VORTEX_BUILD_NUMBER),$(VORTEX_BUILD_NUMBER),0)
+
+VORTEX_VERSION_NUMBER ?= $(VORTEX_VERSION_MAJOR).$(VORTEX_VERSION_MINOR).$(VORTEX_BUILD_NUMBER)
+
 # compiler defines
 DEFINES=\
-	-D VORTEX_LIB
+	-D VORTEX_LIB \
+	-D VORTEX_VERSION_MAJOR=$(VORTEX_VERSION_MAJOR) \
+	-D VORTEX_VERSION_MINOR=$(VORTEX_VERSION_MINOR) \
+	-D VORTEX_BUILD_NUMBER=$(VORTEX_BUILD_NUMBER) \
+	-D VORTEX_VERSION_NUMBER=$(VORTEX_VERSION_NUMBER)
 
 # compiler include paths
 INCLUDES=\

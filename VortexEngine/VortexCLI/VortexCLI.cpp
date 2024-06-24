@@ -282,6 +282,7 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "   ./vortex -ct -Pblend -Ccyan,yellow,magenta <<< w100q\n");
   fprintf(stderr, "   ./vortex -sq -L mysave.vortex -O output_data.json\n");
   fprintf(stderr, "   ./vortex -sq -L mymode.vtxmode -O output_data.json\n");
+  fprintf(stderr, "Version:\n   " VORTEX_FULL_NAME "\n");
 }
 
 #ifdef _WIN32
