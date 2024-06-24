@@ -236,6 +236,7 @@ std::map<std::string, int> color_map = {
 
 static void print_usage(const char* program_name) 
 {
+  fprintf(stderr, VORTEX_FULL_NAME "\n");
   fprintf(stderr, "Usage: %s [options] < input commands\n", program_name);
   fprintf(stderr, "Output Selection (at least one required):\n");
   fprintf(stderr, "  -x, --hex                Use hex values to represent led colors\n");
@@ -282,7 +283,6 @@ static void print_usage(const char* program_name)
   fprintf(stderr, "   ./vortex -ct -Pblend -Ccyan,yellow,magenta <<< w100q\n");
   fprintf(stderr, "   ./vortex -sq -L mysave.vortex -O output_data.json\n");
   fprintf(stderr, "   ./vortex -sq -L mymode.vtxmode -O output_data.json\n");
-  fprintf(stderr, "Version:\n   " VORTEX_FULL_NAME "\n");
 }
 
 #ifdef _WIN32
@@ -498,7 +498,7 @@ bool VortexCLI::init(int argc, char *argv[])
   }
 
   if (m_displayVersion) {
-    printf(VORTEX_FULL_NAME);
+    printf(VORTEX_FULL_NAME "\n");
     exit(0);
   }
 
