@@ -26,7 +26,7 @@ BRANCH_SUFFIX=l
 # NOTE: Make sure to get fetch --tags first!
 VORTEX_VERSION_MAJOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | cut -d. -f1)
 VORTEX_VERSION_MINOR ?= $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1 | sed 's/$(BRANCH_SUFFIX)$$//' | cut -d. -f2)
-VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count HEAD)
+VORTEX_BUILD_NUMBER ?= $(shell git rev-list --count $(shell git tag --list "*$(BRANCH_SUFFIX)" | sort -V | tail -n1)..HEAD)
 
 # If no tags are found, default to 0.1.0
 VORTEX_VERSION_MAJOR := $(if $(VORTEX_VERSION_MAJOR),$(VORTEX_VERSION_MAJOR),0)
