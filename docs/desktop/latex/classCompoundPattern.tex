@@ -96,18 +96,16 @@ Definition at line 17 of file Compound\+Pattern.\+cpp.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{18 \{}
 \DoxyCodeLine{19   \textcolor{comment}{// clean up all the sub patterns}}
-\DoxyCodeLine{20   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} pos = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; pos <= \mbox{\hyperlink{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}{LED\_LAST}}; pos++) \{}
-\DoxyCodeLine{21     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos]) \{}
-\DoxyCodeLine{22       \textcolor{keyword}{delete} \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos];}
-\DoxyCodeLine{23       \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos] = \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{24     \}}
-\DoxyCodeLine{25   \}}
-\DoxyCodeLine{26 \}}
+\DoxyCodeLine{20   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} pos = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; pos < \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}.size(); pos++) \{}
+\DoxyCodeLine{21     \textcolor{keyword}{delete} \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos];}
+\DoxyCodeLine{22     \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos] = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{23   \}}
+\DoxyCodeLine{24 \}}
 
 \end{DoxyCode}
 
 
-References LED\+\_\+\+FIRST, LED\+\_\+\+LAST, and m\+\_\+led\+Patterns.
+References LED\+\_\+\+FIRST, and m\+\_\+led\+Patterns.
 
 
 
@@ -120,19 +118,19 @@ References LED\+\_\+\+FIRST, LED\+\_\+\+LAST, and m\+\_\+led\+Patterns.
 
 
 
-Definition at line 50 of file Compound\+Pattern.\+cpp.
+Definition at line 48 of file Compound\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{51 \{}
-\DoxyCodeLine{52   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} pos = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; pos <= \mbox{\hyperlink{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}{LED\_LAST}}; pos++) \{}
-\DoxyCodeLine{53     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos]) \{}
-\DoxyCodeLine{54       \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{55     \}}
-\DoxyCodeLine{56     \textcolor{keyword}{delete} \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos];}
-\DoxyCodeLine{57     \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos] = \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{58   \}}
-\DoxyCodeLine{59 \}}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} pos = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; pos <= \mbox{\hyperlink{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}{LED\_LAST}}; pos++) \{}
+\DoxyCodeLine{51     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos]) \{}
+\DoxyCodeLine{52       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{53     \}}
+\DoxyCodeLine{54     \textcolor{keyword}{delete} \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos];}
+\DoxyCodeLine{55     \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos] = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{56   \}}
+\DoxyCodeLine{57 \}}
 
 \end{DoxyCode}
 
@@ -155,16 +153,16 @@ Reimplemented in \mbox{\hyperlink{classSequencedPattern_ab972b3f7756799c8e2fecc7
 
 
 
-Definition at line 29 of file Compound\+Pattern.\+cpp.
+Definition at line 27 of file Compound\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{30 \{}
-\DoxyCodeLine{31   \mbox{\hyperlink{classMultiLedPattern_a2541223ee8c1d57463e88682e1405c42}{MultiLedPattern::init}}();}
-\DoxyCodeLine{32 }
-\DoxyCodeLine{33   \textcolor{comment}{// resize the pattern list to the number of leds}}
-\DoxyCodeLine{34   \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}.resize(\mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}});}
-\DoxyCodeLine{35 \}}
+\DoxyCodeLine{28 \{}
+\DoxyCodeLine{29   \mbox{\hyperlink{classMultiLedPattern_a2541223ee8c1d57463e88682e1405c42}{MultiLedPattern::init}}();}
+\DoxyCodeLine{30 }
+\DoxyCodeLine{31   \textcolor{comment}{// resize the pattern list to the number of leds}}
+\DoxyCodeLine{32   \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}.resize(\mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}});}
+\DoxyCodeLine{33 \}}
 
 \end{DoxyCode}
 
@@ -191,20 +189,20 @@ Reimplemented in \mbox{\hyperlink{classSequencedPattern_ab48ffe5e91489ca51bed52b
 
 
 
-Definition at line 38 of file Compound\+Pattern.\+cpp.
+Definition at line 36 of file Compound\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{39 \{}
-\DoxyCodeLine{40   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} pos = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; pos <= \mbox{\hyperlink{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}{LED\_LAST}}; pos++) \{}
-\DoxyCodeLine{41     \mbox{\hyperlink{classSingleLedPattern}{SingleLedPattern}} *pat = \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos];}
-\DoxyCodeLine{42     \textcolor{keywordflow}{if} (!pat) \{}
-\DoxyCodeLine{43       \textcolor{comment}{// should never happen, but just in case}}
-\DoxyCodeLine{44       \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{45     \}}
-\DoxyCodeLine{46     pat-\/>\mbox{\hyperlink{classPattern_a351206aa151c8e49f175b8b3d41f6e9c}{play}}();}
-\DoxyCodeLine{47   \}}
-\DoxyCodeLine{48 \}}
+\DoxyCodeLine{37 \{}
+\DoxyCodeLine{38   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} pos = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; pos <= \mbox{\hyperlink{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}{LED\_LAST}}; pos++) \{}
+\DoxyCodeLine{39     \mbox{\hyperlink{classSingleLedPattern}{SingleLedPattern}} *pat = \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos];}
+\DoxyCodeLine{40     \textcolor{keywordflow}{if} (!pat) \{}
+\DoxyCodeLine{41       \textcolor{comment}{// should never happen, but just in case}}
+\DoxyCodeLine{42       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{43     \}}
+\DoxyCodeLine{44     pat-\/>\mbox{\hyperlink{classPattern_a351206aa151c8e49f175b8b3d41f6e9c}{play}}();}
+\DoxyCodeLine{45   \}}
+\DoxyCodeLine{46 \}}
 
 \end{DoxyCode}
 
@@ -223,18 +221,18 @@ Referenced by Back\+Strobe\+Pattern\+::play().
 
 
 
-Definition at line 87 of file Compound\+Pattern.\+cpp.
+Definition at line 85 of file Compound\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{89 \{}
-\DoxyCodeLine{90   \textcolor{comment}{// Set the evenPattern on all evens and oddPattern on all odds}}
-\DoxyCodeLine{91   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} p = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; p <= \mbox{\hyperlink{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}{LED\_LAST}}; p++) \{}
-\DoxyCodeLine{92     \textcolor{keyword}{const} \mbox{\hyperlink{classPatternArgs}{PatternArgs}} *args = \mbox{\hyperlink{Leds_8h_a57fca593725687711397bdae844376dc}{isEven}}(p) ? evenArgs : oddArgs;}
-\DoxyCodeLine{93     \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} \textcolor{keywordtype}{id} = \mbox{\hyperlink{Leds_8h_a57fca593725687711397bdae844376dc}{isEven}}(p) ? evenPattern : oddPattern;}
-\DoxyCodeLine{94     \mbox{\hyperlink{classCompoundPattern_af6309f0ba65191342a39481b67cfcd5e}{setPatternAt}}(p, \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a0898c499130adb075ef02614aee5daad}{patternBuilder}}().\mbox{\hyperlink{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}{makeSingle}}(\textcolor{keywordtype}{id}, args));}
-\DoxyCodeLine{95   \}}
-\DoxyCodeLine{96 \}}
+\DoxyCodeLine{87 \{}
+\DoxyCodeLine{88   \textcolor{comment}{// Set the evenPattern on all evens and oddPattern on all odds}}
+\DoxyCodeLine{89   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} p = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; p <= \mbox{\hyperlink{Leds_8h_a3a764ec414513c17ab2a93e18ffb0e91}{LED\_LAST}}; p++) \{}
+\DoxyCodeLine{90     \textcolor{keyword}{const} \mbox{\hyperlink{classPatternArgs}{PatternArgs}} *args = \mbox{\hyperlink{Leds_8h_a57fca593725687711397bdae844376dc}{isEven}}(p) ? evenArgs : oddArgs;}
+\DoxyCodeLine{91     \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} \textcolor{keywordtype}{id} = \mbox{\hyperlink{Leds_8h_a57fca593725687711397bdae844376dc}{isEven}}(p) ? evenPattern : oddPattern;}
+\DoxyCodeLine{92     \mbox{\hyperlink{classCompoundPattern_af6309f0ba65191342a39481b67cfcd5e}{setPatternAt}}(p, \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a0898c499130adb075ef02614aee5daad}{patternBuilder}}().\mbox{\hyperlink{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}{makeSingle}}(\textcolor{keywordtype}{id}, args));}
+\DoxyCodeLine{93   \}}
+\DoxyCodeLine{94 \}}
 
 \end{DoxyCode}
 
@@ -253,16 +251,16 @@ Referenced by Back\+Strobe\+Pattern\+::init(), and Back\+Strobe\+Pattern\+::play
 
 
 
-Definition at line 78 of file Compound\+Pattern.\+cpp.
+Definition at line 76 of file Compound\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{80 \{}
-\DoxyCodeLine{81   \textcolor{keywordflow}{if} (pos >= \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}) \{}
-\DoxyCodeLine{82     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{83   \}}
-\DoxyCodeLine{84   \mbox{\hyperlink{classCompoundPattern_af6309f0ba65191342a39481b67cfcd5e}{setPatternAt}}(pos, \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a0898c499130adb075ef02614aee5daad}{patternBuilder}}().\mbox{\hyperlink{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}{makeSingle}}(\textcolor{keywordtype}{id}, args), set);}
-\DoxyCodeLine{85 \}}
+\DoxyCodeLine{78 \{}
+\DoxyCodeLine{79   \textcolor{keywordflow}{if} (pos >= \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}) \{}
+\DoxyCodeLine{80     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{81   \}}
+\DoxyCodeLine{82   \mbox{\hyperlink{classCompoundPattern_af6309f0ba65191342a39481b67cfcd5e}{setPatternAt}}(pos, \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a0898c499130adb075ef02614aee5daad}{patternBuilder}}().\mbox{\hyperlink{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}{makeSingle}}(\textcolor{keywordtype}{id}, args), set);}
+\DoxyCodeLine{83 \}}
 
 \end{DoxyCode}
 
@@ -277,24 +275,24 @@ References LED\+\_\+\+COUNT, Pattern\+::m\+\_\+engine, Pattern\+Builder\+::make\
 
 
 
-Definition at line 61 of file Compound\+Pattern.\+cpp.
+Definition at line 59 of file Compound\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{63 \{}
-\DoxyCodeLine{64   \textcolor{keywordflow}{if} (!pat || pos >= \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}) \{}
-\DoxyCodeLine{65     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{66   \}}
-\DoxyCodeLine{67   pat-\/>\mbox{\hyperlink{classPattern_a7a940e0a37cf3d6d0e4dae99baa49455}{bind}}(pos);}
-\DoxyCodeLine{68   pat-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(set ? *set : \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}});}
-\DoxyCodeLine{69   pat-\/>\mbox{\hyperlink{classSingleLedPattern_ae3713818ccd424142be290f14974e5ff}{init}}();}
-\DoxyCodeLine{70   \textcolor{comment}{// handle re-\/initialization and prevent leaks}}
-\DoxyCodeLine{71   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos]) \{}
-\DoxyCodeLine{72     \textcolor{keyword}{delete} \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos];}
-\DoxyCodeLine{73   \}}
-\DoxyCodeLine{74   \textcolor{comment}{// store the pattern for the given led}}
-\DoxyCodeLine{75   \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos] = pat;}
-\DoxyCodeLine{76 \}}
+\DoxyCodeLine{61 \{}
+\DoxyCodeLine{62   \textcolor{keywordflow}{if} (!pat || pos >= \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}) \{}
+\DoxyCodeLine{63     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{64   \}}
+\DoxyCodeLine{65   pat-\/>\mbox{\hyperlink{classPattern_a7a940e0a37cf3d6d0e4dae99baa49455}{bind}}(pos);}
+\DoxyCodeLine{66   pat-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(set ? *set : \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}});}
+\DoxyCodeLine{67   pat-\/>\mbox{\hyperlink{classSingleLedPattern_ae3713818ccd424142be290f14974e5ff}{init}}();}
+\DoxyCodeLine{68   \textcolor{comment}{// handle re-\/initialization and prevent leaks}}
+\DoxyCodeLine{69   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos]) \{}
+\DoxyCodeLine{70     \textcolor{keyword}{delete} \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos];}
+\DoxyCodeLine{71   \}}
+\DoxyCodeLine{72   \textcolor{comment}{// store the pattern for the given led}}
+\DoxyCodeLine{73   \mbox{\hyperlink{classCompoundPattern_a68b122e4fc164161e57a94e772cd8c27}{m\_ledPatterns}}[pos] = pat;}
+\DoxyCodeLine{74 \}}
 
 \end{DoxyCode}
 

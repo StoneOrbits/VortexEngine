@@ -14,8 +14,8 @@ var classRGBColor =
     [ "operator=", "classRGBColor.html#a4f19a04d71d66e7db25243a2efdccfda", null ],
     [ "operator==", "classRGBColor.html#a90ed2b668e7c4075394d7b3b8c01c379", null ],
     [ "raw", "classRGBColor.html#aa641389effd78c707230ab389e176b65", null ],
-    [ "serialize", "classRGBColor.html#ab9559d07cb8bf9efcb05ce6698f41cca", null ],
-    [ "unserialize", "classRGBColor.html#aad746f31285ec7394217d0e577a41b2f", null ],
+    [ "serialize", "classRGBColor.html#a7eaddf84768c5b858355d98d67bbd859", null ],
+    [ "unserialize", "classRGBColor.html#acc28390fe9fab0d341008ced28c74cad", null ],
     [ "blue", "classRGBColor.html#a417ad42fb2dab07155bdd0f35107adc9", null ],
     [ "green", "classRGBColor.html#aca75024902a233f3449935b01387b687", null ],
     [ "red", "classRGBColor.html#a5fed452f370de463fca724be4947bb54", null ]

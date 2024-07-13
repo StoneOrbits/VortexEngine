@@ -7,9 +7,9 @@ var classPatternMap =
     [ "operator=", "classPatternMap.html#a6ee73e8007d965f819db9090dc6277bc", null ],
     [ "operator==", "classPatternMap.html#a716028ed7b73c9b4a78d5b7ffb3368c8", null ],
     [ "operator[]", "classPatternMap.html#af7a193d38335cd800085302382c0cf27", null ],
-    [ "serialize", "classPatternMap.html#a438f831e3e16c6347e6fb32d5357fda9", null ],
+    [ "serialize", "classPatternMap.html#a42d061837424e43b9a91e6d6b45cfdbc", null ],
     [ "setPatternAt", "classPatternMap.html#ab27a12b50999c1bd3f5ec4305cbc2ec0", null ],
-    [ "unserialize", "classPatternMap.html#a0269b72cda20594f9c3b90da4a24d040", null ],
+    [ "unserialize", "classPatternMap.html#abe8dc1ee0979376a8000068e273ecb4d", null ],
     [ "m_engine", "classPatternMap.html#aeba0433c227adf45c3ad8d3e7da925a3", null ],
-    [ "m_patternMap", "classPatternMap.html#aeac991dc3c20a2dc72b2d87d78e24618", null ]
+    [ "m_patterns", "classPatternMap.html#a49028f4815e54cbf280c671648e9da25", null ]
 ];

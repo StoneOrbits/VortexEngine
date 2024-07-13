@@ -59,6 +59,8 @@ void \mbox{\hyperlink{classMenu_a9282eb359af69108f57e8de7f41e4195}{show\+Bulb\+S
 void \mbox{\hyperlink{classMenu_a6816cee1783bf1ae81ec8f69f544f3d3}{show\+Exit}} ()
 \item 
 void \mbox{\hyperlink{classMenu_a2f75413684df37d5e11e03451addd65f}{next\+Bulb\+Selection}} ()
+\item 
+virtual bool \mbox{\hyperlink{classMenu_a855d557fbaaf91b7444bef908929591d}{is\+Valid\+Led\+Selection}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} selection) const
 \end{DoxyCompactItemize}
 \doxysubsection*{Protected Attributes}
 \begin{DoxyCompactItemize}
@@ -223,6 +225,29 @@ References Modes\+::add\+Mode(), Modes\+::cur\+Mode(), Mode\+::init(), m\+\_\+pr
 
 Referenced by Color\+Select\+::init(), Editor\+Connection\+::init(), Factory\+Reset\+::init(), Global\+Brightness\+::init(), Mode\+Sharing\+::init(), Pattern\+Select\+::init(), Randomizer\+::init(), and Menus\+::open\+Menu().
 
+\mbox{\Hypertarget{classMenu_a855d557fbaaf91b7444bef908929591d}\label{classMenu_a855d557fbaaf91b7444bef908929591d}} 
+\index{Menu@{Menu}!isValidLedSelection@{isValidLedSelection}}
+\index{isValidLedSelection@{isValidLedSelection}!Menu@{Menu}}
+\doxysubsubsection{\texorpdfstring{isValidLedSelection()}{isValidLedSelection()}}
+{\footnotesize\ttfamily virtual bool Menu\+::is\+Valid\+Led\+Selection (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}}]{selection }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [protected]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented in \mbox{\hyperlink{classColorSelect_a82e8499fec6bcc61f65c5a6b085e5bc4}{Color\+Select}}.
+
+
+
+Definition at line 49 of file Menu.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{49 \{ \textcolor{keywordflow}{return} \textcolor{keyword}{true}; \}}
+
+\end{DoxyCode}
+
+
+Referenced by run().
+
 \mbox{\Hypertarget{classMenu_aa25243d16e3d73cf24323c3f703674bd}\label{classMenu_aa25243d16e3d73cf24323c3f703674bd}} 
 \index{Menu@{Menu}!leaveMenu@{leaveMenu}}
 \index{leaveMenu@{leaveMenu}!Menu@{Menu}}
@@ -235,16 +260,16 @@ Reimplemented in \mbox{\hyperlink{classEditorConnection_a244b1221a041532730e18fb
 
 
 
-Definition at line 168 of file Menu.\+cpp.
+Definition at line 163 of file Menu.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{169 \{}
-\DoxyCodeLine{170   \mbox{\hyperlink{classMenu_a145ce4672bd57b3a5123031a490ba224}{m\_shouldClose}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{171   \textcolor{keywordflow}{if} (doSave) \{}
-\DoxyCodeLine{172     \mbox{\hyperlink{classModes_a1756081ee85dbcf672ddad5a3dcb4690}{Modes::saveStorage}}();}
-\DoxyCodeLine{173   \}}
-\DoxyCodeLine{174 \}}
+\DoxyCodeLine{164 \{}
+\DoxyCodeLine{165   \mbox{\hyperlink{classMenu_a145ce4672bd57b3a5123031a490ba224}{m\_shouldClose}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{166   \textcolor{keywordflow}{if} (doSave) \{}
+\DoxyCodeLine{167     \mbox{\hyperlink{classModes_a1756081ee85dbcf672ddad5a3dcb4690}{Modes::saveStorage}}();}
+\DoxyCodeLine{168   \}}
+\DoxyCodeLine{169 \}}
 
 \end{DoxyCode}
 
@@ -263,50 +288,38 @@ Referenced by Editor\+Connection\+::leave\+Menu(), on\+Long\+Click(), Color\+Sel
 
 
 
-Definition at line 118 of file Menu.\+cpp.
+Definition at line 125 of file Menu.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{119 \{}
-\DoxyCodeLine{120   \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
-\DoxyCodeLine{121   \textcolor{comment}{// The target led can be 0 through LED\_COUNT to represent any led or all leds}}
-\DoxyCodeLine{122   \textcolor{comment}{// modulo by LED\_COUNT + 1 to include LED\_COUNT (all) as a target}}
-\DoxyCodeLine{123   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}) \{}
-\DoxyCodeLine{124   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}}:}
-\DoxyCodeLine{125     \textcolor{keywordflow}{if} (cur-\/>\mbox{\hyperlink{classMode_a833075f22903e11fd4735b5f04e7f6ea}{isMultiLed}}()) \{}
-\DoxyCodeLine{126       \textcolor{comment}{// do not allow multi led to select anything else}}
-\DoxyCodeLine{127       \textcolor{comment}{//break;}}
-\DoxyCodeLine{128     \}}
-\DoxyCodeLine{129     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}});}
-\DoxyCodeLine{130     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{131   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}):}
-\DoxyCodeLine{132     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_af0944397d861e0f312c92d14715b7870}{MAP\_PAIR\_EVENS}};}
-\DoxyCodeLine{133     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{134   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_af0944397d861e0f312c92d14715b7870}{MAP\_PAIR\_EVENS}}:}
-\DoxyCodeLine{135     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_ab7e65bc3797cca255c8b007ee294653b}{MAP\_PAIR\_ODDS}};}
-\DoxyCodeLine{136     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{137   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_ab7e65bc3797cca255c8b007ee294653b}{MAP\_PAIR\_ODDS}}:}
-\DoxyCodeLine{138     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}});}
-\DoxyCodeLine{139     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{140   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}):}
-\DoxyCodeLine{141     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}};}
-\DoxyCodeLine{142     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{143   \textcolor{keywordflow}{default}: \textcolor{comment}{// LED\_FIRST through LED\_LAST}}
-\DoxyCodeLine{144     \textcolor{comment}{// do not allow multi led to select anything else}}
-\DoxyCodeLine{145     \textcolor{keywordflow}{if} (cur-\/>\mbox{\hyperlink{classMode_a833075f22903e11fd4735b5f04e7f6ea}{isMultiLed}}()) \{}
-\DoxyCodeLine{146       \textcolor{comment}{//m\_targetLeds = MAP\_LED\_ALL;}}
-\DoxyCodeLine{147       \textcolor{comment}{//break;}}
-\DoxyCodeLine{148     \}}
-\DoxyCodeLine{149     \textcolor{comment}{// iterate as normal}}
-\DoxyCodeLine{150     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(((\mbox{\hyperlink{LedTypes_8h_a8f394c70246f75bd9452c7cea69a4b19}{mapGetFirstLed}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}) + 1) \% (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}} + 1)));}
-\DoxyCodeLine{151     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{152   \}}
-\DoxyCodeLine{153 \}}
+\DoxyCodeLine{126 \{}
+\DoxyCodeLine{127   \mbox{\hyperlink{classMode}{Mode}} *cur = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
+\DoxyCodeLine{128   \textcolor{comment}{// The target led can be 0 through LED\_COUNT to represent any led or all leds}}
+\DoxyCodeLine{129   \textcolor{comment}{// modulo by LED\_COUNT + 1 to include LED\_COUNT (all) as a target}}
+\DoxyCodeLine{130   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}) \{}
+\DoxyCodeLine{131   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}}:}
+\DoxyCodeLine{132     \textcolor{keywordflow}{if} (cur-\/>\mbox{\hyperlink{classMode_a833075f22903e11fd4735b5f04e7f6ea}{isMultiLed}}()) \{}
+\DoxyCodeLine{133       \textcolor{comment}{// do not allow multi led to select anything else}}
+\DoxyCodeLine{134       \textcolor{comment}{//break;}}
+\DoxyCodeLine{135     \}}
+\DoxyCodeLine{136     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_a55ddc1745b9c67fe6be6f0b334b228c2}{MAP\_SIDES}};}
+\DoxyCodeLine{137     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{138   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a55ddc1745b9c67fe6be6f0b334b228c2}{MAP\_SIDES}}:}
+\DoxyCodeLine{139     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}});}
+\DoxyCodeLine{140     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{141   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}):}
+\DoxyCodeLine{142     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}};}
+\DoxyCodeLine{143     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{144   \textcolor{keywordflow}{default}: \textcolor{comment}{// LED\_FIRST through LED\_LAST}}
+\DoxyCodeLine{145     \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} = \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}((\mbox{\hyperlink{LedTypes_8h_ae8d7e271028055f745f7b1247f080dce}{ledmapGetFirstLed}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}) + 1) \% (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}));}
+\DoxyCodeLine{146     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{147   \}}
+\DoxyCodeLine{148 \}}
 
 \end{DoxyCode}
 
 
-References Modes\+::cur\+Mode(), Mode\+::is\+Multi\+Led(), LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, LED\+\_\+\+LAST, LED\+\_\+\+MULTI, m\+\_\+target\+Leds, MAP\+\_\+\+LED, MAP\+\_\+\+LED\+\_\+\+ALL, MAP\+\_\+\+PAIR\+\_\+\+EVENS, MAP\+\_\+\+PAIR\+\_\+\+ODDS, and map\+Get\+First\+Led().
+References Modes\+::cur\+Mode(), Mode\+::is\+Multi\+Led(), LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, LED\+\_\+\+LAST, ledmap\+Get\+First\+Led(), m\+\_\+target\+Leds, MAP\+\_\+\+LED, MAP\+\_\+\+LED\+\_\+\+ALL, and MAP\+\_\+\+SIDES.
 
 
 
@@ -324,12 +337,12 @@ Reimplemented in \mbox{\hyperlink{classPatternSelect_a605366bb9ccec088bd35d84364
 
 
 
-Definition at line 155 of file Menu.\+cpp.
+Definition at line 150 of file Menu.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{156 \{}
-\DoxyCodeLine{157 \}}
+\DoxyCodeLine{151 \{}
+\DoxyCodeLine{152 \}}
 
 \end{DoxyCode}
 
@@ -348,13 +361,13 @@ Reimplemented in \mbox{\hyperlink{classRandomizer_a238dc0d614d87458d0706be9de26f
 
 
 
-Definition at line 163 of file Menu.\+cpp.
+Definition at line 158 of file Menu.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{164 \{}
-\DoxyCodeLine{165   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{false});}
-\DoxyCodeLine{166 \}}
+\DoxyCodeLine{159 \{}
+\DoxyCodeLine{160   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{false});}
+\DoxyCodeLine{161 \}}
 
 \end{DoxyCode}
 
@@ -377,12 +390,12 @@ Reimplemented in \mbox{\hyperlink{classRandomizer_a3dd0dc5eb4b0722f297eb9ebdecfa
 
 
 
-Definition at line 159 of file Menu.\+cpp.
+Definition at line 154 of file Menu.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{160 \{}
-\DoxyCodeLine{161 \}}
+\DoxyCodeLine{155 \{}
+\DoxyCodeLine{156 \}}
 
 \end{DoxyCode}
 
@@ -425,28 +438,35 @@ Definition at line 53 of file Menu.\+cpp.
 \DoxyCodeLine{71 }
 \DoxyCodeLine{72   \textcolor{comment}{// every time the button is clicked, change the target led}}
 \DoxyCodeLine{73   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a4e2b10397cdad6546a8728a87b82fadb}{onShortClick}}()) \{}
-\DoxyCodeLine{74     \mbox{\hyperlink{classMenu_a2f75413684df37d5e11e03451addd65f}{nextBulbSelection}}();}
-\DoxyCodeLine{75   \}}
-\DoxyCodeLine{76   \textcolor{comment}{// on a long press of the button, lock in the target led}}
-\DoxyCodeLine{77   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a81c3b1a14aee3e487e836ac517e6b232}{onLongClick}}()) \{}
-\DoxyCodeLine{78     \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{79     \textcolor{comment}{// call led selected callback}}
-\DoxyCodeLine{80     \mbox{\hyperlink{classMenu_af8614529ac11d563d9025c3905834b05}{onLedSelected}}();}
-\DoxyCodeLine{81   \}}
-\DoxyCodeLine{82 }
-\DoxyCodeLine{83   \textcolor{comment}{// render the bulb selection}}
-\DoxyCodeLine{84   \mbox{\hyperlink{classMenu_a9282eb359af69108f57e8de7f41e4195}{showBulbSelection}}();}
-\DoxyCodeLine{85 }
-\DoxyCodeLine{86   \textcolor{comment}{// return MENU\_SKIP to indicate to derived menu classes that}}
-\DoxyCodeLine{87   \textcolor{comment}{// they should skip their logic and just return so that the}}
-\DoxyCodeLine{88   \textcolor{comment}{// bulb selection can be rendered}}
-\DoxyCodeLine{89   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffab2293aaedd6c65bea5f8d6c8dd811598}{MENU\_SKIP}};}
-\DoxyCodeLine{90 \}}
+\DoxyCodeLine{74     \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{75       \mbox{\hyperlink{classMenu_a2f75413684df37d5e11e03451addd65f}{nextBulbSelection}}();}
+\DoxyCodeLine{76     \} \textcolor{keywordflow}{while} (!\mbox{\hyperlink{classMenu_a855d557fbaaf91b7444bef908929591d}{isValidLedSelection}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}));}
+\DoxyCodeLine{77   \}}
+\DoxyCodeLine{78   \textcolor{comment}{// on a long press of the button, lock in the target led}}
+\DoxyCodeLine{79   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a81c3b1a14aee3e487e836ac517e6b232}{onLongClick}}()) \{}
+\DoxyCodeLine{80     \mbox{\hyperlink{classMenu_a2ccb6eafbf5e2396785d3c48d6741fb4}{m\_ledSelected}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{81     \textcolor{comment}{// call led selected callback}}
+\DoxyCodeLine{82     \mbox{\hyperlink{classMenu_af8614529ac11d563d9025c3905834b05}{onLedSelected}}();}
+\DoxyCodeLine{83     \textcolor{comment}{// log about the selection}}
+\DoxyCodeLine{84     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Led Selected: 0x\%x (\%s)"{}}, \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}},}
+\DoxyCodeLine{85       (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}})) ? \textcolor{stringliteral}{"{}multi"{}}}
+\DoxyCodeLine{86         : (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}}) ? \textcolor{stringliteral}{"{}all"{}}}
+\DoxyCodeLine{87           : \textcolor{stringliteral}{"{}some singles"{}});}
+\DoxyCodeLine{88   \}}
+\DoxyCodeLine{89 }
+\DoxyCodeLine{90   \textcolor{comment}{// render the bulb selection}}
+\DoxyCodeLine{91   \mbox{\hyperlink{classMenu_a9282eb359af69108f57e8de7f41e4195}{showBulbSelection}}();}
+\DoxyCodeLine{92 }
+\DoxyCodeLine{93   \textcolor{comment}{// return MENU\_SKIP to indicate to derived menu classes that}}
+\DoxyCodeLine{94   \textcolor{comment}{// they should skip their logic and just return so that the}}
+\DoxyCodeLine{95   \textcolor{comment}{// bulb selection can be rendered}}
+\DoxyCodeLine{96   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffab2293aaedd6c65bea5f8d6c8dd811598}{MENU\_SKIP}};}
+\DoxyCodeLine{97 \}}
 
 \end{DoxyCode}
 
 
-References g\+\_\+p\+Button, m\+\_\+led\+Selected, m\+\_\+should\+Close, MENU\+\_\+\+CONTINUE, MENU\+\_\+\+QUIT, MENU\+\_\+\+SKIP, next\+Bulb\+Selection(), on\+Led\+Selected(), Button\+::on\+Long\+Click(), Button\+::on\+Short\+Click(), and show\+Bulb\+Selection().
+References DEBUG\+\_\+\+LOGF, g\+\_\+p\+Button, is\+Valid\+Led\+Selection(), LED\+\_\+\+MULTI, m\+\_\+led\+Selected, m\+\_\+should\+Close, m\+\_\+target\+Leds, MAP\+\_\+\+LED, MAP\+\_\+\+LED\+\_\+\+ALL, MENU\+\_\+\+CONTINUE, MENU\+\_\+\+QUIT, MENU\+\_\+\+SKIP, next\+Bulb\+Selection(), on\+Led\+Selected(), Button\+::on\+Long\+Click(), Button\+::on\+Short\+Click(), and show\+Bulb\+Selection().
 
 
 
@@ -460,23 +480,23 @@ Referenced by Color\+Select\+::run(), Editor\+Connection\+::run(), Factory\+Rese
 
 
 
-Definition at line 92 of file Menu.\+cpp.
+Definition at line 99 of file Menu.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{93 \{}
-\DoxyCodeLine{94   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{95   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}})) \{}
-\DoxyCodeLine{96     \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() / 30) \% \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}});}
-\DoxyCodeLine{97     \mbox{\hyperlink{classLeds_aa9afc88f99014d51595970c403606418}{Leds::blinkIndexOffset}}(pos, pos * 10, 50, 500, \mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\_menuColor}});}
-\DoxyCodeLine{98   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{99     \mbox{\hyperlink{classLeds_a1b306058b5ae9eadf4445b809ff9425e}{Leds::blinkMap}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}, \mbox{\hyperlink{Timings_8h_a0627d036077a564ed9f8915ff1b64ea8}{BULB\_SELECT\_OFF\_MS}}, \mbox{\hyperlink{Timings_8h_acdad12177a6bfe2234b17ab9ca4bebd2}{BULB\_SELECT\_ON\_MS}}, \mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\_menuColor}});}
-\DoxyCodeLine{100   \}}
-\DoxyCodeLine{101   \textcolor{comment}{// blink when selecting}}
-\DoxyCodeLine{102   \mbox{\hyperlink{classMenus_a24d75cee0c42b89ed2408e1358414804}{Menus::showSelection}}(\mbox{\hyperlink{classRGBColor}{RGBColor}}(\mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\_menuColor}}.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} << 3,}
-\DoxyCodeLine{103                                 \mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\_menuColor}}.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} << 3,}
-\DoxyCodeLine{104                                 \mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\_menuColor}}.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} << 3));}
-\DoxyCodeLine{105 \}}
+\DoxyCodeLine{100 \{}
+\DoxyCodeLine{101   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{102   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}})) \{}
+\DoxyCodeLine{103     \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() / 30) \% \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}});}
+\DoxyCodeLine{104     \mbox{\hyperlink{classLeds_aa9afc88f99014d51595970c403606418}{Leds::blinkIndexOffset}}(pos, pos * 10, 50, 500, \mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\_menuColor}});}
+\DoxyCodeLine{105   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{106     \mbox{\hyperlink{classLeds_a1b306058b5ae9eadf4445b809ff9425e}{Leds::blinkMap}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}, \mbox{\hyperlink{Timings_8h_a0627d036077a564ed9f8915ff1b64ea8}{BULB\_SELECT\_OFF\_MS}}, \mbox{\hyperlink{Timings_8h_acdad12177a6bfe2234b17ab9ca4bebd2}{BULB\_SELECT\_ON\_MS}}, \mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\_menuColor}});}
+\DoxyCodeLine{107   \}}
+\DoxyCodeLine{108   \textcolor{comment}{// blink when selecting}}
+\DoxyCodeLine{109   \mbox{\hyperlink{classMenus_a24d75cee0c42b89ed2408e1358414804}{Menus::showSelection}}(\mbox{\hyperlink{classRGBColor}{RGBColor}}(\mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\_menuColor}}.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} << 3,}
+\DoxyCodeLine{110                                 \mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\_menuColor}}.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} << 3,}
+\DoxyCodeLine{111                                 \mbox{\hyperlink{classMenu_afe0e1650a47d09300ec8cf25aaa8331a}{m\_menuColor}}.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} << 3));}
+\DoxyCodeLine{112 \}}
 
 \end{DoxyCode}
 
@@ -495,19 +515,19 @@ Referenced by run().
 
 
 
-Definition at line 107 of file Menu.\+cpp.
+Definition at line 114 of file Menu.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{108 \{}
-\DoxyCodeLine{109   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() \&\& \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() > \mbox{\hyperlink{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}{SHORT\_CLICK\_THRESHOLD\_TICKS}}) \{}
-\DoxyCodeLine{110     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{ColorConstants_8h_aa039288455af8a3812a35aa1e7b903e4}{RGB\_RED}});}
-\DoxyCodeLine{111     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{112   \}}
-\DoxyCodeLine{113   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{114   \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
-\DoxyCodeLine{115   \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(\mbox{\hyperlink{Timings_8h_a0f785cd62010101e23dc80b1c6334ef6}{EXIT\_MENU\_OFF\_MS}}, \mbox{\hyperlink{Timings_8h_a51ff44bad98709f4d9c531f906080c96}{EXIT\_MENU\_ON\_MS}}, \mbox{\hyperlink{ColorConstants_8h_a49a0f8d6d822af1b0a7e71612865ea1f}{RGB\_RED0}});}
-\DoxyCodeLine{116 \}}
+\DoxyCodeLine{115 \{}
+\DoxyCodeLine{116   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() \&\& \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() > \mbox{\hyperlink{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}{SHORT\_CLICK\_THRESHOLD\_TICKS}}) \{}
+\DoxyCodeLine{117     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{ColorConstants_8h_aa039288455af8a3812a35aa1e7b903e4}{RGB\_RED}});}
+\DoxyCodeLine{118     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{119   \}}
+\DoxyCodeLine{120   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{121   \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
+\DoxyCodeLine{122   \mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{Leds::blinkAll}}(\mbox{\hyperlink{Timings_8h_a0f785cd62010101e23dc80b1c6334ef6}{EXIT\_MENU\_OFF\_MS}}, \mbox{\hyperlink{Timings_8h_a51ff44bad98709f4d9c531f906080c96}{EXIT\_MENU\_ON\_MS}}, \mbox{\hyperlink{ColorConstants_8h_a49a0f8d6d822af1b0a7e71612865ea1f}{RGB\_RED0}});}
+\DoxyCodeLine{123 \}}
 
 \end{DoxyCode}
 
@@ -529,7 +549,7 @@ Referenced by Global\+Brightness\+::show\+Brightness\+Selection(), and Color\+Se
 
 
 
-Definition at line 59 of file Menu.\+h.
+Definition at line 63 of file Menu.\+h.
 
 
 
@@ -543,7 +563,7 @@ Referenced by Factory\+Reset\+::init(), Factory\+Reset\+::on\+Long\+Click(), Pat
 
 
 
-Definition at line 55 of file Menu.\+h.
+Definition at line 59 of file Menu.\+h.
 
 
 
@@ -557,7 +577,7 @@ Referenced by Factory\+Reset\+::init(), Global\+Brightness\+::init(), Color\+Sel
 
 
 
-Definition at line 57 of file Menu.\+h.
+Definition at line 61 of file Menu.\+h.
 
 
 
@@ -571,7 +591,7 @@ Referenced by Color\+Select\+::init(), Editor\+Connection\+::init(), Factory\+Re
 
 
 
-Definition at line 50 of file Menu.\+h.
+Definition at line 54 of file Menu.\+h.
 
 
 
@@ -585,11 +605,11 @@ Referenced by Pattern\+Select\+::on\+Long\+Click(), and show\+Bulb\+Selection().
 
 
 
-Definition at line 48 of file Menu.\+h.
+Definition at line 52 of file Menu.\+h.
 
 
 
-Referenced by Editor\+Connection\+::clear\+Demo(), init(), Mode\+Sharing\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Randomizer\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Editor\+Connection\+::receive\+Demo\+Mode(), Mode\+Sharing\+::receive\+Mode\+IR(), Randomizer\+::re\+Roll(), Randomizer\+::re\+Roll\+Multi(), Randomizer\+::re\+Roll\+Singles(), Pattern\+Select\+::run(), Randomizer\+::run(), Editor\+Connection\+::show\+Editor(), and Mode\+Sharing\+::show\+Receive\+Mode().
+Referenced by Editor\+Connection\+::clear\+Demo(), init(), Color\+Select\+::is\+Valid\+Led\+Selection(), Mode\+Sharing\+::on\+Long\+Click(), Pattern\+Select\+::on\+Long\+Click(), Randomizer\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Editor\+Connection\+::receive\+Demo\+Mode(), Mode\+Sharing\+::receive\+Mode\+IR(), Randomizer\+::re\+Roll(), Randomizer\+::re\+Roll\+Multi(), Randomizer\+::re\+Roll\+Singles(), Pattern\+Select\+::run(), Randomizer\+::run(), Editor\+Connection\+::send\+Cur\+Mode\+VL(), Editor\+Connection\+::show\+Editor(), and Mode\+Sharing\+::show\+Receive\+Mode().
 
 \mbox{\Hypertarget{classMenu_a145ce4672bd57b3a5123031a490ba224}\label{classMenu_a145ce4672bd57b3a5123031a490ba224}} 
 \index{Menu@{Menu}!m\_shouldClose@{m\_shouldClose}}
@@ -599,7 +619,7 @@ Referenced by Editor\+Connection\+::clear\+Demo(), init(), Mode\+Sharing\+::on\+
 
 
 
-Definition at line 63 of file Menu.\+h.
+Definition at line 67 of file Menu.\+h.
 
 
 
@@ -613,11 +633,11 @@ Referenced by init(), leave\+Menu(), and run().
 
 
 
-Definition at line 53 of file Menu.\+h.
+Definition at line 57 of file Menu.\+h.
 
 
 
-Referenced by Color\+Select\+::init(), Factory\+Reset\+::init(), next\+Bulb\+Selection(), Color\+Select\+::on\+Led\+Selected(), Pattern\+Select\+::on\+Led\+Selected(), Color\+Select\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Randomizer\+::re\+Roll(), Randomizer\+::re\+Roll\+Singles(), Randomizer\+::run(), and show\+Bulb\+Selection().
+Referenced by Color\+Select\+::init(), Factory\+Reset\+::init(), next\+Bulb\+Selection(), Color\+Select\+::on\+Led\+Selected(), Pattern\+Select\+::on\+Led\+Selected(), Color\+Select\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Randomizer\+::re\+Roll(), Randomizer\+::re\+Roll\+Singles(), run(), Randomizer\+::run(), and show\+Bulb\+Selection().
 
 
 

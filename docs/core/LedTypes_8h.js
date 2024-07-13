@@ -50,10 +50,12 @@ var LedTypes_8h =
       [ "PAIR_COUNT", "LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4a772164a6f31e22d817711a70345b51b4", null ],
       [ "PAIR_LAST", "LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4abdc898f1cd37b37e12eaa09550890334", null ]
     ] ],
-    [ "checkLed", "LedTypes_8h.html#a6b8f8d9c1f8627c817d00a6d33695c1f", null ],
-    [ "checkPair", "LedTypes_8h.html#a1b174a309fe85f1d4560afa3230ddc65", null ],
-    [ "mapGetFirstLed", "LedTypes_8h.html#a8f394c70246f75bd9452c7cea69a4b19", null ],
-    [ "mapGetNextLed", "LedTypes_8h.html#a40567e2b925999b9d718f9444ea7e0b0", null ],
+    [ "ledmapCheckLed", "LedTypes_8h.html#aea87ba7c1e127ef509da9d0e9d238aac", null ],
+    [ "ledmapCheckPair", "LedTypes_8h.html#a2d79cc8ce577773d2b0ee85ca33b9ac4", null ],
+    [ "ledmapGetFirstLed", "LedTypes_8h.html#ae8d7e271028055f745f7b1247f080dce", null ],
+    [ "ledmapGetNextLed", "LedTypes_8h.html#afc1a170657262289647c2af99aace527", null ],
+    [ "ledmapSetLed", "LedTypes_8h.html#a7c47d3eb42975a1a8ea5af7bcbc95bde", null ],
+    [ "ledmapSetPair", "LedTypes_8h.html#ae8eaf2f933c66fef4ffac4b81213d344", null ],
     [ "operator+", "LedTypes_8h.html#a726370103d4483e039d09e054e833154", null ],
     [ "operator+", "LedTypes_8h.html#a3f2b92ad7a54adcb324ebcbd2bc69409", null ],
     [ "operator++", "LedTypes_8h.html#abc251fca88b16eb10b944dff85c305df", null ],
@@ -63,7 +65,5 @@ var LedTypes_8h =
     [ "operator+=", "LedTypes_8h.html#aae8ec6757aa6f42ba17318dee79988ea", null ],
     [ "operator-", "LedTypes_8h.html#a0cbb7cf425475130fe7f443156fa96df", null ],
     [ "operator-", "LedTypes_8h.html#af2d6cc4a5a1dffc90500e5a40084e8c7", null ],
-    [ "operator-=", "LedTypes_8h.html#a5192eaa3f51e5d751eebff3b1661383b", null ],
-    [ "setLed", "LedTypes_8h.html#a99b3613fb4c658dff24ba0f18eda6e31", null ],
-    [ "setPair", "LedTypes_8h.html#a20d782bba21f1567fdf0302d45a0d64c", null ]
+    [ "operator-=", "LedTypes_8h.html#a5192eaa3f51e5d751eebff3b1661383b", null ]
 ];

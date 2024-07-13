@@ -60,7 +60,7 @@ class \mbox{\hyperlink{classLeds}{Leds}}
 \item 
 \#define \mbox{\hyperlink{Leds_8h_a7942bcfeb3920e179590b97a56ccfede}{MAP\+\_\+\+IS\+\_\+\+ONE\+\_\+\+LED}}(map)~(map \&\& !(map \& (map-\/1)))
 \item 
-\#define \mbox{\hyperlink{Leds_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\+\_\+\+FOREACH\+\_\+\+LED}}(map)~for (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}} pos = m\+\_\+engine.\+leds().map\+Get\+First\+Led(map); pos $<$ \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}}; pos = m\+\_\+engine.\+leds().map\+Get\+Next\+Led(map, pos))
+\#define \mbox{\hyperlink{Leds_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\+\_\+\+FOREACH\+\_\+\+LED}}(map)~for (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}} pos = m\+\_\+engine.\+leds().ledmap\+Get\+First\+Led(map); pos $<$ \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}}; pos = m\+\_\+engine.\+leds().ledmap\+Get\+Next\+Led(map, pos))
 \item 
 \#define \mbox{\hyperlink{Leds_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\+\_\+\+LED\+\_\+\+ALL}}~(\mbox{\hyperlink{Leds_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}})((2 $<$$<$ (\mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}} -\/ 1)) -\/ 1)
 \item 
@@ -334,7 +334,7 @@ Definition at line 28 of file Leds.\+h.
 \index{Leds.h@{Leds.h}!MAP\_FOREACH\_LED@{MAP\_FOREACH\_LED}}
 \index{MAP\_FOREACH\_LED@{MAP\_FOREACH\_LED}!Leds.h@{Leds.h}}
 \doxysubsubsection{\texorpdfstring{MAP\_FOREACH\_LED}{MAP\_FOREACH\_LED}}
-{\footnotesize\ttfamily \#define MAP\+\_\+\+FOREACH\+\_\+\+LED(\begin{DoxyParamCaption}\item[{}]{map }\end{DoxyParamCaption})~for (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}} pos = m\+\_\+engine.\+leds().map\+Get\+First\+Led(map); pos $<$ \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}}; pos = m\+\_\+engine.\+leds().map\+Get\+Next\+Led(map, pos))}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+FOREACH\+\_\+\+LED(\begin{DoxyParamCaption}\item[{}]{map }\end{DoxyParamCaption})~for (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}} pos = m\+\_\+engine.\+leds().ledmap\+Get\+First\+Led(map); pos $<$ \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\+\_\+\+COUNT}}; pos = m\+\_\+engine.\+leds().ledmap\+Get\+Next\+Led(map, pos))}
 
 
 

@@ -7,6 +7,7 @@ var classPatternBuilder =
     [ "generate", "classPatternBuilder.html#aee111acfef325bbd42e53c47e3bdf8e1", null ],
     [ "getDefaultArgs", "classPatternBuilder.html#a1e2154e68210f25e29a03755e9184959", null ],
     [ "init", "classPatternBuilder.html#a30261a91dd18cf29b1fa15bbc90fa8cc", null ],
+    [ "isDefaultArgs", "classPatternBuilder.html#ab3f2c891c9aae849a14a791a0d8ff5bd", null ],
     [ "make", "classPatternBuilder.html#aa0f911014387a0c3d62ef4be6670ddc9", null ],
     [ "makeInternal", "classPatternBuilder.html#ab183172bf29efcd70e9b308fb67e8e4c", null ],
     [ "makeMulti", "classPatternBuilder.html#a642b5e131674e3a6dc4f2a5c14ad734f", null ],

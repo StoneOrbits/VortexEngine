@@ -1,12 +1,12 @@
 var classColorSelect =
 [
-    [ "ColorSelectState", "classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2e", [
-      [ "STATE_INIT", "classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2eae11874bf43ee9371ade67deee4946710", null ],
-      [ "STATE_PICK_SLOT", "classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c", null ],
-      [ "STATE_PICK_HUE1", "classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2eafb801216d02b43a41d768ca442722354", null ],
-      [ "STATE_PICK_HUE2", "classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2ea357afd4c0e747368fc58dd50e07761f1", null ],
-      [ "STATE_PICK_SAT", "classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2ea72d99473ae0d6d8edb38d236a2a8d1a2", null ],
-      [ "STATE_PICK_VAL", "classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2ea902dc373210b60836c9d9c801e6c711b", null ]
+    [ "ColorSelectState", "classColorSelect.html#a67524fb9ccabc6e537544c88d245f5bd", [
+      [ "STATE_INIT", "classColorSelect.html#a67524fb9ccabc6e537544c88d245f5bdae11874bf43ee9371ade67deee4946710", null ],
+      [ "STATE_PICK_SLOT", "classColorSelect.html#a67524fb9ccabc6e537544c88d245f5bda654acaea4cddd708556eaebc0599351c", null ],
+      [ "STATE_PICK_HUE1", "classColorSelect.html#a67524fb9ccabc6e537544c88d245f5bdafb801216d02b43a41d768ca442722354", null ],
+      [ "STATE_PICK_HUE2", "classColorSelect.html#a67524fb9ccabc6e537544c88d245f5bda357afd4c0e747368fc58dd50e07761f1", null ],
+      [ "STATE_PICK_SAT", "classColorSelect.html#a67524fb9ccabc6e537544c88d245f5bda72d99473ae0d6d8edb38d236a2a8d1a2", null ],
+      [ "STATE_PICK_VAL", "classColorSelect.html#a67524fb9ccabc6e537544c88d245f5bda902dc373210b60836c9d9c801e6c711b", null ]
     ] ],
     [ "ColorSelect", "classColorSelect.html#a67017079263e040e359450511532b08f", null ],
     [ "~ColorSelect", "classColorSelect.html#aa2f06c0775c53865ba75d650c452853c", null ],

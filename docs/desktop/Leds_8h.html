@@ -149,7 +149,7 @@ Macros</h2></td></tr>
 <tr class="separator:a85801b3eb052b3e157c16a162e01974b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7942bcfeb3920e179590b97a56ccfede"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Leds_8h.html#a7942bcfeb3920e179590b97a56ccfede">MAP_IS_ONE_LED</a>(map)&#160;&#160;&#160;(map &amp;&amp; !(map &amp; (map-1)))</td></tr>
 <tr class="separator:a7942bcfeb3920e179590b97a56ccfede"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c29165d5a422a63ed2ba45c01fc5d3b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Leds_8h.html#a6c29165d5a422a63ed2ba45c01fc5d3b">MAP_FOREACH_LED</a>(map)&#160;&#160;&#160;for (<a class="el" href="Leds_8h.html#a00ce38c4c9420e2c98e2e8e577173feb">LedPos</a> pos = m_engine.leds().mapGetFirstLed(map); pos &lt; <a class="el" href="Leds_8h.html#ad698e2cb680601529f08c3e5f2b0cebb">LED_COUNT</a>; pos = m_engine.leds().mapGetNextLed(map, pos))</td></tr>
+<tr class="memitem:a6c29165d5a422a63ed2ba45c01fc5d3b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Leds_8h.html#a6c29165d5a422a63ed2ba45c01fc5d3b">MAP_FOREACH_LED</a>(map)&#160;&#160;&#160;for (<a class="el" href="Leds_8h.html#a00ce38c4c9420e2c98e2e8e577173feb">LedPos</a> pos = m_engine.leds().ledmapGetFirstLed(map); pos &lt; <a class="el" href="Leds_8h.html#ad698e2cb680601529f08c3e5f2b0cebb">LED_COUNT</a>; pos = m_engine.leds().ledmapGetNextLed(map, pos))</td></tr>
 <tr class="separator:a6c29165d5a422a63ed2ba45c01fc5d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9a910b2dc4fabac704e56a0fcb3b97e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Leds_8h.html#ac9a910b2dc4fabac704e56a0fcb3b97e">MAP_LED_ALL</a>&#160;&#160;&#160;(<a class="el" href="Leds_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a>)((2 &lt;&lt; (<a class="el" href="Leds_8h.html#ad698e2cb680601529f08c3e5f2b0cebb">LED_COUNT</a> - 1)) - 1)</td></tr>
 <tr class="separator:ac9a910b2dc4fabac704e56a0fcb3b97e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -561,7 +561,7 @@ Typedefs</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">map</td><td>)</td>
-          <td>&#160;&#160;&#160;for (<a class="el" href="Leds_8h.html#a00ce38c4c9420e2c98e2e8e577173feb">LedPos</a> pos = m_engine.leds().mapGetFirstLed(map); pos &lt; <a class="el" href="Leds_8h.html#ad698e2cb680601529f08c3e5f2b0cebb">LED_COUNT</a>; pos = m_engine.leds().mapGetNextLed(map, pos))</td>
+          <td>&#160;&#160;&#160;for (<a class="el" href="Leds_8h.html#a00ce38c4c9420e2c98e2e8e577173feb">LedPos</a> pos = m_engine.leds().ledmapGetFirstLed(map); pos &lt; <a class="el" href="Leds_8h.html#ad698e2cb680601529f08c3e5f2b0cebb">LED_COUNT</a>; pos = m_engine.leds().ledmapGetNextLed(map, pos))</td>
         </tr>
       </table>
 </div><div class="memdoc">

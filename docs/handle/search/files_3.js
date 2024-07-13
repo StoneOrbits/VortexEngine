@@ -1,7 +1,5 @@
 var searchData=
 [
-  ['editorconnection_2ecpp_1669',['EditorConnection.cpp',['../EditorConnection_8cpp.html',1,'']]],
-  ['editorconnection_2eh_1670',['EditorConnection.h',['../EditorConnection_8h.html',1,'']]],
-  ['errorblinker_2ecpp_1671',['ErrorBlinker.cpp',['../ErrorBlinker_8cpp.html',1,'']]],
-  ['errorblinker_2eh_1672',['ErrorBlinker.h',['../ErrorBlinker_8h.html',1,'']]]
+  ['editorconnection_2ecpp_1682',['EditorConnection.cpp',['../EditorConnection_8cpp.html',1,'']]],
+  ['editorconnection_2eh_1683',['EditorConnection.h',['../EditorConnection_8h.html',1,'']]]
 ];

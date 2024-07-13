@@ -1,15 +1,5 @@
 var NAVTREEINDEX9 =
 {
-"globals_defs_i.html":[1,1,6,8],
-"globals_defs_k.html":[1,1,6,9],
-"globals_defs_l.html":[1,1,6,10],
-"globals_defs_m.html":[1,1,6,11],
-"globals_defs_n.html":[1,1,6,12],
-"globals_defs_p.html":[1,1,6,13],
-"globals_defs_r.html":[1,1,6,14],
-"globals_defs_s.html":[1,1,6,15],
-"globals_defs_t.html":[1,1,6,16],
-"globals_defs_u.html":[1,1,6,17],
 "globals_defs_v.html":[1,1,6,18],
 "globals_defs_w.html":[1,1,6,19],
 "globals_e.html":[1,1,0,5],

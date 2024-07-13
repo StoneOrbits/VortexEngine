@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 686;
+var viewWidth = 875;
 var viewHeight = 173;
 var sectionId = 'dynsection-1';
 </script>
@@ -58,118 +58,140 @@ var sectionId = 'dynsection-1';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="258,-134.5 258,-164.5 401,-164.5 401,-134.5 258,-134.5"/>
-<text text-anchor="start" x="266" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
-<text text-anchor="middle" x="329.5" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLConfig.h</text>
+<polygon fill="#bfbfbf" stroke="black" points="276,-134.5 276,-164.5 419,-164.5 419,-134.5 276,-134.5"/>
+<text text-anchor="start" x="284" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
+<text text-anchor="middle" x="347.5" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLConfig.h</text>
 </a>
 </g>
 </g>
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="VLReceiver_8h.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="345,-67.5 345,-97.5 488,-97.5 488,-67.5 345,-67.5"/>
-<text text-anchor="start" x="353" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
-<text text-anchor="middle" x="416.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLReceiver.h</text>
+<g id="a_node2"><a xlink:href="VortexEngine_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="161.5,-6 161.5,-25 347.5,-25 347.5,-6 161.5,-6"/>
+<text text-anchor="middle" x="254.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/VortexEngine.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M356.71,-128.17C370.02,-118.23 385.7,-106.51 397.66,-97.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="354.29,-125.61 348.38,-134.4 358.48,-131.21 354.29,-125.61"/>
+<path fill="none" stroke="midnightblue" d="M346.04,-123.91C343.99,-106.69 339.09,-83.83 327.5,-67 314.13,-47.58 290.66,-33.34 273.95,-25.02"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="342.6,-124.67 347.02,-134.3 349.57,-124.01 342.6,-124.67"/>
+</g>
+<!-- Node3 -->
+<g id="node3" class="node">
+<title>Node3</title>
+<g id="a_node3"><a xlink:href="VLReceiver_8h.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="176,-67.5 176,-97.5 319,-97.5 319,-67.5 176,-67.5"/>
+<text text-anchor="start" x="184" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
+<text text-anchor="middle" x="247.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLReceiver.h</text>
+</a>
+</g>
+</g>
+<!-- Node1&#45;&gt;Node3 -->
+<g id="edge2" class="edge">
+<title>Node1&#45;&gt;Node3</title>
+<path fill="none" stroke="midnightblue" d="M317.09,-128.73C301.62,-118.68 283.17,-106.68 269.16,-97.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="315.51,-131.88 325.8,-134.4 319.32,-126.01 315.51,-131.88"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
 <g id="a_node6"><a xlink:href="VLSender_8h.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="178,-67.5 178,-97.5 321,-97.5 321,-67.5 178,-67.5"/>
-<text text-anchor="start" x="186" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
-<text text-anchor="middle" x="249.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLSender.h</text>
+<polygon fill="none" stroke="black" points="376,-67.5 376,-97.5 519,-97.5 519,-67.5 376,-67.5"/>
+<text text-anchor="start" x="384" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
+<text text-anchor="middle" x="447.5" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLSender.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node6 -->
-<g id="edge5" class="edge">
+<g id="edge6" class="edge">
 <title>Node1&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M304.13,-127.88C291.97,-118.01 277.72,-106.43 266.82,-97.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="302.17,-130.81 312.14,-134.4 306.59,-125.37 302.17,-130.81"/>
+<path fill="none" stroke="midnightblue" d="M377.91,-128.73C393.38,-118.68 411.83,-106.68 425.84,-97.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="375.68,-126.01 369.2,-134.4 379.49,-131.88 375.68,-126.01"/>
 </g>
-<!-- Node3 -->
-<g id="node3" class="node">
-<title>Node3</title>
-<g id="a_node3"><a xlink:href="ModeSharing_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="161,-0.5 161,-30.5 312,-30.5 312,-0.5 161,-0.5"/>
-<text text-anchor="start" x="169" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
-<text text-anchor="middle" x="236.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/ModeSharing.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node2&#45;&gt;Node3 -->
-<g id="edge2" class="edge">
-<title>Node2&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M367.91,-63.96C338.92,-53.48 302.59,-40.37 275.48,-30.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="366.85,-67.29 377.44,-67.4 369.23,-60.71 366.85,-67.29"/>
+<!-- Node3&#45;&gt;Node2 -->
+<g id="edge4" class="edge">
+<title>Node3&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M250.11,-57.25C251.32,-46.02 252.68,-33.38 253.56,-25.19"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="246.61,-57.08 249.02,-67.4 253.57,-57.83 246.61,-57.08"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="VortexEngine_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="330.5,-6 330.5,-25 516.5,-25 516.5,-6 330.5,-6"/>
-<text text-anchor="middle" x="423.5" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/VortexEngine.cpp</text>
+<g id="a_node4"><a xlink:href="ModeSharing_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="366,-0.5 366,-30.5 517,-30.5 517,-0.5 366,-0.5"/>
+<text text-anchor="start" x="374" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
+<text text-anchor="middle" x="441.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/ModeSharing.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node4 -->
+<!-- Node3&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
-<title>Node2&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M419.11,-57.25C420.32,-46.02 421.68,-33.38 422.56,-25.19"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="415.61,-57.08 418.02,-67.4 422.57,-57.83 415.61,-57.08"/>
+<title>Node3&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M299.46,-64.09C330.77,-53.6 370.14,-40.41 399.49,-30.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="297.97,-60.9 289.6,-67.4 300.19,-67.54 297.97,-60.9"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:href="VLReceiver_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="535,-0.5 535,-30.5 678,-30.5 678,-0.5 535,-0.5"/>
-<text text-anchor="start" x="543" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
-<text text-anchor="middle" x="606.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLReceiver.cpp</text>
+<polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 143,-30.5 143,-0.5 0,-0.5"/>
+<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
+<text text-anchor="middle" x="71.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLReceiver.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node2&#45;&gt;Node5 -->
-<g id="edge4" class="edge">
-<title>Node2&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M467.39,-64.09C498.06,-53.6 536.61,-40.41 565.35,-30.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="466.06,-60.85 457.73,-67.4 468.32,-67.47 466.06,-60.85"/>
+<!-- Node3&#45;&gt;Node5 -->
+<g id="edge5" class="edge">
+<title>Node3&#45;&gt;Node5</title>
+<path fill="none" stroke="midnightblue" d="M199.62,-63.82C171.33,-53.37 136.01,-40.32 109.61,-30.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="198.72,-67.21 209.31,-67.4 201.14,-60.65 198.72,-67.21"/>
 </g>
-<!-- Node6&#45;&gt;Node3 -->
-<g id="edge6" class="edge">
-<title>Node6&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M244.68,-57.4C242.87,-48.37 240.88,-38.41 239.32,-30.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="241.29,-58.28 246.68,-67.4 248.15,-56.9 241.29,-58.28"/>
+<!-- Node6&#45;&gt;Node2 -->
+<g id="edge9" class="edge">
+<title>Node6&#45;&gt;Node2</title>
+<path fill="none" stroke="midnightblue" d="M395.86,-64.11C358.31,-51.46 309.11,-34.89 279.76,-25.01"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="395.03,-67.52 405.62,-67.4 397.26,-60.89 395.03,-67.52"/>
 </g>
 <!-- Node6&#45;&gt;Node4 -->
-<g id="edge7" class="edge">
+<g id="edge8" class="edge">
 <title>Node6&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M296.92,-63.78C330.66,-51.18 374.49,-34.81 400.73,-25.01"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="295.4,-60.62 287.26,-67.4 297.85,-67.18 295.4,-60.62"/>
+<path fill="none" stroke="midnightblue" d="M445.28,-57.4C444.44,-48.37 443.52,-38.41 442.8,-30.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="441.79,-57.76 446.2,-67.4 448.76,-57.12 441.79,-57.76"/>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="VLSender_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 143,-30.5 143,-0.5 0,-0.5"/>
-<text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
-<text text-anchor="middle" x="71.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLSender.cpp</text>
+<g id="a_node7"><a xlink:href="EditorConnection_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="696.5,-0.5 696.5,-30.5 866.5,-30.5 866.5,-0.5 696.5,-0.5"/>
+<text text-anchor="start" x="704.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
+<text text-anchor="middle" x="781.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/EditorConnection.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node6&#45;&gt;Node7 -->
-<g id="edge8" class="edge">
+<g id="edge7" class="edge">
 <title>Node6&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M201.45,-63.96C172.78,-53.48 136.86,-40.37 110.05,-30.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="200.28,-67.25 210.88,-67.4 202.68,-60.68 200.28,-67.25"/>
+<path fill="none" stroke="midnightblue" d="M529.24,-65.59C584.36,-54.87 656.41,-40.84 709.39,-30.53"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="528.3,-62.21 519.15,-67.56 529.64,-69.08 528.3,-62.21"/>
+</g>
+<!-- Node8 -->
+<g id="node8" class="node">
+<title>Node8</title>
+<g id="a_node8"><a xlink:href="VLSender_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="535,-0.5 535,-30.5 678,-30.5 678,-0.5 535,-0.5"/>
+<text text-anchor="start" x="543" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
+<text text-anchor="middle" x="606.5" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLSender.cpp</text>
+</a>
+</g>
+</g>
+<!-- Node6&#45;&gt;Node8 -->
+<g id="edge10" class="edge">
+<title>Node6&#45;&gt;Node8</title>
+<path fill="none" stroke="midnightblue" d="M491.42,-63.54C516.87,-53.14 548.43,-40.24 572.07,-30.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="489.93,-60.37 482,-67.4 492.58,-66.85 489.93,-60.37"/>
 </g>
 </g>
 </svg>

@@ -90,13 +90,17 @@ $(document).ready(function(){initNavTree('VortexEngine_8cpp.html',''); initResiz
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="VortexEngine_8h_source.html">VortexEngine.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="IRReceiver_8h_source.html">Wireless/IRReceiver.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="IRSender_8h_source.html">Wireless/IRSender.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="VLReceiver_8h_source.html">Wireless/VLReceiver.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="VLSender_8h_source.html">Wireless/VLSender.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="IRConfig_8h_source.html">Wireless/IRConfig.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="VLConfig_8h_source.html">Wireless/VLConfig.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Storage_8h_source.html">Storage/Storage.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Buttons_8h_source.html">Buttons/Buttons.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TimeControl_8h_source.html">Time/TimeControl.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Timings_8h_source.html">Time/Timings.h</a>&quot;</code><br />
-<code>#include &quot;<a class="el" href="ByteStream_8h_source.html">Serial/ByteStream.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="Serial_8h_source.html">Serial/Serial.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Modes_8h_source.html">Modes/Modes.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Menus_8h_source.html">Menus/Menus.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="Mode_8h_source.html">Modes/Mode.h</a>&quot;</code><br />
@@ -134,15 +138,15 @@ Functions</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00419">419</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;{</div>
-<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160;  <span class="comment">// Clear interrupt flag</span></div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;  TCB0.INTFLAGS = TCB_CAPT_bm;</div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;  <a class="code" href="classVortexEngine.html#ad824edd37d12e0ba7efafd8cd844e1b7">VortexEngine::tick</a>();</div>
-<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160;}</div>
-<div class="ttc" id="aclassVortexEngine_html_ad824edd37d12e0ba7efafd8cd844e1b7"><div class="ttname"><a href="classVortexEngine.html#ad824edd37d12e0ba7efafd8cd844e1b7">VortexEngine::tick</a></div><div class="ttdeci">static void tick()</div><div class="ttdef"><b>Definition:</b> <a href="VortexEngine_8cpp_source.html#l00127">VortexEngine.cpp:127</a></div></div>
+<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00462">462</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00463"></a><span class="lineno">  463</span>&#160;{</div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;  <span class="comment">// Clear interrupt flag</span></div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;  TCB0.INTFLAGS = TCB_CAPT_bm;</div>
+<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160;  <a class="code" href="classVortexEngine.html#ad824edd37d12e0ba7efafd8cd844e1b7">VortexEngine::tick</a>();</div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;}</div>
+<div class="ttc" id="aclassVortexEngine_html_ad824edd37d12e0ba7efafd8cd844e1b7"><div class="ttname"><a href="classVortexEngine.html#ad824edd37d12e0ba7efafd8cd844e1b7">VortexEngine::tick</a></div><div class="ttdeci">static void tick()</div><div class="ttdef"><b>Definition:</b> <a href="VortexEngine_8cpp_source.html#l00158">VortexEngine.cpp:158</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="VortexEngine_8cpp_source.html#l00127">VortexEngine::tick()</a>.</p>
+<p class="reference">References <a class="el" href="VortexEngine_8cpp_source.html#l00158">VortexEngine::tick()</a>.</p>
 
 </div>
 </div>

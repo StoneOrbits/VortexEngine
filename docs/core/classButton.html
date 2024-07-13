@@ -290,7 +290,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Button_8h_source.html#l00058">m_pinNum</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Button_8cpp_source.html#l00032">init()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00111">VortexEngine::tick()</a>, and <a class="el" href="Button_8cpp_source.html#l00057">update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00129">VortexEngine::tick()</a>, and <a class="el" href="Button_8cpp_source.html#l00057">update()</a>.</p>
 
 </div>
 </div>
@@ -352,7 +352,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Button_8h_source.html#l00069">m_holdDuration</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ColorSelect_8cpp_source.html#l00112">ColorSelect::onLongClick()</a>, <a class="el" href="FactoryReset_8cpp_source.html#l00065">FactoryReset::onLongClick()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00152">VortexEngine::runMainLogic()</a>, <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>, <a class="el" href="Menu_8cpp_source.html#l00107">Menu::showExit()</a>, <a class="el" href="FactoryReset_8cpp_source.html#l00097">FactoryReset::showReset()</a>, <a class="el" href="Menus_8cpp_source.html#l00246">Menus::showSelection()</a>, and <a class="el" href="ColorSelect_8cpp_source.html#l00181">ColorSelect::showSlotSelection()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ColorSelect_8cpp_source.html#l00112">ColorSelect::onLongClick()</a>, <a class="el" href="FactoryReset_8cpp_source.html#l00065">FactoryReset::onLongClick()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00170">VortexEngine::runMainLogic()</a>, <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>, <a class="el" href="Menu_8cpp_source.html#l00114">Menu::showExit()</a>, <a class="el" href="FactoryReset_8cpp_source.html#l00097">FactoryReset::showReset()</a>, <a class="el" href="Menus_8cpp_source.html#l00246">Menus::showSelection()</a>, and <a class="el" href="ColorSelect_8cpp_source.html#l00181">ColorSelect::showSlotSelection()</a>.</p>
 
 </div>
 </div>
@@ -381,7 +381,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  <a class="code" href="classButton.html#a6482ef479511871ba18ad69213e75501">m_releaseDuration</a> = 0;</div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <a class="code" href="classButton.html#a863f12d3c09791a1735645df271ddf58">m_consecutivePresses</a> = 0;</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <a class="code" href="classButton.html#a4630ca3b5a9e85d7bcefb6a6373ff15b">m_releaseCount</a> = 0;</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <a class="code" href="classButton.html#ae5c3b0f7031de49ebd62a5b4fb03f90d">m_buttonState</a> = <a class="code" href="classButton.html#a0a4fbfb56d10cb2c6e69a35eb62b7292">check</a>();</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <a class="code" href="classButton.html#ae5c3b0f7031de49ebd62a5b4fb03f90d">m_buttonState</a> = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <a class="code" href="classButton.html#acf8feb2430f68f24f633772725d14b7e">m_newPress</a> = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <a class="code" href="classButton.html#a0dfe411510dfde7feaa94478b52142cc">m_newRelease</a> = <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <a class="code" href="classButton.html#ab61668778546acefd5c8e5f1c082ab61">m_isPressed</a> = <a class="code" href="classButton.html#ae5c3b0f7031de49ebd62a5b4fb03f90d">m_buttonState</a>;</div>
@@ -391,9 +391,8 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <a class="code" href="classButton.html#ae9d49614896753764d5ec7b813bb112c">m_pinNum</a> = pin;</div>
 <div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;}</div>
-<div class="ttc" id="aclassButton_html_a0a4fbfb56d10cb2c6e69a35eb62b7292"><div class="ttname"><a href="classButton.html#a0a4fbfb56d10cb2c6e69a35eb62b7292">Button::check</a></div><div class="ttdeci">bool check()</div><div class="ttdef"><b>Definition:</b> <a href="Button_8cpp_source.html#l00052">Button.cpp:52</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Button_8cpp_source.html#l00052">check()</a>, <a class="el" href="Button_8h_source.html#l00079">m_buttonState</a>, <a class="el" href="Button_8h_source.html#l00074">m_consecutivePresses</a>, <a class="el" href="Button_8h_source.html#l00069">m_holdDuration</a>, <a class="el" href="Button_8h_source.html#l00086">m_isPressed</a>, <a class="el" href="Button_8h_source.html#l00090">m_longClick</a>, <a class="el" href="Button_8h_source.html#l00082">m_newPress</a>, <a class="el" href="Button_8h_source.html#l00084">m_newRelease</a>, <a class="el" href="Button_8h_source.html#l00058">m_pinNum</a>, <a class="el" href="Button_8h_source.html#l00064">m_pressTime</a>, <a class="el" href="Button_8h_source.html#l00076">m_releaseCount</a>, <a class="el" href="Button_8h_source.html#l00071">m_releaseDuration</a>, <a class="el" href="Button_8h_source.html#l00066">m_releaseTime</a>, and <a class="el" href="Button_8h_source.html#l00088">m_shortClick</a>.</p>
+<p class="reference">References <a class="el" href="Button_8h_source.html#l00079">m_buttonState</a>, <a class="el" href="Button_8h_source.html#l00074">m_consecutivePresses</a>, <a class="el" href="Button_8h_source.html#l00069">m_holdDuration</a>, <a class="el" href="Button_8h_source.html#l00086">m_isPressed</a>, <a class="el" href="Button_8h_source.html#l00090">m_longClick</a>, <a class="el" href="Button_8h_source.html#l00082">m_newPress</a>, <a class="el" href="Button_8h_source.html#l00084">m_newRelease</a>, <a class="el" href="Button_8h_source.html#l00058">m_pinNum</a>, <a class="el" href="Button_8h_source.html#l00064">m_pressTime</a>, <a class="el" href="Button_8h_source.html#l00076">m_releaseCount</a>, <a class="el" href="Button_8h_source.html#l00071">m_releaseDuration</a>, <a class="el" href="Button_8h_source.html#l00066">m_releaseTime</a>, and <a class="el" href="Button_8h_source.html#l00088">m_shortClick</a>.</p>
 
 </div>
 </div>
@@ -425,7 +424,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Button_8h_source.html#l00086">m_isPressed</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00152">VortexEngine::runMainLogic()</a>, <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>, <a class="el" href="Menu_8cpp_source.html#l00107">Menu::showExit()</a>, <a class="el" href="FactoryReset_8cpp_source.html#l00097">FactoryReset::showReset()</a>, <a class="el" href="Menus_8cpp_source.html#l00246">Menus::showSelection()</a>, and <a class="el" href="ColorSelect_8cpp_source.html#l00181">ColorSelect::showSlotSelection()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00170">VortexEngine::runMainLogic()</a>, <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>, <a class="el" href="Menu_8cpp_source.html#l00114">Menu::showExit()</a>, <a class="el" href="FactoryReset_8cpp_source.html#l00097">FactoryReset::showReset()</a>, <a class="el" href="Menus_8cpp_source.html#l00246">Menus::showSelection()</a>, and <a class="el" href="ColorSelect_8cpp_source.html#l00181">ColorSelect::showSlotSelection()</a>.</p>
 
 </div>
 </div>
@@ -456,7 +455,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Button_8h_source.html#l00074">m_consecutivePresses</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="PatternSelect_8cpp_source.html#l00055">PatternSelect::onShortClick()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00062">Randomizer::run()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00152">VortexEngine::runMainLogic()</a>, <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>, and <a class="el" href="VortexEngine_8cpp_source.html#l00111">VortexEngine::tick()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="PatternSelect_8cpp_source.html#l00055">PatternSelect::onShortClick()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00107">Randomizer::onShortClick()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00170">VortexEngine::runMainLogic()</a>, <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>, and <a class="el" href="VortexEngine_8cpp_source.html#l00129">VortexEngine::tick()</a>.</p>
 
 </div>
 </div>
@@ -550,7 +549,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Button_8h_source.html#l00084">m_newRelease</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Randomizer_8cpp_source.html#l00062">Randomizer::run()</a>, and <a class="el" href="VortexEngine_8cpp_source.html#l00111">VortexEngine::tick()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00170">VortexEngine::runMainLogic()</a>, and <a class="el" href="VortexEngine_8cpp_source.html#l00129">VortexEngine::tick()</a>.</p>
 
 </div>
 </div>
@@ -582,7 +581,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Button_8h_source.html#l00088">m_shortClick</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00058">Modes::play()</a>, <a class="el" href="Menu_8cpp_source.html#l00053">Menu::run()</a>, <a class="el" href="Menus_8cpp_source.html#l00174">Menus::runCurMenu()</a>, and <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00072">Modes::play()</a>, <a class="el" href="Menu_8cpp_source.html#l00053">Menu::run()</a>, <a class="el" href="Menus_8cpp_source.html#l00174">Menus::runCurMenu()</a>, and <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>.</p>
 
 </div>
 </div>
@@ -811,12 +810,13 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Long click&quot;</span>);</div>
 <div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  }</div>
 <div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;}</div>
-<div class="ttc" id="aLog_8h_html_a5d2f30bd1cbcf49f829a7e8eb6173c06"><div class="ttname"><a href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a></div><div class="ttdeci">#define DEBUG_LOG(msg)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00040">Log.h:40</a></div></div>
+<div class="ttc" id="aLog_8h_html_a5d2f30bd1cbcf49f829a7e8eb6173c06"><div class="ttname"><a href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a></div><div class="ttdeci">#define DEBUG_LOG(msg)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00036">Log.h:36</a></div></div>
 <div class="ttc" id="aTimings_8h_html_a301a9e590b96bcdd14ae850adb42e9ff"><div class="ttname"><a href="Timings_8h.html#a301a9e590b96bcdd14ae850adb42e9ff">SHORT_CLICK_THRESHOLD_TICKS</a></div><div class="ttdeci">#define SHORT_CLICK_THRESHOLD_TICKS</div><div class="ttdef"><b>Definition:</b> <a href="Timings_8h_source.html#l00013">Timings.h:13</a></div></div>
 <div class="ttc" id="aTimings_8h_html_ae76f1a92ba0f97abcfa5007efb8acb35"><div class="ttname"><a href="Timings_8h.html#ae76f1a92ba0f97abcfa5007efb8acb35">CONSECUTIVE_WINDOW_TICKS</a></div><div class="ttdeci">#define CONSECUTIVE_WINDOW_TICKS</div><div class="ttdef"><b>Definition:</b> <a href="Timings_8h_source.html#l00014">Timings.h:14</a></div></div>
+<div class="ttc" id="aclassButton_html_a0a4fbfb56d10cb2c6e69a35eb62b7292"><div class="ttname"><a href="classButton.html#a0a4fbfb56d10cb2c6e69a35eb62b7292">Button::check</a></div><div class="ttdeci">bool check()</div><div class="ttdef"><b>Definition:</b> <a href="Button_8cpp_source.html#l00052">Button.cpp:52</a></div></div>
 <div class="ttc" id="aclassTime_html_a7c7a8e067bdbd5aaf119521539d30940"><div class="ttname"><a href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a></div><div class="ttdeci">static uint32_t getCurtime()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00040">TimeControl.h:40</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Button_8cpp_source.html#l00052">check()</a>, <a class="el" href="Timings_8h_source.html#l00014">CONSECUTIVE_WINDOW_TICKS</a>, <a class="el" href="Log_8h_source.html#l00040">DEBUG_LOG</a>, <a class="el" href="TimeControl_8h_source.html#l00040">Time::getCurtime()</a>, <a class="el" href="Button_8h_source.html#l00079">m_buttonState</a>, <a class="el" href="Button_8h_source.html#l00074">m_consecutivePresses</a>, <a class="el" href="Button_8h_source.html#l00069">m_holdDuration</a>, <a class="el" href="Button_8h_source.html#l00086">m_isPressed</a>, <a class="el" href="Button_8h_source.html#l00090">m_longClick</a>, <a class="el" href="Button_8h_source.html#l00082">m_newPress</a>, <a class="el" href="Button_8h_source.html#l00084">m_newRelease</a>, <a class="el" href="Button_8h_source.html#l00064">m_pressTime</a>, <a class="el" href="Button_8h_source.html#l00071">m_releaseDuration</a>, <a class="el" href="Button_8h_source.html#l00066">m_releaseTime</a>, <a class="el" href="Button_8h_source.html#l00088">m_shortClick</a>, and <a class="el" href="Timings_8h_source.html#l00013">SHORT_CLICK_THRESHOLD_TICKS</a>.</p>
+<p class="reference">References <a class="el" href="Button_8cpp_source.html#l00052">check()</a>, <a class="el" href="Timings_8h_source.html#l00014">CONSECUTIVE_WINDOW_TICKS</a>, <a class="el" href="Log_8h_source.html#l00036">DEBUG_LOG</a>, <a class="el" href="TimeControl_8h_source.html#l00040">Time::getCurtime()</a>, <a class="el" href="Button_8h_source.html#l00079">m_buttonState</a>, <a class="el" href="Button_8h_source.html#l00074">m_consecutivePresses</a>, <a class="el" href="Button_8h_source.html#l00069">m_holdDuration</a>, <a class="el" href="Button_8h_source.html#l00086">m_isPressed</a>, <a class="el" href="Button_8h_source.html#l00090">m_longClick</a>, <a class="el" href="Button_8h_source.html#l00082">m_newPress</a>, <a class="el" href="Button_8h_source.html#l00084">m_newRelease</a>, <a class="el" href="Button_8h_source.html#l00064">m_pressTime</a>, <a class="el" href="Button_8h_source.html#l00071">m_releaseDuration</a>, <a class="el" href="Button_8h_source.html#l00066">m_releaseTime</a>, <a class="el" href="Button_8h_source.html#l00088">m_shortClick</a>, and <a class="el" href="Timings_8h_source.html#l00013">SHORT_CLICK_THRESHOLD_TICKS</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="Buttons_8cpp_source.html#l00035">Buttons::update()</a>.</p>
 

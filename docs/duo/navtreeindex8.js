@@ -1,5 +1,9 @@
 var NAVTREEINDEX8 =
 {
+"classZigzagPattern_1_1Snake.html#ac952be44096dc7ae7c1f749c0f34b1f4":[0,0,65,0,7],
+"classZigzagPattern_1_1Snake.html#acc1934098fe9bba611f4691e5274e1ec":[0,0,65,0,3],
+"classZigzagPattern_1_1Snake.html#ad0627d603e84ef6d9b0d07edb259d5d2":[0,0,65,0,5],
+"classZigzagPattern_1_1Snake.html#adc2f2e3aee0f5610b837a53ba7f48aa7":[0,0,65,0,4],
 "classZigzagPattern_1_1Snake.html#ade9581df647ce41eb75b4ee8b1e7fddd":[0,0,65,0,9],
 "classZigzagPattern_1_1Snake.html#ae78497d0b6154b8cbe538e4ed6576151":[0,0,65,0,8],
 "classes.html":[0,1],
@@ -91,8 +95,8 @@ var NAVTREEINDEX8 =
 "functions_w.html":[0,3,0,20],
 "functions_z.html":[0,3,0,21],
 "functions_~.html":[0,3,0,22],
-"globals.html":[1,1,0,0],
 "globals.html":[1,1,0],
+"globals.html":[1,1,0,0],
 "globals_a.html":[1,1,0,1],
 "globals_b.html":[1,1,0,2],
 "globals_c.html":[1,1,0,3],

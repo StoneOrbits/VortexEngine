@@ -244,10 +244,10 @@ var NAVTREEINDEX0 =
 "EditorConnection_8cpp_source.html":[1,0,0,0,5,0,2],
 "EditorConnection_8h.html":[1,0,0,0,5,0,3],
 "EditorConnection_8h_source.html":[1,0,0,0,5,0,3],
-"ErrorBlinker_8cpp.html":[1,0,0,0,3,0],
-"ErrorBlinker_8cpp_source.html":[1,0,0,0,3,0],
-"ErrorBlinker_8h.html":[1,0,0,0,3,1],
-"ErrorBlinker_8h.html#a480f3a8ffe29cac0048273260716b193":[1,0,0,0,3,1,0],
-"ErrorBlinker_8h.html#aa4a9e141dba30a67de062837a53649b8":[1,0,0,0,3,1,3],
-"ErrorBlinker_8h.html#abe670cc5ceed3fad3be682fc0c1bb62e":[1,0,0,0,3,1,2]
+"FactoryReset_8cpp.html":[1,0,0,0,5,0,4],
+"FactoryReset_8cpp_source.html":[1,0,0,0,5,0,4],
+"FactoryReset_8h.html":[1,0,0,0,5,0,5],
+"FactoryReset_8h_source.html":[1,0,0,0,5,0,5],
+"FillPattern_8cpp.html":[1,0,0,0,7,0,17],
+"FillPattern_8cpp_source.html":[1,0,0,0,7,0,17]
 };

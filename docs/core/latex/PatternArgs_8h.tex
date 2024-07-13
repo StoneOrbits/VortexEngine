@@ -53,7 +53,7 @@ class \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}}
 \item 
 \#define \mbox{\hyperlink{PatternArgs_8h_a542176362dab0ee8345409c38954f870}{ARGMAP\+\_\+\+CLEAR}}(map,  arg)~(map \&= $\sim$\mbox{\hyperlink{PatternArgs_8h_a1dfd48d975d8c8cecb1e2fe9da3e7a5b}{ARG}}(arg))
 \item 
-\#define \mbox{\hyperlink{PatternArgs_8h_a193611a0331d653aa2383695bd9350da}{ARGMAP\+\_\+\+ISSET}}(map,  arg)~(map \& \mbox{\hyperlink{PatternArgs_8h_a1dfd48d975d8c8cecb1e2fe9da3e7a5b}{ARG}}(arg))
+\#define \mbox{\hyperlink{PatternArgs_8h_a193611a0331d653aa2383695bd9350da}{ARGMAP\+\_\+\+ISSET}}(map,  arg)~((map \& \mbox{\hyperlink{PatternArgs_8h_a1dfd48d975d8c8cecb1e2fe9da3e7a5b}{ARG}}(arg)) != 0)
 \end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -187,7 +187,7 @@ Definition at line 31 of file Pattern\+Args.\+h.
 \index{PatternArgs.h@{PatternArgs.h}!ARGMAP\_ISSET@{ARGMAP\_ISSET}}
 \index{ARGMAP\_ISSET@{ARGMAP\_ISSET}!PatternArgs.h@{PatternArgs.h}}
 \doxysubsubsection{\texorpdfstring{ARGMAP\_ISSET}{ARGMAP\_ISSET}}
-{\footnotesize\ttfamily \#define ARGMAP\+\_\+\+ISSET(\begin{DoxyParamCaption}\item[{}]{map,  }\item[{}]{arg }\end{DoxyParamCaption})~(map \& \mbox{\hyperlink{PatternArgs_8h_a1dfd48d975d8c8cecb1e2fe9da3e7a5b}{ARG}}(arg))}
+{\footnotesize\ttfamily \#define ARGMAP\+\_\+\+ISSET(\begin{DoxyParamCaption}\item[{}]{map,  }\item[{}]{arg }\end{DoxyParamCaption})~((map \& \mbox{\hyperlink{PatternArgs_8h_a1dfd48d975d8c8cecb1e2fe9da3e7a5b}{ARG}}(arg)) != 0)}
 
 
 

@@ -96,317 +96,317 @@ $(document).ready(function(){initNavTree('VortexConfig_8h_source.html',''); init
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160;<span class="comment">// The engine major version indicates the state of the save file,</span></div>
 <div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// if any changes to the save format occur then the major version</span></div>
 <div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// must increment so that the savefiles will not be loaded</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad51691e0bf3c0a33a9b4929507a7d4d8">   10</a></span>&#160;<span class="preprocessor">#define VORTEX_VERSION_MAJOR  1</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="comment">// A minor version simply indicates a bugfix or minor change that</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="comment">// will not effect the save files produces by the engine. This means</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// a savefile produced by 1.1 should be loadable by an engine on 1.2</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// and vice versa. But an engine on 2.0 cannot share savefiles with</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">// either of the engines on version 1.1 or 1.2</span></div>
-<div class="line"><a name="l00017"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a5192bd4a7eea3a54e5b00405185d9d4d">   17</a></span>&#160;<span class="preprocessor">#define VORTEX_VERSION_MINOR  1</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160; </div>
-<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// produces a number like 1.0</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a0d801866c302fc22f8bfb9a4a25a0462">   20</a></span>&#160;<span class="preprocessor">#define VORTEX_VERSION_NUMBER VORTEX_VERSION_MAJOR.VORTEX_VERSION_MINOR</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// produces a string like &quot;1.0&quot;</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aa98a26ac37e321f0747f95198223e0db">   23</a></span>&#160;<span class="preprocessor">#define ADD_QUOTES(str) #str</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aa1383d86e1b2c4442514026fd7ce2307">   24</a></span>&#160;<span class="preprocessor">#define EXPAND_AND_QUOTE(str) ADD_QUOTES(str)</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ab8be8ca691d7de7545bb0c2c1a4a6783">   25</a></span>&#160;<span class="preprocessor">#define VORTEX_VERSION EXPAND_AND_QUOTE(VORTEX_VERSION_NUMBER)</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160; </div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="comment">// the engine flavour, this should change for each device/flavour</span></div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="comment">// of the engine that branches off from the main indefinitely</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ac97ede821479740907057d93bffdb61a">   29</a></span>&#160;<span class="preprocessor">#define VORTEX_NAME &quot;Core&quot;</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160; </div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="comment">// the full name of this build for ex:</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="comment">//    Vortex Engine v1.0 &#39;Igneous&#39; (built Tue Jan 31 19:03:55 2023)</span></div>
-<div class="line"><a name="l00033"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad3c1f0970158d605358b7f828366c3d8">   33</a></span>&#160;<span class="preprocessor">#define VORTEX_FULL_NAME &quot;Vortex Engine v&quot;</span> VORTEX_VERSION &quot; &#39;&quot; VORTEX_NAME &quot;&#39; ( built &quot; __TIMESTAMP__ &quot;)&quot;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160; </div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="comment">// Vortex Slim</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">// Turn on this flag to enable the &#39;slim&#39; version of the engine.</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="comment">// This disabled multi-led patterns and compression because the</span></div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">// multi-led patterns take up too much space and the compression</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">// uses too much stack space to run on smaller devices</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a4c4cecffd570e4ac374e74c29a8e5abc">   41</a></span>&#160;<span class="preprocessor">#define VORTEX_SLIM           0</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#ifndef VORTEX_VERSION_MAJOR</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad51691e0bf3c0a33a9b4929507a7d4d8">   11</a></span>&#160;<span class="preprocessor">#define VORTEX_VERSION_MAJOR  1</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160; </div>
+<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="comment">// A minor version simply indicates a bugfix or minor change that</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// will not effect the save files produces by the engine. This means</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="comment">// a savefile produced by 1.1 should be loadable by an engine on 1.2</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="comment">// and vice versa. But an engine on 2.0 cannot share savefiles with</span></div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="comment">// either of the engines on version 1.1 or 1.2</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="preprocessor">#ifndef VORTEX_VERSION_MINOR</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a5192bd4a7eea3a54e5b00405185d9d4d">   20</a></span>&#160;<span class="preprocessor">#define VORTEX_VERSION_MINOR  2</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160; </div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// The build or patch number based on the major.minor version, this is</span></div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="comment">// set by the build system using the number of commits since last version</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#ifndef VORTEX_BUILD_NUMBER</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a8ff86a834db42b3c822df28ff0c2cc11">   26</a></span>&#160;<span class="preprocessor">#define VORTEX_BUILD_NUMBER 0</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="comment">// produces a number like 1.0.0</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="preprocessor">#ifndef VORTEX_VERSION_NUMBER</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a0d801866c302fc22f8bfb9a4a25a0462">   31</a></span>&#160;<span class="preprocessor">#define VORTEX_VERSION_NUMBER VORTEX_VERSION_MAJOR.VORTEX_VERSION_MINOR.VORTEX_BUILD_NUMBER</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160; </div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">// produces a string like &quot;1.1.0&quot;</span></div>
+<div class="line"><a name="l00035"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aa98a26ac37e321f0747f95198223e0db">   35</a></span>&#160;<span class="preprocessor">#define ADD_QUOTES(str) #str</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aa1383d86e1b2c4442514026fd7ce2307">   36</a></span>&#160;<span class="preprocessor">#define EXPAND_AND_QUOTE(str) ADD_QUOTES(str)</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ab8be8ca691d7de7545bb0c2c1a4a6783">   37</a></span>&#160;<span class="preprocessor">#define VORTEX_VERSION EXPAND_AND_QUOTE(VORTEX_VERSION_NUMBER)</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160; </div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="comment">// the engine flavour, this should change for each device/flavour</span></div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">// of the engine that branches off from the main indefinitely</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ac97ede821479740907057d93bffdb61a">   41</a></span>&#160;<span class="preprocessor">#define VORTEX_NAME &quot;Desktop&quot;</span></div>
 <div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">// ===================================================================</span></div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">//  Numeric Configurations</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160; </div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="comment">// Menu Trigger Threshold (in milliseconds)</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">// How long the button must be held to trigger menu selection and</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">// begin blinking the first menu color</span></div>
-<div class="line"><a name="l00050"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#adda1b08b81d68fa6a4a6109701f9dd57">   50</a></span>&#160;<span class="preprocessor">#define MENU_TRIGGER_TIME     1000</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160; </div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">// Short Click Threshold (in milliseconds)</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;<span class="comment">// If click held for &lt;= this value then the click will be registered</span></div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">// as a &#39;short click&#39; otherwise if held longer than this threshold</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">// it will be registered as a &#39;long click&#39;</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a0e67a9d736bfe02f58872add97f72878">   57</a></span>&#160;<span class="preprocessor">#define CLICK_THRESHOLD       250</span></div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160; </div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">// Device Lock Clicks</span></div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">// How many rapid clicks the user must perform to lock/unlock the device.</span></div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="comment">// From sleep, this many rapid clicks will locks the device.</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="comment">// From locked, the first click will turn it on into &#39;twilight mode&#39; and then the user</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">// has UNLOCK_WAKE_WINDOW time to press the button this many times to wake the device.</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a2f5ef442fae5fcc560776b23fa1ccef3">   65</a></span>&#160;<span class="preprocessor">#define DEVICE_LOCK_CLICKS    5</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160; </div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">// Advanced Menu Clicks</span></div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;<span class="comment">// The number of rapid clicks required in the menu section to enable or disable</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;<span class="comment">// the advanced menu access</span></div>
-<div class="line"><a name="l00071"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a2980afbdc12b7faf6b27e28af5132b3b">   71</a></span>&#160;<span class="preprocessor">#define ADVANCED_MENU_CLICKS  ((MENU_COUNT &gt;= 5) ? (MENU_COUNT * 2) : 10)</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160; </div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">// Rapid Press Window (in milliseconds)</span></div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">// How long the user has after releasing to short click the button</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">// again and be counted as a &#39;consecutive press&#39;</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#acdf9da2606d261d33dccb57d94d97b7d">   77</a></span>&#160;<span class="preprocessor">#define CONSECUTIVE_WINDOW    250</span></div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="comment">// the full name of this build for ex:</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">//    Vortex Engine v1.0 &#39;Igneous&#39; (built Tue Jan 31 19:03:55 2023)</span></div>
+<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad3c1f0970158d605358b7f828366c3d8">   45</a></span>&#160;<span class="preprocessor">#define VORTEX_FULL_NAME &quot;Vortex Engine v&quot;</span> VORTEX_VERSION &quot; &#39;&quot; VORTEX_NAME &quot;&#39; (built &quot; __TIMESTAMP__ &quot;)&quot;</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="comment">// Vortex Slim</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;<span class="comment">// Turn on this flag to enable the &#39;slim&#39; version of the engine.</span></div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="comment">// This disabled multi-led patterns and compression because the</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="comment">// multi-led patterns take up too much space and the compression</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="comment">// uses too much stack space to run on smaller devices</span></div>
+<div class="line"><a name="l00053"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a4c4cecffd570e4ac374e74c29a8e5abc">   53</a></span>&#160;<span class="preprocessor">#define VORTEX_SLIM           0</span></div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160; </div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;<span class="comment">// ===================================================================</span></div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="comment">//  Numeric Configurations</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160; </div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="comment">// Menu Trigger Threshold (in milliseconds)</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="comment">// How long the button must be held to trigger menu selection and</span></div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="comment">// begin blinking the first menu color</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#adda1b08b81d68fa6a4a6109701f9dd57">   62</a></span>&#160;<span class="preprocessor">#define MENU_TRIGGER_TIME     1000</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160; </div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;<span class="comment">// Short Click Threshold (in milliseconds)</span></div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;<span class="comment">// If click held for &lt;= this value then the click will be registered</span></div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="comment">// as a &#39;short click&#39; otherwise if held longer than this threshold</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="comment">// it will be registered as a &#39;long click&#39;</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a0e67a9d736bfe02f58872add97f72878">   69</a></span>&#160;<span class="preprocessor">#define CLICK_THRESHOLD       250</span></div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160; </div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;<span class="comment">// Device Lock Clicks</span></div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;<span class="comment">// How many rapid clicks the user must perform to lock/unlock the device.</span></div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="comment">// From sleep, this many rapid clicks will locks the device.</span></div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;<span class="comment">// From locked, the first click will turn it on into &#39;twilight mode&#39; and then the user</span></div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="comment">// has UNLOCK_WAKE_WINDOW time to press the button this many times to wake the device.</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a2f5ef442fae5fcc560776b23fa1ccef3">   77</a></span>&#160;<span class="preprocessor">#define DEVICE_LOCK_CLICKS    5</span></div>
 <div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160; </div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">// Auto Randomization Delay (in milliseconds)</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;<span class="comment">// Advanced Menu Clicks</span></div>
 <div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">// How long the randomizer will wait before it triggers another randomization</span></div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">// when it&#39;s been set to auto mode.</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;<span class="comment">// Most electronic music often falls within a range of approximately 120-130 BPM</span></div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">// To convert BPM to a measure of time in milliseconds (ms) we can do:</span></div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">// Milliseconds per beat at 128 BPM = 1/128 * 60,000 = approximately 468.75 ms</span></div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">// So, a beat at 128 BPM lasts about 468.75 ms, so 4 beats would be about 1875.</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="comment">// This will make the randomizer wait approximately 4 edm beats between switches</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ae54a4f60fb47ad89ca3c3aafc3e77860">   90</a></span>&#160;<span class="preprocessor">#define AUTO_RANDOM_DELAY     1875</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160; </div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">// Auto Cycle Modes Clicks</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">// The number of consecutive clicks required to toggle the auto-cycle modes feature</span></div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">// on the main modes list. This will auto cycle to the next mode at the same time</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">// as the auto random delay. This number is intentionally high because we really</span></div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">// don&#39;t want it activated automatically but it&#39;s there for demo purposes and as</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">// a fun little easter egg to anybody that might come across it</span></div>
-<div class="line"><a name="l00099"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a99fb9bcab397455dbf9c0e2aa904d2d9">   99</a></span>&#160;<span class="preprocessor">#define AUTO_CYCLE_MODES_CLICKS 10</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160; </div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">// Randomizer Auto Cycle Modes Clicks</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="comment">// The number of consecutive clicks required to toggle the auto-cycle modes feature</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">// on the randomizer.</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aad0adf88f8c22c7eb2c55ce9d11df0f8">  105</a></span>&#160;<span class="preprocessor">#define AUTO_CYCLE_RANDOMIZER_CLICKS 3</span></div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160; </div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">// Leave Advanced Color Select Clicks</span></div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">// The number of consecutive clicks required to exit the advanced color select menu</span></div>
-<div class="line"><a name="l00110"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ab857f79f94ee6ddabccf0049e351f064">  110</a></span>&#160;<span class="preprocessor">#define LEAVE_ADV_COL_SELECT_CLICKS 5</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160; </div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;<span class="comment">// Color delete threshold (in milliseconds)</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">// How long you must hold down on a color in the color select menu to</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">// trigger the delete option to start flashing</span></div>
-<div class="line"><a name="l00116"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a0f03f33479c772421539f8e6bdb8b343">  116</a></span>&#160;<span class="preprocessor">#define COL_DELETE_THRESHOLD  500</span></div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160; </div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;<span class="comment">// Color delete cycle time (in milliseconds)</span></div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">// How long the color delete light takes to cycle on/off when holding</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">// down the button on a color in the color select menu</span></div>
-<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#afef2e9e83795e0e0c346d4a6af71b2eb">  122</a></span>&#160;<span class="preprocessor">#define COL_DELETE_CYCLE      2000</span></div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="comment">// The number of rapid clicks required in the menu section to enable or disable</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="comment">// the advanced menu access</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a2980afbdc12b7faf6b27e28af5132b3b">   83</a></span>&#160;<span class="preprocessor">#define ADVANCED_MENU_CLICKS  ((MENU_COUNT &gt;= 5) ? (MENU_COUNT * 2) : 10)</span></div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160; </div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;<span class="comment">// Rapid Press Window (in milliseconds)</span></div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;<span class="comment">// How long the user has after releasing to short click the button</span></div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="comment">// again and be counted as a &#39;consecutive press&#39;</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#acdf9da2606d261d33dccb57d94d97b7d">   89</a></span>&#160;<span class="preprocessor">#define CONSECUTIVE_WINDOW    250</span></div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160; </div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;<span class="comment">// Auto Randomization Delay (in milliseconds)</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="comment">// How long the randomizer will wait before it triggers another randomization</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="comment">// when it&#39;s been set to auto mode.</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="comment">// Most electronic music often falls within a range of approximately 120-130 BPM</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;<span class="comment">// To convert BPM to a measure of time in milliseconds (ms) we can do:</span></div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;<span class="comment">// Milliseconds per beat at 128 BPM = 1/128 * 60,000 = approximately 468.75 ms</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;<span class="comment">// So, a beat at 128 BPM lasts about 468.75 ms, so 4 beats would be about 1875.</span></div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="comment">// This will make the randomizer wait approximately 4 edm beats between switches</span></div>
+<div class="line"><a name="l00102"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ae54a4f60fb47ad89ca3c3aafc3e77860">  102</a></span>&#160;<span class="preprocessor">#define AUTO_RANDOM_DELAY     1875</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160; </div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;<span class="comment">// Auto Cycle Modes Clicks</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="comment">// The number of consecutive clicks required to toggle the auto-cycle modes feature</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;<span class="comment">// on the main modes list. This will auto cycle to the next mode at the same time</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="comment">// as the auto random delay. This number is intentionally high because we really</span></div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;<span class="comment">// don&#39;t want it activated automatically but it&#39;s there for demo purposes and as</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="comment">// a fun little easter egg to anybody that might come across it</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a99fb9bcab397455dbf9c0e2aa904d2d9">  111</a></span>&#160;<span class="preprocessor">#define AUTO_CYCLE_MODES_CLICKS 10</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160; </div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="comment">// Randomizer Auto Cycle Modes Clicks</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;<span class="comment">// The number of consecutive clicks required to toggle the auto-cycle modes feature</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="comment">// on the randomizer.</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aad0adf88f8c22c7eb2c55ce9d11df0f8">  117</a></span>&#160;<span class="preprocessor">#define AUTO_CYCLE_RANDOMIZER_CLICKS 3</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160; </div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="comment">// Leave Advanced Color Select Clicks</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;<span class="comment">// The number of consecutive clicks required to exit the advanced color select menu</span></div>
+<div class="line"><a name="l00122"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ab857f79f94ee6ddabccf0049e351f064">  122</a></span>&#160;<span class="preprocessor">#define LEAVE_ADV_COL_SELECT_CLICKS 5</span></div>
 <div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160; </div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">// Factory Reset Threshold (in milliseconds)</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="comment">// Color delete threshold (in milliseconds)</span></div>
 <div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">// This is how long the user must hold down the button on the factory</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">// reset menu to confirm the reset and restore factory settings</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a18f22a5b8ac9dfe404fd4b83e502eda2">  128</a></span>&#160;<span class="preprocessor">#define RESET_HOLD_TIME       2500</span></div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="comment">// How long you must hold down on a color in the color select menu to</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;<span class="comment">// trigger the delete option to start flashing</span></div>
+<div class="line"><a name="l00128"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a0f03f33479c772421539f8e6bdb8b343">  128</a></span>&#160;<span class="preprocessor">#define COL_DELETE_THRESHOLD  500</span></div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160; </div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">// Serial check time (in milliseconds)</span></div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;<span class="comment">// Color delete cycle time (in milliseconds)</span></div>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">// This is how quickly the serial class can check for serial connections</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">// when the editor menu is open, if you lower this then the editor will</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;<span class="comment">// connect quicker but the vortex device will have to do more work</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#af63b8023c82a1ca9940b5cc570273796">  135</a></span>&#160;<span class="preprocessor">#define SERIAL_CHECK_TIME     500</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">// Max Color Slots</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">// The max number of colors in a colorset, this was never tested or</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="comment">// designed to be anything other than 8, you have been warned. If you</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;<span class="comment">// want to increase this or change this then it is suggested you review</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="comment">// all locations where it or colorset code is being used</span></div>
-<div class="line"><a name="l00143"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a1a0b694e2871554a4066f8d61f577c4c">  143</a></span>&#160;<span class="preprocessor">#define MAX_COLOR_SLOTS       8</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160; </div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">// Default Global Brightness</span></div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;<span class="comment">// The starting default global brightness if there is no savefile</span></div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;<span class="comment">// present The maximum value is 255</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad27ad76d41bf29c6b9f95e8c41b86398">  149</a></span>&#160;<span class="preprocessor">#define DEFAULT_BRIGHTNESS    185</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160; </div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">// Max Modes</span></div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment">// The maximum number of modes that can be stored on the device.</span></div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">// This should reflect the available RAM of the device.</span></div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="comment">// In our tests even 45 fully loaded modes only took up 15kb,</span></div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">// however this is heavily dependent on the state of compression.</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="comment">// How long the color delete light takes to cycle on/off when holding</span></div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="comment">// down the button on a color in the color select menu</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#afef2e9e83795e0e0c346d4a6af71b2eb">  134</a></span>&#160;<span class="preprocessor">#define COL_DELETE_CYCLE      2000</span></div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160; </div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="comment">// Factory Reset Threshold (in milliseconds)</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;<span class="comment">// This is how long the user must hold down the button on the factory</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;<span class="comment">// reset menu to confirm the reset and restore factory settings</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a18f22a5b8ac9dfe404fd4b83e502eda2">  140</a></span>&#160;<span class="preprocessor">#define RESET_HOLD_TIME       2500</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160; </div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;<span class="comment">// Serial check time (in milliseconds)</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;<span class="comment">// This is how quickly the serial class can check for serial connections</span></div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;<span class="comment">// when the editor menu is open, if you lower this then the editor will</span></div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="comment">// connect quicker but the vortex device will have to do more work</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#af63b8023c82a1ca9940b5cc570273796">  147</a></span>&#160;<span class="preprocessor">#define SERIAL_CHECK_TIME     500</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160; </div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="comment">// Max Color Slots</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;<span class="comment">// The max number of colors in a colorset, this was never tested or</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="comment">// designed to be anything other than 8, you have been warned. If you</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="comment">// want to increase this or change this then it is suggested you review</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;<span class="comment">// all locations where it or colorset code is being used</span></div>
+<div class="line"><a name="l00155"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a1a0b694e2871554a4066f8d61f577c4c">  155</a></span>&#160;<span class="preprocessor">#define MAX_COLOR_SLOTS       8</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="comment">// Default Global Brightness</span></div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment">// Smaller devices aren&#39;t able to comrpess as easily due to the lack</span></div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment">// of stack space for compression algorithms. This means they have</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="comment">// two fold the issues with space because they are already limited</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;<span class="comment">// and the lack of compression makes their save files bigger</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">// This should not be set to 0, it should be a specific maximum for</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">// each separate device</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a95b270e9c99aea216b47fd1e95b2cf34">  167</a></span>&#160;<span class="preprocessor">#define MAX_MODES             15</span></div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160; </div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="comment">// Default Tickrate in Ticks Per Second (TPS)</span></div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;<span class="comment">// The starting default global brightness if there is no savefile</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="comment">// present The maximum value is 255</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad27ad76d41bf29c6b9f95e8c41b86398">  161</a></span>&#160;<span class="preprocessor">#define DEFAULT_BRIGHTNESS    185</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="comment">// Max Modes</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;<span class="comment">// The maximum number of modes that can be stored on the device.</span></div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="comment">// This should reflect the available RAM of the device.</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;<span class="comment">// In our tests even 45 fully loaded modes only took up 15kb,</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;<span class="comment">// however this is heavily dependent on the state of compression.</span></div>
 <div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="comment">// The valid range for this is 1 &lt;= x &lt;= 1000000 (default 1000)</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">// Any value near or above 10000 will most likely be too fast for</span></div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="comment">// the processor to handle.</span></div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="comment">// Smaller devices aren&#39;t able to comrpess as easily due to the lack</span></div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="comment">// of stack space for compression algorithms. This means they have</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;<span class="comment">// two fold the issues with space because they are already limited</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;<span class="comment">// and the lack of compression makes their save files bigger</span></div>
 <div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="comment">// Any value less than 100 and you risk a single tick taking longer</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="comment">// than some pattern timings which results in very weird behaviour</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;<span class="comment">// This should not be set to 0, it should be a specific maximum for</span></div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;<span class="comment">// each separate device</span></div>
 <div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;<span class="comment">// It&#39;s probably best that you leave this at 1000</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="comment">// WARNING:</span></div>
+<div class="line"><a name="l00179"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a95b270e9c99aea216b47fd1e95b2cf34">  179</a></span>&#160;<span class="preprocessor">#define MAX_MODES             0</span></div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="comment">// Default Tickrate in Ticks Per Second (TPS)</span></div>
 <div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="comment">//  The timer system was not designed to handle ticks that are not</span></div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="comment">//  exactly 1 ms. This means that if you change the tickrate to any</span></div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="comment">//  value other than 1000 the timer system will miss alarms, patterns</span></div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="comment">//  will not look correct and there is no fix at the moment.</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;<span class="comment">// The valid range for this is 1 &lt;= x &lt;= 1000000 (default 1000)</span></div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;<span class="comment">// Any value near or above 10000 will most likely be too fast for</span></div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="comment">// the processor to handle.</span></div>
 <div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00188"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb">  188</a></span>&#160;<span class="preprocessor">#define DEFAULT_TICKRATE      1000</span></div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160; </div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="comment">// Pair time offset in ticks</span></div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="comment">// This changes how many ticks out of sync each finger will run.</span></div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="comment">// So 33 means each finger runs 33 ticks out of sync with the</span></div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="comment">// previous finger.</span></div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">// This was an early feature that fell into disrepair, I don&#39;t</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment">// think it works anymore and really hasn&#39;t proven to be useful</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aa6e581c2bacc5c0cd5edcfc758b2c783">  198</a></span>&#160;<span class="preprocessor">#define DEFAULT_TICK_OFFSET   0</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160; </div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="comment">// Max Memory Usage</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="comment">// The maximum memory usage allowed by the memory tracker.</span></div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment">// The memory tracker isn&#39;t present in final builds, only debug</span></div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="comment">// so this number doesn&#39;t actually do anything in production.</span></div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="comment">// Mostly for catching leaks or high memory usage in development.</span></div>
-<div class="line"><a name="l00206"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#add0367147bdc878651ddf447424b50d5">  206</a></span>&#160;<span class="preprocessor">#define MAX_MEMORY            8000</span></div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="comment">// Log Level</span></div>
-<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;<span class="comment">// Set the logging level to control info/error/debug logs accordingly</span></div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;<span class="comment">// The available logging levels are:</span></div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="comment">//  0     Off     All logging is disabled</span></div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="comment">//  1     Info    Only info logs are present</span></div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="comment">//  2     Errors  Info and error logs are present</span></div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="comment">//  3     Debug   All logs are present, info, error, and debug</span></div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00218"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aaff29f732338b733b8d1fee0e8df32ab">  218</a></span>&#160;<span class="preprocessor">#define LOGGING_LEVEL         0</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;<span class="comment">// Any value less than 100 and you risk a single tick taking longer</span></div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="comment">// than some pattern timings which results in very weird behaviour</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;<span class="comment">// It&#39;s probably best that you leave this at 1000</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;<span class="comment">// WARNING:</span></div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="comment">//  The timer system was not designed to handle ticks that are not</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;<span class="comment">//  exactly 1 ms. This means that if you change the tickrate to any</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;<span class="comment">//  value other than 1000 the timer system will miss alarms, patterns</span></div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="comment">//  will not look correct and there is no fix at the moment.</span></div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00200"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb">  200</a></span>&#160;<span class="preprocessor">#define DEFAULT_TICKRATE      1000</span></div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;<span class="comment">// Pair time offset in ticks</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;<span class="comment">// This changes how many ticks out of sync each finger will run.</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;<span class="comment">// So 33 means each finger runs 33 ticks out of sync with the</span></div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;<span class="comment">// previous finger.</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;<span class="comment">// This was an early feature that fell into disrepair, I don&#39;t</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;<span class="comment">// think it works anymore and really hasn&#39;t proven to be useful</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aa6e581c2bacc5c0cd5edcfc758b2c783">  210</a></span>&#160;<span class="preprocessor">#define DEFAULT_TICK_OFFSET   0</span></div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160; </div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;<span class="comment">// Max Memory Usage</span></div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;<span class="comment">// The maximum memory usage allowed by the memory tracker.</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;<span class="comment">// The memory tracker isn&#39;t present in final builds, only debug</span></div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;<span class="comment">// so this number doesn&#39;t actually do anything in production.</span></div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="comment">// Mostly for catching leaks or high memory usage in development.</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#add0367147bdc878651ddf447424b50d5">  218</a></span>&#160;<span class="preprocessor">#define MAX_MEMORY            8000</span></div>
 <div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160; </div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="comment">// Log to Console</span></div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;<span class="comment">// Log Level</span></div>
 <div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="comment">// Enable logging to console, still need to change LOGGING_LEVEL</span></div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="comment">// this only enables the console output connection</span></div>
-<div class="line"><a name="l00224"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a1827d1ccfb41f62353aa6904450fbc92">  224</a></span>&#160;<span class="preprocessor">#define LOG_TO_CONSOLE        0</span></div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160; </div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="comment">// Log to File</span></div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="comment">// Enable this configuration to enable logging to the file</span></div>
-<div class="line"><a name="l00229"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a2d9257ecbf4951d3877398f752d47ae6">  229</a></span>&#160;<span class="preprocessor">#define LOG_TO_FILE           0</span></div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160; </div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="comment">// Log Name</span></div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="comment">// The name of the file on disk that will receive the log info</span></div>
-<div class="line"><a name="l00234"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#acb9bb3a595d60e836f80ab9edac86964">  234</a></span>&#160;<span class="preprocessor">#define VORTEX_LOG_NAME       &quot;vortexlog&quot;</span></div>
-<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160; </div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;<span class="comment">// HSV to RGB Conversion Algorithm</span></div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="comment">// Here you can choose the HSV to RGB conversion algorithm, this will</span></div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="comment">// control the overall appearance of all colours produced with HSV.</span></div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="comment">// The available options are:</span></div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="comment">//    1     FastLED &#39;hsv to rgb rainbow&#39;</span></div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="comment">//    2     FastLED &#39;hsv to rgb raw C&#39;</span></div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="comment">//    3     generic hsv to rgb &#39;pastel&#39;</span></div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;<span class="comment">// Option 1 is the default and legacy choice, also looks best because</span></div>
-<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;<span class="comment">// it puts even weight into every color of the rainbow which involves</span></div>
-<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="comment">// stretching some segments like yellow to take up more hue space.</span></div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;<span class="comment">// Set the logging level to control info/error/debug logs accordingly</span></div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;<span class="comment">// The available logging levels are:</span></div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;<span class="comment">//  0     Off     All logging is disabled</span></div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;<span class="comment">//  1     Info    Only info logs are present</span></div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;<span class="comment">//  2     Errors  Info and error logs are present</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;<span class="comment">//  3     Debug   All logs are present, info, error, and debug</span></div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aaff29f732338b733b8d1fee0e8df32ab">  230</a></span>&#160;<span class="preprocessor">#define LOGGING_LEVEL         0</span></div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160; </div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;<span class="comment">// Log to Console</span></div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;<span class="comment">// Enable logging to console, still need to change LOGGING_LEVEL</span></div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="comment">// this only enables the console output connection</span></div>
+<div class="line"><a name="l00236"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a1827d1ccfb41f62353aa6904450fbc92">  236</a></span>&#160;<span class="preprocessor">#define LOG_TO_CONSOLE        0</span></div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160; </div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;<span class="comment">// Log to File</span></div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="comment">// Enable this configuration to enable logging to the file</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a2d9257ecbf4951d3877398f752d47ae6">  241</a></span>&#160;<span class="preprocessor">#define LOG_TO_FILE           0</span></div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160; </div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;<span class="comment">// Log Name</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;<span class="comment">// The name of the file on disk that will receive the log info</span></div>
+<div class="line"><a name="l00246"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#acb9bb3a595d60e836f80ab9edac86964">  246</a></span>&#160;<span class="preprocessor">#define VORTEX_LOG_NAME       &quot;vortexlog&quot;</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160; </div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;<span class="comment">// HSV to RGB Conversion Algorithm</span></div>
 <div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="comment">// Note you can still call the other routines from your pattern code,</span></div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="comment">// for example blend and complementary blend use hsv to rgb &#39;pastel&#39;</span></div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="comment">// because it looks better than hsv to rgb rainbow</span></div>
-<div class="line"><a name="l00253"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a54fb598d1d39c84606ddce570c255074">  253</a></span>&#160;<span class="preprocessor">#define HSV_TO_RGB_ALGORITHM   3</span></div>
-<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160; </div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="comment">// IR Receiver Time-out Duration (ms)</span></div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="comment">// This is the amount of time in ms for the IR receiver to wait</span></div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="comment">// before reseting itself in the case that communication gets</span></div>
-<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;<span class="comment">// interrupted.</span></div>
-<div class="line"><a name="l00260"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a38394da7cf4d8296750eaa92fb5dcf5e">  260</a></span>&#160;<span class="preprocessor">#define IR_RECEIVER_TIMEOUT_DURATION 2000</span></div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160; </div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="comment">// IR Sender Wait Duration (ms)</span></div>
-<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="comment">// This is the amount of time in ms for the IR sender to wait</span></div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;<span class="comment">// between IR sends. This duration allows the user to give input</span></div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;<span class="comment">// as it is not possible to give input during a send.</span></div>
-<div class="line"><a name="l00267"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a3435f144316596eb0cee4c3024e67899">  267</a></span>&#160;<span class="preprocessor">#define IR_SENDER_WAIT_DURATION 2000</span></div>
-<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160; </div>
-<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="comment">// Enter Advanced Menus Click Duration (ms)</span></div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="comment">// How long the user must long click on the menu item to enter the</span></div>
-<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;<span class="comment">// &#39;advanced&#39; version of the menu</span></div>
-<div class="line"><a name="l00273"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a3e78052777e9f8ec16223f50d89ed43e">  273</a></span>&#160;<span class="preprocessor">#define ADVANCED_MENU_ENTER_DURATION 1500</span></div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160; </div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="comment">// Brightness Options</span></div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="comment">// These are the four options available in the global brightness menu</span></div>
-<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="comment">// There is only four options, be careful not to go too low</span></div>
-<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#abeb906f3a3a3a97d3b44e997ae9591c0">  279</a></span>&#160;<span class="preprocessor">#define BRIGHTNESS_OPTION_1         40</span></div>
-<div class="line"><a name="l00280"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a2ff04b6a060edfd3c63395da5dc36ca3">  280</a></span>&#160;<span class="preprocessor">#define BRIGHTNESS_OPTION_2         120</span></div>
-<div class="line"><a name="l00281"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a24afe05b55c3a4339e2084dbc9290a4e">  281</a></span>&#160;<span class="preprocessor">#define BRIGHTNESS_OPTION_3         185</span></div>
-<div class="line"><a name="l00282"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a1afc7f582a4b75822e3117992cd40910">  282</a></span>&#160;<span class="preprocessor">#define BRIGHTNESS_OPTION_4         255</span></div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160; </div>
-<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="comment">// Saturation Options</span></div>
-<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;<span class="comment">// These are the four saturations available in the color selection menu</span></div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="comment">// Any color can be picked with any of these 4 saturations</span></div>
-<div class="line"><a name="l00288"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#af9016475e2f2c4d0558f4218348038d9">  288</a></span>&#160;<span class="preprocessor">#define SAT_OPTION_1                0</span></div>
-<div class="line"><a name="l00289"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ac7978edcaef1bd8a476d966b006a606a">  289</a></span>&#160;<span class="preprocessor">#define SAT_OPTION_2                85</span></div>
-<div class="line"><a name="l00290"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a7148d6f9203141162240ae9b2b1f6e77">  290</a></span>&#160;<span class="preprocessor">#define SAT_OPTION_3                170</span></div>
-<div class="line"><a name="l00291"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ae20c02bd96b958902840a01cb18ce68c">  291</a></span>&#160;<span class="preprocessor">#define SAT_OPTION_4                255</span></div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160; </div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;<span class="comment">// Value/Luminance Options</span></div>
-<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;<span class="comment">// These are the four values/luminance options in the color selection menu</span></div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="comment">// Any color can be picked with any of these 4 values</span></div>
-<div class="line"><a name="l00297"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a566d0264f75fa7175516e9c58eb7dd36">  297</a></span>&#160;<span class="preprocessor">#define VAL_OPTION_1                0</span></div>
-<div class="line"><a name="l00298"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a6d5daac30969ecfae3de38fb269c5f3f">  298</a></span>&#160;<span class="preprocessor">#define VAL_OPTION_2                85</span></div>
-<div class="line"><a name="l00299"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aebc4e104bdde1297944f1c5f8be55e13">  299</a></span>&#160;<span class="preprocessor">#define VAL_OPTION_3                170</span></div>
-<div class="line"><a name="l00300"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aafe3dba4d9910272e4c67d22cc03f9aa">  300</a></span>&#160;<span class="preprocessor">#define VAL_OPTION_4                255</span></div>
-<div class="line"><a name="l00301"></a><span class="lineno">  301</span>&#160; </div>
-<div class="line"><a name="l00302"></a><span class="lineno">  302</span>&#160;<span class="comment">// ===================================================================</span></div>
-<div class="line"><a name="l00303"></a><span class="lineno">  303</span>&#160;<span class="comment">//  Boolean Configurations (0 or 1)</span></div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;<span class="comment">// Here you can choose the HSV to RGB conversion algorithm, this will</span></div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;<span class="comment">// control the overall appearance of all colours produced with HSV.</span></div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;<span class="comment">// The available options are:</span></div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;<span class="comment">//    1     FastLED &#39;hsv to rgb rainbow&#39;</span></div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;<span class="comment">//    2     FastLED &#39;hsv to rgb raw C&#39;</span></div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;<span class="comment">//    3     generic hsv to rgb &#39;pastel&#39;</span></div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;<span class="comment">// Option 1 is the default and legacy choice, also looks best because</span></div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;<span class="comment">// it puts even weight into every color of the rainbow which involves</span></div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;<span class="comment">// stretching some segments like yellow to take up more hue space.</span></div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;<span class="comment">// Note you can still call the other routines from your pattern code,</span></div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;<span class="comment">// for example blend and complementary blend use hsv to rgb &#39;pastel&#39;</span></div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;<span class="comment">// because it looks better than hsv to rgb rainbow</span></div>
+<div class="line"><a name="l00265"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a54fb598d1d39c84606ddce570c255074">  265</a></span>&#160;<span class="preprocessor">#define HSV_TO_RGB_ALGORITHM   3</span></div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160; </div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;<span class="comment">// IR Receiver Time-out Duration (ms)</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;<span class="comment">// This is the amount of time in ms for the IR receiver to wait</span></div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;<span class="comment">// before reseting itself in the case that communication gets</span></div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;<span class="comment">// interrupted.</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a38394da7cf4d8296750eaa92fb5dcf5e">  272</a></span>&#160;<span class="preprocessor">#define IR_RECEIVER_TIMEOUT_DURATION 2000</span></div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160; </div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;<span class="comment">// IR Sender Wait Duration (ms)</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;<span class="comment">// This is the amount of time in ms for the IR sender to wait</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;<span class="comment">// between IR sends. This duration allows the user to give input</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;<span class="comment">// as it is not possible to give input during a send.</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a3435f144316596eb0cee4c3024e67899">  279</a></span>&#160;<span class="preprocessor">#define IR_SENDER_WAIT_DURATION 2000</span></div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160; </div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;<span class="comment">// Enter Advanced Menus Click Duration (ms)</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;<span class="comment">// How long the user must long click on the menu item to enter the</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;<span class="comment">// &#39;advanced&#39; version of the menu</span></div>
+<div class="line"><a name="l00285"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a3e78052777e9f8ec16223f50d89ed43e">  285</a></span>&#160;<span class="preprocessor">#define ADVANCED_MENU_ENTER_DURATION 1500</span></div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160; </div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;<span class="comment">// Brightness Options</span></div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;<span class="comment">// These are the four options available in the global brightness menu</span></div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;<span class="comment">// There is only four options, be careful not to go too low</span></div>
+<div class="line"><a name="l00291"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#abeb906f3a3a3a97d3b44e997ae9591c0">  291</a></span>&#160;<span class="preprocessor">#define BRIGHTNESS_OPTION_1         40</span></div>
+<div class="line"><a name="l00292"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a2ff04b6a060edfd3c63395da5dc36ca3">  292</a></span>&#160;<span class="preprocessor">#define BRIGHTNESS_OPTION_2         120</span></div>
+<div class="line"><a name="l00293"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a24afe05b55c3a4339e2084dbc9290a4e">  293</a></span>&#160;<span class="preprocessor">#define BRIGHTNESS_OPTION_3         185</span></div>
+<div class="line"><a name="l00294"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a1afc7f582a4b75822e3117992cd40910">  294</a></span>&#160;<span class="preprocessor">#define BRIGHTNESS_OPTION_4         255</span></div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160; </div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;<span class="comment">// Saturation Options</span></div>
+<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;<span class="comment">// These are the four saturations available in the color selection menu</span></div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;<span class="comment">// Any color can be picked with any of these 4 saturations</span></div>
+<div class="line"><a name="l00300"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#af9016475e2f2c4d0558f4218348038d9">  300</a></span>&#160;<span class="preprocessor">#define SAT_OPTION_1                0</span></div>
+<div class="line"><a name="l00301"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ac7978edcaef1bd8a476d966b006a606a">  301</a></span>&#160;<span class="preprocessor">#define SAT_OPTION_2                85</span></div>
+<div class="line"><a name="l00302"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a7148d6f9203141162240ae9b2b1f6e77">  302</a></span>&#160;<span class="preprocessor">#define SAT_OPTION_3                170</span></div>
+<div class="line"><a name="l00303"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ae20c02bd96b958902840a01cb18ce68c">  303</a></span>&#160;<span class="preprocessor">#define SAT_OPTION_4                255</span></div>
 <div class="line"><a name="l00304"></a><span class="lineno">  304</span>&#160; </div>
-<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="comment">// Fill From Thumb</span></div>
+<div class="line"><a name="l00305"></a><span class="lineno">  305</span>&#160;<span class="comment">// Value/Luminance Options</span></div>
 <div class="line"><a name="l00306"></a><span class="lineno">  306</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="comment">// The ring menu will fill from the thumb if this is present, otherwise</span></div>
-<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="comment">// it will fill from the pinkie.</span></div>
-<div class="line"><a name="l00309"></a><span class="lineno">  309</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00310"></a><span class="lineno">  310</span>&#160;<span class="comment">// The logic is cleaner for fill from pinkie but fill from thumb is preferred</span></div>
-<div class="line"><a name="l00311"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a05fee2a32286f9f15d91bae6468dc241">  311</a></span>&#160;<span class="preprocessor">#define FILL_FROM_THUMB       1</span></div>
-<div class="line"><a name="l00312"></a><span class="lineno">  312</span>&#160; </div>
-<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160;<span class="comment">// Demo All Patterns</span></div>
-<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="comment">// The default modes that are set on the gloveset will be dynamically</span></div>
-<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="comment">// generated with one mode per pattern in the patterns list</span></div>
-<div class="line"><a name="l00317"></a><span class="lineno">  317</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160;<span class="comment">// This can be used to quickly demo all possible patterns, mostly useful</span></div>
-<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="comment">// for testing and development</span></div>
-<div class="line"><a name="l00320"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ab8c0423975cca84e9ca8977d68b66696">  320</a></span>&#160;<span class="preprocessor">#define DEMO_ALL_PATTERNS     0</span></div>
+<div class="line"><a name="l00307"></a><span class="lineno">  307</span>&#160;<span class="comment">// These are the four values/luminance options in the color selection menu</span></div>
+<div class="line"><a name="l00308"></a><span class="lineno">  308</span>&#160;<span class="comment">// Any color can be picked with any of these 4 values</span></div>
+<div class="line"><a name="l00309"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a566d0264f75fa7175516e9c58eb7dd36">  309</a></span>&#160;<span class="preprocessor">#define VAL_OPTION_1                0</span></div>
+<div class="line"><a name="l00310"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a6d5daac30969ecfae3de38fb269c5f3f">  310</a></span>&#160;<span class="preprocessor">#define VAL_OPTION_2                85</span></div>
+<div class="line"><a name="l00311"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aebc4e104bdde1297944f1c5f8be55e13">  311</a></span>&#160;<span class="preprocessor">#define VAL_OPTION_3                170</span></div>
+<div class="line"><a name="l00312"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aafe3dba4d9910272e4c67d22cc03f9aa">  312</a></span>&#160;<span class="preprocessor">#define VAL_OPTION_4                255</span></div>
+<div class="line"><a name="l00313"></a><span class="lineno">  313</span>&#160; </div>
+<div class="line"><a name="l00314"></a><span class="lineno">  314</span>&#160;<span class="comment">// Serial Baud Rate</span></div>
+<div class="line"><a name="l00315"></a><span class="lineno">  315</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00316"></a><span class="lineno">  316</span>&#160;<span class="comment">// The serial connection baud rate for the editor and anything else serial</span></div>
+<div class="line"><a name="l00317"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad89976cc0b5340110179f6ce40df3028">  317</a></span>&#160;<span class="preprocessor">#define SERIAL_BAUD_RATE            9600</span></div>
+<div class="line"><a name="l00318"></a><span class="lineno">  318</span>&#160; </div>
+<div class="line"><a name="l00319"></a><span class="lineno">  319</span>&#160;<span class="comment">// ===================================================================</span></div>
+<div class="line"><a name="l00320"></a><span class="lineno">  320</span>&#160;<span class="comment">//  Boolean Configurations (0 or 1)</span></div>
 <div class="line"><a name="l00321"></a><span class="lineno">  321</span>&#160; </div>
 <div class="line"><a name="l00322"></a><span class="lineno">  322</span>&#160;<span class="comment">// Debug Allocations</span></div>
 <div class="line"><a name="l00323"></a><span class="lineno">  323</span>&#160;<span class="comment">//</span></div>
@@ -431,242 +431,273 @@ $(document).ready(function(){initNavTree('VortexConfig_8h_source.html',''); init
 <div class="line"><a name="l00342"></a><span class="lineno">  342</span>&#160;<span class="comment">//</span></div>
 <div class="line"><a name="l00343"></a><span class="lineno">  343</span>&#160;<span class="comment">// However there may be some clever uses for variable tickrate in</span></div>
 <div class="line"><a name="l00344"></a><span class="lineno">  344</span>&#160;<span class="comment">// the final build? I&#39;m not sure.</span></div>
-<div class="line"><a name="l00345"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a5f5f57f88c6c51ae4c754ac96839245a">  345</a></span>&#160;<span class="preprocessor">#define VARIABLE_TICKRATE     0</span></div>
+<div class="line"><a name="l00345"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a5f5f57f88c6c51ae4c754ac96839245a">  345</a></span>&#160;<span class="preprocessor">#define VARIABLE_TICKRATE     1</span></div>
 <div class="line"><a name="l00346"></a><span class="lineno">  346</span>&#160; </div>
-<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="comment">// Error Blinker System</span></div>
+<div class="line"><a name="l00347"></a><span class="lineno">  347</span>&#160;<span class="comment">// Fixed LED Count</span></div>
 <div class="line"><a name="l00348"></a><span class="lineno">  348</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="comment">// This toggles the vortex error blinker system, this system reports</span></div>
-<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="comment">// fatal errors as a series of blinks. If an error is encountered the</span></div>
-<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="comment">// chip will only blink out the error code from there forward.</span></div>
-<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="comment">// Note that enabling this system takes a non-negligible amount</span></div>
-<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="comment">// of space for all of the code, it really should only be used</span></div>
-<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;<span class="comment">// for debug settings or given tiers like logging level.</span></div>
-<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00357"></a><span class="lineno">  357</span>&#160;<span class="comment">// This is mainly useful for tracking down issues on devices that don&#39;t</span></div>
-<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160;<span class="comment">// have a serial connection like the attiny. Use FATAL_ERROR(code) to</span></div>
-<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="comment">// set the error code and then the device will blink out the error</span></div>
+<div class="line"><a name="l00349"></a><span class="lineno">  349</span>&#160;<span class="comment">// Do not allow the Mode loader to dynamically load however many modes</span></div>
+<div class="line"><a name="l00350"></a><span class="lineno">  350</span>&#160;<span class="comment">// are saved in the savefile. This should be enabled for embedded or vortex</span></div>
+<div class="line"><a name="l00351"></a><span class="lineno">  351</span>&#160;<span class="comment">// device builds because they cannot change their number of LEDs. However</span></div>
+<div class="line"><a name="l00352"></a><span class="lineno">  352</span>&#160;<span class="comment">// other tools like the editor or vortex emulator may be able to make use</span></div>
+<div class="line"><a name="l00353"></a><span class="lineno">  353</span>&#160;<span class="comment">// of this to dynamically adjust the number of leds that a mode can handle</span></div>
+<div class="line"><a name="l00354"></a><span class="lineno">  354</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00355"></a><span class="lineno">  355</span>&#160;<span class="comment">// NOTE: This does not touch the &#39;leds&#39; class itself it only adjusts whether</span></div>
+<div class="line"><a name="l00356"></a><span class="lineno">  356</span>&#160;<span class="comment">//       a mode will stretch it&#39;s list of patterns to match the number of leds</span></div>
+<div class="line"><a name="l00357"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a0efe647434a0e0ab74083af0fcd47c09">  357</a></span>&#160;<span class="preprocessor">#define FIXED_LED_COUNT       1</span></div>
+<div class="line"><a name="l00358"></a><span class="lineno">  358</span>&#160; </div>
+<div class="line"><a name="l00359"></a><span class="lineno">  359</span>&#160;<span class="comment">// Enable Editor Connection</span></div>
 <div class="line"><a name="l00360"></a><span class="lineno">  360</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment">// for ex: red red green blue blue blue is code 213</span></div>
-<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="comment">// See Log/ErrorBlinker.h for details on the error codes</span></div>
-<div class="line"><a name="l00364"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a18f85a9fdb8fc06f6363165b06736420">  364</a></span>&#160;<span class="preprocessor">#define VORTEX_ERROR_BLINK    0</span></div>
+<div class="line"><a name="l00361"></a><span class="lineno">  361</span>&#160;<span class="comment">// Turn on the editor connection, some devices are capable of connecting to</span></div>
+<div class="line"><a name="l00362"></a><span class="lineno">  362</span>&#160;<span class="comment">// the pc-based editor, this controls whether the engine exposes the purple</span></div>
+<div class="line"><a name="l00363"></a><span class="lineno">  363</span>&#160;<span class="comment">// editor connection menu or not</span></div>
+<div class="line"><a name="l00364"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a626d73ebc3448b6778f1d4d3f687ce2f">  364</a></span>&#160;<span class="preprocessor">#define ENABLE_EDITOR_CONNECTION 1</span></div>
 <div class="line"><a name="l00365"></a><span class="lineno">  365</span>&#160; </div>
-<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="comment">// Enable Editor Connection</span></div>
+<div class="line"><a name="l00366"></a><span class="lineno">  366</span>&#160;<span class="comment">// Compression Test</span></div>
 <div class="line"><a name="l00367"></a><span class="lineno">  367</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="comment">// Turn on the editor connection, some devices are capable of connecting to</span></div>
-<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="comment">// the pc-based editor, this controls whether the engine exposes the purple</span></div>
-<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="comment">// editor connection menu or not</span></div>
-<div class="line"><a name="l00371"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a626d73ebc3448b6778f1d4d3f687ce2f">  371</a></span>&#160;<span class="preprocessor">#define ENABLE_EDITOR_CONNECTION 1</span></div>
+<div class="line"><a name="l00368"></a><span class="lineno">  368</span>&#160;<span class="comment">// Run the built-in compression test that will find any faults</span></div>
+<div class="line"><a name="l00369"></a><span class="lineno">  369</span>&#160;<span class="comment">// in the compressor or decompressor. This is useful if you install</span></div>
+<div class="line"><a name="l00370"></a><span class="lineno">  370</span>&#160;<span class="comment">// a new compressor or want to test any changes to the compressor</span></div>
+<div class="line"><a name="l00371"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#abf8afa25ee46cf5d3687cf2a22ba51e3">  371</a></span>&#160;<span class="preprocessor">#define COMPRESSION_TEST      0</span></div>
 <div class="line"><a name="l00372"></a><span class="lineno">  372</span>&#160; </div>
-<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="comment">// Compression Test</span></div>
+<div class="line"><a name="l00373"></a><span class="lineno">  373</span>&#160;<span class="comment">// Serialization Test</span></div>
 <div class="line"><a name="l00374"></a><span class="lineno">  374</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="comment">// Run the built-in compression test that will find any faults</span></div>
-<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="comment">// in the compressor or decompressor. This is useful if you install</span></div>
-<div class="line"><a name="l00377"></a><span class="lineno">  377</span>&#160;<span class="comment">// a new compressor or want to test any changes to the compressor</span></div>
-<div class="line"><a name="l00378"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#abf8afa25ee46cf5d3687cf2a22ba51e3">  378</a></span>&#160;<span class="preprocessor">#define COMPRESSION_TEST      0</span></div>
-<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160; </div>
-<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="comment">// Serialization Test</span></div>
-<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="comment">// Run the serializer/unserializer test which will find any objects</span></div>
-<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="comment">// which don&#39;t serialize and unserialize cleanly</span></div>
-<div class="line"><a name="l00384"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad0e17f1e34bf82c979955e4e98ed3998">  384</a></span>&#160;<span class="preprocessor">#define SERIALIZATION_TEST    0</span></div>
-<div class="line"><a name="l00385"></a><span class="lineno">  385</span>&#160; </div>
-<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160;<span class="comment">// Modes Test</span></div>
-<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="comment">// Run unit tests on the Modes class which manages the list of Modes.</span></div>
-<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="comment">// If any patterns fail to instantiate or perform basic operations</span></div>
-<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="comment">// it should show up in the modes test. Also if the Modes api has been</span></div>
-<div class="line"><a name="l00391"></a><span class="lineno">  391</span>&#160;<span class="comment">// updated then this will test for any issues</span></div>
-<div class="line"><a name="l00392"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a9c95eccf51317b46e19269c6dbc7628e">  392</a></span>&#160;<span class="preprocessor">#define MODES_TEST            0</span></div>
+<div class="line"><a name="l00375"></a><span class="lineno">  375</span>&#160;<span class="comment">// Run the serializer/unserializer test which will find any objects</span></div>
+<div class="line"><a name="l00376"></a><span class="lineno">  376</span>&#160;<span class="comment">// which don&#39;t serialize and unserialize cleanly</span></div>
+<div class="line"><a name="l00377"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad0e17f1e34bf82c979955e4e98ed3998">  377</a></span>&#160;<span class="preprocessor">#define SERIALIZATION_TEST    0</span></div>
+<div class="line"><a name="l00378"></a><span class="lineno">  378</span>&#160; </div>
+<div class="line"><a name="l00379"></a><span class="lineno">  379</span>&#160;<span class="comment">// Modes Test</span></div>
+<div class="line"><a name="l00380"></a><span class="lineno">  380</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00381"></a><span class="lineno">  381</span>&#160;<span class="comment">// Run unit tests on the Modes class which manages the list of Modes.</span></div>
+<div class="line"><a name="l00382"></a><span class="lineno">  382</span>&#160;<span class="comment">// If any patterns fail to instantiate or perform basic operations</span></div>
+<div class="line"><a name="l00383"></a><span class="lineno">  383</span>&#160;<span class="comment">// it should show up in the modes test. Also if the Modes api has been</span></div>
+<div class="line"><a name="l00384"></a><span class="lineno">  384</span>&#160;<span class="comment">// updated then this will test for any issues</span></div>
+<div class="line"><a name="l00385"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a9c95eccf51317b46e19269c6dbc7628e">  385</a></span>&#160;<span class="preprocessor">#define MODES_TEST            0</span></div>
+<div class="line"><a name="l00386"></a><span class="lineno">  386</span>&#160; </div>
+<div class="line"><a name="l00387"></a><span class="lineno">  387</span>&#160;<span class="comment">// Timer Test</span></div>
+<div class="line"><a name="l00388"></a><span class="lineno">  388</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00389"></a><span class="lineno">  389</span>&#160;<span class="comment">// Tests the timers, time control, and timestep system to ensure they</span></div>
+<div class="line"><a name="l00390"></a><span class="lineno">  390</span>&#160;<span class="comment">// are all working as expected and behaving properly</span></div>
+<div class="line"><a name="l00391"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a208e6ff9660c04cd7f938cb648529f0c">  391</a></span>&#160;<span class="preprocessor">#define TIMER_TEST            0</span></div>
+<div class="line"><a name="l00392"></a><span class="lineno">  392</span>&#160; </div>
 <div class="line"><a name="l00393"></a><span class="lineno">  393</span>&#160; </div>
-<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="comment">// Timer Test</span></div>
-<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="comment">// Tests the timers, time control, and timestep system to ensure they</span></div>
-<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="comment">// are all working as expected and behaving properly</span></div>
-<div class="line"><a name="l00398"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a208e6ff9660c04cd7f938cb648529f0c">  398</a></span>&#160;<span class="preprocessor">#define TIMER_TEST            0</span></div>
-<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160; </div>
-<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160; </div>
-<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="comment">// ===================================================================</span></div>
-<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="comment">//  Menu Colors</span></div>
-<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="comment">//  These are the colors for the respective menus, each color should</span></div>
-<div class="line"><a name="l00405"></a><span class="lineno">  405</span>&#160;<span class="comment">//  be unique and distinct from the others. It should also be bright</span></div>
-<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160;<span class="comment">//  enough to be seen on the lowest brightness setting of the device</span></div>
-<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00408"></a><span class="lineno">  408</span>&#160;<span class="comment">//  See the below header for all of the available color constants</span></div>
-<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ColorConstants_8h.html">Colors/ColorConstants.h</a>&quot;</span></div>
-<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160; </div>
-<div class="line"><a name="l00411"></a><span class="lineno">  411</span>&#160;<span class="comment">// Randomizer Menu Color</span></div>
-<div class="line"><a name="l00412"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad51a458e185436ff9d031f5647c7d46f">  412</a></span>&#160;<span class="preprocessor">#define RGB_MENU_RANDOMIZER         RGB_WHITE1</span></div>
-<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160; </div>
-<div class="line"><a name="l00414"></a><span class="lineno">  414</span>&#160;<span class="comment">// Mode Sharing Menu Color</span></div>
-<div class="line"><a name="l00415"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aa280da86a9832321810c48d600843b5c">  415</a></span>&#160;<span class="preprocessor">#define RGB_MENU_MODE_SHARING       RGB_CYAN1</span></div>
-<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160; </div>
-<div class="line"><a name="l00417"></a><span class="lineno">  417</span>&#160;<span class="comment">// Editor Connection Menu Color</span></div>
-<div class="line"><a name="l00418"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#afac922409bb6f4295b486864997ae26c">  418</a></span>&#160;<span class="preprocessor">#define RGB_MENU_EDITOR_CONNECTION  RGB_PURPLE1</span></div>
-<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160; </div>
-<div class="line"><a name="l00420"></a><span class="lineno">  420</span>&#160;<span class="comment">// Color Select Menu Color</span></div>
-<div class="line"><a name="l00421"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a3b335e17dcc12be29e18e3373e5352cb">  421</a></span>&#160;<span class="preprocessor">#define RGB_MENU_COLOR_SELECT       RGB_GREEN1</span></div>
-<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160; </div>
-<div class="line"><a name="l00423"></a><span class="lineno">  423</span>&#160;<span class="comment">// Pattern Select Menu Color</span></div>
-<div class="line"><a name="l00424"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ac96ef0f1f4dbc0bd0dace8c41578504f">  424</a></span>&#160;<span class="preprocessor">#define RGB_MENU_PATTERN_SELECT     RGB_BLUE1</span></div>
+<div class="line"><a name="l00394"></a><span class="lineno">  394</span>&#160;<span class="comment">// ===================================================================</span></div>
+<div class="line"><a name="l00395"></a><span class="lineno">  395</span>&#160;<span class="comment">//  Menu Colors</span></div>
+<div class="line"><a name="l00396"></a><span class="lineno">  396</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00397"></a><span class="lineno">  397</span>&#160;<span class="comment">//  These are the colors for the respective menus, each color should</span></div>
+<div class="line"><a name="l00398"></a><span class="lineno">  398</span>&#160;<span class="comment">//  be unique and distinct from the others. It should also be bright</span></div>
+<div class="line"><a name="l00399"></a><span class="lineno">  399</span>&#160;<span class="comment">//  enough to be seen on the lowest brightness setting of the device</span></div>
+<div class="line"><a name="l00400"></a><span class="lineno">  400</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00401"></a><span class="lineno">  401</span>&#160;<span class="comment">//  See the below header for all of the available color constants</span></div>
+<div class="line"><a name="l00402"></a><span class="lineno">  402</span>&#160;<span class="preprocessor">#include &quot;<a class="code" href="ColorConstants_8h.html">Colors/ColorConstants.h</a>&quot;</span></div>
+<div class="line"><a name="l00403"></a><span class="lineno">  403</span>&#160; </div>
+<div class="line"><a name="l00404"></a><span class="lineno">  404</span>&#160;<span class="comment">// Randomizer Menu Color</span></div>
+<div class="line"><a name="l00405"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad51a458e185436ff9d031f5647c7d46f">  405</a></span>&#160;<span class="preprocessor">#define RGB_MENU_RANDOMIZER         RGB_WHITE1</span></div>
+<div class="line"><a name="l00406"></a><span class="lineno">  406</span>&#160; </div>
+<div class="line"><a name="l00407"></a><span class="lineno">  407</span>&#160;<span class="comment">// Mode Sharing Menu Color</span></div>
+<div class="line"><a name="l00408"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aa280da86a9832321810c48d600843b5c">  408</a></span>&#160;<span class="preprocessor">#define RGB_MENU_MODE_SHARING       RGB_CYAN1</span></div>
+<div class="line"><a name="l00409"></a><span class="lineno">  409</span>&#160; </div>
+<div class="line"><a name="l00410"></a><span class="lineno">  410</span>&#160;<span class="comment">// Editor Connection Menu Color</span></div>
+<div class="line"><a name="l00411"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#afac922409bb6f4295b486864997ae26c">  411</a></span>&#160;<span class="preprocessor">#define RGB_MENU_EDITOR_CONNECTION  RGB_PURPLE1</span></div>
+<div class="line"><a name="l00412"></a><span class="lineno">  412</span>&#160; </div>
+<div class="line"><a name="l00413"></a><span class="lineno">  413</span>&#160;<span class="comment">// Color Select Menu Color</span></div>
+<div class="line"><a name="l00414"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a3b335e17dcc12be29e18e3373e5352cb">  414</a></span>&#160;<span class="preprocessor">#define RGB_MENU_COLOR_SELECT       RGB_GREEN1</span></div>
+<div class="line"><a name="l00415"></a><span class="lineno">  415</span>&#160; </div>
+<div class="line"><a name="l00416"></a><span class="lineno">  416</span>&#160;<span class="comment">// Pattern Select Menu Color</span></div>
+<div class="line"><a name="l00417"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ac96ef0f1f4dbc0bd0dace8c41578504f">  417</a></span>&#160;<span class="preprocessor">#define RGB_MENU_PATTERN_SELECT     RGB_BLUE1</span></div>
+<div class="line"><a name="l00418"></a><span class="lineno">  418</span>&#160; </div>
+<div class="line"><a name="l00419"></a><span class="lineno">  419</span>&#160;<span class="comment">// Global Brightness Menu Color</span></div>
+<div class="line"><a name="l00420"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a3fd5d16a2fea0175b3b34083c6dfb42f">  420</a></span>&#160;<span class="preprocessor">#define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW1</span></div>
+<div class="line"><a name="l00421"></a><span class="lineno">  421</span>&#160; </div>
+<div class="line"><a name="l00422"></a><span class="lineno">  422</span>&#160;<span class="comment">// Factory Reset Menu Color</span></div>
+<div class="line"><a name="l00423"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a66e98b3b4dab7e50cdb47d4a3046f9c2">  423</a></span>&#160;<span class="preprocessor">#define RGB_MENU_FACTORY_RESET      RGB_RED1</span></div>
+<div class="line"><a name="l00424"></a><span class="lineno">  424</span>&#160; </div>
 <div class="line"><a name="l00425"></a><span class="lineno">  425</span>&#160; </div>
-<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="comment">// Global Brightness Menu Color</span></div>
-<div class="line"><a name="l00427"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a3fd5d16a2fea0175b3b34083c6dfb42f">  427</a></span>&#160;<span class="preprocessor">#define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW1</span></div>
-<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160; </div>
-<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="comment">// Factory Reset Menu Color</span></div>
-<div class="line"><a name="l00430"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a66e98b3b4dab7e50cdb47d4a3046f9c2">  430</a></span>&#160;<span class="preprocessor">#define RGB_MENU_FACTORY_RESET      RGB_RED1</span></div>
-<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160; </div>
+<div class="line"><a name="l00426"></a><span class="lineno">  426</span>&#160;<span class="comment">// ===================================================================</span></div>
+<div class="line"><a name="l00427"></a><span class="lineno">  427</span>&#160;<span class="comment">//  Editor Verbs</span></div>
+<div class="line"><a name="l00428"></a><span class="lineno">  428</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00429"></a><span class="lineno">  429</span>&#160;<span class="comment">//  These are the commands used in the protocol with the editor.</span></div>
+<div class="line"><a name="l00430"></a><span class="lineno">  430</span>&#160;<span class="comment">//  They are defined here so the editor can access them easily,</span></div>
+<div class="line"><a name="l00431"></a><span class="lineno">  431</span>&#160;<span class="comment">//  also so you can configure them at your own free will.</span></div>
 <div class="line"><a name="l00432"></a><span class="lineno">  432</span>&#160; </div>
-<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;<span class="comment">// ===================================================================</span></div>
-<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;<span class="comment">//  Editor Verbs</span></div>
-<div class="line"><a name="l00435"></a><span class="lineno">  435</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00436"></a><span class="lineno">  436</span>&#160;<span class="comment">//  These are the commands used in the protocol with the editor.</span></div>
-<div class="line"><a name="l00437"></a><span class="lineno">  437</span>&#160;<span class="comment">//  They are defined here so the editor can access them easily,</span></div>
-<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160;<span class="comment">//  also so you can configure them at your own free will.</span></div>
-<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160; </div>
-<div class="line"><a name="l00440"></a><span class="lineno">  440</span>&#160;<span class="comment">// the initial hello from the gloveset to the editor</span></div>
-<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160;<span class="comment">// is the full name of this build of vortex</span></div>
-<div class="line"><a name="l00442"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a9302a1bcf32eb0ed41528b71f06fb657">  442</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_GREETING_PREFIX   &quot;== &quot;</span></div>
-<div class="line"><a name="l00443"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a335493f086770a85a7523fd49253d189">  443</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_GREETING_POSTFIX  &quot; ==&quot;</span></div>
-<div class="line"><a name="l00444"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ab8551eac78d43daf3bae9d0bd1489079">  444</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_GREETING          EDITOR_VERB_GREETING_PREFIX VORTEX_FULL_NAME EDITOR_VERB_GREETING_POSTFIX</span></div>
-<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160; </div>
-<div class="line"><a name="l00446"></a><span class="lineno">  446</span>&#160;<span class="comment">// the hello from the editor to the gloves</span></div>
-<div class="line"><a name="l00447"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a2aafe378e1f360e49f83afcc3a7db2f9">  447</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_HELLO             &quot;a&quot;</span></div>
-<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160; </div>
-<div class="line"><a name="l00449"></a><span class="lineno">  449</span>&#160;<span class="comment">// the response from the gloveset when it&#39;s ready to receive something</span></div>
-<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="comment">// after the editor has given it a command to do something the gloveset</span></div>
-<div class="line"><a name="l00451"></a><span class="lineno">  451</span>&#160;<span class="comment">// will respond with this then once it&#39;s done doing the action it will</span></div>
-<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;<span class="comment">// send a different finished response for each action</span></div>
-<div class="line"><a name="l00453"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a44368eb56afaaaaa68494b18cc9e033e">  453</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_READY             &quot;b&quot;</span></div>
+<div class="line"><a name="l00433"></a><span class="lineno">  433</span>&#160;<span class="comment">// the initial hello from the gloveset to the editor</span></div>
+<div class="line"><a name="l00434"></a><span class="lineno">  434</span>&#160;<span class="comment">// is the full name of this build of vortex</span></div>
+<div class="line"><a name="l00435"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a9302a1bcf32eb0ed41528b71f06fb657">  435</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_GREETING_PREFIX   &quot;== &quot;</span></div>
+<div class="line"><a name="l00436"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a335493f086770a85a7523fd49253d189">  436</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_GREETING_POSTFIX  &quot; ==&quot;</span></div>
+<div class="line"><a name="l00437"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ab8551eac78d43daf3bae9d0bd1489079">  437</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_GREETING          EDITOR_VERB_GREETING_PREFIX VORTEX_FULL_NAME EDITOR_VERB_GREETING_POSTFIX</span></div>
+<div class="line"><a name="l00438"></a><span class="lineno">  438</span>&#160; </div>
+<div class="line"><a name="l00439"></a><span class="lineno">  439</span>&#160;<span class="comment">// the hello from the editor to the gloves</span></div>
+<div class="line"><a name="l00440"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a2aafe378e1f360e49f83afcc3a7db2f9">  440</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_HELLO             &quot;a&quot;</span></div>
+<div class="line"><a name="l00441"></a><span class="lineno">  441</span>&#160; </div>
+<div class="line"><a name="l00442"></a><span class="lineno">  442</span>&#160;<span class="comment">// the response from the gloveset when it&#39;s ready to receive something</span></div>
+<div class="line"><a name="l00443"></a><span class="lineno">  443</span>&#160;<span class="comment">// after the editor has given it a command to do something the gloveset</span></div>
+<div class="line"><a name="l00444"></a><span class="lineno">  444</span>&#160;<span class="comment">// will respond with this then once it&#39;s done doing the action it will</span></div>
+<div class="line"><a name="l00445"></a><span class="lineno">  445</span>&#160;<span class="comment">// send a different finished response for each action</span></div>
+<div class="line"><a name="l00446"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a44368eb56afaaaaa68494b18cc9e033e">  446</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_READY             &quot;b&quot;</span></div>
+<div class="line"><a name="l00447"></a><span class="lineno">  447</span>&#160; </div>
+<div class="line"><a name="l00448"></a><span class="lineno">  448</span>&#160;<span class="comment">// the command from the editor to send modes over</span></div>
+<div class="line"><a name="l00449"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a7c3946aa61a487843a0604d3d76d9a8d">  449</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PULL_MODES        &quot;c&quot;</span></div>
+<div class="line"><a name="l00450"></a><span class="lineno">  450</span>&#160;<span class="comment">// the response from the editor once modes are received</span></div>
+<div class="line"><a name="l00451"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#abff1a19cf965ee7956ccbe597593d4d9">  451</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PULL_MODES_DONE   &quot;d&quot;</span></div>
+<div class="line"><a name="l00452"></a><span class="lineno">  452</span>&#160;<span class="comment">// the response from the gloves once it acknowledges the editor got the modes</span></div>
+<div class="line"><a name="l00453"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#af58d2cc1f42277129c11a9181d7d5870">  453</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PULL_MODES_ACK    &quot;e&quot;</span></div>
 <div class="line"><a name="l00454"></a><span class="lineno">  454</span>&#160; </div>
 <div class="line"><a name="l00455"></a><span class="lineno">  455</span>&#160;<span class="comment">// the command from the editor to send modes over</span></div>
-<div class="line"><a name="l00456"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a7c3946aa61a487843a0604d3d76d9a8d">  456</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PULL_MODES        &quot;c&quot;</span></div>
-<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;<span class="comment">// the response from the editor once modes are received</span></div>
-<div class="line"><a name="l00458"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#abff1a19cf965ee7956ccbe597593d4d9">  458</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PULL_MODES_DONE   &quot;d&quot;</span></div>
-<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160;<span class="comment">// the response from the gloves once it acknowledges the editor got the modes</span></div>
-<div class="line"><a name="l00460"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#af58d2cc1f42277129c11a9181d7d5870">  460</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PULL_MODES_ACK    &quot;e&quot;</span></div>
-<div class="line"><a name="l00461"></a><span class="lineno">  461</span>&#160; </div>
-<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;<span class="comment">// the command from the editor to send modes over</span></div>
-<div class="line"><a name="l00463"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#acf8b045d8ae40ec763a3853506c5318c">  463</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PUSH_MODES        &quot;f&quot;</span></div>
-<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160;<span class="comment">// the response from the gloveset when it received the mode</span></div>
-<div class="line"><a name="l00465"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a0be17f7cbaf6e5a5e8d4f0405d16107e">  465</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PUSH_MODES_ACK    &quot;g&quot;</span></div>
-<div class="line"><a name="l00466"></a><span class="lineno">  466</span>&#160; </div>
-<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;<span class="comment">// the command from the editor to tell the gloveset to demo a mode</span></div>
-<div class="line"><a name="l00468"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad26ec31c94c49d8ef44f5e8bf9c76a0f">  468</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_DEMO_MODE         &quot;h&quot;</span></div>
-<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160;<span class="comment">// the response from the gloveset when it&#39;s received the mode to demo</span></div>
-<div class="line"><a name="l00470"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ae724cf64152fa5aeaa588b60bb6c921a">  470</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_DEMO_MODE_ACK     &quot;i&quot;</span></div>
-<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160; </div>
-<div class="line"><a name="l00472"></a><span class="lineno">  472</span>&#160;<span class="comment">// the command from the editor to tell the gloveset to clear the demo</span></div>
-<div class="line"><a name="l00473"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ac5aa8d24e62c31d10b6d3b56e6c01d74">  473</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_CLEAR_DEMO        &quot;j&quot;</span></div>
-<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;<span class="comment">// the response from the gloveset when it&#39;s received disabled the demo</span></div>
-<div class="line"><a name="l00475"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad7818b2f91199a1d2f18dec307b5295a">  475</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_CLEAR_DEMO_ACK    &quot;k&quot;</span></div>
-<div class="line"><a name="l00476"></a><span class="lineno">  476</span>&#160; </div>
-<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;<span class="comment">// when the gloveset is leaving the menu and needs to tell the editor</span></div>
-<div class="line"><a name="l00478"></a><span class="lineno">  478</span>&#160;<span class="comment">// that it&#39;s no longer listening</span></div>
-<div class="line"><a name="l00479"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a8e0fa92ffe5b3fdc1a3b19649451d55e">  479</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_GOODBYE           &quot;l&quot;</span></div>
-<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160; </div>
-<div class="line"><a name="l00481"></a><span class="lineno">  481</span>&#160;<span class="comment">// ===================================================================</span></div>
-<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;<span class="comment">//  Manually Configured Sizes</span></div>
-<div class="line"><a name="l00483"></a><span class="lineno">  483</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160;<span class="comment">//  These are the various storage space constants of the vortex device</span></div>
-<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160; </div>
-<div class="line"><a name="l00486"></a><span class="lineno">  486</span>&#160;<span class="comment">// maximum size of a mode here</span></div>
-<div class="line"><a name="l00487"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">  487</a></span>&#160;<span class="preprocessor">#define MAX_MODE_SIZE 512</span></div>
-<div class="line"><a name="l00488"></a><span class="lineno">  488</span>&#160; </div>
-<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160;<span class="comment">// the number of storage slots for modes, add 1 for the header</span></div>
-<div class="line"><a name="l00490"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ab0c5cc9223512ec01c405592b6741898">  490</a></span>&#160;<span class="preprocessor">#define NUM_MODE_SLOTS (MAX_MODES + 1)</span></div>
-<div class="line"><a name="l00491"></a><span class="lineno">  491</span>&#160; </div>
-<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;<span class="comment">// the space available for storing modes, we can&#39;t make this too big</span></div>
-<div class="line"><a name="l00493"></a><span class="lineno">  493</span>&#160;<span class="comment">// otherwise we will have trouble loading it into memory</span></div>
-<div class="line"><a name="l00494"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">  494</a></span>&#160;<span class="preprocessor">#define STORAGE_SIZE (MAX_MODE_SIZE * NUM_MODE_SLOTS)</span></div>
-<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160; </div>
-<div class="line"><a name="l00496"></a><span class="lineno">  496</span>&#160;<span class="comment">// ===================================================================</span></div>
-<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;<span class="comment">//  Test Framework configurations</span></div>
-<div class="line"><a name="l00498"></a><span class="lineno">  498</span>&#160;<span class="comment">//</span></div>
-<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160;<span class="comment">//   * Unless you are using the test framework, don&#39;t touch these! *</span></div>
-<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160; </div>
-<div class="line"><a name="l00501"></a><span class="lineno">  501</span>&#160;<span class="comment">// These defines come from the project settings for preprocessor, an</span></div>
-<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;<span class="comment">// entry for $(SolutionName) produces preprocessor definitions that</span></div>
-<div class="line"><a name="l00503"></a><span class="lineno">  503</span>&#160;<span class="comment">// match the solution that is compiling the engine</span></div>
-<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160;<span class="preprocessor">#if !defined(PROJECT_NAME_VortexTestingFramework) &amp;&amp; !defined(PROJECT_NAME_VortexEditor) &amp;&amp; !defined(VORTEX_LIB)</span></div>
-<div class="line"><a name="l00505"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad9560d402fce790c8e6db0678a4ea9d4">  505</a></span>&#160;<span class="preprocessor">#define VORTEX_EMBEDDED 1</span></div>
-<div class="line"><a name="l00506"></a><span class="lineno">  506</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160; </div>
-<div class="line"><a name="l00508"></a><span class="lineno">  508</span>&#160;<span class="comment">// if building for editor or test framework then we&#39;re building vortex lib, it should</span></div>
-<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160;<span class="comment">// be defined in the project settings but sometimes it&#39;s not for example if a cpp file</span></div>
-<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;<span class="comment">// from the test framework includes a header from the engine it might not have VORTEX_LIB</span></div>
-<div class="line"><a name="l00511"></a><span class="lineno">  511</span>&#160;<span class="comment">// this will ensure that anything which includes this config file will have VORTEX_LIB</span></div>
-<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;<span class="preprocessor">#if defined(PROJECT_NAME_VortexTestingFramework) || defined(PROJECT_NAME_VortexEditor)</span></div>
-<div class="line"><a name="l00513"></a><span class="lineno">  513</span>&#160;<span class="preprocessor">#undef VORTEX_LIB</span></div>
-<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160;<span class="preprocessor">#define VORTEX_LIB</span></div>
-<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160; </div>
-<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;<span class="preprocessor">#undef VORTEX_SLIM</span></div>
-<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160;<span class="preprocessor">#define VORTEX_SLIM 0</span></div>
-<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160; </div>
-<div class="line"><a name="l00521"></a><span class="lineno">  521</span>&#160;<span class="comment">// The test framework needs brighter menu colors can&#39;t really see them on the screen</span></div>
-<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160;<span class="preprocessor">#undef RGB_MENU_RANDOMIZER</span></div>
-<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;<span class="preprocessor">#undef RGB_MENU_MODE_SHARING</span></div>
-<div class="line"><a name="l00524"></a><span class="lineno">  524</span>&#160;<span class="preprocessor">#undef RGB_MENU_EDITOR_CONNECTION</span></div>
-<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160;<span class="preprocessor">#undef RGB_MENU_COLOR_SELECT</span></div>
-<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;<span class="preprocessor">#undef RGB_MENU_PATTERN_SELECT</span></div>
-<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;<span class="preprocessor">#undef RGB_MENU_BRIGHTNESS_SELECT</span></div>
-<div class="line"><a name="l00528"></a><span class="lineno">  528</span>&#160;<span class="preprocessor">#undef RGB_MENU_FACTORY_RESET</span></div>
-<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160;<span class="preprocessor">#define RGB_MENU_RANDOMIZER         RGB_WHITE4</span></div>
-<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;<span class="preprocessor">#define RGB_MENU_MODE_SHARING       RGB_CYAN4</span></div>
-<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;<span class="preprocessor">#define RGB_MENU_EDITOR_CONNECTION  RGB_PURPLE4</span></div>
-<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;<span class="preprocessor">#define RGB_MENU_COLOR_SELECT       RGB_GREEN4</span></div>
-<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;<span class="preprocessor">#define RGB_MENU_PATTERN_SELECT     RGB_BLUE4</span></div>
-<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160;<span class="preprocessor">#define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW4</span></div>
-<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;<span class="preprocessor">#define RGB_MENU_FACTORY_RESET      RGB_RED4</span></div>
-<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160; </div>
-<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160; </div>
-<div class="line"><a name="l00539"></a><span class="lineno">  539</span>&#160;<span class="comment">// This will be defined if the project is being built inside the test framework</span></div>
-<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;<span class="preprocessor">#ifdef PROJECT_NAME_VortexTestingFramework</span></div>
+<div class="line"><a name="l00456"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#acf8b045d8ae40ec763a3853506c5318c">  456</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PUSH_MODES        &quot;f&quot;</span></div>
+<div class="line"><a name="l00457"></a><span class="lineno">  457</span>&#160;<span class="comment">// the response from the gloveset when it received the mode</span></div>
+<div class="line"><a name="l00458"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a0be17f7cbaf6e5a5e8d4f0405d16107e">  458</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PUSH_MODES_ACK    &quot;g&quot;</span></div>
+<div class="line"><a name="l00459"></a><span class="lineno">  459</span>&#160; </div>
+<div class="line"><a name="l00460"></a><span class="lineno">  460</span>&#160;<span class="comment">// the command from the editor to tell the gloveset to demo a mode</span></div>
+<div class="line"><a name="l00461"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad26ec31c94c49d8ef44f5e8bf9c76a0f">  461</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_DEMO_MODE         &quot;h&quot;</span></div>
+<div class="line"><a name="l00462"></a><span class="lineno">  462</span>&#160;<span class="comment">// the response from the gloveset when it&#39;s received the mode to demo</span></div>
+<div class="line"><a name="l00463"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ae724cf64152fa5aeaa588b60bb6c921a">  463</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_DEMO_MODE_ACK     &quot;i&quot;</span></div>
+<div class="line"><a name="l00464"></a><span class="lineno">  464</span>&#160; </div>
+<div class="line"><a name="l00465"></a><span class="lineno">  465</span>&#160;<span class="comment">// the command from the editor to tell the gloveset to clear the demo</span></div>
+<div class="line"><a name="l00466"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ac5aa8d24e62c31d10b6d3b56e6c01d74">  466</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_CLEAR_DEMO        &quot;j&quot;</span></div>
+<div class="line"><a name="l00467"></a><span class="lineno">  467</span>&#160;<span class="comment">// the response from the gloveset when it&#39;s received disabled the demo</span></div>
+<div class="line"><a name="l00468"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad7818b2f91199a1d2f18dec307b5295a">  468</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_CLEAR_DEMO_ACK    &quot;k&quot;</span></div>
+<div class="line"><a name="l00469"></a><span class="lineno">  469</span>&#160; </div>
+<div class="line"><a name="l00470"></a><span class="lineno">  470</span>&#160;<span class="comment">// when the gloveset is leaving the menu and needs to tell the editor</span></div>
+<div class="line"><a name="l00471"></a><span class="lineno">  471</span>&#160;<span class="comment">// that it&#39;s no longer listening</span></div>
+<div class="line"><a name="l00472"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a8e0fa92ffe5b3fdc1a3b19649451d55e">  472</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_GOODBYE           &quot;l&quot;</span></div>
+<div class="line"><a name="l00473"></a><span class="lineno">  473</span>&#160; </div>
+<div class="line"><a name="l00474"></a><span class="lineno">  474</span>&#160;<span class="comment">// when the computer wants to send a mode to the duo it tells the device</span></div>
+<div class="line"><a name="l00475"></a><span class="lineno">  475</span>&#160;<span class="comment">// to transmit over VL and send the current preview mode to the duo</span></div>
+<div class="line"><a name="l00476"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a47b7653f70cd3eaaa89a9868848ea883">  476</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_TRANSMIT_VL       &quot;m&quot;</span></div>
+<div class="line"><a name="l00477"></a><span class="lineno">  477</span>&#160;<span class="comment">// the response from the device when it&#39;s done transmitting the mode</span></div>
+<div class="line"><a name="l00478"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a454b92f5be223e39485cbc86fcc99f3f">  478</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_TRANSMIT_VL_ACK   &quot;n&quot;</span></div>
+<div class="line"><a name="l00479"></a><span class="lineno">  479</span>&#160; </div>
+<div class="line"><a name="l00480"></a><span class="lineno">  480</span>&#160;<span class="comment">// when the pc wants the chromadeck to listen for a mode from the duos</span></div>
+<div class="line"><a name="l00481"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a051236e114bd37bc70f4d2e063422c36">  481</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_LISTEN_VL         &quot;o&quot;</span></div>
+<div class="line"><a name="l00482"></a><span class="lineno">  482</span>&#160;<span class="comment">// and the response for when it&#39;s done fetching a duo mode</span></div>
+<div class="line"><a name="l00483"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a5fa9a6f04cf65e2ffed2568313b6b9fd">  483</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_LISTEN_VL_ACK     &quot;p&quot;</span></div>
+<div class="line"><a name="l00484"></a><span class="lineno">  484</span>&#160; </div>
+<div class="line"><a name="l00485"></a><span class="lineno">  485</span>&#160;<span class="comment">// pull the duo saveheader via the chromalink</span></div>
+<div class="line"><a name="l00486"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aa33fc062841f2d5b83684300798489d5">  486</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PULL_CHROMA_HDR        &quot;q&quot;</span></div>
+<div class="line"><a name="l00487"></a><span class="lineno">  487</span>&#160;<span class="comment">// and the response for when it&#39;s done fetching the modes</span></div>
+<div class="line"><a name="l00488"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a89e20edde3579b92851dd076c952054e">  488</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PULL_CHROMA_HDR_ACK    &quot;r&quot;</span></div>
+<div class="line"><a name="l00489"></a><span class="lineno">  489</span>&#160; </div>
+<div class="line"><a name="l00490"></a><span class="lineno">  490</span>&#160;<span class="comment">// push the duo save header via the chromalink</span></div>
+<div class="line"><a name="l00491"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a61e07bdaa3cf688d9953b2857fb8276d">  491</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PUSH_CHROMA_HDR        &quot;s&quot;</span></div>
+<div class="line"><a name="l00492"></a><span class="lineno">  492</span>&#160;<span class="comment">// and the response for when it&#39;s done pushing the modes</span></div>
+<div class="line"><a name="l00493"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aee234b66af3b5808e23b756bf6b57500">  493</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PUSH_CHROMA_HDR_ACK    &quot;t&quot;</span></div>
+<div class="line"><a name="l00494"></a><span class="lineno">  494</span>&#160; </div>
+<div class="line"><a name="l00495"></a><span class="lineno">  495</span>&#160;<span class="comment">// pull a duo mode via the chromalink</span></div>
+<div class="line"><a name="l00496"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#af5258ddc9068efb3e8f18d2f0f7209d9">  496</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PULL_CHROMA_MODE       &quot;u&quot;</span></div>
+<div class="line"><a name="l00497"></a><span class="lineno">  497</span>&#160;<span class="comment">// and the response for when it&#39;s done fetching the modes</span></div>
+<div class="line"><a name="l00498"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a216df18cb750c86c914cb6c4f6e3714a">  498</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PULL_CHROMA_MODE_ACK   &quot;v&quot;</span></div>
+<div class="line"><a name="l00499"></a><span class="lineno">  499</span>&#160; </div>
+<div class="line"><a name="l00500"></a><span class="lineno">  500</span>&#160;<span class="comment">// push a duo mode via the chromalink</span></div>
+<div class="line"><a name="l00501"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a7b640fdfa5db7f5da188902fc5923144">  501</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PUSH_CHROMA_MODE       &quot;w&quot;</span></div>
+<div class="line"><a name="l00502"></a><span class="lineno">  502</span>&#160;<span class="comment">// and the response for when it&#39;s done pushing the modes</span></div>
+<div class="line"><a name="l00503"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#aa0c4eb197f7f2bf18c1143c5fbdbf027">  503</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PUSH_CHROMA_MODE_ACK   &quot;x&quot;</span></div>
+<div class="line"><a name="l00504"></a><span class="lineno">  504</span>&#160; </div>
+<div class="line"><a name="l00505"></a><span class="lineno">  505</span>&#160;<span class="comment">// pull a single mode</span></div>
+<div class="line"><a name="l00506"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a772643f65ff8684ae49c1f3679085457">  506</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PULL_SINGLE_MODE       &quot;y&quot;</span></div>
+<div class="line"><a name="l00507"></a><span class="lineno">  507</span>&#160;<span class="comment">// and the response for when it&#39;s done</span></div>
+<div class="line"><a name="l00508"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ab8be46a80d8f0e699c168d433e1a891f">  508</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PULL_SINGLE_MODE_ACK   &quot;z&quot;</span></div>
+<div class="line"><a name="l00509"></a><span class="lineno">  509</span>&#160; </div>
+<div class="line"><a name="l00510"></a><span class="lineno">  510</span>&#160;<span class="comment">// push a single mode</span></div>
+<div class="line"><a name="l00511"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a08f192fe33af62c4c7854af033c9f027">  511</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PUSH_SINGLE_MODE       &quot;A&quot;</span></div>
+<div class="line"><a name="l00512"></a><span class="lineno">  512</span>&#160;<span class="comment">// and the response for when it&#39;s done</span></div>
+<div class="line"><a name="l00513"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a2318dbd0254a20e4eae964d6e49c45b1">  513</a></span>&#160;<span class="preprocessor">#define EDITOR_VERB_PUSH_SINGLE_MODE_ACK   &quot;B&quot;</span></div>
+<div class="line"><a name="l00514"></a><span class="lineno">  514</span>&#160; </div>
+<div class="line"><a name="l00515"></a><span class="lineno">  515</span>&#160;<span class="comment">// ===================================================================</span></div>
+<div class="line"><a name="l00516"></a><span class="lineno">  516</span>&#160;<span class="comment">//  Manually Configured Sizes</span></div>
+<div class="line"><a name="l00517"></a><span class="lineno">  517</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00518"></a><span class="lineno">  518</span>&#160;<span class="comment">//  These are the various storage space constants of the vortex device</span></div>
+<div class="line"><a name="l00519"></a><span class="lineno">  519</span>&#160; </div>
+<div class="line"><a name="l00520"></a><span class="lineno">  520</span>&#160;<span class="comment">// maximum size of a mode here</span></div>
+<div class="line"><a name="l00521"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">  521</a></span>&#160;<span class="preprocessor">#define MAX_MODE_SIZE 512</span></div>
+<div class="line"><a name="l00522"></a><span class="lineno">  522</span>&#160; </div>
+<div class="line"><a name="l00523"></a><span class="lineno">  523</span>&#160;<span class="comment">// the number of storage slots for modes, add 1 for the header</span></div>
+<div class="line"><a name="l00524"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ab0c5cc9223512ec01c405592b6741898">  524</a></span>&#160;<span class="preprocessor">#define NUM_MODE_SLOTS (MAX_MODES + 1)</span></div>
+<div class="line"><a name="l00525"></a><span class="lineno">  525</span>&#160; </div>
+<div class="line"><a name="l00526"></a><span class="lineno">  526</span>&#160;<span class="comment">// the space available for storing modes, we can&#39;t make this too big</span></div>
+<div class="line"><a name="l00527"></a><span class="lineno">  527</span>&#160;<span class="comment">// otherwise we will have trouble loading it into memory</span></div>
+<div class="line"><a name="l00528"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">  528</a></span>&#160;<span class="preprocessor">#define STORAGE_SIZE (MAX_MODE_SIZE * NUM_MODE_SLOTS)</span></div>
+<div class="line"><a name="l00529"></a><span class="lineno">  529</span>&#160; </div>
+<div class="line"><a name="l00530"></a><span class="lineno">  530</span>&#160;<span class="comment">// ===================================================================</span></div>
+<div class="line"><a name="l00531"></a><span class="lineno">  531</span>&#160;<span class="comment">//  Test Framework configurations</span></div>
+<div class="line"><a name="l00532"></a><span class="lineno">  532</span>&#160;<span class="comment">//</span></div>
+<div class="line"><a name="l00533"></a><span class="lineno">  533</span>&#160;<span class="comment">//   * Unless you are using the test framework, don&#39;t touch these! *</span></div>
+<div class="line"><a name="l00534"></a><span class="lineno">  534</span>&#160; </div>
+<div class="line"><a name="l00535"></a><span class="lineno">  535</span>&#160;<span class="comment">// These defines come from the project settings for preprocessor, an</span></div>
+<div class="line"><a name="l00536"></a><span class="lineno">  536</span>&#160;<span class="comment">// entry for $(SolutionName) produces preprocessor definitions that</span></div>
+<div class="line"><a name="l00537"></a><span class="lineno">  537</span>&#160;<span class="comment">// match the solution that is compiling the engine</span></div>
+<div class="line"><a name="l00538"></a><span class="lineno">  538</span>&#160;<span class="preprocessor">#if !defined(PROJECT_NAME_VortexTestingFramework) &amp;&amp; !defined(PROJECT_NAME_VortexEditor) &amp;&amp; !defined(VORTEX_LIB)</span></div>
+<div class="line"><a name="l00539"></a><span class="lineno"><a class="line" href="VortexConfig_8h.html#ad9560d402fce790c8e6db0678a4ea9d4">  539</a></span>&#160;<span class="preprocessor">#define VORTEX_EMBEDDED 1</span></div>
+<div class="line"><a name="l00540"></a><span class="lineno">  540</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00541"></a><span class="lineno">  541</span>&#160; </div>
-<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;<span class="comment">// In the test framework variable tickrate must be enabled to allow</span></div>
-<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;<span class="comment">// the tickrate slider to function, also the test framework never runs</span></div>
-<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;<span class="comment">// at full tickrate, maximum is 500 tps</span></div>
-<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;<span class="preprocessor">#undef VARIABLE_TICKRATE</span></div>
-<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;<span class="preprocessor">#define VARIABLE_TICKRATE 1</span></div>
-<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160; </div>
-<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;<span class="preprocessor">#undef DEFAULT_BRIGHTNESS</span></div>
-<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;<span class="preprocessor">#define DEFAULT_BRIGHTNESS 255</span></div>
+<div class="line"><a name="l00542"></a><span class="lineno">  542</span>&#160;<span class="comment">// if building for editor or test framework then we&#39;re building vortex lib, it should</span></div>
+<div class="line"><a name="l00543"></a><span class="lineno">  543</span>&#160;<span class="comment">// be defined in the project settings but sometimes it&#39;s not for example if a cpp file</span></div>
+<div class="line"><a name="l00544"></a><span class="lineno">  544</span>&#160;<span class="comment">// from the test framework includes a header from the engine it might not have VORTEX_LIB</span></div>
+<div class="line"><a name="l00545"></a><span class="lineno">  545</span>&#160;<span class="comment">// this will ensure that anything which includes this config file will have VORTEX_LIB</span></div>
+<div class="line"><a name="l00546"></a><span class="lineno">  546</span>&#160;<span class="preprocessor">#if defined(PROJECT_NAME_VortexTestingFramework) || defined(PROJECT_NAME_VortexEditor)</span></div>
+<div class="line"><a name="l00547"></a><span class="lineno">  547</span>&#160;<span class="preprocessor">#undef VORTEX_LIB</span></div>
+<div class="line"><a name="l00548"></a><span class="lineno">  548</span>&#160;<span class="preprocessor">#define VORTEX_LIB</span></div>
+<div class="line"><a name="l00549"></a><span class="lineno">  549</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00550"></a><span class="lineno">  550</span>&#160; </div>
-<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;<span class="comment">// test framework needs more time to click idk</span></div>
-<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;<span class="preprocessor">#undef CONSECUTIVE_WINDOW</span></div>
-<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;<span class="preprocessor">#define CONSECUTIVE_WINDOW 300</span></div>
+<div class="line"><a name="l00551"></a><span class="lineno">  551</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
+<div class="line"><a name="l00552"></a><span class="lineno">  552</span>&#160;<span class="preprocessor">#undef VORTEX_SLIM</span></div>
+<div class="line"><a name="l00553"></a><span class="lineno">  553</span>&#160;<span class="preprocessor">#define VORTEX_SLIM 0</span></div>
 <div class="line"><a name="l00554"></a><span class="lineno">  554</span>&#160; </div>
-<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;<span class="comment">// force logging to 3 on linux build</span></div>
-<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;<span class="preprocessor">#ifndef _WIN32</span></div>
-<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;<span class="preprocessor">#undef LOGGING_LEVEL</span></div>
-<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;<span class="preprocessor">#define LOGGING_LEVEL 3</span></div>
-<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160; </div>
-<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// VortexTestingFramework</span></div>
-<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160; </div>
-<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;<span class="comment">// This will be defined if the project is being built inside the editor</span></div>
-<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;<span class="preprocessor">#ifdef PROJECT_NAME_VortexEditor</span></div>
-<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160; </div>
-<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// VortexEditor</span></div>
-<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160; </div>
-<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;<span class="comment">// When running in the test framework with demo all patterns enabled</span></div>
-<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;<span class="comment">// we should change the max patterns to the total pattern count because</span></div>
-<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160;<span class="comment">// the test framework can handle the memory usage and we can&#39;t demo</span></div>
-<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;<span class="comment">// all the patterns without the increased limit</span></div>
-<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160;<span class="preprocessor">#if DEMO_ALL_PATTERNS == 1 || SERIALIZATION_TEST == 1 || COMPRESSION_TEST == 1</span></div>
-<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;<span class="preprocessor">  #undef MAX_MODES</span></div>
-<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;<span class="preprocessor">  #include &quot;<a class="code" href="Patterns_8h.html">Patterns/Patterns.h</a>&quot;</span></div>
-<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160;<span class="preprocessor">  #define MAX_MODES           0</span></div>
-<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;<span class="preprocessor">  #undef LOGGING_LEVEL</span></div>
-<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;<span class="preprocessor">  #define LOGGING_LEVEL         3</span></div>
-<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160; </div>
-<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// VORTEX_CONFIG_H</span></div>
+<div class="line"><a name="l00555"></a><span class="lineno">  555</span>&#160;<span class="comment">// The test framework needs brighter menu colors can&#39;t really see them on the screen</span></div>
+<div class="line"><a name="l00556"></a><span class="lineno">  556</span>&#160;<span class="preprocessor">#undef RGB_MENU_RANDOMIZER</span></div>
+<div class="line"><a name="l00557"></a><span class="lineno">  557</span>&#160;<span class="preprocessor">#undef RGB_MENU_MODE_SHARING</span></div>
+<div class="line"><a name="l00558"></a><span class="lineno">  558</span>&#160;<span class="preprocessor">#undef RGB_MENU_EDITOR_CONNECTION</span></div>
+<div class="line"><a name="l00559"></a><span class="lineno">  559</span>&#160;<span class="preprocessor">#undef RGB_MENU_COLOR_SELECT</span></div>
+<div class="line"><a name="l00560"></a><span class="lineno">  560</span>&#160;<span class="preprocessor">#undef RGB_MENU_PATTERN_SELECT</span></div>
+<div class="line"><a name="l00561"></a><span class="lineno">  561</span>&#160;<span class="preprocessor">#undef RGB_MENU_BRIGHTNESS_SELECT</span></div>
+<div class="line"><a name="l00562"></a><span class="lineno">  562</span>&#160;<span class="preprocessor">#undef RGB_MENU_FACTORY_RESET</span></div>
+<div class="line"><a name="l00563"></a><span class="lineno">  563</span>&#160;<span class="preprocessor">#define RGB_MENU_RANDOMIZER         RGB_WHITE4</span></div>
+<div class="line"><a name="l00564"></a><span class="lineno">  564</span>&#160;<span class="preprocessor">#define RGB_MENU_MODE_SHARING       RGB_CYAN4</span></div>
+<div class="line"><a name="l00565"></a><span class="lineno">  565</span>&#160;<span class="preprocessor">#define RGB_MENU_EDITOR_CONNECTION  RGB_PURPLE4</span></div>
+<div class="line"><a name="l00566"></a><span class="lineno">  566</span>&#160;<span class="preprocessor">#define RGB_MENU_COLOR_SELECT       RGB_GREEN4</span></div>
+<div class="line"><a name="l00567"></a><span class="lineno">  567</span>&#160;<span class="preprocessor">#define RGB_MENU_PATTERN_SELECT     RGB_BLUE4</span></div>
+<div class="line"><a name="l00568"></a><span class="lineno">  568</span>&#160;<span class="preprocessor">#define RGB_MENU_BRIGHTNESS_SELECT  RGB_YELLOW4</span></div>
+<div class="line"><a name="l00569"></a><span class="lineno">  569</span>&#160;<span class="preprocessor">#define RGB_MENU_FACTORY_RESET      RGB_RED4</span></div>
+<div class="line"><a name="l00570"></a><span class="lineno">  570</span>&#160; </div>
+<div class="line"><a name="l00571"></a><span class="lineno">  571</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// ifdef VORTEX_LIB</span></div>
+<div class="line"><a name="l00572"></a><span class="lineno">  572</span>&#160; </div>
+<div class="line"><a name="l00573"></a><span class="lineno">  573</span>&#160;<span class="comment">// This will be defined if the project is being built inside the test framework</span></div>
+<div class="line"><a name="l00574"></a><span class="lineno">  574</span>&#160;<span class="preprocessor">#ifdef PROJECT_NAME_VortexTestingFramework</span></div>
+<div class="line"><a name="l00575"></a><span class="lineno">  575</span>&#160; </div>
+<div class="line"><a name="l00576"></a><span class="lineno">  576</span>&#160;<span class="comment">// In the test framework variable tickrate must be enabled to allow</span></div>
+<div class="line"><a name="l00577"></a><span class="lineno">  577</span>&#160;<span class="comment">// the tickrate slider to function, also the test framework never runs</span></div>
+<div class="line"><a name="l00578"></a><span class="lineno">  578</span>&#160;<span class="comment">// at full tickrate, maximum is 500 tps</span></div>
+<div class="line"><a name="l00579"></a><span class="lineno">  579</span>&#160;<span class="preprocessor">#undef VARIABLE_TICKRATE</span></div>
+<div class="line"><a name="l00580"></a><span class="lineno">  580</span>&#160;<span class="preprocessor">#define VARIABLE_TICKRATE 1</span></div>
+<div class="line"><a name="l00581"></a><span class="lineno">  581</span>&#160; </div>
+<div class="line"><a name="l00582"></a><span class="lineno">  582</span>&#160;<span class="preprocessor">#undef DEFAULT_BRIGHTNESS</span></div>
+<div class="line"><a name="l00583"></a><span class="lineno">  583</span>&#160;<span class="preprocessor">#define DEFAULT_BRIGHTNESS 255</span></div>
+<div class="line"><a name="l00584"></a><span class="lineno">  584</span>&#160; </div>
+<div class="line"><a name="l00585"></a><span class="lineno">  585</span>&#160;<span class="comment">// test framework needs more time to click idk</span></div>
+<div class="line"><a name="l00586"></a><span class="lineno">  586</span>&#160;<span class="preprocessor">#undef CONSECUTIVE_WINDOW</span></div>
+<div class="line"><a name="l00587"></a><span class="lineno">  587</span>&#160;<span class="preprocessor">#define CONSECUTIVE_WINDOW 300</span></div>
+<div class="line"><a name="l00588"></a><span class="lineno">  588</span>&#160; </div>
+<div class="line"><a name="l00589"></a><span class="lineno">  589</span>&#160;<span class="comment">// force logging to 3 on linux build</span></div>
+<div class="line"><a name="l00590"></a><span class="lineno">  590</span>&#160;<span class="preprocessor">#ifndef _WIN32</span></div>
+<div class="line"><a name="l00591"></a><span class="lineno">  591</span>&#160;<span class="preprocessor">#undef LOGGING_LEVEL</span></div>
+<div class="line"><a name="l00592"></a><span class="lineno">  592</span>&#160;<span class="preprocessor">#define LOGGING_LEVEL 3</span></div>
+<div class="line"><a name="l00593"></a><span class="lineno">  593</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00594"></a><span class="lineno">  594</span>&#160; </div>
+<div class="line"><a name="l00595"></a><span class="lineno">  595</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// VortexTestingFramework</span></div>
+<div class="line"><a name="l00596"></a><span class="lineno">  596</span>&#160; </div>
+<div class="line"><a name="l00597"></a><span class="lineno">  597</span>&#160;<span class="comment">// This will be defined if the project is being built inside the editor</span></div>
+<div class="line"><a name="l00598"></a><span class="lineno">  598</span>&#160;<span class="preprocessor">#ifdef PROJECT_NAME_VortexEditor</span></div>
+<div class="line"><a name="l00599"></a><span class="lineno">  599</span>&#160; </div>
+<div class="line"><a name="l00600"></a><span class="lineno">  600</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// VortexEditor</span></div>
+<div class="line"><a name="l00601"></a><span class="lineno">  601</span>&#160; </div>
+<div class="line"><a name="l00602"></a><span class="lineno">  602</span>&#160;<span class="comment">// When running various tests lift the max mode limit and enable logging</span></div>
+<div class="line"><a name="l00603"></a><span class="lineno">  603</span>&#160;<span class="preprocessor">#if SERIALIZATION_TEST == 1 || COMPRESSION_TEST == 1</span></div>
+<div class="line"><a name="l00604"></a><span class="lineno">  604</span>&#160;<span class="preprocessor">  #undef MAX_MODES</span></div>
+<div class="line"><a name="l00605"></a><span class="lineno">  605</span>&#160;<span class="preprocessor">  #include &quot;<a class="code" href="Patterns_8h.html">Patterns/Patterns.h</a>&quot;</span></div>
+<div class="line"><a name="l00606"></a><span class="lineno">  606</span>&#160;<span class="preprocessor">  #define MAX_MODES           0</span></div>
+<div class="line"><a name="l00607"></a><span class="lineno">  607</span>&#160;<span class="preprocessor">  #undef LOGGING_LEVEL</span></div>
+<div class="line"><a name="l00608"></a><span class="lineno">  608</span>&#160;<span class="preprocessor">  #define LOGGING_LEVEL         3</span></div>
+<div class="line"><a name="l00609"></a><span class="lineno">  609</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00610"></a><span class="lineno">  610</span>&#160; </div>
+<div class="line"><a name="l00611"></a><span class="lineno">  611</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// VORTEX_CONFIG_H</span></div>
 <div class="ttc" id="aColorConstants_8h_html"><div class="ttname"><a href="ColorConstants_8h.html">ColorConstants.h</a></div></div>
 <div class="ttc" id="aPatterns_8h_html"><div class="ttname"><a href="Patterns_8h.html">Patterns.h</a></div></div>
 </div><!-- fragment --></div><!-- contents -->

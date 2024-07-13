@@ -22,6 +22,8 @@ static bool \mbox{\hyperlink{classButtons_ac5767a8af9ce64e39231833ad1b166ea}{ini
 static void \mbox{\hyperlink{classButtons_a4bee1374d1782a6006faee6f9d9bb792}{cleanup}} ()
 \item 
 static void \mbox{\hyperlink{classButtons_a4e775beebe1f2c6dce04c82ed14741cb}{update}} ()
+\item 
+static uint8\+\_\+t \mbox{\hyperlink{classButtons_a158367c94decbc43a142c79d65d9d49f}{num\+Buttons}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
 \begin{DoxyCompactItemize}
@@ -86,9 +88,9 @@ Definition at line 27 of file Buttons.\+cpp.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{28 \{}
 \DoxyCodeLine{29   \textcolor{comment}{// initialize the button on pins 9/10/11}}
-\DoxyCodeLine{30   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[0].\mbox{\hyperlink{classButtons_ac5767a8af9ce64e39231833ad1b166ea}{init}}(9) ||}
-\DoxyCodeLine{31       !\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[1].\mbox{\hyperlink{classButtons_ac5767a8af9ce64e39231833ad1b166ea}{init}}(10) ||}
-\DoxyCodeLine{32       !\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[2].\mbox{\hyperlink{classButtons_ac5767a8af9ce64e39231833ad1b166ea}{init}}(11)) \{}
+\DoxyCodeLine{30   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[0].\mbox{\hyperlink{classButtons_ac5767a8af9ce64e39231833ad1b166ea}{init}}(5) ||}
+\DoxyCodeLine{31       !\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[1].\mbox{\hyperlink{classButtons_ac5767a8af9ce64e39231833ad1b166ea}{init}}(6) ||}
+\DoxyCodeLine{32       !\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[2].\mbox{\hyperlink{classButtons_ac5767a8af9ce64e39231833ad1b166ea}{init}}(7)) \{}
 \DoxyCodeLine{33     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{34   \}}
 \DoxyCodeLine{35   \mbox{\hyperlink{Buttons_8cpp_ac2fb778cda72cbf314239e9693900b28}{g\_pButtonL}} = \&\mbox{\hyperlink{classButtons_a7344cfab9ec5faf9741216860d6f4390}{m\_buttons}}[0];}
@@ -105,6 +107,25 @@ References g\+\_\+p\+ButtonL, g\+\_\+p\+ButtonM, g\+\_\+p\+ButtonR, and m\+\_\+b
 
 
 Referenced by Vortex\+Engine\+::init().
+
+\mbox{\Hypertarget{classButtons_a158367c94decbc43a142c79d65d9d49f}\label{classButtons_a158367c94decbc43a142c79d65d9d49f}} 
+\index{Buttons@{Buttons}!numButtons@{numButtons}}
+\index{numButtons@{numButtons}!Buttons@{Buttons}}
+\doxysubsubsection{\texorpdfstring{numButtons()}{numButtons()}}
+{\footnotesize\ttfamily static uint8\+\_\+t Buttons\+::num\+Buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}, {\ttfamily [static]}}
+
+
+
+Definition at line 25 of file Buttons.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{25 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\_BUTTONS}}; \}}
+
+\end{DoxyCode}
+
+
+References NUM\+\_\+\+BUTTONS.
 
 \mbox{\Hypertarget{classButtons_a4e775beebe1f2c6dce04c82ed14741cb}\label{classButtons_a4e775beebe1f2c6dce04c82ed14741cb}} 
 \index{Buttons@{Buttons}!update@{update}}
@@ -150,7 +171,7 @@ Referenced by Vortex\+Engine\+::tick().
 
 
 
-Definition at line 27 of file Buttons.\+h.
+Definition at line 29 of file Buttons.\+h.
 
 
 

@@ -616,29 +616,27 @@ References continue\+Sending\+IR(), continue\+Sending\+VL(), m\+\_\+sharing\+Mod
 
 
 
-Definition at line 240 of file Mode\+Sharing.\+cpp.
+Definition at line 239 of file Mode\+Sharing.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{241 \{}
-\DoxyCodeLine{242   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classIRReceiver_aa8c42ac4fffc8e534fafd808e4f5b39e}{IRReceiver::isReceiving}}()) \{}
-\DoxyCodeLine{243     \textcolor{comment}{// using uint32\_t to avoid overflow, the result should be within 10 to 255}}
-\DoxyCodeLine{244     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{classRGBColor}{RGBColor}}(0, \mbox{\hyperlink{classIRReceiver_ae7f5628b174caf0f8db9be7adc53f287}{IRReceiver::percentReceived}}(), 0));}
-\DoxyCodeLine{245   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{246     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
-\DoxyCodeLine{247       \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a21d1c7da7b97340ab1af39d242cc6f22}{play}}();}
-\DoxyCodeLine{248     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{249       \mbox{\hyperlink{classLeds_a1eb73ce70d21bcca85373ab86115c312}{Leds::setMap}}(\mbox{\hyperlink{LedTypes_8h_a8f52a671c9dd65ec3f6100b3e5c59ef4}{MAP\_ALL\_BOT}}, \mbox{\hyperlink{ColorConstants_8h_a71e205a4baa44668f2ef8da64bab7caf}{RGB\_CYAN1}});}
-\DoxyCodeLine{250       \mbox{\hyperlink{classLeds_a1eb73ce70d21bcca85373ab86115c312}{Leds::setMap}}(\mbox{\hyperlink{LedTypes_8h_a7cbada78f08affc080657e5e284bb4e1}{MAP\_RING\_EDGE}}, \mbox{\hyperlink{ColorConstants_8h_a71e205a4baa44668f2ef8da64bab7caf}{RGB\_CYAN1}});}
-\DoxyCodeLine{251       \mbox{\hyperlink{classLeds_a1eb73ce70d21bcca85373ab86115c312}{Leds::setMap}}(\mbox{\hyperlink{LedTypes_8h_a99f9bf25d0b9a27d707b35b438e2ea4b}{MAP\_ALL\_TOP}}, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
-\DoxyCodeLine{252     \}}
-\DoxyCodeLine{253   \}}
-\DoxyCodeLine{254 \}}
+\DoxyCodeLine{240 \{}
+\DoxyCodeLine{241   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classIRReceiver_aa8c42ac4fffc8e534fafd808e4f5b39e}{IRReceiver::isReceiving}}()) \{}
+\DoxyCodeLine{242     \textcolor{comment}{// using uint32\_t to avoid overflow, the result should be within 10 to 255}}
+\DoxyCodeLine{243     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{classRGBColor}{RGBColor}}(0, \mbox{\hyperlink{classIRReceiver_ae7f5628b174caf0f8db9be7adc53f287}{IRReceiver::percentReceived}}(), 0));}
+\DoxyCodeLine{244   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{245     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{246       \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a21d1c7da7b97340ab1af39d242cc6f22}{play}}();}
+\DoxyCodeLine{247     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{248       \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
+\DoxyCodeLine{249     \}}
+\DoxyCodeLine{250   \}}
+\DoxyCodeLine{251 \}}
 
 \end{DoxyCode}
 
 
-References IRReceiver\+::is\+Receiving(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+preview\+Mode, MAP\+\_\+\+ALL\+\_\+\+BOT, MAP\+\_\+\+ALL\+\_\+\+TOP, MAP\+\_\+\+RING\+\_\+\+EDGE, IRReceiver\+::percent\+Received(), Mode\+::play(), RGB\+\_\+\+CYAN1, RGB\+\_\+\+WHITE0, Leds\+::set\+All(), and Leds\+::set\+Map().
+References IRReceiver\+::is\+Receiving(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+preview\+Mode, IRReceiver\+::percent\+Received(), Mode\+::play(), RGB\+\_\+\+WHITE0, and Leds\+::set\+All().
 
 
 
@@ -658,14 +656,13 @@ Definition at line 233 of file Mode\+Sharing.\+cpp.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{234 \{}
 \DoxyCodeLine{235   \textcolor{comment}{// show a dim color when not sending}}
-\DoxyCodeLine{236   \mbox{\hyperlink{classLeds_a1eb73ce70d21bcca85373ab86115c312}{Leds::setMap}}(\mbox{\hyperlink{LedTypes_8h_a8f52a671c9dd65ec3f6100b3e5c59ef4}{MAP\_ALL\_BOT}}, \mbox{\hyperlink{ColorConstants_8h_a71e205a4baa44668f2ef8da64bab7caf}{RGB\_CYAN1}});}
-\DoxyCodeLine{237   \mbox{\hyperlink{classLeds_a1eb73ce70d21bcca85373ab86115c312}{Leds::setMap}}(\mbox{\hyperlink{LedTypes_8h_a7cbada78f08affc080657e5e284bb4e1}{MAP\_RING\_EDGE}}, \mbox{\hyperlink{ColorConstants_8h_a71e205a4baa44668f2ef8da64bab7caf}{RGB\_CYAN1}});}
-\DoxyCodeLine{238 \}}
+\DoxyCodeLine{236   \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{ColorConstants_8h_a71e205a4baa44668f2ef8da64bab7caf}{RGB\_CYAN1}});}
+\DoxyCodeLine{237 \}}
 
 \end{DoxyCode}
 
 
-References MAP\+\_\+\+ALL\+\_\+\+BOT, MAP\+\_\+\+RING\+\_\+\+EDGE, RGB\+\_\+\+CYAN1, and Leds\+::set\+Map().
+References RGB\+\_\+\+CYAN1, and Leds\+::set\+All().
 
 
 

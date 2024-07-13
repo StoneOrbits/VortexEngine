@@ -158,10 +158,10 @@ Macros</h2></td></tr>
 <tr class="separator:abb7ffb49264c3ba40e81b76417829f16"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7431385f7f42f1a99ce555e24231e73b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a7431385f7f42f1a99ce555e24231e73b">ledToFinger</a>(led)&#160;&#160;&#160;<a class="el" href="LedTypes_8h.html#a3fa3f79ccff66d660d1468f23bde6e31">ledToPair</a>(led)</td></tr>
 <tr class="separator:a7431385f7f42f1a99ce555e24231e73b"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aecd0ef877e7f83b0e457d963dc8cd3fd"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#aecd0ef877e7f83b0e457d963dc8cd3fd">setFinger</a>(map,  finger)&#160;&#160;&#160;<a class="el" href="LedTypes_8h.html#a20d782bba21f1567fdf0302d45a0d64c">setPair</a>(map, finger)</td></tr>
-<tr class="separator:aecd0ef877e7f83b0e457d963dc8cd3fd"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:acb8c5fdde5d5b14db524b7d7ec6dbb25"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#acb8c5fdde5d5b14db524b7d7ec6dbb25">checkFinger</a>(map,  finger)&#160;&#160;&#160;<a class="el" href="LedTypes_8h.html#a1b174a309fe85f1d4560afa3230ddc65">checkPair</a>(map, finger)</td></tr>
-<tr class="separator:acb8c5fdde5d5b14db524b7d7ec6dbb25"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a04e72cfc0666f7b51681b59e647ec9c1"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a04e72cfc0666f7b51681b59e647ec9c1">ledmapSetFinger</a>(map,  finger)&#160;&#160;&#160;<a class="el" href="LedTypes_8h.html#ae8eaf2f933c66fef4ffac4b81213d344">ledmapSetPair</a>(map, finger)</td></tr>
+<tr class="separator:a04e72cfc0666f7b51681b59e647ec9c1"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a18896fa590c3f40485a4ebc0f88f26b0"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a18896fa590c3f40485a4ebc0f88f26b0">ledmapCheckFinger</a>(map,  finger)&#160;&#160;&#160;<a class="el" href="LedTypes_8h.html#a2d79cc8ce577773d2b0ee85ca33b9ac4">ledmapCheckPair</a>(map, finger)</td></tr>
+<tr class="separator:a18896fa590c3f40485a4ebc0f88f26b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a57fca593725687711397bdae844376dc"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a57fca593725687711397bdae844376dc">isEven</a>(pos)&#160;&#160;&#160;((pos % 2) == 0)</td></tr>
 <tr class="separator:a57fca593725687711397bdae844376dc"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2f07a4239fa9d919ab4213ec0caa9309"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a2f07a4239fa9d919ab4213ec0caa9309">isOdd</a>(pos)&#160;&#160;&#160;((pos % 2) != 0)</td></tr>
@@ -188,7 +188,7 @@ Macros</h2></td></tr>
 <tr class="separator:ac1d656482a87245262eadf0ac8128d45"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a7942bcfeb3920e179590b97a56ccfede"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a7942bcfeb3920e179590b97a56ccfede">MAP_IS_ONE_LED</a>(map)&#160;&#160;&#160;(map &amp;&amp; !(map &amp; (map-1)))</td></tr>
 <tr class="separator:a7942bcfeb3920e179590b97a56ccfede"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6c29165d5a422a63ed2ba45c01fc5d3b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a6c29165d5a422a63ed2ba45c01fc5d3b">MAP_FOREACH_LED</a>(map)&#160;&#160;&#160;for (<a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> pos = <a class="el" href="LedTypes_8h.html#a8f394c70246f75bd9452c7cea69a4b19">mapGetFirstLed</a>(map); pos &lt; <a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>; pos = <a class="el" href="LedTypes_8h.html#a40567e2b925999b9d718f9444ea7e0b0">mapGetNextLed</a>(map, pos))</td></tr>
+<tr class="memitem:a6c29165d5a422a63ed2ba45c01fc5d3b"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a6c29165d5a422a63ed2ba45c01fc5d3b">MAP_FOREACH_LED</a>(map)&#160;&#160;&#160;for (<a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> pos = <a class="el" href="LedTypes_8h.html#ae8d7e271028055f745f7b1247f080dce">ledmapGetFirstLed</a>(map); pos &lt; <a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>; pos = <a class="el" href="LedTypes_8h.html#afc1a170657262289647c2af99aace527">ledmapGetNextLed</a>(map, pos))</td></tr>
 <tr class="separator:a6c29165d5a422a63ed2ba45c01fc5d3b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9a910b2dc4fabac704e56a0fcb3b97e"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#ac9a910b2dc4fabac704e56a0fcb3b97e">MAP_LED_ALL</a>&#160;&#160;&#160;((2 &lt;&lt; (<a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a> - 1)) - 1)</td></tr>
 <tr class="separator:ac9a910b2dc4fabac704e56a0fcb3b97e"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -220,6 +220,10 @@ Macros</h2></td></tr>
 <tr class="separator:ad4dcaa472a9c4bca4766aac76cffa018"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ad94268f7fb22a5626f510be0043f68ed"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#ad94268f7fb22a5626f510be0043f68ed">MAP_FINGER_EVEN_TOPS</a>&#160;&#160;&#160;(<a class="el" href="LedTypes_8h.html#ac57690fc76ab5b1b3f15b878b0696572">MAP_FINGER_TOP</a>(<a class="el" href="LedTypes_8h.html#aecec19c5aa7204c70c212f120910aa02">FINGER_INDEX</a>) | <a class="el" href="LedTypes_8h.html#ac57690fc76ab5b1b3f15b878b0696572">MAP_FINGER_TOP</a>(<a class="el" href="LedTypes_8h.html#a8d608b541fa0d5b00886a0a9e30e3263">FINGER_RING</a>))</td></tr>
 <tr class="separator:ad94268f7fb22a5626f510be0043f68ed"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a0b2fd1e1daebb382b448f538fb8cbc1d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a0b2fd1e1daebb382b448f538fb8cbc1d">MAP_ODD_FINGERS</a>&#160;&#160;&#160;(<a class="el" href="LedTypes_8h.html#a4e35e5d2aeca92b2365827a089c2d988">MAP_FINGER_ODD_TIPS</a> | <a class="el" href="LedTypes_8h.html#a8694e46b29f06358296019421f68f742">MAP_FINGER_ODD_TOPS</a>)</td></tr>
+<tr class="separator:a0b2fd1e1daebb382b448f538fb8cbc1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acfdbfb1c3c2da99e77eae953fa5fa473"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#acfdbfb1c3c2da99e77eae953fa5fa473">MAP_EVEN_FINGERS</a>&#160;&#160;&#160;(<a class="el" href="LedTypes_8h.html#ad4dcaa472a9c4bca4766aac76cffa018">MAP_FINGER_EVEN_TIPS</a> | <a class="el" href="LedTypes_8h.html#ad94268f7fb22a5626f510be0043f68ed">MAP_FINGER_EVEN_TOPS</a>)</td></tr>
+<tr class="separator:acfdbfb1c3c2da99e77eae953fa5fa473"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
 Typedefs</h2></td></tr>
@@ -271,18 +275,18 @@ Enumerations</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="func-members"></a>
 Functions</h2></td></tr>
-<tr class="memitem:a8f394c70246f75bd9452c7cea69a4b19"><td class="memItemLeft" align="right" valign="top"><a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a8f394c70246f75bd9452c7cea69a4b19">mapGetFirstLed</a> (<a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> map)</td></tr>
-<tr class="separator:a8f394c70246f75bd9452c7cea69a4b19"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a40567e2b925999b9d718f9444ea7e0b0"><td class="memItemLeft" align="right" valign="top"><a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a40567e2b925999b9d718f9444ea7e0b0">mapGetNextLed</a> (<a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> map, <a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> pos)</td></tr>
-<tr class="separator:a40567e2b925999b9d718f9444ea7e0b0"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a99b3613fb4c658dff24ba0f18eda6e31"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a99b3613fb4c658dff24ba0f18eda6e31">setLed</a> (<a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> &amp;map, <a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> pos)</td></tr>
-<tr class="separator:a99b3613fb4c658dff24ba0f18eda6e31"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a20d782bba21f1567fdf0302d45a0d64c"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a20d782bba21f1567fdf0302d45a0d64c">setPair</a> (<a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> &amp;map, <a class="el" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a> pair)</td></tr>
-<tr class="separator:a20d782bba21f1567fdf0302d45a0d64c"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a6b8f8d9c1f8627c817d00a6d33695c1f"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a6b8f8d9c1f8627c817d00a6d33695c1f">checkLed</a> (<a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> map, <a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> pos)</td></tr>
-<tr class="separator:a6b8f8d9c1f8627c817d00a6d33695c1f"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a1b174a309fe85f1d4560afa3230ddc65"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a1b174a309fe85f1d4560afa3230ddc65">checkPair</a> (<a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> map, <a class="el" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a> pair)</td></tr>
-<tr class="separator:a1b174a309fe85f1d4560afa3230ddc65"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8d7e271028055f745f7b1247f080dce"><td class="memItemLeft" align="right" valign="top"><a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#ae8d7e271028055f745f7b1247f080dce">ledmapGetFirstLed</a> (<a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> map)</td></tr>
+<tr class="separator:ae8d7e271028055f745f7b1247f080dce"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc1a170657262289647c2af99aace527"><td class="memItemLeft" align="right" valign="top"><a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#afc1a170657262289647c2af99aace527">ledmapGetNextLed</a> (<a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> map, <a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> pos)</td></tr>
+<tr class="separator:afc1a170657262289647c2af99aace527"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c47d3eb42975a1a8ea5af7bcbc95bde"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a7c47d3eb42975a1a8ea5af7bcbc95bde">ledmapSetLed</a> (<a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> &amp;map, <a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> pos)</td></tr>
+<tr class="separator:a7c47d3eb42975a1a8ea5af7bcbc95bde"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ae8eaf2f933c66fef4ffac4b81213d344"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#ae8eaf2f933c66fef4ffac4b81213d344">ledmapSetPair</a> (<a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> &amp;map, <a class="el" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a> pair)</td></tr>
+<tr class="separator:ae8eaf2f933c66fef4ffac4b81213d344"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:aea87ba7c1e127ef509da9d0e9d238aac"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#aea87ba7c1e127ef509da9d0e9d238aac">ledmapCheckLed</a> (<a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> map, <a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> pos)</td></tr>
+<tr class="separator:aea87ba7c1e127ef509da9d0e9d238aac"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a2d79cc8ce577773d2b0ee85ca33b9ac4"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a2d79cc8ce577773d2b0ee85ca33b9ac4">ledmapCheckPair</a> (<a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> map, <a class="el" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a> pair)</td></tr>
+<tr class="separator:a2d79cc8ce577773d2b0ee85ca33b9ac4"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abc251fca88b16eb10b944dff85c305df"><td class="memItemLeft" align="right" valign="top"><a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> &amp;&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#abc251fca88b16eb10b944dff85c305df">operator++</a> (<a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> &amp;c)</td></tr>
 <tr class="separator:abc251fca88b16eb10b944dff85c305df"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a9f56d4deec5b8ca92cdde467973dadfe"><td class="memItemLeft" align="right" valign="top"><a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="LedTypes_8h.html#a9f56d4deec5b8ca92cdde467973dadfe">operator++</a> (<a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> &amp;c, int)</td></tr>
@@ -305,36 +309,6 @@ Functions</h2></td></tr>
 <tr class="separator:af2d6cc4a5a1dffc90500e5a40084e8c7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
-<a id="acb8c5fdde5d5b14db524b7d7ec6dbb25"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#acb8c5fdde5d5b14db524b7d7ec6dbb25">&#9670;&nbsp;</a></span>checkFinger</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define checkFinger</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">map, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">finger&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="LedTypes_8h.html#a1b174a309fe85f1d4560afa3230ddc65">checkPair</a>(map, finger)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00130">130</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-
-</div>
-</div>
 <a id="acc11b84e9aa32ceb64b9339032d9ae2e"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#acc11b84e9aa32ceb64b9339032d9ae2e">&#9670;&nbsp;</a></span>FINGER_COUNT</h2>
 
@@ -615,6 +589,66 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a18896fa590c3f40485a4ebc0f88f26b0"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a18896fa590c3f40485a4ebc0f88f26b0">&#9670;&nbsp;</a></span>ledmapCheckFinger</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ledmapCheckFinger</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">map, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">finger&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="LedTypes_8h.html#a2d79cc8ce577773d2b0ee85ca33b9ac4">ledmapCheckPair</a>(map, finger)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00130">130</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+
+</div>
+</div>
+<a id="a04e72cfc0666f7b51681b59e647ec9c1"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a04e72cfc0666f7b51681b59e647ec9c1">&#9670;&nbsp;</a></span>ledmapSetFinger</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define ledmapSetFinger</td>
+          <td>(</td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">map, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype">&#160;</td>
+          <td class="paramname">finger&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td>&#160;&#160;&#160;<a class="el" href="LedTypes_8h.html#ae8eaf2f933c66fef4ffac4b81213d344">ledmapSetPair</a>(map, finger)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00129">129</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+
+</div>
+</div>
 <a id="a7431385f7f42f1a99ce555e24231e73b"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a7431385f7f42f1a99ce555e24231e73b">&#9670;&nbsp;</a></span>ledToFinger</h2>
 
@@ -652,6 +686,22 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00141">141</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+
+</div>
+</div>
+<a id="acfdbfb1c3c2da99e77eae953fa5fa473"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acfdbfb1c3c2da99e77eae953fa5fa473">&#9670;&nbsp;</a></span>MAP_EVEN_FINGERS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAP_EVEN_FINGERS&#160;&#160;&#160;(<a class="el" href="LedTypes_8h.html#ad4dcaa472a9c4bca4766aac76cffa018">MAP_FINGER_EVEN_TIPS</a> | <a class="el" href="LedTypes_8h.html#ad94268f7fb22a5626f510be0043f68ed">MAP_FINGER_EVEN_TOPS</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00225">225</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
 
 </div>
 </div>
@@ -822,7 +872,7 @@ Functions</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">map</td><td>)</td>
-          <td>&#160;&#160;&#160;for (<a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> pos = <a class="el" href="LedTypes_8h.html#a8f394c70246f75bd9452c7cea69a4b19">mapGetFirstLed</a>(map); pos &lt; <a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>; pos = <a class="el" href="LedTypes_8h.html#a40567e2b925999b9d718f9444ea7e0b0">mapGetNextLed</a>(map, pos))</td>
+          <td>&#160;&#160;&#160;for (<a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> pos = <a class="el" href="LedTypes_8h.html#ae8d7e271028055f745f7b1247f080dce">ledmapGetFirstLed</a>(map); pos &lt; <a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>; pos = <a class="el" href="LedTypes_8h.html#afc1a170657262289647c2af99aace527">ledmapGetNextLed</a>(map, pos))</td>
         </tr>
       </table>
 </div><div class="memdoc">
@@ -920,6 +970,22 @@ Functions</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00198">198</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+
+</div>
+</div>
+<a id="a0b2fd1e1daebb382b448f538fb8cbc1d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a0b2fd1e1daebb382b448f538fb8cbc1d">&#9670;&nbsp;</a></span>MAP_ODD_FINGERS</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define MAP_ODD_FINGERS&#160;&#160;&#160;(<a class="el" href="LedTypes_8h.html#a4e35e5d2aeca92b2365827a089c2d988">MAP_FINGER_ODD_TIPS</a> | <a class="el" href="LedTypes_8h.html#a8694e46b29f06358296019421f68f742">MAP_FINGER_ODD_TOPS</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00224">224</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
 
 </div>
 </div>
@@ -1215,36 +1281,6 @@ Functions</h2></td></tr>
 
 </div>
 </div>
-<a id="aecd0ef877e7f83b0e457d963dc8cd3fd"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aecd0ef877e7f83b0e457d963dc8cd3fd">&#9670;&nbsp;</a></span>setFinger</h2>
-
-<div class="memitem">
-<div class="memproto">
-      <table class="memname">
-        <tr>
-          <td class="memname">#define setFinger</td>
-          <td>(</td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">map, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype">&#160;</td>
-          <td class="paramname">finger&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td>&#160;&#160;&#160;<a class="el" href="LedTypes_8h.html#a20d782bba21f1567fdf0302d45a0d64c">setPair</a>(map, finger)</td>
-        </tr>
-      </table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00129">129</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-
-</div>
-</div>
 <a id="ad6cd100e07238d371413139da795b7b9"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#ad6cd100e07238d371413139da795b7b9">&#9670;&nbsp;</a></span>THUMB_TIP</h2>
 
@@ -1474,8 +1510,8 @@ Functions</h2></td></tr>
 </div>
 </div>
 <h2 class="groupheader">Function Documentation</h2>
-<a id="a6b8f8d9c1f8627c817d00a6d33695c1f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a6b8f8d9c1f8627c817d00a6d33695c1f">&#9670;&nbsp;</a></span>checkLed()</h2>
+<a id="aea87ba7c1e127ef509da9d0e9d238aac"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aea87ba7c1e127ef509da9d0e9d238aac">&#9670;&nbsp;</a></span>ledmapCheckLed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1484,7 +1520,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool checkLed </td>
+          <td class="memname">bool ledmapCheckLed </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a>&#160;</td>
           <td class="paramname"><em>map</em>, </td>
@@ -1508,17 +1544,17 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00237">237</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;{</div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;  <span class="keywordflow">return</span> ((map &amp; (1ull &lt;&lt; pos)) != 0);</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00240">240</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;{</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  <span class="keywordflow">return</span> ((map &amp; (1ull &lt;&lt; pos)) != 0);</div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="Leds_8cpp_source.html#l00246">Leds::blinkMap()</a>, <a class="el" href="LedTypes_8h_source.html#l00242">checkPair()</a>, <a class="el" href="Leds_8cpp_source.html#l00184">Leds::clearMap()</a>, <a class="el" href="Sequence_8cpp_source.html#l00069">ColorsetMap::setColorsetAt()</a>, <a class="el" href="Leds_8cpp_source.html#l00175">Leds::setMap()</a>, and <a class="el" href="Sequence_8cpp_source.html#l00028">PatternMap::setPatternAt()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Leds_8cpp_source.html#l00268">Leds::blinkMap()</a>, <a class="el" href="Leds_8cpp_source.html#l00194">Leds::clearMap()</a>, <a class="el" href="LedTypes_8h_source.html#l00245">ledmapCheckPair()</a>, <a class="el" href="Sequence_8cpp_source.html#l00075">ColorsetMap::setColorsetAt()</a>, <a class="el" href="Leds_8cpp_source.html#l00185">Leds::setMap()</a>, and <a class="el" href="Sequence_8cpp_source.html#l00028">PatternMap::setPatternAt()</a>.</p>
 
 </div>
 </div>
-<a id="a1b174a309fe85f1d4560afa3230ddc65"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a1b174a309fe85f1d4560afa3230ddc65">&#9670;&nbsp;</a></span>checkPair()</h2>
+<a id="a2d79cc8ce577773d2b0ee85ca33b9ac4"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a2d79cc8ce577773d2b0ee85ca33b9ac4">&#9670;&nbsp;</a></span>ledmapCheckPair()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1527,7 +1563,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname">bool checkPair </td>
+          <td class="memname">bool ledmapCheckPair </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a>&#160;</td>
           <td class="paramname"><em>map</em>, </td>
@@ -1551,20 +1587,20 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00242">242</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;{</div>
-<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="LedTypes_8h.html#a6b8f8d9c1f8627c817d00a6d33695c1f">checkLed</a>(map, <a class="code" href="LedTypes_8h.html#a6a666bad9e79be692de8c77b511cabf0">pairEven</a>(pair)) &amp;&amp; <a class="code" href="LedTypes_8h.html#a6b8f8d9c1f8627c817d00a6d33695c1f">checkLed</a>(map, <a class="code" href="LedTypes_8h.html#aa01e8c3bbb787ec33fdbd2ee3a339b8c">pairOdd</a>(pair));</div>
-<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00245">245</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;{</div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="LedTypes_8h.html#aea87ba7c1e127ef509da9d0e9d238aac">ledmapCheckLed</a>(map, <a class="code" href="LedTypes_8h.html#a6a666bad9e79be692de8c77b511cabf0">pairEven</a>(pair)) &amp;&amp; <a class="code" href="LedTypes_8h.html#aea87ba7c1e127ef509da9d0e9d238aac">ledmapCheckLed</a>(map, <a class="code" href="LedTypes_8h.html#aa01e8c3bbb787ec33fdbd2ee3a339b8c">pairOdd</a>(pair));</div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;}</div>
 <div class="ttc" id="aLedTypes_8h_html_a6a666bad9e79be692de8c77b511cabf0"><div class="ttname"><a href="LedTypes_8h.html#a6a666bad9e79be692de8c77b511cabf0">pairEven</a></div><div class="ttdeci">#define pairEven(pair)</div><div class="ttdef"><b>Definition:</b> <a href="LedTypes_8h_source.html#l00137">LedTypes.h:137</a></div></div>
-<div class="ttc" id="aLedTypes_8h_html_a6b8f8d9c1f8627c817d00a6d33695c1f"><div class="ttname"><a href="LedTypes_8h.html#a6b8f8d9c1f8627c817d00a6d33695c1f">checkLed</a></div><div class="ttdeci">bool checkLed(LedMap map, LedPos pos)</div><div class="ttdef"><b>Definition:</b> <a href="LedTypes_8h_source.html#l00237">LedTypes.h:237</a></div></div>
 <div class="ttc" id="aLedTypes_8h_html_aa01e8c3bbb787ec33fdbd2ee3a339b8c"><div class="ttname"><a href="LedTypes_8h.html#aa01e8c3bbb787ec33fdbd2ee3a339b8c">pairOdd</a></div><div class="ttdeci">#define pairOdd(pair)</div><div class="ttdef"><b>Definition:</b> <a href="LedTypes_8h_source.html#l00138">LedTypes.h:138</a></div></div>
+<div class="ttc" id="aLedTypes_8h_html_aea87ba7c1e127ef509da9d0e9d238aac"><div class="ttname"><a href="LedTypes_8h.html#aea87ba7c1e127ef509da9d0e9d238aac">ledmapCheckLed</a></div><div class="ttdeci">bool ledmapCheckLed(LedMap map, LedPos pos)</div><div class="ttdef"><b>Definition:</b> <a href="LedTypes_8h_source.html#l00240">LedTypes.h:240</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00237">checkLed()</a>, <a class="el" href="LedTypes_8h_source.html#l00137">pairEven</a>, and <a class="el" href="LedTypes_8h_source.html#l00138">pairOdd</a>.</p>
+<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00240">ledmapCheckLed()</a>, <a class="el" href="LedTypes_8h_source.html#l00137">pairEven</a>, and <a class="el" href="LedTypes_8h_source.html#l00138">pairOdd</a>.</p>
 
 </div>
 </div>
-<a id="a8f394c70246f75bd9452c7cea69a4b19"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a8f394c70246f75bd9452c7cea69a4b19">&#9670;&nbsp;</a></span>mapGetFirstLed()</h2>
+<a id="ae8d7e271028055f745f7b1247f080dce"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8d7e271028055f745f7b1247f080dce">&#9670;&nbsp;</a></span>ledmapGetFirstLed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1573,7 +1609,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> mapGetFirstLed </td>
+          <td class="memname"><a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> ledmapGetFirstLed </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a>&#160;</td>
           <td class="paramname"><em>map</em></td><td>)</td>
@@ -1607,12 +1643,12 @@ Functions</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00037">LED_COUNT</a>, <a class="el" href="LedTypes_8h_source.html#l00013">LED_FIRST</a>, <a class="el" href="LedTypes_8h_source.html#l00051">LED_MULTI</a>, and <a class="el" href="LedTypes_8h_source.html#l00148">MAP_LED</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Menu_8cpp_source.html#l00115">Menu::nextBulbSelection()</a>, <a class="el" href="ColorSelect_8cpp_source.html#l00106">ColorSelect::onLedSelected()</a>, and <a class="el" href="ColorSelect_8cpp_source.html#l00060">ColorSelect::run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ColorSelect_8cpp_source.html#l00105">ColorSelect::onLedSelected()</a>, and <a class="el" href="ColorSelect_8cpp_source.html#l00059">ColorSelect::run()</a>.</p>
 
 </div>
 </div>
-<a id="a40567e2b925999b9d718f9444ea7e0b0"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a40567e2b925999b9d718f9444ea7e0b0">&#9670;&nbsp;</a></span>mapGetNextLed()</h2>
+<a id="afc1a170657262289647c2af99aace527"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc1a170657262289647c2af99aace527">&#9670;&nbsp;</a></span>ledmapGetNextLed()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -1621,7 +1657,7 @@ Functions</h2></td></tr>
   <td class="mlabels-left">
       <table class="memname">
         <tr>
-          <td class="memname"><a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> mapGetNextLed </td>
+          <td class="memname"><a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> ledmapGetNextLed </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a>&#160;</td>
           <td class="paramname"><em>map</em>, </td>
@@ -1663,6 +1699,96 @@ Functions</h2></td></tr>
 
 </div>
 </div>
+<a id="a7c47d3eb42975a1a8ea5af7bcbc95bde"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c47d3eb42975a1a8ea5af7bcbc95bde">&#9670;&nbsp;</a></span>ledmapSetLed()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ledmapSetLed </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>&#160;</td>
+          <td class="paramname"><em>pos</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00228">228</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;{</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  <span class="keywordflow">if</span> (pos &lt; <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>) map |= (1ull &lt;&lt; pos);</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00037">LED_COUNT</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="Mode_8cpp_source.html#l00780">Mode::getSingleLedMap()</a>, and <a class="el" href="LedTypes_8h_source.html#l00233">ledmapSetPair()</a>.</p>
+
+</div>
+</div>
+<a id="ae8eaf2f933c66fef4ffac4b81213d344"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ae8eaf2f933c66fef4ffac4b81213d344">&#9670;&nbsp;</a></span>ledmapSetPair()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">void ledmapSetPair </td>
+          <td>(</td>
+          <td class="paramtype"><a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> &amp;&#160;</td>
+          <td class="paramname"><em>map</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
+          <td></td>
+          <td class="paramtype"><a class="el" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a>&#160;</td>
+          <td class="paramname"><em>pair</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00233">233</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;{</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;  <a class="code" href="LedTypes_8h.html#a7c47d3eb42975a1a8ea5af7bcbc95bde">ledmapSetLed</a>(map, <a class="code" href="LedTypes_8h.html#a6a666bad9e79be692de8c77b511cabf0">pairEven</a>(pair));</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  <a class="code" href="LedTypes_8h.html#a7c47d3eb42975a1a8ea5af7bcbc95bde">ledmapSetLed</a>(map, <a class="code" href="LedTypes_8h.html#aa01e8c3bbb787ec33fdbd2ee3a339b8c">pairOdd</a>(pair));</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;}</div>
+<div class="ttc" id="aLedTypes_8h_html_a7c47d3eb42975a1a8ea5af7bcbc95bde"><div class="ttname"><a href="LedTypes_8h.html#a7c47d3eb42975a1a8ea5af7bcbc95bde">ledmapSetLed</a></div><div class="ttdeci">void ledmapSetLed(LedMap &amp;map, LedPos pos)</div><div class="ttdef"><b>Definition:</b> <a href="LedTypes_8h_source.html#l00228">LedTypes.h:228</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00228">ledmapSetLed()</a>, <a class="el" href="LedTypes_8h_source.html#l00137">pairEven</a>, and <a class="el" href="LedTypes_8h_source.html#l00138">pairOdd</a>.</p>
+
+</div>
+</div>
 <a id="a726370103d4483e039d09e054e833154"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a726370103d4483e039d09e054e833154">&#9670;&nbsp;</a></span>operator+() <span class="overload">[1/2]</span></h2>
 
@@ -1697,10 +1823,10 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00259">259</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;{</div>
-<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>)((uint32_t)c + b);</div>
-<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00262">262</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;{</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>)((uint32_t)c + b);</div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1738,10 +1864,10 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00290">290</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;{</div>
-<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a>)((uint32_t)c + b);</div>
-<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00293">293</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;{</div>
+<div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a>)((uint32_t)c + b);</div>
+<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;}</div>
 <div class="ttc" id="aLedTypes_8h_html_a7481ff18cfa60407546e0d4901a6fbb4"><div class="ttname"><a href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a></div><div class="ttdeci">Pair</div><div class="ttdef"><b>Definition:</b> <a href="LedTypes_8h_source.html#l00094">LedTypes.h:95</a></div></div>
 </div><!-- fragment -->
 </div>
@@ -1770,11 +1896,11 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00248">248</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;{</div>
-<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;  c = <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>(((uint32_t)c) + 1);</div>
-<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;  <span class="keywordflow">return</span> c;</div>
-<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00251">251</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;{</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;  c = <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>(((uint32_t)c) + 1);</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  <span class="keywordflow">return</span> c;</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1812,12 +1938,12 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00253">253</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;{</div>
-<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> temp = c;</div>
-<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;  ++c;</div>
-<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  <span class="keywordflow">return</span> temp;</div>
-<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00256">256</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;{</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> temp = c;</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;  ++c;</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;  <span class="keywordflow">return</span> temp;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1845,11 +1971,11 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00279">279</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;{</div>
-<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;  c = <a class="code" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a>(((uint32_t)c) + 1);</div>
-<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;  <span class="keywordflow">return</span> c;</div>
-<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00282">282</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;{</div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;  c = <a class="code" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a>(((uint32_t)c) + 1);</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;  <span class="keywordflow">return</span> c;</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1887,12 +2013,12 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00284">284</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;{</div>
-<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;  <a class="code" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a> temp = c;</div>
-<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160;  ++c;</div>
-<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  <span class="keywordflow">return</span> temp;</div>
-<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00287">287</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;{</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;  <a class="code" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a> temp = c;</div>
+<div class="line"><a name="l00290"></a><span class="lineno">  290</span>&#160;  ++c;</div>
+<div class="line"><a name="l00291"></a><span class="lineno">  291</span>&#160;  <span class="keywordflow">return</span> temp;</div>
+<div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1930,11 +2056,11 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00263">263</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;{</div>
-<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;  c = <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>(((uint32_t)c) + b);</div>
-<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;  <span class="keywordflow">return</span> c;</div>
-<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00266">266</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;{</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;  c = <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>(((uint32_t)c) + b);</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;  <span class="keywordflow">return</span> c;</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -1972,10 +2098,10 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00268">268</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;{</div>
-<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>)((uint32_t)c - b);</div>
-<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00271">271</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;{</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>)((uint32_t)c - b);</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2013,10 +2139,10 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00294">294</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00295"></a><span class="lineno">  295</span>&#160;{</div>
-<div class="line"><a name="l00296"></a><span class="lineno">  296</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a>)((uint32_t)c - b);</div>
-<div class="line"><a name="l00297"></a><span class="lineno">  297</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00297">297</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00298"></a><span class="lineno">  298</span>&#160;{</div>
+<div class="line"><a name="l00299"></a><span class="lineno">  299</span>&#160;  <span class="keywordflow">return</span> (<a class="code" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a>)((uint32_t)c - b);</div>
+<div class="line"><a name="l00300"></a><span class="lineno">  300</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -2054,102 +2180,12 @@ Functions</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00272">272</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;{</div>
-<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;  c = <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>(((uint32_t)c) - b);</div>
-<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  <span class="keywordflow">return</span> c;</div>
-<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00275">275</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;{</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;  c = <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>(((uint32_t)c) - b);</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;  <span class="keywordflow">return</span> c;</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;}</div>
 </div><!-- fragment -->
-</div>
-</div>
-<a id="a99b3613fb4c658dff24ba0f18eda6e31"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a99b3613fb4c658dff24ba0f18eda6e31">&#9670;&nbsp;</a></span>setLed()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void setLed </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> &amp;&#160;</td>
-          <td class="paramname"><em>map</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a>&#160;</td>
-          <td class="paramname"><em>pos</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00225">225</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;{</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="keywordflow">if</span> (pos &lt; <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>) map |= (1ull &lt;&lt; pos);</div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;}</div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00037">LED_COUNT</a>.</p>
-
-<p class="reference">Referenced by <a class="el" href="Mode_8cpp_source.html#l00752">Mode::getSingleLedMap()</a>, and <a class="el" href="LedTypes_8h_source.html#l00230">setPair()</a>.</p>
-
-</div>
-</div>
-<a id="a20d782bba21f1567fdf0302d45a0d64c"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a20d782bba21f1567fdf0302d45a0d64c">&#9670;&nbsp;</a></span>setPair()</h2>
-
-<div class="memitem">
-<div class="memproto">
-<table class="mlabels">
-  <tr>
-  <td class="mlabels-left">
-      <table class="memname">
-        <tr>
-          <td class="memname">void setPair </td>
-          <td>(</td>
-          <td class="paramtype"><a class="el" href="LedTypes_8h.html#adedc81525af6b15084e05deff607a32d">LedMap</a> &amp;&#160;</td>
-          <td class="paramname"><em>map</em>, </td>
-        </tr>
-        <tr>
-          <td class="paramkey"></td>
-          <td></td>
-          <td class="paramtype"><a class="el" href="LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4">Pair</a>&#160;</td>
-          <td class="paramname"><em>pair</em>&#160;</td>
-        </tr>
-        <tr>
-          <td></td>
-          <td>)</td>
-          <td></td><td></td>
-        </tr>
-      </table>
-  </td>
-  <td class="mlabels-right">
-<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
-  </tr>
-</table>
-</div><div class="memdoc">
-
-<p class="definition">Definition at line <a class="el" href="LedTypes_8h_source.html#l00230">230</a> of file <a class="el" href="LedTypes_8h_source.html">LedTypes.h</a>.</p>
-<div class="fragment"><div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;{</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  <a class="code" href="LedTypes_8h.html#a99b3613fb4c658dff24ba0f18eda6e31">setLed</a>(map, <a class="code" href="LedTypes_8h.html#a6a666bad9e79be692de8c77b511cabf0">pairEven</a>(pair));</div>
-<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;  <a class="code" href="LedTypes_8h.html#a99b3613fb4c658dff24ba0f18eda6e31">setLed</a>(map, <a class="code" href="LedTypes_8h.html#aa01e8c3bbb787ec33fdbd2ee3a339b8c">pairOdd</a>(pair));</div>
-<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;}</div>
-<div class="ttc" id="aLedTypes_8h_html_a99b3613fb4c658dff24ba0f18eda6e31"><div class="ttname"><a href="LedTypes_8h.html#a99b3613fb4c658dff24ba0f18eda6e31">setLed</a></div><div class="ttdeci">void setLed(LedMap &amp;map, LedPos pos)</div><div class="ttdef"><b>Definition:</b> <a href="LedTypes_8h_source.html#l00225">LedTypes.h:225</a></div></div>
-</div><!-- fragment -->
-<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00137">pairEven</a>, <a class="el" href="LedTypes_8h_source.html#l00138">pairOdd</a>, and <a class="el" href="LedTypes_8h_source.html#l00225">setLed()</a>.</p>
-
 </div>
 </div>
 </div><!-- contents -->

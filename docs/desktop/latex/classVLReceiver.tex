@@ -135,19 +135,19 @@ Definition at line 64 of file VLReceiver.\+h.
 
 
 
-Definition at line 19 of file VLReceiver.\+cpp.
+Definition at line 15 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{19                                            :}
-\DoxyCodeLine{20   \mbox{\hyperlink{classVLReceiver_a4f000cf67c9f604f0bbdf513c442090a}{m\_engine}}(engine),}
-\DoxyCodeLine{21   \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}(),}
-\DoxyCodeLine{22   \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}}(\mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434}{WAITING\_HEADER\_MARK}}),}
-\DoxyCodeLine{23   \mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}}(0),}
-\DoxyCodeLine{24   \mbox{\hyperlink{classVLReceiver_aa56911b2c08cbff0a1d5e2685d7506f9}{m\_pinState}}(0),}
-\DoxyCodeLine{25   \mbox{\hyperlink{classVLReceiver_a21679e3a4a6e2de40c74804a46572bfd}{m\_previousBytes}}(0)}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27 \}}
+\DoxyCodeLine{15                                            :}
+\DoxyCodeLine{16   \mbox{\hyperlink{classVLReceiver_a4f000cf67c9f604f0bbdf513c442090a}{m\_engine}}(engine),}
+\DoxyCodeLine{17   \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}(),}
+\DoxyCodeLine{18   \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}}(\mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434}{WAITING\_HEADER\_MARK}}),}
+\DoxyCodeLine{19   \mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}}(0),}
+\DoxyCodeLine{20   \mbox{\hyperlink{classVLReceiver_aa56911b2c08cbff0a1d5e2685d7506f9}{m\_pinState}}(0),}
+\DoxyCodeLine{21   \mbox{\hyperlink{classVLReceiver_a21679e3a4a6e2de40c74804a46572bfd}{m\_previousBytes}}(0)}
+\DoxyCodeLine{22 \{}
+\DoxyCodeLine{23 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classVLReceiver_a1b91b6eca5ef986e22184668b3225cdb}\label{classVLReceiver_a1b91b6eca5ef986e22184668b3225cdb}} 
@@ -158,12 +158,12 @@ Definition at line 19 of file VLReceiver.\+cpp.
 
 
 
-Definition at line 29 of file VLReceiver.\+cpp.
+Definition at line 25 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{30 \{}
-\DoxyCodeLine{31 \}}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27 \}}
 
 \end{DoxyCode}
 
@@ -177,65 +177,19 @@ Definition at line 29 of file VLReceiver.\+cpp.
 
 
 
-Definition at line 141 of file VLReceiver.\+cpp.
+Definition at line 94 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{142 \{}
-\DoxyCodeLine{143 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
-\DoxyCodeLine{144   \textcolor{comment}{// Set up the ADC}}
-\DoxyCodeLine{145   \textcolor{comment}{// sample campacitance, VDD reference, prescaler division}}
-\DoxyCodeLine{146   \textcolor{comment}{// Options are:}}
-\DoxyCodeLine{147   \textcolor{comment}{//  0x0 DIV2 CLK\_PER divided by 2 > works}}
-\DoxyCodeLine{148   \textcolor{comment}{//  0x1 DIV4 CLK\_PER divided by 4 > works}}
-\DoxyCodeLine{149   \textcolor{comment}{//  0x2 DIV8 CLK\_PER divided by 8 > works}}
-\DoxyCodeLine{150   \textcolor{comment}{//  0x3 DIV16 CLK\_PER divided by 16 > works}}
-\DoxyCodeLine{151   \textcolor{comment}{//  0x4 DIV32 CLK\_PER divided by 32 > doesn't work}}
-\DoxyCodeLine{152   \textcolor{comment}{//  0x5 DIV64 CLK\_PER divided by 64 > doesn't work}}
-\DoxyCodeLine{153   \textcolor{comment}{//  0x6 DIV128 CLK\_PER divided by 128 > doesn't work}}
-\DoxyCodeLine{154   \textcolor{comment}{//  0x7 DIV256 CLK\_PER divided by 256 > doesn't work}}
-\DoxyCodeLine{155 \textcolor{preprocessor}{\#if (F\_CPU == 20000000)}}
-\DoxyCodeLine{156   ADC0.CTRLC = ADC\_SAMPCAP\_bm | ADC\_REFSEL\_VDDREF\_gc | ADC\_PRESC\_DIV2\_gc;}
-\DoxyCodeLine{157 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{158   ADC0.CTRLC = ADC\_SAMPCAP\_bm | ADC\_REFSEL\_VDDREF\_gc | ADC\_PRESC\_DIV2\_gc;}
-\DoxyCodeLine{159 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{160   \textcolor{comment}{// no sampling delay and no delay variation}}
-\DoxyCodeLine{161   ADC0.CTRLD = 0;}
-\DoxyCodeLine{162   \textcolor{comment}{// sample length}}
-\DoxyCodeLine{163   \textcolor{comment}{//  0 = doesn't work}}
-\DoxyCodeLine{164   \textcolor{comment}{//  1+ = works}}
-\DoxyCodeLine{165   ADC0.SAMPCTRL = 1;}
-\DoxyCodeLine{166   \textcolor{comment}{// Select the analog pin input PB1 (AIN10)}}
-\DoxyCodeLine{167   ADC0.MUXPOS = ADC\_MUXPOS\_AIN10\_gc;}
-\DoxyCodeLine{168   \textcolor{comment}{// Initialize the Window Comparator Mode in above}}
-\DoxyCodeLine{169   ADC0.CTRLE = ADC\_WINCM\_ABOVE\_gc;}
-\DoxyCodeLine{170   \textcolor{comment}{// Set the threshold value very low}}
-\DoxyCodeLine{171   ADC0.WINHT = 0x1;}
-\DoxyCodeLine{172   ADC0.WINLT = 0;}
-\DoxyCodeLine{173   \textcolor{comment}{// set sampling amount}}
-\DoxyCodeLine{174   \textcolor{comment}{//   0x0 NONE No accumulation > doesn't work}}
-\DoxyCodeLine{175   \textcolor{comment}{//   0x1 ACC2 2 results accumulated  > doesn't work}}
-\DoxyCodeLine{176   \textcolor{comment}{//   0x2 ACC4 4 results accumulated  > works okay}}
-\DoxyCodeLine{177   \textcolor{comment}{//   0x3 ACC8 8 results accumulated  > works decent}}
-\DoxyCodeLine{178   \textcolor{comment}{//   0x4 ACC16 16 results accumulated > works very well}}
-\DoxyCodeLine{179   \textcolor{comment}{//   0x5 ACC32 32 results accumulated > works best}}
-\DoxyCodeLine{180   \textcolor{comment}{//   0x6 ACC64 64 results accumulated > doesn't work}}
-\DoxyCodeLine{181   ADC0.CTRLB = \mbox{\hyperlink{VLReceiver_8cpp_a1682c770d91c5d167b621a782be940d4}{SAMPLE\_COUNT}};}
-\DoxyCodeLine{182   \textcolor{comment}{// Enable Window Comparator interrupt}}
-\DoxyCodeLine{183   ADC0.INTCTRL = ADC\_WCMP\_bm;}
-\DoxyCodeLine{184   \textcolor{comment}{// Enable the ADC and start continuous conversions}}
-\DoxyCodeLine{185   ADC0.CTRLA = ADC\_ENABLE\_bm | ADC\_FREERUN\_bm;}
-\DoxyCodeLine{186   \textcolor{comment}{// start the first conversion}}
-\DoxyCodeLine{187   ADC0.COMMAND = ADC\_STCONV\_bm;}
-\DoxyCodeLine{188 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{189   \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
-\DoxyCodeLine{190   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{191 \}}
+\DoxyCodeLine{95 \{}
+\DoxyCodeLine{96   \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
+\DoxyCodeLine{97   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{98 \}}
 
 \end{DoxyCode}
 
 
-References reset\+VLState(), and SAMPLE\+\_\+\+COUNT.
+References reset\+VLState().
 
 \mbox{\Hypertarget{classVLReceiver_ad77be128a316b4fece52edd304543fcf}\label{classVLReceiver_ad77be128a316b4fece52edd304543fcf}} 
 \index{VLReceiver@{VLReceiver}!bytesReceived@{bytesReceived}}
@@ -268,12 +222,12 @@ Referenced by on\+New\+Data().
 
 
 
-Definition at line 81 of file VLReceiver.\+cpp.
+Definition at line 34 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{82 \{}
-\DoxyCodeLine{83 \}}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36 \}}
 
 \end{DoxyCode}
 
@@ -288,27 +242,27 @@ Referenced by Vortex\+Engine\+::cleanup().
 
 
 
-Definition at line 85 of file VLReceiver.\+cpp.
+Definition at line 38 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{86 \{}
-\DoxyCodeLine{87   \textcolor{comment}{// is the receiver actually receiving data?}}
-\DoxyCodeLine{88   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_a70272e1e665654e412f59dfd2dc15bc2}{isReceiving}}()) \{}
-\DoxyCodeLine{89     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{90   \}}
-\DoxyCodeLine{91   uint8\_t blocks = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[0];}
-\DoxyCodeLine{92   uint8\_t remainder = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
-\DoxyCodeLine{93   uint32\_t total = ((blocks -\/ 1) * 32) + remainder;}
-\DoxyCodeLine{94   \textcolor{keywordflow}{if} (!total || total > \mbox{\hyperlink{VLConfig_8h_a5531f46c73b52342bc76a5423252c745}{VL\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{95     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad VL Data size: \%u"{}}, total);}
-\DoxyCodeLine{96     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{97   \}}
-\DoxyCodeLine{98   \textcolor{comment}{// if there are size + 2 bytes in the VLData receiver}}
-\DoxyCodeLine{99   \textcolor{comment}{// then a full message is ready, the + 2 is from the}}
-\DoxyCodeLine{100   \textcolor{comment}{// two bytes for blocks + remainder that are sent first}}
-\DoxyCodeLine{101   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() >= (uint32\_t)(total + 2));}
-\DoxyCodeLine{102 \}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40   \textcolor{comment}{// is the receiver actually receiving data?}}
+\DoxyCodeLine{41   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_a70272e1e665654e412f59dfd2dc15bc2}{isReceiving}}()) \{}
+\DoxyCodeLine{42     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{43   \}}
+\DoxyCodeLine{44   uint8\_t blocks = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[0];}
+\DoxyCodeLine{45   uint8\_t remainder = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
+\DoxyCodeLine{46   uint32\_t total = ((blocks -\/ 1) * 32) + remainder;}
+\DoxyCodeLine{47   \textcolor{keywordflow}{if} (!total || total > \mbox{\hyperlink{VLConfig_8h_a5531f46c73b52342bc76a5423252c745}{VL\_MAX\_DATA\_TRANSFER}}) \{}
+\DoxyCodeLine{48     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad VL Data size: \%u"{}}, total);}
+\DoxyCodeLine{49     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{50   \}}
+\DoxyCodeLine{51   \textcolor{comment}{// if there are size + 2 bytes in the VLData receiver}}
+\DoxyCodeLine{52   \textcolor{comment}{// then a full message is ready, the + 2 is from the}}
+\DoxyCodeLine{53   \textcolor{comment}{// two bytes for blocks + remainder that are sent first}}
+\DoxyCodeLine{54   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() >= (uint32\_t)(total + 2));}
+\DoxyCodeLine{55 \}}
 
 \end{DoxyCode}
 
@@ -323,19 +277,14 @@ References Bit\+Stream\+::bytepos(), Bit\+Stream\+::data(), DEBUG\+\_\+\+LOGF, i
 
 
 
-Definition at line 193 of file VLReceiver.\+cpp.
+Definition at line 100 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{194 \{}
-\DoxyCodeLine{195 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
-\DoxyCodeLine{196   \textcolor{comment}{// Stop conversions and disable the ADC}}
-\DoxyCodeLine{197   ADC0.CTRLA \&= \string~(ADC\_ENABLE\_bm | ADC\_FREERUN\_bm);}
-\DoxyCodeLine{198   ADC0.INTCTRL = 0;}
-\DoxyCodeLine{199 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{200   \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
-\DoxyCodeLine{201   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{202 \}}
+\DoxyCodeLine{101 \{}
+\DoxyCodeLine{102   \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
+\DoxyCodeLine{103   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{104 \}}
 
 \end{DoxyCode}
 
@@ -350,48 +299,48 @@ References reset\+VLState().
 
 
 
-Definition at line 262 of file VLReceiver.\+cpp.
+Definition at line 164 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{263 \{}
-\DoxyCodeLine{264   \textcolor{comment}{// if the diff is too long or too short then it's not useful}}
-\DoxyCodeLine{265   \textcolor{keywordflow}{if} ((diff > \mbox{\hyperlink{VLConfig_8h_a69a47bf818637f670f5e0297b0a14494}{VL\_HEADER\_MARK\_MAX}} \&\& \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} < \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}{READING\_DATA\_MARK}}) || diff < \mbox{\hyperlink{VLConfig_8h_a4da43561aa22e37bd47c2cbc0f91b3b6}{VL\_TIMING\_MIN}}) \{}
-\DoxyCodeLine{266     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}bad delay: \%u, resetting..."{}}, diff);}
-\DoxyCodeLine{267     \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
-\DoxyCodeLine{268     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{269   \}}
-\DoxyCodeLine{270   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}}) \{}
-\DoxyCodeLine{271   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434}{WAITING\_HEADER\_MARK}}: \textcolor{comment}{// initial state}}
-\DoxyCodeLine{272     \textcolor{keywordflow}{if} (diff >= \mbox{\hyperlink{VLConfig_8h_a1b3bcb9ee4d252ec51e0158a25bcc447}{VL\_HEADER\_SPACE\_MIN}} \&\& diff <= \mbox{\hyperlink{VLConfig_8h_a69a47bf818637f670f5e0297b0a14494}{VL\_HEADER\_MARK\_MAX}}) \{}
-\DoxyCodeLine{273       \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8aabd2b5abd329faa79b2af1f985e3d64d}{WAITING\_HEADER\_SPACE}};}
-\DoxyCodeLine{274     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{275       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad header mark \%u, resetting..."{}}, diff);}
-\DoxyCodeLine{276       \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
-\DoxyCodeLine{277     \}}
-\DoxyCodeLine{278     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{279   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8aabd2b5abd329faa79b2af1f985e3d64d}{WAITING\_HEADER\_SPACE}}:}
-\DoxyCodeLine{280     \textcolor{keywordflow}{if} (diff >= \mbox{\hyperlink{VLConfig_8h_a1b3bcb9ee4d252ec51e0158a25bcc447}{VL\_HEADER\_SPACE\_MIN}} \&\& diff <= \mbox{\hyperlink{VLConfig_8h_a69a47bf818637f670f5e0297b0a14494}{VL\_HEADER\_MARK\_MAX}}) \{}
-\DoxyCodeLine{281       \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}{READING\_DATA\_MARK}};}
-\DoxyCodeLine{282     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{283       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad header space \%u, resetting..."{}}, diff);}
-\DoxyCodeLine{284       \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
-\DoxyCodeLine{285     \}}
-\DoxyCodeLine{286     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{287   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}{READING\_DATA\_MARK}}:}
-\DoxyCodeLine{288     \textcolor{comment}{// classify mark/space based on the timing and write into buffer}}
-\DoxyCodeLine{289     \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a61fad4017cd117aad8c90d91057d2ba3}{write1Bit}}((diff > (\mbox{\hyperlink{VLConfig_8h_a0ec0a4d9a48be677d4d923eadcefe6ce}{VL\_TIMING}} * 2)) ? 1 : 0);}
-\DoxyCodeLine{290     \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a8b4cf7c43de19caaa96a6c9a81530370}{READING\_DATA\_SPACE}};}
-\DoxyCodeLine{291     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{292   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a8b4cf7c43de19caaa96a6c9a81530370}{READING\_DATA\_SPACE}}:}
-\DoxyCodeLine{293     \textcolor{comment}{// the space could be just a regular space, or a gap in between blocks}}
-\DoxyCodeLine{294     \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}{READING\_DATA\_MARK}};}
-\DoxyCodeLine{295     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{296   \textcolor{keywordflow}{default}: \textcolor{comment}{// ??}}
-\DoxyCodeLine{297     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad receive state: \%u"{}}, \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}});}
-\DoxyCodeLine{298     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{299   \}}
-\DoxyCodeLine{300 \}}
+\DoxyCodeLine{165 \{}
+\DoxyCodeLine{166   \textcolor{comment}{// if the diff is too long or too short then it's not useful}}
+\DoxyCodeLine{167   \textcolor{keywordflow}{if} ((diff > \mbox{\hyperlink{VLConfig_8h_a69a47bf818637f670f5e0297b0a14494}{VL\_HEADER\_MARK\_MAX}} \&\& \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} < \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}{READING\_DATA\_MARK}}) || diff < \mbox{\hyperlink{VLConfig_8h_a4da43561aa22e37bd47c2cbc0f91b3b6}{VL\_TIMING\_MIN}}) \{}
+\DoxyCodeLine{168     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}bad delay: \%u, resetting..."{}}, diff);}
+\DoxyCodeLine{169     \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
+\DoxyCodeLine{170     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{171   \}}
+\DoxyCodeLine{172   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}}) \{}
+\DoxyCodeLine{173   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434}{WAITING\_HEADER\_MARK}}: \textcolor{comment}{// initial state}}
+\DoxyCodeLine{174     \textcolor{keywordflow}{if} (diff >= \mbox{\hyperlink{VLConfig_8h_a1b3bcb9ee4d252ec51e0158a25bcc447}{VL\_HEADER\_SPACE\_MIN}} \&\& diff <= \mbox{\hyperlink{VLConfig_8h_a69a47bf818637f670f5e0297b0a14494}{VL\_HEADER\_MARK\_MAX}}) \{}
+\DoxyCodeLine{175       \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8aabd2b5abd329faa79b2af1f985e3d64d}{WAITING\_HEADER\_SPACE}};}
+\DoxyCodeLine{176     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{177       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad header mark \%u, resetting..."{}}, diff);}
+\DoxyCodeLine{178       \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
+\DoxyCodeLine{179     \}}
+\DoxyCodeLine{180     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{181   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8aabd2b5abd329faa79b2af1f985e3d64d}{WAITING\_HEADER\_SPACE}}:}
+\DoxyCodeLine{182     \textcolor{keywordflow}{if} (diff >= \mbox{\hyperlink{VLConfig_8h_a1b3bcb9ee4d252ec51e0158a25bcc447}{VL\_HEADER\_SPACE\_MIN}} \&\& diff <= \mbox{\hyperlink{VLConfig_8h_a69a47bf818637f670f5e0297b0a14494}{VL\_HEADER\_MARK\_MAX}}) \{}
+\DoxyCodeLine{183       \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}{READING\_DATA\_MARK}};}
+\DoxyCodeLine{184     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{185       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad header space \%u, resetting..."{}}, diff);}
+\DoxyCodeLine{186       \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
+\DoxyCodeLine{187     \}}
+\DoxyCodeLine{188     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{189   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}{READING\_DATA\_MARK}}:}
+\DoxyCodeLine{190     \textcolor{comment}{// classify mark/space based on the timing and write into buffer}}
+\DoxyCodeLine{191     \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a61fad4017cd117aad8c90d91057d2ba3}{write1Bit}}((diff > (\mbox{\hyperlink{VLConfig_8h_a0ec0a4d9a48be677d4d923eadcefe6ce}{VL\_TIMING}} * 2)) ? 1 : 0);}
+\DoxyCodeLine{192     \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a8b4cf7c43de19caaa96a6c9a81530370}{READING\_DATA\_SPACE}};}
+\DoxyCodeLine{193     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{194   \textcolor{keywordflow}{case} \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a8b4cf7c43de19caaa96a6c9a81530370}{READING\_DATA\_SPACE}}:}
+\DoxyCodeLine{195     \textcolor{comment}{// the space could be just a regular space, or a gap in between blocks}}
+\DoxyCodeLine{196     \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a85d1974b6b9c4a9cf8cf6ad8105019af}{READING\_DATA\_MARK}};}
+\DoxyCodeLine{197     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{198   \textcolor{keywordflow}{default}: \textcolor{comment}{// ??}}
+\DoxyCodeLine{199     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad receive state: \%u"{}}, \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}});}
+\DoxyCodeLine{200     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{201   \}}
+\DoxyCodeLine{202 \}}
 
 \end{DoxyCode}
 
@@ -410,18 +359,13 @@ Referenced by recv\+PCIHandler().
 
 
 
-Definition at line 71 of file VLReceiver.\+cpp.
+Definition at line 29 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{72 \{}
-\DoxyCodeLine{73 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
-\DoxyCodeLine{74   \textcolor{comment}{// Disable digital input buffer on the pin to save power}}
-\DoxyCodeLine{75   PORTB.PIN1CTRL \&= \string~PORT\_ISC\_gm;}
-\DoxyCodeLine{76   PORTB.PIN1CTRL |= PORT\_ISC\_INPUT\_DISABLE\_gc;}
-\DoxyCodeLine{77 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{78   \textcolor{keywordflow}{return} \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}{init}}(\mbox{\hyperlink{VLConfig_8h_a3d88d00f25aa3f045093b65ddf9f234d}{VL\_RECV\_BUF\_SIZE}});}
-\DoxyCodeLine{79 \}}
+\DoxyCodeLine{30 \{}
+\DoxyCodeLine{31   \textcolor{keywordflow}{return} \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}{init}}(\mbox{\hyperlink{VLConfig_8h_a3d88d00f25aa3f045093b65ddf9f234d}{VL\_RECV\_BUF\_SIZE}});}
+\DoxyCodeLine{32 \}}
 
 \end{DoxyCode}
 
@@ -440,17 +384,17 @@ Referenced by Vortex\+Engine\+::init().
 
 
 
-Definition at line 105 of file VLReceiver.\+cpp.
+Definition at line 58 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{106 \{}
-\DoxyCodeLine{107   \textcolor{comment}{// if there are at least 2 bytes in the data buffer then}}
-\DoxyCodeLine{108   \textcolor{comment}{// the receiver is receiving a packet. If there is less}}
-\DoxyCodeLine{109   \textcolor{comment}{// than 2 bytes then we're still waiting for the 'blocks'}}
-\DoxyCodeLine{110   \textcolor{comment}{// and 'remainder' bytes which prefix a packet}}
-\DoxyCodeLine{111   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() > 2);}
-\DoxyCodeLine{112 \}}
+\DoxyCodeLine{59 \{}
+\DoxyCodeLine{60   \textcolor{comment}{// if there are at least 2 bytes in the data buffer then}}
+\DoxyCodeLine{61   \textcolor{comment}{// the receiver is receiving a packet. If there is less}}
+\DoxyCodeLine{62   \textcolor{comment}{// than 2 bytes then we're still waiting for the 'blocks'}}
+\DoxyCodeLine{63   \textcolor{comment}{// and 'remainder' bytes which prefix a packet}}
+\DoxyCodeLine{64   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() > 2);}
+\DoxyCodeLine{65 \}}
 
 \end{DoxyCode}
 
@@ -469,17 +413,17 @@ Referenced by data\+Ready(), and percent\+Received().
 
 
 
-Definition at line 204 of file VLReceiver.\+cpp.
+Definition at line 106 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{205 \{}
-\DoxyCodeLine{206   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLReceiver_ad77be128a316b4fece52edd304543fcf}{bytesReceived}}() == \mbox{\hyperlink{classVLReceiver_a21679e3a4a6e2de40c74804a46572bfd}{m\_previousBytes}}) \{}
-\DoxyCodeLine{207     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{208   \}}
-\DoxyCodeLine{209   \mbox{\hyperlink{classVLReceiver_a21679e3a4a6e2de40c74804a46572bfd}{m\_previousBytes}} = \mbox{\hyperlink{classVLReceiver_ad77be128a316b4fece52edd304543fcf}{bytesReceived}}();}
-\DoxyCodeLine{210   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{211 \}}
+\DoxyCodeLine{107 \{}
+\DoxyCodeLine{108   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLReceiver_ad77be128a316b4fece52edd304543fcf}{bytesReceived}}() == \mbox{\hyperlink{classVLReceiver_a21679e3a4a6e2de40c74804a46572bfd}{m\_previousBytes}}) \{}
+\DoxyCodeLine{109     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{110   \}}
+\DoxyCodeLine{111   \mbox{\hyperlink{classVLReceiver_a21679e3a4a6e2de40c74804a46572bfd}{m\_previousBytes}} = \mbox{\hyperlink{classVLReceiver_ad77be128a316b4fece52edd304543fcf}{bytesReceived}}();}
+\DoxyCodeLine{112   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{113 \}}
 
 \end{DoxyCode}
 
@@ -494,20 +438,20 @@ References bytes\+Received(), and m\+\_\+previous\+Bytes.
 
 
 
-Definition at line 115 of file VLReceiver.\+cpp.
+Definition at line 68 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{116 \{}
-\DoxyCodeLine{117   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_a70272e1e665654e412f59dfd2dc15bc2}{isReceiving}}()) \{}
-\DoxyCodeLine{118     \textcolor{keywordflow}{return} 0;}
-\DoxyCodeLine{119   \}}
-\DoxyCodeLine{120   uint8\_t blocks = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[0];}
-\DoxyCodeLine{121   uint8\_t remainder = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
-\DoxyCodeLine{122   uint16\_t total = ((blocks -\/ 1) * 32) + remainder;}
-\DoxyCodeLine{123   \textcolor{comment}{// round by adding half of the total to the numerator}}
-\DoxyCodeLine{124   \textcolor{keywordflow}{return} (uint8\_t)((uint16\_t)((\mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() * 100 + (total / 2)) / total));}
-\DoxyCodeLine{125 \}}
+\DoxyCodeLine{69 \{}
+\DoxyCodeLine{70   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_a70272e1e665654e412f59dfd2dc15bc2}{isReceiving}}()) \{}
+\DoxyCodeLine{71     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{72   \}}
+\DoxyCodeLine{73   uint8\_t blocks = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[0];}
+\DoxyCodeLine{74   uint8\_t remainder = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
+\DoxyCodeLine{75   uint16\_t total = ((blocks -\/ 1) * 32) + remainder;}
+\DoxyCodeLine{76   \textcolor{comment}{// round by adding half of the total to the numerator}}
+\DoxyCodeLine{77   \textcolor{keywordflow}{return} (uint8\_t)((uint16\_t)((\mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() * 100 + (total / 2)) / total));}
+\DoxyCodeLine{78 \}}
 
 \end{DoxyCode}
 
@@ -522,34 +466,34 @@ References Bit\+Stream\+::bytepos(), Bit\+Stream\+::data(), is\+Receiving(), and
 
 
 
-Definition at line 213 of file VLReceiver.\+cpp.
+Definition at line 115 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{214 \{}
-\DoxyCodeLine{215   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() || \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() > \mbox{\hyperlink{VLConfig_8h_a5531f46c73b52342bc76a5423252c745}{VL\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{216     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Nothing to read, or read too much"{}});}
-\DoxyCodeLine{217     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{218   \}}
-\DoxyCodeLine{219   \textcolor{comment}{// read the size out (blocks + remainder)}}
-\DoxyCodeLine{220   uint8\_t blocks = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[0];}
-\DoxyCodeLine{221   uint8\_t remainder = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
-\DoxyCodeLine{222   \textcolor{comment}{// calculate size from blocks + remainder}}
-\DoxyCodeLine{223   uint32\_t size = ((blocks -\/ 1) * 32) + remainder;}
-\DoxyCodeLine{224   \textcolor{keywordflow}{if} (!size || size > \mbox{\hyperlink{VLConfig_8h_a5531f46c73b52342bc76a5423252c745}{VL\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{225     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad VL Data size: \%u"{}}, size);}
-\DoxyCodeLine{226     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{227   \}}
-\DoxyCodeLine{228   \textcolor{comment}{// the actual data starts 2 bytes later because of the size byte}}
-\DoxyCodeLine{229   \textcolor{keyword}{const} uint8\_t *actualData = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}() + 2;}
-\DoxyCodeLine{230   \textcolor{keywordflow}{if} (!data.\mbox{\hyperlink{classByteStream_a0f89f3776726a6b70248a901c029a305}{rawInit}}(actualData, size)) \{}
-\DoxyCodeLine{231     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to init buffer for VL read"{}});}
-\DoxyCodeLine{232     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{233   \}}
-\DoxyCodeLine{234   \textcolor{comment}{// reset the VL state and receive buffer now}}
-\DoxyCodeLine{235   \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
-\DoxyCodeLine{236   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{237 \}}
+\DoxyCodeLine{116 \{}
+\DoxyCodeLine{117   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() || \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() > \mbox{\hyperlink{VLConfig_8h_a5531f46c73b52342bc76a5423252c745}{VL\_MAX\_DATA\_TRANSFER}}) \{}
+\DoxyCodeLine{118     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Nothing to read, or read too much"{}});}
+\DoxyCodeLine{119     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{120   \}}
+\DoxyCodeLine{121   \textcolor{comment}{// read the size out (blocks + remainder)}}
+\DoxyCodeLine{122   uint8\_t blocks = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[0];}
+\DoxyCodeLine{123   uint8\_t remainder = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
+\DoxyCodeLine{124   \textcolor{comment}{// calculate size from blocks + remainder}}
+\DoxyCodeLine{125   uint32\_t size = ((blocks -\/ 1) * 32) + remainder;}
+\DoxyCodeLine{126   \textcolor{keywordflow}{if} (!size || size > \mbox{\hyperlink{VLConfig_8h_a5531f46c73b52342bc76a5423252c745}{VL\_MAX\_DATA\_TRANSFER}}) \{}
+\DoxyCodeLine{127     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad VL Data size: \%u"{}}, size);}
+\DoxyCodeLine{128     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{129   \}}
+\DoxyCodeLine{130   \textcolor{comment}{// the actual data starts 2 bytes later because of the size byte}}
+\DoxyCodeLine{131   \textcolor{keyword}{const} uint8\_t *actualData = \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}() + 2;}
+\DoxyCodeLine{132   \textcolor{keywordflow}{if} (!data.\mbox{\hyperlink{classByteStream_a0f89f3776726a6b70248a901c029a305}{rawInit}}(actualData, size)) \{}
+\DoxyCodeLine{133     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to init buffer for VL read"{}});}
+\DoxyCodeLine{134     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{135   \}}
+\DoxyCodeLine{136   \textcolor{comment}{// reset the VL state and receive buffer now}}
+\DoxyCodeLine{137   \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
+\DoxyCodeLine{138   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{139 \}}
 
 \end{DoxyCode}
 
@@ -568,22 +512,22 @@ Referenced by receive\+Mode().
 
 
 
-Definition at line 127 of file VLReceiver.\+cpp.
+Definition at line 80 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{128 \{}
-\DoxyCodeLine{129   \mbox{\hyperlink{classByteStream}{ByteStream}} buf;}
-\DoxyCodeLine{130   \textcolor{comment}{// read from the receive buffer into the byte stream}}
-\DoxyCodeLine{131   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_ab46186e351091b92acdfe8bae1503f68}{read}}(buf)) \{}
-\DoxyCodeLine{132     \textcolor{comment}{// no data to read right now, or an error}}
-\DoxyCodeLine{133     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}No data available to read, or error reading"{}});}
-\DoxyCodeLine{134     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{135   \}}
-\DoxyCodeLine{136   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Received \%u bytes"{}}, buf.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
-\DoxyCodeLine{137   \textcolor{comment}{// load the data into the target mode}}
-\DoxyCodeLine{138   \textcolor{keywordflow}{return} pMode-\/>\mbox{\hyperlink{classMode_a31ed6fbb39ca7876e415fc58bc18d630}{loadFromBuffer}}(buf);}
-\DoxyCodeLine{139 \}}
+\DoxyCodeLine{81 \{}
+\DoxyCodeLine{82   \mbox{\hyperlink{classByteStream}{ByteStream}} buf;}
+\DoxyCodeLine{83   \textcolor{comment}{// read from the receive buffer into the byte stream}}
+\DoxyCodeLine{84   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_ab46186e351091b92acdfe8bae1503f68}{read}}(buf)) \{}
+\DoxyCodeLine{85     \textcolor{comment}{// no data to read right now, or an error}}
+\DoxyCodeLine{86     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}No data available to read, or error reading"{}});}
+\DoxyCodeLine{87     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{88   \}}
+\DoxyCodeLine{89   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Received \%u bytes"{}}, buf.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
+\DoxyCodeLine{90   \textcolor{comment}{// load the data into the target mode}}
+\DoxyCodeLine{91   \textcolor{keywordflow}{return} pMode-\/>\mbox{\hyperlink{classMode_a31ed6fbb39ca7876e415fc58bc18d630}{loadFromBuffer}}(buf);}
+\DoxyCodeLine{92 \}}
 
 \end{DoxyCode}
 
@@ -598,38 +542,34 @@ References DEBUG\+\_\+\+LOG, DEBUG\+\_\+\+LOGF, Mode\+::load\+From\+Buffer(), By
 
 
 
-Definition at line 240 of file VLReceiver.\+cpp.
+Definition at line 142 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{241 \{}
-\DoxyCodeLine{242   \textcolor{comment}{// toggle the tracked pin state no matter what}}
-\DoxyCodeLine{243   \mbox{\hyperlink{classVLReceiver_aa56911b2c08cbff0a1d5e2685d7506f9}{m\_pinState}} = (uint8\_t)!\mbox{\hyperlink{classVLReceiver_aa56911b2c08cbff0a1d5e2685d7506f9}{m\_pinState}};}
-\DoxyCodeLine{244   \textcolor{comment}{// grab current time}}
-\DoxyCodeLine{245   uint32\_t now = \mbox{\hyperlink{classVLReceiver_a4f000cf67c9f604f0bbdf513c442090a}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{microseconds}}();}
-\DoxyCodeLine{246   \textcolor{comment}{// check previous time for validity}}
-\DoxyCodeLine{247   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}} || \mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}} > now) \{}
-\DoxyCodeLine{248     \mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}} = now;}
-\DoxyCodeLine{249     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Bad first time diff, resetting..."{}});}
-\DoxyCodeLine{250     \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
-\DoxyCodeLine{251     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{252   \}}
-\DoxyCodeLine{253   \textcolor{comment}{// calc time difference between previous change and now}}
-\DoxyCodeLine{254   uint32\_t diff = (uint32\_t)(now -\/ \mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}});}
-\DoxyCodeLine{255   \textcolor{comment}{// and update the previous changetime for next loop}}
-\DoxyCodeLine{256   \mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}} = now;}
-\DoxyCodeLine{257   \textcolor{comment}{// handle the bliank duration and process it}}
-\DoxyCodeLine{258   \mbox{\hyperlink{classVLReceiver_a09b9dcb3e525815baf74092e70ef5ab0}{handleVLTiming}}(diff);}
-\DoxyCodeLine{259 \}}
+\DoxyCodeLine{143 \{}
+\DoxyCodeLine{144   \textcolor{comment}{// toggle the tracked pin state no matter what}}
+\DoxyCodeLine{145   \mbox{\hyperlink{classVLReceiver_aa56911b2c08cbff0a1d5e2685d7506f9}{m\_pinState}} = (uint8\_t)!\mbox{\hyperlink{classVLReceiver_aa56911b2c08cbff0a1d5e2685d7506f9}{m\_pinState}};}
+\DoxyCodeLine{146   \textcolor{comment}{// grab current time}}
+\DoxyCodeLine{147   uint32\_t now = \mbox{\hyperlink{classVLReceiver_a4f000cf67c9f604f0bbdf513c442090a}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{microseconds}}();}
+\DoxyCodeLine{148   \textcolor{comment}{// check previous time for validity}}
+\DoxyCodeLine{149   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}} || \mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}} > now) \{}
+\DoxyCodeLine{150     \mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}} = now;}
+\DoxyCodeLine{151     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Bad first time diff, resetting..."{}});}
+\DoxyCodeLine{152     \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{resetVLState}}();}
+\DoxyCodeLine{153     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{154   \}}
+\DoxyCodeLine{155   \textcolor{comment}{// calc time difference between previous change and now}}
+\DoxyCodeLine{156   uint32\_t diff = (uint32\_t)(now -\/ \mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}});}
+\DoxyCodeLine{157   \textcolor{comment}{// and update the previous changetime for next loop}}
+\DoxyCodeLine{158   \mbox{\hyperlink{classVLReceiver_a48be4a0ea04c428f7ddd0fa9723a7c35}{m\_prevTime}} = now;}
+\DoxyCodeLine{159   \textcolor{comment}{// handle the bliank duration and process it}}
+\DoxyCodeLine{160   \mbox{\hyperlink{classVLReceiver_a09b9dcb3e525815baf74092e70ef5ab0}{handleVLTiming}}(diff);}
+\DoxyCodeLine{161 \}}
 
 \end{DoxyCode}
 
 
 References DEBUG\+\_\+\+LOG, handle\+VLTiming(), m\+\_\+engine, m\+\_\+pin\+State, m\+\_\+prev\+Time, Time\+::microseconds(), reset\+VLState(), and Vortex\+Engine\+::time().
-
-
-
-Referenced by ISR().
 
 \mbox{\Hypertarget{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}\label{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}} 
 \index{VLReceiver@{VLReceiver}!resetVLState@{resetVLState}}
@@ -639,26 +579,22 @@ Referenced by ISR().
 
 
 
-Definition at line 302 of file VLReceiver.\+cpp.
+Definition at line 204 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{303 \{}
-\DoxyCodeLine{304   \mbox{\hyperlink{classVLReceiver_a21679e3a4a6e2de40c74804a46572bfd}{m\_previousBytes}} = 0;}
-\DoxyCodeLine{305   \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434}{WAITING\_HEADER\_MARK}};}
-\DoxyCodeLine{306   \textcolor{comment}{// zero out the receive buffer and reset bit receiver position}}
-\DoxyCodeLine{307   \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_acbce456dc347c721637941fe47f5a43b}{reset}}();}
-\DoxyCodeLine{308 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
-\DoxyCodeLine{309   \textcolor{comment}{// reset the threshold to a high value so that it can be pulled down again}}
-\DoxyCodeLine{310   \mbox{\hyperlink{VLReceiver_8cpp_ab1306e35299d8bdd10ea0adfbf9827ad}{threshold}} = \mbox{\hyperlink{VLReceiver_8cpp_a292a04597d61ff63dd48bea3ddb5a46c}{THRESHOLD\_BEGIN}};}
-\DoxyCodeLine{311 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{312   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}VL State Reset"{}});}
-\DoxyCodeLine{313 \}}
+\DoxyCodeLine{205 \{}
+\DoxyCodeLine{206   \mbox{\hyperlink{classVLReceiver_a21679e3a4a6e2de40c74804a46572bfd}{m\_previousBytes}} = 0;}
+\DoxyCodeLine{207   \mbox{\hyperlink{classVLReceiver_a0dc793325805e09a0baa610fca179618}{m\_recvState}} = \mbox{\hyperlink{classVLReceiver_aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434}{WAITING\_HEADER\_MARK}};}
+\DoxyCodeLine{208   \textcolor{comment}{// zero out the receive buffer and reset bit receiver position}}
+\DoxyCodeLine{209   \mbox{\hyperlink{classVLReceiver_aea204cc185c040057fbcd408d47a3121}{m\_vlData}}.\mbox{\hyperlink{classBitStream_acbce456dc347c721637941fe47f5a43b}{reset}}();}
+\DoxyCodeLine{210   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}VL State Reset"{}});}
+\DoxyCodeLine{211 \}}
 
 \end{DoxyCode}
 
 
-References DEBUG\+\_\+\+LOG, m\+\_\+previous\+Bytes, m\+\_\+recv\+State, m\+\_\+vl\+Data, Bit\+Stream\+::reset(), threshold, THRESHOLD\+\_\+\+BEGIN, and WAITING\+\_\+\+HEADER\+\_\+\+MARK.
+References DEBUG\+\_\+\+LOG, m\+\_\+previous\+Bytes, m\+\_\+recv\+State, m\+\_\+vl\+Data, Bit\+Stream\+::reset(), and WAITING\+\_\+\+HEADER\+\_\+\+MARK.
 
 
 

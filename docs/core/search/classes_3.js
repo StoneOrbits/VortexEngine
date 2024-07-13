@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['editorconnection_1575',['EditorConnection',['../classEditorConnection.html',1,'']]]
+  ['editorconnection_1580',['EditorConnection',['../classEditorConnection.html',1,'']]]
 ];

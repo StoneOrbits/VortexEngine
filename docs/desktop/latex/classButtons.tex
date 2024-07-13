@@ -28,6 +28,8 @@ void \mbox{\hyperlink{classButtons_a4bee1374d1782a6006faee6f9d9bb792}{cleanup}} 
 void \mbox{\hyperlink{classButtons_a4e775beebe1f2c6dce04c82ed14741cb}{update}} ()
 \item 
 \mbox{\hyperlink{classButton}{Button}} \& \mbox{\hyperlink{classButtons_a89e83dd8be2b52e5f8a7fb849423bcaa}{button}} (uint8\+\_\+t index=0)
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classButtons_a1b440cfbdab10a3913c7207d51f66a7f}{num\+Buttons}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
@@ -156,6 +158,25 @@ References m\+\_\+buttons.
 
 Referenced by Vortex\+Engine\+::init().
 
+\mbox{\Hypertarget{classButtons_a1b440cfbdab10a3913c7207d51f66a7f}\label{classButtons_a1b440cfbdab10a3913c7207d51f66a7f}} 
+\index{Buttons@{Buttons}!numButtons@{numButtons}}
+\index{numButtons@{numButtons}!Buttons@{Buttons}}
+\doxysubsubsection{\texorpdfstring{numButtons()}{numButtons()}}
+{\footnotesize\ttfamily uint8\+\_\+t Buttons\+::num\+Buttons (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 30 of file Buttons.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{30 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\_BUTTONS}}; \}}
+
+\end{DoxyCode}
+
+
+References NUM\+\_\+\+BUTTONS.
+
 \mbox{\Hypertarget{classButtons_a4e775beebe1f2c6dce04c82ed14741cb}\label{classButtons_a4e775beebe1f2c6dce04c82ed14741cb}} 
 \index{Buttons@{Buttons}!update@{update}}
 \index{update@{update}!Buttons@{Buttons}}
@@ -200,7 +221,7 @@ Referenced by Vortex\+Engine\+::tick().
 
 
 
-Definition at line 35 of file Buttons.\+h.
+Definition at line 37 of file Buttons.\+h.
 
 
 
@@ -214,7 +235,7 @@ Referenced by button(), init(), and update().
 
 
 
-Definition at line 32 of file Buttons.\+h.
+Definition at line 34 of file Buttons.\+h.
 
 
 

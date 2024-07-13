@@ -102,10 +102,10 @@ Static Public Member Functions</h2></td></tr>
 <tr class="separator:a065812a8dbd82d731291b5aa7ce3edf9"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a2a1ce108c9a17f6175bfb9a9aba51703"><td class="memItemLeft" align="right" valign="top">static void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStorage.html#a2a1ce108c9a17f6175bfb9a9aba51703">cleanup</a> ()</td></tr>
 <tr class="separator:a2a1ce108c9a17f6175bfb9a9aba51703"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a28703a07e21e576760f1b84202c55a01"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStorage.html#a28703a07e21e576760f1b84202c55a01">write</a> (<a class="el" href="classByteStream.html">ByteStream</a> &amp;buffer)</td></tr>
-<tr class="separator:a28703a07e21e576760f1b84202c55a01"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a5f7d41fcbfbc0840addbaa0345e1594d"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStorage.html#a5f7d41fcbfbc0840addbaa0345e1594d">read</a> (<a class="el" href="classByteStream.html">ByteStream</a> &amp;buffer)</td></tr>
-<tr class="separator:a5f7d41fcbfbc0840addbaa0345e1594d"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acbeeb0de638cf1a1861759150721c0b7"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStorage.html#acbeeb0de638cf1a1861759150721c0b7">write</a> (uint8_t slot, <a class="el" href="classByteStream.html">ByteStream</a> &amp;buffer)</td></tr>
+<tr class="separator:acbeeb0de638cf1a1861759150721c0b7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7c0c5463f59c7028bdcf812fb928ffcd"><td class="memItemLeft" align="right" valign="top">static bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStorage.html#a7c0c5463f59c7028bdcf812fb928ffcd">read</a> (uint8_t slot, <a class="el" href="classByteStream.html">ByteStream</a> &amp;buffer)</td></tr>
+<tr class="separator:a7c0c5463f59c7028bdcf812fb928ffcd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a79176e030af1f92f563c2b19316fe3dd"><td class="memItemLeft" align="right" valign="top">static uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classStorage.html#a79176e030af1f92f563c2b19316fe3dd">lastSaveSize</a> ()</td></tr>
 <tr class="separator:a79176e030af1f92f563c2b19316fe3dd"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -153,9 +153,9 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00042">42</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00052">52</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;{</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
 </div><!-- fragment -->
 </div>
 </div>
@@ -183,11 +183,11 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00056">56</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00066">66</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;{</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00110">VortexEngine::cleanup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00130">VortexEngine::cleanup()</a>.</p>
 
 </div>
 </div>
@@ -215,16 +215,12 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00210">210</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;{</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  <span class="keywordflow">if</span> (index &gt; 255) {</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;    <span class="comment">// USERROW start</span></div>
-<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;    <span class="keywordflow">return</span> *(uint8_t *)(0x1300 + (index &amp; 0xFF));</div>
-<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;  }</div>
-<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  <span class="keywordflow">return</span> *(uint8_t *)(MAPPED_EEPROM_START + index);</div>
-<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00291">291</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00292"></a><span class="lineno">  292</span>&#160;{</div>
+<div class="line"><a name="l00293"></a><span class="lineno">  293</span>&#160;  <span class="keywordflow">return</span> *(<span class="keyword">volatile</span> uint8_t *)(MAPPED_EEPROM_START + index);</div>
+<div class="line"><a name="l00294"></a><span class="lineno">  294</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="Storage_8cpp_source.html#l00115">read()</a>, and <a class="el" href="Storage_8cpp_source.html#l00061">write()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Storage_8cpp_source.html#l00265">eepromWriteByte()</a>.</p>
 
 </div>
 </div>
@@ -262,33 +258,36 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00184">184</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;{</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;  uint16_t adr;</div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  <span class="comment">// The first two pages of the data goes into the eeprom and then the last page goes</span></div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  <span class="comment">// into the USERROW which is located at 0x1300</span></div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  <span class="keywordflow">if</span> (index &gt; 255) {</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    adr = 0x1300 + (index &amp; 0xFF);</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  } <span class="keywordflow">else</span> {</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    adr = MAPPED_EEPROM_START + index;</div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  }</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  __asm__ __volatile__(</div>
-<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;    <span class="stringliteral">&quot;ldi r30, 0x00&quot;</span>     <span class="stringliteral">&quot;\n\t&quot;</span></div>
-<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;    <span class="stringliteral">&quot;ldi r31, 0x10&quot;</span>     <span class="stringliteral">&quot;\n\t&quot;</span></div>
-<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;    <span class="stringliteral">&quot;ldd r18, Z+2&quot;</span>      <span class="stringliteral">&quot;\n\t&quot;</span></div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="stringliteral">&quot;andi r18, 3&quot;</span>       <span class="stringliteral">&quot;\n\t&quot;</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <span class="stringliteral">&quot;brne .-6&quot;</span>          <span class="stringliteral">&quot;\n\t&quot;</span></div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;    <span class="stringliteral">&quot;st X, %0&quot;</span>          <span class="stringliteral">&quot;\n\t&quot;</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="stringliteral">&quot;ldi %0, 0x9D&quot;</span>      <span class="stringliteral">&quot;\n\t&quot;</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;    <span class="stringliteral">&quot;out 0x34, %0&quot;</span>      <span class="stringliteral">&quot;\n\t&quot;</span></div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;    <span class="stringliteral">&quot;ldi %0, 0x03&quot;</span>      <span class="stringliteral">&quot;\n\t&quot;</span></div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="stringliteral">&quot;st Z, %0&quot;</span>          <span class="stringliteral">&quot;\n\t&quot;</span></div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    :<span class="stringliteral">&quot;+d&quot;</span>(in)</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;    : <span class="stringliteral">&quot;x&quot;</span>(adr)</div>
-<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    : <span class="stringliteral">&quot;r30&quot;</span>, <span class="stringliteral">&quot;r31&quot;</span>, <span class="stringliteral">&quot;r18&quot;</span>);</div>
-<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00265">265</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;{</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classStorage.html#ad564f35a9671864cb0bed1ffa671c63d">eepromReadByte</a>(index) == in) {</div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;  }</div>
+<div class="line"><a name="l00270"></a><span class="lineno">  270</span>&#160;  <span class="comment">// The first two pages of the data goes into the eeprom and then the last page goes</span></div>
+<div class="line"><a name="l00271"></a><span class="lineno">  271</span>&#160;  <span class="comment">// into the USERROW which is located at 0x1300</span></div>
+<div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;  uint16_t adr = MAPPED_EEPROM_START + (index);</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;  __asm__ __volatile__(</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;    <span class="stringliteral">&quot;ldi r30, 0x00&quot;</span>     <span class="stringliteral">&quot;\n\t&quot;</span></div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;    <span class="stringliteral">&quot;ldi r31, 0x10&quot;</span>     <span class="stringliteral">&quot;\n\t&quot;</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;    <span class="stringliteral">&quot;ldd r18, Z+2&quot;</span>      <span class="stringliteral">&quot;\n\t&quot;</span></div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <span class="stringliteral">&quot;andi r18, 3&quot;</span>       <span class="stringliteral">&quot;\n\t&quot;</span></div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <span class="stringliteral">&quot;brne .-6&quot;</span>          <span class="stringliteral">&quot;\n\t&quot;</span></div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;    <span class="stringliteral">&quot;st X, %0&quot;</span>          <span class="stringliteral">&quot;\n\t&quot;</span></div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;    <span class="stringliteral">&quot;ldi %0, 0x9D&quot;</span>      <span class="stringliteral">&quot;\n\t&quot;</span></div>
+<div class="line"><a name="l00281"></a><span class="lineno">  281</span>&#160;    <span class="stringliteral">&quot;out 0x34, %0&quot;</span>      <span class="stringliteral">&quot;\n\t&quot;</span></div>
+<div class="line"><a name="l00282"></a><span class="lineno">  282</span>&#160;    <span class="stringliteral">&quot;ldi %0, 0x03&quot;</span>      <span class="stringliteral">&quot;\n\t&quot;</span></div>
+<div class="line"><a name="l00283"></a><span class="lineno">  283</span>&#160;    <span class="stringliteral">&quot;st Z, %0&quot;</span>          <span class="stringliteral">&quot;\n\t&quot;</span></div>
+<div class="line"><a name="l00284"></a><span class="lineno">  284</span>&#160;    :<span class="stringliteral">&quot;+d&quot;</span>(in)</div>
+<div class="line"><a name="l00285"></a><span class="lineno">  285</span>&#160;    : <span class="stringliteral">&quot;x&quot;</span>(adr)</div>
+<div class="line"><a name="l00286"></a><span class="lineno">  286</span>&#160;    : <span class="stringliteral">&quot;r30&quot;</span>, <span class="stringliteral">&quot;r31&quot;</span>, <span class="stringliteral">&quot;r18&quot;</span>);</div>
+<div class="line"><a name="l00287"></a><span class="lineno">  287</span>&#160; </div>
+<div class="line"><a name="l00288"></a><span class="lineno">  288</span>&#160;  <span class="keywordflow">while</span> (!(NVMCTRL.STATUS &amp; NVMCTRL_EEBUSY_bm));</div>
+<div class="line"><a name="l00289"></a><span class="lineno">  289</span>&#160;}</div>
+<div class="ttc" id="aclassStorage_html_ad564f35a9671864cb0bed1ffa671c63d"><div class="ttname"><a href="classStorage.html#ad564f35a9671864cb0bed1ffa671c63d">Storage::eepromReadByte</a></div><div class="ttdeci">static uint8_t eepromReadByte(uint16_t index)</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8cpp_source.html#l00291">Storage.cpp:291</a></div></div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="Storage_8cpp_source.html#l00061">write()</a>.</p>
+<p class="reference">References <a class="el" href="Storage_8cpp_source.html#l00291">eepromReadByte()</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="Storage_8cpp_source.html#l00074">write()</a>.</p>
 
 </div>
 </div>
@@ -315,15 +314,15 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00046">46</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  <span class="keywordflow">if</span> (!m_storageFilename.length() &amp;&amp; Vortex::storageEnabled()) {</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;    m_storageFilename = <a class="code" href="Storage_8cpp.html#a3afbe062209d42a72bc5b4a03a86206a">DEFAULT_STORAGE_FILENAME</a>;</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  }</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00056">56</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;{</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">if</span> (!m_storageFilename.length() &amp;&amp; Vortex::storageEnabled()) {</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    m_storageFilename = <a class="code" href="Storage_8cpp.html#a3afbe062209d42a72bc5b4a03a86206a">DEFAULT_STORAGE_FILENAME</a>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;}</div>
 <div class="ttc" id="aStorage_8cpp_html_a3afbe062209d42a72bc5b4a03a86206a"><div class="ttname"><a href="Storage_8cpp.html#a3afbe062209d42a72bc5b4a03a86206a">DEFAULT_STORAGE_FILENAME</a></div><div class="ttdeci">#define DEFAULT_STORAGE_FILENAME</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8cpp_source.html#l00031">Storage.cpp:31</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Storage_8cpp_source.html#l00031">DEFAULT_STORAGE_FILENAME</a>.</p>
@@ -355,18 +354,18 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00177">177</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;{</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classStorage.html#ae85ca521ae89c408fb045d2890951458">m_lastSaveSize</a>;</div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00258">258</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;{</div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classStorage.html#ae85ca521ae89c408fb045d2890951458">m_lastSaveSize</a>;</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;}</div>
 <div class="ttc" id="aclassStorage_html_ae85ca521ae89c408fb045d2890951458"><div class="ttname"><a href="classStorage.html#ae85ca521ae89c408fb045d2890951458">Storage::m_lastSaveSize</a></div><div class="ttdeci">static uint32_t m_lastSaveSize</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8h_source.html#l00044">Storage.h:44</a></div></div>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Storage_8h_source.html#l00044">m_lastSaveSize</a>.</p>
 
 </div>
 </div>
-<a id="a5f7d41fcbfbc0840addbaa0345e1594d"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a5f7d41fcbfbc0840addbaa0345e1594d">&#9670;&nbsp;</a></span>read()</h2>
+<a id="a7c0c5463f59c7028bdcf812fb928ffcd"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7c0c5463f59c7028bdcf812fb928ffcd">&#9670;&nbsp;</a></span>read()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -377,9 +376,19 @@ Static Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">bool Storage::read </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classByteStream.html">ByteStream</a> &amp;&#160;</td>
-          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>slot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classByteStream.html">ByteStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -389,89 +398,100 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00115">115</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;{</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <span class="keywordflow">if</span> (!Vortex::storageEnabled()) {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="comment">// return false here, but true in write because we don&#39;t want to return</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="comment">// an empty buffer after returning true</span></div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  uint16_t size = <a class="code" href="VortexConfig_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a>;</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  uint16_t size = *(uint16_t *)MAPPED_EEPROM_START;</div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keywordflow">if</span> (size &gt; <a class="code" href="VortexConfig_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a> || size &lt; <span class="keyword">sizeof</span>(<a class="code" href="structByteStream_1_1RawBuffer.html">ByteStream::RawBuffer</a>) + 4) {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    size = <a class="code" href="VortexConfig_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a>;</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  }</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="keywordflow">if</span> (!buffer.<a class="code" href="classByteStream.html#a0ad269c0275cb8856c44a9ea92c59a1a">init</a>(size)) {</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  }</div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#ifdef VORTEX_EMBEDDED</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="comment">// Read the data from EEPROM first</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  uint8_t *pos = (uint8_t *)buffer.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>();</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  uint16_t fullsize = buffer.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>() + size;</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  <span class="keywordflow">for</span> (uint16_t i = 0; i &lt; fullsize; ++i) {</div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    pos[i] = <a class="code" href="classStorage.html#ad564f35a9671864cb0bed1ffa671c63d">eepromReadByte</a>(i);</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;  }</div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;<span class="preprocessor">#elif defined(_WIN32)</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  HANDLE hFile = CreateFile(<a class="code" href="Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f">STORAGE_FILENAME</a>, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;  <span class="keywordflow">if</span> (hFile == INVALID_HANDLE_VALUE) {</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <span class="comment">// error</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  }</div>
-<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;  DWORD bytesRead = 0;</div>
-<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <span class="keywordflow">if</span> (!ReadFile(hFile, buffer.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>(), size, &amp;bytesRead, NULL)) {</div>
-<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;    <span class="comment">// error</span></div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  }</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  CloseHandle(hFile);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  FILE *f = fopen(<a class="code" href="Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f">STORAGE_FILENAME</a>, <span class="stringliteral">&quot;r&quot;</span>);</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  <span class="keywordflow">if</span> (!f) {</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  }</div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  <span class="keywordflow">if</span> (!fread(buffer.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>(), <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>), size, f)) {</div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  }</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  fclose(f);</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  <span class="comment">// ensure the internal buffer is sane after reading it out, this</span></div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  <span class="comment">// prevents segfaults if the internal size reports larger than capacity</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  buffer.<a class="code" href="classByteStream.html#ae65462bc14d268fcf0ffccf65f878762">sanity</a>();</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  <span class="comment">// check crc immediately since we read into raw data copying the</span></div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  <span class="comment">// array could be dangerous</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  <span class="keywordflow">if</span> (!buffer.<a class="code" href="classByteStream.html#ae3412b7f08252fa2baab4b11cb8c2484">checkCRC</a>()) {</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;    buffer.<a class="code" href="classByteStream.html#a854e5507f550826478fd7141074a4bb5">clear</a>();</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;    <a class="code" href="Log_8h.html#aa12d9b2ced7332bfbb9391da9617561a">ERROR_LOG</a>(<span class="stringliteral">&quot;Could not verify buffer&quot;</span>);</div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  }</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  <a class="code" href="classStorage.html#ae85ca521ae89c408fb045d2890951458">m_lastSaveSize</a> = size;</div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Loaded savedata (Size: %u)&quot;</span>, buffer.<a class="code" href="classByteStream.html#adf87e444e828287c0a43cab2958ca01b">size</a>());</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;}</div>
-<div class="ttc" id="aLog_8h_html_a8bdccae09f7cdda8fb311e0bd81c35dc"><div class="ttname"><a href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a></div><div class="ttdeci">#define DEBUG_LOGF(msg,...)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00041">Log.h:41</a></div></div>
-<div class="ttc" id="aLog_8h_html_aa12d9b2ced7332bfbb9391da9617561a"><div class="ttname"><a href="Log_8h.html#aa12d9b2ced7332bfbb9391da9617561a">ERROR_LOG</a></div><div class="ttdeci">#define ERROR_LOG(msg)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00029">Log.h:29</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00187">187</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;{</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  <span class="keywordflow">if</span> (!Vortex::storageEnabled()) {</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <span class="comment">// return false here, but true in write because we don&#39;t want to return</span></div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <span class="comment">// an empty buffer after returning true</span></div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  }</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  uint32_t size = <a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a>;</div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;  <span class="keywordflow">if</span> (size &gt; <a class="code" href="VortexConfig_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a> || size &lt; <span class="keyword">sizeof</span>(<a class="code" href="structByteStream_1_1RawBuffer.html">ByteStream::RawBuffer</a>) + 4 || slot &gt;= <a class="code" href="VortexConfig_8h.html#ab0c5cc9223512ec01c405592b6741898">NUM_MODE_SLOTS</a>) {</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  }</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  <span class="keywordflow">if</span> (!buffer.<a class="code" href="classByteStream.html#a0ad269c0275cb8856c44a9ea92c59a1a">init</a>(size)) {</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  }</div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="preprocessor">#ifdef VORTEX_EMBEDDED</span></div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  uint8_t *buf = (uint8_t *)buffer.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>();</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  <span class="keyword">volatile</span> uint8_t *src;</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  <span class="keywordflow">if</span> (slot == 0) { <span class="comment">// slot 0 is header eeprom</span></div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    src = (<span class="keyword">volatile</span> uint8_t *)MAPPED_EEPROM_START;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;    size = <a class="code" href="Storage_8cpp.html#afb3f89e3b0a79ae35a8a1c0d50ea5b60">STORAGE_HEADER_SIZE</a>;</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;  } <span class="keywordflow">else</span> <span class="keywordflow">if</span> (slot &lt; 4) { <span class="comment">// slots 1-3 are eeprom</span></div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    src = (<span class="keyword">volatile</span> uint8_t *)MAPPED_EEPROM_START + <a class="code" href="Storage_8cpp.html#afb3f89e3b0a79ae35a8a1c0d50ea5b60">STORAGE_HEADER_SIZE</a> + (<a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a> * (slot - 1));</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  } <span class="keywordflow">else</span> { <span class="comment">// slots 4-9 are flash</span></div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;    src = (<span class="keyword">volatile</span> uint8_t *)<a class="code" href="Storage_8cpp.html#af7b86ca9d41a47f96cf528ab36de4891">FLASH_STORAGE_SPACE</a> + (<a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a> * (slot - 4));</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;  }</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; size; ++i) {</div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;    buf[i] = src[i];</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;  }</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;<span class="preprocessor">#elif defined(_WIN32)</span></div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  HANDLE hFile = CreateFile(<a class="code" href="Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f">STORAGE_FILENAME</a>, GENERIC_READ, 0, NULL, OPEN_EXISTING, FILE_ATTRIBUTE_NORMAL, NULL);</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;  <span class="keywordflow">if</span> (hFile == INVALID_HANDLE_VALUE) {</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;    <span class="comment">// error</span></div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;  }</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;  DWORD bytesRead = 0;</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;  DWORD offset = slot * <a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a>;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;  SetFilePointer(hFile, offset, NULL, FILE_BEGIN);</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  <span class="keywordflow">if</span> (!ReadFile(hFile, buffer.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>(), <a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a>, &amp;bytesRead, NULL)) {</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="comment">// error</span></div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  }</div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  CloseHandle(hFile);</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;  FILE *f = fopen(<a class="code" href="Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f">STORAGE_FILENAME</a>, <span class="stringliteral">&quot;r&quot;</span>);</div>
+<div class="line"><a name="l00233"></a><span class="lineno">  233</span>&#160;  <span class="keywordflow">if</span> (!f) {</div>
+<div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;  }</div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  <span class="keywordtype">long</span> offset = slot * <a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a>;</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  fseek(f, offset, SEEK_SET);</div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;  <span class="keywordflow">if</span> (!fread(buffer.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>(), <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>), <a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a>, f)) {</div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;  }</div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;  fclose(f);</div>
+<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;  <span class="comment">// ensure the internal buffer is sane after reading it out, this</span></div>
+<div class="line"><a name="l00244"></a><span class="lineno">  244</span>&#160;  <span class="comment">// prevents segfaults if the internal size reports larger than capacity</span></div>
+<div class="line"><a name="l00245"></a><span class="lineno">  245</span>&#160;  buffer.<a class="code" href="classByteStream.html#ae65462bc14d268fcf0ffccf65f878762">sanity</a>();</div>
+<div class="line"><a name="l00246"></a><span class="lineno">  246</span>&#160;  <span class="comment">// check crc immediately since we read into raw data copying the</span></div>
+<div class="line"><a name="l00247"></a><span class="lineno">  247</span>&#160;  <span class="comment">// array could be dangerous</span></div>
+<div class="line"><a name="l00248"></a><span class="lineno">  248</span>&#160;  <span class="keywordflow">if</span> (!buffer.<a class="code" href="classByteStream.html#ae3412b7f08252fa2baab4b11cb8c2484">checkCRC</a>()) {</div>
+<div class="line"><a name="l00249"></a><span class="lineno">  249</span>&#160;    buffer.<a class="code" href="classByteStream.html#a854e5507f550826478fd7141074a4bb5">clear</a>();</div>
+<div class="line"><a name="l00250"></a><span class="lineno">  250</span>&#160;    <a class="code" href="Log_8h.html#aa12d9b2ced7332bfbb9391da9617561a">ERROR_LOG</a>(<span class="stringliteral">&quot;Could not verify buffer&quot;</span>);</div>
+<div class="line"><a name="l00251"></a><span class="lineno">  251</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00252"></a><span class="lineno">  252</span>&#160;  }</div>
+<div class="line"><a name="l00253"></a><span class="lineno">  253</span>&#160;  <a class="code" href="classStorage.html#ae85ca521ae89c408fb045d2890951458">m_lastSaveSize</a> = size;</div>
+<div class="line"><a name="l00254"></a><span class="lineno">  254</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Loaded savedata (Size: %u)&quot;</span>, buffer.<a class="code" href="classByteStream.html#adf87e444e828287c0a43cab2958ca01b">size</a>());</div>
+<div class="line"><a name="l00255"></a><span class="lineno">  255</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;}</div>
+<div class="ttc" id="aLog_8h_html_a8bdccae09f7cdda8fb311e0bd81c35dc"><div class="ttname"><a href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a></div><div class="ttdeci">#define DEBUG_LOGF(msg,...)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00037">Log.h:37</a></div></div>
+<div class="ttc" id="aLog_8h_html_aa12d9b2ced7332bfbb9391da9617561a"><div class="ttname"><a href="Log_8h.html#aa12d9b2ced7332bfbb9391da9617561a">ERROR_LOG</a></div><div class="ttdeci">#define ERROR_LOG(msg)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00025">Log.h:25</a></div></div>
 <div class="ttc" id="aStorage_8cpp_html_a4a8bec941d32acc2e0c33423a61e661f"><div class="ttname"><a href="Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f">STORAGE_FILENAME</a></div><div class="ttdeci">#define STORAGE_FILENAME</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8cpp_source.html#l00037">Storage.cpp:37</a></div></div>
-<div class="ttc" id="aVortexConfig_8h_html_a8d6f782ffe53d87f0fd0327d4b09352c"><div class="ttname"><a href="VortexConfig_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a></div><div class="ttdeci">#define STORAGE_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00527">VortexConfig.h:527</a></div></div>
+<div class="ttc" id="aStorage_8cpp_html_af7b86ca9d41a47f96cf528ab36de4891"><div class="ttname"><a href="Storage_8cpp.html#af7b86ca9d41a47f96cf528ab36de4891">FLASH_STORAGE_SPACE</a></div><div class="ttdeci">#define FLASH_STORAGE_SPACE</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8cpp_source.html#l00045">Storage.cpp:45</a></div></div>
+<div class="ttc" id="aStorage_8cpp_html_afb3f89e3b0a79ae35a8a1c0d50ea5b60"><div class="ttname"><a href="Storage_8cpp.html#afb3f89e3b0a79ae35a8a1c0d50ea5b60">STORAGE_HEADER_SIZE</a></div><div class="ttdeci">#define STORAGE_HEADER_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8cpp_source.html#l00048">Storage.cpp:48</a></div></div>
+<div class="ttc" id="aVortexConfig_8h_html_a4d5f0e0392f00d31715ddf81eb87434a"><div class="ttname"><a href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a></div><div class="ttdeci">#define MAX_MODE_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00507">VortexConfig.h:507</a></div></div>
+<div class="ttc" id="aVortexConfig_8h_html_a8d6f782ffe53d87f0fd0327d4b09352c"><div class="ttname"><a href="VortexConfig_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a></div><div class="ttdeci">#define STORAGE_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00514">VortexConfig.h:514</a></div></div>
+<div class="ttc" id="aVortexConfig_8h_html_ab0c5cc9223512ec01c405592b6741898"><div class="ttname"><a href="VortexConfig_8h.html#ab0c5cc9223512ec01c405592b6741898">NUM_MODE_SLOTS</a></div><div class="ttdeci">#define NUM_MODE_SLOTS</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00510">VortexConfig.h:510</a></div></div>
 <div class="ttc" id="aclassByteStream_html_a0ad269c0275cb8856c44a9ea92c59a1a"><div class="ttname"><a href="classByteStream.html#a0ad269c0275cb8856c44a9ea92c59a1a">ByteStream::init</a></div><div class="ttdeci">bool init(uint32_t capacity=0, const uint8_t *buf=nullptr)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00082">ByteStream.cpp:82</a></div></div>
-<div class="ttc" id="aclassByteStream_html_a6993f9575592309a501156db31f82554"><div class="ttname"><a href="classByteStream.html#a6993f9575592309a501156db31f82554">ByteStream::rawData</a></div><div class="ttdeci">void * rawData() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00121">ByteStream.h:121</a></div></div>
-<div class="ttc" id="aclassByteStream_html_a755097adde5b21b33d3c4e3623d04f97"><div class="ttname"><a href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">ByteStream::rawSize</a></div><div class="ttdeci">uint32_t rawSize() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00122">ByteStream.h:122</a></div></div>
+<div class="ttc" id="aclassByteStream_html_a6993f9575592309a501156db31f82554"><div class="ttname"><a href="classByteStream.html#a6993f9575592309a501156db31f82554">ByteStream::rawData</a></div><div class="ttdeci">void * rawData() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00109">ByteStream.h:109</a></div></div>
 <div class="ttc" id="aclassByteStream_html_a854e5507f550826478fd7141074a4bb5"><div class="ttname"><a href="classByteStream.html#a854e5507f550826478fd7141074a4bb5">ByteStream::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00107">ByteStream.cpp:107</a></div></div>
-<div class="ttc" id="aclassByteStream_html_adf87e444e828287c0a43cab2958ca01b"><div class="ttname"><a href="classByteStream.html#adf87e444e828287c0a43cab2958ca01b">ByteStream::size</a></div><div class="ttdeci">uint32_t size() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00123">ByteStream.h:123</a></div></div>
+<div class="ttc" id="aclassByteStream_html_adf87e444e828287c0a43cab2958ca01b"><div class="ttname"><a href="classByteStream.html#adf87e444e828287c0a43cab2958ca01b">ByteStream::size</a></div><div class="ttdeci">uint32_t size() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00111">ByteStream.h:111</a></div></div>
 <div class="ttc" id="aclassByteStream_html_ae3412b7f08252fa2baab4b11cb8c2484"><div class="ttname"><a href="classByteStream.html#ae3412b7f08252fa2baab4b11cb8c2484">ByteStream::checkCRC</a></div><div class="ttdeci">bool checkCRC() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00327">ByteStream.cpp:327</a></div></div>
 <div class="ttc" id="aclassByteStream_html_ae65462bc14d268fcf0ffccf65f878762"><div class="ttname"><a href="classByteStream.html#ae65462bc14d268fcf0ffccf65f878762">ByteStream::sanity</a></div><div class="ttdeci">void sanity()</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00319">ByteStream.cpp:319</a></div></div>
-<div class="ttc" id="aclassStorage_html_ad564f35a9671864cb0bed1ffa671c63d"><div class="ttname"><a href="classStorage.html#ad564f35a9671864cb0bed1ffa671c63d">Storage::eepromReadByte</a></div><div class="ttdeci">static uint8_t eepromReadByte(uint16_t index)</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8cpp_source.html#l00210">Storage.cpp:210</a></div></div>
-<div class="ttc" id="astructByteStream_1_1RawBuffer_html"><div class="ttname"><a href="structByteStream_1_1RawBuffer.html">ByteStream::RawBuffer</a></div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00140">ByteStream.h:141</a></div></div>
+<div class="ttc" id="astructByteStream_1_1RawBuffer_html"><div class="ttname"><a href="structByteStream_1_1RawBuffer.html">ByteStream::RawBuffer</a></div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00128">ByteStream.h:129</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ByteStream_8cpp_source.html#l00327">ByteStream::checkCRC()</a>, <a class="el" href="ByteStream_8cpp_source.html#l00107">ByteStream::clear()</a>, <a class="el" href="Log_8h_source.html#l00041">DEBUG_LOGF</a>, <a class="el" href="Storage_8cpp_source.html#l00210">eepromReadByte()</a>, <a class="el" href="Log_8h_source.html#l00029">ERROR_LOG</a>, <a class="el" href="ByteStream_8cpp_source.html#l00082">ByteStream::init()</a>, <a class="el" href="Storage_8h_source.html#l00044">m_lastSaveSize</a>, <a class="el" href="ByteStream_8h_source.html#l00121">ByteStream::rawData()</a>, <a class="el" href="ByteStream_8h_source.html#l00122">ByteStream::rawSize()</a>, <a class="el" href="ByteStream_8cpp_source.html#l00319">ByteStream::sanity()</a>, <a class="el" href="ByteStream_8h_source.html#l00123">ByteStream::size()</a>, <a class="el" href="Storage_8cpp_source.html#l00037">STORAGE_FILENAME</a>, and <a class="el" href="VortexConfig_8h_source.html#l00527">STORAGE_SIZE</a>.</p>
+<p class="reference">References <a class="el" href="ByteStream_8cpp_source.html#l00327">ByteStream::checkCRC()</a>, <a class="el" href="ByteStream_8cpp_source.html#l00107">ByteStream::clear()</a>, <a class="el" href="Log_8h_source.html#l00037">DEBUG_LOGF</a>, <a class="el" href="Log_8h_source.html#l00025">ERROR_LOG</a>, <a class="el" href="Storage_8cpp_source.html#l00045">FLASH_STORAGE_SPACE</a>, <a class="el" href="ByteStream_8cpp_source.html#l00082">ByteStream::init()</a>, <a class="el" href="Storage_8h_source.html#l00044">m_lastSaveSize</a>, <a class="el" href="VortexConfig_8h_source.html#l00507">MAX_MODE_SIZE</a>, <a class="el" href="VortexConfig_8h_source.html#l00510">NUM_MODE_SLOTS</a>, <a class="el" href="ByteStream_8h_source.html#l00109">ByteStream::rawData()</a>, <a class="el" href="ByteStream_8cpp_source.html#l00319">ByteStream::sanity()</a>, <a class="el" href="ByteStream_8h_source.html#l00111">ByteStream::size()</a>, <a class="el" href="Storage_8cpp_source.html#l00037">STORAGE_FILENAME</a>, <a class="el" href="Storage_8cpp_source.html#l00048">STORAGE_HEADER_SIZE</a>, and <a class="el" href="VortexConfig_8h_source.html#l00514">STORAGE_SIZE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00150">Modes::loadStorage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00031">Modes::init()</a>, <a class="el" href="Modes_8cpp_source.html#l00155">Modes::loadHeader()</a>, and <a class="el" href="Modes_8cpp_source.html#l00219">Modes::loadStorage()</a>.</p>
 
 </div>
 </div>
-<a id="a28703a07e21e576760f1b84202c55a01"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a28703a07e21e576760f1b84202c55a01">&#9670;&nbsp;</a></span>write()</h2>
+<a id="acbeeb0de638cf1a1861759150721c0b7"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acbeeb0de638cf1a1861759150721c0b7">&#9670;&nbsp;</a></span>write()</h2>
 
 <div class="memitem">
 <div class="memproto">
@@ -482,9 +502,19 @@ Static Private Attributes</h2></td></tr>
         <tr>
           <td class="memname">bool Storage::write </td>
           <td>(</td>
-          <td class="paramtype"><a class="el" href="classByteStream.html">ByteStream</a> &amp;&#160;</td>
-          <td class="paramname"><em>buffer</em></td><td>)</td>
+          <td class="paramtype">uint8_t&#160;</td>
+          <td class="paramname"><em>slot</em>, </td>
+        </tr>
+        <tr>
+          <td class="paramkey"></td>
           <td></td>
+          <td class="paramtype"><a class="el" href="classByteStream.html">ByteStream</a> &amp;&#160;</td>
+          <td class="paramname"><em>buffer</em>&#160;</td>
+        </tr>
+        <tr>
+          <td></td>
+          <td>)</td>
+          <td></td><td></td>
         </tr>
       </table>
   </td>
@@ -494,64 +524,125 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00061">61</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;{</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keywordflow">if</span> (!Vortex::storageEnabled()) {</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="comment">// success so the system thinks it all worked</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  }</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="comment">// Check size</span></div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  uint16_t size = buffer.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>();</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordflow">if</span> (!size || size &gt; <a class="code" href="VortexConfig_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a>) {</div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;    <a class="code" href="Log_8h.html#aa12d9b2ced7332bfbb9391da9617561a">ERROR_LOG</a>(<span class="stringliteral">&quot;Buffer too big for storage space&quot;</span>);</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  }</div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;  <span class="comment">// just in case</span></div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  buffer.<a class="code" href="classByteStream.html#a282f071ea249471c360d364642f9b3c7">recalcCRC</a>();</div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;<span class="preprocessor">#ifdef VORTEX_EMBEDDED</span></div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="keyword">const</span> uint8_t *buf = (<span class="keyword">const</span> uint8_t *)buffer.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>();</div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="comment">// start writing to eeprom</span></div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keywordflow">for</span> (uint16_t i = 0; i &lt; size; ++i) {</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">if</span> (buf[i] != <a class="code" href="classStorage.html#ad564f35a9671864cb0bed1ffa671c63d">eepromReadByte</a>(i)) {</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;      <a class="code" href="classStorage.html#a9c873bd223652fa8339840a1b350b931">eepromWriteByte</a>(i, buf[i]);</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    }</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  }</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Wrote %u bytes to storage (max: %u)&quot;</span>, <a class="code" href="classStorage.html#ae85ca521ae89c408fb045d2890951458">m_lastSaveSize</a>, <a class="code" href="VortexConfig_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a>);</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keywordflow">if</span> ((NVMCTRL.STATUS &amp; 4) != 0) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  }</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;<span class="preprocessor">#elif defined(_WIN32)</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  HANDLE hFile = CreateFile(<a class="code" href="Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f">STORAGE_FILENAME</a>, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);</div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="keywordflow">if</span> (hFile == INVALID_HANDLE_VALUE) {</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;    <span class="comment">// error</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  }</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  DWORD written = 0;</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordflow">if</span> (!WriteFile(hFile, buffer.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>(), buffer.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>(), &amp;written, NULL)) {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment">// error</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  }</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  CloseHandle(hFile);</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  FILE *f = fopen(<a class="code" href="Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f">STORAGE_FILENAME</a>, <span class="stringliteral">&quot;w&quot;</span>);</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="keywordflow">if</span> (!f) {</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  }</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="keywordflow">if</span> (!fwrite(buffer.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>(), <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>), buffer.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>(), f)) {</div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  }</div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  fclose(f);</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// VORTEX_EMBEDDED</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00074">74</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;{</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordflow">if</span> (!Vortex::storageEnabled()) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <span class="comment">// success so the system thinks it all worked</span></div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  <span class="comment">// check size</span></div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  uint16_t size = buffer.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>();</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordflow">if</span> (buffer.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>() &gt; <a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a>) {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="Log_8h.html#aa12d9b2ced7332bfbb9391da9617561a">ERROR_LOG</a>(<span class="stringliteral">&quot;Buffer too big for storage space&quot;</span>);</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  }</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;  <span class="keywordflow">if</span> (slot &gt;= <a class="code" href="VortexConfig_8h.html#ab0c5cc9223512ec01c405592b6741898">NUM_MODE_SLOTS</a>) {</div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="comment">// just in case</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  buffer.<a class="code" href="classByteStream.html#a282f071ea249471c360d364642f9b3c7">recalcCRC</a>();</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;<span class="preprocessor">#ifdef VORTEX_EMBEDDED</span></div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keyword">const</span> uint8_t *buf = (<span class="keyword">const</span> uint8_t *)buffer.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>();</div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="comment">// the header is slot 0 and it gets 17 bytes in the start of the eeprom then</span></div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="comment">// the next 3 modes are 76 bytes each taking up 228 bytes for a total of 245</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keywordflow">if</span> (slot &lt; 4) {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    uint8_t eepSlot = 0;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="keywordflow">if</span> (slot &gt; 0) {</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;      eepSlot = <a class="code" href="Storage_8cpp.html#afb3f89e3b0a79ae35a8a1c0d50ea5b60">STORAGE_HEADER_SIZE</a> + (<a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a> * (slot - 1));</div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    }</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="comment">// header eeprom (12 bytes of 256)</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <span class="comment">// 3 modes eeprom (76 x 3 bytes of 244)</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;    uint8_t slotSize = (slot == 0) ? <a class="code" href="Storage_8cpp.html#afb3f89e3b0a79ae35a8a1c0d50ea5b60">STORAGE_HEADER_SIZE</a> : <a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a>;</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;    <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; slotSize; ++i) {</div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;      uint8_t b = (i &lt; size) ? buf[i] : 0x00;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;      <a class="code" href="classStorage.html#a9c873bd223652fa8339840a1b350b931">eepromWriteByte</a>(eepSlot + i, b);</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;    }</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">// Then flash storage is 0x200 or 512 bytes which allows for 6 x 76 byte modes</span></div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <span class="comment">// the base address of the slot we are writing</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    uint16_t slotAddr = (uint16_t)<a class="code" href="Storage_8cpp.html#af7b86ca9d41a47f96cf528ab36de4891">FLASH_STORAGE_SPACE</a> + (<a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a> * (slot - 4));</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="comment">// The storage slot may lay across a page boundary which means potentially writing</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;    <span class="comment">// two pages instead of just one. In order to update only part of a page, the page</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;    <span class="comment">// buffer must be filled with both the previous content along with the new data.</span></div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    <span class="comment">// For example, imagine 2 pages of data: |xxxxxxSSSS|SSSxxxxxxx| the x&#39;s are other</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="comment">// data that must be preserved, and the S&#39;s denote the storage slot being written.</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="comment">// This would take place over two iterations of the loop, each writing out one page</span></div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <span class="comment">// by read-then-writing-back the x&#39;s and writing out the new S&#39;s. This is necessary</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    <span class="comment">// because the page buffer must be filled to perform a page write, at least I think</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">while</span> (size &gt; 0) {</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;      uint16_t pageStart = slotAddr &amp; ~(<a class="code" href="Storage_8cpp.html#a4cc14e2c99ae7f8e5a8e371d03c8532c">FLASH_PAGE_SIZE</a> - 1);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;      uint16_t offset = slotAddr % <a class="code" href="Storage_8cpp.html#a4cc14e2c99ae7f8e5a8e371d03c8532c">FLASH_PAGE_SIZE</a>;</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;      uint16_t space = <a class="code" href="Storage_8cpp.html#a4cc14e2c99ae7f8e5a8e371d03c8532c">FLASH_PAGE_SIZE</a> - offset;</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;      uint16_t writeSize = (size &lt; space) ? size : space;</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160; </div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;      <span class="keywordflow">for</span> (uint8_t i = 0; i &lt; <a class="code" href="Storage_8cpp.html#a4cc14e2c99ae7f8e5a8e371d03c8532c">FLASH_PAGE_SIZE</a>; ++i) {</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;        uint8_t value;</div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;        <span class="keywordflow">if</span> (i &gt;= offset &amp;&amp; i &lt; offset + writeSize) {</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;          <span class="comment">// if this is within the slot then write out the new data</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;          value = buf[i - offset];</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;        } <span class="keywordflow">else</span> {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;          <span class="comment">// otherwise just write-back the same value to fill the pagebuffer</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;          value = *(<span class="keyword">volatile</span> uint8_t *)(pageStart + i);</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;        }</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;        *(<span class="keyword">volatile</span> uint8_t *)(pageStart + i) = value;</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      }</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160; </div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;      <span class="comment">// Erase and write the flash page</span></div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;      _PROTECTED_WRITE_SPM(NVMCTRL.CTRLA, NVMCTRL_CMD_PAGEERASEWRITE_gc);</div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;      <span class="keywordflow">while</span> (NVMCTRL.STATUS &amp; (NVMCTRL_FBUSY_bm | NVMCTRL_EEBUSY_bm));</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;      <span class="comment">// continue to the next page</span></div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;      slotAddr += writeSize;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;      buf += writeSize;</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;      size -= writeSize;</div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;    }</div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  }</div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="preprocessor">#elif defined(_WIN32)</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  HANDLE hFile = CreateFile(<a class="code" href="Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f">STORAGE_FILENAME</a>, GENERIC_READ | GENERIC_WRITE, 0, NULL, OPEN_ALWAYS, FILE_ATTRIBUTE_NORMAL, NULL);</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <span class="keywordflow">if</span> (hFile == INVALID_HANDLE_VALUE) {</div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    <span class="comment">// error</span></div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  }</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  DWORD written = 0;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  DWORD offset = slot * <a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a>;</div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  SetFilePointer(hFile, offset, NULL, FILE_BEGIN);</div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  uint8_t modeBuffer[<a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a>] = {0};</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;  <span class="comment">// copy the mode data into a temp buffer</span></div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  memcpy(modeBuffer, buffer.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>(), size);</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  <span class="comment">// then copy the full size of the temp buffer in</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  <span class="keywordflow">if</span> (!WriteFile(hFile, modeBuffer, <a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a>, &amp;written, NULL)) {</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;    <span class="comment">// error</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  }</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  CloseHandle(hFile);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  FILE *f = fopen(<a class="code" href="Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f">STORAGE_FILENAME</a>, <span class="stringliteral">&quot;w&quot;</span>);</div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  <span class="keywordflow">if</span> (!f) {</div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  }</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  <span class="keywordtype">long</span> offset = slot * <a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a>;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  fseek(f, offset, SEEK_SET);</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  uint8_t modeBuffer[<a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a>] = {0};</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  <span class="comment">// copy the mode data into a temp buffer</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  memcpy(modeBuffer, buffer.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>(), size);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  <span class="keywordflow">if</span> (!fwrite(modeBuffer, <span class="keyword">sizeof</span>(<span class="keywordtype">char</span>), <a class="code" href="VortexConfig_8h.html#a4d5f0e0392f00d31715ddf81eb87434a">MAX_MODE_SIZE</a>, f)) {</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  }</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  fclose(f);</div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor">#endif </span><span class="comment">// VORTEX_EMBEDDED</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Wrote %u bytes to storage (max: %u)&quot;</span>, <a class="code" href="classStorage.html#ae85ca521ae89c408fb045d2890951458">m_lastSaveSize</a>, <a class="code" href="VortexConfig_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a>);</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;}</div>
+<div class="ttc" id="aStorage_8cpp_html_a4cc14e2c99ae7f8e5a8e371d03c8532c"><div class="ttname"><a href="Storage_8cpp.html#a4cc14e2c99ae7f8e5a8e371d03c8532c">FLASH_PAGE_SIZE</a></div><div class="ttdeci">#define FLASH_PAGE_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8cpp_source.html#l00070">Storage.cpp:70</a></div></div>
 <div class="ttc" id="aclassByteStream_html_a282f071ea249471c360d364642f9b3c7"><div class="ttname"><a href="classByteStream.html#a282f071ea249471c360d364642f9b3c7">ByteStream::recalcCRC</a></div><div class="ttdeci">uint32_t recalcCRC(bool force=false)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00301">ByteStream.cpp:301</a></div></div>
-<div class="ttc" id="aclassStorage_html_a9c873bd223652fa8339840a1b350b931"><div class="ttname"><a href="classStorage.html#a9c873bd223652fa8339840a1b350b931">Storage::eepromWriteByte</a></div><div class="ttdeci">static void eepromWriteByte(uint16_t index, uint8_t in)</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8cpp_source.html#l00184">Storage.cpp:184</a></div></div>
+<div class="ttc" id="aclassByteStream_html_a755097adde5b21b33d3c4e3623d04f97"><div class="ttname"><a href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">ByteStream::rawSize</a></div><div class="ttdeci">uint32_t rawSize() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00110">ByteStream.h:110</a></div></div>
+<div class="ttc" id="aclassStorage_html_a9c873bd223652fa8339840a1b350b931"><div class="ttname"><a href="classStorage.html#a9c873bd223652fa8339840a1b350b931">Storage::eepromWriteByte</a></div><div class="ttdeci">static void eepromWriteByte(uint16_t index, uint8_t in)</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8cpp_source.html#l00265">Storage.cpp:265</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Log_8h_source.html#l00041">DEBUG_LOGF</a>, <a class="el" href="Storage_8cpp_source.html#l00210">eepromReadByte()</a>, <a class="el" href="Storage_8cpp_source.html#l00184">eepromWriteByte()</a>, <a class="el" href="Log_8h_source.html#l00029">ERROR_LOG</a>, <a class="el" href="Storage_8h_source.html#l00044">m_lastSaveSize</a>, <a class="el" href="ByteStream_8h_source.html#l00121">ByteStream::rawData()</a>, <a class="el" href="ByteStream_8h_source.html#l00122">ByteStream::rawSize()</a>, <a class="el" href="ByteStream_8cpp_source.html#l00301">ByteStream::recalcCRC()</a>, <a class="el" href="Storage_8cpp_source.html#l00037">STORAGE_FILENAME</a>, and <a class="el" href="VortexConfig_8h_source.html#l00527">STORAGE_SIZE</a>.</p>
+<p class="reference">References <a class="el" href="Log_8h_source.html#l00037">DEBUG_LOGF</a>, <a class="el" href="Storage_8cpp_source.html#l00265">eepromWriteByte()</a>, <a class="el" href="Log_8h_source.html#l00025">ERROR_LOG</a>, <a class="el" href="Storage_8cpp_source.html#l00070">FLASH_PAGE_SIZE</a>, <a class="el" href="Storage_8cpp_source.html#l00045">FLASH_STORAGE_SPACE</a>, <a class="el" href="Storage_8h_source.html#l00044">m_lastSaveSize</a>, <a class="el" href="VortexConfig_8h_source.html#l00507">MAX_MODE_SIZE</a>, <a class="el" href="VortexConfig_8h_source.html#l00510">NUM_MODE_SLOTS</a>, <a class="el" href="ByteStream_8h_source.html#l00109">ByteStream::rawData()</a>, <a class="el" href="ByteStream_8h_source.html#l00110">ByteStream::rawSize()</a>, <a class="el" href="ByteStream_8cpp_source.html#l00301">ByteStream::recalcCRC()</a>, <a class="el" href="Storage_8cpp_source.html#l00037">STORAGE_FILENAME</a>, <a class="el" href="Storage_8cpp_source.html#l00048">STORAGE_HEADER_SIZE</a>, and <a class="el" href="VortexConfig_8h_source.html#l00514">STORAGE_SIZE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00175">Modes::saveStorage()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Modes_8cpp_source.html#l00139">Modes::saveHeader()</a>, and <a class="el" href="Modes_8cpp_source.html#l00178">Modes::saveStorage()</a>.</p>
 
 </div>
 </div>
@@ -578,7 +669,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Storage_8h_source.html#l00044">44</a> of file <a class="el" href="Storage_8h_source.html">Storage.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Storage_8cpp_source.html#l00177">lastSaveSize()</a>, <a class="el" href="Storage_8cpp_source.html#l00115">read()</a>, and <a class="el" href="Storage_8cpp_source.html#l00061">write()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Storage_8cpp_source.html#l00258">lastSaveSize()</a>, <a class="el" href="Storage_8cpp_source.html#l00187">read()</a>, and <a class="el" href="Storage_8cpp_source.html#l00074">write()</a>.</p>
 
 </div>
 </div>

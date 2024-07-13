@@ -69,15 +69,15 @@ Definition at line 40 of file Serial.\+cpp.
 \DoxyCodeLine{55   \textcolor{keywordflow}{if} (!Vortex::vcallbacks()-\/>serialCheck()) \{}
 \DoxyCodeLine{56     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{57   \}}
-\DoxyCodeLine{58   Vortex::vcallbacks()-\/>serialBegin(9600);}
+\DoxyCodeLine{58   Vortex::vcallbacks()-\/>serialBegin(\mbox{\hyperlink{VortexConfig_8h_ad89976cc0b5340110179f6ce40df3028}{SERIAL\_BAUD\_RATE}});}
 \DoxyCodeLine{59 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{60   \textcolor{comment}{// This will check if the serial communication is open}}
-\DoxyCodeLine{61   \textcolor{keywordflow}{if} (!Serial) \{}
+\DoxyCodeLine{61   \textcolor{keywordflow}{if} (!Serial.available()) \{}
 \DoxyCodeLine{62     \textcolor{comment}{// serial is not connected}}
 \DoxyCodeLine{63     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{64   \}}
 \DoxyCodeLine{65   \textcolor{comment}{// Begin serial communications}}
-\DoxyCodeLine{66   Serial.begin(9600);}
+\DoxyCodeLine{66   Serial.begin(\mbox{\hyperlink{VortexConfig_8h_ad89976cc0b5340110179f6ce40df3028}{SERIAL\_BAUD\_RATE}});}
 \DoxyCodeLine{67 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{68 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{69   \textcolor{comment}{// serial is now connected}}
@@ -88,11 +88,11 @@ Definition at line 40 of file Serial.\+cpp.
 \end{DoxyCode}
 
 
-References Time\+::get\+Curtime(), is\+Connected(), m\+\_\+last\+Check, m\+\_\+serial\+Connected, and MAX\+\_\+\+SERIAL\+\_\+\+CHECK\+\_\+\+INTERVAL.
+References Time\+::get\+Curtime(), is\+Connected(), m\+\_\+last\+Check, m\+\_\+serial\+Connected, MAX\+\_\+\+SERIAL\+\_\+\+CHECK\+\_\+\+INTERVAL, and SERIAL\+\_\+\+BAUD\+\_\+\+RATE.
 
 
 
-Referenced by Editor\+Connection\+::run().
+Referenced by Editor\+Connection\+::run(), and Vortex\+Engine\+::run\+Main\+Logic().
 
 \mbox{\Hypertarget{classSerialComs_a4da654c236a9ca2ce7b47bc775303adf}\label{classSerialComs_a4da654c236a9ca2ce7b47bc775303adf}} 
 \index{SerialComs@{SerialComs}!cleanup@{cleanup}}
@@ -228,7 +228,7 @@ Definition at line 111 of file Serial.\+cpp.
 \DoxyCodeLine{131 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{132     \textcolor{keywordtype}{byte} = Serial.read();}
 \DoxyCodeLine{133 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{134     byteStream.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\textcolor{keywordtype}{byte});}
+\DoxyCodeLine{134     byteStream.\mbox{\hyperlink{classByteStream_ad3b413f399f22d30548a61a5e01ef3a7}{serialize8}}(\textcolor{keywordtype}{byte});}
 \DoxyCodeLine{135   \} \textcolor{keywordflow}{while} (-\/-\/amt > 0);}
 \DoxyCodeLine{136 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{137 \}}
@@ -236,7 +236,7 @@ Definition at line 111 of file Serial.\+cpp.
 \end{DoxyCode}
 
 
-References is\+Connected(), and Byte\+Stream\+::serialize().
+References is\+Connected(), and Byte\+Stream\+::serialize8().
 
 
 

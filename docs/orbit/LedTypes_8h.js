@@ -115,15 +115,17 @@ var LedTypes_8h =
       [ "RING_COUNT", "LedTypes_8h.html#a24c6950661e5126485873539625be1b3ac3774c43a898a445b1da757c79b878ac", null ],
       [ "RING_LAST", "LedTypes_8h.html#a24c6950661e5126485873539625be1b3ab17fcf52612cf3d1f0cacdcee1aecec8", null ]
     ] ],
-    [ "checkLed", "LedTypes_8h.html#a6b8f8d9c1f8627c817d00a6d33695c1f", null ],
-    [ "checkPair", "LedTypes_8h.html#a1b174a309fe85f1d4560afa3230ddc65", null ],
     [ "isPairBot", "LedTypes_8h.html#a0b33286e02ac6a31972a15e461419062", null ],
     [ "isPairSide", "LedTypes_8h.html#a6db24c351663e9a648450fe28957147c", null ],
     [ "isPairTop", "LedTypes_8h.html#acd37d75cbeb245e454e73f6f771f1d2e", null ],
+    [ "ledmapCheckLed", "LedTypes_8h.html#aea87ba7c1e127ef509da9d0e9d238aac", null ],
+    [ "ledmapCheckPair", "LedTypes_8h.html#a2d79cc8ce577773d2b0ee85ca33b9ac4", null ],
+    [ "ledmapGetFirstLed", "LedTypes_8h.html#ae8d7e271028055f745f7b1247f080dce", null ],
+    [ "ledmapGetNextLed", "LedTypes_8h.html#afc1a170657262289647c2af99aace527", null ],
+    [ "ledmapSetLed", "LedTypes_8h.html#a7c47d3eb42975a1a8ea5af7bcbc95bde", null ],
+    [ "ledmapSetPair", "LedTypes_8h.html#ae8eaf2f933c66fef4ffac4b81213d344", null ],
     [ "ledToPair", "LedTypes_8h.html#aec84bda2b23b1cb9466e6b2b433615b8", null ],
     [ "ledToQuadrant", "LedTypes_8h.html#a7f06774925ea91b2390e1105a87284c9", null ],
-    [ "mapGetFirstLed", "LedTypes_8h.html#a8f394c70246f75bd9452c7cea69a4b19", null ],
-    [ "mapGetNextLed", "LedTypes_8h.html#a40567e2b925999b9d718f9444ea7e0b0", null ],
     [ "operator+", "LedTypes_8h.html#a726370103d4483e039d09e054e833154", null ],
     [ "operator+", "LedTypes_8h.html#a3f2b92ad7a54adcb324ebcbd2bc69409", null ],
     [ "operator+", "LedTypes_8h.html#ab2fbf270a40827892fa2c3c3f1671cea", null ],
@@ -150,7 +152,5 @@ var LedTypes_8h =
     [ "pairTop", "LedTypes_8h.html#a78af665bd061dc19fb5c79935aa0da5b", null ],
     [ "quadrantFirstLed", "LedTypes_8h.html#ae18ac5bd1557a016fe937ab7a2853fba", null ],
     [ "quadrantLastLed", "LedTypes_8h.html#a72bb737dc8ab195d11eaaba81772cb2b", null ],
-    [ "quadrantMiddleLed", "LedTypes_8h.html#a7eb91b7eb017d43548da8bdecd7c3c77", null ],
-    [ "setLed", "LedTypes_8h.html#a99b3613fb4c658dff24ba0f18eda6e31", null ],
-    [ "setPair", "LedTypes_8h.html#a20d782bba21f1567fdf0302d45a0d64c", null ]
+    [ "quadrantMiddleLed", "LedTypes_8h.html#a7eb91b7eb017d43548da8bdecd7c3c77", null ]
 ];

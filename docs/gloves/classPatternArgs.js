@@ -29,7 +29,7 @@ var classPatternArgs =
     [ "operator!=", "classPatternArgs.html#a5b8c8f1e618b6a92c8c1d208eec9f509", null ],
     [ "operator==", "classPatternArgs.html#ad259460388ce2712299fa2385061158f", null ],
     [ "operator[]", "classPatternArgs.html#a83cd690d65f6c6acdd18965fb573c521", null ],
-    [ "serialize", "classPatternArgs.html#a70864ef6693048c27347f1456ef2015a", null ],
+    [ "serialize", "classPatternArgs.html#a46d632a81a5821e440fcc8e30fe12297", null ],
     [ "unserialize", "classPatternArgs.html#ab2e7a56a4f86c1d5b73b3e7f6a4e0aeb", null ],
     [ "arg1", "classPatternArgs.html#a9451fa696a955a13faeea9a32671f488", null ],
     [ "arg2", "classPatternArgs.html#aa9da03f9bf76dca584cc3fe5f347d67c", null ],

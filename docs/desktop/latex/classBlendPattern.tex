@@ -153,19 +153,19 @@ References Colorset\+::get\+Next(), Basic\+Pattern\+::init(), Pattern\+::m\+\_\+
 
 
 
-Definition at line 66 of file Blend\+Pattern.\+cpp.
+Definition at line 69 of file Blend\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{67 \{}
-\DoxyCodeLine{68   \textcolor{keywordflow}{if} (current < next) \{}
-\DoxyCodeLine{69     uint8\_t step = (next -\/ current) > \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}} ? \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}} : (next -\/ current);}
-\DoxyCodeLine{70     current += step;}
-\DoxyCodeLine{71   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (current > next) \{}
-\DoxyCodeLine{72     uint8\_t step = (current -\/ next) > \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}} ? \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}} : (current -\/ next);}
-\DoxyCodeLine{73     current -\/= step;}
-\DoxyCodeLine{74   \}}
-\DoxyCodeLine{75 \}}
+\DoxyCodeLine{70 \{}
+\DoxyCodeLine{71   \textcolor{keywordflow}{if} (current < next) \{}
+\DoxyCodeLine{72     uint8\_t step = (next -\/ current) > \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}} ? \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}} : (next -\/ current);}
+\DoxyCodeLine{73     current += step;}
+\DoxyCodeLine{74   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (current > next) \{}
+\DoxyCodeLine{75     uint8\_t step = (current -\/ next) > \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}} ? \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}} : (current -\/ next);}
+\DoxyCodeLine{76     current -\/= step;}
+\DoxyCodeLine{77   \}}
+\DoxyCodeLine{78 \}}
 
 \end{DoxyCode}
 
@@ -200,24 +200,27 @@ Definition at line 38 of file Blend\+Pattern.\+cpp.
 \DoxyCodeLine{44   \mbox{\hyperlink{classBlendPattern_a623ac046723f4f5cb23cd12f29074fa9}{interpolate}}(\mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}}.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}}, \mbox{\hyperlink{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}{m\_next}}.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}});}
 \DoxyCodeLine{45   \mbox{\hyperlink{classBlendPattern_a623ac046723f4f5cb23cd12f29074fa9}{interpolate}}(\mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}}.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}}, \mbox{\hyperlink{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}{m\_next}}.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}});}
 \DoxyCodeLine{46   \mbox{\hyperlink{classRGBColor}{RGBColor}} col = \mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}};}
-\DoxyCodeLine{47   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}}) \{}
-\DoxyCodeLine{48     \textcolor{comment}{// convert to hsv}}
-\DoxyCodeLine{49     \mbox{\hyperlink{classHSVColor}{HSVColor}} hsvCol = \mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}};}
-\DoxyCodeLine{50     \textcolor{comment}{// shift the hue by a flip size}}
-\DoxyCodeLine{51     hsvCol.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} += (\mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} * (127 / \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}}));}
-\DoxyCodeLine{52     \textcolor{comment}{// convert the hsv color back to RGB}}
-\DoxyCodeLine{53     col = hsvCol;}
-\DoxyCodeLine{54   \}}
-\DoxyCodeLine{55   \textcolor{comment}{// set the color}}
-\DoxyCodeLine{56   \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(\mbox{\hyperlink{classPattern_a060b7c087d8203c74eeb87ac32034a10}{m\_ledPos}}, col);}
-\DoxyCodeLine{57   \textcolor{comment}{// increment the flip count}}
-\DoxyCodeLine{58   \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}}++;}
-\DoxyCodeLine{59   \textcolor{comment}{// modulate the flip count DO NOT USE MODULO OPERATOR BECAUSE}}
-\DoxyCodeLine{60   \textcolor{comment}{// THE FLIP COUNT COULD BE 0 THAT WILL DIVIDE BY ZERO}}
-\DoxyCodeLine{61   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} > \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}}) \{}
-\DoxyCodeLine{62     \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} = 0;}
-\DoxyCodeLine{63   \}}
-\DoxyCodeLine{64 \}}
+\DoxyCodeLine{47   \textcolor{comment}{// it should be impossible for m\_numFlips to be 0 and m\_flip to be 1}}
+\DoxyCodeLine{48   \textcolor{comment}{// unless the pattern arg is changed mid-\/play which could happen with}}
+\DoxyCodeLine{49   \textcolor{comment}{// and editor or something, so check both for 0}}
+\DoxyCodeLine{50   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} \&\& \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}}) \{}
+\DoxyCodeLine{51     \textcolor{comment}{// convert to hsv}}
+\DoxyCodeLine{52     \mbox{\hyperlink{classHSVColor}{HSVColor}} hsvCol = \mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}};}
+\DoxyCodeLine{53     \textcolor{comment}{// shift the hue by a flip size}}
+\DoxyCodeLine{54     hsvCol.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} += (\mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} * (127 / \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}}));}
+\DoxyCodeLine{55     \textcolor{comment}{// convert the hsv color back to RGB}}
+\DoxyCodeLine{56     col = hsvCol;}
+\DoxyCodeLine{57   \}}
+\DoxyCodeLine{58   \textcolor{comment}{// set the color}}
+\DoxyCodeLine{59   \mbox{\hyperlink{classPattern_a7100ca44bc2f4ee6fa44ab24a65f3417}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(\mbox{\hyperlink{classPattern_a060b7c087d8203c74eeb87ac32034a10}{m\_ledPos}}, col);}
+\DoxyCodeLine{60   \textcolor{comment}{// increment the flip count}}
+\DoxyCodeLine{61   \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}}++;}
+\DoxyCodeLine{62   \textcolor{comment}{// modulate the flip count DO NOT USE MODULO OPERATOR BECAUSE}}
+\DoxyCodeLine{63   \textcolor{comment}{// THE FLIP COUNT COULD BE 0 THAT WILL DIVIDE BY ZERO}}
+\DoxyCodeLine{64   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} > \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}}) \{}
+\DoxyCodeLine{65     \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}} = 0;}
+\DoxyCodeLine{66   \}}
+\DoxyCodeLine{67 \}}
 
 \end{DoxyCode}
 

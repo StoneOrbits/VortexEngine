@@ -103,7 +103,7 @@ $(document).ready(function(){initNavTree('Storage_8cpp.html',''); initResizable(
 </div><div class="textblock"><div class="dynheader">
 Include dependency graph for Storage.cpp:</div>
 <div class="dyncontent">
-<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="Storage_8cpp__incl.svg" width="100%" height="600"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
+<div class="center"><div class="zoom"><iframe scrolling="no" frameborder="0" src="Storage_8cpp__incl.svg" width="100%" height="563"><p><b>This browser is not able to show SVG: try Firefox, Chrome, Safari, or Opera instead.</b></p></iframe></div>
 </div>
 </div>
 </div>
@@ -115,6 +115,14 @@ Macros</h2></td></tr>
 <tr class="separator:a3afbe062209d42a72bc5b4a03a86206a"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a4a8bec941d32acc2e0c33423a61e661f"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f">STORAGE_FILENAME</a>&#160;&#160;&#160;<a class="el" href="Storage_8cpp.html#a3afbe062209d42a72bc5b4a03a86206a">DEFAULT_STORAGE_FILENAME</a></td></tr>
 <tr class="separator:a4a8bec941d32acc2e0c33423a61e661f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a890aee95eb073a5cf178a74b6f124daa"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Storage_8cpp.html#a890aee95eb073a5cf178a74b6f124daa">FLASH_STORAGE_SIZE</a>&#160;&#160;&#160;(<a class="el" href="VortexConfig_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a>)</td></tr>
+<tr class="separator:a890aee95eb073a5cf178a74b6f124daa"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:af7b86ca9d41a47f96cf528ab36de4891"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Storage_8cpp.html#af7b86ca9d41a47f96cf528ab36de4891">FLASH_STORAGE_SPACE</a>&#160;&#160;&#160;((volatile uint8_t *)(0x10000 - <a class="el" href="Storage_8cpp.html#a890aee95eb073a5cf178a74b6f124daa">FLASH_STORAGE_SIZE</a>))</td></tr>
+<tr class="separator:af7b86ca9d41a47f96cf528ab36de4891"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afb3f89e3b0a79ae35a8a1c0d50ea5b60"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Storage_8cpp.html#afb3f89e3b0a79ae35a8a1c0d50ea5b60">STORAGE_HEADER_SIZE</a>&#160;&#160;&#160;17</td></tr>
+<tr class="separator:afb3f89e3b0a79ae35a8a1c0d50ea5b60"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a4cc14e2c99ae7f8e5a8e371d03c8532c"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Storage_8cpp.html#a4cc14e2c99ae7f8e5a8e371d03c8532c">FLASH_PAGE_SIZE</a>&#160;&#160;&#160;128</td></tr>
+<tr class="separator:a4cc14e2c99ae7f8e5a8e371d03c8532c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a3afbe062209d42a72bc5b4a03a86206a"></a>
@@ -133,6 +141,54 @@ Macros</h2></td></tr>
 
 </div>
 </div>
+<a id="a4cc14e2c99ae7f8e5a8e371d03c8532c"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a4cc14e2c99ae7f8e5a8e371d03c8532c">&#9670;&nbsp;</a></span>FLASH_PAGE_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLASH_PAGE_SIZE&#160;&#160;&#160;128</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00070">70</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="a890aee95eb073a5cf178a74b6f124daa"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a890aee95eb073a5cf178a74b6f124daa">&#9670;&nbsp;</a></span>FLASH_STORAGE_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLASH_STORAGE_SIZE&#160;&#160;&#160;(<a class="el" href="VortexConfig_8h.html#a8d6f782ffe53d87f0fd0327d4b09352c">STORAGE_SIZE</a>)</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00042">42</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="af7b86ca9d41a47f96cf528ab36de4891"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#af7b86ca9d41a47f96cf528ab36de4891">&#9670;&nbsp;</a></span>FLASH_STORAGE_SPACE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define FLASH_STORAGE_SPACE&#160;&#160;&#160;((volatile uint8_t *)(0x10000 - <a class="el" href="Storage_8cpp.html#a890aee95eb073a5cf178a74b6f124daa">FLASH_STORAGE_SIZE</a>))</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00045">45</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
+
+</div>
+</div>
 <a id="a4a8bec941d32acc2e0c33423a61e661f"></a>
 <h2 class="memtitle"><span class="permalink"><a href="#a4a8bec941d32acc2e0c33423a61e661f">&#9670;&nbsp;</a></span>STORAGE_FILENAME</h2>
 
@@ -146,6 +202,22 @@ Macros</h2></td></tr>
 </div><div class="memdoc">
 
 <p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00037">37</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
+
+</div>
+</div>
+<a id="afb3f89e3b0a79ae35a8a1c0d50ea5b60"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afb3f89e3b0a79ae35a8a1c0d50ea5b60">&#9670;&nbsp;</a></span>STORAGE_HEADER_SIZE</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">#define STORAGE_HEADER_SIZE&#160;&#160;&#160;17</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Storage_8cpp_source.html#l00048">48</a> of file <a class="el" href="Storage_8cpp_source.html">Storage.cpp</a>.</p>
 
 </div>
 </div>

@@ -45,7 +45,7 @@ bool \mbox{\hyperlink{classMode_a4bf861a9f38599ab515655ae52700534}{save\+To\+Buf
 \item 
 bool \mbox{\hyperlink{classMode_a31ed6fbb39ca7876e415fc58bc18d630}{load\+From\+Buffer}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&save\+Buffer)
 \item 
-void \mbox{\hyperlink{classMode_a5131802c3bf289b45b1847e8a65ea522}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer, uint8\+\_\+t num\+Leds=0) const
+bool \mbox{\hyperlink{classMode_aad4310ad7cbb0d98f5583c97881012f2}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer, uint8\+\_\+t num\+Leds=0) const
 \item 
 bool \mbox{\hyperlink{classMode_afe827f93ec4916928a22202ebdf26ee7}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
 \item 
@@ -289,14 +289,14 @@ Definition at line 83 of file Mode.\+cpp.
 
 
 
-Definition at line 638 of file Mode.\+cpp.
+Definition at line 666 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{639 \{}
-\DoxyCodeLine{640   \mbox{\hyperlink{classColorset}{Colorset}} empty;}
-\DoxyCodeLine{641   \mbox{\hyperlink{classMode_ad5eb39acbb11f0ce7c3342c53d83da71}{setColorset}}(empty, pos);}
-\DoxyCodeLine{642 \}}
+\DoxyCodeLine{667 \{}
+\DoxyCodeLine{668   \mbox{\hyperlink{classColorset}{Colorset}} empty;}
+\DoxyCodeLine{669   \mbox{\hyperlink{classMode_ad5eb39acbb11f0ce7c3342c53d83da71}{setColorset}}(empty, pos);}
+\DoxyCodeLine{670 \}}
 
 \end{DoxyCode}
 
@@ -315,15 +315,15 @@ Referenced by clear\+Colorset\+Map().
 
 
 
-Definition at line 644 of file Mode.\+cpp.
+Definition at line 672 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{645 \{}
-\DoxyCodeLine{646   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(map) \{}
-\DoxyCodeLine{647     \mbox{\hyperlink{classMode_a86bea56a7b1ed06d4fd7930efd355add}{clearColorset}}(pos);}
-\DoxyCodeLine{648   \}}
-\DoxyCodeLine{649 \}}
+\DoxyCodeLine{673 \{}
+\DoxyCodeLine{674   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(map) \{}
+\DoxyCodeLine{675     \mbox{\hyperlink{classMode_a86bea56a7b1ed06d4fd7930efd355add}{clearColorset}}(pos);}
+\DoxyCodeLine{676   \}}
+\DoxyCodeLine{677 \}}
 
 \end{DoxyCode}
 
@@ -338,13 +338,13 @@ References clear\+Colorset(), and MAP\+\_\+\+FOREACH\+\_\+\+LED.
 
 
 
-Definition at line 626 of file Mode.\+cpp.
+Definition at line 654 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{627 \{}
-\DoxyCodeLine{628   \mbox{\hyperlink{classMode_ac2888fc4f9079c397ce229292cbb460b}{setPattern}}(\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}, pos);}
-\DoxyCodeLine{629 \}}
+\DoxyCodeLine{655 \{}
+\DoxyCodeLine{656   \mbox{\hyperlink{classMode_ac2888fc4f9079c397ce229292cbb460b}{setPattern}}(\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}, pos);}
+\DoxyCodeLine{657 \}}
 
 \end{DoxyCode}
 
@@ -363,15 +363,15 @@ Referenced by clear\+Pattern\+Map(), Pattern\+Select\+::on\+Short\+Click(), oper
 
 
 
-Definition at line 631 of file Mode.\+cpp.
+Definition at line 659 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{632 \{}
-\DoxyCodeLine{633   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(map) \{}
-\DoxyCodeLine{634     \mbox{\hyperlink{classMode_a9c8613304eb587717ff7f1945f6a6c12}{clearPattern}}(pos);}
-\DoxyCodeLine{635   \}}
-\DoxyCodeLine{636 \}}
+\DoxyCodeLine{660 \{}
+\DoxyCodeLine{661   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(map) \{}
+\DoxyCodeLine{662     \mbox{\hyperlink{classMode_a9c8613304eb587717ff7f1945f6a6c12}{clearPattern}}(pos);}
+\DoxyCodeLine{663   \}}
+\DoxyCodeLine{664 \}}
 
 \end{DoxyCode}
 
@@ -386,45 +386,45 @@ References clear\+Pattern(), and MAP\+\_\+\+FOREACH\+\_\+\+LED.
 
 
 
-Definition at line 350 of file Mode.\+cpp.
+Definition at line 378 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{351 \{}
-\DoxyCodeLine{352   \textcolor{keywordflow}{if} (!other) \{}
-\DoxyCodeLine{353     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{354   \}}
-\DoxyCodeLine{355   \textcolor{comment}{// compare the led count}}
-\DoxyCodeLine{356   \textcolor{keywordflow}{if} (other-\/>\mbox{\hyperlink{classMode_a02896a308abb58563215774352aaeabf}{getLedCount}}() != \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}}) \{}
-\DoxyCodeLine{357     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{358   \}}
-\DoxyCodeLine{359 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
-\DoxyCodeLine{360   \textcolor{comment}{// compare the multi pattern, either:}}
-\DoxyCodeLine{361   \textcolor{comment}{//   have a local pat and it's not equal to other (other could be null)}}
-\DoxyCodeLine{362   \textcolor{comment}{//   or have no local pat and other has one}}
-\DoxyCodeLine{363   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} \&\& !\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}-\/>\mbox{\hyperlink{classPattern_ae84385d575489b24636259dfab27218d}{equals}}(other-\/>\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}})) ||}
-\DoxyCodeLine{364       (!\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} \&\& other-\/>\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}})) \{}
-\DoxyCodeLine{365     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{366   \}}
-\DoxyCodeLine{367 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{368   \textcolor{comment}{// compare all the singles}}
-\DoxyCodeLine{369   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}}; ++pos) \{}
-\DoxyCodeLine{370     \textcolor{comment}{// if entry is valid, do a comparison}}
-\DoxyCodeLine{371     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
-\DoxyCodeLine{372       \textcolor{comment}{// checks if other is not null and equal}}
-\DoxyCodeLine{373       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classMode_a5211b5677490a2012aca2188e401e409}{equals}}(other-\/>\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos])) \{}
-\DoxyCodeLine{374         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{375       \}}
-\DoxyCodeLine{376       \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{377     \}}
-\DoxyCodeLine{378     \textcolor{comment}{// current is null, check if other is valid}}
-\DoxyCodeLine{379     \textcolor{keywordflow}{if} (other-\/>\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
-\DoxyCodeLine{380       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{381     \}}
-\DoxyCodeLine{382     \textcolor{comment}{// both are null}}
-\DoxyCodeLine{383   \}}
-\DoxyCodeLine{384   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{385 \}}
+\DoxyCodeLine{379 \{}
+\DoxyCodeLine{380   \textcolor{keywordflow}{if} (!other) \{}
+\DoxyCodeLine{381     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{382   \}}
+\DoxyCodeLine{383   \textcolor{comment}{// compare the led count}}
+\DoxyCodeLine{384   \textcolor{keywordflow}{if} (other-\/>\mbox{\hyperlink{classMode_a02896a308abb58563215774352aaeabf}{getLedCount}}() != \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}}) \{}
+\DoxyCodeLine{385     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{386   \}}
+\DoxyCodeLine{387 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{388   \textcolor{comment}{// compare the multi pattern, either:}}
+\DoxyCodeLine{389   \textcolor{comment}{//   have a local pat and it's not equal to other (other could be null)}}
+\DoxyCodeLine{390   \textcolor{comment}{//   or have no local pat and other has one}}
+\DoxyCodeLine{391   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} \&\& !\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}-\/>\mbox{\hyperlink{classPattern_ae84385d575489b24636259dfab27218d}{equals}}(other-\/>\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}})) ||}
+\DoxyCodeLine{392       (!\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} \&\& other-\/>\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}})) \{}
+\DoxyCodeLine{393     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{394   \}}
+\DoxyCodeLine{395 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{396   \textcolor{comment}{// compare all the singles}}
+\DoxyCodeLine{397   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}}; ++pos) \{}
+\DoxyCodeLine{398     \textcolor{comment}{// if entry is valid, do a comparison}}
+\DoxyCodeLine{399     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
+\DoxyCodeLine{400       \textcolor{comment}{// checks if other is not null and equal}}
+\DoxyCodeLine{401       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classMode_a5211b5677490a2012aca2188e401e409}{equals}}(other-\/>\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos])) \{}
+\DoxyCodeLine{402         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{403       \}}
+\DoxyCodeLine{404       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{405     \}}
+\DoxyCodeLine{406     \textcolor{comment}{// current is null, check if other is valid}}
+\DoxyCodeLine{407     \textcolor{keywordflow}{if} (other-\/>\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
+\DoxyCodeLine{408       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{409     \}}
+\DoxyCodeLine{410     \textcolor{comment}{// both are null}}
+\DoxyCodeLine{411   \}}
+\DoxyCodeLine{412   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{413 \}}
 
 \end{DoxyCode}
 
@@ -443,17 +443,17 @@ Referenced by operator!=(), and operator==().
 
 
 
-Definition at line 662 of file Mode.\+cpp.
+Definition at line 690 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{663 \{}
-\DoxyCodeLine{664   \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(pos);}
-\DoxyCodeLine{665   \textcolor{keywordflow}{if} (!pat) \{}
-\DoxyCodeLine{666     \textcolor{keywordflow}{return} 0;}
-\DoxyCodeLine{667   \}}
-\DoxyCodeLine{668   \textcolor{keywordflow}{return} pat-\/>\mbox{\hyperlink{classPattern_a1aa3f7649795c67ce50a04d1503546b9}{getArg}}(index);}
-\DoxyCodeLine{669 \}}
+\DoxyCodeLine{691 \{}
+\DoxyCodeLine{692   \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(pos);}
+\DoxyCodeLine{693   \textcolor{keywordflow}{if} (!pat) \{}
+\DoxyCodeLine{694     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{695   \}}
+\DoxyCodeLine{696   \textcolor{keywordflow}{return} pat-\/>\mbox{\hyperlink{classPattern_a1aa3f7649795c67ce50a04d1503546b9}{getArg}}(index);}
+\DoxyCodeLine{697 \}}
 
 \end{DoxyCode}
 
@@ -468,17 +468,17 @@ References Pattern\+::get\+Arg(), and get\+Pattern().
 
 
 
-Definition at line 472 of file Mode.\+cpp.
+Definition at line 500 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{473 \{}
-\DoxyCodeLine{474   \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(pos);}
-\DoxyCodeLine{475   \textcolor{keywordflow}{if} (!pat) \{}
-\DoxyCodeLine{476     \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset}{Colorset}}();}
-\DoxyCodeLine{477   \}}
-\DoxyCodeLine{478   \textcolor{keywordflow}{return} pat-\/>\mbox{\hyperlink{classPattern_a74bdb41c74915065e3c983427a6973d3}{getColorset}}();}
-\DoxyCodeLine{479 \}}
+\DoxyCodeLine{501 \{}
+\DoxyCodeLine{502   \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(pos);}
+\DoxyCodeLine{503   \textcolor{keywordflow}{if} (!pat) \{}
+\DoxyCodeLine{504     \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorset}{Colorset}}();}
+\DoxyCodeLine{505   \}}
+\DoxyCodeLine{506   \textcolor{keywordflow}{return} pat-\/>\mbox{\hyperlink{classPattern_a74bdb41c74915065e3c983427a6973d3}{getColorset}}();}
+\DoxyCodeLine{507 \}}
 
 \end{DoxyCode}
 
@@ -493,13 +493,13 @@ References Pattern\+::get\+Colorset(), and get\+Pattern().
 
 
 
-Definition at line 467 of file Mode.\+cpp.
+Definition at line 495 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{468 \{}
-\DoxyCodeLine{469   \textcolor{keywordflow}{return} ((\mbox{\hyperlink{classMode}{Mode}} *)\textcolor{keyword}{this})-\/>getColorset(pos);}
-\DoxyCodeLine{470 \}}
+\DoxyCodeLine{496 \{}
+\DoxyCodeLine{497   \textcolor{keywordflow}{return} ((\mbox{\hyperlink{classMode}{Mode}} *)\textcolor{keyword}{this})-\/>getColorset(pos);}
+\DoxyCodeLine{498 \}}
 
 \end{DoxyCode}
 
@@ -514,18 +514,18 @@ Referenced by Color\+Select\+::on\+Led\+Selected(), and set\+Pattern().
 
 
 
-Definition at line 671 of file Mode.\+cpp.
+Definition at line 699 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{672 \{}
-\DoxyCodeLine{673   \mbox{\hyperlink{Mode_8h_a33c2e4593a371b6344b716f0769d0802}{ModeFlags}} flags = 0;}
-\DoxyCodeLine{674   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a9b7a14f99f5c6000198c44490c4647a7}{hasMultiLed}}()) flags |= \mbox{\hyperlink{Mode_8h_ae687e91ae43b993577e2c2768f1c20a7}{MODE\_FLAG\_MULTI\_LED}};}
-\DoxyCodeLine{675   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a69c99ce1b2cbab6ae3cf317668fb55ed}{hasSingleLed}}()) flags |= \mbox{\hyperlink{Mode_8h_a11ae854450224ab7c31f50b5712dcf16}{MODE\_FLAG\_SINGLE\_LED}};}
-\DoxyCodeLine{676   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a52458a7c4a2207fdf46ce396f6bd50ed}{hasSameSingleLed}}()) flags |= \mbox{\hyperlink{Mode_8h_af4c9f3425fc7f270c4ca7e32842501b3}{MODE\_FLAG\_ALL\_SAME\_SINGLE}};}
-\DoxyCodeLine{677   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_ac20637e4de52f300952a40ab345bbe76}{hasSparseSingleLed}}()) flags |= \mbox{\hyperlink{Mode_8h_a2387bf71317551625f515e5f6d685b5f}{MODE\_FLAG\_SPARSE\_SINGLES}};}
-\DoxyCodeLine{678   \textcolor{keywordflow}{return} flags;}
-\DoxyCodeLine{679 \}}
+\DoxyCodeLine{700 \{}
+\DoxyCodeLine{701   \mbox{\hyperlink{Mode_8h_a33c2e4593a371b6344b716f0769d0802}{ModeFlags}} flags = 0;}
+\DoxyCodeLine{702   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a9b7a14f99f5c6000198c44490c4647a7}{hasMultiLed}}()) flags |= \mbox{\hyperlink{Mode_8h_ae687e91ae43b993577e2c2768f1c20a7}{MODE\_FLAG\_MULTI\_LED}};}
+\DoxyCodeLine{703   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a69c99ce1b2cbab6ae3cf317668fb55ed}{hasSingleLed}}()) flags |= \mbox{\hyperlink{Mode_8h_a11ae854450224ab7c31f50b5712dcf16}{MODE\_FLAG\_SINGLE\_LED}};}
+\DoxyCodeLine{704   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a52458a7c4a2207fdf46ce396f6bd50ed}{hasSameSingleLed}}()) flags |= \mbox{\hyperlink{Mode_8h_af4c9f3425fc7f270c4ca7e32842501b3}{MODE\_FLAG\_ALL\_SAME\_SINGLE}};}
+\DoxyCodeLine{705   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_ac20637e4de52f300952a40ab345bbe76}{hasSparseSingleLed}}()) flags |= \mbox{\hyperlink{Mode_8h_a2387bf71317551625f515e5f6d685b5f}{MODE\_FLAG\_SPARSE\_SINGLES}};}
+\DoxyCodeLine{706   \textcolor{keywordflow}{return} flags;}
+\DoxyCodeLine{707 \}}
 
 \end{DoxyCode}
 
@@ -544,17 +544,17 @@ Referenced by serialize().
 
 
 
-Definition at line 405 of file Mode.\+cpp.
+Definition at line 433 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{406 \{}
-\DoxyCodeLine{407 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
-\DoxyCodeLine{408   \textcolor{keywordflow}{return} m\_numLeds;}
-\DoxyCodeLine{409 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{410   \textcolor{keywordflow}{return} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}};}
-\DoxyCodeLine{411 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{412 \}}
+\DoxyCodeLine{434 \{}
+\DoxyCodeLine{435 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
+\DoxyCodeLine{436   \textcolor{keywordflow}{return} m\_numLeds;}
+\DoxyCodeLine{437 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{438   \textcolor{keywordflow}{return} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}};}
+\DoxyCodeLine{439 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{440 \}}
 
 \end{DoxyCode}
 
@@ -573,56 +573,56 @@ Referenced by equals(), and operator=().
 
 
 
-Definition at line 419 of file Mode.\+cpp.
+Definition at line 447 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{420 \{}
-\DoxyCodeLine{421   \textcolor{keywordflow}{switch} (pos) \{}
-\DoxyCodeLine{422   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cae4fd580189cac85429ebfa5cb71cd772}{LED\_ALL}}:}
-\DoxyCodeLine{423     \textcolor{comment}{// makes no sense}}
-\DoxyCodeLine{424     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{425   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{LED\_ANY}}:}
-\DoxyCodeLine{426     \textcolor{comment}{// fallthrough}}
-\DoxyCodeLine{427 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
-\DoxyCodeLine{428   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}:}
-\DoxyCodeLine{429     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}) \{}
-\DoxyCodeLine{430       \textcolor{keywordflow}{return} \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}};}
-\DoxyCodeLine{431     \}}
-\DoxyCodeLine{432     \textcolor{keywordflow}{if} (pos == \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}) \{}
-\DoxyCodeLine{433       \textcolor{comment}{// don't fallthrough if actually multi, it's possible}}
-\DoxyCodeLine{434       \textcolor{comment}{// we got here by falling through from LED\_ALL}}
-\DoxyCodeLine{435       \textcolor{keywordflow}{break};}
-\DoxyCodeLine{436     \}}
-\DoxyCodeLine{437     \textcolor{comment}{// fall through if LED\_ALL and delete the single leds}}
-\DoxyCodeLine{438 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{439   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca240d4ba97b43dbc25d2d6cd065171249}{LED\_ALL\_SINGLE}}:}
-\DoxyCodeLine{440     \textcolor{comment}{// count as 'any' single}}
-\DoxyCodeLine{441 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
-\DoxyCodeLine{442     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}) \{}
-\DoxyCodeLine{443       \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{444     \}}
-\DoxyCodeLine{445 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{446     \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++pos) \{}
-\DoxyCodeLine{447       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
-\DoxyCodeLine{448         \textcolor{keywordflow}{return} \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos];}
-\DoxyCodeLine{449       \}}
-\DoxyCodeLine{450     \}}
-\DoxyCodeLine{451     \textcolor{comment}{// actually break here}}
-\DoxyCodeLine{452     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{453   \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{454 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
-\DoxyCodeLine{455     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}) \{}
-\DoxyCodeLine{456       \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{457     \}}
-\DoxyCodeLine{458 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{459     \textcolor{keywordflow}{if} (pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}} \&\& \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
-\DoxyCodeLine{460       \textcolor{keywordflow}{return} \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos];}
-\DoxyCodeLine{461     \}}
-\DoxyCodeLine{462     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{463   \}}
-\DoxyCodeLine{464   \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{465 \}}
+\DoxyCodeLine{448 \{}
+\DoxyCodeLine{449   \textcolor{keywordflow}{switch} (pos) \{}
+\DoxyCodeLine{450   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cae4fd580189cac85429ebfa5cb71cd772}{LED\_ALL}}:}
+\DoxyCodeLine{451     \textcolor{comment}{// makes no sense}}
+\DoxyCodeLine{452     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{453   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{LED\_ANY}}:}
+\DoxyCodeLine{454     \textcolor{comment}{// fallthrough}}
+\DoxyCodeLine{455 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{456   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}:}
+\DoxyCodeLine{457     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}) \{}
+\DoxyCodeLine{458       \textcolor{keywordflow}{return} \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}};}
+\DoxyCodeLine{459     \}}
+\DoxyCodeLine{460     \textcolor{keywordflow}{if} (pos == \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}) \{}
+\DoxyCodeLine{461       \textcolor{comment}{// don't fallthrough if actually multi, it's possible}}
+\DoxyCodeLine{462       \textcolor{comment}{// we got here by falling through from LED\_ALL}}
+\DoxyCodeLine{463       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{464     \}}
+\DoxyCodeLine{465     \textcolor{comment}{// fall through if LED\_ALL and delete the single leds}}
+\DoxyCodeLine{466 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{467   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca240d4ba97b43dbc25d2d6cd065171249}{LED\_ALL\_SINGLE}}:}
+\DoxyCodeLine{468     \textcolor{comment}{// count as 'any' single}}
+\DoxyCodeLine{469 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
+\DoxyCodeLine{470     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}) \{}
+\DoxyCodeLine{471       \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{472     \}}
+\DoxyCodeLine{473 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{474     \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++pos) \{}
+\DoxyCodeLine{475       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
+\DoxyCodeLine{476         \textcolor{keywordflow}{return} \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos];}
+\DoxyCodeLine{477       \}}
+\DoxyCodeLine{478     \}}
+\DoxyCodeLine{479     \textcolor{comment}{// actually break here}}
+\DoxyCodeLine{480     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{481   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{482 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
+\DoxyCodeLine{483     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}) \{}
+\DoxyCodeLine{484       \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{485     \}}
+\DoxyCodeLine{486 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{487     \textcolor{keywordflow}{if} (pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}} \&\& \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
+\DoxyCodeLine{488       \textcolor{keywordflow}{return} \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos];}
+\DoxyCodeLine{489     \}}
+\DoxyCodeLine{490     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{491   \}}
+\DoxyCodeLine{492   \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{493 \}}
 
 \end{DoxyCode}
 
@@ -637,13 +637,13 @@ References LED\+\_\+\+ALL, LED\+\_\+\+ALL\+\_\+\+SINGLE, LED\+\_\+\+ANY, LED\+\_
 
 
 
-Definition at line 414 of file Mode.\+cpp.
+Definition at line 442 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{415 \{}
-\DoxyCodeLine{416   \textcolor{keywordflow}{return} ((\mbox{\hyperlink{classMode}{Mode}} *)\textcolor{keyword}{this})-\/>getPattern(pos);}
-\DoxyCodeLine{417 \}}
+\DoxyCodeLine{443 \{}
+\DoxyCodeLine{444   \textcolor{keywordflow}{return} ((\mbox{\hyperlink{classMode}{Mode}} *)\textcolor{keyword}{this})-\/>getPattern(pos);}
+\DoxyCodeLine{445 \}}
 
 \end{DoxyCode}
 
@@ -658,17 +658,17 @@ Referenced by get\+Arg(), get\+Colorset(), get\+Pattern\+ID(), Randomizer\+::ini
 
 
 
-Definition at line 481 of file Mode.\+cpp.
+Definition at line 509 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{482 \{}
-\DoxyCodeLine{483   \textcolor{keyword}{const} \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(pos);}
-\DoxyCodeLine{484   \textcolor{keywordflow}{if} (!pat) \{}
-\DoxyCodeLine{485     \textcolor{keywordflow}{return} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}};}
-\DoxyCodeLine{486   \}}
-\DoxyCodeLine{487   \textcolor{keywordflow}{return} pat-\/>\mbox{\hyperlink{classPattern_a9ffb45ae9cbb7188038bf1009ce842b0}{getPatternID}}();}
-\DoxyCodeLine{488 \}}
+\DoxyCodeLine{510 \{}
+\DoxyCodeLine{511   \textcolor{keyword}{const} \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(pos);}
+\DoxyCodeLine{512   \textcolor{keywordflow}{if} (!pat) \{}
+\DoxyCodeLine{513     \textcolor{keywordflow}{return} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}};}
+\DoxyCodeLine{514   \}}
+\DoxyCodeLine{515   \textcolor{keywordflow}{return} pat-\/>\mbox{\hyperlink{classPattern_a9ffb45ae9cbb7188038bf1009ce842b0}{getPatternID}}();}
+\DoxyCodeLine{516 \}}
 
 \end{DoxyCode}
 
@@ -687,24 +687,24 @@ Referenced by is\+Empty(), Pattern\+Select\+::on\+Short\+Click(), Mode\+Sharing\
 
 
 
-Definition at line 752 of file Mode.\+cpp.
+Definition at line 780 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{753 \{}
-\DoxyCodeLine{754   \mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{LedMap}} map = 0;}
-\DoxyCodeLine{755   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}}; pos++) \{}
-\DoxyCodeLine{756     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
-\DoxyCodeLine{757       \mbox{\hyperlink{LedTypes_8h_a99b3613fb4c658dff24ba0f18eda6e31}{setLed}}(map, pos);}
-\DoxyCodeLine{758     \}}
-\DoxyCodeLine{759   \}}
-\DoxyCodeLine{760   \textcolor{keywordflow}{return} map;}
-\DoxyCodeLine{761 \}}
+\DoxyCodeLine{781 \{}
+\DoxyCodeLine{782   \mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{LedMap}} map = 0;}
+\DoxyCodeLine{783   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}}; pos++) \{}
+\DoxyCodeLine{784     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
+\DoxyCodeLine{785       \mbox{\hyperlink{LedTypes_8h_a7c47d3eb42975a1a8ea5af7bcbc95bde}{ledmapSetLed}}(map, pos);}
+\DoxyCodeLine{786     \}}
+\DoxyCodeLine{787   \}}
+\DoxyCodeLine{788   \textcolor{keywordflow}{return} map;}
+\DoxyCodeLine{789 \}}
 
 \end{DoxyCode}
 
 
-References LED\+\_\+\+FIRST, m\+\_\+single\+Pats, MODE\+\_\+\+LEDCOUNT, and set\+Led().
+References LED\+\_\+\+FIRST, ledmap\+Set\+Led(), m\+\_\+single\+Pats, and MODE\+\_\+\+LEDCOUNT.
 
 
 
@@ -718,17 +718,17 @@ Referenced by has\+Sparse\+Single\+Led(), and serialize().
 
 
 
-Definition at line 682 of file Mode.\+cpp.
+Definition at line 710 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{683 \{}
-\DoxyCodeLine{684 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
-\DoxyCodeLine{685   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} != \textcolor{keyword}{nullptr});}
-\DoxyCodeLine{686 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{687   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{688 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{689 \}}
+\DoxyCodeLine{711 \{}
+\DoxyCodeLine{712 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{713   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} != \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{714 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{715   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{716 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{717 \}}
 
 \end{DoxyCode}
 
@@ -747,27 +747,27 @@ Referenced by get\+Flags(), Randomizer\+::init(), and is\+Multi\+Led().
 
 
 
-Definition at line 703 of file Mode.\+cpp.
+Definition at line 731 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{704 \{}
-\DoxyCodeLine{705   \mbox{\hyperlink{classPattern}{Pattern}} *firstPat = \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{706   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} i = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; i < \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}}; ++i) \{}
-\DoxyCodeLine{707     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[i]) \{}
-\DoxyCodeLine{708       \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{709     \}}
-\DoxyCodeLine{710     \textcolor{keywordflow}{if} (!firstPat) \{}
-\DoxyCodeLine{711       firstPat = \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[i];}
-\DoxyCodeLine{712       \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{713     \}}
-\DoxyCodeLine{714     \textcolor{keywordflow}{if} (!firstPat-\/>\mbox{\hyperlink{classPattern_ae84385d575489b24636259dfab27218d}{equals}}(\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[i])) \{}
-\DoxyCodeLine{715       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{716     \}}
-\DoxyCodeLine{717   \}}
-\DoxyCodeLine{718   \textcolor{comment}{// all the same if at least one pattern was found}}
-\DoxyCodeLine{719   \textcolor{keywordflow}{return} (firstPat != \textcolor{keyword}{nullptr});}
-\DoxyCodeLine{720 \}}
+\DoxyCodeLine{732 \{}
+\DoxyCodeLine{733   \mbox{\hyperlink{classPattern}{Pattern}} *firstPat = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{734   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} i = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; i < \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}}; ++i) \{}
+\DoxyCodeLine{735     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[i]) \{}
+\DoxyCodeLine{736       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{737     \}}
+\DoxyCodeLine{738     \textcolor{keywordflow}{if} (!firstPat) \{}
+\DoxyCodeLine{739       firstPat = \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[i];}
+\DoxyCodeLine{740       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{741     \}}
+\DoxyCodeLine{742     \textcolor{keywordflow}{if} (!firstPat-\/>\mbox{\hyperlink{classPattern_ae84385d575489b24636259dfab27218d}{equals}}(\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[i])) \{}
+\DoxyCodeLine{743       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{744     \}}
+\DoxyCodeLine{745   \}}
+\DoxyCodeLine{746   \textcolor{comment}{// all the same if at least one pattern was found}}
+\DoxyCodeLine{747   \textcolor{keywordflow}{return} (firstPat != \textcolor{keyword}{nullptr});}
+\DoxyCodeLine{748 \}}
 
 \end{DoxyCode}
 
@@ -786,18 +786,18 @@ Referenced by get\+Flags().
 
 
 
-Definition at line 692 of file Mode.\+cpp.
+Definition at line 720 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{693 \{}
-\DoxyCodeLine{694   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} i = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; i < \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}}; ++i) \{}
-\DoxyCodeLine{695     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[i]) \{}
-\DoxyCodeLine{696       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{697     \}}
-\DoxyCodeLine{698   \}}
-\DoxyCodeLine{699   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{700 \}}
+\DoxyCodeLine{721 \{}
+\DoxyCodeLine{722   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} i = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; i < \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}}; ++i) \{}
+\DoxyCodeLine{723     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[i]) \{}
+\DoxyCodeLine{724       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{725     \}}
+\DoxyCodeLine{726   \}}
+\DoxyCodeLine{727   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{728 \}}
 
 \end{DoxyCode}
 
@@ -816,21 +816,21 @@ Referenced by get\+Flags(), and is\+Multi\+Led().
 
 
 
-Definition at line 722 of file Mode.\+cpp.
+Definition at line 750 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{723 \{}
-\DoxyCodeLine{724   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classMode_a7e3d11e2bcda0bef4918c0eae7b60958}{getSingleLedMap}}()) \{}
-\DoxyCodeLine{725   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}}:}
-\DoxyCodeLine{726   \textcolor{keywordflow}{case} 0:}
-\DoxyCodeLine{727     \textcolor{comment}{// if all or none are set it's not sparse}}
-\DoxyCodeLine{728     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{729   \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{730     \textcolor{comment}{// if anything else is set it's sparse}}
-\DoxyCodeLine{731     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{732   \}}
-\DoxyCodeLine{733 \}}
+\DoxyCodeLine{751 \{}
+\DoxyCodeLine{752   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classMode_a7e3d11e2bcda0bef4918c0eae7b60958}{getSingleLedMap}}()) \{}
+\DoxyCodeLine{753   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}}:}
+\DoxyCodeLine{754   \textcolor{keywordflow}{case} 0:}
+\DoxyCodeLine{755     \textcolor{comment}{// if all or none are set it's not sparse}}
+\DoxyCodeLine{756     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{757   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{758     \textcolor{comment}{// if anything else is set it's sparse}}
+\DoxyCodeLine{759     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{760   \}}
+\DoxyCodeLine{761 \}}
 
 \end{DoxyCode}
 
@@ -888,25 +888,25 @@ Referenced by Modes\+::add\+Mode(), Modes\+::add\+Serialized\+Mode(), Editor\+Co
 
 
 
-Definition at line 735 of file Mode.\+cpp.
+Definition at line 763 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{736 \{}
-\DoxyCodeLine{737 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
-\DoxyCodeLine{738   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} \&\& \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}-\/>\mbox{\hyperlink{classPattern_a9ffb45ae9cbb7188038bf1009ce842b0}{getPatternID}}() != \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}) \{}
-\DoxyCodeLine{739     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{740   \}}
-\DoxyCodeLine{741 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{742   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} i = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; i < \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}}; ++i) \{}
-\DoxyCodeLine{743     \textcolor{comment}{// if any patterns are non-\/null and not PATTERN\_NONE}}
-\DoxyCodeLine{744     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[i] \&\& \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[i]-\/>\mbox{\hyperlink{classMode_a0c012c6a748a1a1a9502b552bfa2ba66}{getPatternID}}() != \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}) \{}
-\DoxyCodeLine{745       \textcolor{comment}{// then this mode is not empty}}
-\DoxyCodeLine{746       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{747     \}}
-\DoxyCodeLine{748   \}}
-\DoxyCodeLine{749   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{750 \}}
+\DoxyCodeLine{764 \{}
+\DoxyCodeLine{765 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{766   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} \&\& \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}-\/>\mbox{\hyperlink{classPattern_a9ffb45ae9cbb7188038bf1009ce842b0}{getPatternID}}() != \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}) \{}
+\DoxyCodeLine{767     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{768   \}}
+\DoxyCodeLine{769 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{770   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} i = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; i < \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}}; ++i) \{}
+\DoxyCodeLine{771     \textcolor{comment}{// if any patterns are non-\/null and not PATTERN\_NONE}}
+\DoxyCodeLine{772     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[i] \&\& \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[i]-\/>\mbox{\hyperlink{classMode_a0c012c6a748a1a1a9502b552bfa2ba66}{getPatternID}}() != \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}) \{}
+\DoxyCodeLine{773       \textcolor{comment}{// then this mode is not empty}}
+\DoxyCodeLine{774       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{775     \}}
+\DoxyCodeLine{776   \}}
+\DoxyCodeLine{777   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{778 \}}
 
 \end{DoxyCode}
 
@@ -925,17 +925,17 @@ Referenced by Color\+Select\+::init().
 
 
 
-Definition at line 764 of file Mode.\+cpp.
+Definition at line 792 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{765 \{}
-\DoxyCodeLine{766 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
-\DoxyCodeLine{767   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMode_a9b7a14f99f5c6000198c44490c4647a7}{hasMultiLed}}() \&\& !\mbox{\hyperlink{classMode_a69c99ce1b2cbab6ae3cf317668fb55ed}{hasSingleLed}}();}
-\DoxyCodeLine{768 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{769   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{770 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{771 \}}
+\DoxyCodeLine{793 \{}
+\DoxyCodeLine{794 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{795   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMode_a9b7a14f99f5c6000198c44490c4647a7}{hasMultiLed}}() \&\& !\mbox{\hyperlink{classMode_a69c99ce1b2cbab6ae3cf317668fb55ed}{hasSingleLed}}();}
+\DoxyCodeLine{796 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{797   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{798 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{799 \}}
 
 \end{DoxyCode}
 
@@ -944,7 +944,7 @@ References has\+Multi\+Led(), and has\+Single\+Led().
 
 
 
-Referenced by Color\+Select\+::init(), Factory\+Reset\+::init(), Menu\+::next\+Bulb\+Selection(), and Randomizer\+::run().
+Referenced by Color\+Select\+::init(), Factory\+Reset\+::init(), Color\+Select\+::is\+Valid\+Led\+Selection(), Menu\+::next\+Bulb\+Selection(), and Randomizer\+::run().
 
 \mbox{\Hypertarget{classMode_a31ed6fbb39ca7876e415fc58bc18d630}\label{classMode_a31ed6fbb39ca7876e415fc58bc18d630}} 
 \index{Mode@{Mode}!loadFromBuffer@{loadFromBuffer}}
@@ -968,27 +968,31 @@ Definition at line 179 of file Mode.\+cpp.
 \DoxyCodeLine{187   uint8\_t major = 0;}
 \DoxyCodeLine{188   uint8\_t minor = 0;}
 \DoxyCodeLine{189   \textcolor{comment}{// unserialize the vortex version}}
-\DoxyCodeLine{190   modeBuffer.unserialize(\&major);}
-\DoxyCodeLine{191   modeBuffer.unserialize(\&minor);}
-\DoxyCodeLine{192   \textcolor{comment}{// check the version for incompatibility}}
-\DoxyCodeLine{193   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_aa85a9e4f12bc72bedd7b0a9c5a9bd970}{VortexEngine::checkVersion}}(major, minor)) \{}
-\DoxyCodeLine{194     \textcolor{comment}{// incompatible version}}
-\DoxyCodeLine{195     \mbox{\hyperlink{Log_8h_aed976922ae10c35e5e5241d15f5a06af}{ERROR\_LOGF}}(\textcolor{stringliteral}{"{}Incompatible savefile version: \%u.\%u"{}}, major, minor);}
-\DoxyCodeLine{196     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{197   \}}
-\DoxyCodeLine{198   \textcolor{comment}{// now just unserialize the list of patterns}}
-\DoxyCodeLine{199   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_afe827f93ec4916928a22202ebdf26ee7}{unserialize}}(modeBuffer)) \{}
+\DoxyCodeLine{190   \textcolor{keywordflow}{if} (!modeBuffer.unserialize8(\&major)) \{}
+\DoxyCodeLine{191     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{192   \}}
+\DoxyCodeLine{193   \textcolor{keywordflow}{if} (!modeBuffer.unserialize8(\&minor)) \{}
+\DoxyCodeLine{194     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{195   \}}
+\DoxyCodeLine{196   \textcolor{comment}{// check the version for incompatibility}}
+\DoxyCodeLine{197   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVortexEngine_aa85a9e4f12bc72bedd7b0a9c5a9bd970}{VortexEngine::checkVersion}}(major, minor)) \{}
+\DoxyCodeLine{198     \textcolor{comment}{// incompatible version}}
+\DoxyCodeLine{199     \mbox{\hyperlink{Log_8h_aed976922ae10c35e5e5241d15f5a06af}{ERROR\_LOGF}}(\textcolor{stringliteral}{"{}Incompatible savefile version: \%u.\%u"{}}, major, minor);}
 \DoxyCodeLine{200     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{201   \}}
-\DoxyCodeLine{202   \textcolor{comment}{// then initialize the mode so that it is ready to play}}
-\DoxyCodeLine{203   \mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
-\DoxyCodeLine{204   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{205 \}}
+\DoxyCodeLine{202   \textcolor{comment}{// now just unserialize the list of patterns}}
+\DoxyCodeLine{203   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_afe827f93ec4916928a22202ebdf26ee7}{unserialize}}(modeBuffer)) \{}
+\DoxyCodeLine{204     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{205   \}}
+\DoxyCodeLine{206   \textcolor{comment}{// then initialize the mode so that it is ready to play}}
+\DoxyCodeLine{207   \mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
+\DoxyCodeLine{208   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{209 \}}
 
 \end{DoxyCode}
 
 
-References Vortex\+Engine\+::check\+Version(), Byte\+Stream\+::decompress(), ERROR\+\_\+\+LOGF, init(), Byte\+Stream\+::reset\+Unserializer(), unserialize(), and Byte\+Stream\+::unserialize().
+References Vortex\+Engine\+::check\+Version(), Byte\+Stream\+::decompress(), ERROR\+\_\+\+LOGF, init(), Byte\+Stream\+::reset\+Unserializer(), unserialize(), and Byte\+Stream\+::unserialize8().
 
 
 
@@ -1138,7 +1142,7 @@ Definition at line 169 of file Mode.\+cpp.
 \DoxyCodeLine{171   \textcolor{comment}{// serialize the engine version into the modes buffer}}
 \DoxyCodeLine{172   \mbox{\hyperlink{classVortexEngine_a194a57be4545c9e7d0ceb0df6cf3d7e8}{VortexEngine::serializeVersion}}(modeBuffer);}
 \DoxyCodeLine{173   \textcolor{comment}{// serialize all mode data into the modeBuffer}}
-\DoxyCodeLine{174   \mbox{\hyperlink{classMode_a5131802c3bf289b45b1847e8a65ea522}{serialize}}(modeBuffer, numLeds);}
+\DoxyCodeLine{174   \mbox{\hyperlink{classMode_aad4310ad7cbb0d98f5583c97881012f2}{serialize}}(modeBuffer, numLeds);}
 \DoxyCodeLine{175   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Serialized mode, uncompressed size: \%u"{}}, modeBuffer.size());}
 \DoxyCodeLine{176   \textcolor{keywordflow}{return} modeBuffer.compress();}
 \DoxyCodeLine{177 \}}
@@ -1152,66 +1156,77 @@ References Byte\+Stream\+::compress(), DEBUG\+\_\+\+LOGF, serialize(), Vortex\+E
 
 Referenced by Modes\+::\+Mode\+Link\+::init(), IRSender\+::load\+Mode(), and VLSender\+::load\+Mode().
 
-\mbox{\Hypertarget{classMode_a5131802c3bf289b45b1847e8a65ea522}\label{classMode_a5131802c3bf289b45b1847e8a65ea522}} 
+\mbox{\Hypertarget{classMode_aad4310ad7cbb0d98f5583c97881012f2}\label{classMode_aad4310ad7cbb0d98f5583c97881012f2}} 
 \index{Mode@{Mode}!serialize@{serialize}}
 \index{serialize@{serialize}!Mode@{Mode}}
 \doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
-{\footnotesize\ttfamily void Mode\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer,  }\item[{uint8\+\_\+t}]{num\+Leds = {\ttfamily 0} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool Mode\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer,  }\item[{uint8\+\_\+t}]{num\+Leds = {\ttfamily 0} }\end{DoxyParamCaption}) const}
 
 
 
-Definition at line 207 of file Mode.\+cpp.
+Definition at line 211 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{208 \{}
-\DoxyCodeLine{209   \textcolor{keywordflow}{if} (!numLeds) \{}
-\DoxyCodeLine{210     numLeds = \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}};}
-\DoxyCodeLine{211   \}}
-\DoxyCodeLine{212   \textcolor{comment}{// serialize the number of leds}}
-\DoxyCodeLine{213   buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(numLeds);}
-\DoxyCodeLine{214   \textcolor{comment}{// empty mode?}}
-\DoxyCodeLine{215   \textcolor{keywordflow}{if} (!numLeds) \{}
-\DoxyCodeLine{216     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{217   \}}
-\DoxyCodeLine{218   \textcolor{comment}{// serialize the flags}}
-\DoxyCodeLine{219   \mbox{\hyperlink{Mode_8h_a33c2e4593a371b6344b716f0769d0802}{ModeFlags}} flags = \mbox{\hyperlink{classMode_a25fa9c7e3e991a9fd7bf36c1c281fc15}{getFlags}}();}
-\DoxyCodeLine{220   buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(flags);}
-\DoxyCodeLine{221 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
-\DoxyCodeLine{222   \textcolor{comment}{// serialiaze the multi led?}}
-\DoxyCodeLine{223   \textcolor{keywordflow}{if} ((flags \& \mbox{\hyperlink{Mode_8h_ae687e91ae43b993577e2c2768f1c20a7}{MODE\_FLAG\_MULTI\_LED}}) \&\& \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}) \{}
-\DoxyCodeLine{224     \textcolor{comment}{// serialize the multi led}}
-\DoxyCodeLine{225     \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}-\/>\mbox{\hyperlink{classPattern_ab1736f919bf4e8e0de09f4501f095f01}{serialize}}(buffer);}
-\DoxyCodeLine{226   \}}
-\DoxyCodeLine{227 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{228   \textcolor{comment}{// if no single leds then just stop here}}
-\DoxyCodeLine{229   \textcolor{keywordflow}{if} (!(flags \& \mbox{\hyperlink{Mode_8h_a11ae854450224ab7c31f50b5712dcf16}{MODE\_FLAG\_SINGLE\_LED}})) \{}
-\DoxyCodeLine{230     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{231   \}}
-\DoxyCodeLine{232   \textcolor{comment}{// if there are any sparse singles (spaces) then we need to}}
-\DoxyCodeLine{233   \textcolor{comment}{// serialize an led map of which singles are set}}
-\DoxyCodeLine{234   \textcolor{keywordflow}{if} (flags \& \mbox{\hyperlink{Mode_8h_a2387bf71317551625f515e5f6d685b5f}{MODE\_FLAG\_SPARSE\_SINGLES}}) \{}
-\DoxyCodeLine{235     buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}((uint32\_t)\mbox{\hyperlink{classMode_a7e3d11e2bcda0bef4918c0eae7b60958}{getSingleLedMap}}());}
+\DoxyCodeLine{212 \{}
+\DoxyCodeLine{213   \textcolor{keywordflow}{if} (!numLeds) \{}
+\DoxyCodeLine{214     numLeds = \mbox{\hyperlink{Mode_8cpp_a95064be28f9c0ab742a37bfdea46ca09}{MODE\_LEDCOUNT}};}
+\DoxyCodeLine{215   \}}
+\DoxyCodeLine{216   \textcolor{comment}{// serialize the number of leds}}
+\DoxyCodeLine{217   \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_ad3b413f399f22d30548a61a5e01ef3a7}{serialize8}}(numLeds)) \{}
+\DoxyCodeLine{218     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{219   \}}
+\DoxyCodeLine{220   \textcolor{comment}{// empty mode?}}
+\DoxyCodeLine{221   \textcolor{keywordflow}{if} (!numLeds) \{}
+\DoxyCodeLine{222     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{223   \}}
+\DoxyCodeLine{224   \textcolor{comment}{// serialize the flags}}
+\DoxyCodeLine{225   \mbox{\hyperlink{Mode_8h_a33c2e4593a371b6344b716f0769d0802}{ModeFlags}} flags = \mbox{\hyperlink{classMode_a25fa9c7e3e991a9fd7bf36c1c281fc15}{getFlags}}();}
+\DoxyCodeLine{226   \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_ad3b413f399f22d30548a61a5e01ef3a7}{serialize8}}(flags)) \{}
+\DoxyCodeLine{227     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{228   \}}
+\DoxyCodeLine{229 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{230   \textcolor{comment}{// serialiaze the multi led?}}
+\DoxyCodeLine{231   \textcolor{keywordflow}{if} ((flags \& \mbox{\hyperlink{Mode_8h_ae687e91ae43b993577e2c2768f1c20a7}{MODE\_FLAG\_MULTI\_LED}}) \&\& \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}) \{}
+\DoxyCodeLine{232     \textcolor{comment}{// serialize the multi led}}
+\DoxyCodeLine{233     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}-\/>\mbox{\hyperlink{classPattern_a762365f86054e20394c6ff55d6ae205f}{serialize}}(buffer)) \{}
+\DoxyCodeLine{234       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{235     \}}
 \DoxyCodeLine{236   \}}
-\DoxyCodeLine{237   \textcolor{comment}{// then iterate each single led and serialize it}}
-\DoxyCodeLine{238   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < numLeds; ++pos) \{}
-\DoxyCodeLine{239     \textcolor{keyword}{const} \mbox{\hyperlink{classPattern}{Pattern}} *entry = \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos];}
-\DoxyCodeLine{240     \textcolor{keywordflow}{if} (!entry) \{}
-\DoxyCodeLine{241       \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{242     \}}
-\DoxyCodeLine{243     \textcolor{comment}{// just serialize the pattern then colorset}}
-\DoxyCodeLine{244     entry-\/>\mbox{\hyperlink{classPattern_ab1736f919bf4e8e0de09f4501f095f01}{serialize}}(buffer);}
-\DoxyCodeLine{245     \textcolor{comment}{// if they are all same single then only serialize one}}
-\DoxyCodeLine{246     \textcolor{keywordflow}{if} (flags \& \mbox{\hyperlink{Mode_8h_af4c9f3425fc7f270c4ca7e32842501b3}{MODE\_FLAG\_ALL\_SAME\_SINGLE}}) \{}
-\DoxyCodeLine{247       \textcolor{keywordflow}{break};}
-\DoxyCodeLine{248     \}}
-\DoxyCodeLine{249   \}}
-\DoxyCodeLine{250 \}}
+\DoxyCodeLine{237 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{238   \textcolor{comment}{// if no single leds then just stop here}}
+\DoxyCodeLine{239   \textcolor{keywordflow}{if} (!(flags \& \mbox{\hyperlink{Mode_8h_a11ae854450224ab7c31f50b5712dcf16}{MODE\_FLAG\_SINGLE\_LED}})) \{}
+\DoxyCodeLine{240     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{241   \}}
+\DoxyCodeLine{242   \textcolor{comment}{// if there are any sparse singles (spaces) then we need to}}
+\DoxyCodeLine{243   \textcolor{comment}{// serialize an led map of which singles are set}}
+\DoxyCodeLine{244   \textcolor{keywordflow}{if} (flags \& \mbox{\hyperlink{Mode_8h_a2387bf71317551625f515e5f6d685b5f}{MODE\_FLAG\_SPARSE\_SINGLES}}) \{}
+\DoxyCodeLine{245     \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_a1ff20225c71d9bbc6539439af3b46bed}{serialize32}}((uint32\_t)\mbox{\hyperlink{classMode_a7e3d11e2bcda0bef4918c0eae7b60958}{getSingleLedMap}}())) \{}
+\DoxyCodeLine{246       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{247     \}}
+\DoxyCodeLine{248   \}}
+\DoxyCodeLine{249   \textcolor{comment}{// then iterate each single led and serialize it}}
+\DoxyCodeLine{250   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < numLeds; ++pos) \{}
+\DoxyCodeLine{251     \textcolor{keyword}{const} \mbox{\hyperlink{classPattern}{Pattern}} *entry = \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos];}
+\DoxyCodeLine{252     \textcolor{keywordflow}{if} (!entry) \{}
+\DoxyCodeLine{253       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{254     \}}
+\DoxyCodeLine{255     \textcolor{comment}{// just serialize the pattern then colorset}}
+\DoxyCodeLine{256     \textcolor{keywordflow}{if} (!entry-\/>\mbox{\hyperlink{classPattern_a762365f86054e20394c6ff55d6ae205f}{serialize}}(buffer)) \{}
+\DoxyCodeLine{257       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{258     \}}
+\DoxyCodeLine{259     \textcolor{comment}{// if they are all same single then only serialize one}}
+\DoxyCodeLine{260     \textcolor{keywordflow}{if} (flags \& \mbox{\hyperlink{Mode_8h_af4c9f3425fc7f270c4ca7e32842501b3}{MODE\_FLAG\_ALL\_SAME\_SINGLE}}) \{}
+\DoxyCodeLine{261       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{262     \}}
+\DoxyCodeLine{263   \}}
+\DoxyCodeLine{264   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{265 \}}
 
 \end{DoxyCode}
 
 
-References get\+Flags(), get\+Single\+Led\+Map(), LED\+\_\+\+FIRST, m\+\_\+multi\+Pat, m\+\_\+single\+Pats, MODE\+\_\+\+FLAG\+\_\+\+ALL\+\_\+\+SAME\+\_\+\+SINGLE, MODE\+\_\+\+FLAG\+\_\+\+MULTI\+\_\+\+LED, MODE\+\_\+\+FLAG\+\_\+\+SINGLE\+\_\+\+LED, MODE\+\_\+\+FLAG\+\_\+\+SPARSE\+\_\+\+SINGLES, MODE\+\_\+\+LEDCOUNT, Pattern\+::serialize(), and Byte\+Stream\+::serialize().
+References get\+Flags(), get\+Single\+Led\+Map(), LED\+\_\+\+FIRST, m\+\_\+multi\+Pat, m\+\_\+single\+Pats, MODE\+\_\+\+FLAG\+\_\+\+ALL\+\_\+\+SAME\+\_\+\+SINGLE, MODE\+\_\+\+FLAG\+\_\+\+MULTI\+\_\+\+LED, MODE\+\_\+\+FLAG\+\_\+\+SINGLE\+\_\+\+LED, MODE\+\_\+\+FLAG\+\_\+\+SPARSE\+\_\+\+SINGLES, MODE\+\_\+\+LEDCOUNT, Pattern\+::serialize(), Byte\+Stream\+::serialize32(), and Byte\+Stream\+::serialize8().
 
 
 
@@ -1225,19 +1240,19 @@ Referenced by Modes\+::save\+Storage(), save\+To\+Buffer(), and Modes\+::seriali
 
 
 
-Definition at line 651 of file Mode.\+cpp.
+Definition at line 679 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{652 \{}
-\DoxyCodeLine{653   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(map) \{}
-\DoxyCodeLine{654     \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(pos);}
-\DoxyCodeLine{655     \textcolor{keywordflow}{if} (!pat) \{}
-\DoxyCodeLine{656       \textcolor{keywordflow}{continue};}
-\DoxyCodeLine{657     \}}
-\DoxyCodeLine{658     pat-\/>\mbox{\hyperlink{classPattern_ade63dfbbf1893fba67668dc1801e8a98}{setArg}}(param, value);}
-\DoxyCodeLine{659   \}}
-\DoxyCodeLine{660 \}}
+\DoxyCodeLine{680 \{}
+\DoxyCodeLine{681   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(map) \{}
+\DoxyCodeLine{682     \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classMode_a82938befd9f7166a96f2e9e99636e6ce}{getPattern}}(pos);}
+\DoxyCodeLine{683     \textcolor{keywordflow}{if} (!pat) \{}
+\DoxyCodeLine{684       \textcolor{keywordflow}{continue};}
+\DoxyCodeLine{685     \}}
+\DoxyCodeLine{686     pat-\/>\mbox{\hyperlink{classPattern_ade63dfbbf1893fba67668dc1801e8a98}{setArg}}(param, value);}
+\DoxyCodeLine{687   \}}
+\DoxyCodeLine{688 \}}
 
 \end{DoxyCode}
 
@@ -1252,54 +1267,54 @@ References get\+Pattern(), MAP\+\_\+\+FOREACH\+\_\+\+LED, and Pattern\+::set\+Ar
 
 
 
-Definition at line 569 of file Mode.\+cpp.
+Definition at line 597 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{570 \{}
-\DoxyCodeLine{571   \textcolor{keywordflow}{switch} (pos) \{}
-\DoxyCodeLine{572   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{LED\_ANY}}:}
-\DoxyCodeLine{573   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cae4fd580189cac85429ebfa5cb71cd772}{LED\_ALL}}:}
-\DoxyCodeLine{574     \textcolor{comment}{// fallthrough}}
-\DoxyCodeLine{575 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
-\DoxyCodeLine{576   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}:}
-\DoxyCodeLine{577     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}) \{}
-\DoxyCodeLine{578       \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(set);}
-\DoxyCodeLine{579     \}}
-\DoxyCodeLine{580     \textcolor{keywordflow}{if} (pos == \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}) \{}
-\DoxyCodeLine{581       \textcolor{comment}{// don't fallthrough if actually multi, it's possible}}
-\DoxyCodeLine{582       \textcolor{comment}{// we got here by falling through from LED\_ALL}}
-\DoxyCodeLine{583       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{584     \}}
-\DoxyCodeLine{585     \textcolor{comment}{// fall through if LED\_ALL and delete the single leds}}
-\DoxyCodeLine{586 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{587   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca240d4ba97b43dbc25d2d6cd065171249}{LED\_ALL\_SINGLE}}:}
-\DoxyCodeLine{588 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
-\DoxyCodeLine{589     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}) \{}
-\DoxyCodeLine{590       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{591     \}}
-\DoxyCodeLine{592 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{593     \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++pos) \{}
-\DoxyCodeLine{594       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
-\DoxyCodeLine{595         \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(set);}
-\DoxyCodeLine{596       \}}
-\DoxyCodeLine{597     \}}
-\DoxyCodeLine{598     \textcolor{comment}{// actually break here}}
-\DoxyCodeLine{599     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{600   \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{601 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
-\DoxyCodeLine{602     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}) \{}
-\DoxyCodeLine{603       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{604     \}}
-\DoxyCodeLine{605 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{606     \textcolor{keywordflow}{if} (pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}} \&\& \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
-\DoxyCodeLine{607       \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(set);}
-\DoxyCodeLine{608       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{609     \}}
-\DoxyCodeLine{610     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{611   \}}
-\DoxyCodeLine{612   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{613 \}}
+\DoxyCodeLine{598 \{}
+\DoxyCodeLine{599   \textcolor{keywordflow}{switch} (pos) \{}
+\DoxyCodeLine{600   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{LED\_ANY}}:}
+\DoxyCodeLine{601   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cae4fd580189cac85429ebfa5cb71cd772}{LED\_ALL}}:}
+\DoxyCodeLine{602     \textcolor{comment}{// fallthrough}}
+\DoxyCodeLine{603 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{604   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}:}
+\DoxyCodeLine{605     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}) \{}
+\DoxyCodeLine{606       \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(set);}
+\DoxyCodeLine{607     \}}
+\DoxyCodeLine{608     \textcolor{keywordflow}{if} (pos == \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}) \{}
+\DoxyCodeLine{609       \textcolor{comment}{// don't fallthrough if actually multi, it's possible}}
+\DoxyCodeLine{610       \textcolor{comment}{// we got here by falling through from LED\_ALL}}
+\DoxyCodeLine{611       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{612     \}}
+\DoxyCodeLine{613     \textcolor{comment}{// fall through if LED\_ALL and delete the single leds}}
+\DoxyCodeLine{614 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{615   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca240d4ba97b43dbc25d2d6cd065171249}{LED\_ALL\_SINGLE}}:}
+\DoxyCodeLine{616 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
+\DoxyCodeLine{617     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}) \{}
+\DoxyCodeLine{618       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{619     \}}
+\DoxyCodeLine{620 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{621     \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++pos) \{}
+\DoxyCodeLine{622       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
+\DoxyCodeLine{623         \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(set);}
+\DoxyCodeLine{624       \}}
+\DoxyCodeLine{625     \}}
+\DoxyCodeLine{626     \textcolor{comment}{// actually break here}}
+\DoxyCodeLine{627     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{628   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{629 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
+\DoxyCodeLine{630     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}) \{}
+\DoxyCodeLine{631       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{632     \}}
+\DoxyCodeLine{633 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{634     \textcolor{keywordflow}{if} (pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}} \&\& \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
+\DoxyCodeLine{635       \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(set);}
+\DoxyCodeLine{636       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{637     \}}
+\DoxyCodeLine{638     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{639   \}}
+\DoxyCodeLine{640   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{641 \}}
 
 \end{DoxyCode}
 
@@ -1318,18 +1333,18 @@ Referenced by clear\+Colorset(), Randomizer\+::re\+Roll\+Multi(), Randomizer\+::
 
 
 
-Definition at line 616 of file Mode.\+cpp.
+Definition at line 644 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{617 \{}
-\DoxyCodeLine{618   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(map) \{}
-\DoxyCodeLine{619     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_ad5eb39acbb11f0ce7c3342c53d83da71}{setColorset}}(set, pos)) \{}
-\DoxyCodeLine{620       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{621     \}}
-\DoxyCodeLine{622   \}}
-\DoxyCodeLine{623   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{624 \}}
+\DoxyCodeLine{645 \{}
+\DoxyCodeLine{646   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(map) \{}
+\DoxyCodeLine{647     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_ad5eb39acbb11f0ce7c3342c53d83da71}{setColorset}}(set, pos)) \{}
+\DoxyCodeLine{648       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{649     \}}
+\DoxyCodeLine{650   \}}
+\DoxyCodeLine{651   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{652 \}}
 
 \end{DoxyCode}
 
@@ -1348,76 +1363,76 @@ Referenced by Color\+Select\+::on\+Long\+Click().
 
 
 
-Definition at line 490 of file Mode.\+cpp.
+Definition at line 518 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{491 \{}
-\DoxyCodeLine{492   \textcolor{comment}{// Use provided colorset, or colorset from pos if valid, otherwise use effective colorset}}
-\DoxyCodeLine{493   \mbox{\hyperlink{classColorset}{Colorset}} newSet = set ? *set : \mbox{\hyperlink{classMode_a1f063952effb576d5597fa83eccea96c}{getColorset}}(((pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \&\& \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) ? pos : \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{LED\_ANY}});}
-\DoxyCodeLine{494   \textcolor{keywordflow}{switch} (pos) \{}
-\DoxyCodeLine{495   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{LED\_ANY}}:}
-\DoxyCodeLine{496   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cae4fd580189cac85429ebfa5cb71cd772}{LED\_ALL}}:}
-\DoxyCodeLine{497     \textcolor{comment}{// fallthrough}}
-\DoxyCodeLine{498 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
-\DoxyCodeLine{499   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}:}
-\DoxyCodeLine{500     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}) \{}
-\DoxyCodeLine{501       \textcolor{keyword}{delete} \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}};}
-\DoxyCodeLine{502       \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} = \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{503     \}}
-\DoxyCodeLine{504     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Patterns_8h_ad58c73f9c26d4937add3b71a58747c00}{isMultiLedPatternID}}(pat)) \{}
-\DoxyCodeLine{505       \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} = \mbox{\hyperlink{classPatternBuilder_a642b5e131674e3a6dc4f2a5c14ad734f}{PatternBuilder::makeMulti}}(pat, args);}
-\DoxyCodeLine{506       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}) \{}
-\DoxyCodeLine{507         \textcolor{comment}{// they could set PATTERN\_NONE to clear}}
-\DoxyCodeLine{508         \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(newSet);}
-\DoxyCodeLine{509       \}}
-\DoxyCodeLine{510       \textcolor{comment}{// TODO: don't clear single leds if we're setting multi}}
-\DoxyCodeLine{511       \textcolor{comment}{// but for now it's easier to just clear them}}
-\DoxyCodeLine{512       \mbox{\hyperlink{classMode_a9c8613304eb587717ff7f1945f6a6c12}{clearPattern}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca240d4ba97b43dbc25d2d6cd065171249}{LED\_ALL\_SINGLE}});}
-\DoxyCodeLine{513       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{514     \}}
-\DoxyCodeLine{515     \textcolor{keywordflow}{if} (pos == \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}) \{}
-\DoxyCodeLine{516       \textcolor{comment}{// don't fallthrough if actually multi, it's possible}}
-\DoxyCodeLine{517       \textcolor{comment}{// we got here by falling through from LED\_ALL}}
-\DoxyCodeLine{518       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{519     \}}
-\DoxyCodeLine{520     \textcolor{comment}{// fall through if LED\_ALL and delete the single leds}}
-\DoxyCodeLine{521 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{522   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca240d4ba97b43dbc25d2d6cd065171249}{LED\_ALL\_SINGLE}}:}
-\DoxyCodeLine{523 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
-\DoxyCodeLine{524     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}) \{}
-\DoxyCodeLine{525       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{526     \}}
-\DoxyCodeLine{527 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{528     \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++pos) \{}
-\DoxyCodeLine{529       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_ac2888fc4f9079c397ce229292cbb460b}{setPattern}}(pat, pos, args, \&newSet)) \{}
-\DoxyCodeLine{530         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{531       \}}
-\DoxyCodeLine{532     \}}
-\DoxyCodeLine{533     \textcolor{comment}{// actually break here}}
-\DoxyCodeLine{534     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{535   \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{536 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
-\DoxyCodeLine{537     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}) \{}
-\DoxyCodeLine{538       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{539     \}}
-\DoxyCodeLine{540 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{541     \textcolor{keywordflow}{if} (pos >= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \{}
-\DoxyCodeLine{542       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{543     \}}
-\DoxyCodeLine{544     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
-\DoxyCodeLine{545       \textcolor{keyword}{delete} \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos];}
-\DoxyCodeLine{546     \}}
-\DoxyCodeLine{547     \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos] = \mbox{\hyperlink{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}{PatternBuilder::makeSingle}}(pat, args);}
-\DoxyCodeLine{548     \textcolor{comment}{// they could set PATTERN\_NONE to clear}}
-\DoxyCodeLine{549     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
-\DoxyCodeLine{550       \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(newSet);}
-\DoxyCodeLine{551       \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classPattern_a7a940e0a37cf3d6d0e4dae99baa49455}{bind}}(pos);}
-\DoxyCodeLine{552     \}}
-\DoxyCodeLine{553     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{554   \}}
-\DoxyCodeLine{555   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{556 \}}
+\DoxyCodeLine{519 \{}
+\DoxyCodeLine{520   \textcolor{comment}{// Use provided colorset, or colorset from pos if valid, otherwise use effective colorset}}
+\DoxyCodeLine{521   \mbox{\hyperlink{classColorset}{Colorset}} newSet = set ? *set : \mbox{\hyperlink{classMode_a1f063952effb576d5597fa83eccea96c}{getColorset}}(((pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \&\& \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) ? pos : \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{LED\_ANY}});}
+\DoxyCodeLine{522   \textcolor{keywordflow}{switch} (pos) \{}
+\DoxyCodeLine{523   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca652516306597153ba832b404a27c85c8}{LED\_ANY}}:}
+\DoxyCodeLine{524   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cae4fd580189cac85429ebfa5cb71cd772}{LED\_ALL}}:}
+\DoxyCodeLine{525     \textcolor{comment}{// fallthrough}}
+\DoxyCodeLine{526 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{527   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}:}
+\DoxyCodeLine{528     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}) \{}
+\DoxyCodeLine{529       \textcolor{keyword}{delete} \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}};}
+\DoxyCodeLine{530       \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{531     \}}
+\DoxyCodeLine{532     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Patterns_8h_ad58c73f9c26d4937add3b71a58747c00}{isMultiLedPatternID}}(pat)) \{}
+\DoxyCodeLine{533       \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} = \mbox{\hyperlink{classPatternBuilder_a642b5e131674e3a6dc4f2a5c14ad734f}{PatternBuilder::makeMulti}}(pat, args);}
+\DoxyCodeLine{534       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}) \{}
+\DoxyCodeLine{535         \textcolor{comment}{// they could set PATTERN\_NONE to clear}}
+\DoxyCodeLine{536         \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(newSet);}
+\DoxyCodeLine{537       \}}
+\DoxyCodeLine{538       \textcolor{comment}{// TODO: don't clear single leds if we're setting multi}}
+\DoxyCodeLine{539       \textcolor{comment}{// but for now it's easier to just clear them}}
+\DoxyCodeLine{540       \mbox{\hyperlink{classMode_a9c8613304eb587717ff7f1945f6a6c12}{clearPattern}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca240d4ba97b43dbc25d2d6cd065171249}{LED\_ALL\_SINGLE}});}
+\DoxyCodeLine{541       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{542     \}}
+\DoxyCodeLine{543     \textcolor{keywordflow}{if} (pos == \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}) \{}
+\DoxyCodeLine{544       \textcolor{comment}{// don't fallthrough if actually multi, it's possible}}
+\DoxyCodeLine{545       \textcolor{comment}{// we got here by falling through from LED\_ALL}}
+\DoxyCodeLine{546       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{547     \}}
+\DoxyCodeLine{548     \textcolor{comment}{// fall through if LED\_ALL and delete the single leds}}
+\DoxyCodeLine{549 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{550   \textcolor{keywordflow}{case} \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca240d4ba97b43dbc25d2d6cd065171249}{LED\_ALL\_SINGLE}}:}
+\DoxyCodeLine{551 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
+\DoxyCodeLine{552     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}) \{}
+\DoxyCodeLine{553       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{554     \}}
+\DoxyCodeLine{555 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{556     \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++pos) \{}
+\DoxyCodeLine{557       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_ac2888fc4f9079c397ce229292cbb460b}{setPattern}}(pat, pos, args, \&newSet)) \{}
+\DoxyCodeLine{558         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{559       \}}
+\DoxyCodeLine{560     \}}
+\DoxyCodeLine{561     \textcolor{comment}{// actually break here}}
+\DoxyCodeLine{562     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{563   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{564 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
+\DoxyCodeLine{565     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}) \{}
+\DoxyCodeLine{566       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{567     \}}
+\DoxyCodeLine{568 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{569     \textcolor{keywordflow}{if} (pos >= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \{}
+\DoxyCodeLine{570       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{571     \}}
+\DoxyCodeLine{572     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
+\DoxyCodeLine{573       \textcolor{keyword}{delete} \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos];}
+\DoxyCodeLine{574     \}}
+\DoxyCodeLine{575     \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos] = \mbox{\hyperlink{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}{PatternBuilder::makeSingle}}(pat, args);}
+\DoxyCodeLine{576     \textcolor{comment}{// they could set PATTERN\_NONE to clear}}
+\DoxyCodeLine{577     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
+\DoxyCodeLine{578       \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(newSet);}
+\DoxyCodeLine{579       \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classPattern_a7a940e0a37cf3d6d0e4dae99baa49455}{bind}}(pos);}
+\DoxyCodeLine{580     \}}
+\DoxyCodeLine{581     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{582   \}}
+\DoxyCodeLine{583   \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{584 \}}
 
 \end{DoxyCode}
 
@@ -1436,18 +1451,18 @@ Referenced by Editor\+Connection\+::clear\+Demo(), clear\+Pattern(), Mode(), Pat
 
 
 
-Definition at line 558 of file Mode.\+cpp.
+Definition at line 586 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{559 \{}
-\DoxyCodeLine{560   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(map) \{}
-\DoxyCodeLine{561     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_ac2888fc4f9079c397ce229292cbb460b}{setPattern}}(pat, pos, args, set)) \{}
-\DoxyCodeLine{562       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{563     \}}
-\DoxyCodeLine{564   \}}
-\DoxyCodeLine{565   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{566 \}}
+\DoxyCodeLine{587 \{}
+\DoxyCodeLine{588   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(map) \{}
+\DoxyCodeLine{589     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_ac2888fc4f9079c397ce229292cbb460b}{setPattern}}(pat, pos, args, set)) \{}
+\DoxyCodeLine{590       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{591     \}}
+\DoxyCodeLine{592   \}}
+\DoxyCodeLine{593   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{594 \}}
 
 \end{DoxyCode}
 
@@ -1466,110 +1481,123 @@ Referenced by Factory\+Reset\+::on\+Long\+Click(), and Pattern\+Select\+::on\+Sh
 
 
 
-Definition at line 253 of file Mode.\+cpp.
+Definition at line 268 of file Mode.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{254 \{}
-\DoxyCodeLine{255   \mbox{\hyperlink{classMode_a9c8613304eb587717ff7f1945f6a6c12}{clearPattern}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cae4fd580189cac85429ebfa5cb71cd772}{LED\_ALL}});}
-\DoxyCodeLine{256   uint8\_t ledCount = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}};}
-\DoxyCodeLine{257   \textcolor{comment}{// unserialize the number of leds}}
-\DoxyCodeLine{258   buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&ledCount);}
-\DoxyCodeLine{259 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
-\DoxyCodeLine{260   \textcolor{comment}{// it's important that we only increase the led count if necessary}}
-\DoxyCodeLine{261   \textcolor{comment}{// otherwise we may end up reducing our led count and only rendering}}
-\DoxyCodeLine{262   \textcolor{comment}{// a few leds on the device}}
-\DoxyCodeLine{263   \textcolor{keywordflow}{if} (ledCount > m\_numLeds) \{}
-\DoxyCodeLine{264     \textcolor{comment}{// adjust the internal LED count of the mode itself, this allows it to}}
-\DoxyCodeLine{265     \textcolor{comment}{// actually manage that many patterns at once}}
-\DoxyCodeLine{266     setLedCount(ledCount);}
-\DoxyCodeLine{267   \}}
-\DoxyCodeLine{268 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// FIXED\_LED\_COUNT}}
-\DoxyCodeLine{269   \textcolor{keywordflow}{if} (!ledCount) \{}
-\DoxyCodeLine{270     \textcolor{comment}{// empty mode?}}
-\DoxyCodeLine{271     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{272   \}}
-\DoxyCodeLine{273   \textcolor{comment}{// unserialize the flags value}}
-\DoxyCodeLine{274   \mbox{\hyperlink{Mode_8h_a33c2e4593a371b6344b716f0769d0802}{ModeFlags}} flags = 0;}
-\DoxyCodeLine{275   buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&flags);}
-\DoxyCodeLine{276   \mbox{\hyperlink{classPattern}{Pattern}} *firstPat = \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{277   \textcolor{comment}{// if there is a multi led pattern then unserialize it}}
-\DoxyCodeLine{278   \textcolor{keywordflow}{if} (flags \& \mbox{\hyperlink{Mode_8h_ae687e91ae43b993577e2c2768f1c20a7}{MODE\_FLAG\_MULTI\_LED}}) \{}
-\DoxyCodeLine{279 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 1}}
-\DoxyCodeLine{280     \textcolor{comment}{// unserialize the multi pattern}}
-\DoxyCodeLine{281     \mbox{\hyperlink{classPattern}{Pattern}} *multiPat = \mbox{\hyperlink{classPatternBuilder_aab4bced3b1b6d785549cd426dd43d891}{PatternBuilder::unserialize}}(buffer);}
-\DoxyCodeLine{282     \textcolor{comment}{// if there are no single leds then discard the firstpat}}
-\DoxyCodeLine{283     \textcolor{keywordflow}{if} ((flags \& \mbox{\hyperlink{Mode_8h_a11ae854450224ab7c31f50b5712dcf16}{MODE\_FLAG\_SINGLE\_LED}}) != 0 \&\& multiPat) \{}
-\DoxyCodeLine{284       \textcolor{comment}{// discard the multi pattern}}
-\DoxyCodeLine{285       \textcolor{keyword}{delete} multiPat;}
-\DoxyCodeLine{286     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{287       \textcolor{comment}{// otherwise turn on the all same single flag to use the multi as a single}}
-\DoxyCodeLine{288       flags = \mbox{\hyperlink{Mode_8h_a11ae854450224ab7c31f50b5712dcf16}{MODE\_FLAG\_SINGLE\_LED}} | \mbox{\hyperlink{Mode_8h_af4c9f3425fc7f270c4ca7e32842501b3}{MODE\_FLAG\_ALL\_SAME\_SINGLE}};}
-\DoxyCodeLine{289       firstPat = multiPat;}
-\DoxyCodeLine{290     \}}
-\DoxyCodeLine{291 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{292     \textcolor{comment}{// otherwise in normal build actually unserialize it}}
-\DoxyCodeLine{293     \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} = \mbox{\hyperlink{classPatternBuilder_aab4bced3b1b6d785549cd426dd43d891}{PatternBuilder::unserialize}}(buffer);}
-\DoxyCodeLine{294     \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}-\/>\mbox{\hyperlink{classPattern_a467f265a46473b9e2b9b0b04fdc07e1b}{init}}();}
-\DoxyCodeLine{295 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{296   \}}
-\DoxyCodeLine{297   \textcolor{comment}{// if there is no single led patterns just stop here}}
-\DoxyCodeLine{298   \textcolor{keywordflow}{if} (!(flags \& \mbox{\hyperlink{Mode_8h_a11ae854450224ab7c31f50b5712dcf16}{MODE\_FLAG\_SINGLE\_LED}})) \{}
-\DoxyCodeLine{299     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{300   \}}
-\DoxyCodeLine{301   \textcolor{comment}{// is there an led map to unserialize? if not default to all}}
-\DoxyCodeLine{302   \mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{LedMap}} map = (1 << ledCount) -\/ 1;}
-\DoxyCodeLine{303   \textcolor{keywordflow}{if} (flags \& \mbox{\hyperlink{Mode_8h_a2387bf71317551625f515e5f6d685b5f}{MODE\_FLAG\_SPARSE\_SINGLES}}) \{}
-\DoxyCodeLine{304     buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}((uint32\_t *)\&map);}
-\DoxyCodeLine{305   \}}
-\DoxyCodeLine{306   \textcolor{comment}{// unserialize all singleled patterns into their positions}}
-\DoxyCodeLine{307   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(map) \{}
-\DoxyCodeLine{308     \textcolor{keywordflow}{if} (pos >= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \{}
-\DoxyCodeLine{309       \textcolor{comment}{// in case the map encodes led positions this device doesn't support}}
-\DoxyCodeLine{310       \textcolor{keywordflow}{break};}
-\DoxyCodeLine{311     \}}
-\DoxyCodeLine{312     \textcolor{keywordflow}{if} (!firstPat) \{}
-\DoxyCodeLine{313       \textcolor{comment}{// save the first pattern so that it can be duped if this is 'all same'}}
-\DoxyCodeLine{314       \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos] = firstPat = \mbox{\hyperlink{classPatternBuilder_aab4bced3b1b6d785549cd426dd43d891}{PatternBuilder::unserialize}}(buffer);}
-\DoxyCodeLine{315     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (flags \& \mbox{\hyperlink{Mode_8h_af4c9f3425fc7f270c4ca7e32842501b3}{MODE\_FLAG\_ALL\_SAME\_SINGLE}}) \{}
-\DoxyCodeLine{316       \textcolor{comment}{// if all same then just dupe first}}
-\DoxyCodeLine{317       \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos] = \mbox{\hyperlink{classPatternBuilder_a9d217a0484355b347a59e50aea7750d4}{PatternBuilder::dupe}}(firstPat);}
-\DoxyCodeLine{318     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{319       \textcolor{comment}{// otherwise unserialize the pattern like normal}}
-\DoxyCodeLine{320       \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos] = \mbox{\hyperlink{classPatternBuilder_aab4bced3b1b6d785549cd426dd43d891}{PatternBuilder::unserialize}}(buffer);}
-\DoxyCodeLine{321     \}}
-\DoxyCodeLine{322     \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classPattern_a7a940e0a37cf3d6d0e4dae99baa49455}{bind}}(pos);}
-\DoxyCodeLine{323   \}}
-\DoxyCodeLine{324   \textcolor{comment}{// there is a few different possibilities here:}}
-\DoxyCodeLine{325   \textcolor{comment}{//    1. The provided ledCount is less than our current LED\_COUNT}}
-\DoxyCodeLine{326   \textcolor{comment}{//      -\/> if this happens we need to repeat the first ledCount leds}}
-\DoxyCodeLine{327   \textcolor{comment}{//         into the remaining LED\_COUNT -\/ ledCount}}
-\DoxyCodeLine{328   \textcolor{comment}{//    2. The provided ledCount is more than our current LED\_COUNT}}
-\DoxyCodeLine{329   \textcolor{comment}{//      -\/> if this happens then we can just chop the leds and continue}}
-\DoxyCodeLine{330   \textcolor{comment}{//    3. The provided ledCount is the same as our current LED\_COUNT}}
-\DoxyCodeLine{331   \textcolor{comment}{//      -\/> if this happens all is good we can continue}}
-\DoxyCodeLine{332   \textcolor{keywordflow}{if} (ledCount >= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \{}
-\DoxyCodeLine{333     \textcolor{comment}{// in this case we either chopped some off or have the exact amount}}
-\DoxyCodeLine{334     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{335   \}}
-\DoxyCodeLine{336   \textcolor{comment}{// in this case we have to repeat them so we loop LED\_COUNT -\/ ledCount}}
-\DoxyCodeLine{337   \textcolor{comment}{// times and walk the first ledCount that are already set and copy them}}
-\DoxyCodeLine{338   \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} src = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}};}
-\DoxyCodeLine{339   \textcolor{comment}{// start from ledCount (the first index we didn't load) and loop till}}
-\DoxyCodeLine{340   \textcolor{comment}{// LED\_COUNT and dupe the pattern in the src position, but wrap the src}}
-\DoxyCodeLine{341   \textcolor{comment}{// around at ledCount so that we repeat the first ledCount over again}}
-\DoxyCodeLine{342   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})ledCount; pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++pos) \{}
-\DoxyCodeLine{343     \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos] = \mbox{\hyperlink{classPatternBuilder_a9d217a0484355b347a59e50aea7750d4}{PatternBuilder::dupe}}(\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[src]);}
-\DoxyCodeLine{344     \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classPattern_a7a940e0a37cf3d6d0e4dae99baa49455}{bind}}(pos);}
-\DoxyCodeLine{345     src = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})((src + 1) \% ledCount);}
-\DoxyCodeLine{346   \}}
-\DoxyCodeLine{347   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{348 \}}
+\DoxyCodeLine{269 \{}
+\DoxyCodeLine{270   \mbox{\hyperlink{classMode_a9c8613304eb587717ff7f1945f6a6c12}{clearPattern}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cae4fd580189cac85429ebfa5cb71cd772}{LED\_ALL}});}
+\DoxyCodeLine{271   uint8\_t ledCount = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}};}
+\DoxyCodeLine{272   \textcolor{comment}{// unserialize the number of leds}}
+\DoxyCodeLine{273   \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_a4451478eea4d9efba71cdc043bda4db2}{unserialize8}}(\&ledCount)) \{}
+\DoxyCodeLine{274     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{275   \}}
+\DoxyCodeLine{276 \textcolor{preprocessor}{\#if FIXED\_LED\_COUNT == 0}}
+\DoxyCodeLine{277   \textcolor{comment}{// it's important that we only increase the led count if necessary}}
+\DoxyCodeLine{278   \textcolor{comment}{// otherwise we may end up reducing our led count and only rendering}}
+\DoxyCodeLine{279   \textcolor{comment}{// a few leds on the device}}
+\DoxyCodeLine{280   \textcolor{keywordflow}{if} (ledCount > m\_numLeds) \{}
+\DoxyCodeLine{281     \textcolor{comment}{// adjust the internal LED count of the mode itself, this allows it to}}
+\DoxyCodeLine{282     \textcolor{comment}{// actually manage that many patterns at once}}
+\DoxyCodeLine{283     setLedCount(ledCount);}
+\DoxyCodeLine{284   \}}
+\DoxyCodeLine{285 \textcolor{preprocessor}{\#endif }\textcolor{comment}{// FIXED\_LED\_COUNT}}
+\DoxyCodeLine{286   \textcolor{keywordflow}{if} (!ledCount) \{}
+\DoxyCodeLine{287     \textcolor{comment}{// empty mode?}}
+\DoxyCodeLine{288     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{289   \}}
+\DoxyCodeLine{290   \textcolor{comment}{// unserialize the flags value}}
+\DoxyCodeLine{291   \mbox{\hyperlink{Mode_8h_a33c2e4593a371b6344b716f0769d0802}{ModeFlags}} flags = 0;}
+\DoxyCodeLine{292   \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_a4451478eea4d9efba71cdc043bda4db2}{unserialize8}}(\&flags)) \{}
+\DoxyCodeLine{293     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{294   \}}
+\DoxyCodeLine{295   \mbox{\hyperlink{classPattern}{Pattern}} *firstPat = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{296   \textcolor{comment}{// if there is a multi led pattern then unserialize it}}
+\DoxyCodeLine{297   \textcolor{keywordflow}{if} (flags \& \mbox{\hyperlink{Mode_8h_ae687e91ae43b993577e2c2768f1c20a7}{MODE\_FLAG\_MULTI\_LED}}) \{}
+\DoxyCodeLine{298 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 1}}
+\DoxyCodeLine{299     \textcolor{comment}{// unserialize the multi pattern}}
+\DoxyCodeLine{300     \mbox{\hyperlink{classPattern}{Pattern}} *multiPat = \mbox{\hyperlink{classPatternBuilder_aab4bced3b1b6d785549cd426dd43d891}{PatternBuilder::unserialize}}(buffer);}
+\DoxyCodeLine{301     \textcolor{comment}{// if there are no single leds then discard the firstpat}}
+\DoxyCodeLine{302     \textcolor{keywordflow}{if} ((flags \& \mbox{\hyperlink{Mode_8h_a11ae854450224ab7c31f50b5712dcf16}{MODE\_FLAG\_SINGLE\_LED}}) != 0 \&\& multiPat) \{}
+\DoxyCodeLine{303       \textcolor{comment}{// discard the multi pattern}}
+\DoxyCodeLine{304       \textcolor{keyword}{delete} multiPat;}
+\DoxyCodeLine{305     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{306       \textcolor{comment}{// otherwise turn on the all same single flag to use the multi as a single}}
+\DoxyCodeLine{307       flags = \mbox{\hyperlink{Mode_8h_a11ae854450224ab7c31f50b5712dcf16}{MODE\_FLAG\_SINGLE\_LED}} | \mbox{\hyperlink{Mode_8h_af4c9f3425fc7f270c4ca7e32842501b3}{MODE\_FLAG\_ALL\_SAME\_SINGLE}};}
+\DoxyCodeLine{308       firstPat = multiPat;}
+\DoxyCodeLine{309     \}}
+\DoxyCodeLine{310 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{311     \textcolor{comment}{// otherwise in normal build actually unserialize it}}
+\DoxyCodeLine{312     \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}} = \mbox{\hyperlink{classPatternBuilder_aab4bced3b1b6d785549cd426dd43d891}{PatternBuilder::unserialize}}(buffer);}
+\DoxyCodeLine{313     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}) \{}
+\DoxyCodeLine{314       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{315     \}}
+\DoxyCodeLine{316     \mbox{\hyperlink{classMode_a891fe6306cfa9845524e9f1892196954}{m\_multiPat}}-\/>\mbox{\hyperlink{classPattern_a467f265a46473b9e2b9b0b04fdc07e1b}{init}}();}
+\DoxyCodeLine{317 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{318   \}}
+\DoxyCodeLine{319   \textcolor{comment}{// if there is no single led patterns just stop here}}
+\DoxyCodeLine{320   \textcolor{keywordflow}{if} (!(flags \& \mbox{\hyperlink{Mode_8h_a11ae854450224ab7c31f50b5712dcf16}{MODE\_FLAG\_SINGLE\_LED}})) \{}
+\DoxyCodeLine{321     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{322   \}}
+\DoxyCodeLine{323   \textcolor{comment}{// is there an led map to unserialize? if not default to all}}
+\DoxyCodeLine{324   \mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{LedMap}} map = (1 << ledCount) -\/ 1;}
+\DoxyCodeLine{325   \textcolor{keywordflow}{if} (flags \& \mbox{\hyperlink{Mode_8h_a2387bf71317551625f515e5f6d685b5f}{MODE\_FLAG\_SPARSE\_SINGLES}}) \{}
+\DoxyCodeLine{326     \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_ae7b547c012dde17ca5cc5df7dc2ec77b}{unserialize32}}((uint32\_t *)\&map)) \{}
+\DoxyCodeLine{327       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{328     \}}
+\DoxyCodeLine{329   \}}
+\DoxyCodeLine{330   \textcolor{comment}{// unserialize all singleled patterns into their positions}}
+\DoxyCodeLine{331   \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(map) \{}
+\DoxyCodeLine{332     \textcolor{keywordflow}{if} (pos >= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \{}
+\DoxyCodeLine{333       \textcolor{comment}{// in case the map encodes led positions this device doesn't support}}
+\DoxyCodeLine{334       \textcolor{keywordflow}{break};}
+\DoxyCodeLine{335     \}}
+\DoxyCodeLine{336     \textcolor{keywordflow}{if} (!firstPat) \{}
+\DoxyCodeLine{337       \textcolor{comment}{// save the first pattern so that it can be duped if this is 'all same'}}
+\DoxyCodeLine{338       \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos] = firstPat = \mbox{\hyperlink{classPatternBuilder_aab4bced3b1b6d785549cd426dd43d891}{PatternBuilder::unserialize}}(buffer);}
+\DoxyCodeLine{339     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (flags \& \mbox{\hyperlink{Mode_8h_af4c9f3425fc7f270c4ca7e32842501b3}{MODE\_FLAG\_ALL\_SAME\_SINGLE}}) \{}
+\DoxyCodeLine{340       \textcolor{comment}{// if all same then just dupe first}}
+\DoxyCodeLine{341       \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos] = \mbox{\hyperlink{classPatternBuilder_a9d217a0484355b347a59e50aea7750d4}{PatternBuilder::dupe}}(firstPat);}
+\DoxyCodeLine{342     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{343       \textcolor{comment}{// otherwise unserialize the pattern like normal}}
+\DoxyCodeLine{344       \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos] = \mbox{\hyperlink{classPatternBuilder_aab4bced3b1b6d785549cd426dd43d891}{PatternBuilder::unserialize}}(buffer);}
+\DoxyCodeLine{345     \}}
+\DoxyCodeLine{346     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]) \{}
+\DoxyCodeLine{347       \mbox{\hyperlink{classMode_a9c8613304eb587717ff7f1945f6a6c12}{clearPattern}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cae4fd580189cac85429ebfa5cb71cd772}{LED\_ALL}});}
+\DoxyCodeLine{348       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{349     \}}
+\DoxyCodeLine{350     \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classPattern_a7a940e0a37cf3d6d0e4dae99baa49455}{bind}}(pos);}
+\DoxyCodeLine{351   \}}
+\DoxyCodeLine{352   \textcolor{comment}{// there is a few different possibilities here:}}
+\DoxyCodeLine{353   \textcolor{comment}{//    1. The provided ledCount is less than our current LED\_COUNT}}
+\DoxyCodeLine{354   \textcolor{comment}{//      -\/> if this happens we need to repeat the first ledCount leds}}
+\DoxyCodeLine{355   \textcolor{comment}{//         into the remaining LED\_COUNT -\/ ledCount}}
+\DoxyCodeLine{356   \textcolor{comment}{//    2. The provided ledCount is more than our current LED\_COUNT}}
+\DoxyCodeLine{357   \textcolor{comment}{//      -\/> if this happens then we can just chop the leds and continue}}
+\DoxyCodeLine{358   \textcolor{comment}{//    3. The provided ledCount is the same as our current LED\_COUNT}}
+\DoxyCodeLine{359   \textcolor{comment}{//      -\/> if this happens all is good we can continue}}
+\DoxyCodeLine{360   \textcolor{keywordflow}{if} (ledCount >= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \{}
+\DoxyCodeLine{361     \textcolor{comment}{// in this case we either chopped some off or have the exact amount}}
+\DoxyCodeLine{362     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{363   \}}
+\DoxyCodeLine{364   \textcolor{comment}{// in this case we have to repeat them so we loop LED\_COUNT -\/ ledCount}}
+\DoxyCodeLine{365   \textcolor{comment}{// times and walk the first ledCount that are already set and copy them}}
+\DoxyCodeLine{366   \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} src = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}};}
+\DoxyCodeLine{367   \textcolor{comment}{// start from ledCount (the first index we didn't load) and loop till}}
+\DoxyCodeLine{368   \textcolor{comment}{// LED\_COUNT and dupe the pattern in the src position, but wrap the src}}
+\DoxyCodeLine{369   \textcolor{comment}{// around at ledCount so that we repeat the first ledCount over again}}
+\DoxyCodeLine{370   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})ledCount; pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++pos) \{}
+\DoxyCodeLine{371     \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos] = \mbox{\hyperlink{classPatternBuilder_a9d217a0484355b347a59e50aea7750d4}{PatternBuilder::dupe}}(\mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[src]);}
+\DoxyCodeLine{372     \mbox{\hyperlink{classMode_a1e6bca1b2f6af92b3cb14fc292ff1471}{m\_singlePats}}[pos]-\/>\mbox{\hyperlink{classPattern_a7a940e0a37cf3d6d0e4dae99baa49455}{bind}}(pos);}
+\DoxyCodeLine{373     src = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})((src + 1) \% ledCount);}
+\DoxyCodeLine{374   \}}
+\DoxyCodeLine{375   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{376 \}}
 
 \end{DoxyCode}
 
 
-References Pattern\+::bind(), clear\+Pattern(), Pattern\+Builder\+::dupe(), Pattern\+::init(), LED\+\_\+\+ALL, LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, m\+\_\+multi\+Pat, m\+\_\+single\+Pats, MAP\+\_\+\+FOREACH\+\_\+\+LED, MODE\+\_\+\+FLAG\+\_\+\+ALL\+\_\+\+SAME\+\_\+\+SINGLE, MODE\+\_\+\+FLAG\+\_\+\+MULTI\+\_\+\+LED, MODE\+\_\+\+FLAG\+\_\+\+SINGLE\+\_\+\+LED, MODE\+\_\+\+FLAG\+\_\+\+SPARSE\+\_\+\+SINGLES, Pattern\+Builder\+::unserialize(), and Byte\+Stream\+::unserialize().
+References Pattern\+::bind(), clear\+Pattern(), Pattern\+Builder\+::dupe(), Pattern\+::init(), LED\+\_\+\+ALL, LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, m\+\_\+multi\+Pat, m\+\_\+single\+Pats, MAP\+\_\+\+FOREACH\+\_\+\+LED, MODE\+\_\+\+FLAG\+\_\+\+ALL\+\_\+\+SAME\+\_\+\+SINGLE, MODE\+\_\+\+FLAG\+\_\+\+MULTI\+\_\+\+LED, MODE\+\_\+\+FLAG\+\_\+\+SINGLE\+\_\+\+LED, MODE\+\_\+\+FLAG\+\_\+\+SPARSE\+\_\+\+SINGLES, Pattern\+Builder\+::unserialize(), Byte\+Stream\+::unserialize32(), and Byte\+Stream\+::unserialize8().
 
 
 

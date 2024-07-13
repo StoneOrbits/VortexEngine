@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['globalbrightness_1577',['GlobalBrightness',['../classGlobalBrightness.html',1,'']]]
+  ['globalbrightness_1590',['GlobalBrightness',['../classGlobalBrightness.html',1,'']]]
 ];

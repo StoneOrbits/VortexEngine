@@ -57,14 +57,14 @@ var NAVTREEINDEX =
 [
 "BackStrobePattern_8cpp.html",
 "Compression_8cpp.html#a9d0df14b4296f06cf7c7b141f26d29b3ad8b76af209cd7ba83b4ebf33ba1637b2",
-"Memory_8cpp.html#a4464d4205cf92370b8d5077d93bc48a6",
-"Timer_8h.html#a0534322773d9344f3d4c858e409ef175",
-"classBitStream.html#a63cf0f27c7519417a7984c476a32c9c9",
-"classCompoundPattern.html",
-"classLeds.html#af5c4951e0163d95bb48bd29fa199c93f",
-"classPattern.html#a7cf6f075d5a664ded16f8bee13c91a6e",
-"classSparkleTracePattern.html",
-"functions_func_d.html"
+"Memory_8h.html#a1ef0a9ed4a14f4c93469968aa0e4a4da",
+"Timer_8h.html#a101b629cc707630d6764404dd60a927d",
+"classBitStream.html#a126df47b51dae9323396a360a7f94662",
+"classColorsetMap.html#ada223f617bd23f025882cb2120631206",
+"classLeds.html#ae4636fec88b6ff8e745fe09e46c5b1e6",
+"classPattern.html#a1aa3f7649795c67ce50a04d1503546b9",
+"classSingleLedPattern.html",
+"dir_d3731d706719beb3d6001df5dcff2644.html"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

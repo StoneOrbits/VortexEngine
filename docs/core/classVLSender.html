@@ -213,31 +213,31 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00114">114</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;{</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;  <a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)&quot;</span>,</div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <a class="code" href="classTime.html#ac44f4e49538456714372bb1aad3dd839">Time::microseconds</a>(), <a class="code" href="classVLSender.html#a47122dfec4dbd0bf33d83ac90f5ebb1e">m_size</a>, <a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a>, <a class="code" href="classVLSender.html#a5233c962ec7656df31f84d5405514b56">m_remainder</a>, <a class="code" href="classVLSender.html#aba1429142e7e2f5477626781e52b8605">m_blockSize</a>);</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;  <span class="comment">// wakeup the other receiver with a very quick mark/space</span></div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <a class="code" href="classVLSender.html#a18aa277b332d02a22a2a26d7e5a563f6">sendMark</a>(50);</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <a class="code" href="classVLSender.html#a43b51392934fbbadbafe0dda5dca6cf5">sendSpace</a>(100);</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <span class="comment">// now send the header</span></div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <a class="code" href="classVLSender.html#a18aa277b332d02a22a2a26d7e5a563f6">sendMark</a>(<a class="code" href="VLConfig_8h.html#aeb563708effd881b6724e4abffd2d206">VL_HEADER_MARK</a>);</div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <a class="code" href="classVLSender.html#a43b51392934fbbadbafe0dda5dca6cf5">sendSpace</a>(<a class="code" href="VLConfig_8h.html#aa6b94f98cc8192fd019a96a9d8a61293">VL_HEADER_SPACE</a>);</div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="comment">// reset writeCounter</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <a class="code" href="classVLSender.html#ac092dc67c7344f5d53fd4910cdcaaa5b">m_writeCounter</a> = 0;</div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="comment">// write the number of blocks being sent, most likely just 1</span></div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  <a class="code" href="classVLSender.html#a020e91ee92122906e0bb407f3a6b34d2">sendByte</a>(<a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a>);</div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <span class="comment">// now write the number of bytes in the last block</span></div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <a class="code" href="classVLSender.html#a020e91ee92122906e0bb407f3a6b34d2">sendByte</a>(<a class="code" href="classVLSender.html#a5233c962ec7656df31f84d5405514b56">m_remainder</a>);</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;}</div>
-<div class="ttc" id="aLog_8h_html_a8bdccae09f7cdda8fb311e0bd81c35dc"><div class="ttname"><a href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a></div><div class="ttdeci">#define DEBUG_LOGF(msg,...)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00041">Log.h:41</a></div></div>
+<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00115">115</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;{</div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;  <a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;[%zu] Beginning send size %u (blocks: %u remainder: %u blocksize: %u)&quot;</span>,</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;    <a class="code" href="classTime.html#ac44f4e49538456714372bb1aad3dd839">Time::microseconds</a>(), <a class="code" href="classVLSender.html#a47122dfec4dbd0bf33d83ac90f5ebb1e">m_size</a>, <a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a>, <a class="code" href="classVLSender.html#a5233c962ec7656df31f84d5405514b56">m_remainder</a>, <a class="code" href="classVLSender.html#aba1429142e7e2f5477626781e52b8605">m_blockSize</a>);</div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;  <span class="comment">// wakeup the other receiver with a very quick mark/space</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <a class="code" href="classVLSender.html#a18aa277b332d02a22a2a26d7e5a563f6">sendMark</a>(50);</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  <a class="code" href="classVLSender.html#a43b51392934fbbadbafe0dda5dca6cf5">sendSpace</a>(100);</div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <span class="comment">// now send the header</span></div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <a class="code" href="classVLSender.html#a18aa277b332d02a22a2a26d7e5a563f6">sendMark</a>(<a class="code" href="VLConfig_8h.html#aeb563708effd881b6724e4abffd2d206">VL_HEADER_MARK</a>);</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <a class="code" href="classVLSender.html#a43b51392934fbbadbafe0dda5dca6cf5">sendSpace</a>(<a class="code" href="VLConfig_8h.html#aa6b94f98cc8192fd019a96a9d8a61293">VL_HEADER_SPACE</a>);</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;  <span class="comment">// reset writeCounter</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <a class="code" href="classVLSender.html#ac092dc67c7344f5d53fd4910cdcaaa5b">m_writeCounter</a> = 0;</div>
+<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  <span class="comment">// write the number of blocks being sent, most likely just 1</span></div>
+<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <a class="code" href="classVLSender.html#a020e91ee92122906e0bb407f3a6b34d2">sendByte</a>(<a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a>);</div>
+<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;  <span class="comment">// now write the number of bytes in the last block</span></div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  <a class="code" href="classVLSender.html#a020e91ee92122906e0bb407f3a6b34d2">sendByte</a>(<a class="code" href="classVLSender.html#a5233c962ec7656df31f84d5405514b56">m_remainder</a>);</div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;}</div>
+<div class="ttc" id="aLog_8h_html_a8bdccae09f7cdda8fb311e0bd81c35dc"><div class="ttname"><a href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a></div><div class="ttdeci">#define DEBUG_LOGF(msg,...)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00037">Log.h:37</a></div></div>
 <div class="ttc" id="aVLConfig_8h_html_aa6b94f98cc8192fd019a96a9d8a61293"><div class="ttname"><a href="VLConfig_8h.html#aa6b94f98cc8192fd019a96a9d8a61293">VL_HEADER_SPACE</a></div><div class="ttdeci">#define VL_HEADER_SPACE</div><div class="ttdef"><b>Definition:</b> <a href="VLConfig_8h_source.html#l00032">VLConfig.h:32</a></div></div>
 <div class="ttc" id="aVLConfig_8h_html_aeb563708effd881b6724e4abffd2d206"><div class="ttname"><a href="VLConfig_8h.html#aeb563708effd881b6724e4abffd2d206">VL_HEADER_MARK</a></div><div class="ttdeci">#define VL_HEADER_MARK</div><div class="ttdef"><b>Definition:</b> <a href="VLConfig_8h_source.html#l00031">VLConfig.h:31</a></div></div>
 <div class="ttc" id="aclassTime_html_ac44f4e49538456714372bb1aad3dd839"><div class="ttname"><a href="classTime.html#ac44f4e49538456714372bb1aad3dd839">Time::microseconds</a></div><div class="ttdeci">static uint32_t microseconds()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8cpp_source.html#l00170">TimeControl.cpp:170</a></div></div>
-<div class="ttc" id="aclassVLSender_html_a020e91ee92122906e0bb407f3a6b34d2"><div class="ttname"><a href="classVLSender.html#a020e91ee92122906e0bb407f3a6b34d2">VLSender::sendByte</a></div><div class="ttdeci">static void sendByte(uint8_t data)</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00133">VLSender.cpp:133</a></div></div>
-<div class="ttc" id="aclassVLSender_html_a18aa277b332d02a22a2a26d7e5a563f6"><div class="ttname"><a href="classVLSender.html#a18aa277b332d02a22a2a26d7e5a563f6">VLSender::sendMark</a></div><div class="ttdeci">static void sendMark(uint16_t time)</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00147">VLSender.cpp:147</a></div></div>
-<div class="ttc" id="aclassVLSender_html_a43b51392934fbbadbafe0dda5dca6cf5"><div class="ttname"><a href="classVLSender.html#a43b51392934fbbadbafe0dda5dca6cf5">VLSender::sendSpace</a></div><div class="ttdeci">static void sendSpace(uint16_t time)</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00158">VLSender.cpp:158</a></div></div>
+<div class="ttc" id="aclassVLSender_html_a020e91ee92122906e0bb407f3a6b34d2"><div class="ttname"><a href="classVLSender.html#a020e91ee92122906e0bb407f3a6b34d2">VLSender::sendByte</a></div><div class="ttdeci">static void sendByte(uint8_t data)</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00134">VLSender.cpp:134</a></div></div>
+<div class="ttc" id="aclassVLSender_html_a18aa277b332d02a22a2a26d7e5a563f6"><div class="ttname"><a href="classVLSender.html#a18aa277b332d02a22a2a26d7e5a563f6">VLSender::sendMark</a></div><div class="ttdeci">static void sendMark(uint16_t time)</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00148">VLSender.cpp:148</a></div></div>
+<div class="ttc" id="aclassVLSender_html_a43b51392934fbbadbafe0dda5dca6cf5"><div class="ttname"><a href="classVLSender.html#a43b51392934fbbadbafe0dda5dca6cf5">VLSender::sendSpace</a></div><div class="ttdeci">static void sendSpace(uint16_t time)</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00159">VLSender.cpp:159</a></div></div>
 <div class="ttc" id="aclassVLSender_html_a47122dfec4dbd0bf33d83ac90f5ebb1e"><div class="ttname"><a href="classVLSender.html#a47122dfec4dbd0bf33d83ac90f5ebb1e">VLSender::m_size</a></div><div class="ttdeci">static uint32_t m_size</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8h_source.html#l00051">VLSender.h:51</a></div></div>
 <div class="ttc" id="aclassVLSender_html_a5233c962ec7656df31f84d5405514b56"><div class="ttname"><a href="classVLSender.html#a5233c962ec7656df31f84d5405514b56">VLSender::m_remainder</a></div><div class="ttdeci">static uint8_t m_remainder</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8h_source.html#l00055">VLSender.h:55</a></div></div>
 <div class="ttc" id="aclassVLSender_html_a94d286b6b44fe7f5b80bbe751ff31af9"><div class="ttname"><a href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">VLSender::m_isSending</a></div><div class="ttdeci">static bool m_isSending</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8h_source.html#l00047">VLSender.h:47</a></div></div>
@@ -245,9 +245,9 @@ Static Private Attributes</h2></td></tr>
 <div class="ttc" id="aclassVLSender_html_abb241a6a253d0f7e142b6424f76e8929"><div class="ttname"><a href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">VLSender::m_numBlocks</a></div><div class="ttdeci">static uint8_t m_numBlocks</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8h_source.html#l00053">VLSender.h:53</a></div></div>
 <div class="ttc" id="aclassVLSender_html_ac092dc67c7344f5d53fd4910cdcaaa5b"><div class="ttname"><a href="classVLSender.html#ac092dc67c7344f5d53fd4910cdcaaa5b">VLSender::m_writeCounter</a></div><div class="ttdeci">static uint32_t m_writeCounter</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8h_source.html#l00061">VLSender.h:61</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Log_8h_source.html#l00041">DEBUG_LOGF</a>, <a class="el" href="VLSender_8h_source.html#l00058">m_blockSize</a>, <a class="el" href="VLSender_8h_source.html#l00047">m_isSending</a>, <a class="el" href="VLSender_8h_source.html#l00053">m_numBlocks</a>, <a class="el" href="VLSender_8h_source.html#l00055">m_remainder</a>, <a class="el" href="VLSender_8h_source.html#l00051">m_size</a>, <a class="el" href="VLSender_8h_source.html#l00061">m_writeCounter</a>, <a class="el" href="TimeControl_8cpp_source.html#l00170">Time::microseconds()</a>, <a class="el" href="VLSender_8cpp_source.html#l00133">sendByte()</a>, <a class="el" href="VLSender_8cpp_source.html#l00147">sendMark()</a>, <a class="el" href="VLSender_8cpp_source.html#l00158">sendSpace()</a>, <a class="el" href="VLConfig_8h_source.html#l00031">VL_HEADER_MARK</a>, and <a class="el" href="VLConfig_8h_source.html#l00032">VL_HEADER_SPACE</a>.</p>
+<p class="reference">References <a class="el" href="Log_8h_source.html#l00037">DEBUG_LOGF</a>, <a class="el" href="VLSender_8h_source.html#l00058">m_blockSize</a>, <a class="el" href="VLSender_8h_source.html#l00047">m_isSending</a>, <a class="el" href="VLSender_8h_source.html#l00053">m_numBlocks</a>, <a class="el" href="VLSender_8h_source.html#l00055">m_remainder</a>, <a class="el" href="VLSender_8h_source.html#l00051">m_size</a>, <a class="el" href="VLSender_8h_source.html#l00061">m_writeCounter</a>, <a class="el" href="TimeControl_8cpp_source.html#l00170">Time::microseconds()</a>, <a class="el" href="VLSender_8cpp_source.html#l00134">sendByte()</a>, <a class="el" href="VLSender_8cpp_source.html#l00148">sendMark()</a>, <a class="el" href="VLSender_8cpp_source.html#l00159">sendSpace()</a>, <a class="el" href="VLConfig_8h_source.html#l00031">VL_HEADER_MARK</a>, and <a class="el" href="VLConfig_8h_source.html#l00032">VL_HEADER_SPACE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00076">send()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00077">send()</a>.</p>
 
 </div>
 </div>
@@ -274,11 +274,11 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00038">38</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00039">39</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00091">VortexEngine::cleanup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00101">VortexEngine::cleanup()</a>.</p>
 
 </div>
 </div>
@@ -305,12 +305,12 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00033">33</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;{</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00034">34</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;{</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00028">VortexEngine::init()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00030">VortexEngine::init()</a>.</p>
 
 </div>
 </div>
@@ -367,7 +367,7 @@ Static Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="VLSender_8h_source.html#l00047">m_isSending</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModeSharing_8cpp_source.html#l00093">ModeSharing::beginSendingVL()</a>, and <a class="el" href="ModeSharing_8cpp_source.html#l00127">ModeSharing::continueSendingVL()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModeSharing_8cpp_source.html#l00093">ModeSharing::beginSendingVL()</a>, <a class="el" href="ModeSharing_8cpp_source.html#l00127">ModeSharing::continueSendingVL()</a>, and <a class="el" href="EditorConnection_8cpp_source.html#l00071">EditorConnection::run()</a>.</p>
 
 </div>
 </div>
@@ -395,54 +395,54 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00042">42</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#a854e5507f550826478fd7141074a4bb5">clear</a>();</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="comment">// save the target mode to it&#39;s savefile buffer format</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordflow">if</span> (!targetMode-&gt;<a class="code" href="classMode.html#a4bf861a9f38599ab515655ae52700534">saveToBuffer</a>(<a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>, 2)) {</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Failed to save mode to buffer&quot;</span>);</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="comment">// decompress the mode on lifi, no compression here</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#adc9ecdea7fa35c193b0c3f5b607477e9">decompress</a>()) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Failed to decompress VL buf for sending&quot;</span>);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="comment">// ensure the data isn&#39;t too big</span></div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>() &gt; <a class="code" href="VLConfig_8h.html#a5531f46c73b52342bc76a5423252c745">VL_MAX_DATA_TRANSFER</a>) {</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Cannot transfer that much data: %u bytes&quot;</span>, <a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>());</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="comment">// point the bitstream at the serial buffer</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <a class="code" href="classVLSender.html#a7f17a11e21662f7fa1022703e32e24fd">m_bitStream</a>.<a class="code" href="classBitStream.html#a5b8f42bd95138304249dd9bcd6dcbb2c">init</a>((uint8_t *)<a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>(), <a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>());</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <span class="comment">// the size of the packet</span></div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <a class="code" href="classVLSender.html#a47122dfec4dbd0bf33d83ac90f5ebb1e">m_size</a> = <a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>();</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="comment">// the number of blocks that will be sent (possibly just 1 with less than 32 bytes)</span></div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a> = (<a class="code" href="classVLSender.html#a47122dfec4dbd0bf33d83ac90f5ebb1e">m_size</a> + (<a class="code" href="VLConfig_8h.html#ad989f13d1c369d1323dd82c196201614">VL_DEFAULT_BLOCK_SIZE</a> - 1)) / <a class="code" href="VLConfig_8h.html#ad989f13d1c369d1323dd82c196201614">VL_DEFAULT_BLOCK_SIZE</a>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <span class="comment">// the amount in the final block (possibly the only block)</span></div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <a class="code" href="classVLSender.html#a5233c962ec7656df31f84d5405514b56">m_remainder</a> = <a class="code" href="classVLSender.html#a47122dfec4dbd0bf33d83ac90f5ebb1e">m_size</a> % (<a class="code" href="VLConfig_8h.html#ad989f13d1c369d1323dd82c196201614">VL_DEFAULT_BLOCK_SIZE</a> + 0);</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Num blocks: %u&quot;</span>, <a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a>);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Remainder: %u&quot;</span>, <a class="code" href="classVLSender.html#a5233c962ec7656df31f84d5405514b56">m_remainder</a>);</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Size: %u&quot;</span>, <a class="code" href="classVLSender.html#a47122dfec4dbd0bf33d83ac90f5ebb1e">m_size</a>);</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="comment">// reset write counter</span></div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <a class="code" href="classVLSender.html#ac092dc67c7344f5d53fd4910cdcaaa5b">m_writeCounter</a> = 0;</div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;}</div>
-<div class="ttc" id="aLog_8h_html_a5d2f30bd1cbcf49f829a7e8eb6173c06"><div class="ttname"><a href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a></div><div class="ttdeci">#define DEBUG_LOG(msg)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00040">Log.h:40</a></div></div>
+<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00043">43</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;{</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#a854e5507f550826478fd7141074a4bb5">clear</a>();</div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="comment">// save the target mode to it&#39;s savefile buffer format</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordflow">if</span> (!targetMode-&gt;<a class="code" href="classMode.html#a4bf861a9f38599ab515655ae52700534">saveToBuffer</a>(<a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>, 2)) {</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Failed to save mode to buffer&quot;</span>);</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="comment">// decompress the mode on lifi, no compression here</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#adc9ecdea7fa35c193b0c3f5b607477e9">decompress</a>()) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Failed to decompress VL buf for sending&quot;</span>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="comment">// ensure the data isn&#39;t too big</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>() &gt; <a class="code" href="VLConfig_8h.html#a5531f46c73b52342bc76a5423252c745">VL_MAX_DATA_TRANSFER</a>) {</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Cannot transfer that much data: %u bytes&quot;</span>, <a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>());</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  }</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="comment">// point the bitstream at the serial buffer</span></div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  <a class="code" href="classVLSender.html#a7f17a11e21662f7fa1022703e32e24fd">m_bitStream</a>.<a class="code" href="classBitStream.html#a5b8f42bd95138304249dd9bcd6dcbb2c">init</a>((uint8_t *)<a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#a6993f9575592309a501156db31f82554">rawData</a>(), <a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>());</div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="comment">// the size of the packet</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <a class="code" href="classVLSender.html#a47122dfec4dbd0bf33d83ac90f5ebb1e">m_size</a> = <a class="code" href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">m_serialBuf</a>.<a class="code" href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">rawSize</a>();</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="comment">// the number of blocks that will be sent (possibly just 1 with less than 32 bytes)</span></div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  <a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a> = (<a class="code" href="classVLSender.html#a47122dfec4dbd0bf33d83ac90f5ebb1e">m_size</a> + (<a class="code" href="VLConfig_8h.html#ad989f13d1c369d1323dd82c196201614">VL_DEFAULT_BLOCK_SIZE</a> - 1)) / <a class="code" href="VLConfig_8h.html#ad989f13d1c369d1323dd82c196201614">VL_DEFAULT_BLOCK_SIZE</a>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="comment">// the amount in the final block (possibly the only block)</span></div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;  <a class="code" href="classVLSender.html#a5233c962ec7656df31f84d5405514b56">m_remainder</a> = <a class="code" href="classVLSender.html#a47122dfec4dbd0bf33d83ac90f5ebb1e">m_size</a> % (<a class="code" href="VLConfig_8h.html#ad989f13d1c369d1323dd82c196201614">VL_DEFAULT_BLOCK_SIZE</a> + 0);</div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Num blocks: %u&quot;</span>, <a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a>);</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Remainder: %u&quot;</span>, <a class="code" href="classVLSender.html#a5233c962ec7656df31f84d5405514b56">m_remainder</a>);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Size: %u&quot;</span>, <a class="code" href="classVLSender.html#a47122dfec4dbd0bf33d83ac90f5ebb1e">m_size</a>);</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="comment">// reset write counter</span></div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <a class="code" href="classVLSender.html#ac092dc67c7344f5d53fd4910cdcaaa5b">m_writeCounter</a> = 0;</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;}</div>
+<div class="ttc" id="aLog_8h_html_a5d2f30bd1cbcf49f829a7e8eb6173c06"><div class="ttname"><a href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a></div><div class="ttdeci">#define DEBUG_LOG(msg)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00036">Log.h:36</a></div></div>
 <div class="ttc" id="aVLConfig_8h_html_a5531f46c73b52342bc76a5423252c745"><div class="ttname"><a href="VLConfig_8h.html#a5531f46c73b52342bc76a5423252c745">VL_MAX_DATA_TRANSFER</a></div><div class="ttdeci">#define VL_MAX_DATA_TRANSFER</div><div class="ttdef"><b>Definition:</b> <a href="VLConfig_8h_source.html#l00019">VLConfig.h:19</a></div></div>
 <div class="ttc" id="aVLConfig_8h_html_ad989f13d1c369d1323dd82c196201614"><div class="ttname"><a href="VLConfig_8h.html#ad989f13d1c369d1323dd82c196201614">VL_DEFAULT_BLOCK_SIZE</a></div><div class="ttdeci">#define VL_DEFAULT_BLOCK_SIZE</div><div class="ttdef"><b>Definition:</b> <a href="VLConfig_8h_source.html#l00014">VLConfig.h:14</a></div></div>
 <div class="ttc" id="aclassBitStream_html_a5b8f42bd95138304249dd9bcd6dcbb2c"><div class="ttname"><a href="classBitStream.html#a5b8f42bd95138304249dd9bcd6dcbb2c">BitStream::init</a></div><div class="ttdeci">bool init(uint8_t *buf, uint32_t size)</div><div class="ttdef"><b>Definition:</b> <a href="BitStream_8cpp_source.html#l00034">BitStream.cpp:34</a></div></div>
-<div class="ttc" id="aclassByteStream_html_a6993f9575592309a501156db31f82554"><div class="ttname"><a href="classByteStream.html#a6993f9575592309a501156db31f82554">ByteStream::rawData</a></div><div class="ttdeci">void * rawData() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00121">ByteStream.h:121</a></div></div>
-<div class="ttc" id="aclassByteStream_html_a755097adde5b21b33d3c4e3623d04f97"><div class="ttname"><a href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">ByteStream::rawSize</a></div><div class="ttdeci">uint32_t rawSize() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00122">ByteStream.h:122</a></div></div>
+<div class="ttc" id="aclassByteStream_html_a6993f9575592309a501156db31f82554"><div class="ttname"><a href="classByteStream.html#a6993f9575592309a501156db31f82554">ByteStream::rawData</a></div><div class="ttdeci">void * rawData() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00109">ByteStream.h:109</a></div></div>
+<div class="ttc" id="aclassByteStream_html_a755097adde5b21b33d3c4e3623d04f97"><div class="ttname"><a href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">ByteStream::rawSize</a></div><div class="ttdeci">uint32_t rawSize() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00110">ByteStream.h:110</a></div></div>
 <div class="ttc" id="aclassByteStream_html_a854e5507f550826478fd7141074a4bb5"><div class="ttname"><a href="classByteStream.html#a854e5507f550826478fd7141074a4bb5">ByteStream::clear</a></div><div class="ttdeci">void clear()</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00107">ByteStream.cpp:107</a></div></div>
 <div class="ttc" id="aclassByteStream_html_adc9ecdea7fa35c193b0c3f5b607477e9"><div class="ttname"><a href="classByteStream.html#adc9ecdea7fa35c193b0c3f5b607477e9">ByteStream::decompress</a></div><div class="ttdeci">bool decompress()</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00252">ByteStream.cpp:252</a></div></div>
 <div class="ttc" id="aclassMode_html_a4bf861a9f38599ab515655ae52700534"><div class="ttname"><a href="classMode.html#a4bf861a9f38599ab515655ae52700534">Mode::saveToBuffer</a></div><div class="ttdeci">bool saveToBuffer(ByteStream &amp;saveBuffer, uint8_t numLeds=0) const</div><div class="ttdef"><b>Definition:</b> <a href="Mode_8cpp_source.html#l00169">Mode.cpp:169</a></div></div>
 <div class="ttc" id="aclassVLSender_html_a7f17a11e21662f7fa1022703e32e24fd"><div class="ttname"><a href="classVLSender.html#a7f17a11e21662f7fa1022703e32e24fd">VLSender::m_bitStream</a></div><div class="ttdeci">static BitStream m_bitStream</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8h_source.html#l00046">VLSender.h:46</a></div></div>
 <div class="ttc" id="aclassVLSender_html_a8e945a5e37cd06011c13e7fea67a03db"><div class="ttname"><a href="classVLSender.html#a8e945a5e37cd06011c13e7fea67a03db">VLSender::m_serialBuf</a></div><div class="ttdeci">static ByteStream m_serialBuf</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8h_source.html#l00044">VLSender.h:44</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ByteStream_8cpp_source.html#l00107">ByteStream::clear()</a>, <a class="el" href="Log_8h_source.html#l00040">DEBUG_LOG</a>, <a class="el" href="Log_8h_source.html#l00041">DEBUG_LOGF</a>, <a class="el" href="ByteStream_8cpp_source.html#l00252">ByteStream::decompress()</a>, <a class="el" href="BitStream_8cpp_source.html#l00034">BitStream::init()</a>, <a class="el" href="VLSender_8h_source.html#l00046">m_bitStream</a>, <a class="el" href="VLSender_8h_source.html#l00053">m_numBlocks</a>, <a class="el" href="VLSender_8h_source.html#l00055">m_remainder</a>, <a class="el" href="VLSender_8h_source.html#l00044">m_serialBuf</a>, <a class="el" href="VLSender_8h_source.html#l00051">m_size</a>, <a class="el" href="VLSender_8h_source.html#l00061">m_writeCounter</a>, <a class="el" href="ByteStream_8h_source.html#l00121">ByteStream::rawData()</a>, <a class="el" href="ByteStream_8h_source.html#l00122">ByteStream::rawSize()</a>, <a class="el" href="Mode_8cpp_source.html#l00169">Mode::saveToBuffer()</a>, <a class="el" href="VLConfig_8h_source.html#l00014">VL_DEFAULT_BLOCK_SIZE</a>, and <a class="el" href="VLConfig_8h_source.html#l00019">VL_MAX_DATA_TRANSFER</a>.</p>
+<p class="reference">References <a class="el" href="ByteStream_8cpp_source.html#l00107">ByteStream::clear()</a>, <a class="el" href="Log_8h_source.html#l00036">DEBUG_LOG</a>, <a class="el" href="Log_8h_source.html#l00037">DEBUG_LOGF</a>, <a class="el" href="ByteStream_8cpp_source.html#l00252">ByteStream::decompress()</a>, <a class="el" href="BitStream_8cpp_source.html#l00034">BitStream::init()</a>, <a class="el" href="VLSender_8h_source.html#l00046">m_bitStream</a>, <a class="el" href="VLSender_8h_source.html#l00053">m_numBlocks</a>, <a class="el" href="VLSender_8h_source.html#l00055">m_remainder</a>, <a class="el" href="VLSender_8h_source.html#l00044">m_serialBuf</a>, <a class="el" href="VLSender_8h_source.html#l00051">m_size</a>, <a class="el" href="VLSender_8h_source.html#l00061">m_writeCounter</a>, <a class="el" href="ByteStream_8h_source.html#l00109">ByteStream::rawData()</a>, <a class="el" href="ByteStream_8h_source.html#l00110">ByteStream::rawSize()</a>, <a class="el" href="Mode_8cpp_source.html#l00169">Mode::saveToBuffer()</a>, <a class="el" href="VLConfig_8h_source.html#l00014">VL_DEFAULT_BLOCK_SIZE</a>, and <a class="el" href="VLConfig_8h_source.html#l00019">VL_MAX_DATA_TRANSFER</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModeSharing_8cpp_source.html#l00093">ModeSharing::beginSendingVL()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModeSharing_8cpp_source.html#l00093">ModeSharing::beginSendingVL()</a>, and <a class="el" href="EditorConnection_8cpp_source.html#l00192">EditorConnection::sendCurModeVL()</a>.</p>
 
 </div>
 </div>
@@ -499,52 +499,52 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00076">76</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;{</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;  <span class="comment">// must have at least one block to send</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a> &lt; 1) {</div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;    <a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a>;</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;  }</div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a>) {</div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;    <a class="code" href="classVLSender.html#ac2e5bb810ad3f849b8ca286d98dc0f1d">beginSend</a>();</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;  }</div>
-<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classVLSender.html#a3637f37d0c1d0b048235ae2168cf713b">m_lastSendTime</a> &gt; 0 &amp;&amp; <a class="code" href="classVLSender.html#a3637f37d0c1d0b048235ae2168cf713b">m_lastSendTime</a> + <a class="code" href="VLConfig_8h.html#afa8ddadf99bd9a8115d267ac43fb3599">VL_DEFAULT_BLOCK_SPACING</a> &gt; <a class="code" href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a>()) {</div>
-<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;    <span class="comment">// don&#39;t send yet</span></div>
-<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a>;</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  }</div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="comment">// blocksize is default unless it&#39;s the last block, then it&#39;s the remainder</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  uint32_t blocksize = (<a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a> == 1) ? <a class="code" href="classVLSender.html#a5233c962ec7656df31f84d5405514b56">m_remainder</a> : <a class="code" href="VLConfig_8h.html#ad989f13d1c369d1323dd82c196201614">VL_DEFAULT_BLOCK_SIZE</a>;</div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;VLSender Sending block #%u&quot;</span>, <a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a>);</div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <span class="comment">// pointer to the data at the correct location</span></div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="keyword">const</span> uint8_t *buf_ptr = <a class="code" href="classVLSender.html#a7f17a11e21662f7fa1022703e32e24fd">m_bitStream</a>.<a class="code" href="classBitStream.html#a4be1b1c1cb2684d2997b1c8a6f0cd34d">data</a>() + <a class="code" href="classVLSender.html#ac092dc67c7344f5d53fd4910cdcaaa5b">m_writeCounter</a>;</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="comment">// iterate each byte in the block and write it</span></div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="keywordflow">for</span> (uint32_t i = 0; i &lt; blocksize; ++i) {</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;    <span class="comment">// write the byte</span></div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <a class="code" href="classVLSender.html#a020e91ee92122906e0bb407f3a6b34d2">sendByte</a>(*buf_ptr);</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <span class="comment">// increment to next byte in buffer</span></div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    buf_ptr++;</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    <span class="comment">// record the written byte</span></div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <a class="code" href="classVLSender.html#ac092dc67c7344f5d53fd4910cdcaaa5b">m_writeCounter</a>++;</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  }</div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="comment">// wrote one block</span></div>
-<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a>--;</div>
-<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <span class="comment">// still sending if we have more blocks</span></div>
-<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a> = (<a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a> &gt; 0);</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <span class="comment">// the curtime</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <a class="code" href="classVLSender.html#a3637f37d0c1d0b048235ae2168cf713b">m_lastSendTime</a> = <a class="code" href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a>();</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <span class="comment">// return whether still sending</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a>;</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00077">77</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;{</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;  <span class="comment">// must have at least one block to send</span></div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a> &lt; 1) {</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;    <a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a>;</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;  }</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a>) {</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;    <a class="code" href="classVLSender.html#ac2e5bb810ad3f849b8ca286d98dc0f1d">beginSend</a>();</div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;  }</div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classVLSender.html#a3637f37d0c1d0b048235ae2168cf713b">m_lastSendTime</a> &gt; 0 &amp;&amp; <a class="code" href="classVLSender.html#a3637f37d0c1d0b048235ae2168cf713b">m_lastSendTime</a> + <a class="code" href="VLConfig_8h.html#afa8ddadf99bd9a8115d267ac43fb3599">VL_DEFAULT_BLOCK_SPACING</a> &gt; <a class="code" href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a>()) {</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;    <span class="comment">// don&#39;t send yet</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;    <span class="keywordflow">return</span> <a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a>;</div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  }</div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="comment">// blocksize is default unless it&#39;s the last block, then it&#39;s the remainder</span></div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;  uint32_t blocksize = (<a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a> == 1) ? <a class="code" href="classVLSender.html#a5233c962ec7656df31f84d5405514b56">m_remainder</a> : <a class="code" href="VLConfig_8h.html#ad989f13d1c369d1323dd82c196201614">VL_DEFAULT_BLOCK_SIZE</a>;</div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;VLSender Sending block #%u&quot;</span>, <a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a>);</div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <span class="comment">// pointer to the data at the correct location</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <span class="keyword">const</span> uint8_t *buf_ptr = <a class="code" href="classVLSender.html#a7f17a11e21662f7fa1022703e32e24fd">m_bitStream</a>.<a class="code" href="classBitStream.html#a4be1b1c1cb2684d2997b1c8a6f0cd34d">data</a>() + <a class="code" href="classVLSender.html#ac092dc67c7344f5d53fd4910cdcaaa5b">m_writeCounter</a>;</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <span class="comment">// iterate each byte in the block and write it</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <span class="keywordflow">for</span> (uint32_t i = 0; i &lt; blocksize; ++i) {</div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;    <span class="comment">// write the byte</span></div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;    <a class="code" href="classVLSender.html#a020e91ee92122906e0bb407f3a6b34d2">sendByte</a>(*buf_ptr);</div>
+<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;    <span class="comment">// increment to next byte in buffer</span></div>
+<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;    buf_ptr++;</div>
+<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;    <span class="comment">// record the written byte</span></div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;    <a class="code" href="classVLSender.html#ac092dc67c7344f5d53fd4910cdcaaa5b">m_writeCounter</a>++;</div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  }</div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="comment">// wrote one block</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;  <a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a>--;</div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <span class="comment">// still sending if we have more blocks</span></div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a> = (<a class="code" href="classVLSender.html#abb241a6a253d0f7e142b6424f76e8929">m_numBlocks</a> &gt; 0);</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="comment">// the curtime</span></div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <a class="code" href="classVLSender.html#a3637f37d0c1d0b048235ae2168cf713b">m_lastSendTime</a> = <a class="code" href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a>();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;  <span class="comment">// return whether still sending</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classVLSender.html#a94d286b6b44fe7f5b80bbe751ff31af9">m_isSending</a>;</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;}</div>
 <div class="ttc" id="aVLConfig_8h_html_afa8ddadf99bd9a8115d267ac43fb3599"><div class="ttname"><a href="VLConfig_8h.html#afa8ddadf99bd9a8115d267ac43fb3599">VL_DEFAULT_BLOCK_SPACING</a></div><div class="ttdeci">#define VL_DEFAULT_BLOCK_SPACING</div><div class="ttdef"><b>Definition:</b> <a href="VLConfig_8h_source.html#l00015">VLConfig.h:15</a></div></div>
 <div class="ttc" id="aclassBitStream_html_a4be1b1c1cb2684d2997b1c8a6f0cd34d"><div class="ttname"><a href="classBitStream.html#a4be1b1c1cb2684d2997b1c8a6f0cd34d">BitStream::data</a></div><div class="ttdeci">const uint8_t * data() const</div><div class="ttdef"><b>Definition:</b> <a href="BitStream_8h_source.html#l00036">BitStream.h:36</a></div></div>
 <div class="ttc" id="aclassTime_html_a7c7a8e067bdbd5aaf119521539d30940"><div class="ttname"><a href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a></div><div class="ttdeci">static uint32_t getCurtime()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00040">TimeControl.h:40</a></div></div>
 <div class="ttc" id="aclassVLSender_html_a3637f37d0c1d0b048235ae2168cf713b"><div class="ttname"><a href="classVLSender.html#a3637f37d0c1d0b048235ae2168cf713b">VLSender::m_lastSendTime</a></div><div class="ttdeci">static uint32_t m_lastSendTime</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8h_source.html#l00048">VLSender.h:48</a></div></div>
-<div class="ttc" id="aclassVLSender_html_ac2e5bb810ad3f849b8ca286d98dc0f1d"><div class="ttname"><a href="classVLSender.html#ac2e5bb810ad3f849b8ca286d98dc0f1d">VLSender::beginSend</a></div><div class="ttdeci">static void beginSend()</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00114">VLSender.cpp:114</a></div></div>
+<div class="ttc" id="aclassVLSender_html_ac2e5bb810ad3f849b8ca286d98dc0f1d"><div class="ttname"><a href="classVLSender.html#ac2e5bb810ad3f849b8ca286d98dc0f1d">VLSender::beginSend</a></div><div class="ttdeci">static void beginSend()</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00115">VLSender.cpp:115</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="VLSender_8cpp_source.html#l00114">beginSend()</a>, <a class="el" href="BitStream_8h_source.html#l00036">BitStream::data()</a>, <a class="el" href="Log_8h_source.html#l00041">DEBUG_LOGF</a>, <a class="el" href="TimeControl_8h_source.html#l00040">Time::getCurtime()</a>, <a class="el" href="VLSender_8h_source.html#l00046">m_bitStream</a>, <a class="el" href="VLSender_8h_source.html#l00047">m_isSending</a>, <a class="el" href="VLSender_8h_source.html#l00048">m_lastSendTime</a>, <a class="el" href="VLSender_8h_source.html#l00053">m_numBlocks</a>, <a class="el" href="VLSender_8h_source.html#l00055">m_remainder</a>, <a class="el" href="VLSender_8h_source.html#l00061">m_writeCounter</a>, <a class="el" href="VLSender_8cpp_source.html#l00133">sendByte()</a>, <a class="el" href="VLConfig_8h_source.html#l00014">VL_DEFAULT_BLOCK_SIZE</a>, and <a class="el" href="VLConfig_8h_source.html#l00015">VL_DEFAULT_BLOCK_SPACING</a>.</p>
+<p class="reference">References <a class="el" href="VLSender_8cpp_source.html#l00115">beginSend()</a>, <a class="el" href="BitStream_8h_source.html#l00036">BitStream::data()</a>, <a class="el" href="Log_8h_source.html#l00037">DEBUG_LOGF</a>, <a class="el" href="TimeControl_8h_source.html#l00040">Time::getCurtime()</a>, <a class="el" href="VLSender_8h_source.html#l00046">m_bitStream</a>, <a class="el" href="VLSender_8h_source.html#l00047">m_isSending</a>, <a class="el" href="VLSender_8h_source.html#l00048">m_lastSendTime</a>, <a class="el" href="VLSender_8h_source.html#l00053">m_numBlocks</a>, <a class="el" href="VLSender_8h_source.html#l00055">m_remainder</a>, <a class="el" href="VLSender_8h_source.html#l00061">m_writeCounter</a>, <a class="el" href="VLSender_8cpp_source.html#l00134">sendByte()</a>, <a class="el" href="VLConfig_8h_source.html#l00014">VL_DEFAULT_BLOCK_SIZE</a>, and <a class="el" href="VLConfig_8h_source.html#l00015">VL_DEFAULT_BLOCK_SPACING</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ModeSharing_8cpp_source.html#l00093">ModeSharing::beginSendingVL()</a>, and <a class="el" href="ModeSharing_8cpp_source.html#l00127">ModeSharing::continueSendingVL()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ModeSharing_8cpp_source.html#l00093">ModeSharing::beginSendingVL()</a>, <a class="el" href="ModeSharing_8cpp_source.html#l00127">ModeSharing::continueSendingVL()</a>, <a class="el" href="EditorConnection_8cpp_source.html#l00071">EditorConnection::run()</a>, and <a class="el" href="EditorConnection_8cpp_source.html#l00192">EditorConnection::sendCurModeVL()</a>.</p>
 
 </div>
 </div>
@@ -572,24 +572,24 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00133">133</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;{</div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <span class="comment">// Sends from left to right, MSB first</span></div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> b = 0; b &lt; 8; b++) {</div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;    <span class="comment">// grab the bit of data at the indexspace</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    uint32_t bit = (data &gt;&gt; (7 - b)) &amp; 1;</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    <span class="comment">// send 3x timing size for 1s and 1x timing for 0</span></div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <a class="code" href="classVLSender.html#a18aa277b332d02a22a2a26d7e5a563f6">sendMark</a>(<a class="code" href="VLConfig_8h.html#a0ec0a4d9a48be677d4d923eadcefe6ce">VL_TIMING</a> + (<a class="code" href="VLConfig_8h.html#a0ec0a4d9a48be677d4d923eadcefe6ce">VL_TIMING</a> * (2 * bit)));</div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="comment">// send 1x timing size for space</span></div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <a class="code" href="classVLSender.html#a43b51392934fbbadbafe0dda5dca6cf5">sendSpace</a>(<a class="code" href="VLConfig_8h.html#a0ec0a4d9a48be677d4d923eadcefe6ce">VL_TIMING</a>);</div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  }</div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Sent byte[%u]: 0x%x&quot;</span>, <a class="code" href="classVLSender.html#ac092dc67c7344f5d53fd4910cdcaaa5b">m_writeCounter</a>, data);</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160; }</div>
+<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00134">134</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;{</div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;  <span class="comment">// Sends from left to right, MSB first</span></div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  <span class="keywordflow">for</span> (<span class="keywordtype">int</span> b = 0; b &lt; 8; b++) {</div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;    <span class="comment">// grab the bit of data at the indexspace</span></div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    uint32_t bit = (data &gt;&gt; (7 - b)) &amp; 1;</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="comment">// send 3x timing size for 1s and 1x timing for 0</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <a class="code" href="classVLSender.html#a18aa277b332d02a22a2a26d7e5a563f6">sendMark</a>(<a class="code" href="VLConfig_8h.html#a0ec0a4d9a48be677d4d923eadcefe6ce">VL_TIMING</a> + (<a class="code" href="VLConfig_8h.html#a0ec0a4d9a48be677d4d923eadcefe6ce">VL_TIMING</a> * (2 * bit)));</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;    <span class="comment">// send 1x timing size for space</span></div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    <a class="code" href="classVLSender.html#a43b51392934fbbadbafe0dda5dca6cf5">sendSpace</a>(<a class="code" href="VLConfig_8h.html#a0ec0a4d9a48be677d4d923eadcefe6ce">VL_TIMING</a>);</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  }</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  <a class="code" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a>(<span class="stringliteral">&quot;Sent byte[%u]: 0x%x&quot;</span>, <a class="code" href="classVLSender.html#ac092dc67c7344f5d53fd4910cdcaaa5b">m_writeCounter</a>, data);</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160; }</div>
 <div class="ttc" id="aVLConfig_8h_html_a0ec0a4d9a48be677d4d923eadcefe6ce"><div class="ttname"><a href="VLConfig_8h.html#a0ec0a4d9a48be677d4d923eadcefe6ce">VL_TIMING</a></div><div class="ttdeci">#define VL_TIMING</div><div class="ttdef"><b>Definition:</b> <a href="VLConfig_8h_source.html#l00028">VLConfig.h:28</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Log_8h_source.html#l00041">DEBUG_LOGF</a>, <a class="el" href="VLSender_8h_source.html#l00061">m_writeCounter</a>, <a class="el" href="VLSender_8cpp_source.html#l00147">sendMark()</a>, <a class="el" href="VLSender_8cpp_source.html#l00158">sendSpace()</a>, and <a class="el" href="VLConfig_8h_source.html#l00028">VL_TIMING</a>.</p>
+<p class="reference">References <a class="el" href="Log_8h_source.html#l00037">DEBUG_LOGF</a>, <a class="el" href="VLSender_8h_source.html#l00061">m_writeCounter</a>, <a class="el" href="VLSender_8cpp_source.html#l00148">sendMark()</a>, <a class="el" href="VLSender_8cpp_source.html#l00159">sendSpace()</a>, and <a class="el" href="VLConfig_8h_source.html#l00028">VL_TIMING</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00114">beginSend()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00076">send()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00115">beginSend()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00077">send()</a>.</p>
 
 </div>
 </div>
@@ -617,22 +617,22 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00147">147</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;{</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  <span class="comment">// send mark timing over socket</span></div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  Vortex::vcallbacks()-&gt;infraredWrite(<span class="keyword">true</span>, time);</div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <a class="code" href="classVLSender.html#a563dfda5e2adea98cbf98ef98c66787c">startPWM</a>();</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  <a class="code" href="classTime.html#a1db7b0672f8b2d38994119ccc226f8ee">Time::delayMicroseconds</a>(time);</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00148">148</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;{</div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;  <span class="comment">// send mark timing over socket</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  Vortex::vcallbacks()-&gt;infraredWrite(<span class="keyword">true</span>, time);</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  <a class="code" href="classVLSender.html#a563dfda5e2adea98cbf98ef98c66787c">startPWM</a>();</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  <a class="code" href="classTime.html#a1db7b0672f8b2d38994119ccc226f8ee">Time::delayMicroseconds</a>(time);</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;}</div>
 <div class="ttc" id="aclassTime_html_a1db7b0672f8b2d38994119ccc226f8ee"><div class="ttname"><a href="classTime.html#a1db7b0672f8b2d38994119ccc226f8ee">Time::delayMicroseconds</a></div><div class="ttdeci">static void delayMicroseconds(uint32_t us)</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8cpp_source.html#l00191">TimeControl.cpp:191</a></div></div>
-<div class="ttc" id="aclassVLSender_html_a563dfda5e2adea98cbf98ef98c66787c"><div class="ttname"><a href="classVLSender.html#a563dfda5e2adea98cbf98ef98c66787c">VLSender::startPWM</a></div><div class="ttdeci">static void startPWM()</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00169">VLSender.cpp:169</a></div></div>
+<div class="ttc" id="aclassVLSender_html_a563dfda5e2adea98cbf98ef98c66787c"><div class="ttname"><a href="classVLSender.html#a563dfda5e2adea98cbf98ef98c66787c">VLSender::startPWM</a></div><div class="ttdeci">static void startPWM()</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00170">VLSender.cpp:170</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="TimeControl_8cpp_source.html#l00191">Time::delayMicroseconds()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00169">startPWM()</a>.</p>
+<p class="reference">References <a class="el" href="TimeControl_8cpp_source.html#l00191">Time::delayMicroseconds()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00170">startPWM()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00114">beginSend()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00133">sendByte()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00115">beginSend()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00134">sendByte()</a>.</p>
 
 </div>
 </div>
@@ -660,21 +660,21 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00158">158</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;{</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  <span class="comment">// send space timing over socket</span></div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  Vortex::vcallbacks()-&gt;infraredWrite(<span class="keyword">false</span>, time);</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  <a class="code" href="classVLSender.html#a6fadfb59019cde5bbcf9d2f2e33a50f6">stopPWM</a>();</div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  <a class="code" href="classTime.html#a1db7b0672f8b2d38994119ccc226f8ee">Time::delayMicroseconds</a>(time);</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;}</div>
-<div class="ttc" id="aclassVLSender_html_a6fadfb59019cde5bbcf9d2f2e33a50f6"><div class="ttname"><a href="classVLSender.html#a6fadfb59019cde5bbcf9d2f2e33a50f6">VLSender::stopPWM</a></div><div class="ttdeci">static void stopPWM()</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00184">VLSender.cpp:184</a></div></div>
+<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00159">159</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;{</div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  <span class="comment">// send space timing over socket</span></div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  Vortex::vcallbacks()-&gt;infraredWrite(<span class="keyword">false</span>, time);</div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  <a class="code" href="classVLSender.html#a6fadfb59019cde5bbcf9d2f2e33a50f6">stopPWM</a>();</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  <a class="code" href="classTime.html#a1db7b0672f8b2d38994119ccc226f8ee">Time::delayMicroseconds</a>(time);</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;}</div>
+<div class="ttc" id="aclassVLSender_html_a6fadfb59019cde5bbcf9d2f2e33a50f6"><div class="ttname"><a href="classVLSender.html#a6fadfb59019cde5bbcf9d2f2e33a50f6">VLSender::stopPWM</a></div><div class="ttdeci">static void stopPWM()</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00185">VLSender.cpp:185</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="TimeControl_8cpp_source.html#l00191">Time::delayMicroseconds()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00184">stopPWM()</a>.</p>
+<p class="reference">References <a class="el" href="TimeControl_8cpp_source.html#l00191">Time::delayMicroseconds()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00185">stopPWM()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00114">beginSend()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00133">sendByte()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00115">beginSend()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00134">sendByte()</a>.</p>
 
 </div>
 </div>
@@ -701,31 +701,31 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00169">169</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;{</div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;<span class="preprocessor">#if defined(VORTEX_EMBEDDED)</span></div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  <span class="comment">// brightness backup</span></div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  uint8_t oldBrightness = <a class="code" href="classLeds.html#acdeb76107e3193ba4cf1e87361335cbb">Leds::getBrightness</a>();</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  <span class="comment">// ensure max brightness</span></div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  <a class="code" href="classLeds.html#a71eae9e9f07864f4e0f5d64bffaf7eff">Leds::setBrightness</a>(255);</div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  <a class="code" href="classLeds.html#a6f7c9cdfab407455403167fd8f2c350a">Leds::clearAll</a>();</div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  <a class="code" href="classLeds.html#af8c5be7e02a6d0a4e5be7f1ef1fb69a0">Leds::setIndex</a>(<a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424">LED_0</a>, <a class="code" href="ColorConstants_8h.html#ac1771f95d9887118764bd8a074e537e1">RGB_WHITE</a>);</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <a class="code" href="classLeds.html#a7b552b40079b1179fd47f7aeea88878d">Leds::update</a>();</div>
-<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  <span class="comment">// restore brightness</span></div>
-<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  <a class="code" href="classLeds.html#a71eae9e9f07864f4e0f5d64bffaf7eff">Leds::setBrightness</a>(oldBrightness);</div>
-<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00170">170</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;{</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;<span class="preprocessor">#if defined(VORTEX_EMBEDDED)</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  <span class="comment">// brightness backup</span></div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  uint8_t oldBrightness = <a class="code" href="classLeds.html#acdeb76107e3193ba4cf1e87361335cbb">Leds::getBrightness</a>();</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  <span class="comment">// ensure max brightness</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  <a class="code" href="classLeds.html#a71eae9e9f07864f4e0f5d64bffaf7eff">Leds::setBrightness</a>(255);</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  <a class="code" href="classLeds.html#a6f7c9cdfab407455403167fd8f2c350a">Leds::clearAll</a>();</div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;  <a class="code" href="classLeds.html#af8c5be7e02a6d0a4e5be7f1ef1fb69a0">Leds::setIndex</a>(<a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424">LED_0</a>, <a class="code" href="ColorConstants_8h.html#ac1771f95d9887118764bd8a074e537e1">RGB_WHITE</a>);</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  <a class="code" href="classLeds.html#a7b552b40079b1179fd47f7aeea88878d">Leds::update</a>();</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160;  <span class="comment">// restore brightness</span></div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  <a class="code" href="classLeds.html#a71eae9e9f07864f4e0f5d64bffaf7eff">Leds::setBrightness</a>(oldBrightness);</div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;}</div>
 <div class="ttc" id="aColorConstants_8h_html_ac1771f95d9887118764bd8a074e537e1"><div class="ttname"><a href="ColorConstants_8h.html#ac1771f95d9887118764bd8a074e537e1">RGB_WHITE</a></div><div class="ttdeci">#define RGB_WHITE</div><div class="ttdef"><b>Definition:</b> <a href="ColorConstants_8h_source.html#l00037">ColorConstants.h:37</a></div></div>
 <div class="ttc" id="aLedTypes_8h_html_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424"><div class="ttname"><a href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424">LED_0</a></div><div class="ttdeci">@ LED_0</div><div class="ttdef"><b>Definition:</b> <a href="LedTypes_8h_source.html#l00016">LedTypes.h:16</a></div></div>
 <div class="ttc" id="aclassLeds_html_a6f7c9cdfab407455403167fd8f2c350a"><div class="ttname"><a href="classLeds.html#a6f7c9cdfab407455403167fd8f2c350a">Leds::clearAll</a></div><div class="ttdeci">static void clearAll()</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8h_source.html#l00030">Leds.h:30</a></div></div>
-<div class="ttc" id="aclassLeds_html_a71eae9e9f07864f4e0f5d64bffaf7eff"><div class="ttname"><a href="classLeds.html#a71eae9e9f07864f4e0f5d64bffaf7eff">Leds::setBrightness</a></div><div class="ttdeci">static void setBrightness(uint8_t brightness)</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8h_source.html#l00105">Leds.h:105</a></div></div>
-<div class="ttc" id="aclassLeds_html_a7b552b40079b1179fd47f7aeea88878d"><div class="ttname"><a href="classLeds.html#a7b552b40079b1179fd47f7aeea88878d">Leds::update</a></div><div class="ttdeci">static void update()</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8cpp_source.html#l00249">Leds.cpp:249</a></div></div>
-<div class="ttc" id="aclassLeds_html_acdeb76107e3193ba4cf1e87361335cbb"><div class="ttname"><a href="classLeds.html#acdeb76107e3193ba4cf1e87361335cbb">Leds::getBrightness</a></div><div class="ttdeci">static uint8_t getBrightness()</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8h_source.html#l00104">Leds.h:104</a></div></div>
+<div class="ttc" id="aclassLeds_html_a71eae9e9f07864f4e0f5d64bffaf7eff"><div class="ttname"><a href="classLeds.html#a71eae9e9f07864f4e0f5d64bffaf7eff">Leds::setBrightness</a></div><div class="ttdeci">static void setBrightness(uint8_t brightness)</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8h_source.html#l00108">Leds.h:108</a></div></div>
+<div class="ttc" id="aclassLeds_html_a7b552b40079b1179fd47f7aeea88878d"><div class="ttname"><a href="classLeds.html#a7b552b40079b1179fd47f7aeea88878d">Leds::update</a></div><div class="ttdeci">static void update()</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8cpp_source.html#l00261">Leds.cpp:261</a></div></div>
+<div class="ttc" id="aclassLeds_html_acdeb76107e3193ba4cf1e87361335cbb"><div class="ttname"><a href="classLeds.html#acdeb76107e3193ba4cf1e87361335cbb">Leds::getBrightness</a></div><div class="ttdeci">static uint8_t getBrightness()</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8h_source.html#l00107">Leds.h:107</a></div></div>
 <div class="ttc" id="aclassLeds_html_af8c5be7e02a6d0a4e5be7f1ef1fb69a0"><div class="ttname"><a href="classLeds.html#af8c5be7e02a6d0a4e5be7f1ef1fb69a0">Leds::setIndex</a></div><div class="ttdeci">static void setIndex(LedPos target, RGBColor col)</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8cpp_source.html#l00035">Leds.cpp:35</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Leds_8h_source.html#l00030">Leds::clearAll()</a>, <a class="el" href="Leds_8h_source.html#l00104">Leds::getBrightness()</a>, <a class="el" href="LedTypes_8h_source.html#l00016">LED_0</a>, <a class="el" href="ColorConstants_8h_source.html#l00037">RGB_WHITE</a>, <a class="el" href="Leds_8h_source.html#l00105">Leds::setBrightness()</a>, <a class="el" href="Leds_8cpp_source.html#l00035">Leds::setIndex()</a>, and <a class="el" href="Leds_8cpp_source.html#l00249">Leds::update()</a>.</p>
+<p class="reference">References <a class="el" href="Leds_8h_source.html#l00030">Leds::clearAll()</a>, <a class="el" href="Leds_8h_source.html#l00107">Leds::getBrightness()</a>, <a class="el" href="LedTypes_8h_source.html#l00016">LED_0</a>, <a class="el" href="ColorConstants_8h_source.html#l00037">RGB_WHITE</a>, <a class="el" href="Leds_8h_source.html#l00108">Leds::setBrightness()</a>, <a class="el" href="Leds_8cpp_source.html#l00035">Leds::setIndex()</a>, and <a class="el" href="Leds_8cpp_source.html#l00261">Leds::update()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00147">sendMark()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00148">sendMark()</a>.</p>
 
 </div>
 </div>
@@ -752,17 +752,17 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00184">184</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;{</div>
-<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;<span class="preprocessor">#if defined(VORTEX_EMBEDDED)</span></div>
-<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  <a class="code" href="classLeds.html#a6f7c9cdfab407455403167fd8f2c350a">Leds::clearAll</a>();</div>
-<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  <a class="code" href="classLeds.html#a7b552b40079b1179fd47f7aeea88878d">Leds::update</a>();</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="VLSender_8cpp_source.html#l00185">185</a> of file <a class="el" href="VLSender_8cpp_source.html">VLSender.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;{</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;<span class="preprocessor">#if defined(VORTEX_EMBEDDED)</span></div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;  <a class="code" href="classLeds.html#a6f7c9cdfab407455403167fd8f2c350a">Leds::clearAll</a>();</div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  <a class="code" href="classLeds.html#a7b552b40079b1179fd47f7aeea88878d">Leds::update</a>();</div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Leds_8h_source.html#l00030">Leds::clearAll()</a>, and <a class="el" href="Leds_8cpp_source.html#l00249">Leds::update()</a>.</p>
+<p class="reference">References <a class="el" href="Leds_8h_source.html#l00030">Leds::clearAll()</a>, and <a class="el" href="Leds_8cpp_source.html#l00261">Leds::update()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00158">sendSpace()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00159">sendSpace()</a>.</p>
 
 </div>
 </div>
@@ -789,7 +789,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="VLSender_8h_source.html#l00046">46</a> of file <a class="el" href="VLSender_8h_source.html">VLSender.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00042">loadMode()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00076">send()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00043">loadMode()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00077">send()</a>.</p>
 
 </div>
 </div>
@@ -815,7 +815,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="VLSender_8h_source.html#l00058">58</a> of file <a class="el" href="VLSender_8h_source.html">VLSender.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00114">beginSend()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00115">beginSend()</a>.</p>
 
 </div>
 </div>
@@ -841,7 +841,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="VLSender_8h_source.html#l00047">47</a> of file <a class="el" href="VLSender_8h_source.html">VLSender.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00114">beginSend()</a>, <a class="el" href="VLSender_8h_source.html#l00025">isSending()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00076">send()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00115">beginSend()</a>, <a class="el" href="VLSender_8h_source.html#l00025">isSending()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00077">send()</a>.</p>
 
 </div>
 </div>
@@ -867,7 +867,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="VLSender_8h_source.html#l00048">48</a> of file <a class="el" href="VLSender_8h_source.html">VLSender.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00076">send()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00077">send()</a>.</p>
 
 </div>
 </div>
@@ -893,7 +893,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="VLSender_8h_source.html#l00053">53</a> of file <a class="el" href="VLSender_8h_source.html">VLSender.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00114">beginSend()</a>, <a class="el" href="VLSender_8cpp_source.html#l00042">loadMode()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00076">send()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00115">beginSend()</a>, <a class="el" href="VLSender_8cpp_source.html#l00043">loadMode()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00077">send()</a>.</p>
 
 </div>
 </div>
@@ -919,7 +919,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="VLSender_8h_source.html#l00055">55</a> of file <a class="el" href="VLSender_8h_source.html">VLSender.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00114">beginSend()</a>, <a class="el" href="VLSender_8cpp_source.html#l00042">loadMode()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00076">send()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00115">beginSend()</a>, <a class="el" href="VLSender_8cpp_source.html#l00043">loadMode()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00077">send()</a>.</p>
 
 </div>
 </div>
@@ -945,7 +945,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="VLSender_8h_source.html#l00044">44</a> of file <a class="el" href="VLSender_8h_source.html">VLSender.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00042">loadMode()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00043">loadMode()</a>.</p>
 
 </div>
 </div>
@@ -971,7 +971,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="VLSender_8h_source.html#l00051">51</a> of file <a class="el" href="VLSender_8h_source.html">VLSender.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00114">beginSend()</a>, <a class="el" href="VLSender_8cpp_source.html#l00042">loadMode()</a>, and <a class="el" href="VLSender_8h_source.html#l00027">percentDone()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00115">beginSend()</a>, <a class="el" href="VLSender_8cpp_source.html#l00043">loadMode()</a>, and <a class="el" href="VLSender_8h_source.html#l00027">percentDone()</a>.</p>
 
 </div>
 </div>
@@ -997,7 +997,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="VLSender_8h_source.html#l00061">61</a> of file <a class="el" href="VLSender_8h_source.html">VLSender.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00114">beginSend()</a>, <a class="el" href="VLSender_8cpp_source.html#l00042">loadMode()</a>, <a class="el" href="VLSender_8h_source.html#l00027">percentDone()</a>, <a class="el" href="VLSender_8cpp_source.html#l00076">send()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00133">sendByte()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLSender_8cpp_source.html#l00115">beginSend()</a>, <a class="el" href="VLSender_8cpp_source.html#l00043">loadMode()</a>, <a class="el" href="VLSender_8h_source.html#l00027">percentDone()</a>, <a class="el" href="VLSender_8cpp_source.html#l00077">send()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00134">sendByte()</a>.</p>
 
 </div>
 </div>

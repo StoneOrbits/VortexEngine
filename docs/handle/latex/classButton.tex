@@ -169,7 +169,7 @@ References m\+\_\+pin\+Num.
 
 
 
-Referenced by init(), Vortex\+Engine\+::tick(), and update().
+Referenced by Vortex\+Engine\+::tick(), and update().
 
 \mbox{\Hypertarget{classButton_adcca2b1a5010dc5d9b2d49c997f36433}\label{classButton_adcca2b1a5010dc5d9b2d49c997f36433}} 
 \index{Button@{Button}!consecutivePresses@{consecutivePresses}}
@@ -233,7 +233,7 @@ Definition at line 36 of file Button.\+cpp.
 \DoxyCodeLine{42   \mbox{\hyperlink{classButton_a6482ef479511871ba18ad69213e75501}{m\_releaseDuration}} = 0;}
 \DoxyCodeLine{43   \mbox{\hyperlink{classButton_a863f12d3c09791a1735645df271ddf58}{m\_consecutivePresses}} = 0;}
 \DoxyCodeLine{44   \mbox{\hyperlink{classButton_a4630ca3b5a9e85d7bcefb6a6373ff15b}{m\_releaseCount}} = 0;}
-\DoxyCodeLine{45   \mbox{\hyperlink{classButton_ae5c3b0f7031de49ebd62a5b4fb03f90d}{m\_buttonState}} = \mbox{\hyperlink{classButton_a0a4fbfb56d10cb2c6e69a35eb62b7292}{check}}();}
+\DoxyCodeLine{45   \mbox{\hyperlink{classButton_ae5c3b0f7031de49ebd62a5b4fb03f90d}{m\_buttonState}} = \textcolor{keyword}{false};}
 \DoxyCodeLine{46   \mbox{\hyperlink{classButton_acf8feb2430f68f24f633772725d14b7e}{m\_newPress}} = \textcolor{keyword}{false};}
 \DoxyCodeLine{47   \mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}} = \textcolor{keyword}{false};}
 \DoxyCodeLine{48   \mbox{\hyperlink{classButton_ab61668778546acefd5c8e5f1c082ab61}{m\_isPressed}} = \mbox{\hyperlink{classButton_ae5c3b0f7031de49ebd62a5b4fb03f90d}{m\_buttonState}};}
@@ -250,7 +250,7 @@ Definition at line 36 of file Button.\+cpp.
 \end{DoxyCode}
 
 
-References check(), m\+\_\+button\+State, m\+\_\+consecutive\+Presses, m\+\_\+hold\+Duration, m\+\_\+is\+Pressed, m\+\_\+long\+Click, m\+\_\+new\+Press, m\+\_\+new\+Release, m\+\_\+pin\+Num, m\+\_\+press\+Time, m\+\_\+release\+Count, m\+\_\+release\+Duration, m\+\_\+release\+Time, and m\+\_\+short\+Click.
+References m\+\_\+button\+State, m\+\_\+consecutive\+Presses, m\+\_\+hold\+Duration, m\+\_\+is\+Pressed, m\+\_\+long\+Click, m\+\_\+new\+Press, m\+\_\+new\+Release, m\+\_\+pin\+Num, m\+\_\+press\+Time, m\+\_\+release\+Count, m\+\_\+release\+Duration, m\+\_\+release\+Time, and m\+\_\+short\+Click.
 
 \mbox{\Hypertarget{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}\label{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}} 
 \index{Button@{Button}!isPressed@{isPressed}}
@@ -302,7 +302,7 @@ References m\+\_\+consecutive\+Presses.
 
 
 
-Referenced by Pattern\+Select\+::on\+Short\+Click(), Randomizer\+::run(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), and Vortex\+Engine\+::tick().
+Referenced by Pattern\+Select\+::on\+Short\+Click(), Randomizer\+::on\+Short\+Click(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), and Vortex\+Engine\+::tick().
 
 \mbox{\Hypertarget{classButton_a81c3b1a14aee3e487e836ac517e6b232}\label{classButton_a81c3b1a14aee3e487e836ac517e6b232}} 
 \index{Button@{Button}!onLongClick@{onLongClick}}
@@ -367,7 +367,7 @@ References m\+\_\+new\+Release.
 
 
 
-Referenced by Randomizer\+::run(), and Vortex\+Engine\+::tick().
+Referenced by Vortex\+Engine\+::run\+Main\+Logic(), and Vortex\+Engine\+::tick().
 
 \mbox{\Hypertarget{classButton_a4e2b10397cdad6546a8728a87b82fadb}\label{classButton_a4e2b10397cdad6546a8728a87b82fadb}} 
 \index{Button@{Button}!onShortClick@{onShortClick}}

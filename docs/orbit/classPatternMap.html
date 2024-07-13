@@ -104,10 +104,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:ab27a12b50999c1bd3f5ec4305cbc2ec0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:af7a193d38335cd800085302382c0cf27"><td class="memItemLeft" align="right" valign="top"><a class="el" href="Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8c">PatternID</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPatternMap.html#af7a193d38335cd800085302382c0cf27">operator[]</a> (<a class="el" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> index) const</td></tr>
 <tr class="separator:af7a193d38335cd800085302382c0cf27"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a438f831e3e16c6347e6fb32d5357fda9"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPatternMap.html#a438f831e3e16c6347e6fb32d5357fda9">serialize</a> (<a class="el" href="classByteStream.html">ByteStream</a> &amp;buffer) const</td></tr>
-<tr class="separator:a438f831e3e16c6347e6fb32d5357fda9"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a0269b72cda20594f9c3b90da4a24d040"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPatternMap.html#a0269b72cda20594f9c3b90da4a24d040">unserialize</a> (<a class="el" href="classByteStream.html">ByteStream</a> &amp;buffer)</td></tr>
-<tr class="separator:a0269b72cda20594f9c3b90da4a24d040"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a42d061837424e43b9a91e6d6b45cfdbc"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPatternMap.html#a42d061837424e43b9a91e6d6b45cfdbc">serialize</a> (<a class="el" href="classByteStream.html">ByteStream</a> &amp;buffer) const</td></tr>
+<tr class="separator:a42d061837424e43b9a91e6d6b45cfdbc"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:abe8dc1ee0979376a8000068e273ecb4d"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classPatternMap.html#abe8dc1ee0979376a8000068e273ecb4d">unserialize</a> (<a class="el" href="classByteStream.html">ByteStream</a> &amp;buffer)</td></tr>
+<tr class="separator:abe8dc1ee0979376a8000068e273ecb4d"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="pub-attribs"></a>
 Public Attributes</h2></td></tr>
@@ -216,14 +216,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="a438f831e3e16c6347e6fb32d5357fda9"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a438f831e3e16c6347e6fb32d5357fda9">&#9670;&nbsp;</a></span>serialize()</h2>
+<a id="a42d061837424e43b9a91e6d6b45cfdbc"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a42d061837424e43b9a91e6d6b45cfdbc">&#9670;&nbsp;</a></span>serialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void PatternMap::serialize </td>
+          <td class="memname">bool PatternMap::serialize </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classByteStream.html">ByteStream</a> &amp;&#160;</td>
           <td class="paramname"><em>buffer</em></td><td>)</td>
@@ -236,14 +236,17 @@ Public Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;{</div>
 <div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> i = <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f">LED_FIRST</a>; i &lt; <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>; ++i) {</div>
 <div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="comment">// ensure the PatternID is interpreted as uint8_t</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>((uint8_t)<a class="code" href="classPatternMap.html#a1b516e0ab97c3cd79e0cec56ff3b1945">m_patternMap</a>[i]);</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  }</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="ttc" id="aclassByteStream_html_a16016f5dc73e0d8b639f6bdbea252d4b"><div class="ttname"><a href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">ByteStream::serialize</a></div><div class="ttdeci">bool serialize(uint8_t byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00341">ByteStream.cpp:341</a></div></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;    <span class="keywordflow">if</span> (!buffer.<a class="code" href="classByteStream.html#ad3b413f399f22d30548a61a5e01ef3a7">serialize8</a>((uint8_t)<a class="code" href="classPatternMap.html#a1b516e0ab97c3cd79e0cec56ff3b1945">m_patternMap</a>[i])) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    }</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;}</div>
+<div class="ttc" id="aclassByteStream_html_ad3b413f399f22d30548a61a5e01ef3a7"><div class="ttname"><a href="classByteStream.html#ad3b413f399f22d30548a61a5e01ef3a7">ByteStream::serialize8</a></div><div class="ttdeci">bool serialize8(uint8_t byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00341">ByteStream.cpp:341</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00068">LED_COUNT</a>, <a class="el" href="LedTypes_8h_source.html#l00013">LED_FIRST</a>, <a class="el" href="Sequence_8h_source.html#l00029">m_patternMap</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize()</a>.</p>
+<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00068">LED_COUNT</a>, <a class="el" href="LedTypes_8h_source.html#l00013">LED_FIRST</a>, <a class="el" href="Sequence_8h_source.html#l00029">m_patternMap</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize8()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Sequence_8cpp_source.html#l00110">SequenceStep::serialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Sequence_8cpp_source.html#l00122">SequenceStep::serialize()</a>.</p>
 
 </div>
 </div>
@@ -276,27 +279,27 @@ Public Attributes</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="Sequence_8cpp_source.html#l00028">28</a> of file <a class="el" href="Sequence_8cpp_source.html">Sequence.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
 <div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> pos = <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f">LED_FIRST</a>; pos &lt; <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>; ++pos) {</div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="LedTypes_8h.html#a6b8f8d9c1f8627c817d00a6d33695c1f">checkLed</a>(positions, pos)) {</div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="LedTypes_8h.html#aea87ba7c1e127ef509da9d0e9d238aac">ledmapCheckLed</a>(positions, pos)) {</div>
 <div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;      <a class="code" href="classPatternMap.html#a1b516e0ab97c3cd79e0cec56ff3b1945">m_patternMap</a>[pos] = pattern;</div>
 <div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    }</div>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  }</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;}</div>
-<div class="ttc" id="aLedTypes_8h_html_a6b8f8d9c1f8627c817d00a6d33695c1f"><div class="ttname"><a href="LedTypes_8h.html#a6b8f8d9c1f8627c817d00a6d33695c1f">checkLed</a></div><div class="ttdeci">bool checkLed(LedMap map, LedPos pos)</div><div class="ttdef"><b>Definition:</b> <a href="LedTypes_8h_source.html#l00408">LedTypes.h:408</a></div></div>
+<div class="ttc" id="aLedTypes_8h_html_aea87ba7c1e127ef509da9d0e9d238aac"><div class="ttname"><a href="LedTypes_8h.html#aea87ba7c1e127ef509da9d0e9d238aac">ledmapCheckLed</a></div><div class="ttdeci">bool ledmapCheckLed(LedMap map, LedPos pos)</div><div class="ttdef"><b>Definition:</b> <a href="LedTypes_8h_source.html#l00408">LedTypes.h:408</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00408">checkLed()</a>, <a class="el" href="LedTypes_8h_source.html#l00068">LED_COUNT</a>, <a class="el" href="LedTypes_8h_source.html#l00013">LED_FIRST</a>, and <a class="el" href="Sequence_8h_source.html#l00029">m_patternMap</a>.</p>
+<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00068">LED_COUNT</a>, <a class="el" href="LedTypes_8h_source.html#l00013">LED_FIRST</a>, <a class="el" href="LedTypes_8h_source.html#l00408">ledmapCheckLed()</a>, and <a class="el" href="Sequence_8h_source.html#l00029">m_patternMap</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="ChaserPattern_8cpp_source.html#l00010">ChaserPattern::ChaserPattern()</a>, and <a class="el" href="Sequence_8cpp_source.html#l00021">PatternMap()</a>.</p>
 
 </div>
 </div>
-<a id="a0269b72cda20594f9c3b90da4a24d040"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#a0269b72cda20594f9c3b90da4a24d040">&#9670;&nbsp;</a></span>unserialize()</h2>
+<a id="abe8dc1ee0979376a8000068e273ecb4d"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#abe8dc1ee0979376a8000068e273ecb4d">&#9670;&nbsp;</a></span>unserialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void PatternMap::unserialize </td>
+          <td class="memname">bool PatternMap::unserialize </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classByteStream.html">ByteStream</a> &amp;&#160;</td>
           <td class="paramname"><em>buffer</em></td><td>)</td>
@@ -305,17 +308,20 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="Sequence_8cpp_source.html#l00050">50</a> of file <a class="el" href="Sequence_8cpp_source.html">Sequence.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;{</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> i = <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f">LED_FIRST</a>; i &lt; <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>; ++i) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    buffer.<a class="code" href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">unserialize</a>((uint8_t *)<a class="code" href="classPatternMap.html#a1b516e0ab97c3cd79e0cec56ff3b1945">m_patternMap</a> + i);</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;}</div>
-<div class="ttc" id="aclassByteStream_html_a870efac1fe97b1855cb1edef3310002d"><div class="ttname"><a href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">ByteStream::unserialize</a></div><div class="ttdeci">bool unserialize(uint8_t *byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00417">ByteStream.cpp:417</a></div></div>
+<p class="definition">Definition at line <a class="el" href="Sequence_8cpp_source.html#l00053">53</a> of file <a class="el" href="Sequence_8cpp_source.html">Sequence.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;{</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordflow">for</span> (<a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2c">LedPos</a> i = <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f">LED_FIRST</a>; i &lt; <a class="code" href="LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c">LED_COUNT</a>; ++i) {</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">if</span> (!buffer.<a class="code" href="classByteStream.html#a4451478eea4d9efba71cdc043bda4db2">unserialize8</a>((uint8_t *)<a class="code" href="classPatternMap.html#a1b516e0ab97c3cd79e0cec56ff3b1945">m_patternMap</a> + i)) {</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;      <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;    }</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  }</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;}</div>
+<div class="ttc" id="aclassByteStream_html_a4451478eea4d9efba71cdc043bda4db2"><div class="ttname"><a href="classByteStream.html#a4451478eea4d9efba71cdc043bda4db2">ByteStream::unserialize8</a></div><div class="ttdeci">bool unserialize8(uint8_t *byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00417">ByteStream.cpp:417</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00068">LED_COUNT</a>, <a class="el" href="LedTypes_8h_source.html#l00013">LED_FIRST</a>, <a class="el" href="Sequence_8h_source.html#l00029">m_patternMap</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00417">ByteStream::unserialize()</a>.</p>
+<p class="reference">References <a class="el" href="LedTypes_8h_source.html#l00068">LED_COUNT</a>, <a class="el" href="LedTypes_8h_source.html#l00013">LED_FIRST</a>, <a class="el" href="Sequence_8h_source.html#l00029">m_patternMap</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00417">ByteStream::unserialize8()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Sequence_8cpp_source.html#l00117">SequenceStep::unserialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Sequence_8cpp_source.html#l00136">SequenceStep::unserialize()</a>.</p>
 
 </div>
 </div>
@@ -334,7 +340,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="Sequence_8h_source.html#l00029">29</a> of file <a class="el" href="Sequence_8h_source.html">Sequence.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Sequence_8cpp_source.html#l00037">operator[]()</a>, <a class="el" href="Sequence_8cpp_source.html#l00013">PatternMap()</a>, <a class="el" href="Sequence_8cpp_source.html#l00042">serialize()</a>, <a class="el" href="Sequence_8cpp_source.html#l00028">setPatternAt()</a>, and <a class="el" href="Sequence_8cpp_source.html#l00050">unserialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Sequence_8cpp_source.html#l00037">operator[]()</a>, <a class="el" href="Sequence_8cpp_source.html#l00013">PatternMap()</a>, <a class="el" href="Sequence_8cpp_source.html#l00042">serialize()</a>, <a class="el" href="Sequence_8cpp_source.html#l00028">setPatternAt()</a>, and <a class="el" href="Sequence_8cpp_source.html#l00053">unserialize()</a>.</p>
 
 </div>
 </div>

@@ -92,6 +92,7 @@ $(document).ready(function(){initNavTree('VLReceiver_8cpp.html',''); initResizab
 </div><!--header-->
 <div class="contents">
 <div class="textblock"><code>#include &quot;<a class="el" href="VLReceiver_8h_source.html">VLReceiver.h</a>&quot;</code><br />
+<code>#include &quot;<a class="el" href="IRConfig_8h_source.html">IRConfig.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="ByteStream_8h_source.html">../Serial/ByteStream.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="BitStream_8h_source.html">../Serial/BitStream.h</a>&quot;</code><br />
 <code>#include &quot;<a class="el" href="TimeControl_8h_source.html">../Time/TimeControl.h</a>&quot;</code><br />
@@ -143,7 +144,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLReceiver_8cpp_source.html#l00025">25</a> of file <a class="el" href="VLReceiver_8cpp_source.html">VLReceiver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VLReceiver_8cpp_source.html#l00026">26</a> of file <a class="el" href="VLReceiver_8cpp_source.html">VLReceiver.cpp</a>.</p>
 
 </div>
 </div>
@@ -159,7 +160,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLReceiver_8cpp_source.html#l00024">24</a> of file <a class="el" href="VLReceiver_8cpp_source.html">VLReceiver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VLReceiver_8cpp_source.html#l00025">25</a> of file <a class="el" href="VLReceiver_8cpp_source.html">VLReceiver.cpp</a>.</p>
 
 </div>
 </div>
@@ -175,7 +176,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLReceiver_8cpp_source.html#l00035">35</a> of file <a class="el" href="VLReceiver_8cpp_source.html">VLReceiver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VLReceiver_8cpp_source.html#l00036">36</a> of file <a class="el" href="VLReceiver_8cpp_source.html">VLReceiver.cpp</a>.</p>
 
 </div>
 </div>
@@ -191,7 +192,7 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLReceiver_8cpp_source.html#l00026">26</a> of file <a class="el" href="VLReceiver_8cpp_source.html">VLReceiver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VLReceiver_8cpp_source.html#l00027">27</a> of file <a class="el" href="VLReceiver_8cpp_source.html">VLReceiver.cpp</a>.</p>
 
 </div>
 </div>
@@ -212,34 +213,34 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLReceiver_8cpp_source.html#l00038">38</a> of file <a class="el" href="VLReceiver_8cpp_source.html">VLReceiver.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;{</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <span class="comment">// this will store the last known state</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> wasAboveThreshold = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="comment">// grab the current analog value but divide it by 8 (the number of samples)</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  uint16_t val = (ADC0.RES &gt;&gt; <a class="code" href="VLReceiver_8cpp.html#a1682c770d91c5d167b621a782be940d4">SAMPLE_COUNT</a>);</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  <span class="comment">// calculate a threshold by using the baseline minimum value that is above 0</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="comment">// with a static offset, this ensures whatever the baseline light level and/or</span></div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="comment">// hardware sensitivity is it will always pick a threshold just above the &#39;off&#39;</span></div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordflow">if</span> (val &gt; <a class="code" href="VLReceiver_8cpp.html#aa3c9d5bc3f1c3dfec69046200aecb29a">MIN_THRESHOLD</a> &amp;&amp; val &lt; (<a class="code" href="VLReceiver_8cpp.html#ab1306e35299d8bdd10ea0adfbf9827ad">threshold</a> + <a class="code" href="VLReceiver_8cpp.html#ac97aa4e68f9c89b8c71d011b0956de1f">BASE_OFFSET</a>)) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="VLReceiver_8cpp.html#ab1306e35299d8bdd10ea0adfbf9827ad">threshold</a> = val + <a class="code" href="VLReceiver_8cpp.html#ac97aa4e68f9c89b8c71d011b0956de1f">BASE_OFFSET</a>;</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  }</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  <span class="comment">// compare the current analog value to the light threshold</span></div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordtype">bool</span> isAboveThreshold = (val &gt; <a class="code" href="VLReceiver_8cpp.html#ab1306e35299d8bdd10ea0adfbf9827ad">threshold</a>);</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">if</span> (wasAboveThreshold != isAboveThreshold) {</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="classVLReceiver.html#ada08a00c52a7d4aa531c332b358b386f">VLReceiver::recvPCIHandler</a>();</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    wasAboveThreshold = isAboveThreshold;</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  }</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <span class="comment">// Clear the Window Comparator interrupt flag</span></div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  ADC0.INTFLAGS = ADC_WCMP_bm;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;}</div>
-<div class="ttc" id="aVLReceiver_8cpp_html_a1682c770d91c5d167b621a782be940d4"><div class="ttname"><a href="VLReceiver_8cpp.html#a1682c770d91c5d167b621a782be940d4">SAMPLE_COUNT</a></div><div class="ttdeci">#define SAMPLE_COUNT</div><div class="ttdef"><b>Definition:</b> <a href="VLReceiver_8cpp_source.html#l00035">VLReceiver.cpp:35</a></div></div>
-<div class="ttc" id="aVLReceiver_8cpp_html_aa3c9d5bc3f1c3dfec69046200aecb29a"><div class="ttname"><a href="VLReceiver_8cpp.html#aa3c9d5bc3f1c3dfec69046200aecb29a">MIN_THRESHOLD</a></div><div class="ttdeci">#define MIN_THRESHOLD</div><div class="ttdef"><b>Definition:</b> <a href="VLReceiver_8cpp_source.html#l00024">VLReceiver.cpp:24</a></div></div>
-<div class="ttc" id="aVLReceiver_8cpp_html_ab1306e35299d8bdd10ea0adfbf9827ad"><div class="ttname"><a href="VLReceiver_8cpp.html#ab1306e35299d8bdd10ea0adfbf9827ad">threshold</a></div><div class="ttdeci">uint16_t threshold</div><div class="ttdef"><b>Definition:</b> <a href="VLReceiver_8cpp_source.html#l00037">VLReceiver.cpp:37</a></div></div>
-<div class="ttc" id="aVLReceiver_8cpp_html_ac97aa4e68f9c89b8c71d011b0956de1f"><div class="ttname"><a href="VLReceiver_8cpp.html#ac97aa4e68f9c89b8c71d011b0956de1f">BASE_OFFSET</a></div><div class="ttdeci">#define BASE_OFFSET</div><div class="ttdef"><b>Definition:</b> <a href="VLReceiver_8cpp_source.html#l00025">VLReceiver.cpp:25</a></div></div>
-<div class="ttc" id="aclassVLReceiver_html_ada08a00c52a7d4aa531c332b358b386f"><div class="ttname"><a href="classVLReceiver.html#ada08a00c52a7d4aa531c332b358b386f">VLReceiver::recvPCIHandler</a></div><div class="ttdeci">static void recvPCIHandler()</div><div class="ttdef"><b>Definition:</b> <a href="VLReceiver_8cpp_source.html#l00230">VLReceiver.cpp:230</a></div></div>
+<p class="definition">Definition at line <a class="el" href="VLReceiver_8cpp_source.html#l00039">39</a> of file <a class="el" href="VLReceiver_8cpp_source.html">VLReceiver.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;{</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="comment">// this will store the last known state</span></div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  <span class="keyword">static</span> <span class="keywordtype">bool</span> wasAboveThreshold = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="comment">// grab the current analog value but divide it by 8 (the number of samples)</span></div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  uint16_t val = (ADC0.RES &gt;&gt; <a class="code" href="VLReceiver_8cpp.html#a1682c770d91c5d167b621a782be940d4">SAMPLE_COUNT</a>);</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;  <span class="comment">// calculate a threshold by using the baseline minimum value that is above 0</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="comment">// with a static offset, this ensures whatever the baseline light level and/or</span></div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="comment">// hardware sensitivity is it will always pick a threshold just above the &#39;off&#39;</span></div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;  <span class="keywordflow">if</span> (val &gt; <a class="code" href="VLReceiver_8cpp.html#aa3c9d5bc3f1c3dfec69046200aecb29a">MIN_THRESHOLD</a> &amp;&amp; val &lt; (<a class="code" href="VLReceiver_8cpp.html#ab1306e35299d8bdd10ea0adfbf9827ad">threshold</a> + <a class="code" href="VLReceiver_8cpp.html#ac97aa4e68f9c89b8c71d011b0956de1f">BASE_OFFSET</a>)) {</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <a class="code" href="VLReceiver_8cpp.html#ab1306e35299d8bdd10ea0adfbf9827ad">threshold</a> = val + <a class="code" href="VLReceiver_8cpp.html#ac97aa4e68f9c89b8c71d011b0956de1f">BASE_OFFSET</a>;</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  }</div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="comment">// compare the current analog value to the light threshold</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordtype">bool</span> isAboveThreshold = (val &gt; <a class="code" href="VLReceiver_8cpp.html#ab1306e35299d8bdd10ea0adfbf9827ad">threshold</a>);</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;  <span class="keywordflow">if</span> (wasAboveThreshold != isAboveThreshold) {</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <a class="code" href="classVLReceiver.html#ada08a00c52a7d4aa531c332b358b386f">VLReceiver::recvPCIHandler</a>();</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;    wasAboveThreshold = isAboveThreshold;</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  }</div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <span class="comment">// Clear the Window Comparator interrupt flag</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  ADC0.INTFLAGS = ADC_WCMP_bm;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;}</div>
+<div class="ttc" id="aVLReceiver_8cpp_html_a1682c770d91c5d167b621a782be940d4"><div class="ttname"><a href="VLReceiver_8cpp.html#a1682c770d91c5d167b621a782be940d4">SAMPLE_COUNT</a></div><div class="ttdeci">#define SAMPLE_COUNT</div><div class="ttdef"><b>Definition:</b> <a href="VLReceiver_8cpp_source.html#l00036">VLReceiver.cpp:36</a></div></div>
+<div class="ttc" id="aVLReceiver_8cpp_html_aa3c9d5bc3f1c3dfec69046200aecb29a"><div class="ttname"><a href="VLReceiver_8cpp.html#aa3c9d5bc3f1c3dfec69046200aecb29a">MIN_THRESHOLD</a></div><div class="ttdeci">#define MIN_THRESHOLD</div><div class="ttdef"><b>Definition:</b> <a href="VLReceiver_8cpp_source.html#l00025">VLReceiver.cpp:25</a></div></div>
+<div class="ttc" id="aVLReceiver_8cpp_html_ab1306e35299d8bdd10ea0adfbf9827ad"><div class="ttname"><a href="VLReceiver_8cpp.html#ab1306e35299d8bdd10ea0adfbf9827ad">threshold</a></div><div class="ttdeci">uint16_t threshold</div><div class="ttdef"><b>Definition:</b> <a href="VLReceiver_8cpp_source.html#l00038">VLReceiver.cpp:38</a></div></div>
+<div class="ttc" id="aVLReceiver_8cpp_html_ac97aa4e68f9c89b8c71d011b0956de1f"><div class="ttname"><a href="VLReceiver_8cpp.html#ac97aa4e68f9c89b8c71d011b0956de1f">BASE_OFFSET</a></div><div class="ttdeci">#define BASE_OFFSET</div><div class="ttdef"><b>Definition:</b> <a href="VLReceiver_8cpp_source.html#l00026">VLReceiver.cpp:26</a></div></div>
+<div class="ttc" id="aclassVLReceiver_html_ada08a00c52a7d4aa531c332b358b386f"><div class="ttname"><a href="classVLReceiver.html#ada08a00c52a7d4aa531c332b358b386f">VLReceiver::recvPCIHandler</a></div><div class="ttdeci">static void recvPCIHandler()</div><div class="ttdef"><b>Definition:</b> <a href="VLReceiver_8cpp_source.html#l00231">VLReceiver.cpp:231</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="VLReceiver_8cpp_source.html#l00025">BASE_OFFSET</a>, <a class="el" href="VLReceiver_8cpp_source.html#l00024">MIN_THRESHOLD</a>, <a class="el" href="VLReceiver_8cpp_source.html#l00230">VLReceiver::recvPCIHandler()</a>, <a class="el" href="VLReceiver_8cpp_source.html#l00035">SAMPLE_COUNT</a>, and <a class="el" href="VLReceiver_8cpp_source.html#l00037">threshold</a>.</p>
+<p class="reference">References <a class="el" href="VLReceiver_8cpp_source.html#l00026">BASE_OFFSET</a>, <a class="el" href="VLReceiver_8cpp_source.html#l00025">MIN_THRESHOLD</a>, <a class="el" href="VLReceiver_8cpp_source.html#l00231">VLReceiver::recvPCIHandler()</a>, <a class="el" href="VLReceiver_8cpp_source.html#l00036">SAMPLE_COUNT</a>, and <a class="el" href="VLReceiver_8cpp_source.html#l00038">threshold</a>.</p>
 
 </div>
 </div>
@@ -256,9 +257,9 @@ Variables</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VLReceiver_8cpp_source.html#l00037">37</a> of file <a class="el" href="VLReceiver_8cpp_source.html">VLReceiver.cpp</a>.</p>
+<p class="definition">Definition at line <a class="el" href="VLReceiver_8cpp_source.html#l00038">38</a> of file <a class="el" href="VLReceiver_8cpp_source.html">VLReceiver.cpp</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VLReceiver_8cpp_source.html#l00038">ISR()</a>, and <a class="el" href="VLReceiver_8cpp_source.html#l00292">VLReceiver::resetVLState()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VLReceiver_8cpp_source.html#l00039">ISR()</a>, and <a class="el" href="VLReceiver_8cpp_source.html#l00293">VLReceiver::resetVLState()</a>.</p>
 
 </div>
 </div>

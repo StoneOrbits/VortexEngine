@@ -8,8 +8,6 @@ var hierarchy =
     [ "ColorsetMap", "classColorsetMap.html", null ],
     [ "default_mode_entry", "structdefault__mode__entry.html", null ],
     [ "HSVColor", "classHSVColor.html", null ],
-    [ "IRReceiver", "classIRReceiver.html", null ],
-    [ "IRSender", "classIRSender.html", null ],
     [ "Leds", "classLeds.html", null ],
     [ "LedStash", "classLedStash.html", null ],
     [ "LZ4_stream_t_internal", "structLZ4__stream__t__internal.html", null ],
@@ -80,6 +78,7 @@ var hierarchy =
     [ "Storage", "classStorage.html", null ],
     [ "Time", "classTime.html", null ],
     [ "Timer", "classTimer.html", null ],
+    [ "VLReceiver", "classVLReceiver.html", null ],
     [ "VLSender", "classVLSender.html", null ],
     [ "VortexEngine", "classVortexEngine.html", null ]
 ];

@@ -142,7 +142,7 @@ Macros</h2></td></tr>
 <tr class="separator:ad2e165fa5c6699ad2d64faac00625a36"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a542176362dab0ee8345409c38954f870"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PatternArgs_8h.html#a542176362dab0ee8345409c38954f870">ARGMAP_CLEAR</a>(map,  arg)&#160;&#160;&#160;(map &amp;= ~<a class="el" href="PatternArgs_8h.html#a1dfd48d975d8c8cecb1e2fe9da3e7a5b">ARG</a>(arg))</td></tr>
 <tr class="separator:a542176362dab0ee8345409c38954f870"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:a193611a0331d653aa2383695bd9350da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PatternArgs_8h.html#a193611a0331d653aa2383695bd9350da">ARGMAP_ISSET</a>(map,  arg)&#160;&#160;&#160;(map &amp; <a class="el" href="PatternArgs_8h.html#a1dfd48d975d8c8cecb1e2fe9da3e7a5b">ARG</a>(arg))</td></tr>
+<tr class="memitem:a193611a0331d653aa2383695bd9350da"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="PatternArgs_8h.html#a193611a0331d653aa2383695bd9350da">ARGMAP_ISSET</a>(map,  arg)&#160;&#160;&#160;((map &amp; <a class="el" href="PatternArgs_8h.html#a1dfd48d975d8c8cecb1e2fe9da3e7a5b">ARG</a>(arg)) != 0)</td></tr>
 <tr class="separator:a193611a0331d653aa2383695bd9350da"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
@@ -382,7 +382,7 @@ Typedefs</h2></td></tr>
         <tr>
           <td></td>
           <td>)</td>
-          <td></td><td>&#160;&#160;&#160;(map &amp; <a class="el" href="PatternArgs_8h.html#a1dfd48d975d8c8cecb1e2fe9da3e7a5b">ARG</a>(arg))</td>
+          <td></td><td>&#160;&#160;&#160;((map &amp; <a class="el" href="PatternArgs_8h.html#a1dfd48d975d8c8cecb1e2fe9da3e7a5b">ARG</a>(arg)) != 0)</td>
         </tr>
       </table>
 </div><div class="memdoc">

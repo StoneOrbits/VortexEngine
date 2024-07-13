@@ -34,7 +34,12 @@ class \mbox{\hyperlink{classPattern}{Pattern}}
 \item 
 \#define \mbox{\hyperlink{Pattern_8h_abcbce9606e135f95711d1ea069ecde1d}{PATTERN\+\_\+\+FLAG\+\_\+\+MULTI}}~(1$<$$<$0)
 \item 
-\#define \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\+\_\+\+ARG}}(arg)~register\+Arg((uint8\+\_\+t)(((uintptr\+\_\+t)\&arg -\/ (uintptr\+\_\+t)this)));
+\#define \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\+\_\+\+ARG}}(arg)~  register\+Arg((\mbox{\hyperlink{Pattern_8h_aec6e60a6442c2d176eefd630e4caac2b}{arg\+\_\+offset\+\_\+t}})(((uintptr\+\_\+t)\&arg -\/ (uintptr\+\_\+t)this)));
+\end{DoxyCompactItemize}
+\doxysubsection*{Typedefs}
+\begin{DoxyCompactItemize}
+\item 
+typedef uint8\+\_\+t \mbox{\hyperlink{Pattern_8h_aec6e60a6442c2d176eefd630e4caac2b}{arg\+\_\+offset\+\_\+t}}
 \end{DoxyCompactItemize}
 
 
@@ -73,7 +78,20 @@ Definition at line 25 of file Pattern.\+h.
 \index{Pattern.h@{Pattern.h}!REGISTER\_ARG@{REGISTER\_ARG}}
 \index{REGISTER\_ARG@{REGISTER\_ARG}!Pattern.h@{Pattern.h}}
 \doxysubsubsection{\texorpdfstring{REGISTER\_ARG}{REGISTER\_ARG}}
-{\footnotesize\ttfamily \#define REGISTER\+\_\+\+ARG(\begin{DoxyParamCaption}\item[{}]{arg }\end{DoxyParamCaption})~register\+Arg((uint8\+\_\+t)(((uintptr\+\_\+t)\&arg -\/ (uintptr\+\_\+t)this)));}
+{\footnotesize\ttfamily \#define REGISTER\+\_\+\+ARG(\begin{DoxyParamCaption}\item[{}]{arg }\end{DoxyParamCaption})~  register\+Arg((\mbox{\hyperlink{Pattern_8h_aec6e60a6442c2d176eefd630e4caac2b}{arg\+\_\+offset\+\_\+t}})(((uintptr\+\_\+t)\&arg -\/ (uintptr\+\_\+t)this)));}
+
+
+
+Definition at line 44 of file Pattern.\+h.
+
+
+
+\doxysubsection{Typedef Documentation}
+\mbox{\Hypertarget{Pattern_8h_aec6e60a6442c2d176eefd630e4caac2b}\label{Pattern_8h_aec6e60a6442c2d176eefd630e4caac2b}} 
+\index{Pattern.h@{Pattern.h}!arg\_offset\_t@{arg\_offset\_t}}
+\index{arg\_offset\_t@{arg\_offset\_t}!Pattern.h@{Pattern.h}}
+\doxysubsubsection{\texorpdfstring{arg\_offset\_t}{arg\_offset\_t}}
+{\footnotesize\ttfamily typedef uint8\+\_\+t \mbox{\hyperlink{Pattern_8h_aec6e60a6442c2d176eefd630e4caac2b}{arg\+\_\+offset\+\_\+t}}}
 
 
 

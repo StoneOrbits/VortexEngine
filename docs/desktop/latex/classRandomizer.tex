@@ -205,23 +205,23 @@ Definition at line 28 of file Randomizer.\+cpp.
 
 
 
-Definition at line 364 of file Randomizer.\+cpp.
+Definition at line 373 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{365 \{}
-\DoxyCodeLine{366   \textcolor{comment}{// call next8 explicitly in this order because the order they}}
-\DoxyCodeLine{367   \textcolor{comment}{// are called is undefined when called as parameters to another function.}}
-\DoxyCodeLine{368   \textcolor{comment}{// ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.}}
-\DoxyCodeLine{369   \textcolor{comment}{// So different compilers may produce different results,}}
-\DoxyCodeLine{370   \textcolor{comment}{// but like this it is explicit}}
-\DoxyCodeLine{371   uint8\_t group = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 8);  \textcolor{comment}{// groupsize 0 to 8}}
-\DoxyCodeLine{372   uint8\_t dash = 0;                 \textcolor{comment}{// dash 0}}
-\DoxyCodeLine{373   uint8\_t gap = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(20, 40);  \textcolor{comment}{// need gap 20 -\/> 40}}
-\DoxyCodeLine{374   uint8\_t off = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 10);   \textcolor{comment}{// off duration 0 -\/> 5}}
-\DoxyCodeLine{375   uint8\_t on = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(1, 10);    \textcolor{comment}{// on duration 1 -\/> 10}}
-\DoxyCodeLine{376   outArgs.\mbox{\hyperlink{classPatternArgs_a0ca09874dde2073a346a077c9414b221}{init}}(on, off, gap, dash, group);}
-\DoxyCodeLine{377 \}}
+\DoxyCodeLine{374 \{}
+\DoxyCodeLine{375   \textcolor{comment}{// call next8 explicitly in this order because the order they}}
+\DoxyCodeLine{376   \textcolor{comment}{// are called is undefined when called as parameters to another function.}}
+\DoxyCodeLine{377   \textcolor{comment}{// ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.}}
+\DoxyCodeLine{378   \textcolor{comment}{// So different compilers may produce different results,}}
+\DoxyCodeLine{379   \textcolor{comment}{// but like this it is explicit}}
+\DoxyCodeLine{380   uint8\_t group = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 8);  \textcolor{comment}{// groupsize 0 to 8}}
+\DoxyCodeLine{381   uint8\_t dash = 0;                 \textcolor{comment}{// dash 0}}
+\DoxyCodeLine{382   uint8\_t gap = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(20, 40);  \textcolor{comment}{// need gap 20 -\/> 40}}
+\DoxyCodeLine{383   uint8\_t off = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 10);   \textcolor{comment}{// off duration 0 -\/> 5}}
+\DoxyCodeLine{384   uint8\_t on = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(1, 10);    \textcolor{comment}{// on duration 1 -\/> 10}}
+\DoxyCodeLine{385   outArgs.\mbox{\hyperlink{classPatternArgs_a0ca09874dde2073a346a077c9414b221}{init}}(on, off, gap, dash, group);}
+\DoxyCodeLine{386 \}}
 
 \end{DoxyCode}
 
@@ -240,22 +240,22 @@ Referenced by roll\+Custom\+Pattern().
 
 
 
-Definition at line 350 of file Randomizer.\+cpp.
+Definition at line 359 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{351 \{}
-\DoxyCodeLine{352   \textcolor{comment}{// call next8 explicitly in this order because the order they}}
-\DoxyCodeLine{353   \textcolor{comment}{// are called is undefined when called as parameters to another function.}}
-\DoxyCodeLine{354   \textcolor{comment}{// ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.}}
-\DoxyCodeLine{355   \textcolor{comment}{// So different compilers may produce different results,}}
-\DoxyCodeLine{356   \textcolor{comment}{// but like this it is explicit}}
-\DoxyCodeLine{357   uint8\_t dash = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(20, 30); \textcolor{comment}{// dash duration 20 -\/> 30}}
-\DoxyCodeLine{358   uint8\_t gap = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(20, 30);  \textcolor{comment}{// need gap 20 -\/> 30}}
-\DoxyCodeLine{359   uint8\_t off = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 10);   \textcolor{comment}{// off duration 0 -\/> 10}}
-\DoxyCodeLine{360   uint8\_t on = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(1, 10);    \textcolor{comment}{// on duration 1 -\/> 10}}
-\DoxyCodeLine{361   outArgs.\mbox{\hyperlink{classPatternArgs_a0ca09874dde2073a346a077c9414b221}{init}}(on, off, gap, dash);}
-\DoxyCodeLine{362 \}}
+\DoxyCodeLine{360 \{}
+\DoxyCodeLine{361   \textcolor{comment}{// call next8 explicitly in this order because the order they}}
+\DoxyCodeLine{362   \textcolor{comment}{// are called is undefined when called as parameters to another function.}}
+\DoxyCodeLine{363   \textcolor{comment}{// ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.}}
+\DoxyCodeLine{364   \textcolor{comment}{// So different compilers may produce different results,}}
+\DoxyCodeLine{365   \textcolor{comment}{// but like this it is explicit}}
+\DoxyCodeLine{366   uint8\_t dash = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(20, 30); \textcolor{comment}{// dash duration 20 -\/> 30}}
+\DoxyCodeLine{367   uint8\_t gap = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(20, 30);  \textcolor{comment}{// need gap 20 -\/> 30}}
+\DoxyCodeLine{368   uint8\_t off = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 10);   \textcolor{comment}{// off duration 0 -\/> 10}}
+\DoxyCodeLine{369   uint8\_t on = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(1, 10);    \textcolor{comment}{// on duration 1 -\/> 10}}
+\DoxyCodeLine{370   outArgs.\mbox{\hyperlink{classPatternArgs_a0ca09874dde2073a346a077c9414b221}{init}}(on, off, gap, dash);}
+\DoxyCodeLine{371 \}}
 
 \end{DoxyCode}
 
@@ -274,21 +274,21 @@ Referenced by roll\+Custom\+Pattern().
 
 
 
-Definition at line 337 of file Randomizer.\+cpp.
+Definition at line 346 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{338 \{}
-\DoxyCodeLine{339   \textcolor{comment}{// call next8 explicitly in this order because the order they}}
-\DoxyCodeLine{340   \textcolor{comment}{// are called is undefined when called as parameters to another function.}}
-\DoxyCodeLine{341   \textcolor{comment}{// ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.}}
-\DoxyCodeLine{342   \textcolor{comment}{// So different compilers may produce different results,}}
-\DoxyCodeLine{343   \textcolor{comment}{// but like this it is explicit}}
-\DoxyCodeLine{344   uint8\_t gap = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(40, 100); \textcolor{comment}{// gap duration 40 -\/> 100}}
-\DoxyCodeLine{345   uint8\_t off = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 6);    \textcolor{comment}{// off duration 0 -\/> 6}}
-\DoxyCodeLine{346   uint8\_t on = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(1, 10);    \textcolor{comment}{// on duration 1 -\/> 10}}
-\DoxyCodeLine{347   outArgs.\mbox{\hyperlink{classPatternArgs_a0ca09874dde2073a346a077c9414b221}{init}}(on, off, gap);}
-\DoxyCodeLine{348 \}}
+\DoxyCodeLine{347 \{}
+\DoxyCodeLine{348   \textcolor{comment}{// call next8 explicitly in this order because the order they}}
+\DoxyCodeLine{349   \textcolor{comment}{// are called is undefined when called as parameters to another function.}}
+\DoxyCodeLine{350   \textcolor{comment}{// ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.}}
+\DoxyCodeLine{351   \textcolor{comment}{// So different compilers may produce different results,}}
+\DoxyCodeLine{352   \textcolor{comment}{// but like this it is explicit}}
+\DoxyCodeLine{353   uint8\_t gap = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(40, 100); \textcolor{comment}{// gap duration 40 -\/> 100}}
+\DoxyCodeLine{354   uint8\_t off = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 6);    \textcolor{comment}{// off duration 0 -\/> 6}}
+\DoxyCodeLine{355   uint8\_t on = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(1, 10);    \textcolor{comment}{// on duration 1 -\/> 10}}
+\DoxyCodeLine{356   outArgs.\mbox{\hyperlink{classPatternArgs_a0ca09874dde2073a346a077c9414b221}{init}}(on, off, gap);}
+\DoxyCodeLine{357 \}}
 
 \end{DoxyCode}
 
@@ -326,24 +326,28 @@ Definition at line 32 of file Randomizer.\+cpp.
 \DoxyCodeLine{41     \mbox{\hyperlink{classByteStream}{ByteStream}} ledData;}
 \DoxyCodeLine{42     \mbox{\hyperlink{classPattern}{Pattern}} *pat = cur-\/>\mbox{\hyperlink{classMode_ac7477dc97490bd5a24dc05ada32658fa}{getPattern}}(\mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\_MULTI}});}
 \DoxyCodeLine{43     \textcolor{keywordflow}{if} (pat) \{}
-\DoxyCodeLine{44       pat-\/>\mbox{\hyperlink{classPattern_ab1736f919bf4e8e0de09f4501f095f01}{serialize}}(ledData);}
-\DoxyCodeLine{45     \}}
-\DoxyCodeLine{46     \mbox{\hyperlink{classRandomizer_a264c739a3121a2dbace65537c91fd3b8}{m\_multiRandCtx}}.\mbox{\hyperlink{classRandom_aa2b92761e9fce8676d6c8358a6e691de}{seed}}(ledData.\mbox{\hyperlink{classByteStream_a282f071ea249471c360d364642f9b3c7}{recalcCRC}}());}
-\DoxyCodeLine{47   \}}
-\DoxyCodeLine{48 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{49   \textcolor{comment}{// initialize the randomseed of each led with the}}
-\DoxyCodeLine{50   \textcolor{comment}{// CRC of the colorset on the respective LED}}
-\DoxyCodeLine{51   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} l = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; l < \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}; ++l) \{}
-\DoxyCodeLine{52     \mbox{\hyperlink{classByteStream}{ByteStream}} ledData;}
-\DoxyCodeLine{53     \mbox{\hyperlink{classPattern}{Pattern}} *pat = cur-\/>\mbox{\hyperlink{classMode_ac7477dc97490bd5a24dc05ada32658fa}{getPattern}}(l);}
-\DoxyCodeLine{54     \textcolor{keywordflow}{if} (pat) \{}
-\DoxyCodeLine{55       pat-\/>\mbox{\hyperlink{classPattern_ab1736f919bf4e8e0de09f4501f095f01}{serialize}}(ledData);}
-\DoxyCodeLine{56     \}}
-\DoxyCodeLine{57     \mbox{\hyperlink{classRandomizer_a522f05f277281150aa1a8f605d60cb8e}{m\_singlesRandCtx}}[l].seed(ledData.\mbox{\hyperlink{classByteStream_a282f071ea249471c360d364642f9b3c7}{recalcCRC}}());}
-\DoxyCodeLine{58   \}}
-\DoxyCodeLine{59   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entered randomizer"{}});}
-\DoxyCodeLine{60   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{61 \}}
+\DoxyCodeLine{44       \textcolor{keywordflow}{if} (!pat-\/>\mbox{\hyperlink{classPattern_a762365f86054e20394c6ff55d6ae205f}{serialize}}(ledData)) \{}
+\DoxyCodeLine{45         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{46       \}}
+\DoxyCodeLine{47     \}}
+\DoxyCodeLine{48     \mbox{\hyperlink{classRandomizer_a264c739a3121a2dbace65537c91fd3b8}{m\_multiRandCtx}}.\mbox{\hyperlink{classRandom_aa2b92761e9fce8676d6c8358a6e691de}{seed}}(ledData.\mbox{\hyperlink{classByteStream_a282f071ea249471c360d364642f9b3c7}{recalcCRC}}());}
+\DoxyCodeLine{49   \}}
+\DoxyCodeLine{50 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{51   \textcolor{comment}{// initialize the randomseed of each led with the}}
+\DoxyCodeLine{52   \textcolor{comment}{// CRC of the colorset on the respective LED}}
+\DoxyCodeLine{53   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} l = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; l < \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}; ++l) \{}
+\DoxyCodeLine{54     \mbox{\hyperlink{classByteStream}{ByteStream}} ledData;}
+\DoxyCodeLine{55     \mbox{\hyperlink{classPattern}{Pattern}} *pat = cur-\/>\mbox{\hyperlink{classMode_ac7477dc97490bd5a24dc05ada32658fa}{getPattern}}(l);}
+\DoxyCodeLine{56     \textcolor{keywordflow}{if} (pat) \{}
+\DoxyCodeLine{57       \textcolor{keywordflow}{if} (!pat-\/>\mbox{\hyperlink{classPattern_a762365f86054e20394c6ff55d6ae205f}{serialize}}(ledData)) \{}
+\DoxyCodeLine{58         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{59       \}}
+\DoxyCodeLine{60     \}}
+\DoxyCodeLine{61     \mbox{\hyperlink{classRandomizer_a522f05f277281150aa1a8f605d60cb8e}{m\_singlesRandCtx}}[l].seed(ledData.\mbox{\hyperlink{classByteStream_a282f071ea249471c360d364642f9b3c7}{recalcCRC}}());}
+\DoxyCodeLine{62   \}}
+\DoxyCodeLine{63   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entered randomizer"{}});}
+\DoxyCodeLine{64   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{65 \}}
 
 \end{DoxyCode}
 
@@ -362,22 +366,22 @@ Reimplemented from \mbox{\hyperlink{classMenu_aa5e3a269c2dba3ee69b530c7d1b3c0ff}
 
 
 
-Definition at line 126 of file Randomizer.\+cpp.
+Definition at line 130 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{127 \{}
-\DoxyCodeLine{128   \textcolor{comment}{// if done the randomization selection part}}
-\DoxyCodeLine{129   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_add021a5a9c7e7d05c31e54ab106d314b}{m\_needToSelect}}) \{}
-\DoxyCodeLine{130     \textcolor{comment}{// we are complete the randomization selection stage}}
-\DoxyCodeLine{131     \mbox{\hyperlink{classRandomizer_add021a5a9c7e7d05c31e54ab106d314b}{m\_needToSelect}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{132     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{133   \}}
-\DoxyCodeLine{134   \textcolor{comment}{// update the current mode with the new randomized mode}}
-\DoxyCodeLine{135   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_ae2f6242adc5499cd5de7256e2bebb8a9}{modes}}().\mbox{\hyperlink{classModes_a263cf02fb83d954b91c85d2d1e5411ee}{updateCurMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}});}
-\DoxyCodeLine{136   \textcolor{comment}{// then done here, save if the mode was different}}
-\DoxyCodeLine{137   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
-\DoxyCodeLine{138 \}}
+\DoxyCodeLine{131 \{}
+\DoxyCodeLine{132   \textcolor{comment}{// if done the randomization selection part}}
+\DoxyCodeLine{133   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_add021a5a9c7e7d05c31e54ab106d314b}{m\_needToSelect}}) \{}
+\DoxyCodeLine{134     \textcolor{comment}{// we are complete the randomization selection stage}}
+\DoxyCodeLine{135     \mbox{\hyperlink{classRandomizer_add021a5a9c7e7d05c31e54ab106d314b}{m\_needToSelect}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{136     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{137   \}}
+\DoxyCodeLine{138   \textcolor{comment}{// update the current mode with the new randomized mode}}
+\DoxyCodeLine{139   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_ae2f6242adc5499cd5de7256e2bebb8a9}{modes}}().\mbox{\hyperlink{classModes_a263cf02fb83d954b91c85d2d1e5411ee}{updateCurMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}});}
+\DoxyCodeLine{140   \textcolor{comment}{// then done here, save if the mode was different}}
+\DoxyCodeLine{141   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{142 \}}
 
 \end{DoxyCode}
 
@@ -396,27 +400,35 @@ Reimplemented from \mbox{\hyperlink{classMenu_a135b0de5e64efeb822e5323f4b8c8955}
 
 
 
-Definition at line 112 of file Randomizer.\+cpp.
+Definition at line 108 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{113 \{}
-\DoxyCodeLine{114   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_add021a5a9c7e7d05c31e54ab106d314b}{m\_needToSelect}}) \{}
-\DoxyCodeLine{115     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} == \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155eab8df70cbcb518bbcbee073dc080d6dd2}{RANDOMIZE\_BOTH}}) \{}
-\DoxyCodeLine{116       \mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} = \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155eada798a9ab10cbdbf591fe865575add29}{RANDOMIZE\_COLORSET}};}
-\DoxyCodeLine{117     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{118       \mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} = (\mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155e}{RandomizeFlags}})(\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} + 1);}
-\DoxyCodeLine{119     \}}
-\DoxyCodeLine{120     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{121   \}}
-\DoxyCodeLine{122   \textcolor{comment}{// shortClick re-\/roll the randomization}}
-\DoxyCodeLine{123   \mbox{\hyperlink{classRandomizer_ab9602133031667317223683968e7e721}{reRoll}}();}
-\DoxyCodeLine{124 \}}
+\DoxyCodeLine{109 \{}
+\DoxyCodeLine{110   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_add021a5a9c7e7d05c31e54ab106d314b}{m\_needToSelect}}) \{}
+\DoxyCodeLine{111     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} == \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155eab8df70cbcb518bbcbee073dc080d6dd2}{RANDOMIZE\_BOTH}}) \{}
+\DoxyCodeLine{112       \mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} = \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155eada798a9ab10cbdbf591fe865575add29}{RANDOMIZE\_COLORSET}};}
+\DoxyCodeLine{113     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{114       \mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} = (\mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155e}{RandomizeFlags}})(\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} + 1);}
+\DoxyCodeLine{115     \}}
+\DoxyCodeLine{116     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{117   \}}
+\DoxyCodeLine{118   \textcolor{comment}{// if the user fast-\/clicks 3 times then toggle automode}}
+\DoxyCodeLine{119   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abc096623f4e5121366f9131b2abd411e}{m\_autoCycle}} || \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_aa8257eae68c0e55bbec0f5cc6bca87dc}{button}}().\mbox{\hyperlink{classButton_af08888134084d0640b6a891bdb755f14}{onConsecutivePresses}}(\mbox{\hyperlink{VortexConfig_8h_aad0adf88f8c22c7eb2c55ce9d11df0f8}{AUTO\_CYCLE\_RANDOMIZER\_CLICKS}})) \{}
+\DoxyCodeLine{120     \textcolor{comment}{// toggle the auto cycle flag}}
+\DoxyCodeLine{121     \mbox{\hyperlink{classRandomizer_abc096623f4e5121366f9131b2abd411e}{m\_autoCycle}} = !\mbox{\hyperlink{classRandomizer_abc096623f4e5121366f9131b2abd411e}{m\_autoCycle}};}
+\DoxyCodeLine{122     \textcolor{comment}{// display a quick flash of either green or red to indicate whether auto mode is on or not}}
+\DoxyCodeLine{123     \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a5a3e2c090aa782f4ee7c71c01e8d8a69}{holdAll}}(\mbox{\hyperlink{classRandomizer_abc096623f4e5121366f9131b2abd411e}{m\_autoCycle}} ? \mbox{\hyperlink{ColorConstants_8h_ab6c97468034c02fe204fd37036d9be15}{RGB\_GREEN}} : \mbox{\hyperlink{ColorConstants_8h_aa039288455af8a3812a35aa1e7b903e4}{RGB\_RED}});}
+\DoxyCodeLine{124     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{125   \}}
+\DoxyCodeLine{126   \textcolor{comment}{// shortClick re-\/roll the randomization}}
+\DoxyCodeLine{127   \mbox{\hyperlink{classRandomizer_ab9602133031667317223683968e7e721}{reRoll}}();}
+\DoxyCodeLine{128 \}}
 
 \end{DoxyCode}
 
 
-References m\+\_\+flags, m\+\_\+need\+To\+Select, RANDOMIZE\+\_\+\+BOTH, RANDOMIZE\+\_\+\+COLORSET, and re\+Roll().
+References AUTO\+\_\+\+CYCLE\+\_\+\+RANDOMIZER\+\_\+\+CLICKS, Vortex\+Engine\+::button(), Leds\+::hold\+All(), Vortex\+Engine\+::leds(), m\+\_\+auto\+Cycle, Menu\+::m\+\_\+engine, m\+\_\+flags, m\+\_\+need\+To\+Select, Button\+::on\+Consecutive\+Presses(), RANDOMIZE\+\_\+\+BOTH, RANDOMIZE\+\_\+\+COLORSET, re\+Roll(), RGB\+\_\+\+GREEN, and RGB\+\_\+\+RED.
 
 \mbox{\Hypertarget{classRandomizer_ab9602133031667317223683968e7e721}\label{classRandomizer_ab9602133031667317223683968e7e721}} 
 \index{Randomizer@{Randomizer}!reRoll@{reRoll}}
@@ -426,25 +438,25 @@ References m\+\_\+flags, m\+\_\+need\+To\+Select, RANDOMIZE\+\_\+\+BOTH, RANDOMI
 
 
 
-Definition at line 140 of file Randomizer.\+cpp.
+Definition at line 144 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{141 \{}
-\DoxyCodeLine{142 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
-\DoxyCodeLine{143   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{Leds_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\_MULTI}})) \{}
-\DoxyCodeLine{144     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classRandomizer_a812800495098c7fabd24646627cd81c0}{reRollMulti}}()) \{}
-\DoxyCodeLine{145       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{146     \}}
-\DoxyCodeLine{147   \}}
-\DoxyCodeLine{148 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{149   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classRandomizer_a61ab289ca92c29c4433d24f69e79040b}{reRollSingles}}()) \{}
-\DoxyCodeLine{150     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{145 \{}
+\DoxyCodeLine{146 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{147   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{Leds_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\_MULTI}})) \{}
+\DoxyCodeLine{148     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classRandomizer_a812800495098c7fabd24646627cd81c0}{reRollMulti}}()) \{}
+\DoxyCodeLine{149       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{150     \}}
 \DoxyCodeLine{151   \}}
-\DoxyCodeLine{152   \textcolor{comment}{// initialize the mode with the new pattern and colorset}}
-\DoxyCodeLine{153   \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
-\DoxyCodeLine{154   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{155 \}}
+\DoxyCodeLine{152 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{153   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classRandomizer_a61ab289ca92c29c4433d24f69e79040b}{reRollSingles}}()) \{}
+\DoxyCodeLine{154     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{155   \}}
+\DoxyCodeLine{156   \textcolor{comment}{// initialize the mode with the new pattern and colorset}}
+\DoxyCodeLine{157   \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
+\DoxyCodeLine{158   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{159 \}}
 
 \end{DoxyCode}
 
@@ -463,32 +475,32 @@ Referenced by on\+Short\+Click(), and run().
 
 
 
-Definition at line 171 of file Randomizer.\+cpp.
+Definition at line 175 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{172 \{}
-\DoxyCodeLine{173   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} \& \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155ea597c86ce6a0203fd3e712bbad0240a3e}{RANDOMIZE\_PATTERN}}) \{}
-\DoxyCodeLine{174     \textcolor{comment}{// TODO: Roll custom multi pattern?}}
-\DoxyCodeLine{175     \textcolor{comment}{//if (m\_advanced) \{}}
-\DoxyCodeLine{176     \textcolor{comment}{//  if (!rollCustomPattern(ctx, \&m\_previewMode, pos)) \{}}
-\DoxyCodeLine{177     \textcolor{comment}{//    ERROR\_LOG("{}Failed to roll custom pattern"{});}}
-\DoxyCodeLine{178     \textcolor{comment}{//    return false;}}
-\DoxyCodeLine{179     \textcolor{comment}{//  \}}}
-\DoxyCodeLine{180     \textcolor{comment}{//\}}}
-\DoxyCodeLine{181     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aca99847b051b6f3aebad1fee909e48fc}{setPattern}}(\mbox{\hyperlink{classRandomizer_aaf9ebab7cc19b72a71e810a5b053f239}{rollMultiLedPatternID}}(\mbox{\hyperlink{classRandomizer_a264c739a3121a2dbace65537c91fd3b8}{m\_multiRandCtx}}), \mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\_MULTI}})) \{}
-\DoxyCodeLine{182       \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to select pattern"{}});}
-\DoxyCodeLine{183       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{184     \}}
-\DoxyCodeLine{185   \}}
-\DoxyCodeLine{186   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} \& \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155eada798a9ab10cbdbf591fe865575add29}{RANDOMIZE\_COLORSET}}) \{}
-\DoxyCodeLine{187     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a03cf7500c76a7180b08da8d3fe5218ed}{setColorset}}(\mbox{\hyperlink{classRandomizer_ac8593585adcf4c82529529ab4817f829}{rollColorset}}(\mbox{\hyperlink{classRandomizer_a264c739a3121a2dbace65537c91fd3b8}{m\_multiRandCtx}}), \mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\_MULTI}})) \{}
-\DoxyCodeLine{188       \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to roll new colorset"{}});}
-\DoxyCodeLine{189       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{190     \}}
-\DoxyCodeLine{191   \}}
-\DoxyCodeLine{192   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{193 \}}
+\DoxyCodeLine{176 \{}
+\DoxyCodeLine{177   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} \& \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155ea597c86ce6a0203fd3e712bbad0240a3e}{RANDOMIZE\_PATTERN}}) \{}
+\DoxyCodeLine{178     \textcolor{comment}{// TODO: Roll custom multi pattern?}}
+\DoxyCodeLine{179     \textcolor{comment}{//if (m\_advanced) \{}}
+\DoxyCodeLine{180     \textcolor{comment}{//  if (!rollCustomPattern(ctx, \&m\_previewMode, pos)) \{}}
+\DoxyCodeLine{181     \textcolor{comment}{//    ERROR\_LOG("{}Failed to roll custom pattern"{});}}
+\DoxyCodeLine{182     \textcolor{comment}{//    return false;}}
+\DoxyCodeLine{183     \textcolor{comment}{//  \}}}
+\DoxyCodeLine{184     \textcolor{comment}{//\}}}
+\DoxyCodeLine{185     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aca99847b051b6f3aebad1fee909e48fc}{setPattern}}(\mbox{\hyperlink{classRandomizer_aaf9ebab7cc19b72a71e810a5b053f239}{rollMultiLedPatternID}}(\mbox{\hyperlink{classRandomizer_a264c739a3121a2dbace65537c91fd3b8}{m\_multiRandCtx}}), \mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\_MULTI}})) \{}
+\DoxyCodeLine{186       \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to select pattern"{}});}
+\DoxyCodeLine{187       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{188     \}}
+\DoxyCodeLine{189   \}}
+\DoxyCodeLine{190   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} \& \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155eada798a9ab10cbdbf591fe865575add29}{RANDOMIZE\_COLORSET}}) \{}
+\DoxyCodeLine{191     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a03cf7500c76a7180b08da8d3fe5218ed}{setColorset}}(\mbox{\hyperlink{classRandomizer_ac8593585adcf4c82529529ab4817f829}{rollColorset}}(\mbox{\hyperlink{classRandomizer_a264c739a3121a2dbace65537c91fd3b8}{m\_multiRandCtx}}), \mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\_MULTI}})) \{}
+\DoxyCodeLine{192       \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to roll new colorset"{}});}
+\DoxyCodeLine{193       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{194     \}}
+\DoxyCodeLine{195   \}}
+\DoxyCodeLine{196   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{197 \}}
 
 \end{DoxyCode}
 
@@ -507,38 +519,38 @@ Referenced by re\+Roll().
 
 
 
-Definition at line 201 of file Randomizer.\+cpp.
+Definition at line 205 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{202 \{}
-\DoxyCodeLine{203   \textcolor{comment}{// re-\/roll each led position with it's respective random context}}
-\DoxyCodeLine{204   \mbox{\hyperlink{Leds_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}) \{}
-\DoxyCodeLine{205     \mbox{\hyperlink{classRandom}{Random}} \&ctx = \mbox{\hyperlink{classRandomizer_a522f05f277281150aa1a8f605d60cb8e}{m\_singlesRandCtx}}[pos];}
-\DoxyCodeLine{206     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} \& \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155ea597c86ce6a0203fd3e712bbad0240a3e}{RANDOMIZE\_PATTERN}}) \{}
-\DoxyCodeLine{207       \textcolor{comment}{// in advanced mode, when not randomizing the multi position, use a}}
-\DoxyCodeLine{208       \textcolor{comment}{// special function to randomize totally custom led pattern timings}}
-\DoxyCodeLine{209       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
-\DoxyCodeLine{210         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classRandomizer_a7c3119b70cd7abb0dd7451dfa4e39623}{rollCustomPattern}}(ctx, \&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}, pos)) \{}
-\DoxyCodeLine{211           \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to roll custom pattern"{}});}
-\DoxyCodeLine{212           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{213         \}}
-\DoxyCodeLine{214       \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{215         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aca99847b051b6f3aebad1fee909e48fc}{setPattern}}(\mbox{\hyperlink{classRandomizer_ad42b968a398bd2ddb6566046dc6e4508}{rollSingleLedPatternID}}(ctx), pos)) \{}
-\DoxyCodeLine{216           \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to select pattern"{}});}
-\DoxyCodeLine{217           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{218         \}}
-\DoxyCodeLine{219       \}}
-\DoxyCodeLine{220     \}}
-\DoxyCodeLine{221     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} \& \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155eada798a9ab10cbdbf591fe865575add29}{RANDOMIZE\_COLORSET}}) \{}
-\DoxyCodeLine{222       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a03cf7500c76a7180b08da8d3fe5218ed}{setColorset}}(\mbox{\hyperlink{classRandomizer_ac8593585adcf4c82529529ab4817f829}{rollColorset}}(ctx), pos)) \{}
-\DoxyCodeLine{223         \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to roll new colorset"{}});}
-\DoxyCodeLine{224         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{225       \}}
-\DoxyCodeLine{226     \}}
-\DoxyCodeLine{227   \}}
-\DoxyCodeLine{228   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{229 \}}
+\DoxyCodeLine{206 \{}
+\DoxyCodeLine{207   \textcolor{comment}{// re-\/roll each led position with it's respective random context}}
+\DoxyCodeLine{208   \mbox{\hyperlink{Leds_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\_FOREACH\_LED}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}) \{}
+\DoxyCodeLine{209     \mbox{\hyperlink{classRandom}{Random}} \&ctx = \mbox{\hyperlink{classRandomizer_a522f05f277281150aa1a8f605d60cb8e}{m\_singlesRandCtx}}[pos];}
+\DoxyCodeLine{210     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} \& \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155ea597c86ce6a0203fd3e712bbad0240a3e}{RANDOMIZE\_PATTERN}}) \{}
+\DoxyCodeLine{211       \textcolor{comment}{// in advanced mode, when not randomizing the multi position, use a}}
+\DoxyCodeLine{212       \textcolor{comment}{// special function to randomize totally custom led pattern timings}}
+\DoxyCodeLine{213       \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{214         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classRandomizer_a7c3119b70cd7abb0dd7451dfa4e39623}{rollCustomPattern}}(ctx, \&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}, pos)) \{}
+\DoxyCodeLine{215           \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to roll custom pattern"{}});}
+\DoxyCodeLine{216           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{217         \}}
+\DoxyCodeLine{218       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{219         \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aca99847b051b6f3aebad1fee909e48fc}{setPattern}}(\mbox{\hyperlink{classRandomizer_ad42b968a398bd2ddb6566046dc6e4508}{rollSingleLedPatternID}}(ctx), pos)) \{}
+\DoxyCodeLine{220           \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to select pattern"{}});}
+\DoxyCodeLine{221           \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{222         \}}
+\DoxyCodeLine{223       \}}
+\DoxyCodeLine{224     \}}
+\DoxyCodeLine{225     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} \& \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155eada798a9ab10cbdbf591fe865575add29}{RANDOMIZE\_COLORSET}}) \{}
+\DoxyCodeLine{226       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a03cf7500c76a7180b08da8d3fe5218ed}{setColorset}}(\mbox{\hyperlink{classRandomizer_ac8593585adcf4c82529529ab4817f829}{rollColorset}}(ctx), pos)) \{}
+\DoxyCodeLine{227         \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to roll new colorset"{}});}
+\DoxyCodeLine{228         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{229       \}}
+\DoxyCodeLine{230     \}}
+\DoxyCodeLine{231   \}}
+\DoxyCodeLine{232   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{233 \}}
 
 \end{DoxyCode}
 
@@ -557,57 +569,57 @@ Referenced by re\+Roll().
 
 
 
-Definition at line 242 of file Randomizer.\+cpp.
+Definition at line 246 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{243 \{}
-\DoxyCodeLine{244   \mbox{\hyperlink{classColorset}{Colorset}} randomSet;}
-\DoxyCodeLine{245   \textcolor{comment}{// pick a random type of randomizer to use then use}}
-\DoxyCodeLine{246   \textcolor{comment}{// the randomizer to generate a random colorset}}
-\DoxyCodeLine{247   uint8\_t randType = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 8);}
-\DoxyCodeLine{248   \textcolor{keywordflow}{switch} (randType) \{}
-\DoxyCodeLine{249   \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{250   \textcolor{keywordflow}{case} 0:}
-\DoxyCodeLine{251     randomSet.\mbox{\hyperlink{classColorset_a8ff0a3f968aec3986197acfcbd9b31df}{randomize}}(ctx);}
-\DoxyCodeLine{252     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{253   \textcolor{keywordflow}{case} 1:}
-\DoxyCodeLine{254     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 0, Colorset::ColorMode::THEORY);}
-\DoxyCodeLine{255     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{256   \textcolor{keywordflow}{case} 2:}
-\DoxyCodeLine{257     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 0, Colorset::ColorMode::MONOCHROMATIC);}
-\DoxyCodeLine{258     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{259   \textcolor{keywordflow}{case} 3:}
-\DoxyCodeLine{260     randomSet.\mbox{\hyperlink{classColorset_acac6cc5795e5cb3f79159141da9deaba}{randomizeColors2}}(ctx, Colorset::ColorMode2::DOUBLE\_SPLIT\_COMPLIMENTARY);}
-\DoxyCodeLine{261     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{262   \textcolor{keywordflow}{case} 4:}
-\DoxyCodeLine{263     randomSet.\mbox{\hyperlink{classColorset_acac6cc5795e5cb3f79159141da9deaba}{randomizeColors2}}(ctx, Colorset::ColorMode2::TETRADIC);}
-\DoxyCodeLine{264     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{265   \textcolor{keywordflow}{case} 5:}
-\DoxyCodeLine{266     randomSet.\mbox{\hyperlink{classColorset_a8ff0a3f968aec3986197acfcbd9b31df}{randomize}}(ctx, 1);}
-\DoxyCodeLine{267     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{268   \textcolor{keywordflow}{case} 6:}
-\DoxyCodeLine{269     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 0, Colorset::ColorMode::EVENLY\_SPACED);}
-\DoxyCodeLine{270     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{271   \textcolor{keywordflow}{case} 7:}
-\DoxyCodeLine{272     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 2, Colorset::ColorMode::EVENLY\_SPACED);}
-\DoxyCodeLine{273     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{274   \textcolor{keywordflow}{case} 8:}
-\DoxyCodeLine{275     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 3, Colorset::ColorMode::EVENLY\_SPACED);}
-\DoxyCodeLine{276     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{277   \}}
-\DoxyCodeLine{278 }
-\DoxyCodeLine{279   \textcolor{comment}{// take the randomized colorset and repeate colors to make an additional pattern}}
-\DoxyCodeLine{280   \textcolor{keywordflow}{if} (randomSet.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}() <= 4 \&\& ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 1) != 0) \{}
-\DoxyCodeLine{281     \textcolor{comment}{// using uint8\_t here actually costs more bytes than int16\_t}}
-\DoxyCodeLine{282     int16\_t startingNumColors = randomSet.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
-\DoxyCodeLine{283     \textcolor{keywordflow}{for} (int16\_t i = 0; i < startingNumColors -\/ 1; ++i) \{}
-\DoxyCodeLine{284       \textcolor{comment}{// add a duplicate of each color in the colorset to in reverse}}
-\DoxyCodeLine{285       randomSet.\mbox{\hyperlink{classColorset_abb46201f07d6f2072eac505d917a0f2e}{addColor}}(randomSet.\mbox{\hyperlink{classColorset_a283bf54629fd4af75249492d49e14199}{get}}(startingNumColors -\/ (i + 2)));}
-\DoxyCodeLine{286     \}}
-\DoxyCodeLine{287   \}}
-\DoxyCodeLine{288   \textcolor{keywordflow}{return} randomSet;}
-\DoxyCodeLine{289 \}}
+\DoxyCodeLine{247 \{}
+\DoxyCodeLine{248   \mbox{\hyperlink{classColorset}{Colorset}} randomSet;}
+\DoxyCodeLine{249   \textcolor{comment}{// pick a random type of randomizer to use then use}}
+\DoxyCodeLine{250   \textcolor{comment}{// the randomizer to generate a random colorset}}
+\DoxyCodeLine{251   uint8\_t randType = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 8);}
+\DoxyCodeLine{252   \textcolor{keywordflow}{switch} (randType) \{}
+\DoxyCodeLine{253   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{254   \textcolor{keywordflow}{case} 0:}
+\DoxyCodeLine{255     randomSet.\mbox{\hyperlink{classColorset_a8ff0a3f968aec3986197acfcbd9b31df}{randomize}}(ctx);}
+\DoxyCodeLine{256     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{257   \textcolor{keywordflow}{case} 1:}
+\DoxyCodeLine{258     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 0, Colorset::ColorMode::THEORY);}
+\DoxyCodeLine{259     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{260   \textcolor{keywordflow}{case} 2:}
+\DoxyCodeLine{261     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 0, Colorset::ColorMode::MONOCHROMATIC);}
+\DoxyCodeLine{262     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{263   \textcolor{keywordflow}{case} 3:}
+\DoxyCodeLine{264     randomSet.\mbox{\hyperlink{classColorset_acac6cc5795e5cb3f79159141da9deaba}{randomizeColors2}}(ctx, Colorset::ColorMode2::DOUBLE\_SPLIT\_COMPLIMENTARY);}
+\DoxyCodeLine{265     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{266   \textcolor{keywordflow}{case} 4:}
+\DoxyCodeLine{267     randomSet.\mbox{\hyperlink{classColorset_acac6cc5795e5cb3f79159141da9deaba}{randomizeColors2}}(ctx, Colorset::ColorMode2::TETRADIC);}
+\DoxyCodeLine{268     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{269   \textcolor{keywordflow}{case} 5:}
+\DoxyCodeLine{270     randomSet.\mbox{\hyperlink{classColorset_a8ff0a3f968aec3986197acfcbd9b31df}{randomize}}(ctx, 1);}
+\DoxyCodeLine{271     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{272   \textcolor{keywordflow}{case} 6:}
+\DoxyCodeLine{273     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 0, Colorset::ColorMode::EVENLY\_SPACED);}
+\DoxyCodeLine{274     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{275   \textcolor{keywordflow}{case} 7:}
+\DoxyCodeLine{276     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 2, Colorset::ColorMode::EVENLY\_SPACED);}
+\DoxyCodeLine{277     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{278   \textcolor{keywordflow}{case} 8:}
+\DoxyCodeLine{279     randomSet.\mbox{\hyperlink{classColorset_a85baad89365d8f47451ffee79e5aa69c}{randomizeColors}}(ctx, 3, Colorset::ColorMode::EVENLY\_SPACED);}
+\DoxyCodeLine{280     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{281   \}}
+\DoxyCodeLine{282 }
+\DoxyCodeLine{283   \textcolor{comment}{// take the randomized colorset and repeate colors to make an additional pattern}}
+\DoxyCodeLine{284   \textcolor{keywordflow}{if} (randomSet.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}() <= 4 \&\& ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 1) != 0) \{}
+\DoxyCodeLine{285     \textcolor{comment}{// using uint8\_t here actually costs more bytes than int16\_t}}
+\DoxyCodeLine{286     int16\_t startingNumColors = randomSet.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}();}
+\DoxyCodeLine{287     \textcolor{keywordflow}{for} (int16\_t i = 0; i < startingNumColors -\/ 1; ++i) \{}
+\DoxyCodeLine{288       \textcolor{comment}{// add a duplicate of each color in the colorset to in reverse}}
+\DoxyCodeLine{289       randomSet.\mbox{\hyperlink{classColorset_abb46201f07d6f2072eac505d917a0f2e}{addColor}}(randomSet.\mbox{\hyperlink{classColorset_a283bf54629fd4af75249492d49e14199}{get}}(startingNumColors -\/ (i + 2)));}
+\DoxyCodeLine{290     \}}
+\DoxyCodeLine{291   \}}
+\DoxyCodeLine{292   \textcolor{keywordflow}{return} randomSet;}
+\DoxyCodeLine{293 \}}
 
 \end{DoxyCode}
 
@@ -626,47 +638,52 @@ Referenced by re\+Roll\+Multi(), and re\+Roll\+Singles().
 
 
 
-Definition at line 291 of file Randomizer.\+cpp.
+Definition at line 295 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{292 \{}
-\DoxyCodeLine{293   \mbox{\hyperlink{classPatternArgs}{PatternArgs}} args;}
-\DoxyCodeLine{294   \textcolor{comment}{// pick a random type of randomizer to use then use}}
-\DoxyCodeLine{295   \textcolor{comment}{// the randomizer to generate a random pattern}}
-\DoxyCodeLine{296   uint8\_t patternType = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 3);}
-\DoxyCodeLine{297   \textcolor{keywordflow}{switch} (patternType) \{}
-\DoxyCodeLine{298   \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{299   \textcolor{keywordflow}{case} 0:}
-\DoxyCodeLine{300     \mbox{\hyperlink{classRandomizer_ae80f7ed9fa8e13216277aa1d0b218651}{traditionalPattern}}(ctx, args);}
-\DoxyCodeLine{301     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{302   \textcolor{keywordflow}{case} 1:}
-\DoxyCodeLine{303     \mbox{\hyperlink{classRandomizer_a2f8d7c80ba0c480decc61a70a67a6b95}{gapPattern}}(ctx, args);}
-\DoxyCodeLine{304     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{305   \textcolor{keywordflow}{case} 2:}
-\DoxyCodeLine{306     \mbox{\hyperlink{classRandomizer_a7b480f578a4a86ea96b44b5ba1aa956e}{dashPattern}}(ctx, args);}
-\DoxyCodeLine{307     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{308   \textcolor{keywordflow}{case} 3:}
-\DoxyCodeLine{309     \mbox{\hyperlink{classRandomizer_a1bd21c50d68b27c102cee0c608b69d4d}{crushPattern}}(ctx, args);}
-\DoxyCodeLine{310     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{311   \}}
-\DoxyCodeLine{312   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} newPat = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca320755b96ff07514ffbbea92471d9028}{PATTERN\_STROBE}};}
-\DoxyCodeLine{313   \textcolor{comment}{// 1/3 chance to roll a blend pattern instead which will animate between}}
-\DoxyCodeLine{314   \textcolor{comment}{// colors instead of blinking each color in the set}}
-\DoxyCodeLine{315   \textcolor{keywordflow}{if} (!ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 3)) \{}
-\DoxyCodeLine{316     newPat = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadf01802d35ece7b405582c6680f56d83}{PATTERN\_BLEND}};}
-\DoxyCodeLine{317     \textcolor{comment}{// this is the number of blinks to a complementary color}}
-\DoxyCodeLine{318     args.\mbox{\hyperlink{classPatternArgs_a28f972e9f9b5041c8fa40a4689d35335}{arg7}} = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 3);}
-\DoxyCodeLine{319     \textcolor{comment}{// up to arg7 is filled now}}
-\DoxyCodeLine{320     args.\mbox{\hyperlink{classPatternArgs_afd6df4d59722381c0146b839d1469171}{numArgs}} = 7;}
-\DoxyCodeLine{321   \}}
-\DoxyCodeLine{322   \textcolor{keywordflow}{return} pMode-\/>\mbox{\hyperlink{classMode_aca99847b051b6f3aebad1fee909e48fc}{setPattern}}(newPat, pos, \&args);}
-\DoxyCodeLine{323 \}}
+\DoxyCodeLine{296 \{}
+\DoxyCodeLine{297   \mbox{\hyperlink{classPatternArgs}{PatternArgs}} args;}
+\DoxyCodeLine{298   \textcolor{comment}{// pick a random type of randomizer to use then use}}
+\DoxyCodeLine{299   \textcolor{comment}{// the randomizer to generate a random pattern}}
+\DoxyCodeLine{300   uint8\_t patternType = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 3);}
+\DoxyCodeLine{301   \textcolor{keywordflow}{switch} (patternType) \{}
+\DoxyCodeLine{302   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{303   \textcolor{keywordflow}{case} 0:}
+\DoxyCodeLine{304     \mbox{\hyperlink{classRandomizer_ae80f7ed9fa8e13216277aa1d0b218651}{traditionalPattern}}(ctx, args);}
+\DoxyCodeLine{305     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{306   \textcolor{keywordflow}{case} 1:}
+\DoxyCodeLine{307     \mbox{\hyperlink{classRandomizer_a2f8d7c80ba0c480decc61a70a67a6b95}{gapPattern}}(ctx, args);}
+\DoxyCodeLine{308     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{309   \textcolor{keywordflow}{case} 2:}
+\DoxyCodeLine{310     \mbox{\hyperlink{classRandomizer_a7b480f578a4a86ea96b44b5ba1aa956e}{dashPattern}}(ctx, args);}
+\DoxyCodeLine{311     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{312   \textcolor{keywordflow}{case} 3:}
+\DoxyCodeLine{313     \mbox{\hyperlink{classRandomizer_a1bd21c50d68b27c102cee0c608b69d4d}{crushPattern}}(ctx, args);}
+\DoxyCodeLine{314     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{315   \}}
+\DoxyCodeLine{316   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} newPat = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca320755b96ff07514ffbbea92471d9028}{PATTERN\_STROBE}};}
+\DoxyCodeLine{317   \textcolor{comment}{// 1/3 chance to roll a blend pattern instead which will animate between}}
+\DoxyCodeLine{318   \textcolor{comment}{// colors instead of blinking each color in the set}}
+\DoxyCodeLine{319   \textcolor{keywordflow}{if} (!ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 3)) \{}
+\DoxyCodeLine{320     newPat = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadf01802d35ece7b405582c6680f56d83}{PATTERN\_BLEND}};}
+\DoxyCodeLine{321     \textcolor{comment}{// set the blend speed}}
+\DoxyCodeLine{322     args.\mbox{\hyperlink{classPatternArgs_a3b0a80610a4290510dd94bfe487d6a6a}{arg6}} = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(1, 10);}
+\DoxyCodeLine{323     \textcolor{comment}{// 1/2 chance to make the blend a flipping blend of some kind}}
+\DoxyCodeLine{324     \textcolor{keywordflow}{if} (!ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 2)) \{}
+\DoxyCodeLine{325       \textcolor{comment}{// this is the number of blinks to a complementary color}}
+\DoxyCodeLine{326       args.\mbox{\hyperlink{classPatternArgs_a28f972e9f9b5041c8fa40a4689d35335}{arg7}} = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(0, 3);}
+\DoxyCodeLine{327     \}}
+\DoxyCodeLine{328     \textcolor{comment}{// up to arg7 is filled now}}
+\DoxyCodeLine{329     args.\mbox{\hyperlink{classPatternArgs_afd6df4d59722381c0146b839d1469171}{numArgs}} = 7;}
+\DoxyCodeLine{330   \}}
+\DoxyCodeLine{331   \textcolor{keywordflow}{return} pMode-\/>\mbox{\hyperlink{classMode_aca99847b051b6f3aebad1fee909e48fc}{setPattern}}(newPat, pos, \&args);}
+\DoxyCodeLine{332 \}}
 
 \end{DoxyCode}
 
 
-References Pattern\+Args\+::arg7, crush\+Pattern(), dash\+Pattern(), gap\+Pattern(), Random\+::next8(), Pattern\+Args\+::num\+Args, PATTERN\+\_\+\+BLEND, PATTERN\+\_\+\+STROBE, Mode\+::set\+Pattern(), and traditional\+Pattern().
+References Pattern\+Args\+::arg6, Pattern\+Args\+::arg7, crush\+Pattern(), dash\+Pattern(), gap\+Pattern(), Random\+::next8(), Pattern\+Args\+::num\+Args, PATTERN\+\_\+\+BLEND, PATTERN\+\_\+\+STROBE, Mode\+::set\+Pattern(), and traditional\+Pattern().
 
 
 
@@ -680,13 +697,13 @@ Referenced by re\+Roll\+Singles().
 
 
 
-Definition at line 195 of file Randomizer.\+cpp.
+Definition at line 199 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{196 \{}
-\DoxyCodeLine{197   \textcolor{keywordflow}{return} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}})ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cafecfee87d2ade6034f160f02130d2916}{PATTERN\_MULTI\_FIRST}}, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4a47e790a421b744f6b060610e6a0099}{PATTERN\_MULTI\_LAST}});}
-\DoxyCodeLine{198 \}}
+\DoxyCodeLine{200 \{}
+\DoxyCodeLine{201   \textcolor{keywordflow}{return} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}})ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cafecfee87d2ade6034f160f02130d2916}{PATTERN\_MULTI\_FIRST}}, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4a47e790a421b744f6b060610e6a0099}{PATTERN\_MULTI\_LAST}});}
+\DoxyCodeLine{202 \}}
 
 \end{DoxyCode}
 
@@ -705,19 +722,19 @@ Referenced by re\+Roll\+Multi().
 
 
 
-Definition at line 231 of file Randomizer.\+cpp.
+Definition at line 235 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{232 \{}
-\DoxyCodeLine{233   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} newPat;}
-\DoxyCodeLine{234   \textcolor{comment}{// the random range begin/end}}
-\DoxyCodeLine{235   \textcolor{keywordflow}{do} \{}
-\DoxyCodeLine{236     \textcolor{comment}{// continuously re-\/randomize the pattern so we don't get undesirable patterns}}
-\DoxyCodeLine{237     newPat = (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}})ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cac004fab8bcc0fa1c708990e7e34f8afa}{PATTERN\_SINGLE\_FIRST}}, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca63a5c7f0287e61ea810c90b211903308}{PATTERN\_SINGLE\_LAST}});}
-\DoxyCodeLine{238   \} \textcolor{keywordflow}{while} (newPat == \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca942e76cc0f29e00de2d3967c4738333b}{PATTERN\_SOLID}} || newPat == \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca18053a889190a075aad72a3b17096632}{PATTERN\_RIBBON}} || newPat == \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca85d9b1761883fcb1fe34a2afcd96add6}{PATTERN\_MINIRIBBON}});}
-\DoxyCodeLine{239   \textcolor{keywordflow}{return} newPat;}
-\DoxyCodeLine{240 \}}
+\DoxyCodeLine{236 \{}
+\DoxyCodeLine{237   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} newPat;}
+\DoxyCodeLine{238   \textcolor{comment}{// the random range begin/end}}
+\DoxyCodeLine{239   \textcolor{keywordflow}{do} \{}
+\DoxyCodeLine{240     \textcolor{comment}{// continuously re-\/randomize the pattern so we don't get undesirable patterns}}
+\DoxyCodeLine{241     newPat = (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}})ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cac004fab8bcc0fa1c708990e7e34f8afa}{PATTERN\_SINGLE\_FIRST}}, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca63a5c7f0287e61ea810c90b211903308}{PATTERN\_SINGLE\_LAST}});}
+\DoxyCodeLine{242   \} \textcolor{keywordflow}{while} (newPat == \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca942e76cc0f29e00de2d3967c4738333b}{PATTERN\_SOLID}} || newPat == \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca18053a889190a075aad72a3b17096632}{PATTERN\_RIBBON}} || newPat == \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca85d9b1761883fcb1fe34a2afcd96add6}{PATTERN\_MINIRIBBON}});}
+\DoxyCodeLine{243   \textcolor{keywordflow}{return} newPat;}
+\DoxyCodeLine{244 \}}
 
 \end{DoxyCode}
 
@@ -740,62 +757,54 @@ Reimplemented from \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}
 
 
 
-Definition at line 63 of file Randomizer.\+cpp.
+Definition at line 67 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{64 \{}
-\DoxyCodeLine{65   \textcolor{comment}{// run the base menu logic}}
-\DoxyCodeLine{66   \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{MenuAction}} result = \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{Menu::run}}();}
-\DoxyCodeLine{67   \textcolor{keywordflow}{if} (result != \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}}) \{}
-\DoxyCodeLine{68     \textcolor{keywordflow}{return} result;}
-\DoxyCodeLine{69   \}}
-\DoxyCodeLine{70   \textcolor{comment}{// if the ranomization flags haven't been set yet just show a selection}}
-\DoxyCodeLine{71   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_add021a5a9c7e7d05c31e54ab106d314b}{m\_needToSelect}}) \{}
-\DoxyCodeLine{72     \textcolor{comment}{// display the randomization selection menu}}
-\DoxyCodeLine{73     \mbox{\hyperlink{classRandomizer_ad3baf8199e770e6db38ca0bedc4f17ef}{showRandomizationSelect}}();}
-\DoxyCodeLine{74     \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
-\DoxyCodeLine{75   \}}
-\DoxyCodeLine{76 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
-\DoxyCodeLine{77   \textcolor{comment}{// if they are trying to randomize a multi-\/led pattern just convert}}
-\DoxyCodeLine{78   \textcolor{comment}{// the pattern to all singles with the same colorset upon entry}}
-\DoxyCodeLine{79   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a833075f22903e11fd4735b5f04e7f6ea}{isMultiLed}}() \&\& \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} != \mbox{\hyperlink{Leds_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\_MULTI}})) \{}
-\DoxyCodeLine{80     \textcolor{comment}{// convert the pattern to a single led pattern, this will map}}
-\DoxyCodeLine{81     \textcolor{comment}{// all multi led patterns to single led patterns using modulo}}
-\DoxyCodeLine{82     \textcolor{comment}{// so no matter which multi-\/led pattern they have selected it}}
-\DoxyCodeLine{83     \textcolor{comment}{// will convert to a single led pattern of some kind}}
-\DoxyCodeLine{84     \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} newID = (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}})((\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a37b660257352663dcab903649b7aebc7}{getPatternID}}(\mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\_MULTI}}) -\/ \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cafecfee87d2ade6034f160f02130d2916}{PATTERN\_MULTI\_FIRST}}) \% \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca1ab18f6049f53be69b7ca4637d1570e6}{PATTERN\_SINGLE\_COUNT}});}
-\DoxyCodeLine{85     \textcolor{comment}{// solid sucks}}
-\DoxyCodeLine{86     \textcolor{keywordflow}{if} (newID == \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca942e76cc0f29e00de2d3967c4738333b}{PATTERN\_SOLID}}) ++newID;}
-\DoxyCodeLine{87     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aca99847b051b6f3aebad1fee909e48fc}{setPattern}}(newID, \mbox{\hyperlink{Leds_8h_a79ad4bd201e9757299e3f4383a5284e3}{LED\_ANY}});}
-\DoxyCodeLine{88     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
-\DoxyCodeLine{89   \}}
-\DoxyCodeLine{90 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{91   \textcolor{comment}{// if the user fast-\/clicks 3 times then toggle automode}}
-\DoxyCodeLine{92   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_aa8257eae68c0e55bbec0f5cc6bca87dc}{button}}().\mbox{\hyperlink{classButton_a277f0bc922ec0cb3a20b6aaf43e9b94e}{onRelease}}() \&\& \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_aa8257eae68c0e55bbec0f5cc6bca87dc}{button}}().\mbox{\hyperlink{classButton_af08888134084d0640b6a891bdb755f14}{onConsecutivePresses}}(\mbox{\hyperlink{VortexConfig_8h_aad0adf88f8c22c7eb2c55ce9d11df0f8}{AUTO\_CYCLE\_RANDOMIZER\_CLICKS}})) \{}
-\DoxyCodeLine{93     \textcolor{comment}{// toggle the auto cycle flag}}
-\DoxyCodeLine{94     \mbox{\hyperlink{classRandomizer_abc096623f4e5121366f9131b2abd411e}{m\_autoCycle}} = !\mbox{\hyperlink{classRandomizer_abc096623f4e5121366f9131b2abd411e}{m\_autoCycle}};}
-\DoxyCodeLine{95     \textcolor{comment}{// display a quick flash of either green or red to indicate whether auto mode is on or not}}
-\DoxyCodeLine{96     \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a5a3e2c090aa782f4ee7c71c01e8d8a69}{holdAll}}(\mbox{\hyperlink{classRandomizer_abc096623f4e5121366f9131b2abd411e}{m\_autoCycle}} ? \mbox{\hyperlink{ColorConstants_8h_ab6c97468034c02fe204fd37036d9be15}{RGB\_GREEN}} : \mbox{\hyperlink{ColorConstants_8h_aa039288455af8a3812a35aa1e7b903e4}{RGB\_RED}});}
-\DoxyCodeLine{97     \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
-\DoxyCodeLine{98   \}}
-\DoxyCodeLine{99   uint32\_t now = \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a4928281e63a820cd8f0b00b53c6e4587}{getCurtime}}();}
-\DoxyCodeLine{100   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abc096623f4e5121366f9131b2abd411e}{m\_autoCycle}} \&\& (\mbox{\hyperlink{classRandomizer_aca169f3d2d57355b199d967ca3cb08b2}{m\_lastRandomization}} + \mbox{\hyperlink{Timings_8h_a61dac7f55a8663187084eadec1a8ecf3}{AUTO\_RANDOM\_DELAY\_TICKS}} < now)) \{}
-\DoxyCodeLine{101     \mbox{\hyperlink{classRandomizer_aca169f3d2d57355b199d967ca3cb08b2}{m\_lastRandomization}} = now;}
-\DoxyCodeLine{102     \mbox{\hyperlink{classRandomizer_ab9602133031667317223683968e7e721}{reRoll}}();}
-\DoxyCodeLine{103   \}}
-\DoxyCodeLine{104   \textcolor{comment}{// display the randomized mode}}
-\DoxyCodeLine{105   \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a21d1c7da7b97340ab1af39d242cc6f22}{play}}();}
-\DoxyCodeLine{106   \textcolor{comment}{// show the selection}}
-\DoxyCodeLine{107   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_aac47da6a6d2360bfda3fcf4dd6e803e1}{menus}}().\mbox{\hyperlink{classMenus_a24d75cee0c42b89ed2408e1358414804}{showSelection}}();}
-\DoxyCodeLine{108   \textcolor{comment}{// return true to continue staying in randomizer menu}}
-\DoxyCodeLine{109   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
-\DoxyCodeLine{110 \}}
+\DoxyCodeLine{68 \{}
+\DoxyCodeLine{69   \textcolor{comment}{// run the base menu logic}}
+\DoxyCodeLine{70   \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ff}{MenuAction}} result = \mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{Menu::run}}();}
+\DoxyCodeLine{71   \textcolor{keywordflow}{if} (result != \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}}) \{}
+\DoxyCodeLine{72     \textcolor{keywordflow}{return} result;}
+\DoxyCodeLine{73   \}}
+\DoxyCodeLine{74   \textcolor{comment}{// if the ranomization flags haven't been set yet just show a selection}}
+\DoxyCodeLine{75   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_add021a5a9c7e7d05c31e54ab106d314b}{m\_needToSelect}}) \{}
+\DoxyCodeLine{76     \textcolor{comment}{// display the randomization selection menu}}
+\DoxyCodeLine{77     \mbox{\hyperlink{classRandomizer_ad3baf8199e770e6db38ca0bedc4f17ef}{showRandomizationSelect}}();}
+\DoxyCodeLine{78     \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
+\DoxyCodeLine{79   \}}
+\DoxyCodeLine{80 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{81   \textcolor{comment}{// if they are trying to randomize a multi-\/led pattern just convert}}
+\DoxyCodeLine{82   \textcolor{comment}{// the pattern to all singles with the same colorset upon entry}}
+\DoxyCodeLine{83   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a833075f22903e11fd4735b5f04e7f6ea}{isMultiLed}}() \&\& \mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} != \mbox{\hyperlink{Leds_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\_MULTI}})) \{}
+\DoxyCodeLine{84     \textcolor{comment}{// convert the pattern to a single led pattern, this will map}}
+\DoxyCodeLine{85     \textcolor{comment}{// all multi led patterns to single led patterns using modulo}}
+\DoxyCodeLine{86     \textcolor{comment}{// so no matter which multi-\/led pattern they have selected it}}
+\DoxyCodeLine{87     \textcolor{comment}{// will convert to a single led pattern of some kind}}
+\DoxyCodeLine{88     \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} newID = (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}})((\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a37b660257352663dcab903649b7aebc7}{getPatternID}}(\mbox{\hyperlink{Leds_8h_aa90d79e6c4a68055c827d212d85e499e}{LED\_MULTI}}) -\/ \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cafecfee87d2ade6034f160f02130d2916}{PATTERN\_MULTI\_FIRST}}) \% \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca1ab18f6049f53be69b7ca4637d1570e6}{PATTERN\_SINGLE\_COUNT}});}
+\DoxyCodeLine{89     \textcolor{comment}{// solid sucks}}
+\DoxyCodeLine{90     \textcolor{keywordflow}{if} (newID == \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca942e76cc0f29e00de2d3967c4738333b}{PATTERN\_SOLID}}) ++newID;}
+\DoxyCodeLine{91     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aca99847b051b6f3aebad1fee909e48fc}{setPattern}}(newID, \mbox{\hyperlink{Leds_8h_a79ad4bd201e9757299e3f4383a5284e3}{LED\_ANY}});}
+\DoxyCodeLine{92     \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_aa719878c227361144835120787581d94}{init}}();}
+\DoxyCodeLine{93   \}}
+\DoxyCodeLine{94 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{95   uint32\_t now = \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a4928281e63a820cd8f0b00b53c6e4587}{getCurtime}}();}
+\DoxyCodeLine{96   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abc096623f4e5121366f9131b2abd411e}{m\_autoCycle}} \&\& (\mbox{\hyperlink{classRandomizer_aca169f3d2d57355b199d967ca3cb08b2}{m\_lastRandomization}} + \mbox{\hyperlink{Timings_8h_a61dac7f55a8663187084eadec1a8ecf3}{AUTO\_RANDOM\_DELAY\_TICKS}} < now)) \{}
+\DoxyCodeLine{97     \mbox{\hyperlink{classRandomizer_aca169f3d2d57355b199d967ca3cb08b2}{m\_lastRandomization}} = now;}
+\DoxyCodeLine{98     \mbox{\hyperlink{classRandomizer_ab9602133031667317223683968e7e721}{reRoll}}();}
+\DoxyCodeLine{99   \}}
+\DoxyCodeLine{100   \textcolor{comment}{// display the randomized mode}}
+\DoxyCodeLine{101   \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a21d1c7da7b97340ab1af39d242cc6f22}{play}}();}
+\DoxyCodeLine{102   \textcolor{comment}{// show the selection}}
+\DoxyCodeLine{103   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_aac47da6a6d2360bfda3fcf4dd6e803e1}{menus}}().\mbox{\hyperlink{classMenus_a24d75cee0c42b89ed2408e1358414804}{showSelection}}();}
+\DoxyCodeLine{104   \textcolor{comment}{// return true to continue staying in randomizer menu}}
+\DoxyCodeLine{105   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
+\DoxyCodeLine{106 \}}
 
 \end{DoxyCode}
 
 
-References AUTO\+\_\+\+CYCLE\+\_\+\+RANDOMIZER\+\_\+\+CLICKS, AUTO\+\_\+\+RANDOM\+\_\+\+DELAY\+\_\+\+TICKS, Vortex\+Engine\+::button(), Time\+::get\+Curtime(), Mode\+::get\+Pattern\+ID(), Leds\+::hold\+All(), Mode\+::init(), Mode\+::is\+Multi\+Led(), LED\+\_\+\+ANY, LED\+\_\+\+MULTI, Vortex\+Engine\+::leds(), m\+\_\+auto\+Cycle, Menu\+::m\+\_\+engine, m\+\_\+last\+Randomization, m\+\_\+need\+To\+Select, Menu\+::m\+\_\+preview\+Mode, Menu\+::m\+\_\+target\+Leds, MAP\+\_\+\+LED, Menu\+::\+MENU\+\_\+\+CONTINUE, Vortex\+Engine\+::menus(), Button\+::on\+Consecutive\+Presses(), Button\+::on\+Release(), PATTERN\+\_\+\+MULTI\+\_\+\+FIRST, PATTERN\+\_\+\+SINGLE\+\_\+\+COUNT, PATTERN\+\_\+\+SOLID, Mode\+::play(), re\+Roll(), RGB\+\_\+\+GREEN, RGB\+\_\+\+RED, Menu\+::run(), Mode\+::set\+Pattern(), show\+Randomization\+Select(), Menus\+::show\+Selection(), and Vortex\+Engine\+::time().
+References AUTO\+\_\+\+RANDOM\+\_\+\+DELAY\+\_\+\+TICKS, Time\+::get\+Curtime(), Mode\+::get\+Pattern\+ID(), Mode\+::init(), Mode\+::is\+Multi\+Led(), LED\+\_\+\+ANY, LED\+\_\+\+MULTI, m\+\_\+auto\+Cycle, Menu\+::m\+\_\+engine, m\+\_\+last\+Randomization, m\+\_\+need\+To\+Select, Menu\+::m\+\_\+preview\+Mode, Menu\+::m\+\_\+target\+Leds, MAP\+\_\+\+LED, Menu\+::\+MENU\+\_\+\+CONTINUE, Vortex\+Engine\+::menus(), PATTERN\+\_\+\+MULTI\+\_\+\+FIRST, PATTERN\+\_\+\+SINGLE\+\_\+\+COUNT, PATTERN\+\_\+\+SOLID, Mode\+::play(), re\+Roll(), Menu\+::run(), Mode\+::set\+Pattern(), show\+Randomization\+Select(), Menus\+::show\+Selection(), and Vortex\+Engine\+::time().
 
 \mbox{\Hypertarget{classRandomizer_ad3baf8199e770e6db38ca0bedc4f17ef}\label{classRandomizer_ad3baf8199e770e6db38ca0bedc4f17ef}} 
 \index{Randomizer@{Randomizer}!showRandomizationSelect@{showRandomizationSelect}}
@@ -805,21 +814,21 @@ References AUTO\+\_\+\+CYCLE\+\_\+\+RANDOMIZER\+\_\+\+CLICKS, AUTO\+\_\+\+RANDOM
 
 
 
-Definition at line 157 of file Randomizer.\+cpp.
+Definition at line 161 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{158 \{}
-\DoxyCodeLine{159   \textcolor{comment}{// show iterating rainbow if they are randomizing color, otherwise 0 sat if they}}
-\DoxyCodeLine{160   \textcolor{comment}{// are only randomizing the pattern}}
-\DoxyCodeLine{161   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{setAll}}(\mbox{\hyperlink{classHSVColor}{HSVColor}}(\mbox{\hyperlink{classRandomizer_ad65524b2d5da9e2b55146a59b1db42ae}{m\_displayHue}}++, (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} \& \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155eada798a9ab10cbdbf591fe865575add29}{RANDOMIZE\_COLORSET}}) * 255, 84));}
-\DoxyCodeLine{162   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} \& \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155ea597c86ce6a0203fd3e712bbad0240a3e}{RANDOMIZE\_PATTERN}}) \{}
-\DoxyCodeLine{163     \textcolor{comment}{// this is blinking the light to off so the params are switched but still effectively correct}}
-\DoxyCodeLine{164     \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{blinkAll}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}});}
-\DoxyCodeLine{165   \}}
-\DoxyCodeLine{166   \textcolor{comment}{// render the click selection blink}}
-\DoxyCodeLine{167   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_aac47da6a6d2360bfda3fcf4dd6e803e1}{menus}}().\mbox{\hyperlink{classMenus_a24d75cee0c42b89ed2408e1358414804}{showSelection}}();}
-\DoxyCodeLine{168 \}}
+\DoxyCodeLine{162 \{}
+\DoxyCodeLine{163   \textcolor{comment}{// show iterating rainbow if they are randomizing color, otherwise 0 sat if they}}
+\DoxyCodeLine{164   \textcolor{comment}{// are only randomizing the pattern}}
+\DoxyCodeLine{165   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{setAll}}(\mbox{\hyperlink{classHSVColor}{HSVColor}}(\mbox{\hyperlink{classRandomizer_ad65524b2d5da9e2b55146a59b1db42ae}{m\_displayHue}}++, (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} \& \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155eada798a9ab10cbdbf591fe865575add29}{RANDOMIZE\_COLORSET}}) * 255, 84));}
+\DoxyCodeLine{166   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classRandomizer_abe42ee5d5bfff9aa8e933997c084579e}{m\_flags}} \& \mbox{\hyperlink{classRandomizer_a284ed130367e4cf0914f77fc3f7a155ea597c86ce6a0203fd3e712bbad0240a3e}{RANDOMIZE\_PATTERN}}) \{}
+\DoxyCodeLine{167     \textcolor{comment}{// this is blinking the light to off so the params are switched but still effectively correct}}
+\DoxyCodeLine{168     \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_adb9a52a3786034de5e91b774c645b09b}{blinkAll}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}});}
+\DoxyCodeLine{169   \}}
+\DoxyCodeLine{170   \textcolor{comment}{// render the click selection blink}}
+\DoxyCodeLine{171   \mbox{\hyperlink{classMenu_a6cf289bf5f0ea0b53718893a72442a68}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_aac47da6a6d2360bfda3fcf4dd6e803e1}{menus}}().\mbox{\hyperlink{classMenus_a24d75cee0c42b89ed2408e1358414804}{showSelection}}();}
+\DoxyCodeLine{172 \}}
 
 \end{DoxyCode}
 
@@ -838,20 +847,20 @@ Referenced by run().
 
 
 
-Definition at line 325 of file Randomizer.\+cpp.
+Definition at line 334 of file Randomizer.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{326 \{}
-\DoxyCodeLine{327   \textcolor{comment}{// call next8 explicitly in this order because the order they}}
-\DoxyCodeLine{328    \textcolor{comment}{// are called is undefined when called as parameters to another function.}}
-\DoxyCodeLine{329    \textcolor{comment}{// ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.}}
-\DoxyCodeLine{330    \textcolor{comment}{// So different compilers may produce different results,}}
-\DoxyCodeLine{331    \textcolor{comment}{// but like this it is explicit}}
-\DoxyCodeLine{332   uint8\_t off = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(8, 60);   \textcolor{comment}{// off duration 0 -\/> 60}}
-\DoxyCodeLine{333   uint8\_t on = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(1, 20);    \textcolor{comment}{// on duration 1 -\/> 20}}
-\DoxyCodeLine{334   outArgs.\mbox{\hyperlink{classPatternArgs_a0ca09874dde2073a346a077c9414b221}{init}}(on, off);}
-\DoxyCodeLine{335 \}}
+\DoxyCodeLine{335 \{}
+\DoxyCodeLine{336   \textcolor{comment}{// call next8 explicitly in this order because the order they}}
+\DoxyCodeLine{337    \textcolor{comment}{// are called is undefined when called as parameters to another function.}}
+\DoxyCodeLine{338    \textcolor{comment}{// ex: f(a,b,c) may call in the order a,b,c or c,b,a depending on compiler.}}
+\DoxyCodeLine{339    \textcolor{comment}{// So different compilers may produce different results,}}
+\DoxyCodeLine{340    \textcolor{comment}{// but like this it is explicit}}
+\DoxyCodeLine{341   uint8\_t off = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(8, 60);   \textcolor{comment}{// off duration 0 -\/> 60}}
+\DoxyCodeLine{342   uint8\_t on = ctx.\mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}}(1, 20);    \textcolor{comment}{// on duration 1 -\/> 20}}
+\DoxyCodeLine{343   outArgs.\mbox{\hyperlink{classPatternArgs_a0ca09874dde2073a346a077c9414b221}{init}}(on, off);}
+\DoxyCodeLine{344 \}}
 
 \end{DoxyCode}
 
@@ -877,7 +886,7 @@ Definition at line 62 of file Randomizer.\+h.
 
 
 
-Referenced by run().
+Referenced by on\+Short\+Click(), and run().
 
 \mbox{\Hypertarget{classRandomizer_ad65524b2d5da9e2b55146a59b1db42ae}\label{classRandomizer_ad65524b2d5da9e2b55146a59b1db42ae}} 
 \index{Randomizer@{Randomizer}!m\_displayHue@{m\_displayHue}}

@@ -8,6 +8,7 @@ var classMenu =
     [ "Menu", "classMenu.html#a7227170bc9fb45617828b755317156a3", null ],
     [ "~Menu", "classMenu.html#a831387f51358cfb88cd018e1777bc980", null ],
     [ "init", "classMenu.html#ae177e0a053fdbb2681ec14ea6b12e2d0", null ],
+    [ "isValidLedSelection", "classMenu.html#a855d557fbaaf91b7444bef908929591d", null ],
     [ "leaveMenu", "classMenu.html#aa25243d16e3d73cf24323c3f703674bd", null ],
     [ "nextBulbSelection", "classMenu.html#a2f75413684df37d5e11e03451addd65f", null ],
     [ "onLedSelected", "classMenu.html#af8614529ac11d563d9025c3905834b05", null ],

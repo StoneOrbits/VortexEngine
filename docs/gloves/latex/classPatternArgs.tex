@@ -65,7 +65,7 @@ bool \mbox{\hyperlink{classPatternArgs_ad259460388ce2712299fa2385061158f}{operat
 \item 
 uint8\+\_\+t \mbox{\hyperlink{classPatternArgs_a83cd690d65f6c6acdd18965fb573c521}{operator\mbox{[}$\,$\mbox{]}}} (int index) const
 \item 
-void \mbox{\hyperlink{classPatternArgs_a70864ef6693048c27347f1456ef2015a}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer, \mbox{\hyperlink{PatternArgs_8h_a8999dff68b1928d56731dd52dee3fcbd}{Arg\+Map}} argmap=\mbox{\hyperlink{PatternArgs_8h_adbfd81006eeaeda29f05841a540af6fd}{ARG\+\_\+\+ALL}}) const
+bool \mbox{\hyperlink{classPatternArgs_a46d632a81a5821e440fcc8e30fe12297}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer, \mbox{\hyperlink{PatternArgs_8h_a8999dff68b1928d56731dd52dee3fcbd}{Arg\+Map}} argmap=\mbox{\hyperlink{PatternArgs_8h_adbfd81006eeaeda29f05841a540af6fd}{ARG\+\_\+\+ALL}}) const
 \item 
 \mbox{\hyperlink{PatternArgs_8h_a8999dff68b1928d56731dd52dee3fcbd}{Arg\+Map}} \mbox{\hyperlink{classPatternArgs_ab2e7a56a4f86c1d5b73b3e7f6a4e0aeb}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
 \end{DoxyCompactItemize}
@@ -759,11 +759,11 @@ Definition at line 166 of file Pattern\+Args.\+cpp.
 
 References args.
 
-\mbox{\Hypertarget{classPatternArgs_a70864ef6693048c27347f1456ef2015a}\label{classPatternArgs_a70864ef6693048c27347f1456ef2015a}} 
+\mbox{\Hypertarget{classPatternArgs_a46d632a81a5821e440fcc8e30fe12297}\label{classPatternArgs_a46d632a81a5821e440fcc8e30fe12297}} 
 \index{PatternArgs@{PatternArgs}!serialize@{serialize}}
 \index{serialize@{serialize}!PatternArgs@{PatternArgs}}
 \doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
-{\footnotesize\ttfamily void Pattern\+Args\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer,  }\item[{\mbox{\hyperlink{PatternArgs_8h_a8999dff68b1928d56731dd52dee3fcbd}{Arg\+Map}}}]{argmap = {\ttfamily \mbox{\hyperlink{PatternArgs_8h_adbfd81006eeaeda29f05841a540af6fd}{ARG\+\_\+\+ALL}}} }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool Pattern\+Args\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer,  }\item[{\mbox{\hyperlink{PatternArgs_8h_a8999dff68b1928d56731dd52dee3fcbd}{Arg\+Map}}}]{argmap = {\ttfamily \mbox{\hyperlink{PatternArgs_8h_adbfd81006eeaeda29f05841a540af6fd}{ARG\+\_\+\+ALL}}} }\end{DoxyParamCaption}) const}
 
 
 
@@ -772,18 +772,23 @@ Definition at line 174 of file Pattern\+Args.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{175 \{}
-\DoxyCodeLine{176   buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(argmap);}
-\DoxyCodeLine{177   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{PatternArgs_8h_a29b7451465deac204c5f7cb1f9c6e1fc}{MAX\_ARGS}}; ++i) \{}
-\DoxyCodeLine{178     \textcolor{keywordflow}{if} (\mbox{\hyperlink{PatternArgs_8h_a193611a0331d653aa2383695bd9350da}{ARGMAP\_ISSET}}(argmap, i)) \{}
-\DoxyCodeLine{179       buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classPatternArgs_afde808c634704d423d82a9dea6814eea}{args}}[i]);}
-\DoxyCodeLine{180     \}}
-\DoxyCodeLine{181   \}}
-\DoxyCodeLine{182 \}}
+\DoxyCodeLine{176   \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_ad3b413f399f22d30548a61a5e01ef3a7}{serialize8}}(argmap)) \{}
+\DoxyCodeLine{177     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{178   \}}
+\DoxyCodeLine{179   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{PatternArgs_8h_a29b7451465deac204c5f7cb1f9c6e1fc}{MAX\_ARGS}}; ++i) \{}
+\DoxyCodeLine{180     \textcolor{keywordflow}{if} (\mbox{\hyperlink{PatternArgs_8h_a193611a0331d653aa2383695bd9350da}{ARGMAP\_ISSET}}(argmap, i)) \{}
+\DoxyCodeLine{181       \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_ad3b413f399f22d30548a61a5e01ef3a7}{serialize8}}(\mbox{\hyperlink{classPatternArgs_afde808c634704d423d82a9dea6814eea}{args}}[i])) \{}
+\DoxyCodeLine{182         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{183       \}}
+\DoxyCodeLine{184     \}}
+\DoxyCodeLine{185   \}}
+\DoxyCodeLine{186   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{187 \}}
 
 \end{DoxyCode}
 
 
-References ARGMAP\+\_\+\+ISSET, args, MAX\+\_\+\+ARGS, and Byte\+Stream\+::serialize().
+References ARGMAP\+\_\+\+ISSET, args, MAX\+\_\+\+ARGS, and Byte\+Stream\+::serialize8().
 
 
 
@@ -797,25 +802,29 @@ Referenced by Pattern\+::serialize().
 
 
 
-Definition at line 184 of file Pattern\+Args.\+cpp.
+Definition at line 189 of file Pattern\+Args.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{185 \{}
-\DoxyCodeLine{186   \mbox{\hyperlink{PatternArgs_8h_a8999dff68b1928d56731dd52dee3fcbd}{ArgMap}} argmap = \mbox{\hyperlink{PatternArgs_8h_a5b4ab91afec1ff35fd294e3ca007be49}{ARG\_NONE}};}
-\DoxyCodeLine{187   buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&argmap);}
-\DoxyCodeLine{188   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{PatternArgs_8h_a29b7451465deac204c5f7cb1f9c6e1fc}{MAX\_ARGS}}; ++i) \{}
-\DoxyCodeLine{189     \textcolor{keywordflow}{if} (\mbox{\hyperlink{PatternArgs_8h_a193611a0331d653aa2383695bd9350da}{ARGMAP\_ISSET}}(argmap, i)) \{}
-\DoxyCodeLine{190       buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\mbox{\hyperlink{classPatternArgs_afde808c634704d423d82a9dea6814eea}{args}} + i);}
-\DoxyCodeLine{191     \}}
-\DoxyCodeLine{192   \}}
-\DoxyCodeLine{193   \textcolor{keywordflow}{return} argmap;}
-\DoxyCodeLine{194 \}}
+\DoxyCodeLine{190 \{}
+\DoxyCodeLine{191   \mbox{\hyperlink{PatternArgs_8h_a8999dff68b1928d56731dd52dee3fcbd}{ArgMap}} argmap = \mbox{\hyperlink{PatternArgs_8h_a5b4ab91afec1ff35fd294e3ca007be49}{ARG\_NONE}};}
+\DoxyCodeLine{192   \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_a4451478eea4d9efba71cdc043bda4db2}{unserialize8}}(\&argmap)) \{}
+\DoxyCodeLine{193     \textcolor{keywordflow}{return} \mbox{\hyperlink{PatternArgs_8h_a5b4ab91afec1ff35fd294e3ca007be49}{ARG\_NONE}};}
+\DoxyCodeLine{194   \}}
+\DoxyCodeLine{195   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{PatternArgs_8h_a29b7451465deac204c5f7cb1f9c6e1fc}{MAX\_ARGS}}; ++i) \{}
+\DoxyCodeLine{196     \textcolor{keywordflow}{if} (\mbox{\hyperlink{PatternArgs_8h_a193611a0331d653aa2383695bd9350da}{ARGMAP\_ISSET}}(argmap, i)) \{}
+\DoxyCodeLine{197       \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_a4451478eea4d9efba71cdc043bda4db2}{unserialize8}}(\mbox{\hyperlink{classPatternArgs_afde808c634704d423d82a9dea6814eea}{args}} + i)) \{}
+\DoxyCodeLine{198         \textcolor{keywordflow}{break};}
+\DoxyCodeLine{199       \}}
+\DoxyCodeLine{200     \}}
+\DoxyCodeLine{201   \}}
+\DoxyCodeLine{202   \textcolor{keywordflow}{return} argmap;}
+\DoxyCodeLine{203 \}}
 
 \end{DoxyCode}
 
 
-References ARG\+\_\+\+NONE, ARGMAP\+\_\+\+ISSET, args, MAX\+\_\+\+ARGS, and Byte\+Stream\+::unserialize().
+References ARG\+\_\+\+NONE, ARGMAP\+\_\+\+ISSET, args, MAX\+\_\+\+ARGS, and Byte\+Stream\+::unserialize8().
 
 
 
@@ -899,6 +908,10 @@ Definition at line 87 of file Pattern\+Args.\+h.
 
 
 Definition at line 88 of file Pattern\+Args.\+h.
+
+
+
+Referenced by Randomizer\+::roll\+Custom\+Pattern().
 
 \mbox{\Hypertarget{classPatternArgs_a28f972e9f9b5041c8fa40a4689d35335}\label{classPatternArgs_a28f972e9f9b5041c8fa40a4689d35335}} 
 \index{PatternArgs@{PatternArgs}!arg7@{arg7}}

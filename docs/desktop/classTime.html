@@ -120,6 +120,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:aaf106aff340ea506f16a010b12f51769"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:acb7cd2d49094647c3fb7112e15ad16d7"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTime.html#acb7cd2d49094647c3fb7112e15ad16d7">getTickrate</a> ()</td></tr>
 <tr class="separator:acb7cd2d49094647c3fb7112e15ad16d7"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:afc92c4045d604e700af079670f97a393"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTime.html#afc92c4045d604e700af079670f97a393">millisecondsToTicks</a> (uint32_t ms)</td></tr>
+<tr class="separator:afc92c4045d604e700af079670f97a393"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:ad0ada2f276d58c7250695755ca201d88"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTime.html#ad0ada2f276d58c7250695755ca201d88">secondsToTicks</a> (uint32_t sec)</td></tr>
+<tr class="separator:ad0ada2f276d58c7250695755ca201d88"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac44f4e49538456714372bb1aad3dd839"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTime.html#ac44f4e49538456714372bb1aad3dd839">microseconds</a> ()</td></tr>
 <tr class="separator:ac44f4e49538456714372bb1aad3dd839"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a1db7b0672f8b2d38994119ccc226f8ee"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTime.html#a1db7b0672f8b2d38994119ccc226f8ee">delayMicroseconds</a> (uint32_t us)</td></tr>
@@ -133,6 +137,8 @@ Private Attributes</h2></td></tr>
 <tr class="separator:abdc02804ef6f27306b3a71739e0700a2"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a5e46f56ecd8d4323de26dfd103bfa26e"><td class="memItemLeft" align="right" valign="top">uint64_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTime.html#a5e46f56ecd8d4323de26dfd103bfa26e">start</a> = 0</td></tr>
 <tr class="separator:a5e46f56ecd8d4323de26dfd103bfa26e"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a527806a5e3312c060f3af969c978e007"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTime.html#a527806a5e3312c060f3af969c978e007">m_tickrate</a></td></tr>
+<tr class="separator:a527806a5e3312c060f3af969c978e007"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac3f1dc3ad6b2ba8787643e73b17a4f1c"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTime.html#ac3f1dc3ad6b2ba8787643e73b17a4f1c">m_curTick</a></td></tr>
 <tr class="separator:ac3f1dc3ad6b2ba8787643e73b17a4f1c"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:ac9ca1a16592b1653e33926064d3b99ad"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classTime.html#ac9ca1a16592b1653e33926064d3b99ad">m_prevTime</a></td></tr>
@@ -170,7 +176,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  <a class="code" href="classTime.html#a5e46f56ecd8d4323de26dfd103bfa26e">start</a>(),</div>
 <div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#if VARIABLE_TICKRATE == 1</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  m_tickrate(<a class="code" href="VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb">DEFAULT_TICKRATE</a>),</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <a class="code" href="classTime.html#a527806a5e3312c060f3af969c978e007">m_tickrate</a>(<a class="code" href="VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb">DEFAULT_TICKRATE</a>),</div>
 <div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <a class="code" href="classTime.html#ac3f1dc3ad6b2ba8787643e73b17a4f1c">m_curTick</a>(0),</div>
 <div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  <a class="code" href="classTime.html#ac9ca1a16592b1653e33926064d3b99ad">m_prevTime</a>(0),</div>
@@ -182,7 +188,8 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;{</div>
 <div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;}</div>
-<div class="ttc" id="aVortexConfig_8h_html_a97f6a37590c60f131bba4007c88d16eb"><div class="ttname"><a href="VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb">DEFAULT_TICKRATE</a></div><div class="ttdeci">#define DEFAULT_TICKRATE</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00188">VortexConfig.h:188</a></div></div>
+<div class="ttc" id="aVortexConfig_8h_html_a97f6a37590c60f131bba4007c88d16eb"><div class="ttname"><a href="VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb">DEFAULT_TICKRATE</a></div><div class="ttdeci">#define DEFAULT_TICKRATE</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00200">VortexConfig.h:200</a></div></div>
+<div class="ttc" id="aclassTime_html_a527806a5e3312c060f3af969c978e007"><div class="ttname"><a href="classTime.html#a527806a5e3312c060f3af969c978e007">Time::m_tickrate</a></div><div class="ttdeci">uint32_t m_tickrate</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00127">TimeControl.h:127</a></div></div>
 <div class="ttc" id="aclassTime_html_a5e46f56ecd8d4323de26dfd103bfa26e"><div class="ttname"><a href="classTime.html#a5e46f56ecd8d4323de26dfd103bfa26e">Time::start</a></div><div class="ttdeci">uint64_t start</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00119">TimeControl.h:119</a></div></div>
 <div class="ttc" id="aclassTime_html_a9482556717a3933d303d18133d2e83eb"><div class="ttname"><a href="classTime.html#a9482556717a3933d303d18133d2e83eb">Time::m_firstTime</a></div><div class="ttdeci">uint32_t m_firstTime</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00137">TimeControl.h:137</a></div></div>
 <div class="ttc" id="aclassTime_html_abdc02804ef6f27306b3a71739e0700a2"><div class="ttname"><a href="classTime.html#abdc02804ef6f27306b3a71739e0700a2">Time::m_engine</a></div><div class="ttdeci">VortexEngine &amp; m_engine</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00116">TimeControl.h:116</a></div></div>
@@ -232,7 +239,7 @@ Private Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;{</div>
 <div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00099">VortexEngine::cleanup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00107">VortexEngine::cleanup()</a>.</p>
 
 </div>
 </div>
@@ -267,7 +274,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="TimeControl_8cpp_source.html#l00178">microseconds()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="TimeControl_8cpp_source.html#l00211">delayMilliseconds()</a>, <a class="el" href="IRSender_8cpp_source.html#l00151">IRSender::sendMark()</a>, <a class="el" href="VLSender_8cpp_source.html#l00146">VLSender::sendMark()</a>, <a class="el" href="IRSender_8cpp_source.html#l00162">IRSender::sendSpace()</a>, <a class="el" href="VLSender_8cpp_source.html#l00157">VLSender::sendSpace()</a>, and <a class="el" href="TimeControl_8cpp_source.html#l00079">tickClock()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="TimeControl_8cpp_source.html#l00211">delayMilliseconds()</a>, <a class="el" href="VLSender_8cpp_source.html#l00147">VLSender::sendMark()</a>, <a class="el" href="VLSender_8cpp_source.html#l00158">VLSender::sendSpace()</a>, and <a class="el" href="TimeControl_8cpp_source.html#l00079">tickClock()</a>.</p>
 
 </div>
 </div>
@@ -304,7 +311,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="TimeControl_8cpp_source.html#l00199">delayMicroseconds()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Leds_8cpp_source.html#l00250">Leds::holdAll()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Leds_8cpp_source.html#l00266">Leds::holdAll()</a>.</p>
 
 </div>
 </div>
@@ -337,7 +344,7 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="TimeControl_8h_source.html#l00131">m_curTick</a>, and <a class="el" href="TimeControl_8h_source.html#l00026">SIMULATION_TICK</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Timer_8cpp_source.html#l00112">Timer::alarm()</a>, <a class="el" href="Leds_8cpp_source.html#l00214">Leds::blinkAll()</a>, <a class="el" href="Leds_8cpp_source.html#l00189">Leds::blinkIndex()</a>, <a class="el" href="Leds_8cpp_source.html#l00203">Leds::blinkMap()</a>, <a class="el" href="Leds_8cpp_source.html#l00221">Leds::blinkPair()</a>, <a class="el" href="Leds_8cpp_source.html#l00228">Leds::blinkPairs()</a>, <a class="el" href="Leds_8cpp_source.html#l00196">Leds::blinkRange()</a>, <a class="el" href="Serial_8cpp_source.html#l00044">SerialComs::checkSerial()</a>, <a class="el" href="Timer_8cpp_source.html#l00088">Timer::onEnd()</a>, <a class="el" href="Timer_8cpp_source.html#l00080">Timer::onStart()</a>, <a class="el" href="Menus_8cpp_source.html#l00210">Menus::openMenuSelection()</a>, <a class="el" href="ModeSharing_8cpp_source.html#l00159">ModeSharing::receiveModeIR()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00063">Randomizer::run()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00161">VortexEngine::runMainLogic()</a>, <a class="el" href="Menus_8cpp_source.html#l00110">Menus::runMenuSelection()</a>, <a class="el" href="IRSender_8cpp_source.html#l00078">IRSender::send()</a>, <a class="el" href="VLSender_8cpp_source.html#l00075">VLSender::send()</a>, <a class="el" href="Modes_8cpp_source.html#l00513">Modes::setCurMode()</a>, <a class="el" href="Menu_8cpp_source.html#l00095">Menu::showBulbSelection()</a>, <a class="el" href="ColorSelect_8cpp_source.html#l00253">ColorSelect::showFullSet()</a>, <a class="el" href="ColorSelect_8cpp_source.html#l00212">ColorSelect::showSelection()</a>, <a class="el" href="Timer_8cpp_source.html#l00059">Timer::start()</a>, and <a class="el" href="Button_8cpp_source.html#l00058">Button::update()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Timer_8cpp_source.html#l00112">Timer::alarm()</a>, <a class="el" href="Leds_8cpp_source.html#l00225">Leds::blinkAll()</a>, <a class="el" href="Leds_8cpp_source.html#l00200">Leds::blinkIndex()</a>, <a class="el" href="Leds_8cpp_source.html#l00214">Leds::blinkMap()</a>, <a class="el" href="Leds_8cpp_source.html#l00232">Leds::blinkPair()</a>, <a class="el" href="Leds_8cpp_source.html#l00239">Leds::blinkPairs()</a>, <a class="el" href="Leds_8cpp_source.html#l00207">Leds::blinkRange()</a>, <a class="el" href="Serial_8cpp_source.html#l00044">SerialComs::checkSerial()</a>, <a class="el" href="Timer_8cpp_source.html#l00088">Timer::onEnd()</a>, <a class="el" href="Timer_8cpp_source.html#l00080">Timer::onStart()</a>, <a class="el" href="Menus_8cpp_source.html#l00210">Menus::openMenuSelection()</a>, <a class="el" href="ModeSharing_8cpp_source.html#l00159">ModeSharing::receiveModeIR()</a>, <a class="el" href="Randomizer_8cpp_source.html#l00067">Randomizer::run()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00177">VortexEngine::runMainLogic()</a>, <a class="el" href="Menus_8cpp_source.html#l00110">Menus::runMenuSelection()</a>, <a class="el" href="IRSender_8cpp_source.html#l00070">IRSender::send()</a>, <a class="el" href="VLSender_8cpp_source.html#l00076">VLSender::send()</a>, <a class="el" href="Modes_8cpp_source.html#l00551">Modes::setCurMode()</a>, <a class="el" href="Menu_8cpp_source.html#l00102">Menu::showBulbSelection()</a>, <a class="el" href="ColorSelect_8cpp_source.html#l00253">ColorSelect::showFullSet()</a>, <a class="el" href="ColorSelect_8cpp_source.html#l00212">ColorSelect::showSelection()</a>, <a class="el" href="Timer_8cpp_source.html#l00059">Timer::start()</a>, and <a class="el" href="Button_8cpp_source.html#l00058">Button::update()</a>.</p>
 
 </div>
 </div>
@@ -384,9 +391,9 @@ Private Attributes</h2></td></tr>
 <div class="fragment"><div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;{</div>
 <div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="TimeControl_8cpp.html#a7f21fe9fdb3605017d51d802b41910ac">TICKRATE</a>;</div>
 <div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;}</div>
-<div class="ttc" id="aTimeControl_8cpp_html_a7f21fe9fdb3605017d51d802b41910ac"><div class="ttname"><a href="TimeControl_8cpp.html#a7f21fe9fdb3605017d51d802b41910ac">TICKRATE</a></div><div class="ttdeci">#define TICKRATE</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8cpp_source.html#l00025">TimeControl.cpp:25</a></div></div>
+<div class="ttc" id="aTimeControl_8cpp_html_a7f21fe9fdb3605017d51d802b41910ac"><div class="ttname"><a href="TimeControl_8cpp.html#a7f21fe9fdb3605017d51d802b41910ac">TICKRATE</a></div><div class="ttdeci">#define TICKRATE</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8cpp_source.html#l00023">TimeControl.cpp:23</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="TimeControl_8cpp_source.html#l00025">TICKRATE</a>.</p>
+<p class="reference">References <a class="el" href="TimeControl_8cpp_source.html#l00023">TICKRATE</a>.</p>
 
 </div>
 </div>
@@ -410,7 +417,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;  <a class="code" href="classTime.html#a9482556717a3933d303d18133d2e83eb">m_firstTime</a> = <a class="code" href="classTime.html#ac9ca1a16592b1653e33926064d3b99ad">m_prevTime</a> = <a class="code" href="classTime.html#ac44f4e49538456714372bb1aad3dd839">microseconds</a>();</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  <a class="code" href="classTime.html#ac3f1dc3ad6b2ba8787643e73b17a4f1c">m_curTick</a> = 0;</div>
 <div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;<span class="preprocessor">#if VARIABLE_TICKRATE == 1</span></div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  m_tickrate = <a class="code" href="VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb">DEFAULT_TICKRATE</a>;</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <a class="code" href="classTime.html#a527806a5e3312c060f3af969c978e007">m_tickrate</a> = <a class="code" href="VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb">DEFAULT_TICKRATE</a>;</div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  m_simulationTick = 0;</div>
@@ -426,7 +433,7 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="VortexConfig_8h_source.html#l00188">DEFAULT_TICKRATE</a>, <a class="el" href="TimeControl_8h_source.html#l00131">m_curTick</a>, <a class="el" href="TimeControl_8h_source.html#l00137">m_firstTime</a>, <a class="el" href="TimeControl_8h_source.html#l00134">m_prevTime</a>, <a class="el" href="TimeControl_8cpp_source.html#l00178">microseconds()</a>, and <a class="el" href="TimeControl_8h_source.html#l00119">start</a>.</p>
+<p class="reference">References <a class="el" href="VortexConfig_8h_source.html#l00200">DEFAULT_TICKRATE</a>, <a class="el" href="TimeControl_8h_source.html#l00131">m_curTick</a>, <a class="el" href="TimeControl_8h_source.html#l00137">m_firstTime</a>, <a class="el" href="TimeControl_8h_source.html#l00134">m_prevTime</a>, <a class="el" href="TimeControl_8h_source.html#l00127">m_tickrate</a>, <a class="el" href="TimeControl_8cpp_source.html#l00178">microseconds()</a>, and <a class="el" href="TimeControl_8h_source.html#l00119">start</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00032">VortexEngine::init()</a>.</p>
 
@@ -472,7 +479,77 @@ Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="TimeControl_8cpp_source.html#l00017">NS_TO_US</a>, <a class="el" href="TimeControl_8cpp_source.html#l00016">SEC_TO_US</a>, and <a class="el" href="TimeControl_8h_source.html#l00119">start</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="IRSender_8cpp_source.html#l00116">IRSender::beginSend()</a>, <a class="el" href="VLSender_8cpp_source.html#l00113">VLSender::beginSend()</a>, <a class="el" href="TimeControl_8cpp_source.html#l00199">delayMicroseconds()</a>, <a class="el" href="TimeControl_8cpp_source.html#l00054">init()</a>, <a class="el" href="IRReceiver_8cpp_source.html#l00143">IRReceiver::recvPCIHandler()</a>, <a class="el" href="VLReceiver_8cpp_source.html#l00240">VLReceiver::recvPCIHandler()</a>, and <a class="el" href="TimeControl_8cpp_source.html#l00079">tickClock()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="IRSender_8cpp_source.html#l00108">IRSender::beginSend()</a>, <a class="el" href="VLSender_8cpp_source.html#l00114">VLSender::beginSend()</a>, <a class="el" href="TimeControl_8cpp_source.html#l00199">delayMicroseconds()</a>, <a class="el" href="TimeControl_8cpp_source.html#l00054">init()</a>, <a class="el" href="IRReceiver_8cpp_source.html#l00142">IRReceiver::recvPCIHandler()</a>, <a class="el" href="VLReceiver_8cpp_source.html#l00142">VLReceiver::recvPCIHandler()</a>, and <a class="el" href="TimeControl_8cpp_source.html#l00079">tickClock()</a>.</p>
+
+</div>
+</div>
+<a id="afc92c4045d604e700af079670f97a393"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#afc92c4045d604e700af079670f97a393">&#9670;&nbsp;</a></span>millisecondsToTicks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Time::millisecondsToTicks </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>ms</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TimeControl_8cpp_source.html#l00161">161</a> of file <a class="el" href="TimeControl_8cpp_source.html">TimeControl.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;{</div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  <span class="comment">// 0ms = 0 ticks</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  <span class="keywordflow">if</span> (!ms) {</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;    <span class="keywordflow">return</span> 0;</div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  }</div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  <span class="comment">// but anything &gt; 0 ms must be no less than 1 tick</span></div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  <span class="comment">// otherwise short durations will disappear at low</span></div>
+<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;  <span class="comment">// tickrates</span></div>
+<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  uint32_t ticks = (ms * <a class="code" href="TimeControl_8cpp.html#a7f21fe9fdb3605017d51d802b41910ac">TICKRATE</a>) / 1000;</div>
+<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  <span class="keywordflow">if</span> (!ticks) {</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="keywordflow">return</span> 1;</div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  }</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  <span class="keywordflow">return</span> ticks;</div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;}</div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="TimeControl_8cpp_source.html#l00023">TICKRATE</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TimeControl_8h_source.html#l00073">secondsToTicks()</a>.</p>
+
+</div>
+</div>
+<a id="ad0ada2f276d58c7250695755ca201d88"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#ad0ada2f276d58c7250695755ca201d88">&#9670;&nbsp;</a></span>secondsToTicks()</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Time::secondsToTicks </td>
+          <td>(</td>
+          <td class="paramtype">uint32_t&#160;</td>
+          <td class="paramname"><em>sec</em></td><td>)</td>
+          <td></td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">inline</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TimeControl_8h_source.html#l00073">73</a> of file <a class="el" href="TimeControl_8h_source.html">TimeControl.h</a>.</p>
+<div class="fragment"><div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;{ <span class="keywordflow">return</span> <a class="code" href="classTime.html#afc92c4045d604e700af079670f97a393">millisecondsToTicks</a>(sec * 1000); }</div>
+<div class="ttc" id="aclassTime_html_afc92c4045d604e700af079670f97a393"><div class="ttname"><a href="classTime.html#afc92c4045d604e700af079670f97a393">Time::millisecondsToTicks</a></div><div class="ttdeci">uint32_t millisecondsToTicks(uint32_t ms)</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8cpp_source.html#l00161">TimeControl.cpp:161</a></div></div>
+</div><!-- fragment -->
+<p class="reference">References <a class="el" href="TimeControl_8cpp_source.html#l00161">millisecondsToTicks()</a>.</p>
 
 </div>
 </div>
@@ -503,11 +580,11 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    tickrate = 1000000;</div>
 <div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  }</div>
 <div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  <span class="comment">// update the tickrate</span></div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  m_tickrate = tickrate;</div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160;  <a class="code" href="classTime.html#a527806a5e3312c060f3af969c978e007">m_tickrate</a> = tickrate;</div>
 <div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;}</div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="VortexConfig_8h_source.html#l00188">DEFAULT_TICKRATE</a>.</p>
+<p class="reference">References <a class="el" href="VortexConfig_8h_source.html#l00200">DEFAULT_TICKRATE</a>, and <a class="el" href="TimeControl_8h_source.html#l00127">m_tickrate</a>.</p>
 
 </div>
 </div>
@@ -578,12 +655,12 @@ Private Attributes</h2></td></tr>
 <div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;  <span class="comment">// store current time</span></div>
 <div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;  <a class="code" href="classTime.html#ac9ca1a16592b1653e33926064d3b99ad">m_prevTime</a> = <a class="code" href="classTime.html#ac44f4e49538456714372bb1aad3dd839">microseconds</a>();</div>
 <div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;}</div>
-<div class="ttc" id="aLog_8h_html_a8bdccae09f7cdda8fb311e0bd81c35dc"><div class="ttname"><a href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a></div><div class="ttdeci">#define DEBUG_LOGF(msg,...)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00041">Log.h:41</a></div></div>
-<div class="ttc" id="aTimeControl_8h_html_a73adf9c10352865ff95b5f46e642c560"><div class="ttname"><a href="TimeControl_8h.html#a73adf9c10352865ff95b5f46e642c560">MS_TO_TICKS</a></div><div class="ttdeci">#define MS_TO_TICKS(ms)</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00019">TimeControl.h:19</a></div></div>
+<div class="ttc" id="aLog_8h_html_a8bdccae09f7cdda8fb311e0bd81c35dc"><div class="ttname"><a href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">DEBUG_LOGF</a></div><div class="ttdeci">#define DEBUG_LOGF(msg,...)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00037">Log.h:37</a></div></div>
+<div class="ttc" id="aTimeControl_8h_html_a73adf9c10352865ff95b5f46e642c560"><div class="ttname"><a href="TimeControl_8h.html#a73adf9c10352865ff95b5f46e642c560">MS_TO_TICKS</a></div><div class="ttdeci">#define MS_TO_TICKS(ms)</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00016">TimeControl.h:16</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Log_8h_source.html#l00041">DEBUG_LOGF</a>, <a class="el" href="TimeControl_8cpp_source.html#l00199">delayMicroseconds()</a>, <a class="el" href="TimeControl_8h_source.html#l00131">m_curTick</a>, <a class="el" href="TimeControl_8h_source.html#l00134">m_prevTime</a>, <a class="el" href="TimeControl_8cpp_source.html#l00178">microseconds()</a>, <a class="el" href="TimeControl_8h_source.html#l00019">MS_TO_TICKS</a>, and <a class="el" href="TimeControl_8cpp_source.html#l00025">TICKRATE</a>.</p>
+<p class="reference">References <a class="el" href="Log_8h_source.html#l00037">DEBUG_LOGF</a>, <a class="el" href="TimeControl_8cpp_source.html#l00199">delayMicroseconds()</a>, <a class="el" href="TimeControl_8h_source.html#l00131">m_curTick</a>, <a class="el" href="TimeControl_8h_source.html#l00134">m_prevTime</a>, <a class="el" href="TimeControl_8cpp_source.html#l00178">microseconds()</a>, <a class="el" href="TimeControl_8h_source.html#l00016">MS_TO_TICKS</a>, and <a class="el" href="TimeControl_8cpp_source.html#l00023">TICKRATE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00120">VortexEngine::tick()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00136">VortexEngine::tick()</a>.</p>
 
 </div>
 </div>
@@ -687,6 +764,32 @@ Private Attributes</h2></td></tr>
 <p class="definition">Definition at line <a class="el" href="TimeControl_8h_source.html#l00134">134</a> of file <a class="el" href="TimeControl_8h_source.html">TimeControl.h</a>.</p>
 
 <p class="reference">Referenced by <a class="el" href="TimeControl_8cpp_source.html#l00054">init()</a>, and <a class="el" href="TimeControl_8cpp_source.html#l00079">tickClock()</a>.</p>
+
+</div>
+</div>
+<a id="a527806a5e3312c060f3af969c978e007"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a527806a5e3312c060f3af969c978e007">&#9670;&nbsp;</a></span>m_tickrate</h2>
+
+<div class="memitem">
+<div class="memproto">
+<table class="mlabels">
+  <tr>
+  <td class="mlabels-left">
+      <table class="memname">
+        <tr>
+          <td class="memname">uint32_t Time::m_tickrate</td>
+        </tr>
+      </table>
+  </td>
+  <td class="mlabels-right">
+<span class="mlabels"><span class="mlabel">private</span></span>  </td>
+  </tr>
+</table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="TimeControl_8h_source.html#l00127">127</a> of file <a class="el" href="TimeControl_8h_source.html">TimeControl.h</a>.</p>
+
+<p class="reference">Referenced by <a class="el" href="TimeControl_8cpp_source.html#l00054">init()</a>, and <a class="el" href="TimeControl_8cpp_source.html#l00145">setTickrate()</a>.</p>
 
 </div>
 </div>

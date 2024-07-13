@@ -56,14 +56,14 @@ var NAVTREE =
 var NAVTREEINDEX =
 [
 "BackStrobePattern_8cpp.html",
-"ErrorBlinker_8h.html#af8877956f07c5c9cd7bacd0b82ab0f11",
-"PatternArgs_8h_source.html",
-"VortexConfig_8h.html#a0d801866c302fc22f8bfb9a4a25a0462",
-"classButton.html#afc1f76677aed5c89139aed6daa5f5d4a",
-"classFillPattern.html#abff2f44427dd0a5b77051fbddc665fd8",
-"classModes.html#a263cf02fb83d954b91c85d2d1e5411ee",
-"classRandomizer.html#ad3baf8199e770e6db38ca0bedc4f17ef",
-"classZigzagPattern_1_1Snake.html#ade9581df647ce41eb75b4ee8b1e7fddd"
+"FillPattern_8h.html",
+"PatternSelect_8h_source.html",
+"VortexConfig_8h.html#a1827d1ccfb41f62353aa6904450fbc92",
+"classButtons.html#a158367c94decbc43a142c79d65d9d49f",
+"classGlobalBrightness.html#a383c77164792d56792f56a48b6db15e8",
+"classModes.html#a25f0e61bb0ff6ebc3d27b862b7b83838",
+"classRandomizer.html#abc096623f4e5121366f9131b2abd411e",
+"classZigzagPattern_1_1Snake.html#ac952be44096dc7ae7c1f749c0f34b1f4"
 ];
 
 var SYNCONMSG = 'click to disable panel synchronisation';

@@ -12,6 +12,7 @@ var classMode =
     [ "clearColorsetMap", "classMode.html#af578743e4866bf968e8b8cdf2e0ef3bf", null ],
     [ "clearPattern", "classMode.html#a9c8613304eb587717ff7f1945f6a6c12", null ],
     [ "clearPatternMap", "classMode.html#a4171504e26af3cfc8779a076bed070a5", null ],
+    [ "copyPatternFrom", "classMode.html#aadbb7df560c1067aa62f1573bd1f5466", null ],
     [ "equals", "classMode.html#a5211b5677490a2012aca2188e401e409", null ],
     [ "getArg", "classMode.html#adfb21384f2d14af66f7aa80e9a8ae447", null ],
     [ "getColorset", "classMode.html#a38b1ec665d6ce006bf9cee1f2e0204c9", null ],
@@ -35,12 +36,13 @@ var classMode =
     [ "operator==", "classMode.html#ab4ed910af190415b97d75464ec9b9f25", null ],
     [ "play", "classMode.html#a21d1c7da7b97340ab1af39d242cc6f22", null ],
     [ "saveToBuffer", "classMode.html#a4bf861a9f38599ab515655ae52700534", null ],
-    [ "serialize", "classMode.html#a5131802c3bf289b45b1847e8a65ea522", null ],
+    [ "serialize", "classMode.html#aad4310ad7cbb0d98f5583c97881012f2", null ],
     [ "setArg", "classMode.html#aa4c7476d131da6a5fdedbbe5c3fcf136", null ],
     [ "setColorset", "classMode.html#ad5eb39acbb11f0ce7c3342c53d83da71", null ],
     [ "setColorsetMap", "classMode.html#afac24695014a247ce0efb77eaad28107", null ],
     [ "setPattern", "classMode.html#ac2888fc4f9079c397ce229292cbb460b", null ],
     [ "setPatternMap", "classMode.html#a523af1ad207240eb672bf8ad0fccad7d", null ],
+    [ "swapPatterns", "classMode.html#acaddc337b2c442dbea8921a804c6bd47", null ],
     [ "unserialize", "classMode.html#afe827f93ec4916928a22202ebdf26ee7", null ],
     [ "m_singlePats", "classMode.html#a1e6bca1b2f6af92b3cb14fc292ff1471", null ]
 ];

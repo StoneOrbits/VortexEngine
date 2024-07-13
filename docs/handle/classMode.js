@@ -34,7 +34,7 @@ var classMode =
     [ "operator==", "classMode.html#ab4ed910af190415b97d75464ec9b9f25", null ],
     [ "play", "classMode.html#a21d1c7da7b97340ab1af39d242cc6f22", null ],
     [ "saveToBuffer", "classMode.html#a4bf861a9f38599ab515655ae52700534", null ],
-    [ "serialize", "classMode.html#a5131802c3bf289b45b1847e8a65ea522", null ],
+    [ "serialize", "classMode.html#aad4310ad7cbb0d98f5583c97881012f2", null ],
     [ "setArg", "classMode.html#aa4c7476d131da6a5fdedbbe5c3fcf136", null ],
     [ "setColorset", "classMode.html#ad5eb39acbb11f0ce7c3342c53d83da71", null ],
     [ "setColorsetMap", "classMode.html#afac24695014a247ce0efb77eaad28107", null ],

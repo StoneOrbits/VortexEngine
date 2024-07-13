@@ -360,7 +360,7 @@ References Leds\+::clear\+All(), DEBUG\+\_\+\+LOGF, Menu\+::init(), Menu\+Entry\
 
 
 
-Referenced by run\+Menu\+Selection().
+Referenced by Serial\+Coms\+::check\+Serial(), and run\+Menu\+Selection().
 
 \mbox{\Hypertarget{classMenus_a1f8dacb375bd4d1ec18da2ed5a3e8cb3}\label{classMenus_a1f8dacb375bd4d1ec18da2ed5a3e8cb3}} 
 \index{Menus@{Menus}!openMenuSelection@{openMenuSelection}}
@@ -542,19 +542,19 @@ Definition at line 103 of file Menus.\+cpp.
 \DoxyCodeLine{146       \textcolor{comment}{// display the newly opened menu}}
 \DoxyCodeLine{147       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
 \DoxyCodeLine{148     \}}
-\DoxyCodeLine{149     \textcolor{comment}{// if you long click the 2nd button exit the menu list}}
-\DoxyCodeLine{150     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a1020d4e320743109f1bfdbf6d77b29c1}{g\_pButton2}}-\/>\mbox{\hyperlink{classButton_a81c3b1a14aee3e487e836ac517e6b232}{onLongClick}}()) \{}
-\DoxyCodeLine{151       \textcolor{comment}{// close the current menu when run returns false}}
-\DoxyCodeLine{152       \mbox{\hyperlink{classMenus_a724cde246a6da9ba6e9a9ef8ae7a6074}{closeCurMenu}}();}
-\DoxyCodeLine{153       \textcolor{comment}{// return false to let the modes play}}
-\DoxyCodeLine{154       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{155     \}}
-\DoxyCodeLine{156     \textcolor{comment}{// if holding down to select the menu option}}
-\DoxyCodeLine{157     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() \&\& openAdv) \{}
-\DoxyCodeLine{158       \textcolor{comment}{// make it strobe aw yiss}}
-\DoxyCodeLine{159       offtime = \mbox{\hyperlink{Timings_8h_ad8d72f4aad8397f6470d967b02fc9fce}{HYPERSTROBE\_OFF\_DURATION}};}
-\DoxyCodeLine{160       ontime = \mbox{\hyperlink{Timings_8h_a398f70f20f31812fd6463db220ea6bd2}{HYPERSTROBE\_ON\_DURATION}};}
-\DoxyCodeLine{161     \}}
+\DoxyCodeLine{149     \textcolor{comment}{// if holding down to select the menu option}}
+\DoxyCodeLine{150     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() \&\& openAdv) \{}
+\DoxyCodeLine{151       \textcolor{comment}{// make it strobe aw yiss}}
+\DoxyCodeLine{152       offtime = \mbox{\hyperlink{Timings_8h_ad8d72f4aad8397f6470d967b02fc9fce}{HYPERSTROBE\_OFF\_DURATION}};}
+\DoxyCodeLine{153       ontime = \mbox{\hyperlink{Timings_8h_a398f70f20f31812fd6463db220ea6bd2}{HYPERSTROBE\_ON\_DURATION}};}
+\DoxyCodeLine{154     \}}
+\DoxyCodeLine{155   \}}
+\DoxyCodeLine{156   \textcolor{comment}{// if you long click the 2nd button exit the menu list}}
+\DoxyCodeLine{157   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a1020d4e320743109f1bfdbf6d77b29c1}{g\_pButton2}}-\/>\mbox{\hyperlink{classButton_a81c3b1a14aee3e487e836ac517e6b232}{onLongClick}}()) \{}
+\DoxyCodeLine{158     \textcolor{comment}{// close the current menu when run returns false}}
+\DoxyCodeLine{159     \mbox{\hyperlink{classMenus_a724cde246a6da9ba6e9a9ef8ae7a6074}{closeCurMenu}}();}
+\DoxyCodeLine{160     \textcolor{comment}{// return false to let the modes play}}
+\DoxyCodeLine{161     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{162   \}}
 \DoxyCodeLine{163   \textcolor{comment}{// blink every even/odd of every pair}}
 \DoxyCodeLine{164   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} p = \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4ac5e6b4941a54ffee05c62f32966c9d68}{PAIR\_FIRST}}; p < \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4a772164a6f31e22d817711a70345b51b4}{PAIR\_COUNT}}; ++p) \{}

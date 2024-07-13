@@ -13,8 +13,8 @@ var classSequence =
     [ "operator=", "classSequence.html#a6b6545ae2b3a851b39f11aaf69182d68", null ],
     [ "operator==", "classSequence.html#aea07c7d1e503145816703407e0d61e6a", null ],
     [ "operator[]", "classSequence.html#a6057ac059ef30d4d06d5b3bb6c7ef16b", null ],
-    [ "serialize", "classSequence.html#a7f5f7fc8ecacf393035736029b39c9f4", null ],
-    [ "unserialize", "classSequence.html#a5eddf4eb1916a2cb14e7824ba2daf24b", null ],
+    [ "serialize", "classSequence.html#abdc0c7500f7dce71b866646068b53c4c", null ],
+    [ "unserialize", "classSequence.html#a46227df9228798a8f5435adc98d3371b", null ],
     [ "m_numSteps", "classSequence.html#a8f63826b625a77f1fedd22f671074310", null ],
     [ "m_sequenceSteps", "classSequence.html#a9845f3ffa03d07a675ae84f11c110e3a", null ]
 ];

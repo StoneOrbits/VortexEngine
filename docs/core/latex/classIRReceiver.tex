@@ -143,14 +143,14 @@ Definition at line 58 of file IRReceiver.\+h.
 
 
 
-Definition at line 85 of file IRReceiver.\+cpp.
+Definition at line 84 of file IRReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{86 \{}
-\DoxyCodeLine{87   \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
-\DoxyCodeLine{88   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{89 \}}
+\DoxyCodeLine{85 \{}
+\DoxyCodeLine{86   \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
+\DoxyCodeLine{87   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{88 \}}
 
 \end{DoxyCode}
 
@@ -192,12 +192,12 @@ Referenced by on\+New\+Data().
 
 
 
-Definition at line 25 of file IRReceiver.\+cpp.
+Definition at line 24 of file IRReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27 \}}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26 \}}
 
 \end{DoxyCode}
 
@@ -212,27 +212,27 @@ Referenced by Vortex\+Engine\+::cleanup().
 
 
 
-Definition at line 29 of file IRReceiver.\+cpp.
+Definition at line 28 of file IRReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{30 \{}
-\DoxyCodeLine{31   \textcolor{comment}{// is the receiver actually receiving data?}}
-\DoxyCodeLine{32   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_aa8c42ac4fffc8e534fafd808e4f5b39e}{isReceiving}}()) \{}
-\DoxyCodeLine{33     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{34   \}}
-\DoxyCodeLine{35   uint8\_t blocks = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[0];}
-\DoxyCodeLine{36   uint8\_t remainder = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
-\DoxyCodeLine{37   uint32\_t total = ((blocks -\/ 1) * 32) + remainder;}
-\DoxyCodeLine{38   \textcolor{keywordflow}{if} (!total || total > \mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{39     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad IR Data size: \%u"{}}, total);}
-\DoxyCodeLine{40     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{41   \}}
-\DoxyCodeLine{42   \textcolor{comment}{// if there are size + 2 bytes in the IRData receiver}}
-\DoxyCodeLine{43   \textcolor{comment}{// then a full message is ready, the + 2 is from the}}
-\DoxyCodeLine{44   \textcolor{comment}{// two bytes for blocks + remainder that are sent first}}
-\DoxyCodeLine{45   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() >= (uint32\_t)(total + 2));}
-\DoxyCodeLine{46 \}}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30   \textcolor{comment}{// is the receiver actually receiving data?}}
+\DoxyCodeLine{31   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_aa8c42ac4fffc8e534fafd808e4f5b39e}{isReceiving}}()) \{}
+\DoxyCodeLine{32     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{33   \}}
+\DoxyCodeLine{34   uint8\_t blocks = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[0];}
+\DoxyCodeLine{35   uint8\_t remainder = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
+\DoxyCodeLine{36   uint32\_t total = ((blocks -\/ 1) * 32) + remainder;}
+\DoxyCodeLine{37   \textcolor{keywordflow}{if} (!total || total > \mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\_MAX\_DATA\_TRANSFER}}) \{}
+\DoxyCodeLine{38     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad IR Data size: \%u"{}}, total);}
+\DoxyCodeLine{39     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{40   \}}
+\DoxyCodeLine{41   \textcolor{comment}{// if there are size + 2 bytes in the IRData receiver}}
+\DoxyCodeLine{42   \textcolor{comment}{// then a full message is ready, the + 2 is from the}}
+\DoxyCodeLine{43   \textcolor{comment}{// two bytes for blocks + remainder that are sent first}}
+\DoxyCodeLine{44   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() >= (uint32\_t)(total + 2));}
+\DoxyCodeLine{45 \}}
 
 \end{DoxyCode}
 
@@ -251,14 +251,14 @@ Referenced by Mode\+Sharing\+::receive\+Mode\+IR().
 
 
 
-Definition at line 91 of file IRReceiver.\+cpp.
+Definition at line 90 of file IRReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{92 \{}
-\DoxyCodeLine{93   \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
-\DoxyCodeLine{94   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{95 \}}
+\DoxyCodeLine{91 \{}
+\DoxyCodeLine{92   \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
+\DoxyCodeLine{93   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{94 \}}
 
 \end{DoxyCode}
 
@@ -277,48 +277,48 @@ Referenced by Mode\+Sharing\+::on\+Short\+Click().
 
 
 
-Definition at line 155 of file IRReceiver.\+cpp.
+Definition at line 154 of file IRReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{156 \{}
-\DoxyCodeLine{157   \textcolor{comment}{// if the diff is too long or too short then it's not useful}}
-\DoxyCodeLine{158   \textcolor{keywordflow}{if} ((diff > \mbox{\hyperlink{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}{IR\_HEADER\_MARK\_MAX}} \&\& \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}} < \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}{READING\_DATA\_MARK}}) || diff < \mbox{\hyperlink{IRConfig_8h_a73218da9e787280d69b894953d2d4bdc}{IR\_TIMING\_MIN}}) \{}
-\DoxyCodeLine{159     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}bad delay: \%u, resetting..."{}}, diff);}
-\DoxyCodeLine{160     \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
-\DoxyCodeLine{161     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{162   \}}
-\DoxyCodeLine{163   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}}) \{}
-\DoxyCodeLine{164   \textcolor{keywordflow}{case} \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf}{WAITING\_HEADER\_MARK}}: \textcolor{comment}{// initial state}}
-\DoxyCodeLine{165     \textcolor{keywordflow}{if} (diff >= \mbox{\hyperlink{IRConfig_8h_a16e1424faaa05feaa4cd36654ca57fe2}{IR\_HEADER\_MARK\_MIN}} \&\& diff <= \mbox{\hyperlink{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}{IR\_HEADER\_MARK\_MAX}}) \{}
-\DoxyCodeLine{166       \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a5d217c890135a690847bf68a1db5bd9a}{WAITING\_HEADER\_SPACE}};}
-\DoxyCodeLine{167     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{168       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad header mark \%u, resetting..."{}}, diff);}
-\DoxyCodeLine{169       \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
-\DoxyCodeLine{170     \}}
-\DoxyCodeLine{171     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{172   \textcolor{keywordflow}{case} \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a5d217c890135a690847bf68a1db5bd9a}{WAITING\_HEADER\_SPACE}}:}
-\DoxyCodeLine{173     \textcolor{keywordflow}{if} (diff >= \mbox{\hyperlink{IRConfig_8h_a250ce61cfc429f875c14a5d45408d63c}{IR\_HEADER\_SPACE\_MIN}} \&\& diff <= \mbox{\hyperlink{IRConfig_8h_a42938e952fc459aeb8873acf64773150}{IR\_HEADER\_SPACE\_MAX}}) \{}
-\DoxyCodeLine{174       \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}{READING\_DATA\_MARK}};}
-\DoxyCodeLine{175     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{176       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad header space \%u, resetting..."{}}, diff);}
-\DoxyCodeLine{177       \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
-\DoxyCodeLine{178     \}}
-\DoxyCodeLine{179     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{180   \textcolor{keywordflow}{case} \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}{READING\_DATA\_MARK}}:}
-\DoxyCodeLine{181     \textcolor{comment}{// classify mark/space based on the timing and write into buffer}}
-\DoxyCodeLine{182     \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a61fad4017cd117aad8c90d91057d2ba3}{write1Bit}}((diff > (\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\_TIMING}} * 2)) ? 1 : 0);}
-\DoxyCodeLine{183     \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a37b0cc5cf63cb62eb144be82420875f0}{READING\_DATA\_SPACE}};}
-\DoxyCodeLine{184     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{185   \textcolor{keywordflow}{case} \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a37b0cc5cf63cb62eb144be82420875f0}{READING\_DATA\_SPACE}}:}
-\DoxyCodeLine{186     \textcolor{comment}{// the space could be just a regular space, or a gap in between blocks}}
-\DoxyCodeLine{187     \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}{READING\_DATA\_MARK}};}
-\DoxyCodeLine{188     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{189   \textcolor{keywordflow}{default}: \textcolor{comment}{// ??}}
-\DoxyCodeLine{190     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad receive state: \%u"{}}, \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}});}
-\DoxyCodeLine{191     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{192   \}}
-\DoxyCodeLine{193 \}}
+\DoxyCodeLine{155 \{}
+\DoxyCodeLine{156   \textcolor{comment}{// if the diff is too long or too short then it's not useful}}
+\DoxyCodeLine{157   \textcolor{keywordflow}{if} ((diff > \mbox{\hyperlink{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}{IR\_HEADER\_MARK\_MAX}} \&\& \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}} < \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}{READING\_DATA\_MARK}}) || diff < \mbox{\hyperlink{IRConfig_8h_a73218da9e787280d69b894953d2d4bdc}{IR\_TIMING\_MIN}}) \{}
+\DoxyCodeLine{158     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}bad delay: \%u, resetting..."{}}, diff);}
+\DoxyCodeLine{159     \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
+\DoxyCodeLine{160     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{161   \}}
+\DoxyCodeLine{162   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}}) \{}
+\DoxyCodeLine{163   \textcolor{keywordflow}{case} \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf}{WAITING\_HEADER\_MARK}}: \textcolor{comment}{// initial state}}
+\DoxyCodeLine{164     \textcolor{keywordflow}{if} (diff >= \mbox{\hyperlink{IRConfig_8h_a16e1424faaa05feaa4cd36654ca57fe2}{IR\_HEADER\_MARK\_MIN}} \&\& diff <= \mbox{\hyperlink{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}{IR\_HEADER\_MARK\_MAX}}) \{}
+\DoxyCodeLine{165       \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a5d217c890135a690847bf68a1db5bd9a}{WAITING\_HEADER\_SPACE}};}
+\DoxyCodeLine{166     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{167       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad header mark \%u, resetting..."{}}, diff);}
+\DoxyCodeLine{168       \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
+\DoxyCodeLine{169     \}}
+\DoxyCodeLine{170     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{171   \textcolor{keywordflow}{case} \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a5d217c890135a690847bf68a1db5bd9a}{WAITING\_HEADER\_SPACE}}:}
+\DoxyCodeLine{172     \textcolor{keywordflow}{if} (diff >= \mbox{\hyperlink{IRConfig_8h_a250ce61cfc429f875c14a5d45408d63c}{IR\_HEADER\_SPACE\_MIN}} \&\& diff <= \mbox{\hyperlink{IRConfig_8h_a42938e952fc459aeb8873acf64773150}{IR\_HEADER\_SPACE\_MAX}}) \{}
+\DoxyCodeLine{173       \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}{READING\_DATA\_MARK}};}
+\DoxyCodeLine{174     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{175       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad header space \%u, resetting..."{}}, diff);}
+\DoxyCodeLine{176       \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
+\DoxyCodeLine{177     \}}
+\DoxyCodeLine{178     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{179   \textcolor{keywordflow}{case} \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}{READING\_DATA\_MARK}}:}
+\DoxyCodeLine{180     \textcolor{comment}{// classify mark/space based on the timing and write into buffer}}
+\DoxyCodeLine{181     \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a61fad4017cd117aad8c90d91057d2ba3}{write1Bit}}((diff > (\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\_TIMING}} * 2)) ? 1 : 0);}
+\DoxyCodeLine{182     \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a37b0cc5cf63cb62eb144be82420875f0}{READING\_DATA\_SPACE}};}
+\DoxyCodeLine{183     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{184   \textcolor{keywordflow}{case} \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a37b0cc5cf63cb62eb144be82420875f0}{READING\_DATA\_SPACE}}:}
+\DoxyCodeLine{185     \textcolor{comment}{// the space could be just a regular space, or a gap in between blocks}}
+\DoxyCodeLine{186     \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}{READING\_DATA\_MARK}};}
+\DoxyCodeLine{187     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{188   \textcolor{keywordflow}{default}: \textcolor{comment}{// ??}}
+\DoxyCodeLine{189     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad receive state: \%u"{}}, \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}});}
+\DoxyCodeLine{190     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{191   \}}
+\DoxyCodeLine{192 \}}
 
 \end{DoxyCode}
 
@@ -337,14 +337,14 @@ Referenced by recv\+PCIHandler().
 
 
 
-Definition at line 19 of file IRReceiver.\+cpp.
+Definition at line 18 of file IRReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{20 \{}
-\DoxyCodeLine{21   \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}{init}}(\mbox{\hyperlink{IRConfig_8h_adb9cd61b2e7cb891d2bb2492608a4555}{IR\_RECV\_BUF\_SIZE}});}
-\DoxyCodeLine{22   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{23 \}}
+\DoxyCodeLine{19 \{}
+\DoxyCodeLine{20   \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}{init}}(\mbox{\hyperlink{IRConfig_8h_adb9cd61b2e7cb891d2bb2492608a4555}{IR\_RECV\_BUF\_SIZE}});}
+\DoxyCodeLine{21   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{22 \}}
 
 \end{DoxyCode}
 
@@ -363,17 +363,17 @@ Referenced by Vortex\+Engine\+::init().
 
 
 
-Definition at line 49 of file IRReceiver.\+cpp.
+Definition at line 48 of file IRReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{50 \{}
-\DoxyCodeLine{51   \textcolor{comment}{// if there are at least 2 bytes in the data buffer then}}
-\DoxyCodeLine{52   \textcolor{comment}{// the receiver is receiving a packet. If there is less}}
-\DoxyCodeLine{53   \textcolor{comment}{// than 2 bytes then we're still waiting for the 'blocks'}}
-\DoxyCodeLine{54   \textcolor{comment}{// and 'remainder' bytes which prefix a packet}}
-\DoxyCodeLine{55   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() > 2);}
-\DoxyCodeLine{56 \}}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50   \textcolor{comment}{// if there are at least 2 bytes in the data buffer then}}
+\DoxyCodeLine{51   \textcolor{comment}{// the receiver is receiving a packet. If there is less}}
+\DoxyCodeLine{52   \textcolor{comment}{// than 2 bytes then we're still waiting for the 'blocks'}}
+\DoxyCodeLine{53   \textcolor{comment}{// and 'remainder' bytes which prefix a packet}}
+\DoxyCodeLine{54   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() > 2);}
+\DoxyCodeLine{55 \}}
 
 \end{DoxyCode}
 
@@ -392,17 +392,17 @@ Referenced by data\+Ready(), percent\+Received(), and Mode\+Sharing\+::show\+Rec
 
 
 
-Definition at line 97 of file IRReceiver.\+cpp.
+Definition at line 96 of file IRReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{98 \{}
-\DoxyCodeLine{99   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classIRReceiver_a588774ea28229309eb8e5feb6e44ffb0}{bytesReceived}}() == \mbox{\hyperlink{classIRReceiver_ab7e3d5972a86db3258aa9690a250b1ec}{m\_previousBytes}}) \{}
-\DoxyCodeLine{100     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{101   \}}
-\DoxyCodeLine{102   \mbox{\hyperlink{classIRReceiver_ab7e3d5972a86db3258aa9690a250b1ec}{m\_previousBytes}} = \mbox{\hyperlink{classIRReceiver_a588774ea28229309eb8e5feb6e44ffb0}{bytesReceived}}();}
-\DoxyCodeLine{103   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{104 \}}
+\DoxyCodeLine{97 \{}
+\DoxyCodeLine{98   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classIRReceiver_a588774ea28229309eb8e5feb6e44ffb0}{bytesReceived}}() == \mbox{\hyperlink{classIRReceiver_ab7e3d5972a86db3258aa9690a250b1ec}{m\_previousBytes}}) \{}
+\DoxyCodeLine{99     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{100   \}}
+\DoxyCodeLine{101   \mbox{\hyperlink{classIRReceiver_ab7e3d5972a86db3258aa9690a250b1ec}{m\_previousBytes}} = \mbox{\hyperlink{classIRReceiver_a588774ea28229309eb8e5feb6e44ffb0}{bytesReceived}}();}
+\DoxyCodeLine{102   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{103 \}}
 
 \end{DoxyCode}
 
@@ -421,20 +421,20 @@ Referenced by Mode\+Sharing\+::receive\+Mode\+IR().
 
 
 
-Definition at line 59 of file IRReceiver.\+cpp.
+Definition at line 58 of file IRReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{60 \{}
-\DoxyCodeLine{61   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_aa8c42ac4fffc8e534fafd808e4f5b39e}{isReceiving}}()) \{}
-\DoxyCodeLine{62     \textcolor{keywordflow}{return} 0;}
-\DoxyCodeLine{63   \}}
-\DoxyCodeLine{64   uint8\_t blocks = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[0];}
-\DoxyCodeLine{65   uint8\_t remainder = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
-\DoxyCodeLine{66   uint16\_t total = ((blocks -\/ 1) * 32) + remainder;}
-\DoxyCodeLine{67   \textcolor{comment}{// round by adding half of the total to the numerator}}
-\DoxyCodeLine{68   \textcolor{keywordflow}{return} (uint8\_t)((uint16\_t)((\mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() * 100 + (total / 2)) / total));}
-\DoxyCodeLine{69 \}}
+\DoxyCodeLine{59 \{}
+\DoxyCodeLine{60   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_aa8c42ac4fffc8e534fafd808e4f5b39e}{isReceiving}}()) \{}
+\DoxyCodeLine{61     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{62   \}}
+\DoxyCodeLine{63   uint8\_t blocks = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[0];}
+\DoxyCodeLine{64   uint8\_t remainder = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
+\DoxyCodeLine{65   uint16\_t total = ((blocks -\/ 1) * 32) + remainder;}
+\DoxyCodeLine{66   \textcolor{comment}{// round by adding half of the total to the numerator}}
+\DoxyCodeLine{67   \textcolor{keywordflow}{return} (uint8\_t)((uint16\_t)((\mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() * 100 + (total / 2)) / total));}
+\DoxyCodeLine{68 \}}
 
 \end{DoxyCode}
 
@@ -453,34 +453,34 @@ Referenced by Mode\+Sharing\+::show\+Receive\+Mode().
 
 
 
-Definition at line 106 of file IRReceiver.\+cpp.
+Definition at line 105 of file IRReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{107 \{}
-\DoxyCodeLine{108   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() || \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() > \mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{109     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Nothing to read, or read too much"{}});}
-\DoxyCodeLine{110     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{111   \}}
-\DoxyCodeLine{112   \textcolor{comment}{// read the size out (blocks + remainder)}}
-\DoxyCodeLine{113   uint8\_t blocks = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[0];}
-\DoxyCodeLine{114   uint8\_t remainder = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
-\DoxyCodeLine{115   \textcolor{comment}{// calculate size from blocks + remainder}}
-\DoxyCodeLine{116   uint32\_t size = ((blocks -\/ 1) * 32) + remainder;}
-\DoxyCodeLine{117   \textcolor{keywordflow}{if} (!size || size > \mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{118     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad IR Data size: \%u"{}}, size);}
-\DoxyCodeLine{119     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{120   \}}
-\DoxyCodeLine{121   \textcolor{comment}{// the actual data starts 2 bytes later because of the size byte}}
-\DoxyCodeLine{122   \textcolor{keyword}{const} uint8\_t *actualData = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}() + 2;}
-\DoxyCodeLine{123   \textcolor{keywordflow}{if} (!data.\mbox{\hyperlink{classByteStream_a0f89f3776726a6b70248a901c029a305}{rawInit}}(actualData, size)) \{}
-\DoxyCodeLine{124     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to init buffer for IR read"{}});}
-\DoxyCodeLine{125     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{126   \}}
-\DoxyCodeLine{127   \textcolor{comment}{// reset the IR state and receive buffer now}}
-\DoxyCodeLine{128   \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
-\DoxyCodeLine{129   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{130 \}}
+\DoxyCodeLine{106 \{}
+\DoxyCodeLine{107   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() || \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() > \mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\_MAX\_DATA\_TRANSFER}}) \{}
+\DoxyCodeLine{108     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Nothing to read, or read too much"{}});}
+\DoxyCodeLine{109     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{110   \}}
+\DoxyCodeLine{111   \textcolor{comment}{// read the size out (blocks + remainder)}}
+\DoxyCodeLine{112   uint8\_t blocks = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[0];}
+\DoxyCodeLine{113   uint8\_t remainder = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
+\DoxyCodeLine{114   \textcolor{comment}{// calculate size from blocks + remainder}}
+\DoxyCodeLine{115   uint32\_t size = ((blocks -\/ 1) * 32) + remainder;}
+\DoxyCodeLine{116   \textcolor{keywordflow}{if} (!size || size > \mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\_MAX\_DATA\_TRANSFER}}) \{}
+\DoxyCodeLine{117     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad IR Data size: \%u"{}}, size);}
+\DoxyCodeLine{118     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{119   \}}
+\DoxyCodeLine{120   \textcolor{comment}{// the actual data starts 2 bytes later because of the size byte}}
+\DoxyCodeLine{121   \textcolor{keyword}{const} uint8\_t *actualData = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}() + 2;}
+\DoxyCodeLine{122   \textcolor{keywordflow}{if} (!data.\mbox{\hyperlink{classByteStream_a0f89f3776726a6b70248a901c029a305}{rawInit}}(actualData, size)) \{}
+\DoxyCodeLine{123     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to init buffer for IR read"{}});}
+\DoxyCodeLine{124     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{125   \}}
+\DoxyCodeLine{126   \textcolor{comment}{// reset the IR state and receive buffer now}}
+\DoxyCodeLine{127   \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
+\DoxyCodeLine{128   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{129 \}}
 
 \end{DoxyCode}
 
@@ -499,22 +499,22 @@ Referenced by receive\+Mode().
 
 
 
-Definition at line 71 of file IRReceiver.\+cpp.
+Definition at line 70 of file IRReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{72 \{}
-\DoxyCodeLine{73   \mbox{\hyperlink{classByteStream}{ByteStream}} buf;}
-\DoxyCodeLine{74   \textcolor{comment}{// read from the receive buffer into the byte stream}}
-\DoxyCodeLine{75   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_a5042d1da081da90fb066c9a383b2d40e}{read}}(buf)) \{}
-\DoxyCodeLine{76     \textcolor{comment}{// no data to read right now, or an error}}
-\DoxyCodeLine{77     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}No data available to read, or error reading"{}});}
-\DoxyCodeLine{78     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{79   \}}
-\DoxyCodeLine{80   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Received \%u bytes"{}}, buf.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
-\DoxyCodeLine{81   \textcolor{comment}{// load the data into the target mode}}
-\DoxyCodeLine{82   \textcolor{keywordflow}{return} pMode-\/>\mbox{\hyperlink{classMode_a31ed6fbb39ca7876e415fc58bc18d630}{loadFromBuffer}}(buf);}
-\DoxyCodeLine{83 \}}
+\DoxyCodeLine{71 \{}
+\DoxyCodeLine{72   \mbox{\hyperlink{classByteStream}{ByteStream}} buf;}
+\DoxyCodeLine{73   \textcolor{comment}{// read from the receive buffer into the byte stream}}
+\DoxyCodeLine{74   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_a5042d1da081da90fb066c9a383b2d40e}{read}}(buf)) \{}
+\DoxyCodeLine{75     \textcolor{comment}{// no data to read right now, or an error}}
+\DoxyCodeLine{76     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}No data available to read, or error reading"{}});}
+\DoxyCodeLine{77     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{78   \}}
+\DoxyCodeLine{79   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Received \%u bytes"{}}, buf.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
+\DoxyCodeLine{80   \textcolor{comment}{// load the data into the target mode}}
+\DoxyCodeLine{81   \textcolor{keywordflow}{return} pMode-\/>\mbox{\hyperlink{classMode_a31ed6fbb39ca7876e415fc58bc18d630}{loadFromBuffer}}(buf);}
+\DoxyCodeLine{82 \}}
 
 \end{DoxyCode}
 
@@ -533,29 +533,29 @@ Referenced by Mode\+Sharing\+::receive\+Mode\+IR().
 
 
 
-Definition at line 133 of file IRReceiver.\+cpp.
+Definition at line 132 of file IRReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{134 \{}
-\DoxyCodeLine{135   \textcolor{comment}{// toggle the tracked pin state no matter what}}
-\DoxyCodeLine{136   \mbox{\hyperlink{classIRReceiver_a45435d3921fa07b89bd46244dd05d860}{m\_pinState}} = (uint8\_t)!\mbox{\hyperlink{classIRReceiver_a45435d3921fa07b89bd46244dd05d860}{m\_pinState}};}
-\DoxyCodeLine{137   \textcolor{comment}{// grab current time}}
-\DoxyCodeLine{138   uint32\_t now = \mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{Time::microseconds}}();}
-\DoxyCodeLine{139   \textcolor{comment}{// check previous time for validity}}
-\DoxyCodeLine{140   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}} || \mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}} > now) \{}
-\DoxyCodeLine{141     \mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}} = now;}
-\DoxyCodeLine{142     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Bad first time diff, resetting..."{}});}
-\DoxyCodeLine{143     \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
-\DoxyCodeLine{144     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{145   \}}
-\DoxyCodeLine{146   \textcolor{comment}{// calc time difference between previous change and now}}
-\DoxyCodeLine{147   uint32\_t diff = (uint32\_t)(now -\/ \mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}});}
-\DoxyCodeLine{148   \textcolor{comment}{// and update the previous changetime for next loop}}
-\DoxyCodeLine{149   \mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}} = now;}
-\DoxyCodeLine{150   \textcolor{comment}{// handle the blink duration and process it}}
-\DoxyCodeLine{151   \mbox{\hyperlink{classIRReceiver_a30e0cdba86a79ce518d642cd9ec1a22e}{handleIRTiming}}(diff);}
-\DoxyCodeLine{152 \}}
+\DoxyCodeLine{133 \{}
+\DoxyCodeLine{134   \textcolor{comment}{// toggle the tracked pin state no matter what}}
+\DoxyCodeLine{135   \mbox{\hyperlink{classIRReceiver_a45435d3921fa07b89bd46244dd05d860}{m\_pinState}} = (uint8\_t)!\mbox{\hyperlink{classIRReceiver_a45435d3921fa07b89bd46244dd05d860}{m\_pinState}};}
+\DoxyCodeLine{136   \textcolor{comment}{// grab current time}}
+\DoxyCodeLine{137   uint32\_t now = \mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{Time::microseconds}}();}
+\DoxyCodeLine{138   \textcolor{comment}{// check previous time for validity}}
+\DoxyCodeLine{139   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}} || \mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}} > now) \{}
+\DoxyCodeLine{140     \mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}} = now;}
+\DoxyCodeLine{141     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Bad first time diff, resetting..."{}});}
+\DoxyCodeLine{142     \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
+\DoxyCodeLine{143     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{144   \}}
+\DoxyCodeLine{145   \textcolor{comment}{// calc time difference between previous change and now}}
+\DoxyCodeLine{146   uint32\_t diff = (uint32\_t)(now -\/ \mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}});}
+\DoxyCodeLine{147   \textcolor{comment}{// and update the previous changetime for next loop}}
+\DoxyCodeLine{148   \mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}} = now;}
+\DoxyCodeLine{149   \textcolor{comment}{// handle the blink duration and process it}}
+\DoxyCodeLine{150   \mbox{\hyperlink{classIRReceiver_a30e0cdba86a79ce518d642cd9ec1a22e}{handleIRTiming}}(diff);}
+\DoxyCodeLine{151 \}}
 
 \end{DoxyCode}
 
@@ -570,17 +570,17 @@ References DEBUG\+\_\+\+LOG, handle\+IRTiming(), m\+\_\+pin\+State, m\+\_\+prev\
 
 
 
-Definition at line 195 of file IRReceiver.\+cpp.
+Definition at line 194 of file IRReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{196 \{}
-\DoxyCodeLine{197   \mbox{\hyperlink{classIRReceiver_ab7e3d5972a86db3258aa9690a250b1ec}{m\_previousBytes}} = 0;}
-\DoxyCodeLine{198   \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf}{WAITING\_HEADER\_MARK}};}
-\DoxyCodeLine{199   \textcolor{comment}{// zero out the receive buffer and reset bit receiver position}}
-\DoxyCodeLine{200   \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_acbce456dc347c721637941fe47f5a43b}{reset}}();}
-\DoxyCodeLine{201   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}IR State Reset"{}});}
-\DoxyCodeLine{202 \}}
+\DoxyCodeLine{195 \{}
+\DoxyCodeLine{196   \mbox{\hyperlink{classIRReceiver_ab7e3d5972a86db3258aa9690a250b1ec}{m\_previousBytes}} = 0;}
+\DoxyCodeLine{197   \mbox{\hyperlink{classIRReceiver_a3c4ff25ef0907d5c1ca14997de86271a}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf}{WAITING\_HEADER\_MARK}};}
+\DoxyCodeLine{198   \textcolor{comment}{// zero out the receive buffer and reset bit receiver position}}
+\DoxyCodeLine{199   \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_acbce456dc347c721637941fe47f5a43b}{reset}}();}
+\DoxyCodeLine{200   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}IR State Reset"{}});}
+\DoxyCodeLine{201 \}}
 
 \end{DoxyCode}
 

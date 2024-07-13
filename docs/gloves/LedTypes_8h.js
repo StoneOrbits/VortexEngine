@@ -1,6 +1,5 @@
 var LedTypes_8h =
 [
-    [ "checkFinger", "LedTypes_8h.html#acb8c5fdde5d5b14db524b7d7ec6dbb25", null ],
     [ "FINGER_COUNT", "LedTypes_8h.html#acc11b84e9aa32ceb64b9339032d9ae2e", null ],
     [ "FINGER_FIRST", "LedTypes_8h.html#acadccfd3ac2026fcc3da11aab11d9e59", null ],
     [ "FINGER_INDEX", "LedTypes_8h.html#aecec19c5aa7204c70c212f120910aa02", null ],
@@ -17,8 +16,11 @@ var LedTypes_8h =
     [ "isFingerTip", "LedTypes_8h.html#abdcc9d012b538dcef180242f21651f64", null ],
     [ "isFingerTop", "LedTypes_8h.html#a099fc45c067005dde808baa48f60c0b7", null ],
     [ "isOdd", "LedTypes_8h.html#a2f07a4239fa9d919ab4213ec0caa9309", null ],
+    [ "ledmapCheckFinger", "LedTypes_8h.html#a18896fa590c3f40485a4ebc0f88f26b0", null ],
+    [ "ledmapSetFinger", "LedTypes_8h.html#a04e72cfc0666f7b51681b59e647ec9c1", null ],
     [ "ledToFinger", "LedTypes_8h.html#a7431385f7f42f1a99ce555e24231e73b", null ],
     [ "ledToPair", "LedTypes_8h.html#a3fa3f79ccff66d660d1468f23bde6e31", null ],
+    [ "MAP_EVEN_FINGERS", "LedTypes_8h.html#acfdbfb1c3c2da99e77eae953fa5fa473", null ],
     [ "MAP_FINGER", "LedTypes_8h.html#ac1d656482a87245262eadf0ac8128d45", null ],
     [ "MAP_FINGER_EVEN_TIPS", "LedTypes_8h.html#ad4dcaa472a9c4bca4766aac76cffa018", null ],
     [ "MAP_FINGER_EVEN_TOPS", "LedTypes_8h.html#ad94268f7fb22a5626f510be0043f68ed", null ],
@@ -34,6 +36,7 @@ var LedTypes_8h =
     [ "MAP_LED", "LedTypes_8h.html#ae3e48bdbee97fcc922ac8a9f4c8cf8fa", null ],
     [ "MAP_LED_ALL", "LedTypes_8h.html#ac9a910b2dc4fabac704e56a0fcb3b97e", null ],
     [ "MAP_LED_NONE", "LedTypes_8h.html#a94213d8b137bd7967cf16080b83b8ad3", null ],
+    [ "MAP_ODD_FINGERS", "LedTypes_8h.html#a0b2fd1e1daebb382b448f538fb8cbc1d", null ],
     [ "MAP_PAIR", "LedTypes_8h.html#a85801b3eb052b3e157c16a162e01974b", null ],
     [ "MAP_PAIR_EVEN", "LedTypes_8h.html#adb7d91f99bcd8ff0919328192ba2b88e", null ],
     [ "MAP_PAIR_EVEN_EVENS", "LedTypes_8h.html#a3d0075abab09cdd6469009802d38a44f", null ],
@@ -51,7 +54,6 @@ var LedTypes_8h =
     [ "PINKIE_TOP", "LedTypes_8h.html#a30dea4ba24ef05669d46aa0117848d48", null ],
     [ "RING_TIP", "LedTypes_8h.html#a77aa7d57fa47107e8a24c5e426cf57c4", null ],
     [ "RING_TOP", "LedTypes_8h.html#a8d58225ed8f7342caf737fc44722b10c", null ],
-    [ "setFinger", "LedTypes_8h.html#aecd0ef877e7f83b0e457d963dc8cd3fd", null ],
     [ "THUMB_TIP", "LedTypes_8h.html#ad6cd100e07238d371413139da795b7b9", null ],
     [ "THUMB_TOP", "LedTypes_8h.html#a82a86149396a2d32b403f573002d5728", null ],
     [ "Finger", "LedTypes_8h.html#ad46774f8bc478f849e85cb600570025e", null ],
@@ -85,10 +87,12 @@ var LedTypes_8h =
       [ "PAIR_COUNT", "LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4a772164a6f31e22d817711a70345b51b4", null ],
       [ "PAIR_LAST", "LedTypes_8h.html#a7481ff18cfa60407546e0d4901a6fbb4abdc898f1cd37b37e12eaa09550890334", null ]
     ] ],
-    [ "checkLed", "LedTypes_8h.html#a6b8f8d9c1f8627c817d00a6d33695c1f", null ],
-    [ "checkPair", "LedTypes_8h.html#a1b174a309fe85f1d4560afa3230ddc65", null ],
-    [ "mapGetFirstLed", "LedTypes_8h.html#a8f394c70246f75bd9452c7cea69a4b19", null ],
-    [ "mapGetNextLed", "LedTypes_8h.html#a40567e2b925999b9d718f9444ea7e0b0", null ],
+    [ "ledmapCheckLed", "LedTypes_8h.html#aea87ba7c1e127ef509da9d0e9d238aac", null ],
+    [ "ledmapCheckPair", "LedTypes_8h.html#a2d79cc8ce577773d2b0ee85ca33b9ac4", null ],
+    [ "ledmapGetFirstLed", "LedTypes_8h.html#ae8d7e271028055f745f7b1247f080dce", null ],
+    [ "ledmapGetNextLed", "LedTypes_8h.html#afc1a170657262289647c2af99aace527", null ],
+    [ "ledmapSetLed", "LedTypes_8h.html#a7c47d3eb42975a1a8ea5af7bcbc95bde", null ],
+    [ "ledmapSetPair", "LedTypes_8h.html#ae8eaf2f933c66fef4ffac4b81213d344", null ],
     [ "operator+", "LedTypes_8h.html#a726370103d4483e039d09e054e833154", null ],
     [ "operator+", "LedTypes_8h.html#a3f2b92ad7a54adcb324ebcbd2bc69409", null ],
     [ "operator++", "LedTypes_8h.html#abc251fca88b16eb10b944dff85c305df", null ],
@@ -98,7 +102,5 @@ var LedTypes_8h =
     [ "operator+=", "LedTypes_8h.html#aae8ec6757aa6f42ba17318dee79988ea", null ],
     [ "operator-", "LedTypes_8h.html#a0cbb7cf425475130fe7f443156fa96df", null ],
     [ "operator-", "LedTypes_8h.html#af2d6cc4a5a1dffc90500e5a40084e8c7", null ],
-    [ "operator-=", "LedTypes_8h.html#a5192eaa3f51e5d751eebff3b1661383b", null ],
-    [ "setLed", "LedTypes_8h.html#a99b3613fb4c658dff24ba0f18eda6e31", null ],
-    [ "setPair", "LedTypes_8h.html#a20d782bba21f1567fdf0302d45a0d64c", null ]
+    [ "operator-=", "LedTypes_8h.html#a5192eaa3f51e5d751eebff3b1661383b", null ]
 ];

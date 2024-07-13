@@ -1,6 +1,7 @@
 \hypertarget{VLReceiver_8cpp}{}\doxysection{Vortex\+Engine/src/\+Wireless/\+VLReceiver.cpp File Reference}
 \label{VLReceiver_8cpp}\index{VortexEngine/src/Wireless/VLReceiver.cpp@{VortexEngine/src/Wireless/VLReceiver.cpp}}
 {\ttfamily \#include \char`\"{}VLReceiver.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}IRConfig.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../\+Serial/\+Byte\+Stream.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../\+Serial/\+Bit\+Stream.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../\+Time/\+Time\+Control.\+h\char`\"{}}\newline
@@ -49,7 +50,7 @@ uint16\+\_\+t \mbox{\hyperlink{VLReceiver_8cpp_ab1306e35299d8bdd10ea0adfbf9827ad
 
 
 
-Definition at line 25 of file VLReceiver.\+cpp.
+Definition at line 26 of file VLReceiver.\+cpp.
 
 \mbox{\Hypertarget{VLReceiver_8cpp_aa3c9d5bc3f1c3dfec69046200aecb29a}\label{VLReceiver_8cpp_aa3c9d5bc3f1c3dfec69046200aecb29a}} 
 \index{VLReceiver.cpp@{VLReceiver.cpp}!MIN\_THRESHOLD@{MIN\_THRESHOLD}}
@@ -59,7 +60,7 @@ Definition at line 25 of file VLReceiver.\+cpp.
 
 
 
-Definition at line 24 of file VLReceiver.\+cpp.
+Definition at line 25 of file VLReceiver.\+cpp.
 
 \mbox{\Hypertarget{VLReceiver_8cpp_a1682c770d91c5d167b621a782be940d4}\label{VLReceiver_8cpp_a1682c770d91c5d167b621a782be940d4}} 
 \index{VLReceiver.cpp@{VLReceiver.cpp}!SAMPLE\_COUNT@{SAMPLE\_COUNT}}
@@ -69,7 +70,7 @@ Definition at line 24 of file VLReceiver.\+cpp.
 
 
 
-Definition at line 35 of file VLReceiver.\+cpp.
+Definition at line 36 of file VLReceiver.\+cpp.
 
 \mbox{\Hypertarget{VLReceiver_8cpp_a292a04597d61ff63dd48bea3ddb5a46c}\label{VLReceiver_8cpp_a292a04597d61ff63dd48bea3ddb5a46c}} 
 \index{VLReceiver.cpp@{VLReceiver.cpp}!THRESHOLD\_BEGIN@{THRESHOLD\_BEGIN}}
@@ -79,7 +80,7 @@ Definition at line 35 of file VLReceiver.\+cpp.
 
 
 
-Definition at line 26 of file VLReceiver.\+cpp.
+Definition at line 27 of file VLReceiver.\+cpp.
 
 
 
@@ -92,30 +93,30 @@ Definition at line 26 of file VLReceiver.\+cpp.
 
 
 
-Definition at line 38 of file VLReceiver.\+cpp.
+Definition at line 39 of file VLReceiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{39 \{}
-\DoxyCodeLine{40   \textcolor{comment}{// this will store the last known state}}
-\DoxyCodeLine{41   \textcolor{keyword}{static} \textcolor{keywordtype}{bool} wasAboveThreshold = \textcolor{keyword}{false};}
-\DoxyCodeLine{42   \textcolor{comment}{// grab the current analog value but divide it by 8 (the number of samples)}}
-\DoxyCodeLine{43   uint16\_t val = (ADC0.RES >> \mbox{\hyperlink{VLReceiver_8cpp_a1682c770d91c5d167b621a782be940d4}{SAMPLE\_COUNT}});}
-\DoxyCodeLine{44   \textcolor{comment}{// calculate a threshold by using the baseline minimum value that is above 0}}
-\DoxyCodeLine{45   \textcolor{comment}{// with a static offset, this ensures whatever the baseline light level and/or}}
-\DoxyCodeLine{46   \textcolor{comment}{// hardware sensitivity is it will always pick a threshold just above the 'off'}}
-\DoxyCodeLine{47   \textcolor{keywordflow}{if} (val > \mbox{\hyperlink{VLReceiver_8cpp_aa3c9d5bc3f1c3dfec69046200aecb29a}{MIN\_THRESHOLD}} \&\& val < (\mbox{\hyperlink{VLReceiver_8cpp_ab1306e35299d8bdd10ea0adfbf9827ad}{threshold}} + \mbox{\hyperlink{VLReceiver_8cpp_ac97aa4e68f9c89b8c71d011b0956de1f}{BASE\_OFFSET}})) \{}
-\DoxyCodeLine{48     \mbox{\hyperlink{VLReceiver_8cpp_ab1306e35299d8bdd10ea0adfbf9827ad}{threshold}} = val + \mbox{\hyperlink{VLReceiver_8cpp_ac97aa4e68f9c89b8c71d011b0956de1f}{BASE\_OFFSET}};}
-\DoxyCodeLine{49   \}}
-\DoxyCodeLine{50   \textcolor{comment}{// compare the current analog value to the light threshold}}
-\DoxyCodeLine{51   \textcolor{keywordtype}{bool} isAboveThreshold = (val > \mbox{\hyperlink{VLReceiver_8cpp_ab1306e35299d8bdd10ea0adfbf9827ad}{threshold}});}
-\DoxyCodeLine{52   \textcolor{keywordflow}{if} (wasAboveThreshold != isAboveThreshold) \{}
-\DoxyCodeLine{53     \mbox{\hyperlink{classVLReceiver_ada08a00c52a7d4aa531c332b358b386f}{VLReceiver::recvPCIHandler}}();}
-\DoxyCodeLine{54     wasAboveThreshold = isAboveThreshold;}
-\DoxyCodeLine{55   \}}
-\DoxyCodeLine{56   \textcolor{comment}{// Clear the Window Comparator interrupt flag}}
-\DoxyCodeLine{57   ADC0.INTFLAGS = ADC\_WCMP\_bm;}
-\DoxyCodeLine{58 \}}
+\DoxyCodeLine{40 \{}
+\DoxyCodeLine{41   \textcolor{comment}{// this will store the last known state}}
+\DoxyCodeLine{42   \textcolor{keyword}{static} \textcolor{keywordtype}{bool} wasAboveThreshold = \textcolor{keyword}{false};}
+\DoxyCodeLine{43   \textcolor{comment}{// grab the current analog value but divide it by 8 (the number of samples)}}
+\DoxyCodeLine{44   uint16\_t val = (ADC0.RES >> \mbox{\hyperlink{VLReceiver_8cpp_a1682c770d91c5d167b621a782be940d4}{SAMPLE\_COUNT}});}
+\DoxyCodeLine{45   \textcolor{comment}{// calculate a threshold by using the baseline minimum value that is above 0}}
+\DoxyCodeLine{46   \textcolor{comment}{// with a static offset, this ensures whatever the baseline light level and/or}}
+\DoxyCodeLine{47   \textcolor{comment}{// hardware sensitivity is it will always pick a threshold just above the 'off'}}
+\DoxyCodeLine{48   \textcolor{keywordflow}{if} (val > \mbox{\hyperlink{VLReceiver_8cpp_aa3c9d5bc3f1c3dfec69046200aecb29a}{MIN\_THRESHOLD}} \&\& val < (\mbox{\hyperlink{VLReceiver_8cpp_ab1306e35299d8bdd10ea0adfbf9827ad}{threshold}} + \mbox{\hyperlink{VLReceiver_8cpp_ac97aa4e68f9c89b8c71d011b0956de1f}{BASE\_OFFSET}})) \{}
+\DoxyCodeLine{49     \mbox{\hyperlink{VLReceiver_8cpp_ab1306e35299d8bdd10ea0adfbf9827ad}{threshold}} = val + \mbox{\hyperlink{VLReceiver_8cpp_ac97aa4e68f9c89b8c71d011b0956de1f}{BASE\_OFFSET}};}
+\DoxyCodeLine{50   \}}
+\DoxyCodeLine{51   \textcolor{comment}{// compare the current analog value to the light threshold}}
+\DoxyCodeLine{52   \textcolor{keywordtype}{bool} isAboveThreshold = (val > \mbox{\hyperlink{VLReceiver_8cpp_ab1306e35299d8bdd10ea0adfbf9827ad}{threshold}});}
+\DoxyCodeLine{53   \textcolor{keywordflow}{if} (wasAboveThreshold != isAboveThreshold) \{}
+\DoxyCodeLine{54     \mbox{\hyperlink{classVLReceiver_ada08a00c52a7d4aa531c332b358b386f}{VLReceiver::recvPCIHandler}}();}
+\DoxyCodeLine{55     wasAboveThreshold = isAboveThreshold;}
+\DoxyCodeLine{56   \}}
+\DoxyCodeLine{57   \textcolor{comment}{// Clear the Window Comparator interrupt flag}}
+\DoxyCodeLine{58   ADC0.INTFLAGS = ADC\_WCMP\_bm;}
+\DoxyCodeLine{59 \}}
 
 \end{DoxyCode}
 
@@ -133,7 +134,7 @@ References BASE\+\_\+\+OFFSET, MIN\+\_\+\+THRESHOLD, VLReceiver\+::recv\+PCIHand
 
 
 
-Definition at line 37 of file VLReceiver.\+cpp.
+Definition at line 38 of file VLReceiver.\+cpp.
 
 
 

@@ -194,19 +194,19 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00187">187</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160;{</div>
-<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  <span class="keywordflow">if</span> (major != <a class="code" href="VortexConfig_8h.html#ad51691e0bf3c0a33a9b4929507a7d4d8">VORTEX_VERSION_MAJOR</a>) {</div>
-<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;  }</div>
-<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;  <span class="comment">// minor version doesn&#39;t matter</span></div>
-<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;}</div>
-<div class="ttc" id="aVortexConfig_8h_html_ad51691e0bf3c0a33a9b4929507a7d4d8"><div class="ttname"><a href="VortexConfig_8h.html#ad51691e0bf3c0a33a9b4929507a7d4d8">VORTEX_VERSION_MAJOR</a></div><div class="ttdeci">#define VORTEX_VERSION_MAJOR</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00010">VortexConfig.h:10</a></div></div>
+<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00224">224</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;{</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  <span class="keywordflow">if</span> (major != <a class="code" href="VortexConfig_8h.html#ad51691e0bf3c0a33a9b4929507a7d4d8">VORTEX_VERSION_MAJOR</a>) {</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;  }</div>
+<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  <span class="comment">// minor version doesn&#39;t matter</span></div>
+<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;}</div>
+<div class="ttc" id="aVortexConfig_8h_html_ad51691e0bf3c0a33a9b4929507a7d4d8"><div class="ttname"><a href="VortexConfig_8h.html#ad51691e0bf3c0a33a9b4929507a7d4d8">VORTEX_VERSION_MAJOR</a></div><div class="ttdeci">#define VORTEX_VERSION_MAJOR</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00011">VortexConfig.h:11</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="VortexConfig_8h_source.html#l00010">VORTEX_VERSION_MAJOR</a>.</p>
+<p class="reference">References <a class="el" href="VortexConfig_8h_source.html#l00011">VORTEX_VERSION_MAJOR</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Mode_8cpp_source.html#l00179">Mode::loadFromBuffer()</a>, and <a class="el" href="Modes_8cpp_source.html#l00097">Modes::unserializeSaveHeader()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Mode_8cpp_source.html#l00179">Mode::loadFromBuffer()</a>, and <a class="el" href="Modes_8cpp_source.html#l00276">Modes::unserializeSaveHeader()</a>.</p>
 
 </div>
 </div>
@@ -233,38 +233,47 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00087">87</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;{</div>
-<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160;  <span class="comment">// cleanup in reverse order</span></div>
-<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;  <span class="comment">// NOTE: the embedded doesn&#39;t actually cleanup,</span></div>
-<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  <span class="comment">//       but the test frameworks do</span></div>
-<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160;  <a class="code" href="classModes.html#aa16cf03f84bc5d911d220580ba3aeb7a">Modes::cleanup</a>();</div>
-<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;  <a class="code" href="classMenus.html#afb9e47baa1d7322d865bc025202d7b9b">Menus::cleanup</a>();</div>
-<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  <a class="code" href="classButtons.html#a4bee1374d1782a6006faee6f9d9bb792">Buttons::cleanup</a>();</div>
-<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;  <a class="code" href="classLeds.html#a2292420b1011485e315eff165bb201cf">Leds::cleanup</a>();</div>
-<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160;  <a class="code" href="classVLSender.html#a49afba3c3cae06136ad8744e367fcdb3">VLSender::cleanup</a>();</div>
-<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <a class="code" href="classIRSender.html#a4d6de9609f8e501e494cb431082d800a">IRSender::cleanup</a>();</div>
-<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;  <a class="code" href="classIRReceiver.html#ad2ff2918f176f499520fcc457c56a089">IRReceiver::cleanup</a>();</div>
-<div class="line"><a name="l00100"></a><span class="lineno">  100</span>&#160;  <a class="code" href="classStorage.html#a2a1ce108c9a17f6175bfb9a9aba51703">Storage::cleanup</a>();</div>
-<div class="line"><a name="l00101"></a><span class="lineno">  101</span>&#160;  <a class="code" href="classTime.html#af813bd1f7e4c08f6d84f8831738fed32">Time::cleanup</a>();</div>
-<div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;  <a class="code" href="classSerialComs.html#a4da654c236a9ca2ce7b47bc775303adf">SerialComs::cleanup</a>();</div>
-<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00101">101</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00102"></a><span class="lineno">  102</span>&#160;{</div>
+<div class="line"><a name="l00103"></a><span class="lineno">  103</span>&#160;  <span class="comment">// cleanup in reverse order</span></div>
+<div class="line"><a name="l00104"></a><span class="lineno">  104</span>&#160;  <span class="comment">// NOTE: the embedded doesn&#39;t actually cleanup,</span></div>
+<div class="line"><a name="l00105"></a><span class="lineno">  105</span>&#160;  <span class="comment">//       but the test frameworks do</span></div>
+<div class="line"><a name="l00106"></a><span class="lineno">  106</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
+<div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;  <a class="code" href="classModes.html#aa16cf03f84bc5d911d220580ba3aeb7a">Modes::cleanup</a>();</div>
+<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;  <a class="code" href="classMenus.html#afb9e47baa1d7322d865bc025202d7b9b">Menus::cleanup</a>();</div>
+<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <a class="code" href="classButtons.html#a4bee1374d1782a6006faee6f9d9bb792">Buttons::cleanup</a>();</div>
+<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;  <a class="code" href="classLeds.html#a2292420b1011485e315eff165bb201cf">Leds::cleanup</a>();</div>
+<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;<span class="preprocessor">#if VL_ENABLE_SENDER == 1</span></div>
+<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;  <a class="code" href="classVLSender.html#a49afba3c3cae06136ad8744e367fcdb3">VLSender::cleanup</a>();</div>
+<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;<span class="preprocessor">#if VL_ENABLE_RECEIVER == 1</span></div>
+<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;  VLReceiver::cleanup();</div>
+<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;<span class="preprocessor">#if IR_ENABLE_SENDER == 1</span></div>
+<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;  <a class="code" href="classIRSender.html#a4d6de9609f8e501e494cb431082d800a">IRSender::cleanup</a>();</div>
+<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;<span class="preprocessor">#if IR_ENABLE_RECEIVER == 1</span></div>
+<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;  <a class="code" href="classIRReceiver.html#ad2ff2918f176f499520fcc457c56a089">IRReceiver::cleanup</a>();</div>
+<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;  <a class="code" href="classStorage.html#a2a1ce108c9a17f6175bfb9a9aba51703">Storage::cleanup</a>();</div>
+<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <a class="code" href="classTime.html#af813bd1f7e4c08f6d84f8831738fed32">Time::cleanup</a>();</div>
+<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <a class="code" href="classSerialComs.html#a4da654c236a9ca2ce7b47bc775303adf">SerialComs::cleanup</a>();</div>
+<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;}</div>
 <div class="ttc" id="aclassButtons_html_a4bee1374d1782a6006faee6f9d9bb792"><div class="ttname"><a href="classButtons.html#a4bee1374d1782a6006faee6f9d9bb792">Buttons::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00031">Buttons.cpp:31</a></div></div>
-<div class="ttc" id="aclassIRReceiver_html_ad2ff2918f176f499520fcc457c56a089"><div class="ttname"><a href="classIRReceiver.html#ad2ff2918f176f499520fcc457c56a089">IRReceiver::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="IRReceiver_8cpp_source.html#l00032">IRReceiver.cpp:32</a></div></div>
-<div class="ttc" id="aclassIRSender_html_a4d6de9609f8e501e494cb431082d800a"><div class="ttname"><a href="classIRSender.html#a4d6de9609f8e501e494cb431082d800a">IRSender::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8cpp_source.html#l00050">IRSender.cpp:50</a></div></div>
+<div class="ttc" id="aclassIRReceiver_html_ad2ff2918f176f499520fcc457c56a089"><div class="ttname"><a href="classIRReceiver.html#ad2ff2918f176f499520fcc457c56a089">IRReceiver::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="IRReceiver_8cpp_source.html#l00031">IRReceiver.cpp:31</a></div></div>
+<div class="ttc" id="aclassIRSender_html_a4d6de9609f8e501e494cb431082d800a"><div class="ttname"><a href="classIRSender.html#a4d6de9609f8e501e494cb431082d800a">IRSender::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8cpp_source.html#l00049">IRSender.cpp:49</a></div></div>
 <div class="ttc" id="aclassLeds_html_a2292420b1011485e315eff165bb201cf"><div class="ttname"><a href="classLeds.html#a2292420b1011485e315eff165bb201cf">Leds::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8cpp_source.html#l00075">Leds.cpp:75</a></div></div>
 <div class="ttc" id="aclassMenus_html_afb9e47baa1d7322d865bc025202d7b9b"><div class="ttname"><a href="classMenus.html#afb9e47baa1d7322d865bc025202d7b9b">Menus::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="Menus_8cpp_source.html#l00077">Menus.cpp:77</a></div></div>
-<div class="ttc" id="aclassModes_html_aa16cf03f84bc5d911d220580ba3aeb7a"><div class="ttname"><a href="classModes.html#aa16cf03f84bc5d911d220580ba3aeb7a">Modes::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00053">Modes.cpp:53</a></div></div>
-<div class="ttc" id="aclassSerialComs_html_a4da654c236a9ca2ce7b47bc775303adf"><div class="ttname"><a href="classSerialComs.html#a4da654c236a9ca2ce7b47bc775303adf">SerialComs::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="Serial_8cpp_source.html#l00030">Serial.cpp:30</a></div></div>
+<div class="ttc" id="aclassModes_html_aa16cf03f84bc5d911d220580ba3aeb7a"><div class="ttname"><a href="classModes.html#aa16cf03f84bc5d911d220580ba3aeb7a">Modes::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00049">Modes.cpp:49</a></div></div>
+<div class="ttc" id="aclassSerialComs_html_a4da654c236a9ca2ce7b47bc775303adf"><div class="ttname"><a href="classSerialComs.html#a4da654c236a9ca2ce7b47bc775303adf">SerialComs::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="Serial_8cpp_source.html#l00031">Serial.cpp:31</a></div></div>
 <div class="ttc" id="aclassStorage_html_a2a1ce108c9a17f6175bfb9a9aba51703"><div class="ttname"><a href="classStorage.html#a2a1ce108c9a17f6175bfb9a9aba51703">Storage::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8cpp_source.html#l00055">Storage.cpp:55</a></div></div>
 <div class="ttc" id="aclassTime_html_af813bd1f7e4c08f6d84f8831738fed32"><div class="ttname"><a href="classTime.html#af813bd1f7e4c08f6d84f8831738fed32">Time::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8cpp_source.html#l00071">TimeControl.cpp:71</a></div></div>
-<div class="ttc" id="aclassVLSender_html_a49afba3c3cae06136ad8744e367fcdb3"><div class="ttname"><a href="classVLSender.html#a49afba3c3cae06136ad8744e367fcdb3">VLSender::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00038">VLSender.cpp:38</a></div></div>
+<div class="ttc" id="aclassVLSender_html_a49afba3c3cae06136ad8744e367fcdb3"><div class="ttname"><a href="classVLSender.html#a49afba3c3cae06136ad8744e367fcdb3">VLSender::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00039">VLSender.cpp:39</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Buttons_8cpp_source.html#l00031">Buttons::cleanup()</a>, <a class="el" href="Leds_8cpp_source.html#l00075">Leds::cleanup()</a>, <a class="el" href="Menus_8cpp_source.html#l00077">Menus::cleanup()</a>, <a class="el" href="Modes_8cpp_source.html#l00053">Modes::cleanup()</a>, <a class="el" href="Serial_8cpp_source.html#l00030">SerialComs::cleanup()</a>, <a class="el" href="Storage_8cpp_source.html#l00055">Storage::cleanup()</a>, <a class="el" href="TimeControl_8cpp_source.html#l00071">Time::cleanup()</a>, <a class="el" href="IRReceiver_8cpp_source.html#l00032">IRReceiver::cleanup()</a>, <a class="el" href="IRSender_8cpp_source.html#l00050">IRSender::cleanup()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00038">VLSender::cleanup()</a>.</p>
+<p class="reference">References <a class="el" href="Buttons_8cpp_source.html#l00031">Buttons::cleanup()</a>, <a class="el" href="Leds_8cpp_source.html#l00075">Leds::cleanup()</a>, <a class="el" href="Menus_8cpp_source.html#l00077">Menus::cleanup()</a>, <a class="el" href="Modes_8cpp_source.html#l00049">Modes::cleanup()</a>, <a class="el" href="Serial_8cpp_source.html#l00031">SerialComs::cleanup()</a>, <a class="el" href="Storage_8cpp_source.html#l00055">Storage::cleanup()</a>, <a class="el" href="TimeControl_8cpp_source.html#l00071">Time::cleanup()</a>, <a class="el" href="IRReceiver_8cpp_source.html#l00031">IRReceiver::cleanup()</a>, <a class="el" href="IRSender_8cpp_source.html#l00049">IRSender::cleanup()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00039">VLSender::cleanup()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00234">wakeup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00271">wakeup()</a>.</p>
 
 </div>
 </div>
@@ -291,18 +300,18 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00196">196</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;{</div>
-<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classModes.html#a1e520dc2ee457bc93a795e9945249dbd">Modes::curMode</a>();</div>
-<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160;  <span class="comment">// don&#39;t need this outside vortex lib</span></div>
-<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;}</div>
-<div class="ttc" id="aclassModes_html_a1e520dc2ee457bc93a795e9945249dbd"><div class="ttname"><a href="classModes.html#a1e520dc2ee457bc93a795e9945249dbd">Modes::curMode</a></div><div class="ttdeci">static Mode * curMode()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00543">Modes.cpp:543</a></div></div>
+<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00233">233</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00234"></a><span class="lineno">  234</span>&#160;{</div>
+<div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
+<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  <span class="keywordflow">return</span> <a class="code" href="classModes.html#a1e520dc2ee457bc93a795e9945249dbd">Modes::curMode</a>();</div>
+<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;  <span class="comment">// don&#39;t need this outside vortex lib</span></div>
+<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">nullptr</span>;</div>
+<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;}</div>
+<div class="ttc" id="aclassModes_html_a1e520dc2ee457bc93a795e9945249dbd"><div class="ttname"><a href="classModes.html#a1e520dc2ee457bc93a795e9945249dbd">Modes::curMode</a></div><div class="ttdeci">static Mode * curMode()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00594">Modes.cpp:594</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Modes_8cpp_source.html#l00543">Modes::curMode()</a>.</p>
+<p class="reference">References <a class="el" href="Modes_8cpp_source.html#l00594">Modes::curMode()</a>.</p>
 
 </div>
 </div>
@@ -330,30 +339,30 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00218">218</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;{</div>
-<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Sleeping&quot;</span>);</div>
-<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;  <span class="keywordflow">if</span> (save) {</div>
-<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;    <span class="comment">// update the startup mode when going to sleep</span></div>
-<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;    <a class="code" href="classModes.html#a86dc60444399ab04d49f77935f68e8dd">Modes::setStartupMode</a>(<a class="code" href="classModes.html#a7a1b8d5c48237ab106adbfc44ceb1055">Modes::curModeIndex</a>());</div>
-<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="comment">// save anything that hasn&#39;t been saved</span></div>
-<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;    <a class="code" href="classModes.html#a1756081ee85dbcf672ddad5a3dcb4690">Modes::saveStorage</a>();</div>
-<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  }</div>
-<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;  <span class="comment">// clear all the leds</span></div>
-<div class="line"><a name="l00228"></a><span class="lineno">  228</span>&#160;  <a class="code" href="classLeds.html#a6f7c9cdfab407455403167fd8f2c350a">Leds::clearAll</a>();</div>
-<div class="line"><a name="l00229"></a><span class="lineno">  229</span>&#160;  <a class="code" href="classLeds.html#a7b552b40079b1179fd47f7aeea88878d">Leds::update</a>();</div>
-<div class="line"><a name="l00230"></a><span class="lineno">  230</span>&#160;  <span class="comment">// enable the sleep bool</span></div>
-<div class="line"><a name="l00231"></a><span class="lineno">  231</span>&#160;  <a class="code" href="classVortexEngine.html#a68bdf824c4c7b2303a1b1a37da67f496">m_sleeping</a> = <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00232"></a><span class="lineno">  232</span>&#160;}</div>
-<div class="ttc" id="aLog_8h_html_a5d2f30bd1cbcf49f829a7e8eb6173c06"><div class="ttname"><a href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a></div><div class="ttdeci">#define DEBUG_LOG(msg)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00040">Log.h:40</a></div></div>
+<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00255">255</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00256"></a><span class="lineno">  256</span>&#160;{</div>
+<div class="line"><a name="l00257"></a><span class="lineno">  257</span>&#160;  <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Sleeping&quot;</span>);</div>
+<div class="line"><a name="l00258"></a><span class="lineno">  258</span>&#160;  <span class="keywordflow">if</span> (save) {</div>
+<div class="line"><a name="l00259"></a><span class="lineno">  259</span>&#160;    <span class="comment">// update the startup mode when going to sleep</span></div>
+<div class="line"><a name="l00260"></a><span class="lineno">  260</span>&#160;    <a class="code" href="classModes.html#a86dc60444399ab04d49f77935f68e8dd">Modes::setStartupMode</a>(<a class="code" href="classModes.html#a7a1b8d5c48237ab106adbfc44ceb1055">Modes::curModeIndex</a>());</div>
+<div class="line"><a name="l00261"></a><span class="lineno">  261</span>&#160;    <span class="comment">// save anything that hasn&#39;t been saved</span></div>
+<div class="line"><a name="l00262"></a><span class="lineno">  262</span>&#160;    <a class="code" href="classModes.html#a1756081ee85dbcf672ddad5a3dcb4690">Modes::saveStorage</a>();</div>
+<div class="line"><a name="l00263"></a><span class="lineno">  263</span>&#160;  }</div>
+<div class="line"><a name="l00264"></a><span class="lineno">  264</span>&#160;  <span class="comment">// clear all the leds</span></div>
+<div class="line"><a name="l00265"></a><span class="lineno">  265</span>&#160;  <a class="code" href="classLeds.html#a6f7c9cdfab407455403167fd8f2c350a">Leds::clearAll</a>();</div>
+<div class="line"><a name="l00266"></a><span class="lineno">  266</span>&#160;  <a class="code" href="classLeds.html#a7b552b40079b1179fd47f7aeea88878d">Leds::update</a>();</div>
+<div class="line"><a name="l00267"></a><span class="lineno">  267</span>&#160;  <span class="comment">// enable the sleep bool</span></div>
+<div class="line"><a name="l00268"></a><span class="lineno">  268</span>&#160;  <a class="code" href="classVortexEngine.html#a68bdf824c4c7b2303a1b1a37da67f496">m_sleeping</a> = <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00269"></a><span class="lineno">  269</span>&#160;}</div>
+<div class="ttc" id="aLog_8h_html_a5d2f30bd1cbcf49f829a7e8eb6173c06"><div class="ttname"><a href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a></div><div class="ttdeci">#define DEBUG_LOG(msg)</div><div class="ttdef"><b>Definition:</b> <a href="Log_8h_source.html#l00036">Log.h:36</a></div></div>
 <div class="ttc" id="aclassLeds_html_a6f7c9cdfab407455403167fd8f2c350a"><div class="ttname"><a href="classLeds.html#a6f7c9cdfab407455403167fd8f2c350a">Leds::clearAll</a></div><div class="ttdeci">static void clearAll()</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8h_source.html#l00030">Leds.h:30</a></div></div>
-<div class="ttc" id="aclassLeds_html_a7b552b40079b1179fd47f7aeea88878d"><div class="ttname"><a href="classLeds.html#a7b552b40079b1179fd47f7aeea88878d">Leds::update</a></div><div class="ttdeci">static void update()</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8cpp_source.html#l00299">Leds.cpp:299</a></div></div>
-<div class="ttc" id="aclassModes_html_a1756081ee85dbcf672ddad5a3dcb4690"><div class="ttname"><a href="classModes.html#a1756081ee85dbcf672ddad5a3dcb4690">Modes::saveStorage</a></div><div class="ttdeci">static bool saveStorage()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00205">Modes.cpp:205</a></div></div>
-<div class="ttc" id="aclassModes_html_a7a1b8d5c48237ab106adbfc44ceb1055"><div class="ttname"><a href="classModes.html#a7a1b8d5c48237ab106adbfc44ceb1055">Modes::curModeIndex</a></div><div class="ttdeci">static uint8_t curModeIndex()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00093">Modes.h:93</a></div></div>
-<div class="ttc" id="aclassModes_html_a86dc60444399ab04d49f77935f68e8dd"><div class="ttname"><a href="classModes.html#a86dc60444399ab04d49f77935f68e8dd">Modes::setStartupMode</a></div><div class="ttdeci">static void setStartupMode(uint8_t index)</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00627">Modes.cpp:627</a></div></div>
+<div class="ttc" id="aclassLeds_html_a7b552b40079b1179fd47f7aeea88878d"><div class="ttname"><a href="classLeds.html#a7b552b40079b1179fd47f7aeea88878d">Leds::update</a></div><div class="ttdeci">static void update()</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8cpp_source.html#l00311">Leds.cpp:311</a></div></div>
+<div class="ttc" id="aclassModes_html_a1756081ee85dbcf672ddad5a3dcb4690"><div class="ttname"><a href="classModes.html#a1756081ee85dbcf672ddad5a3dcb4690">Modes::saveStorage</a></div><div class="ttdeci">static bool saveStorage()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00171">Modes.cpp:171</a></div></div>
+<div class="ttc" id="aclassModes_html_a7a1b8d5c48237ab106adbfc44ceb1055"><div class="ttname"><a href="classModes.html#a7a1b8d5c48237ab106adbfc44ceb1055">Modes::curModeIndex</a></div><div class="ttdeci">static uint8_t curModeIndex()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00104">Modes.h:104</a></div></div>
+<div class="ttc" id="aclassModes_html_a86dc60444399ab04d49f77935f68e8dd"><div class="ttname"><a href="classModes.html#a86dc60444399ab04d49f77935f68e8dd">Modes::setStartupMode</a></div><div class="ttdeci">static void setStartupMode(uint8_t index)</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00678">Modes.cpp:678</a></div></div>
 <div class="ttc" id="aclassVortexEngine_html_a68bdf824c4c7b2303a1b1a37da67f496"><div class="ttname"><a href="classVortexEngine.html#a68bdf824c4c7b2303a1b1a37da67f496">VortexEngine::m_sleeping</a></div><div class="ttdeci">static volatile bool m_sleeping</div><div class="ttdef"><b>Definition:</b> <a href="VortexEngine_8h_source.html#l00052">VortexEngine.h:52</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Leds_8h_source.html#l00030">Leds::clearAll()</a>, <a class="el" href="Modes_8h_source.html#l00093">Modes::curModeIndex()</a>, <a class="el" href="Log_8h_source.html#l00040">DEBUG_LOG</a>, <a class="el" href="VortexEngine_8h_source.html#l00052">m_sleeping</a>, <a class="el" href="Modes_8cpp_source.html#l00205">Modes::saveStorage()</a>, <a class="el" href="Modes_8cpp_source.html#l00627">Modes::setStartupMode()</a>, and <a class="el" href="Leds_8cpp_source.html#l00299">Leds::update()</a>.</p>
+<p class="reference">References <a class="el" href="Leds_8h_source.html#l00030">Leds::clearAll()</a>, <a class="el" href="Modes_8h_source.html#l00104">Modes::curModeIndex()</a>, <a class="el" href="Log_8h_source.html#l00036">DEBUG_LOG</a>, <a class="el" href="VortexEngine_8h_source.html#l00052">m_sleeping</a>, <a class="el" href="Modes_8cpp_source.html#l00171">Modes::saveStorage()</a>, <a class="el" href="Modes_8cpp_source.html#l00678">Modes::setStartupMode()</a>, and <a class="el" href="Leds_8cpp_source.html#l00311">Leds::update()</a>.</p>
 
 </div>
 </div>
@@ -380,78 +389,90 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00028">28</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;{</div>
-<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;  <span class="comment">// all of the global controllers</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classSerialComs.html#a6403cc48e107d19f9f1bb7e69006d0bc">SerialComs::init</a>()) {</div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Serial failed to initialize&quot;</span>);</div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;  }</div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classTime.html#a0058db559daacf8050e8a0b1d4b9fd8c">Time::init</a>()) {</div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Time failed to initialize&quot;</span>);</div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;  }</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classStorage.html#a065812a8dbd82d731291b5aa7ce3edf9">Storage::init</a>()) {</div>
-<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Storage failed to initialize&quot;</span>);</div>
-<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;  }</div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classIRReceiver.html#aad4e38923e65bec4c02197c56ec6a4af">IRReceiver::init</a>()) {</div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;IRReceiver failed to initialize&quot;</span>);</div>
-<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  }</div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classIRSender.html#afcdf3f0f7c226c706f905c33e784057a">IRSender::init</a>()) {</div>
-<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;IRSender failed to initialize&quot;</span>);</div>
-<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;  }</div>
-<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classVLSender.html#afe2303e108c0aad37695e257f1ba4dad">VLSender::init</a>()) {</div>
-<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;VLSender failed to initialize&quot;</span>);</div>
-<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;  }</div>
-<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classLeds.html#aa470a02f29041f373be156dc698ed4c7">Leds::init</a>()) {</div>
-<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Leds failed to initialize&quot;</span>);</div>
-<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  }</div>
-<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classButtons.html#ac5767a8af9ce64e39231833ad1b166ea">Buttons::init</a>()) {</div>
-<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Buttons failed to initialize&quot;</span>);</div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;  }</div>
-<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classMenus.html#a370c7e15fdcd035a2816b9db1adab189">Menus::init</a>()) {</div>
-<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Menus failed to initialize&quot;</span>);</div>
-<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  }</div>
-<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes.html#a8b920de981d96ca9365b766a3f59fb73">Modes::init</a>()) {</div>
-<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Settings failed to initialize&quot;</span>);</div>
-<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;  }</div>
-<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160; </div>
-<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;<span class="preprocessor">#if COMPRESSION_TEST == 1</span></div>
-<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  compressionTest();</div>
-<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160; </div>
-<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;<span class="preprocessor">#if SERIALIZATION_TEST == 1</span></div>
-<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  serializationTest();</div>
-<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160; </div>
-<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;<span class="preprocessor">#if TIMER_TEST == 1</span></div>
-<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  timerTest();</div>
-<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160; </div>
-<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
-<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00030">30</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;{</div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;  <span class="comment">// all of the global controllers</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classSerialComs.html#a6403cc48e107d19f9f1bb7e69006d0bc">SerialComs::init</a>()) {</div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Serial failed to initialize&quot;</span>);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;  }</div>
+<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classTime.html#a0058db559daacf8050e8a0b1d4b9fd8c">Time::init</a>()) {</div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Time failed to initialize&quot;</span>);</div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;  }</div>
+<div class="line"><a name="l00041"></a><span class="lineno">   41</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classStorage.html#a065812a8dbd82d731291b5aa7ce3edf9">Storage::init</a>()) {</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Storage failed to initialize&quot;</span>);</div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;  }</div>
+<div class="line"><a name="l00045"></a><span class="lineno">   45</span>&#160;<span class="preprocessor">#if IR_ENABLE_RECEIVER == 1</span></div>
+<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classIRReceiver.html#aad4e38923e65bec4c02197c56ec6a4af">IRReceiver::init</a>()) {</div>
+<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;IRReceiver failed to initialize&quot;</span>);</div>
+<div class="line"><a name="l00048"></a><span class="lineno">   48</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00049"></a><span class="lineno">   49</span>&#160;  }</div>
+<div class="line"><a name="l00050"></a><span class="lineno">   50</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00051"></a><span class="lineno">   51</span>&#160;<span class="preprocessor">#if IR_ENABLE_SENDER == 1</span></div>
+<div class="line"><a name="l00052"></a><span class="lineno">   52</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classIRSender.html#afcdf3f0f7c226c706f905c33e784057a">IRSender::init</a>()) {</div>
+<div class="line"><a name="l00053"></a><span class="lineno">   53</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;IRSender failed to initialize&quot;</span>);</div>
+<div class="line"><a name="l00054"></a><span class="lineno">   54</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  }</div>
+<div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;<span class="preprocessor">#if VL_ENABLE_RECEIVER == 1</span></div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  <span class="keywordflow">if</span> (!VLReceiver::init()) {</div>
+<div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;VLReceiver failed to initialize&quot;</span>);</div>
+<div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  }</div>
+<div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;<span class="preprocessor">#if VL_ENABLE_SENDER == 1</span></div>
+<div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classVLSender.html#afe2303e108c0aad37695e257f1ba4dad">VLSender::init</a>()) {</div>
+<div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;VLSender failed to initialize&quot;</span>);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;  }</div>
+<div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classLeds.html#aa470a02f29041f373be156dc698ed4c7">Leds::init</a>()) {</div>
+<div class="line"><a name="l00070"></a><span class="lineno">   70</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Leds failed to initialize&quot;</span>);</div>
+<div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;  }</div>
+<div class="line"><a name="l00073"></a><span class="lineno">   73</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classButtons.html#ac5767a8af9ce64e39231833ad1b166ea">Buttons::init</a>()) {</div>
+<div class="line"><a name="l00074"></a><span class="lineno">   74</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Buttons failed to initialize&quot;</span>);</div>
+<div class="line"><a name="l00075"></a><span class="lineno">   75</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00076"></a><span class="lineno">   76</span>&#160;  }</div>
+<div class="line"><a name="l00077"></a><span class="lineno">   77</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classMenus.html#a370c7e15fdcd035a2816b9db1adab189">Menus::init</a>()) {</div>
+<div class="line"><a name="l00078"></a><span class="lineno">   78</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Menus failed to initialize&quot;</span>);</div>
+<div class="line"><a name="l00079"></a><span class="lineno">   79</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00080"></a><span class="lineno">   80</span>&#160;  }</div>
+<div class="line"><a name="l00081"></a><span class="lineno">   81</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes.html#a8b920de981d96ca9365b766a3f59fb73">Modes::init</a>()) {</div>
+<div class="line"><a name="l00082"></a><span class="lineno">   82</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Settings failed to initialize&quot;</span>);</div>
+<div class="line"><a name="l00083"></a><span class="lineno">   83</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00084"></a><span class="lineno">   84</span>&#160;  }</div>
+<div class="line"><a name="l00085"></a><span class="lineno">   85</span>&#160; </div>
+<div class="line"><a name="l00086"></a><span class="lineno">   86</span>&#160;<span class="preprocessor">#if COMPRESSION_TEST == 1</span></div>
+<div class="line"><a name="l00087"></a><span class="lineno">   87</span>&#160;  compressionTest();</div>
+<div class="line"><a name="l00088"></a><span class="lineno">   88</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00089"></a><span class="lineno">   89</span>&#160; </div>
+<div class="line"><a name="l00090"></a><span class="lineno">   90</span>&#160;<span class="preprocessor">#if SERIALIZATION_TEST == 1</span></div>
+<div class="line"><a name="l00091"></a><span class="lineno">   91</span>&#160;  serializationTest();</div>
+<div class="line"><a name="l00092"></a><span class="lineno">   92</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00093"></a><span class="lineno">   93</span>&#160; </div>
+<div class="line"><a name="l00094"></a><span class="lineno">   94</span>&#160;<span class="preprocessor">#if TIMER_TEST == 1</span></div>
+<div class="line"><a name="l00095"></a><span class="lineno">   95</span>&#160;  timerTest();</div>
+<div class="line"><a name="l00096"></a><span class="lineno">   96</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00097"></a><span class="lineno">   97</span>&#160; </div>
+<div class="line"><a name="l00098"></a><span class="lineno">   98</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00099"></a><span class="lineno">   99</span>&#160;}</div>
 <div class="ttc" id="aclassButtons_html_ac5767a8af9ce64e39231833ad1b166ea"><div class="ttname"><a href="classButtons.html#ac5767a8af9ce64e39231833ad1b166ea">Buttons::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00021">Buttons.cpp:21</a></div></div>
-<div class="ttc" id="aclassIRReceiver_html_aad4e38923e65bec4c02197c56ec6a4af"><div class="ttname"><a href="classIRReceiver.html#aad4e38923e65bec4c02197c56ec6a4af">IRReceiver::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="IRReceiver_8cpp_source.html#l00023">IRReceiver.cpp:23</a></div></div>
-<div class="ttc" id="aclassIRSender_html_afcdf3f0f7c226c706f905c33e784057a"><div class="ttname"><a href="classIRSender.html#afcdf3f0f7c226c706f905c33e784057a">IRSender::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8cpp_source.html#l00043">IRSender.cpp:43</a></div></div>
+<div class="ttc" id="aclassIRReceiver_html_aad4e38923e65bec4c02197c56ec6a4af"><div class="ttname"><a href="classIRReceiver.html#aad4e38923e65bec4c02197c56ec6a4af">IRReceiver::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="IRReceiver_8cpp_source.html#l00022">IRReceiver.cpp:22</a></div></div>
+<div class="ttc" id="aclassIRSender_html_afcdf3f0f7c226c706f905c33e784057a"><div class="ttname"><a href="classIRSender.html#afcdf3f0f7c226c706f905c33e784057a">IRSender::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="IRSender_8cpp_source.html#l00042">IRSender.cpp:42</a></div></div>
 <div class="ttc" id="aclassLeds_html_aa470a02f29041f373be156dc698ed4c7"><div class="ttname"><a href="classLeds.html#aa470a02f29041f373be156dc698ed4c7">Leds::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8cpp_source.html#l00063">Leds.cpp:63</a></div></div>
 <div class="ttc" id="aclassMenus_html_a370c7e15fdcd035a2816b9db1adab189"><div class="ttname"><a href="classMenus.html#a370c7e15fdcd035a2816b9db1adab189">Menus::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="Menus_8cpp_source.html#l00070">Menus.cpp:70</a></div></div>
-<div class="ttc" id="aclassModes_html_a8b920de981d96ca9365b766a3f59fb73"><div class="ttname"><a href="classModes.html#a8b920de981d96ca9365b766a3f59fb73">Modes::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00030">Modes.cpp:30</a></div></div>
-<div class="ttc" id="aclassSerialComs_html_a6403cc48e107d19f9f1bb7e69006d0bc"><div class="ttname"><a href="classSerialComs.html#a6403cc48e107d19f9f1bb7e69006d0bc">SerialComs::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="Serial_8cpp_source.html#l00023">Serial.cpp:23</a></div></div>
+<div class="ttc" id="aclassModes_html_a8b920de981d96ca9365b766a3f59fb73"><div class="ttname"><a href="classModes.html#a8b920de981d96ca9365b766a3f59fb73">Modes::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00031">Modes.cpp:31</a></div></div>
+<div class="ttc" id="aclassSerialComs_html_a6403cc48e107d19f9f1bb7e69006d0bc"><div class="ttname"><a href="classSerialComs.html#a6403cc48e107d19f9f1bb7e69006d0bc">SerialComs::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="Serial_8cpp_source.html#l00024">Serial.cpp:24</a></div></div>
 <div class="ttc" id="aclassStorage_html_a065812a8dbd82d731291b5aa7ce3edf9"><div class="ttname"><a href="classStorage.html#a065812a8dbd82d731291b5aa7ce3edf9">Storage::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="Storage_8cpp_source.html#l00045">Storage.cpp:45</a></div></div>
 <div class="ttc" id="aclassTime_html_a0058db559daacf8050e8a0b1d4b9fd8c"><div class="ttname"><a href="classTime.html#a0058db559daacf8050e8a0b1d4b9fd8c">Time::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8cpp_source.html#l00050">TimeControl.cpp:50</a></div></div>
-<div class="ttc" id="aclassVLSender_html_afe2303e108c0aad37695e257f1ba4dad"><div class="ttname"><a href="classVLSender.html#afe2303e108c0aad37695e257f1ba4dad">VLSender::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00033">VLSender.cpp:33</a></div></div>
+<div class="ttc" id="aclassVLSender_html_afe2303e108c0aad37695e257f1ba4dad"><div class="ttname"><a href="classVLSender.html#afe2303e108c0aad37695e257f1ba4dad">VLSender::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="VLSender_8cpp_source.html#l00034">VLSender.cpp:34</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Log_8h_source.html#l00040">DEBUG_LOG</a>, <a class="el" href="Buttons_8cpp_source.html#l00021">Buttons::init()</a>, <a class="el" href="Leds_8cpp_source.html#l00063">Leds::init()</a>, <a class="el" href="Menus_8cpp_source.html#l00070">Menus::init()</a>, <a class="el" href="Modes_8cpp_source.html#l00030">Modes::init()</a>, <a class="el" href="Serial_8cpp_source.html#l00023">SerialComs::init()</a>, <a class="el" href="Storage_8cpp_source.html#l00045">Storage::init()</a>, <a class="el" href="TimeControl_8cpp_source.html#l00050">Time::init()</a>, <a class="el" href="IRReceiver_8cpp_source.html#l00023">IRReceiver::init()</a>, <a class="el" href="IRSender_8cpp_source.html#l00043">IRSender::init()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00033">VLSender::init()</a>.</p>
+<p class="reference">References <a class="el" href="Log_8h_source.html#l00036">DEBUG_LOG</a>, <a class="el" href="Buttons_8cpp_source.html#l00021">Buttons::init()</a>, <a class="el" href="Leds_8cpp_source.html#l00063">Leds::init()</a>, <a class="el" href="Menus_8cpp_source.html#l00070">Menus::init()</a>, <a class="el" href="Modes_8cpp_source.html#l00031">Modes::init()</a>, <a class="el" href="Serial_8cpp_source.html#l00024">SerialComs::init()</a>, <a class="el" href="Storage_8cpp_source.html#l00045">Storage::init()</a>, <a class="el" href="TimeControl_8cpp_source.html#l00050">Time::init()</a>, <a class="el" href="IRReceiver_8cpp_source.html#l00022">IRReceiver::init()</a>, <a class="el" href="IRSender_8cpp_source.html#l00042">IRSender::init()</a>, and <a class="el" href="VLSender_8cpp_source.html#l00034">VLSender::init()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00234">wakeup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00271">wakeup()</a>.</p>
 
 </div>
 </div>
@@ -478,59 +499,71 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00147">147</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;{</div>
-<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;  <span class="comment">// the current tick</span></div>
-<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  uint32_t now = <a class="code" href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a>();</div>
-<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160; </div>
-<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;  <span class="comment">// if the menus are open and running then just return</span></div>
-<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classMenus.html#ab7628e9188ad88b34acfb72f498b5a7c">Menus::run</a>()) {</div>
-<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;  }</div>
-<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
-<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  <span class="comment">// check if we should enter the menu</span></div>
-<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#a6ed2a4b4e00facf5c42a11ecd1f4e1c7">isPressed</a>() &amp;&amp; <a class="code" href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#a2e0dae337117cd85f69c8346d369504a">holdDuration</a>() &gt; <a class="code" href="Timings_8h.html#a155fc794adbdc762cfbc71f55a04bc22">MENU_TRIGGER_THRESHOLD_TICKS</a>) {</div>
-<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Entering Menu Selection...&quot;</span>);</div>
-<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;    <a class="code" href="classMenus.html#a1f8dacb375bd4d1ec18da2ed5a3e8cb3">Menus::openMenuSelection</a>();</div>
-<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160;  }</div>
-<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160; </div>
-<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  <span class="comment">// toggle auto cycle mode with many clicks at main modes</span></div>
-<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#af08888134084d0640b6a891bdb755f14">onConsecutivePresses</a>(<a class="code" href="VortexConfig_8h.html#a99fb9bcab397455dbf9c0e2aa904d2d9">AUTO_CYCLE_MODES_CLICKS</a>)) {</div>
-<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;    <a class="code" href="classVortexEngine.html#ae6812312d6c117bf487ea7d2754f8063">m_autoCycle</a> = !<a class="code" href="classVortexEngine.html#ae6812312d6c117bf487ea7d2754f8063">m_autoCycle</a>;</div>
-<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;    <a class="code" href="classLeds.html#a5a3e2c090aa782f4ee7c71c01e8d8a69">Leds::holdAll</a>(<a class="code" href="classVortexEngine.html#ae6812312d6c117bf487ea7d2754f8063">m_autoCycle</a> ? <a class="code" href="ColorConstants_8h.html#ab6c97468034c02fe204fd37036d9be15">RGB_GREEN</a> : <a class="code" href="ColorConstants_8h.html#aa039288455af8a3812a35aa1e7b903e4">RGB_RED</a>);</div>
-<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  }</div>
-<div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160; </div>
-<div class="line"><a name="l00170"></a><span class="lineno">  170</span>&#160;  <span class="comment">// if auto cycle is enabled and the last switch was more than the delay ago</span></div>
-<div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classVortexEngine.html#ae6812312d6c117bf487ea7d2754f8063">m_autoCycle</a> &amp;&amp; (<a class="code" href="classModes.html#ac20debd8d48811c3e669cc601996925d">Modes::lastSwitchTime</a>() + <a class="code" href="VortexConfig_8h.html#ae54a4f60fb47ad89ca3c3aafc3e77860">AUTO_RANDOM_DELAY</a> &lt; now)) {</div>
-<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;    <span class="comment">// then switch to the next mode automatically</span></div>
-<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;    <a class="code" href="classModes.html#a70c51e7490681e5ee6a6e6d8084b8fc4">Modes::nextModeSkipEmpty</a>();</div>
-<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160;  }</div>
-<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160; </div>
-<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  <span class="comment">// otherwise just play the modes</span></div>
-<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;  <a class="code" href="classModes.html#a9e98b568fcd3d00b7c3f0705b5120925">Modes::play</a>();</div>
-<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;}</div>
+<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00170">170</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00171"></a><span class="lineno">  171</span>&#160;{</div>
+<div class="line"><a name="l00172"></a><span class="lineno">  172</span>&#160;  <span class="comment">// the current tick</span></div>
+<div class="line"><a name="l00173"></a><span class="lineno">  173</span>&#160;  uint32_t now = <a class="code" href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a>();</div>
+<div class="line"><a name="l00174"></a><span class="lineno">  174</span>&#160; </div>
+<div class="line"><a name="l00175"></a><span class="lineno">  175</span>&#160;  <span class="comment">// load modes if necessary</span></div>
+<div class="line"><a name="l00176"></a><span class="lineno">  176</span>&#160;  <span class="keywordflow">if</span> (!<a class="code" href="classModes.html#a4d97b331857953933fe45825cdef1d3a">Modes::load</a>()) {</div>
+<div class="line"><a name="l00177"></a><span class="lineno">  177</span>&#160;    <span class="comment">// don&#39;t do anything if modes couldn&#39;t load</span></div>
+<div class="line"><a name="l00178"></a><span class="lineno">  178</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00179"></a><span class="lineno">  179</span>&#160;  }</div>
+<div class="line"><a name="l00180"></a><span class="lineno">  180</span>&#160; </div>
+<div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;  <span class="comment">// check if the device has been plugged in</span></div>
+<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  <a class="code" href="classSerialComs.html#a134c87080fce06fea5e1cd0bbf54d2da">SerialComs::checkSerial</a>();</div>
+<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160; </div>
+<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;  <span class="comment">// if the menus are open and running then just return</span></div>
+<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classMenus.html#ab7628e9188ad88b34acfb72f498b5a7c">Menus::run</a>()) {</div>
+<div class="line"><a name="l00186"></a><span class="lineno">  186</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00187"></a><span class="lineno">  187</span>&#160;  }</div>
+<div class="line"><a name="l00188"></a><span class="lineno">  188</span>&#160; </div>
+<div class="line"><a name="l00189"></a><span class="lineno">  189</span>&#160;  <span class="comment">// check if we should enter the menu</span></div>
+<div class="line"><a name="l00190"></a><span class="lineno">  190</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#a6ed2a4b4e00facf5c42a11ecd1f4e1c7">isPressed</a>() &amp;&amp; <a class="code" href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#a2e0dae337117cd85f69c8346d369504a">holdDuration</a>() &gt; <a class="code" href="Timings_8h.html#a155fc794adbdc762cfbc71f55a04bc22">MENU_TRIGGER_THRESHOLD_TICKS</a>) {</div>
+<div class="line"><a name="l00191"></a><span class="lineno">  191</span>&#160;    <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Entering Menu Selection...&quot;</span>);</div>
+<div class="line"><a name="l00192"></a><span class="lineno">  192</span>&#160;    <a class="code" href="classMenus.html#a1f8dacb375bd4d1ec18da2ed5a3e8cb3">Menus::openMenuSelection</a>();</div>
+<div class="line"><a name="l00193"></a><span class="lineno">  193</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00194"></a><span class="lineno">  194</span>&#160;  }</div>
+<div class="line"><a name="l00195"></a><span class="lineno">  195</span>&#160; </div>
+<div class="line"><a name="l00196"></a><span class="lineno">  196</span>&#160;  <span class="comment">// toggle auto cycle mode with many clicks at main modes</span></div>
+<div class="line"><a name="l00197"></a><span class="lineno">  197</span>&#160;  <span class="keywordflow">if</span> ((<a class="code" href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#a277f0bc922ec0cb3a20b6aaf43e9b94e">onRelease</a>() &amp;&amp; <a class="code" href="classVortexEngine.html#ae6812312d6c117bf487ea7d2754f8063">m_autoCycle</a>) || <a class="code" href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#af08888134084d0640b6a891bdb755f14">onConsecutivePresses</a>(<a class="code" href="VortexConfig_8h.html#a99fb9bcab397455dbf9c0e2aa904d2d9">AUTO_CYCLE_MODES_CLICKS</a>)) {</div>
+<div class="line"><a name="l00198"></a><span class="lineno">  198</span>&#160;    <a class="code" href="classVortexEngine.html#ae6812312d6c117bf487ea7d2754f8063">m_autoCycle</a> = !<a class="code" href="classVortexEngine.html#ae6812312d6c117bf487ea7d2754f8063">m_autoCycle</a>;</div>
+<div class="line"><a name="l00199"></a><span class="lineno">  199</span>&#160;    <a class="code" href="classLeds.html#a5a3e2c090aa782f4ee7c71c01e8d8a69">Leds::holdAll</a>(<a class="code" href="classVortexEngine.html#ae6812312d6c117bf487ea7d2754f8063">m_autoCycle</a> ? <a class="code" href="ColorConstants_8h.html#ab6c97468034c02fe204fd37036d9be15">RGB_GREEN</a> : <a class="code" href="ColorConstants_8h.html#aa039288455af8a3812a35aa1e7b903e4">RGB_RED</a>);</div>
+<div class="line"><a name="l00200"></a><span class="lineno">  200</span>&#160;  }</div>
+<div class="line"><a name="l00201"></a><span class="lineno">  201</span>&#160; </div>
+<div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;  <span class="comment">// if auto cycle is enabled and the last switch was more than the delay ago</span></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classVortexEngine.html#ae6812312d6c117bf487ea7d2754f8063">m_autoCycle</a> &amp;&amp; (<a class="code" href="classModes.html#ac20debd8d48811c3e669cc601996925d">Modes::lastSwitchTime</a>() + <a class="code" href="VortexConfig_8h.html#ae54a4f60fb47ad89ca3c3aafc3e77860">AUTO_RANDOM_DELAY</a> &lt; now)) {</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="comment">// then switch to the next mode automatically</span></div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;    <a class="code" href="classModes.html#ac9a4c95f7e899dc2732f65ebe78559c2">Modes::nextMode</a>();</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  }</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160; </div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  <span class="comment">// otherwise just play the modes</span></div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;  <a class="code" href="classModes.html#a9e98b568fcd3d00b7c3f0705b5120925">Modes::play</a>();</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;}</div>
 <div class="ttc" id="aButton_8h_html_a0f2e1bfb2e10150496ad7fb75420713b"><div class="ttname"><a href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a></div><div class="ttdeci">Button * g_pButton</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00016">Buttons.cpp:16</a></div></div>
 <div class="ttc" id="aColorConstants_8h_html_aa039288455af8a3812a35aa1e7b903e4"><div class="ttname"><a href="ColorConstants_8h.html#aa039288455af8a3812a35aa1e7b903e4">RGB_RED</a></div><div class="ttdeci">#define RGB_RED</div><div class="ttdef"><b>Definition:</b> <a href="ColorConstants_8h_source.html#l00040">ColorConstants.h:40</a></div></div>
 <div class="ttc" id="aColorConstants_8h_html_ab6c97468034c02fe204fd37036d9be15"><div class="ttname"><a href="ColorConstants_8h.html#ab6c97468034c02fe204fd37036d9be15">RGB_GREEN</a></div><div class="ttdeci">#define RGB_GREEN</div><div class="ttdef"><b>Definition:</b> <a href="ColorConstants_8h_source.html#l00041">ColorConstants.h:41</a></div></div>
 <div class="ttc" id="aTimings_8h_html_a155fc794adbdc762cfbc71f55a04bc22"><div class="ttname"><a href="Timings_8h.html#a155fc794adbdc762cfbc71f55a04bc22">MENU_TRIGGER_THRESHOLD_TICKS</a></div><div class="ttdeci">#define MENU_TRIGGER_THRESHOLD_TICKS</div><div class="ttdef"><b>Definition:</b> <a href="Timings_8h_source.html#l00012">Timings.h:12</a></div></div>
-<div class="ttc" id="aVortexConfig_8h_html_a99fb9bcab397455dbf9c0e2aa904d2d9"><div class="ttname"><a href="VortexConfig_8h.html#a99fb9bcab397455dbf9c0e2aa904d2d9">AUTO_CYCLE_MODES_CLICKS</a></div><div class="ttdeci">#define AUTO_CYCLE_MODES_CLICKS</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00099">VortexConfig.h:99</a></div></div>
-<div class="ttc" id="aVortexConfig_8h_html_ae54a4f60fb47ad89ca3c3aafc3e77860"><div class="ttname"><a href="VortexConfig_8h.html#ae54a4f60fb47ad89ca3c3aafc3e77860">AUTO_RANDOM_DELAY</a></div><div class="ttdeci">#define AUTO_RANDOM_DELAY</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00090">VortexConfig.h:90</a></div></div>
+<div class="ttc" id="aVortexConfig_8h_html_a99fb9bcab397455dbf9c0e2aa904d2d9"><div class="ttname"><a href="VortexConfig_8h.html#a99fb9bcab397455dbf9c0e2aa904d2d9">AUTO_CYCLE_MODES_CLICKS</a></div><div class="ttdeci">#define AUTO_CYCLE_MODES_CLICKS</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00111">VortexConfig.h:111</a></div></div>
+<div class="ttc" id="aVortexConfig_8h_html_ae54a4f60fb47ad89ca3c3aafc3e77860"><div class="ttname"><a href="VortexConfig_8h.html#ae54a4f60fb47ad89ca3c3aafc3e77860">AUTO_RANDOM_DELAY</a></div><div class="ttdeci">#define AUTO_RANDOM_DELAY</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00102">VortexConfig.h:102</a></div></div>
+<div class="ttc" id="aclassButton_html_a277f0bc922ec0cb3a20b6aaf43e9b94e"><div class="ttname"><a href="classButton.html#a277f0bc922ec0cb3a20b6aaf43e9b94e">Button::onRelease</a></div><div class="ttdeci">bool onRelease() const</div><div class="ttdef"><b>Definition:</b> <a href="Button_8h_source.html#l00029">Button.h:29</a></div></div>
 <div class="ttc" id="aclassButton_html_a2e0dae337117cd85f69c8346d369504a"><div class="ttname"><a href="classButton.html#a2e0dae337117cd85f69c8346d369504a">Button::holdDuration</a></div><div class="ttdeci">uint32_t holdDuration() const</div><div class="ttdef"><b>Definition:</b> <a href="Button_8h_source.html#l00047">Button.h:47</a></div></div>
 <div class="ttc" id="aclassButton_html_a6ed2a4b4e00facf5c42a11ecd1f4e1c7"><div class="ttname"><a href="classButton.html#a6ed2a4b4e00facf5c42a11ecd1f4e1c7">Button::isPressed</a></div><div class="ttdeci">bool isPressed() const</div><div class="ttdef"><b>Definition:</b> <a href="Button_8h_source.html#l00031">Button.h:31</a></div></div>
 <div class="ttc" id="aclassButton_html_af08888134084d0640b6a891bdb755f14"><div class="ttname"><a href="classButton.html#af08888134084d0640b6a891bdb755f14">Button::onConsecutivePresses</a></div><div class="ttdeci">bool onConsecutivePresses(uint8_t numPresses)</div><div class="ttdef"><b>Definition:</b> <a href="Button_8cpp_source.html#l00129">Button.cpp:129</a></div></div>
-<div class="ttc" id="aclassLeds_html_a5a3e2c090aa782f4ee7c71c01e8d8a69"><div class="ttname"><a href="classLeds.html#a5a3e2c090aa782f4ee7c71c01e8d8a69">Leds::holdAll</a></div><div class="ttdeci">static void holdAll(RGBColor col)</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8cpp_source.html#l00292">Leds.cpp:292</a></div></div>
+<div class="ttc" id="aclassLeds_html_a5a3e2c090aa782f4ee7c71c01e8d8a69"><div class="ttname"><a href="classLeds.html#a5a3e2c090aa782f4ee7c71c01e8d8a69">Leds::holdAll</a></div><div class="ttdeci">static void holdAll(RGBColor col)</div><div class="ttdef"><b>Definition:</b> <a href="Leds_8cpp_source.html#l00304">Leds.cpp:304</a></div></div>
 <div class="ttc" id="aclassMenus_html_a1f8dacb375bd4d1ec18da2ed5a3e8cb3"><div class="ttname"><a href="classMenus.html#a1f8dacb375bd4d1ec18da2ed5a3e8cb3">Menus::openMenuSelection</a></div><div class="ttdeci">static bool openMenuSelection()</div><div class="ttdef"><b>Definition:</b> <a href="Menus_8cpp_source.html#l00203">Menus.cpp:203</a></div></div>
 <div class="ttc" id="aclassMenus_html_ab7628e9188ad88b34acfb72f498b5a7c"><div class="ttname"><a href="classMenus.html#ab7628e9188ad88b34acfb72f498b5a7c">Menus::run</a></div><div class="ttdeci">static bool run()</div><div class="ttdef"><b>Definition:</b> <a href="Menus_8cpp_source.html#l00088">Menus.cpp:88</a></div></div>
-<div class="ttc" id="aclassModes_html_a70c51e7490681e5ee6a6e6d8084b8fc4"><div class="ttname"><a href="classModes.html#a70c51e7490681e5ee6a6e6d8084b8fc4">Modes::nextModeSkipEmpty</a></div><div class="ttdeci">static Mode * nextModeSkipEmpty()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00582">Modes.cpp:582</a></div></div>
-<div class="ttc" id="aclassModes_html_a9e98b568fcd3d00b7c3f0705b5120925"><div class="ttname"><a href="classModes.html#a9e98b568fcd3d00b7c3f0705b5120925">Modes::play</a></div><div class="ttdeci">static void play()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00058">Modes.cpp:58</a></div></div>
-<div class="ttc" id="aclassModes_html_ac20debd8d48811c3e669cc601996925d"><div class="ttname"><a href="classModes.html#ac20debd8d48811c3e669cc601996925d">Modes::lastSwitchTime</a></div><div class="ttdeci">static uint32_t lastSwitchTime()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00096">Modes.h:96</a></div></div>
+<div class="ttc" id="aclassModes_html_a4d97b331857953933fe45825cdef1d3a"><div class="ttname"><a href="classModes.html#a4d97b331857953933fe45825cdef1d3a">Modes::load</a></div><div class="ttdeci">static bool load()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00054">Modes.cpp:54</a></div></div>
+<div class="ttc" id="aclassModes_html_a9e98b568fcd3d00b7c3f0705b5120925"><div class="ttname"><a href="classModes.html#a9e98b568fcd3d00b7c3f0705b5120925">Modes::play</a></div><div class="ttdeci">static void play()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00072">Modes.cpp:72</a></div></div>
+<div class="ttc" id="aclassModes_html_ac20debd8d48811c3e669cc601996925d"><div class="ttname"><a href="classModes.html#ac20debd8d48811c3e669cc601996925d">Modes::lastSwitchTime</a></div><div class="ttdeci">static uint32_t lastSwitchTime()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00107">Modes.h:107</a></div></div>
+<div class="ttc" id="aclassModes_html_ac9a4c95f7e899dc2732f65ebe78559c2"><div class="ttname"><a href="classModes.html#ac9a4c95f7e899dc2732f65ebe78559c2">Modes::nextMode</a></div><div class="ttdeci">static Mode * nextMode()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8cpp_source.html#l00611">Modes.cpp:611</a></div></div>
+<div class="ttc" id="aclassSerialComs_html_a134c87080fce06fea5e1cd0bbf54d2da"><div class="ttname"><a href="classSerialComs.html#a134c87080fce06fea5e1cd0bbf54d2da">SerialComs::checkSerial</a></div><div class="ttdeci">static bool checkSerial()</div><div class="ttdef"><b>Definition:</b> <a href="Serial_8cpp_source.html#l00047">Serial.cpp:47</a></div></div>
 <div class="ttc" id="aclassTime_html_a7c7a8e067bdbd5aaf119521539d30940"><div class="ttname"><a href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a></div><div class="ttdeci">static uint32_t getCurtime()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00040">TimeControl.h:40</a></div></div>
 <div class="ttc" id="aclassVortexEngine_html_ae6812312d6c117bf487ea7d2754f8063"><div class="ttname"><a href="classVortexEngine.html#ae6812312d6c117bf487ea7d2754f8063">VortexEngine::m_autoCycle</a></div><div class="ttdeci">static bool m_autoCycle</div><div class="ttdef"><b>Definition:</b> <a href="VortexEngine_8h_source.html#l00055">VortexEngine.h:55</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="VortexConfig_8h_source.html#l00099">AUTO_CYCLE_MODES_CLICKS</a>, <a class="el" href="VortexConfig_8h_source.html#l00090">AUTO_RANDOM_DELAY</a>, <a class="el" href="Log_8h_source.html#l00040">DEBUG_LOG</a>, <a class="el" href="Buttons_8cpp_source.html#l00016">g_pButton</a>, <a class="el" href="TimeControl_8h_source.html#l00040">Time::getCurtime()</a>, <a class="el" href="Leds_8cpp_source.html#l00292">Leds::holdAll()</a>, <a class="el" href="Button_8h_source.html#l00047">Button::holdDuration()</a>, <a class="el" href="Button_8h_source.html#l00031">Button::isPressed()</a>, <a class="el" href="Modes_8h_source.html#l00096">Modes::lastSwitchTime()</a>, <a class="el" href="VortexEngine_8h_source.html#l00055">m_autoCycle</a>, <a class="el" href="Timings_8h_source.html#l00012">MENU_TRIGGER_THRESHOLD_TICKS</a>, <a class="el" href="Modes_8cpp_source.html#l00582">Modes::nextModeSkipEmpty()</a>, <a class="el" href="Button_8cpp_source.html#l00129">Button::onConsecutivePresses()</a>, <a class="el" href="Menus_8cpp_source.html#l00203">Menus::openMenuSelection()</a>, <a class="el" href="Modes_8cpp_source.html#l00058">Modes::play()</a>, <a class="el" href="ColorConstants_8h_source.html#l00041">RGB_GREEN</a>, <a class="el" href="ColorConstants_8h_source.html#l00040">RGB_RED</a>, and <a class="el" href="Menus_8cpp_source.html#l00088">Menus::run()</a>.</p>
+<p class="reference">References <a class="el" href="VortexConfig_8h_source.html#l00111">AUTO_CYCLE_MODES_CLICKS</a>, <a class="el" href="VortexConfig_8h_source.html#l00102">AUTO_RANDOM_DELAY</a>, <a class="el" href="Serial_8cpp_source.html#l00047">SerialComs::checkSerial()</a>, <a class="el" href="Log_8h_source.html#l00036">DEBUG_LOG</a>, <a class="el" href="Buttons_8cpp_source.html#l00016">g_pButton</a>, <a class="el" href="TimeControl_8h_source.html#l00040">Time::getCurtime()</a>, <a class="el" href="Leds_8cpp_source.html#l00304">Leds::holdAll()</a>, <a class="el" href="Button_8h_source.html#l00047">Button::holdDuration()</a>, <a class="el" href="Button_8h_source.html#l00031">Button::isPressed()</a>, <a class="el" href="Modes_8h_source.html#l00107">Modes::lastSwitchTime()</a>, <a class="el" href="Modes_8cpp_source.html#l00054">Modes::load()</a>, <a class="el" href="VortexEngine_8h_source.html#l00055">m_autoCycle</a>, <a class="el" href="Timings_8h_source.html#l00012">MENU_TRIGGER_THRESHOLD_TICKS</a>, <a class="el" href="Modes_8cpp_source.html#l00611">Modes::nextMode()</a>, <a class="el" href="Button_8cpp_source.html#l00129">Button::onConsecutivePresses()</a>, <a class="el" href="Button_8h_source.html#l00029">Button::onRelease()</a>, <a class="el" href="Menus_8cpp_source.html#l00203">Menus::openMenuSelection()</a>, <a class="el" href="Modes_8cpp_source.html#l00072">Modes::play()</a>, <a class="el" href="ColorConstants_8h_source.html#l00041">RGB_GREEN</a>, <a class="el" href="ColorConstants_8h_source.html#l00040">RGB_RED</a>, and <a class="el" href="Menus_8cpp_source.html#l00088">Menus::run()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00106">tick()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00129">tick()</a>.</p>
 
 </div>
 </div>
@@ -558,18 +591,23 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00180">180</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00181"></a><span class="lineno">  181</span>&#160;{</div>
-<div class="line"><a name="l00182"></a><span class="lineno">  182</span>&#160;  <span class="comment">// serialize the vortex version</span></div>
-<div class="line"><a name="l00183"></a><span class="lineno">  183</span>&#160;  <span class="keywordflow">return</span> stream.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>((uint8_t)<a class="code" href="VortexConfig_8h.html#ad51691e0bf3c0a33a9b4929507a7d4d8">VORTEX_VERSION_MAJOR</a>) &amp;&amp;</div>
-<div class="line"><a name="l00184"></a><span class="lineno">  184</span>&#160;         stream.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>((uint8_t)<a class="code" href="VortexConfig_8h.html#a5192bd4a7eea3a54e5b00405185d9d4d">VORTEX_VERSION_MINOR</a>);</div>
-<div class="line"><a name="l00185"></a><span class="lineno">  185</span>&#160;}</div>
-<div class="ttc" id="aVortexConfig_8h_html_a5192bd4a7eea3a54e5b00405185d9d4d"><div class="ttname"><a href="VortexConfig_8h.html#a5192bd4a7eea3a54e5b00405185d9d4d">VORTEX_VERSION_MINOR</a></div><div class="ttdeci">#define VORTEX_VERSION_MINOR</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00017">VortexConfig.h:17</a></div></div>
-<div class="ttc" id="aclassByteStream_html_a16016f5dc73e0d8b639f6bdbea252d4b"><div class="ttname"><a href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">ByteStream::serialize</a></div><div class="ttdeci">bool serialize(uint8_t byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00341">ByteStream.cpp:341</a></div></div>
+<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00212">212</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;{</div>
+<div class="line"><a name="l00214"></a><span class="lineno">  214</span>&#160;  <span class="comment">// serialize the vortex version</span></div>
+<div class="line"><a name="l00215"></a><span class="lineno">  215</span>&#160;  <span class="keywordflow">if</span> (!stream.<a class="code" href="classByteStream.html#ad3b413f399f22d30548a61a5e01ef3a7">serialize8</a>((uint8_t)<a class="code" href="VortexConfig_8h.html#ad51691e0bf3c0a33a9b4929507a7d4d8">VORTEX_VERSION_MAJOR</a>)) {</div>
+<div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;  }</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;  <span class="keywordflow">if</span> (!stream.<a class="code" href="classByteStream.html#ad3b413f399f22d30548a61a5e01ef3a7">serialize8</a>((uint8_t)<a class="code" href="VortexConfig_8h.html#a5192bd4a7eea3a54e5b00405185d9d4d">VORTEX_VERSION_MINOR</a>)) {</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  }</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;}</div>
+<div class="ttc" id="aVortexConfig_8h_html_a5192bd4a7eea3a54e5b00405185d9d4d"><div class="ttname"><a href="VortexConfig_8h.html#a5192bd4a7eea3a54e5b00405185d9d4d">VORTEX_VERSION_MINOR</a></div><div class="ttdeci">#define VORTEX_VERSION_MINOR</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00020">VortexConfig.h:20</a></div></div>
+<div class="ttc" id="aclassByteStream_html_ad3b413f399f22d30548a61a5e01ef3a7"><div class="ttname"><a href="classByteStream.html#ad3b413f399f22d30548a61a5e01ef3a7">ByteStream::serialize8</a></div><div class="ttdeci">bool serialize8(uint8_t byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00341">ByteStream.cpp:341</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize()</a>, <a class="el" href="VortexConfig_8h_source.html#l00010">VORTEX_VERSION_MAJOR</a>, and <a class="el" href="VortexConfig_8h_source.html#l00017">VORTEX_VERSION_MINOR</a>.</p>
+<p class="reference">References <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize8()</a>, <a class="el" href="VortexConfig_8h_source.html#l00011">VORTEX_VERSION_MAJOR</a>, and <a class="el" href="VortexConfig_8h_source.html#l00020">VORTEX_VERSION_MINOR</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Mode_8cpp_source.html#l00169">Mode::saveToBuffer()</a>, and <a class="el" href="Modes_8cpp_source.html#l00078">Modes::serializeSaveHeader()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Mode_8cpp_source.html#l00169">Mode::saveToBuffer()</a>, and <a class="el" href="Modes_8cpp_source.html#l00257">Modes::serializeSaveHeader()</a>.</p>
 
 </div>
 </div>
@@ -629,58 +667,56 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00106">106</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00107"></a><span class="lineno">  107</span>&#160;{</div>
-<div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
-<div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classVortexEngine.html#a68bdf824c4c7b2303a1b1a37da67f496">m_sleeping</a>) {</div>
-<div class="line"><a name="l00110"></a><span class="lineno">  110</span>&#160;    <span class="comment">// update the buttons to check for wake</span></div>
-<div class="line"><a name="l00111"></a><span class="lineno">  111</span>&#160;    <a class="code" href="classButtons.html#a4e775beebe1f2c6dce04c82ed14741cb">Buttons::update</a>();</div>
-<div class="line"><a name="l00112"></a><span class="lineno">  112</span>&#160;    <span class="comment">// several fast clicks will unlock the device</span></div>
-<div class="line"><a name="l00113"></a><span class="lineno">  113</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classModes.html#abe515fae0059b1213ba544b613051e97">Modes::locked</a>() &amp;&amp; <a class="code" href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#af08888134084d0640b6a891bdb755f14">onConsecutivePresses</a>(<a class="code" href="VortexConfig_8h.html#a2f5ef442fae5fcc560776b23fa1ccef3">DEVICE_LOCK_CLICKS</a> - 1)) {</div>
-<div class="line"><a name="l00114"></a><span class="lineno">  114</span>&#160;      <span class="comment">// turn off the lock flag and save it to disk</span></div>
-<div class="line"><a name="l00115"></a><span class="lineno">  115</span>&#160;      <a class="code" href="classModes.html#a1ae90978222b457a941f0cbf7dd9b46b">Modes::setLocked</a>(<span class="keyword">false</span>);</div>
-<div class="line"><a name="l00116"></a><span class="lineno">  116</span>&#160;    }</div>
-<div class="line"><a name="l00117"></a><span class="lineno">  117</span>&#160;    <span class="comment">// check for any kind of press to wakeup</span></div>
-<div class="line"><a name="l00118"></a><span class="lineno">  118</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#a0a4fbfb56d10cb2c6e69a35eb62b7292">check</a>() || <a class="code" href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#a277f0bc922ec0cb3a20b6aaf43e9b94e">onRelease</a>() || !Vortex::sleepEnabled()) {</div>
-<div class="line"><a name="l00119"></a><span class="lineno">  119</span>&#160;      <a class="code" href="classVortexEngine.html#a32e7878bb1f4e4c4d141e849ff7808fb">wakeup</a>();</div>
-<div class="line"><a name="l00120"></a><span class="lineno">  120</span>&#160;    }</div>
-<div class="line"><a name="l00121"></a><span class="lineno">  121</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00122"></a><span class="lineno">  122</span>&#160;  }</div>
-<div class="line"><a name="l00123"></a><span class="lineno">  123</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00124"></a><span class="lineno">  124</span>&#160;  <span class="comment">// handle any fatal errors that may have occurred</span></div>
-<div class="line"><a name="l00125"></a><span class="lineno">  125</span>&#160;  <span class="comment">// but only if the error blinker is enabled</span></div>
-<div class="line"><a name="l00126"></a><span class="lineno">  126</span>&#160;<span class="preprocessor">#if VORTEX_ERROR_BLINK == 1</span></div>
-<div class="line"><a name="l00127"></a><span class="lineno">  127</span>&#160;  <span class="keywordflow">if</span> (getError() != <a class="code" href="ErrorBlinker_8h.html#abe670cc5ceed3fad3be682fc0c1bb62e">ERROR_NONE</a>) {</div>
-<div class="line"><a name="l00128"></a><span class="lineno">  128</span>&#160;    <span class="comment">// just blink the error and don&#39;t run anything</span></div>
-<div class="line"><a name="l00129"></a><span class="lineno">  129</span>&#160;    blinkError();</div>
-<div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;    <span class="keywordflow">return</span>;</div>
-<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;  }</div>
-<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160; </div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;  <span class="comment">// tick the current time counter forward</span></div>
-<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  <a class="code" href="classTime.html#a823b10e685d34b667e16e36fea96e150">Time::tickClock</a>();</div>
-<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160; </div>
-<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;  <span class="comment">// poll the button(s) and update the button object states</span></div>
-<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;  <a class="code" href="classButtons.html#a4e775beebe1f2c6dce04c82ed14741cb">Buttons::update</a>();</div>
-<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160; </div>
-<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;  <span class="comment">// run the main logic for the engine</span></div>
-<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;  <a class="code" href="classVortexEngine.html#ad8500f86579f3e6d9f887698e181b4d2">runMainLogic</a>();</div>
-<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160; </div>
-<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;  <span class="comment">// update the leds</span></div>
-<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;  <a class="code" href="classLeds.html#a7b552b40079b1179fd47f7aeea88878d">Leds::update</a>();</div>
-<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;}</div>
-<div class="ttc" id="aErrorBlinker_8h_html_abe670cc5ceed3fad3be682fc0c1bb62e"><div class="ttname"><a href="ErrorBlinker_8h.html#abe670cc5ceed3fad3be682fc0c1bb62e">ERROR_NONE</a></div><div class="ttdeci">#define ERROR_NONE</div><div class="ttdef"><b>Definition:</b> <a href="ErrorBlinker_8h_source.html#l00012">ErrorBlinker.h:12</a></div></div>
-<div class="ttc" id="aVortexConfig_8h_html_a2f5ef442fae5fcc560776b23fa1ccef3"><div class="ttname"><a href="VortexConfig_8h.html#a2f5ef442fae5fcc560776b23fa1ccef3">DEVICE_LOCK_CLICKS</a></div><div class="ttdeci">#define DEVICE_LOCK_CLICKS</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00065">VortexConfig.h:65</a></div></div>
+<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00129">129</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00130"></a><span class="lineno">  130</span>&#160;{</div>
+<div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#ifdef VORTEX_LIB</span></div>
+<div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;  <span class="keywordflow">if</span> (<a class="code" href="classVortexEngine.html#a68bdf824c4c7b2303a1b1a37da67f496">m_sleeping</a>) {</div>
+<div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;    <span class="comment">// update the buttons to check for wake</span></div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    <a class="code" href="classButtons.html#a4e775beebe1f2c6dce04c82ed14741cb">Buttons::update</a>();</div>
+<div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;    <span class="comment">// several fast clicks will unlock the device</span></div>
+<div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="classModes.html#abe515fae0059b1213ba544b613051e97">Modes::locked</a>() &amp;&amp; <a class="code" href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#af08888134084d0640b6a891bdb755f14">onConsecutivePresses</a>(<a class="code" href="VortexConfig_8h.html#a2f5ef442fae5fcc560776b23fa1ccef3">DEVICE_LOCK_CLICKS</a> - 1)) {</div>
+<div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;      <span class="comment">// turn off the lock flag and save it to disk</span></div>
+<div class="line"><a name="l00138"></a><span class="lineno">  138</span>&#160;      <a class="code" href="classModes.html#a1ae90978222b457a941f0cbf7dd9b46b">Modes::setLocked</a>(<span class="keyword">false</span>);</div>
+<div class="line"><a name="l00139"></a><span class="lineno">  139</span>&#160;    }</div>
+<div class="line"><a name="l00140"></a><span class="lineno">  140</span>&#160;    <span class="comment">// check for any kind of press to wakeup</span></div>
+<div class="line"><a name="l00141"></a><span class="lineno">  141</span>&#160;    <span class="keywordflow">if</span> (<a class="code" href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#a0a4fbfb56d10cb2c6e69a35eb62b7292">check</a>() || <a class="code" href="Button_8h.html#a0f2e1bfb2e10150496ad7fb75420713b">g_pButton</a>-&gt;<a class="code" href="classButton.html#a277f0bc922ec0cb3a20b6aaf43e9b94e">onRelease</a>() || !Vortex::sleepEnabled()) {</div>
+<div class="line"><a name="l00142"></a><span class="lineno">  142</span>&#160;      <a class="code" href="classVortexEngine.html#a32e7878bb1f4e4c4d141e849ff7808fb">wakeup</a>();</div>
+<div class="line"><a name="l00143"></a><span class="lineno">  143</span>&#160;    }</div>
+<div class="line"><a name="l00144"></a><span class="lineno">  144</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00145"></a><span class="lineno">  145</span>&#160;  }</div>
+<div class="line"><a name="l00146"></a><span class="lineno">  146</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00147"></a><span class="lineno">  147</span>&#160;  <span class="comment">// handle any fatal errors that may have occurred</span></div>
+<div class="line"><a name="l00148"></a><span class="lineno">  148</span>&#160;  <span class="comment">// but only if the error blinker is enabled</span></div>
+<div class="line"><a name="l00149"></a><span class="lineno">  149</span>&#160;<span class="preprocessor">#if VORTEX_ERROR_BLINK == 1</span></div>
+<div class="line"><a name="l00150"></a><span class="lineno">  150</span>&#160;  <span class="keywordflow">if</span> (getError() != ERROR_NONE) {</div>
+<div class="line"><a name="l00151"></a><span class="lineno">  151</span>&#160;    <span class="comment">// just blink the error and don&#39;t run anything</span></div>
+<div class="line"><a name="l00152"></a><span class="lineno">  152</span>&#160;    blinkError();</div>
+<div class="line"><a name="l00153"></a><span class="lineno">  153</span>&#160;    <span class="keywordflow">return</span>;</div>
+<div class="line"><a name="l00154"></a><span class="lineno">  154</span>&#160;  }</div>
+<div class="line"><a name="l00155"></a><span class="lineno">  155</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00156"></a><span class="lineno">  156</span>&#160; </div>
+<div class="line"><a name="l00157"></a><span class="lineno">  157</span>&#160;  <span class="comment">// tick the current time counter forward</span></div>
+<div class="line"><a name="l00158"></a><span class="lineno">  158</span>&#160;  <a class="code" href="classTime.html#a823b10e685d34b667e16e36fea96e150">Time::tickClock</a>();</div>
+<div class="line"><a name="l00159"></a><span class="lineno">  159</span>&#160; </div>
+<div class="line"><a name="l00160"></a><span class="lineno">  160</span>&#160;  <span class="comment">// poll the button(s) and update the button object states</span></div>
+<div class="line"><a name="l00161"></a><span class="lineno">  161</span>&#160;  <a class="code" href="classButtons.html#a4e775beebe1f2c6dce04c82ed14741cb">Buttons::update</a>();</div>
+<div class="line"><a name="l00162"></a><span class="lineno">  162</span>&#160; </div>
+<div class="line"><a name="l00163"></a><span class="lineno">  163</span>&#160;  <span class="comment">// run the main logic for the engine</span></div>
+<div class="line"><a name="l00164"></a><span class="lineno">  164</span>&#160;  <a class="code" href="classVortexEngine.html#ad8500f86579f3e6d9f887698e181b4d2">runMainLogic</a>();</div>
+<div class="line"><a name="l00165"></a><span class="lineno">  165</span>&#160; </div>
+<div class="line"><a name="l00166"></a><span class="lineno">  166</span>&#160;  <span class="comment">// update the leds</span></div>
+<div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  <a class="code" href="classLeds.html#a7b552b40079b1179fd47f7aeea88878d">Leds::update</a>();</div>
+<div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;}</div>
+<div class="ttc" id="aVortexConfig_8h_html_a2f5ef442fae5fcc560776b23fa1ccef3"><div class="ttname"><a href="VortexConfig_8h.html#a2f5ef442fae5fcc560776b23fa1ccef3">DEVICE_LOCK_CLICKS</a></div><div class="ttdeci">#define DEVICE_LOCK_CLICKS</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00077">VortexConfig.h:77</a></div></div>
 <div class="ttc" id="aclassButton_html_a0a4fbfb56d10cb2c6e69a35eb62b7292"><div class="ttname"><a href="classButton.html#a0a4fbfb56d10cb2c6e69a35eb62b7292">Button::check</a></div><div class="ttdeci">bool check()</div><div class="ttdef"><b>Definition:</b> <a href="Button_8cpp_source.html#l00059">Button.cpp:59</a></div></div>
-<div class="ttc" id="aclassButton_html_a277f0bc922ec0cb3a20b6aaf43e9b94e"><div class="ttname"><a href="classButton.html#a277f0bc922ec0cb3a20b6aaf43e9b94e">Button::onRelease</a></div><div class="ttdeci">bool onRelease() const</div><div class="ttdef"><b>Definition:</b> <a href="Button_8h_source.html#l00029">Button.h:29</a></div></div>
 <div class="ttc" id="aclassButtons_html_a4e775beebe1f2c6dce04c82ed14741cb"><div class="ttname"><a href="classButtons.html#a4e775beebe1f2c6dce04c82ed14741cb">Buttons::update</a></div><div class="ttdeci">static void update()</div><div class="ttdef"><b>Definition:</b> <a href="Buttons_8cpp_source.html#l00035">Buttons.cpp:35</a></div></div>
-<div class="ttc" id="aclassModes_html_a1ae90978222b457a941f0cbf7dd9b46b"><div class="ttname"><a href="classModes.html#a1ae90978222b457a941f0cbf7dd9b46b">Modes::setLocked</a></div><div class="ttdeci">static bool setLocked(bool locked, bool save=true)</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00122">Modes.h:122</a></div></div>
-<div class="ttc" id="aclassModes_html_abe515fae0059b1213ba544b613051e97"><div class="ttname"><a href="classModes.html#abe515fae0059b1213ba544b613051e97">Modes::locked</a></div><div class="ttdeci">static bool locked()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00125">Modes.h:125</a></div></div>
+<div class="ttc" id="aclassModes_html_a1ae90978222b457a941f0cbf7dd9b46b"><div class="ttname"><a href="classModes.html#a1ae90978222b457a941f0cbf7dd9b46b">Modes::setLocked</a></div><div class="ttdeci">static bool setLocked(bool locked, bool save=true)</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00135">Modes.h:135</a></div></div>
+<div class="ttc" id="aclassModes_html_abe515fae0059b1213ba544b613051e97"><div class="ttname"><a href="classModes.html#abe515fae0059b1213ba544b613051e97">Modes::locked</a></div><div class="ttdeci">static bool locked()</div><div class="ttdef"><b>Definition:</b> <a href="Modes_8h_source.html#l00138">Modes.h:138</a></div></div>
 <div class="ttc" id="aclassTime_html_a823b10e685d34b667e16e36fea96e150"><div class="ttname"><a href="classTime.html#a823b10e685d34b667e16e36fea96e150">Time::tickClock</a></div><div class="ttdeci">static void tickClock()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8cpp_source.html#l00075">TimeControl.cpp:75</a></div></div>
-<div class="ttc" id="aclassVortexEngine_html_a32e7878bb1f4e4c4d141e849ff7808fb"><div class="ttname"><a href="classVortexEngine.html#a32e7878bb1f4e4c4d141e849ff7808fb">VortexEngine::wakeup</a></div><div class="ttdeci">static void wakeup(bool reset=true)</div><div class="ttdef"><b>Definition:</b> <a href="VortexEngine_8cpp_source.html#l00234">VortexEngine.cpp:234</a></div></div>
-<div class="ttc" id="aclassVortexEngine_html_ad8500f86579f3e6d9f887698e181b4d2"><div class="ttname"><a href="classVortexEngine.html#ad8500f86579f3e6d9f887698e181b4d2">VortexEngine::runMainLogic</a></div><div class="ttdeci">static void runMainLogic()</div><div class="ttdef"><b>Definition:</b> <a href="VortexEngine_8cpp_source.html#l00147">VortexEngine.cpp:147</a></div></div>
+<div class="ttc" id="aclassVortexEngine_html_a32e7878bb1f4e4c4d141e849ff7808fb"><div class="ttname"><a href="classVortexEngine.html#a32e7878bb1f4e4c4d141e849ff7808fb">VortexEngine::wakeup</a></div><div class="ttdeci">static void wakeup(bool reset=true)</div><div class="ttdef"><b>Definition:</b> <a href="VortexEngine_8cpp_source.html#l00271">VortexEngine.cpp:271</a></div></div>
+<div class="ttc" id="aclassVortexEngine_html_ad8500f86579f3e6d9f887698e181b4d2"><div class="ttname"><a href="classVortexEngine.html#ad8500f86579f3e6d9f887698e181b4d2">VortexEngine::runMainLogic</a></div><div class="ttdeci">static void runMainLogic()</div><div class="ttdef"><b>Definition:</b> <a href="VortexEngine_8cpp_source.html#l00170">VortexEngine.cpp:170</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Button_8cpp_source.html#l00059">Button::check()</a>, <a class="el" href="VortexConfig_8h_source.html#l00065">DEVICE_LOCK_CLICKS</a>, <a class="el" href="ErrorBlinker_8h_source.html#l00012">ERROR_NONE</a>, <a class="el" href="Buttons_8cpp_source.html#l00016">g_pButton</a>, <a class="el" href="Modes_8h_source.html#l00125">Modes::locked()</a>, <a class="el" href="VortexEngine_8h_source.html#l00052">m_sleeping</a>, <a class="el" href="Button_8cpp_source.html#l00129">Button::onConsecutivePresses()</a>, <a class="el" href="Button_8h_source.html#l00029">Button::onRelease()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00147">runMainLogic()</a>, <a class="el" href="Modes_8h_source.html#l00122">Modes::setLocked()</a>, <a class="el" href="TimeControl_8cpp_source.html#l00075">Time::tickClock()</a>, <a class="el" href="Buttons_8cpp_source.html#l00035">Buttons::update()</a>, <a class="el" href="Leds_8cpp_source.html#l00299">Leds::update()</a>, and <a class="el" href="VortexEngine_8cpp_source.html#l00234">wakeup()</a>.</p>
+<p class="reference">References <a class="el" href="Button_8cpp_source.html#l00059">Button::check()</a>, <a class="el" href="VortexConfig_8h_source.html#l00077">DEVICE_LOCK_CLICKS</a>, <a class="el" href="Buttons_8cpp_source.html#l00016">g_pButton</a>, <a class="el" href="Modes_8h_source.html#l00138">Modes::locked()</a>, <a class="el" href="VortexEngine_8h_source.html#l00052">m_sleeping</a>, <a class="el" href="Button_8cpp_source.html#l00129">Button::onConsecutivePresses()</a>, <a class="el" href="Button_8h_source.html#l00029">Button::onRelease()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00170">runMainLogic()</a>, <a class="el" href="Modes_8h_source.html#l00135">Modes::setLocked()</a>, <a class="el" href="TimeControl_8cpp_source.html#l00075">Time::tickClock()</a>, <a class="el" href="Buttons_8cpp_source.html#l00035">Buttons::update()</a>, <a class="el" href="Leds_8cpp_source.html#l00311">Leds::update()</a>, and <a class="el" href="VortexEngine_8cpp_source.html#l00271">wakeup()</a>.</p>
 
 </div>
 </div>
@@ -708,22 +744,22 @@ Static Private Attributes</h2></td></tr>
 </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00234">234</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00235"></a><span class="lineno">  235</span>&#160;{</div>
-<div class="line"><a name="l00236"></a><span class="lineno">  236</span>&#160;  <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Waking up&quot;</span>);</div>
-<div class="line"><a name="l00237"></a><span class="lineno">  237</span>&#160;  <a class="code" href="classVortexEngine.html#a68bdf824c4c7b2303a1b1a37da67f496">m_sleeping</a> = <span class="keyword">false</span>;</div>
-<div class="line"><a name="l00238"></a><span class="lineno">  238</span>&#160;  <span class="comment">// need to fake the reset in vortexlib, lol this works I guess</span></div>
-<div class="line"><a name="l00239"></a><span class="lineno">  239</span>&#160;  <span class="keywordflow">if</span> (reset) {</div>
-<div class="line"><a name="l00240"></a><span class="lineno">  240</span>&#160;    <a class="code" href="classVortexEngine.html#ae80679477cd0c0f726e610b26fc1a6db">cleanup</a>();</div>
-<div class="line"><a name="l00241"></a><span class="lineno">  241</span>&#160;    <a class="code" href="classVortexEngine.html#a7d0883a55ea519ac58a24637c0cc38d2">init</a>();</div>
-<div class="line"><a name="l00242"></a><span class="lineno">  242</span>&#160;  }</div>
-<div class="line"><a name="l00243"></a><span class="lineno">  243</span>&#160;}</div>
-<div class="ttc" id="aclassVortexEngine_html_a7d0883a55ea519ac58a24637c0cc38d2"><div class="ttname"><a href="classVortexEngine.html#a7d0883a55ea519ac58a24637c0cc38d2">VortexEngine::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="VortexEngine_8cpp_source.html#l00028">VortexEngine.cpp:28</a></div></div>
-<div class="ttc" id="aclassVortexEngine_html_ae80679477cd0c0f726e610b26fc1a6db"><div class="ttname"><a href="classVortexEngine.html#ae80679477cd0c0f726e610b26fc1a6db">VortexEngine::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="VortexEngine_8cpp_source.html#l00087">VortexEngine.cpp:87</a></div></div>
+<p class="definition">Definition at line <a class="el" href="VortexEngine_8cpp_source.html#l00271">271</a> of file <a class="el" href="VortexEngine_8cpp_source.html">VortexEngine.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00272"></a><span class="lineno">  272</span>&#160;{</div>
+<div class="line"><a name="l00273"></a><span class="lineno">  273</span>&#160;  <a class="code" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">DEBUG_LOG</a>(<span class="stringliteral">&quot;Waking up&quot;</span>);</div>
+<div class="line"><a name="l00274"></a><span class="lineno">  274</span>&#160;  <a class="code" href="classVortexEngine.html#a68bdf824c4c7b2303a1b1a37da67f496">m_sleeping</a> = <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00275"></a><span class="lineno">  275</span>&#160;  <span class="comment">// need to fake the reset in vortexlib, lol this works I guess</span></div>
+<div class="line"><a name="l00276"></a><span class="lineno">  276</span>&#160;  <span class="keywordflow">if</span> (reset) {</div>
+<div class="line"><a name="l00277"></a><span class="lineno">  277</span>&#160;    <a class="code" href="classVortexEngine.html#ae80679477cd0c0f726e610b26fc1a6db">cleanup</a>();</div>
+<div class="line"><a name="l00278"></a><span class="lineno">  278</span>&#160;    <a class="code" href="classVortexEngine.html#a7d0883a55ea519ac58a24637c0cc38d2">init</a>();</div>
+<div class="line"><a name="l00279"></a><span class="lineno">  279</span>&#160;  }</div>
+<div class="line"><a name="l00280"></a><span class="lineno">  280</span>&#160;}</div>
+<div class="ttc" id="aclassVortexEngine_html_a7d0883a55ea519ac58a24637c0cc38d2"><div class="ttname"><a href="classVortexEngine.html#a7d0883a55ea519ac58a24637c0cc38d2">VortexEngine::init</a></div><div class="ttdeci">static bool init()</div><div class="ttdef"><b>Definition:</b> <a href="VortexEngine_8cpp_source.html#l00030">VortexEngine.cpp:30</a></div></div>
+<div class="ttc" id="aclassVortexEngine_html_ae80679477cd0c0f726e610b26fc1a6db"><div class="ttname"><a href="classVortexEngine.html#ae80679477cd0c0f726e610b26fc1a6db">VortexEngine::cleanup</a></div><div class="ttdeci">static void cleanup()</div><div class="ttdef"><b>Definition:</b> <a href="VortexEngine_8cpp_source.html#l00101">VortexEngine.cpp:101</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="VortexEngine_8cpp_source.html#l00087">cleanup()</a>, <a class="el" href="Log_8h_source.html#l00040">DEBUG_LOG</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00028">init()</a>, and <a class="el" href="VortexEngine_8h_source.html#l00052">m_sleeping</a>.</p>
+<p class="reference">References <a class="el" href="VortexEngine_8cpp_source.html#l00101">cleanup()</a>, <a class="el" href="Log_8h_source.html#l00036">DEBUG_LOG</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00030">init()</a>, and <a class="el" href="VortexEngine_8h_source.html#l00052">m_sleeping</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00106">tick()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00129">tick()</a>.</p>
 
 </div>
 </div>
@@ -750,7 +786,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="VortexEngine_8h_source.html#l00055">55</a> of file <a class="el" href="VortexEngine_8h_source.html">VortexEngine.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00147">runMainLogic()</a>, and <a class="el" href="VortexEngine_8h_source.html#l00048">setAutoCycle()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00170">runMainLogic()</a>, and <a class="el" href="VortexEngine_8h_source.html#l00048">setAutoCycle()</a>.</p>
 
 </div>
 </div>
@@ -776,7 +812,7 @@ Static Private Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="VortexEngine_8h_source.html#l00052">52</a> of file <a class="el" href="VortexEngine_8h_source.html">VortexEngine.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00218">enterSleep()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00106">tick()</a>, and <a class="el" href="VortexEngine_8cpp_source.html#l00234">wakeup()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="VortexEngine_8cpp_source.html#l00255">enterSleep()</a>, <a class="el" href="VortexEngine_8cpp_source.html#l00129">tick()</a>, and <a class="el" href="VortexEngine_8cpp_source.html#l00271">wakeup()</a>.</p>
 
 </div>
 </div>

@@ -57,13 +57,13 @@ var NAVTREEINDEX =
 [
 "BackStrobePattern_8cpp.html",
 "Compression_8cpp.html#a7d26a1c40d6107cf2f19558492591e67",
-"LedTypes_8h.html#a9fb57934b9165e8fcecafeafaf3a6a2caf5ffd2a4ded5f1bed89341e000e979e9",
-"SolidPattern_8cpp_source.html",
-"classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9a8e134084c473204294c863017a921f12",
-"classColorset.html#ad0ad727054d88606053bbb67ae1fb11ca0af1de95991c0cc7207f8dd0ae3f0607",
-"classLeds.html#af8c5be7e02a6d0a4e5be7f1ef1fb69a0",
-"classPattern.html#a86d8921ea6fb24198c412b553c84b077",
-"classTheaterChasePattern.html#a9c8e96b672805122b6935afb9d7dbe64",
+"LedTypes_8h.html#ab2ba99d056435894b889cfeda37205da",
+"SnowballPattern_8cpp.html#af57b0eddc2e5ee985db6323c5d93fad5",
+"classBasicPattern.html",
+"classColorset.html#abf504edde130e5e302c5a1c78ab725d8ad847fcabcc8c69e0f740dfc0e4bfb5b0",
+"classMenu.html#a7227170bc9fb45617828b755317156a3",
+"classPatternArgs.html#a2c992fa3c83a23eb844fc3cf0292b361",
+"classTimer.html#a5f16e8da27d2a5a5242dead46de05d97",
 "globals_enum.html"
 ];
 

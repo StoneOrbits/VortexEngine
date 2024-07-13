@@ -29,9 +29,9 @@ bool \mbox{\hyperlink{classSequenceStep_aacdcbfe4523819c96f620d496b7c6977}{opera
 \item 
 bool \mbox{\hyperlink{classSequenceStep_a0bc385c6eda323713c0fc21a7098a832}{operator!=}} (const \mbox{\hyperlink{classSequenceStep}{Sequence\+Step}} \&other) const
 \item 
-void \mbox{\hyperlink{classSequenceStep_a91691abcb78df2939a05dcaf88303c6b}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer) const
+bool \mbox{\hyperlink{classSequenceStep_a2f268d9e0e29ef9d851edf3a8990b45b}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer) const
 \item 
-void \mbox{\hyperlink{classSequenceStep_ac398acce774b1ea001fb9c5453a19cbc}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
+bool \mbox{\hyperlink{classSequenceStep_a817554a7d4217c835bfed2472968ae0a}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -62,14 +62,14 @@ Definition at line 70 of file Sequence.\+h.
 
 
 
-Definition at line 144 of file Sequence.\+cpp.
+Definition at line 156 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{144                                                :}
-\DoxyCodeLine{145   \mbox{\hyperlink{classSequenceStep_a84cbe00da9cb9f91d664a73f9db22261}{m\_engine}}(engine), \mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}}(0), \mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}}(engine), \mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}(engine)}
-\DoxyCodeLine{146 \{}
-\DoxyCodeLine{147 \}}
+\DoxyCodeLine{156                                                :}
+\DoxyCodeLine{157   \mbox{\hyperlink{classSequenceStep_a84cbe00da9cb9f91d664a73f9db22261}{m\_engine}}(engine), \mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}}(0), \mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}}(engine), \mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}(engine)}
+\DoxyCodeLine{158 \{}
+\DoxyCodeLine{159 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classSequenceStep_aef1df8a60912d1b337b6a3e9ea631a04}\label{classSequenceStep_aef1df8a60912d1b337b6a3e9ea631a04}} 
@@ -80,14 +80,14 @@ Definition at line 144 of file Sequence.\+cpp.
 
 
 
-Definition at line 149 of file Sequence.\+cpp.
+Definition at line 161 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{149                                                                                                                                 :}
-\DoxyCodeLine{150   \mbox{\hyperlink{classSequenceStep_a84cbe00da9cb9f91d664a73f9db22261}{m\_engine}}(engine), \mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}}(duration), \mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}}(engine, patternMap), \mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}(engine, colorsetMap)}
-\DoxyCodeLine{151 \{}
-\DoxyCodeLine{152 \}}
+\DoxyCodeLine{161                                                                                                                                 :}
+\DoxyCodeLine{162   \mbox{\hyperlink{classSequenceStep_a84cbe00da9cb9f91d664a73f9db22261}{m\_engine}}(engine), \mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}}(duration), \mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}}(engine, patternMap), \mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}(engine, colorsetMap)}
+\DoxyCodeLine{163 \{}
+\DoxyCodeLine{164 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classSequenceStep_aaa1db7efc4011ec022b3718ae77d6d1b}\label{classSequenceStep_aaa1db7efc4011ec022b3718ae77d6d1b}} 
@@ -98,15 +98,15 @@ Definition at line 149 of file Sequence.\+cpp.
 
 
 
-Definition at line 154 of file Sequence.\+cpp.
+Definition at line 166 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{154                                                                           :}
-\DoxyCodeLine{155   \mbox{\hyperlink{classSequenceStep_a4781928f80d5074ba7d36c98c98b3dae}{SequenceStep}}(engine)}
-\DoxyCodeLine{156 \{}
-\DoxyCodeLine{157   *\textcolor{keyword}{this} = other;}
-\DoxyCodeLine{158 \}}
+\DoxyCodeLine{166                                                                           :}
+\DoxyCodeLine{167   \mbox{\hyperlink{classSequenceStep_a4781928f80d5074ba7d36c98c98b3dae}{SequenceStep}}(engine)}
+\DoxyCodeLine{168 \{}
+\DoxyCodeLine{169   *\textcolor{keyword}{this} = other;}
+\DoxyCodeLine{170 \}}
 
 \end{DoxyCode}
 
@@ -120,13 +120,13 @@ Definition at line 154 of file Sequence.\+cpp.
 
 
 
-Definition at line 174 of file Sequence.\+cpp.
+Definition at line 186 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{175 \{}
-\DoxyCodeLine{176   \textcolor{keywordflow}{return} !(*\textcolor{keyword}{this} == other);}
-\DoxyCodeLine{177 \}}
+\DoxyCodeLine{187 \{}
+\DoxyCodeLine{188   \textcolor{keywordflow}{return} !(*\textcolor{keyword}{this} == other);}
+\DoxyCodeLine{189 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classSequenceStep_a9238f49ec8d8bc69088078ce0ec995a4}\label{classSequenceStep_a9238f49ec8d8bc69088078ce0ec995a4}} 
@@ -137,15 +137,15 @@ Definition at line 174 of file Sequence.\+cpp.
 
 
 
-Definition at line 160 of file Sequence.\+cpp.
+Definition at line 172 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{161 \{}
-\DoxyCodeLine{162   this-\/>\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}} = other.\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}};}
-\DoxyCodeLine{163   this-\/>\mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}} = other.\mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}};}
-\DoxyCodeLine{164   this-\/>\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}} = other.\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}};}
-\DoxyCodeLine{165 \}}
+\DoxyCodeLine{173 \{}
+\DoxyCodeLine{174   this-\/>\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}} = other.\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}};}
+\DoxyCodeLine{175   this-\/>\mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}} = other.\mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}};}
+\DoxyCodeLine{176   this-\/>\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}} = other.\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}};}
+\DoxyCodeLine{177 \}}
 
 \end{DoxyCode}
 
@@ -160,66 +160,80 @@ References m\+\_\+colorset\+Map, m\+\_\+duration, and m\+\_\+pattern\+Map.
 
 
 
-Definition at line 167 of file Sequence.\+cpp.
+Definition at line 179 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{168 \{}
-\DoxyCodeLine{169   \textcolor{keywordflow}{return} (this-\/>\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}} == other.\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}} \&\&}
-\DoxyCodeLine{170           this-\/>m\_patternMap == other.\mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}} \&\&}
-\DoxyCodeLine{171           this-\/>m\_colorsetMap == other.\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}});}
-\DoxyCodeLine{172 \}}
+\DoxyCodeLine{180 \{}
+\DoxyCodeLine{181   \textcolor{keywordflow}{return} (this-\/>\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}} == other.\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}} \&\&}
+\DoxyCodeLine{182           this-\/>m\_patternMap == other.\mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}} \&\&}
+\DoxyCodeLine{183           this-\/>m\_colorsetMap == other.\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}});}
+\DoxyCodeLine{184 \}}
 
 \end{DoxyCode}
 
 
 References m\+\_\+colorset\+Map, m\+\_\+duration, and m\+\_\+pattern\+Map.
 
-\mbox{\Hypertarget{classSequenceStep_a91691abcb78df2939a05dcaf88303c6b}\label{classSequenceStep_a91691abcb78df2939a05dcaf88303c6b}} 
+\mbox{\Hypertarget{classSequenceStep_a2f268d9e0e29ef9d851edf3a8990b45b}\label{classSequenceStep_a2f268d9e0e29ef9d851edf3a8990b45b}} 
 \index{SequenceStep@{SequenceStep}!serialize@{serialize}}
 \index{serialize@{serialize}!SequenceStep@{SequenceStep}}
 \doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
-{\footnotesize\ttfamily void Sequence\+Step\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool Sequence\+Step\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption}) const}
 
 
 
-Definition at line 179 of file Sequence.\+cpp.
+Definition at line 191 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{180 \{}
-\DoxyCodeLine{181   buffer.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}(\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}});}
-\DoxyCodeLine{182   \mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}}.\mbox{\hyperlink{classPatternMap_a438f831e3e16c6347e6fb32d5357fda9}{serialize}}(buffer);}
-\DoxyCodeLine{183   \mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}.\mbox{\hyperlink{classColorsetMap_ae4cf6ba495cfe692e1b8d4a48fc003f5}{serialize}}(buffer);}
-\DoxyCodeLine{184 \}}
+\DoxyCodeLine{192 \{}
+\DoxyCodeLine{193   \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_ab011a6febdba90abc3f4858a745becb2}{serialize16}}(\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}})) \{}
+\DoxyCodeLine{194     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{195   \}}
+\DoxyCodeLine{196   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}}.\mbox{\hyperlink{classPatternMap_a42d061837424e43b9a91e6d6b45cfdbc}{serialize}}(buffer)) \{}
+\DoxyCodeLine{197     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{198   \}}
+\DoxyCodeLine{199   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}.\mbox{\hyperlink{classColorsetMap_a3315bb67e3604f8b09f12f305c7d67cf}{serialize}}(buffer)) \{}
+\DoxyCodeLine{200     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{201   \}}
+\DoxyCodeLine{202   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{203 \}}
 
 \end{DoxyCode}
 
 
-References m\+\_\+colorset\+Map, m\+\_\+duration, m\+\_\+pattern\+Map, Pattern\+Map\+::serialize(), Colorset\+Map\+::serialize(), and Byte\+Stream\+::serialize().
+References m\+\_\+colorset\+Map, m\+\_\+duration, m\+\_\+pattern\+Map, Pattern\+Map\+::serialize(), Colorset\+Map\+::serialize(), and Byte\+Stream\+::serialize16().
 
-\mbox{\Hypertarget{classSequenceStep_ac398acce774b1ea001fb9c5453a19cbc}\label{classSequenceStep_ac398acce774b1ea001fb9c5453a19cbc}} 
+\mbox{\Hypertarget{classSequenceStep_a817554a7d4217c835bfed2472968ae0a}\label{classSequenceStep_a817554a7d4217c835bfed2472968ae0a}} 
 \index{SequenceStep@{SequenceStep}!unserialize@{unserialize}}
 \index{unserialize@{unserialize}!SequenceStep@{SequenceStep}}
 \doxysubsubsection{\texorpdfstring{unserialize()}{unserialize()}}
-{\footnotesize\ttfamily void Sequence\+Step\+::unserialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool Sequence\+Step\+::unserialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})}
 
 
 
-Definition at line 186 of file Sequence.\+cpp.
+Definition at line 205 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{187 \{}
-\DoxyCodeLine{188   buffer.\mbox{\hyperlink{classByteStream_a870efac1fe97b1855cb1edef3310002d}{unserialize}}(\&\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}});}
-\DoxyCodeLine{189   \mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}}.\mbox{\hyperlink{classPatternMap_a0269b72cda20594f9c3b90da4a24d040}{unserialize}}(buffer);}
-\DoxyCodeLine{190   \mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}.\mbox{\hyperlink{classColorsetMap_a13341424b365b209d2e93700f953317c}{unserialize}}(buffer);}
-\DoxyCodeLine{191 \}}
+\DoxyCodeLine{206 \{}
+\DoxyCodeLine{207   \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_ae060dd695b339b52bc98978c55ea6992}{unserialize16}}(\&\mbox{\hyperlink{classSequenceStep_ad02177c7af8aa5dfd00c0429c833d982}{m\_duration}})) \{}
+\DoxyCodeLine{208     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{209   \}}
+\DoxyCodeLine{210   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}}.\mbox{\hyperlink{classPatternMap_abe8dc1ee0979376a8000068e273ecb4d}{unserialize}}(buffer)) \{}
+\DoxyCodeLine{211     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{212   \}}
+\DoxyCodeLine{213   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}.\mbox{\hyperlink{classColorsetMap_a333599cf9f610e57c428f31b24d48f49}{unserialize}}(buffer)) \{}
+\DoxyCodeLine{214     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{215   \}}
+\DoxyCodeLine{216   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{217 \}}
 
 \end{DoxyCode}
 
 
-References m\+\_\+colorset\+Map, m\+\_\+duration, m\+\_\+pattern\+Map, Pattern\+Map\+::unserialize(), Colorset\+Map\+::unserialize(), and Byte\+Stream\+::unserialize().
+References m\+\_\+colorset\+Map, m\+\_\+duration, m\+\_\+pattern\+Map, Pattern\+Map\+::unserialize(), Colorset\+Map\+::unserialize(), and Byte\+Stream\+::unserialize16().
 
 
 

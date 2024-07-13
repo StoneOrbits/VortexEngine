@@ -146,13 +146,13 @@ Definition at line 77 of file Menus.\+h.
 
 
 
-Definition at line 262 of file Menus.\+cpp.
+Definition at line 272 of file Menus.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{263 \{}
-\DoxyCodeLine{264   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenus_a897348b5de86e7b0af79fc0858de8fb9}{m\_menuState}} == \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea4eef84c03971a99f5b88b6cd0ec5c1b7}{MENU\_STATE\_IN\_MENU}};}
-\DoxyCodeLine{265 \}}
+\DoxyCodeLine{273 \{}
+\DoxyCodeLine{274   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenus_a897348b5de86e7b0af79fc0858de8fb9}{m\_menuState}} == \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea4eef84c03971a99f5b88b6cd0ec5c1b7}{MENU\_STATE\_IN\_MENU}};}
+\DoxyCodeLine{275 \}}
 
 \end{DoxyCode}
 
@@ -167,13 +167,13 @@ References m\+\_\+menu\+State, and MENU\+\_\+\+STATE\+\_\+\+IN\+\_\+\+MENU.
 
 
 
-Definition at line 257 of file Menus.\+cpp.
+Definition at line 267 of file Menus.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{258 \{}
-\DoxyCodeLine{259   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenus_a897348b5de86e7b0af79fc0858de8fb9}{m\_menuState}} != \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea7e52e0cc70203f048f829edbfc63bf2f}{MENU\_STATE\_NOT\_OPEN}} \&\& \mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_abe35bacd24749761498f9089ba14f266}{releaseTime}}() > \mbox{\hyperlink{classMenus_ae06251ca75599de4ade814aa6891952a}{m\_openTime}};}
-\DoxyCodeLine{260 \}}
+\DoxyCodeLine{268 \{}
+\DoxyCodeLine{269   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenus_a897348b5de86e7b0af79fc0858de8fb9}{m\_menuState}} != \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea7e52e0cc70203f048f829edbfc63bf2f}{MENU\_STATE\_NOT\_OPEN}} \&\& \mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_abe35bacd24749761498f9089ba14f266}{releaseTime}}() > \mbox{\hyperlink{classMenus_ae06251ca75599de4ade814aa6891952a}{m\_openTime}};}
+\DoxyCodeLine{270 \}}
 
 \end{DoxyCode}
 
@@ -219,21 +219,21 @@ Referenced by Vortex\+Engine\+::cleanup().
 
 
 
-Definition at line 277 of file Menus.\+cpp.
+Definition at line 287 of file Menus.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{278 \{}
-\DoxyCodeLine{279   \textcolor{comment}{// delete the currently open menu object}}
-\DoxyCodeLine{280   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}}) \{}
-\DoxyCodeLine{281     \textcolor{keyword}{delete} \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}};}
-\DoxyCodeLine{282     \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}} = \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{283   \}}
-\DoxyCodeLine{284   \mbox{\hyperlink{classMenus_a897348b5de86e7b0af79fc0858de8fb9}{m\_menuState}} = \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea7e52e0cc70203f048f829edbfc63bf2f}{MENU\_STATE\_NOT\_OPEN}};}
-\DoxyCodeLine{285   \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}} = 0;}
-\DoxyCodeLine{286   \textcolor{comment}{// clear the leds}}
-\DoxyCodeLine{287   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{288 \}}
+\DoxyCodeLine{288 \{}
+\DoxyCodeLine{289   \textcolor{comment}{// delete the currently open menu object}}
+\DoxyCodeLine{290   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}}) \{}
+\DoxyCodeLine{291     \textcolor{keyword}{delete} \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}};}
+\DoxyCodeLine{292     \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}} = \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{293   \}}
+\DoxyCodeLine{294   \mbox{\hyperlink{classMenus_a897348b5de86e7b0af79fc0858de8fb9}{m\_menuState}} = \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea7e52e0cc70203f048f829edbfc63bf2f}{MENU\_STATE\_NOT\_OPEN}};}
+\DoxyCodeLine{295   \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}} = 0;}
+\DoxyCodeLine{296   \textcolor{comment}{// clear the leds}}
+\DoxyCodeLine{297   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{298 \}}
 
 \end{DoxyCode}
 
@@ -252,13 +252,13 @@ Referenced by run\+Cur\+Menu().
 
 
 
-Definition at line 267 of file Menus.\+cpp.
+Definition at line 277 of file Menus.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{268 \{}
-\DoxyCodeLine{269   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}};}
-\DoxyCodeLine{270 \}}
+\DoxyCodeLine{278 \{}
+\DoxyCodeLine{279   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}};}
+\DoxyCodeLine{280 \}}
 
 \end{DoxyCode}
 
@@ -273,13 +273,13 @@ References m\+\_\+p\+Cur\+Menu.
 
 
 
-Definition at line 272 of file Menus.\+cpp.
+Definition at line 282 of file Menus.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{273 \{}
-\DoxyCodeLine{274   \textcolor{keywordflow}{return} (\mbox{\hyperlink{Menus_8h_ab27add79b32f886cb88e53dca2e1ce0f}{MenuEntryID}})\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}};}
-\DoxyCodeLine{275 \}}
+\DoxyCodeLine{283 \{}
+\DoxyCodeLine{284   \textcolor{keywordflow}{return} (\mbox{\hyperlink{Menus_8h_ab27add79b32f886cb88e53dca2e1ce0f}{MenuEntryID}})\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}};}
+\DoxyCodeLine{285 \}}
 
 \end{DoxyCode}
 
@@ -321,37 +321,37 @@ Referenced by Vortex\+Engine\+::init().
 
 
 
-Definition at line 217 of file Menus.\+cpp.
+Definition at line 227 of file Menus.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{218 \{}
-\DoxyCodeLine{219   \textcolor{keywordflow}{if} (index >= \mbox{\hyperlink{Menus_8cpp_a2cf39ca87ec50dbe56121dcd4d523c45}{NUM\_MENUS}}) \{}
-\DoxyCodeLine{220     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{221   \}}
-\DoxyCodeLine{222   \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}} = index;}
-\DoxyCodeLine{223   \mbox{\hyperlink{classMenu}{Menu}} *newMenu = \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].\mbox{\hyperlink{structMenuEntry_a615b37dcd41d8eb35eedee103a302f0b}{initMenu}}(\mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].color, advanced);}
-\DoxyCodeLine{224   \textcolor{keywordflow}{if} (!newMenu) \{}
-\DoxyCodeLine{225     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{226   \}}
-\DoxyCodeLine{227   \textcolor{comment}{// initialiaze the new menu with the current mode}}
-\DoxyCodeLine{228   \textcolor{keywordflow}{if} (!newMenu-\/>\mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{init}}()) \{}
-\DoxyCodeLine{229     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Failed to initialize \%s menu"{}}, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].menuName);}
-\DoxyCodeLine{230     \textcolor{comment}{// if the menu failed to init, don't open it}}
-\DoxyCodeLine{231     \textcolor{keyword}{delete} newMenu;}
-\DoxyCodeLine{232     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{233   \}}
-\DoxyCodeLine{234   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}}) \{}
-\DoxyCodeLine{235     \textcolor{keyword}{delete} \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}};}
+\DoxyCodeLine{228 \{}
+\DoxyCodeLine{229   \textcolor{keywordflow}{if} (index >= \mbox{\hyperlink{Menus_8cpp_a2cf39ca87ec50dbe56121dcd4d523c45}{NUM\_MENUS}}) \{}
+\DoxyCodeLine{230     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{231   \}}
+\DoxyCodeLine{232   \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}} = index;}
+\DoxyCodeLine{233   \mbox{\hyperlink{classMenu}{Menu}} *newMenu = \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].\mbox{\hyperlink{structMenuEntry_a615b37dcd41d8eb35eedee103a302f0b}{initMenu}}(\mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].color, advanced);}
+\DoxyCodeLine{234   \textcolor{keywordflow}{if} (!newMenu) \{}
+\DoxyCodeLine{235     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{236   \}}
-\DoxyCodeLine{237   \textcolor{comment}{// assign the new menu}}
-\DoxyCodeLine{238   \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}} = newMenu;}
-\DoxyCodeLine{239   \textcolor{comment}{// and the menus are open just in case}}
-\DoxyCodeLine{240   \textcolor{comment}{// clear all the leds}}
-\DoxyCodeLine{241   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{242   \mbox{\hyperlink{classMenus_a897348b5de86e7b0af79fc0858de8fb9}{m\_menuState}} = \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea4eef84c03971a99f5b88b6cd0ec5c1b7}{MENU\_STATE\_IN\_MENU}};}
-\DoxyCodeLine{243   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{244 \}}
+\DoxyCodeLine{237   \textcolor{comment}{// initialiaze the new menu with the current mode}}
+\DoxyCodeLine{238   \textcolor{keywordflow}{if} (!newMenu-\/>\mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{init}}()) \{}
+\DoxyCodeLine{239     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Failed to initialize \%s menu"{}}, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].menuName);}
+\DoxyCodeLine{240     \textcolor{comment}{// if the menu failed to init, don't open it}}
+\DoxyCodeLine{241     \textcolor{keyword}{delete} newMenu;}
+\DoxyCodeLine{242     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{243   \}}
+\DoxyCodeLine{244   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}}) \{}
+\DoxyCodeLine{245     \textcolor{keyword}{delete} \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}};}
+\DoxyCodeLine{246   \}}
+\DoxyCodeLine{247   \textcolor{comment}{// assign the new menu}}
+\DoxyCodeLine{248   \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}} = newMenu;}
+\DoxyCodeLine{249   \textcolor{comment}{// and the menus are open just in case}}
+\DoxyCodeLine{250   \textcolor{comment}{// clear all the leds}}
+\DoxyCodeLine{251   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{252   \mbox{\hyperlink{classMenus_a897348b5de86e7b0af79fc0858de8fb9}{m\_menuState}} = \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea4eef84c03971a99f5b88b6cd0ec5c1b7}{MENU\_STATE\_IN\_MENU}};}
+\DoxyCodeLine{253   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{254 \}}
 
 \end{DoxyCode}
 
@@ -370,22 +370,22 @@ Referenced by run\+Menu\+Selection().
 
 
 
-Definition at line 203 of file Menus.\+cpp.
+Definition at line 213 of file Menus.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{204 \{}
-\DoxyCodeLine{205   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenus_a897348b5de86e7b0af79fc0858de8fb9}{m\_menuState}} != \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea7e52e0cc70203f048f829edbfc63bf2f}{MENU\_STATE\_NOT\_OPEN}}) \{}
-\DoxyCodeLine{206     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{207   \}}
-\DoxyCodeLine{208   \textcolor{comment}{// save the time of when we open the menu so we can fill based on curtime from then}}
-\DoxyCodeLine{209   \mbox{\hyperlink{classMenus_ae06251ca75599de4ade814aa6891952a}{m\_openTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
-\DoxyCodeLine{210   \textcolor{comment}{// open the menu}}
-\DoxyCodeLine{211   \mbox{\hyperlink{classMenus_a897348b5de86e7b0af79fc0858de8fb9}{m\_menuState}} = \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea74f1661d7f0a334a258013e148c612f7}{MENU\_STATE\_MENU\_SELECTION}};}
-\DoxyCodeLine{212   \textcolor{comment}{// clear the leds}}
-\DoxyCodeLine{213   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{214   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{215 \}}
+\DoxyCodeLine{214 \{}
+\DoxyCodeLine{215   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenus_a897348b5de86e7b0af79fc0858de8fb9}{m\_menuState}} != \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea7e52e0cc70203f048f829edbfc63bf2f}{MENU\_STATE\_NOT\_OPEN}}) \{}
+\DoxyCodeLine{216     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{217   \}}
+\DoxyCodeLine{218   \textcolor{comment}{// save the time of when we open the menu so we can fill based on curtime from then}}
+\DoxyCodeLine{219   \mbox{\hyperlink{classMenus_ae06251ca75599de4ade814aa6891952a}{m\_openTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
+\DoxyCodeLine{220   \textcolor{comment}{// open the menu}}
+\DoxyCodeLine{221   \mbox{\hyperlink{classMenus_a897348b5de86e7b0af79fc0858de8fb9}{m\_menuState}} = \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea74f1661d7f0a334a258013e148c612f7}{MENU\_STATE\_MENU\_SELECTION}};}
+\DoxyCodeLine{222   \textcolor{comment}{// clear the leds}}
+\DoxyCodeLine{223   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{224   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{225 \}}
 
 \end{DoxyCode}
 
@@ -394,7 +394,7 @@ References Leds\+::clear\+All(), Time\+::get\+Curtime(), m\+\_\+menu\+State, m\+
 
 
 
-Referenced by Vortex\+Engine\+::run\+Main\+Logic().
+Referenced by Modes\+::play(), and Vortex\+Engine\+::run\+Main\+Logic().
 
 \mbox{\Hypertarget{classMenus_ab7628e9188ad88b34acfb72f498b5a7c}\label{classMenus_ab7628e9188ad88b34acfb72f498b5a7c}} 
 \index{Menus@{Menus}!run@{run}}
@@ -439,36 +439,36 @@ Referenced by Vortex\+Engine\+::run\+Main\+Logic().
 
 
 
-Definition at line 174 of file Menus.\+cpp.
+Definition at line 184 of file Menus.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{175 \{}
-\DoxyCodeLine{176   \textcolor{comment}{// if the menu run handler returns false that signals the}}
-\DoxyCodeLine{177   \textcolor{comment}{// menu was closed by the user leaving the menu}}
-\DoxyCodeLine{178   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}}-\/>\mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{run}}()) \{}
-\DoxyCodeLine{179   \textcolor{keywordflow}{case} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffa3850044a30cc507f35adce781faf3693}{Menu::MENU\_QUIT}}:}
-\DoxyCodeLine{180     \textcolor{comment}{// close the current menu when run returns false}}
-\DoxyCodeLine{181     \mbox{\hyperlink{classMenus_a724cde246a6da9ba6e9a9ef8ae7a6074}{closeCurMenu}}();}
-\DoxyCodeLine{182     \textcolor{comment}{// return false to let the modes play}}
-\DoxyCodeLine{183     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{184   \textcolor{keywordflow}{case} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{Menu::MENU\_CONTINUE}}:}
-\DoxyCodeLine{185     \textcolor{comment}{// if Menu continue run the click handlers for the menu}}
-\DoxyCodeLine{186     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a4e2b10397cdad6546a8728a87b82fadb}{onShortClick}}()) \{}
-\DoxyCodeLine{187       \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}}-\/>\mbox{\hyperlink{classMenu_a135b0de5e64efeb822e5323f4b8c8955}{onShortClick}}();}
-\DoxyCodeLine{188     \}}
-\DoxyCodeLine{189     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a81c3b1a14aee3e487e836ac517e6b232}{onLongClick}}()) \{}
-\DoxyCodeLine{190       \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}}-\/>\mbox{\hyperlink{classMenu_aa5e3a269c2dba3ee69b530c7d1b3c0ff}{onLongClick}}();}
-\DoxyCodeLine{191     \}}
-\DoxyCodeLine{192     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{193   \textcolor{keywordflow}{case} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffab2293aaedd6c65bea5f8d6c8dd811598}{Menu::MENU\_SKIP}}:}
-\DoxyCodeLine{194     \textcolor{comment}{// dont run click handlers in this case}}
-\DoxyCodeLine{195     \textcolor{comment}{// so the core menu class can handle them}}
-\DoxyCodeLine{196     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{197   \}}
-\DoxyCodeLine{198   \textcolor{comment}{// the opened menu and don't play modes}}
-\DoxyCodeLine{199   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{200 \}}
+\DoxyCodeLine{185 \{}
+\DoxyCodeLine{186   \textcolor{comment}{// if the menu run handler returns false that signals the}}
+\DoxyCodeLine{187   \textcolor{comment}{// menu was closed by the user leaving the menu}}
+\DoxyCodeLine{188   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}}-\/>\mbox{\hyperlink{classMenu_a45ef8087dc15ac52dd3effca67e73ad5}{run}}()) \{}
+\DoxyCodeLine{189   \textcolor{keywordflow}{case} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffa3850044a30cc507f35adce781faf3693}{Menu::MENU\_QUIT}}:}
+\DoxyCodeLine{190     \textcolor{comment}{// close the current menu when run returns false}}
+\DoxyCodeLine{191     \mbox{\hyperlink{classMenus_a724cde246a6da9ba6e9a9ef8ae7a6074}{closeCurMenu}}();}
+\DoxyCodeLine{192     \textcolor{comment}{// return false to let the modes play}}
+\DoxyCodeLine{193     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{194   \textcolor{keywordflow}{case} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{Menu::MENU\_CONTINUE}}:}
+\DoxyCodeLine{195     \textcolor{comment}{// if Menu continue run the click handlers for the menu}}
+\DoxyCodeLine{196     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a4e2b10397cdad6546a8728a87b82fadb}{onShortClick}}()) \{}
+\DoxyCodeLine{197       \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}}-\/>\mbox{\hyperlink{classMenu_a135b0de5e64efeb822e5323f4b8c8955}{onShortClick}}();}
+\DoxyCodeLine{198     \}}
+\DoxyCodeLine{199     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a81c3b1a14aee3e487e836ac517e6b232}{onLongClick}}()) \{}
+\DoxyCodeLine{200       \mbox{\hyperlink{classMenus_ac777c9e605e874872fea432df36575ba}{m\_pCurMenu}}-\/>\mbox{\hyperlink{classMenu_aa5e3a269c2dba3ee69b530c7d1b3c0ff}{onLongClick}}();}
+\DoxyCodeLine{201     \}}
+\DoxyCodeLine{202     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{203   \textcolor{keywordflow}{case} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffab2293aaedd6c65bea5f8d6c8dd811598}{Menu::MENU\_SKIP}}:}
+\DoxyCodeLine{204     \textcolor{comment}{// dont run click handlers in this case}}
+\DoxyCodeLine{205     \textcolor{comment}{// so the core menu class can handle them}}
+\DoxyCodeLine{206     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{207   \}}
+\DoxyCodeLine{208   \textcolor{comment}{// the opened menu and don't play modes}}
+\DoxyCodeLine{209   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{210 \}}
 
 \end{DoxyCode}
 
@@ -492,7 +492,7 @@ Definition at line 103 of file Menus.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{104 \{}
-\DoxyCodeLine{105   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a4e2b10397cdad6546a8728a87b82fadb}{onShortClick}}()) \{}
+\DoxyCodeLine{105   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_ab0bad4698b8ace3b61f0cd4398d6c47b}{g\_pButtonR}}-\/>\mbox{\hyperlink{classButton_a4e2b10397cdad6546a8728a87b82fadb}{onShortClick}}()) \{}
 \DoxyCodeLine{106     \textcolor{comment}{// otherwise increment selection and wrap around at num menus}}
 \DoxyCodeLine{107     \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}} = (\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}} + 1) \% \mbox{\hyperlink{Menus_8cpp_a2cf39ca87ec50dbe56121dcd4d523c45}{NUM\_MENUS}};}
 \DoxyCodeLine{108     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Cyling to ring menu \%u"{}}, \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}});}
@@ -502,69 +502,79 @@ Definition at line 103 of file Menus.\+cpp.
 \DoxyCodeLine{112     \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
 \DoxyCodeLine{113     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
 \DoxyCodeLine{114   \}}
-\DoxyCodeLine{115   \textcolor{comment}{// clear the leds so it always fills instead of replacing}}
-\DoxyCodeLine{116   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{117   \textcolor{comment}{// timings for blink later}}
-\DoxyCodeLine{118   uint8\_t offtime = 200;}
-\DoxyCodeLine{119   uint8\_t ontime = 200;}
-\DoxyCodeLine{120   \textcolor{comment}{// whether advanced menus are enabled}}
-\DoxyCodeLine{121   \textcolor{keywordtype}{bool} advMenus = \mbox{\hyperlink{classModes_ae29aa6a3c24897d0c4d11b722ebdc923}{Modes::advancedMenusEnabled}}();}
-\DoxyCodeLine{122   \textcolor{comment}{// if the button was long pressed then select this menu, but we}}
-\DoxyCodeLine{123   \textcolor{comment}{// need to check the presstime to ensure we don't catch the initial}}
-\DoxyCodeLine{124   \textcolor{comment}{// release after opening the ringmenu}}
-\DoxyCodeLine{125   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a34bd02946cbcdfcf31232f357629503e}{pressTime}}() >= \mbox{\hyperlink{classMenus_ae06251ca75599de4ade814aa6891952a}{m\_openTime}}) \{}
-\DoxyCodeLine{126     \textcolor{comment}{// whether to open advanced menus or not}}
-\DoxyCodeLine{127     \textcolor{keywordtype}{bool} openAdv = (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() > \mbox{\hyperlink{Timings_8h_af6000fabcf07a18fcd198c1ec0e4d048}{ADV\_MENU\_DURATION\_TICKS}}) \&\& advMenus;}
-\DoxyCodeLine{128     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a81c3b1a14aee3e487e836ac517e6b232}{onLongClick}}()) \{}
-\DoxyCodeLine{129       \textcolor{comment}{// ringmenu is open so select the menu}}
-\DoxyCodeLine{130       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Selected ringmenu \%s"{}}, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].menuName);}
-\DoxyCodeLine{131       \textcolor{comment}{// open the menu we have selected}}
-\DoxyCodeLine{132       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenus_a218d5257123a6399289d0cba0988cbd3}{openMenu}}(\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}, openAdv)) \{}
-\DoxyCodeLine{133         \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Failed to initialize \%s menu"{}}, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].menuName);}
-\DoxyCodeLine{134         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{135       \}}
-\DoxyCodeLine{136       \textcolor{comment}{// display the newly opened menu}}
-\DoxyCodeLine{137       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{138     \}}
-\DoxyCodeLine{139     \textcolor{comment}{// if holding down to select the menu option}}
-\DoxyCodeLine{140     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() \&\& openAdv) \{}
-\DoxyCodeLine{141       \textcolor{comment}{// make it strobe aw yiss}}
-\DoxyCodeLine{142       offtime = \mbox{\hyperlink{Timings_8h_ad8d72f4aad8397f6470d967b02fc9fce}{HYPERSTROBE\_OFF\_DURATION}};}
-\DoxyCodeLine{143       ontime = \mbox{\hyperlink{Timings_8h_a398f70f20f31812fd6463db220ea6bd2}{HYPERSTROBE\_ON\_DURATION}};}
-\DoxyCodeLine{144     \}}
-\DoxyCodeLine{145   \}}
-\DoxyCodeLine{146   \textcolor{comment}{// blink every even/odd of every pair}}
-\DoxyCodeLine{147   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} p = \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4ac5e6b4941a54ffee05c62f32966c9d68}{PAIR\_FIRST}}; p < \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4a772164a6f31e22d817711a70345b51b4}{PAIR\_COUNT}}; ++p) \{}
-\DoxyCodeLine{148     \textcolor{keywordflow}{if} (\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(p) < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \{}
-\DoxyCodeLine{149       \mbox{\hyperlink{classLeds_adf9a8fd9a96e51e32baf7d3743e8010e}{Leds::blinkIndex}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(p), offtime, ontime, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].color);}
-\DoxyCodeLine{150     \}}
-\DoxyCodeLine{151     \textcolor{keywordflow}{if} (\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(p) < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \{}
-\DoxyCodeLine{152       \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(p), \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].color);}
-\DoxyCodeLine{153       \mbox{\hyperlink{classLeds_adf9a8fd9a96e51e32baf7d3743e8010e}{Leds::blinkIndex}}(\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(p), offtime, ontime, \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}});}
+\DoxyCodeLine{115   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_ac2fb778cda72cbf314239e9693900b28}{g\_pButtonL}}-\/>\mbox{\hyperlink{classButton_a4e2b10397cdad6546a8728a87b82fadb}{onShortClick}}()) \{}
+\DoxyCodeLine{116     \textcolor{comment}{// decrement selection and wrap around at num menus}}
+\DoxyCodeLine{117     \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}} = \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}} ? \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}} -\/ 1 : \mbox{\hyperlink{Menus_8cpp_a2cf39ca87ec50dbe56121dcd4d523c45}{NUM\_MENUS}} -\/ 1;}
+\DoxyCodeLine{118     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Cyling backwards to ring menu \%u"{}}, \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}});}
+\DoxyCodeLine{119     \textcolor{comment}{// reset the open time so that it starts again}}
+\DoxyCodeLine{120     \mbox{\hyperlink{classMenus_ae06251ca75599de4ade814aa6891952a}{m\_openTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
+\DoxyCodeLine{121     \textcolor{comment}{// clear the leds}}
+\DoxyCodeLine{122     \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{123     \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{124   \}}
+\DoxyCodeLine{125   \textcolor{comment}{// clear the leds so it always fills instead of replacing}}
+\DoxyCodeLine{126   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{127   \textcolor{comment}{// timings for blink later}}
+\DoxyCodeLine{128   uint8\_t offtime = 200;}
+\DoxyCodeLine{129   uint8\_t ontime = 200;}
+\DoxyCodeLine{130   \textcolor{comment}{// whether advanced menus are enabled}}
+\DoxyCodeLine{131   \textcolor{keywordtype}{bool} advMenus = \mbox{\hyperlink{classModes_ae29aa6a3c24897d0c4d11b722ebdc923}{Modes::advancedMenusEnabled}}();}
+\DoxyCodeLine{132   \textcolor{comment}{// if the button was long pressed then select this menu, but we}}
+\DoxyCodeLine{133   \textcolor{comment}{// need to check the presstime to ensure we don't catch the initial}}
+\DoxyCodeLine{134   \textcolor{comment}{// release after opening the ringmenu}}
+\DoxyCodeLine{135   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a34bd02946cbcdfcf31232f357629503e}{pressTime}}() >= \mbox{\hyperlink{classMenus_ae06251ca75599de4ade814aa6891952a}{m\_openTime}}) \{}
+\DoxyCodeLine{136     \textcolor{comment}{// whether to open advanced menus or not}}
+\DoxyCodeLine{137     \textcolor{keywordtype}{bool} openAdv = (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() > \mbox{\hyperlink{Timings_8h_af6000fabcf07a18fcd198c1ec0e4d048}{ADV\_MENU\_DURATION\_TICKS}}) \&\& advMenus;}
+\DoxyCodeLine{138     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a4e2b10397cdad6546a8728a87b82fadb}{onShortClick}}()) \{}
+\DoxyCodeLine{139       \textcolor{comment}{// ringmenu is open so select the menu}}
+\DoxyCodeLine{140       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Selected ringmenu \%s"{}}, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].menuName);}
+\DoxyCodeLine{141       \textcolor{comment}{// open the menu we have selected}}
+\DoxyCodeLine{142       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenus_a218d5257123a6399289d0cba0988cbd3}{openMenu}}(\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}, openAdv)) \{}
+\DoxyCodeLine{143         \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Failed to initialize \%s menu"{}}, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].menuName);}
+\DoxyCodeLine{144         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{145       \}}
+\DoxyCodeLine{146       \textcolor{comment}{// display the newly opened menu}}
+\DoxyCodeLine{147       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{148     \}}
+\DoxyCodeLine{149     \textcolor{comment}{// if holding down to select the menu option}}
+\DoxyCodeLine{150     \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() \&\& openAdv) \{}
+\DoxyCodeLine{151       \textcolor{comment}{// make it strobe aw yiss}}
+\DoxyCodeLine{152       offtime = \mbox{\hyperlink{Timings_8h_ad8d72f4aad8397f6470d967b02fc9fce}{HYPERSTROBE\_OFF\_DURATION}};}
+\DoxyCodeLine{153       ontime = \mbox{\hyperlink{Timings_8h_a398f70f20f31812fd6463db220ea6bd2}{HYPERSTROBE\_ON\_DURATION}};}
 \DoxyCodeLine{154     \}}
 \DoxyCodeLine{155   \}}
-\DoxyCodeLine{156   \textcolor{comment}{// check if the advanced menus have been enabled}}
-\DoxyCodeLine{157   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_af08888134084d0640b6a891bdb755f14}{onConsecutivePresses}}(\mbox{\hyperlink{VortexConfig_8h_a2980afbdc12b7faf6b27e28af5132b3b}{ADVANCED\_MENU\_CLICKS}})) \{}
-\DoxyCodeLine{158     \textcolor{comment}{// toggle the advanced menu}}
-\DoxyCodeLine{159     \mbox{\hyperlink{classModes_ad4938ad48f465a7a59d9bcdaa2f8eaca}{Modes::setAdvancedMenus}}(!advMenus);}
-\DoxyCodeLine{160     \textcolor{comment}{// display a pink or red depending on whether the menu was enabled}}
-\DoxyCodeLine{161     \textcolor{keywordflow}{for} (uint16\_t i = 0; i < 2; ++i) \{}
-\DoxyCodeLine{162       \mbox{\hyperlink{classLeds_a5a3e2c090aa782f4ee7c71c01e8d8a69}{Leds::holdAll}}(advMenus ? \mbox{\hyperlink{ColorConstants_8h_aa039288455af8a3812a35aa1e7b903e4}{RGB\_RED}} : \mbox{\hyperlink{ColorConstants_8h_a59fb596d3d65cfc4d3cb7e5044b8b10a}{RGB\_PINK}});}
-\DoxyCodeLine{163     \}}
-\DoxyCodeLine{164   \}}
-\DoxyCodeLine{165   \textcolor{comment}{// show when the user selects a menu option}}
-\DoxyCodeLine{166   \mbox{\hyperlink{classMenus_a24d75cee0c42b89ed2408e1358414804}{showSelection}}(\mbox{\hyperlink{classRGBColor}{RGBColor}}(}
-\DoxyCodeLine{167     \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].color.red << 3,}
-\DoxyCodeLine{168     \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].\mbox{\hyperlink{structMenuEntry_a6e87ceea68e0314b66bd024dea04e244}{color}}.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} << 3,}
-\DoxyCodeLine{169     \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].\mbox{\hyperlink{structMenuEntry_a6e87ceea68e0314b66bd024dea04e244}{color}}.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} << 3));}
-\DoxyCodeLine{170   \textcolor{comment}{// continue in the menu}}
-\DoxyCodeLine{171   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{172 \}}
+\DoxyCodeLine{156   \textcolor{comment}{// blink every even/odd of every pair}}
+\DoxyCodeLine{157   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} p = \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4ac5e6b4941a54ffee05c62f32966c9d68}{PAIR\_FIRST}}; p < \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4a772164a6f31e22d817711a70345b51b4}{PAIR\_COUNT}}; ++p) \{}
+\DoxyCodeLine{158     \textcolor{keywordflow}{if} (\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(p) < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \{}
+\DoxyCodeLine{159       \mbox{\hyperlink{classLeds_adf9a8fd9a96e51e32baf7d3743e8010e}{Leds::blinkIndex}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(p), offtime, ontime, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].color);}
+\DoxyCodeLine{160     \}}
+\DoxyCodeLine{161     \textcolor{keywordflow}{if} (\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(p) < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \{}
+\DoxyCodeLine{162       \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(p), \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].color);}
+\DoxyCodeLine{163       \mbox{\hyperlink{classLeds_adf9a8fd9a96e51e32baf7d3743e8010e}{Leds::blinkIndex}}(\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(p), offtime, ontime, \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}});}
+\DoxyCodeLine{164     \}}
+\DoxyCodeLine{165   \}}
+\DoxyCodeLine{166   \textcolor{comment}{// check if the advanced menus have been enabled}}
+\DoxyCodeLine{167   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_ab0bad4698b8ace3b61f0cd4398d6c47b}{g\_pButtonR}}-\/>\mbox{\hyperlink{classButton_af08888134084d0640b6a891bdb755f14}{onConsecutivePresses}}(\mbox{\hyperlink{VortexConfig_8h_a2980afbdc12b7faf6b27e28af5132b3b}{ADVANCED\_MENU\_CLICKS}})) \{}
+\DoxyCodeLine{168     \textcolor{comment}{// toggle the advanced menu}}
+\DoxyCodeLine{169     \mbox{\hyperlink{classModes_ad4938ad48f465a7a59d9bcdaa2f8eaca}{Modes::setAdvancedMenus}}(!advMenus);}
+\DoxyCodeLine{170     \textcolor{comment}{// display a pink or red depending on whether the menu was enabled}}
+\DoxyCodeLine{171     \textcolor{keywordflow}{for} (uint16\_t i = 0; i < 2; ++i) \{}
+\DoxyCodeLine{172       \mbox{\hyperlink{classLeds_a5a3e2c090aa782f4ee7c71c01e8d8a69}{Leds::holdAll}}(advMenus ? \mbox{\hyperlink{ColorConstants_8h_aa039288455af8a3812a35aa1e7b903e4}{RGB\_RED}} : \mbox{\hyperlink{ColorConstants_8h_a59fb596d3d65cfc4d3cb7e5044b8b10a}{RGB\_PINK}});}
+\DoxyCodeLine{173     \}}
+\DoxyCodeLine{174   \}}
+\DoxyCodeLine{175   \textcolor{comment}{// show when the user selects a menu option}}
+\DoxyCodeLine{176   \mbox{\hyperlink{classMenus_a24d75cee0c42b89ed2408e1358414804}{showSelection}}(\mbox{\hyperlink{classRGBColor}{RGBColor}}(}
+\DoxyCodeLine{177     \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].color.red << 3,}
+\DoxyCodeLine{178     \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].\mbox{\hyperlink{structMenuEntry_a6e87ceea68e0314b66bd024dea04e244}{color}}.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} << 3,}
+\DoxyCodeLine{179     \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].\mbox{\hyperlink{structMenuEntry_a6e87ceea68e0314b66bd024dea04e244}{color}}.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} << 3));}
+\DoxyCodeLine{180   \textcolor{comment}{// continue in the menu}}
+\DoxyCodeLine{181   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{182 \}}
 
 \end{DoxyCode}
 
 
-References ADV\+\_\+\+MENU\+\_\+\+DURATION\+\_\+\+TICKS, ADVANCED\+\_\+\+MENU\+\_\+\+CLICKS, Modes\+::advanced\+Menus\+Enabled(), Leds\+::blink\+Index(), RGBColor\+::blue, Leds\+::clear\+All(), Menu\+Entry\+::color, DEBUG\+\_\+\+LOGF, g\+\_\+p\+ButtonM, Time\+::get\+Curtime(), RGBColor\+::green, Leds\+::hold\+All(), Button\+::hold\+Duration(), HYPERSTROBE\+\_\+\+OFF\+\_\+\+DURATION, HYPERSTROBE\+\_\+\+ON\+\_\+\+DURATION, Button\+::is\+Pressed(), LED\+\_\+\+COUNT, m\+\_\+open\+Time, m\+\_\+selection, menu\+List, NUM\+\_\+\+MENUS, Button\+::on\+Consecutive\+Presses(), Button\+::on\+Long\+Click(), Button\+::on\+Short\+Click(), open\+Menu(), PAIR\+\_\+\+COUNT, PAIR\+\_\+\+FIRST, pair\+Even, pair\+Odd, Button\+::press\+Time(), RGB\+\_\+\+OFF, RGB\+\_\+\+PINK, RGB\+\_\+\+RED, Modes\+::set\+Advanced\+Menus(), Leds\+::set\+Index(), and show\+Selection().
+References ADV\+\_\+\+MENU\+\_\+\+DURATION\+\_\+\+TICKS, ADVANCED\+\_\+\+MENU\+\_\+\+CLICKS, Modes\+::advanced\+Menus\+Enabled(), Leds\+::blink\+Index(), RGBColor\+::blue, Leds\+::clear\+All(), Menu\+Entry\+::color, DEBUG\+\_\+\+LOGF, g\+\_\+p\+ButtonL, g\+\_\+p\+ButtonM, g\+\_\+p\+ButtonR, Time\+::get\+Curtime(), RGBColor\+::green, Leds\+::hold\+All(), Button\+::hold\+Duration(), HYPERSTROBE\+\_\+\+OFF\+\_\+\+DURATION, HYPERSTROBE\+\_\+\+ON\+\_\+\+DURATION, Button\+::is\+Pressed(), LED\+\_\+\+COUNT, m\+\_\+open\+Time, m\+\_\+selection, menu\+List, NUM\+\_\+\+MENUS, Button\+::on\+Consecutive\+Presses(), Button\+::on\+Short\+Click(), open\+Menu(), PAIR\+\_\+\+COUNT, PAIR\+\_\+\+FIRST, pair\+Even, pair\+Odd, Button\+::press\+Time(), RGB\+\_\+\+OFF, RGB\+\_\+\+PINK, RGB\+\_\+\+RED, Modes\+::set\+Advanced\+Menus(), Leds\+::set\+Index(), and show\+Selection().
 
 
 
@@ -578,19 +588,19 @@ Referenced by run().
 
 
 
-Definition at line 246 of file Menus.\+cpp.
+Definition at line 256 of file Menus.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{247 \{}
-\DoxyCodeLine{248   \textcolor{comment}{// blink the tip led white for 150ms when the short}}
-\DoxyCodeLine{249   \textcolor{comment}{// click threshold has been surpassed}}
-\DoxyCodeLine{250   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() \&\&}
-\DoxyCodeLine{251     \mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() > \mbox{\hyperlink{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}{SHORT\_CLICK\_THRESHOLD\_TICKS}} \&\&}
-\DoxyCodeLine{252     \mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() < (\mbox{\hyperlink{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}{SHORT\_CLICK\_THRESHOLD\_TICKS}} + \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(250))) \{}
-\DoxyCodeLine{253     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(colval);}
-\DoxyCodeLine{254   \}}
-\DoxyCodeLine{255 \}}
+\DoxyCodeLine{257 \{}
+\DoxyCodeLine{258   \textcolor{comment}{// blink the tip led white for 150ms when the short}}
+\DoxyCodeLine{259   \textcolor{comment}{// click threshold has been surpassed}}
+\DoxyCodeLine{260   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() \&\&}
+\DoxyCodeLine{261     \mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() > \mbox{\hyperlink{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}{SHORT\_CLICK\_THRESHOLD\_TICKS}} \&\&}
+\DoxyCodeLine{262     \mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() < (\mbox{\hyperlink{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}{SHORT\_CLICK\_THRESHOLD\_TICKS}} + \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(250))) \{}
+\DoxyCodeLine{263     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(colval);}
+\DoxyCodeLine{264   \}}
+\DoxyCodeLine{265 \}}
 
 \end{DoxyCode}
 

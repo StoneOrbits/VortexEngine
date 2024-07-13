@@ -94,46 +94,42 @@ $(document).ready(function(){initNavTree('Log_8h_source.html',''); initResizable
 <div class="line"><a name="l00005"></a><span class="lineno">    5</span>&#160; </div>
 <div class="line"><a name="l00006"></a><span class="lineno">    6</span>&#160;<span class="preprocessor">#include &quot;../VortexConfig.h&quot;</span></div>
 <div class="line"><a name="l00007"></a><span class="lineno">    7</span>&#160; </div>
-<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="comment">// just self-inclode the error blinker so that anybody who includes log has</span></div>
-<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="comment">// access to the error blinker since it&#39;s only enabled in debug builds</span></div>
-<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#include &quot;../Log/ErrorBlinker.h&quot;</span></div>
-<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160; </div>
-<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="preprocessor">#if LOGGING_LEVEL &gt; 0</span></div>
-<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#define INFO_LOG(msg) InfoMsg(msg)</span></div>
-<div class="line"><a name="l00014"></a><span class="lineno">   14</span>&#160;<span class="preprocessor">#define INFO_LOGF(msg, ...) InfoMsg(msg, __VA_ARGS__)</span></div>
-<div class="line"><a name="l00015"></a><span class="lineno">   15</span>&#160;<span class="comment">// infos are in final builds and they are meant to be standalone messages</span></div>
-<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="keywordtype">void</span> InfoMsg(<span class="keyword">const</span> <span class="keywordtype">char</span> *msg, ...);</div>
-<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00018"></a><span class="lineno"><a class="line" href="Log_8h.html#aae4791cf4f80ed032e48ef42b57e0a4e">   18</a></span>&#160;<span class="preprocessor">#define INFO_LOG(msg)</span></div>
-<div class="line"><a name="l00019"></a><span class="lineno"><a class="line" href="Log_8h.html#ae8e35463cf3fb63337641a1f6b7042fe">   19</a></span>&#160;<span class="preprocessor">#define INFO_LOGF(msg, ...)</span></div>
-<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160; </div>
-<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="preprocessor">#if LOGGING_LEVEL &gt; 1</span></div>
-<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="comment">// in test build errors are just debug messages</span></div>
-<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#define ERROR_LOG(msg) ErrorMsg(__FUNCTION__, msg)</span></div>
-<div class="line"><a name="l00025"></a><span class="lineno">   25</span>&#160;<span class="preprocessor">#define ERROR_LOGF(msg, ...) ErrorMsg(__FUNCTION__, msg, __VA_ARGS__)</span></div>
-<div class="line"><a name="l00026"></a><span class="lineno">   26</span>&#160;<span class="comment">// errors are in final builds so they only have the function name</span></div>
-<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="keywordtype">void</span> ErrorMsg(<span class="keyword">const</span> <span class="keywordtype">char</span> *func, <span class="keyword">const</span> <span class="keywordtype">char</span> *msg, ...);</div>
-<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00029"></a><span class="lineno"><a class="line" href="Log_8h.html#aa12d9b2ced7332bfbb9391da9617561a">   29</a></span>&#160;<span class="preprocessor">#define ERROR_LOG(msg)</span></div>
-<div class="line"><a name="l00030"></a><span class="lineno"><a class="line" href="Log_8h.html#aed976922ae10c35e5e5241d15f5a06af">   30</a></span>&#160;<span class="preprocessor">#define ERROR_LOGF(msg, ...)</span></div>
-<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160; </div>
-<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="preprocessor">#if LOGGING_LEVEL &gt; 2</span></div>
-<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="comment">// some compilers won&#39;t allow for ellipsis macro that&#39;s passed no args...</span></div>
-<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#define DEBUG_LOG(msg) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg)</span></div>
-<div class="line"><a name="l00036"></a><span class="lineno">   36</span>&#160;<span class="preprocessor">#define DEBUG_LOGF(msg, ...) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg, __VA_ARGS__)</span></div>
-<div class="line"><a name="l00037"></a><span class="lineno">   37</span>&#160;<span class="comment">// debug messages are only in debug builds so they have full file + func + line info</span></div>
-<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="keywordtype">void</span> DebugMsg(<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keyword">const</span> <span class="keywordtype">char</span> *func, <span class="keywordtype">int</span> line, <span class="keyword">const</span> <span class="keywordtype">char</span> *msg, ...);</div>
-<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160;<span class="preprocessor">#else</span></div>
-<div class="line"><a name="l00040"></a><span class="lineno"><a class="line" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">   40</a></span>&#160;<span class="preprocessor">#define DEBUG_LOG(msg)</span></div>
-<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">   41</a></span>&#160;<span class="preprocessor">#define DEBUG_LOGF(msg, ...)</span></div>
-<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160; </div>
-<div class="line"><a name="l00044"></a><span class="lineno">   44</span>&#160;<span class="comment">// report OOM</span></div>
-<div class="line"><a name="l00045"></a><span class="lineno"><a class="line" href="Log_8h.html#a804825e040f1cce9e3d2bb53c4858710">   45</a></span>&#160;<span class="preprocessor">#define ERROR_OUT_OF_MEMORY() ERROR_LOG(&quot;Out of memory&quot;</span>)</div>
-<div class="line"><a name="l00046"></a><span class="lineno">   46</span>&#160; </div>
-<div class="line"><a name="l00047"></a><span class="lineno">   47</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00008"></a><span class="lineno">    8</span>&#160;<span class="preprocessor">#if LOGGING_LEVEL &gt; 0</span></div>
+<div class="line"><a name="l00009"></a><span class="lineno">    9</span>&#160;<span class="preprocessor">#define INFO_LOG(msg) InfoMsg(msg)</span></div>
+<div class="line"><a name="l00010"></a><span class="lineno">   10</span>&#160;<span class="preprocessor">#define INFO_LOGF(msg, ...) InfoMsg(msg, __VA_ARGS__)</span></div>
+<div class="line"><a name="l00011"></a><span class="lineno">   11</span>&#160;<span class="comment">// infos are in final builds and they are meant to be standalone messages</span></div>
+<div class="line"><a name="l00012"></a><span class="lineno">   12</span>&#160;<span class="keywordtype">void</span> InfoMsg(<span class="keyword">const</span> <span class="keywordtype">char</span> *msg, ...);</div>
+<div class="line"><a name="l00013"></a><span class="lineno">   13</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00014"></a><span class="lineno"><a class="line" href="Log_8h.html#aae4791cf4f80ed032e48ef42b57e0a4e">   14</a></span>&#160;<span class="preprocessor">#define INFO_LOG(msg)</span></div>
+<div class="line"><a name="l00015"></a><span class="lineno"><a class="line" href="Log_8h.html#ae8e35463cf3fb63337641a1f6b7042fe">   15</a></span>&#160;<span class="preprocessor">#define INFO_LOGF(msg, ...)</span></div>
+<div class="line"><a name="l00016"></a><span class="lineno">   16</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00017"></a><span class="lineno">   17</span>&#160; </div>
+<div class="line"><a name="l00018"></a><span class="lineno">   18</span>&#160;<span class="preprocessor">#if LOGGING_LEVEL &gt; 1</span></div>
+<div class="line"><a name="l00019"></a><span class="lineno">   19</span>&#160;<span class="comment">// in test build errors are just debug messages</span></div>
+<div class="line"><a name="l00020"></a><span class="lineno">   20</span>&#160;<span class="preprocessor">#define ERROR_LOG(msg) ErrorMsg(__FUNCTION__, msg)</span></div>
+<div class="line"><a name="l00021"></a><span class="lineno">   21</span>&#160;<span class="preprocessor">#define ERROR_LOGF(msg, ...) ErrorMsg(__FUNCTION__, msg, __VA_ARGS__)</span></div>
+<div class="line"><a name="l00022"></a><span class="lineno">   22</span>&#160;<span class="comment">// errors are in final builds so they only have the function name</span></div>
+<div class="line"><a name="l00023"></a><span class="lineno">   23</span>&#160;<span class="keywordtype">void</span> ErrorMsg(<span class="keyword">const</span> <span class="keywordtype">char</span> *func, <span class="keyword">const</span> <span class="keywordtype">char</span> *msg, ...);</div>
+<div class="line"><a name="l00024"></a><span class="lineno">   24</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00025"></a><span class="lineno"><a class="line" href="Log_8h.html#aa12d9b2ced7332bfbb9391da9617561a">   25</a></span>&#160;<span class="preprocessor">#define ERROR_LOG(msg)</span></div>
+<div class="line"><a name="l00026"></a><span class="lineno"><a class="line" href="Log_8h.html#aed976922ae10c35e5e5241d15f5a06af">   26</a></span>&#160;<span class="preprocessor">#define ERROR_LOGF(msg, ...)</span></div>
+<div class="line"><a name="l00027"></a><span class="lineno">   27</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00028"></a><span class="lineno">   28</span>&#160; </div>
+<div class="line"><a name="l00029"></a><span class="lineno">   29</span>&#160;<span class="preprocessor">#if LOGGING_LEVEL &gt; 2</span></div>
+<div class="line"><a name="l00030"></a><span class="lineno">   30</span>&#160;<span class="comment">// some compilers won&#39;t allow for ellipsis macro that&#39;s passed no args...</span></div>
+<div class="line"><a name="l00031"></a><span class="lineno">   31</span>&#160;<span class="preprocessor">#define DEBUG_LOG(msg) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg)</span></div>
+<div class="line"><a name="l00032"></a><span class="lineno">   32</span>&#160;<span class="preprocessor">#define DEBUG_LOGF(msg, ...) DebugMsg(__FILE__, __FUNCTION__, __LINE__, msg, __VA_ARGS__)</span></div>
+<div class="line"><a name="l00033"></a><span class="lineno">   33</span>&#160;<span class="comment">// debug messages are only in debug builds so they have full file + func + line info</span></div>
+<div class="line"><a name="l00034"></a><span class="lineno">   34</span>&#160;<span class="keywordtype">void</span> DebugMsg(<span class="keyword">const</span> <span class="keywordtype">char</span> *file, <span class="keyword">const</span> <span class="keywordtype">char</span> *func, <span class="keywordtype">int</span> line, <span class="keyword">const</span> <span class="keywordtype">char</span> *msg, ...);</div>
+<div class="line"><a name="l00035"></a><span class="lineno">   35</span>&#160;<span class="preprocessor">#else</span></div>
+<div class="line"><a name="l00036"></a><span class="lineno"><a class="line" href="Log_8h.html#a5d2f30bd1cbcf49f829a7e8eb6173c06">   36</a></span>&#160;<span class="preprocessor">#define DEBUG_LOG(msg)</span></div>
+<div class="line"><a name="l00037"></a><span class="lineno"><a class="line" href="Log_8h.html#a8bdccae09f7cdda8fb311e0bd81c35dc">   37</a></span>&#160;<span class="preprocessor">#define DEBUG_LOGF(msg, ...)</span></div>
+<div class="line"><a name="l00038"></a><span class="lineno">   38</span>&#160;<span class="preprocessor">#endif</span></div>
+<div class="line"><a name="l00039"></a><span class="lineno">   39</span>&#160; </div>
+<div class="line"><a name="l00040"></a><span class="lineno">   40</span>&#160;<span class="comment">// report OOM</span></div>
+<div class="line"><a name="l00041"></a><span class="lineno"><a class="line" href="Log_8h.html#a804825e040f1cce9e3d2bb53c4858710">   41</a></span>&#160;<span class="preprocessor">#define ERROR_OUT_OF_MEMORY() ERROR_LOG(&quot;Out of memory&quot;</span>)</div>
+<div class="line"><a name="l00042"></a><span class="lineno">   42</span>&#160; </div>
+<div class="line"><a name="l00043"></a><span class="lineno">   43</span>&#160;<span class="preprocessor">#endif</span></div>
 </div><!-- fragment --></div><!-- contents -->
 </div><!-- doc-content -->
 <!-- start footer part -->

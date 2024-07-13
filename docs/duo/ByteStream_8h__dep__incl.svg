@@ -46,7 +46,7 @@ if (edges && edges.length) {
         </defs>
 
 <script type="text/javascript">
-var viewWidth = 4791;
+var viewWidth = 4593;
 var viewHeight = 173;
 var sectionId = 'dynsection-1';
 </script>
@@ -58,9 +58,9 @@ var sectionId = 'dynsection-1';
 <g id="node1" class="node">
 <title>Node1</title>
 <g id="a_node1"><a xlink:title=" ">
-<polygon fill="#bfbfbf" stroke="black" points="1986.5,-134.5 1986.5,-164.5 2115.5,-164.5 2115.5,-134.5 1986.5,-134.5"/>
-<text text-anchor="start" x="1994.5" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Serial</text>
-<text text-anchor="middle" x="2051" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">/ByteStream.h</text>
+<polygon fill="#bfbfbf" stroke="black" points="1949.5,-134.5 1949.5,-164.5 2078.5,-164.5 2078.5,-134.5 1949.5,-134.5"/>
+<text text-anchor="start" x="1957.5" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Serial</text>
+<text text-anchor="middle" x="2014" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">/ByteStream.h</text>
 </a>
 </g>
 </g>
@@ -77,8 +77,8 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node2 -->
 <g id="edge1" class="edge">
 <title>Node1&#45;&gt;Node2</title>
-<path fill="none" stroke="midnightblue" d="M1976.12,-148.17C1669.15,-146.55 506.18,-137.85 141,-98 138.1,-97.68 135.14,-97.31 132.16,-96.9"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.22,-151.67 1986.24,-148.22 1976.26,-144.67 1976.22,-151.67"/>
+<path fill="none" stroke="midnightblue" d="M1939.05,-148.12C1635.73,-146.33 498.5,-137.11 141,-98 138.1,-97.68 135.14,-97.31 132.16,-96.9"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1939.04,-151.62 1949.06,-148.18 1939.08,-144.62 1939.04,-151.62"/>
 </g>
 <!-- Node3 -->
 <g id="node3" class="node">
@@ -93,701 +93,691 @@ var sectionId = 'dynsection-1';
 <!-- Node1&#45;&gt;Node3 -->
 <g id="edge2" class="edge">
 <title>Node1&#45;&gt;Node3</title>
-<path fill="none" stroke="midnightblue" d="M1976.49,-147.85C1686.06,-145.09 629.51,-132.82 296,-98 291.51,-97.53 286.89,-96.95 282.24,-96.3"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.47,-151.35 1986.5,-147.95 1976.53,-144.35 1976.47,-151.35"/>
+<path fill="none" stroke="midnightblue" d="M1939.01,-147.89C1651.36,-145.31 618.36,-133.69 292,-98 288.8,-97.65 285.52,-97.24 282.23,-96.78"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1939.3,-151.39 1949.33,-147.98 1939.36,-144.39 1939.3,-151.39"/>
 </g>
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
 <g id="a_node4"><a xlink:href="EditorConnection_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="62,-0.5 62,-30.5 232,-30.5 232,-0.5 62,-0.5"/>
-<text text-anchor="start" x="70" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
-<text text-anchor="middle" x="147" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/EditorConnection.cpp</text>
+<polygon fill="none" stroke="black" points="261,-0.5 261,-30.5 431,-30.5 431,-0.5 261,-0.5"/>
+<text text-anchor="start" x="269" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
+<text text-anchor="middle" x="346" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/EditorConnection.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node4 -->
 <g id="edge3" class="edge">
 <title>Node1&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M1976.18,-147.67C1655.01,-143.96 405.96,-127.64 328,-98 307.95,-90.38 309.65,-77.61 291,-67 263.14,-51.15 229.44,-39 201.66,-30.59"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.27,-151.18 1986.31,-147.79 1976.35,-144.18 1976.27,-151.18"/>
+<path fill="none" stroke="midnightblue" d="M1939.21,-147.59C1658.38,-143.93 675.84,-129.02 539,-98 505.42,-90.39 499.69,-80.47 468,-67 438.57,-54.49 404.99,-40.62 380.52,-30.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1939.25,-151.09 1949.3,-147.72 1939.34,-144.09 1939.25,-151.09"/>
 </g>
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
 <g id="a_node5"><a xlink:href="EditorConnection_8h.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="337.5,-67.5 337.5,-97.5 496.5,-97.5 496.5,-67.5 337.5,-67.5"/>
-<text text-anchor="start" x="345.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
-<text text-anchor="middle" x="417" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/EditorConnection.h</text>
+<polygon fill="none" stroke="black" points="300.5,-67.5 300.5,-97.5 459.5,-97.5 459.5,-67.5 300.5,-67.5"/>
+<text text-anchor="start" x="308.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
+<text text-anchor="middle" x="380" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/EditorConnection.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node5 -->
 <g id="edge4" class="edge">
 <title>Node1&#45;&gt;Node5</title>
-<path fill="none" stroke="midnightblue" d="M1976.02,-147.26C1708.24,-142.62 799.62,-125.22 510,-98 505.61,-97.59 501.11,-97.1 496.57,-96.56"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.35,-150.76 1986.41,-147.43 1976.47,-143.76 1976.35,-150.76"/>
+<path fill="none" stroke="midnightblue" d="M1939.02,-147.26C1671.24,-142.62 762.62,-125.22 473,-98 468.61,-97.59 464.11,-97.1 459.57,-96.56"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1939.35,-150.76 1949.41,-147.43 1939.47,-143.76 1939.35,-150.76"/>
 </g>
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
 <g id="a_node7"><a xlink:href="ModeSharing_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="1700.5,-0.5 1700.5,-30.5 1851.5,-30.5 1851.5,-0.5 1700.5,-0.5"/>
-<text text-anchor="start" x="1708.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
-<text text-anchor="middle" x="1776" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/ModeSharing.cpp</text>
+<polygon fill="none" stroke="black" points="1747.5,-0.5 1747.5,-30.5 1898.5,-30.5 1898.5,-0.5 1747.5,-0.5"/>
+<text text-anchor="start" x="1755.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
+<text text-anchor="middle" x="1823" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/ModeSharing.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node7 -->
 <g id="edge7" class="edge">
 <title>Node1&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M1976.04,-147.87C1733.61,-145.49 984.46,-135.12 949,-98 939.48,-88.04 939.5,-76.98 949,-67 977.47,-37.12 1649.97,-35.48 1691,-31 1693.98,-30.68 1697.01,-30.31 1700.06,-29.92"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.13,-151.37 1986.16,-147.97 1976.2,-144.38 1976.13,-151.37"/>
+<path fill="none" stroke="midnightblue" d="M1939.44,-147.84C1699.21,-145.35 959.04,-134.7 924,-98 914.49,-88.03 914.48,-76.96 924,-67 955.29,-34.29 1692.99,-35.82 1738,-31 1740.98,-30.68 1744.01,-30.32 1747.07,-29.94"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1939.44,-151.34 1949.48,-147.94 1939.51,-144.34 1939.44,-151.34"/>
 </g>
 <!-- Node8 -->
 <g id="node8" class="node">
 <title>Node8</title>
 <g id="a_node8"><a xlink:href="PatternSelect_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="402,-0.5 402,-30.5 554,-30.5 554,-0.5 402,-0.5"/>
-<text text-anchor="start" x="410" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
-<text text-anchor="middle" x="478" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/PatternSelect.cpp</text>
+<polygon fill="none" stroke="black" points="449,-0.5 449,-30.5 601,-30.5 601,-0.5 449,-0.5"/>
+<text text-anchor="start" x="457" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
+<text text-anchor="middle" x="525" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/PatternSelect.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node8 -->
 <g id="edge8" class="edge">
 <title>Node1&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M1976.04,-148.88C1693.44,-149.93 701.98,-149.84 571,-98 535.47,-83.94 504.39,-50.03 488.74,-30.67"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.2,-152.38 1986.18,-148.84 1976.17,-145.38 1976.2,-152.38"/>
+<path fill="none" stroke="midnightblue" d="M1939,-147.92C1650.95,-145.42 628.73,-134.06 570,-98 545.62,-83.03 533.44,-49.8 528.25,-30.72"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1939.31,-151.42 1949.34,-148.01 1939.37,-144.42 1939.31,-151.42"/>
 </g>
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
 <g id="a_node9"><a xlink:href="Mode_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="590,-67.5 590,-97.5 724,-97.5 724,-67.5 590,-67.5"/>
-<text text-anchor="start" x="598" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
-<text text-anchor="middle" x="657" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Mode.cpp</text>
+<polygon fill="none" stroke="black" points="591,-67.5 591,-97.5 725,-97.5 725,-67.5 591,-67.5"/>
+<text text-anchor="start" x="599" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
+<text text-anchor="middle" x="658" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Mode.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node9 -->
 <g id="edge9" class="edge">
 <title>Node1&#45;&gt;Node9</title>
-<path fill="none" stroke="midnightblue" d="M1976.04,-147.11C1734.24,-142.4 976.5,-125.73 733,-98 730.06,-97.67 727.07,-97.28 724.05,-96.86"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.07,-150.61 1986.14,-147.31 1976.21,-143.61 1976.07,-150.61"/>
+<path fill="none" stroke="midnightblue" d="M1939.22,-147.02C1702.26,-142.08 969.81,-124.99 734,-98 731.06,-97.66 728.07,-97.28 725.05,-96.85"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1939.39,-150.52 1949.46,-147.23 1939.53,-143.52 1939.39,-150.52"/>
 </g>
 <!-- Node10 -->
 <g id="node10" class="node">
 <title>Node10</title>
 <g id="a_node10"><a xlink:href="Modes_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="572,-0.5 572,-30.5 706,-30.5 706,-0.5 572,-0.5"/>
-<text text-anchor="start" x="580" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
-<text text-anchor="middle" x="639" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Modes.cpp</text>
+<polygon fill="none" stroke="black" points="619,-0.5 619,-30.5 753,-30.5 753,-0.5 619,-0.5"/>
+<text text-anchor="start" x="627" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
+<text text-anchor="middle" x="686" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Modes.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node10 -->
 <g id="edge10" class="edge">
 <title>Node1&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M1976.41,-148.78C1684.05,-149.5 629.88,-148.59 581,-98 560.49,-76.77 592.79,-47.8 616.82,-30.73"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.49,-152.28 1986.48,-148.75 1976.47,-145.28 1976.49,-152.28"/>
+<path fill="none" stroke="midnightblue" d="M1938.98,-148.71C1650.92,-149.13 629.47,-147.17 582,-98 556.19,-71.26 604.69,-45.73 643.79,-30.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1939.33,-152.21 1949.32,-148.69 1939.32,-145.21 1939.33,-152.21"/>
 </g>
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
 <g id="a_node11"><a xlink:href="Modes_8h.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="742,-67.5 742,-97.5 876,-97.5 876,-67.5 742,-67.5"/>
-<text text-anchor="start" x="750" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
-<text text-anchor="middle" x="809" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Modes.h</text>
+<polygon fill="none" stroke="black" points="743,-67.5 743,-97.5 877,-97.5 877,-67.5 743,-67.5"/>
+<text text-anchor="start" x="751" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
+<text text-anchor="middle" x="810" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Modes.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node11 -->
 <g id="edge11" class="edge">
 <title>Node1&#45;&gt;Node11</title>
-<path fill="none" stroke="midnightblue" d="M1976.1,-148.7C1791.14,-148.45 1298.13,-143.2 890,-98 885.46,-97.5 880.78,-96.89 876.08,-96.22"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.26,-152.2 1986.26,-148.71 1976.26,-145.2 1976.26,-152.2"/>
-</g>
-<!-- Node18 -->
-<g id="node18" class="node">
-<title>Node18</title>
-<g id="a_node18"><a xlink:href="VortexEngine_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="1870,-6 1870,-25 2056,-25 2056,-6 1870,-6"/>
-<text text-anchor="middle" x="1963" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/VortexEngine.cpp</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node18 -->
-<g id="edge43" class="edge">
-<title>Node1&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M1976.37,-147.84C1735.93,-145.36 995.08,-134.74 960,-98 950.49,-88.03 950.45,-76.94 960,-67 994.67,-30.92 1810.16,-35.49 1860,-31 1876.28,-29.53 1893.92,-27.29 1909.92,-25"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.38,-151.34 1986.42,-147.94 1976.45,-144.34 1976.38,-151.34"/>
+<path fill="none" stroke="midnightblue" d="M1939,-148.54C1758.15,-147.91 1283.9,-141.81 891,-98 886.46,-97.49 881.78,-96.89 877.08,-96.21"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1939.19,-152.04 1949.2,-148.57 1939.21,-145.04 1939.19,-152.04"/>
 </g>
 <!-- Node19 -->
 <g id="node19" class="node">
 <title>Node19</title>
 <g id="a_node19"><a xlink:href="BlinkStepPattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="969.5,-67.5 969.5,-97.5 1118.5,-97.5 1118.5,-67.5 969.5,-67.5"/>
-<text text-anchor="start" x="977.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="1044" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/BlinkStepPattern.cpp</text>
+<polygon fill="none" stroke="black" points="932.5,-67.5 932.5,-97.5 1081.5,-97.5 1081.5,-67.5 932.5,-67.5"/>
+<text text-anchor="start" x="940.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="1007" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/BlinkStepPattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node19 -->
 <g id="edge24" class="edge">
 <title>Node1&#45;&gt;Node19</title>
-<path fill="none" stroke="midnightblue" d="M1976.31,-147.41C1818.83,-144.46 1441.33,-133.92 1127,-98 1124.24,-97.68 1121.43,-97.34 1118.6,-96.96"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.3,-150.91 1986.37,-147.6 1976.43,-143.91 1976.3,-150.91"/>
+<path fill="none" stroke="midnightblue" d="M1939.4,-147.36C1782.1,-144.3 1405.02,-133.57 1091,-98 1087.91,-97.65 1084.77,-97.26 1081.59,-96.84"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1939.38,-150.86 1949.44,-147.55 1939.51,-143.86 1939.38,-150.86"/>
 </g>
 <!-- Node20 -->
 <g id="node20" class="node">
 <title>Node20</title>
 <g id="a_node20"><a xlink:href="BouncePattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="1136.5,-67.5 1136.5,-97.5 1277.5,-97.5 1277.5,-67.5 1136.5,-67.5"/>
-<text text-anchor="start" x="1144.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="1207" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/BouncePattern.cpp</text>
+<polygon fill="none" stroke="black" points="1099.5,-67.5 1099.5,-97.5 1240.5,-97.5 1240.5,-67.5 1099.5,-67.5"/>
+<text text-anchor="start" x="1107.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="1170" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/BouncePattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node20 -->
 <g id="edge25" class="edge">
 <title>Node1&#45;&gt;Node20</title>
-<path fill="none" stroke="midnightblue" d="M1975.99,-146.36C1838.78,-141.82 1538.37,-128.99 1287,-98 1283.92,-97.62 1280.77,-97.2 1277.6,-96.74"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.26,-149.87 1986.37,-146.7 1976.49,-142.88 1976.26,-149.87"/>
+<path fill="none" stroke="midnightblue" d="M1938.99,-146.36C1801.78,-141.82 1501.37,-128.99 1250,-98 1246.92,-97.62 1243.77,-97.2 1240.6,-96.74"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1939.26,-149.87 1949.37,-146.7 1939.49,-142.88 1939.26,-149.87"/>
 </g>
 <!-- Node21 -->
 <g id="node21" class="node">
 <title>Node21</title>
 <g id="a_node21"><a xlink:href="DoubleStrobePattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="1296,-67.5 1296,-97.5 1464,-97.5 1464,-67.5 1296,-67.5"/>
-<text text-anchor="start" x="1304" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="1380" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/DoubleStrobePattern.cpp</text>
+<polygon fill="none" stroke="black" points="1259,-67.5 1259,-97.5 1427,-97.5 1427,-67.5 1259,-67.5"/>
+<text text-anchor="start" x="1267" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="1343" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/DoubleStrobePattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node21 -->
 <g id="edge26" class="edge">
 <title>Node1&#45;&gt;Node21</title>
-<path fill="none" stroke="midnightblue" d="M1976.24,-143.59C1865.92,-135.97 1653.12,-119.88 1473,-98 1470.08,-97.65 1467.11,-97.27 1464.11,-96.88"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.06,-147.08 1986.27,-144.28 1976.54,-140.1 1976.06,-147.08"/>
+<path fill="none" stroke="midnightblue" d="M1939.38,-143.54C1829.25,-135.87 1616.82,-119.71 1437,-98 1433.72,-97.6 1430.38,-97.18 1427.01,-96.74"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1939.17,-147.04 1949.39,-144.24 1939.65,-140.05 1939.17,-147.04"/>
 </g>
 <!-- Node22 -->
 <g id="node22" class="node">
 <title>Node22</title>
 <g id="a_node22"><a xlink:href="DripMorphPattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="1482.5,-67.5 1482.5,-97.5 1635.5,-97.5 1635.5,-67.5 1482.5,-67.5"/>
-<text text-anchor="start" x="1490.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="1559" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/DripMorphPattern.cpp</text>
+<polygon fill="none" stroke="black" points="1445.5,-67.5 1445.5,-97.5 1598.5,-97.5 1598.5,-67.5 1445.5,-67.5"/>
+<text text-anchor="start" x="1453.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="1522" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/DripMorphPattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node22 -->
 <g id="edge27" class="edge">
 <title>Node1&#45;&gt;Node22</title>
-<path fill="none" stroke="midnightblue" d="M1976.44,-140.28C1894.71,-131.03 1759.8,-115.05 1644,-98 1641.33,-97.61 1638.62,-97.2 1635.89,-96.78"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1976.05,-143.76 1986.38,-141.4 1976.83,-136.8 1976.05,-143.76"/>
+<path fill="none" stroke="midnightblue" d="M1939.02,-140.16C1857.44,-130.85 1723.25,-114.88 1608,-98 1605,-97.56 1601.95,-97.1 1598.87,-96.63"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1938.86,-143.66 1949.19,-141.31 1939.65,-136.71 1938.86,-143.66"/>
 </g>
 <!-- Node23 -->
 <g id="node23" class="node">
 <title>Node23</title>
 <g id="a_node23"><a xlink:href="FillPattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="1653.5,-67.5 1653.5,-97.5 1794.5,-97.5 1794.5,-67.5 1653.5,-67.5"/>
-<text text-anchor="start" x="1661.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="1724" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/FillPattern.cpp</text>
+<polygon fill="none" stroke="black" points="1616.5,-67.5 1616.5,-97.5 1757.5,-97.5 1757.5,-67.5 1616.5,-67.5"/>
+<text text-anchor="start" x="1624.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="1687" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/FillPattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node23 -->
 <g id="edge28" class="edge">
 <title>Node1&#45;&gt;Node23</title>
-<path fill="none" stroke="midnightblue" d="M1976.44,-133.68C1921.88,-122.83 1848.34,-108.22 1794.71,-97.55"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="1975.9,-137.14 1986.4,-135.66 1977.27,-130.28 1975.9,-137.14"/>
+<path fill="none" stroke="midnightblue" d="M1939.44,-133.68C1884.88,-122.83 1811.34,-108.22 1757.71,-97.55"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1938.9,-137.14 1949.4,-135.66 1940.27,-130.28 1938.9,-137.14"/>
 </g>
 <!-- Node24 -->
 <g id="node24" class="node">
 <title>Node24</title>
 <g id="a_node24"><a xlink:href="HueShiftPattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="1812.5,-67.5 1812.5,-97.5 1955.5,-97.5 1955.5,-67.5 1812.5,-67.5"/>
-<text text-anchor="start" x="1820.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="1884" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/HueShiftPattern.cpp</text>
+<polygon fill="none" stroke="black" points="1775.5,-67.5 1775.5,-97.5 1918.5,-97.5 1918.5,-67.5 1775.5,-67.5"/>
+<text text-anchor="start" x="1783.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="1847" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/HueShiftPattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node24 -->
 <g id="edge29" class="edge">
 <title>Node1&#45;&gt;Node24</title>
-<path fill="none" stroke="midnightblue" d="M2005.22,-130.68C1978.44,-120.26 1945.1,-107.28 1920.17,-97.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2004.17,-134.03 2014.76,-134.4 2006.71,-127.51 2004.17,-134.03"/>
+<path fill="none" stroke="midnightblue" d="M1968.22,-130.68C1941.44,-120.26 1908.1,-107.28 1883.17,-97.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="1967.17,-134.03 1977.76,-134.4 1969.71,-127.51 1967.17,-134.03"/>
 </g>
 <!-- Node25 -->
 <g id="node25" class="node">
 <title>Node25</title>
 <g id="a_node25"><a xlink:href="LighthousePattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="1973.5,-67.5 1973.5,-97.5 2128.5,-97.5 2128.5,-67.5 1973.5,-67.5"/>
-<text text-anchor="start" x="1981.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="2051" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/LighthousePattern.cpp</text>
+<polygon fill="none" stroke="black" points="1936.5,-67.5 1936.5,-97.5 2091.5,-97.5 2091.5,-67.5 1936.5,-67.5"/>
+<text text-anchor="start" x="1944.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="2014" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/LighthousePattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node25 -->
 <g id="edge30" class="edge">
 <title>Node1&#45;&gt;Node25</title>
-<path fill="none" stroke="midnightblue" d="M2051,-124.11C2051,-115.15 2051,-105.32 2051,-97.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2047.5,-124.4 2051,-134.4 2054.5,-124.4 2047.5,-124.4"/>
+<path fill="none" stroke="midnightblue" d="M2014,-124.11C2014,-115.15 2014,-105.32 2014,-97.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2010.5,-124.4 2014,-134.4 2017.5,-124.4 2010.5,-124.4"/>
 </g>
 <!-- Node26 -->
 <g id="node26" class="node">
 <title>Node26</title>
 <g id="a_node26"><a xlink:href="Sequence_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="2146.5,-67.5 2146.5,-97.5 2315.5,-97.5 2315.5,-67.5 2146.5,-67.5"/>
-<text text-anchor="start" x="2154.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="2231" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/Sequencer/Sequence.cpp</text>
+<polygon fill="none" stroke="black" points="2109.5,-67.5 2109.5,-97.5 2278.5,-97.5 2278.5,-67.5 2109.5,-67.5"/>
+<text text-anchor="start" x="2117.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="2194" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/Sequencer/Sequence.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node26 -->
 <g id="edge31" class="edge">
 <title>Node1&#45;&gt;Node26</title>
-<path fill="none" stroke="midnightblue" d="M2099.59,-130.96C2128.58,-120.48 2164.91,-107.37 2192.02,-97.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2098.27,-127.71 2090.06,-134.4 2100.65,-134.29 2098.27,-127.71"/>
+<path fill="none" stroke="midnightblue" d="M2062.59,-130.96C2091.58,-120.48 2127.91,-107.37 2155.02,-97.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2061.27,-127.71 2053.06,-134.4 2063.65,-134.29 2061.27,-127.71"/>
 </g>
 <!-- Node27 -->
 <g id="node27" class="node">
 <title>Node27</title>
 <g id="a_node27"><a xlink:href="SequencedPattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="2333.5,-67.5 2333.5,-97.5 2542.5,-97.5 2542.5,-67.5 2333.5,-67.5"/>
-<text text-anchor="start" x="2341.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="2438" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/Sequencer/SequencedPattern.cpp</text>
+<polygon fill="none" stroke="black" points="2296.5,-67.5 2296.5,-97.5 2505.5,-97.5 2505.5,-67.5 2296.5,-67.5"/>
+<text text-anchor="start" x="2304.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="2401" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/Sequencer/SequencedPattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node27 -->
 <g id="edge32" class="edge">
 <title>Node1&#45;&gt;Node27</title>
-<path fill="none" stroke="midnightblue" d="M2126.03,-135.9C2191.53,-124.9 2286.49,-108.95 2354.41,-97.54"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.06,-132.51 2115.78,-137.62 2126.22,-139.42 2125.06,-132.51"/>
+<path fill="none" stroke="midnightblue" d="M2089.03,-135.9C2154.53,-124.9 2249.49,-108.95 2317.41,-97.54"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.06,-132.51 2078.78,-137.62 2089.22,-139.42 2088.06,-132.51"/>
 </g>
 <!-- Node28 -->
 <g id="node28" class="node">
 <title>Node28</title>
 <g id="a_node28"><a xlink:href="VortexPattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="2560.5,-67.5 2560.5,-97.5 2701.5,-97.5 2701.5,-67.5 2560.5,-67.5"/>
-<text text-anchor="start" x="2568.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="2631" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/VortexPattern.cpp</text>
+<polygon fill="none" stroke="black" points="2523.5,-67.5 2523.5,-97.5 2664.5,-97.5 2664.5,-67.5 2523.5,-67.5"/>
+<text text-anchor="start" x="2531.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="2594" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/VortexPattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node28 -->
 <g id="edge33" class="edge">
 <title>Node1&#45;&gt;Node28</title>
-<path fill="none" stroke="midnightblue" d="M2125.62,-142.81C2223.53,-134.92 2400.6,-119.19 2551,-98 2554.07,-97.57 2557.21,-97.1 2560.38,-96.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.21,-139.33 2115.52,-143.62 2125.77,-146.31 2125.21,-139.33"/>
+<path fill="none" stroke="midnightblue" d="M2088.77,-142.87C2186.89,-135.04 2364.32,-119.39 2515,-98 2517.76,-97.61 2520.57,-97.19 2523.41,-96.75"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.35,-139.39 2078.66,-143.67 2088.9,-146.37 2088.35,-139.39"/>
 </g>
 <!-- Node29 -->
 <g id="node29" class="node">
 <title>Node29</title>
 <g id="a_node29"><a xlink:href="VortexWipePattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="2720,-67.5 2720,-97.5 2878,-97.5 2878,-67.5 2720,-67.5"/>
-<text text-anchor="start" x="2728" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="2799" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/VortexWipePattern.cpp</text>
+<polygon fill="none" stroke="black" points="2683,-67.5 2683,-97.5 2841,-97.5 2841,-67.5 2683,-67.5"/>
+<text text-anchor="start" x="2691" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="2762" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/VortexWipePattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node29 -->
 <g id="edge34" class="edge">
 <title>Node1&#45;&gt;Node29</title>
-<path fill="none" stroke="midnightblue" d="M2125.74,-144.85C2248.15,-138.4 2498.89,-123.24 2710,-98 2713.26,-97.61 2716.59,-97.19 2719.95,-96.74"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.52,-141.35 2115.72,-145.37 2125.89,-148.34 2125.52,-141.35"/>
+<path fill="none" stroke="midnightblue" d="M2088.86,-144.9C2211.46,-138.52 2462.59,-123.46 2674,-98 2676.92,-97.65 2679.89,-97.27 2682.89,-96.87"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.63,-141.4 2078.82,-145.41 2088.99,-148.39 2088.63,-141.4"/>
 </g>
 <!-- Node30 -->
 <g id="node30" class="node">
 <title>Node30</title>
 <g id="a_node30"><a xlink:href="WarpPattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="2896.5,-67.5 2896.5,-97.5 3037.5,-97.5 3037.5,-67.5 2896.5,-67.5"/>
-<text text-anchor="start" x="2904.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="2967" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/WarpPattern.cpp</text>
+<polygon fill="none" stroke="black" points="2859.5,-67.5 2859.5,-97.5 3000.5,-97.5 3000.5,-67.5 2859.5,-67.5"/>
+<text text-anchor="start" x="2867.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="2930" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/WarpPattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node30 -->
 <g id="edge35" class="edge">
 <title>Node1&#45;&gt;Node30</title>
-<path fill="none" stroke="midnightblue" d="M2125.97,-146.96C2272.62,-143.29 2607.51,-131.65 2887,-98 2890.08,-97.63 2893.23,-97.21 2896.4,-96.77"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.65,-143.47 2115.74,-147.21 2125.83,-150.46 2125.65,-143.47"/>
+<path fill="none" stroke="midnightblue" d="M2088.97,-146.96C2235.62,-143.29 2570.51,-131.65 2850,-98 2853.08,-97.63 2856.23,-97.21 2859.4,-96.77"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.65,-143.47 2078.74,-147.21 2088.83,-150.46 2088.65,-143.47"/>
 </g>
 <!-- Node31 -->
 <g id="node31" class="node">
 <title>Node31</title>
 <g id="a_node31"><a xlink:href="WarpWormPattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="3055.5,-67.5 3055.5,-97.5 3210.5,-97.5 3210.5,-67.5 3055.5,-67.5"/>
-<text text-anchor="start" x="3063.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="3133" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/WarpWormPattern.cpp</text>
+<polygon fill="none" stroke="black" points="3018.5,-67.5 3018.5,-97.5 3173.5,-97.5 3173.5,-67.5 3018.5,-67.5"/>
+<text text-anchor="start" x="3026.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="3096" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/WarpWormPattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node31 -->
 <g id="edge36" class="edge">
 <title>Node1&#45;&gt;Node31</title>
-<path fill="none" stroke="midnightblue" d="M2125.69,-147.68C2291.79,-145.2 2704.14,-135.47 3047,-98 3049.71,-97.7 3052.46,-97.38 3055.24,-97.03"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.53,-144.18 2115.59,-147.82 2125.64,-151.18 2125.53,-144.18"/>
+<path fill="none" stroke="midnightblue" d="M2088.69,-147.68C2254.79,-145.2 2667.14,-135.47 3010,-98 3012.71,-97.7 3015.46,-97.38 3018.24,-97.03"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.53,-144.18 2078.59,-147.82 2088.64,-151.18 2088.53,-144.18"/>
 </g>
 <!-- Node32 -->
 <g id="node32" class="node">
 <title>Node32</title>
 <g id="a_node32"><a xlink:href="Pattern_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="3228.5,-67.5 3228.5,-97.5 3369.5,-97.5 3369.5,-67.5 3228.5,-67.5"/>
-<text text-anchor="start" x="3236.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="3299" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Pattern.cpp</text>
+<polygon fill="none" stroke="black" points="3191.5,-67.5 3191.5,-97.5 3332.5,-97.5 3332.5,-67.5 3191.5,-67.5"/>
+<text text-anchor="start" x="3199.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="3262" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Pattern.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node32 -->
 <g id="edge37" class="edge">
 <title>Node1&#45;&gt;Node32</title>
-<path fill="none" stroke="midnightblue" d="M2125.75,-148.85C2311.49,-148.93 2808.66,-144.41 3220,-98 3222.77,-97.69 3225.59,-97.34 3228.44,-96.95"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.56,-145.35 2115.55,-148.84 2125.55,-152.35 2125.56,-145.35"/>
+<path fill="none" stroke="midnightblue" d="M2088.75,-148.85C2274.49,-148.93 2771.66,-144.41 3183,-98 3185.77,-97.69 3188.59,-97.34 3191.44,-96.95"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.56,-145.35 2078.55,-148.84 2088.55,-152.35 2088.56,-145.35"/>
 </g>
 <!-- Node33 -->
 <g id="node33" class="node">
 <title>Node33</title>
 <g id="a_node33"><a xlink:href="PatternArgs_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="3387.5,-67.5 3387.5,-97.5 3528.5,-97.5 3528.5,-67.5 3387.5,-67.5"/>
-<text text-anchor="start" x="3395.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="3458" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/PatternArgs.cpp</text>
+<polygon fill="none" stroke="black" points="3350.5,-67.5 3350.5,-97.5 3491.5,-97.5 3491.5,-67.5 3350.5,-67.5"/>
+<text text-anchor="start" x="3358.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="3421" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/PatternArgs.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node33 -->
 <g id="edge38" class="edge">
 <title>Node1&#45;&gt;Node33</title>
-<path fill="none" stroke="midnightblue" d="M2125.68,-147.07C2368.37,-142.21 3133.27,-125.08 3379,-98 3381.77,-97.69 3384.59,-97.35 3387.44,-96.97"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.48,-143.58 2115.55,-147.27 2125.62,-150.57 2125.48,-143.58"/>
+<path fill="none" stroke="midnightblue" d="M2088.68,-147.07C2331.37,-142.21 3096.27,-125.08 3342,-98 3344.77,-97.69 3347.59,-97.35 3350.44,-96.97"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.48,-143.58 2078.55,-147.27 2088.62,-150.57 2088.48,-143.58"/>
 </g>
 <!-- Node34 -->
 <g id="node34" class="node">
 <title>Node34</title>
 <g id="a_node34"><a xlink:href="PatternBuilder_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="3546.5,-67.5 3546.5,-97.5 3687.5,-97.5 3687.5,-67.5 3546.5,-67.5"/>
-<text text-anchor="start" x="3554.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
-<text text-anchor="middle" x="3617" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/PatternBuilder.cpp</text>
+<polygon fill="none" stroke="black" points="3509.5,-67.5 3509.5,-97.5 3650.5,-97.5 3650.5,-67.5 3509.5,-67.5"/>
+<text text-anchor="start" x="3517.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
+<text text-anchor="middle" x="3580" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/PatternBuilder.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node34 -->
 <g id="edge39" class="edge">
 <title>Node1&#45;&gt;Node34</title>
-<path fill="none" stroke="midnightblue" d="M2126.04,-147.42C2387.83,-143.41 3259.87,-128.08 3538,-98 3540.77,-97.7 3543.59,-97.36 3546.44,-96.98"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.82,-143.92 2115.88,-147.57 2125.93,-150.92 2125.82,-143.92"/>
+<path fill="none" stroke="midnightblue" d="M2089.04,-147.42C2350.83,-143.41 3222.87,-128.08 3501,-98 3503.77,-97.7 3506.59,-97.36 3509.44,-96.98"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.82,-143.92 2078.88,-147.57 2088.93,-150.92 2088.82,-143.92"/>
 </g>
 <!-- Node35 -->
 <g id="node35" class="node">
 <title>Node35</title>
 <g id="a_node35"><a xlink:href="ByteStream_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="3705.5,-67.5 3705.5,-97.5 3834.5,-97.5 3834.5,-67.5 3705.5,-67.5"/>
-<text text-anchor="start" x="3713.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Serial</text>
-<text text-anchor="middle" x="3770" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/ByteStream.cpp</text>
+<polygon fill="none" stroke="black" points="3668.5,-67.5 3668.5,-97.5 3797.5,-97.5 3797.5,-67.5 3668.5,-67.5"/>
+<text text-anchor="start" x="3676.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Serial</text>
+<text text-anchor="middle" x="3733" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/ByteStream.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node35 -->
 <g id="edge40" class="edge">
 <title>Node1&#45;&gt;Node35</title>
-<path fill="none" stroke="midnightblue" d="M2125.97,-147.85C2405.44,-145.16 3386.42,-133.36 3697,-98 3699.7,-97.69 3702.44,-97.34 3705.21,-96.95"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.9,-144.35 2115.93,-147.94 2125.97,-151.35 2125.9,-144.35"/>
+<path fill="none" stroke="midnightblue" d="M2088.97,-147.85C2368.44,-145.16 3349.42,-133.36 3660,-98 3662.7,-97.69 3665.44,-97.34 3668.21,-96.95"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.9,-144.35 2078.93,-147.94 2088.97,-151.35 2088.9,-144.35"/>
 </g>
 <!-- Node36 -->
 <g id="node36" class="node">
 <title>Node36</title>
 <g id="a_node36"><a xlink:href="Serial_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="3852.5,-67.5 3852.5,-97.5 3981.5,-97.5 3981.5,-67.5 3852.5,-67.5"/>
-<text text-anchor="start" x="3860.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Serial</text>
-<text text-anchor="middle" x="3917" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Serial.cpp</text>
+<polygon fill="none" stroke="black" points="3815.5,-67.5 3815.5,-97.5 3944.5,-97.5 3944.5,-67.5 3815.5,-67.5"/>
+<text text-anchor="start" x="3823.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Serial</text>
+<text text-anchor="middle" x="3880" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Serial.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node36 -->
 <g id="edge41" class="edge">
 <title>Node1&#45;&gt;Node36</title>
-<path fill="none" stroke="midnightblue" d="M2125.65,-148.07C2420.29,-146.11 3503,-136.39 3844,-98 3846.7,-97.7 3849.44,-97.35 3852.21,-96.96"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.48,-144.57 2115.5,-148.14 2125.52,-151.57 2125.48,-144.57"/>
+<path fill="none" stroke="midnightblue" d="M2088.65,-148.07C2383.29,-146.11 3466,-136.39 3807,-98 3809.7,-97.7 3812.44,-97.35 3815.21,-96.96"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.48,-144.57 2078.5,-148.14 2088.52,-151.57 2088.48,-144.57"/>
 </g>
 <!-- Node37 -->
 <g id="node37" class="node">
 <title>Node37</title>
 <g id="a_node37"><a xlink:href="Storage_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="3999.5,-67.5 3999.5,-97.5 4138.5,-97.5 4138.5,-67.5 3999.5,-67.5"/>
-<text text-anchor="start" x="4007.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Storage</text>
-<text text-anchor="middle" x="4069" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Storage.cpp</text>
+<polygon fill="none" stroke="black" points="3962.5,-67.5 3962.5,-97.5 4101.5,-97.5 4101.5,-67.5 3962.5,-67.5"/>
+<text text-anchor="start" x="3970.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Storage</text>
+<text text-anchor="middle" x="4032" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Storage.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node37 -->
 <g id="edge42" class="edge">
 <title>Node1&#45;&gt;Node37</title>
-<path fill="none" stroke="midnightblue" d="M2126.01,-148.13C2436.17,-146.36 3619.53,-137.12 3991,-98 3993.74,-97.71 3996.53,-97.38 3999.34,-97.01"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.76,-144.63 2115.78,-148.19 2125.8,-151.63 2125.76,-144.63"/>
+<path fill="none" stroke="midnightblue" d="M2089.01,-148.13C2399.17,-146.36 3582.53,-137.12 3954,-98 3956.74,-97.71 3959.53,-97.38 3962.34,-97.01"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.76,-144.63 2078.78,-148.19 2088.8,-151.63 2088.76,-144.63"/>
 </g>
 <!-- Node38 -->
 <g id="node38" class="node">
 <title>Node38</title>
-<g id="a_node38"><a xlink:href="IRReceiver_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="4156.5,-67.5 4156.5,-97.5 4299.5,-97.5 4299.5,-67.5 4156.5,-67.5"/>
-<text text-anchor="start" x="4164.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
-<text text-anchor="middle" x="4228" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/IRReceiver.cpp</text>
+<g id="a_node38"><a xlink:href="IRSender_8h.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="4441.5,-67.5 4441.5,-97.5 4584.5,-97.5 4584.5,-67.5 4441.5,-67.5"/>
+<text text-anchor="start" x="4449.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
+<text text-anchor="middle" x="4513" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/IRSender.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node38 -->
-<g id="edge44" class="edge">
+<g id="edge43" class="edge">
 <title>Node1&#45;&gt;Node38</title>
-<path fill="none" stroke="midnightblue" d="M2125.8,-148.26C2451.03,-146.96 3743.8,-139.25 4148,-98 4150.67,-97.73 4153.38,-97.42 4156.12,-97.07"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.54,-144.76 2115.55,-148.3 2125.57,-151.76 2125.54,-144.76"/>
+<path fill="none" stroke="midnightblue" d="M2088.93,-148.54C2444.26,-148.46 3961.83,-145.32 4433,-98 4435.67,-97.73 4438.38,-97.42 4441.12,-97.08"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.76,-145.04 2078.76,-148.54 2088.76,-152.04 2088.76,-145.04"/>
 </g>
-<!-- Node39 -->
-<g id="node39" class="node">
-<title>Node39</title>
-<g id="a_node39"><a xlink:href="IRSender_8h.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="4639.5,-67.5 4639.5,-97.5 4782.5,-97.5 4782.5,-67.5 4639.5,-67.5"/>
-<text text-anchor="start" x="4647.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
-<text text-anchor="middle" x="4711" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/IRSender.h</text>
+<!-- Node40 -->
+<g id="node40" class="node">
+<title>Node40</title>
+<g id="a_node40"><a xlink:href="VLReceiver_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="4280.5,-67.5 4280.5,-97.5 4423.5,-97.5 4423.5,-67.5 4280.5,-67.5"/>
+<text text-anchor="start" x="4288.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
+<text text-anchor="middle" x="4352" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLReceiver.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node1&#45;&gt;Node39 -->
-<g id="edge45" class="edge">
-<title>Node1&#45;&gt;Node39</title>
-<path fill="none" stroke="midnightblue" d="M2125.75,-148.65C2494.94,-149.14 4126.13,-148.37 4631,-98 4633.67,-97.73 4636.38,-97.43 4639.12,-97.09"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.72,-145.15 2115.71,-148.64 2125.71,-152.15 2125.72,-145.15"/>
+<!-- Node1&#45;&gt;Node40 -->
+<g id="edge46" class="edge">
+<title>Node1&#45;&gt;Node40</title>
+<path fill="none" stroke="midnightblue" d="M2088.88,-148.41C2429.44,-147.73 3834.36,-142.28 4272,-98 4274.67,-97.73 4277.38,-97.42 4280.12,-97.08"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.63,-144.91 2078.64,-148.42 2088.65,-151.91 2088.63,-144.91"/>
 </g>
 <!-- Node41 -->
 <g id="node41" class="node">
 <title>Node41</title>
-<g id="a_node41"><a xlink:href="VLReceiver_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="4478.5,-67.5 4478.5,-97.5 4621.5,-97.5 4621.5,-67.5 4478.5,-67.5"/>
-<text text-anchor="start" x="4486.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
-<text text-anchor="middle" x="4550" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLReceiver.cpp</text>
+<g id="a_node41"><a xlink:href="VLSender_8h.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="4119.5,-67.5 4119.5,-97.5 4262.5,-97.5 4262.5,-67.5 4119.5,-67.5"/>
+<text text-anchor="start" x="4127.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
+<text text-anchor="middle" x="4191" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLSender.h</text>
 </a>
 </g>
 </g>
 <!-- Node1&#45;&gt;Node41 -->
 <g id="edge47" class="edge">
 <title>Node1&#45;&gt;Node41</title>
-<path fill="none" stroke="midnightblue" d="M2125.93,-148.54C2481.26,-148.46 3998.83,-145.32 4470,-98 4472.67,-97.73 4475.38,-97.42 4478.12,-97.08"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.76,-145.04 2115.76,-148.54 2125.76,-152.04 2125.76,-145.04"/>
-</g>
-<!-- Node42 -->
-<g id="node42" class="node">
-<title>Node42</title>
-<g id="a_node42"><a xlink:href="VLSender_8h.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="4317.5,-67.5 4317.5,-97.5 4460.5,-97.5 4460.5,-67.5 4317.5,-67.5"/>
-<text text-anchor="start" x="4325.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
-<text text-anchor="middle" x="4389" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLSender.h</text>
-</a>
-</g>
-</g>
-<!-- Node1&#45;&gt;Node42 -->
-<g id="edge48" class="edge">
-<title>Node1&#45;&gt;Node42</title>
-<path fill="none" stroke="midnightblue" d="M2125.88,-148.41C2466.44,-147.73 3871.36,-142.28 4309,-98 4311.67,-97.73 4314.38,-97.42 4317.12,-97.08"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="2125.63,-144.91 2115.64,-148.42 2125.65,-151.91 2125.63,-144.91"/>
+<path fill="none" stroke="midnightblue" d="M2088.8,-148.26C2414.03,-146.96 3706.8,-139.25 4111,-98 4113.67,-97.73 4116.38,-97.42 4119.12,-97.07"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="2088.54,-144.76 2078.55,-148.3 2088.57,-151.76 2088.54,-144.76"/>
 </g>
 <!-- Node5&#45;&gt;Node4 -->
 <g id="edge5" class="edge">
 <title>Node5&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M348.95,-65.12C304.77,-54.48 247.78,-40.76 205.61,-30.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="348.2,-68.54 358.75,-67.48 349.84,-61.73 348.2,-68.54"/>
+<path fill="none" stroke="midnightblue" d="M367.86,-58.28C363.01,-49.02 357.59,-38.66 353.36,-30.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="364.89,-60.16 372.62,-67.4 371.09,-56.91 364.89,-60.16"/>
 </g>
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
 <g id="a_node6"><a xlink:href="Menus_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="250,-0.5 250,-30.5 384,-30.5 384,-0.5 250,-0.5"/>
-<text text-anchor="start" x="258" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
-<text text-anchor="middle" x="317" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Menus.cpp</text>
+<polygon fill="none" stroke="black" points="109,-0.5 109,-30.5 243,-30.5 243,-0.5 109,-0.5"/>
+<text text-anchor="start" x="117" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
+<text text-anchor="middle" x="176" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Menus.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node5&#45;&gt;Node6 -->
 <g id="edge6" class="edge">
 <title>Node5&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M386.59,-61.73C371.12,-51.68 352.67,-39.68 338.66,-30.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="385.01,-64.88 395.3,-67.4 388.82,-59.01 385.01,-64.88"/>
+<path fill="none" stroke="midnightblue" d="M326.04,-64.31C293.04,-53.79 251.34,-40.51 220.29,-30.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="325.4,-67.77 335.99,-67.48 327.52,-61.11 325.4,-67.77"/>
 </g>
 <!-- Node11&#45;&gt;Node4 -->
 <g id="edge15" class="edge">
 <title>Node11&#45;&gt;Node4</title>
-<path fill="none" stroke="midnightblue" d="M731.77,-66.94C513.87,-38.92 455.55,-55.36 241,-31 238.05,-30.66 235.04,-30.3 232.01,-29.93"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="731.56,-70.45 741.93,-68.27 732.47,-63.51 731.56,-70.45"/>
+<path fill="none" stroke="midnightblue" d="M732.91,-66.89C602.24,-46.76 567.22,-48.6 440,-31 437.06,-30.59 434.06,-30.17 431.04,-29.74"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="732.49,-70.37 742.91,-68.45 733.56,-63.45 732.49,-70.37"/>
 </g>
 <!-- Node11&#45;&gt;Node6 -->
 <g id="edge21" class="edge">
 <title>Node11&#45;&gt;Node6</title>
-<path fill="none" stroke="midnightblue" d="M731.82,-66.91C580.94,-45.09 540.09,-52.78 393,-31 390.08,-30.57 387.09,-30.1 384.09,-29.61"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="731.51,-70.4 741.91,-68.39 732.53,-63.47 731.51,-70.4"/>
+<path fill="none" stroke="midnightblue" d="M732.97,-66.97C519.3,-39.43 461.74,-58.75 252,-31 249.07,-30.61 246.08,-30.18 243.07,-29.73"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="732.56,-70.45 742.93,-68.27 733.47,-63.51 732.56,-70.45"/>
 </g>
 <!-- Node11&#45;&gt;Node7 -->
 <g id="edge18" class="edge">
 <title>Node11&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M886.14,-67.45C887.43,-67.29 888.72,-67.14 890,-67 1244.17,-27.52 1336.68,-69.04 1691,-31 1693.98,-30.68 1697.01,-30.32 1700.07,-29.93"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="885.54,-64 876.08,-68.79 886.46,-70.94 885.54,-64"/>
+<path fill="none" stroke="midnightblue" d="M887.14,-67.45C888.43,-67.29 889.72,-67.14 891,-67 1265.52,-25.71 1363.32,-70.76 1738,-31 1740.98,-30.68 1744.01,-30.33 1747.07,-29.94"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="886.54,-63.99 877.08,-68.77 887.45,-70.93 886.54,-63.99"/>
 </g>
 <!-- Node11&#45;&gt;Node8 -->
 <g id="edge19" class="edge">
 <title>Node11&#45;&gt;Node8</title>
-<path fill="none" stroke="midnightblue" d="M731.55,-66.29C676.44,-55.47 602.96,-41.04 549.29,-30.5"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="731.13,-69.78 741.62,-68.27 732.48,-62.91 731.13,-69.78"/>
+<path fill="none" stroke="midnightblue" d="M738.47,-65.19C691.79,-54.54 631.48,-40.78 586.87,-30.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="737.98,-68.66 748.51,-67.48 739.54,-61.84 737.98,-68.66"/>
 </g>
 <!-- Node11&#45;&gt;Node10 -->
 <g id="edge22" class="edge">
 <title>Node11&#45;&gt;Node10</title>
-<path fill="none" stroke="midnightblue" d="M762.76,-63.82C735.43,-53.37 701.31,-40.32 675.82,-30.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="761.52,-67.09 772.11,-67.4 764.02,-60.56 761.52,-67.09"/>
+<path fill="none" stroke="midnightblue" d="M774.16,-62.71C754.61,-52.46 730.8,-39.98 712.85,-30.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="772.61,-65.85 783.09,-67.4 775.86,-59.65 772.61,-65.85"/>
 </g>
 <!-- Node12 -->
 <g id="node12" class="node">
 <title>Node12</title>
 <g id="a_node12"><a xlink:href="Leds_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="1076,-0.5 1076,-30.5 1200,-30.5 1200,-0.5 1076,-0.5"/>
-<text text-anchor="start" x="1084" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Leds</text>
-<text text-anchor="middle" x="1138" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Leds.cpp</text>
+<polygon fill="none" stroke="black" points="1123,-0.5 1123,-30.5 1247,-30.5 1247,-0.5 1123,-0.5"/>
+<text text-anchor="start" x="1131" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Leds</text>
+<text text-anchor="middle" x="1185" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Leds.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node11&#45;&gt;Node12 -->
 <g id="edge12" class="edge">
 <title>Node11&#45;&gt;Node12</title>
-<path fill="none" stroke="midnightblue" d="M886.09,-66.45C937.14,-56.46 1005.58,-43.02 1066,-31 1069.25,-30.35 1072.59,-29.69 1075.95,-29.02"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="885.26,-63.05 876.12,-68.4 886.6,-69.92 885.26,-63.05"/>
+<path fill="none" stroke="midnightblue" d="M887.17,-67.66C888.45,-67.43 889.73,-67.22 891,-67 989.97,-50.15 1015.24,-49.05 1114,-31 1116.85,-30.48 1119.75,-29.94 1122.69,-29.38"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="886.43,-64.23 877.17,-69.38 887.62,-71.13 886.43,-64.23"/>
 </g>
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
 <g id="a_node13"><a xlink:href="Menu_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="1218,-0.5 1218,-30.5 1352,-30.5 1352,-0.5 1218,-0.5"/>
-<text text-anchor="start" x="1226" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
-<text text-anchor="middle" x="1285" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Menu.cpp</text>
+<polygon fill="none" stroke="black" points="1265,-0.5 1265,-30.5 1399,-30.5 1399,-0.5 1265,-0.5"/>
+<text text-anchor="start" x="1273" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
+<text text-anchor="middle" x="1332" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Menu.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node11&#45;&gt;Node13 -->
 <g id="edge13" class="edge">
 <title>Node11&#45;&gt;Node13</title>
-<path fill="none" stroke="midnightblue" d="M886.15,-67.57C887.44,-67.38 888.73,-67.19 890,-67 1031.19,-46.42 1067.93,-52.39 1209,-31 1211.92,-30.56 1214.9,-30.08 1217.91,-29.59"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="885.47,-64.13 876.13,-69.14 886.55,-71.05 885.47,-64.13"/>
+<path fill="none" stroke="midnightblue" d="M887.15,-67.55C888.44,-67.36 889.73,-67.18 891,-67 1052.47,-44.62 1094.66,-54.3 1256,-31 1258.92,-30.58 1261.91,-30.12 1264.92,-29.64"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="886.48,-64.11 877.12,-69.06 887.53,-71.03 886.48,-64.11"/>
 </g>
 <!-- Node14 -->
 <g id="node14" class="node">
 <title>Node14</title>
 <g id="a_node14"><a xlink:href="ColorSelect_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="1370.5,-0.5 1370.5,-30.5 1513.5,-30.5 1513.5,-0.5 1370.5,-0.5"/>
-<text text-anchor="start" x="1378.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
-<text text-anchor="middle" x="1442" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/ColorSelect.cpp</text>
+<polygon fill="none" stroke="black" points="1417.5,-0.5 1417.5,-30.5 1560.5,-30.5 1560.5,-0.5 1417.5,-0.5"/>
+<text text-anchor="start" x="1425.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
+<text text-anchor="middle" x="1489" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/ColorSelect.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node11&#45;&gt;Node14 -->
 <g id="edge14" class="edge">
 <title>Node11&#45;&gt;Node14</title>
-<path fill="none" stroke="midnightblue" d="M886.14,-67.51C887.44,-67.33 888.72,-67.16 890,-67 1098.26,-40.47 1152.74,-57.53 1361,-31 1363.98,-30.62 1367.01,-30.21 1370.07,-29.76"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="885.5,-64.06 876.1,-68.95 886.5,-70.99 885.5,-64.06"/>
+<path fill="none" stroke="midnightblue" d="M887.14,-67.49C888.44,-67.32 889.72,-67.16 891,-67 1119.58,-38.67 1179.42,-59.33 1408,-31 1410.98,-30.63 1414.01,-30.22 1417.07,-29.79"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="886.51,-64.05 877.1,-68.91 887.49,-70.98 886.51,-64.05"/>
 </g>
 <!-- Node15 -->
 <g id="node15" class="node">
 <title>Node15</title>
 <g id="a_node15"><a xlink:href="FactoryReset_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="1532,-0.5 1532,-30.5 1682,-30.5 1682,-0.5 1532,-0.5"/>
-<text text-anchor="start" x="1540" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
-<text text-anchor="middle" x="1607" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/FactoryReset.cpp</text>
+<polygon fill="none" stroke="black" points="1579,-0.5 1579,-30.5 1729,-30.5 1729,-0.5 1579,-0.5"/>
+<text text-anchor="start" x="1587" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
+<text text-anchor="middle" x="1654" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/FactoryReset.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node11&#45;&gt;Node15 -->
 <g id="edge16" class="edge">
 <title>Node11&#45;&gt;Node15</title>
-<path fill="none" stroke="midnightblue" d="M886.14,-67.47C887.44,-67.31 888.72,-67.15 890,-67 1169.42,-34.15 1242.45,-62.71 1522,-31 1525.27,-30.63 1528.61,-30.21 1531.98,-29.77"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="885.52,-64.02 876.09,-68.85 886.47,-70.96 885.52,-64.02"/>
+<path fill="none" stroke="midnightblue" d="M887.14,-67.46C888.44,-67.3 889.72,-67.15 891,-67 1191.2,-32.31 1269.69,-64.76 1570,-31 1572.94,-30.67 1575.94,-30.3 1578.96,-29.91"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="886.53,-64.02 877.09,-68.83 887.47,-70.95 886.53,-64.02"/>
 </g>
 <!-- Node16 -->
 <g id="node16" class="node">
 <title>Node16</title>
 <g id="a_node16"><a xlink:href="GlobalBrightness_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="724,-0.5 724,-30.5 894,-30.5 894,-0.5 724,-0.5"/>
-<text text-anchor="start" x="732" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
-<text text-anchor="middle" x="809" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/GlobalBrightness.cpp</text>
+<polygon fill="none" stroke="black" points="771,-0.5 771,-30.5 941,-30.5 941,-0.5 771,-0.5"/>
+<text text-anchor="start" x="779" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
+<text text-anchor="middle" x="856" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/GlobalBrightness.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node11&#45;&gt;Node16 -->
 <g id="edge17" class="edge">
 <title>Node11&#45;&gt;Node16</title>
-<path fill="none" stroke="midnightblue" d="M809,-57.11C809,-48.15 809,-38.32 809,-30.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="805.5,-57.4 809,-67.4 812.5,-57.4 805.5,-57.4"/>
+<path fill="none" stroke="midnightblue" d="M825.81,-59.16C832.52,-49.68 840.13,-38.92 846.04,-30.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="822.9,-57.21 819.98,-67.4 828.62,-61.26 822.9,-57.21"/>
 </g>
 <!-- Node17 -->
 <g id="node17" class="node">
 <title>Node17</title>
 <g id="a_node17"><a xlink:href="Randomizer_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="912.5,-0.5 912.5,-30.5 1057.5,-30.5 1057.5,-0.5 912.5,-0.5"/>
-<text text-anchor="start" x="920.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
-<text text-anchor="middle" x="985" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/Randomizer.cpp</text>
+<polygon fill="none" stroke="black" points="959.5,-0.5 959.5,-30.5 1104.5,-30.5 1104.5,-0.5 959.5,-0.5"/>
+<text text-anchor="start" x="967.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
+<text text-anchor="middle" x="1032" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/Randomizer.cpp</text>
 </a>
 </g>
 </g>
 <!-- Node11&#45;&gt;Node17 -->
 <g id="edge20" class="edge">
 <title>Node11&#45;&gt;Node17</title>
-<path fill="none" stroke="midnightblue" d="M856.88,-63.82C885.17,-53.37 920.49,-40.32 946.89,-30.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="855.36,-60.65 847.19,-67.4 857.78,-67.21 855.36,-60.65"/>
+<path fill="none" stroke="midnightblue" d="M867.79,-64.58C903.85,-54.02 949.72,-40.59 983.81,-30.61"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="866.51,-61.31 857.9,-67.48 868.48,-68.02 866.51,-61.31"/>
+</g>
+<!-- Node18 -->
+<g id="node18" class="node">
+<title>Node18</title>
+<g id="a_node18"><a xlink:href="VortexEngine_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="3995,-6 3995,-25 4181,-25 4181,-6 3995,-6"/>
+<text text-anchor="middle" x="4088" y="-13" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/VortexEngine.cpp</text>
+</a>
+</g>
 </g>
 <!-- Node11&#45;&gt;Node18 -->
 <g id="edge23" class="edge">
 <title>Node11&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M886.25,-71.15C900.13,-69.55 914.48,-68.08 928,-67 1341.21,-33.9 1447.12,-67.94 1860,-31 1876.28,-29.54 1893.92,-27.3 1909.93,-25.02"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="885.76,-67.68 876.24,-72.32 886.58,-74.63 885.76,-67.68"/>
+<path fill="none" stroke="midnightblue" d="M887.3,-70.5C899.55,-69.09 912.11,-67.85 924,-67 1543.9,-22.77 3539.43,-17.27 3994.86,-16.6"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="886.61,-67.06 877.09,-71.71 887.43,-74.01 886.61,-67.06"/>
 </g>
-<!-- Node40 -->
-<g id="node40" class="node">
-<title>Node40</title>
-<g id="a_node40"><a xlink:href="IRSender_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="4639.5,-0.5 4639.5,-30.5 4782.5,-30.5 4782.5,-0.5 4639.5,-0.5"/>
-<text text-anchor="start" x="4647.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
-<text text-anchor="middle" x="4711" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/IRSender.cpp</text>
+<!-- Node38&#45;&gt;Node18 -->
+<g id="edge44" class="edge">
+<title>Node38&#45;&gt;Node18</title>
+<path fill="none" stroke="midnightblue" d="M4431.4,-66.78C4364.62,-56.1 4227.5,-36.38 4148,-25.03"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4431.06,-70.27 4441.49,-68.41 4432.18,-63.36 4431.06,-70.27"/>
+</g>
+<!-- Node39 -->
+<g id="node39" class="node">
+<title>Node39</title>
+<g id="a_node39"><a xlink:href="IRSender_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="4441.5,-0.5 4441.5,-30.5 4584.5,-30.5 4584.5,-0.5 4441.5,-0.5"/>
+<text text-anchor="start" x="4449.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
+<text text-anchor="middle" x="4513" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/IRSender.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node39&#45;&gt;Node40 -->
-<g id="edge46" class="edge">
-<title>Node39&#45;&gt;Node40</title>
-<path fill="none" stroke="midnightblue" d="M4711,-57.11C4711,-48.15 4711,-38.32 4711,-30.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4707.5,-57.4 4711,-67.4 4714.5,-57.4 4707.5,-57.4"/>
+<!-- Node38&#45;&gt;Node39 -->
+<g id="edge45" class="edge">
+<title>Node38&#45;&gt;Node39</title>
+<path fill="none" stroke="midnightblue" d="M4513,-57.11C4513,-48.15 4513,-38.32 4513,-30.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4509.5,-57.4 4513,-67.4 4516.5,-57.4 4509.5,-57.4"/>
 </g>
-<!-- Node42&#45;&gt;Node7 -->
+<!-- Node41&#45;&gt;Node4 -->
+<g id="edge48" class="edge">
+<title>Node41&#45;&gt;Node4</title>
+<path fill="none" stroke="midnightblue" d="M4109.15,-66.95C3282.37,9.16 1249.84,-97.09 440,-31 437.12,-30.76 434.19,-30.49 431.24,-30.19"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4108.84,-70.43 4119.12,-67.88 4109.49,-63.46 4108.84,-70.43"/>
+</g>
+<!-- Node41&#45;&gt;Node7 -->
 <g id="edge49" class="edge">
-<title>Node42&#45;&gt;Node7</title>
-<path fill="none" stroke="midnightblue" d="M4306.97,-66.93C3750.87,-15.12 2399.46,-80.59 1861,-31 1858.02,-30.73 1854.98,-30.41 1851.92,-30.05"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4306.83,-70.43 4317.12,-67.9 4307.5,-63.46 4306.83,-70.43"/>
+<title>Node41&#45;&gt;Node7</title>
+<path fill="none" stroke="midnightblue" d="M4109.04,-66.92C3646.58,-22.11 2240.49,-17.13 1898.53,-16.57"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4108.82,-70.42 4119.12,-67.92 4109.51,-63.45 4108.82,-70.42"/>
 </g>
-<!-- Node42&#45;&gt;Node18 -->
+<!-- Node41&#45;&gt;Node18 -->
 <g id="edge50" class="edge">
-<title>Node42&#45;&gt;Node18</title>
-<path fill="none" stroke="midnightblue" d="M4306.93,-66.91C3839.77,-21.75 2432.17,-17.01 2056.16,-16.54"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4306.82,-70.42 4317.12,-67.92 4307.51,-63.45 4306.82,-70.42"/>
+<title>Node41&#45;&gt;Node18</title>
+<path fill="none" stroke="midnightblue" d="M4160.06,-61.97C4140.53,-49.65 4116.28,-34.35 4101.48,-25.01"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4158.33,-65.02 4168.65,-67.4 4162.06,-59.1 4158.33,-65.02"/>
 </g>
-<!-- Node43 -->
-<g id="node43" class="node">
-<title>Node43</title>
-<g id="a_node43"><a xlink:href="VLSender_8cpp.html" target="_top" xlink:title=" ">
-<polygon fill="none" stroke="black" points="4317.5,-0.5 4317.5,-30.5 4460.5,-30.5 4460.5,-0.5 4317.5,-0.5"/>
-<text text-anchor="start" x="4325.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
-<text text-anchor="middle" x="4389" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLSender.cpp</text>
+<!-- Node42 -->
+<g id="node42" class="node">
+<title>Node42</title>
+<g id="a_node42"><a xlink:href="VLSender_8cpp.html" target="_top" xlink:title=" ">
+<polygon fill="none" stroke="black" points="4199.5,-0.5 4199.5,-30.5 4342.5,-30.5 4342.5,-0.5 4199.5,-0.5"/>
+<text text-anchor="start" x="4207.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
+<text text-anchor="middle" x="4271" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLSender.cpp</text>
 </a>
 </g>
 </g>
-<!-- Node42&#45;&gt;Node43 -->
+<!-- Node41&#45;&gt;Node42 -->
 <g id="edge51" class="edge">
-<title>Node42&#45;&gt;Node43</title>
-<path fill="none" stroke="midnightblue" d="M4389,-57.11C4389,-48.15 4389,-38.32 4389,-30.58"/>
-<polygon fill="midnightblue" stroke="midnightblue" points="4385.5,-57.4 4389,-67.4 4392.5,-57.4 4385.5,-57.4"/>
+<title>Node41&#45;&gt;Node42</title>
+<path fill="none" stroke="midnightblue" d="M4216.37,-60.88C4228.53,-51.01 4242.78,-39.43 4253.68,-30.58"/>
+<polygon fill="midnightblue" stroke="midnightblue" points="4213.91,-58.37 4208.36,-67.4 4218.33,-63.81 4213.91,-58.37"/>
 </g>
 </g>
 </svg>

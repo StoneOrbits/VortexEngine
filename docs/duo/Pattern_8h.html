@@ -85,7 +85,8 @@ $(document).ready(function(){initNavTree('Pattern_8h.html',''); initResizable();
 <div class="header">
   <div class="summary">
 <a href="#nested-classes">Classes</a> &#124;
-<a href="#define-members">Macros</a>  </div>
+<a href="#define-members">Macros</a> &#124;
+<a href="#typedef-members">Typedefs</a>  </div>
   <div class="headertitle">
 <div class="title">Pattern.h File Reference</div>  </div>
 </div><!--header-->
@@ -122,8 +123,13 @@ Macros</h2></td></tr>
 <tr class="separator:ae043ba7f3459da9b1520196805651190"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:abcbce9606e135f95711d1ea069ecde1d"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Pattern_8h.html#abcbce9606e135f95711d1ea069ecde1d">PATTERN_FLAG_MULTI</a>&#160;&#160;&#160;(1&lt;&lt;0)</td></tr>
 <tr class="separator:abcbce9606e135f95711d1ea069ecde1d"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab1306cccbe6b359324139bc35edbbbb4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Pattern_8h.html#ab1306cccbe6b359324139bc35edbbbb4">REGISTER_ARG</a>(arg)&#160;&#160;&#160;registerArg((uint8_t)(((uintptr_t)&amp;arg - (uintptr_t)this)));</td></tr>
+<tr class="memitem:ab1306cccbe6b359324139bc35edbbbb4"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Pattern_8h.html#ab1306cccbe6b359324139bc35edbbbb4">REGISTER_ARG</a>(arg)&#160;&#160;&#160;  registerArg((<a class="el" href="Pattern_8h.html#aec6e60a6442c2d176eefd630e4caac2b">arg_offset_t</a>)(((uintptr_t)&amp;arg - (uintptr_t)this)));</td></tr>
 <tr class="separator:ab1306cccbe6b359324139bc35edbbbb4"><td class="memSeparator" colspan="2">&#160;</td></tr>
+</table><table class="memberdecls">
+<tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="typedef-members"></a>
+Typedefs</h2></td></tr>
+<tr class="memitem:aec6e60a6442c2d176eefd630e4caac2b"><td class="memItemLeft" align="right" valign="top">typedef uint8_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="Pattern_8h.html#aec6e60a6442c2d176eefd630e4caac2b">arg_offset_t</a></td></tr>
+<tr class="separator:aec6e60a6442c2d176eefd630e4caac2b"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table>
 <h2 class="groupheader">Macro Definition Documentation</h2>
 <a id="a3a27ba7544d79c050aaa2a02a4906726"></a>
@@ -185,7 +191,24 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">arg</td><td>)</td>
-          <td>&#160;&#160;&#160;registerArg((uint8_t)(((uintptr_t)&amp;arg - (uintptr_t)this)));</td>
+          <td>&#160;&#160;&#160;  registerArg((<a class="el" href="Pattern_8h.html#aec6e60a6442c2d176eefd630e4caac2b">arg_offset_t</a>)(((uintptr_t)&amp;arg - (uintptr_t)this)));</td>
+        </tr>
+      </table>
+</div><div class="memdoc">
+
+<p class="definition">Definition at line <a class="el" href="Pattern_8h_source.html#l00044">44</a> of file <a class="el" href="Pattern_8h_source.html">Pattern.h</a>.</p>
+
+</div>
+</div>
+<h2 class="groupheader">Typedef Documentation</h2>
+<a id="aec6e60a6442c2d176eefd630e4caac2b"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#aec6e60a6442c2d176eefd630e4caac2b">&#9670;&nbsp;</a></span>arg_offset_t</h2>
+
+<div class="memitem">
+<div class="memproto">
+      <table class="memname">
+        <tr>
+          <td class="memname">typedef uint8_t <a class="el" href="Pattern_8h.html#aec6e60a6442c2d176eefd630e4caac2b">arg_offset_t</a></td>
         </tr>
       </table>
 </div><div class="memdoc">

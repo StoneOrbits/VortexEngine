@@ -7,7 +7,6 @@ var classPatternSelect =
     [ "onLongClick", "classPatternSelect.html#a4fb519f51d4370737d92880917dda79a", null ],
     [ "onShortClick", "classPatternSelect.html#a968d77ec34c46fb2b03bbf85aebe3aaf", null ],
     [ "run", "classPatternSelect.html#a83e663abcad2ca3049dcd407108b4258", null ],
-    [ "m_argIndex", "classPatternSelect.html#a80246d4447d98ba20b0ef3c963ef02a4", null ],
     [ "m_srcLed", "classPatternSelect.html#a46a2cec7b6d788b0492c1143252e2bf0", null ],
     [ "m_started", "classPatternSelect.html#a28fd6b65e9d5af4644451e571273c20a", null ]
 ];

@@ -42,7 +42,7 @@ This graph shows which files directly or indirectly include this file\+:
 \item 
 \#define \mbox{\hyperlink{LedTypes_8h_a7942bcfeb3920e179590b97a56ccfede}{MAP\+\_\+\+IS\+\_\+\+ONE\+\_\+\+LED}}(map)~(map \&\& !(map \& (map-\/1)))
 \item 
-\#define \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\+\_\+\+FOREACH\+\_\+\+LED}}(map)~for (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos = \mbox{\hyperlink{LedTypes_8h_a8f394c70246f75bd9452c7cea69a4b19}{map\+Get\+First\+Led}}(map); pos $<$ \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\+\_\+\+COUNT}}; pos = \mbox{\hyperlink{LedTypes_8h_a40567e2b925999b9d718f9444ea7e0b0}{map\+Get\+Next\+Led}}(map, pos))
+\#define \mbox{\hyperlink{LedTypes_8h_a6c29165d5a422a63ed2ba45c01fc5d3b}{MAP\+\_\+\+FOREACH\+\_\+\+LED}}(map)~for (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos = \mbox{\hyperlink{LedTypes_8h_ae8d7e271028055f745f7b1247f080dce}{ledmap\+Get\+First\+Led}}(map); pos $<$ \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\+\_\+\+COUNT}}; pos = \mbox{\hyperlink{LedTypes_8h_afc1a170657262289647c2af99aace527}{ledmap\+Get\+Next\+Led}}(map, pos))
 \item 
 \#define \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\+\_\+\+LED\+\_\+\+ALL}}~((2 $<$$<$ (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\+\_\+\+COUNT}} -\/ 1)) -\/ 1)
 \item 
@@ -65,6 +65,28 @@ This graph shows which files directly or indirectly include this file\+:
 \#define \mbox{\hyperlink{LedTypes_8h_a3d0075abab09cdd6469009802d38a44f}{MAP\+\_\+\+PAIR\+\_\+\+EVEN\+\_\+\+EVENS}}~(\mbox{\hyperlink{LedTypes_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4a7a228ccbb4b46145158f8dce4c22e1b6}{PAIR\+\_\+3}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_adb7d91f99bcd8ff0919328192ba2b88e}{MAP\+\_\+\+PAIR\+\_\+\+EVEN}}(\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4a19c30c74197ed5fc466a53cdb62ad89e}{PAIR\+\_\+1}}))
 \item 
 \#define \mbox{\hyperlink{LedTypes_8h_a6f488a9c3091d9eb33070d9e10571c34}{MAP\+\_\+\+PAIR\+\_\+\+EVEN\+\_\+\+ODDS}}~(\mbox{\hyperlink{LedTypes_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4a7a228ccbb4b46145158f8dce4c22e1b6}{PAIR\+\_\+3}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_a7f70eafb4656543bb0867c0aa62fdf50}{MAP\+\_\+\+PAIR\+\_\+\+ODD}}(\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4a19c30c74197ed5fc466a53cdb62ad89e}{PAIR\+\_\+1}}))
+\item 
+\#define \mbox{\hyperlink{LedTypes_8h_a943bfce87702084038f7499407cd367e}{MAP\+\_\+\+RING\+\_\+\+INNER}}
+\item 
+\#define \mbox{\hyperlink{LedTypes_8h_a73877080749192bfcc4d8fa5a4fc5210}{MAP\+\_\+\+RING\+\_\+\+OUTER}}
+\item 
+\#define \mbox{\hyperlink{LedTypes_8h_a96497fdbc623da2e35e81953b940dc61}{MAP\+\_\+\+RING\+\_\+\+INNER\+\_\+\+EVEN}}~(\mbox{\hyperlink{LedTypes_8h_a943bfce87702084038f7499407cd367e}{MAP\+\_\+\+RING\+\_\+\+INNER}} \& 0x\+AAAAAAAA)
+\item 
+\#define \mbox{\hyperlink{LedTypes_8h_a63a55ae70a0fc716975672cec59fb18a}{MAP\+\_\+\+RING\+\_\+\+INNER\+\_\+\+ODD}}~(\mbox{\hyperlink{LedTypes_8h_a943bfce87702084038f7499407cd367e}{MAP\+\_\+\+RING\+\_\+\+INNER}} \& 0x55555555)
+\item 
+\#define \mbox{\hyperlink{LedTypes_8h_ab2ba99d056435894b889cfeda37205da}{MAP\+\_\+\+RING\+\_\+\+OUTER\+\_\+\+EVEN}}~(\mbox{\hyperlink{LedTypes_8h_a73877080749192bfcc4d8fa5a4fc5210}{MAP\+\_\+\+RING\+\_\+\+OUTER}} \& 0x\+AAAAAAAA)
+\item 
+\#define \mbox{\hyperlink{LedTypes_8h_a1ef338a6324f9725d29731a816425f3f}{MAP\+\_\+\+RING\+\_\+\+OUTER\+\_\+\+ODD}}~(\mbox{\hyperlink{LedTypes_8h_a73877080749192bfcc4d8fa5a4fc5210}{MAP\+\_\+\+RING\+\_\+\+OUTER}} \& 0x55555555)
+\item 
+\#define \mbox{\hyperlink{LedTypes_8h_a1877a0e0506ef2112c392b8cc9258825}{MAP\+\_\+\+LINE\+\_\+1}}~(\mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424}{LED\+\_\+0}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cabd07fdac73dba216d4d4126ecbced218}{LED\+\_\+10}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca3070562a0c5f60d0742c1856eb4beb48}{LED\+\_\+15}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cab269092e5bd05f7b80e5970b81458289}{LED\+\_\+5}}))
+\item 
+\#define \mbox{\hyperlink{LedTypes_8h_ac9448465da296ba8a6344205ba3c0d70}{MAP\+\_\+\+LINE\+\_\+2}}~(\mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\+\_\+1}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caf5ffd2a4ded5f1bed89341e000e979e9}{LED\+\_\+11}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca10ab308d8b011e6406dd306144edff9a}{LED\+\_\+16}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caf99fc5674be734f3f51639902c341834}{LED\+\_\+6}}))
+\item 
+\#define \mbox{\hyperlink{LedTypes_8h_a0e616af0b532c8b98d19d78d99429da0}{MAP\+\_\+\+LINE\+\_\+3}}~(\mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca00af6b2437d9982f1f125d2cc2537c41}{LED\+\_\+2}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca80514ed437d7cfd451f8a6f5d654816b}{LED\+\_\+12}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caa810563b5cfb778b547feb5024699744}{LED\+\_\+17}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cac498d3ff2225ba31b7b42e17b1676ba8}{LED\+\_\+7}}))
+\item 
+\#define \mbox{\hyperlink{LedTypes_8h_aab18f287016337695ab3cfa2408ffa91}{MAP\+\_\+\+LINE\+\_\+4}}~(\mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca3e1b1af0f74f675e4eb7bd18229adfd3}{LED\+\_\+3}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca1c7cf823fd7d1611879e65a6edb1f1da}{LED\+\_\+13}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca86ce3afb639948337d5c704f76b76e08}{LED\+\_\+18}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2979343296d3de46c77082147e0cfe1b}{LED\+\_\+8}}))
+\item 
+\#define \mbox{\hyperlink{LedTypes_8h_ad183303dbdff30e37b8f573f994c818a}{MAP\+\_\+\+LINE\+\_\+5}}~(\mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cada6e5fa936f81b6b94078ecc353a7f5f}{LED\+\_\+4}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cad132c52b3fe2f12c42c3a81f94b064eb}{LED\+\_\+14}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cad04019c0433c3509a2a00e3e85c6612b}{LED\+\_\+19}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caa30a5efbc3083c821a59dfa468b88d4c}{LED\+\_\+9}}))
 \end{DoxyCompactItemize}
 \doxysubsection*{Typedefs}
 \begin{DoxyCompactItemize}
@@ -132,17 +154,17 @@ enum \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} \+: 
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} \mbox{\hyperlink{LedTypes_8h_a8f394c70246f75bd9452c7cea69a4b19}{map\+Get\+First\+Led}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} map)
+\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} \mbox{\hyperlink{LedTypes_8h_ae8d7e271028055f745f7b1247f080dce}{ledmap\+Get\+First\+Led}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} map)
 \item 
-\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} \mbox{\hyperlink{LedTypes_8h_a40567e2b925999b9d718f9444ea7e0b0}{map\+Get\+Next\+Led}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} map, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos)
+\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} \mbox{\hyperlink{LedTypes_8h_afc1a170657262289647c2af99aace527}{ledmap\+Get\+Next\+Led}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} map, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos)
 \item 
-void \mbox{\hyperlink{LedTypes_8h_a99b3613fb4c658dff24ba0f18eda6e31}{set\+Led}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} \&map, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos)
+void \mbox{\hyperlink{LedTypes_8h_a7c47d3eb42975a1a8ea5af7bcbc95bde}{ledmap\+Set\+Led}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} \&map, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos)
 \item 
-void \mbox{\hyperlink{LedTypes_8h_a20d782bba21f1567fdf0302d45a0d64c}{set\+Pair}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} \&map, \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pair)
+void \mbox{\hyperlink{LedTypes_8h_ae8eaf2f933c66fef4ffac4b81213d344}{ledmap\+Set\+Pair}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} \&map, \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pair)
 \item 
-bool \mbox{\hyperlink{LedTypes_8h_a6b8f8d9c1f8627c817d00a6d33695c1f}{check\+Led}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} map, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos)
+bool \mbox{\hyperlink{LedTypes_8h_aea87ba7c1e127ef509da9d0e9d238aac}{ledmap\+Check\+Led}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} map, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos)
 \item 
-bool \mbox{\hyperlink{LedTypes_8h_a1b174a309fe85f1d4560afa3230ddc65}{check\+Pair}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} map, \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pair)
+bool \mbox{\hyperlink{LedTypes_8h_a2d79cc8ce577773d2b0ee85ca33b9ac4}{ledmap\+Check\+Pair}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} map, \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pair)
 \item 
 \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} \& \mbox{\hyperlink{LedTypes_8h_abc251fca88b16eb10b944dff85c305df}{operator++}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} \&c)
 \item 
@@ -201,7 +223,7 @@ Definition at line 108 of file Led\+Types.\+h.
 \index{LedTypes.h@{LedTypes.h}!MAP\_FOREACH\_LED@{MAP\_FOREACH\_LED}}
 \index{MAP\_FOREACH\_LED@{MAP\_FOREACH\_LED}!LedTypes.h@{LedTypes.h}}
 \doxysubsubsection{\texorpdfstring{MAP\_FOREACH\_LED}{MAP\_FOREACH\_LED}}
-{\footnotesize\ttfamily \#define MAP\+\_\+\+FOREACH\+\_\+\+LED(\begin{DoxyParamCaption}\item[{}]{map }\end{DoxyParamCaption})~for (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos = \mbox{\hyperlink{LedTypes_8h_a8f394c70246f75bd9452c7cea69a4b19}{map\+Get\+First\+Led}}(map); pos $<$ \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\+\_\+\+COUNT}}; pos = \mbox{\hyperlink{LedTypes_8h_a40567e2b925999b9d718f9444ea7e0b0}{map\+Get\+Next\+Led}}(map, pos))}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+FOREACH\+\_\+\+LED(\begin{DoxyParamCaption}\item[{}]{map }\end{DoxyParamCaption})~for (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} pos = \mbox{\hyperlink{LedTypes_8h_ae8d7e271028055f745f7b1247f080dce}{ledmap\+Get\+First\+Led}}(map); pos $<$ \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\+\_\+\+COUNT}}; pos = \mbox{\hyperlink{LedTypes_8h_afc1a170657262289647c2af99aace527}{ledmap\+Get\+Next\+Led}}(map, pos))}
 
 
 
@@ -266,6 +288,56 @@ Definition at line 159 of file Led\+Types.\+h.
 
 
 Definition at line 162 of file Led\+Types.\+h.
+
+\mbox{\Hypertarget{LedTypes_8h_a1877a0e0506ef2112c392b8cc9258825}\label{LedTypes_8h_a1877a0e0506ef2112c392b8cc9258825}} 
+\index{LedTypes.h@{LedTypes.h}!MAP\_LINE\_1@{MAP\_LINE\_1}}
+\index{MAP\_LINE\_1@{MAP\_LINE\_1}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_LINE\_1}{MAP\_LINE\_1}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+LINE\+\_\+1~(\mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424}{LED\+\_\+0}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cabd07fdac73dba216d4d4126ecbced218}{LED\+\_\+10}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca3070562a0c5f60d0742c1856eb4beb48}{LED\+\_\+15}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cab269092e5bd05f7b80e5970b81458289}{LED\+\_\+5}}))}
+
+
+
+Definition at line 192 of file Led\+Types.\+h.
+
+\mbox{\Hypertarget{LedTypes_8h_ac9448465da296ba8a6344205ba3c0d70}\label{LedTypes_8h_ac9448465da296ba8a6344205ba3c0d70}} 
+\index{LedTypes.h@{LedTypes.h}!MAP\_LINE\_2@{MAP\_LINE\_2}}
+\index{MAP\_LINE\_2@{MAP\_LINE\_2}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_LINE\_2}{MAP\_LINE\_2}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+LINE\+\_\+2~(\mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\+\_\+1}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caf5ffd2a4ded5f1bed89341e000e979e9}{LED\+\_\+11}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca10ab308d8b011e6406dd306144edff9a}{LED\+\_\+16}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caf99fc5674be734f3f51639902c341834}{LED\+\_\+6}}))}
+
+
+
+Definition at line 193 of file Led\+Types.\+h.
+
+\mbox{\Hypertarget{LedTypes_8h_a0e616af0b532c8b98d19d78d99429da0}\label{LedTypes_8h_a0e616af0b532c8b98d19d78d99429da0}} 
+\index{LedTypes.h@{LedTypes.h}!MAP\_LINE\_3@{MAP\_LINE\_3}}
+\index{MAP\_LINE\_3@{MAP\_LINE\_3}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_LINE\_3}{MAP\_LINE\_3}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+LINE\+\_\+3~(\mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca00af6b2437d9982f1f125d2cc2537c41}{LED\+\_\+2}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca80514ed437d7cfd451f8a6f5d654816b}{LED\+\_\+12}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caa810563b5cfb778b547feb5024699744}{LED\+\_\+17}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cac498d3ff2225ba31b7b42e17b1676ba8}{LED\+\_\+7}}))}
+
+
+
+Definition at line 194 of file Led\+Types.\+h.
+
+\mbox{\Hypertarget{LedTypes_8h_aab18f287016337695ab3cfa2408ffa91}\label{LedTypes_8h_aab18f287016337695ab3cfa2408ffa91}} 
+\index{LedTypes.h@{LedTypes.h}!MAP\_LINE\_4@{MAP\_LINE\_4}}
+\index{MAP\_LINE\_4@{MAP\_LINE\_4}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_LINE\_4}{MAP\_LINE\_4}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+LINE\+\_\+4~(\mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca3e1b1af0f74f675e4eb7bd18229adfd3}{LED\+\_\+3}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca1c7cf823fd7d1611879e65a6edb1f1da}{LED\+\_\+13}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca86ce3afb639948337d5c704f76b76e08}{LED\+\_\+18}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2979343296d3de46c77082147e0cfe1b}{LED\+\_\+8}}))}
+
+
+
+Definition at line 195 of file Led\+Types.\+h.
+
+\mbox{\Hypertarget{LedTypes_8h_ad183303dbdff30e37b8f573f994c818a}\label{LedTypes_8h_ad183303dbdff30e37b8f573f994c818a}} 
+\index{LedTypes.h@{LedTypes.h}!MAP\_LINE\_5@{MAP\_LINE\_5}}
+\index{MAP\_LINE\_5@{MAP\_LINE\_5}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_LINE\_5}{MAP\_LINE\_5}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+LINE\+\_\+5~(\mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cada6e5fa936f81b6b94078ecc353a7f5f}{LED\+\_\+4}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cad132c52b3fe2f12c42c3a81f94b064eb}{LED\+\_\+14}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cad04019c0433c3509a2a00e3e85c6612b}{LED\+\_\+19}}) $\vert$ \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\+\_\+\+LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caa30a5efbc3083c821a59dfa468b88d4c}{LED\+\_\+9}}))}
+
+
+
+Definition at line 196 of file Led\+Types.\+h.
 
 \mbox{\Hypertarget{LedTypes_8h_a9340a6a1e38ed1267e5189204d81c45c}\label{LedTypes_8h_a9340a6a1e38ed1267e5189204d81c45c}} 
 \index{LedTypes.h@{LedTypes.h}!MAP\_OUTER\_RING@{MAP\_OUTER\_RING}}
@@ -366,6 +438,80 @@ Definition at line 175 of file Led\+Types.\+h.
 
 
 Definition at line 168 of file Led\+Types.\+h.
+
+\mbox{\Hypertarget{LedTypes_8h_a943bfce87702084038f7499407cd367e}\label{LedTypes_8h_a943bfce87702084038f7499407cd367e}} 
+\index{LedTypes.h@{LedTypes.h}!MAP\_RING\_INNER@{MAP\_RING\_INNER}}
+\index{MAP\_RING\_INNER@{MAP\_RING\_INNER}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_RING\_INNER}{MAP\_RING\_INNER}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+RING\+\_\+\+INNER}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                         (\mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca8312fbd732e656f38ddd252142c92424}{LED\_0}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca11a9adb9054de1fe01d6a6750075f57b}{LED\_1}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca00af6b2437d9982f1f125d2cc2537c41}{LED\_2}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca3e1b1af0f74f675e4eb7bd18229adfd3}{LED\_3}}) | \(\backslash\)}
+\DoxyCodeLine{                         MAP\_LED(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cada6e5fa936f81b6b94078ecc353a7f5f}{LED\_4}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cab269092e5bd05f7b80e5970b81458289}{LED\_5}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caf99fc5674be734f3f51639902c341834}{LED\_6}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cac498d3ff2225ba31b7b42e17b1676ba8}{LED\_7}}) | \(\backslash\)}
+\DoxyCodeLine{                         MAP\_LED(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2979343296d3de46c77082147e0cfe1b}{LED\_8}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caa30a5efbc3083c821a59dfa468b88d4c}{LED\_9}}))}
+
+\end{DoxyCode}
+
+
+Definition at line 180 of file Led\+Types.\+h.
+
+\mbox{\Hypertarget{LedTypes_8h_a96497fdbc623da2e35e81953b940dc61}\label{LedTypes_8h_a96497fdbc623da2e35e81953b940dc61}} 
+\index{LedTypes.h@{LedTypes.h}!MAP\_RING\_INNER\_EVEN@{MAP\_RING\_INNER\_EVEN}}
+\index{MAP\_RING\_INNER\_EVEN@{MAP\_RING\_INNER\_EVEN}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_RING\_INNER\_EVEN}{MAP\_RING\_INNER\_EVEN}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+RING\+\_\+\+INNER\+\_\+\+EVEN~(\mbox{\hyperlink{LedTypes_8h_a943bfce87702084038f7499407cd367e}{MAP\+\_\+\+RING\+\_\+\+INNER}} \& 0x\+AAAAAAAA)}
+
+
+
+Definition at line 187 of file Led\+Types.\+h.
+
+\mbox{\Hypertarget{LedTypes_8h_a63a55ae70a0fc716975672cec59fb18a}\label{LedTypes_8h_a63a55ae70a0fc716975672cec59fb18a}} 
+\index{LedTypes.h@{LedTypes.h}!MAP\_RING\_INNER\_ODD@{MAP\_RING\_INNER\_ODD}}
+\index{MAP\_RING\_INNER\_ODD@{MAP\_RING\_INNER\_ODD}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_RING\_INNER\_ODD}{MAP\_RING\_INNER\_ODD}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+RING\+\_\+\+INNER\+\_\+\+ODD~(\mbox{\hyperlink{LedTypes_8h_a943bfce87702084038f7499407cd367e}{MAP\+\_\+\+RING\+\_\+\+INNER}} \& 0x55555555)}
+
+
+
+Definition at line 188 of file Led\+Types.\+h.
+
+\mbox{\Hypertarget{LedTypes_8h_a73877080749192bfcc4d8fa5a4fc5210}\label{LedTypes_8h_a73877080749192bfcc4d8fa5a4fc5210}} 
+\index{LedTypes.h@{LedTypes.h}!MAP\_RING\_OUTER@{MAP\_RING\_OUTER}}
+\index{MAP\_RING\_OUTER@{MAP\_RING\_OUTER}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_RING\_OUTER}{MAP\_RING\_OUTER}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+RING\+\_\+\+OUTER}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                         (\mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cabd07fdac73dba216d4d4126ecbced218}{LED\_10}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caf5ffd2a4ded5f1bed89341e000e979e9}{LED\_11}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca80514ed437d7cfd451f8a6f5d654816b}{LED\_12}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca1c7cf823fd7d1611879e65a6edb1f1da}{LED\_13}}) | \(\backslash\)}
+\DoxyCodeLine{                         MAP\_LED(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cad132c52b3fe2f12c42c3a81f94b064eb}{LED\_14}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca3070562a0c5f60d0742c1856eb4beb48}{LED\_15}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca10ab308d8b011e6406dd306144edff9a}{LED\_16}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caa810563b5cfb778b547feb5024699744}{LED\_17}}) | \(\backslash\)}
+\DoxyCodeLine{                         MAP\_LED(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca86ce3afb639948337d5c704f76b76e08}{LED\_18}}) | \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2cad04019c0433c3509a2a00e3e85c6612b}{LED\_19}}))}
+
+\end{DoxyCode}
+
+
+Definition at line 183 of file Led\+Types.\+h.
+
+\mbox{\Hypertarget{LedTypes_8h_ab2ba99d056435894b889cfeda37205da}\label{LedTypes_8h_ab2ba99d056435894b889cfeda37205da}} 
+\index{LedTypes.h@{LedTypes.h}!MAP\_RING\_OUTER\_EVEN@{MAP\_RING\_OUTER\_EVEN}}
+\index{MAP\_RING\_OUTER\_EVEN@{MAP\_RING\_OUTER\_EVEN}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_RING\_OUTER\_EVEN}{MAP\_RING\_OUTER\_EVEN}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+RING\+\_\+\+OUTER\+\_\+\+EVEN~(\mbox{\hyperlink{LedTypes_8h_a73877080749192bfcc4d8fa5a4fc5210}{MAP\+\_\+\+RING\+\_\+\+OUTER}} \& 0x\+AAAAAAAA)}
+
+
+
+Definition at line 189 of file Led\+Types.\+h.
+
+\mbox{\Hypertarget{LedTypes_8h_a1ef338a6324f9725d29731a816425f3f}\label{LedTypes_8h_a1ef338a6324f9725d29731a816425f3f}} 
+\index{LedTypes.h@{LedTypes.h}!MAP\_RING\_OUTER\_ODD@{MAP\_RING\_OUTER\_ODD}}
+\index{MAP\_RING\_OUTER\_ODD@{MAP\_RING\_OUTER\_ODD}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{MAP\_RING\_OUTER\_ODD}{MAP\_RING\_OUTER\_ODD}}
+{\footnotesize\ttfamily \#define MAP\+\_\+\+RING\+\_\+\+OUTER\+\_\+\+ODD~(\mbox{\hyperlink{LedTypes_8h_a73877080749192bfcc4d8fa5a4fc5210}{MAP\+\_\+\+RING\+\_\+\+OUTER}} \& 0x55555555)}
+
+
+
+Definition at line 190 of file Led\+Types.\+h.
 
 \mbox{\Hypertarget{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}\label{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}} 
 \index{LedTypes.h@{LedTypes.h}!pairEven@{pairEven}}
@@ -683,53 +829,53 @@ Definition at line 78 of file Led\+Types.\+h.
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{LedTypes_8h_a6b8f8d9c1f8627c817d00a6d33695c1f}\label{LedTypes_8h_a6b8f8d9c1f8627c817d00a6d33695c1f}} 
-\index{LedTypes.h@{LedTypes.h}!checkLed@{checkLed}}
-\index{checkLed@{checkLed}!LedTypes.h@{LedTypes.h}}
-\doxysubsubsection{\texorpdfstring{checkLed()}{checkLed()}}
-{\footnotesize\ttfamily bool check\+Led (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}}]{map,  }\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{LedTypes_8h_aea87ba7c1e127ef509da9d0e9d238aac}\label{LedTypes_8h_aea87ba7c1e127ef509da9d0e9d238aac}} 
+\index{LedTypes.h@{LedTypes.h}!ledmapCheckLed@{ledmapCheckLed}}
+\index{ledmapCheckLed@{ledmapCheckLed}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{ledmapCheckLed()}{ledmapCheckLed()}}
+{\footnotesize\ttfamily bool ledmap\+Check\+Led (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}}]{map,  }\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Definition at line 193 of file Led\+Types.\+h.
+Definition at line 211 of file Led\+Types.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{194 \{}
-\DoxyCodeLine{195   \textcolor{keywordflow}{return} ((map \& (1ull << pos)) != 0);}
-\DoxyCodeLine{196 \}}
+\DoxyCodeLine{212 \{}
+\DoxyCodeLine{213   \textcolor{keywordflow}{return} ((map \& (1ull << pos)) != 0);}
+\DoxyCodeLine{214 \}}
 
 \end{DoxyCode}
 
 
-Referenced by Leds\+::blink\+Map(), check\+Pair(), Leds\+::clear\+Map(), Colorset\+Map\+::set\+Colorset\+At(), Leds\+::set\+Map(), and Pattern\+Map\+::set\+Pattern\+At().
+Referenced by Leds\+::blink\+Map(), Leds\+::clear\+Map(), ledmap\+Check\+Pair(), Colorset\+Map\+::set\+Colorset\+At(), Leds\+::set\+Map(), and Pattern\+Map\+::set\+Pattern\+At().
 
-\mbox{\Hypertarget{LedTypes_8h_a1b174a309fe85f1d4560afa3230ddc65}\label{LedTypes_8h_a1b174a309fe85f1d4560afa3230ddc65}} 
-\index{LedTypes.h@{LedTypes.h}!checkPair@{checkPair}}
-\index{checkPair@{checkPair}!LedTypes.h@{LedTypes.h}}
-\doxysubsubsection{\texorpdfstring{checkPair()}{checkPair()}}
-{\footnotesize\ttfamily bool check\+Pair (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}}]{map,  }\item[{\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}}}]{pair }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{LedTypes_8h_a2d79cc8ce577773d2b0ee85ca33b9ac4}\label{LedTypes_8h_a2d79cc8ce577773d2b0ee85ca33b9ac4}} 
+\index{LedTypes.h@{LedTypes.h}!ledmapCheckPair@{ledmapCheckPair}}
+\index{ledmapCheckPair@{ledmapCheckPair}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{ledmapCheckPair()}{ledmapCheckPair()}}
+{\footnotesize\ttfamily bool ledmap\+Check\+Pair (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}}]{map,  }\item[{\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}}}]{pair }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Definition at line 198 of file Led\+Types.\+h.
+Definition at line 216 of file Led\+Types.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{199 \{}
-\DoxyCodeLine{200   \textcolor{keywordflow}{return} \mbox{\hyperlink{LedTypes_8h_a6b8f8d9c1f8627c817d00a6d33695c1f}{checkLed}}(map, \mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pair)) \&\& \mbox{\hyperlink{LedTypes_8h_a6b8f8d9c1f8627c817d00a6d33695c1f}{checkLed}}(map, \mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pair));}
-\DoxyCodeLine{201 \}}
+\DoxyCodeLine{217 \{}
+\DoxyCodeLine{218   \textcolor{keywordflow}{return} \mbox{\hyperlink{LedTypes_8h_aea87ba7c1e127ef509da9d0e9d238aac}{ledmapCheckLed}}(map, \mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pair)) \&\& \mbox{\hyperlink{LedTypes_8h_aea87ba7c1e127ef509da9d0e9d238aac}{ledmapCheckLed}}(map, \mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pair));}
+\DoxyCodeLine{219 \}}
 
 \end{DoxyCode}
 
 
-References check\+Led(), pair\+Even, and pair\+Odd.
+References ledmap\+Check\+Led(), pair\+Even, and pair\+Odd.
 
-\mbox{\Hypertarget{LedTypes_8h_a8f394c70246f75bd9452c7cea69a4b19}\label{LedTypes_8h_a8f394c70246f75bd9452c7cea69a4b19}} 
-\index{LedTypes.h@{LedTypes.h}!mapGetFirstLed@{mapGetFirstLed}}
-\index{mapGetFirstLed@{mapGetFirstLed}!LedTypes.h@{LedTypes.h}}
-\doxysubsubsection{\texorpdfstring{mapGetFirstLed()}{mapGetFirstLed()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} map\+Get\+First\+Led (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}}]{map }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{LedTypes_8h_ae8d7e271028055f745f7b1247f080dce}\label{LedTypes_8h_ae8d7e271028055f745f7b1247f080dce}} 
+\index{LedTypes.h@{LedTypes.h}!ledmapGetFirstLed@{ledmapGetFirstLed}}
+\index{ledmapGetFirstLed@{ledmapGetFirstLed}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{ledmapGetFirstLed()}{ledmapGetFirstLed()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} ledmap\+Get\+First\+Led (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}}]{map }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -759,13 +905,13 @@ References LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, LED\+\_\+\+MULTI, and MAP\+\_\+\+
 
 
 
-Referenced by Menu\+::next\+Bulb\+Selection(), Color\+Select\+::on\+Led\+Selected(), and Pattern\+Select\+::on\+Led\+Selected().
+Referenced by Color\+Select\+::on\+Led\+Selected(), and Pattern\+Select\+::on\+Led\+Selected().
 
-\mbox{\Hypertarget{LedTypes_8h_a40567e2b925999b9d718f9444ea7e0b0}\label{LedTypes_8h_a40567e2b925999b9d718f9444ea7e0b0}} 
-\index{LedTypes.h@{LedTypes.h}!mapGetNextLed@{mapGetNextLed}}
-\index{mapGetNextLed@{mapGetNextLed}!LedTypes.h@{LedTypes.h}}
-\doxysubsubsection{\texorpdfstring{mapGetNextLed()}{mapGetNextLed()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} map\+Get\+Next\+Led (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}}]{map,  }\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+\mbox{\Hypertarget{LedTypes_8h_afc1a170657262289647c2af99aace527}\label{LedTypes_8h_afc1a170657262289647c2af99aace527}} 
+\index{LedTypes.h@{LedTypes.h}!ledmapGetNextLed@{ledmapGetNextLed}}
+\index{ledmapGetNextLed@{ledmapGetNextLed}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{ledmapGetNextLed()}{ledmapGetNextLed()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} ledmap\+Get\+Next\+Led (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}}]{map,  }\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -791,6 +937,53 @@ Definition at line 144 of file Led\+Types.\+h.
 
 References LED\+\_\+\+COUNT.
 
+\mbox{\Hypertarget{LedTypes_8h_a7c47d3eb42975a1a8ea5af7bcbc95bde}\label{LedTypes_8h_a7c47d3eb42975a1a8ea5af7bcbc95bde}} 
+\index{LedTypes.h@{LedTypes.h}!ledmapSetLed@{ledmapSetLed}}
+\index{ledmapSetLed@{ledmapSetLed}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{ledmapSetLed()}{ledmapSetLed()}}
+{\footnotesize\ttfamily void ledmap\+Set\+Led (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} \&}]{map,  }\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 199 of file Led\+Types.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{200 \{}
+\DoxyCodeLine{201   \textcolor{keywordflow}{if} (pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) map |= (1ull << pos);}
+\DoxyCodeLine{202 \}}
+
+\end{DoxyCode}
+
+
+References LED\+\_\+\+COUNT.
+
+
+
+Referenced by Mode\+::get\+Single\+Led\+Map(), and ledmap\+Set\+Pair().
+
+\mbox{\Hypertarget{LedTypes_8h_ae8eaf2f933c66fef4ffac4b81213d344}\label{LedTypes_8h_ae8eaf2f933c66fef4ffac4b81213d344}} 
+\index{LedTypes.h@{LedTypes.h}!ledmapSetPair@{ledmapSetPair}}
+\index{ledmapSetPair@{ledmapSetPair}!LedTypes.h@{LedTypes.h}}
+\doxysubsubsection{\texorpdfstring{ledmapSetPair()}{ledmapSetPair()}}
+{\footnotesize\ttfamily void ledmap\+Set\+Pair (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} \&}]{map,  }\item[{\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}}}]{pair }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+
+
+
+Definition at line 204 of file Led\+Types.\+h.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{205 \{}
+\DoxyCodeLine{206   \mbox{\hyperlink{LedTypes_8h_a7c47d3eb42975a1a8ea5af7bcbc95bde}{ledmapSetLed}}(map, \mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pair));}
+\DoxyCodeLine{207   \mbox{\hyperlink{LedTypes_8h_a7c47d3eb42975a1a8ea5af7bcbc95bde}{ledmapSetLed}}(map, \mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pair));}
+\DoxyCodeLine{208 \}}
+
+\end{DoxyCode}
+
+
+References ledmap\+Set\+Led(), pair\+Even, and pair\+Odd.
+
 \mbox{\Hypertarget{LedTypes_8h_a726370103d4483e039d09e054e833154}\label{LedTypes_8h_a726370103d4483e039d09e054e833154}} 
 \index{LedTypes.h@{LedTypes.h}!operator+@{operator+}}
 \index{operator+@{operator+}!LedTypes.h@{LedTypes.h}}
@@ -799,13 +992,13 @@ References LED\+\_\+\+COUNT.
 
 
 
-Definition at line 215 of file Led\+Types.\+h.
+Definition at line 233 of file Led\+Types.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{216 \{}
-\DoxyCodeLine{217   \textcolor{keywordflow}{return} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})((uint32\_t)c + b);}
-\DoxyCodeLine{218 \}}
+\DoxyCodeLine{234 \{}
+\DoxyCodeLine{235   \textcolor{keywordflow}{return} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})((uint32\_t)c + b);}
+\DoxyCodeLine{236 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{LedTypes_8h_a3f2b92ad7a54adcb324ebcbd2bc69409}\label{LedTypes_8h_a3f2b92ad7a54adcb324ebcbd2bc69409}} 
@@ -816,13 +1009,13 @@ Definition at line 215 of file Led\+Types.\+h.
 
 
 
-Definition at line 246 of file Led\+Types.\+h.
+Definition at line 264 of file Led\+Types.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{247 \{}
-\DoxyCodeLine{248   \textcolor{keywordflow}{return} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}})((uint32\_t)c + b);}
-\DoxyCodeLine{249 \}}
+\DoxyCodeLine{265 \{}
+\DoxyCodeLine{266   \textcolor{keywordflow}{return} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}})((uint32\_t)c + b);}
+\DoxyCodeLine{267 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{LedTypes_8h_abc251fca88b16eb10b944dff85c305df}\label{LedTypes_8h_abc251fca88b16eb10b944dff85c305df}} 
@@ -833,14 +1026,14 @@ Definition at line 246 of file Led\+Types.\+h.
 
 
 
-Definition at line 204 of file Led\+Types.\+h.
+Definition at line 222 of file Led\+Types.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{205 \{}
-\DoxyCodeLine{206   c = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}}(((uint32\_t)c) + 1);}
-\DoxyCodeLine{207   \textcolor{keywordflow}{return} c;}
-\DoxyCodeLine{208 \}}
+\DoxyCodeLine{223 \{}
+\DoxyCodeLine{224   c = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}}(((uint32\_t)c) + 1);}
+\DoxyCodeLine{225   \textcolor{keywordflow}{return} c;}
+\DoxyCodeLine{226 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{LedTypes_8h_a9f56d4deec5b8ca92cdde467973dadfe}\label{LedTypes_8h_a9f56d4deec5b8ca92cdde467973dadfe}} 
@@ -851,15 +1044,15 @@ Definition at line 204 of file Led\+Types.\+h.
 
 
 
-Definition at line 209 of file Led\+Types.\+h.
+Definition at line 227 of file Led\+Types.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{210 \{}
-\DoxyCodeLine{211   \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} temp = c;}
-\DoxyCodeLine{212   ++c;}
-\DoxyCodeLine{213   \textcolor{keywordflow}{return} temp;}
-\DoxyCodeLine{214 \}}
+\DoxyCodeLine{228 \{}
+\DoxyCodeLine{229   \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} temp = c;}
+\DoxyCodeLine{230   ++c;}
+\DoxyCodeLine{231   \textcolor{keywordflow}{return} temp;}
+\DoxyCodeLine{232 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{LedTypes_8h_a0db04d6fd75446d7dc94f556ce77aad4}\label{LedTypes_8h_a0db04d6fd75446d7dc94f556ce77aad4}} 
@@ -870,14 +1063,14 @@ Definition at line 209 of file Led\+Types.\+h.
 
 
 
-Definition at line 235 of file Led\+Types.\+h.
+Definition at line 253 of file Led\+Types.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{236 \{}
-\DoxyCodeLine{237   c = \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}}(((uint32\_t)c) + 1);}
-\DoxyCodeLine{238   \textcolor{keywordflow}{return} c;}
-\DoxyCodeLine{239 \}}
+\DoxyCodeLine{254 \{}
+\DoxyCodeLine{255   c = \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}}(((uint32\_t)c) + 1);}
+\DoxyCodeLine{256   \textcolor{keywordflow}{return} c;}
+\DoxyCodeLine{257 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{LedTypes_8h_abb0de488148c1b2b0a96976295bd228a}\label{LedTypes_8h_abb0de488148c1b2b0a96976295bd228a}} 
@@ -888,15 +1081,15 @@ Definition at line 235 of file Led\+Types.\+h.
 
 
 
-Definition at line 240 of file Led\+Types.\+h.
+Definition at line 258 of file Led\+Types.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{241 \{}
-\DoxyCodeLine{242   \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} temp = c;}
-\DoxyCodeLine{243   ++c;}
-\DoxyCodeLine{244   \textcolor{keywordflow}{return} temp;}
-\DoxyCodeLine{245 \}}
+\DoxyCodeLine{259 \{}
+\DoxyCodeLine{260   \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} temp = c;}
+\DoxyCodeLine{261   ++c;}
+\DoxyCodeLine{262   \textcolor{keywordflow}{return} temp;}
+\DoxyCodeLine{263 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{LedTypes_8h_aae8ec6757aa6f42ba17318dee79988ea}\label{LedTypes_8h_aae8ec6757aa6f42ba17318dee79988ea}} 
@@ -907,14 +1100,14 @@ Definition at line 240 of file Led\+Types.\+h.
 
 
 
-Definition at line 219 of file Led\+Types.\+h.
+Definition at line 237 of file Led\+Types.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{220 \{}
-\DoxyCodeLine{221   c = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}}(((uint32\_t)c) + b);}
-\DoxyCodeLine{222   \textcolor{keywordflow}{return} c;}
-\DoxyCodeLine{223 \}}
+\DoxyCodeLine{238 \{}
+\DoxyCodeLine{239   c = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}}(((uint32\_t)c) + b);}
+\DoxyCodeLine{240   \textcolor{keywordflow}{return} c;}
+\DoxyCodeLine{241 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{LedTypes_8h_a0cbb7cf425475130fe7f443156fa96df}\label{LedTypes_8h_a0cbb7cf425475130fe7f443156fa96df}} 
@@ -925,13 +1118,13 @@ Definition at line 219 of file Led\+Types.\+h.
 
 
 
-Definition at line 224 of file Led\+Types.\+h.
+Definition at line 242 of file Led\+Types.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{225 \{}
-\DoxyCodeLine{226   \textcolor{keywordflow}{return} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})((uint32\_t)c -\/ b);}
-\DoxyCodeLine{227 \}}
+\DoxyCodeLine{243 \{}
+\DoxyCodeLine{244   \textcolor{keywordflow}{return} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})((uint32\_t)c -\/ b);}
+\DoxyCodeLine{245 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{LedTypes_8h_af2d6cc4a5a1dffc90500e5a40084e8c7}\label{LedTypes_8h_af2d6cc4a5a1dffc90500e5a40084e8c7}} 
@@ -942,13 +1135,13 @@ Definition at line 224 of file Led\+Types.\+h.
 
 
 
-Definition at line 250 of file Led\+Types.\+h.
+Definition at line 268 of file Led\+Types.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{251 \{}
-\DoxyCodeLine{252   \textcolor{keywordflow}{return} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}})((uint32\_t)c -\/ b);}
-\DoxyCodeLine{253 \}}
+\DoxyCodeLine{269 \{}
+\DoxyCodeLine{270   \textcolor{keywordflow}{return} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}})((uint32\_t)c -\/ b);}
+\DoxyCodeLine{271 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{LedTypes_8h_a5192eaa3f51e5d751eebff3b1661383b}\label{LedTypes_8h_a5192eaa3f51e5d751eebff3b1661383b}} 
@@ -959,60 +1152,13 @@ Definition at line 250 of file Led\+Types.\+h.
 
 
 
-Definition at line 228 of file Led\+Types.\+h.
+Definition at line 246 of file Led\+Types.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{229 \{}
-\DoxyCodeLine{230   c = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}}(((uint32\_t)c) -\/ b);}
-\DoxyCodeLine{231   \textcolor{keywordflow}{return} c;}
-\DoxyCodeLine{232 \}}
+\DoxyCodeLine{247 \{}
+\DoxyCodeLine{248   c = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}}(((uint32\_t)c) -\/ b);}
+\DoxyCodeLine{249   \textcolor{keywordflow}{return} c;}
+\DoxyCodeLine{250 \}}
 
 \end{DoxyCode}
-\mbox{\Hypertarget{LedTypes_8h_a99b3613fb4c658dff24ba0f18eda6e31}\label{LedTypes_8h_a99b3613fb4c658dff24ba0f18eda6e31}} 
-\index{LedTypes.h@{LedTypes.h}!setLed@{setLed}}
-\index{setLed@{setLed}!LedTypes.h@{LedTypes.h}}
-\doxysubsubsection{\texorpdfstring{setLed()}{setLed()}}
-{\footnotesize\ttfamily void set\+Led (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} \&}]{map,  }\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{pos }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-Definition at line 181 of file Led\+Types.\+h.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{182 \{}
-\DoxyCodeLine{183   \textcolor{keywordflow}{if} (pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) map |= (1ull << pos);}
-\DoxyCodeLine{184 \}}
-
-\end{DoxyCode}
-
-
-References LED\+\_\+\+COUNT.
-
-
-
-Referenced by Mode\+::get\+Single\+Led\+Map(), and set\+Pair().
-
-\mbox{\Hypertarget{LedTypes_8h_a20d782bba21f1567fdf0302d45a0d64c}\label{LedTypes_8h_a20d782bba21f1567fdf0302d45a0d64c}} 
-\index{LedTypes.h@{LedTypes.h}!setPair@{setPair}}
-\index{setPair@{setPair}!LedTypes.h@{LedTypes.h}}
-\doxysubsubsection{\texorpdfstring{setPair()}{setPair()}}
-{\footnotesize\ttfamily void set\+Pair (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} \&}]{map,  }\item[{\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}}}]{pair }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-Definition at line 186 of file Led\+Types.\+h.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{187 \{}
-\DoxyCodeLine{188   \mbox{\hyperlink{LedTypes_8h_a99b3613fb4c658dff24ba0f18eda6e31}{setLed}}(map, \mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pair));}
-\DoxyCodeLine{189   \mbox{\hyperlink{LedTypes_8h_a99b3613fb4c658dff24ba0f18eda6e31}{setLed}}(map, \mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pair));}
-\DoxyCodeLine{190 \}}
-
-\end{DoxyCode}
-
-
-References pair\+Even, pair\+Odd, and set\+Led().
-

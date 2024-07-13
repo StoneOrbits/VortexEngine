@@ -1,6 +1,8 @@
 var classMainMenu =
 [
     [ "init", "classMainMenu.html#a1880150bad692c9a26531fbe771eceb7", null ],
+    [ "isOpen", "classMainMenu.html#af30eadda199da09754955f1bd22fe6a6", null ],
+    [ "open", "classMainMenu.html#a75445f7e3dc35db5029cc6527c42b3f9", null ],
     [ "pressLeft", "classMainMenu.html#abf3e15882977982a8f3bacf9cfc7c1a1", null ],
     [ "pressRight", "classMainMenu.html#a7ac1f3fb20536c7dba2f8fd0b119fb69", null ],
     [ "run", "classMainMenu.html#afbf3058eec9a60321c5632707077a625", null ],

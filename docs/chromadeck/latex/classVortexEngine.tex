@@ -66,17 +66,17 @@ Definition at line 10 of file Vortex\+Engine.\+h.
 
 
 
-Definition at line 220 of file Vortex\+Engine.\+cpp.
+Definition at line 234 of file Vortex\+Engine.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{221 \{}
-\DoxyCodeLine{222   \textcolor{keywordflow}{if} (major != \mbox{\hyperlink{VortexConfig_8h_ad51691e0bf3c0a33a9b4929507a7d4d8}{VORTEX\_VERSION\_MAJOR}}) \{}
-\DoxyCodeLine{223     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{224   \}}
-\DoxyCodeLine{225   \textcolor{comment}{// minor version doesn't matter}}
-\DoxyCodeLine{226   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{227 \}}
+\DoxyCodeLine{235 \{}
+\DoxyCodeLine{236   \textcolor{keywordflow}{if} (major != \mbox{\hyperlink{VortexConfig_8h_ad51691e0bf3c0a33a9b4929507a7d4d8}{VORTEX\_VERSION\_MAJOR}}) \{}
+\DoxyCodeLine{237     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{238   \}}
+\DoxyCodeLine{239   \textcolor{comment}{// minor version doesn't matter}}
+\DoxyCodeLine{240   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{241 \}}
 
 \end{DoxyCode}
 
@@ -112,13 +112,13 @@ Definition at line 106 of file Vortex\+Engine.\+cpp.
 \DoxyCodeLine{117   \mbox{\hyperlink{classVLSender_a49afba3c3cae06136ad8744e367fcdb3}{VLSender::cleanup}}();}
 \DoxyCodeLine{118 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{119 \textcolor{preprocessor}{\#if VL\_ENABLE\_RECEIVER == 1}}
-\DoxyCodeLine{120   VLReceiver::cleanup();}
+\DoxyCodeLine{120   \mbox{\hyperlink{classVLReceiver_a31fba601a6e82bc043c7d017d91ce015}{VLReceiver::cleanup}}();}
 \DoxyCodeLine{121 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{122 \textcolor{preprocessor}{\#if IR\_ENABLE\_SENDER == 1}}
-\DoxyCodeLine{123   \mbox{\hyperlink{classIRSender_a4d6de9609f8e501e494cb431082d800a}{IRSender::cleanup}}();}
+\DoxyCodeLine{123   IRSender::cleanup();}
 \DoxyCodeLine{124 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{125 \textcolor{preprocessor}{\#if IR\_ENABLE\_RECEIVER == 1}}
-\DoxyCodeLine{126   \mbox{\hyperlink{classIRReceiver_ad2ff2918f176f499520fcc457c56a089}{IRReceiver::cleanup}}();}
+\DoxyCodeLine{126   IRReceiver::cleanup();}
 \DoxyCodeLine{127 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{128   \mbox{\hyperlink{classStorage_a2a1ce108c9a17f6175bfb9a9aba51703}{Storage::cleanup}}();}
 \DoxyCodeLine{129   \mbox{\hyperlink{classTime_af813bd1f7e4c08f6d84f8831738fed32}{Time::cleanup}}();}
@@ -129,7 +129,7 @@ Definition at line 106 of file Vortex\+Engine.\+cpp.
 \end{DoxyCode}
 
 
-References Buttons\+::cleanup(), Leds\+::cleanup(), Menus\+::cleanup(), Modes\+::cleanup(), Serial\+Coms\+::cleanup(), Storage\+::cleanup(), Time\+::cleanup(), IRReceiver\+::cleanup(), IRSender\+::cleanup(), and VLSender\+::cleanup().
+References Buttons\+::cleanup(), Leds\+::cleanup(), Menus\+::cleanup(), Modes\+::cleanup(), Serial\+Coms\+::cleanup(), Storage\+::cleanup(), Time\+::cleanup(), VLReceiver\+::cleanup(), and VLSender\+::cleanup().
 
 
 
@@ -143,18 +143,18 @@ Referenced by wakeup().
 
 
 
-Definition at line 229 of file Vortex\+Engine.\+cpp.
+Definition at line 243 of file Vortex\+Engine.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{230 \{}
-\DoxyCodeLine{231 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{232   \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
-\DoxyCodeLine{233 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{234   \textcolor{comment}{// don't need this outside vortex lib}}
-\DoxyCodeLine{235   \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
-\DoxyCodeLine{236 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{237 \}}
+\DoxyCodeLine{244 \{}
+\DoxyCodeLine{245 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{246   \textcolor{keywordflow}{return} \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}();}
+\DoxyCodeLine{247 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{248   \textcolor{comment}{// don't need this outside vortex lib}}
+\DoxyCodeLine{249   \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{250 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{251 \}}
 
 \end{DoxyCode}
 
@@ -169,24 +169,24 @@ References Modes\+::cur\+Mode().
 
 
 
-Definition at line 251 of file Vortex\+Engine.\+cpp.
+Definition at line 265 of file Vortex\+Engine.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{252 \{}
-\DoxyCodeLine{253   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Sleeping"{}});}
-\DoxyCodeLine{254   \textcolor{keywordflow}{if} (save) \{}
-\DoxyCodeLine{255     \textcolor{comment}{// update the startup mode when going to sleep}}
-\DoxyCodeLine{256     \mbox{\hyperlink{classModes_a86dc60444399ab04d49f77935f68e8dd}{Modes::setStartupMode}}(\mbox{\hyperlink{classModes_a7a1b8d5c48237ab106adbfc44ceb1055}{Modes::curModeIndex}}());}
-\DoxyCodeLine{257     \textcolor{comment}{// save anything that hasn't been saved}}
-\DoxyCodeLine{258     \mbox{\hyperlink{classModes_a1756081ee85dbcf672ddad5a3dcb4690}{Modes::saveStorage}}();}
-\DoxyCodeLine{259   \}}
-\DoxyCodeLine{260   \textcolor{comment}{// clear all the leds}}
-\DoxyCodeLine{261   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{262   \mbox{\hyperlink{classLeds_a7b552b40079b1179fd47f7aeea88878d}{Leds::update}}();}
-\DoxyCodeLine{263   \textcolor{comment}{// enable the sleep bool}}
-\DoxyCodeLine{264   \mbox{\hyperlink{classVortexEngine_a68bdf824c4c7b2303a1b1a37da67f496}{m\_sleeping}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{265 \}}
+\DoxyCodeLine{266 \{}
+\DoxyCodeLine{267   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Sleeping"{}});}
+\DoxyCodeLine{268   \textcolor{keywordflow}{if} (save) \{}
+\DoxyCodeLine{269     \textcolor{comment}{// update the startup mode when going to sleep}}
+\DoxyCodeLine{270     \mbox{\hyperlink{classModes_a86dc60444399ab04d49f77935f68e8dd}{Modes::setStartupMode}}(\mbox{\hyperlink{classModes_a7a1b8d5c48237ab106adbfc44ceb1055}{Modes::curModeIndex}}());}
+\DoxyCodeLine{271     \textcolor{comment}{// save anything that hasn't been saved}}
+\DoxyCodeLine{272     \mbox{\hyperlink{classModes_a1756081ee85dbcf672ddad5a3dcb4690}{Modes::saveStorage}}();}
+\DoxyCodeLine{273   \}}
+\DoxyCodeLine{274   \textcolor{comment}{// clear all the leds}}
+\DoxyCodeLine{275   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{276   \mbox{\hyperlink{classLeds_a7b552b40079b1179fd47f7aeea88878d}{Leds::update}}();}
+\DoxyCodeLine{277   \textcolor{comment}{// enable the sleep bool}}
+\DoxyCodeLine{278   \mbox{\hyperlink{classVortexEngine_a68bdf824c4c7b2303a1b1a37da67f496}{m\_sleeping}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{279 \}}
 
 \end{DoxyCode}
 
@@ -220,19 +220,19 @@ Definition at line 31 of file Vortex\+Engine.\+cpp.
 \DoxyCodeLine{44     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{45   \}}
 \DoxyCodeLine{46 \textcolor{preprocessor}{\#if IR\_ENABLE\_RECEIVER == 1}}
-\DoxyCodeLine{47   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_aad4e38923e65bec4c02197c56ec6a4af}{IRReceiver::init}}()) \{}
+\DoxyCodeLine{47   \textcolor{keywordflow}{if} (!IRReceiver::init()) \{}
 \DoxyCodeLine{48     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}IRReceiver failed to initialize"{}});}
 \DoxyCodeLine{49     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{50   \}}
 \DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{52 \textcolor{preprocessor}{\#if IR\_ENABLE\_SENDER == 1}}
-\DoxyCodeLine{53   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRSender_afcdf3f0f7c226c706f905c33e784057a}{IRSender::init}}()) \{}
+\DoxyCodeLine{53   \textcolor{keywordflow}{if} (!IRSender::init()) \{}
 \DoxyCodeLine{54     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}IRSender failed to initialize"{}});}
 \DoxyCodeLine{55     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{56   \}}
 \DoxyCodeLine{57 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{58 \textcolor{preprocessor}{\#if VL\_ENABLE\_RECEIVER == 1}}
-\DoxyCodeLine{59   \textcolor{keywordflow}{if} (!VLReceiver::init()) \{}
+\DoxyCodeLine{59   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_a406cd003a5d26bfe07470261fdb022c1}{VLReceiver::init}}()) \{}
 \DoxyCodeLine{60     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}VLReceiver failed to initialize"{}});}
 \DoxyCodeLine{61     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{62   \}}
@@ -282,7 +282,7 @@ Definition at line 31 of file Vortex\+Engine.\+cpp.
 \end{DoxyCode}
 
 
-References DEBUG\+\_\+\+LOG, Buttons\+::init(), Leds\+::init(), Main\+Menu\+::init(), Menus\+::init(), Modes\+::init(), Serial\+Coms\+::init(), Storage\+::init(), Time\+::init(), IRReceiver\+::init(), IRSender\+::init(), and VLSender\+::init().
+References DEBUG\+\_\+\+LOG, Buttons\+::init(), Leds\+::init(), Main\+Menu\+::init(), Menus\+::init(), Modes\+::init(), Serial\+Coms\+::init(), Storage\+::init(), Time\+::init(), VLReceiver\+::init(), and VLSender\+::init().
 
 
 
@@ -309,38 +309,47 @@ Definition at line 175 of file Vortex\+Engine.\+cpp.
 \DoxyCodeLine{182     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{183   \}}
 \DoxyCodeLine{184 }
-\DoxyCodeLine{185   \textcolor{comment}{// if the menus are open and running then just return}}
-\DoxyCodeLine{186   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenus_ab7628e9188ad88b34acfb72f498b5a7c}{Menus::run}}()) \{}
-\DoxyCodeLine{187     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{188   \}}
-\DoxyCodeLine{189 }
-\DoxyCodeLine{190   \textcolor{comment}{// check if we should enter the menu}}
-\DoxyCodeLine{191   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() \&\& \mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() > \mbox{\hyperlink{Timings_8h_a155fc794adbdc762cfbc71f55a04bc22}{MENU\_TRIGGER\_THRESHOLD\_TICKS}}) \{}
-\DoxyCodeLine{192     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entering Menu Selection..."{}});}
-\DoxyCodeLine{193     \mbox{\hyperlink{classMenus_a1f8dacb375bd4d1ec18da2ed5a3e8cb3}{Menus::openMenuSelection}}();}
-\DoxyCodeLine{194     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{195   \}}
-\DoxyCodeLine{196 }
-\DoxyCodeLine{197   \textcolor{comment}{// toggle auto cycle mode with many clicks at main modes}}
-\DoxyCodeLine{198   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_af08888134084d0640b6a891bdb755f14}{onConsecutivePresses}}(\mbox{\hyperlink{VortexConfig_8h_a99fb9bcab397455dbf9c0e2aa904d2d9}{AUTO\_CYCLE\_MODES\_CLICKS}})) \{}
-\DoxyCodeLine{199     \mbox{\hyperlink{classVortexEngine_ae6812312d6c117bf487ea7d2754f8063}{m\_autoCycle}} = !\mbox{\hyperlink{classVortexEngine_ae6812312d6c117bf487ea7d2754f8063}{m\_autoCycle}};}
-\DoxyCodeLine{200     \mbox{\hyperlink{classLeds_a5a3e2c090aa782f4ee7c71c01e8d8a69}{Leds::holdAll}}(\mbox{\hyperlink{classVortexEngine_ae6812312d6c117bf487ea7d2754f8063}{m\_autoCycle}} ? \mbox{\hyperlink{ColorConstants_8h_ab6c97468034c02fe204fd37036d9be15}{RGB\_GREEN}} : \mbox{\hyperlink{ColorConstants_8h_aa039288455af8a3812a35aa1e7b903e4}{RGB\_RED}});}
-\DoxyCodeLine{201   \}}
-\DoxyCodeLine{202 }
-\DoxyCodeLine{203   \textcolor{comment}{// if auto cycle is enabled and the last switch was more than the delay ago}}
-\DoxyCodeLine{204   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortexEngine_ae6812312d6c117bf487ea7d2754f8063}{m\_autoCycle}} \&\& (\mbox{\hyperlink{classModes_ac20debd8d48811c3e669cc601996925d}{Modes::lastSwitchTime}}() + \mbox{\hyperlink{VortexConfig_8h_ae54a4f60fb47ad89ca3c3aafc3e77860}{AUTO\_RANDOM\_DELAY}} < now)) \{}
-\DoxyCodeLine{205     \textcolor{comment}{// then switch to the next mode automatically}}
-\DoxyCodeLine{206     \mbox{\hyperlink{classModes_a70c51e7490681e5ee6a6e6d8084b8fc4}{Modes::nextModeSkipEmpty}}();}
-\DoxyCodeLine{207   \}}
-\DoxyCodeLine{208 }
-\DoxyCodeLine{209   \textcolor{comment}{// otherwise just play the modes}}
-\DoxyCodeLine{210   \mbox{\hyperlink{classModes_a9e98b568fcd3d00b7c3f0705b5120925}{Modes::play}}();}
-\DoxyCodeLine{211 \}}
+\DoxyCodeLine{185   \textcolor{comment}{// load modes if necessary}}
+\DoxyCodeLine{186   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classModes_a4d97b331857953933fe45825cdef1d3a}{Modes::load}}()) \{}
+\DoxyCodeLine{187     \textcolor{comment}{// don't do anything if modes couldn't load}}
+\DoxyCodeLine{188     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{189   \}}
+\DoxyCodeLine{190 }
+\DoxyCodeLine{191   \textcolor{comment}{// check if the device has been plugged in}}
+\DoxyCodeLine{192   \mbox{\hyperlink{classSerialComs_a134c87080fce06fea5e1cd0bbf54d2da}{SerialComs::checkSerial}}();}
+\DoxyCodeLine{193 }
+\DoxyCodeLine{194   \textcolor{comment}{// if the menus are open and running then just return}}
+\DoxyCodeLine{195   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenus_ab7628e9188ad88b34acfb72f498b5a7c}{Menus::run}}()) \{}
+\DoxyCodeLine{196     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{197   \}}
+\DoxyCodeLine{198 }
+\DoxyCodeLine{199   \textcolor{comment}{// check if we should enter the menu}}
+\DoxyCodeLine{200   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a6ed2a4b4e00facf5c42a11ecd1f4e1c7}{isPressed}}() \&\& \mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() > \mbox{\hyperlink{Timings_8h_a155fc794adbdc762cfbc71f55a04bc22}{MENU\_TRIGGER\_THRESHOLD\_TICKS}}) \{}
+\DoxyCodeLine{201     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entering Menu Selection..."{}});}
+\DoxyCodeLine{202     \mbox{\hyperlink{classMenus_a1f8dacb375bd4d1ec18da2ed5a3e8cb3}{Menus::openMenuSelection}}();}
+\DoxyCodeLine{203     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{204   \}}
+\DoxyCodeLine{205 }
+\DoxyCodeLine{206   \textcolor{comment}{// toggle auto cycle mode with many clicks at main modes}}
+\DoxyCodeLine{207   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_a277f0bc922ec0cb3a20b6aaf43e9b94e}{onRelease}}() \&\& \mbox{\hyperlink{classVortexEngine_ae6812312d6c117bf487ea7d2754f8063}{m\_autoCycle}}) || \mbox{\hyperlink{Button_8h_a9b512a1dc88811f5373b278581262eb8}{g\_pButtonM}}-\/>\mbox{\hyperlink{classButton_af08888134084d0640b6a891bdb755f14}{onConsecutivePresses}}(\mbox{\hyperlink{VortexConfig_8h_a99fb9bcab397455dbf9c0e2aa904d2d9}{AUTO\_CYCLE\_MODES\_CLICKS}})) \{}
+\DoxyCodeLine{208     \mbox{\hyperlink{classVortexEngine_ae6812312d6c117bf487ea7d2754f8063}{m\_autoCycle}} = !\mbox{\hyperlink{classVortexEngine_ae6812312d6c117bf487ea7d2754f8063}{m\_autoCycle}};}
+\DoxyCodeLine{209     \mbox{\hyperlink{classLeds_a5a3e2c090aa782f4ee7c71c01e8d8a69}{Leds::holdAll}}(\mbox{\hyperlink{classVortexEngine_ae6812312d6c117bf487ea7d2754f8063}{m\_autoCycle}} ? \mbox{\hyperlink{ColorConstants_8h_ab6c97468034c02fe204fd37036d9be15}{RGB\_GREEN}} : \mbox{\hyperlink{ColorConstants_8h_aa039288455af8a3812a35aa1e7b903e4}{RGB\_RED}});}
+\DoxyCodeLine{210   \}}
+\DoxyCodeLine{211 }
+\DoxyCodeLine{212   \textcolor{comment}{// if auto cycle is enabled and the last switch was more than the delay ago}}
+\DoxyCodeLine{213   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVortexEngine_ae6812312d6c117bf487ea7d2754f8063}{m\_autoCycle}} \&\& (\mbox{\hyperlink{classModes_ac20debd8d48811c3e669cc601996925d}{Modes::lastSwitchTime}}() + \mbox{\hyperlink{VortexConfig_8h_ae54a4f60fb47ad89ca3c3aafc3e77860}{AUTO\_RANDOM\_DELAY}} < now)) \{}
+\DoxyCodeLine{214     \textcolor{comment}{// then switch to the next mode automatically}}
+\DoxyCodeLine{215     \mbox{\hyperlink{classModes_ac9a4c95f7e899dc2732f65ebe78559c2}{Modes::nextMode}}();}
+\DoxyCodeLine{216   \}}
+\DoxyCodeLine{217 }
+\DoxyCodeLine{218   \textcolor{comment}{// otherwise just play the modes}}
+\DoxyCodeLine{219   \mbox{\hyperlink{classModes_a9e98b568fcd3d00b7c3f0705b5120925}{Modes::play}}();}
+\DoxyCodeLine{220 \}}
 
 \end{DoxyCode}
 
 
-References AUTO\+\_\+\+CYCLE\+\_\+\+MODES\+\_\+\+CLICKS, AUTO\+\_\+\+RANDOM\+\_\+\+DELAY, DEBUG\+\_\+\+LOG, g\+\_\+p\+ButtonM, Time\+::get\+Curtime(), Leds\+::hold\+All(), Button\+::hold\+Duration(), Button\+::is\+Pressed(), Modes\+::last\+Switch\+Time(), m\+\_\+auto\+Cycle, MENU\+\_\+\+TRIGGER\+\_\+\+THRESHOLD\+\_\+\+TICKS, Modes\+::next\+Mode\+Skip\+Empty(), Button\+::on\+Consecutive\+Presses(), Menus\+::open\+Menu\+Selection(), Modes\+::play(), RGB\+\_\+\+GREEN, RGB\+\_\+\+RED, Main\+Menu\+::run(), and Menus\+::run().
+References AUTO\+\_\+\+CYCLE\+\_\+\+MODES\+\_\+\+CLICKS, AUTO\+\_\+\+RANDOM\+\_\+\+DELAY, Serial\+Coms\+::check\+Serial(), DEBUG\+\_\+\+LOG, g\+\_\+p\+ButtonM, Time\+::get\+Curtime(), Leds\+::hold\+All(), Button\+::hold\+Duration(), Button\+::is\+Pressed(), Modes\+::last\+Switch\+Time(), Modes\+::load(), m\+\_\+auto\+Cycle, MENU\+\_\+\+TRIGGER\+\_\+\+THRESHOLD\+\_\+\+TICKS, Modes\+::next\+Mode(), Button\+::on\+Consecutive\+Presses(), Button\+::on\+Release(), Menus\+::open\+Menu\+Selection(), Modes\+::play(), RGB\+\_\+\+GREEN, RGB\+\_\+\+RED, Main\+Menu\+::run(), and Menus\+::run().
 
 
 
@@ -354,20 +363,25 @@ Referenced by tick().
 
 
 
-Definition at line 213 of file Vortex\+Engine.\+cpp.
+Definition at line 222 of file Vortex\+Engine.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{214 \{}
-\DoxyCodeLine{215   \textcolor{comment}{// serialize the vortex version}}
-\DoxyCodeLine{216   \textcolor{keywordflow}{return} stream.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}((uint8\_t)\mbox{\hyperlink{VortexConfig_8h_ad51691e0bf3c0a33a9b4929507a7d4d8}{VORTEX\_VERSION\_MAJOR}}) \&\&}
-\DoxyCodeLine{217          stream.\mbox{\hyperlink{classByteStream_a16016f5dc73e0d8b639f6bdbea252d4b}{serialize}}((uint8\_t)\mbox{\hyperlink{VortexConfig_8h_a5192bd4a7eea3a54e5b00405185d9d4d}{VORTEX\_VERSION\_MINOR}});}
-\DoxyCodeLine{218 \}}
+\DoxyCodeLine{223 \{}
+\DoxyCodeLine{224   \textcolor{comment}{// serialize the vortex version}}
+\DoxyCodeLine{225   \textcolor{keywordflow}{if} (!stream.\mbox{\hyperlink{classByteStream_ad3b413f399f22d30548a61a5e01ef3a7}{serialize8}}((uint8\_t)\mbox{\hyperlink{VortexConfig_8h_ad51691e0bf3c0a33a9b4929507a7d4d8}{VORTEX\_VERSION\_MAJOR}})) \{}
+\DoxyCodeLine{226     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{227   \}}
+\DoxyCodeLine{228   \textcolor{keywordflow}{if} (!stream.\mbox{\hyperlink{classByteStream_ad3b413f399f22d30548a61a5e01ef3a7}{serialize8}}((uint8\_t)\mbox{\hyperlink{VortexConfig_8h_a5192bd4a7eea3a54e5b00405185d9d4d}{VORTEX\_VERSION\_MINOR}})) \{}
+\DoxyCodeLine{229     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{230   \}}
+\DoxyCodeLine{231   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{232 \}}
 
 \end{DoxyCode}
 
 
-References Byte\+Stream\+::serialize(), VORTEX\+\_\+\+VERSION\+\_\+\+MAJOR, and VORTEX\+\_\+\+VERSION\+\_\+\+MINOR.
+References Byte\+Stream\+::serialize8(), VORTEX\+\_\+\+VERSION\+\_\+\+MAJOR, and VORTEX\+\_\+\+VERSION\+\_\+\+MINOR.
 
 
 
@@ -428,7 +442,7 @@ Definition at line 134 of file Vortex\+Engine.\+cpp.
 \DoxyCodeLine{152   \textcolor{comment}{// handle any fatal errors that may have occurred}}
 \DoxyCodeLine{153   \textcolor{comment}{// but only if the error blinker is enabled}}
 \DoxyCodeLine{154 \textcolor{preprocessor}{\#if VORTEX\_ERROR\_BLINK == 1}}
-\DoxyCodeLine{155   \textcolor{keywordflow}{if} (getError() != \mbox{\hyperlink{ErrorBlinker_8h_abe670cc5ceed3fad3be682fc0c1bb62e}{ERROR\_NONE}}) \{}
+\DoxyCodeLine{155   \textcolor{keywordflow}{if} (getError() != ERROR\_NONE) \{}
 \DoxyCodeLine{156     \textcolor{comment}{// just blink the error and don't run anything}}
 \DoxyCodeLine{157     blinkError();}
 \DoxyCodeLine{158     \textcolor{keywordflow}{return};}
@@ -451,7 +465,7 @@ Definition at line 134 of file Vortex\+Engine.\+cpp.
 \end{DoxyCode}
 
 
-References Button\+::check(), DEVICE\+\_\+\+LOCK\+\_\+\+CLICKS, ERROR\+\_\+\+NONE, g\+\_\+p\+ButtonM, Modes\+::locked(), m\+\_\+sleeping, Button\+::on\+Consecutive\+Presses(), Button\+::on\+Release(), run\+Main\+Logic(), Modes\+::set\+Locked(), Time\+::tick\+Clock(), Buttons\+::update(), Leds\+::update(), and wakeup().
+References Button\+::check(), DEVICE\+\_\+\+LOCK\+\_\+\+CLICKS, g\+\_\+p\+ButtonM, Modes\+::locked(), m\+\_\+sleeping, Button\+::on\+Consecutive\+Presses(), Button\+::on\+Release(), run\+Main\+Logic(), Modes\+::set\+Locked(), Time\+::tick\+Clock(), Buttons\+::update(), Leds\+::update(), and wakeup().
 
 \mbox{\Hypertarget{classVortexEngine_a32e7878bb1f4e4c4d141e849ff7808fb}\label{classVortexEngine_a32e7878bb1f4e4c4d141e849ff7808fb}} 
 \index{VortexEngine@{VortexEngine}!wakeup@{wakeup}}
@@ -461,19 +475,19 @@ References Button\+::check(), DEVICE\+\_\+\+LOCK\+\_\+\+CLICKS, ERROR\+\_\+\+NON
 
 
 
-Definition at line 267 of file Vortex\+Engine.\+cpp.
+Definition at line 281 of file Vortex\+Engine.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{268 \{}
-\DoxyCodeLine{269   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Waking up"{}});}
-\DoxyCodeLine{270   \mbox{\hyperlink{classVortexEngine_a68bdf824c4c7b2303a1b1a37da67f496}{m\_sleeping}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{271   \textcolor{comment}{// need to fake the reset in vortexlib, lol this works I guess}}
-\DoxyCodeLine{272   \textcolor{keywordflow}{if} (reset) \{}
-\DoxyCodeLine{273     \mbox{\hyperlink{classVortexEngine_ae80679477cd0c0f726e610b26fc1a6db}{cleanup}}();}
-\DoxyCodeLine{274     \mbox{\hyperlink{classVortexEngine_a7d0883a55ea519ac58a24637c0cc38d2}{init}}();}
-\DoxyCodeLine{275   \}}
-\DoxyCodeLine{276 \}}
+\DoxyCodeLine{282 \{}
+\DoxyCodeLine{283   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Waking up"{}});}
+\DoxyCodeLine{284   \mbox{\hyperlink{classVortexEngine_a68bdf824c4c7b2303a1b1a37da67f496}{m\_sleeping}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{285   \textcolor{comment}{// need to fake the reset in vortexlib, lol this works I guess}}
+\DoxyCodeLine{286   \textcolor{keywordflow}{if} (reset) \{}
+\DoxyCodeLine{287     \mbox{\hyperlink{classVortexEngine_ae80679477cd0c0f726e610b26fc1a6db}{cleanup}}();}
+\DoxyCodeLine{288     \mbox{\hyperlink{classVortexEngine_a7d0883a55ea519ac58a24637c0cc38d2}{init}}();}
+\DoxyCodeLine{289   \}}
+\DoxyCodeLine{290 \}}
 
 \end{DoxyCode}
 

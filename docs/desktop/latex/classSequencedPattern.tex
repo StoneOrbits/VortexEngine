@@ -242,7 +242,7 @@ Definition at line 73 of file Sequenced\+Pattern.\+cpp.
 \DoxyCodeLine{79     \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} stepPattern = step.\mbox{\hyperlink{classSequenceStep_a572f54beae4eb81d22cf4d2566945508}{m\_patternMap}}[pos];}
 \DoxyCodeLine{80     \textcolor{comment}{// the actual colorset being used might be the pattern's colorset}}
 \DoxyCodeLine{81     \textcolor{keyword}{const} \mbox{\hyperlink{classColorset}{Colorset}} *curSet = \&\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}};}
-\DoxyCodeLine{82     \textcolor{keywordflow}{if} (step.\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}[pos].numColors() > 0) \{}
+\DoxyCodeLine{82     \textcolor{keywordflow}{if} (step.\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}.\mbox{\hyperlink{classColorsetMap_aeaff00208d4398e34e9b2c6b1d1388e1}{m\_colorsets}}.size() > pos \&\& step.\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}[pos].numColors() > 0) \{}
 \DoxyCodeLine{83       \textcolor{comment}{// or it might be the steps' colorset if it's not empty}}
 \DoxyCodeLine{84       curSet = \&step.\mbox{\hyperlink{classSequenceStep_a6596ab7910c72168450816d2a0e39fda}{m\_colorsetMap}}[pos];}
 \DoxyCodeLine{85     \}}
@@ -273,7 +273,7 @@ Definition at line 73 of file Sequenced\+Pattern.\+cpp.
 \end{DoxyCode}
 
 
-References Pattern\+::bind(), Leds\+::clear\+Index(), Colorset\+::equals(), Pattern\+::get\+Colorset(), Pattern\+::get\+Pattern\+ID(), Single\+Led\+Pattern\+::init(), LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, Vortex\+Engine\+::leds(), Pattern\+::m\+\_\+colorset, Sequence\+Step\+::m\+\_\+colorset\+Map, Pattern\+::m\+\_\+engine, Compound\+Pattern\+::m\+\_\+led\+Patterns, Sequence\+Step\+::m\+\_\+pattern\+Map, Pattern\+Builder\+::make\+Single(), PATTERN\+\_\+\+NONE, Vortex\+Engine\+::pattern\+Builder(), Pattern\+::play(), and Pattern\+::set\+Colorset().
+References Pattern\+::bind(), Leds\+::clear\+Index(), Colorset\+::equals(), Pattern\+::get\+Colorset(), Pattern\+::get\+Pattern\+ID(), Single\+Led\+Pattern\+::init(), LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, Vortex\+Engine\+::leds(), Pattern\+::m\+\_\+colorset, Sequence\+Step\+::m\+\_\+colorset\+Map, Colorset\+Map\+::m\+\_\+colorsets, Pattern\+::m\+\_\+engine, Compound\+Pattern\+::m\+\_\+led\+Patterns, Sequence\+Step\+::m\+\_\+pattern\+Map, Pattern\+Builder\+::make\+Single(), PATTERN\+\_\+\+NONE, Vortex\+Engine\+::pattern\+Builder(), Pattern\+::play(), and Pattern\+::set\+Colorset().
 
 
 

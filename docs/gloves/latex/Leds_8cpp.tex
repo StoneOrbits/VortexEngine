@@ -7,6 +7,7 @@
 {\ttfamily \#include \char`\"{}../\+Modes/\+Modes.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../\+Vortex\+Config.\+h\char`\"{}}\newline
 {\ttfamily \#include $<$Arduino.\+h$>$}\newline
+{\ttfamily \#include $<$Fast\+LED.\+h$>$}\newline
 {\ttfamily \#include $<$SPI.\+h$>$}\newline
 Include dependency graph for Leds.\+cpp\+:
 \nopagebreak
@@ -24,18 +25,6 @@ Include dependency graph for Leds.\+cpp\+:
 \#define \mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\+\_\+\+LED\+\_\+\+SCK}}~8
 \item 
 \#define \mbox{\hyperlink{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}{ONBOARD\+\_\+\+LED\+\_\+\+MOSI}}~7
-\item 
-\#define \mbox{\hyperlink{Leds_8cpp_a34eaa201c82dae7ea43ef4cee2d71c9f}{CPU\+\_\+\+FREQUENCY\+\_\+\+MHZ}}~48
-\item 
-\#define \mbox{\hyperlink{Leds_8cpp_af95d489fe0bb0556e3df21a7c04d5239}{NS\+\_\+\+TO\+\_\+\+CYCLES}}(ns)~(((ns) $\ast$ \mbox{\hyperlink{Leds_8cpp_a34eaa201c82dae7ea43ef4cee2d71c9f}{CPU\+\_\+\+FREQUENCY\+\_\+\+MHZ}}) / 1000)
-\item 
-\#define \mbox{\hyperlink{Leds_8cpp_a1b15781780446cc96c3529e67ffd155b}{T0H}}~1
-\item 
-\#define \mbox{\hyperlink{Leds_8cpp_aaa6df9b03f5c83a82da353df9bb19a60}{T0L}}~50
-\item 
-\#define \mbox{\hyperlink{Leds_8cpp_ae0de4e06e642a9dfa3d6f273a5c8e23b}{T1H}}~50
-\item 
-\#define \mbox{\hyperlink{Leds_8cpp_aad296a317c61b4367f690d958fb2ee12}{T1L}}~1
 \end{DoxyCompactItemize}
 \doxysubsection*{Functions}
 \begin{DoxyCompactItemize}
@@ -43,26 +32,10 @@ Include dependency graph for Leds.\+cpp\+:
 static void \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}} (uint8\+\_\+t byte)
 \item 
 static void \mbox{\hyperlink{Leds_8cpp_ab8f63a85e405af3f93826b2f94f7e361}{turn\+Off\+Onboard\+LED}} ()
-\item 
-void \mbox{\hyperlink{Leds_8cpp_a1329fc7cfd5815ba771fd11480a8e399}{delay\+\_\+loop}} (uint32\+\_\+t loop)
-\item 
-void \mbox{\hyperlink{Leds_8cpp_a67b6d1e3a22f8dea5f35ccdac81a314e}{send\+Bit}} (bool bit\+Val)
-\item 
-void \mbox{\hyperlink{Leds_8cpp_afad95f5d1fd42e37f764663e127cf7cf}{send\+Byte}} (unsigned char byte)
 \end{DoxyCompactItemize}
 
 
 \doxysubsection{Macro Definition Documentation}
-\mbox{\Hypertarget{Leds_8cpp_a34eaa201c82dae7ea43ef4cee2d71c9f}\label{Leds_8cpp_a34eaa201c82dae7ea43ef4cee2d71c9f}} 
-\index{Leds.cpp@{Leds.cpp}!CPU\_FREQUENCY\_MHZ@{CPU\_FREQUENCY\_MHZ}}
-\index{CPU\_FREQUENCY\_MHZ@{CPU\_FREQUENCY\_MHZ}!Leds.cpp@{Leds.cpp}}
-\doxysubsubsection{\texorpdfstring{CPU\_FREQUENCY\_MHZ}{CPU\_FREQUENCY\_MHZ}}
-{\footnotesize\ttfamily \#define CPU\+\_\+\+FREQUENCY\+\_\+\+MHZ~48}
-
-
-
-Definition at line 303 of file Leds.\+cpp.
-
 \mbox{\Hypertarget{Leds_8cpp_a5f55b07707df2f2cf371f707207ed508}\label{Leds_8cpp_a5f55b07707df2f2cf371f707207ed508}} 
 \index{Leds.cpp@{Leds.cpp}!LED\_DATA\_PIN@{LED\_DATA\_PIN}}
 \index{LED\_DATA\_PIN@{LED\_DATA\_PIN}!Leds.cpp@{Leds.cpp}}
@@ -71,17 +44,7 @@ Definition at line 303 of file Leds.\+cpp.
 
 
 
-Definition at line 18 of file Leds.\+cpp.
-
-\mbox{\Hypertarget{Leds_8cpp_af95d489fe0bb0556e3df21a7c04d5239}\label{Leds_8cpp_af95d489fe0bb0556e3df21a7c04d5239}} 
-\index{Leds.cpp@{Leds.cpp}!NS\_TO\_CYCLES@{NS\_TO\_CYCLES}}
-\index{NS\_TO\_CYCLES@{NS\_TO\_CYCLES}!Leds.cpp@{Leds.cpp}}
-\doxysubsubsection{\texorpdfstring{NS\_TO\_CYCLES}{NS\_TO\_CYCLES}}
-{\footnotesize\ttfamily \#define NS\+\_\+\+TO\+\_\+\+CYCLES(\begin{DoxyParamCaption}\item[{}]{ns }\end{DoxyParamCaption})~(((ns) $\ast$ \mbox{\hyperlink{Leds_8cpp_a34eaa201c82dae7ea43ef4cee2d71c9f}{CPU\+\_\+\+FREQUENCY\+\_\+\+MHZ}}) / 1000)}
-
-
-
-Definition at line 304 of file Leds.\+cpp.
+Definition at line 19 of file Leds.\+cpp.
 
 \mbox{\Hypertarget{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}\label{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}} 
 \index{Leds.cpp@{Leds.cpp}!ONBOARD\_LED\_MOSI@{ONBOARD\_LED\_MOSI}}
@@ -91,7 +54,7 @@ Definition at line 304 of file Leds.\+cpp.
 
 
 
-Definition at line 20 of file Leds.\+cpp.
+Definition at line 21 of file Leds.\+cpp.
 
 \mbox{\Hypertarget{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}\label{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}} 
 \index{Leds.cpp@{Leds.cpp}!ONBOARD\_LED\_SCK@{ONBOARD\_LED\_SCK}}
@@ -101,141 +64,11 @@ Definition at line 20 of file Leds.\+cpp.
 
 
 
-Definition at line 19 of file Leds.\+cpp.
-
-\mbox{\Hypertarget{Leds_8cpp_a1b15781780446cc96c3529e67ffd155b}\label{Leds_8cpp_a1b15781780446cc96c3529e67ffd155b}} 
-\index{Leds.cpp@{Leds.cpp}!T0H@{T0H}}
-\index{T0H@{T0H}!Leds.cpp@{Leds.cpp}}
-\doxysubsubsection{\texorpdfstring{T0H}{T0H}}
-{\footnotesize\ttfamily \#define T0H~1}
-
-
-
-Definition at line 307 of file Leds.\+cpp.
-
-\mbox{\Hypertarget{Leds_8cpp_aaa6df9b03f5c83a82da353df9bb19a60}\label{Leds_8cpp_aaa6df9b03f5c83a82da353df9bb19a60}} 
-\index{Leds.cpp@{Leds.cpp}!T0L@{T0L}}
-\index{T0L@{T0L}!Leds.cpp@{Leds.cpp}}
-\doxysubsubsection{\texorpdfstring{T0L}{T0L}}
-{\footnotesize\ttfamily \#define T0L~50}
-
-
-
-Definition at line 308 of file Leds.\+cpp.
-
-\mbox{\Hypertarget{Leds_8cpp_ae0de4e06e642a9dfa3d6f273a5c8e23b}\label{Leds_8cpp_ae0de4e06e642a9dfa3d6f273a5c8e23b}} 
-\index{Leds.cpp@{Leds.cpp}!T1H@{T1H}}
-\index{T1H@{T1H}!Leds.cpp@{Leds.cpp}}
-\doxysubsubsection{\texorpdfstring{T1H}{T1H}}
-{\footnotesize\ttfamily \#define T1H~50}
-
-
-
-Definition at line 309 of file Leds.\+cpp.
-
-\mbox{\Hypertarget{Leds_8cpp_aad296a317c61b4367f690d958fb2ee12}\label{Leds_8cpp_aad296a317c61b4367f690d958fb2ee12}} 
-\index{Leds.cpp@{Leds.cpp}!T1L@{T1L}}
-\index{T1L@{T1L}!Leds.cpp@{Leds.cpp}}
-\doxysubsubsection{\texorpdfstring{T1L}{T1L}}
-{\footnotesize\ttfamily \#define T1L~1}
-
-
-
-Definition at line 310 of file Leds.\+cpp.
+Definition at line 20 of file Leds.\+cpp.
 
 
 
 \doxysubsection{Function Documentation}
-\mbox{\Hypertarget{Leds_8cpp_a1329fc7cfd5815ba771fd11480a8e399}\label{Leds_8cpp_a1329fc7cfd5815ba771fd11480a8e399}} 
-\index{Leds.cpp@{Leds.cpp}!delay\_loop@{delay\_loop}}
-\index{delay\_loop@{delay\_loop}!Leds.cpp@{Leds.cpp}}
-\doxysubsubsection{\texorpdfstring{delay\_loop()}{delay\_loop()}}
-{\footnotesize\ttfamily void delay\+\_\+loop (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{loop }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-Definition at line 312 of file Leds.\+cpp.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{313 \{}
-\DoxyCodeLine{314   \textcolor{keywordflow}{while} (loop-\/-\/) \{}
-\DoxyCodeLine{315     \_\_asm\_\_ \_\_volatile\_\_(\textcolor{stringliteral}{"{}nop"{}});}
-\DoxyCodeLine{316   \}}
-\DoxyCodeLine{317 \}}
-
-\end{DoxyCode}
-
-
-Referenced by send\+Bit().
-
-\mbox{\Hypertarget{Leds_8cpp_a67b6d1e3a22f8dea5f35ccdac81a314e}\label{Leds_8cpp_a67b6d1e3a22f8dea5f35ccdac81a314e}} 
-\index{Leds.cpp@{Leds.cpp}!sendBit@{sendBit}}
-\index{sendBit@{sendBit}!Leds.cpp@{Leds.cpp}}
-\doxysubsubsection{\texorpdfstring{sendBit()}{sendBit()}}
-{\footnotesize\ttfamily void send\+Bit (\begin{DoxyParamCaption}\item[{bool}]{bit\+Val }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-Definition at line 319 of file Leds.\+cpp.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{320 \{}
-\DoxyCodeLine{321   uint32\_t pinMask = (1ul << g\_APinDescription[\mbox{\hyperlink{Leds_8cpp_a5f55b07707df2f2cf371f707207ed508}{LED\_DATA\_PIN}}].ulPin);}
-\DoxyCodeLine{322   \textcolor{keyword}{volatile} uint32\_t *outSet = \&(PORT-\/>Group[g\_APinDescription[\mbox{\hyperlink{Leds_8cpp_a5f55b07707df2f2cf371f707207ed508}{LED\_DATA\_PIN}}].ulPort].OUTSET.reg);}
-\DoxyCodeLine{323   \textcolor{keyword}{volatile} uint32\_t *outClr = \&(PORT-\/>Group[g\_APinDescription[\mbox{\hyperlink{Leds_8cpp_a5f55b07707df2f2cf371f707207ed508}{LED\_DATA\_PIN}}].ulPort].OUTCLR.reg);}
-\DoxyCodeLine{324   \textcolor{keywordflow}{if} (bitVal) \{ \textcolor{comment}{// Send 1 bit}}
-\DoxyCodeLine{325     *outSet = pinMask; \textcolor{comment}{// Set the output bit}}
-\DoxyCodeLine{326     \mbox{\hyperlink{Leds_8cpp_a1329fc7cfd5815ba771fd11480a8e399}{delay\_loop}}(\mbox{\hyperlink{Leds_8cpp_af95d489fe0bb0556e3df21a7c04d5239}{NS\_TO\_CYCLES}}(\mbox{\hyperlink{Leds_8cpp_ae0de4e06e642a9dfa3d6f273a5c8e23b}{T1H}})); \textcolor{comment}{// Delay for T1H}}
-\DoxyCodeLine{327     *outClr = pinMask; \textcolor{comment}{// Clear the output bit}}
-\DoxyCodeLine{328     \mbox{\hyperlink{Leds_8cpp_a1329fc7cfd5815ba771fd11480a8e399}{delay\_loop}}(\mbox{\hyperlink{Leds_8cpp_af95d489fe0bb0556e3df21a7c04d5239}{NS\_TO\_CYCLES}}(\mbox{\hyperlink{Leds_8cpp_aaa6df9b03f5c83a82da353df9bb19a60}{T0L}})); \textcolor{comment}{// Delay for T0L (since T1L can lead to early latch)}}
-\DoxyCodeLine{329   \} \textcolor{keywordflow}{else} \{ \textcolor{comment}{// Send 0 bit}}
-\DoxyCodeLine{330     *outSet = pinMask; \textcolor{comment}{// Set the output bit}}
-\DoxyCodeLine{331     \mbox{\hyperlink{Leds_8cpp_a1329fc7cfd5815ba771fd11480a8e399}{delay\_loop}}(\mbox{\hyperlink{Leds_8cpp_af95d489fe0bb0556e3df21a7c04d5239}{NS\_TO\_CYCLES}}(\mbox{\hyperlink{Leds_8cpp_a1b15781780446cc96c3529e67ffd155b}{T0H}})); \textcolor{comment}{// Delay for T0H}}
-\DoxyCodeLine{332     *outClr = pinMask; \textcolor{comment}{// Clear the output bit}}
-\DoxyCodeLine{333     \mbox{\hyperlink{Leds_8cpp_a1329fc7cfd5815ba771fd11480a8e399}{delay\_loop}}(\mbox{\hyperlink{Leds_8cpp_af95d489fe0bb0556e3df21a7c04d5239}{NS\_TO\_CYCLES}}(\mbox{\hyperlink{Leds_8cpp_aad296a317c61b4367f690d958fb2ee12}{T1L}})); \textcolor{comment}{// Delay for T1L}}
-\DoxyCodeLine{334   \}}
-\DoxyCodeLine{335 \}}
-
-\end{DoxyCode}
-
-
-References delay\+\_\+loop(), LED\+\_\+\+DATA\+\_\+\+PIN, NS\+\_\+\+TO\+\_\+\+CYCLES, T0H, T0L, T1H, and T1L.
-
-
-
-Referenced by send\+Byte().
-
-\mbox{\Hypertarget{Leds_8cpp_afad95f5d1fd42e37f764663e127cf7cf}\label{Leds_8cpp_afad95f5d1fd42e37f764663e127cf7cf}} 
-\index{Leds.cpp@{Leds.cpp}!sendByte@{sendByte}}
-\index{sendByte@{sendByte}!Leds.cpp@{Leds.cpp}}
-\doxysubsubsection{\texorpdfstring{sendByte()}{sendByte()}}
-{\footnotesize\ttfamily void send\+Byte (\begin{DoxyParamCaption}\item[{unsigned char}]{byte }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
-
-
-
-Definition at line 337 of file Leds.\+cpp.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{338 \{}
-\DoxyCodeLine{339   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} bit = 0; bit < 8; bit++) \{}
-\DoxyCodeLine{340     \mbox{\hyperlink{Leds_8cpp_a67b6d1e3a22f8dea5f35ccdac81a314e}{sendBit}}(bitRead(\textcolor{keywordtype}{byte}, 7));                \textcolor{comment}{// Neopixel wants bit in highest-\/to-\/lowest order}}
-\DoxyCodeLine{341     \textcolor{comment}{// so send highest bit (bit \#7 in an 8-\/bit byte since they start at 0)}}
-\DoxyCodeLine{342     \textcolor{keywordtype}{byte} <<= 1;                                    \textcolor{comment}{// and then shift left so bit 6 moves into 7, 5 moves into 6, etc}}
-\DoxyCodeLine{343   \}}
-\DoxyCodeLine{344 \}}
-
-\end{DoxyCode}
-
-
-References send\+Bit().
-
-
-
-Referenced by Leds\+::update().
-
 \mbox{\Hypertarget{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}\label{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}} 
 \index{Leds.cpp@{Leds.cpp}!transfer@{transfer}}
 \index{transfer@{transfer}!Leds.cpp@{Leds.cpp}}
@@ -244,25 +77,25 @@ Referenced by Leds\+::update().
 
 
 
-Definition at line 21 of file Leds.\+cpp.
+Definition at line 22 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{22 \{}
-\DoxyCodeLine{23   uint8\_t startbit = 0x80;}
-\DoxyCodeLine{24   \textcolor{keywordtype}{bool} lastmosi = !(\textcolor{keywordtype}{byte} \& startbit);}
-\DoxyCodeLine{25   \textcolor{keywordflow}{for} (uint8\_t b = startbit; b != 0; b = b >> 1) \{}
-\DoxyCodeLine{26     delayMicroseconds(4);}
-\DoxyCodeLine{27     \textcolor{keywordtype}{bool} towrite = \textcolor{keywordtype}{byte} \& b;}
-\DoxyCodeLine{28     \textcolor{keywordflow}{if} (lastmosi != towrite) \{}
-\DoxyCodeLine{29       digitalWrite(\mbox{\hyperlink{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}{ONBOARD\_LED\_MOSI}}, towrite);}
-\DoxyCodeLine{30       lastmosi = towrite;}
-\DoxyCodeLine{31     \}}
-\DoxyCodeLine{32     digitalWrite(\mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\_LED\_SCK}}, HIGH);}
-\DoxyCodeLine{33     delayMicroseconds(4);}
-\DoxyCodeLine{34     digitalWrite(\mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\_LED\_SCK}}, LOW);}
-\DoxyCodeLine{35   \}}
-\DoxyCodeLine{36 \}}
+\DoxyCodeLine{23 \{}
+\DoxyCodeLine{24   uint8\_t startbit = 0x80;}
+\DoxyCodeLine{25   \textcolor{keywordtype}{bool} lastmosi = !(\textcolor{keywordtype}{byte} \& startbit);}
+\DoxyCodeLine{26   \textcolor{keywordflow}{for} (uint8\_t b = startbit; b != 0; b = b >> 1) \{}
+\DoxyCodeLine{27     delayMicroseconds(4);}
+\DoxyCodeLine{28     \textcolor{keywordtype}{bool} towrite = \textcolor{keywordtype}{byte} \& b;}
+\DoxyCodeLine{29     \textcolor{keywordflow}{if} (lastmosi != towrite) \{}
+\DoxyCodeLine{30       digitalWrite(\mbox{\hyperlink{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}{ONBOARD\_LED\_MOSI}}, towrite);}
+\DoxyCodeLine{31       lastmosi = towrite;}
+\DoxyCodeLine{32     \}}
+\DoxyCodeLine{33     digitalWrite(\mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\_LED\_SCK}}, HIGH);}
+\DoxyCodeLine{34     delayMicroseconds(4);}
+\DoxyCodeLine{35     digitalWrite(\mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\_LED\_SCK}}, LOW);}
+\DoxyCodeLine{36   \}}
+\DoxyCodeLine{37 \}}
 
 \end{DoxyCode}
 
@@ -281,32 +114,32 @@ Referenced by turn\+Off\+Onboard\+LED().
 
 
 
-Definition at line 37 of file Leds.\+cpp.
+Definition at line 38 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{38 \{}
-\DoxyCodeLine{39   \textcolor{comment}{// spi device begin}}
-\DoxyCodeLine{40   pinMode(\mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\_LED\_SCK}}, OUTPUT);}
-\DoxyCodeLine{41   digitalWrite(\mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\_LED\_SCK}}, LOW);}
-\DoxyCodeLine{42   pinMode(\mbox{\hyperlink{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}{ONBOARD\_LED\_MOSI}}, OUTPUT);}
-\DoxyCodeLine{43   digitalWrite(\mbox{\hyperlink{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}{ONBOARD\_LED\_MOSI}}, HIGH);}
-\DoxyCodeLine{44   SPI.begin();}
-\DoxyCodeLine{45   \textcolor{comment}{// Begin transaction, setting SPI frequency}}
-\DoxyCodeLine{46   \textcolor{keyword}{static} \textcolor{keyword}{const} SPISettings mySPISettings(8000000, MSBFIRST, SPI\_MODE0);}
-\DoxyCodeLine{47   SPI.beginTransaction(mySPISettings);}
-\DoxyCodeLine{48   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < 4; i++) \{}
-\DoxyCodeLine{49     \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}}(0x00); \textcolor{comment}{// begin frame}}
-\DoxyCodeLine{50   \}}
-\DoxyCodeLine{51   \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}}(0xFF); \textcolor{comment}{//  Pixel start}}
-\DoxyCodeLine{52   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < 3; i++) \{}
-\DoxyCodeLine{53     \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}}(0x00); \textcolor{comment}{// R,G,B}}
-\DoxyCodeLine{54   \}}
-\DoxyCodeLine{55   \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}}(0xFF); \textcolor{comment}{// end frame}}
-\DoxyCodeLine{56   SPI.endTransaction();}
-\DoxyCodeLine{57 }
-\DoxyCodeLine{58   SPI.end();}
-\DoxyCodeLine{59 \}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40   \textcolor{comment}{// spi device begin}}
+\DoxyCodeLine{41   pinMode(\mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\_LED\_SCK}}, OUTPUT);}
+\DoxyCodeLine{42   digitalWrite(\mbox{\hyperlink{Leds_8cpp_a10373868ec64e121b71abe9fec62c429}{ONBOARD\_LED\_SCK}}, LOW);}
+\DoxyCodeLine{43   pinMode(\mbox{\hyperlink{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}{ONBOARD\_LED\_MOSI}}, OUTPUT);}
+\DoxyCodeLine{44   digitalWrite(\mbox{\hyperlink{Leds_8cpp_a63c2ed8822945d5c2a012c86ae86deb1}{ONBOARD\_LED\_MOSI}}, HIGH);}
+\DoxyCodeLine{45   SPI.begin();}
+\DoxyCodeLine{46   \textcolor{comment}{// Begin transaction, setting SPI frequency}}
+\DoxyCodeLine{47   \textcolor{keyword}{static} \textcolor{keyword}{const} SPISettings mySPISettings(8000000, MSBFIRST, SPI\_MODE0);}
+\DoxyCodeLine{48   SPI.beginTransaction(mySPISettings);}
+\DoxyCodeLine{49   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < 4; i++) \{}
+\DoxyCodeLine{50     \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}}(0x00); \textcolor{comment}{// begin frame}}
+\DoxyCodeLine{51   \}}
+\DoxyCodeLine{52   \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}}(0xFF); \textcolor{comment}{//  Pixel start}}
+\DoxyCodeLine{53   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < 3; i++) \{}
+\DoxyCodeLine{54     \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}}(0x00); \textcolor{comment}{// R,G,B}}
+\DoxyCodeLine{55   \}}
+\DoxyCodeLine{56   \mbox{\hyperlink{Leds_8cpp_a855d1ba213e378af7d518976d9f6b407}{transfer}}(0xFF); \textcolor{comment}{// end frame}}
+\DoxyCodeLine{57   SPI.endTransaction();}
+\DoxyCodeLine{58 }
+\DoxyCodeLine{59   SPI.end();}
+\DoxyCodeLine{60 \}}
 
 \end{DoxyCode}
 

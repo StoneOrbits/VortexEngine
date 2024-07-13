@@ -122,10 +122,10 @@ Public Member Functions</h2></td></tr>
 <tr class="separator:a40523a2298929c35b06f4b3302708cf0"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a10268d92a2aa1e2609866079298fef71"><td class="memItemLeft" align="right" valign="top"><a class="el" href="classRGBColor.html">RGBColor</a>&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRGBColor.html#a10268d92a2aa1e2609866079298fef71">adjustBrightness</a> (uint8_t fadeBy)</td></tr>
 <tr class="separator:a10268d92a2aa1e2609866079298fef71"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:ab9559d07cb8bf9efcb05ce6698f41cca"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRGBColor.html#ab9559d07cb8bf9efcb05ce6698f41cca">serialize</a> (<a class="el" href="classByteStream.html">ByteStream</a> &amp;buffer) const</td></tr>
-<tr class="separator:ab9559d07cb8bf9efcb05ce6698f41cca"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:aad746f31285ec7394217d0e577a41b2f"><td class="memItemLeft" align="right" valign="top">void&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRGBColor.html#aad746f31285ec7394217d0e577a41b2f">unserialize</a> (<a class="el" href="classByteStream.html">ByteStream</a> &amp;buffer)</td></tr>
-<tr class="separator:aad746f31285ec7394217d0e577a41b2f"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:a7eaddf84768c5b858355d98d67bbd859"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRGBColor.html#a7eaddf84768c5b858355d98d67bbd859">serialize</a> (<a class="el" href="classByteStream.html">ByteStream</a> &amp;buffer) const</td></tr>
+<tr class="separator:a7eaddf84768c5b858355d98d67bbd859"><td class="memSeparator" colspan="2">&#160;</td></tr>
+<tr class="memitem:acc28390fe9fab0d341008ced28c74cad"><td class="memItemLeft" align="right" valign="top">bool&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRGBColor.html#acc28390fe9fab0d341008ced28c74cad">unserialize</a> (<a class="el" href="classByteStream.html">ByteStream</a> &amp;buffer)</td></tr>
+<tr class="separator:acc28390fe9fab0d341008ced28c74cad"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:aa641389effd78c707230ab389e176b65"><td class="memItemLeft" align="right" valign="top">uint32_t&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="classRGBColor.html#aa641389effd78c707230ab389e176b65">raw</a> () const</td></tr>
 <tr class="separator:aa641389effd78c707230ab389e176b65"><td class="memSeparator" colspan="2">&#160;</td></tr>
 </table><table class="memberdecls">
@@ -313,7 +313,7 @@ Public Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="ColorTypes_8h_source.html#l00090">blue</a>, <a class="el" href="ColorTypes_8h_source.html#l00089">green</a>, and <a class="el" href="ColorTypes_8h_source.html#l00088">red</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00303">Colorset::adjustBrightness()</a>, <a class="el" href="Leds_8cpp_source.html#l00169">Leds::adjustBrightnessIndex()</a>, and <a class="el" href="ZigzagPattern_8cpp_source.html#l00143">ZigzagPattern::Snake::drawSnake()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Colorset_8cpp_source.html#l00303">Colorset::adjustBrightness()</a>, <a class="el" href="Leds_8cpp_source.html#l00166">Leds::adjustBrightnessIndex()</a>, and <a class="el" href="ZigzagPattern_8cpp_source.html#l00143">ZigzagPattern::Snake::drawSnake()</a>.</p>
 
 </div>
 </div>
@@ -341,7 +341,7 @@ Public Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="ColorTypes_8h_source.html#l00090">blue</a>, <a class="el" href="ColorTypes_8h_source.html#l00089">green</a>, and <a class="el" href="ColorTypes_8h_source.html#l00088">red</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Leds_8cpp_source.html#l00041">Leds::cleanup()</a>, <a class="el" href="LedStash_8cpp_source.html#l00016">LedStash::clear()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00206">Colorset::removeColor()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Leds_8cpp_source.html#l00038">Leds::cleanup()</a>, <a class="el" href="LedStash_8cpp_source.html#l00016">LedStash::clear()</a>, and <a class="el" href="Colorset_8cpp_source.html#l00206">Colorset::removeColor()</a>.</p>
 
 </div>
 </div>
@@ -428,15 +428,15 @@ Public Attributes</h2></td></tr>
 <div class="line"><a name="l00167"></a><span class="lineno">  167</span>&#160;  }</div>
 <div class="line"><a name="l00168"></a><span class="lineno">  168</span>&#160;  <span class="keywordflow">return</span> *<span class="keyword">this</span>;</div>
 <div class="line"><a name="l00169"></a><span class="lineno">  169</span>&#160;}</div>
-<div class="ttc" id="aColorTypes_8cpp_html_ae8e00bbaf03e9373f296022748a546c3"><div class="ttname"><a href="ColorTypes_8cpp.html#ae8e00bbaf03e9373f296022748a546c3">hsv_to_rgb_generic</a></div><div class="ttdeci">RGBColor hsv_to_rgb_generic(const HSVColor &amp;rhs)</div><div class="ttdef"><b>Definition:</b> <a href="ColorTypes_8cpp_source.html#l00487">ColorTypes.cpp:487</a></div></div>
+<div class="ttc" id="aColorTypes_8cpp_html_ae8e00bbaf03e9373f296022748a546c3"><div class="ttname"><a href="ColorTypes_8cpp.html#ae8e00bbaf03e9373f296022748a546c3">hsv_to_rgb_generic</a></div><div class="ttdeci">RGBColor hsv_to_rgb_generic(const HSVColor &amp;rhs)</div><div class="ttdef"><b>Definition:</b> <a href="ColorTypes_8cpp_source.html#l00501">ColorTypes.cpp:501</a></div></div>
 <div class="ttc" id="aColorTypes_8cpp_html_af11854a7974ef7d8d661f92e4f427101"><div class="ttname"><a href="ColorTypes_8cpp.html#af11854a7974ef7d8d661f92e4f427101">g_hsv_rgb_alg</a></div><div class="ttdeci">hsv_to_rgb_algorithm g_hsv_rgb_alg</div><div class="ttdef"><b>Definition:</b> <a href="ColorTypes_8cpp_source.html#l00006">ColorTypes.cpp:6</a></div></div>
-<div class="ttc" id="aColorTypes_8cpp_html_af1c266177041c51d991945aefc4eb70b"><div class="ttname"><a href="ColorTypes_8cpp.html#af1c266177041c51d991945aefc4eb70b">hsv_to_rgb_raw_C</a></div><div class="ttdeci">RGBColor hsv_to_rgb_raw_C(const HSVColor &amp;rhs)</div><div class="ttdef"><b>Definition:</b> <a href="ColorTypes_8cpp_source.html#l00399">ColorTypes.cpp:399</a></div></div>
-<div class="ttc" id="aColorTypes_8cpp_html_af3ef0c7054bb571933dab90c229a08b1"><div class="ttname"><a href="ColorTypes_8cpp.html#af3ef0c7054bb571933dab90c229a08b1">hsv_to_rgb_rainbow</a></div><div class="ttdeci">RGBColor hsv_to_rgb_rainbow(const HSVColor &amp;rhs)</div><div class="ttdef"><b>Definition:</b> <a href="ColorTypes_8cpp_source.html#l00224">ColorTypes.cpp:224</a></div></div>
+<div class="ttc" id="aColorTypes_8cpp_html_af1c266177041c51d991945aefc4eb70b"><div class="ttname"><a href="ColorTypes_8cpp.html#af1c266177041c51d991945aefc4eb70b">hsv_to_rgb_raw_C</a></div><div class="ttdeci">RGBColor hsv_to_rgb_raw_C(const HSVColor &amp;rhs)</div><div class="ttdef"><b>Definition:</b> <a href="ColorTypes_8cpp_source.html#l00413">ColorTypes.cpp:413</a></div></div>
+<div class="ttc" id="aColorTypes_8cpp_html_af3ef0c7054bb571933dab90c229a08b1"><div class="ttname"><a href="ColorTypes_8cpp.html#af3ef0c7054bb571933dab90c229a08b1">hsv_to_rgb_rainbow</a></div><div class="ttdeci">RGBColor hsv_to_rgb_rainbow(const HSVColor &amp;rhs)</div><div class="ttdef"><b>Definition:</b> <a href="ColorTypes_8cpp_source.html#l00238">ColorTypes.cpp:238</a></div></div>
 <div class="ttc" id="aColorTypes_8h_html_a209b55463737311429f83ebdcb6ac9e9a07f7fbd4cf06af195fb021f370569c84"><div class="ttname"><a href="ColorTypes_8h.html#a209b55463737311429f83ebdcb6ac9e9a07f7fbd4cf06af195fb021f370569c84">HSV_TO_RGB_RAW</a></div><div class="ttdeci">@ HSV_TO_RGB_RAW</div><div class="ttdef"><b>Definition:</b> <a href="ColorTypes_8h_source.html#l00012">ColorTypes.h:12</a></div></div>
 <div class="ttc" id="aColorTypes_8h_html_a209b55463737311429f83ebdcb6ac9e9a836689bd91f2e2003496bd5176bca86c"><div class="ttname"><a href="ColorTypes_8h.html#a209b55463737311429f83ebdcb6ac9e9a836689bd91f2e2003496bd5176bca86c">HSV_TO_RGB_RAINBOW</a></div><div class="ttdeci">@ HSV_TO_RGB_RAINBOW</div><div class="ttdef"><b>Definition:</b> <a href="ColorTypes_8h_source.html#l00014">ColorTypes.h:13</a></div></div>
 <div class="ttc" id="aColorTypes_8h_html_a209b55463737311429f83ebdcb6ac9e9a9b01229e01a8505c74f9540efd59a9a3"><div class="ttname"><a href="ColorTypes_8h.html#a209b55463737311429f83ebdcb6ac9e9a9b01229e01a8505c74f9540efd59a9a3">HSV_TO_RGB_GENERIC</a></div><div class="ttdeci">@ HSV_TO_RGB_GENERIC</div><div class="ttdef"><b>Definition:</b> <a href="ColorTypes_8h_source.html#l00011">ColorTypes.h:11</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ColorTypes_8cpp_source.html#l00006">g_hsv_rgb_alg</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00487">hsv_to_rgb_generic()</a>, <a class="el" href="ColorTypes_8h_source.html#l00011">HSV_TO_RGB_GENERIC</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00224">hsv_to_rgb_rainbow()</a>, <a class="el" href="ColorTypes_8h_source.html#l00013">HSV_TO_RGB_RAINBOW</a>, <a class="el" href="ColorTypes_8h_source.html#l00012">HSV_TO_RGB_RAW</a>, and <a class="el" href="ColorTypes_8cpp_source.html#l00399">hsv_to_rgb_raw_C()</a>.</p>
+<p class="reference">References <a class="el" href="ColorTypes_8cpp_source.html#l00006">g_hsv_rgb_alg</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00501">hsv_to_rgb_generic()</a>, <a class="el" href="ColorTypes_8h_source.html#l00011">HSV_TO_RGB_GENERIC</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00238">hsv_to_rgb_rainbow()</a>, <a class="el" href="ColorTypes_8h_source.html#l00013">HSV_TO_RGB_RAINBOW</a>, <a class="el" href="ColorTypes_8h_source.html#l00012">HSV_TO_RGB_RAW</a>, and <a class="el" href="ColorTypes_8cpp_source.html#l00413">hsv_to_rgb_raw_C()</a>.</p>
 
 </div>
 </div>
@@ -562,14 +562,14 @@ Public Attributes</h2></td></tr>
 
 </div>
 </div>
-<a id="ab9559d07cb8bf9efcb05ce6698f41cca"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#ab9559d07cb8bf9efcb05ce6698f41cca">&#9670;&nbsp;</a></span>serialize()</h2>
+<a id="a7eaddf84768c5b858355d98d67bbd859"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#a7eaddf84768c5b858355d98d67bbd859">&#9670;&nbsp;</a></span>serialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void RGBColor::serialize </td>
+          <td class="memname">bool RGBColor::serialize </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classByteStream.html">ByteStream</a> &amp;&#160;</td>
           <td class="paramname"><em>buffer</em></td><td>)</td>
@@ -580,24 +580,31 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ColorTypes_8cpp_source.html#l00201">201</a> of file <a class="el" href="ColorTypes_8cpp_source.html">ColorTypes.cpp</a>.</p>
 <div class="fragment"><div class="line"><a name="l00202"></a><span class="lineno">  202</span>&#160;{</div>
-<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;  buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(<a class="code" href="classRGBColor.html#a5fed452f370de463fca724be4947bb54">red</a>);</div>
-<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;  buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(<a class="code" href="classRGBColor.html#aca75024902a233f3449935b01387b687">green</a>);</div>
-<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  buffer.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(<a class="code" href="classRGBColor.html#a417ad42fb2dab07155bdd0f35107adc9">blue</a>);</div>
-<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;}</div>
-<div class="ttc" id="aclassByteStream_html_a16016f5dc73e0d8b639f6bdbea252d4b"><div class="ttname"><a href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">ByteStream::serialize</a></div><div class="ttdeci">bool serialize(uint8_t byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00341">ByteStream.cpp:341</a></div></div>
+<div class="line"><a name="l00203"></a><span class="lineno">  203</span>&#160;  <span class="keywordflow">if</span> (!buffer.<a class="code" href="classByteStream.html#ad3b413f399f22d30548a61a5e01ef3a7">serialize8</a>(<a class="code" href="classRGBColor.html#a5fed452f370de463fca724be4947bb54">red</a>)) {</div>
+<div class="line"><a name="l00204"></a><span class="lineno">  204</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00205"></a><span class="lineno">  205</span>&#160;  }</div>
+<div class="line"><a name="l00206"></a><span class="lineno">  206</span>&#160;  <span class="keywordflow">if</span> (!buffer.<a class="code" href="classByteStream.html#ad3b413f399f22d30548a61a5e01ef3a7">serialize8</a>(<a class="code" href="classRGBColor.html#aca75024902a233f3449935b01387b687">green</a>)) {</div>
+<div class="line"><a name="l00207"></a><span class="lineno">  207</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00208"></a><span class="lineno">  208</span>&#160;  }</div>
+<div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;  <span class="keywordflow">if</span> (!buffer.<a class="code" href="classByteStream.html#ad3b413f399f22d30548a61a5e01ef3a7">serialize8</a>(<a class="code" href="classRGBColor.html#a417ad42fb2dab07155bdd0f35107adc9">blue</a>)) {</div>
+<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  }</div>
+<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;}</div>
+<div class="ttc" id="aclassByteStream_html_ad3b413f399f22d30548a61a5e01ef3a7"><div class="ttname"><a href="classByteStream.html#ad3b413f399f22d30548a61a5e01ef3a7">ByteStream::serialize8</a></div><div class="ttdeci">bool serialize8(uint8_t byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00341">ByteStream.cpp:341</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ColorTypes_8h_source.html#l00090">blue</a>, <a class="el" href="ColorTypes_8h_source.html#l00089">green</a>, <a class="el" href="ColorTypes_8h_source.html#l00088">red</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize()</a>.</p>
+<p class="reference">References <a class="el" href="ColorTypes_8h_source.html#l00090">blue</a>, <a class="el" href="ColorTypes_8h_source.html#l00089">green</a>, <a class="el" href="ColorTypes_8h_source.html#l00088">red</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize8()</a>.</p>
 
 </div>
 </div>
-<a id="aad746f31285ec7394217d0e577a41b2f"></a>
-<h2 class="memtitle"><span class="permalink"><a href="#aad746f31285ec7394217d0e577a41b2f">&#9670;&nbsp;</a></span>unserialize()</h2>
+<a id="acc28390fe9fab0d341008ced28c74cad"></a>
+<h2 class="memtitle"><span class="permalink"><a href="#acc28390fe9fab0d341008ced28c74cad">&#9670;&nbsp;</a></span>unserialize()</h2>
 
 <div class="memitem">
 <div class="memproto">
       <table class="memname">
         <tr>
-          <td class="memname">void RGBColor::unserialize </td>
+          <td class="memname">bool RGBColor::unserialize </td>
           <td>(</td>
           <td class="paramtype"><a class="el" href="classByteStream.html">ByteStream</a> &amp;&#160;</td>
           <td class="paramname"><em>buffer</em></td><td>)</td>
@@ -606,15 +613,22 @@ Public Attributes</h2></td></tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="ColorTypes_8cpp_source.html#l00208">208</a> of file <a class="el" href="ColorTypes_8cpp_source.html">ColorTypes.cpp</a>.</p>
-<div class="fragment"><div class="line"><a name="l00209"></a><span class="lineno">  209</span>&#160;{</div>
-<div class="line"><a name="l00210"></a><span class="lineno">  210</span>&#160;  buffer.<a class="code" href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">unserialize</a>(&amp;<a class="code" href="classRGBColor.html#a5fed452f370de463fca724be4947bb54">red</a>);</div>
-<div class="line"><a name="l00211"></a><span class="lineno">  211</span>&#160;  buffer.<a class="code" href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">unserialize</a>(&amp;<a class="code" href="classRGBColor.html#aca75024902a233f3449935b01387b687">green</a>);</div>
-<div class="line"><a name="l00212"></a><span class="lineno">  212</span>&#160;  buffer.<a class="code" href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">unserialize</a>(&amp;<a class="code" href="classRGBColor.html#a417ad42fb2dab07155bdd0f35107adc9">blue</a>);</div>
-<div class="line"><a name="l00213"></a><span class="lineno">  213</span>&#160;}</div>
-<div class="ttc" id="aclassByteStream_html_a870efac1fe97b1855cb1edef3310002d"><div class="ttname"><a href="classByteStream.html#a870efac1fe97b1855cb1edef3310002d">ByteStream::unserialize</a></div><div class="ttdeci">bool unserialize(uint8_t *byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00417">ByteStream.cpp:417</a></div></div>
+<p class="definition">Definition at line <a class="el" href="ColorTypes_8cpp_source.html#l00215">215</a> of file <a class="el" href="ColorTypes_8cpp_source.html">ColorTypes.cpp</a>.</p>
+<div class="fragment"><div class="line"><a name="l00216"></a><span class="lineno">  216</span>&#160;{</div>
+<div class="line"><a name="l00217"></a><span class="lineno">  217</span>&#160;  <span class="keywordflow">if</span> (!buffer.<a class="code" href="classByteStream.html#a4451478eea4d9efba71cdc043bda4db2">unserialize8</a>(&amp;<a class="code" href="classRGBColor.html#a5fed452f370de463fca724be4947bb54">red</a>)) {</div>
+<div class="line"><a name="l00218"></a><span class="lineno">  218</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00219"></a><span class="lineno">  219</span>&#160;  }</div>
+<div class="line"><a name="l00220"></a><span class="lineno">  220</span>&#160;  <span class="keywordflow">if</span> (!buffer.<a class="code" href="classByteStream.html#a4451478eea4d9efba71cdc043bda4db2">unserialize8</a>(&amp;<a class="code" href="classRGBColor.html#aca75024902a233f3449935b01387b687">green</a>)) {</div>
+<div class="line"><a name="l00221"></a><span class="lineno">  221</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00222"></a><span class="lineno">  222</span>&#160;  }</div>
+<div class="line"><a name="l00223"></a><span class="lineno">  223</span>&#160;  <span class="keywordflow">if</span> (!buffer.<a class="code" href="classByteStream.html#a4451478eea4d9efba71cdc043bda4db2">unserialize8</a>(&amp;<a class="code" href="classRGBColor.html#a417ad42fb2dab07155bdd0f35107adc9">blue</a>)) {</div>
+<div class="line"><a name="l00224"></a><span class="lineno">  224</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
+<div class="line"><a name="l00225"></a><span class="lineno">  225</span>&#160;  }</div>
+<div class="line"><a name="l00226"></a><span class="lineno">  226</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
+<div class="line"><a name="l00227"></a><span class="lineno">  227</span>&#160;}</div>
+<div class="ttc" id="aclassByteStream_html_a4451478eea4d9efba71cdc043bda4db2"><div class="ttname"><a href="classByteStream.html#a4451478eea4d9efba71cdc043bda4db2">ByteStream::unserialize8</a></div><div class="ttdeci">bool unserialize8(uint8_t *byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00417">ByteStream.cpp:417</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="ColorTypes_8h_source.html#l00090">blue</a>, <a class="el" href="ColorTypes_8h_source.html#l00089">green</a>, <a class="el" href="ColorTypes_8h_source.html#l00088">red</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00417">ByteStream::unserialize()</a>.</p>
+<p class="reference">References <a class="el" href="ColorTypes_8h_source.html#l00090">blue</a>, <a class="el" href="ColorTypes_8h_source.html#l00089">green</a>, <a class="el" href="ColorTypes_8h_source.html#l00088">red</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00417">ByteStream::unserialize8()</a>.</p>
 
 </div>
 </div>
@@ -633,7 +647,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ColorTypes_8h_source.html#l00090">90</a> of file <a class="el" href="ColorTypes_8h_source.html">ColorTypes.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ColorTypes_8cpp_source.html#l00193">adjustBrightness()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00186">clear()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00181">empty()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00487">hsv_to_rgb_generic()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00224">hsv_to_rgb_rainbow()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00399">hsv_to_rgb_raw_C()</a>, <a class="el" href="BlendPattern_8cpp_source.html#l00036">BlendPattern::onBlinkOn()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00118">operator=()</a>, <a class="el" href="ColorTypes_8h_source.html#l00085">raw()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00576">rgb_to_hsv_approx()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00700">rgb_to_hsv_generic()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00134">RGBColor()</a>, <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00201">serialize()</a>, <a class="el" href="Menu_8cpp_source.html#l00092">Menu::showBulbSelection()</a>, and <a class="el" href="ColorTypes_8cpp_source.html#l00208">unserialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ColorTypes_8cpp_source.html#l00193">adjustBrightness()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00186">clear()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00181">empty()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00501">hsv_to_rgb_generic()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00238">hsv_to_rgb_rainbow()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00413">hsv_to_rgb_raw_C()</a>, <a class="el" href="BlendPattern_8cpp_source.html#l00036">BlendPattern::onBlinkOn()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00118">operator=()</a>, <a class="el" href="ColorTypes_8h_source.html#l00085">raw()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00590">rgb_to_hsv_approx()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00714">rgb_to_hsv_generic()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00134">RGBColor()</a>, <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>, <a class="el" href="Colorset_8cpp_source.html#l00453">Colorset::serialize()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00201">serialize()</a>, <a class="el" href="Menu_8cpp_source.html#l00153">Menu::showBulbSelection()</a>, <a class="el" href="Colorset_8cpp_source.html#l00478">Colorset::unserialize()</a>, and <a class="el" href="ColorTypes_8cpp_source.html#l00215">unserialize()</a>.</p>
 
 </div>
 </div>
@@ -651,7 +665,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ColorTypes_8h_source.html#l00089">89</a> of file <a class="el" href="ColorTypes_8h_source.html">ColorTypes.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ColorTypes_8cpp_source.html#l00193">adjustBrightness()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00186">clear()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00181">empty()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00487">hsv_to_rgb_generic()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00224">hsv_to_rgb_rainbow()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00399">hsv_to_rgb_raw_C()</a>, <a class="el" href="BlendPattern_8cpp_source.html#l00036">BlendPattern::onBlinkOn()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00118">operator=()</a>, <a class="el" href="ColorTypes_8h_source.html#l00085">raw()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00576">rgb_to_hsv_approx()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00700">rgb_to_hsv_generic()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00134">RGBColor()</a>, <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00201">serialize()</a>, <a class="el" href="Menu_8cpp_source.html#l00092">Menu::showBulbSelection()</a>, and <a class="el" href="ColorTypes_8cpp_source.html#l00208">unserialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ColorTypes_8cpp_source.html#l00193">adjustBrightness()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00186">clear()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00181">empty()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00501">hsv_to_rgb_generic()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00238">hsv_to_rgb_rainbow()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00413">hsv_to_rgb_raw_C()</a>, <a class="el" href="BlendPattern_8cpp_source.html#l00036">BlendPattern::onBlinkOn()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00118">operator=()</a>, <a class="el" href="ColorTypes_8h_source.html#l00085">raw()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00590">rgb_to_hsv_approx()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00714">rgb_to_hsv_generic()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00134">RGBColor()</a>, <a class="el" href="Menus_8cpp_source.html#l00103">Menus::runMenuSelection()</a>, <a class="el" href="Colorset_8cpp_source.html#l00453">Colorset::serialize()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00201">serialize()</a>, <a class="el" href="Menu_8cpp_source.html#l00153">Menu::showBulbSelection()</a>, <a class="el" href="Colorset_8cpp_source.html#l00478">Colorset::unserialize()</a>, and <a class="el" href="ColorTypes_8cpp_source.html#l00215">unserialize()</a>.</p>
 
 </div>
 </div>
@@ -669,7 +683,7 @@ Public Attributes</h2></td></tr>
 
 <p class="definition">Definition at line <a class="el" href="ColorTypes_8h_source.html#l00088">88</a> of file <a class="el" href="ColorTypes_8h_source.html">ColorTypes.h</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="ColorTypes_8cpp_source.html#l00193">adjustBrightness()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00186">clear()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00181">empty()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00487">hsv_to_rgb_generic()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00224">hsv_to_rgb_rainbow()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00399">hsv_to_rgb_raw_C()</a>, <a class="el" href="BlendPattern_8cpp_source.html#l00036">BlendPattern::onBlinkOn()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00118">operator=()</a>, <a class="el" href="ColorTypes_8h_source.html#l00085">raw()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00576">rgb_to_hsv_approx()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00700">rgb_to_hsv_generic()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00134">RGBColor()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00201">serialize()</a>, <a class="el" href="Menu_8cpp_source.html#l00092">Menu::showBulbSelection()</a>, and <a class="el" href="ColorTypes_8cpp_source.html#l00208">unserialize()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="ColorTypes_8cpp_source.html#l00193">adjustBrightness()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00186">clear()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00181">empty()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00501">hsv_to_rgb_generic()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00238">hsv_to_rgb_rainbow()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00413">hsv_to_rgb_raw_C()</a>, <a class="el" href="BlendPattern_8cpp_source.html#l00036">BlendPattern::onBlinkOn()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00118">operator=()</a>, <a class="el" href="ColorTypes_8h_source.html#l00085">raw()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00590">rgb_to_hsv_approx()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00714">rgb_to_hsv_generic()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00134">RGBColor()</a>, <a class="el" href="Colorset_8cpp_source.html#l00453">Colorset::serialize()</a>, <a class="el" href="ColorTypes_8cpp_source.html#l00201">serialize()</a>, <a class="el" href="Menu_8cpp_source.html#l00153">Menu::showBulbSelection()</a>, <a class="el" href="Colorset_8cpp_source.html#l00478">Colorset::unserialize()</a>, and <a class="el" href="ColorTypes_8cpp_source.html#l00215">unserialize()</a>.</p>
 
 </div>
 </div>

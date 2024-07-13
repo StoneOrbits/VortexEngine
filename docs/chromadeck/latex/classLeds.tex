@@ -73,6 +73,8 @@ static void \mbox{\hyperlink{classLeds_abfb4089aeee1d0f5771db63924438171}{adjust
 \item 
 static void \mbox{\hyperlink{classLeds_aa9afc88f99014d51595970c403606418}{blink\+Index\+Offset}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} target, uint32\+\_\+t time, uint16\+\_\+t off\+Ms=250, uint16\+\_\+t on\+Ms=500, \mbox{\hyperlink{classRGBColor}{RGBColor}} col=\mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\+\_\+\+OFF}})
 \item 
+static void \mbox{\hyperlink{classLeds_aa44bce4221035a5b267bbc4c82ebb488}{blink\+Range\+Offset}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} first, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} last, uint32\+\_\+t time, uint16\+\_\+t off\+Ms=250, uint16\+\_\+t on\+Ms=500, \mbox{\hyperlink{classRGBColor}{RGBColor}} col=\mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\+\_\+\+OFF}})
+\item 
 static void \mbox{\hyperlink{classLeds_adf9a8fd9a96e51e32baf7d3743e8010e}{blink\+Index}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} target, uint16\+\_\+t off\+Ms=250, uint16\+\_\+t on\+Ms=500, \mbox{\hyperlink{classRGBColor}{RGBColor}} col=\mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\+\_\+\+OFF}})
 \item 
 static void \mbox{\hyperlink{classLeds_a572d1c48cc64421170373c6c7d218cfa}{blink\+Range}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} first, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} last, uint16\+\_\+t off\+Ms=250, uint16\+\_\+t on\+Ms=500, \mbox{\hyperlink{classRGBColor}{RGBColor}} col=\mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\+\_\+\+OFF}})
@@ -85,11 +87,13 @@ static void \mbox{\hyperlink{classLeds_a0a2b5a4b46d1b7e98d291fe3a22dd03c}{blink\
 \item 
 static void \mbox{\hyperlink{classLeds_a6676b273b620d142426faa6bb38d57e6}{blink\+Pairs}} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} first, \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} last, uint16\+\_\+t off\+Ms=250, uint16\+\_\+t on\+Ms=500, \mbox{\hyperlink{classRGBColor}{RGBColor}} col=\mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\+\_\+\+OFF}})
 \item 
-static void \mbox{\hyperlink{classLeds_a4d41880d648446d4f9644a9b99290dff}{breath\+Index}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} target, uint8\+\_\+t hue, uint32\+\_\+t variance, uint32\+\_\+t magnitude=15, uint8\+\_\+t sat=255, uint8\+\_\+t val=210)
+static void \mbox{\hyperlink{classLeds_ac158d1f309d7016aeb58161b32788b55}{breathe\+Index}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} target, uint8\+\_\+t hue, uint32\+\_\+t variance, uint32\+\_\+t magnitude=15, uint8\+\_\+t sat=255, uint8\+\_\+t val=210)
 \item 
-static void \mbox{\hyperlink{classLeds_ac878a02a5d919d48877bac559b93beac}{breath\+Index\+Sat}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} target, uint8\+\_\+t hue, uint32\+\_\+t variance, uint32\+\_\+t magnitude=15, uint8\+\_\+t sat=255, uint8\+\_\+t val=210)
+static void \mbox{\hyperlink{classLeds_aa5c32c400a398faeb1955b90400c92f3}{breathe\+Range}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} first, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} last, uint8\+\_\+t hue, uint32\+\_\+t variance, uint32\+\_\+t magnitude=15, uint8\+\_\+t sat=255, uint8\+\_\+t val=210)
 \item 
-static void \mbox{\hyperlink{classLeds_a2ce40e5169c4d1286c7707facb6f8d49}{breath\+Index\+Val}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} target, uint8\+\_\+t hue, uint32\+\_\+t variance, uint32\+\_\+t magnitude=15, uint8\+\_\+t sat=255, uint8\+\_\+t val=210)
+static void \mbox{\hyperlink{classLeds_a0a95fcbca11994301fd98b0484648110}{breathe\+Index\+Sat}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} target, uint8\+\_\+t hue, uint32\+\_\+t variance, uint32\+\_\+t magnitude=15, uint8\+\_\+t sat=255, uint8\+\_\+t val=210)
+\item 
+static void \mbox{\hyperlink{classLeds_ae1f7792d741a5a330c08c4e486a13b11}{breathe\+Index\+Val}} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}} target, uint8\+\_\+t hue, uint32\+\_\+t variance, uint32\+\_\+t magnitude=15, uint8\+\_\+t sat=255, uint8\+\_\+t val=210)
 \item 
 static void \mbox{\hyperlink{classLeds_a5a3e2c090aa782f4ee7c71c01e8d8a69}{hold\+All}} (\mbox{\hyperlink{classRGBColor}{RGBColor}} col)
 \item 
@@ -145,13 +149,13 @@ Definition at line 11 of file Leds.\+h.
 
 
 
-Definition at line 181 of file Leds.\+cpp.
+Definition at line 178 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{182 \{}
-\DoxyCodeLine{183   \mbox{\hyperlink{classLeds_ae7a4b7934997a0bf9fba048b7a419eea}{adjustBrightnessRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, fadeBy);}
-\DoxyCodeLine{184 \}}
+\DoxyCodeLine{179 \{}
+\DoxyCodeLine{180   \mbox{\hyperlink{classLeds_ae7a4b7934997a0bf9fba048b7a419eea}{adjustBrightnessRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, fadeBy);}
+\DoxyCodeLine{181 \}}
 
 \end{DoxyCode}
 
@@ -166,13 +170,13 @@ References adjust\+Brightness\+Range(), LED\+\_\+\+FIRST, and LED\+\_\+\+LAST.
 
 
 
-Definition at line 169 of file Leds.\+cpp.
+Definition at line 166 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{170 \{}
-\DoxyCodeLine{171   \mbox{\hyperlink{classLeds_ae0fbcb00677c688aa712b1fe757b553c}{led}}(target).\mbox{\hyperlink{classRGBColor_a10268d92a2aa1e2609866079298fef71}{adjustBrightness}}(fadeBy);}
-\DoxyCodeLine{172 \}}
+\DoxyCodeLine{167 \{}
+\DoxyCodeLine{168   \mbox{\hyperlink{classLeds_ae0fbcb00677c688aa712b1fe757b553c}{led}}(target).\mbox{\hyperlink{classRGBColor_a10268d92a2aa1e2609866079298fef71}{adjustBrightness}}(fadeBy);}
+\DoxyCodeLine{169 \}}
 
 \end{DoxyCode}
 
@@ -191,15 +195,15 @@ Referenced by adjust\+Brightness\+Range().
 
 
 
-Definition at line 174 of file Leds.\+cpp.
+Definition at line 171 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{175 \{}
-\DoxyCodeLine{176   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = first; pos <= last; pos++) \{}
-\DoxyCodeLine{177     \mbox{\hyperlink{classLeds_a78d6dc2f679e6bb8fa88da3f9703ea9b}{adjustBrightnessIndex}}(pos, fadeBy);}
-\DoxyCodeLine{178   \}}
-\DoxyCodeLine{179 \}}
+\DoxyCodeLine{172 \{}
+\DoxyCodeLine{173   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = first; pos <= last; pos++) \{}
+\DoxyCodeLine{174     \mbox{\hyperlink{classLeds_a78d6dc2f679e6bb8fa88da3f9703ea9b}{adjustBrightnessIndex}}(pos, fadeBy);}
+\DoxyCodeLine{175   \}}
+\DoxyCodeLine{176 \}}
 
 \end{DoxyCode}
 
@@ -218,15 +222,15 @@ Referenced by adjust\+Brightness\+All().
 
 
 
-Definition at line 219 of file Leds.\+cpp.
+Definition at line 223 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{220 \{}
-\DoxyCodeLine{221   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
-\DoxyCodeLine{222     \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, col);}
-\DoxyCodeLine{223   \}}
-\DoxyCodeLine{224 \}}
+\DoxyCodeLine{224 \{}
+\DoxyCodeLine{225   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
+\DoxyCodeLine{226     \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, col);}
+\DoxyCodeLine{227   \}}
+\DoxyCodeLine{228 \}}
 
 \end{DoxyCode}
 
@@ -245,15 +249,15 @@ Referenced by Editor\+Connection\+::show\+Editor(), Menu\+::show\+Exit(), Random
 
 
 
-Definition at line 194 of file Leds.\+cpp.
+Definition at line 198 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{195 \{}
-\DoxyCodeLine{196   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
-\DoxyCodeLine{197     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(target, col);}
-\DoxyCodeLine{198   \}}
-\DoxyCodeLine{199 \}}
+\DoxyCodeLine{199 \{}
+\DoxyCodeLine{200   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
+\DoxyCodeLine{201     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(target, col);}
+\DoxyCodeLine{202   \}}
+\DoxyCodeLine{203 \}}
 
 \end{DoxyCode}
 
@@ -272,15 +276,15 @@ Referenced by Menus\+::run\+Menu\+Selection(), and Main\+Menu\+::show().
 
 
 
-Definition at line 187 of file Leds.\+cpp.
+Definition at line 184 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{188 \{}
-\DoxyCodeLine{189   \textcolor{keywordflow}{if} ((time \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
-\DoxyCodeLine{190     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(target, col);}
-\DoxyCodeLine{191   \}}
-\DoxyCodeLine{192 \}}
+\DoxyCodeLine{185 \{}
+\DoxyCodeLine{186   \textcolor{keywordflow}{if} ((time \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
+\DoxyCodeLine{187     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(target, col);}
+\DoxyCodeLine{188   \}}
+\DoxyCodeLine{189 \}}
 
 \end{DoxyCode}
 
@@ -299,24 +303,24 @@ Referenced by Menu\+::show\+Bulb\+Selection().
 
 
 
-Definition at line 208 of file Leds.\+cpp.
+Definition at line 212 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{209 \{}
-\DoxyCodeLine{210   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
-\DoxyCodeLine{211     \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; pos++) \{}
-\DoxyCodeLine{212       \textcolor{keywordflow}{if} (\mbox{\hyperlink{LedTypes_8h_a6b8f8d9c1f8627c817d00a6d33695c1f}{checkLed}}(targets, pos)) \{}
-\DoxyCodeLine{213         \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(pos, col);}
-\DoxyCodeLine{214       \}}
-\DoxyCodeLine{215     \}}
-\DoxyCodeLine{216   \}}
-\DoxyCodeLine{217 \}}
+\DoxyCodeLine{213 \{}
+\DoxyCodeLine{214   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
+\DoxyCodeLine{215     \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; pos++) \{}
+\DoxyCodeLine{216       \textcolor{keywordflow}{if} (\mbox{\hyperlink{LedTypes_8h_aea87ba7c1e127ef509da9d0e9d238aac}{ledmapCheckLed}}(targets, pos)) \{}
+\DoxyCodeLine{217         \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(pos, col);}
+\DoxyCodeLine{218       \}}
+\DoxyCodeLine{219     \}}
+\DoxyCodeLine{220   \}}
+\DoxyCodeLine{221 \}}
 
 \end{DoxyCode}
 
 
-References check\+Led(), Time\+::get\+Curtime(), LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, MS\+\_\+\+TO\+\_\+\+TICKS, and set\+Index().
+References Time\+::get\+Curtime(), LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, ledmap\+Check\+Led(), MS\+\_\+\+TO\+\_\+\+TICKS, and set\+Index().
 
 
 
@@ -330,15 +334,15 @@ Referenced by Menu\+::show\+Bulb\+Selection().
 
 
 
-Definition at line 226 of file Leds.\+cpp.
+Definition at line 230 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{227 \{}
-\DoxyCodeLine{228   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
-\DoxyCodeLine{229     \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pair), \mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pair), col);}
-\DoxyCodeLine{230   \}}
-\DoxyCodeLine{231 \}}
+\DoxyCodeLine{231 \{}
+\DoxyCodeLine{232   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
+\DoxyCodeLine{233     \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pair), \mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pair), col);}
+\DoxyCodeLine{234   \}}
+\DoxyCodeLine{235 \}}
 
 \end{DoxyCode}
 
@@ -353,15 +357,15 @@ References Time\+::get\+Curtime(), MS\+\_\+\+TO\+\_\+\+TICKS, pair\+Even, pair\+
 
 
 
-Definition at line 233 of file Leds.\+cpp.
+Definition at line 237 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{234 \{}
-\DoxyCodeLine{235   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
-\DoxyCodeLine{236     \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(first), \mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(last), col);}
-\DoxyCodeLine{237   \}}
-\DoxyCodeLine{238 \}}
+\DoxyCodeLine{238 \{}
+\DoxyCodeLine{239   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
+\DoxyCodeLine{240     \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(first), \mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(last), col);}
+\DoxyCodeLine{241   \}}
+\DoxyCodeLine{242 \}}
 
 \end{DoxyCode}
 
@@ -376,36 +380,59 @@ References Time\+::get\+Curtime(), MS\+\_\+\+TO\+\_\+\+TICKS, pair\+Even, pair\+
 
 
 
-Definition at line 201 of file Leds.\+cpp.
+Definition at line 205 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{202 \{}
-\DoxyCodeLine{203   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
-\DoxyCodeLine{204     \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(first, last, col);}
-\DoxyCodeLine{205   \}}
-\DoxyCodeLine{206 \}}
+\DoxyCodeLine{206 \{}
+\DoxyCodeLine{207   \textcolor{keywordflow}{if} ((\mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}() \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
+\DoxyCodeLine{208     \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(first, last, col);}
+\DoxyCodeLine{209   \}}
+\DoxyCodeLine{210 \}}
 
 \end{DoxyCode}
 
 
 References Time\+::get\+Curtime(), MS\+\_\+\+TO\+\_\+\+TICKS, and set\+Range().
 
-\mbox{\Hypertarget{classLeds_a4d41880d648446d4f9644a9b99290dff}\label{classLeds_a4d41880d648446d4f9644a9b99290dff}} 
-\index{Leds@{Leds}!breathIndex@{breathIndex}}
-\index{breathIndex@{breathIndex}!Leds@{Leds}}
-\doxysubsubsection{\texorpdfstring{breathIndex()}{breathIndex()}}
-{\footnotesize\ttfamily void Leds\+::breath\+Index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{target,  }\item[{uint8\+\_\+t}]{hue,  }\item[{uint32\+\_\+t}]{variance,  }\item[{uint32\+\_\+t}]{magnitude = {\ttfamily 15},  }\item[{uint8\+\_\+t}]{sat = {\ttfamily 255},  }\item[{uint8\+\_\+t}]{val = {\ttfamily 210} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+\mbox{\Hypertarget{classLeds_aa44bce4221035a5b267bbc4c82ebb488}\label{classLeds_aa44bce4221035a5b267bbc4c82ebb488}} 
+\index{Leds@{Leds}!blinkRangeOffset@{blinkRangeOffset}}
+\index{blinkRangeOffset@{blinkRangeOffset}!Leds@{Leds}}
+\doxysubsubsection{\texorpdfstring{blinkRangeOffset()}{blinkRangeOffset()}}
+{\footnotesize\ttfamily void Leds\+::blink\+Range\+Offset (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{first,  }\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{last,  }\item[{uint32\+\_\+t}]{time,  }\item[{uint16\+\_\+t}]{off\+Ms = {\ttfamily 250},  }\item[{uint16\+\_\+t}]{on\+Ms = {\ttfamily 500},  }\item[{\mbox{\hyperlink{classRGBColor}{RGBColor}}}]{col = {\ttfamily \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\+\_\+\+OFF}}} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line 240 of file Leds.\+cpp.
+Definition at line 191 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{241 \{}
-\DoxyCodeLine{242   \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(target, \mbox{\hyperlink{classHSVColor}{HSVColor}}((uint8\_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));}
-\DoxyCodeLine{243 \}}
+\DoxyCodeLine{192 \{}
+\DoxyCodeLine{193   \textcolor{keywordflow}{if} ((time \% \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(offMs + onMs)) < \mbox{\hyperlink{TimeControl_8h_a73adf9c10352865ff95b5f46e642c560}{MS\_TO\_TICKS}}(onMs)) \{}
+\DoxyCodeLine{194     \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(first, last, col);}
+\DoxyCodeLine{195   \}}
+\DoxyCodeLine{196 \}}
+
+\end{DoxyCode}
+
+
+References MS\+\_\+\+TO\+\_\+\+TICKS, and set\+Range().
+
+\mbox{\Hypertarget{classLeds_ac158d1f309d7016aeb58161b32788b55}\label{classLeds_ac158d1f309d7016aeb58161b32788b55}} 
+\index{Leds@{Leds}!breatheIndex@{breatheIndex}}
+\index{breatheIndex@{breatheIndex}!Leds@{Leds}}
+\doxysubsubsection{\texorpdfstring{breatheIndex()}{breatheIndex()}}
+{\footnotesize\ttfamily void Leds\+::breathe\+Index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{target,  }\item[{uint8\+\_\+t}]{hue,  }\item[{uint32\+\_\+t}]{variance,  }\item[{uint32\+\_\+t}]{magnitude = {\ttfamily 15},  }\item[{uint8\+\_\+t}]{sat = {\ttfamily 255},  }\item[{uint8\+\_\+t}]{val = {\ttfamily 210} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 244 of file Leds.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{245 \{}
+\DoxyCodeLine{246   \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(target, \mbox{\hyperlink{classHSVColor}{HSVColor}}((uint8\_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));}
+\DoxyCodeLine{247 \}}
 
 \end{DoxyCode}
 
@@ -416,47 +443,68 @@ References set\+Index().
 
 Referenced by Main\+Menu\+::show(), Color\+Select\+::show\+Selection(), and Color\+Select\+::show\+Slot\+Selection().
 
-\mbox{\Hypertarget{classLeds_ac878a02a5d919d48877bac559b93beac}\label{classLeds_ac878a02a5d919d48877bac559b93beac}} 
-\index{Leds@{Leds}!breathIndexSat@{breathIndexSat}}
-\index{breathIndexSat@{breathIndexSat}!Leds@{Leds}}
-\doxysubsubsection{\texorpdfstring{breathIndexSat()}{breathIndexSat()}}
-{\footnotesize\ttfamily void Leds\+::breath\+Index\+Sat (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{target,  }\item[{uint8\+\_\+t}]{hue,  }\item[{uint32\+\_\+t}]{variance,  }\item[{uint32\+\_\+t}]{magnitude = {\ttfamily 15},  }\item[{uint8\+\_\+t}]{sat = {\ttfamily 255},  }\item[{uint8\+\_\+t}]{val = {\ttfamily 210} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+\mbox{\Hypertarget{classLeds_a0a95fcbca11994301fd98b0484648110}\label{classLeds_a0a95fcbca11994301fd98b0484648110}} 
+\index{Leds@{Leds}!breatheIndexSat@{breatheIndexSat}}
+\index{breatheIndexSat@{breatheIndexSat}!Leds@{Leds}}
+\doxysubsubsection{\texorpdfstring{breatheIndexSat()}{breatheIndexSat()}}
+{\footnotesize\ttfamily void Leds\+::breathe\+Index\+Sat (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{target,  }\item[{uint8\+\_\+t}]{hue,  }\item[{uint32\+\_\+t}]{variance,  }\item[{uint32\+\_\+t}]{magnitude = {\ttfamily 15},  }\item[{uint8\+\_\+t}]{sat = {\ttfamily 255},  }\item[{uint8\+\_\+t}]{val = {\ttfamily 210} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line 245 of file Leds.\+cpp.
+Definition at line 254 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{246 \{}
-\DoxyCodeLine{247   \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(target, \mbox{\hyperlink{classHSVColor}{HSVColor}}(hue, 255 -\/ (uint8\_t)(sat + 128 + ((sin(variance * 0.0174533) + 1) * magnitude)), val));}
-\DoxyCodeLine{248 \}}
+\DoxyCodeLine{255 \{}
+\DoxyCodeLine{256   \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(target, \mbox{\hyperlink{classHSVColor}{HSVColor}}(hue, 255 -\/ (uint8\_t)(sat + 128 + ((sin(variance * 0.0174533) + 1) * magnitude)), val));}
+\DoxyCodeLine{257 \}}
 
 \end{DoxyCode}
 
 
 References set\+Index().
 
-\mbox{\Hypertarget{classLeds_a2ce40e5169c4d1286c7707facb6f8d49}\label{classLeds_a2ce40e5169c4d1286c7707facb6f8d49}} 
-\index{Leds@{Leds}!breathIndexVal@{breathIndexVal}}
-\index{breathIndexVal@{breathIndexVal}!Leds@{Leds}}
-\doxysubsubsection{\texorpdfstring{breathIndexVal()}{breathIndexVal()}}
-{\footnotesize\ttfamily void Leds\+::breath\+Index\+Val (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{target,  }\item[{uint8\+\_\+t}]{hue,  }\item[{uint32\+\_\+t}]{variance,  }\item[{uint32\+\_\+t}]{magnitude = {\ttfamily 15},  }\item[{uint8\+\_\+t}]{sat = {\ttfamily 255},  }\item[{uint8\+\_\+t}]{val = {\ttfamily 210} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+\mbox{\Hypertarget{classLeds_ae1f7792d741a5a330c08c4e486a13b11}\label{classLeds_ae1f7792d741a5a330c08c4e486a13b11}} 
+\index{Leds@{Leds}!breatheIndexVal@{breatheIndexVal}}
+\index{breatheIndexVal@{breatheIndexVal}!Leds@{Leds}}
+\doxysubsubsection{\texorpdfstring{breatheIndexVal()}{breatheIndexVal()}}
+{\footnotesize\ttfamily void Leds\+::breathe\+Index\+Val (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{target,  }\item[{uint8\+\_\+t}]{hue,  }\item[{uint32\+\_\+t}]{variance,  }\item[{uint32\+\_\+t}]{magnitude = {\ttfamily 15},  }\item[{uint8\+\_\+t}]{sat = {\ttfamily 255},  }\item[{uint8\+\_\+t}]{val = {\ttfamily 210} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
 
 
 
-Definition at line 250 of file Leds.\+cpp.
+Definition at line 259 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{251 \{}
-\DoxyCodeLine{252   \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(target, \mbox{\hyperlink{classHSVColor}{HSVColor}}(hue, sat, 255 -\/ (uint8\_t)(val + 128 + ((sin(variance * 0.0174533) + 1) * magnitude))));}
-\DoxyCodeLine{253 \}}
+\DoxyCodeLine{260 \{}
+\DoxyCodeLine{261   \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(target, \mbox{\hyperlink{classHSVColor}{HSVColor}}(hue, sat, 255 -\/ (uint8\_t)(val + 128 + ((sin(variance * 0.0174533) + 1) * magnitude))));}
+\DoxyCodeLine{262 \}}
 
 \end{DoxyCode}
 
 
 References set\+Index().
+
+\mbox{\Hypertarget{classLeds_aa5c32c400a398faeb1955b90400c92f3}\label{classLeds_aa5c32c400a398faeb1955b90400c92f3}} 
+\index{Leds@{Leds}!breatheRange@{breatheRange}}
+\index{breatheRange@{breatheRange}!Leds@{Leds}}
+\doxysubsubsection{\texorpdfstring{breatheRange()}{breatheRange()}}
+{\footnotesize\ttfamily void Leds\+::breathe\+Range (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{first,  }\item[{\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{Led\+Pos}}}]{last,  }\item[{uint8\+\_\+t}]{hue,  }\item[{uint32\+\_\+t}]{variance,  }\item[{uint32\+\_\+t}]{magnitude = {\ttfamily 15},  }\item[{uint8\+\_\+t}]{sat = {\ttfamily 255},  }\item[{uint8\+\_\+t}]{val = {\ttfamily 210} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 249 of file Leds.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{250 \{}
+\DoxyCodeLine{251   \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(first, last, \mbox{\hyperlink{classHSVColor}{HSVColor}}((uint8\_t)(hue + ((sin(variance * 0.0174533) + 1) * magnitude)), sat, val));}
+\DoxyCodeLine{252 \}}
+
+\end{DoxyCode}
+
+
+References set\+Range().
 
 \mbox{\Hypertarget{classLeds_a2292420b1011485e315eff165bb201cf}\label{classLeds_a2292420b1011485e315eff165bb201cf}} 
 \index{Leds@{Leds}!cleanup@{cleanup}}
@@ -466,15 +514,15 @@ References set\+Index().
 
 
 
-Definition at line 41 of file Leds.\+cpp.
+Definition at line 38 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{42 \{}
-\DoxyCodeLine{43   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++i) \{}
-\DoxyCodeLine{44     \mbox{\hyperlink{classLeds_a473837bba0c89759fad92e135b1b4829}{m\_ledColors}}[i].\mbox{\hyperlink{classRGBColor_a40523a2298929c35b06f4b3302708cf0}{clear}}();}
-\DoxyCodeLine{45   \}}
-\DoxyCodeLine{46 \}}
+\DoxyCodeLine{39 \{}
+\DoxyCodeLine{40   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++i) \{}
+\DoxyCodeLine{41     \mbox{\hyperlink{classLeds_a473837bba0c89759fad92e135b1b4829}{m\_ledColors}}[i].\mbox{\hyperlink{classRGBColor_a40523a2298929c35b06f4b3302708cf0}{clear}}();}
+\DoxyCodeLine{42   \}}
+\DoxyCodeLine{43 \}}
 
 \end{DoxyCode}
 
@@ -497,16 +545,16 @@ Definition at line 30 of file Leds.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{30 \{ \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{setAll}}(\mbox{\hyperlink{ColorConstants_8h_a63d0c07b443271be68a2877b13dfa931}{HSV\_OFF}}); \}}
+\DoxyCodeLine{30 \{ \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{setAll}}(\mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}}); \}}
 
 \end{DoxyCode}
 
 
-References HSV\+\_\+\+OFF, and set\+All().
+References RGB\+\_\+\+OFF, and set\+All().
 
 
 
-Referenced by Blink\+Step\+Pattern\+::blink\+Off(), Drip\+Morph\+Pattern\+::blink\+Off(), Lighthouse\+Pattern\+::blink\+Off(), Meteor\+Pattern\+::blink\+Off(), Modes\+::clear\+Modes(), Menus\+::close\+Cur\+Menu(), Zigzag\+Pattern\+::\+Snake\+::draw(), Vortex\+Engine\+::enter\+Sleep(), Mode\+Sharing\+::on\+Short\+Click(), Menus\+::open\+Menu(), Menus\+::open\+Menu\+Selection(), Modes\+::play(), Hue\+Shift\+Pattern\+::play(), Color\+Select\+::run(), Menus\+::run\+Menu\+Selection(), Modes\+::set\+Cur\+Mode(), Main\+Menu\+::show(), Menu\+::show\+Bulb\+Selection(), Editor\+Connection\+::show\+Editor(), Menu\+::show\+Exit(), Factory\+Reset\+::show\+Reset(), Mode\+Sharing\+::show\+Send\+Mode\+IR(), Mode\+Sharing\+::show\+Send\+Mode\+VL(), VLSender\+::start\+PWM(), and VLSender\+::stop\+PWM().
+Referenced by Blink\+Step\+Pattern\+::blink\+Off(), Drip\+Morph\+Pattern\+::blink\+Off(), Lighthouse\+Pattern\+::blink\+Off(), Meteor\+Pattern\+::blink\+Off(), Modes\+::clear\+Modes(), Menus\+::close\+Cur\+Menu(), Zigzag\+Pattern\+::\+Snake\+::draw(), Vortex\+Engine\+::enter\+Sleep(), Mode\+Sharing\+::on\+Short\+Click(), Menus\+::open\+Menu(), Menus\+::open\+Menu\+Selection(), Modes\+::play(), Hue\+Shift\+Pattern\+::play(), Color\+Select\+::run(), Menus\+::run\+Menu\+Selection(), Modes\+::set\+Cur\+Mode(), Main\+Menu\+::show(), Menu\+::show\+Bulb\+Selection(), Editor\+Connection\+::show\+Editor(), Menu\+::show\+Exit(), Factory\+Reset\+::show\+Reset(), Mode\+Sharing\+::show\+Send\+Mode\+VL(), VLSender\+::start\+PWM(), and VLSender\+::stop\+PWM().
 
 \mbox{\Hypertarget{classLeds_a7376b540565b95251810b5502f1b4edb}\label{classLeds_a7376b540565b95251810b5502f1b4edb}} 
 \index{Leds@{Leds}!clearAllEvens@{clearAllEvens}}
@@ -516,15 +564,15 @@ Referenced by Blink\+Step\+Pattern\+::blink\+Off(), Drip\+Morph\+Pattern\+::blin
 
 
 
-Definition at line 116 of file Leds.\+cpp.
+Definition at line 113 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{117 \{}
-\DoxyCodeLine{118   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4ac5e6b4941a54ffee05c62f32966c9d68}{PAIR\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4abdc898f1cd37b37e12eaa09550890334}{PAIR\_LAST}}; pos++) \{}
-\DoxyCodeLine{119     \mbox{\hyperlink{classLeds_a0592e8b8e3a048be061371588ce2fa09}{clearIndex}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pos));}
-\DoxyCodeLine{120   \}}
-\DoxyCodeLine{121 \}}
+\DoxyCodeLine{114 \{}
+\DoxyCodeLine{115   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4ac5e6b4941a54ffee05c62f32966c9d68}{PAIR\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4abdc898f1cd37b37e12eaa09550890334}{PAIR\_LAST}}; pos++) \{}
+\DoxyCodeLine{116     \mbox{\hyperlink{classLeds_a0592e8b8e3a048be061371588ce2fa09}{clearIndex}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pos));}
+\DoxyCodeLine{117   \}}
+\DoxyCodeLine{118 \}}
 
 \end{DoxyCode}
 
@@ -539,15 +587,15 @@ References clear\+Index(), PAIR\+\_\+\+FIRST, PAIR\+\_\+\+LAST, and pair\+Even.
 
 
 
-Definition at line 130 of file Leds.\+cpp.
+Definition at line 127 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{131 \{}
-\DoxyCodeLine{132   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4ac5e6b4941a54ffee05c62f32966c9d68}{PAIR\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4abdc898f1cd37b37e12eaa09550890334}{PAIR\_LAST}}; pos++) \{}
-\DoxyCodeLine{133     \mbox{\hyperlink{classLeds_a0592e8b8e3a048be061371588ce2fa09}{clearIndex}}(\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pos));}
-\DoxyCodeLine{134   \}}
-\DoxyCodeLine{135 \}}
+\DoxyCodeLine{128 \{}
+\DoxyCodeLine{129   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4ac5e6b4941a54ffee05c62f32966c9d68}{PAIR\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4abdc898f1cd37b37e12eaa09550890334}{PAIR\_LAST}}; pos++) \{}
+\DoxyCodeLine{130     \mbox{\hyperlink{classLeds_a0592e8b8e3a048be061371588ce2fa09}{clearIndex}}(\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pos));}
+\DoxyCodeLine{131   \}}
+\DoxyCodeLine{132 \}}
 
 \end{DoxyCode}
 
@@ -566,12 +614,12 @@ Definition at line 28 of file Leds.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{28 \{ \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(target, \mbox{\hyperlink{ColorConstants_8h_a63d0c07b443271be68a2877b13dfa931}{HSV\_OFF}}); \}}
+\DoxyCodeLine{28 \{ \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(target, \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}}); \}}
 
 \end{DoxyCode}
 
 
-References HSV\+\_\+\+OFF, and set\+Index().
+References RGB\+\_\+\+OFF, and set\+Index().
 
 
 
@@ -585,22 +633,22 @@ Referenced by Basic\+Pattern\+::begin\+Gap(), clear\+All\+Evens(), clear\+All\+O
 
 
 
-Definition at line 146 of file Leds.\+cpp.
+Definition at line 143 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{147 \{}
-\DoxyCodeLine{148   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}; pos++) \{}
-\DoxyCodeLine{149     \textcolor{keywordflow}{if} (\mbox{\hyperlink{LedTypes_8h_a6b8f8d9c1f8627c817d00a6d33695c1f}{checkLed}}(map, pos)) \{}
-\DoxyCodeLine{150       \mbox{\hyperlink{classLeds_a0592e8b8e3a048be061371588ce2fa09}{clearIndex}}(pos);}
-\DoxyCodeLine{151     \}}
-\DoxyCodeLine{152   \}}
-\DoxyCodeLine{153 \}}
+\DoxyCodeLine{144 \{}
+\DoxyCodeLine{145   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}; pos++) \{}
+\DoxyCodeLine{146     \textcolor{keywordflow}{if} (\mbox{\hyperlink{LedTypes_8h_aea87ba7c1e127ef509da9d0e9d238aac}{ledmapCheckLed}}(map, pos)) \{}
+\DoxyCodeLine{147       \mbox{\hyperlink{classLeds_a0592e8b8e3a048be061371588ce2fa09}{clearIndex}}(pos);}
+\DoxyCodeLine{148     \}}
+\DoxyCodeLine{149   \}}
+\DoxyCodeLine{150 \}}
 
 \end{DoxyCode}
 
 
-References check\+Led(), clear\+Index(), LED\+\_\+\+FIRST, and LED\+\_\+\+LAST.
+References clear\+Index(), LED\+\_\+\+FIRST, LED\+\_\+\+LAST, and ledmap\+Check\+Led().
 
 \mbox{\Hypertarget{classLeds_aa10fdb3c5ad4e91945232035e455761f}\label{classLeds_aa10fdb3c5ad4e91945232035e455761f}} 
 \index{Leds@{Leds}!clearPair@{clearPair}}
@@ -614,12 +662,12 @@ Definition at line 37 of file Leds.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{37 \{ \mbox{\hyperlink{classLeds_a388ba18e176cbf465446d41ed8f796c1}{setPair}}(pair, \mbox{\hyperlink{ColorConstants_8h_a63d0c07b443271be68a2877b13dfa931}{HSV\_OFF}}); \}}
+\DoxyCodeLine{37 \{ \mbox{\hyperlink{classLeds_a388ba18e176cbf465446d41ed8f796c1}{setPair}}(pair, \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}}); \}}
 
 \end{DoxyCode}
 
 
-References HSV\+\_\+\+OFF, and set\+Pair().
+References RGB\+\_\+\+OFF, and set\+Pair().
 
 
 
@@ -637,12 +685,12 @@ Definition at line 38 of file Leds.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{38 \{ \mbox{\hyperlink{classLeds_a756fc3480c2817ff168f91385bf90743}{setPairs}}(first, last, \mbox{\hyperlink{ColorConstants_8h_a63d0c07b443271be68a2877b13dfa931}{HSV\_OFF}}); \}}
+\DoxyCodeLine{38 \{ \mbox{\hyperlink{classLeds_a756fc3480c2817ff168f91385bf90743}{setPairs}}(first, last, \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}}); \}}
 
 \end{DoxyCode}
 
 
-References HSV\+\_\+\+OFF, and set\+Pairs().
+References RGB\+\_\+\+OFF, and set\+Pairs().
 
 \mbox{\Hypertarget{classLeds_a6d7619d4ff244a774df66a4c5e72f6be}\label{classLeds_a6d7619d4ff244a774df66a4c5e72f6be}} 
 \index{Leds@{Leds}!clearRange@{clearRange}}
@@ -656,12 +704,12 @@ Definition at line 29 of file Leds.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{29 \{ \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(first, last, \mbox{\hyperlink{ColorConstants_8h_a63d0c07b443271be68a2877b13dfa931}{HSV\_OFF}}); \}}
+\DoxyCodeLine{29 \{ \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(first, last, \mbox{\hyperlink{ColorConstants_8h_a143edb2a30dcec26a3ec0a41d1082010}{RGB\_OFF}}); \}}
 
 \end{DoxyCode}
 
 
-References HSV\+\_\+\+OFF, and set\+Range().
+References RGB\+\_\+\+OFF, and set\+Range().
 
 \mbox{\Hypertarget{classLeds_a2cffbdb5ebb0f4c5d07fca366c20c914}\label{classLeds_a2cffbdb5ebb0f4c5d07fca366c20c914}} 
 \index{Leds@{Leds}!clearRangeEvens@{clearRangeEvens}}
@@ -671,15 +719,15 @@ References HSV\+\_\+\+OFF, and set\+Range().
 
 
 
-Definition at line 109 of file Leds.\+cpp.
+Definition at line 106 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{110 \{}
-\DoxyCodeLine{111   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = first; pos <= last; pos++) \{}
-\DoxyCodeLine{112     \mbox{\hyperlink{classLeds_a0592e8b8e3a048be061371588ce2fa09}{clearIndex}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pos));}
-\DoxyCodeLine{113   \}}
-\DoxyCodeLine{114 \}}
+\DoxyCodeLine{107 \{}
+\DoxyCodeLine{108   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = first; pos <= last; pos++) \{}
+\DoxyCodeLine{109     \mbox{\hyperlink{classLeds_a0592e8b8e3a048be061371588ce2fa09}{clearIndex}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pos));}
+\DoxyCodeLine{110   \}}
+\DoxyCodeLine{111 \}}
 
 \end{DoxyCode}
 
@@ -694,15 +742,15 @@ References clear\+Index(), and pair\+Even.
 
 
 
-Definition at line 123 of file Leds.\+cpp.
+Definition at line 120 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{124 \{}
-\DoxyCodeLine{125   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = first; pos <= last; pos++) \{}
-\DoxyCodeLine{126     \mbox{\hyperlink{classLeds_a0592e8b8e3a048be061371588ce2fa09}{clearIndex}}(\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pos));}
-\DoxyCodeLine{127   \}}
-\DoxyCodeLine{128 \}}
+\DoxyCodeLine{121 \{}
+\DoxyCodeLine{122   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = first; pos <= last; pos++) \{}
+\DoxyCodeLine{123     \mbox{\hyperlink{classLeds_a0592e8b8e3a048be061371588ce2fa09}{clearIndex}}(\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pos));}
+\DoxyCodeLine{124   \}}
+\DoxyCodeLine{125 \}}
 
 \end{DoxyCode}
 
@@ -717,11 +765,11 @@ References clear\+Index(), and pair\+Odd.
 
 
 
-Definition at line 104 of file Leds.\+h.
+Definition at line 107 of file Leds.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{104 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classLeds_af930c3c14d077fa5d4db6bdf7bc5aa81}{m\_brightness}}; \}}
+\DoxyCodeLine{107 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classLeds_af930c3c14d077fa5d4db6bdf7bc5aa81}{m\_brightness}}; \}}
 
 \end{DoxyCode}
 
@@ -740,11 +788,11 @@ Referenced by Global\+Brightness\+::init(), Modes\+::serialize\+Save\+Header(), 
 
 
 
-Definition at line 101 of file Leds.\+h.
+Definition at line 104 of file Leds.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{101 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classLeds_ae0fbcb00677c688aa712b1fe757b553c}{led}}(pos); \}}
+\DoxyCodeLine{104 \{ \textcolor{keywordflow}{return} \mbox{\hyperlink{classLeds_ae0fbcb00677c688aa712b1fe757b553c}{led}}(pos); \}}
 
 \end{DoxyCode}
 
@@ -759,15 +807,15 @@ References led().
 
 
 
-Definition at line 255 of file Leds.\+cpp.
+Definition at line 264 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{256 \{}
-\DoxyCodeLine{257   \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{setAll}}(col);}
-\DoxyCodeLine{258   \mbox{\hyperlink{classLeds_a7b552b40079b1179fd47f7aeea88878d}{update}}();}
-\DoxyCodeLine{259   \mbox{\hyperlink{classTime_aa90c5d6860ae306048c96d80da2ea1b0}{Time::delayMilliseconds}}(250);}
-\DoxyCodeLine{260 \}}
+\DoxyCodeLine{265 \{}
+\DoxyCodeLine{266   \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{setAll}}(col);}
+\DoxyCodeLine{267   \mbox{\hyperlink{classLeds_a7b552b40079b1179fd47f7aeea88878d}{update}}();}
+\DoxyCodeLine{268   \mbox{\hyperlink{classTime_aa90c5d6860ae306048c96d80da2ea1b0}{Time::delayMilliseconds}}(250);}
+\DoxyCodeLine{269 \}}
 
 \end{DoxyCode}
 
@@ -776,7 +824,7 @@ References Time\+::delay\+Milliseconds(), set\+All(), and update().
 
 
 
-Referenced by Pattern\+Select\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Randomizer\+::run(), Vortex\+Engine\+::run\+Main\+Logic(), and Menus\+::run\+Menu\+Selection().
+Referenced by Pattern\+Select\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short\+Click(), Randomizer\+::on\+Short\+Click(), Vortex\+Engine\+::run\+Main\+Logic(), and Menus\+::run\+Menu\+Selection().
 
 \mbox{\Hypertarget{classLeds_aa470a02f29041f373be156dc698ed4c7}\label{classLeds_aa470a02f29041f373be156dc698ed4c7}} 
 \index{Leds@{Leds}!init@{init}}
@@ -786,27 +834,25 @@ Referenced by Pattern\+Select\+::on\+Long\+Click(), Pattern\+Select\+::on\+Short
 
 
 
-Definition at line 27 of file Leds.\+cpp.
+Definition at line 26 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{28 \{}
-\DoxyCodeLine{29 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
-\DoxyCodeLine{30   FastLED.addLeds<WS2812B, \mbox{\hyperlink{Leds_8cpp_ab4553be4db9860d940f81d7447173b2f}{LED\_PIN}}, GRB>((CRGB *)\mbox{\hyperlink{classLeds_a473837bba0c89759fad92e135b1b4829}{m\_ledColors}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}});}
-\DoxyCodeLine{31   FastLED.setMaxRefreshRate(0);}
-\DoxyCodeLine{32   pinMode(\mbox{\hyperlink{Leds_8cpp_a05306f76e4fda2f326f5b17564cce4cb}{MOSFET\_PIN}}, OUTPUT);}
-\DoxyCodeLine{33   digitalWrite(\mbox{\hyperlink{Leds_8cpp_a05306f76e4fda2f326f5b17564cce4cb}{MOSFET\_PIN}}, HIGH);}
+\DoxyCodeLine{27 \{}
+\DoxyCodeLine{28 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
+\DoxyCodeLine{29   FastLED.addLeds<WS2812B, \mbox{\hyperlink{Leds_8cpp_ab4553be4db9860d940f81d7447173b2f}{LED\_PIN}}, GRB>((CRGB *)\mbox{\hyperlink{classLeds_a473837bba0c89759fad92e135b1b4829}{m\_ledColors}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}});}
+\DoxyCodeLine{30   FastLED.setMaxRefreshRate(0);}
+\DoxyCodeLine{31 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{32 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{33   Vortex::vcallbacks()-\/>ledsInit(\mbox{\hyperlink{classLeds_a473837bba0c89759fad92e135b1b4829}{m\_ledColors}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}});}
 \DoxyCodeLine{34 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{35 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{36   Vortex::vcallbacks()-\/>ledsInit(\mbox{\hyperlink{classLeds_a473837bba0c89759fad92e135b1b4829}{m\_ledColors}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}});}
-\DoxyCodeLine{37 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{38   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{39 \}}
+\DoxyCodeLine{35   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{36 \}}
 
 \end{DoxyCode}
 
 
-References LED\+\_\+\+COUNT, LED\+\_\+\+PIN, m\+\_\+led\+Colors, and MOSFET\+\_\+\+PIN.
+References LED\+\_\+\+COUNT, LED\+\_\+\+PIN, and m\+\_\+led\+Colors.
 
 
 
@@ -820,16 +866,16 @@ Referenced by Vortex\+Engine\+::init().
 
 
 
-Definition at line 112 of file Leds.\+h.
+Definition at line 115 of file Leds.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{113   \{}
-\DoxyCodeLine{114     \textcolor{keywordflow}{if} (pos > \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}) \{}
-\DoxyCodeLine{115       pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}};}
-\DoxyCodeLine{116     \}}
-\DoxyCodeLine{117     \textcolor{keywordflow}{return} \mbox{\hyperlink{classLeds_a473837bba0c89759fad92e135b1b4829}{m\_ledColors}}[pos];}
-\DoxyCodeLine{118   \}}
+\DoxyCodeLine{116   \{}
+\DoxyCodeLine{117     \textcolor{keywordflow}{if} (pos > \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}) \{}
+\DoxyCodeLine{118       pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}};}
+\DoxyCodeLine{119     \}}
+\DoxyCodeLine{120     \textcolor{keywordflow}{return} \mbox{\hyperlink{classLeds_a473837bba0c89759fad92e135b1b4829}{m\_ledColors}}[pos];}
+\DoxyCodeLine{121   \}}
 
 \end{DoxyCode}
 
@@ -848,15 +894,15 @@ Referenced by adjust\+Brightness\+Index(), get\+Led(), restore\+All(), set\+Inde
 
 
 
-Definition at line 162 of file Leds.\+cpp.
+Definition at line 159 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{163 \{}
-\DoxyCodeLine{164   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}; pos++) \{}
-\DoxyCodeLine{165     \mbox{\hyperlink{classLeds_ae0fbcb00677c688aa712b1fe757b553c}{led}}(pos) = stash.\mbox{\hyperlink{classLedStash_a0ff91005099c7841b1dc2ce4cbc73d6a}{m\_ledColorsStash}}[pos];}
-\DoxyCodeLine{166   \}}
-\DoxyCodeLine{167 \}}
+\DoxyCodeLine{160 \{}
+\DoxyCodeLine{161   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}; pos++) \{}
+\DoxyCodeLine{162     \mbox{\hyperlink{classLeds_ae0fbcb00677c688aa712b1fe757b553c}{led}}(pos) = stash.\mbox{\hyperlink{classLedStash_a0ff91005099c7841b1dc2ce4cbc73d6a}{m\_ledColorsStash}}[pos];}
+\DoxyCodeLine{163   \}}
+\DoxyCodeLine{164 \}}
 
 \end{DoxyCode}
 
@@ -875,13 +921,13 @@ Referenced by Lighthouse\+Pattern\+::blink\+On(), and Meteor\+Pattern\+::blink\+
 
 
 
-Definition at line 64 of file Leds.\+cpp.
+Definition at line 61 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{65 \{}
-\DoxyCodeLine{66   \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, col);}
-\DoxyCodeLine{67 \}}
+\DoxyCodeLine{62 \{}
+\DoxyCodeLine{63   \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, col);}
+\DoxyCodeLine{64 \}}
 
 \end{DoxyCode}
 
@@ -900,15 +946,15 @@ Referenced by Bounce\+Pattern\+::blink\+On(), Drip\+Pattern\+::blink\+On(), Snow
 
 
 
-Definition at line 88 of file Leds.\+cpp.
+Definition at line 85 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{89 \{}
-\DoxyCodeLine{90   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4ac5e6b4941a54ffee05c62f32966c9d68}{PAIR\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4abdc898f1cd37b37e12eaa09550890334}{PAIR\_LAST}}; pos++) \{}
-\DoxyCodeLine{91     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pos), col);}
-\DoxyCodeLine{92   \}}
-\DoxyCodeLine{93 \}}
+\DoxyCodeLine{86 \{}
+\DoxyCodeLine{87   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4ac5e6b4941a54ffee05c62f32966c9d68}{PAIR\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4abdc898f1cd37b37e12eaa09550890334}{PAIR\_LAST}}; pos++) \{}
+\DoxyCodeLine{88     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pos), col);}
+\DoxyCodeLine{89   \}}
+\DoxyCodeLine{90 \}}
 
 \end{DoxyCode}
 
@@ -927,15 +973,15 @@ Referenced by Drip\+Morph\+Pattern\+::blink\+On(), Double\+Strobe\+Pattern\+::bl
 
 
 
-Definition at line 102 of file Leds.\+cpp.
+Definition at line 99 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{103 \{}
-\DoxyCodeLine{104   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4ac5e6b4941a54ffee05c62f32966c9d68}{PAIR\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4abdc898f1cd37b37e12eaa09550890334}{PAIR\_LAST}}; pos++) \{}
-\DoxyCodeLine{105     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pos), col);}
-\DoxyCodeLine{106   \}}
-\DoxyCodeLine{107 \}}
+\DoxyCodeLine{100 \{}
+\DoxyCodeLine{101   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4ac5e6b4941a54ffee05c62f32966c9d68}{PAIR\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4abdc898f1cd37b37e12eaa09550890334}{PAIR\_LAST}}; pos++) \{}
+\DoxyCodeLine{102     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pos), col);}
+\DoxyCodeLine{103   \}}
+\DoxyCodeLine{104 \}}
 
 \end{DoxyCode}
 
@@ -954,11 +1000,11 @@ Referenced by Drip\+Morph\+Pattern\+::blink\+On(), Double\+Strobe\+Pattern\+::bl
 
 
 
-Definition at line 105 of file Leds.\+h.
+Definition at line 108 of file Leds.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{105 \{ \mbox{\hyperlink{classLeds_af930c3c14d077fa5d4db6bdf7bc5aa81}{m\_brightness}} = brightness; \}}
+\DoxyCodeLine{108 \{ \mbox{\hyperlink{classLeds_af930c3c14d077fa5d4db6bdf7bc5aa81}{m\_brightness}} = brightness; \}}
 
 \end{DoxyCode}
 
@@ -977,17 +1023,17 @@ Referenced by Factory\+Reset\+::on\+Long\+Click(), Global\+Brightness\+::on\+Lon
 
 
 
-Definition at line 48 of file Leds.\+cpp.
+Definition at line 45 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{49 \{}
-\DoxyCodeLine{50   \textcolor{keywordflow}{if} (target >= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \{}
-\DoxyCodeLine{51     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{setAll}}(col);}
-\DoxyCodeLine{52     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{53   \}}
-\DoxyCodeLine{54   \mbox{\hyperlink{classLeds_ae0fbcb00677c688aa712b1fe757b553c}{led}}(target) = col;}
-\DoxyCodeLine{55 \}}
+\DoxyCodeLine{46 \{}
+\DoxyCodeLine{47   \textcolor{keywordflow}{if} (target >= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) \{}
+\DoxyCodeLine{48     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{setAll}}(col);}
+\DoxyCodeLine{49     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{50   \}}
+\DoxyCodeLine{51   \mbox{\hyperlink{classLeds_ae0fbcb00677c688aa712b1fe757b553c}{led}}(target) = col;}
+\DoxyCodeLine{52 \}}
 
 \end{DoxyCode}
 
@@ -996,7 +1042,7 @@ References led(), LED\+\_\+\+COUNT, and set\+All().
 
 
 
-Referenced by Basic\+Pattern\+::begin\+Dash(), blink\+Index(), blink\+Index\+Offset(), blink\+Map(), Lighthouse\+Pattern\+::blink\+On(), Snowball\+Pattern\+::blink\+On(), Vortex\+Pattern\+::blink\+On(), Vortex\+Wipe\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), breath\+Index(), breath\+Index\+Sat(), breath\+Index\+Val(), clear\+Index(), Zigzag\+Pattern\+::\+Snake\+::draw\+Snake(), Basic\+Pattern\+::on\+Blink\+On(), Blend\+Pattern\+::on\+Blink\+On(), Hue\+Shift\+Pattern\+::play(), Menus\+::run\+Menu\+Selection(), set\+All\+Evens(), set\+All\+Odds(), set\+Map(), set\+Range(), set\+Range\+Evens(), set\+Range\+Odds(), Color\+Select\+::show\+Selection(), and VLSender\+::start\+PWM().
+Referenced by Basic\+Pattern\+::begin\+Dash(), blink\+Index(), blink\+Index\+Offset(), blink\+Map(), Lighthouse\+Pattern\+::blink\+On(), Snowball\+Pattern\+::blink\+On(), Vortex\+Pattern\+::blink\+On(), Vortex\+Wipe\+Pattern\+::blink\+On(), Warp\+Worm\+Pattern\+::blink\+On(), breathe\+Index(), breathe\+Index\+Sat(), breathe\+Index\+Val(), clear\+Index(), Zigzag\+Pattern\+::\+Snake\+::draw\+Snake(), Basic\+Pattern\+::on\+Blink\+On(), Blend\+Pattern\+::on\+Blink\+On(), Hue\+Shift\+Pattern\+::play(), Menus\+::run\+Menu\+Selection(), set\+All\+Evens(), set\+All\+Odds(), set\+Map(), set\+Range(), set\+Range\+Evens(), set\+Range\+Odds(), Color\+Select\+::show\+Selection(), and VLSender\+::start\+PWM().
 
 \mbox{\Hypertarget{classLeds_a1eb73ce70d21bcca85373ab86115c312}\label{classLeds_a1eb73ce70d21bcca85373ab86115c312}} 
 \index{Leds@{Leds}!setMap@{setMap}}
@@ -1006,26 +1052,26 @@ Referenced by Basic\+Pattern\+::begin\+Dash(), blink\+Index(), blink\+Index\+Off
 
 
 
-Definition at line 137 of file Leds.\+cpp.
+Definition at line 134 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{138 \{}
-\DoxyCodeLine{139   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}; pos++) \{}
-\DoxyCodeLine{140     \textcolor{keywordflow}{if} (\mbox{\hyperlink{LedTypes_8h_a6b8f8d9c1f8627c817d00a6d33695c1f}{checkLed}}(map, pos)) \{}
-\DoxyCodeLine{141       \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(pos, col);}
-\DoxyCodeLine{142     \}}
-\DoxyCodeLine{143   \}}
-\DoxyCodeLine{144 \}}
+\DoxyCodeLine{135 \{}
+\DoxyCodeLine{136   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}; pos++) \{}
+\DoxyCodeLine{137     \textcolor{keywordflow}{if} (\mbox{\hyperlink{LedTypes_8h_aea87ba7c1e127ef509da9d0e9d238aac}{ledmapCheckLed}}(map, pos)) \{}
+\DoxyCodeLine{138       \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(pos, col);}
+\DoxyCodeLine{139     \}}
+\DoxyCodeLine{140   \}}
+\DoxyCodeLine{141 \}}
 
 \end{DoxyCode}
 
 
-References check\+Led(), LED\+\_\+\+FIRST, LED\+\_\+\+LAST, and set\+Index().
+References LED\+\_\+\+FIRST, LED\+\_\+\+LAST, ledmap\+Check\+Led(), and set\+Index().
 
 
 
-Referenced by Cross\+Dops\+Pattern\+::blink\+On(), Theater\+Chase\+Pattern\+::blink\+On(), and Color\+Select\+::show\+Selection().
+Referenced by Cross\+Dops\+Pattern\+::blink\+On(), Theater\+Chase\+Pattern\+::blink\+On(), Menu\+::show\+Bulb\+Selection(), and Color\+Select\+::show\+Selection().
 
 \mbox{\Hypertarget{classLeds_a388ba18e176cbf465446d41ed8f796c1}\label{classLeds_a388ba18e176cbf465446d41ed8f796c1}} 
 \index{Leds@{Leds}!setPair@{setPair}}
@@ -1035,14 +1081,14 @@ Referenced by Cross\+Dops\+Pattern\+::blink\+On(), Theater\+Chase\+Pattern\+::bl
 
 
 
-Definition at line 69 of file Leds.\+cpp.
+Definition at line 66 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{70 \{}
-\DoxyCodeLine{71   \textcolor{comment}{// start from tip and go to top}}
-\DoxyCodeLine{72   \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pair), \mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pair), col);}
-\DoxyCodeLine{73 \}}
+\DoxyCodeLine{67 \{}
+\DoxyCodeLine{68   \textcolor{comment}{// start from tip and go to top}}
+\DoxyCodeLine{69   \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pair), \mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pair), col);}
+\DoxyCodeLine{70 \}}
 
 \end{DoxyCode}
 
@@ -1061,14 +1107,14 @@ Referenced by Bounce\+Pattern\+::blink\+On(), Warp\+Pattern\+::blink\+On(), clea
 
 
 
-Definition at line 75 of file Leds.\+cpp.
+Definition at line 72 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{76 \{}
-\DoxyCodeLine{77   \textcolor{comment}{// start from tip and go to top}}
-\DoxyCodeLine{78   \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(first), \mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(last), col);}
-\DoxyCodeLine{79 \}}
+\DoxyCodeLine{73 \{}
+\DoxyCodeLine{74   \textcolor{comment}{// start from tip and go to top}}
+\DoxyCodeLine{75   \mbox{\hyperlink{classLeds_ac4e413b6b3c68a8ff944117c0f9e6d91}{setRange}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(first), \mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(last), col);}
+\DoxyCodeLine{76 \}}
 
 \end{DoxyCode}
 
@@ -1087,15 +1133,15 @@ Referenced by Fill\+Pattern\+::blink\+On(), and clear\+Pairs().
 
 
 
-Definition at line 57 of file Leds.\+cpp.
+Definition at line 54 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{58 \{}
-\DoxyCodeLine{59   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = first; pos <= last; pos++) \{}
-\DoxyCodeLine{60     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(pos, col);}
-\DoxyCodeLine{61   \}}
-\DoxyCodeLine{62 \}}
+\DoxyCodeLine{55 \{}
+\DoxyCodeLine{56   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = first; pos <= last; pos++) \{}
+\DoxyCodeLine{57     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(pos, col);}
+\DoxyCodeLine{58   \}}
+\DoxyCodeLine{59 \}}
 
 \end{DoxyCode}
 
@@ -1104,7 +1150,7 @@ References set\+Index().
 
 
 
-Referenced by blink\+All(), blink\+Pair(), blink\+Pairs(), blink\+Range(), clear\+Range(), set\+All(), set\+Pair(), and set\+Pairs().
+Referenced by blink\+All(), blink\+Pair(), blink\+Pairs(), blink\+Range(), blink\+Range\+Offset(), breathe\+Range(), clear\+Range(), set\+All(), set\+Pair(), and set\+Pairs().
 
 \mbox{\Hypertarget{classLeds_a2033946443a3ebe82482bf81c0df230a}\label{classLeds_a2033946443a3ebe82482bf81c0df230a}} 
 \index{Leds@{Leds}!setRangeEvens@{setRangeEvens}}
@@ -1114,15 +1160,15 @@ Referenced by blink\+All(), blink\+Pair(), blink\+Pairs(), blink\+Range(), clear
 
 
 
-Definition at line 81 of file Leds.\+cpp.
+Definition at line 78 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{82 \{}
-\DoxyCodeLine{83   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = first; pos <= last; pos++) \{}
-\DoxyCodeLine{84     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pos), col);}
-\DoxyCodeLine{85   \}}
-\DoxyCodeLine{86 \}}
+\DoxyCodeLine{79 \{}
+\DoxyCodeLine{80   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = first; pos <= last; pos++) \{}
+\DoxyCodeLine{81     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(\mbox{\hyperlink{LedTypes_8h_a6a666bad9e79be692de8c77b511cabf0}{pairEven}}(pos), col);}
+\DoxyCodeLine{82   \}}
+\DoxyCodeLine{83 \}}
 
 \end{DoxyCode}
 
@@ -1137,15 +1183,15 @@ References pair\+Even, and set\+Index().
 
 
 
-Definition at line 95 of file Leds.\+cpp.
+Definition at line 92 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{96 \{}
-\DoxyCodeLine{97   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = first; pos <= last; pos++) \{}
-\DoxyCodeLine{98     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pos), col);}
-\DoxyCodeLine{99   \}}
-\DoxyCodeLine{100 \}}
+\DoxyCodeLine{93 \{}
+\DoxyCodeLine{94   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}} pos = first; pos <= last; pos++) \{}
+\DoxyCodeLine{95     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{setIndex}}(\mbox{\hyperlink{LedTypes_8h_aa01e8c3bbb787ec33fdbd2ee3a339b8c}{pairOdd}}(pos), col);}
+\DoxyCodeLine{96   \}}
+\DoxyCodeLine{97 \}}
 
 \end{DoxyCode}
 
@@ -1160,15 +1206,15 @@ References pair\+Odd, and set\+Index().
 
 
 
-Definition at line 155 of file Leds.\+cpp.
+Definition at line 152 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{156 \{}
-\DoxyCodeLine{157   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}; pos++) \{}
-\DoxyCodeLine{158     stash.\mbox{\hyperlink{classLedStash_a0ff91005099c7841b1dc2ce4cbc73d6a}{m\_ledColorsStash}}[pos] = \mbox{\hyperlink{classLeds_ae0fbcb00677c688aa712b1fe757b553c}{led}}(pos);}
-\DoxyCodeLine{159   \}}
-\DoxyCodeLine{160 \}}
+\DoxyCodeLine{153 \{}
+\DoxyCodeLine{154   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos <= \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}; pos++) \{}
+\DoxyCodeLine{155     stash.\mbox{\hyperlink{classLedStash_a0ff91005099c7841b1dc2ce4cbc73d6a}{m\_ledColorsStash}}[pos] = \mbox{\hyperlink{classLeds_ae0fbcb00677c688aa712b1fe757b553c}{led}}(pos);}
+\DoxyCodeLine{156   \}}
+\DoxyCodeLine{157 \}}
 
 \end{DoxyCode}
 
@@ -1187,18 +1233,18 @@ Referenced by Lighthouse\+Pattern\+::blink\+Off(), and Lighthouse\+Pattern\+::bl
 
 
 
-Definition at line 262 of file Leds.\+cpp.
+Definition at line 271 of file Leds.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{263 \{}
-\DoxyCodeLine{264 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
-\DoxyCodeLine{265   FastLED.show(\mbox{\hyperlink{classLeds_af930c3c14d077fa5d4db6bdf7bc5aa81}{m\_brightness}});}
-\DoxyCodeLine{266 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{267 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{268   Vortex::vcallbacks()-\/>ledsShow();}
-\DoxyCodeLine{269 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{270 \}}
+\DoxyCodeLine{272 \{}
+\DoxyCodeLine{273 \textcolor{preprocessor}{\#ifdef VORTEX\_EMBEDDED}}
+\DoxyCodeLine{274   FastLED.show(\mbox{\hyperlink{classLeds_af930c3c14d077fa5d4db6bdf7bc5aa81}{m\_brightness}});}
+\DoxyCodeLine{275 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{276 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{277   Vortex::vcallbacks()-\/>ledsShow();}
+\DoxyCodeLine{278 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{279 \}}
 
 \end{DoxyCode}
 
@@ -1220,7 +1266,7 @@ Referenced by Vortex\+Engine\+::enter\+Sleep(), hold\+All(), VLSender\+::start\+
 
 
 
-Definition at line 121 of file Leds.\+h.
+Definition at line 124 of file Leds.\+h.
 
 
 
@@ -1234,7 +1280,7 @@ Referenced by get\+Brightness(), set\+Brightness(), and update().
 
 
 
-Definition at line 124 of file Leds.\+h.
+Definition at line 127 of file Leds.\+h.
 
 
 

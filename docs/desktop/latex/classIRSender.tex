@@ -43,12 +43,6 @@ void \mbox{\hyperlink{classIRSender_a269bff02e0b318ee7a2eadfdf87a17b1}{send\+Byt
 void \mbox{\hyperlink{classIRSender_a957effa037d1a95ba0d5c78bf7c0ab0c}{send\+Mark}} (uint16\+\_\+t time)
 \item 
 void \mbox{\hyperlink{classIRSender_a96194226ebcd9135885c2bdf1b9a0076}{send\+Space}} (uint16\+\_\+t time)
-\item 
-void \mbox{\hyperlink{classIRSender_a1d400515125ae4581de285da37fc5870}{init\+PWM}} ()
-\item 
-void \mbox{\hyperlink{classIRSender_a1d44e1edc5eb96f000a933b1fac00127}{start\+PWM}} ()
-\item 
-void \mbox{\hyperlink{classIRSender_ab6a6c8f2a5aa4840ac7058438dc13c3f}{stop\+PWM}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
@@ -91,23 +85,23 @@ Definition at line 14 of file IRSender.\+h.
 
 
 
-Definition at line 15 of file IRSender.\+cpp.
+Definition at line 14 of file IRSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{15                                        :}
-\DoxyCodeLine{16   \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}(engine),}
-\DoxyCodeLine{17   \mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}(),}
-\DoxyCodeLine{18   \mbox{\hyperlink{classIRSender_a621632ba226b379e9882a109e33378ae}{m\_bitStream}}(),}
-\DoxyCodeLine{19   \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}}(\textcolor{keyword}{false}),}
-\DoxyCodeLine{20   \mbox{\hyperlink{classIRSender_a1fd558b5ccadfc5abef126000784a7fe}{m\_lastSendTime}}(0),}
-\DoxyCodeLine{21   \mbox{\hyperlink{classIRSender_aa20356f0ea142cca712850d56b032028}{m\_size}}(0),}
-\DoxyCodeLine{22   \mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}}(0),}
-\DoxyCodeLine{23   \mbox{\hyperlink{classIRSender_a3ea32d56e5465b46762858865e51acc8}{m\_remainder}}(0),}
-\DoxyCodeLine{24   \mbox{\hyperlink{classIRSender_a517c58fc54ea58508e6571ad7d6ebd81}{m\_blockSize}}(0),}
-\DoxyCodeLine{25   \mbox{\hyperlink{classIRSender_a882ca4e78c5aaa3a2a6cdee0196f0ad9}{m\_writeCounter}}(0)}
-\DoxyCodeLine{26 \{}
-\DoxyCodeLine{27 \}}
+\DoxyCodeLine{14                                        :}
+\DoxyCodeLine{15   \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}(engine),}
+\DoxyCodeLine{16   \mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}(),}
+\DoxyCodeLine{17   \mbox{\hyperlink{classIRSender_a621632ba226b379e9882a109e33378ae}{m\_bitStream}}(),}
+\DoxyCodeLine{18   \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}}(\textcolor{keyword}{false}),}
+\DoxyCodeLine{19   \mbox{\hyperlink{classIRSender_a1fd558b5ccadfc5abef126000784a7fe}{m\_lastSendTime}}(0),}
+\DoxyCodeLine{20   \mbox{\hyperlink{classIRSender_aa20356f0ea142cca712850d56b032028}{m\_size}}(0),}
+\DoxyCodeLine{21   \mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}}(0),}
+\DoxyCodeLine{22   \mbox{\hyperlink{classIRSender_a3ea32d56e5465b46762858865e51acc8}{m\_remainder}}(0),}
+\DoxyCodeLine{23   \mbox{\hyperlink{classIRSender_a517c58fc54ea58508e6571ad7d6ebd81}{m\_blockSize}}(0),}
+\DoxyCodeLine{24   \mbox{\hyperlink{classIRSender_a882ca4e78c5aaa3a2a6cdee0196f0ad9}{m\_writeCounter}}(0)}
+\DoxyCodeLine{25 \{}
+\DoxyCodeLine{26 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classIRSender_ad395c3d256276434b7c6d37e7262206e}\label{classIRSender_ad395c3d256276434b7c6d37e7262206e}} 
@@ -118,12 +112,12 @@ Definition at line 15 of file IRSender.\+cpp.
 
 
 
-Definition at line 29 of file IRSender.\+cpp.
+Definition at line 28 of file IRSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{30 \{}
-\DoxyCodeLine{31 \}}
+\DoxyCodeLine{29 \{}
+\DoxyCodeLine{30 \}}
 
 \end{DoxyCode}
 
@@ -137,34 +131,32 @@ Definition at line 29 of file IRSender.\+cpp.
 
 
 
-Definition at line 116 of file IRSender.\+cpp.
+Definition at line 108 of file IRSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{117 \{}
-\DoxyCodeLine{118   \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{119   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}[\%zu] Beginning send size \%u (blocks: \%u remainder: \%u blocksize: \%u)"{}},}
-\DoxyCodeLine{120     \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{microseconds}}(), \mbox{\hyperlink{classIRSender_aa20356f0ea142cca712850d56b032028}{m\_size}}, \mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}}, \mbox{\hyperlink{classIRSender_a3ea32d56e5465b46762858865e51acc8}{m\_remainder}}, \mbox{\hyperlink{classIRSender_a517c58fc54ea58508e6571ad7d6ebd81}{m\_blockSize}});}
-\DoxyCodeLine{121   \textcolor{comment}{// init sender before writing, is this necessary here? I think so}}
-\DoxyCodeLine{122   \mbox{\hyperlink{classIRSender_a1d400515125ae4581de285da37fc5870}{initPWM}}();}
-\DoxyCodeLine{123   \textcolor{comment}{// wakeup the other receiver with a very quick mark/space}}
-\DoxyCodeLine{124   \mbox{\hyperlink{classIRSender_a957effa037d1a95ba0d5c78bf7c0ab0c}{sendMark}}(50);}
-\DoxyCodeLine{125   \mbox{\hyperlink{classIRSender_a96194226ebcd9135885c2bdf1b9a0076}{sendSpace}}(100);}
-\DoxyCodeLine{126   \textcolor{comment}{// now send the header}}
-\DoxyCodeLine{127   \mbox{\hyperlink{classIRSender_a957effa037d1a95ba0d5c78bf7c0ab0c}{sendMark}}(\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{IR\_HEADER\_MARK}});}
-\DoxyCodeLine{128   \mbox{\hyperlink{classIRSender_a96194226ebcd9135885c2bdf1b9a0076}{sendSpace}}(\mbox{\hyperlink{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}{IR\_HEADER\_SPACE}});}
-\DoxyCodeLine{129   \textcolor{comment}{// reset writeCounter}}
-\DoxyCodeLine{130   \mbox{\hyperlink{classIRSender_a882ca4e78c5aaa3a2a6cdee0196f0ad9}{m\_writeCounter}} = 0;}
-\DoxyCodeLine{131   \textcolor{comment}{// write the number of blocks being sent, most likely just 1}}
-\DoxyCodeLine{132   \mbox{\hyperlink{classIRSender_a269bff02e0b318ee7a2eadfdf87a17b1}{sendByte}}(\mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}});}
-\DoxyCodeLine{133   \textcolor{comment}{// now write the number of bytes in the last block}}
-\DoxyCodeLine{134   \mbox{\hyperlink{classIRSender_a269bff02e0b318ee7a2eadfdf87a17b1}{sendByte}}(\mbox{\hyperlink{classIRSender_a3ea32d56e5465b46762858865e51acc8}{m\_remainder}});}
-\DoxyCodeLine{135 \}}
+\DoxyCodeLine{109 \{}
+\DoxyCodeLine{110   \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}} = \textcolor{keyword}{true};}
+\DoxyCodeLine{111   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}[\%zu] Beginning send size \%u (blocks: \%u remainder: \%u blocksize: \%u)"{}},}
+\DoxyCodeLine{112     \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{microseconds}}(), \mbox{\hyperlink{classIRSender_aa20356f0ea142cca712850d56b032028}{m\_size}}, \mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}}, \mbox{\hyperlink{classIRSender_a3ea32d56e5465b46762858865e51acc8}{m\_remainder}}, \mbox{\hyperlink{classIRSender_a517c58fc54ea58508e6571ad7d6ebd81}{m\_blockSize}});}
+\DoxyCodeLine{113   \textcolor{comment}{// wakeup the other receiver with a very quick mark/space}}
+\DoxyCodeLine{114   \mbox{\hyperlink{classIRSender_a957effa037d1a95ba0d5c78bf7c0ab0c}{sendMark}}(50);}
+\DoxyCodeLine{115   \mbox{\hyperlink{classIRSender_a96194226ebcd9135885c2bdf1b9a0076}{sendSpace}}(100);}
+\DoxyCodeLine{116   \textcolor{comment}{// now send the header}}
+\DoxyCodeLine{117   \mbox{\hyperlink{classIRSender_a957effa037d1a95ba0d5c78bf7c0ab0c}{sendMark}}(\mbox{\hyperlink{IRConfig_8h_a944e2c947b73c4c3d8063a87ce8bf6b0}{IR\_HEADER\_MARK}});}
+\DoxyCodeLine{118   \mbox{\hyperlink{classIRSender_a96194226ebcd9135885c2bdf1b9a0076}{sendSpace}}(\mbox{\hyperlink{IRConfig_8h_a90e0af319ad0da9f670f6f1207575336}{IR\_HEADER\_SPACE}});}
+\DoxyCodeLine{119   \textcolor{comment}{// reset writeCounter}}
+\DoxyCodeLine{120   \mbox{\hyperlink{classIRSender_a882ca4e78c5aaa3a2a6cdee0196f0ad9}{m\_writeCounter}} = 0;}
+\DoxyCodeLine{121   \textcolor{comment}{// write the number of blocks being sent, most likely just 1}}
+\DoxyCodeLine{122   \mbox{\hyperlink{classIRSender_a269bff02e0b318ee7a2eadfdf87a17b1}{sendByte}}(\mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}});}
+\DoxyCodeLine{123   \textcolor{comment}{// now write the number of bytes in the last block}}
+\DoxyCodeLine{124   \mbox{\hyperlink{classIRSender_a269bff02e0b318ee7a2eadfdf87a17b1}{sendByte}}(\mbox{\hyperlink{classIRSender_a3ea32d56e5465b46762858865e51acc8}{m\_remainder}});}
+\DoxyCodeLine{125 \}}
 
 \end{DoxyCode}
 
 
-References DEBUG\+\_\+\+LOGF, init\+PWM(), IR\+\_\+\+HEADER\+\_\+\+MARK, IR\+\_\+\+HEADER\+\_\+\+SPACE, m\+\_\+block\+Size, m\+\_\+engine, m\+\_\+is\+Sending, m\+\_\+num\+Blocks, m\+\_\+remainder, m\+\_\+size, m\+\_\+write\+Counter, Time\+::microseconds(), send\+Byte(), send\+Mark(), send\+Space(), and Vortex\+Engine\+::time().
+References DEBUG\+\_\+\+LOGF, IR\+\_\+\+HEADER\+\_\+\+MARK, IR\+\_\+\+HEADER\+\_\+\+SPACE, m\+\_\+block\+Size, m\+\_\+engine, m\+\_\+is\+Sending, m\+\_\+num\+Blocks, m\+\_\+remainder, m\+\_\+size, m\+\_\+write\+Counter, Time\+::microseconds(), send\+Byte(), send\+Mark(), send\+Space(), and Vortex\+Engine\+::time().
 
 
 
@@ -178,12 +170,12 @@ Referenced by send().
 
 
 
-Definition at line 45 of file IRSender.\+cpp.
+Definition at line 37 of file IRSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{46 \{}
-\DoxyCodeLine{47 \}}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39 \}}
 
 \end{DoxyCode}
 
@@ -198,95 +190,18 @@ Referenced by Vortex\+Engine\+::cleanup().
 
 
 
-Definition at line 38 of file IRSender.\+cpp.
+Definition at line 32 of file IRSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{39 \{}
-\DoxyCodeLine{40   \textcolor{comment}{// initialize the IR device}}
-\DoxyCodeLine{41   \mbox{\hyperlink{classIRSender_a1d400515125ae4581de285da37fc5870}{initPWM}}();}
-\DoxyCodeLine{42   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{43 \}}
+\DoxyCodeLine{33 \{}
+\DoxyCodeLine{34   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{35 \}}
 
 \end{DoxyCode}
-
-
-References init\+PWM().
-
 
 
 Referenced by Vortex\+Engine\+::init().
-
-\mbox{\Hypertarget{classIRSender_a1d400515125ae4581de285da37fc5870}\label{classIRSender_a1d400515125ae4581de285da37fc5870}} 
-\index{IRSender@{IRSender}!initPWM@{initPWM}}
-\index{initPWM@{initPWM}!IRSender@{IRSender}}
-\doxysubsubsection{\texorpdfstring{initPWM()}{initPWM()}}
-{\footnotesize\ttfamily void IRSender\+::init\+PWM (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Definition at line 174 of file IRSender.\+cpp.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{175 \{}
-\DoxyCodeLine{176 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
-\DoxyCodeLine{177   \textcolor{comment}{// just in case}}
-\DoxyCodeLine{178   pinMode(\mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{IR\_SEND\_PWM\_PIN}}, OUTPUT);}
-\DoxyCodeLine{179   digitalWrite(\mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{IR\_SEND\_PWM\_PIN}}, LOW); \textcolor{comment}{// When not sending PWM, we want it low}}
-\DoxyCodeLine{180   uint8\_t port = g\_APinDescription[\mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{IR\_SEND\_PWM\_PIN}}].ulPort; \textcolor{comment}{// 0}}
-\DoxyCodeLine{181   uint8\_t pin = g\_APinDescription[\mbox{\hyperlink{IRConfig_8h_adb7873801cd8375d8960498034492e93}{IR\_SEND\_PWM\_PIN}}].ulPin;   \textcolor{comment}{// 8}}
-\DoxyCodeLine{182   ETCChannel IR\_TCC\_Channel = TCC0\_CH0;}
-\DoxyCodeLine{183   int8\_t IR\_PER\_EorF = PORT\_PMUX\_PMUXE\_E;}
-\DoxyCodeLine{184   \textcolor{comment}{//println();Serial.print("{}Port:"{}); Serial.print(port,DEC); Serial.print("{} Pin:"{}); Serial.println(pin,DEC);}}
-\DoxyCodeLine{185   \textcolor{comment}{// Enable the port multiplexer for the PWM channel on pin}}
-\DoxyCodeLine{186   PORT-\/>Group[port].PINCFG[pin].bit.PMUXEN = 1;}
-\DoxyCodeLine{187 }
-\DoxyCodeLine{188   \textcolor{comment}{// Connect the TCC timer to the port outputs -\/ port pins are paired odd PMUXO and even PMUXEII}}
-\DoxyCodeLine{189   \textcolor{comment}{// F \& E peripherals specify the timers: TCC0, TCC1 and TCC2}}
-\DoxyCodeLine{190   PORT-\/>Group[port].PMUX[pin >> 1].reg |= IR\_PER\_EorF;}
-\DoxyCodeLine{191 }
-\DoxyCodeLine{192 \textcolor{comment}{//  pinPeripheral (IR\_SEND\_PWM\_PIN,PIO\_TIMER\_ALT);}}
-\DoxyCodeLine{193   \textcolor{comment}{// Feed GCLK0 to TCC0 and TCC1}}
-\DoxyCodeLine{194   REG\_GCLK\_CLKCTRL = GCLK\_CLKCTRL\_CLKEN |       \textcolor{comment}{// Enable GCLK0 to TCC0 and TCC1}}
-\DoxyCodeLine{195                      GCLK\_CLKCTRL\_GEN\_GCLK0 |   \textcolor{comment}{// Select GCLK0}}
-\DoxyCodeLine{196                      GCLK\_CLKCTRL\_ID\_TCC0\_TCC1; \textcolor{comment}{// Feed GCLK0 to TCC0 and TCC1}}
-\DoxyCodeLine{197   \textcolor{keywordflow}{while} (GCLK-\/>STATUS.bit.SYNCBUSY);            \textcolor{comment}{// Wait for synchronization}}
-\DoxyCodeLine{198 }
-\DoxyCodeLine{199   \textcolor{comment}{// Normal (single slope) PWM operation: timers countinuously count up to PER}}
-\DoxyCodeLine{200   \textcolor{comment}{// register value and then is reset to 0}}
-\DoxyCodeLine{201   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}} = (Tcc*) GetTC(IR\_TCC\_Channel);}
-\DoxyCodeLine{202   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>WAVE.reg |= TCC\_WAVE\_WAVEGEN\_NPWM;   \textcolor{comment}{// Setup single slope PWM on TCCx}}
-\DoxyCodeLine{203   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.WAVE);           \textcolor{comment}{// Wait for synchronization}}
-\DoxyCodeLine{204 }
-\DoxyCodeLine{205   \textcolor{comment}{// Each timer counts up to a maximum or TOP value set by the PER register,}}
-\DoxyCodeLine{206   \textcolor{comment}{// this determines the frequency of the PWM operation.}}
-\DoxyCodeLine{207   uint32\_t cc = F\_CPU/(38*1000) -\/ 1;}
-\DoxyCodeLine{208   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>PER.reg = cc;      \textcolor{comment}{// Set the frequency of the PWM on IR\_TCCx}}
-\DoxyCodeLine{209   \textcolor{keywordflow}{while}(\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.PER);}
-\DoxyCodeLine{210 }
-\DoxyCodeLine{211   \textcolor{comment}{// The CCx register value corresponds to the pulsewidth in microseconds (us)}}
-\DoxyCodeLine{212   \textcolor{comment}{// Set the duty cycle of the PWM on TCC0 to 33\%}}
-\DoxyCodeLine{213   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CC[GetTCChannelNumber(IR\_TCC\_Channel)].reg = cc/3;}
-\DoxyCodeLine{214   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.reg \& TCC\_SYNCBUSY\_MASK);}
-\DoxyCodeLine{215   \textcolor{comment}{//while(IR\_TCCx-\/>SYNCBUSY.bit.CC3);}}
-\DoxyCodeLine{216 }
-\DoxyCodeLine{217   \textcolor{comment}{// Enable IR\_TCCx timer but do not turn on PWM yet. Will turn it on later.}}
-\DoxyCodeLine{218   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CTRLA.reg |= TCC\_CTRLA\_PRESCALER\_DIV1;     \textcolor{comment}{// Divide GCLK0 by 1}}
-\DoxyCodeLine{219   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.ENABLE);}
-\DoxyCodeLine{220   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CTRLA.reg \&= \string~TCC\_CTRLA\_ENABLE;            \textcolor{comment}{//initially off will turn on later}}
-\DoxyCodeLine{221   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.ENABLE);}
-\DoxyCodeLine{222 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{223 \}}
-
-\end{DoxyCode}
-
-
-References IR\+\_\+\+SEND\+\_\+\+PWM\+\_\+\+PIN, and IR\+\_\+\+TCCx.
-
-
-
-Referenced by begin\+Send(), and init().
 
 \mbox{\Hypertarget{classIRSender_a7e1354f2cc4afad3cfd3bf1565d15b62}\label{classIRSender_a7e1354f2cc4afad3cfd3bf1565d15b62}} 
 \index{IRSender@{IRSender}!isSending@{isSending}}
@@ -319,37 +234,37 @@ Referenced by Mode\+Sharing\+::begin\+Sending\+IR(), and Mode\+Sharing\+::contin
 
 
 
-Definition at line 49 of file IRSender.\+cpp.
+Definition at line 41 of file IRSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{50 \{}
-\DoxyCodeLine{51   \mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
-\DoxyCodeLine{52   \textcolor{comment}{// save the target mode to it's savefile buffer format}}
-\DoxyCodeLine{53   \textcolor{keywordflow}{if} (!targetMode-\/>\mbox{\hyperlink{classMode_a4bf861a9f38599ab515655ae52700534}{saveToBuffer}}(\mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}})) \{}
-\DoxyCodeLine{54     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to save mode to buffer"{}});}
-\DoxyCodeLine{55     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{56   \}}
-\DoxyCodeLine{57   \textcolor{comment}{// ensure the data isn't too big}}
-\DoxyCodeLine{58   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}() > \mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{59     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Cannot transfer that much data: \%u bytes"{}}, \mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
-\DoxyCodeLine{60     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
-\DoxyCodeLine{61   \}}
-\DoxyCodeLine{62   \textcolor{comment}{// point the bitstream at the serial buffer}}
-\DoxyCodeLine{63   \mbox{\hyperlink{classIRSender_a621632ba226b379e9882a109e33378ae}{m\_bitStream}}.\mbox{\hyperlink{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}{init}}((uint8\_t *)\mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a6993f9575592309a501156db31f82554}{rawData}}(), \mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
-\DoxyCodeLine{64   \textcolor{comment}{// the size of the packet}}
-\DoxyCodeLine{65   \mbox{\hyperlink{classIRSender_aa20356f0ea142cca712850d56b032028}{m\_size}} = \mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}();}
-\DoxyCodeLine{66   \textcolor{comment}{// the number of blocks that will be sent (possibly just 1 with less than 32 bytes)}}
-\DoxyCodeLine{67   \mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}} = (\mbox{\hyperlink{classIRSender_aa20356f0ea142cca712850d56b032028}{m\_size}} + (\mbox{\hyperlink{IRConfig_8h_abb1031528909e89b76a9dea91641d770}{IR\_DEFAULT\_BLOCK\_SIZE}} -\/ 1)) / \mbox{\hyperlink{IRConfig_8h_abb1031528909e89b76a9dea91641d770}{IR\_DEFAULT\_BLOCK\_SIZE}};}
-\DoxyCodeLine{68   \textcolor{comment}{// the amount in the final block (possibly the only block)}}
-\DoxyCodeLine{69   \mbox{\hyperlink{classIRSender_a3ea32d56e5465b46762858865e51acc8}{m\_remainder}} = \mbox{\hyperlink{classIRSender_aa20356f0ea142cca712850d56b032028}{m\_size}} \% (\mbox{\hyperlink{IRConfig_8h_abb1031528909e89b76a9dea91641d770}{IR\_DEFAULT\_BLOCK\_SIZE}} + 0);}
-\DoxyCodeLine{70   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Num blocks: \%u"{}}, \mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}});}
-\DoxyCodeLine{71   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Remainder: \%u"{}}, \mbox{\hyperlink{classIRSender_a3ea32d56e5465b46762858865e51acc8}{m\_remainder}});}
-\DoxyCodeLine{72   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Size: \%u"{}}, \mbox{\hyperlink{classIRSender_aa20356f0ea142cca712850d56b032028}{m\_size}});}
-\DoxyCodeLine{73   \textcolor{comment}{// reset write counter}}
-\DoxyCodeLine{74   \mbox{\hyperlink{classIRSender_a882ca4e78c5aaa3a2a6cdee0196f0ad9}{m\_writeCounter}} = 0;}
-\DoxyCodeLine{75   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
-\DoxyCodeLine{76 \}}
+\DoxyCodeLine{42 \{}
+\DoxyCodeLine{43   \mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
+\DoxyCodeLine{44   \textcolor{comment}{// save the target mode to it's savefile buffer format}}
+\DoxyCodeLine{45   \textcolor{keywordflow}{if} (!targetMode-\/>\mbox{\hyperlink{classMode_a4bf861a9f38599ab515655ae52700534}{saveToBuffer}}(\mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}})) \{}
+\DoxyCodeLine{46     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to save mode to buffer"{}});}
+\DoxyCodeLine{47     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{48   \}}
+\DoxyCodeLine{49   \textcolor{comment}{// ensure the data isn't too big}}
+\DoxyCodeLine{50   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}() > \mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\_MAX\_DATA\_TRANSFER}}) \{}
+\DoxyCodeLine{51     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Cannot transfer that much data: \%u bytes"{}}, \mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
+\DoxyCodeLine{52     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{53   \}}
+\DoxyCodeLine{54   \textcolor{comment}{// point the bitstream at the serial buffer}}
+\DoxyCodeLine{55   \mbox{\hyperlink{classIRSender_a621632ba226b379e9882a109e33378ae}{m\_bitStream}}.\mbox{\hyperlink{classBitStream_a5b8f42bd95138304249dd9bcd6dcbb2c}{init}}((uint8\_t *)\mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a6993f9575592309a501156db31f82554}{rawData}}(), \mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
+\DoxyCodeLine{56   \textcolor{comment}{// the size of the packet}}
+\DoxyCodeLine{57   \mbox{\hyperlink{classIRSender_aa20356f0ea142cca712850d56b032028}{m\_size}} = \mbox{\hyperlink{classIRSender_ac2f907015ca046b204189e519486c483}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}();}
+\DoxyCodeLine{58   \textcolor{comment}{// the number of blocks that will be sent (possibly just 1 with less than 32 bytes)}}
+\DoxyCodeLine{59   \mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}} = (\mbox{\hyperlink{classIRSender_aa20356f0ea142cca712850d56b032028}{m\_size}} + (\mbox{\hyperlink{IRConfig_8h_abb1031528909e89b76a9dea91641d770}{IR\_DEFAULT\_BLOCK\_SIZE}} -\/ 1)) / \mbox{\hyperlink{IRConfig_8h_abb1031528909e89b76a9dea91641d770}{IR\_DEFAULT\_BLOCK\_SIZE}};}
+\DoxyCodeLine{60   \textcolor{comment}{// the amount in the final block (possibly the only block)}}
+\DoxyCodeLine{61   \mbox{\hyperlink{classIRSender_a3ea32d56e5465b46762858865e51acc8}{m\_remainder}} = \mbox{\hyperlink{classIRSender_aa20356f0ea142cca712850d56b032028}{m\_size}} \% (\mbox{\hyperlink{IRConfig_8h_abb1031528909e89b76a9dea91641d770}{IR\_DEFAULT\_BLOCK\_SIZE}} + 0);}
+\DoxyCodeLine{62   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Num blocks: \%u"{}}, \mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}});}
+\DoxyCodeLine{63   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Remainder: \%u"{}}, \mbox{\hyperlink{classIRSender_a3ea32d56e5465b46762858865e51acc8}{m\_remainder}});}
+\DoxyCodeLine{64   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Size: \%u"{}}, \mbox{\hyperlink{classIRSender_aa20356f0ea142cca712850d56b032028}{m\_size}});}
+\DoxyCodeLine{65   \textcolor{comment}{// reset write counter}}
+\DoxyCodeLine{66   \mbox{\hyperlink{classIRSender_a882ca4e78c5aaa3a2a6cdee0196f0ad9}{m\_writeCounter}} = 0;}
+\DoxyCodeLine{67   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{68 \}}
 
 \end{DoxyCode}
 
@@ -387,46 +302,46 @@ References m\+\_\+size, and m\+\_\+write\+Counter.
 
 
 
-Definition at line 78 of file IRSender.\+cpp.
+Definition at line 70 of file IRSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{79 \{}
-\DoxyCodeLine{80   \textcolor{comment}{// must have at least one block to send}}
-\DoxyCodeLine{81   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}} < 1) \{}
-\DoxyCodeLine{82     \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}} = \textcolor{keyword}{false};}
-\DoxyCodeLine{83     \textcolor{keywordflow}{return} \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}};}
-\DoxyCodeLine{84   \}}
-\DoxyCodeLine{85   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}}) \{}
-\DoxyCodeLine{86     \mbox{\hyperlink{classIRSender_a53e42e20e77a379113d51ddb74248c26}{beginSend}}();}
-\DoxyCodeLine{87   \}}
-\DoxyCodeLine{88   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classIRSender_a1fd558b5ccadfc5abef126000784a7fe}{m\_lastSendTime}} > 0 \&\& \mbox{\hyperlink{classIRSender_a1fd558b5ccadfc5abef126000784a7fe}{m\_lastSendTime}} + \mbox{\hyperlink{IRConfig_8h_a60b384b29858304f4e2e7239dfb1594b}{IR\_DEFAULT\_BLOCK\_SPACING}} > \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a4928281e63a820cd8f0b00b53c6e4587}{getCurtime}}()) \{}
-\DoxyCodeLine{89     \textcolor{comment}{// don't send yet}}
-\DoxyCodeLine{90     \textcolor{keywordflow}{return} \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}};}
-\DoxyCodeLine{91   \}}
-\DoxyCodeLine{92   \textcolor{comment}{// blocksize is default unless it's the last block, then it's the remainder}}
-\DoxyCodeLine{93   uint32\_t blocksize = (\mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}} == 1) ? \mbox{\hyperlink{classIRSender_a3ea32d56e5465b46762858865e51acc8}{m\_remainder}} : \mbox{\hyperlink{IRConfig_8h_abb1031528909e89b76a9dea91641d770}{IR\_DEFAULT\_BLOCK\_SIZE}};}
-\DoxyCodeLine{94   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}IRSender Sending block \#\%u"{}}, \mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}});}
-\DoxyCodeLine{95   \textcolor{comment}{// pointer to the data at the correct location}}
-\DoxyCodeLine{96   \textcolor{keyword}{const} uint8\_t *buf\_ptr = \mbox{\hyperlink{classIRSender_a621632ba226b379e9882a109e33378ae}{m\_bitStream}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}() + \mbox{\hyperlink{classIRSender_a882ca4e78c5aaa3a2a6cdee0196f0ad9}{m\_writeCounter}};}
-\DoxyCodeLine{97   \textcolor{comment}{// iterate each byte in the block and write it}}
-\DoxyCodeLine{98   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < blocksize; ++i) \{}
-\DoxyCodeLine{99     \textcolor{comment}{// write the byte}}
-\DoxyCodeLine{100     \mbox{\hyperlink{classIRSender_a269bff02e0b318ee7a2eadfdf87a17b1}{sendByte}}(*buf\_ptr);}
-\DoxyCodeLine{101     \textcolor{comment}{// increment to next byte in buffer}}
-\DoxyCodeLine{102     buf\_ptr++;}
-\DoxyCodeLine{103     \textcolor{comment}{// record the written byte}}
-\DoxyCodeLine{104     \mbox{\hyperlink{classIRSender_a882ca4e78c5aaa3a2a6cdee0196f0ad9}{m\_writeCounter}}++;}
-\DoxyCodeLine{105   \}}
-\DoxyCodeLine{106   \textcolor{comment}{// wrote one block}}
-\DoxyCodeLine{107   \mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}}-\/-\/;}
-\DoxyCodeLine{108   \textcolor{comment}{// still sending if we have more blocks}}
-\DoxyCodeLine{109   \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}} = (\mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}} > 0);}
-\DoxyCodeLine{110   \textcolor{comment}{// the curtime}}
-\DoxyCodeLine{111   \mbox{\hyperlink{classIRSender_a1fd558b5ccadfc5abef126000784a7fe}{m\_lastSendTime}} = \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a4928281e63a820cd8f0b00b53c6e4587}{getCurtime}}();}
-\DoxyCodeLine{112   \textcolor{comment}{// return whether still sending}}
-\DoxyCodeLine{113   \textcolor{keywordflow}{return} \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}};}
-\DoxyCodeLine{114 \}}
+\DoxyCodeLine{71 \{}
+\DoxyCodeLine{72   \textcolor{comment}{// must have at least one block to send}}
+\DoxyCodeLine{73   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}} < 1) \{}
+\DoxyCodeLine{74     \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}} = \textcolor{keyword}{false};}
+\DoxyCodeLine{75     \textcolor{keywordflow}{return} \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}};}
+\DoxyCodeLine{76   \}}
+\DoxyCodeLine{77   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}}) \{}
+\DoxyCodeLine{78     \mbox{\hyperlink{classIRSender_a53e42e20e77a379113d51ddb74248c26}{beginSend}}();}
+\DoxyCodeLine{79   \}}
+\DoxyCodeLine{80   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classIRSender_a1fd558b5ccadfc5abef126000784a7fe}{m\_lastSendTime}} > 0 \&\& \mbox{\hyperlink{classIRSender_a1fd558b5ccadfc5abef126000784a7fe}{m\_lastSendTime}} + \mbox{\hyperlink{IRConfig_8h_a60b384b29858304f4e2e7239dfb1594b}{IR\_DEFAULT\_BLOCK\_SPACING}} > \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a4928281e63a820cd8f0b00b53c6e4587}{getCurtime}}()) \{}
+\DoxyCodeLine{81     \textcolor{comment}{// don't send yet}}
+\DoxyCodeLine{82     \textcolor{keywordflow}{return} \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}};}
+\DoxyCodeLine{83   \}}
+\DoxyCodeLine{84   \textcolor{comment}{// blocksize is default unless it's the last block, then it's the remainder}}
+\DoxyCodeLine{85   uint32\_t blocksize = (\mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}} == 1) ? \mbox{\hyperlink{classIRSender_a3ea32d56e5465b46762858865e51acc8}{m\_remainder}} : \mbox{\hyperlink{IRConfig_8h_abb1031528909e89b76a9dea91641d770}{IR\_DEFAULT\_BLOCK\_SIZE}};}
+\DoxyCodeLine{86   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}IRSender Sending block \#\%u"{}}, \mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}});}
+\DoxyCodeLine{87   \textcolor{comment}{// pointer to the data at the correct location}}
+\DoxyCodeLine{88   \textcolor{keyword}{const} uint8\_t *buf\_ptr = \mbox{\hyperlink{classIRSender_a621632ba226b379e9882a109e33378ae}{m\_bitStream}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}() + \mbox{\hyperlink{classIRSender_a882ca4e78c5aaa3a2a6cdee0196f0ad9}{m\_writeCounter}};}
+\DoxyCodeLine{89   \textcolor{comment}{// iterate each byte in the block and write it}}
+\DoxyCodeLine{90   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < blocksize; ++i) \{}
+\DoxyCodeLine{91     \textcolor{comment}{// write the byte}}
+\DoxyCodeLine{92     \mbox{\hyperlink{classIRSender_a269bff02e0b318ee7a2eadfdf87a17b1}{sendByte}}(*buf\_ptr);}
+\DoxyCodeLine{93     \textcolor{comment}{// increment to next byte in buffer}}
+\DoxyCodeLine{94     buf\_ptr++;}
+\DoxyCodeLine{95     \textcolor{comment}{// record the written byte}}
+\DoxyCodeLine{96     \mbox{\hyperlink{classIRSender_a882ca4e78c5aaa3a2a6cdee0196f0ad9}{m\_writeCounter}}++;}
+\DoxyCodeLine{97   \}}
+\DoxyCodeLine{98   \textcolor{comment}{// wrote one block}}
+\DoxyCodeLine{99   \mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}}-\/-\/;}
+\DoxyCodeLine{100   \textcolor{comment}{// still sending if we have more blocks}}
+\DoxyCodeLine{101   \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}} = (\mbox{\hyperlink{classIRSender_a05d8220ef1737ab82ba67c9948b309c6}{m\_numBlocks}} > 0);}
+\DoxyCodeLine{102   \textcolor{comment}{// the curtime}}
+\DoxyCodeLine{103   \mbox{\hyperlink{classIRSender_a1fd558b5ccadfc5abef126000784a7fe}{m\_lastSendTime}} = \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a4928281e63a820cd8f0b00b53c6e4587}{getCurtime}}();}
+\DoxyCodeLine{104   \textcolor{comment}{// return whether still sending}}
+\DoxyCodeLine{105   \textcolor{keywordflow}{return} \mbox{\hyperlink{classIRSender_a5c8720d65214a424675c2fdf0f16e379}{m\_isSending}};}
+\DoxyCodeLine{106 \}}
 
 \end{DoxyCode}
 
@@ -445,22 +360,22 @@ Referenced by Mode\+Sharing\+::begin\+Sending\+IR(), and Mode\+Sharing\+::contin
 
 
 
-Definition at line 137 of file IRSender.\+cpp.
+Definition at line 127 of file IRSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{138 \{}
-\DoxyCodeLine{139   \textcolor{comment}{// Sends from left to right, MSB first}}
-\DoxyCodeLine{140   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} b = 0; b < 8; b++) \{}
-\DoxyCodeLine{141     \textcolor{comment}{// grab the bit of data at the indexspace}}
-\DoxyCodeLine{142     uint32\_t bit = (data >> (7 -\/ b)) \& 1;}
-\DoxyCodeLine{143     \textcolor{comment}{// send 3x timing size for 1s and 1x timing for 0}}
-\DoxyCodeLine{144     \mbox{\hyperlink{classIRSender_a957effa037d1a95ba0d5c78bf7c0ab0c}{sendMark}}(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\_TIMING}} + (\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\_TIMING}} * (2 * bit)));}
-\DoxyCodeLine{145     \textcolor{comment}{// send 1x timing size for space}}
-\DoxyCodeLine{146     \mbox{\hyperlink{classIRSender_a96194226ebcd9135885c2bdf1b9a0076}{sendSpace}}(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\_TIMING}});}
-\DoxyCodeLine{147   \}}
-\DoxyCodeLine{148   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Sent byte[\%u]: 0x\%x"{}}, \mbox{\hyperlink{classIRSender_a882ca4e78c5aaa3a2a6cdee0196f0ad9}{m\_writeCounter}}, data);}
-\DoxyCodeLine{149  \}}
+\DoxyCodeLine{128 \{}
+\DoxyCodeLine{129   \textcolor{comment}{// Sends from left to right, MSB first}}
+\DoxyCodeLine{130   \textcolor{keywordflow}{for} (\textcolor{keywordtype}{int} b = 0; b < 8; b++) \{}
+\DoxyCodeLine{131     \textcolor{comment}{// grab the bit of data at the indexspace}}
+\DoxyCodeLine{132     uint32\_t bit = (data >> (7 -\/ b)) \& 1;}
+\DoxyCodeLine{133     \textcolor{comment}{// send 3x timing size for 1s and 1x timing for 0}}
+\DoxyCodeLine{134     \mbox{\hyperlink{classIRSender_a957effa037d1a95ba0d5c78bf7c0ab0c}{sendMark}}(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\_TIMING}} + (\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\_TIMING}} * (2 * bit)));}
+\DoxyCodeLine{135     \textcolor{comment}{// send 1x timing size for space}}
+\DoxyCodeLine{136     \mbox{\hyperlink{classIRSender_a96194226ebcd9135885c2bdf1b9a0076}{sendSpace}}(\mbox{\hyperlink{IRConfig_8h_a7695385a5a888d20cadfe5bdbb361a93}{IR\_TIMING}});}
+\DoxyCodeLine{137   \}}
+\DoxyCodeLine{138   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Sent byte[\%u]: 0x\%x"{}}, \mbox{\hyperlink{classIRSender_a882ca4e78c5aaa3a2a6cdee0196f0ad9}{m\_writeCounter}}, data);}
+\DoxyCodeLine{139  \}}
 
 \end{DoxyCode}
 
@@ -479,24 +394,21 @@ Referenced by begin\+Send(), and send().
 
 
 
-Definition at line 151 of file IRSender.\+cpp.
+Definition at line 141 of file IRSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{152 \{}
-\DoxyCodeLine{153 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{154   \textcolor{comment}{// send mark timing over socket}}
-\DoxyCodeLine{155   \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_af7adb6b02350ab5f55ac364ac72df325}{vortexLib}}().vcallbacks()-\/>infraredWrite(\textcolor{keyword}{true}, time);}
-\DoxyCodeLine{156 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{157   \mbox{\hyperlink{classIRSender_a1d44e1edc5eb96f000a933b1fac00127}{startPWM}}();}
-\DoxyCodeLine{158   \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a1db7b0672f8b2d38994119ccc226f8ee}{delayMicroseconds}}(time);}
-\DoxyCodeLine{159 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{160 \}}
+\DoxyCodeLine{142 \{}
+\DoxyCodeLine{143 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{144   \textcolor{comment}{// send mark timing over socket}}
+\DoxyCodeLine{145   \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_af7adb6b02350ab5f55ac364ac72df325}{vortexLib}}().vcallbacks()-\/>infraredWrite(\textcolor{keyword}{true}, time);}
+\DoxyCodeLine{146 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{147 \}}
 
 \end{DoxyCode}
 
 
-References Time\+::delay\+Microseconds(), m\+\_\+engine, start\+PWM(), Vortex\+Engine\+::time(), and Vortex\+Engine\+::vortex\+Lib().
+References m\+\_\+engine, and Vortex\+Engine\+::vortex\+Lib().
 
 
 
@@ -510,86 +422,25 @@ Referenced by begin\+Send(), and send\+Byte().
 
 
 
-Definition at line 162 of file IRSender.\+cpp.
+Definition at line 149 of file IRSender.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{163 \{}
-\DoxyCodeLine{164 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
-\DoxyCodeLine{165   \textcolor{comment}{// send space timing over socket}}
-\DoxyCodeLine{166   \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_af7adb6b02350ab5f55ac364ac72df325}{vortexLib}}().vcallbacks()-\/>infraredWrite(\textcolor{keyword}{false}, time);}
-\DoxyCodeLine{167 \textcolor{preprocessor}{\#else}}
-\DoxyCodeLine{168   \mbox{\hyperlink{classIRSender_ab6a6c8f2a5aa4840ac7058438dc13c3f}{stopPWM}}();}
-\DoxyCodeLine{169   \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a1db7b0672f8b2d38994119ccc226f8ee}{delayMicroseconds}}(time);}
-\DoxyCodeLine{170 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{171 \}}
+\DoxyCodeLine{150 \{}
+\DoxyCodeLine{151 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{152   \textcolor{comment}{// send space timing over socket}}
+\DoxyCodeLine{153   \mbox{\hyperlink{classIRSender_aad2df8ac0216c3838085b5f5dff59b9f}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_af7adb6b02350ab5f55ac364ac72df325}{vortexLib}}().vcallbacks()-\/>infraredWrite(\textcolor{keyword}{false}, time);}
+\DoxyCodeLine{154 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{155 \}}
 
 \end{DoxyCode}
 
 
-References Time\+::delay\+Microseconds(), m\+\_\+engine, stop\+PWM(), Vortex\+Engine\+::time(), and Vortex\+Engine\+::vortex\+Lib().
+References m\+\_\+engine, and Vortex\+Engine\+::vortex\+Lib().
 
 
 
 Referenced by begin\+Send(), and send\+Byte().
-
-\mbox{\Hypertarget{classIRSender_a1d44e1edc5eb96f000a933b1fac00127}\label{classIRSender_a1d44e1edc5eb96f000a933b1fac00127}} 
-\index{IRSender@{IRSender}!startPWM@{startPWM}}
-\index{startPWM@{startPWM}!IRSender@{IRSender}}
-\doxysubsubsection{\texorpdfstring{startPWM()}{startPWM()}}
-{\footnotesize\ttfamily void IRSender\+::start\+PWM (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Definition at line 225 of file IRSender.\+cpp.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{226 \{}
-\DoxyCodeLine{227 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
-\DoxyCodeLine{228   \textcolor{comment}{// start the PWM}}
-\DoxyCodeLine{229   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CTRLA.reg |= TCC\_CTRLA\_ENABLE;}
-\DoxyCodeLine{230   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.ENABLE);}
-\DoxyCodeLine{231 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{232 \}}
-
-\end{DoxyCode}
-
-
-References IR\+\_\+\+TCCx.
-
-
-
-Referenced by send\+Mark().
-
-\mbox{\Hypertarget{classIRSender_ab6a6c8f2a5aa4840ac7058438dc13c3f}\label{classIRSender_ab6a6c8f2a5aa4840ac7058438dc13c3f}} 
-\index{IRSender@{IRSender}!stopPWM@{stopPWM}}
-\index{stopPWM@{stopPWM}!IRSender@{IRSender}}
-\doxysubsubsection{\texorpdfstring{stopPWM()}{stopPWM()}}
-{\footnotesize\ttfamily void IRSender\+::stop\+PWM (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Definition at line 234 of file IRSender.\+cpp.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{235 \{}
-\DoxyCodeLine{236 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
-\DoxyCodeLine{237   \textcolor{comment}{// stop the PWM}}
-\DoxyCodeLine{238   \mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>CTRLA.reg \&= \string~TCC\_CTRLA\_ENABLE;}
-\DoxyCodeLine{239   \textcolor{keywordflow}{while} (\mbox{\hyperlink{IRSender_8cpp_a8a24a33a0c1abd6d88ec49fe4f4e3090}{IR\_TCCx}}-\/>SYNCBUSY.bit.ENABLE);}
-\DoxyCodeLine{240 \textcolor{preprocessor}{\#endif}}
-\DoxyCodeLine{241 \}}
-
-\end{DoxyCode}
-
-
-References IR\+\_\+\+TCCx.
-
-
-
-Referenced by send\+Space().
 
 
 
@@ -602,7 +453,7 @@ Referenced by send\+Space().
 
 
 
-Definition at line 51 of file IRSender.\+h.
+Definition at line 46 of file IRSender.\+h.
 
 
 
@@ -616,7 +467,7 @@ Referenced by load\+Mode(), and send().
 
 
 
-Definition at line 63 of file IRSender.\+h.
+Definition at line 58 of file IRSender.\+h.
 
 
 
@@ -630,7 +481,7 @@ Referenced by begin\+Send().
 
 
 
-Definition at line 46 of file IRSender.\+h.
+Definition at line 41 of file IRSender.\+h.
 
 
 
@@ -644,7 +495,7 @@ Referenced by begin\+Send(), send(), send\+Mark(), and send\+Space().
 
 
 
-Definition at line 52 of file IRSender.\+h.
+Definition at line 47 of file IRSender.\+h.
 
 
 
@@ -658,7 +509,7 @@ Referenced by begin\+Send(), is\+Sending(), and send().
 
 
 
-Definition at line 53 of file IRSender.\+h.
+Definition at line 48 of file IRSender.\+h.
 
 
 
@@ -672,7 +523,7 @@ Referenced by send().
 
 
 
-Definition at line 58 of file IRSender.\+h.
+Definition at line 53 of file IRSender.\+h.
 
 
 
@@ -686,7 +537,7 @@ Referenced by begin\+Send(), load\+Mode(), and send().
 
 
 
-Definition at line 60 of file IRSender.\+h.
+Definition at line 55 of file IRSender.\+h.
 
 
 
@@ -700,7 +551,7 @@ Referenced by begin\+Send(), load\+Mode(), and send().
 
 
 
-Definition at line 49 of file IRSender.\+h.
+Definition at line 44 of file IRSender.\+h.
 
 
 
@@ -714,7 +565,7 @@ Referenced by load\+Mode().
 
 
 
-Definition at line 56 of file IRSender.\+h.
+Definition at line 51 of file IRSender.\+h.
 
 
 
@@ -728,7 +579,7 @@ Referenced by begin\+Send(), load\+Mode(), and percent\+Done().
 
 
 
-Definition at line 66 of file IRSender.\+h.
+Definition at line 61 of file IRSender.\+h.
 
 
 

@@ -12,6 +12,7 @@ var classColorSelect =
     [ "~ColorSelect", "classColorSelect.html#aa2f06c0775c53865ba75d650c452853c", null ],
     [ "blinkSelection", "classColorSelect.html#a12e1d06a0edbd2d2dfcd45e6c8a3b171", null ],
     [ "init", "classColorSelect.html#a18b476ecc26286973828375444944844", null ],
+    [ "isValidLedSelection", "classColorSelect.html#a82e8499fec6bcc61f65c5a6b085e5bc4", null ],
     [ "onLongClick", "classColorSelect.html#af6c4b0cb16d3e2d6a4bcbbd79b5907ff", null ],
     [ "onLongClick2", "classColorSelect.html#a9908455b3d63e664206c3bc055d23278", null ],
     [ "onShortClick", "classColorSelect.html#a64e506c095e3dea194c3f570d52e5519", null ],

@@ -165,15 +165,15 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00055"></a><span class="lineno">   55</span>&#160;  <span class="keywordflow">if</span> (!Vortex::vcallbacks()-&gt;serialCheck()) {</div>
 <div class="line"><a name="l00056"></a><span class="lineno">   56</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00057"></a><span class="lineno">   57</span>&#160;  }</div>
-<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  Vortex::vcallbacks()-&gt;serialBegin(9600);</div>
+<div class="line"><a name="l00058"></a><span class="lineno">   58</span>&#160;  Vortex::vcallbacks()-&gt;serialBegin(<a class="code" href="VortexConfig_8h.html#ad89976cc0b5340110179f6ce40df3028">SERIAL_BAUD_RATE</a>);</div>
 <div class="line"><a name="l00059"></a><span class="lineno">   59</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00060"></a><span class="lineno">   60</span>&#160;  <span class="comment">// This will check if the serial communication is open</span></div>
-<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordflow">if</span> (!Serial) {</div>
+<div class="line"><a name="l00061"></a><span class="lineno">   61</span>&#160;  <span class="keywordflow">if</span> (!Serial.available()) {</div>
 <div class="line"><a name="l00062"></a><span class="lineno">   62</span>&#160;    <span class="comment">// serial is not connected</span></div>
 <div class="line"><a name="l00063"></a><span class="lineno">   63</span>&#160;    <span class="keywordflow">return</span> <span class="keyword">false</span>;</div>
 <div class="line"><a name="l00064"></a><span class="lineno">   64</span>&#160;  }</div>
 <div class="line"><a name="l00065"></a><span class="lineno">   65</span>&#160;  <span class="comment">// Begin serial communications</span></div>
-<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  Serial.begin(9600);</div>
+<div class="line"><a name="l00066"></a><span class="lineno">   66</span>&#160;  Serial.begin(<a class="code" href="VortexConfig_8h.html#ad89976cc0b5340110179f6ce40df3028">SERIAL_BAUD_RATE</a>);</div>
 <div class="line"><a name="l00067"></a><span class="lineno">   67</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00068"></a><span class="lineno">   68</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00069"></a><span class="lineno">   69</span>&#160;  <span class="comment">// serial is now connected</span></div>
@@ -181,14 +181,15 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00071"></a><span class="lineno">   71</span>&#160;  <span class="keywordflow">return</span> <span class="keyword">true</span>;</div>
 <div class="line"><a name="l00072"></a><span class="lineno">   72</span>&#160;}</div>
 <div class="ttc" id="aTimings_8h_html_aabf3a9ab42baac69e3195c785979615c"><div class="ttname"><a href="Timings_8h.html#aabf3a9ab42baac69e3195c785979615c">MAX_SERIAL_CHECK_INTERVAL</a></div><div class="ttdeci">#define MAX_SERIAL_CHECK_INTERVAL</div><div class="ttdef"><b>Definition:</b> <a href="Timings_8h_source.html#l00019">Timings.h:19</a></div></div>
+<div class="ttc" id="aVortexConfig_8h_html_ad89976cc0b5340110179f6ce40df3028"><div class="ttname"><a href="VortexConfig_8h.html#ad89976cc0b5340110179f6ce40df3028">SERIAL_BAUD_RATE</a></div><div class="ttdeci">#define SERIAL_BAUD_RATE</div><div class="ttdef"><b>Definition:</b> <a href="VortexConfig_8h_source.html#l00317">VortexConfig.h:317</a></div></div>
 <div class="ttc" id="aclassSerialComs_html_a37f271645e04061426c44a769e82a1fe"><div class="ttname"><a href="classSerialComs.html#a37f271645e04061426c44a769e82a1fe">SerialComs::m_serialConnected</a></div><div class="ttdeci">static bool m_serialConnected</div><div class="ttdef"><b>Definition:</b> <a href="Serial_8h_source.html#l00037">Serial.h:37</a></div></div>
 <div class="ttc" id="aclassSerialComs_html_a8f0805c088fb29b00827b63ef1e8a6c3"><div class="ttname"><a href="classSerialComs.html#a8f0805c088fb29b00827b63ef1e8a6c3">SerialComs::m_lastCheck</a></div><div class="ttdeci">static uint32_t m_lastCheck</div><div class="ttdef"><b>Definition:</b> <a href="Serial_8h_source.html#l00038">Serial.h:38</a></div></div>
 <div class="ttc" id="aclassSerialComs_html_ac6a8cc107fd0997dcd0f87a2b81ecd82"><div class="ttname"><a href="classSerialComs.html#ac6a8cc107fd0997dcd0f87a2b81ecd82">SerialComs::isConnected</a></div><div class="ttdeci">static bool isConnected()</div><div class="ttdef"><b>Definition:</b> <a href="Serial_8cpp_source.html#l00034">Serial.cpp:34</a></div></div>
 <div class="ttc" id="aclassTime_html_a7c7a8e067bdbd5aaf119521539d30940"><div class="ttname"><a href="classTime.html#a7c7a8e067bdbd5aaf119521539d30940">Time::getCurtime</a></div><div class="ttdeci">static uint32_t getCurtime()</div><div class="ttdef"><b>Definition:</b> <a href="TimeControl_8h_source.html#l00040">TimeControl.h:40</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="TimeControl_8h_source.html#l00040">Time::getCurtime()</a>, <a class="el" href="Serial_8cpp_source.html#l00034">isConnected()</a>, <a class="el" href="Serial_8h_source.html#l00038">m_lastCheck</a>, <a class="el" href="Serial_8h_source.html#l00037">m_serialConnected</a>, and <a class="el" href="Timings_8h_source.html#l00019">MAX_SERIAL_CHECK_INTERVAL</a>.</p>
+<p class="reference">References <a class="el" href="TimeControl_8h_source.html#l00040">Time::getCurtime()</a>, <a class="el" href="Serial_8cpp_source.html#l00034">isConnected()</a>, <a class="el" href="Serial_8h_source.html#l00038">m_lastCheck</a>, <a class="el" href="Serial_8h_source.html#l00037">m_serialConnected</a>, <a class="el" href="Timings_8h_source.html#l00019">MAX_SERIAL_CHECK_INTERVAL</a>, and <a class="el" href="VortexConfig_8h_source.html#l00317">SERIAL_BAUD_RATE</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="EditorConnection_8cpp_source.html#l00068">EditorConnection::run()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="EditorConnection_8cpp_source.html#l00071">EditorConnection::run()</a>, and <a class="el" href="VortexEngine_8cpp_source.html#l00175">VortexEngine::runMainLogic()</a>.</p>
 
 </div>
 </div>
@@ -330,7 +331,7 @@ Static Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Serial_8h_source.html#l00037">m_serialConnected</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="Serial_8cpp_source.html#l00040">checkSerial()</a>, <a class="el" href="Serial_8cpp_source.html#l00139">dataReady()</a>, <a class="el" href="Serial_8cpp_source.html#l00111">read()</a>, <a class="el" href="EditorConnection_8cpp_source.html#l00068">EditorConnection::run()</a>, and <a class="el" href="Serial_8cpp_source.html#l00074">write()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="Serial_8cpp_source.html#l00040">checkSerial()</a>, <a class="el" href="Serial_8cpp_source.html#l00139">dataReady()</a>, <a class="el" href="Serial_8cpp_source.html#l00111">read()</a>, <a class="el" href="EditorConnection_8cpp_source.html#l00071">EditorConnection::run()</a>, and <a class="el" href="Serial_8cpp_source.html#l00074">write()</a>.</p>
 
 </div>
 </div>
@@ -381,15 +382,15 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00131"></a><span class="lineno">  131</span>&#160;<span class="preprocessor">#else</span></div>
 <div class="line"><a name="l00132"></a><span class="lineno">  132</span>&#160;    <span class="keywordtype">byte</span> = Serial.read();</div>
 <div class="line"><a name="l00133"></a><span class="lineno">  133</span>&#160;<span class="preprocessor">#endif</span></div>
-<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    byteStream.<a class="code" href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">serialize</a>(<span class="keywordtype">byte</span>);</div>
+<div class="line"><a name="l00134"></a><span class="lineno">  134</span>&#160;    byteStream.<a class="code" href="classByteStream.html#ad3b413f399f22d30548a61a5e01ef3a7">serialize8</a>(<span class="keywordtype">byte</span>);</div>
 <div class="line"><a name="l00135"></a><span class="lineno">  135</span>&#160;  } <span class="keywordflow">while</span> (--amt &gt; 0);</div>
 <div class="line"><a name="l00136"></a><span class="lineno">  136</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00137"></a><span class="lineno">  137</span>&#160;}</div>
-<div class="ttc" id="aclassByteStream_html_a16016f5dc73e0d8b639f6bdbea252d4b"><div class="ttname"><a href="classByteStream.html#a16016f5dc73e0d8b639f6bdbea252d4b">ByteStream::serialize</a></div><div class="ttdeci">bool serialize(uint8_t byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00341">ByteStream.cpp:341</a></div></div>
+<div class="ttc" id="aclassByteStream_html_ad3b413f399f22d30548a61a5e01ef3a7"><div class="ttname"><a href="classByteStream.html#ad3b413f399f22d30548a61a5e01ef3a7">ByteStream::serialize8</a></div><div class="ttdeci">bool serialize8(uint8_t byte)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00341">ByteStream.cpp:341</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Serial_8cpp_source.html#l00034">isConnected()</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize()</a>.</p>
+<p class="reference">References <a class="el" href="Serial_8cpp_source.html#l00034">isConnected()</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00341">ByteStream::serialize8()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="EditorConnection_8cpp_source.html#l00209">EditorConnection::receiveData()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="EditorConnection_8cpp_source.html#l00240">EditorConnection::receiveData()</a>.</p>
 
 </div>
 </div>
@@ -435,10 +436,10 @@ Static Private Attributes</h2></td></tr>
 <div class="line"><a name="l00108"></a><span class="lineno">  108</span>&#160;<span class="preprocessor">#endif</span></div>
 <div class="line"><a name="l00109"></a><span class="lineno">  109</span>&#160;}</div>
 <div class="ttc" id="aclassByteStream_html_a282f071ea249471c360d364642f9b3c7"><div class="ttname"><a href="classByteStream.html#a282f071ea249471c360d364642f9b3c7">ByteStream::recalcCRC</a></div><div class="ttdeci">uint32_t recalcCRC(bool force=false)</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8cpp_source.html#l00301">ByteStream.cpp:301</a></div></div>
-<div class="ttc" id="aclassByteStream_html_a6993f9575592309a501156db31f82554"><div class="ttname"><a href="classByteStream.html#a6993f9575592309a501156db31f82554">ByteStream::rawData</a></div><div class="ttdeci">void * rawData() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00121">ByteStream.h:121</a></div></div>
-<div class="ttc" id="aclassByteStream_html_a755097adde5b21b33d3c4e3623d04f97"><div class="ttname"><a href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">ByteStream::rawSize</a></div><div class="ttdeci">uint32_t rawSize() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00122">ByteStream.h:122</a></div></div>
+<div class="ttc" id="aclassByteStream_html_a6993f9575592309a501156db31f82554"><div class="ttname"><a href="classByteStream.html#a6993f9575592309a501156db31f82554">ByteStream::rawData</a></div><div class="ttdeci">void * rawData() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00109">ByteStream.h:109</a></div></div>
+<div class="ttc" id="aclassByteStream_html_a755097adde5b21b33d3c4e3623d04f97"><div class="ttname"><a href="classByteStream.html#a755097adde5b21b33d3c4e3623d04f97">ByteStream::rawSize</a></div><div class="ttdeci">uint32_t rawSize() const</div><div class="ttdef"><b>Definition:</b> <a href="ByteStream_8h_source.html#l00110">ByteStream.h:110</a></div></div>
 </div><!-- fragment -->
-<p class="reference">References <a class="el" href="Serial_8cpp_source.html#l00034">isConnected()</a>, <a class="el" href="ByteStream_8h_source.html#l00121">ByteStream::rawData()</a>, <a class="el" href="ByteStream_8h_source.html#l00122">ByteStream::rawSize()</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00301">ByteStream::recalcCRC()</a>.</p>
+<p class="reference">References <a class="el" href="Serial_8cpp_source.html#l00034">isConnected()</a>, <a class="el" href="ByteStream_8h_source.html#l00109">ByteStream::rawData()</a>, <a class="el" href="ByteStream_8h_source.html#l00110">ByteStream::rawSize()</a>, and <a class="el" href="ByteStream_8cpp_source.html#l00301">ByteStream::recalcCRC()</a>.</p>
 
 </div>
 </div>
@@ -497,7 +498,7 @@ Static Private Attributes</h2></td></tr>
 </div><!-- fragment -->
 <p class="reference">References <a class="el" href="Serial_8cpp_source.html#l00034">isConnected()</a>.</p>
 
-<p class="reference">Referenced by <a class="el" href="EditorConnection_8cpp_source.html#l00185">EditorConnection::leaveMenu()</a>, <a class="el" href="EditorConnection_8cpp_source.html#l00068">EditorConnection::run()</a>, and <a class="el" href="EditorConnection_8cpp_source.html#l00215">EditorConnection::sendModes()</a>.</p>
+<p class="reference">Referenced by <a class="el" href="EditorConnection_8cpp_source.html#l00216">EditorConnection::leaveMenu()</a>, <a class="el" href="EditorConnection_8cpp_source.html#l00071">EditorConnection::run()</a>, and <a class="el" href="EditorConnection_8cpp_source.html#l00246">EditorConnection::sendModes()</a>.</p>
 
 </div>
 </div>

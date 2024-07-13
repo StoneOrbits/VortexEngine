@@ -10,6 +10,7 @@ var classModeSharing =
     [ "beginSending", "classModeSharing.html#a07c868b8564ccff67816c9a4602ea8ae", null ],
     [ "continueSending", "classModeSharing.html#a3f0b8290414445ae34e0fa250e1fdeac", null ],
     [ "init", "classModeSharing.html#a9f1473717a62b4ede1a3fe782b8a260d", null ],
+    [ "onLedSelected", "classModeSharing.html#a32e4765368483c41880c17970138aa7d", null ],
     [ "onLongClick", "classModeSharing.html#ae442e6e009d96e0a618c130ca45b66b1", null ],
     [ "onShortClick", "classModeSharing.html#aa5ff26439d03402077b06a3af55f68c9", null ],
     [ "receiveMode", "classModeSharing.html#a9ac5774f2bf6154ec281c7712c886cc3", null ],

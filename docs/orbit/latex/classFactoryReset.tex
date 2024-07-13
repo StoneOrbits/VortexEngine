@@ -197,7 +197,7 @@ Definition at line 88 of file Factory\+Reset.\+cpp.
 \DoxyCodeLine{120     \mbox{\hyperlink{classVortexEngine_a82c5e580e41f61e12d52ba5baee97fdf}{VortexEngine::setAutoCycle}}(\textcolor{keyword}{false});}
 \DoxyCodeLine{121     \mbox{\hyperlink{classModes_a790f299aa425bdc73af7f584ee30472b}{Modes::setDefaults}}();}
 \DoxyCodeLine{122     \mbox{\hyperlink{classModes_a65f088d9076706c4976f7282be323e50}{Modes::setCurMode}}(0);}
-\DoxyCodeLine{123     \mbox{\hyperlink{classModes_a44f9cbf145f712a8ca50980a084809ca}{Modes::resetFlags}}();}
+\DoxyCodeLine{123     \mbox{\hyperlink{classModes_ac5f6922bee215c360311d22199a2f227}{Modes::resetFlags}}();}
 \DoxyCodeLine{124   \}}
 \DoxyCodeLine{125   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
 \DoxyCodeLine{126 \}}
@@ -374,19 +374,17 @@ Definition at line 133 of file Factory\+Reset.\+cpp.
 \DoxyCodeLine{166   \textcolor{comment}{// the off/on ms blink faster based on the progress}}
 \DoxyCodeLine{167   uint32\_t offMs = 150 -\/ ((65 / \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) * ledProgress);}
 \DoxyCodeLine{168   uint32\_t onMs = 200 -\/ ((25 / \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}) * ledProgress);}
-\DoxyCodeLine{169   \textcolor{comment}{// the hue gets more red starting at 20 going in steps of 4 to min 0}}
-\DoxyCodeLine{170   int8\_t hue = (ledProgress < 6) ? 20 -\/ (4 * ledProgress) : 0;}
-\DoxyCodeLine{171   \textcolor{comment}{// the 'endled' is the tip of the reset progress bar, since the progress}}
-\DoxyCodeLine{172   \textcolor{comment}{// bar starts full red and empties down to the pinky that means it is}}
-\DoxyCodeLine{173   \textcolor{comment}{// inverted from the 'ledProgress' which starts at 0 and grows}}
-\DoxyCodeLine{174   \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} endLed = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}} -\/ ledProgress);}
-\DoxyCodeLine{175   \textcolor{comment}{// clear all the leds so that 'blinkRange' will blink from off to the designated color}}
-\DoxyCodeLine{176   \mbox{\hyperlink{classLeds_a6d7619d4ff244a774df66a4c5e72f6be}{Leds::clearRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}});}
-\DoxyCodeLine{177   \textcolor{comment}{// blink to the calculated redish hue from pinky to the end led}}
-\DoxyCodeLine{178   \mbox{\hyperlink{classLeds_a572d1c48cc64421170373c6c7d218cfa}{Leds::blinkRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, endLed, offMs, onMs, \mbox{\hyperlink{classHSVColor}{HSVColor}}(hue, 255, 180));}
-\DoxyCodeLine{179   \textcolor{comment}{// and blink the background the regular blank color}}
-\DoxyCodeLine{180   \mbox{\hyperlink{classLeds_a572d1c48cc64421170373c6c7d218cfa}{Leds::blinkRange}}((\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})(endLed + 1), \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, offMs, onMs, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
-\DoxyCodeLine{181 \}}
+\DoxyCodeLine{169   \textcolor{comment}{// the 'endled' is the tip of the reset progress bar, since the progress}}
+\DoxyCodeLine{170   \textcolor{comment}{// bar starts full red and empties down to the pinky that means it is}}
+\DoxyCodeLine{171   \textcolor{comment}{// inverted from the 'ledProgress' which starts at 0 and grows}}
+\DoxyCodeLine{172   \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} endLed = (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}} -\/ ledProgress);}
+\DoxyCodeLine{173   \textcolor{comment}{// clear all the leds so that 'blinkRange' will blink from off to the designated color}}
+\DoxyCodeLine{174   \mbox{\hyperlink{classLeds_a6d7619d4ff244a774df66a4c5e72f6be}{Leds::clearRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}});}
+\DoxyCodeLine{175   \textcolor{comment}{// blink to the calculated redish hue from pinky to the end led}}
+\DoxyCodeLine{176   \mbox{\hyperlink{classLeds_a572d1c48cc64421170373c6c7d218cfa}{Leds::blinkRange}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}, endLed, offMs, onMs, \mbox{\hyperlink{classHSVColor}{HSVColor}}(0, 255 -\/ (progress * 170), 180));}
+\DoxyCodeLine{177   \textcolor{comment}{// and blink the background the regular blank color}}
+\DoxyCodeLine{178   \mbox{\hyperlink{classLeds_a572d1c48cc64421170373c6c7d218cfa}{Leds::blinkRange}}((\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}})(endLed + 1), \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2caea3aa995eb2385598300bbabffa053dc}{LED\_LAST}}, offMs, onMs, \mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
+\DoxyCodeLine{179 \}}
 
 \end{DoxyCode}
 

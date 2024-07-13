@@ -61,6 +61,8 @@ enum \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060ea}{Color\
 \item 
 void \mbox{\hyperlink{classColorSelect_a12e1d06a0edbd2d2dfcd45e6c8a3b171}{blink\+Selection}} (uint32\+\_\+t off\+Ms=350, uint32\+\_\+t on\+Ms=500) override
 \item 
+bool \mbox{\hyperlink{classColorSelect_a82e8499fec6bcc61f65c5a6b085e5bc4}{is\+Valid\+Led\+Selection}} (\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}} selection) const override
+\item 
 void \mbox{\hyperlink{classColorSelect_a7a187e1351103279f073af4aeafcf3f7}{show\+Slot\+Selection}} ()
 \item 
 void \mbox{\hyperlink{classColorSelect_a621cb2f5c6d1a713c22ffccf0144784e}{show\+Selection}} (\mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060ea}{Color\+Select\+State}} mode)
@@ -129,28 +131,28 @@ STATE\+\_\+\+PICK\+\_\+\+VAL&\\
 \end{DoxyEnumFields}
 
 
-Definition at line 28 of file Color\+Select.\+h.
+Definition at line 31 of file Color\+Select.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{29   \{}
-\DoxyCodeLine{30     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaae11874bf43ee9371ade67deee4946710}{STATE\_INIT}},}
-\DoxyCodeLine{31 }
-\DoxyCodeLine{32     \textcolor{comment}{// currently picking the color slot to change}}
-\DoxyCodeLine{33     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}},}
+\DoxyCodeLine{32   \{}
+\DoxyCodeLine{33     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaae11874bf43ee9371ade67deee4946710}{STATE\_INIT}},}
 \DoxyCodeLine{34 }
-\DoxyCodeLine{35     \textcolor{comment}{// first pick a quadrant 0, 90, 180, 240}}
-\DoxyCodeLine{36     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaafb801216d02b43a41d768ca442722354}{STATE\_PICK\_HUE1}},}
+\DoxyCodeLine{35     \textcolor{comment}{// currently picking the color slot to change}}
+\DoxyCodeLine{36     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}},}
 \DoxyCodeLine{37 }
-\DoxyCodeLine{38     \textcolor{comment}{// next pick a quadrant within that quadrant 0, 25, 50, 70}}
-\DoxyCodeLine{39     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa357afd4c0e747368fc58dd50e07761f1}{STATE\_PICK\_HUE2}},}
+\DoxyCodeLine{38     \textcolor{comment}{// first pick a quadrant 0, 90, 180, 240}}
+\DoxyCodeLine{39     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaafb801216d02b43a41d768ca442722354}{STATE\_PICK\_HUE1}},}
 \DoxyCodeLine{40 }
-\DoxyCodeLine{41     \textcolor{comment}{// picking a saturation for the color}}
-\DoxyCodeLine{42     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa72d99473ae0d6d8edb38d236a2a8d1a2}{STATE\_PICK\_SAT}},}
+\DoxyCodeLine{41     \textcolor{comment}{// next pick a quadrant within that quadrant 0, 25, 50, 70}}
+\DoxyCodeLine{42     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa357afd4c0e747368fc58dd50e07761f1}{STATE\_PICK\_HUE2}},}
 \DoxyCodeLine{43 }
-\DoxyCodeLine{44     \textcolor{comment}{// picking a value for the color}}
-\DoxyCodeLine{45     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa902dc373210b60836c9d9c801e6c711b}{STATE\_PICK\_VAL}},}
-\DoxyCodeLine{46   \};}
+\DoxyCodeLine{44     \textcolor{comment}{// picking a saturation for the color}}
+\DoxyCodeLine{45     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa72d99473ae0d6d8edb38d236a2a8d1a2}{STATE\_PICK\_SAT}},}
+\DoxyCodeLine{46 }
+\DoxyCodeLine{47     \textcolor{comment}{// picking a value for the color}}
+\DoxyCodeLine{48     \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa902dc373210b60836c9d9c801e6c711b}{STATE\_PICK\_VAL}},}
+\DoxyCodeLine{49   \};}
 
 \end{DoxyCode}
 
@@ -248,11 +250,11 @@ Definition at line 380 of file Color\+Select.\+cpp.
 \DoxyCodeLine{395       \textcolor{comment}{// if we're pressing down on a slot then glow the tip white/red}}
 \DoxyCodeLine{396       \textcolor{keywordflow}{if} ((\mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() \% (\mbox{\hyperlink{Timings_8h_a77fc08a3774a777798ebe8067423ce11}{DELETE\_CYCLE\_TICKS}} * 2)) > \mbox{\hyperlink{Timings_8h_a77fc08a3774a777798ebe8067423ce11}{DELETE\_CYCLE\_TICKS}}) \{}
 \DoxyCodeLine{397         \textcolor{comment}{// breath red instead of white blink}}
-\DoxyCodeLine{398         \mbox{\hyperlink{classLeds_a7ddc2720efc58a339007106db0f8d34a}{Leds::breathQuadrant}}(\mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}}, 0, \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}());}
+\DoxyCodeLine{398         \mbox{\hyperlink{classLeds_a15dc69dd07c2404575d81955ae8f58c1}{Leds::breatheQuadrant}}(\mbox{\hyperlink{classMenu_a88ace4573fd7e753f3370dead1f15657}{m\_curSelection}}, 0, \mbox{\hyperlink{Button_8h_a0f2e1bfb2e10150496ad7fb75420713b}{g\_pButton}}-\/>\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}());}
 \DoxyCodeLine{399         \textcolor{keywordflow}{return};}
 \DoxyCodeLine{400       \}}
 \DoxyCodeLine{401     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorSelect_a56b1355b37825dc23770fc095657a3fe}{m\_slot}} == (uint32\_t)(\mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_ae2a0882d7c34a3a2b5e228a3b517d54c}{numColors}}() + 1)) \{}
-\DoxyCodeLine{402       \mbox{\hyperlink{classLeds_aa4eeb00724b40c4b19aaa68da696ef15}{Leds::blinkQuadrantFive}}(150, 350, \mbox{\hyperlink{ColorConstants_8h_ac1771f95d9887118764bd8a074e537e1}{RGB\_WHITE}});}
+\DoxyCodeLine{402       \mbox{\hyperlink{classLeds_a4accadc5ec97fad181235bb95da30516}{Leds::blinkQuadrant}}(\mbox{\hyperlink{LedTypes_8h_ac3213859704678ff234b435c290cd9edae4f6676acb00953e2107378a2325451c}{QUADRANT\_5}}, 150, 350, \mbox{\hyperlink{ColorConstants_8h_ac1771f95d9887118764bd8a074e537e1}{RGB\_WHITE}});}
 \DoxyCodeLine{403     \}}
 \DoxyCodeLine{404   \}}
 \DoxyCodeLine{405   \textcolor{comment}{// otherwise run the default blink logic}}
@@ -262,7 +264,7 @@ Definition at line 380 of file Color\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References Leds\+::blink\+Quadrant(), Leds\+::blink\+Quadrant\+Five(), Menu\+::blink\+Selection(), Leds\+::breath\+Quadrant(), Leds\+::clear\+Quadrant(), DELETE\+\_\+\+CYCLE\+\_\+\+TICKS, DELETE\+\_\+\+THRESHOLD\+\_\+\+TICKS, g\+\_\+p\+Button, Button\+::hold\+Duration(), Button\+::is\+Pressed(), m\+\_\+colorset, Menu\+::m\+\_\+cur\+Selection, m\+\_\+slot, m\+\_\+state, Colorset\+::num\+Colors(), QUADRANT\+\_\+\+LAST, RGB\+\_\+\+WHITE, RGB\+\_\+\+WHITE4, RGB\+\_\+\+WHITE6, and STATE\+\_\+\+PICK\+\_\+\+SLOT.
+References Leds\+::blink\+Quadrant(), Menu\+::blink\+Selection(), Leds\+::breathe\+Quadrant(), Leds\+::clear\+Quadrant(), DELETE\+\_\+\+CYCLE\+\_\+\+TICKS, DELETE\+\_\+\+THRESHOLD\+\_\+\+TICKS, g\+\_\+p\+Button, Button\+::hold\+Duration(), Button\+::is\+Pressed(), m\+\_\+colorset, Menu\+::m\+\_\+cur\+Selection, m\+\_\+slot, m\+\_\+state, Colorset\+::num\+Colors(), QUADRANT\+\_\+5, QUADRANT\+\_\+\+LAST, RGB\+\_\+\+WHITE, RGB\+\_\+\+WHITE4, RGB\+\_\+\+WHITE6, and STATE\+\_\+\+PICK\+\_\+\+SLOT.
 
 
 
@@ -307,6 +309,34 @@ Definition at line 41 of file Color\+Select.\+cpp.
 
 References Modes\+::cur\+Mode(), DEBUG\+\_\+\+LOG, Menu\+::init(), Mode\+::is\+Empty(), Mode\+::is\+Multi\+Led(), LED\+\_\+\+MULTI, Menu\+::m\+\_\+led\+Selected, m\+\_\+state, Menu\+::m\+\_\+target\+Leds, MAP\+\_\+\+LED, and STATE\+\_\+\+INIT.
 
+\mbox{\Hypertarget{classColorSelect_a82e8499fec6bcc61f65c5a6b085e5bc4}\label{classColorSelect_a82e8499fec6bcc61f65c5a6b085e5bc4}} 
+\index{ColorSelect@{ColorSelect}!isValidLedSelection@{isValidLedSelection}}
+\index{isValidLedSelection@{isValidLedSelection}!ColorSelect@{ColorSelect}}
+\doxysubsubsection{\texorpdfstring{isValidLedSelection()}{isValidLedSelection()}}
+{\footnotesize\ttfamily bool Color\+Select\+::is\+Valid\+Led\+Selection (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{LedTypes_8h_adedc81525af6b15084e05deff607a32d}{Led\+Map}}}]{selection }\end{DoxyParamCaption}) const\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [private]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMenu_a855d557fbaaf91b7444bef908929591d}{Menu}}.
+
+
+
+Definition at line 409 of file Color\+Select.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{410 \{}
+\DoxyCodeLine{411   \textcolor{comment}{// if we have a multi-\/led pattern then we can only select LED\_MULTI otherwise}}
+\DoxyCodeLine{412   \textcolor{comment}{// if we don't have a multi-\/led pattern then we can't select multi}}
+\DoxyCodeLine{413   \textcolor{keywordtype}{bool} selectedMulti =  (selection == \mbox{\hyperlink{LedTypes_8h_ae3e48bdbee97fcc922ac8a9f4c8cf8fa}{MAP\_LED}}(\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca2132b8a8565f61fc6b6ea5ff1f32132e}{LED\_MULTI}}));}
+\DoxyCodeLine{414   \textcolor{keywordflow}{return} selectedMulti == \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a833075f22903e11fd4735b5f04e7f6ea}{isMultiLed}}();}
+\DoxyCodeLine{415 \}}
+
+\end{DoxyCode}
+
+
+References Mode\+::is\+Multi\+Led(), LED\+\_\+\+MULTI, Menu\+::m\+\_\+preview\+Mode, and MAP\+\_\+\+LED.
+
 \mbox{\Hypertarget{classColorSelect_af6c4b0cb16d3e2d6a4bcbbd79b5907ff}\label{classColorSelect_af6c4b0cb16d3e2d6a4bcbbd79b5907ff}} 
 \index{ColorSelect@{ColorSelect}!onLongClick@{onLongClick}}
 \index{onLongClick@{onLongClick}!ColorSelect@{ColorSelect}}
@@ -337,7 +367,7 @@ Definition at line 202 of file Color\+Select.\+cpp.
 \DoxyCodeLine{214       \textcolor{comment}{// checking if the colorset has changed because it's}}
 \DoxyCodeLine{215       \textcolor{comment}{// not worth the effort}}
 \DoxyCodeLine{216       needsSave = (!\mbox{\hyperlink{LedTypes_8h_a7942bcfeb3920e179590b97a56ccfede}{MAP\_IS\_ONE\_LED}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}) ||}
-\DoxyCodeLine{217         !\mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_af65f18b0a815156608cdf3cdff93e7af}{equals}}(cur-\/>\mbox{\hyperlink{classMode_a1f063952effb576d5597fa83eccea96c}{getColorset}}(\mbox{\hyperlink{LedTypes_8h_a8f394c70246f75bd9452c7cea69a4b19}{mapGetFirstLed}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}))));}
+\DoxyCodeLine{217         !\mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}}.\mbox{\hyperlink{classColorset_af65f18b0a815156608cdf3cdff93e7af}{equals}}(cur-\/>\mbox{\hyperlink{classMode_a1f063952effb576d5597fa83eccea96c}{getColorset}}(\mbox{\hyperlink{LedTypes_8h_ae8d7e271028055f745f7b1247f080dce}{ledmapGetFirstLed}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}))));}
 \DoxyCodeLine{218       \textcolor{comment}{// if we need to save, then actually update the colorset}}
 \DoxyCodeLine{219       \textcolor{keywordflow}{if} (needsSave) \{}
 \DoxyCodeLine{220         \textcolor{comment}{// save the colorset}}
@@ -431,7 +461,7 @@ Definition at line 202 of file Color\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References HSVColor\+::clear(), Leds\+::clear\+All(), Modes\+::cur\+Mode(), DELETE\+\_\+\+CYCLE\+\_\+\+TICKS, DELETE\+\_\+\+THRESHOLD\+\_\+\+TICKS, Colorset\+::equals(), g\+\_\+p\+Button, Mode\+::get\+Colorset(), Button\+::hold\+Duration(), HSVColor\+::hue, Mode\+::init(), Menu\+::leave\+Menu(), m\+\_\+colorset, m\+\_\+cur\+Page, Menu\+::m\+\_\+cur\+Selection, m\+\_\+new\+Color, m\+\_\+quadrant, m\+\_\+slot, m\+\_\+state, Menu\+::m\+\_\+target\+Leds, MAP\+\_\+\+IS\+\_\+\+ONE\+\_\+\+LED, map\+Get\+First\+Led(), Colorset\+::num\+Colors(), PAGE\+\_\+\+SIZE, QUADRANT\+\_\+\+FIRST, QUADRANT\+\_\+\+LAST, Colorset\+::remove\+Color(), HSVColor\+::sat, sats, Colorset\+::set(), Mode\+::set\+Colorset\+Map(), STATE\+\_\+\+PICK\+\_\+\+HUE1, STATE\+\_\+\+PICK\+\_\+\+HUE2, STATE\+\_\+\+PICK\+\_\+\+SAT, STATE\+\_\+\+PICK\+\_\+\+SLOT, STATE\+\_\+\+PICK\+\_\+\+VAL, HSVColor\+::val, and vals.
+References HSVColor\+::clear(), Leds\+::clear\+All(), Modes\+::cur\+Mode(), DELETE\+\_\+\+CYCLE\+\_\+\+TICKS, DELETE\+\_\+\+THRESHOLD\+\_\+\+TICKS, Colorset\+::equals(), g\+\_\+p\+Button, Mode\+::get\+Colorset(), Button\+::hold\+Duration(), HSVColor\+::hue, Mode\+::init(), Menu\+::leave\+Menu(), ledmap\+Get\+First\+Led(), m\+\_\+colorset, m\+\_\+cur\+Page, Menu\+::m\+\_\+cur\+Selection, m\+\_\+new\+Color, m\+\_\+quadrant, m\+\_\+slot, m\+\_\+state, Menu\+::m\+\_\+target\+Leds, MAP\+\_\+\+IS\+\_\+\+ONE\+\_\+\+LED, Colorset\+::num\+Colors(), PAGE\+\_\+\+SIZE, QUADRANT\+\_\+\+FIRST, QUADRANT\+\_\+\+LAST, Colorset\+::remove\+Color(), HSVColor\+::sat, sats, Colorset\+::set(), Mode\+::set\+Colorset\+Map(), STATE\+\_\+\+PICK\+\_\+\+HUE1, STATE\+\_\+\+PICK\+\_\+\+HUE2, STATE\+\_\+\+PICK\+\_\+\+SAT, STATE\+\_\+\+PICK\+\_\+\+SLOT, STATE\+\_\+\+PICK\+\_\+\+VAL, HSVColor\+::val, and vals.
 
 \mbox{\Hypertarget{classColorSelect_a9908455b3d63e664206c3bc055d23278}\label{classColorSelect_a9908455b3d63e664206c3bc055d23278}} 
 \index{ColorSelect@{ColorSelect}!onLongClick2@{onLongClick2}}
@@ -652,7 +682,7 @@ Definition at line 60 of file Color\+Select.\+cpp.
 \DoxyCodeLine{82     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}} == \mbox{\hyperlink{LedTypes_8h_ac9a910b2dc4fabac704e56a0fcb3b97e}{MAP\_LED\_ALL}}) \{}
 \DoxyCodeLine{83       \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}} = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}()-\/>\mbox{\hyperlink{classMode_a1f063952effb576d5597fa83eccea96c}{getColorset}}();}
 \DoxyCodeLine{84     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{85       \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}} = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}()-\/>\mbox{\hyperlink{classMode_a1f063952effb576d5597fa83eccea96c}{getColorset}}(\mbox{\hyperlink{LedTypes_8h_a8f394c70246f75bd9452c7cea69a4b19}{mapGetFirstLed}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}));}
+\DoxyCodeLine{85       \mbox{\hyperlink{classColorSelect_a4d7461c1acff67f5497e1b43f3d71422}{m\_colorset}} = \mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}()-\/>\mbox{\hyperlink{classMode_a1f063952effb576d5597fa83eccea96c}{getColorset}}(\mbox{\hyperlink{LedTypes_8h_ae8d7e271028055f745f7b1247f080dce}{ledmapGetFirstLed}}(\mbox{\hyperlink{classMenu_ab2586ae2b8c777db240885bd000ea57d}{m\_targetLeds}}));}
 \DoxyCodeLine{86     \}}
 \DoxyCodeLine{87     \textcolor{comment}{// move on to picking slot}}
 \DoxyCodeLine{88     \mbox{\hyperlink{classColorSelect_a9c4e59f3a40a22ba28f235d4226f613e}{m\_state}} = \mbox{\hyperlink{classColorSelect_a9199d6da07fbbeb3930e92d674c060eaa654acaea4cddd708556eaebc0599351c}{STATE\_PICK\_SLOT}};}
@@ -677,7 +707,7 @@ Definition at line 60 of file Color\+Select.\+cpp.
 \end{DoxyCode}
 
 
-References blink\+Selection(), Leds\+::clear\+All(), Modes\+::cur\+Mode(), Mode\+::get\+Colorset(), m\+\_\+colorset, m\+\_\+cur\+Page, m\+\_\+new\+Color, m\+\_\+quadrant, m\+\_\+slot, m\+\_\+state, Menu\+::m\+\_\+target\+Leds, MAP\+\_\+\+LED\+\_\+\+ALL, map\+Get\+First\+Led(), Menu\+::\+MENU\+\_\+\+CONTINUE, Menu\+::run(), show\+Selection(), show\+Slot\+Selection(), STATE\+\_\+\+INIT, STATE\+\_\+\+PICK\+\_\+\+HUE1, STATE\+\_\+\+PICK\+\_\+\+HUE2, STATE\+\_\+\+PICK\+\_\+\+SAT, STATE\+\_\+\+PICK\+\_\+\+SLOT, and STATE\+\_\+\+PICK\+\_\+\+VAL.
+References blink\+Selection(), Leds\+::clear\+All(), Modes\+::cur\+Mode(), Mode\+::get\+Colorset(), ledmap\+Get\+First\+Led(), m\+\_\+colorset, m\+\_\+cur\+Page, m\+\_\+new\+Color, m\+\_\+quadrant, m\+\_\+slot, m\+\_\+state, Menu\+::m\+\_\+target\+Leds, MAP\+\_\+\+LED\+\_\+\+ALL, Menu\+::\+MENU\+\_\+\+CONTINUE, Menu\+::run(), show\+Selection(), show\+Slot\+Selection(), STATE\+\_\+\+INIT, STATE\+\_\+\+PICK\+\_\+\+HUE1, STATE\+\_\+\+PICK\+\_\+\+HUE2, STATE\+\_\+\+PICK\+\_\+\+SAT, STATE\+\_\+\+PICK\+\_\+\+SLOT, and STATE\+\_\+\+PICK\+\_\+\+VAL.
 
 \mbox{\Hypertarget{classColorSelect_a621cb2f5c6d1a713c22ffccf0144784e}\label{classColorSelect_a621cb2f5c6d1a713c22ffccf0144784e}} 
 \index{ColorSelect@{ColorSelect}!showSelection@{showSelection}}
@@ -778,7 +808,7 @@ Referenced by run().
 
 
 
-Definition at line 72 of file Color\+Select.\+h.
+Definition at line 75 of file Color\+Select.\+h.
 
 
 
@@ -792,7 +822,7 @@ Referenced by blink\+Selection(), on\+Long\+Click(), on\+Short\+Click(), on\+Sho
 
 
 
-Definition at line 75 of file Color\+Select.\+h.
+Definition at line 78 of file Color\+Select.\+h.
 
 
 
@@ -806,7 +836,7 @@ Referenced by on\+Long\+Click(), on\+Long\+Click2(), on\+Short\+Click(), on\+Sho
 
 
 
-Definition at line 84 of file Color\+Select.\+h.
+Definition at line 87 of file Color\+Select.\+h.
 
 
 
@@ -820,7 +850,7 @@ Referenced by on\+Long\+Click(), run(), and show\+Selection().
 
 
 
-Definition at line 81 of file Color\+Select.\+h.
+Definition at line 84 of file Color\+Select.\+h.
 
 
 
@@ -834,7 +864,7 @@ Referenced by on\+Long\+Click(), run(), and show\+Selection().
 
 
 
-Definition at line 78 of file Color\+Select.\+h.
+Definition at line 81 of file Color\+Select.\+h.
 
 
 
@@ -848,7 +878,7 @@ Referenced by blink\+Selection(), on\+Long\+Click(), on\+Long\+Click2(), on\+Sho
 
 
 
-Definition at line 69 of file Color\+Select.\+h.
+Definition at line 72 of file Color\+Select.\+h.
 
 
 
@@ -872,7 +902,7 @@ Referenced by blink\+Selection(), init(), on\+Long\+Click(), on\+Long\+Click2(),
 \end{DoxyCode}
 
 
-Definition at line 53 of file Color\+Select.\+h.
+Definition at line 56 of file Color\+Select.\+h.
 
 
 
@@ -896,7 +926,7 @@ Referenced by on\+Long\+Click(), and show\+Selection().
 \end{DoxyCode}
 
 
-Definition at line 61 of file Color\+Select.\+h.
+Definition at line 64 of file Color\+Select.\+h.
 
 
 

@@ -99,51 +99,51 @@ Definition at line 9 of file Color\+Types.\+h.
 
 
 
-Definition at line 487 of file Color\+Types.\+cpp.
+Definition at line 501 of file Color\+Types.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{488 \{}
-\DoxyCodeLine{489   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} region, remainder, p, q, t;}
-\DoxyCodeLine{490   \mbox{\hyperlink{classRGBColor}{RGBColor}} col;}
-\DoxyCodeLine{491 }
-\DoxyCodeLine{492   \textcolor{keywordflow}{if} (rhs.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}} == 0) \{}
-\DoxyCodeLine{493     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
-\DoxyCodeLine{494     col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
-\DoxyCodeLine{495     col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
-\DoxyCodeLine{496     \textcolor{keywordflow}{return} col;}
-\DoxyCodeLine{497   \}}
-\DoxyCodeLine{498 }
-\DoxyCodeLine{499   region = rhs.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} / 43;}
-\DoxyCodeLine{500   remainder = ((rhs.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} -\/ (region * 43)) * 6);}
-\DoxyCodeLine{501 }
-\DoxyCodeLine{502   \textcolor{comment}{// extraneous casts to uint16\_t are to prevent overflow}}
-\DoxyCodeLine{503   p = (uint8\_t)(((uint16\_t)(rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}) * (255 -\/ rhs.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}})) >> 8);}
-\DoxyCodeLine{504   q = (uint8\_t)(((uint16\_t)(rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}) * (255 -\/ (((uint16\_t)(rhs.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}}) * remainder) >> 8))) >> 8);}
-\DoxyCodeLine{505   t = (uint8\_t)(((uint16\_t)(rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}) * (255 -\/ (((uint16\_t)(rhs.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}}) * (255 -\/ remainder)) >> 8))) >> 8);}
-\DoxyCodeLine{506 }
-\DoxyCodeLine{507   \textcolor{keywordflow}{switch} (region) \{}
-\DoxyCodeLine{508   \textcolor{keywordflow}{case} 0:}
-\DoxyCodeLine{509     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}; col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = t; col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = p;}
-\DoxyCodeLine{510     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{511   \textcolor{keywordflow}{case} 1:}
-\DoxyCodeLine{512     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = q; col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}; col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = p;}
-\DoxyCodeLine{513     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{514   \textcolor{keywordflow}{case} 2:}
-\DoxyCodeLine{515     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = p; col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}; col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = t;}
-\DoxyCodeLine{516     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{517   \textcolor{keywordflow}{case} 3:}
-\DoxyCodeLine{518     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = p; col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = q; col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
-\DoxyCodeLine{519     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{520   \textcolor{keywordflow}{case} 4:}
-\DoxyCodeLine{521     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = t; col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = p; col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
-\DoxyCodeLine{522     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{523   \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{524     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}; col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = p; col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = q;}
-\DoxyCodeLine{525     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{526   \}}
-\DoxyCodeLine{527   \textcolor{keywordflow}{return} col;}
-\DoxyCodeLine{528 \}}
+\DoxyCodeLine{502 \{}
+\DoxyCodeLine{503   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} region, remainder, p, q, t;}
+\DoxyCodeLine{504   \mbox{\hyperlink{classRGBColor}{RGBColor}} col;}
+\DoxyCodeLine{505 }
+\DoxyCodeLine{506   \textcolor{keywordflow}{if} (rhs.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}} == 0) \{}
+\DoxyCodeLine{507     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
+\DoxyCodeLine{508     col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
+\DoxyCodeLine{509     col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
+\DoxyCodeLine{510     \textcolor{keywordflow}{return} col;}
+\DoxyCodeLine{511   \}}
+\DoxyCodeLine{512 }
+\DoxyCodeLine{513   region = rhs.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} / 43;}
+\DoxyCodeLine{514   remainder = ((rhs.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} -\/ (region * 43)) * 6);}
+\DoxyCodeLine{515 }
+\DoxyCodeLine{516   \textcolor{comment}{// extraneous casts to uint16\_t are to prevent overflow}}
+\DoxyCodeLine{517   p = (uint8\_t)(((uint16\_t)(rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}) * (255 -\/ rhs.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}})) >> 8);}
+\DoxyCodeLine{518   q = (uint8\_t)(((uint16\_t)(rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}) * (255 -\/ (((uint16\_t)(rhs.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}}) * remainder) >> 8))) >> 8);}
+\DoxyCodeLine{519   t = (uint8\_t)(((uint16\_t)(rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}) * (255 -\/ (((uint16\_t)(rhs.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}}) * (255 -\/ remainder)) >> 8))) >> 8);}
+\DoxyCodeLine{520 }
+\DoxyCodeLine{521   \textcolor{keywordflow}{switch} (region) \{}
+\DoxyCodeLine{522   \textcolor{keywordflow}{case} 0:}
+\DoxyCodeLine{523     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}; col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = t; col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = p;}
+\DoxyCodeLine{524     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{525   \textcolor{keywordflow}{case} 1:}
+\DoxyCodeLine{526     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = q; col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}; col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = p;}
+\DoxyCodeLine{527     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{528   \textcolor{keywordflow}{case} 2:}
+\DoxyCodeLine{529     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = p; col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}; col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = t;}
+\DoxyCodeLine{530     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{531   \textcolor{keywordflow}{case} 3:}
+\DoxyCodeLine{532     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = p; col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = q; col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
+\DoxyCodeLine{533     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{534   \textcolor{keywordflow}{case} 4:}
+\DoxyCodeLine{535     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = t; col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = p; col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
+\DoxyCodeLine{536     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{537   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{538     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}}; col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = p; col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = q;}
+\DoxyCodeLine{539     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{540   \}}
+\DoxyCodeLine{541   \textcolor{keywordflow}{return} col;}
+\DoxyCodeLine{542 \}}
 
 \end{DoxyCode}
 
@@ -162,181 +162,181 @@ Referenced by RGBColor\+::operator=(), and Hue\+Shift\+Pattern\+::play().
 
 
 
-Definition at line 224 of file Color\+Types.\+cpp.
+Definition at line 238 of file Color\+Types.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{225 \{}
-\DoxyCodeLine{226   \mbox{\hyperlink{classRGBColor}{RGBColor}} col;}
-\DoxyCodeLine{227   \textcolor{comment}{// Yellow has a higher inherent brightness than}}
-\DoxyCodeLine{228   \textcolor{comment}{// any other color; 'pure' yellow is perceived to}}
-\DoxyCodeLine{229   \textcolor{comment}{// be 93\% as bright as white.  In order to make}}
-\DoxyCodeLine{230   \textcolor{comment}{// yellow appear the correct relative brightness,}}
-\DoxyCodeLine{231   \textcolor{comment}{// it has to be rendered brighter than all other}}
-\DoxyCodeLine{232   \textcolor{comment}{// colors.}}
-\DoxyCodeLine{233   \textcolor{comment}{// Level Y1 is a moderate boost, the default.}}
-\DoxyCodeLine{234   \textcolor{comment}{// Level Y2 is a strong boost.}}
-\DoxyCodeLine{235   \textcolor{keyword}{const} uint8\_t Y1 = 1;}
-\DoxyCodeLine{236   \textcolor{keyword}{const} uint8\_t Y2 = 0;}
-\DoxyCodeLine{237 }
-\DoxyCodeLine{238   \textcolor{comment}{// G2: Whether to divide all greens by two.}}
-\DoxyCodeLine{239   \textcolor{comment}{// Depends GREATLY on your particular LEDs}}
-\DoxyCodeLine{240   \textcolor{keyword}{const} uint8\_t G2 = 0;}
-\DoxyCodeLine{241 }
-\DoxyCodeLine{242   \textcolor{comment}{// Gscale: what to scale green down by.}}
-\DoxyCodeLine{243   \textcolor{comment}{// Depends GREATLY on your particular LEDs}}
-\DoxyCodeLine{244   \textcolor{keyword}{const} uint8\_t Gscale = 185;}
-\DoxyCodeLine{245 }
-\DoxyCodeLine{246 }
-\DoxyCodeLine{247   uint8\_t hue = rhs.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}};}
-\DoxyCodeLine{248   uint8\_t sat = rhs.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}};}
-\DoxyCodeLine{249   uint8\_t val = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
-\DoxyCodeLine{250 }
-\DoxyCodeLine{251   uint8\_t offset = hue \& 0x1F; \textcolor{comment}{// 0..31}}
-\DoxyCodeLine{252 }
-\DoxyCodeLine{253   \textcolor{comment}{// offset8 = offset * 8}}
-\DoxyCodeLine{254   uint8\_t offset8 = offset;}
-\DoxyCodeLine{255   offset8 <<= 3;}
-\DoxyCodeLine{256 }
-\DoxyCodeLine{257   uint8\_t third = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(offset8, (256 / 3)); \textcolor{comment}{// max = 85}}
-\DoxyCodeLine{258   uint8\_t r, g, b;}
-\DoxyCodeLine{259   \textcolor{keywordflow}{if} (!(hue \& 0x80)) \{}
-\DoxyCodeLine{260     \textcolor{comment}{// 0XX}}
-\DoxyCodeLine{261     \textcolor{keywordflow}{if} (!(hue \& 0x40)) \{}
-\DoxyCodeLine{262       \textcolor{comment}{// 00X}}
-\DoxyCodeLine{263       \textcolor{comment}{//section 0-\/1}}
-\DoxyCodeLine{264       \textcolor{keywordflow}{if} (!(hue \& 0x20)) \{}
-\DoxyCodeLine{265         \textcolor{comment}{// 000}}
-\DoxyCodeLine{266         \textcolor{comment}{//case 0: // R -\/> O}}
-\DoxyCodeLine{267         r = 255 -\/ third;}
-\DoxyCodeLine{268         g = third;}
-\DoxyCodeLine{269         b = 0;}
-\DoxyCodeLine{270       \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{271         \textcolor{comment}{// 001}}
-\DoxyCodeLine{272         \textcolor{comment}{//case 1: // O -\/> Y}}
-\DoxyCodeLine{273         \textcolor{keywordflow}{if} (Y1) \{}
-\DoxyCodeLine{274           r = 171;}
-\DoxyCodeLine{275           g = 85 + third;}
-\DoxyCodeLine{276           b = 0;}
-\DoxyCodeLine{277         \}}
-\DoxyCodeLine{278         \textcolor{keywordflow}{if} (Y2) \{}
-\DoxyCodeLine{279           r = 170 + third;}
-\DoxyCodeLine{280           \textcolor{comment}{//uint8\_t twothirds = (third << 1);}}
-\DoxyCodeLine{281           uint8\_t twothirds = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(offset8, ((256 * 2) / 3)); \textcolor{comment}{// max=170}}
-\DoxyCodeLine{282           g = 85 + twothirds;}
-\DoxyCodeLine{283           b = 0;}
-\DoxyCodeLine{284         \}}
-\DoxyCodeLine{285       \}}
-\DoxyCodeLine{286     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{287       \textcolor{comment}{//01X}}
-\DoxyCodeLine{288       \textcolor{comment}{// section 2-\/3}}
-\DoxyCodeLine{289       \textcolor{keywordflow}{if} (!(hue \& 0x20)) \{}
-\DoxyCodeLine{290         \textcolor{comment}{// 010}}
-\DoxyCodeLine{291         \textcolor{comment}{//case 2: // Y -\/> G}}
-\DoxyCodeLine{292         \textcolor{keywordflow}{if} (Y1) \{}
-\DoxyCodeLine{293           \textcolor{comment}{//uint8\_t twothirds = (third << 1);}}
-\DoxyCodeLine{294           uint8\_t twothirds = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(offset8, ((256 * 2) / 3)); \textcolor{comment}{// max=170}}
-\DoxyCodeLine{295           r = 171 -\/ twothirds;}
-\DoxyCodeLine{296           g = 170 + third;}
+\DoxyCodeLine{239 \{}
+\DoxyCodeLine{240   \mbox{\hyperlink{classRGBColor}{RGBColor}} col;}
+\DoxyCodeLine{241   \textcolor{comment}{// Yellow has a higher inherent brightness than}}
+\DoxyCodeLine{242   \textcolor{comment}{// any other color; 'pure' yellow is perceived to}}
+\DoxyCodeLine{243   \textcolor{comment}{// be 93\% as bright as white.  In order to make}}
+\DoxyCodeLine{244   \textcolor{comment}{// yellow appear the correct relative brightness,}}
+\DoxyCodeLine{245   \textcolor{comment}{// it has to be rendered brighter than all other}}
+\DoxyCodeLine{246   \textcolor{comment}{// colors.}}
+\DoxyCodeLine{247   \textcolor{comment}{// Level Y1 is a moderate boost, the default.}}
+\DoxyCodeLine{248   \textcolor{comment}{// Level Y2 is a strong boost.}}
+\DoxyCodeLine{249   \textcolor{keyword}{const} uint8\_t Y1 = 1;}
+\DoxyCodeLine{250   \textcolor{keyword}{const} uint8\_t Y2 = 0;}
+\DoxyCodeLine{251 }
+\DoxyCodeLine{252   \textcolor{comment}{// G2: Whether to divide all greens by two.}}
+\DoxyCodeLine{253   \textcolor{comment}{// Depends GREATLY on your particular LEDs}}
+\DoxyCodeLine{254   \textcolor{keyword}{const} uint8\_t G2 = 0;}
+\DoxyCodeLine{255 }
+\DoxyCodeLine{256   \textcolor{comment}{// Gscale: what to scale green down by.}}
+\DoxyCodeLine{257   \textcolor{comment}{// Depends GREATLY on your particular LEDs}}
+\DoxyCodeLine{258   \textcolor{keyword}{const} uint8\_t Gscale = 185;}
+\DoxyCodeLine{259 }
+\DoxyCodeLine{260 }
+\DoxyCodeLine{261   uint8\_t hue = rhs.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}};}
+\DoxyCodeLine{262   uint8\_t sat = rhs.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}};}
+\DoxyCodeLine{263   uint8\_t val = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
+\DoxyCodeLine{264 }
+\DoxyCodeLine{265   uint8\_t offset = hue \& 0x1F; \textcolor{comment}{// 0..31}}
+\DoxyCodeLine{266 }
+\DoxyCodeLine{267   \textcolor{comment}{// offset8 = offset * 8}}
+\DoxyCodeLine{268   uint8\_t offset8 = offset;}
+\DoxyCodeLine{269   offset8 <<= 3;}
+\DoxyCodeLine{270 }
+\DoxyCodeLine{271   uint8\_t third = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(offset8, (256 / 3)); \textcolor{comment}{// max = 85}}
+\DoxyCodeLine{272   uint8\_t r, g, b;}
+\DoxyCodeLine{273   \textcolor{keywordflow}{if} (!(hue \& 0x80)) \{}
+\DoxyCodeLine{274     \textcolor{comment}{// 0XX}}
+\DoxyCodeLine{275     \textcolor{keywordflow}{if} (!(hue \& 0x40)) \{}
+\DoxyCodeLine{276       \textcolor{comment}{// 00X}}
+\DoxyCodeLine{277       \textcolor{comment}{//section 0-\/1}}
+\DoxyCodeLine{278       \textcolor{keywordflow}{if} (!(hue \& 0x20)) \{}
+\DoxyCodeLine{279         \textcolor{comment}{// 000}}
+\DoxyCodeLine{280         \textcolor{comment}{//case 0: // R -\/> O}}
+\DoxyCodeLine{281         r = 255 -\/ third;}
+\DoxyCodeLine{282         g = third;}
+\DoxyCodeLine{283         b = 0;}
+\DoxyCodeLine{284       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{285         \textcolor{comment}{// 001}}
+\DoxyCodeLine{286         \textcolor{comment}{//case 1: // O -\/> Y}}
+\DoxyCodeLine{287         \textcolor{keywordflow}{if} (Y1) \{}
+\DoxyCodeLine{288           r = 171;}
+\DoxyCodeLine{289           g = 85 + third;}
+\DoxyCodeLine{290           b = 0;}
+\DoxyCodeLine{291         \}}
+\DoxyCodeLine{292         \textcolor{keywordflow}{if} (Y2) \{}
+\DoxyCodeLine{293           r = 170 + third;}
+\DoxyCodeLine{294           \textcolor{comment}{//uint8\_t twothirds = (third << 1);}}
+\DoxyCodeLine{295           uint8\_t twothirds = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(offset8, ((256 * 2) / 3)); \textcolor{comment}{// max=170}}
+\DoxyCodeLine{296           g = 85 + twothirds;}
 \DoxyCodeLine{297           b = 0;}
 \DoxyCodeLine{298         \}}
-\DoxyCodeLine{299         \textcolor{keywordflow}{if} (Y2) \{}
-\DoxyCodeLine{300           r = 255 -\/ offset8;}
-\DoxyCodeLine{301           g = 255;}
-\DoxyCodeLine{302           b = 0;}
-\DoxyCodeLine{303         \}}
-\DoxyCodeLine{304       \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{305         \textcolor{comment}{// 011}}
-\DoxyCodeLine{306         \textcolor{comment}{// case 3: // G -\/> A}}
-\DoxyCodeLine{307         r = 0;}
-\DoxyCodeLine{308         g = 255 -\/ third;}
-\DoxyCodeLine{309         b = third;}
-\DoxyCodeLine{310       \}}
-\DoxyCodeLine{311     \}}
-\DoxyCodeLine{312   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{313     \textcolor{comment}{// section 4-\/7}}
-\DoxyCodeLine{314     \textcolor{comment}{// 1XX}}
-\DoxyCodeLine{315     \textcolor{keywordflow}{if} (!(hue \& 0x40)) \{}
-\DoxyCodeLine{316       \textcolor{comment}{// 10X}}
-\DoxyCodeLine{317       \textcolor{keywordflow}{if} (!(hue \& 0x20)) \{}
-\DoxyCodeLine{318         \textcolor{comment}{// 100}}
-\DoxyCodeLine{319         \textcolor{comment}{//case 4: // A -\/> B}}
-\DoxyCodeLine{320         r = 0;}
-\DoxyCodeLine{321         \textcolor{comment}{//uint8\_t twothirds = (third << 1);}}
-\DoxyCodeLine{322         uint8\_t twothirds = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(offset8, ((256 * 2) / 3)); \textcolor{comment}{// max=170}}
-\DoxyCodeLine{323         g = 171 -\/ twothirds; \textcolor{comment}{//170?}}
-\DoxyCodeLine{324         b = 85 + twothirds;}
-\DoxyCodeLine{325       \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{326         \textcolor{comment}{// 101}}
-\DoxyCodeLine{327         \textcolor{comment}{//case 5: // B -\/> P}}
-\DoxyCodeLine{328         r = third;}
-\DoxyCodeLine{329         g = 0;}
-\DoxyCodeLine{330         b = 255 -\/ third;}
-\DoxyCodeLine{331       \}}
-\DoxyCodeLine{332     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{333       \textcolor{keywordflow}{if} (!(hue \& 0x20)) \{}
-\DoxyCodeLine{334         \textcolor{comment}{// 110}}
-\DoxyCodeLine{335         \textcolor{comment}{//case 6: // P -\/-\/ K}}
-\DoxyCodeLine{336         r = 85 + third;}
-\DoxyCodeLine{337         g = 0;}
-\DoxyCodeLine{338         b = 171 -\/ third;}
+\DoxyCodeLine{299       \}}
+\DoxyCodeLine{300     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{301       \textcolor{comment}{//01X}}
+\DoxyCodeLine{302       \textcolor{comment}{// section 2-\/3}}
+\DoxyCodeLine{303       \textcolor{keywordflow}{if} (!(hue \& 0x20)) \{}
+\DoxyCodeLine{304         \textcolor{comment}{// 010}}
+\DoxyCodeLine{305         \textcolor{comment}{//case 2: // Y -\/> G}}
+\DoxyCodeLine{306         \textcolor{keywordflow}{if} (Y1) \{}
+\DoxyCodeLine{307           \textcolor{comment}{//uint8\_t twothirds = (third << 1);}}
+\DoxyCodeLine{308           uint8\_t twothirds = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(offset8, ((256 * 2) / 3)); \textcolor{comment}{// max=170}}
+\DoxyCodeLine{309           r = 171 -\/ twothirds;}
+\DoxyCodeLine{310           g = 170 + third;}
+\DoxyCodeLine{311           b = 0;}
+\DoxyCodeLine{312         \}}
+\DoxyCodeLine{313         \textcolor{keywordflow}{if} (Y2) \{}
+\DoxyCodeLine{314           r = 255 -\/ offset8;}
+\DoxyCodeLine{315           g = 255;}
+\DoxyCodeLine{316           b = 0;}
+\DoxyCodeLine{317         \}}
+\DoxyCodeLine{318       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{319         \textcolor{comment}{// 011}}
+\DoxyCodeLine{320         \textcolor{comment}{// case 3: // G -\/> A}}
+\DoxyCodeLine{321         r = 0;}
+\DoxyCodeLine{322         g = 255 -\/ third;}
+\DoxyCodeLine{323         b = third;}
+\DoxyCodeLine{324       \}}
+\DoxyCodeLine{325     \}}
+\DoxyCodeLine{326   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{327     \textcolor{comment}{// section 4-\/7}}
+\DoxyCodeLine{328     \textcolor{comment}{// 1XX}}
+\DoxyCodeLine{329     \textcolor{keywordflow}{if} (!(hue \& 0x40)) \{}
+\DoxyCodeLine{330       \textcolor{comment}{// 10X}}
+\DoxyCodeLine{331       \textcolor{keywordflow}{if} (!(hue \& 0x20)) \{}
+\DoxyCodeLine{332         \textcolor{comment}{// 100}}
+\DoxyCodeLine{333         \textcolor{comment}{//case 4: // A -\/> B}}
+\DoxyCodeLine{334         r = 0;}
+\DoxyCodeLine{335         \textcolor{comment}{//uint8\_t twothirds = (third << 1);}}
+\DoxyCodeLine{336         uint8\_t twothirds = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(offset8, ((256 * 2) / 3)); \textcolor{comment}{// max=170}}
+\DoxyCodeLine{337         g = 171 -\/ twothirds; \textcolor{comment}{//170?}}
+\DoxyCodeLine{338         b = 85 + twothirds;}
 \DoxyCodeLine{339       \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{340         \textcolor{comment}{// 111}}
-\DoxyCodeLine{341         \textcolor{comment}{//case 7: // K -\/> R}}
-\DoxyCodeLine{342         r = 170 + third;}
+\DoxyCodeLine{340         \textcolor{comment}{// 101}}
+\DoxyCodeLine{341         \textcolor{comment}{//case 5: // B -\/> P}}
+\DoxyCodeLine{342         r = third;}
 \DoxyCodeLine{343         g = 0;}
-\DoxyCodeLine{344         b = 85 -\/ third;}
+\DoxyCodeLine{344         b = 255 -\/ third;}
 \DoxyCodeLine{345       \}}
-\DoxyCodeLine{346     \}}
-\DoxyCodeLine{347   \}}
-\DoxyCodeLine{348 }
-\DoxyCodeLine{349   \textcolor{comment}{// This is one of the good places to scale the green down,}}
-\DoxyCodeLine{350   \textcolor{comment}{// although the client can scale green down as well.}}
-\DoxyCodeLine{351   \textcolor{keywordflow}{if} (G2) g = g >> 1;}
-\DoxyCodeLine{352   \textcolor{keywordflow}{if} (Gscale) g = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(g, Gscale);}
-\DoxyCodeLine{353 }
-\DoxyCodeLine{354   \textcolor{comment}{// Scale down colors if we're desaturated at all}}
-\DoxyCodeLine{355   \textcolor{comment}{// and add the brightness\_floor to r, g, and b.}}
-\DoxyCodeLine{356   \textcolor{keywordflow}{if} (sat != 255) \{}
-\DoxyCodeLine{357     \textcolor{keywordflow}{if} (sat == 0) \{}
-\DoxyCodeLine{358       r = 255; b = 255; g = 255;}
-\DoxyCodeLine{359     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{360       \textcolor{keywordflow}{if} (r) r = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(r, sat) + 1;}
-\DoxyCodeLine{361       \textcolor{keywordflow}{if} (g) g = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(g, sat) + 1;}
-\DoxyCodeLine{362       \textcolor{keywordflow}{if} (b) b = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(b, sat) + 1;}
-\DoxyCodeLine{363 }
-\DoxyCodeLine{364       uint8\_t desat = 255 -\/ sat;}
-\DoxyCodeLine{365       desat = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(desat, desat);}
-\DoxyCodeLine{366 }
-\DoxyCodeLine{367       uint8\_t brightness\_floor = desat;}
-\DoxyCodeLine{368       r += brightness\_floor;}
-\DoxyCodeLine{369       g += brightness\_floor;}
-\DoxyCodeLine{370       b += brightness\_floor;}
-\DoxyCodeLine{371     \}}
-\DoxyCodeLine{372   \}}
-\DoxyCodeLine{373 }
-\DoxyCodeLine{374   \textcolor{comment}{// Now scale everything down if we're at value < 255.}}
-\DoxyCodeLine{375   \textcolor{keywordflow}{if} (val != 255) \{}
-\DoxyCodeLine{376     val = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(val, val);}
-\DoxyCodeLine{377     \textcolor{keywordflow}{if} (val == 0) \{}
-\DoxyCodeLine{378       r = 0; g = 0; b = 0;}
-\DoxyCodeLine{379     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{380       \textcolor{comment}{// nSCALE8x3\_video( r, g, b, val);}}
-\DoxyCodeLine{381       \textcolor{keywordflow}{if} (r) r = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(r, val) + 1;}
-\DoxyCodeLine{382       \textcolor{keywordflow}{if} (g) g = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(g, val) + 1;}
-\DoxyCodeLine{383       \textcolor{keywordflow}{if} (b) b = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(b, val) + 1;}
-\DoxyCodeLine{384     \}}
-\DoxyCodeLine{385   \}}
-\DoxyCodeLine{386 }
-\DoxyCodeLine{387   \textcolor{comment}{// Here we have the old AVR "{}missing std X+n"{} problem again}}
-\DoxyCodeLine{388   \textcolor{comment}{// It turns out that fixing it winds up costing more than}}
-\DoxyCodeLine{389   \textcolor{comment}{// not fixing it.}}
-\DoxyCodeLine{390   \textcolor{comment}{// To paraphrase Dr Bronner, profile! profile! profile!}}
-\DoxyCodeLine{391   col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = r;}
-\DoxyCodeLine{392   col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = g;}
-\DoxyCodeLine{393   col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = b;}
-\DoxyCodeLine{394   \textcolor{keywordflow}{return} col;}
-\DoxyCodeLine{395 \}}
+\DoxyCodeLine{346     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{347       \textcolor{keywordflow}{if} (!(hue \& 0x20)) \{}
+\DoxyCodeLine{348         \textcolor{comment}{// 110}}
+\DoxyCodeLine{349         \textcolor{comment}{//case 6: // P -\/-\/ K}}
+\DoxyCodeLine{350         r = 85 + third;}
+\DoxyCodeLine{351         g = 0;}
+\DoxyCodeLine{352         b = 171 -\/ third;}
+\DoxyCodeLine{353       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{354         \textcolor{comment}{// 111}}
+\DoxyCodeLine{355         \textcolor{comment}{//case 7: // K -\/> R}}
+\DoxyCodeLine{356         r = 170 + third;}
+\DoxyCodeLine{357         g = 0;}
+\DoxyCodeLine{358         b = 85 -\/ third;}
+\DoxyCodeLine{359       \}}
+\DoxyCodeLine{360     \}}
+\DoxyCodeLine{361   \}}
+\DoxyCodeLine{362 }
+\DoxyCodeLine{363   \textcolor{comment}{// This is one of the good places to scale the green down,}}
+\DoxyCodeLine{364   \textcolor{comment}{// although the client can scale green down as well.}}
+\DoxyCodeLine{365   \textcolor{keywordflow}{if} (G2) g = g >> 1;}
+\DoxyCodeLine{366   \textcolor{keywordflow}{if} (Gscale) g = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(g, Gscale);}
+\DoxyCodeLine{367 }
+\DoxyCodeLine{368   \textcolor{comment}{// Scale down colors if we're desaturated at all}}
+\DoxyCodeLine{369   \textcolor{comment}{// and add the brightness\_floor to r, g, and b.}}
+\DoxyCodeLine{370   \textcolor{keywordflow}{if} (sat != 255) \{}
+\DoxyCodeLine{371     \textcolor{keywordflow}{if} (sat == 0) \{}
+\DoxyCodeLine{372       r = 255; b = 255; g = 255;}
+\DoxyCodeLine{373     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{374       \textcolor{keywordflow}{if} (r) r = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(r, sat) + 1;}
+\DoxyCodeLine{375       \textcolor{keywordflow}{if} (g) g = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(g, sat) + 1;}
+\DoxyCodeLine{376       \textcolor{keywordflow}{if} (b) b = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(b, sat) + 1;}
+\DoxyCodeLine{377 }
+\DoxyCodeLine{378       uint8\_t desat = 255 -\/ sat;}
+\DoxyCodeLine{379       desat = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(desat, desat);}
+\DoxyCodeLine{380 }
+\DoxyCodeLine{381       uint8\_t brightness\_floor = desat;}
+\DoxyCodeLine{382       r += brightness\_floor;}
+\DoxyCodeLine{383       g += brightness\_floor;}
+\DoxyCodeLine{384       b += brightness\_floor;}
+\DoxyCodeLine{385     \}}
+\DoxyCodeLine{386   \}}
+\DoxyCodeLine{387 }
+\DoxyCodeLine{388   \textcolor{comment}{// Now scale everything down if we're at value < 255.}}
+\DoxyCodeLine{389   \textcolor{keywordflow}{if} (val != 255) \{}
+\DoxyCodeLine{390     val = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(val, val);}
+\DoxyCodeLine{391     \textcolor{keywordflow}{if} (val == 0) \{}
+\DoxyCodeLine{392       r = 0; g = 0; b = 0;}
+\DoxyCodeLine{393     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{394       \textcolor{comment}{// nSCALE8x3\_video( r, g, b, val);}}
+\DoxyCodeLine{395       \textcolor{keywordflow}{if} (r) r = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(r, val) + 1;}
+\DoxyCodeLine{396       \textcolor{keywordflow}{if} (g) g = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(g, val) + 1;}
+\DoxyCodeLine{397       \textcolor{keywordflow}{if} (b) b = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(b, val) + 1;}
+\DoxyCodeLine{398     \}}
+\DoxyCodeLine{399   \}}
+\DoxyCodeLine{400 }
+\DoxyCodeLine{401   \textcolor{comment}{// Here we have the old AVR "{}missing std X+n"{} problem again}}
+\DoxyCodeLine{402   \textcolor{comment}{// It turns out that fixing it winds up costing more than}}
+\DoxyCodeLine{403   \textcolor{comment}{// not fixing it.}}
+\DoxyCodeLine{404   \textcolor{comment}{// To paraphrase Dr Bronner, profile! profile! profile!}}
+\DoxyCodeLine{405   col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = r;}
+\DoxyCodeLine{406   col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = g;}
+\DoxyCodeLine{407   col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = b;}
+\DoxyCodeLine{408   \textcolor{keywordflow}{return} col;}
+\DoxyCodeLine{409 \}}
 
 \end{DoxyCode}
 
@@ -355,95 +355,95 @@ Referenced by RGBColor\+::operator=().
 
 
 
-Definition at line 399 of file Color\+Types.\+cpp.
+Definition at line 413 of file Color\+Types.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{400 \{}
-\DoxyCodeLine{401   \mbox{\hyperlink{classRGBColor}{RGBColor}} col;}
-\DoxyCodeLine{402   \textcolor{comment}{// Convert hue, saturation and brightness ( HSV/HSB ) to RGB}}
-\DoxyCodeLine{403   \textcolor{comment}{// "{}Dimming"{} is used on saturation and brightness to make}}
-\DoxyCodeLine{404   \textcolor{comment}{// the output more visually linear.}}
-\DoxyCodeLine{405 }
-\DoxyCodeLine{406   \textcolor{comment}{// Apply dimming curves}}
-\DoxyCodeLine{407   uint8\_t value = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
-\DoxyCodeLine{408   uint8\_t saturation = rhs.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}};}
-\DoxyCodeLine{409 }
-\DoxyCodeLine{410   \textcolor{comment}{// The brightness floor is minimum number that all of}}
-\DoxyCodeLine{411   \textcolor{comment}{// R, G, and B will be set to.}}
-\DoxyCodeLine{412   uint8\_t invsat = 255 -\/ saturation;}
-\DoxyCodeLine{413   uint8\_t brightness\_floor = (value * invsat) / 256;}
-\DoxyCodeLine{414 }
-\DoxyCodeLine{415   \textcolor{comment}{// The color amplitude is the maximum amount of R, G, and B}}
-\DoxyCodeLine{416   \textcolor{comment}{// that will be added on top of the brightness\_floor to}}
-\DoxyCodeLine{417   \textcolor{comment}{// create the specific hue desired.}}
-\DoxyCodeLine{418   uint8\_t color\_amplitude = value -\/ brightness\_floor;}
+\DoxyCodeLine{414 \{}
+\DoxyCodeLine{415   \mbox{\hyperlink{classRGBColor}{RGBColor}} col;}
+\DoxyCodeLine{416   \textcolor{comment}{// Convert hue, saturation and brightness ( HSV/HSB ) to RGB}}
+\DoxyCodeLine{417   \textcolor{comment}{// "{}Dimming"{} is used on saturation and brightness to make}}
+\DoxyCodeLine{418   \textcolor{comment}{// the output more visually linear.}}
 \DoxyCodeLine{419 }
-\DoxyCodeLine{420   \textcolor{comment}{// Figure out which section of the hue wheel we're in,}}
-\DoxyCodeLine{421   \textcolor{comment}{// and how far offset we are withing that section}}
-\DoxyCodeLine{422   uint8\_t section = rhs.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} / 0x40; \textcolor{comment}{// 0..2}}
-\DoxyCodeLine{423   uint8\_t offset = rhs.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} \% 0x40;  \textcolor{comment}{// 0..63}}
-\DoxyCodeLine{424 }
-\DoxyCodeLine{425   uint8\_t rampup = offset; \textcolor{comment}{// 0..63}}
-\DoxyCodeLine{426   uint8\_t rampdown = (0x40 -\/ 1) -\/ offset; \textcolor{comment}{// 63..0}}
-\DoxyCodeLine{427 }
-\DoxyCodeLine{428   \textcolor{comment}{// We now scale rampup and rampdown to a 0-\/255 range -\/-\/ at least}}
-\DoxyCodeLine{429   \textcolor{comment}{// in theory, but here's where architecture-\/specific decsions}}
-\DoxyCodeLine{430   \textcolor{comment}{// come in to play:}}
-\DoxyCodeLine{431   \textcolor{comment}{// To scale them up to 0-\/255, we'd want to multiply by 4.}}
-\DoxyCodeLine{432   \textcolor{comment}{// But in the very next step, we multiply the ramps by other}}
-\DoxyCodeLine{433   \textcolor{comment}{// values and then divide the resulting product by 256.}}
-\DoxyCodeLine{434   \textcolor{comment}{// So which is faster?}}
-\DoxyCodeLine{435   \textcolor{comment}{//   ((ramp * 4) * othervalue) / 256}}
-\DoxyCodeLine{436   \textcolor{comment}{// or}}
-\DoxyCodeLine{437   \textcolor{comment}{//   ((ramp    ) * othervalue) /  64}}
-\DoxyCodeLine{438   \textcolor{comment}{// It depends on your processor architecture.}}
-\DoxyCodeLine{439   \textcolor{comment}{// On 8-\/bit AVR, the "{}/ 256"{} is just a one-\/cycle register move,}}
-\DoxyCodeLine{440   \textcolor{comment}{// but the "{}/ 64"{} might be a multicycle shift process. So on AVR}}
-\DoxyCodeLine{441   \textcolor{comment}{// it's faster do multiply the ramp values by four, and then}}
-\DoxyCodeLine{442   \textcolor{comment}{// divide by 256.}}
-\DoxyCodeLine{443   \textcolor{comment}{// On ARM, the "{}/ 256"{} and "{}/ 64"{} are one cycle each, so it's}}
-\DoxyCodeLine{444   \textcolor{comment}{// faster to NOT multiply the ramp values by four, and just to}}
-\DoxyCodeLine{445   \textcolor{comment}{// divide the resulting product by 64 (instead of 256).}}
-\DoxyCodeLine{446   \textcolor{comment}{// Moral of the story: trust your profiler, not your insticts.}}
-\DoxyCodeLine{447 }
-\DoxyCodeLine{448   \textcolor{comment}{// Since there's an AVR assembly version elsewhere, we'll}}
-\DoxyCodeLine{449   \textcolor{comment}{// assume what we're on an architecture where any number of}}
-\DoxyCodeLine{450   \textcolor{comment}{// bit shifts has roughly the same cost, and we'll remove the}}
-\DoxyCodeLine{451   \textcolor{comment}{// redundant math at the source level:}}
-\DoxyCodeLine{452 }
-\DoxyCodeLine{453   \textcolor{comment}{//  // scale up to 255 range}}
-\DoxyCodeLine{454   \textcolor{comment}{//  //rampup *= 4; // 0..252}}
-\DoxyCodeLine{455   \textcolor{comment}{//  //rampdown *= 4; // 0..252}}
-\DoxyCodeLine{456 }
-\DoxyCodeLine{457   \textcolor{comment}{// compute color-\/amplitude-\/scaled-\/down versions of rampup and rampdown}}
-\DoxyCodeLine{458   uint8\_t rampup\_amp\_adj = (rampup * color\_amplitude) / (256 / 4);}
-\DoxyCodeLine{459   uint8\_t rampdown\_amp\_adj = (rampdown * color\_amplitude) / (256 / 4);}
-\DoxyCodeLine{460 }
-\DoxyCodeLine{461   \textcolor{comment}{// add brightness\_floor offset to everything}}
-\DoxyCodeLine{462   uint8\_t rampup\_adj\_with\_floor = rampup\_amp\_adj + brightness\_floor;}
-\DoxyCodeLine{463   uint8\_t rampdown\_adj\_with\_floor = rampdown\_amp\_adj + brightness\_floor;}
-\DoxyCodeLine{464 }
-\DoxyCodeLine{465   \textcolor{keywordflow}{if} (section) \{}
-\DoxyCodeLine{466     \textcolor{keywordflow}{if} (section == 1) \{}
-\DoxyCodeLine{467       \textcolor{comment}{// section 1: 0x40..0x7F}}
-\DoxyCodeLine{468       col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = brightness\_floor;}
-\DoxyCodeLine{469       col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = rampdown\_adj\_with\_floor;}
-\DoxyCodeLine{470       col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = rampup\_adj\_with\_floor;}
-\DoxyCodeLine{471     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{472       \textcolor{comment}{// section 2; 0x80..0xBF}}
-\DoxyCodeLine{473       col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = rampup\_adj\_with\_floor;}
-\DoxyCodeLine{474       col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = brightness\_floor;}
-\DoxyCodeLine{475       col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = rampdown\_adj\_with\_floor;}
-\DoxyCodeLine{476     \}}
-\DoxyCodeLine{477   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{478     \textcolor{comment}{// section 0: 0x00..0x3F}}
-\DoxyCodeLine{479     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = rampdown\_adj\_with\_floor;}
-\DoxyCodeLine{480     col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = rampup\_adj\_with\_floor;}
-\DoxyCodeLine{481     col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = brightness\_floor;}
-\DoxyCodeLine{482   \}}
-\DoxyCodeLine{483   \textcolor{keywordflow}{return} col;}
-\DoxyCodeLine{484 \}}
+\DoxyCodeLine{420   \textcolor{comment}{// Apply dimming curves}}
+\DoxyCodeLine{421   uint8\_t value = rhs.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
+\DoxyCodeLine{422   uint8\_t saturation = rhs.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}};}
+\DoxyCodeLine{423 }
+\DoxyCodeLine{424   \textcolor{comment}{// The brightness floor is minimum number that all of}}
+\DoxyCodeLine{425   \textcolor{comment}{// R, G, and B will be set to.}}
+\DoxyCodeLine{426   uint8\_t invsat = 255 -\/ saturation;}
+\DoxyCodeLine{427   uint8\_t brightness\_floor = (value * invsat) / 256;}
+\DoxyCodeLine{428 }
+\DoxyCodeLine{429   \textcolor{comment}{// The color amplitude is the maximum amount of R, G, and B}}
+\DoxyCodeLine{430   \textcolor{comment}{// that will be added on top of the brightness\_floor to}}
+\DoxyCodeLine{431   \textcolor{comment}{// create the specific hue desired.}}
+\DoxyCodeLine{432   uint8\_t color\_amplitude = value -\/ brightness\_floor;}
+\DoxyCodeLine{433 }
+\DoxyCodeLine{434   \textcolor{comment}{// Figure out which section of the hue wheel we're in,}}
+\DoxyCodeLine{435   \textcolor{comment}{// and how far offset we are withing that section}}
+\DoxyCodeLine{436   uint8\_t section = rhs.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} / 0x40; \textcolor{comment}{// 0..2}}
+\DoxyCodeLine{437   uint8\_t offset = rhs.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} \% 0x40;  \textcolor{comment}{// 0..63}}
+\DoxyCodeLine{438 }
+\DoxyCodeLine{439   uint8\_t rampup = offset; \textcolor{comment}{// 0..63}}
+\DoxyCodeLine{440   uint8\_t rampdown = (0x40 -\/ 1) -\/ offset; \textcolor{comment}{// 63..0}}
+\DoxyCodeLine{441 }
+\DoxyCodeLine{442   \textcolor{comment}{// We now scale rampup and rampdown to a 0-\/255 range -\/-\/ at least}}
+\DoxyCodeLine{443   \textcolor{comment}{// in theory, but here's where architecture-\/specific decsions}}
+\DoxyCodeLine{444   \textcolor{comment}{// come in to play:}}
+\DoxyCodeLine{445   \textcolor{comment}{// To scale them up to 0-\/255, we'd want to multiply by 4.}}
+\DoxyCodeLine{446   \textcolor{comment}{// But in the very next step, we multiply the ramps by other}}
+\DoxyCodeLine{447   \textcolor{comment}{// values and then divide the resulting product by 256.}}
+\DoxyCodeLine{448   \textcolor{comment}{// So which is faster?}}
+\DoxyCodeLine{449   \textcolor{comment}{//   ((ramp * 4) * othervalue) / 256}}
+\DoxyCodeLine{450   \textcolor{comment}{// or}}
+\DoxyCodeLine{451   \textcolor{comment}{//   ((ramp    ) * othervalue) /  64}}
+\DoxyCodeLine{452   \textcolor{comment}{// It depends on your processor architecture.}}
+\DoxyCodeLine{453   \textcolor{comment}{// On 8-\/bit AVR, the "{}/ 256"{} is just a one-\/cycle register move,}}
+\DoxyCodeLine{454   \textcolor{comment}{// but the "{}/ 64"{} might be a multicycle shift process. So on AVR}}
+\DoxyCodeLine{455   \textcolor{comment}{// it's faster do multiply the ramp values by four, and then}}
+\DoxyCodeLine{456   \textcolor{comment}{// divide by 256.}}
+\DoxyCodeLine{457   \textcolor{comment}{// On ARM, the "{}/ 256"{} and "{}/ 64"{} are one cycle each, so it's}}
+\DoxyCodeLine{458   \textcolor{comment}{// faster to NOT multiply the ramp values by four, and just to}}
+\DoxyCodeLine{459   \textcolor{comment}{// divide the resulting product by 64 (instead of 256).}}
+\DoxyCodeLine{460   \textcolor{comment}{// Moral of the story: trust your profiler, not your insticts.}}
+\DoxyCodeLine{461 }
+\DoxyCodeLine{462   \textcolor{comment}{// Since there's an AVR assembly version elsewhere, we'll}}
+\DoxyCodeLine{463   \textcolor{comment}{// assume what we're on an architecture where any number of}}
+\DoxyCodeLine{464   \textcolor{comment}{// bit shifts has roughly the same cost, and we'll remove the}}
+\DoxyCodeLine{465   \textcolor{comment}{// redundant math at the source level:}}
+\DoxyCodeLine{466 }
+\DoxyCodeLine{467   \textcolor{comment}{//  // scale up to 255 range}}
+\DoxyCodeLine{468   \textcolor{comment}{//  //rampup *= 4; // 0..252}}
+\DoxyCodeLine{469   \textcolor{comment}{//  //rampdown *= 4; // 0..252}}
+\DoxyCodeLine{470 }
+\DoxyCodeLine{471   \textcolor{comment}{// compute color-\/amplitude-\/scaled-\/down versions of rampup and rampdown}}
+\DoxyCodeLine{472   uint8\_t rampup\_amp\_adj = (rampup * color\_amplitude) / (256 / 4);}
+\DoxyCodeLine{473   uint8\_t rampdown\_amp\_adj = (rampdown * color\_amplitude) / (256 / 4);}
+\DoxyCodeLine{474 }
+\DoxyCodeLine{475   \textcolor{comment}{// add brightness\_floor offset to everything}}
+\DoxyCodeLine{476   uint8\_t rampup\_adj\_with\_floor = rampup\_amp\_adj + brightness\_floor;}
+\DoxyCodeLine{477   uint8\_t rampdown\_adj\_with\_floor = rampdown\_amp\_adj + brightness\_floor;}
+\DoxyCodeLine{478 }
+\DoxyCodeLine{479   \textcolor{keywordflow}{if} (section) \{}
+\DoxyCodeLine{480     \textcolor{keywordflow}{if} (section == 1) \{}
+\DoxyCodeLine{481       \textcolor{comment}{// section 1: 0x40..0x7F}}
+\DoxyCodeLine{482       col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = brightness\_floor;}
+\DoxyCodeLine{483       col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = rampdown\_adj\_with\_floor;}
+\DoxyCodeLine{484       col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = rampup\_adj\_with\_floor;}
+\DoxyCodeLine{485     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{486       \textcolor{comment}{// section 2; 0x80..0xBF}}
+\DoxyCodeLine{487       col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = rampup\_adj\_with\_floor;}
+\DoxyCodeLine{488       col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = brightness\_floor;}
+\DoxyCodeLine{489       col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = rampdown\_adj\_with\_floor;}
+\DoxyCodeLine{490     \}}
+\DoxyCodeLine{491   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{492     \textcolor{comment}{// section 0: 0x00..0x3F}}
+\DoxyCodeLine{493     col.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} = rampdown\_adj\_with\_floor;}
+\DoxyCodeLine{494     col.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} = rampup\_adj\_with\_floor;}
+\DoxyCodeLine{495     col.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} = brightness\_floor;}
+\DoxyCodeLine{496   \}}
+\DoxyCodeLine{497   \textcolor{keywordflow}{return} col;}
+\DoxyCodeLine{498 \}}
 
 \end{DoxyCode}
 
@@ -462,131 +462,131 @@ Referenced by RGBColor\+::operator=().
 
 
 
-Definition at line 576 of file Color\+Types.\+cpp.
+Definition at line 590 of file Color\+Types.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{577 \{}
-\DoxyCodeLine{578   uint8\_t r = rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}};}
-\DoxyCodeLine{579   uint8\_t g = rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}};}
-\DoxyCodeLine{580   uint8\_t b = rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}};}
-\DoxyCodeLine{581   uint8\_t h, s, v;}
-\DoxyCodeLine{582   \textcolor{comment}{// find desaturation}}
-\DoxyCodeLine{583   uint8\_t desat = 255;}
-\DoxyCodeLine{584   \textcolor{keywordflow}{if} (r < desat) desat = r;}
-\DoxyCodeLine{585   \textcolor{keywordflow}{if} (g < desat) desat = g;}
-\DoxyCodeLine{586   \textcolor{keywordflow}{if} (b < desat) desat = b;}
-\DoxyCodeLine{587   \textcolor{comment}{// remove saturation from all channels}}
-\DoxyCodeLine{588   r -\/= desat;}
-\DoxyCodeLine{589   g -\/= desat;}
-\DoxyCodeLine{590   b -\/= desat;}
-\DoxyCodeLine{591   \textcolor{comment}{// saturation is opposite of desaturation}}
-\DoxyCodeLine{592   s = 255 -\/ desat;}
-\DoxyCodeLine{593   \textcolor{keywordflow}{if} (s != 255) \{}
-\DoxyCodeLine{594     \textcolor{comment}{// undo 'dimming' of saturation}}
-\DoxyCodeLine{595     s = 255 -\/ \mbox{\hyperlink{ColorTypes_8cpp_a5b0a307c58ac1ec2c982a0dc79f3e8c3}{sqrt16}}((255 -\/ s) * 256);}
-\DoxyCodeLine{596   \}}
-\DoxyCodeLine{597   \textcolor{comment}{// at least one channel is now zero}}
-\DoxyCodeLine{598   \textcolor{comment}{// if all three channels are zero, we had a}}
-\DoxyCodeLine{599   \textcolor{comment}{// shade of gray.}}
-\DoxyCodeLine{600   \textcolor{keywordflow}{if} ((r + g + b) == 0) \{}
-\DoxyCodeLine{601     \textcolor{comment}{// we pick hue zero for no special reason}}
-\DoxyCodeLine{602     \textcolor{keywordflow}{return} \mbox{\hyperlink{classHSVColor}{HSVColor}}(0, 0, 255 -\/ s);}
-\DoxyCodeLine{603   \}}
-\DoxyCodeLine{604   \textcolor{comment}{// scale all channels up to compensate for desaturation}}
-\DoxyCodeLine{605   \textcolor{keywordflow}{if} (s < 255) \{}
-\DoxyCodeLine{606     \textcolor{keywordflow}{if} (s == 0) s = 1;}
-\DoxyCodeLine{607     uint32\_t scaleup = 65535 / (s);}
-\DoxyCodeLine{608     r = ((uint32\_t)(r)*scaleup) / 256;}
-\DoxyCodeLine{609     g = ((uint32\_t)(g)*scaleup) / 256;}
-\DoxyCodeLine{610     b = ((uint32\_t)(b)*scaleup) / 256;}
-\DoxyCodeLine{611   \}}
-\DoxyCodeLine{612   uint16\_t total = r + g + b;}
-\DoxyCodeLine{613   \textcolor{comment}{// scale all channels up to compensate for low values}}
-\DoxyCodeLine{614   \textcolor{keywordflow}{if} (total < 255) \{}
-\DoxyCodeLine{615     \textcolor{keywordflow}{if} (total == 0) total = 1;}
-\DoxyCodeLine{616     uint32\_t scaleup = 65535 / (total);}
-\DoxyCodeLine{617     r = ((uint32\_t)(r)*scaleup) / 256;}
-\DoxyCodeLine{618     g = ((uint32\_t)(g)*scaleup) / 256;}
-\DoxyCodeLine{619     b = ((uint32\_t)(b)*scaleup) / 256;}
-\DoxyCodeLine{620   \}}
-\DoxyCodeLine{621   \textcolor{keywordflow}{if} (total > 255) \{}
-\DoxyCodeLine{622     v = 255;}
-\DoxyCodeLine{623   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{624     \textcolor{keywordflow}{if} (((uint32\_t)desat + (uint32\_t)total) <= 255) \{}
-\DoxyCodeLine{625       v = desat + total;}
-\DoxyCodeLine{626     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{627       v = 255;}
-\DoxyCodeLine{628     \}}
-\DoxyCodeLine{629     \textcolor{comment}{// undo 'dimming' of brightness}}
-\DoxyCodeLine{630     \textcolor{keywordflow}{if} (v != 255) v = \mbox{\hyperlink{ColorTypes_8cpp_a5b0a307c58ac1ec2c982a0dc79f3e8c3}{sqrt16}}(v * 256);}
-\DoxyCodeLine{631   \}}
-\DoxyCodeLine{632   \textcolor{comment}{// start with which channel is highest}}
-\DoxyCodeLine{633   \textcolor{comment}{// (ties don't matter)}}
-\DoxyCodeLine{634   uint8\_t highest = r;}
-\DoxyCodeLine{635   \textcolor{keywordflow}{if} (g > highest) highest = g;}
-\DoxyCodeLine{636   \textcolor{keywordflow}{if} (b > highest) highest = b;}
-\DoxyCodeLine{637   \textcolor{keywordflow}{if} (highest == r) \{}
-\DoxyCodeLine{638     \textcolor{comment}{// Red is highest.}}
-\DoxyCodeLine{639     \textcolor{comment}{// Hue could be Purple/Pink-\/Red,Red-\/Orange,Orange-\/Yellow}}
-\DoxyCodeLine{640     \textcolor{keywordflow}{if} (g == 0) \{}
-\DoxyCodeLine{641       \textcolor{comment}{// if green is zero, we're in Purple/Pink-\/Red}}
-\DoxyCodeLine{642       h = (\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bac0e779174cb178ec5b7cec6e71e12be3}{HUE\_PURPLE}} + \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba3dc206b5aaa1d60d34bd43ed538e5cf8}{HUE\_PINK}}) / 2;}
-\DoxyCodeLine{643       h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}(r, 128), \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(48, 128));}
-\DoxyCodeLine{644     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((r -\/ g) > g) \{}
-\DoxyCodeLine{645       \textcolor{comment}{// if R-\/G > G then we're in Red-\/Orange}}
-\DoxyCodeLine{646       h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55baf99ca29e78f56261625c2f83f8d9d641}{HUE\_RED}};}
-\DoxyCodeLine{647       h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(g, \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(32, 85));}
-\DoxyCodeLine{648     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{649       \textcolor{comment}{// R-\/G < G, we're in Orange-\/Yellow}}
-\DoxyCodeLine{650       h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba0908faa334c40567fac7aec352fb70f2}{HUE\_ORANGE}};}
-\DoxyCodeLine{651       h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}((g -\/ 85) + (171 -\/ r), 4), \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(32, 85)); \textcolor{comment}{//221}}
-\DoxyCodeLine{652     \}}
-\DoxyCodeLine{653   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (highest == g) \{}
-\DoxyCodeLine{654     \textcolor{comment}{// Green is highest}}
-\DoxyCodeLine{655     \textcolor{comment}{// Hue could be Yellow-\/Green, Green-\/Aqua}}
-\DoxyCodeLine{656     \textcolor{keywordflow}{if} (b == 0) \{}
-\DoxyCodeLine{657       \textcolor{comment}{// if Blue is zero, we're in Yellow-\/Green}}
-\DoxyCodeLine{658       \textcolor{comment}{//   G = 171..255}}
-\DoxyCodeLine{659       \textcolor{comment}{//   R = 171..  0}}
-\DoxyCodeLine{660       h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba85db131d39162ebb09c84a1da9fa4bfd}{HUE\_YELLOW}};}
-\DoxyCodeLine{661       uint8\_t radj = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}(171, r), 47); \textcolor{comment}{//171..0 -\/> 0..171 -\/> 0..31}}
-\DoxyCodeLine{662       uint8\_t gadj = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}(g, 171), 96); \textcolor{comment}{//171..255 -\/> 0..84 -\/> 0..31;}}
-\DoxyCodeLine{663       uint8\_t rgadj = radj + gadj;}
-\DoxyCodeLine{664       uint8\_t hueadv = rgadj / 2;}
-\DoxyCodeLine{665       h += hueadv;}
-\DoxyCodeLine{666       \textcolor{comment}{//h += SCALE8( qadd8( 4, qadd8((g -\/ 128), (128 -\/ r))),}}
-\DoxyCodeLine{667       \textcolor{comment}{//             FIXFRAC8(32,255)); //}}
-\DoxyCodeLine{668     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{669       \textcolor{comment}{// if Blue is nonzero we're in Green-\/Aqua}}
-\DoxyCodeLine{670       \textcolor{keywordflow}{if} ((g -\/ b) > b) \{}
-\DoxyCodeLine{671         h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55baf70d11b3afe026cd07940359c89b2454}{HUE\_GREEN}};}
-\DoxyCodeLine{672         h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(b, \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(32, 85));}
-\DoxyCodeLine{673       \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{674         h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bae3b550fd64402d0c7e2eaa5f2349688a}{HUE\_AQUA}};}
-\DoxyCodeLine{675         h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}(b, 85), \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(8, 42));}
-\DoxyCodeLine{676       \}}
-\DoxyCodeLine{677     \}}
-\DoxyCodeLine{678   \} \textcolor{keywordflow}{else} \textcolor{comment}{/* highest == b */} \{}
-\DoxyCodeLine{679     \textcolor{comment}{// Blue is highest}}
-\DoxyCodeLine{680     \textcolor{comment}{// Hue could be Aqua/Blue-\/Blue, Blue-\/Purple, Purple-\/Pink}}
-\DoxyCodeLine{681     \textcolor{keywordflow}{if} (r == 0) \{}
-\DoxyCodeLine{682       \textcolor{comment}{// if red is zero, we're in Aqua/Blue-\/Blue}}
-\DoxyCodeLine{683       h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bae3b550fd64402d0c7e2eaa5f2349688a}{HUE\_AQUA}} + ((\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba2294eed5180e5dac2551b04cf9956fed}{HUE\_BLUE}} -\/ \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bae3b550fd64402d0c7e2eaa5f2349688a}{HUE\_AQUA}}) / 4);}
-\DoxyCodeLine{684       h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}(b, 128), \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(24, 128));}
-\DoxyCodeLine{685     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((b -\/ r) > r) \{}
-\DoxyCodeLine{686       \textcolor{comment}{// B-\/R > R, we're in Blue-\/Purple}}
-\DoxyCodeLine{687       h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba2294eed5180e5dac2551b04cf9956fed}{HUE\_BLUE}};}
-\DoxyCodeLine{688       h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(r, \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(32, 85));}
-\DoxyCodeLine{689     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{690       \textcolor{comment}{// B-\/R < R, we're in Purple-\/Pink}}
-\DoxyCodeLine{691       h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bac0e779174cb178ec5b7cec6e71e12be3}{HUE\_PURPLE}};}
-\DoxyCodeLine{692       h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}(r, 85), \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(32, 85));}
-\DoxyCodeLine{693     \}}
-\DoxyCodeLine{694   \}}
-\DoxyCodeLine{695   h += 1;}
-\DoxyCodeLine{696   \textcolor{keywordflow}{return} \mbox{\hyperlink{classHSVColor}{HSVColor}}(h, s, v);}
-\DoxyCodeLine{697 \}}
+\DoxyCodeLine{591 \{}
+\DoxyCodeLine{592   uint8\_t r = rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}};}
+\DoxyCodeLine{593   uint8\_t g = rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}};}
+\DoxyCodeLine{594   uint8\_t b = rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}};}
+\DoxyCodeLine{595   uint8\_t h, s, v;}
+\DoxyCodeLine{596   \textcolor{comment}{// find desaturation}}
+\DoxyCodeLine{597   uint8\_t desat = 255;}
+\DoxyCodeLine{598   \textcolor{keywordflow}{if} (r < desat) desat = r;}
+\DoxyCodeLine{599   \textcolor{keywordflow}{if} (g < desat) desat = g;}
+\DoxyCodeLine{600   \textcolor{keywordflow}{if} (b < desat) desat = b;}
+\DoxyCodeLine{601   \textcolor{comment}{// remove saturation from all channels}}
+\DoxyCodeLine{602   r -\/= desat;}
+\DoxyCodeLine{603   g -\/= desat;}
+\DoxyCodeLine{604   b -\/= desat;}
+\DoxyCodeLine{605   \textcolor{comment}{// saturation is opposite of desaturation}}
+\DoxyCodeLine{606   s = 255 -\/ desat;}
+\DoxyCodeLine{607   \textcolor{keywordflow}{if} (s != 255) \{}
+\DoxyCodeLine{608     \textcolor{comment}{// undo 'dimming' of saturation}}
+\DoxyCodeLine{609     s = 255 -\/ \mbox{\hyperlink{ColorTypes_8cpp_a5b0a307c58ac1ec2c982a0dc79f3e8c3}{sqrt16}}((255 -\/ s) * 256);}
+\DoxyCodeLine{610   \}}
+\DoxyCodeLine{611   \textcolor{comment}{// at least one channel is now zero}}
+\DoxyCodeLine{612   \textcolor{comment}{// if all three channels are zero, we had a}}
+\DoxyCodeLine{613   \textcolor{comment}{// shade of gray.}}
+\DoxyCodeLine{614   \textcolor{keywordflow}{if} ((r + g + b) == 0) \{}
+\DoxyCodeLine{615     \textcolor{comment}{// we pick hue zero for no special reason}}
+\DoxyCodeLine{616     \textcolor{keywordflow}{return} \mbox{\hyperlink{classHSVColor}{HSVColor}}(0, 0, 255 -\/ s);}
+\DoxyCodeLine{617   \}}
+\DoxyCodeLine{618   \textcolor{comment}{// scale all channels up to compensate for desaturation}}
+\DoxyCodeLine{619   \textcolor{keywordflow}{if} (s < 255) \{}
+\DoxyCodeLine{620     \textcolor{keywordflow}{if} (s == 0) s = 1;}
+\DoxyCodeLine{621     uint32\_t scaleup = 65535 / (s);}
+\DoxyCodeLine{622     r = ((uint32\_t)(r)*scaleup) / 256;}
+\DoxyCodeLine{623     g = ((uint32\_t)(g)*scaleup) / 256;}
+\DoxyCodeLine{624     b = ((uint32\_t)(b)*scaleup) / 256;}
+\DoxyCodeLine{625   \}}
+\DoxyCodeLine{626   uint16\_t total = r + g + b;}
+\DoxyCodeLine{627   \textcolor{comment}{// scale all channels up to compensate for low values}}
+\DoxyCodeLine{628   \textcolor{keywordflow}{if} (total < 255) \{}
+\DoxyCodeLine{629     \textcolor{keywordflow}{if} (total == 0) total = 1;}
+\DoxyCodeLine{630     uint32\_t scaleup = 65535 / (total);}
+\DoxyCodeLine{631     r = ((uint32\_t)(r)*scaleup) / 256;}
+\DoxyCodeLine{632     g = ((uint32\_t)(g)*scaleup) / 256;}
+\DoxyCodeLine{633     b = ((uint32\_t)(b)*scaleup) / 256;}
+\DoxyCodeLine{634   \}}
+\DoxyCodeLine{635   \textcolor{keywordflow}{if} (total > 255) \{}
+\DoxyCodeLine{636     v = 255;}
+\DoxyCodeLine{637   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{638     \textcolor{keywordflow}{if} (((uint32\_t)desat + (uint32\_t)total) <= 255) \{}
+\DoxyCodeLine{639       v = desat + total;}
+\DoxyCodeLine{640     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{641       v = 255;}
+\DoxyCodeLine{642     \}}
+\DoxyCodeLine{643     \textcolor{comment}{// undo 'dimming' of brightness}}
+\DoxyCodeLine{644     \textcolor{keywordflow}{if} (v != 255) v = \mbox{\hyperlink{ColorTypes_8cpp_a5b0a307c58ac1ec2c982a0dc79f3e8c3}{sqrt16}}(v * 256);}
+\DoxyCodeLine{645   \}}
+\DoxyCodeLine{646   \textcolor{comment}{// start with which channel is highest}}
+\DoxyCodeLine{647   \textcolor{comment}{// (ties don't matter)}}
+\DoxyCodeLine{648   uint8\_t highest = r;}
+\DoxyCodeLine{649   \textcolor{keywordflow}{if} (g > highest) highest = g;}
+\DoxyCodeLine{650   \textcolor{keywordflow}{if} (b > highest) highest = b;}
+\DoxyCodeLine{651   \textcolor{keywordflow}{if} (highest == r) \{}
+\DoxyCodeLine{652     \textcolor{comment}{// Red is highest.}}
+\DoxyCodeLine{653     \textcolor{comment}{// Hue could be Purple/Pink-\/Red,Red-\/Orange,Orange-\/Yellow}}
+\DoxyCodeLine{654     \textcolor{keywordflow}{if} (g == 0) \{}
+\DoxyCodeLine{655       \textcolor{comment}{// if green is zero, we're in Purple/Pink-\/Red}}
+\DoxyCodeLine{656       h = (\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bac0e779174cb178ec5b7cec6e71e12be3}{HUE\_PURPLE}} + \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba3dc206b5aaa1d60d34bd43ed538e5cf8}{HUE\_PINK}}) / 2;}
+\DoxyCodeLine{657       h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}(r, 128), \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(48, 128));}
+\DoxyCodeLine{658     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((r -\/ g) > g) \{}
+\DoxyCodeLine{659       \textcolor{comment}{// if R-\/G > G then we're in Red-\/Orange}}
+\DoxyCodeLine{660       h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55baf99ca29e78f56261625c2f83f8d9d641}{HUE\_RED}};}
+\DoxyCodeLine{661       h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(g, \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(32, 85));}
+\DoxyCodeLine{662     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{663       \textcolor{comment}{// R-\/G < G, we're in Orange-\/Yellow}}
+\DoxyCodeLine{664       h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba0908faa334c40567fac7aec352fb70f2}{HUE\_ORANGE}};}
+\DoxyCodeLine{665       h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}((g -\/ 85) + (171 -\/ r), 4), \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(32, 85)); \textcolor{comment}{//221}}
+\DoxyCodeLine{666     \}}
+\DoxyCodeLine{667   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (highest == g) \{}
+\DoxyCodeLine{668     \textcolor{comment}{// Green is highest}}
+\DoxyCodeLine{669     \textcolor{comment}{// Hue could be Yellow-\/Green, Green-\/Aqua}}
+\DoxyCodeLine{670     \textcolor{keywordflow}{if} (b == 0) \{}
+\DoxyCodeLine{671       \textcolor{comment}{// if Blue is zero, we're in Yellow-\/Green}}
+\DoxyCodeLine{672       \textcolor{comment}{//   G = 171..255}}
+\DoxyCodeLine{673       \textcolor{comment}{//   R = 171..  0}}
+\DoxyCodeLine{674       h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba85db131d39162ebb09c84a1da9fa4bfd}{HUE\_YELLOW}};}
+\DoxyCodeLine{675       uint8\_t radj = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}(171, r), 47); \textcolor{comment}{//171..0 -\/> 0..171 -\/> 0..31}}
+\DoxyCodeLine{676       uint8\_t gadj = \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}(g, 171), 96); \textcolor{comment}{//171..255 -\/> 0..84 -\/> 0..31;}}
+\DoxyCodeLine{677       uint8\_t rgadj = radj + gadj;}
+\DoxyCodeLine{678       uint8\_t hueadv = rgadj / 2;}
+\DoxyCodeLine{679       h += hueadv;}
+\DoxyCodeLine{680       \textcolor{comment}{//h += SCALE8( qadd8( 4, qadd8((g -\/ 128), (128 -\/ r))),}}
+\DoxyCodeLine{681       \textcolor{comment}{//             FIXFRAC8(32,255)); //}}
+\DoxyCodeLine{682     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{683       \textcolor{comment}{// if Blue is nonzero we're in Green-\/Aqua}}
+\DoxyCodeLine{684       \textcolor{keywordflow}{if} ((g -\/ b) > b) \{}
+\DoxyCodeLine{685         h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55baf70d11b3afe026cd07940359c89b2454}{HUE\_GREEN}};}
+\DoxyCodeLine{686         h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(b, \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(32, 85));}
+\DoxyCodeLine{687       \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{688         h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bae3b550fd64402d0c7e2eaa5f2349688a}{HUE\_AQUA}};}
+\DoxyCodeLine{689         h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}(b, 85), \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(8, 42));}
+\DoxyCodeLine{690       \}}
+\DoxyCodeLine{691     \}}
+\DoxyCodeLine{692   \} \textcolor{keywordflow}{else} \textcolor{comment}{/* highest == b */} \{}
+\DoxyCodeLine{693     \textcolor{comment}{// Blue is highest}}
+\DoxyCodeLine{694     \textcolor{comment}{// Hue could be Aqua/Blue-\/Blue, Blue-\/Purple, Purple-\/Pink}}
+\DoxyCodeLine{695     \textcolor{keywordflow}{if} (r == 0) \{}
+\DoxyCodeLine{696       \textcolor{comment}{// if red is zero, we're in Aqua/Blue-\/Blue}}
+\DoxyCodeLine{697       h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bae3b550fd64402d0c7e2eaa5f2349688a}{HUE\_AQUA}} + ((\mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba2294eed5180e5dac2551b04cf9956fed}{HUE\_BLUE}} -\/ \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bae3b550fd64402d0c7e2eaa5f2349688a}{HUE\_AQUA}}) / 4);}
+\DoxyCodeLine{698       h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}(b, 128), \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(24, 128));}
+\DoxyCodeLine{699     \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} ((b -\/ r) > r) \{}
+\DoxyCodeLine{700       \textcolor{comment}{// B-\/R > R, we're in Blue-\/Purple}}
+\DoxyCodeLine{701       h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55ba2294eed5180e5dac2551b04cf9956fed}{HUE\_BLUE}};}
+\DoxyCodeLine{702       h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(r, \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(32, 85));}
+\DoxyCodeLine{703     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{704       \textcolor{comment}{// B-\/R < R, we're in Purple-\/Pink}}
+\DoxyCodeLine{705       h = \mbox{\hyperlink{ColorTypes_8cpp_a06fc87d81c62e9abb8790b6e5713c55bac0e779174cb178ec5b7cec6e71e12be3}{HUE\_PURPLE}};}
+\DoxyCodeLine{706       h += \mbox{\hyperlink{ColorTypes_8cpp_a3f3dd004ed0dfb1ebe230d92ad98178b}{SCALE8}}(\mbox{\hyperlink{ColorTypes_8cpp_a3906d6ade8212a5627f696f587c97248}{qsub8}}(r, 85), \mbox{\hyperlink{ColorTypes_8cpp_a1be0cbec46d1a717dc14ccc5e1195f9a}{FIXFRAC8}}(32, 85));}
+\DoxyCodeLine{707     \}}
+\DoxyCodeLine{708   \}}
+\DoxyCodeLine{709   h += 1;}
+\DoxyCodeLine{710   \textcolor{keywordflow}{return} \mbox{\hyperlink{classHSVColor}{HSVColor}}(h, s, v);}
+\DoxyCodeLine{711 \}}
 
 \end{DoxyCode}
 
@@ -605,38 +605,38 @@ Referenced by HSVColor\+::operator=().
 
 
 
-Definition at line 700 of file Color\+Types.\+cpp.
+Definition at line 714 of file Color\+Types.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{701 \{}
-\DoxyCodeLine{702   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} rgbMin, rgbMax;}
-\DoxyCodeLine{703   rgbMin = rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} < rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} ? (rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} < rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} ? rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} : rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}}) : (rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} < rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} ? rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} : rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}});}
-\DoxyCodeLine{704   rgbMax = rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} > rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} ? (rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} > rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} ? rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} : rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}}) : (rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} > rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} ? rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} : rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}});}
-\DoxyCodeLine{705   \mbox{\hyperlink{classHSVColor}{HSVColor}} hsv;}
-\DoxyCodeLine{706 }
-\DoxyCodeLine{707   hsv.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}} = rgbMax;}
-\DoxyCodeLine{708   \textcolor{keywordflow}{if} (hsv.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}} == 0) \{}
-\DoxyCodeLine{709     hsv.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = 0;}
-\DoxyCodeLine{710     hsv.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}} = 0;}
-\DoxyCodeLine{711     \textcolor{keywordflow}{return} hsv;}
-\DoxyCodeLine{712   \}}
-\DoxyCodeLine{713 }
-\DoxyCodeLine{714   hsv.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}} = 255 * (long)(rgbMax -\/ rgbMin) / hsv.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
-\DoxyCodeLine{715   \textcolor{keywordflow}{if} (hsv.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}} == 0) \{}
-\DoxyCodeLine{716     hsv.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = 0;}
-\DoxyCodeLine{717     \textcolor{keywordflow}{return} hsv;}
-\DoxyCodeLine{718   \}}
-\DoxyCodeLine{719 }
-\DoxyCodeLine{720   \textcolor{keywordflow}{if} (rgbMax == rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}}) \{}
-\DoxyCodeLine{721     hsv.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = 0 + 43 * (rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} -\/ rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}}) / (rgbMax -\/ rgbMin);}
-\DoxyCodeLine{722   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (rgbMax == rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}}) \{}
-\DoxyCodeLine{723     hsv.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = 85 + 43 * (rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} -\/ rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}}) / (rgbMax -\/ rgbMin);}
-\DoxyCodeLine{724   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{725     hsv.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = 171 + 43 * (rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} -\/ rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}}) / (rgbMax -\/ rgbMin);}
+\DoxyCodeLine{715 \{}
+\DoxyCodeLine{716   \textcolor{keywordtype}{unsigned} \textcolor{keywordtype}{char} rgbMin, rgbMax;}
+\DoxyCodeLine{717   rgbMin = rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} < rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} ? (rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} < rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} ? rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} : rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}}) : (rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} < rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} ? rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} : rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}});}
+\DoxyCodeLine{718   rgbMax = rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} > rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} ? (rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} > rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} ? rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} : rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}}) : (rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} > rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} ? rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} : rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}});}
+\DoxyCodeLine{719   \mbox{\hyperlink{classHSVColor}{HSVColor}} hsv;}
+\DoxyCodeLine{720 }
+\DoxyCodeLine{721   hsv.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}} = rgbMax;}
+\DoxyCodeLine{722   \textcolor{keywordflow}{if} (hsv.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}} == 0) \{}
+\DoxyCodeLine{723     hsv.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = 0;}
+\DoxyCodeLine{724     hsv.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}} = 0;}
+\DoxyCodeLine{725     \textcolor{keywordflow}{return} hsv;}
 \DoxyCodeLine{726   \}}
-\DoxyCodeLine{727   \textcolor{keywordflow}{return} hsv;}
-\DoxyCodeLine{728 \}}
+\DoxyCodeLine{727 }
+\DoxyCodeLine{728   hsv.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}} = 255 * (long)(rgbMax -\/ rgbMin) / hsv.\mbox{\hyperlink{classHSVColor_a12cc1f17d6a2f40749e62ab3b3992573}{val}};}
+\DoxyCodeLine{729   \textcolor{keywordflow}{if} (hsv.\mbox{\hyperlink{classHSVColor_a67cfcc3d0bd0881c089919df3289d7ca}{sat}} == 0) \{}
+\DoxyCodeLine{730     hsv.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = 0;}
+\DoxyCodeLine{731     \textcolor{keywordflow}{return} hsv;}
+\DoxyCodeLine{732   \}}
+\DoxyCodeLine{733 }
+\DoxyCodeLine{734   \textcolor{keywordflow}{if} (rgbMax == rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}}) \{}
+\DoxyCodeLine{735     hsv.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = 0 + 43 * (rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}} -\/ rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}}) / (rgbMax -\/ rgbMin);}
+\DoxyCodeLine{736   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (rgbMax == rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}}) \{}
+\DoxyCodeLine{737     hsv.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = 85 + 43 * (rhs.\mbox{\hyperlink{classRGBColor_a417ad42fb2dab07155bdd0f35107adc9}{blue}} -\/ rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}}) / (rgbMax -\/ rgbMin);}
+\DoxyCodeLine{738   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{739     hsv.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = 171 + 43 * (rhs.\mbox{\hyperlink{classRGBColor_a5fed452f370de463fca724be4947bb54}{red}} -\/ rhs.\mbox{\hyperlink{classRGBColor_aca75024902a233f3449935b01387b687}{green}}) / (rgbMax -\/ rgbMin);}
+\DoxyCodeLine{740   \}}
+\DoxyCodeLine{741   \textcolor{keywordflow}{return} hsv;}
+\DoxyCodeLine{742 \}}
 
 \end{DoxyCode}
 

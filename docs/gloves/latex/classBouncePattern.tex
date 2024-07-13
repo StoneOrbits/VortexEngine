@@ -122,17 +122,19 @@ Definition at line 36 of file Bounce\+Pattern.\+cpp.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{37 \{}
 \DoxyCodeLine{38   \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_abef3c86e5519d8befb515d2e927885f5}{cur}}());}
-\DoxyCodeLine{39   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} < \mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4a772164a6f31e22d817711a70345b51b4}{PAIR\_COUNT}}) \{}
-\DoxyCodeLine{40     \mbox{\hyperlink{classLeds_a388ba18e176cbf465446d41ed8f796c1}{Leds::setPair}}((\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}})\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}}, \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}{peekNext}}());}
-\DoxyCodeLine{41   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{42     \mbox{\hyperlink{classLeds_a388ba18e176cbf465446d41ed8f796c1}{Leds::setPair}}((\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}})(\mbox{\hyperlink{BouncePattern_8cpp_a7fd2a4ce9263f91b3c3fb6bf485a7299}{TOTAL\_STEPS}} -\/ \mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}}), \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}{peekNext}}());}
-\DoxyCodeLine{43   \}}
-\DoxyCodeLine{44 \}}
+\DoxyCodeLine{39   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} != 0 \&\& \mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} != \mbox{\hyperlink{BouncePattern_8cpp_af606afd0c1672048bb2ccb6e708296b0}{HALF\_STEPS}}) \{}
+\DoxyCodeLine{40     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} < (\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4a772164a6f31e22d817711a70345b51b4}{PAIR\_COUNT}} + 1)) \{}
+\DoxyCodeLine{41       \mbox{\hyperlink{classLeds_a388ba18e176cbf465446d41ed8f796c1}{Leds::setPair}}((\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}})(\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} -\/ 1), \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}{peekNext}}());}
+\DoxyCodeLine{42     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{43       \mbox{\hyperlink{classLeds_a388ba18e176cbf465446d41ed8f796c1}{Leds::setPair}}((\mbox{\hyperlink{LedTypes_8h_a7481ff18cfa60407546e0d4901a6fbb4}{Pair}})(\mbox{\hyperlink{BouncePattern_8cpp_a7fd2a4ce9263f91b3c3fb6bf485a7299}{TOTAL\_STEPS}} -\/ (\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} + 1)), \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a4ec108cdd097cf54aecf2dc7bdbda67b}{peekNext}}());}
+\DoxyCodeLine{44     \}}
+\DoxyCodeLine{45   \}}
+\DoxyCodeLine{46 \}}
 
 \end{DoxyCode}
 
 
-References Colorset\+::cur(), Pattern\+::m\+\_\+colorset, m\+\_\+progress, PAIR\+\_\+\+COUNT, Colorset\+::peek\+Next(), Leds\+::set\+All(), Leds\+::set\+Pair(), and TOTAL\+\_\+\+STEPS.
+References Colorset\+::cur(), HALF\+\_\+\+STEPS, Pattern\+::m\+\_\+colorset, m\+\_\+progress, PAIR\+\_\+\+COUNT, Colorset\+::peek\+Next(), Leds\+::set\+All(), Leds\+::set\+Pair(), and TOTAL\+\_\+\+STEPS.
 
 \mbox{\Hypertarget{classBouncePattern_a31279d03f6ef939f2c1fb715873c175c}\label{classBouncePattern_a31279d03f6ef939f2c1fb715873c175c}} 
 \index{BouncePattern@{BouncePattern}!init@{init}}
@@ -175,16 +177,16 @@ Reimplemented from \mbox{\hyperlink{classBlinkStepPattern_a31d244f697913cbdf6243
 
 
 
-Definition at line 46 of file Bounce\+Pattern.\+cpp.
+Definition at line 48 of file Bounce\+Pattern.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{47 \{}
-\DoxyCodeLine{48   \mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} = (\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} + 1) \% \mbox{\hyperlink{BouncePattern_8cpp_a7fd2a4ce9263f91b3c3fb6bf485a7299}{TOTAL\_STEPS}};}
-\DoxyCodeLine{49   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} == 0 || \mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} == \mbox{\hyperlink{BouncePattern_8cpp_af606afd0c1672048bb2ccb6e708296b0}{HALF\_STEPS}}) \{}
-\DoxyCodeLine{50     \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
-\DoxyCodeLine{51   \}}
-\DoxyCodeLine{52 \}}
+\DoxyCodeLine{49 \{}
+\DoxyCodeLine{50   \mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} = (\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} + 1) \% \mbox{\hyperlink{BouncePattern_8cpp_a7fd2a4ce9263f91b3c3fb6bf485a7299}{TOTAL\_STEPS}};}
+\DoxyCodeLine{51   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} == 0 || \mbox{\hyperlink{classBouncePattern_a546b23c88c308c6e66897739785df239}{m\_progress}} == \mbox{\hyperlink{BouncePattern_8cpp_af606afd0c1672048bb2ccb6e708296b0}{HALF\_STEPS}}) \{}
+\DoxyCodeLine{52     \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{53   \}}
+\DoxyCodeLine{54 \}}
 
 \end{DoxyCode}
 

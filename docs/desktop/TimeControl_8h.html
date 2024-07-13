@@ -115,9 +115,9 @@ Classes</h2></td></tr>
 </table><table class="memberdecls">
 <tr class="heading"><td colspan="2"><h2 class="groupheader"><a name="define-members"></a>
 Macros</h2></td></tr>
-<tr class="memitem:a73adf9c10352865ff95b5f46e642c560"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TimeControl_8h.html#a73adf9c10352865ff95b5f46e642c560">MS_TO_TICKS</a>(ms)&#160;&#160;&#160;(uint32_t)(((uint32_t)(ms) * <a class="el" href="VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb">DEFAULT_TICKRATE</a>) / 1000)</td></tr>
+<tr class="memitem:a73adf9c10352865ff95b5f46e642c560"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TimeControl_8h.html#a73adf9c10352865ff95b5f46e642c560">MS_TO_TICKS</a>(ms)&#160;&#160;&#160;m_engine.time().millisecondsToTicks(ms)</td></tr>
 <tr class="separator:a73adf9c10352865ff95b5f46e642c560"><td class="memSeparator" colspan="2">&#160;</td></tr>
-<tr class="memitem:afde527e7252926d3d3cbe19d31f271e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TimeControl_8h.html#afde527e7252926d3d3cbe19d31f271e7">SEC_TO_TICKS</a>(s)&#160;&#160;&#160;(uint32_t)((uint32_t)(s) * <a class="el" href="VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb">DEFAULT_TICKRATE</a>)</td></tr>
+<tr class="memitem:afde527e7252926d3d3cbe19d31f271e7"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TimeControl_8h.html#afde527e7252926d3d3cbe19d31f271e7">SEC_TO_TICKS</a>(s)&#160;&#160;&#160;m_engine.time().secondsToTicks(s)</td></tr>
 <tr class="separator:afde527e7252926d3d3cbe19d31f271e7"><td class="memSeparator" colspan="2">&#160;</td></tr>
 <tr class="memitem:a95da11cf4c5f8b3d234f62b7a44203c2"><td class="memItemLeft" align="right" valign="top">#define&#160;</td><td class="memItemRight" valign="bottom"><a class="el" href="TimeControl_8h.html#a95da11cf4c5f8b3d234f62b7a44203c2">SIMULATION_TICK</a>&#160;&#160;&#160;0</td></tr>
 <tr class="separator:a95da11cf4c5f8b3d234f62b7a44203c2"><td class="memSeparator" colspan="2">&#160;</td></tr>
@@ -134,12 +134,12 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">ms</td><td>)</td>
-          <td>&#160;&#160;&#160;(uint32_t)(((uint32_t)(ms) * <a class="el" href="VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb">DEFAULT_TICKRATE</a>) / 1000)</td>
+          <td>&#160;&#160;&#160;m_engine.time().millisecondsToTicks(ms)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TimeControl_8h_source.html#l00019">19</a> of file <a class="el" href="TimeControl_8h_source.html">TimeControl.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TimeControl_8h_source.html#l00016">16</a> of file <a class="el" href="TimeControl_8h_source.html">TimeControl.h</a>.</p>
 
 </div>
 </div>
@@ -154,12 +154,12 @@ Macros</h2></td></tr>
           <td>(</td>
           <td class="paramtype">&#160;</td>
           <td class="paramname">s</td><td>)</td>
-          <td>&#160;&#160;&#160;(uint32_t)((uint32_t)(s) * <a class="el" href="VortexConfig_8h.html#a97f6a37590c60f131bba4007c88d16eb">DEFAULT_TICKRATE</a>)</td>
+          <td>&#160;&#160;&#160;m_engine.time().secondsToTicks(s)</td>
         </tr>
       </table>
 </div><div class="memdoc">
 
-<p class="definition">Definition at line <a class="el" href="TimeControl_8h_source.html#l00020">20</a> of file <a class="el" href="TimeControl_8h_source.html">TimeControl.h</a>.</p>
+<p class="definition">Definition at line <a class="el" href="TimeControl_8h_source.html#l00017">17</a> of file <a class="el" href="TimeControl_8h_source.html">TimeControl.h</a>.</p>
 
 </div>
 </div>

@@ -42,8 +42,7 @@ void \mbox{\hyperlink{classModeSharing_ae442e6e009d96e0a618c130ca45b66b1}{on\+Lo
 \doxysubsection*{Private Types}
 \begin{DoxyCompactItemize}
 \item 
-enum class \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127}{Mode\+Share\+State}} \{ \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127abb09596baa7af2a3e4714a63eb1e01f0}{SHARE\+\_\+\+SEND\+\_\+\+IR}}
-, \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127adc5e4cdbf9c5e23bd9acab0a312efad4}{SHARE\+\_\+\+SEND\+\_\+\+VL}}
+enum class \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127}{Mode\+Share\+State}} \{ \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127adc5e4cdbf9c5e23bd9acab0a312efad4}{SHARE\+\_\+\+SEND\+\_\+\+VL}}
 , \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}{SHARE\+\_\+\+RECEIVE}}
  \}
 \end{DoxyCompactItemize}
@@ -52,19 +51,13 @@ enum class \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127}{
 \item 
 void \mbox{\hyperlink{classModeSharing_a5ca6cdd326d6e9ffc64b480c149df830}{begin\+Sending\+VL}} ()
 \item 
-void \mbox{\hyperlink{classModeSharing_ae42cb7b2c4a1c0d8fa03690c248bdf71}{begin\+Sending\+IR}} ()
-\item 
 void \mbox{\hyperlink{classModeSharing_a3d7ec3745e195d3d42b53743abcb4622}{continue\+Sending\+VL}} ()
 \item 
-void \mbox{\hyperlink{classModeSharing_a4d4dd87df5e39e4eda2a3779dc7191d0}{continue\+Sending\+IR}} ()
+void \mbox{\hyperlink{classModeSharing_a298837715fd7b306eab298eccb2a29bd}{begin\+Receiving\+VL}} ()
 \item 
-void \mbox{\hyperlink{classModeSharing_a569728b8694e75ee465bc624d597b565}{begin\+Receiving\+IR}} ()
-\item 
-void \mbox{\hyperlink{classModeSharing_aac8e553329a62aa804beded83fe18597}{receive\+Mode\+IR}} ()
+void \mbox{\hyperlink{classModeSharing_af8e921264358562036eb55a5b6f33275}{receive\+Mode\+VL}} ()
 \item 
 void \mbox{\hyperlink{classModeSharing_ab15ee747bc61856d04311594b4a74e17}{show\+Send\+Mode\+VL}} ()
-\item 
-void \mbox{\hyperlink{classModeSharing_a031448b1c46da5e0724bbacfa177a7dd}{show\+Send\+Mode\+IR}} ()
 \item 
 void \mbox{\hyperlink{classModeSharing_af9de8e68dbc889f353da877ba14e0ff4}{show\+Receive\+Mode}} ()
 \end{DoxyCompactItemize}
@@ -93,10 +86,6 @@ Definition at line 6 of file Mode\+Sharing.\+h.
 {\footnotesize\ttfamily enum \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127}{Mode\+Sharing\+::\+Mode\+Share\+State}}\hspace{0.3cm}{\ttfamily [strong]}, {\ttfamily [private]}}
 
 \begin{DoxyEnumFields}{Enumerator}
-\raisebox{\heightof{T}}[0pt][0pt]{\index{SHARE\_SEND\_IR@{SHARE\_SEND\_IR}!ModeSharing@{ModeSharing}}\index{ModeSharing@{ModeSharing}!SHARE\_SEND\_IR@{SHARE\_SEND\_IR}}}\mbox{\Hypertarget{classModeSharing_a7602b4bf351c007963ee2185eb0d4127abb09596baa7af2a3e4714a63eb1e01f0}\label{classModeSharing_a7602b4bf351c007963ee2185eb0d4127abb09596baa7af2a3e4714a63eb1e01f0}} 
-SHARE\+\_\+\+SEND\+\_\+\+IR&\\
-\hline
-
 \raisebox{\heightof{T}}[0pt][0pt]{\index{SHARE\_SEND\_VL@{SHARE\_SEND\_VL}!ModeSharing@{ModeSharing}}\index{ModeSharing@{ModeSharing}!SHARE\_SEND\_VL@{SHARE\_SEND\_VL}}}\mbox{\Hypertarget{classModeSharing_a7602b4bf351c007963ee2185eb0d4127adc5e4cdbf9c5e23bd9acab0a312efad4}\label{classModeSharing_a7602b4bf351c007963ee2185eb0d4127adc5e4cdbf9c5e23bd9acab0a312efad4}} 
 SHARE\+\_\+\+SEND\+\_\+\+VL&\\
 \hline
@@ -108,15 +97,14 @@ SHARE\+\_\+\+RECEIVE&\\
 \end{DoxyEnumFields}
 
 
-Definition at line 31 of file Mode\+Sharing.\+h.
+Definition at line 28 of file Mode\+Sharing.\+h.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{31                             \{}
-\DoxyCodeLine{32     SHARE\_SEND\_IR,  \textcolor{comment}{// send mode over ir}}
-\DoxyCodeLine{33     SHARE\_SEND\_VL,  \textcolor{comment}{// send mode over vl}}
-\DoxyCodeLine{34     SHARE\_RECEIVE,  \textcolor{comment}{// receive mode}}
-\DoxyCodeLine{35   \};}
+\DoxyCodeLine{28                             \{}
+\DoxyCodeLine{29     SHARE\_SEND\_VL,  \textcolor{comment}{// send mode over vl}}
+\DoxyCodeLine{30     SHARE\_RECEIVE,  \textcolor{comment}{// receive mode}}
+\DoxyCodeLine{31   \};}
 
 \end{DoxyCode}
 
@@ -161,68 +149,31 @@ Definition at line 23 of file Mode\+Sharing.\+cpp.
 
 
 \doxysubsection{Member Function Documentation}
-\mbox{\Hypertarget{classModeSharing_a569728b8694e75ee465bc624d597b565}\label{classModeSharing_a569728b8694e75ee465bc624d597b565}} 
-\index{ModeSharing@{ModeSharing}!beginReceivingIR@{beginReceivingIR}}
-\index{beginReceivingIR@{beginReceivingIR}!ModeSharing@{ModeSharing}}
-\doxysubsubsection{\texorpdfstring{beginReceivingIR()}{beginReceivingIR()}}
-{\footnotesize\ttfamily void Mode\+Sharing\+::begin\+Receiving\+IR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+\mbox{\Hypertarget{classModeSharing_a298837715fd7b306eab298eccb2a29bd}\label{classModeSharing_a298837715fd7b306eab298eccb2a29bd}} 
+\index{ModeSharing@{ModeSharing}!beginReceivingVL@{beginReceivingVL}}
+\index{beginReceivingVL@{beginReceivingVL}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{beginReceivingVL()}{beginReceivingVL()}}
+{\footnotesize\ttfamily void Mode\+Sharing\+::begin\+Receiving\+VL (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 151 of file Mode\+Sharing.\+cpp.
+Definition at line 116 of file Mode\+Sharing.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{152 \{}
-\DoxyCodeLine{153   \mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}} = \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}{ModeShareState::SHARE\_RECEIVE}};}
-\DoxyCodeLine{154   \mbox{\hyperlink{classIRReceiver_a007b3616b460b97e210c136f429291f4}{IRReceiver::beginReceiving}}();}
-\DoxyCodeLine{155 \}}
+\DoxyCodeLine{117 \{}
+\DoxyCodeLine{118   \mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}} = \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}{ModeShareState::SHARE\_RECEIVE}};}
+\DoxyCodeLine{119   \mbox{\hyperlink{classVLReceiver_a9fd384549b9fbbdc8267131e052e0b69}{VLReceiver::beginReceiving}}();}
+\DoxyCodeLine{120 \}}
 
 \end{DoxyCode}
 
 
-References IRReceiver\+::begin\+Receiving(), m\+\_\+sharing\+Mode, and SHARE\+\_\+\+RECEIVE.
+References VLReceiver\+::begin\+Receiving(), m\+\_\+sharing\+Mode, and SHARE\+\_\+\+RECEIVE.
 
 
 
-Referenced by begin\+Sending\+IR(), begin\+Sending\+VL(), continue\+Sending\+IR(), continue\+Sending\+VL(), and init().
-
-\mbox{\Hypertarget{classModeSharing_ae42cb7b2c4a1c0d8fa03690c248bdf71}\label{classModeSharing_ae42cb7b2c4a1c0d8fa03690c248bdf71}} 
-\index{ModeSharing@{ModeSharing}!beginSendingIR@{beginSendingIR}}
-\index{beginSendingIR@{beginSendingIR}!ModeSharing@{ModeSharing}}
-\doxysubsubsection{\texorpdfstring{beginSendingIR()}{beginSendingIR()}}
-{\footnotesize\ttfamily void Mode\+Sharing\+::begin\+Sending\+IR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Definition at line 110 of file Mode\+Sharing.\+cpp.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{111 \{}
-\DoxyCodeLine{112   \textcolor{comment}{// if the sender is sending then cannot start again}}
-\DoxyCodeLine{113   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classIRSender_a0872bc3b50d491f87bcadf2f00be2eec}{IRSender::isSending}}()) \{}
-\DoxyCodeLine{114     \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Cannot begin sending, sender is busy"{}});}
-\DoxyCodeLine{115     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{116   \}}
-\DoxyCodeLine{117   \mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}} = \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127abb09596baa7af2a3e4714a63eb1e01f0}{ModeShareState::SHARE\_SEND\_IR}};}
-\DoxyCodeLine{118   \textcolor{comment}{// initialize it with the current mode data}}
-\DoxyCodeLine{119   \mbox{\hyperlink{classIRSender_a94d09e09009bb2919a52a2a9bea50173}{IRSender::loadMode}}(\mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}());}
-\DoxyCodeLine{120   \textcolor{comment}{// send the first chunk of data, leave if we're done}}
-\DoxyCodeLine{121   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRSender_ab388c3ec73cb02f2aeb538a4ad956ab8}{IRSender::send}}()) \{}
-\DoxyCodeLine{122     \textcolor{comment}{// when send has completed, stores time that last action was completed to calculate interval between sends}}
-\DoxyCodeLine{123     \mbox{\hyperlink{classModeSharing_a569728b8694e75ee465bc624d597b565}{beginReceivingIR}}();}
-\DoxyCodeLine{124   \}}
-\DoxyCodeLine{125 \}}
-
-\end{DoxyCode}
-
-
-References begin\+Receiving\+IR(), Modes\+::cur\+Mode(), ERROR\+\_\+\+LOG, IRSender\+::is\+Sending(), IRSender\+::load\+Mode(), m\+\_\+sharing\+Mode, IRSender\+::send(), and SHARE\+\_\+\+SEND\+\_\+\+IR.
-
-
-
-Referenced by on\+Short\+Click().
+Referenced by begin\+Sending\+VL(), continue\+Sending\+VL(), and init().
 
 \mbox{\Hypertarget{classModeSharing_a5ca6cdd326d6e9ffc64b480c149df830}\label{classModeSharing_a5ca6cdd326d6e9ffc64b480c149df830}} 
 \index{ModeSharing@{ModeSharing}!beginSendingVL@{beginSendingVL}}
@@ -232,62 +183,34 @@ Referenced by on\+Short\+Click().
 
 
 
-Definition at line 93 of file Mode\+Sharing.\+cpp.
+Definition at line 87 of file Mode\+Sharing.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{94 \{}
-\DoxyCodeLine{95   \textcolor{comment}{// if the sender is sending then cannot start again}}
-\DoxyCodeLine{96   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLSender_ad15998a8177227dc12dfecbfdc0119fb}{VLSender::isSending}}()) \{}
-\DoxyCodeLine{97     \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Cannot begin sending, sender is busy"{}});}
-\DoxyCodeLine{98     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{99   \}}
-\DoxyCodeLine{100   \mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}} = \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127adc5e4cdbf9c5e23bd9acab0a312efad4}{ModeShareState::SHARE\_SEND\_VL}};}
-\DoxyCodeLine{101   \textcolor{comment}{// initialize it with the current mode data}}
-\DoxyCodeLine{102   \mbox{\hyperlink{classVLSender_a4166c98c11640955d4cdf94bf3be5601}{VLSender::loadMode}}(\mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}());}
-\DoxyCodeLine{103   \textcolor{comment}{// send the first chunk of data, leave if we're done}}
-\DoxyCodeLine{104   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLSender_a8673ff200bc495f60c006c488738af75}{VLSender::send}}()) \{}
-\DoxyCodeLine{105     \textcolor{comment}{// when send has completed, stores time that last action was completed to calculate interval between sends}}
-\DoxyCodeLine{106     \mbox{\hyperlink{classModeSharing_a569728b8694e75ee465bc624d597b565}{beginReceivingIR}}();}
-\DoxyCodeLine{107   \}}
-\DoxyCodeLine{108 \}}
+\DoxyCodeLine{88 \{}
+\DoxyCodeLine{89   \textcolor{comment}{// if the sender is sending then cannot start again}}
+\DoxyCodeLine{90   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLSender_ad15998a8177227dc12dfecbfdc0119fb}{VLSender::isSending}}()) \{}
+\DoxyCodeLine{91     \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Cannot begin sending, sender is busy"{}});}
+\DoxyCodeLine{92     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{93   \}}
+\DoxyCodeLine{94   \mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}} = \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127adc5e4cdbf9c5e23bd9acab0a312efad4}{ModeShareState::SHARE\_SEND\_VL}};}
+\DoxyCodeLine{95   \textcolor{comment}{// initialize it with the current mode data}}
+\DoxyCodeLine{96   \mbox{\hyperlink{classVLSender_a4166c98c11640955d4cdf94bf3be5601}{VLSender::loadMode}}(\mbox{\hyperlink{classModes_a1e520dc2ee457bc93a795e9945249dbd}{Modes::curMode}}());}
+\DoxyCodeLine{97   \textcolor{comment}{// send the first chunk of data, leave if we're done}}
+\DoxyCodeLine{98   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLSender_a8673ff200bc495f60c006c488738af75}{VLSender::send}}()) \{}
+\DoxyCodeLine{99     \textcolor{comment}{// when send has completed, stores time that last action was completed to calculate interval between sends}}
+\DoxyCodeLine{100     \mbox{\hyperlink{classModeSharing_a298837715fd7b306eab298eccb2a29bd}{beginReceivingVL}}();}
+\DoxyCodeLine{101   \}}
+\DoxyCodeLine{102 \}}
 
 \end{DoxyCode}
 
 
-References begin\+Receiving\+IR(), Modes\+::cur\+Mode(), ERROR\+\_\+\+LOG, VLSender\+::is\+Sending(), VLSender\+::load\+Mode(), m\+\_\+sharing\+Mode, VLSender\+::send(), and SHARE\+\_\+\+SEND\+\_\+\+VL.
-
-\mbox{\Hypertarget{classModeSharing_a4d4dd87df5e39e4eda2a3779dc7191d0}\label{classModeSharing_a4d4dd87df5e39e4eda2a3779dc7191d0}} 
-\index{ModeSharing@{ModeSharing}!continueSendingIR@{continueSendingIR}}
-\index{continueSendingIR@{continueSendingIR}!ModeSharing@{ModeSharing}}
-\doxysubsubsection{\texorpdfstring{continueSendingIR()}{continueSendingIR()}}
-{\footnotesize\ttfamily void Mode\+Sharing\+::continue\+Sending\+IR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+References begin\+Receiving\+VL(), Modes\+::cur\+Mode(), ERROR\+\_\+\+LOG, VLSender\+::is\+Sending(), VLSender\+::load\+Mode(), m\+\_\+sharing\+Mode, VLSender\+::send(), and SHARE\+\_\+\+SEND\+\_\+\+VL.
 
 
 
-Definition at line 139 of file Mode\+Sharing.\+cpp.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{140 \{}
-\DoxyCodeLine{141   \textcolor{comment}{// if the sender isn't sending then nothing to do}}
-\DoxyCodeLine{142   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRSender_a0872bc3b50d491f87bcadf2f00be2eec}{IRSender::isSending}}()) \{}
-\DoxyCodeLine{143     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{144   \}}
-\DoxyCodeLine{145   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRSender_ab388c3ec73cb02f2aeb538a4ad956ab8}{IRSender::send}}()) \{}
-\DoxyCodeLine{146     \textcolor{comment}{// when send has completed, stores time that last action was completed to calculate interval between sends}}
-\DoxyCodeLine{147     \mbox{\hyperlink{classModeSharing_a569728b8694e75ee465bc624d597b565}{beginReceivingIR}}();}
-\DoxyCodeLine{148   \}}
-\DoxyCodeLine{149 \}}
-
-\end{DoxyCode}
-
-
-References begin\+Receiving\+IR(), IRSender\+::is\+Sending(), and IRSender\+::send().
-
-
-
-Referenced by run().
+Referenced by on\+Short\+Click().
 
 \mbox{\Hypertarget{classModeSharing_a3d7ec3745e195d3d42b53743abcb4622}\label{classModeSharing_a3d7ec3745e195d3d42b53743abcb4622}} 
 \index{ModeSharing@{ModeSharing}!continueSendingVL@{continueSendingVL}}
@@ -297,25 +220,25 @@ Referenced by run().
 
 
 
-Definition at line 127 of file Mode\+Sharing.\+cpp.
+Definition at line 104 of file Mode\+Sharing.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{128 \{}
-\DoxyCodeLine{129   \textcolor{comment}{// if the sender isn't sending then nothing to do}}
-\DoxyCodeLine{130   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLSender_ad15998a8177227dc12dfecbfdc0119fb}{VLSender::isSending}}()) \{}
-\DoxyCodeLine{131     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{132   \}}
-\DoxyCodeLine{133   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLSender_a8673ff200bc495f60c006c488738af75}{VLSender::send}}()) \{}
-\DoxyCodeLine{134     \textcolor{comment}{// when send has completed, stores time that last action was completed to calculate interval between sends}}
-\DoxyCodeLine{135     \mbox{\hyperlink{classModeSharing_a569728b8694e75ee465bc624d597b565}{beginReceivingIR}}();}
-\DoxyCodeLine{136   \}}
-\DoxyCodeLine{137 \}}
+\DoxyCodeLine{105 \{}
+\DoxyCodeLine{106   \textcolor{comment}{// if the sender isn't sending then nothing to do}}
+\DoxyCodeLine{107   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLSender_ad15998a8177227dc12dfecbfdc0119fb}{VLSender::isSending}}()) \{}
+\DoxyCodeLine{108     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{109   \}}
+\DoxyCodeLine{110   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLSender_a8673ff200bc495f60c006c488738af75}{VLSender::send}}()) \{}
+\DoxyCodeLine{111     \textcolor{comment}{// when send has completed, stores time that last action was completed to calculate interval between sends}}
+\DoxyCodeLine{112     \mbox{\hyperlink{classModeSharing_a298837715fd7b306eab298eccb2a29bd}{beginReceivingVL}}();}
+\DoxyCodeLine{113   \}}
+\DoxyCodeLine{114 \}}
 
 \end{DoxyCode}
 
 
-References begin\+Receiving\+IR(), VLSender\+::is\+Sending(), and VLSender\+::send().
+References begin\+Receiving\+VL(), VLSender\+::is\+Sending(), and VLSender\+::send().
 
 
 
@@ -346,7 +269,7 @@ Definition at line 27 of file Mode\+Sharing.\+cpp.
 \DoxyCodeLine{34   \textcolor{comment}{// start on receive because it's the more responsive of the two}}
 \DoxyCodeLine{35   \textcolor{comment}{// the odds of opening receive and then accidentally receiving}}
 \DoxyCodeLine{36   \textcolor{comment}{// a mode that is being broadcast nearby is completely unlikely}}
-\DoxyCodeLine{37   \mbox{\hyperlink{classModeSharing_a569728b8694e75ee465bc624d597b565}{beginReceivingIR}}();}
+\DoxyCodeLine{37   \mbox{\hyperlink{classModeSharing_a298837715fd7b306eab298eccb2a29bd}{beginReceivingVL}}();}
 \DoxyCodeLine{38   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Entering Mode Sharing"{}});}
 \DoxyCodeLine{39   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
 \DoxyCodeLine{40 \}}
@@ -354,7 +277,7 @@ Definition at line 27 of file Mode\+Sharing.\+cpp.
 \end{DoxyCode}
 
 
-References begin\+Receiving\+IR(), DEBUG\+\_\+\+LOG, Menu\+::init(), and Menu\+::m\+\_\+led\+Selected.
+References begin\+Receiving\+VL(), DEBUG\+\_\+\+LOG, Menu\+::init(), and Menu\+::m\+\_\+led\+Selected.
 
 \mbox{\Hypertarget{classModeSharing_ae442e6e009d96e0a618c130ca45b66b1}\label{classModeSharing_ae442e6e009d96e0a618c130ca45b66b1}} 
 \index{ModeSharing@{ModeSharing}!onLongClick@{onLongClick}}
@@ -368,14 +291,14 @@ Reimplemented from \mbox{\hyperlink{classMenu_aa5e3a269c2dba3ee69b530c7d1b3c0ff}
 
 
 
-Definition at line 87 of file Mode\+Sharing.\+cpp.
+Definition at line 81 of file Mode\+Sharing.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{88 \{}
-\DoxyCodeLine{89   \mbox{\hyperlink{classModes_a263cf02fb83d954b91c85d2d1e5411ee}{Modes::updateCurMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}});}
-\DoxyCodeLine{90   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
-\DoxyCodeLine{91 \}}
+\DoxyCodeLine{82 \{}
+\DoxyCodeLine{83   \mbox{\hyperlink{classModes_a263cf02fb83d954b91c85d2d1e5411ee}{Modes::updateCurMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}});}
+\DoxyCodeLine{84   \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{85 \}}
 
 \end{DoxyCode}
 
@@ -394,74 +317,74 @@ Reimplemented from \mbox{\hyperlink{classMenu_a135b0de5e64efeb822e5323f4b8c8955}
 
 
 
-Definition at line 72 of file Mode\+Sharing.\+cpp.
+Definition at line 66 of file Mode\+Sharing.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{73 \{}
-\DoxyCodeLine{74   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}}) \{}
-\DoxyCodeLine{75   \textcolor{keywordflow}{case} \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}{ModeShareState::SHARE\_RECEIVE}}:}
-\DoxyCodeLine{76     \textcolor{comment}{// click while on receive -\/> end receive, start sending}}
-\DoxyCodeLine{77     \mbox{\hyperlink{classIRReceiver_aa9d8177899465973e15d78c2795a8b01}{IRReceiver::endReceiving}}();}
-\DoxyCodeLine{78     \mbox{\hyperlink{classModeSharing_ae42cb7b2c4a1c0d8fa03690c248bdf71}{beginSendingIR}}();}
-\DoxyCodeLine{79     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Switched to send mode"{}});}
-\DoxyCodeLine{80     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{81   \textcolor{keywordflow}{default}:}
-\DoxyCodeLine{82     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{83   \}}
-\DoxyCodeLine{84   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{85 \}}
+\DoxyCodeLine{67 \{}
+\DoxyCodeLine{68   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}}) \{}
+\DoxyCodeLine{69   \textcolor{keywordflow}{case} \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}{ModeShareState::SHARE\_RECEIVE}}:}
+\DoxyCodeLine{70     \textcolor{comment}{// click while on receive -\/> end receive, start sending}}
+\DoxyCodeLine{71     \mbox{\hyperlink{classVLReceiver_a63a96c6ce982079256319b07f573006b}{VLReceiver::endReceiving}}();}
+\DoxyCodeLine{72     \mbox{\hyperlink{classModeSharing_a5ca6cdd326d6e9ffc64b480c149df830}{beginSendingVL}}();}
+\DoxyCodeLine{73     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Switched to send mode"{}});}
+\DoxyCodeLine{74     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{75   \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{76     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{77   \}}
+\DoxyCodeLine{78   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{79 \}}
 
 \end{DoxyCode}
 
 
-References begin\+Sending\+IR(), Leds\+::clear\+All(), DEBUG\+\_\+\+LOG, IRReceiver\+::end\+Receiving(), m\+\_\+sharing\+Mode, and SHARE\+\_\+\+RECEIVE.
+References begin\+Sending\+VL(), Leds\+::clear\+All(), DEBUG\+\_\+\+LOG, VLReceiver\+::end\+Receiving(), m\+\_\+sharing\+Mode, and SHARE\+\_\+\+RECEIVE.
 
-\mbox{\Hypertarget{classModeSharing_aac8e553329a62aa804beded83fe18597}\label{classModeSharing_aac8e553329a62aa804beded83fe18597}} 
-\index{ModeSharing@{ModeSharing}!receiveModeIR@{receiveModeIR}}
-\index{receiveModeIR@{receiveModeIR}!ModeSharing@{ModeSharing}}
-\doxysubsubsection{\texorpdfstring{receiveModeIR()}{receiveModeIR()}}
-{\footnotesize\ttfamily void Mode\+Sharing\+::receive\+Mode\+IR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+\mbox{\Hypertarget{classModeSharing_af8e921264358562036eb55a5b6f33275}\label{classModeSharing_af8e921264358562036eb55a5b6f33275}} 
+\index{ModeSharing@{ModeSharing}!receiveModeVL@{receiveModeVL}}
+\index{receiveModeVL@{receiveModeVL}!ModeSharing@{ModeSharing}}
+\doxysubsubsection{\texorpdfstring{receiveModeVL()}{receiveModeVL()}}
+{\footnotesize\ttfamily void Mode\+Sharing\+::receive\+Mode\+VL (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 157 of file Mode\+Sharing.\+cpp.
+Definition at line 122 of file Mode\+Sharing.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{158 \{}
-\DoxyCodeLine{159   \textcolor{comment}{// if reveiving new data set our last data time}}
-\DoxyCodeLine{160   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classIRReceiver_a285e559d21c2a414a9e7169caa9319c3}{IRReceiver::onNewData}}()) \{}
-\DoxyCodeLine{161     \mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\_timeOutStartTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
-\DoxyCodeLine{162     \textcolor{comment}{// if our last data was more than time out duration reset the recveiver}}
-\DoxyCodeLine{163   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\_timeOutStartTime}} > 0 \&\& (\mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\_timeOutStartTime}} + \mbox{\hyperlink{Timings_8h_a5b19ad5a706226f4733b244e808ee463}{MAX\_TIMEOUT\_DURATION}}) < \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}()) \{}
-\DoxyCodeLine{164     \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{IRReceiver::resetIRState}}();}
-\DoxyCodeLine{165     \mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\_timeOutStartTime}} = 0;}
-\DoxyCodeLine{166     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{167   \}}
-\DoxyCodeLine{168   \textcolor{comment}{// check if the IRReceiver has a full packet available}}
-\DoxyCodeLine{169   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_a180ea554d40c10a00750aa02c6301c16}{IRReceiver::dataReady}}()) \{}
-\DoxyCodeLine{170     \textcolor{comment}{// nothing available yet}}
-\DoxyCodeLine{171     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{172   \}}
-\DoxyCodeLine{173   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Mode ready to receive! Receiving..."{}});}
-\DoxyCodeLine{174   \textcolor{comment}{// receive the IR mode into the current mode}}
-\DoxyCodeLine{175   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_a2f61a4167e2ea4d2d10cd81b18b9f3a1}{IRReceiver::receiveMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}})) \{}
-\DoxyCodeLine{176     \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to receive mode"{}});}
-\DoxyCodeLine{177     \textcolor{keywordflow}{return};}
-\DoxyCodeLine{178   \}}
-\DoxyCodeLine{179   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Success receiving mode: \%u"{}}, \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a0c012c6a748a1a1a9502b552bfa2ba66}{getPatternID}}());}
-\DoxyCodeLine{180   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
-\DoxyCodeLine{181     \mbox{\hyperlink{classModes_a263cf02fb83d954b91c85d2d1e5411ee}{Modes::updateCurMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}});}
-\DoxyCodeLine{182     \textcolor{comment}{// leave menu and save settings, even if the mode was the same whatever}}
-\DoxyCodeLine{183     \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
-\DoxyCodeLine{184   \}}
-\DoxyCodeLine{185 \}}
+\DoxyCodeLine{123 \{}
+\DoxyCodeLine{124   \textcolor{comment}{// if reveiving new data set our last data time}}
+\DoxyCodeLine{125   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLReceiver_a52b51c60db0419167aabdfe1f5d9a3e6}{VLReceiver::onNewData}}()) \{}
+\DoxyCodeLine{126     \mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\_timeOutStartTime}} = \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}();}
+\DoxyCodeLine{127     \textcolor{comment}{// if our last data was more than time out duration reset the recveiver}}
+\DoxyCodeLine{128   \} \textcolor{keywordflow}{else} \textcolor{keywordflow}{if} (\mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\_timeOutStartTime}} > 0 \&\& (\mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\_timeOutStartTime}} + \mbox{\hyperlink{Timings_8h_a5b19ad5a706226f4733b244e808ee463}{MAX\_TIMEOUT\_DURATION}}) < \mbox{\hyperlink{classTime_a7c7a8e067bdbd5aaf119521539d30940}{Time::getCurtime}}()) \{}
+\DoxyCodeLine{129     \mbox{\hyperlink{classVLReceiver_a9d711ae64327b2b26c168478f92231b1}{VLReceiver::resetVLState}}();}
+\DoxyCodeLine{130     \mbox{\hyperlink{classModeSharing_a118440b66ff64341a596850cf7ef6a75}{m\_timeOutStartTime}} = 0;}
+\DoxyCodeLine{131     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{132   \}}
+\DoxyCodeLine{133   \textcolor{comment}{// check if the VLReceiver has a full packet available}}
+\DoxyCodeLine{134   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_aece2971f1778af65459a3db1cb9eda0d}{VLReceiver::dataReady}}()) \{}
+\DoxyCodeLine{135     \textcolor{comment}{// nothing available yet}}
+\DoxyCodeLine{136     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{137   \}}
+\DoxyCodeLine{138   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Mode ready to receive! Receiving..."{}});}
+\DoxyCodeLine{139   \textcolor{comment}{// receive the VL mode into the current mode}}
+\DoxyCodeLine{140   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLReceiver_add2bca7d2ad4e1f3653f04be9a6e3d21}{VLReceiver::receiveMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}})) \{}
+\DoxyCodeLine{141     \mbox{\hyperlink{Log_8h_aa12d9b2ced7332bfbb9391da9617561a}{ERROR\_LOG}}(\textcolor{stringliteral}{"{}Failed to receive mode"{}});}
+\DoxyCodeLine{142     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{143   \}}
+\DoxyCodeLine{144   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Success receiving mode: \%u"{}}, \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a0c012c6a748a1a1a9502b552bfa2ba66}{getPatternID}}());}
+\DoxyCodeLine{145   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{146     \mbox{\hyperlink{classModes_a263cf02fb83d954b91c85d2d1e5411ee}{Modes::updateCurMode}}(\&\mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}});}
+\DoxyCodeLine{147     \textcolor{comment}{// leave menu and save settings, even if the mode was the same whatever}}
+\DoxyCodeLine{148     \mbox{\hyperlink{classMenu_aa25243d16e3d73cf24323c3f703674bd}{leaveMenu}}(\textcolor{keyword}{true});}
+\DoxyCodeLine{149   \}}
+\DoxyCodeLine{150 \}}
 
 \end{DoxyCode}
 
 
-References IRReceiver\+::data\+Ready(), DEBUG\+\_\+\+LOG, DEBUG\+\_\+\+LOGF, ERROR\+\_\+\+LOG, Time\+::get\+Curtime(), Mode\+::get\+Pattern\+ID(), Menu\+::leave\+Menu(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+preview\+Mode, m\+\_\+time\+Out\+Start\+Time, MAX\+\_\+\+TIMEOUT\+\_\+\+DURATION, IRReceiver\+::on\+New\+Data(), IRReceiver\+::receive\+Mode(), IRReceiver\+::reset\+IRState(), and Modes\+::update\+Cur\+Mode().
+References VLReceiver\+::data\+Ready(), DEBUG\+\_\+\+LOG, DEBUG\+\_\+\+LOGF, ERROR\+\_\+\+LOG, Time\+::get\+Curtime(), Mode\+::get\+Pattern\+ID(), Menu\+::leave\+Menu(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+preview\+Mode, m\+\_\+time\+Out\+Start\+Time, MAX\+\_\+\+TIMEOUT\+\_\+\+DURATION, VLReceiver\+::on\+New\+Data(), VLReceiver\+::receive\+Mode(), VLReceiver\+::reset\+VLState(), and Modes\+::update\+Cur\+Mode().
 
 
 
@@ -489,32 +412,26 @@ Definition at line 42 of file Mode\+Sharing.\+cpp.
 \DoxyCodeLine{46     \textcolor{keywordflow}{return} result;}
 \DoxyCodeLine{47   \}}
 \DoxyCodeLine{48   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classModeSharing_a4bfe5465a9a605a2f8a576408650b442}{m\_sharingMode}}) \{}
-\DoxyCodeLine{49   \textcolor{keywordflow}{case} \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127abb09596baa7af2a3e4714a63eb1e01f0}{ModeShareState::SHARE\_SEND\_IR}}:}
+\DoxyCodeLine{49   \textcolor{keywordflow}{case} \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127adc5e4cdbf9c5e23bd9acab0a312efad4}{ModeShareState::SHARE\_SEND\_VL}}:}
 \DoxyCodeLine{50     \textcolor{comment}{// render the 'send mode' lights}}
-\DoxyCodeLine{51     \mbox{\hyperlink{classModeSharing_a031448b1c46da5e0724bbacfa177a7dd}{showSendModeIR}}();}
+\DoxyCodeLine{51     \mbox{\hyperlink{classModeSharing_ab15ee747bc61856d04311594b4a74e17}{showSendModeVL}}();}
 \DoxyCodeLine{52     \textcolor{comment}{// continue sending any data as long as there is more to send}}
-\DoxyCodeLine{53     \mbox{\hyperlink{classModeSharing_a4d4dd87df5e39e4eda2a3779dc7191d0}{continueSendingIR}}();}
+\DoxyCodeLine{53     \mbox{\hyperlink{classModeSharing_a3d7ec3745e195d3d42b53743abcb4622}{continueSendingVL}}();}
 \DoxyCodeLine{54     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{55   \textcolor{keywordflow}{case} \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127adc5e4cdbf9c5e23bd9acab0a312efad4}{ModeShareState::SHARE\_SEND\_VL}}:}
-\DoxyCodeLine{56     \textcolor{comment}{// render the 'send mode' lights}}
-\DoxyCodeLine{57     \mbox{\hyperlink{classModeSharing_ab15ee747bc61856d04311594b4a74e17}{showSendModeVL}}();}
-\DoxyCodeLine{58     \textcolor{comment}{// continue sending any data as long as there is more to send}}
-\DoxyCodeLine{59     \mbox{\hyperlink{classModeSharing_a3d7ec3745e195d3d42b53743abcb4622}{continueSendingVL}}();}
+\DoxyCodeLine{55   \textcolor{keywordflow}{case} \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}{ModeShareState::SHARE\_RECEIVE}}:}
+\DoxyCodeLine{56     \textcolor{comment}{// render the 'receive mode' lights}}
+\DoxyCodeLine{57     \mbox{\hyperlink{classModeSharing_af9de8e68dbc889f353da877ba14e0ff4}{showReceiveMode}}();}
+\DoxyCodeLine{58     \textcolor{comment}{// load any modes that are received}}
+\DoxyCodeLine{59     \mbox{\hyperlink{classModeSharing_af8e921264358562036eb55a5b6f33275}{receiveModeVL}}();}
 \DoxyCodeLine{60     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{61   \textcolor{keywordflow}{case} \mbox{\hyperlink{classModeSharing_a7602b4bf351c007963ee2185eb0d4127a57945b9b80b6a696d481aca4348819bb}{ModeShareState::SHARE\_RECEIVE}}:}
-\DoxyCodeLine{62     \textcolor{comment}{// render the 'receive mode' lights}}
-\DoxyCodeLine{63     \mbox{\hyperlink{classModeSharing_af9de8e68dbc889f353da877ba14e0ff4}{showReceiveMode}}();}
-\DoxyCodeLine{64     \textcolor{comment}{// load any modes that are received}}
-\DoxyCodeLine{65     \mbox{\hyperlink{classModeSharing_aac8e553329a62aa804beded83fe18597}{receiveModeIR}}();}
-\DoxyCodeLine{66     \textcolor{keywordflow}{break};}
-\DoxyCodeLine{67   \}}
-\DoxyCodeLine{68   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
-\DoxyCodeLine{69 \}}
+\DoxyCodeLine{61   \}}
+\DoxyCodeLine{62   \textcolor{keywordflow}{return} \mbox{\hyperlink{classMenu_ad24d35b191e44e1b2bc81633d83df4ffaf3d88dcb06634cba00876a7d78cb0b22}{MENU\_CONTINUE}};}
+\DoxyCodeLine{63 \}}
 
 \end{DoxyCode}
 
 
-References continue\+Sending\+IR(), continue\+Sending\+VL(), m\+\_\+sharing\+Mode, Menu\+::\+MENU\+\_\+\+CONTINUE, receive\+Mode\+IR(), Menu\+::run(), SHARE\+\_\+\+RECEIVE, SHARE\+\_\+\+SEND\+\_\+\+IR, SHARE\+\_\+\+SEND\+\_\+\+VL, show\+Receive\+Mode(), show\+Send\+Mode\+IR(), and show\+Send\+Mode\+VL().
+References continue\+Sending\+VL(), m\+\_\+sharing\+Mode, Menu\+::\+MENU\+\_\+\+CONTINUE, receive\+Mode\+VL(), Menu\+::run(), SHARE\+\_\+\+RECEIVE, SHARE\+\_\+\+SEND\+\_\+\+VL, show\+Receive\+Mode(), and show\+Send\+Mode\+VL().
 
 \mbox{\Hypertarget{classModeSharing_af9de8e68dbc889f353da877ba14e0ff4}\label{classModeSharing_af9de8e68dbc889f353da877ba14e0ff4}} 
 \index{ModeSharing@{ModeSharing}!showReceiveMode@{showReceiveMode}}
@@ -524,53 +441,27 @@ References continue\+Sending\+IR(), continue\+Sending\+VL(), m\+\_\+sharing\+Mod
 
 
 
-Definition at line 199 of file Mode\+Sharing.\+cpp.
+Definition at line 158 of file Mode\+Sharing.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{200 \{}
-\DoxyCodeLine{201   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classIRReceiver_aa8c42ac4fffc8e534fafd808e4f5b39e}{IRReceiver::isReceiving}}()) \{}
-\DoxyCodeLine{202     \textcolor{comment}{// using uint32\_t to avoid overflow, the result should be within 10 to 255}}
-\DoxyCodeLine{203     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{classRGBColor}{RGBColor}}(0, \mbox{\hyperlink{classIRReceiver_ae7f5628b174caf0f8db9be7adc53f287}{IRReceiver::percentReceived}}(), 0));}
-\DoxyCodeLine{204   \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{205     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
-\DoxyCodeLine{206       \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a21d1c7da7b97340ab1af39d242cc6f22}{play}}();}
-\DoxyCodeLine{207     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{208       \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
-\DoxyCodeLine{209     \}}
-\DoxyCodeLine{210   \}}
-\DoxyCodeLine{211 \}}
+\DoxyCodeLine{159 \{}
+\DoxyCodeLine{160   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLReceiver_a70272e1e665654e412f59dfd2dc15bc2}{VLReceiver::isReceiving}}()) \{}
+\DoxyCodeLine{161     \textcolor{comment}{// using uint32\_t to avoid overflow, the result should be within 10 to 255}}
+\DoxyCodeLine{162     \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{classRGBColor}{RGBColor}}(0, \mbox{\hyperlink{classVLReceiver_af8c3fce495ebd5f50e5bcf73554f28d2}{VLReceiver::percentReceived}}(), 0));}
+\DoxyCodeLine{163   \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{164     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenu_ad084e8bd2245c147f52567d4406641bd}{m\_advanced}}) \{}
+\DoxyCodeLine{165       \mbox{\hyperlink{classMenu_ac8a829f4f7405393db1c8729828494e4}{m\_previewMode}}.\mbox{\hyperlink{classMode_a21d1c7da7b97340ab1af39d242cc6f22}{play}}();}
+\DoxyCodeLine{166     \} \textcolor{keywordflow}{else} \{}
+\DoxyCodeLine{167       \mbox{\hyperlink{classLeds_a4543ff3cbf57aa0da33b86b5d6f56007}{Leds::setAll}}(\mbox{\hyperlink{ColorConstants_8h_a8d2e758752bf9a63564ec6b2451f1670}{RGB\_WHITE0}});}
+\DoxyCodeLine{168     \}}
+\DoxyCodeLine{169   \}}
+\DoxyCodeLine{170 \}}
 
 \end{DoxyCode}
 
 
-References IRReceiver\+::is\+Receiving(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+preview\+Mode, IRReceiver\+::percent\+Received(), Mode\+::play(), RGB\+\_\+\+WHITE0, and Leds\+::set\+All().
-
-
-
-Referenced by run().
-
-\mbox{\Hypertarget{classModeSharing_a031448b1c46da5e0724bbacfa177a7dd}\label{classModeSharing_a031448b1c46da5e0724bbacfa177a7dd}} 
-\index{ModeSharing@{ModeSharing}!showSendModeIR@{showSendModeIR}}
-\index{showSendModeIR@{showSendModeIR}!ModeSharing@{ModeSharing}}
-\doxysubsubsection{\texorpdfstring{showSendModeIR()}{showSendModeIR()}}
-{\footnotesize\ttfamily void Mode\+Sharing\+::show\+Send\+Mode\+IR (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
-
-
-
-Definition at line 193 of file Mode\+Sharing.\+cpp.
-
-
-\begin{DoxyCode}{0}
-\DoxyCodeLine{194 \{}
-\DoxyCodeLine{195   \textcolor{comment}{// show a dim color when not sending}}
-\DoxyCodeLine{196   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{197 \}}
-
-\end{DoxyCode}
-
-
-References Leds\+::clear\+All().
+References VLReceiver\+::is\+Receiving(), Menu\+::m\+\_\+advanced, Menu\+::m\+\_\+preview\+Mode, VLReceiver\+::percent\+Received(), Mode\+::play(), RGB\+\_\+\+WHITE0, and Leds\+::set\+All().
 
 
 
@@ -584,14 +475,14 @@ Referenced by run().
 
 
 
-Definition at line 187 of file Mode\+Sharing.\+cpp.
+Definition at line 152 of file Mode\+Sharing.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{188 \{}
-\DoxyCodeLine{189   \textcolor{comment}{// show a dim color when not sending}}
-\DoxyCodeLine{190   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
-\DoxyCodeLine{191 \}}
+\DoxyCodeLine{153 \{}
+\DoxyCodeLine{154   \textcolor{comment}{// show a dim color when not sending}}
+\DoxyCodeLine{155   \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{156 \}}
 
 \end{DoxyCode}
 
@@ -613,11 +504,11 @@ Referenced by run().
 
 
 
-Definition at line 37 of file Mode\+Sharing.\+h.
+Definition at line 33 of file Mode\+Sharing.\+h.
 
 
 
-Referenced by begin\+Receiving\+IR(), begin\+Sending\+IR(), begin\+Sending\+VL(), on\+Short\+Click(), and run().
+Referenced by begin\+Receiving\+VL(), begin\+Sending\+VL(), on\+Short\+Click(), and run().
 
 \mbox{\Hypertarget{classModeSharing_a118440b66ff64341a596850cf7ef6a75}\label{classModeSharing_a118440b66ff64341a596850cf7ef6a75}} 
 \index{ModeSharing@{ModeSharing}!m\_timeOutStartTime@{m\_timeOutStartTime}}
@@ -627,11 +518,11 @@ Referenced by begin\+Receiving\+IR(), begin\+Sending\+IR(), begin\+Sending\+VL()
 
 
 
-Definition at line 40 of file Mode\+Sharing.\+h.
+Definition at line 36 of file Mode\+Sharing.\+h.
 
 
 
-Referenced by receive\+Mode\+IR().
+Referenced by receive\+Mode\+VL().
 
 
 

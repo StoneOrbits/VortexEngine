@@ -1,13 +1,5 @@
 var NAVTREEINDEX2 =
 {
-"PatternArgs_8h_source.html":[1,0,0,0,7,5],
-"PatternBuilder_8cpp.html":[1,0,0,0,7,6],
-"PatternBuilder_8cpp_source.html":[1,0,0,0,7,6],
-"PatternBuilder_8h.html":[1,0,0,0,7,7],
-"PatternBuilder_8h_source.html":[1,0,0,0,7,7],
-"PatternSelect_8cpp.html":[1,0,0,0,5,0,10],
-"PatternSelect_8cpp_source.html":[1,0,0,0,5,0,10],
-"PatternSelect_8h.html":[1,0,0,0,5,0,11],
 "PatternSelect_8h_source.html":[1,0,0,0,5,0,11],
 "Pattern_8cpp.html":[1,0,0,0,7,2],
 "Pattern_8cpp_source.html":[1,0,0,0,7,2],
@@ -16,6 +8,7 @@ var NAVTREEINDEX2 =
 "Pattern_8h.html#ab1306cccbe6b359324139bc35edbbbb4":[1,0,0,0,7,3,4],
 "Pattern_8h.html#abcbce9606e135f95711d1ea069ecde1d":[1,0,0,0,7,3,2],
 "Pattern_8h.html#ae043ba7f3459da9b1520196805651190":[1,0,0,0,7,3,3],
+"Pattern_8h.html#aec6e60a6442c2d176eefd630e4caac2b":[1,0,0,0,7,3,5],
 "Pattern_8h_source.html":[1,0,0,0,7,3],
 "Patterns_8h.html":[1,0,0,0,7,8],
 "Patterns_8h.html#a36bab80ddfed656d48403eb8db056149":[1,0,0,0,7,8,4],
@@ -135,7 +128,11 @@ var NAVTREEINDEX2 =
 "SparkleTracePattern_8h_source.html":[1,0,0,0,7,0,32],
 "Storage_8cpp.html":[1,0,0,0,10,0],
 "Storage_8cpp.html#a3afbe062209d42a72bc5b4a03a86206a":[1,0,0,0,10,0,0],
-"Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f":[1,0,0,0,10,0,1],
+"Storage_8cpp.html#a4a8bec941d32acc2e0c33423a61e661f":[1,0,0,0,10,0,4],
+"Storage_8cpp.html#a4cc14e2c99ae7f8e5a8e371d03c8532c":[1,0,0,0,10,0,1],
+"Storage_8cpp.html#a890aee95eb073a5cf178a74b6f124daa":[1,0,0,0,10,0,2],
+"Storage_8cpp.html#af7b86ca9d41a47f96cf528ab36de4891":[1,0,0,0,10,0,3],
+"Storage_8cpp.html#afb3f89e3b0a79ae35a8a1c0d50ea5b60":[1,0,0,0,10,0,5],
 "Storage_8cpp_source.html":[1,0,0,0,10,0],
 "Storage_8h.html":[1,0,0,0,10,1],
 "Storage_8h_source.html":[1,0,0,0,10,1],
@@ -248,6 +245,9 @@ var NAVTREEINDEX2 =
 "VLSender_8h.html":[1,0,0,0,12,9],
 "VLSender_8h_source.html":[1,0,0,0,12,9],
 "VortexConfig_8h.html":[1,0,0,0,13],
-"VortexConfig_8h.html#a05fee2a32286f9f15d91bae6468dc241":[1,0,0,0,13,38],
-"VortexConfig_8h.html#a0be17f7cbaf6e5a5e8d4f0405d16107e":[1,0,0,0,13,34]
+"VortexConfig_8h.html#a0be17f7cbaf6e5a5e8d4f0405d16107e":[1,0,0,0,13,33],
+"VortexConfig_8h.html#a0d801866c302fc22f8bfb9a4a25a0462":[1,0,0,0,13,89],
+"VortexConfig_8h.html#a0e67a9d736bfe02f58872add97f72878":[1,0,0,0,13,10],
+"VortexConfig_8h.html#a0efe647434a0e0ab74083af0fcd47c09":[1,0,0,0,13,39],
+"VortexConfig_8h.html#a0f03f33479c772421539f8e6bdb8b343":[1,0,0,0,13,12]
 };

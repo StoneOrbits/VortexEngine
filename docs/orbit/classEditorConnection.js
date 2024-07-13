@@ -14,7 +14,8 @@ var classEditorConnection =
       [ "STATE_DEMO_MODE_RECEIVE", "classEditorConnection.html#aba2f5b971c7c0707f695f1f6f1a94c72a4f62d254b8a96cae6ba3fc848ad08a59", null ],
       [ "STATE_DEMO_MODE_DONE", "classEditorConnection.html#aba2f5b971c7c0707f695f1f6f1a94c72ad875f82180099eb4ac6f4137d7e31a21", null ],
       [ "STATE_CLEAR_DEMO", "classEditorConnection.html#aba2f5b971c7c0707f695f1f6f1a94c72aa2410da1c9c8c73d16ef57fa2549701d", null ],
-      [ "STATE_SEND_MODE_VL", "classEditorConnection.html#aba2f5b971c7c0707f695f1f6f1a94c72aadfdc67f01f603a128a89de256a1c40f", null ]
+      [ "STATE_TRANSMIT_MODE_VL", "classEditorConnection.html#aba2f5b971c7c0707f695f1f6f1a94c72a3d089ba7666fa68cceef0bb895a377c4", null ],
+      [ "STATE_TRANSMIT_MODE_VL_DONE", "classEditorConnection.html#aba2f5b971c7c0707f695f1f6f1a94c72ac1f27c31c0d1a2c7d9864bad88dbbe89", null ]
     ] ],
     [ "EditorConnection", "classEditorConnection.html#ae8dafb9ef41ade904a95d6b8962c0726", null ],
     [ "~EditorConnection", "classEditorConnection.html#a8685e672646fa651c2274032f8d8d258", null ],
@@ -31,6 +32,7 @@ var classEditorConnection =
     [ "receiveMessage", "classEditorConnection.html#ac5190c24d2532a1be8059fbc04a5dcd4", null ],
     [ "receiveModes", "classEditorConnection.html#a2296e42204cdbe192bb446c343b1985a", null ],
     [ "run", "classEditorConnection.html#af634ec7181239c80d02e5f7d7f2ad308", null ],
+    [ "sendCurModeVL", "classEditorConnection.html#af1890d36b57157e3c945f5b788762373", null ],
     [ "sendModes", "classEditorConnection.html#a3e9e8c800831799dcec3aa530e96e231", null ],
     [ "showEditor", "classEditorConnection.html#acbc145167462de6647054a4f2799db1f", null ],
     [ "m_receiveBuffer", "classEditorConnection.html#a0c149d4ab4c9e09285e8dfca348aced1", null ],

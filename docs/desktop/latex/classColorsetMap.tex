@@ -33,16 +33,16 @@ void \mbox{\hyperlink{classColorsetMap_ada223f617bd23f025882cb2120631206}{set\+C
 \item 
 const \mbox{\hyperlink{classColorset}{Colorset}} \& \mbox{\hyperlink{classColorsetMap_a617425fa10a8fc85245bdf1a2bc1d381}{operator\mbox{[}$\,$\mbox{]}}} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}} index) const
 \item 
-void \mbox{\hyperlink{classColorsetMap_ae4cf6ba495cfe692e1b8d4a48fc003f5}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer) const
+bool \mbox{\hyperlink{classColorsetMap_a3315bb67e3604f8b09f12f305c7d67cf}{serialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer) const
 \item 
-void \mbox{\hyperlink{classColorsetMap_a13341424b365b209d2e93700f953317c}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
+bool \mbox{\hyperlink{classColorsetMap_a333599cf9f610e57c428f31b24d48f49}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \& \mbox{\hyperlink{classColorsetMap_a4fa57e36d451401752f2e13d5906898d}{m\+\_\+engine}}
 \item 
-std\+::vector$<$ \mbox{\hyperlink{classColorset}{Colorset}} $>$ \mbox{\hyperlink{classColorsetMap_a4da2ca7ee32b0060fbe57c1d2a396559}{m\+\_\+colorset\+Map}}
+std\+::vector$<$ \mbox{\hyperlink{classColorset}{Colorset}} $>$ \mbox{\hyperlink{classColorsetMap_aeaff00208d4398e34e9b2c6b1d1388e1}{m\+\_\+colorsets}}
 \end{DoxyCompactItemize}
 
 
@@ -62,15 +62,15 @@ Definition at line 43 of file Sequence.\+h.
 
 
 
-Definition at line 82 of file Sequence.\+cpp.
+Definition at line 88 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{82                                              :}
-\DoxyCodeLine{83   \mbox{\hyperlink{classColorsetMap_a4fa57e36d451401752f2e13d5906898d}{m\_engine}}(engine),}
-\DoxyCodeLine{84   \mbox{\hyperlink{classColorsetMap_a4da2ca7ee32b0060fbe57c1d2a396559}{m\_colorsetMap}}()}
-\DoxyCodeLine{85 \{}
-\DoxyCodeLine{86 \}}
+\DoxyCodeLine{88                                              :}
+\DoxyCodeLine{89   \mbox{\hyperlink{classColorsetMap_a4fa57e36d451401752f2e13d5906898d}{m\_engine}}(engine),}
+\DoxyCodeLine{90   \mbox{\hyperlink{classColorsetMap_aeaff00208d4398e34e9b2c6b1d1388e1}{m\_colorsets}}()}
+\DoxyCodeLine{91 \{}
+\DoxyCodeLine{92 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classColorsetMap_a312d70f74b22f597931d7c6a22a56572}\label{classColorsetMap_a312d70f74b22f597931d7c6a22a56572}} 
@@ -81,15 +81,15 @@ Definition at line 82 of file Sequence.\+cpp.
 
 
 
-Definition at line 88 of file Sequence.\+cpp.
+Definition at line 94 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{88                                                                                          :}
-\DoxyCodeLine{89   \mbox{\hyperlink{classColorsetMap_a567fe1437618cd86d431249836456a25}{ColorsetMap}}(engine)}
-\DoxyCodeLine{90 \{}
-\DoxyCodeLine{91   \mbox{\hyperlink{classColorsetMap_ada223f617bd23f025882cb2120631206}{setColorsetAt}}(colorset, positions);}
-\DoxyCodeLine{92 \}}
+\DoxyCodeLine{94                                                                                          :}
+\DoxyCodeLine{95   \mbox{\hyperlink{classColorsetMap_a567fe1437618cd86d431249836456a25}{ColorsetMap}}(engine)}
+\DoxyCodeLine{96 \{}
+\DoxyCodeLine{97   \mbox{\hyperlink{classColorsetMap_ada223f617bd23f025882cb2120631206}{setColorsetAt}}(colorset, positions);}
+\DoxyCodeLine{98 \}}
 
 \end{DoxyCode}
 
@@ -104,15 +104,15 @@ References set\+Colorset\+At().
 
 
 
-Definition at line 94 of file Sequence.\+cpp.
+Definition at line 100 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{94                                                                        :}
-\DoxyCodeLine{95   \mbox{\hyperlink{classColorsetMap_a567fe1437618cd86d431249836456a25}{ColorsetMap}}(engine)}
-\DoxyCodeLine{96 \{}
-\DoxyCodeLine{97   *\textcolor{keyword}{this} = other;}
-\DoxyCodeLine{98 \}}
+\DoxyCodeLine{100                                                                        :}
+\DoxyCodeLine{101   \mbox{\hyperlink{classColorsetMap_a567fe1437618cd86d431249836456a25}{ColorsetMap}}(engine)}
+\DoxyCodeLine{102 \{}
+\DoxyCodeLine{103   *\textcolor{keyword}{this} = other;}
+\DoxyCodeLine{104 \}}
 
 \end{DoxyCode}
 
@@ -126,13 +126,13 @@ Definition at line 94 of file Sequence.\+cpp.
 
 
 
-Definition at line 110 of file Sequence.\+cpp.
+Definition at line 116 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{111 \{}
-\DoxyCodeLine{112   \textcolor{keywordflow}{return} !(*\textcolor{keyword}{this} == other);}
-\DoxyCodeLine{113 \}}
+\DoxyCodeLine{117 \{}
+\DoxyCodeLine{118   \textcolor{keywordflow}{return} !(*\textcolor{keyword}{this} == other);}
+\DoxyCodeLine{119 \}}
 
 \end{DoxyCode}
 \mbox{\Hypertarget{classColorsetMap_af2f037e274e7f158dd8930c23060df17}\label{classColorsetMap_af2f037e274e7f158dd8930c23060df17}} 
@@ -143,18 +143,18 @@ Definition at line 110 of file Sequence.\+cpp.
 
 
 
-Definition at line 100 of file Sequence.\+cpp.
+Definition at line 106 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{101 \{}
-\DoxyCodeLine{102   \mbox{\hyperlink{classColorsetMap_a4da2ca7ee32b0060fbe57c1d2a396559}{m\_colorsetMap}} = other.\mbox{\hyperlink{classColorsetMap_a4da2ca7ee32b0060fbe57c1d2a396559}{m\_colorsetMap}};}
-\DoxyCodeLine{103 \}}
+\DoxyCodeLine{107 \{}
+\DoxyCodeLine{108   \mbox{\hyperlink{classColorsetMap_aeaff00208d4398e34e9b2c6b1d1388e1}{m\_colorsets}} = other.\mbox{\hyperlink{classColorsetMap_aeaff00208d4398e34e9b2c6b1d1388e1}{m\_colorsets}};}
+\DoxyCodeLine{109 \}}
 
 \end{DoxyCode}
 
 
-References m\+\_\+colorset\+Map.
+References m\+\_\+colorsets.
 
 \mbox{\Hypertarget{classColorsetMap_aa8ebdfa28896f31e01f8524a5622f72c}\label{classColorsetMap_aa8ebdfa28896f31e01f8524a5622f72c}} 
 \index{ColorsetMap@{ColorsetMap}!operator==@{operator==}}
@@ -164,18 +164,18 @@ References m\+\_\+colorset\+Map.
 
 
 
-Definition at line 105 of file Sequence.\+cpp.
+Definition at line 111 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{106 \{}
-\DoxyCodeLine{107   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorsetMap_a4da2ca7ee32b0060fbe57c1d2a396559}{m\_colorsetMap}} == other.\mbox{\hyperlink{classColorsetMap_a4da2ca7ee32b0060fbe57c1d2a396559}{m\_colorsetMap}};}
-\DoxyCodeLine{108 \}}
+\DoxyCodeLine{112 \{}
+\DoxyCodeLine{113   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorsetMap_aeaff00208d4398e34e9b2c6b1d1388e1}{m\_colorsets}} == other.\mbox{\hyperlink{classColorsetMap_aeaff00208d4398e34e9b2c6b1d1388e1}{m\_colorsets}};}
+\DoxyCodeLine{114 \}}
 
 \end{DoxyCode}
 
 
-References m\+\_\+colorset\+Map.
+References m\+\_\+colorsets.
 
 \mbox{\Hypertarget{classColorsetMap_a617425fa10a8fc85245bdf1a2bc1d381}\label{classColorsetMap_a617425fa10a8fc85245bdf1a2bc1d381}} 
 \index{ColorsetMap@{ColorsetMap}!operator\mbox{[}\mbox{]}@{operator[]}}
@@ -185,41 +185,44 @@ References m\+\_\+colorset\+Map.
 
 
 
-Definition at line 124 of file Sequence.\+cpp.
+Definition at line 130 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{125 \{}
-\DoxyCodeLine{126   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorsetMap_a4da2ca7ee32b0060fbe57c1d2a396559}{m\_colorsetMap}}[index];}
-\DoxyCodeLine{127 \}}
+\DoxyCodeLine{131 \{}
+\DoxyCodeLine{132   \textcolor{keywordflow}{return} \mbox{\hyperlink{classColorsetMap_aeaff00208d4398e34e9b2c6b1d1388e1}{m\_colorsets}}[index];}
+\DoxyCodeLine{133 \}}
 
 \end{DoxyCode}
 
 
-References m\+\_\+colorset\+Map.
+References m\+\_\+colorsets.
 
-\mbox{\Hypertarget{classColorsetMap_ae4cf6ba495cfe692e1b8d4a48fc003f5}\label{classColorsetMap_ae4cf6ba495cfe692e1b8d4a48fc003f5}} 
+\mbox{\Hypertarget{classColorsetMap_a3315bb67e3604f8b09f12f305c7d67cf}\label{classColorsetMap_a3315bb67e3604f8b09f12f305c7d67cf}} 
 \index{ColorsetMap@{ColorsetMap}!serialize@{serialize}}
 \index{serialize@{serialize}!ColorsetMap@{ColorsetMap}}
 \doxysubsubsection{\texorpdfstring{serialize()}{serialize()}}
-{\footnotesize\ttfamily void Colorset\+Map\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption}) const}
+{\footnotesize\ttfamily bool Colorset\+Map\+::serialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption}) const}
 
 
 
-Definition at line 129 of file Sequence.\+cpp.
+Definition at line 135 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{130 \{}
-\DoxyCodeLine{131   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} i = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; i < \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}; ++i) \{}
-\DoxyCodeLine{132     \mbox{\hyperlink{classColorsetMap_a4da2ca7ee32b0060fbe57c1d2a396559}{m\_colorsetMap}}[i].serialize(buffer);}
-\DoxyCodeLine{133   \}}
-\DoxyCodeLine{134 \}}
+\DoxyCodeLine{136 \{}
+\DoxyCodeLine{137   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} i = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; i < \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}; ++i) \{}
+\DoxyCodeLine{138     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorsetMap_aeaff00208d4398e34e9b2c6b1d1388e1}{m\_colorsets}}[i].\mbox{\hyperlink{classColorsetMap_a3315bb67e3604f8b09f12f305c7d67cf}{serialize}}(buffer)) \{}
+\DoxyCodeLine{139       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{140     \}}
+\DoxyCodeLine{141   \}}
+\DoxyCodeLine{142   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{143 \}}
 
 \end{DoxyCode}
 
 
-References LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, and m\+\_\+colorset\+Map.
+References LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, and m\+\_\+colorsets.
 
 
 
@@ -233,49 +236,52 @@ Referenced by Sequence\+Step\+::serialize().
 
 
 
-Definition at line 116 of file Sequence.\+cpp.
+Definition at line 122 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{117 \{}
-\DoxyCodeLine{118   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} pos = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; pos < \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}; ++pos) \{}
-\DoxyCodeLine{119     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorsetMap_a4fa57e36d451401752f2e13d5906898d}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a8581250ba0a336043ad0c34b0d2ce0af}{mapCheckLed}}(positions, pos)) \{}
-\DoxyCodeLine{120       \mbox{\hyperlink{classColorsetMap_a4da2ca7ee32b0060fbe57c1d2a396559}{m\_colorsetMap}}[pos] = colorset;}
-\DoxyCodeLine{121     \}}
-\DoxyCodeLine{122   \}}
-\DoxyCodeLine{123 \}}
+\DoxyCodeLine{123 \{}
+\DoxyCodeLine{124   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} pos = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; pos < \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}; ++pos) \{}
+\DoxyCodeLine{125     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classColorsetMap_a4fa57e36d451401752f2e13d5906898d}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a6db4e68fe048d9ff0fbb15cc126f28fb}{leds}}().\mbox{\hyperlink{classLeds_a57ae257edb283f9b6e17cc3a052adc11}{ledmapCheckLed}}(positions, pos)) \{}
+\DoxyCodeLine{126       \mbox{\hyperlink{classColorsetMap_aeaff00208d4398e34e9b2c6b1d1388e1}{m\_colorsets}}[pos] = colorset;}
+\DoxyCodeLine{127     \}}
+\DoxyCodeLine{128   \}}
+\DoxyCodeLine{129 \}}
 
 \end{DoxyCode}
 
 
-References LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, Vortex\+Engine\+::leds(), m\+\_\+colorset\+Map, m\+\_\+engine, and Leds\+::map\+Check\+Led().
+References LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, Leds\+::ledmap\+Check\+Led(), Vortex\+Engine\+::leds(), m\+\_\+colorsets, and m\+\_\+engine.
 
 
 
 Referenced by Colorset\+Map().
 
-\mbox{\Hypertarget{classColorsetMap_a13341424b365b209d2e93700f953317c}\label{classColorsetMap_a13341424b365b209d2e93700f953317c}} 
+\mbox{\Hypertarget{classColorsetMap_a333599cf9f610e57c428f31b24d48f49}\label{classColorsetMap_a333599cf9f610e57c428f31b24d48f49}} 
 \index{ColorsetMap@{ColorsetMap}!unserialize@{unserialize}}
 \index{unserialize@{unserialize}!ColorsetMap@{ColorsetMap}}
 \doxysubsubsection{\texorpdfstring{unserialize()}{unserialize()}}
-{\footnotesize\ttfamily void Colorset\+Map\+::unserialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool Colorset\+Map\+::unserialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})}
 
 
 
-Definition at line 136 of file Sequence.\+cpp.
+Definition at line 145 of file Sequence.\+cpp.
 
 
 \begin{DoxyCode}{0}
-\DoxyCodeLine{137 \{}
-\DoxyCodeLine{138   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} i = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; i < \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}; ++i) \{}
-\DoxyCodeLine{139     \mbox{\hyperlink{classColorsetMap_a4da2ca7ee32b0060fbe57c1d2a396559}{m\_colorsetMap}}[i].unserialize(buffer);}
-\DoxyCodeLine{140   \}}
-\DoxyCodeLine{141 \}}
+\DoxyCodeLine{146 \{}
+\DoxyCodeLine{147   \textcolor{keywordflow}{for} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{LedPos}} i = \mbox{\hyperlink{Leds_8h_a5504983bb4926facfaf0307b99425819}{LED\_FIRST}}; i < \mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}}; ++i) \{}
+\DoxyCodeLine{148     \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classColorsetMap_aeaff00208d4398e34e9b2c6b1d1388e1}{m\_colorsets}}[i].\mbox{\hyperlink{classColorsetMap_a333599cf9f610e57c428f31b24d48f49}{unserialize}}(buffer)) \{}
+\DoxyCodeLine{149       \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
+\DoxyCodeLine{150     \}}
+\DoxyCodeLine{151   \}}
+\DoxyCodeLine{152   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
+\DoxyCodeLine{153 \}}
 
 \end{DoxyCode}
 
 
-References LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, and m\+\_\+colorset\+Map.
+References LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, and m\+\_\+colorsets.
 
 
 
@@ -284,11 +290,11 @@ Referenced by Sequence\+Step\+::unserialize().
 
 
 \doxysubsection{Member Data Documentation}
-\mbox{\Hypertarget{classColorsetMap_a4da2ca7ee32b0060fbe57c1d2a396559}\label{classColorsetMap_a4da2ca7ee32b0060fbe57c1d2a396559}} 
-\index{ColorsetMap@{ColorsetMap}!m\_colorsetMap@{m\_colorsetMap}}
-\index{m\_colorsetMap@{m\_colorsetMap}!ColorsetMap@{ColorsetMap}}
-\doxysubsubsection{\texorpdfstring{m\_colorsetMap}{m\_colorsetMap}}
-{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classColorset}{Colorset}}$>$ Colorset\+Map\+::m\+\_\+colorset\+Map}
+\mbox{\Hypertarget{classColorsetMap_aeaff00208d4398e34e9b2c6b1d1388e1}\label{classColorsetMap_aeaff00208d4398e34e9b2c6b1d1388e1}} 
+\index{ColorsetMap@{ColorsetMap}!m\_colorsets@{m\_colorsets}}
+\index{m\_colorsets@{m\_colorsets}!ColorsetMap@{ColorsetMap}}
+\doxysubsubsection{\texorpdfstring{m\_colorsets}{m\_colorsets}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classColorset}{Colorset}}$>$ Colorset\+Map\+::m\+\_\+colorsets}
 
 
 
@@ -296,7 +302,7 @@ Definition at line 66 of file Sequence.\+h.
 
 
 
-Referenced by operator=(), operator==(), operator\mbox{[}$\,$\mbox{]}(), serialize(), set\+Colorset\+At(), and unserialize().
+Referenced by operator=(), operator==(), operator\mbox{[}$\,$\mbox{]}(), Sequenced\+Pattern\+::play\+Sequence\+Step(), serialize(), set\+Colorset\+At(), and unserialize().
 
 \mbox{\Hypertarget{classColorsetMap_a4fa57e36d451401752f2e13d5906898d}\label{classColorsetMap_a4fa57e36d451401752f2e13d5906898d}} 
 \index{ColorsetMap@{ColorsetMap}!m\_engine@{m\_engine}}

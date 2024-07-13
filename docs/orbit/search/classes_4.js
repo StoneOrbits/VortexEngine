@@ -1,5 +1,5 @@
 var searchData=
 [
-  ['factoryreset_1679',['FactoryReset',['../classFactoryReset.html',1,'']]],
-  ['fillpattern_1680',['FillPattern',['../classFillPattern.html',1,'']]]
+  ['factoryreset_1687',['FactoryReset',['../classFactoryReset.html',1,'']]],
+  ['fillpattern_1688',['FillPattern',['../classFillPattern.html',1,'']]]
 ];

@@ -101,12 +101,18 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>saveCurMode()
 : <a class="el" href="classModes.html#a1cb4d9f5f52072994532cf62585a2719">Modes</a>
 </li>
+<li>saveHeader()
+: <a class="el" href="classModes.html#ade2a9cca4ba60327352111a369c28a15">Modes</a>
+</li>
 <li>saveStorage()
 : <a class="el" href="classModes.html#a1756081ee85dbcf672ddad5a3dcb4690">Modes</a>
 </li>
 <li>saveToBuffer()
 : <a class="el" href="classMode.html#a4bf861a9f38599ab515655ae52700534">Mode</a>
 , <a class="el" href="classModes.html#a9b64018ed3d72c3667f0eaef5fd6495f">Modes</a>
+</li>
+<li>secondsToTicks()
+: <a class="el" href="classTime.html#ad0ada2f276d58c7250695755ca201d88">Time</a>
 </li>
 <li>seed()
 : <a class="el" href="classRandom.html#aa2b92761e9fce8676d6c8358a6e691de">Random</a>
@@ -118,6 +124,9 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>sendByte()
 : <a class="el" href="classIRSender.html#a269bff02e0b318ee7a2eadfdf87a17b1">IRSender</a>
 , <a class="el" href="classVLSender.html#a020e91ee92122906e0bb407f3a6b34d2">VLSender</a>
+</li>
+<li>sendCurModeVL()
+: <a class="el" href="classEditorConnection.html#af1890d36b57157e3c945f5b788762373">EditorConnection</a>
 </li>
 <li>sendMark()
 : <a class="el" href="classIRSender.html#a957effa037d1a95ba0d5c78bf7c0ab0c">IRSender</a>
@@ -137,7 +146,7 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 : <a class="el" href="classSequencedPattern.html#a245bef495a3d14fda81c55bd3d213ee8">SequencedPattern</a>
 </li>
 <li>SequenceStep()
-: <a class="el" href="classSequenceStep.html#a4781928f80d5074ba7d36c98c98b3dae">SequenceStep</a>
+: <a class="el" href="classSequenceStep.html#aaa1db7efc4011ec022b3718ae77d6d1b">SequenceStep</a>
 </li>
 <li>serial()
 : <a class="el" href="classVortexEngine.html#a8430f2b1a824966b1f6e414dd421c3cc">VortexEngine</a>
@@ -146,17 +155,25 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 : <a class="el" href="classSerialComs.html#a5cb5bbcfba16ac0a6719cd95262fe15c">SerialComs</a>
 </li>
 <li>serialize()
-: <a class="el" href="classByteStream.html#a1a6fabcff7c520c998d1228fcbc2f25f">ByteStream</a>
-, <a class="el" href="classColorset.html#a7a8fb6c76ffc60305a736d03fe3407fd">Colorset</a>
-, <a class="el" href="classColorsetMap.html#ae4cf6ba495cfe692e1b8d4a48fc003f5">ColorsetMap</a>
-, <a class="el" href="classMode.html#a5131802c3bf289b45b1847e8a65ea522">Mode</a>
+: <a class="el" href="classColorset.html#ad550724ed5031606e60c21a9d05e6feb">Colorset</a>
+, <a class="el" href="classColorsetMap.html#a3315bb67e3604f8b09f12f305c7d67cf">ColorsetMap</a>
+, <a class="el" href="classMode.html#aad4310ad7cbb0d98f5583c97881012f2">Mode</a>
 , <a class="el" href="classModes.html#afb881f5315e4197bb01625b1268eca9d">Modes</a>
-, <a class="el" href="classPattern.html#ab1736f919bf4e8e0de09f4501f095f01">Pattern</a>
-, <a class="el" href="classPatternArgs.html#a70864ef6693048c27347f1456ef2015a">PatternArgs</a>
-, <a class="el" href="classPatternMap.html#a438f831e3e16c6347e6fb32d5357fda9">PatternMap</a>
-, <a class="el" href="classRGBColor.html#ab9559d07cb8bf9efcb05ce6698f41cca">RGBColor</a>
-, <a class="el" href="classSequence.html#a7f5f7fc8ecacf393035736029b39c9f4">Sequence</a>
-, <a class="el" href="classSequenceStep.html#a91691abcb78df2939a05dcaf88303c6b">SequenceStep</a>
+, <a class="el" href="classPattern.html#a762365f86054e20394c6ff55d6ae205f">Pattern</a>
+, <a class="el" href="classPatternArgs.html#a46d632a81a5821e440fcc8e30fe12297">PatternArgs</a>
+, <a class="el" href="classPatternMap.html#a42d061837424e43b9a91e6d6b45cfdbc">PatternMap</a>
+, <a class="el" href="classRGBColor.html#a7eaddf84768c5b858355d98d67bbd859">RGBColor</a>
+, <a class="el" href="classSequence.html#abdc0c7500f7dce71b866646068b53c4c">Sequence</a>
+, <a class="el" href="classSequenceStep.html#a2f268d9e0e29ef9d851edf3a8990b45b">SequenceStep</a>
+</li>
+<li>serialize16()
+: <a class="el" href="classByteStream.html#ab011a6febdba90abc3f4858a745becb2">ByteStream</a>
+</li>
+<li>serialize32()
+: <a class="el" href="classByteStream.html#a1ff20225c71d9bbc6539439af3b46bed">ByteStream</a>
+</li>
+<li>serialize8()
+: <a class="el" href="classByteStream.html#ad3b413f399f22d30548a61a5e01ef3a7">ByteStream</a>
 </li>
 <li>serializeSaveHeader()
 : <a class="el" href="classModes.html#a4432825def9ab0a3edb0c480e21c14e1">Modes</a>
@@ -250,7 +267,7 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 : <a class="el" href="classMode.html#aca99847b051b6f3aebad1fee909e48fc">Mode</a>
 </li>
 <li>setPatternAt()
-: <a class="el" href="classCompoundPattern.html#af6309f0ba65191342a39481b67cfcd5e">CompoundPattern</a>
+: <a class="el" href="classCompoundPattern.html#a1cb74f3378b094abc08773ff5cc17b8a">CompoundPattern</a>
 , <a class="el" href="classPatternMap.html#ab27a12b50999c1bd3f5ec4305cbc2ec0">PatternMap</a>
 </li>
 <li>setPatternMap()
@@ -270,6 +287,9 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 </li>
 <li>setStartupMode()
 : <a class="el" href="classModes.html#a86dc60444399ab04d49f77935f68e8dd">Modes</a>
+</li>
+<li>setTargetLeds()
+: <a class="el" href="classMenu.html#a6ef7c3b1c9ef54949e8a307e22d3d5d0">Menu</a>
 </li>
 <li>setTickrate()
 : <a class="el" href="classTime.html#aaf106aff340ea506f16a010b12f51769">Time</a>
@@ -348,8 +368,7 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 , <a class="el" href="classTimer.html#a4f816271e1661c4eb03afc87e2f78c6a">Timer</a>
 </li>
 <li>startPWM()
-: <a class="el" href="classIRSender.html#a1d44e1edc5eb96f000a933b1fac00127">IRSender</a>
-, <a class="el" href="classVLSender.html#a563dfda5e2adea98cbf98ef98c66787c">VLSender</a>
+: <a class="el" href="classVLSender.html#a563dfda5e2adea98cbf98ef98c66787c">VLSender</a>
 </li>
 <li>startTime()
 : <a class="el" href="classTimer.html#a35f384d70298841a8826720b1a57e255">Timer</a>
@@ -409,7 +428,7 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 : <a class="el" href="classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9a04328f3cde160199c9c79dd069c70544">BasicPattern</a>
 </li>
 <li>STATE_INIT
-: <a class="el" href="classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2eae11874bf43ee9371ade67deee4946710">ColorSelect</a>
+: <a class="el" href="classColorSelect.html#a9199d6da07fbbeb3930e92d674c060eaae11874bf43ee9371ade67deee4946710">ColorSelect</a>
 </li>
 <li>STATE_OFF
 : <a class="el" href="classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9a9d8a474945ff29aebf9119b45bb26d20">BasicPattern</a>
@@ -418,19 +437,19 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 : <a class="el" href="classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9a318bc1d3b75e64aec676239a04e6867e">BasicPattern</a>
 </li>
 <li>STATE_PICK_HUE1
-: <a class="el" href="classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2eafb801216d02b43a41d768ca442722354">ColorSelect</a>
+: <a class="el" href="classColorSelect.html#a9199d6da07fbbeb3930e92d674c060eaafb801216d02b43a41d768ca442722354">ColorSelect</a>
 </li>
 <li>STATE_PICK_HUE2
-: <a class="el" href="classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2ea357afd4c0e747368fc58dd50e07761f1">ColorSelect</a>
+: <a class="el" href="classColorSelect.html#a9199d6da07fbbeb3930e92d674c060eaa357afd4c0e747368fc58dd50e07761f1">ColorSelect</a>
 </li>
 <li>STATE_PICK_SAT
-: <a class="el" href="classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2ea72d99473ae0d6d8edb38d236a2a8d1a2">ColorSelect</a>
+: <a class="el" href="classColorSelect.html#a9199d6da07fbbeb3930e92d674c060eaa72d99473ae0d6d8edb38d236a2a8d1a2">ColorSelect</a>
 </li>
 <li>STATE_PICK_SLOT
-: <a class="el" href="classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2ea654acaea4cddd708556eaebc0599351c">ColorSelect</a>
+: <a class="el" href="classColorSelect.html#a9199d6da07fbbeb3930e92d674c060eaa654acaea4cddd708556eaebc0599351c">ColorSelect</a>
 </li>
 <li>STATE_PICK_VAL
-: <a class="el" href="classColorSelect.html#a9eb6a8c26e649eff65af32a21c03cf2ea902dc373210b60836c9d9c801e6c711b">ColorSelect</a>
+: <a class="el" href="classColorSelect.html#a9199d6da07fbbeb3930e92d674c060eaa902dc373210b60836c9d9c801e6c711b">ColorSelect</a>
 </li>
 <li>STATE_PULL_MODES
 : <a class="el" href="classEditorConnection.html#aba2f5b971c7c0707f695f1f6f1a94c72a85a6573a233a7360a3500b967819c3a3">EditorConnection</a>
@@ -450,12 +469,17 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 <li>STATE_PUSH_MODES_RECEIVE
 : <a class="el" href="classEditorConnection.html#aba2f5b971c7c0707f695f1f6f1a94c72a1b883360e6768b085d216bad0f78df3d">EditorConnection</a>
 </li>
+<li>STATE_TRANSMIT_MODE_VL
+: <a class="el" href="classEditorConnection.html#aba2f5b971c7c0707f695f1f6f1a94c72a3d089ba7666fa68cceef0bb895a377c4">EditorConnection</a>
+</li>
+<li>STATE_TRANSMIT_MODE_VL_DONE
+: <a class="el" href="classEditorConnection.html#aba2f5b971c7c0707f695f1f6f1a94c72ac1f27c31c0d1a2c7d9864bad88dbbe89">EditorConnection</a>
+</li>
 <li>step()
 : <a class="el" href="classZigzagPattern_1_1Snake.html#adc2f2e3aee0f5610b837a53ba7f48aa7">ZigzagPattern::Snake</a>
 </li>
 <li>stopPWM()
-: <a class="el" href="classIRSender.html#ab6a6c8f2a5aa4840ac7058438dc13c3f">IRSender</a>
-, <a class="el" href="classVLSender.html#a6fadfb59019cde5bbcf9d2f2e33a50f6">VLSender</a>
+: <a class="el" href="classVLSender.html#a6fadfb59019cde5bbcf9d2f2e33a50f6">VLSender</a>
 </li>
 <li>Storage
 : <a class="el" href="classByteStream.html#ab647623b3295040f83d3afb2a502a223">ByteStream</a>
@@ -463,6 +487,9 @@ $(document).ready(function(){initNavTree('functions_s.html',''); initResizable()
 </li>
 <li>storage()
 : <a class="el" href="classVortexEngine.html#a9cd0c2746600e484f4510b22e884019b">VortexEngine</a>
+</li>
+<li>switchToStartupMode()
+: <a class="el" href="classModes.html#af364c05c80262b084d6150346564721d">Modes</a>
 </li>
 </ul>
 </div><!-- contents -->
