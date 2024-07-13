@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Modes
+title: Upgrade Guide
 nav_order: 2
 parent: Vortex Engine
 ---
