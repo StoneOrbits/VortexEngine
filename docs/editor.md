@@ -7,7 +7,7 @@ parent: Vortex Software
 
 # Vortex Editor
 
-The Vortex Editor is a powerful software tool developed by StoneOrbits to provide an intuitive and user-friendly interface for programming and customizing Vortex Devices. It allows you to create, edit, and manage modes for your devices with ease, and offers a range of advanced features to help you get the most out of your Vortex Devices.
+The Vortex Editor is a powerful software tool developed to provide an intuitive and user-friendly interface for programming and customizing Vortex Devices. It allows you to create, edit, and manage modes for your devices with ease, and offers a range of advanced features to help you get the most out of your Vortex Devices.
 
 ## Overview
 
@@ -35,5 +35,5 @@ A very popular way to program the duos is to modify the first two slots on an or
 
 ## Getting Started
 
-To get started with the Vortex Editor, you'll need a Vortex Device and a computer with a USB port. Simply download the Vortex Editor software from the StoneOrbits website, connect your device to your computer via USB, and start creating!
+To get started with the Vortex Editor, you'll need a Vortex Device and a computer with a USB port. Simply download the Vortex Editor software, connect your device to your computer via USB, and start creating!
 

@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Patterns
-nav_order: 3
+nav_order: 4
 parent: Vortex Engine
 ---
 
