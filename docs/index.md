@@ -7,42 +7,37 @@ has_children: true
 
 # Vortex Engine
 
-Welcome to the Vortex Engine Documentation! This page covers all aspects of the project and its features.
+Welcome to the Vortex Engine Wiki! Here you can find documentation covering all aspects of the Vortex Engine project.
 
-## What is Vortex Engine?
+Here are some great starting points:
 
-Vortex Engine is a powerful and flexible software designed for 'Vortex Devices'. It enables these devices to produce stunning light shows by controlling LEDs in a variety of ways. The engine provides a robust framework that supports everything necessary for a Vortex Device to function. This means that each new Vortex Device needs only minor modifications to the core engine to be fully functional.
+## Getting Started
 
-All devices running the Vortex Engine are compatible with each other. They can share configurations for their patterns and colors, and the engine ensures compatibility regardless of the number of LEDs on each device.
+Are you a new or existing Vortex Device owner looking to get started?
 
-## What is a Vortex Device?
+Follow the [Getting Started Guide](getting_started.html)
 
-Currently, the only Vortex Devices in existence are the innovative lightshow products from [StoneOrbits](https://www.stoneorbits.com). However, any computer with at least one LED could potentially become a Vortex Device. This means you can create your own Vortex Device if you assemble the necessary hardware and make the integration changes to the core engine.
+## Upgrade Guide
 
-The four devices currently available include:
+Are you an existing Vortex Device owner looking to upgrade your device?
 
- - [StoneOrbits Vortex Gloves](https://stoneorbits.com/products/the-vortex-gloves-1): The single best wired gloveset
- - [StoneOrbits Vortex Orbit](https://stoneorbits.com/products/copy-of-the-vortex-with-customs): A compact 28 led orbit
- - [StoneOrbits Vortex Omega Handle](https://stoneorbits.com/products/omega-handles): Weighted 3 led Orbit handles
- - [StoneOrbits Duo Chip (Coming soon)](): The new best modular orbit chip.
+Follow the [Vortex Engine Upgrade Guide](upgrade_guide.html)
 
-You can read more about the Vortex Devices [here](vortex_devices.html).
+## How Vortex Works
 
-## The Vortex Editor
+Are you looking to learn how Vortex Engine works and how to get the most out of your Vortex Device?
 
-The Vortex Engine doesn't just power embedded Vortex Devices. It can also be built for desktop computers to implement virtual Vortex Devices. An example of a virtual Vortex Device is the Vortex Editor, a Windows-only desktop software that can connect to Vortex Devices and program them via USB.
+Learn about Vortex and how it works with these articles:
 
-The editor allows for configurations that are otherwise unobtainable through the device menus. You can read more about the editor [here](editor.html).
-
-## The Vortex Emulator
-
-Much like the Vortex Editor, the Vortex Emulator is a desktop-based Vortex Device that aims to emulate the behavior of the four embedded Vortex Devices. This Vortex Device Emulator mainly acts as a rapid development and testing ground, but it can also be used to demonstrate the capability and behavior of the Vortex Engine without owning a Vortex Device.
-
-You can read more about the emulator [here](emulator.html).
+ - [Modes](modes.html)
+ - [Patterns](patterns.html)
+ - [Colorsets](colorsets.html)
+ - [Using Menus](menus.html)
+ - [Savefile Format](savefile_format.html)
 
 ## The Vortex Community and Ecosystem
 
-All Vortex Devices can transmit and receive their configurations via some form of wired or wireless data transfer (rapid blinks of infrared or visible light). This creates an interactive ecosystem where users can configure one device and transfer the settings to another for matching patterns and colorsets.
+All Vortex Devices can transmit and receive their configurations in some way. This allows for an ecosystem where users can transfer to other devices to create matching patterns and colorsets.
 
 Explore the official Vortex Community Hub where you can upload and share configurations and modes with friends and other lightshow artists.
 

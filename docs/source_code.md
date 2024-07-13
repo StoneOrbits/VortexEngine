@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Source Code
-nav_order: 5
+nav_order: 6
 ---
 
 # Source Code
@@ -21,4 +21,5 @@ You can find generated Doxygen documentation for all devices and the core here
  - [Handle](handle)
  - [Duo](duo)
  - [Chromadeck](chromadeck)
+ - [Spark](spark)
 

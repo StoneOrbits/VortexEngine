@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Vortex Editor
-nav_order: 3
+nav_order: 4
 ---
 
 # Vortex Editor
