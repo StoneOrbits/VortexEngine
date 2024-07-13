@@ -1,7 +1,8 @@
 ---
 layout: default
 title: Vortex Editor
-nav_order: 4
+nav_order: 1
+parent: Vortex Software
 ---
 
 # Vortex Editor

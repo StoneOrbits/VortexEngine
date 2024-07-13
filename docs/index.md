@@ -9,8 +9,6 @@ has_children: true
 
 Welcome to the Vortex Engine Wiki! Here you can find documentation covering all aspects of the Vortex Engine project.
 
-Here are some great starting points:
-
 ## Getting Started
 
 Are you a new or existing Vortex Device owner looking to get started?
@@ -19,7 +17,7 @@ Follow the [Getting Started Guide](getting_started.html)
 
 ## Upgrade Guide
 
-Are you an existing Vortex Device owner looking to upgrade your device?
+Do you already own a Vortex Device and want to upgrade it?
 
 Follow the [Vortex Engine Upgrade Guide](upgrade_guide.html)
 
