@@ -1,7 +1,7 @@
 ---
 layout: default
 title: Colorsets
-nav_order: 5
+nav_order: 7
 parent: Vortex Engine
 ---
 

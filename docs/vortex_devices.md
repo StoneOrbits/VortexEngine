@@ -26,30 +26,6 @@ The four devices currently available include:
 
 You can read more about the Vortex Devices [here](vortex_devices.html).
 
-## The Vortex Editors
-
-Vortex Engine doesn't just power embedded lightshow devices. The software can also be built for desktop computers to implement 'virtual Vortex Devices'.  A 'virtual Vortex Device', although sounding complicated, is actually the best way to provide a PC-based savefile editor for Vortex devices.
-
-The best example of a 'virtual Vortex Device' is the website [lightshow.lol](https://lightshow.lol), here you see the output of a single-led 'virtual device' with a series of controls to edit the pattern and colorset in realtime.
-
-Another example of a , a Windows-only desktop software that can connect to Vortex Devices and program them via USB.
-
-The editor allows for configurations that are otherwise unobtainable through the device menus. You can read more about the editor [here](editor.html).
-
-## The Vortex Community and Ecosystem
-
-All Vortex Devices can transmit and receive their configurations in some way. This allows for an ecosystem where users device configurations can transfer to other devices to create matching patterns and colorsets.
-
-Explore the official Vortex Community Hub where you can upload and share configurations and modes with friends and other lightshow artists.
-
-[Visit Vortex Community Hub](https://vortex.community)
-
-Join the Vortex Community Discord to share your experiences, enhance your use of the Vortex Engine, and discuss Vortex with other enthusiasts.
-
-[Join Vortex Community Discord](https://discord.gg/FnbKjPgy)
-
-
-
 # Vortex Devices
 
 This page aims to cover the main differences and similaries of each Vortex Device.
