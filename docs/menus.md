@@ -37,6 +37,35 @@ has_children: true
 .red .content    { background: linear-gradient(to bottom, rgba(255, 0, 0, 0.3), transparent); }
 </style>
 
+
+
+### Entering Menus
+When the menus open, the last _mode_ that was playing becomes the 'target' of the menu operations.
+
+
+
+
+ specific menus associated with it, accessible by holding down the button for a few seconds:
+- **Mode-Specific Menus:** These menus allow you to adjust settings that apply only to the current mode. For example, you might change the color set or modify pattern parameters.
+- **Universal Menus:** These menus affect the entire device and include options like factory reset or global brightness settings.
+
+## Common Menus and Settings
+### Mode-Specific Menus
+Each mode may have its own set of menus, accessible by holding the button. Some common options you might find include:
+- **Color Set Selection:** Choose from a variety of pre-defined color sets.
+- **Pattern Parameters:** Adjust the speed, intensity, or other parameters specific to the pattern in the current mode.
+
+### Universal Menus
+Universal menus apply to the entire device, regardless of the current mode. These can be accessed in a similar way by holding the button, and include options such as:
+- **Factory Reset:** Restore the device to its original factory settings.
+- **Global Brightness:** Adjust the brightness level for all modes.
+
+## Summary
+Understanding the basic usage of Vortex Engine devices allows you to fully utilize their capabilities. Remember, all devices feature power switches and one or two buttons for mode cycling and menu access. With these controls, you can customize your lightshow experience and explore the full potential of your Vortex Engine device.
+
+For more detailed instructions on specific modes and advanced features, refer to the user manual or visit the support section of our website.
+
+
 # Menus
 
 Each of these menus serves a specific purpose and allows you to customize your Vortex Device in different ways. When you open the menus on any Vortex Device, whichever mode slot was selected and playing when you open the menus will be targeted as the mode to be configured by whichever menu you may enter.
