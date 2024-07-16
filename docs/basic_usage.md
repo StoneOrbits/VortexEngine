@@ -1,6 +1,6 @@
 ---
 layout: default
-title: Vortex Device Basic Usage
+title: Basic Usage
 nav_order: 3
 parent: Vortex Engine
 ---

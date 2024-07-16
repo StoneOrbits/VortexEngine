@@ -19,7 +19,7 @@ If this is your first time with a Vortex Device then congratulations and welcome
 
 Regardless of which device you have, Orbit, Handles, Wired Gloves, or others, most devices work and function almost entirely the same.
 
-The first thing you should do is connect your device to the PC and install updates to avoid any potentially known bugs or problems, continue reading below for instructions to do this.
+The best thing to do first is connect your device to the PC and install updates to avoid any potentially known bugs or problems, continue reading below for instructions to do this.
 
 However, if you'd rather live life on the edge and want to jump straight into things then head over to [Basic Usage](basic_usage.html) to start using your device now.
 
