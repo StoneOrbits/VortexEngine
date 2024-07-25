@@ -42,6 +42,23 @@ void BackStrobePattern::init()
 
 void BackStrobePattern::play()
 {
+  switch (m_engine.leds().ledCount()) {
+  case 28:
+    playOrbit();
+    break;
+  default:
+    playNormal();
+    break;
+  }
+}
+
+void BackStrobePattern::playOrbit()
+{
+  // orbit version
+}
+
+void BackStrobePattern::playNormal()
+{
   if (m_stepTimer.alarm() == 0) {
     // switch which patterns are displayed
     m_switch = !m_switch;
