@@ -6,8 +6,7 @@
 
 
 
-Inheritance diagram for Blend\+Pattern\+:
-\nopagebreak
+Inheritance diagram for Blend\+Pattern\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -17,13 +16,7 @@ Inheritance diagram for Blend\+Pattern\+:
 
 
 Collaboration diagram for Blend\+Pattern\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=295pt]{classBlendPattern__coll__graph}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -47,9 +40,9 @@ uint8\+\_\+t \mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f
 \item 
 uint8\+\_\+t \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\+\_\+num\+Flips}}
 \item 
-\mbox{\hyperlink{classRGBColor}{RGBColor}} \mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\+\_\+cur}}
+\mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\+\_\+cur}}
 \item 
-\mbox{\hyperlink{classRGBColor}{RGBColor}} \mbox{\hyperlink{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}{m\+\_\+next}}
+\mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \mbox{\hyperlink{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}{m\+\_\+next}}
 \item 
 uint8\+\_\+t \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\+\_\+flip}}
 \end{DoxyCompactItemize}
@@ -82,7 +75,7 @@ Definition at line 7 of file Blend\+Pattern.\+cpp.
 \DoxyCodeLine{10   \mbox{\hyperlink{classBlendPattern_ac064cc355072a04d18ef5b2e55013105}{m\_numFlips}}(0),}
 \DoxyCodeLine{11   \mbox{\hyperlink{classBlendPattern_a417e520657f10acd0357a5c9e185fdbf}{m\_cur}}(),}
 \DoxyCodeLine{12   \mbox{\hyperlink{classBlendPattern_a8987bd114ee92e07f97d4289a8eed86f}{m\_next}}(),}
-\DoxyCodeLine{13   \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}}(0)}
+\DoxyCodeLine{13   \mbox{\hyperlink{classBlendPattern_a8cc3472bc6a85c6dd162163e8b429a1b}{m\_flip}}(0)}
 \DoxyCodeLine{14 \{}
 \DoxyCodeLine{15   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadf01802d35ece7b405582c6680f56d83}{PATTERN\_BLEND}};}
 \DoxyCodeLine{16   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classBlendPattern_ad5bf093865849e1a8fed07de519344f7}{m\_blendSpeed}});}
@@ -93,7 +86,7 @@ Definition at line 7 of file Blend\+Pattern.\+cpp.
 \end{DoxyCode}
 
 
-References m\+\_\+blend\+Speed, m\+\_\+num\+Flips, Pattern\+::m\+\_\+pattern\+ID, PATTERN\+\_\+\+BLEND, REGISTER\+\_\+\+ARG, and Pattern\+::set\+Args().
+References m\+\_\+blend\+Speed, m\+\_\+num\+Flips, Pattern\+::m\+\_\+pattern\+ID, P\+A\+T\+T\+E\+R\+N\+\_\+\+B\+L\+E\+ND, R\+E\+G\+I\+S\+T\+E\+R\+\_\+\+A\+RG, and Pattern\+::set\+Args().
 
 \mbox{\Hypertarget{classBlendPattern_a8418ad0548669c40bbef0cff4bdb6b48}\label{classBlendPattern_a8418ad0548669c40bbef0cff4bdb6b48}} 
 \index{BlendPattern@{BlendPattern}!````~BlendPattern@{$\sim$BlendPattern}}
@@ -225,7 +218,7 @@ Definition at line 36 of file Blend\+Pattern.\+cpp.
 \end{DoxyCode}
 
 
-References RGBColor\+::blue, Colorset\+::get\+Next(), RGBColor\+::green, HSVColor\+::hue, interpolate(), Pattern\+::m\+\_\+colorset, m\+\_\+cur, m\+\_\+flip, Pattern\+::m\+\_\+led\+Pos, m\+\_\+next, m\+\_\+num\+Flips, RGBColor\+::red, and Leds\+::set\+Index().
+References R\+G\+B\+Color\+::blue, Colorset\+::get\+Next(), R\+G\+B\+Color\+::green, H\+S\+V\+Color\+::hue, interpolate(), Pattern\+::m\+\_\+colorset, m\+\_\+cur, m\+\_\+flip, Pattern\+::m\+\_\+led\+Pos, m\+\_\+next, m\+\_\+num\+Flips, R\+G\+B\+Color\+::red, and Leds\+::set\+Index().
 
 
 
@@ -248,7 +241,7 @@ Referenced by Blend\+Pattern(), and interpolate().
 \index{BlendPattern@{BlendPattern}!m\_cur@{m\_cur}}
 \index{m\_cur@{m\_cur}!BlendPattern@{BlendPattern}}
 \doxysubsubsection{\texorpdfstring{m\_cur}{m\_cur}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{RGBColor}} Blend\+Pattern\+::m\+\_\+cur\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} Blend\+Pattern\+::m\+\_\+cur\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 
@@ -276,7 +269,7 @@ Referenced by init(), and on\+Blink\+On().
 \index{BlendPattern@{BlendPattern}!m\_next@{m\_next}}
 \index{m\_next@{m\_next}!BlendPattern@{BlendPattern}}
 \doxysubsubsection{\texorpdfstring{m\_next}{m\_next}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{RGBColor}} Blend\+Pattern\+::m\+\_\+next\hspace{0.3cm}{\ttfamily [protected]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} Blend\+Pattern\+::m\+\_\+next\hspace{0.3cm}{\ttfamily [protected]}}
 
 
 

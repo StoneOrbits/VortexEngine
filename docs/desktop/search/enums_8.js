@@ -1,4 +1,5 @@
 var searchData=
 [
-  ['tabletype_5ft_2714',['tableType_t',['../Compression_8cpp.html#ae86e1d8a28953326b685d6ebb243a699',1,'Compression.cpp']]]
+  ['patternid_3078',['PatternID',['../Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8c',1,'Patterns.h']]],
+  ['patternstate_3079',['PatternState',['../classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9',1,'BasicPattern']]]
 ];

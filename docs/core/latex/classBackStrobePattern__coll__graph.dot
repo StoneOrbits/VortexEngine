@@ -1,0 +1,26 @@
+digraph "BackStrobePattern"
+{
+ // INTERACTIVE_SVG=YES
+ // LATEX_PDF_SIZE
+  bgcolor="transparent";
+  edge [fontname="Helvetica",fontsize="10",labelfontname="Helvetica",labelfontsize="10"];
+  node [fontname="Helvetica",fontsize="10",shape=record];
+  Node1 [label="BackStrobePattern",height=0.2,width=0.4,color="black", fillcolor="grey75", style="filled", fontcolor="black",tooltip=" "];
+  Node2 -> Node1 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node2 [label="CompoundPattern",height=0.2,width=0.4,color="black",URL="$classCompoundPattern.html",tooltip=" "];
+  Node3 -> Node2 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node3 [label="MultiLedPattern",height=0.2,width=0.4,color="black",URL="$classMultiLedPattern.html",tooltip=" "];
+  Node4 -> Node3 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node4 [label="Pattern",height=0.2,width=0.4,color="black",URL="$classPattern.html",tooltip=" "];
+  Node5 -> Node4 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_colorset" ];
+  Node5 [label="Colorset",height=0.2,width=0.4,color="black",URL="$classColorset.html",tooltip=" "];
+  Node6 -> Node5 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_palette" ];
+  Node6 [label="RGBColor",height=0.2,width=0.4,color="black",URL="$classRGBColor.html",tooltip=" "];
+  Node7 -> Node2 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_ledPatterns" ];
+  Node7 [label="SingleLedPattern",height=0.2,width=0.4,color="black",URL="$classSingleLedPattern.html",tooltip=" "];
+  Node4 -> Node7 [dir="back",color="midnightblue",fontsize="10",style="solid"];
+  Node8 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_secondPatternArgs\nm_firstPatternArgs" ];
+  Node8 [label="PatternArgs",height=0.2,width=0.4,color="black",URL="$classPatternArgs.html",tooltip=" "];
+  Node9 -> Node1 [dir="back",color="darkorchid3",fontsize="10",style="dashed",label=" m_stepTimer" ];
+  Node9 [label="Timer",height=0.2,width=0.4,color="black",URL="$classTimer.html",tooltip=" "];
+}

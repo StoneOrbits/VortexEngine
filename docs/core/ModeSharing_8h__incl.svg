@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="Menu_8h.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="Menu_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="147.45,-224.5 147.45,-243.5 209.45,-243.5 209.45,-224.5 147.45,-224.5"/>
 <text text-anchor="middle" x="178.45" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00">../Menu.h</text>
 </a>
@@ -51,7 +51,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="ColorTypes_8h.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="ColorTypes_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="18.45,-112.5 18.45,-131.5 140.45,-131.5 140.45,-112.5 18.45,-112.5"/>
 <text text-anchor="middle" x="79.45" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">../Colors/ColorTypes.h</text>
 </a>
@@ -66,7 +66,7 @@
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="LedTypes_8h.html" target="_top" xlink:title=" ">
+<g id="a_node7"><a xlink:href="LedTypes_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="332.95,-112.5 332.95,-131.5 437.95,-131.5 437.95,-112.5 332.95,-112.5"/>
 <text text-anchor="middle" x="385.45" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">../Leds/LedTypes.h</text>
 </a>
@@ -81,7 +81,7 @@
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
-<g id="a_node9"><a xlink:href="Mode_8h.html" target="_top" xlink:title=" ">
+<g id="a_node9"><a xlink:href="Mode_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="191.95,-168.5 191.95,-187.5 288.95,-187.5 288.95,-168.5 191.95,-168.5"/>
 <text text-anchor="middle" x="240.45" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">../Modes/Mode.h</text>
 </a>
@@ -102,7 +102,7 @@
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="VortexConfig_8h.html" target="_top" xlink:title=" ">
+<g id="a_node5"><a xlink:href="VortexConfig_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="235.95,-56.5 235.95,-75.5 332.95,-75.5 332.95,-56.5 235.95,-56.5"/>
 <text text-anchor="middle" x="284.45" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">../VortexConfig.h</text>
 </a>
@@ -117,7 +117,7 @@
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="ColorConstants_8h.html" target="_top" xlink:title=" ">
+<g id="a_node6"><a xlink:href="ColorConstants_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="118.45,-0.5 118.45,-19.5 252.45,-19.5 252.45,-0.5 118.45,-0.5"/>
 <text text-anchor="middle" x="185.45" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Colors/ColorConstants.h</text>
 </a>
@@ -177,7 +177,7 @@
 <!-- Node10 -->
 <g id="node10" class="node">
 <title>Node10</title>
-<g id="a_node10"><a xlink:href="Patterns_8h.html" target="_top" xlink:title=" ">
+<g id="a_node10"><a xlink:href="Patterns_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="158.95,-112.5 158.95,-131.5 275.95,-131.5 275.95,-112.5 158.95,-112.5"/>
 <text text-anchor="middle" x="217.45" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">../Patterns/Patterns.h</text>
 </a>

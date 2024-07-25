@@ -7,13 +7,7 @@
 
 
 Collaboration diagram for Menus\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classMenus__coll__graph}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -31,7 +25,7 @@ bool \mbox{\hyperlink{classMenus_a1f8dacb375bd4d1ec18da2ed5a3e8cb3}{open\+Menu\+
 \item 
 bool \mbox{\hyperlink{classMenus_a218d5257123a6399289d0cba0988cbd3}{open\+Menu}} (uint32\+\_\+t index, bool advanced=false)
 \item 
-void \mbox{\hyperlink{classMenus_a24d75cee0c42b89ed2408e1358414804}{show\+Selection}} (\mbox{\hyperlink{classRGBColor}{RGBColor}} colval=\mbox{\hyperlink{ColorConstants_8h_a781f96b1d10e6978d3fe096713e97333}{RGB\+\_\+\+WHITE5}})
+void \mbox{\hyperlink{classMenus_a24d75cee0c42b89ed2408e1358414804}{show\+Selection}} (\mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} colval=\mbox{\hyperlink{ColorConstants_8h_a781f96b1d10e6978d3fe096713e97333}{R\+G\+B\+\_\+\+W\+H\+I\+T\+E5}})
 \item 
 bool \mbox{\hyperlink{classMenus_a5729a42edd70acf4c2096e2fdaf21aa8}{check\+Open}} ()
 \item 
@@ -44,9 +38,9 @@ bool \mbox{\hyperlink{classMenus_ab2e22ddc8a2a459c3cb94f45309e6616}{check\+In\+M
 \doxysubsection*{Private Types}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931e}{Menu\+State}} \{ \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea7e52e0cc70203f048f829edbfc63bf2f}{MENU\+\_\+\+STATE\+\_\+\+NOT\+\_\+\+OPEN}} = 0
-, \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea74f1661d7f0a334a258013e148c612f7}{MENU\+\_\+\+STATE\+\_\+\+MENU\+\_\+\+SELECTION}}
-, \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea4eef84c03971a99f5b88b6cd0ec5c1b7}{MENU\+\_\+\+STATE\+\_\+\+IN\+\_\+\+MENU}}
+enum \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931e}{Menu\+State}} \{ \mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea7e52e0cc70203f048f829edbfc63bf2f}{M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+O\+P\+EN}} = 0, 
+\mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea74f1661d7f0a334a258013e148c612f7}{M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+I\+ON}}, 
+\mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea4eef84c03971a99f5b88b6cd0ec5c1b7}{M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+\_\+\+M\+E\+NU}}
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
@@ -91,15 +85,15 @@ Definition at line 33 of file Menus.\+h.
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{MENU\_STATE\_NOT\_OPEN@{MENU\_STATE\_NOT\_OPEN}!Menus@{Menus}}\index{Menus@{Menus}!MENU\_STATE\_NOT\_OPEN@{MENU\_STATE\_NOT\_OPEN}}}\mbox{\Hypertarget{classMenus_ad2b57627adc6737dfbcabf75a837931ea7e52e0cc70203f048f829edbfc63bf2f}\label{classMenus_ad2b57627adc6737dfbcabf75a837931ea7e52e0cc70203f048f829edbfc63bf2f}} 
-MENU\+\_\+\+STATE\+\_\+\+NOT\+\_\+\+OPEN&\\
+M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+O\+P\+EN&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{MENU\_STATE\_MENU\_SELECTION@{MENU\_STATE\_MENU\_SELECTION}!Menus@{Menus}}\index{Menus@{Menus}!MENU\_STATE\_MENU\_SELECTION@{MENU\_STATE\_MENU\_SELECTION}}}\mbox{\Hypertarget{classMenus_ad2b57627adc6737dfbcabf75a837931ea74f1661d7f0a334a258013e148c612f7}\label{classMenus_ad2b57627adc6737dfbcabf75a837931ea74f1661d7f0a334a258013e148c612f7}} 
-MENU\+\_\+\+STATE\+\_\+\+MENU\+\_\+\+SELECTION&\\
+M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+I\+ON&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{MENU\_STATE\_IN\_MENU@{MENU\_STATE\_IN\_MENU}!Menus@{Menus}}\index{Menus@{Menus}!MENU\_STATE\_IN\_MENU@{MENU\_STATE\_IN\_MENU}}}\mbox{\Hypertarget{classMenus_ad2b57627adc6737dfbcabf75a837931ea4eef84c03971a99f5b88b6cd0ec5c1b7}\label{classMenus_ad2b57627adc6737dfbcabf75a837931ea4eef84c03971a99f5b88b6cd0ec5c1b7}} 
-MENU\+\_\+\+STATE\+\_\+\+IN\+\_\+\+MENU&\\
+M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+\_\+\+M\+E\+NU&\\
 \hline
 
 \end{DoxyEnumFields}
@@ -141,7 +135,7 @@ Definition at line 64 of file Menus.\+cpp.
 \DoxyCodeLine{66   \mbox{\hyperlink{classMenus_a4f5b61fa469cf94a543968ae037d8d60}{m\_menuState}}(\mbox{\hyperlink{classMenus_ad2b57627adc6737dfbcabf75a837931ea7e52e0cc70203f048f829edbfc63bf2f}{MENU\_STATE\_NOT\_OPEN}}),}
 \DoxyCodeLine{67   \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}(0),}
 \DoxyCodeLine{68   \mbox{\hyperlink{classMenus_ae06251ca75599de4ade814aa6891952a}{m\_openTime}}(0),}
-\DoxyCodeLine{69   \mbox{\hyperlink{classMenus_afaf3f0877a24b5eef61e37182ab8c87a}{m\_pCurMenu}}(\textcolor{keyword}{nullptr})}
+\DoxyCodeLine{69   \mbox{\hyperlink{classMenus_afaf3f0877a24b5eef61e37182ab8c87a}{m\_pCurMenu}}(\textcolor{keyword}{nullptr})}
 \DoxyCodeLine{70 \{}
 \DoxyCodeLine{71 \}}
 
@@ -190,7 +184,7 @@ Definition at line 269 of file Menus.\+cpp.
 \end{DoxyCode}
 
 
-References m\+\_\+menu\+State, and MENU\+\_\+\+STATE\+\_\+\+IN\+\_\+\+MENU.
+References m\+\_\+menu\+State, and M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+\_\+\+M\+E\+NU.
 
 \mbox{\Hypertarget{classMenus_a5729a42edd70acf4c2096e2fdaf21aa8}\label{classMenus_a5729a42edd70acf4c2096e2fdaf21aa8}} 
 \index{Menus@{Menus}!checkOpen@{checkOpen}}
@@ -211,7 +205,7 @@ Definition at line 264 of file Menus.\+cpp.
 \end{DoxyCode}
 
 
-References Vortex\+Engine\+::button(), m\+\_\+engine, m\+\_\+menu\+State, m\+\_\+open\+Time, MENU\+\_\+\+STATE\+\_\+\+NOT\+\_\+\+OPEN, and Button\+::release\+Time().
+References Vortex\+Engine\+::button(), m\+\_\+engine, m\+\_\+menu\+State, m\+\_\+open\+Time, M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+O\+P\+EN, and Button\+::release\+Time().
 
 \mbox{\Hypertarget{classMenus_afb9e47baa1d7322d865bc025202d7b9b}\label{classMenus_afb9e47baa1d7322d865bc025202d7b9b}} 
 \index{Menus@{Menus}!cleanup@{cleanup}}
@@ -238,7 +232,7 @@ Definition at line 84 of file Menus.\+cpp.
 \end{DoxyCode}
 
 
-References m\+\_\+menu\+State, m\+\_\+open\+Time, m\+\_\+p\+Cur\+Menu, m\+\_\+selection, and MENU\+\_\+\+STATE\+\_\+\+NOT\+\_\+\+OPEN.
+References m\+\_\+menu\+State, m\+\_\+open\+Time, m\+\_\+p\+Cur\+Menu, m\+\_\+selection, and M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+O\+P\+EN.
 
 
 
@@ -271,7 +265,7 @@ Definition at line 284 of file Menus.\+cpp.
 \end{DoxyCode}
 
 
-References Leds\+::clear\+All(), Vortex\+Engine\+::leds(), m\+\_\+engine, m\+\_\+menu\+State, m\+\_\+p\+Cur\+Menu, m\+\_\+selection, and MENU\+\_\+\+STATE\+\_\+\+NOT\+\_\+\+OPEN.
+References Leds\+::clear\+All(), Vortex\+Engine\+::leds(), m\+\_\+engine, m\+\_\+menu\+State, m\+\_\+p\+Cur\+Menu, m\+\_\+selection, and M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+O\+P\+EN.
 
 
 
@@ -297,6 +291,10 @@ Definition at line 274 of file Menus.\+cpp.
 
 
 References m\+\_\+p\+Cur\+Menu.
+
+
+
+Referenced by Vortex\+::add\+Menu\+Target\+Leds(), Vortex\+::clear\+Menu\+Target\+Leds(), Vortex\+::get\+Menu\+Demo\+Mode(), Vortex\+::set\+Menu\+Demo\+Mode(), and Vortex\+::set\+Menu\+Target\+Leds().
 
 \mbox{\Hypertarget{classMenus_a1283a6c812d3d7957741b8aae537942a}\label{classMenus_a1283a6c812d3d7957741b8aae537942a}} 
 \index{Menus@{Menus}!curMenuID@{curMenuID}}
@@ -340,7 +338,7 @@ Definition at line 77 of file Menus.\+cpp.
 \end{DoxyCode}
 
 
-References m\+\_\+menu\+State, and MENU\+\_\+\+STATE\+\_\+\+NOT\+\_\+\+OPEN.
+References m\+\_\+menu\+State, and M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+O\+P\+EN.
 
 
 
@@ -369,7 +367,7 @@ Definition at line 224 of file Menus.\+cpp.
 \DoxyCodeLine{233   \}}
 \DoxyCodeLine{234   \textcolor{comment}{// initialiaze the new menu with the current mode}}
 \DoxyCodeLine{235   \textcolor{keywordflow}{if} (!newMenu-\/>\mbox{\hyperlink{classMenu_ae177e0a053fdbb2681ec14ea6b12e2d0}{init}}()) \{}
-\DoxyCodeLine{236     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Failed to initialize \%s menu"{}}, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].menuName);}
+\DoxyCodeLine{236     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Failed to initialize \%s menu"}, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].menuName);}
 \DoxyCodeLine{237     \textcolor{comment}{// if the menu failed to init, don't open it}}
 \DoxyCodeLine{238     \textcolor{keyword}{delete} newMenu;}
 \DoxyCodeLine{239     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
@@ -389,11 +387,11 @@ Definition at line 224 of file Menus.\+cpp.
 \end{DoxyCode}
 
 
-References Leds\+::clear\+All(), DEBUG\+\_\+\+LOGF, Menu\+::init(), Menu\+Entry\+::init\+Menu, Vortex\+Engine\+::leds(), m\+\_\+engine, m\+\_\+menu\+State, m\+\_\+p\+Cur\+Menu, m\+\_\+selection, MENU\+\_\+\+STATE\+\_\+\+IN\+\_\+\+MENU, menu\+List, and NUM\+\_\+\+MENUS.
+References Leds\+::clear\+All(), D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, Menu\+::init(), Menu\+Entry\+::init\+Menu, Vortex\+Engine\+::leds(), m\+\_\+engine, m\+\_\+menu\+State, m\+\_\+p\+Cur\+Menu, m\+\_\+selection, M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+\_\+\+M\+E\+NU, menu\+List, and N\+U\+M\+\_\+\+M\+E\+N\+US.
 
 
 
-Referenced by run\+Menu\+Selection().
+Referenced by Vortex\+::open\+Color\+Select(), Vortex\+::open\+Editor\+Connection(), Vortex\+::open\+Factory\+Reset(), Vortex\+::open\+Global\+Brightness(), Vortex\+::open\+Mode\+Sharing(), Vortex\+::open\+Pattern\+Select(), Vortex\+::open\+Randomizer(), and run\+Menu\+Selection().
 
 \mbox{\Hypertarget{classMenus_a1f8dacb375bd4d1ec18da2ed5a3e8cb3}\label{classMenus_a1f8dacb375bd4d1ec18da2ed5a3e8cb3}} 
 \index{Menus@{Menus}!openMenuSelection@{openMenuSelection}}
@@ -423,7 +421,7 @@ Definition at line 210 of file Menus.\+cpp.
 \end{DoxyCode}
 
 
-References Leds\+::clear\+All(), Time\+::get\+Curtime(), Vortex\+Engine\+::leds(), m\+\_\+engine, m\+\_\+menu\+State, m\+\_\+open\+Time, MENU\+\_\+\+STATE\+\_\+\+MENU\+\_\+\+SELECTION, MENU\+\_\+\+STATE\+\_\+\+NOT\+\_\+\+OPEN, and Vortex\+Engine\+::time().
+References Leds\+::clear\+All(), Time\+::get\+Curtime(), Vortex\+Engine\+::leds(), m\+\_\+engine, m\+\_\+menu\+State, m\+\_\+open\+Time, M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+I\+ON, M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+O\+P\+EN, and Vortex\+Engine\+::time().
 
 
 
@@ -458,7 +456,7 @@ Definition at line 95 of file Menus.\+cpp.
 \end{DoxyCode}
 
 
-References m\+\_\+menu\+State, MENU\+\_\+\+STATE\+\_\+\+IN\+\_\+\+MENU, MENU\+\_\+\+STATE\+\_\+\+MENU\+\_\+\+SELECTION, MENU\+\_\+\+STATE\+\_\+\+NOT\+\_\+\+OPEN, run\+Cur\+Menu(), and run\+Menu\+Selection().
+References m\+\_\+menu\+State, M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+I\+N\+\_\+\+M\+E\+NU, M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+M\+E\+N\+U\+\_\+\+S\+E\+L\+E\+C\+T\+I\+ON, M\+E\+N\+U\+\_\+\+S\+T\+A\+T\+E\+\_\+\+N\+O\+T\+\_\+\+O\+P\+EN, run\+Cur\+Menu(), and run\+Menu\+Selection().
 
 
 
@@ -506,7 +504,7 @@ Definition at line 181 of file Menus.\+cpp.
 \end{DoxyCode}
 
 
-References Vortex\+Engine\+::button(), close\+Cur\+Menu(), m\+\_\+engine, m\+\_\+p\+Cur\+Menu, Menu\+::\+MENU\+\_\+\+CONTINUE, Menu\+::\+MENU\+\_\+\+QUIT, Menu\+::\+MENU\+\_\+\+SKIP, Menu\+::on\+Long\+Click(), Button\+::on\+Long\+Click(), Menu\+::on\+Short\+Click(), Button\+::on\+Short\+Click(), and Menu\+::run().
+References Vortex\+Engine\+::button(), close\+Cur\+Menu(), m\+\_\+engine, m\+\_\+p\+Cur\+Menu, Menu\+::\+M\+E\+N\+U\+\_\+\+C\+O\+N\+T\+I\+N\+UE, Menu\+::\+M\+E\+N\+U\+\_\+\+Q\+U\+IT, Menu\+::\+M\+E\+N\+U\+\_\+\+S\+K\+IP, Menu\+::on\+Long\+Click(), Button\+::on\+Long\+Click(), Menu\+::on\+Short\+Click(), Button\+::on\+Short\+Click(), and Menu\+::run().
 
 
 
@@ -528,7 +526,7 @@ Definition at line 110 of file Menus.\+cpp.
 \DoxyCodeLine{112   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenus_a3ab0e3f0e90a155b62ec6daa0dbbd05b}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_aa8257eae68c0e55bbec0f5cc6bca87dc}{button}}().\mbox{\hyperlink{classButton_a4e2b10397cdad6546a8728a87b82fadb}{onShortClick}}()) \{}
 \DoxyCodeLine{113     \textcolor{comment}{// otherwise increment selection and wrap around at num menus}}
 \DoxyCodeLine{114     \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}} = (\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}} + 1) \% \mbox{\hyperlink{Menus_8cpp_a2cf39ca87ec50dbe56121dcd4d523c45}{NUM\_MENUS}};}
-\DoxyCodeLine{115     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Cyling to ring menu \%u"{}}, \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}});}
+\DoxyCodeLine{115     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Cyling to ring menu \%u"}, \mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}});}
 \DoxyCodeLine{116     \textcolor{comment}{// reset the open time so that it starts again}}
 \DoxyCodeLine{117     \mbox{\hyperlink{classMenus_ae06251ca75599de4ade814aa6891952a}{m\_openTime}} = \mbox{\hyperlink{classMenus_a3ab0e3f0e90a155b62ec6daa0dbbd05b}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a4928281e63a820cd8f0b00b53c6e4587}{getCurtime}}();}
 \DoxyCodeLine{118     \textcolor{comment}{// clear the leds}}
@@ -550,10 +548,10 @@ Definition at line 110 of file Menus.\+cpp.
 \DoxyCodeLine{134     \textcolor{keywordtype}{bool} openAdv = (\mbox{\hyperlink{classMenus_a3ab0e3f0e90a155b62ec6daa0dbbd05b}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_aa8257eae68c0e55bbec0f5cc6bca87dc}{button}}().\mbox{\hyperlink{classButton_a2e0dae337117cd85f69c8346d369504a}{holdDuration}}() > \mbox{\hyperlink{Timings_8h_af6000fabcf07a18fcd198c1ec0e4d048}{ADV\_MENU\_DURATION\_TICKS}}) \&\& advMenus;}
 \DoxyCodeLine{135     \textcolor{keywordflow}{if} (\mbox{\hyperlink{classMenus_a3ab0e3f0e90a155b62ec6daa0dbbd05b}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_aa8257eae68c0e55bbec0f5cc6bca87dc}{button}}().\mbox{\hyperlink{classButton_a81c3b1a14aee3e487e836ac517e6b232}{onLongClick}}()) \{}
 \DoxyCodeLine{136       \textcolor{comment}{// ringmenu is open so select the menu}}
-\DoxyCodeLine{137       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Selected ringmenu \%s"{}}, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].menuName);}
+\DoxyCodeLine{137       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Selected ringmenu \%s"}, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].menuName);}
 \DoxyCodeLine{138       \textcolor{comment}{// open the menu we have selected}}
 \DoxyCodeLine{139       \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classMenus_a218d5257123a6399289d0cba0988cbd3}{openMenu}}(\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}, openAdv)) \{}
-\DoxyCodeLine{140         \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Failed to initialize \%s menu"{}}, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].menuName);}
+\DoxyCodeLine{140         \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Failed to initialize \%s menu"}, \mbox{\hyperlink{Menus_8cpp_aeb07cd3b69aba47a82ea2cadeadfe715}{menuList}}[\mbox{\hyperlink{classMenus_ab220685936739c32d61e96500904ec06}{m\_selection}}].menuName);}
 \DoxyCodeLine{141         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{142       \}}
 \DoxyCodeLine{143       \textcolor{comment}{// display the newly opened menu}}
@@ -597,7 +595,7 @@ Definition at line 110 of file Menus.\+cpp.
 \end{DoxyCode}
 
 
-References ADV\+\_\+\+MENU\+\_\+\+DURATION\+\_\+\+TICKS, ADVANCED\+\_\+\+MENU\+\_\+\+CLICKS, Modes\+::advanced\+Menus\+Enabled(), Leds\+::blink\+Index(), RGBColor\+::blue, Vortex\+Engine\+::button(), Leds\+::clear\+All(), Menu\+Entry\+::color, DEBUG\+\_\+\+LOGF, Time\+::get\+Curtime(), RGBColor\+::green, Leds\+::hold\+All(), Button\+::hold\+Duration(), HYPERSTROBE\+\_\+\+OFF\+\_\+\+DURATION, HYPERSTROBE\+\_\+\+ON\+\_\+\+DURATION, Button\+::is\+Pressed(), LED\+\_\+\+COUNT, Vortex\+Engine\+::leds(), m\+\_\+engine, m\+\_\+open\+Time, m\+\_\+selection, menu\+List, Vortex\+Engine\+::modes(), NUM\+\_\+\+MENUS, Button\+::on\+Consecutive\+Presses(), Button\+::on\+Long\+Click(), Button\+::on\+Short\+Click(), open\+Menu(), PAIR\+\_\+\+COUNT, PAIR\+\_\+\+FIRST, pair\+Even, pair\+Odd, Button\+::press\+Time(), RGB\+\_\+\+OFF, RGB\+\_\+\+PINK, RGB\+\_\+\+RED, Modes\+::set\+Advanced\+Menus(), Leds\+::set\+Index(), show\+Selection(), and Vortex\+Engine\+::time().
+References A\+D\+V\+\_\+\+M\+E\+N\+U\+\_\+\+D\+U\+R\+A\+T\+I\+O\+N\+\_\+\+T\+I\+C\+KS, A\+D\+V\+A\+N\+C\+E\+D\+\_\+\+M\+E\+N\+U\+\_\+\+C\+L\+I\+C\+KS, Modes\+::advanced\+Menus\+Enabled(), Leds\+::blink\+Index(), R\+G\+B\+Color\+::blue, Vortex\+Engine\+::button(), Leds\+::clear\+All(), Menu\+Entry\+::color, D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, Time\+::get\+Curtime(), R\+G\+B\+Color\+::green, Leds\+::hold\+All(), Button\+::hold\+Duration(), H\+Y\+P\+E\+R\+S\+T\+R\+O\+B\+E\+\_\+\+O\+F\+F\+\_\+\+D\+U\+R\+A\+T\+I\+ON, H\+Y\+P\+E\+R\+S\+T\+R\+O\+B\+E\+\_\+\+O\+N\+\_\+\+D\+U\+R\+A\+T\+I\+ON, Button\+::is\+Pressed(), L\+E\+D\+\_\+\+C\+O\+U\+NT, Vortex\+Engine\+::leds(), m\+\_\+engine, m\+\_\+open\+Time, m\+\_\+selection, menu\+List, Vortex\+Engine\+::modes(), N\+U\+M\+\_\+\+M\+E\+N\+US, Button\+::on\+Consecutive\+Presses(), Button\+::on\+Long\+Click(), Button\+::on\+Short\+Click(), open\+Menu(), P\+A\+I\+R\+\_\+\+C\+O\+U\+NT, P\+A\+I\+R\+\_\+\+F\+I\+R\+ST, pair\+Even, pair\+Odd, Button\+::press\+Time(), R\+G\+B\+\_\+\+O\+FF, R\+G\+B\+\_\+\+P\+I\+NK, R\+G\+B\+\_\+\+R\+ED, Modes\+::set\+Advanced\+Menus(), Leds\+::set\+Index(), show\+Selection(), and Vortex\+Engine\+::time().
 
 
 
@@ -607,7 +605,7 @@ Referenced by run().
 \index{Menus@{Menus}!showSelection@{showSelection}}
 \index{showSelection@{showSelection}!Menus@{Menus}}
 \doxysubsubsection{\texorpdfstring{showSelection()}{showSelection()}}
-{\footnotesize\ttfamily void Menus\+::show\+Selection (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRGBColor}{RGBColor}}}]{colval = {\ttfamily \mbox{\hyperlink{ColorConstants_8h_a781f96b1d10e6978d3fe096713e97333}{RGB\+\_\+\+WHITE5}}} }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Menus\+::show\+Selection (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}}}]{colval = {\ttfamily \mbox{\hyperlink{ColorConstants_8h_a781f96b1d10e6978d3fe096713e97333}{R\+G\+B\+\_\+\+W\+H\+I\+T\+E5}}} }\end{DoxyParamCaption})}
 
 
 
@@ -628,11 +626,11 @@ Definition at line 253 of file Menus.\+cpp.
 \end{DoxyCode}
 
 
-References Vortex\+Engine\+::button(), Button\+::hold\+Duration(), Button\+::is\+Pressed(), Vortex\+Engine\+::leds(), m\+\_\+engine, MS\+\_\+\+TO\+\_\+\+TICKS, Leds\+::set\+All(), and SHORT\+\_\+\+CLICK\+\_\+\+THRESHOLD\+\_\+\+TICKS.
+References Vortex\+Engine\+::button(), Button\+::hold\+Duration(), Button\+::is\+Pressed(), Vortex\+Engine\+::leds(), m\+\_\+engine, M\+S\+\_\+\+T\+O\+\_\+\+T\+I\+C\+KS, Leds\+::set\+All(), and S\+H\+O\+R\+T\+\_\+\+C\+L\+I\+C\+K\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+I\+C\+KS.
 
 
 
-Referenced by Color\+Select\+::run(), Global\+Brightness\+::run(), Pattern\+Select\+::run(), Randomizer\+::run(), run\+Menu\+Selection(), Menu\+::show\+Bulb\+Selection(), and Randomizer\+::show\+Randomization\+Select().
+Referenced by Global\+Brightness\+::run(), Color\+Select\+::run(), Pattern\+Select\+::run(), Randomizer\+::run(), run\+Menu\+Selection(), Menu\+::show\+Bulb\+Selection(), and Randomizer\+::show\+Randomization\+Select().
 
 
 
@@ -705,7 +703,7 @@ Definition at line 96 of file Menus.\+h.
 
 
 
-Referenced by cleanup(), close\+Cur\+Menu(), cur\+Menu\+ID(), open\+Menu(), and run\+Menu\+Selection().
+Referenced by cleanup(), close\+Cur\+Menu(), cur\+Menu\+I\+D(), open\+Menu(), and run\+Menu\+Selection().
 
 
 

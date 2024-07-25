@@ -24,13 +24,13 @@ if (edges && edges.length) {
                 <circle id="rim" cx="0" cy="0" r="7"/>
                 <circle id="rim2" cx="0" cy="0" r="3.5"/>
                 <g id="zoomPlus">
-                        <use xlink:href="#rim" fill="#404040">
+                        <use xlink:href="#rim" target="_top" fill="#404040">
                                 <set attributeName="fill" to="#808080" begin="zoomplus.mouseover" end="zoomplus.mouseout"/>
                         </use>
                         <path d="M-4,0h8M0,-4v8" fill="none" stroke="white" stroke-width="1.5" pointer-events="none"/>
                 </g>
                 <g id="zoomMin">
-                        <use xlink:href="#rim" fill="#404040">
+                        <use xlink:href="#rim" target="_top" fill="#404040">
                                 <set attributeName="fill" to="#808080" begin="zoomminus.mouseover" end="zoomminus.mouseout"/>
                         </use>
                         <path d="M-4,0h8" fill="none" stroke="white" stroke-width="1.5" pointer-events="none"/>
@@ -39,7 +39,7 @@ if (edges && edges.length) {
                         <path fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
                 </g>
                <g id="resetDef">
-                       <use xlink:href="#rim2" fill="#404040">
+                       <use xlink:href="#rim2" target="_top" fill="#404040">
                                <set attributeName="fill" to="#808080" begin="reset.mouseover" end="reset.mouseout"/>
                        </use>
                </g>
@@ -50,7 +50,7 @@ var viewWidth = 4663;
 var viewHeight = 307;
 var sectionId = 'dynsection-1';
 </script>
-<script xlink:href="svgpan.js"/>
+<script xlink:href="svgpan.js" target="_top"/>
 <svg id="graph" class="graph">
 <g id="viewport">
 <title>VortexEngine/src/Patterns/Patterns.h</title>
@@ -67,7 +67,7 @@ var sectionId = 'dynsection-1';
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="DefaultModes_8h.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="DefaultModes_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="0,-67.5 0,-97.5 134,-97.5 134,-67.5 0,-67.5"/>
 <text text-anchor="start" x="8" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
 <text text-anchor="middle" x="67" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/DefaultModes.h</text>
@@ -83,7 +83,7 @@ var sectionId = 'dynsection-1';
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="Mode_8h.html" target="_top" xlink:title=" ">
+<g id="a_node6"><a xlink:href="Mode_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="2090,-201.5 2090,-231.5 2224,-231.5 2224,-201.5 2090,-201.5"/>
 <text text-anchor="start" x="2098" y="-219.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
 <text text-anchor="middle" x="2157" y="-208.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Mode.h</text>
@@ -99,7 +99,7 @@ var sectionId = 'dynsection-1';
 <!-- Node61 -->
 <g id="node42" class="node">
 <title>Node61</title>
-<g id="a_node42"><a xlink:href="Modes_8h.html" target="_top" xlink:title=" ">
+<g id="a_node42"><a xlink:href="Modes_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="1229,-134.5 1229,-164.5 1363,-164.5 1363,-134.5 1229,-134.5"/>
 <text text-anchor="start" x="1237" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
 <text text-anchor="middle" x="1296" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Modes.h</text>
@@ -115,7 +115,7 @@ var sectionId = 'dynsection-1';
 <!-- Node63 -->
 <g id="node44" class="node">
 <title>Node63</title>
-<g id="a_node44"><a xlink:href="Sequence_8h.html" target="_top" xlink:title=" ">
+<g id="a_node44"><a xlink:href="Sequence_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="4218,-134.5 4218,-164.5 4376,-164.5 4376,-134.5 4218,-134.5"/>
 <text text-anchor="start" x="4226" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="4297" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/Sequencer/Sequence.h</text>
@@ -131,7 +131,7 @@ var sectionId = 'dynsection-1';
 <!-- Node67 -->
 <g id="node47" class="node">
 <title>Node67</title>
-<g id="a_node47"><a xlink:href="Pattern_8h.html" target="_top" xlink:title=" ">
+<g id="a_node47"><a xlink:href="Pattern_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="2839.5,-134.5 2839.5,-164.5 2980.5,-164.5 2980.5,-134.5 2839.5,-134.5"/>
 <text text-anchor="start" x="2847.5" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="2910" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Pattern.h</text>
@@ -147,7 +147,7 @@ var sectionId = 'dynsection-1';
 <!-- Node97 -->
 <g id="node50" class="node">
 <title>Node97</title>
-<g id="a_node50"><a xlink:href="PatternBuilder_8h.html" target="_top" xlink:title=" ">
+<g id="a_node50"><a xlink:href="PatternBuilder_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="3761.5,-134.5 3761.5,-164.5 3902.5,-164.5 3902.5,-134.5 3761.5,-134.5"/>
 <text text-anchor="start" x="3769.5" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="3832" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">/PatternBuilder.h</text>
@@ -163,7 +163,7 @@ var sectionId = 'dynsection-1';
 <!-- Node3 -->
 <g id="node3" class="node">
 <title>Node3</title>
-<g id="a_node3"><a xlink:href="FactoryReset_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node3"><a xlink:href="FactoryReset_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="206,-0.5 206,-30.5 356,-30.5 356,-0.5 206,-0.5"/>
 <text text-anchor="start" x="214" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="281" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/FactoryReset.cpp</text>
@@ -179,7 +179,7 @@ var sectionId = 'dynsection-1';
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="DefaultModes_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="DefaultModes_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="0,-0.5 0,-30.5 134,-30.5 134,-0.5 0,-0.5"/>
 <text text-anchor="start" x="8" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
 <text text-anchor="middle" x="67" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/DefaultModes.cpp</text>
@@ -195,7 +195,7 @@ var sectionId = 'dynsection-1';
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="Modes_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node5"><a xlink:href="Modes_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="1490,-0.5 1490,-30.5 1624,-30.5 1624,-0.5 1490,-0.5"/>
 <text text-anchor="start" x="1498" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
 <text text-anchor="middle" x="1557" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Modes.cpp</text>
@@ -223,7 +223,7 @@ var sectionId = 'dynsection-1';
 <!-- Node7 -->
 <g id="node7" class="node">
 <title>Node7</title>
-<g id="a_node7"><a xlink:href="Menu_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node7"><a xlink:href="Menu_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="1176,-0.5 1176,-30.5 1310,-30.5 1310,-0.5 1176,-0.5"/>
 <text text-anchor="start" x="1184" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="1243" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Menu.cpp</text>
@@ -239,7 +239,7 @@ var sectionId = 'dynsection-1';
 <!-- Node8 -->
 <g id="node8" class="node">
 <title>Node8</title>
-<g id="a_node8"><a xlink:href="Menu_8h.html" target="_top" xlink:title=" ">
+<g id="a_node8"><a xlink:href="Menu_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="1381,-134.5 1381,-164.5 1515,-164.5 1515,-134.5 1381,-134.5"/>
 <text text-anchor="start" x="1389" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="1448" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Menu.h</text>
@@ -255,7 +255,7 @@ var sectionId = 'dynsection-1';
 <!-- Node10 -->
 <g id="node10" class="node">
 <title>Node10</title>
-<g id="a_node10"><a xlink:href="ColorSelect_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node10"><a xlink:href="ColorSelect_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="1328.5,-0.5 1328.5,-30.5 1471.5,-30.5 1471.5,-0.5 1328.5,-0.5"/>
 <text text-anchor="start" x="1336.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="1400" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/ColorSelect.cpp</text>
@@ -271,7 +271,7 @@ var sectionId = 'dynsection-1';
 <!-- Node12 -->
 <g id="node12" class="node">
 <title>Node12</title>
-<g id="a_node12"><a xlink:href="EditorConnection_8h.html" target="_top" xlink:title=" ">
+<g id="a_node12"><a xlink:href="EditorConnection_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="679.5,-67.5 679.5,-97.5 838.5,-97.5 838.5,-67.5 679.5,-67.5"/>
 <text text-anchor="start" x="687.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="759" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/EditorConnection.h</text>
@@ -287,7 +287,7 @@ var sectionId = 'dynsection-1';
 <!-- Node13 -->
 <g id="node13" class="node">
 <title>Node13</title>
-<g id="a_node13"><a xlink:href="EditorConnection_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node13"><a xlink:href="EditorConnection_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="600,-0.5 600,-30.5 770,-30.5 770,-0.5 600,-0.5"/>
 <text text-anchor="start" x="608" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="685" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/EditorConnection.cpp</text>
@@ -303,7 +303,7 @@ var sectionId = 'dynsection-1';
 <!-- Node18 -->
 <g id="node18" class="node">
 <title>Node18</title>
-<g id="a_node18"><a xlink:href="ModeSharing_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node18"><a xlink:href="ModeSharing_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="404.5,-0.5 404.5,-30.5 555.5,-30.5 555.5,-0.5 404.5,-0.5"/>
 <text text-anchor="start" x="412.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="480" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/ModeSharing.cpp</text>
@@ -319,7 +319,7 @@ var sectionId = 'dynsection-1';
 <!-- Node19 -->
 <g id="node19" class="node">
 <title>Node19</title>
-<g id="a_node19"><a xlink:href="PatternSelect_8h.html" target="_top" xlink:title=" ">
+<g id="a_node19"><a xlink:href="PatternSelect_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="1647,-67.5 1647,-97.5 1787,-97.5 1787,-67.5 1647,-67.5"/>
 <text text-anchor="start" x="1655" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="1717" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/PatternSelect.h</text>
@@ -335,7 +335,7 @@ var sectionId = 'dynsection-1';
 <!-- Node21 -->
 <g id="node21" class="node">
 <title>Node21</title>
-<g id="a_node21"><a xlink:href="Randomizer_8h.html" target="_top" xlink:title=" ">
+<g id="a_node21"><a xlink:href="Randomizer_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="1805,-67.5 1805,-97.5 1939,-97.5 1939,-67.5 1805,-67.5"/>
 <text text-anchor="start" x="1813" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="1872" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/Randomizer.h</text>
@@ -351,7 +351,7 @@ var sectionId = 'dynsection-1';
 <!-- Node22 -->
 <g id="node22" class="node">
 <title>Node22</title>
-<g id="a_node22"><a xlink:href="Randomizer_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node22"><a xlink:href="Randomizer_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="3451.5,-0.5 3451.5,-30.5 3596.5,-30.5 3596.5,-0.5 3451.5,-0.5"/>
 <text text-anchor="start" x="3459.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="3524" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/Randomizer.cpp</text>
@@ -367,7 +367,7 @@ var sectionId = 'dynsection-1';
 <!-- Node23 -->
 <g id="node23" class="node">
 <title>Node23</title>
-<g id="a_node23"><a xlink:href="Menus_8h.html" target="_top" xlink:title=" ">
+<g id="a_node23"><a xlink:href="Menus_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="1995,-134.5 1995,-164.5 2129,-164.5 2129,-134.5 1995,-134.5"/>
 <text text-anchor="start" x="2003" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="2062" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Menus.h</text>
@@ -383,7 +383,7 @@ var sectionId = 'dynsection-1';
 <!-- Node24 -->
 <g id="node24" class="node">
 <title>Node24</title>
-<g id="a_node24"><a xlink:href="VortexEngine_8h.html" target="_top" xlink:title=" ">
+<g id="a_node24"><a xlink:href="VortexEngine_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="red" points="2413.5,-73 2413.5,-92 2588.5,-92 2588.5,-73 2413.5,-73"/>
 <text text-anchor="middle" x="2501" y="-80" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/VortexEngine.h</text>
 </a>
@@ -398,7 +398,7 @@ var sectionId = 'dynsection-1';
 <!-- Node26 -->
 <g id="node26" class="node">
 <title>Node26</title>
-<g id="a_node26"><a xlink:href="Mode_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node26"><a xlink:href="Mode_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="3774,-0.5 3774,-30.5 3908,-30.5 3908,-0.5 3774,-0.5"/>
 <text text-anchor="start" x="3782" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Modes</text>
 <text text-anchor="middle" x="3841" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Mode.cpp</text>
@@ -414,7 +414,7 @@ var sectionId = 'dynsection-1';
 <!-- Node57 -->
 <g id="node38" class="node">
 <title>Node57</title>
-<g id="a_node38"><a xlink:href="IRReceiver_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node38"><a xlink:href="IRReceiver_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="3129.5,-0.5 3129.5,-30.5 3272.5,-30.5 3272.5,-0.5 3129.5,-0.5"/>
 <text text-anchor="start" x="3137.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
 <text text-anchor="middle" x="3201" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/IRReceiver.cpp</text>
@@ -430,7 +430,7 @@ var sectionId = 'dynsection-1';
 <!-- Node58 -->
 <g id="node39" class="node">
 <title>Node58</title>
-<g id="a_node39"><a xlink:href="VLReceiver_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node39"><a xlink:href="VLReceiver_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="3290.5,-0.5 3290.5,-30.5 3433.5,-30.5 3433.5,-0.5 3290.5,-0.5"/>
 <text text-anchor="start" x="3298.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
 <text text-anchor="middle" x="3362" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLReceiver.cpp</text>
@@ -446,7 +446,7 @@ var sectionId = 'dynsection-1';
 <!-- Node59 -->
 <g id="node40" class="node">
 <title>Node59</title>
-<g id="a_node40"><a xlink:href="IRSender_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node40"><a xlink:href="IRSender_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="2299.5,-134.5 2299.5,-164.5 2442.5,-164.5 2442.5,-134.5 2299.5,-134.5"/>
 <text text-anchor="start" x="2307.5" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
 <text text-anchor="middle" x="2371" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">/IRSender.cpp</text>
@@ -462,7 +462,7 @@ var sectionId = 'dynsection-1';
 <!-- Node60 -->
 <g id="node41" class="node">
 <title>Node60</title>
-<g id="a_node41"><a xlink:href="VLSender_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node41"><a xlink:href="VLSender_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="2460.5,-134.5 2460.5,-164.5 2603.5,-164.5 2603.5,-134.5 2460.5,-134.5"/>
 <text text-anchor="start" x="2468.5" y="-152.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Wireless</text>
 <text text-anchor="middle" x="2532" y="-141.5" font-family="Helvetica,sans-Serif" font-size="10.00">/VLSender.cpp</text>
@@ -484,7 +484,7 @@ var sectionId = 'dynsection-1';
 <!-- Node9 -->
 <g id="node9" class="node">
 <title>Node9</title>
-<g id="a_node9"><a xlink:href="ColorSelect_8h.html" target="_top" xlink:title=" ">
+<g id="a_node9"><a xlink:href="ColorSelect_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="1419,-67.5 1419,-97.5 1553,-97.5 1553,-67.5 1419,-67.5"/>
 <text text-anchor="start" x="1427" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="1486" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/ColorSelect.h</text>
@@ -506,7 +506,7 @@ var sectionId = 'dynsection-1';
 <!-- Node14 -->
 <g id="node14" class="node">
 <title>Node14</title>
-<g id="a_node14"><a xlink:href="FactoryReset_8h.html" target="_top" xlink:title=" ">
+<g id="a_node14"><a xlink:href="FactoryReset_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="522.5,-67.5 522.5,-97.5 661.5,-97.5 661.5,-67.5 522.5,-67.5"/>
 <text text-anchor="start" x="530.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="592" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/FactoryReset.h</text>
@@ -522,7 +522,7 @@ var sectionId = 'dynsection-1';
 <!-- Node15 -->
 <g id="node15" class="node">
 <title>Node15</title>
-<g id="a_node15"><a xlink:href="GlobalBrightness_8h.html" target="_top" xlink:title=" ">
+<g id="a_node15"><a xlink:href="GlobalBrightness_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="1090.5,-67.5 1090.5,-97.5 1249.5,-97.5 1249.5,-67.5 1090.5,-67.5"/>
 <text text-anchor="start" x="1098.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="1170" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/GlobalBrightness.h</text>
@@ -538,7 +538,7 @@ var sectionId = 'dynsection-1';
 <!-- Node17 -->
 <g id="node17" class="node">
 <title>Node17</title>
-<g id="a_node17"><a xlink:href="ModeSharing_8h.html" target="_top" xlink:title=" ">
+<g id="a_node17"><a xlink:href="ModeSharing_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="932,-67.5 932,-97.5 1072,-97.5 1072,-67.5 932,-67.5"/>
 <text text-anchor="start" x="940" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="1002" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/ModeSharing.h</text>
@@ -572,7 +572,7 @@ var sectionId = 'dynsection-1';
 <!-- Node11 -->
 <g id="node11" class="node">
 <title>Node11</title>
-<g id="a_node11"><a xlink:href="Menus_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node11"><a xlink:href="Menus_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="836,-0.5 836,-30.5 970,-30.5 970,-0.5 836,-0.5"/>
 <text text-anchor="start" x="844" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="903" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Menus.cpp</text>
@@ -618,7 +618,7 @@ var sectionId = 'dynsection-1';
 <!-- Node16 -->
 <g id="node16" class="node">
 <title>Node16</title>
-<g id="a_node16"><a xlink:href="GlobalBrightness_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node16"><a xlink:href="GlobalBrightness_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="988,-0.5 988,-30.5 1158,-30.5 1158,-0.5 988,-0.5"/>
 <text text-anchor="start" x="996" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="1073" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/GlobalBrightness.cpp</text>
@@ -652,7 +652,7 @@ var sectionId = 'dynsection-1';
 <!-- Node20 -->
 <g id="node20" class="node">
 <title>Node20</title>
-<g id="a_node20"><a xlink:href="PatternSelect_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node20"><a xlink:href="PatternSelect_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="1642,-0.5 1642,-30.5 1794,-30.5 1794,-0.5 1642,-0.5"/>
 <text text-anchor="start" x="1650" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Menus</text>
 <text text-anchor="middle" x="1718" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/MenuList/PatternSelect.cpp</text>
@@ -782,7 +782,7 @@ var sectionId = 'dynsection-1';
 <!-- Node25 -->
 <g id="node25" class="node">
 <title>Node25</title>
-<g id="a_node25"><a xlink:href="LedStash_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node25"><a xlink:href="LedStash_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="2488,-0.5 2488,-30.5 2612,-30.5 2612,-0.5 2488,-0.5"/>
 <text text-anchor="start" x="2496" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Leds</text>
 <text text-anchor="middle" x="2550" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/LedStash.cpp</text>
@@ -804,7 +804,7 @@ var sectionId = 'dynsection-1';
 <!-- Node27 -->
 <g id="node27" class="node">
 <title>Node27</title>
-<g id="a_node27"><a xlink:href="BlinkStepPattern_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node27"><a xlink:href="BlinkStepPattern_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="2630.5,-0.5 2630.5,-30.5 2779.5,-30.5 2779.5,-0.5 2630.5,-0.5"/>
 <text text-anchor="start" x="2638.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="2705" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/BlinkStepPattern.cpp</text>
@@ -820,7 +820,7 @@ var sectionId = 'dynsection-1';
 <!-- Node28 -->
 <g id="node28" class="node">
 <title>Node28</title>
-<g id="a_node28"><a xlink:href="BouncePattern_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node28"><a xlink:href="BouncePattern_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="2797.5,-0.5 2797.5,-30.5 2938.5,-30.5 2938.5,-0.5 2797.5,-0.5"/>
 <text text-anchor="start" x="2805.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="2868" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/BouncePattern.cpp</text>
@@ -836,7 +836,7 @@ var sectionId = 'dynsection-1';
 <!-- Node29 -->
 <g id="node29" class="node">
 <title>Node29</title>
-<g id="a_node29"><a xlink:href="CompoundPattern_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node29"><a xlink:href="CompoundPattern_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="3926.5,-0.5 3926.5,-30.5 4081.5,-30.5 4081.5,-0.5 3926.5,-0.5"/>
 <text text-anchor="start" x="3934.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="4004" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/CompoundPattern.cpp</text>
@@ -852,7 +852,7 @@ var sectionId = 'dynsection-1';
 <!-- Node30 -->
 <g id="node30" class="node">
 <title>Node30</title>
-<g id="a_node30"><a xlink:href="CrossDopsPattern_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node30"><a xlink:href="CrossDopsPattern_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="2957,-0.5 2957,-30.5 3111,-30.5 3111,-0.5 2957,-0.5"/>
 <text text-anchor="start" x="2965" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="3034" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/CrossDopsPattern.cpp</text>
@@ -868,7 +868,7 @@ var sectionId = 'dynsection-1';
 <!-- Node31 -->
 <g id="node31" class="node">
 <title>Node31</title>
-<g id="a_node31"><a xlink:href="DoubleStrobePattern_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node31"><a xlink:href="DoubleStrobePattern_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="1812,-0.5 1812,-30.5 1980,-30.5 1980,-0.5 1812,-0.5"/>
 <text text-anchor="start" x="1820" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="1896" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/DoubleStrobePattern.cpp</text>
@@ -884,7 +884,7 @@ var sectionId = 'dynsection-1';
 <!-- Node32 -->
 <g id="node32" class="node">
 <title>Node32</title>
-<g id="a_node32"><a xlink:href="DripMorphPattern_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node32"><a xlink:href="DripMorphPattern_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="1998.5,-0.5 1998.5,-30.5 2151.5,-30.5 2151.5,-0.5 1998.5,-0.5"/>
 <text text-anchor="start" x="2006.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="2075" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/DripMorphPattern.cpp</text>
@@ -900,7 +900,7 @@ var sectionId = 'dynsection-1';
 <!-- Node33 -->
 <g id="node33" class="node">
 <title>Node33</title>
-<g id="a_node33"><a xlink:href="DripPattern_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node33"><a xlink:href="DripPattern_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="2169.5,-0.5 2169.5,-30.5 2310.5,-30.5 2310.5,-0.5 2169.5,-0.5"/>
 <text text-anchor="start" x="2177.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="2240" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/DripPattern.cpp</text>
@@ -916,7 +916,7 @@ var sectionId = 'dynsection-1';
 <!-- Node34 -->
 <g id="node34" class="node">
 <title>Node34</title>
-<g id="a_node34"><a xlink:href="FillPattern_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node34"><a xlink:href="FillPattern_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="2328.5,-0.5 2328.5,-30.5 2469.5,-30.5 2469.5,-0.5 2328.5,-0.5"/>
 <text text-anchor="start" x="2336.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="2399" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/FillPattern.cpp</text>
@@ -932,7 +932,7 @@ var sectionId = 'dynsection-1';
 <!-- Node41 -->
 <g id="node35" class="node">
 <title>Node41</title>
-<g id="a_node35"><a xlink:href="Sequence_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node35"><a xlink:href="Sequence_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="4099.5,-0.5 4099.5,-30.5 4268.5,-30.5 4268.5,-0.5 4099.5,-0.5"/>
 <text text-anchor="start" x="4107.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="4184" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/Sequencer/Sequence.cpp</text>
@@ -948,7 +948,7 @@ var sectionId = 'dynsection-1';
 <!-- Node42 -->
 <g id="node36" class="node">
 <title>Node42</title>
-<g id="a_node36"><a xlink:href="SequencedPattern_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node36"><a xlink:href="SequencedPattern_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="4286.5,-0.5 4286.5,-30.5 4495.5,-30.5 4495.5,-0.5 4286.5,-0.5"/>
 <text text-anchor="start" x="4294.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="4391" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/Sequencer/SequencedPattern.cpp</text>
@@ -964,7 +964,7 @@ var sectionId = 'dynsection-1';
 <!-- Node51 -->
 <g id="node37" class="node">
 <title>Node51</title>
-<g id="a_node37"><a xlink:href="Pattern_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node37"><a xlink:href="Pattern_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="3614.5,-0.5 3614.5,-30.5 3755.5,-30.5 3755.5,-0.5 3614.5,-0.5"/>
 <text text-anchor="start" x="3622.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="3685" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Pattern.cpp</text>
@@ -1058,7 +1058,7 @@ var sectionId = 'dynsection-1';
 <!-- Node62 -->
 <g id="node43" class="node">
 <title>Node62</title>
-<g id="a_node43"><a xlink:href="Leds_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node43"><a xlink:href="Leds_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="304,-67.5 304,-97.5 428,-97.5 428,-67.5 304,-67.5"/>
 <text text-anchor="start" x="312" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Leds</text>
 <text text-anchor="middle" x="366" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Leds.cpp</text>
@@ -1080,7 +1080,7 @@ var sectionId = 'dynsection-1';
 <!-- Node64 -->
 <g id="node45" class="node">
 <title>Node64</title>
-<g id="a_node45"><a xlink:href="SequencedPattern_8h.html" target="_top" xlink:title=" ">
+<g id="a_node45"><a xlink:href="SequencedPattern_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="red" points="4292,-67.5 4292,-97.5 4490,-97.5 4490,-67.5 4292,-67.5"/>
 <text text-anchor="start" x="4300" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="4391" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/Sequencer/SequencedPattern.h</text>
@@ -1096,7 +1096,7 @@ var sectionId = 'dynsection-1';
 <!-- Node66 -->
 <g id="node46" class="node">
 <title>Node66</title>
-<g id="a_node46"><a xlink:href="PatternBuilder_8cpp.html" target="_top" xlink:title=" ">
+<g id="a_node46"><a xlink:href="PatternBuilder_8cpp.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="4513.5,-0.5 4513.5,-30.5 4654.5,-30.5 4654.5,-0.5 4513.5,-0.5"/>
 <text text-anchor="start" x="4521.5" y="-18.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="4584" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">/PatternBuilder.cpp</text>
@@ -1166,7 +1166,7 @@ var sectionId = 'dynsection-1';
 <!-- Node68 -->
 <g id="node48" class="node">
 <title>Node68</title>
-<g id="a_node48"><a xlink:href="MultiLedPattern_8h.html" target="_top" xlink:title=" ">
+<g id="a_node48"><a xlink:href="MultiLedPattern_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="red" points="3525.5,-67.5 3525.5,-97.5 3666.5,-97.5 3666.5,-67.5 3525.5,-67.5"/>
 <text text-anchor="start" x="3533.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="3596" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Multi/MultiLedPattern.h</text>
@@ -1182,7 +1182,7 @@ var sectionId = 'dynsection-1';
 <!-- Node91 -->
 <g id="node49" class="node">
 <title>Node91</title>
-<g id="a_node49"><a xlink:href="SingleLedPattern_8h.html" target="_top" xlink:title=" ">
+<g id="a_node49"><a xlink:href="SingleLedPattern_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="red" points="3860.5,-67.5 3860.5,-97.5 4003.5,-97.5 4003.5,-67.5 3860.5,-67.5"/>
 <text text-anchor="start" x="3868.5" y="-85.5" font-family="Helvetica,sans-Serif" font-size="10.00">VortexEngine/src/Patterns</text>
 <text text-anchor="middle" x="3932" y="-74.5" font-family="Helvetica,sans-Serif" font-size="10.00">/Single/SingleLedPattern.h</text>
@@ -1277,29 +1277,29 @@ var sectionId = 'dynsection-1';
 </svg>
         <g id="navigator" transform="translate(0 0)" fill="#404254">
                 <rect fill="#f2f5e9" fill-opacity="0.5" stroke="#606060" stroke-width=".5" x="0" y="0" width="60" height="60"/>
-                <use id="zoomplus" xlink:href="#zoomPlus" x="17" y="9" onmousedown="handleZoom(evt,'in')"/>
-                <use id="zoomminus" xlink:href="#zoomMin" x="42" y="9" onmousedown="handleZoom(evt,'out')"/>
-                <use id="reset" xlink:href="#resetDef" x="30" y="36" onmousedown="handleReset()"/>
-                <g id="arrowUp" xlink:href="#dirArrow" transform="translate(30 24)" onmousedown="handlePan(0,-1)">
-                  <use xlink:href="#rim" fill="#404040">
+                <use id="zoomplus" xlink:href="#zoomPlus" target="_top" x="17" y="9" onmousedown="handleZoom(evt,'in')"/>
+                <use id="zoomminus" xlink:href="#zoomMin" target="_top" x="42" y="9" onmousedown="handleZoom(evt,'out')"/>
+                <use id="reset" xlink:href="#resetDef" target="_top" x="30" y="36" onmousedown="handleReset()"/>
+                <g id="arrowUp" xlink:href="#dirArrow" target="_top" transform="translate(30 24)" onmousedown="handlePan(0,-1)">
+                  <use xlink:href="#rim" target="_top" fill="#404040">
                         <set attributeName="fill" to="#808080" begin="arrowUp.mouseover" end="arrowUp.mouseout"/>
                   </use>
                   <path fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
                 </g>
-                <g id="arrowRight" xlink:href="#dirArrow" transform="rotate(90) translate(36 -43)" onmousedown="handlePan(1,0)">
-                  <use xlink:href="#rim" fill="#404040">
+                <g id="arrowRight" xlink:href="#dirArrow" target="_top" transform="rotate(90) translate(36 -43)" onmousedown="handlePan(1,0)">
+                  <use xlink:href="#rim" target="_top" fill="#404040">
                         <set attributeName="fill" to="#808080" begin="arrowRight.mouseover" end="arrowRight.mouseout"/>
                   </use>
                   <path fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
                 </g>
-                <g id="arrowDown" xlink:href="#dirArrow" transform="rotate(180) translate(-30 -48)" onmousedown="handlePan(0,1)">
-                  <use xlink:href="#rim" fill="#404040">
+                <g id="arrowDown" xlink:href="#dirArrow" target="_top" transform="rotate(180) translate(-30 -48)" onmousedown="handlePan(0,1)">
+                  <use xlink:href="#rim" target="_top" fill="#404040">
                         <set attributeName="fill" to="#808080" begin="arrowDown.mouseover" end="arrowDown.mouseout"/>
                   </use>
                   <path fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
                 </g>
-                <g id="arrowLeft" xlink:href="#dirArrow" transform="rotate(270) translate(-36 17)" onmousedown="handlePan(-1,0)">
-                  <use xlink:href="#rim" fill="#404040">
+                <g id="arrowLeft" xlink:href="#dirArrow" target="_top" transform="rotate(270) translate(-36 17)" onmousedown="handlePan(-1,0)">
+                  <use xlink:href="#rim" target="_top" fill="#404040">
                         <set attributeName="fill" to="#808080" begin="arrowLeft.mouseover" end="arrowLeft.mouseout"/>
                   </use>
                   <path fill="none" stroke="white" stroke-width="1.5" d="M0,-3.0v7 M-2.5,-0.5L0,-3.0L2.5,-0.5"/>
@@ -1307,7 +1307,7 @@ var sectionId = 'dynsection-1';
         </g>
         <svg viewBox="0 0 15 15" width="100%" height="30px" preserveAspectRatio="xMaxYMin meet">
          <g id="arrow_out" transform="scale(0.3 0.3)">
-          <a xlink:href="Patterns_8h__dep__incl_org.svg" target="_base">
+          <a xlink:href="Patterns_8h__dep__incl_org.svg" target="_top" target="_base">
            <rect id="button" ry="5" rx="5" y="6" x="6" height="38" width="38"
                 fill="#f2f5e9" fill-opacity="0.5" stroke="#606060" stroke-width="1.0"/>
            <path id="arrow"

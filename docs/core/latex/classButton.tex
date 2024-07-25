@@ -118,7 +118,7 @@ Definition at line 11 of file Button.\+cpp.
 \DoxyCodeLine{21   \mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}}(\textcolor{keyword}{false}),}
 \DoxyCodeLine{22   \mbox{\hyperlink{classButton_ab61668778546acefd5c8e5f1c082ab61}{m\_isPressed}}(\textcolor{keyword}{false}),}
 \DoxyCodeLine{23   \mbox{\hyperlink{classButton_a0e80fad6d54058eb7138109581ac4f85}{m\_shortClick}}(\textcolor{keyword}{false}),}
-\DoxyCodeLine{24   \mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}}(\textcolor{keyword}{false})}
+\DoxyCodeLine{24   \mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}}(\textcolor{keyword}{false})}
 \DoxyCodeLine{25 \{}
 \DoxyCodeLine{26 \}}
 
@@ -155,13 +155,13 @@ Definition at line 52 of file Button.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{53 \{}
-\DoxyCodeLine{54   \textcolor{keywordflow}{return} (Vortex::vcallbacks()-\/>checkPinHook(\mbox{\hyperlink{classButton_ae9d49614896753764d5ec7b813bb112c}{m\_pinNum}}) == 0);}
+\DoxyCodeLine{54   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classVortex_a84b31157edd8814f3e7b545ca4c3fa00}{Vortex::vcallbacks}}()-\/>checkPinHook(\mbox{\hyperlink{classButton_ae9d49614896753764d5ec7b813bb112c}{m\_pinNum}}) == 0);}
 \DoxyCodeLine{55 \}}
 
 \end{DoxyCode}
 
 
-References m\+\_\+pin\+Num.
+References m\+\_\+pin\+Num, and Vortex\+::vcallbacks().
 
 
 
@@ -207,7 +207,7 @@ References m\+\_\+hold\+Duration.
 
 
 
-Referenced by Color\+Select\+::on\+Long\+Click(), Factory\+Reset\+::on\+Long\+Click(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), Menu\+::show\+Exit(), Factory\+Reset\+::show\+Reset(), Menus\+::show\+Selection(), and Color\+Select\+::show\+Slot\+Selection().
+Referenced by Factory\+Reset\+::on\+Long\+Click(), Color\+Select\+::on\+Long\+Click(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), Menu\+::show\+Exit(), Factory\+Reset\+::show\+Reset(), Menus\+::show\+Selection(), and Color\+Select\+::show\+Slot\+Selection().
 
 \mbox{\Hypertarget{classButton_aa4741ee4f3899e86430d90bc28b8bc75}\label{classButton_aa4741ee4f3899e86430d90bc28b8bc75}} 
 \index{Button@{Button}!init@{init}}
@@ -266,7 +266,7 @@ References m\+\_\+is\+Pressed.
 
 
 
-Referenced by Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), Menu\+::show\+Exit(), Factory\+Reset\+::show\+Reset(), Menus\+::show\+Selection(), and Color\+Select\+::show\+Slot\+Selection().
+Referenced by Vortex\+::handle\+Input\+Queue(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), Menu\+::show\+Exit(), Factory\+Reset\+::show\+Reset(), Menus\+::show\+Selection(), and Color\+Select\+::show\+Slot\+Selection().
 
 \mbox{\Hypertarget{classButton_af08888134084d0640b6a891bdb755f14}\label{classButton_af08888134084d0640b6a891bdb755f14}} 
 \index{Button@{Button}!onConsecutivePresses@{onConsecutivePresses}}
@@ -295,7 +295,7 @@ References m\+\_\+consecutive\+Presses.
 
 
 
-Referenced by Pattern\+Select\+::on\+Short\+Click(), Randomizer\+::on\+Short\+Click(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), and Vortex\+Engine\+::tick().
+Referenced by Randomizer\+::on\+Short\+Click(), Pattern\+Select\+::on\+Short\+Click(), Vortex\+Engine\+::run\+Main\+Logic(), Menus\+::run\+Menu\+Selection(), and Vortex\+Engine\+::tick().
 
 \mbox{\Hypertarget{classButton_a81c3b1a14aee3e487e836ac517e6b232}\label{classButton_a81c3b1a14aee3e487e836ac517e6b232}} 
 \index{Button@{Button}!onLongClick@{onLongClick}}
@@ -540,17 +540,17 @@ Definition at line 57 of file Button.\+cpp.
 \DoxyCodeLine{108   \mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}} = (\mbox{\hyperlink{classButton_a0dfe411510dfde7feaa94478b52142cc}{m\_newRelease}} \&\& (\mbox{\hyperlink{classButton_a711d3a33c86019298fe490b7441f8ead}{m\_holdDuration}} > \mbox{\hyperlink{Timings_8h_a301a9e590b96bcdd14ae850adb42e9ff}{SHORT\_CLICK\_THRESHOLD\_TICKS}}));}
 \DoxyCodeLine{109 }
 \DoxyCodeLine{110   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classButton_a0e80fad6d54058eb7138109581ac4f85}{m\_shortClick}}) \{}
-\DoxyCodeLine{111     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Short click"{}});}
+\DoxyCodeLine{111     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Short click"});}
 \DoxyCodeLine{112   \}}
 \DoxyCodeLine{113   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classButton_a0be422900425e08305de1d4667b9fb8e}{m\_longClick}}) \{}
-\DoxyCodeLine{114     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Long click"{}});}
+\DoxyCodeLine{114     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Long click"});}
 \DoxyCodeLine{115   \}}
 \DoxyCodeLine{116 \}}
 
 \end{DoxyCode}
 
 
-References check(), CONSECUTIVE\+\_\+\+WINDOW\+\_\+\+TICKS, DEBUG\+\_\+\+LOG, Time\+::get\+Curtime(), m\+\_\+button\+State, m\+\_\+consecutive\+Presses, m\+\_\+hold\+Duration, m\+\_\+is\+Pressed, m\+\_\+long\+Click, m\+\_\+new\+Press, m\+\_\+new\+Release, m\+\_\+press\+Time, m\+\_\+release\+Duration, m\+\_\+release\+Time, m\+\_\+short\+Click, and SHORT\+\_\+\+CLICK\+\_\+\+THRESHOLD\+\_\+\+TICKS.
+References check(), C\+O\+N\+S\+E\+C\+U\+T\+I\+V\+E\+\_\+\+W\+I\+N\+D\+O\+W\+\_\+\+T\+I\+C\+KS, D\+E\+B\+U\+G\+\_\+\+L\+OG, Time\+::get\+Curtime(), m\+\_\+button\+State, m\+\_\+consecutive\+Presses, m\+\_\+hold\+Duration, m\+\_\+is\+Pressed, m\+\_\+long\+Click, m\+\_\+new\+Press, m\+\_\+new\+Release, m\+\_\+press\+Time, m\+\_\+release\+Duration, m\+\_\+release\+Time, m\+\_\+short\+Click, and S\+H\+O\+R\+T\+\_\+\+C\+L\+I\+C\+K\+\_\+\+T\+H\+R\+E\+S\+H\+O\+L\+D\+\_\+\+T\+I\+C\+KS.
 
 
 
@@ -571,7 +571,7 @@ Definition at line 79 of file Button.\+h.
 
 
 
-Referenced by init(), and update().
+Referenced by Vortex\+::handle\+Input\+Queue(), init(), and update().
 
 \mbox{\Hypertarget{classButton_a863f12d3c09791a1735645df271ddf58}\label{classButton_a863f12d3c09791a1735645df271ddf58}} 
 \index{Button@{Button}!m\_consecutivePresses@{m\_consecutivePresses}}
@@ -585,7 +585,7 @@ Definition at line 74 of file Button.\+h.
 
 
 
-Referenced by consecutive\+Presses(), init(), on\+Consecutive\+Presses(), and update().
+Referenced by consecutive\+Presses(), Vortex\+::handle\+Input\+Queue(), init(), on\+Consecutive\+Presses(), and update().
 
 \mbox{\Hypertarget{classButton_a711d3a33c86019298fe490b7441f8ead}\label{classButton_a711d3a33c86019298fe490b7441f8ead}} 
 \index{Button@{Button}!m\_holdDuration@{m\_holdDuration}}
@@ -599,7 +599,7 @@ Definition at line 69 of file Button.\+h.
 
 
 
-Referenced by hold\+Duration(), init(), and update().
+Referenced by Vortex\+::handle\+Input\+Queue(), hold\+Duration(), init(), and update().
 
 \mbox{\Hypertarget{classButton_ab61668778546acefd5c8e5f1c082ab61}\label{classButton_ab61668778546acefd5c8e5f1c082ab61}} 
 \index{Button@{Button}!m\_isPressed@{m\_isPressed}}
@@ -613,7 +613,7 @@ Definition at line 86 of file Button.\+h.
 
 
 
-Referenced by init(), is\+Pressed(), and update().
+Referenced by Vortex\+::handle\+Input\+Queue(), init(), is\+Pressed(), and update().
 
 \mbox{\Hypertarget{classButton_a0be422900425e08305de1d4667b9fb8e}\label{classButton_a0be422900425e08305de1d4667b9fb8e}} 
 \index{Button@{Button}!m\_longClick@{m\_longClick}}
@@ -627,7 +627,7 @@ Definition at line 90 of file Button.\+h.
 
 
 
-Referenced by init(), on\+Long\+Click(), and update().
+Referenced by Vortex\+::handle\+Input\+Queue(), init(), on\+Long\+Click(), and update().
 
 \mbox{\Hypertarget{classButton_acf8feb2430f68f24f633772725d14b7e}\label{classButton_acf8feb2430f68f24f633772725d14b7e}} 
 \index{Button@{Button}!m\_newPress@{m\_newPress}}
@@ -641,7 +641,7 @@ Definition at line 82 of file Button.\+h.
 
 
 
-Referenced by init(), on\+Press(), and update().
+Referenced by Vortex\+::handle\+Input\+Queue(), init(), on\+Press(), and update().
 
 \mbox{\Hypertarget{classButton_a0dfe411510dfde7feaa94478b52142cc}\label{classButton_a0dfe411510dfde7feaa94478b52142cc}} 
 \index{Button@{Button}!m\_newRelease@{m\_newRelease}}
@@ -655,7 +655,7 @@ Definition at line 84 of file Button.\+h.
 
 
 
-Referenced by init(), on\+Release(), and update().
+Referenced by Vortex\+::handle\+Input\+Queue(), init(), on\+Release(), and update().
 
 \mbox{\Hypertarget{classButton_ae9d49614896753764d5ec7b813bb112c}\label{classButton_ae9d49614896753764d5ec7b813bb112c}} 
 \index{Button@{Button}!m\_pinNum@{m\_pinNum}}
@@ -683,7 +683,7 @@ Definition at line 64 of file Button.\+h.
 
 
 
-Referenced by init(), press\+Time(), and update().
+Referenced by Vortex\+::handle\+Input\+Queue(), init(), press\+Time(), and update().
 
 \mbox{\Hypertarget{classButton_a4630ca3b5a9e85d7bcefb6a6373ff15b}\label{classButton_a4630ca3b5a9e85d7bcefb6a6373ff15b}} 
 \index{Button@{Button}!m\_releaseCount@{m\_releaseCount}}
@@ -711,7 +711,7 @@ Definition at line 71 of file Button.\+h.
 
 
 
-Referenced by init(), release\+Duration(), and update().
+Referenced by Vortex\+::handle\+Input\+Queue(), init(), release\+Duration(), and update().
 
 \mbox{\Hypertarget{classButton_a5aa9ed7408a225103ea9c64f4a5a2d2a}\label{classButton_a5aa9ed7408a225103ea9c64f4a5a2d2a}} 
 \index{Button@{Button}!m\_releaseTime@{m\_releaseTime}}
@@ -725,7 +725,7 @@ Definition at line 66 of file Button.\+h.
 
 
 
-Referenced by init(), release\+Time(), and update().
+Referenced by Vortex\+::handle\+Input\+Queue(), init(), release\+Time(), and update().
 
 \mbox{\Hypertarget{classButton_a0e80fad6d54058eb7138109581ac4f85}\label{classButton_a0e80fad6d54058eb7138109581ac4f85}} 
 \index{Button@{Button}!m\_shortClick@{m\_shortClick}}
@@ -739,7 +739,7 @@ Definition at line 88 of file Button.\+h.
 
 
 
-Referenced by init(), on\+Short\+Click(), and update().
+Referenced by Vortex\+::handle\+Input\+Queue(), init(), on\+Short\+Click(), and update().
 
 
 

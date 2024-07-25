@@ -7,13 +7,7 @@
 
 
 Collaboration diagram for Led\+Stash\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classLedStash__coll__graph}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -21,18 +15,18 @@ Collaboration diagram for Led\+Stash\+:
 \item 
 \mbox{\hyperlink{classLedStash_a87cd37f58b9f60cfbb45a34463d8691a}{$\sim$\+Led\+Stash}} ()
 \item 
-void \mbox{\hyperlink{classLedStash_a521c963cdf873fb0a6a6697193fcd921}{set\+Index}} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}} pos, \mbox{\hyperlink{classRGBColor}{RGBColor}} col)
+void \mbox{\hyperlink{classLedStash_a521c963cdf873fb0a6a6697193fcd921}{set\+Index}} (\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}} pos, \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} col)
 \item 
 void \mbox{\hyperlink{classLedStash_a01a76ee93a1dec3c820f45d2d045ec41}{clear}} ()
 \item 
-\mbox{\hyperlink{classRGBColor}{RGBColor}} \& \mbox{\hyperlink{classLedStash_a00bf2c1048e19cf35974264380ebfb23}{operator\mbox{[}$\,$\mbox{]}}} (int index)
+\mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \& \mbox{\hyperlink{classLedStash_a00bf2c1048e19cf35974264380ebfb23}{operator\mbox{[}$\,$\mbox{]}}} (int index)
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
 \item 
 \mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \& \mbox{\hyperlink{classLedStash_acb206d9231832551c6d482fb965feb11}{m\+\_\+engine}}
 \item 
-std\+::vector$<$ \mbox{\hyperlink{classRGBColor}{RGBColor}} $>$ \mbox{\hyperlink{classLedStash_a0fb3014a9bbb700b82e1d580f0927072}{m\+\_\+led\+Colors\+Stash}}
+std\+::vector$<$ \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} $>$ \mbox{\hyperlink{classLedStash_a0fb3014a9bbb700b82e1d580f0927072}{m\+\_\+led\+Colors\+Stash}}
 \end{DoxyCompactItemize}
 \doxysubsection*{Friends}
 \begin{DoxyCompactItemize}
@@ -63,7 +57,7 @@ Definition at line 5 of file Led\+Stash.\+cpp.
 \begin{DoxyCode}{0}
 \DoxyCodeLine{5                                        :}
 \DoxyCodeLine{6   \mbox{\hyperlink{classLedStash_acb206d9231832551c6d482fb965feb11}{m\_engine}}(engine),}
-\DoxyCodeLine{7   \mbox{\hyperlink{classLedStash_a0fb3014a9bbb700b82e1d580f0927072}{m\_ledColorsStash}}()}
+\DoxyCodeLine{7   \mbox{\hyperlink{classLedStash_a0fb3014a9bbb700b82e1d580f0927072}{m\_ledColorsStash}}()}
 \DoxyCodeLine{8 \{}
 \DoxyCodeLine{9   \mbox{\hyperlink{classLedStash_a0fb3014a9bbb700b82e1d580f0927072}{m\_ledColorsStash}}.resize(\mbox{\hyperlink{Leds_8h_ad698e2cb680601529f08c3e5f2b0cebb}{LED\_COUNT}});}
 \DoxyCodeLine{10 \}}
@@ -71,7 +65,7 @@ Definition at line 5 of file Led\+Stash.\+cpp.
 \end{DoxyCode}
 
 
-References LED\+\_\+\+COUNT, and m\+\_\+led\+Colors\+Stash.
+References L\+E\+D\+\_\+\+C\+O\+U\+NT, and m\+\_\+led\+Colors\+Stash.
 
 \mbox{\Hypertarget{classLedStash_a87cd37f58b9f60cfbb45a34463d8691a}\label{classLedStash_a87cd37f58b9f60cfbb45a34463d8691a}} 
 \index{LedStash@{LedStash}!````~LedStash@{$\sim$LedStash}}
@@ -113,13 +107,13 @@ Definition at line 20 of file Led\+Stash.\+cpp.
 \end{DoxyCode}
 
 
-References LED\+\_\+\+FIRST, LED\+\_\+\+LAST, and m\+\_\+led\+Colors\+Stash.
+References L\+E\+D\+\_\+\+F\+I\+R\+ST, L\+E\+D\+\_\+\+L\+A\+ST, and m\+\_\+led\+Colors\+Stash.
 
 \mbox{\Hypertarget{classLedStash_a00bf2c1048e19cf35974264380ebfb23}\label{classLedStash_a00bf2c1048e19cf35974264380ebfb23}} 
 \index{LedStash@{LedStash}!operator\mbox{[}\mbox{]}@{operator[]}}
 \index{operator\mbox{[}\mbox{]}@{operator[]}!LedStash@{LedStash}}
 \doxysubsubsection{\texorpdfstring{operator[]()}{operator[]()}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{RGBColor}} \& Led\+Stash\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily \mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}} \& Led\+Stash\+::operator\mbox{[}$\,$\mbox{]} (\begin{DoxyParamCaption}\item[{int}]{index }\end{DoxyParamCaption})}
 
 
 
@@ -140,7 +134,7 @@ References m\+\_\+led\+Colors\+Stash.
 \index{LedStash@{LedStash}!setIndex@{setIndex}}
 \index{setIndex@{setIndex}!LedStash@{LedStash}}
 \doxysubsubsection{\texorpdfstring{setIndex()}{setIndex()}}
-{\footnotesize\ttfamily void Led\+Stash\+::set\+Index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}}}]{pos,  }\item[{\mbox{\hyperlink{classRGBColor}{RGBColor}}}]{col }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void Led\+Stash\+::set\+Index (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Leds_8h_a00ce38c4c9420e2c98e2e8e577173feb}{Led\+Pos}}}]{pos,  }\item[{\mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}}}]{col }\end{DoxyParamCaption})}
 
 
 
@@ -158,7 +152,7 @@ Definition at line 12 of file Led\+Stash.\+cpp.
 \end{DoxyCode}
 
 
-References LED\+\_\+\+LAST, and m\+\_\+led\+Colors\+Stash.
+References L\+E\+D\+\_\+\+L\+A\+ST, and m\+\_\+led\+Colors\+Stash.
 
 
 
@@ -194,7 +188,7 @@ Definition at line 25 of file Led\+Stash.\+h.
 \index{LedStash@{LedStash}!m\_ledColorsStash@{m\_ledColorsStash}}
 \index{m\_ledColorsStash@{m\_ledColorsStash}!LedStash@{LedStash}}
 \doxysubsubsection{\texorpdfstring{m\_ledColorsStash}{m\_ledColorsStash}}
-{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classRGBColor}{RGBColor}}$>$ Led\+Stash\+::m\+\_\+led\+Colors\+Stash\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily std\+::vector$<$\mbox{\hyperlink{classRGBColor}{R\+G\+B\+Color}}$>$ Led\+Stash\+::m\+\_\+led\+Colors\+Stash\hspace{0.3cm}{\ttfamily [private]}}
 
 
 

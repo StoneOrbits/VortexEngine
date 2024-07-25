@@ -12,8 +12,7 @@
 {\ttfamily \#include \char`\"{}../\+Memory/\+Memory.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../\+Leds/\+Leds.\+h\char`\"{}}\newline
 {\ttfamily \#include \char`\"{}../\+Log/\+Log.\+h\char`\"{}}\newline
-Include dependency graph for Mode.\+cpp\+:
-\nopagebreak
+Include dependency graph for Mode.\+cpp\+:\nopagebreak
 \begin{figure}[H]
 \begin{center}
 \leavevmode
@@ -23,17 +22,17 @@ Include dependency graph for Mode.\+cpp\+:
 \doxysubsection*{Macros}
 \begin{DoxyCompactItemize}
 \item 
-\#define \mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{MODE\+\_\+\+LED\+\_\+\+COUNT}}~get\+Led\+Count()
+\#define \mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+C\+O\+U\+NT}}~get\+Led\+Count()
 \item 
-\#define \mbox{\hyperlink{Mode_8cpp_affc2e19cbc69270b17ed896496660e95}{MODE\+\_\+\+LED\+\_\+\+LAST}}~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{MODE\+\_\+\+LED\+\_\+\+COUNT}} -\/ 1)
+\#define \mbox{\hyperlink{Mode_8cpp_affc2e19cbc69270b17ed896496660e95}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+L\+A\+ST}}~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+C\+O\+U\+NT}} -\/ 1)
 \item 
-\#define \mbox{\hyperlink{Mode_8cpp_a7f1ed91b4aab3c29219a66ae4d4cf65e}{MODE\+\_\+\+LED\+\_\+\+ALL}}~\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{MODE\+\_\+\+LED\+\_\+\+COUNT}}
+\#define \mbox{\hyperlink{Mode_8cpp_a7f1ed91b4aab3c29219a66ae4d4cf65e}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+A\+LL}}~\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+C\+O\+U\+NT}}
 \item 
-\#define \mbox{\hyperlink{Mode_8cpp_a249e511516692ee4131eaa1b158bf639}{MODE\+\_\+\+LED\+\_\+\+MULTI}}~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{MODE\+\_\+\+LED\+\_\+\+COUNT}} + 1)
+\#define \mbox{\hyperlink{Mode_8cpp_a249e511516692ee4131eaa1b158bf639}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+M\+U\+L\+TI}}~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+C\+O\+U\+NT}} + 1)
 \item 
-\#define \mbox{\hyperlink{Mode_8cpp_a02257bc662d9ea089cbf7e9e1a29e62f}{MODE\+\_\+\+LED\+\_\+\+ALL\+\_\+\+SINGLE}}~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{MODE\+\_\+\+LED\+\_\+\+COUNT}} + 2)
+\#define \mbox{\hyperlink{Mode_8cpp_a02257bc662d9ea089cbf7e9e1a29e62f}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+A\+L\+L\+\_\+\+S\+I\+N\+G\+LE}}~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+C\+O\+U\+NT}} + 2)
 \item 
-\#define \mbox{\hyperlink{Mode_8cpp_abfb6c14e284e416257f62a32b16ae818}{MODE\+\_\+\+LED\+\_\+\+ANY}}~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{MODE\+\_\+\+LED\+\_\+\+COUNT}} + 3)
+\#define \mbox{\hyperlink{Mode_8cpp_abfb6c14e284e416257f62a32b16ae818}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+A\+NY}}~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+C\+O\+U\+NT}} + 3)
 \end{DoxyCompactItemize}
 
 
@@ -42,7 +41,7 @@ Include dependency graph for Mode.\+cpp\+:
 \index{Mode.cpp@{Mode.cpp}!MODE\_LED\_ALL@{MODE\_LED\_ALL}}
 \index{MODE\_LED\_ALL@{MODE\_LED\_ALL}!Mode.cpp@{Mode.cpp}}
 \doxysubsubsection{\texorpdfstring{MODE\_LED\_ALL}{MODE\_LED\_ALL}}
-{\footnotesize\ttfamily \#define MODE\+\_\+\+LED\+\_\+\+ALL~\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{MODE\+\_\+\+LED\+\_\+\+COUNT}}}
+{\footnotesize\ttfamily \#define M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+A\+LL~\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+C\+O\+U\+NT}}}
 
 
 
@@ -52,7 +51,7 @@ Definition at line 24 of file Mode.\+cpp.
 \index{Mode.cpp@{Mode.cpp}!MODE\_LED\_ALL\_SINGLE@{MODE\_LED\_ALL\_SINGLE}}
 \index{MODE\_LED\_ALL\_SINGLE@{MODE\_LED\_ALL\_SINGLE}!Mode.cpp@{Mode.cpp}}
 \doxysubsubsection{\texorpdfstring{MODE\_LED\_ALL\_SINGLE}{MODE\_LED\_ALL\_SINGLE}}
-{\footnotesize\ttfamily \#define MODE\+\_\+\+LED\+\_\+\+ALL\+\_\+\+SINGLE~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{MODE\+\_\+\+LED\+\_\+\+COUNT}} + 2)}
+{\footnotesize\ttfamily \#define M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+A\+L\+L\+\_\+\+S\+I\+N\+G\+LE~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+C\+O\+U\+NT}} + 2)}
 
 
 
@@ -62,7 +61,7 @@ Definition at line 26 of file Mode.\+cpp.
 \index{Mode.cpp@{Mode.cpp}!MODE\_LED\_ANY@{MODE\_LED\_ANY}}
 \index{MODE\_LED\_ANY@{MODE\_LED\_ANY}!Mode.cpp@{Mode.cpp}}
 \doxysubsubsection{\texorpdfstring{MODE\_LED\_ANY}{MODE\_LED\_ANY}}
-{\footnotesize\ttfamily \#define MODE\+\_\+\+LED\+\_\+\+ANY~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{MODE\+\_\+\+LED\+\_\+\+COUNT}} + 3)}
+{\footnotesize\ttfamily \#define M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+A\+NY~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+C\+O\+U\+NT}} + 3)}
 
 
 
@@ -72,7 +71,7 @@ Definition at line 27 of file Mode.\+cpp.
 \index{Mode.cpp@{Mode.cpp}!MODE\_LED\_COUNT@{MODE\_LED\_COUNT}}
 \index{MODE\_LED\_COUNT@{MODE\_LED\_COUNT}!Mode.cpp@{Mode.cpp}}
 \doxysubsubsection{\texorpdfstring{MODE\_LED\_COUNT}{MODE\_LED\_COUNT}}
-{\footnotesize\ttfamily \#define MODE\+\_\+\+LED\+\_\+\+COUNT~get\+Led\+Count()}
+{\footnotesize\ttfamily \#define M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+C\+O\+U\+NT~get\+Led\+Count()}
 
 
 
@@ -82,7 +81,7 @@ Definition at line 22 of file Mode.\+cpp.
 \index{Mode.cpp@{Mode.cpp}!MODE\_LED\_LAST@{MODE\_LED\_LAST}}
 \index{MODE\_LED\_LAST@{MODE\_LED\_LAST}!Mode.cpp@{Mode.cpp}}
 \doxysubsubsection{\texorpdfstring{MODE\_LED\_LAST}{MODE\_LED\_LAST}}
-{\footnotesize\ttfamily \#define MODE\+\_\+\+LED\+\_\+\+LAST~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{MODE\+\_\+\+LED\+\_\+\+COUNT}} -\/ 1)}
+{\footnotesize\ttfamily \#define M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+L\+A\+ST~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+C\+O\+U\+NT}} -\/ 1)}
 
 
 
@@ -92,7 +91,7 @@ Definition at line 23 of file Mode.\+cpp.
 \index{Mode.cpp@{Mode.cpp}!MODE\_LED\_MULTI@{MODE\_LED\_MULTI}}
 \index{MODE\_LED\_MULTI@{MODE\_LED\_MULTI}!Mode.cpp@{Mode.cpp}}
 \doxysubsubsection{\texorpdfstring{MODE\_LED\_MULTI}{MODE\_LED\_MULTI}}
-{\footnotesize\ttfamily \#define MODE\+\_\+\+LED\+\_\+\+MULTI~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{MODE\+\_\+\+LED\+\_\+\+COUNT}} + 1)}
+{\footnotesize\ttfamily \#define M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+M\+U\+L\+TI~(\mbox{\hyperlink{Mode_8cpp_a8c137b7da168f1027c71e0aebe28c5b5}{M\+O\+D\+E\+\_\+\+L\+E\+D\+\_\+\+C\+O\+U\+NT}} + 1)}
 
 
 

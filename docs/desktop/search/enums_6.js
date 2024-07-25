@@ -1,5 +1,7 @@
 var searchData=
 [
-  ['patternid_2710',['PatternID',['../Patterns_8h.html#a40b65bd8b307c1134edfc6b99c16cd8c',1,'Patterns.h']]],
-  ['patternstate_2711',['PatternState',['../classBasicPattern.html#a47cb00ee4688882e430fe5f767b785d9',1,'BasicPattern']]]
+  ['menuaction_3073',['MenuAction',['../classMenu.html#ad24d35b191e44e1b2bc81633d83df4ff',1,'Menu']]],
+  ['menuentryid_3074',['MenuEntryID',['../Menus_8h.html#ab27add79b32f886cb88e53dca2e1ce0f',1,'Menus.h']]],
+  ['menustate_3075',['MenuState',['../classMenus.html#ad2b57627adc6737dfbcabf75a837931e',1,'Menus']]],
+  ['modesharestate_3076',['ModeShareState',['../classModeSharing.html#a7602b4bf351c007963ee2185eb0d4127',1,'ModeSharing']]]
 ];

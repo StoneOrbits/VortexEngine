@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['limitedoutput_5fdirective_2705',['limitedOutput_directive',['../Compression_8cpp.html#ab93acf685743debab05876250a1cbe28',1,'Compression.cpp']]]
+  ['jsonmode_3071',['JsonMode',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3',1,'VortexCLI']]]
 ];

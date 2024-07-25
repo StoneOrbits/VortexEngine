@@ -11,7 +11,7 @@ void \mbox{\hyperlink{structByteStream_1_1RawBuffer_a457d59ad915787d36510d62e244
 \item 
 bool \mbox{\hyperlink{structByteStream_1_1RawBuffer_a3f2cc1da9c49af77e280f5dc5ff6bf8c}{verify}} () const
 \item 
-void \mbox{\hyperlink{structByteStream_1_1RawBuffer_a65ef642bfbde192c34df73748e563df8}{recalc\+CRC}} ()
+void \mbox{\hyperlink{structByteStream_1_1RawBuffer_a65ef642bfbde192c34df73748e563df8}{recalc\+C\+RC}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Public Attributes}
 \begin{DoxyCompactItemize}
@@ -100,13 +100,13 @@ References buf, and size.
 
 
 
-Referenced by recalc\+CRC(), and verify().
+Referenced by recalc\+C\+R\+C(), and verify().
 
 \mbox{\Hypertarget{structByteStream_1_1RawBuffer_a65ef642bfbde192c34df73748e563df8}\label{structByteStream_1_1RawBuffer_a65ef642bfbde192c34df73748e563df8}} 
 \index{ByteStream::RawBuffer@{ByteStream::RawBuffer}!recalcCRC@{recalcCRC}}
 \index{recalcCRC@{recalcCRC}!ByteStream::RawBuffer@{ByteStream::RawBuffer}}
 \doxysubsubsection{\texorpdfstring{recalcCRC()}{recalcCRC()}}
-{\footnotesize\ttfamily void Byte\+Stream\+::\+Raw\+Buffer\+::recalc\+CRC (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily void Byte\+Stream\+::\+Raw\+Buffer\+::recalc\+C\+RC (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
@@ -125,7 +125,7 @@ References crc32, and hash().
 
 
 
-Referenced by Byte\+Stream\+::compress(), Byte\+Stream\+::decompress(), Byte\+Stream\+::init(), and Byte\+Stream\+::recalc\+CRC().
+Referenced by Byte\+Stream\+::compress(), Byte\+Stream\+::decompress(), Byte\+Stream\+::init(), and Byte\+Stream\+::recalc\+C\+R\+C().
 
 \mbox{\Hypertarget{structByteStream_1_1RawBuffer_a3f2cc1da9c49af77e280f5dc5ff6bf8c}\label{structByteStream_1_1RawBuffer_a3f2cc1da9c49af77e280f5dc5ff6bf8c}} 
 \index{ByteStream::RawBuffer@{ByteStream::RawBuffer}!verify@{verify}}
@@ -145,7 +145,7 @@ Definition at line 146 of file Byte\+Stream.\+h.
 \DoxyCodeLine{150         \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
 \DoxyCodeLine{151       \}}
 \DoxyCodeLine{152       \textcolor{keywordflow}{if} (\mbox{\hyperlink{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}{hash}}() != \mbox{\hyperlink{structByteStream_1_1RawBuffer_a0c8a34981f47848f11b1bfdde0a08731}{crc32}}) \{}
-\DoxyCodeLine{153         \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}CRC mismatch: \%x should be \%x"{}}, \mbox{\hyperlink{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}{hash}}(), \mbox{\hyperlink{structByteStream_1_1RawBuffer_a0c8a34981f47848f11b1bfdde0a08731}{crc32}});}
+\DoxyCodeLine{153         \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"CRC mismatch: \%x should be \%x"}, \mbox{\hyperlink{structByteStream_1_1RawBuffer_a16d194b7b1627b9d6074c08aa0050514}{hash}}(), \mbox{\hyperlink{structByteStream_1_1RawBuffer_a0c8a34981f47848f11b1bfdde0a08731}{crc32}});}
 \DoxyCodeLine{154         \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{155       \}}
 \DoxyCodeLine{156       \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
@@ -154,11 +154,11 @@ Definition at line 146 of file Byte\+Stream.\+h.
 \end{DoxyCode}
 
 
-References crc32, DEBUG\+\_\+\+LOGF, hash(), and size.
+References crc32, D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, hash(), and size.
 
 
 
-Referenced by Byte\+Stream\+::check\+CRC(), and Byte\+Stream\+::decompress().
+Referenced by Byte\+Stream\+::check\+C\+R\+C(), and Byte\+Stream\+::decompress().
 
 
 
@@ -189,7 +189,7 @@ Definition at line 168 of file Byte\+Stream.\+h.
 
 
 
-Referenced by accumulate(), Byte\+Stream\+::\+Byte\+Stream(), Byte\+Stream\+::\+CRC(), Byte\+Stream\+::init(), Byte\+Stream\+::operator=(), Byte\+Stream\+::raw\+Init(), recalc\+CRC(), Byte\+Stream\+::recalc\+CRC(), and verify().
+Referenced by accumulate(), Byte\+Stream\+::\+Byte\+Stream(), Byte\+Stream\+::\+C\+R\+C(), Byte\+Stream\+::init(), Byte\+Stream\+::operator=(), Byte\+Stream\+::raw\+Init(), Byte\+Stream\+::recalc\+C\+R\+C(), recalc\+C\+R\+C(), and verify().
 
 \mbox{\Hypertarget{structByteStream_1_1RawBuffer_a633ecee8dcf25195aa577f3cdfb6ea0f}\label{structByteStream_1_1RawBuffer_a633ecee8dcf25195aa577f3cdfb6ea0f}} 
 \index{ByteStream::RawBuffer@{ByteStream::RawBuffer}!flags@{flags}}
@@ -203,7 +203,7 @@ Definition at line 166 of file Byte\+Stream.\+h.
 
 
 
-Referenced by Byte\+Stream\+::\+Byte\+Stream(), Byte\+Stream\+::compress(), Byte\+Stream\+::decompress(), Byte\+Stream\+::init(), Byte\+Stream\+::is\+\_\+compressed(), Byte\+Stream\+::is\+CRCDirty(), Byte\+Stream\+::operator=(), Byte\+Stream\+::raw\+Init(), Byte\+Stream\+::recalc\+CRC(), Byte\+Stream\+::serialize16(), Byte\+Stream\+::serialize32(), and Byte\+Stream\+::serialize8().
+Referenced by Byte\+Stream\+::\+Byte\+Stream(), Byte\+Stream\+::compress(), Byte\+Stream\+::decompress(), Byte\+Stream\+::init(), Byte\+Stream\+::is\+\_\+compressed(), Byte\+Stream\+::is\+C\+R\+C\+Dirty(), Byte\+Stream\+::operator=(), Byte\+Stream\+::raw\+Init(), Byte\+Stream\+::recalc\+C\+R\+C(), Byte\+Stream\+::serialize16(), Byte\+Stream\+::serialize32(), and Byte\+Stream\+::serialize8().
 
 \mbox{\Hypertarget{structByteStream_1_1RawBuffer_a72e23c30f63c379bfccbc659cebf8447}\label{structByteStream_1_1RawBuffer_a72e23c30f63c379bfccbc659cebf8447}} 
 \index{ByteStream::RawBuffer@{ByteStream::RawBuffer}!size@{size}}
@@ -217,7 +217,7 @@ Definition at line 164 of file Byte\+Stream.\+h.
 
 
 
-Referenced by Byte\+Stream\+::append(), Byte\+Stream\+::\+Byte\+Stream(), Byte\+Stream\+::compress(), Byte\+Stream\+::decompress(), Byte\+Stream\+::front\+Serializer(), hash(), Byte\+Stream\+::init(), Byte\+Stream\+::large\+Enough(), Byte\+Stream\+::move\+Unserializer(), Byte\+Stream\+::operator=(), Byte\+Stream\+::raw\+Init(), Byte\+Stream\+::raw\+Size(), Byte\+Stream\+::recalc\+CRC(), Byte\+Stream\+::sanity(), Byte\+Stream\+::serialize16(), Byte\+Stream\+::serialize32(), Byte\+Stream\+::serialize8(), Byte\+Stream\+::shrink(), Byte\+Stream\+::size(), Byte\+Stream\+::trim(), Byte\+Stream\+::unserialize16(), Byte\+Stream\+::unserialize32(), Byte\+Stream\+::unserialize8(), Byte\+Stream\+::unserializer\+At\+End(), and verify().
+Referenced by Byte\+Stream\+::append(), Byte\+Stream\+::\+Byte\+Stream(), Byte\+Stream\+::compress(), Byte\+Stream\+::decompress(), Byte\+Stream\+::front\+Serializer(), hash(), Byte\+Stream\+::init(), Byte\+Stream\+::large\+Enough(), Byte\+Stream\+::move\+Unserializer(), Byte\+Stream\+::operator=(), Byte\+Stream\+::raw\+Init(), Byte\+Stream\+::raw\+Size(), Byte\+Stream\+::recalc\+C\+R\+C(), Byte\+Stream\+::sanity(), Byte\+Stream\+::serialize16(), Byte\+Stream\+::serialize32(), Byte\+Stream\+::serialize8(), Byte\+Stream\+::shrink(), Byte\+Stream\+::size(), Byte\+Stream\+::trim(), Byte\+Stream\+::unserialize16(), Byte\+Stream\+::unserialize32(), Byte\+Stream\+::unserialize8(), Byte\+Stream\+::unserializer\+At\+End(), and verify().
 
 
 

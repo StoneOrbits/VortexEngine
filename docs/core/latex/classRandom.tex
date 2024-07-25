@@ -17,7 +17,7 @@ void \mbox{\hyperlink{classRandom_aa2b92761e9fce8676d6c8358a6e691de}{seed}} (uin
 \item 
 uint8\+\_\+t \mbox{\hyperlink{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}{next8}} (uint8\+\_\+t min\+Value=0, uint8\+\_\+t max\+Value=0x\+FF)
 \item 
-uint16\+\_\+t \mbox{\hyperlink{classRandom_ab0b58da7b1f9b2ff65332f9a9dd43ac7}{next16}} (uint16\+\_\+t min\+Value=0, uint16\+\_\+t max\+Value=0x\+FFFF)
+uint16\+\_\+t \mbox{\hyperlink{classRandom_ab0b58da7b1f9b2ff65332f9a9dd43ac7}{next16}} (uint16\+\_\+t min\+Value=0, uint16\+\_\+t max\+Value=0x\+F\+F\+FF)
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
@@ -47,7 +47,7 @@ Definition at line 3 of file Random.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{3                :}
-\DoxyCodeLine{4   \mbox{\hyperlink{classRandom_a600585b43db746644bc12816785082d6}{m\_seed}}(0)}
+\DoxyCodeLine{4   \mbox{\hyperlink{classRandom_a600585b43db746644bc12816785082d6}{m\_seed}}(0)}
 \DoxyCodeLine{5 \{}
 \DoxyCodeLine{6 \}}
 
@@ -65,7 +65,7 @@ Definition at line 8 of file Random.\+cpp.
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{8                                :}
-\DoxyCodeLine{9   \mbox{\hyperlink{classRandom_acb76b49c3903a3c4fb67fd216341f08d}{Random}}()}
+\DoxyCodeLine{9   \mbox{\hyperlink{classRandom_acb76b49c3903a3c4fb67fd216341f08d}{Random}}()}
 \DoxyCodeLine{10 \{}
 \DoxyCodeLine{11   \mbox{\hyperlink{classRandom_aa2b92761e9fce8676d6c8358a6e691de}{seed}}(newseed);}
 \DoxyCodeLine{12 \}}
@@ -127,7 +127,7 @@ References m\+\_\+seed.
 
 
 
-Referenced by next8().
+Referenced by Vortex\+::add\+New\+Mode(), and next8().
 
 \mbox{\Hypertarget{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}\label{classRandom_a8ddc31ea9ccd382afb1fff8e56e2702f}} 
 \index{Random@{Random}!next8@{next8}}
@@ -153,7 +153,7 @@ References next16().
 
 
 
-Referenced by Colorset\+::add\+Color\+With\+Value\+Style(), Randomizer\+::crush\+Pattern(), Randomizer\+::dash\+Pattern(), Randomizer\+::gap\+Pattern(), Meteor\+Pattern\+::poststep(), Sparkle\+Trace\+Pattern\+::poststep(), Colorset\+::randomize(), Colorset\+::randomize\+Colors(), Colorset\+::randomize\+Colors2(), Randomizer\+::roll\+Colorset(), Randomizer\+::roll\+Custom\+Pattern(), Randomizer\+::roll\+Multi\+Led\+Pattern\+ID(), Randomizer\+::roll\+Single\+Led\+Pattern\+ID(), and Randomizer\+::traditional\+Pattern().
+Referenced by Colorset\+::add\+Color\+With\+Value\+Style(), Randomizer\+::crush\+Pattern(), Randomizer\+::dash\+Pattern(), Randomizer\+::gap\+Pattern(), Sparkle\+Trace\+Pattern\+::poststep(), Meteor\+Pattern\+::poststep(), Colorset\+::randomize(), Colorset\+::randomize\+Colors(), Colorset\+::randomize\+Colors2(), Randomizer\+::roll\+Colorset(), Randomizer\+::roll\+Custom\+Pattern(), Randomizer\+::roll\+Multi\+Led\+Pattern\+I\+D(), Randomizer\+::roll\+Single\+Led\+Pattern\+I\+D(), and Randomizer\+::traditional\+Pattern().
 
 \mbox{\Hypertarget{classRandom_aa2b92761e9fce8676d6c8358a6e691de}\label{classRandom_aa2b92761e9fce8676d6c8358a6e691de}} 
 \index{Random@{Random}!seed@{seed}}

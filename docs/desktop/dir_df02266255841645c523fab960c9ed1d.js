@@ -12,6 +12,7 @@ var dir_df02266255841645c523fab960c9ed1d =
     [ "Serial", "dir_cabf3d63e98569a74ecb960b83c4a15b.html", "dir_cabf3d63e98569a74ecb960b83c4a15b" ],
     [ "Storage", "dir_61b212e579fd471c490a116dc3a4c8cf.html", "dir_61b212e579fd471c490a116dc3a4c8cf" ],
     [ "Time", "dir_63ce3ba067bdf35a8f7c780ac03d51a3.html", "dir_63ce3ba067bdf35a8f7c780ac03d51a3" ],
+    [ "UPDI", "dir_46a8953c3478abb17f58b376527710dd.html", "dir_46a8953c3478abb17f58b376527710dd" ],
     [ "Wireless", "dir_1d79b4615f725ce6e1b38311d89b4d4f.html", "dir_1d79b4615f725ce6e1b38311d89b4d4f" ],
     [ "VortexConfig.h", "VortexConfig_8h.html", "VortexConfig_8h" ],
     [ "VortexEngine.cpp", "VortexEngine_8cpp.html", null ],

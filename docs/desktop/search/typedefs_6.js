@@ -1,4 +1,4 @@
 var searchData=
 [
-  ['reg_5ft_2690',['reg_t',['../Compression_8cpp.html#a2835baf742d73416e69ab571e9a9dacb',1,'Compression.cpp']]]
+  ['pair_3055',['Pair',['../Leds_8h.html#a10ceba7a64c043889e3e47563c3f0a34',1,'Leds.h']]]
 ];

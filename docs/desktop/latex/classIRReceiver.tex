@@ -1,25 +1,19 @@
-\hypertarget{classIRReceiver}{}\doxysection{IRReceiver Class Reference}
+\hypertarget{classIRReceiver}{}\doxysection{I\+R\+Receiver Class Reference}
 \label{classIRReceiver}\index{IRReceiver@{IRReceiver}}
 
 
-{\ttfamily \#include $<$IRReceiver.\+h$>$}
+{\ttfamily \#include $<$I\+R\+Receiver.\+h$>$}
 
 
 
-Collaboration diagram for IRReceiver\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classIRReceiver__coll__graph}
-\end{center}
-\end{figure}
+Collaboration diagram for I\+R\+Receiver\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classIRReceiver_ac88260e926355b9da9bb31dcc2a49641}{IRReceiver}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine)
+\mbox{\hyperlink{classIRReceiver_ac88260e926355b9da9bb31dcc2a49641}{I\+R\+Receiver}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine)
 \item 
-\mbox{\hyperlink{classIRReceiver_a79fbe240e7d7627656d71e83d4411104}{$\sim$\+IRReceiver}} ()
+\mbox{\hyperlink{classIRReceiver_a79fbe240e7d7627656d71e83d4411104}{$\sim$\+I\+R\+Receiver}} ()
 \item 
 bool \mbox{\hyperlink{classIRReceiver_aad4e38923e65bec4c02197c56ec6a4af}{init}} ()
 \item 
@@ -41,15 +35,15 @@ bool \mbox{\hyperlink{classIRReceiver_aa9d8177899465973e15d78c2795a8b01}{end\+Re
 \item 
 bool \mbox{\hyperlink{classIRReceiver_a285e559d21c2a414a9e7169caa9319c3}{on\+New\+Data}} ()
 \item 
-void \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{reset\+IRState}} ()
+void \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{reset\+I\+R\+State}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Types}
 \begin{DoxyCompactItemize}
 \item 
-enum \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9}{Recv\+State}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf}{WAITING\+\_\+\+HEADER\+\_\+\+MARK}}
-, \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a5d217c890135a690847bf68a1db5bd9a}{WAITING\+\_\+\+HEADER\+\_\+\+SPACE}}
-, \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}{READING\+\_\+\+DATA\+\_\+\+MARK}}
-, \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a37b0cc5cf63cb62eb144be82420875f0}{READING\+\_\+\+DATA\+\_\+\+SPACE}}
+enum \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9}{Recv\+State}} \+: uint8\+\_\+t \{ \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf}{W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK}}, 
+\mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a5d217c890135a690847bf68a1db5bd9a}{W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+CE}}, 
+\mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}{R\+E\+A\+D\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+M\+A\+RK}}, 
+\mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a37b0cc5cf63cb62eb144be82420875f0}{R\+E\+A\+D\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+S\+P\+A\+CE}}
  \}
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Member Functions}
@@ -57,9 +51,9 @@ enum \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9}{Recv\+S
 \item 
 bool \mbox{\hyperlink{classIRReceiver_a5042d1da081da90fb066c9a383b2d40e}{read}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&data)
 \item 
-void \mbox{\hyperlink{classIRReceiver_a47b27e3ab9fca45833d48a4377a3d67d}{recv\+PCIHandler}} ()
+void \mbox{\hyperlink{classIRReceiver_a47b27e3ab9fca45833d48a4377a3d67d}{recv\+P\+C\+I\+Handler}} ()
 \item 
-void \mbox{\hyperlink{classIRReceiver_a30e0cdba86a79ce518d642cd9ec1a22e}{handle\+IRTiming}} (uint32\+\_\+t diff)
+void \mbox{\hyperlink{classIRReceiver_a30e0cdba86a79ce518d642cd9ec1a22e}{handle\+I\+R\+Timing}} (uint32\+\_\+t diff)
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
@@ -81,7 +75,7 @@ uint32\+\_\+t \mbox{\hyperlink{classIRReceiver_ab7e3d5972a86db3258aa9690a250b1ec
 \doxysubsection{Detailed Description}
 
 
-Definition at line 16 of file IRReceiver.\+h.
+Definition at line 16 of file I\+R\+Receiver.\+h.
 
 
 
@@ -90,32 +84,33 @@ Definition at line 16 of file IRReceiver.\+h.
 \index{IRReceiver@{IRReceiver}!RecvState@{RecvState}}
 \index{RecvState@{RecvState}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{RecvState}{RecvState}}
-{\footnotesize\ttfamily enum \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9}{IRReceiver\+::\+Recv\+State}} \+: uint8\+\_\+t\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily enum \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9}{I\+R\+Receiver\+::\+Recv\+State}} \+: uint8\+\_\+t\hspace{0.3cm}{\ttfamily [private]}}
 
 \begin{DoxyEnumFields}{Enumerator}
 \raisebox{\heightof{T}}[0pt][0pt]{\index{WAITING\_HEADER\_MARK@{WAITING\_HEADER\_MARK}!IRReceiver@{IRReceiver}}\index{IRReceiver@{IRReceiver}!WAITING\_HEADER\_MARK@{WAITING\_HEADER\_MARK}}}\mbox{\Hypertarget{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf}\label{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf}} 
-WAITING\+\_\+\+HEADER\+\_\+\+MARK&\\
+W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{WAITING\_HEADER\_SPACE@{WAITING\_HEADER\_SPACE}!IRReceiver@{IRReceiver}}\index{IRReceiver@{IRReceiver}!WAITING\_HEADER\_SPACE@{WAITING\_HEADER\_SPACE}}}\mbox{\Hypertarget{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a5d217c890135a690847bf68a1db5bd9a}\label{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a5d217c890135a690847bf68a1db5bd9a}} 
-WAITING\+\_\+\+HEADER\+\_\+\+SPACE&\\
+W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+CE&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{READING\_DATA\_MARK@{READING\_DATA\_MARK}!IRReceiver@{IRReceiver}}\index{IRReceiver@{IRReceiver}!READING\_DATA\_MARK@{READING\_DATA\_MARK}}}\mbox{\Hypertarget{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}\label{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}} 
-READING\+\_\+\+DATA\+\_\+\+MARK&\\
+R\+E\+A\+D\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+M\+A\+RK&\\
 \hline
 
 \raisebox{\heightof{T}}[0pt][0pt]{\index{READING\_DATA\_SPACE@{READING\_DATA\_SPACE}!IRReceiver@{IRReceiver}}\index{IRReceiver@{IRReceiver}!READING\_DATA\_SPACE@{READING\_DATA\_SPACE}}}\mbox{\Hypertarget{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a37b0cc5cf63cb62eb144be82420875f0}\label{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a37b0cc5cf63cb62eb144be82420875f0}} 
-READING\+\_\+\+DATA\+\_\+\+SPACE&\\
+R\+E\+A\+D\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+S\+P\+A\+CE&\\
 \hline
 
 \end{DoxyEnumFields}
 
 
-Definition at line 62 of file IRReceiver.\+h.
+Definition at line 62 of file I\+R\+Receiver.\+h.
 
 
 \begin{DoxyCode}{0}
+\DoxyCodeLine{62                  : uint8\_t}
 \DoxyCodeLine{63   \{}
 \DoxyCodeLine{64     \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf}{WAITING\_HEADER\_MARK}},}
 \DoxyCodeLine{65     \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a5d217c890135a690847bf68a1db5bd9a}{WAITING\_HEADER\_SPACE}},}
@@ -131,11 +126,11 @@ Definition at line 62 of file IRReceiver.\+h.
 \index{IRReceiver@{IRReceiver}!IRReceiver@{IRReceiver}}
 \index{IRReceiver@{IRReceiver}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{IRReceiver()}{IRReceiver()}}
-{\footnotesize\ttfamily IRReceiver\+::\+IRReceiver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily I\+R\+Receiver\+::\+I\+R\+Receiver (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine }\end{DoxyParamCaption})}
 
 
 
-Definition at line 14 of file IRReceiver.\+cpp.
+Definition at line 14 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -145,7 +140,7 @@ Definition at line 14 of file IRReceiver.\+cpp.
 \DoxyCodeLine{17   \mbox{\hyperlink{classIRReceiver_a4c3e0d07c9f2e02d227cc94f60bdc873}{m\_recvState}}(\mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf}{WAITING\_HEADER\_MARK}}),}
 \DoxyCodeLine{18   \mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}}(0),}
 \DoxyCodeLine{19   \mbox{\hyperlink{classIRReceiver_a45435d3921fa07b89bd46244dd05d860}{m\_pinState}}(0),}
-\DoxyCodeLine{20   \mbox{\hyperlink{classIRReceiver_ab7e3d5972a86db3258aa9690a250b1ec}{m\_previousBytes}}(0)}
+\DoxyCodeLine{20   \mbox{\hyperlink{classIRReceiver_ab7e3d5972a86db3258aa9690a250b1ec}{m\_previousBytes}}(0)}
 \DoxyCodeLine{21 \{}
 \DoxyCodeLine{22 \}}
 
@@ -154,11 +149,11 @@ Definition at line 14 of file IRReceiver.\+cpp.
 \index{IRReceiver@{IRReceiver}!````~IRReceiver@{$\sim$IRReceiver}}
 \index{````~IRReceiver@{$\sim$IRReceiver}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{$\sim$IRReceiver()}{~IRReceiver()}}
-{\footnotesize\ttfamily IRReceiver\+::$\sim$\+IRReceiver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily I\+R\+Receiver\+::$\sim$\+I\+R\+Receiver (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 24 of file IRReceiver.\+cpp.
+Definition at line 24 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -173,11 +168,11 @@ Definition at line 24 of file IRReceiver.\+cpp.
 \index{IRReceiver@{IRReceiver}!beginReceiving@{beginReceiving}}
 \index{beginReceiving@{beginReceiving}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{beginReceiving()}{beginReceiving()}}
-{\footnotesize\ttfamily bool IRReceiver\+::begin\+Receiving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool I\+R\+Receiver\+::begin\+Receiving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 94 of file IRReceiver.\+cpp.
+Definition at line 94 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -189,21 +184,21 @@ Definition at line 94 of file IRReceiver.\+cpp.
 \end{DoxyCode}
 
 
-References reset\+IRState().
+References reset\+I\+R\+State().
 
 
 
-Referenced by Mode\+Sharing\+::begin\+Receiving\+IR().
+Referenced by Mode\+Sharing\+::begin\+Receiving\+I\+R().
 
 \mbox{\Hypertarget{classIRReceiver_ae9614c85000fcf5b35dc27747781449b}\label{classIRReceiver_ae9614c85000fcf5b35dc27747781449b}} 
 \index{IRReceiver@{IRReceiver}!bytesReceived@{bytesReceived}}
 \index{bytesReceived@{bytesReceived}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{bytesReceived()}{bytesReceived()}}
-{\footnotesize\ttfamily uint16\+\_\+t IRReceiver\+::bytes\+Received (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily uint16\+\_\+t I\+R\+Receiver\+::bytes\+Received (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Definition at line 32 of file IRReceiver.\+h.
+Definition at line 32 of file I\+R\+Receiver.\+h.
 
 
 \begin{DoxyCode}{0}
@@ -222,11 +217,11 @@ Referenced by on\+New\+Data().
 \index{IRReceiver@{IRReceiver}!cleanup@{cleanup}}
 \index{cleanup@{cleanup}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{cleanup()}{cleanup()}}
-{\footnotesize\ttfamily void IRReceiver\+::cleanup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void I\+R\+Receiver\+::cleanup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 34 of file IRReceiver.\+cpp.
+Definition at line 34 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -242,11 +237,11 @@ Referenced by Vortex\+Engine\+::cleanup().
 \index{IRReceiver@{IRReceiver}!dataReady@{dataReady}}
 \index{dataReady@{dataReady}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{dataReady()}{dataReady()}}
-{\footnotesize\ttfamily bool IRReceiver\+::data\+Ready (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool I\+R\+Receiver\+::data\+Ready (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 38 of file IRReceiver.\+cpp.
+Definition at line 38 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -259,7 +254,7 @@ Definition at line 38 of file IRReceiver.\+cpp.
 \DoxyCodeLine{45   uint8\_t remainder = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}()[1];}
 \DoxyCodeLine{46   uint32\_t total = ((blocks -\/ 1) * 32) + remainder;}
 \DoxyCodeLine{47   \textcolor{keywordflow}{if} (!total || total > \mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{48     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad IR Data size: \%u"{}}, total);}
+\DoxyCodeLine{48     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Bad IR Data size: \%u"}, total);}
 \DoxyCodeLine{49     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{50   \}}
 \DoxyCodeLine{51   \textcolor{comment}{// if there are size + 2 bytes in the IRData receiver}}
@@ -271,21 +266,21 @@ Definition at line 38 of file IRReceiver.\+cpp.
 \end{DoxyCode}
 
 
-References Bit\+Stream\+::bytepos(), Bit\+Stream\+::data(), DEBUG\+\_\+\+LOGF, IR\+\_\+\+MAX\+\_\+\+DATA\+\_\+\+TRANSFER, is\+Receiving(), and m\+\_\+ir\+Data.
+References Bit\+Stream\+::bytepos(), Bit\+Stream\+::data(), D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, I\+R\+\_\+\+M\+A\+X\+\_\+\+D\+A\+T\+A\+\_\+\+T\+R\+A\+N\+S\+F\+ER, is\+Receiving(), and m\+\_\+ir\+Data.
 
 
 
-Referenced by Mode\+Sharing\+::receive\+Mode\+IR().
+Referenced by Mode\+Sharing\+::receive\+Mode\+I\+R().
 
 \mbox{\Hypertarget{classIRReceiver_aa9d8177899465973e15d78c2795a8b01}\label{classIRReceiver_aa9d8177899465973e15d78c2795a8b01}} 
 \index{IRReceiver@{IRReceiver}!endReceiving@{endReceiving}}
 \index{endReceiving@{endReceiving}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{endReceiving()}{endReceiving()}}
-{\footnotesize\ttfamily bool IRReceiver\+::end\+Receiving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool I\+R\+Receiver\+::end\+Receiving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 100 of file IRReceiver.\+cpp.
+Definition at line 100 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -297,7 +292,7 @@ Definition at line 100 of file IRReceiver.\+cpp.
 \end{DoxyCode}
 
 
-References reset\+IRState().
+References reset\+I\+R\+State().
 
 
 
@@ -307,18 +302,18 @@ Referenced by Mode\+Sharing\+::on\+Short\+Click().
 \index{IRReceiver@{IRReceiver}!handleIRTiming@{handleIRTiming}}
 \index{handleIRTiming@{handleIRTiming}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{handleIRTiming()}{handleIRTiming()}}
-{\footnotesize\ttfamily void IRReceiver\+::handle\+IRTiming (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{diff }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily void I\+R\+Receiver\+::handle\+I\+R\+Timing (\begin{DoxyParamCaption}\item[{uint32\+\_\+t}]{diff }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 164 of file IRReceiver.\+cpp.
+Definition at line 164 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{165 \{}
 \DoxyCodeLine{166   \textcolor{comment}{// if the diff is too long or too short then it's not useful}}
 \DoxyCodeLine{167   \textcolor{keywordflow}{if} ((diff > \mbox{\hyperlink{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}{IR\_HEADER\_MARK\_MAX}} \&\& \mbox{\hyperlink{classIRReceiver_a4c3e0d07c9f2e02d227cc94f60bdc873}{m\_recvState}} < \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}{READING\_DATA\_MARK}}) || diff < \mbox{\hyperlink{IRConfig_8h_a73218da9e787280d69b894953d2d4bdc}{IR\_TIMING\_MIN}}) \{}
-\DoxyCodeLine{168     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}bad delay: \%u, resetting..."{}}, diff);}
+\DoxyCodeLine{168     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"bad delay: \%u, resetting..."}, diff);}
 \DoxyCodeLine{169     \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
 \DoxyCodeLine{170     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{171   \}}
@@ -327,7 +322,7 @@ Definition at line 164 of file IRReceiver.\+cpp.
 \DoxyCodeLine{174     \textcolor{keywordflow}{if} (diff >= \mbox{\hyperlink{IRConfig_8h_a16e1424faaa05feaa4cd36654ca57fe2}{IR\_HEADER\_MARK\_MIN}} \&\& diff <= \mbox{\hyperlink{IRConfig_8h_a8c44cc313efc4b5a8e0d3f60f4ea4116}{IR\_HEADER\_MARK\_MAX}}) \{}
 \DoxyCodeLine{175       \mbox{\hyperlink{classIRReceiver_a4c3e0d07c9f2e02d227cc94f60bdc873}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a5d217c890135a690847bf68a1db5bd9a}{WAITING\_HEADER\_SPACE}};}
 \DoxyCodeLine{176     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{177       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad header mark \%u, resetting..."{}}, diff);}
+\DoxyCodeLine{177       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Bad header mark \%u, resetting..."}, diff);}
 \DoxyCodeLine{178       \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
 \DoxyCodeLine{179     \}}
 \DoxyCodeLine{180     \textcolor{keywordflow}{break};}
@@ -335,7 +330,7 @@ Definition at line 164 of file IRReceiver.\+cpp.
 \DoxyCodeLine{182     \textcolor{keywordflow}{if} (diff >= \mbox{\hyperlink{IRConfig_8h_a250ce61cfc429f875c14a5d45408d63c}{IR\_HEADER\_SPACE\_MIN}} \&\& diff <= \mbox{\hyperlink{IRConfig_8h_a42938e952fc459aeb8873acf64773150}{IR\_HEADER\_SPACE\_MAX}}) \{}
 \DoxyCodeLine{183       \mbox{\hyperlink{classIRReceiver_a4c3e0d07c9f2e02d227cc94f60bdc873}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}{READING\_DATA\_MARK}};}
 \DoxyCodeLine{184     \} \textcolor{keywordflow}{else} \{}
-\DoxyCodeLine{185       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad header space \%u, resetting..."{}}, diff);}
+\DoxyCodeLine{185       \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Bad header space \%u, resetting..."}, diff);}
 \DoxyCodeLine{186       \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
 \DoxyCodeLine{187     \}}
 \DoxyCodeLine{188     \textcolor{keywordflow}{break};}
@@ -349,7 +344,7 @@ Definition at line 164 of file IRReceiver.\+cpp.
 \DoxyCodeLine{196     \mbox{\hyperlink{classIRReceiver_a4c3e0d07c9f2e02d227cc94f60bdc873}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a821fa6d4dd086c1aef792ee19dc9857b}{READING\_DATA\_MARK}};}
 \DoxyCodeLine{197     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{198   \textcolor{keywordflow}{default}: \textcolor{comment}{// ??}}
-\DoxyCodeLine{199     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad receive state: \%u"{}}, \mbox{\hyperlink{classIRReceiver_a4c3e0d07c9f2e02d227cc94f60bdc873}{m\_recvState}});}
+\DoxyCodeLine{199     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Bad receive state: \%u"}, \mbox{\hyperlink{classIRReceiver_a4c3e0d07c9f2e02d227cc94f60bdc873}{m\_recvState}});}
 \DoxyCodeLine{200     \textcolor{keywordflow}{break};}
 \DoxyCodeLine{201   \}}
 \DoxyCodeLine{202 \}}
@@ -357,21 +352,21 @@ Definition at line 164 of file IRReceiver.\+cpp.
 \end{DoxyCode}
 
 
-References DEBUG\+\_\+\+LOGF, IR\+\_\+\+HEADER\+\_\+\+MARK\+\_\+\+MAX, IR\+\_\+\+HEADER\+\_\+\+MARK\+\_\+\+MIN, IR\+\_\+\+HEADER\+\_\+\+SPACE\+\_\+\+MAX, IR\+\_\+\+HEADER\+\_\+\+SPACE\+\_\+\+MIN, IR\+\_\+\+TIMING, IR\+\_\+\+TIMING\+\_\+\+MIN, m\+\_\+ir\+Data, m\+\_\+recv\+State, READING\+\_\+\+DATA\+\_\+\+MARK, READING\+\_\+\+DATA\+\_\+\+SPACE, reset\+IRState(), WAITING\+\_\+\+HEADER\+\_\+\+MARK, WAITING\+\_\+\+HEADER\+\_\+\+SPACE, and Bit\+Stream\+::write1\+Bit().
+References D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+R\+K\+\_\+\+M\+AX, I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+R\+K\+\_\+\+M\+IN, I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+C\+E\+\_\+\+M\+AX, I\+R\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+C\+E\+\_\+\+M\+IN, I\+R\+\_\+\+T\+I\+M\+I\+NG, I\+R\+\_\+\+T\+I\+M\+I\+N\+G\+\_\+\+M\+IN, m\+\_\+ir\+Data, m\+\_\+recv\+State, R\+E\+A\+D\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+M\+A\+RK, R\+E\+A\+D\+I\+N\+G\+\_\+\+D\+A\+T\+A\+\_\+\+S\+P\+A\+CE, reset\+I\+R\+State(), W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK, W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+CE, and Bit\+Stream\+::write1\+Bit().
 
 
 
-Referenced by recv\+PCIHandler().
+Referenced by Vortex\+::\+I\+R\+Deliver(), and recv\+P\+C\+I\+Handler().
 
 \mbox{\Hypertarget{classIRReceiver_aad4e38923e65bec4c02197c56ec6a4af}\label{classIRReceiver_aad4e38923e65bec4c02197c56ec6a4af}} 
 \index{IRReceiver@{IRReceiver}!init@{init}}
 \index{init@{init}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{init()}{init()}}
-{\footnotesize\ttfamily bool IRReceiver\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool I\+R\+Receiver\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 28 of file IRReceiver.\+cpp.
+Definition at line 28 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -383,7 +378,7 @@ Definition at line 28 of file IRReceiver.\+cpp.
 \end{DoxyCode}
 
 
-References Bit\+Stream\+::init(), IR\+\_\+\+RECV\+\_\+\+BUF\+\_\+\+SIZE, and m\+\_\+ir\+Data.
+References Bit\+Stream\+::init(), I\+R\+\_\+\+R\+E\+C\+V\+\_\+\+B\+U\+F\+\_\+\+S\+I\+ZE, and m\+\_\+ir\+Data.
 
 
 
@@ -393,11 +388,11 @@ Referenced by Vortex\+Engine\+::init().
 \index{IRReceiver@{IRReceiver}!isReceiving@{isReceiving}}
 \index{isReceiving@{isReceiving}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{isReceiving()}{isReceiving()}}
-{\footnotesize\ttfamily bool IRReceiver\+::is\+Receiving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool I\+R\+Receiver\+::is\+Receiving (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 58 of file IRReceiver.\+cpp.
+Definition at line 58 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -422,11 +417,11 @@ Referenced by data\+Ready(), percent\+Received(), and Mode\+Sharing\+::show\+Rec
 \index{IRReceiver@{IRReceiver}!onNewData@{onNewData}}
 \index{onNewData@{onNewData}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{onNewData()}{onNewData()}}
-{\footnotesize\ttfamily bool IRReceiver\+::on\+New\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool I\+R\+Receiver\+::on\+New\+Data (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 106 of file IRReceiver.\+cpp.
+Definition at line 106 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -445,17 +440,17 @@ References bytes\+Received(), and m\+\_\+previous\+Bytes.
 
 
 
-Referenced by Mode\+Sharing\+::receive\+Mode\+IR().
+Referenced by Mode\+Sharing\+::receive\+Mode\+I\+R().
 
 \mbox{\Hypertarget{classIRReceiver_ae7f5628b174caf0f8db9be7adc53f287}\label{classIRReceiver_ae7f5628b174caf0f8db9be7adc53f287}} 
 \index{IRReceiver@{IRReceiver}!percentReceived@{percentReceived}}
 \index{percentReceived@{percentReceived}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{percentReceived()}{percentReceived()}}
-{\footnotesize\ttfamily uint8\+\_\+t IRReceiver\+::percent\+Received (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily uint8\+\_\+t I\+R\+Receiver\+::percent\+Received (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 68 of file IRReceiver.\+cpp.
+Definition at line 68 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -483,17 +478,17 @@ Referenced by Mode\+Sharing\+::show\+Receive\+Mode().
 \index{IRReceiver@{IRReceiver}!read@{read}}
 \index{read@{read}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{read()}{read()}}
-{\footnotesize\ttfamily bool IRReceiver\+::read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily bool I\+R\+Receiver\+::read (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 115 of file IRReceiver.\+cpp.
+Definition at line 115 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{116 \{}
 \DoxyCodeLine{117   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() || \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a6e99106ef46e33b45c8bcd51c0384a3f}{bytepos}}() > \mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{118     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Nothing to read, or read too much"{}});}
+\DoxyCodeLine{118     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Nothing to read, or read too much"});}
 \DoxyCodeLine{119     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{120   \}}
 \DoxyCodeLine{121   \textcolor{comment}{// read the size out (blocks + remainder)}}
@@ -502,13 +497,13 @@ Definition at line 115 of file IRReceiver.\+cpp.
 \DoxyCodeLine{124   \textcolor{comment}{// calculate size from blocks + remainder}}
 \DoxyCodeLine{125   uint32\_t size = ((blocks -\/ 1) * 32) + remainder;}
 \DoxyCodeLine{126   \textcolor{keywordflow}{if} (!size || size > \mbox{\hyperlink{IRConfig_8h_a8214fb4810b1ce36ec250940fbf75148}{IR\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{127     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Bad IR Data size: \%u"{}}, size);}
+\DoxyCodeLine{127     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Bad IR Data size: \%u"}, size);}
 \DoxyCodeLine{128     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{129   \}}
 \DoxyCodeLine{130   \textcolor{comment}{// the actual data starts 2 bytes later because of the size byte}}
 \DoxyCodeLine{131   \textcolor{keyword}{const} uint8\_t *actualData = \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}() + 2;}
 \DoxyCodeLine{132   \textcolor{keywordflow}{if} (!data.\mbox{\hyperlink{classByteStream_a0f89f3776726a6b70248a901c029a305}{rawInit}}(actualData, size)) \{}
-\DoxyCodeLine{133     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to init buffer for IR read"{}});}
+\DoxyCodeLine{133     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Failed to init buffer for IR read"});}
 \DoxyCodeLine{134     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{135   \}}
 \DoxyCodeLine{136   \textcolor{comment}{// reset the IR state and receive buffer now}}
@@ -519,7 +514,7 @@ Definition at line 115 of file IRReceiver.\+cpp.
 \end{DoxyCode}
 
 
-References Bit\+Stream\+::bytepos(), Bit\+Stream\+::data(), DEBUG\+\_\+\+LOG, DEBUG\+\_\+\+LOGF, IR\+\_\+\+MAX\+\_\+\+DATA\+\_\+\+TRANSFER, m\+\_\+ir\+Data, Byte\+Stream\+::raw\+Init(), and reset\+IRState().
+References Bit\+Stream\+::bytepos(), Bit\+Stream\+::data(), D\+E\+B\+U\+G\+\_\+\+L\+OG, D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, I\+R\+\_\+\+M\+A\+X\+\_\+\+D\+A\+T\+A\+\_\+\+T\+R\+A\+N\+S\+F\+ER, m\+\_\+ir\+Data, Byte\+Stream\+::raw\+Init(), and reset\+I\+R\+State().
 
 
 
@@ -529,11 +524,11 @@ Referenced by receive\+Mode().
 \index{IRReceiver@{IRReceiver}!receiveMode@{receiveMode}}
 \index{receiveMode@{receiveMode}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{receiveMode()}{receiveMode()}}
-{\footnotesize\ttfamily bool IRReceiver\+::receive\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMode}{Mode}} $\ast$}]{p\+Mode }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool I\+R\+Receiver\+::receive\+Mode (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classMode}{Mode}} $\ast$}]{p\+Mode }\end{DoxyParamCaption})}
 
 
 
-Definition at line 80 of file IRReceiver.\+cpp.
+Definition at line 80 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -542,10 +537,10 @@ Definition at line 80 of file IRReceiver.\+cpp.
 \DoxyCodeLine{83   \textcolor{comment}{// read from the receive buffer into the byte stream}}
 \DoxyCodeLine{84   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_a5042d1da081da90fb066c9a383b2d40e}{read}}(buf)) \{}
 \DoxyCodeLine{85     \textcolor{comment}{// no data to read right now, or an error}}
-\DoxyCodeLine{86     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}No data available to read, or error reading"{}});}
+\DoxyCodeLine{86     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"No data available to read, or error reading"});}
 \DoxyCodeLine{87     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{88   \}}
-\DoxyCodeLine{89   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Received \%u bytes"{}}, buf.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
+\DoxyCodeLine{89   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Received \%u bytes"}, buf.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
 \DoxyCodeLine{90   \textcolor{comment}{// load the data into the target mode}}
 \DoxyCodeLine{91   \textcolor{keywordflow}{return} pMode-\/>\mbox{\hyperlink{classMode_a31ed6fbb39ca7876e415fc58bc18d630}{loadFromBuffer}}(buf);}
 \DoxyCodeLine{92 \}}
@@ -553,21 +548,21 @@ Definition at line 80 of file IRReceiver.\+cpp.
 \end{DoxyCode}
 
 
-References DEBUG\+\_\+\+LOG, DEBUG\+\_\+\+LOGF, Mode\+::load\+From\+Buffer(), Byte\+Stream\+::raw\+Size(), and read().
+References D\+E\+B\+U\+G\+\_\+\+L\+OG, D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, Mode\+::load\+From\+Buffer(), Byte\+Stream\+::raw\+Size(), and read().
 
 
 
-Referenced by Mode\+Sharing\+::receive\+Mode\+IR().
+Referenced by Mode\+Sharing\+::receive\+Mode\+I\+R().
 
 \mbox{\Hypertarget{classIRReceiver_a47b27e3ab9fca45833d48a4377a3d67d}\label{classIRReceiver_a47b27e3ab9fca45833d48a4377a3d67d}} 
 \index{IRReceiver@{IRReceiver}!recvPCIHandler@{recvPCIHandler}}
 \index{recvPCIHandler@{recvPCIHandler}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{recvPCIHandler()}{recvPCIHandler()}}
-{\footnotesize\ttfamily void IRReceiver\+::recv\+PCIHandler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily void I\+R\+Receiver\+::recv\+P\+C\+I\+Handler (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 142 of file IRReceiver.\+cpp.
+Definition at line 142 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -579,7 +574,7 @@ Definition at line 142 of file IRReceiver.\+cpp.
 \DoxyCodeLine{148   \textcolor{comment}{// check previous time for validity}}
 \DoxyCodeLine{149   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}} || \mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}} > now) \{}
 \DoxyCodeLine{150     \mbox{\hyperlink{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}{m\_prevTime}} = now;}
-\DoxyCodeLine{151     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Bad first time diff, resetting..."{}});}
+\DoxyCodeLine{151     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Bad first time diff, resetting..."});}
 \DoxyCodeLine{152     \mbox{\hyperlink{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}{resetIRState}}();}
 \DoxyCodeLine{153     \textcolor{keywordflow}{return};}
 \DoxyCodeLine{154   \}}
@@ -594,17 +589,17 @@ Definition at line 142 of file IRReceiver.\+cpp.
 \end{DoxyCode}
 
 
-References DEBUG\+\_\+\+LOG, handle\+IRTiming(), m\+\_\+engine, m\+\_\+pin\+State, m\+\_\+prev\+Time, Time\+::microseconds(), reset\+IRState(), and Vortex\+Engine\+::time().
+References D\+E\+B\+U\+G\+\_\+\+L\+OG, handle\+I\+R\+Timing(), m\+\_\+engine, m\+\_\+pin\+State, m\+\_\+prev\+Time, Time\+::microseconds(), reset\+I\+R\+State(), and Vortex\+Engine\+::time().
 
 \mbox{\Hypertarget{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}\label{classIRReceiver_a6aa9196cae405f10d68794a6b06f16f3}} 
 \index{IRReceiver@{IRReceiver}!resetIRState@{resetIRState}}
 \index{resetIRState@{resetIRState}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{resetIRState()}{resetIRState()}}
-{\footnotesize\ttfamily void IRReceiver\+::reset\+IRState (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void I\+R\+Receiver\+::reset\+I\+R\+State (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 204 of file IRReceiver.\+cpp.
+Definition at line 204 of file I\+R\+Receiver.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -613,17 +608,17 @@ Definition at line 204 of file IRReceiver.\+cpp.
 \DoxyCodeLine{207   \mbox{\hyperlink{classIRReceiver_a4c3e0d07c9f2e02d227cc94f60bdc873}{m\_recvState}} = \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf}{WAITING\_HEADER\_MARK}};}
 \DoxyCodeLine{208   \textcolor{comment}{// zero out the receive buffer and reset bit receiver position}}
 \DoxyCodeLine{209   \mbox{\hyperlink{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}{m\_irData}}.\mbox{\hyperlink{classBitStream_acbce456dc347c721637941fe47f5a43b}{reset}}();}
-\DoxyCodeLine{210   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}IR State Reset"{}});}
+\DoxyCodeLine{210   \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"IR State Reset"});}
 \DoxyCodeLine{211 \}}
 
 \end{DoxyCode}
 
 
-References DEBUG\+\_\+\+LOG, m\+\_\+ir\+Data, m\+\_\+previous\+Bytes, m\+\_\+recv\+State, Bit\+Stream\+::reset(), and WAITING\+\_\+\+HEADER\+\_\+\+MARK.
+References D\+E\+B\+U\+G\+\_\+\+L\+OG, m\+\_\+ir\+Data, m\+\_\+previous\+Bytes, m\+\_\+recv\+State, Bit\+Stream\+::reset(), and W\+A\+I\+T\+I\+N\+G\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK.
 
 
 
-Referenced by begin\+Receiving(), end\+Receiving(), handle\+IRTiming(), read(), Mode\+Sharing\+::receive\+Mode\+IR(), and recv\+PCIHandler().
+Referenced by begin\+Receiving(), end\+Receiving(), handle\+I\+R\+Timing(), read(), Mode\+Sharing\+::receive\+Mode\+I\+R(), and recv\+P\+C\+I\+Handler().
 
 
 
@@ -632,89 +627,89 @@ Referenced by begin\+Receiving(), end\+Receiving(), handle\+IRTiming(), read(), 
 \index{IRReceiver@{IRReceiver}!m\_engine@{m\_engine}}
 \index{m\_engine@{m\_engine}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{m\_engine}{m\_engine}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}}\& IRReceiver\+::m\+\_\+engine\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}}\& I\+R\+Receiver\+::m\+\_\+engine\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 47 of file IRReceiver.\+h.
+Definition at line 47 of file I\+R\+Receiver.\+h.
 
 
 
-Referenced by recv\+PCIHandler().
+Referenced by recv\+P\+C\+I\+Handler().
 
 \mbox{\Hypertarget{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}\label{classIRReceiver_a9a7477dec95b18157d336b20168c6f7e}} 
 \index{IRReceiver@{IRReceiver}!m\_irData@{m\_irData}}
 \index{m\_irData@{m\_irData}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{m\_irData}{m\_irData}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classBitStream}{Bit\+Stream}} IRReceiver\+::m\+\_\+ir\+Data\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBitStream}{Bit\+Stream}} I\+R\+Receiver\+::m\+\_\+ir\+Data\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 59 of file IRReceiver.\+h.
+Definition at line 59 of file I\+R\+Receiver.\+h.
 
 
 
-Referenced by bytes\+Received(), data\+Ready(), handle\+IRTiming(), init(), is\+Receiving(), percent\+Received(), read(), and reset\+IRState().
+Referenced by bytes\+Received(), data\+Ready(), handle\+I\+R\+Timing(), init(), is\+Receiving(), percent\+Received(), read(), and reset\+I\+R\+State().
 
 \mbox{\Hypertarget{classIRReceiver_a45435d3921fa07b89bd46244dd05d860}\label{classIRReceiver_a45435d3921fa07b89bd46244dd05d860}} 
 \index{IRReceiver@{IRReceiver}!m\_pinState@{m\_pinState}}
 \index{m\_pinState@{m\_pinState}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{m\_pinState}{m\_pinState}}
-{\footnotesize\ttfamily uint8\+\_\+t IRReceiver\+::m\+\_\+pin\+State\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily uint8\+\_\+t I\+R\+Receiver\+::m\+\_\+pin\+State\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 74 of file IRReceiver.\+h.
+Definition at line 74 of file I\+R\+Receiver.\+h.
 
 
 
-Referenced by recv\+PCIHandler().
+Referenced by recv\+P\+C\+I\+Handler().
 
 \mbox{\Hypertarget{classIRReceiver_ab7e3d5972a86db3258aa9690a250b1ec}\label{classIRReceiver_ab7e3d5972a86db3258aa9690a250b1ec}} 
 \index{IRReceiver@{IRReceiver}!m\_previousBytes@{m\_previousBytes}}
 \index{m\_previousBytes@{m\_previousBytes}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{m\_previousBytes}{m\_previousBytes}}
-{\footnotesize\ttfamily uint32\+\_\+t IRReceiver\+::m\+\_\+previous\+Bytes\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily uint32\+\_\+t I\+R\+Receiver\+::m\+\_\+previous\+Bytes\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 77 of file IRReceiver.\+h.
+Definition at line 77 of file I\+R\+Receiver.\+h.
 
 
 
-Referenced by on\+New\+Data(), and reset\+IRState().
+Referenced by on\+New\+Data(), and reset\+I\+R\+State().
 
 \mbox{\Hypertarget{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}\label{classIRReceiver_a6c30fb550f53a38e1fa7b6a7d3ecb2d5}} 
 \index{IRReceiver@{IRReceiver}!m\_prevTime@{m\_prevTime}}
 \index{m\_prevTime@{m\_prevTime}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{m\_prevTime}{m\_prevTime}}
-{\footnotesize\ttfamily uint32\+\_\+t IRReceiver\+::m\+\_\+prev\+Time\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily uint32\+\_\+t I\+R\+Receiver\+::m\+\_\+prev\+Time\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 73 of file IRReceiver.\+h.
+Definition at line 73 of file I\+R\+Receiver.\+h.
 
 
 
-Referenced by recv\+PCIHandler().
+Referenced by recv\+P\+C\+I\+Handler().
 
 \mbox{\Hypertarget{classIRReceiver_a4c3e0d07c9f2e02d227cc94f60bdc873}\label{classIRReceiver_a4c3e0d07c9f2e02d227cc94f60bdc873}} 
 \index{IRReceiver@{IRReceiver}!m\_recvState@{m\_recvState}}
 \index{m\_recvState@{m\_recvState}!IRReceiver@{IRReceiver}}
 \doxysubsubsection{\texorpdfstring{m\_recvState}{m\_recvState}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9}{Recv\+State}} IRReceiver\+::m\+\_\+recv\+State\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classIRReceiver_a56148488dd4f2a403202a0467b4940b9}{Recv\+State}} I\+R\+Receiver\+::m\+\_\+recv\+State\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 71 of file IRReceiver.\+h.
+Definition at line 71 of file I\+R\+Receiver.\+h.
 
 
 
-Referenced by handle\+IRTiming(), and reset\+IRState().
+Referenced by handle\+I\+R\+Timing(), and reset\+I\+R\+State().
 
 
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-Vortex\+Engine/src/\+Wireless/\mbox{\hyperlink{IRReceiver_8h}{IRReceiver.\+h}}\item 
-Vortex\+Engine/src/\+Wireless/\mbox{\hyperlink{IRReceiver_8cpp}{IRReceiver.\+cpp}}\end{DoxyCompactItemize}
+Vortex\+Engine/src/\+Wireless/\mbox{\hyperlink{IRReceiver_8h}{I\+R\+Receiver.\+h}}\item 
+Vortex\+Engine/src/\+Wireless/\mbox{\hyperlink{IRReceiver_8cpp}{I\+R\+Receiver.\+cpp}}\end{DoxyCompactItemize}

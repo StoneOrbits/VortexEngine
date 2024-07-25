@@ -21,7 +21,7 @@
 <!-- Node2 -->
 <g id="node2" class="node">
 <title>Node2</title>
-<g id="a_node2"><a xlink:href="ColorTypes_8h.html" target="_top" xlink:title=" ">
+<g id="a_node2"><a xlink:href="ColorTypes_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="116.07,-112.5 116.07,-131.5 238.07,-131.5 238.07,-112.5 116.07,-112.5"/>
 <text text-anchor="middle" x="177.07" y="-119.5" font-family="Helvetica,sans-Serif" font-size="10.00">../Colors/ColorTypes.h</text>
 </a>
@@ -36,7 +36,7 @@
 <!-- Node6 -->
 <g id="node6" class="node">
 <title>Node6</title>
-<g id="a_node6"><a xlink:href="LedTypes_8h.html" target="_top" xlink:title=" ">
+<g id="a_node6"><a xlink:href="LedTypes_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="103.57,-224.5 103.57,-243.5 174.57,-243.5 174.57,-224.5 103.57,-224.5"/>
 <text text-anchor="middle" x="139.07" y="-231.5" font-family="Helvetica,sans-Serif" font-size="10.00">LedTypes.h</text>
 </a>
@@ -81,7 +81,7 @@
 <!-- Node4 -->
 <g id="node4" class="node">
 <title>Node4</title>
-<g id="a_node4"><a xlink:href="VortexConfig_8h.html" target="_top" xlink:title=" ">
+<g id="a_node4"><a xlink:href="VortexConfig_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="42.57,-56.5 42.57,-75.5 139.57,-75.5 139.57,-56.5 42.57,-56.5"/>
 <text text-anchor="middle" x="91.07" y="-63.5" font-family="Helvetica,sans-Serif" font-size="10.00">../VortexConfig.h</text>
 </a>
@@ -96,7 +96,7 @@
 <!-- Node5 -->
 <g id="node5" class="node">
 <title>Node5</title>
-<g id="a_node5"><a xlink:href="ColorConstants_8h.html" target="_top" xlink:title=" ">
+<g id="a_node5"><a xlink:href="ColorConstants_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="62.07,-0.5 62.07,-19.5 196.07,-19.5 196.07,-0.5 62.07,-0.5"/>
 <text text-anchor="middle" x="129.07" y="-7.5" font-family="Helvetica,sans-Serif" font-size="10.00">Colors/ColorConstants.h</text>
 </a>
@@ -144,7 +144,7 @@
 <!-- Node8 -->
 <g id="node8" class="node">
 <title>Node8</title>
-<g id="a_node8"><a xlink:href="Leds_8h.html" target="_top" xlink:title=" ">
+<g id="a_node8"><a xlink:href="Leds_8h.html" target="_top" target="_top" xlink:title=" ">
 <polygon fill="none" stroke="black" points="57.57,-168.5 57.57,-187.5 140.57,-187.5 140.57,-168.5 57.57,-168.5"/>
 <text text-anchor="middle" x="99.07" y="-175.5" font-family="Helvetica,sans-Serif" font-size="10.00">../Leds/Leds.h</text>
 </a>

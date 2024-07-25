@@ -1,6 +1,11 @@
 var searchData=
 [
-  ['waiting_5fheader_5fmark_2775',['WAITING_HEADER_MARK',['../classIRReceiver.html#a56148488dd4f2a403202a0467b4940b9a86b34ad32b19d88eb7a430935ce098bf',1,'IRReceiver::WAITING_HEADER_MARK()'],['../classVLReceiver.html#aa4e2da364b508e8f469d28e0eaf3a6f8a47c2b836e3c6a3cd2b63e572fcaaa434',1,'VLReceiver::WAITING_HEADER_MARK()']]],
-  ['waiting_5fheader_5fspace_2776',['WAITING_HEADER_SPACE',['../classIRReceiver.html#a56148488dd4f2a403202a0467b4940b9a5d217c890135a690847bf68a1db5bd9a',1,'IRReceiver::WAITING_HEADER_SPACE()'],['../classVLReceiver.html#aa4e2da364b508e8f469d28e0eaf3a6f8aabd2b5abd329faa79b2af1f985e3d64d',1,'VLReceiver::WAITING_HEADER_SPACE()']]],
-  ['withprefix64k_2777',['withPrefix64k',['../Compression_8cpp.html#ab22d25a446ad3e8288401052deccda4ca34c34b9cfe0046130ff97acf6914519d',1,'Compression.cpp']]]
+  ['val_5fstyle_5falternating_3155',['VAL_STYLE_ALTERNATING',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26ae0a54247525d70f1be24aeff4fad8e7b',1,'Colorset']]],
+  ['val_5fstyle_5fascending_3156',['VAL_STYLE_ASCENDING',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26ab2113aa16ee5cf6b09007c9c264dbab2',1,'Colorset']]],
+  ['val_5fstyle_5fconstant_3157',['VAL_STYLE_CONSTANT',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26ab9b4bd5b990537c1001a8aca889ec512',1,'Colorset']]],
+  ['val_5fstyle_5fcount_3158',['VAL_STYLE_COUNT',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26af1755c4538daf9ca35ac217686d6955a',1,'Colorset']]],
+  ['val_5fstyle_5fdescending_3159',['VAL_STYLE_DESCENDING',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26ae20993010e2480fbf2183ebe3413fac2',1,'Colorset']]],
+  ['val_5fstyle_5fhigh_5ffirst_5fcolor_3160',['VAL_STYLE_HIGH_FIRST_COLOR',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26a95361874b3ecae79648b34565dcc648f',1,'Colorset']]],
+  ['val_5fstyle_5flow_5ffirst_5fcolor_3161',['VAL_STYLE_LOW_FIRST_COLOR',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26aaf5b21846f5bde5fba7d5e098ae09932',1,'Colorset']]],
+  ['val_5fstyle_5frandom_3162',['VAL_STYLE_RANDOM',['../classColorset.html#a3cfec1a04020fca46a63a7030300de26a645c3cf49fa9a75522355e7d2a49e6ce',1,'Colorset']]]
 ];

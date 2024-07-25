@@ -1,5 +1,8 @@
 var searchData=
 [
-  ['limitedoutput_2741',['limitedOutput',['../Compression_8cpp.html#ab93acf685743debab05876250a1cbe28a06ce6334cca200bdb7d30cf1422ca5aa',1,'Compression.cpp']]],
-  ['loop_5ferror_2742',['loop_error',['../Compression_8cpp.html#a9d0df14b4296f06cf7c7b141f26d29b3a19c5cc5c8516ea67ef3b2ec2de6fc484',1,'Compression.cpp']]]
+  ['json_5fmode_5fnone_3123',['JSON_MODE_NONE',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3a9b2cde183aa61cdb57495ffd9e877dbb',1,'VortexCLI']]],
+  ['json_5fmode_5fread_5ffile_3124',['JSON_MODE_READ_FILE',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3ad98644719ab95d7c224d4286c92acbe7',1,'VortexCLI']]],
+  ['json_5fmode_5fread_5fstdin_3125',['JSON_MODE_READ_STDIN',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3adcc6a199b711fcd956ef38159ec46155',1,'VortexCLI']]],
+  ['json_5fmode_5fwrite_5ffile_3126',['JSON_MODE_WRITE_FILE',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3a5eafb03ffe2c76d356c89185ed9e1e67',1,'VortexCLI']]],
+  ['json_5fmode_5fwrite_5fstdout_3127',['JSON_MODE_WRITE_STDOUT',['../classVortexCLI.html#a5021498b90d142e95b6858a101dd69f3af4f23e46967f278eab45c8d2ad4b22c1',1,'VortexCLI']]]
 ];

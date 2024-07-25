@@ -7,13 +7,7 @@
 
 
 Collaboration diagram for Buttons\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classButtons__coll__graph}
-\end{center}
-\end{figure}
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
@@ -36,7 +30,7 @@ uint8\+\_\+t \mbox{\hyperlink{classButtons_a1b440cfbdab10a3913c7207d51f66a7f}{nu
 \item 
 \mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \& \mbox{\hyperlink{classButtons_a346c0d098b1bde708fe4a652db23af65}{m\+\_\+engine}}
 \item 
-\mbox{\hyperlink{classButton}{Button}} \mbox{\hyperlink{classButtons_a6a2953e5bdbd36a34dff1d3c1ba59c71}{m\+\_\+buttons}} \mbox{[}\mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\+\_\+\+BUTTONS}}\mbox{]}
+\mbox{\hyperlink{classButton}{Button}} \mbox{\hyperlink{classButtons_a6a2953e5bdbd36a34dff1d3c1ba59c71}{m\+\_\+buttons}} \mbox{[}\mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{N\+U\+M\+\_\+\+B\+U\+T\+T\+O\+NS}}\mbox{]}
 \end{DoxyCompactItemize}
 
 
@@ -67,6 +61,10 @@ Definition at line 10 of file Buttons.\+cpp.
 \DoxyCodeLine{14 \}}
 
 \end{DoxyCode}
+
+
+References Vortex\+::engine().
+
 \mbox{\Hypertarget{classButtons_af5aadc00817a962a1fbbe399d45543c0}\label{classButtons_af5aadc00817a962a1fbbe399d45543c0}} 
 \index{Buttons@{Buttons}!````~Buttons@{$\sim$Buttons}}
 \index{````~Buttons@{$\sim$Buttons}!Buttons@{Buttons}}
@@ -175,7 +173,11 @@ Definition at line 30 of file Buttons.\+h.
 \end{DoxyCode}
 
 
-References NUM\+\_\+\+BUTTONS.
+References N\+U\+M\+\_\+\+B\+U\+T\+T\+O\+NS.
+
+
+
+Referenced by Vortex\+::select\+Button().
 
 \mbox{\Hypertarget{classButtons_a4e775beebe1f2c6dce04c82ed14741cb}\label{classButtons_a4e775beebe1f2c6dce04c82ed14741cb}} 
 \index{Buttons@{Buttons}!update@{update}}
@@ -195,16 +197,16 @@ Definition at line 33 of file Buttons.\+cpp.
 \DoxyCodeLine{37   \textcolor{keywordflow}{for} (uint8\_t i = 0; i < \mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\_BUTTONS}}; ++i) \{}
 \DoxyCodeLine{38     \mbox{\hyperlink{classButtons_a6a2953e5bdbd36a34dff1d3c1ba59c71}{m\_buttons}}[i].\mbox{\hyperlink{classButton_ad8e030c1c8846d43f3126047d4a3667f}{update}}();}
 \DoxyCodeLine{39   \}}
-\DoxyCodeLine{40 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{40 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{41   \textcolor{comment}{// read input from the vortex lib interface, for example m\_engine.vortexLib().shortClick()}}
-\DoxyCodeLine{42   \mbox{\hyperlink{classButtons_a346c0d098b1bde708fe4a652db23af65}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_af7adb6b02350ab5f55ac364ac72df325}{vortexLib}}().handleInputQueue(\mbox{\hyperlink{classButtons_a6a2953e5bdbd36a34dff1d3c1ba59c71}{m\_buttons}}, \mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\_BUTTONS}});}
-\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{42   \mbox{\hyperlink{classButtons_a346c0d098b1bde708fe4a652db23af65}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_af7adb6b02350ab5f55ac364ac72df325}{vortexLib}}().\mbox{\hyperlink{classVortex_aa334b5f76d4d9d7f0a95296afd1f7ed0}{handleInputQueue}}(\mbox{\hyperlink{classButtons_a6a2953e5bdbd36a34dff1d3c1ba59c71}{m\_buttons}}, \mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\_BUTTONS}});}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{44 \}}
 
 \end{DoxyCode}
 
 
-References m\+\_\+buttons, m\+\_\+engine, NUM\+\_\+\+BUTTONS, Button\+::update(), and Vortex\+Engine\+::vortex\+Lib().
+References Vortex\+::handle\+Input\+Queue(), m\+\_\+buttons, m\+\_\+engine, N\+U\+M\+\_\+\+B\+U\+T\+T\+O\+NS, Button\+::update(), and Vortex\+Engine\+::vortex\+Lib().
 
 
 
@@ -217,7 +219,7 @@ Referenced by Vortex\+Engine\+::tick().
 \index{Buttons@{Buttons}!m\_buttons@{m\_buttons}}
 \index{m\_buttons@{m\_buttons}!Buttons@{Buttons}}
 \doxysubsubsection{\texorpdfstring{m\_buttons}{m\_buttons}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classButton}{Button}} Buttons\+::m\+\_\+buttons\mbox{[}\mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{NUM\+\_\+\+BUTTONS}}\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classButton}{Button}} Buttons\+::m\+\_\+buttons\mbox{[}\mbox{\hyperlink{Buttons_8h_a45add6b39f5b0c0137de978b90e26b5d}{N\+U\+M\+\_\+\+B\+U\+T\+T\+O\+NS}}\mbox{]}\hspace{0.3cm}{\ttfamily [private]}}
 
 
 

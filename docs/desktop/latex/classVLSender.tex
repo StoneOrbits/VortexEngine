@@ -1,25 +1,19 @@
-\hypertarget{classVLSender}{}\doxysection{VLSender Class Reference}
+\hypertarget{classVLSender}{}\doxysection{V\+L\+Sender Class Reference}
 \label{classVLSender}\index{VLSender@{VLSender}}
 
 
-{\ttfamily \#include $<$VLSender.\+h$>$}
+{\ttfamily \#include $<$V\+L\+Sender.\+h$>$}
 
 
 
-Collaboration diagram for VLSender\+:
-\nopagebreak
-\begin{figure}[H]
-\begin{center}
-\leavevmode
-\includegraphics[width=350pt]{classVLSender__coll__graph}
-\end{center}
-\end{figure}
+Collaboration diagram for V\+L\+Sender\+:
+% FIG 0
 \doxysubsection*{Public Member Functions}
 \begin{DoxyCompactItemize}
 \item 
-\mbox{\hyperlink{classVLSender_a9e0177d243da12787b51ad0f981f6e0f}{VLSender}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine)
+\mbox{\hyperlink{classVLSender_a9e0177d243da12787b51ad0f981f6e0f}{V\+L\+Sender}} (\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&engine)
 \item 
-\mbox{\hyperlink{classVLSender_a69fb48b20a375bf08b7bb939a8c064c9}{$\sim$\+VLSender}} ()
+\mbox{\hyperlink{classVLSender_a69fb48b20a375bf08b7bb939a8c064c9}{$\sim$\+V\+L\+Sender}} ()
 \item 
 bool \mbox{\hyperlink{classVLSender_afe2303e108c0aad37695e257f1ba4dad}{init}} ()
 \item 
@@ -44,11 +38,11 @@ void \mbox{\hyperlink{classVLSender_a18aa277b332d02a22a2a26d7e5a563f6}{send\+Mar
 \item 
 void \mbox{\hyperlink{classVLSender_a43b51392934fbbadbafe0dda5dca6cf5}{send\+Space}} (uint16\+\_\+t time)
 \item 
-void \mbox{\hyperlink{classVLSender_a5d1e2b6969e6e446f955bedda45f5fb0}{init\+PWM}} ()
+void \mbox{\hyperlink{classVLSender_a5d1e2b6969e6e446f955bedda45f5fb0}{init\+P\+WM}} ()
 \item 
-void \mbox{\hyperlink{classVLSender_a563dfda5e2adea98cbf98ef98c66787c}{start\+PWM}} ()
+void \mbox{\hyperlink{classVLSender_a563dfda5e2adea98cbf98ef98c66787c}{start\+P\+WM}} ()
 \item 
-void \mbox{\hyperlink{classVLSender_a6fadfb59019cde5bbcf9d2f2e33a50f6}{stop\+PWM}} ()
+void \mbox{\hyperlink{classVLSender_a6fadfb59019cde5bbcf9d2f2e33a50f6}{stop\+P\+WM}} ()
 \end{DoxyCompactItemize}
 \doxysubsection*{Private Attributes}
 \begin{DoxyCompactItemize}
@@ -78,7 +72,7 @@ uint32\+\_\+t \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{
 \doxysubsection{Detailed Description}
 
 
-Definition at line 14 of file VLSender.\+h.
+Definition at line 14 of file V\+L\+Sender.\+h.
 
 
 
@@ -87,11 +81,11 @@ Definition at line 14 of file VLSender.\+h.
 \index{VLSender@{VLSender}!VLSender@{VLSender}}
 \index{VLSender@{VLSender}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{VLSender()}{VLSender()}}
-{\footnotesize\ttfamily VLSender\+::\+VLSender (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily V\+L\+Sender\+::\+V\+L\+Sender (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}} \&}]{engine }\end{DoxyParamCaption})}
 
 
 
-Definition at line 15 of file VLSender.\+cpp.
+Definition at line 15 of file V\+L\+Sender.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -105,7 +99,7 @@ Definition at line 15 of file VLSender.\+cpp.
 \DoxyCodeLine{22   \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}}(0),}
 \DoxyCodeLine{23   \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}}(0),}
 \DoxyCodeLine{24   \mbox{\hyperlink{classVLSender_aba1429142e7e2f5477626781e52b8605}{m\_blockSize}}(0),}
-\DoxyCodeLine{25   \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}}(0)}
+\DoxyCodeLine{25   \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}}(0)}
 \DoxyCodeLine{26 \{}
 \DoxyCodeLine{27 \}}
 
@@ -114,11 +108,11 @@ Definition at line 15 of file VLSender.\+cpp.
 \index{VLSender@{VLSender}!````~VLSender@{$\sim$VLSender}}
 \index{````~VLSender@{$\sim$VLSender}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{$\sim$VLSender()}{~VLSender()}}
-{\footnotesize\ttfamily VLSender\+::$\sim$\+VLSender (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily V\+L\+Sender\+::$\sim$\+V\+L\+Sender (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 29 of file VLSender.\+cpp.
+Definition at line 29 of file V\+L\+Sender.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -133,17 +127,17 @@ Definition at line 29 of file VLSender.\+cpp.
 \index{VLSender@{VLSender}!beginSend@{beginSend}}
 \index{beginSend@{beginSend}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{beginSend()}{beginSend()}}
-{\footnotesize\ttfamily void VLSender\+::begin\+Send (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily void V\+L\+Sender\+::begin\+Send (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 114 of file VLSender.\+cpp.
+Definition at line 114 of file V\+L\+Sender.\+cpp.
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{115 \{}
 \DoxyCodeLine{116   \mbox{\hyperlink{classVLSender_a94d286b6b44fe7f5b80bbe751ff31af9}{m\_isSending}} = \textcolor{keyword}{true};}
-\DoxyCodeLine{117   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}[\%zu] Beginning send size \%u (blocks: \%u remainder: \%u blocksize: \%u)"{}},}
+\DoxyCodeLine{117   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"[\%zu] Beginning send size \%u (blocks: \%u remainder: \%u blocksize: \%u)"},}
 \DoxyCodeLine{118     \mbox{\hyperlink{classVLSender_a7ff511b4390700e4e25148704cddec8a}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_ac44f4e49538456714372bb1aad3dd839}{microseconds}}(), \mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}}, \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}}, \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}}, \mbox{\hyperlink{classVLSender_aba1429142e7e2f5477626781e52b8605}{m\_blockSize}});}
 \DoxyCodeLine{119   \textcolor{comment}{// wakeup the other receiver with a very quick mark/space}}
 \DoxyCodeLine{120   \mbox{\hyperlink{classVLSender_a18aa277b332d02a22a2a26d7e5a563f6}{sendMark}}(50);}
@@ -162,7 +156,7 @@ Definition at line 114 of file VLSender.\+cpp.
 \end{DoxyCode}
 
 
-References DEBUG\+\_\+\+LOGF, m\+\_\+block\+Size, m\+\_\+engine, m\+\_\+is\+Sending, m\+\_\+num\+Blocks, m\+\_\+remainder, m\+\_\+size, m\+\_\+write\+Counter, Time\+::microseconds(), send\+Byte(), send\+Mark(), send\+Space(), Vortex\+Engine\+::time(), VL\+\_\+\+HEADER\+\_\+\+MARK, and VL\+\_\+\+HEADER\+\_\+\+SPACE.
+References D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, m\+\_\+block\+Size, m\+\_\+engine, m\+\_\+is\+Sending, m\+\_\+num\+Blocks, m\+\_\+remainder, m\+\_\+size, m\+\_\+write\+Counter, Time\+::microseconds(), send\+Byte(), send\+Mark(), send\+Space(), Vortex\+Engine\+::time(), V\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+M\+A\+RK, and V\+L\+\_\+\+H\+E\+A\+D\+E\+R\+\_\+\+S\+P\+A\+CE.
 
 
 
@@ -172,11 +166,11 @@ Referenced by send().
 \index{VLSender@{VLSender}!cleanup@{cleanup}}
 \index{cleanup@{cleanup}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{cleanup()}{cleanup()}}
-{\footnotesize\ttfamily void VLSender\+::cleanup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily void V\+L\+Sender\+::cleanup (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 38 of file VLSender.\+cpp.
+Definition at line 38 of file V\+L\+Sender.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -192,11 +186,11 @@ Referenced by Vortex\+Engine\+::cleanup().
 \index{VLSender@{VLSender}!init@{init}}
 \index{init@{init}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{init()}{init()}}
-{\footnotesize\ttfamily bool VLSender\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool V\+L\+Sender\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 33 of file VLSender.\+cpp.
+Definition at line 33 of file V\+L\+Sender.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -213,17 +207,17 @@ Referenced by Vortex\+Engine\+::init().
 \index{VLSender@{VLSender}!initPWM@{initPWM}}
 \index{initPWM@{initPWM}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{initPWM()}{initPWM()}}
-{\footnotesize\ttfamily void VLSender\+::init\+PWM (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily void V\+L\+Sender\+::init\+P\+WM (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 \mbox{\Hypertarget{classVLSender_ac9d3aafaad1b74d7a9cf401b259ae779}\label{classVLSender_ac9d3aafaad1b74d7a9cf401b259ae779}} 
 \index{VLSender@{VLSender}!isSending@{isSending}}
 \index{isSending@{isSending}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{isSending()}{isSending()}}
-{\footnotesize\ttfamily bool VLSender\+::is\+Sending (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily bool V\+L\+Sender\+::is\+Sending (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Definition at line 27 of file VLSender.\+h.
+Definition at line 27 of file V\+L\+Sender.\+h.
 
 
 \begin{DoxyCode}{0}
@@ -236,17 +230,17 @@ References m\+\_\+is\+Sending.
 
 
 
-Referenced by Mode\+Sharing\+::begin\+Sending\+VL(), Mode\+Sharing\+::continue\+Sending\+VL(), and Editor\+Connection\+::run().
+Referenced by Mode\+Sharing\+::begin\+Sending\+V\+L(), Mode\+Sharing\+::continue\+Sending\+V\+L(), and Editor\+Connection\+::run().
 
 \mbox{\Hypertarget{classVLSender_a4166c98c11640955d4cdf94bf3be5601}\label{classVLSender_a4166c98c11640955d4cdf94bf3be5601}} 
 \index{VLSender@{VLSender}!loadMode@{loadMode}}
 \index{loadMode@{loadMode}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{loadMode()}{loadMode()}}
-{\footnotesize\ttfamily bool VLSender\+::load\+Mode (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classMode}{Mode}} $\ast$}]{target\+Mode }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool V\+L\+Sender\+::load\+Mode (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classMode}{Mode}} $\ast$}]{target\+Mode }\end{DoxyParamCaption})}
 
 
 
-Definition at line 42 of file VLSender.\+cpp.
+Definition at line 42 of file V\+L\+Sender.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -254,17 +248,17 @@ Definition at line 42 of file VLSender.\+cpp.
 \DoxyCodeLine{44   \mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a854e5507f550826478fd7141074a4bb5}{clear}}();}
 \DoxyCodeLine{45   \textcolor{comment}{// save the target mode to it's savefile buffer format}}
 \DoxyCodeLine{46   \textcolor{keywordflow}{if} (!targetMode-\/>\mbox{\hyperlink{classMode_a4bf861a9f38599ab515655ae52700534}{saveToBuffer}}(\mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}, 2)) \{}
-\DoxyCodeLine{47     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to save mode to buffer"{}});}
+\DoxyCodeLine{47     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Failed to save mode to buffer"});}
 \DoxyCodeLine{48     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{49   \}}
 \DoxyCodeLine{50   \textcolor{comment}{// decompress the mode on lifi, no compression here}}
 \DoxyCodeLine{51   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_adc9ecdea7fa35c193b0c3f5b607477e9}{decompress}}()) \{}
-\DoxyCodeLine{52     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"{}Failed to decompress VL buf for sending"{}});}
+\DoxyCodeLine{52     \mbox{\hyperlink{Log_8h_a5d2f30bd1cbcf49f829a7e8eb6173c06}{DEBUG\_LOG}}(\textcolor{stringliteral}{"Failed to decompress VL buf for sending"});}
 \DoxyCodeLine{53     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{54   \}}
 \DoxyCodeLine{55   \textcolor{comment}{// ensure the data isn't too big}}
 \DoxyCodeLine{56   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}() > \mbox{\hyperlink{VLConfig_8h_a5531f46c73b52342bc76a5423252c745}{VL\_MAX\_DATA\_TRANSFER}}) \{}
-\DoxyCodeLine{57     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Cannot transfer that much data: \%u bytes"{}}, \mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
+\DoxyCodeLine{57     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Cannot transfer that much data: \%u bytes"}, \mbox{\hyperlink{classVLSender_a8e945a5e37cd06011c13e7fea67a03db}{m\_serialBuf}}.\mbox{\hyperlink{classByteStream_a755097adde5b21b33d3c4e3623d04f97}{rawSize}}());}
 \DoxyCodeLine{58     \textcolor{keywordflow}{return} \textcolor{keyword}{false};}
 \DoxyCodeLine{59   \}}
 \DoxyCodeLine{60   \textcolor{comment}{// point the bitstream at the serial buffer}}
@@ -275,9 +269,9 @@ Definition at line 42 of file VLSender.\+cpp.
 \DoxyCodeLine{65   \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}} = (\mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}} + (\mbox{\hyperlink{VLConfig_8h_ad989f13d1c369d1323dd82c196201614}{VL\_DEFAULT\_BLOCK\_SIZE}} -\/ 1)) / \mbox{\hyperlink{VLConfig_8h_ad989f13d1c369d1323dd82c196201614}{VL\_DEFAULT\_BLOCK\_SIZE}};}
 \DoxyCodeLine{66   \textcolor{comment}{// the amount in the final block (possibly the only block)}}
 \DoxyCodeLine{67   \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}} = \mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}} \% (\mbox{\hyperlink{VLConfig_8h_ad989f13d1c369d1323dd82c196201614}{VL\_DEFAULT\_BLOCK\_SIZE}} + 0);}
-\DoxyCodeLine{68   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Num blocks: \%u"{}}, \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}});}
-\DoxyCodeLine{69   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Remainder: \%u"{}}, \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}});}
-\DoxyCodeLine{70   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Size: \%u"{}}, \mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}});}
+\DoxyCodeLine{68   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Num blocks: \%u"}, \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}});}
+\DoxyCodeLine{69   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Remainder: \%u"}, \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}});}
+\DoxyCodeLine{70   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Size: \%u"}, \mbox{\hyperlink{classVLSender_a47122dfec4dbd0bf33d83ac90f5ebb1e}{m\_size}});}
 \DoxyCodeLine{71   \textcolor{comment}{// reset write counter}}
 \DoxyCodeLine{72   \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}} = 0;}
 \DoxyCodeLine{73   \textcolor{keywordflow}{return} \textcolor{keyword}{true};}
@@ -286,21 +280,21 @@ Definition at line 42 of file VLSender.\+cpp.
 \end{DoxyCode}
 
 
-References Byte\+Stream\+::clear(), DEBUG\+\_\+\+LOG, DEBUG\+\_\+\+LOGF, Byte\+Stream\+::decompress(), Bit\+Stream\+::init(), m\+\_\+bit\+Stream, m\+\_\+num\+Blocks, m\+\_\+remainder, m\+\_\+serial\+Buf, m\+\_\+size, m\+\_\+write\+Counter, Byte\+Stream\+::raw\+Data(), Byte\+Stream\+::raw\+Size(), Mode\+::save\+To\+Buffer(), VL\+\_\+\+DEFAULT\+\_\+\+BLOCK\+\_\+\+SIZE, and VL\+\_\+\+MAX\+\_\+\+DATA\+\_\+\+TRANSFER.
+References Byte\+Stream\+::clear(), D\+E\+B\+U\+G\+\_\+\+L\+OG, D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, Byte\+Stream\+::decompress(), Bit\+Stream\+::init(), m\+\_\+bit\+Stream, m\+\_\+num\+Blocks, m\+\_\+remainder, m\+\_\+serial\+Buf, m\+\_\+size, m\+\_\+write\+Counter, Byte\+Stream\+::raw\+Data(), Byte\+Stream\+::raw\+Size(), Mode\+::save\+To\+Buffer(), V\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+I\+ZE, and V\+L\+\_\+\+M\+A\+X\+\_\+\+D\+A\+T\+A\+\_\+\+T\+R\+A\+N\+S\+F\+ER.
 
 
 
-Referenced by Mode\+Sharing\+::begin\+Sending\+VL(), and Editor\+Connection\+::send\+Cur\+Mode\+VL().
+Referenced by Mode\+Sharing\+::begin\+Sending\+V\+L(), and Editor\+Connection\+::send\+Cur\+Mode\+V\+L().
 
 \mbox{\Hypertarget{classVLSender_a39f5e1108b9f5909fb550525c1c637cc}\label{classVLSender_a39f5e1108b9f5909fb550525c1c637cc}} 
 \index{VLSender@{VLSender}!percentDone@{percentDone}}
 \index{percentDone@{percentDone}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{percentDone()}{percentDone()}}
-{\footnotesize\ttfamily uint32\+\_\+t VLSender\+::percent\+Done (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
+{\footnotesize\ttfamily uint32\+\_\+t V\+L\+Sender\+::percent\+Done (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [inline]}}
 
 
 
-Definition at line 29 of file VLSender.\+h.
+Definition at line 29 of file V\+L\+Sender.\+h.
 
 
 \begin{DoxyCode}{0}
@@ -315,11 +309,11 @@ References m\+\_\+size, and m\+\_\+write\+Counter.
 \index{VLSender@{VLSender}!send@{send}}
 \index{send@{send}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{send()}{send()}}
-{\footnotesize\ttfamily bool VLSender\+::send (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+{\footnotesize\ttfamily bool V\+L\+Sender\+::send (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
 
 
 
-Definition at line 76 of file VLSender.\+cpp.
+Definition at line 76 of file V\+L\+Sender.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -338,7 +332,7 @@ Definition at line 76 of file VLSender.\+cpp.
 \DoxyCodeLine{89   \}}
 \DoxyCodeLine{90   \textcolor{comment}{// blocksize is default unless it's the last block, then it's the remainder}}
 \DoxyCodeLine{91   uint32\_t blocksize = (\mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}} == 1) ? \mbox{\hyperlink{classVLSender_a5233c962ec7656df31f84d5405514b56}{m\_remainder}} : \mbox{\hyperlink{VLConfig_8h_ad989f13d1c369d1323dd82c196201614}{VL\_DEFAULT\_BLOCK\_SIZE}};}
-\DoxyCodeLine{92   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}VLSender Sending block \#\%u"{}}, \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}});}
+\DoxyCodeLine{92   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"VLSender Sending block \#\%u"}, \mbox{\hyperlink{classVLSender_abb241a6a253d0f7e142b6424f76e8929}{m\_numBlocks}});}
 \DoxyCodeLine{93   \textcolor{comment}{// pointer to the data at the correct location}}
 \DoxyCodeLine{94   \textcolor{keyword}{const} uint8\_t *buf\_ptr = \mbox{\hyperlink{classVLSender_a7f17a11e21662f7fa1022703e32e24fd}{m\_bitStream}}.\mbox{\hyperlink{classBitStream_a4be1b1c1cb2684d2997b1c8a6f0cd34d}{data}}() + \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}};}
 \DoxyCodeLine{95   \textcolor{comment}{// iterate each byte in the block and write it}}
@@ -363,21 +357,21 @@ Definition at line 76 of file VLSender.\+cpp.
 \end{DoxyCode}
 
 
-References begin\+Send(), Bit\+Stream\+::data(), DEBUG\+\_\+\+LOGF, Time\+::get\+Curtime(), m\+\_\+bit\+Stream, m\+\_\+engine, m\+\_\+is\+Sending, m\+\_\+last\+Send\+Time, m\+\_\+num\+Blocks, m\+\_\+remainder, m\+\_\+write\+Counter, send\+Byte(), Vortex\+Engine\+::time(), VL\+\_\+\+DEFAULT\+\_\+\+BLOCK\+\_\+\+SIZE, and VL\+\_\+\+DEFAULT\+\_\+\+BLOCK\+\_\+\+SPACING.
+References begin\+Send(), Bit\+Stream\+::data(), D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, Time\+::get\+Curtime(), m\+\_\+bit\+Stream, m\+\_\+engine, m\+\_\+is\+Sending, m\+\_\+last\+Send\+Time, m\+\_\+num\+Blocks, m\+\_\+remainder, m\+\_\+write\+Counter, send\+Byte(), Vortex\+Engine\+::time(), V\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+I\+ZE, and V\+L\+\_\+\+D\+E\+F\+A\+U\+L\+T\+\_\+\+B\+L\+O\+C\+K\+\_\+\+S\+P\+A\+C\+I\+NG.
 
 
 
-Referenced by Mode\+Sharing\+::begin\+Sending\+VL(), Mode\+Sharing\+::continue\+Sending\+VL(), Editor\+Connection\+::run(), and Editor\+Connection\+::send\+Cur\+Mode\+VL().
+Referenced by Mode\+Sharing\+::begin\+Sending\+V\+L(), Mode\+Sharing\+::continue\+Sending\+V\+L(), Editor\+Connection\+::run(), and Editor\+Connection\+::send\+Cur\+Mode\+V\+L().
 
 \mbox{\Hypertarget{classVLSender_a020e91ee92122906e0bb407f3a6b34d2}\label{classVLSender_a020e91ee92122906e0bb407f3a6b34d2}} 
 \index{VLSender@{VLSender}!sendByte@{sendByte}}
 \index{sendByte@{sendByte}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{sendByte()}{sendByte()}}
-{\footnotesize\ttfamily void VLSender\+::send\+Byte (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily void V\+L\+Sender\+::send\+Byte (\begin{DoxyParamCaption}\item[{uint8\+\_\+t}]{data }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 133 of file VLSender.\+cpp.
+Definition at line 133 of file V\+L\+Sender.\+cpp.
 
 
 \begin{DoxyCode}{0}
@@ -391,13 +385,13 @@ Definition at line 133 of file VLSender.\+cpp.
 \DoxyCodeLine{141     \textcolor{comment}{// send 1x timing size for space}}
 \DoxyCodeLine{142     \mbox{\hyperlink{classVLSender_a43b51392934fbbadbafe0dda5dca6cf5}{sendSpace}}(\mbox{\hyperlink{VLConfig_8h_a0ec0a4d9a48be677d4d923eadcefe6ce}{VL\_TIMING}});}
 \DoxyCodeLine{143   \}}
-\DoxyCodeLine{144   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Sent byte[\%u]: 0x\%x"{}}, \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}}, data);}
+\DoxyCodeLine{144   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"Sent byte[\%u]: 0x\%x"}, \mbox{\hyperlink{classVLSender_ac092dc67c7344f5d53fd4910cdcaaa5b}{m\_writeCounter}}, data);}
 \DoxyCodeLine{145  \}}
 
 \end{DoxyCode}
 
 
-References DEBUG\+\_\+\+LOGF, m\+\_\+write\+Counter, send\+Mark(), send\+Space(), and VL\+\_\+\+TIMING.
+References D\+E\+B\+U\+G\+\_\+\+L\+O\+GF, m\+\_\+write\+Counter, send\+Mark(), send\+Space(), and V\+L\+\_\+\+T\+I\+M\+I\+NG.
 
 
 
@@ -407,28 +401,28 @@ Referenced by begin\+Send(), and send().
 \index{VLSender@{VLSender}!sendMark@{sendMark}}
 \index{sendMark@{sendMark}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{sendMark()}{sendMark()}}
-{\footnotesize\ttfamily void VLSender\+::send\+Mark (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily void V\+L\+Sender\+::send\+Mark (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 147 of file VLSender.\+cpp.
+Definition at line 147 of file V\+L\+Sender.\+cpp.
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{148 \{}
-\DoxyCodeLine{149 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{149 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{150   \textcolor{comment}{// send mark timing over socket}}
-\DoxyCodeLine{151   \mbox{\hyperlink{classVLSender_a7ff511b4390700e4e25148704cddec8a}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_af7adb6b02350ab5f55ac364ac72df325}{vortexLib}}().vcallbacks()-\/>infraredWrite(\textcolor{keyword}{true}, time);}
-\DoxyCodeLine{152 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{151   \mbox{\hyperlink{classVLSender_a7ff511b4390700e4e25148704cddec8a}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_af7adb6b02350ab5f55ac364ac72df325}{vortexLib}}().\mbox{\hyperlink{classVortex_ae60f8591da638b0cec72b12234a0ebc8}{vcallbacks}}()-\/>\mbox{\hyperlink{classVortexCallbacks_a97b9d8709dd8f4d940184cf6996da776}{infraredWrite}}(\textcolor{keyword}{true}, time);}
+\DoxyCodeLine{152 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{153   \mbox{\hyperlink{classVLSender_a563dfda5e2adea98cbf98ef98c66787c}{startPWM}}();}
 \DoxyCodeLine{154   \mbox{\hyperlink{classVLSender_a7ff511b4390700e4e25148704cddec8a}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a1db7b0672f8b2d38994119ccc226f8ee}{delayMicroseconds}}(time);}
-\DoxyCodeLine{155 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{155 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{156 \}}
 
 \end{DoxyCode}
 
 
-References Time\+::delay\+Microseconds(), m\+\_\+engine, start\+PWM(), Vortex\+Engine\+::time(), and Vortex\+Engine\+::vortex\+Lib().
+References Time\+::delay\+Microseconds(), Vortex\+Callbacks\+::infrared\+Write(), m\+\_\+engine, start\+P\+W\+M(), Vortex\+Engine\+::time(), Vortex\+::vcallbacks(), and Vortex\+Engine\+::vortex\+Lib().
 
 
 
@@ -438,28 +432,28 @@ Referenced by begin\+Send(), and send\+Byte().
 \index{VLSender@{VLSender}!sendSpace@{sendSpace}}
 \index{sendSpace@{sendSpace}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{sendSpace()}{sendSpace()}}
-{\footnotesize\ttfamily void VLSender\+::send\+Space (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily void V\+L\+Sender\+::send\+Space (\begin{DoxyParamCaption}\item[{uint16\+\_\+t}]{time }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 158 of file VLSender.\+cpp.
+Definition at line 158 of file V\+L\+Sender.\+cpp.
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{159 \{}
-\DoxyCodeLine{160 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
+\DoxyCodeLine{160 \textcolor{preprocessor}{\#ifdef VORTEX\_LIB}}
 \DoxyCodeLine{161   \textcolor{comment}{// send space timing over socket}}
-\DoxyCodeLine{162   \mbox{\hyperlink{classVLSender_a7ff511b4390700e4e25148704cddec8a}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_af7adb6b02350ab5f55ac364ac72df325}{vortexLib}}().vcallbacks()-\/>infraredWrite(\textcolor{keyword}{false}, time);}
-\DoxyCodeLine{163 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{162   \mbox{\hyperlink{classVLSender_a7ff511b4390700e4e25148704cddec8a}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_af7adb6b02350ab5f55ac364ac72df325}{vortexLib}}().\mbox{\hyperlink{classVortex_ae60f8591da638b0cec72b12234a0ebc8}{vcallbacks}}()-\/>\mbox{\hyperlink{classVortexCallbacks_a97b9d8709dd8f4d940184cf6996da776}{infraredWrite}}(\textcolor{keyword}{false}, time);}
+\DoxyCodeLine{163 \textcolor{preprocessor}{\#else}}
 \DoxyCodeLine{164   \mbox{\hyperlink{classVLSender_a6fadfb59019cde5bbcf9d2f2e33a50f6}{stopPWM}}();}
 \DoxyCodeLine{165   \mbox{\hyperlink{classVLSender_a7ff511b4390700e4e25148704cddec8a}{m\_engine}}.\mbox{\hyperlink{classVortexEngine_a3f383e032325c07495d21474f497d2f6}{time}}().\mbox{\hyperlink{classTime_a1db7b0672f8b2d38994119ccc226f8ee}{delayMicroseconds}}(time);}
-\DoxyCodeLine{166 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{166 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{167 \}}
 
 \end{DoxyCode}
 
 
-References Time\+::delay\+Microseconds(), m\+\_\+engine, stop\+PWM(), Vortex\+Engine\+::time(), and Vortex\+Engine\+::vortex\+Lib().
+References Time\+::delay\+Microseconds(), Vortex\+Callbacks\+::infrared\+Write(), m\+\_\+engine, stop\+P\+W\+M(), Vortex\+Engine\+::time(), Vortex\+::vcallbacks(), and Vortex\+Engine\+::vortex\+Lib().
 
 
 
@@ -469,16 +463,16 @@ Referenced by begin\+Send(), and send\+Byte().
 \index{VLSender@{VLSender}!startPWM@{startPWM}}
 \index{startPWM@{startPWM}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{startPWM()}{startPWM()}}
-{\footnotesize\ttfamily void VLSender\+::start\+PWM (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily void V\+L\+Sender\+::start\+P\+WM (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 169 of file VLSender.\+cpp.
+Definition at line 169 of file V\+L\+Sender.\+cpp.
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{170 \{}
-\DoxyCodeLine{171 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
+\DoxyCodeLine{171 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
 \DoxyCodeLine{172   \textcolor{comment}{// brightness backup}}
 \DoxyCodeLine{173   uint8\_t oldBrightness = \mbox{\hyperlink{classLeds_ae4636fec88b6ff8e745fe09e46c5b1e6}{Leds::getBrightness}}();}
 \DoxyCodeLine{174   \textcolor{comment}{// ensure max brightness}}
@@ -488,13 +482,13 @@ Definition at line 169 of file VLSender.\+cpp.
 \DoxyCodeLine{178   \mbox{\hyperlink{classLeds_a7b552b40079b1179fd47f7aeea88878d}{Leds::update}}();}
 \DoxyCodeLine{179   \textcolor{comment}{// restore brightness}}
 \DoxyCodeLine{180   \mbox{\hyperlink{classLeds_a83aaff79b579de96c87ab036a2a0e2c3}{Leds::setBrightness}}(oldBrightness);}
-\DoxyCodeLine{181 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{181 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{182 \}}
 
 \end{DoxyCode}
 
 
-References Leds\+::clear\+All(), Leds\+::get\+Brightness(), LED\+\_\+0, RGB\+\_\+\+WHITE, Leds\+::set\+Brightness(), Leds\+::set\+Index(), and Leds\+::update().
+References Leds\+::clear\+All(), Leds\+::get\+Brightness(), L\+E\+D\+\_\+0, R\+G\+B\+\_\+\+W\+H\+I\+TE, Leds\+::set\+Brightness(), Leds\+::set\+Index(), and Leds\+::update().
 
 
 
@@ -504,19 +498,19 @@ Referenced by send\+Mark().
 \index{VLSender@{VLSender}!stopPWM@{stopPWM}}
 \index{stopPWM@{stopPWM}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{stopPWM()}{stopPWM()}}
-{\footnotesize\ttfamily void VLSender\+::stop\+PWM (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily void V\+L\+Sender\+::stop\+P\+WM (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 184 of file VLSender.\+cpp.
+Definition at line 184 of file V\+L\+Sender.\+cpp.
 
 
 \begin{DoxyCode}{0}
 \DoxyCodeLine{185 \{}
-\DoxyCodeLine{186 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
+\DoxyCodeLine{186 \textcolor{preprocessor}{\#if defined(VORTEX\_EMBEDDED)}}
 \DoxyCodeLine{187   \mbox{\hyperlink{classLeds_ab61ea9a22bd6618c7b7aa6cb34d27c1d}{Leds::clearAll}}();}
 \DoxyCodeLine{188   \mbox{\hyperlink{classLeds_a7b552b40079b1179fd47f7aeea88878d}{Leds::update}}();}
-\DoxyCodeLine{189 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{189 \textcolor{preprocessor}{\#endif}}
 \DoxyCodeLine{190 \}}
 
 \end{DoxyCode}
@@ -535,11 +529,11 @@ Referenced by send\+Space().
 \index{VLSender@{VLSender}!m\_bitStream@{m\_bitStream}}
 \index{m\_bitStream@{m\_bitStream}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{m\_bitStream}{m\_bitStream}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classBitStream}{Bit\+Stream}} VLSender\+::m\+\_\+bit\+Stream\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classBitStream}{Bit\+Stream}} V\+L\+Sender\+::m\+\_\+bit\+Stream\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 51 of file VLSender.\+h.
+Definition at line 51 of file V\+L\+Sender.\+h.
 
 
 
@@ -549,11 +543,11 @@ Referenced by load\+Mode(), and send().
 \index{VLSender@{VLSender}!m\_blockSize@{m\_blockSize}}
 \index{m\_blockSize@{m\_blockSize}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{m\_blockSize}{m\_blockSize}}
-{\footnotesize\ttfamily uint32\+\_\+t VLSender\+::m\+\_\+block\+Size\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily uint32\+\_\+t V\+L\+Sender\+::m\+\_\+block\+Size\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 63 of file VLSender.\+h.
+Definition at line 63 of file V\+L\+Sender.\+h.
 
 
 
@@ -563,11 +557,11 @@ Referenced by begin\+Send().
 \index{VLSender@{VLSender}!m\_engine@{m\_engine}}
 \index{m\_engine@{m\_engine}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{m\_engine}{m\_engine}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}}\& VLSender\+::m\+\_\+engine\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVortexEngine}{Vortex\+Engine}}\& V\+L\+Sender\+::m\+\_\+engine\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 46 of file VLSender.\+h.
+Definition at line 46 of file V\+L\+Sender.\+h.
 
 
 
@@ -577,11 +571,11 @@ Referenced by begin\+Send(), send(), send\+Mark(), and send\+Space().
 \index{VLSender@{VLSender}!m\_isSending@{m\_isSending}}
 \index{m\_isSending@{m\_isSending}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{m\_isSending}{m\_isSending}}
-{\footnotesize\ttfamily bool VLSender\+::m\+\_\+is\+Sending\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily bool V\+L\+Sender\+::m\+\_\+is\+Sending\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 52 of file VLSender.\+h.
+Definition at line 52 of file V\+L\+Sender.\+h.
 
 
 
@@ -591,11 +585,11 @@ Referenced by begin\+Send(), is\+Sending(), and send().
 \index{VLSender@{VLSender}!m\_lastSendTime@{m\_lastSendTime}}
 \index{m\_lastSendTime@{m\_lastSendTime}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{m\_lastSendTime}{m\_lastSendTime}}
-{\footnotesize\ttfamily uint32\+\_\+t VLSender\+::m\+\_\+last\+Send\+Time\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily uint32\+\_\+t V\+L\+Sender\+::m\+\_\+last\+Send\+Time\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 53 of file VLSender.\+h.
+Definition at line 53 of file V\+L\+Sender.\+h.
 
 
 
@@ -605,11 +599,11 @@ Referenced by send().
 \index{VLSender@{VLSender}!m\_numBlocks@{m\_numBlocks}}
 \index{m\_numBlocks@{m\_numBlocks}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{m\_numBlocks}{m\_numBlocks}}
-{\footnotesize\ttfamily uint8\+\_\+t VLSender\+::m\+\_\+num\+Blocks\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily uint8\+\_\+t V\+L\+Sender\+::m\+\_\+num\+Blocks\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 58 of file VLSender.\+h.
+Definition at line 58 of file V\+L\+Sender.\+h.
 
 
 
@@ -619,11 +613,11 @@ Referenced by begin\+Send(), load\+Mode(), and send().
 \index{VLSender@{VLSender}!m\_remainder@{m\_remainder}}
 \index{m\_remainder@{m\_remainder}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{m\_remainder}{m\_remainder}}
-{\footnotesize\ttfamily uint8\+\_\+t VLSender\+::m\+\_\+remainder\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily uint8\+\_\+t V\+L\+Sender\+::m\+\_\+remainder\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 60 of file VLSender.\+h.
+Definition at line 60 of file V\+L\+Sender.\+h.
 
 
 
@@ -633,11 +627,11 @@ Referenced by begin\+Send(), load\+Mode(), and send().
 \index{VLSender@{VLSender}!m\_serialBuf@{m\_serialBuf}}
 \index{m\_serialBuf@{m\_serialBuf}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{m\_serialBuf}{m\_serialBuf}}
-{\footnotesize\ttfamily \mbox{\hyperlink{classByteStream}{Byte\+Stream}} VLSender\+::m\+\_\+serial\+Buf\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classByteStream}{Byte\+Stream}} V\+L\+Sender\+::m\+\_\+serial\+Buf\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 49 of file VLSender.\+h.
+Definition at line 49 of file V\+L\+Sender.\+h.
 
 
 
@@ -647,11 +641,11 @@ Referenced by load\+Mode().
 \index{VLSender@{VLSender}!m\_size@{m\_size}}
 \index{m\_size@{m\_size}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{m\_size}{m\_size}}
-{\footnotesize\ttfamily uint32\+\_\+t VLSender\+::m\+\_\+size\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily uint32\+\_\+t V\+L\+Sender\+::m\+\_\+size\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 56 of file VLSender.\+h.
+Definition at line 56 of file V\+L\+Sender.\+h.
 
 
 
@@ -661,11 +655,11 @@ Referenced by begin\+Send(), load\+Mode(), and percent\+Done().
 \index{VLSender@{VLSender}!m\_writeCounter@{m\_writeCounter}}
 \index{m\_writeCounter@{m\_writeCounter}!VLSender@{VLSender}}
 \doxysubsubsection{\texorpdfstring{m\_writeCounter}{m\_writeCounter}}
-{\footnotesize\ttfamily uint32\+\_\+t VLSender\+::m\+\_\+write\+Counter\hspace{0.3cm}{\ttfamily [private]}}
+{\footnotesize\ttfamily uint32\+\_\+t V\+L\+Sender\+::m\+\_\+write\+Counter\hspace{0.3cm}{\ttfamily [private]}}
 
 
 
-Definition at line 66 of file VLSender.\+h.
+Definition at line 66 of file V\+L\+Sender.\+h.
 
 
 
@@ -675,5 +669,5 @@ Referenced by begin\+Send(), load\+Mode(), percent\+Done(), send(), and send\+By
 
 The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
 \item 
-Vortex\+Engine/src/\+Wireless/\mbox{\hyperlink{VLSender_8h}{VLSender.\+h}}\item 
-Vortex\+Engine/src/\+Wireless/\mbox{\hyperlink{VLSender_8cpp}{VLSender.\+cpp}}\end{DoxyCompactItemize}
+Vortex\+Engine/src/\+Wireless/\mbox{\hyperlink{VLSender_8h}{V\+L\+Sender.\+h}}\item 
+Vortex\+Engine/src/\+Wireless/\mbox{\hyperlink{VLSender_8cpp}{V\+L\+Sender.\+cpp}}\end{DoxyCompactItemize}
