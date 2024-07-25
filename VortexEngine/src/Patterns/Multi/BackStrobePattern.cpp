@@ -1,5 +1,7 @@
 #include "BackStrobePattern.h"
 
+#include "../../VortexEngine.h"
+
 BackStrobePattern::BackStrobePattern(VortexEngine &engine, const PatternArgs &args) :
   CompoundPattern(engine, args),
   m_stepSpeed(0),
