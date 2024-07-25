@@ -1,0 +1,532 @@
+\hypertarget{VortexCLI_8cpp}{}\doxysection{Vortex\+Engine/\+Vortex\+CLI/\+Vortex\+CLI.cpp File Reference}
+\label{VortexCLI_8cpp}\index{VortexEngine/VortexCLI/VortexCLI.cpp@{VortexEngine/VortexCLI/VortexCLI.cpp}}
+{\ttfamily \#include $<$algorithm$>$}\newline
+{\ttfamily \#include $<$iostream$>$}\newline
+{\ttfamily \#include $<$sstream$>$}\newline
+{\ttfamily \#include $<$iomanip$>$}\newline
+{\ttfamily \#include $<$string$>$}\newline
+{\ttfamily \#include $<$ctime$>$}\newline
+{\ttfamily \#include $<$map$>$}\newline
+{\ttfamily \#include $<$sys/ioctl.\+h$>$}\newline
+{\ttfamily \#include $<$termios.\+h$>$}\newline
+{\ttfamily \#include $<$unistd.\+h$>$}\newline
+{\ttfamily \#include $<$getopt.\+h$>$}\newline
+{\ttfamily \#include $<$stdlib.\+h$>$}\newline
+{\ttfamily \#include $<$string.\+h$>$}\newline
+{\ttfamily \#include $<$fcntl.\+h$>$}\newline
+{\ttfamily \#include $<$stdio.\+h$>$}\newline
+{\ttfamily \#include \char`\"{}Vortex\+CLI.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Log/\+Log.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Vortex\+Lib.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Patterns/\+Pattern\+Builder.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Time/\+Time\+Control.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Colors/\+Color\+Types.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Colors/\+Colorset.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Buttons/\+Button.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Time/\+Timings.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Menus/\+Menus.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Modes/\+Modes.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Modes/\+Mode.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Patterns/\+Pattern.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}Patterns/\+Single/\+Single\+Led\+Pattern.\+h\char`\"{}}\newline
+Include dependency graph for Vortex\+CLI.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{VortexCLI_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{VortexCLI_8cpp_a356e3c645f1a65f4dabc2fde120020d6}{RECORD\+\_\+\+FILE}}~\char`\"{}recorded\+\_\+input.\+txt\char`\"{}
+\item 
+\#define \mbox{\hyperlink{VortexCLI_8cpp_af3b03b396c2be50a67c63e066116f624}{NUM\+\_\+\+USAGE}}~(sizeof(\mbox{\hyperlink{VortexCLI_8cpp_afd67886735b874489e844de24401cd9a}{input\+\_\+usage}}) / sizeof(\mbox{\hyperlink{VortexCLI_8cpp_afd67886735b874489e844de24401cd9a}{input\+\_\+usage}}\mbox{[}0\mbox{]}))
+\item 
+\#define \mbox{\hyperlink{VortexCLI_8cpp_aaf381334339404efc9a46dc0332c5226}{SPACESTR}}
+\item 
+\#define \mbox{\hyperlink{VortexCLI_8cpp_a8656851ddc699caab53a93d7131457d1}{LINESTR}}
+\item 
+\#define \mbox{\hyperlink{VortexCLI_8cpp_acee821ad98766a4d6d0f6e27aa91b2d0}{SPACES}}(amt)~\mbox{\hyperlink{VortexCLI_8cpp_aaf381334339404efc9a46dc0332c5226}{SPACESTR}} + (sizeof(\mbox{\hyperlink{VortexCLI_8cpp_aaf381334339404efc9a46dc0332c5226}{SPACESTR}}) -\/ (amt))
+\item 
+\#define \mbox{\hyperlink{VortexCLI_8cpp_abde6ef64312563491f68b82388513886}{LINE}}(amt)~\mbox{\hyperlink{VortexCLI_8cpp_a8656851ddc699caab53a93d7131457d1}{LINESTR}} + (sizeof(\mbox{\hyperlink{VortexCLI_8cpp_a8656851ddc699caab53a93d7131457d1}{LINESTR}}) -\/ (amt))
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+static void \mbox{\hyperlink{VortexCLI_8cpp_a7bf4a3818b91f144183c65e1d555b627}{print\+\_\+usage}} (const char $\ast$program\+\_\+name)
+\item 
+static void \mbox{\hyperlink{VortexCLI_8cpp_a0424b327dfcc4cdb3c0278aedcc3efe5}{restore\+\_\+terminal}} ()
+\item 
+void \mbox{\hyperlink{VortexCLI_8cpp_a12800665000e18af34ce02e781bf00c0}{set\+\_\+terminal\+\_\+nonblocking}} ()
+\item 
+int \mbox{\hyperlink{VortexCLI_8cpp_a0ddf1224851353fc92bfbff6f499fa97}{main}} (int argc, char $\ast$argv\mbox{[}$\,$\mbox{]})
+\end{DoxyCompactItemize}
+\doxysubsection*{Variables}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classVortexCLI}{Vortex\+CLI}} $\ast$ \mbox{\hyperlink{VortexCLI_8cpp_a7ffe4506d1f986dab384d2e65b0b34c5}{g\+\_\+p\+Vortex\+CLI}} = nullptr
+\item 
+const char $\ast$ \mbox{\hyperlink{VortexCLI_8cpp_afd67886735b874489e844de24401cd9a}{input\+\_\+usage}} \mbox{[}$\,$\mbox{]}
+\item 
+const char $\ast$ \mbox{\hyperlink{VortexCLI_8cpp_a458a22ee05565406d3cb49cf1c99d4bc}{input\+\_\+usage\+\_\+brief}} \mbox{[}\mbox{\hyperlink{VortexCLI_8cpp_af3b03b396c2be50a67c63e066116f624}{NUM\+\_\+\+USAGE}}\mbox{]}
+\item 
+static struct option \mbox{\hyperlink{VortexCLI_8cpp_ab5b68aa8f898c499ca2c3092ecd9e552}{long\+\_\+options}} \mbox{[}$\,$\mbox{]}
+\item 
+std\+::map$<$ std\+::string, int $>$ \mbox{\hyperlink{VortexCLI_8cpp_af26583a9d009175a78dd8813aed7435d}{color\+\_\+map}}
+\item 
+static struct termios \mbox{\hyperlink{VortexCLI_8cpp_a5b1832141880ea1bcc07284b52366f92}{orig\+\_\+term\+\_\+attr}} = \{0\}
+\item 
+uint32\+\_\+t \mbox{\hyperlink{VortexCLI_8cpp_a5ba1b8d2047ad11b92b71899561141ef}{term\+\_\+columns}} = 0
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{VortexCLI_8cpp_abde6ef64312563491f68b82388513886}\label{VortexCLI_8cpp_abde6ef64312563491f68b82388513886}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!LINE@{LINE}}
+\index{LINE@{LINE}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{LINE}{LINE}}
+{\footnotesize\ttfamily \#define LINE(\begin{DoxyParamCaption}\item[{}]{amt }\end{DoxyParamCaption})~\mbox{\hyperlink{VortexCLI_8cpp_a8656851ddc699caab53a93d7131457d1}{LINESTR}} + (sizeof(\mbox{\hyperlink{VortexCLI_8cpp_a8656851ddc699caab53a93d7131457d1}{LINESTR}}) -\/ (amt))}
+
+
+
+Definition at line 113 of file Vortex\+CLI.\+cpp.
+
+\mbox{\Hypertarget{VortexCLI_8cpp_a8656851ddc699caab53a93d7131457d1}\label{VortexCLI_8cpp_a8656851ddc699caab53a93d7131457d1}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!LINESTR@{LINESTR}}
+\index{LINESTR@{LINESTR}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{LINESTR}{LINESTR}}
+{\footnotesize\ttfamily \#define LINESTR}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/-\/"{}}}
+
+\end{DoxyCode}
+
+
+Definition at line 100 of file Vortex\+CLI.\+cpp.
+
+\mbox{\Hypertarget{VortexCLI_8cpp_af3b03b396c2be50a67c63e066116f624}\label{VortexCLI_8cpp_af3b03b396c2be50a67c63e066116f624}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!NUM\_USAGE@{NUM\_USAGE}}
+\index{NUM\_USAGE@{NUM\_USAGE}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{NUM\_USAGE}{NUM\_USAGE}}
+{\footnotesize\ttfamily \#define NUM\+\_\+\+USAGE~(sizeof(\mbox{\hyperlink{VortexCLI_8cpp_afd67886735b874489e844de24401cd9a}{input\+\_\+usage}}) / sizeof(\mbox{\hyperlink{VortexCLI_8cpp_afd67886735b874489e844de24401cd9a}{input\+\_\+usage}}\mbox{[}0\mbox{]}))}
+
+
+
+Definition at line 66 of file Vortex\+CLI.\+cpp.
+
+\mbox{\Hypertarget{VortexCLI_8cpp_a356e3c645f1a65f4dabc2fde120020d6}\label{VortexCLI_8cpp_a356e3c645f1a65f4dabc2fde120020d6}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!RECORD\_FILE@{RECORD\_FILE}}
+\index{RECORD\_FILE@{RECORD\_FILE}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{RECORD\_FILE}{RECORD\_FILE}}
+{\footnotesize\ttfamily \#define RECORD\+\_\+\+FILE~\char`\"{}recorded\+\_\+input.\+txt\char`\"{}}
+
+
+
+Definition at line 43 of file Vortex\+CLI.\+cpp.
+
+\mbox{\Hypertarget{VortexCLI_8cpp_acee821ad98766a4d6d0f6e27aa91b2d0}\label{VortexCLI_8cpp_acee821ad98766a4d6d0f6e27aa91b2d0}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!SPACES@{SPACES}}
+\index{SPACES@{SPACES}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{SPACES}{SPACES}}
+{\footnotesize\ttfamily \#define SPACES(\begin{DoxyParamCaption}\item[{}]{amt }\end{DoxyParamCaption})~\mbox{\hyperlink{VortexCLI_8cpp_aaf381334339404efc9a46dc0332c5226}{SPACESTR}} + (sizeof(\mbox{\hyperlink{VortexCLI_8cpp_aaf381334339404efc9a46dc0332c5226}{SPACESTR}}) -\/ (amt))}
+
+
+
+Definition at line 111 of file Vortex\+CLI.\+cpp.
+
+\mbox{\Hypertarget{VortexCLI_8cpp_aaf381334339404efc9a46dc0332c5226}\label{VortexCLI_8cpp_aaf381334339404efc9a46dc0332c5226}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!SPACESTR@{SPACESTR}}
+\index{SPACESTR@{SPACESTR}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{SPACESTR}{SPACESTR}}
+{\footnotesize\ttfamily \#define SPACESTR}
+
+{\bfseries Value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}                                                                                                                                                     "{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}                                                                                                                                                     "{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}                                                                                                                                                     "{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}                                                                                                                                                     "{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}                                                                                                                                                     "{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}                                                                                                                                                     "{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}                                                                                                                                                     "{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}                                                                                                                                                     "{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}                                                                                                                                                     "{}} \(\backslash\)}
+\DoxyCodeLine{                 \textcolor{stringliteral}{"{}                                                                                                                                                     "{}}}
+
+\end{DoxyCode}
+
+
+Definition at line 88 of file Vortex\+CLI.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{VortexCLI_8cpp_a0ddf1224851353fc92bfbff6f499fa97}\label{VortexCLI_8cpp_a0ddf1224851353fc92bfbff6f499fa97}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!main@{main}}
+\index{main@{main}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{main()}{main()}}
+{\footnotesize\ttfamily int main (\begin{DoxyParamCaption}\item[{int}]{argc,  }\item[{char $\ast$}]{argv\mbox{[}$\,$\mbox{]} }\end{DoxyParamCaption})}
+
+
+
+Definition at line 784 of file Vortex\+CLI.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{785 \{}
+\DoxyCodeLine{786   \mbox{\hyperlink{classVortexCLI}{VortexCLI}} cli;}
+\DoxyCodeLine{787   cli.\mbox{\hyperlink{classVortexCLI_aa6b778be2115381656040db37bbc45a8}{init}}(argc, argv);}
+\DoxyCodeLine{788 \textcolor{preprocessor}{\#ifndef WASM}}
+\DoxyCodeLine{789   \textcolor{keywordflow}{while} (cli.\mbox{\hyperlink{classVortexCLI_aa5f9235170167a235fe396ac3f576c07}{stillRunning}}()) \{}
+\DoxyCodeLine{790     cli.\mbox{\hyperlink{classVortexCLI_a93de9e8dfaa0a72b358c82d859c958e8}{run}}();}
+\DoxyCodeLine{791   \}}
+\DoxyCodeLine{792 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{793   \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{794 \}}
+
+\end{DoxyCode}
+
+
+References Vortex\+CLI\+::init(), Vortex\+CLI\+::run(), and Vortex\+CLI\+::still\+Running().
+
+\mbox{\Hypertarget{VortexCLI_8cpp_a7bf4a3818b91f144183c65e1d555b627}\label{VortexCLI_8cpp_a7bf4a3818b91f144183c65e1d555b627}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!print\_usage@{print\_usage}}
+\index{print\_usage@{print\_usage}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{print\_usage()}{print\_usage()}}
+{\footnotesize\ttfamily static void print\+\_\+usage (\begin{DoxyParamCaption}\item[{const char $\ast$}]{program\+\_\+name }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 228 of file Vortex\+CLI.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{229 \{}
+\DoxyCodeLine{230   fprintf(stderr, \textcolor{stringliteral}{"{}Usage: \%s [options] < input commands\(\backslash\)n"{}}, program\_name);}
+\DoxyCodeLine{231   fprintf(stderr, \textcolor{stringliteral}{"{}Output Selection (at least one required):\(\backslash\)n"{}});}
+\DoxyCodeLine{232   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/x, -\/-\/hex                Use hex values to represent led colors\(\backslash\)n"{}});}
+\DoxyCodeLine{233   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/c, -\/-\/color              Use console color codes to represent led colors\(\backslash\)n"{}});}
+\DoxyCodeLine{234   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/s, -\/-\/silent             Do not print any output while running\(\backslash\)n"{}});}
+\DoxyCodeLine{235   fprintf(stderr, \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{236   fprintf(stderr, \textcolor{stringliteral}{"{}Engine Control Flags (optional):\(\backslash\)n"{}});}
+\DoxyCodeLine{237   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/t, -\/-\/no-\/timestep        Bypass the timestep and run as fast as possible\(\backslash\)n"{}});}
+\DoxyCodeLine{238   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/l, -\/-\/lockstep           Only step once each time an input is received\(\backslash\)n"{}});}
+\DoxyCodeLine{239   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/i, -\/-\/in-\/place           Print the output in-\/place (interactive mode)\(\backslash\)n"{}});}
+\DoxyCodeLine{240   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/r, -\/-\/record             Record the inputs and dump to a file after ("{}} \mbox{\hyperlink{VortexCLI_8cpp_a356e3c645f1a65f4dabc2fde120020d6}{RECORD\_FILE}} \textcolor{stringliteral}{"{})\(\backslash\)n"{}});}
+\DoxyCodeLine{241   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/a, -\/-\/autowake           Automatically and instantly wake on sleep (disable sleep)\(\backslash\)n"{}});}
+\DoxyCodeLine{242   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/n, -\/-\/nolock             Automatically unlock upon locking the chip (disable lock)\(\backslash\)n"{}});}
+\DoxyCodeLine{243   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/q, -\/-\/quick              Exit immediately after initialization (useful to convert data)\(\backslash\)n"{}});}
+\DoxyCodeLine{244   fprintf(stderr, \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{245   fprintf(stderr, \textcolor{stringliteral}{"{}Storage and Data Conversion (optional):\(\backslash\)n"{}});}
+\DoxyCodeLine{246   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/S, -\/-\/storage [file]     Persistent storage to file (default file: FlashStorage.flash)\(\backslash\)n"{}});}
+\DoxyCodeLine{247   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/W, -\/-\/write-\/save <file>  Write a full .vortex savefile at exit\(\backslash\)n"{}});}
+\DoxyCodeLine{248   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/M, -\/-\/write-\/mode <file>  At exit write the current mode to a .vtxmode file\(\backslash\)n"{}});}
+\DoxyCodeLine{249   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/L, -\/-\/load-\/save <file>   Load a vortex savefile (either .vortex or .vtxmode)\(\backslash\)n"{}});}
+\DoxyCodeLine{250   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/I, -\/-\/json-\/in [file]     Load json from file at init (if no file: read from stdin)\(\backslash\)n"{}});}
+\DoxyCodeLine{251   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/O, -\/-\/json-\/out [file]    Dump json to file at exit (if no file: write to stdout)\(\backslash\)n"{}});}
+\DoxyCodeLine{252   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/H, -\/-\/json-\/human-\/read    Dump human readable json, instead of condensed json\(\backslash\)n"{}});}
+\DoxyCodeLine{253   fprintf(stderr, \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{254   fprintf(stderr, \textcolor{stringliteral}{"{}Initial Pattern Options (optional):\(\backslash\)n"{}});}
+\DoxyCodeLine{255   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/P, -\/-\/pattern <id>       Preset the pattern ID on the first mode (numeric ID or pattern name ex: blend)\(\backslash\)n"{}});}
+\DoxyCodeLine{256   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/C, -\/-\/colorset c1,c2...  Preset the colorset on the first mode (csv list of hex codes or color names)\(\backslash\)n"{}});}
+\DoxyCodeLine{257   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/A, -\/-\/arguments a1,a2... Preset the arguments on the first mode (csv list of arguments)\(\backslash\)n"{}});}
+\DoxyCodeLine{258   fprintf(stderr, \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{259   fprintf(stderr, \textcolor{stringliteral}{"{}Other Options:\(\backslash\)n"{}});}
+\DoxyCodeLine{260   fprintf(stderr, \textcolor{stringliteral}{"{}  -\/h, -\/-\/help               Display this help message\(\backslash\)n"{}});}
+\DoxyCodeLine{261   fprintf(stderr, \textcolor{stringliteral}{"{}\(\backslash\)n"{}});}
+\DoxyCodeLine{262   fprintf(stderr, \textcolor{stringliteral}{"{}Input Commands (pass to stdin):"{}});}
+\DoxyCodeLine{263   \textcolor{keywordflow}{for} (uint32\_t i = 0; i < \mbox{\hyperlink{VortexCLI_8cpp_af3b03b396c2be50a67c63e066116f624}{NUM\_USAGE}}; ++i) \{}
+\DoxyCodeLine{264     fprintf(stderr, \textcolor{stringliteral}{"{}\%s"{}}, \mbox{\hyperlink{VortexCLI_8cpp_afd67886735b874489e844de24401cd9a}{input\_usage}}[i]);}
+\DoxyCodeLine{265   \}}
+\DoxyCodeLine{266   fprintf(stderr, \textcolor{stringliteral}{"{}\(\backslash\)n\(\backslash\)n"{}});}
+\DoxyCodeLine{267   fprintf(stderr, \textcolor{stringliteral}{"{}Example Usage:\(\backslash\)n"{}});}
+\DoxyCodeLine{268   fprintf(stderr, \textcolor{stringliteral}{"{}   ./vortex -\/-\/color\(\backslash\)n"{}});}
+\DoxyCodeLine{269   fprintf(stderr, \textcolor{stringliteral}{"{}   ./vortex -\/ci -\/P42 -\/Ccyan,purple\(\backslash\)n"{}});}
+\DoxyCodeLine{270   fprintf(stderr, \textcolor{stringliteral}{"{}   ./vortex -\/ct -\/Pblend -\/Ccyan,yellow,magenta <<< w100q\(\backslash\)n"{}});}
+\DoxyCodeLine{271   fprintf(stderr, \textcolor{stringliteral}{"{}   ./vortex -\/sq -\/L mysave.vortex -\/O output\_data.json\(\backslash\)n"{}});}
+\DoxyCodeLine{272   fprintf(stderr, \textcolor{stringliteral}{"{}   ./vortex -\/sq -\/L mymode.vtxmode -\/O output\_data.json\(\backslash\)n"{}});}
+\DoxyCodeLine{273 \}}
+
+\end{DoxyCode}
+
+
+Referenced by Vortex\+CLI\+::init().
+
+\mbox{\Hypertarget{VortexCLI_8cpp_a0424b327dfcc4cdb3c0278aedcc3efe5}\label{VortexCLI_8cpp_a0424b327dfcc4cdb3c0278aedcc3efe5}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!restore\_terminal@{restore\_terminal}}
+\index{restore\_terminal@{restore\_terminal}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{restore\_terminal()}{restore\_terminal()}}
+{\footnotesize\ttfamily static void restore\+\_\+terminal (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 292 of file Vortex\+CLI.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{293 \{}
+\DoxyCodeLine{294   tcsetattr(STDIN\_FILENO, TCSANOW, \&\mbox{\hyperlink{VortexCLI_8cpp_a5b1832141880ea1bcc07284b52366f92}{orig\_term\_attr}});}
+\DoxyCodeLine{295 \}}
+
+\end{DoxyCode}
+
+
+References orig\+\_\+term\+\_\+attr.
+
+
+
+Referenced by set\+\_\+terminal\+\_\+nonblocking().
+
+\mbox{\Hypertarget{VortexCLI_8cpp_a12800665000e18af34ce02e781bf00c0}\label{VortexCLI_8cpp_a12800665000e18af34ce02e781bf00c0}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!set\_terminal\_nonblocking@{set\_terminal\_nonblocking}}
+\index{set\_terminal\_nonblocking@{set\_terminal\_nonblocking}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{set\_terminal\_nonblocking()}{set\_terminal\_nonblocking()}}
+{\footnotesize\ttfamily void set\+\_\+terminal\+\_\+nonblocking (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 297 of file Vortex\+CLI.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{298 \{}
+\DoxyCodeLine{299   \textcolor{keyword}{struct }termios term\_attr = \{0\};}
+\DoxyCodeLine{300 }
+\DoxyCodeLine{301   \textcolor{comment}{// Get the current terminal attributes and store them}}
+\DoxyCodeLine{302   tcgetattr(STDIN\_FILENO, \&term\_attr);}
+\DoxyCodeLine{303   \mbox{\hyperlink{VortexCLI_8cpp_a5b1832141880ea1bcc07284b52366f92}{orig\_term\_attr}} = term\_attr;}
+\DoxyCodeLine{304 }
+\DoxyCodeLine{305   \textcolor{comment}{// Set the terminal in non-\/canonical mode (raw mode)}}
+\DoxyCodeLine{306   term\_attr.c\_lflag \&= \string~(ICANON | ECHO);}
+\DoxyCodeLine{307 }
+\DoxyCodeLine{308   \textcolor{comment}{// Set the minimum number of input bytes read at a time to 1}}
+\DoxyCodeLine{309   term\_attr.c\_cc[VMIN] = 1;}
+\DoxyCodeLine{310 }
+\DoxyCodeLine{311   \textcolor{comment}{// Set the timeout for read to 0 (no waiting)}}
+\DoxyCodeLine{312   term\_attr.c\_cc[VTIME] = 0;}
+\DoxyCodeLine{313 }
+\DoxyCodeLine{314   \textcolor{comment}{// Apply the new terminal attributes}}
+\DoxyCodeLine{315   tcsetattr(STDIN\_FILENO, TCSANOW, \&term\_attr);}
+\DoxyCodeLine{316 }
+\DoxyCodeLine{317   \textcolor{comment}{// Set the terminal to non-\/blocking mode}}
+\DoxyCodeLine{318   \textcolor{keywordtype}{int} flags = fcntl(STDIN\_FILENO, F\_GETFL, 0);}
+\DoxyCodeLine{319   fcntl(STDIN\_FILENO, F\_SETFL, flags | O\_NONBLOCK);}
+\DoxyCodeLine{320 }
+\DoxyCodeLine{321   \textcolor{comment}{// Register the restore\_terminal function to be called at exit}}
+\DoxyCodeLine{322   atexit(\mbox{\hyperlink{VortexCLI_8cpp_a0424b327dfcc4cdb3c0278aedcc3efe5}{restore\_terminal}});}
+\DoxyCodeLine{323 \}}
+
+\end{DoxyCode}
+
+
+References orig\+\_\+term\+\_\+attr, and restore\+\_\+terminal().
+
+
+
+Referenced by Vortex\+CLI\+::init().
+
+
+
+\doxysubsection{Variable Documentation}
+\mbox{\Hypertarget{VortexCLI_8cpp_af26583a9d009175a78dd8813aed7435d}\label{VortexCLI_8cpp_af26583a9d009175a78dd8813aed7435d}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!color\_map@{color\_map}}
+\index{color\_map@{color\_map}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{color\_map}{color\_map}}
+{\footnotesize\ttfamily std\+::map$<$std\+::string, int$>$ color\+\_\+map}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}black"{}},   0x000000\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}white"{}},   0xFFFFFF\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}red"{}},     0xFF0000\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}lime"{}},    0x00FF00\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}blue"{}},    0x0000FF\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}yellow"{}},  0xFFFF00\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}cyan"{}},    0x00FFFF\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}magenta"{}}, 0xFF00FF\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}silver"{}},  0xC0C0C0\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}gray"{}},    0x808080\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}maroon"{}},  0x800000\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}olive"{}},   0x808000\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}green"{}},   0x008000\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}purple"{}},  0x800080\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}teal"{}},    0x008080\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}navy"{}},    0x000080\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}orange"{}},  0xFFA500\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}pink"{}},    0xFFC0CB\},}
+\DoxyCodeLine{    \{\textcolor{stringliteral}{"{}brown"{}},   0xA52A2A\}}
+\DoxyCodeLine{    }
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line 205 of file Vortex\+CLI.\+cpp.
+
+
+
+Referenced by Vortex\+CLI\+::init().
+
+\mbox{\Hypertarget{VortexCLI_8cpp_a7ffe4506d1f986dab384d2e65b0b34c5}\label{VortexCLI_8cpp_a7ffe4506d1f986dab384d2e65b0b34c5}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!g\_pVortexCLI@{g\_pVortexCLI}}
+\index{g\_pVortexCLI@{g\_pVortexCLI}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{g\_pVortexCLI}{g\_pVortexCLI}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classVortexCLI}{Vortex\+CLI}}$\ast$ g\+\_\+p\+Vortex\+CLI = nullptr}
+
+
+
+Definition at line 45 of file Vortex\+CLI.\+cpp.
+
+
+
+Referenced by Vortex\+CLI\+::init(), Vortex\+CLI\+::\+Vortex\+CLICallbacks\+::leds\+Init(), and Vortex\+CLI\+::\+Vortex\+CLICallbacks\+::leds\+Show().
+
+\mbox{\Hypertarget{VortexCLI_8cpp_afd67886735b874489e844de24401cd9a}\label{VortexCLI_8cpp_afd67886735b874489e844de24401cd9a}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!input\_usage@{input\_usage}}
+\index{input\_usage@{input\_usage}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{input\_usage}{input\_usage}}
+{\footnotesize\ttfamily const char$\ast$ input\+\_\+usage\mbox{[}$\,$\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   c         standard short click"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   l         standard long click"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   m         open menus length click"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   a         enter adv menu length click (enter adv menu from menus)"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   d         delete length click (delete color in col select)"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   s         enter sleep length click (enter sleep at main modes)"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   f         force sleep length click (force sleep anywhere)"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   t         toggle button pressed (only way to wake after sleep)"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   r         rapid button click (ex: r15)"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   w         wait 1 tick"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   <digits>  repeat command n times (only single digits in -\/i mode)"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   b<index>  select button index (ex: b0 for first button or b1 for second button)"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   q         quit"{}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line 50 of file Vortex\+CLI.\+cpp.
+
+
+
+Referenced by Vortex\+CLI\+::show().
+
+\mbox{\Hypertarget{VortexCLI_8cpp_a458a22ee05565406d3cb49cf1c99d4bc}\label{VortexCLI_8cpp_a458a22ee05565406d3cb49cf1c99d4bc}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!input\_usage\_brief@{input\_usage\_brief}}
+\index{input\_usage\_brief@{input\_usage\_brief}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{input\_usage\_brief}{input\_usage\_brief}}
+{\footnotesize\ttfamily const char$\ast$ input\+\_\+usage\+\_\+brief\mbox{[}\mbox{\hyperlink{VortexCLI_8cpp_af3b03b396c2be50a67c63e066116f624}{NUM\+\_\+\+USAGE}}\mbox{]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   c         short"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   l         long"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   m         menus"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   a         adv menu"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   d         delete col"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   s         sleep"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   f         force sleep"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   t         toggle"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   r         rapid"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   w         wait"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   <digits>  repeat"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   b<index>  button idx"{}},}
+\DoxyCodeLine{  \textcolor{stringliteral}{"{}\(\backslash\)n   q         quit"{}},}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line 69 of file Vortex\+CLI.\+cpp.
+
+
+
+Referenced by Vortex\+CLI\+::show().
+
+\mbox{\Hypertarget{VortexCLI_8cpp_ab5b68aa8f898c499ca2c3092ecd9e552}\label{VortexCLI_8cpp_ab5b68aa8f898c499ca2c3092ecd9e552}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!long\_options@{long\_options}}
+\index{long\_options@{long\_options}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{long\_options}{long\_options}}
+{\footnotesize\ttfamily struct option long\+\_\+options\mbox{[}$\,$\mbox{]}\hspace{0.3cm}{\ttfamily [static]}}
+
+{\bfseries Initial value\+:}
+\begin{DoxyCode}{0}
+\DoxyCodeLine{= \{}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}hex"{}}, no\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'x'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}color"{}}, no\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'c'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}silent"{}}, no\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'s'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}no-\/timestep"{}}, no\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'t'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}lockstep"{}}, no\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'l'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}in-\/place"{}}, no\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'i'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}record"{}}, no\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'r'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}autowake"{}}, no\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'a'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}nolock"{}}, no\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'n'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}quick"{}}, no\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'q'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}storage"{}}, optional\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'S'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}write-\/save"{}}, required\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'W'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}write-\/mode"{}}, required\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'M'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}load-\/save"{}}, required\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'L'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}json-\/in"{}}, optional\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'I'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}json-\/out"{}}, optional\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'O'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}json-\/human-\/read"{}}, no\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'H'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}pattern"{}}, required\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'P'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}colorset"{}}, required\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'C'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}arguments"{}}, required\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'A'}\},}
+\DoxyCodeLine{  \{\textcolor{stringliteral}{"{}help"{}}, no\_argument, \textcolor{keyword}{nullptr}, \textcolor{charliteral}{'h'}\},}
+\DoxyCodeLine{  \{\textcolor{keyword}{nullptr}, 0, \textcolor{keyword}{nullptr}, 0\}}
+\DoxyCodeLine{\}}
+
+\end{DoxyCode}
+
+
+Definition at line 175 of file Vortex\+CLI.\+cpp.
+
+
+
+Referenced by Vortex\+CLI\+::init().
+
+\mbox{\Hypertarget{VortexCLI_8cpp_a5b1832141880ea1bcc07284b52366f92}\label{VortexCLI_8cpp_a5b1832141880ea1bcc07284b52366f92}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!orig\_term\_attr@{orig\_term\_attr}}
+\index{orig\_term\_attr@{orig\_term\_attr}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{orig\_term\_attr}{orig\_term\_attr}}
+{\footnotesize\ttfamily struct termios orig\+\_\+term\+\_\+attr = \{0\}\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 228 of file Vortex\+CLI.\+cpp.
+
+
+
+Referenced by restore\+\_\+terminal(), and set\+\_\+terminal\+\_\+nonblocking().
+
+\mbox{\Hypertarget{VortexCLI_8cpp_a5ba1b8d2047ad11b92b71899561141ef}\label{VortexCLI_8cpp_a5ba1b8d2047ad11b92b71899561141ef}} 
+\index{VortexCLI.cpp@{VortexCLI.cpp}!term\_columns@{term\_columns}}
+\index{term\_columns@{term\_columns}!VortexCLI.cpp@{VortexCLI.cpp}}
+\doxysubsubsection{\texorpdfstring{term\_columns}{term\_columns}}
+{\footnotesize\ttfamily uint32\+\_\+t term\+\_\+columns = 0}
+
+
+
+Definition at line 326 of file Vortex\+CLI.\+cpp.
+
+
+
+Referenced by Vortex\+CLI\+::get\+\_\+terminal\+\_\+size(), and Vortex\+CLI\+::show().
+

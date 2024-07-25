@@ -1,0 +1,478 @@
+\hypertarget{classPatternBuilder}{}\doxysection{Pattern\+Builder Class Reference}
+\label{classPatternBuilder}\index{PatternBuilder@{PatternBuilder}}
+
+
+{\ttfamily \#include $<$Pattern\+Builder.\+h$>$}
+
+\doxysubsection*{Static Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classPattern}{Pattern}} $\ast$ \mbox{\hyperlink{classPatternBuilder_aa0f911014387a0c3d62ef4be6670ddc9}{make}} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} id, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$args=nullptr)
+\item 
+static \mbox{\hyperlink{classPattern}{Pattern}} $\ast$ \mbox{\hyperlink{classPatternBuilder_a9d217a0484355b347a59e50aea7750d4}{dupe}} (const \mbox{\hyperlink{classPattern}{Pattern}} $\ast$pat)
+\item 
+static \mbox{\hyperlink{classSingleLedPattern}{Single\+Led\+Pattern}} $\ast$ \mbox{\hyperlink{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}{make\+Single}} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} id, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$args=nullptr)
+\item 
+static \mbox{\hyperlink{classMultiLedPattern}{Multi\+Led\+Pattern}} $\ast$ \mbox{\hyperlink{classPatternBuilder_a642b5e131674e3a6dc4f2a5c14ad734f}{make\+Multi}} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} id, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$args=nullptr)
+\item 
+static \mbox{\hyperlink{classPattern}{Pattern}} $\ast$ \mbox{\hyperlink{classPatternBuilder_aab4bced3b1b6d785549cd426dd43d891}{unserialize}} (\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&buffer)
+\item 
+static \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \mbox{\hyperlink{classPatternBuilder_a1e2154e68210f25e29a03755e9184959}{get\+Default\+Args}} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} id)
+\item 
+static uint8\+\_\+t \mbox{\hyperlink{classPatternBuilder_a24ee8f97b2e8e9d575c44bfb39fcdc05}{num\+Default\+Args}} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} id)
+\end{DoxyCompactItemize}
+\doxysubsection*{Static Private Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+static \mbox{\hyperlink{classPattern}{Pattern}} $\ast$ \mbox{\hyperlink{classPatternBuilder_ab183172bf29efcd70e9b308fb67e8e4c}{make\+Internal}} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} id, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$args=nullptr)
+\item 
+static \mbox{\hyperlink{classPattern}{Pattern}} $\ast$ \mbox{\hyperlink{classPatternBuilder_aee111acfef325bbd42e53c47e3bdf8e1}{generate}} (\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}} id, const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$args=nullptr)
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 12 of file Pattern\+Builder.\+h.
+
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classPatternBuilder_a9d217a0484355b347a59e50aea7750d4}\label{classPatternBuilder_a9d217a0484355b347a59e50aea7750d4}} 
+\index{PatternBuilder@{PatternBuilder}!dupe@{dupe}}
+\index{dupe@{dupe}!PatternBuilder@{PatternBuilder}}
+\doxysubsubsection{\texorpdfstring{dupe()}{dupe()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPattern}{Pattern}} $\ast$ Pattern\+Builder\+::dupe (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classPattern}{Pattern}} $\ast$}]{pat }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 55 of file Pattern\+Builder.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{56 \{}
+\DoxyCodeLine{57   \textcolor{keywordflow}{if} (!pat) \{}
+\DoxyCodeLine{58     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{59   \}}
+\DoxyCodeLine{60   \mbox{\hyperlink{classPatternArgs}{PatternArgs}} args;}
+\DoxyCodeLine{61   pat-\/>\mbox{\hyperlink{classPattern_a2761837d9ea948e92487a8cd55c58f09}{getArgs}}(args);}
+\DoxyCodeLine{62   \mbox{\hyperlink{classPattern}{Pattern}} *newPat = \mbox{\hyperlink{classPatternBuilder_aa0f911014387a0c3d62ef4be6670ddc9}{make}}(pat-\/>\mbox{\hyperlink{classPattern_a9ffb45ae9cbb7188038bf1009ce842b0}{getPatternID}}(), \&args);}
+\DoxyCodeLine{63   \textcolor{keywordflow}{if} (!newPat) \{}
+\DoxyCodeLine{64     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{65   \}}
+\DoxyCodeLine{66   newPat-\/>\mbox{\hyperlink{classPattern_ac1e57a402dc4268aa95bd52b04dcdf4e}{setColorset}}(pat-\/>\mbox{\hyperlink{classPattern_a74bdb41c74915065e3c983427a6973d3}{getColorset}}());}
+\DoxyCodeLine{67   newPat-\/>\mbox{\hyperlink{classPattern_a7a940e0a37cf3d6d0e4dae99baa49455}{bind}}(pat-\/>\mbox{\hyperlink{classPattern_ac2205bdc6277d183ba732fc0ead016ed}{getLedPos}}());}
+\DoxyCodeLine{68   \textcolor{keywordflow}{return} newPat;}
+\DoxyCodeLine{69 \}}
+
+\end{DoxyCode}
+
+
+References Pattern\+::bind(), Pattern\+::get\+Args(), Pattern\+::get\+Colorset(), Pattern\+::get\+Led\+Pos(), Pattern\+::get\+Pattern\+ID(), make(), and Pattern\+::set\+Colorset().
+
+
+
+Referenced by Mode\+::operator=(), and Mode\+::unserialize().
+
+\mbox{\Hypertarget{classPatternBuilder_aee111acfef325bbd42e53c47e3bdf8e1}\label{classPatternBuilder_aee111acfef325bbd42e53c47e3bdf8e1}} 
+\index{PatternBuilder@{PatternBuilder}!generate@{generate}}
+\index{generate@{generate}!PatternBuilder@{PatternBuilder}}
+\doxysubsubsection{\texorpdfstring{generate()}{generate()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPattern}{Pattern}} $\ast$ Pattern\+Builder\+::generate (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{id,  }\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$}]{args = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 221 of file Pattern\+Builder.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{222 \{}
+\DoxyCodeLine{223   \mbox{\hyperlink{classPatternArgs}{PatternArgs}} args = userArgs ? *userArgs : \mbox{\hyperlink{classPatternBuilder_a1e2154e68210f25e29a03755e9184959}{getDefaultArgs}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{224   \textcolor{keywordflow}{switch} (\textcolor{keywordtype}{id}) \{}
+\DoxyCodeLine{225     \textcolor{comment}{// =====================}}
+\DoxyCodeLine{226     \textcolor{comment}{//  Single Led Patterns:}}
+\DoxyCodeLine{227     \textcolor{keywordflow}{default}:}
+\DoxyCodeLine{228     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca320755b96ff07514ffbbea92471d9028}{PATTERN\_STROBE}}:}
+\DoxyCodeLine{229     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa5f4ef19576a5418b17815f4c406ba63}{PATTERN\_HYPERSTROBE}}:}
+\DoxyCodeLine{230     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca83ea10c4e3b1d50592f5c9788f17ffd6}{PATTERN\_PICOSTROBE}}:}
+\DoxyCodeLine{231     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca7db250f793478dac04e13a37d4a34ef5}{PATTERN\_STROBIE}}:}
+\DoxyCodeLine{232     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4e822cef21b6083fdffcec08c596a96c}{PATTERN\_DOPS}}:}
+\DoxyCodeLine{233     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacc012488e6da04809f4007e6586cff24}{PATTERN\_ULTRADOPS}}:}
+\DoxyCodeLine{234     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca06c9c67d963a1590ef96f5de4a23f32e}{PATTERN\_STROBEGAP}}:}
+\DoxyCodeLine{235     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca39f4867b6be5726e0c4931f82746a7be}{PATTERN\_HYPERGAP}}:}
+\DoxyCodeLine{236     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca17dd5fb37e7e12b20753f5f870f45675}{PATTERN\_PICOGAP}}:}
+\DoxyCodeLine{237     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca280f9151afb0380f61a8fb4899891493}{PATTERN\_STROBIEGAP}}:}
+\DoxyCodeLine{238     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacf75c8f9dcdefea662d09280766acdbb}{PATTERN\_DOPSGAP}}:}
+\DoxyCodeLine{239     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacbb64716a819d20cad5beaf5c8369232}{PATTERN\_ULTRAGAP}}:}
+\DoxyCodeLine{240     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf97296c777eb512576ec97bfb1d6874e}{PATTERN\_BLINKIE}}:}
+\DoxyCodeLine{241     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca96911dd864c433628dee4bbd426c2c57}{PATTERN\_GHOSTCRUSH}}:}
+\DoxyCodeLine{242     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacd3b233fb9b14269205d3f6d3563aba0}{PATTERN\_DOUBLEDOPS}}:}
+\DoxyCodeLine{243     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cab7944ba4925a86d6d4f2d0ad50677108}{PATTERN\_CHOPPER}}:}
+\DoxyCodeLine{244     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cabbae88b8b52946714e680f9730959de3}{PATTERN\_DASHGAP}}:}
+\DoxyCodeLine{245     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf1b371c00d8dd25c07d1fb7964c9b1d9}{PATTERN\_DASHDOPS}}:}
+\DoxyCodeLine{246     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cabe38ae3221b7aee2873bcee62453b4ad}{PATTERN\_DASHCRUSH}}:}
+\DoxyCodeLine{247     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca5794c381743b79041d223b7cf43ee515}{PATTERN\_ULTRADASH}}:}
+\DoxyCodeLine{248     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf080bd4c7d3e57f2ed42b5aad8fff61e}{PATTERN\_GAPCYCLE}}:}
+\DoxyCodeLine{249     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca998d432d294ec1d02eaad4c747a7c0bf}{PATTERN\_DASHCYCLE}}:}
+\DoxyCodeLine{250     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca0d43bb4f9432b79545664170b3b2f6e4}{PATTERN\_TRACER}}:}
+\DoxyCodeLine{251     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca18053a889190a075aad72a3b17096632}{PATTERN\_RIBBON}}:}
+\DoxyCodeLine{252     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca85d9b1761883fcb1fe34a2afcd96add6}{PATTERN\_MINIRIBBON}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classBasicPattern}{BasicPattern}}(args);}
+\DoxyCodeLine{253     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadf01802d35ece7b405582c6680f56d83}{PATTERN\_BLEND}}:}
+\DoxyCodeLine{254     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca520e4d12fbe72de6b800bcbad988931a}{PATTERN\_BLENDSTROBE}}:}
+\DoxyCodeLine{255     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca0a64af77ce2e34a7f20617ee6670a968}{PATTERN\_BLENDSTROBEGAP}}:}
+\DoxyCodeLine{256     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca8a8d267d482366cfe7e15d509e23e523}{PATTERN\_COMPLEMENTARY\_BLEND}}:}
+\DoxyCodeLine{257     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cad69606a336b7c16d2b50eda0d7b64eb2}{PATTERN\_COMPLEMENTARY\_BLENDSTROBE}}:}
+\DoxyCodeLine{258     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca5139aabc49b28e85b22d9696bc2d7fde}{PATTERN\_COMPLEMENTARY\_BLENDSTROBEGAP}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classBlendPattern}{BlendPattern}}(args);}
+\DoxyCodeLine{259     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca942e76cc0f29e00de2d3967c4738333b}{PATTERN\_SOLID}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classSolidPattern}{SolidPattern}}(args);}
+\DoxyCodeLine{260 }
+\DoxyCodeLine{261     \textcolor{comment}{// =====================}}
+\DoxyCodeLine{262     \textcolor{comment}{//  Multi Led Patterns:}}
+\DoxyCodeLine{263 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{264     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cac443649bb2a1d14c0b83d8f3432bf549}{PATTERN\_HUE\_SCROLL}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classHueShiftPattern}{HueShiftPattern}}(args);}
+\DoxyCodeLine{265     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa42dfe59c9c1c5c27d78dc6e0f91d651}{PATTERN\_THEATER\_CHASE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classTheaterChasePattern}{TheaterChasePattern}}(args);}
+\DoxyCodeLine{266     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacae31f0640b7e95cec1ce44b1e89a963}{PATTERN\_CHASER}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classChaserPattern}{ChaserPattern}}(args);}
+\DoxyCodeLine{267     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca0b690948d8f6c2ed0a3b87e8575d7f9a}{PATTERN\_ZIGZAG}}:}
+\DoxyCodeLine{268     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca375fe138d8a34f1687b66edb789b253d}{PATTERN\_ZIPFADE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classZigzagPattern}{ZigzagPattern}}(args);}
+\DoxyCodeLine{269     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cae0907b52b1cf93f50e4b09a7b6282c49}{PATTERN\_DRIP}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classDripPattern}{DripPattern}}(args);}
+\DoxyCodeLine{270     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca95a696e0f2229afcd5025987963fe31b}{PATTERN\_DRIPMORPH}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classDripMorphPattern}{DripMorphPattern}}(args);}
+\DoxyCodeLine{271     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caef547b94dbd8fbdeb9dd053c1f003aa3}{PATTERN\_CROSSDOPS}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classCrossDopsPattern}{CrossDopsPattern}}(args);}
+\DoxyCodeLine{272     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca9a976ed244eb8488e8ba953f945547e1}{PATTERN\_DOUBLESTROBE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classDoubleStrobePattern}{DoubleStrobePattern}}(args);}
+\DoxyCodeLine{273     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca00e424951ee62da26eb298d45b586b59}{PATTERN\_METEOR}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classMeteorPattern}{MeteorPattern}}(args);}
+\DoxyCodeLine{274     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca0b71e2a64fab35a60ee3f0bb66e4c6d1}{PATTERN\_SPARKLETRACE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classSparkleTracePattern}{SparkleTracePattern}}(args);}
+\DoxyCodeLine{275     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca3c1c636de62fd96bcafaa3774d15c66b}{PATTERN\_VORTEXWIPE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classVortexWipePattern}{VortexWipePattern}}(args);}
+\DoxyCodeLine{276     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caaa5b1ff1b81120431769cb245aa065cb}{PATTERN\_WARP}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classWarpPattern}{WarpPattern}}(args);}
+\DoxyCodeLine{277     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadd3dbf2fda0945612ebe33cf687486bc}{PATTERN\_WARPWORM}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classWarpWormPattern}{WarpWormPattern}}(args);}
+\DoxyCodeLine{278     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cafd8e97d1f72e6a9650e6101d4bd7cafd}{PATTERN\_SNOWBALL}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classSnowballPattern}{SnowballPattern}}(args);}
+\DoxyCodeLine{279     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca969dd9a06c6675cacab1ef864361ec9b}{PATTERN\_LIGHTHOUSE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classLighthousePattern}{LighthousePattern}}(args);}
+\DoxyCodeLine{280     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca5e9d3b4e7c2aafd03b3fa9ed64ec94ce}{PATTERN\_PULSISH}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classPulsishPattern}{PulsishPattern}}(args);}
+\DoxyCodeLine{281     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cabf45425ccc757e74bad9e603306f553a}{PATTERN\_FILL}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classFillPattern}{FillPattern}}(args);}
+\DoxyCodeLine{282     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf82f552d51b4e07ee01b0686d1a2a3e4}{PATTERN\_BOUNCE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classBouncePattern}{BouncePattern}}(args);}
+\DoxyCodeLine{283     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca6499951acc4c20207e17fc1f18440dc1}{PATTERN\_SPLITSTROBIE}}:}
+\DoxyCodeLine{284     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caaa6e2e9a992e6f1af14a71b4f8420569}{PATTERN\_BACKSTROBE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classBackStrobePattern}{BackStrobePattern}}(args);}
+\DoxyCodeLine{285     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca1220d8bf8d4b92f8f501523fce29588e}{PATTERN\_VORTEX}}: \textcolor{keywordflow}{return} \textcolor{keyword}{new} \mbox{\hyperlink{classVortexPattern}{VortexPattern}}(args);}
+\DoxyCodeLine{286     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{287 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{288     \textcolor{comment}{// in vortex slim just use basic pattern for all multi led}}
+\DoxyCodeLine{289     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}: \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{290 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{291   \}}
+\DoxyCodeLine{292   \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Unknown pattern id: \%u"{}}, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{293   \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{294 \}}
+
+\end{DoxyCode}
+
+
+References DEBUG\+\_\+\+LOGF, get\+Default\+Args(), PATTERN\+\_\+\+BACKSTROBE, PATTERN\+\_\+\+BLEND, PATTERN\+\_\+\+BLENDSTROBE, PATTERN\+\_\+\+BLENDSTROBEGAP, PATTERN\+\_\+\+BLINKIE, PATTERN\+\_\+\+BOUNCE, PATTERN\+\_\+\+CHASER, PATTERN\+\_\+\+CHOPPER, PATTERN\+\_\+\+COMPLEMENTARY\+\_\+\+BLEND, PATTERN\+\_\+\+COMPLEMENTARY\+\_\+\+BLENDSTROBE, PATTERN\+\_\+\+COMPLEMENTARY\+\_\+\+BLENDSTROBEGAP, PATTERN\+\_\+\+CROSSDOPS, PATTERN\+\_\+\+DASHCRUSH, PATTERN\+\_\+\+DASHCYCLE, PATTERN\+\_\+\+DASHDOPS, PATTERN\+\_\+\+DASHGAP, PATTERN\+\_\+\+DOPS, PATTERN\+\_\+\+DOPSGAP, PATTERN\+\_\+\+DOUBLEDOPS, PATTERN\+\_\+\+DOUBLESTROBE, PATTERN\+\_\+\+DRIP, PATTERN\+\_\+\+DRIPMORPH, PATTERN\+\_\+\+FILL, PATTERN\+\_\+\+GAPCYCLE, PATTERN\+\_\+\+GHOSTCRUSH, PATTERN\+\_\+\+HUE\+\_\+\+SCROLL, PATTERN\+\_\+\+HYPERGAP, PATTERN\+\_\+\+HYPERSTROBE, PATTERN\+\_\+\+LIGHTHOUSE, PATTERN\+\_\+\+METEOR, PATTERN\+\_\+\+MINIRIBBON, PATTERN\+\_\+\+NONE, PATTERN\+\_\+\+PICOGAP, PATTERN\+\_\+\+PICOSTROBE, PATTERN\+\_\+\+PULSISH, PATTERN\+\_\+\+RIBBON, PATTERN\+\_\+\+SNOWBALL, PATTERN\+\_\+\+SOLID, PATTERN\+\_\+\+SPARKLETRACE, PATTERN\+\_\+\+SPLITSTROBIE, PATTERN\+\_\+\+STROBE, PATTERN\+\_\+\+STROBEGAP, PATTERN\+\_\+\+STROBIE, PATTERN\+\_\+\+STROBIEGAP, PATTERN\+\_\+\+THEATER\+\_\+\+CHASE, PATTERN\+\_\+\+TRACER, PATTERN\+\_\+\+ULTRADASH, PATTERN\+\_\+\+ULTRADOPS, PATTERN\+\_\+\+ULTRAGAP, PATTERN\+\_\+\+VORTEX, PATTERN\+\_\+\+VORTEXWIPE, PATTERN\+\_\+\+WARP, PATTERN\+\_\+\+WARPWORM, PATTERN\+\_\+\+ZIGZAG, and PATTERN\+\_\+\+ZIPFADE.
+
+
+
+Referenced by make\+Internal().
+
+\mbox{\Hypertarget{classPatternBuilder_a1e2154e68210f25e29a03755e9184959}\label{classPatternBuilder_a1e2154e68210f25e29a03755e9184959}} 
+\index{PatternBuilder@{PatternBuilder}!getDefaultArgs@{getDefaultArgs}}
+\index{getDefaultArgs@{getDefaultArgs}!PatternBuilder@{PatternBuilder}}
+\doxysubsubsection{\texorpdfstring{getDefaultArgs()}{getDefaultArgs()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} Pattern\+Builder\+::get\+Default\+Args (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 135 of file Pattern\+Builder.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{136 \{}
+\DoxyCodeLine{137   \textcolor{keywordflow}{switch} (\textcolor{keywordtype}{id}) \{}
+\DoxyCodeLine{138     \textcolor{comment}{// =====================}}
+\DoxyCodeLine{139     \textcolor{comment}{//  Single Led Patterns:}}
+\DoxyCodeLine{140     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca320755b96ff07514ffbbea92471d9028}{PATTERN\_STROBE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_ac4993692ad012c1ac0ac24e44c062107}{STROBE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a808eb7f6bf12de0663d3d1bdf3286f70}{STROBE\_OFF\_DURATION}});}
+\DoxyCodeLine{141     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa5f4ef19576a5418b17815f4c406ba63}{PATTERN\_HYPERSTROBE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a398f70f20f31812fd6463db220ea6bd2}{HYPERSTROBE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_ad8d72f4aad8397f6470d967b02fc9fce}{HYPERSTROBE\_OFF\_DURATION}});}
+\DoxyCodeLine{142     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca83ea10c4e3b1d50592f5c9788f17ffd6}{PATTERN\_PICOSTROBE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a82b22abf95e83ae41902f033e8d98b33}{PICOSTROBE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_ae58f16c1f8ac78afc101301cd9f82447}{PICOSTROBE\_OFF\_DURATION}});}
+\DoxyCodeLine{143     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca7db250f793478dac04e13a37d4a34ef5}{PATTERN\_STROBIE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a9ad3aa24ac30f6902c1206f793025d17}{STROBIE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a39be29f9f4cddaa7eec227e370a51c2e}{STROBIE\_OFF\_DURATION}});}
+\DoxyCodeLine{144     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4e822cef21b6083fdffcec08c596a96c}{PATTERN\_DOPS}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}});}
+\DoxyCodeLine{145     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacc012488e6da04809f4007e6586cff24}{PATTERN\_ULTRADOPS}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a36b3f7dd1688dd36323878e9800a44e7}{ULTRADOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a287f054a4991d310ad77ee3159563365}{ULTRADOPS\_OFF\_DURATION}});}
+\DoxyCodeLine{146     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca06c9c67d963a1590ef96f5de4a23f32e}{PATTERN\_STROBEGAP}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_ac4993692ad012c1ac0ac24e44c062107}{STROBE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a808eb7f6bf12de0663d3d1bdf3286f70}{STROBE\_OFF\_DURATION}}, 25);}
+\DoxyCodeLine{147     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca39f4867b6be5726e0c4931f82746a7be}{PATTERN\_HYPERGAP}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a398f70f20f31812fd6463db220ea6bd2}{HYPERSTROBE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_ad8d72f4aad8397f6470d967b02fc9fce}{HYPERSTROBE\_OFF\_DURATION}}, 218);}
+\DoxyCodeLine{148     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca17dd5fb37e7e12b20753f5f870f45675}{PATTERN\_PICOGAP}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a82b22abf95e83ae41902f033e8d98b33}{PICOSTROBE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_ae58f16c1f8ac78afc101301cd9f82447}{PICOSTROBE\_OFF\_DURATION}}, 90);}
+\DoxyCodeLine{149     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca280f9151afb0380f61a8fb4899891493}{PATTERN\_STROBIEGAP}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a9ad3aa24ac30f6902c1206f793025d17}{STROBIE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a39be29f9f4cddaa7eec227e370a51c2e}{STROBIE\_OFF\_DURATION}}, 100);}
+\DoxyCodeLine{150     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacf75c8f9dcdefea662d09280766acdbb}{PATTERN\_DOPSGAP}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}}, 40);}
+\DoxyCodeLine{151     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacbb64716a819d20cad5beaf5c8369232}{PATTERN\_ULTRAGAP}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a36b3f7dd1688dd36323878e9800a44e7}{ULTRADOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a287f054a4991d310ad77ee3159563365}{ULTRADOPS\_OFF\_DURATION}}, 55);}
+\DoxyCodeLine{152     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf97296c777eb512576ec97bfb1d6874e}{PATTERN\_BLINKIE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(3, 1, 65);}
+\DoxyCodeLine{153     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca96911dd864c433628dee4bbd426c2c57}{PATTERN\_GHOSTCRUSH}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(3, 1, 18);}
+\DoxyCodeLine{154     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacd3b233fb9b14269205d3f6d3563aba0}{PATTERN\_DOUBLEDOPS}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a36b3f7dd1688dd36323878e9800a44e7}{ULTRADOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a287f054a4991d310ad77ee3159563365}{ULTRADOPS\_OFF\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}}, 0, 2);}
+\DoxyCodeLine{155     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cab7944ba4925a86d6d4f2d0ad50677108}{PATTERN\_CHOPPER}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a36b3f7dd1688dd36323878e9800a44e7}{ULTRADOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a39be29f9f4cddaa7eec227e370a51c2e}{STROBIE\_OFF\_DURATION}}, 0, \mbox{\hyperlink{Timings_8h_ac4993692ad012c1ac0ac24e44c062107}{STROBE\_ON\_DURATION}});}
+\DoxyCodeLine{156     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cabbae88b8b52946714e680f9730959de3}{PATTERN\_DASHGAP}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a36b3f7dd1688dd36323878e9800a44e7}{ULTRADOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a287f054a4991d310ad77ee3159563365}{ULTRADOPS\_OFF\_DURATION}}, 20, 20);}
+\DoxyCodeLine{157     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf1b371c00d8dd25c07d1fb7964c9b1d9}{PATTERN\_DASHDOPS}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}}, 18);}
+\DoxyCodeLine{158     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cabe38ae3221b7aee2873bcee62453b4ad}{PATTERN\_DASHCRUSH}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(4, 1, 10, 18);}
+\DoxyCodeLine{159     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca5794c381743b79041d223b7cf43ee515}{PATTERN\_ULTRADASH}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a36b3f7dd1688dd36323878e9800a44e7}{ULTRADOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a287f054a4991d310ad77ee3159563365}{ULTRADOPS\_OFF\_DURATION}}, \mbox{\hyperlink{Timings_8h_a287f054a4991d310ad77ee3159563365}{ULTRADOPS\_OFF\_DURATION}}, 14);}
+\DoxyCodeLine{160     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf080bd4c7d3e57f2ed42b5aad8fff61e}{PATTERN\_GAPCYCLE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a9ad3aa24ac30f6902c1206f793025d17}{STROBIE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a808eb7f6bf12de0663d3d1bdf3286f70}{STROBE\_OFF\_DURATION}}, 12, 25, 2);}
+\DoxyCodeLine{161     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca998d432d294ec1d02eaad4c747a7c0bf}{PATTERN\_DASHCYCLE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a36b3f7dd1688dd36323878e9800a44e7}{ULTRADOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a287f054a4991d310ad77ee3159563365}{ULTRADOPS\_OFF\_DURATION}}, \mbox{\hyperlink{Timings_8h_a287f054a4991d310ad77ee3159563365}{ULTRADOPS\_OFF\_DURATION}}, 30, 2);}
+\DoxyCodeLine{162     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca0d43bb4f9432b79545664170b3b2f6e4}{PATTERN\_TRACER}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(3, 0, 0, 20, 1);}
+\DoxyCodeLine{163     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca18053a889190a075aad72a3b17096632}{PATTERN\_RIBBON}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_ae55289f40f983caa41723281eee592a5}{RIBBON\_DURATION}});}
+\DoxyCodeLine{164     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca85d9b1761883fcb1fe34a2afcd96add6}{PATTERN\_MINIRIBBON}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(1);}
+\DoxyCodeLine{165     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadf01802d35ece7b405582c6680f56d83}{PATTERN\_BLEND}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a0cdff4c82655ee8f32166d045532b2e5}{BLEND\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_ab2ff0008d13f28b053090cc46e016047}{BLEND\_OFF\_DURATION}}, 0, 0, 0, 5, 0);}
+\DoxyCodeLine{166     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca520e4d12fbe72de6b800bcbad988931a}{PATTERN\_BLENDSTROBE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_ac4993692ad012c1ac0ac24e44c062107}{STROBE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a808eb7f6bf12de0663d3d1bdf3286f70}{STROBE\_OFF\_DURATION}}, 0, 0, 0, 10, 0);}
+\DoxyCodeLine{167     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca0a64af77ce2e34a7f20617ee6670a968}{PATTERN\_BLENDSTROBEGAP}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_ac4993692ad012c1ac0ac24e44c062107}{STROBE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a808eb7f6bf12de0663d3d1bdf3286f70}{STROBE\_OFF\_DURATION}}, 25, 0, 0, 10, 0);}
+\DoxyCodeLine{168     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca8a8d267d482366cfe7e15d509e23e523}{PATTERN\_COMPLEMENTARY\_BLEND}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a0cdff4c82655ee8f32166d045532b2e5}{BLEND\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_ab2ff0008d13f28b053090cc46e016047}{BLEND\_OFF\_DURATION}}, 0, 0, 0, 5, 1);}
+\DoxyCodeLine{169     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cad69606a336b7c16d2b50eda0d7b64eb2}{PATTERN\_COMPLEMENTARY\_BLENDSTROBE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_ac4993692ad012c1ac0ac24e44c062107}{STROBE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a808eb7f6bf12de0663d3d1bdf3286f70}{STROBE\_OFF\_DURATION}}, 0, 0, 0, 10, 1);}
+\DoxyCodeLine{170     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca5139aabc49b28e85b22d9696bc2d7fde}{PATTERN\_COMPLEMENTARY\_BLENDSTROBEGAP}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_ac4993692ad012c1ac0ac24e44c062107}{STROBE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a808eb7f6bf12de0663d3d1bdf3286f70}{STROBE\_OFF\_DURATION}}, 25, 0, 0, 10, 1);}
+\DoxyCodeLine{171     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca942e76cc0f29e00de2d3967c4738333b}{PATTERN\_SOLID}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(250);}
+\DoxyCodeLine{172 }
+\DoxyCodeLine{173     \textcolor{comment}{// =====================}}
+\DoxyCodeLine{174     \textcolor{comment}{//  Multi Led Patterns:}}
+\DoxyCodeLine{175 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{176     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cac443649bb2a1d14c0b83d8f3432bf549}{PATTERN\_HUE\_SCROLL}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(1, 1, 10);}
+\DoxyCodeLine{177     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa42dfe59c9c1c5c27d78dc6e0f91d651}{PATTERN\_THEATER\_CHASE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}}, 28);}
+\DoxyCodeLine{178     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cacae31f0640b7e95cec1ce44b1e89a963}{PATTERN\_CHASER}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}();}
+\DoxyCodeLine{179     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca0b690948d8f6c2ed0a3b87e8575d7f9a}{PATTERN\_ZIGZAG}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, 3, 3, 5, 55);}
+\DoxyCodeLine{180     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca375fe138d8a34f1687b66edb789b253d}{PATTERN\_ZIPFADE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, 2, 75, 9, 230);}
+\DoxyCodeLine{181     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cae0907b52b1cf93f50e4b09a7b6282c49}{PATTERN\_DRIP}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_ac4993692ad012c1ac0ac24e44c062107}{STROBE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a808eb7f6bf12de0663d3d1bdf3286f70}{STROBE\_OFF\_DURATION}}, 150);}
+\DoxyCodeLine{182     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca95a696e0f2229afcd5025987963fe31b}{PATTERN\_DRIPMORPH}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_ac4993692ad012c1ac0ac24e44c062107}{STROBE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a808eb7f6bf12de0663d3d1bdf3286f70}{STROBE\_OFF\_DURATION}}, 1);}
+\DoxyCodeLine{183     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caef547b94dbd8fbdeb9dd053c1f003aa3}{PATTERN\_CROSSDOPS}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, 2, 25);}
+\DoxyCodeLine{184     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca9a976ed244eb8488e8ba953f945547e1}{PATTERN\_DOUBLESTROBE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}}, 115);}
+\DoxyCodeLine{185     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca00e424951ee62da26eb298d45b586b59}{PATTERN\_METEOR}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(1, 1, 20, 130);}
+\DoxyCodeLine{186     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca0b71e2a64fab35a60ee3f0bb66e4c6d1}{PATTERN\_SPARKLETRACE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(1, 5, 3);}
+\DoxyCodeLine{187     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca3c1c636de62fd96bcafaa3774d15c66b}{PATTERN\_VORTEXWIPE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, 3, 80);}
+\DoxyCodeLine{188     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caaa5b1ff1b81120431769cb245aa065cb}{PATTERN\_WARP}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(3, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}}, 50);}
+\DoxyCodeLine{189     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadd3dbf2fda0945612ebe33cf687486bc}{PATTERN\_WARPWORM}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, 10, 100);}
+\DoxyCodeLine{190     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cafd8e97d1f72e6a9650e6101d4bd7cafd}{PATTERN\_SNOWBALL}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(3, 3, 33);}
+\DoxyCodeLine{191     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca969dd9a06c6675cacab1ef864361ec9b}{PATTERN\_LIGHTHOUSE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, 5, 22, 3, 3);}
+\DoxyCodeLine{192     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca5e9d3b4e7c2aafd03b3fa9ed64ec94ce}{PATTERN\_PULSISH}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, 6, 5, 1, 100);}
+\DoxyCodeLine{193     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cabf45425ccc757e74bad9e603306f553a}{PATTERN\_FILL}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, 5, 50);}
+\DoxyCodeLine{194     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf82f552d51b4e07ee01b0686d1a2a3e4}{PATTERN\_BOUNCE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(10, 5, 50, 10);}
+\DoxyCodeLine{195     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca6499951acc4c20207e17fc1f18440dc1}{PATTERN\_SPLITSTROBIE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}}, 0, 16, 3, 10, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4e822cef21b6083fdffcec08c596a96c}{PATTERN\_DOPS}}, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca7db250f793478dac04e13a37d4a34ef5}{PATTERN\_STROBIE}});}
+\DoxyCodeLine{196     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caaa6e2e9a992e6f1af14a71b4f8420569}{PATTERN\_BACKSTROBE}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}}, 0, \mbox{\hyperlink{Timings_8h_a398f70f20f31812fd6463db220ea6bd2}{HYPERSTROBE\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_ad8d72f4aad8397f6470d967b02fc9fce}{HYPERSTROBE\_OFF\_DURATION}}, 10, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca4e822cef21b6083fdffcec08c596a96c}{PATTERN\_DOPS}}, \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caa5f4ef19576a5418b17815f4c406ba63}{PATTERN\_HYPERSTROBE}});}
+\DoxyCodeLine{197     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca1220d8bf8d4b92f8f501523fce29588e}{PATTERN\_VORTEX}}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(1, 1, 130);}
+\DoxyCodeLine{198     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}: \textcolor{keywordflow}{break};}
+\DoxyCodeLine{199     \textcolor{keywordflow}{default}: \textcolor{keywordflow}{break};}
+\DoxyCodeLine{200 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{201     \textcolor{comment}{// in vortex slim just use DOPS for all mult-\/led}}
+\DoxyCodeLine{202     \textcolor{keywordflow}{case} \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}: \textcolor{keywordflow}{break};}
+\DoxyCodeLine{203     \textcolor{keywordflow}{default}: \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}(\mbox{\hyperlink{Timings_8h_a034d6fe9497c2240121003c72d74d147}{DOPS\_ON\_DURATION}}, \mbox{\hyperlink{Timings_8h_a7c2e9b421ae2ca92a05458b46613fa44}{DOPS\_OFF\_DURATION}});}
+\DoxyCodeLine{204 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{205   \}}
+\DoxyCodeLine{206   \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternArgs}{PatternArgs}}();}
+\DoxyCodeLine{207 \}}
+
+\end{DoxyCode}
+
+
+References BLEND\+\_\+\+OFF\+\_\+\+DURATION, BLEND\+\_\+\+ON\+\_\+\+DURATION, DOPS\+\_\+\+OFF\+\_\+\+DURATION, DOPS\+\_\+\+ON\+\_\+\+DURATION, HYPERSTROBE\+\_\+\+OFF\+\_\+\+DURATION, HYPERSTROBE\+\_\+\+ON\+\_\+\+DURATION, PATTERN\+\_\+\+BACKSTROBE, PATTERN\+\_\+\+BLEND, PATTERN\+\_\+\+BLENDSTROBE, PATTERN\+\_\+\+BLENDSTROBEGAP, PATTERN\+\_\+\+BLINKIE, PATTERN\+\_\+\+BOUNCE, PATTERN\+\_\+\+CHASER, PATTERN\+\_\+\+CHOPPER, PATTERN\+\_\+\+COMPLEMENTARY\+\_\+\+BLEND, PATTERN\+\_\+\+COMPLEMENTARY\+\_\+\+BLENDSTROBE, PATTERN\+\_\+\+COMPLEMENTARY\+\_\+\+BLENDSTROBEGAP, PATTERN\+\_\+\+CROSSDOPS, PATTERN\+\_\+\+DASHCRUSH, PATTERN\+\_\+\+DASHCYCLE, PATTERN\+\_\+\+DASHDOPS, PATTERN\+\_\+\+DASHGAP, PATTERN\+\_\+\+DOPS, PATTERN\+\_\+\+DOPSGAP, PATTERN\+\_\+\+DOUBLEDOPS, PATTERN\+\_\+\+DOUBLESTROBE, PATTERN\+\_\+\+DRIP, PATTERN\+\_\+\+DRIPMORPH, PATTERN\+\_\+\+FILL, PATTERN\+\_\+\+GAPCYCLE, PATTERN\+\_\+\+GHOSTCRUSH, PATTERN\+\_\+\+HUE\+\_\+\+SCROLL, PATTERN\+\_\+\+HYPERGAP, PATTERN\+\_\+\+HYPERSTROBE, PATTERN\+\_\+\+LIGHTHOUSE, PATTERN\+\_\+\+METEOR, PATTERN\+\_\+\+MINIRIBBON, PATTERN\+\_\+\+NONE, PATTERN\+\_\+\+PICOGAP, PATTERN\+\_\+\+PICOSTROBE, PATTERN\+\_\+\+PULSISH, PATTERN\+\_\+\+RIBBON, PATTERN\+\_\+\+SNOWBALL, PATTERN\+\_\+\+SOLID, PATTERN\+\_\+\+SPARKLETRACE, PATTERN\+\_\+\+SPLITSTROBIE, PATTERN\+\_\+\+STROBE, PATTERN\+\_\+\+STROBEGAP, PATTERN\+\_\+\+STROBIE, PATTERN\+\_\+\+STROBIEGAP, PATTERN\+\_\+\+THEATER\+\_\+\+CHASE, PATTERN\+\_\+\+TRACER, PATTERN\+\_\+\+ULTRADASH, PATTERN\+\_\+\+ULTRADOPS, PATTERN\+\_\+\+ULTRAGAP, PATTERN\+\_\+\+VORTEX, PATTERN\+\_\+\+VORTEXWIPE, PATTERN\+\_\+\+WARP, PATTERN\+\_\+\+WARPWORM, PATTERN\+\_\+\+ZIGZAG, PATTERN\+\_\+\+ZIPFADE, PICOSTROBE\+\_\+\+OFF\+\_\+\+DURATION, PICOSTROBE\+\_\+\+ON\+\_\+\+DURATION, RIBBON\+\_\+\+DURATION, STROBE\+\_\+\+OFF\+\_\+\+DURATION, STROBE\+\_\+\+ON\+\_\+\+DURATION, STROBIE\+\_\+\+OFF\+\_\+\+DURATION, STROBIE\+\_\+\+ON\+\_\+\+DURATION, ULTRADOPS\+\_\+\+OFF\+\_\+\+DURATION, and ULTRADOPS\+\_\+\+ON\+\_\+\+DURATION.
+
+
+
+Referenced by generate(), Pattern\+::serialize(), and Pattern\+::unserialize().
+
+\mbox{\Hypertarget{classPatternBuilder_aa0f911014387a0c3d62ef4be6670ddc9}\label{classPatternBuilder_aa0f911014387a0c3d62ef4be6670ddc9}} 
+\index{PatternBuilder@{PatternBuilder}!make@{make}}
+\index{make@{make}!PatternBuilder@{PatternBuilder}}
+\doxysubsubsection{\texorpdfstring{make()}{make()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPattern}{Pattern}} $\ast$ Pattern\+Builder\+::make (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{id,  }\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$}]{args = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 37 of file Pattern\+Builder.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{38 \{}
+\DoxyCodeLine{39 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{40   \textcolor{keywordflow}{if} (\textcolor{keywordtype}{id} > \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cafccc82a7b620fc522ecc54d5328ecb79}{PATTERN\_LAST}}) \{}
+\DoxyCodeLine{41 \textcolor{preprocessor}{\#else}}
+\DoxyCodeLine{42   \textcolor{keywordflow}{if} (\textcolor{keywordtype}{id} > \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8ca63a5c7f0287e61ea810c90b211903308}{PATTERN\_SINGLE\_LAST}}) \{}
+\DoxyCodeLine{43 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{44     \mbox{\hyperlink{Log_8h_a8bdccae09f7cdda8fb311e0bd81c35dc}{DEBUG\_LOGF}}(\textcolor{stringliteral}{"{}Invalid pattern id: \%u"{}}, \textcolor{keywordtype}{id});}
+\DoxyCodeLine{45     \textcolor{keywordtype}{id} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cadf768ce40ed692705072e056d20335b1}{PATTERN\_FIRST}};}
+\DoxyCodeLine{46   \}}
+\DoxyCodeLine{47 \textcolor{preprocessor}{\#if VORTEX\_SLIM == 0}}
+\DoxyCodeLine{48   \textcolor{keywordflow}{if} (\mbox{\hyperlink{Patterns_8h_ad58c73f9c26d4937add3b71a58747c00}{isMultiLedPatternID}}(\textcolor{keywordtype}{id})) \{}
+\DoxyCodeLine{49     \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternBuilder_a642b5e131674e3a6dc4f2a5c14ad734f}{makeMulti}}(\textcolor{keywordtype}{id}, args);}
+\DoxyCodeLine{50   \}}
+\DoxyCodeLine{51 \textcolor{preprocessor}{\#endif}}
+\DoxyCodeLine{52   \textcolor{keywordflow}{return} \mbox{\hyperlink{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}{makeSingle}}(\textcolor{keywordtype}{id}, args);}
+\DoxyCodeLine{53 \}}
+
+\end{DoxyCode}
+
+
+References DEBUG\+\_\+\+LOGF, is\+Multi\+Led\+Pattern\+ID(), make\+Multi(), make\+Single(), PATTERN\+\_\+\+FIRST, PATTERN\+\_\+\+LAST, and PATTERN\+\_\+\+SINGLE\+\_\+\+LAST.
+
+
+
+Referenced by dupe(), Vortex\+::get\+Custom\+Params(), num\+Default\+Args(), Vortex\+::pattern\+From\+Json(), and unserialize().
+
+\mbox{\Hypertarget{classPatternBuilder_ab183172bf29efcd70e9b308fb67e8e4c}\label{classPatternBuilder_ab183172bf29efcd70e9b308fb67e8e4c}} 
+\index{PatternBuilder@{PatternBuilder}!makeInternal@{makeInternal}}
+\index{makeInternal@{makeInternal}!PatternBuilder@{PatternBuilder}}
+\doxysubsubsection{\texorpdfstring{makeInternal()}{makeInternal()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPattern}{Pattern}} $\ast$ Pattern\+Builder\+::make\+Internal (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{id,  }\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$}]{args = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}, {\ttfamily [private]}}
+
+
+
+Definition at line 115 of file Pattern\+Builder.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{116 \{}
+\DoxyCodeLine{117   \textcolor{keywordflow}{if} (\textcolor{keywordtype}{id} == \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}}) \{}
+\DoxyCodeLine{118     \textcolor{comment}{// no error}}
+\DoxyCodeLine{119     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{120   \}}
+\DoxyCodeLine{121   \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classPatternBuilder_aee111acfef325bbd42e53c47e3bdf8e1}{generate}}(\textcolor{keywordtype}{id}, args);}
+\DoxyCodeLine{122   \textcolor{keywordflow}{if} (!pat) \{}
+\DoxyCodeLine{123     \mbox{\hyperlink{Log_8h_a804825e040f1cce9e3d2bb53c4858710}{ERROR\_OUT\_OF\_MEMORY}}();}
+\DoxyCodeLine{124     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{125   \}}
+\DoxyCodeLine{126   \textcolor{comment}{// set private pattern ID via friend class relationship}}
+\DoxyCodeLine{127   pat-\/>\mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = id;}
+\DoxyCodeLine{128   \textcolor{keywordflow}{return} pat;}
+\DoxyCodeLine{129 \}}
+
+\end{DoxyCode}
+
+
+References ERROR\+\_\+\+OUT\+\_\+\+OF\+\_\+\+MEMORY, generate(), Pattern\+::m\+\_\+pattern\+ID, and PATTERN\+\_\+\+NONE.
+
+
+
+Referenced by make\+Multi(), and make\+Single().
+
+\mbox{\Hypertarget{classPatternBuilder_a642b5e131674e3a6dc4f2a5c14ad734f}\label{classPatternBuilder_a642b5e131674e3a6dc4f2a5c14ad734f}} 
+\index{PatternBuilder@{PatternBuilder}!makeMulti@{makeMulti}}
+\index{makeMulti@{makeMulti}!PatternBuilder@{PatternBuilder}}
+\doxysubsubsection{\texorpdfstring{makeMulti()}{makeMulti()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classMultiLedPattern}{Multi\+Led\+Pattern}} $\ast$ Pattern\+Builder\+::make\+Multi (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{id,  }\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$}]{args = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 86 of file Pattern\+Builder.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{87 \{}
+\DoxyCodeLine{88   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{Patterns_8h_ad58c73f9c26d4937add3b71a58747c00}{isMultiLedPatternID}}(\textcolor{keywordtype}{id})) \{}
+\DoxyCodeLine{89     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{90   \}}
+\DoxyCodeLine{91   \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classPatternBuilder_ab183172bf29efcd70e9b308fb67e8e4c}{makeInternal}}(\textcolor{keywordtype}{id}, args);}
+\DoxyCodeLine{92   \textcolor{keywordflow}{if} (!pat) \{}
+\DoxyCodeLine{93     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{94   \}}
+\DoxyCodeLine{95   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classMultiLedPattern}{MultiLedPattern}} *)pat;}
+\DoxyCodeLine{96 \}}
+
+\end{DoxyCode}
+
+
+References is\+Multi\+Led\+Pattern\+ID(), and make\+Internal().
+
+
+
+Referenced by make(), and Mode\+::set\+Pattern().
+
+\mbox{\Hypertarget{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}\label{classPatternBuilder_a1574c02c557d91c4c87a28af3b49a638}} 
+\index{PatternBuilder@{PatternBuilder}!makeSingle@{makeSingle}}
+\index{makeSingle@{makeSingle}!PatternBuilder@{PatternBuilder}}
+\doxysubsubsection{\texorpdfstring{makeSingle()}{makeSingle()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classSingleLedPattern}{Single\+Led\+Pattern}} $\ast$ Pattern\+Builder\+::make\+Single (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{id,  }\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} $\ast$}]{args = {\ttfamily nullptr} }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 72 of file Pattern\+Builder.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{73 \{}
+\DoxyCodeLine{74   \textcolor{keywordflow}{if} (!\mbox{\hyperlink{Patterns_8h_a4cc0d6d85ab6f98369c2043707ee8a47}{isSingleLedPatternID}}(\textcolor{keywordtype}{id})) \{}
+\DoxyCodeLine{75     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{76   \}}
+\DoxyCodeLine{77   \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classPatternBuilder_ab183172bf29efcd70e9b308fb67e8e4c}{makeInternal}}(\textcolor{keywordtype}{id}, args);}
+\DoxyCodeLine{78   \textcolor{keywordflow}{if} (!pat) \{}
+\DoxyCodeLine{79     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{80   \}}
+\DoxyCodeLine{81   \textcolor{comment}{// don't set any flags on single pattersn}}
+\DoxyCodeLine{82   \textcolor{keywordflow}{return} (\mbox{\hyperlink{classSingleLedPattern}{SingleLedPattern}} *)pat;}
+\DoxyCodeLine{83 \}}
+
+\end{DoxyCode}
+
+
+References is\+Single\+Led\+Pattern\+ID(), and make\+Internal().
+
+
+
+Referenced by make(), Sequenced\+Pattern\+::play\+Sequence\+Step(), Compound\+Pattern\+::set\+Evens\+Odds(), Mode\+::set\+Pattern(), and Compound\+Pattern\+::set\+Pattern\+At().
+
+\mbox{\Hypertarget{classPatternBuilder_a24ee8f97b2e8e9d575c44bfb39fcdc05}\label{classPatternBuilder_a24ee8f97b2e8e9d575c44bfb39fcdc05}} 
+\index{PatternBuilder@{PatternBuilder}!numDefaultArgs@{numDefaultArgs}}
+\index{numDefaultArgs@{numDefaultArgs}!PatternBuilder@{PatternBuilder}}
+\doxysubsubsection{\texorpdfstring{numDefaultArgs()}{numDefaultArgs()}}
+{\footnotesize\ttfamily uint8\+\_\+t Pattern\+Builder\+::num\+Default\+Args (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{Pattern\+ID}}}]{id }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 209 of file Pattern\+Builder.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{210 \{}
+\DoxyCodeLine{211   \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classPatternBuilder_aa0f911014387a0c3d62ef4be6670ddc9}{make}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{212   \textcolor{keywordflow}{if} (!pat) \{}
+\DoxyCodeLine{213     \textcolor{keywordflow}{return} 0;}
+\DoxyCodeLine{214   \}}
+\DoxyCodeLine{215   uint8\_t numArgs = pat-\/>\mbox{\hyperlink{classPattern_a869de9ef11e75b9b6fb9bc4435065add}{getNumArgs}}();}
+\DoxyCodeLine{216   \textcolor{keyword}{delete} pat;}
+\DoxyCodeLine{217   \textcolor{keywordflow}{return} numArgs;}
+\DoxyCodeLine{218 \}}
+
+\end{DoxyCode}
+
+
+References Pattern\+::get\+Num\+Args(), and make().
+
+
+
+Referenced by Vortex\+::num\+Custom\+Params().
+
+\mbox{\Hypertarget{classPatternBuilder_aab4bced3b1b6d785549cd426dd43d891}\label{classPatternBuilder_aab4bced3b1b6d785549cd426dd43d891}} 
+\index{PatternBuilder@{PatternBuilder}!unserialize@{unserialize}}
+\index{unserialize@{unserialize}!PatternBuilder@{PatternBuilder}}
+\doxysubsubsection{\texorpdfstring{unserialize()}{unserialize()}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classPattern}{Pattern}} $\ast$ Pattern\+Builder\+::unserialize (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{classByteStream}{Byte\+Stream}} \&}]{buffer }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [static]}}
+
+
+
+Definition at line 98 of file Pattern\+Builder.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{99 \{}
+\DoxyCodeLine{100   \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8c}{PatternID}} \textcolor{keywordtype}{id} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8caf9610f0445822da8efff6bac441ca3de}{PATTERN\_NONE}};}
+\DoxyCodeLine{101   \textcolor{keywordflow}{if} (!buffer.\mbox{\hyperlink{classByteStream_a4451478eea4d9efba71cdc043bda4db2}{unserialize8}}((uint8\_t *)\&\textcolor{keywordtype}{id})) \{}
+\DoxyCodeLine{102     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{103   \}}
+\DoxyCodeLine{104   \mbox{\hyperlink{classPattern}{Pattern}} *pat = \mbox{\hyperlink{classPatternBuilder_aa0f911014387a0c3d62ef4be6670ddc9}{make}}(\textcolor{keywordtype}{id});}
+\DoxyCodeLine{105   \textcolor{keywordflow}{if} (!pat) \{}
+\DoxyCodeLine{106     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{107   \}}
+\DoxyCodeLine{108   \textcolor{keywordflow}{if} (!pat-\/>\mbox{\hyperlink{classPattern_a4b70dac874bab3d3d59c4dd4baee3b6e}{unserialize}}(buffer)) \{}
+\DoxyCodeLine{109     \textcolor{keyword}{delete} pat;}
+\DoxyCodeLine{110     \textcolor{keywordflow}{return} \textcolor{keyword}{nullptr};}
+\DoxyCodeLine{111   \}}
+\DoxyCodeLine{112   \textcolor{keywordflow}{return} pat;}
+\DoxyCodeLine{113 \}}
+
+\end{DoxyCode}
+
+
+References make(), PATTERN\+\_\+\+NONE, Pattern\+::unserialize(), and Byte\+Stream\+::unserialize8().
+
+
+
+Referenced by Mode\+::unserialize().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\mbox{\hyperlink{PatternBuilder_8h}{Pattern\+Builder.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\mbox{\hyperlink{PatternBuilder_8cpp}{Pattern\+Builder.\+cpp}}\end{DoxyCompactItemize}
