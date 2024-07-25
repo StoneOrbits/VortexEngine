@@ -1,0 +1,189 @@
+\hypertarget{Button_8cpp}{}\doxysection{Vortex\+Engine/src/\+Buttons/\+Button.cpp File Reference}
+\label{Button_8cpp}\index{VortexEngine/src/Buttons/Button.cpp@{VortexEngine/src/Buttons/Button.cpp}}
+{\ttfamily \#include \char`\"{}Button.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Time/\+Time\+Control.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Time/\+Timings.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Log/\+Log.\+h\char`\"{}}\newline
+{\ttfamily \#include \char`\"{}../\+Vortex\+Engine.\+h\char`\"{}}\newline
+{\ttfamily \#include $<$avr/interrupt.\+h$>$}\newline
+{\ttfamily \#include $<$avr/io.\+h$>$}\newline
+Include dependency graph for Button.\+cpp\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{Button_8cpp__incl}
+\end{center}
+\end{figure}
+\doxysubsection*{Macros}
+\begin{DoxyCompactItemize}
+\item 
+\#define \mbox{\hyperlink{Button_8cpp_a43f95372c352d89f63b03a94c4a93631}{PIN\+\_\+\+NUM}}~2
+\item 
+\#define \mbox{\hyperlink{Button_8cpp_ac4843f2a1ffe2a66107e8b61b9abbcc2}{PORT\+\_\+\+LETTER}}~C
+\item 
+\#define \mbox{\hyperlink{Button_8cpp_aa330931ab3c27aaa1f8b6bb46a9d21d7}{CONCATENATE\+\_\+\+DETAIL}}(x,  y)~x\#\#y
+\item 
+\#define \mbox{\hyperlink{Button_8cpp_a84185498d0e4f0395f4e3faff9246067}{CONCATENATE}}(x,  y)~\mbox{\hyperlink{Button_8cpp_aa330931ab3c27aaa1f8b6bb46a9d21d7}{CONCATENATE\+\_\+\+DETAIL}}(x, y)
+\item 
+\#define \mbox{\hyperlink{Button_8cpp_a7046668b73659bbbc2b1083a6257b16f}{CONCATENATE\+\_\+\+DETAIL\+\_\+3}}(x,  y,  z)~x\#\#y\#\#z
+\item 
+\#define \mbox{\hyperlink{Button_8cpp_a644cca956e0963007f5218a51b71519f}{CONCATENATE\+\_\+3}}(x,  y,  z)~\mbox{\hyperlink{Button_8cpp_a7046668b73659bbbc2b1083a6257b16f}{CONCATENATE\+\_\+\+DETAIL\+\_\+3}}(x, y, z)
+\item 
+\#define \mbox{\hyperlink{Button_8cpp_ac8ba909fc8614df64040d2e12c0780e4}{BUTTON\+\_\+\+PORT}}~\mbox{\hyperlink{Button_8cpp_a84185498d0e4f0395f4e3faff9246067}{CONCATENATE}}(PORT, \mbox{\hyperlink{Button_8cpp_ac4843f2a1ffe2a66107e8b61b9abbcc2}{PORT\+\_\+\+LETTER}})
+\item 
+\#define \mbox{\hyperlink{Button_8cpp_adea042b65d3f540c98e35834a7967925}{BUTTON\+\_\+\+VPORT}}~\mbox{\hyperlink{Button_8cpp_a84185498d0e4f0395f4e3faff9246067}{CONCATENATE}}(VPORT, \mbox{\hyperlink{Button_8cpp_ac4843f2a1ffe2a66107e8b61b9abbcc2}{PORT\+\_\+\+LETTER}})
+\item 
+\#define \mbox{\hyperlink{Button_8cpp_abc2ad14f0789907024ac765711ffd3da}{BUTTON\+\_\+\+PIN}}~\mbox{\hyperlink{Button_8cpp_a644cca956e0963007f5218a51b71519f}{CONCATENATE\+\_\+3}}(PIN, \mbox{\hyperlink{Button_8cpp_a43f95372c352d89f63b03a94c4a93631}{PIN\+\_\+\+NUM}}, \+\_\+bm)
+\item 
+\#define \mbox{\hyperlink{Button_8cpp_a08ac38b328e5ec49beda6276f4581fd7}{PIN\+\_\+\+CTRL}}~\mbox{\hyperlink{Button_8cpp_a644cca956e0963007f5218a51b71519f}{CONCATENATE\+\_\+3}}(PIN, \mbox{\hyperlink{Button_8cpp_a43f95372c352d89f63b03a94c4a93631}{PIN\+\_\+\+NUM}}, CTRL)
+\item 
+\#define \mbox{\hyperlink{Button_8cpp_a138a4665608b31e98bc31a57bf104544}{PORT\+\_\+\+VECT}}~\mbox{\hyperlink{Button_8cpp_a644cca956e0963007f5218a51b71519f}{CONCATENATE\+\_\+3}}(PORT, \mbox{\hyperlink{Button_8cpp_ac4843f2a1ffe2a66107e8b61b9abbcc2}{PORT\+\_\+\+LETTER}}, \+\_\+\+PORT\+\_\+vect)
+\end{DoxyCompactItemize}
+\doxysubsection*{Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{Button_8cpp_aa028e3a258efbd964b79e733386cc014}{ISR}} (\mbox{\hyperlink{Button_8cpp_a138a4665608b31e98bc31a57bf104544}{PORT\+\_\+\+VECT}})
+\end{DoxyCompactItemize}
+
+
+\doxysubsection{Macro Definition Documentation}
+\mbox{\Hypertarget{Button_8cpp_abc2ad14f0789907024ac765711ffd3da}\label{Button_8cpp_abc2ad14f0789907024ac765711ffd3da}} 
+\index{Button.cpp@{Button.cpp}!BUTTON\_PIN@{BUTTON\_PIN}}
+\index{BUTTON\_PIN@{BUTTON\_PIN}!Button.cpp@{Button.cpp}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_PIN}{BUTTON\_PIN}}
+{\footnotesize\ttfamily \#define BUTTON\+\_\+\+PIN~\mbox{\hyperlink{Button_8cpp_a644cca956e0963007f5218a51b71519f}{CONCATENATE\+\_\+3}}(PIN, \mbox{\hyperlink{Button_8cpp_a43f95372c352d89f63b03a94c4a93631}{PIN\+\_\+\+NUM}}, \+\_\+bm)}
+
+
+
+Definition at line 29 of file Button.\+cpp.
+
+\mbox{\Hypertarget{Button_8cpp_ac8ba909fc8614df64040d2e12c0780e4}\label{Button_8cpp_ac8ba909fc8614df64040d2e12c0780e4}} 
+\index{Button.cpp@{Button.cpp}!BUTTON\_PORT@{BUTTON\_PORT}}
+\index{BUTTON\_PORT@{BUTTON\_PORT}!Button.cpp@{Button.cpp}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_PORT}{BUTTON\_PORT}}
+{\footnotesize\ttfamily \#define BUTTON\+\_\+\+PORT~\mbox{\hyperlink{Button_8cpp_a84185498d0e4f0395f4e3faff9246067}{CONCATENATE}}(PORT, \mbox{\hyperlink{Button_8cpp_ac4843f2a1ffe2a66107e8b61b9abbcc2}{PORT\+\_\+\+LETTER}})}
+
+
+
+Definition at line 27 of file Button.\+cpp.
+
+\mbox{\Hypertarget{Button_8cpp_adea042b65d3f540c98e35834a7967925}\label{Button_8cpp_adea042b65d3f540c98e35834a7967925}} 
+\index{Button.cpp@{Button.cpp}!BUTTON\_VPORT@{BUTTON\_VPORT}}
+\index{BUTTON\_VPORT@{BUTTON\_VPORT}!Button.cpp@{Button.cpp}}
+\doxysubsubsection{\texorpdfstring{BUTTON\_VPORT}{BUTTON\_VPORT}}
+{\footnotesize\ttfamily \#define BUTTON\+\_\+\+VPORT~\mbox{\hyperlink{Button_8cpp_a84185498d0e4f0395f4e3faff9246067}{CONCATENATE}}(VPORT, \mbox{\hyperlink{Button_8cpp_ac4843f2a1ffe2a66107e8b61b9abbcc2}{PORT\+\_\+\+LETTER}})}
+
+
+
+Definition at line 28 of file Button.\+cpp.
+
+\mbox{\Hypertarget{Button_8cpp_a84185498d0e4f0395f4e3faff9246067}\label{Button_8cpp_a84185498d0e4f0395f4e3faff9246067}} 
+\index{Button.cpp@{Button.cpp}!CONCATENATE@{CONCATENATE}}
+\index{CONCATENATE@{CONCATENATE}!Button.cpp@{Button.cpp}}
+\doxysubsubsection{\texorpdfstring{CONCATENATE}{CONCATENATE}}
+{\footnotesize\ttfamily \#define CONCATENATE(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})~\mbox{\hyperlink{Button_8cpp_aa330931ab3c27aaa1f8b6bb46a9d21d7}{CONCATENATE\+\_\+\+DETAIL}}(x, y)}
+
+
+
+Definition at line 22 of file Button.\+cpp.
+
+\mbox{\Hypertarget{Button_8cpp_a644cca956e0963007f5218a51b71519f}\label{Button_8cpp_a644cca956e0963007f5218a51b71519f}} 
+\index{Button.cpp@{Button.cpp}!CONCATENATE\_3@{CONCATENATE\_3}}
+\index{CONCATENATE\_3@{CONCATENATE\_3}!Button.cpp@{Button.cpp}}
+\doxysubsubsection{\texorpdfstring{CONCATENATE\_3}{CONCATENATE\_3}}
+{\footnotesize\ttfamily \#define CONCATENATE\+\_\+3(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y,  }\item[{}]{z }\end{DoxyParamCaption})~\mbox{\hyperlink{Button_8cpp_a7046668b73659bbbc2b1083a6257b16f}{CONCATENATE\+\_\+\+DETAIL\+\_\+3}}(x, y, z)}
+
+
+
+Definition at line 24 of file Button.\+cpp.
+
+\mbox{\Hypertarget{Button_8cpp_aa330931ab3c27aaa1f8b6bb46a9d21d7}\label{Button_8cpp_aa330931ab3c27aaa1f8b6bb46a9d21d7}} 
+\index{Button.cpp@{Button.cpp}!CONCATENATE\_DETAIL@{CONCATENATE\_DETAIL}}
+\index{CONCATENATE\_DETAIL@{CONCATENATE\_DETAIL}!Button.cpp@{Button.cpp}}
+\doxysubsubsection{\texorpdfstring{CONCATENATE\_DETAIL}{CONCATENATE\_DETAIL}}
+{\footnotesize\ttfamily \#define CONCATENATE\+\_\+\+DETAIL(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y }\end{DoxyParamCaption})~x\#\#y}
+
+
+
+Definition at line 21 of file Button.\+cpp.
+
+\mbox{\Hypertarget{Button_8cpp_a7046668b73659bbbc2b1083a6257b16f}\label{Button_8cpp_a7046668b73659bbbc2b1083a6257b16f}} 
+\index{Button.cpp@{Button.cpp}!CONCATENATE\_DETAIL\_3@{CONCATENATE\_DETAIL\_3}}
+\index{CONCATENATE\_DETAIL\_3@{CONCATENATE\_DETAIL\_3}!Button.cpp@{Button.cpp}}
+\doxysubsubsection{\texorpdfstring{CONCATENATE\_DETAIL\_3}{CONCATENATE\_DETAIL\_3}}
+{\footnotesize\ttfamily \#define CONCATENATE\+\_\+\+DETAIL\+\_\+3(\begin{DoxyParamCaption}\item[{}]{x,  }\item[{}]{y,  }\item[{}]{z }\end{DoxyParamCaption})~x\#\#y\#\#z}
+
+
+
+Definition at line 23 of file Button.\+cpp.
+
+\mbox{\Hypertarget{Button_8cpp_a08ac38b328e5ec49beda6276f4581fd7}\label{Button_8cpp_a08ac38b328e5ec49beda6276f4581fd7}} 
+\index{Button.cpp@{Button.cpp}!PIN\_CTRL@{PIN\_CTRL}}
+\index{PIN\_CTRL@{PIN\_CTRL}!Button.cpp@{Button.cpp}}
+\doxysubsubsection{\texorpdfstring{PIN\_CTRL}{PIN\_CTRL}}
+{\footnotesize\ttfamily \#define PIN\+\_\+\+CTRL~\mbox{\hyperlink{Button_8cpp_a644cca956e0963007f5218a51b71519f}{CONCATENATE\+\_\+3}}(PIN, \mbox{\hyperlink{Button_8cpp_a43f95372c352d89f63b03a94c4a93631}{PIN\+\_\+\+NUM}}, CTRL)}
+
+
+
+Definition at line 30 of file Button.\+cpp.
+
+\mbox{\Hypertarget{Button_8cpp_a43f95372c352d89f63b03a94c4a93631}\label{Button_8cpp_a43f95372c352d89f63b03a94c4a93631}} 
+\index{Button.cpp@{Button.cpp}!PIN\_NUM@{PIN\_NUM}}
+\index{PIN\_NUM@{PIN\_NUM}!Button.cpp@{Button.cpp}}
+\doxysubsubsection{\texorpdfstring{PIN\_NUM}{PIN\_NUM}}
+{\footnotesize\ttfamily \#define PIN\+\_\+\+NUM~2}
+
+
+
+Definition at line 17 of file Button.\+cpp.
+
+\mbox{\Hypertarget{Button_8cpp_ac4843f2a1ffe2a66107e8b61b9abbcc2}\label{Button_8cpp_ac4843f2a1ffe2a66107e8b61b9abbcc2}} 
+\index{Button.cpp@{Button.cpp}!PORT\_LETTER@{PORT\_LETTER}}
+\index{PORT\_LETTER@{PORT\_LETTER}!Button.cpp@{Button.cpp}}
+\doxysubsubsection{\texorpdfstring{PORT\_LETTER}{PORT\_LETTER}}
+{\footnotesize\ttfamily \#define PORT\+\_\+\+LETTER~C}
+
+
+
+Definition at line 18 of file Button.\+cpp.
+
+\mbox{\Hypertarget{Button_8cpp_a138a4665608b31e98bc31a57bf104544}\label{Button_8cpp_a138a4665608b31e98bc31a57bf104544}} 
+\index{Button.cpp@{Button.cpp}!PORT\_VECT@{PORT\_VECT}}
+\index{PORT\_VECT@{PORT\_VECT}!Button.cpp@{Button.cpp}}
+\doxysubsubsection{\texorpdfstring{PORT\_VECT}{PORT\_VECT}}
+{\footnotesize\ttfamily \#define PORT\+\_\+\+VECT~\mbox{\hyperlink{Button_8cpp_a644cca956e0963007f5218a51b71519f}{CONCATENATE\+\_\+3}}(PORT, \mbox{\hyperlink{Button_8cpp_ac4843f2a1ffe2a66107e8b61b9abbcc2}{PORT\+\_\+\+LETTER}}, \+\_\+\+PORT\+\_\+vect)}
+
+
+
+Definition at line 31 of file Button.\+cpp.
+
+
+
+\doxysubsection{Function Documentation}
+\mbox{\Hypertarget{Button_8cpp_aa028e3a258efbd964b79e733386cc014}\label{Button_8cpp_aa028e3a258efbd964b79e733386cc014}} 
+\index{Button.cpp@{Button.cpp}!ISR@{ISR}}
+\index{ISR@{ISR}!Button.cpp@{Button.cpp}}
+\doxysubsubsection{\texorpdfstring{ISR()}{ISR()}}
+{\footnotesize\ttfamily ISR (\begin{DoxyParamCaption}\item[{\mbox{\hyperlink{Button_8cpp_a138a4665608b31e98bc31a57bf104544}{PORT\+\_\+\+VECT}}}]{ }\end{DoxyParamCaption})}
+
+
+
+Definition at line 34 of file Button.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{35 \{}
+\DoxyCodeLine{36   \textcolor{comment}{// mark the interrupt as handled}}
+\DoxyCodeLine{37   \mbox{\hyperlink{Button_8cpp_ac8ba909fc8614df64040d2e12c0780e4}{BUTTON\_PORT}}.INTFLAGS = \mbox{\hyperlink{Button_8cpp_abc2ad14f0789907024ac765711ffd3da}{BUTTON\_PIN}};}
+\DoxyCodeLine{38   \textcolor{comment}{// turn off the interrupt}}
+\DoxyCodeLine{39   \mbox{\hyperlink{Button_8cpp_ac8ba909fc8614df64040d2e12c0780e4}{BUTTON\_PORT}}.PIN\_CTRL \&= \string~PORT\_ISC\_gm;}
+\DoxyCodeLine{40   \textcolor{comment}{// call the wakeup routine in the engine}}
+\DoxyCodeLine{41   \mbox{\hyperlink{classVortexEngine_a32e7878bb1f4e4c4d141e849ff7808fb}{VortexEngine::wakeup}}();}
+\DoxyCodeLine{42 \}}
+
+\end{DoxyCode}
+
+
+References BUTTON\+\_\+\+PIN, BUTTON\+\_\+\+PORT, and Vortex\+Engine\+::wakeup().
+

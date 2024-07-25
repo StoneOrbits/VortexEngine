@@ -1,0 +1,319 @@
+\hypertarget{classHueShiftPattern}{}\doxysection{Hue\+Shift\+Pattern Class Reference}
+\label{classHueShiftPattern}\index{HueShiftPattern@{HueShiftPattern}}
+
+
+{\ttfamily \#include $<$Hue\+Shift\+Pattern.\+h$>$}
+
+
+
+Inheritance diagram for Hue\+Shift\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=173pt]{classHueShiftPattern__inherit__graph}
+\end{center}
+\end{figure}
+
+
+Collaboration diagram for Hue\+Shift\+Pattern\+:
+\nopagebreak
+\begin{figure}[H]
+\begin{center}
+\leavevmode
+\includegraphics[width=350pt]{classHueShiftPattern__coll__graph}
+\end{center}
+\end{figure}
+\doxysubsection*{Public Member Functions}
+\begin{DoxyCompactItemize}
+\item 
+\mbox{\hyperlink{classHueShiftPattern_a27f7fd1f074dcd37a5a2d11cb38dee49}{Hue\+Shift\+Pattern}} (const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&args)
+\item 
+virtual \mbox{\hyperlink{classHueShiftPattern_ab3147f2aa60d2ca43be2491a9083cb22}{$\sim$\+Hue\+Shift\+Pattern}} ()
+\item 
+virtual void \mbox{\hyperlink{classHueShiftPattern_abec242391b3d4ae557f8acd26f4f0d89}{init}} () override
+\item 
+virtual void \mbox{\hyperlink{classHueShiftPattern_a40cc40c961872675a5871303c2be9783}{play}} () override
+\end{DoxyCompactItemize}
+\doxysubsection*{Private Attributes}
+\begin{DoxyCompactItemize}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classHueShiftPattern_ae9a4a3d5b831768f656480c615393971}{m\+\_\+blink\+On\+Duration}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classHueShiftPattern_ad109880bb0236a770542340e12a9b342}{m\+\_\+blink\+Off\+Duration}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classHueShiftPattern_af4a1355d106435a4df664ccd6dd63945}{m\+\_\+blend\+Delay}}
+\item 
+uint8\+\_\+t \mbox{\hyperlink{classHueShiftPattern_a063ff45291aac56b53f3fc947a28eedb}{m\+\_\+delay\+Counter}}
+\item 
+\mbox{\hyperlink{classTimer}{Timer}} \mbox{\hyperlink{classHueShiftPattern_a88a8bf706ac164229863bf726d185d14}{m\+\_\+blink\+Timer}}
+\item 
+\mbox{\hyperlink{classHSVColor}{HSVColor}} \mbox{\hyperlink{classHueShiftPattern_ab156b069faa081cb821219441dae7934}{m\+\_\+cur}}
+\item 
+\mbox{\hyperlink{classHSVColor}{HSVColor}} \mbox{\hyperlink{classHueShiftPattern_a3c0c6c5e492f41dd038d8b18ccc386fa}{m\+\_\+next}}
+\end{DoxyCompactItemize}
+\doxysubsection*{Additional Inherited Members}
+
+
+\doxysubsection{Detailed Description}
+
+
+Definition at line 9 of file Hue\+Shift\+Pattern.\+h.
+
+
+
+\doxysubsection{Constructor \& Destructor Documentation}
+\mbox{\Hypertarget{classHueShiftPattern_a27f7fd1f074dcd37a5a2d11cb38dee49}\label{classHueShiftPattern_a27f7fd1f074dcd37a5a2d11cb38dee49}} 
+\index{HueShiftPattern@{HueShiftPattern}!HueShiftPattern@{HueShiftPattern}}
+\index{HueShiftPattern@{HueShiftPattern}!HueShiftPattern@{HueShiftPattern}}
+\doxysubsubsection{\texorpdfstring{HueShiftPattern()}{HueShiftPattern()}}
+{\footnotesize\ttfamily Hue\+Shift\+Pattern\+::\+Hue\+Shift\+Pattern (\begin{DoxyParamCaption}\item[{const \mbox{\hyperlink{classPatternArgs}{Pattern\+Args}} \&}]{args }\end{DoxyParamCaption})}
+
+
+
+Definition at line 8 of file Hue\+Shift\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{8                                                         :}
+\DoxyCodeLine{9   \mbox{\hyperlink{classMultiLedPattern_afd56f557bce419b348ac721d84cfa5fa}{MultiLedPattern}}(args),}
+\DoxyCodeLine{10   \mbox{\hyperlink{classHueShiftPattern_ae9a4a3d5b831768f656480c615393971}{m\_blinkOnDuration}}(0),}
+\DoxyCodeLine{11   \mbox{\hyperlink{classHueShiftPattern_ad109880bb0236a770542340e12a9b342}{m\_blinkOffDuration}}(0),}
+\DoxyCodeLine{12   \mbox{\hyperlink{classHueShiftPattern_af4a1355d106435a4df664ccd6dd63945}{m\_blendDelay}}(0),}
+\DoxyCodeLine{13   \mbox{\hyperlink{classHueShiftPattern_a063ff45291aac56b53f3fc947a28eedb}{m\_delayCounter}}(0),}
+\DoxyCodeLine{14   \mbox{\hyperlink{classHueShiftPattern_a88a8bf706ac164229863bf726d185d14}{m\_blinkTimer}}(),}
+\DoxyCodeLine{15   \mbox{\hyperlink{classHueShiftPattern_ab156b069faa081cb821219441dae7934}{m\_cur}}(0),}
+\DoxyCodeLine{16   \mbox{\hyperlink{classHueShiftPattern_a3c0c6c5e492f41dd038d8b18ccc386fa}{m\_next}}(0)}
+\DoxyCodeLine{17 \{}
+\DoxyCodeLine{18   \mbox{\hyperlink{classPattern_a128fdee39e6ce1b74006385fb28eabe6}{m\_patternID}} = \mbox{\hyperlink{Patterns_8h_a40b65bd8b307c1134edfc6b99c16cd8cac443649bb2a1d14c0b83d8f3432bf549}{PATTERN\_HUE\_SCROLL}};}
+\DoxyCodeLine{19   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classHueShiftPattern_ae9a4a3d5b831768f656480c615393971}{m\_blinkOnDuration}});}
+\DoxyCodeLine{20   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classHueShiftPattern_ad109880bb0236a770542340e12a9b342}{m\_blinkOffDuration}});}
+\DoxyCodeLine{21   \mbox{\hyperlink{Pattern_8h_ab1306cccbe6b359324139bc35edbbbb4}{REGISTER\_ARG}}(\mbox{\hyperlink{classHueShiftPattern_af4a1355d106435a4df664ccd6dd63945}{m\_blendDelay}});}
+\DoxyCodeLine{22   \mbox{\hyperlink{classPattern_a13963393f1bf765de2b33950e79607f1}{setArgs}}(args);}
+\DoxyCodeLine{23 \}}
+
+\end{DoxyCode}
+
+
+References m\+\_\+blend\+Delay, m\+\_\+blink\+Off\+Duration, m\+\_\+blink\+On\+Duration, Pattern\+::m\+\_\+pattern\+ID, PATTERN\+\_\+\+HUE\+\_\+\+SCROLL, REGISTER\+\_\+\+ARG, and Pattern\+::set\+Args().
+
+\mbox{\Hypertarget{classHueShiftPattern_ab3147f2aa60d2ca43be2491a9083cb22}\label{classHueShiftPattern_ab3147f2aa60d2ca43be2491a9083cb22}} 
+\index{HueShiftPattern@{HueShiftPattern}!````~HueShiftPattern@{$\sim$HueShiftPattern}}
+\index{````~HueShiftPattern@{$\sim$HueShiftPattern}!HueShiftPattern@{HueShiftPattern}}
+\doxysubsubsection{\texorpdfstring{$\sim$HueShiftPattern()}{~HueShiftPattern()}}
+{\footnotesize\ttfamily Hue\+Shift\+Pattern\+::$\sim$\+Hue\+Shift\+Pattern (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [virtual]}}
+
+
+
+Definition at line 25 of file Hue\+Shift\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{26 \{}
+\DoxyCodeLine{27 \}}
+
+\end{DoxyCode}
+
+
+\doxysubsection{Member Function Documentation}
+\mbox{\Hypertarget{classHueShiftPattern_abec242391b3d4ae557f8acd26f4f0d89}\label{classHueShiftPattern_abec242391b3d4ae557f8acd26f4f0d89}} 
+\index{HueShiftPattern@{HueShiftPattern}!init@{init}}
+\index{init@{init}!HueShiftPattern@{HueShiftPattern}}
+\doxysubsubsection{\texorpdfstring{init()}{init()}}
+{\footnotesize\ttfamily void Hue\+Shift\+Pattern\+::init (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Reimplemented from \mbox{\hyperlink{classMultiLedPattern_a2541223ee8c1d57463e88682e1405c42}{Multi\+Led\+Pattern}}.
+
+
+
+Definition at line 30 of file Hue\+Shift\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{31 \{}
+\DoxyCodeLine{32   \mbox{\hyperlink{classMultiLedPattern_a2541223ee8c1d57463e88682e1405c42}{MultiLedPattern::init}}();}
+\DoxyCodeLine{33   \mbox{\hyperlink{classHueShiftPattern_ab156b069faa081cb821219441dae7934}{m\_cur}} = \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{34   \mbox{\hyperlink{classHueShiftPattern_a3c0c6c5e492f41dd038d8b18ccc386fa}{m\_next}} = \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{35   \textcolor{comment}{// reset the blink timer entirely}}
+\DoxyCodeLine{36   \mbox{\hyperlink{classHueShiftPattern_a88a8bf706ac164229863bf726d185d14}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_a9020542d73357a4eef512eefaf57524b}{reset}}();}
+\DoxyCodeLine{37   \textcolor{comment}{// dops timing}}
+\DoxyCodeLine{38   \mbox{\hyperlink{classHueShiftPattern_a88a8bf706ac164229863bf726d185d14}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_aecfcc5cd99115c67b5f5f7a485bd7a81}{addAlarm}}(\mbox{\hyperlink{classHueShiftPattern_ae9a4a3d5b831768f656480c615393971}{m\_blinkOnDuration}});}
+\DoxyCodeLine{39   \mbox{\hyperlink{classHueShiftPattern_a88a8bf706ac164229863bf726d185d14}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_aecfcc5cd99115c67b5f5f7a485bd7a81}{addAlarm}}(\mbox{\hyperlink{classHueShiftPattern_ad109880bb0236a770542340e12a9b342}{m\_blinkOffDuration}});}
+\DoxyCodeLine{40   \textcolor{comment}{// start the blink timer from the next frame}}
+\DoxyCodeLine{41   \mbox{\hyperlink{classHueShiftPattern_a88a8bf706ac164229863bf726d185d14}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_a4f816271e1661c4eb03afc87e2f78c6a}{start}}();}
+\DoxyCodeLine{42 \}}
+
+\end{DoxyCode}
+
+
+References Timer\+::add\+Alarm(), Colorset\+::get\+Next(), Multi\+Led\+Pattern\+::init(), m\+\_\+blink\+Off\+Duration, m\+\_\+blink\+On\+Duration, m\+\_\+blink\+Timer, Pattern\+::m\+\_\+colorset, m\+\_\+cur, m\+\_\+next, Timer\+::reset(), and Timer\+::start().
+
+\mbox{\Hypertarget{classHueShiftPattern_a40cc40c961872675a5871303c2be9783}\label{classHueShiftPattern_a40cc40c961872675a5871303c2be9783}} 
+\index{HueShiftPattern@{HueShiftPattern}!play@{play}}
+\index{play@{play}!HueShiftPattern@{HueShiftPattern}}
+\doxysubsubsection{\texorpdfstring{play()}{play()}}
+{\footnotesize\ttfamily void Hue\+Shift\+Pattern\+::play (\begin{DoxyParamCaption}{ }\end{DoxyParamCaption})\hspace{0.3cm}{\ttfamily [override]}, {\ttfamily [virtual]}}
+
+
+
+Implements \mbox{\hyperlink{classPattern_a351206aa151c8e49f175b8b3d41f6e9c}{Pattern}}.
+
+
+
+Definition at line 45 of file Hue\+Shift\+Pattern.\+cpp.
+
+
+\begin{DoxyCode}{0}
+\DoxyCodeLine{46 \{}
+\DoxyCodeLine{47   \textcolor{keywordflow}{switch} (\mbox{\hyperlink{classHueShiftPattern_a88a8bf706ac164229863bf726d185d14}{m\_blinkTimer}}.\mbox{\hyperlink{classTimer_a8a6d962c92c8e2e641254ea28e1f0443}{alarm}}()) \{}
+\DoxyCodeLine{48   \textcolor{keywordflow}{case} 0: \textcolor{comment}{// turn on the leds for given mapping}}
+\DoxyCodeLine{49     \textcolor{keywordflow}{break};}
+\DoxyCodeLine{50   \textcolor{keywordflow}{case} 1: \textcolor{comment}{// turn off the leds}}
+\DoxyCodeLine{51     \mbox{\hyperlink{classLeds_a6f7c9cdfab407455403167fd8f2c350a}{Leds::clearAll}}();}
+\DoxyCodeLine{52   \textcolor{keywordflow}{case} -\/1: \textcolor{comment}{// just break and still run post-\/step}}
+\DoxyCodeLine{53     \textcolor{keywordflow}{return};}
+\DoxyCodeLine{54   \}}
+\DoxyCodeLine{55 }
+\DoxyCodeLine{56   \textcolor{comment}{// if the current hue has reached the next hue}}
+\DoxyCodeLine{57   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classHueShiftPattern_ab156b069faa081cb821219441dae7934}{m\_cur}}.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} == \mbox{\hyperlink{classHueShiftPattern_a3c0c6c5e492f41dd038d8b18ccc386fa}{m\_next}}.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}}) \{}
+\DoxyCodeLine{58     \textcolor{comment}{// copy over the sat/val}}
+\DoxyCodeLine{59     \mbox{\hyperlink{classHueShiftPattern_ab156b069faa081cb821219441dae7934}{m\_cur}} = \mbox{\hyperlink{classHueShiftPattern_a3c0c6c5e492f41dd038d8b18ccc386fa}{m\_next}};}
+\DoxyCodeLine{60     \textcolor{comment}{// get the next color and convert to hsv}}
+\DoxyCodeLine{61     \mbox{\hyperlink{classHueShiftPattern_a3c0c6c5e492f41dd038d8b18ccc386fa}{m\_next}} = \mbox{\hyperlink{classPattern_a60550e2689cbf71d057ccaf0b37fb43d}{m\_colorset}}.\mbox{\hyperlink{classColorset_a7057737533c8ee9127e28ba0fef493ec}{getNext}}();}
+\DoxyCodeLine{62   \}}
+\DoxyCodeLine{63   \textcolor{comment}{// check which direction is closer for the next hue}}
+\DoxyCodeLine{64   \textcolor{comment}{// tbh idk really how this even works anymore but it does}}
+\DoxyCodeLine{65   \textcolor{keywordtype}{int} sign = ((((\mbox{\hyperlink{classHueShiftPattern_a3c0c6c5e492f41dd038d8b18ccc386fa}{m\_next}}.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} + 255) -\/ \mbox{\hyperlink{classHueShiftPattern_ab156b069faa081cb821219441dae7934}{m\_cur}}.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}}) \% 256) <= 128) ? 1 : -\/1;}
+\DoxyCodeLine{66   \textcolor{comment}{// move hue in the direction of next hue at chosen speed}}
+\DoxyCodeLine{67   \textcolor{comment}{// NOTE: if the speed isn't a multiple of the hue values then}}
+\DoxyCodeLine{68   \textcolor{comment}{//       it will cause oscillation around the target hue}}
+\DoxyCodeLine{69   \textcolor{comment}{//       because it will never reach the target hue and}}
+\DoxyCodeLine{70   \textcolor{comment}{//       always over/under shoot}}
+\DoxyCodeLine{71   \textcolor{comment}{// only increment every blendDelay times}}
+\DoxyCodeLine{72   ++\mbox{\hyperlink{classHueShiftPattern_a063ff45291aac56b53f3fc947a28eedb}{m\_delayCounter}};}
+\DoxyCodeLine{73   \textcolor{keywordflow}{if} (\mbox{\hyperlink{classHueShiftPattern_a063ff45291aac56b53f3fc947a28eedb}{m\_delayCounter}} >= \mbox{\hyperlink{classHueShiftPattern_af4a1355d106435a4df664ccd6dd63945}{m\_blendDelay}}) \{}
+\DoxyCodeLine{74     \mbox{\hyperlink{classHueShiftPattern_a063ff45291aac56b53f3fc947a28eedb}{m\_delayCounter}} = 0;}
+\DoxyCodeLine{75     \mbox{\hyperlink{classHueShiftPattern_ab156b069faa081cb821219441dae7934}{m\_cur}}.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} += sign;}
+\DoxyCodeLine{76   \}}
+\DoxyCodeLine{77   \mbox{\hyperlink{classHSVColor}{HSVColor}} showColor = \mbox{\hyperlink{classHSVColor}{HSVColor}}(\mbox{\hyperlink{classHueShiftPattern_ab156b069faa081cb821219441dae7934}{m\_cur}}.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}}, 255, 255);}
+\DoxyCodeLine{78   \textcolor{comment}{// set the target led with the current HSV color}}
+\DoxyCodeLine{79   \textcolor{keywordflow}{for} (\mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2c}{LedPos}} pos = \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca4bef9658b4b82ade748dfc8d1ce9523f}{LED\_FIRST}}; pos < \mbox{\hyperlink{LedTypes_8h_a9fb57934b9165e8fcecafeafaf3a6a2ca0bc6b9364ec72b19c74a14f15aa3832c}{LED\_COUNT}}; ++pos) \{}
+\DoxyCodeLine{80     \mbox{\hyperlink{classLeds_af8c5be7e02a6d0a4e5be7f1ef1fb69a0}{Leds::setIndex}}(pos, \mbox{\hyperlink{ColorTypes_8cpp_ae8e00bbaf03e9373f296022748a546c3}{hsv\_to\_rgb\_generic}}(showColor));}
+\DoxyCodeLine{81     showColor.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} = (showColor.\mbox{\hyperlink{classHSVColor_a95d2e23681a08326316331dcb71a2d4c}{hue}} + 5) \% 256;}
+\DoxyCodeLine{82   \}}
+\DoxyCodeLine{83 \}}
+
+\end{DoxyCode}
+
+
+References Timer\+::alarm(), Leds\+::clear\+All(), Colorset\+::get\+Next(), hsv\+\_\+to\+\_\+rgb\+\_\+generic(), HSVColor\+::hue, LED\+\_\+\+COUNT, LED\+\_\+\+FIRST, m\+\_\+blend\+Delay, m\+\_\+blink\+Timer, Pattern\+::m\+\_\+colorset, m\+\_\+cur, m\+\_\+delay\+Counter, m\+\_\+next, and Leds\+::set\+Index().
+
+
+
+\doxysubsection{Member Data Documentation}
+\mbox{\Hypertarget{classHueShiftPattern_af4a1355d106435a4df664ccd6dd63945}\label{classHueShiftPattern_af4a1355d106435a4df664ccd6dd63945}} 
+\index{HueShiftPattern@{HueShiftPattern}!m\_blendDelay@{m\_blendDelay}}
+\index{m\_blendDelay@{m\_blendDelay}!HueShiftPattern@{HueShiftPattern}}
+\doxysubsubsection{\texorpdfstring{m\_blendDelay}{m\_blendDelay}}
+{\footnotesize\ttfamily uint8\+\_\+t Hue\+Shift\+Pattern\+::m\+\_\+blend\+Delay\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 24 of file Hue\+Shift\+Pattern.\+h.
+
+
+
+Referenced by Hue\+Shift\+Pattern(), and play().
+
+\mbox{\Hypertarget{classHueShiftPattern_ad109880bb0236a770542340e12a9b342}\label{classHueShiftPattern_ad109880bb0236a770542340e12a9b342}} 
+\index{HueShiftPattern@{HueShiftPattern}!m\_blinkOffDuration@{m\_blinkOffDuration}}
+\index{m\_blinkOffDuration@{m\_blinkOffDuration}!HueShiftPattern@{HueShiftPattern}}
+\doxysubsubsection{\texorpdfstring{m\_blinkOffDuration}{m\_blinkOffDuration}}
+{\footnotesize\ttfamily uint8\+\_\+t Hue\+Shift\+Pattern\+::m\+\_\+blink\+Off\+Duration\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 23 of file Hue\+Shift\+Pattern.\+h.
+
+
+
+Referenced by Hue\+Shift\+Pattern(), and init().
+
+\mbox{\Hypertarget{classHueShiftPattern_ae9a4a3d5b831768f656480c615393971}\label{classHueShiftPattern_ae9a4a3d5b831768f656480c615393971}} 
+\index{HueShiftPattern@{HueShiftPattern}!m\_blinkOnDuration@{m\_blinkOnDuration}}
+\index{m\_blinkOnDuration@{m\_blinkOnDuration}!HueShiftPattern@{HueShiftPattern}}
+\doxysubsubsection{\texorpdfstring{m\_blinkOnDuration}{m\_blinkOnDuration}}
+{\footnotesize\ttfamily uint8\+\_\+t Hue\+Shift\+Pattern\+::m\+\_\+blink\+On\+Duration\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 22 of file Hue\+Shift\+Pattern.\+h.
+
+
+
+Referenced by Hue\+Shift\+Pattern(), and init().
+
+\mbox{\Hypertarget{classHueShiftPattern_a88a8bf706ac164229863bf726d185d14}\label{classHueShiftPattern_a88a8bf706ac164229863bf726d185d14}} 
+\index{HueShiftPattern@{HueShiftPattern}!m\_blinkTimer@{m\_blinkTimer}}
+\index{m\_blinkTimer@{m\_blinkTimer}!HueShiftPattern@{HueShiftPattern}}
+\doxysubsubsection{\texorpdfstring{m\_blinkTimer}{m\_blinkTimer}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classTimer}{Timer}} Hue\+Shift\+Pattern\+::m\+\_\+blink\+Timer\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 27 of file Hue\+Shift\+Pattern.\+h.
+
+
+
+Referenced by init(), and play().
+
+\mbox{\Hypertarget{classHueShiftPattern_ab156b069faa081cb821219441dae7934}\label{classHueShiftPattern_ab156b069faa081cb821219441dae7934}} 
+\index{HueShiftPattern@{HueShiftPattern}!m\_cur@{m\_cur}}
+\index{m\_cur@{m\_cur}!HueShiftPattern@{HueShiftPattern}}
+\doxysubsubsection{\texorpdfstring{m\_cur}{m\_cur}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classHSVColor}{HSVColor}} Hue\+Shift\+Pattern\+::m\+\_\+cur\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 30 of file Hue\+Shift\+Pattern.\+h.
+
+
+
+Referenced by init(), and play().
+
+\mbox{\Hypertarget{classHueShiftPattern_a063ff45291aac56b53f3fc947a28eedb}\label{classHueShiftPattern_a063ff45291aac56b53f3fc947a28eedb}} 
+\index{HueShiftPattern@{HueShiftPattern}!m\_delayCounter@{m\_delayCounter}}
+\index{m\_delayCounter@{m\_delayCounter}!HueShiftPattern@{HueShiftPattern}}
+\doxysubsubsection{\texorpdfstring{m\_delayCounter}{m\_delayCounter}}
+{\footnotesize\ttfamily uint8\+\_\+t Hue\+Shift\+Pattern\+::m\+\_\+delay\+Counter\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 25 of file Hue\+Shift\+Pattern.\+h.
+
+
+
+Referenced by play().
+
+\mbox{\Hypertarget{classHueShiftPattern_a3c0c6c5e492f41dd038d8b18ccc386fa}\label{classHueShiftPattern_a3c0c6c5e492f41dd038d8b18ccc386fa}} 
+\index{HueShiftPattern@{HueShiftPattern}!m\_next@{m\_next}}
+\index{m\_next@{m\_next}!HueShiftPattern@{HueShiftPattern}}
+\doxysubsubsection{\texorpdfstring{m\_next}{m\_next}}
+{\footnotesize\ttfamily \mbox{\hyperlink{classHSVColor}{HSVColor}} Hue\+Shift\+Pattern\+::m\+\_\+next\hspace{0.3cm}{\ttfamily [private]}}
+
+
+
+Definition at line 31 of file Hue\+Shift\+Pattern.\+h.
+
+
+
+Referenced by init(), and play().
+
+
+
+The documentation for this class was generated from the following files\+:\begin{DoxyCompactItemize}
+\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{HueShiftPattern_8h}{Hue\+Shift\+Pattern.\+h}}\item 
+Vortex\+Engine/src/\+Patterns/\+Multi/\mbox{\hyperlink{HueShiftPattern_8cpp}{Hue\+Shift\+Pattern.\+cpp}}\end{DoxyCompactItemize}
