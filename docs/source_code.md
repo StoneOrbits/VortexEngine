@@ -16,6 +16,7 @@ restrictive environment of some devices Vortex Engine strives to be a readable a
 You can find generated Doxygen documentation for all devices and the core here
 
  - [Core](core)
+ - [Desktop](desktop)
  - [Gloves](gloves)
  - [Orbit](orbit)
  - [Handle](handle)
